@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B63AD4BC2C8
-	for <lists+xen-devel@lfdr.de>; Sat, 19 Feb 2022 00:14:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.275643.471609 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD1BD4BC2E4
+	for <lists+xen-devel@lfdr.de>; Sat, 19 Feb 2022 00:31:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.275657.471620 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nLCRz-00078Z-P7; Fri, 18 Feb 2022 23:14:07 +0000
+	id 1nLCiO-0001CI-B2; Fri, 18 Feb 2022 23:31:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 275643.471609; Fri, 18 Feb 2022 23:14:07 +0000
+Received: by outflank-mailman (output) from mailman id 275657.471620; Fri, 18 Feb 2022 23:31:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nLCRz-00076h-Kh; Fri, 18 Feb 2022 23:14:07 +0000
-Received: by outflank-mailman (input) for mailman id 275643;
- Fri, 18 Feb 2022 23:14:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nLCRx-00076P-Gm; Fri, 18 Feb 2022 23:14:05 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nLCRx-0005Ev-DC; Fri, 18 Feb 2022 23:14:05 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nLCRx-0005Fq-1n; Fri, 18 Feb 2022 23:14:05 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nLCRx-0006Fs-1O; Fri, 18 Feb 2022 23:14:05 +0000
+	id 1nLCiO-00019K-7D; Fri, 18 Feb 2022 23:31:04 +0000
+Received: by outflank-mailman (input) for mailman id 275657;
+ Fri, 18 Feb 2022 23:31:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4/tq=TB=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nLCiM-00019E-ON
+ for xen-devel@lists.xenproject.org; Fri, 18 Feb 2022 23:31:02 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d49be2b6-9112-11ec-8eb8-a37418f5ba1a;
+ Sat, 19 Feb 2022 00:31:01 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id BF80BB826FE;
+ Fri, 18 Feb 2022 23:30:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32074C340E9;
+ Fri, 18 Feb 2022 23:30:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +43,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=oQ4AIvcwHtf1bcyXVJRLc8vewHr37A9dRVE5cMbJQwo=; b=vOAnIIAzJ/De7e/1muPFYT2fmN
-	WDSmMDKhZczXtTxiEIe/FTtSIjEMcV6Wb0aLH4VsBymPySDBYJpvEn4Q0wzjvrNjznuHhwocTKmVU
-	HP/1zNJBNnqhgAzIht2UU69q05SOZTbTyPVKZP73Aw/DY53AOZpXx8clRphasePARK4g=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168167-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: d49be2b6-9112-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1645227058;
+	bh=88AERh/QkWzUu4pRpqNxx4VC/sjCyonupm8mVWsqANU=;
+	h=Date:From:To:cc:Subject:From;
+	b=N/QZgOY2kQPQH+hQzqOuD6+Bg3tMcLQY6EaiC4Pyq+dDoQ9oDq0J+F5cSu97fo3H6
+	 8nEqJ2nhiampaMbr9u3HqmT69COLhQCDPQRBeSo5TKH4luLMUwn7dh4/3DWXNKaSGj
+	 MeuaiiMuAmmWl5OuTZ9AaJnybUdFLEuedmWjlMTAX/WApLogGjrhSVsAspt1fUEtcs
+	 t3KzS0pMEG5X9c3i4g5QInvZQdnhswMtVUlLjfKu9bmZJQBC2yLiq5f5+IAV8cJKZf
+	 jP6gzUt0D4OGRj0HliKS62Td+jFMqdLlLK3BpdzQcEyZID5eATH6jS9yBrmlUTfPDh
+	 DFm9LfKHBG2yg==
+Date: Fri, 18 Feb 2022 15:30:56 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: anthony.perard@citrix.com, wl@xen.org
+cc: sstabellini@kernel.org, xen-devel@lists.xenproject.org, 
+    christopher.w.clark@gmail.com, jgross@suse.com, bertrand.marquis@arm.com
+Subject: [PATCH] tools/hotplug: don't install init.d scripts if SYSTEMD
+Message-ID: <alpine.DEB.2.22.394.2202181525440.239973@ubuntu-linux-20-04-desktop>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 168167: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=686f13cfce1d95464ff39fb59ac1f85163cea03b
-X-Osstest-Versions-That:
-    xen=8dc44294806c83456794ba9488b4b440aa6193c2
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 18 Feb 2022 23:14:05 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 168167 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168167/
+When Xen is configured with --with-systemd currently both the systemd
+init scripts as well as the traditional init.d scripts (e.g. xencommons)
+are installed.
 
-Failures :-/ but no regressions.
+This causes issues to distros where old style init scripts are still
+supported even when systemd is enabled, e.g. Yocto. The consequence is
+that xenconsoled (and other daemons) are executed twice resulting in
+errors at boot.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+If --with-systemd don't install xencommons and the other sysvinit
+scripts.
 
-version targeted for testing:
- xen                  686f13cfce1d95464ff39fb59ac1f85163cea03b
-baseline version:
- xen                  8dc44294806c83456794ba9488b4b440aa6193c2
-
-Last test of basis   168165  2022-02-18 14:03:03 Z    0 days
-Testing same since   168167  2022-02-18 19:01:37 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   8dc4429480..686f13cfce  686f13cfce1d95464ff39fb59ac1f85163cea03b -> smoke
+diff --git a/tools/hotplug/Linux/Makefile b/tools/hotplug/Linux/Makefile
+index 0b1d111d7e..03ed00ca70 100644
+--- a/tools/hotplug/Linux/Makefile
++++ b/tools/hotplug/Linux/Makefile
+@@ -47,10 +47,12 @@ install-initd:
+ 	$(INSTALL_DATA) init.d/sysconfig.xendomains $(DESTDIR)$(SYSCONFIG_DIR)/xendomains
+ 	$(INSTALL_DATA) init.d/sysconfig.xencommons $(DESTDIR)$(SYSCONFIG_DIR)/xencommons
+ 	$(INSTALL_PROG) xendomains $(DESTDIR)$(LIBEXEC_BIN)
++ifndef CONFIG_SYSTEMD
+ 	$(INSTALL_PROG) init.d/xendomains $(DESTDIR)$(INITD_DIR)
+ 	$(INSTALL_PROG) init.d/xencommons $(DESTDIR)$(INITD_DIR)
+ 	$(INSTALL_PROG) init.d/xendriverdomain $(DESTDIR)$(INITD_DIR)
+ 	$(INSTALL_PROG) init.d/xen-watchdog $(DESTDIR)$(INITD_DIR)
++endif
+ 
+ .PHONY: uninstall-initd
+ uninstall-initd:
 
