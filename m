@@ -2,29 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE5C04BE7ED
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Feb 2022 19:04:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.276396.472540 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC8A04BEA48
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Feb 2022 19:40:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.276403.472551 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nMD2q-0008Es-Ll; Mon, 21 Feb 2022 18:04:20 +0000
+	id 1nMDaf-00038x-EA; Mon, 21 Feb 2022 18:39:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 276396.472540; Mon, 21 Feb 2022 18:04:20 +0000
+Received: by outflank-mailman (output) from mailman id 276403.472551; Mon, 21 Feb 2022 18:39:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nMD2q-0008CC-I2; Mon, 21 Feb 2022 18:04:20 +0000
-Received: by outflank-mailman (input) for mailman id 276396;
- Mon, 21 Feb 2022 18:04:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nMDaf-00036N-AJ; Mon, 21 Feb 2022 18:39:17 +0000
+Received: by outflank-mailman (input) for mailman id 276403;
+ Mon, 21 Feb 2022 18:39:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fvXl=TE=citrix.com=prvs=044a77a3b=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nMD2o-0008C6-HU
- for xen-devel@lists.xenproject.org; Mon, 21 Feb 2022 18:04:18 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id adf9a819-9340-11ec-8eb8-a37418f5ba1a;
- Mon, 21 Feb 2022 19:04:16 +0100 (CET)
+ <SRS0=S5yU=TE=epam.com=prvs=40514b27e2=oleksii_moisieiev@srs-se1.protection.inumbo.net>)
+ id 1nMDad-00036H-28
+ for xen-devel@lists.xenproject.org; Mon, 21 Feb 2022 18:39:15 +0000
+Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
+ [148.163.133.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8f40fcf9-9345-11ec-8539-5f4723681683;
+ Mon, 21 Feb 2022 19:39:13 +0100 (CET)
+Received: from pps.filterd (m0174679.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 21LIV3ei010739;
+ Mon, 21 Feb 2022 18:39:05 GMT
+Received: from eur03-db5-obe.outbound.protection.outlook.com
+ (mail-db5eur03lp2059.outbound.protection.outlook.com [104.47.10.59])
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3ecg3900ky-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 21 Feb 2022 18:39:05 +0000
+Received: from PA4PR03MB7136.eurprd03.prod.outlook.com (2603:10a6:102:ea::23)
+ by VI1PR03MB3582.eurprd03.prod.outlook.com (2603:10a6:803:34::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.27; Mon, 21 Feb
+ 2022 18:39:00 +0000
+Received: from PA4PR03MB7136.eurprd03.prod.outlook.com
+ ([fe80::c1c:f98:9dd:86e0]) by PA4PR03MB7136.eurprd03.prod.outlook.com
+ ([fe80::c1c:f98:9dd:86e0%5]) with mapi id 15.20.4995.027; Mon, 21 Feb 2022
+ 18:39:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,207 +53,364 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: adf9a819-9340-11ec-8eb8-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1645466656;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=YlOjXF4k7rFwUbvZj0TZsWgDLG6n+/ToUDcdMAAvYXQ=;
-  b=U5rBPfvYxzTI0Sq6p+Dq7s9Q0VLT+lG9dJIDeI1rIbicLHmbyQ9C4bhh
-   Y83d8A9CmO8+lFOr8FzckMv2mEmNyeQTqbLrte6TjGUvW63zGwVPw4i+R
-   Yo4mqgB+tEBhEXoQ60fTL6QM6zXhMBqyfrismrJ2OEHIzsAo7Fldfu6P3
-   c=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 65071859
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:2sxRRKpEiiX/fMIumeWqTI496TReBmJpZRIvgKrLsJaIsI4StFCzt
- garIBmHOqyCNDD9KttxYNzj8U1Su5XXzYRnSgtlqyFnES9EopuZCYyVIHmrMnLJJKUvbq7GA
- +byyDXkBJppJpMJjk71atANlVEliefQAOCU5NfsYkidfyc9IMsaoU8ly75RbrJA24DjWVvX4
- 4qq+aUzBXf+s9JKGjNMg068gEsHUMTa4Fv0aXRnOJinFHeH/5UkJMp3yZOZdhMUcaENdgKOf
- M7RzanRw4/s10xF5uVJMFrMWhZirrb6ZWBig5fNMkSoqkAqSicais7XOBeAAKv+Zvrgc91Zk
- b1wWZKMpQgBBqHQpKcHdARkDB50H6ZU1+PfGEKBrpnGp6HGWyOEL/RGCUg3OcsT+/ptAHEI/
- vsdQNwPRknd3aTsmuv9E7QywJR4RCXoFNp3VnVI5DfVF/s5B7vERL3H/4Rw1zYsnMFeW/3ZY
- qL1bBIxMUyfOk0Saz/7Droure2loSnVfAdq8nXKiZpw3zPS8CtIhe2F3N39JYXRGJQ9clyjj
- n3C13T0BFcdLtP34Riv/2+oh+TPtTjmQ49UH7q9ntZ6jVvWymENBRk+UVqgveL/mkO4Q8hYK
- UEf5mwpt6dayaCwZoCjBVvi+ifC50NCHYoLewEn1O2T4pLY/zraHE8ZciF+Yv4tpuBqXQUQ6
- EDcyrsFGgdTmLGSTHuc8JKdojWzJTUZIAc+WMMUcecWy4K9+d9u13ojWv4mSffo1YOtRVkc1
- hjX9HBWulkFsSIcO0xXF3jjiinkmJXGRxVdCu7/DjP8tVMRiGJIiuWVBbnnARRocdzxorqp5
- iFsdy2iAAcmV8zlqcB1aL9RdIxFHt7cWNEmvXZhHoM66xOm8GO5cIZb7VlWfRk1b51UJW60M
- RKJ6Gu9AaO/21PwMMdKj3+ZUZx2ncAM6/y+PhwrUja+SscoL1LWlM2fTUWRw3rsgCARfVIXY
- v+mnTKXJS9CU8xPlWPuL89EiOND7n1ulAv7GMGgpzz6gOX2WZJgYepcWLd4Rrtit/3sTcS82
- 4s3CvZmPD0FDrWlO3GPqdR7wJJjBSFTOK0aYvd/LoarSjeK0kl4YxMN6dvNo7BYopk=
-IronPort-HdrOrdr: A9a23:BwQZvK/aURGiZN8vzHluk+DcI+orL9Y04lQ7vn2ZLiYlFfBw9v
- re+MjzsCWetN9/Yh0dcLy7V5VoIkm9yXcW2+cs1N6ZNWGN1VdAR7sC0aLShxHmBi3i5qp8+M
- 5bAs1D4QTLfDtHZBDBkWuFL+o=
-X-IronPort-AV: E=Sophos;i="5.88,386,1635220800"; 
-   d="scan'208";a="65071859"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v2.1 8/7] x86/IOMMU: Use altcall, and __initconst_cf_clobber
-Date: Mon, 21 Feb 2022 18:03:56 +0000
-Message-ID: <20220221180356.13527-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20220214125632.24563-1-andrew.cooper3@citrix.com>
-References: <20220214125632.24563-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 8f40fcf9-9345-11ec-8539-5f4723681683
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XgdLDFaFyX3dsMVBhoy0S4tyFiHB3L7h9clgEGh8NW4m6N9NDsdu0A29cm82fvwvUXFGqsIE1cF/Dw947DixEDDLcMjSudgDnEXSl8uqe3giQZWLBilVKoUfWWctDSEYXa+AkXh593118VOwJ5sJJBGRl1wVHtvx9MXyNhsjVIlTvRfE9XX9DEW3s+ZcZe/N4cKdu/NVaGLz1CYhn/CHuVn+EYZp0zN4uOvs/k2jnMSBnxGXGKjq7imfCGFuLY8c5rSnBytC4Pe7ZmKddN1osqtIZK0EVsa1Ee5AfHfXXMZOxqirpBtwcCkbQdTrn1acjxqv/YvSe/R6oNfGGdv51g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9aAKFgdGEsTa7WZqY3ARW9nutAOMip2HQvlx/JW81nw=;
+ b=Las/vRN+CmzgWdpw/1bYBn/PaJq3LZyFyEKQ/gyhyjqxc9nn2KOWv6zcLz6Ew9Fs7+nImClg2Y5TbkK1qpSyBwyqX+YQKIo9nDXVHZgkD49stQmiTN4yyIpaMN/0g+3tKaem1qWi1gV7u5tjKbBLhBVuvD8Oyzam1E/Dt4eNmNDAJPUhNSuIEHHEOoyty//6V2MZcqEI/DbCnMDESwfz1Nw9JtmZ8+VFXrK94enPcKv40bRLgpMJ5HadmPdgraOxDRI4EXGEqnnb/jFXf05RLCBrtCRkQBN/EfOihIl3ya/9ijVdS75GTOEjoLaWYRz1gVgITQkUba/THm7m3x0mdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9aAKFgdGEsTa7WZqY3ARW9nutAOMip2HQvlx/JW81nw=;
+ b=ILevcOuOq1o6/v1gEFmQku6GxxO1KyxKEq1zdeE5NVJGWHKEJShd7+oCh+Ps1jFTUFVMtSYzll1CQENY3Hk1NFoBX53cAIHF+2Tti0dloPMocRasfobwqVrjU1ZPA61FpPoH6kyuDkdQ1RjlroGH+YoUVCYCRAJKmPYP5t2K6EFCNdSnAnt6x71bN63ZUgdtNQcFYayDgDIKgHB64qrpXMc/rt7oqiet/MzBUFIvddtyruv+wKsFbynv0gvpY1OtY3mpaEuTEuTFz+NkeLyNd0YOcOYJU6WzzDUY6iOo2uchmE7jciOxN7fHPD75xZH/y0llofYFYsJHBFkfHP8tVQ==
+From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+To: Julien Grall <julien@xen.org>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+        Wei Liu
+	<wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+        George Dunlap
+	<george.dunlap@citrix.com>,
+        Jan Beulich <jbeulich@suse.com>,
+        Stefano
+ Stabellini <sstabellini@kernel.org>,
+        Nick Rosbrook <rosbrookn@ainfosec.com>,
+        Anthony PERARD <anthony.perard@citrix.com>,
+        Juergen Gross <jgross@suse.com>, Paul Durrant <paul@xen.org>
+Subject: Re: [RFC v2 6/8] tools/arm: Introduce force_assign_without_iommu
+ option to xl.cfg
+Thread-Topic: [RFC v2 6/8] tools/arm: Introduce force_assign_without_iommu
+ option to xl.cfg
+Thread-Index: AQHYHRW3O86755dYV0qSgPdVO9oeMayX6acAgAEsnQCAABEMgIAFQxiA
+Date: Mon, 21 Feb 2022 18:39:00 +0000
+Message-ID: <20220221183859.GA66126@EPUAKYIW015D>
+References: <cover.1644341635.git.oleksii_moisieiev@epam.com>
+ <d333126d12f2281f8df92e66cfba1c9eb2425dca.1644341635.git.oleksii_moisieiev@epam.com>
+ <ab6d8d13-30cf-d322-668e-f3f5aaa56824@xen.org>
+ <20220218091632.GA1486420@EPUAKYIW015D>
+ <15ada062-2ec5-d8ff-6bd7-5c580939accc@xen.org>
+In-Reply-To: <15ada062-2ec5-d8ff-6bd7-5c580939accc@xen.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 73171b87-d3e0-43f1-b191-08d9f5696d73
+x-ms-traffictypediagnostic: VI1PR03MB3582:EE_
+x-microsoft-antispam-prvs: 
+ <VI1PR03MB3582BC9FD4470ABCEF5850F0E33A9@VI1PR03MB3582.eurprd03.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ /bwrVmHMQPd0Qt1v5K4PXJ+RaB9rxJHMieOsN/+PIoXPM6z1vPJpyLW1saQ30mBJs5tGIRR7Svfjz7z7dufhY3hNuwrJbV9IZy7LXpfcPYS0vfUjepl3XABeg6NKBtO7T5zcg9NbsH5Kg6PZlUomraJNVtG8HFYOVC2qp6umOcMozlLphL01Kb//ABU1SUHbfrFTPwhxuQ/30eBYUoDBZ05s6OoJOVO1XzPmDwMPT87UE1PZtsg0GqFwVE9KTzGXmfPPIvBqwvifsHwoEfIafyZpZRMTRWfMthmJxNnGEta+hTZNDDgTf/LaE1g9r5mXg9X7aREiaK3+5z78GdAy6MH8Lc946bBA0WoWEADKkbVsIxwjW2r26pzCmkowBVS3oIOvPBhjkYd83nDRfxWqpaMAGThkzsp5r1ALwUjvgK2PCi3Symm9cf80udFb6UrFI6JgNgdSyQzRQ9OvMvBsfTHxBpsgxJF6TcZwlAniogx4X8QtkWmFwbqYpWQ/Z5m/GG9j7h/Y7ZCcPZi2NfnjaLKrToUU2NAbeSIbjiyGiel+sd1XF6weS9RLIbpvI8rkkbhhixv+VkJHoba49Xw1tfp0Vq6ccBaMCr6JaXLirawvs/CfOSsnnSmmwx4k+2YXa+y0Ylei//kgiq99izPVGtLf4Sf3xo2eHiFcs6oCILsr2XVVLEhfqt4eB1biWBGen0DWo3CLuYkXP5BJACB+qDs3Guck2m/97PAcyPnxnvR/ITrModCDTLLuCIzwhao15YYxmtQ8chQFOgt5eNekIJOWMpGGAqYvPI0MVijWaSs=
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR03MB7136.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(7916004)(366004)(66476007)(6506007)(66446008)(9686003)(4326008)(66556008)(6512007)(2906002)(1076003)(86362001)(26005)(53546011)(5660300002)(186003)(66946007)(122000001)(6486002)(966005)(508600001)(38100700002)(8676002)(64756008)(71200400001)(8936002)(7416002)(91956017)(83380400001)(33716001)(38070700005)(6916009)(316002)(33656002)(54906003)(76116006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?us-ascii?Q?XXN946FvnROtrO+1CLTyor9hZBKJAcgtGIElVKD6Z3IsI53oyKdd2ypvFsz7?=
+ =?us-ascii?Q?HKofHyMEJU+6JBpKM0pwhBv2kRC+pXYxO93nn0omSHJrrWjpvzaNOViu0uAv?=
+ =?us-ascii?Q?iFjRiJROpBqMHaPHj95Wvsi3AUVLVMf1H58IOfov2rcB9ROPU9se/pN3ay8C?=
+ =?us-ascii?Q?yAze5hwIz/5WsiYFlVOsX/hWnove859MFKoYTNgQkJWI5kwCFuGJt7vesO6K?=
+ =?us-ascii?Q?5p9pUsLA/3OHULp9ZlnnMlcOugRhJ7e1tJc0BwJiyPcsfvpnXi8MTp57RmA+?=
+ =?us-ascii?Q?/hj7rpp4UbSnnSDfFkpMnsgU7ARejz8+wLQAfv71eMOXUybLEkidThEU0w8A?=
+ =?us-ascii?Q?IBbyU66qWL4JhazN/5qR7myU15nVYu1+g4EFi7D71y5gL3rhxvD0xiSlju8s?=
+ =?us-ascii?Q?GVy+JQuyVlHK5HbVBjrbn1AO47jV4IJCDVUxSp5ueH1dsJ7skUXDG8cLi2zo?=
+ =?us-ascii?Q?Mtv8g0KV1lhxdvOUeBx8+stH0egqFUj6oq7x5qWIJrC4wSTyZpRTOscJqPxo?=
+ =?us-ascii?Q?a9y5LbGq4yh+GleeEdqvi41+OxMVd+eUnjio88Kd3kOnTFHgQu8azV5BFdzY?=
+ =?us-ascii?Q?USQtQ9HzZ43WEKoDvUtrpqn0CmnB6Ysve1UuGhlNn2yHkFYqLS50UlCSgc3X?=
+ =?us-ascii?Q?I1oD6dHMNCZltNyjnypuNHGSsHCfUyxgjmoWIy8eOk3F1/xZUAS0v+MiCy3F?=
+ =?us-ascii?Q?teBQjkR4r+yhi6tPbq2HCfOiKNCaE77EumyowqDOCGlhoN9opW/xc7YwX0ME?=
+ =?us-ascii?Q?L09VCoZjMUDDLZ83DsVZN8GLm+cy8ObNS6xSJ+deG3AIZ4op7qmP3wsRu7cH?=
+ =?us-ascii?Q?dy0rhbQwsjAb7khlDx5TH5RntrqNShpQ0VNZ2RlSXW82Kp1HbWIppZuwJACa?=
+ =?us-ascii?Q?UMAzAJoGVcpOTTOdfpvblKmV977qrPgQejmdqoBQFy+uJIBUJOJ0t8NJDGUW?=
+ =?us-ascii?Q?eZp2+K8t8XPaYqZ6OmP9sTIcywpxnBzTc+WqZUEZAt5AoQEjYduT2rNs6GBP?=
+ =?us-ascii?Q?sD+ZLiMi1Gu1nrceNb7hfgzaks5a7HYQC+UjsBovHjTZjfkCWCMXZER7yulb?=
+ =?us-ascii?Q?RvJww0pbGT02T/VK17Ru9nQNI6XKupOuRRojV/gjCKMO1Rd+Lg1TGcC2bQf7?=
+ =?us-ascii?Q?EW1F8vO90AV+MYtuPQYk6+jDhv/w713FaXe/jxPe93WUkGk47JIbDI8T+G4A?=
+ =?us-ascii?Q?gVF0JjOcnHgcGKrgUAGm1yy4yuO4wPOLXKXM4Ak7K/KC+XMd3FopOiiQtJog?=
+ =?us-ascii?Q?O8/S38EozC1iPYA8CFaIXBjyBTfuIYGsoyG10M+E/dqrJcJFTVkqZC0J2Ga/?=
+ =?us-ascii?Q?h8eCXlndrL5CEINrCJN1140BpayKj4swImsohY+cheATtywfozBeO2sgAZfJ?=
+ =?us-ascii?Q?83hC4ADB8vQapDIKR7G9As9aUYtK4fcvBbI80yIzp16Up7tEWLk/gJ11tCjy?=
+ =?us-ascii?Q?VJmdEKfBkq2cqS9qYpMluevAgBCMnzwOaNZOfUeRb3G3YipkHKZY5QYvNpPu?=
+ =?us-ascii?Q?mImp986rGmot9W969CBJkIq5q/jLqr5p6cYDs+BKRAmHHWK/DOqzYY6KcOTE?=
+ =?us-ascii?Q?q9rDG9IeiR5PAqed578JGA395mMP/RK5XzLOWE1CrEbWlfSiTB521/vQHkca?=
+ =?us-ascii?Q?IEMI5Em1GhsFOfGBU2cRNk8OS9CT8/iDjAxR+pImm/UnQAWKjdw9oSbfBbRR?=
+ =?us-ascii?Q?y9oZtvWyfyDTZoru/J3tSFhDaQI=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <08E2A50F93F65749A6C202EE21114000@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR03MB7136.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73171b87-d3e0-43f1-b191-08d9f5696d73
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Feb 2022 18:39:00.5524
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: tShoDLFbLtY527UfaXAquiAjo2XcPmPNsQmohhAqyWi4dMm87zkOXoorYvcYnDrDZ53+LVWeb9diOVJsB5pec9FqJbwyVGx3AhxxpfBMoqI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR03MB3582
+X-Proofpoint-GUID: wzYD_0f3M7M9QnSjnhO0_MFiII_R37R8
+X-Proofpoint-ORIG-GUID: wzYD_0f3M7M9QnSjnhO0_MFiII_R37R8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2022-02-21_08,2022-02-21_02,2021-12-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 impostorscore=0
+ lowpriorityscore=0 priorityscore=1501 mlxlogscore=999 phishscore=0
+ adultscore=0 suspectscore=0 spamscore=0 mlxscore=0 clxscore=1015
+ bulkscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2201110000 definitions=main-2202210110
 
-Most IOMMU hooks are already altcall for performance reasons.  Convert the
-rest of them so we can harden all the hooks in Control Flow Integrity
-configurations.  This necessitates the use of iommu_{v,}call() in debug builds
-too.
+Hi Julien,
 
-Move the root iommu_ops from __read_mostly to __ro_after_init now that the
-latter exists.  There is no need for a forward declaration of vtd_ops any
-more, meaning that __initconst_cf_clobber can be used for VTD and AMD.
+On Fri, Feb 18, 2022 at 10:17:33AM +0000, Julien Grall wrote:
+>=20
+>=20
+> On 18/02/2022 09:16, Oleksii Moisieiev wrote:
+> > Hi Julien,
+>=20
+> Hi Oleksii,
+>=20
+> > On Thu, Feb 17, 2022 at 03:20:36PM +0000, Julien Grall wrote:
+> > > >        xlu_cfg_get_defbool(config, "xend_suspend_evtchn_compat",
+> > > > diff --git a/xen/common/domain.c b/xen/common/domain.c
+> > > > index 093bb4403f..f1f19bf711 100644
+> > > > --- a/xen/common/domain.c
+> > > > +++ b/xen/common/domain.c
+> > > > @@ -512,7 +512,7 @@ static int sanitise_domain_config(struct xen_do=
+mctl_createdomain *config)
+> > > >        if ( iommu )
+> > > >        {
+> > > > -        if ( config->iommu_opts & ~XEN_DOMCTL_IOMMU_no_sharept )
+> > > > +        if ( config->iommu_opts >> XEN_DOMCTL_IOMMU_MAX )
+> > >=20
+> > > XEN_DOMCTL_IOMMU_MAX will be defined as:
+> > >=20
+> > > (1U << _XEN_DOMCTL_IOMMU_force_iommu)
+> > >=20
+> > > This means the shift will do the wrong thing. However, AFAICT, this n=
+ew
+> > > option will only be supported by Arm and likely only for platform dev=
+ice for
+> > > the time being.
+> >=20
+> > Thanks, I will fix that.
+> >=20
+> > >=20
+> > > That said, I am not convinced this flag should be per-domain in Xen.
+> > > Instead, I think it would be better to pass the flag via the device a=
+ssign
+> > > domctl.
+> >=20
+> > Do you mean that it's better to set this flag per device, not per
+> > domain? > This will require setting this flag for each device which sho=
+uld
+> > require either changing the dtdev format in dom.cfg or setting
+> > xen,force-assign-without-iommu in partial device-tree.
+> >=20
+> > Both of those ways will complicate the configuration. As was mentioned
+> > before, we don't want to make domain configuration more complicated.
+> > What do you think about that?
+>=20
+> We have two interfaces here:
+>   1) User -> tools
+>   2) tools -> Xen
+>=20
+> We can chose different policy for each interface.
+>=20
+> For the tools -> Xen interface, I think this should be per device (simila=
+r
+> to XEN_DOMCTL_DEV_RDM_RELAXED).
+>=20
+> For the User -> tools, I am open to discussion. One advantage with per
+> device is the user explicitely vet each device. So it is harder to
+> passthrough a device wrongly.
+>=20
+> But I agree this also complicates the interface. What do other thinks?
+>=20
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
----
- xen/arch/x86/include/asm/iommu.h            | 6 ++----
- xen/drivers/passthrough/amd/pci_amd_iommu.c | 2 +-
- xen/drivers/passthrough/iommu.c             | 7 ++++---
- xen/drivers/passthrough/vtd/iommu.c         | 3 +--
- xen/drivers/passthrough/x86/iommu.c         | 4 ++--
- 5 files changed, 10 insertions(+), 12 deletions(-)
+I see the following ways of User -> tools format:
 
-diff --git a/xen/arch/x86/include/asm/iommu.h b/xen/arch/x86/include/asm/iommu.h
-index 8a96ba1f097f..a87f6d416252 100644
---- a/xen/arch/x86/include/asm/iommu.h
-+++ b/xen/arch/x86/include/asm/iommu.h
-@@ -72,7 +72,6 @@ struct arch_iommu
- 
- extern struct iommu_ops iommu_ops;
- 
--#ifdef NDEBUG
- # include <asm/alternative.h>
- # define iommu_call(ops, fn, args...) ({      \
-     (void)(ops);                              \
-@@ -83,7 +82,6 @@ extern struct iommu_ops iommu_ops;
-     (void)(ops);                              \
-     alternative_vcall(iommu_ops.fn, ## args); \
- })
--#endif
- 
- static inline const struct iommu_ops *iommu_get_ops(void)
- {
-@@ -106,7 +104,7 @@ int iommu_setup_hpet_msi(struct msi_desc *);
- static inline int iommu_adjust_irq_affinities(void)
- {
-     return iommu_ops.adjust_irq_affinities
--           ? iommu_ops.adjust_irq_affinities()
-+           ? iommu_call(iommu_ops, adjust_irq_affinities)
-            : 0;
- }
- 
-@@ -122,7 +120,7 @@ int iommu_enable_x2apic(void);
- static inline void iommu_disable_x2apic(void)
- {
-     if ( x2apic_enabled && iommu_ops.disable_x2apic )
--        iommu_ops.disable_x2apic();
-+        iommu_vcall(iommu_ops, disable_x2apic);
- }
- 
- int iommu_identity_mapping(struct domain *d, p2m_access_t p2ma,
-diff --git a/xen/drivers/passthrough/amd/pci_amd_iommu.c b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-index e57f555d00d1..4b59a4efe9b6 100644
---- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
-+++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-@@ -628,7 +628,7 @@ static void cf_check amd_dump_page_tables(struct domain *d)
-                               hd->arch.amd.paging_mode, 0, 0);
- }
- 
--static const struct iommu_ops __initconstrel _iommu_ops = {
-+static const struct iommu_ops __initconst_cf_clobber _iommu_ops = {
-     .init = amd_iommu_domain_init,
-     .hwdom_init = amd_iommu_hwdom_init,
-     .quarantine_init = amd_iommu_quarantine_init,
-diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
-index e220fea72c2f..c6b2c384d1dd 100644
---- a/xen/drivers/passthrough/iommu.c
-+++ b/xen/drivers/passthrough/iommu.c
-@@ -540,7 +540,7 @@ int __init iommu_setup(void)
- int iommu_suspend()
- {
-     if ( iommu_enabled )
--        return iommu_get_ops()->suspend();
-+        return iommu_call(iommu_get_ops(), suspend);
- 
-     return 0;
- }
-@@ -548,7 +548,7 @@ int iommu_suspend()
- void iommu_resume()
- {
-     if ( iommu_enabled )
--        iommu_get_ops()->resume();
-+        iommu_vcall(iommu_get_ops(), resume);
- }
- 
- int iommu_do_domctl(
-@@ -578,7 +578,8 @@ void iommu_crash_shutdown(void)
-         return;
- 
-     if ( iommu_enabled )
--        iommu_get_ops()->crash_shutdown();
-+        iommu_vcall(iommu_get_ops(), crash_shutdown);
-+
-     iommu_enabled = false;
- #ifndef iommu_intremap
-     iommu_intremap = iommu_intremap_off;
-diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/vtd/iommu.c
-index 56968a06a100..6a65ba1d8271 100644
---- a/xen/drivers/passthrough/vtd/iommu.c
-+++ b/xen/drivers/passthrough/vtd/iommu.c
-@@ -56,7 +56,6 @@ bool __read_mostly iommu_snoop = true;
- 
- static unsigned int __read_mostly nr_iommus;
- 
--static struct iommu_ops vtd_ops;
- static struct tasklet vtd_fault_tasklet;
- 
- static int cf_check setup_hwdom_device(u8 devfn, struct pci_dev *);
-@@ -2794,7 +2793,7 @@ static int __init cf_check intel_iommu_quarantine_init(struct domain *d)
-     return rc;
- }
- 
--static struct iommu_ops __initdata vtd_ops = {
-+static const struct iommu_ops __initconst_cf_clobber vtd_ops = {
-     .init = intel_iommu_domain_init,
-     .hwdom_init = intel_iommu_hwdom_init,
-     .quarantine_init = intel_iommu_quarantine_init,
-diff --git a/xen/drivers/passthrough/x86/iommu.c b/xen/drivers/passthrough/x86/iommu.c
-index ad5f44e13d98..17c0fe555dd0 100644
---- a/xen/drivers/passthrough/x86/iommu.c
-+++ b/xen/drivers/passthrough/x86/iommu.c
-@@ -27,7 +27,7 @@
- #include <asm/setup.h>
- 
- const struct iommu_init_ops *__initdata iommu_init_ops;
--struct iommu_ops __read_mostly iommu_ops;
-+struct iommu_ops __ro_after_init iommu_ops;
- bool __read_mostly iommu_non_coherent;
- 
- enum iommu_intremap __read_mostly iommu_intremap = iommu_intremap_full;
-@@ -129,7 +129,7 @@ int iommu_enable_x2apic(void)
-     if ( !iommu_ops.enable_x2apic )
-         return -EOPNOTSUPP;
- 
--    return iommu_ops.enable_x2apic();
-+    return iommu_call(iommu_ops, enable_x2apic);
- }
- 
- void iommu_update_ire_from_apic(
--- 
-2.11.0
+a) Set force_assign_without_iommu =3D 1 in dom.cfg
+b) Update dtdev format add force_iommu parameter, so dtdev will look
+like this:
+dtdev =3D [
+    "/soc/dma-controller@e6700000",
+    "/soc/gpio@e6055000,force_iommu",
+    ...
+]
+c)...
 
+Tools -> Xen possible ways:
+
+d) Set force_assign_without_iommu to domain globally
+e) Pass force_assign_without_iommu via device-assign domctl.
+
+a) + d) is what we have in the patch series.
+
+I think a) + e) can work for now so we will have an interface to make
+force_assign_without_iommu per device in future.
+
+What do you think about it?
+
+> > >=20
+> > > >            return -EOPNOTSUPP;
+> > > > @@ -542,7 +545,7 @@ int iommu_do_domctl(
+> > > >    #endif
+> > > >    #ifdef CONFIG_HAS_DEVICE_TREE
+> > > > -    if ( ret =3D=3D -ENODEV )
+> > > > +    if ( ret =3D=3D -ENOSYS )
+> > >=20
+> > > AFAICT, none of the code (including callee) before ret have been modi=
+fied.
+> > > So why are you modifying the check here?
+> > >=20
+> >=20
+> > Because this check will fail if we have CONFIG_HAS_DEVICE_TREE define,
+> > but do not have CONFIG_HAS_PCI and iommu_do_dt_domctl will not be
+> > called.
+>=20
+> Below the implementation of iommu_do_domctl() on staging:
+>=20
+> int iommu_do_domctl(
+>     struct xen_domctl *domctl, struct domain *d,
+>     XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+> {
+>     int ret =3D -ENODEV;
+>=20
+>     if ( !is_iommu_enabled(d) )
+>         return -EOPNOTSUPP;
+>=20
+> #ifdef CONFIG_HAS_PCI
+>     ret =3D iommu_do_pci_domctl(domctl, d, u_domctl);
+> #endif
+>=20
+> #ifdef CONFIG_HAS_DEVICE_TREE
+>     if ( ret =3D=3D -ENODEV )
+>         ret =3D iommu_do_dt_domctl(domctl, d, u_domctl);
+> #endif
+>=20
+>     return ret;
+> }
+>=20
+> 'ret' is initialized to -ENODEV. So for !CONFIG_HAS_PCI, then ret will no=
+t
+> be changed. Therefore the current check is correct.
+>=20
+> AFAICT, your patch is setting 'ret' so I don't expect any change here.
+>=20
+> > Same thing if switch/case inside iommu_do_pci_domctl go to default and
+> > return -ENOSYS. This part looked strange for me. But I will definitely
+> > go through this part once again.
+> We use the same sub-op to assign/deassign a PCI and "DT" device. So we ar=
+e
+> not interested in -ENOSYS but -ENODEV that would be returned by the check=
+s:
+>=20
+> if ( domct->u.assign_device.dev !=3D XEN_DOMCTL_DEV_PCI )
+>=20
+> At the moment, there are no sub-op specific to "DT" device. So it is not
+> necessary for us to check -ENOSYS yet.
+>=20
+> I haven't looked at the rest of the series to see if we need it. But if w=
+e
+> do, then I think the check should be extended in the patch that requires =
+it.
+>=20
+
+Thank you for the comment. I will refactor this code.
+
+Also I wanted to share with you some thoughts about using SMC client_id
+field to pass agent_id to the SCMI.
+Posted question regarding this approach to trustedfirmware
+phabricator [0].
+
+I've found that ATF already has multiagent approach implemented for
+stm32mp1 platform, see plat/st/stm32mp1/include/stm32mp1_smc.h [1].
+It uses 2 funcids hardcoded for AGENT0 and AGENT1:
+STM32_SIP_SMC_SCMI_AGENT0       0x82002000
+STM32_SIP_SMC_SCMI_AGENT1       0x82002001
+
+I think this approach will be very promising for SCI mediator.
+
+Firmware defines a range of func_ids, let's say from 0x82000010 to 0x820000=
+20,
+where 0x82000010 is the base func_id for trusted agent. This func_id is
+set in arm,scmi-smc node in Xen device-tree.
+
+During startup Xen requests agent configuration and calculate func_id for
+each channel the following way:
+
+<Base Func_ID> + <channel_id>
+
+Calculated func_id should be assigned to the Domain by setting it as
+arm,scmi-id in arm,scmi-smc node. So for the Domain Xen will generate
+the following nodes:
+
+scmi {
+   compatible =3D "arm,scmi-smc";
+   arm,smc-id =3D <calculated func_id>;
+   ...
+   shmem =3D <&shmem_node>
+};=20
+
+shmem_node {
+  compatible =3D "arm,scmi-shmem";
+  ...
+};
+
+In this case each domain will get unique func_id to send SCMI commands.
+
+I see the following advantages of this approach:
+1) There is no need for Xen to intercept SMC requests. All requests from
+agents will go directly to the Firmware, which can calculate agent_id
+from func_id. This mean that there is no need for scmi_handle_call
+function.
+2) This approach already implemented for stm32mp1 board so it's more
+likely to be accepted.
+
+Another thing I want to discuss is how Xen should handle scmi related
+nodes from xen device-tree.
+Currently Xen device-tree includes arm,scmi-smc node and a list of
+scmi-shmem nodes for the channels:
+scmi {
+   compatible =3D "arm,scmi-smc";
+   ...
+};
+
+sram@0x53ff0000 {
+    compatible =3D "mmio-sram";
+    ...
+    cpu_scp_shm: scp-shmem@0x0 {
+        compatible =3D "arm,scmi-shmem";
+        ...
+    };
+    scp-shmem@0x1000 {
+        ...
+    };
+
+    ...
+
+    scp-shmem@0xF000 {
+        ...
+    };
+
+};
+
+We do not want all of this nodes to be present in Dom0.
+I suggest to set xen,passthrough for all this nodes to ensure that Dom0
+will not get information about other channels and generate nodes
+arm,scmi-shmem and arm,scmi-smc for Dom0.
+I think this approach will be more secure.
+
+What do you think about both suggested approaches?
+
+[0] https://developer.trustedfirmware.org/T985
+[1] https://review.trustedfirmware.org/TF-A/trusted-firmware-a=
 
