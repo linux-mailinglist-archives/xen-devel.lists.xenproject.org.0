@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 579F04BE3E3
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Feb 2022 18:58:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.276389.472528 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE5C04BE7ED
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Feb 2022 19:04:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.276396.472540 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nMCw7-0006jz-0I; Mon, 21 Feb 2022 17:57:23 +0000
+	id 1nMD2q-0008Es-Ll; Mon, 21 Feb 2022 18:04:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 276389.472528; Mon, 21 Feb 2022 17:57:22 +0000
+Received: by outflank-mailman (output) from mailman id 276396.472540; Mon, 21 Feb 2022 18:04:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nMCw6-0006i9-TS; Mon, 21 Feb 2022 17:57:22 +0000
-Received: by outflank-mailman (input) for mailman id 276389;
- Mon, 21 Feb 2022 17:57:22 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nMCw6-0006i3-2e
- for xen-devel@lists.xenproject.org; Mon, 21 Feb 2022 17:57:22 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nMCw5-0003CZ-PV; Mon, 21 Feb 2022 17:57:21 +0000
-Received: from [54.239.6.189] (helo=[192.168.5.64])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nMCw5-0007tb-J0; Mon, 21 Feb 2022 17:57:21 +0000
+	id 1nMD2q-0008CC-I2; Mon, 21 Feb 2022 18:04:20 +0000
+Received: by outflank-mailman (input) for mailman id 276396;
+ Mon, 21 Feb 2022 18:04:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fvXl=TE=citrix.com=prvs=044a77a3b=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1nMD2o-0008C6-HU
+ for xen-devel@lists.xenproject.org; Mon, 21 Feb 2022 18:04:18 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id adf9a819-9340-11ec-8eb8-a37418f5ba1a;
+ Mon, 21 Feb 2022 19:04:16 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,240 +36,207 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=eB18/8J0cqV/Svq+HKVvvHntT2R2n2FcQK/gpo/qTIs=; b=AawMLZXwnOhGYhdGUddf9+mZCS
-	pQGvooMQbJF005zDxGX5wMdkM+MuI24LZzV81nCBfxde3cnA1qDNA8kHxjjGYTgbnBt33ft/fTV5L
-	w+E7fV04OeXuX1twxdRqSQZlHBQzJtgkAfN0uffcLK0wYgFtjNF+X87Q3RIJZZ1q3yMY=;
-Message-ID: <576cf522-f002-afac-36b6-b31f87724dca@xen.org>
-Date: Mon, 21 Feb 2022 17:57:19 +0000
+X-Inumbo-ID: adf9a819-9340-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1645466656;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=YlOjXF4k7rFwUbvZj0TZsWgDLG6n+/ToUDcdMAAvYXQ=;
+  b=U5rBPfvYxzTI0Sq6p+Dq7s9Q0VLT+lG9dJIDeI1rIbicLHmbyQ9C4bhh
+   Y83d8A9CmO8+lFOr8FzckMv2mEmNyeQTqbLrte6TjGUvW63zGwVPw4i+R
+   Yo4mqgB+tEBhEXoQ60fTL6QM6zXhMBqyfrismrJ2OEHIzsAo7Fldfu6P3
+   c=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 65071859
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:2sxRRKpEiiX/fMIumeWqTI496TReBmJpZRIvgKrLsJaIsI4StFCzt
+ garIBmHOqyCNDD9KttxYNzj8U1Su5XXzYRnSgtlqyFnES9EopuZCYyVIHmrMnLJJKUvbq7GA
+ +byyDXkBJppJpMJjk71atANlVEliefQAOCU5NfsYkidfyc9IMsaoU8ly75RbrJA24DjWVvX4
+ 4qq+aUzBXf+s9JKGjNMg068gEsHUMTa4Fv0aXRnOJinFHeH/5UkJMp3yZOZdhMUcaENdgKOf
+ M7RzanRw4/s10xF5uVJMFrMWhZirrb6ZWBig5fNMkSoqkAqSicais7XOBeAAKv+Zvrgc91Zk
+ b1wWZKMpQgBBqHQpKcHdARkDB50H6ZU1+PfGEKBrpnGp6HGWyOEL/RGCUg3OcsT+/ptAHEI/
+ vsdQNwPRknd3aTsmuv9E7QywJR4RCXoFNp3VnVI5DfVF/s5B7vERL3H/4Rw1zYsnMFeW/3ZY
+ qL1bBIxMUyfOk0Saz/7Droure2loSnVfAdq8nXKiZpw3zPS8CtIhe2F3N39JYXRGJQ9clyjj
+ n3C13T0BFcdLtP34Riv/2+oh+TPtTjmQ49UH7q9ntZ6jVvWymENBRk+UVqgveL/mkO4Q8hYK
+ UEf5mwpt6dayaCwZoCjBVvi+ifC50NCHYoLewEn1O2T4pLY/zraHE8ZciF+Yv4tpuBqXQUQ6
+ EDcyrsFGgdTmLGSTHuc8JKdojWzJTUZIAc+WMMUcecWy4K9+d9u13ojWv4mSffo1YOtRVkc1
+ hjX9HBWulkFsSIcO0xXF3jjiinkmJXGRxVdCu7/DjP8tVMRiGJIiuWVBbnnARRocdzxorqp5
+ iFsdy2iAAcmV8zlqcB1aL9RdIxFHt7cWNEmvXZhHoM66xOm8GO5cIZb7VlWfRk1b51UJW60M
+ RKJ6Gu9AaO/21PwMMdKj3+ZUZx2ncAM6/y+PhwrUja+SscoL1LWlM2fTUWRw3rsgCARfVIXY
+ v+mnTKXJS9CU8xPlWPuL89EiOND7n1ulAv7GMGgpzz6gOX2WZJgYepcWLd4Rrtit/3sTcS82
+ 4s3CvZmPD0FDrWlO3GPqdR7wJJjBSFTOK0aYvd/LoarSjeK0kl4YxMN6dvNo7BYopk=
+IronPort-HdrOrdr: A9a23:BwQZvK/aURGiZN8vzHluk+DcI+orL9Y04lQ7vn2ZLiYlFfBw9v
+ re+MjzsCWetN9/Yh0dcLy7V5VoIkm9yXcW2+cs1N6ZNWGN1VdAR7sC0aLShxHmBi3i5qp8+M
+ 5bAs1D4QTLfDtHZBDBkWuFL+o=
+X-IronPort-AV: E=Sophos;i="5.88,386,1635220800"; 
+   d="scan'208";a="65071859"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH v2.1 8/7] x86/IOMMU: Use altcall, and __initconst_cf_clobber
+Date: Mon, 21 Feb 2022 18:03:56 +0000
+Message-ID: <20220221180356.13527-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20220214125632.24563-1-andrew.cooper3@citrix.com>
+References: <20220214125632.24563-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.6.1
-Subject: Re: [XEN v8 2/2] xen/arm64: io: Support instructions (for which ISS
- is not valid) on emulated MMIO region using MMIO/ioreq handler
-To: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
- bertrand.marquis@arm.com
-References: <20220212233433.46018-1-ayankuma@xilinx.com>
- <20220212233433.46018-3-ayankuma@xilinx.com>
- <1599e2f3-0a34-020a-dd42-5ba87dad555d@xen.org>
- <10cf253b-fc58-1afc-66ec-33ac3008bb0f@xilinx.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <10cf253b-fc58-1afc-66ec-33ac3008bb0f@xilinx.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
+Most IOMMU hooks are already altcall for performance reasons.  Convert the
+rest of them so we can harden all the hooks in Control Flow Integrity
+configurations.  This necessitates the use of iommu_{v,}call() in debug builds
+too.
 
+Move the root iommu_ops from __read_mostly to __ro_after_init now that the
+latter exists.  There is no need for a forward declaration of vtd_ops any
+more, meaning that __initconst_cf_clobber can be used for VTD and AMD.
 
-On 21/02/2022 17:05, Ayan Kumar Halder wrote:
-> Hi Julien,
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+---
+ xen/arch/x86/include/asm/iommu.h            | 6 ++----
+ xen/drivers/passthrough/amd/pci_amd_iommu.c | 2 +-
+ xen/drivers/passthrough/iommu.c             | 7 ++++---
+ xen/drivers/passthrough/vtd/iommu.c         | 3 +--
+ xen/drivers/passthrough/x86/iommu.c         | 4 ++--
+ 5 files changed, 10 insertions(+), 12 deletions(-)
 
-Hi,
-
-> On 13/02/2022 12:19, Julien Grall wrote:
->>>   }
->>>     void register_mmio_handler(struct domain *d,
->>> diff --git a/xen/arch/arm/ioreq.c b/xen/arch/arm/ioreq.c
->>> index 308650b400..3c0a935ccf 100644
->>> --- a/xen/arch/arm/ioreq.c
->>> +++ b/xen/arch/arm/ioreq.c
->>> @@ -47,6 +47,7 @@ enum io_state try_fwd_ioserv(struct cpu_user_regs 
->>> *regs,
->>>                                struct vcpu *v, mmio_info_t *info)
->>>   {
->>>       struct vcpu_io *vio = &v->io;
->>> +    struct dabt_instr instr = info->dabt_instr;
->>>       ioreq_t p = {
->>>           .type = IOREQ_TYPE_COPY,
->>>           .addr = info->gpa,
->>> @@ -76,10 +77,8 @@ enum io_state try_fwd_ioserv(struct cpu_user_regs 
->>> *regs,
->>>       if ( !s )
->>>           return IO_UNHANDLED;
->>>   -    if ( !info->dabt.valid )
->>> -        return IO_ABORT;
->>> -
->>
->> For this one, I would switch to ASSERT(dabt.valid);
-> I see that try_fwd_ioserv() is invoked from try_handle_mmio() only. 
-> Thus, if I follow your suggestion of adding a check for dabt.valid at 
-> the beginning of try_handle_mmio(), then this ASSERT() is not required.
-
-I agree that try_handle_mmio() is the only caller today. But we don't 
-know how this is going to be used tomorrow.
-
-The goal of this ASSERT() is to catch those new users that would call it 
-wrongly.
-
-[...]
-
->> ... this will inject a data abort to the guest when we can't decode. 
->> This is not what we want. We should check whether this is a P2M 
->> translation fault or we need to map an MMIO region.
->>
->> In pseudo-code, this would look like:
->>
->> if ( !is_data || hsr.dabt.valid )
-> 
-> I think you mean if ( !is_data || !hsr.dabt.valid )
-
-You are right.
-
-> 
-> The reason being if there is an instruction abort or a data abort (with 
-> ISV == 0), then it should try to configure the page tables.
-> 
->> {
->>     if ( check_p2m() )
->>       return;
->>
->>
->>     if ( !is_data )
->>        goto inject_dabt;
->>
->>     decode_instruction();
->>     if ( !dabt.invalid )
->>       goto inject_dabt;
->> }
->>
->> try_handle_mmio();
->>
->> if ( instruction was not decoded )
->>   check_p2m();
-> 
-> If the instruction was not decoded, then there is no need to configure 
-> the page tables again. We have already done this before.
-
-Hmmmm... I think there are confusing about which sort of decoding I was 
-referring to. In this case, I mean if we didn't decode the instruction 
-manully, then it is not necessary to call check_p2m().
-
-Do you agree with that?
-
-> So my understanding is as follows :-
-> 
->          /* Check that it is instruction abort or ISS is invalid. */
-
-I have had a remark on this line before. Please have a look and address it.
-
->          if ( !is_data || !info.dabt.valid )
->          {
->              /*
->               * If the instruction was trapped due to access to stage 1 
-> translation
->               * then Xen should try to resolve the page table entry for 
-> the stage 1
->               * translation table with the assumption that the page 
-> tables are
->               * present in the non MMIO region. If it is successful, 
-> then it should
->               * ask the guest to retry the instruction.
->               */
-
-I agree that we want to skip the MMIO mapping when s1ptw == 1. However, 
-I am not sure this belongs to this patch because this is technically 
-already a bug.
-
->              if ( is_data && info.dabt.s1ptw )
->              {
->                  info.dabt_instr.state = INSTR_RETRY;
->                  /* The translation tables are assumed to be in non MMIO 
-> region. */
->                  is_data = false;
-
-is_data is also used to decide which sort of abort we want to send to 
-the guest (see after inject_dabt). So I don't think we could force set 
-is_data here.
-
-Instead, I would define a new local variable (maybe mmio_access_allowed) 
-that will be set for instruction abort or when s1ptw is 1.
-
->              }
-> 
->              /*
->               * Assumption :- Most of the times when we get a 
-> translation fault
->               * and the ISS is invalid, the underlying cause is that the 
-> page
->               * tables have not been set up correctly.
->               */
-
-I think this comment make more sense on top of "if !is_data || 
-!info.dabt.valid".
-
->              if ( check_p2m(is_data, gpa) )
->                  return;
-> 
->              /*
->               * If the instruction abort or the data abort due to access 
-> to stage 1
->               * translation tables could not be resolved by setting the 
-> appropriate
->               * bits in the translation table, then Xen should abort the 
-> guest.
-
-IHMO, "abort the guest" means we are going to crash the guest. However, 
-this not the case here. We are telling the guest that we couldn't handle 
-the data/instruction request. It is up to the guest to decide whether it 
-should panic or handle gracefully the error.
-
-We should also avoid the term guest because it usually only refers to 
-any domain but dom0.
-
-Therefore, I would reword it to something like "Xen will forward the 
-data/instruction abort to the domain".
-
->               */
->              if ( !is_data || (info.dabt_instr.state == INSTR_RETRY) )
-
-The second part looks unnecessary.
-
->                  goto inject_abt;
-> 
->              try_decode_instruction(regs, &info);
-> 
->              /* Instruction could not be decoded, then abort the guest */
-> 
->              if ( info.dabt_instr.state == INSTR_ERROR)
->                  goto inject_abt;
->          }
-> 
->          state = try_handle_mmio(regs, &info);
-> 
->          switch ( state )
->          {
->              case IO_ABORT:
->                  goto inject_abt;
->              case IO_HANDLED:
->                  /*
->                   * If the instruction was decoded and has executed 
-> successfully
->                   * on the MMIO region, then Xen should execute the next 
-> part of
->                   * the instruction. (for eg increment the rn if it is a
->                   * post-indexing instruction.
->                   */
->                  post_increment_register(&info.dabt_instr);
->                  advance_pc(regs, hsr);
->                  return;
->              case IO_RETRY:
->                  /* finish later */
->                  return;
->              case IO_UNHANDLED:
->                  /* IO unhandled, try another way to handle it. */
->                  break;
->          }
-> 
->          if ( check_p2m(is_data, gpa) )
-
-It is unnecessary to call check_p2M() if we manually decoded the 
-instruction (see above why).
-
-Cheers,
-
+diff --git a/xen/arch/x86/include/asm/iommu.h b/xen/arch/x86/include/asm/iommu.h
+index 8a96ba1f097f..a87f6d416252 100644
+--- a/xen/arch/x86/include/asm/iommu.h
++++ b/xen/arch/x86/include/asm/iommu.h
+@@ -72,7 +72,6 @@ struct arch_iommu
+ 
+ extern struct iommu_ops iommu_ops;
+ 
+-#ifdef NDEBUG
+ # include <asm/alternative.h>
+ # define iommu_call(ops, fn, args...) ({      \
+     (void)(ops);                              \
+@@ -83,7 +82,6 @@ extern struct iommu_ops iommu_ops;
+     (void)(ops);                              \
+     alternative_vcall(iommu_ops.fn, ## args); \
+ })
+-#endif
+ 
+ static inline const struct iommu_ops *iommu_get_ops(void)
+ {
+@@ -106,7 +104,7 @@ int iommu_setup_hpet_msi(struct msi_desc *);
+ static inline int iommu_adjust_irq_affinities(void)
+ {
+     return iommu_ops.adjust_irq_affinities
+-           ? iommu_ops.adjust_irq_affinities()
++           ? iommu_call(iommu_ops, adjust_irq_affinities)
+            : 0;
+ }
+ 
+@@ -122,7 +120,7 @@ int iommu_enable_x2apic(void);
+ static inline void iommu_disable_x2apic(void)
+ {
+     if ( x2apic_enabled && iommu_ops.disable_x2apic )
+-        iommu_ops.disable_x2apic();
++        iommu_vcall(iommu_ops, disable_x2apic);
+ }
+ 
+ int iommu_identity_mapping(struct domain *d, p2m_access_t p2ma,
+diff --git a/xen/drivers/passthrough/amd/pci_amd_iommu.c b/xen/drivers/passthrough/amd/pci_amd_iommu.c
+index e57f555d00d1..4b59a4efe9b6 100644
+--- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
++++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
+@@ -628,7 +628,7 @@ static void cf_check amd_dump_page_tables(struct domain *d)
+                               hd->arch.amd.paging_mode, 0, 0);
+ }
+ 
+-static const struct iommu_ops __initconstrel _iommu_ops = {
++static const struct iommu_ops __initconst_cf_clobber _iommu_ops = {
+     .init = amd_iommu_domain_init,
+     .hwdom_init = amd_iommu_hwdom_init,
+     .quarantine_init = amd_iommu_quarantine_init,
+diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
+index e220fea72c2f..c6b2c384d1dd 100644
+--- a/xen/drivers/passthrough/iommu.c
++++ b/xen/drivers/passthrough/iommu.c
+@@ -540,7 +540,7 @@ int __init iommu_setup(void)
+ int iommu_suspend()
+ {
+     if ( iommu_enabled )
+-        return iommu_get_ops()->suspend();
++        return iommu_call(iommu_get_ops(), suspend);
+ 
+     return 0;
+ }
+@@ -548,7 +548,7 @@ int iommu_suspend()
+ void iommu_resume()
+ {
+     if ( iommu_enabled )
+-        iommu_get_ops()->resume();
++        iommu_vcall(iommu_get_ops(), resume);
+ }
+ 
+ int iommu_do_domctl(
+@@ -578,7 +578,8 @@ void iommu_crash_shutdown(void)
+         return;
+ 
+     if ( iommu_enabled )
+-        iommu_get_ops()->crash_shutdown();
++        iommu_vcall(iommu_get_ops(), crash_shutdown);
++
+     iommu_enabled = false;
+ #ifndef iommu_intremap
+     iommu_intremap = iommu_intremap_off;
+diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/vtd/iommu.c
+index 56968a06a100..6a65ba1d8271 100644
+--- a/xen/drivers/passthrough/vtd/iommu.c
++++ b/xen/drivers/passthrough/vtd/iommu.c
+@@ -56,7 +56,6 @@ bool __read_mostly iommu_snoop = true;
+ 
+ static unsigned int __read_mostly nr_iommus;
+ 
+-static struct iommu_ops vtd_ops;
+ static struct tasklet vtd_fault_tasklet;
+ 
+ static int cf_check setup_hwdom_device(u8 devfn, struct pci_dev *);
+@@ -2794,7 +2793,7 @@ static int __init cf_check intel_iommu_quarantine_init(struct domain *d)
+     return rc;
+ }
+ 
+-static struct iommu_ops __initdata vtd_ops = {
++static const struct iommu_ops __initconst_cf_clobber vtd_ops = {
+     .init = intel_iommu_domain_init,
+     .hwdom_init = intel_iommu_hwdom_init,
+     .quarantine_init = intel_iommu_quarantine_init,
+diff --git a/xen/drivers/passthrough/x86/iommu.c b/xen/drivers/passthrough/x86/iommu.c
+index ad5f44e13d98..17c0fe555dd0 100644
+--- a/xen/drivers/passthrough/x86/iommu.c
++++ b/xen/drivers/passthrough/x86/iommu.c
+@@ -27,7 +27,7 @@
+ #include <asm/setup.h>
+ 
+ const struct iommu_init_ops *__initdata iommu_init_ops;
+-struct iommu_ops __read_mostly iommu_ops;
++struct iommu_ops __ro_after_init iommu_ops;
+ bool __read_mostly iommu_non_coherent;
+ 
+ enum iommu_intremap __read_mostly iommu_intremap = iommu_intremap_full;
+@@ -129,7 +129,7 @@ int iommu_enable_x2apic(void)
+     if ( !iommu_ops.enable_x2apic )
+         return -EOPNOTSUPP;
+ 
+-    return iommu_ops.enable_x2apic();
++    return iommu_call(iommu_ops, enable_x2apic);
+ }
+ 
+ void iommu_update_ire_from_apic(
 -- 
-Julien Grall
+2.11.0
+
 
