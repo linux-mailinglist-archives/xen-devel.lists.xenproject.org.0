@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AF3D4BD944
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Feb 2022 11:55:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.276160.472257 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D7224BD946
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Feb 2022 12:00:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.276171.472267 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nM6Lr-00041G-6o; Mon, 21 Feb 2022 10:55:31 +0000
+	id 1nM6Pw-0004gA-Mt; Mon, 21 Feb 2022 10:59:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 276160.472257; Mon, 21 Feb 2022 10:55:31 +0000
+Received: by outflank-mailman (output) from mailman id 276171.472267; Mon, 21 Feb 2022 10:59:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nM6Lr-0003zS-2e; Mon, 21 Feb 2022 10:55:31 +0000
-Received: by outflank-mailman (input) for mailman id 276160;
- Mon, 21 Feb 2022 10:55:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=3jq6=TE=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1nM6Lq-0003zM-0L
- for xen-devel@lists.xenproject.org; Mon, 21 Feb 2022 10:55:30 +0000
-Received: from ppsw-40.csi.cam.ac.uk (ppsw-40.csi.cam.ac.uk [131.111.8.140])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c7229619-9304-11ec-8eb8-a37418f5ba1a;
- Mon, 21 Feb 2022 11:55:28 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:57080)
- by ppsw-40.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.138]:25)
- with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1nM6Ln-0010lg-jF (Exim 4.95) (return-path <amc96@srcf.net>);
- Mon, 21 Feb 2022 10:55:27 +0000
-Received: from [192.168.1.10] (host-92-12-45-187.as13285.net [92.12.45.187])
- (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id C3D781FB2D;
- Mon, 21 Feb 2022 10:55:26 +0000 (GMT)
+	id 1nM6Pw-0004eN-Jx; Mon, 21 Feb 2022 10:59:44 +0000
+Received: by outflank-mailman (input) for mailman id 276171;
+ Mon, 21 Feb 2022 10:59:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1Uke=TE=arm.com=michal.orzel@srs-se1.protection.inumbo.net>)
+ id 1nM6Pu-0004eH-Np
+ for xen-devel@lists.xenproject.org; Mon, 21 Feb 2022 10:59:42 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 571a5b84-9305-11ec-8539-5f4723681683;
+ Mon, 21 Feb 2022 11:59:29 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A2C281476;
+ Mon, 21 Feb 2022 02:59:39 -0800 (PST)
+Received: from e123311-lin.arm.com (unknown [10.57.3.163])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 343033F66F;
+ Mon, 21 Feb 2022 02:59:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,102 +42,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c7229619-9304-11ec-8eb8-a37418f5ba1a
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <085e64bd-b32f-6162-f5d0-69ac9d0e1a2c@srcf.net>
-Date: Mon, 21 Feb 2022 10:55:26 +0000
+X-Inumbo-ID: 571a5b84-9305-11ec-8539-5f4723681683
+From: Michal Orzel <michal.orzel@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: [PATCH] xen/arm: Rename psr_mode_is_32bit to regs_mode_is_32bit
+Date: Mon, 21 Feb 2022 11:59:31 +0100
+Message-Id: <20220221105931.12028-1-michal.orzel@arm.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [PATCH 3/3] CI: Coverity tweaks
-Content-Language: en-GB
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>
-References: <20220221100254.13661-1-andrew.cooper3@citrix.com>
- <20220221100254.13661-4-andrew.cooper3@citrix.com>
- <YhNrhuvBbZ43hcA6@Air-de-Roger>
-From: Andrew Cooper <amc96@srcf.net>
-In-Reply-To: <YhNrhuvBbZ43hcA6@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 21/02/2022 10:37, Roger Pau Monné wrote:
-> On Mon, Feb 21, 2022 at 10:02:54AM +0000, Andrew Cooper wrote:
->>  * Use workflow_dispatch to allow manual creation of the job.
->>  * Use parallel builds.  The workers have two vCPUs.
->>  * Shrink the dependency list further.  build-essential covers make and gcc,
->>    while bridge-utils and iproute2 are runtime dependencies not build
->>    dependencies.  Alter bzip2 to libbz2-dev.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->> ---
->>  .github/workflows/coverity.yml | 14 ++++++++------
->>  1 file changed, 8 insertions(+), 6 deletions(-)
->>
->> diff --git a/.github/workflows/coverity.yml b/.github/workflows/coverity.yml
->> index 9d04b56fd31d..6e7b81e74f72 100644
->> --- a/.github/workflows/coverity.yml
->> +++ b/.github/workflows/coverity.yml
->> @@ -2,6 +2,7 @@ name: Coverity Scan
->>  
->>  # We only want to test official release code, not every pull request.
->>  on:
->> +  workflow_dispatch:
->>    schedule:
->>      - cron: '18 9 * * WED,SUN' # Bi-weekly at 9:18 UTC
->>  
->> @@ -11,11 +12,11 @@ jobs:
->>      steps:
->>      - name: Install build dependencies
->>        run: |
->> -        sudo apt-get install -y wget git gawk bridge-utils \
->> -          iproute2 bzip2 build-essential \
->> -          make gcc zlib1g-dev libncurses5-dev iasl \
->> -          libbz2-dev e2fslibs-dev git-core uuid-dev ocaml \
->> -          ocaml-findlib xz-utils libyajl-dev \
->> +        sudo apt-get install -y wget git gawk \
->> +          libbz2-dev build-essential \
->> +          zlib1g-dev libncurses5-dev iasl \
->> +          libbz2-dev e2fslibs-dev uuid-dev ocaml \
->> +          ocaml-findlib libyajl-dev \
->>            autoconf libtool liblzma-dev \
->>            python3-dev golang python-dev libsystemd-dev
->>  
->> @@ -31,7 +32,7 @@ jobs:
->>  
->>      - name: Pre build stuff
->>        run: |
->> -        make mini-os-dir
->> +        make -j`nproc` mini-os-dir
->>  
->>      - uses: vapier/coverity-scan-action@v1
->>        with:
->> @@ -39,3 +40,4 @@ jobs:
->>          project: XenProject
->>          email: ${{ secrets.COVERITY_SCAN_EMAIL }}
->>          token: ${{ secrets.COVERITY_SCAN_TOKEN }}
->> +        command: make -j`nproc` build
-> There's already a 'command:' parameter set just before 'project:'.
+Following a discussion [1] it seems like that renaming work has
+been forgotten. Perform renaming of psr_mode_is_32bit to
+regs_mode_is_32bit as the function no longer takes psr parameter.
 
-Oh, so there is.
+[1] https://marc.info/?l=xen-devel&m=156457538423787&w=2
 
-> Are
-> we OK with using plain build?
->
-> If so we would have to disable docs build and stubdom? We don't want
-> to analyze all the newlib &c that's build as part of stubdoms?
+Signed-off-by: Michal Orzel <michal.orzel@arm.com>
+---
+ xen/arch/arm/include/asm/regs.h |  2 +-
+ xen/arch/arm/traps.c            | 30 +++++++++++++++---------------
+ 2 files changed, 16 insertions(+), 16 deletions(-)
 
-The problem I was trying to work around there was that xen&tools turn
-into *-install so we also spend time shuffling binaries around the build
-environment.
+diff --git a/xen/arch/arm/include/asm/regs.h b/xen/arch/arm/include/asm/regs.h
+index ec091a28a2..04e821138a 100644
+--- a/xen/arch/arm/include/asm/regs.h
++++ b/xen/arch/arm/include/asm/regs.h
+@@ -13,7 +13,7 @@
+ 
+ #define psr_mode(psr,m) (((psr) & PSR_MODE_MASK) == m)
+ 
+-static inline bool psr_mode_is_32bit(const struct cpu_user_regs *regs)
++static inline bool regs_mode_is_32bit(const struct cpu_user_regs *regs)
+ {
+ #ifdef CONFIG_ARM_32
+     return true;
+diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+index 9339d12f58..0db8e42d65 100644
+--- a/xen/arch/arm/traps.c
++++ b/xen/arch/arm/traps.c
+@@ -896,7 +896,7 @@ static void _show_registers(const struct cpu_user_regs *regs,
+ 
+     if ( guest_mode )
+     {
+-        if ( psr_mode_is_32bit(regs) )
++        if ( regs_mode_is_32bit(regs) )
+             show_registers_32(regs, ctxt, guest_mode, v);
+ #ifdef CONFIG_ARM_64
+         else
+@@ -1631,7 +1631,7 @@ int check_conditional_instr(struct cpu_user_regs *regs, const union hsr hsr)
+     {
+         unsigned long it;
+ 
+-        BUG_ON( !psr_mode_is_32bit(regs) || !(cpsr & PSR_THUMB) );
++        BUG_ON( !regs_mode_is_32bit(regs) || !(cpsr & PSR_THUMB) );
+ 
+         it = ( (cpsr >> (10-2)) & 0xfc) | ((cpsr >> 25) & 0x3 );
+ 
+@@ -1656,7 +1656,7 @@ int check_conditional_instr(struct cpu_user_regs *regs, const union hsr hsr)
+ void advance_pc(struct cpu_user_regs *regs, const union hsr hsr)
+ {
+     register_t itbits, cond, cpsr = regs->cpsr;
+-    bool is_thumb = psr_mode_is_32bit(regs) && (cpsr & PSR_THUMB);
++    bool is_thumb = regs_mode_is_32bit(regs) && (cpsr & PSR_THUMB);
+ 
+     if ( is_thumb && (cpsr & PSR_IT_MASK) )
+     {
+@@ -2098,37 +2098,37 @@ void do_trap_guest_sync(struct cpu_user_regs *regs)
+         advance_pc(regs, hsr);
+         break;
+     case HSR_EC_CP15_32:
+-        GUEST_BUG_ON(!psr_mode_is_32bit(regs));
++        GUEST_BUG_ON(!regs_mode_is_32bit(regs));
+         perfc_incr(trap_cp15_32);
+         do_cp15_32(regs, hsr);
+         break;
+     case HSR_EC_CP15_64:
+-        GUEST_BUG_ON(!psr_mode_is_32bit(regs));
++        GUEST_BUG_ON(!regs_mode_is_32bit(regs));
+         perfc_incr(trap_cp15_64);
+         do_cp15_64(regs, hsr);
+         break;
+     case HSR_EC_CP14_32:
+-        GUEST_BUG_ON(!psr_mode_is_32bit(regs));
++        GUEST_BUG_ON(!regs_mode_is_32bit(regs));
+         perfc_incr(trap_cp14_32);
+         do_cp14_32(regs, hsr);
+         break;
+     case HSR_EC_CP14_64:
+-        GUEST_BUG_ON(!psr_mode_is_32bit(regs));
++        GUEST_BUG_ON(!regs_mode_is_32bit(regs));
+         perfc_incr(trap_cp14_64);
+         do_cp14_64(regs, hsr);
+         break;
+     case HSR_EC_CP14_DBG:
+-        GUEST_BUG_ON(!psr_mode_is_32bit(regs));
++        GUEST_BUG_ON(!regs_mode_is_32bit(regs));
+         perfc_incr(trap_cp14_dbg);
+         do_cp14_dbg(regs, hsr);
+         break;
+     case HSR_EC_CP10:
+-        GUEST_BUG_ON(!psr_mode_is_32bit(regs));
++        GUEST_BUG_ON(!regs_mode_is_32bit(regs));
+         perfc_incr(trap_cp10);
+         do_cp10(regs, hsr);
+         break;
+     case HSR_EC_CP:
+-        GUEST_BUG_ON(!psr_mode_is_32bit(regs));
++        GUEST_BUG_ON(!regs_mode_is_32bit(regs));
+         perfc_incr(trap_cp);
+         do_cp(regs, hsr);
+         break;
+@@ -2139,7 +2139,7 @@ void do_trap_guest_sync(struct cpu_user_regs *regs)
+          * ARMv7 (DDI 0406C.b): B1.14.8
+          * ARMv8 (DDI 0487A.d): D1-1501 Table D1-44
+          */
+-        GUEST_BUG_ON(!psr_mode_is_32bit(regs));
++        GUEST_BUG_ON(!regs_mode_is_32bit(regs));
+         perfc_incr(trap_smc32);
+         do_trap_smc(regs, hsr);
+         break;
+@@ -2147,7 +2147,7 @@ void do_trap_guest_sync(struct cpu_user_regs *regs)
+     {
+         register_t nr;
+ 
+-        GUEST_BUG_ON(!psr_mode_is_32bit(regs));
++        GUEST_BUG_ON(!regs_mode_is_32bit(regs));
+         perfc_incr(trap_hvc32);
+ #ifndef NDEBUG
+         if ( (hsr.iss & 0xff00) == 0xff00 )
+@@ -2162,7 +2162,7 @@ void do_trap_guest_sync(struct cpu_user_regs *regs)
+     }
+ #ifdef CONFIG_ARM_64
+     case HSR_EC_HVC64:
+-        GUEST_BUG_ON(psr_mode_is_32bit(regs));
++        GUEST_BUG_ON(regs_mode_is_32bit(regs));
+         perfc_incr(trap_hvc64);
+ #ifndef NDEBUG
+         if ( (hsr.iss & 0xff00) == 0xff00 )
+@@ -2178,12 +2178,12 @@ void do_trap_guest_sync(struct cpu_user_regs *regs)
+          *
+          * ARMv8 (DDI 0487A.d): D1-1501 Table D1-44
+          */
+-        GUEST_BUG_ON(psr_mode_is_32bit(regs));
++        GUEST_BUG_ON(regs_mode_is_32bit(regs));
+         perfc_incr(trap_smc64);
+         do_trap_smc(regs, hsr);
+         break;
+     case HSR_EC_SYSREG:
+-        GUEST_BUG_ON(psr_mode_is_32bit(regs));
++        GUEST_BUG_ON(regs_mode_is_32bit(regs));
+         perfc_incr(trap_sysreg);
+         do_sysreg(regs, hsr);
+         break;
+-- 
+2.29.0
 
-What we actually want is:
-
-make -j`nproc` build-xen build-tools && make -j`nproc` -C extras/mini-os/
-
-~Andrew
 
