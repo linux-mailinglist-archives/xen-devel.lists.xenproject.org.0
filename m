@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F1394BDB4D
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Feb 2022 18:33:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.276376.472517 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 579F04BE3E3
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Feb 2022 18:58:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.276389.472528 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nMCYh-0004D2-Eu; Mon, 21 Feb 2022 17:33:11 +0000
+	id 1nMCw7-0006jz-0I; Mon, 21 Feb 2022 17:57:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 276376.472517; Mon, 21 Feb 2022 17:33:11 +0000
+Received: by outflank-mailman (output) from mailman id 276389.472528; Mon, 21 Feb 2022 17:57:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nMCYh-0004Ak-Bf; Mon, 21 Feb 2022 17:33:11 +0000
-Received: by outflank-mailman (input) for mailman id 276376;
- Mon, 21 Feb 2022 17:33:09 +0000
+	id 1nMCw6-0006i9-TS; Mon, 21 Feb 2022 17:57:22 +0000
+Received: by outflank-mailman (input) for mailman id 276389;
+ Mon, 21 Feb 2022 17:57:22 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nMCYf-0004Aa-NL; Mon, 21 Feb 2022 17:33:09 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1nMCw6-0006i3-2e
+ for xen-devel@lists.xenproject.org; Mon, 21 Feb 2022 17:57:22 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nMCYf-0002j2-MF; Mon, 21 Feb 2022 17:33:09 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nMCYf-0000wL-9J; Mon, 21 Feb 2022 17:33:09 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nMCYf-0003I0-8q; Mon, 21 Feb 2022 17:33:09 +0000
+ (envelope-from <julien@xen.org>)
+ id 1nMCw5-0003CZ-PV; Mon, 21 Feb 2022 17:57:21 +0000
+Received: from [54.239.6.189] (helo=[192.168.5.64])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nMCw5-0007tb-J0; Mon, 21 Feb 2022 17:57:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +39,240 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=/QR9GFYOBcVJZp5owsMVDMJvKoMyyYsm5pWZTjhAFNQ=; b=H69yY7KQj9DGGwC1FD96AwDvKH
-	42JA5bJQBA6GmcbYAmaRe5KAW1Y98SUdwyEEgFc7EOHEbETGNIx97CKc0ELzsr5ojjHIaY61vohy9
-	DEeHKMVSVn8GqOd60466Jk6/bmxu803p1+LOusldbZG5ZA/Iz3+4h9wpQVNc71x4Ca8c=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168185-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=eB18/8J0cqV/Svq+HKVvvHntT2R2n2FcQK/gpo/qTIs=; b=AawMLZXwnOhGYhdGUddf9+mZCS
+	pQGvooMQbJF005zDxGX5wMdkM+MuI24LZzV81nCBfxde3cnA1qDNA8kHxjjGYTgbnBt33ft/fTV5L
+	w+E7fV04OeXuX1twxdRqSQZlHBQzJtgkAfN0uffcLK0wYgFtjNF+X87Q3RIJZZ1q3yMY=;
+Message-ID: <576cf522-f002-afac-36b6-b31f87724dca@xen.org>
+Date: Mon, 21 Feb 2022 17:57:19 +0000
 MIME-Version: 1.0
-Subject: [ovmf test] 168185: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=b24306f15daa2ff8510b06702114724b33895d3c
-X-Osstest-Versions-That:
-    ovmf=8a576733162bb72afb4d1eb3012b0aef8d265018
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 21 Feb 2022 17:33:09 +0000
-
-flight 168185 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168185/
-
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 b24306f15daa2ff8510b06702114724b33895d3c
-baseline version:
- ovmf                 8a576733162bb72afb4d1eb3012b0aef8d265018
-
-Last test of basis   168131  2022-02-16 12:13:29 Z    5 days
-Testing same since   168185  2022-02-21 15:43:05 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Heng Luo <heng.luo@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.6.1
+Subject: Re: [XEN v8 2/2] xen/arm64: io: Support instructions (for which ISS
+ is not valid) on emulated MMIO region using MMIO/ioreq handler
+To: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>,
+ xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
+ bertrand.marquis@arm.com
+References: <20220212233433.46018-1-ayankuma@xilinx.com>
+ <20220212233433.46018-3-ayankuma@xilinx.com>
+ <1599e2f3-0a34-020a-dd42-5ba87dad555d@xen.org>
+ <10cf253b-fc58-1afc-66ec-33ac3008bb0f@xilinx.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <10cf253b-fc58-1afc-66ec-33ac3008bb0f@xilinx.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On 21/02/2022 17:05, Ayan Kumar Halder wrote:
+> Hi Julien,
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Hi,
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> On 13/02/2022 12:19, Julien Grall wrote:
+>>>   }
+>>>     void register_mmio_handler(struct domain *d,
+>>> diff --git a/xen/arch/arm/ioreq.c b/xen/arch/arm/ioreq.c
+>>> index 308650b400..3c0a935ccf 100644
+>>> --- a/xen/arch/arm/ioreq.c
+>>> +++ b/xen/arch/arm/ioreq.c
+>>> @@ -47,6 +47,7 @@ enum io_state try_fwd_ioserv(struct cpu_user_regs 
+>>> *regs,
+>>>                                struct vcpu *v, mmio_info_t *info)
+>>>   {
+>>>       struct vcpu_io *vio = &v->io;
+>>> +    struct dabt_instr instr = info->dabt_instr;
+>>>       ioreq_t p = {
+>>>           .type = IOREQ_TYPE_COPY,
+>>>           .addr = info->gpa,
+>>> @@ -76,10 +77,8 @@ enum io_state try_fwd_ioserv(struct cpu_user_regs 
+>>> *regs,
+>>>       if ( !s )
+>>>           return IO_UNHANDLED;
+>>>   -    if ( !info->dabt.valid )
+>>> -        return IO_ABORT;
+>>> -
+>>
+>> For this one, I would switch to ASSERT(dabt.valid);
+> I see that try_fwd_ioserv() is invoked from try_handle_mmio() only. 
+> Thus, if I follow your suggestion of adding a check for dabt.valid at 
+> the beginning of try_handle_mmio(), then this ASSERT() is not required.
 
+I agree that try_handle_mmio() is the only caller today. But we don't 
+know how this is going to be used tomorrow.
 
-Pushing revision :
+The goal of this ASSERT() is to catch those new users that would call it 
+wrongly.
 
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   8a57673316..b24306f15d  b24306f15daa2ff8510b06702114724b33895d3c -> xen-tested-master
+[...]
+
+>> ... this will inject a data abort to the guest when we can't decode. 
+>> This is not what we want. We should check whether this is a P2M 
+>> translation fault or we need to map an MMIO region.
+>>
+>> In pseudo-code, this would look like:
+>>
+>> if ( !is_data || hsr.dabt.valid )
+> 
+> I think you mean if ( !is_data || !hsr.dabt.valid )
+
+You are right.
+
+> 
+> The reason being if there is an instruction abort or a data abort (with 
+> ISV == 0), then it should try to configure the page tables.
+> 
+>> {
+>>     if ( check_p2m() )
+>>       return;
+>>
+>>
+>>     if ( !is_data )
+>>        goto inject_dabt;
+>>
+>>     decode_instruction();
+>>     if ( !dabt.invalid )
+>>       goto inject_dabt;
+>> }
+>>
+>> try_handle_mmio();
+>>
+>> if ( instruction was not decoded )
+>>   check_p2m();
+> 
+> If the instruction was not decoded, then there is no need to configure 
+> the page tables again. We have already done this before.
+
+Hmmmm... I think there are confusing about which sort of decoding I was 
+referring to. In this case, I mean if we didn't decode the instruction 
+manully, then it is not necessary to call check_p2m().
+
+Do you agree with that?
+
+> So my understanding is as follows :-
+> 
+>          /* Check that it is instruction abort or ISS is invalid. */
+
+I have had a remark on this line before. Please have a look and address it.
+
+>          if ( !is_data || !info.dabt.valid )
+>          {
+>              /*
+>               * If the instruction was trapped due to access to stage 1 
+> translation
+>               * then Xen should try to resolve the page table entry for 
+> the stage 1
+>               * translation table with the assumption that the page 
+> tables are
+>               * present in the non MMIO region. If it is successful, 
+> then it should
+>               * ask the guest to retry the instruction.
+>               */
+
+I agree that we want to skip the MMIO mapping when s1ptw == 1. However, 
+I am not sure this belongs to this patch because this is technically 
+already a bug.
+
+>              if ( is_data && info.dabt.s1ptw )
+>              {
+>                  info.dabt_instr.state = INSTR_RETRY;
+>                  /* The translation tables are assumed to be in non MMIO 
+> region. */
+>                  is_data = false;
+
+is_data is also used to decide which sort of abort we want to send to 
+the guest (see after inject_dabt). So I don't think we could force set 
+is_data here.
+
+Instead, I would define a new local variable (maybe mmio_access_allowed) 
+that will be set for instruction abort or when s1ptw is 1.
+
+>              }
+> 
+>              /*
+>               * Assumption :- Most of the times when we get a 
+> translation fault
+>               * and the ISS is invalid, the underlying cause is that the 
+> page
+>               * tables have not been set up correctly.
+>               */
+
+I think this comment make more sense on top of "if !is_data || 
+!info.dabt.valid".
+
+>              if ( check_p2m(is_data, gpa) )
+>                  return;
+> 
+>              /*
+>               * If the instruction abort or the data abort due to access 
+> to stage 1
+>               * translation tables could not be resolved by setting the 
+> appropriate
+>               * bits in the translation table, then Xen should abort the 
+> guest.
+
+IHMO, "abort the guest" means we are going to crash the guest. However, 
+this not the case here. We are telling the guest that we couldn't handle 
+the data/instruction request. It is up to the guest to decide whether it 
+should panic or handle gracefully the error.
+
+We should also avoid the term guest because it usually only refers to 
+any domain but dom0.
+
+Therefore, I would reword it to something like "Xen will forward the 
+data/instruction abort to the domain".
+
+>               */
+>              if ( !is_data || (info.dabt_instr.state == INSTR_RETRY) )
+
+The second part looks unnecessary.
+
+>                  goto inject_abt;
+> 
+>              try_decode_instruction(regs, &info);
+> 
+>              /* Instruction could not be decoded, then abort the guest */
+> 
+>              if ( info.dabt_instr.state == INSTR_ERROR)
+>                  goto inject_abt;
+>          }
+> 
+>          state = try_handle_mmio(regs, &info);
+> 
+>          switch ( state )
+>          {
+>              case IO_ABORT:
+>                  goto inject_abt;
+>              case IO_HANDLED:
+>                  /*
+>                   * If the instruction was decoded and has executed 
+> successfully
+>                   * on the MMIO region, then Xen should execute the next 
+> part of
+>                   * the instruction. (for eg increment the rn if it is a
+>                   * post-indexing instruction.
+>                   */
+>                  post_increment_register(&info.dabt_instr);
+>                  advance_pc(regs, hsr);
+>                  return;
+>              case IO_RETRY:
+>                  /* finish later */
+>                  return;
+>              case IO_UNHANDLED:
+>                  /* IO unhandled, try another way to handle it. */
+>                  break;
+>          }
+> 
+>          if ( check_p2m(is_data, gpa) )
+
+It is unnecessary to call check_p2M() if we manually decoded the 
+instruction (see above why).
+
+Cheers,
+
+-- 
+Julien Grall
 
