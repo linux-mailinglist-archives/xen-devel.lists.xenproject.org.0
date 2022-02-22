@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6663C4BF7F9
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Feb 2022 13:18:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.276758.473039 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E1F34BF81A
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Feb 2022 13:35:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.276767.473050 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nMU7S-0007PD-Pr; Tue, 22 Feb 2022 12:18:14 +0000
+	id 1nMUNg-0001FG-Af; Tue, 22 Feb 2022 12:35:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 276758.473039; Tue, 22 Feb 2022 12:18:14 +0000
+Received: by outflank-mailman (output) from mailman id 276767.473050; Tue, 22 Feb 2022 12:35:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nMU7S-0007MK-Me; Tue, 22 Feb 2022 12:18:14 +0000
-Received: by outflank-mailman (input) for mailman id 276758;
- Tue, 22 Feb 2022 12:18:12 +0000
+	id 1nMUNg-0001D0-7T; Tue, 22 Feb 2022 12:35:00 +0000
+Received: by outflank-mailman (input) for mailman id 276767;
+ Tue, 22 Feb 2022 12:34:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BO+H=TF=invisiblethingslab.com=woju@srs-se1.protection.inumbo.net>)
- id 1nMU7Q-0007Lt-KY
- for xen-devel@lists.xenproject.org; Tue, 22 Feb 2022 12:18:12 +0000
+ <SRS0=AYeZ=TF=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1nMUNe-0001Cu-JM
+ for xen-devel@lists.xenproject.org; Tue, 22 Feb 2022 12:34:58 +0000
 Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
  [64.147.123.24]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7fa4b175-93d9-11ec-8539-5f4723681683;
- Tue, 22 Feb 2022 13:18:11 +0100 (CET)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 658803201DE8;
- Tue, 22 Feb 2022 07:18:08 -0500 (EST)
+ id cda59c64-93db-11ec-8539-5f4723681683;
+ Tue, 22 Feb 2022 13:34:40 +0100 (CET)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.west.internal (Postfix) with ESMTP id 1B5CE3202138;
+ Tue, 22 Feb 2022 07:34:48 -0500 (EST)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Tue, 22 Feb 2022 07:18:09 -0500
+ by compute2.internal (MEProxy); Tue, 22 Feb 2022 07:34:48 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 22 Feb 2022 07:18:06 -0500 (EST)
-Received: by mail-itl.localdomain (Postfix, from userid 1000)
- id 9048588D3F; Tue, 22 Feb 2022 13:18:03 +0100 (CET)
+ 22 Feb 2022 07:34:45 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,119 +43,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7fa4b175-93d9-11ec-8539-5f4723681683
+X-Inumbo-ID: cda59c64-93db-11ec-8539-5f4723681683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:from:from
+	messagingengine.com; h=cc:content-type:date:date:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=kcYTy4s/XO5qMDwIt
-	AUsf/XzBPXwIFt2A5ax0wPh15s=; b=fTBkdrbijoCmJCqImjrWMzRUW1fyjA7Wo
-	t7D1EKwDqoLDr+OFTt39Ev3XfwA5flxIeWXzDmHEda0qlyuizMXyHKZ/aFFVPtMU
-	Ba6bByWsaDy5u2NLwnxlb1BFjmp0rtfHFacPX7S1+Hj353/F1GYrE+HYSfbgqPvb
-	Q+jK9VjG694+3VausSbWdrRXmQJwOht5vjKxGQfDwgO03tVnB8TtwBLFOqTKKyqb
-	6BCOdpe4J0ZRUe5WTHehRRKPAMokn00tfnIHu0NT1cY9H5AdDw3HMUgqLM6kF/do
-	/NTroXE0fju3vcpV4li2jxEyhPxjnn8mhzmTCU5r3GpFSy8/SjSbA==
-X-ME-Sender: <xms:f9QUYnUEH8Bxpjad_niNS3aOEWUaLZM4wYXhu5xj_dBD2m-q6mTtjA>
-    <xme:f9QUYvkfCIUGhnMFGocu71Bqp3vVHyl9cfNbftgg1o0rsRRLnCuCQxc9py3ZiVj5Q
-    UVgZMusN6JKE7I>
-X-ME-Received: <xmr:f9QUYjarG1AMXlCZTPLl5zo4HMrC_h2w8ney59lMUCx2vF2zlhaNDTtIVfXSlmqkWvE9nRgy3wWw8Z8wVI4umD6RjkYB2jcGV-p0Y4CyJg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrkeekgdefjecutefuodetggdotefrodftvf
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=1cwBl3Dlc+eSuBKBr
+	9u3an3V7I9uGGazK91w8bC07/A=; b=R8OYf1GCUkPqtX1I1HhuOeXepXZoq7VM7
+	ledvyUv7l8aBz5SFWCIHJ7EJ56FVq1y/lFIwby+IDlVZJtcxSVJM13DPVUmixCPY
+	1akR89XeewRQYnk/MkeR2gmou0cFBw54kYjdz4C+HVEYyUNwYccc40syFZ5IQqj1
+	0YZZDZyRbn7JWPZeKqyZnz5Tx2LuFePn4DhQxsCyjRm8xLZRamWE1JU1pDO+wNP7
+	Iz05gmph9WvRNgJ2Br7bvXA1ks29MAazzruHxOvR/Eh9RO2WUwL/XPk9fA9afLd9
+	K8nK6ADOhwCVko6bG89ovRFACN8oZENuWIbSd4CezsI/ffmyQLHbQ==
+X-ME-Sender: <xms:Z9gUYjyeO3jsuOzVO8_vdkmfCceBm4K_gkrDsduoCVZjhOBGc81bkA>
+    <xme:Z9gUYrRj0vBJPAlB4EmsveA1VPlTjeBEzwFqqA7iApgydQS6IoNozp3JHwGB_Q0dJ
+    4NNR8VC2-azfA>
+X-ME-Received: <xmr:Z9gUYtWDeIhZuPMlaBGO3VKssPp3YmzhBtPaKKV9XpM4TEo1z2txFbb7EnhQ1BLXuRBmGf9RQVQFCOQitR4xdnHvCzBsDZIo1w>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrkeekgdegtdcutefuodetggdotefrodftvf
     curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
     uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhephghojhhtvghk
-    ucfrohhrtgiihihkuceofihojhhusehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtg
-    homheqnecuggftrfgrthhtvghrnheptddvffefjeeftddtieevueeigeehgeefheeluefh
-    fffhveeuveelueelffejtdegnecuffhomhgrihhnpehrvghpohhlohhghidrohhrghdpgh
-    hrrghphhgvnhgvphhrohhjvggtthdrihhonecuvehluhhsthgvrhfuihiivgeptdenucfr
-    rghrrghmpehmrghilhhfrhhomhepfihojhhusehinhhvihhsihgslhgvthhhihhnghhslh
-    grsgdrtghomh
-X-ME-Proxy: <xmx:f9QUYiXWReafX3ELfPclN8Tu7E6eBrZPv_t4i-fGeOj0yqH6vZzMbA>
-    <xmx:f9QUYhkwgYaNc12eHJnfSdKxVpDI0cevYkjUgeXW05r-NMXtK3Rmxg>
-    <xmx:f9QUYveMKtzU880AlSfAAk_0iX82_uWtj3EkdkGW11hzc25o4ATjyg>
-    <xmx:f9QUYvZwWpb7T1Cv75vVY-Lhw4gaQMdpIFpwXUqXAbb_9jHo1eNh2g>
-Date: Tue, 22 Feb 2022 13:18:03 +0100
-From: Wojtek Porczyk <woju@invisiblethingslab.com>
-To: George Dunlap <George.Dunlap@citrix.com>
-Cc: Jan Beulich <JBeulich@suse.com>, Ian Jackson <iwj@xenproject.org>,
-	Committers <committers@xenproject.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <Andrew.Cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] RFC: Version support policy
-Message-ID: <YhTUe7K5/rlek4AA@invisiblethingslab.com>
-Mail-Followup-To: George Dunlap <George.Dunlap@citrix.com>,
+    fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
+    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepteevffei
+    gffhkefhgfegfeffhfegveeikeettdfhheevieehieeitddugeefteffnecuvehluhhsth
+    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
+    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:Z9gUYtjrAOUeRjeYgLesisLLIbUFOt6GnOPd_KiZDjAu2aZTC8_5xg>
+    <xmx:Z9gUYlA_rEyYgQwpAuVMKjb8HtEMwqjF1rd9hwXZR4w6y8xM39ylnQ>
+    <xmx:Z9gUYmJx36QZf8PiHII1ENQeUGMAeFP2n65bxcpjGi568aWKmHqL0A>
+    <xmx:Z9gUYn0K_dyFh44nejx3-kFj-Posy9A6lVsDJTiy2LYSHYobG0Mi5g>
+Date: Tue, 22 Feb 2022 13:34:42 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: George Dunlap <George.Dunlap@citrix.com>,
 	Jan Beulich <JBeulich@suse.com>, Ian Jackson <iwj@xenproject.org>,
 	Committers <committers@xenproject.org>,
 	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
 	Andrew Cooper <Andrew.Cooper3@citrix.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] RFC: Version support policy
+Message-ID: <YhTYYven0PMcHM4P@mail-itl>
 References: <20210813113727.6028-1-iwj@xenproject.org>
  <de32c6c4-5ad5-862e-3988-0e7310ec3ecb@suse.com>
  <C6A7B444-4CFB-43A7-8FA8-AD1049F83912@citrix.com>
+ <YhTUe7K5/rlek4AA@invisiblethingslab.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3UUv3tuJOjWd5m1S"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="NKhGOpqXO9szl3YX"
 Content-Disposition: inline
-In-Reply-To: <C6A7B444-4CFB-43A7-8FA8-AD1049F83912@citrix.com>
+In-Reply-To: <YhTUe7K5/rlek4AA@invisiblethingslab.com>
 
 
---3UUv3tuJOjWd5m1S
-Content-Type: text/plain; charset=utf-8
+--NKhGOpqXO9szl3YX
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Tue, 22 Feb 2022 13:34:42 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: George Dunlap <George.Dunlap@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>, Ian Jackson <iwj@xenproject.org>,
+	Committers <committers@xenproject.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <Andrew.Cooper3@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] RFC: Version support policy
 
-On Mon, Feb 14, 2022 at 09:50:25PM +0000, George Dunlap wrote:
-> I think it=E2=80=99s too much effort to ask developers to try to find the=
- actual
-> minimum version of each individual dependency as things evolve.
+On Tue, Feb 22, 2022 at 01:18:03PM +0100, Wojtek Porczyk wrote:
+> On Mon, Feb 14, 2022 at 09:50:25PM +0000, George Dunlap wrote:
+> > I think it=E2=80=99s too much effort to ask developers to try to find t=
+he actual
+> > minimum version of each individual dependency as things evolve.
+>=20
+> By "find the actual minimum version", do you mean to get to know the vers=
+ion
+> number, or install that version on developer's machine?
 
-By "find the actual minimum version", do you mean to get to know the version
-number, or install that version on developer's machine?
-
-The first part is easy, may I recommend the excellent https://repology.org/
-tool, which also has API to query the version yourself and render a table
-yourself. If there's any interest, I could clean up and share a script to do
-tables like this: https://noc.grapheneproject.io/~woju/distros/.
-
-The second part very much depends on distro, but all of them have provisions
-to install older versions of packages, though not all of them might carry a=
-ll
-the possible versions (i.e., it might be that you need version X, Distro A =
-has
-had versions X-1 and X+1, but never packaged version X). Again, if this is
-a problem, it depends on the actual package and compatibility situation.
-
+I think it's something else (closer to the second one): finding what
+version is required for features actually used in the code.
 
 --=20
-pozdrawiam / best regards
-Wojtek Porczyk
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
 Invisible Things Lab
-=20
- I do not fear computers,
- I fear lack of them.
-    -- Isaac Asimov
 
---3UUv3tuJOjWd5m1S
+--NKhGOpqXO9szl3YX
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEaO0VFfpr0tEF6hYkv2vZMhA6I1EFAmIU1HsACgkQv2vZMhA6
-I1EMqw/7BeG66foOzv+3vFV0LkBV6NOqUm+TW5QPx6Qp1J+DSpQOZdOwKqwE17Vv
-2502VuSExJ35F+So8u9uecylxCEfQPOCBwVXYOzhZJbRjYn9UGPFrZd9nhoUcR7K
-5xc8/wD6lPFWqaX+uPp72pRwWKXBBCkOn8CawXos3X8uqF1ecjNRw/BqZ/DJs7AD
-To11h6tRi4LF6DQstgiNM3Fa+Ub9REs6ljnO6F/8xClyTRLLjmtfRK1++hW3jeDO
-bWrzfy4HrquRRG7UpqxG+bHIID1Gui/GhMdi1oBQ1NMWIB+jqIQHqraj3mfbgNsZ
-1c5DzPcofrm27Rbt/d0YbfjCDyyDeQU+xxFbi6jIUC77hbBn+u0TIIdn1mEyf9RI
-N3Ok/P+7jc6trik9ERoOZ/q6WtePlXWQrSjMIXIm8twS48uubmKf8gqag7dUciZC
-iw4tYFpNw5kc4jh6Tus+FEdaya2qX3gKp5Vm7+2pTwWCIYibpv3ebgY0yro1fIcJ
-EklbkWTOKqmEzfhATJkHZ1r8nM6uPzmpbBExAqJdLUwD9miqZ5y9fSOFU5uAYFmf
-H83GkuYeLGSYWnc8WRWDJLJB+cGIojWhFl+Y8FwuPHNVrF399haTYp0jXSBfs+f4
-0KBOe7sqJ+G35IjzKvTX4Il6anuBHzhxXyL6f83Q4apZEwYTt7U=
-=POjU
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmIU2GMACgkQ24/THMrX
+1yyNkAgAkI9gSWNLDTecG/HHJgZWgerwIptOlv7bOsxawbH4Z/07Gkzuv9kpcyRE
+Lr2sa8E+CERvR9ys9n88LZOoGT6+iwOrpCYTksT9XjQFWlt7JIR4uMElLb+Kf4CQ
+sgTAcQGHgckEarGmO2/34Z9sOlLQh3e06jl0fqkGZ7UKK0t1MSTs1RNV7iNuEkMI
+sB1jkIcR2sFf50zegnBddlBaPXDc6wXAIkcRcpzBCiX9WjESthnNLibjvx3fFRYX
+4ykWXsYCt04NET9Lcb62CKr24LNci4TRXmiM0lPaickbN9sGSbtLWTo4BL2L3rri
+F301jzEN9fcntEcLhFqnKtY7yG8zKg==
+=qQ6a
 -----END PGP SIGNATURE-----
 
---3UUv3tuJOjWd5m1S--
+--NKhGOpqXO9szl3YX--
 
