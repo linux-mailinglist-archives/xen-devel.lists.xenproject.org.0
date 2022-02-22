@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35BED4BFC85
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Feb 2022 16:27:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.276859.473229 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF34B4BFC82
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Feb 2022 16:27:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.276857.473214 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nMX4Y-0007Ut-TP; Tue, 22 Feb 2022 15:27:26 +0000
+	id 1nMX4X-00079Q-8n; Tue, 22 Feb 2022 15:27:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 276859.473229; Tue, 22 Feb 2022 15:27:26 +0000
+Received: by outflank-mailman (output) from mailman id 276857.473214; Tue, 22 Feb 2022 15:27:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nMX4Y-0007En-BS; Tue, 22 Feb 2022 15:27:26 +0000
-Received: by outflank-mailman (input) for mailman id 276859;
+	id 1nMX4W-00072O-VY; Tue, 22 Feb 2022 15:27:24 +0000
+Received: by outflank-mailman (input) for mailman id 276857;
  Tue, 22 Feb 2022 15:27:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Woib=TF=citrix.com=prvs=045a4fa17=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nMX4V-0006Cs-L5
- for xen-devel@lists.xenproject.org; Tue, 22 Feb 2022 15:27:23 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ecbaec81-93f3-11ec-8539-5f4723681683;
+ id 1nMX4U-0006OK-RK
+ for xen-devel@lists.xenproject.org; Tue, 22 Feb 2022 15:27:22 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ed7f4077-93f3-11ec-8eb8-a37418f5ba1a;
  Tue, 22 Feb 2022 16:27:21 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -36,52 +36,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ecbaec81-93f3-11ec-8539-5f4723681683
+X-Inumbo-ID: ed7f4077-93f3-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1645543642;
+  d=citrix.com; s=securemail; t=1645543641;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=L045W9NEOuIRKd1S32sU0jL0uHWIuPgrAYtbmC4gyoY=;
-  b=Et0i6TBuATWyVR2jJ4Z882ybRFKz7q6LVlibL2zAc5hZP+omQ7TLryaH
-   pvvtmenUEmO6NAhi8eoquW3qOrqwutmDbjxED5aoOtbxKl9wfgkghVh8F
-   ODwDAQO9IaoAd1Lzybvhv+nxnLj4b6XP+9C641icmzM5vHttq+nTh6Hrv
-   s=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=l3vBrs4n2oJ7gLUw9ggixaQ0VXQruT/jeyOhQ2uTkmw=;
+  b=fagQPc0U+nl2+kCUk+RSB1Ax8fP/YRoNE8iOdggNL+vI9PlESONBH04B
+   uSmsgfkV/f+gQacAQfXH38qVjRfUHf9G7RBj6mpyGuAtRaEqhcAX+tdj3
+   +fUcXATz3dZGnLHx3RMgeqrjLL1Hzly2hndiQ0aOpamdnRzPGT+yuc94+
+   Q=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 5.1
-X-MesageID: 64732553
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 66981789
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:EYviNKxYfnJII9KT8Kt6t+cyxirEfRIJ4+MujC+fZmUNrF6WrkVWz
- 2odUWvQOvffNmSkfdwnOo+39hwCuJfVyYdmTlE/ryAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
- 59DAjUVBJlsFhcwnj/0bv656yMUOZigHtIQMsadUsxKbVIiGHdJZS5LwbZj2NYy24LhWWthh
- PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
- gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
- Npl9pyQEVx3Gbf2n8cjUhkFIR1DGIlf9+qSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
- aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DFYUToHx/ixreCu4rW8vrSKTW/95Imjw3g6iiGN6AO
- 5VCM2cyN3wsZTVCPnIpGs5lkduYrSKua2xFq1mvipU4tj27IAtZj+G2bYu9lsaxbdpRtlaVo
- CTB5WuRKjMwOcGbyDGF2mmxneKJliT+MKoCGbv9+vN0jVm7wm0IFAZQRVa9ueO+iEO1R5RYM
- UN8x8Y1hfFsrgrxFIC7BkDm5i7f1vIBZzZOO646yFnWlI3O2QG6OGkEEwx9VfkCrcBjEFTGy
- WS1t9/uADVutpicRnSc6qqYoFuOBMQFEYMRTXRaFFVYurEPtKl210uSFYg7TMZZm/WoQWmY/
- tyckMQpa1z/Z+Yv3r7zw13IiinESnPhHl9svVW/so5IA2pEiG+Zi26AtACzARVodt/xory9U
- J4swZP2AAcmV8zlqcB1aL9RdIxFHt7cWNEmvXZhHoM66xOm8GO5cIZb7VlWfRk1b5paKGK0O
- hOK4Wu9AaO/2lPwNsebhKrrVqwXIVXIT4y5Bpg4kPIUCnSOSON31H43PhPBt4wcuEMtjbs+K
- f+mnTWEVh4n5VBc5GPuHY81iOZzrghnnD+7bc2rnnyPjOvFDFbIGOhtDbd7Rr1ghE9yiF6Oq
- Ig32grj40g3bdASlQGNr9ZIdAhSdSJT6FKfg5U/S9Nv6zFOQAkJY8I9C5t7E2C5t8y5Ttv1w
- 0w=
-IronPort-HdrOrdr: A9a23:wvbKHa5FasUdd7DxaAPXwPDXdLJyesId70hD6qhwISY6TiX+rb
- HWoB17726TtN9/YhEdcLy7VJVoBEmskKKdgrNhWotKPjOW21dARbsKheCJrgEIWReOktK1vZ
- 0QC5SWY+eQMbEVt6nHCXGDYrQd/OU=
+IronPort-Data: A9a23:1A3tjqqhn/zkLDuqHRQ4M39iTdVeBmIdZRIvgKrLsJaIsI4StFCzt
+ garIBnUaK2NM2Cke9x+bo3g9kkO78SGy4c2GVQ9ri4zRXkRpZuZCYyVIHmrMnLJJKUvbq7GA
+ +byyDXkBJppJpMJjk71atANlVEliefQAOCU5NfsYkidfyc9IMsaoU8ly75RbrJA24DjWVvX4
+ 4mq+aUzBXf+s9JKGjNMg068gEsHUMTa4Fv0aXRnOJinFHeH/5UkJMp3yZOZdhMUcaENdgKOf
+ M7RzanRw4/s10xF5uVJMFrMWhZirrb6ZWBig5fNMkSoqkAqSicais7XOBeAAKv+Zvrgc91Zk
+ b1wWZKMpQgBNbTQpLw5dCJhFyxZIrJv9bLEE2KciJnGp6HGWyOEL/RGCUg3OcsT+/ptAHEI/
+ vsdQNwPRknd3aTsmuv9E7QywJR4RCXoFNp3VnVI5DfVF/s5B7vERL3H/4Rw1zYsnMFeW/3ZY
+ qL1bBIxMkWQOkIfaz/7Drpll/fymFP+UgRfrQmFiJUy/FXNyzduhe2F3N39JYXRGJQ9clyjj
+ n3C13T0BFcdLtP34Riv/2+oh+TPtTjmQ49UH7q9ntZ6jVvWymENBRk+UVqgveL/mkO4Q8hYK
+ UEf5mwpt6dayaCwZoCjBVvi+ifC50NCHYoLewEn1O2T4qHN/zrBIk8/dzpMT8M5ncI7Rg4w9
+ WbcyrsFGgdTmLGSTHuc8JKdojWzJTUZIAc+WMMUcecWy4K9+d9u13ojWv4mSffo1YOtRVkc1
+ hjX9HBWulkFsSIcO0xXF3jjiinkmJXGRxVdCu7/DjP8tVMRiGJIiuWVBbnnARRocd7xorqp5
+ iFsdy2iAAYmV8rleMulGrhlIV1Rz6zZWAAweHY2d3Xbyxyj+mS4Yadb6yxkKUFiP64sIGG1P
+ RON6F4MvsMKZBNGiJObharrUKzGKoC6SLzYug38NIISMvCdiifdlM2RWaJg9z+0yxV9+U3OE
+ ZyabdytHR4n5VdPl1KLqxMm+eZznEgWnDqLLbiilkjP+efONRa9FOZeWHPTP79R0U9xiFiMm
+ zqpH5DRkEs3vSyXSnS/zLP/2nhQcyBgXMiu85Y/myzqClMOJVzNwsT5mdsJE7GJVYwP/gsU1
+ hlRgnNl9Wc=
+IronPort-HdrOrdr: A9a23:m0j6aKOQR0a/IcBcTvmjsMiBIKoaSvp037Eqv3oedfUzSL3gqy
+ nOpoV86faaslYssR0b9exofZPwJE80lqQFhrX5X43SPzUO0VHAROoJgLcKgQeQfxEWntQtrZ
+ uIGJIeNDSfNzdHZL7BkWuFL+o=
 X-IronPort-AV: E=Sophos;i="5.88,387,1635220800"; 
-   d="scan'208";a="64732553"
+   d="scan'208";a="66981789"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v3 05/70] x86/kexec: Annotate embedded data with ELF metadata
-Date: Tue, 22 Feb 2022 15:26:33 +0000
-Message-ID: <20220222152645.8844-4-andrew.cooper3@citrix.com>
+Subject: [PATCH v3 06/70] x86: Introduce support for CET-IBT
+Date: Tue, 22 Feb 2022 15:26:34 +0000
+Message-ID: <20220222152645.8844-5-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20220222152645.8844-1-andrew.cooper3@citrix.com>
 References: <20220222152645.8844-1-andrew.cooper3@citrix.com>
@@ -89,197 +89,223 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Scanning for embedded endbranch instructions involves parsing the .text
-disassembly.  Data in the kexec trampoline has no ELF metadata, so objdump
-treats it as instructions and tries to disassemble.  Convert:
+CET Indirect Branch Tracking is a hardware feature designed to provide
+forward-edge control flow integrity, protecting against jump/call oriented
+programming.
 
-  ffff82d040396108 <compatibility_mode_far>:
-  ffff82d040396108:       00 00                   add    %al,(%rax)
-  ffff82d04039610a:       00 00                   add    %al,(%rax)
-  ffff82d04039610c:       10 00                   adc    %al,(%rax)
+IBT requires the placement of ENDBR{32,64} instructions at the target of every
+indirect call/jmp, and every entrypoint.
 
-  ffff82d04039610e <compat_mode_gdt_desc>:
-  ffff82d04039610e:       17                      (bad)
-          ...
+However, the default -fcf-protection=branch places an ENDBR on every function
+which far more than necessary, and reduces the quantity of protection
+afforded.  Therefore, we use manual placement using the cf_check attribute.
 
-  ffff82d040396118 <compat_mode_gdt>:
-          ...
-  ffff82d040396120:       ff                      (bad)
-  ffff82d040396121:       ff 00                   incl   (%rax)
-  ffff82d040396123:       00 00                   add    %al,(%rax)
-  ffff82d040396125:       93                      xchg   %eax,%ebx
-  ffff82d040396126:       cf                      iret
-  ffff82d040396127:       00 ff                   add    %bh,%bh
-  ffff82d040396129:       ff 00                   incl   (%rax)
-  ffff82d04039612b:       00 00                   add    %al,(%rax)
-  ffff82d04039612d:       9b                      fwait
-  ffff82d04039612e:       cf                      iret
-          ...
-
-  ffff82d040396130 <compat_mode_idt>:
-          ...
-
-  ffff82d0403961b6 <kexec_reloc_size>:
-  ffff82d0403961b6:       b6 01                   mov    $0x1,%dh
-          ...
-
-to:
-
-  ffff82d040396108 <compatibility_mode_far>:
-  ffff82d040396108:       00 00 00 00 10 00                               ......
-
-  ffff82d04039610e <compat_mode_gdt_desc>:
-  ffff82d04039610e:       17 00 00 00 00 00 00 00 00 00                   ..........
-
-  ffff82d040396118 <compat_mode_gdt>:
-          ...
-  ffff82d040396120:       ff ff 00 00 00 93 cf 00 ff ff 00 00 00 9b cf 00 ................
-
-  ffff82d040396130 <compat_mode_idt>:
-  ffff82d040396130:       00 00 00 00 00 00                               ......
-
-  ffff82d040396136 <reloc_stack>:
-          ...
-
-Most data just gains type and size metadata.
-
-The reloc_stack label is the wrong end of the data block to have a size, so
-move it to the lowest address and introduce .Lreloc_stack_base as a
-replacement.  Also, fix the fact that it is misaligned by 2 bytes.
-
-While kexec_reloc_size could gain metadata, it's use in the linker
-assertion (while correct) is deeply confusing to follow.  Drop it entirely,
-using a linker symbol instead to denote the end of the trampoline.
-
-No functional change.
+It is necessary to check for both compiler and assembler support, as the
+notrack prefix can be emitted in certain cases.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 
-The remainder of the 32bit code has mode-invariant lengths, so disassembles
-safely as 64bit.  The only differences come from 32/64bit implicit register
-sizes.
+Clang/LLVM support for -mmanual-endbr is in progress:
+  https://reviews.llvm.org/D118355
 
-v2.1:
- * New
-v2.2:
- * Fix stack alignment
+v2:
+ * Correct CONFIG_HAS_CC_CET_IBT to CONFIG_XEN_IBT in some places
+ * Move cf_check compatibility into tools/tests/x86_emulator/x86-emulate.h
+v3:
+ * Extend commit message
+ * Disable IBT for pvshim defconfig
 ---
- xen/arch/x86/include/asm/machine_kexec.h |  2 +-
- xen/arch/x86/machine_kexec.c             |  2 +-
- xen/arch/x86/x86_64/kexec_reloc.S        | 23 ++++++++++++++++++-----
- xen/arch/x86/xen.lds.S                   |  3 ++-
- 4 files changed, 22 insertions(+), 8 deletions(-)
+ Config.mk                                   |  1 -
+ tools/firmware/Makefile                     |  2 ++
+ tools/libs/guest/xg_dom_decompress_unsafe.h |  2 ++
+ tools/tests/x86_emulator/x86-emulate.h      |  2 ++
+ xen/arch/x86/Kconfig                        | 17 +++++++++++++++++
+ xen/arch/x86/arch.mk                        |  6 ++++++
+ xen/arch/x86/configs/pvshim_defconfig       |  1 +
+ xen/arch/x86/include/asm/asm-defns.h        |  6 ++++++
+ xen/arch/x86/include/asm/cpufeature.h       |  1 +
+ xen/arch/x86/include/asm/cpufeatures.h      |  1 +
+ xen/include/xen/compiler.h                  |  6 ++++++
+ 11 files changed, 44 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/x86/include/asm/machine_kexec.h b/xen/arch/x86/include/asm/machine_kexec.h
-index ba0d469d077b..d4880818c1d9 100644
---- a/xen/arch/x86/include/asm/machine_kexec.h
-+++ b/xen/arch/x86/include/asm/machine_kexec.h
-@@ -9,7 +9,7 @@ extern void kexec_reloc(unsigned long reloc_code, unsigned long reloc_pt,
-                         unsigned long ind_maddr, unsigned long entry_maddr,
-                         unsigned long flags);
+diff --git a/Config.mk b/Config.mk
+index 95c053212ec3..f56f7dc33468 100644
+--- a/Config.mk
++++ b/Config.mk
+@@ -190,7 +190,6 @@ APPEND_CFLAGS += $(foreach i, $(APPEND_INCLUDES), -I$(i))
  
--extern unsigned int kexec_reloc_size;
-+extern const char kexec_reloc_end[];
+ EMBEDDED_EXTRA_CFLAGS := -nopie -fno-stack-protector -fno-stack-protector-all
+ EMBEDDED_EXTRA_CFLAGS += -fno-exceptions -fno-asynchronous-unwind-tables
+-EMBEDDED_EXTRA_CFLAGS += -fcf-protection=none
  
+ XEN_EXTFILES_URL ?= http://xenbits.xen.org/xen-extfiles
+ # All the files at that location were downloaded from elsewhere on
+diff --git a/tools/firmware/Makefile b/tools/firmware/Makefile
+index 345037b93b7f..53ed4f161edb 100644
+--- a/tools/firmware/Makefile
++++ b/tools/firmware/Makefile
+@@ -6,6 +6,8 @@ TARGET      := hvmloader/hvmloader
+ INST_DIR := $(DESTDIR)$(XENFIRMWAREDIR)
+ DEBG_DIR := $(DESTDIR)$(DEBUG_DIR)$(XENFIRMWAREDIR)
+ 
++EMBEDDED_EXTRA_CFLAGS += -fcf-protection=none
++
+ SUBDIRS-y :=
+ SUBDIRS-$(CONFIG_OVMF) += ovmf-dir
+ SUBDIRS-$(CONFIG_SEABIOS) += seabios-dir
+diff --git a/tools/libs/guest/xg_dom_decompress_unsafe.h b/tools/libs/guest/xg_dom_decompress_unsafe.h
+index 4e0bf23aa587..ac6b94288d5e 100644
+--- a/tools/libs/guest/xg_dom_decompress_unsafe.h
++++ b/tools/libs/guest/xg_dom_decompress_unsafe.h
+@@ -8,6 +8,8 @@ typedef int decompress_fn(unsigned char *inbuf, unsigned int len,
+                           void (*error)(const char *x));
  #endif
  
-diff --git a/xen/arch/x86/machine_kexec.c b/xen/arch/x86/machine_kexec.c
-index 08ec9fd43b1d..751a9efcaf6a 100644
---- a/xen/arch/x86/machine_kexec.c
-+++ b/xen/arch/x86/machine_kexec.c
-@@ -117,7 +117,7 @@ int machine_kexec_load(struct kexec_image *image)
-     }
++#define cf_check /* No Control Flow Integriy checking */
++
+ int xc_dom_decompress_unsafe(
+     decompress_fn fn, struct xc_dom_image *dom, void **blob, size_t *size)
+     __attribute__((visibility("internal")));
+diff --git a/tools/tests/x86_emulator/x86-emulate.h b/tools/tests/x86_emulator/x86-emulate.h
+index 7f60ef9e89ba..18ae40d01712 100644
+--- a/tools/tests/x86_emulator/x86-emulate.h
++++ b/tools/tests/x86_emulator/x86-emulate.h
+@@ -54,6 +54,8 @@
+ #define likely(x)   __builtin_expect(!!(x), true)
+ #define unlikely(x) __builtin_expect(!!(x), false)
  
-     code_page = __map_domain_page(image->control_code_page);
--    memcpy(code_page, kexec_reloc, kexec_reloc_size);
-+    memcpy(code_page, kexec_reloc, kexec_reloc_end - (char *)kexec_reloc);
-     unmap_domain_page(code_page);
++#define cf_check /* No Control Flow Integriy checking */
++
+ #define container_of(ptr, type, member) ({             \
+     typeof(((type *)0)->member) *mptr__ = (ptr);       \
+     (type *)((char *)mptr__ - offsetof(type, member)); \
+diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+index 41198b0f96ed..8e70f9a44847 100644
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -40,6 +40,11 @@ config HAS_AS_CET_SS
+ 	# binutils >= 2.29 or LLVM >= 6
+ 	def_bool $(as-instr,wrssq %rax$(comma)0;setssbsy)
  
++config HAS_CC_CET_IBT
++	# GCC >= 9 and binutils >= 2.29
++	# Retpoline check to work around https://gcc.gnu.org/bugzilla/show_bug.cgi?id=93654
++	def_bool $(cc-option,-fcf-protection=branch -mmanual-endbr -mindirect-branch=thunk-extern) && $(as-instr,endbr64)
++
+ menu "Architecture Features"
+ 
+ source "arch/Kconfig"
+@@ -125,6 +130,18 @@ config XEN_SHSTK
+ 	  When CET-SS is active, 32bit PV guests cannot be used.  Backwards
+ 	  compatiblity can be provided via the PV Shim mechanism.
+ 
++config XEN_IBT
++	bool "Supervisor Indirect Branch Tracking"
++	depends on HAS_CC_CET_IBT
++	default y
++	help
++	  Control-flow Enforcement Technology (CET) is a set of features in
++	  hardware designed to combat Return-oriented Programming (ROP, also
++	  call/jump COP/JOP) attacks.  Indirect Branch Tracking is one CET
++	  feature designed to provide function pointer protection.
++
++	  This option arranges for Xen to use CET-IBT for its own protection.
++
+ config SHADOW_PAGING
+ 	bool "Shadow Paging"
+ 	default !PV_SHIM_EXCLUSIVE
+diff --git a/xen/arch/x86/arch.mk b/xen/arch/x86/arch.mk
+index edfc043dbbaf..f780c912a9cf 100644
+--- a/xen/arch/x86/arch.mk
++++ b/xen/arch/x86/arch.mk
+@@ -52,6 +52,12 @@ CFLAGS-$(CONFIG_CC_IS_GCC) += -fno-jump-tables
+ CFLAGS-$(CONFIG_CC_IS_CLANG) += -mretpoline-external-thunk
+ endif
+ 
++ifdef CONFIG_XEN_IBT
++CFLAGS += -fcf-protection=branch -mmanual-endbr
++else
++$(call cc-option-add,CFLAGS,CC,-fcf-protection=none)
++endif
++
+ # If supported by the compiler, reduce stack alignment to 8 bytes. But allow
+ # this to be overridden elsewhere.
+ $(call cc-option-add,CFLAGS_stack_boundary,CC,-mpreferred-stack-boundary=3)
+diff --git a/xen/arch/x86/configs/pvshim_defconfig b/xen/arch/x86/configs/pvshim_defconfig
+index 787376df5a27..d0e92c2ded1f 100644
+--- a/xen/arch/x86/configs/pvshim_defconfig
++++ b/xen/arch/x86/configs/pvshim_defconfig
+@@ -8,6 +8,7 @@ CONFIG_NR_CPUS=32
+ CONFIG_EXPERT=y
+ # Disable features not used by the PV shim
+ # CONFIG_XEN_SHSTK is not set
++# CONFIG_XEN_IBT is not set
+ # CONFIG_GRANT_TABLE is not set
+ # CONFIG_HYPFS is not set
+ # CONFIG_BIGMEM is not set
+diff --git a/xen/arch/x86/include/asm/asm-defns.h b/xen/arch/x86/include/asm/asm-defns.h
+index 505f39ad5f76..8bd9007731d5 100644
+--- a/xen/arch/x86/include/asm/asm-defns.h
++++ b/xen/arch/x86/include/asm/asm-defns.h
+@@ -57,6 +57,12 @@
+     INDIRECT_BRANCH jmp \arg
+ .endm
+ 
++#ifdef CONFIG_XEN_IBT
++# define ENDBR64 endbr64
++#else
++# define ENDBR64
++#endif
++
+ .macro guest_access_mask_ptr ptr:req, scratch1:req, scratch2:req
+ #if defined(CONFIG_SPECULATIVE_HARDEN_GUEST_ACCESS)
      /*
-diff --git a/xen/arch/x86/x86_64/kexec_reloc.S b/xen/arch/x86/x86_64/kexec_reloc.S
-index d488d127cfb9..89316bc3a7ac 100644
---- a/xen/arch/x86/x86_64/kexec_reloc.S
-+++ b/xen/arch/x86/x86_64/kexec_reloc.S
-@@ -34,7 +34,7 @@ ENTRY(kexec_reloc)
-         movq    %rcx, %rbp
+diff --git a/xen/arch/x86/include/asm/cpufeature.h b/xen/arch/x86/include/asm/cpufeature.h
+index a0ab6d7d78ea..f2c6f255ace9 100644
+--- a/xen/arch/x86/include/asm/cpufeature.h
++++ b/xen/arch/x86/include/asm/cpufeature.h
+@@ -152,6 +152,7 @@
+ #define cpu_has_nscb            boot_cpu_has(X86_FEATURE_NSCB)
+ #define cpu_has_xen_lbr         boot_cpu_has(X86_FEATURE_XEN_LBR)
+ #define cpu_has_xen_shstk       boot_cpu_has(X86_FEATURE_XEN_SHSTK)
++#define cpu_has_xen_ibt         boot_cpu_has(X86_FEATURE_XEN_IBT)
  
-         /* Setup stack. */
--        leaq    (reloc_stack - kexec_reloc)(%rdi), %rsp
-+        leaq    (.Lreloc_stack_base - kexec_reloc)(%rdi), %rsp
+ #define cpu_has_msr_tsc_aux     (cpu_has_rdtscp || cpu_has_rdpid)
  
-         /* Load reloc page table. */
-         movq    %rsi, %cr3
-@@ -175,10 +175,16 @@ compatibility_mode_far:
-         .long 0x00000000             /* set in call_32_bit above */
-         .word 0x0010
+diff --git a/xen/arch/x86/include/asm/cpufeatures.h b/xen/arch/x86/include/asm/cpufeatures.h
+index b10154fc44bb..7413febd7ad8 100644
+--- a/xen/arch/x86/include/asm/cpufeatures.h
++++ b/xen/arch/x86/include/asm/cpufeatures.h
+@@ -39,6 +39,7 @@ XEN_CPUFEATURE(SC_VERW_PV,        X86_SYNTH(23)) /* VERW used by Xen for PV */
+ XEN_CPUFEATURE(SC_VERW_HVM,       X86_SYNTH(24)) /* VERW used by Xen for HVM */
+ XEN_CPUFEATURE(SC_VERW_IDLE,      X86_SYNTH(25)) /* VERW used by Xen for idle */
+ XEN_CPUFEATURE(XEN_SHSTK,         X86_SYNTH(26)) /* Xen uses CET Shadow Stacks */
++XEN_CPUFEATURE(XEN_IBT,           X86_SYNTH(27)) /* Xen uses CET Indirect Branch Tracking */
  
-+        .type compatibility_mode_far, @object
-+        .size compatibility_mode_far, . - compatibility_mode_far
-+
- compat_mode_gdt_desc:
-         .word .Lcompat_mode_gdt_end - compat_mode_gdt -1
-         .quad 0x0000000000000000     /* set in call_32_bit above */
- 
-+        .type compat_mode_gdt_desc, @object
-+        .size compat_mode_gdt_desc, . - compat_mode_gdt_desc
-+
-         .align 8
- compat_mode_gdt:
-         .quad 0x0000000000000000     /* null                              */
-@@ -186,16 +192,23 @@ compat_mode_gdt:
-         .quad 0x00cf9b000000ffff     /* 0x0010 ring 0 code, compatibility */
- .Lcompat_mode_gdt_end:
- 
-+        .type compat_mode_gdt, @object
-+        .size compat_mode_gdt, . - compat_mode_gdt
-+
- compat_mode_idt:
-         .word 0                      /* limit */
-         .long 0                      /* base */
- 
-+        .type compat_mode_idt, @object
-+        .size compat_mode_idt, . - compat_mode_idt
-+
-         /*
-          * 16 words of stack are more than enough.
-          */
--        .fill 16,8,0
-+        .align 8
- reloc_stack:
-+        .fill 16,8,0
-+.Lreloc_stack_base:
- 
--        .globl kexec_reloc_size
--kexec_reloc_size:
--        .long . - kexec_reloc
-+        .type reloc_stack, @object
-+        .size reloc_stack, . - reloc_stack
-diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
-index 82ad8feb6e99..7ffecd463070 100644
---- a/xen/arch/x86/xen.lds.S
-+++ b/xen/arch/x86/xen.lds.S
-@@ -84,6 +84,7 @@ SECTIONS
-        _etextentry = .;
- 
-        *(.text.kexec)          /* Page aligned in the object file. */
-+       kexec_reloc_end = .;
- 
-        *(.text.cold)
-        *(.text.unlikely)
-@@ -428,7 +429,7 @@ ASSERT(__2M_rwdata_end <= XEN_VIRT_END - XEN_VIRT_START + __XEN_VIRT_START -
-        "Xen image overlaps stubs area")
- 
- #ifdef CONFIG_KEXEC
--ASSERT(kexec_reloc_size - kexec_reloc <= PAGE_SIZE, "kexec_reloc is too large")
-+ASSERT(kexec_reloc_end - kexec_reloc <= PAGE_SIZE, "kexec_reloc is too large")
+ /* Bug words follow the synthetic words. */
+ #define X86_NR_BUG 1
+diff --git a/xen/include/xen/compiler.h b/xen/include/xen/compiler.h
+index 696c7eb89e4c..933aec09a92d 100644
+--- a/xen/include/xen/compiler.h
++++ b/xen/include/xen/compiler.h
+@@ -37,6 +37,12 @@
+ # define nocall
  #endif
  
- /* The Multiboot setup paths relies on this to simplify superpage PTE creation. */
++#ifdef CONFIG_XEN_IBT
++# define cf_check     __attribute__((__cf_check__))
++#else
++# define cf_check
++#endif
++
+ #if (!defined(__clang__) && (__GNUC__ == 4) && (__GNUC_MINOR__ < 5))
+ #define unreachable() do {} while (1)
+ #else
 -- 
 2.11.0
 
