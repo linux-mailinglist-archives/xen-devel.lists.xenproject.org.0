@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4988B4C1651
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Feb 2022 16:15:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.277425.473918 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E6C94C170A
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Feb 2022 16:40:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.277436.473930 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nMtMa-0002Zu-Ur; Wed, 23 Feb 2022 15:15:32 +0000
+	id 1nMtjM-00057e-1Y; Wed, 23 Feb 2022 15:39:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 277425.473918; Wed, 23 Feb 2022 15:15:32 +0000
+Received: by outflank-mailman (output) from mailman id 277436.473930; Wed, 23 Feb 2022 15:39:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nMtMa-0002Xy-RT; Wed, 23 Feb 2022 15:15:32 +0000
-Received: by outflank-mailman (input) for mailman id 277425;
- Wed, 23 Feb 2022 15:15:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=DZ7u=TG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nMtMZ-0001xo-KR
- for xen-devel@lists.xenproject.org; Wed, 23 Feb 2022 15:15:31 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 70639974-94bb-11ec-8eb8-a37418f5ba1a;
- Wed, 23 Feb 2022 16:15:30 +0100 (CET)
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05lp2169.outbound.protection.outlook.com [104.47.17.169]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-35-3dQJ3TB0NpCTqpojnSG21g-1; Wed, 23 Feb 2022 16:15:29 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB4624.eurprd04.prod.outlook.com (2603:10a6:803:72::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.26; Wed, 23 Feb
- 2022 15:15:28 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65%6]) with mapi id 15.20.5017.022; Wed, 23 Feb 2022
- 15:15:28 +0000
+	id 1nMtjL-00055V-U2; Wed, 23 Feb 2022 15:39:03 +0000
+Received: by outflank-mailman (input) for mailman id 277436;
+ Wed, 23 Feb 2022 15:39:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qKPW=TG=gmail.com=this.is.a0lson@srs-se1.protection.inumbo.net>)
+ id 1nMtjJ-00055L-W7
+ for xen-devel@lists.xenproject.org; Wed, 23 Feb 2022 15:39:02 +0000
+Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
+ [2607:f8b0:4864:20::f35])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b7a8b0b7-94be-11ec-8539-5f4723681683;
+ Wed, 23 Feb 2022 16:38:59 +0100 (CET)
+Received: by mail-qv1-xf35.google.com with SMTP id fc19so8898112qvb.7
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Feb 2022 07:38:59 -0800 (PST)
+Received: from development (c-73-166-253-254.hsd1.tx.comcast.net.
+ [73.166.253.254])
+ by smtp.gmail.com with ESMTPSA id 69sm549784qkd.91.2022.02.23.07.38.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Feb 2022 07:38:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,143 +44,209 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70639974-94bb-11ec-8eb8-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1645629330;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=juNOMnTTaHYlj1GzEVqLULFZt9qHfroO97X6sGnQeak=;
-	b=JCjfno2Q+m+5NNs+lhBer8yZhmOZEY3ExCpzdNszbsS/bymiO+McQ6OqLDKzVp3OiV5XUP
-	A3XT7ztvlU6zZgOUIP3ZFC+RXdfRFT6QBz9L2HK3t0yIA69Ru79YJD1IpbdFz4LfOtXMkh
-	adHcSFyEEKh1JiE+XxSpscNHgesNPVU=
-X-MC-Unique: 3dQJ3TB0NpCTqpojnSG21g-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NIVaUBF7YAcQAIFyN3rLPE2mXM3gkyPE+WI3IlTzB+l04gNhbd5gU01PsYa6h8E3vX3KejMfjJYXVpRGJV+53AnSY7kb30O519xNGaOrZ74lNcVfwzd0LM2/eYi+tS4YFkjECk97U8zdbqP5KrgxFBzSeQf1IXdpWMPBnrmp0Jh2D7Jp9YBSAE8Jm8JiO4O/2WZm0393XMsNwWnFyQI+1SktvXYWPAUHOsHBqF3c+W78EvoKTjkp6+yboCK5xkKICquGcxI4/eUOufHvjjuWPOmcGno9DDONdSI6CeeUQT3YVHKjXDGZVZfWOiCOX0n2Cibm06u1/PBtkAe3Dfbv2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=juNOMnTTaHYlj1GzEVqLULFZt9qHfroO97X6sGnQeak=;
- b=mxWQJaWfT87S89A/JU4FoATAQB2xWAqR2MWw0Hnf/n7XkdZq/pYMazFmxsvP6JVtb1Jyc2v2/Ye6O3mLqN9Mh2ADug4wnhb4Y5t9wdhOj074Xdj24mvd9bqZvMPDAk2cxn6RCF7twhFlvrzQHUSUpiahDaTAgU0tGQR/VMOUkE38Qd+ZABJf8dSd6d+avG5mdT7n1VHjWedp9CpnVYJNmBKSfi74BT5nVMEjOmUFVOP3KNrEfu6B/Az8SMk92IzpTfB6bBOPvTGiECPNaN9k9pjIw7qrg+xhhMIdefff7W+PlVkvblhM4RCcsxDRE4KMaDZAlP5T1JGoMhy5ag9Ydg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <0273a69d-0c51-cbd6-e5e9-da861d14cb06@suse.com>
-Date: Wed, 23 Feb 2022 16:15:26 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: [PATCH RFC 2/2] x86/p2m: aid the compiler in folding p2m_is_...()
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>
-References: <32526b73-25f7-e6b0-208b-669a7648ee44@suse.com>
-In-Reply-To: <32526b73-25f7-e6b0-208b-669a7648ee44@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS8PR05CA0022.eurprd05.prod.outlook.com
- (2603:10a6:20b:311::27) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: b7a8b0b7-94be-11ec-8539-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
+         :mime-version:content-transfer-encoding;
+        bh=UrgR76SYCaiOabtaLMgHsrffACqxzmT9Cz1A/iSOws4=;
+        b=NqPNRTaESp+kt20APAkd1YiBzthR7DTT5aUkuYgY/UsS8l8loKsgQvDNPGFex15QCG
+         ChQsLJbkR0nIoVwhvkvrhG0AU+IebID2MKUSt3heoE5Rtgk8051jqMT9TfDI5sgvj6EJ
+         tQu5BJO/J4dGTv9Lw96ybfaDi/yxjYxK31AZPMTw1PZWd+zgL/XB3lfR6boXoY/zQEI2
+         Irx4nGXOAMf1kmfapHC253NNolB2gmnvHzMg9bIyiNIYfan3u7iUyEXKMONpHV2SIg5L
+         t6yqRst5Egbzfqdyi3t6W+byS8ce/96Czk6h12YiEJta+AQNHS4Vg6HqHMM3Etxxz8Eb
+         9tvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
+         :references:user-agent:mime-version:content-transfer-encoding;
+        bh=UrgR76SYCaiOabtaLMgHsrffACqxzmT9Cz1A/iSOws4=;
+        b=W4jzYCX3N0KDnBMknfMGxlTm0tEZC19+VWGVnJ6wZhEmsZ0xUPcsJkHa6cBQwTP4mE
+         3FH9mFh6yEBK6hsnEvGN4ZgafqZ0DOqfhR0Vb9T8D1gTa2wsyIKCIKv4A/hYWIVzvaFm
+         JMCvNmRiXuXpHtR1MGEM6MOJdl3F48Rct9eTGaMA40JRXlL7y1ilUi7Qw2Dr/RsGXu3E
+         hBOPb3ScxCIi+lvhdPLZEWH1epeTKnC7TPakOtZzEx2QoG1mZtfnY11+HKg6RoEpsyHQ
+         GcMlWx4QkLzc0AkVp7Jsu6i1LtBSWeIEPiVdtRrQAphXvk/rxrxyb5bN/4Jyl3Z6V3Ra
+         gPHw==
+X-Gm-Message-State: AOAM5331jq0LWixq1OPkfnZl4+Xub0n939W4U9LABX5odOqwd0pInD29
+	5xp1mwa1fwOXx6ogQvq5nWU=
+X-Google-Smtp-Source: ABdhPJy4h6ut5/pesPAU0gGiA3QyeE5sDpE4nuMu3vn4F5jmMm0MHOUSxsXRH2fpUIRFltanNt8vCA==
+X-Received: by 2002:ac8:5853:0:b0:2d6:8a16:753c with SMTP id h19-20020ac85853000000b002d68a16753cmr235274qth.401.1645630738212;
+        Wed, 23 Feb 2022 07:38:58 -0800 (PST)
+Message-ID: <d11e54d47776008c17762458e6abbd44ab0beed5.camel@gmail.com>
+Subject: Re: [RFC] Avoid dom0/HVM performance penalty from MSR access
+ tightening
+From: Alex Olson <this.is.a0lson@gmail.com>
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>, 
+	"xen-devel@lists.xenproject.org"
+	 <xen-devel@lists.xenproject.org>
+Date: Wed, 23 Feb 2022 09:38:56 -0600
+In-Reply-To: <a1099ae9-9e0d-cf54-e786-835c13f2ba40@citrix.com>
+References: <949b4776e23e4607776685a7e2705b9e77f5b717.camel@gmail.com>
+	 <a1099ae9-9e0d-cf54-e786-835c13f2ba40@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.36.5-0ubuntu1 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ad62a710-c668-476e-dd3e-08d9f6df532f
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4624:EE_
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB4624E6889EA38BC6F527E679B33C9@VI1PR04MB4624.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	kWY5kXiURfwJAi82lGTxa33Zn33gFFmGWCyOLAb3Ve5hBgElGSVsSfxs/4I6HDvTOtjU3IfSa0vGNeh3cMP46V+bfbxuQyv6Gz7ZhY1KlAmokD2uaJPCvUXGEwrGf4dA+GLjTfkadvKGsOBSrd+Z+I+Kb3eYgqGOE3VNF+7h8K/3X1EahX6jC7in+TIi7BOZN6o8IgRphsX3/9PrCZorICq/HsDaME9cxsQYeC5dlq4sj5ID/iaBKm81lgB8gF5IBEUwGTJFzsnMO/dfGxEZpto30cNppaohOc5AAZDNTTbFRpU+YE3WUprVxzd0SQDFfEyeH3u4vuOXpCvlfw5H5PZyc8v7iOUEIVdAs0HKx4kVziGD0Q4W5npW9yCJ9PwFd4Jj6xfRS4YfshHYZN3Fd24ILCJ0u+l7vjZvwO339OMT9+BxS/zx8b35q+dF6JS3jWbgE3a0Bopop7oPnhverTAfXMDUz+MlYiLXOzhKDrmGeRceNDucFOgS552IgtKwESRgEict4jWoKIGvu0M7rMhFpz0QhXNcw8VX38ITTohS0St3cE7wtpr7ahtr1PxG0MSjn5Cs3nK+63leENK27uBoQ2hj5CStM/o3OMCdcgOchRyaIUrC9EPn9W2t/NvX4KcNIoiMVQdHz0kjB1RvAMW+IkgDNUra0vvqgNMYWBMInbb2+mbwIoViZ7ZPJqc6DQEKO7f7XC6fe1WvI0LDSOXJCj8aVar3d1J/2//fogI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(186003)(2616005)(38100700002)(26005)(86362001)(31696002)(83380400001)(54906003)(5660300002)(8676002)(316002)(6916009)(66556008)(66476007)(66946007)(2906002)(4326008)(508600001)(31686004)(6486002)(36756003)(6506007)(6512007)(8936002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VDRtYXIxeVlTYVd0bmxmcHhIQUNwU0p0NW1meE5WeWNtU29EVWZQb2p2VXBv?=
- =?utf-8?B?OXRoQ0ZoOWN2UXdDeGJaNXBqUndDeXB6ZGhCMENTVWdkYzFLTjZEbm1tOUov?=
- =?utf-8?B?TUl3T3Q2Q0ZQWU95R0JaTUxBL0pjQmhQT3V6K2lFZ2NnajJVczI4amd2T0xD?=
- =?utf-8?B?M1loVUtacEJWWW5DU3E3Z0gxRzBjRVgwRXFFQ0l4a1ZqZmY4SnB1VVRjNDFU?=
- =?utf-8?B?WThsdXJraEQ1ZVJBYmdmWXhCdUkwaVcxRGU2bDA1K2dKanlDdkFPTjhqWTlY?=
- =?utf-8?B?am1ZdS9kK2d3cmR5TnVuZXR6WjdzcWwycmprN2x0emdXN1dhVUpUa1J5ZEpW?=
- =?utf-8?B?MUUyV0RMN2NVV2k5d1hGZGxBNFNKQzdjaloyZXJqdVlzaTlTK280UkhPdjQz?=
- =?utf-8?B?MXZXMG9iMTJYTStBS2tHVHJIdVpTY2R2VU13QlE2Y1lKUlFjSyszZ2VWc2h0?=
- =?utf-8?B?QnowSWdibjc5SEQ1dml5OXp3aDJtUlZCZFAxWG1wbFN2R0JjUVdFUGZVbzVh?=
- =?utf-8?B?NCtmci93eGkrR2JlR1JCNjhjM0g1Q3lCZUY4bkJRQTVyRnNXbTF1VWU3SnpM?=
- =?utf-8?B?a052N3BEMGNPV2xHNEtQL3dRTDFOVjU3bVdBRFVXV09ZL2lMZUY1NElXbGlt?=
- =?utf-8?B?MlJXOElvSlZzVVd5d0trNS9tdXM0Sm4vQ1dsYlhuNng0RW5KUUsvWUphc20y?=
- =?utf-8?B?MnVZc1EzUklTNk9iMVhndDdSWWh0TTBHS0o0WWxhcmJzbi8vczM0VXk2eDBM?=
- =?utf-8?B?TlZvUWZONk5mbnFzM1dtM2NwSXljcUp2UEJFQ0czNTIwN2N4SVNFTkR3ZVV4?=
- =?utf-8?B?NEJHZm5rSGQxU25pMGNoZWx1a200NWRvelhrWE9JajB6cGt3VVlHcjZyTXMx?=
- =?utf-8?B?WDRGVHo3RWFibG1FbGxUa0c4Z2VSSWpKaWxFWFpsWGZpNEhYUGFWczdNaXlO?=
- =?utf-8?B?MEorUFRJaXZ3dEMydFpIUWFCK3FJbG5ucmFOMkZtYW8rNkZsYTVPcnFYMjNO?=
- =?utf-8?B?L20veEFQMTlTZnBISy9WWVliK0lDU1dPYlAzY3U5NVhXbFdzMkZkR2Z0Mm9D?=
- =?utf-8?B?cnZWREJQMzdpaUVUak9IR3VXQk9FMGpCNm5aU0FqcnRrc2drY3VzZHdkUUR1?=
- =?utf-8?B?SDFBOE84UVlnaVducHdNdmVnV1VRdjIzQlR3ZGFpT0wxOHJGcnM2dWpYL2Zy?=
- =?utf-8?B?a1dCTXA0SEs4UWRXcEZZZk1LaGN3ZzlYQ2dXMGdDQWJnZ2ROUTduWml2Tmdz?=
- =?utf-8?B?UnJZQkN3c011aXkvNWVWcTh6ekZIQ05UeTdNNkxvQm5uSXNSZHhpNHUyc21q?=
- =?utf-8?B?SnBOeEpadDJFMWZDNUl0SlhIbVNyWWp1OFFaWlVwc0JBQ1F0cU1qUzU2MlNO?=
- =?utf-8?B?SEd4SlNZcTJ0QmJyWWx3c0RTZGhFcXZ0VzFVV21ra2NENFU2bHJLWXUwWExI?=
- =?utf-8?B?enBKZVNETzlKTVlCYkd5N0t3OXFUVHhFQ0tNMmtJcDVzVmZ0MmJ6ZmZ2WFd1?=
- =?utf-8?B?S1k4cjJiZFZLOUNwNUYwemVqZXkzaFJ4TDdBZlhUK2dxSGhScGxQYllZS0JJ?=
- =?utf-8?B?V04xckQ2QUwxaW4xRFVvRzFQUTZXclVoSmFXNk4xQ1dsYW0rZmVzMi9xQ0No?=
- =?utf-8?B?Mkt6aTVLeit1bUl3ek01NXJ3WnlXdndsZGtVYzJkRWtqMytkbmZmdEtnRW41?=
- =?utf-8?B?d0d3S2h5NzlYL1l3NXFlZFpnemM2UnJFdTRFSWxQVWxudm9IWnhpTTZ1eHl4?=
- =?utf-8?B?Qml3TzZBeDhOamtzVzgyTlBSZTNpdnF0V2ZTSHZLTmxDYW50TDIreDh2Nzgv?=
- =?utf-8?B?MWZjeDIrbENOQzI3dW9oK21DUHc5QnYyUjBQRW53alZ5amJ2YUdkTFBiaksx?=
- =?utf-8?B?Zzl6ckduZCtjQnUvUGdEVjVMWWx4T3NsYXplTURlK2dweUpVVUJRbGtWNnZN?=
- =?utf-8?B?N1FEbCtudDBxbGZPVFlINjJzQ1J3NmpxWUI0a3M0Tmo1cnByMHM4L2o3V0Rn?=
- =?utf-8?B?R2R3UXR2ek9ESG93VkpoYUVSbnZUR2h0SzN5bGQ4dFJjT0ltWWZMYllXelZJ?=
- =?utf-8?B?M3d4cUpBQ0t6dFFKem5rUUlqV3NTUFZJbU12c3JnZUFZNVdPY2k2TFJ6TCtX?=
- =?utf-8?B?N3JjVGtrTzdNVHJpanBEcU1CSVMzdWp2M3d6WEt1b0V6VEV3SDlrenQ3Z3Rt?=
- =?utf-8?Q?yArU86idvDzFyJAmjhvFw54=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad62a710-c668-476e-dd3e-08d9f6df532f
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2022 15:15:28.4515
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aIiUXxWVjq+7PVi8HpT6nMDjEC+LT5wTt74BTQOEFnkPQUVSA1g5lQThNJEPHoK25i31uOnEfIZJCAnjyYw8Ew==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4624
+Content-Transfer-Encoding: 7bit
 
-By using | instead of || or (in the negated form) && chances increase
-for the compiler to recognize that both predicates can actually be
-folded into an expression requiring just a single branch (via OR-ing
-together the respective P2M_*_TYPES constants).
+I appreciate your interest, apologies for not replying right away. I've been
+digging deeper to have a more meaningful resposne.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-RFC: The 3-way checks look to be a general problem for gcc, but even in
-     some 2-way cases it doesn't manage to fold the expressions. Hence
-     it's worth considering to go farther with this transformation, as
-     long as the idea isn't disliked in general.
+I had attempted to instrument the MSR reads, but only saw a small number reads
+being blocked by the code change. They appear to be the list below and the
+others seem fairly harmless:
 
---- a/xen/arch/x86/mm/p2m.c
-+++ b/xen/arch/x86/mm/p2m.c
-@@ -606,7 +606,7 @@ struct page_info *p2m_get_page_from_gfn(
-             return page;
- 
-         /* Error path: not a suitable GFN at all */
--        if ( !p2m_is_ram(*t) && !p2m_is_paging(*t) && !p2m_is_pod(*t) &&
-+        if ( !(p2m_is_ram(*t) | p2m_is_paging(*t) | p2m_is_pod(*t)) &&
-              (!p2m_is_shared(*t) || !(q & P2M_UNSHARE)) &&
-              !mem_sharing_is_fork(p2m->domain) )
-             return NULL;
-@@ -840,7 +840,7 @@ p2m_remove_page(struct p2m_domain *p2m,
-     for ( i = 0; i < (1UL << page_order); ++i )
-     {
-         p2m->get_entry(p2m, gfn_add(gfn, i), &t, &a, 0, NULL, NULL);
--        if ( !p2m_is_hole(t) && !p2m_is_special(t) && !p2m_is_shared(t) )
-+        if ( !(p2m_is_hole(t) | p2m_is_special(t) | p2m_is_shared(t)) )
-         {
-             set_gpfn_from_mfn(mfn_x(mfn) + i, gfn_x(gfn) + i);
-             paging_mark_pfn_dirty(p2m->domain, _pfn(gfn_x(gfn) + i));
+0x00000034	MSR_SMI_COUNT
+0x0000019a	IA32_CLOCK_MODULATION/MSR_IA32_THERM_CONTROL MSR
+0x000003f8	MSR_PKG_C3_RESIDENCY
+0x000003f9	MSR_PKG_C6_RESIDENCY
+0x000003fa	MSR_PKG_C7_RESIDENCY
+0x00000606	MSR_RAPL_POWER_UNIT
+0x0000060d	MSR_PKG_C2_RESIDENCY
+0x00000611	MSR_PKG_ENERGY_STATUS
+0x00000619	MSR_DRAM_ENERGY_STATUS
+0x00000630	MSR_PKG_C8_RESIDENCY
+0x00000631	MSR_PKG_C9_RESIDENCY
+0x00000632	MSR_PKG_C10_RESIDENCY
+0x00000639	MSR_PP0_ENERGY_STATUS
+0x00000641	MSR_PP1_ENERGY_STATUS
+
+As for my test program, it is just a crude loop compiled with "gcc -O3",
+normally takes about 10 seconds to execute:
+int main()
+{
+    for (volatile int i=1; i!=0; ++i){}
+    return 0;
+}
+
+The relative changes in execution time of the test program and also that  HVM
+guest startup time (associated with the "qemu" process being busy) completely
+agreed.  I also observed the same changes under a PVH guest for the test
+program.
+
+Thus, it seemed like the CPU was somehow operating a different frequency than
+expected, rather than faults consuming execution time.
+
+-- (after a lot more investigation) --
+
+Further instrumentation showed that the
+IA32_CLOCK_MODULATION/MSR_IA32_THERM_CONTROL MSR initially had value
+"0x10"  which appears to be invalid both in the Intel Software Developer's
+manual and what I think I'm seeing in the ACPI tables.
+
+In dom0 Linux 5.2.38,  this value seems to have caused the
+acpi_processor_get_throttling_ptc() function to see an invalid result from
+acpi_get_throttling_state() and thus execute __acpi_processor_set_throttling()
+which wrote the MSR with a value of zero and had the side effect of disabling
+throttling (restoring normal performance).  (This all happened as the CPUs were
+detected).
+
+When the unknown MSR reads are blocked, the call to
+__acpi_processor_set_throttling() did not occur since the MSR read did not
+result in the invalid value -- thus the CPU remained in a throttling state.
+
+So far, this seems to explain the dom0 performance issues I saw.
+
+The domU observation was related... In some of my testing, dom0 was limited (via
+Xen command-line) to a small number of cores so that the others could be
+dedicated to other domains.  When a domU VM was launched on the others (not used
+by dom0), its MSR remained at the original value resulting in low performance
+since dom0 hadn't a chance to rewrite it...   Thus, I saw different domU
+behavior based on the number of cores allocated to dom0.
+
+
+-- summary --
+
+In desparation, I ended up resetting BIOS settings to defaults and mysteriously
+this issue doesn't occur anymore.  Not sure what could have gone wrong before as
+the original settings were not far from defaults.  It seems my issues stemmed
+from the server's BIOS setting the throttling MSR to an invalid value but it had
+illuminated some unusual behaviors under Xen...
+
+It seems to me there are a few findings useful to the Xen developers from
+venturing down this rabbithole:
+
+1) For conditions in which MSR registers are writeable from PV guests (such as
+dom0),  they should probably be readable well, looks like MSR_IA32_THERM_CONTROL
+is currently one of a small number of "unreadable" but writeable
+MSRs.  Otherwise seemingly valid read-(check/modify)-write operations will
+behave incorrectly under Xen.
+
+2) As Xen controls CPU frequency and c-states,  might there be benefit to it
+being extended to manage Clock Modulation / Throttling? (I wasn't expecting dom0
+to be able to influence this!)
+
+3) Perhaps PV domains (such as dom0) should not be allowed to modify such MSRs
+at all since it would result in unintended effects depending on how CPU pools
+and dom0 are managed?
+
+Regards,
+
+-Alex
+
+
+
+On Thu, 2022-02-10 at 18:27 +0000, Andrew Cooper wrote:
+> On 10/02/2022 17:27, Alex Olson wrote:
+> > I'm seeing strange performance issues under Xen on a Supermicro server with
+> > a Xeon D-1541 CPU caused by an MSR-related commit.
+> > 
+> > Commit 322ec7c89f6640ee2a99d1040b6f786cf04872cf 'x86/pv: disallow access to
+> > unknown MSRs'
+> > surprisingly introduces a severe performance penality where dom0 has about
+> > 1/8th
+> > the normal CPU performance. Even even when 'xenpm' is used to select the
+> > performance governor and operate the CPU at maximum frequency, actual CPU
+> > performance is still 1/2 of normal (as well as using
+> > "cpufreq=xen,performance").
+> > 
+> > The patch below fixes it but I don't fully understand why.
+> > 
+> > Basically, when *reads* of MSR_IA32_THERM_CONTROL are blocked, dom0 and
+> > guests (pinned to other CPUs) see the performance issues.
+> > 
+> > For benchmarking purposes, I built a small C program that runs a "for
+> > loop" 
+> > 4Billion iterations and timed its execution. In dom0, the
+> > performance issues
+> > also cause HVM guest startup time to go from 9-10
+> > seconds to almost 80 seconds.
+> > 
+> > I assumed Xen was managing CPU frequency and thus blocking related MSR
+> > access by dom0 (or any other domain). However,  clearly something else
+> > is happening and I don't understand why.
+> > 
+> > I initially attempted to copy the same logic as the write MSR case. This
+> > was effective at fixing the dom0 performance issue, but still left other
+> > domains running at 1/2 speed. Hence, the change below has no access control.
+> > 
+> > 
+> > If anyone has any insight as to what is really happening, I would be all
+> > ears
+> > as I am unsure if the change below is a proper solution.
+> 
+> Well that's especially entertaining...
+> 
+> So your patch edits pv/emul-priv-op.c#read_msr(), so is only changing
+> the behaviour for PV dom0.
+> 
+> What exactly is your small C program doing?
+> 
+> 
+> The change that that patch made was to turn a read which previously
+> succeeded into a #GP fault.
+> 
+> The read has already been bogus, even if they appeared to work before. 
+> When dom0 is scheduled around, it no longer knows which MSR it is
+> actually reading, so at the best, the data being read is racy as to
+> which CPU you're instantaneously scheduled on.
+> 
+> 
+> At a guess, something in Linux is doing something especially dumb when
+> given #GP and is falling into a tight loop of trying to read the MSR. 
+> Do you happen to know which of those two is the more dominating factor?
+> 
+> ~Andrew
+
+
 
 
