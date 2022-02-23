@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD31B4C15D4
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Feb 2022 15:54:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.277404.473886 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26B324C1640
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Feb 2022 16:14:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.277413.473897 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nMt11-0007Ro-Hl; Wed, 23 Feb 2022 14:53:15 +0000
+	id 1nMtKo-0001Qn-Bc; Wed, 23 Feb 2022 15:13:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 277404.473886; Wed, 23 Feb 2022 14:53:15 +0000
+Received: by outflank-mailman (output) from mailman id 277413.473897; Wed, 23 Feb 2022 15:13:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nMt11-0007PH-EW; Wed, 23 Feb 2022 14:53:15 +0000
-Received: by outflank-mailman (input) for mailman id 277404;
- Wed, 23 Feb 2022 14:53:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zdyb=TG=invisiblethingslab.com=woju@srs-se1.protection.inumbo.net>)
- id 1nMt0z-0007PB-KE
- for xen-devel@lists.xenproject.org; Wed, 23 Feb 2022 14:53:13 +0000
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 510ef2bf-94b8-11ec-8eb8-a37418f5ba1a;
- Wed, 23 Feb 2022 15:53:11 +0100 (CET)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 3993B5C0036;
- Wed, 23 Feb 2022 09:53:09 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Wed, 23 Feb 2022 09:53:09 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 23 Feb 2022 09:53:07 -0500 (EST)
-Received: by mail-itl.localdomain (Postfix, from userid 1000)
- id D0DAB88E8D; Wed, 23 Feb 2022 15:52:55 +0100 (CET)
+	id 1nMtKo-0001Ow-81; Wed, 23 Feb 2022 15:13:42 +0000
+Received: by outflank-mailman (input) for mailman id 277413;
+ Wed, 23 Feb 2022 15:13:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=DZ7u=TG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1nMtKn-0001Oq-5h
+ for xen-devel@lists.xenproject.org; Wed, 23 Feb 2022 15:13:41 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2e4e2295-94bb-11ec-8539-5f4723681683;
+ Wed, 23 Feb 2022 16:13:40 +0100 (CET)
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05lp2177.outbound.protection.outlook.com [104.47.17.177]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-15-DBelr5nwOkSGbXflt4APhg-1; Wed, 23 Feb 2022 16:13:38 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB4624.eurprd04.prod.outlook.com (2603:10a6:803:72::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.26; Wed, 23 Feb
+ 2022 15:13:37 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::d479:b728:345c:bd65%6]) with mapi id 15.20.5017.022; Wed, 23 Feb 2022
+ 15:13:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,180 +51,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 510ef2bf-94b8-11ec-8eb8-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=4MMpDRkWVS7qXiWDn
-	I+dQpJrE0JMn5HzgVdL+Q8qz2E=; b=bsJg0HZU1Nr9Bm8ngLMoU+E/mCdgieYgb
-	FTdVQM8Zzlun+4qkBW86lsKSxGd0m1OQtvIrC+LdAUjw0bk+/EfirHbMzNK5xX5m
-	Wgm6QbNDZlQ2PREI7bPxD+5XJm9+V28P/kPL/v43p62UH6vd1TmlOb8QAlkbQNec
-	df082aS/8iwZTlwgnowlrgQW29H9XYkLnC4VACF6F1vV9GppHe3fQARmnN2fdUME
-	RNEdlIeu3+v3v9L5UphiDNP2TgESl0/Eu5Bp25HeUaRL+U7hftK8lsDT6ACH7WEU
-	Ub/zkOt2y9YoirG0b6aXG6FVlH1GjW9eZNesppiWSaHxYvwhY1NGA==
-X-ME-Sender: <xms:VEoWYs64Ln6UWAIsMdBwyzjYACMzPiFt-eZGMPi8HUmL_hdESeQ0PQ>
-    <xme:VEoWYt7fy_03EDafYavBd5KKdcy_mUk1c_9I3wXzCFIV_XXDJo_tc2jNVgJjZOOHL
-    e7c-LQ2RY-dEtM>
-X-ME-Received: <xmr:VEoWYrcd-BbWKnVU5yTkmbflq80mnChgCSXSjcoqkMmxmvus4KUNg86Z7GXasSkgqKNm6EOx-KhzYR47D_DxEFP8a1N5HUOiEU-IBDIWGw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrledtgdeikecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhephghojhhtvghk
-    ucfrohhrtgiihihkuceofihojhhusehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtg
-    homheqnecuggftrfgrthhtvghrnhepfeejieetvddugfekfeeitdffudefheekvedvjeet
-    ffdtkefftdejkeffveejjedvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpe
-    hmrghilhhfrhhomhepfihojhhusehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtgho
-    mh
-X-ME-Proxy: <xmx:VEoWYhJ97g1KfvHQdSLCucev8z8UDCl5N4Yi8ZYzC5q1hJL1YPhycA>
-    <xmx:VEoWYgIxxVdwjTxjZgrn9ulPtsYsDk6nnMoz6NN0na4TxKOETIyi7w>
-    <xmx:VEoWYixGvPM_qrLLf-Q9AYiAqZji6WlZTvzeXu7sYphVFh2qDdtuXg>
-    <xmx:VUoWYpodhav9lnlxtA_qBvYMrr2xh9ssU7kdY82rFTRxY2zgmd1bGw>
-Date: Wed, 23 Feb 2022 15:52:55 +0100
-From: Wojtek Porczyk <woju@invisiblethingslab.com>
-To: George Dunlap <George.Dunlap@citrix.com>
-Cc: Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
-	Jan Beulich <jbeulich@suse.com>, Ian Jackson <iwj@xenproject.org>,
-	Committers <committers@xenproject.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <Andrew.Cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] RFC: Version support policy
-Message-ID: <YhZKR46LDNHgmkQN@invisiblethingslab.com>
-Mail-Followup-To: George Dunlap <George.Dunlap@citrix.com>,
-	Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
-	Jan Beulich <jbeulich@suse.com>, Ian Jackson <iwj@xenproject.org>,
-	Committers <committers@xenproject.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <Andrew.Cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20210813113727.6028-1-iwj@xenproject.org>
- <de32c6c4-5ad5-862e-3988-0e7310ec3ecb@suse.com>
- <C6A7B444-4CFB-43A7-8FA8-AD1049F83912@citrix.com>
- <YhTUe7K5/rlek4AA@invisiblethingslab.com>
- <77CD0734-A343-45CF-8A44-5C53771E404A@citrix.com>
- <f5c50526-2fdc-029e-751d-eb05b29a8366@suse.com>
- <YhUEc+Ztwf312ZRx@mail-itl>
- <17643780-C062-4565-B05C-7D42745B5BC0@citrix.com>
+X-Inumbo-ID: 2e4e2295-94bb-11ec-8539-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1645629219;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=DfA+KoDOZk7fiA1yr/ZaD1BDBKAQ3tEWWMbgEIRy8qw=;
+	b=E0McH2BcnF/ICe2wMVlbe+wpPLe+vZr46n8RHrw9WfkPvv+kGGtyZS1bM4sf9tJ09qIRf3
+	w3PIKujfivGVnbaOtXbxFRhv4UYhBUxnLMAHY878jt4VeKKKwZK2vA8PZS3gI6mOvKD+JF
+	5G+nRpuYGRTeKNLhd/XpBraIUjIquRs=
+X-MC-Unique: DBelr5nwOkSGbXflt4APhg-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WaFrPXEV8QwP/RKJa4xN4uiWyXchaobomLcYNjOAxmdw/uXIyy9zOhnnWdia7U0FRs94zrMxatLsDL6NKtPRMg59CV5Cg6EkVO1/v/7l9QT8T6fdOuQ5IhyyeZ5vR+kHrUsoy1SJEI4p4TWhSH3JoifWYeUoH28U1V4oHci97mHHNNbd5MV6AquDt3FF6i1piQIdmlxZVPAJ4gvJOLz/zgNjMj90N3L4n7dYEs9PqVgEN/zQRToOwmOonup8ycxa6H+V4Y6pJTlCQhZpiiLHLVKjeXAQbMexH97FTExwEb2rGwpMkgaFL/ISoz2ob1+FhN9p1BWoockzAtSOeaqQIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DfA+KoDOZk7fiA1yr/ZaD1BDBKAQ3tEWWMbgEIRy8qw=;
+ b=lFLUVToitTjeianCoMI2CiZpdnpqP5r4TF7S6L9VNiaoi0Iy8x7UMz3Z6z1P+m/+jA+YSNHvTYOW3B7lvWhJywm67KHfI5pteaad/YicpiAH79Ttvm89ISZrl4rU0u+uXRqj7CPyDzmzLZAb4/inRzSZhn93XBFdSBbwleVj/wwTsMhvshrGg8Zw/qydO1jbr/8AXjzBqVgwjr93EPIfgBW6Z1U2i1NYGtWOWWhOmVEe7f9ef6cHtlQpwttl9+9B6Jv4PR8wCRjo8+WZZzBm8Os1rFgLI5eEwXzWlc4t/GyqnXPkbOxg5b4v0GStb/Am7ft1h40xaT98vaYOe0pwlQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <32526b73-25f7-e6b0-208b-669a7648ee44@suse.com>
+Date: Wed, 23 Feb 2022 16:13:35 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.1
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH 0/2] x86/p2m: type checking adjustments
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS8PR04CA0190.eurprd04.prod.outlook.com
+ (2603:10a6:20b:2f3::15) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="y0J7VvKM6hLIg08/"
-Content-Disposition: inline
-In-Reply-To: <17643780-C062-4565-B05C-7D42745B5BC0@citrix.com>
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f3d66da9-dd66-47bb-eb96-08d9f6df10a5
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4624:EE_
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB46245EE55ADF81F9683197EFB33C9@VI1PR04MB4624.eurprd04.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	F+u/irnt+CXc9cuNMQYEKaSZSyfVrR5GqtSrB3zVP4ATKtv2+te8X72Q/KajMhpj/zv67Inl5dr/g4WwTk/nItJDbL/zRxdz368Pb1WYMxSWU/qlVxr3oroS3d73LYpghdnXQ7n38DGAT6irESBaQJcZ0uqF+uIBdkdGOzwccK+My87nprg42ku2QgZ5RCZrMDtcGNo1IzreL2zg7PTmkiYVWyQ15ot7LezFQ3rxh9zv0bxqkvE7czkMIxiZikIAk61ToD3+i/BNURq4duftjUjKNjd83897eB4Nf/Ysxz3uxYaQmKw+fRH1z2U197sUjJ9aMNLjIv61MXVN5nHaccrzUWnMKx50z3c9vhzwHn1c2Rr+tpH5fU1GveIUceE8deM2KjkwPHf/ilqHEXH+F+jAASQU8OyiMNEH6smk30C8C3KRY0ABeAUfQPAjQpy57Z5b2uigi+ewZLJe4v8eOGFDVYBqO2e0RWQTU/8Qwx83IO0L+ogc4SPb9paq+goDGdLt0CKjrs7OLeWq+XaNLpFiEDbu34sAUE0DEd992ecS86cb96SIJ1MbcEg42XlLj9nDWdgv6hgGzrKHQMNo/XykjfzvCXq8NtVzbHedScvhXqP3S682t9jiIjWxJauk2O/bgxIDCcOA0s0KgR1EmhXSrNUE7KnR0/hO0fLBjClqVc3GcfwK65BBHsE528WFAk+MV51gKlJo1iLRO513WkKAXmgbx1enIBfXaWI1HSY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(186003)(2616005)(38100700002)(26005)(86362001)(31696002)(54906003)(4744005)(5660300002)(8676002)(316002)(6916009)(66556008)(66476007)(66946007)(2906002)(4326008)(508600001)(31686004)(6486002)(36756003)(6506007)(6512007)(8936002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TGRaSW83ZHFKaXJzOTkrT3BlTWtob1pFQ3p4UDA1ditDKzdQYS9kN3F4NlI3?=
+ =?utf-8?B?SUNoZjQxTHB3eHFyRVB4R3VFaGlGVDNVeWRMT2pTelZ3YUtsQzAyV0labUd6?=
+ =?utf-8?B?V0dDWVJhcVV6UUt5RTdkOUlGUnkrQXNXTjBBdTRlb3dGN3Vud1dZL2M3U2JV?=
+ =?utf-8?B?VTdmOG1Bcmd4TXZ1bmJTSGFLbDFkOW56N1ZMcXg0YXdMbXZKZWZVcHg1aUUv?=
+ =?utf-8?B?ak9wMVAvYUZoUDBqbTdwZzE4RDJHblZ5cEtsZEdjOC96bjZBSTJkY0l2dG92?=
+ =?utf-8?B?OUlmV2FMRTNYZms2Wis1a1NtZ25rT2ptUDEvclEydWxjYzVEK0tGNVFaQUtT?=
+ =?utf-8?B?b0lhbzdXYlFmTFZGbFJ2N05neHgwMVlrS0x4RE5VL1NWYU9CR3doK1Y2VVdj?=
+ =?utf-8?B?aitueVVGTy9hR21qVzE0ekFUU01FS1dTNElESDM3aG0yTllPa3EwMS92ZzMr?=
+ =?utf-8?B?K0ZIMWszcndUOHZVcnNVU3lXZHgyeEEzUXkxQWh3eGNQenpHSTZVeVdBQmhD?=
+ =?utf-8?B?VnZBQnhMd1R2VGJQZDlKYS9ZbjZRWFNybUEzcHZSRUJSVmh0TDU5K0VZc2U5?=
+ =?utf-8?B?czZmU3pEV09mSldqeCsxTlo1MHpYa05QOHlld1hLL29jaEJER21zS0JhckRR?=
+ =?utf-8?B?L1lRK3p4ZzJtbnExL0dpZjYzMDU4MUlFNEJpM0JRSkNYZmhLbEFNclpQNWZj?=
+ =?utf-8?B?cTk4ODExWFhVY0pPY2dPcTBtdGxuVkpzd2hLQlJDYTF3aWlnTkNzNncxa3Vz?=
+ =?utf-8?B?ZzV4NnUrTEFUVEZZeVQ0SFJwc2F1d3BsYStFb3BuR01SYXhOc1Z6Y2FZZ3A0?=
+ =?utf-8?B?U3BCcnJsL2g5WGxkSDFmT3FEVS9nNW0wTmJPOXBncnBYNHdOcllJeXhJNVZM?=
+ =?utf-8?B?bW1MSjNyRWxiVlZlWk9EK1ZwTTRYSG9xY09qRHhRQkxPb1NMWkYzbjR5V1cx?=
+ =?utf-8?B?SHNyS1NTMEVnSmh0aHBHMUd1NHdhMTdVNVpUU1QxVTE4cVBjY0tIemNPY2pq?=
+ =?utf-8?B?UHhjN0pUc2dXc0xnQkpCeTZNcWZtVUtsdmN4eUhYUWFtNG1JWDNUVUt3SER1?=
+ =?utf-8?B?OGl3ODF6YkR5RnFpeFRLdGZXYVJ5S1hCZHZiQnRLRXRGdFRVMXo2OEdmNEE3?=
+ =?utf-8?B?Y2xoSjI5eC80ZW90RFp4aW1TRFZkU1kwemd2MVdxblZmMlN1eVNKQkp3b1hC?=
+ =?utf-8?B?d1UrZGpOSTJCd0pVYVh5c05MNnZjN2lxVXJrWVJsZ3djSWNtcGFpMHY1U0lw?=
+ =?utf-8?B?RDA1RW0rN1JxOVhxbzlWMG1IaWZJRit2OTZ6bENOS2hKMmp1SENya3RzeDlW?=
+ =?utf-8?B?VEZ0Ym4xMi9JOVhxaVFScW5teWxDOURqUzJnMjkvRG1naEJFcEY3SzFodTc4?=
+ =?utf-8?B?NzlRaUpQTjkvd2tKcndYNWd5SW13NDg2S1h6VnNxOWYxUVNOUkhoeFhoTjZt?=
+ =?utf-8?B?ZzFTZEhtZS83UU12R01aSktkNVY0b2ljalBBQjVFTm1rd3FGQ0cxUmpVZXFZ?=
+ =?utf-8?B?SVJxZHVmakFhMWM3cTdpZHRLd0ozZFZHZTZmZ0lxS3EzSGQvdkNuYzFzNjZF?=
+ =?utf-8?B?RDlJbXJSVElCWXBxMUVHcnRzUXBuRXRzVERHY1BtMGFuMlpJWks0eWlxbkFF?=
+ =?utf-8?B?bzhIT1lIWk5rS3lCQVNmemF0RVNXcGxhWTJySGdaNk5MVmtRNXpZL2M0VzBV?=
+ =?utf-8?B?WGU3MHFSTERoWlhYc2twamVpQVEwb0E2MDJ4bXRFTTdQRnVrQUJpdTRHQncx?=
+ =?utf-8?B?bEh3eUZiZU9SOU5sZmJVRVJvblRxWDc0NHNHV3RXSWd0K2ZLUlhJRURXVmJ2?=
+ =?utf-8?B?T2xwMWlKVG43UCs0bmxpNlA4MzhHaE9oZjNVcHNSbWlOVUw4dVcyQ2pkMFpE?=
+ =?utf-8?B?NmI1MGFkY01ZMWJsLysvWjNETDJMaDgxeW9EdGFqWXhDaXVuRVJhcGVDaWo3?=
+ =?utf-8?B?UXFRMEh6eTJaN0lsLzAwZ0laamh6TjJLdGdrblkyOUo5U25JVDUwbzdYN2dq?=
+ =?utf-8?B?RWxNVW1sbkdUZjFSMzhDQWhuUGtRN3pyVXNaZWhueWx3Nk96YXQ4TGg2blFW?=
+ =?utf-8?B?RmlrTjhDR3hwWFZFbmdROVZmeFh5WHltSCt4ZXkwSHRyQytQdUE2cjUxR2Nh?=
+ =?utf-8?B?VGtJUVZwdHk1aWZjditqTVhXVjg2cldSOHIxcUREWkJPYnRrdnJzbElrTUJy?=
+ =?utf-8?Q?Vy/ybRTd4v8d1wD1muzXkPI=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3d66da9-dd66-47bb-eb96-08d9f6df10a5
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2022 15:13:36.8803
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ica0JdBLUobpD9wpLCD7RRaJrhZrakRQBYOD/h257dI57TxIQkTaY9y9fo9Ew5rc/NylQSa1ypCfBqV+0bRG1Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4624
 
+While the first change is a bug fix (for, admittedly, a case which
+apparently hasn't occurred in practice, or else we would have had
+bug reports), it already puts in place an instance of what the 2nd
+patch is proposing for perhaps wider use.
 
---y0J7VvKM6hLIg08/
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+1: make p2m_get_page_from_gfn() handle grant and shared cases better
+2: aid the compiler in folding p2m_is_...()
 
-On Wed, Feb 23, 2022 at 01:20:26PM +0000, George Dunlap wrote:
-> > On Feb 22, 2022, at 3:42 PM, Marek Marczykowski-G=C3=B3recki <marmarek@=
-invisiblethingslab.com> wrote:
-> >=20
-> > On Tue, Feb 22, 2022 at 04:05:19PM +0100, Jan Beulich wrote:
-> >> On 22.02.2022 15:58, George Dunlap wrote:
-> >>>> On Feb 22, 2022, at 12:18 PM, Wojtek Porczyk <woju@invisiblethingsla=
-b.com> wrote:
-> >>>> On Mon, Feb 14, 2022 at 09:50:25PM +0000, George Dunlap wrote:
-> >>>>> I think it=E2=80=99s too much effort to ask developers to try to fi=
-nd the actual
-> >>>>> minimum version of each individual dependency as things evolve.
-> >>>>=20
-> >>>> By "find the actual minimum version", do you mean to get to know the=
- version
-> >>>> number, or install that version on developer's machine?
-> >>>=20
-> >>> Well suppose that a developer writes code that depends on an external=
- library.  The external library on their own machine is 4.5; so they know t=
-hat 4.5 works.  But will 4.4 work?  How about 4.0?  Or 3.9?  Or 2.2?  Maybe=
- it works on 3.8+ and 2.13+, but not 2.0-2.12 or 3.0-3.7.
-> >>>=20
-> >>> I don=E2=80=99t think it=E2=80=99s fair to ask people submitting patc=
-hes to do the work of tracking down which exact versions actually work and =
-which ones don=E2=80=99t actually work;
-> >>=20
-> >> But somebody will need to do this. If it's not done right away, someone
-> >> (else) will hit a build issue on a perhaps just slightly older platfor=
-m.
-> >=20
-> > That's why declare what version _should_ work (and test that via CI),
-> > instead of trying to find what is the minimum version that is actually
-> > required. This may result in saying "you need libfoo 3.4" while in
-> > practice 3.3 would be fine too, but I think that's reasonable
-> > compromise.
->=20
-> This paragraph is a little unclear; you say =E2=80=9Cshould=E2=80=9D, but=
- then talk about what has been tested to work.
->=20
-> To me =E2=80=9Cwhat version should work=E2=80=9D means you track down the=
- version of the
-> library where the relied-upon functionality was introduced; in your libfoo
-> example, it would be 3.3.  I think we should only include versions that h=
-ave
-> been tested to work.  If the CI loop only tests libfoo 3.4, then we should
-> list 3.4 as the requirement.  If someone else tests 3.3 themselves and
-> reports that it works, then we can use 3.3.
+Jan
 
-I don't think there should be much "tracking down" involved, at least not=
-=20
-to the level of bisecting. Instead a simple statement of "tested with
-dependency $D version $V from distro $L", and the reviewer checks if it's t=
-he
-oldest supported version, or the relevant API didn't significantly divert.
-
-Also, there's nothing wrong with declaring a later version for availability
-reasons like "it's in one of the distros we use in CI". In the example: we
-know that technically 3.3 works, but we don't test it, so to be safe we
-"require" 3.4.
-
-Distro-related availability reasons tend to be correlated between CI and
-developer's boxen, so if we test 3.4 and not 3.3, chances are, it will be
-easier to set up a 3.4 version on dev's workstation. Again, without specific
-example it's hard to say, but if it's relatively easy to set up version 3.4,
-then it might be reasonable to ask contributors to test against that versio=
-n,
-which I think is the answer your concern.
-
-If anyone badly needs 3.3, it's his/her burden to argue why the project and
-every single contributor needs to do extra work to acquire 3.3, because the
-differential (compile themselves vs apt-get install) is what might cause
-testing that version to be unfair for everone else. Other side of the coin =
-is
-pretty similar: if anyone needs a feature from 3.5, it's his/her duty to
-convince everone why the dependency needs to be bumped.
-
-
---=20
-pozdrawiam / best regards
-Wojtek Porczyk
-Gramine / Invisible Things Lab
-=20
- I do not fear computers,
- I fear lack of them.
-    -- Isaac Asimov
-
---y0J7VvKM6hLIg08/
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEaO0VFfpr0tEF6hYkv2vZMhA6I1EFAmIWSkYACgkQv2vZMhA6
-I1EK5A/+KtW8lrLeGhbqqqxCrScOXFxWUE6IyiYfb/WHNqZOieJyeZSnZCl2GdmU
-XngChV7w9tDrkKdd14NEXFpVQHn0UxAemZiIAS7XlrlWTgJs3NB/fWzF7H4+HUs/
-eLFiYV4aNaMS4YBYRYln8RzAlkuL1g55KWmMpHcZwm0R5y4+hBqreXG+54/q4aaD
-xSPzsvCoF/mcppDbZ0rzUaY5+C+zgjzGlOTrULI3CikFC8oHg9Se554V1atiIjP4
-awHNknORN33SHARu0iOwM1XEJjgVptrGqwzoe+yGkd6zD0RC6dLi8ks8Iek3KL8d
-Vf/VIcuybGUQyt4+legskFTG6ZlBb1CBhWLcet/NTnWXMqb18JB66zj43tkCqPQ8
-rADhgnrN+3Vi148Bg6M4JgaZ7qvgB5lMUTJSHxzNzzGt0i13+45H2r+zA78movSJ
-qusxzXpoZLhT0NikGkbvhho081ZDBAoeUT3YxgCEkJNKn39enLF7uCdO5c8JZ1QZ
-Qf3lVPiiTARhemaXtNj5WlvJ2JbjsM4YEBLCDJrOiJw3ZGAkGDoiRCGcfFuiJ6Lg
-k+1BCHRwsd/SwtgJttyxeGDGbBwY5GmaWLySp33uc5+1EH9IX5iQtn8z4BW+SGwM
-lx7GZMCzum7h5h2cPgmPVZ0kO/NOtGuNgKkc04NIZ9AFZuMOSnw=
-=Fc2b
------END PGP SIGNATURE-----
-
---y0J7VvKM6hLIg08/--
 
