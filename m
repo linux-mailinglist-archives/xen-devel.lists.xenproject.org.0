@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 125B14C180D
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Feb 2022 17:03:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.277518.474050 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8937F4C1815
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Feb 2022 17:04:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.277524.474061 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nMu6z-0006Na-TT; Wed, 23 Feb 2022 16:03:29 +0000
+	id 1nMu7Q-0006s2-5s; Wed, 23 Feb 2022 16:03:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 277518.474050; Wed, 23 Feb 2022 16:03:29 +0000
+Received: by outflank-mailman (output) from mailman id 277524.474061; Wed, 23 Feb 2022 16:03:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nMu6z-0006Kn-Pz; Wed, 23 Feb 2022 16:03:29 +0000
-Received: by outflank-mailman (input) for mailman id 277518;
- Wed, 23 Feb 2022 16:03:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nMu7Q-0006q3-2H; Wed, 23 Feb 2022 16:03:56 +0000
+Received: by outflank-mailman (input) for mailman id 277524;
+ Wed, 23 Feb 2022 16:03:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=DZ7u=TG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nMu6y-00064O-AZ
- for xen-devel@lists.xenproject.org; Wed, 23 Feb 2022 16:03:28 +0000
+ id 1nMu7O-0006oT-F4
+ for xen-devel@lists.xenproject.org; Wed, 23 Feb 2022 16:03:54 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 22e118cd-94c2-11ec-8eb8-a37418f5ba1a;
- Wed, 23 Feb 2022 17:03:27 +0100 (CET)
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05lp2175.outbound.protection.outlook.com [104.47.17.175]) by
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3277c14a-94c2-11ec-8539-5f4723681683;
+ Wed, 23 Feb 2022 17:03:53 +0100 (CET)
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur02lp2050.outbound.protection.outlook.com [104.47.6.50]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-40-MZVb_loDP-adKvBNPFmRnA-1; Wed, 23 Feb 2022 17:03:26 +0100
+ de-mta-25-EznRuw0VMlmRQgSV7fuLvg-1; Wed, 23 Feb 2022 17:03:52 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB6335.eurprd04.prod.outlook.com (2603:10a6:803:f9::17)
+ by AM0PR04MB5921.eurprd04.prod.outlook.com (2603:10a6:208:123::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.27; Wed, 23 Feb
- 2022 16:03:24 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.21; Wed, 23 Feb
+ 2022 16:03:50 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::d479:b728:345c:bd65%6]) with mapi id 15.20.5017.022; Wed, 23 Feb 2022
- 16:03:23 +0000
+ 16:03:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,317 +51,232 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22e118cd-94c2-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: 3277c14a-94c2-11ec-8539-5f4723681683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1645632207;
+	t=1645632233;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ldFCmhVgf2hohYtDOIo5qnNRmC9eRJje8GLGX9RkTuY=;
-	b=Y8yGCLBwNj02hEid5RUUJ2DraOdirHDFEt3emNUBautuNIDO3RsA4QiQUPKKgBQGyrD8Tv
-	g8bZPosCPJVO0ADjdbjVxR1MqkBsDsqJHNyw3hMVInfxHpqYAEXYxHAcKN+Lxm73ZY9Zec
-	Tb86FWYjIcVPFwvLLL+wwssypxV7iu8=
-X-MC-Unique: MZVb_loDP-adKvBNPFmRnA-1
+	bh=gz3zvRiEWYkf7LDrZ0GXIkTScZJf9PYhQI0iXwQf+w8=;
+	b=KgJjdGIXL4Y/4HqVXyis53AGeWBnx8I6lJ+uzdMqZ6YUjib0UBvHK5m159Ln9SHmABCOEy
+	8l8/LVBSOCJJxvarZ1TUeZ8HZX01JqtB07SCpWj44cg2/KvHqh6JFcrUIRGr7JPu+NWfby
+	Tb/aaWAUURlgALumGmFUBz8QwF8sdUQ=
+X-MC-Unique: EznRuw0VMlmRQgSV7fuLvg-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dPkIcQVyhHbPH9XYk++KieGKiHzaI2VGt7PWwB0Xo2sOQp0Vg2MW0O48bJAHGRDq0W8UnTOOkFSk+4xOek0aFYHymD47Qq0WpGD1MCjoHXfmzvP+v/g51Mv+X/DWh3O2gPCrgR7uhc9l88onX8Qon7D4/BSDdHAXce78qCyTjuCgbLqiSYbGwcFF5e8TkEtA96qXqIin1dtq40+jjp/Xv8q91xMJa/4cw4XGkjYuMGEJyL04c7spmZBSbnDEgvGDk8fxADP3n6FjdNYu16hc3JSkQb6k39L0Ojc2YK1Ccv/vxrwb9o7BexjdNVuqNaioiuT5Lwscokkz4RUWRm7+oQ==
+ b=NHG+aAk22uie8LA+AXU1k0xkPThoEL6+363srUsCo3+pRU/s06yUo+AvUOWaKE0Rus7xAAF3qt5d7/X0LcKpVr/csfwTwpTVwNezxJoUf1UxH6ImX+TVUSQNXLc+vQe5dwVnXRT3x6LUShz00WKfuPYsxRg2esMnWbL/RcTSdtwvheTGtgJXP2Iy9NivDRUJcH9+LQWHs2jHlL8UHb7Q0V++BuwpgfS2cLfAycfr3Vt58gpkl7Yidq78B7UqtIsHQBVFq7Zm2wr+vmVk1xXUU5rAy6DuP/EsaE6nCsRQcz5W3xK5veGQrqBMBz/rrI1YGmIHb9FxUFGh6to48mVs7g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ldFCmhVgf2hohYtDOIo5qnNRmC9eRJje8GLGX9RkTuY=;
- b=CDotKA3uMoCbkamW6h1Yzkv8IV94uw3fORH99R18nQA1tSr8a1c7aljXSZGrgp0HGsJVcVdp6QCczQuVVQvjy4LkS/MeakY2sbQJtT2XF/9A9TPV/hytrtKEhHCFbmBox/e6EKiVDIcGuHIjKj3xCcRvdH5jPPqhSlLvn25YRQuuDzXq1jp4Gcj0B5j5D/tOyqmFg7Vc9x/7tASqPteHDu8tpOoKzPdJIZKRGXER//UYn1/InhERQtLDfiHuyfShr7CNcEWXuptNK6HI17xkZvONgllu4azhhcCVRsTsFsbdosZE/nKwqefkcGtTB8dx4hMdhC2bhhawXEZ4wu5tew==
+ bh=gz3zvRiEWYkf7LDrZ0GXIkTScZJf9PYhQI0iXwQf+w8=;
+ b=Gqv+/s9ev9P7wC2KGShPWjxCmG8ITGhN9zrV8Hcsq5TmDD3esuKlJfK7VM+EfJQAxhSwLtKVJNUyy4leoUoP17BiGISFsldEDnaHPOoYG+w2rb4nsFucURLZAy3MLxQFCNADKs/ZI5d2hS7tsPX2bw68fbpov3bfHpIQDBKSlCVUVTtlagHMwTgwAWc58vWYKKevBZU5b5pWC8dJeKYwuDvt9NIYNcBFQkNuuUSe1VqMb1OiVM9ZJBesdIjEofpS0ygVdzjkTbHlDhbeifplPhnpOlD+Sx/M3rBjTdL0qIOvhnhoIG1HFK+Ya+jLFO3XoIVRyFkqKTzRftxRSeoIxw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <12673497-72ca-3b24-f35f-0d93c645e11b@suse.com>
-Date: Wed, 23 Feb 2022 17:03:22 +0100
+Message-ID: <7834a4ea-3b39-5557-28ce-138084f21c31@suse.com>
+Date: Wed, 23 Feb 2022 17:03:49 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.1
-Subject: [PATCH v2 09/14] x86/P2M: derive HVM-only variant from
- __get_gfn_type_access()
+Subject: [PATCH v2 10/14] x86/p2m: re-arrange {,__}put_gfn()
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>
+ George Dunlap <george.dunlap@citrix.com>
 References: <f4e3bc16-2983-6f5b-37e8-26ac385d4d72@suse.com>
 In-Reply-To: <f4e3bc16-2983-6f5b-37e8-26ac385d4d72@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6P192CA0107.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:209:8d::48) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS9PR05CA0030.eurprd05.prod.outlook.com
+ (2603:10a6:20b:488::24) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 27f82c7a-3633-4bfd-e1e7-08d9f6e60513
-X-MS-TrafficTypeDiagnostic: VI1PR04MB6335:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1576fe68-b70f-4874-d2d6-08d9f6e6151a
+X-MS-TrafficTypeDiagnostic: AM0PR04MB5921:EE_
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB63353367D6A330C7B5A0A7D1B33C9@VI1PR04MB6335.eurprd04.prod.outlook.com>
+	<AM0PR04MB5921FC80503B5181CDF39CF5B33C9@AM0PR04MB5921.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	1xXFtTr9vmZ42FxJeDi5QwVUnyn3nWp2oGd7DqdzoRAOJoZ/cj9c1gvEPHZFsQqE5K0It6OB42FjY7n/ABaxtvNnF1OudbR5aMhODuvt2rlOMNw3J1AM9bQprViy2ItxEh1GzSnMy+HmjmDcqFteJ3NvQsAbCRSiysiekxSBMqac2fU0q8Rmj1FiLXDYEaF7WEfY118S7YyhPwh4XE9esW4bbYfM3H4xxyn8cbW16Oe8mpg/w6cqmiYvPguQS+rYpjkNyby0LYF78mYbfB95gJMMYC8WsRmMdYFk0y+LFnvhK0GkHHhUu8L5vWku6DhtnejFYzaf0WZWO/gef6X+O/CMwf40oa8bZqR11xYMTkrxlGpLUi/ZSreu7mF58S/U7k7tW07k6Fq7EyYonVkBFMU/8jtKEPZuhTT1fKUQMwOHzOyl6oF43mosteTBLY/YiMQpZIoAj/A8IzZRLn2iqsjMoh4nIR2i+ghjNd+8DOJ7jI9j5XAgiSVloTYiteX3dxS42FXujGU5V0rBPGblozjGCyLiyThpypuY1kvDrXa+F03J92L6JcYbiQ2Cr4bSLYF6qmqZ1pGB+HCkfSgm3qAPo9MMns+FRnPxTZ9W6aNBOcxGBYmhiJD2nigmE4FYNdnVNuDtVPBCU1kWRlKsmEnWw1ctfyGkk5zBEF9peDdvxRBrF98atSdaAVVWWUAUPp8QJt4Mnz+0uobY7rEu0RGWUy9Yg750tFa/SIXHh8EHpyfDGgskp6rwHhsMMKOw
+	l2N0jbVMnd3qfjhrZ8PdCAVEgki6jQy4PX8x7Zdp7pDmYCznJEcWZpIU/wsHbc/agfaHg2uoue6havCBpkctuvwG4Snfz5CPEXzKFos9vLbpm4EGCV2AfuxzEQZIOJutCrfIPAJ72ql43G1Xd9FX8cIKQdyl9Fh5UmJJRbJDzBykp65PbGZLhHlZxNP+O/jk4s/I/VnW0KqVexVCHFIa942VL/Wa2MRGbu049zDxXzAS0KU7FC4pY783r/Xp6E/rxzrSJPM73lXw3P3aKxJU8QsN/0McCRhBRnyR/pTifBb7n9g98BGJeB+s+juw154BErVZgsGx6XdKohKH8vo8vwVVVTFMc77WuA8ciJjhZ3wBjk/q0usmjcYThhhW6/K6tZRiz4YtoDoE2TvdXYx66VQIG6Yj27PP6W3hBZneCs8bR/prgPOetwA2vcLoV3tj878a+Go/AelF7DigQFq4BED8HBaBLa7VPDV9pipeOGix467SoS8dKY3+KCG+eLSaava3yIEsUDneqwFBJjVbU7czxOaJduHpfnx2e4eNuic68LQfXK/37EphcTGYJDIoHOxTlhiLkNzHNe94ERfXw57sUUj7wc+yqFtDhAOV2uiCilo1J8FODQqUDV82zrHPU9jN97gDGzyo0Llb7HSXqxYCxl0pXbn7MjZdKaVrzK0xf7XUOJyaV+jjJUeNgxzofa0WzGqm/hjCbijmuXkuXuH8lerVCOqVIhpEFEoaoIrY+8NZ99uZLbA3SiaEzD4c
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(31686004)(66476007)(54906003)(6916009)(66556008)(66946007)(83380400001)(4326008)(36756003)(8676002)(508600001)(6486002)(6506007)(86362001)(186003)(31696002)(26005)(5660300002)(2906002)(8936002)(316002)(2616005)(6512007)(38100700002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(316002)(31686004)(2906002)(8936002)(5660300002)(66476007)(6486002)(66946007)(36756003)(8676002)(66556008)(83380400001)(4326008)(6916009)(54906003)(186003)(6506007)(26005)(2616005)(86362001)(38100700002)(31696002)(6512007)(508600001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bG1VTGpWRG9FSC9aWWtUb3dMKzl2ZjJDYUZKZkJLelVFQXFQaUl4UjZ1blg5?=
- =?utf-8?B?RVNteUtiTXhScU0ySE4zRktKeXNPZVMrdXovQ3lrUSsraG5UWFFpVmoxOTN0?=
- =?utf-8?B?S2hMVER0WksvcFkwQndGWFczMFV4NGVoNkJMRWRNNDkyWDlTUXpHeVlSeDNt?=
- =?utf-8?B?SzFzdEN6NHBQNzJ6cGJKUURqVlBkVDFYSjZkWHVzenNDS3NYMFEySXF0NmRU?=
- =?utf-8?B?VjhTd1ZEd1JROTg1Sm1BV2NKaXN3TkgwQmh1bHNWcnVYclhTdUhOdUl5aFEw?=
- =?utf-8?B?Y0ZqcjgxUHQ1WFhNc3dGaGh0NDhicUdFM3MrUC9Cb1ZDeHN0TnY2UjFlMkF4?=
- =?utf-8?B?WG1kUElqdjlQbzVsNncwOGVvT0w1UVM1WTljZm1aZHFrNHVMVTNHUURURHB5?=
- =?utf-8?B?RmE3aUQ3eUg4a1A2NDdlbUwxeXdBK3pkdDZFQnUwVTJPNVVhbnVKVjA3UzlD?=
- =?utf-8?B?NGJqdit5TlMrRVpKSWYrcWMxQTU1dk5zZlI1c1JKbDlYUzhWdnF0bk50cm9k?=
- =?utf-8?B?QVF4WGRXSEZlVytMMWxUTjkyN296Vy9GVHlYOWhiZXpFNzN2N3RnVnE2T21Z?=
- =?utf-8?B?dW15Mmkyd3JrR2dKVU5EcmtFRDRWaC9vU1VyMkNMcDRLaDNKQkRSWEJBaUta?=
- =?utf-8?B?QzYyWEk0TVVXTmtZOGUwTmxEWjhUNXVuMEZqSnA2V1RVUmVlQjhNZmw4anhz?=
- =?utf-8?B?VlVheXd6ZERMdEwvbkJRbXFUWE8xL0xvalVkUDQ4ek44Nm1NUHdjL1BTcEFH?=
- =?utf-8?B?R3RqU1o2RVdwKzNwOWp2TDFBbmpaN3JPSmJHV2JwMGFqQ3cvQVcwK01pWFNv?=
- =?utf-8?B?eVRJZUozUk9rZWxJdDdpZXRCcUIvbE9UeVlxUmlWL0lhZEcyQjRGazczc1BU?=
- =?utf-8?B?THN0dW9LeUtnTi8xR3dSaXVXKzYyNDZtQU43NnltNHN6Ly9WcVY5ZVNuemF3?=
- =?utf-8?B?UUIxQmVjRjdQamcza01BUDU4N2VaTStvREYvOVZKRnMxSXVQWDR4MjNhZW5y?=
- =?utf-8?B?Z1orK2RSaHhYWHZYME1nZGx0TXRIdnBNWXZkMXNRS3NONzVOQ1ZXd2F3TTAx?=
- =?utf-8?B?dTRkY09QZHoydms4VFRua3JqeTRES04ybEcvQUgzZlZsWFRlV2FlZkdhSmFD?=
- =?utf-8?B?QnpveHM3Y0JGSU5kMEpPK1BFdyt1blVVWU81dXNTN21sb0NCbkovWnB5NFhh?=
- =?utf-8?B?M3NVbDVHNmwrYllJcDdFdjFmWFh6d0JMQitxb0JFSXNlVTRBbDhxWkdxRmRN?=
- =?utf-8?B?UldBQmFoQVgzQUJnQ2x0RXgwZmdlK1pVMTJlK1JZWDhnWnlzY2JRVTJHcjlX?=
- =?utf-8?B?QU1heitpSDljdlRNK210SU9zOTVuaTNmcDZoekhydXVCaG84MTlYUmRaYjNO?=
- =?utf-8?B?VHBOeWJvV09haHZTWkZ3Ym1sb2daUTV4V2Z3aXk1Y2E5UFNUNng1Y3BOZENm?=
- =?utf-8?B?UGRONDQ4K09UTVE4V2l6aGxNTHJVVGttMTF3ZDN1VGJiWDFCMTN1YnpYcWRN?=
- =?utf-8?B?T0FSSkNNOTFkMVgwNjlCVHZsMzMzRHJlNHZtODl1TnVLM0xYVkxiT3N6cFlx?=
- =?utf-8?B?bmZIRFZ3bGxZTkRJSHVSU0treStlNTRFWGNScUtyNlViSVhyTWxqVUF1OUxr?=
- =?utf-8?B?Q0h0OWFOTFlzQVFCajlTa29mTy94RitMSjdnaFNyRTczMnZUM0ExNm1MakVT?=
- =?utf-8?B?RGZoNFNlRWdPblNkbHF3VnBrUVdLT3YrbGNjSkZuaVJ3SzhnNUU0dDNDNHU4?=
- =?utf-8?B?eUhobGViVi8vbmRTaGdhRndPZktOYWVDS2V3Q3lSOHhJZ2pQSko4NUpTZUU0?=
- =?utf-8?B?Mmllc1BsblFjOEowaWZYRGdERGtKQ2FaWXlWdlRKWjd4YWk5dXNLdTNXczJV?=
- =?utf-8?B?WHIxZzR5UGJoY0VVSWFFRS9qR1NKbjVPeWpqOEQ1Mzl1YnBPT0prNnBmZGpE?=
- =?utf-8?B?bG4vLytacnNoSmVpcXIvTVpvaFI4Q1JTL05XS3h6VFlQekJjcTFEdUJra0Q3?=
- =?utf-8?B?TnB6Z3BJRkM1dVdjb05BeStVMzI0ZlVFWEVzWEJDeW94NW5hSEZJQ2d0RzJZ?=
- =?utf-8?B?ckJsWDFCNHVYZ09MNGdsZ0gwOGhKWVE2ZjVDTUVzUnFXakl3SFhvQkFhMDA0?=
- =?utf-8?B?M2RUd2N1Mm9ueFZQM1ZDb3ppd3B1QjlZU3hyY2tzdTZnMkV2N2xNeGdKS29z?=
- =?utf-8?Q?IScFz/HNM80EJn0KwyNhO5o=3D?=
+	=?utf-8?B?b2FZSVRzYk1IZFkyUVRHa0VPNUVQZ0RLaUNzRTMxNnhXZXBMTHZzTG9VUFUv?=
+ =?utf-8?B?ZHJFeUtWNVZpWFJadDJIenNaTTVseEp3d2RQV1RMWkVxcWhhOFJVb0ZzU1BY?=
+ =?utf-8?B?TW9rYVl1THdHSnhmQ09UcWR2K2ErVlVxeUhISG5leUJtb2lWcngwOXZpWjVV?=
+ =?utf-8?B?cHF2ck9tYkxCUm5RK0U2cDExSVh0WXR3Njhac0dHOHhNZzNURmdyVWtPWFpj?=
+ =?utf-8?B?amNkYUpXaTl3Rk5MUUUxOXgyalJMQkZpM0daek5QRVgyektYQVRYUkpVMHBZ?=
+ =?utf-8?B?dGpVazZubzNPcW9jOE1LU2xyS2Z1amlOUnJzaGVSSHRGNTQ4WTNkTi9KZVFN?=
+ =?utf-8?B?MkNvc3YxWTRaVzlaNGJWMmhkYWtSTzQ5NG1zVGZ1QXdaSFh2K0lUVHhld3Vm?=
+ =?utf-8?B?RHFpdTZTZ2RkOWNnU2JmUWZvOTlCc3BxZDdzZ3d0Uk9TeVJOenhJdDNsYW5h?=
+ =?utf-8?B?T1FxVGI4OXoyc3J0SDJuN3NIeExZRzlSdEY5RzlBdVVhOFNUcFB4elIzb2xj?=
+ =?utf-8?B?Z0JIWEl4V1A1am5Hdi9MVThxY3NXVTJJU2Q5bVBDaE9uUzg3ZXlJeHB0MnJ2?=
+ =?utf-8?B?WXNMNUhXdFBpWkhlUldQdWQrWEtNTGk4cjdBcHY4TUN4VllpUnNKdkJEQmZ1?=
+ =?utf-8?B?a1NsNGovV1FTYjB5anorNHIyZEIrZXJlYWpQNjRVdFhKLzU3YTBZK2tJenRF?=
+ =?utf-8?B?M1hIRlFGeFJaaWE3WXRsVDllckdVVEgrWWtSR3hya2dLUW14SmhRMGN2WFgx?=
+ =?utf-8?B?K3NyczJYNEppaTdvS0x1TjZ4N1FaR1pwWHMyVVZjY0dxeFM2bmkvdEVnVHZK?=
+ =?utf-8?B?TDR5U3JIK3F0OVJNVms3MFZnWXZUYmo1aGVDRUttQUp1cHRZY3FCZnhQMlhK?=
+ =?utf-8?B?NnR3SWs0bngzb2ZJK1Via1VVZkE2YTk3dWpvdnlWZGg4dllPcmR2VkQzLy9S?=
+ =?utf-8?B?S1J0dVR6a0Z2U3JMRnptQitodFNRS3l6elZzNUdDbTFpRFBOME53dkk0Unpo?=
+ =?utf-8?B?SktvUUpsOWxXaE1nTE93SmdnUXFPSjZpQXIyb1lzR0tMZElKb0NzLytGamFa?=
+ =?utf-8?B?bmQyenhUcnhWc2Y2d0JaVGRVaTc1VDdZQmNUMUVzRjVyZ1lEd3d0T1hPb3hO?=
+ =?utf-8?B?UHRLMjluQ09XcFBpcTlmR1JtcnVHUllPQUdaT1ZrSUw5YTIzSFNQTy9rMkhz?=
+ =?utf-8?B?OGMrWVhVWjlUcmQzNGNaWjlVU041aDBIczFIalNQSE4xWVZqT2x1M1NxRWdF?=
+ =?utf-8?B?dXJzMzhBRGhsdE01MkgxRGZtNTdKdk1lNUk5SnE0djN4K0dFclJ2VXgvVmJC?=
+ =?utf-8?B?ckIyNTRocUZvZjhGcWdXcWY0VFczTFE1QmRBTTgxRUxGMm43ak9oMGZNeHRy?=
+ =?utf-8?B?U0R3MC9jT1h2UDFPQUpTS3dodEZvbXVMV1lUbE53ZHpkTU5DM21DNUdaNGZq?=
+ =?utf-8?B?VHpNUWdpT21FbldBOE44b2RvY3N4dUhPaXloK1ZVam1EL0dRVmJvaVFvTjJR?=
+ =?utf-8?B?TExLQTN2WGloSDhuOEI2N2xlZXFyeVA3SjFTNGE1eEczaUFzTTU3a2dGVk9J?=
+ =?utf-8?B?Umt4QjBxWTE0S1k1c0FUejlVVjA2NlRQeFBiaEVnYmcwNXBrZFM2YTBuSVNs?=
+ =?utf-8?B?RzlWK2QxV3NSSUZzODJuY0ZkZDEwWUpzcWJnY3FkVUdJODIzeU9kVkJSSVNs?=
+ =?utf-8?B?VXprR1V6WUlhR2VMSFAxS3NLSThtYjJIcmJmWVNYSFpudXpZSVFlMVBvRlJa?=
+ =?utf-8?B?SnVzM211QWpyeVhaMHcwbnNKK0dIN2xSc3hoS3VmTHd4c3lNMXJibVRqZjAy?=
+ =?utf-8?B?V0pRL3VWS09jS2l0bXNnY0ZOY1VObktBMzZMb2hGZm80d0t2M0dURVJRZERU?=
+ =?utf-8?B?WW5CYytHTThRMENlUHdXM2V6Q1BrMnRSeWtCRWdWYW1JWi80MjYyN0VlUTBI?=
+ =?utf-8?B?cWd4a05pKy91ZGw4dWlINGxwR2lKYXR5b013VzBveGYzUnQvbE4wYTBFRVha?=
+ =?utf-8?B?bkJ4M1ZFbExmL0E3d3Y0bWdHU0xFM0tmRm5BMEJHZDdPcTFzU1Y2TDJINTZW?=
+ =?utf-8?B?RXpaa3Vnc0UxVytiZWZwdlhQWlRXWmQxcFByei9idWpxU2FaWXZPbE9aU1hz?=
+ =?utf-8?B?YzZQZGFWaXBqQVlKb0ZTUlpWbXdVenVabjU2YmFDQ095U0xhMEFFckRpYTRJ?=
+ =?utf-8?Q?Ww6ywJmwGo6oNzQ/i7YJ5p4=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27f82c7a-3633-4bfd-e1e7-08d9f6e60513
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1576fe68-b70f-4874-d2d6-08d9f6e6151a
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2022 16:03:23.8985
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2022 16:03:50.7719
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bv0YSkwOPcVrPb5WpNy1OlcqjHLeK6v8WJwM/IfCXUCm7tL9tL4Tf/F9FD5SjEfkxHDuJ2DIvnX1bhCCaebNLA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6335
+X-MS-Exchange-CrossTenant-UserPrincipalName: FkRqybpzQRugmbY06uaPz1s3s73T8g6aRoIM/nxeu/1TFN3wHufwfjDcOAKBw3Z1bUcVT6kapoq/NQ3mOcY9kw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB5921
 
-Introduce an inline wrapper dealing with the non-translated-domain case,
-while stripping that logic from the main function, which gets renamed to
-p2m_get_gfn_type_access(). HVM-only callers can then directly use the
-main function.
-
-Along with renaming the main function also make its and the new inline
-helper's GFN parameters type-safe.
+All explicit callers of __put_gfn() are in HVM-only code and hold a valid
+P2M pointer in their hands. Move the paging_mode_translate() check out of
+there into put_gfn(), renaming __put_gfn() and making its GFN parameter
+type-safe.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 Reviewed-by: George Dunlap <george.dunlap@citrix.com>
+---
+v2: Re-base over XSA-388 follow-up.
 
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -1716,7 +1716,7 @@ static void svm_do_nested_pgfault(struct
-         } _d;
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -1955,9 +1955,9 @@ int hvm_hap_nested_page_fault(paddr_t gp
+              * altp2m_list lock.
+              */
+             if ( p2m != hostp2m )
+-                __put_gfn(p2m, gfn);
++                p2m_put_gfn(p2m, _gfn(gfn));
+             p2m_change_type_one(currd, gfn, p2m_ram_logdirty, p2m_ram_rw);
+-            __put_gfn(hostp2m, gfn);
++            p2m_put_gfn(hostp2m, _gfn(gfn));
  
-         p2m = p2m_get_p2m(v);
--        mfn = __get_gfn_type_access(p2m, gfn, &p2mt, &p2ma, 0, NULL, 0);
-+        mfn = p2m_get_gfn_type_access(p2m, _gfn(gfn), &p2mt, &p2ma, 0, NULL, 0);
+             goto out;
+         }
+@@ -1979,8 +1979,8 @@ int hvm_hap_nested_page_fault(paddr_t gp
  
-         _d.gpa = gpa;
-         _d.qualification = 0;
-@@ -1741,7 +1741,7 @@ static void svm_do_nested_pgfault(struct
-     if ( p2m == NULL )
-     {
-         p2m = p2m_get_p2m(v);
--        mfn = __get_gfn_type_access(p2m, gfn, &p2mt, &p2ma, 0, NULL, 0);
-+        mfn = p2m_get_gfn_type_access(p2m, _gfn(gfn), &p2mt, &p2ma, 0, NULL, 0);
-     }
-     gdprintk(XENLOG_ERR,
-          "SVM violation gpa %#"PRIpaddr", mfn %#lx, type %i\n",
+  out_put_gfn:
+     if ( p2m != hostp2m )
+-        __put_gfn(p2m, gfn);
+-    __put_gfn(hostp2m, gfn);
++        p2m_put_gfn(p2m, _gfn(gfn));
++    p2m_put_gfn(hostp2m, _gfn(gfn));
+  out:
+     /*
+      * All of these are delayed until we exit, since we might
 --- a/xen/arch/x86/include/asm/p2m.h
 +++ b/xen/arch/x86/include/asm/p2m.h
-@@ -459,10 +459,27 @@ void p2m_unlock_and_tlb_flush(struct p2m
-  * After calling any of the variants below, caller needs to use
-  * put_gfn. ****/
+@@ -509,9 +509,16 @@ static inline mfn_t __nonnull(3) get_gfn
+                                               P2M_ALLOC | P2M_UNSHARE)
  
--mfn_t __nonnull(3, 4) __get_gfn_type_access(
--    struct p2m_domain *p2m, unsigned long gfn, p2m_type_t *t,
-+mfn_t __nonnull(3, 4) p2m_get_gfn_type_access(
-+    struct p2m_domain *p2m, gfn_t gfn, p2m_type_t *t,
-     p2m_access_t *a, p2m_query_t q, unsigned int *page_order, bool_t locked);
+ /* Will release the p2m_lock for this gfn entry. */
+-void __put_gfn(struct p2m_domain *p2m, unsigned long gfn);
++void p2m_put_gfn(struct p2m_domain *p2m, gfn_t gfn);
  
-+static inline mfn_t __nonnull(3, 4) _get_gfn_type_access(
-+    struct p2m_domain *p2m, gfn_t gfn, p2m_type_t *t,
-+    p2m_access_t *a, p2m_query_t q, unsigned int *page_order, bool_t locked)
+-#define put_gfn(d, gfn) __put_gfn(p2m_get_hostp2m((d)), (gfn))
++static inline void put_gfn(struct domain *d, unsigned long gfn)
 +{
-+    if ( !p2m || !paging_mode_translate(p2m->domain) )
-+    {
-+        /*
-+         * Not necessarily true, but for non-translated guests we claim
-+         * it's the most generic kind of memory.
-+         */
-+        *t = p2m_ram_rw;
-+        return _mfn(gfn_x(gfn));
-+    }
++    if ( !paging_mode_translate(d) )
++        /* Nothing to do in this case */
++        return;
 +
-+    return p2m_get_gfn_type_access(p2m, gfn, t, a, q, page_order, locked);
++    p2m_put_gfn(p2m_get_hostp2m(d), _gfn(gfn));
 +}
-+
- /* Read a particular P2M table, mapping pages as we go.  Most callers
-  * should _not_ call this directly; use the other get_gfn* functions
-  * below unless you know you want to walk a p2m that isn't a domain's
-@@ -474,7 +491,7 @@ static inline mfn_t __nonnull(3, 4) get_
-     struct p2m_domain *p2m, unsigned long gfn, p2m_type_t *t,
-     p2m_access_t *a, p2m_query_t q, unsigned int *page_order)
- {
--    return __get_gfn_type_access(p2m, gfn, t, a, q, page_order, true);
-+    return _get_gfn_type_access(p2m, _gfn(gfn), t, a, q, page_order, true);
+ 
+ /* The intent of the "unlocked" accessor is to have the caller not worry about
+  * put_gfn. They apply to very specific situations: debug printk's, dumps 
+--- a/xen/arch/x86/mm/hap/nested_hap.c
++++ b/xen/arch/x86/mm/hap/nested_hap.c
+@@ -149,7 +149,7 @@ static int nestedhap_walk_L0_p2m(
+ direct_mmio_out:
+     *L0_gpa = (mfn_x(mfn) << PAGE_SHIFT) + (L1_gpa & ~PAGE_MASK);
+ out:
+-    __put_gfn(p2m, L1_gpa >> PAGE_SHIFT);
++    p2m_put_gfn(p2m, gaddr_to_gfn(L1_gpa));
+     return rc;
  }
  
- /* General conversion function from gfn to mfn */
-@@ -515,7 +532,8 @@ static inline mfn_t get_gfn_query_unlock
-                                            p2m_type_t *t)
- {
-     p2m_access_t a;
--    return __get_gfn_type_access(p2m_get_hostp2m(d), gfn, t, &a, 0, NULL, 0);
-+    return _get_gfn_type_access(p2m_get_hostp2m(d), _gfn(gfn), t, &a, 0,
-+                                NULL, 0);
- }
- 
- /* Atomically look up a GFN and take a reference count on the backing page.
---- a/xen/arch/x86/mm/mem_access.c
-+++ b/xen/arch/x86/mm/mem_access.c
-@@ -299,8 +299,9 @@ static int set_mem_access(struct domain
-     {
-         p2m_access_t _a;
-         p2m_type_t t;
--        mfn_t mfn = __get_gfn_type_access(p2m, gfn_x(gfn), &t, &_a,
--                                          P2M_ALLOC, NULL, false);
-+        mfn_t mfn = p2m_get_gfn_type_access(p2m, gfn, &t, &_a,
-+                                            P2M_ALLOC, NULL, false);
-+
-         rc = p2m->set_entry(p2m, gfn, mfn, PAGE_ORDER_4K, t, a, -1);
-     }
- 
---- a/xen/arch/x86/mm/mem_sharing.c
-+++ b/xen/arch/x86/mm/mem_sharing.c
-@@ -478,12 +478,12 @@ do {
- #undef assign_pointers
- 
-     /* Now do the gets. */
--    *first_mfn  = __get_gfn_type_access(p2m_get_hostp2m(rval->first_domain),
--                                        gfn_x(rval->first_gfn), first_t,
--                                        first_a, q, NULL, lock);
--    *second_mfn = __get_gfn_type_access(p2m_get_hostp2m(rval->second_domain),
--                                        gfn_x(rval->second_gfn), second_t,
--                                        second_a, q, NULL, lock);
-+    *first_mfn  = p2m_get_gfn_type_access(p2m_get_hostp2m(rval->first_domain),
-+                                          rval->first_gfn, first_t,
-+                                          first_a, q, NULL, lock);
-+    *second_mfn = p2m_get_gfn_type_access(p2m_get_hostp2m(rval->second_domain),
-+                                          rval->second_gfn, second_t,
-+                                          second_a, q, NULL, lock);
- }
- 
- static void put_two_gfns(const struct two_gfns *arg)
-@@ -936,8 +936,8 @@ static int nominate_page(struct domain *
-             if ( !ap2m )
-                 continue;
- 
--            amfn = __get_gfn_type_access(ap2m, gfn_x(gfn), &ap2mt, &ap2ma,
--                                         0, NULL, false);
-+            amfn = p2m_get_gfn_type_access(ap2m, gfn, &ap2mt, &ap2ma,
-+                                           0, NULL, false);
-             if ( mfn_valid(amfn) && (!mfn_eq(amfn, mfn) || ap2ma != p2ma) )
-             {
-                 altp2m_list_unlock(d);
 --- a/xen/arch/x86/mm/p2m.c
 +++ b/xen/arch/x86/mm/p2m.c
-@@ -286,25 +286,13 @@ void p2m_unlock_and_tlb_flush(struct p2m
-         mm_write_unlock(&p2m->lock);
- }
- 
--mfn_t __get_gfn_type_access(struct p2m_domain *p2m, unsigned long gfn_l,
--                    p2m_type_t *t, p2m_access_t *a, p2m_query_t q,
--                    unsigned int *page_order, bool_t locked)
--{
- #ifdef CONFIG_HVM
--    mfn_t mfn;
--    gfn_t gfn = _gfn(gfn_l);
- 
--    if ( !p2m || !paging_mode_translate(p2m->domain) )
--    {
--#endif
--        /*
--         * Not necessarily true, but for non-translated guests we claim
--         * it's the most generic kind of memory.
--         */
--        *t = p2m_ram_rw;
--        return _mfn(gfn_l);
--#ifdef CONFIG_HVM
--    }
-+mfn_t p2m_get_gfn_type_access(struct p2m_domain *p2m, gfn_t gfn,
-+                              p2m_type_t *t, p2m_access_t *a, p2m_query_t q,
-+                              unsigned int *page_order, bool_t locked)
-+{
-+    mfn_t mfn;
- 
-     /* Unshare makes no sense without populate. */
-     if ( q & P2M_UNSHARE )
-@@ -329,8 +317,8 @@ mfn_t __get_gfn_type_access(struct p2m_d
-          * Try to unshare. If we fail, communicate ENOMEM without
-          * sleeping.
-          */
--        if ( mem_sharing_unshare_page(p2m->domain, gfn_l) < 0 )
--            mem_sharing_notify_enomem(p2m->domain, gfn_l, false);
-+        if ( mem_sharing_unshare_page(p2m->domain, gfn_x(gfn)) < 0 )
-+            mem_sharing_notify_enomem(p2m->domain, gfn_x(gfn), false);
-         mfn = p2m->get_entry(p2m, gfn, t, a, q, page_order, NULL);
-     }
- 
-@@ -343,9 +331,10 @@ mfn_t __get_gfn_type_access(struct p2m_d
-     }
- 
+@@ -333,21 +333,13 @@ mfn_t p2m_get_gfn_type_access(struct p2m
      return mfn;
--#endif
  }
  
-+#endif /* CONFIG_HVM */
-+
- void __put_gfn(struct p2m_domain *p2m, unsigned long gfn)
+-#endif /* CONFIG_HVM */
+-
+-void __put_gfn(struct p2m_domain *p2m, unsigned long gfn)
++void p2m_put_gfn(struct p2m_domain *p2m, gfn_t gfn)
  {
-     if ( !p2m || !paging_mode_translate(p2m->domain) )
-@@ -377,7 +366,7 @@ struct page_info *p2m_get_page_from_gfn(
-     {
-         /* Fast path: look up and get out */
-         p2m_read_lock(p2m);
--        mfn = __get_gfn_type_access(p2m, gfn_x(gfn), t, a, 0, NULL, 0);
-+        mfn = p2m_get_gfn_type_access(p2m, gfn, t, a, 0, NULL, 0);
-         if ( p2m_is_any_ram(*t) && mfn_valid(mfn)
-              && !((q & P2M_UNSHARE) && p2m_is_shared(*t)) )
-         {
-@@ -1775,8 +1764,8 @@ int altp2m_get_effective_entry(struct p2
-         unsigned int page_order;
-         int rc;
+-    if ( !p2m || !paging_mode_translate(p2m->domain) )
+-        /* Nothing to do in this case */
+-        return;
+-
+-    ASSERT(gfn_locked_by_me(p2m, gfn));
++    ASSERT(gfn_locked_by_me(p2m, gfn_x(gfn)));
  
--        *mfn = __get_gfn_type_access(hp2m, gfn_x(gfn), t, a,
--                                     P2M_ALLOC | P2M_UNSHARE, &page_order, 0);
-+        *mfn = p2m_get_gfn_type_access(hp2m, gfn, t, a, P2M_ALLOC | P2M_UNSHARE,
-+                                       &page_order, 0);
+-    gfn_unlock(p2m, gfn, 0);
++    gfn_unlock(p2m, gfn_x(gfn), 0);
+ }
  
-         rc = -ESRCH;
-         if ( !mfn_valid(*mfn) || *t != p2m_ram_rw )
+-#ifdef CONFIG_HVM
+-
+ /* Atomically look up a GFN and take a reference count on the backing page. */
+ struct page_info *p2m_get_page_from_gfn(
+     struct p2m_domain *p2m, gfn_t gfn,
+@@ -2201,7 +2193,7 @@ int p2m_altp2m_propagate_change(struct d
+             else
+             {
+                 /* At least 2 altp2m's impacted, so reset everything */
+-                __put_gfn(p2m, gfn_x(gfn));
++                p2m_put_gfn(p2m, gfn);
+ 
+                 for ( i = 0; i < MAX_ALTP2M; i++ )
+                 {
+@@ -2225,7 +2217,7 @@ int p2m_altp2m_propagate_change(struct d
+                 ret = rc;
+         }
+ 
+-        __put_gfn(p2m, gfn_x(gfn));
++        p2m_put_gfn(p2m, gfn);
+     }
+ 
+     altp2m_list_unlock(d);
+@@ -2310,7 +2302,7 @@ void audit_p2m(struct domain *d,
+              * blow away the m2p entry. */
+             set_gpfn_from_mfn(mfn, INVALID_M2P_ENTRY);
+         }
+-        __put_gfn(p2m, gfn);
++        p2m_put_gfn(p2m, _gfn(gfn));
+ 
+         P2M_PRINTK("OK: mfn=%#lx, gfn=%#lx, p2mfn=%#lx\n",
+                        mfn, gfn, mfn_x(p2mfn));
 
 
