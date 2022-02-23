@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6AE74C1111
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Feb 2022 12:12:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.277327.473786 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D6F14C114D
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Feb 2022 12:32:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.277336.473797 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nMpYc-0007Mr-E2; Wed, 23 Feb 2022 11:11:42 +0000
+	id 1nMprp-0001Lx-7M; Wed, 23 Feb 2022 11:31:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 277327.473786; Wed, 23 Feb 2022 11:11:42 +0000
+Received: by outflank-mailman (output) from mailman id 277336.473797; Wed, 23 Feb 2022 11:31:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nMpYc-0007Kg-Ap; Wed, 23 Feb 2022 11:11:42 +0000
-Received: by outflank-mailman (input) for mailman id 277327;
- Wed, 23 Feb 2022 11:11:41 +0000
+	id 1nMprp-0001IX-48; Wed, 23 Feb 2022 11:31:33 +0000
+Received: by outflank-mailman (input) for mailman id 277336;
+ Wed, 23 Feb 2022 11:31:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=DZ7u=TG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nMpYb-0007Ka-7p
- for xen-devel@lists.xenproject.org; Wed, 23 Feb 2022 11:11:41 +0000
+ id 1nMprm-0001IR-Q2
+ for xen-devel@lists.xenproject.org; Wed, 23 Feb 2022 11:31:31 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5f639e4a-9499-11ec-8539-5f4723681683;
- Wed, 23 Feb 2022 12:11:40 +0100 (CET)
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur01lp2050.outbound.protection.outlook.com [104.47.2.50]) by
+ id 242634e7-949c-11ec-8539-5f4723681683;
+ Wed, 23 Feb 2022 12:31:28 +0100 (CET)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05lp2110.outbound.protection.outlook.com [104.47.18.110]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-31-dyN-6EgYOLWGu8w2NrJ4xw-1; Wed, 23 Feb 2022 12:11:38 +0100
+ de-mta-2-MN91TbUtP5W9FgCEHB7WeA-1; Wed, 23 Feb 2022 12:31:26 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by PA4PR04MB9247.eurprd04.prod.outlook.com (2603:10a6:102:2a2::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11; Wed, 23 Feb
- 2022 11:11:36 +0000
+ by DB9PR04MB8137.eurprd04.prod.outlook.com (2603:10a6:10:244::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.22; Wed, 23 Feb
+ 2022 11:31:25 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::d479:b728:345c:bd65%6]) with mapi id 15.20.5017.022; Wed, 23 Feb 2022
- 11:11:36 +0000
+ 11:31:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,140 +51,233 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f639e4a-9499-11ec-8539-5f4723681683
+X-Inumbo-ID: 242634e7-949c-11ec-8539-5f4723681683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1645614699;
+	t=1645615888;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=f2LW45OR9QyB/xv/GQypej6z4yNDHqrFv6fZ+6Ynb5g=;
-	b=BTZg7Gd1c8YxQVdElOr0rA+5AYWcBbSv5rY5yIAUUWt0SaztpOQ6z1yEheOBVlvwSWK1ji
-	lnLnp1NgknFXM8j9tbtdgTiiUVRZ7EdjDHq4NVGPXTtHsZ5fmpyAugY1DFYUW2tM6LIpB1
-	7NKAqSKagV3wGU/VwUtvFYSz+AA17+k=
-X-MC-Unique: dyN-6EgYOLWGu8w2NrJ4xw-1
+	bh=HiokagSwW7oft5YfoUtY1q5MIq5PaNW8aRtwexB10Dc=;
+	b=m6EOszrLOrOX8Hq6R6Q7CoqO0syvmoTQvg0ynm7c9SRephkq5aYvDkQ5DJCjWunUPJ3Ze5
+	ZIN0Yj1cBK3V/CUhAqnjzEFWokgkpk72snaCJrs4rHb1m44RvykOjZLN1IUWzoRzyqej4w
+	7/oZnrWY3ClijuFgzI1qSf9MKwtBL5M=
+X-MC-Unique: MN91TbUtP5W9FgCEHB7WeA-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KpdoFjZy3b8/LHegeRiLsJrLDgrpJL90wcbACqrmTaf0rhATQnbhHSOJtp3kMg0q/NEgT2JyeUs0tPI5OyCVbFEe04mfseBRPm4kymeGrS31p/VKcggudz+N7ZTuwiItpTvxo3Vf0D7ywiOdu/8vXQOuF0tMEBqp6mCsaknhEp8usQ+Pk1AuDPhyK79qU8Crl1eysuK7l1ErxVAnsbC6iyDduUBX49FttUCGCLWW5mmonF4Y0Xls4JFijczZ4CxVwNqK28Vat5jhsHsOqR19THvDOmdOVDYY19H7GEvRvBNbK1ooG1MRGelSXh/OvSgXNawTBRrMuEylovN32lR7uQ==
+ b=LTK0BQbJ1QP2vfmlmV+Vs7yGu4zhNETzuwXLSAxh6Fau+GjcpISy7T/3hrpjC4UPAi9VQhswm3BDSBV0DQN9LjQtYNdCfVbWvkNBXu6vHKF7IaYx6VQHJXKPWni0LEynsISYXpqM1WqKnP3r+7jXjf4v6OVkEvpO73ijTGJhkySQmV8CJ3H+Nce/OFn1XBiZ33HWBGDi3ur0VXOgZ/EAayd8OuMO/TcMtYu4cfGz5H9iuuSty2xjadD5KXDgu7Olf14mAFi8iyxEDRip/thYBDcYnMlK/Hl1iFfO0ZqfAr5wT4rypctRh1+Avpnk9hrUzPFiWsmXAH+aRcVLR0M0JQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E5rtqIYRQyrk6uH1BJMVlZRSirGX8jY1S+9ht0rwAa4=;
- b=F+tVVK2TLL0LArofk0X/mLnk5sC/nvKzaeQsYHcgLl8HCcJHFl60vXnqedqaWepDlY1F4YLumHEm3FZtWG2oJAw4IkyP6hhW8Inx3v9Z9OTnSn06BvJ05WBCyZh/vlbqOPUtXHxFMe+IBN7Jq/LmcP80nlNYr/Ulq5Ntd8FjoBCd7hKoF1+J0F9D5x7GfmJarVa3eoy9ZpxXJdip++AiwjVIc2pGBbeqzKDdUVMQ1fH6Hqrw6OlQET+bh4rqQ2MFhbFRjugNuLAeMBWshVu6lqgIdNGLHzFcRP+j8uhLsh4ebkg+iyJFSzdhBvAqsuL3f5/Tl7lYZMCS0qmmBIsa8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
+ bh=aTT5nBsFvcPRM7gkaZ9hXwUhZEF54Jsjj4N4/hO/hxE=;
+ b=f70gOQRYFeV5uGom1KnaotP78+GV/+s/GwDapB42noznrdfSc3+da+jKAW9FahDAZjKOVxOwN/9qiZMUvNzIZ7iCJL2f/y32z5v7YsVd4EcBCZMCjAu2f+6vv74MjDXyeTX7w0qGcKUR1v05WW0QiyQmS4de8Fgd7pN6ww6lrCHqeM17Q3LofdNVscpMewTAPs+ZrxJkKU51ycU8dy8A9CTXKIc6ghpU9RFrhvD5KWhGel4r1gXHvMbAGrjTESKTE6NfSw6BllLKLXjlszcC8diiszT51AJ6yy4cE7PajiWxyfrOZLttMpbonHsqr1auDCnETI8qSbL9NJjdGyzgrA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <4b90f99b-08db-8f1d-bede-d541df05799c@suse.com>
-Date: Wed, 23 Feb 2022 12:11:34 +0100
+Message-ID: <48241c60-294b-782f-7217-45a3dc929c38@suse.com>
+Date: Wed, 23 Feb 2022 12:31:24 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.1
-Subject: Re: [PATCH 1/3] x86: drop NOP_DS_PREFIX
+Subject: Re: [PATCH v3 60/70] x86: Build check for embedded endbr64
+ instructions
 Content-Language: en-US
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>
-CC: Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <91935ffd-a270-f1a1-28f1-645fa4167fcd@suse.com>
- <96f493ee-a360-ce46-7a61-5f55ca436295@suse.com>
- <f0214b33-09c0-f15b-e2ca-51cba5fd9ac5@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20220222152645.8844-1-andrew.cooper3@citrix.com>
+ <20220222152645.8844-15-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <f0214b33-09c0-f15b-e2ca-51cba5fd9ac5@citrix.com>
+In-Reply-To: <20220222152645.8844-15-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM6P193CA0065.EURP193.PROD.OUTLOOK.COM
- (2603:10a6:209:8e::42) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0059.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4b::21) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9729f07c-32a5-46b0-525b-08d9f6bd41ad
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9247:EE_
+X-MS-Office365-Filtering-Correlation-Id: e37ec452-7e7b-409a-e525-08d9f6c006af
+X-MS-TrafficTypeDiagnostic: DB9PR04MB8137:EE_
 X-Microsoft-Antispam-PRVS:
-	<PA4PR04MB92472FE9093423F9B265550FB33C9@PA4PR04MB9247.eurprd04.prod.outlook.com>
+	<DB9PR04MB8137E306EF12643BB44548E7B33C9@DB9PR04MB8137.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	79gYuePeT8mwnt1fSeHJZ80I4EvMwgVkYkBG1JiGYJC2o9biiIiQVoRVMILKaBoySSlzC1MY/v+Rz+mR82JJRLY7wC64nb07VgMivU8Z96r63A8WcxU8NHsi89fpRuJmRvkv6yA4GCSXj9b3WjefRuOvaz5LYpyGktFRWbTEpxTL48gtYlUyF+t4XL1s/M+HYTTyK69AqnatawgzlmnXEdTp6pxRN8J/MLvkXHp8TFCvfpx1UjeAkePwqbxYBuPuXsGBIEFzu/NlIo2yhe/PvvL9M91aKKbHRxMD3CRzTo/OQkOxta1GO6hVYiIvJv9XxzTwqruvSIboRsPsAGlhotNcxM01TdtF+zcK8tNTlKD3Q1zM0hKReOMNdCH4DkXgYofWaGXl5E6W+sIFC4L/G0wMeC/Eh3Jf7mu3q4aeyf4Z36TG4cE07XSOaHujsL9+zAbWqBTdIZPHJpBcvYW488L3uESYcCNS0rRLopB+NHopr7NyFOLT0hlfYbCuI0Swh4hqWo+OP+klBTVakuuRPQRzOFZf7Wy2kNh0BsjVlo3TPvoz3upS2EclIQ4w5zjKqABZ6s3wRhzzYAWjUZ0sFQOQF19UMkr3O2zwxk7I0Wd6DIPJyXd8AzndUvR9n0dKHX2xR52egGJqqFqtMdWAEUJMsN+AQbYrF5qWaUcY5JBBMwRfga8qzgxaSBo32422xYvL+Pk1ImolRL2+VGaC8unXiIeEGcgR0iJPvEMPodRK5hqPFxBqlaI903sWEG1V
+	yzGi1T2nv89fOPy/xvfzCCOXkTD4E3wAvE5A5cEBaSDaLVSsOuD7eFFvVEanTdQqRVTG4ud73/8JDmEVOL5tWhKZ+IEk8+3zK+7G+Zs75XRGONagKVsuodsy+ikt177qJLc5MrNmiYBqE8821Nfb4mBS7ZAJrRqGafWUXMjhTjurrM7YjJYH5hlzMVgwaH1CVxPmllzoPDS9BWukkdD1ZRXKL9tEMmjrNCfcBEFKVUqcDXTq+kzg89iMa/Ykr3nbB1iqS2I2RNwG2A3xZ467qU74fbO+ZF6yEM46eO24fgPKs/JEEXUjnwMRWj5DGsPis6tqcyCaFl+5DeRAHAvMnR+jvefhbLOOUehPRudGetBsThlvpjbYieJESXvl+Jc8ydV8pmrqKAmPwz6U7A+EA7qhW/tcR1e/1YAaVUYk+VrvLRLqF05jPJTki8cBSZ9t99fZSbDbavbzFlz8YrLC4mn2QY/mMTkfGpqsWlfPal9PCh5y/BzLOa72WszPn7svGDfjUmrr08mBI05Y87AIkzaZSxovLx62lmp8tiShdZAvueqM1weHopUqVSKBbbyGruTH8q4K9Ey76JpFfCpBaQToH/oxmVo2m3YzwbMN/IEo9NvMCPoNoNYFGavWJymluMFLJc0KLoTWgKICW7DJ9m/5YzmUO0n3I+467wq/5Xz6Lyk34r6APiEt9Ns7W6HvBWbTnyx9URRYvOX8Q24bDgl5exme38ACQMAnCwKkpcr4mFOLaOX5dX3cH3pZiZIF
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(31686004)(508600001)(6916009)(316002)(186003)(8936002)(2616005)(6506007)(4326008)(66476007)(54906003)(66556008)(8676002)(6486002)(66946007)(6512007)(31696002)(86362001)(53546011)(38100700002)(26005)(5660300002)(36756003)(2906002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(66946007)(4326008)(508600001)(8676002)(316002)(31696002)(86362001)(54906003)(6916009)(66476007)(66556008)(5660300002)(6486002)(31686004)(38100700002)(2906002)(8936002)(66574015)(2616005)(6506007)(6512007)(83380400001)(53546011)(36756003)(26005)(186003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?MyWUTw6v0PDMPQwR7AzzqO7eeN3gYxWYO/lCYhqumccaXetubi3tVRiMlgMB?=
- =?us-ascii?Q?AX6QIsygxyuAWeZf71pqgP0SBIVVWWIpAc61vKl6Y6nB/gGM1vDd+8X67ljA?=
- =?us-ascii?Q?/gZIB35LexYmTZ0afBcYPN0q85cwHLws5ADiqKqWXShD+CzMv/PF1/sODd3E?=
- =?us-ascii?Q?nfnq6Ypp9fM+1D+NO1Gj6uAoBXI3J1LhPwGsGkXLSgdgkFEnfpAtYDU9B59P?=
- =?us-ascii?Q?OZpOb9imrc3ONR+Nn/DAaigubRjKAQLXhuTo7mH2tDBHpqdHyBIldoD++JJK?=
- =?us-ascii?Q?z8956fhykpZVs+PoY8SSXuYCH46GuZb0dWddAqvHHtV0UpyYQsCnmdzdvWoT?=
- =?us-ascii?Q?KhFBG2QXtAHMbaOMMFPk36W3hBEBbSN3zuiZwtvVS7/KLI729KktIdBa2+BU?=
- =?us-ascii?Q?eLupo6VwtuSgSBuUClRh+lGBX2ULLm/qXbp2i8cGW/sLIjNyhVOkLbsjzkO1?=
- =?us-ascii?Q?0EvOP6Jh7fSnVBDk9vlgC2SktT6oreB4k8E2LHWZFRUVUp3RKkhsh4C/jkRx?=
- =?us-ascii?Q?SpbF6t7gd+WCvXfOpSGKnhLd/4AOHQC5rTf0h0chqv/Te/qQ0LaMZdanYMPT?=
- =?us-ascii?Q?LTrAhincibvZt2GWTFpO15Oz3NHrfluUv99mtnX1kePuvXw2xZtLeagX2TUP?=
- =?us-ascii?Q?D06Jv8IVqWeftRuoFMqqkSjt3nXYyGZTX8hd30EjNltupWXL7SD/Wa+F8Y42?=
- =?us-ascii?Q?1WRJ1OhVRc4WWlRucbqUDlfF56Oy/d0f74t1PF5E/JXOrd/O0V9EC2UpXyUF?=
- =?us-ascii?Q?HLN/nA7RZ+Nai6Z/OqddkP0tlowdZnXs4re4djG5QwPF22yRWwhK8oGf2H9e?=
- =?us-ascii?Q?JJYzbwMdaSshFveT/PJQ4KzwFw+kyLytRJenLKWrHvDpMePIvWJc1QlYYJdP?=
- =?us-ascii?Q?Cq6yXRgITfUWQuUgIymM1WYzQp/QMSsCzbE25KVtxCsbI6MUIkl899k06AcD?=
- =?us-ascii?Q?3i3rA1snd87FmsZL7Ttu3tD5YnohMxBfoNGApFhyYPbr1NjIQvztEt2rnGDh?=
- =?us-ascii?Q?Uvt68OqlEufpSIUn3Bd5ED4TzAMA/qbsYb6Zxkgbc49O0H6q9TtKq+sa0ZSZ?=
- =?us-ascii?Q?DJ4+dBLJmWjfRtsJg8CYBJx2J5qlmgNGAJlxX1Vny2hR5a9aMw76eGR7ww1Y?=
- =?us-ascii?Q?4Glc8RctrCWPIhnmLydO/nJdpwUOzu6nAyhwGv0/jinOJd6Woa4Ddw/beqKI?=
- =?us-ascii?Q?bGD8MOsmlnCfMgwrOdeUqYRavdBXzUjA+AzUcNmZCHku/6RNx4+Dfw+qO1zL?=
- =?us-ascii?Q?AcoaDcweR99bxp2hEY719TIVWACiplfjUQGV8ghHstWEaLdp4wznjHji6b7n?=
- =?us-ascii?Q?vAG3OhHEXr67gDQMK78FpV13IV8bbmfuWpb6N0tkVLh/PGyGsNtwXEih7kCR?=
- =?us-ascii?Q?ro2Dl36eHtISO+Y7AaA+jKU3khPdO2QL7DMzm6QbGkgt/WmLFaRkc8+PJ5m7?=
- =?us-ascii?Q?fwDO1VJx0Fi4W8qenb/6x2Qdg31OmaQCTJJGySbb4/Ca9vgCS5j+zUfZymoa?=
- =?us-ascii?Q?9Oz+sVQbsVAULTXc6lcOxllJsDoV+EeYkMY77vu68Aq1QS5q6NJ6OPeCNVj6?=
- =?us-ascii?Q?8j9qzM5hdfEegBvcyl1z5tPdsm/lGuHUEAEn+VjPDStjAhnmIer5bL+0rRg/?=
- =?us-ascii?Q?Dd//5AKAC+SpwKkVh9qgg0c=3D?=
+	=?us-ascii?Q?4v6cGmNcLuw6hlFg36I0pHxWVRCT7WdrbPl6NbePHgtJGy7pdwGF3jYlFhI4?=
+ =?us-ascii?Q?vaQRAmsmCfl8Rxfim+rZaa3PeB2Nzfg6d2SSxjBPpu8Ql5JjeSb2UuQ3u9EZ?=
+ =?us-ascii?Q?9qxUhubK2kLFp7bGxAxNt/hBwlBosL6Ni5WLCxrYFs4vk3MKGM/YKWAbmM9+?=
+ =?us-ascii?Q?ryuJUWqQFMjVahl3MJrYswGoV1OOPFHS5sNAGYmR7ltWZfT+H50mT/P6LTcl?=
+ =?us-ascii?Q?UeqAKjHdccpUDza/2qecMIyziavI0bTBh7TOyOyTleT2P23ROqaSB8vgMcyY?=
+ =?us-ascii?Q?qgTJkafu+2hQToQvA6hHiaVpeZvI0WKAzfJ1Iqr6dvenucVJ2nLS8mMo2tuu?=
+ =?us-ascii?Q?Y2DRsh4h2V6OqmrXSs5lnxuxVzWU1lAlXZwo1EF/MEWxykQxcc+Dl25ZzIa1?=
+ =?us-ascii?Q?CEZ4F1zkCC4LrFGWFeaSFVaRGac4+12guL8uMwoOMO83Y4T+/jGO33AuqqV4?=
+ =?us-ascii?Q?1TEL5zaq3eubu8QHMEC9dcNYpuq/I3viMXk363W+lsYuFspvC7PjPGlxee54?=
+ =?us-ascii?Q?gKd2AwEshsTWg957kzRiOTudfCuEi69nQQgFyi2wznPjqyBsLhwtU6t6VEYm?=
+ =?us-ascii?Q?GfI7yMvZxh0lspkHLkFbMpjzB+TFnOD/sF7cJweWSj3uEMl3GVmoxlv/Qzw9?=
+ =?us-ascii?Q?jTR+AKqBwcAiMTqWTuJhXLSAd03T57lBjIYBxpLEvK36qdFNxk3qATjkU8Jd?=
+ =?us-ascii?Q?1mEusfhZMZ4d5DIPzklSdiQNQHe7u8vkrbV3imSfhW5HrErSx2a5MPS81IgK?=
+ =?us-ascii?Q?6kTzLLw0PBoU2FeNFkWOnsLijf9zCxt8apFJXyGI/B8VDuZJli6IMPlnzRF0?=
+ =?us-ascii?Q?tRp++fnfBL2XUhdXlX/Anjc6n79ZOu/vbDU2LXlm+EhLk98IMtOHFRQsrN4H?=
+ =?us-ascii?Q?2xMFSXIXEnfU4JtC5sjoquCMhe59WnDakQrXSodX/1lLwYFWm7SqyOMvoe/C?=
+ =?us-ascii?Q?hcqRWEqPqB0tyne4aSZ5ymPccuzW7Q5ZgKUBFseHIfKzKCB7C1f61jvzpJPV?=
+ =?us-ascii?Q?wvWCJnZkhyh5Q2VXSBCW902suGUm9/LcW/Y8E35Z4SF6Q66sllrLqb82g3JI?=
+ =?us-ascii?Q?JyiH8S0p1rz9L8JHEv86Jlj6bb44ebJWwLkZ8nq6451nrk8C7YhzTDhqBRZK?=
+ =?us-ascii?Q?18588EzK//L4AHQLCOACAife96qqDlt4Nx3TW2zKoSGNNKj1PSmdkOHWIQil?=
+ =?us-ascii?Q?7E+6ADBhSDa7IZKe0DYwcQBhycS92I4SSrRzuGIPaxQIOmBgpiye5jJcFNF1?=
+ =?us-ascii?Q?lwGhU/MfE41sepOTqOhiAEN+gs4UpGPFyVUzdmlB32p2L76W9UvOofpZiQfn?=
+ =?us-ascii?Q?cnBcPQ4dt0PvIuW4bFhgWK1th9YujLGl+gz+M7evFJ99KhkP/C9O6cRUlK4Y?=
+ =?us-ascii?Q?o9k9W/PybpuFY4CtXxgiDnGxxclP60r0CqSdoQGxo2leyplkr37fspOjjT2L?=
+ =?us-ascii?Q?277vIGj+g3a5/+/6gu0IuZjDDiXeCxK/CYgeTbpXEr2IYGv4kyTgPbmL0kVQ?=
+ =?us-ascii?Q?nPchTUsZvekpFa7lg7Af22P6dpo03eCpykt6rBcqop1mONvt1tlJO+HebmsA?=
+ =?us-ascii?Q?5VWJv/hKca17D5R78gUYzmv0nDVRt9n48m8Xymuz5f/hwLs3Ow3yqLrjxQzT?=
+ =?us-ascii?Q?oiUbCiWgFD5U/GOFeUMMuiA=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9729f07c-32a5-46b0-525b-08d9f6bd41ad
+X-MS-Exchange-CrossTenant-Network-Message-Id: e37ec452-7e7b-409a-e525-08d9f6c006af
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2022 11:11:36.2640
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2022 11:31:25.7542
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OTwoY5pbwLFM1q9eGidl+BcN43FUCupiSQsVXrqP5uvr3mfUSj4oBmMlr6sWH/VR32iO0AUjGYRndwqgdRxOYA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9247
+X-MS-Exchange-CrossTenant-UserPrincipalName: +syzSNgB/f73vFM4AOvVERTM6YoKr/HkPDuarM2H6uAnOY2WWcEsZsLZzDsr0pAaoocyPlFN1AplGs3tYG63hg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8137
 
-On 23.02.2022 11:54, Andrew Cooper wrote:
-> On 23/02/2022 10:12, Jan Beulich wrote:
->> This wasn't really necessary to introduce: The binutils change
->> permitting use of standalone "ds" (and "cs") in 64-bit code predates
->> the minimum binutils version we support.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 22.02.2022 16:26, Andrew Cooper wrote:
+> From: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
 >=20
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> An interesting corner case occurs when the byte sequence making up endb64=
+ ends
 
-Thanks.
+Nit: For grep-ability it would be nice to spell this "endbr64".
 
-> I was never a fan of NOP_DS_PREFIX.=C2=A0 Far too verbose for what it's d=
-oing.
+> up on a non-instruction boundary.  Such embedded instructions mark legal
+> indirect branch targets as far as the CPU is concerned, which aren't lega=
+l as
+> far as the logic is concerned.
+
+Thinking about it: Wouldn't it be yet slightly more reassuring to also
+look for ENDBR32?
+
+> When CET-IBT is active, check for embedded byte sequences.  Example failu=
+res
+> look like:
 >=20
->> ---
->> In fact we could patch _just_ the opcode prefix in flush_area_local().
->>
->> --- a/xen/arch/x86/flushtlb.c
->> +++ b/xen/arch/x86/flushtlb.c
->> @@ -247,8 +247,7 @@ unsigned int flush_area_local(const void
->>          {
->>              alternative("", "sfence", X86_FEATURE_CLFLUSHOPT);
->>              for ( i =3D 0; i < sz; i +=3D c->x86_clflush_size )
->> -                alternative_input(".byte " __stringify(NOP_DS_PREFIX) "=
-;"
->> -                                  " clflush %0",
->> +                alternative_input("ds; clflush %0",
+>   check-endbr.sh xen-syms Fail: Found 2 embedded endbr64 instructions
+>   0xffff82d040325677: test_endbr64 at /local/xen.git/xen/arch/x86/x86_64/=
+entry.S:28
+>   0xffff82d040352da6: init_done at /local/xen.git/xen/arch/x86/setup.c:67=
+5
 >=20
-> Binutils appears to be happy with "ds clflush", i.e. treating it like a
-> proper prefix on the instruction.=C2=A0 Drop the semicolon at the same ti=
-me?
+> Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingsl=
+ab.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-I'd rather not. A clever assembler may eliminate the prefix as redundant
-when the base register isn't stack or frame pointer. In 64-bit mode an
-assembler might even decide to eliminate all non-standalone segment
-overrides using the pre-386 segment registers.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+> --- a/README
+> +++ b/README
+> @@ -68,6 +68,7 @@ provided by your OS distributor:
+>  In addition to the above there are a number of optional build
+>  prerequisites. Omitting these will cause the related features to be
+>  disabled at compile time:
+> +    * Binary-search capable grep (if building Xen with CET support)
+
+Nit: With this (maybe this was the case already earlier though)
+s/will/may/ in the previous sentence?
+
+> --- /dev/null
+> +++ b/xen/tools/check-endbr.sh
+> @@ -0,0 +1,85 @@
+> +#!/bin/sh
+> +#
+> +# Usage ./$0 xen-syms
+> +#
+> +set -e
+> +
+> +# Prettyprint parameters a little for message
+> +MSG_PFX=3D"${0##*/} ${1##*/}"
+> +
+> +OBJCOPY=3D"${OBJCOPY:-objcopy} -j .text $1"
+> +OBJDUMP=3D"${OBJDUMP:-objdump} -j .text $1"
+
+While embedding the arguments here shortens the lines where these are
+used, the appearance especially of $OBJCOPY with a single file name
+argument ...
+
+> +ADDR2LINE=3D"${ADDR2LINE:-addr2line}"
+> +
+> +D=3D$(mktemp -d)
+> +trap "rm -rf $D" EXIT
+> +
+> +TEXT_BIN=3D$D/xen-syms.text
+> +VALID=3D$D/valid-addrs
+> +ALL=3D$D/all-addrs
+> +BAD=3D$D/bad-addrs
+> +
+> +# Check that grep can do binary searches.  Some, e.g. busybox, can't.  L=
+eave a
+> +# warning but don't fail the build.
+> +echo "X" | grep -aob "X" -q 2>/dev/null ||
+> +    { echo "$MSG_PFX Warning: grep can't do binary searches" >&2; exit 0=
+; }
+> +
+> +#
+> +# First, look for all the valid endbr64 instructions.
+> +# A worst-case disassembly, viewed through cat -A, may look like:
+> +#
+> +# ffff82d040337bd4 <endbr64>:$
+> +# ffff82d040337bd4:^If3 0f 1e fa          ^Iendbr64 $
+> +# ffff82d040337bd8:^Ieb fe                ^Ijmp    ffff82d040337bd8 <end=
+br64+0x4>$
+> +# ffff82d040337bda:^Ib8 f3 0f 1e fa       ^Imov    $0xfa1e0ff3,%eax$
+> +#
+> +# Want to grab the address of endbr64 instructions only, ignoring functi=
+on
+> +# names/jump labels/etc, so look for 'endbr64' preceeded by a tab and wi=
+th any
+> +# number of trailing spaces before the end of the line.
+> +#
+> +${OBJDUMP} -d -w | grep '	endbr64 *$' | cut -f 1 -d ':' > $VALID &
+> +
+> +#
+> +# Second, look for any endbr64 byte sequence
+> +# This has a couple of complications:
+> +#
+> +# 1) Grep binary search isn't VMA aware.  Copy .text out as binary, caus=
+ing
+> +#    the grep offset to be from the start of .text.
+> +#
+> +# 2) dash's printf doesn't understand hex escapes, hence the use of octa=
+l.
+> +#
+> +# 3) AWK can't add 64bit integers, because internally all numbers are do=
+ubles.
+> +#    When the upper bits are set, the exponents worth of precision is lo=
+st in
+> +#    the lower bits, rounding integers to the nearest 4k.
+> +#
+> +#    Instead, use the fact that Xen's .text is within a 1G aligned regio=
+n, and
+> +#    split the VMA in half so AWK's numeric addition is only working on =
+32 bit
+> +#    numbers, which don't lose precision.
+> +#
+> +eval $(${OBJDUMP} -h | awk '$2 =3D=3D ".text" {printf "vma_hi=3D%s\nvma_=
+lo=3D%s\n", substr($4, 1, 8), substr($4, 9, 16)}')
+> +
+> +${OBJCOPY} -O binary $TEXT_BIN
+
+..., like here, is then somewhat misleading considering that the tool
+can take one or two filenames as arguments.
 
 Jan
 
