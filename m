@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E07394C1D8E
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Feb 2022 22:20:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.277805.474641 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A3224C1E61
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Feb 2022 23:22:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.277812.474653 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nMz3c-0003G6-Jc; Wed, 23 Feb 2022 21:20:20 +0000
+	id 1nN00K-0000lF-9K; Wed, 23 Feb 2022 22:21:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 277805.474641; Wed, 23 Feb 2022 21:20:20 +0000
+Received: by outflank-mailman (output) from mailman id 277812.474653; Wed, 23 Feb 2022 22:21:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nMz3c-0003Dv-GP; Wed, 23 Feb 2022 21:20:20 +0000
-Received: by outflank-mailman (input) for mailman id 277805;
- Wed, 23 Feb 2022 21:20:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SrHI=TG=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1nMz3b-0003Dp-GU
- for xen-devel@lists.xenproject.org; Wed, 23 Feb 2022 21:20:19 +0000
-Received: from wnew4-smtp.messagingengine.com (wnew4-smtp.messagingengine.com
- [64.147.123.18]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 651bbb6a-94ee-11ec-8539-5f4723681683;
- Wed, 23 Feb 2022 22:20:17 +0100 (CET)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailnew.west.internal (Postfix) with ESMTP id 19BF52B001F4;
- Wed, 23 Feb 2022 16:20:14 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Wed, 23 Feb 2022 16:20:15 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 23 Feb 2022 16:20:10 -0500 (EST)
+	id 1nN00K-0000jH-4O; Wed, 23 Feb 2022 22:21:00 +0000
+Received: by outflank-mailman (input) for mailman id 277812;
+ Wed, 23 Feb 2022 22:20:58 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nN00I-0000j7-Qa; Wed, 23 Feb 2022 22:20:58 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nN00I-0003Ph-O9; Wed, 23 Feb 2022 22:20:58 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nN00I-0008Gm-3l; Wed, 23 Feb 2022 22:20:58 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nN00I-00082e-3H; Wed, 23 Feb 2022 22:20:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,188 +42,275 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 651bbb6a-94ee-11ec-8539-5f4723681683
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:message-id
-	:mime-version:reply-to:sender:subject:subject:to:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=FgfAeo
-	xPVPg0MdvPEZQn4ZDYWo1iiSPBcOv7dVpbcZk=; b=bUT6caj46S8Y5uir73PdHp
-	VeSZBsQs2ia89NwbEoWUE5jKz56+1HvcKMM/1Xsok9Wu9Uv2ZV/HQK+EAjwN8ID6
-	BB39M2IyVs4stGSP4TGQpviphhzW+pGgOP2t88/SvuoW5ewOw2GGN+6/tOs0HZfb
-	lzKPzsz+mnAOLCLetL33TYLnAq+UIzmNVkdr7ZAcQlcvyt/khgC1pd6hjNtUXdev
-	DHGk8AekGNQspcmrhH2iX1WAQbI25PhOYOr31Qn1dS+W8AsU9q9nORUgcT2zpOx2
-	09hOTMHJulMFQKWK3JGTPGJa60Mw2FrX3hwi81rLy1IwVFb3A47UkV0K9JUFvVSw
-	==
-X-ME-Sender: <xms:DKUWYrQDmdgl1gpXMU3457DPpHxOUl1wg7J6gGapJ1x9PcmhAexRlA>
-    <xme:DKUWYsxnYHws0m4VBnlLmVdJNgglXhp4FNjNWxnsxDuzfXc_qQH3NllqcL6Yxcj3u
-    AQGSx0sdU31wQ>
-X-ME-Received: <xmr:DKUWYg3SvSGGUK2sYsq46aFBlnA8ZPuSG2Vzh4Eyb724vYl_ihPOFs4dq2-3B9IjEXrZRggSba7uyMaZdAwJfh1k4wQynOD3f70gSzpohGZGm2cFoFY>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrledtgddugeeiucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhephffvufffkffogggtohfgsehtkeertdertdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeegvdef
-    hfdtgfekfeevteekhfeivdeuvdejffeugfegfeffvdeuffevgfeuleetheenucffohhmrg
-    hinhepghhithhhuhgsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghm
-    pehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslh
-    grsgdrtghomh
-X-ME-Proxy: <xmx:DKUWYrCJaRde3MQNUsM2eZENESX8A3l9HQB4-NSrF5Ut0L3IvOJpYQ>
-    <xmx:DKUWYkiEJ5R_OHhlHmL2V4YMRZeerA2w10C07gzVEfkCLBAtow9DtQ>
-    <xmx:DKUWYvqe8nh36FCPyaRt8mNUaB1tqjWKMKKAvNwpm-4DH300mYx_iA>
-    <xmx:DKUWYtVXaVIq97oididxrnUJGFMTCH8n8pFWDolQ2SbS1TnseyLocA8VNQ8>
-From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	stable@vger.kernel.org,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Antoine Tenart <atenart@kernel.org>,
-	xen-devel@lists.xenproject.org (moderated list:XEN HYPERVISOR INTERFACE),
-	netdev@vger.kernel.org (open list:NETWORKING DRIVERS)
-Subject: [PATCH v2] xen/netfront: destroy queues before real_num_tx_queues is zeroed
-Date: Wed, 23 Feb 2022 22:19:54 +0100
-Message-Id: <20220223211954.2506824-1-marmarek@invisiblethingslab.com>
-X-Mailer: git-send-email 2.31.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Invisible Things Lab
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=3LdQMyxUf1kY8+PEdiqOlQPya2uEQ6LK4ikUAO6xGTo=; b=ik/t05q4zlTv2IDbWM2NaIfq1q
+	g4xOPI1FzY6XDEHErNblpcJTEIE6op2EMeFtqhnzxScsKZDJ0J1kEvswIU9mnwCE2tTwYXL3+uBPO
+	1ZkQ+V8LjF6ICxLjgS8msl1NIfAyoiz1sqU89JgZG3dWnMOq9pT6Y2RaRfU3x4tN7g94=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168205-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [qemu-mainline test] 168205: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=31e3caf21b6cdf54d11f3744b8b341f07a30b5d7
+X-Osstest-Versions-That:
+    qemuu=5abccc7922ca5291327b0a1e84ace526d97c633b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 23 Feb 2022 22:20:58 +0000
 
-xennet_destroy_queues() relies on info->netdev->real_num_tx_queues to
-delete queues. Since d7dac083414eb5bb99a6d2ed53dc2c1b405224e5
-("net-sysfs: update the queue counts in the unregistration path"),
-unregister_netdev() indirectly sets real_num_tx_queues to 0. Those two
-facts together means, that xennet_destroy_queues() called from
-xennet_remove() cannot do its job, because it's called after
-unregister_netdev(). This results in kfree-ing queues that are still
-linked in napi, which ultimately crashes:
+flight 168205 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168205/
 
-    BUG: kernel NULL pointer dereference, address: 0000000000000000
-    #PF: supervisor read access in kernel mode
-    #PF: error_code(0x0000) - not-present page
-    PGD 0 P4D 0
-    Oops: 0000 [#1] PREEMPT SMP PTI
-    CPU: 1 PID: 52 Comm: xenwatch Tainted: G        W         5.16.10-1.32.fc32.qubes.x86_64+ #226
-    RIP: 0010:free_netdev+0xa3/0x1a0
-    Code: ff 48 89 df e8 2e e9 00 00 48 8b 43 50 48 8b 08 48 8d b8 a0 fe ff ff 48 8d a9 a0 fe ff ff 49 39 c4 75 26 eb 47 e8 ed c1 66 ff <48> 8b 85 60 01 00 00 48 8d 95 60 01 00 00 48 89 ef 48 2d 60 01 00
-    RSP: 0000:ffffc90000bcfd00 EFLAGS: 00010286
-    RAX: 0000000000000000 RBX: ffff88800edad000 RCX: 0000000000000000
-    RDX: 0000000000000001 RSI: ffffc90000bcfc30 RDI: 00000000ffffffff
-    RBP: fffffffffffffea0 R08: 0000000000000000 R09: 0000000000000000
-    R10: 0000000000000000 R11: 0000000000000001 R12: ffff88800edad050
-    R13: ffff8880065f8f88 R14: 0000000000000000 R15: ffff8880066c6680
-    FS:  0000000000000000(0000) GS:ffff8880f3300000(0000) knlGS:0000000000000000
-    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-    CR2: 0000000000000000 CR3: 00000000e998c006 CR4: 00000000003706e0
-    Call Trace:
-     <TASK>
-     xennet_remove+0x13d/0x300 [xen_netfront]
-     xenbus_dev_remove+0x6d/0xf0
-     __device_release_driver+0x17a/0x240
-     device_release_driver+0x24/0x30
-     bus_remove_device+0xd8/0x140
-     device_del+0x18b/0x410
-     ? _raw_spin_unlock+0x16/0x30
-     ? klist_iter_exit+0x14/0x20
-     ? xenbus_dev_request_and_reply+0x80/0x80
-     device_unregister+0x13/0x60
-     xenbus_dev_changed+0x18e/0x1f0
-     xenwatch_thread+0xc0/0x1a0
-     ? do_wait_intr_irq+0xa0/0xa0
-     kthread+0x16b/0x190
-     ? set_kthread_struct+0x40/0x40
-     ret_from_fork+0x22/0x30
-     </TASK>
+Failures :-/ but no regressions.
 
-Fix this by calling xennet_destroy_queues() from xennet_uninit(),
-when real_num_tx_queues is still available. This ensures that queues are
-destroyed when real_num_tx_queues is set to 0, regardless of how
-unregister_netdev() was called.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 168199
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 168199
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 168199
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 168199
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 168199
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 168199
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 168199
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 168199
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
 
-Originally reported at
-https://github.com/QubesOS/qubes-issues/issues/7257
+version targeted for testing:
+ qemuu                31e3caf21b6cdf54d11f3744b8b341f07a30b5d7
+baseline version:
+ qemuu                5abccc7922ca5291327b0a1e84ace526d97c633b
 
-Fixes: d7dac083414eb5bb9 ("net-sysfs: update the queue counts in the unregistration path")
-Cc: stable@vger.kernel.org
-Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Last test of basis   168199  2022-02-22 22:07:11 Z    1 days
+Testing same since   168205  2022-02-23 09:37:25 Z    0 days    1 attempts
 
----
-Changes in v2:
- - use xennet_uninit, as suggested by Jakub Kicinski
----
- drivers/net/xen-netfront.c | 39 ++++++++++++++++++++++----------------
- 1 file changed, 23 insertions(+), 16 deletions(-)
+------------------------------------------------------------
+People who touched revisions under test:
+  Eugenio Pérez <eperezma@redhat.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Jason Wang <jasowang@redhat.com>
+  Laurent Vivier <laurent@vivier.eu>
+  Laurent Vivier <lvivier@redhat.com>
+  Noah Bergbauer <noah@statshelix.com>
+  Paolo Bonzini <pbonzini@redhat.com>
+  Patrick Venture <venture@google.com>
+  Peter Maydell <peter.maydell@linaro.org>
+  Philippe Mathieu-Daudé <f4bug@amsat.org>
+  Samuel Thibault <samuel.thibault@ens-lyon.org>
+  Thomas Huth <thuth@redhat.com>
 
-diff --git a/drivers/net/xen-netfront.c b/drivers/net/xen-netfront.c
-index d514d96027a6..039ca902c5bf 100644
---- a/drivers/net/xen-netfront.c
-+++ b/drivers/net/xen-netfront.c
-@@ -842,6 +842,28 @@ static int xennet_close(struct net_device *dev)
- 	return 0;
- }
- 
-+static void xennet_destroy_queues(struct netfront_info *info)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < info->netdev->real_num_tx_queues; i++) {
-+		struct netfront_queue *queue = &info->queues[i];
-+
-+		if (netif_running(info->netdev))
-+			napi_disable(&queue->napi);
-+		netif_napi_del(&queue->napi);
-+	}
-+
-+	kfree(info->queues);
-+	info->queues = NULL;
-+}
-+
-+static void xennet_uninit(struct net_device *dev)
-+{
-+	struct netfront_info *np = netdev_priv(dev);
-+	xennet_destroy_queues(np);
-+}
-+
- static void xennet_set_rx_rsp_cons(struct netfront_queue *queue, RING_IDX val)
- {
- 	unsigned long flags;
-@@ -1611,6 +1633,7 @@ static int xennet_xdp(struct net_device *dev, struct netdev_bpf *xdp)
- }
- 
- static const struct net_device_ops xennet_netdev_ops = {
-+	.ndo_uninit          = xennet_uninit,
- 	.ndo_open            = xennet_open,
- 	.ndo_stop            = xennet_close,
- 	.ndo_start_xmit      = xennet_start_xmit,
-@@ -2103,22 +2126,6 @@ static int write_queue_xenstore_keys(struct netfront_queue *queue,
- 	return err;
- }
- 
--static void xennet_destroy_queues(struct netfront_info *info)
--{
--	unsigned int i;
--
--	for (i = 0; i < info->netdev->real_num_tx_queues; i++) {
--		struct netfront_queue *queue = &info->queues[i];
--
--		if (netif_running(info->netdev))
--			napi_disable(&queue->napi);
--		netif_napi_del(&queue->napi);
--	}
--
--	kfree(info->queues);
--	info->queues = NULL;
--}
--
- 
- 
- static int xennet_create_page_pool(struct netfront_queue *queue)
--- 
-2.31.1
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
 
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/qemu-xen.git
+   5abccc7922..31e3caf21b  31e3caf21b6cdf54d11f3744b8b341f07a30b5d7 -> upstream-tested
 
