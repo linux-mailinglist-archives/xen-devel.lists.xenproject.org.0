@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAB974C0FE7
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Feb 2022 11:13:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.277263.473710 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D49964C0FE8
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Feb 2022 11:14:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.277274.473720 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nModm-00068C-0P; Wed, 23 Feb 2022 10:12:58 +0000
+	id 1nMoeg-0006nY-9e; Wed, 23 Feb 2022 10:13:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 277263.473710; Wed, 23 Feb 2022 10:12:57 +0000
+Received: by outflank-mailman (output) from mailman id 277274.473720; Wed, 23 Feb 2022 10:13:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nModl-000657-SV; Wed, 23 Feb 2022 10:12:57 +0000
-Received: by outflank-mailman (input) for mailman id 277263;
- Wed, 23 Feb 2022 10:12:56 +0000
+	id 1nMoeg-0006lG-69; Wed, 23 Feb 2022 10:13:54 +0000
+Received: by outflank-mailman (input) for mailman id 277274;
+ Wed, 23 Feb 2022 10:13:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=DZ7u=TG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nModk-00063c-HP
- for xen-devel@lists.xenproject.org; Wed, 23 Feb 2022 10:12:56 +0000
+ id 1nMoee-0006l4-Kv
+ for xen-devel@lists.xenproject.org; Wed, 23 Feb 2022 10:13:52 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2af43107-9491-11ec-8eb8-a37418f5ba1a;
- Wed, 23 Feb 2022 11:12:55 +0100 (CET)
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04lp2052.outbound.protection.outlook.com [104.47.12.52]) by
+ id 4c64d1f8-9491-11ec-8eb8-a37418f5ba1a;
+ Wed, 23 Feb 2022 11:13:51 +0100 (CET)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05lp2104.outbound.protection.outlook.com [104.47.17.104]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-11-1qtB_w43ORWL5V3XoRAkvw-1; Wed, 23 Feb 2022 11:12:54 +0100
+ de-mta-4-GfFDp9XRNV6Kqbx2eU2lwQ-1; Wed, 23 Feb 2022 11:13:49 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by HE1PR04MB3004.eurprd04.prod.outlook.com (2603:10a6:7:1f::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.22; Wed, 23 Feb
- 2022 10:12:52 +0000
+ by AM6PR0402MB3944.eurprd04.prod.outlook.com (2603:10a6:209:1c::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.21; Wed, 23 Feb
+ 2022 10:13:48 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::d479:b728:345c:bd65%6]) with mapi id 15.20.5017.022; Wed, 23 Feb 2022
- 10:12:52 +0000
+ 10:13:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,35 +51,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2af43107-9491-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: 4c64d1f8-9491-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1645611175;
+	t=1645611231;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Xh7f+LBqpvIMNCjCDOJiXb25hwsGdct++TnJN1+j8lY=;
-	b=dqeXxKdKqyzLVlffWW0mvShefVhNQl9ecmh8kfZOH6EpwjDLsjcFsmB05DctUEDLAeJQF+
-	ZHf1LRt35IH217yief9frulbnbwwWw/92y567C4OHY1ApeSD2tg86RWNZsIQMGC9ao9JIA
-	atuaX1OZdbStpB2TgdKE4voa+ZsU5yA=
-X-MC-Unique: 1qtB_w43ORWL5V3XoRAkvw-1
+	bh=+vFchMkCIGjXqw4WIqVN7N88HXvbjRZMQ+krXE3zHAw=;
+	b=mxKNUioZZMy4wGx79AWeaVdO+aSaToomCZG1S8fZo/CjxXG48jiuW/G5aH04waDWg0OxPV
+	/vQ/UVJy3nJIsfDNfbY5UeOHROLl/igTx3utqgXKEgleLFMZIQmFHrZxnWIrmoAse+jrdS
+	lb1psGv3jqQbENQQrWt4PrtPsa/vquo=
+X-MC-Unique: GfFDp9XRNV6Kqbx2eU2lwQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VYSWRom+mbYbqITaeiPawAaNs1fYsxB3aeWUas25CSyX/GlE4q8cMY4MAxpXz4vfBCQZvOyZZET99KwR5cGUzAtf8/nzZXqnEv5mviAXjnuAAtl+DnhsdAVrrPL0UADUjAwwt8gPbhQHXhi0IRej1DWWTzbMJ4svjyqqS3B4q8UfiHitO+nk4e4veF2116zFJq61HXHUxEMb2B+BEQW3qr5tFd/avw/Rrxz7JQasrEo66ESObEn62LKYRcUxkb1brP9Lwwiim7pMiZLfvVh4WEeGua98DAn6wokTo8RcCwD4p2pRUmQpz/LHnkccMVyhlDqiy39DPjr7bLKTAuigCg==
+ b=kcwFmDds1+ioIa1QmD5Xw2vg2viIfhaTzEEfFwDob+Ifz+l0vslujZidvsfL45p4LXYU5AsVnzvwwUs6NK8qL+8Koiw+dmE+AP5F1mmx18gDPAMaKdDOokbjoScHQoC9tLgylGLbilV0H7Ayw+B0yIw17INwCzFiplHgFOin9V7N3UEtRgmSNSAXRtFgyEVevVrxo/OuU+icjhTrrDxNuLuhzCE/9oeU9vS6001fQSdOg/cGYEAUZ03HdR4NfZo66KzUeT06mO4L9tc3g7YjiI8Cft5O22SptX5x+ORcdrxQs+ZB0efoDprIybz93fAcvfPI6Q+nkinj18Rtj3TYww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xh7f+LBqpvIMNCjCDOJiXb25hwsGdct++TnJN1+j8lY=;
- b=aQuZMXX/VId8N2/9y14DSvJd8W7wDHGzE2rB2PZEXSYrQaGWS/NSQZszSDgAqCkrYwhAw1PxkUvqw6VnKNX5X1Z1vxvXhuq/eAD9EUmVTjbexXz58ekbCxkldQTg8siMi0SsA1dmtNrqkMDAPcvsqC1tI8Urif8GKKTt28tiTlqHoU9BBjVjzXsic6R3tqKHeHWcdQ1XlHiiOBxYB4RFHX6rNwjZ3nlNk++ySsQWXtug4F4YMUhKDH/fZCABcO3QWplZN2E2tRV8J5DoktIPpBV/i8wTUDWApc+KgQmGuBrUg2II3fuLkpbA/Qj1NJCOtzJC+qo74+0kZnD9dmX4rQ==
+ bh=+vFchMkCIGjXqw4WIqVN7N88HXvbjRZMQ+krXE3zHAw=;
+ b=U4XIfWQ2IMccEo4G2R162NAsUrDVB2Lpd6Yr9W1Q9/7l3nx3VprLgjrbNZ7aFLfJZxrnrhGc1GSKrvIrz9JRhh+/B4o7Kxq9tGP+E0CffRIXUcpKWh5shhAR1PgaHPrh5HyC9AtjTgTfjwef2Nc4ouInqbBA64mGfhZkqzML/oo5BUIrRHoZIuSXeMZEuzMFaenS80SWaxPdFu5tNxta18majcczQGogqQZAMOw/3mIsxknoi2zngvjuRZ8iOblfwdUH7+52H2fFzIOZmm+9j+3TvzcGQxK/HuRKKsV26lS6ZLK/aJ8xa8wTGFInhWGAJS37Aox+IpW8uGkew4PCYw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <2c1f9c24-a07e-b5b6-2f20-18eacb835763@suse.com>
-Date: Wed, 23 Feb 2022 11:12:51 +0100
+Message-ID: <7026f7df-1f70-0018-a6eb-b7e043b279d8@suse.com>
+Date: Wed, 23 Feb 2022 11:13:46 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.1
-Subject: [PATCH 2/3] x86/cpuid: replace more cpufeat_word() uses
+Subject: [PATCH 3/3] x86: correct fencing around CLFLUSH
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -89,154 +89,145 @@ References: <91935ffd-a270-f1a1-28f1-645fa4167fcd@suse.com>
 In-Reply-To: <91935ffd-a270-f1a1-28f1-645fa4167fcd@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6P195CA0016.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:209:81::29) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS9PR06CA0361.eurprd06.prod.outlook.com
+ (2603:10a6:20b:460::13) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 13411b8e-f3f3-456e-21fe-08d9f6b50d74
-X-MS-TrafficTypeDiagnostic: HE1PR04MB3004:EE_
+X-MS-Office365-Filtering-Correlation-Id: 80afe333-36c1-45b7-7170-08d9f6b52ea2
+X-MS-TrafficTypeDiagnostic: AM6PR0402MB3944:EE_
 X-Microsoft-Antispam-PRVS:
-	<HE1PR04MB3004F9F84CE5D742E31DEBF6B33C9@HE1PR04MB3004.eurprd04.prod.outlook.com>
+	<AM6PR0402MB3944B6526F30BD8664E049F0B33C9@AM6PR0402MB3944.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	+yHwTHIzSfCoOJYxZ8nHPXEL5Fx+X+axAwR7fS5yV6sY+jLlViOwVuUtT5AD680mtbFgl0dpFpu0vz4dfSN2zZwWmJb5PCrGLn/T19/kg3wukwOwU9dDQqe38mO1KAJFSEWU0KrR8nk8V8la0+uURUa7t/nulGluhErlZ/JJv+0xmoa6vWNWLbdmrNkTB+U5foljpNV9Kzh/0etGePk4Nnh1JLvShyH639cKtG1TQ32F5sJvR38L9/cGAtwDegrYmhQ8uXnBt+MZ93RXO1S3Sg27aVD/iERyPp5D/nWopwa6MoO7tw/Gg+bwuiipI4jjWHB2ACQV0MBXnPrmiA3nAqegY1Uc/cZh5hZYdc9qOVYTJN9PUV/+AmXg2dtBrD8Q/lA7Ab5Dt2bN7Wk1GHaJOUdFeuyqnYkoas2zG2znddlBeDvZidFjIdJRwPJ4JI4mWG6RlvhPIoqqMj4TtqNZnUktlzJqRN0ZRVWhhmd+H96IeCMDDVFpHT3htovorIBq52FV5X2cO/9KTq0x6uklAYQqsdzDScOUBizRfMEU8FH1b2l1/toBh+QhvFwUjFvADMVj8KwJbYOH1CBDB6z2Z4+9tLltGIukv291b/+1laacqpOn1FKBaUDsy1v4sgnokvWgUCDwiVhqWTWy1k/DD0Ngih74HwbH093ma+cfJCGCi20iRSoX8fTvThe9CbmYB3c+CsBE3dwH80uLEfzWW17k+b4ZhEDgB6EhHToSOsnq2TA/9Sf1Q2RmAuFQe2tw
+	i3f0j+l1BXYm63Llx2q90YUDZKFvmc1FK0a2q96chVbmbkcVdJCbjkK0FhhxJRRIL5VnOkt4LETM0zMnRboZceFs1grngGIbZFSXz5Be/rNzZuXp7Docsv0OUxMpytysH26sFpfTGNqYKWyWzJjhAJk9aOocuHpNmvslj1mzeRmhvbrVNIibqIZ+LHcbFTSpaWq64TDIQr244R0pgsrvUjJiqfzbCQD2E/9Tvu82pvfaQjebepVgl/2l6KvbiTnMOfafmjlrYRdyrbaxsvh4H/gtM9+gzQbpkzg6EyUE/n6/U726o7fSnOmWG0mIpVazJM14GS+af2Z9Gy34cOQATgEqBQaSPM12dOOn6iBJ/dudepdLDC+UWM/eFMZK2qTjTuHEOoiE3efk7xXKcHdCkYd1TCOv2si8e7M725XYa+2z+rvMZ2NptCbnrFziMOtUDO6f+rcR5EBEEDR/gw3NpYGdf+vuktbjnB1aO4Jn0Px8a1NvDq4Ms2xi/zoT91nXNTdQrZ7UgmClw7y5rGedLwNZ53d7xMQA8sqBg0GoiUikjN8gT2VJ5wZ41emDCn7NVXeB/IuirsDrPLYgcdE4qrwn+1Bxx8dEbCeZWbVKbuOBol5OX6umSzdO/ndTldLpsq0p98AdipVwxE3i7HzjM8Ufi8Tot0IzJJftrrzkWM47g7nwefeUwvNe5zOsClxuAomE0vDDqW2o3mjh6EfKfEBtj2D+baz0PEsU/IA5LuTM54H7YjJ1LW9PFJqbo3rs
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(8936002)(54906003)(8676002)(6916009)(508600001)(38100700002)(2906002)(2616005)(86362001)(5660300002)(186003)(26005)(31696002)(4326008)(66476007)(66556008)(66946007)(6512007)(6506007)(31686004)(6486002)(36756003)(316002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(31696002)(86362001)(6916009)(2906002)(316002)(54906003)(8936002)(31686004)(26005)(186003)(2616005)(4326008)(6512007)(66556008)(6486002)(6506007)(66946007)(36756003)(508600001)(8676002)(38100700002)(5660300002)(66476007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RVViMG8wWkN4TzNuMEFTNEdFeVNNc0dvUHA1b011VkFYSVdSWXR1OFF5VTZP?=
- =?utf-8?B?NnpIYTBXcEhwbTU0TWRyOUJMOWEwU2thdVRSMEkyQnlKeVpwMHpSdjZjd1F2?=
- =?utf-8?B?aEFrWUt4RzdrZlI4VE9EUG1YckJHblZlcHR4NTljNTByNXVkem5mMnRxbWw3?=
- =?utf-8?B?VGF2VytGb0dOS0VXQ0t6MlpqUVFEb1NKOHNnYmJoTVB0TitvWkVMYWwrWHRC?=
- =?utf-8?B?bk5qMUZZZXgxYklVM0pzQmk5VXBDcjhKa0pwZ2VYUlMxL2kzU0R3cE1pV2NF?=
- =?utf-8?B?ZEZZTHRTaFErMDgyd2ZleHZJODR0NURjNHIxM3lyRmVFTUdVeURUQjFLRzBB?=
- =?utf-8?B?ZlFFVVAvTEI4TU1VSmJ2QlVScnNjUmlMdmJRa0JHODlvb3NEMytXU0JoQWh5?=
- =?utf-8?B?V0E0OFNTQWx0b1dUbUtkdHBHUVlTQzE2eUJQVFJ3d2N1ZXNKN1B1TnNMdElF?=
- =?utf-8?B?L0c0bk8xWHV4VG9hb0piT25Ta3VVSU9BLzcrWndjRzdVOXVpK2U0T2ZKV0hQ?=
- =?utf-8?B?aWc3akFQNjNTMXdvd1Y5dVdwdnJvSU8vQ0dYVzVUOFgzNElXV2J6N1F6a1ov?=
- =?utf-8?B?ZDNNSEVXZGNiVnhFNWg5QkYyWFZ1VFBSSC9VR2lDQUxFRzlZc2VVeHZxczdl?=
- =?utf-8?B?VG9FNlQ5YUVwUkU5K3haRXRCdktkMUtPVXhjZCttdWtINjBUbzc2aWlqdUM2?=
- =?utf-8?B?UzMrWk9SemZWVlVFVGg4b2trZVVKYlNXN3lJeldFNG5oZ0dOV0FWamo0MHRv?=
- =?utf-8?B?cmlVNVJwa0dRUzJvSWEvRC9hM2RKclpVY2JGOXVlYUJSaUJBTjZGK1dLSXQw?=
- =?utf-8?B?UUdXMTBxbXVYZU1DM3NNR0lzWlUrZGpwQTdmWDN5NFhIeHRDTzczOHQxaDBs?=
- =?utf-8?B?V1pXaG1CY1BEenIwbHgyeVQ5dUUvSG9PSnJSKzNkd3Z2YUpJRGtCWGRsV0xY?=
- =?utf-8?B?blArc0hFKzZWVmF6NnJlNURTTFhhNE9TRjI2ZDJlejRBcUZlQktySzVSOUht?=
- =?utf-8?B?VFlSalFuR284Ny9uZnc5U05tZEt5dkhURXY4QTNIQjBnTzU1RUN4WUc1SXND?=
- =?utf-8?B?ZlAvUVIyZUFSd3VsVVNwUk0vT0VVZUVVRUgwK29tMkN2WExxTXRnL01hRDVI?=
- =?utf-8?B?alFjRVVMQlVZZzdaSHRmeUtiL0oxdnltT2pJY1VCSVZiTGFJK1RjWGJCZFh4?=
- =?utf-8?B?SVhPc2VncTNlNGl6VWJmUXR2bWttcFcwZG9TRFFCQjV2MkdZbnBHZm9ibWh4?=
- =?utf-8?B?SDBUWStSWU0wdnJEZ1JaYzRQQloyTVJQY0hOOFlYUnhxZUcwbjR1VUZCaGJi?=
- =?utf-8?B?RTM0d0RUVGNjM1VrMDNhWW8zVmt5OFJyRFc1WVMwQld1ZlpJbWNUcTZlTnNj?=
- =?utf-8?B?Nk43eDZ3WkYxY0h3OWY2ME9ESWcxZUdpV1Y5VGZJaFEwTjdyU2FUMXRIa3Qx?=
- =?utf-8?B?RWw2U0haTmNnOGE5ZmxFZlRnelg4UWFDaWhsMkVwank4UjZHWnZMN0JQeUpw?=
- =?utf-8?B?NkpSRGh6QitSaFgvNHBjdXRqTnpSdWtkaEszR0lrUEdsWFJYcGFMRVo2QnNM?=
- =?utf-8?B?YmJiaitoV01FMlF4V0lVY3U4dElId0VBRFJEMGx5MDhnNFdMQ05jZ1N1aTM0?=
- =?utf-8?B?TUphb1ArR241OUF1MWViZVJCSEo5MDBzemk5RkNQZHZpSTE2MUtjcXlzaXVF?=
- =?utf-8?B?Z0pEc2d0TmltT0Qyc0JoVXAvUVFwUndIdXU4bGV2Ym5vVEVjL1VQNlUzNEs1?=
- =?utf-8?B?YnV6enhNeVBCK09LQkZNcFBsRjdUUFJQeSthZFh3OFFGaTc3Uk1tcjZ4and5?=
- =?utf-8?B?RnQ3SjU4N0lrY240MVdnQWM4am1NenBSUFZqL2NDaHlwK0ZZYWV5TWw5cTVi?=
- =?utf-8?B?RVNOUGFCSTlXNnhjcXFkbnJ4THdmSDIwdGJrMkFJUnVGZStFNlIzaUlRWnd6?=
- =?utf-8?B?YWVJc1VSSkRsc3dYWi9DdEN6dXlpRmd3M0JOT1lmeXlLT2RHdkdURHc3VXJi?=
- =?utf-8?B?NlFrdFVrYktLNHQrcGMvRXVJT2NtNWpueWoweUZoQ1NxbnRwUUEzQUQ2aTFJ?=
- =?utf-8?B?K0w3N3haNDk0OTlZZWQwTjN5SEZrMGpDaW4zdnZRRW5OYW9UdC9CeFpueVBT?=
- =?utf-8?B?NGNhWi9TWUJ2L2RlOVRZZ1Z0ZDNnRFdzYzF1V2Fqb0pmdXF1V2lyS3VUZkZl?=
- =?utf-8?Q?DN8b5NHvRZmoLyR3azhMPLg=3D?=
+	=?utf-8?B?MmJlTzZNTDRwSUQ4VVNzYkk3QU0vU1VkSjM0bWNFWDk5WUlZbHJZTGpDdXN3?=
+ =?utf-8?B?R0FHTnNrZXJSSU90Q3E4eHllWEt1NlNiNmJ6c29BMEJXRWVWM3lPcFpUT1Jw?=
+ =?utf-8?B?ZjRjTmFIM2MvZG9iZ2dyQTZ2Vk5YTXI2TUR5MlYyMFF5ZXltQnJqY0Fwb1dL?=
+ =?utf-8?B?bjV1YzlwMXRZUnBmaVB0WjF6ZE5GRzJrdlBuV01VZEtrbzNmTHgxN2VVRy9E?=
+ =?utf-8?B?SjlXa3JURTM1RS8rNHRGSWJvMTlNR3l1RzJtMU8ycUh0cENlcUZWQUd1ajU1?=
+ =?utf-8?B?NUVxQ3RlM3IyMnpnd3ByeTZwNVY4blN2UG1hVmYvY0tGSUtuQlprNGd3dlhB?=
+ =?utf-8?B?YVhSWHZQTjQzeHZDUzc5S3hpRFQ1Nm9HQzRsTlJoKzZneEMvRndlQ2tGVzRX?=
+ =?utf-8?B?SzIxU3I5UXlBa1Fvc04zYzkxdlU1Z3hObEdqUkNTZHJXak5HWUJnVW5PeE1G?=
+ =?utf-8?B?SkxiSTdrZzFCNG1VSGV5VTFnMnl1QnppdmMyVlR5b3Z2cnh0bkFVRmxMcXoy?=
+ =?utf-8?B?WGE4bXNMTzNGcGtrbjB0SWNCMDV3OEsxcDhSTkphQ2xRNFFVNTFjQlgvMjM3?=
+ =?utf-8?B?OVdSTVdkVy9hR2phOUFickpaRjV1Zkk4cVB6K203RWs1K21iOFkzQmJGSVZ3?=
+ =?utf-8?B?ayt0Yit0bnhDeU0rNW8xczVOS0JKSHI0dTVnRnBud0xGT0lKSCtZRnJFL2pQ?=
+ =?utf-8?B?OEZWTW1Gd2RqSkhYK2x4WUgvSTdXUFNaL2l4UVE3Um5iQVlxajUyajNQVks3?=
+ =?utf-8?B?QlNFYTIyaWxDS21kRWlmK1hiT0JtUUVFbXgrU2MvcmFaamhKYjJMR3pWVXJu?=
+ =?utf-8?B?OFR2V1dHVUkzTkVRZ1JtZlI2bE50UnE0UG5xWmlyaXp1YjFiRkRhWldiSnJz?=
+ =?utf-8?B?aHdjLzJ6NS9wMC9nbmVzbHVURU1QQ1JEeUVvZ1FaVW5OMGlHWFBnRlVMNWJv?=
+ =?utf-8?B?bzM2QUliVTJRbU05dEFKNFpCRTdQZTBaeXc2b1RNeHE0T3cyaUlrbnpXdENS?=
+ =?utf-8?B?RVJ2dUhpYmhGb2d5SlgxQ3RNZzMxQnkxb3JlUjZuTm1CcjF5ZndTUlR3aGxL?=
+ =?utf-8?B?OFlEZWQvVGxqOHNVZUM4cUZpYnNwYXZZTld4VnNENit6SE1qblljejRwN20x?=
+ =?utf-8?B?NG5neFFtMkx5MDV5MitILysyU2N5SEhveGV2ekJGdmVsdFBmbTZWaDc2aC82?=
+ =?utf-8?B?TE03N3pYWGsrMjVhNit1YlRneFgyWXNkcmthOGlpd0FBSFVxTkxDK0lpYmln?=
+ =?utf-8?B?U0pKVXN6dnZWY1BiS0I3ZGlkdHNSdTc5OE1lUTdXaDNDSjExTHlVaXp6bVdt?=
+ =?utf-8?B?T0VQcVV6Zm92VW5Rbkh6anpUTzYwbndBM2lnQ0tBUnloTXJzaWQvLzRZbmU1?=
+ =?utf-8?B?TnNLUmxlYkJWTThiUWhjKzdHRkkxaHEybHQvRXVYS3l0WEFLQVpoakNuNEI5?=
+ =?utf-8?B?NHNXQVloRk9aVkVsME9VSVF3K2E1b29Pbk5ucGdzdUdocHR6bEpGRGNPRHEx?=
+ =?utf-8?B?TWhsanRPUU15L2EvRGRaM1M5NUlaYlNjRTh4UjVFMVNlc0NQaCtLc1BSWGZM?=
+ =?utf-8?B?NDZ1VEVPcGtoVm0rc21Ia2JQN3REc2RQdU4xOTJqVm5vZ3gzOUpuakJvVFNR?=
+ =?utf-8?B?a3dsQkxnbUo5MXRKcXMyWktXUnFXT1lKUmEwQmhiYitnOXBkcEJpUVRFaUxQ?=
+ =?utf-8?B?MWprdjZtdTJYdHpKaHZaSnRoVUU5c2o2ckRCc3pHdDVsWDFUOHpPN3FNM05n?=
+ =?utf-8?B?Vm1LWVdaVFFqWERHMjkvbzljS1N1dzRUTlNjUW9vc2Q3cDlaam9kNkNQUzJZ?=
+ =?utf-8?B?eTJET3lKL1lMenZYTCtGWHpSR3Q3alpBdFVMdUVFbmZEUDZrWHh4R1BTZ2hN?=
+ =?utf-8?B?V2EreHZXNm94bytVTW9iaVFFR1hYOHd6K2hlYmZObDV5Qm54Ym12dk1UYkFM?=
+ =?utf-8?B?RXIzby90UnFkSDlnNmNTOHR0aVBINkxNOXNXTzBmaHI3bzRBWlhrdURmQ3Ni?=
+ =?utf-8?B?dDZjRmtYZCtGWVhIYWhTY0FxZHdOYjlQRnZkTnczSUlHSHQ5Z0pzMnRHazZ1?=
+ =?utf-8?B?NDZ2RkpISWVsaklaeWJjSW9jVTFOOEp4SEJvQ3J4amhKaDVhWmhWdmlyZHhx?=
+ =?utf-8?B?YkZtbGJUOERSUzIwc1BLb2g4QmRiL3lObGlIWmJxUXV1bmg2QWZqNUVWYjBK?=
+ =?utf-8?Q?No7Rmj+VGG7/7498iDZYbvM=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13411b8e-f3f3-456e-21fe-08d9f6b50d74
+X-MS-Exchange-CrossTenant-Network-Message-Id: 80afe333-36c1-45b7-7170-08d9f6b52ea2
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2022 10:12:52.6113
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2022 10:13:48.2953
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VE56K4lXdCdfzizju23qQECTxIbhQJS5VfR+hjTPpMn0eLm5fo1NVJrZRh4XkZ5g57rO1yNRquW1J6nm6Q6+oA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR04MB3004
+X-MS-Exchange-CrossTenant-UserPrincipalName: lCSPMnGN90FqVsojaQuh7oCjVREzxu6IoC6UjpwOSUf2mgf7r8W1bRUUPJRtjp+hTKA6MmlCICU4mVEReOPbwA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR0402MB3944
 
-Complete what e3662437eb43 ("x86/cpuid: Disentangle logic for new
-feature leaves") has begun:
+As noted in the context of 3330013e6739 ("VT-d / x86: re-arrange cache
+syncing"): While cache_writeback() has the SFENCE on the correct side of
+CLFLUSHOPT, flush_area_local() doesn't. While I can't prove it due to
+lacking a copy of the old SDM version, I can only assume this placement
+was a result of what had been described there originally. In any event
+recent versions of the SDM hve been telling us otherwise.
 
-"Switch to using FEATURESET_* just like the policy/featureset helpers.  This
- breaks the cognitive complexity of needing to know which leaf a specifically
- named feature should reside in, and is shorter to write.  It is also far
- easier to identify as correct at a glance, given the correlation with the
- CPUID leaf being read."
+For AMD (and Hygon, albeit there it's benign, since all their CPUs are
+expected to support CLFLUSHOPT) the situation is more complex: MFENCE is
+needed ahead and/or after CLFLUSH when the CPU doesn't also support
+CLFLUSHOPT. (It's "and" in our case, as we cannot know what the caller's
+needs are.)
 
+Fixes: 623c720fc8da3 ("x86: use CLFLUSHOPT when available")
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 --- a/xen/arch/x86/cpu/common.c
 +++ b/xen/arch/x86/cpu/common.c
-@@ -332,23 +332,22 @@ void __init early_cpu_init(void)
- 	cpuid(0x00000001, &eax, &ebx, &ecx, &edx);
- 	c->x86 = get_cpu_family(eax, &c->x86_model, &c->x86_mask);
- 
--	edx &= ~cleared_caps[cpufeat_word(X86_FEATURE_FPU)];
--	ecx &= ~cleared_caps[cpufeat_word(X86_FEATURE_SSE3)];
-+	edx &= ~cleared_caps[FEATURESET_1d];
-+	ecx &= ~cleared_caps[FEATURESET_1c];
- 	if (edx & cpufeat_mask(X86_FEATURE_CLFLUSH))
- 		c->x86_cache_alignment = ((ebx >> 8) & 0xff) * 8;
- 	/* Leaf 0x1 capabilities filled in early for Xen. */
--	c->x86_capability[cpufeat_word(X86_FEATURE_FPU)] = edx;
--	c->x86_capability[cpufeat_word(X86_FEATURE_SSE3)] = ecx;
-+	c->x86_capability[FEATURESET_1d] = edx;
-+	c->x86_capability[FEATURESET_1c] = ecx;
- 
- 	printk(XENLOG_INFO
- 	       "CPU Vendor: %s, Family %u (%#x), Model %u (%#x), Stepping %u (raw %08x)\n",
- 	       x86_cpuid_vendor_to_str(c->x86_vendor), c->x86, c->x86,
+@@ -346,9 +346,14 @@ void __init early_cpu_init(void)
  	       c->x86_model, c->x86_model, c->x86_mask, eax);
  
--	if (c->cpuid_level >= 7) {
--		cpuid_count(7, 0, &eax, &ebx, &ecx, &edx);
--		c->x86_capability[cpufeat_word(X86_FEATURE_CET_SS)] = ecx;
--	}
-+	if (c->cpuid_level >= 7)
-+		cpuid_count(7, 0, &eax, &ebx,
-+                            &c->x86_capability[FEATURESET_7c0], &edx);
+ 	if (c->cpuid_level >= 7)
+-		cpuid_count(7, 0, &eax, &ebx,
++		cpuid_count(7, 0, &eax,
++                            &c->x86_capability[FEATURESET_7b0],
+                             &c->x86_capability[FEATURESET_7c0], &edx);
  
++	if (!(c->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)) ||
++	    cpu_has(c, X86_FEATURE_CLFLUSHOPT))
++		setup_force_cpu_cap(X86_FEATURE_CLFLUSH_NO_MFENCE);
++
  	eax = cpuid_eax(0x80000000);
  	if ((eax >> 16) == 0x8000 && eax >= 0x80000008) {
---- a/xen/arch/x86/efi/efi-boot.h
-+++ b/xen/arch/x86/efi/efi-boot.h
-@@ -685,11 +685,11 @@ static void __init efi_arch_cpu(void)
+ 		ebx = eax >= 0x8000001f ? cpuid_ebx(0x8000001f) : 0;
+--- a/xen/arch/x86/flushtlb.c
++++ b/xen/arch/x86/flushtlb.c
+@@ -245,12 +245,15 @@ unsigned int flush_area_local(const void
+              c->x86_clflush_size && c->x86_cache_size && sz &&
+              ((sz >> 10) < c->x86_cache_size) )
+         {
+-            alternative("", "sfence", X86_FEATURE_CLFLUSHOPT);
++            alternative("mfence", , X86_FEATURE_CLFLUSH_NO_MFENCE);
+             for ( i = 0; i < sz; i += c->x86_clflush_size )
+                 alternative_input("ds; clflush %0",
+                                   "data16 clflush %0",      /* clflushopt */
+                                   X86_FEATURE_CLFLUSHOPT,
+                                   "m" (((const char *)va)[i]));
++            alternative_2("mfence",
++                          , X86_FEATURE_CLFLUSH_NO_MFENCE,
++                          "sfence", X86_FEATURE_CLFLUSHOPT);
+             flags &= ~FLUSH_CACHE;
+         }
+         else
+@@ -274,6 +277,8 @@ void cache_writeback(const void *addr, u
+     unsigned int clflush_size = current_cpu_data.x86_clflush_size ?: 16;
+     const void *end = addr + size;
  
-     boot_tsc_stamp = rdtsc();
- 
--    caps[cpufeat_word(X86_FEATURE_HYPERVISOR)] = cpuid_ecx(1);
-+    caps[FEATURESET_1c] = cpuid_ecx(1);
- 
-     if ( (eax >> 16) == 0x8000 && eax > 0x80000000 )
++    alternative("mfence", , X86_FEATURE_CLFLUSH_NO_MFENCE);
++
+     addr -= (unsigned long)addr & (clflush_size - 1);
+     for ( ; addr < end; addr += clflush_size )
      {
--        caps[cpufeat_word(X86_FEATURE_SYSCALL)] = cpuid_edx(0x80000001);
-+        caps[FEATURESET_e1d] = cpuid_edx(0x80000001);
- 
-         if ( cpu_has_nx )
-             trampoline_efer |= EFER_NXE;
---- a/xen/arch/x86/mpparse.c
-+++ b/xen/arch/x86/mpparse.c
-@@ -516,7 +516,7 @@ static inline void __init construct_defa
- 				   (boot_cpu_data.x86_model << 4) |
- 				   boot_cpu_data.x86_mask;
- 	processor.mpc_featureflag =
--            boot_cpu_data.x86_capability[cpufeat_word(X86_FEATURE_FPU)];
-+            boot_cpu_data.x86_capability[FEATURESET_1d];
- 	processor.mpc_reserved[0] = 0;
- 	processor.mpc_reserved[1] = 0;
- 	for (i = 0; i < 2; i++) {
---- a/xen/arch/x86/tsx.c
-+++ b/xen/arch/x86/tsx.c
-@@ -48,7 +48,7 @@ void tsx_init(void)
-         bool has_rtm_always_abort;
- 
-         if ( boot_cpu_data.cpuid_level >= 7 )
--            boot_cpu_data.x86_capability[cpufeat_word(X86_FEATURE_ARCH_CAPS)]
-+            boot_cpu_data.x86_capability[FEATURESET_7d0]
-                 = cpuid_count_edx(7, 0);
- 
-         if ( cpu_has_arch_caps )
+--- a/xen/arch/x86/include/asm/cpufeatures.h
++++ b/xen/arch/x86/include/asm/cpufeatures.h
+@@ -24,7 +24,7 @@ XEN_CPUFEATURE(APERFMPERF,        X86_SY
+ XEN_CPUFEATURE(MFENCE_RDTSC,      X86_SYNTH( 9)) /* MFENCE synchronizes RDTSC */
+ XEN_CPUFEATURE(XEN_SMEP,          X86_SYNTH(10)) /* SMEP gets used by Xen itself */
+ XEN_CPUFEATURE(XEN_SMAP,          X86_SYNTH(11)) /* SMAP gets used by Xen itself */
+-/* Bit 12 - unused. */
++XEN_CPUFEATURE(CLFLUSH_NO_MFENCE, X86_SYNTH(12)) /* No MFENCE needed to serialize CLFLUSH */
+ XEN_CPUFEATURE(IND_THUNK_LFENCE,  X86_SYNTH(13)) /* Use IND_THUNK_LFENCE */
+ XEN_CPUFEATURE(IND_THUNK_JMP,     X86_SYNTH(14)) /* Use IND_THUNK_JMP */
+ XEN_CPUFEATURE(SC_NO_BRANCH_HARDEN, X86_SYNTH(15)) /* (Disable) Conditional branch hardening */
 
 
