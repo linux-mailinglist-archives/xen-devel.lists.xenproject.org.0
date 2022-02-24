@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56ED64C2F6C
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Feb 2022 16:22:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.278392.475620 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 952D24C2F7F
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Feb 2022 16:23:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.278404.475634 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNFwL-0000sA-V4; Thu, 24 Feb 2022 15:21:57 +0000
+	id 1nNFxl-0001Uz-BP; Thu, 24 Feb 2022 15:23:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 278392.475620; Thu, 24 Feb 2022 15:21:57 +0000
+Received: by outflank-mailman (output) from mailman id 278404.475634; Thu, 24 Feb 2022 15:23:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNFwL-0000pK-Rr; Thu, 24 Feb 2022 15:21:57 +0000
-Received: by outflank-mailman (input) for mailman id 278392;
- Thu, 24 Feb 2022 15:21:56 +0000
+	id 1nNFxl-0001Ss-8P; Thu, 24 Feb 2022 15:23:25 +0000
+Received: by outflank-mailman (input) for mailman id 278404;
+ Thu, 24 Feb 2022 15:23:23 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nNFwK-0000pA-EL; Thu, 24 Feb 2022 15:21:56 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1nNFxj-0001Sm-3a
+ for xen-devel@lists.xenproject.org; Thu, 24 Feb 2022 15:23:23 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nNFwK-0008Mq-DZ; Thu, 24 Feb 2022 15:21:56 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nNFwK-0000sX-1O; Thu, 24 Feb 2022 15:21:56 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nNFwK-0004hA-0x; Thu, 24 Feb 2022 15:21:56 +0000
+ (envelope-from <julien@xen.org>)
+ id 1nNFxi-0008OS-M2; Thu, 24 Feb 2022 15:23:22 +0000
+Received: from 54-240-197-226.amazon.com ([54.240.197.226] helo=[10.7.236.14])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nNFxi-00027K-GD; Thu, 24 Feb 2022 15:23:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +39,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=7t6F+ZBR1Ih2EeQAKpHzEVFpp0BrihdpCPaMGUAtfXE=; b=CUq5s/FwYKHp/Te2yHoTJS5wcE
-	ECkNRskJXad5+BmgrMmAueNi/cCU5LZafNfkUBSY4MiSG8vMQS1y1QvNe98zqb2L9tlUtQoPCNMb7
-	yTL5bgkCRCMLTRjDKuyW6odFFOcDDSq++mSCGXRtnUaVqxFxJD4QEccjRrk55DL8hYqM=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168216-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=9jzA2z5Ie9oHaG65OsiHnsV+whzyVQIl4hjomkN7oUQ=; b=cmhqsRBkfDSA/AZvLOmsaeKQd4
+	eOkKUewbn0lXqCrXvho4tDF3gQDkrY+sHnFUK2oxET/f8g656a7r0uwIWLFuAkaFw9GHrKdVlWBlz
+	5Ssokr/K79BqPxbW2yFszW1MLUdlr1wElwXYlNwxSLEqaCE5r2suRChkndYuKzF92K3M=;
+Message-ID: <0f8a2619-0d0c-989d-fd2c-8e45d33c2172@xen.org>
+Date: Thu, 24 Feb 2022 15:23:20 +0000
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 168216: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=93189e8c8b93e2c4658156e785a9b78b61e71a64
-X-Osstest-Versions-That:
-    xen=fe60fab0424b93c6688d285bd7995226a96937d4
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 24 Feb 2022 15:21:56 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.6.1
+Subject: Re: [PATCH v2 0/2] Rename psr_mode_is_{32bit/user} to
+ regs_mode_is_{32bit/user}
+To: Michal Orzel <michal.orzel@arm.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20220222105613.20668-1-michal.orzel@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20220222105613.20668-1-michal.orzel@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 168216 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168216/
+Hi Michal,
 
-Failures :-/ but no regressions.
+On 22/02/2022 10:56, Michal Orzel wrote:
+> The request to rename psr_mode_is_32bit to regs_mode_is_32bit was make during
+> a discussion [1]. Because psr_mode_is_user shares the same prototype, we should
+> rename it as well to keep the naming consistent.
+> 
+> [1] https://marc.info/?l=xen-devel&m=156457538423787&w=2
+> 
+> Michal Orzel (2):
+>    xen/arm: Rename psr_mode_is_32bit to regs_mode_is_32bit
+>    xen/arm: Rename psr_mode_is_user to regs_mode_is_user
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+I have committed the two patches.
 
-version targeted for testing:
- xen                  93189e8c8b93e2c4658156e785a9b78b61e71a64
-baseline version:
- xen                  fe60fab0424b93c6688d285bd7995226a96937d4
+Thanks for the contribution!
 
-Last test of basis   168210  2022-02-23 21:01:36 Z    0 days
-Testing same since   168216  2022-02-24 11:01:39 Z    0 days    1 attempts
+Cheers,
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
+> 
+>   xen/arch/arm/arm64/vsysreg.c    |  4 ++--
+>   xen/arch/arm/include/asm/regs.h |  6 ++---
+>   xen/arch/arm/traps.c            | 42 ++++++++++++++++-----------------
+>   xen/arch/arm/vcpreg.c           |  4 ++--
+>   xen/arch/arm/vtimer.c           |  2 +-
+>   5 files changed, 29 insertions(+), 29 deletions(-)
+> 
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   fe60fab042..93189e8c8b  93189e8c8b93e2c4658156e785a9b78b61e71a64 -> smoke
+-- 
+Julien Grall
 
