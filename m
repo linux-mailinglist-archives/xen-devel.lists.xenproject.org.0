@@ -2,44 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4CA04C3008
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Feb 2022 16:41:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.278437.475687 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC64F4C30AE
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Feb 2022 16:59:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.278444.475698 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNGEt-0005lI-QD; Thu, 24 Feb 2022 15:41:07 +0000
+	id 1nNGWC-0007OG-9O; Thu, 24 Feb 2022 15:59:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 278437.475687; Thu, 24 Feb 2022 15:41:07 +0000
+Received: by outflank-mailman (output) from mailman id 278444.475698; Thu, 24 Feb 2022 15:59:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNGEt-0005iR-Lz; Thu, 24 Feb 2022 15:41:07 +0000
-Received: by outflank-mailman (input) for mailman id 278437;
- Thu, 24 Feb 2022 15:41:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nNGWC-0007M3-60; Thu, 24 Feb 2022 15:59:00 +0000
+Received: by outflank-mailman (input) for mailman id 278444;
+ Thu, 24 Feb 2022 15:58:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=l9RI=TH=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nNGEr-0005iL-Cp
- for xen-devel@lists.xenproject.org; Thu, 24 Feb 2022 15:41:05 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2c964266-9588-11ec-8539-5f4723681683;
- Thu, 24 Feb 2022 16:41:04 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8A8D31F37C;
- Thu, 24 Feb 2022 15:41:03 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5035213AFF;
- Thu, 24 Feb 2022 15:41:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id b+//EQ+nF2IHZQAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 24 Feb 2022 15:41:03 +0000
+ (envelope-from <SRS0=uiXl=TH=lst.de=hch@srs-se1.protection.inumbo.net>)
+ id 1nNGWB-0007Lx-Cf
+ for xen-devel@lists.xenproject.org; Thu, 24 Feb 2022 15:58:59 +0000
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id acb0c244-958a-11ec-8eb8-a37418f5ba1a;
+ Thu, 24 Feb 2022 16:58:58 +0100 (CET)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 88B5268AFE; Thu, 24 Feb 2022 16:58:54 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,155 +38,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c964266-9588-11ec-8539-5f4723681683
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1645717263; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SNDlErUUGn7Wki06GJZwW8Uu96EoZJWASJg9lACDEaY=;
-	b=bzi1NAoRCOd1MMXMOHkZOTko86j+HQ54IN5LMOtpHrVq7H+/eFQ7eLpA/uC7ul8HG+Njzh
-	tlx50Ds6Y1JwpUvfpxdKoP9tQP6bL19RC+iy5ErZsIDYwkkkrdl8XN9vKWKBQOOOR8Fnz1
-	lbV97aDPlqcL+v88lkevgNgHDbbcLW4=
-Message-ID: <93d49d5f-29d5-72d1-c00c-ad14fb08b9c4@suse.com>
-Date: Thu, 24 Feb 2022 16:41:02 +0100
+X-Inumbo-ID: acb0c244-958a-11ec-8eb8-a37418f5ba1a
+Date: Thu, 24 Feb 2022 16:58:54 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Christoph Hellwig <hch@lst.de>, iommu@lists.linux-foundation.org,
+	x86@kernel.org, Stefano Stabellini <sstabellini@kernel.org>,
+	Juergen Gross <jgross@suse.com>, Joerg Roedel <joro@8bytes.org>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	xen-devel@lists.xenproject.org, linux-ia64@vger.kernel.org,
+	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+	linux-hyperv@vger.kernel.org, tboot-devel@lists.sourceforge.net,
+	linux-pci@vger.kernel.org
+Subject: Re: cleanup swiotlb initialization
+Message-ID: <20220224155854.GA30938@lst.de>
+References: <20220222153514.593231-1-hch@lst.de> <09cb4ad3-88e7-3744-b4b8-a6d745ecea9e@oracle.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH v3] xen/public: add comment to struct
- xen_mem_acquire_resource
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20220224152414.27948-1-jgross@suse.com>
- <9972f96c-d0cc-d9a8-3566-74dbaf7e9e33@suse.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <9972f96c-d0cc-d9a8-3566-74dbaf7e9e33@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------rSEb6uvca7yT7sZZZMsniJOQ"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <09cb4ad3-88e7-3744-b4b8-a6d745ecea9e@oracle.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------rSEb6uvca7yT7sZZZMsniJOQ
-Content-Type: multipart/mixed; boundary="------------XKqg7b7NN0drSqOeXfvI0SsG";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-Message-ID: <93d49d5f-29d5-72d1-c00c-ad14fb08b9c4@suse.com>
-Subject: Re: [PATCH v3] xen/public: add comment to struct
- xen_mem_acquire_resource
-References: <20220224152414.27948-1-jgross@suse.com>
- <9972f96c-d0cc-d9a8-3566-74dbaf7e9e33@suse.com>
-In-Reply-To: <9972f96c-d0cc-d9a8-3566-74dbaf7e9e33@suse.com>
+Thanks.
 
---------------XKqg7b7NN0drSqOeXfvI0SsG
-Content-Type: multipart/mixed; boundary="------------2EEnrZ1bPYvQxxnxK580JW9c"
+This looks really strange as early_amd_iommu_init should not interact much
+with the changes.  I'll see if I can find a AMD system to test on.
 
---------------2EEnrZ1bPYvQxxnxK580JW9c
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMjQuMDIuMjIgMTY6MzcsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAyNC4wMi4yMDIy
-IDE2OjI0LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gLS0tIGEveGVuL2luY2x1ZGUvcHVi
-bGljL21lbW9yeS5oDQo+PiArKysgYi94ZW4vaW5jbHVkZS9wdWJsaWMvbWVtb3J5LmgNCj4+
-IEBAIC02NjIsNiArNjYyLDEzIEBAIHN0cnVjdCB4ZW5fbWVtX2FjcXVpcmVfcmVzb3VyY2Ug
-ew0KPj4gICAgICAgICogdHdvIGNhbGxzLg0KPj4gICAgICAgICovDQo+PiAgICAgICB1aW50
-MzJfdCBucl9mcmFtZXM7DQo+PiArICAgIC8qDQo+PiArICAgICAqIFBhZGRpbmcgZmllbGQs
-IG11c3QgYmUgemVybyBvbiBpbnB1dC4NCj4+ICsgICAgICogSW4gYSBwcmV2aW91cyB2ZXJz
-aW9uIHRoaXMgd2FzIGFuIG91dHB1dCBmaWVsZCB3aXRoIHRoZSBsb3dlc3QNCj4+ICsgICAg
-ICogYml0IG5hbWVkIFhFTk1FTV9yc3JjX2FjcV9jYWxsZXJfb3duZWQuIEZ1dHVyZSB2ZXJz
-aW9ucyBvZiB0aGlzDQo+PiArICAgICAqIGludGVyZmFjZSB3aWxsIG5vdCByZXVzZSB0aGlz
-IGJpdCB3aXRoIHRoZSBmaWVsZCBiZWluZyB6ZXJvIG9uDQo+PiArICAgICAqIGlucHV0Lg0K
-Pj4gKyAgICAgKi8NCj4+ICAgICAgIHVpbnQzMl90IHBhZDsNCj4gDQo+IERpZCB5b3UgbWVh
-biAiLi4uIGJlaW5nIG5vbi16ZXJvIC4uLiIgYW5kICJiaXQiIGFuZCAiZmllbGQiIGNoYW5n
-aW5nDQo+IHBvc2l0aW9ucz8NCg0KTm8sIHdoeT8gVGhlIGN1cnJlbnQgTGludXgga2VybmVs
-IHdpbGwgc2V0IHBhZCAodGhlICJmaWVsZCIpIHRvIHplcm8NCndoZW4gZG9pbmcgdGhlIGh5
-cGVyY2FsbCwgYW5kIGl0IGV4cGVjdHMgdGhlIGJpdCB0byBiZSBzZXQgb3Igbm90IG9uDQpy
-ZXR1cm4uIFRoaXMgbWVhbnMgdGhhdCB0aGUgYml0IGlzIHJlc2VydmVkIGZvciB0aGUgY2Fz
-ZSB0aGF0IHBhZA0Kd2FzIHplcm8gb24gaW5wdXQuDQoNCg0KSnVlcmdlbg0KDQo=
---------------2EEnrZ1bPYvQxxnxK580JW9c
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
-oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
-kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
-1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
-BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
-N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
-PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
-FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
-UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
-vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
-+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
-qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
-tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
-Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
-CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
-RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
-8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
-BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
-SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
-nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
-AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
-Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
-hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
-w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
-VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
-OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
-/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
-c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
-F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
-k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
-wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
-5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
-TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
-N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
-AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
-0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
-Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
-we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
-v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
-Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
-534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
-b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
-yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
-suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------2EEnrZ1bPYvQxxnxK580JW9c--
-
---------------XKqg7b7NN0drSqOeXfvI0SsG--
-
---------------rSEb6uvca7yT7sZZZMsniJOQ
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmIXpw4FAwAAAAAACgkQsN6d1ii/Ey+j
-5wgAlSgxXguNNU04gqqv7MWuqLWz5R6EcgLtfjQxrGgfpwLT73QLA1UNXZzd0leDqMr3YeM0fCpk
-jMElFvg7nAd/VAQHkFPycV6KNGc76P6J0Xj6mzuKQsXg1XzFMvDMe7s4+cmK1nHZQQC/86fQNtes
-MT3OPg/UE2/Aqlb5q29pNqioA0LO3lqkQRkKTcFrRDyYqPtzE2bsgPLMUOtcEZIlGElcfUfHn1FI
-a8P0MDUtvwoOOzk0yfzQEE2VHznQwLojGAY+03G3DIrssq/WlD1uf8kpFkaTQV19lPk+Bs7XW1z4
-Qcy/VXfTDbEVSQ8kGuU73UjeJ71HYNYHAca3zGpBoA==
-=cSpV
------END PGP SIGNATURE-----
-
---------------rSEb6uvca7yT7sZZZMsniJOQ--
+On Wed, Feb 23, 2022 at 07:57:49PM -0500, Boris Ostrovsky wrote:
+> [   37.377313] BUG: unable to handle page fault for address: ffffc90042880018
+> [   37.378219] #PF: supervisor read access in kernel mode
+> [   37.378219] #PF: error_code(0x0000) - not-present page
+> [   37.378219] PGD 7c2f2ee067 P4D 7c2f2ee067 PUD 7bf019b067 PMD 105a30067 PTE 0
+> [   37.378219] Oops: 0000 [#1] PREEMPT SMP NOPTI
+> [   37.378219] CPU: 14 PID: 1 Comm: swapper/0 Not tainted 5.17.0-rc5swiotlb #9
+> [   37.378219] Hardware name: Oracle Corporation ORACLE SERVER E1-2c/ASY,Generic,SM,E1-2c, BIOS 49004900 12/23/2020
+> [   37.378219] RIP: e030:init_iommu_one+0x248/0x2f0
+> [   37.378219] Code: 48 89 43 68 48 85 c0 74 c4 be 00 20 00 00 48 89 df e8 ea ee ff ff 48 89 43 78 48 85 c0 74 ae c6 83 98 00 00 00 00 48 8b 43 38 <48> 8b 40 18 a8 01 74 07 83 8b a8 04 00 00 01 f6 83 a8 04 00 00 01
+> [   37.378219] RSP: e02b:ffffc9004044bd18 EFLAGS: 00010286
+> [   37.378219] RAX: ffffc90042880000 RBX: ffff888107260800 RCX: 0000000000000000
+> [   37.378219] RDX: 0000000080000000 RSI: ffffea00041cab80 RDI: 00000000ffffffff
+> [   37.378219] RBP: ffffc9004044bd38 R08: 0000000000000901 R09: ffffea00041cab00
+> [   37.378219] R10: 0000000000000002 R11: 0000000000000000 R12: ffffc90040435008
+> [   37.378219] R13: 0000000000080000 R14: 00000000efa00000 R15: 0000000000000000
+> [   37.378219] FS:  0000000000000000(0000) GS:ffff88fef4180000(0000) knlGS:0000000000000000
+> [   37.378219] CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [   37.378219] CR2: ffffc90042880018 CR3: 000000000260a000 CR4: 0000000000050660
+> [   37.378219] Call Trace:
+> [   37.378219]  <TASK>
+> [   37.378219]  early_amd_iommu_init+0x3c5/0x72d
+> [   37.378219]  ? iommu_setup+0x284/0x284
+> [   37.378219]  state_next+0x158/0x68f
+> [   37.378219]  ? iommu_setup+0x284/0x284
+> [   37.378219]  iommu_go_to_state+0x28/0x2d
+> [   37.378219]  amd_iommu_init+0x15/0x4b
+> [   37.378219]  ? iommu_setup+0x284/0x284
+> [   37.378219]  pci_iommu_init+0x12/0x37
+> [   37.378219]  do_one_initcall+0x48/0x210
+> [   37.378219]  kernel_init_freeable+0x229/0x28c
+> [   37.378219]  ? rest_init+0xe0/0xe0
+> [   37.963966]  kernel_init+0x1a/0x130
+> [   37.979415]  ret_from_fork+0x22/0x30
+> [   37.991436]  </TASK>
+> [   37.999465] Modules linked in:
+> [   38.007413] CR2: ffffc90042880018
+> [   38.019416] ---[ end trace 0000000000000000 ]---
+> [   38.023418] RIP: e030:init_iommu_one+0x248/0x2f0
+> [   38.023418] Code: 48 89 43 68 48 85 c0 74 c4 be 00 20 00 00 48 89 df e8 ea ee ff ff 48 89 43 78 48 85 c0 74 ae c6 83 98 00 00 00 00 48 8b 43 38 <48> 8b 40 18 a8 01 74 07 83 8b a8 04 00 00 01 f6 83 a8 04 00 00 01
+> [   38.023418] RSP: e02b:ffffc9004044bd18 EFLAGS: 00010286
+> [   38.023418] RAX: ffffc90042880000 RBX: ffff888107260800 RCX: 0000000000000000
+> [   38.155413] RDX: 0000000080000000 RSI: ffffea00041cab80 RDI: 00000000ffffffff
+> [   38.175965] Freeing initrd memory: 62640K
+> [   38.155413] RBP: ffffc9004044bd38 R08: 0000000000000901 R09: ffffea00041cab00
+> [   38.155413] R10: 0000000000000002 R11: 0000000000000000 R12: ffffc90040435008
+> [   38.155413] R13: 0000000000080000 R14: 00000000efa00000 R15: 0000000000000000
+> [   38.155413] FS:  0000000000000000(0000) GS:ffff88fef4180000(0000) knlGS:0000000000000000
+> [   38.287414] CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [   38.309557] CR2: ffffc90042880018 CR3: 000000000260a000 CR4: 0000000000050660
+> [   38.332403] Kernel panic - not syncing: Fatal exception
+> [   38.351414] Rebooting in 20 seconds..
+>
+>
+>
+> -boris
+---end quoted text---
 
