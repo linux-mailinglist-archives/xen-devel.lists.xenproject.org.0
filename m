@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCF284C4872
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E29B4C4871
 	for <lists+xen-devel@lfdr.de>; Fri, 25 Feb 2022 16:14:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.279182.476813 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.279184.476837 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNcI2-0008AC-OO; Fri, 25 Feb 2022 15:13:50 +0000
+	id 1nNcI6-0000PH-6c; Fri, 25 Feb 2022 15:13:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 279182.476813; Fri, 25 Feb 2022 15:13:50 +0000
+Received: by outflank-mailman (output) from mailman id 279184.476837; Fri, 25 Feb 2022 15:13:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNcI2-00085R-In; Fri, 25 Feb 2022 15:13:50 +0000
-Received: by outflank-mailman (input) for mailman id 279182;
- Fri, 25 Feb 2022 15:13:49 +0000
+	id 1nNcI5-0000JJ-QD; Fri, 25 Feb 2022 15:13:53 +0000
+Received: by outflank-mailman (input) for mailman id 279184;
+ Fri, 25 Feb 2022 15:13:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=E0Ll=TI=citrix.com=prvs=04808661d=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nNcI0-0007Bf-Pg
- for xen-devel@lists.xenproject.org; Fri, 25 Feb 2022 15:13:49 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 879ce21b-964d-11ec-8eb9-a37418f5ba1a;
- Fri, 25 Feb 2022 16:13:47 +0100 (CET)
+ id 1nNcI3-0007Bf-D6
+ for xen-devel@lists.xenproject.org; Fri, 25 Feb 2022 15:13:51 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 89003833-964d-11ec-8eb9-a37418f5ba1a;
+ Fri, 25 Feb 2022 16:13:50 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,49 +36,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 879ce21b-964d-11ec-8eb9-a37418f5ba1a
+X-Inumbo-ID: 89003833-964d-11ec-8eb9-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1645802027;
+  d=citrix.com; s=securemail; t=1645802029;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=+tvgdAnTgDFIQbMFRm+czYIkxCdj45NAL3MUbvPerCo=;
-  b=SG+Fv1Hf0KSYHJUJwpZ+Zkd/ZHARVzwHnHWe/Sa9/zvN7HRsDp0hMNJX
-   830HmV9VagoWU/6OvzwzIWKrTrDRdhoh07AR0nGckKuPSqLDttt7v1jTp
-   OSsn8N7lQ1buFMN5Yx7wUj5FiKQJimsLDzPKURy3ZKyITYcDXJzOyp6M1
+  bh=vEj0fZWMl+R77ejhJIT+1IS4qvoqXeRC/IzY/VGgI/8=;
+  b=PubzSiPEqzLM6y2qEjQkXxtemIuVSB681AKSO6dAEOVu9+vmhT53gpnv
+   Owb4pm55w4vR0Wre/3k1WeNUByUzSnNosCRCGV3uYNJAssi6DH4smSOAz
+   vtKLD7oZBDR9yCCPQBHDbUXbL6AfUGgx4izGFA3sm15oTKmf/b7sl10il
    c=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 5.1
-X-MesageID: 64998373
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 65000282
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:TEaeMKhcHvuX9+aHKGjzAh4OX161CxAKZh0ujC45NGQN5FlHY01je
- htvXmiEaPnYMDPxedhyboi3pBtTscTVztZgTVdsri81H34b9cadCdqndUqhZCn6wu8v7a5EA
- 2fyTvGacajYm1eF/k/F3oDJ9CU6jefSLlbFILas1hpZHGeIcw98z0M78wIFqtQw24LhWVnQ4
- YmaT/D3YzdJ5RYlagr41IrbwP9flKyaVOQw5wFWiVhj5TcyplFNZH4tDfjZw0jQG+G4KtWSV
- efbpIxVy0uCl/sb5nFJpZ6gGqECaua60QFjERO6UYD66vRJjnRaPqrWqJPwwKqY4tmEt4kZ9
- TlDiXC/YVcoOIndms9NaAlFHS17N7VfoeDBGEHq5KR/z2WeG5ft6/BnDUVwNowE4OdnR2pJ8
- JT0KhhUMErF3bjvhuvmFK883azPL+GyVG8bknhm0THeC+dgWZ3ZSr/GzdRZwC0xloZFGvO2i
- 88xN2Y+PUSbPEYn1lE/MLEjp+KGhCjDSCRXmXi3oboL5FTuw1kkuFTqGIWMIYHbLSlPpW6Ho
- krW8mK/BQsVXPSPxDzA/n+yi+vnmSLgRJlUBLC+7uRtglCY2ioUEhJ+aLegiaDn0AjkAYsZc
- hFKvHp1xUQvyKC1Zon8WTmpolXUhQ4BVdZVGfUjsV6L85OBtm51GVM4ZjJGbdUnsuo/Sjory
- kKFkrvVONB/jFGGYSnDr+nJ9FteLQBQdDZfPnFcEWPp9vG++Nlbs/7Zcjp0/EdZZPXRECq4/
- T2FpTNWa1473Z9SjPXTEbwqbluRSnn1ouwdulS/soGNtFoRiGuZi2qAswmzARFodtvxc7V5l
- CJY8/VyFchXZX13qASDQf8WAJai7OufPTvXjDZHRsd9qmvxoiL+JdgIuFmSwXuF1O5eKFcFh
- 2eJ5GtsCGJ7ZiP2PcebnarrYyjV8UQQPYu8Da2FBja/SpNwaBWG7ElTib24hAjQfLwXufhnY
- /+zKJ/0ZV5DUPgP5GfmFo81jO5wrghjlDy7eHwO50n+uVZoTCXOEult3ZrnRr1R0Z5oVy2Oq
- 4cPb5bRkk4HOAA8CwGOmbMuwZkxBSBTLfjLRwZ/L4Zv/iIO9LkdNsLs
-IronPort-HdrOrdr: A9a23:pZEU/aHSMBtPf1+SpLqE4seALOsnbusQ8zAXP0AYc3Nom6uj5q
- WTdZUgpHjJYVkqOU3I9ersBEDiewK/yXcW2+ks1N6ZNWGM0ldARLsSibcKqAePJ8SRzIJgPN
- 9bAstDNOE=
+IronPort-Data: A9a23:SOsCnq2e5JUL5bNoy/bD5bhxkn2cJEfYwER7XKvMYLTBsI5bpzNTn
+ DQfUDzTaPmCamanfdtzYY/l80pUucfcn4U1SFdkpC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
+ Zh2hgzodZhsJpPkjk7xdOCn9xGQ7InQLlbGILes1htZGEk1EE/NtTo5w7Rj2tQy3IDja++wk
+ YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
+ 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
+ /1jiZO0RgxwY5fFv9o+CDBkORNbA+pvreqvzXiX6aR/zmXDenrohf5vEFs3LcsT/eMf7WNmr
+ KJCbmpXN1ba2rzwkOnTpupE36zPKOHiOp8fvXdxiynUF/88TbjIQrnQ5M8e1zA17ixLNaiDP
+ 5JBM2o1BPjGSyxVYgYoFs8mp+mTp2bHcQxil2y4mZNitgA/yyQuieOwYbI5YOeiWsF9jkue4
+ GXc8AzREhwccdCS1zeB2natnfPU2zP2XpoIE7+1/eIsh0ecrlH/EzVPCwH9+6PgzBfjBZQPc
+ CT45xbCs4AcyEOvQdKkAiexh0Cn5Tcgceh1LaoTvVTlJrXv3y6VAW0NTzhkYdMgtdMrSTFC6
+ mJlj+8FFhQ07uTLFCv1GqO86GrrZHNLdTNqiTosEFNdi+QPtr3fmf4mojxLNKeuxuP4Fjjrq
+ 9xhhHhv3u5D5SLnOkjSwLwmv95OjsSYJuLWzl+ONo5A0u+fTNT0D2BPwQKGhcus1K7DEjG8U
+ IEswqByFtwmA5CXjzCqS+4QBryv7PvtGGSC3QMwQ8B9qmz1oybLkWVsDNdWfhYB3iEsI2KBX
+ aMukVkJuM870IWCN8ebnL5d++x1lPO9RLwJp9jfb8ZUY4gZSeN01HoGWKJk5Ei0yBJEufhmY
+ f+zKJ/wZV5HWfUP5GfnHI81jO50rh3SMEuOHPgXOTz8iuHADJNUIJ9YWGazghcRt/vV8F2Iq
+ I8Eb6NnCXx3CYXDX8UeyqZLRXhiEJTxLcqeRxB/HgJbHjdbJQ==
+IronPort-HdrOrdr: A9a23:/P8FrKqY77uZ9uNAHEuoI3oaV5oTeYIsimQD101hICG8cqSj+f
+ xG+85rsyMc6QxhIE3I9urhBEDtex/hHNtOkOws1NSZLW7bUQmTXeJfBOLZqlWKcUDDH6xmpM
+ NdmsBFeaTN5DNB7PoSjjPWLz9Z+qjkzJyV
 X-IronPort-AV: E=Sophos;i="5.90,136,1643691600"; 
-   d="scan'208";a="64998373"
+   d="scan'208";a="65000282"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Anthony PERARD <anthony.perard@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [XEN PATCH v2 08/29] tools/hotplug: cleanup Makefiles
-Date: Fri, 25 Feb 2022 15:13:00 +0000
-Message-ID: <20220225151321.44126-9-anthony.perard@citrix.com>
+Subject: [XEN PATCH v2 09/29] tools/libfsimage: Cleanup makefiles
+Date: Fri, 25 Feb 2022 15:13:01 +0000
+Message-ID: <20220225151321.44126-10-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220225151321.44126-1-anthony.perard@citrix.com>
 References: <20220225151321.44126-1-anthony.perard@citrix.com>
@@ -86,244 +86,283 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-Remove "build" targets.
+Remove the need for "fs-*" targets by creating a "common.mk" which
+have flags that are common to libfsimage/common/ and the other
+libfsimages/*/ directories.
 
-Use simply expanded variables when recursively expanded variable
-aren't needed. (Use ":=" instead of "=".)
+In common.mk, make $(PIC_OBJS) a recursively expanded variable so it
+doesn't matter where $(LIB_SRCS-y) is defined, and remove the extra
+$(PIC_OBJS) from libfsimage/common/Makefile.
 
-Don't check if a directory already exist when installing, just create
-it.
+Use a $(TARGETS) variable to list things to be built. And $(TARGETS)
+can be use in the clean target in common.mk.
 
-Fix $(HOTPLUGPATH), it shouldn't have any double-quote.
-
-Some reindentation.
-
-FreeBSD, "hotplugpath.sh" is already installed by common/.
+iso9660/:
+    Remove the explicit dependency between fsys_iso9660.c and
+    iso9660.h, this is handled automaticaly by the .*.d dependency files,
+    and iso9660.h already exist.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
- tools/hotplug/FreeBSD/Makefile       | 11 +++--------
- tools/hotplug/Linux/Makefile         | 16 ++++++----------
- tools/hotplug/Linux/systemd/Makefile | 16 +++++++---------
- tools/hotplug/NetBSD/Makefile        |  9 +++------
- tools/hotplug/common/Makefile        | 16 ++++++----------
- 5 files changed, 25 insertions(+), 43 deletions(-)
+ tools/libfsimage/common/Makefile     | 11 +++--------
+ tools/libfsimage/ext2fs-lib/Makefile |  9 ---------
+ tools/libfsimage/ext2fs/Makefile     |  9 ---------
+ tools/libfsimage/fat/Makefile        |  9 ---------
+ tools/libfsimage/iso9660/Makefile    | 11 -----------
+ tools/libfsimage/reiserfs/Makefile   |  9 ---------
+ tools/libfsimage/ufs/Makefile        |  9 ---------
+ tools/libfsimage/xfs/Makefile        |  9 ---------
+ tools/libfsimage/zfs/Makefile        |  9 ---------
+ tools/libfsimage/Rules.mk            | 26 ++++++++------------------
+ tools/libfsimage/common.mk           | 11 +++++++++++
+ 11 files changed, 22 insertions(+), 100 deletions(-)
+ create mode 100644 tools/libfsimage/common.mk
 
-diff --git a/tools/hotplug/FreeBSD/Makefile b/tools/hotplug/FreeBSD/Makefile
-index de9928cd86..a6552c9884 100644
---- a/tools/hotplug/FreeBSD/Makefile
-+++ b/tools/hotplug/FreeBSD/Makefile
-@@ -2,18 +2,15 @@ XEN_ROOT = $(CURDIR)/../../..
- include $(XEN_ROOT)/tools/Rules.mk
- 
- # Xen script dir and scripts to go there.
--XEN_SCRIPTS = vif-bridge block
-+XEN_SCRIPTS := vif-bridge block
- 
--XEN_SCRIPT_DATA =
-+XEN_SCRIPT_DATA :=
- 
--XEN_RCD_PROG = rc.d/xencommons rc.d/xendriverdomain
-+XEN_RCD_PROG := rc.d/xencommons rc.d/xendriverdomain
- 
- .PHONY: all
- all:
- 
--.PHONY: build
--build:
--
- .PHONY: install
- install: install-scripts install-rcd
- 
-@@ -44,12 +41,10 @@ install-rcd:
- 	   do \
- 	   $(INSTALL_PROG) $$i $(DESTDIR)$(INITD_DIR); \
- 	done
--	$(INSTALL_DATA) ../common/hotplugpath.sh $(DESTDIR)$(XEN_SCRIPT_DIR)
- 
- .PHONY: uninstall-rcd
- uninstall-rcd:
- 	rm -f $(addprefix $(DESTDIR)$(INITD_DIR)/, $(XEN_RCD_PROG))
--	rm -f $(DESTDIR)$(XEN_SCRIPT_DIR)/hotplugpath.sh
- 
- .PHONY: clean
- clean:
-diff --git a/tools/hotplug/Linux/Makefile b/tools/hotplug/Linux/Makefile
-index 0b1d111d7e..9a7b3a3515 100644
---- a/tools/hotplug/Linux/Makefile
-+++ b/tools/hotplug/Linux/Makefile
-@@ -2,7 +2,7 @@ XEN_ROOT = $(CURDIR)/../../..
- include $(XEN_ROOT)/tools/Rules.mk
- 
- # Xen script dir and scripts to go there.
--XEN_SCRIPTS = vif-bridge
-+XEN_SCRIPTS := vif-bridge
- XEN_SCRIPTS += vif-route
- XEN_SCRIPTS += vif-nat
- XEN_SCRIPTS += vif-openvswitch
-@@ -22,16 +22,13 @@ XEN_SCRIPTS += launch-xenstore
- 
- SUBDIRS-$(CONFIG_SYSTEMD) += systemd
- 
--XEN_SCRIPT_DATA = xen-script-common.sh locking.sh logging.sh
-+XEN_SCRIPT_DATA := xen-script-common.sh locking.sh logging.sh
- XEN_SCRIPT_DATA += xen-hotplug-common.sh xen-network-common.sh vif-common.sh
- XEN_SCRIPT_DATA += block-common.sh
- 
- .PHONY: all
- all: subdirs-all
- 
--.PHONY: build
--build:
--
- .PHONY: install
- install: install-initd install-scripts subdirs-install
- 
-@@ -41,9 +38,9 @@ uninstall: uninstall-initd uninstall-scripts subdirs-uninstall
- # See docs/misc/distro_mapping.txt for INITD_DIR location
- .PHONY: install-initd
- install-initd:
--	[ -d $(DESTDIR)$(INITD_DIR) ] || $(INSTALL_DIR) $(DESTDIR)$(INITD_DIR)
--	[ -d $(DESTDIR)$(SYSCONFIG_DIR) ] || $(INSTALL_DIR) $(DESTDIR)$(SYSCONFIG_DIR)
--	[ -d $(DESTDIR)$(LIBEXEC_BIN) ] || $(INSTALL_DIR) $(DESTDIR)$(LIBEXEC_BIN)
-+	$(INSTALL_DIR) $(DESTDIR)$(INITD_DIR)
-+	$(INSTALL_DIR) $(DESTDIR)$(SYSCONFIG_DIR)
-+	$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC_BIN)
- 	$(INSTALL_DATA) init.d/sysconfig.xendomains $(DESTDIR)$(SYSCONFIG_DIR)/xendomains
- 	$(INSTALL_DATA) init.d/sysconfig.xencommons $(DESTDIR)$(SYSCONFIG_DIR)/xencommons
- 	$(INSTALL_PROG) xendomains $(DESTDIR)$(LIBEXEC_BIN)
-@@ -64,8 +61,7 @@ uninstall-initd:
- 
- .PHONY: install-scripts
- install-scripts:
--	[ -d $(DESTDIR)$(XEN_SCRIPT_DIR) ] || \
--		$(INSTALL_DIR) $(DESTDIR)$(XEN_SCRIPT_DIR)
-+	$(INSTALL_DIR) $(DESTDIR)$(XEN_SCRIPT_DIR)
- 	set -e; for i in $(XEN_SCRIPTS); \
- 	    do \
- 	    $(INSTALL_PROG) $$i $(DESTDIR)$(XEN_SCRIPT_DIR); \
-diff --git a/tools/hotplug/Linux/systemd/Makefile b/tools/hotplug/Linux/systemd/Makefile
-index a5d41d86ef..26df2a43b1 100644
---- a/tools/hotplug/Linux/systemd/Makefile
-+++ b/tools/hotplug/Linux/systemd/Makefile
-@@ -1,12 +1,12 @@
- XEN_ROOT = $(CURDIR)/../../../..
- include $(XEN_ROOT)/tools/Rules.mk
- 
--XEN_SYSTEMD_MODULES = xen.conf
-+XEN_SYSTEMD_MODULES := xen.conf
- 
--XEN_SYSTEMD_MOUNT =  proc-xen.mount
-+XEN_SYSTEMD_MOUNT := proc-xen.mount
- XEN_SYSTEMD_MOUNT += var-lib-xenstored.mount
- 
--XEN_SYSTEMD_SERVICE  = xenstored.service
-+XEN_SYSTEMD_SERVICE := xenstored.service
- XEN_SYSTEMD_SERVICE += xenconsoled.service
- XEN_SYSTEMD_SERVICE += xen-qemu-dom0-disk-backend.service
- XEN_SYSTEMD_SERVICE += xendomains.service
-@@ -14,7 +14,7 @@ XEN_SYSTEMD_SERVICE += xen-watchdog.service
- XEN_SYSTEMD_SERVICE += xen-init-dom0.service
- XEN_SYSTEMD_SERVICE += xendriverdomain.service
- 
--ALL_XEN_SYSTEMD =	$(XEN_SYSTEMD_MODULES)  \
-+ALL_XEN_SYSTEMD :=	$(XEN_SYSTEMD_MODULES)  \
- 			$(XEN_SYSTEMD_MOUNT)	\
- 			$(XEN_SYSTEMD_SERVICE)
- 
-@@ -30,10 +30,8 @@ distclean: clean
- 
- .PHONY: install
- install: $(ALL_XEN_SYSTEMD)
--	[ -d $(DESTDIR)$(XEN_SYSTEMD_DIR) ] || \
--		$(INSTALL_DIR) $(DESTDIR)$(XEN_SYSTEMD_DIR)
--	[ -d $(DESTDIR)$(XEN_SYSTEMD_MODULES_LOAD) ] || \
--		$(INSTALL_DIR) $(DESTDIR)$(XEN_SYSTEMD_MODULES_LOAD)
-+	$(INSTALL_DIR) $(DESTDIR)$(XEN_SYSTEMD_DIR)
-+	$(INSTALL_DIR) $(DESTDIR)$(XEN_SYSTEMD_MODULES_LOAD)
- 	$(INSTALL_DATA) *.service $(DESTDIR)$(XEN_SYSTEMD_DIR)
- 	$(INSTALL_DATA) *.mount $(DESTDIR)$(XEN_SYSTEMD_DIR)
- 	$(INSTALL_DATA) *.conf $(DESTDIR)$(XEN_SYSTEMD_MODULES_LOAD)
-@@ -48,5 +46,5 @@ $(XEN_SYSTEMD_MODULES):
- 	rm -f $@.tmp
- 	for mod in $(LINUX_BACKEND_MODULES) ; do \
- 		echo $$mod ; \
--		done > $@.tmp
-+	done > $@.tmp
- 	$(call move-if-changed,$@.tmp,$@)
-diff --git a/tools/hotplug/NetBSD/Makefile b/tools/hotplug/NetBSD/Makefile
-index f909ffa367..1cd3db2ccb 100644
---- a/tools/hotplug/NetBSD/Makefile
-+++ b/tools/hotplug/NetBSD/Makefile
-@@ -2,22 +2,19 @@ XEN_ROOT = $(CURDIR)/../../..
- include $(XEN_ROOT)/tools/Rules.mk
- 
- # Xen script dir and scripts to go there.
--XEN_SCRIPTS =
-+XEN_SCRIPTS :=
- XEN_SCRIPTS += locking.sh
- XEN_SCRIPTS += block
- XEN_SCRIPTS += vif-bridge
- XEN_SCRIPTS += vif-ip
- XEN_SCRIPTS += qemu-ifup
- 
--XEN_SCRIPT_DATA =
--XEN_RCD_PROG = rc.d/xencommons rc.d/xendomains rc.d/xen-watchdog rc.d/xendriverdomain
-+XEN_SCRIPT_DATA :=
-+XEN_RCD_PROG := rc.d/xencommons rc.d/xendomains rc.d/xen-watchdog rc.d/xendriverdomain
- 
- .PHONY: all
- all:
- 
--.PHONY: build
--build:
--
- .PHONY: install
- install: install-scripts install-rcd
- 
-diff --git a/tools/hotplug/common/Makefile b/tools/hotplug/common/Makefile
-index ef48bfacc9..e8a8dbea6c 100644
---- a/tools/hotplug/common/Makefile
-+++ b/tools/hotplug/common/Makefile
-@@ -1,22 +1,19 @@
+diff --git a/tools/libfsimage/common/Makefile b/tools/libfsimage/common/Makefile
+index 0c5a34baea..79f8cfd28e 100644
+--- a/tools/libfsimage/common/Makefile
++++ b/tools/libfsimage/common/Makefile
+@@ -1,5 +1,5 @@
  XEN_ROOT = $(CURDIR)/../../..
- include $(XEN_ROOT)/tools/Rules.mk
+-include $(XEN_ROOT)/tools/libfsimage/Rules.mk
++include $(XEN_ROOT)/tools/libfsimage/common.mk
  
--HOTPLUGPATH="hotplugpath.sh"
-+HOTPLUGPATH := hotplugpath.sh
+ MAJOR := $(shell $(XEN_ROOT)/version.sh $(XEN_ROOT)/xen/Makefile)
+ MINOR = 0
+@@ -13,12 +13,10 @@ LDFLAGS += $(PTHREAD_LDFLAGS)
  
- # OS-independent hotplug scripts go in this directory
+ LIB_SRCS-y = fsimage.c fsimage_plugin.c fsimage_grub.c
  
- # Xen scripts to go there.
--XEN_SCRIPTS =
--XEN_SCRIPT_DATA = $(HOTPLUGPATH)
-+XEN_SCRIPTS :=
-+XEN_SCRIPT_DATA := $(HOTPLUGPATH)
- 
- genpath-target = $(call buildmakevars2file,$(HOTPLUGPATH))
- $(eval $(genpath-target))
+-PIC_OBJS := $(patsubst %.c,%.opic,$(LIB_SRCS-y))
+-
+-LIB = libxenfsimage.so libxenfsimage.so.$(MAJOR) libxenfsimage.so.$(MAJOR).$(MINOR)
++TARGETS = libxenfsimage.so libxenfsimage.so.$(MAJOR) libxenfsimage.so.$(MAJOR).$(MINOR)
  
  .PHONY: all
--all: build
--
--.PHONY: build
--build: $(HOTPLUGPATH)
-+all: $(HOTPLUGPATH)
+-all: $(LIB)
++all: $(TARGETS)
  
  .PHONY: install
- install: install-scripts
-@@ -25,9 +22,8 @@ install: install-scripts
- uninstall: uninstall-scripts
+ install: all
+@@ -40,9 +38,6 @@ uninstall:
+ 	rm -f $(DESTDIR)$(libdir)/libxenfsimage.so.$(MAJOR)
+ 	rm -f $(DESTDIR)$(libdir)/libxenfsimage.so.$(MAJOR).$(MINOR)
  
- .PHONY: install-scripts
--install-scripts: build
--	[ -d $(DESTDIR)$(XEN_SCRIPT_DIR) ] || \
--		$(INSTALL_DIR) $(DESTDIR)$(XEN_SCRIPT_DIR)
-+install-scripts: all
-+	$(INSTALL_DIR) $(DESTDIR)$(XEN_SCRIPT_DIR)
- 	set -e; for i in $(XEN_SCRIPTS); \
- 	   do \
- 	   $(INSTALL_PROG) $$i $(DESTDIR)$(XEN_SCRIPT_DIR); \
+-clean distclean::
+-	rm -f $(LIB)
+-
+ libxenfsimage.so: libxenfsimage.so.$(MAJOR)
+ 	ln -sf $< $@
+ libxenfsimage.so.$(MAJOR): libxenfsimage.so.$(MAJOR).$(MINOR)
+diff --git a/tools/libfsimage/ext2fs-lib/Makefile b/tools/libfsimage/ext2fs-lib/Makefile
+index 431a79068e..b9b560df75 100644
+--- a/tools/libfsimage/ext2fs-lib/Makefile
++++ b/tools/libfsimage/ext2fs-lib/Makefile
+@@ -9,13 +9,4 @@ FS_LIBDEPS = $(EXTFS_LIBS)
+ # Include configure output (config.h)
+ CFLAGS += -include $(XEN_ROOT)/tools/config.h
+ 
+-.PHONY: all
+-all: fs-all
+-
+-.PHONY: install
+-install: fs-install
+-
+-.PHONY: uninstall
+-uninstall: fs-uninstall
+-
+ include $(XEN_ROOT)/tools/libfsimage/Rules.mk
+diff --git a/tools/libfsimage/ext2fs/Makefile b/tools/libfsimage/ext2fs/Makefile
+index c62ae359ac..fe01f98148 100644
+--- a/tools/libfsimage/ext2fs/Makefile
++++ b/tools/libfsimage/ext2fs/Makefile
+@@ -4,13 +4,4 @@ LIB_SRCS-y = fsys_ext2fs.c
+ 
+ FS = ext2fs
+ 
+-.PHONY: all
+-all: fs-all
+-
+-.PHONY: install
+-install: fs-install
+-
+-.PHONY: uninstall
+-uninstall: fs-uninstall
+-
+ include $(XEN_ROOT)/tools/libfsimage/Rules.mk
+diff --git a/tools/libfsimage/fat/Makefile b/tools/libfsimage/fat/Makefile
+index 7ee5e7588d..58bcc0751d 100644
+--- a/tools/libfsimage/fat/Makefile
++++ b/tools/libfsimage/fat/Makefile
+@@ -4,13 +4,4 @@ LIB_SRCS-y = fsys_fat.c
+ 
+ FS = fat
+ 
+-.PHONY: all
+-all: fs-all
+-
+-.PHONY: install
+-install: fs-install
+-
+-.PHONY: uninstall
+-uninstall: fs-uninstall
+-
+ include $(XEN_ROOT)/tools/libfsimage/Rules.mk
+diff --git a/tools/libfsimage/iso9660/Makefile b/tools/libfsimage/iso9660/Makefile
+index bc86baf2c0..acf3164046 100644
+--- a/tools/libfsimage/iso9660/Makefile
++++ b/tools/libfsimage/iso9660/Makefile
+@@ -4,15 +4,4 @@ LIB_SRCS-y = fsys_iso9660.c
+ 
+ FS = iso9660
+ 
+-.PHONY: all
+-all: fs-all
+-
+-.PHONY: install
+-install: fs-install
+-
+-.PHONY: uninstall
+-uninstall: fs-uninstall
+-
+-fsys_iso9660.c: iso9660.h
+-
+ include $(XEN_ROOT)/tools/libfsimage/Rules.mk
+diff --git a/tools/libfsimage/reiserfs/Makefile b/tools/libfsimage/reiserfs/Makefile
+index 5acfedf25e..42b751e007 100644
+--- a/tools/libfsimage/reiserfs/Makefile
++++ b/tools/libfsimage/reiserfs/Makefile
+@@ -4,13 +4,4 @@ LIB_SRCS-y = fsys_reiserfs.c
+ 
+ FS = reiserfs
+ 
+-.PHONY: all
+-all: fs-all
+-
+-.PHONY: install
+-install: fs-install
+-
+-.PHONY: uninstall
+-uninstall: fs-uninstall
+-
+ include $(XEN_ROOT)/tools/libfsimage/Rules.mk
+diff --git a/tools/libfsimage/ufs/Makefile b/tools/libfsimage/ufs/Makefile
+index f32b9178bd..cca4f0a588 100644
+--- a/tools/libfsimage/ufs/Makefile
++++ b/tools/libfsimage/ufs/Makefile
+@@ -4,13 +4,4 @@ LIB_SRCS-y = fsys_ufs.c
+ 
+ FS = ufs
+ 
+-.PHONY: all
+-all: fs-all
+-
+-.PHONY: install
+-install: fs-install
+-
+-.PHONY: uninstall
+-uninstall: fs-uninstall
+-
+ include $(XEN_ROOT)/tools/libfsimage/Rules.mk
+diff --git a/tools/libfsimage/xfs/Makefile b/tools/libfsimage/xfs/Makefile
+index 54eeb6e35e..ebac7baf14 100644
+--- a/tools/libfsimage/xfs/Makefile
++++ b/tools/libfsimage/xfs/Makefile
+@@ -4,13 +4,4 @@ LIB_SRCS-y = fsys_xfs.c
+ 
+ FS = xfs
+ 
+-.PHONY: all
+-all: fs-all
+-
+-.PHONY: install
+-install: fs-install
+-
+-.PHONY: uninstall
+-uninstall: fs-uninstall
+-
+ include $(XEN_ROOT)/tools/libfsimage/Rules.mk
+diff --git a/tools/libfsimage/zfs/Makefile b/tools/libfsimage/zfs/Makefile
+index 084e5ec08d..434a9c3580 100644
+--- a/tools/libfsimage/zfs/Makefile
++++ b/tools/libfsimage/zfs/Makefile
+@@ -28,13 +28,4 @@ LIB_SRCS-y = zfs_lzjb.c zfs_sha256.c zfs_fletcher.c fsi_zfs.c fsys_zfs.c
+ 
+ FS = zfs
+ 
+-.PHONY: all
+-all: fs-all
+-
+-.PHONY: install
+-install: fs-install
+-
+-.PHONY: uninstall
+-uninstall: fs-uninstall
+-
+ include $(XEN_ROOT)/tools/libfsimage/Rules.mk
+diff --git a/tools/libfsimage/Rules.mk b/tools/libfsimage/Rules.mk
+index bb6d42abb4..cf37d6cb0d 100644
+--- a/tools/libfsimage/Rules.mk
++++ b/tools/libfsimage/Rules.mk
+@@ -1,25 +1,18 @@
+-include $(XEN_ROOT)/tools/Rules.mk
+-
+-CFLAGS += -Wno-unknown-pragmas -I$(XEN_ROOT)/tools/libfsimage/common/ -DFSIMAGE_FSDIR=\"$(FSDIR)\"
+-CFLAGS += -Werror -D_GNU_SOURCE
+-LDFLAGS += -L../common/
+-
+-PIC_OBJS := $(patsubst %.c,%.opic,$(LIB_SRCS-y))
+-
+-FSDIR = $(libdir)/xenfsimage
++include $(XEN_ROOT)/tools/libfsimage/common.mk
+ 
+ FSLIB = fsimage.so
++TARGETS += $(FSLIB)
+ 
+-.PHONY: fs-all
+-fs-all: $(FSLIB)
++.PHONY: all
++all: $(TARGETS)
+ 
+-.PHONY: fs-install
+-fs-install: fs-all
++.PHONY: install
++install: all
+ 	$(INSTALL_DIR) $(DESTDIR)$(FSDIR)/$(FS)
+ 	$(INSTALL_PROG) $(FSLIB) $(DESTDIR)$(FSDIR)/$(FS)
+ 
+-.PHONY: fs-uninstall
+-fs-uninstall:
++.PHONY: uninstall
++uninstall:
+ 	rm -f $(addprefix $(DESTDIR)$(FSDIR)/$(FS)/, $(FSLIB))
+ 	if [ -d $(DESTDIR)$(FSDIR)/$(FS) ]; then \
+ 		rmdir $(DESTDIR)$(FSDIR)/$(FS); \
+@@ -28,7 +21,4 @@ fs-uninstall:
+ $(FSLIB): $(PIC_OBJS)
+ 	$(CC) $(LDFLAGS) $(SHLIB_LDFLAGS) -o $@ $^ -lxenfsimage $(FS_LIBDEPS) $(APPEND_LDFLAGS)
+ 
+-clean distclean::
+-	rm -f $(PIC_OBJS) $(FSLIB) $(DEPS_RM)
+-
+ -include $(DEPS_INCLUDE)
+diff --git a/tools/libfsimage/common.mk b/tools/libfsimage/common.mk
+new file mode 100644
+index 0000000000..77bc957f27
+--- /dev/null
++++ b/tools/libfsimage/common.mk
+@@ -0,0 +1,11 @@
++include $(XEN_ROOT)/tools/Rules.mk
++
++FSDIR := $(libdir)/xenfsimage
++CFLAGS += -Wno-unknown-pragmas -I$(XEN_ROOT)/tools/libfsimage/common/ -DFSIMAGE_FSDIR=\"$(FSDIR)\"
++CFLAGS += -Werror -D_GNU_SOURCE
++LDFLAGS += -L../common/
++
++PIC_OBJS = $(patsubst %.c,%.opic,$(LIB_SRCS-y))
++
++clean distclean::
++	rm -f $(PIC_OBJS) $(TARGETS) $(DEPS_RM)
 -- 
 Anthony PERARD
 
