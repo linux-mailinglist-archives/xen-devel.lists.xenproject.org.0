@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5AA84C45DF
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Feb 2022 14:20:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.279092.476638 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B24F4C464A
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Feb 2022 14:28:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.279101.476649 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNaVg-0005x7-Vc; Fri, 25 Feb 2022 13:19:48 +0000
+	id 1nNadP-0007T7-TC; Fri, 25 Feb 2022 13:27:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 279092.476638; Fri, 25 Feb 2022 13:19:48 +0000
+Received: by outflank-mailman (output) from mailman id 279101.476649; Fri, 25 Feb 2022 13:27:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNaVg-0005uC-Rl; Fri, 25 Feb 2022 13:19:48 +0000
-Received: by outflank-mailman (input) for mailman id 279092;
- Fri, 25 Feb 2022 13:19:46 +0000
+	id 1nNadP-0007RH-Q3; Fri, 25 Feb 2022 13:27:47 +0000
+Received: by outflank-mailman (input) for mailman id 279101;
+ Fri, 25 Feb 2022 13:27:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RDkG=TI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nNaVe-0005u6-RG
- for xen-devel@lists.xenproject.org; Fri, 25 Feb 2022 13:19:46 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ (envelope-from <SRS0=d3I2=TI=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1nNadO-0007RB-Km
+ for xen-devel@lists.xenproject.org; Fri, 25 Feb 2022 13:27:46 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 97e4ac27-963d-11ec-8539-5f4723681683;
- Fri, 25 Feb 2022 14:19:42 +0100 (CET)
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04lp2059.outbound.protection.outlook.com [104.47.13.59]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-9-jx9S3igMPpS0NoM3RsG62g-1; Fri, 25 Feb 2022 14:19:43 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB6830.eurprd04.prod.outlook.com (2603:10a6:803:132::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.25; Fri, 25 Feb
- 2022 13:19:41 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65%6]) with mapi id 15.20.5017.025; Fri, 25 Feb 2022
- 13:19:41 +0000
+ id b600a203-963e-11ec-8539-5f4723681683;
+ Fri, 25 Feb 2022 14:27:43 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 002D91F380;
+ Fri, 25 Feb 2022 13:27:44 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A5A1813BD1;
+ Fri, 25 Feb 2022 13:27:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 1b4QJ1DZGGJpSgAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 25 Feb 2022 13:27:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,176 +51,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 97e4ac27-963d-11ec-8539-5f4723681683
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1645795185;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+X-Inumbo-ID: b600a203-963e-11ec-8539-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1645795665; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=aN++Ou5EpSV4a6TfcLsWZ6X9vUPYMD3uTVmOZ5boP6U=;
-	b=B5LxMU+UO23pWBeHhr+T/IY/xQOlZr00giJU4yuaoOuh2WA6U7zsHS3eLV2/yOkx/r1wrU
-	ChcQ7HmkMnHPwqvHXSs3InIi5HNjMMjLN/zzYI34+iGP3GAr+ddCMkaqVfCH4esYwzPB6C
-	k5XrXujChD0Z7H0CL5DpDGypxLHtA8M=
-X-MC-Unique: jx9S3igMPpS0NoM3RsG62g-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FBRahlXlXTNKe/wnYXzHSXfPiL4MT4SDa6Exoqw4DfjP9lG9ibxhAmeJDjRrR8Q8mAwirgzpkVkI9rGA+dYXjLAh+pSO+pjNJ1R3VW/vQFDHxh0vI9WtZJHmkhGTYVXC4+hrUW58szlFglWuOu2Bt5oiGu2MRQYJCAaF8dPn7pW/sFqAm1SHKIdKSEZP9itcqaTcqrDnUcJVYsDAbJXGFBkfr1C7hkazwFeepPRwuy4XVrZVNHYQyNsIHZdhbr3keN2ZByy9vsNy5V491paWvZ9tqR63z0z9hITnJBlFO2YMyeeMyFGwjEaDoT3oGQazjbpSFTFOu2BdQ+7KpL/s1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4pKluLIw0bhgHTRI9o+lm9WG2x0lqHbv0wNACbT5vRA=;
- b=jawnUa7jQQ4FQIjLayEEnrAbDIwZaAq49guMlkuu1O+9kJo6u5we2cv0kzlnRXzFcKWcQg9SdM3m4IahAvEQr0sMWKvG1Lirnqm2U+NqKQzNOT+7eU95iCI6DFfel2a6tYW2Dk7ar/wSR6aHQKjX3yzK28eGcHAq7YSwRelhKkaN64CX5BDomWlfm4U3muDzrGQTTGx0n2m8ECEe/zFwPL+rs9C9CUfQM4wqLb4nxeOYua8hP6wg0uLKjq5wfmZCpGbW/wtvddsOWXTu6+/dcizFhBEPbjq/ymVeR9s46dsaHbui7aIEDnSmOG/vibgRad5gh2An1yQGlXOnr2mtTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <bb4b4106-f49d-2b50-1eb9-eb450f6b24fa@suse.com>
-Date: Fri, 25 Feb 2022 14:19:39 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: x86/vmx: Don't spuriously crash the domain when INIT is received
-Content-Language: en-US
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Thiner Logoer <logoerthiner1@163.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20220224194853.17774-1-andrew.cooper3@citrix.com>
- <20220224194853.17774-3-andrew.cooper3@citrix.com>
- <12d8b90b-15b0-c094-71e5-35cfdbfe72b4@suse.com>
- <51ef6bd1-bcd9-9a3a-e902-887d42d7dd7e@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <51ef6bd1-bcd9-9a3a-e902-887d42d7dd7e@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: FR3P281CA0072.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4b::23) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+	bh=L7Lchxug1wh4lmXVF3m87PVXxFgIAJYCSrECSMUN5os=;
+	b=UUUKpeHWOabAXEjbzHQMbygmNE24m0KGF/ddc6HvfQ0vbyK1SdAI0STwOZ2UZzB85gGqdU
+	zwQvoGd7ElPo8pFsLuo5+xcF+vcqXtCitFtesLG8OCKjaJZNsfwNFX3Jdrk6fGBZ+vrmBV
+	uft8Jx7rmUSKfYf3zY+ygvcwelHbox8=
+Message-ID: <919a30bd-be6c-f773-5b90-700966099d19@suse.com>
+Date: Fri, 25 Feb 2022 14:27:44 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8e6d96cc-ea01-4188-e608-08d9f8617b64
-X-MS-TrafficTypeDiagnostic: VI1PR04MB6830:EE_
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB68308AAF3308D795D5588729B33E9@VI1PR04MB6830.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Sj0wUJ15RtcCRUu8RvVLUY3vQo38TOjQcjP6Tt3V9QHpacQeyRvJhpARxokHglx1x1XmpXlOqqKFvJkyCDTZWYA+l3Eyo3f19i6QJdG+qUh5YAMXLrVOq9BfHN2ToKos8ljhAPeSTf8vlU1i6do2c1z5M90bkDrofZhFvwGNe3RdtnsL1XUpYBx1fLUMQlfpV8sDs2/gYcwzelJ7i9QI1hm5DQkghKYwCFVeHG8Kfb65OpC75kMgIs7BrmLKBbn1oYlanraO4Oe28Z4aF8scWFxPclvIXbt2aMD/73f/VOjgAaSwDfPWRLO5InlWM99bo3+UtCpsXa5kC7vtRZKrIY+ky5uSLZxrpHeJoTxHfKC3hh6dPriJLOEw27eaAtngK6HdHxVrPrxG80BrTEg1LlYYn9ayIktdr5944Mp8hpOjTnfNjWh81VSv+XKLyysRqdUDglS19jyLZIbdMkWLV3JMTpe5qqQml65ViCp2siDu//JLykU6Jwqp98om+vRPWsyr+2JWwv0mfQ7+pNlA1uxMZh+J73ps9JurmU4DiDjH0vhNaZbYE1RbXkCKCG/vxm8vxGyjqKnuExwHRHDQ0QgCT9Dq4p/To9qP5kEOX2IBVqnVv/H0JWsmPrRs92GD4iwPfLHuID1xt6wPyzNhya4xsUuYL1OxtIGFDHpASwkwh3W92ES02eKcI1hB1y5me5T/dZ7eVwzDgJK237hrXPHoUfO/ktua2Vrbu6wUNbG1uMSLsoYLRaahKDJ7fBVh
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(38100700002)(83380400001)(86362001)(31696002)(508600001)(31686004)(6486002)(54906003)(6916009)(316002)(66476007)(5660300002)(36756003)(66946007)(66556008)(2616005)(26005)(186003)(4326008)(2906002)(8676002)(6512007)(53546011)(8936002)(6506007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?p4liVpBNUVo+AH5yhzGEOpYAkyXWMPSYYSvSo1AImteyC+KOuAYAcamlqEDc?=
- =?us-ascii?Q?VfIHCqwyZ/G7v3VO19GKfPOAj1vrs71wmIv2XjYPPHtmEQEPhieRPJHkzuTx?=
- =?us-ascii?Q?fpeVaCZ4/fkcjqvh7b/3OVTHZBUlDRsayjMQNt65xxXGH3HrZk1vVB/DgmqU?=
- =?us-ascii?Q?T1ITwbFFX2YcCzWsloUpWnf2bWIjA6SddtS7wjzl5BCkMjm2/22O0+Uw5IJw?=
- =?us-ascii?Q?bPeyGdpZISEhwReueGIuazMjhEtPXoryGqQh/zPusjPSeaj8YQiKEw1bR1hL?=
- =?us-ascii?Q?jpjo0jgqswqWaknIq56wQv5UveOdp4icak9dY8q8QSHhRSqD1ZF4xhzC3aq5?=
- =?us-ascii?Q?xM/NgDAvAKr1YcyrYIiUZqOu4ySi8iIoVrd6u5Ug/ZSHaGMdLm8yJYpI58z8?=
- =?us-ascii?Q?ZfZstsGJFb48f9/jOx8tWF0noCze6H88B98qaxuQ//Iu8XB0ToV09TKj0iRd?=
- =?us-ascii?Q?Ma/JfYPgQ5cga1LEktBZ8Hm++klA/AS915Zc0MG8iZQGfBIVN3Vb/foBIZl+?=
- =?us-ascii?Q?TSsuFTHXJ9mrsMjBiZ5zEKjGcycF4SbiuNBeB9L3JHrK8QGz7k+hPC6eUE9C?=
- =?us-ascii?Q?eksIybOKDuC2ukri7z+FBNT1QFsfBm3t12i7HgMGh+eiNVP0vTlagSUZtzzK?=
- =?us-ascii?Q?w7Mw48aZqcQC3QXauDl0LvNvKBrC7YIp0rxWRfIy0JASWM7Zy0/2D5VoWW12?=
- =?us-ascii?Q?0u4MW9p9npQ6+zNoXGSJRI+ysVklEZIcYO5dgHTxQ7jsXJDLNgMgCKI3P6xp?=
- =?us-ascii?Q?LkSp2FhDjzPR8pK18p8AJ2LzrvCkwgapLrYnKjSQRiFex2iqrKrvwvPpovyG?=
- =?us-ascii?Q?8jiyZs1T+XWuFVWZCpuQtgv8f+JjmJYo8LggcX0ckBGRzuh/vY/k5Yh3n8/I?=
- =?us-ascii?Q?wUWAWKXB6r7SObaAwjuln+J3MS9/WWqur4GfZkLirflhDOPicfoJLyr2svL1?=
- =?us-ascii?Q?jD04cRRtPIY2Z6UBvyFXvzweVToKVbBb0Icd370KcBJ6KdexHcL4lrlvem9Q?=
- =?us-ascii?Q?x2xf4s+w4yiZZVmb2KCVgDEZL5zN2XbfEfg5mTkk3DPWECBWKc/89P1PKroy?=
- =?us-ascii?Q?DygJYTBqvIBcCncJqeT7waMh3GRcc9Ew7mhh2kq5MOogEWtcTybx1YPIqeA1?=
- =?us-ascii?Q?1xrChju4jJYPwl2AmjXKMqSxq2pII2Z3kBLHH/LFkcenxxeL+HilGy2g1yrp?=
- =?us-ascii?Q?FWaTcOCJjTdrmhMSsZunx6+OH+Dhl6m8v32V1EiQWqIgy+uKzaDz9U2QeCfa?=
- =?us-ascii?Q?P0c4OoTN4ZuLX5wwXy7D8Tl/BnIt1LLtsX9vbgrPUR3YvBmh2ui6RVhu03nk?=
- =?us-ascii?Q?C/7GAQ4rajIJkg0B+j3QVFz052APse7s9KZnSDUKiT39C5+yAIg/eB9IHn6o?=
- =?us-ascii?Q?IMNsT2eVhmjtkjbAAdLh1mw6kLFgikAfHU9AlX+4IjkPrz5tHZOlsAnuE5FA?=
- =?us-ascii?Q?BgyUvpJz+H99belryVpOA+qcL23OlZcq4577aq+xstpWYBiXXan3nFDvuW0+?=
- =?us-ascii?Q?DOQhkdamZrjXHxIlfxKtFm7/+pmnhIud8ney2Y+haG6DxXuZYwcqPXnfpmB4?=
- =?us-ascii?Q?CEzOIIIwfvWh+IQweK/RQm1dFyDVou3EU89RHoOFL01ZhE/vJgeI9nV9UvZp?=
- =?us-ascii?Q?X9IY+ByxqaRQdYyM2vwlJfg=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e6d96cc-ea01-4188-e608-08d9f8617b64
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Feb 2022 13:19:41.6768
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pSuww95W//Pl0qVlcwV6AMC1WQUfa+PsdvGJ9ZvLB5voTCufNYXraqfjfuPgejK1d385WLOKvXuOqc121bWB9A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6830
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: Jia-Ju Bai <baijiaju1990@gmail.com>, boris.ostrovsky@oracle.com,
+ sstabellini@kernel.org, tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, hpa@zytor.com
+Cc: x86@kernel.org, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org
+References: <20220225081121.18803-1-baijiaju1990@gmail.com>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH] arch: x86: xen: check the return value of kasprintf()
+In-Reply-To: <20220225081121.18803-1-baijiaju1990@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------oMzV5If1mgGqJO1WZ6RTVtpg"
 
-On 25.02.2022 13:28, Andrew Cooper wrote:
-> On 25/02/2022 08:44, Jan Beulich wrote:
->> On 24.02.2022 20:48, Andrew Cooper wrote:
->>> In VMX operation, the handling of INIT IPIs is changed.  EXIT_REASON_IN=
-IT has
->>> nothing to do with the guest in question, simply signals that an INIT w=
-as
->>> received.
->>>
->>> Ignoring the INIT is probably the wrong thing to do, but is helpful for
->>> debugging.  Crashing the domain which happens to be in context is defin=
-itely
->>> wrong.  Print an error message and continue.
->>>
->>> Discovered as collateral damage from when an AP triple faults on S3 res=
-ume on
->>> Intel TigerLake platforms.
->> I'm afraid I don't follow the scenario, which was (only) outlined in
->> patch 1: Why would the BSP receive INIT in this case?
->=20
-> SHUTDOWN is a signal emitted by a core when it can't continue.=C2=A0 Trip=
-le
-> fault is one cause, but other sources include a double #MC, etc.
->=20
-> Some external component, in the PCH I expect, needs to turn this into a
-> platform reset, because one malfunctioning core can't.=C2=A0 It is why a
-> triple fault on any logical processor brings the whole system down.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------oMzV5If1mgGqJO1WZ6RTVtpg
+Content-Type: multipart/mixed; boundary="------------DoFSGUDUMXcD7gEdWjdcecyu";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Jia-Ju Bai <baijiaju1990@gmail.com>, boris.ostrovsky@oracle.com,
+ sstabellini@kernel.org, tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, hpa@zytor.com
+Cc: x86@kernel.org, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org
+Message-ID: <919a30bd-be6c-f773-5b90-700966099d19@suse.com>
+Subject: Re: [PATCH] arch: x86: xen: check the return value of kasprintf()
+References: <20220225081121.18803-1-baijiaju1990@gmail.com>
+In-Reply-To: <20220225081121.18803-1-baijiaju1990@gmail.com>
 
-I'm afraid this doesn't answer my question. Clearly the system didn't
-shut down. Hence I still don't see why the BSP would see INIT in the
-first place.
+--------------DoFSGUDUMXcD7gEdWjdcecyu
+Content-Type: multipart/mixed; boundary="------------IncJ9dP6aG1DUn6PWvIIt03m"
 
->> And it also cannot be that the INIT was received by the vCPU while runni=
-ng on
->> another CPU:
->=20
-> It's nothing (really) to do with the vCPU.=C2=A0 INIT is a external signa=
-l to
-> the (real) APIC, just like NMI/etc.
->=20
-> It is the next VMEntry on a CPU which received INIT that suffers a
-> VMEntry failure, and the VMEntry failure has nothing to do with the
-> contents of the VMCS.
->=20
-> Importantly for Xen however, this isn't applicable for scheduling PV
-> vCPUs, which is why dom0 wasn't the one that crashed.=C2=A0 This actually
-> meant that dom0 was alive an usable, albeit it sharing all vCPUs on a
-> single CPU.
->=20
->=20
-> The change in INIT behaviour exists for TXT, where is it critical that
-> software can clear secrets from RAM before resetting.=C2=A0 I'm not wanti=
-ng
-> to get into any of that because it's far more complicated than I have
-> time to fix.
+--------------IncJ9dP6aG1DUn6PWvIIt03m
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-I guess there's something hidden behind what you say here, like INIT
-only being latched, but this latched state then causing the VM entry
-failure. Which would mean that really the INIT was a signal for the
-system to shut down / shutting down. In which case arranging to
-continue by ignoring the event in VMX looks wrong. Simply crashing
-the guest would then be wrong as well, of course. We should shut
-down instead.
+T24gMjUuMDIuMjIgMDk6MTEsIEppYS1KdSBCYWkgd3JvdGU6DQo+IFRoZSBmdW5jdGlvbiBr
+YXNwcmludGYoKSBjYW4gZmFpbCwgYnV0IHRoZXJlIGlzIG5vIGNoZWNrIG9mIGl0cyByZXR1
+cm4NCj4gdmFsdWUuIFRvIGZpeCB0aGlzIGJ1ZywgaXRzIHJldHVybiB2YWx1ZSBzaG91bGQg
+YmUgY2hlY2tlZCB3aXRoIG5ldw0KPiBlcnJvciBoYW5kbGluZyBjb2RlLg0KPiANCj4gRml4
+ZXM6IGY4N2U0Y2FjNGY0ZSAoInhlbjogU01QIGd1ZXN0IHN1cHBvcnQiKQ0KPiBGaXhlczog
+ODNiOTY3OTRlMGVhICgieDg2L3hlbjogc3BsaXQgb2ZmIHNtcF9wdi5jIikNCj4gRml4ZXM6
+IGQ1ZGU4ODQxMzU1YSAoIng4Njogc3BsaXQgc3BpbmxvY2sgaW1wbGVtZW50YXRpb25zIG91
+dCBpbnRvIHRoZWlyIG93biBmaWxlcyIpDQo+IFJlcG9ydGVkLWJ5OiBUT1RFIFJvYm90IDxv
+c2xhYkB0c2luZ2h1YS5lZHUuY24+DQo+IFNpZ25lZC1vZmYtYnk6IEppYS1KdSBCYWkgPGJh
+aWppYWp1MTk5MEBnbWFpbC5jb20+DQo+IC0tLQ0KPiAgIGFyY2gveDg2L3hlbi9zbXAuYyAg
+ICAgIHwgMiArKw0KPiAgIGFyY2gveDg2L3hlbi9zbXBfcHYuYyAgIHwgMiArKw0KPiAgIGFy
+Y2gveDg2L3hlbi9zcGlubG9jay5jIHwgMiArKw0KPiAgIDMgZmlsZXMgY2hhbmdlZCwgNiBp
+bnNlcnRpb25zKCspDQo+IA0KPiBkaWZmIC0tZ2l0IGEvYXJjaC94ODYveGVuL3NtcC5jIGIv
+YXJjaC94ODYveGVuL3NtcC5jDQo+IGluZGV4IGMzZTFmOWE3ZDQzYS4uOTEyNjEzOTBmOGMw
+IDEwMDY0NA0KPiAtLS0gYS9hcmNoL3g4Ni94ZW4vc21wLmMNCj4gKysrIGIvYXJjaC94ODYv
+eGVuL3NtcC5jDQo+IEBAIC02NSw2ICs2NSw4IEBAIGludCB4ZW5fc21wX2ludHJfaW5pdCh1
+bnNpZ25lZCBpbnQgY3B1KQ0KPiAgIAljaGFyICpyZXNjaGVkX25hbWUsICpjYWxsZnVuY19u
+YW1lLCAqZGVidWdfbmFtZTsNCj4gICANCj4gICAJcmVzY2hlZF9uYW1lID0ga2FzcHJpbnRm
+KEdGUF9LRVJORUwsICJyZXNjaGVkJWQiLCBjcHUpOw0KPiArCWlmICghcmVzY2hlZF9uYW1l
+KQ0KPiArCQlyZXR1cm4gLUVOT01FTTsNCg0KVGhlcmUgYXJlIDMgbW9yZSBpbnN0YW5jZXMg
+b2Yga2FzcHJpbnRmKCkgaW4gdGhpcyBmdW5jdGlvbi4NCg0KPiAgIAlyYyA9IGJpbmRfaXBp
+X3RvX2lycWhhbmRsZXIoWEVOX1JFU0NIRURVTEVfVkVDVE9SLA0KPiAgIAkJCQkgICAgY3B1
+LA0KPiAgIAkJCQkgICAgeGVuX3Jlc2NoZWR1bGVfaW50ZXJydXB0LA0KPiBkaWZmIC0tZ2l0
+IGEvYXJjaC94ODYveGVuL3NtcF9wdi5jIGIvYXJjaC94ODYveGVuL3NtcF9wdi5jDQo+IGlu
+ZGV4IDRhNjAxOTIzOGVlNy4uN2QxNDcxZmQxMjY3IDEwMDY0NA0KPiAtLS0gYS9hcmNoL3g4
+Ni94ZW4vc21wX3B2LmMNCj4gKysrIGIvYXJjaC94ODYveGVuL3NtcF9wdi5jDQo+IEBAIC0x
+MTgsNiArMTE4LDggQEAgaW50IHhlbl9zbXBfaW50cl9pbml0X3B2KHVuc2lnbmVkIGludCBj
+cHUpDQo+ICAgCWNoYXIgKmNhbGxmdW5jX25hbWUsICpwbXVfbmFtZTsNCj4gICANCj4gICAJ
+Y2FsbGZ1bmNfbmFtZSA9IGthc3ByaW50ZihHRlBfS0VSTkVMLCAiaXJxd29yayVkIiwgY3B1
+KTsNCj4gKwlpZiAoIWNhbGxmdW5jX25hbWUpDQo+ICsJCXJldHVybiAtRU5PTUVNOw0KDQpB
+bmQgaW4gaGVyZSBpcyBhbm90aGVyIG9uZSwgdG9vLg0KDQo+ICAgCXJjID0gYmluZF9pcGlf
+dG9faXJxaGFuZGxlcihYRU5fSVJRX1dPUktfVkVDVE9SLA0KPiAgIAkJCQkgICAgY3B1LA0K
+PiAgIAkJCQkgICAgeGVuX2lycV93b3JrX2ludGVycnVwdCwNCj4gZGlmZiAtLWdpdCBhL2Fy
+Y2gveDg2L3hlbi9zcGlubG9jay5jIGIvYXJjaC94ODYveGVuL3NwaW5sb2NrLmMNCj4gaW5k
+ZXggMDQzYzczZGZkMmM5Li5jY2RiOWVkZGQ5M2IgMTAwNjQ0DQo+IC0tLSBhL2FyY2gveDg2
+L3hlbi9zcGlubG9jay5jDQo+ICsrKyBiL2FyY2gveDg2L3hlbi9zcGlubG9jay5jDQo+IEBA
+IC03NSw2ICs3NSw4IEBAIHZvaWQgeGVuX2luaXRfbG9ja19jcHUoaW50IGNwdSkNCj4gICAJ
+ICAgICBjcHUsIHBlcl9jcHUobG9ja19raWNrZXJfaXJxLCBjcHUpKTsNCj4gICANCj4gICAJ
+bmFtZSA9IGthc3ByaW50ZihHRlBfS0VSTkVMLCAic3BpbmxvY2slZCIsIGNwdSk7DQo+ICsJ
+aWYgKCFuYW1lKQ0KPiArCQlyZXR1cm47DQoNCkp1c3QgZmFpbGluZyBzaWxlbnRseSBpcyBu
+b3QgbmljZS4NCg0KPiAgIAlpcnEgPSBiaW5kX2lwaV90b19pcnFoYW5kbGVyKFhFTl9TUElO
+X1VOTE9DS19WRUNUT1IsDQo+ICAgCQkJCSAgICAgY3B1LA0KPiAgIAkJCQkgICAgIGR1bW15
+X2hhbmRsZXIsDQoNCg0KSnVlcmdlbg0K
+--------------IncJ9dP6aG1DUn6PWvIIt03m
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-But I don't think I see the full picture here yet, unless your
-mentioning of TXT was actually implying that TXT was active at the
-point of the crash (which I don't think was said anywhere).
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Jan
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
+--------------IncJ9dP6aG1DUn6PWvIIt03m--
+
+--------------DoFSGUDUMXcD7gEdWjdcecyu--
+
+--------------oMzV5If1mgGqJO1WZ6RTVtpg
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmIY2VAFAwAAAAAACgkQsN6d1ii/Ey+L
+tQgAiS8darJWTHfNev/ftsWvgYnsIh6/d3XQKL12qjTv3w7t/SDgCn7dUVehgkjnkaX+fF4JPL8t
+oX+sA2PbWaVbJ824FUynH8gUA103TCoWIn/YYxyxhXy60FDdO66Dc0TtY7iNVEoqP1Ob9jiM8AmW
+J7FYQiv5QUKhXnRhq4NzEgKrueeawiUqz/wIyuZNSPBcWC5meXNfA1GML0SQOHscaCLXjdqKoBWX
+rqpXayiTL2ZJiay/vxdRny1gXtYzFgp1OEENeozGfGQJHFWsT4hDjfYWiMnM9TTmHtdDVr08hna3
+P6Ygcdg4aawTZafc4VxW0/6JiPEGjI6BXnAirtj3bw==
+=w7n2
+-----END PGP SIGNATURE-----
+
+--------------oMzV5If1mgGqJO1WZ6RTVtpg--
 
