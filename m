@@ -2,44 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AA4F4C406E
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Feb 2022 09:48:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.278861.476272 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D71F64C406F
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Feb 2022 09:48:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.278864.476282 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNWGN-0007jS-Hl; Fri, 25 Feb 2022 08:47:43 +0000
+	id 1nNWGg-0008EV-Tc; Fri, 25 Feb 2022 08:48:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 278861.476272; Fri, 25 Feb 2022 08:47:43 +0000
+Received: by outflank-mailman (output) from mailman id 278864.476282; Fri, 25 Feb 2022 08:48:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNWGN-0007h5-ER; Fri, 25 Feb 2022 08:47:43 +0000
-Received: by outflank-mailman (input) for mailman id 278861;
- Fri, 25 Feb 2022 08:47:42 +0000
+	id 1nNWGg-0008Ce-Q5; Fri, 25 Feb 2022 08:48:02 +0000
+Received: by outflank-mailman (input) for mailman id 278864;
+ Fri, 25 Feb 2022 08:48:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=d3I2=TI=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nNWGM-0007gx-67
- for xen-devel@lists.xenproject.org; Fri, 25 Feb 2022 08:47:42 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (envelope-from <SRS0=YZHd=TI=lst.de=hch@srs-se1.protection.inumbo.net>)
+ id 1nNWGe-0007gx-SC
+ for xen-devel@lists.xenproject.org; Fri, 25 Feb 2022 08:48:00 +0000
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9760cf61-9617-11ec-8eb8-a37418f5ba1a;
- Fri, 25 Feb 2022 09:47:41 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C5953212BF;
- Fri, 25 Feb 2022 08:47:40 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8DE3713B65;
- Fri, 25 Feb 2022 08:47:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id f4f+IKyXGGKbRAAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 25 Feb 2022 08:47:40 +0000
+ id a28ac697-9617-11ec-8eb8-a37418f5ba1a;
+ Fri, 25 Feb 2022 09:48:00 +0100 (CET)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 364BF68AA6; Fri, 25 Feb 2022 09:47:56 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,148 +38,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9760cf61-9617-11ec-8eb8-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1645778860; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BlaTZRJRXNesrFzBAHf17w8XerLFn10CsrD8MIBovvg=;
-	b=BlE+SxpjCPyRI+90lzFdbqk7eoDxDQ76uEg2z3Ca4uQ74RTtYISFhdkXMHFZsxgClS9XgP
-	BN+SwF50DjKwjX3US6d2k9B+pzOn1sI7E/0Ay/yqJDOmB4a4eGVlADvxcmNIj8HB+mPlc5
-	VTgPav5v/ct2cje1bZ2GXt/V2LgViv0=
-Message-ID: <fec22cee-d8f4-676c-7ec4-7f65f93af061@suse.com>
-Date: Fri, 25 Feb 2022 09:47:39 +0100
+X-Inumbo-ID: a28ac697-9617-11ec-8eb8-a37418f5ba1a
+Date: Fri, 25 Feb 2022 09:47:55 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Christoph Hellwig <hch@lst.de>, iommu@lists.linux-foundation.org,
+	x86@kernel.org, Stefano Stabellini <sstabellini@kernel.org>,
+	Juergen Gross <jgross@suse.com>, Joerg Roedel <joro@8bytes.org>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	xen-devel@lists.xenproject.org, linux-ia64@vger.kernel.org,
+	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+	linux-hyperv@vger.kernel.org, tboot-devel@lists.sourceforge.net,
+	linux-pci@vger.kernel.org
+Subject: Re: cleanup swiotlb initialization
+Message-ID: <20220225084755.GA29630@lst.de>
+References: <20220222153514.593231-1-hch@lst.de> <09cb4ad3-88e7-3744-b4b8-a6d745ecea9e@oracle.com> <20220224155854.GA30938@lst.de> <206ba6a3-770a-70ad-96bc-76c6380da988@oracle.com> <20220224163943.GA32088@lst.de> <8ffd8587-7eb3-d5b6-eab0-b86df5c0ebbd@oracle.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH 1/2] xen/spinlock: use lock address for lock debug
- functions
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20220224105436.1480-1-jgross@suse.com>
- <20220224105436.1480-2-jgross@suse.com>
- <7009dbf4-d814-6181-7315-a4fce21ee338@suse.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <7009dbf4-d814-6181-7315-a4fce21ee338@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------0F61St06QKinIR7enVadyATd"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8ffd8587-7eb3-d5b6-eab0-b86df5c0ebbd@oracle.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------0F61St06QKinIR7enVadyATd
-Content-Type: multipart/mixed; boundary="------------Ar7FXG7mzEMPPo36IiJ1T0TU";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-Message-ID: <fec22cee-d8f4-676c-7ec4-7f65f93af061@suse.com>
-Subject: Re: [PATCH 1/2] xen/spinlock: use lock address for lock debug
- functions
-References: <20220224105436.1480-1-jgross@suse.com>
- <20220224105436.1480-2-jgross@suse.com>
- <7009dbf4-d814-6181-7315-a4fce21ee338@suse.com>
-In-Reply-To: <7009dbf4-d814-6181-7315-a4fce21ee338@suse.com>
+On Thu, Feb 24, 2022 at 12:07:26PM -0500, Boris Ostrovsky wrote:
+>>> Just to be clear: this crashes only as dom0. Boots fine as baremetal.
+>> Ah.  I can gues what this might be.  On Xen the hypervisor controls the
+>> IOMMU and we should never end up initializing it in Linux, right?
+>
+>
+> Right, we shouldn't be in that code path.
 
---------------Ar7FXG7mzEMPPo36IiJ1T0TU
-Content-Type: multipart/mixed; boundary="------------WAQT3iSH1H7Sffeokqf5Bt6g"
+Can you try the patch below on top of the series?
 
---------------WAQT3iSH1H7Sffeokqf5Bt6g
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
 
-T24gMjQuMDIuMjIgMTc6MTIsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAyNC4wMi4yMDIy
-IDExOjU0LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gSW5zdGVhZCBvZiBvbmx5IHBhc3Np
-bmcgdGhlIGxvY2tfZGVidWcgYWRkcmVzcyB0byBjaGVja19sb2NrKCkgZXQgYWwNCj4+IHVz
-ZSB0aGUgYWRkcmVzcyBvZiB0aGUgc3BpbmxvY2suDQo+IA0KPiBJJ20gdW5jZXJ0YWluIGFi
-b3V0IHRoaXMgZnVsbCBleHBvc3VyZS4gVGhlIG5leHQgcGF0Y2ggbG9va3MgdG8gYWdhaW4N
-Cj4gb25seSB1c2UgdGhlIG5ldyAiZGF0YSIgc3ViZmllbGQgaW4gdGhlc2UgZGVidWdnaW5n
-IGhlbHBlcnMuDQoNCk5ldmVydGhlbGVzcyBJIGRvbid0IHRoaW5rIHRoYXQgdGhpcyBkZXRh
-aWwgc2hvdWxkIGJlIGV4cG9ydGVkLA0KZXNwZWNpYWxseSBhcyBjaGVja19sb2NrKCkgaXMg
-YmVpbmcgdXNlZCBmb3Igcndsb2NrcywgdG9vLg0KDQoNCkp1ZXJnZW4NCg==
---------------WAQT3iSH1H7Sffeokqf5Bt6g
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------WAQT3iSH1H7Sffeokqf5Bt6g--
-
---------------Ar7FXG7mzEMPPo36IiJ1T0TU--
-
---------------0F61St06QKinIR7enVadyATd
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmIYl6wFAwAAAAAACgkQsN6d1ii/Ey8G
-aAf/Up0PyJq156Zlxg2QQfJq+x8RgJ2el2gFpsYjZ0eP6O/MV+eWOdVdqreRX1dayKcEr9xpxc2a
-NAxFx+LI3JlXjAHqg5zLCDLgJfeOOXGZOamlaaORXciSvpk0Imjo69s8ZCu17mC+FN2MVSu4iwgn
-EC8aE03o1laOrA/gPhMSgL66IJ976GIlgSS43XEPvkAL+hLA9U/BlmUyfnZp+OEWvkfgrwCiXY/Q
-jSmGH7MdCM1KyNgU9KGBajXLd6aoVagI6auy1ILfP9xhuBYf5bKQqFtKXF0hFWduGIWCuwiVVg/4
-9oXE5TMawDTy+RY8lf6htfWTPSojh+I0fZVG0I0IbQ==
-=USBx
------END PGP SIGNATURE-----
-
---------------0F61St06QKinIR7enVadyATd--
+diff --git a/arch/x86/kernel/pci-dma.c b/arch/x86/kernel/pci-dma.c
+index b849f11a756d0..f88c9a4a5ed12 100644
+--- a/arch/x86/kernel/pci-dma.c
++++ b/arch/x86/kernel/pci-dma.c
+@@ -47,22 +47,6 @@ static unsigned int x86_swiotlb_flags;
+  */
+ static void __init pci_swiotlb_detect_4gb(void)
+ {
+-#ifdef CONFIG_SWIOTLB_XEN
+-	if (xen_pv_domain()) {
+-		if (xen_initial_domain())
+-			x86_swiotlb_enable = true;
+-
+-		if (x86_swiotlb_enable) {
+-			dma_ops = &xen_swiotlb_dma_ops;
+-#ifdef CONFIG_PCI
+-			/* Make sure ACS will be enabled */
+-			pci_request_acs();
+-#endif
+-		}
+-		return;
+-	}
+-#endif /* CONFIG_SWIOTLB_XEN */
+-
+ 	/* don't initialize swiotlb if iommu=off (no_iommu=1) */
+ 	if (!no_iommu && max_possible_pfn > MAX_DMA32_PFN)
+ 		x86_swiotlb_enable = true;
+@@ -82,16 +66,36 @@ static inline void __init pci_swiotlb_detect_4gb(void)
+ }
+ #endif /* CONFIG_SWIOTLB */
+ 
++#ifdef CONFIG_SWIOTLB_XEN
++static void __init xen_swiotlb_init(void)
++{
++	if (!xen_initial_domain() && !x86_swiotlb_enable)
++		return;
++	x86_swiotlb_enable = true;
++	dma_ops = &xen_swiotlb_dma_ops;
++#ifdef CONFIG_PCI
++	/* Make sure ACS will be enabled */
++	pci_request_acs();
++#endif
++	swiotlb_init_remap(true, x86_swiotlb_flags, xen_swiotlb_fixup);
++}
++#else
++static inline void __init xen_swiotlb_init(void)
++{
++}
++#endif /* CONFIG_SWIOTLB_XEN */
++
+ void __init pci_iommu_alloc(void)
+ {
++	if (xen_pv_domain()) {
++		xen_swiotlb_init();
++		return;
++	}
+ 	pci_swiotlb_detect_4gb();
+ 	gart_iommu_hole_init();
+ 	amd_iommu_detect();
+ 	detect_intel_iommu();
+-#ifdef CONFIG_SWIOTLB
+-	swiotlb_init_remap(x86_swiotlb_enable, x86_swiotlb_flags,
+-			   xen_pv_domain() ? xen_swiotlb_fixup : NULL);
+-#endif
++	swiotlb_init(x86_swiotlb_enable, x86_swiotlb_flags);
+ }
+ 
+ /*
 
