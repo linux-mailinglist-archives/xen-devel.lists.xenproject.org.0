@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C52B4C4F4F
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Feb 2022 21:09:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.279580.477327 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9364C4C4F54
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Feb 2022 21:12:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.279587.477339 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNgtX-0006Sk-4V; Fri, 25 Feb 2022 20:08:51 +0000
+	id 1nNgx6-0007ps-KS; Fri, 25 Feb 2022 20:12:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 279580.477327; Fri, 25 Feb 2022 20:08:51 +0000
+Received: by outflank-mailman (output) from mailman id 279587.477339; Fri, 25 Feb 2022 20:12:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNgtX-0006Q7-1f; Fri, 25 Feb 2022 20:08:51 +0000
-Received: by outflank-mailman (input) for mailman id 279580;
- Fri, 25 Feb 2022 20:08:49 +0000
+	id 1nNgx6-0007nS-HA; Fri, 25 Feb 2022 20:12:32 +0000
+Received: by outflank-mailman (input) for mailman id 279587;
+ Fri, 25 Feb 2022 20:12:31 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nNgtV-0006Px-Kk
- for xen-devel@lists.xenproject.org; Fri, 25 Feb 2022 20:08:49 +0000
+ (envelope-from <julien@xen.org>) id 1nNgx5-0007nM-1H
+ for xen-devel@lists.xenproject.org; Fri, 25 Feb 2022 20:12:31 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1nNgtV-0001Qx-DN; Fri, 25 Feb 2022 20:08:49 +0000
+ id 1nNgx4-0001X0-Ts; Fri, 25 Feb 2022 20:12:30 +0000
 Received: from 54-240-197-226.amazon.com ([54.240.197.226]
  helo=[192.168.31.13]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1nNgtV-0006sr-7X; Fri, 25 Feb 2022 20:08:49 +0000
+ id 1nNgx4-0007F0-OI; Fri, 25 Feb 2022 20:12:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,66 +42,56 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=E3sViSrhk7xmMdXNxQZ441RrrS2eQIzqyhxaILutyPA=; b=7NbXEdKVoeIA15oZznCQio9rOt
-	V7uRLwSvL49PqbUJCO8NppjCq4e9A9YYVPqPwZp6zPdlmN9qRLOlV4qUtWtrkmJ7+PylIVDjw2qtr
-	/MAxLDWUO/2P2xaQicqVObXRwimv/hp1to+Kg4j74AIErmosv6puuqmOLbVSad4ejTD4=;
-Message-ID: <6269ec3d-039e-d68f-771d-c5e088631410@xen.org>
-Date: Fri, 25 Feb 2022 20:08:47 +0000
+	bh=Auvgj0/rbJfyJ5LgCODNKZpgZL4w/Q0O9qQG2SfrTQs=; b=FriGTSWkjjaMTD2iIfiddiNIFW
+	gjT1DhKmKoPLpNXOO5qWqnN1L/Hshzq4kMIlOGOAVoeBriZQ2EKqR8Bu+uWCnoi5hFKrqS67rhZpK
+	oEU0HtaAz7ZkZeTKvWPYG0GiKVisM5iW9Pbgo6+bRBsmDzFhNXfsdvQfsA9GdgNVl850=;
+Message-ID: <4c558f8f-56d4-0445-32d4-169bc5d0a3bc@xen.org>
+Date: Fri, 25 Feb 2022 20:12:28 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.6.1
-Subject: Re: [RFC PATCH 0/2] Introduce reserved Xenheap
-To: Henry Wang <Henry.Wang@arm.com>, xen-devel@lists.xenproject.org,
- sstabellini@kernel.org
-Cc: Bertrand.Marquis@arm.com, wei.chen@arm.com, penny.zheng@arm.com
-References: <20220224013023.50920-1-Henry.Wang@arm.com>
+Subject: Re: Proposal for Porting Xen to Armv8-R64 - DraftA
+To: Wei Chen <Wei.Chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Penny Zheng <Penny.Zheng@arm.com>, Henry Wang <Henry.Wang@arm.com>,
+ nd <nd@arm.com>
+References: <PAXPR08MB7420A01809B84E04E196793F9E3D9@PAXPR08MB7420.eurprd08.prod.outlook.com>
+ <alpine.DEB.2.22.394.2202241606450.239973@ubuntu-linux-20-04-desktop>
+ <AS1PR08MB74269923288B75097392BDD99E3E9@AS1PR08MB7426.eurprd08.prod.outlook.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20220224013023.50920-1-Henry.Wang@arm.com>
+In-Reply-To: <AS1PR08MB74269923288B75097392BDD99E3E9@AS1PR08MB7426.eurprd08.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Henry,
+Hi Wei,
 
-On 24/02/2022 01:30, Henry Wang wrote:
-> The reserved Xenheap, or statically configured Xenheap, refers to parts
-> of RAM reserved in the beginning for Xenheap. Like the static memory
-> allocation, such reserved Xenheap regions are reserved by configuration
-> in the device tree using physical address ranges.
-
-In Xen, we have the concept of domheap and xenheap. For Arm64 and x86 
-they would be the same. But for Arm32, they would be different: xenheap 
-is always mapped whereas domheap is separate.
-
-Skimming through the series, I think you want to use the region for both 
-domheap and xenheap. Is that correct?
-
-Furthemore, now that we are introducing more static region, it will get 
-easier to overlap the regions by mistakes. I think we want to have some 
-logic in Xen (or outside) to ensure that none of them overlaps. Do you 
-have any plan for that?
-
+On 25/02/2022 10:48, Wei Chen wrote:
+>> >     Armv8-R64 can support max to 256 MPU regions. But that's just
+>> theoretical.
+>> >     So we don't want to define `pr_t mpu_regions[256]`, this is a memory
+>> waste
+>> >     in most of time. So we decided to let the user specify through a
+>> Kconfig
+>> >     option. `CONFIG_ARM_MPU_EL1_PROTECTION_REGIONS` default value can be
+>> `32`,
+>> >     it's a typical implementation on Armv8-R64. Users will recompile Xen
+>> when
+>> >     their platform changes. So when the MPU changes, respecifying the
+>> MPU
+>> >     protection regions number will not cause additional problems.
+>> 
+>> I wonder if we could probe the number of MPU regions at runtime and
+>> dynamically allocate the memory needed to store them in arch_vcpu.
+>> 
 > 
-> This feature is useful to run Xen on Arm MPU systems, where only a
-> finite number of memory protection regions are available. The limited
-> number of protection regions places requirement on planning the use of
-> MPU protection regions and one or more MPU protection regions needs to
-> be reserved only for Xenheap.
-> 
-> Therefore, this patch series is sent as RFC for comments from the
-> community. The first patch introduces the reserved Xenheap and the
-> device tree processing code. The second patch adds the implementation of
-> the reserved Xenheap pages handling in boot and heap allocator on Arm64.
-> 
-> Henry Wang (2):
->    docs, xen/arm: Introduce reserved Xenheap memory
->    xen/arm: Handle reserved Xenheap pages in boot/heap allocator
-> 
->   docs/misc/arm/device-tree/booting.txt | 43 ++++++++++++++++++++++
->   xen/arch/arm/bootfdt.c                | 52 +++++++++++++++++++++------
->   xen/arch/arm/include/asm/setup.h      |  3 ++
->   xen/arch/arm/setup.c                  | 52 +++++++++++++++++++--------
->   4 files changed, 125 insertions(+), 25 deletions(-)
-> 
+> We have considered to used a pr_t mpu_regions[0] in arch_vcpu. But it seems
+> we will encounter some static allocated arch_vcpu problems and sizeof issue.
+
+Does it need to be embedded in arch_vcpu? If not, then we could allocate 
+memory outside and add a pointer in arch_vcpu.
+
+Cheers,
 
 -- 
 Julien Grall
