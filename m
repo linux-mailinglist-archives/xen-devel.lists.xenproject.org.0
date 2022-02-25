@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 165954C4035
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Feb 2022 09:37:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.278824.476216 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86AD44C4037
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Feb 2022 09:38:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.278830.476227 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNW5v-0003pk-FS; Fri, 25 Feb 2022 08:36:55 +0000
+	id 1nNW7A-0004PG-QA; Fri, 25 Feb 2022 08:38:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 278824.476216; Fri, 25 Feb 2022 08:36:55 +0000
+Received: by outflank-mailman (output) from mailman id 278830.476227; Fri, 25 Feb 2022 08:38:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNW5v-0003nk-CL; Fri, 25 Feb 2022 08:36:55 +0000
-Received: by outflank-mailman (input) for mailman id 278824;
- Fri, 25 Feb 2022 08:36:54 +0000
+	id 1nNW7A-0004N0-N0; Fri, 25 Feb 2022 08:38:12 +0000
+Received: by outflank-mailman (input) for mailman id 278830;
+ Fri, 25 Feb 2022 08:38:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=d3I2=TI=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nNW5t-0003ne-T7
- for xen-devel@lists.xenproject.org; Fri, 25 Feb 2022 08:36:53 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (envelope-from <SRS0=RDkG=TI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1nNW79-0004Mq-7E
+ for xen-devel@lists.xenproject.org; Fri, 25 Feb 2022 08:38:11 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 148bcace-9616-11ec-8eb8-a37418f5ba1a;
- Fri, 25 Feb 2022 09:36:52 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4B1EC212BF;
- Fri, 25 Feb 2022 08:36:52 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0B0CB13B65;
- Fri, 25 Feb 2022 08:36:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id N1FSASSVGGKoPgAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 25 Feb 2022 08:36:52 +0000
+ id 42b5cba7-9616-11ec-8eb8-a37418f5ba1a;
+ Fri, 25 Feb 2022 09:38:09 +0100 (CET)
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05lp2177.outbound.protection.outlook.com [104.47.17.177]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-12-BZlVEax-MNK9UtqbI8IkKw-1; Fri, 25 Feb 2022 09:38:08 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by DB7PR04MB4202.eurprd04.prod.outlook.com (2603:10a6:5:25::33) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.25; Fri, 25 Feb
+ 2022 08:38:06 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::d479:b728:345c:bd65%6]) with mapi id 15.20.5017.025; Fri, 25 Feb 2022
+ 08:38:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,227 +51,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 148bcace-9616-11ec-8eb8-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1645778212; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+X-Inumbo-ID: 42b5cba7-9616-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1645778289;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=kbee77WNyNUjc5zQbhgYW4K+2VGvOEyP/lNyCctJvZ8=;
-	b=t+wfr+SjreykOXdOhZ/8yIpwiZGnMyJ/Ao7WZu5rYvEMyybCp11tAx+gFh6igdNReRzZGr
-	JXJ0ZZQ8ztqsSRonbPZq8U4CSZ79npZahqynhZwJzdB5m+Kkg8VrRA0uNbz3kxvEW+B69S
-	pBW8l4cQQ6/HdGMm5T4UYV5krxnqwDw=
-Message-ID: <05a26a5d-8597-84c6-171c-2751987b7836@suse.com>
-Date: Fri, 25 Feb 2022 09:36:51 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH 2/2] xen/spinlock: merge recurse_cpu and debug.cpu fields
- in struct spinlock
+	bh=rKVDFPLFqEZvyu4womEk2iWR1POD6f2mdPiDd8hAyk8=;
+	b=G7kIGxNzn16EeM1SixsfQXdy3R9fLAx+weoE6kheW+AWNsTZ+FW9liVmHVdVVW3gCN9r/W
+	AP14Zi9vAw5XsmeJtPDxiXTK1bP5U34ESTKN3MWFrE9sYagEyf8vdFqk4BwIO+mxnDpnYb
+	h9ttINPFDhiAx21sD8WxlpPjnCsFhGA=
+X-MC-Unique: BZlVEax-MNK9UtqbI8IkKw-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IDbI2rTXuwk+/k2kMnqek0+rF3HBz7z+W+V8C++sZlUasoyR6FadAnRBZScC78pj5mPwTzgqYukeLldkLZtHh49t7uupFCnQM+pMVFSuBhe1s6bKsvfHLPa5yDMqSv/Z5xv6++18vRB1JOP+sORwpn3sNbYpDpV+R3n8CuRz15DgJPqvUwU9w9QVJb0hcES0HpIIEA+AF0dXcBsISrw1hbvoyi7+8cv9lYyEr2XVCbWiTyi5Icj96IQtJvmOpaTX3yXWRf0S5G2gDCQQS8mvcz2hit2haDFX6B9xvQmOSHu3kERYGnShj6qb25k+msHY5fmCRiyxsJ2RPZ6r3R8DvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pdk83KMn+1VFA3mDD5VKw0kBIVuWYUxHw0+Umf7uJoE=;
+ b=cUhiKb3SmlXqeFggxUmzjkZQHAb8g6eMC8wbWH6gOziZUlOevccrCnfySAmIbM0WzuX9+N/ow2Iu/8cBEbAx8MGDl/ukzvCkFWy1aL9UT6VCnYHushEx+AjottebOmoKM3jRPc/aY1er1ytTfgWjhpsKnNK6Y85HM7zePN+Sz4gvqQNNYp5m3mLxvRYo1BDwspCimMQhX9LSgB13EAIrlFHoUfT/vvvI1MSO+tRgcOQ8G2o1AX8uKaYdFxNfhPful2AtbJjwrBE0siuFV0scd0DDoZKNVDrhD5jtGIEPNYmwx2LvccZunMrIDUfQvkhaVHbjfVCBMEk+8z+gLFBbEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <9b1f517f-eb4d-ddc7-b957-4f0354ee2b9d@suse.com>
+Date: Fri, 25 Feb 2022 09:38:04 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.1
+Subject: Re: x86/CET: Fix S3 resume with shadow stacks active
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20220224105436.1480-1-jgross@suse.com>
- <20220224105436.1480-3-jgross@suse.com>
- <15e71984-37db-c6c2-5feb-05c8f1ad85f7@suse.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <15e71984-37db-c6c2-5feb-05c8f1ad85f7@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------cOSq3T0ls92hfBkNd1U9gNz0"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------cOSq3T0ls92hfBkNd1U9gNz0
-Content-Type: multipart/mixed; boundary="------------CPqfh8fPfecjEIYNluIGKQUw";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Message-ID: <05a26a5d-8597-84c6-171c-2751987b7836@suse.com>
-Subject: Re: [PATCH 2/2] xen/spinlock: merge recurse_cpu and debug.cpu fields
- in struct spinlock
-References: <20220224105436.1480-1-jgross@suse.com>
- <20220224105436.1480-3-jgross@suse.com>
- <15e71984-37db-c6c2-5feb-05c8f1ad85f7@suse.com>
-In-Reply-To: <15e71984-37db-c6c2-5feb-05c8f1ad85f7@suse.com>
-
---------------CPqfh8fPfecjEIYNluIGKQUw
-Content-Type: multipart/mixed; boundary="------------4IqAYmWzR6QhgnrSvdMat2C6"
-
---------------4IqAYmWzR6QhgnrSvdMat2C6
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMjQuMDIuMjIgMTc6MTEsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAyNC4wMi4yMDIy
-IDExOjU0LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gLS0tIGEveGVuL2FyY2gveDg2L21t
-L21tLWxvY2tzLmgNCj4+ICsrKyBiL3hlbi9hcmNoL3g4Ni9tbS9tbS1sb2Nrcy5oDQo+PiBA
-QCAtNDIsNyArNDIsNyBAQCBzdGF0aWMgaW5saW5lIHZvaWQgbW1fbG9ja19pbml0KG1tX2xv
-Y2tfdCAqbCkNCj4+ICAgDQo+PiAgIHN0YXRpYyBpbmxpbmUgYm9vbCBtbV9sb2NrZWRfYnlf
-bWUoY29uc3QgbW1fbG9ja190ICpsKQ0KPj4gICB7DQo+PiAtICAgIHJldHVybiAobC0+bG9j
-ay5yZWN1cnNlX2NwdSA9PSBjdXJyZW50LT5wcm9jZXNzb3IpOw0KPj4gKyAgICByZXR1cm4g
-KGwtPmxvY2suZGF0YS5jcHUgPT0gY3VycmVudC0+cHJvY2Vzc29yKTsNCj4+ICAgfQ0KPiAN
-Cj4gSSBzZWUgYSBmYWlyIHJpc2sgd2l0aCB0aGlzOiBCZWhhdmlvciB3aWxsIG5vdyBkaWZm
-ZXIgYmV0d2VlbiBkZWJ1ZyBhbmQNCj4gbm9uLWRlYnVnIGJ1aWxkcy4gRS5nLiBhIGxpdmVs
-b2NrIGJlY2F1c2Ugb2YgdHJ5aW5nIHRvIGFjcXVpcmUgdGhlIHNhbWUNCj4gbG9jayBhZ2Fp
-biB3b3VsZCBub3QgYmUgbm90aWNlZCBpbiBhIGRlYnVnIGJ1aWxkIGlmIHRoZSBhY3F1aXJl
-IGlzDQo+IGNvbmRpdGlvbmFsIHVwb24gdGhpcyBmdW5jdGlvbidzIHJldHVybiB2YWx1ZS4g
-SSB0aGluayB0aGlzIGlzIHRoZSBtYWluDQo+IHJlYXNvbiBiZWhpbmQgaGF2aW5nIHR3byBz
-ZXBhcmF0ZSBmaWVsZCwgZGVzcGl0ZSB0aGUgYXBwYXJlbnQgcmVkdW5kYW5jeS4NCg0KWW91
-IGFyZSBhd2FyZSB0aGF0IG1tX2xvY2tlZF9ieV9tZSgpIGlzIHVzZWQgZm9yIHJlY3Vyc2l2
-ZSBzcGlubG9ja3MNCm9ubHk/DQoNCj4gDQo+IE5ldmVydGhlbGVzcyBhIGZldyBtb3JlIGNv
-bW1lbnRzIGluIGNhc2UgSSdtIG1pc3Npbmcgc29tZXRoaW5nLg0KPiANCj4+IEBAIC04MSwx
-OSArNzksMTkgQEAgc3RhdGljIHZvaWQgY2hlY2tfYmFycmllcihzcGlubG9ja190ICpsb2Nr
-KQ0KPj4gICAgICAgICogSG93ZXZlciwgaWYgd2Ugc3BpbiBvbiBhbiBJUlEtdW5zYWZlIGxv
-Y2sgd2l0aCBJUlFzIGRpc2FibGVkIHRoZW4gdGhhdA0KPj4gICAgICAgICogaXMgY2xlYXJs
-eSB3cm9uZywgZm9yIHRoZSBzYW1lIHJlYXNvbiBvdXRsaW5lZCBpbiBjaGVja19sb2NrKCkg
-YWJvdmUuDQo+PiAgICAgICAgKi8NCj4+IC0gICAgQlVHX09OKCFsb2NhbF9pcnFfaXNfZW5h
-YmxlZCgpICYmICFsb2NrLT5kZWJ1Zy5pcnFfc2FmZSk7DQo+PiArICAgIEJVR19PTighbG9j
-YWxfaXJxX2lzX2VuYWJsZWQoKSAmJiAhbG9jay0+ZGF0YS5pcnFfc2FmZSk7DQo+PiAgIH0N
-Cj4+ICAgDQo+PiAgIHN0YXRpYyB2b2lkIGdvdF9sb2NrKHNwaW5sb2NrX3QgKmxvY2spDQo+
-PiAgIHsNCj4+IC0gICAgbG9jay0+ZGVidWcuY3B1ID0gc21wX3Byb2Nlc3Nvcl9pZCgpOw0K
-Pj4gKyAgICBsb2NrLT5kYXRhLmNwdSA9IHNtcF9wcm9jZXNzb3JfaWQoKTsNCj4gDQo+IFRo
-aXMgYXNzaWdubWVudCBicmVha3MgLi4uDQo+IA0KPj4gQEAgLTIzMCw5ICsyMjgsOSBAQCBp
-bnQgX3NwaW5faXNfbG9ja2VkKHNwaW5sb2NrX3QgKmxvY2spDQo+PiAgICAgICAgKiAiZmFs
-c2UiIGhlcmUsIG1ha2luZyB0aGlzIGZ1bmN0aW9uIHN1aXRhYmxlIG9ubHkgZm9yIHVzZSBp
-bg0KPj4gICAgICAgICogQVNTRVJUKClzIGFuZCBhbGlrZS4NCj4+ICAgICAgICAqLw0KPj4g
-LSAgICByZXR1cm4gbG9jay0+cmVjdXJzZV9jcHUgPT0gU1BJTkxPQ0tfTk9fQ1BVDQo+PiAr
-ICAgIHJldHVybiBsb2NrLT5kYXRhLmNwdSA9PSBTUElOTE9DS19OT19DUFUNCj4gDQo+IC4u
-LiB0aGUgdXNlIG9mIHRoaXMgZmllbGQgdG8gZGlzdGluZ3Vpc2ggcmVjdXJzaXZlbHkgbG9j
-a2VkIGxvY2tzDQo+IGZyb20gInNpbXBsZSIgb25lcy4gQXQgdGhlIHZlcnkgbGVhc3QgdGhl
-IGNvbW1lbnQgbmVlZHMgdXBkYXRpbmcsDQo+IGJ1dCAuLi4NCj4gDQo+PiAgICAgICAgICAg
-ICAgPyBsb2NrLT50aWNrZXRzLmhlYWQgIT0gbG9jay0+dGlja2V0cy50YWlsDQo+IA0KPiAu
-Li4gaW4gaG93IGZhciB0aGlzIGlzIHN0aWxsIGEgc2Vuc2libGUgY2hlY2sgaW4gZGVidWcg
-YnVpbGRzIGlzDQo+IGFsc28gcXVlc3Rpb25hYmxlLiBUaGUgZWZmZWN0IGhlcmUgY2VydGFp
-bmx5IGFsc28gZGVzZXJ2ZXMgcG9pbnRpbmcNCj4gb3V0IGluIHRoZSBkZXNjcmlwdGlvbi4N
-Cg0KT2theSwgd2lsbCBhZGQgc29tZXRoaW5nLg0KDQo+IA0KPj4gLSAgICAgICAgICAgOiBs
-b2NrLT5yZWN1cnNlX2NwdSA9PSBzbXBfcHJvY2Vzc29yX2lkKCk7DQo+PiArICAgICAgICAg
-ICA6IGxvY2stPmRhdGEuY3B1ID09IHNtcF9wcm9jZXNzb3JfaWQoKTsNCj4+ICAgfQ0KPj4g
-ICANCj4+ICAgaW50IF9zcGluX3RyeWxvY2soc3BpbmxvY2tfdCAqbG9jaykNCj4+IEBAIC0y
-OTYsMjIgKzI5NCwyNCBAQCBpbnQgX3NwaW5fdHJ5bG9ja19yZWN1cnNpdmUoc3BpbmxvY2tf
-dCAqbG9jaykNCj4+ICAgew0KPj4gICAgICAgdW5zaWduZWQgaW50IGNwdSA9IHNtcF9wcm9j
-ZXNzb3JfaWQoKTsNCj4+ICAgDQo+PiAtICAgIC8qIERvbid0IGFsbG93IG92ZXJmbG93IG9m
-IHJlY3Vyc2VfY3B1IGZpZWxkLiAqLw0KPj4gKyAgICAvKiBEb24ndCBhbGxvdyBvdmVyZmxv
-dyBvZiBjcHUgZmllbGQuICovDQo+PiAgICAgICBCVUlMRF9CVUdfT04oTlJfQ1BVUyA+IFNQ
-SU5MT0NLX05PX0NQVSk7DQo+PiAgICAgICBCVUlMRF9CVUdfT04oU1BJTkxPQ0tfUkVDVVJT
-RV9CSVRTIDwgMyk7DQo+PiAgIA0KPj4gICAgICAgY2hlY2tfbG9jayhsb2NrLCB0cnVlKTsN
-Cj4+ICAgDQo+PiAtICAgIGlmICggbGlrZWx5KGxvY2stPnJlY3Vyc2VfY3B1ICE9IGNwdSkg
-KQ0KPj4gKyAgICBpZiAoIGxpa2VseShsb2NrLT5kYXRhLmNwdSAhPSBjcHUpICkNCj4+ICAg
-ICAgIHsNCj4+ICAgICAgICAgICBpZiAoICFzcGluX3RyeWxvY2sobG9jaykgKQ0KPj4gICAg
-ICAgICAgICAgICByZXR1cm4gMDsNCj4+IC0gICAgICAgIGxvY2stPnJlY3Vyc2VfY3B1ID0g
-Y3B1Ow0KPj4gKyNpZm5kZWYgQ09ORklHX0RFQlVHX0xPQ0tTDQo+PiArICAgICAgICBsb2Nr
-LT5kYXRhLmNwdSA9IGNwdTsNCj4+ICsjZW5kaWYNCj4gDQo+IE1heWJlIHdvcnRoIGFuIEFT
-U0VSVCgpIGluIHRoZSAjZWxzZSBjYXNlIChhbmQgZWxzZXdoZXJlIGFzIGFwcGxpY2FibGUp
-Pw0KDQpPa2F5Lg0KDQo+IA0KPj4gLS0tIGEveGVuL2luY2x1ZGUveGVuL3NwaW5sb2NrLmgN
-Cj4+ICsrKyBiL3hlbi9pbmNsdWRlL3hlbi9zcGlubG9jay5oDQo+PiBAQCAtNiwyNiArNiwz
-NCBAQA0KPj4gICAjaW5jbHVkZSA8YXNtL3NwaW5sb2NrLmg+DQo+PiAgICNpbmNsdWRlIDxh
-c20vdHlwZXMuaD4NCj4+ICAgDQo+PiAtI2RlZmluZSBTUElOTE9DS19DUFVfQklUUyAgMTIN
-Cj4+ICsjZGVmaW5lIFNQSU5MT0NLX0NQVV9CSVRTICAgICAgMTINCj4+ICsjZGVmaW5lIFNQ
-SU5MT0NLX05PX0NQVSAgICAgICAgKCgxdSA8PCBTUElOTE9DS19DUFVfQklUUykgLSAxKQ0K
-Pj4gKyNkZWZpbmUgU1BJTkxPQ0tfUkVDVVJTRV9CSVRTICAoMTYgLSBTUElOTE9DS19DUFVf
-QklUUykNCj4+ICsjZGVmaW5lIFNQSU5MT0NLX01BWF9SRUNVUlNFICAgKCgxdSA8PCBTUElO
-TE9DS19SRUNVUlNFX0JJVFMpIC0gMSkNCj4+ICsjZGVmaW5lIFNQSU5MT0NLX1BBRF9CSVRT
-ICAgICAgKDMwIC0gU1BJTkxPQ0tfQ1BVX0JJVFMgLSBTUElOTE9DS19SRUNVUlNFX0JJVFMp
-DQo+PiAgIA0KPj4gLSNpZmRlZiBDT05GSUdfREVCVUdfTE9DS1MNCj4+IC11bmlvbiBsb2Nr
-X2RlYnVnIHsNCj4+IC0gICAgdWludDE2X3QgdmFsOw0KPj4gLSNkZWZpbmUgTE9DS19ERUJV
-R19JTklUVkFMIDB4ZmZmZg0KPj4gK3R5cGVkZWYgdW5pb24gew0KPj4gKyAgICB1MzIgdmFs
-Ow0KPj4gICAgICAgc3RydWN0IHsNCj4+IC0gICAgICAgIHVpbnQxNl90IGNwdTpTUElOTE9D
-S19DUFVfQklUUzsNCj4+IC0jZGVmaW5lIExPQ0tfREVCVUdfUEFEX0JJVFMgKDE0IC0gU1BJ
-TkxPQ0tfQ1BVX0JJVFMpDQo+PiAtICAgICAgICB1aW50MTZfdCA6TE9DS19ERUJVR19QQURf
-QklUUzsNCj4+ICsgICAgICAgIHUzMiBjcHU6U1BJTkxPQ0tfQ1BVX0JJVFM7DQo+PiArICAg
-ICAgICB1MzIgcmVjdXJzZV9jbnQ6U1BJTkxPQ0tfUkVDVVJTRV9CSVRTOw0KPj4gKyAgICAg
-ICAgdTMyIHBhZDpTUElOTE9DS19QQURfQklUUzsNCj4+ICsjaWZkZWYgQ09ORklHX0RFQlVH
-X0xPQ0tTDQo+PiAgICAgICAgICAgYm9vbCBpcnFfc2FmZToxOw0KPj4gICAgICAgICAgIGJv
-b2wgdW5zZWVuOjE7DQo+PiArI2RlZmluZSBTUElOTE9DS19ERUJVR19JTklUVkFMIDB4YzAw
-MDAwMDANCj4+ICsjZWxzZQ0KPj4gKyAgICAgICAgdTMyIGRlYnVnX3BhZDoyOw0KPiANCj4g
-UHJpb3IgdG8geW91ciBjaGFuZ2Ugd2UgaGFkIHR3byB3ZWxsLWZvcm1lZCB1aW50MTZfdC4g
-WW91IHJlcGxhY2UgdGhlbSBieQ0KPiBmaXZlIG5ldyBpbnN0YW5jZXMgb2YgdGhlIGJlaW5n
-LXBoYXNlZC1vdXQgdTMyPw0KDQpPaCwgc29ycnkuIFdpbGwgY2hhbmdlIHRvIHVpbnQzMl90
-Lg0KDQo+IEFsc28gLSBkbyB0aGUgdHdvIHBhZGRpbmcgZmllbGRzIHJlYWxseSBuZWVkIG5h
-bWVzPw0KDQpJJ20gZmluZSB0byBkcm9wIHRoZW0uDQoNCg0KSnVlcmdlbg0KDQo=
---------------4IqAYmWzR6QhgnrSvdMat2C6
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Thiner Logoer <logoerthiner1@163.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20220224194853.17774-1-andrew.cooper3@citrix.com>
+ <20220224194853.17774-2-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20220224194853.17774-2-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AM6P193CA0047.EURP193.PROD.OUTLOOK.COM
+ (2603:10a6:209:8e::24) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 203f972e-d323-4e2f-5073-08d9f83a24b7
+X-MS-TrafficTypeDiagnostic: DB7PR04MB4202:EE_
+X-Microsoft-Antispam-PRVS:
+	<DB7PR04MB42028F0ED046670300D5FF8AB33E9@DB7PR04MB4202.eurprd04.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	24TPUQftipONlSGkM5/QOKAcf8bBCu6ItLjMQpHOuIMi6DjvllYRZbONEfHZy2ZvaajRjNNDkrmqUNkr7qcdEvYvPp1vP016tmaQbLCE6UOXg8T9DhZhua+/raxZD55AdL9qc0OEezyVEeht+c/cTc7UCwE4BP2SJjII9zprk3Fmoj8kdaqJkWJJScyFgA6Pcxd4Xw9mNNDyTM3eS4rZ1Zmom2CrUjqjDshHpZkj/iOEkeM5yYnsmG2oK48H5lQZM38iz3yb2YALSyZQc0fU/gJFwbQQtewpNeNP/1qsulqhoLRKhznmNkZMtkNiqCzRVDWZ4PtdAS7KqNu2yHV0vV3ukZ/5nYX5VaMw423rv7ovm/HPYu1hxV8D/zBHfcCIYrVJUGfH7TZzQzaO6UP6+WoD7KVON3E04/6cMRAiNkKJEFFpIUBXld/xWFzjA14Zd2/nIhwMeS/Vwu19mWkEjFerrYP99LrTiSDhMzJvRvFIENw1lGOyxGLwByiZ4dhdZi2mxNjd8hELXUKf5qwm1ARpTYOi2ktDHDqEv7O+eVds8FfSQsh1aVcVzlKAJNzzYlc1bCWHlEtaF6YqVtDfXORqenQunglZCIlqAlrktHnOFwgNkH7UwJm0HBs7Nq4euLnu+buxXWJdo3K/n8JHCxev5eJ19xA/06BApeKzYUbUivg9HMT736ZyObbOoknjLya1TNSzM4hwQxnEpelb69rQqjCTuRfsEuhoaiUAJlLjeeeciCQam9SLb/BM2qHj/O25UAXkyrA/Cl6CdhYPwXATFqpm8yDGf+VsZ7ylAcE6FJxqjt3RYK6zyTlDcr3Ci1m6cb5jv+uYPMn7mJYOEg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(6512007)(6506007)(53546011)(66574015)(31696002)(2616005)(86362001)(186003)(26005)(83380400001)(38100700002)(8936002)(5660300002)(4326008)(8676002)(66946007)(31686004)(66476007)(66556008)(2906002)(36756003)(6916009)(508600001)(54906003)(6486002)(966005)(316002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?cszg9U1CDAenV7BMsrK0qxHneLnjRq/WktfZ3ppvjdaQHarFVtYmZ7UcjWjG?=
+ =?us-ascii?Q?yDOoo41kz7cql/6Oy232Lo0UM68yDGiM2dRio/GvFUfl43oG04iWXtqdnQPp?=
+ =?us-ascii?Q?Jca5gSD1SIy4kusqJ3hGg+YeMasGAlP727z1/iZ621tnot5HOuG6RFFLDabp?=
+ =?us-ascii?Q?UrPXGP30iZFwfgSrv9Jy/Y7/45VqbSRerURjtLyyz7yA9QZzO0fBru2yN73o?=
+ =?us-ascii?Q?rpAHdzXunygpKvr9UxCQLvwb23S0b4Yg1QNpJy/VZFzhjXx7UKW/HGGfJpDW?=
+ =?us-ascii?Q?HP42Th/lih2Kfj0aMT4FRsIQeyyVX4dQgEYnjibYb+L8y/2Di+dJoXr2Y01b?=
+ =?us-ascii?Q?mCmdb6jFyKhmTYCYg4bdK/yXHpMokQ8qhKWtM/0/Vxu76TyiFhVnP1lkWgGf?=
+ =?us-ascii?Q?1L0EKot/pQ0115rT8VPpCZDoYvm3hNQmSMwa7tTsAkYwHNVpl6HiLRpbcW9s?=
+ =?us-ascii?Q?v6wXuszKqbiqu82wPe59BZQtFNrcqJWymu3TddTyXjS9OzwY4+9x68T58bEP?=
+ =?us-ascii?Q?TQAg7e/qBK5UiFJ+B9OOVDOV4rlJoghSFSmxPX+WuhTz00n7fVeACFQq+Yr6?=
+ =?us-ascii?Q?qG1Crj3IbPKxi/UL+D/DRgGIRGveIKRwO/Gs0e6L7NwpFIjhsfaCcB95inkS?=
+ =?us-ascii?Q?+Xl8H3MK/7fU4ytAXPlkXlN7pr3WVF4YEvFEbGs4Bd4UedwAemqJwi7uj0Ir?=
+ =?us-ascii?Q?Xn9DLEyHkZ/xKl2yGUV04iS8zAps7aWCH1pmX43/jxJFrjS41LwycfqHYg4l?=
+ =?us-ascii?Q?51B74QO6cKLIjLfE4k94MauFbqSyPeDjNCOga2PYssRY8VAniqMZ4D/vDk+Z?=
+ =?us-ascii?Q?qOpV0z5/3Nm7fRtuXw1M/wSqrghLgF7Z9RNA+AJPbRrC+SqwCKySh9jVdhHw?=
+ =?us-ascii?Q?Fk5YIwKSs9MAYaR9s1r8Y43OpXOog/JG388FTclvMqMrk5stALjXBUpXODs4?=
+ =?us-ascii?Q?hxLJRm4uKilTK9zBrMjPlW10a3Kbrj4NBckfOcuGTkFX9qsP8UdrZFSEdast?=
+ =?us-ascii?Q?CGxJeFj7hBQyEPlB2jj3c56KJJHuo9y60e6xDIzdEQ/ARi5ixtL+RIT4tmC9?=
+ =?us-ascii?Q?vBrPQTYQ/fYYYr/X+sdDxNsWrQwLMqfrk9iXh7SiNC/YHgiyIO1vOtzu9HX/?=
+ =?us-ascii?Q?Pn5VZe1i0+DsmPHXkx9q2NkvegDvJf26Bse91el8hzjliQqgkLM83Vr3wSSy?=
+ =?us-ascii?Q?U20/N3G+IVH6qRBVumgFPEA+06ZwaV+Uqk7WfsPqQbHZ4gR8FAD+pNK+Ifn+?=
+ =?us-ascii?Q?tYoGxgh5eCyXkVnqOEuIxrfO3Q1iyCue+eehnk+rTUqdkjE2O6ObZ6aBGQYA?=
+ =?us-ascii?Q?/jWauvqAuSp6Gc9NAZTB7N7JLy6fysv+Rjw+8/nZQc2amkWBt3uS9vetBTBT?=
+ =?us-ascii?Q?kayhgncSfJ0DSyv8ZPbjdklaF7cG0aD1U+CTxt2Hu8BzB17sxeX2st3/dvw4?=
+ =?us-ascii?Q?vxfvZt/T7WBb7uGQ7qsDDHLi743tk0bNLEnf4zRDoYxZo9iYVv6UB8XzSDRl?=
+ =?us-ascii?Q?EarVGR07Q1Zo9sSb20/b+zrrPQzHAVymLdHBKHPAU0EV+0Ack4TsedssiMYX?=
+ =?us-ascii?Q?x0c6EfDp9gbG4+4/iRLtUUXU/L1CT6B//+j/lA3KZ2q/BkxADIASpm3/FzBZ?=
+ =?us-ascii?Q?EAoH75qoSjv1Z58Zyk3sF5g=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 203f972e-d323-4e2f-5073-08d9f83a24b7
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Feb 2022 08:38:05.9452
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2vHSH3v7GwrOoeqW5Q8Zg4vytG4VATbrzFMpywpGBWzWbHBepSQWaj43EDE763HJ7luU866FzdmWGBEy3itJMQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB4202
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On 24.02.2022 20:48, Andrew Cooper wrote:
+> The original shadow stack support has an error on S3 resume with very biz=
+zare
+> fallout.  The BSP comes back up, but APs fail with:
+>=20
+>   (XEN) Enabling non-boot CPUs ...
+>   (XEN) Stuck ??
+>   (XEN) Error bringing CPU1 up: -5
+>=20
+> and then later (on at least two Intel TigerLake platforms), the next HVM =
+vCPU
+> to be scheduled on the BSP dies with:
+>=20
+>   (XEN) d1v0 Unexpected vmexit: reason 3
+>   (XEN) domain_crash called from vmx.c:4304
+>   (XEN) Domain 1 (vcpu#0) crashed on cpu#0:
+>=20
+> The VMExit reason is EXIT_REASON_INIT, which has nothing to do with the
+> scheduled vCPU, and will be addressed in a subsequent patch.  It is a
+> consequence of the APs triple faulting.
+>=20
+> The reason the APs triple fault is because we don't tear down the stacks =
+on
+> suspend.  The idle/play_dead loop is killed in the middle of running, mea=
+ning
+> that the supervisor token is left busy.
+>=20
+> On resume, SETSSBSY finds the token already busy, suffers #CP and triple
+> faults because the IDT isn't configured this early.
+>=20
+> Rework the AP bringup path to (re)create the supervisor token.  This ensu=
+res
+> the primary stack is non-busy before use.
+>=20
+> Fixes: b60ab42db2f0 ("x86/shstk: Activate Supervisor Shadow Stacks")
+> Link: https://github.com/QubesOS/qubes-issues/issues/7283
+> Reported-by: Thiner Logoer <logoerthiner1@163.com>
+> Reported-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab=
+.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Tested-by: Thiner Logoer <logoerthiner1@163.com>
+> Tested-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.c=
+om>
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
---------------4IqAYmWzR6QhgnrSvdMat2C6--
+> Slightly RFC.  This does fix the crash encountered, but it occurs to me t=
+hat
+> there's a race condition when S3 platform powerdown is incident with an
+> NMI/#MC, where more than just the primary shadow stack can end up busy on
+> resume.
+>=20
+> A larger fix would be to change how we allocate tokens, and always have e=
+ach
+> CPU set up its own tokens.  I didn't do this originally in the hopes of h=
+aving
+> WRSSQ generally disabled, but that plan failed when encountering reality.=
+..
 
---------------CPqfh8fPfecjEIYNluIGKQUw--
+While I think this wants fixing one way or another, I also think this
+shouldn't block the immediate fix here (which addresses an unconditional
+crash rather than a pretty unlikely one).
 
---------------cOSq3T0ls92hfBkNd1U9gNz0
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Jan
 
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmIYlSMFAwAAAAAACgkQsN6d1ii/Ey8D
-8Af7BlkJY/YSRhA/rtn1HNE1/pzdQopBKl4cBwBHICOQ7TuPQox+ulLSPALr16ZprispmzVTmbHz
-iIQwIH3mrYxzyqTCKhlzkhrYKP0EtjfOahufDqJhq0Lvc9OlrSy1hN0bIFJ0pP5F5nXDzWgTRx/7
-82DsZ4JPGk7OaNyLW+h/LbT2hzTydAjV491qeGaPNtrfc2BLQV/kPDpYnSjiDpvU9SfvT1MLQs1l
-J58fk2y80XEkdAkyTPoNhTbd0Inhp2csMnjti9kNLypwewVEju/1tEEbOpt9yZ9mzmmVp8pJMFBl
-RtjUOM7fXVd9Cz+ZstWOo0kIzWCe+2QESnG0weRMgA==
-=jeh1
------END PGP SIGNATURE-----
-
---------------cOSq3T0ls92hfBkNd1U9gNz0--
 
