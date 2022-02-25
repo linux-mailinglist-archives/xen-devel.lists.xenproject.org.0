@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF0C24C486E
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Feb 2022 16:14:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.279185.476842 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B2714C486B
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Feb 2022 16:14:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.279183.476824 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNcI6-0000WG-OM; Fri, 25 Feb 2022 15:13:54 +0000
+	id 1nNcI4-0008SP-72; Fri, 25 Feb 2022 15:13:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 279185.476842; Fri, 25 Feb 2022 15:13:54 +0000
+Received: by outflank-mailman (output) from mailman id 279183.476824; Fri, 25 Feb 2022 15:13:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNcI6-0000PF-D5; Fri, 25 Feb 2022 15:13:54 +0000
-Received: by outflank-mailman (input) for mailman id 279185;
- Fri, 25 Feb 2022 15:13:52 +0000
+	id 1nNcI4-0008NN-0z; Fri, 25 Feb 2022 15:13:52 +0000
+Received: by outflank-mailman (input) for mailman id 279183;
+ Fri, 25 Feb 2022 15:13:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=E0Ll=TI=citrix.com=prvs=04808661d=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nNcI4-0007Bf-2j
- for xen-devel@lists.xenproject.org; Fri, 25 Feb 2022 15:13:52 +0000
+ id 1nNcI2-0007Bf-FK
+ for xen-devel@lists.xenproject.org; Fri, 25 Feb 2022 15:13:50 +0000
 Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
  [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8968535d-964d-11ec-8eb9-a37418f5ba1a;
- Fri, 25 Feb 2022 16:13:50 +0100 (CET)
+ id 87999e26-964d-11ec-8eb9-a37418f5ba1a;
+ Fri, 25 Feb 2022 16:13:49 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,53 +36,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8968535d-964d-11ec-8eb9-a37418f5ba1a
+X-Inumbo-ID: 87999e26-964d-11ec-8eb9-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1645802030;
+  d=citrix.com; s=securemail; t=1645802028;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=zZhTh/NI1Yuo6FeFerl0nTlpsDly6vffYs1vsJ0qtn8=;
-  b=aNwn2hPOOo8rCn+DADJTplPCfoLaC2fVIxWXI8Oz+F4HfWcNSXaY/3mJ
-   B9aPzqou5Qserh+H7d+g5xfm9ed7IZZ0VUa2Dm9DYUgb6QNyPofBn6vfo
-   bzn9pVT8pzLVQb5MriMB8/njmQKh+di5wpvri8sE6fkysNoka2puEmI/K
-   E=;
+  bh=Itv0TYjJaWvZTLhYwIDcVR+kB+4hcfXSmAszpJaqRIw=;
+  b=E0BA9QO3L+to8fOVx0uIWCjXSqGyG0PnVEPKKd5kxjkvzElXPpjyHuCp
+   MbxHEbK5zzFQLHz6Jg87jPE7poALanePy/90sBL+gSYxY20xqQayggyjo
+   y5/ybP9oAqcV3NzcBY2xT1WrwGbdJNc8nIDoyElRMdzNoj7uEW5g56Z0v
+   Y=;
 Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 5.1
-X-MesageID: 65407506
+X-MesageID: 65407512
 X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:tVQdDamiqXC3S5Q7x/B7+vDo5gyuJkRdPkR7XQ2eYbSJt1+Wr1Gzt
- xJOUGvXM/qLZDGnft8ga43n9k8Bu8XXyd5hTQs4rCw8QyMWpZLJC+rCIxarNUt+DCFioGGLT
- Sk6QoOdRCzhZiaE/n9BCpC48T8kk/vgqoPUUIYoAAgoLeNfYHpn2EoLd9IR2NYy24DjWV7V4
- 7senuWEULOb828sWo4rw/rrRCNH5JwebxtB4zTSzdgS1LPvvyF94KA3fMldHFOhKmVgJcaoR
- v6r8V2M1jixEyHBqD+Suu2TnkUiGtY+NOUV45Zcc/DKbhNq/kTe3kunXRa1hIg+ZzihxrhMJ
- NtxWZOYVQhwLIPmo9skFABcDHtXOrFF17bgGC3q2SCT5xWun3rExvxvCAc9PJEC+/YxCmZLn
- RAaAGlTNFbZ3bvwme/lDLk37iggBJCD0Ic3s3d8zTbfHLA+TIrKWani7t5ExjYgwMtJGJ4yY
- uJHNGY3M0mYPXWjPH80J6w3n/6on0DeYmECkn+2ubEe/WfcmVkZPL/Fb4OOJ43iqd9utl2Du
- mvM8mD9AxcbHN+S0zyI9jSrnOCntTz/cJIfEvu/7PECqF+Owm0eDjUGWF39puO24mauVtQaJ
- 0EK9y4Gqakp6FftXtT7Rwe/onOPolgbQdU4O+8w5RyJy6HUyx2EHWVCRTlEAOHKr+dvG2Zsj
- AXQ2Yq0W3o/69V5VE5x6J+IomqgFwIuElZFfCsbFyIC/9rMqaYK20enoslYLIa5idj8GDfVy
- j+MrTQji7h7sfPnx5lX7nic3Wvy+8Ghohodo1yOAzn7tl8RiJuNOtTwgWU3+8qsO2pworOpm
- HEf0/aT4+kVZX1mvHzcGb5ddF1FChvsDdE9vbKNN8Vwn9hO0yT6FWy13N2YDB04WirjUWW0C
- HI/QSsLuPdu0IKCNMebmb6ZBcUw1rTHHt/4TP3SZdcmSsEvKFLYoHgyOBbIhziFfK0QfUcXY
- 8bznSGEVytyNEia5GDuG7d1PUEDnEjSOl8/tbiklk/6gNJylVaeSKsfMUvmUwzKxPjsnekhy
- P4Gb5Hi40wGCIXWO3CLmaZOfQFiBSVqXvje9p0IHtNv1yI7QQnN/deKmuh/E2Gk9owI/tr1E
- oaVARcJmAKi3iSccW1nqBlLMdvSYHq2llpjVQREALpi8yN7CWpzxM/zr6cKQIQ=
-IronPort-HdrOrdr: A9a23:DyULwKsQkEoUWCayie0TaNFu7skDcNV00zEX/kB9WHVpmszxra
- +TdZMgpHjJYVcqKQgdcL+7WZVoLUmwyXcx2/hyAV7AZniDhILLFuFfBOLZqlWKcREWtNQtsJ
- uIG5IObuEYZmIVsS+V2mWF+q4bsbq6zJw=
+IronPort-Data: A9a23:33+IyK61u+7MofRIySmgkwxRtDbHchMFZxGqfqrLsTDasY5as4F+v
+ mYYUWGHOP+IYGbyctl0Pdm09UtU65PWyNZjSVNo/Co8Hi5G8cbLO4+Ufxz6V8+wwmwvb67FA
+ +E2MISowBUcFyeEzvuVGuG96yE6j8lkf5KkYAL+EnkZqTRMFWFw0XqPp8Zj2tQy2YLjXlvX0
+ T/Pi5a31GGNimYc3l08s8pvmDs31BglkGpF1rCWTakjUG72zxH5PrpGTU2CByKQrr1vNvy7X
+ 47+IISRpQs1yfuP5uSNyd4XemVSKlLb0JPnZnB+A8BOiTAazsA+PzpS2FPxpi67hh3Q9+2dx
+ umhurTuRUQ0F/f1mt4XTiN0Ixxcfv1Bu+TIdC3XXcy7lyUqclPpyvRqSko3IZcZ6qB8BmQmG
+ f4wcW5XKErZ3qTvnez9GrIEascLdaEHOKsWvG1gyjfIS+4rW5nZT43B5MNC3Sd2jcdLdRrbT
+ 5RENWIwMU2aC/FJEnlJT7xhp8Kuv2fESz5alV6siqxmvkGGmWSd15CyaYGIK7RmX/59gUKwt
+ m/AuWPjDXkyOdiSzzPD73ytg/PUkD3ycIUIHba8+7hhh1j77nweDlgaWEW2pdG9i1WiQJRPJ
+ koM4C0soKMuskuxQbHAswaQ+SDe+ERGApwJTrN8uFrlJrfoDxixWGRHUxcbUd4cvtIMaQwX9
+ BzZmJCyCmk62FGKck61+rCRpDK0HCEaK24eeCMJJTc4D8nfTJIb1UyWEIs6eEKhppisQGyrn
+ WjWxMQrr+hL1aY2O7OHEUcrat5GjrzAVUYL6wreRQpJBSspNdf+N+REBbU2hMuszbp1rHHd7
+ RDoeODEtYji6K1hcgTXEY3h+5nzup643MX02wIHInXY323FF4SfVY5R+ipiA0xiL9wJfzTkC
+ GeK518Mu8MKYCbyNfcvC25UNyjM5fKxfTgCfqqJBuein7ArLFPXlM2QTRT4M5/RfLgEzvhkZ
+ MbznTeEBncGE6V3pAdatM9GuYLHMhsWnDuJLbiilkzP+ePHOBa9FOdUWHPTP7tRxP7V/23oH
+ yN3apLiJ+N3C7alPEE6MOc7cDg3EJTMLcuu+pwPK7XaeVIO9aNII6a5/I7NsrdNx8x9/tokN
+ FnnBye0FHKXaaX7FDi3
+IronPort-HdrOrdr: A9a23:eIo/va5jHKV2WBVJ4QPXwPDXdLJyesId70hD6qhwISY6TiX+rb
+ HJoB17726NtN9/YhEdcLy7VJVoBEmskKKdgrNhWotKPjOW21dARbsKheCJrgEIWReOktK1vZ
+ 0QCpSWY+eQMbEVt6nHCXGDYrQd/OU=
 X-IronPort-AV: E=Sophos;i="5.90,136,1643691600"; 
-   d="scan'208";a="65407506"
+   d="scan'208";a="65407512"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
- Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: [XEN PATCH v2 01/29] tools/console: have one Makefile per program/directory
-Date: Fri, 25 Feb 2022 15:12:53 +0000
-Message-ID: <20220225151321.44126-2-anthony.perard@citrix.com>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Elena Ufimtseva
+	<elena.ufimtseva@oracle.com>, Wei Liu <wl@xen.org>
+Subject: [XEN PATCH v2 02/29] tools/debugger/gdbsx: Fix and cleanup makefiles
+Date: Fri, 25 Feb 2022 15:12:54 +0000
+Message-ID: <20220225151321.44126-3-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220225151321.44126-1-anthony.perard@citrix.com>
 References: <20220225151321.44126-1-anthony.perard@citrix.com>
@@ -90,229 +88,161 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-Sources of both xenconsoled and xenconsole are already separated into
-different directory and don't share anything in common. Having two
-different Makefile means it's easier to deal with *FLAGS.
+gdbsx/:
+  - Make use of subdir facility for the "clean" target.
+  - No need to remove the *.a, they aren't in this dir.
+  - Avoid calling "distclean" in subdirs as "distclean" targets do only
+    call "clean", and the "clean" also runs "clean" in subdirs.
+  - Avoid the need to make "gx_all.a" and "xg_all.a" in the "all"
+    recipe by forcing make to check for update of "xg/xg_all.a" and
+    "gx/gx_all.a" by having "FORCE" as prerequisite. Now, when making
+    "gdbsx", make will recurse even when both *.a already exist.
+  - List target in $(TARGETS).
 
-Some common changes:
-Rename $(BIN) to $(TARGETS), this will be useful later.
-Stop removing *.so *.rpm *.a as they aren't created here.
-Use $(OBJS-y) to list objects.
-Update $(CFLAGS) for the directory rather than a single object.
-
-daemon:
-    Remove the need for $(LDLIBS_xenconsoled), use $(LDLIBS) instead.
-    Remove the need for $(CONSOLE_CFLAGS-y) and use $(CFLAGS-y)
-	instead.
-
-client:
-    Remove the unused $(LDLIBS_xenconsole)
+gdbsx/*/:
+  - Fix dependency on *.h.
+  - Remove some dead code.
+  - List targets in $(TARGETS).
+  - Remove "build" target.
+  - Cleanup "clean" targets.
+  - remove comments about the choice of "ar" instead of "ld"
+  - Use "$(AR)" instead of plain "ar".
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
 
 Notes:
     v2:
-    - create per-directory .gitignore
+    - also replace plain "ar" by "$(AR)"
 
- tools/console/Makefile          | 49 ++------------------------------
- tools/console/client/Makefile   | 39 +++++++++++++++++++++++++
- tools/console/daemon/Makefile   | 50 +++++++++++++++++++++++++++++++++
- .gitignore                      |  2 --
- tools/console/client/.gitignore |  1 +
- tools/console/daemon/.gitignore |  1 +
- 6 files changed, 94 insertions(+), 48 deletions(-)
- create mode 100644 tools/console/client/Makefile
- create mode 100644 tools/console/daemon/Makefile
- create mode 100644 tools/console/client/.gitignore
- create mode 100644 tools/console/daemon/.gitignore
+ tools/debugger/gdbsx/Makefile    | 20 ++++++++++----------
+ tools/debugger/gdbsx/gx/Makefile | 15 +++++++--------
+ tools/debugger/gdbsx/xg/Makefile | 25 +++++++------------------
+ 3 files changed, 24 insertions(+), 36 deletions(-)
 
-diff --git a/tools/console/Makefile b/tools/console/Makefile
-index 207c04c9cd..63bd2ac302 100644
---- a/tools/console/Makefile
-+++ b/tools/console/Makefile
-@@ -1,50 +1,7 @@
- XEN_ROOT=$(CURDIR)/../..
- include $(XEN_ROOT)/tools/Rules.mk
+diff --git a/tools/debugger/gdbsx/Makefile b/tools/debugger/gdbsx/Makefile
+index 5571450a89..4aaf427c45 100644
+--- a/tools/debugger/gdbsx/Makefile
++++ b/tools/debugger/gdbsx/Makefile
+@@ -1,20 +1,20 @@
+ XEN_ROOT = $(CURDIR)/../../..
+ include ./Rules.mk
  
--CFLAGS  += -Werror
-+SUBDIRS-y := daemon client
++SUBDIRS-y += gx
++SUBDIRS-y += xg
++
++TARGETS := gdbsx
++
+ .PHONY: all
+-all:
+-	$(MAKE) -C gx
+-	$(MAKE) -C xg
+-	$(MAKE) gdbsx
++all: $(TARGETS)
  
--CFLAGS  += $(CFLAGS_libxenctrl)
--CFLAGS  += $(CFLAGS_libxenstore)
--LDLIBS += $(LDLIBS_libxenctrl)
--LDLIBS += $(LDLIBS_libxenstore)
--LDLIBS += $(SOCKET_LIBS)
--
--LDLIBS_xenconsoled += $(UTIL_LIBS)
--LDLIBS_xenconsoled += -lrt
--CONSOLE_CFLAGS-$(CONFIG_ARM) = -DCONFIG_ARM
--
--BIN      = xenconsoled xenconsole
--
--.PHONY: all
--all: $(BIN)
--
--.PHONY: clean
+ .PHONY: clean
 -clean:
--	$(RM) *.a *.so *.o *.rpm $(BIN) $(DEPS_RM)
--	$(RM) client/*.o daemon/*.o
--
--.PHONY: distclean
--distclean: clean
--
--daemon/main.o: CFLAGS += -include $(XEN_ROOT)/tools/config.h
--daemon/io.o: CFLAGS += $(CFLAGS_libxenevtchn) $(CFLAGS_libxengnttab) $(CFLAGS_libxenforeignmemory) $(CONSOLE_CFLAGS-y)
--xenconsoled: $(patsubst %.c,%.o,$(wildcard daemon/*.c))
--	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS) $(LDLIBS_libxenevtchn) $(LDLIBS_libxengnttab) $(LDLIBS_libxenforeignmemory) $(LDLIBS_xenconsoled) $(APPEND_LDFLAGS)
--
--client/main.o: CFLAGS += -include $(XEN_ROOT)/tools/config.h
--xenconsole: $(patsubst %.c,%.o,$(wildcard client/*.c))
--	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS) $(LDLIBS_xenconsole) $(APPEND_LDFLAGS)
--
--.PHONY: install
--install: $(BIN)
--	$(INSTALL_DIR) $(DESTDIR)/$(sbindir)
--	$(INSTALL_PROG) xenconsoled $(DESTDIR)/$(sbindir)
--	$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC_BIN)
--	$(INSTALL_PROG) xenconsole $(DESTDIR)$(LIBEXEC_BIN)
--
--.PHONY: uninstall
--uninstall:
--	rm -f $(DESTDIR)$(LIBEXEC_BIN)/xenconsole
--	rm -f $(DESTDIR)$(sbindir)/xenconsoled
--
---include $(DEPS_INCLUDE)
-+.PHONY: all clean install distclean uninstall
-+all clean install distclean uninstall: %: subdirs-%
-diff --git a/tools/console/client/Makefile b/tools/console/client/Makefile
-new file mode 100644
-index 0000000000..44176c6d93
---- /dev/null
-+++ b/tools/console/client/Makefile
-@@ -0,0 +1,39 @@
-+XEN_ROOT=$(CURDIR)/../../..
-+include $(XEN_ROOT)/tools/Rules.mk
+-	rm -f xg_all.a gx_all.a gdbsx
+-	set -e; for d in xg gx; do $(MAKE) -C $$d clean; done
++clean: subdirs-clean
++	rm -f $(TARGETS)
+ 
+ .PHONY: distclean
+ distclean: clean
+-	set -e; for d in xg gx; do $(MAKE) -C $$d distclean; done
+ 
+ .PHONY: install
+ install: all
+@@ -28,7 +28,7 @@ uninstall:
+ gdbsx: gx/gx_all.a xg/xg_all.a 
+ 	$(CC) $(LDFLAGS) -o $@ $^
+ 
+-xg/xg_all.a:
++xg/xg_all.a: FORCE
+ 	$(MAKE) -C xg
+-gx/gx_all.a:
++gx/gx_all.a: FORCE
+ 	$(MAKE) -C gx
+diff --git a/tools/debugger/gdbsx/gx/Makefile b/tools/debugger/gdbsx/gx/Makefile
+index 3b8467f799..e9859aea9c 100644
+--- a/tools/debugger/gdbsx/gx/Makefile
++++ b/tools/debugger/gdbsx/gx/Makefile
+@@ -2,21 +2,20 @@ XEN_ROOT = $(CURDIR)/../../../..
+ include ../Rules.mk
+ 
+ GX_OBJS := gx_comm.o gx_main.o gx_utils.o gx_local.o
+-GX_HDRS := $(wildcard *.h)
 +
-+CFLAGS += -Werror
-+CFLAGS += $(CFLAGS_libxenctrl)
-+CFLAGS += $(CFLAGS_libxenstore)
-+CFLAGS += -include $(XEN_ROOT)/tools/config.h
-+
-+LDLIBS += $(LDLIBS_libxenctrl)
-+LDLIBS += $(LDLIBS_libxenstore)
-+LDLIBS += $(SOCKET_LIBS)
-+
-+OBJS-y := main.o
-+
-+TARGETS := xenconsole
-+
-+.PHONY: all
++TARGETS := gx_all.a
+ 
+ .PHONY: all
+-all: gx_all.a
 +all: $(TARGETS)
-+
-+xenconsole: $(OBJS-y)
-+	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS) $(APPEND_LDFLAGS)
-+
-+.PHONY: install
-+install: all
-+	$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC_BIN)
-+	$(INSTALL_PROG) xenconsole $(DESTDIR)$(LIBEXEC_BIN)
-+
-+.PHONY: uninstall
-+uninstall:
-+	rm -f $(DESTDIR)$(LIBEXEC_BIN)/xenconsole
-+
-+.PHONY: clean
-+clean:
-+	$(RM) *.o $(TARGETS) $(DEPS_RM)
-+
-+.PHONY: distclean
-+distclean: clean
+ 
+ .PHONY: clean
+ clean:
+-	rm -rf gx_all.a *.o .*.d
++	rm -f *.o $(TARGETS) $(DEPS_RM)
+ 
+ .PHONY: distclean
+ distclean: clean
+ 
+-#%.o: %.c $(GX_HDRS) Makefile
+-#	$(CC) -c $(CFLAGS) -o $@ $<
+-
+-gx_all.a: $(GX_OBJS) Makefile $(GX_HDRS)
+-	ar cr $@ $(GX_OBJS)        # problem with ld using -m32 
++gx_all.a: $(GX_OBJS) Makefile
++	$(AR) cr $@ $(GX_OBJS)
+ 
++-include $(DEPS_INCLUDE)
+diff --git a/tools/debugger/gdbsx/xg/Makefile b/tools/debugger/gdbsx/xg/Makefile
+index acdcddf0d5..05325d6d81 100644
+--- a/tools/debugger/gdbsx/xg/Makefile
++++ b/tools/debugger/gdbsx/xg/Makefile
+@@ -1,35 +1,24 @@
+ XEN_ROOT = $(CURDIR)/../../../..
+ include ../Rules.mk
+ 
+-XG_HDRS := xg_public.h 
+ XG_OBJS := xg_main.o 
+ 
+ CFLAGS += -D__XEN_TOOLS__
+ CFLAGS += $(CFLAGS_xeninclude)
+ 
++TARGETS := xg_all.a
+ 
+ .PHONY: all
+-all: build
++all: $(TARGETS)
+ 
+-.PHONY: build
+-build: xg_all.a $(XG_HDRS) $(XG_OBJS) Makefile
+-# build: mk-symlinks xg_all.a $(XG_HDRS) $(XG_OBJS) Makefile
+-# build: mk-symlinks xg_all.a
+-
+-xg_all.a: $(XG_OBJS) Makefile $(XG_HDRS)
+-	ar cr $@ $(XG_OBJS)    # problems using -m32 in ld 
+-#	$(LD) -b elf32-i386 $(LDFLAGS) -r -o $@ $^
+-#	$(CC) -m32 -c -o $@ $^
+-
+-# xg_main.o: xg_main.c Makefile $(XG_HDRS)
+-#$(CC) -c $(CFLAGS) -o $@ $<
+-
+-# %.o: %.c $(XG_HDRS) Makefile  -- doesn't work as it won't overwrite Rules.mk
+-#%.o: %.c       -- doesn't recompile when .c changed
++xg_all.a: $(XG_OBJS) Makefile
++	$(AR) cr $@ $(XG_OBJS)
+ 
+ .PHONY: clean
+ clean:
+-	rm -rf xen xg_all.a $(XG_OBJS)  .*.d
++	rm -f $(TARGETS) $(XG_OBJS) $(DEPS_RM)
+ 
+ .PHONY: distclean
+ distclean: clean
 +
 +-include $(DEPS_INCLUDE)
-diff --git a/tools/console/daemon/Makefile b/tools/console/daemon/Makefile
-new file mode 100644
-index 0000000000..0f004f0b14
---- /dev/null
-+++ b/tools/console/daemon/Makefile
-@@ -0,0 +1,50 @@
-+XEN_ROOT=$(CURDIR)/../../..
-+include $(XEN_ROOT)/tools/Rules.mk
-+
-+CFLAGS += -Werror
-+CFLAGS += $(CFLAGS_libxenctrl)
-+CFLAGS += $(CFLAGS_libxenstore)
-+CFLAGS += $(CFLAGS_libxenevtchn)
-+CFLAGS += $(CFLAGS_libxengnttab)
-+CFLAGS += $(CFLAGS_libxenforeignmemory)
-+CFLAGS-$(CONFIG_ARM) += -DCONFIG_ARM
-+CFLAGS += -include $(XEN_ROOT)/tools/config.h
-+
-+LDLIBS += $(LDLIBS_libxenctrl)
-+LDLIBS += $(LDLIBS_libxenstore)
-+LDLIBS += $(LDLIBS_libxenevtchn)
-+LDLIBS += $(LDLIBS_libxengnttab)
-+LDLIBS += $(LDLIBS_libxenforeignmemory)
-+LDLIBS += $(SOCKET_LIBS)
-+LDLIBS += $(UTIL_LIBS)
-+LDLIBS += -lrt
-+
-+OBJS-y := main.o
-+OBJS-y += io.o
-+OBJS-y += utils.o
-+
-+TARGETS := xenconsoled
-+
-+.PHONY: all
-+all: $(TARGETS)
-+
-+xenconsoled: $(OBJS-y)
-+	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS) $(APPEND_LDFLAGS)
-+
-+.PHONY: install
-+install: all
-+	$(INSTALL_DIR) $(DESTDIR)/$(sbindir)
-+	$(INSTALL_PROG) xenconsoled $(DESTDIR)/$(sbindir)
-+
-+.PHONY: uninstall
-+uninstall:
-+	rm -f $(DESTDIR)$(sbindir)/xenconsoled
-+
-+.PHONY: clean
-+clean:
-+	$(RM) *.o $(TARGETS) $(DEPS_RM)
-+
-+.PHONY: distclean
-+distclean: clean
-+
-+-include $(DEPS_INCLUDE)
-diff --git a/.gitignore b/.gitignore
-index d425be4bd9..4e2a850f94 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -159,8 +159,6 @@ tools/libs/util/libxenutil.map
- tools/libs/vchan/headers.chk
- tools/libs/vchan/libxenvchan.map
- tools/libs/vchan/xenvchan.pc
--tools/console/xenconsole
--tools/console/xenconsoled
- tools/debugger/gdb/gdb-6.2.1-linux-i386-xen/*
- tools/debugger/gdb/gdb-6.2.1/*
- tools/debugger/gdb/gdb-6.2.1.tar.bz2
-diff --git a/tools/console/client/.gitignore b/tools/console/client/.gitignore
-new file mode 100644
-index 0000000000..b096a1d841
---- /dev/null
-+++ b/tools/console/client/.gitignore
-@@ -0,0 +1 @@
-+/xenconsole
-diff --git a/tools/console/daemon/.gitignore b/tools/console/daemon/.gitignore
-new file mode 100644
-index 0000000000..55c8f84664
---- /dev/null
-+++ b/tools/console/daemon/.gitignore
-@@ -0,0 +1 @@
-+/xenconsoled
 -- 
 Anthony PERARD
 
