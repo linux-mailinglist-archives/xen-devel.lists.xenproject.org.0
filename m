@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9364C4C4F54
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Feb 2022 21:12:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.279587.477339 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D73BD4C4FD3
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Feb 2022 21:42:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.279594.477350 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNgx6-0007ps-KS; Fri, 25 Feb 2022 20:12:32 +0000
+	id 1nNhPE-0002oW-Ts; Fri, 25 Feb 2022 20:41:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 279587.477339; Fri, 25 Feb 2022 20:12:32 +0000
+Received: by outflank-mailman (output) from mailman id 279594.477350; Fri, 25 Feb 2022 20:41:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNgx6-0007nS-HA; Fri, 25 Feb 2022 20:12:32 +0000
-Received: by outflank-mailman (input) for mailman id 279587;
- Fri, 25 Feb 2022 20:12:31 +0000
+	id 1nNhPE-0002lz-QM; Fri, 25 Feb 2022 20:41:36 +0000
+Received: by outflank-mailman (input) for mailman id 279594;
+ Fri, 25 Feb 2022 20:41:35 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nNgx5-0007nM-1H
- for xen-devel@lists.xenproject.org; Fri, 25 Feb 2022 20:12:31 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nNhPD-0002lp-6V; Fri, 25 Feb 2022 20:41:35 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nNgx4-0001X0-Ts; Fri, 25 Feb 2022 20:12:30 +0000
-Received: from 54-240-197-226.amazon.com ([54.240.197.226]
- helo=[192.168.31.13]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nNgx4-0007F0-OI; Fri, 25 Feb 2022 20:12:30 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nNhPD-00022I-4X; Fri, 25 Feb 2022 20:41:35 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nNhPC-0001E5-M3; Fri, 25 Feb 2022 20:41:34 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nNhPC-0006aK-Ld; Fri, 25 Feb 2022 20:41:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,60 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Auvgj0/rbJfyJ5LgCODNKZpgZL4w/Q0O9qQG2SfrTQs=; b=FriGTSWkjjaMTD2iIfiddiNIFW
-	gjT1DhKmKoPLpNXOO5qWqnN1L/Hshzq4kMIlOGOAVoeBriZQ2EKqR8Bu+uWCnoi5hFKrqS67rhZpK
-	oEU0HtaAz7ZkZeTKvWPYG0GiKVisM5iW9Pbgo6+bRBsmDzFhNXfsdvQfsA9GdgNVl850=;
-Message-ID: <4c558f8f-56d4-0445-32d4-169bc5d0a3bc@xen.org>
-Date: Fri, 25 Feb 2022 20:12:28 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.6.1
-Subject: Re: Proposal for Porting Xen to Armv8-R64 - DraftA
-To: Wei Chen <Wei.Chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Penny Zheng <Penny.Zheng@arm.com>, Henry Wang <Henry.Wang@arm.com>,
- nd <nd@arm.com>
-References: <PAXPR08MB7420A01809B84E04E196793F9E3D9@PAXPR08MB7420.eurprd08.prod.outlook.com>
- <alpine.DEB.2.22.394.2202241606450.239973@ubuntu-linux-20-04-desktop>
- <AS1PR08MB74269923288B75097392BDD99E3E9@AS1PR08MB7426.eurprd08.prod.outlook.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <AS1PR08MB74269923288B75097392BDD99E3E9@AS1PR08MB7426.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=GpW5mJCNNbsnxZCoUNucgcY1MVxiBbiu/zssEkHyfgM=; b=vI8jH5WGfj6mJQXV4THlyZyMQM
+	aROhYRbLvzMssO3efIWUrHR0mq0D5PQofEvsmvQzTtdUMs2OjrTxTobFkGSSb20h0TWMe9MVXErO1
+	TbY1ffnDISzG9g69ljgsHQNR1nRzcVvij5phxZr0H9QogDfKvDjbUQVI+0UlpR5TzDXA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168232-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 168232: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=54cddc3ad4b3a317985ce5f491f9b1f31ab10dd8
+X-Osstest-Versions-That:
+    ovmf=b24306f15daa2ff8510b06702114724b33895d3c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 25 Feb 2022 20:41:34 +0000
 
-Hi Wei,
+flight 168232 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168232/
 
-On 25/02/2022 10:48, Wei Chen wrote:
->> >     Armv8-R64 can support max to 256 MPU regions. But that's just
->> theoretical.
->> >     So we don't want to define `pr_t mpu_regions[256]`, this is a memory
->> waste
->> >     in most of time. So we decided to let the user specify through a
->> Kconfig
->> >     option. `CONFIG_ARM_MPU_EL1_PROTECTION_REGIONS` default value can be
->> `32`,
->> >     it's a typical implementation on Armv8-R64. Users will recompile Xen
->> when
->> >     their platform changes. So when the MPU changes, respecifying the
->> MPU
->> >     protection regions number will not cause additional problems.
->> 
->> I wonder if we could probe the number of MPU regions at runtime and
->> dynamically allocate the memory needed to store them in arch_vcpu.
->> 
-> 
-> We have considered to used a pr_t mpu_regions[0] in arch_vcpu. But it seems
-> we will encounter some static allocated arch_vcpu problems and sizeof issue.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 54cddc3ad4b3a317985ce5f491f9b1f31ab10dd8
+baseline version:
+ ovmf                 b24306f15daa2ff8510b06702114724b33895d3c
 
-Does it need to be embedded in arch_vcpu? If not, then we could allocate 
-memory outside and add a pointer in arch_vcpu.
+Last test of basis   168185  2022-02-21 15:43:05 Z    4 days
+Testing same since   168232  2022-02-25 16:10:29 Z    0 days    1 attempts
 
-Cheers,
+------------------------------------------------------------
+People who touched revisions under test:
+  Ard Biesheuvel <ardb@kernel.org>
 
--- 
-Julien Grall
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   b24306f15d..54cddc3ad4  54cddc3ad4b3a317985ce5f491f9b1f31ab10dd8 -> xen-tested-master
 
