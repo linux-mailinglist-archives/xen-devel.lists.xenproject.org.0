@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7044B4C486C
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Feb 2022 16:14:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.279178.476770 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76E404C486A
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Feb 2022 16:14:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.279179.476781 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNcHt-0006xz-AF; Fri, 25 Feb 2022 15:13:41 +0000
+	id 1nNcHw-0007FX-LT; Fri, 25 Feb 2022 15:13:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 279178.476770; Fri, 25 Feb 2022 15:13:41 +0000
+Received: by outflank-mailman (output) from mailman id 279179.476781; Fri, 25 Feb 2022 15:13:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNcHt-0006vd-6e; Fri, 25 Feb 2022 15:13:41 +0000
-Received: by outflank-mailman (input) for mailman id 279178;
- Fri, 25 Feb 2022 15:13:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nNcHw-0007Cb-H3; Fri, 25 Feb 2022 15:13:44 +0000
+Received: by outflank-mailman (input) for mailman id 279179;
+ Fri, 25 Feb 2022 15:13:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=E0Ll=TI=citrix.com=prvs=04808661d=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nNcHr-0006fy-1B
- for xen-devel@lists.xenproject.org; Fri, 25 Feb 2022 15:13:39 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 81401bbd-964d-11ec-8539-5f4723681683;
- Fri, 25 Feb 2022 16:13:38 +0100 (CET)
+ id 1nNcHv-0007Bf-Af
+ for xen-devel@lists.xenproject.org; Fri, 25 Feb 2022 15:13:43 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 834855a0-964d-11ec-8eb9-a37418f5ba1a;
+ Fri, 25 Feb 2022 16:13:41 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,49 +36,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81401bbd-964d-11ec-8539-5f4723681683
+X-Inumbo-ID: 834855a0-964d-11ec-8eb9-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1645802017;
+  d=citrix.com; s=securemail; t=1645802021;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=e4dSMew7ThkfUT4VBhxHq8D2hkxwuVvIslum+Yj9ZTA=;
-  b=ZFdXX2wSzk61xpbrtkxhazU3pLODbgJyrkpmt0aORNUirUMtjbJ93W0X
-   RAJDtAF1W7n3UMETtbCwA6eGSGZH5sb6vjisIQgL++kYSO0zvmN4f1JAW
-   /SFfrqjxfX4/96Os9zGKRTweuWSwmQhhdPORnvTGWym7fEZ00dgMJsM8B
+  bh=SYJTJIKxHEFQcMKNpvz4kHz4LT/E8ZyffBaU/35UM+o=;
+  b=fxVxyUnGDPXgWIBjQSHfUYV+H9HbwWLe/COFKCKBGoNFTdQFF861SSoB
+   uVSG2fC4vZ+W2PEimi/1BLDXLvbG24gIqrCsGksohAJ5/QbPgGHrxoqx0
+   mxH/8egw8AImXfPI8DErHqVw7O4FXx4xhBz8kzxlpF2gPM7nPinbDQFWD
    o=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 5.1
-X-MesageID: 64890228
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 64998366
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:+mI2eKNid+sPdhzvrR3Ol8FynXyQoLVcMsEvi/4bfWQNrUoi0TEPz
- jZKWjjUOPmCY2HyLo11aI7k9EkFvZ/XydUwTQto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdleF+lH1dOKJQUBUjclkfJKlYAL/En03FFcMpBsJ00o5wbZj2NMw27BVPivW0
- T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
- 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Z5
- 8lIiZi8WBcQYY7hmcEQAl5JFjtvBPgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
- 7pCcmlLN03dwbLtqF64YrAEasALJc/3PIQZqzd4wCvQF/oOSpHfWaTao9Rf2V/cg+gQQaaPP
- 5BDOVKDajz+Yz9pKE8mVal9t/mNuUfSIhBRgnG88P9fD2/7k1UqjemF3MDuUsOObdVYmACfv
- G2u13T0BFQWOcKSzRKB82mwnanfkCXjQoUQGbaksPlwjzWuKnc7UUNMEwHh+L/g1xD4C4k3x
- 1EoFjQGgrQ3yEinX8nEAD6VoVuJ71kNXsBBKrhvgO2S8Zb87wGcD2kCazdObt06qcM7LQAXO
- k+1c8DBXmI27uDMIZ6J3vLN9G7pZ3BJRYMXTXJcFWM4D8/fTJbfZ/4lZvJqC+aLg9L8AlkcK
- Bja/XFl193/YSPmvphXHGwrYRrw9/AlrSZvv207u15JCCsjNeZJgKTytDDmAQ5odtrxc7V4l
- CFsdzKixO4PF4qRsyeGXf8AGrqkj97cbmGB3gI2Q8R5r2z1k5JGQWy2yGsvTKuOGpxZEQIFn
- WeJ4V8BjHOtFCHCgVBLj3KZVJ1xkPmI+SXNXfHIdNteCqWdhyfclByCkXW4hji3+GB1yPlXE
- c7CLa6EUCZLYYw6nWHeb7pMjtcWKtUWmDq7qWbTlE/8j9JzpRe9FN84Dbd5RrthvfPc/V6Mq
- I432gnj40w3bdASqxL/qeY7RW3m51BgbXwqg6S7rtK+Hzc=
-IronPort-HdrOrdr: A9a23:otMmpqBLcDW9H/DlHemq55DYdb4zR+YMi2TC1yhKJiC9Ffbo8P
- xG/c5rrCMc5wxxZJhNo7290ey7MBHhHP1OkO0s1NWZPDUO0VHAROoJ0WKh+UyEJ8SXzJ866U
- 4KScZD4bPLYWSS9fyKgzWFLw==
+IronPort-Data: A9a23:OJpQDqqeqBn9aMkcTQo0yxXXTz5eBmIcZRIvgKrLsJaIsI4StFCzt
+ garIBmFb/uDMGKjfN8lPdixpk4F6sTcy9FmSFFt+CsxEH5B8ZuZCYyVIHmrMnLJJKUvbq7GA
+ +byyDXkBJppJpMJjk71atANlVEliefQAOCU5NfsYkidfyc9IMsaoU8lyrZRbrJA24DjWVvX4
+ 46q+aUzBXf+s9JKGjNMg068gEsHUMTa4Fv0aXRnOJinFHeH/5UkJMp3yZOZdhMUcaENdgKOf
+ M7RzanRw4/s10xF5uVJMFrMWhZirrb6ZWBig5fNMkSoqkAqSicais7XOBeAAKv+Zvrgc91Zk
+ b1wWZKMpQgBGqPou8pFFCRjCiBcD6ZZor7uBFWyvpnGp6HGWyOEL/RGCUg3OcsT+/ptAHEI/
+ vsdQNwPRknd3aTsmuv9E7QywJR4RCXoFNp3VnVIxDfFDfEgUNbbTr/D/9Nw1zYsnMFeW/3ZY
+ qL1bBIxMEWRM0YRZD/7DrogkteLhUHQLQdd8niz+LA35Gbz8hFIhe2F3N39JYXRGJQ9clyjj
+ n3C13T0BFcdLtP34TiP/2+oh+TPtTjmQ49UH7q9ntZ6jVvWymENBRk+UVqgveL/mkO4Q8hYK
+ UEf5mwpt6dayaCwZoCjBVvi+ifC50NCHYoLewEn1O2T4o7axyW3Xi85dSdASu4tq5U3bBkH2
+ 1DcyrsFGgdTmLGSTHuc8JKdojWzJTUZIAc+WMMUcecWy4K9+d9u13ojWv4mSffo1YOtRVkc1
+ hjX9HBWulkFsSIcO0xXF3jjiinkmJXGRxVdCu7/DjP8tVMRiGJIiuWVBbnnARRocNfxorqp5
+ iFsdy2iAAYmV8DleMulGrhlIV1Rz6zZWAAweHY2d3Xbyxyj+mS4Yadb6yxkKUFiP64sIGG1P
+ RCP4F8MvMcLZBNGiJObharrWqzGKoC6SLzYug38NIISMvCdiifdlM2RWaJg9z+0yxV9+U3OE
+ ZyabdytHR4n5VdPl1KLqxMm+eZznEgWnDqLLbiilkjP+efONRa9FOZeWHPTP79R0U9xiFiMm
+ zqpH5DRkEs3vSyXSnS/zLP/2nhRdSlrXc2t8pcPHgNBSyI/cFwc5zbq6etJU+RYc259z48kI
+ lnVtpdk9WfC
+IronPort-HdrOrdr: A9a23:1LyF2K5qTKylOhj0YgPXwPDXdLJyesId70hD6qhwISY6TiX+rb
+ HJoB17726NtN9/YhEdcLy7VJVoBEmskKKdgrNhWotKPjOW21dARbsKheCJrgEIWReOktK1vZ
+ 0QCpSWY+eQMbEVt6nHCXGDYrQd/OU=
 X-IronPort-AV: E=Sophos;i="5.90,136,1643691600"; 
-   d="scan'208";a="64890228"
+   d="scan'208";a="64998366"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [XEN PATCH v2 03/29] tools/examples: cleanup Makefile
-Date: Fri, 25 Feb 2022 15:12:55 +0000
-Message-ID: <20220225151321.44126-4-anthony.perard@citrix.com>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>
+Subject: [XEN PATCH v2 04/29] tools/firmware/hvmloader: rework Makefile
+Date: Fri, 25 Feb 2022 15:12:56 +0000
+Message-ID: <20220225151321.44126-5-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220225151321.44126-1-anthony.perard@citrix.com>
 References: <20220225151321.44126-1-anthony.perard@citrix.com>
@@ -86,89 +90,79 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-Don't check if a target exist before installing it. For directory,
-install doesn't complain, and for file it would prevent from updating
-them. Also remove the existing loop and instead install all files with
-a single call to $(INSTALL_DATA).
+Setup proper dependencies with libacpi so we don't need to run "make
+hvmloader" in the "all" target. ("build.o" new prerequisite isn't
+exactly proper but a side effect of building the $(DSDT_FILES) is to
+generate the "ssdt_*.h" needed by "build.o".)
 
-Remove XEN_CONFIGS-y which isn't used.
+Make use if "-iquote" instead of a plain "-I".
 
-Remove "build" target.
-
-Add an empty line after the first comment. The comment isn't about
-$(XEN_READMES), it is about the makefile as a whole.
+For "roms.inc" target, use "$(SHELL)" instead of plain "sh". And use
+full path to "mkhex" instead of a relative one. Lastly, add "-f" flag
+to "mv", in case the target already exist.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
+ tools/firmware/hvmloader/Makefile | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-Notes:
-    v2:
-    - remove existing loops in install targets and use a single call to
-      $(INSTALL_DATA) to install multiple files.
-
- tools/examples/Makefile | 25 ++++++-------------------
- 1 file changed, 6 insertions(+), 19 deletions(-)
-
-diff --git a/tools/examples/Makefile b/tools/examples/Makefile
-index 14e24f4cb3..c839bf5603 100644
---- a/tools/examples/Makefile
-+++ b/tools/examples/Makefile
-@@ -2,6 +2,7 @@ XEN_ROOT = $(CURDIR)/../..
- include $(XEN_ROOT)/tools/Rules.mk
+diff --git a/tools/firmware/hvmloader/Makefile b/tools/firmware/hvmloader/Makefile
+index b754220839..fc20932110 100644
+--- a/tools/firmware/hvmloader/Makefile
++++ b/tools/firmware/hvmloader/Makefile
+@@ -60,8 +60,7 @@ ROMS += $(ROMBIOS_ROM) $(STDVGA_ROM) $(CIRRUSVGA_ROM)
+ endif
  
- # Xen configuration dir and configs to go there.
-+
- XEN_READMES = README
- 
- XEN_CONFIGS += xlexample.hvm
-@@ -10,14 +11,9 @@ XEN_CONFIGS += xlexample.pvhlinux
- XEN_CONFIGS += xl.conf
- XEN_CONFIGS += cpupool
- 
--XEN_CONFIGS += $(XEN_CONFIGS-y)
--
  .PHONY: all
- all:
+-all: acpi
+-	$(MAKE) hvmloader
++all: hvmloader
  
--.PHONY: build
--build:
--
- .PHONY: install
- install: all install-readmes install-configs
+ .PHONY: acpi
+ acpi:
+@@ -73,12 +72,15 @@ smbios.o: CFLAGS += -D__SMBIOS_DATE__="\"$(SMBIOS_REL_DATE)\""
+ ACPI_PATH = ../../libacpi
+ DSDT_FILES = dsdt_anycpu.c dsdt_15cpu.c dsdt_anycpu_qemu_xen.c
+ ACPI_OBJS = $(patsubst %.c,%.o,$(DSDT_FILES)) build.o static_tables.o
+-$(ACPI_OBJS): CFLAGS += -I. -DLIBACPI_STDUTILS=\"$(CURDIR)/util.h\"
++$(ACPI_OBJS): CFLAGS += -iquote . -DLIBACPI_STDUTILS=\"$(CURDIR)/util.h\"
+ CFLAGS += -I$(ACPI_PATH)
+ vpath build.c $(ACPI_PATH)
+ vpath static_tables.c $(ACPI_PATH)
+ OBJS += $(ACPI_OBJS)
  
-@@ -26,12 +22,8 @@ uninstall: uninstall-readmes uninstall-configs
++$(DSDT_FILES): acpi
++build.o: $(DSDT_FILES)
++
+ hvmloader: $(OBJS) hvmloader.lds
+ 	$(LD) $(LDFLAGS_DIRECT) -N -T hvmloader.lds -o $@ $(OBJS)
  
- .PHONY: install-readmes
- install-readmes:
--	[ -d $(DESTDIR)$(XEN_CONFIG_DIR) ] || \
--		$(INSTALL_DIR) $(DESTDIR)$(XEN_CONFIG_DIR)
--	set -e; for i in $(XEN_READMES); \
--	    do [ -e $(DESTDIR)$(XEN_CONFIG_DIR)/$$i ] || \
--	    $(INSTALL_DATA) $$i $(DESTDIR)$(XEN_CONFIG_DIR); \
--	done
-+	$(INSTALL_DIR) $(DESTDIR)$(XEN_CONFIG_DIR)
-+	$(INSTALL_DATA) $(XEN_READMES) $(DESTDIR)$(XEN_CONFIG_DIR)
+@@ -87,21 +89,21 @@ roms.inc: $(ROMS)
  
- .PHONY: uninstall-readmes
- uninstall-readmes:
-@@ -39,14 +31,9 @@ uninstall-readmes:
+ ifneq ($(ROMBIOS_ROM),)
+ 	echo "#ifdef ROM_INCLUDE_ROMBIOS" >> $@.new
+-	sh ../../misc/mkhex rombios $(ROMBIOS_ROM) >> $@.new
++	$(SHELL) $(XEN_ROOT)/tools/misc/mkhex rombios $(ROMBIOS_ROM) >> $@.new
+ 	echo "#endif" >> $@.new
+ endif
  
- .PHONY: install-configs
- install-configs: $(XEN_CONFIGS)
--	[ -d $(DESTDIR)$(XEN_CONFIG_DIR) ] || \
--		$(INSTALL_DIR) $(DESTDIR)$(XEN_CONFIG_DIR)
--	[ -d $(DESTDIR)$(XEN_CONFIG_DIR)/auto ] || \
--		$(INSTALL_DIR) $(DESTDIR)$(XEN_CONFIG_DIR)/auto
--	set -e; for i in $(XEN_CONFIGS); \
--	    do [ -e $(DESTDIR)$(XEN_CONFIG_DIR)/$$i ] || \
--	    $(INSTALL_DATA) $$i $(DESTDIR)$(XEN_CONFIG_DIR); \
--	done
-+	$(INSTALL_DIR) $(DESTDIR)$(XEN_CONFIG_DIR)
-+	$(INSTALL_DIR) $(DESTDIR)$(XEN_CONFIG_DIR)/auto
-+	$(INSTALL_DATA) $(XEN_CONFIGS) $(DESTDIR)$(XEN_CONFIG_DIR)
+ ifneq ($(STDVGA_ROM),)
+ 	echo "#ifdef ROM_INCLUDE_VGABIOS" >> $@.new
+-	sh ../../misc/mkhex vgabios_stdvga $(STDVGA_ROM) >> $@.new
++	$(SHELL) $(XEN_ROOT)/tools/misc/mkhex vgabios_stdvga $(STDVGA_ROM) >> $@.new
+ 	echo "#endif" >> $@.new
+ endif
+ ifneq ($(CIRRUSVGA_ROM),)
+ 	echo "#ifdef ROM_INCLUDE_VGABIOS" >> $@.new
+-	sh ../../misc/mkhex vgabios_cirrusvga $(CIRRUSVGA_ROM) >> $@.new
++	$(SHELL) $(XEN_ROOT)/tools/misc/mkhex vgabios_cirrusvga $(CIRRUSVGA_ROM) >> $@.new
+ 	echo "#endif" >> $@.new
+ endif
+-	mv $@.new $@
++	mv -f $@.new $@
  
- .PHONY: uninstall-configs
- uninstall-configs:
+ .PHONY: clean
+ clean:
 -- 
 Anthony PERARD
 
