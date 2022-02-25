@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 261284C3FCC
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Feb 2022 09:11:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.278778.476151 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 981C04C3FCF
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Feb 2022 09:12:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.278783.476162 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNVhU-0006iE-18; Fri, 25 Feb 2022 08:11:40 +0000
+	id 1nNViW-0007Gi-BR; Fri, 25 Feb 2022 08:12:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 278778.476151; Fri, 25 Feb 2022 08:11:39 +0000
+Received: by outflank-mailman (output) from mailman id 278783.476162; Fri, 25 Feb 2022 08:12:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nNVhT-0006gN-Sa; Fri, 25 Feb 2022 08:11:39 +0000
-Received: by outflank-mailman (input) for mailman id 278778;
- Fri, 25 Feb 2022 08:11:38 +0000
+	id 1nNViW-0007E3-74; Fri, 25 Feb 2022 08:12:44 +0000
+Received: by outflank-mailman (input) for mailman id 278783;
+ Fri, 25 Feb 2022 08:12:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JTA2=TI=gmail.com=baijiaju1990@srs-se1.protection.inumbo.net>)
- id 1nNVhS-0006gH-5J
- for xen-devel@lists.xenproject.org; Fri, 25 Feb 2022 08:11:38 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=RDkG=TI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1nNViU-0007Dq-4i
+ for xen-devel@lists.xenproject.org; Fri, 25 Feb 2022 08:12:42 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8d40efaf-9612-11ec-8eb8-a37418f5ba1a;
- Fri, 25 Feb 2022 09:11:36 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id d28so3227302wra.4
- for <xen-devel@lists.xenproject.org>; Fri, 25 Feb 2022 00:11:37 -0800 (PST)
-Received: from localhost.localdomain ([64.64.123.58])
- by smtp.gmail.com with ESMTPSA id
- m13-20020a05600c3b0d00b0037c00e01771sm5215190wms.34.2022.02.25.00.11.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 25 Feb 2022 00:11:35 -0800 (PST)
+ id b378e84d-9612-11ec-8eb8-a37418f5ba1a;
+ Fri, 25 Feb 2022 09:12:40 +0100 (CET)
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ (mail-am5eur02lp2055.outbound.protection.outlook.com [104.47.4.55]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-7-D9MGV2fxMH2jSVdXog5zOg-1; Fri, 25 Feb 2022 09:12:39 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VE1PR04MB6542.eurprd04.prod.outlook.com (2603:10a6:803:123::32)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.25; Fri, 25 Feb
+ 2022 08:12:36 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::d479:b728:345c:bd65%6]) with mapi id 15.20.5017.025; Fri, 25 Feb 2022
+ 08:12:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,105 +51,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d40efaf-9612-11ec-8eb8-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id;
-        bh=UBLS7I7dklf7q80OfnsV44HmdpezS2KIc4AWPPfOP04=;
-        b=VmMDQhXZmW4KDOJcfBmlCBg33brjp9/FsvEsQq7AffkbjS1GeappduvSErrFoHJCPH
-         4xVqaTIfaNjdXXrn4CqxUSvsL006OkvNj7yqrfLpVd0Z52/JQ9gUjeWYtz6Yc68FhtKG
-         jU3N4MsHypNSnstReXP0RnnZO9RTAkFEYromKyn1uYaGYpphZXkwPGdSSNFabKe6EIt8
-         HWw6x1CDGsRjItQCpqpsawyGOJTtoQXC/t9q7nIvSAyArxgpm+fJA5mQDoCdHb6QKqG8
-         0M5wBFSvZP1A6mkfw5cvFRmDYS2qleDoxRbH7NoIo7DqZs2OKcFLHEKhujpMyzKbT9OI
-         zsEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id;
-        bh=UBLS7I7dklf7q80OfnsV44HmdpezS2KIc4AWPPfOP04=;
-        b=R8/Z2xc76hAcftCMRU7m1YSvDyPAgEn1uk0d8GB31md2Ks/HM6KGD3RotdBYUtaAa3
-         CLDq/kDYRR0ooJzw59CcZmF5YVPxsdRTMqH4Z4TgE+DPw9YknQcIsu0r/7G77uSxfai5
-         K9FfhawoHJXXvbsPb1GkZHfxN92/iT9Yluo2wtnjTGtMWqpgwTwASyt37OaoKkj4e8lq
-         7TX1Hcgw3t+l2G6LzrvTmAXZGu4SA9dRkr9GcWZK4Zx7v1ObuQd5qiFZiHHTskye81ik
-         u2CDiH8k1869e2MY81AsMw1n5aty7WPGKKPZoZzlNosgde6Z6GGZGk5KhiKKzqmV/LqA
-         mtFA==
-X-Gm-Message-State: AOAM532nT3nmCG5pfiu11Y/D1PwCR3VWLVuB0RZfsMJLfLUpsWXIM/I0
-	APq+q8XBmtrGGMtLiY5looc=
-X-Google-Smtp-Source: ABdhPJyCDoikK7f54V0mXZagQeuhGKw7xJp/PtqFade8F1gSuFIJPWK8WRRBh+uUcFbVeU632u363Q==
-X-Received: by 2002:a5d:6389:0:b0:1ed:bc35:cda4 with SMTP id p9-20020a5d6389000000b001edbc35cda4mr5307355wru.350.1645776696385;
-        Fri, 25 Feb 2022 00:11:36 -0800 (PST)
-From: Jia-Ju Bai <baijiaju1990@gmail.com>
-To: boris.ostrovsky@oracle.com,
-	jgross@suse.com,
-	sstabellini@kernel.org,
-	tglx@linutronix.de,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	hpa@zytor.com
-Cc: x86@kernel.org,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org,
-	Jia-Ju Bai <baijiaju1990@gmail.com>
-Subject: [PATCH] arch: x86: xen: check the return value of kasprintf()
-Date: Fri, 25 Feb 2022 00:11:21 -0800
-Message-Id: <20220225081121.18803-1-baijiaju1990@gmail.com>
-X-Mailer: git-send-email 2.17.1
+X-Inumbo-ID: b378e84d-9612-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1645776760;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZtSJfUDPTaZX3Ro+9HI1MQjzcDYms16CEya/kgr+EiU=;
+	b=TZZruFp/SGqEXHhLI34UayZD9TITb1+0rHyxiZuNjt4+30g2Av0Ffuha1wHKx6sVTbzRsx
+	4M70GmvBZhCgKyxnv3X2soFDUp/1YXrtw9aB/Cl4nMWFu5Vd5zm4BJmLbguLNlNdaIAsQL
+	ZEBxcLRvpwhW3/3rJwXfC0GxXVJIvXs=
+X-MC-Unique: D9MGV2fxMH2jSVdXog5zOg-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KJyPUqFTsiq1KQJKlM/tIVjPscdsOA8hAAYX8cVwJ1nWvD9e4jRfCuzulxa7+nS5MrshbgetpJL1FBNxmP3phlNrzUo6DNZvMiWVjdWMU7ZdcKWhNtruy1/Lwn80H2DA2YfLofGgsrVAbbjkQ0nniI3qn872MZhVxAam5VabnxOyyO+OdblueqdzrRlpeoo9/OHpoj+0dORSDWkX2AaI5puWsqMh2nh74CUP/3acL9Ep4Zpt1tAb8nChdOc5AwtLtR+PT11lH+TzUEtObZcX3SxUMCmy+l2/rJnTf+6K++fevvkgU9HqD0W6vnRSMcvg8n+Fo50jcC4PCTVOAsfEqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZtSJfUDPTaZX3Ro+9HI1MQjzcDYms16CEya/kgr+EiU=;
+ b=dk5anf7rqdYt/9LwW6bqsCxJ6Yln5AFv+7p2xbUDZ74jP2CwThfVw99+W/PxNeiwsx0AupWEec+57nN0W4Mpe8MW0EpXfPSQmWG8g2x7u2WShwem0XJyoSKCE+kzYlN4WkW30JRtLyilCIeNaUhhv/tGQ8V55o/1Jex1s3t4YaPEPkx282fQb5U6z13ZuBNw8c+ARA5r17k+XgICH0MUg2UaYdAQCyacjdlt4KEUl5P+b5A9lUHs6QhHtzRu+8K3t8yVyOAtb9YWG7VBGHqtv7g+WyOmTF+ayRmW8WBgae8Uvdfbig18Yf8pZ7V09A4bFjnS5Oi6bvoPF256uyuKIg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <cade3f06-4f25-07d6-3090-08a6487ba298@suse.com>
+Date: Fri, 25 Feb 2022 09:12:32 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.1
+Subject: Re: [PATCH v2 2/2] xen/include/public: deprecate GNTTABOP_transfer
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>
+References: <20220203131418.1319-1-jgross@suse.com>
+ <20220203131418.1319-2-jgross@suse.com>
+ <a35bb9ba-e2be-f73e-9272-906bc09d9b6e@xen.org>
+ <93e50bc4-6e53-b753-c520-7d1d0a5a5f5a@suse.com>
+ <7ca05a74-6b65-f9cb-f524-28d700a7d0e4@suse.com>
+ <78543fe5-1dde-41b8-e28d-de2cf22fc87f@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <78543fe5-1dde-41b8-e28d-de2cf22fc87f@xen.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM5PR04CA0008.eurprd04.prod.outlook.com
+ (2603:10a6:206:1::21) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: da837d05-2dae-417c-00ef-08d9f8369435
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6542:EE_
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-Microsoft-Antispam-PRVS:
+	<VE1PR04MB6542F749C73B1B9B5C47BD4FB33E9@VE1PR04MB6542.eurprd04.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	JCnkbxDSzs0aiAl/yNxOk410q1xOc74hvHN5eK3eHHu82VCDNSsH6oAc6WX+TfnLae8pfTVwcpEyJHfDrsHFOj1c6Oew1o4M/Qlq/2T6Dl8awoVavA25zrbxm18fTX1NNcq0kPiGk3QFN19/+DhYy62zZFxriBKWPvdUwDi9cCd7CbDtW4ONww7L21XcOGKFLBR/5ZQs1sRcnh7s/MriF9BnyHzT48RcGA6ufTxZo7ipwrVqLo4v1fQmKpmnrM0GdSzgfcow8PoCFrrUXbQ/m2juFxNtfVJC1ncl4QaggPoDlabrRDlulK/y2+uNv4v02E2EyUE8sCriW0RdlJP2Cj6/9kPkmPBFnPTqJbpXbQvF31eSvHe7pn3jYlYVdXsvrk4SIWpLqmAo2Tgzlnlu3PYqofDdeqlQZVpw2Rq+nydbci/BAnAUH6bFNtwihWzrAz+7ZDLVArg5Su1bXbKrAIAxkKfNhD+c3OYGM8WiA/WzTdq9GefW6V3yvrFfrkOc4+nDmkKeWI67RLGnKzIeCFwD3jbbgN1i+bckdOywsfzVywx1CSPm5bpWlcJtIwk0Mk3VnKeSEn9lmvlJ1aOmf/++mYz5NKm6gF/37mnBc8GmdiCiQucFecnHFbwKldfHTdfrWCoQUsCnuI26vp15Jgii8NhreSVNR/kU8wAboEcvv6c4FKH4xMnPdQz77r5Elb/vYaMU+40Wi8xWWCJCvGMUCHC8vEV6udQz9bq1Cw9qMXgXKzLaVW4tDaSuE/te
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(2616005)(36756003)(86362001)(8936002)(6486002)(5660300002)(83380400001)(6666004)(31686004)(31696002)(54906003)(6916009)(186003)(26005)(6512007)(316002)(38100700002)(53546011)(107886003)(6506007)(2906002)(66946007)(4326008)(66556008)(66476007)(508600001)(8676002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Mko2T0pIcXhmc20xSVU2MWkwMFJ2N1o2eWFVdlFTYWxUMXVCQnIrOCtQMS9h?=
+ =?utf-8?B?RHozWjZQUm9JaUtkQWFYWWd6STRXSnVXdllJempDYVRuMEROS2pZZktYenk1?=
+ =?utf-8?B?dmhTd0ltaUU2c0FjOXRWTnpOM0tNV2pteTdqY2hydUFzUERLTXdSZ0ZIRDVO?=
+ =?utf-8?B?MnIyMUNmMzF4QVJsMmtoWUhhb1FrYnFGYkJVOFRmTWxzRXNnaUN3azFqMmpR?=
+ =?utf-8?B?Vi9KN0FWRXNLbC9sbDdhbUxFUmp3L3BpWlNDSEd4amFvZWxaSFovMU9HamVD?=
+ =?utf-8?B?emx2MTZGZFVpQ1BqKzRkaDVkVEtCeUprbzBjUFpPUGpOVGw5K1ZYRzUzaDhk?=
+ =?utf-8?B?VmRvU1VKcjB5WDJFdWQyc2h5WWdOMUJGYjNUTEo4VGdOZUlvNXl2ZlFYcExW?=
+ =?utf-8?B?aDV6UTJQdmZZUy9rdWxiSXVxbXZOU0FkTEpoWTlrbHh0SUY2amk0Wml0MkxS?=
+ =?utf-8?B?YmNndVd3NnBFajF0L2RIdFpFOEcvcVVtNEpod0xPbGI2dHRWb2tWam9SVUR3?=
+ =?utf-8?B?NVVjdFl4bEZhdGt3RzlGcGZEOW04TFgxdzlFNHZFV0gxcnJpYXMralB0WlZK?=
+ =?utf-8?B?TDVnWmZDWHFBcFRHdTY3KzN4Zkg5Z250cU9FMnZkbHVrSTg2RnpKTi9vZmpo?=
+ =?utf-8?B?Q0p4dHN6bjFNN2dyV2VkencybDEyWWRyOG5peDNEeXR4ODNMcWN3TlVKQUE5?=
+ =?utf-8?B?blV2OEUzbEYwUTIrWDUweS93Witsb2c4d2tNVW4wYWJQZ1BnT2NNUWkxYkdy?=
+ =?utf-8?B?Qm1kSkRNeTJ4YVBHOUFlSk94Tys3anUyS2JTcXV0ZVVsVmE3ZWlOUWdoL0Rm?=
+ =?utf-8?B?dzBDd2RsZGdsSkdHZ3RuNStsUmpBNXA0TXBPbWJ0d3FnQTgwclJRMzdLM1dq?=
+ =?utf-8?B?U1QrazFDLzN4WE50cThLbUVpNStUREFCQzhMK29ySUZTd05pSHR2S0VEUVVU?=
+ =?utf-8?B?TkUzU0d6eGN5UnBta0JqUVlkdDFQcWdlVkNLNkdQTjdZL1BYcmt4dXhkMER1?=
+ =?utf-8?B?RmxRWU5zOWhheFY4S1c1WDc2SFJLRzJoL2VHVkUrTGxVMEJNSVk1SnhVTlNs?=
+ =?utf-8?B?U3pua1pxOXRCbHZKUXBoQmFCYjZKeC9LQkk2aFI1Zkh4b250QzhrbzYrakpZ?=
+ =?utf-8?B?TEl2MmZ2VVJtUGJnS3dPcHorTGtGdkVoU1MxRHhUOE92aW5VSXRwaDA2TVBD?=
+ =?utf-8?B?MWZ1U0NIbTNNWmN5VzNCeDdtSzBFWWJGamhEQmM5QjFHUzdJNW1IK094R1g0?=
+ =?utf-8?B?UDAzNFhFSkVIQ1lwQmQ1RHEybnppL2RFWjliUHdnU25PcnZCa3F6VThkODI0?=
+ =?utf-8?B?Q0loL2k2YTV2UEdTUVhZUVo1MmlJZ1R1VEgzbzBhVEJya2tGUUVhekttMFZq?=
+ =?utf-8?B?NENLM3gvckcvUWU1QmY1dERZcHQxS2pEVnI0MXdWVWpuSlUxcnZZMWtYeHZG?=
+ =?utf-8?B?YjJPRGFDNnhDaHd1d0tBaWJ2d0dlQW01R1pTaENaaVhTK09lcnFNdi9QRGti?=
+ =?utf-8?B?SGc2Rk9iOUVIV0ZZVUtaczB2Ymdhd09SUkVac2JMTFRtS0c4VEozNGl6Z0RS?=
+ =?utf-8?B?VDVSdEtpM2MyaDRFK090bnRtbE5nV0EyaFpiZzFMSU1yYmgvS2JpRVgzWGVS?=
+ =?utf-8?B?aDM3L0g0UTNpV1pTdEJkRG5VSDBhQUVza3VuakFoSW1LQVBoYlQ2L0V0dHM0?=
+ =?utf-8?B?dzREdHNLcHp5RmZVdjNuM0liWVJaMnBHYVM0Q1BGQTUzRGFhVHhucFFjWUNq?=
+ =?utf-8?B?cFlBVGxVdHEwNjA4R1phc0pwNXUrZExaOUphSHNUS2djQ1pQNzUwL1U1SXZO?=
+ =?utf-8?B?c1BReVUxN3ZSVS9mRTNIQXFVSEpyMnVucnNvNzZJck56YmY1MEZ2dXA4Znh6?=
+ =?utf-8?B?SWo2RlI2WXNFeEhLQ0lwSlh1eGs5RDJSWnZvSjRFeUllUGdMRTFIeHBRa3Jq?=
+ =?utf-8?B?MnhPQlBuNVdTZGw5Y1pudXR6UVpJWE5FYyt6aGY1bVNxZlVGOXNzeUM0cW04?=
+ =?utf-8?B?R2RpN29ac1MyME9qVWN4anp2RU51Umh5NXlicHZpMkUvay8yNHJSYjA5OE9Q?=
+ =?utf-8?B?eXkvSW95YjYvcVJwUHp2a0d1TWhWaXR5elJpQ1lqTEdYRE9JN0I1ZllCQjZI?=
+ =?utf-8?B?VkZhYmNFWlcyN0RUOU5kMXl3cHNlVW8ySVAvSjMyK2c4cmNwUFF6WnNUc3l5?=
+ =?utf-8?Q?UPKiOM/aqzSTQVwR67aHASI=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: da837d05-2dae-417c-00ef-08d9f8369435
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Feb 2022 08:12:35.7746
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /t9M56upUyZ5UdH3+1fI0OA/IV8EZRyFer7ZkDqW5wFIZYK4zHYZGSn8EeBwOInmH4v/d2zdE6KpSKUf8z5hRg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6542
 
-The function kasprintf() can fail, but there is no check of its return
-value. To fix this bug, its return value should be checked with new
-error handling code.
+On 24.02.2022 23:55, Julien Grall wrote:
+> On 16/02/2022 09:29, Jan Beulich wrote:
+>> On 16.02.2022 08:20, Juergen Gross wrote:
+>>> On 15.02.22 22:13, Julien Grall wrote:
+>>>> As a side note, should we also update SUPPORT.md?
+>>>
+>>> Good question.
+>>
+>> I'm not sure here either - talking about individual hypercall sub-ops
+>> seems overly small granularity to me for this kind of doc. Plus I
+>> don't view deprecation and de-supporting as the same thing. The latter
+>> would mean to render unsupported any old XenoLinux which may still be
+>> in use, all of the sudden.
+> 
+> I understand this would result to unsupport some old OSes (not clear how 
+> old). However, from what Juergen said this feature is untested.
+> 
+> To me it sound like we are not confident that we could security support 
+> this feature.
+> 
+> So I am not sure to understand why we only want to deprecate it.
 
-Fixes: f87e4cac4f4e ("xen: SMP guest support")
-Fixes: 83b96794e0ea ("x86/xen: split off smp_pv.c")
-Fixes: d5de8841355a ("x86: split spinlock implementations out into their own files")
-Reported-by: TOTE Robot <oslab@tsinghua.edu.cn>
-Signed-off-by: Jia-Ju Bai <baijiaju1990@gmail.com>
----
- arch/x86/xen/smp.c      | 2 ++
- arch/x86/xen/smp_pv.c   | 2 ++
- arch/x86/xen/spinlock.c | 2 ++
- 3 files changed, 6 insertions(+)
+Not sure what to say: Rendering unsupported however old guests is not
+a nice step. Hence my concern (which isn't an outright objection).
 
-diff --git a/arch/x86/xen/smp.c b/arch/x86/xen/smp.c
-index c3e1f9a7d43a..91261390f8c0 100644
---- a/arch/x86/xen/smp.c
-+++ b/arch/x86/xen/smp.c
-@@ -65,6 +65,8 @@ int xen_smp_intr_init(unsigned int cpu)
- 	char *resched_name, *callfunc_name, *debug_name;
- 
- 	resched_name = kasprintf(GFP_KERNEL, "resched%d", cpu);
-+	if (!resched_name)
-+		return -ENOMEM;
- 	rc = bind_ipi_to_irqhandler(XEN_RESCHEDULE_VECTOR,
- 				    cpu,
- 				    xen_reschedule_interrupt,
-diff --git a/arch/x86/xen/smp_pv.c b/arch/x86/xen/smp_pv.c
-index 4a6019238ee7..7d1471fd1267 100644
---- a/arch/x86/xen/smp_pv.c
-+++ b/arch/x86/xen/smp_pv.c
-@@ -118,6 +118,8 @@ int xen_smp_intr_init_pv(unsigned int cpu)
- 	char *callfunc_name, *pmu_name;
- 
- 	callfunc_name = kasprintf(GFP_KERNEL, "irqwork%d", cpu);
-+	if (!callfunc_name)
-+		return -ENOMEM;
- 	rc = bind_ipi_to_irqhandler(XEN_IRQ_WORK_VECTOR,
- 				    cpu,
- 				    xen_irq_work_interrupt,
-diff --git a/arch/x86/xen/spinlock.c b/arch/x86/xen/spinlock.c
-index 043c73dfd2c9..ccdb9eddd93b 100644
---- a/arch/x86/xen/spinlock.c
-+++ b/arch/x86/xen/spinlock.c
-@@ -75,6 +75,8 @@ void xen_init_lock_cpu(int cpu)
- 	     cpu, per_cpu(lock_kicker_irq, cpu));
- 
- 	name = kasprintf(GFP_KERNEL, "spinlock%d", cpu);
-+	if (!name)
-+		return;
- 	irq = bind_ipi_to_irqhandler(XEN_SPIN_UNLOCK_VECTOR,
- 				     cpu,
- 				     dummy_handler,
--- 
-2.17.1
+Jan
 
 
