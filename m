@@ -2,32 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BA3B4C659F
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Feb 2022 10:25:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.280255.478126 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F2814C65AA
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Feb 2022 10:27:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.280264.478138 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nOcGz-0003qg-KZ; Mon, 28 Feb 2022 09:24:53 +0000
+	id 1nOcJS-0004Zc-5k; Mon, 28 Feb 2022 09:27:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 280255.478126; Mon, 28 Feb 2022 09:24:53 +0000
+Received: by outflank-mailman (output) from mailman id 280264.478138; Mon, 28 Feb 2022 09:27:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nOcGz-0003o7-HP; Mon, 28 Feb 2022 09:24:53 +0000
-Received: by outflank-mailman (input) for mailman id 280255;
- Mon, 28 Feb 2022 09:24:52 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1nOcJS-0004Xg-2M; Mon, 28 Feb 2022 09:27:26 +0000
+Received: by outflank-mailman (input) for mailman id 280264;
+ Mon, 28 Feb 2022 09:27:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nOcGy-0003o1-OY
- for xen-devel@lists.xenproject.org; Mon, 28 Feb 2022 09:24:52 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nOcGt-0001WT-Uc; Mon, 28 Feb 2022 09:24:47 +0000
-Received: from 54-240-197-230.amazon.com ([54.240.197.230]
- helo=[192.168.13.237]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nOcGt-0000ow-NY; Mon, 28 Feb 2022 09:24:47 +0000
+ (envelope-from <SRS0=oRDO=TL=nxp.com=peng.fan@srs-se1.protection.inumbo.net>)
+ id 1nOcJQ-0004Xa-KO
+ for xen-devel@lists.xenproject.org; Mon, 28 Feb 2022 09:27:24 +0000
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur02on0611.outbound.protection.outlook.com
+ [2a01:111:f400:fe06::611])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a23f3363-9878-11ec-8539-5f4723681683;
+ Mon, 28 Feb 2022 10:27:23 +0100 (CET)
+Received: from DU0PR04MB9417.eurprd04.prod.outlook.com (2603:10a6:10:358::11)
+ by PAXPR04MB8878.eurprd04.prod.outlook.com (2603:10a6:102:20d::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.25; Mon, 28 Feb
+ 2022 09:27:21 +0000
+Received: from DU0PR04MB9417.eurprd04.prod.outlook.com
+ ([fe80::552c:ed46:26dc:77cc]) by DU0PR04MB9417.eurprd04.prod.outlook.com
+ ([fe80::552c:ed46:26dc:77cc%4]) with mapi id 15.20.4995.018; Mon, 28 Feb 2022
+ 09:27:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,166 +47,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=J9TazujMzOd3uEITzkilChYyt8P6hhqqD1QqS3i3a2M=; b=vtrINLSuUEd2RARdFBGPLYSB55
-	Ba/i7CfTx+lh8yYS6dQFHiyKcjIXoOSxzSVapWyQZlsf7s/elkIJvB+fuZ1YHK32WgYnGckfrJCpL
-	nfIwrH9HTP+PhYevIuXuRWvtovNRBlaXeafPTflBd1H5jCX2YL2od8TzXQUf6FUu0tqQ=;
-Message-ID: <ba77dc96-d421-b775-d5fd-99dc3ea2dfad@xen.org>
-Date: Mon, 28 Feb 2022 09:24:45 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.6.1
-Subject: Re: [PATCH 2/3] xen/arm: Add i.MX lpuart early printk support
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, sstabellini@kernel.org,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
-Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
- wl@xen.org, xen-devel@lists.xenproject.org, van.freenix@gmail.com,
- Peng Fan <peng.fan@nxp.com>
+X-Inumbo-ID: a23f3363-9878-11ec-8539-5f4723681683
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VKaB+L5xGNTzw+2XatZXHvvX42bz9+W49jqRjurSuhAzJlW7kv46njEYU41sxKtp1Tt5XLYa65LGFtWb9eZ3xspUZdJRnhCPQDXsscWNYg0v2KC2/YY1j0kF7y6LXbFX9hWwdvAlmSC/+BLcmGGcjR55Jl/mRhufh5Ye4StKB5I21U35Zz044GMBKGZByuKZHzF11clj+frULgTgqdshAoKA2sgjw0vOdFs+XJ5CwnZkcgJ37qSQYEXuRbsuIMGvgqlJ9R5fJK0RQNw1PdJEBBH0NfWdOv4zyZ9cZwXDpJeBo2Y1+q88/VinqrJm90HQX2oF2KYlW+UUMExxmxCWGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kkAF/lKm2202ZxLaHYCWL2EGRF1rrx+Yawu3jgIjuw8=;
+ b=L6iAUOI3dyBJGd8uNQpCUUWI7G5KPFwGlrEobKzOdCQu7FSt0u3jtmHJKSyOaCO4y1rVYpzU005JJpdO8otag4wBkkg5Z3UHG0SshSBuMhfcY9jVVGtUSGRK883hUw67T9RyZYHweOEc9vRY+/J43x8ziUStfmqjhzELWoS1+a4gJu1knvVQUnUX0WED0ChUZYHfaX4ZMmtYjLXkMBAW9Ccb2EwCscNt1ntNOoO+jGTDFMqeODKeG8f5wFrSVfmZLtqQjBGR7VYJr+ZsV5MG6RXIZZmw2faWu0Czec3SLyojh0pwRzv618wuaKUg3SR6Iu0JuFNsgGKU2Qsy/vIvcQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kkAF/lKm2202ZxLaHYCWL2EGRF1rrx+Yawu3jgIjuw8=;
+ b=KEkrNHKm2egh9q0taquRrfjLLHGyjLA8yeFqb+M4hA7YdILeIg5/2Jsj3OjoTLBRqJ8fWXn6ebHIiW4MSt9IS18htTD51ERlEaxp8VUa5hkycNz2qvF+REkzT+cmfXacfF6no0rkdJsn0Smw3DqgiuOjp+lukJqvngNBJfBQq1Q=
+From: Peng Fan <peng.fan@nxp.com>
+To: Julien Grall <julien@xen.org>, "Peng Fan (OSS)" <peng.fan@oss.nxp.com>,
+	"sstabellini@kernel.org" <sstabellini@kernel.org>,
+	"Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
+	"bertrand.marquis@arm.com" <bertrand.marquis@arm.com>
+CC: "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+	"george.dunlap@citrix.com" <george.dunlap@citrix.com>, "jbeulich@suse.com"
+	<jbeulich@suse.com>, "wl@xen.org" <wl@xen.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"van.freenix@gmail.com" <van.freenix@gmail.com>
+Subject: RE: [PATCH 1/3] xen/arm: Add i.MX lpuart driver
+Thread-Topic: [PATCH 1/3] xen/arm: Add i.MX lpuart driver
+Thread-Index: AQHYLDnx328AZbWyq02DiYDlO7tvpKyosDCAgAAA+dA=
+Date: Mon, 28 Feb 2022 09:27:21 +0000
+Message-ID:
+ <DU0PR04MB94177B6A7BC34EA6590FF37B88019@DU0PR04MB9417.eurprd04.prod.outlook.com>
 References: <20220228010711.11566-1-peng.fan@oss.nxp.com>
- <20220228010711.11566-3-peng.fan@oss.nxp.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20220228010711.11566-3-peng.fan@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <20220228010711.11566-2-peng.fan@oss.nxp.com>
+ <16bef21e-42b3-c271-81ab-1d87453a0fdb@xen.org>
+In-Reply-To: <16bef21e-42b3-c271-81ab-1d87453a0fdb@xen.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 20c05cca-ee7d-48b4-3614-08d9fa9c85bd
+x-ms-traffictypediagnostic: PAXPR04MB8878:EE_
+x-microsoft-antispam-prvs:
+ <PAXPR04MB8878F1DBA6656C92BC04E0C088019@PAXPR04MB8878.eurprd04.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ agCmE55MEYyk/+yYgR2QxgJ3BT59pNOhZGqEGreU6sve1hBXS7t2opLDjVfj+EtkrvRVrG/QclcnAz5cfq1x+ahyIv/Z4oTAbGytEDvEsVNGUIuZkLcf6Ab3RxcWlHKSZ/r002oQL7I37k/LQPTWugZsyw1jA1KtJVFOAxxnfnAkPbeEHrP/IdYrbLHHfFsXIaj5JHY5IXhCc546MYPp46saL3nuyVbhUeUy5AT5RDVmzDs4U457SA/PaW5SrjyDIBSltT7ISxmCzHsNxqKC7ZQIE1ojsMOvoWI5gjp1lJphgc3hqhx5tcnynApbL0dAtc/h/JYN4rcJgr9zAAbBHrtUlXGZ7jbVdyaY+cFXMnSNyqQYOnaSc4okR2uSPG1QWcRQh0uksEZWvi6Vfx6MW3DaATRFO7naLVc+FcGPQwuxbrmPGIbjx/kwsvZZJCIZRGgjGfgfvRHgEXokMI0CBfv/Lw4vOcDKiEV1vmiXUieLER+d5b9an8xBqVnFYOsPk/ZphIV7pAHw1iOgCPUznsYpGBaxVUs2YUTPzpxte7o2YPGeM48i69ovpqFUuC1FDgZ01dF9eL5R0vWvqyGnXHXfkj58iEGy8oEuJTGw8P2k/SLiGxg3pFANqgPo0shhHdKyMq/5KFk0xlphwIXeZSfaKKdhrvVMUdjYuDI5eAg9Xc4chuehQhe7HegfUBtS4breJQjZm909/BoHV6QEuwXVae6FhOxcJJTLzxsoQPNdn7dnFp71anqk52DxbzGpCzUBSpFean7tnmeZi/tn3nWI2K3zB1920NpDKZZw0Csv6mVc6IN13FMGtUc5KE99LLIz0US6akU8rXnud4wNPg==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0PR04MB9417.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(66556008)(66946007)(64756008)(966005)(508600001)(71200400001)(55016003)(122000001)(8676002)(4326008)(38070700005)(76116006)(66476007)(54906003)(110136005)(53546011)(6506007)(26005)(2906002)(9686003)(7696005)(186003)(7416002)(86362001)(5660300002)(316002)(66446008)(38100700002)(8936002)(33656002)(44832011)(4744005)(83380400001)(52536014);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?YVdmT1JYM1BZckJBQnBQdHlFZm56NC9qckd2dnV5NFVyWW80MGZZZGZGelE2?=
+ =?utf-8?B?MU9VYlRkRGNmeGN2MStFMUt0VXJSZ2EwR3VZTEpwNUpqSXBKMVhRcWR6Y2FZ?=
+ =?utf-8?B?RnlRWlA3QWtnd0dkV3lsUEhDaW9RQU5OY3ZCU1g4WHFJeVcwZGRhQ0FpRWF2?=
+ =?utf-8?B?ZWE4NmU1RDY3QlNYbnI3SEdOOExOSzdZUWJ2MEpKZFBvRHNzcWxSN3I5aHNG?=
+ =?utf-8?B?MCtEYndJeDZaMHREbVRXalp1Tk9wVzYwUUIwOVhEa1Zib2NCV1h5S0pzck9O?=
+ =?utf-8?B?THY0YThYRGJFWlRwTHY5THBTRDVMTFB0VjNEVmVCZWlFeVkwTUpPZFAyb1Fz?=
+ =?utf-8?B?Wnl0RmFmaGQ3UEFucHB3OXN4b0xEWXc1Ylp4bXR0Ykd0SFp0SHFoWjZDcHhk?=
+ =?utf-8?B?NVZrU2lXblRoU1A4OUJMWko3a0pQcnEvUW5yRjh4SlRxNS96RHlWR0haeXRw?=
+ =?utf-8?B?VThCdks4SnlZaVBwUHVmcW94bjJQaW9jamVxNnBZeDByUVFjd1poeFhDcmxo?=
+ =?utf-8?B?c3A3dzM3Zkt3cEdHV3dZVlcwdkpkY2tMTzhnY0p2c2dzYjNGSFNMWHk1RWpW?=
+ =?utf-8?B?cHRtL0Nndm9QQ0NwTHpzNnR0MWRBbXhkNGhKbHRVN0NtZmpWNk5GNWQ2VU5n?=
+ =?utf-8?B?emY3dCtYN1JlRzMwMzB5YVdoTDJodENoOFlVNXRXeUZVZW5RZzhpdENQR2dh?=
+ =?utf-8?B?T1lUSmpzc285SmU0RUxNd1FTVVJtV0orTzROUi9vVWQ3MVBWRUtUVzB1THVM?=
+ =?utf-8?B?TVl4dmphVXY1ejBEcWhEY1FvUGt2dDNOaFhLVkN3TVJWdmJ1MzVDNzUyb3Y4?=
+ =?utf-8?B?cTludUx5RSttclNGdmo4bmRsZlZLMEtRc0JHZHZoVHBGYmVhQUo1ck94Si9D?=
+ =?utf-8?B?RWIvUU44Ymxua0R5UGF5R0RhL05XdTQySldpSWtraFdHMTBjN3JVUVoybGta?=
+ =?utf-8?B?Z0dUOUNSQVkzVzRPWWNmK0hjczdmNUEvOHROeGh5alJuSHk4cWRKK09Rajda?=
+ =?utf-8?B?S3VzYnh6cWREM0FIdDhIZU5SbUVOYUFSWlpLUkU1YXdsMUgvZGgrL1ZFY1cy?=
+ =?utf-8?B?Zm02NkxIdXh0Y2EvRDhFcWducTRlWktQb3BVOUhlaHZBQStHZ1ZvVHNabnRW?=
+ =?utf-8?B?WEo2T1pISFAwZzNWQmw4STN3UE50QlBVUk94UEdSUWZ3TlRweDdGT2VwM3cr?=
+ =?utf-8?B?M29iLzVxS1Era0JoT2lnaEtWVGpKQ2xYREZ0VFNlYXdDK3UxMmplTDVNT1ZC?=
+ =?utf-8?B?RzBNc1J1Z0Q5dmY0a21Sbi9RSHI2bEcwcER6OWYxc2lnTEM1Z29PWkQ2SDZ1?=
+ =?utf-8?B?NFd5eDRiM0FmQy9PWjlrdktTd0dXNzlQK3NrY0VidVk1eFpoL3drbHhYZGxY?=
+ =?utf-8?B?RE9rMXBzblM5VDlBMUd4SldVclN4SHhEcmpndWhHRnI3MlpWZjJkM21pSURT?=
+ =?utf-8?B?ZXhhUWJSQXEvOURGeDBIL2QwUWEzM3Jma2o3Z3ViYTFhV09tSGJQOC9VWk9W?=
+ =?utf-8?B?d2JjMGI4V2lXdSsxN3hFaCtPOUNnZ3IvbXlmVStIVUZtbVk3MzQ4b3pDZW03?=
+ =?utf-8?B?Qi85YzV4SzBCUnB2T3ViT3BmZWd2VDRRK3FVQ2RRZ1hrVTlIdDBVeXJISks3?=
+ =?utf-8?B?VVg3NjI5L1lGUjZSYldzYXhVTzBBc3luMm1US1ZSUko1enA1MlppUm1NeGFM?=
+ =?utf-8?B?MjVIRndjZHM4NDNnNTJmSmxnNmJrOTRCVWFjVGVyUklVcjV4NWhuaVRmYkRk?=
+ =?utf-8?B?QUhSSDVwTDFyYUlDcG90UlhHT1U5OFZ2VmJkRjBIcnJmemE4bERqd0g5eTBW?=
+ =?utf-8?B?RVRIa2FJc0J3S2hXM01RK25MWng5NURubGJMQVZoL3pYKzNFWUVGQTc5ZjBO?=
+ =?utf-8?B?VHRHcEl1elNSUnd2WjhncFU4S1lJV3BtUFcrVlhZbWJyTS9QcFU3eVpVT0lM?=
+ =?utf-8?B?bTJ5Uk44ZzdTNUxNUklSVEJTUzNDN2NqVWpPSVFSdzZiNTJkQUkzUlNUb1NL?=
+ =?utf-8?B?UXdtR1J6MmpkNDFwQjAxdEo4c3krVUNMK3JOVXdrUThaVEszeTkzeTNJWGpW?=
+ =?utf-8?B?Y2RES1BqUkVSTXJ1Q0VDWnFkV3pVL2hVVmFublIrNEZSODBYVU9XRll1bkc0?=
+ =?utf-8?B?UTJvMy9XNUdaL0Q0ZjBMQjYzVEhWY1BIQnNJVE1XdWs4UzhTbnlDUXh3WVJv?=
+ =?utf-8?Q?fjsnxQi4hlTD1AP29UamG4c=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DU0PR04MB9417.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20c05cca-ee7d-48b4-3614-08d9fa9c85bd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Feb 2022 09:27:21.4310
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: +HuHj2x3kHTZrx6BVOg0C65TTdUL7DO+w9FSQfUmEP15sSP+QljIk9MThX3n+HOggBeaCMTQbgssEZxGlPadKg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8878
 
-Hi Peng,
-
-On 28/02/2022 01:07, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
-> 
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
->   xen/arch/arm/Kconfig.debug              | 18 ++++++++++
->   xen/arch/arm/arm64/debug-imx-lpuart.inc | 48 +++++++++++++++++++++++++
->   2 files changed, 66 insertions(+)
->   create mode 100644 xen/arch/arm/arm64/debug-imx-lpuart.inc
-> 
-> diff --git a/xen/arch/arm/Kconfig.debug b/xen/arch/arm/Kconfig.debug
-> index 35ccd13273..9ecb446b3a 100644
-> --- a/xen/arch/arm/Kconfig.debug
-> +++ b/xen/arch/arm/Kconfig.debug
-> @@ -55,6 +55,20 @@ choice
->   			selecting one of the platform specific options below if
->   			you know the parameters for the port.
->   
-> +			This option is preferred over the platform specific
-> +			options; the platform specific options are deprecated
-> +			and will soon be removed.
-> +	config EARLY_UART_CHOICE_IMX_LPUART
-> +		select EARLY_UART_IMX_LPUART
-> +		depends on ARM_64
-> +		bool "Early printk via i.MX LPUART"
-> +		help
-> +			Say Y here if you wish the early printk to direct their
-> +			output to a i.MX LPUART. You can use this option to
-> +			provide the parameters for the i.MX LPUART rather than
-> +			selecting one of the platform specific options below if
-> +			you know the parameters for the port.
-
-Plaform specific early printk are deprecated. So I would rather prefer 
-we are not introducing new one. Can you adjust the description to remove 
-any mention of platform specific options?
-
-> +
->   			This option is preferred over the platform specific
->   			options; the platform specific options are deprecated
->   			and will soon be removed.
-> @@ -186,6 +200,9 @@ config EARLY_UART_CADENCE
->   config EARLY_UART_EXYNOS4210
->   	select EARLY_PRINTK
->   	bool
-> +config EARLY_UART_IMX_LPUART
-> +	select EARLY_PRINTK
-> +	bool
->   config EARLY_UART_MESON
->   	select EARLY_PRINTK
->   	bool
-> @@ -283,6 +300,7 @@ config EARLY_PRINTK_INC
->   	default "debug-8250.inc" if EARLY_UART_8250
->   	default "debug-cadence.inc" if EARLY_UART_CADENCE
->   	default "debug-exynos4210.inc" if EARLY_UART_EXYNOS4210
-> +	default "debug-imx-lpuart.inc" if EARLY_UART_IMX_LPUART
->   	default "debug-meson.inc" if EARLY_UART_MESON
->   	default "debug-mvebu.inc" if EARLY_UART_MVEBU
->   	default "debug-pl011.inc" if EARLY_UART_PL011
-> diff --git a/xen/arch/arm/arm64/debug-imx-lpuart.inc b/xen/arch/arm/arm64/debug-imx-lpuart.inc
-> new file mode 100644
-> index 0000000000..7510210d46
-> --- /dev/null
-> +++ b/xen/arch/arm/arm64/debug-imx-lpuart.inc
-> @@ -0,0 +1,48 @@
-> +/*
-> + * xen/arch/arm/arm64/debug-imx8qm.inc
-> + *
-> + * i.MX8QM specific debug code
-> + *
-> + * Peng Fan <peng.fan@nxp.com>
-> + * Copyright (C) 2016 Freescale Inc.
-> + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License as published by
-> + * the Free Software Foundation; either version 2 of the License, or
-> + * (at your option) any later version.
-> + *
-> + * This program is distributed in the hope that it will be useful,
-> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> + * GNU General Public License for more details.
-> + */
-> +
-> +#include <xen/imx-lpuart.h>
-> +
-> +.macro early_uart_init wb wc wd
-> +/* Already initialized in bootloader */
-> +.endm
-
-NIT: I would add a newline to separate with this macro from next one.
-
-> +/* i.MX8QM wait LPUART to be ready to transmit
-> + * rb: register which contains the UART base address
-> + * rc: scratch register
-> + */
-
-The coding style for multi-lines comment is:
-
-/*
-  * Foo
-  * Bar
-  */
-
-> +.macro early_uart_ready xb, c
-> +1:
-> +        ldr   w\c, [\xb, #UARTSTAT]   /* <- Flag register */
-> +        tst   w\c, #UARTSTAT_TDRE     /* Check FIFO EMPTY bit */
-> +        beq   1b                      /* Wait for the UART to be ready */
-> +.endm
-> +
-> +/* i.MX8QM LPUART transmit character
-> + * rb: register which contains the UART base address
-> + * rt: register which contains the character to transmit */
-
-Coding style:
-
-/*
-  * Foo
-  * Bar
-  */
-
-> +.macro early_uart_transmit xb, wt
-> +        str   \wt, [\xb, #UARTDATA]  /* -> Data Register */
-> +.endm
-> +
-> +/*
-> + * Local variables:
-> + * mode: ASM
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-
-Cheers,
-
--- 
-Julien Grall
+SGkgSnVsaWVuLA0KDQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMS8zXSB4ZW4vYXJtOiBBZGQgaS5N
+WCBscHVhcnQgZHJpdmVyDQo+IA0KPiBIaSBQZW5nLA0KPiANCj4gT24gMjgvMDIvMjAyMiAwMTow
+NywgUGVuZyBGYW4gKE9TUykgd3JvdGU6DQo+ID4gRnJvbTogUGVuZyBGYW4gPHBlbmcuZmFuQG54
+cC5jb20+DQo+IA0KPiBDYW4geW91IGdpdmUgbWUgYSBsaW5rIHRvIHRoZSBzcGVjaWZpY2F0aW9u
+IGFuZC9vciBhIHNpbWlsYXIgZHJpdmVyIGluIExpbnV4Pw0KDQpodHRwczovL3d3dy5ueHAuY29t
+L3dlYmFwcC9Eb3dubG9hZD9jb2xDb2RlPUlNWDhRTUlFQyANCkNoYXRwZXIgMTMuNiBMb3cgUG93
+ZXIgVW5pdmVyc2FsIEFzeW5jaHJvbm91cyBSZWNlaXZlci8NClRyYW5zbWl0dGVyIChMUFVBUlQp
+DQpCdXQgdGhpcyByZXF1aXJlcyByZWdpc3RyYXRpb24gdG8gYWNjZXNzLg0KDQpMaW51eCBkcml2
+ZXI6DQpodHRwczovL2dpdC5rZXJuZWwub3JnL3B1Yi9zY20vbGludXgva2VybmVsL2dpdC90b3J2
+YWxkcy9saW51eC5naXQvdHJlZS9kcml2ZXJzL3R0eS9zZXJpYWwvZnNsX2xwdWFydC5jDQoNCg0K
+VGhhbmtzLA0KUGVuZy4NCg0KPiANCj4gVGhpcyB3b3VsZCBoZWxwIHRvIHJldmlldyB0aGlzIHBh
+dGNoLg0KPiANCj4gQ2hlZXJzLA0KPiANCj4gLS0NCj4gSnVsaWVuIEdyYWxsDQo=
 
