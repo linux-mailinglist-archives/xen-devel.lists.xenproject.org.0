@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8A764C777C
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Feb 2022 19:21:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.280724.478768 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E27A4C7856
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Feb 2022 19:52:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.280731.478779 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nOkch-0005ZV-Sg; Mon, 28 Feb 2022 18:19:51 +0000
+	id 1nOl77-0001Qq-DH; Mon, 28 Feb 2022 18:51:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 280724.478768; Mon, 28 Feb 2022 18:19:51 +0000
+Received: by outflank-mailman (output) from mailman id 280731.478779; Mon, 28 Feb 2022 18:51:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nOkch-0005Xf-Pi; Mon, 28 Feb 2022 18:19:51 +0000
-Received: by outflank-mailman (input) for mailman id 280724;
- Mon, 28 Feb 2022 18:19:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VtgV=TL=gmail.com=this.is.a0lson@srs-se1.protection.inumbo.net>)
- id 1nOkcf-0005XX-Tx
- for xen-devel@lists.xenproject.org; Mon, 28 Feb 2022 18:19:50 +0000
-Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
- [2607:f8b0:4864:20::f35])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 01a01c52-98c3-11ec-8539-5f4723681683;
- Mon, 28 Feb 2022 19:19:48 +0100 (CET)
-Received: by mail-qv1-xf35.google.com with SMTP id d3so13966050qvb.5
- for <xen-devel@lists.xenproject.org>; Mon, 28 Feb 2022 10:19:46 -0800 (PST)
-Received: from development (c-73-166-253-254.hsd1.tx.comcast.net.
- [73.166.253.254]) by smtp.gmail.com with ESMTPSA id
- p20-20020a05620a22b400b00648ca1458b4sm5303454qkh.5.2022.02.28.10.19.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Feb 2022 10:19:44 -0800 (PST)
+	id 1nOl77-0001Pd-A7; Mon, 28 Feb 2022 18:51:17 +0000
+Received: by outflank-mailman (input) for mailman id 280731;
+ Mon, 28 Feb 2022 18:51:16 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1nOl76-0001PX-1C
+ for xen-devel@lists.xenproject.org; Mon, 28 Feb 2022 18:51:16 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nOl75-0004Eu-Qd; Mon, 28 Feb 2022 18:51:15 +0000
+Received: from 54-240-197-238.amazon.com ([54.240.197.238]
+ helo=[192.168.13.237]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nOl75-0000Xf-HB; Mon, 28 Feb 2022 18:51:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,142 +39,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 01a01c52-98c3-11ec-8539-5f4723681683
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:subject:from:to:cc:date:in-reply-to:references
-         :user-agent:mime-version:content-transfer-encoding;
-        bh=5yx/d6Vxb/4eHUVrcRLPUEMBCOXADteCGvx/kV/VGSM=;
-        b=PnXCi02pjarlYqMAHVYG1Z2Eji2JMmqQNoyUbx3t7UptrnT/ro9EshSdr6stDoNR1J
-         32agAXSWu1ltNmdnHeauh1bVe2M7hwzT3PH2JBAiYL8sYs8e43qzwEpEfn1S8CC8kGVo
-         ELIW6wqRGtJh5QlhsRBpqNzI55LPXJOAdocf/qkQeB1nGxOBUfVzs77YCotatUEDTQE9
-         sU/6GMH9LOLlJVXneDzfEbSv8NlORtCH2OiHIEN3bH9y7o2GjODTH0tWRCzob4ITLVJT
-         Stmxzoq7yWNNcDaBj2OjEHbusbQkJcrr8QzqvsuLWahgL/xrPk/MVxQQy0ic6wVQ3cb5
-         BkVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=5yx/d6Vxb/4eHUVrcRLPUEMBCOXADteCGvx/kV/VGSM=;
-        b=YcMazFx2BlKiVThzcbz++79stZ17oB/nodG0RjtTSoz3WVJyfJ6wrk2EVI63qQoXJG
-         mmbk7Hwy8o4xxOy1OyqG0Sw08vko+RGGlI8E+I8dFxSjFBhY7oFHcexAHb0501m9QMaj
-         fMH3y9N2CxQFOdwV7ivhYoC8t0zAEv0WNvw4bT+2CNeRYiuzwAIrsYTU0EYdx/u6XyXY
-         k9vZH0GN78plMJ3YsEMqcEf9IsfevTUISVp6OiMmvh6LQgdcTmy4x9RzKtMvcu5WF4f7
-         JSGKnaFNsv9PqwXQlngQM0oGgIxw3W5P0Cg1pC10vMvdjm/S0+3CQVou4fvacxC/soMg
-         hLqQ==
-X-Gm-Message-State: AOAM5318rRmJeyrEj4kxOiOTcc+1Z3S+paxCZBsw32BHVgBEP24QiWIs
-	FJFN8JChcurQ7Zp2mevxv90LiLjsOHoBjw==
-X-Google-Smtp-Source: ABdhPJyAQJDZroUeWUXPGxWa7C21PdRZq/jdNNzeOfKbW6wPnzHHN/fBrXhL7F7oxLwkNQ8CEqLAeA==
-X-Received: by 2002:a05:622a:1713:b0:2de:889:f00d with SMTP id h19-20020a05622a171300b002de0889f00dmr16931778qtk.169.1646072384892;
-        Mon, 28 Feb 2022 10:19:44 -0800 (PST)
-Message-ID: <3986c91f62cb1bf3a042f669c40b900653f1ab51.camel@gmail.com>
-Subject: Re: [PATCH v2 2/2] vpci/msix: fix PBA accesses
-From: Alex Olson <this.is.a0lson@gmail.com>
-To: Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
-Date: Mon, 28 Feb 2022 12:19:43 -0600
-In-Reply-To: <Yhn8rzRIC/TNiPv2@Air-de-Roger>
-References: <20220225153956.1078-1-roger.pau@citrix.com>
-	 <20220225153956.1078-3-roger.pau@citrix.com>
-	 <d8da3251985684ab9099ce95a8329a7e35535a7b.camel@gmail.com>
-	 <Yhn8rzRIC/TNiPv2@Air-de-Roger>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.36.5-0ubuntu1 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=l9bWHWXXVhia/n9u7oGRqlBS9yRDTfXgHaHFIdVfX/8=; b=SHFuJMwJOBmlq+TGhuIVrDfvsG
+	XR5CDS3yyzl4Xdyzwgq3234syfuMWDzKW1llMjYuE/jt2AdZkIPRVUdzEe6d5UaPbzwxky2KMMbVg
+	QYdwqnXoFpAuBamY1g9rpFYsxs82t2KA6qQT8buv3oRT7WzIb8RsByZ8/OpUpPfGZ5+E=;
+Message-ID: <48a0712c-eff8-dfc1-2136-59317f22321f@xen.org>
+Date: Mon, 28 Feb 2022 18:51:13 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-Hi Roger,
-
-The revised patch looks good.  The PBA writes seen during ioatdma driver
-initialization (self-test) complete successfully and the driver doesn't complain
-(I see two interrupts per ioatdma device).   The driver has a self-test feature
-which appears to exercise MSIX interrupts and has code which appears to cause a
-PBA write.
-
-Feel free to add "Tested-by: Alex.Olson@starlab.io" to your patchset.
-
-Thanks also for the pointer to your 2018 work on SR-IOV, I'll give it a try. 
-
-
-FYI, with this patch,  I was seeing  msix_read() and msix_write() being called
-during the driver's self-test on physical address 0xfbc01800, corresponding to
-the beginning of the PBA (lspci excerpt below):
-
-
-02:00.0 System peripheral: Intel Corporation Xeon Processor D Family QuickData Technology Register DMA Channel 0
-...
-        Region 0: Memory at fbc06000 (64-bit, non-prefetchable) [size=8K]
-...
-        Capabilities: [ac] MSI-X: Enable+ Count=1 Masked-
-                Vector table: BAR=0 offset=00001000
-                PBA: BAR=0 offset=00001800
-...
-        Kernel modules: ioatdma
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.6.1
+Subject: Re: [RFC PATCH 0/2] Introduce reserved Xenheap
+To: Henry Wang <Henry.Wang@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+ Penny Zheng <Penny.Zheng@arm.com>
+References: <20220224013023.50920-1-Henry.Wang@arm.com>
+ <6269ec3d-039e-d68f-771d-c5e088631410@xen.org>
+ <PA4PR08MB625324910ED4D40383191F9D92019@PA4PR08MB6253.eurprd08.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <PA4PR08MB625324910ED4D40383191F9D92019@PA4PR08MB6253.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
 
-The functions involved on the Linux kernel side are:
+On 28/02/2022 07:12, Henry Wang wrote:
+> Hi Julien,
 
-ioat_probe()
- -> ioat3_dma_self_test()
-  -> ioat_dma_self_test()
-   -> ioat_free_chan_resources()
-    ->  ioat_reset_hw()
+Hi Henry,
 
-drivers/dma/ioat/dma.c:   ioat_reset_hw()
-...
-    ioat_dma->msixpba = readq(ioat_dma->reg_base + 0x1800);
-...
-    writeq(ioat_dma->msixpba, ioat_dma->reg_base + 0x1800);
-
-
-Thanks,
-
--Alex
-
-On Sat, 2022-02-26 at 11:10 +0100, Roger Pau Monné wrote:
-> On Fri, Feb 25, 2022 at 11:57:05AM -0600, Alex Olson wrote:
-> > I think there is an issue in the spin_lock handling of patch 2 for the
-> > "msix_write" function as it results in the lock being taken a second time
-> > while
-> > held (hangs). 
-> > 
-> > The lock taken before checking "VMSIX_ADDR_IN_RANGE" isn't unlocked for the
-> > non-
-> > PBA case and a second lock is attempted just before the call to get_entry()
-> > later in the same function.  It looks like either the added lock should
-> > either
-> > be moved inside the PBA case or the lock before get_entry() should be
-> > removed.
+>> -----Original Message-----
+>> From: Julien Grall <julien@xen.org>
+>> Sent: Saturday, February 26, 2022 4:09 AM
+>> To: Henry Wang <Henry.Wang@arm.com>; xen-devel@lists.xenproject.org;
+>> sstabellini@kernel.org
+>> Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>; Wei Chen
+>> <Wei.Chen@arm.com>; Penny Zheng <Penny.Zheng@arm.com>
+>> Subject: Re: [RFC PATCH 0/2] Introduce reserved Xenheap
+>>
+>> Hi Henry,
+>>
+>> On 24/02/2022 01:30, Henry Wang wrote:
+>>> The reserved Xenheap, or statically configured Xenheap, refers to parts
+>>> of RAM reserved in the beginning for Xenheap. Like the static memory
+>>> allocation, such reserved Xenheap regions are reserved by configuration
+>>> in the device tree using physical address ranges.
+>>
+>> In Xen, we have the concept of domheap and xenheap. For Arm64 and x86
+>> they would be the same. But for Arm32, they would be different: xenheap
+>> is always mapped whereas domheap is separate.
+>>
+>> Skimming through the series, I think you want to use the region for both
+>> domheap and xenheap. Is that correct?
 > 
-> Sorry, was in a rush to send this before leaving yesterday and didn't
-> refresh the commit before generating the patch, v2.1 should be fixed.
-> 
-> Could you provide a 'Tested-by' if it work for you?
-> 
-> > On my server, upon loading the ioatdma driver, it now successfully attempts
-> > an
-> > PBA write (which now doesn't crash the system), but I'm not sure I have a
-> > way to
-> > fully exercise it...
-> 
-> Urg, that's weird, PBA should be read-only only according to the spec.
-> Writes to PBA have undefined behavior.
-> 
-> > I also see a different (related) issue in which modify_bars is called on a
-> > virtual function seemingly before the BAR addresses are initialized/known
-> > and
-> > will start a different thread for that topic.
-> 
-> SR-IOV is not supported on PVH dom0 yet, so that's not going to work.
-> I've posted a series in 2018 to enable it, but sadly had no time to
-> work on it anymore:
-> 
-> https://lore.kernel.org/xen-devel/20180717094830.54806-1-roger.pau@citrix.com/
-> 
-> It's likely not going to apply cleanly, and there's a lot of comments
-> to be fixed up there.
-> 
-> Thanks, Roger.
+> Yes I think that would be correct, for Arm32, instead of using the full
+> `ram_pages` as the initial value of `heap_pages`, we want to use the
+> region specified in the device tree. But we are confused if this is the
+> correct (or preferred) way for Arm32, so in this series we only
+> implemented the reserved heap for Arm64.
 
+That's an interesting point. When I skimmed through the series on 
+Friday, my first thought was that for arm32 it would be only xenheap (so
+all the rest of memory is domheap).
+
+However, Xen can allocate memory from domheap for its own purpose (e.g. 
+we don't need contiguous memory, or for page-tables).
+
+In a fully static environment, the domheap and xenheap are both going to 
+be quite small. It would also be somewhat difficult for a user to size 
+it. So I think, it would be easier to use the region you introduce for 
+both domheap and xenheap.
+
+Stefano, Bertrand, any opionions?
+
+On a separate topic, I think we need some documentation explaining how a 
+user can size the xenheap. How did you figure out for your setup?
+
+>>
+>> Furthemore, now that we are introducing more static region, it will get
+>> easier to overlap the regions by mistakes. I think we want to have some
+>> logic in Xen (or outside) to ensure that none of them overlaps. Do you
+>> have any plan for that?
+> 
+> Totally agree with this idea, but before we actually implement the code,
+> we would like to firstly share our thoughts on this: One option could be to
+> add data structures to notes down these static memory regions when the
+> device tree is parsed, and then we can check if they are overlapped.
+
+This should work.
+
+> Over
+> the long term (and this long term option is currently not in our plan),
+> maybe we can add something in the Xen toolstack for this usage?
+
+When I read "Xen toolstack", I read the tools that will run in dom0. Is 
+it what you meant?
+
+> 
+> Also, I am wondering if the overlapping check logic should be introduced
+> in this series. WDYT?
+
+I would do that in a separate series.
+
+Cheers,
+
+-- 
+Julien Grall
 
