@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 997774C7272
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Feb 2022 18:21:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.280717.478758 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8A764C777C
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Feb 2022 19:21:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.280724.478768 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nOji5-0008Mc-Dp; Mon, 28 Feb 2022 17:21:21 +0000
+	id 1nOkch-0005ZV-Sg; Mon, 28 Feb 2022 18:19:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 280717.478758; Mon, 28 Feb 2022 17:21:21 +0000
+Received: by outflank-mailman (output) from mailman id 280724.478768; Mon, 28 Feb 2022 18:19:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nOji5-0008KA-AO; Mon, 28 Feb 2022 17:21:21 +0000
-Received: by outflank-mailman (input) for mailman id 280717;
- Mon, 28 Feb 2022 17:21:19 +0000
+	id 1nOkch-0005Xf-Pi; Mon, 28 Feb 2022 18:19:51 +0000
+Received: by outflank-mailman (input) for mailman id 280724;
+ Mon, 28 Feb 2022 18:19:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=l6xm=TL=microsoft.com=mikelley@srs-se1.protection.inumbo.net>)
- id 1nOji3-0008K4-Ie
- for xen-devel@lists.xenproject.org; Mon, 28 Feb 2022 17:21:19 +0000
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam07on20724.outbound.protection.outlook.com
- [2a01:111:f400:7eb2::724])
+ <SRS0=VtgV=TL=gmail.com=this.is.a0lson@srs-se1.protection.inumbo.net>)
+ id 1nOkcf-0005XX-Tx
+ for xen-devel@lists.xenproject.org; Mon, 28 Feb 2022 18:19:50 +0000
+Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
+ [2607:f8b0:4864:20::f35])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d5ecb13b-98ba-11ec-8539-5f4723681683;
- Mon, 28 Feb 2022 18:21:18 +0100 (CET)
-Received: from MN0PR21MB3098.namprd21.prod.outlook.com (2603:10b6:208:376::14)
- by MW4PR21MB1969.namprd21.prod.outlook.com (2603:10b6:303:7c::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.0; Mon, 28 Feb
- 2022 17:21:09 +0000
-Received: from MN0PR21MB3098.namprd21.prod.outlook.com
- ([fe80::69f8:51be:b573:e70c]) by MN0PR21MB3098.namprd21.prod.outlook.com
- ([fe80::69f8:51be:b573:e70c%5]) with mapi id 15.20.5038.006; Mon, 28 Feb 2022
- 17:21:08 +0000
+ id 01a01c52-98c3-11ec-8539-5f4723681683;
+ Mon, 28 Feb 2022 19:19:48 +0100 (CET)
+Received: by mail-qv1-xf35.google.com with SMTP id d3so13966050qvb.5
+ for <xen-devel@lists.xenproject.org>; Mon, 28 Feb 2022 10:19:46 -0800 (PST)
+Received: from development (c-73-166-253-254.hsd1.tx.comcast.net.
+ [73.166.253.254]) by smtp.gmail.com with ESMTPSA id
+ p20-20020a05620a22b400b00648ca1458b4sm5303454qkh.5.2022.02.28.10.19.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 28 Feb 2022 10:19:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,202 +44,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d5ecb13b-98ba-11ec-8539-5f4723681683
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WGROcgBaEOXb7LR3FSSNEbts4Yq/gvHTx+QKUuXbAAY5UqWvNzfG7p7f8KZ/E4oIY2Rg3W/6thQHYo5rve1gDrELKt8iS2YFLRoH9fR/9AjQ2lsrgmn9iDX80UAjlSXOSPjssDUT8bTtfta610/KrIXF2KrxowYbVA72b+NZKjemn6I3Q8qTA8pRTtF8REV/JBSss17jNVGtO1VcQKJc/r0HVJUDodOMK67YsY8jVlw4hKBUGKXamkEqnLxEDesq1hYllQrmCfk3QY6HyBfqf6cbFPKkF3CKIzRlGdswgVbTtwwpkjOaxMQW3IwFnOYSnAGrVG3h0f1J30AqcmDstw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RpdUqKZ7g1q/KewkZ6ChsRglmfEx00uxvbcobvCdGfU=;
- b=LJMs1KTZ7v/9xPQzWqwE99HpshKHrcrSRvv/ORlRAYjEQ4QMFbz9SSuQz569NU3uSyxbw7qgL8vThmNVrmL+iOoOZ5Q05OOgLdlnVnuyY6rt8CO3+nJ7pO6RhgJs5YRQ6hsBnmgzIr9q4dr/DnKFZ7cId8sNR8mK1kPz+NjJsYmsHCLHbZjW/S2w4xeNV0MBOZwP1OY9w/Pm5csoksYWBXZLx9aLCD2H2wSEQ/aNiJomsEF0PFRWEmgnxrcWHd9g/6DyV5ZH6ZfvKyrunrSO9n+PYyWpqMNlu9SlmdfaxECG9OT8XX/tiZEog93mBNempxlHZOzdJ/YJEFwMvv/XAw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microsoft.com; dmarc=pass action=none
- header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RpdUqKZ7g1q/KewkZ6ChsRglmfEx00uxvbcobvCdGfU=;
- b=g9nhUzwY7Vv8E+CpoSKp6JTM3px3JlWNs6F2X8reB07guIM/x41SwxKlqSwheS10FFvB/Fkeq7/rfh8dcoeOfoUnWfG+L0jxfKfrdqdCGm4VlN8iNabrsfcnlk6IAdWKRQX46VsBv09YurvywJ/Jr7kAhgjG5GLHzKCGlZRnNLY=
-From: "Michael Kelley (LINUX)" <mikelley@microsoft.com>
-To: Christoph Hellwig <hch@lst.de>
-CC: "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>,
-	"x86@kernel.org" <x86@kernel.org>, Anshuman Khandual
-	<anshuman.khandual@arm.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Boris Ostrovsky
-	<boris.ostrovsky@oracle.com>, Juergen Gross <jgross@suse.com>, Joerg Roedel
-	<joro@8bytes.org>, David Woodhouse <dwmw2@infradead.org>, Lu Baolu
-	<baolu.lu@linux.intel.com>, Robin Murphy <robin.murphy@arm.com>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, "linux-ia64@vger.kernel.org"
-	<linux-ia64@vger.kernel.org>, "linux-mips@vger.kernel.org"
-	<linux-mips@vger.kernel.org>, "linuxppc-dev@lists.ozlabs.org"
-	<linuxppc-dev@lists.ozlabs.org>, "linux-riscv@lists.infradead.org"
-	<linux-riscv@lists.infradead.org>, "linux-s390@vger.kernel.org"
-	<linux-s390@vger.kernel.org>, "linux-hyperv@vger.kernel.org"
-	<linux-hyperv@vger.kernel.org>, "tboot-devel@lists.sourceforge.net"
-	<tboot-devel@lists.sourceforge.net>, "linux-pci@vger.kernel.org"
-	<linux-pci@vger.kernel.org>
-Subject: RE: [PATCH 08/11] swiotlb: make the swiotlb_init interface more
- useful
-Thread-Topic: [PATCH 08/11] swiotlb: make the swiotlb_init interface more
- useful
-Thread-Index: AQHYK+bNn5GdGBwbMEGdpROKeAVKTayoQv4AgACScQCAAGA5YA==
-Date: Mon, 28 Feb 2022 17:21:08 +0000
-Message-ID:
- <MN0PR21MB3098608AE81E444CC3C25B3ED7019@MN0PR21MB3098.namprd21.prod.outlook.com>
-References: <20220227143055.335596-1-hch@lst.de>
- <20220227143055.335596-9-hch@lst.de>
- <MN0PR21MB309816A344171B46735CA29CD7019@MN0PR21MB3098.namprd21.prod.outlook.com>
- <20220228113042.GA10570@lst.de>
-In-Reply-To: <20220228113042.GA10570@lst.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=09ca4065-c6d1-484e-9620-c278d7ad8315;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2022-02-28T17:15:06Z;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microsoft.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: cddbc668-5c1a-4f83-a223-08d9fadeb5d5
-x-ms-traffictypediagnostic: MW4PR21MB1969:EE_
-x-ms-exchange-atpmessageproperties: SA|SL
-x-microsoft-antispam-prvs:
- <MW4PR21MB196937E190D2B2302E542BC1D7019@MW4PR21MB1969.namprd21.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- cWMWzCjniKzqFntSWVtxFr6flL5hbkfMuMWEOfWBvp+rRvG3wx0D3BFme7Yx0KkfWddAX+K0TAjZSoBLG/dbCYqG3J4kOuPfduhdVzscxUWeqlC9sCMkCqC0xiejdz/6IT7f6bapZMAliRvF/vblVA6B2YlRczt5t0sEpaYdr5dazTyWOvIE0KVPw6YW5F/PgZj0YMXKWHad3ywMAD+hHR365wls4O+zcl6VWG7NacfeMBxfTB8Nr+2PhySwoukGk4rzlf6C0OODAj+PoceUmzz6B7ak2FDpI7Hs5qR06yzJdm5EDKWHL9m1v4FwEXi2xJ/kA+nFuVK2YrDBsI0KqQMtV8rp674JXYCFZU3QkL+HedGlbfTYi6d23jn2awU57YHtSy2fQoFZ82WoWOwjEKbhX+lbrpEX9ApOdwVw3S9RUm8hmMDB7RemARCNdIBOnPMRt0n+s1AlgosPl75ZvR59aChrKGJeUPiNSc+5cIffAEKtK70UsCmch8KzNHauzAEuGBCVhe0ad4OAnA/wrjzHa1QNqWU9BBO4zAHWz8/RUx4OtzPqv/q5jZnEDIkvcnrTA1e7sVhEtlDrhAaLXEi9iT5mOAdUaZ+CVshr3g3WBcOUxb8jf1BuTEQoYZCCQEhQLQl2I2x/lcQA04gwYJi3joTUh36T1bkrZdCas1OWQuHFQaDuBk6Tz/A4k+zU15fg6Dh8oVWnyCzEwn1IPkzGbyQPt6KEI4s9I4Vmx0F5qReR6C3txeazzxnncn3L
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR21MB3098.namprd21.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(6916009)(10290500003)(55016003)(33656002)(2906002)(508600001)(54906003)(316002)(82950400001)(86362001)(82960400001)(38070700005)(122000001)(38100700002)(52536014)(76116006)(66946007)(66476007)(66556008)(4326008)(8676002)(66446008)(7696005)(71200400001)(6506007)(64756008)(7416002)(186003)(26005)(5660300002)(9686003)(8936002)(83380400001)(8990500004);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?29qyXTMF81O5S1nx5r+Osp6BQ3ZTLcxu2nBcQagislDsBPG7/Ek1jr6Fh3OJ?=
- =?us-ascii?Q?opz233MPZ2LLUS/xrAR5i+eVc/zjCgiVy/ZZuf3InciYY0kMjj7+5VaO5h5F?=
- =?us-ascii?Q?oRKXGdgstHJssPfSfK2WsKYRNeeviAEFXbmxNfv8bknITEhFH5B4d6jwze4c?=
- =?us-ascii?Q?RWXCGfZNF2gKSkuPcpodmLO0n7bQLJyVr8jAXN+XgCdkV91EVzAAYIUz0Uq2?=
- =?us-ascii?Q?yditzag1mxkeDvx+u3/cN7VJT5I5A5f3wl1WsBcvf6OqUpeRsXsL6w5wps06?=
- =?us-ascii?Q?OeyG5v7grFT6+P+mzpPMYT8SNHnzVUa38NYQWN0X4cFU8K6DyNlWpfpn6zUs?=
- =?us-ascii?Q?MXl9+qxlaYoLCV/Gu/olCdfTvRPkm7Eodi56SkhrywkJLBm2oajaleIuYWgZ?=
- =?us-ascii?Q?8WKC+RGUtlMJg5ivA9cB9olJOCkKlh0E+ruPUFdqZO7Wie3Blz9B5aS4egQk?=
- =?us-ascii?Q?ScpyHViNGJli/C8ys0QP2FW8viCgMAzumWEv4zYc2T7kAwrHxo/a/4w8BCUI?=
- =?us-ascii?Q?S9oSQ8iyUaIrjgFXvC/u/FYkaC+gUt2VBaD38jQfKSKwzADe4iDFJUul2VKU?=
- =?us-ascii?Q?XPLpG/26A6X9zUSa3f2pelG03Q52x2t1kHF6BdmAa6JwPo+bCpqzos58Cdnt?=
- =?us-ascii?Q?126Bg+eFBH6hjPcb3bLc8a4jpbrDeMqMk24DcSPLXYQAe2FrIsduyuGRILDq?=
- =?us-ascii?Q?csTj3oIiSQBfTDJnZll226+FPShkzEpQO1d9rZoxX6n5EpKXblNnTktM+xNN?=
- =?us-ascii?Q?17jXiNYZvs95XMpBYvwqVO6k2OnWdtynypvighqRkDlYRiVWEtcBFdmh1B+8?=
- =?us-ascii?Q?DateI3ggNJxMadDyoNzi/IPwpllwUb7Z381uWK5pgamFLgNUq/0jkKwO0/Wx?=
- =?us-ascii?Q?4mvc5QLQIYLHk7w5Z0Ol56+UsMsGe2eYhrmQ26YoCie5TsFOgvuZYIR/HGqH?=
- =?us-ascii?Q?uDNRa+N9vvPIFo9AZJ7Kp172LlVuDohqcCLzE4HokxuVqpG+6qsemCNBOc/S?=
- =?us-ascii?Q?I5HfA3HwA4LUdCpal4akyxUQz4U//cM6fGRRxFdD66OqmWagCtftMRQV6mkP?=
- =?us-ascii?Q?CMbTal9ZvFOLnTE4bdkS1Y3QgAu7h/tEOq/8pWCANPRmkC/nqavd5Yd6J/MA?=
- =?us-ascii?Q?R5R1P67ITW3DpSXyMGg3AA1wzK5psIK3gkl32DnEjiXmj1WkSEHvNYX6ht5K?=
- =?us-ascii?Q?GPB75YGdMVG7gmxMyCTereGHRheCMA4L0Tsuzz0FkN5brsFZXMNcqQB+h0Jd?=
- =?us-ascii?Q?EFzYZm7uPyaqVuh5aH5HtujJZvEMFrXRhSlYRHvK33rdvCM8j2gqMtVcEbB7?=
- =?us-ascii?Q?W1XkihGMneb+CyMh/KOmYFkqY0Srp/mX97+xBeFPHuMTveuzO7Sg540IMVwp?=
- =?us-ascii?Q?hO/qc1LYfKsSvK1g829RchZje/CiVbp7/4/gEZIYVsOwba0W7dYzYwLPhANY?=
- =?us-ascii?Q?UGF1iEfHAQVHD03WfHcq/MLTHnpj0HHw1yEp6mPS7avfnTkrVuX5dg=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 01a01c52-98c3-11ec-8539-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:subject:from:to:cc:date:in-reply-to:references
+         :user-agent:mime-version:content-transfer-encoding;
+        bh=5yx/d6Vxb/4eHUVrcRLPUEMBCOXADteCGvx/kV/VGSM=;
+        b=PnXCi02pjarlYqMAHVYG1Z2Eji2JMmqQNoyUbx3t7UptrnT/ro9EshSdr6stDoNR1J
+         32agAXSWu1ltNmdnHeauh1bVe2M7hwzT3PH2JBAiYL8sYs8e43qzwEpEfn1S8CC8kGVo
+         ELIW6wqRGtJh5QlhsRBpqNzI55LPXJOAdocf/qkQeB1nGxOBUfVzs77YCotatUEDTQE9
+         sU/6GMH9LOLlJVXneDzfEbSv8NlORtCH2OiHIEN3bH9y7o2GjODTH0tWRCzob4ITLVJT
+         Stmxzoq7yWNNcDaBj2OjEHbusbQkJcrr8QzqvsuLWahgL/xrPk/MVxQQy0ic6wVQ3cb5
+         BkVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+         :references:user-agent:mime-version:content-transfer-encoding;
+        bh=5yx/d6Vxb/4eHUVrcRLPUEMBCOXADteCGvx/kV/VGSM=;
+        b=YcMazFx2BlKiVThzcbz++79stZ17oB/nodG0RjtTSoz3WVJyfJ6wrk2EVI63qQoXJG
+         mmbk7Hwy8o4xxOy1OyqG0Sw08vko+RGGlI8E+I8dFxSjFBhY7oFHcexAHb0501m9QMaj
+         fMH3y9N2CxQFOdwV7ivhYoC8t0zAEv0WNvw4bT+2CNeRYiuzwAIrsYTU0EYdx/u6XyXY
+         k9vZH0GN78plMJ3YsEMqcEf9IsfevTUISVp6OiMmvh6LQgdcTmy4x9RzKtMvcu5WF4f7
+         JSGKnaFNsv9PqwXQlngQM0oGgIxw3W5P0Cg1pC10vMvdjm/S0+3CQVou4fvacxC/soMg
+         hLqQ==
+X-Gm-Message-State: AOAM5318rRmJeyrEj4kxOiOTcc+1Z3S+paxCZBsw32BHVgBEP24QiWIs
+	FJFN8JChcurQ7Zp2mevxv90LiLjsOHoBjw==
+X-Google-Smtp-Source: ABdhPJyAQJDZroUeWUXPGxWa7C21PdRZq/jdNNzeOfKbW6wPnzHHN/fBrXhL7F7oxLwkNQ8CEqLAeA==
+X-Received: by 2002:a05:622a:1713:b0:2de:889:f00d with SMTP id h19-20020a05622a171300b002de0889f00dmr16931778qtk.169.1646072384892;
+        Mon, 28 Feb 2022 10:19:44 -0800 (PST)
+Message-ID: <3986c91f62cb1bf3a042f669c40b900653f1ab51.camel@gmail.com>
+Subject: Re: [PATCH v2 2/2] vpci/msix: fix PBA accesses
+From: Alex Olson <this.is.a0lson@gmail.com>
+To: Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
+Date: Mon, 28 Feb 2022 12:19:43 -0600
+In-Reply-To: <Yhn8rzRIC/TNiPv2@Air-de-Roger>
+References: <20220225153956.1078-1-roger.pau@citrix.com>
+	 <20220225153956.1078-3-roger.pau@citrix.com>
+	 <d8da3251985684ab9099ce95a8329a7e35535a7b.camel@gmail.com>
+	 <Yhn8rzRIC/TNiPv2@Air-de-Roger>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.36.5-0ubuntu1 
 MIME-Version: 1.0
-X-OriginatorOrg: microsoft.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR21MB3098.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cddbc668-5c1a-4f83-a223-08d9fadeb5d5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Feb 2022 17:21:08.7946
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: vzOn32YAvsUYVAMMexjkwRxJ/GCrUPaTSyZyITipNC05D/kQ57R5+nXhVEq9s2CnE36lzOIxTlRer+N0f7Wm6ohAO+aiDJeeTp61TqSz2jo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR21MB1969
+Content-Transfer-Encoding: 8bit
 
-From: Christoph Hellwig <hch@lst.de> Sent: Monday, February 28, 2022 3:31 A=
-M
->=20
-> On Mon, Feb 28, 2022 at 02:53:39AM +0000, Michael Kelley (LINUX) wrote:
-> > From: Christoph Hellwig <hch@lst.de> Sent: Sunday, February 27, 2022 6:=
-31 AM
-> > >
-> > > Pass a bool to pass if swiotlb needs to be enabled based on the
-> > > addressing needs and replace the verbose argument with a set of
-> > > flags, including one to force enable bounce buffering.
-> > >
-> > > Note that this patch removes the possibility to force xen-swiotlb
-> > > use using swiotlb=3Dforce on the command line on x86 (arm and arm64
-> > > never supported that), but this interface will be restored shortly.
-> > >
-> > > Signed-off-by: Christoph Hellwig <hch@lst.de>
-> > > ---
-> > >  arch/arm/mm/init.c                     |  6 +----
-> > >  arch/arm64/mm/init.c                   |  6 +----
-> > >  arch/ia64/mm/init.c                    |  4 +--
-> > >  arch/mips/cavium-octeon/dma-octeon.c   |  2 +-
-> > >  arch/mips/loongson64/dma.c             |  2 +-
-> > >  arch/mips/sibyte/common/dma.c          |  2 +-
-> > >  arch/powerpc/include/asm/swiotlb.h     |  1 +
-> > >  arch/powerpc/mm/mem.c                  |  3 ++-
-> > >  arch/powerpc/platforms/pseries/setup.c |  3 ---
-> > >  arch/riscv/mm/init.c                   |  8 +-----
-> > >  arch/s390/mm/init.c                    |  3 +--
-> > >  arch/x86/kernel/cpu/mshyperv.c         |  8 ------
-> > >  arch/x86/kernel/pci-dma.c              | 15 ++++++-----
-> > >  arch/x86/mm/mem_encrypt_amd.c          |  3 ---
-> > >  drivers/xen/swiotlb-xen.c              |  4 +--
-> > >  include/linux/swiotlb.h                | 15 ++++++-----
-> > >  include/trace/events/swiotlb.h         | 29 ++++++++-------------
-> > >  kernel/dma/swiotlb.c                   | 35 ++++++++++++++----------=
---
-> > >  18 files changed, 56 insertions(+), 93 deletions(-)
-> >
-> > [snip]
-> >
-> > >
-> > > diff --git a/arch/x86/kernel/cpu/mshyperv.c b/arch/x86/kernel/cpu/msh=
-yperv.c
-> > > index 5a99f993e6392..568274917f1cd 100644
-> > > --- a/arch/x86/kernel/cpu/mshyperv.c
-> > > +++ b/arch/x86/kernel/cpu/mshyperv.c
-> > > @@ -336,14 +336,6 @@ static void __init ms_hyperv_init_platform(void)
-> > >  			swiotlb_unencrypted_base =3D
-> ms_hyperv.shared_gpa_boundary;
-> > >  #endif
-> > >  		}
-> > > -
-> > > -#ifdef CONFIG_SWIOTLB
-> > > -		/*
-> > > -		 * Enable swiotlb force mode in Isolation VM to
-> > > -		 * use swiotlb bounce buffer for dma transaction.
-> > > -		 */
-> > > -		swiotlb_force =3D SWIOTLB_FORCE;
-> > > -#endif
-> >
-> > With this code removed, it's not clear to me what forces the use of the
-> > swiotlb in a Hyper-V isolated VM.  The code in pci_swiotlb_detect_4g() =
-doesn't
-> > catch this case because cc_platform_has(CC_ATTR_HOST_MEM_ENCRYPT)
-> > returns "false" in a Hyper-V guest.  In the Hyper-V guest, it's only
-> > cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT) that returns "true".  I'm
-> > looking more closely at the meaning of the CC_ATTR_* values, and it may
-> > be that Hyper-V should also return "true" for CC_ATTR_MEM_ENCRYPT,
-> > but I don't think CC_ATTR_HOST_MEM_ENCRYPT should return "true".
->=20
-> Ok, I assumed that CC_ATTR_HOST_MEM_ENCRYPT returned true in this case.
-> I guess we just need to check for CC_ATTR_GUEST_MEM_ENCRYPT as well
-> there?
+Hi Roger,
 
-I'm unsure.
+The revised patch looks good.  The PBA writes seen during ioatdma driver
+initialization (self-test) complete successfully and the driver doesn't complain
+(I see two interrupts per ioatdma device).   The driver has a self-test feature
+which appears to exercise MSIX interrupts and has code which appears to cause a
+PBA write.
 
-The comments for CC_ATTR_HOST_MEM_ENCRYPT indicates that it is for
-SME.   The comments for both CC_ATTR_MEM_ENCRYPT and
-CC_ATTR_GUEST_MEM_ENCRYPT mention SEV and SEV-ES (and presumably
-SEV-SNP).   But I haven't looked at the details of the core SNP patches fro=
-m
-the AMD folks.   I'd say that they need to weigh in on the right approach
-here that will work for both SME and the various SEV flavors, and then
-hopefully the Hyper-V case will fit in.
+Feel free to add "Tested-by: Alex.Olson@starlab.io" to your patchset.
 
-Michael
+Thanks also for the pointer to your 2018 work on SR-IOV, I'll give it a try. 
+
+
+FYI, with this patch,  I was seeing  msix_read() and msix_write() being called
+during the driver's self-test on physical address 0xfbc01800, corresponding to
+the beginning of the PBA (lspci excerpt below):
+
+
+02:00.0 System peripheral: Intel Corporation Xeon Processor D Family QuickData Technology Register DMA Channel 0
+...
+        Region 0: Memory at fbc06000 (64-bit, non-prefetchable) [size=8K]
+...
+        Capabilities: [ac] MSI-X: Enable+ Count=1 Masked-
+                Vector table: BAR=0 offset=00001000
+                PBA: BAR=0 offset=00001800
+...
+        Kernel modules: ioatdma
+
+
+
+The functions involved on the Linux kernel side are:
+
+ioat_probe()
+ -> ioat3_dma_self_test()
+  -> ioat_dma_self_test()
+   -> ioat_free_chan_resources()
+    ->  ioat_reset_hw()
+
+drivers/dma/ioat/dma.c:   ioat_reset_hw()
+...
+    ioat_dma->msixpba = readq(ioat_dma->reg_base + 0x1800);
+...
+    writeq(ioat_dma->msixpba, ioat_dma->reg_base + 0x1800);
+
+
+Thanks,
+
+-Alex
+
+On Sat, 2022-02-26 at 11:10 +0100, Roger Pau Monné wrote:
+> On Fri, Feb 25, 2022 at 11:57:05AM -0600, Alex Olson wrote:
+> > I think there is an issue in the spin_lock handling of patch 2 for the
+> > "msix_write" function as it results in the lock being taken a second time
+> > while
+> > held (hangs). 
+> > 
+> > The lock taken before checking "VMSIX_ADDR_IN_RANGE" isn't unlocked for the
+> > non-
+> > PBA case and a second lock is attempted just before the call to get_entry()
+> > later in the same function.  It looks like either the added lock should
+> > either
+> > be moved inside the PBA case or the lock before get_entry() should be
+> > removed.
+> 
+> Sorry, was in a rush to send this before leaving yesterday and didn't
+> refresh the commit before generating the patch, v2.1 should be fixed.
+> 
+> Could you provide a 'Tested-by' if it work for you?
+> 
+> > On my server, upon loading the ioatdma driver, it now successfully attempts
+> > an
+> > PBA write (which now doesn't crash the system), but I'm not sure I have a
+> > way to
+> > fully exercise it...
+> 
+> Urg, that's weird, PBA should be read-only only according to the spec.
+> Writes to PBA have undefined behavior.
+> 
+> > I also see a different (related) issue in which modify_bars is called on a
+> > virtual function seemingly before the BAR addresses are initialized/known
+> > and
+> > will start a different thread for that topic.
+> 
+> SR-IOV is not supported on PVH dom0 yet, so that's not going to work.
+> I've posted a series in 2018 to enable it, but sadly had no time to
+> work on it anymore:
+> 
+> https://lore.kernel.org/xen-devel/20180717094830.54806-1-roger.pau@citrix.com/
+> 
+> It's likely not going to apply cleanly, and there's a lot of comments
+> to be fixed up there.
+> 
+> Thanks, Roger.
+
 
