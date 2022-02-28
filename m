@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A18FA4C63D2
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Feb 2022 08:33:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.280173.478015 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 683134C63DA
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Feb 2022 08:36:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.280180.478026 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nOaWF-0004ZU-TZ; Mon, 28 Feb 2022 07:32:31 +0000
+	id 1nOaZj-0005Di-DA; Mon, 28 Feb 2022 07:36:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 280173.478015; Mon, 28 Feb 2022 07:32:31 +0000
+Received: by outflank-mailman (output) from mailman id 280180.478026; Mon, 28 Feb 2022 07:36:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nOaWF-0004Ws-QX; Mon, 28 Feb 2022 07:32:31 +0000
-Received: by outflank-mailman (input) for mailman id 280173;
- Mon, 28 Feb 2022 07:32:30 +0000
+	id 1nOaZj-0005B0-A2; Mon, 28 Feb 2022 07:36:07 +0000
+Received: by outflank-mailman (input) for mailman id 280180;
+ Mon, 28 Feb 2022 07:36:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=A4HT=TL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nOaWE-0004Wm-6a
- for xen-devel@lists.xenproject.org; Mon, 28 Feb 2022 07:32:30 +0000
+ id 1nOaZi-0005Au-36
+ for xen-devel@lists.xenproject.org; Mon, 28 Feb 2022 07:36:06 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 94b69ebb-9868-11ec-8eba-a37418f5ba1a;
- Mon, 28 Feb 2022 08:32:28 +0100 (CET)
+ id 14a9ac3c-9869-11ec-8eba-a37418f5ba1a;
+ Mon, 28 Feb 2022 08:36:03 +0100 (CET)
 Received: from EUR02-VE1-obe.outbound.protection.outlook.com
  (mail-ve1eur02lp2057.outbound.protection.outlook.com [104.47.6.57]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-5-3QOJmHaINY2B7vuDJZEA-A-1; Mon, 28 Feb 2022 08:32:26 +0100
+ de-mta-10-27u34WfMPP-nNFKI0Jy9sw-1; Mon, 28 Feb 2022 08:36:01 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by AS8PR04MB8897.eurprd04.prod.outlook.com (2603:10a6:20b:42c::20)
+ by HE1PR0402MB3500.eurprd04.prod.outlook.com (2603:10a6:7:87::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.25; Mon, 28 Feb
- 2022 07:32:24 +0000
+ 2022 07:35:58 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::d479:b728:345c:bd65%6]) with mapi id 15.20.5017.026; Mon, 28 Feb 2022
- 07:32:24 +0000
+ 07:35:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,169 +51,208 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94b69ebb-9868-11ec-8eba-a37418f5ba1a
+X-Inumbo-ID: 14a9ac3c-9869-11ec-8eba-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1646033548;
+	t=1646033763;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=qIEe3hY3fV9EBs6DUgYbFBLUC7pe1lAdEmYvL22XwHc=;
-	b=BkpkeavWgjxtH/Ow/XuPunPdr/VF5CqkVotS8CZmbvhHCagvidozOl7jbJAVv2AtOungwf
-	07aDrr4eMb3aB4rOICnu79HXFszzs1xZ3t3YP6DY3e45lkkjBJCfv74LwKhFMlJkYOneCg
-	IScjuTd38BpvDo47vqpbeS/bMt16EJk=
-X-MC-Unique: 3QOJmHaINY2B7vuDJZEA-A-1
+	bh=7L+4fGJdLSsPnTKFR1c8paHCpzUNNRpMEQoSnfZBlUQ=;
+	b=P25d5xb93z3OQP4n/Q1hUTHHvWrvmonNFKqu42kEioq8mc1B0tItAOgyHvlAVLSAJdlUGP
+	u2RiMHdcIpeeq4WNI8zSDfVnWLWdNYMgmV3fbJ14Bvc+ljI9c9m2JmjbgiBklJLw9D8zAM
+	5S0CSz9d+7vqmB8m2AwxVsKrmV/iFkI=
+X-MC-Unique: 27u34WfMPP-nNFKI0Jy9sw-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Dtb8vd83m0CsJ9NguGaxRxZ0HPVozU2n7Qi/EYXNRwDq42WEGzjvhsZsj9gPWTkDJlSkhugiDdEFDssEWeGjkHj45CqdSG5JmQmmHq+FqqV/oNtBKCb8baLkM+BJ9UoFDb9FnaZMkFKHfcJRuZFtWhZjt+xGPndhr2j1siyQ8hR1Yqw6hxzdHJHppUnviw3cdZ38q5iFfVjyZCYRbBzqGEmaAcDtLtkMdb3R+1fvrAPEXoykVqn6OR79pBbUFkMUPwa1eBXf76/Tpo/B1kPOzdBsTIURGeZ2aCLMQTqkAk1CaaJuBviJbYPQJilikk0u5hQWAwQbwbNQq+/pUmhaCw==
+ b=MErZwVDWS/FsMxcpc1QOfGKEZrErCBexjSOVbW1iPvOiqFoEkYXMoMx7bKN1y7iqR0qbJDH625s1EZOYNo9nrNLwdGKXZX28o8VpORPQUN8RNvY2RyFKlCERuQSwRZ3wUel9EbPqcEcJDh4XOUkPTwrVWNyc1XSplnfmyaxPiRtXkZoH0ss+hnq6dtDUgF0TNWEcFUinZ6izurJA8ZTdU9gpHazKMVQRmQuyB7v0aVAwUHV3iksSlvKRrkwwNlJeecXIjuPMOL6Q45UlqNu8IGgJBOTNbfkalhpjGil3AcszCDmrNYmK/SpjYpsURyg5s+6SX8sp92edG6Gyle8Zlg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qIEe3hY3fV9EBs6DUgYbFBLUC7pe1lAdEmYvL22XwHc=;
- b=Mz25tU4SR7d9rGQHagWY/kpn1ekz+ZvIycqXfzs1Vbe0yfas/01yeX/WWlX1z4ITUu6bhc/ww1RHpTZyxL4RZk+2ev76MqkFIHdlSkZQgEaQ1YgBp6nhgW5RiOVcxd6b+jALzXyURdLMnxoKXUEPc1IoBIEBYt7JiFBUbVQ/UbzmkYQhquIOQDyrjlhVpDR8u+XTqk6LoM+/+uH99b4iMe7PhM2M8qmAas3doEivj4tyCZP5NpfPSyKvz22RB0Ioq2npWXf/Mx9cZXbRiOD44O1lBo/3DB39Nfc8hHJeOZ+jG7fzrRwKYZbxYr0GneeBdd03EnkC1cuylCV1dQBWSQ==
+ bh=IQl0y/cY6I+hCBgQO+PVjS03gmBWQks8OM1Zvf8d32Y=;
+ b=oUECcyXi2XhguxQh4uhDef/xhaamB4rLa5w6Y7inZ25WyofwlPpiCiNlH6swQH26DhPfSrxZkXUo06LZwDws3kIb6m2KVQEGX64r2kahk96vFwPWfp7pB65QdS8zG1BxwuNRam/bSBCRgnJpBBmBIGtM5IhTJ5Ia6KiyOxjRwttgAukeg5PHkoqAtUOCsPDAorljvfCYFoPy8IsbC0q2gUha8aeJPDVccYwHgaOOka5maLs36WLBlcwq2rVxCXBk+FokoTJP1SS/fupTTt1+qg3YdO3J+ITTDz745gncvFlZuPfqvWk+k8QNKdW7bCfU5ocjIsnINMRJbkF9PnQyOg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <de431523-ad71-1cb6-a28d-07418886ee23@suse.com>
-Date: Mon, 28 Feb 2022 08:32:26 +0100
+Message-ID: <2e1dcfb8-20ae-26b2-427d-9c19bd8c8add@suse.com>
+Date: Mon, 28 Feb 2022 08:36:00 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.1
-Subject: Re: [PATCH v3 1/2] xen+tools: Report Interrupt Controller
- Virtualization capabilities on x86
+Subject: Re: x86/vmx: Don't spuriously crash the domain when INIT is received
 Content-Language: en-US
-To: Jane Malalane <Jane.Malalane@citrix.com>
-Cc: Wei Liu <wl@xen.org>, Anthony Perard <anthony.perard@citrix.com>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
- George Dunlap <George.Dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
  Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Roger Pau Monne <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20220218172943.12182-1-jane.malalane@citrix.com>
- <20220218172943.12182-2-jane.malalane@citrix.com>
- <0a31970c-c0f8-c995-ce04-67523a4a830a@suse.com>
- <22ae35a0-9df8-9357-4b44-2f00586144fc@citrix.com>
+ Thiner Logoer <logoerthiner1@163.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20220224194853.17774-1-andrew.cooper3@citrix.com>
+ <20220224194853.17774-3-andrew.cooper3@citrix.com>
+ <12d8b90b-15b0-c094-71e5-35cfdbfe72b4@suse.com>
+ <51ef6bd1-bcd9-9a3a-e902-887d42d7dd7e@citrix.com>
+ <bb4b4106-f49d-2b50-1eb9-eb450f6b24fa@suse.com>
+ <965e91fa-1f1e-7c57-5a71-a09b170a7d9f@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <22ae35a0-9df8-9357-4b44-2f00586144fc@citrix.com>
+In-Reply-To: <965e91fa-1f1e-7c57-5a71-a09b170a7d9f@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0070.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4b::22) To VI1PR04MB5600.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AM5PR1001CA0022.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:206:2::35) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9accf07e-ec40-42cc-67dd-08d9fa8c7690
-X-MS-TrafficTypeDiagnostic: AS8PR04MB8897:EE_
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Office365-Filtering-Correlation-Id: 5901a70f-330d-499e-e8e0-08d9fa8cf65e
+X-MS-TrafficTypeDiagnostic: HE1PR0402MB3500:EE_
 X-Microsoft-Antispam-PRVS:
-	<AS8PR04MB88977AA5E84AD1EF5D853490B3019@AS8PR04MB8897.eurprd04.prod.outlook.com>
+	<HE1PR0402MB3500DB324AB1CA13B01043D1B3019@HE1PR0402MB3500.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	aDKcpVdl5CL6aqrooO+1CuDYztbVvM/8b1LJYFW5dJKdtLG3SFJ+07C2bMbBShM5qblCLvX5IR88Q2Q58YIGc0fiFUYkMTy8dp4fMj36A/P9LYVh9uV/s6eaEBusmJY7gHNR3KtfIMUoilASqTk5ylea3HegliGUgXF8W7i7ITW0Bce2pDjLMMEa2solecSBrvfCWpFVjLBJIBxMztkA5NRIP4fcH6FNMgza4fWln+3xWrddFMdvzCnZC8FecYJw8/dERzNWhSuhGJ6rLHsZIAFrzlfX4zQB07Pc6PliB+0NaipbiOHsHN/itDBrZEsF2CZaH+dtttcH5ja/1Z/D099E6JW808ZQOmhd7tNyBtHAiXbHbXGCWrIty6qFuX72AO5HzZDLJuFGKWpegEtKOU/1BN7O02VqftKKnAzkME6nd18+XWzxS18mbgnXwHQx66xx7F4+5wLQ4lUro0CEqWUqZxkj5k/ecfUaBTCeUyPtESmLwQiD2yCM2tmwqHPRHRzUIObSijcMwHT7lA0KU++/Pm4GoQTtKumgq88hUIeu7EMMtUHN4aXjHunoSxSxy17mXjr+TThL9HnCHXLG7tcT0nQtS9KMbLAdlQDb8J+b13n4HzoeZkyT+xaUshHxPUUt0ZOdwaN2ifgarQfrbqB73ek3xd3xjQTzoF5rTkvVrOVUqIv49PzyZsYQQ7ZcsWC95N9gSkQK8E/EiN7svUzS9VjcuABBbU5Jb7Utufr7d4vmgoYhIepIwfYRt77u
+	qzZY95p2gNgUrwVd3eWhx7ianOo5PvRuS4E/xFsV/GQEDTodiRxLxO4i0FE5qk1HQBLhMYQQV5BqB1X1QPTXS34m4TvAwsxF1c0B1qQDFTvoSnxkIjMnwA9nh/vwjHMrO89yuOilCZ7r5dpcSBzBhd5GS4qrh2TaAxXhLhj/g8nEbAugS2Fr6oxvEJXF+s/gxmJatGF2AilXG+SFtbTg3HC3tqh/t4pSMY0yfk1QyGRYmlzT3os4UTFWhpdaiihGh/e2h+gBGRFylnFWkQUJ4dnP7EJyjGPo2gnTBd087Hoy+WSb1c3h7jbEc7+7RuQ/8aH9q+QdRonDmBJ3O8iEMbPGaxrzDmp23LYCS3ReIUuMRxguyhfXtNa208pL/3OKQjKHTiR+yi92deFWYCD7QgBaeCkJSUrzx86KqjpHAV75pyLNjWtwj2biRMa1FqiHk0ojGhi5RzkDzQDRl0YxS1+GHuFneBgrwiCUiB38FMTImW3s/d4lW7AcNzgB7SBaPRU94bE2GQ8R5HWcmy0gzh9/kkpCe9+mM1fPEKUkJEoxqMUmumRLozmVQCl7OtEPsi5ORk+whnYdFnRYh1lq9j95XcUHEfr+WMyN5jdTKXQtQxblvFKyVgSm2sZCp0JmtBL9cvujju4X9v0yP83SEHbLyQ4VenFeeCrT4d1Hcm4ic16MzR9yn0+AJC5Y3EjF2vBGKNPZZWoNfINVPHqGuBF33hMb11f4LFx6Ecssfyk=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(26005)(186003)(38100700002)(31696002)(66556008)(86362001)(8676002)(66476007)(508600001)(31686004)(2906002)(66946007)(36756003)(6486002)(316002)(6916009)(54906003)(4326008)(6512007)(7416002)(5660300002)(2616005)(8936002)(53546011)(6506007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(38100700002)(8676002)(66476007)(316002)(6512007)(66556008)(8936002)(66946007)(4326008)(26005)(186003)(6666004)(6506007)(54906003)(6916009)(2616005)(53546011)(36756003)(508600001)(31686004)(83380400001)(2906002)(31696002)(5660300002)(86362001)(6486002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UGtUd3hQNEVGSE9OTVFKS1BiaERHbzhXUE1XSEgvaDdtM3F5Y0ZISkZnUVJh?=
- =?utf-8?B?SEtNblJqREVjQXM2M2ZpUFZDMGNVV1hzbVlCd2xDSnhVTGxYVzFZZ3hUSjRZ?=
- =?utf-8?B?dUZzdy9QNi9peDd6KzA1aCtuSXJkVjhyZ1FxY3p2dUdnWnRhM3ZuZ25URVRF?=
- =?utf-8?B?RXoxNHAydldqMEtjY0ZoS2NnRytuU3EweVE2OUx1cUZjMXlhODdQT2piRG4x?=
- =?utf-8?B?OC9aV251ZHkxdDdUV0VyUDh2M1VmOStGMVV4V1RxbEZQclBCcVpnTUtiNEpQ?=
- =?utf-8?B?RVcxYVB6YktmV3U1Si9rbXkxRlRJS0JVZmhUWVpaRFpPNEJ1ZTM4NEtiRjNF?=
- =?utf-8?B?WU1tdU1PYm02WXJxL1NsalVibjRZMHlTY04xaUM0OUdFRVY3UDg0Z0ZiS3hS?=
- =?utf-8?B?R0FPQUdkOTdUVlg1cVZKQ3NjNkJRZ2pTQUY4K01kcW54Q2x0UUltczhWSU5B?=
- =?utf-8?B?YWQ2S3o5Y1pKdGQyNjhjdUpnd2txUzRhaExsZ2tEbUd5emlkejhrVUtCM20x?=
- =?utf-8?B?aHBJeHVsbWpSR0x2UVBMZTRZRDZ4ZGZQUmxxaDkydFdHUzlKOG9MalNjNVdG?=
- =?utf-8?B?Vkt1VHJpZVFldVZJOG9zNUNLbWw0bGRQYm9ONTJXWks5YUp5T0FqaW9sY2t3?=
- =?utf-8?B?UTlGTFc4SUJXQktxTDMxQ09yRzRlcEUwQ1d3TnRUeHFrQVFTc1NNaUdhdkRP?=
- =?utf-8?B?aklBU0FHb3YvZnZCWkRscEViK1NCWmNhaTZEM1NuN1UwbDZDaHFUS012R2hY?=
- =?utf-8?B?blBLYzdBT2ltZzJ4bVJ2Z0tRYWkycVhEaXJOZ3lXam1xRmRweGFFanJqTjdp?=
- =?utf-8?B?QVJyVkg2M0tLZWtMeVhHN1BWdFMrVFluVFgwbGdwcVNEQnBqRmV1R2dXYngr?=
- =?utf-8?B?VkxReEFTVzdyc2UzcXladjF5UXJmSVFjeG9mSy8vYXJQYXNYM2dTY3VsNzBk?=
- =?utf-8?B?eElUMXA3Z0tjUVBCV3RvdEFWMkI1bWIrRHVub0ZPSlNpN3FXTVgxbGpRMTNE?=
- =?utf-8?B?dXpnZnFDT2FJRFBqbjRLbFlaTUMvclNkYzJnbWcvaUNySFpKR0IvQk5nRVJH?=
- =?utf-8?B?dGpOZ21pVk9zTXM0dG9iTnIxNGVWY1dqODNLekx2cFBOcERISE5JTERZaFNu?=
- =?utf-8?B?QnJDdXdVNWwxQ3dpZnoxbjg1ZHdSV0xxYm1RUFE4V2UvMlA4VUkzVHZPeWJQ?=
- =?utf-8?B?U2creVZucmEyYjJ6aDFldTNrOENwS0p4NXZKaTdIaGEvWGVwWGZQM3BqLzVS?=
- =?utf-8?B?QUZZSXR1Z3lNZHM5bHdoQjBLbVBBc3cycVRETFdib3JJTC9EQXhWT1BJdVps?=
- =?utf-8?B?cnlsVE1ZbStZZkZqdnE3bnZOd04zV2poeXdFb0FaU2Z6M3J1aU9kUU1rNHJH?=
- =?utf-8?B?dWcyUEZ5WHFmbFEyekJjd2prdDczbUY5UXFqN2x5SnBxVVU2dzF6ZkRzUXpD?=
- =?utf-8?B?b2xlcDZpWDlQd2htWHNsa01EdHNWYWZ4SFM2RGp6MDhlQTRuQVhZRm9JMzVM?=
- =?utf-8?B?RjU1Sll3OHhGWE5lM1hyYUlLY2o5Q0QxZ2Y3dzg1YjFISkM0MEkrN2lCclhF?=
- =?utf-8?B?QUVzTU53YmNmY3dkek03SzlLTDZDOS9WQXJrTkF2b3YydThwbFd1anZMb3h6?=
- =?utf-8?B?OWZFYnhsNDEweENOWFVocFc4Tjc4WmovYUczbGxaVktTTVYrVkRraUNENDVE?=
- =?utf-8?B?UFJzbFpDamNyNjYzK2RKc2xzN0dIMkJqRUphMmdDUktBS3JoMjhrcS92UHJO?=
- =?utf-8?B?T1N6Q2F0SzVKRThKZEM1MUpMTGx5KzVYaVVoNDVabU8vdDcyVzlZaS84NDZh?=
- =?utf-8?B?T0N4RFdYWnk5Q2hxNGRyK2NOcEZ3VFRNWXdOSlFHQk0vUkUxK05EdEViSVRF?=
- =?utf-8?B?akQ1UGx6aHZjbUVkVjVZS05RZXNCSDUxbzZkMTJPekxjNitMeExKVUlXSzNB?=
- =?utf-8?B?V25nMmsvTWJJWnY4NlUvbUhOOXlCZ2JtUEgxWUFzTzRCUzBUSkN3OFEwblUv?=
- =?utf-8?B?T0xUc3ZkcXYvcU83YlhndDlpUTExb1g3YVgybzhlQ2E5MTk0OGdDeXdDc2JC?=
- =?utf-8?B?Vm0wTXAxaTkydjNmbGpGOVdPdXNEVXBWYnFEWVhSdWFhWFg4TnY1dE1XOHdG?=
- =?utf-8?B?MkhjZ1I3NDlRVVlwcmU1M2VwaDVJWW0xMzRoaVlMb3dKOXFRaGRaMEkvUDlI?=
- =?utf-8?Q?e7iJVJfmdMJsafRFejUkdq4=3D?=
+	=?us-ascii?Q?tMAQwxx9VA5TVAcs0xLBRKby8PgCXal9o+uyfxROQtRpyXHiMGgqZIb0/XKS?=
+ =?us-ascii?Q?7BGLdOyP8Q/VZt3bJFTLfAIPhNm/BkgzYwLCI7/CHdj0RFLtpDF/j+PdZnRm?=
+ =?us-ascii?Q?JT2NfjHxxUme0L8AnZreOzl9LHjmUZ8bhZB7/QhakvOK4UZP9WWm8vHAZ9tc?=
+ =?us-ascii?Q?QgN6HT3vLflbx1YL2h4aOsBRH7Ul85v+fMS8CrSRzLw3D3dpmtK6chgFQAdU?=
+ =?us-ascii?Q?4FpiYPbeigKaHqhvDZv2Ii6URpdJJhnMpasFldv6PJYGIr8C4VVS97kX3Vgo?=
+ =?us-ascii?Q?rI8r1S1maYKrjp6T3HplCX1Od4BLWfPwCacveKQgCjQBtv5ctQ0lq8Srf3dh?=
+ =?us-ascii?Q?H6ahVVGR/97UsvljSxHQlEGegB0Sjy/ufw2JIwNmksXKa5fzEy4ycq9PoDbW?=
+ =?us-ascii?Q?e91BBNFLxp02UyIJeD2N852mEThxcpvPFcElDyCHxTgT5lvL9XsN/d1fwR/n?=
+ =?us-ascii?Q?xa2mwWrBBvtoKwe3T3bO+UfCY4/Mpcefr0mc5DU/fcFtzT4puSpoMKRM8yPO?=
+ =?us-ascii?Q?NIzISSdJEC9MdoRUejUawUkPkSN3C+wMuVX1J3MbdQiAC/lbUCVEuNlH3zlq?=
+ =?us-ascii?Q?C0NpzyLQa1WMq6Ma3CSNgPu1GIXrKPUz0eZxS5TZjk6GJ3fPvQ0ASK/FtB53?=
+ =?us-ascii?Q?SvbtxSyXosot+egCN2X8TZ7u+4e1A+DvICsWTd1A5QJ6YpclQAMuHnUNib39?=
+ =?us-ascii?Q?mk28qf4p/brbst7TAZWGCzcCjwxvp/twi0ewEwuatBX+eLkvfquQIjEp8NYw?=
+ =?us-ascii?Q?A7UCvdyVgUBReHRT12w6eNQ3qyRFyzCTX6lE/fyObzJlotyk4vorrB2Bzx8e?=
+ =?us-ascii?Q?d2hMiYmxoI8GmALuBsilU/FyMs7uQwxpmqgrLZEv6HER969pNMDLramWdmxf?=
+ =?us-ascii?Q?D4d5TdGUd1Uxwqe53PUn7Hrp7P7KOJKjglQp6VKw57rPRMzNgKZqbYyvk4zS?=
+ =?us-ascii?Q?s3ZDD5fPlx0J29XfHSdh75EWtODaUXC6Mr8eWtpGpWM8AnU3KoIDWcjHxj3w?=
+ =?us-ascii?Q?RF8EFHM5/Bd3W0q2UU+5DQcKeSjJ9Kw6I2m9t9/W4PmudOxK21MLWF3uOt58?=
+ =?us-ascii?Q?7HYKkQ1/WWq7myX6EroT1m0YIHjbawcNmBz0wo81BR9Nm1ARXNxgft+SeCeH?=
+ =?us-ascii?Q?jWN9DRYRiGx6Nrj4fRB/2+KDhRz6jHaqrHYv6wTj80okEPhIdx1chpPQeCUk?=
+ =?us-ascii?Q?NxmvuepxymBskSXjG0tM5Qr5cHgS3LGfgDPfCudkziQjgqA3kjkMbIXPGw+O?=
+ =?us-ascii?Q?73eMp+nvWSi5NpH3OhDEPM8hoLv/6yIfD6azValvNnJDX97FufWGK7ydhtco?=
+ =?us-ascii?Q?pKuVyNK09lOPsGSRdnSh1Q/nfZVhq41SLeVlqT/9IgKzkinN04aiTLJFj/zd?=
+ =?us-ascii?Q?ifDKzVx+nScjYKBFArKIMDSi7Kost8t00vn4CUiKs92cnw5mi4FgACtW6T8e?=
+ =?us-ascii?Q?i5pbXbH0NoCrAsOBDPku/mxZ10HLn+rl+1IXIVEk9DEm/TiG2xXzFxh72o4e?=
+ =?us-ascii?Q?IgItoRViGfKx53dwCO7/ZRitV8w6hGqLYiZNx3HalmGDAaCh4ePJelD20XKL?=
+ =?us-ascii?Q?896FeaOoT0YhEZMywcKHliRRQbhsb3dUujBQJjFxvQDeDfcMkLyOWBrntWHN?=
+ =?us-ascii?Q?+1ALL0IWIHNXLLCMbYQfhrM=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9accf07e-ec40-42cc-67dd-08d9fa8c7690
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5901a70f-330d-499e-e8e0-08d9fa8cf65e
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2022 07:32:24.2895
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2022 07:35:58.7135
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lGrc5UWcmB0lzcls+Ey1dnmPI5PH4htMUE+aNkTM9fonj5N+E+JTCk876/HukS2TRu/JZBruvwxGd71WEmZYKg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8897
+X-MS-Exchange-CrossTenant-UserPrincipalName: U/kVp8HKn1UUY9geRrF9f8yRFgctMqJhE6mV/n6HnwceKClVbAjBScX2qVwxghzIHE+d+pJ80/6hSYg0bKGnqg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR0402MB3500
 
-On 25.02.2022 17:02, Jane Malalane wrote:
-> On 24/02/2022 14:08, Jan Beulich wrote:
->> On 18.02.2022 18:29, Jane Malalane wrote:
->>> Add XEN_SYSCTL_PHYSCAP_ARCH_ASSISTED_xapic and
->>> XEN_SYSCTL_PHYSCAP_ARCH_ASSISTED_x2apic to report accelerated xapic
->>> and x2apic, on x86 hardware.
->>> No such features are currently implemented on AMD hardware.
+On 25.02.2022 18:11, Andrew Cooper wrote:
+> On 25/02/2022 13:19, Jan Beulich wrote:
+>> On 25.02.2022 13:28, Andrew Cooper wrote:
+>>> On 25/02/2022 08:44, Jan Beulich wrote:
+>>>> On 24.02.2022 20:48, Andrew Cooper wrote:
+>>>>> In VMX operation, the handling of INIT IPIs is changed.  EXIT_REASON_=
+INIT has
+>>>>> nothing to do with the guest in question, simply signals that an INIT=
+ was
+>>>>> received.
+>>>>>
+>>>>> Ignoring the INIT is probably the wrong thing to do, but is helpful f=
+or
+>>>>> debugging.  Crashing the domain which happens to be in context is def=
+initely
+>>>>> wrong.  Print an error message and continue.
+>>>>>
+>>>>> Discovered as collateral damage from when an AP triple faults on S3 r=
+esume on
+>>>>> Intel TigerLake platforms.
+>>>> I'm afraid I don't follow the scenario, which was (only) outlined in
+>>>> patch 1: Why would the BSP receive INIT in this case?
+>>> SHUTDOWN is a signal emitted by a core when it can't continue.=C2=A0 Tr=
+iple
+>>> fault is one cause, but other sources include a double #MC, etc.
 >>>
->>> For that purpose, also add an arch-specific "capabilities" parameter
->>> to struct xen_sysctl_physinfo.
->>>
->>> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
->>> ---
->>> v3:
->>>   * Define XEN_SYSCTL_PHYSCAP_ARCH_MAX for ABI checking and actually
->>>     set arch_capbilities, via a call to c_bitmap_to_ocaml_list()
->>>   * Have assisted_x2apic_available only depend on
->>>     cpu_has_vmx_virtualize_x2apic_mode
+>>> Some external component, in the PCH I expect, needs to turn this into a
+>>> platform reset, because one malfunctioning core can't.=C2=A0 It is why =
+a
+>>> triple fault on any logical processor brings the whole system down.
+>> I'm afraid this doesn't answer my question. Clearly the system didn't
+>> shut down.
+>=20
+> Indeed, *because* Xen caught and ignored the INIT which was otherwise
+> supposed to do it.
+>=20
+>>  Hence I still don't see why the BSP would see INIT in the
+>> first place.
 >>
->> I understand this was the result from previous discussion, but this
->> needs justifying in the description. Not the least because it differs
->> from when XEN_HVM_CPUID_X2APIC_VIRT would be set as well as from what
->> vmx_vlapic_msr_changed() does. The difference between those two is
->> probably intended (judging from a comment there), but the further
->> difference to what you add isn't obvious.
-> 
-> Okay, I will make that explicit.
-> 
->> Which raises another thought: If that hypervisor leaf was part of the
->> HVM feature set, the tool stack could be able to obtain the wanted
->> information without altering sysctl (assuming the conditions to set
->> the respective bits were the same). And I would view it as generally
->> reasonable for there to be a way for tool stacks to know what
->> hypervisor leaves guests are going to get to see (at the maximum and
->> by default).
-> 
-> Like the "cpuid" xtf test allows us to?
+>>>> And it also cannot be that the INIT was received by the vCPU while run=
+ning on
+>>>> another CPU:
+>>> It's nothing (really) to do with the vCPU.=C2=A0 INIT is a external sig=
+nal to
+>>> the (real) APIC, just like NMI/etc.
+>>>
+>>> It is the next VMEntry on a CPU which received INIT that suffers a
+>>> VMEntry failure, and the VMEntry failure has nothing to do with the
+>>> contents of the VMCS.
+>>>
+>>> Importantly for Xen however, this isn't applicable for scheduling PV
+>>> vCPUs, which is why dom0 wasn't the one that crashed.=C2=A0 This actual=
+ly
+>>> meant that dom0 was alive an usable, albeit it sharing all vCPUs on a
+>>> single CPU.
+>>>
+>>>
+>>> The change in INIT behaviour exists for TXT, where is it critical that
+>>> software can clear secrets from RAM before resetting.=C2=A0 I'm not wan=
+ting
+>>> to get into any of that because it's far more complicated than I have
+>>> time to fix.
+>> I guess there's something hidden behind what you say here, like INIT
+>> only being latched, but this latched state then causing the VM entry
+>> failure. Which would mean that really the INIT was a signal for the
+>> system to shut down / shutting down.
+>=20
+> Yes.
+>=20
+>> In which case arranging to
+>> continue by ignoring the event in VMX looks wrong. Simply crashing
+>> the guest would then be wrong as well, of course. We should shut
+>> down instead.
+>=20
+> It is software's discretion what to do when an INIT is caught, even if
+> the expectation is to honour it fairly promptly.
+>=20
+>> But I don't think I see the full picture here yet, unless your
+>> mentioning of TXT was actually implying that TXT was active at the
+>> point of the crash (which I don't think was said anywhere).
+>=20
+> This did cause confusion during debugging.=C2=A0 As far as we can tell, T=
+XT
+> is not active, but the observed behaviour certainly looks like TXT is
+> active.
+>=20
+> Then again, reset is a platform behaviour, not architectural.=C2=A0 Also,
+> it's my understanding that Intel does not support S3 on TigerLake
+> (opting to only support S0ix instead), so I'm guessing that "Linux S3"
+> as it's called in the menu is something retrofitted by the OEM.
+>=20
+> But overall, the point isn't really about what triggered the INIT.=C2=A0 =
+We
+> also shouldn't nuke an innocent VM if an INIT IPI slips through
+> interrupt remapping.
 
-I don't think I understand the question. That xtf test is concerned
-about checking the CPUID output it gets to see itself. It doesn't care
-about what other guests might get to see, nor the maximum and default.
-
-> Makes sense to me. I'm happy to take that up after.
-
-"After" what?
+But we also shouldn't continue in such a case as if nothing had happened
+at all, should we?
 
 Jan
 
