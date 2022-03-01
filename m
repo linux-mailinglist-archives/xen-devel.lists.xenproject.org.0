@@ -2,53 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 802654C92D6
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Mar 2022 19:21:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.281712.480150 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC15A4C95D5
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Mar 2022 21:16:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.281732.480191 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nP77j-0002wh-BC; Tue, 01 Mar 2022 18:21:23 +0000
+	id 1nP8ua-0007JW-8T; Tue, 01 Mar 2022 20:15:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 281712.480150; Tue, 01 Mar 2022 18:21:23 +0000
+Received: by outflank-mailman (output) from mailman id 281732.480191; Tue, 01 Mar 2022 20:15:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nP77j-0002uL-6X; Tue, 01 Mar 2022 18:21:23 +0000
-Received: by outflank-mailman (input) for mailman id 281712;
- Tue, 01 Mar 2022 18:21:21 +0000
+	id 1nP8ua-0007Go-5D; Tue, 01 Mar 2022 20:15:56 +0000
+Received: by outflank-mailman (input) for mailman id 281732;
+ Tue, 01 Mar 2022 20:15:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=V+QB=TM=oracle.com=konrad.wilk@srs-se1.protection.inumbo.net>)
- id 1nP77h-0002uD-BB
- for xen-devel@lists.xenproject.org; Tue, 01 Mar 2022 18:21:21 +0000
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 637fa19e-998c-11ec-8eba-a37418f5ba1a;
- Tue, 01 Mar 2022 19:21:19 +0100 (CET)
-Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 221GibBC021769; 
- Tue, 1 Mar 2022 18:20:30 GMT
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by mx0b-00069f02.pphosted.com with ESMTP id 3ehdaysxfj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 01 Mar 2022 18:20:29 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 221I1JQc108032;
- Tue, 1 Mar 2022 18:20:29 GMT
-Received: from nam10-dm6-obe.outbound.protection.outlook.com
- (mail-dm6nam10lp2106.outbound.protection.outlook.com [104.47.58.106])
- by aserp3030.oracle.com with ESMTP id 3efa8ehhee-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 01 Mar 2022 18:20:28 +0000
-Received: from BYAPR10MB2999.namprd10.prod.outlook.com (2603:10b6:a03:85::27)
- by BN6PR1001MB2145.namprd10.prod.outlook.com (2603:10b6:405:2d::38)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.24; Tue, 1 Mar
- 2022 18:20:27 +0000
-Received: from BYAPR10MB2999.namprd10.prod.outlook.com
- ([fe80::d06b:5108:1d72:ac6c]) by BYAPR10MB2999.namprd10.prod.outlook.com
- ([fe80::d06b:5108:1d72:ac6c%5]) with mapi id 15.20.5038.014; Tue, 1 Mar 2022
- 18:20:27 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5KN6=TM=kernel.org=sashal@srs-se1.protection.inumbo.net>)
+ id 1nP8uY-0007Gi-FH
+ for xen-devel@lists.xenproject.org; Tue, 01 Mar 2022 20:15:54 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 642fa7a8-999c-11ec-8eba-a37418f5ba1a;
+ Tue, 01 Mar 2022 21:15:52 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2731A6173F;
+ Tue,  1 Mar 2022 20:15:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63E80C340EF;
+ Tue,  1 Mar 2022 20:15:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,163 +43,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 637fa19e-998c-11ec-8eba-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
- : subject : message-id : references : content-type : in-reply-to :
- mime-version; s=corp-2021-07-09;
- bh=uolvxQacXYmhg6H3oD0H5MVWhM/QphFrFeGOHREHM6k=;
- b=xt7vB76B1jEYqBcWNxIQQ4P9qzlf8BEunkxJ0fLEEPaSz2GzMKYukPUvMBfXI3ojVWsl
- lOL+Thi951bPUYwk6m9qcV4CHGuLip9WwL5L58eozoxuOXM18y9A/zWA3LI0fHjTovWI
- gZgYxH6RvBGo7qrC/dUpLXuydn0HnugZTz2trCH/MzOPmcE7cNfrTOruFizMG1vh2QBD
- VgvPK9SRD9s7p4TESSQ4S0gX+o1/cxEROfAwZJpgkroH9+lRyLkQbZZ+kMtgv8LN1Zn6
- vhChsxWRfg2NzTFWxQi+zNuCNFPg+9fqqfilEtL6nC2YgMV3289FOj/9/dEgYSr30kWb BA== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RTEkQ3+VW0KrT7/MofZKpdMQUN7WPAk3KY0OKVReLptjXfFUjz4TuQPnLxJVvDyHU1vzmfsejbdWUWz8yDRg5Aau4gwceJBdr4x2Hb2AAUtJmfA7eeLHnH5HWvIoaWir+GQKlWo3QAz+X6hQP+T3090iV94KG0gKdLnb91kUaS+iP+XP92LyWc1BnDmOBAbZo/0FmyxtMOD+Buk2jKrsTEB08+1medsg82zY3m+r4SrTYRJpth/OCjchimLOS7VXsMqmbXBo5R2qO+jHpCrVpQZ3ZGXotDuCdl6ZXMEqvX8BRRvwHyOZtgbQT6m7gBE/Ox180bqdSNEJPj2qPF0nyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uolvxQacXYmhg6H3oD0H5MVWhM/QphFrFeGOHREHM6k=;
- b=ABUYj9cyWP8PCp2htP2NAZDrB/GO3uGXY6dKkHOdbPsf2gK99sCcHHyLLCkve+HYysqKYNyLXXlQo3bKdGNzN5nEcp40VIAR+KK1dPClJhay9/gqacJ7WwQgmGLNh0ulo1aoKzGirOmpJYYiFg8TKvYshXPQSH+lXlKp/zHJ5zgfjybFpm5rdtm+Fg5SoaI4Va30VtCH07mQQlrmWo6+WYNkJBWS5fIiI7pCnT6eWip0I8Q+nTR6C0dDI9t64JVkjY50PO+KDa6B8jtUwaftHqLhtC+JTVCxXot7f3PRu1bHkJ+d9GtFF+FVrNuMPvd5xl+eyXgeYMOU2jqALFCuBw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uolvxQacXYmhg6H3oD0H5MVWhM/QphFrFeGOHREHM6k=;
- b=xDglO4tWOiUv9F1nbCfdc6cvuc1CJyDdCfLuhlBPhDzmv0RN6mggAgilvV4rXkjUKJ23vXFuxdwvaltsD9xaBkjbqw1OytzEN8W4o5SDe+MxtYofbojHgB4cgVvTfMQO+gJdygPTkeWeMjktRvL3FAETDPhX5jjMjQksbWnJ90A=
-Date: Tue, 1 Mar 2022 13:20:22 -0500
-From: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-To: Christoph Hellwig <hch@lst.de>
-Cc: iommu@lists.linux-foundation.org, x86@kernel.org,
-        Anshuman Khandual <anshuman.khandual@arm.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-        Juergen Gross <jgross@suse.com>, Joerg Roedel <joro@8bytes.org>,
-        David Woodhouse <dwmw2@infradead.org>,
-        Lu Baolu <baolu.lu@linux.intel.com>,
-        Robin Murphy <robin.murphy@arm.com>,
-        linux-arm-kernel@lists.infradead.org, xen-devel@lists.xenproject.org,
-        linux-ia64@vger.kernel.org, linux-mips@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
-        linux-s390@vger.kernel.org, linux-hyperv@vger.kernel.org,
-        tboot-devel@lists.sourceforge.net, linux-pci@vger.kernel.org
-Subject: Re: [PATCH 07/11] x86: remove the IOMMU table infrastructure
-Message-ID: <Yh5j5q5n/GyU0/1n@0xbeefdead.lan>
-References: <20220227143055.335596-1-hch@lst.de>
- <20220227143055.335596-8-hch@lst.de>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220227143055.335596-8-hch@lst.de>
-X-ClientProxiedBy: BL1P223CA0009.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:208:2c4::14) To BYAPR10MB2999.namprd10.prod.outlook.com
- (2603:10b6:a03:85::27)
+X-Inumbo-ID: 642fa7a8-999c-11ec-8eba-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1646165750;
+	bh=ktPF91zrjQqYukHJvi8JLaQ23mLJd5oC5eRxAgYO28Q=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=ENjX7uzT/NGwUJDdsXSevrSMeGX1v91JOzh8isKuuoAK7dMaSpswr26O4CwbVUPzI
+	 rBw6tZ5Mpii68ccEjrc4jju8oJq7kEqzPLjxscueDel2NZ4Xyt0h6EPHTmV1kF1kf+
+	 6AXxVZmMJVJ0Q8GkVB7/mRcBd2HVCMKXQ18jZed9366rf3CbAsJ4+J2ObzHpY7IXhj
+	 1sAMeyEEnw+J/iGYRPB5gegoipmoqY/dxxIVLejPMbT2qvwc7aPSd5JpE0khyrWWS+
+	 JB5n5gVN9NPt/EUqVdsxIvpnWZ6JlFOFgiBNZpybd9A127/u5jQcmPM+qNKvQRMdwn
+	 0jLF9mVVgKeZQ==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Paul Durrant <paul@xen.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	wei.liu@kernel.org,
+	davem@davemloft.net,
+	xen-devel@lists.xenproject.org,
+	netdev@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.16 21/28] Revert "xen-netback: remove 'hotplug-status' once it has served its purpose"
+Date: Tue,  1 Mar 2022 15:13:26 -0500
+Message-Id: <20220301201344.18191-21-sashal@kernel.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220301201344.18191-1-sashal@kernel.org>
+References: <20220301201344.18191-1-sashal@kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e9d924ff-f2f5-4ebb-efcb-08d9fbb028f3
-X-MS-TrafficTypeDiagnostic: BN6PR1001MB2145:EE_
-X-Microsoft-Antispam-PRVS: 
-	<BN6PR1001MB2145D7E888BCDD1AEB014F7589029@BN6PR1001MB2145.namprd10.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	lFIez9K45UjxTdw10wtEbimJWr0rXFnLt/ECe7AxJSP92ZPCU9waRxNp6elQ2PCYJoAsEfhB/13zdpEYlo2kBmMY+ayIpbILRGF9jPuxTIon18MBm++qRVF7+7tni/ODB6zkJ6FlplNyEZnV4zacMhBjUOy93eobCEyehC0I76yzDqN5JbF6pEd5fpoScOWKYF2jSeo8ztRRL8peOiuCg2NMc5KddwxhBKp556AzjYzN+F9JZBSxn7D1Vjb9f6Qn64gr+Mo9s1IQS6xLdeS5Fk7GE7gJUp5cov+l0bAHwaqSLkGKw96ceoOPYT4Ws25RMr5pW87W0fXB9CvXhulFHD9DAHH0KYNFFHCd0q0l+D+Z0/rKuWOWUPMFeBSn1fsa2Uno9yBFNyr3Q0l2mlYcg6CeDo+9RveoVWfMrO3tZKYDhi1S1WOh4E6litI9IKN3jmBwF17hdTkHhPg+iFGOX8Cilmy7sFT3anFMZRR1rjVOU/agfYWqxwd+rVxQsp0vJWwp0EgNr/z7KcyywH+xwJbjdZFIw5ybYRJPC+wl0DEiEI+pRANk5HQ8QVnTTAGxFdI8L5BmBflmIaP0da0UmaQADrN9EGNSn++zejCfFH/YprZmqBZl41psnTxKCUHR+KoIqY/Qbh4pQKMTeSONCtlXkg1rVdgL9zFuUOIfJvKEGpgHFAvbmmuNM+AmnBfn9OLE0gKq6kRQ3GOTurBCjQ==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR10MB2999.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(26005)(6512007)(508600001)(7416002)(9686003)(8936002)(5660300002)(186003)(83380400001)(6486002)(4744005)(52116002)(86362001)(6916009)(54906003)(66946007)(2906002)(6506007)(38350700002)(316002)(6666004)(36756003)(66556008)(66476007)(38100700002)(4326008)(8676002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?z7srtht3IKXb5mVU5m92ELUiYvGhBogF9JhMOfxwcCeBRFJHpeXs1zxPP9qt?=
- =?us-ascii?Q?AKL2LY9LVzBPhHu5V0T3WBj7Gay/MwLcXS2CAup+h2z4iR78ovr89+Dnm2Ld?=
- =?us-ascii?Q?UrUnj//6W3vo3QZODXSxJEtSpSiFj3SX9iKeZ2Exe2TfCDONWUjIMHQdUbSC?=
- =?us-ascii?Q?dPEMc7YiNoEZVAPrhazsupT/Mgkg9vNIZ4GkTTdt9st8obEOslwesXRwp7v+?=
- =?us-ascii?Q?Ae51MH9W767t9gcwRGjn26j9l53B0nLzZSNWdlssi6h5fxLbLiOxaB3frNfV?=
- =?us-ascii?Q?gI4rCv/p9VnifZ8HUkY5KJnEMSTvxKkCcXmlyTgFnOwcWg8i4I7Ltn5cSSks?=
- =?us-ascii?Q?UqFdUyUuQCF0z899mJzCuyF0AhB0iuChSaHyhxA8uJ2i7N7Tohqzu5zyqKpu?=
- =?us-ascii?Q?wkXzeu3MVB/q6xJqeg/UQq7G/5cedUN8Ul0FHKPeMYF3xSYo7QDheyaKbziU?=
- =?us-ascii?Q?Kg+2Yy2lnS5q7XKEbwoMQ7XfuN6yl24DijBSte6N5zJZ+BM9x7M4VEZBGhT4?=
- =?us-ascii?Q?UgJxbfnN+gW9kXlGXsOsEclVWmaimxjCsYrf96AqHDMGsIdqziU4LjNREDSQ?=
- =?us-ascii?Q?bDdGNMAJEY43lVSR2Go7P/p6vGcp4C5DKkTA/2Y51VdiTTueU3ig7AjXqGIK?=
- =?us-ascii?Q?V7xIDgg8eG9+ZClcis4Y+e36nBwNKqaattKL+GuEGvh1lOfRmg9b8hQwzeGS?=
- =?us-ascii?Q?UEJaQGUVW3gLBIsBQeBZoTVo0MnHXYMI6uVak39zNk0OVDNoP8MeM8uWX0sj?=
- =?us-ascii?Q?XBot+wVPWI6rE7d9MupXZI/FJKnPl38Z/mZpZrpB3FVHafMujOO7mCHZwO31?=
- =?us-ascii?Q?oOi3uegaXOeuvbNSc1vyxfFz0zL9k+WLv+qpZPme6mv9/mmDa/MsEkSQe9xs?=
- =?us-ascii?Q?wY26xnM5bKngOZ8YI8rYEHlKKR9etqCD7z+CMGbT4HOeefIY3ZuBu+4mkJvq?=
- =?us-ascii?Q?PoGymggFXNwaQzw7SGMhF9y/vmP/niCoftXhnsrxJXlSObDM0UgtWeLjXGGu?=
- =?us-ascii?Q?TxrqsnQRDWeifT/rwDUSR/daQgUfAbr9Jswki7o1NwLWjqTdUJUrz7fWudH5?=
- =?us-ascii?Q?ySYhZzJHVemfam4PwUMoR9wShPO5kxTCsjKl++PjVuyvlFccMOqyRb9Tpw28?=
- =?us-ascii?Q?JNbn/S1EidVmIVwnCNL1pwhoTpJ8Z1pKWXL1eG4FqCxghELuZogZL0KYtZj1?=
- =?us-ascii?Q?iZVzjNOBHGQpu6gcJPHNU6zPpOIB/UgA4bdWOcCcw7XjJMY85rAHJPRQjx3p?=
- =?us-ascii?Q?5DqKB1hOPvpeA49iESkLGGENz8Tm9fLZdC4lTfSvFp5qVZUKNdzROzZXbn3h?=
- =?us-ascii?Q?Sy24x3GYe5tXWTevh4dE1aL705aMggtxKCE6/kc839b/Q9srD3JI8m3z/Shs?=
- =?us-ascii?Q?H6f7P6hW8ImEvjOmxujqZ/aRcRYNLKZbBwZkUxjvguifoUoAJlcCWbVaodNG?=
- =?us-ascii?Q?fxyoJW+TFkNCs8BUaNnrKU4fFtQLCjG0qDJMC4EEj7L0EZ6pkd3f5b3Gl6/T?=
- =?us-ascii?Q?cZStqh8Gq5+ulKQSfHPFv9NK174GYE9vwRZoAMsFPs8Xo6Xgd9YIMAf66dOu?=
- =?us-ascii?Q?WGD6hHk/QMzfp01L9PiSN9oLXkFb6ujEJMAQyIlIgdhMMrtz/DYf8TCl7LFH?=
- =?us-ascii?Q?EWCj8xCGlCXK2x9JCfEVl3A=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9d924ff-f2f5-4ebb-efcb-08d9fbb028f3
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR10MB2999.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Mar 2022 18:20:27.1245
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nHKZJHL5Fd9+ay+RKT4Mc3Poar9CEw1upWk5crVmkMULgkWOMgZ3NUaCBjzcs/Yl3WKLXUK8gxejnIBgqEkSDA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1001MB2145
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10273 signatures=685966
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 bulkscore=0 phishscore=0
- malwarescore=0 mlxscore=0 suspectscore=0 spamscore=0 mlxlogscore=999
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2201110000
- definitions=main-2203010092
-X-Proofpoint-GUID: Wj3Br-e4L6ngZnnKtFr824BC2zi0-dGS
-X-Proofpoint-ORIG-GUID: Wj3Br-e4L6ngZnnKtFr824BC2zi0-dGS
+Content-Type: text/plain; charset=UTF-8
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
 
-> -#include <asm/swiotlb.h>
-> -
-> -/*
-> - * History lesson:
-> - * The execution chain of IOMMUs in 2.6.36 looks as so:
-> - *
-> - *            [xen-swiotlb]
-> - *                 |
-> - *         +----[swiotlb *]--+
-> - *        /         |         \
-> - *       /          |          \
-> - *    [GART]     [Calgary]  [Intel VT-d]
-> - *     /
-> - *    /
-> - * [AMD-Vi]
+From: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-.. snip..
-> - *
->  void __init pci_iommu_alloc(void)
->  {
-> -	struct iommu_table_entry *p;
-> -
-> -	sort_iommu_table(__iommu_table, __iommu_table_end);
-> -	check_iommu_entries(__iommu_table, __iommu_table_end);
-> -
-> -	for (p = __iommu_table; p < __iommu_table_end; p++) {
-> -		if (p && p->detect && p->detect() > 0) {
-> -			p->flags |= IOMMU_DETECTED;
-> -			if (p->early_init)
-> -				p->early_init();
-> -			if (p->flags & IOMMU_FINISH_IF_DETECTED)
-> -				break;
-> -		}
-> +	if (xen_pv_domain()) {
-> +		pci_xen_swiotlb_init();
-> +		return;
->  	}
-> +	pci_swiotlb_detect_4gb();
+[ Upstream commit 0f4558ae91870692ce7f509c31c9d6ee721d8cdc ]
 
-I think you also need to check for IBM Calgary?
+This reverts commit 1f2565780e9b7218cf92c7630130e82dcc0fe9c2.
 
-> +	gart_iommu_hole_init();
-> +	amd_iommu_detect();
-> +	detect_intel_iommu();
-> +	if (x86_swiotlb_enable)
-> +		swiotlb_init(0);
+The 'hotplug-status' node should not be removed as long as the vif
+device remains configured. Otherwise the xen-netback would wait for
+re-running the network script even if it was already called (in case of
+the frontent re-connecting). But also, it _should_ be removed when the
+vif device is destroyed (for example when unbinding the driver) -
+otherwise hotplug script would not configure the device whenever it
+re-appear.
+
+Moving removal of the 'hotplug-status' node was a workaround for nothing
+calling network script after xen-netback module is reloaded. But when
+vif interface is re-created (on xen-netback unbind/bind for example),
+the script should be called, regardless of who does that - currently
+this case is not handled by the toolstack, and requires manual
+script call. Keeping hotplug-status=connected to skip the call is wrong
+and leads to not configured interface.
+
+More discussion at
+https://lore.kernel.org/xen-devel/afedd7cb-a291-e773-8b0d-4db9b291fa98@ipxe.org/T/#u
+
+Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Reviewed-by: Paul Durrant <paul@xen.org>
+Link: https://lore.kernel.org/r/20220222001817.2264967-1-marmarek@invisiblethingslab.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/xen-netback/xenbus.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/xen-netback/xenbus.c b/drivers/net/xen-netback/xenbus.c
+index d24b7a7993aa0..3fad58d22155b 100644
+--- a/drivers/net/xen-netback/xenbus.c
++++ b/drivers/net/xen-netback/xenbus.c
+@@ -256,6 +256,7 @@ static void backend_disconnect(struct backend_info *be)
+ 		unsigned int queue_index;
+ 
+ 		xen_unregister_watchers(vif);
++		xenbus_rm(XBT_NIL, be->dev->nodename, "hotplug-status");
+ #ifdef CONFIG_DEBUG_FS
+ 		xenvif_debugfs_delif(vif);
+ #endif /* CONFIG_DEBUG_FS */
+@@ -675,7 +676,6 @@ static void hotplug_status_changed(struct xenbus_watch *watch,
+ 
+ 		/* Not interested in this watch anymore. */
+ 		unregister_hotplug_status_watch(be);
+-		xenbus_rm(XBT_NIL, be->dev->nodename, "hotplug-status");
+ 	}
+ 	kfree(str);
+ }
+-- 
+2.34.1
+
 
