@@ -2,47 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9D984C8815
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Mar 2022 10:35:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.281047.479214 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C21C4C889C
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Mar 2022 10:58:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.281056.479231 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nOyub-00088T-A4; Tue, 01 Mar 2022 09:35:17 +0000
+	id 1nOzFz-0002Pn-4j; Tue, 01 Mar 2022 09:57:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 281047.479214; Tue, 01 Mar 2022 09:35:17 +0000
+Received: by outflank-mailman (output) from mailman id 281056.479231; Tue, 01 Mar 2022 09:57:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nOyub-00085v-62; Tue, 01 Mar 2022 09:35:17 +0000
-Received: by outflank-mailman (input) for mailman id 281047;
- Tue, 01 Mar 2022 09:35:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qMbA=TM=dingwall.me.uk=james@srs-se1.protection.inumbo.net>)
- id 1nOyuZ-00085p-PA
- for xen-devel@lists.xenproject.org; Tue, 01 Mar 2022 09:35:15 +0000
-Received: from smarthost01a.sbp.mail.zen.net.uk
- (smarthost01a.sbp.mail.zen.net.uk [212.23.1.1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e5d286bd-9942-11ec-8539-5f4723681683;
- Tue, 01 Mar 2022 10:35:14 +0100 (CET)
-Received: from [217.155.64.189] (helo=mail0.xen.dingwall.me.uk)
- by smarthost01a.sbp.mail.zen.net.uk with esmtpsa
- (TLS1.0:ECDHE_RSA_AES_256_CBC_SHA1:256) (Exim 4.90_1)
- (envelope-from <james@dingwall.me.uk>)
- id 1nOyuY-00071n-54; Tue, 01 Mar 2022 09:35:14 +0000
-Received: from localhost (localhost [IPv6:::1])
- by mail0.xen.dingwall.me.uk (Postfix) with ESMTP id 93F462EE67F;
- Tue,  1 Mar 2022 09:35:13 +0000 (GMT)
-Received: from mail0.xen.dingwall.me.uk ([127.0.0.1])
- by localhost (mail0.xen.dingwall.me.uk [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id zaf6TsOvbNxP; Tue,  1 Mar 2022 09:35:13 +0000 (GMT)
-Received: from ghoul.dingwall.me.uk (ghoul.dingwall.me.uk
- [IPv6:2a02:8010:698e:302::c0a8:1c8])
- by dingwall.me.uk (Postfix) with ESMTP id 739732EE67C;
- Tue,  1 Mar 2022 09:35:13 +0000 (GMT)
-Received: by ghoul.dingwall.me.uk (Postfix, from userid 1000)
- id 5FCF42E; Tue,  1 Mar 2022 09:35:13 +0000 (GMT)
+	id 1nOzFz-0002NW-1B; Tue, 01 Mar 2022 09:57:23 +0000
+Received: by outflank-mailman (input) for mailman id 281056;
+ Tue, 01 Mar 2022 09:57:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1nOzFx-0002NQ-QW
+ for xen-devel@lists.xenproject.org; Tue, 01 Mar 2022 09:57:21 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nOzFx-0002v5-ED; Tue, 01 Mar 2022 09:57:21 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235] helo=[192.168.6.66])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nOzFx-0002mG-7k; Tue, 01 Mar 2022 09:57:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,59 +39,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e5d286bd-9942-11ec-8539-5f4723681683
-X-Virus-Scanned: Debian amavisd-new at dingwall.me.uk
-Date: Tue, 1 Mar 2022 09:35:13 +0000
-From: James Dingwall <james-xen@dingwall.me.uk>
-To: xen-devel@lists.xenproject.org
-Cc: pdurrant@amazon.com
-Subject: [PATCH] fix invalid frontend path for set_mtu
-Message-ID: <20220301093513.GA3187840@dingwall.me.uk>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=YVjhYH6kRAXW0WlGzpTvDmInUEioXLDF5vGnBFvgXbo=; b=XO3vnzYxXviPamMXcnHd/Y38U/
+	Wfd5lIAiZ8pSBb/bJXFmPnJniuyW1zcXpytWoT4v3ABSBNO4kzMEAjqtIy2anWRP70IR3THvCHDvE
+	0er3L1rvijAkGZx+vtOrFqNpR/PW9dGXvboDX+eIihqv0uUh5cVo57W2F/WRcT0GYQTw=;
+Message-ID: <ff6c4f25-156b-c305-7e43-2cf63c784045@xen.org>
+Date: Tue, 1 Mar 2022 09:57:19 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Originating-smarthost01a-IP: [217.155.64.189]
-Feedback-ID: 217.155.64.189
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.6.1
+Subject: Re: [PATCH] xen/arm: Remove unused BOOT_RELOC_VIRT_START
+To: Michal Orzel <michal.orzel@arm.com>, xen-devel@lists.xenproject.org
+Cc: Julien Grall <julien.grall@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Julien Grall <jgrall@amazon.com>
+References: <20220228100633.57593-1-julien@xen.org>
+ <ca501104-4563-d9ca-ffb1-ca4fdb1dd084@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <ca501104-4563-d9ca-ffb1-ca4fdb1dd084@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi,
+On 01/03/2022 08:28, Michal Orzel wrote:
+> Hi Julien,
 
-The set_mtu() function of xen-network-common.sh currently has this code:
+Hi Michal,
 
-        if [ ${type_if} = vif ]
-        then
-            local dev_=${dev#vif}
-            local domid=${dev_%.*}
-            local devid=${dev_#*.}
+> On 28.02.2022 11:06, Julien Grall wrote:
+>> From: Julien Grall <julien.grall@arm.com>
+>>
+>> We stopped relocating Xen since commit f60658c6ae "xen/arm: Stop
+>> relocating Xen".
+>>
+>> At the same time, update the memory layout description.
+>>
+>> Signed-off-by: Julien Grall <julien.grall@arm.com>
+>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> Are these two entries needed? I'd say one is enough.
+ From my understanding, it is necessary. The person is the same here but 
+the companies are different.
 
-            local FRONTEND_PATH="/local/domain/$domid/device/vif/$devid"
+So I should properly account that the work was originaly done while 
+working for Arm (see [1]) and was updated while I was working for Amazon.
 
-            xenstore_write "$FRONTEND_PATH/mtu" ${mtu}
-        fi
+Even I didn't touch the patch, I still need to add a signed-off-by 
+because of the DCO [2].
 
-This works fine if the device has its default name but if the xen config
-defines the vifname parameter the FRONTEND_PATH is incorrectly constructed.
-Learn the frontend path by reading the appropriate value from the backend.
+>> ---
+> 
+> Apart from that:
+> Reviewed-by: Michal Orzel <michal.orzel@arm.com>
 
-diff --git a/tools/hotplug/Linux/xen-network-common.sh b/tools/hotplug/Linux/xen-network-common.sh
-index 02e2388600..cd98f0d486 100644
---- a/tools/hotplug/Linux/xen-network-common.sh
-+++ b/tools/hotplug/Linux/xen-network-common.sh
-@@ -163,11 +163,7 @@ set_mtu () {
- 
-         if [ ${type_if} = vif ]
-         then
--            local dev_=${dev#vif}
--            local domid=${dev_%.*}
--            local devid=${dev_#*.}
--
--            local FRONTEND_PATH="/local/domain/$domid/device/vif/$devid"
-+            local FRONTEND_PATH=$(xenstore_read "$XENBUS_PATH/frontend")
- 
-             xenstore_write "$FRONTEND_PATH/mtu" ${mtu}
-         fi
+Cheers,
 
+[1] 
+https://xenbits.xen.org/gitweb/?p=people/julieng/xen-unstable.git;a=commit;h=dfa041f32ae2fef6132d40df7cbce93b6e385937
+[2] https://developercertificate.org/
 
-
-Thanks,
-James
+-- 
+Julien Grall
 
