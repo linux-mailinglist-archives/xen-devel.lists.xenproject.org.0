@@ -2,65 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCE334C8CBA
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Mar 2022 14:34:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.281448.479790 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0C264C8CD3
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Mar 2022 14:40:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.281462.479802 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nP2eC-0003DG-C4; Tue, 01 Mar 2022 13:34:36 +0000
+	id 1nP2jh-00051r-2w; Tue, 01 Mar 2022 13:40:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 281448.479790; Tue, 01 Mar 2022 13:34:36 +0000
+Received: by outflank-mailman (output) from mailman id 281462.479802; Tue, 01 Mar 2022 13:40:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nP2eC-00039m-7c; Tue, 01 Mar 2022 13:34:36 +0000
-Received: by outflank-mailman (input) for mailman id 281448;
- Tue, 01 Mar 2022 13:34:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nP2jg-000500-Vv; Tue, 01 Mar 2022 13:40:16 +0000
+Received: by outflank-mailman (input) for mailman id 281462;
+ Tue, 01 Mar 2022 13:40:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hqu5=TM=arm.com=Rahul.Singh@srs-se1.protection.inumbo.net>)
- id 1nP2eA-0002kj-Iy
- for xen-devel@lists.xenproject.org; Tue, 01 Mar 2022 13:34:34 +0000
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur02on062f.outbound.protection.outlook.com
- [2a01:111:f400:fe05::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 53cf0a54-9964-11ec-8539-5f4723681683;
- Tue, 01 Mar 2022 14:34:33 +0100 (CET)
-Received: from DB6PR0301CA0038.eurprd03.prod.outlook.com (2603:10a6:4:3e::48)
- by PAXPR08MB6621.eurprd08.prod.outlook.com (2603:10a6:102:dc::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.25; Tue, 1 Mar
- 2022 13:34:29 +0000
-Received: from DB5EUR03FT057.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:4:3e:cafe::98) by DB6PR0301CA0038.outlook.office365.com
- (2603:10a6:4:3e::48) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.25 via Frontend
- Transport; Tue, 1 Mar 2022 13:34:29 +0000
+ <SRS0=BNgs=TM=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1nP2je-0004zu-SF
+ for xen-devel@lists.xenproject.org; Tue, 01 Mar 2022 13:40:14 +0000
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur01on0604.outbound.protection.outlook.com
+ [2a01:111:f400:fe1f::604])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1ee861eb-9965-11ec-8eba-a37418f5ba1a;
+ Tue, 01 Mar 2022 14:40:14 +0100 (CET)
+Received: from AM5PR0601CA0047.eurprd06.prod.outlook.com
+ (2603:10a6:203:68::33) by AM4PR0802MB2324.eurprd08.prod.outlook.com
+ (2603:10a6:200:5f::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.22; Tue, 1 Mar
+ 2022 13:40:00 +0000
+Received: from AM5EUR03FT029.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:203:68:cafe::ca) by AM5PR0601CA0047.outlook.office365.com
+ (2603:10a6:203:68::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.23 via Frontend
+ Transport; Tue, 1 Mar 2022 13:40:00 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT057.mail.protection.outlook.com (10.152.20.235) with
+ AM5EUR03FT029.mail.protection.outlook.com (10.152.16.150) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5017.22 via Frontend Transport; Tue, 1 Mar 2022 13:34:29 +0000
-Received: ("Tessian outbound 63bb5eb69ee8:v113");
- Tue, 01 Mar 2022 13:34:29 +0000
-Received: from 04de89535d06.1
+ 15.20.5017.22 via Frontend Transport; Tue, 1 Mar 2022 13:40:00 +0000
+Received: ("Tessian outbound 1f399c739551:v113");
+ Tue, 01 Mar 2022 13:39:59 +0000
+Received: from f9ac703d02b1.2
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 73D7EB47-4B57-4FD0-8C4E-D7860382F7C8.1; 
- Tue, 01 Mar 2022 13:34:23 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 04de89535d06.1
+ 34767BB8-C71B-4241-B039-0B7209675DD7.1; 
+ Tue, 01 Mar 2022 13:39:49 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id f9ac703d02b1.2
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Tue, 01 Mar 2022 13:34:23 +0000
-Received: from AM5PR0801MB2020.eurprd08.prod.outlook.com
- (2603:10a6:203:4c::14) by AM6PR08MB4358.eurprd08.prod.outlook.com
- (2603:10a6:20b:b6::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.24; Tue, 1 Mar
- 2022 13:34:21 +0000
-Received: from AM5PR0801MB2020.eurprd08.prod.outlook.com
- ([fe80::253a:4d6c:61c9:af60]) by AM5PR0801MB2020.eurprd08.prod.outlook.com
- ([fe80::253a:4d6c:61c9:af60%10]) with mapi id 15.20.5017.027; Tue, 1 Mar 2022
- 13:34:21 +0000
+ Tue, 01 Mar 2022 13:39:49 +0000
+Received: from AM0PR08MB3778.eurprd08.prod.outlook.com (2603:10a6:208:104::24)
+ by HE1PR0802MB2602.eurprd08.prod.outlook.com (2603:10a6:3:e2::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.25; Tue, 1 Mar
+ 2022 13:39:47 +0000
+Received: from AM0PR08MB3778.eurprd08.prod.outlook.com
+ ([fe80::4dbb:4fed:bc86:1803]) by AM0PR08MB3778.eurprd08.prod.outlook.com
+ ([fe80::4dbb:4fed:bc86:1803%6]) with mapi id 15.20.5017.027; Tue, 1 Mar 2022
+ 13:39:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,12 +72,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 53cf0a54-9964-11ec-8539-5f4723681683
+X-Inumbo-ID: 1ee861eb-9965-11ec-8eba-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hmgvc60Lh7JtbNghknVL20rXiMusarbxrZ8AuH8JKHE=;
- b=OGczUwGvCIAeL95yLZyKqfJH7mrgz2yFw9oEFcW4q99clIG7g3JMos2a/k9ir36eY/jO6LS3UtiOprv7EAA7HRGJdpOSGmRsyatEQStmw1Pw/JPuc1Wrw3D+ur6PXDo4noD/D6Ap13il7fu6z5sxxqxtHpeqG12qCnRYUAFCRDE=
+ bh=o54D5Ouvu3ReLaYNHPl9bo5bDSn+jk5JPf3ZQyesVtY=;
+ b=g0+WPbcV+TdBHnifaM0+LlHUVXpLvwfQ7firzUcZXNI1ZTgF4M6WoRiTFjB2hPwPeWaAvI/0JudEkD589e/kRbs7krc5bG7afHRVrUzt3iM17Gn1de1Qq6DZIVP4AOYKYCj5EBVCLDnsh/hBXdw56Y1C/IhGVtSTm5i9F+OALiI=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; dkim=pass (signature was verified)
  header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
@@ -85,368 +85,191 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.35.35.123 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: c10a95bd88a7f45c
+X-CR-MTA-CID: 1b7deb144c4fe53a
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=K7XtmzoE/f7ZMVGKS+DEk+MV1vJpagBPYVxIazIGZHchrZhCo9Dx00/gNwuQsRCGmpUTJXo8YfFttP1Km4Qucum2IdjahgMoJIRGx+Dwz0CjQcw/3Gb/NGYeBycgj3w05GzEEYBkzX+T/ZrKqfWR5Kcewv6ban1+pPgzQR79Dgn9BLbIzhBkKn3Ij2QxQWKFiUJkOBsmm9aYXqxGMmRHA2dGqpMbAL2c1/rDFwZ92smEht4A2Omgdej7fchmc68teHpb2FjWSPJa8LX2xfUdA4BomeeGtLqDz+GHf7hnV1glt9O/41gAwtN2P7zFA2j7pdBe+LRzEDkk04hGGFYU5Q==
+ b=ABEosmYa8BbLW6jRK6lmNDMU7CIcDm7/KFcHHPxarsNYWpWQP63GuSi5UQbCSlhVFH+HerwcOsjMbVR403rOKb2FszbdQmWG85fjLU2yvIct7WbEPh4PZbuHG5TDUEZLTYrLCwmRFZhFmgKXgbzg1+Zk8PI0/N2e84xrlE1SdfRzSszqbwVWQYVxB1WOVRERL5C8+rekwBhHppN/IoR//OqrpmRVv/yDFhuiUopbO4RIc3F0tgg+fH8rals8COSAea2BZdmX+IWbThYY8usPTxCdTNXM+NcU0hgcDAAb3yr6oDl+96+IlU9FrvDYO6L3YlHT/x+qxvOojXvApw6Feg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hmgvc60Lh7JtbNghknVL20rXiMusarbxrZ8AuH8JKHE=;
- b=F25Q7tPRC2uOXhnsgoS7hb/iZADpm/wI6GBl+JbljNQEL5OC5JBZJGVS21YEK+ME4AYeCdlKyh0V9eHpG6hDESJBK6iJ4C+U/3gfRMf9b6ND39aPT2xcxP3Xg64FwSeTxp8by2jBCSw4Rzpw6AGSFReUgNUWEWn0kTO/FOsCzW7RCrwIxw99wN9Y6rNwChJLxuXeuako0wsU4GXf4vMWNAaDecqjKTmujAunGARleHuxcrHIqcieDN5KdpmFaUZda1WVAeSeZcdesfRK7CguqeN0WwmEVHsjYH2EXnGnLBuW8dOg0Jd1T1mH/y9H+c7N87g99TY0dDB0zl2g8Qq3LQ==
+ bh=o54D5Ouvu3ReLaYNHPl9bo5bDSn+jk5JPf3ZQyesVtY=;
+ b=Ddc9PFm8nWOTXRQdhtXJaIOT31eqEktkKxZEgW5YWfexDQKZZE2TOpZRAAvEhiJOI5Oq+yLjkGBVbVxoLSGyDyfCTKgjHWTQgCF0oSyyGKukEywnH8bxDu3DjnkDZIwEAX6amNjrH0olf5mrbC6bQ1g/Dm4ItxxrwJZOr3w7qQ67k1YMp7QqY5UQGfbpnrFhpbrzmrbm9RzGUyhbpqBeoVk8vF7fBKcLciNmJYTIhKKXF1WNzGu1EC0O7VEUiAt6zX5+par/MC37x6qZTJOGpRJOm8oBklNU+v7XeFQzYL1aHElHT2LaY2OC3HASx4Mogu4rKt8gJzqcZbqpwn5HAQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hmgvc60Lh7JtbNghknVL20rXiMusarbxrZ8AuH8JKHE=;
- b=OGczUwGvCIAeL95yLZyKqfJH7mrgz2yFw9oEFcW4q99clIG7g3JMos2a/k9ir36eY/jO6LS3UtiOprv7EAA7HRGJdpOSGmRsyatEQStmw1Pw/JPuc1Wrw3D+ur6PXDo4noD/D6Ap13il7fu6z5sxxqxtHpeqG12qCnRYUAFCRDE=
-From: Rahul Singh <Rahul.Singh@arm.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Bertrand Marquis <Bertrand.Marquis@arm.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
-	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v2 1/3] xen/vpci: msix: move x86 specific code to x86 file
-Thread-Topic: [PATCH v2 1/3] xen/vpci: msix: move x86 specific code to x86
- file
-Thread-Index: AQHYIoBoEZVl6/zkE0mK7dGMpvA2Zqyi2K6AgAfEbQA=
-Date: Tue, 1 Mar 2022 13:34:21 +0000
-Message-ID: <6BFB9B87-D8A1-442D-B4DC-18760C59D7BF@arm.com>
-References: <cover.1644937405.git.rahul.singh@arm.com>
- <4d2a727ba218468e4f347dc12ca051a0534fe205.1644937405.git.rahul.singh@arm.com>
- <6e188f87-7e4c-00ee-dd0c-373d42acec34@suse.com>
-In-Reply-To: <6e188f87-7e4c-00ee-dd0c-373d42acec34@suse.com>
-Accept-Language: en-US
+ bh=o54D5Ouvu3ReLaYNHPl9bo5bDSn+jk5JPf3ZQyesVtY=;
+ b=g0+WPbcV+TdBHnifaM0+LlHUVXpLvwfQ7firzUcZXNI1ZTgF4M6WoRiTFjB2hPwPeWaAvI/0JudEkD589e/kRbs7krc5bG7afHRVrUzt3iM17Gn1de1Qq6DZIVP4AOYKYCj5EBVCLDnsh/hBXdw56Y1C/IhGVtSTm5i9F+OALiI=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Julien Grall <julien@xen.org>
+CC: Henry Wang <Henry.Wang@arm.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, "sstabellini@kernel.org"
+	<sstabellini@kernel.org>, Wei Chen <Wei.Chen@arm.com>, Penny Zheng
+	<Penny.Zheng@arm.com>
+Subject: Re: [RFC PATCH 0/2] Introduce reserved Xenheap
+Thread-Topic: [RFC PATCH 0/2] Introduce reserved Xenheap
+Thread-Index: AQHYKR4hXoXrj++ew0mI1ZjbqpdQh6yktMKAgAPeNACAAMMegIABO0+A
+Date: Tue, 1 Mar 2022 13:39:47 +0000
+Message-ID: <316007B7-51BA-4820-8F6F-018BC6D3A077@arm.com>
+References: <20220224013023.50920-1-Henry.Wang@arm.com>
+ <6269ec3d-039e-d68f-771d-c5e088631410@xen.org>
+ <PA4PR08MB625324910ED4D40383191F9D92019@PA4PR08MB6253.eurprd08.prod.outlook.com>
+ <48a0712c-eff8-dfc1-2136-59317f22321f@xen.org>
+In-Reply-To: <48a0712c-eff8-dfc1-2136-59317f22321f@xen.org>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3693.60.0.1.1)
 Authentication-Results-Original: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
-X-MS-Office365-Filtering-Correlation-Id: 5865d4d0-cc34-4371-1a39-08d9fb883651
+X-MS-Office365-Filtering-Correlation-Id: 2d4d3b6c-cf5e-4402-0fdd-08d9fb88fb5b
 x-ms-traffictypediagnostic:
-	AM6PR08MB4358:EE_|DB5EUR03FT057:EE_|PAXPR08MB6621:EE_
+	HE1PR0802MB2602:EE_|AM5EUR03FT029:EE_|AM4PR0802MB2324:EE_
 X-Microsoft-Antispam-PRVS:
-	<PAXPR08MB662115AAB50C1B4FB30BC90AFC029@PAXPR08MB6621.eurprd08.prod.outlook.com>
+	<AM4PR0802MB232411F86D43328AABA917EC9D029@AM4PR0802MB2324.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- OyK2OrzoQgCm5hcAPGB/R5k1aXXlVDI+WHT1GKFqyrU0wnkThYPU0jMlIW0rxfOUFB1gZjb8EifWnIujDRlT1bIY8rBHY8CELpHHdVQGjgUAEUe12lh2r7sKttWSViZ/dGHQdmvSatZezt7/zKR2TfrLYWFp0vy520NGo3EdsLey/uddSChNz2zllrXwjEaw3XlRv3gpnJu9XXv1TiDtOZ5KZd1KmJQ/t0iQGs6wxGRRlJrC58H1hWF7nGBZ6i0AwJX9aGpwg69iWkF/UN4QVPaskAu1CTXHPTQErwmSX+JxUucY2kvwP5OKgC9jrEzdfr4Nvaeu0P7DSAf7vMQcJe0GQGdcfi+SfLUakFjGyu6VlwGZfapJTAs+FKLsFh6mydKieiSm2s26Q08HhMpPyjJpxckvsZGtz2iKLKKvfECBOSjgmhZgyrW/UKbTcsmOEqG6onNfuHJEDU03BHkm8xU696e/QKs8WxKG9EJcMMGzL3PWmqT2IsM5kCmmkb8HQ59+RYcpxB9iWMSuA7tj3GTYOuW9ut2rG2k5T/NXcRFgaSjlIEkQGFJVJf8OSQMRXKsglElovkfu8XdMjA7CY+QqM0W5L9OLvp8fN5zn3nXNElOM9k99SYwKaFcK5/FWgqHRTvj2i80ssvk8EsMtiyAQhS7ANg7wgPcPdN+dMMb6cbdjeOhyY54GAQcQYnGLziq5Bkg/+CCRiSAKsANgDyti77zOVHsLf7GRvY8MGIQqHyfFkRn8QYZZr/TOyFY+
+ wGSIFR8+r5hUX0kgNNngt9odj+fLJFKXQhp4+aK/u848YYdbrZ/N5LjrzmVQuDvdNh/ksQewSKsDXRcrJC8yIo4le21PPHGML+YK9lF73aF0dNsZVJM42jmEX1PJUuppl/eM96Wtk0gpVyqPMxKkWYVNVnJMvWiPgc2vr9XEXj4+ja5/++1lNTxeMpZy7xyizj52grnk+9Sk0GqZkjuXArRfeq7XCyEVYWTP9S8TrNSRIRLHyIsfGa03Ruo/9JsRX7J8zfvG3sQT9IWg5BIzh0iSoNEoZQXtQZyI/1LgQMQ5vzTROAi4+WMo3nFp3yWEIi7m7c3heR8hl9P3Z38Paub35m9XP22M4qoVWQ8zf0kZqwz88Dw4nr66sUMiIeqKpGcm4VtxPT9VbaPbIAWilWOdyrTilVz41INTh/IjndXdX8HhOfxLGcfHzbjemxHd5WcSEibvlmdSKbKKV2RDJ9oZenPS6zt+Qd75/BtSkQeZZNnpih+p7nenXikzIufzv7/ULxWWu8orapateO7ngfsrobgY8s0AQpJBWWuPWyYLndAcfWTsMeNIRnBMBwUpE1iF3i+p9gTjIdL9Rb12kLyi61x8ieUnZ7dwxDu2sNjWabfGpDn9Az6UpxWsE/EreDLmREYmRQSS+BlfkYTeerOZG88idO6515ZXPSzl/YdxNQGHgTNz+zuY1r+xCuINAtvdlTu1Ph+4qqlj2VjdOSIcHF5dOIodgyeSdA5B2Xw=
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM5PR0801MB2020.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(38100700002)(122000001)(83380400001)(5660300002)(6916009)(54906003)(66556008)(8676002)(4326008)(66476007)(66946007)(76116006)(66446008)(64756008)(8936002)(316002)(6486002)(2616005)(91956017)(26005)(186003)(71200400001)(508600001)(53546011)(6506007)(6512007)(33656002)(2906002)(36756003)(38070700005)(86362001)(45980500001)(309714004);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="iso-8859-1"
-Content-ID: <0EDF91FBADF737418CE667B814D5C657@eurprd08.prod.outlook.com>
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR08MB3778.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(53546011)(6486002)(71200400001)(36756003)(6512007)(38100700002)(6506007)(122000001)(83380400001)(508600001)(6916009)(54906003)(8936002)(316002)(4326008)(86362001)(38070700005)(5660300002)(2616005)(2906002)(33656002)(26005)(186003)(66446008)(66476007)(66946007)(91956017)(64756008)(76116006)(66556008)(8676002)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <D659674B821CD24D8BD52527FAC072FD@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB4358
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR0802MB2602
 Original-Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT057.eop-EUR03.prod.protection.outlook.com
+ AM5EUR03FT029.eop-EUR03.prod.protection.outlook.com
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	2990341d-51e6-44f7-1dca-08d9fb883183
+	c354b0de-36b8-48ed-e5a9-08d9fb88f3cd
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	ixJWVEext5MWUO0B9L4ZvM8GitHIz3g6/fUCHLNxJuyEz0cyzZdADV5zxg4XPzhWDPhaGX12pNEgbdnHq8Kh0jAbMLzbe325hTag3Xen78GUTYg1vNZA/4EWwfCHm/E2Mbqv23cQmSnOph5qv2qLgHjllhssVH3+B0ikbqZiS3hSqYdNq9c3VUhX0DHhPV9r5vLLtuyj16Y148Ybv+ohEsC+Wv7M+MkgjzR29/Dr3AIhLKxRv+fKNTJPXqHKuZpYiuxFK/7Ng1yjwZJxRX3qO8YUVf23+O+GNP0G0GLZbltIb+Cgb8hJM+klFcfMuUTJkZLgM2j1c8BcHn/AdNOiUXR9fVv/aBuJI+XjCV/UcR1JisjFZ4VsDroHlzALrBqtwcab44moCmPvnwp4Jb9d5/IdTLk86OGqpy3Zaru84xMnGDUkoVTC+mv4CgdneBdt8x19k5OHIHu+8iXw0Uabn0duKwHE1m8ufAYQqid6k0vc3OwjdeytJJP4VDsiPsoIGvIbr/PGIlA+obWkHSGY6cAWIpiu7g9CcNT1QKED/+hmx0kukrqN/hkEqX0Ekjoa7PQjKdH8f4rl8WPdsS8K+7Twmi8CY4PrGqDTofeYl01JdfgQNuS/IS/uIz34PqyUE3TO4GNisrBbKndIK2V//Fm125hc6CuDO/IsSvH0acUS1F5LbnlBVXBjJUbBsmReHuRUvt/nQ+3JIRUqJ2VGsQ==
+	Wy33sZjvoer/qDocw4lkA1MP5ixR00JXpJRKNNUiQcDW9OvusFR5cdtRAp7yB6AmEatpnAQEdVwx5k9f6zqL3PgJk7/L+obgqzdYYgXDLvcwCLOV0p6gpZzCy50rQMb3WyBkxd3VulNbYem2VA6XpBFnBo42/whyui0lO/1cOT2A8aoIhNjbaDxejDTzMY2qG3xtGr3lYFI+z8TI+PpbGinUOREAZL1Kwrr2btg+qXCNJzmNl3+GOcu8zRbQVQPESUSWYYHIF9Bqp6f5XkmKR+XxR2XFQU/9eYpURxxtTEtvG59mEOHFhnNaqVCpeFVY34vu///SlyaXy6a9Jntre+KcAMKxLtUMfyxDzKX/8M4Dyuw733//NX1+Xgtjoi0ijLCZerEY6jfaUc0DzieZJG8JYn+i0LawnQivoBJtT8jYeThQ9RCTXe+XoGQE47+dwYOH16rlJbPXADtYh8lV1lE4PISU8s0rmQEWqR8nsBIW8oaMAe08Pm9MZxc8b9zxzHbZuUREABqrzlIka+H+DPnRtsVsy0DVcHd3RAjD/oN1FXJRFkPBiy9lA88TAnZkxdyIZFR7B1vZQ8FkYN6pdQrh3ME64Kqi55nYPohvx+7CcfdC7VdTuWtcXYBzoc+6a/t5pXJJJIM83W8C4rj/BM6h5yoqixfmvCD2fLfGPfgxBAfWkTAcWYTKkYT2CAkw
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(86362001)(316002)(5660300002)(2616005)(6506007)(336012)(8936002)(82310400004)(70206006)(70586007)(2906002)(33656002)(26005)(186003)(4326008)(8676002)(36756003)(53546011)(356005)(81166007)(6486002)(83380400001)(508600001)(54906003)(36860700001)(6512007)(47076005)(40460700003)(6862004)(309714004);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(336012)(186003)(26005)(81166007)(40460700003)(2616005)(83380400001)(47076005)(8936002)(33656002)(36756003)(5660300002)(2906002)(36860700001)(82310400004)(70206006)(70586007)(6512007)(6486002)(6506007)(53546011)(508600001)(356005)(54906003)(86362001)(8676002)(6862004)(4326008)(316002);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Mar 2022 13:34:29.4954
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Mar 2022 13:40:00.0183
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5865d4d0-cc34-4371-1a39-08d9fb883651
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d4d3b6c-cf5e-4402-0fdd-08d9fb88fb5b
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT057.eop-EUR03.prod.protection.outlook.com
+	AM5EUR03FT029.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB6621
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM4PR0802MB2324
 
-H Jan,
+Hi,
 
-> On 24 Feb 2022, at 2:57 pm, Jan Beulich <jbeulich@suse.com> wrote:
+> On 28 Feb 2022, at 18:51, Julien Grall <julien@xen.org> wrote:
 >=20
-> On 15.02.2022 16:25, Rahul Singh wrote:
->> vpci/msix.c file will be used for arm architecture when vpci msix
->> support will be added to ARM, but there is x86 specific code in this
->> file.
->>=20
->> Move x86 specific code to the x86/hvm/vmsi.c file to make sure common
->> code will be used for other architecture.
 >=20
-> Could you provide some criteria by which code is considered x86-specific
-> (or not)? For example ...
-
-Code moved to x86 file is based on criteria that either the code will be un=
-usable or will be different=20
-for ARM when MSIX  support will be introduce for ARM.
 >=20
->> --- a/xen/arch/x86/hvm/vmsi.c
->> +++ b/xen/arch/x86/hvm/vmsi.c
->> @@ -925,4 +925,106 @@ int vpci_msix_arch_print(const struct vpci_msix *m=
-six)
->>=20
->>     return 0;
->> }
->> +
->> +int vpci_make_msix_hole(const struct pci_dev *pdev)
->> +{
->> +    struct domain *d =3D pdev->domain;
->> +    unsigned int i;
->> +
->> +    if ( !pdev->vpci->msix )
->> +        return 0;
->> +
->> +    /* Make sure there's a hole for the MSIX table/PBA in the p2m. */
->> +    for ( i =3D 0; i < ARRAY_SIZE(pdev->vpci->msix->tables); i++ )
->> +    {
->> +        unsigned long start =3D PFN_DOWN(vmsix_table_addr(pdev->vpci, i=
-));
->> +        unsigned long end =3D PFN_DOWN(vmsix_table_addr(pdev->vpci, i) =
-+
->> +                                     vmsix_table_size(pdev->vpci, i) - =
-1);
->> +
->> +        for ( ; start <=3D end; start++ )
->> +        {
->> +            p2m_type_t t;
->> +            mfn_t mfn =3D get_gfn_query(d, start, &t);
->> +
->> +            switch ( t )
->> +            {
->> +            case p2m_mmio_dm:
->> +            case p2m_invalid:
->> +                break;
->> +            case p2m_mmio_direct:
->> +                if ( mfn_x(mfn) =3D=3D start )
->> +                {
->> +                    clear_identity_p2m_entry(d, start);
->> +                    break;
->> +                }
->> +                /* fallthrough. */
->> +            default:
->> +                put_gfn(d, start);
->> +                gprintk(XENLOG_WARNING,
->> +                        "%pp: existing mapping (mfn: %" PRI_mfn
->> +                        "type: %d) at %#lx clobbers MSIX MMIO area\n",
->> +                        &pdev->sbdf, mfn_x(mfn), t, start);
->> +                return -EEXIST;
->> +            }
->> +            put_gfn(d, start);
->> +        }
->> +    }
->> +
->> +    return 0;
->> +}
+> On 28/02/2022 07:12, Henry Wang wrote:
+>> Hi Julien,
 >=20
-> ... nothing in this function looks to be x86-specific, except maybe
-> functions like clear_identity_p2m_entry() may not currently be available
-> on Arm. But this doesn't make the code x86-specific.
-
-I will maybe be wrong but what I understand from the code is that for x86=20
-if there is no p2m entries setup for the region, accesses to them will be t=
-rapped=20
-into the hypervisor and can be handled by specific MMIO handler.
-
-But for ARM when we are registering the MMIO handler we have to provide=20
-the GPA also for the MMIO handler.=20
-
-For ARM arch vpci_make_msix_hole() will be used to register the MMIO handle=
-r=20
-for the MSIX MMIO region.
-
-int vpci_make_msix_hole(const struct pci_dev *pdev)
-{
-    struct vpci_msix *msix =3D pdev->vpci->msix;
-    paddr_t addr,size;
-
-   for ( int i =3D 0; msix && i < ARRAY_SIZE(msix->tables); i++ )
-   {                                                                       =
-   =20
-       addr =3D vmsix_table_addr(pdev->vpci, i);              =20
-       size =3D vmsix_table_size(pdev->vpci, i) - 1;                       =
-                                                 =20
-       register_mmio_handler(pdev->domain, &vpci_msi_mmio_handler,         =
-   =20
-                                              addr, size, NULL);           =
-                    =20
-    }                                                                      =
-                                          =20
-    return 0;                                                              =
-    =20
-}
-
-Therefore in this case there is difference how ARM handle this case.
-=20
+> Hi Henry,
 >=20
->> +struct vpci_msix *vpci_msix_find(const struct domain *d, unsigned long =
-addr)
->> +{
->> +    struct vpci_msix *msix;
->> +
->> +    list_for_each_entry ( msix, &d->arch.hvm.msix_tables, next )
->> +    {
->> +        const struct vpci_bar *bars =3D msix->pdev->vpci->header.bars;
->> +        unsigned int i;
->> +
->> +        for ( i =3D 0; i < ARRAY_SIZE(msix->tables); i++ )
->> +            if ( bars[msix->tables[i] & PCI_MSIX_BIRMASK].enabled &&
->> +                 VMSIX_ADDR_IN_RANGE(addr, msix->pdev->vpci, i) )
->> +                return msix;
->> +    }
->> +
->> +    return NULL;
->> +}
+>>> -----Original Message-----
+>>> From: Julien Grall <julien@xen.org>
+>>> Sent: Saturday, February 26, 2022 4:09 AM
+>>> To: Henry Wang <Henry.Wang@arm.com>; xen-devel@lists.xenproject.org;
+>>> sstabellini@kernel.org
+>>> Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>; Wei Chen
+>>> <Wei.Chen@arm.com>; Penny Zheng <Penny.Zheng@arm.com>
+>>> Subject: Re: [RFC PATCH 0/2] Introduce reserved Xenheap
+>>>=20
+>>> Hi Henry,
+>>>=20
+>>> On 24/02/2022 01:30, Henry Wang wrote:
+>>>> The reserved Xenheap, or statically configured Xenheap, refers to part=
+s
+>>>> of RAM reserved in the beginning for Xenheap. Like the static memory
+>>>> allocation, such reserved Xenheap regions are reserved by configuratio=
+n
+>>>> in the device tree using physical address ranges.
+>>>=20
+>>> In Xen, we have the concept of domheap and xenheap. For Arm64 and x86
+>>> they would be the same. But for Arm32, they would be different: xenheap
+>>> is always mapped whereas domheap is separate.
+>>>=20
+>>> Skimming through the series, I think you want to use the region for bot=
+h
+>>> domheap and xenheap. Is that correct?
+>> Yes I think that would be correct, for Arm32, instead of using the full
+>> `ram_pages` as the initial value of `heap_pages`, we want to use the
+>> region specified in the device tree. But we are confused if this is the
+>> correct (or preferred) way for Arm32, so in this series we only
+>> implemented the reserved heap for Arm64.
 >=20
-> Or take this one - I don't see anything x86-specific in here. The use
-> of d->arch.hvm merely points out that there may be a field which now
-> needs generalizing.
+> That's an interesting point. When I skimmed through the series on Friday,=
+ my first thought was that for arm32 it would be only xenheap (so
+> all the rest of memory is domheap).
+>=20
+> However, Xen can allocate memory from domheap for its own purpose (e.g. w=
+e don't need contiguous memory, or for page-tables).
+>=20
+> In a fully static environment, the domheap and xenheap are both going to =
+be quite small. It would also be somewhat difficult for a user to size it. =
+So I think, it would be easier to use the region you introduce for both dom=
+heap and xenheap.
+>=20
+> Stefano, Bertrand, any opionions?
 
-Yes, you are right here I can avoid this change if I will introduce=20
-"struct list_head msix_tables"  in "d->arch.hvm" for ARM also.=20
+Only one region is easier to configure and I think in this case it will als=
+o prevent lots of over allocation.
+So in a full static case, having only one heap is a good strategy for now.
+
+There might be some cases where someone would want to fully control the mem=
+ory allocated by Xen per domain and in this case be able to size it for eac=
+h guest (to make sure one guest cannot be impacted by an other at all).
+But this is definitely something that could be done later, if needed.
+
+Cheers
+Bertrand
 
 >=20
->> +static int x86_msix_accept(struct vcpu *v, unsigned long addr)
->> +{
->> +    return !!vpci_msix_find(v->domain, addr);
->> +}
->> +
->> +static int x86_msix_write(struct vcpu *v, unsigned long addr, unsigned =
-int len,
->> +                          unsigned long data)
->> +{
->> +    const struct domain *d =3D v->domain;
->> +    struct vpci_msix *msix =3D vpci_msix_find(d, addr);
->> +
->> +    return vpci_msix_write(msix, addr, len, data);
->> +}
->> +
->> +static int x86_msix_read(struct vcpu *v, unsigned long addr, unsigned i=
-nt len,
->> +                         unsigned long *data)
->> +{
->> +    const struct domain *d =3D v->domain;
->> +    struct vpci_msix *msix =3D vpci_msix_find(d, addr);
->> +
->> +    return vpci_msix_read(msix, addr, len, data);
->> +}
->> +
->> +static const struct hvm_mmio_ops vpci_msix_table_ops =3D {
->> +    .check =3D x86_msix_accept,
->> +    .read =3D x86_msix_read,
->> +    .write =3D x86_msix_write,
->> +};
+> On a separate topic, I think we need some documentation explaining how a =
+user can size the xenheap. How did you figure out for your setup?
 >=20
-> I don't see the need to add x86_ prefixes to static functions while
-> you're moving them. Provided any of this is really x86-specific in
-> the first place.
+>>>=20
+>>> Furthemore, now that we are introducing more static region, it will get
+>>> easier to overlap the regions by mistakes. I think we want to have some
+>>> logic in Xen (or outside) to ensure that none of them overlaps. Do you
+>>> have any plan for that?
+>> Totally agree with this idea, but before we actually implement the code,
+>> we would like to firstly share our thoughts on this: One option could be=
+ to
+>> add data structures to notes down these static memory regions when the
+>> device tree is parsed, and then we can check if they are overlapped.
 >=20
-
-Ok. Let me remove the x86_ prefixes in next version.  MMIO handler function=
-s declaration is different=20
-for ARM and X86 therefore I need to move this code to arch specific file.
-
->> +void vpci_msix_arch_register(struct vpci_msix *msix, struct domain *d)
->> +{
->> +    if ( list_empty(&d->arch.hvm.msix_tables) )
->> +        register_mmio_handler(d, &vpci_msix_table_ops);
+> This should work.
 >=20
-> This is perhaps the only thing which I could see would better live
-> in arch-specific code.
+>> Over
+>> the long term (and this long term option is currently not in our plan),
+>> maybe we can add something in the Xen toolstack for this usage?
 >=20
->> --- a/xen/arch/x86/msi.c
->> +++ b/xen/arch/x86/msi.c
->> @@ -20,10 +20,10 @@
->> #include <xen/iocap.h>
->> #include <xen/keyhandler.h>
->> #include <xen/pfn.h>
->> +#include <xen/msi.h>
->> #include <asm/io.h>
->> #include <asm/smp.h>
->> #include <asm/desc.h>
->> -#include <asm/msi.h>
+> When I read "Xen toolstack", I read the tools that will run in dom0. Is i=
+t what you meant?
 >=20
-> Just like you do here and elsewhere, ...
+>> Also, I am wondering if the overlapping check logic should be introduced
+>> in this series. WDYT?
 >=20
->> --- a/xen/drivers/passthrough/amd/iommu.h
->> +++ b/xen/drivers/passthrough/amd/iommu.h
->> @@ -26,6 +26,7 @@
->> #include <xen/tasklet.h>
->> #include <xen/sched.h>
->> #include <xen/domain_page.h>
->> +#include <xen/msi.h>
->>=20
->> #include <asm/msi.h>
+> I would do that in a separate series.
 >=20
-> ... I think you want to remove this now redundant #include as well.
-
-Ok.
+> Cheers,
 >=20
->> --- a/xen/include/xen/msi.h
->> +++ b/xen/include/xen/msi.h
->> @@ -3,6 +3,34 @@
->>=20
->> #include <xen/pci.h>
->>=20
->> +#define msi_control_reg(base)       (base + PCI_MSI_FLAGS)
->> +#define msi_lower_address_reg(base) (base + PCI_MSI_ADDRESS_LO)
->> +#define msi_upper_address_reg(base) (base + PCI_MSI_ADDRESS_HI)
->> +#define msi_data_reg(base, is64bit) \
->> +	( (is64bit) ? (base) + PCI_MSI_DATA_64 : (base) + PCI_MSI_DATA_32 )
->> +#define msi_mask_bits_reg(base, is64bit) \
->> +	( (is64bit) ? (base) + PCI_MSI_MASK_BIT : (base) + PCI_MSI_MASK_BIT - =
-4)
->> +#define msi_pending_bits_reg(base, is64bit) \
->> +	( (is64bit) ? (base) + PCI_MSI_MASK_BIT + 4 : (base) + PCI_MSI_MASK_BI=
-T)
->> +#define msi_disable(control)        control &=3D ~PCI_MSI_FLAGS_ENABLE
->> +#define multi_msi_capable(control) \
->> +	(1 << ((control & PCI_MSI_FLAGS_QMASK) >> 1))
->> +#define multi_msi_enable(control, num) \
->> +	control |=3D (((fls(num) - 1) << 4) & PCI_MSI_FLAGS_QSIZE);
->> +#define is_64bit_address(control)   (!!(control & PCI_MSI_FLAGS_64BIT))
->> +#define is_mask_bit_support(control)    (!!(control & PCI_MSI_FLAGS_MAS=
-KBIT))
->> +#define msi_enable(control, num) multi_msi_enable(control, num); \
->> +	control |=3D PCI_MSI_FLAGS_ENABLE
->> +
->> +#define msix_control_reg(base)      (base + PCI_MSIX_FLAGS)
->> +#define msix_table_offset_reg(base) (base + PCI_MSIX_TABLE)
->> +#define msix_pba_offset_reg(base)   (base + PCI_MSIX_PBA)
->> +#define msix_enable(control)        control |=3D PCI_MSIX_FLAGS_ENABLE
->> +#define msix_disable(control)       control &=3D ~PCI_MSIX_FLAGS_ENABLE
->> +#define msix_table_size(control)    ((control & PCI_MSIX_FLAGS_QSIZE)+1=
-)
->> +#define msix_unmask(address)        (address & ~PCI_MSIX_VECTOR_BITMASK=
-)
->> +#define msix_mask(address)          (address | PCI_MSIX_VECTOR_BITMASK)
->=20
-> Why did you put these not ...
->=20
->> #ifdef CONFIG_HAS_PCI_MSI
->=20
-> .. below here?
-
-I will fix this in next version.
-
->=20
-> Also the movement of these is quite the opposite of what the title
-> says. IOW this likely wants to be a separate change.
-
-Ok. Let me move this change in separate patch in next series.
-
-Regards,
-Rahul
->=20
-> Jan
->=20
+> --=20
+> Julien Grall
 
 
