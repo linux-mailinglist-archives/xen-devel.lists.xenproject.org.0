@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C5A24C9666
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Mar 2022 21:22:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.281801.480302 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E35B4C97BC
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Mar 2022 22:24:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.281827.480334 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nP916-0005iT-BL; Tue, 01 Mar 2022 20:22:40 +0000
+	id 1nP9xg-0005nV-JD; Tue, 01 Mar 2022 21:23:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 281801.480302; Tue, 01 Mar 2022 20:22:40 +0000
+Received: by outflank-mailman (output) from mailman id 281827.480334; Tue, 01 Mar 2022 21:23:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nP916-0005fP-7B; Tue, 01 Mar 2022 20:22:40 +0000
-Received: by outflank-mailman (input) for mailman id 281801;
- Tue, 01 Mar 2022 20:22:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nP9xg-0005ky-Ft; Tue, 01 Mar 2022 21:23:12 +0000
+Received: by outflank-mailman (input) for mailman id 281827;
+ Tue, 01 Mar 2022 21:23:11 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5KN6=TM=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1nP914-0004Wo-QS
- for xen-devel@lists.xenproject.org; Tue, 01 Mar 2022 20:22:38 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 55d41463-999d-11ec-8539-5f4723681683;
- Tue, 01 Mar 2022 21:22:37 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B972E60C1A;
- Tue,  1 Mar 2022 20:22:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2111DC340EF;
- Tue,  1 Mar 2022 20:22:31 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nP9xf-0005kW-1u; Tue, 01 Mar 2022 21:23:11 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nP9xf-00008m-08; Tue, 01 Mar 2022 21:23:11 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nP9xe-0001wv-Pk; Tue, 01 Mar 2022 21:23:10 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nP9xe-0005VQ-PI; Tue, 01 Mar 2022 21:23:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,98 +42,230 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 55d41463-999d-11ec-8539-5f4723681683
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1646166156;
-	bh=aPLnTDcN5Cogu7sSosopTtKGWxetddHlbwS/+ePDwqU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=h+UeU/zpRmHfhaCMfuhxF+u1Vz65yCguVXd6YqWMqQ9EwnBIAdimJOSMbh1mAA2Ms
-	 84ZxX16WllwqYrGoHC6mgt0OLiTn4sqHEj8N0+1nlzOhG/c3wqsRz1iZN43zEJNX6C
-	 fOf4Cb2jJVVdUET9zwIB+H3zmJA7Caz4tE2pUgkXtzGXRkSGea/bqMf+C+8c3pO6ic
-	 URTUFe4V1gScGuoQ3D0Ekcj6AqUmhMRCtUvNeQ2y1vxYvRG7Kh5ET4Xm1PesL/gEUo
-	 3Q0KWJJ2kRi0inmOpZ6BpBCsXbyHVleS9ScuehEAQi26couDLVPeTg2unOF1F5DL2M
-	 wOb7icT5FLxrA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Paul Durrant <paul@xen.org>,
-	Michael Brown <mbrown@fensystems.co.uk>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>,
-	wei.liu@kernel.org,
-	davem@davemloft.net,
-	xen-devel@lists.xenproject.org,
-	netdev@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.9 4/6] Revert "xen-netback: Check for hotplug-status existence before watching"
-Date: Tue,  1 Mar 2022 15:22:08 -0500
-Message-Id: <20220301202212.19419-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220301202212.19419-1-sashal@kernel.org>
-References: <20220301202212.19419-1-sashal@kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-stable: review
-X-Patchwork-Hint: Ignore
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=fgQDROt0gPaCDg9H/kNou+7c4bbuhY63FEKFNOM8sqw=; b=zgwSR6D03FXqeBC2THMp6KgeUC
+	W7kaiua3sG//44E3kHgz9nj3+b2hSvKbkVYonA0tG3pEaltaIFATEJiAFjN2+j9KirtqZa4Hruz6i
+	yKD3K9iVB+HAsz1e3ctBtvxZrmzn2g02r7ZzYUpf3jEILd/H1p7ExRJ7ytPLYPlnE9PY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168303-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 168303: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=497ac7b6d7f9750f48f137db244931a5728b1968
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 01 Mar 2022 21:23:10 +0000
 
-From: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+flight 168303 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168303/
 
-[ Upstream commit e8240addd0a3919e0fd7436416afe9aa6429c484 ]
+Regressions :-(
 
-This reverts commit 2afeec08ab5c86ae21952151f726bfe184f6b23d.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
 
-The reasoning in the commit was wrong - the code expected to setup the
-watch even if 'hotplug-status' didn't exist. In fact, it relied on the
-watch being fired the first time - to check if maybe 'hotplug-status' is
-already set to 'connected'. Not registering a watch for non-existing
-path (which is the case if hotplug script hasn't been executed yet),
-made the backend not waiting for the hotplug script to execute. This in
-turns, made the netfront think the interface is fully operational, while
-in fact it was not (the vif interface on xen-netback side might not be
-configured yet).
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-This was a workaround for 'hotplug-status' erroneously being removed.
-But since that is reverted now, the workaround is not necessary either.
+version targeted for testing:
+ ovmf                 497ac7b6d7f9750f48f137db244931a5728b1968
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-More discussion at
-https://lore.kernel.org/xen-devel/afedd7cb-a291-e773-8b0d-4db9b291fa98@ipxe.org/T/#u
+Last test of basis   168254  2022-02-28 10:41:46 Z    1 days
+Failing since        168258  2022-03-01 01:55:31 Z    0 days    9 attempts
+Testing same since   168262  2022-03-01 04:10:26 Z    0 days    8 attempts
 
-Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Reviewed-by: Paul Durrant <paul@xen.org>
-Reviewed-by: Michael Brown <mbrown@fensystems.co.uk>
-Link: https://lore.kernel.org/r/20220222001817.2264967-2-marmarek@invisiblethingslab.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/xen-netback/xenbus.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+------------------------------------------------------------
+People who touched revisions under test:
+  Guomin Jiang <guomin.jiang@intel.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
 
-diff --git a/drivers/net/xen-netback/xenbus.c b/drivers/net/xen-netback/xenbus.c
-index e6646c8a7bdbb..78788402edd8b 100644
---- a/drivers/net/xen-netback/xenbus.c
-+++ b/drivers/net/xen-netback/xenbus.c
-@@ -1040,15 +1040,11 @@ static void connect(struct backend_info *be)
- 	xenvif_carrier_on(be->vif);
- 
- 	unregister_hotplug_status_watch(be);
--	if (xenbus_exists(XBT_NIL, dev->nodename, "hotplug-status")) {
--		err = xenbus_watch_pathfmt(dev, &be->hotplug_status_watch,
--					   NULL, hotplug_status_changed,
--					   "%s/%s", dev->nodename,
--					   "hotplug-status");
--		if (err)
--			goto err;
-+	err = xenbus_watch_pathfmt(dev, &be->hotplug_status_watch, NULL,
-+				   hotplug_status_changed,
-+				   "%s/%s", dev->nodename, "hotplug-status");
-+	if (!err)
- 		be->have_hotplug_status_watch = 1;
--	}
- 
- 	netif_tx_wake_all_queues(be->vif->dev);
- 
--- 
-2.34.1
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 497ac7b6d7f9750f48f137db244931a5728b1968
+Author: Guomin Jiang <guomin.jiang@intel.com>
+Date:   Sat Jan 29 16:28:02 2022 +0800
+
+    UefiPayloadPkg/PayloadLoaderPeim: Use INT64 as input parameter
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3818
+    
+    It will have some potential issue when memory larger than 2G because
+    the high memory address will be fill with 0xFFFFFFFF when do the
+    operation of INTN + INT64 but it is 32 bit normal data in fact.
+    
+    Should use same data type INT64 + INT64.
+    
+    V3:
+    1. Use INT64 as input parameter because all date type is 64 bit
+    V2:
+    1. Force the data type to UINTN to avoid high dword be filled with
+    0xFFFFFFFF
+    2. Keep INTN because the offset may postive or negative.
+    
+    Reviewed-by: Guo Dong <guo.dong@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Signed-off-by: Guomin Jiang <guomin.jiang@intel.com>
+
+commit 6a890db161cd6d378bec3499a1e774db3f5a27a7
+Author: Jason <yun.lou@intel.com>
+Date:   Mon Jan 10 22:30:29 2022 +0800
+
+    BaseTools: Upgrade the version of NASM tool
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
+    
+    Upgrade the version of NASM tool to avoid compilation errors when
+    compiling NASM code change.
+    
+    Signed-off-by: Jason Lou <yun.lou@intel.com>
+    Cc: Bob Feng <bob.c.feng@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Reviewed-by: Yuwei Chen <yuwei.chen@intel.com>
+
+commit bbaa00dd01ed0df30e43a5a89fd2b0433d858b73
+Author: Jason <yun.lou@intel.com>
+Date:   Mon Jan 10 22:05:47 2022 +0800
+
+    MdePkg: Remove the macro definitions regarding Opcode.
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
+    
+    Remove the macro definitions regarding Opcode because new version of
+    NASM tool(e.g. v2.15.05) supports the corresponding instructions.
+    Note: This patch need to be merged after other NASM code change to avoid
+    compilation errors.
+    
+    Signed-off-by: Jason Lou <yun.lou@intel.com>
+    Cc: Michael D Kinney <michael.d.kinney@intel.com>
+    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
+    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
+
+commit 2aa107c0aa2e1375651867c8df1b81ff64b67fce
+Author: Jason <yun.lou@intel.com>
+Date:   Mon Jan 10 22:01:18 2022 +0800
+
+    UefiCpuPkg: Replace Opcode with the corresponding instructions.
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
+    
+    Replace Opcode with the corresponding instructions.
+    The code changes have been verified with CompareBuild.py tool, which
+    can be used to compare the results of two different EDK II builds to
+    determine if they generate the same binaries.
+    (tool link: https://github.com/mdkinney/edk2/tree/sandbox/CompareBuild)
+    
+    Signed-off-by: Jason Lou <yun.lou@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Cc: Eric Dong <eric.dong@intel.com>
+    Cc: Laszlo Ersek <lersek@redhat.com>
+    Cc: Rahul Kumar <rahul1.kumar@intel.com>
+
+commit 7bc8b1d9f412507d579f21ea9af56fced81e7827
+Author: Jason <yun.lou@intel.com>
+Date:   Mon Jan 10 21:52:52 2022 +0800
+
+    SourceLevelDebugPkg: Replace Opcode with the corresponding instructions.
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
+    
+    Replace Opcode with the corresponding instructions.
+    The code changes have been verified with CompareBuild.py tool, which
+    can be used to compare the results of two different EDK II builds to
+    determine if they generate the same binaries.
+    (tool link: https://github.com/mdkinney/edk2/tree/sandbox/CompareBuild)
+    
+    Signed-off-by: Jason Lou <yun.lou@intel.com>
+    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
+
+commit d3febfd9ade35dc552df6b3607c2b15d26b82867
+Author: Jason <yun.lou@intel.com>
+Date:   Mon Jan 10 21:46:27 2022 +0800
+
+    MdePkg: Replace Opcode with the corresponding instructions.
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
+    
+    Replace Opcode with the corresponding instructions.
+    The code changes have been verified with CompareBuild.py tool, which
+    can be used to compare the results of two different EDK II builds to
+    determine if they generate the same binaries.
+    (tool link: https://github.com/mdkinney/edk2/tree/sandbox/CompareBuild)
+    
+    Signed-off-by: Jason Lou <yun.lou@intel.com>
+    Cc: Michael D Kinney <michael.d.kinney@intel.com>
+    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
+    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
+
+commit 84338c0d498555f860a480693ee8647a1795fba3
+Author: Jason <yun.lou@intel.com>
+Date:   Mon Jan 10 21:04:09 2022 +0800
+
+    MdeModulePkg: Replace Opcode with the corresponding instructions.
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
+    
+    Replace Opcode with the corresponding instructions.
+    The code changes have been verified with CompareBuild.py tool, which
+    can be used to compare the results of two different EDK II builds to
+    determine if they generate the same binaries.
+    (tool link: https://github.com/mdkinney/edk2/tree/sandbox/CompareBuild)
+    
+    Signed-off-by: Jason Lou <yun.lou@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Cc: Dandan Bi <dandan.bi@intel.com>
+    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
 
