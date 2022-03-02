@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ADC74C9B6F
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Mar 2022 03:50:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.281910.480440 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 355474C9B9C
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Mar 2022 03:56:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.281925.480457 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPF3W-0008Si-AH; Wed, 02 Mar 2022 02:49:34 +0000
+	id 1nPF9h-0001ZL-4y; Wed, 02 Mar 2022 02:55:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 281910.480440; Wed, 02 Mar 2022 02:49:34 +0000
+Received: by outflank-mailman (output) from mailman id 281925.480457; Wed, 02 Mar 2022 02:55:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPF3W-0008Qu-4g; Wed, 02 Mar 2022 02:49:34 +0000
-Received: by outflank-mailman (input) for mailman id 281910;
- Wed, 02 Mar 2022 02:49:32 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nPF3U-0008Qk-7Q; Wed, 02 Mar 2022 02:49:32 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nPF3U-00029p-46; Wed, 02 Mar 2022 02:49:32 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nPF3T-0001WF-Q9; Wed, 02 Mar 2022 02:49:31 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nPF3K-0001Mt-Jy; Wed, 02 Mar 2022 02:49:22 +0000
+	id 1nPF9h-0001Wu-1Y; Wed, 02 Mar 2022 02:55:57 +0000
+Received: by outflank-mailman (input) for mailman id 281925;
+ Wed, 02 Mar 2022 02:55:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6wI2=TN=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nPF9g-0001Wo-Ao
+ for xen-devel@lists.xenproject.org; Wed, 02 Mar 2022 02:55:56 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 45bd9cdd-99d4-11ec-8eba-a37418f5ba1a;
+ Wed, 02 Mar 2022 03:55:53 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B8666B81D71;
+ Wed,  2 Mar 2022 02:55:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CC18C340EE;
+ Wed,  2 Mar 2022 02:55:48 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,230 +43,572 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Z7jZaQcnJb5IuuoaG1khQGdMVWhxhEie6s1u3EAomwc=; b=iQdGIvFE/2j4cmUQ9AvVl8Wt/M
-	lk7vZIjjbzIwS3Z4A2WjtfbUSFtXR4YQpTJQ8adl4wrA2LSVejtwI2QM7ET9R2DKaWlRt5walmcNI
-	vvwV5kGEOzU+PcoGMTkp5OmexrbItVtN51X4CoFTGfWLK3QdW3KZ+onqWeKylzFYHePI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168314-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 45bd9cdd-99d4-11ec-8eba-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1646189749;
+	bh=+9ELN9vs62ISIoM03rj0HMh2JUdciOzBOCDhQI6QFPc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=Yz8AyEKVJasXFNiZ8rmTZeX76EMZyQ9CVYri7P9h7/S6WH9S/TTWf9kmuC58xl0bP
+	 mus56AWm7bIQY4S0dK37bXzdJOBeuDInue9pq0+mJyGOgcGtQIEnZx+s+LXo23HRDZ
+	 /PEi9o40pO8LM0kcvJs9PBB1dZRgZszDafnAf7iGlSdzQZcvH2k+svZKIJTdAs+/KZ
+	 hXm39T9r/qhKfL/Pz2mDOxaOXNjAFXBV3zv0efwV5hO5pCIVKQk+xft7XixOHGVUnB
+	 ZdypAI3gDK0oWKrimsGXDtsXlzWMDbUxd3xqxDtM+7nBlpjzO31ACN1Qpfy1nPC0WO
+	 6tKIbg7mY2UFw==
+Date: Tue, 1 Mar 2022 18:55:47 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Christoph Hellwig <hch@lst.de>
+cc: iommu@lists.linux-foundation.org, x86@kernel.org, 
+    Anshuman Khandual <anshuman.khandual@arm.com>, 
+    Tom Lendacky <thomas.lendacky@amd.com>, 
+    Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+    Juergen Gross <jgross@suse.com>, Joerg Roedel <joro@8bytes.org>, 
+    David Woodhouse <dwmw2@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>, 
+    Robin Murphy <robin.murphy@arm.com>, linux-arm-kernel@lists.infradead.org, 
+    xen-devel@lists.xenproject.org, linux-ia64@vger.kernel.org, 
+    linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+    linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, 
+    linux-hyperv@vger.kernel.org, tboot-devel@lists.sourceforge.net, 
+    linux-pci@vger.kernel.org
+Subject: Re: [PATCH 11/12] swiotlb: merge swiotlb-xen initialization into
+ swiotlb
+In-Reply-To: <20220301105311.885699-12-hch@lst.de>
+Message-ID: <alpine.DEB.2.22.394.2203011720150.3261@ubuntu-linux-20-04-desktop>
+References: <20220301105311.885699-1-hch@lst.de> <20220301105311.885699-12-hch@lst.de>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 168314: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=497ac7b6d7f9750f48f137db244931a5728b1968
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 02 Mar 2022 02:49:22 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 168314 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168314/
+On Tue, 1 Mar 2022, Christoph Hellwig wrote:
+> Allow to pass a remap argument to the swiotlb initialization functions
+> to handle the Xen/x86 remap case.  ARM/ARM64 never did any remapping
+> from xen_swiotlb_fixup, so we don't even need that quirk.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  arch/arm/xen/mm.c               |  23 +++---
+>  arch/x86/include/asm/xen/page.h |   5 --
+>  arch/x86/kernel/pci-dma.c       |  19 +++--
+>  arch/x86/pci/sta2x11-fixup.c    |   2 +-
+>  drivers/xen/swiotlb-xen.c       | 128 +-------------------------------
+>  include/linux/swiotlb.h         |   7 +-
+>  include/xen/arm/page.h          |   1 -
+>  include/xen/swiotlb-xen.h       |   8 +-
+>  kernel/dma/swiotlb.c            | 120 +++++++++++++++---------------
+>  9 files changed, 96 insertions(+), 217 deletions(-)
+> 
+> diff --git a/arch/arm/xen/mm.c b/arch/arm/xen/mm.c
+> index a7e54a087b802..58b40f87617d3 100644
+> --- a/arch/arm/xen/mm.c
+> +++ b/arch/arm/xen/mm.c
+> @@ -23,22 +23,20 @@
+>  #include <asm/xen/hypercall.h>
+>  #include <asm/xen/interface.h>
+>  
+> -unsigned long xen_get_swiotlb_free_pages(unsigned int order)
+> +static gfp_t xen_swiotlb_gfp(void)
+>  {
+>  	phys_addr_t base;
+> -	gfp_t flags = __GFP_NOWARN|__GFP_KSWAPD_RECLAIM;
+>  	u64 i;
+>  
+>  	for_each_mem_range(i, &base, NULL) {
+>  		if (base < (phys_addr_t)0xffffffff) {
+>  			if (IS_ENABLED(CONFIG_ZONE_DMA32))
+> -				flags |= __GFP_DMA32;
+> -			else
+> -				flags |= __GFP_DMA;
+> -			break;
+> +				return __GFP_DMA32;
+> +			return __GFP_DMA;
+>  		}
+>  	}
+> -	return __get_free_pages(flags, order);
+> +
+> +	return GFP_KERNEL;
+>  }
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 497ac7b6d7f9750f48f137db244931a5728b1968
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z    1 days
-Failing since        168258  2022-03-01 01:55:31 Z    1 days   12 attempts
-Testing same since   168262  2022-03-01 04:10:26 Z    0 days   11 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Guomin Jiang <guomin.jiang@intel.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+Unrelated to this specific patch series: now that I think about it, if
+io_tlb_default_mem.nslabs is already allocated by the time xen_mm_init
+is called, wouldn't we potentially have an issue with the GFP flags used
+for the earlier allocation (e.g. GFP_DMA32 not used)? Maybe something
+for another day.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+>  static bool hypercall_cflush = false;
+> @@ -143,10 +141,15 @@ static int __init xen_mm_init(void)
+>  	if (!xen_swiotlb_detect())
+>  		return 0;
+>  
+> -	rc = xen_swiotlb_init();
+>  	/* we can work with the default swiotlb */
+> -	if (rc < 0 && rc != -EEXIST)
+> -		return rc;
+> +	if (!io_tlb_default_mem.nslabs) {
+> +		if (!xen_initial_domain())
+> +			return -EINVAL;
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+I don't think we need this xen_initial_domain() check. It is all
+already sorted out by the xen_swiotlb_detect() check above.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Aside from that the rest looks OK. Also, you can add my:
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Tested-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-Not pushing.
-
-------------------------------------------------------------
-commit 497ac7b6d7f9750f48f137db244931a5728b1968
-Author: Guomin Jiang <guomin.jiang@intel.com>
-Date:   Sat Jan 29 16:28:02 2022 +0800
-
-    UefiPayloadPkg/PayloadLoaderPeim: Use INT64 as input parameter
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3818
-    
-    It will have some potential issue when memory larger than 2G because
-    the high memory address will be fill with 0xFFFFFFFF when do the
-    operation of INTN + INT64 but it is 32 bit normal data in fact.
-    
-    Should use same data type INT64 + INT64.
-    
-    V3:
-    1. Use INT64 as input parameter because all date type is 64 bit
-    V2:
-    1. Force the data type to UINTN to avoid high dword be filled with
-    0xFFFFFFFF
-    2. Keep INTN because the offset may postive or negative.
-    
-    Reviewed-by: Guo Dong <guo.dong@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Signed-off-by: Guomin Jiang <guomin.jiang@intel.com>
-
-commit 6a890db161cd6d378bec3499a1e774db3f5a27a7
-Author: Jason <yun.lou@intel.com>
-Date:   Mon Jan 10 22:30:29 2022 +0800
-
-    BaseTools: Upgrade the version of NASM tool
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
-    
-    Upgrade the version of NASM tool to avoid compilation errors when
-    compiling NASM code change.
-    
-    Signed-off-by: Jason Lou <yun.lou@intel.com>
-    Cc: Bob Feng <bob.c.feng@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Reviewed-by: Yuwei Chen <yuwei.chen@intel.com>
-
-commit bbaa00dd01ed0df30e43a5a89fd2b0433d858b73
-Author: Jason <yun.lou@intel.com>
-Date:   Mon Jan 10 22:05:47 2022 +0800
-
-    MdePkg: Remove the macro definitions regarding Opcode.
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
-    
-    Remove the macro definitions regarding Opcode because new version of
-    NASM tool(e.g. v2.15.05) supports the corresponding instructions.
-    Note: This patch need to be merged after other NASM code change to avoid
-    compilation errors.
-    
-    Signed-off-by: Jason Lou <yun.lou@intel.com>
-    Cc: Michael D Kinney <michael.d.kinney@intel.com>
-    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
-
-commit 2aa107c0aa2e1375651867c8df1b81ff64b67fce
-Author: Jason <yun.lou@intel.com>
-Date:   Mon Jan 10 22:01:18 2022 +0800
-
-    UefiCpuPkg: Replace Opcode with the corresponding instructions.
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
-    
-    Replace Opcode with the corresponding instructions.
-    The code changes have been verified with CompareBuild.py tool, which
-    can be used to compare the results of two different EDK II builds to
-    determine if they generate the same binaries.
-    (tool link: https://github.com/mdkinney/edk2/tree/sandbox/CompareBuild)
-    
-    Signed-off-by: Jason Lou <yun.lou@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Cc: Eric Dong <eric.dong@intel.com>
-    Cc: Laszlo Ersek <lersek@redhat.com>
-    Cc: Rahul Kumar <rahul1.kumar@intel.com>
-
-commit 7bc8b1d9f412507d579f21ea9af56fced81e7827
-Author: Jason <yun.lou@intel.com>
-Date:   Mon Jan 10 21:52:52 2022 +0800
-
-    SourceLevelDebugPkg: Replace Opcode with the corresponding instructions.
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
-    
-    Replace Opcode with the corresponding instructions.
-    The code changes have been verified with CompareBuild.py tool, which
-    can be used to compare the results of two different EDK II builds to
-    determine if they generate the same binaries.
-    (tool link: https://github.com/mdkinney/edk2/tree/sandbox/CompareBuild)
-    
-    Signed-off-by: Jason Lou <yun.lou@intel.com>
-    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
-
-commit d3febfd9ade35dc552df6b3607c2b15d26b82867
-Author: Jason <yun.lou@intel.com>
-Date:   Mon Jan 10 21:46:27 2022 +0800
-
-    MdePkg: Replace Opcode with the corresponding instructions.
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
-    
-    Replace Opcode with the corresponding instructions.
-    The code changes have been verified with CompareBuild.py tool, which
-    can be used to compare the results of two different EDK II builds to
-    determine if they generate the same binaries.
-    (tool link: https://github.com/mdkinney/edk2/tree/sandbox/CompareBuild)
-    
-    Signed-off-by: Jason Lou <yun.lou@intel.com>
-    Cc: Michael D Kinney <michael.d.kinney@intel.com>
-    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
-
-commit 84338c0d498555f860a480693ee8647a1795fba3
-Author: Jason <yun.lou@intel.com>
-Date:   Mon Jan 10 21:04:09 2022 +0800
-
-    MdeModulePkg: Replace Opcode with the corresponding instructions.
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
-    
-    Replace Opcode with the corresponding instructions.
-    The code changes have been verified with CompareBuild.py tool, which
-    can be used to compare the results of two different EDK II builds to
-    determine if they generate the same binaries.
-    (tool link: https://github.com/mdkinney/edk2/tree/sandbox/CompareBuild)
-    
-    Signed-off-by: Jason Lou <yun.lou@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Cc: Dandan Bi <dandan.bi@intel.com>
-    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
+> +		rc = swiotlb_init_late(swiotlb_size_or_default(),
+> +				       xen_swiotlb_gfp(), NULL);
+> +		if (rc < 0)
+> +			return rc;
+> +	}
+>  
+>  	cflush.op = 0;
+>  	cflush.a.dev_bus_addr = 0;
+> diff --git a/arch/x86/include/asm/xen/page.h b/arch/x86/include/asm/xen/page.h
+> index e989bc2269f54..1fc67df500145 100644
+> --- a/arch/x86/include/asm/xen/page.h
+> +++ b/arch/x86/include/asm/xen/page.h
+> @@ -357,9 +357,4 @@ static inline bool xen_arch_need_swiotlb(struct device *dev,
+>  	return false;
+>  }
+>  
+> -static inline unsigned long xen_get_swiotlb_free_pages(unsigned int order)
+> -{
+> -	return __get_free_pages(__GFP_NOWARN, order);
+> -}
+> -
+>  #endif /* _ASM_X86_XEN_PAGE_H */
+> diff --git a/arch/x86/kernel/pci-dma.c b/arch/x86/kernel/pci-dma.c
+> index e0def4b1c3181..2f2c468acb955 100644
+> --- a/arch/x86/kernel/pci-dma.c
+> +++ b/arch/x86/kernel/pci-dma.c
+> @@ -71,15 +71,12 @@ static inline void __init pci_swiotlb_detect(void)
+>  #endif /* CONFIG_SWIOTLB */
+>  
+>  #ifdef CONFIG_SWIOTLB_XEN
+> -static bool xen_swiotlb;
+> -
+>  static void __init pci_xen_swiotlb_init(void)
+>  {
+>  	if (!xen_initial_domain() && !x86_swiotlb_enable)
+>  		return;
+>  	x86_swiotlb_enable = false;
+> -	xen_swiotlb = true;
+> -	xen_swiotlb_init_early();
+> +	swiotlb_init_remap(true, x86_swiotlb_flags, xen_swiotlb_fixup);
+>  	dma_ops = &xen_swiotlb_dma_ops;
+>  	if (IS_ENABLED(CONFIG_PCI))
+>  		pci_request_acs();
+> @@ -87,14 +84,16 @@ static void __init pci_xen_swiotlb_init(void)
+>  
+>  int pci_xen_swiotlb_init_late(void)
+>  {
+> -	int rc;
+> -
+> -	if (xen_swiotlb)
+> +	if (dma_ops == &xen_swiotlb_dma_ops)
+>  		return 0;
+>  
+> -	rc = xen_swiotlb_init();
+> -	if (rc)
+> -		return rc;
+> +	/* we can work with the default swiotlb */
+> +	if (!io_tlb_default_mem.nslabs) {
+> +		int rc = swiotlb_init_late(swiotlb_size_or_default(),
+> +					   GFP_KERNEL, xen_swiotlb_fixup);
+> +		if (rc < 0)
+> +			return rc;
+> +	}
+>  
+>  	/* XXX: this switches the dma ops under live devices! */
+>  	dma_ops = &xen_swiotlb_dma_ops;
+> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
+> index c2da3eb4826e8..df8085b50df10 100644
+> --- a/drivers/xen/swiotlb-xen.c
+> +++ b/drivers/xen/swiotlb-xen.c
+> @@ -104,7 +104,7 @@ static int is_xen_swiotlb_buffer(struct device *dev, dma_addr_t dma_addr)
+>  	return 0;
+>  }
+>  
+> -static int xen_swiotlb_fixup(void *buf, unsigned long nslabs)
+> +int xen_swiotlb_fixup(void *buf, unsigned long nslabs)
+>  {
+>  	int rc;
+>  	unsigned int order = get_order(IO_TLB_SEGSIZE << IO_TLB_SHIFT);
+> @@ -130,132 +130,6 @@ static int xen_swiotlb_fixup(void *buf, unsigned long nslabs)
+>  	return 0;
+>  }
+>  
+> -enum xen_swiotlb_err {
+> -	XEN_SWIOTLB_UNKNOWN = 0,
+> -	XEN_SWIOTLB_ENOMEM,
+> -	XEN_SWIOTLB_EFIXUP
+> -};
+> -
+> -static const char *xen_swiotlb_error(enum xen_swiotlb_err err)
+> -{
+> -	switch (err) {
+> -	case XEN_SWIOTLB_ENOMEM:
+> -		return "Cannot allocate Xen-SWIOTLB buffer\n";
+> -	case XEN_SWIOTLB_EFIXUP:
+> -		return "Failed to get contiguous memory for DMA from Xen!\n"\
+> -		    "You either: don't have the permissions, do not have"\
+> -		    " enough free memory under 4GB, or the hypervisor memory"\
+> -		    " is too fragmented!";
+> -	default:
+> -		break;
+> -	}
+> -	return "";
+> -}
+> -
+> -int xen_swiotlb_init(void)
+> -{
+> -	enum xen_swiotlb_err m_ret = XEN_SWIOTLB_UNKNOWN;
+> -	unsigned long bytes = swiotlb_size_or_default();
+> -	unsigned long nslabs = bytes >> IO_TLB_SHIFT;
+> -	unsigned int order, repeat = 3;
+> -	int rc = -ENOMEM;
+> -	char *start;
+> -
+> -	if (io_tlb_default_mem.nslabs) {
+> -		pr_warn("swiotlb buffer already initialized\n");
+> -		return -EEXIST;
+> -	}
+> -
+> -retry:
+> -	m_ret = XEN_SWIOTLB_ENOMEM;
+> -	order = get_order(bytes);
+> -
+> -	/*
+> -	 * Get IO TLB memory from any location.
+> -	 */
+> -#define SLABS_PER_PAGE (1 << (PAGE_SHIFT - IO_TLB_SHIFT))
+> -#define IO_TLB_MIN_SLABS ((1<<20) >> IO_TLB_SHIFT)
+> -	while ((SLABS_PER_PAGE << order) > IO_TLB_MIN_SLABS) {
+> -		start = (void *)xen_get_swiotlb_free_pages(order);
+> -		if (start)
+> -			break;
+> -		order--;
+> -	}
+> -	if (!start)
+> -		goto exit;
+> -	if (order != get_order(bytes)) {
+> -		pr_warn("Warning: only able to allocate %ld MB for software IO TLB\n",
+> -			(PAGE_SIZE << order) >> 20);
+> -		nslabs = SLABS_PER_PAGE << order;
+> -		bytes = nslabs << IO_TLB_SHIFT;
+> -	}
+> -
+> -	/*
+> -	 * And replace that memory with pages under 4GB.
+> -	 */
+> -	rc = xen_swiotlb_fixup(start, nslabs);
+> -	if (rc) {
+> -		free_pages((unsigned long)start, order);
+> -		m_ret = XEN_SWIOTLB_EFIXUP;
+> -		goto error;
+> -	}
+> -	rc = swiotlb_late_init_with_tbl(start, nslabs);
+> -	if (rc)
+> -		return rc;
+> -	return 0;
+> -error:
+> -	if (nslabs > 1024 && repeat--) {
+> -		/* Min is 2MB */
+> -		nslabs = max(1024UL, ALIGN(nslabs >> 1, IO_TLB_SEGSIZE));
+> -		bytes = nslabs << IO_TLB_SHIFT;
+> -		pr_info("Lowering to %luMB\n", bytes >> 20);
+> -		goto retry;
+> -	}
+> -exit:
+> -	pr_err("%s (rc:%d)\n", xen_swiotlb_error(m_ret), rc);
+> -	return rc;
+> -}
+> -
+> -#ifdef CONFIG_X86
+> -void __init xen_swiotlb_init_early(void)
+> -{
+> -	unsigned long bytes = swiotlb_size_or_default();
+> -	unsigned long nslabs = bytes >> IO_TLB_SHIFT;
+> -	unsigned int repeat = 3;
+> -	char *start;
+> -	int rc;
+> -
+> -retry:
+> -	/*
+> -	 * Get IO TLB memory from any location.
+> -	 */
+> -	start = memblock_alloc(PAGE_ALIGN(bytes),
+> -			       IO_TLB_SEGSIZE << IO_TLB_SHIFT);
+> -	if (!start)
+> -		panic("%s: Failed to allocate %lu bytes\n",
+> -		      __func__, PAGE_ALIGN(bytes));
+> -
+> -	/*
+> -	 * And replace that memory with pages under 4GB.
+> -	 */
+> -	rc = xen_swiotlb_fixup(start, nslabs);
+> -	if (rc) {
+> -		memblock_free(start, PAGE_ALIGN(bytes));
+> -		if (nslabs > 1024 && repeat--) {
+> -			/* Min is 2MB */
+> -			nslabs = max(1024UL, ALIGN(nslabs >> 1, IO_TLB_SEGSIZE));
+> -			bytes = nslabs << IO_TLB_SHIFT;
+> -			pr_info("Lowering to %luMB\n", bytes >> 20);
+> -			goto retry;
+> -		}
+> -		panic("%s (rc:%d)", xen_swiotlb_error(XEN_SWIOTLB_EFIXUP), rc);
+> -	}
+> -
+> -	if (swiotlb_init_with_tbl(start, nslabs, SWIOTLB_VERBOSE))
+> -		panic("Cannot allocate SWIOTLB buffer");
+> -}
+> -#endif /* CONFIG_X86 */
+> -
+>  static void *
+>  xen_swiotlb_alloc_coherent(struct device *hwdev, size_t size,
+>  			   dma_addr_t *dma_handle, gfp_t flags,
+> diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+> index ee655f2e4d28b..919cf82ed978e 100644
+> --- a/include/linux/swiotlb.h
+> +++ b/include/linux/swiotlb.h
+> @@ -34,10 +34,11 @@ struct scatterlist;
+>  /* default to 64MB */
+>  #define IO_TLB_DEFAULT_SIZE (64UL<<20)
+>  
+> -int swiotlb_init_with_tbl(char *tlb, unsigned long nslabs, unsigned int flags);
+>  unsigned long swiotlb_size_or_default(void);
+> -extern int swiotlb_late_init_with_tbl(char *tlb, unsigned long nslabs);
+> -int swiotlb_init_late(size_t size, gfp_t gfp_mask);
+> +int swiotlb_init_late(size_t size, gfp_t gfp_mask,
+> +		int (*remap)(void *tlb, unsigned long nslabs));
+> +void __init swiotlb_init_remap(bool addressing_limit, unsigned int flags,
+> +		int (*remap)(void *tlb, unsigned long nslabs));
+>  extern void __init swiotlb_update_mem_attributes(void);
+>  
+>  phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t phys,
+> diff --git a/include/xen/arm/page.h b/include/xen/arm/page.h
+> index ac1b654705631..7e199c6656b90 100644
+> --- a/include/xen/arm/page.h
+> +++ b/include/xen/arm/page.h
+> @@ -115,6 +115,5 @@ static inline bool set_phys_to_machine(unsigned long pfn, unsigned long mfn)
+>  bool xen_arch_need_swiotlb(struct device *dev,
+>  			   phys_addr_t phys,
+>  			   dma_addr_t dev_addr);
+> -unsigned long xen_get_swiotlb_free_pages(unsigned int order);
+>  #endif /* _ASM_ARM_XEN_PAGE_H */
+> diff --git a/include/xen/swiotlb-xen.h b/include/xen/swiotlb-xen.h
+> index b3e647f86e3e2..590ceb923f0c8 100644
+> --- a/include/xen/swiotlb-xen.h
+> +++ b/include/xen/swiotlb-xen.h
+> @@ -10,8 +10,12 @@ void xen_dma_sync_for_cpu(struct device *dev, dma_addr_t handle,
+>  void xen_dma_sync_for_device(struct device *dev, dma_addr_t handle,
+>  			     size_t size, enum dma_data_direction dir);
+>  
+> -int xen_swiotlb_init(void);
+> -void __init xen_swiotlb_init_early(void);
+> +#ifdef CONFIG_SWIOTLB_XEN
+> +int xen_swiotlb_fixup(void *buf, unsigned long nslabs);
+> +#else
+> +#define xen_swiotlb_fixup NULL
+> +#endif
+> +
+>  extern const struct dma_map_ops xen_swiotlb_dma_ops;
+>  
+>  #endif /* __LINUX_SWIOTLB_XEN_H */
+> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+> index 77cf73dc20a78..128363dc9b5bb 100644
+> --- a/kernel/dma/swiotlb.c
+> +++ b/kernel/dma/swiotlb.c
+> @@ -234,40 +234,17 @@ static void swiotlb_init_io_tlb_mem(struct io_tlb_mem *mem, phys_addr_t start,
+>  	return;
+>  }
+>  
+> -int __init swiotlb_init_with_tbl(char *tlb, unsigned long nslabs,
+> -		unsigned int flags)
+> -{
+> -	struct io_tlb_mem *mem = &io_tlb_default_mem;
+> -	size_t alloc_size;
+> -
+> -	if (swiotlb_force_disable)
+> -		return 0;
+> -
+> -	/* protect against double initialization */
+> -	if (WARN_ON_ONCE(mem->nslabs))
+> -		return -ENOMEM;
+> -
+> -	alloc_size = PAGE_ALIGN(array_size(sizeof(*mem->slots), nslabs));
+> -	mem->slots = memblock_alloc(alloc_size, PAGE_SIZE);
+> -	if (!mem->slots)
+> -		panic("%s: Failed to allocate %zu bytes align=0x%lx\n",
+> -		      __func__, alloc_size, PAGE_SIZE);
+> -
+> -	swiotlb_init_io_tlb_mem(mem, __pa(tlb), nslabs, false);
+> -	mem->force_bounce = flags & SWIOTLB_FORCE;
+> -
+> -	if (flags & SWIOTLB_VERBOSE)
+> -		swiotlb_print_info();
+> -	return 0;
+> -}
+> -
+>  /*
+>   * Statically reserve bounce buffer space and initialize bounce buffer data
+>   * structures for the software IO TLB used to implement the DMA API.
+>   */
+> -void __init swiotlb_init(bool addressing_limit, unsigned int flags)
+> +void __init swiotlb_init_remap(bool addressing_limit, unsigned int flags,
+> +		int (*remap)(void *tlb, unsigned long nslabs))
+>  {
+> -	size_t bytes = PAGE_ALIGN(default_nslabs << IO_TLB_SHIFT);
+> +	struct io_tlb_mem *mem = &io_tlb_default_mem;
+> +	unsigned long nslabs = default_nslabs;
+> +	size_t alloc_size = PAGE_ALIGN(array_size(sizeof(*mem->slots), nslabs));
+> +	size_t bytes;
+>  	void *tlb;
+>  
+>  	if (!addressing_limit && !swiotlb_force_bounce)
+> @@ -275,23 +252,48 @@ void __init swiotlb_init(bool addressing_limit, unsigned int flags)
+>  	if (swiotlb_force_disable)
+>  		return;
+>  
+> +	/* protect against double initialization */
+> +	if (WARN_ON_ONCE(mem->nslabs))
+> +		return;
+> +
+>  	/*
+>  	 * By default allocate the bonuce buffer memory from low memory.
+>  	 */
+> +retry:
+> +	bytes = PAGE_ALIGN(default_nslabs << IO_TLB_SHIFT);
+>  	if (flags & SWIOTLB_ANY)
+>  		tlb = memblock_alloc(bytes, PAGE_SIZE);
+>  	else
+>  		tlb = memblock_alloc_low(bytes, PAGE_SIZE);
+>  	if (!tlb)
+> -		goto fail;
+> -	if (swiotlb_init_with_tbl(tlb, default_nslabs, flags))
+> -		goto fail_free_mem;
+> -	return;
+> +		panic("%s: failed to allocate tlb structure\n", __func__);
+> +
+> +	if (remap && remap(tlb, nslabs) < 0) {
+> +		memblock_free(tlb, PAGE_ALIGN(bytes));
+> +
+> +		/* Min is 2MB */
+> +		if (nslabs <= 1024)
+> +			panic("%s: Failed to remap %zu bytes\n",
+> +			      __func__, bytes);
+> +		nslabs = max(1024UL, ALIGN(nslabs >> 1, IO_TLB_SEGSIZE));
+> +		goto retry;
+> +	}
+> +
+> +	mem->slots = memblock_alloc(alloc_size, PAGE_SIZE);
+> +	if (!mem->slots)
+> +		panic("%s: Failed to allocate %zu bytes align=0x%lx\n",
+> +		      __func__, alloc_size, PAGE_SIZE);
+>  
+> -fail_free_mem:
+> -	memblock_free(tlb, bytes);
+> -fail:
+> -	pr_warn("Cannot allocate buffer");
+> +	swiotlb_init_io_tlb_mem(mem, __pa(tlb), default_nslabs, false);
+> +	mem->force_bounce = flags & SWIOTLB_FORCE;
+> +
+> +	if (flags & SWIOTLB_VERBOSE)
+> +		swiotlb_print_info();
+> +}
+> +
+> +void __init swiotlb_init(bool addressing_limit, unsigned int flags)
+> +{
+> +	return swiotlb_init_remap(addressing_limit, flags, NULL);
+>  }
+>  
+>  /*
+> @@ -299,8 +301,10 @@ void __init swiotlb_init(bool addressing_limit, unsigned int flags)
+>   * initialize the swiotlb later using the slab allocator if needed.
+>   * This should be just like above, but with some error catching.
+>   */
+> -int swiotlb_init_late(size_t size, gfp_t gfp_mask)
+> +int swiotlb_init_late(size_t size, gfp_t gfp_mask,
+> +		int (*remap)(void *tlb, unsigned long nslabs))
+>  {
+> +	struct io_tlb_mem *mem = &io_tlb_default_mem;
+>  	unsigned long nslabs = ALIGN(size >> IO_TLB_SHIFT, IO_TLB_SEGSIZE);
+>  	unsigned long bytes;
+>  	unsigned char *vstart = NULL;
+> @@ -310,9 +314,14 @@ int swiotlb_init_late(size_t size, gfp_t gfp_mask)
+>  	if (swiotlb_force_disable)
+>  		return 0;
+>  
+> +	/* protect against double initialization */
+> +	if (WARN_ON_ONCE(mem->nslabs))
+> +		return -ENOMEM;
+> +
+>  	/*
+>  	 * Get IO TLB memory from the low pages
+>  	 */
+> +retry:
+>  	order = get_order(nslabs << IO_TLB_SHIFT);
+>  	nslabs = SLABS_PER_PAGE << order;
+>  	bytes = nslabs << IO_TLB_SHIFT;
+> @@ -333,33 +342,28 @@ int swiotlb_init_late(size_t size, gfp_t gfp_mask)
+>  			(PAGE_SIZE << order) >> 20);
+>  		nslabs = SLABS_PER_PAGE << order;
+>  	}
+> -	rc = swiotlb_late_init_with_tbl(vstart, nslabs);
+> -	if (rc)
+> -		free_pages((unsigned long)vstart, order);
+> -
+> -	return rc;
+> -}
+> -
+> -int
+> -swiotlb_late_init_with_tbl(char *tlb, unsigned long nslabs)
+> -{
+> -	struct io_tlb_mem *mem = &io_tlb_default_mem;
+> -	unsigned long bytes = nslabs << IO_TLB_SHIFT;
+>  
+> -	if (swiotlb_force_disable)
+> -		return 0;
+> +	if (remap)
+> +		rc = remap(vstart, nslabs);
+> +	if (rc) {
+> +		free_pages((unsigned long)vstart, order);
+>  
+> -	/* protect against double initialization */
+> -	if (WARN_ON_ONCE(mem->nslabs))
+> -		return -ENOMEM;
+> +		/* Min is 2MB */
+> +		if (nslabs <= 1024)
+> +			return rc;
+> +		nslabs = max(1024UL, ALIGN(nslabs >> 1, IO_TLB_SEGSIZE));
+> +		goto retry;
+> +	}
+>  
+>  	mem->slots = (void *)__get_free_pages(GFP_KERNEL | __GFP_ZERO,
+>  		get_order(array_size(sizeof(*mem->slots), nslabs)));
+> -	if (!mem->slots)
+> +	if (!mem->slots) {
+> +		free_pages((unsigned long)vstart, order);
+>  		return -ENOMEM;
+> +	}
+>  
+> -	set_memory_decrypted((unsigned long)tlb, bytes >> PAGE_SHIFT);
+> -	swiotlb_init_io_tlb_mem(mem, virt_to_phys(tlb), nslabs, true);
+> +	set_memory_decrypted((unsigned long)vstart, bytes >> PAGE_SHIFT);
+> +	swiotlb_init_io_tlb_mem(mem, virt_to_phys(vstart), nslabs, true);
+>  
+>  	swiotlb_print_info();
+>  	return 0;
+> -- 
+> 2.30.2
+> 
+> 
+> _______________________________________________
+> linux-arm-kernel mailing list
+> linux-arm-kernel@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
+> 
 
