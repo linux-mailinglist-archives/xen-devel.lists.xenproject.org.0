@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B8804CA24F
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Mar 2022 11:35:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.282185.480795 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3CBA4CA458
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Mar 2022 13:01:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.282196.480811 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPMJn-0001Pn-IK; Wed, 02 Mar 2022 10:34:51 +0000
+	id 1nPNeX-0003x8-25; Wed, 02 Mar 2022 12:00:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 282185.480795; Wed, 02 Mar 2022 10:34:51 +0000
+Received: by outflank-mailman (output) from mailman id 282196.480811; Wed, 02 Mar 2022 12:00:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPMJn-0001Nm-Eo; Wed, 02 Mar 2022 10:34:51 +0000
-Received: by outflank-mailman (input) for mailman id 282185;
- Wed, 02 Mar 2022 10:34:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nPNeW-0003uf-VC; Wed, 02 Mar 2022 12:00:20 +0000
+Received: by outflank-mailman (input) for mailman id 282196;
+ Wed, 02 Mar 2022 12:00:19 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=cGAx=TN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nPMJm-0001Ng-Ae
- for xen-devel@lists.xenproject.org; Wed, 02 Mar 2022 10:34:50 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6282b247-9a14-11ec-8eba-a37418f5ba1a;
- Wed, 02 Mar 2022 11:34:48 +0100 (CET)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2110.outbound.protection.outlook.com [104.47.17.110]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-40-conUHcwJOCa4Df_h8YlQlQ-1; Wed, 02 Mar 2022 11:34:47 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by DB7PR04MB4299.eurprd04.prod.outlook.com (2603:10a6:5:23::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.26; Wed, 2 Mar
- 2022 10:34:46 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65%6]) with mapi id 15.20.5038.014; Wed, 2 Mar 2022
- 10:34:46 +0000
+ (envelope-from <julien@xen.org>) id 1nPNeV-0003uT-Lu
+ for xen-devel@lists.xenproject.org; Wed, 02 Mar 2022 12:00:19 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nPNeV-0004SV-HR; Wed, 02 Mar 2022 12:00:19 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=[192.168.10.166]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nPNeV-0000K5-7o; Wed, 02 Mar 2022 12:00:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,199 +39,360 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6282b247-9a14-11ec-8eba-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1646217288;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dmtRXkNm8o6QvTiZB5cYk8DL7WcNj2rLA6YWCfutXt4=;
-	b=Mc4R7d1W1+kzuXOBqBddO16lqDLs2OgCTnFNnj1EMycI6J/HGUblURHNL0owB1i8Q/wgLp
-	mVGhB+KDuUKLJR6Q+dRwRxqKUIkgUuqG59JcW1zmo4wvtLm0D7k0GDaAG0ufVc0yHiQb+B
-	JsbF+awrhKjz/ui5ThSic36otHigOEc=
-X-MC-Unique: conUHcwJOCa4Df_h8YlQlQ-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=G0FZlPMbRNXySYYnbPD68a19cNjPiFKYwnq43HTwSENA11ZcQ5BU7i90ouFQuN5LoKmqj7tF1pkFAtqbjeBTRkVAbJs9n687yc3iL+JofhTBUW0vFNVzawJFtPHO/hu3bc7tPKY6MVvL2zmDnaBWJqAvE53kNkrGLRe96Fg0p617PYsgEEYzL5JIMSNk2RWxTw8uAYdu/rzsv7f51IFsdjCCXVA2WhI9sosenLAClXHtpyoHmY0jRKRSD4Yj+dkAKIIjlhBEpF29DLPoy6DPaCHgW+M7z3qNwxgdvbB4a0wTE/SvSDBfjZTnRkcnXo7jHk9+oPvMpTUfexLLxcb1sQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0Lf0OBWBxnjnxgVBYGzhfgzUzdicXERsBIsCzj8mHTw=;
- b=Wh0irMgyVHkj7m0gD6TL9G/OR98alJx0H/im0u9IdcBKx8jSEqJwSrk3JlIKLc5+1YredQYADVoShEFmSOhJB7KhhYr6/FJRISVMsj8QUU/tL96iTk6dsCbxuwV5kxultVLR7oldJbXWPfhbIrShQAy4d4+4dYPM2BKdWjWRyi/K3KxvQio/RYi8+yKYCx74vPcSkyr2Hi9eOQCZ/jp3A/oQThU7SjW8/wlzXKr61Qw57kPEdPyvCayQdPHAe8wQOqpHUavORjl7aBf6iHXCjd/05ThmCAO9cXGeI7RRvQObUt9keK33DKTPmhtnln02QaZfsEFyEE9Rjc+8W4EcAg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <67ff91f4-e5fe-47d5-fdb8-9a302beb6e2a@suse.com>
-Date: Wed, 2 Mar 2022 11:34:44 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [PATCH v2.2 8/7] x86/IOMMU: Use altcall, and
- __initconst_cf_clobber
-Content-Language: en-US
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20220214125632.24563-1-andrew.cooper3@citrix.com>
- <20220222114711.19209-1-andrew.cooper3@citrix.com>
- <e8b71b3a-55a0-31a2-b2ab-3b2470680709@suse.com>
- <5fae516a-17c1-0ce4-c46e-909a83c0e273@citrix.com>
- <60f3c942-3822-87dd-df6e-8b64ed4d17c4@suse.com>
- <e41848a6-9aaa-f0d3-0c81-2e0e4e96a6a4@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <e41848a6-9aaa-f0d3-0c81-2e0e4e96a6a4@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM6P193CA0124.EURP193.PROD.OUTLOOK.COM
- (2603:10a6:209:85::29) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=YAS5UOQ8z3rEa1UpoVW7pu31r+dIUJh8yplNI6smjvg=; b=FREl4boX0BKuoZcSfqt7S71fre
+	kBRjOFt9FJQ53MGR+XSBUxFafLRDv8ZhMtDqFtVd1Wu9nbF8wrBI2R6FVcCvUXAmeLJXGDXo/Bu9I
+	gGQvGtnaQx8MT7l2UYXmWVIOuGr9/AgDERrG7ApQ/Rcl6tKA5FDHuhoTY8IlnQ2qDQzA=;
+Message-ID: <1f0bba54-158b-d171-6f99-0c29e0547f8a@xen.org>
+Date: Wed, 2 Mar 2022 12:00:17 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b58e2113-41c5-4442-a05e-08d9fc384541
-X-MS-TrafficTypeDiagnostic: DB7PR04MB4299:EE_
-X-Microsoft-Antispam-PRVS:
-	<DB7PR04MB429952EEB37EF5C692996CACB3039@DB7PR04MB4299.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	ROkGjCv/3qqLgQzt/vfADxM/ZAKeL6a+QFddZLZqj9VlLo0UqjMi3tVpK9xqW5kXm3dRDdTErsX8aZF3s2Y3PbiE6EqL5Toq5iGEu6AlZ1BLrp1HO2y+CVhDU4Dm524RKb0soCl1ui4uvEP3lkb9HbE/N3b7v72CSFxYd1+FE/t1De8g/vzBx1x+hs641jkE7WEzPQAyQ+iJO0+OiZe82dwkEqBR+Kn7yHTJWoHMFrVJhlqRWuIIbQFsfErg9AonTK7XcVidbq2bRQ5LpDs3iwtenfkOLybnLltEVr56clhlPfPvjVmBlgoaIFzvwdwSt1MpMG7QFkllTSBi1YMlr3i9GlVsFFpHAISaa0V/5Ulv01YdMttioOOJ4+nhf+xrsu4r+a1lyr3ZXrRz9ZXiBtw9hMmw7+87H46whJjZwvevNP+/w+ZxiAQugCp9dnPptaePMJ1rHq16jWI0c2OncjU0YUHgsIdMAwrw051206tl1MXUmou28j7G+gFDS/N2AnrsDVi7vUyrb4j/Qc1V780Ro0g9kjH3qxNr90kMmr1hOEIqmQrMVEpdN7pAli53zgRCOOMnPcF6WUxr5XzzeSgYbZl4/aSiAEBs09DQDZIMoGqv9h3TfR8bK2LIjnSWl5PaVe1gOsE3FxRizNLq1dukl+ieb77MnfxmUBnKw5wyQ1Ah/xLqdQTeCsycnSnPU0woK8jlSYX8nB+N+ghbq37qXN7gnHqWo04YfyALbMpiGh2NOz3Wl5yaJPEFTbmm
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(6916009)(508600001)(5660300002)(26005)(6486002)(86362001)(31696002)(54906003)(2906002)(36756003)(38100700002)(8936002)(2616005)(4326008)(8676002)(66946007)(66476007)(66556008)(186003)(83380400001)(53546011)(6506007)(6512007)(316002)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?biXtyQKcZEQXs4+eImQ9jidNE2OmBpTMPQJLwe6PvlaLrSMcey3SpRd9FQUd?=
- =?us-ascii?Q?punwx0sRMT+YqzcZ6hcL36gTjWJODtHT1P+upW2rKRFS8QxpAB3acLC9ZtA8?=
- =?us-ascii?Q?BNUiv9WbtJDaVlCsjqSTra0k2241AZzqxwX5J5Yq8KoO2wqFBpFIMYRVEKkI?=
- =?us-ascii?Q?588YknxqrpqU5jM8BvO05E/gIPstlFRE14EXR+oG9tjDjABcow8ADlwJq9Ob?=
- =?us-ascii?Q?uFZISc4NNtT7MYm3T8y3uKauUJjqdQv6blhn5ZMnNRfsa3KxcZ/WHrTzYz73?=
- =?us-ascii?Q?WvPNzR0MADrIzIP76y0fo2F5/uax/uJtKI+q0q11r7MbSwrwkne1mIrwaWNr?=
- =?us-ascii?Q?P5kyINlEfIcmwHkD+CRXOccV07nrdGBLx2QxTxNczRxgzLuli6qqhFHOtnMm?=
- =?us-ascii?Q?izp+QzFrMf/4isJ3WlClIFgxdz3CbqhJlBRZ7+LeTRNbTtH4O4ZwIGfSArY3?=
- =?us-ascii?Q?0dVNsl8lAN+D6kfaP/3Oy7vBh4m7/Sfqn7NvFbnWS2XYIEN9q+yXeNynCGzR?=
- =?us-ascii?Q?VQWOpb+9LY+WKh7scY9Q0XRylGXx3R3/O9AG0L/rYPf7dq008ptMCWvCBLh0?=
- =?us-ascii?Q?w7frA9D6DTvfmARqCCARmxYXAD+yjgOHueGR4vOzGnID2Z7qjw+sLHIZpF9b?=
- =?us-ascii?Q?1p1sdDgtKGDXObu/FNQzv6aNY3i+hzdN/0pDtvS5cUKpIhKZf4Ic3wMNCQit?=
- =?us-ascii?Q?tv6Yd2bLokPb17kkprWTi31QZZjK4T9aWiZQWLRQaPMUZT/JIiuMVLAiCgQk?=
- =?us-ascii?Q?rcv3MkcVJYY+bbEp+tSLRikFxqur5fLCKtl38qXZa9QpW1OQx/ZhMXEEFr+p?=
- =?us-ascii?Q?dzWULiyrG2GerCgJzolA83U4WzjYCNIv/+9d9NcR1DAiiMT4izn4OzRQuTM8?=
- =?us-ascii?Q?r0XAhtDr519bp/sXRoAuOQ4WUERCU/kwALPrwofP95rYMNJRUauvLfODpeZs?=
- =?us-ascii?Q?fCmy/+a95v8DD//yHjeHKniO5JvTjshJA60YnSfYiVV6SWRdw9qwDaX/EfHl?=
- =?us-ascii?Q?OjTfO/zdMhP9Sa5TQuLjejOwseB81CYUBNT8rgVZ+SgW90xqVwRZuqWxHvN0?=
- =?us-ascii?Q?D4hNSNoLc7HHELW5bPwAj8R/ntTRcmwDnGgE6qJBtBlABRduTPQl3pkHH5Rc?=
- =?us-ascii?Q?JwVR8Ua/M+RtMeLRfumrxYvrFOfGVVw/iWsOuZFafzCJZ2AYNo8P0XDR9tDG?=
- =?us-ascii?Q?DDuZocFqH74uCvbTVHsMdUdUmHdlNhEuiSpK3Cndlwa01lmwibjXWv66LW+/?=
- =?us-ascii?Q?gfD9D1qxsMAvkP7kI8ou0fbomHWYfuY3XtrOyA411Qd1t8LrCo3NLmbyuHHZ?=
- =?us-ascii?Q?hpEddPvph7+XvmIvccb8q1/3IcbzU/hzDOVb0mkvsF3FrIgqhhor64RrR1pm?=
- =?us-ascii?Q?/0VeXnoPr2nFSfWB//qACxmlP3wzbTg8gUnpIq9DSS+yIG3Xgcd/o/2J+lxL?=
- =?us-ascii?Q?8nW6ilvNrCUm7q7XOL3GMjnk5pJEMC+rrc2aqfTq+LfE0YERIx0/YFw/nBlR?=
- =?us-ascii?Q?3RGAOxnq9pOccSeO9Z0IcWqio5EjWQ/z7tAlqb+vrAp+CkxlpChsHeWj9YHZ?=
- =?us-ascii?Q?1WzkfxSi/ii/2K4rCAbAf3dXN6/lJB3jRh7sTziBQszpdykejgfA7fGZKHSR?=
- =?us-ascii?Q?FIsg1yciZS1U2ypVmw+CLVA=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b58e2113-41c5-4442-a05e-08d9fc384541
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Mar 2022 10:34:46.2276
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5H/Y5hMAnz++Hc9G6rlrZwfwb3H9+CGIVCvIBDadSDorA8KRfn9TnsjECcSZfqaEjGGIpv84kqTw6jsbEAnw2A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB4299
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.6.1
+Subject: Re: Proposal for Porting Xen to Armv8-R64 - DraftA
+To: Wei Chen <Wei.Chen@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Penny Zheng <Penny.Zheng@arm.com>, Henry Wang <Henry.Wang@arm.com>,
+ nd <nd@arm.com>
+References: <PAXPR08MB7420A01809B84E04E196793F9E3D9@PAXPR08MB7420.eurprd08.prod.outlook.com>
+ <04db7e8b-2f04-41d7-1deb-d8bda3625c04@xen.org>
+ <PAXPR08MB7420BF1299A1577B98211C1A9E029@PAXPR08MB7420.eurprd08.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <PAXPR08MB7420BF1299A1577B98211C1A9E029@PAXPR08MB7420.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 02.03.2022 11:12, Andrew Cooper wrote:
-> On 02/03/2022 08:10, Jan Beulich wrote:
->> On 01.03.2022 15:58, Andrew Cooper wrote:
->>> On 25/02/2022 08:24, Jan Beulich wrote:
->>>> On 22.02.2022 12:47, Andrew Cooper wrote:
->>>>> --- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
->>>>> +++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
->>>>> @@ -628,7 +628,7 @@ static void cf_check amd_dump_page_tables(struct =
-domain *d)
->>>>>                                hd->arch.amd.paging_mode, 0, 0);
->>>>>  }
->>>>> =20
->>>>> -static const struct iommu_ops __initconstrel _iommu_ops =3D {
->>>>> +static const struct iommu_ops __initconst_cf_clobber _iommu_ops =3D =
-{
->>>> Following my initcall related remark on x86'es time.c I'm afraid I don=
-'t
->>>> see how this and ...
->>>>
->>>>> @@ -2794,7 +2793,7 @@ static int __init cf_check intel_iommu_quaranti=
-ne_init(struct domain *d)
->>>>>      return rc;
->>>>>  }
->>>>> =20
->>>>> -static struct iommu_ops __initdata vtd_ops =3D {
->>>>> +static const struct iommu_ops __initconst_cf_clobber vtd_ops =3D {
->>>> ... this actually works. But I guess I must be overlooking something, =
-as
->>>> I'm sure that you did test the change.
->>>>
->>>> Both ops structures reference a function, through .adjust_irq_affiniti=
-es,
->>>> which isn't __init but which is used (besides here) for an initcall. W=
-ith
->>>> the ENDBR removed by the time initcalls are run, these should cause #C=
-P.
->>> This doesn't explode because the indirect calls are resolved to direct
->>> calls before the ENDBR's are clobbered to NOP4.
->> I'm afraid I don't understand: The problematic call is in do_initcalls()=
-:
+
+
+On 01/03/2022 07:51, Wei Chen wrote:
+> Hi Julien,
+
+Hi Wei,
+
+>> -----Original Message-----
+>> From: Julien Grall <julien@xen.org>
+>> Sent: 2022年2月26日 4:55
+>> To: Wei Chen <Wei.Chen@arm.com>; xen-devel@lists.xenproject.org; Stefano
+>> Stabellini <sstabellini@kernel.org>
+>> Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>; Penny Zheng
+>> <Penny.Zheng@arm.com>; Henry Wang <Henry.Wang@arm.com>; nd <nd@arm.com>
+>> Subject: Re: Proposal for Porting Xen to Armv8-R64 - DraftA
+>>> ### 1.2. Xen Challenges with PMSA Virtualization
+>>> Xen is PMSA unaware Type-1 Hypervisor, it will need modifications to run
+>>> with an MPU and host multiple guest OSes.
+>>>
+>>> - No MMU at EL2:
+>>>       - No EL2 Stage 1 address translation
+>>>           - Xen provides fixed ARM64 virtual memory layout as basis of
+>> EL2
+>>>             stage 1 address translation, which is not applicable on MPU
+>> system,
+>>>             where there is no virtual addressing. As a result, any
+>> operation
+>>>             involving transition from PA to VA, like ioremap, needs
+>> modification
+>>>             on MPU system.
+>>>       - Xen's run-time addresses are the same as the link time addresses.
+>>>           - Enable PIC (position-independent code) on a real-time target
+>>>             processor probably very rare.
 >>
->>     for ( call =3D __presmp_initcall_end; call < __initcall_end; call++ =
-)
->>         (*call)();
+>> Aside the assembly boot code and UEFI stub, Xen already runs at the same
+>> address as it was linked.
 >>
->> I don't see how this could be converted to a direct call.
->=20
-> Oh.=C2=A0 iov_adjust_irq_affinities()'s double use is hiding here.
->=20
-> The safety rule for cf_clobber is that there must not be any
-> non-alt-called callers.=C2=A0 We need to fix it:
->=20
-> diff --git a/xen/drivers/passthrough/amd/iommu_init.c
-> b/xen/drivers/passthrough/amd/iommu_init.c
-> index 657c7f619a51..b1af5085efda 100644
-> --- a/xen/drivers/passthrough/amd/iommu_init.c
-> +++ b/xen/drivers/passthrough/amd/iommu_init.c
-> @@ -831,7 +831,12 @@ int cf_check iov_adjust_irq_affinities(void)
-> =C2=A0
-> =C2=A0=C2=A0=C2=A0=C2=A0 return 0;
-> =C2=A0}
-> -__initcall(iov_adjust_irq_affinities);
-> +
-> +int cf_check __init initcall_iov_adjust_irq_affinities(void)
-> +{
-> +=C2=A0=C2=A0=C2=A0 return iommu_call(&iommu_ops, adjust_irq_affinities);
-> +}
-> +__initcall(initcall_iov_adjust_irq_affinities);
-> =C2=A0
-> =C2=A0/*
-> =C2=A0 * Family15h Model 10h-1fh erratum 746 (IOMMU Logging May Stall
-> Translations)
->=20
->=20
->> Afaics only pre-SMP initcalls are safe in this regard: do_presmp_initcal=
-ls()
->> is called immediately ahead of alternative_branches().
+> 
+> But the difference is that, base on MMU, we can use the same link address
+> for all platforms. But on MPU system, we can't do it in the same way.
+
+I agree that we currently use the same link address for all the 
+platforms. But this is also a problem when using MMU because EL2 has a 
+single TTBR.
+
+At the moment we are switching page-tables with the MMU which is not 
+safe. Instead we need to turn out the MMU off, switch page-tables and 
+then turn on the MMU. This means we need to have an identity mapping of 
+Xen in the page-tables. Assuming Xen is not relocated, the identity 
+mapping may clash with Xen (or the rest of the virtual address map).
+
+My initial idea was to enable PIC and update the relocation at boot 
+time. But this is a bit cumbersome to do. So now I am looking to have a 
+semi-dynamic virtual layout and find some place to relocate part of Xen 
+to use for CPU bring-up.
+
+Anyway, my point is we possibly could look at PIC if that could allow 
+generic Xen image.
+
+>>>       - Xen will need to use the EL2 MPU memory region descriptors to
+>> manage
+>>>         access permissions and attributes for accesses made by VMs at
+>> EL1/0.
+>>>           - Xen currently relies on MMU EL1 stage 2 table to manage these
+>>>             accesses.
+>>> - No MMU Stage 2 translation at EL1:
+>>>       - A guest doesn't have an independent guest physical address space
+>>>       - A guest can not reuse the current Intermediate Physical Address
+>>>         memory layout
+>>>       - A guest uses physical addresses to access memory and devices
+>>>       - The MPU at EL2 manages EL1 stage 2 access permissions and
+>> attributes
+>>> - There are a limited number of MPU protection regions at both EL2 and
+>> EL1:
+>>>       - Architecturally, the maximum number of protection regions is 256,
+>>>         typical implementations have 32.
+>>>       - By contrast, Xen does not need to consider the number of page
+>> table
+>>>         entries in theory when using MMU.
+>>> - The MPU protection regions at EL2 need to be shared between the
+>> hypervisor
+>>>     and the guest stage 2.
+>>>       - Requires careful consideration - may impact feature 'fullness' of
+>> both
+>>>         the hypervisor and the guest
+>>>       - By contrast, when using MMU, Xen has standalone P2M table for
+>> guest
+>>>         stage 2 accesses.
 >>
->> Isn't this (previously?) working related to your "x86/spec-ctrl: Disable
->> retpolines with CET-IBT"?
->=20
-> No.=C2=A0 It's because AMD CPUs don't have CET-IBT at this juncture, and =
-will
-> never encounter a faulting situation.
+>> [...]
+>>
+>>> - ***Define new system registers for compilers***:
+>>>     Armv8-R64 is based on Armv8.4. That means we will use some Armv8.4
+>>>     specific system registers. As Armv8-R64 only have secure state, so
+>>>     at least, `VSTCR_EL2` and `VSCTLR_EL2` will be used for Xen. And the
+>>>     first GCC version that supports Armv8.4 is GCC 8.1. In addition to
+>>>     these, PMSA of Armv8-R64 introduced lots of MPU related system
+>> registers:
+>>>     `PRBAR_ELx`, `PRBARx_ELx`, `PRLAR_ELx`, `PRLARx_ELx`, `PRENR_ELx` and
+>>>     `MPUIR_ELx`. But the first GCC version to support these system
+>> registers
+>>>     is GCC 11. So we have two ways to make compilers to work properly
+>> with
+>>>     these system registers.
+>>>     1. Bump GCC version to GCC 11.
+>>>        The pros of this method is that, we don't need to encode these
+>>>        system registers in macros by ourselves. But the cons are that,
+>>>        we have to update Makefiles to support GCC 11 for Armv8-R64.
+>>>        1.1. Check the GCC version 11 for Armv8-R64.
+>>>        1.2. Add march=armv8r to CFLAGS for Armv8-R64.
+>>>        1.3. Solve the confliction of march=armv8r and mcpu=generic
+>>>       These changes will affect common Makefiles, not only Arm Makefiles.
+>>>       And GCC 11 is new, lots of toolchains and Distro haven't supported
+>> it.
+>>
+>> I agree that forcing to use GCC11 is not a good idea. But I am not sure
+>> to understand the problem with the -march=.... Ultimately, shouldn't we
+>> aim to build Xen ARMv8-R with -march=armv8r?
+>>
+> 
+> Actually, we had done, but we reverted it from RFC patch series. The reason
+> has been listed above. But that is not the major reason. The main reason
+> is that:
+> Armv8-R AArch64 supports the A64 ISA instruction set with some modifications:
+> Redefines DMB, DSB, and adds an DFB. But actually, the encodings of DMB and
+> DSB are still the same with A64. And DFB is a alias of DSB #12.
+> 
+> In this case, we don't think we need a new arch flag to generate new
+> instructions for Armv8-R. And we have discussed with Arm kernel guys, they
+> will not update the build system to build Linux that will be running on
+> Armv8-R64 EL1 either.
 
-I'm still lost. An exactly matching construct exists in VT-d code (and
-my initial comment also was on VT-d). The AMD one is actually a clone
-of that much older one. The initcall really wants to move to vendor
-independent code, but I'd still like to understand why no fault was
-ever observed.
+Good to know that the kernel folks plan to do the same. Thanks for the 
+explanation!
 
-Jan
+> 
+> 
+>> [...]
+>>
+>>> ### **2.2. Changes of the initialization process**
+>>> In general, we still expect Armv8-R64 and Armv8-A64 to have a consistent
+>>> initialization process. In addition to some architecture differences,
+>> there
+>>> is no more than reusable code that we will distinguish through
+>> CONFIG_ARM_MPU
+>>> or CONFIG_ARM64_V8R. We want most of the initialization code to be
+>> reusable
+>>> between Armv8-R64 and Armv8-A64.
+>>>
+>>> - We will reuse the original head.s and setup.c of Arm. But replace the
+>>>     MMU and page table operations in these files with configuration
+>> operations
+>>>     for MPU and MPU regions.
+>>>
+>>> - We provide a boot-time MPU configuration. This MPU configuration will
+>>>     support Xen to finish its initialization. And this boot-time MPU
+>>>     configuration will record the memory regions that will be parsed from
+>>>     device tree.
+>>>
+>>>     In the end of Xen initialization, we will use a runtime MPU
+>> configuration
+>>>     to replace boot-time MPU configuration. The runtime MPU configuration
+>> will
+>>>     merge and reorder memory regions to save more MPU regions for guests.
+>>>     ![img](https://drive.google.com/uc?export=view&id=1wTFyK2XfU3lTlH1PqR
+>> DoacQVTwUtWIGU)
+>>>
+>>> - Defer system unpausing domain.
+>>>     When Xen initialization is about to end, Xen unpause guests created
+>>>     during initialization. But this will cause some issues. The unpause
+>>>     action occurs before free_init_memory, however the runtime MPU
+>> configuration
+>>>     is built after free_init_memory.
+>>
+>> I was half expecting that free_init_memory() would not be called for Xen
+>> Armv8R.
+>>
+> 
+> We had called free_init_memory for Xen Armv8R, but it doesn't really mean
+> much. As we have static heap, so we don't reclaim init memory to heap. And
+> this reclaimed memory could not be used by Xen data and bss either. But
+> from the security perspective, free_init_memory will drop the Xen init
+> code & data, this will reduce the code an attacker can exploit.
+IIUC, zero-ing the region (or something) similar will be sufficient 
+here. IOW, you don't necessarily need to remove the mappings.
 
+>>>
+>>>     So if the unpaused guests start executing the context switch at this
+>>>     point, then its MPU context will base on the boot-time MPU
+>> configuration.
+>>
+>> Can you explain why you want to switch the MPU configuration that late?
+>>
+> 
+> In the boot stage, Xen is the only user of MPU. It may add some memory
+> nodes or device memory to MPU regions for temporary usage. After free
+> init memory, we want to reclaim these MPU regions to give more MPU regions
+> can be used for guests. Also we will do some merge and reorder work. This
+> work can make MPU regions to be easier managed in guest context switch.
+
+Do you have any example of such regions?
+> 
+>>>     Probably it will be inconsistent with runtime MPU configuration, this
+>>>     will cause unexpected problems (This may not happen in a single core
+>>>     system, but on SMP systems, this problem is foreseeable, so we hope
+>> to
+>>>     solve it at the beginning).
+>>
+>> [...]
+>>
+>>> ### **2.4. Changes of memory management**
+>>> Xen is coupled with VMSA, in order to port Xen to Armv8-R64, we have to
+>>> decouple Xen from VMSA. And give Xen the ability to manage memory in
+>> PMSA.
+>>>
+>>> 1. ***Use buddy allocator to manage physical pages for PMSA***
+>>>      From the view of physical page, PMSA and VMSA don't have any
+>> difference.
+>>>      So we can reuse buddy allocator on Armv8-R64 to manage physical
+>> pages.
+>>>      The difference is that, in VMSA, Xen will map allocated pages to
+>> virtual
+>>>      addresses. But in PMSA, Xen just convert the pages to physical
+>> address.
+>>>
+>>> 2. ***Can not use virtual address for memory management***
+>>>      As Armv8-R64 only has PMSA in EL2, Xen loses the ability of using
+>> virtual
+>>>      address to manage memory. This brings some problems, some virtual
+>> address
+>>>      based features could not work well on Armv8-R64, like `FIXMAP`,
+>> `vmap/vumap`,
+>>>      `ioremap` and `alternative`.
+>>>
+>>>      But the functions or macros of these features are used in lots of
+>> common
+>>>      code. So it's not good to use `#ifdef CONFIG_ARM_MPU` to gate relate
+>> code
+>>>      everywhere. In this case, we propose to use stub helpers to make the
+>> changes
+>>>      transparently to common code.
+>>>      1. For `FIXMAP`, we will use `0` in `FIXMAP_ADDR` for all fixmap
+>> operations.
+>>>         This will return physical address directly of fixmapped item.
+>>>      2. For `vmap/vumap`, we will use some empty inline stub helpers:
+>>>           ```
+>>>           static inline void vm_init_type(...) {}
+>>>           static inline void *__vmap(...)
+>>>           {
+>>>               return NULL;
+>>>           }
+>>>           static inline void vunmap(const void *va) {}
+>>>           static inline void *vmalloc(size_t size)
+>>>           {
+>>>               return NULL;
+>>>           }
+>>>           static inline void *vmalloc_xen(size_t size)
+>>>           {
+>>>               return NULL;
+>>>           }
+>>>           static inline void vfree(void *va) {}
+>>>           ```
+>>>
+>>>      3. For `ioremap`, it depends on `vmap`. As we have make `vmap` to
+>> always
+>>>         return `NULL`, they could not work well on Armv8-R64 without
+>> changes.
+>>>         `ioremap` will return input address directly.
+>>>           ```
+>>>           static inline void *ioremap_attr(...)
+>>>           {
+>>>               /* We don't have the ability to change input PA cache
+>> attributes */
+>> OOI, who will set them?
+> 
+> Some callers that want to change a memory's attribute will set them. Something like
+> ioremap_nocache. I am not sure is this what you had asked : )
+
+I am a bit confused. If ioremap_nocache() can change the attribute, then 
+why would ioremap_attr() not be able to do it?
+
+> 
+>>
+>>>               if ( CACHE_ATTR_need_change )
+>>>                   return NULL;
+>>>               return (void *)pa;
+>>>           }
+>>>           static inline void __iomem *ioremap_nocache(...)
+>>>           {
+>>>               return ioremap_attr(start, len, PAGE_HYPERVISOR_NOCACHE);
+>>>           }
+>>>           static inline void __iomem *ioremap_cache(...)
+>>>           {
+>>>               return ioremap_attr(start, len, PAGE_HYPERVISOR);
+>>>           }
+>>>           static inline void __iomem *ioremap_wc(...)
+>>>           {
+>>>               return ioremap_attr(start, len, PAGE_HYPERVISOR_WC);
+>>>           }
+>>>           void *ioremap(...)
+>>>           {
+>>>               return ioremap_attr(pa, len, PAGE_HYPERVISOR_NOCACHE);
+>>>           }
+>>>
+>>>           ```
+>>>       4. For `alternative`, it depends on `vmap` too.
+>>
+>> The only reason we depend on vmap() is because the map the sections
+>> *text read-only and we enforce WnX. For VMSA, it would be possible to
+>> avoid vmap() with some rework. I don't know for PMSA.
+>>
+> 
+> For PMSA, we still enforce WnX. For your use case, I assume it's alternative.
+> It still may have some possibility to avoid vmap(). But there may be some
+> security issues. We had thought to disable MPU -> update xen text -> enable
+> MPU to copy VMSA alternative's behavior. The problem with this, however,
+> is that at some point, all memory is RWX. There maybe some security risk. > But because it's in init stage, it probably doesn't matter as much as 
+I thought.
+
+For boot code, we need to ensure the code is compliant to the Arm Arm. 
+Other than that, it is OK to have the memory RWX for a short period of time.
+
+In fact, when we originally boot Xen, we don't enforce WnX. We will 
+start to enforce when initializing the memory. But there are no blocker 
+to delay it (other than writing the code :)).
+
+Cheers,
+
+-- 
+Julien Grall
 
