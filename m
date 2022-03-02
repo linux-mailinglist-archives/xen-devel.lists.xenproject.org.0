@@ -2,53 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 779394CAAB3
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Mar 2022 17:43:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.282497.481228 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 008AB4CAB9A
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Mar 2022 18:28:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.282511.481246 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPS3z-00084f-SE; Wed, 02 Mar 2022 16:42:55 +0000
+	id 1nPSlH-0005bt-E6; Wed, 02 Mar 2022 17:27:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 282497.481228; Wed, 02 Mar 2022 16:42:55 +0000
+Received: by outflank-mailman (output) from mailman id 282511.481246; Wed, 02 Mar 2022 17:27:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPS3z-000825-Ou; Wed, 02 Mar 2022 16:42:55 +0000
-Received: by outflank-mailman (input) for mailman id 282497;
- Wed, 02 Mar 2022 16:42:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nPSlH-0005ZL-AF; Wed, 02 Mar 2022 17:27:39 +0000
+Received: by outflank-mailman (input) for mailman id 282511;
+ Wed, 02 Mar 2022 17:27:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=s4+D=TN=oracle.com=dongli.zhang@srs-se1.protection.inumbo.net>)
- id 1nPS3y-00081z-66
- for xen-devel@lists.xenproject.org; Wed, 02 Mar 2022 16:42:54 +0000
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cd72a3d4-9a47-11ec-8eba-a37418f5ba1a;
- Wed, 02 Mar 2022 17:42:53 +0100 (CET)
-Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 222Eq6mO010129; 
- Wed, 2 Mar 2022 16:41:39 GMT
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by mx0b-00069f02.pphosted.com with ESMTP id 3ehbk9cwys-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 02 Mar 2022 16:41:38 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 222GM3eP163335;
- Wed, 2 Mar 2022 16:41:37 GMT
-Received: from nam02-dm3-obe.outbound.protection.outlook.com
- (mail-dm3nam07lp2040.outbound.protection.outlook.com [104.47.56.40])
- by userp3030.oracle.com with ESMTP id 3ef9b18d4v-3
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 02 Mar 2022 16:41:37 +0000
-Received: from BYAPR10MB2663.namprd10.prod.outlook.com (2603:10b6:a02:a9::20)
- by MWHPR1001MB2144.namprd10.prod.outlook.com (2603:10b6:301:2b::32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.22; Wed, 2 Mar
- 2022 16:41:34 +0000
-Received: from BYAPR10MB2663.namprd10.prod.outlook.com
- ([fe80::a0d5:610d:bcf:9b47]) by BYAPR10MB2663.namprd10.prod.outlook.com
- ([fe80::a0d5:610d:bcf:9b47%4]) with mapi id 15.20.5017.027; Wed, 2 Mar 2022
- 16:41:34 +0000
+ <SRS0=Pfyc=TN=gmail.com=this.is.a0lson@srs-se1.protection.inumbo.net>)
+ id 1nPSlF-0005ZF-Ve
+ for xen-devel@lists.xenproject.org; Wed, 02 Mar 2022 17:27:38 +0000
+Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
+ [2607:f8b0:4864:20::732])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0d50143b-9a4e-11ec-8539-5f4723681683;
+ Wed, 02 Mar 2022 18:27:37 +0100 (CET)
+Received: by mail-qk1-x732.google.com with SMTP id c7so1854202qka.7
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Mar 2022 09:27:36 -0800 (PST)
+Received: from development (c-73-166-253-254.hsd1.tx.comcast.net.
+ [73.166.253.254]) by smtp.gmail.com with ESMTPSA id
+ s7-20020a05622a018700b002dfed15c9edsm10771985qtw.74.2022.03.02.09.27.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Mar 2022 09:27:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,231 +44,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cd72a3d4-9a47-11ec-8eba-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=from : to : cc :
- subject : date : message-id : in-reply-to : references : content-type :
- mime-version; s=corp-2021-07-09;
- bh=lg9XKOy6opyS7UrsVBPxdV8zBBRDaWAGpVrxi52azCg=;
- b=00BS+lc8ZMiwhpP2fb0nb3d23jpNDzyk7ONwLFmIITJ1y5fv3V9oqYIIej9nogJnM0AC
- FwWfPaGgUxqgrBCKGIWPbmutZwSa4xzPqqrMlQLQY0V7+J8RdxKjaGrsCdHLt3HuzYDD
- AOxkka/U9/P3YbWKW3O25fpNTsFjmJsvCjcIwaELlOrMMz5rSdilfSE3KikNi2aUKZQ7
- OKpFL5SfWe1Mg5ZI1dC6RMSwT6BRLxxhCbyDutP9bWeiP1Pboz7r3liocWaUgcjylba3
- 9oZW13HIznpD4k2dNv5GAchaMXyr0CXpyqnBxVeT91h9fMf2ys0RPRaSzoPAlOdgx4Fu 7g== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MItzig8dWH9dnsScU1iZAdeug144LM7aW/IP4SUsLyF+MVzbqjWtvMc7HVWgtYxRjLG5r+Qg1x+wXVEwoE1ncIx8fmSMpJj9EOFX764PZCZ1/1pskytPRV4lxjlx/cEtlDM9fQx3mhGfFiIZBylVIlNMMOcpQ2GH0v5GJvANq+V4EQ9v9qdJ5hdUbG5g/Rc1bhfcC2aaTq/houPecpCOjV4yw3X3ZCdDeZWZlu1bIWfm90rftzW47ijhDjt+DnP5e6rSm2CXIQNza200oFDBqUiaMOwxT1iVIsO3giPV7od8iwtu+i7R6OoMTcRK/G4E90rhuelEfr5jPExsvmX5ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lg9XKOy6opyS7UrsVBPxdV8zBBRDaWAGpVrxi52azCg=;
- b=lqjd5CcCsoFb6NgayGM2l5P4+N8CjHdVjA2b54akAC3PfXYo94jIByx2VTLqmk/wK33Ian03Gws4tOEFqTraQlOvnbpUTXebaJg6E/os6z+nQuzKecOkHgzF0a6vuWDLli+gteYJNvlhKjp5CqNfWXUubA8ndzHw+r15FaYBXR1gOr/3BwmFZUaMTj5SuewQtkHW8F4VbfqF8PCiQXSqpajbF3FYRCI8A5KxviTUDVNZNbnl4NxCWwoCOFajK1FmO1k4xhHd6p3M4w3/oLvedZ/Emj4ul3Up7rMqlrFozi60Y5h06h7D8ZPjqJYJlt+ajtGPF4FsvnonfhXwjwZiZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
+X-Inumbo-ID: 0d50143b-9a4e-11ec-8539-5f4723681683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lg9XKOy6opyS7UrsVBPxdV8zBBRDaWAGpVrxi52azCg=;
- b=Phq7eGknBjDCXWbVofHPUZ/QGKXTZNhyct0qFmqI2mbMWkGSNieOB9b9CPP8t+KIIRvyQqYXzv4HcbYeOYWoJMQjvD/faRU4i6S2rfmlfa61j0K1acpwVTEQ7VIUSeA++3v+BYzbcyIvmHZ0yIG2SvKgyMKMvBIag0rD2BrHTVg=
-From: Dongli Zhang <dongli.zhang@oracle.com>
-To: xen-devel@lists.xenproject.org, x86@kernel.org
-Cc: linux-kernel@vger.kernel.org, boris.ostrovsky@oracle.com, jgross@suse.com,
-        sstabellini@kernel.org, tglx@linutronix.de, mingo@redhat.com,
-        bp@alien8.de, dave.hansen@linux.intel.com, joe.jin@oracle.com
-Subject: [PATCH v4 2/2] xen: delay xen_hvm_init_time_ops() if kdump is boot on vcpu>=32
-Date: Wed,  2 Mar 2022 08:40:32 -0800
-Message-Id: <20220302164032.14569-3-dongli.zhang@oracle.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220302164032.14569-1-dongli.zhang@oracle.com>
-References: <20220302164032.14569-1-dongli.zhang@oracle.com>
-Content-Type: text/plain
-X-ClientProxiedBy: BYAPR21CA0019.namprd21.prod.outlook.com
- (2603:10b6:a03:114::29) To BYAPR10MB2663.namprd10.prod.outlook.com
- (2603:10b6:a02:a9::20)
+        d=gmail.com; s=20210112;
+        h=message-id:subject:from:to:cc:date:user-agent:mime-version
+         :content-transfer-encoding;
+        bh=dOu3W6e1lek9NwlGWMLe7xTNjeA/SvvKHqYQ9IVp8XI=;
+        b=HM6LFXYfHo8XVEcJFPXRhorVFo29a9DE5gnPfOFbcJI+eo7KG4MUeGOXoxQeK7yUX1
+         eb+Y5LcX2CtoqnxlXbkc4s53O/E9ksNse34HEY7qJVKvc0C03YPLg8X603b4d0QXHBFt
+         lH+fnWeyVJP7YCHj26Ha+oy7sDhMxDlKXm/i0fRCvMnElrNga1eV+pvK+gKQK2iXsk9A
+         87p8MWIfuJmqRaGLMv8rl3LULtsShACZPc/kJ88XHr/He+bS4NbEZx7E/bshI+Uplwju
+         l1+v1bd/a0ah4HGAg6irP/aT2tevRlyEG0eszzvalcxeBNFz5TtBm43fOEZlwIhEA8Aj
+         MIZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:subject:from:to:cc:date:user-agent
+         :mime-version:content-transfer-encoding;
+        bh=dOu3W6e1lek9NwlGWMLe7xTNjeA/SvvKHqYQ9IVp8XI=;
+        b=PEU9k+eQTlYDt2t9l+RRw9mkjK1zO9uF5BYyfBl2LYEWDGS/Tche2nu3u1uQ+gV8oY
+         tksNDiSwXJ+9l0bcszCXYsppqMNO09mTPifBf6JVqrKIFicZXj3PpB2s7wZtehOI8c/C
+         mtnX/pGGxLgqn4cbLU1pgay3Q5xd6dmGECAqBAs1UBqCX/FtQ3sPMQLPsM0Uhvrl1j3Z
+         kH8+Q+7cwymXOlMtRF/eholtct81eWehWyLDHG9QxUftBGeGkI31mvGC/PNqhmlMAHwQ
+         csDRm/gkSpR9OL7wtLo0qhEeH8QBL6CZ2Yl/yM74IsOsxPzoo6Ow1cO/0ew5nwiKKDAO
+         KJVA==
+X-Gm-Message-State: AOAM532ig5KMDOTD+5RkKAox5Truz3Djlgbj9URZsvHST8XldBmwAVWw
+	j8dMoe1BwsTZRWwKzr+NRQ4GKl/haN4Mkw==
+X-Google-Smtp-Source: ABdhPJwxOg+54g5Insc2YbzwC8vhdiweJDDX7i1NDm4rut/DNJkC+dsUslLc8zBHw7l+Ai9pnBCaag==
+X-Received: by 2002:a37:80b:0:b0:508:b7e5:e47e with SMTP id 11-20020a37080b000000b00508b7e5e47emr17061461qki.80.1646242055670;
+        Wed, 02 Mar 2022 09:27:35 -0800 (PST)
+Message-ID: <7c85d28831f3f30fb61bb359a23f570c34b4d31a.camel@gmail.com>
+Subject: PIRQ handling and PVH dom0?
+From: Alex Olson <this.is.a0lson@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>
+Date: Wed, 02 Mar 2022 11:27:33 -0600
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.36.5-0ubuntu1 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e6c7a851-a288-4101-9d60-08d9fc6b82d2
-X-MS-TrafficTypeDiagnostic: MWHPR1001MB2144:EE_
-X-Microsoft-Antispam-PRVS: 
-	<MWHPR1001MB2144933E92981062FCEDE954F0039@MWHPR1001MB2144.namprd10.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	cXzcLtN367nYb75mjgBNknNLsWj9dDgUUPKuW34dBXyRfAXX4F0sAMGb9LZU+sI75WUkgUuc5abpViiqN4kL2HCHSNXS/4WFlUSZZhhPqtIH50QaO3YSPPnm5iKyJstlMJ5P8KQDdf+2/y8tZsIULi4wo8S0TP76zIerCVtXI6OOAMuXQt9sZ/sGq3R75SdhOQhgRJVmRdDSYSR1El4GT+hiasArpdgXZ+K6O7J/d2s4sLL1yF2A8EtYuDeV+RkS5PWZexV+Qz20Pd4yOO0KE7bk8cIzNpHXSA9AhM7ySBtt4BE1p/qYeE5kATOVrdlRA+IbKJpA9s8MgCVed1DpLscD/0Xl6u8cXSjBVu5pOfJFi6or6T9da1kLIEVBNlir1s7Nf09dj7o5ZywuYJUsC9C3KZmU/OPWqRqd4EDbftQ7YkQooP7VPU2VXB4xo3KIeMpVKVN1mW709oGLNgXhPyzeSidh2Qx7wwmr7XaB9AQRqjSdwWkEWD37QXkktohwwo+swpFAlLFHKtKMRngUqgTvDRaYBpn1VLEWZ61U1wje6Knj0QVBOGqFxTjJB6F5yFN7hjxpkBpNYejOuJwB9F6NGBMAos9Sl38Ialvm2txIljFo+T/mSSsiyzG9+pAN3moiXrQKisfoMAoxDD4DjMpFTMJhraCr47OzLAOQFmUMfqpLNeLbrZqynIGTBoa79HReMoVkXoYrm6HPx9Fg7w==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR10MB2663.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(83380400001)(66556008)(36756003)(2906002)(44832011)(5660300002)(38100700002)(107886003)(6486002)(38350700002)(86362001)(508600001)(8936002)(1076003)(186003)(316002)(26005)(6512007)(6506007)(66946007)(8676002)(52116002)(66476007)(4326008)(2616005);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?dOP///kj3fAaOgnhY7LTb31y6qH/A3m0+YO1aKOod7OIRuieNNMitZODQ1yt?=
- =?us-ascii?Q?YO3IIzFOb610lRl3MBrE0UOBPCldK70iQVIDa5Bv46yQLnHflde/6n/3zwsR?=
- =?us-ascii?Q?DKD3xO40OsUfFPh+AWWakQHqS31RB/pmn/cFAfGHQFPhglofbq+GUzqIHpXc?=
- =?us-ascii?Q?pFmRbWSN+0ngplFtuTqnEAymp3X0Sp2IhC+xksSJ4xHLRMTOiJDsdIUKlNWg?=
- =?us-ascii?Q?yY/qopm4Dafr8ODhvCl8iQKk/Cgh6QvQz2StFSRTps4vzwoRtQNg4RSKetQM?=
- =?us-ascii?Q?7U2bRK3RnTlOHmBQG9OxdHgZVBPA6If9HjDotySzIy/JZkugchpwDr261hqI?=
- =?us-ascii?Q?KYz7OnWQ2L63Qo3ybV0hL5MKqXv/0ZbwT7un8hdKRdkyMEoDiMgUwbZdzsw6?=
- =?us-ascii?Q?5IRrhrUqYYKq5FvGrFFC9tpcVy5xiKX8ROTxE5WTG56uUQjEsjtzl4oZhynx?=
- =?us-ascii?Q?LYcg0G57VAzxF8WNzA0tOvg7i49pzOWI6ox7X21JiIyieJnoOtZGI5Vkiv/R?=
- =?us-ascii?Q?Exrju77OGuXPLRlqaGD7qlAmNdVHk9OmhDHur2FuXYnM8uIE1iawhsCSHAXO?=
- =?us-ascii?Q?+e2V/88i1VrFm5A0z747bqRTIkHqCBJis8mbLdhg+UejCSmcR8hW3o0b+6qz?=
- =?us-ascii?Q?8TOyI9caH/qLZA3yZneykNz9vo82v89ts7XOFMy5yk2jVcB6lXFQL0+NUCNW?=
- =?us-ascii?Q?4zUIbXAKcsgDIl5cE/hMVm0EHNL90pypnigBJ+klUBI/ZreoCJkM6w1lWxc3?=
- =?us-ascii?Q?UvTYTWiIPzgkLyVqp0T3teVzzTiKFMr5xnS6RPX4JBRzBM0+v/oHxrU4KG68?=
- =?us-ascii?Q?fg3zzW9PWkMOn4te9uEIuIKhwAfVqT2UyjYpj3Pt0y9BoqfWkIH5thmoNURl?=
- =?us-ascii?Q?dC6e46xLYMQ2jkYnsicYSBBWdw5J59zmyYyDjI1HynLCDrxb155Nm54qInr2?=
- =?us-ascii?Q?qYSkisxfHLueFRFswiOH1e902e/cIO7cup1YmzmQNJ/CC1yO+QuJDnKV+4/r?=
- =?us-ascii?Q?pbyjBAUtlOV15kfFKE35OPCJHc8km2GGQTlnxftoXXTPa/3iwVsq6aJSVnC4?=
- =?us-ascii?Q?QVg32erY6n6dR11RTp6yGoP2hkLe0hT7EZQHQ+qiI0Fj46VJOc+81J5HUD4x?=
- =?us-ascii?Q?UTRIi/Z2+lClX/xaWy+xkZk5otKRmi4S29+JZNXMLCrt2SL66TzbtwcHl3qS?=
- =?us-ascii?Q?kyDxoS5+RlSnpYmz4JmBQveJDas4QvtFIO3rQY9UDKlpSskNm24PtTRSn1Un?=
- =?us-ascii?Q?aTXV7MB48g0yRCw2aNctyn+zVEuz+PrMH/sjTTY7FKbb8XuZD7Rd8Qc8mOoC?=
- =?us-ascii?Q?oOswq4T3o675mv+iU34C1RBvlpbTuNYD0vtW1ONpdvYZQ/KP96qLrnCaKWp6?=
- =?us-ascii?Q?TqWNK6Js9PfvyoEyqYMIUrqeJW9ta3Ukg3i/UHCBjLPT7KULX/7b7sHNUmg4?=
- =?us-ascii?Q?/RYVV1rg44rqpk9pctMvJqBbGPgiqKFdAv3/GNTnPf1kAflxq3wZjDz7juLL?=
- =?us-ascii?Q?GZ3EAbUGzg29ya/IeZfmOzIdONq+2VewlDaQKinHgKKrecVIzOP/3C1CaqUe?=
- =?us-ascii?Q?X06WRAy0MdPrOgWFla2wuR/l72yQE2zvjktcCdZWYSAxWrkyVf/CZI0E0jQi?=
- =?us-ascii?Q?Quxs3Zl5CmZZaQRkXe9gZ80=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6c7a851-a288-4101-9d60-08d9fc6b82d2
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR10MB2663.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Mar 2022 16:41:33.7114
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +1TgDRK4ve3mXHKXq/401zlsOIroDpALX/dfar9kXhL/HxH9/6/IK3CgJgUpVd9areO02m/3TYxAvtB4nlsExg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1001MB2144
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10274 signatures=686787
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0 bulkscore=0 malwarescore=0
- mlxscore=0 phishscore=0 suspectscore=0 adultscore=0 mlxlogscore=999
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2201110000
- definitions=main-2203020073
-X-Proofpoint-GUID: qkEPK_YnsbroMSihPPrq00FLhgwsaZjL
-X-Proofpoint-ORIG-GUID: qkEPK_YnsbroMSihPPrq00FLhgwsaZjL
+Content-Transfer-Encoding: 7bit
 
-The sched_clock() can be used very early since commit 857baa87b642
-("sched/clock: Enable sched clock early"). In addition, with commit
-38669ba205d1 ("x86/xen/time: Output xen sched_clock time from 0"), kdump
-kernel in Xen HVM guest may panic at very early stage when accessing
-&__this_cpu_read(xen_vcpu)->time as in below:
+I further attempted to see how far PVH dom0 can get but had a general question regarding what is not yet implemented... 
 
-setup_arch()
- -> init_hypervisor_platform()
-     -> x86_init.hyper.init_platform = xen_hvm_guest_init()
-         -> xen_hvm_init_time_ops()
-             -> xen_clocksource_read()
-                 -> src = &__this_cpu_read(xen_vcpu)->time;
+With an initial version of Roger's recent "vpci/msix: fix PBA access" patches and after refreshing his earlier 2018 patchset "vpci: add support for SR-IOV capability" regarding SR-IOV support for PVH dom0, I was able to get both physical functions and virtual functions of an SR-IOV network card to operate correctly in PVH dom0.
 
-This is because Xen HVM supports at most MAX_VIRT_CPUS=32 'vcpu_info'
-embedded inside 'shared_info' during early stage until xen_vcpu_setup() is
-used to allocate/relocate 'vcpu_info' for boot cpu at arbitrary address.
+However, it looks like any PCI-passthrough for HVM domUs with PVH dom0 is not yet implemented. I see the "PHYSDEVOP_map_pirq" call fails since the "emulation_flags" for dom0 do not include "XEN_X86_EMU_USE_PIRQ"...
 
-However, when Xen HVM guest panic on vcpu >= 32, since
-xen_vcpu_info_reset(0) would set per_cpu(xen_vcpu, cpu) = NULL when
-vcpu >= 32, xen_clocksource_read() on vcpu >= 32 would panic.
+	libxl: error: libxl_pci.c:1461:pci_add_dm_done: Domain 1:xc_physdev_map_pirq irq=17 (error=-1): Function not implemented                                                                                                                                                                                                                                                                                                         
+	libxl: error: libxl_pci.c:1781:device_pci_add_done: Domain 1:libxl__device_pci_add failed for PCI device 0:5:0.1 (rc -3)                                                                                                                                                                                                                                                                                                         
+	libxl: error: libxl_create.c:1895:domcreate_attach_devices: Domain 1:unable to add pci devices                                              
 
-This patch calls xen_hvm_init_time_ops() again later in
-xen_hvm_smp_prepare_boot_cpu() after the 'vcpu_info' for boot vcpu is
-registered when the boot vcpu is >= 32.
 
-This issue can be reproduced on purpose via below command at the guest
-side when kdump/kexec is enabled:
+What is PVH dom0 missing at a conceptual level for PCI passthrough to domUs?  I naively assumed that an HVM domU guest wouldn't care much whether dom0 was PV or PVH in terms of passthrough device IRQ handling...
 
-"taskset -c 33 echo c > /proc/sysrq-trigger"
+Thanks
 
-The bugfix for PVM is not implemented due to the lack of testing
-environment.
-
-Cc: Joe Jin <joe.jin@oracle.com>
-Signed-off-by: Dongli Zhang <dongli.zhang@oracle.com>
----
-Changed since v1:
-  - Add commit message to explain why xen_hvm_init_time_ops() is delayed
-    for any vcpus. (Suggested by Boris Ostrovsky)
-  - Add a comment in xen_hvm_smp_prepare_boot_cpu() referencing the related
-    code in xen_hvm_guest_init(). (suggested by Juergen Gross)
-Changed since v2:
-  - Delay for all VCPUs. (Suggested by Boris Ostrovsky)
-  - Add commit message that why PVM is not supported by this patch
-  - Test if kexec/kdump works with mainline xen (HVM and PVM)
-Changed since v3:
-  - Re-use v2 but move the login into xen_hvm_init_time_ops() (Suggested
-    by Boris Ostrovsky)
-
- arch/x86/xen/smp_hvm.c |  6 ++++++
- arch/x86/xen/time.c    | 25 ++++++++++++++++++++++++-
- 2 files changed, 30 insertions(+), 1 deletion(-)
-
-diff --git a/arch/x86/xen/smp_hvm.c b/arch/x86/xen/smp_hvm.c
-index 6ff3c887e0b9..b70afdff419c 100644
---- a/arch/x86/xen/smp_hvm.c
-+++ b/arch/x86/xen/smp_hvm.c
-@@ -19,6 +19,12 @@ static void __init xen_hvm_smp_prepare_boot_cpu(void)
- 	 */
- 	xen_vcpu_setup(0);
- 
-+	/*
-+	 * Called again in case the kernel boots on vcpu >= MAX_VIRT_CPUS.
-+	 * Refer to comments in xen_hvm_init_time_ops().
-+	 */
-+	xen_hvm_init_time_ops();
-+
- 	/*
- 	 * The alternative logic (which patches the unlock/lock) runs before
- 	 * the smp bootup up code is activated. Hence we need to set this up
-diff --git a/arch/x86/xen/time.c b/arch/x86/xen/time.c
-index 55b3407358a9..dcf292cc859e 100644
---- a/arch/x86/xen/time.c
-+++ b/arch/x86/xen/time.c
-@@ -558,16 +558,36 @@ static void xen_hvm_setup_cpu_clockevents(void)
- 
- void __init xen_hvm_init_time_ops(void)
- {
-+	static bool hvm_time_initialized;
-+
-+	if (hvm_time_initialized)
-+		return;
-+
- 	/*
- 	 * vector callback is needed otherwise we cannot receive interrupts
- 	 * on cpu > 0 and at this point we don't know how many cpus are
- 	 * available.
- 	 */
- 	if (!xen_have_vector_callback)
--		return;
-+		goto exit;
- 
- 	if (!xen_feature(XENFEAT_hvm_safe_pvclock)) {
- 		pr_info("Xen doesn't support pvclock on HVM, disable pv timer");
-+		goto exit;
-+	}
-+
-+	/*
-+	 * Only MAX_VIRT_CPUS 'vcpu_info' are embedded inside 'shared_info'.
-+	 * The __this_cpu_read(xen_vcpu) is still NULL when Xen HVM guest
-+	 * boots on vcpu >= MAX_VIRT_CPUS (e.g., kexec), To access
-+	 * __this_cpu_read(xen_vcpu) via xen_clocksource_read() will panic.
-+	 *
-+	 * The xen_hvm_init_time_ops() should be called again later after
-+	 * __this_cpu_read(xen_vcpu) is available.
-+	 */
-+	if (!__this_cpu_read(xen_vcpu)) {
-+		pr_info("Delay xen_init_time_common() as kernel is running on vcpu=%d\n",
-+			xen_vcpu_nr(0));
- 		return;
- 	}
- 
-@@ -577,6 +597,9 @@ void __init xen_hvm_init_time_ops(void)
- 	x86_cpuinit.setup_percpu_clockev = xen_hvm_setup_cpu_clockevents;
- 
- 	x86_platform.set_wallclock = xen_set_wallclock;
-+
-+exit:
-+	hvm_time_initialized = true;
- }
- #endif
- 
--- 
-2.17.1
+-Alex
 
 
