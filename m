@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3967F4CB29B
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Mar 2022 23:55:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.282602.481373 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 255094CB29C
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Mar 2022 23:55:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.282610.481384 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPXsH-0007xZ-CQ; Wed, 02 Mar 2022 22:55:13 +0000
+	id 1nPXsr-0008SX-NN; Wed, 02 Mar 2022 22:55:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 282602.481373; Wed, 02 Mar 2022 22:55:13 +0000
+Received: by outflank-mailman (output) from mailman id 282610.481384; Wed, 02 Mar 2022 22:55:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPXsH-0007vh-99; Wed, 02 Mar 2022 22:55:13 +0000
-Received: by outflank-mailman (input) for mailman id 282602;
- Wed, 02 Mar 2022 22:55:11 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nPXsF-0007vS-8p; Wed, 02 Mar 2022 22:55:11 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nPXsF-0003p4-5E; Wed, 02 Mar 2022 22:55:11 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nPXsE-0004BU-O0; Wed, 02 Mar 2022 22:55:10 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nPXsE-0001vZ-Na; Wed, 02 Mar 2022 22:55:10 +0000
+	id 1nPXsr-0008QZ-JV; Wed, 02 Mar 2022 22:55:49 +0000
+Received: by outflank-mailman (input) for mailman id 282610;
+ Wed, 02 Mar 2022 22:55:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6wI2=TN=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nPXsq-0008P6-I1
+ for xen-devel@lists.xenproject.org; Wed, 02 Mar 2022 22:55:48 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e4ef41db-9a7b-11ec-8539-5f4723681683;
+ Wed, 02 Mar 2022 23:55:46 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 9BAEFB82285;
+ Wed,  2 Mar 2022 22:55:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09738C004E1;
+ Wed,  2 Mar 2022 22:55:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,246 +44,256 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=GnHVIMZBMDZf32W09tBha3IcH3MWPapPhaQXkggP2Zk=; b=kGJxlqfVe53nI/KAhWmI09Yx2n
-	UEjezoZyJkhxCS1nYBPwrPmPfV09nrL9kS2mxR40YeEZJCutVF7/vSJO2x1QP0t/ACoo9bXxy4y05
-	mI/s+lYFUP3cWgphgcwVcgKyo7MCcCLNQZEvO45gMcjys/yIE8XHlNitIaGGwnVr4t/M=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168344-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: e4ef41db-9a7b-11ec-8539-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1646261743;
+	bh=eGkVgzszDtV57fApPBexl0TVZ6WfXQmp/zCtiK77G5w=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=J14599mDBY6SiAecIHYOPw+47kA1RD3vf61XWWDduDghgViWRsCH5LCJT9klF6nWM
+	 20xTyw20PC9hgjfpGrd02+fhJy+Brw5Tp4HsD1NVZwdTbrPg7Elb+018j1OtRv8gui
+	 Sq15JI/SX44J6Xi+ON5mKXlavVCpKmZ+/4JPtuJg9KJy83SFyNm0iatezO7AbYD2jU
+	 qU7f+QJvVy303DmGLlJ2cAQxPoRxZ1733TwA9Mx0sy675VEp5Z06KAOlLjoIj/4cSg
+	 t4YL3fxEcItHzjdX19tUwV+0KskdEA3SDKZoMAO/0c/j7v22ZqBNki13ufEEIb5hpk
+	 JvL8wMmRM1NMQ==
+Date: Wed, 2 Mar 2022 14:55:42 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Wei Chen <Wei.Chen@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    "julien@xen.org" <julien@xen.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    Penny Zheng <Penny.Zheng@arm.com>, Henry Wang <Henry.Wang@arm.com>, 
+    nd <nd@arm.com>
+Subject: RE: Proposal for Porting Xen to Armv8-R64 - DraftA
+In-Reply-To: <PAXPR08MB74201779FC92E734A5107B769E039@PAXPR08MB7420.eurprd08.prod.outlook.com>
+Message-ID: <alpine.DEB.2.22.394.2203021454090.3261@ubuntu-linux-20-04-desktop>
+References: <PAXPR08MB7420A01809B84E04E196793F9E3D9@PAXPR08MB7420.eurprd08.prod.outlook.com> <alpine.DEB.2.22.394.2202241606450.239973@ubuntu-linux-20-04-desktop> <AS1PR08MB74269923288B75097392BDD99E3E9@AS1PR08MB7426.eurprd08.prod.outlook.com>
+ <alpine.DEB.2.22.394.2202251214210.239973@ubuntu-linux-20-04-desktop> <PAXPR08MB742081D5E3C94801350C4A739E029@PAXPR08MB7420.eurprd08.prod.outlook.com> <alpine.DEB.2.22.394.2203011455500.3261@ubuntu-linux-20-04-desktop>
+ <PAXPR08MB74201779FC92E734A5107B769E039@PAXPR08MB7420.eurprd08.prod.outlook.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 168344: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=dc39554d58af4a50b50eca1f57c49415a12b0c98
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 02 Mar 2022 22:55:10 +0000
+Content-Type: multipart/mixed; boundary="8323329-615912675-1646261743=:3261"
 
-flight 168344 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168344/
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Regressions :-(
+--8323329-615912675-1646261743=:3261
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+On Wed, 2 Mar 2022, Wei Chen wrote:
+> > > > > > If not, and considering that we have to generate
+> > > > > > ARM_MPU_*_MEMORY_START/END anyway at build time, would it make
+> > sense
+> > > > to
+> > > > > > also generate mpu,guest-memory-section, xen,static-mem, etc. at
+> > build
+> > > > > > time rather than passing it via device tree to Xen at runtime?
+> > > > > >
+> > > > >
+> > > > > Did you mean we still add these information in device tree, but for
+> > > > build
+> > > > > time only. In runtime we don't parse them?
+> > > >
+> > > > Yes, something like that, but see below.
+> > > >
+> > > >
+> > > > > > What's the value of doing ARM_MPU_*_MEMORY_START/END at build time
+> > and
+> > > > > > everything else at runtime?
+> > > > >
+> > > > > ARM_MPU_*_MEMORY_START/END is defined by platform. But other things
+> > are
+> > > > > users customized. They can change their usage without rebuild the
+> > image.
+> > > >
+> > > > Good point.
+> > > >
+> > > > We don't want to have to rebuild Xen if the user updated a guest
+> > kernel,
+> > > > resulting in a larger boot-module-section.
+> > > >
+> > > > So I think it makes sense that "mpu,boot-module-section" is generated
+> > by
+> > > > the scripts (e.g. ImageBuilder) at build time, and Xen reads the
+> > > > property at boot from the runtime device tree.
+> > > >
+> > > > I think we need to divide the information into two groups:
+> > > >
+> > > >
+> > > > # Group1: board info
+> > > >
+> > > > This information is platform specific and it is not meant to change
+> > > > depending on the VM configuration. Ideally, we build Xen for a
+> > platform
+> > > > once, then we can use the same Xen binary together with any
+> > combination
+> > > > of dom0/domU kernels and ramdisks.
+> > > >
+> > > > This kind of information doesn't need to be exposed to the runtime
+> > > > device tree. But we can still use a build-time device tree to generate
+> > > > the addresses if it is convenient.
+> > > >
+> > > > XEN_START_ADDRESS, ARM_MPU_DEVICE_MEMORY_*, and
+> > ARM_MPU_NORMAL_MEMORY_*
+> > > > seem to be part of this group.
+> > > >
+> > >
+> > > Yes.
+> > >
+> > > >
+> > > > # Group2: boot configuration
+> > > >
+> > > > This information is about the specific set of binaries and VMs that we
+> > > > need to boot. It is conceptually similar to the dom0less device tree
+> > > > nodes that we already have. If we change one of the VM binaries, we
+> > > > likely have to refresh the information here.
+> > > >
+> > > > "mpu,boot-module-section" probably belongs to this group (unless we
+> > find
+> > > > a way to define "mpu,boot-module-section" generically so that we don't
+> > > > need to change it any time the set of boot modules change.)
+> > > >
+> > > >
+> > >
+> > > I agree.
+> > >
+> > > > > > It looks like we are forced to have the sections definitions at
+> > build
+> > > > > > time because we need them before we can parse device tree. In that
+> > > > case,
+> > > > > > we might as well define all the sections at build time.
+> > > > > >
+> > > > > > But I think it would be even better if Xen could automatically
+> > choose
+> > > > > > xen,static-mem, mpu,guest-memory-section, etc. on its own based on
+> > the
+> > > > > > regular device tree information (/memory, /amba, etc.), without
+> > any
+> > > > need
+> > > > > > for explicitly describing each range with these new properties.
+> > > > > >
+> > > > >
+> > > > > for mpu,guest-memory-section, with the limitations: no other usage
+> > > > between
+> > > > > different guest' memory nodes, this is OK. But for xen,static-mem
+> > (heap),
+> > > > > we just want everything on a MPU system is dertermistic. But, of
+> > course
+> > > > Xen
+> > > > > can select left memory for heap without static-mem.
+> > > >
+> > > > It is good that you think they can be chosen by Xen.
+> > > >
+> > > > Differently from "boot-module-section", which has to do with the boot
+> > > > modules selected by the user for a specific execution,
+> > > > guest-memory-section and static-mem are Xen specific memory
+> > > > policies/allocations.
+> > > >
+> > > > A user wouldn't know how to fill them in. And I worry that even a
+> > script
+> > >
+> > > But users should know it, because static-mem for guest must be allocated
+> > > in this range. And users take the responsibility to set the DomU's
+> > > static allocate memory ranges.
+> > 
+> > Let me premise that my goal is to avoid having many users reporting
+> > errors to xen-devel and xen-users when actually it is just a wrong
+> > choice of addresses.
+> > 
+> > I think we need to make a distinction between addresses for the boot
+> > modules, e.g. addresses where to load xen, the dom0/U kernel, dom0/U
+> > ramdisk in memory at boot time, and VM static memory addresses.
+> > 
+> > The boot modules addresses are particularly difficult to fill in because
+> > they are many and a small update in one of the modules could invalidate
+> > all the other addresses. This is why I ended up writing ImageBuilder.
+> > Since them, I received several emails from users thanking me for
+> > ImageBuilder :-)
+> > 
+> 
+> Thanks +999 😊
+> 
+> 
+> > The static VM memory addresses (xen,static-mem) should be a bit easier
+> > to fill in correctly. They are meant to be chosen once, and it shouldn't
+> > happen that an update on a kernel forces the user to change all the VM
+> > static memory addresses. Also, I know that some users actually want to
+> > be able to choose the domU addresses by hand because they have specific
+> > needs. So it is good that we can let the user choose the addresses if
+> > they want to.
+> > 
+> 
+> Yes.
+> 
+> > With all of that said, I do think that many users won't have an opinion
+> > on the VM static memory addresses and won't know how to choose them.
+> > It would be error prone to let them try to fill them in by hand. So I
+> > was already planning on adding support to ImageBuilder to automatically
+> > generate xen,static-mem for dom0less domains.
+> > 
+> 
+> Let me make sure that's what you said: Users give an VM memory size to
+> ImageBuilder, and ImageBuilder will generate xen,static-mem = <start, size>.
+> For specific VM, ImageBuilder also can accept start and size as inputs?
+> 
+> Do I understand this correctly?
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+Yes, exactly
 
-version targeted for testing:
- ovmf                 dc39554d58af4a50b50eca1f57c49415a12b0c98
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+ 
+> > Going back to this specific discussion about boot-module-section: I can
+> > see now that, given xen,static-mem is chosen by ImageBuilder (or
+> 
+> By hand : )
+> 
+> > similar) and not Xen, then it makes sense to have ImageBuilder (or
+> > similar) also generate boot-module-section.
+> > 
+> 
+> If my above understanding is right, then yes.
 
-Last test of basis   168254  2022-02-28 10:41:46 Z    2 days
-Failing since        168258  2022-03-01 01:55:31 Z    1 days   18 attempts
-Testing same since   168316  2022-03-02 02:50:20 Z    0 days    6 attempts
+Yes, I think we are on the same page
+ 
+ 
+> > > > like ImageBuilder wouldn't be the best place to pick these values --
+> > > > they seem too "important" to leave to a script.
+> > > >
+> > > > But it seems possible to choose the values in Xen:
+> > > > - Xen knows ARM_MPU_NORMAL_MEMORY_* because it was defined at build
+> > time
+> > > > - Xen reads boot-module-section from device tree
+> > > >
+> > > > It should be possible at this point for Xen to pick the best values
+> > for
+> > > > guest-memory-section and static-mem based on the memory available.
+> > > >
+> > >
+> > > How Xen to pick? Does it mean in static allocation DomU DT node, we just
+> > > need a size, but don't require a start address for static-mem?
+> > 
+> > Yes the idea was that the user would only provide the size (e.g.
+> > DOMU_STATIC_MEM[1]=1024) and the addresses would be automatically
+> > calculated. But I didn't mean to change the existing xen,static-mem
+> > device tree bindings. So it is best if the xen,static-mem addresses
+> > generation is done by ImageBuilder (or similar tool) instead of Xen.
+> > 
+> 
+> If we still keep the option for user to specify the start and size
+> parameters for VM memory, because it maybe very important for a
+> deterministic system (fully static system), I agree with you.
+> 
+> And in current static-allocation, I think Xen doesn't generate
+> xen,static-mem addresses, all by hands...
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Guomin Jiang <guomin.jiang@intel.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Yeah 
 
 
-Not pushing.
+> > Sorry for the confusion!
+> > 
+> 
+> NP ; )
 
-------------------------------------------------------------
-commit dc39554d58af4a50b50eca1f57c49415a12b0c98
-Author: Xiaolu.Jiang <xiaolu.jiang@intel.com>
-Date:   Tue Feb 22 22:14:05 2022 +0800
-
-    edk2/MdeModulePkg/Debuglib: Add Standalone MM support
-    
-    https://bugzilla.tianocore.org/show_bug.cgi?id=3844
-    
-    This change added Standalone MM instance of DebugLib.
-    
-    Reviewd-by: Jian J Wang <jian.j.wang@intel.com>
-    Reviewd-by: Liming Gao <gaoliming@byosoft.com.cn>
-    
-    Signed-off-by: Xiaolu.Jiang <xiaolu.jiang@intel.com>
-
-commit 497ac7b6d7f9750f48f137db244931a5728b1968
-Author: Guomin Jiang <guomin.jiang@intel.com>
-Date:   Sat Jan 29 16:28:02 2022 +0800
-
-    UefiPayloadPkg/PayloadLoaderPeim: Use INT64 as input parameter
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3818
-    
-    It will have some potential issue when memory larger than 2G because
-    the high memory address will be fill with 0xFFFFFFFF when do the
-    operation of INTN + INT64 but it is 32 bit normal data in fact.
-    
-    Should use same data type INT64 + INT64.
-    
-    V3:
-    1. Use INT64 as input parameter because all date type is 64 bit
-    V2:
-    1. Force the data type to UINTN to avoid high dword be filled with
-    0xFFFFFFFF
-    2. Keep INTN because the offset may postive or negative.
-    
-    Reviewed-by: Guo Dong <guo.dong@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Signed-off-by: Guomin Jiang <guomin.jiang@intel.com>
-
-commit 6a890db161cd6d378bec3499a1e774db3f5a27a7
-Author: Jason <yun.lou@intel.com>
-Date:   Mon Jan 10 22:30:29 2022 +0800
-
-    BaseTools: Upgrade the version of NASM tool
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
-    
-    Upgrade the version of NASM tool to avoid compilation errors when
-    compiling NASM code change.
-    
-    Signed-off-by: Jason Lou <yun.lou@intel.com>
-    Cc: Bob Feng <bob.c.feng@intel.com>
-    Cc: Liming Gao <gaoliming@byosoft.com.cn>
-    Reviewed-by: Yuwei Chen <yuwei.chen@intel.com>
-
-commit bbaa00dd01ed0df30e43a5a89fd2b0433d858b73
-Author: Jason <yun.lou@intel.com>
-Date:   Mon Jan 10 22:05:47 2022 +0800
-
-    MdePkg: Remove the macro definitions regarding Opcode.
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
-    
-    Remove the macro definitions regarding Opcode because new version of
-    NASM tool(e.g. v2.15.05) supports the corresponding instructions.
-    Note: This patch need to be merged after other NASM code change to avoid
-    compilation errors.
-    
-    Signed-off-by: Jason Lou <yun.lou@intel.com>
-    Cc: Michael D Kinney <michael.d.kinney@intel.com>
-    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
-
-commit 2aa107c0aa2e1375651867c8df1b81ff64b67fce
-Author: Jason <yun.lou@intel.com>
-Date:   Mon Jan 10 22:01:18 2022 +0800
-
-    UefiCpuPkg: Replace Opcode with the corresponding instructions.
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
-    
-    Replace Opcode with the corresponding instructions.
-    The code changes have been verified with CompareBuild.py tool, which
-    can be used to compare the results of two different EDK II builds to
-    determine if they generate the same binaries.
-    (tool link: https://github.com/mdkinney/edk2/tree/sandbox/CompareBuild)
-    
-    Signed-off-by: Jason Lou <yun.lou@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Cc: Eric Dong <eric.dong@intel.com>
-    Cc: Laszlo Ersek <lersek@redhat.com>
-    Cc: Rahul Kumar <rahul1.kumar@intel.com>
-
-commit 7bc8b1d9f412507d579f21ea9af56fced81e7827
-Author: Jason <yun.lou@intel.com>
-Date:   Mon Jan 10 21:52:52 2022 +0800
-
-    SourceLevelDebugPkg: Replace Opcode with the corresponding instructions.
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
-    
-    Replace Opcode with the corresponding instructions.
-    The code changes have been verified with CompareBuild.py tool, which
-    can be used to compare the results of two different EDK II builds to
-    determine if they generate the same binaries.
-    (tool link: https://github.com/mdkinney/edk2/tree/sandbox/CompareBuild)
-    
-    Signed-off-by: Jason Lou <yun.lou@intel.com>
-    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
-
-commit d3febfd9ade35dc552df6b3607c2b15d26b82867
-Author: Jason <yun.lou@intel.com>
-Date:   Mon Jan 10 21:46:27 2022 +0800
-
-    MdePkg: Replace Opcode with the corresponding instructions.
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
-    
-    Replace Opcode with the corresponding instructions.
-    The code changes have been verified with CompareBuild.py tool, which
-    can be used to compare the results of two different EDK II builds to
-    determine if they generate the same binaries.
-    (tool link: https://github.com/mdkinney/edk2/tree/sandbox/CompareBuild)
-    
-    Signed-off-by: Jason Lou <yun.lou@intel.com>
-    Cc: Michael D Kinney <michael.d.kinney@intel.com>
-    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
-    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
-
-commit 84338c0d498555f860a480693ee8647a1795fba3
-Author: Jason <yun.lou@intel.com>
-Date:   Mon Jan 10 21:04:09 2022 +0800
-
-    MdeModulePkg: Replace Opcode with the corresponding instructions.
-    
-    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
-    
-    Replace Opcode with the corresponding instructions.
-    The code changes have been verified with CompareBuild.py tool, which
-    can be used to compare the results of two different EDK II builds to
-    determine if they generate the same binaries.
-    (tool link: https://github.com/mdkinney/edk2/tree/sandbox/CompareBuild)
-    
-    Signed-off-by: Jason Lou <yun.lou@intel.com>
-    Reviewed-by: Ray Ni <ray.ni@intel.com>
-    Cc: Dandan Bi <dandan.bi@intel.com>
-    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
+--8323329-615912675-1646261743=:3261--
 
