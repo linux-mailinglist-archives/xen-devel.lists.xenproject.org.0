@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3EC44CB1FC
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Mar 2022 23:12:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.282592.481363 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3967F4CB29B
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Mar 2022 23:55:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.282602.481373 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPXCe-0002RP-V0; Wed, 02 Mar 2022 22:12:12 +0000
+	id 1nPXsH-0007xZ-CQ; Wed, 02 Mar 2022 22:55:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 282592.481363; Wed, 02 Mar 2022 22:12:12 +0000
+Received: by outflank-mailman (output) from mailman id 282602.481373; Wed, 02 Mar 2022 22:55:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPXCe-0002PY-Rg; Wed, 02 Mar 2022 22:12:12 +0000
-Received: by outflank-mailman (input) for mailman id 282592;
- Wed, 02 Mar 2022 22:12:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5HSw=TN=citrix.com=prvs=05368ea7b=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nPXCd-0002PM-Ni
- for xen-devel@lists.xenproject.org; Wed, 02 Mar 2022 22:12:11 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cd87aa3f-9a75-11ec-8539-5f4723681683;
- Wed, 02 Mar 2022 23:12:10 +0100 (CET)
+	id 1nPXsH-0007vh-99; Wed, 02 Mar 2022 22:55:13 +0000
+Received: by outflank-mailman (input) for mailman id 282602;
+ Wed, 02 Mar 2022 22:55:11 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nPXsF-0007vS-8p; Wed, 02 Mar 2022 22:55:11 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nPXsF-0003p4-5E; Wed, 02 Mar 2022 22:55:11 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nPXsE-0004BU-O0; Wed, 02 Mar 2022 22:55:10 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nPXsE-0001vZ-Na; Wed, 02 Mar 2022 22:55:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,87 +42,246 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cd87aa3f-9a75-11ec-8539-5f4723681683
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1646259130;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=5eGfzPlndsyxVp6HYgFFniaJdsIB1nKCNPpAEM/imv0=;
-  b=Qc9RMl+65nu9EfkNVKXs7N2We27q13FvofBUuEXqkJQmqgWdbqETrR5s
-   qxPaP/rOXVFH2luXahyBzWzfelw10pQk9P540YJBSau5rkcRATwLi19DK
-   V0aR+tuoYniszNn8CdG6vBmEG0e9CJBcneDu8TR1xKgXsoATgjFOfYckd
-   4=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 65749704
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:VCx5+a+r0u8JpVNxPNI7DrUDhH6TJUtcMsCJ2f8bNWPcYEJGY0x3n
- 2QcXW7Qb/3fZzCke4t+PI+w/UpU7Z7Xy9ZiGVRvpXw8E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
- +1EN7Es+ehtFie0Si+Fa+Sn9T8mvU2xbuKU5NTsY0idfic5DnZ54f5fs7Rh2NQw2oDjW1/lV
- e7a+KUzBnf0g1aYDUpMg06zgEsHUCPa4W5wUvQWPJinjXeG/5UnJMt3yZKZdhMUdrJ8DO+iL
- 9sv+Znilo/vE7XBPfv++lrzWhVirrc/pmFigFIOM0SpqkAqSiDfTs/XnRfTAKtao2zhojx/9
- DlCnaeJTRwKYabIo9gyY0l6Ti9cL5RixIaSdBBTseTLp6HHW37lwvEoB0AqJ4wIvO1wBAmi9
- 9RBdmpLNErawbvrnvTrEYGAhex6RCXvFKoZtmtt0nfyCvE+TIqYa67L+cVZzHE7gcUm8fP2O
- ZdGNWswNEiojxtnIXxNMdEgguKRh1rRbxRSsAyJibsw7D2GpOB2+Oe0a4eEEjCQfu1Kmm6Iq
- 2SA+H72ajk4HtGCzTuO8lq3m/TC2yj8Xeo6BLC+s/JnnlCX7mgSEwENE0u2p+GjjUyzUM4ZL
- FYbkhfCtoBrqhbtFIOkGUTl/jjU5XbwRua8DcUB0QWW6fXf5z2lKVhUbGNPSs4fkPMPEGlCO
- kCyo/vlAjlmsbuwQH2b96uJoT7aBRX5PVPudgdfE1JbvoCLTJUby0uWE409SPLdYsjdRGmoq
- w1muhTSkFn6YSQj86ygtW7KjDu3znQiZl5kv16HNo5JA+4QWWJEW2BKwQWDhRqjBNzAJrVkg
- JTis5LEhAzpJcvQ/BFhuM1XQNmUCw+taVUwe2JHEZg77CiK8HW+Z41W6zwWDB43bpheJWG1M
- RSM5Fo5CHpv0J2CN/Ufj2WZUZlC8EQdPY69CqC8giRmOPCdizNrDAkxPBXNjggBYWAnkL0lO
- IfzTCpfJS1yNEiT9xLvH711+eZynkgWnDqPLbimn0XP+efPPxa9FOZaWGZim8hktctoVi2Oq
- I0BXyZLoj0CONDDjt7/qtZCfQhXdiFgXfgbaaV/L4a+H+avI0l5Y9e5/F/rU9UNc3h9/gsQw
- kyAZw==
-IronPort-HdrOrdr: A9a23:A3qI5KNZ1gn/68BcTsWjsMiBIKoaSvp037BN7TEXdfU1SL39qy
- nKpp8mPHDP5Ar5NEtOpTniAsm9qBHnm6KdiLN5Vd3OYOCMggqVBbAnwYz+wyDxXw3Sn9QtsJ
- uIqpIOa+EY22IK7/rH3A==
-X-IronPort-AV: E=Sophos;i="5.90,150,1643691600"; 
-   d="scan'208";a="65749704"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH] x86/cmdline: Interpret 'vpmu' as a positive boolean
-Date: Wed, 2 Mar 2022 22:11:57 +0000
-Message-ID: <20220302221157.17246-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=GnHVIMZBMDZf32W09tBha3IcH3MWPapPhaQXkggP2Zk=; b=kGJxlqfVe53nI/KAhWmI09Yx2n
+	UEjezoZyJkhxCS1nYBPwrPmPfV09nrL9kS2mxR40YeEZJCutVF7/vSJO2x1QP0t/ACoo9bXxy4y05
+	mI/s+lYFUP3cWgphgcwVcgKyo7MCcCLNQZEvO45gMcjys/yIE8XHlNitIaGGwnVr4t/M=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168344-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 168344: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=dc39554d58af4a50b50eca1f57c49415a12b0c98
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 02 Mar 2022 22:55:10 +0000
 
-This makes it behave slightly more like a regular boolean option.
+flight 168344 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168344/
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
+Regressions :-(
 
-Slightly RFC, because there is no easy way of making the opposite "normal
-boolean" case work for no-vpmu.
----
- xen/arch/x86/cpu/vpmu.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
 
-diff --git a/xen/arch/x86/cpu/vpmu.c b/xen/arch/x86/cpu/vpmu.c
-index 4fedc7c57012..501d4f0af94e 100644
---- a/xen/arch/x86/cpu/vpmu.c
-+++ b/xen/arch/x86/cpu/vpmu.c
-@@ -66,7 +66,9 @@ static int __init cf_check parse_vpmu_params(const char *s)
-         if ( !ss )
-             ss = strchr(s, '\0');
- 
--        if ( (val = parse_bool(s, ss)) >= 0 )
-+        if ( s == ss )
-+            opt_vpmu_enabled = true;
-+        else if ( (val = parse_bool(s, ss)) >= 0 )
-         {
-             opt_vpmu_enabled = val;
-             if ( !val )
--- 
-2.11.0
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
+version targeted for testing:
+ ovmf                 dc39554d58af4a50b50eca1f57c49415a12b0c98
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z    2 days
+Failing since        168258  2022-03-01 01:55:31 Z    1 days   18 attempts
+Testing same since   168316  2022-03-02 02:50:20 Z    0 days    6 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Guomin Jiang <guomin.jiang@intel.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit dc39554d58af4a50b50eca1f57c49415a12b0c98
+Author: Xiaolu.Jiang <xiaolu.jiang@intel.com>
+Date:   Tue Feb 22 22:14:05 2022 +0800
+
+    edk2/MdeModulePkg/Debuglib: Add Standalone MM support
+    
+    https://bugzilla.tianocore.org/show_bug.cgi?id=3844
+    
+    This change added Standalone MM instance of DebugLib.
+    
+    Reviewd-by: Jian J Wang <jian.j.wang@intel.com>
+    Reviewd-by: Liming Gao <gaoliming@byosoft.com.cn>
+    
+    Signed-off-by: Xiaolu.Jiang <xiaolu.jiang@intel.com>
+
+commit 497ac7b6d7f9750f48f137db244931a5728b1968
+Author: Guomin Jiang <guomin.jiang@intel.com>
+Date:   Sat Jan 29 16:28:02 2022 +0800
+
+    UefiPayloadPkg/PayloadLoaderPeim: Use INT64 as input parameter
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3818
+    
+    It will have some potential issue when memory larger than 2G because
+    the high memory address will be fill with 0xFFFFFFFF when do the
+    operation of INTN + INT64 but it is 32 bit normal data in fact.
+    
+    Should use same data type INT64 + INT64.
+    
+    V3:
+    1. Use INT64 as input parameter because all date type is 64 bit
+    V2:
+    1. Force the data type to UINTN to avoid high dword be filled with
+    0xFFFFFFFF
+    2. Keep INTN because the offset may postive or negative.
+    
+    Reviewed-by: Guo Dong <guo.dong@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Signed-off-by: Guomin Jiang <guomin.jiang@intel.com>
+
+commit 6a890db161cd6d378bec3499a1e774db3f5a27a7
+Author: Jason <yun.lou@intel.com>
+Date:   Mon Jan 10 22:30:29 2022 +0800
+
+    BaseTools: Upgrade the version of NASM tool
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
+    
+    Upgrade the version of NASM tool to avoid compilation errors when
+    compiling NASM code change.
+    
+    Signed-off-by: Jason Lou <yun.lou@intel.com>
+    Cc: Bob Feng <bob.c.feng@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Reviewed-by: Yuwei Chen <yuwei.chen@intel.com>
+
+commit bbaa00dd01ed0df30e43a5a89fd2b0433d858b73
+Author: Jason <yun.lou@intel.com>
+Date:   Mon Jan 10 22:05:47 2022 +0800
+
+    MdePkg: Remove the macro definitions regarding Opcode.
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
+    
+    Remove the macro definitions regarding Opcode because new version of
+    NASM tool(e.g. v2.15.05) supports the corresponding instructions.
+    Note: This patch need to be merged after other NASM code change to avoid
+    compilation errors.
+    
+    Signed-off-by: Jason Lou <yun.lou@intel.com>
+    Cc: Michael D Kinney <michael.d.kinney@intel.com>
+    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
+    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
+
+commit 2aa107c0aa2e1375651867c8df1b81ff64b67fce
+Author: Jason <yun.lou@intel.com>
+Date:   Mon Jan 10 22:01:18 2022 +0800
+
+    UefiCpuPkg: Replace Opcode with the corresponding instructions.
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
+    
+    Replace Opcode with the corresponding instructions.
+    The code changes have been verified with CompareBuild.py tool, which
+    can be used to compare the results of two different EDK II builds to
+    determine if they generate the same binaries.
+    (tool link: https://github.com/mdkinney/edk2/tree/sandbox/CompareBuild)
+    
+    Signed-off-by: Jason Lou <yun.lou@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Cc: Eric Dong <eric.dong@intel.com>
+    Cc: Laszlo Ersek <lersek@redhat.com>
+    Cc: Rahul Kumar <rahul1.kumar@intel.com>
+
+commit 7bc8b1d9f412507d579f21ea9af56fced81e7827
+Author: Jason <yun.lou@intel.com>
+Date:   Mon Jan 10 21:52:52 2022 +0800
+
+    SourceLevelDebugPkg: Replace Opcode with the corresponding instructions.
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
+    
+    Replace Opcode with the corresponding instructions.
+    The code changes have been verified with CompareBuild.py tool, which
+    can be used to compare the results of two different EDK II builds to
+    determine if they generate the same binaries.
+    (tool link: https://github.com/mdkinney/edk2/tree/sandbox/CompareBuild)
+    
+    Signed-off-by: Jason Lou <yun.lou@intel.com>
+    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
+
+commit d3febfd9ade35dc552df6b3607c2b15d26b82867
+Author: Jason <yun.lou@intel.com>
+Date:   Mon Jan 10 21:46:27 2022 +0800
+
+    MdePkg: Replace Opcode with the corresponding instructions.
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
+    
+    Replace Opcode with the corresponding instructions.
+    The code changes have been verified with CompareBuild.py tool, which
+    can be used to compare the results of two different EDK II builds to
+    determine if they generate the same binaries.
+    (tool link: https://github.com/mdkinney/edk2/tree/sandbox/CompareBuild)
+    
+    Signed-off-by: Jason Lou <yun.lou@intel.com>
+    Cc: Michael D Kinney <michael.d.kinney@intel.com>
+    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
+    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
+
+commit 84338c0d498555f860a480693ee8647a1795fba3
+Author: Jason <yun.lou@intel.com>
+Date:   Mon Jan 10 21:04:09 2022 +0800
+
+    MdeModulePkg: Replace Opcode with the corresponding instructions.
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
+    
+    Replace Opcode with the corresponding instructions.
+    The code changes have been verified with CompareBuild.py tool, which
+    can be used to compare the results of two different EDK II builds to
+    determine if they generate the same binaries.
+    (tool link: https://github.com/mdkinney/edk2/tree/sandbox/CompareBuild)
+    
+    Signed-off-by: Jason Lou <yun.lou@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Cc: Dandan Bi <dandan.bi@intel.com>
+    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
 
