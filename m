@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40A254CB8C5
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Mar 2022 09:24:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.282839.481660 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C9534CB91B
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Mar 2022 09:34:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.282848.481671 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPgl1-0003q6-9Z; Thu, 03 Mar 2022 08:24:19 +0000
+	id 1nPguF-0005U1-Bv; Thu, 03 Mar 2022 08:33:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 282839.481660; Thu, 03 Mar 2022 08:24:19 +0000
+Received: by outflank-mailman (output) from mailman id 282848.481671; Thu, 03 Mar 2022 08:33:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPgl1-0003nX-6J; Thu, 03 Mar 2022 08:24:19 +0000
-Received: by outflank-mailman (input) for mailman id 282839;
- Thu, 03 Mar 2022 08:24:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nPguF-0005Qy-8h; Thu, 03 Mar 2022 08:33:51 +0000
+Received: by outflank-mailman (input) for mailman id 282848;
+ Thu, 03 Mar 2022 08:33:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=NyQH=TO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nPgl0-0003nR-Iz
- for xen-devel@lists.xenproject.org; Thu, 03 Mar 2022 08:24:18 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4f1d4238-9acb-11ec-8539-5f4723681683;
- Thu, 03 Mar 2022 09:24:14 +0100 (CET)
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05lp2110.outbound.protection.outlook.com [104.47.18.110]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-32-5CkdrwX1PQ2kiMmxly25oQ-1; Thu, 03 Mar 2022 09:24:16 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0401MB2368.eurprd04.prod.outlook.com (2603:10a6:800:29::25)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.22; Thu, 3 Mar
- 2022 08:24:14 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65%6]) with mapi id 15.20.5038.014; Thu, 3 Mar 2022
- 08:24:14 +0000
+ (envelope-from <SRS0=AhVD=TO=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1nPguE-0005Qo-58
+ for xen-devel@lists.xenproject.org; Thu, 03 Mar 2022 08:33:50 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a5857eb4-9acc-11ec-8eba-a37418f5ba1a;
+ Thu, 03 Mar 2022 09:33:48 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1D0731F381;
+ Thu,  3 Mar 2022 08:33:48 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E3928139BD;
+ Thu,  3 Mar 2022 08:33:47 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id icI0Nmt9IGIdTgAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 03 Mar 2022 08:33:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,177 +51,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f1d4238-9acb-11ec-8539-5f4723681683
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1646295857;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+X-Inumbo-ID: a5857eb4-9acc-11ec-8eba-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1646296428; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=6AU69iuTQOnoOEvUGyViPRsMi+Wh140ZpZc3DakmUaI=;
-	b=B0Qj/YM0RTwstaXLhpSJAkCcLZwjX25bDLQfVPDU0AkcdGyOwtWeqKIUPh+TUru3xFKf5q
-	gFvOza66lhJxVkdIJ8VKbMhaWrdo0LijjMgwU7dNdQtmymtvz/PAXzFePnhLFyENjg6YiG
-	JT49VQcy01Mscd38PthjQ9u0NHWYAk8=
-X-MC-Unique: 5CkdrwX1PQ2kiMmxly25oQ-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l7WjK3U8df+aE1diap8m9XBP8ssbnEc8mrp7ra83YSfyNUVoRLBgQ4gqA4YWVB519Cvfv8SFJLF1ecw5C/S0j9gJj+F0uSm7sDOjl9D55WrPSS0TdTzrAM/90scMvtd9PHFRzKsu7apbh1DmQ8JGTwY/5z79MADXnqvOwBP8OQ1cif2ewR6Zc9ArG0ZpbyODtVd6FQjfFYd7VSUg0GNMu+tjk70EmOZKOCoWlL3e4BenDRkd1/JEkS6V4YfEpLXTVfevmXTP74sXJH2K4Q1vpdTqN5gKMRAO94ssr8OeN6FO4VpRMpOe3rfAE/7V6mFufYJ0s/4oB7y6u3/YjiPWiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6AU69iuTQOnoOEvUGyViPRsMi+Wh140ZpZc3DakmUaI=;
- b=QPc46aVVuMqxETgDo/XVA4OuVO07OqEPs3KWGpKnAHw7ci7Ekt8DnJT1R1zwf9FFCD0OovoqUBnMQ/ChS0hqNmnGIGjuRvx1vouuZSC5SYc2OhJxbV2t59fKmXBdS1psvePUt0nVwXWpN1Jqek8FJPAYTu2CmS33WhQmndQkvBIcUnhJxHhxpeqIzRwgWnmCm4nb/c9l5AU6m4qOFxzU8YoEkD0+++TxGrbS6I6PmzCxhAZ5g2rhBxuPovRRvaVmejjAdqBtenu2vgev6fROJaLp+c2Y+KyBlrpsnzehxXHdJxIJjk+gB+vcUeCrvP+rCNDNLFM3gYat1UIjg9lPfg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <71b32db2-6591-bc94-4421-2dc13de7fdd0@suse.com>
-Date: Thu, 3 Mar 2022 09:24:12 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
+	bh=YUKGJfs0EvBYUjC7tfioxcddtexeJOZCeh42/Z2L458=;
+	b=F51A8HuHjKwQ2IGmUMDVEf2Mz6qz4fr63tC9Y19LAQB29qfpOLQr9viRqBn7jk/AktiTxf
+	tbnL0GhH9StdmVAbWQobBPWGiyFfe9MllTxzm1iISVWmUxDuB80jlvMu2ac49Z0MOwuCLu
+	sdkId35DqZIb79yQxc7SgpZh1MgtXM0=
+Message-ID: <4270d03c-50a9-b1aa-dc2e-53e998153a6b@suse.com>
+Date: Thu, 3 Mar 2022 09:33:47 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
 Subject: Re: [PATCH RFC] xen/sched: Optimise when only one scheduler is
  compiled in
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>,
- Dario Faggioli <dfaggioli@suse.com>,
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Dario Faggioli <dfaggioli@suse.com>
 References: <20220303004015.17688-1-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
+From: Juergen Gross <jgross@suse.com>
 In-Reply-To: <20220303004015.17688-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM5P194CA0021.EURP194.PROD.OUTLOOK.COM
- (2603:10a6:203:8f::31) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dbe3f4d7-bb1a-4410-65f9-08d9fcef3390
-X-MS-TrafficTypeDiagnostic: VI1PR0401MB2368:EE_
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-Microsoft-Antispam-PRVS:
-	<VI1PR0401MB23689D4ED62F79E6FB18F890B3049@VI1PR0401MB2368.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	aEed7KqOVRqaYMRKJ5Nt4h8c20GkIWgWM/dDQSWsmEE6RaHE85Z0rLdi8Gs8RjzTzlP1gO4viNBOaRFNzwDqXUd4WHKEi5BOuERSi2hdLLXJZsELbCUAE7XGO9J5b2oAG/EgyH12YSZfDyitRY2dcnRPIficytGqTHQAJzdwRSqTc6C8TgNExgQy2rYTZowCBFX3nVzsN5KCy1zIiOS8l308XNiPXzT0yBmWWS7wVOuAe4yfMrsP/IOSkKvP+ncOjFIooMlDexEiThBGO9a8rmGmYAt68ttr2Y0lwt/82SUKMcbrAFyR1eI6uO6TbZiGUjgJLJqANdjPfpMsdgsV2ksSeNCFuG1lFNot0LNWnQ6ZYxvOVlG97MUle9YqBLfN4hbcbMm3Mk8h267OhfKFXm40VdV0axnrFooS92s8Xiwx9EBhggUlQed97bxIxAThbILHCV3d+mBfeBNVRwhZWWW6uf2beagOrt+wO/UYt9bHBkYwUDZosIwjLU5JYjNMKwWiZGCcS7FruViscseFzGzb34ZJUGMBLd5AZFkcKbzo+rtCjYJZYIXMXINCtQXnh2EJSm9svGbGSFRgKDDcZ2sXQsZotCWcrHDVg85fxpdlr4mTLFIZ+uBXkg2X8zlEky6LgdO4yaOj7Y6WFiz0jdbPgcL1FDFklmqLANeQfN60gmFPOceNB9G2iyXli4rZLRpTlYCT+eu36ajn4o8FUAcl+JThqEhJViZqQ4J+oEun1CH3qfj+6/LLV4UQhZg3Ats7muJMsuDAjclp5+XrKQTjIjpqN9gmQnF46CSwxymAORzwqydnbr+PJuCXpVnP
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(8936002)(66556008)(83380400001)(38100700002)(66946007)(6506007)(508600001)(5660300002)(6486002)(966005)(8676002)(66476007)(4326008)(53546011)(36756003)(31686004)(54906003)(2906002)(6512007)(2616005)(6916009)(186003)(26005)(31696002)(86362001)(316002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N1ZncHlwNmlJb3ZyQmpUOWVpNXE0dmhRaCtncHluWVBwZGhONENCakc0bUM3?=
- =?utf-8?B?Nkd2S3kxNFdFcXZHNlBKMmtPNnBiRG9MZW1PcGNOdGp1aGIzUmxLa29ONHJE?=
- =?utf-8?B?dDZZbFpZY1FIK2lUdi9LZktzV1cvNmRrYko2QjNRSVBDa09CcVF6YnBzckdy?=
- =?utf-8?B?N3FKSGFsR3BmSFhHK1FDejRoU00rbFh1S1JTcVVNQXJvdVVzbEVvY2FUUnZI?=
- =?utf-8?B?WE1jRjlncTlUUHFYTVkraHF1ZGhqQW9FMnJxaW5HVVNIOUZmUi9UQ3FDNHJE?=
- =?utf-8?B?R2Mwd1V6MHB3ellWZWlTbU10eGpHd01tRzRzT2pjM29MUnIvbkpkSVhVb0Uy?=
- =?utf-8?B?Z0ZSamZTSW9pSVVpS0JRSjhDcE12ZnM4OU1ES2h0Y0ZpYTJ1RnpKSTFYaFBm?=
- =?utf-8?B?THpjcmJaQ3ZLVHBacnNybEtuYjQ5Zm5NN0VPcFB4dkplaEh1UnBIRVVwdEdq?=
- =?utf-8?B?MXdsYnlaMG1lR3VXWFFveHY5bURVOGZod2FucDZNc3l3V0I1T2lMTGN2bHZK?=
- =?utf-8?B?UlZOU2NoTDVTMkx4TmExS0p2N1doRVh1Z0RPcTFHZU1yd3VZRTFHbGhqeFhq?=
- =?utf-8?B?NmRoRElob2NpN3hrWFdNNkxYTS9ObFh6dnc0cXBYVFZoRUJuZnFjL2dEcXE4?=
- =?utf-8?B?elhid2MxNEg2TTdXSlNVWkRlWlQzNXRrYzI5V0FWbWdyZXNaK1VYVEpuNEwv?=
- =?utf-8?B?TmRHbUtkQ1BQOGo1Yy9HL3Y2ZjJuLzNaWXBZUDNISWhHTnhiOWdnb1FEbTNa?=
- =?utf-8?B?NW9WS0JLbVlSQk9Tay9FenArMjdxenZYdE1aby9zaTNpMEZ4aWFRUGhrdkZr?=
- =?utf-8?B?Z1ZpMkxkWFFpVTA1SnVyOXlhVlA1aWtOaGJ5R1QzRkd6Y3RiT1RsempIQ3hq?=
- =?utf-8?B?OWJnejIyMWxLcWlseFRFaWhTekJ2R01CRE52WGMwRXRvRHN5TEZRR1M2UXRq?=
- =?utf-8?B?UFBVeWswUHpWeDVMUUZPVmp6VHhYNXVWa25qOEtuem1qQ1pzR1lCUnZBc2Va?=
- =?utf-8?B?Y0Vydk12SExWVTdXN0R2SmQrN1JENk9CNzY0NUVQcWFIWnFHS04rSENOVDl0?=
- =?utf-8?B?N28vMGxqL3VFdjZIWThZOU9yUll5Sm5MVWxwY053UTZUK2JycVp6dm41RU9l?=
- =?utf-8?B?ZVhUZnhJV01uTElzNmJ5QTdBRTFWVURmSkdWdkU4aUJ2Z1M1S1hNT1pJR1FR?=
- =?utf-8?B?QXFBcmVzclNic0dUYnZSZ2R3aVRYVVkwVFpyYnJQNGRPekorcjVkUTk4V0ZE?=
- =?utf-8?B?a1YzdVlGd09LM1BVQTNJMVdrL1pZS2Uwa2Y0bmVaQlNRUEp2a3JlSklPOXdG?=
- =?utf-8?B?Rkg0ZkdQY1EzL0M2S3laeDcrSjZkOGJQN2RESVFyZ3hVSk9UZVBsUHZJTDNS?=
- =?utf-8?B?OXB1NkFvUHVPUTJaMFpaMXFzNkFYVkFXYTUvdGd2QWRwSWxySTVuQ1pBWUZv?=
- =?utf-8?B?ejJ3STNKL3R1OUsvWGFKT1NsZFE0NDJyaS9VU0R0ZDlBMk5KZ0lEQUYySlEy?=
- =?utf-8?B?KytoelFTZ0tXN3Q5ZjQ5b2g5emtWR2ZueTRWWlk4N3F4N3ljNlJhQjJqNVg0?=
- =?utf-8?B?Y2xsVWV6aUIzMHJCUzJYeFIyVm55T2pVQVR6bWxwdkZIMllXTnYrdVg0Zmlq?=
- =?utf-8?B?WUgreEFLdndxQWRzU3VSaEh3aE8vem81Mzk5aGJ4K3d1ZEY1eENjS1ZwZGc3?=
- =?utf-8?B?OUVZRHZ3OTR2SjNwSWxGUnhQdWVZSTdNRW1xOWhyNmRXUDBVNHlNUjltcjdT?=
- =?utf-8?B?aGE3TWJKOVUyV0tYSXJuRmhDVW5LVEVDSXVWYTRFZUpyZ0hqSWVWQ0tOZjhH?=
- =?utf-8?B?QWpWM3dFRzBqQXR1VWhCSWRVTzVsbzYvUzRPaVhiWVcrWTFSMVVadWMyVUdu?=
- =?utf-8?B?YU5WaklIUEdvRVVudXJZd0g5MUJTaDYrd1VrbUh1dDhueTdQVkszYWFVYXJ4?=
- =?utf-8?B?Ym1tN3dub0Jna1pWOWk0eGlvbTNnM3c0MEFKS2pwRDRlb1c2VE1yUGEzQ0pD?=
- =?utf-8?B?Zm4rUWEyTUFZN1VYbHFEVDlaa2ZTUGgwZy9nSHhjRnRQVW82NVZjNm1FMUoz?=
- =?utf-8?B?aDl5K0xZNTNMS1kzSUVaY2t6SVVON1o5bGdmNDZMZk5KcjlRMnFzcnYvdW1n?=
- =?utf-8?B?cG14ZUh0aWxDM3NKOHV5alE1QUwvb3JRQzhibHZHamo4TFNWV0dFbTBsOCth?=
- =?utf-8?Q?yJeJjzJLrpV0khUamARZa1s=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dbe3f4d7-bb1a-4410-65f9-08d9fcef3390
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2022 08:24:14.3995
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 18uTlN7MjfEV4GWRQiUJ1fR7kUFlI1mrz4siZ4QyCS7lPV3TAuLGW+BVgX3/A8m/nYc51HVFSa7nwqfAjbN5vQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2368
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------GY0iOlkfCj5hpHZ3UPAhwCGH"
 
-On 03.03.2022 01:40, Andrew Cooper wrote:
-> When only one scheduler is compiled in, function pointers can be optimised to
-> direct calls, and the hooks hardened against controlflow hijacking.
-> 
-> RFC for several reasons.
-> 
-> 1) There's an almost beautiful way of not introducing MAYBE_SCHED() and hiding
->    the magic in REGISTER_SCHEDULER(), except it falls over
->    https://gcc.gnu.org/bugzilla/show_bug.cgi?id=91765 which has no comment or
->    resolution at all.
-> 
-> 2) A different alternative which almost works is to remove the indirection in
->    .data.schedulers, but the singleton scheduler object can't be both there
->    and in .init.rodata.cf_clobber.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------GY0iOlkfCj5hpHZ3UPAhwCGH
+Content-Type: multipart/mixed; boundary="------------8x6d9n40t4efqE43aOy37GAo";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Dario Faggioli <dfaggioli@suse.com>
+Message-ID: <4270d03c-50a9-b1aa-dc2e-53e998153a6b@suse.com>
+Subject: Re: [PATCH RFC] xen/sched: Optimise when only one scheduler is
+ compiled in
+References: <20220303004015.17688-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20220303004015.17688-1-andrew.cooper3@citrix.com>
 
-Couldn't we name the section differently when there's just one member,
-placing that section inside __initdata_cf_clobber_{start,end} in the
-linker script?
+--------------8x6d9n40t4efqE43aOy37GAo
+Content-Type: multipart/mixed; boundary="------------20mGi2E6RGIm6zeZHk0XsRee"
 
-> 3) I can't think of a way of build time check to enforce that new schedulers
->    get added to the preprocessor magic.
+--------------20mGi2E6RGIm6zeZHk0XsRee
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-An assertion in the linker script, checking that .data.schedulers has a
-single entry when the sched_ops symbol exists? This may involve a
-PROVIDE(sched_ops = 0) as there doesn't look to be a way to probe for
-symbol defined-ness in expressions.
+T24gMDMuMDMuMjIgMDE6NDAsIEFuZHJldyBDb29wZXIgd3JvdGU6DQo+IFdoZW4gb25seSBv
+bmUgc2NoZWR1bGVyIGlzIGNvbXBpbGVkIGluLCBmdW5jdGlvbiBwb2ludGVycyBjYW4gYmUg
+b3B0aW1pc2VkIHRvDQo+IGRpcmVjdCBjYWxscywgYW5kIHRoZSBob29rcyBoYXJkZW5lZCBh
+Z2FpbnN0IGNvbnRyb2xmbG93IGhpamFja2luZy4NCj4gDQo+IFJGQyBmb3Igc2V2ZXJhbCBy
+ZWFzb25zLg0KPiANCj4gMSkgVGhlcmUncyBhbiBhbG1vc3QgYmVhdXRpZnVsIHdheSBvZiBu
+b3QgaW50cm9kdWNpbmcgTUFZQkVfU0NIRUQoKSBhbmQgaGlkaW5nDQo+ICAgICB0aGUgbWFn
+aWMgaW4gUkVHSVNURVJfU0NIRURVTEVSKCksIGV4Y2VwdCBpdCBmYWxscyBvdmVyDQo+ICAg
+ICBodHRwczovL2djYy5nbnUub3JnL2J1Z3ppbGxhL3Nob3dfYnVnLmNnaT9pZD05MTc2NSB3
+aGljaCBoYXMgbm8gY29tbWVudCBvcg0KPiAgICAgcmVzb2x1dGlvbiBhdCBhbGwuDQo+IA0K
+PiAyKSBBIGRpZmZlcmVudCBhbHRlcm5hdGl2ZSB3aGljaCBhbG1vc3Qgd29ya3MgaXMgdG8g
+cmVtb3ZlIHRoZSBpbmRpcmVjdGlvbiBpbg0KPiAgICAgLmRhdGEuc2NoZWR1bGVycywgYnV0
+IHRoZSBzaW5nbGV0b24gc2NoZWR1bGVyIG9iamVjdCBjYW4ndCBiZSBib3RoIHRoZXJlDQo+
+ICAgICBhbmQgaW4gLmluaXQucm9kYXRhLmNmX2Nsb2JiZXIuDQo+IA0KPiAzKSBJIGNhbid0
+IHRoaW5rIG9mIGEgd2F5IG9mIGJ1aWxkIHRpbWUgY2hlY2sgdG8gZW5mb3JjZSB0aGF0IG5l
+dyBzY2hlZHVsZXJzDQo+ICAgICBnZXQgYWRkZWQgdG8gdGhlIHByZXByb2Nlc3NvciBtYWdp
+Yy4NCj4gDQo+IEFuZCB0aGUgYmxvY2tlcjoNCj4gNCkgVGhpcyBpc24ndCBjb21wYXRpYmxl
+IHdpdGggaG93IHNjaGVkX2lkbGVfb3BzIGdldCB1c2VkIGZvciBncmFudWxhcml0eSA+IDEu
+DQo+IA0KPiBTdWdnZXN0aW9ucyB2ZXJ5IHdlbGNvbWUuDQoNCkRpZCB5b3UgY29uc2lkZXIg
+dG8gZ2VuZXJhdGUgdGhlIG5lZWRlZCBjb2RlIGR5bmFtaWNhbGx5IGluc3RlYWQ/DQoNCkkg
+Z3Vlc3MgdGhpcyBjb3VsZCBldmVuIGJlIGV4dGVuZGVkIHRvIGF2b2lkIGZ1bmN0aW9uIHBv
+aW50ZXJzDQpjb21wbGV0ZWx5IHVzaW5nIHRoZSBzYW1lIHRlY2huaXF1ZSBhcyBpbiBteSBo
+eXBlcmNhbGwgc2VyaWVzLg0KDQpJbiBvcmRlciB0byBhdm9pZCB0aGUgbmVlZCBmb3IgYSBj
+ZW50cmFsIHRhYmxlIHRoZSBwZXItc2NoZWR1bGVyDQpob29rcyBjb3VsZCB1c2Ugc3RhbmRh
+cmQgbmFtZXMgKGFzIG1vc3Qgb2YgdGhlbSBkbyBhbHJlYWR5KS4NCg0KSSB0aGluayBJIGNv
+dWxkIGNvbWUgdXAgd2l0aCBhIHBhdGNoIGluIGEgZmV3IGhvdXJzIGlmIHlvdSBsaWtlDQp0
+aGF0IGFwcHJvYWNoLg0KDQoNCkp1ZXJnZW4NCg==
+--------------20mGi2E6RGIm6zeZHk0XsRee
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-> And the blocker:
-> 4) This isn't compatible with how sched_idle_ops get used for granularity > 1.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Special case it just like we special case plt_tsc in x86/time.c?
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-> --- a/xen/common/sched/private.h
-> +++ b/xen/common/sched/private.h
-> @@ -271,6 +271,33 @@ static inline spinlock_t *pcpu_schedule_trylock(unsigned int cpu)
->      return NULL;
->  }
->  
-> +#if 1 ==                                                                \
-> +    defined(CONFIG_SCHED_CREDIT) + defined(CONFIG_SCHED_CREDIT2) +      \
-> +    defined(CONFIG_SCHED_RTDS) + defined(CONFIG_SCHED_ARINC653) +       \
-> +    defined(CONFIG_SCHED_NULL)
-> +
-> +extern const struct scheduler sched_ops;
-> +#define MAYBE_SCHED(x) __initdata_cf_clobber sched_ops
+--------------20mGi2E6RGIm6zeZHk0XsRee--
 
-__initconst_cf_clobber, seeing that all use sites also use const?
+--------------8x6d9n40t4efqE43aOy37GAo--
 
-> @@ -333,39 +360,48 @@ struct scheduler {
->      void         (*dump_cpu_state) (const struct scheduler *, int);
->  };
->  
-> +static inline int sched_global_init(const struct scheduler *s)
-> +{
-> +    if ( s->global_init )
-> +        return sched_call(s, global_init);
-> +    return 0;
-> +}
+--------------GY0iOlkfCj5hpHZ3UPAhwCGH
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-Is it really a good idea to expose this here when it's supposed to be
-used from core.c only, and even there in just a single place?
+-----BEGIN PGP SIGNATURE-----
 
-Jan
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmIgfWsFAwAAAAAACgkQsN6d1ii/Ey+k
+gQgAjefk8/MwHvw2O5bp8Z/e3itJitYJbeFR+74ABvJR11HdL+un4jardgetFYaX1c4k7u2zQRoR
+l3jT3XEejVX6htEPy9NmmylETm6jyvttIND5AjpfzZZRDgs8Z4GHBhUZAIpd44s7VBeFIz/izhpi
+9ZgsqBWzVDrCSlGyPmfBehXrwB+9tOfA7kZBW1cBu1FXKCi9nxeiFXPCT54b3SfMxL+GGlZS4twA
+E9nL4e0Axp3OPLBK2OwWkBMI7NLsVrx7n6ctZ1v8PCgMRIf1LS3xsMHT/NLqEpERpKCV3kW2sccG
+WhbGjew64SQKb5KELMT7cOH15HgCACaW3Gax3/tkdg==
+=Dvnk
+-----END PGP SIGNATURE-----
 
+--------------GY0iOlkfCj5hpHZ3UPAhwCGH--
 
