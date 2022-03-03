@@ -2,29 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7FED4CC100
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Mar 2022 16:18:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.283442.482444 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A15844CC142
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Mar 2022 16:29:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.283449.482457 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPnDO-0001P8-LD; Thu, 03 Mar 2022 15:18:02 +0000
+	id 1nPnOH-00032D-OC; Thu, 03 Mar 2022 15:29:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 283442.482444; Thu, 03 Mar 2022 15:18:02 +0000
+Received: by outflank-mailman (output) from mailman id 283449.482457; Thu, 03 Mar 2022 15:29:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPnDO-0001N1-I5; Thu, 03 Mar 2022 15:18:02 +0000
-Received: by outflank-mailman (input) for mailman id 283442;
- Thu, 03 Mar 2022 15:18:02 +0000
+	id 1nPnOH-0002zB-K5; Thu, 03 Mar 2022 15:29:17 +0000
+Received: by outflank-mailman (input) for mailman id 283449;
+ Thu, 03 Mar 2022 15:29:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ylIu=TO=citrix.com=prvs=0548df38f=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nPnDN-0001Mv-Vf
- for xen-devel@lists.xenproject.org; Thu, 03 Mar 2022 15:18:01 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1bfcfce2-9b05-11ec-8eba-a37418f5ba1a;
- Thu, 03 Mar 2022 16:18:00 +0100 (CET)
+ <SRS0=Uwof=TO=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1nPnOF-0002z5-TH
+ for xen-devel@lists.xenproject.org; Thu, 03 Mar 2022 15:29:16 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20616.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::616])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ae8c9605-9b06-11ec-8eba-a37418f5ba1a;
+ Thu, 03 Mar 2022 16:29:14 +0100 (CET)
+Received: from AM6PR10CA0059.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:209:80::36)
+ by DB8PR08MB4076.eurprd08.prod.outlook.com (2603:10a6:10:b0::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.26; Thu, 3 Mar
+ 2022 15:29:12 +0000
+Received: from VE1EUR03FT058.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:209:80:cafe::37) by AM6PR10CA0059.outlook.office365.com
+ (2603:10a6:209:80::36) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14 via Frontend
+ Transport; Thu, 3 Mar 2022 15:29:12 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT058.mail.protection.outlook.com (10.152.19.86) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5017.22 via Frontend Transport; Thu, 3 Mar 2022 15:29:12 +0000
+Received: ("Tessian outbound 63bb5eb69ee8:v113");
+ Thu, 03 Mar 2022 15:29:11 +0000
+Received: from 44784216ffa6.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 977E7A4B-2273-4EBF-A794-B964D41AB26E.1; 
+ Thu, 03 Mar 2022 15:29:05 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 44784216ffa6.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Thu, 03 Mar 2022 15:29:05 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
+ by DBBPR08MB4904.eurprd08.prod.outlook.com (2603:10a6:10:f2::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.23; Thu, 3 Mar
+ 2022 15:29:01 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::c84a:82d0:c7fd:fc7c]) by AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::c84a:82d0:c7fd:fc7c%7]) with mapi id 15.20.5038.014; Thu, 3 Mar 2022
+ 15:29:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,103 +72,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1bfcfce2-9b05-11ec-8eba-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1646320680;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=AgntS+T/lzLvB/tG+MbQRKYvi2r5mV7YrzbckKO7chg=;
-  b=S/8uDgxX8g/+mCqiXHmVRfQjVjKdCRNG0h2sS0Rf0DV7M94S0gG9pXxe
-   Tn1Fa4LEPzthGaRHVvMy/S+b+44YB5DhaiWGGFQZceD+/51P5J2fa3mFr
-   2nKezlMGpPuG5BzguiYQT+GywgJodJiUtBzYicnhlWUfO+MXRjRWm0vUP
-   o=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 65323142
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:rjNpdqz8rMOo6G5XMS56t+fRxirEfRIJ4+MujC+fZmUNrF6WrkVSm
- 2oZWT2Ba6mOY2emc4x2bYS38EIAuMKAnNJrTVBkrSAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
- 59DAjUVBJlsFhcwnj/0bv656yMUOZigHtIQMsadUsxKbVIiGX9JZS5LwbZj2NYz2YPhWWthh
- PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
- gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
- NplpL2ZdS41bvT2nekGXgZUGRMlE/EZ9+qSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
- aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DNYUDunZm3HfBAOwvW5zrSKTW/95Imjw3g6iiGN6AO
- pFDMmMzNnwsZTVTFXEbEZsvntyGoSDWMG1YoQ6YpPQotj27IAtZj+G2bYu9lsaxbdpRtlaVo
- CTB5WuRKh0VONGQ0zOt7mOnhuiJmzjyHo0VCtWQ+uZxhVyPxkQaEBAMSUaguv69l1K/XNREb
- UcT/0IGtrMu/UamSt38WRyQo3OeuBMYHd1KHIUS+AyLj6bZ/QudLmwFVSJaLswrstcsQj4n3
- UPPmMnmbRRturCITXOW9p+PsCi/fyMSKAcqZzIATAYDy8nupsc0lB2nczp4OPfr1JuvQ2i2m
- m3U6nhl71kOsSIV/7Sa1Gzun2L1nJ3EVQMq6g/lBUz5sQwsMeZJeLeUwVTc6P9BKqOQQV+Ao
- GUIlqCi0QweMX2evHfTGbtQRdlF897AaWSB2gA3Q/HN4hzwoybLQGxG3N1pyK6F2O4gcCShX
- kLcsBg5CHR7bCrzNv8fj25c5q0XIUnc+TbNC6i8gjlmOMEZmOq7EMdGPxT4M4fFyhVErE3HE
- c3HGftA9F5DYUid8BK4Rv0GzZggzT0kyGXYSPjTlkr7j+DCOiLEEuhYaTNii9zVCove+m05F
- P4FaqO3J+h3CrWiMkE7D6ZJRbz1EZTLLc+v8JEGHgJyCgFnBHsgG5fsLUAJIORYc1Buvr6Qp
- BmVAxYAoHKm3CGvAVzTOhhLNeO+Nb4i/ClTFXF9Yj6VN40LPN/HAFE3LMBsI9HKNYVLkJZJc
- hXyU57YU6QXF2+eoGx1gFuUhNUKSSlHTDmmZ0KNCAXTtbY8L+AV0rcIpjfSyRQ=
-IronPort-HdrOrdr: A9a23:PZwpi69SXWOVCKgc2a5uk+AcI+orL9Y04lQ7vn2ZKSY5TiX4rb
- HKoB1/73XJYVkqN03I9ervBEDiewK/yXcW2+ks1N6ZNWGLhILBFupfBODZsl7d8kPFl9K01c
- 1bAtJD4N+bNykGsS4tijPIb+rJw7O8gd+Vbf+19QYIcenzAZsQlzuQDGygYypLbTgDP7UVPr
- yG6PFKojKxEE5nFfhSVhE+Lo7+T8SgruOeXSI7
-X-IronPort-AV: E=Sophos;i="5.90,151,1643691600"; 
-   d="scan'208";a="65323142"
-Date: Thu, 3 Mar 2022 15:17:54 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
-	"Julien Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>, Roger Pau =?iso-8859-1?Q?Monn=E9?=
-	<roger.pau@citrix.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>, "Daniel P.
- Smith" <dpsmith@apertussolutions.com>
-Subject: Re: [XEN PATCH v9 26/30] build: replace $(BASEDIR) and use $(srctree)
-Message-ID: <YiDcIj8LwI1/oWLv@perard.uk.xensource.com>
-References: <20220125110103.3527686-1-anthony.perard@citrix.com>
- <20220125110103.3527686-27-anthony.perard@citrix.com>
-MIME-Version: 1.0
+X-Inumbo-ID: ae8c9605-9b06-11ec-8eba-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UPACNY/YM8vRwcBogPoDlodhILeMLXLUuKMzwdU0nhI=;
+ b=KwFqBfFi607WquVIvjlxjNRFgGa2enYCvEXIcjVa59vNTpPusIf2QvagI/hWfjYZY4KjBltLIItOj+Vj2ibumjmJdl5C9CneY0YIZ3Q7AxK2hKZiTg6wFJHBuZCF3APJAWUhzmwdjwqMcVOvPOHC4IQl1XF5PxIV1jtjvjyHiGM=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 08792da1cc3ba224
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=oJX0D+d4ugGFFnxLFrweu7GFjiL+ZPEFOT00nwYLBO4L1S0j66x8sWKQ6sE2xqjXkR3Rplv8G6qGIU55bmtRVE96lXxJY8yNSgzpoR0VCcaBZ5+1aDW790iS+73kcA58LaZWnDWtUqLIuA7mJ8l+dnAP9yIL55zfvkhfzF4KiyM6Y/NFsoBC1yzs44cVdj8Q25gmy4FkLYZPxQz4DDL6mMtP6Z2z2tcVgMDi7Fxs2eP/1F5TXEBU8oPe5E4UxF/v0QtyWllCb0oy5BUdukJqSNw+QhCSLIAdmTHYQr060NKaSKu6pNSZU3qFFpMlBNSDbFnQCSb15Q0Mu/72UbHeWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UPACNY/YM8vRwcBogPoDlodhILeMLXLUuKMzwdU0nhI=;
+ b=CvO1f/KKwDYapBmoRrbol12qRgtpetSP+JjfU85bI8aZN1T+id26485dzFPzTr/F92UybhtiLwkL5VYS7CQ91jcL9oLmzdA/YIY+cYoD01DsQ5ytl/90Q3/G5U2V85X1NUQiJ5Eq9m6bhhyN4HQ+OH5Mgf0a0J/JTod9NOlALkMcpRj4e28rUgZekh6AifXTIyqAxQqtvxaNeWVw0JZHKkEFkAcU9GTZafojCHUVhpeFUnD0k5PqZGFsZ49n+2SgVjJhwm3Hl3KNkXsyuoP2VY0POi7Vwbn2OYvx/XjoMB8pp/scsU5aetNqG9nozI4e26YdzC0QChCLitBfZmlgUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UPACNY/YM8vRwcBogPoDlodhILeMLXLUuKMzwdU0nhI=;
+ b=KwFqBfFi607WquVIvjlxjNRFgGa2enYCvEXIcjVa59vNTpPusIf2QvagI/hWfjYZY4KjBltLIItOj+Vj2ibumjmJdl5C9CneY0YIZ3Q7AxK2hKZiTg6wFJHBuZCF3APJAWUhzmwdjwqMcVOvPOHC4IQl1XF5PxIV1jtjvjyHiGM=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: Kconfig: defaults for UNSUPPORTED
+Thread-Topic: Kconfig: defaults for UNSUPPORTED
+Thread-Index: AQHYLUXTrzQbHj+avkybd4n9OCZXjaytzEMA
+Date: Thu, 3 Mar 2022 15:29:01 +0000
+Message-ID: <CB788B25-A304-4675-909E-95426EF4189D@arm.com>
+References: <ac19413d-d5a0-4234-819a-fa99afc31592@suse.com>
+In-Reply-To: <ac19413d-d5a0-4234-819a-fa99afc31592@suse.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3693.60.0.1.1)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-MS-Office365-Filtering-Correlation-Id: b0cf85a8-c581-48e2-e0cb-08d9fd2a9193
+x-ms-traffictypediagnostic:
+	DBBPR08MB4904:EE_|VE1EUR03FT058:EE_|DB8PR08MB4076:EE_
+X-Microsoft-Antispam-PRVS:
+	<DB8PR08MB40766B8D8DD64AB491B4D7B09D049@DB8PR08MB4076.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ Hbxyes55HyhQ1pBIbgJg8SNiBD54T5V2Ek+R6wUH+brIkFyi5ElKNMj2/wVTM7rLqv42ZKobZmnG+JsdWEqIq84xUsCVec7fTyweVdBihDr32pyKhdmpzggiuQj+6/AcY/1uzUATKd27vyZF9hSvWOgEAzQjVX99AflMdqAgLCo32MkjwXOBjcBQyyifOCGcwNOREVv1hVh7/DEvVhuXKMCsbr8RpuIQoPRrPQ8AjanXlvOSAEDQtNQhsq3/0B4R1ptxYae7geUasYVQ3FQ6Qw5eN0JG/EWQKbT50GXkfYeEQDtmlgAROF+JcAOvTDXgg8Hy2WO22C/X9WbVlkWM+Ul4NT4p3YXsYss3SPq7pmSZONgC4pAdPJNXyppNT5ucVnJWWUnTzvng1vCFnwdfpb37VJs4c6mIHeXa8X4nxLA/1C31fWwwptTXF8EZpuicYjlvpkVNiKNrXoGFTWCUkdQqj2z0QpUUWpMdva4FbOgSDdKP5QR/g8z+tPM7ZKFKnLBYDbraR18t2KbmjJnOW88zApH1UU3G0ZRsfCbjn65fXADTvIFceoCjNtyPJo2uJ11ohhcPFmh2D6ud9rSgYeWfHQaajYvAw2GYn1SAFXzQUrKeUrVvCi0v+EbvASqTs9COwCbpT/3jJvRL6kKQqKdRbEAEd+G9NmrRgb7IR/4VFG1b+ISKNNIqUqI+3XNea4nPJ4VdtSaWVnRyTqLgxd43U+vCWvuLmWldvfllJF92Fr3f8ONbRDL6c32MTcao
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(38070700005)(38100700002)(2616005)(4744005)(6506007)(53546011)(2906002)(86362001)(6512007)(4326008)(316002)(8676002)(91956017)(66476007)(66446008)(66556008)(64756008)(122000001)(66946007)(76116006)(5660300002)(186003)(26005)(8936002)(6916009)(508600001)(33656002)(36756003)(6486002)(71200400001)(45980500001);DIR:OUT;SFP:1101;
 Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20220125110103.3527686-27-anthony.perard@citrix.com>
+Content-ID: <DD30292D31AF5146A678DA7227F25C8C@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB4904
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ VE1EUR03FT058.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	d9b7512d-33e9-4d73-12b8-08d9fd2a8b30
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	F4wDXnc0NXFewHsGK+VKjCUbfSxGH7YgN35NzT+U+LPpJTFZOXIHII8SbiSsYrw/9A9kw75ZH94dB6ihfv05/0KcwuUntTEgk2kgDSbfUwdiiLaEFTaRbu2kQbppihjg7fw27fQrMbjY5CPaqTUO2kFuSO8Q4ZHYOZeHEOoTBzBon/rS+MEAtMvcSllJXzJ+efpSejQyo3c8o8Bcg4YO4IqNN5jNX5UIxCVnliXzbtQW4uZlticH0/8PS8FyIkKjP7+QaWpsWiYVIvbQqcUBJFFOD8iKkmhldelNbo8QDQz2XuGyss4NErXeAQjtKNDpyEFuNy7Ozkv8BvIJeWUZXrfEkznZCZJ12hWm8K1hTWI/5DZ4LapmU7zYAjXh3H1OToZtdSC3k5zuRASkIPLFucDxd+UQER4KWdDa8Vn4SOVkzx7ngob+mjFIjkRi5oMmlZMsSAToSwN6+WrqGgCprFdCd9WT2OmorQMojxHAhSGDpDW7O/Evd5OviiiE1SkPiYcl9VlAqLhAhhLNQ8VEkVIeE8VSvC0ib7DphzWtIVCyTK9hx5hBxOHpKxYtAGkI/6UYpYY+EMYdc/hDUkuOkcGMk3esSzCqYUDHqYNbQWFmvrO/0ANv1w6WP1ose8mbJDIbe7LQ+Jn+pPMd+B8V2MdSCi7JYk94BxNAH7wyzhRo5qKTgta0mJuiuDqP59Hz
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(5660300002)(4744005)(508600001)(53546011)(33656002)(47076005)(6506007)(81166007)(356005)(6486002)(36756003)(6512007)(316002)(2616005)(36860700001)(86362001)(186003)(70206006)(70586007)(82310400004)(40460700003)(26005)(8676002)(6862004)(8936002)(336012)(2906002)(4326008);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2022 15:29:12.1424
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b0cf85a8-c581-48e2-e0cb-08d9fd2a9193
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	VE1EUR03FT058.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR08MB4076
 
-On Tue, Jan 25, 2022 at 11:00:59AM +0000, Anthony PERARD wrote:
-> $(srctree) is a better description for the source directory than
-> $(BASEDIR) that has been used for both source and build directory
-> (which where the same).
-> 
-> This adds $(srctree) to a few path where make's VPATH=$(srctree) won't
-> apply. And replace $(BASEDIR) by $(srctree).
-> 
-> Introduce "$(srcdir)" as a shortcut for "$(srctree)/$(src)" as the
-> later is used often enough.
-> 
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
+Hi,
 
-This patch is now missing two hunks due to recent changes in the tree:
+> On 1 Mar 2022, at 08:24, Jan Beulich <jbeulich@suse.com> wrote:
+>=20
+> Hello,
+>=20
+> when commit d96e5e6c1214 added UNSUPPORTED, it left x86'es TBOOT
+> default untouched. This means we default-enable an unsupported
+> setting, which doesn't look to be what's generally wanted. I can
+> see defaulting to DEBUG as reasonable, and SCHED_NULL's defaulting
+> to enabled when PV_SHIM can imo also be justified (there it's
+> rather that UNSUPPORTED is inapplicable for the shim case, and the
+> adjustment was also done subsequent to the named commit).
+>=20
+> Shouldn't we therefore have a rule of thumb that UNSUPPORTED
+> entries only ever have no "default" (implying "n") or default to
+> no more than DEBUG?
 
-diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-index 11ac0d5e28a4..1ab9db3424c2 100644
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -153,7 +153,7 @@ $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
-                >$(@D)/$(@F).map
-        rm -f $(@D)/.$(@F).[0-9]* $(@D)/..$(@F).[0-9]*
- ifeq ($(CONFIG_XEN_IBT),y)
--       $(SHELL) $(BASEDIR)/tools/check-endbr.sh $@
-+       $(SHELL) $(srctree)/tools/check-endbr.sh $@
- endif
+In general that would definitely make sense yes even though there might be
+exceptions due to for example a dependency to an other unsupported paramete=
+r.
 
- $(obj)/note.o: $(TARGET)-syms
-@@ -226,7 +226,7 @@ endif
-                | $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort >$(@D)/$(@F).map
-        rm -f $(@D)/.$(@F).[0-9]* $(@D)/..$(@F).[0-9]*
- ifeq ($(CONFIG_XEN_IBT),y)
--       $(SHELL) $(BASEDIR)/tools/check-endbr.sh $@
-+       $(SHELL) $(srctree)/tools/check-endbr.sh $@
- endif
- else
- $(TARGET).efi: FORCE
+I would definitely agree with this.
 
--- 
-Anthony PERARD
+Cheers
+Bertrand
+
+>=20
+> Thanks for opinions,
+> Jan
+>=20
+>=20
+
 
