@@ -2,44 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C22004CC218
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Mar 2022 17:01:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.283493.482527 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52C334CC21A
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Mar 2022 17:01:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.283495.482539 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPntE-0002T3-Hk; Thu, 03 Mar 2022 16:01:16 +0000
+	id 1nPntP-0002oB-Rf; Thu, 03 Mar 2022 16:01:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 283493.482527; Thu, 03 Mar 2022 16:01:16 +0000
+Received: by outflank-mailman (output) from mailman id 283495.482539; Thu, 03 Mar 2022 16:01:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPntE-0002RD-ET; Thu, 03 Mar 2022 16:01:16 +0000
-Received: by outflank-mailman (input) for mailman id 283493;
- Thu, 03 Mar 2022 16:01:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=NyQH=TO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nPntC-0002IT-T1
- for xen-devel@lists.xenproject.org; Thu, 03 Mar 2022 16:01:15 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 26821bb2-9b0b-11ec-8eba-a37418f5ba1a;
- Thu, 03 Mar 2022 17:01:13 +0100 (CET)
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur02lp2052.outbound.protection.outlook.com [104.47.6.52]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-8-ilkSwlCcNcKor__p8WefJQ-1; Thu, 03 Mar 2022 17:01:12 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by PA4PR04MB8061.eurprd04.prod.outlook.com (2603:10a6:102:bb::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Thu, 3 Mar
- 2022 16:01:10 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65%6]) with mapi id 15.20.5038.014; Thu, 3 Mar 2022
- 16:01:10 +0000
+	id 1nPntP-0002mI-Mx; Thu, 03 Mar 2022 16:01:27 +0000
+Received: by outflank-mailman (input) for mailman id 283495;
+ Thu, 03 Mar 2022 16:01:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=GOOP=TO=santannapisa.it=Andrea.Stevanato@srs-se1.protection.inumbo.net>)
+ id 1nPntN-0002kL-Hx
+ for xen-devel@lists.xenproject.org; Thu, 03 Mar 2022 16:01:26 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04on0615.outbound.protection.outlook.com
+ [2a01:111:f400:fe0d::615])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2c43c77a-9b0b-11ec-8539-5f4723681683;
+ Thu, 03 Mar 2022 17:01:23 +0100 (CET)
+Received: from DB7PR03MB5002.eurprd03.prod.outlook.com (2603:10a6:10:74::22)
+ by AM9PR03MB7962.eurprd03.prod.outlook.com (2603:10a6:20b:439::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.26; Thu, 3 Mar
+ 2022 16:01:21 +0000
+Received: from DB7PR03MB5002.eurprd03.prod.outlook.com
+ ([fe80::746a:e27:47ff:3e90]) by DB7PR03MB5002.eurprd03.prod.outlook.com
+ ([fe80::746a:e27:47ff:3e90%7]) with mapi id 15.20.5038.015; Thu, 3 Mar 2022
+ 16:01:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,170 +47,462 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26821bb2-9b0b-11ec-8eba-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1646323273;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lgMq9A/GB8C6EyR43l7HUYjyuXSS3p5LYTfsPgtZ/Fs=;
-	b=FJMmF2TtElNq8q96ANzqNqy9UwF+Io186UcXVJl1QM13fqa+Fp2S1upbqkX9gtfYEwPiPZ
-	FLz9MyR4l9Ii4ZC17r79Ar8ZGB2Lr8jPGZRxDvOvgkYaaueLL9Uq80N3kah5TYrQen50Vn
-	Jvnah0xHs7xlYjb11ojvNyaL4QK1X5Q=
-X-MC-Unique: ilkSwlCcNcKor__p8WefJQ-1
+X-Inumbo-ID: 2c43c77a-9b0b-11ec-8539-5f4723681683
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WdJmZtkXGlkG9vHndVcBlEAgNqajEZogLsClE5KI/cqH1ZZ70ncPvnVFMv30cpmmmVHvXn9xPxWOYU9xv8c3JC5+vpGzI93wc2PXRp8nVK2kjIczc0ZGBUBD+vnY9yyhdXUrGNQKwCoGaC1v9Z2ZFWfHm3LMJvFn/bo3mXwqUarpTd8j/GfjaFpWXOXjzftvVEgD/Dk9IJVkWITxMsdb1vYE/5xQ7RXyIritODiIUzfI/znGoE83GDuq6SzfmIOi2HKXPykafRbkST5npE8oyWpTRQm7+6ovLCsV0FPITbkjB1zC2tKJtwSCt9L0g/RgHbfaKdj9kZBW/dZrcjP/rA==
+ b=DFJBA9Cdq33bdC6BdrqPNr42SyrrSA/5nYM9bhhqUmzyq5JYgL8PIHai6rEQ6PwZmjUTgDkMmxx3yEdNieXAy1o8nY/zMQiqFNDKE2IemA2PDnWIb8enraYQPYqRsaP77d3clesbYLIw96dwQ7aCoqMp9AyQ3THSvUZQLI0xfyXqTJ5jcAi0ZLObVBvzOvG7enjAP891r9ZlZJxA/AwXFUrmBd2jnoxoUampjL5UP+OOjqDYunj35RMJgQ/JVDirI7svOXSdiETe9K/iyXfHMour4qsmbB+KnyoWGgKdCrEsAM8AwRbydkpk4ThWc0Zma0SISuMBWVH5/oEvNyxNZg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lgMq9A/GB8C6EyR43l7HUYjyuXSS3p5LYTfsPgtZ/Fs=;
- b=drUeUZ0cEa4wqiuT9HuTO8h4+Xjq44mwqKPINsXqlzg33QR4WgQzXZU61mYUx09g2d/i+o2mr76twOOWFv1Ts7WYHgjJfW4jcCgdLRIcsUc37e4w5gPlcWQGcWdjnZPIVop/fPXigl5J0uycSMNURMoXLOXEli16uDvl+tED0XNOgLACRkzvWYX92DGg76TOCJ4KicWtpYg2tWYmMFAxhXgWQtBza+rT3kKgAU6u2zFdXcuUDZTPx2dO9rHVq4rNOLrWGNDbKCKY2m54TSJyN3cn9Gr3+zYA7naMMPCdx33Q3Ec+YEo6qPryiE56bVDOE0+U/UJjwXdq9HPACqiaMQ==
+ bh=JGpx62JPtQ9DYy9P5hgnvckWiXrXf0XqjWaJlNcsnhU=;
+ b=eNH2ExUzA4i2ZuqULq/+QA+JIInEk+vY/GvWs2cuv27nc40/N+RNdKtqSD2dIif3tShezA2gvsaewKf6M28F2xXgmj5muYpFBpswGJUKBOqVCVqTh4YZw9rphfPUk/oi74aLXsOlSLSZ/8LuDYK+xhVCvcbQ5lV7fKi9opiX0fZarLFtUjPc1rr3GHHZDelkoepxp1fTpY9cW5EsucEwm7upcbbxr6n4acoY8Dmoa/0/2cThcIyOs2bIS2qLDgD0kE1PsyCJJ9RqphA5JB57489+vlRgFk1+OVKQZFhMuBD5G4yj7rw6PvZYahnKfpUsD+VlKur7OL/H8OBL9xmanA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
+ smtp.mailfrom=santannapisa.it; dmarc=pass action=none
+ header.from=santannapisa.it; dkim=pass header.d=santannapisa.it; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=santannapisa.it;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JGpx62JPtQ9DYy9P5hgnvckWiXrXf0XqjWaJlNcsnhU=;
+ b=FYlFzIwWQhKGLiOmsU7HG7QR/ZLzcJAKy/L/goEm9nqYfBTYs7zBr+EgQEiYsXfUoVi+M16/sC4lUFUZwHI1QZnxHTFy+uAgMzi9AwuSjSTuRpi6M1OI3mb8x9fspfQeq0lvo84VGKPsKZtNo4ar5ldAzJPlJVUiPdD8KSSQxRM=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <48c58217-30c6-790f-a058-49b887fc1355@suse.com>
-Date: Thu, 3 Mar 2022 17:01:07 +0100
+ header.d=none;dmarc=none action=none header.from=santannapisa.it;
+Message-ID: <92827eec-b6e9-9c95-8f9e-fcf063d45090@santannapisa.it>
+Date: Thu, 3 Mar 2022 17:01:23 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [XEN PATCH v9 24/30] build: grab common EFI source files in arch
- specific dir
+ Thunderbird/91.4.0
+Subject: Re: Network driver domain broken
 Content-Language: en-US
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20220125110103.3527686-1-anthony.perard@citrix.com>
- <20220125110103.3527686-25-anthony.perard@citrix.com>
- <3bde2fea-f3fd-3926-b98d-aa0afb549bf8@suse.com>
- <YiDhpSZC1z/duG4q@perard.uk.xensource.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YiDhpSZC1z/duG4q@perard.uk.xensource.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6P191CA0102.EURP191.PROD.OUTLOOK.COM
- (2603:10a6:209:8a::43) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+From: Andrea Stevanato <andrea.stevanato@santannapisa.it>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: "roger.pau@citrix.com" <roger.pau@citrix.com>, "wl@xen.org" <wl@xen.org>,
+ anthony.perard@citrix.com
+References: <DB7PR03MB50027EE92E11BFFF71AADC4598049@DB7PR03MB5002.eurprd03.prod.outlook.com>
+In-Reply-To: <DB7PR03MB50027EE92E11BFFF71AADC4598049@DB7PR03MB5002.eurprd03.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MR2P264CA0091.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:32::31) To DB7PR03MB5002.eurprd03.prod.outlook.com
+ (2603:10a6:10:74::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9ae153f6-9631-49bf-8d38-08d9fd2f08e6
-X-MS-TrafficTypeDiagnostic: PA4PR04MB8061:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a67fbd2-2ecd-4eef-8f6c-08d9fd2f0f3a
+X-MS-TrafficTypeDiagnostic: AM9PR03MB7962:EE_
 X-Microsoft-Antispam-PRVS:
-	<PA4PR04MB806108EC6A5C6D70F29DD281B3049@PA4PR04MB8061.eurprd04.prod.outlook.com>
+	<AM9PR03MB7962F2608CBCD16D41DDF62598049@AM9PR03MB7962.eurprd03.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	DyWABsQQlN87WYAcj+kMWmpA8YCOeKVNSDvsoqKAtsSQ4m9s5MFtLMR9ffmj3NiumVMSPRdBSToT9n9HJPf2P2BlXMCECERvvKdFLMDZ1CMnFEZSnrjMqfKH5wSG1FshzTpvHrscvfm8mWiWvUnvCSnr3vTnwN7AQMN0XXv5p+yumc0nuvTnMZu5KGe988fnkHS5SBQ9KMUEEctNv11q4cVKLJvKNqhNIUdnOMwq7BGYhT7JWxpGnSeqTN8+nyFXhFG68YMi5IfWvc68xLYThonhuUCd+rRYJWmqD60Dfkx1vnmWXvxuyyLq4hKSr808cJy6qwIF37rfVd5F9VUeCDDksX55Qcj46MB8twektZeT/d+aEYysWZ0uIo4073yt2mHjC3D8BBznSvICWKNUr+ayRmqxhsUuJN4kZgH3Gus+3Ci6xCiWAxNB/GIddnNasTEZPS6L+8Aj50HwVyLMbHJ3meEP6rp4Saj7wBwQULDmDCqo1/K4xcXhYV+EaMBbcCgyVVfrkQ1qmQEwWTq/RoGPGODcF/uoKPgLDzWWIBoMoma4KllpcvhL8a4AypTxFThL30PknyUdpVo3qmMkYBUAts0i0lxgkLpsv37mov9Z9dMX3XmMYUH01ESVl//acq+xoFx0mjCxvT7WcfPbrAT+/I1AD+pdLOe+j04VyAs6P0TNeP5+Sj1L82o7n+nudW/9S7ap3/u+4Q1AHzeqCWtSRg8fzAeMa2M1aYi0F78=
+	PJm/qUIPxJrIVC3zKmgN5SWCUbXxEkCNUzBNdeX8Riln4kal2ZMOjNpr6gD+db+LVy/xj3eqid7oam0ARiS9eEF5rlXJlUuWZRA4kNO4Ba/e/rdba5C12dbfgjK1rtdNmbanS0P/SZDpLuMA5HXgDr1TD7SKCIGnx50NAST7gV3Xy7PyRW4NlKMlKJx45A7y5UwVSZKq7RA+0yru6ZgqEPoyZn/Mla22PmADSet+1t72+tYHfSlpwsi78y6k7Denmyzs41xX6xZ0BVWrjmd2U1OQAdJH40HjP+2vafuKy4jntVPDVqGkRQyukMbtN1vFhdYiOOKI2j2vNrXsbim6UTbcOJQeqAsmv+eynsQSfiIcrcGzbVguGsLq3Ybdl5s+hMScLLmVyvA59GVvotSnwVfKQ5mdD8C9/WifFeZCWYbXX+cm2RW1vfptNFp+ftC28o8K70n1zOrrhinXvxZuFyzag2dXrSgPobp9UoL7aTxJ9YJg5x4wUft8Gg06rHgLoFsPECMQXnomoQX5U38FNIjzXcrAckF5CGrLfG9tedoXtEmx3zsUIX57kARQdB7SOu2bxDoeRLMq1iyhVQdVyhLWS7WpUytUT87Uzz5f5MMTy3rKizW2ys5ZKa8tHh5BosWF3ymYN5Czb9moSQbpDyiaLzMO6RQmLwNdMiUiINh7kMXQbSFheg7N2l47VHnYAjbu8Teh9rM9ExiG2dbjYwcq1lGt/MD/mpwJpjYlioh/o2JPdYPXM54OPVsDIopANFN8yZmZ0wcS6+kWPHiYIw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(31696002)(4326008)(316002)(38100700002)(186003)(66476007)(66556008)(8676002)(2616005)(6916009)(5660300002)(26005)(508600001)(36756003)(6486002)(31686004)(6666004)(66946007)(86362001)(6506007)(6512007)(53546011)(8936002)(7416002)(54906003)(83380400001)(2906002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB7PR03MB5002.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(66476007)(4326008)(8676002)(66556008)(66946007)(83380400001)(3480700007)(36756003)(31696002)(30864003)(53546011)(52116002)(2906002)(38350700002)(38100700002)(44832011)(8936002)(5660300002)(86362001)(26005)(186003)(31686004)(6506007)(6486002)(6512007)(786003)(316002)(6916009)(508600001)(54906003)(2616005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b3FNamxleHUxZExCMXRpTjhEQ1BIcE9BQTN6eEtxdUJydTNlS0FNK1Z5S213?=
- =?utf-8?B?Z0xneU1LV20yeGVlMWlGUXVBOE1TMnlPcmEyUEFsVXdqWC9GakNnQkVxdVRH?=
- =?utf-8?B?aXFBNTYxeENLYzg3ZjNyanBvL2hva000OEpGWFZMRHVUZ0d0UVIvWUpRaU5u?=
- =?utf-8?B?R3NRazkyeUlkL1NiaTBWNnFhVXMxUHNUWWk3L1VqbVVkdkdUVTB3NmUyNlBM?=
- =?utf-8?B?dUlOSXduamdjekdLMzNWUmh1MDZ4SkxHcFFuSkNDam13bGxTRUhjMnRZQkFn?=
- =?utf-8?B?ZXVrZFp3WTZ6Rk0xK1Q0QjJnR1hCQjgwVzlKWURoeThNVVpib0twNUM1K0Qw?=
- =?utf-8?B?Y1RFbnAzNDFLM3Y0aVFmbVJvSHZFTHA3S3hrUTlLSnZMb0xqNTN0ajZNTTNP?=
- =?utf-8?B?dktBbWc3emR1OXprWk5IS3E3TUVrNExqSmxyZlRTL25mTXhhR2hxRlZhOXBv?=
- =?utf-8?B?dWtjZG9rYmV0NSs5a2ViTzlRbjdtVHdEb1lDWForN2NjbHBabHlacHA5d3lw?=
- =?utf-8?B?T1QxaTlDT3BzVnBjMGY2bExxTEYzT3E5TXR4ZDRkSUVlczVLTXhxbzVQUnB2?=
- =?utf-8?B?Nzc3T1VQTGhka2c3cVdnd3VocG5WTFZsdGRDV3JYR3EzbHZpc2ttaEJ0TU5O?=
- =?utf-8?B?ajVHNlFVSW9UQnphS1ZJRWV6U3RmVW1mM09tUXBuNU9RSVJPQ2hiR1lueVQ3?=
- =?utf-8?B?c3lOYTkzNitrVHN6VkpFY1hnMzUvb0NETmFqcDFEN3JaOERQVERSQ2pCdFRQ?=
- =?utf-8?B?Q0ZZTVF4bTJlWXpJbUlzelN1YzRhcmc2a0hzOUwzelVvS3I2dUVsVGhSQmV4?=
- =?utf-8?B?SjI1NlkwTUZkTkIxUkpUdDlNa0pkS2llYzhNZGxSeVZJdW1XMFYvL1hOelFV?=
- =?utf-8?B?MDhMdHlHSUJlVXRESENpQk9zT3htR0FPS1V4WUVPS01PendiQ1VuRWd0dkIr?=
- =?utf-8?B?MVJrV2w1SDFYYmk1Uk91MTB0c29qRGJyL3F1OTlmemRpU24xQ053M24vZjl1?=
- =?utf-8?B?czJveG1yZjNNckl1c1dJdDJlRzg1OXVjUDdiYk1OT3JRVVNOSEJtdHlVQ0x3?=
- =?utf-8?B?KytUcFEvQkMwcXpWRUNKaTBHUTc1TEMrZnZJbjVMclJLZExEdlREMHZyT0FN?=
- =?utf-8?B?M0sxNkJ0N2s1ZG1OTVJ0MTljdFVETHViSU81MTE2RTRPZ1c1dGtXQzhjbnRM?=
- =?utf-8?B?SGdGNjhmRWhwM1lrSnYyYmc1OVdrNE5VeUFoRnJGeU1CWUJtT1NSa0JUVGpQ?=
- =?utf-8?B?eitQM0p5dm95YWRxemtnNzBWZmM4NUMra0tkVlJsRm9mNFhsVGF2ZDRxVktw?=
- =?utf-8?B?SEdjZU4vV3FxQkp3cm5sZWc5SUpYUGE0RkdnWVZ2WEppVFdDV0ZoWG9FTThU?=
- =?utf-8?B?bC9aZitrSWFQYUswNm9vNU9LZ080Y3U2TWtGZG1GcFRJWG93VmxmTE9RTWJW?=
- =?utf-8?B?VUJWbWMxb3dQL1NkZEhNNXdmTnlDVTZNNS9idkNsaTArWXdJdkV3SER1cG9a?=
- =?utf-8?B?QVhMWndXMXlzNVpBZWZZT283b21iQUQxL1J2M09BcVNQcVBxZ2VING9HTFlW?=
- =?utf-8?B?WE9aSE13QmN4M09tZVhaeFE5YWh3QTB3SnI5VkkzMHduYmMrMzk1TXJpQXZD?=
- =?utf-8?B?c1B6cW14aUVSSmNjM3JqQU5KUE1mdFo4K29UUkxZb1p5RkpVRVY4aWdpWjhz?=
- =?utf-8?B?L1cyUDl4UWFWYjVGckFRaEUwVHQ5V1hWdTVqMkFaMW9jZ25KV1d1VjlvUzZr?=
- =?utf-8?B?V3JoLzRuQ2N2ZUxuR3JUYkxFRFRuM2RRT1hoVEhKRmhOTFRMelRQK1l5VjFl?=
- =?utf-8?B?QmRRN2J5K3UxekFpOVhhY3NaNmF5aE5wV1dTajB5UHc3TTAxaUFja2dPT0J4?=
- =?utf-8?B?MitQRk9uaTJkU3F0bFY1RVZLbktKaHlPdFFSSnIrWHBaSkg2NHV0MllXNmZv?=
- =?utf-8?B?dHdFekM4QkNwbGQ1MlFKQ1BNNkF0eDRjeitFeVdDN3hWejllN0NESkt2SW1D?=
- =?utf-8?B?eTNQZDVQMVlRdUJucHUwdGN0RTVNUThmS2pucmpoUUZ2ZFEzRFNUTnE0aEhM?=
- =?utf-8?B?QjhaNlNTMFhtRmZOaXltZUxsc1NpaTl0WDFVQ0pyeU5FTEFYQm9IejRBdEw4?=
- =?utf-8?B?OTVXcG1DTTVQMmY4QVk2Z2laQm5pd0V5ZGdHZlJCTkZac1RPZ2crd0xtcUhN?=
- =?utf-8?Q?gRpSshVkk1b3BC1Qe/a81sY=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ae153f6-9631-49bf-8d38-08d9fd2f08e6
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+	=?utf-8?B?dGZwd1NYNktmazZBYTZzSXhjZUcyMzNERDBDSGczVHJpb3JHWVRvT0x6b21M?=
+ =?utf-8?B?TGJrcVNoV3Q0SGtVZTV4dlpuMmxKNEsweWpxTkxzRC9vV3k2VkdWVVJoeGUr?=
+ =?utf-8?B?TEhZV1lEemh1dERLS1ZyZkZ2dkZxbGIxSXNjL3JNRjhCWXV3Znc1Tm5zdGxI?=
+ =?utf-8?B?M3RWdFBIT2JhQlNTNUw5dzI2cTBtQ1hFOVR2ZERMZG40djN2SlZ6QnduOWFm?=
+ =?utf-8?B?aHMvT3F5ajNnRGZPNytjWFNPbzhwOFNMTVJVa2dENmVFOWxsbHpwN1NneFMv?=
+ =?utf-8?B?SC9uREtGY1BTU2lpQVBld0hBenlET29DTjBsVVpKVS9NdTg3VDRIU2hIY2c1?=
+ =?utf-8?B?aHBiL0hPV0wvdHIwNFUwZXNTYmxVL2xDRkM1SE84VXcwUU1mMlZ4d0NzYjBr?=
+ =?utf-8?B?Y2RLQW96cmQ1eGpsTTU2Y3dYV09VZ0NwUVVlUDhZQ2FvSTFHc0REdGhDdmE4?=
+ =?utf-8?B?YnJqVjV2aXdib2d4dU5LRWd6MXhGRTY4YXNuODN3dkJodjY1Nmh4NGhVMjRo?=
+ =?utf-8?B?UWN3Wld1aVVmeC9BNXpNM3NvSXVQcTRaWE01bUJSNHJjOGhZa3dVYmU4UDk4?=
+ =?utf-8?B?aU9qeDlxWUtJU3NIM1diNjJkWFpDSk1leVFFZDdaRlRqSFNnWmdWZHZuZ0No?=
+ =?utf-8?B?T29aRk1xR3ROaktQVVYvYzFUZllxMVFFWm5sWUtMWFluOURFMmJsOHNReEN5?=
+ =?utf-8?B?QnBIVGF0ZzdNRllBWldHSTVXbEp0NnRackV6Q1lhVE1PQWJOa0Q2a2xCaTdh?=
+ =?utf-8?B?M2RVcVhZb2pkOVp1NVdHRXNrQWtHZkRMcnRVL1UzR2k0dkd1WkRBZCs0cFBP?=
+ =?utf-8?B?QlUwcWdHRE81ejZ1bkdYcDFPdVhCMGt6VEdHbXM2amt5Rk5BNm9uRmhsb2RQ?=
+ =?utf-8?B?RXJuN0hPTEZ3cnBTeXlaR3pXb2tJOFhOYlNSMDArTnlqYzVPQTFJUFFyNlg2?=
+ =?utf-8?B?ODg3cUFZNURJcVNlWDVKNFJDTHMvalBUcUFOaXVZaitpc0UxZEhOREp4Rm9r?=
+ =?utf-8?B?ajFvMHp4bE5DR1dTamg3SzFXcTFoYkpKbnhsbzRjRjVrSURzbTlheXJrNzVF?=
+ =?utf-8?B?V243dHg3UGZNcHNXR2VDT0dERGtLYjk3WTlTdnM3enBVU01zemxpY1c0S0U3?=
+ =?utf-8?B?UXdkWkN6aFVidEo5MEZ0MjBRdlJYZjROVlpsSWRFVTRHOHVnMHNMeEJoMWhE?=
+ =?utf-8?B?cGZ3NUZTVmt1VHRnNklxaGFWRU5WQ3RncFN4ejgwbFZSWFAvNnpiNUNpSnhs?=
+ =?utf-8?B?WFZsckVPS3pOaXI5MEhnZjN2RG5PSkY5SlBQRjZpNnlFOERndnZwV2R6Z3RG?=
+ =?utf-8?B?SUpmbURZZ21IelB1VHN4OCsvTXdPQW8vMFM0cDVGWGx1ZXpEdC9IVGRZa0hL?=
+ =?utf-8?B?YzJiQlFLWXgxUW1iTE9LSXNsc3V2NG5iT2FqSVA1TkZGL3ErT2QzOHBMZ1I0?=
+ =?utf-8?B?SndxNkJ5NkZUai8vQXAzZ3dlM21tWFhWMjEwOGJRdDBBV2VYRGo4RFlPUDBX?=
+ =?utf-8?B?RmRYUTRWNnpKTFlWOHVKVDJ6NmJvUHlQVUtNQytUUUJYejg5T2ZqNDdCR2FM?=
+ =?utf-8?B?OWFCOG4yWDRyTEplR3Z1RUJSMXBhNjdTSW0vamh5OXFVdjNlMEwwR3JtcGIr?=
+ =?utf-8?B?dzY1RWs1NWY4KzhUSmwzZzY4eSt2TkxBcFBLUm84UEJ1OEtuL3J4ZHZQb01S?=
+ =?utf-8?B?SFBnYkwvTU05RFFrYkZMNzMrYzd4U2kwQmJyUERoZk9PMUtLbGxXcUNHTWxP?=
+ =?utf-8?B?RTFvSjdGOVJUeCtGRzNpQmpWUHZKdjlqbWsyb000M2p3LzhhUHcwanRBUDdt?=
+ =?utf-8?B?Z1ZrQkRYU2JGYS85aTROTFZNSm1rZytINHBLcnVKcjFuUjRNSytGbkcwQkpQ?=
+ =?utf-8?B?Sll6MnE2dHJqbEFuMWRWa2c0Mi8wZGdOTVlreHhab2FMZFd5V2Zwc29MTlBi?=
+ =?utf-8?B?d3Rub3Z3bGJsZFh1OVE3MHAxOHVvMUo5OGdiT1V6aFBoVkdMVHRIZjY2NDd3?=
+ =?utf-8?B?Q2JPeVloV1k4TUZBNmR3YTBEK1hMLzRvUE9ydHRBc3Z6YUFxTjg2SS9UMWxZ?=
+ =?utf-8?B?cmNHYmtySnlpUHBpaHdpVHNDb2xUUFVLRUxIOEh4QW1CVFJ3elBsd2xQdVYr?=
+ =?utf-8?B?U1o3RGl6b2FWRXZkL3FYdXBDZS8xaWNKQUFkVnRCQ0pIZ05KRkc3SGRRZWd6?=
+ =?utf-8?B?SDVNMi85b01aYzlKc1dMeXoybmM3YllQRzNueUFMZzFqOWFWUEwxWEo4SE9G?=
+ =?utf-8?B?OHUzaURNNFlXejdZQ3dYakxnUXpUZHVPQnE4UThVSmV3TUtYT0E4M2cwOGZT?=
+ =?utf-8?B?YWlkWlJVYmtjUEc3TG11aDJxcTVoV3JZVWZsUXZaM1VFWG5zYjNTZz09?=
+X-OriginatorOrg: santannapisa.it
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a67fbd2-2ecd-4eef-8f6c-08d9fd2f0f3a
+X-MS-Exchange-CrossTenant-AuthSource: DB7PR03MB5002.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2022 16:01:10.7065
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2022 16:01:21.2921
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: d97360e3-138d-4b5f-956f-a646c364a01e
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DwEbuM6DFHeIdsHSObgenvj8rTHcVKuZVoBZ0vzx9JqEeHpgIvOorbRReYpb0JeJdPuflIUKrroPpemc5tRZTw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB8061
+X-MS-Exchange-CrossTenant-UserPrincipalName: Xjh5YPUN8hLJQluwaPLwxK0ec8qGUKYOhyh3KDBV40JE+HerzRmZ/yYo4DCLjK9FfBwH64GAz/XovUqpquYg2bdgbht0cSZFMeQhn1sy84QGVKUrcyrUplvf/MdG1PZs
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7962
 
-On 03.03.2022 16:41, Anthony PERARD wrote:
-> On Thu, Mar 03, 2022 at 11:37:08AM +0100, Jan Beulich wrote:
->> On 25.01.2022 12:00, Anthony PERARD wrote:
->>> --- a/xen/arch/x86/Makefile
->>> +++ b/xen/arch/x86/Makefile
->>> @@ -77,8 +77,9 @@ obj-$(CONFIG_COMPAT) += x86_64/platform_hypercall.o
->>>  obj-y += sysctl.o
->>>  endif
->>>  
->>> -# Allows "clean" to descend into boot/
->>> +# Allows "clean" to descend
->>>  subdir- += boot
->>> +subdir- += efi
->>
->> No similar addition is needed for Arm?
+On 03/03/2022 15:54, Andrea Stevanato wrote:
+> Hi all,
 > 
-> No, because Arm already have "obj-$(CONFIG_ARM_64) += efi/", which has
-> the same effect on clean.
+> according to the conversation that I had with royger, aa67b97ed34  broke the driver domain support.
 > 
-> Make clean doesn't use ${ALL_OBJS} to find out which directory to clean, so
-> adding "subdir-" is needed at the moment.
-
-Oh, I see.
-
->>> --- /dev/null
->>> +++ b/xen/common/efi/efi-common.mk
->>> @@ -0,0 +1,15 @@
->>> +EFIOBJ-y := boot.init.o pe.init.o ebmalloc.o runtime.o
->>> +EFIOBJ-$(CONFIG_COMPAT) += compat.o
->>> +
->>> +CFLAGS-y += -fshort-wchar
->>> +CFLAGS-y += -iquote $(srctree)/common/efi
->>> +
->>> +# Part of the command line transforms $(obj) in to a relative reverted path.
->>> +# e.g.: It transforms "dir/foo/bar" into successively
->>> +#       "dir foo bar", ".. .. ..", "../../.."
->>> +$(obj)/%.c: $(srctree)/common/efi/%.c FORCE
->>> +	$(Q)ln -nfs $(subst $(space),/,$(patsubst %,..,$(subst /, ,$(obj))))/common/efi/$(<F) $@
->>
->> What is the "reverted" about in the comment? Also (nit) I think you want
->> s/in to/into/.
+> What I'm trying to do is to setup networking between guests using driver domain. Therefore, the guest (driver) has been started with the following cfg.
 > 
-> I've tried to described in the single word that the result is a relative
-> path that goes in the opposite direction to the original relative path.
-> Instead of going down, it goes up the hierarchy of directories.
-> Maybe "reversed" would be better? Do you have other suggestion?
-
-I'd simply omit the word. In case you're fine with that, I'd be happy
-to adjust while committing.
-
-Jan
-
+> name    = "guest0"
+> kernel  = "/media/sd-mmcblk0p1/Image"
+> ramdisk = "/media/sd-mmcblk0p1/rootfs.cpio.gz"
+> extra   = "console=hvc0 rdinit=/sbin/init root=/dev/ram0"
+> memory  = 1024 
+> vcpus   = 2
+> driver_domain = 1
+> 
+> On guest0 I created the bridge, assigned a static IP and started the udhcpd on xenbr0 interface.
+> While the second guest has been started with the following cfg:
+> 
+> name    = "guest1"
+> kernel  = "/media/sd-mmcblk0p1/Image"
+> ramdisk = "/media/sd-mmcblk0p1/rootfs.cpio.gz"
+> extra   = "console=hvc0 rdinit=/sbin/init root=/dev/ram0"
+> memory  = 1024 vcpus   = 2
+> vcpus   = 2
+> vif = [ 'bridge=xenbr0, backend=guest0' ]
+> 
+> Follows the result of strace xl devd:
+> 
+> # strace xl devd
+> execve("/usr/sbin/xl", ["xl", "devd"], 0xffffdf0420c8 /* 13 vars */) = 0
+> brk(NULL)                               = 0xaaaaeaf3b000
+> faccessat(AT_FDCWD, "/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+> openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+> fstat(3, {st_mode=S_IFREG|0644, st_size=7840, ...}) = 0
+> mmap(NULL, 7840, PROT_READ, MAP_PRIVATE, 3, 0) = 0xffff9f45e000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/usr/lib/libxlutil.so.4.14", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\0200\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=68168, ...}) = 0
+> mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xffff9f45c000
+> mmap(NULL, 131784, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9f410000
+> mprotect(0xffff9f41f000, 65536, PROT_NONE) = 0
+> mmap(0xffff9f42f000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0xffff9f42f000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/usr/lib/libxenlight.so.4.14", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0`\16\2\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=861848, ...}) = 0
+> mmap(NULL, 925752, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9f32d000
+> mprotect(0xffff9f3fa000, 61440, PROT_NONE) = 0
+> mmap(0xffff9f409000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xcc000) = 0xffff9f409000
+> mmap(0xffff9f40f000, 56, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff9f40f000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/usr/lib/libxentoollog.so.1", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0P\r\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=10368, ...}) = 0
+> mmap(NULL, 73904, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9f31a000
+> mprotect(0xffff9f31c000, 61440, PROT_NONE) = 0
+> mmap(0xffff9f32b000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1000) = 0xffff9f32b000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/usr/lib/libyajl.so.2", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\320\22\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=38728, ...}) = 0
+> mmap(NULL, 102416, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9f300000
+> mprotect(0xffff9f309000, 61440, PROT_NONE) = 0
+> mmap(0xffff9f318000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x8000) = 0xffff9f318000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/lib/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\300j\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=113184, ...}) = 0
+> mmap(NULL, 192872, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9f2d0000
+> mprotect(0xffff9f2ea000, 65536, PROT_NONE) = 0
+> mmap(0xffff9f2fa000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1a000) = 0xffff9f2fa000
+> mmap(0xffff9f2fc000, 12648, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff9f2fc000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/lib/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\320I\2\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=1428872, ...}) = 0
+> mmap(NULL, 1502000, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9f161000
+> mprotect(0xffff9f2b8000, 61440, PROT_NONE) = 0
+> mmap(0xffff9f2c7000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x156000) = 0xffff9f2c7000
+> mmap(0xffff9f2cd000, 11056, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff9f2cd000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/usr/lib/libxenevtchn.so.1", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0@\f\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=10240, ...}) = 0
+> mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xffff9f45a000
+> mmap(NULL, 73856, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9f14e000
+> mprotect(0xffff9f150000, 61440, PROT_NONE) = 0
+> mmap(0xffff9f15f000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1000) = 0xffff9f15f000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/usr/lib/libxenctrl.so.4.14", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0000\203\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=154752, ...}) = 0
+> mmap(NULL, 218504, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9f118000
+> mprotect(0xffff9f13d000, 61440, PROT_NONE) = 0
+> mmap(0xffff9f14c000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x24000) = 0xffff9f14c000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/usr/lib/libxenguest.so.4.14", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0PB\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=77248, ...}) = 0
+> mmap(NULL, 140880, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9f0f5000
+> mprotect(0xffff9f107000, 61440, PROT_NONE) = 0
+> mmap(0xffff9f116000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x11000) = 0xffff9f116000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/usr/lib/libxenhypfs.so.1", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\300\16\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=14432, ...}) = 0
+> mmap(NULL, 78048, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9f0e1000
+> mprotect(0xffff9f0e3000, 65536, PROT_NONE) = 0
+> mmap(0xffff9f0f3000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0xffff9f0f3000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/usr/lib/libxenstore.so.3.0", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0 $\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=31176, ...}) = 0
+> mmap(NULL, 107088, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9f0c6000
+> mprotect(0xffff9f0cc000, 65536, PROT_NONE) = 0
+> mmap(0xffff9f0dc000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x6000) = 0xffff9f0dc000
+> mmap(0xffff9f0de000, 8784, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff9f0de000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/lib/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0@\20\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=14296, ...}) = 0
+> mmap(NULL, 77920, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9f0b2000
+> mprotect(0xffff9f0b5000, 61440, PROT_NONE) = 0
+> mmap(0xffff9f0c4000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0xffff9f0c4000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/usr/lib/libxentoolcore.so.1", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0 \10\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=6104, ...}) = 0
+> mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xffff9f458000
+> mmap(NULL, 69768, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9f0a0000
+> mprotect(0xffff9f0a1000, 61440, PROT_NONE) = 0
+> mmap(0xffff9f0b0000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0) = 0xffff9f0b0000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/lib/libutil.so.1", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0`\21\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=14296, ...}) = 0
+> mmap(NULL, 77840, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9f08c000
+> mprotect(0xffff9f08e000, 65536, PROT_NONE) = 0
+> mmap(0xffff9f09e000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0xffff9f09e000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/lib/libuuid.so.1", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0000\30\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=30680, ...}) = 0
+> mmap(NULL, 94240, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9f074000
+> mprotect(0xffff9f07a000, 65536, PROT_NONE) = 0
+> mmap(0xffff9f08a000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x6000) = 0xffff9f08a000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/usr/lib/libnl-route-3.so.200", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\200\327\1\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=536688, ...}) = 0
+> mmap(NULL, 609024, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9efdf000
+> mprotect(0xffff9f05a000, 65536, PROT_NONE) = 0
+> mmap(0xffff9f06a000, 32768, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x7b000) = 0xffff9f06a000
+> mmap(0xffff9f072000, 6912, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff9f072000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/usr/lib/libnl-3.so.200", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\360\221\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=141304, ...}) = 0
+> mmap(NULL, 205192, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9efac000
+> mprotect(0xffff9efcd000, 61440, PROT_NONE) = 0
+> mmap(0xffff9efdc000, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x20000) = 0xffff9efdc000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/lib/librt.so.1", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\0#\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=31032, ...}) = 0
+> mmap(NULL, 94568, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9ef94000
+> mprotect(0xffff9ef9b000, 61440, PROT_NONE) = 0
+> mmap(0xffff9efaa000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x6000) = 0xffff9efaa000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/usr/lib/libfdt.so.1", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0000#\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=38800, ...}) = 0
+> mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xffff9f456000
+> mmap(NULL, 102416, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9ef7a000
+> mprotect(0xffff9ef83000, 61440, PROT_NONE) = 0
+> mmap(0xffff9ef92000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x8000) = 0xffff9ef92000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/usr/lib/libxengnttab.so.1", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0`\20\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=14368, ...}) = 0
+> mmap(NULL, 77984, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9ef66000
+> mprotect(0xffff9ef69000, 61440, PROT_NONE) = 0
+> mmap(0xffff9ef78000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0xffff9ef78000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/usr/lib/libxencall.so.1", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\320\17\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=14400, ...}) = 0
+> mmap(NULL, 78064, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9ef52000
+> mprotect(0xffff9ef55000, 61440, PROT_NONE) = 0
+> mmap(0xffff9ef64000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0xffff9ef64000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/usr/lib/libxenforeignmemory.so.1", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0000\16\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=14392, ...}) = 0
+> mmap(NULL, 78000, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9ef3e000
+> mprotect(0xffff9ef40000, 65536, PROT_NONE) = 0
+> mmap(0xffff9ef50000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0xffff9ef50000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/usr/lib/libxendevicemodel.so.1", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0`\23\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=14400, ...}) = 0
+> mmap(NULL, 78008, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9ef2a000
+> mprotect(0xffff9ef2d000, 61440, PROT_NONE) = 0
+> mmap(0xffff9ef3c000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0xffff9ef3c000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/usr/lib/libbz2.so.1", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\320\27\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=70472, ...}) = 0
+> mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xffff9f454000
+> mmap(NULL, 134160, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9ef09000
+> mprotect(0xffff9ef19000, 61440, PROT_NONE) = 0
+> mmap(0xffff9ef28000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0xffff9ef28000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/usr/lib/liblzma.so.5", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\3403\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=153496, ...}) = 0
+> mmap(NULL, 217104, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9eed3000
+> mprotect(0xffff9eef7000, 65536, PROT_NONE) = 0
+> mmap(0xffff9ef07000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x24000) = 0xffff9ef07000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/usr/lib/liblzo2.so.2", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\320&\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=120648, ...}) = 0
+> mmap(NULL, 184336, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9eea5000
+> mprotect(0xffff9eec2000, 61440, PROT_NONE) = 0
+> mmap(0xffff9eed1000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1c000) = 0xffff9eed1000
+> close(3)                                = 0
+> openat(AT_FDCWD, "/lib/libz.so.1", O_RDONLY|O_CLOEXEC) = 3
+> read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\360%\0\0\0\0\0\0"..., 832) = 832
+> fstat(3, {st_mode=S_IFREG|0755, st_size=92056, ...}) = 0
+> mmap(NULL, 155664, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9ee7e000
+> mprotect(0xffff9ee93000, 65536, PROT_NONE) = 0
+> mmap(0xffff9eea3000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x15000) = 0xffff9eea3000
+> close(3)                                = 0
+> mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xffff9ee7c000
+> mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xffff9ee7a000
+> mprotect(0xffff9f2c7000, 12288, PROT_READ) = 0
+> mprotect(0xffff9eea3000, 4096, PROT_READ) = 0
+> mprotect(0xffff9eed1000, 4096, PROT_READ) = 0
+> mprotect(0xffff9f2fa000, 4096, PROT_READ) = 0
+> mprotect(0xffff9ef07000, 4096, PROT_READ) = 0
+> mprotect(0xffff9ef28000, 4096, PROT_READ) = 0
+> mprotect(0xffff9f32b000, 4096, PROT_READ) = 0
+> mprotect(0xffff9f0b0000, 4096, PROT_READ) = 0
+> mprotect(0xffff9ef64000, 4096, PROT_READ) = 0
+> mprotect(0xffff9ef3c000, 4096, PROT_READ) = 0
+> mprotect(0xffff9ef50000, 4096, PROT_READ) = 0
+> mprotect(0xffff9ef78000, 4096, PROT_READ) = 0
+> mprotect(0xffff9ef92000, 4096, PROT_READ) = 0
+> mprotect(0xffff9efaa000, 4096, PROT_READ) = 0
+> mprotect(0xffff9efdc000, 8192, PROT_READ) = 0
+> mprotect(0xffff9f06a000, 16384, PROT_READ) = 0
+> mprotect(0xffff9f08a000, 4096, PROT_READ) = 0
+> mprotect(0xffff9f09e000, 4096, PROT_READ) = 0
+> mprotect(0xffff9f0c4000, 4096, PROT_READ) = 0
+> mprotect(0xffff9f0dc000, 4096, PROT_READ) = 0
+> mprotect(0xffff9f0f3000, 4096, PROT_READ) = 0
+> mprotect(0xffff9f15f000, 4096, PROT_READ) = 0
+> mprotect(0xffff9f14c000, 4096, PROT_READ) = 0
+> mprotect(0xffff9f116000, 4096, PROT_READ) = 0
+> mprotect(0xffff9f318000, 4096, PROT_READ) = 0
+> mprotect(0xffff9f409000, 8192, PROT_READ) = 0
+> mprotect(0xffff9f42f000, 4096, PROT_READ) = 0
+> mprotect(0xaaaabaa10000, 4096, PROT_READ) = 0
+> mprotect(0xffff9f463000, 4096, PROT_READ) = 0
+> munmap(0xffff9f45e000, 7840)            = 0
+> set_tid_address(0xffff9ee7a0e0)         = 813
+> set_robust_list(0xffff9ee7a0f0, 24)     = 0
+> rt_sigaction(SIGRTMIN, {sa_handler=0xffff9f2d6570, sa_mask=[], sa_flags=SA_SIGINFO}, NULL, 8) = 0
+> rt_sigaction(SIGRT_1, {sa_handler=0xffff9f2d6630, sa_mask=[], sa_flags=SA_RESTART|SA_SIGINFO}, NULL, 8) = 0
+> rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0
+> prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+> brk(NULL)                               = 0xaaaaeaf3b000
+> brk(0xaaaaeaf5c000)                     = 0xaaaaeaf5c000
+> newfstatat(AT_FDCWD, "/etc/libnl/classid", {st_mode=S_IFREG|0644, st_size=1130, ...}, 0) = 0
+> openat(AT_FDCWD, "/etc/libnl/classid", O_RDONLY|O_CLOEXEC) = 3
+> fstat(3, {st_mode=S_IFREG|0644, st_size=1130, ...}) = 0
+> read(3, "################################"..., 4096) = 1130
+> read(3, "", 4096)                       = 0
+> close(3)                                = 0
+> ioctl(2, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+> pipe2([3, 4], 0)                        = 0
+> fcntl(3, F_GETFL)                       = 0 (flags O_RDONLY)
+> fcntl(3, F_SETFL, O_RDONLY|O_NONBLOCK)  = 0
+> fcntl(4, F_GETFL)                       = 0x1 (flags O_WRONLY)
+> fcntl(4, F_SETFL, O_WRONLY|O_NONBLOCK)  = 0
+> openat(AT_FDCWD, "/dev/xen/privcmd", O_RDWR|O_CLOEXEC) = 5
+> openat(AT_FDCWD, "/dev/xen/hypercall", O_RDWR|O_CLOEXEC) = 6
+> openat(AT_FDCWD, "/dev/xen/privcmd", O_RDWR|O_CLOEXEC) = 7
+> ioctl(7, _IOC(_IOC_NONE, 0x50, 0xff, 0), 0) = -1 ENOTTY (Inappropriate ioctl for device)
+> openat(AT_FDCWD, "/dev/xen/privcmd", O_RDWR|O_CLOEXEC) = 8
+> openat(AT_FDCWD, "/dev/xen/hypercall", O_RDWR|O_CLOEXEC) = 9
+> openat(AT_FDCWD, "/dev/xen/privcmd", O_RDWR|O_CLOEXEC) = 10
+> ioctl(10, _IOC(_IOC_NONE, 0x50, 0x5, 0x10), 0xffffe6e417f0) = 0
+> newfstatat(AT_FDCWD, "/var/run/xenstored/socket", {st_mode=S_IFSOCK|0600, st_size=0, ...}, 0) = 0
+> socket(AF_UNIX, SOCK_STREAM, 0)         = 11
+> fcntl(11, F_GETFD)                      = 0
+> fcntl(11, F_SETFD, FD_CLOEXEC)          = 0
+> connect(11, {sa_family=AF_UNIX, sun_path="/var/run/xenstored/socket"}, 110) = -1 ECONNREFUSED (Connection refused)
+> close(11)                               = 0
+> faccessat(AT_FDCWD, "/dev/xen/xenbus", F_OK) = 0
+> newfstatat(AT_FDCWD, "/dev/xen/xenbus", {st_mode=S_IFCHR|0600, st_rdev=makedev(0xa, 0x3e), ...}, 0) = 0
+> openat(AT_FDCWD, "/dev/xen/xenbus", O_RDWR) = 11
+> openat(AT_FDCWD, "/etc/xen/xl.conf", O_RDONLY) = 12
+> fstat(12, {st_mode=S_IFREG|0644, st_size=1602, ...}) = 0
+> fstat(12, {st_mode=S_IFREG|0644, st_size=1602, ...}) = 0
+> read(12, "## Global XL config file ##\n\n# S"..., 4096) = 1602
+> close(12)                               = 0
+> ioctl(5, _IOC(_IOC_NONE, 0x50, 0, 0x30), 0xffffe6e41850) = 262158
+> mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_SHARED, 6, 0) = 0xffff9f45f000
+> ioctl(5, _IOC(_IOC_NONE, 0x50, 0, 0x30), 0xffffe6e41850) = 0
+> ioctl(5, _IOC(_IOC_NONE, 0x50, 0, 0x30), 0xffffe6e41850) = 0
+> ioctl(5, _IOC(_IOC_NONE, 0x50, 0, 0x30), 0xffffe6e41850) = 0
+> ioctl(5, _IOC(_IOC_NONE, 0x50, 0, 0x30), 0xffffe6e41850) = 0
+> ioctl(5, _IOC(_IOC_NONE, 0x50, 0, 0x30), 0xffffe6e41850) = 0
+> ioctl(5, _IOC(_IOC_NONE, 0x50, 0, 0x30), 0xffffe6e41850) = 4096
+> ioctl(5, _IOC(_IOC_NONE, 0x50, 0, 0x30), 0xffffe6e41850) = 0
+> ioctl(5, _IOC(_IOC_NONE, 0x50, 0, 0x30), 0xffffe6e41820) = -1 EPERM (Operation not permitted)
+> ioctl(5, _IOC(_IOC_NONE, 0x50, 0, 0x30), 0xffffe6e41b40) = -1 EPERM (Operation not permitted)
+> write(2, "libxl: ", 7libxl: )                  = 7
+> write(2, "error: ", 7error: )                  = 7
+> write(2, "libxl_utils.c:820:libxl_cpu_bitm"..., 87libxl_utils.c:820:libxl_cpu_bitmap_alloc: failed to retrieve the maximum number of cpus) = 87
+> write(2, "\n", 1
+> )                       = 1
+> ioctl(5, _IOC(_IOC_NONE, 0x50, 0, 0x30), 0xffffe6e41b40) = -1 EPERM (Operation not permitted)
+> write(2, "libxl: ", 7libxl: )                  = 7
+> write(2, "error: ", 7error: )                  = 7
+> write(2, "libxl_utils.c:820:libxl_cpu_bitm"..., 87libxl_utils.c:820:libxl_cpu_bitmap_alloc: failed to retrieve the maximum number of cpus) = 87
+> write(2, "\n", 1
+> )                       = 1
+> ioctl(5, _IOC(_IOC_NONE, 0x50, 0, 0x30), 0xffffe6e41b40) = -1 EPERM (Operation not permitted)
+> write(2, "libxl: ", 7libxl: )                  = 7
+> write(2, "error: ", 7error: )                  = 7
+> write(2, "libxl_utils.c:820:libxl_cpu_bitm"..., 87libxl_utils.c:820:libxl_cpu_bitmap_alloc: failed to retrieve the maximum number of cpus) = 87
+> write(2, "\n", 1
+> )                       = 1
+> clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0xffff9ee7a0e0) = 814
+> wait4(814, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 814
+> --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=814, si_uid=0, si_status=0, si_utime=2, si_stime=2} ---
+> close(6)                                = 0
+> close(5)                                = 0
+> munmap(0xffff9f45f000, 4096)            = 0
+> close(7)                                = 0
+> close(10)                               = 0
+> close(9)                                = 0
+> close(8)                                = 0
+> close(11)                               = 0
+> close(3)                                = 0
+> close(4)                                = 0
+> exit_group(0)                           = ?
+> +++ exited with 0 +++
+> 
+> royger told me that it is a BUG and not an issue with my setup. Therefore here I am.
+> 
+> Cheers,
+> Andrea
 
