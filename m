@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96E494CC4B8
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Mar 2022 19:10:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.283647.482744 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E028C4CC577
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Mar 2022 19:53:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.283682.482774 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPpuQ-0001zW-9W; Thu, 03 Mar 2022 18:10:38 +0000
+	id 1nPqZK-0007qd-0W; Thu, 03 Mar 2022 18:52:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 283647.482744; Thu, 03 Mar 2022 18:10:38 +0000
+Received: by outflank-mailman (output) from mailman id 283682.482774; Thu, 03 Mar 2022 18:52:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPpuQ-0001xM-5S; Thu, 03 Mar 2022 18:10:38 +0000
-Received: by outflank-mailman (input) for mailman id 283647;
- Thu, 03 Mar 2022 18:10:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Qm5B=TO=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1nPpuP-0001x5-2o
- for xen-devel@lists.xenproject.org; Thu, 03 Mar 2022 18:10:37 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3964a05b-9b1d-11ec-8eba-a37418f5ba1a;
- Thu, 03 Mar 2022 19:10:36 +0100 (CET)
-Received: by mail-lf1-x12d.google.com with SMTP id j15so9895691lfe.11
- for <xen-devel@lists.xenproject.org>; Thu, 03 Mar 2022 10:10:36 -0800 (PST)
+	id 1nPqZJ-0007nB-RS; Thu, 03 Mar 2022 18:52:53 +0000
+Received: by outflank-mailman (input) for mailman id 283682;
+ Thu, 03 Mar 2022 18:52:51 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nPqZH-0007n1-FP; Thu, 03 Mar 2022 18:52:51 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nPqZH-0003o7-Di; Thu, 03 Mar 2022 18:52:51 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nPqZG-00005i-Vc; Thu, 03 Mar 2022 18:52:51 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nPqZG-0007Gd-V8; Thu, 03 Mar 2022 18:52:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,89 +42,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3964a05b-9b1d-11ec-8eba-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=1CqBs+YUxF44l3nieZcK8Q9lRd9kbywBwBSvMkAlOFo=;
-        b=NTzW5I4+W9Il/Avwninx4chD/uORuqrK7rVqtechFDye8t9tbQcdHVTwhjZRDeUuVS
-         WfVzCIpgH9XuHVRwwrpISRgjmhIAV8j47brbtj2me38y1vrBsF3EF2uIrmCHXSeVyQqy
-         JOFP85DOhiw82s79UxUZqQtgqItVwMxaMS5p+8rMz5fLjWNKJCXWPUBQXLSAa8GUeJd5
-         j9r9MQ8URBpk94AcLLWJNbtH/KeMYPKo2exDou2r4EuHr3UqwfGx9twdNt/DaOkvcrx/
-         ZZw3/41BDrwQ76SBzTITtJrYXHTnVAnsecVHKfC+/M8xSEPTYC91LAWgfwFKyRb0GN2V
-         +M5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=1CqBs+YUxF44l3nieZcK8Q9lRd9kbywBwBSvMkAlOFo=;
-        b=6aAbvlQPBBjRnS0eg1cC/CzIIxGB8pFJ5hUJTtlVVAIySU4dYTMeklQwZP77fbsQBr
-         aqmUVGvgI/oQIZo2tXO3tUWGXIF3g/zaISJgDkdFky/w4Pe7ITIeyeCNHthUCVzR9koz
-         rELDP91RITo8ITd/T4Jxh/SmW3EyK5wVRz3enk5GIpPS3NGnQc8g9XkNhNa0eRO1wLci
-         cIR6b14ts74WYXssbSlfIKuQvkDjAxMWXub5+uuc498QhI0WpzRsD8K7nQwaB/5OesJ6
-         QqyU+Z9KxjRru5ZDqaPpBC+EzMRPN9sd5yNsx7ohq9UPikG8/NUrk+3681ugmvhtr5Rx
-         mgXw==
-X-Gm-Message-State: AOAM533MEmThHQdpPSkbi2pO/H0hIYqJO4FVXEK1w1UXUeyXNyr3C90u
-	KcrR1GJNduM4lwsi9kw8q/ipAWAiFjCB2AVrf9MK9oqe
-X-Google-Smtp-Source: ABdhPJxh7hQ66xbUam3Bwpl4lZRI47OnC/HlWH4jvAikAas0UOlmRtyLDW0TKUjWPELtlDqEQAl85/uKfLyPUoX3w/o=
-X-Received: by 2002:ac2:4855:0:b0:443:888e:5982 with SMTP id
- 21-20020ac24855000000b00443888e5982mr21903031lfy.447.1646331035882; Thu, 03
- Mar 2022 10:10:35 -0800 (PST)
-MIME-Version: 1.0
-References: <osstest-168340-mainreport@xen.org>
-In-Reply-To: <osstest-168340-mainreport@xen.org>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Thu, 3 Mar 2022 13:10:24 -0500
-Message-ID: <CAKf6xpuq7D8dUZz43CoH1-J_cK8TDyVFrUpM4V_AJycUZXfmkQ@mail.gmail.com>
-Subject: Re: [ovmf test] 168340: regressions - FAIL
-To: osstest service owner <osstest-admin@xenproject.org>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Htit0+xzXaWDziKQG3QNzZXGToLzlC7KTgJxYx5wADw=; b=6TeKWNsR8c/Xwoeb9bMQTxnaRZ
+	QjL6sqU6ekqAjtMStugxf3xkhk+BfS68c3snd95x63FOHFPKw7hKm23v817FfZgaKSmxRvOUSgR6G
+	2j+t7Pd7WEUvkDasv63PI2GztQhS3+BGzpn/vSfVRnzUHrnfo1bdThADMFjnNLtTj5jo=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168374-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 168374: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=3e56754b08871ccceff856ff634731b9b9bccbbe
+X-Osstest-Versions-That:
+    xen=4b7fd8153ddfe95d6d427ff241abb6fdf37e027b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 03 Mar 2022 18:52:50 +0000
 
-On Wed, Mar 2, 2022 at 12:57 PM osstest service owner
-<osstest-admin@xenproject.org> wrote:
->
-> flight 168340 ovmf real [real]
-> http://logs.test-lab.xenproject.org/osstest/logs/168340/
->
-> Regressions :-(
->
-> Tests which did not succeed and are blocking,
-> including tests which could not be run:
->  build-amd64                   6 xen-build                fail REGR. vs. 168254
->  build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
->  build-i386                    6 xen-build                fail REGR. vs. 168254
->  build-i386-xsm                6 xen-build                fail REGR. vs. 168254
->
+flight 168374 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168374/
 
-> commit 6a890db161cd6d378bec3499a1e774db3f5a27a7
-> Author: Jason <yun.lou@intel.com>
-> Date:   Mon Jan 10 22:30:29 2022 +0800
->
->     BaseTools: Upgrade the version of NASM tool
->
->     REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
->
->     Upgrade the version of NASM tool to avoid compilation errors when
->     compiling NASM code change.
+Failures :-/ but no regressions.
 
-...
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-> commit bbaa00dd01ed0df30e43a5a89fd2b0433d858b73
-> Author: Jason <yun.lou@intel.com>
-> Date:   Mon Jan 10 22:05:47 2022 +0800
->
->     MdePkg: Remove the macro definitions regarding Opcode.
->
->     REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
->
->     Remove the macro definitions regarding Opcode because new version of
->     NASM tool(e.g. v2.15.05) supports the corresponding instructions.
->     Note: This patch need to be merged after other NASM code change to avoid
->     compilation errors.
+version targeted for testing:
+ xen                  3e56754b08871ccceff856ff634731b9b9bccbbe
+baseline version:
+ xen                  4b7fd8153ddfe95d6d427ff241abb6fdf37e027b
 
-Looks like OVMF now expects NASM v2.15.05.
+Last test of basis   168331  2022-03-02 09:00:26 Z    1 days
+Testing same since   168374  2022-03-03 14:00:31 Z    0 days    1 attempts
 
--Jason
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   4b7fd8153d..3e56754b08  3e56754b08871ccceff856ff634731b9b9bccbbe -> smoke
 
