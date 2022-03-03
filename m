@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BC6A4CC198
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Mar 2022 16:38:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.283472.482488 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60C1C4CC1B4
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Mar 2022 16:41:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.283479.482500 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPnWz-0005qI-5o; Thu, 03 Mar 2022 15:38:17 +0000
+	id 1nPnaB-0007EB-Lp; Thu, 03 Mar 2022 15:41:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 283472.482488; Thu, 03 Mar 2022 15:38:17 +0000
+Received: by outflank-mailman (output) from mailman id 283479.482500; Thu, 03 Mar 2022 15:41:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPnWz-0005oT-2q; Thu, 03 Mar 2022 15:38:17 +0000
-Received: by outflank-mailman (input) for mailman id 283472;
- Thu, 03 Mar 2022 15:38:16 +0000
+	id 1nPnaB-0007Be-I7; Thu, 03 Mar 2022 15:41:35 +0000
+Received: by outflank-mailman (input) for mailman id 283479;
+ Thu, 03 Mar 2022 15:41:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=bD3B=TO=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1nPnWy-0005oN-IB
- for xen-devel@lists.xenproject.org; Thu, 03 Mar 2022 15:38:16 +0000
-Received: from ppsw-41.csi.cam.ac.uk (ppsw-41.csi.cam.ac.uk [131.111.8.141])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f033d1ee-9b07-11ec-8eba-a37418f5ba1a;
- Thu, 03 Mar 2022 16:38:14 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:44996)
- by ppsw-41.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.139]:25)
- with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1nPnWs-0010K9-QR (Exim 4.95) (return-path <amc96@srcf.net>);
- Thu, 03 Mar 2022 15:38:10 +0000
-Received: from [192.168.1.10] (host-92-12-45-187.as13285.net [92.12.45.187])
- (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id E56711FB21;
- Thu,  3 Mar 2022 15:38:09 +0000 (GMT)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ylIu=TO=citrix.com=prvs=0548df38f=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1nPnaA-0007BY-11
+ for xen-devel@lists.xenproject.org; Thu, 03 Mar 2022 15:41:34 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 654a6d86-9b08-11ec-8eba-a37418f5ba1a;
+ Thu, 03 Mar 2022 16:41:32 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,40 +36,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f033d1ee-9b07-11ec-8eba-a37418f5ba1a
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <e23e8804-8ee8-aba0-af6e-c5967f8611a7@srcf.net>
-Date: Thu, 3 Mar 2022 15:38:09 +0000
+X-Inumbo-ID: 654a6d86-9b08-11ec-8eba-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1646322092;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=xY/KKbt1ZFQSLEuxynuvlI+oXBQAH4lPJZi4p7ek0TQ=;
+  b=eo3u8dNxUv3c0TmmV6/4q5kZxcpcZajg4yWDK0P/N4qnOtdlPPLVJbdR
+   VZRMC998HGf1TXvqZPNlrQWen/RsqLFmaQcQFZUluVnWlAxxhbNeKrF/U
+   sqKyCBfg2L1nFAgiAYfe1m/l8fZLQJ6SnJmhlcCWLlwf4H89XiVzJToY6
+   Q=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 65406755
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:czCoa6jfUEqlTUeiEKHpHbd2X161gRAKZh0ujC45NGQN5FlHY01je
+ htvUTyCa66CNmH3c4hzbYng80gCuZfXztFrTQBqriwyF3kb9cadCdqndUqhZCn6wu8v7a5EA
+ 2fyTvGacajYm1eF/k/F3oDJ9CU6jefSLlbFILas1hpZHGeIcw98z0M78wIFqtQw24LhWFvW4
+ YmaT/D3YzdJ5RYlagr41IrbwP9flKyaVOQw5wFWiVhj5TcyplFNZH4tDfjZw0jQG+G4KtWSV
+ efbpIxVy0uCl/sb5nFJpZ6gGqECaua60QFjERO6UYD66vRJjnRaPqrWqJPwwKqY4tmEt4kZ9
+ TlDiXC/YR8GE6vvlsteagFFCid9fp9+wq35LVHq5KR/z2WeG5ft6/BnDUVwNowE4OdnR2pJ8
+ JT0KhhUMErF3bjvhuvmFK883azPL+GyVG8bknhm0THeC+dgWZ3ZSr/GzdRZwC0xloZFGvO2i
+ 88xN2czNEqfPkAn1lE/KY4ht+6Qt3LDazhJrEvKmukR4mrJ9VkkuFTqGIWMIYHbLSlPpW6mo
+ WbB83X8EwstHtWVwjqY8VqhnubK2yj8Xeo6HrCi6uRjhlHVw2UJEQAXTnOyu/z/gUm7M/pPJ
+ kpR9icwoKwa8E2wUsK7TxC+uGSDvBMXR5xXCeJSwB6J4rrZ5UCeHGdsZjxLZcEitcQ2bSc3z
+ VLPlNTsbRRtrbmURHS15rqS6zSoNkA9NnQebCUJSQ8E5djLo4wpiB/LCNF5H8aIYsbdQG+qh
+ WrQ9W5n2utV3ZVjO7iHEU7vmx2BoLvHYU0M/hjOWGHm3DtDdrCpTtn9gbTE1spoIIGcR1iHm
+ XELncmC8ewDZa2weDyxrPYlR+/wuavcWNHIqRs2RsR6qWzxk5K2Vd0IuFlDyFFV3tHokNMDS
+ Gvaoktv6ZBaJxNGhocnMtvqW6zGIUUNfOkJt8w4jPITOvCdlyfdpUmCgHJ8OUi3yiDAdollZ
+ P+mnT6EVypyNEie5GPeqx0h+bEq3Dsi4mjYWIr2yR+quZLHOiLLE+tbbArVMb1ghE9hnOkz2
+ 4wFXydt408CONASnwGNqdJDRbz0BSJT6W/KRzx/KbfYf1sO9JAJAP7N27IxE7GJbIwO/tokC
+ kqVAxcCoHKm3CWvAVzTNhhLMeq/Nb4i/SNTFXF9Zj6Ahil8CbtDGY9CLvPbi5F8r7c9pRO1J
+ tFYE/i97gNnEWyWq2xANsCm9OSPtn2D3GqzAsZsWxBnF7YIeuAD0oaMktfHnMXWMheKiA==
+IronPort-HdrOrdr: A9a23:IMJNXq3fluYrFFRgFvQECAqjBLAkLtp133Aq2lEZdPRUGvb4qy
+ mLpoV96faUskd0ZJhOo7y90cW7Lk80sKQFh7X5Xo3SOTUO2lHYT72KhLGKq1aLdhEWtNQtt5
+ uIG5IOceEYZmIbsS+V2meFL+o=
+X-IronPort-AV: E=Sophos;i="5.90,151,1643691600"; 
+   d="scan'208";a="65406755"
+Date: Thu, 3 Mar 2022 15:41:25 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [XEN PATCH v9 24/30] build: grab common EFI source files in arch
+ specific dir
+Message-ID: <YiDhpSZC1z/duG4q@perard.uk.xensource.com>
+References: <20220125110103.3527686-1-anthony.perard@citrix.com>
+ <20220125110103.3527686-25-anthony.perard@citrix.com>
+ <3bde2fea-f3fd-3926-b98d-aa0afb549bf8@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [PATCH] build: export potentially overridden tool chain
- components
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <ff363631-bf5c-83a8-ccc4-15ddd1eb1d3c@suse.com>
-From: Andrew Cooper <amc96@srcf.net>
-In-Reply-To: <ff363631-bf5c-83a8-ccc4-15ddd1eb1d3c@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <3bde2fea-f3fd-3926-b98d-aa0afb549bf8@suse.com>
 
-On 28/02/2022 16:11, Jan Beulich wrote:
-> When overriding the tool chain via CROSS_COMPILE, the resulting
-> components need to be made available to, in particular (but not limited
-> to) the check-endbr.sh script. Note that we don't allow overriding
-> ADDR2LINE yet; this would first require additions to some config/*.mk
-> before it would make sense to export the resulting variable as well.
->
-> The lack of NM exporting was apparently not a problem so far, but add it
-> at this occasion as well - we're using the tool, after all.
->
-> Fixes: 4d037425dccf ("x86: Build check for embedded endbr64 instructions")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Thu, Mar 03, 2022 at 11:37:08AM +0100, Jan Beulich wrote:
+> On 25.01.2022 12:00, Anthony PERARD wrote:
+> > --- a/xen/arch/x86/Makefile
+> > +++ b/xen/arch/x86/Makefile
+> > @@ -77,8 +77,9 @@ obj-$(CONFIG_COMPAT) += x86_64/platform_hypercall.o
+> >  obj-y += sysctl.o
+> >  endif
+> >  
+> > -# Allows "clean" to descend into boot/
+> > +# Allows "clean" to descend
+> >  subdir- += boot
+> > +subdir- += efi
+> 
+> No similar addition is needed for Arm?
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+No, because Arm already have "obj-$(CONFIG_ARM_64) += efi/", which has
+the same effect on clean.
+
+Make clean doesn't use ${ALL_OBJS} to find out which directory to clean, so
+adding "subdir-" is needed at the moment.
+
+> > --- /dev/null
+> > +++ b/xen/common/efi/efi-common.mk
+> > @@ -0,0 +1,15 @@
+> > +EFIOBJ-y := boot.init.o pe.init.o ebmalloc.o runtime.o
+> > +EFIOBJ-$(CONFIG_COMPAT) += compat.o
+> > +
+> > +CFLAGS-y += -fshort-wchar
+> > +CFLAGS-y += -iquote $(srctree)/common/efi
+> > +
+> > +# Part of the command line transforms $(obj) in to a relative reverted path.
+> > +# e.g.: It transforms "dir/foo/bar" into successively
+> > +#       "dir foo bar", ".. .. ..", "../../.."
+> > +$(obj)/%.c: $(srctree)/common/efi/%.c FORCE
+> > +	$(Q)ln -nfs $(subst $(space),/,$(patsubst %,..,$(subst /, ,$(obj))))/common/efi/$(<F) $@
+> 
+> What is the "reverted" about in the comment? Also (nit) I think you want
+> s/in to/into/.
+
+I've tried to described in the single word that the result is a relative
+path that goes in the opposite direction to the original relative path.
+Instead of going down, it goes up the hierarchy of directories.
+Maybe "reversed" would be better? Do you have other suggestion?
+
+Thanks,
+
+-- 
+Anthony PERARD
 
