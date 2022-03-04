@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F91C4CDC00
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Mar 2022 19:17:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.284409.483685 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFDFB4CDBFF
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Mar 2022 19:17:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.284406.483679 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nQCU5-0002W8-K5; Fri, 04 Mar 2022 18:16:57 +0000
+	id 1nQCU5-0002NX-55; Fri, 04 Mar 2022 18:16:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 284409.483685; Fri, 04 Mar 2022 18:16:57 +0000
+Received: by outflank-mailman (output) from mailman id 284406.483679; Fri, 04 Mar 2022 18:16:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nQCU5-0002Mr-7n; Fri, 04 Mar 2022 18:16:57 +0000
-Received: by outflank-mailman (input) for mailman id 284409;
- Fri, 04 Mar 2022 17:47:58 +0000
+	id 1nQCU4-0002DV-Mb; Fri, 04 Mar 2022 18:16:56 +0000
+Received: by outflank-mailman (input) for mailman id 284406;
+ Fri, 04 Mar 2022 17:47:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WvCO=TP=xt3.it=ms@srs-se1.protection.inumbo.net>)
- id 1nQC22-0005R5-Kj
- for xen-devel@lists.xenproject.org; Fri, 04 Mar 2022 17:47:58 +0000
+ id 1nQC21-0005R5-KP
+ for xen-devel@lists.xenproject.org; Fri, 04 Mar 2022 17:47:57 +0000
 Received: from radon.xt3.it (radon.xt3.it [2a01:4f8:190:4055::2])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 384e0956-9be3-11ec-8539-5f4723681683;
+ id 38adf329-9be3-11ec-8539-5f4723681683;
  Fri, 04 Mar 2022 18:47:55 +0100 (CET)
 Received: from nb2assolieri.mat.unimo.it ([155.185.4.56] helo=localhost)
  by radon.xt3.it with esmtpsa (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.89) (envelope-from <ms@xt3.it>)
- id 1nQC1y-0008PH-8A; Fri, 04 Mar 2022 18:47:54 +0100
+ id 1nQC1y-0008PQ-U7; Fri, 04 Mar 2022 18:47:55 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,7 +40,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 384e0956-9be3-11ec-8539-5f4723681683
+X-Inumbo-ID: 38adf329-9be3-11ec-8539-5f4723681683
 From: Marco Solieri <marco.solieri@minervasys.tech>
 To: xen-devel@lists.xenproject.org
 Cc: Marco Solieri <marco.solieri@minervasys.tech>,
@@ -53,9 +53,9 @@ Cc: Marco Solieri <marco.solieri@minervasys.tech>,
 	Marco Solieri <marco.solieri@unimore.it>,
 	Andrea Bastoni <andrea.bastoni@minervasys.tech>,
 	Luca Miccio <lucmiccio@gmail.com>
-Subject: [PATCH 02/36] Revert "xen/arm: mm: Initialize page-tables earlier"
-Date: Fri,  4 Mar 2022 18:46:27 +0100
-Message-Id: <20220304174701.1453977-3-marco.solieri@minervasys.tech>
+Subject: [PATCH 03/36] xen/arm: restore xen_paddr argument in setup_pagetables
+Date: Fri,  4 Mar 2022 18:46:28 +0100
+Message-Id: <20220304174701.1453977-4-marco.solieri@minervasys.tech>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220304174701.1453977-1-marco.solieri@minervasys.tech>
 References: <20220304174701.1453977-1-marco.solieri@minervasys.tech>
@@ -64,87 +64,79 @@ Content-Transfer-Encoding: 8bit
 
 From: Luca Miccio <lucmiccio@gmail.com>
 
-This reverts commit 3a5d341681af650825bbe3bee9be5d187da35080.
-
-The coloring support  will be configurable within the Xen command line
-but it will be initialized before the page-tables; this is necessary
-for coloring the hypervisor itself beacuse we will create a specific
-mapping for it that could be configured using some options.
-In order to parse all the needed information from the device tree, we
-need to revert the above commit and restore the previous order for
-page-tables initialization.
+Coloring support will re-enable part of the Xen relocation since the
+underlying idea is to "relocate using coloring" for the hypervisors
+itself.
+We setup a target region that will be used exclusively from Xen and
+it will be mapped using the coloring configuration of the hypervisor.
+Part of the relocation we need to bring back is the usage of xen_paddr
+variable that will tell us the physical start address where Xen is
+located.
+Add this variable to the setup_pagetables function and set it properly
+when coloring is not enabled.
+Later on it will be initialized accordingly whether the coloring support
+is enabled or not.
 
 Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
 ---
- xen/arch/arm/mm.c    | 11 +++++++++--
- xen/arch/arm/setup.c |  4 ++--
- 2 files changed, 11 insertions(+), 4 deletions(-)
+ xen/arch/arm/include/asm/mm.h | 2 +-
+ xen/arch/arm/mm.c             | 2 +-
+ xen/arch/arm/setup.c          | 6 +++---
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
+diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
+index 424aaf2823..487be7cf59 100644
+--- a/xen/arch/arm/include/asm/mm.h
++++ b/xen/arch/arm/include/asm/mm.h
+@@ -176,7 +176,7 @@ extern unsigned long total_pages;
+ #define PDX_GROUP_SHIFT SECOND_SHIFT
+ 
+ /* Boot-time pagetable setup */
+-extern void setup_pagetables(unsigned long boot_phys_offset);
++extern void setup_pagetables(unsigned long boot_phys_offset, paddr_t xen_paddr);
+ /* Map FDT in boot pagetable */
+ extern void *early_fdt_map(paddr_t fdt_paddr);
+ /* Remove early mappings */
 diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-index b1eae767c2..e6381e46e6 100644
+index e6381e46e6..fd7a313d88 100644
 --- a/xen/arch/arm/mm.c
 +++ b/xen/arch/arm/mm.c
-@@ -551,6 +551,7 @@ static inline lpae_t pte_of_xenaddr(vaddr_t va)
-     return mfn_to_xen_entry(maddr_to_mfn(ma), MT_NORMAL);
- }
+@@ -634,7 +634,7 @@ static void clear_table(void *table)
  
-+/* Map the FDT in the early boot page table */
- void * __init early_fdt_map(paddr_t fdt_paddr)
+ /* Boot-time pagetable setup.
+  * Changes here may need matching changes in head.S */
+-void __init setup_pagetables(unsigned long boot_phys_offset)
++void __init setup_pagetables(unsigned long boot_phys_offset, paddr_t xen_paddr)
  {
-     /* We are using 2MB superpage for mapping the FDT */
-@@ -573,7 +574,7 @@ void * __init early_fdt_map(paddr_t fdt_paddr)
-     /* The FDT is mapped using 2MB superpage */
-     BUILD_BUG_ON(BOOT_FDT_VIRT_START % SZ_2M);
- 
--    create_mappings(xen_second, BOOT_FDT_VIRT_START, paddr_to_pfn(base_paddr),
-+    create_mappings(boot_second, BOOT_FDT_VIRT_START, paddr_to_pfn(base_paddr),
-                     SZ_2M >> PAGE_SHIFT, SZ_2M);
- 
-     offset = fdt_paddr % SECOND_SIZE;
-@@ -588,7 +589,7 @@ void * __init early_fdt_map(paddr_t fdt_paddr)
- 
-     if ( (offset + size) > SZ_2M )
-     {
--        create_mappings(xen_second, BOOT_FDT_VIRT_START + SZ_2M,
-+        create_mappings(boot_second, BOOT_FDT_VIRT_START + SZ_2M,
-                         paddr_to_pfn(base_paddr + SZ_2M),
-                         SZ_2M >> PAGE_SHIFT, SZ_2M);
-     }
-@@ -699,6 +700,12 @@ void __init setup_pagetables(unsigned long boot_phys_offset)
-     pte.pt.table = 1;
-     xen_second[second_table_offset(FIXMAP_ADDR(0))] = pte;
- 
-+    /* ... DTB */
-+    pte = boot_second[second_table_offset(BOOT_FDT_VIRT_START)];
-+    xen_second[second_table_offset(BOOT_FDT_VIRT_START)] = pte;
-+    pte = boot_second[second_table_offset(BOOT_FDT_VIRT_START + SZ_2M)];
-+    xen_second[second_table_offset(BOOT_FDT_VIRT_START + SZ_2M)] = pte;
-+
- #ifdef CONFIG_ARM_64
-     ttbr = (uintptr_t) xen_pgtable + phys_offset;
- #else
+     uint64_t ttbr;
+     lpae_t pte, *p;
 diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index c5a556855e..100b322b3e 100644
+index 100b322b3e..b8d4f50d90 100644
 --- a/xen/arch/arm/setup.c
 +++ b/xen/arch/arm/setup.c
-@@ -877,8 +877,6 @@ void __init start_xen(unsigned long boot_phys_offset,
-     /* Initialize traps early allow us to get backtrace when an error occurred */
-     init_traps();
+@@ -867,6 +867,7 @@ void __init start_xen(unsigned long boot_phys_offset,
+     struct bootmodule *xen_bootmodule;
+     struct domain *d;
+     int rc;
++    paddr_t xen_paddr = (paddr_t)(_start + boot_phys_offset);
  
--    setup_pagetables(boot_phys_offset);
--
-     smp_clear_cpu_maps();
+     dcache_line_bytes = read_dcache_line_bytes();
  
-     device_tree_flattened = early_fdt_map(fdt_paddr);
-@@ -900,6 +898,8 @@ void __init start_xen(unsigned long boot_phys_offset,
+@@ -893,12 +894,11 @@ void __init start_xen(unsigned long boot_phys_offset,
+     cmdline_parse(cmdline);
+ 
+     /* Register Xen's load address as a boot module. */
+-    xen_bootmodule = add_boot_module(BOOTMOD_XEN,
+-                             (paddr_t)(uintptr_t)(_start + boot_phys_offset),
++    xen_bootmodule = add_boot_module(BOOTMOD_XEN, xen_paddr,
                               (paddr_t)(uintptr_t)(_end - _start + 1), false);
      BUG_ON(!xen_bootmodule);
  
-+    setup_pagetables(boot_phys_offset);
-+
+-    setup_pagetables(boot_phys_offset);
++    setup_pagetables(boot_phys_offset, xen_paddr);
+ 
      setup_mm();
  
-     /* Parse the ACPI tables for possible boot-time configuration */
 -- 
 2.30.2
 
