@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6197B4CCF7F
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Mar 2022 09:03:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.283992.483139 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B97A4CCF41
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Mar 2022 08:50:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.283995.483118 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nQ2uO-00079k-Ti; Fri, 04 Mar 2022 08:03:28 +0000
+	id 1nQ2h9-0003Zo-1g; Fri, 04 Mar 2022 07:49:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 283992.483139; Fri, 04 Mar 2022 08:03:28 +0000
+Received: by outflank-mailman (output) from mailman id 283995.483118; Fri, 04 Mar 2022 07:49:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nQ2uO-00077h-Q2; Fri, 04 Mar 2022 08:03:28 +0000
-Received: by outflank-mailman (input) for mailman id 283992;
- Fri, 04 Mar 2022 07:45:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=evYc=TP=gmail.com=trigger.huang@srs-se1.protection.inumbo.net>)
- id 1nQ2ci-0003I0-E5
- for xen-devel@lists.xenproject.org; Fri, 04 Mar 2022 07:45:12 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0503ec92-9b8f-11ec-8eba-a37418f5ba1a;
- Fri, 04 Mar 2022 08:45:11 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id x15so11329551wru.13
- for <xen-devel@lists.xenproject.org>; Thu, 03 Mar 2022 23:45:11 -0800 (PST)
+	id 1nQ2h8-0003XX-Tg; Fri, 04 Mar 2022 07:49:46 +0000
+Received: by outflank-mailman (input) for mailman id 283995;
+ Fri, 04 Mar 2022 07:49:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=LpR9=TP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1nQ2h7-0003XR-Co
+ for xen-devel@lists.xenproject.org; Fri, 04 Mar 2022 07:49:45 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a7c787b5-9b8f-11ec-8539-5f4723681683;
+ Fri, 04 Mar 2022 08:49:44 +0100 (CET)
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com
+ (mail-am5eur03lp2052.outbound.protection.outlook.com [104.47.8.52]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-33-2YBc3VmMOt2715J0Ij5VWA-1; Fri, 04 Mar 2022 08:49:42 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by DB6PR0402MB2757.eurprd04.prod.outlook.com (2603:10a6:4:94::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Fri, 4 Mar
+ 2022 07:49:40 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::d479:b728:345c:bd65%6]) with mapi id 15.20.5038.017; Fri, 4 Mar 2022
+ 07:49:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,187 +51,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0503ec92-9b8f-11ec-8eba-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:from:date:message-id:subject:to;
-        bh=VYGOGoGLQH9F6CymjlPAmDax1Fii+CrifqjSgPcKrLs=;
-        b=o7icDHbW4OOxUmKH4gZi1/q9xSJqgVNGc27ZarBZ3XJjK9xkdbRtDddyS73FonnhWQ
-         qEyDkwoOGVeyDxCaI+4Gv4sEIsG5EI9GxhswsohZzfcM7sqz2cVIrJTDZQZLleoohxIJ
-         VGK9vB099xKaMmrl0Vk/Tpyy5Kf5sdnbrZB6T1wa+hMTnYPCIvvqoO6MWXkOCk4kJWIi
-         Degy99kas9cufP+K+QLHyIPTjZMYU2z5zunXIdYFFd8wuvsgvmJ+j1vVs6G/4Ibn34Jq
-         hZjWQd0wXyaOy81xQlLWdU9TfUlx+0tjIsVMIYJh0SiXVxRItBL8Wijgoxp1CWiKenfs
-         dFAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=VYGOGoGLQH9F6CymjlPAmDax1Fii+CrifqjSgPcKrLs=;
-        b=r03CikY/QuCjSyBxHVRouJtY0T+Fv4D3TR6aiIkyVK8BEXOEkOgk1JBw9Flvxu+IIz
-         2SKZ2QLzNZH4upySJvTX4iAOwbgvO4YfWcHL3yl7ZgcflxbHoqaX9GrdocNmqR1d0Dba
-         t1///kLlw2bvZySh+mCCEbJgeUT/WJpG6Iq2HL+Pb1GHrZ1J9MSNZgepmucWfKPtzlpg
-         0iTQ9GS9OKH/1CSg18en1j0LEzgBvcWQgkAaegqGosGskl5DkDf9jqQYkx1jbf/nS8WC
-         WJYgtoV0WeM8n1XyIcAytzb9z3UYktqUvpCo6L8KgHhbx0wXXXU3SoavuQb6ZKcaJkKT
-         yXVQ==
-X-Gm-Message-State: AOAM530FZuuWmOyMWweSEiYzfPPxBKHAhhyY9lSxzpVwg71SyKfZigu6
-	qUhC8iJFlL3E1IHZ1kGl4Zuqr1fa3hQ1VnbVGoNAXMdSwzQ=
-X-Google-Smtp-Source: ABdhPJxy2xNmZcj0AYSZJQQcBdc3gEtHQDPA23WqOMAsaWteErm6X9QQ4WiuzJx78rO2zgahRLdEpbTlM8rMmlqJ79o=
-X-Received: by 2002:a5d:514e:0:b0:1f0:25a5:2d49 with SMTP id
- u14-20020a5d514e000000b001f025a52d49mr8865529wrt.154.1646379910442; Thu, 03
- Mar 2022 23:45:10 -0800 (PST)
+X-Inumbo-ID: a7c787b5-9b8f-11ec-8539-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1646380183;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=/O8NOBCkJHew4SJp04VnA85nUKzZ6JUynilejL0ZA9A=;
+	b=XurWj9UgkYHdyCYRvfAWc9JrGrS4+v2ce6ywWdWgyBvD5geXxZsbuHPF//WBT2SX6OvawN
+	ZPusg/kyuNQb03AMMzdYyzlbhtjqQ2/7swPvlAtGkSUTZOKU+Q0DyqZI3YdZIheusNCvus
+	5p1Tt4fGWL97U1bFFOtid2aBG9xvo/s=
+X-MC-Unique: 2YBc3VmMOt2715J0Ij5VWA-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KugFAC3AwLdPnEccBvBKsb4d//57mNq0Img9gt8LrLGLSTZrCh3hU7bkCLtYyt3MwBTVFUTVpRUmSBjx05FOzRLbEkz2J+eTEAxjwMReMlZoywnFvPucyD39qzTj8OmOmZh8XDVPZxioxuC4720ztmMttou06qQSI2dgSHsbfRCn6lWwmlykTeLcziPa6zBMMbaExLWXjAzwghVj2LXIC5zcPbIDLIwqPQC6RCcnUNBKsFNbk87To9hE5whmysz3fnTkNG3MZSgIGJyAPuGAX/dTzaFbptGZ6KLfA1KWnSiRx5Sx6MtqMlPkZRPEaHEiurranJbh1BwaXJsczqVAuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/O8NOBCkJHew4SJp04VnA85nUKzZ6JUynilejL0ZA9A=;
+ b=Ckn1znu9dlrsVWga27fejWJXEbjrd3FjIcwsPwArkP6/bf7jBB6LsaXFYrAfy8QM9HBGsK27FC42wpeRSYJyyYeUogjaehrkGm5qfWVKygUlFNXhQWJ3JPwsJuFyz9ZZ9tGr+mszIloYMDPR/mdhe+Y/qO3AToqxjN0KonXWHjFR0buYGQF46fgzbgDEVvMsogFxnnShrKxmOrdxu2HQouIRLhc5Pm4BtuvH2bdQ4W9KE70tLnjU2gb98WLwUfrKu5pIUUn+/umKEEe73JATsWzK9zagSs/P3LzxExw+S8HRiSc4i716eTPVqvMDCJhgWj+Js6ECKWVGQ4Li5CGbEw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <2a9061de-3d68-20f7-75b9-b1b9491342f8@suse.com>
+Date: Fri, 4 Mar 2022 08:49:39 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.1
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86: also discard .fini_array in linker script
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0007.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1d::6) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-From: Trigger Huang <trigger.huang@gmail.com>
-Date: Fri, 4 Mar 2022 15:44:59 +0800
-Message-ID: <CANH0Q9k6SJQ+EXNZz+-ZPnPtsxHXthYcx1E6z8euSDEt7XhLQg@mail.gmail.com>
-Subject: How to create and start Xen guest VM by qemu-system-x86_64 command line
-To: xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000ba31c205d95fb164"
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: def1f291-5c06-4dcc-6f1c-08d9fdb38a04
+X-MS-TrafficTypeDiagnostic: DB6PR0402MB2757:EE_
+X-Microsoft-Antispam-PRVS:
+	<DB6PR0402MB275721F5219A0DFC60EF3E0CB3059@DB6PR0402MB2757.eurprd04.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	XM7APSdUAJmQ/EREdJGKmT204eSfIoJfRv2ZSl4LHU52G5387zz5A3yZ0YB9g8XwYZhMc2dCrsGyiV2HJoNqYbmEkmHUDDImrtgGaPa+XsW/qiMXaqbFwoud6ScdyNfQ18os5VAQMaj8DlAT7Ce+mCN+k+L3jDefYzTmR5TQ5FUVwWuSSInyzowmySSm4c1haR/9PCwo1zsTg2Lybp0zPFsKqkwYxMkzhqmi5n5BFPdeVTUqLwQBgyup7rHPuHVWbNKZGMAWyJcHaAi+UDiFmbN09rYY1i76RUuf++utTJTCBm+Zts9Q02ydb1ScY79LKM+HJZZgdzlwuUjYt/sDsQV31b+P9Xy0NdTYKMag1dmnAj1c1JRns4uVhqohPvecFmyRDAsrIVtLQb1K/QjdLyNLAmsdCfSQR23xBf3OyBtTHXv/Xdrm6cYZ8hw/T/h4Nx4EzO12RUjrUs6Wv6tRzvjDDxjpGS5+1lv3k69UVrz1iHh3Q8oTPcv4M0jaKxM5v8MaJZ/8isLkDYTIEXyzgxATYLaPo2Bp2Q7Y6Js9brKZN8JmnBtUzuRVHOZD8BGn6cbEpTp7nmVBNSAl1KlmjS1zsQkrhl+sq2d2WshjApfWAhnQsDjFVht9ajT3QTL4KZTo4mPfY5ftJHGqcMoPjl/mExcWCFUfCoWFGm5G4omBuYl6Y3ask5I4t371cnFti6HiwId5OHcACwiWsHr1imamkjqfefi4SMzhka8N1HltzKQizPX3B/G0egvFvjsYfIcOu7inq0BZ6Qy8xKG3Og==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(54906003)(6916009)(86362001)(316002)(6506007)(6486002)(31696002)(6512007)(508600001)(2616005)(8936002)(4744005)(5660300002)(2906002)(66476007)(66556008)(66946007)(26005)(38100700002)(186003)(31686004)(36756003)(8676002)(4326008)(142923001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OFBEVzU2a2o1WU00ZjhiZjRTUUljMTNiQ0pkSHp6aWVrT3B2Vm14OG9BT2oz?=
+ =?utf-8?B?Z283ZjNjVFFWa3dIZ1pJdEdTejhtRy9vN1NhMFNNWEZ4ZDdHcVRiU2Q1Wi9V?=
+ =?utf-8?B?cnJvczlISWlRSjhiYmt4QTlMSmI2Q0M1dDBxWU5WMUZvUHUwYkFIWXdiVG82?=
+ =?utf-8?B?V1BWWHVuM29Edlg1ZzN4V2RHWDc0em5WUktRUXBpY2ZISnFvVFhNSGFBVjQ1?=
+ =?utf-8?B?aUpQVklJVmxyYkJ1TEVleVlYUytYeVFqNVhrdlI2TzlBUHpOTlJPVUZDRGRJ?=
+ =?utf-8?B?RlZITmh2ekVzczJ2RVltTExaVys4Uy9ia2hYL20ydkt4S1o3RGJFNTJTY1hR?=
+ =?utf-8?B?MDdrNHlDN3BzMVhoQVVGajBOTHA1UTZBck8yNVJQM0laWFAycGhTRnhLWmFP?=
+ =?utf-8?B?TFhqVTY5am1rL2Qrc1Mxa2tua09nb3dycC9HZXJzQ2lMcjZzS1p0b3ZleGdN?=
+ =?utf-8?B?VjZWTllXWEhyRHJnNVVpaGFvSXJGYUNuUTA3RTB4dlR0ckJDWmFzWCt0R054?=
+ =?utf-8?B?YVdtNHdNeWNBbTdLTlZETWd3enJVSUVNajIzaERBaVhzLzhhRkluZFlUSGdQ?=
+ =?utf-8?B?UzdGYkFyTm9LY0F2c3Z0ZTVTR0dxanlBYzI2bjhZWklaaXhJNFpUd2c0dzFH?=
+ =?utf-8?B?aHA2NXBGN0JWdXVhWk9tTkNYM0hwcVN2cUN1UG5XYjdONUFKdlVRT1lid3NB?=
+ =?utf-8?B?R2MwWm90Q3V2RmQ5UU0yS3B0YXlWTmJhcVNVTzZIbWxCajJaTUNOVFRwbnRE?=
+ =?utf-8?B?T1dCUjRNVmNIc3lJVUNVOGZtYlVMSjVjczNhOTVMRCt1eVFMdVRIVlc3Z3Nq?=
+ =?utf-8?B?dEtZNU0xUnQyZmcyRktSWHpocUNhSW9ZWW1ZTklaOUlIckV5U1ZlVkhJNHBM?=
+ =?utf-8?B?ZVpQWkJSaWVURVg1L1o2TnVad1ZsQkpQRUwxL2Y1T2w0d0YwcFZaZU9ReVBG?=
+ =?utf-8?B?V20zbG10YmYrNDMrVGQxek5Bd0NaOGIyb2w5MXc2NnA2c2t4dVRlbGIrVHVz?=
+ =?utf-8?B?NzdKdmxySTZWL1FQTkQwSGRGNk9ha0t0V1Z1VVNwQVhmUE5WSHg4VXlUWGZ3?=
+ =?utf-8?B?M3haYXlZYVBuNkNDUXB4a1o4aGhGUkt3QjVpNExvdG9nSFNuOFJJUEcwS29U?=
+ =?utf-8?B?dURyTHVJNXVUbEh3b1Q0VmxBUzhmcnF4Q1BWZTFOQ1RiRjFmS2hoUC9UbnZx?=
+ =?utf-8?B?cURSb0h3K2JFQk02akVzYzBLL1FVYkk2Rklocmc2Wkh6RTN6MTQ0dDdibStR?=
+ =?utf-8?B?SzRYRnRPZmJPOWRVbjIyVHpBVE0zUWJCczk1YitZNGoyY3RzYXBFMEs2ajIr?=
+ =?utf-8?B?b1lqTWlEbnFQMkxJSURzeTQ2L3F3THkxMEdsVXMrckszRTFNTXRjU0JWVUdm?=
+ =?utf-8?B?NWF6Nno0K2I4aHFnazZQcks0OHRvSTNqekhrWW9wcloySk1oSVFqU2lnU1Ru?=
+ =?utf-8?B?Y051eEd5TWdFcnQ4Y21ULy9CTE05MVg5WXR5UHI1ckhXRXZManJiSndLUDdB?=
+ =?utf-8?B?N0Z0aHFQcDBGYlV3NFZ3K0Zoa2FxQllsd0dIV29MY3Zkbjh0K3hGVno4c1BF?=
+ =?utf-8?B?SDk2UE1JTUtUaS9UZUdUdTl2NEU3OFpJeElwY1huWHFjRHpmVy9sZ2orMlNz?=
+ =?utf-8?B?RkJ2dHN2U1RzNjBMdUxGblo5OGxKMnhSU2lPYVNFN3BtcFFQaGxUR3hLdlhC?=
+ =?utf-8?B?a041aVQ2NDJSNXo2R3JRdHh1bFc3NWs2S28wVUNPa21sbjBwK1Fha1h5YnBu?=
+ =?utf-8?B?R1BhM1ZvQXUvY0owL0VNak14SUlDMGNDbjZDc1lZTktZUThneU1RdUtybndT?=
+ =?utf-8?B?YmQ2MlZlK09hYUxRQ0tmVDF6SmRPaHhWb2tkVkh0bDRJMWdQeStncC9kMXg2?=
+ =?utf-8?B?V0dDK2h3NG1qODczTmpGaFcremphek92RGZDUDZQaS9FajBEUFBIRFRHYTIx?=
+ =?utf-8?B?SkQ1Z2FROXR4RlU2TjA3ZTBvWHUwNnVLNFV6NnRsd1BUeG1WRm4xRUtUS3k3?=
+ =?utf-8?B?OVRjVEp0WXo3enVYeGJxd09COEdqbUk5SFJkSmp5MSt2NXlURkN5dmZ3NXVr?=
+ =?utf-8?B?QUlSOXFPRGd6ZFg2Z01MTkh3UXJXa0txN0t1TC9xMWpIZkdIcHRYeFIrTENB?=
+ =?utf-8?B?VnN4T3htRnNmUVFtdjI4UzFtNzI4MVZjZkFrVTdIUk4vTEVIZXJYTFM2WWM1?=
+ =?utf-8?Q?1VJDHfAJjAxjtoxiDZJvzlc=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: def1f291-5c06-4dcc-6f1c-08d9fdb38a04
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2022 07:49:40.7092
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BUkOO6xnn/NQ1JEGLc6Ztn+dJ+yL3umX8WV2rxz1lfBeTpQ3G0lcm+t4txcuTOBq8iJOxmPWbkXYOPq3KVtxiQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0402MB2757
 
---000000000000ba31c205d95fb164
-Content-Type: text/plain; charset="UTF-8"
+This simply parallels .dtors. Both section types can reference
+.text.exit, which requires them to be discarded together with that one.
+Compilers, depending on their findings during the configure phase, may
+elect to use either model. While .{init,fini}_array look to be
+preferred, cross compilers apparently have this guessed, likely
+resulting in a fallback to .{c,d}tors. Hence we need to support both
+sets.
 
-Hello,
+Fixes: 4b7fd8153ddf ("x86: fold sections in final binaries")
+Reported-by: Andrew Cooper <Andrew.Cooper3@citrix.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+As mentioned elsewhere, I don't think init_constructors() is correct
+for the .ctors variant. But that's a separate issue.
 
-I have built & installed Xen 4.15 onto my Ubuntu20.04 platform successfully
-according to https://wiki.xenproject.org/wiki/Compiling_Xen_From_Source
-After reboot, I entered Domain 0 successfully. The command xl info shows
-the right version string.
+--- a/xen/arch/x86/xen.lds.S
++++ b/xen/arch/x86/xen.lds.S
+@@ -415,6 +415,8 @@ SECTIONS
+        *(.eh_frame)
+        *(.dtors)
+        *(.dtors.*)
++       *(.fini_array)
++       *(.fini_array.*)
+ #ifdef EFI
+        *(.comment)
+        *(.comment.*)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*host                   : xvgrelease                :
-5.13.0-30-genericversion                : #33~20.04.1-Ubuntu SMP Mon Feb 7
-14:25:10 UTC 2022machine                : x86_64nr_cpus                :
-16max_cpu_id             : 31nr_nodes               : 1cores_per_socket
-  : 8threads_per_core       : 2cpu_mhz                : 2994.377hw_caps
-           :
-178bf3ff:76d8320b:2e500800:244037ff:0000000f:219c91a9:00400004:00000500virt_caps
-             : pv hvm hvm_directio pv_directio hap shadowtotal_memory
-    : 15719free_memory            : 11425sharing_freed_memory   :
-0sharing_used_memory    : 0outstanding_claims     : 0free_cpus
- : 0xen_major              : 4xen_minor              : 15xen_extra
-     : .3-pre-atg08xen_version            : 4.15.3-pre-atg08xen_caps
-        : xen-3.0-x86_64 hvm-3.0-x86_32 hvm-3.0-x86_32p
-hvm-3.0-x86_64xen_scheduler          : credit2xen_pagesize           :
-4096platform_params        : virt_start=0xffff800000000000xen_changeset
-     : Fri Mar 4 13:33:49 2022 +0800 git:6aa4cdbc31xen_commandline        :
-placeholder dom0_mem=4096M,max:8192M no-real-mode edd=offcc_compiler
-     : gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0cc_compile_by          :
-xvgcc_compile_domain      :cc_compile_date        : Fri Mar  4 14:21:33 CST
-2022build_id               :
-234929adcb7588b1414c2b6e5477fa95052b4dedxend_config_format     : 4*
-
-Then my next step is to create ubuntu guest VM(sudo or use root user):
-   */usr/local/lib/xen/bin/qemu-system-x86_64 -smp 1 -xen-domid 4 -machine
-xenfv -m 4G -net nic,model=virtio -net user,hostfwd=tcp::2222-:22 -hda
-./u2004.qcow2 -boot d -cdrom ./ubuntu-20.04-desktop-amd64.iso*
-However, I always failed with the following error:
-
-*  qemu-system-x86_64: failed to map ioreq server resources: error 3
-handle=0x55eeb1f6c0b0    qemu-system-x86_64: xen hardware virtual machine
-initialisation failed*
-After debugging, the error is caused by osdep_xenforeignmemory_map_resource
-failed to invoke IOCTL_PRIVCMD_MMAP_RESOURCE. And this IOCTL will return
--1.
-
-So my question is, am I using the right qemu command? Anything else is
-needed to set/config?
-Note, if I didn't specify the option ' *-xen-domid 4 -machine xenfv* ', I
-can start qemu successfully
-
-Would you please help with it?
-
---000000000000ba31c205d95fb164
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hello,</div><div><br></div><div>I have built &amp; in=
-stalled Xen 4.15 onto my Ubuntu20.04 platform successfully according to <a =
-href=3D"https://wiki.xenproject.org/wiki/Compiling_Xen_From_Source">https:/=
-/wiki.xenproject.org/wiki/Compiling_Xen_From_Source</a> <br></div><div>Afte=
-r reboot, I entered Domain 0 successfully. The command xl info shows the ri=
-ght version string.</div><div><u><i>host =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 : xvg<br>release =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0: 5.13.0-30-generic<br>version =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0: #33~20.04.1-Ubuntu SMP Mon Feb 7 14=
-:25:10 UTC 2022<br>machine =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0: x86_64<br>nr_cpus =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0: 16<br>max_cpu_id =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 : 31<br=
->nr_nodes =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 : 1<br>cores_per=
-_socket =C2=A0 =C2=A0 =C2=A0 : 8<br>threads_per_core =C2=A0 =C2=A0 =C2=A0 :=
- 2<br>cpu_mhz =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0: 2994=
-.377<br>hw_caps =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0: 17=
-8bf3ff:76d8320b:2e500800:244037ff:0000000f:219c91a9:00400004:00000500<br>vi=
-rt_caps =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0: pv hvm hvm_direct=
-io pv_directio hap shadow<br>total_memory =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 : 15719<br>free_memory =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0: 11425=
-<br>sharing_freed_memory =C2=A0 : 0<br>sharing_used_memory =C2=A0 =C2=A0: 0=
-<br>outstanding_claims =C2=A0 =C2=A0 : 0<br>free_cpus =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0: 0<br>xen_major =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0: 4<br>xen_minor =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0: 15<br><b>xen_extra =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0: .3-pre-atg08<br>xen_version =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0:=
- 4.15.3-pre-atg08</b><br>xen_caps =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 : xen-3.0-x86_64 hvm-3.0-x86_32 hvm-3.0-x86_32p hvm-3.0-x86_64<br>x=
-en_scheduler =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0: credit2<br>xen_pagesize =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 : 4096<br>platform_params =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0: virt_start=3D0xffff800000000000<br>xen_changeset =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0: Fri Mar 4 13:33:49 2022 +0800 git:6aa4cdbc31<br>x=
-en_commandline =C2=A0 =C2=A0 =C2=A0 =C2=A0: placeholder dom0_mem=3D4096M,ma=
-x:8192M no-real-mode edd=3Doff<br>cc_compiler =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0: gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0<br>cc_compile_by =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0: xvg<br>cc_compile_domain =C2=A0 =C2=A0 =
-=C2=A0:<br>cc_compile_date =C2=A0 =C2=A0 =C2=A0 =C2=A0: Fri Mar =C2=A04 14:=
-21:33 CST 2022<br>build_id =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- : 234929adcb7588b1414c2b6e5477fa95052b4ded<br>xend_config_format =C2=A0 =
-=C2=A0 : 4</i><br></u></div><div><br></div><div>Then my next step is to cre=
-ate ubuntu guest VM(sudo or use root user):</div><div>=C2=A0=C2=A0 <u><i>/u=
-sr/local/lib/xen/bin/qemu-system-x86_64 -smp 1 <b>-xen-domid 4</b> -machine=
- xenfv -m 4G -net nic,model=3Dvirtio -net user,hostfwd=3Dtcp::2222-:22 -hda=
- ./u2004.qcow2 -boot d -cdrom ./ubuntu-20.04-desktop-amd64.iso</i></u></div=
-><div>However, I always failed with the following error:</div><div>=C2=A0=
-=C2=A0<u><i>=C2=A0 qemu-system-x86_64: failed to map ioreq server resources=
-: error 3 handle=3D0x55eeb1f6c0b0<br>=C2=A0=C2=A0=C2=A0 qemu-system-x86_64:=
- xen hardware virtual machine initialisation failed</i></u><br></div><div>A=
-fter debugging, the error is caused by osdep_xenforeignmemory_map_resource =
-failed to invoke IOCTL_PRIVCMD_MMAP_RESOURCE. And this IOCTL will return -1=
-.=C2=A0 <br></div><div><br></div><div>So my question is, am I using the rig=
-ht qemu command? Anything else is needed to set/config?</div><div>Note, if =
-I didn&#39;t specify the option &#39;
-<u><i><b>-xen-domid 4</b> -machine xenfv</i></u>
-
-&#39;, I can start qemu successfully<br></div><div><br></div><div>Would you=
- please help with it?<br></div><div><br></div></div>
-
---000000000000ba31c205d95fb164--
 
