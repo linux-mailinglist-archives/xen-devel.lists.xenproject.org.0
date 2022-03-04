@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 961EF4CCB63
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Mar 2022 02:44:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.283868.482985 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B3964CCB83
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Mar 2022 03:03:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.283880.482997 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPwzZ-0006VZ-HX; Fri, 04 Mar 2022 01:44:25 +0000
+	id 1nPxHm-0001L5-VT; Fri, 04 Mar 2022 02:03:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 283868.482985; Fri, 04 Mar 2022 01:44:25 +0000
+Received: by outflank-mailman (output) from mailman id 283880.482997; Fri, 04 Mar 2022 02:03:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPwzZ-0006S7-EQ; Fri, 04 Mar 2022 01:44:25 +0000
-Received: by outflank-mailman (input) for mailman id 283868;
- Fri, 04 Mar 2022 01:44:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zYUj=TP=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nPwzY-0006Qz-62
- for xen-devel@lists.xenproject.org; Fri, 04 Mar 2022 01:44:24 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9c5dd2e7-9b5c-11ec-8539-5f4723681683;
- Fri, 04 Mar 2022 02:44:21 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E210A61834;
- Fri,  4 Mar 2022 01:44:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A873CC004E1;
- Fri,  4 Mar 2022 01:44:18 +0000 (UTC)
+	id 1nPxHm-0001IB-Rx; Fri, 04 Mar 2022 02:03:14 +0000
+Received: by outflank-mailman (input) for mailman id 283880;
+ Fri, 04 Mar 2022 02:03:13 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nPxHl-0001I1-Qg; Fri, 04 Mar 2022 02:03:13 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nPxHl-00066i-OT; Fri, 04 Mar 2022 02:03:13 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nPxHl-0002V0-Do; Fri, 04 Mar 2022 02:03:13 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nPxHl-0003VS-DO; Fri, 04 Mar 2022 02:03:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,125 +42,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c5dd2e7-9b5c-11ec-8539-5f4723681683
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1646358259;
-	bh=hCMNUyzaAUdVodLem9QTKTwRgjSCd4NpJgNrmR8+qZo=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=IKVGsftGFSjWdA5FEcpGojFpiLEGnINXi+57ezYJlGQv4OJyvCMeSYkjPCC2MDoOQ
-	 vxdaF/6xzZ+oT0sfWYrWmSwYyWFYO94QUZUCeDUiIySOSqSy5z4xCOv+Dqv/45TcrW
-	 1eEqUqE2eunZe734Mzdurp6/Zvmc3IXhkF6a5wobU892PICDviy4BZhgQT4/l61ALE
-	 qH8t8h89AXo2iClJ4osslwc9RQfddew3lkSOYlYf//Q1DYYfjuyU44t28h/qrQ50jL
-	 ej4mWfuvlmcTUsXqPt8oNCaE5s4s6PBWlgRDAaudyNnweMuX3iLl0uPIuPswRKJJMi
-	 bUx8JzVVNqXOg==
-Date: Thu, 3 Mar 2022 17:44:17 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
-cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
-    stefanos@xilinx.com, julien@xen.org, Volodymyr_Babchuk@epam.com, 
-    bertrand.marquis@arm.com, andrew.cooper3@citrix.com, 
-    george.dunlap@citrix.com, jbeulich@suse.com, wl@xen.org, paul@xen.org, 
-    roger.pau@citrix.com, Ayan Kumar Halder <ayankuma@xilinx.com>
-Subject: Re: [XEN v9 4/4] xen/arm64: io: Handle data abort due to cache
- maintenance instructions
-In-Reply-To: <20220301124022.10168-5-ayankuma@xilinx.com>
-Message-ID: <alpine.DEB.2.22.394.2203031744100.3261@ubuntu-linux-20-04-desktop>
-References: <20220301124022.10168-1-ayankuma@xilinx.com> <20220301124022.10168-5-ayankuma@xilinx.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=923x2r/T1GSUvFZv01ykZT/Qu5D8DvRIGgxVC2iMhAQ=; b=ha8JJOv9HxyGCImIB01myWarx+
+	cyqYWSEA1i0P7fHKl5UzuAXvLwgUk6coTvqvK2t+6fMbSqUpm2CDe4eutheBoj9h2xsb9sgb6RyHf
+	DfkSc3sWtPQX9YEgxK0wF+lzRFOBczHIyIHbWsxI/qgmddD7gRCDulUz3ZxsGHSSb8Bo=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168386-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [xen-unstable-smoke test] 168386: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=1f410b0c7455748021be4ede59e7a0c0a2ffb1c4
+X-Osstest-Versions-That:
+    xen=b692523fafb39f5f930e1e8a316f7b8cebc9f62a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 04 Mar 2022 02:03:13 +0000
 
-On Tue, 1 Mar 2022, Ayan Kumar Halder wrote:
-> When the data abort is caused due to cache maintenance for an address,
-> there are two scenarios:-
-> 
-> 1. Address belonging to a non emulated region - For this, Xen should
-> set the corresponding bit in the translation table entry to valid and
-> return to the guest to retry the instruction. This can happen sometimes
-> as Xen need to set the translation table entry to invalid. (for eg
-> 'Break-Before-Make' sequence).
-> 
-> 2. Address belongs to an emulated region - Xen should ignore the
-> instruction (ie increment the PC) and return to the guest.
-> 
-> We try to deal with scenario#1, by invoking check_p2m(). If this is
-> unsuccessful, then we assume scenario#2.
-> 
-> Signed-off-by: Ayan Kumar Halder <ayankuma@xilinx.com>
+flight 168386 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168386/
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  1f410b0c7455748021be4ede59e7a0c0a2ffb1c4
+baseline version:
+ xen                  b692523fafb39f5f930e1e8a316f7b8cebc9f62a
+
+Last test of basis   168384  2022-03-03 20:00:30 Z    0 days
+Testing same since   168386  2022-03-03 23:01:40 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Julien Grall <jgrall@amazon.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
-> ---
-> 
-> Changelog:-
-> 
-> v1...v8 - NA
-> 
-> v9 - Extracted this change from "[XEN v7 2/2] xen/arm64: io: Support
-> instructions (for which ISS is not ..." into a separate patch of its
-> own. The reason being this addresses an existing bug in the codebase.
-> 
->  xen/arch/arm/include/asm/mmio.h |  3 ++-
->  xen/arch/arm/io.c               | 11 +++++++++++
->  xen/arch/arm/traps.c            |  6 ++++++
->  3 files changed, 19 insertions(+), 1 deletion(-)
-> 
-> diff --git a/xen/arch/arm/include/asm/mmio.h b/xen/arch/arm/include/asm/mmio.h
-> index ef2c57a2d5..75d362d5f5 100644
-> --- a/xen/arch/arm/include/asm/mmio.h
-> +++ b/xen/arch/arm/include/asm/mmio.h
-> @@ -34,7 +34,8 @@ enum instr_decode_state
->       * Instruction is decoded successfully. It is a ldr/str post indexing
->       * instruction.
->       */
-> -    INSTR_LDR_STR_POSTINDEXING
-> +    INSTR_LDR_STR_POSTINDEXING,
-> +    INSTR_IGNORE                    /* Instruction is ignored */
->  };
->  
->  typedef struct
-> diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
-> index ebcb8ed548..7e9dd4bb08 100644
-> --- a/xen/arch/arm/io.c
-> +++ b/xen/arch/arm/io.c
-> @@ -139,6 +139,17 @@ void try_decode_instruction(const struct cpu_user_regs *regs,
->          return;
->      }
->  
-> +    /*
-> +     * When the data abort is caused due to cache maintenance, Xen should ignore
-> +     * this instruction as the cache maintenance was caused on an address belonging
-> +     * to the emulated region.
-> +     */
-> +    if ( info->dabt.cache )
-> +    {
-> +        info->dabt_instr.state = INSTR_IGNORE;
-> +        return;
-> +    }
-> +
->      /*
->       * Armv8 processor does not provide a valid syndrome for decoding some
->       * instructions. So in order to process these instructions, Xen must
-> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-> index e491ca15d7..5879640b73 100644
-> --- a/xen/arch/arm/traps.c
-> +++ b/xen/arch/arm/traps.c
-> @@ -2011,6 +2011,12 @@ static void do_trap_stage2_abort_guest(struct cpu_user_regs *regs,
->  
->          try_decode_instruction(regs, &info);
->  
-> +        if ( info.dabt_instr.state == INSTR_IGNORE )
-> +        {
-> +            advance_pc(regs, hsr);
-> +            return;
-> +        }
-> +
->          /*
->           * If Xen could not decode the instruction or encountered an error
->           * while decoding, then it should forward the abort to the guest.
-> -- 
-> 2.17.1
-> 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   b692523faf..1f410b0c74  1f410b0c7455748021be4ede59e7a0c0a2ffb1c4 -> smoke
 
