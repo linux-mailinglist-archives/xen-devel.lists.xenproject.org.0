@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1250B4CDC25
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Mar 2022 19:18:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.284476.484001 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 305DC4CDC10
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Mar 2022 19:17:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.284436.483812 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nQCV6-0007pf-Tr; Fri, 04 Mar 2022 18:18:00 +0000
+	id 1nQCUO-0006Va-UJ; Fri, 04 Mar 2022 18:17:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 284476.484001; Fri, 04 Mar 2022 18:18:00 +0000
+Received: by outflank-mailman (output) from mailman id 284436.483812; Fri, 04 Mar 2022 18:17:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nQCV4-0007Ki-74; Fri, 04 Mar 2022 18:17:58 +0000
-Received: by outflank-mailman (input) for mailman id 284476;
- Fri, 04 Mar 2022 17:56:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nQCUM-0005w8-Qf; Fri, 04 Mar 2022 18:17:14 +0000
+Received: by outflank-mailman (input) for mailman id 284436;
+ Fri, 04 Mar 2022 17:48:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WvCO=TP=xt3.it=ms@srs-se1.protection.inumbo.net>)
- id 1nQC2E-0005R5-Lr
+ id 1nQC2E-0005R4-RQ
  for xen-devel@lists.xenproject.org; Fri, 04 Mar 2022 17:48:10 +0000
 Received: from radon.xt3.it (radon.xt3.it [2a01:4f8:190:4055::2])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 40c746f5-9be3-11ec-8539-5f4723681683;
- Fri, 04 Mar 2022 18:48:09 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4168c134-9be3-11ec-8eba-a37418f5ba1a;
+ Fri, 04 Mar 2022 18:48:10 +0100 (CET)
 Received: from nb2assolieri.mat.unimo.it ([155.185.4.56] helo=localhost)
  by radon.xt3.it with esmtpsa (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
  (Exim 4.89) (envelope-from <ms@xt3.it>)
- id 1nQC2C-00006k-F1; Fri, 04 Mar 2022 18:48:08 +0100
+ id 1nQC2D-00007P-6W; Fri, 04 Mar 2022 18:48:09 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,7 +40,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 40c746f5-9be3-11ec-8539-5f4723681683
+X-Inumbo-ID: 4168c134-9be3-11ec-8eba-a37418f5ba1a
 From: Marco Solieri <marco.solieri@minervasys.tech>
 To: xen-devel@lists.xenproject.org
 Cc: Marco Solieri <marco.solieri@minervasys.tech>,
@@ -52,10 +52,12 @@ Cc: Marco Solieri <marco.solieri@minervasys.tech>,
 	Wei Liu <wl@xen.org>,
 	Marco Solieri <marco.solieri@unimore.it>,
 	Andrea Bastoni <andrea.bastoni@minervasys.tech>,
-	Luca Miccio <lucmiccio@gmail.com>
-Subject: [PATCH 20/36] xen/common: introduce buddy required reservation
-Date: Fri,  4 Mar 2022 18:46:45 +0100
-Message-Id: <20220304174701.1453977-21-marco.solieri@minervasys.tech>
+	Luca Miccio <lucmiccio@gmail.com>,
+	Luca Miccio <206497@studenti.unimore.it>,
+	Stefano Stabellini <stefano.stabellini@xilinx.com>
+Subject: [PATCH 21/36] xen/common: add colored allocator initialization
+Date: Fri,  4 Mar 2022 18:46:46 +0100
+Message-Id: <20220304174701.1453977-22-marco.solieri@minervasys.tech>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220304174701.1453977-1-marco.solieri@minervasys.tech>
 References: <20220304174701.1453977-1-marco.solieri@minervasys.tech>
@@ -64,54 +66,120 @@ Content-Transfer-Encoding: 8bit
 
 From: Luca Miccio <lucmiccio@gmail.com>
 
-When cache coloring is enabled, a certain amount of memory is reserved
-for buddy allocation because current coloring implementation does not
-support Xen heap memory. As of this commit, the colored allocator is used
-for dom0, domUs, while the buddy manages only Xen memory. The memory
-reserved to the buddy is thus lowered to a reasonably small value.
-Introduce a new variable that specifies the amount of memory reserved
-for the buddy allocator.
-The current default value will be enough even when we will add
-coloring for Xen in the following patches.
+Initialize colored heap and allocator data structures. It is assumed
+that pages are given to the init function is in ascending order. To
+ensure that, pages are retrieved from bootmem_regions starting from the
+first one. Moreover, this allows quickly insertion of freed pages into
+the colored allocator's internal data structures -- sorted lists.
+If coloring is disabled, changing the free page order should not affect
+both performance and functionalities of the buddy allocator.
 
-Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
+Do not allocate Dom0 memory with direct mapping if colored is enabled.
+
+Signed-off-by: Luca Miccio <206497@studenti.unimore.it>
 Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
+Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
 ---
- xen/common/page_alloc.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ xen/arch/arm/domain_build.c |  7 +++++-
+ xen/common/page_alloc.c     | 43 +++++++++++++++++++++++++++++++------
+ 2 files changed, 42 insertions(+), 8 deletions(-)
 
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 9630d00066..03a2573d67 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -3292,7 +3292,12 @@ static int __init construct_dom0(struct domain *d)
+     /* type must be set before allocate_memory */
+     d->arch.type = kinfo.type;
+ #endif
+-    allocate_memory_11(d, &kinfo);
++#ifdef CONFIG_COLORING
++    if ( d->max_colors )
++        allocate_memory(d, &kinfo);
++    else
++#endif
++        allocate_memory_11(d, &kinfo);
+     find_gnttab_region(d, &kinfo);
+ 
+     /* Map extra GIC MMIO, irqs and other hw stuffs to dom0. */
 diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index 82f6e8330a..fffa438029 100644
+index fffa438029..dea14bc39f 100644
 --- a/xen/common/page_alloc.c
 +++ b/xen/common/page_alloc.c
-@@ -230,6 +230,13 @@ static bool __read_mostly scrub_debug;
- #define scrub_debug    false
- #endif
- 
-+#ifdef CONFIG_COLORING
-+/* Minimum size required for buddy allocator to work with colored one */
-+unsigned long buddy_required_size __read_mostly = MB(64);
-+#else
-+unsigned long buddy_required_size __read_mostly = 0;
-+#endif
+@@ -2154,11 +2154,26 @@ void __init end_boot_allocator(void)
+             break;
+         }
+     }
+-    for ( i = nr_bootmem_regions; i-- > 0; )
 +
- /*
-  * Bit width of the DMA heap -- used to override NUMA-node-first.
-  * allocation strategy, which can otherwise exhaust low memory.
-@@ -678,6 +685,13 @@ static void dump_col_heap(unsigned char key)
- 
-     printk("Total number of pages: %lu\n", total_avail_col_pages);
- }
-+static int __init parse_buddy_required_size(const char *s)
-+{
-+    buddy_required_size = simple_strtoull(s, &s, 0);
++    for ( i = 0; i < nr_bootmem_regions; i++ )
+     {
+         struct bootmem_region *r = &bootmem_region_list[i];
+-        if ( r->s < r->e )
+-            init_heap_pages(mfn_to_page(_mfn(r->s)), r->e - r->s);
 +
-+    return *s ? -EINVAL : 0;
-+}
-+custom_param("buddy_size", parse_buddy_required_size);
- #else /* !CONFIG_COLORING */
- #define init_col_heap_pages(x, y) init_heap_pages(x, y)
++        /*
++         * Find the first region that can fill the buddy allocator memory
++         * specified by buddy_required_size.
++         */
++        if ( buddy_required_size && (r->e - r->s) >
++            PFN_DOWN(buddy_required_size) )
++        {
++            init_heap_pages(mfn_to_page(_mfn(r->s)),
++                PFN_DOWN(buddy_required_size));
++
++            r->s += PFN_DOWN(buddy_required_size);
++            buddy_required_size = 0;
++        }
++
++        init_col_heap_pages(mfn_to_page(_mfn(r->s)), r->e - r->s);
+     }
+     nr_bootmem_regions = 0;
  
+@@ -2619,9 +2634,12 @@ int assign_pages(
+         page_set_owner(&pg[i], d);
+         smp_wmb(); /* Domain pointer must be visible before updating refcnt. */
+         pg[i].count_info =
+-            (pg[i].count_info & (PGC_extra | PGC_reserved)) | PGC_allocated | 1;
++             (pg[i].count_info & (PGC_extra | PGC_reserved)) | PGC_allocated | 1;
+ 
+-        page_list_add_tail(&pg[i], page_to_list(d, &pg[i]));
++        if ( is_page_colored(pg) )
++            page_list_add(&pg[i], page_to_list(d, &pg[i]));
++        else
++            page_list_add_tail(&pg[i], page_to_list(d, &pg[i]));
+     }
+ 
+  out:
+@@ -2642,6 +2660,15 @@ struct page_info *alloc_domheap_pages(
+     unsigned int bits = memflags >> _MEMF_bits, zone_hi = NR_ZONES - 1;
+     unsigned int dma_zone;
+ 
++    /* Only Dom0 and DomUs are supported for coloring */
++    if ( d && d->max_colors > 0 )
++    {
++        /* Colored allocation must be done on 0 order */
++        if (order)
++            return NULL;
++
++        return alloc_col_domheap_page(d, memflags);
++    }
+     ASSERT(!in_irq());
+ 
+     bits = domain_clamp_alloc_bitsize(memflags & MEMF_no_owner ? NULL : d,
+@@ -2761,8 +2788,10 @@ void free_domheap_pages(struct page_info *pg, unsigned int order)
+             scrub = 1;
+         }
+ 
+-        free_heap_pages(pg, order, scrub);
+-    }
++        if ( is_page_colored(pg) )
++            free_col_heap_page(pg);
++        else
++            free_heap_pages(pg, order, scrub);}
+ 
+     if ( drop_dom_ref )
+         put_domain(d);
 -- 
 2.30.2
 
