@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 743424CCAE6
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Mar 2022 01:43:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.283814.482930 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD70D4CCB18
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Mar 2022 02:02:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.283830.482941 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPw1X-0003Hs-NU; Fri, 04 Mar 2022 00:42:23 +0000
+	id 1nPwK9-0000jQ-ED; Fri, 04 Mar 2022 01:01:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 283814.482930; Fri, 04 Mar 2022 00:42:23 +0000
+Received: by outflank-mailman (output) from mailman id 283830.482941; Fri, 04 Mar 2022 01:01:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nPw1X-0003EP-KG; Fri, 04 Mar 2022 00:42:23 +0000
-Received: by outflank-mailman (input) for mailman id 283814;
- Fri, 04 Mar 2022 00:42:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zYUj=TP=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nPw1W-0003DQ-5O
- for xen-devel@lists.xenproject.org; Fri, 04 Mar 2022 00:42:22 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f1f9fd18-9b53-11ec-8539-5f4723681683;
- Fri, 04 Mar 2022 01:42:19 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 332676177D;
- Fri,  4 Mar 2022 00:42:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED5E6C004E1;
- Fri,  4 Mar 2022 00:42:16 +0000 (UTC)
+	id 1nPwK9-0000fK-AY; Fri, 04 Mar 2022 01:01:37 +0000
+Received: by outflank-mailman (input) for mailman id 283830;
+ Fri, 04 Mar 2022 01:01:36 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nPwK7-0000Ax-US; Fri, 04 Mar 2022 01:01:35 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nPwK7-00085H-Ro; Fri, 04 Mar 2022 01:01:35 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nPwK7-0000Me-FS; Fri, 04 Mar 2022 01:01:35 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nPwK7-0004pr-Ey; Fri, 04 Mar 2022 01:01:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,280 +42,302 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f1f9fd18-9b53-11ec-8539-5f4723681683
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1646354537;
-	bh=ZDB08+ECB5jD9NpqXJNH0x0wvQ3wKp8H37yC1xF25rY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Y176NAlWeDZz0SVGObSgMZ4uwdRozdomBhO8EHbKaIEJsIxmtjzmBYqKH2NguSbqf
-	 EJ754fbyFRBKHNRe4MD3NkIXL5RC0XrYvtVGbke9iBwKvIC/PwdPYrPNxmrisin3c3
-	 QVwVYltcKatCnPUWNyrfC99VqqFeg7cVvatmuu/AACNf5R7EhDBexzdbxDzQPWvGtY
-	 /YzDifGabMx5nt5jUQr0SFMqDcqpQmTTp/V279OP89N0O6zTiwBgg7pNEooEPz3+9b
-	 BcSeUCliGg7+ecBCYJroDOJblQhdqQlUa9Ag1OTaORMahHko9HqR7sdMsc6Wx10Mf5
-	 PBHkuL3xT5/lA==
-Date: Thu, 3 Mar 2022 16:42:16 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
-cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
-    stefanos@xilinx.com, julien@xen.org, Volodymyr_Babchuk@epam.com, 
-    bertrand.marquis@arm.com, andrew.cooper3@citrix.com, 
-    george.dunlap@citrix.com, jbeulich@suse.com, wl@xen.org, paul@xen.org, 
-    roger.pau@citrix.com, Ayan Kumar Halder <ayankuma@xilinx.com>
-Subject: Re: [XEN v9 1/4] xen/arm64: Decode ldr/str post increment
- operations
-In-Reply-To: <20220301124022.10168-2-ayankuma@xilinx.com>
-Message-ID: <alpine.DEB.2.22.394.2203031626190.3261@ubuntu-linux-20-04-desktop>
-References: <20220301124022.10168-1-ayankuma@xilinx.com> <20220301124022.10168-2-ayankuma@xilinx.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=+GN5GPWHzguX1T9SguwzbhNlLMF5zEgP1oGxPLqe+yo=; b=HKz/Wu1pOYKWVFnGCk8Je40/wd
+	AWC4X8eAYrmhw5/ZkVhelmcH9sYnMpA9RMNAshmQFeGJwrhN/ftXWA6i/Wj5CrXOfGBYIvkow0i7L
+	Ut8KWfKiQx5Bcm35HhcaJYJ/AD6vpPknEs0EFkXoU/io3GR0ezVySAau+Rl/Y5ZMSH6E=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168385-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 168385: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=589d51df260465e2561979b8a988e77b0f32a6e8
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 04 Mar 2022 01:01:35 +0000
 
-On Tue, 1 Mar 2022, Ayan Kumar Halder wrote:
-> At the moment, Xen does not decode any of the arm64 instructions. This
-> means that when hsr_dabt.isv == 0, Xen cannot handle those instructions.
-> This will lead to Xen to abort the guests (from which those instructions
-> originate).
-> 
-> With this patch, Xen is able to decode ldr/str post indexing instructions.
-> These are a subset of instructions for which hsr_dabt.isv == 0.
-> 
-> The following instructions are now supported by Xen :-
-> 1.      ldr     x2,    [x1],    #8
-> 2.      ldr     w2,    [x1],    #-4
-> 3.      ldr     x2,    [x1],    #-8
-> 4.      ldr     w2,    [x1],    #4
-> 5.      ldrh    w2,    [x1],    #2
-> 6.      ldrb    w2,    [x1],    #1
-> 7.      str     x2,    [x1],    #8
-> 8.      str     w2,    [x1],    #-4
-> 9.      strh    w2,    [x1],    #2
-> 10.     strb    w2,    [x1],    #1
-> 
-> In the subsequent patch, decode_arm64() will get invoked when
-> hsr_dabt.isv == 0.
-> 
-> Signed-off-by: Ayan Kumar Halder <ayankuma@xilinx.com>
+flight 168385 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168385/
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 589d51df260465e2561979b8a988e77b0f32a6e8
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z    3 days
+Failing since        168258  2022-03-01 01:55:31 Z    2 days   27 attempts
+Testing same since   168359  2022-03-03 10:41:39 Z    0 days    7 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Guomin Jiang <guomin.jiang@intel.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
-> ---
-> 
-> Changelog :-
-> 
-> v2..v5 - Mentioned in the cover letter.
-> 
-> v6 - 1. Fixed the code style issues as mentioned in v5.
-> 
-> v7 - No change.
-> 
-> v8 - 1. Removed some un-necessary header files inclusion.
->      2. Some style changes pointed out in v7.
-> 
-> v9 - 1. Rebased on top of the master.
->      2. Renamed psr_mode_is_32bit to regs_mode_is_32bit.
-> 
->  xen/arch/arm/decode.c           | 79 ++++++++++++++++++++++++++++++++-
->  xen/arch/arm/decode.h           | 48 +++++++++++++++++---
->  xen/arch/arm/include/asm/mmio.h |  4 ++
->  xen/arch/arm/io.c               |  2 +-
->  4 files changed, 124 insertions(+), 9 deletions(-)
-> 
-> diff --git a/xen/arch/arm/decode.c b/xen/arch/arm/decode.c
-> index 792c2e92a7..3add87e83a 100644
-> --- a/xen/arch/arm/decode.c
-> +++ b/xen/arch/arm/decode.c
-> @@ -84,6 +84,78 @@ bad_thumb2:
->      return 1;
->  }
->  
-> +static int decode_arm64(register_t pc, mmio_info_t *info)
-> +{
-> +    union instr opcode = {0};
-> +    struct hsr_dabt *dabt = &info->dabt;
-> +    struct instr_details *dabt_instr = &info->dabt_instr;
-> +
-> +    if ( raw_copy_from_guest(&opcode.value, (void * __user)pc, sizeof (opcode)) )
-> +    {
-> +        gprintk(XENLOG_ERR, "Could not copy the instruction from PC\n");
-> +        return 1;
-> +    }
-> +
-> +    /*
-> +     * Refer Arm v8 ARM DDI 0487G.b, Page - C6-1107
-> +     * "Shared decode for all encodings" (under ldr immediate)
-> +     * If n == t && n != 31, then the return value is implementation defined
-> +     * (can be WBSUPPRESS, UNKNOWN, UNDEFINED or NOP). Thus, we do not support
-> +     * this. This holds true for ldrb/ldrh immediate as well.
-> +     *
-> +     * Also refer, Page - C6-1384, the above described behaviour is same for
-> +     * str immediate. This holds true for strb/strh immediate as well
-> +     */
-> +    if ( (opcode.ldr_str.rn == opcode.ldr_str.rt) && (opcode.ldr_str.rn != 31) )
-> +    {
-> +        gprintk(XENLOG_ERR, "Rn should not be equal to Rt except for r31\n");
-> +        goto bad_loadstore;
-> +    }
-> +
-> +    /* First, let's check for the fixed values */
-> +    if ( (opcode.value & POST_INDEX_FIXED_MASK) != POST_INDEX_FIXED_VALUE )
-> +    {
-> +        gprintk(XENLOG_ERR,
-> +                "Decoding instruction 0x%x is not supported\n", opcode.value);
-> +        goto bad_loadstore;
-> +    }
-> +
-> +    if ( opcode.ldr_str.v != 0 )
-> +    {
-> +        gprintk(XENLOG_ERR,
-> +                "ldr/str post indexing for vector types are not supported\n");
-> +        goto bad_loadstore;
-> +    }
-> +
-> +    /* Check for STR (immediate) */
-> +    if ( opcode.ldr_str.opc == 0 )
-> +        dabt->write = 1;
-> +    /* Check for LDR (immediate) */
-> +    else if ( opcode.ldr_str.opc == 1 )
-> +        dabt->write = 0;
-> +    else
-> +    {
-> +        gprintk(XENLOG_ERR,
-> +                "Decoding ldr/str post indexing is not supported for this variant\n");
-> +        goto bad_loadstore;
-> +    }
-> +
-> +    gprintk(XENLOG_INFO,
-> +            "opcode->ldr_str.rt = 0x%x, opcode->ldr_str.size = 0x%x, opcode->ldr_str.imm9 = %d\n",
-> +            opcode.ldr_str.rt, opcode.ldr_str.size, opcode.ldr_str.imm9);
-> +
-> +    update_dabt(dabt, opcode.ldr_str.rt, opcode.ldr_str.size, false);
-> +
-> +    dabt_instr->rn = opcode.ldr_str.rn;
-> +    dabt_instr->imm9 = opcode.ldr_str.imm9;
-> +
-> +    return 0;
-> +
-> + bad_loadstore:
-> +    gprintk(XENLOG_ERR, "unhandled Arm instruction 0x%x\n", opcode.value);
-> +    return 1;
-> +}
-> +
->  static int decode_thumb(register_t pc, struct hsr_dabt *dabt)
->  {
->      uint16_t instr;
-> @@ -150,10 +222,13 @@ bad_thumb:
->      return 1;
->  }
->  
-> -int decode_instruction(const struct cpu_user_regs *regs, struct hsr_dabt *dabt)
-> +int decode_instruction(const struct cpu_user_regs *regs, mmio_info_t *info)
->  {
->      if ( is_32bit_domain(current->domain) && regs->cpsr & PSR_THUMB )
-> -        return decode_thumb(regs->pc, dabt);
-> +        return decode_thumb(regs->pc, &info->dabt);
-> +
-> +    if ( !regs_mode_is_32bit(regs) )
-> +        return decode_arm64(regs->pc, info);
->  
->      /* TODO: Handle ARM instruction */
->      gprintk(XENLOG_ERR, "unhandled ARM instruction\n");
-> diff --git a/xen/arch/arm/decode.h b/xen/arch/arm/decode.h
-> index 4613763bdb..13db8ac968 100644
-> --- a/xen/arch/arm/decode.h
-> +++ b/xen/arch/arm/decode.h
-> @@ -23,19 +23,55 @@
->  #include <asm/regs.h>
->  #include <asm/processor.h>
->  
-> -/**
-> +/*
-> + * Refer to the ARMv8 ARM (DDI 0487G.b), Section C4.1.4 Loads and Stores
-> + * Page 318 specifies the following bit pattern for
-> + * "load/store register (immediate post-indexed)".
-> + *
-> + * 31 30 29  27 26 25  23   21 20              11   9         4       0
-> + * ___________________________________________________________________
-> + * |size|1 1 1 |V |0 0 |opc |0 |      imm9     |0 1 |  Rn     |  Rt   |
-> + * |____|______|__|____|____|__|_______________|____|_________|_______|
-> + */
-> +union instr {
-> +    uint32_t value;
-> +    struct {
-> +        unsigned int rt:5;     /* Rt register */
-> +        unsigned int rn:5;     /* Rn register */
-> +        unsigned int fixed1:2; /* value == 01b */
-> +        signed int imm9:9;     /* imm9 */
-> +        unsigned int fixed2:1; /* value == 0b */
-> +        unsigned int opc:2;    /* opc */
-> +        unsigned int fixed3:2; /* value == 00b */
-> +        unsigned int v:1;      /* vector */
-> +        unsigned int fixed4:3; /* value == 111b */
-> +        unsigned int size:2;   /* size */
-> +    } ldr_str;
-> +};
-> +
-> +#define POST_INDEX_FIXED_MASK   0x3B200C00
-> +#define POST_INDEX_FIXED_VALUE  0x38000400
-> +
-> +/*
->   * Decode an instruction from pc
-> - * /!\ This function is not intended to fully decode an instruction. It
-> - * considers that the instruction is valid.
-> + * /!\ This function is intended to decode an instruction. It considers that the
-> + * instruction is valid.
->   *
-> - * This function will get:
-> - *  - The transfer register
-> + * In case of thumb mode, this function will get:
-> + *  - The transfer register (ie Rt)
->   *  - Sign bit
->   *  - Size
-> + *
-> + * In case of arm64 mode, this function will get:
-> + * - The transfer register (ie Rt)
-> + * - The source register (ie Rn)
-> + * - Size
-> + * - Immediate offset
-> + * - Read or write
->   */
->  
->  int decode_instruction(const struct cpu_user_regs *regs,
-> -                       struct hsr_dabt *dabt);
-> +                       mmio_info_t *info);
->  
->  #endif /* __ARCH_ARM_DECODE_H_ */
->  
-> diff --git a/xen/arch/arm/include/asm/mmio.h b/xen/arch/arm/include/asm/mmio.h
-> index 7ab873cb8f..3354d9c635 100644
-> --- a/xen/arch/arm/include/asm/mmio.h
-> +++ b/xen/arch/arm/include/asm/mmio.h
-> @@ -29,6 +29,10 @@
->  typedef struct
->  {
->      struct hsr_dabt dabt;
-> +    struct instr_details {
-> +        unsigned long rn:5;
-> +        signed int imm9:9;
-> +    } dabt_instr;
->      paddr_t gpa;
->  } mmio_info_t;
->  
-> diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
-> index 1a066f9ae5..fad103bdbd 100644
-> --- a/xen/arch/arm/io.c
-> +++ b/xen/arch/arm/io.c
-> @@ -141,7 +141,7 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
->      {
->          int rc;
->  
-> -        rc = decode_instruction(regs, &info.dabt);
-> +        rc = decode_instruction(regs, &info);
->          if ( rc )
->          {
->              gprintk(XENLOG_DEBUG, "Unable to decode instruction\n");
-> -- 
-> 2.17.1
-> 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 589d51df260465e2561979b8a988e77b0f32a6e8
+Author: Sean Rhodes <sean@starlabs.systems>
+Date:   Thu Feb 24 19:38:18 2022 +0800
+
+    MdeModulePkg/Usb/Keyboard.c: Don't request protocol before setting
+    
+    No need to check the interface protocol then conditionally setting,
+    just set it to BOOT_PROTOCOL and check for error.
+    
+    This is what Linux does for HID devices as some don't follow the USB spec.
+    One example is the Aspeed BMC HID keyboard device, which adds a massive
+    boot delay without this patch as it doesn't respond to
+    'GetProtocolRequest'.
+    
+    Cc: Hao A Wu <hao.a.wu@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Signed-off-by: Matt DeVillier <matt.devillier@gmail.com>
+    Signed-off-by: Patrick Rudolph <patrick.rudolph@9elements.com>
+    Signed-off-by: Sean Rhodes <sean@starlabs.systems>
+    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
+
+commit b422b0fcf92dd4103dfc16d8d5f77fbec2d8c5b9
+Author: Guomin Jiang <guomin.jiang@intel.com>
+Date:   Tue Feb 22 11:29:23 2022 +0800
+
+    EmulatorPkg/EmuGopDxe: Set ModeInfo after Open successfully
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=2668
+    
+    WindowOpen will fail in some case. for example, without XServer.
+    
+    Shouldn't set ModeInfo in this case to avoid the caller use it
+    incorrectly
+    
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Signed-off-by: Guomin Jiang <guomin.jiang@intel.com>
+
+commit 906242343f7a654402f6f999d447aa9d29a8f4d4
+Author: Guomin Jiang <guomin.jiang@intel.com>
+Date:   Sun Feb 20 14:53:01 2022 +0800
+
+    MdeModulePkg/GraphicsConsoleDxe: Check status to make sure no error
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=2668
+    
+    SetMode will fail in some case. for example, without XServer.
+    Should handle these case when SetMode fail.
+    
+    If we don't handle it, it will Segmentation fault.
+    
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Signed-off-by: Guomin Jiang <guomin.jiang@intel.com>
+
+commit dc39554d58af4a50b50eca1f57c49415a12b0c98
+Author: Xiaolu.Jiang <xiaolu.jiang@intel.com>
+Date:   Tue Feb 22 22:14:05 2022 +0800
+
+    edk2/MdeModulePkg/Debuglib: Add Standalone MM support
+    
+    https://bugzilla.tianocore.org/show_bug.cgi?id=3844
+    
+    This change added Standalone MM instance of DebugLib.
+    
+    Reviewd-by: Jian J Wang <jian.j.wang@intel.com>
+    Reviewd-by: Liming Gao <gaoliming@byosoft.com.cn>
+    
+    Signed-off-by: Xiaolu.Jiang <xiaolu.jiang@intel.com>
+
+commit 497ac7b6d7f9750f48f137db244931a5728b1968
+Author: Guomin Jiang <guomin.jiang@intel.com>
+Date:   Sat Jan 29 16:28:02 2022 +0800
+
+    UefiPayloadPkg/PayloadLoaderPeim: Use INT64 as input parameter
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3818
+    
+    It will have some potential issue when memory larger than 2G because
+    the high memory address will be fill with 0xFFFFFFFF when do the
+    operation of INTN + INT64 but it is 32 bit normal data in fact.
+    
+    Should use same data type INT64 + INT64.
+    
+    V3:
+    1. Use INT64 as input parameter because all date type is 64 bit
+    V2:
+    1. Force the data type to UINTN to avoid high dword be filled with
+    0xFFFFFFFF
+    2. Keep INTN because the offset may postive or negative.
+    
+    Reviewed-by: Guo Dong <guo.dong@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Signed-off-by: Guomin Jiang <guomin.jiang@intel.com>
+
+commit 6a890db161cd6d378bec3499a1e774db3f5a27a7
+Author: Jason <yun.lou@intel.com>
+Date:   Mon Jan 10 22:30:29 2022 +0800
+
+    BaseTools: Upgrade the version of NASM tool
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
+    
+    Upgrade the version of NASM tool to avoid compilation errors when
+    compiling NASM code change.
+    
+    Signed-off-by: Jason Lou <yun.lou@intel.com>
+    Cc: Bob Feng <bob.c.feng@intel.com>
+    Cc: Liming Gao <gaoliming@byosoft.com.cn>
+    Reviewed-by: Yuwei Chen <yuwei.chen@intel.com>
+
+commit bbaa00dd01ed0df30e43a5a89fd2b0433d858b73
+Author: Jason <yun.lou@intel.com>
+Date:   Mon Jan 10 22:05:47 2022 +0800
+
+    MdePkg: Remove the macro definitions regarding Opcode.
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
+    
+    Remove the macro definitions regarding Opcode because new version of
+    NASM tool(e.g. v2.15.05) supports the corresponding instructions.
+    Note: This patch need to be merged after other NASM code change to avoid
+    compilation errors.
+    
+    Signed-off-by: Jason Lou <yun.lou@intel.com>
+    Cc: Michael D Kinney <michael.d.kinney@intel.com>
+    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
+    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
+
+commit 2aa107c0aa2e1375651867c8df1b81ff64b67fce
+Author: Jason <yun.lou@intel.com>
+Date:   Mon Jan 10 22:01:18 2022 +0800
+
+    UefiCpuPkg: Replace Opcode with the corresponding instructions.
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
+    
+    Replace Opcode with the corresponding instructions.
+    The code changes have been verified with CompareBuild.py tool, which
+    can be used to compare the results of two different EDK II builds to
+    determine if they generate the same binaries.
+    (tool link: https://github.com/mdkinney/edk2/tree/sandbox/CompareBuild)
+    
+    Signed-off-by: Jason Lou <yun.lou@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Cc: Eric Dong <eric.dong@intel.com>
+    Cc: Laszlo Ersek <lersek@redhat.com>
+    Cc: Rahul Kumar <rahul1.kumar@intel.com>
+
+commit 7bc8b1d9f412507d579f21ea9af56fced81e7827
+Author: Jason <yun.lou@intel.com>
+Date:   Mon Jan 10 21:52:52 2022 +0800
+
+    SourceLevelDebugPkg: Replace Opcode with the corresponding instructions.
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
+    
+    Replace Opcode with the corresponding instructions.
+    The code changes have been verified with CompareBuild.py tool, which
+    can be used to compare the results of two different EDK II builds to
+    determine if they generate the same binaries.
+    (tool link: https://github.com/mdkinney/edk2/tree/sandbox/CompareBuild)
+    
+    Signed-off-by: Jason Lou <yun.lou@intel.com>
+    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
+
+commit d3febfd9ade35dc552df6b3607c2b15d26b82867
+Author: Jason <yun.lou@intel.com>
+Date:   Mon Jan 10 21:46:27 2022 +0800
+
+    MdePkg: Replace Opcode with the corresponding instructions.
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
+    
+    Replace Opcode with the corresponding instructions.
+    The code changes have been verified with CompareBuild.py tool, which
+    can be used to compare the results of two different EDK II builds to
+    determine if they generate the same binaries.
+    (tool link: https://github.com/mdkinney/edk2/tree/sandbox/CompareBuild)
+    
+    Signed-off-by: Jason Lou <yun.lou@intel.com>
+    Cc: Michael D Kinney <michael.d.kinney@intel.com>
+    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
+    Cc: Zhiguang Liu <zhiguang.liu@intel.com>
+
+commit 84338c0d498555f860a480693ee8647a1795fba3
+Author: Jason <yun.lou@intel.com>
+Date:   Mon Jan 10 21:04:09 2022 +0800
+
+    MdeModulePkg: Replace Opcode with the corresponding instructions.
+    
+    REF: https://bugzilla.tianocore.org/show_bug.cgi?id=3790
+    
+    Replace Opcode with the corresponding instructions.
+    The code changes have been verified with CompareBuild.py tool, which
+    can be used to compare the results of two different EDK II builds to
+    determine if they generate the same binaries.
+    (tool link: https://github.com/mdkinney/edk2/tree/sandbox/CompareBuild)
+    
+    Signed-off-by: Jason Lou <yun.lou@intel.com>
+    Reviewed-by: Ray Ni <ray.ni@intel.com>
+    Cc: Dandan Bi <dandan.bi@intel.com>
+    Reviewed-by: Liming Gao <gaoliming@byosoft.com.cn>
 
