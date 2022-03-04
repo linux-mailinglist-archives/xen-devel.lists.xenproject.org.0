@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CF7B4CCF7C
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Mar 2022 09:02:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.284011.483129 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A7DF4CCFC9
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Mar 2022 09:17:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.284027.483151 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nQ2tF-0006c2-Jl; Fri, 04 Mar 2022 08:02:17 +0000
+	id 1nQ37r-0000m5-9f; Fri, 04 Mar 2022 08:17:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 284011.483129; Fri, 04 Mar 2022 08:02:17 +0000
+Received: by outflank-mailman (output) from mailman id 284027.483151; Fri, 04 Mar 2022 08:17:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nQ2tF-0006aC-G2; Fri, 04 Mar 2022 08:02:17 +0000
-Received: by outflank-mailman (input) for mailman id 284011;
- Fri, 04 Mar 2022 08:02:16 +0000
+	id 1nQ37r-0000jO-5y; Fri, 04 Mar 2022 08:17:23 +0000
+Received: by outflank-mailman (input) for mailman id 284027;
+ Fri, 04 Mar 2022 08:17:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LpR9=TP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nQ2tD-0006a6-VB
- for xen-devel@lists.xenproject.org; Fri, 04 Mar 2022 08:02:16 +0000
+ id 1nQ37q-0000jI-4K
+ for xen-devel@lists.xenproject.org; Fri, 04 Mar 2022 08:17:22 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6709457e-9b91-11ec-8eba-a37418f5ba1a;
- Fri, 04 Mar 2022 09:02:14 +0100 (CET)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2107.outbound.protection.outlook.com [104.47.17.107]) by
+ id 82e3303a-9b93-11ec-8eba-a37418f5ba1a;
+ Fri, 04 Mar 2022 09:17:20 +0100 (CET)
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05lp2175.outbound.protection.outlook.com [104.47.17.175]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-34-XdExIWqMNDu3DsLlRcNWrQ-1; Fri, 04 Mar 2022 09:02:13 +0100
+ de-mta-41-Zs2aC_GtO0eqjq-8vJituA-1; Fri, 04 Mar 2022 09:17:18 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by HE1PR04MB3082.eurprd04.prod.outlook.com (2603:10a6:7:1c::31) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.15; Fri, 4 Mar
- 2022 08:02:10 +0000
+ by PAXPR04MB8175.eurprd04.prod.outlook.com (2603:10a6:102:1bc::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Fri, 4 Mar
+ 2022 08:17:16 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::d479:b728:345c:bd65%6]) with mapi id 15.20.5038.017; Fri, 4 Mar 2022
- 08:02:09 +0000
+ 08:17:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,244 +51,245 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6709457e-9b91-11ec-8eba-a37418f5ba1a
+X-Inumbo-ID: 82e3303a-9b93-11ec-8eba-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1646380934;
+	t=1646381839;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=FAeYqOQo0dqKfU9g7bMkIrOi77TAj/BS2m2GjPt7iH0=;
-	b=l9EW7l7y4Xaw9TDGso+JKs427uUF+W0by60z+iDP2USMkPiUrWtPYWWuBr5SLdbSvJNb6n
-	8daaKMigduzxZ0cTfT2507X3du1l7+ycbxV1pFOpH15uwCr013OtCk43nPFdDPX9tFzlLQ
-	8K/gkuYyZF7MA1FZIGbZ9yYGiW+lWvo=
-X-MC-Unique: XdExIWqMNDu3DsLlRcNWrQ-1
+	bh=cH6ZmZMoyiJ6DrZp7awSP7q0QTF/KxA1Ot9DRwO044E=;
+	b=k5QCoH4/+IcUmINJ3zmYsZpazB1AfLghpKmKuFDYvlTbEs7v2lki2MI7duKyoxUC2tbRS+
+	4kSXEX8oahUBSehqY8hBgBX/y0zWVU4C8Ljaq84MCixDEDX0fZHdwz6FHGsGrKAg6cnSbD
+	/4rNpzyQlyUBcPQUqF5A+aj5SigoZSM=
+X-MC-Unique: Zs2aC_GtO0eqjq-8vJituA-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YZKf2o1jUWOIbZ8jixq9mZX3GBSjVr0gTDbrvcJEeFi+hVdBaxXwVq13sjAQjk1WUsw9OAmQVpV0ke56qBIaVYuVH/oPGA4Hc5xZSSAz8CFX552MKsMw6mRFWkGb+28Z3vhXRj/luAu7X4dH2RSFlnhbdsxwbT3b5kPR1TwEH3zU+w5+pna75iCMt1/XqGXrCsmCpLE6qVAZ+x/OTSf+wXam08i9hbczVmKFsPn8qEoZzI6WCadE+T1W/wYE8CK2HhlYJtz1cLjdXuGj1YWAX6dCulbx4G+h7WTYlcOVqh6HbTDH41HH+cwt1jAURZ49/mphpQD3nGpHoD/vB0Yx+A==
+ b=JGRnKricJdArfsbj8H0n76WOxRstbxYkAcAG1zIsCjnWLFWC1jmXAjWw5TkhKZt7dtsERwj3xt9zcHrhnV3qCWYhF+20jSsPexuMNU5OGtPotFtK5iBuOUWRA+x8bI1cPyh+bVoZk59h27o3BcwDTDTPckAQOdLLwG/GGsupyUxhBPZmrWCWdT/iLHAdnqwJatVAspltPzCq63cn5nTf6dwQMmONTNzi81xJhdMMrd97TPs4BcGa7WqXeokAnRiCcOrxi1F/micAAh9aJphCOfr13nkODOaySZ1esF9PAvKt9yS4pZdu/OJPE6qH5TPgfhrOW7JE6FR8KaP+ejmBsg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z3vZgyK1VgbXd9WQxjc6Rwgr8IL/aKOpLKP3kWaqfBE=;
- b=nCCJ2FPiweKixaB4CySajB0AGG5W9t4mjKdnl0viivW9iVdzLomNk1d488J+RPGpcNybAIMWvEMkJFu/Kpfm5tY1KtVKDElZxkAfeVXB7/Cf0wFzWGA40e0pfOLqt5WjKidBdsqoyswHcTi3SnDhSfVHWQoBT1WcsgotxrIm9UHHi9l8+dVhlE13krDspXEyyGvg2I3A5GCgv1hat38x0YqraUv7Hgxcq1ZnYb6mFcD+w0kwZBDUQ+EIHjcQSer6jcNUNrVydY2kHS6TekAuEL25JM//XxqqOeh0bkMA1KFe0iYF5FB0orEo4jEq7gFHU8ZHkQS1JcWiuzmv6pNL2w==
+ bh=cH6ZmZMoyiJ6DrZp7awSP7q0QTF/KxA1Ot9DRwO044E=;
+ b=m+yOK4Z6oHB0Np0RKtwFeS/XrN5Sn6MGql3nwuoZgmk3VhI7rV3AHByISHYEMNavtaT9MSy0T6vI2uOsGGMn1OAunZzm27bMTMELDGpMRouHyIzatltB2YNtI+lxhsB1wcKJDFp5KX9EG2CgfjUoo0U/fpAXB6OlOx5WUAgZFNV8LDKPz3ahTyMSlfUi346S+cgyXFfoVaIZ0NvyO9WD4Dv4lGFkTk7oY/17FF7JoEoxZz9I7p87py+7QPUQsvXBWji8U/PiF9vY0048b3oCWRnczw5XwEKp9guVRY1xItj/GIKREbeQ2nNLjt3qeQ/ysIvzTwBXbw1dgP3nTUFvuQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <abd691c8-9c7e-40d7-3f18-d96f826b8539@suse.com>
-Date: Fri, 4 Mar 2022 09:02:08 +0100
+Message-ID: <fa957ce7-07f8-9726-9537-8b05e9b6d76e@suse.com>
+Date: Fri, 4 Mar 2022 09:17:14 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.1
-Subject: Re: [PATCH] x86/build: use --orphan-handling linker option if
- available
+Subject: Re: [PATCH v4 1/2] xen+tools: Report Interrupt Controller
+ Virtualization capabilities on x86
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-References: <5c374fd3-017d-3c40-4ded-25a3b1c978a6@suse.com>
- <YiCkUebvg0gaBm4/@Air-de-Roger>
- <3c335ca5-63e3-6389-cba5-b9047a4ce3b9@suse.com>
- <YiDaQY1ToO8G2QYd@Air-de-Roger>
+To: Jane Malalane <Jane.Malalane@citrix.com>
+Cc: Wei Liu <wl@xen.org>, Anthony Perard <anthony.perard@citrix.com>,
+ Juergen Gross <jgross@suse.com>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Roger Pau Monne <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20220302150056.14381-1-jane.malalane@citrix.com>
+ <20220302150056.14381-2-jane.malalane@citrix.com>
+ <240602ab-412c-8607-ed6c-916cf37343f7@suse.com>
+ <67296830-aa16-4231-69ba-f07d2b1a4b65@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YiDaQY1ToO8G2QYd@Air-de-Roger>
+In-Reply-To: <67296830-aa16-4231-69ba-f07d2b1a4b65@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM6P195CA0011.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:209:81::24) To VI1PR04MB5600.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS9PR05CA0030.eurprd05.prod.outlook.com
+ (2603:10a6:20b:488::24) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0ac48502-7a0c-44d4-8696-08d9fdb54885
-X-MS-TrafficTypeDiagnostic: HE1PR04MB3082:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0062343e-aa78-44cd-da45-08d9fdb764ec
+X-MS-TrafficTypeDiagnostic: PAXPR04MB8175:EE_
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
 X-Microsoft-Antispam-PRVS:
-	<HE1PR04MB308263CBE3A65B5ABEDEBB49B3059@HE1PR04MB3082.eurprd04.prod.outlook.com>
+	<PAXPR04MB8175624F9838B434BB1D155EB3059@PAXPR04MB8175.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	QitOkq0Z0Dy6S1ZXtUcJ1bQMAnpU+pEzpTu7WBGRZMwFUiVRCb/XbaogChiRlPoTJsZyO/zVGlNrXDIWmqdxeUWAq6PH3MHavaAt8p8dwTZWLfbOmnI92ZA1y4T3jutGC5GhOs+3ZnUnJPgxEmDPkuSWRJ0TupY1/TgaQTFP6UfzfclWLR5L34ZyoHh5yivXx1ncsDiCHts+C29z2vOb8jcfoBWqiXhX9euzLLrN0cen9owL9nXLDvw+QydvW/AZpvLs5b1CEDdG65Uhc5hgQsqvEHZRyGUa7ca5Dd1DJFTfUdVTr8ES9M3XZgsiUiIM4PDiK96FKE27QB6v8qbAdRR5H4yalyLS8JHToTfMplcJUATalt+7VxcyHlu1im7DA9aI/ch8E6NNtG97K7jRmpDj5f5CszK11BHWKXDOWFj+/AGXXiuBMxJn0QzDy+BMHCxy7iFR1RZHRFckA88LAAci145fAdc6vSS23StzZbH7PPSizajO0lBa6Ekwb8PUDI5ogRjcUBbgRuAJAHDpnI4C1feAOXftYADaGPgYFZ1k68RyWZxBNjJn2apbXS5eBckk+4ufvGArMlDFaGnqeVd74V9NXWoYqOkCiozaoFQaygyAL+70v6SfPgTyxiK67Ne9/6OSAGcjNbtg9TsBY2U5fqpDY+nE8YjdgAN6x6EydBYveGbhPtTL1T8dY8OPsaF1kwUOpPX7a3+Zzhvdr5WREmcADy9nqW11IlCKnxAbjKxm2iohVZzHzYGPNGvYX8zibrzO69VbmaxA/cqnD2q+Dl5NvX2J6fs3EZVgLGrr3AIFxZ23bGDr44KPW4uQgkldVwt2MmpjUnJXluRkUw==
+	DmybQaBpq58HP1Vy1pBsm4LmhQaPaWyrQlUm00xsKLYVUJdI4QQDfg5tryv710xLre0ksbunOKucPPd7FnPRP0XMH2UFU2cCy5eDBfQsDW3GRCwNff+frUpVFcb8xDVLeR5raQZxJO4tkfokTCcqfGAgJH0ErReBIC/AR7JW/HCSrZe3ziVgxAs/VyH1sZMsqQjSByn4rkQxHiQp2gRmcgD6yhN2C1a2vytLFcaoh70ab4sjb76Q1BwWlv1BvlboV6W1y30vRd2IORsxhN6+a1/W9Izd+MylGPxoCKB28bEVqbfLebJtAp8ExVSZ0p/f0rxX6NvpK5Mu1HSCQUmh9LB7eKYudnwRLnj+ziuowagMCeN0gbvkn8SaGA20sKPGKYc3EO2ncyg8Kn+BK/N1sBJwjHQ+vCIzpqiIjvrpyzvxXK3UpYMLomVLLAJ0AmBSp0JCealPVedi38slI1gsUMuemK5PPmqU9MUaiqbnyamuTkXkM8/7xX9l9V+CRhRAlimSQOXMGKzx46O9cw4qu6mY5+mLqdXGxmgBvr+ZYYGz2/E4i0aE68s7Ypjs5gxRJlv04HuXFB+kHemPgys8is8bKGjqBamfpoDTbnVVhvRIq14yA4m1jL/O3Sou6DkHMuuhXZfB1KGnV9ZpCc1K/K4tQ12R8pKvcrMHJjzaEe9XVQU3NW8VR3ecrk2+1pb4djHhJR44MasRzrAbpJTTBUKepQ40qwmy1Mw0xe1WQCI=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(6506007)(66946007)(31686004)(66476007)(66556008)(6512007)(54906003)(4326008)(8676002)(53546011)(2616005)(2906002)(38100700002)(186003)(26005)(316002)(6916009)(5660300002)(31696002)(8936002)(86362001)(508600001)(966005)(6486002)(83380400001)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(54906003)(6916009)(83380400001)(7416002)(38100700002)(508600001)(8936002)(8676002)(36756003)(66556008)(66946007)(66476007)(316002)(6486002)(4326008)(31686004)(5660300002)(2906002)(6512007)(2616005)(186003)(31696002)(53546011)(6506007)(26005)(86362001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?vfSLslMCDI/N9ERD5BTotTUsh6j37hKO+MT/3otxA+ARXPMVlJ1Zhhr6IQaA?=
- =?us-ascii?Q?BDyOk/1ftbvjytKSKdeuDwgUbdDQItfulFPcu3cAbI1QBgIY9fuq+fZPzt+w?=
- =?us-ascii?Q?e2qqm0UndYd8tFXqUmrjeRl+xjomNPVx+sDMmP8/gqQz0U0AXFiOHpkgdPsN?=
- =?us-ascii?Q?vJRUXoIU1LYSxl17SvOh9K6ZRFizeS1yZ0bTS6aUD4rxHFh7Gehrx6HWcmB8?=
- =?us-ascii?Q?fn74Ex7ybS0AqY/pi3w5PanLsVFd+64nH6NK1v2vxWqgI4cBc6Fdh7kWTZTR?=
- =?us-ascii?Q?E26/cBsMrArM4ZEwpYIk8Vu48dYS6bqtmM0V4C9m2iIpk0inSUaf8zYtOjgX?=
- =?us-ascii?Q?euI3ouN8j5F9/cewMMettCvlAuFbHgmtj11F1kC05j7dJ1VeKT8xWxAqNOgx?=
- =?us-ascii?Q?ThXdJE0xXBk3JlPp09ev0EC6CdBxHPeo3UhxSrD3YEgp/I4/HXPLsxzgxutf?=
- =?us-ascii?Q?kbasNW5iFHbMu1p/54hf6okV0PrPAuDktU3wFRwoRwiJ9bAqIeXFVGdqBtUY?=
- =?us-ascii?Q?Rqakuhw6l++B2ReXHkEWfvby9vC+CrBd3oPv+C7GRc0qxTLYyvJbbronZvIC?=
- =?us-ascii?Q?Q3uiXFXu+mNqt6LGWMfeF9Q+V2VBttD47UOdUo6CYfkd8Y950sOQHDfV3K/T?=
- =?us-ascii?Q?UN+lxyLjgO4U90PAZRDLxCYfJnVwc2680hlLK0HnsEULJKvFSPD5OmUnGzcV?=
- =?us-ascii?Q?JULvKmpblLbP2+WellNvAQRjI0MSteaAXQzLtfYLl4EgxAPM+HiHnmUoYDFS?=
- =?us-ascii?Q?pE7vBhvmUz2SD3uh5g9aD1K5BOE3Rotc6yjH+UxkbHs6Kdk8eUKP1ZE2UegS?=
- =?us-ascii?Q?nat4Xt16emS6Rx+8JriSFs/Ni9Wq9uCL0ZWJF7xHhX762JtzUT+FzLghuNGV?=
- =?us-ascii?Q?RkRixxiRcqqqaiC/FvwoAK2tuC5K0s/rfVhrArP9uX87oyy8s5EVLIV14xwB?=
- =?us-ascii?Q?RRrlrpna6QLLqPRsqYzFchQPa7ISoEFAZyK8DeenBoHgAuojQBNClPBMnoJu?=
- =?us-ascii?Q?s47kTPjhAkXYu8UDDG0H7/GYuuzb7PeJJqfvEaUMTocnNzrNV3oeV0Tsu9M7?=
- =?us-ascii?Q?1cyPyvjXqLZP+pFDue8TPAJsmcMDcfAoeo52JceW9qqZdalEOLnUVEHMfHI2?=
- =?us-ascii?Q?GKrfYfXPEV4xHPaPEQKVMgm1o7L/QDmKIyfadEL2P8ejTWXoaTsY36duN8zM?=
- =?us-ascii?Q?kWjOcR1jV2dX5+J9XjJL5X3yjvQEM29crUEtjzrmPQsvycfty61QK2+rh4NW?=
- =?us-ascii?Q?MgGKxqYKIioo0EgNo7gdhQjUTKcHk5fqcrpCocGtGadfDQTyEYiAwhNz9Ri+?=
- =?us-ascii?Q?koHnQr3Ycw1180uZbt/AUqD+ZaXGkeTBPNAsW+AqX3vs4Jw8fIejRKhxCmVJ?=
- =?us-ascii?Q?6xLJ2G+88yOeUfLjDXseOcvNDZCUqTBjI1N1XLX7kR4oFbI6LIbrUSWHLSv9?=
- =?us-ascii?Q?3cc2TQjtz4CiLQOr6ixX0ChQu8S4npjD8InMDcfH/JpCDap0EWTHj4bIYhgA?=
- =?us-ascii?Q?5iWWLQfkm1ca74MFPhtLouI0kx8G2HTZ21cgGH68XVxY/DSa6+/AIXeYSkbN?=
- =?us-ascii?Q?7Jnggu4gJD+VO8E4BDadMmEnvl+XMEutTeuw5/ONvzG6Qo4i0VaWlz/qpBsL?=
- =?us-ascii?Q?k9F5LT9wTkpkuJVJ3f2L8EA=3D?=
+	=?utf-8?B?VktZdGtXbFZEUi9Rb1ZUZjdONVZBRzl0NkRFL2p2RGhEdlVBaUdEWW5wZkts?=
+ =?utf-8?B?NUFQSDdFbDFZeWpzQ2pScnc0R084OEp1ZGxjKzFPbXVQUXcxZFpHVk9lNXUz?=
+ =?utf-8?B?Q1ZnYklXWGU4ZTJVdHBtVWcvS3F4K3JuTzVWTm9oNjgrYy95YUZMM2VQSlc5?=
+ =?utf-8?B?aFdwUUVLaDZJK2xHSmNPSVN6ak0xTXZtN3JjNTBoT2Z2Y3dJMHVSZmNMTlBK?=
+ =?utf-8?B?NFZueEdCajA5Q1FFZlRxcTdLam9mamtoNkFOZkxIczEwZjFkNUg0VWpLNU80?=
+ =?utf-8?B?UlZiNlJFdW5IYWhQZkVtY2xrOU5Ma1VVUlhnY25nU2Rkd3A3QkU3bHJaTmsv?=
+ =?utf-8?B?NXYxMCs4b3BNakZpTmNxaElHT0NTNVI0dFdaQVo1RHErQjNTRUI1S3pGRzJp?=
+ =?utf-8?B?Z3ZFMG1WVWMwRUdUZzBVbU5taHUrMVNjWG1BWTRBQmdtU1lTQldZL1plUGgw?=
+ =?utf-8?B?R0tDRHYrbkNzSTdMcm1IclRyRFZFZy9TMmMxQXF5L3FtUDYzbmFNUTM0a2ls?=
+ =?utf-8?B?L3g0VjhmNFdlMGJEb0JnVWI0a3AzRnNUZW9TM1JoRGdXaEpxY0FvWWswakMz?=
+ =?utf-8?B?OFE0VlJvTjJQWUhiMmpTME0rT2JsU0dRaGhMZTBZdXlaL2pvSUcxb2pVMEtE?=
+ =?utf-8?B?UGRRaThQRFkrRzhTMzVMQysxU0o3Z1dVQklHWkNOYXovYzZ0NkVkZk1tVnNh?=
+ =?utf-8?B?MUhWeTRBM0hCcGNpdldoTFZCVGkwOVJuZ0p2dWNLRHF5Z0VPa2VhV1ppWlk0?=
+ =?utf-8?B?NnJpMnlLNDJZNDl0aU44ZkpqQzZiSUNQOVYxQjcveHNuRUV2OGRtaXpRaGpn?=
+ =?utf-8?B?dU05NTBRVjhSV080aFVRZUpPTVNWYXMwT004cGNiOCtFUm1xcWo4K1pYL3ho?=
+ =?utf-8?B?YWV3U01pZWVSWlA2L2lLQzJyVDZwYnpLZ0Zwa3NzdDJGR056NUVUMjRXK3FD?=
+ =?utf-8?B?eVRtWmRBQzVDSUd0NVVlaVZxMXpQK21JbWJSY2JLM0xJQzl3Qk9hM0lWWVVn?=
+ =?utf-8?B?SFF1RmwyNll3ZkxzVmNoL3pEL1RkWTlRajFJakRSVzBxdms0akdlZk0zdDQ2?=
+ =?utf-8?B?MkxXT1NWNEowNnhkbmRPTXlteU9JSnEwYVIzVDZpbDdYMmpRZHZlM2RFNENm?=
+ =?utf-8?B?cDI1SDFDNXd2L0NsOU5LbmVPTElRbWluRldIN0VnbGx0bWU4OXFjdXpwUHF3?=
+ =?utf-8?B?OXJ1MDB2alRqam1pdWEwTjRUU0dYRGxLRWhsYitkUDF0M3BnQklyMXlUdWhX?=
+ =?utf-8?B?UkRBbWFtMlBacmdLRytLcDVsbDdUdGF4RUVmM3kxd1IxYXpmQnNxT1RHMUFR?=
+ =?utf-8?B?MkM5Y0Y4cGRnTjRnSDZOVDZuM1VKTHE1Y0FET01jNHNYVG0vZWM3TkJJUTBY?=
+ =?utf-8?B?bTA0UlgyMXd5aVJmcmYrV1JvNVRKOHNTakd5ZUJYam1kbEhIanpFNFF1SGZ0?=
+ =?utf-8?B?RzE2MHJyYk9DcDNuT2FES3NYVUpQd00vS3dHeHBMeXZwSE1PQnl0bmxMYktF?=
+ =?utf-8?B?NEVsWGxFeDNJNEM3dVJRc1haS05oWFNTOTNRa3VQaWNpU0NhN3FYbEg1NlpN?=
+ =?utf-8?B?RjZOalFtR0ZUbHRoQ0s5K1A4aHpPK2Q0M3F4MzFjS21mTDNEUitYWDJQT2Vn?=
+ =?utf-8?B?NkVOUGxZY2xuVlJsTFdRQTMwM29JSElTREZwcll6QWJlNFhVSnAvTTBTMHZL?=
+ =?utf-8?B?Y2MvS0QxaTR1ZlRKR2ZkMGNIUlhNUDQ1Ykd5M3dUY3g2QVFLNkNOcTVPNXRa?=
+ =?utf-8?B?dWtzczdhcmFXdmNnbWx4bGtGL1dKV0xQTk5UM3MzNjRzVTg4L1E2cjRLRXFQ?=
+ =?utf-8?B?ckVXamI2YlljVVNkZVVZSlFzSDlLS3Y3ckZ4TllMQk1DRUdSN2RaTHlZVk1T?=
+ =?utf-8?B?b29HU1VKWDQ1MnV1bVROclM2M2JTZmdkbENVd3NPbktVQzBjZlpod0ZwVXRj?=
+ =?utf-8?B?UHkxd29YZWNvM2p1UDcwRXBTbDEzWVRndklWTzFXc1Y4Tk1TTzQ0SGg5VHpL?=
+ =?utf-8?B?TnpWeU1DZWxHQjVYU3VxTkhMUWJGQ1E5aXkrUllyZS80N0tMSVBycjYvZVZD?=
+ =?utf-8?B?ZUgvQWpNMEFzR3hnQkRMSGJiWXhDaTR2SGJwWXFqQkpGTFd4NE9OM1RKeEEr?=
+ =?utf-8?B?MjBmRFMwTkpEeWIxVzhYMzRKRk1GUm91RE96ekxscDM4QUJ3RU43dVNNZEZS?=
+ =?utf-8?Q?h/U8do48YsuHq3PHTd+v7zA=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0ac48502-7a0c-44d4-8696-08d9fdb54885
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0062343e-aa78-44cd-da45-08d9fdb764ec
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2022 08:02:09.8503
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2022 08:17:16.5128
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oDPY4uyPTYXxbmXLYXmpkAExuLgqWyvpr1jVVmp2OmOAc4GzU1UDMLtqHMlSeOZku5Ktp3iLyRZRxVB4wAX1Gw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR04MB3082
+X-MS-Exchange-CrossTenant-UserPrincipalName: oz8LoUbEO9fTjBNi1bkWeeCGGBxUIYdI8g3LvVyGdZIH0Oby1HGfsP4Kq7MK2ADMFiRuW2n5h3Dhj47fLmQXUw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8175
 
-On 03.03.2022 16:09, Roger Pau Monn=C3=A9 wrote:
-> On Thu, Mar 03, 2022 at 01:17:03PM +0100, Jan Beulich wrote:
->> On 03.03.2022 12:19, Roger Pau Monn=C3=A9 wrote:
->>> On Wed, Mar 02, 2022 at 03:19:35PM +0100, Jan Beulich wrote:
->>>> As was e.g. making necessary 4b7fd8153ddf ("x86: fold sections in fina=
-l
->>>> binaries"), arbitrary sections appearing without our linker script
->>>> placing them explicitly can be a problem. Have the linker make us awar=
-e
->>>> of such sections, so we would know that the script needs adjusting.
->>>>
->>>> To deal with the resulting warnings:
->>>> - Retain .note.* explicitly for ELF, and discard all of them (except t=
-he
->>>>   earlier consumed .note.gnu.build-id) for PE/COFF.
->>>> - Have explicit statements for .got, .plt, and alike and add assertion=
-s
->>>>   that they're empty. No output sections will be created for these as
->>>>   long as they remain empty (or else the assertions would cause early
->>>>   failure anyway).
->>>> - Collect all .rela.* into a single section, with again an assertion
->>>>   added for the resulting section to be empty.
->>>> - Extend the enumerating of .debug_* to ELF. Note that for Clang addin=
-g
->>>>   of .debug_macinfo is necessary. Amend this by its Dwarf5 counterpart=
-,
->>>>   .debug_macro, then as well (albeit more may need adding for full
->>>>   coverage).
->>>>
->>>> Suggested-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
->>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>> ---
->>>> I would have wanted to make this generic (by putting it in
->>>> xen/Makefile), but the option cannot be added to LDFLAGS, or else
->>>> there'll be a flood of warnings with $(LD) -r. (Besides, adding to
->>>> LDFLAGS would mean use of the option on every linker pass rather than
->>>> just the last one.)
->>>>
->>>> Retaining of .note in xen-syms is under question. Plus if we want to
->>>> retain all notes, the question is whether they wouldn't better go into
->>>> .init.rodata. But .note.gnu.build-id shouldn't move there, and when
->>>> notes are discontiguous all intermediate space will also be assigned t=
-o
->>>> the NOTE segment, thus making the contents useless for tools going jus=
-t
->>>> by program headers.
->>>>
->>>> Newer Clang may require yet more .debug_* to be added. I've only playe=
-d
->>>> with versions 5 and 7 so far.
->>>>
->>>> Unless we would finally drop all mentioning of Stabs sections, we may
->>>> want to extend to there what is done for Dwarf here (allowing the EFI
->>>> conditional around the section to also go away).
->>>>
->>>> See also https://sourceware.org/pipermail/binutils/2022-March/119922.h=
-tml.
+On 03.03.2022 17:37, Jane Malalane wrote:
+> On 03/03/2022 11:37, Jan Beulich wrote:
+>> On 02.03.2022 16:00, Jane Malalane wrote:
+>>> Add XEN_SYSCTL_PHYSCAP_ARCH_ASSISTED_xapic and
+>>> XEN_SYSCTL_PHYSCAP_ARCH_ASSISTED_x2apic to report accelerated xapic
+>>> and x2apic, on x86 hardware.
+>>> No such features are currently implemented on AMD hardware.
 >>>
->>> LLD 13.0.0 also warns about:
+>>> For that purpose, also add an arch-specific "capabilities" parameter
+>>> to struct xen_sysctl_physinfo.
 >>>
->>> ld: warning: <internal>:(.symtab) is being placed in '.symtab'
->>> ld: warning: <internal>:(.shstrtab) is being placed in '.shstrtab'
->>> ld: warning: <internal>:(.strtab) is being placed in '.strtab'
+>>> Note that this interface is intended to be compatible with AMD so that
+>>> AVIC support can be introduced in a future patch. Unlike Intel that
+>>> has multiple controls for APIC Virtualization, AMD has one global
+>>> 'AVIC Enable' control bit, so fine-graining of APIC virtualization
+>>> control cannot be done on a common interface. Therefore, for xAPIC HW
+>>> assisted virtualization support to be reported, HW must support
+>>> virtualize_apic_accesses as well as apic_reg_virt.
+>>
+>> Okay, here you now describe _what_ is being implemented, but I'm
+>> afraid it still lacks justification (beyond making this re-usable for
+>> AVIC, which imo can only be a secondary goal). You actually say ...
+>>
+>>> For x2APIC HW
+>>> assisted virtualization reporting, virtualize_x2apic_mode must be
+>>> supported alongside apic_reg_virt and virtual_intr_delivery.
 >>>
->>> So seeing your mail where you mention GNU ld not needing those, I
->>> think we would need to add them anyway for LLVM ld.
->>
->> Hmm, that's ugly. How do I recognize LLVM ld? I can't simply use a
->> pre-processor conditional keying off of __clang__, as that used as the
->> compiler doesn't mean their ld is also in use (typically the case on
->> Linux).
->=20
-> Hard to tell, `ld -v` for LLD will typically contain '^LLD' I think,
-> but I don't really like matching on human readable output like this.
-
-Same here. But Linux'es ld-version.sh looks to be doing just that.
-
->> I also don't want to add these uniformly, for now knowing what
->> side effects their mentioning might have with GNU ld.
->=20
-> Wouldn't it be fine to just place them at the end, just like it's
-> done by default by ld?
->=20
-> Are you worried about not getting the proper type if mentioned in the
-> linker script?
-
-I'm worried of about any kind of anomaly that could be caused by
-mentioning sections which a linker doesn't expect to be named in
-a script. That's hardly something they would even test their
-linkers against.
-
->>>> --- a/xen/arch/x86/Makefile
->>>> +++ b/xen/arch/x86/Makefile
->>>> @@ -120,6 +120,8 @@ syms-warn-dup-y :=3D --warn-dup
->>>>  syms-warn-dup-$(CONFIG_SUPPRESS_DUPLICATE_SYMBOL_WARNINGS) :=3D
->>>>  syms-warn-dup-$(CONFIG_ENFORCE_UNIQUE_SYMBOLS) :=3D --error-dup
->>>> =20
->>>> +orphan-handling-$(call ld-option,--orphan-handling=3Dwarn) +=3D --orp=
-han-handling=3Dwarn
+>>> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
 >>>
->>> Might be better to place in xen/Kconfig with the CC checks?
+>>> v4:
+>>>   * Fallback to the original v2/v1 conditions for setting
+>>>     assisted_xapic_available and assisted_x2apic_available so that in
+>>>     the future APIC virtualization can be exposed on AMD hardware
+>>>     since fine-graining of "AVIC" is not supported, i.e., AMD solely
+>>>     uses "AVIC Enable". This also means that sysctl mimics what's
+>>>     exposed in CPUID.
 >>
->> Well. I've tried to stay away from complaining if people introduce
->> new tool chain capability checks in Kconfig. But I'm not going to
->> add any myself (unless things would become really inconsistent) up
->> and until we have actually properly discussed the upsides and
->> downsides of either model. Doing this via email (see the "Kconfig
->> vs tool chain capabilities" thread started in August 2020) has
->> proven to not lead anywhere. I'm really hoping that we can finally
->> sort this in Bukarest.
+>> ... more here: You claim similarity with CPUID. That's a possible route,
+>> but we need to be clear that these CPUID flags are optimization hints
+>> for the guest to use, while the new control is intended to be a functional
+>> one. Hence it's not obvious that CPUID wants following, and not instead
+>> the conditionals used in vmx_vlapic_msr_changed() (or yet something else).
 >>
->>> I'm also wondering whether we could add the flag here into XEN_LDFLAGS
->>> and EFI_LDFLAGS, as those options are only used together with the
->>> linker script in the targets on the Makefile.
->>
->> Not for XEN_LDFLAGS at least, and undesirable for EFI_LDFLAGS. See
->> the respective post-commit message remark.
->=20
-> But the calls to LD in order to generate $(TARGET)-syms do not use -r,
-> and are all using the linker script, so it should be fine to use
-> --orphan-handling=3Dwarn there?
+>> What's worse though: What you say is true for x2APIC, but not for xAPIC.
+>> Which effectively is in line with vmx_vlapic_msr_changed() and CPUID
+>> handling also agreeing as far as x2APIC is concerned, but disagreeing on
+>> the xAPIC side. I can only once again try to express that it may well be
+>> that pre-existing code wants adjusting before actually making the changes
+>> you're after.
+> 
+> 
+> I've been thinking about this. Considering what you say, I propose:
+> 
+> - having assisted_x2apic_available = cpu_has_vmx_virtualize_x2apic_mode 
+> && (cpu_has_vmx_apic_reg_virt || cpu_has_vmx_virtual_intr_delivery). 
+> This would mean that on Intel CPUs has_assisted_x2apic==1 would signify 
+> that there is at least "some" assistance*, whereas on AMD it would 
+> signify that there is full assistance (assistance here meaning no VM-exits).
+> * apic_reg_virt prevents VM exits on execution of RDMSR and 
+> virtual_intr_delivery prevents VM exits on execution of RDMSR, from what 
+> I've gathered.
 
-But XEN_LDFLAGS is also used elsewhere together with -r. (Whether
-that's actually correct is a different question.)
+I agree with this part of the plan.
 
-> Could we do something like:
->=20
-> $(TARGET)-syms: XEN_LDFLAGS +=3D ...
->=20
-> And similar for $(TARGET).efi?
+> - having assisted_xapic_available = cpu_has_vmx_virtualize_apic_accesses 
+> && cpu_has_vmx_apic_reg_virt because apic_reg_virt is neccessary for 
+> "any" assistance.
 
-Yes, this ought to be possible, but would again lead to the option
-being passed on all three linking stages instead of just the final
-one. When there are many warnings (e.g. because of the same kind of
-section appearing many times), it's not helpful to see the flood
-three times (or likely even six times, once for xen-syms and once
-for xen.efi).
+Not exactly, aiui: cpu_has_vmx_virtualize_apic_accesses alone is beneficial
+because a separate VM exit is then used, simplifying some internal handling.
+There might actually be room for improvement in our handling of this, as we
+presently use the exit qualification only to accelerate EOI writes.
+
+> - Currently, the code only sets SECONDARY_EXEC_VIRTUALIZE_X2APIC_MODE if 
+> "some" assistance is guaranteed but sets 
+> SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES even if no assistance is 
+> guaranteed. So the adjustment to the pre-existing code that I propose is
+> adding cpu_has_vmx_apic_reg_virt to the initial check in 
+> vmx_vlapic_msr_changed():
+> 
+>   void vmx_vlapic_msr_changed(struct vcpu *v)
+>   {
+>       int virtualize_x2apic_mode;
+>       struct vlapic *vlapic = vcpu_vlapic(v);
+>       unsigned int msr;
+> 
+>       virtualize_x2apic_mode = ((cpu_has_vmx_apic_reg_virt ||
+>                                  cpu_has_vmx_virtual_intr_delivery) &&
+>                                 cpu_has_vmx_virtualize_x2apic_mode);
+> 
+>       if ( !cpu_has_vmx_virtualize_apic_accesses &&
+> +         !cpu_has_vmx_apic_reg_virt &&
+>            !virtualize_x2apic_mode )
+>           return;
+
+I'd suggest the opposite for the xAPIC case: Leave the condition here
+unchanged, but consider tightening the condition for the CPUID flag.
+That'll bring xAPIC handling more in line with x2APIC one.
+
+> which would then eventually just be what I currently have:
+> +    if ( !has_assisted_xapic(v->domain) &&
+> +         !has_assisted_x2apic(v->domain) )
+>           return;
+
+Yes, the eventual form is expected in any event.
 
 Jan
+
+> So, essentially, the only difference from v4 would be 
+> assisted_x2apic_available = (cpu_has_vmx_virtualize_x2apic_mode &&
+> 	  	             (cpu_has_vmx_apic_reg_virt ||
+> 			      cpu_has_vmx_virtual_intr_delivery));	
+> 
+> sysctl would now coincide with CPUID for xAPIC but not x2APIC (for CPUID 
+> the condition is the AND of all features unlike the 
+> assisted_x2apic_available proposed). IOW, it would follow the 
+> conditionals used in vmx_vlapic_msr_changed(), if we take the change to 
+> vmx_vlapic_msr_changed() above.
+> 
+> Thank you,
+> 
+> Jane.
 
 
