@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15D9F4CE572
-	for <lists+xen-devel@lfdr.de>; Sat,  5 Mar 2022 16:09:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.285181.484427 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A81064CE5B5
+	for <lists+xen-devel@lfdr.de>; Sat,  5 Mar 2022 17:03:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.285192.484443 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nQW1q-0007ky-H7; Sat, 05 Mar 2022 15:09:06 +0000
+	id 1nQWrO-0007Iy-2d; Sat, 05 Mar 2022 16:02:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 285181.484427; Sat, 05 Mar 2022 15:09:06 +0000
+Received: by outflank-mailman (output) from mailman id 285192.484443; Sat, 05 Mar 2022 16:02:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nQW1q-0007hy-Dv; Sat, 05 Mar 2022 15:09:06 +0000
-Received: by outflank-mailman (input) for mailman id 285181;
- Sat, 05 Mar 2022 15:09:04 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nQW1o-0007ho-S4; Sat, 05 Mar 2022 15:09:04 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nQW1o-0008AK-Lb; Sat, 05 Mar 2022 15:09:04 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nQW1o-0006VI-BD; Sat, 05 Mar 2022 15:09:04 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nQW1o-0004lo-Ae; Sat, 05 Mar 2022 15:09:04 +0000
+	id 1nQWrN-0007CE-V7; Sat, 05 Mar 2022 16:02:21 +0000
+Received: by outflank-mailman (input) for mailman id 285192;
+ Sat, 05 Mar 2022 15:34:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=GEmz=TQ=uniontech.com=zhanglianjie@srs-se1.protection.inumbo.net>)
+ id 1nQWQM-00033D-JV
+ for xen-devel@lists.xenproject.org; Sat, 05 Mar 2022 15:34:26 +0000
+Received: from smtpproxy21.qq.com (smtpbg702.qq.com [203.205.195.102])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b6d6e428-9c99-11ec-8539-5f4723681683;
+ Sat, 05 Mar 2022 16:34:20 +0100 (CET)
+Received: from [192.168.31.174] ( [114.222.120.105])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Sat, 05 Mar 2022 23:34:03 +0800 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,106 +39,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=bDk0T9DsVKu+8OO9hL2AEhfDaGS8dKPo+cOxLqFrDKs=; b=E+tclqIJThREcIMqiruLhM6hCg
-	t0Sk1UwPimgjmU6mG7L8C+bY2TaqXngAexCUzIU08VSxENsvqHeTzDH1Aa1dq029zPEKkE+YrgmDM
-	rrV1no43jip+O3riYe0k/28gYw6yyLuYvJXXsa6WJNqG5sUFmS2+yUi77cwE3FQHkdq8=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168419-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: b6d6e428-9c99-11ec-8539-5f4723681683
+X-QQ-mid: bizesmtp76t1646494445tfu1xbnk
+X-QQ-SSF: 00400000002000B0I000B00A0000000
+X-QQ-FEAT: LItLOq/50o2PmYfAwguweBDHzjuwj/b82I/76cIyZ3DR2bPRqgfcBnjeFJ/zm
+	Ti0kyQNN+UIAwx/lkzVu6yosSlS0LcreJM1bhPJLgMvHyDFBWuOVA/jNCTX3kkVSTqH8onu
+	Y60DWJ3D77mpQOYAkaiRaUD87H0CLtqu8j90JprD+vscoEwM9iVR0RG8Xxx1cSMjGet3PdY
+	YSBqOtJVzF4c33s3Vis0ZX2a8DzrdchsraBeL/apst8OL9bXVYkctYLxKTdPoTyTZJ10y0o
+	DzwiX9FnnIwCVbu2AaeuajkZGvJ744tmkFGPuWBfzW1em9Q868BozCF/zQjFUk2UW5WG/ow
+	4cZLPK1Hli6Am0o61Y6aTcKovG9pA==
+X-QQ-GoodBg: 2
+Message-ID: <9ce86761-37e0-8a21-7b91-344058c9b563@uniontech.com>+CB7907B06FE21C96
+Date: Sat, 5 Mar 2022 23:33:58 +0800
 MIME-Version: 1.0
-Subject: [ovmf test] 168419: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=4adc364c75b556eb0b741332f08c0aceb5e2cb0a
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 05 Mar 2022 15:09:04 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.0
+Subject: Re: [PATCH] drivers/xen: use helper macro __ATTR_RW
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Juergen Gross <jgross@suse.com>, David Vrabel <david.vrabel@citrix.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+References: <20220305133823.158961-1-zhanglianjie@uniontech.com>
+ <YiNry3TtIPbEh1Yr@kroah.com>
+From: zhanglianjie <zhanglianjie@uniontech.com>
+In-Reply-To: <YiNry3TtIPbEh1Yr@kroah.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: bizesmtp:uniontech.com:qybgforeign:qybgforeign5
+X-QQ-Bgrelay: 1
 
-flight 168419 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168419/
+Hi,
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 4adc364c75b556eb0b741332f08c0aceb5e2cb0a
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z    5 days
-Failing since        168258  2022-03-01 01:55:31 Z    4 days   43 attempts
-Testing same since   168407  2022-03-05 00:41:43 Z    0 days    7 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+在 2022/3/5 21:55, Greg Kroah-Hartman 写道:
+> On Sat, Mar 05, 2022 at 09:38:23PM +0800, zhanglianjie wrote:
+>> Use helper macro __ATTR_RW to define HYPERVISOR_ATTR_RW to make code more clear.
+>> Minor readability improvement.
+>>
+>> Signed-off-by: zhanglianjie <zhanglianjie@uniontech.com>
+> 
+> Is this the name you sign legal documents with?  (I have to ask...)
+Yes, this is my signature.
+> 
+>>
+>> diff --git a/drivers/xen/sys-hypervisor.c b/drivers/xen/sys-hypervisor.c
+>> index feb1d16252e7..fcb0792f090e 100644
+>> --- a/drivers/xen/sys-hypervisor.c
+>> +++ b/drivers/xen/sys-hypervisor.c
+>> @@ -22,11 +22,10 @@
+>>   #endif
+>>
+>>   #define HYPERVISOR_ATTR_RO(_name) \
+>> -static struct hyp_sysfs_attr  _name##_attr = __ATTR_RO(_name)
+>> +static struct hyp_sysfs_attr _name##_attr = __ATTR_RO(_name)
+> 
+> Why change this line?  That's not relevant to this change :(
+> 
+There are two spaces between struct hyp_sysfs_attr and _name, by the 
+way, modify it.
+thanks.
+> thanks,
+> 
+> greg k-h
+> 
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 407 lines long.)
 
