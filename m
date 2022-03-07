@@ -2,46 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0A924CFD73
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Mar 2022 12:54:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.285881.485189 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF38E4CFD81
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Mar 2022 12:58:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.285906.485202 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRBwe-0005Oh-7c; Mon, 07 Mar 2022 11:54:32 +0000
+	id 1nRBzb-0006ym-Me; Mon, 07 Mar 2022 11:57:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 285881.485189; Mon, 07 Mar 2022 11:54:32 +0000
+Received: by outflank-mailman (output) from mailman id 285906.485202; Mon, 07 Mar 2022 11:57:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRBwe-0005Kx-3K; Mon, 07 Mar 2022 11:54:32 +0000
-Received: by outflank-mailman (input) for mailman id 285881;
- Mon, 07 Mar 2022 11:54:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nRBzb-0006wY-JY; Mon, 07 Mar 2022 11:57:35 +0000
+Received: by outflank-mailman (input) for mailman id 285906;
+ Mon, 07 Mar 2022 11:57:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7T3K=TS=amazon.de=prvs=058ff0969=doebel@srs-se1.protection.inumbo.net>)
- id 1nRBwc-0004Lv-8O
- for xen-devel@lists.xenproject.org; Mon, 07 Mar 2022 11:54:30 +0000
-Received: from smtp-fw-80006.amazon.com (smtp-fw-80006.amazon.com
- [99.78.197.217]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 56adcddc-9e0d-11ec-8eba-a37418f5ba1a;
- Mon, 07 Mar 2022 12:54:28 +0100 (CET)
-Received: from pdx4-co-svc-p1-lb2-vlan3.amazon.com (HELO
- email-inbound-relay-iad-1a-2d7489a4.us-east-1.amazon.com) ([10.25.36.214])
- by smtp-border-fw-80006.pdx80.corp.amazon.com with ESMTP;
- 07 Mar 2022 11:54:08 +0000
-Received: from EX13D44EUB004.ant.amazon.com
- (iad12-ws-svc-p26-lb9-vlan2.iad.amazon.com [10.40.163.34])
- by email-inbound-relay-iad-1a-2d7489a4.us-east-1.amazon.com (Postfix) with
- ESMTPS id 8EB46A277F; Mon,  7 Mar 2022 11:54:05 +0000 (UTC)
-Received: from EX13MTAUEA001.ant.amazon.com (10.43.61.82) by
- EX13D44EUB004.ant.amazon.com (10.43.166.198) with Microsoft SMTP Server (TLS)
- id 15.0.1497.28; Mon, 7 Mar 2022 11:54:04 +0000
-Received: from dev-dsk-doebel-1c-c6d5f274.eu-west-1.amazon.com (10.13.240.106)
- by mail-relay.amazon.com (10.43.61.243) with Microsoft SMTP Server id
- 15.0.1497.28 via Frontend Transport; Mon, 7 Mar 2022 11:54:03 +0000
-Received: by dev-dsk-doebel-1c-c6d5f274.eu-west-1.amazon.com (Postfix,
- from userid 3160037)
- id 4E48D4E7F; Mon,  7 Mar 2022 11:54:03 +0000 (UTC)
+ id 1nRBza-0006wS-CJ
+ for xen-devel@lists.xenproject.org; Mon, 07 Mar 2022 11:57:34 +0000
+Received: from smtp-fw-6001.amazon.com (smtp-fw-6001.amazon.com [52.95.48.154])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c4fcedff-9e0d-11ec-8539-5f4723681683;
+ Mon, 07 Mar 2022 12:57:32 +0100 (CET)
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ email-inbound-relay-iad-1e-98691110.us-east-1.amazon.com) ([10.43.8.6])
+ by smtp-border-fw-6001.iad6.amazon.com with ESMTP; 07 Mar 2022 11:57:31 +0000
+Received: from EX13D03EUC002.ant.amazon.com
+ (iad12-ws-svc-p26-lb9-vlan3.iad.amazon.com [10.40.163.38])
+ by email-inbound-relay-iad-1e-98691110.us-east-1.amazon.com (Postfix) with
+ ESMTPS id 7907F84DAE; Mon,  7 Mar 2022 11:57:30 +0000 (UTC)
+Received: from [10.139.202.10] (10.43.166.120) by EX13D03EUC002.ant.amazon.com
+ (10.43.164.60) with Microsoft SMTP Server (TLS) id 15.0.1497.28;
+ Mon, 7 Mar 2022 11:57:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,207 +45,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 56adcddc-9e0d-11ec-8eba-a37418f5ba1a
+X-Inumbo-ID: c4fcedff-9e0d-11ec-8539-5f4723681683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
-  t=1646654069; x=1678190069;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=T4HQVwdD+Sp1df6ID2a/ASUAEQvXVBttAi63ggcy0Qg=;
-  b=oqPK8vc+PN0FW5dmOzkrjNIO2hC8qvNtHVSV7ncHGGbsAHLeWuXzNre5
-   WLmZE+qVdmG9aQhv6UxebDJkZ7NeQVvl4MB/LNHtOIfD+mpzjAGQkuUZR
-   B0SnZuV0F0g+d/5AbHpgto6QXF/P/LwLU9k8lkt28Yux0jzX0b944bpqr
-   A=;
+  t=1646654253; x=1678190253;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=J8FaHJ6I9RVAxdIwCsNyUerpw7N9nZiCzxq2KCUfZHw=;
+  b=E2hIQee+sKAPt2IvXvxsgTYhYKHlipa2hKjcfkTPMD17IBubYj6uboLM
+   gK8a47HUOrkPf8HA67jUehRbJEzve8g862XQ3DYTa8S8YqPvqjcYEu0AU
+   JVRIw1n1pu3V5zihG/7eRRAJW3jUtM4N4Ol/HXzA6DlIAFpI4fr29hsZB
+   8=;
 X-IronPort-AV: E=Sophos;i="5.90,162,1643673600"; 
-   d="scan'208";a="68586367"
-From: Bjoern Doebel <doebel@amazon.de>
+   d="scan'208";a="183655464"
+Message-ID: <6d901e58-b7ee-8631-b23c-bbbeaf2dda7b@amazon.de>
+Date: Mon, 7 Mar 2022 12:57:28 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.6.1
+Subject: Re: [PATCH 1/1] xen/x86: Livepatch: support patching CET-enhanced
+ functions
+Content-Language: en-US
 To: <xen-devel@lists.xenproject.org>
 CC: Michael Kurth <mku@amazon.de>, Martin Pohlack <mpohlack@amazon.de>, Roger
  Pau Monne <roger.pau@citrix.com>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
-	Bjoern Doebel <doebel@amazon.de>, Konrad Rzeszutek Wilk
-	<konrad.wilk@oracle.com>, Ross Lagerwall <ross.lagerwall@citrix.com>
-Subject: [PATCH 2/2] xen/x86: Livepatch: support patching CET-enhanced functions
-Date: Mon, 7 Mar 2022 11:53:54 +0000
-Message-ID: <deb5d86b20c02312023959bae06b0fe651a4b2f4.1646653825.git.doebel@amazon.de>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <cover.1646653825.git.doebel@amazon.de>
-References: <cover.1646653825.git.doebel@amazon.de>
-MIME-Version: 1.0
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, Ross Lagerwall
+	<ross.lagerwall@citrix.com>
+References: <cover.1646653822.git.doebel@amazon.de>
+ <deb5d86b20c02312023959bae06b0fe651a4b2f4.1646653822.git.doebel@amazon.de>
+From: "Doebel, Bjoern" <doebel@amazon.de>
+In-Reply-To: <deb5d86b20c02312023959bae06b0fe651a4b2f4.1646653822.git.doebel@amazon.de>
+X-Originating-IP: [10.43.166.120]
+X-ClientProxiedBy: EX13D08EUC002.ant.amazon.com (10.43.164.124) To
+ EX13D03EUC002.ant.amazon.com (10.43.164.60)
 Precedence: Bulk
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"; format="flowed"
+Content-Transfer-Encoding: base64
 
-Xen enabled CET for supporting architectures. The control flow aspect of
-CET expects functions that can be called indirectly (i.e., via function
-pointers) to start with an ENDBR64 instruction. Otherwise a control flow
-exception is raised.
-
-This expectation breaks livepatching flows because we patch functions by
-overwriting their first 5 bytes with a JMP + <offset>, thus breaking the
-ENDBR64. We fix this by checking the start of a patched function for
-being ENDBR64. In the positive case we move the livepatch JMP to start
-behind the ENDBR64 instruction.
-
-To avoid having to guess the ENDBR64 offset again on patch reversal
-(which might race with other mechanisms adding/removing ENDBR
-dynamically), use the livepatch metadata to store the computed offset
-along with the saved bytes of the overwritten function.
-
-Signed-off-by: Bjoern Doebel <doebel@amazon.de>
-CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-CC: Ross Lagerwall <ross.lagerwall@citrix.com>
-----
-Note that on top of livepatching functions, Xen supports an additional
-mode where we can "remove" a function by overwriting it with NOPs. This
-is only supported for functions up to 31 bytes in size and this patch
-reduces this limit to 30 bytes.
----
- xen/arch/x86/livepatch.c | 63 +++++++++++++++++++++++++++++++++++-----
- 1 file changed, 55 insertions(+), 8 deletions(-)
-
-diff --git a/xen/arch/x86/livepatch.c b/xen/arch/x86/livepatch.c
-index 65530c1e57..da7611c01d 100644
---- a/xen/arch/x86/livepatch.c
-+++ b/xen/arch/x86/livepatch.c
-@@ -14,11 +14,29 @@
- #include <xen/vm_event.h>
- #include <xen/virtual_region.h>
- 
-+#include <asm/endbr.h>
- #include <asm/fixmap.h>
- #include <asm/nmi.h>
- #include <asm/livepatch.h>
- #include <asm/setup.h>
- 
-+/*
-+ * CET hotpatching support: We may have functions starting with an ENDBR64
-+ * instruction that MUST remain the first instruction of the function, hence
-+ * we need to move any hotpatch trampoline further into the function. For that
-+ * we need to keep track of the patching offset used for any loaded hotpatch
-+ * (to avoid racing against other fixups adding/removing ENDBR64 or similar
-+ * instructions).
-+ *
-+ * We do so by making use of the existing opaque metadata area. We use its
-+ * first 4 bytes to track the offset into the function used for patching and
-+ * the remainder of the data to store overwritten code bytes.
-+ */
-+struct x86_livepatch_meta {
-+    uint8_t patch_offset;
-+    uint8_t instruction[LIVEPATCH_OPAQUE_SIZE - sizeof(uint8_t)];
-+};
-+
- static bool has_active_waitqueue(const struct vm_event_domain *ved)
- {
-     /* ved may be xzalloc()'d without INIT_LIST_HEAD() yet. */
-@@ -104,18 +122,36 @@ void noinline arch_livepatch_revive(void)
- 
- int arch_livepatch_verify_func(const struct livepatch_func *func)
- {
-+    BUILD_BUG_ON(sizeof(struct x86_livepatch_meta) != LIVEPATCH_OPAQUE_SIZE);
-+
-     /* If NOPing.. */
-     if ( !func->new_addr )
-     {
-+        struct x86_livepatch_meta *lp;
-+
-+        lp = (struct x86_livepatch_meta *)func->opaque;
-         /* Only do up to maximum amount we can put in the ->opaque. */
--        if ( func->new_size > sizeof(func->opaque) )
-+        if ( func->new_size > sizeof(lp->instruction) )
-             return -EOPNOTSUPP;
- 
-         if ( func->old_size < func->new_size )
-             return -EINVAL;
-     }
--    else if ( func->old_size < ARCH_PATCH_INSN_SIZE )
--        return -EINVAL;
-+    else
-+    {
-+        /*
-+         * Space needed now depends on whether the target function
-+         * starts with an ENDBR64 instruction.
-+         */
-+        uint8_t needed;
-+
-+        needed = ARCH_PATCH_INSN_SIZE;
-+        if ( is_endbr64(func->old_addr) )
-+            needed += ENDBR64_LEN;
-+
-+        if ( func->old_size < needed )
-+            return -EINVAL;
-+    }
- 
-     return 0;
- }
-@@ -127,15 +163,21 @@ int arch_livepatch_verify_func(const struct livepatch_func *func)
- void noinline arch_livepatch_apply(struct livepatch_func *func)
- {
-     uint8_t *old_ptr;
--    uint8_t insn[sizeof(func->opaque)];
-+    struct x86_livepatch_meta *lp;
-+    uint8_t insn[sizeof(lp->instruction)];
-     unsigned int len;
- 
-+    lp = (struct x86_livepatch_meta *)func->opaque;
-+    lp->patch_offset = 0;
-     old_ptr = func->old_addr;
-     len = livepatch_insn_len(func);
-     if ( !len )
-         return;
- 
--    memcpy(func->opaque, old_ptr, len);
-+    if ( is_endbr64(old_ptr) )
-+        lp->patch_offset += ENDBR64_LEN;
-+
-+    memcpy(lp->instruction, old_ptr + lp->patch_offset, len);
-     if ( func->new_addr )
-     {
-         int32_t val;
-@@ -143,14 +185,15 @@ void noinline arch_livepatch_apply(struct livepatch_func *func)
-         BUILD_BUG_ON(ARCH_PATCH_INSN_SIZE != (1 + sizeof(val)));
- 
-         insn[0] = 0xe9; /* Relative jump. */
--        val = func->new_addr - func->old_addr - ARCH_PATCH_INSN_SIZE;
-+        val = func->new_addr - (func->old_addr + lp->patch_offset
-+                                + ARCH_PATCH_INSN_SIZE);
- 
-         memcpy(&insn[1], &val, sizeof(val));
-     }
-     else
-         add_nops(insn, len);
- 
--    memcpy(old_ptr, insn, len);
-+    memcpy(old_ptr + lp->patch_offset, insn, len);
- }
- 
- /*
-@@ -159,7 +202,11 @@ void noinline arch_livepatch_apply(struct livepatch_func *func)
-  */
- void noinline arch_livepatch_revert(const struct livepatch_func *func)
- {
--    memcpy(func->old_addr, func->opaque, livepatch_insn_len(func));
-+    struct x86_livepatch_meta *lp;
-+
-+    lp = (struct x86_livepatch_meta *)func->opaque;
-+
-+    memcpy(func->old_addr + lp->patch_offset, lp->instruction, livepatch_insn_len(func));
- }
- 
- /*
--- 
-2.32.0
-
-
-
-
-Amazon Development Center Germany GmbH
-Krausenstr. 38
-10117 Berlin
-Geschaeftsfuehrung: Christian Schlaeger, Jonathan Weiss
-Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
-Sitz: Berlin
-Ust-ID: DE 289 237 879
-
-
+UGxlYXNlIGRpc2NhcmQgdGhpcyBhY2NpZGVudGFsIGNvcHkgb2YgcGF0Y2ggMi8yLgoKT24gMDcu
+MDMuMjIgMTI6NTMsIEJqb2VybiBEb2ViZWwgd3JvdGU6Cj4gWGVuIGVuYWJsZWQgQ0VUIGZvciBz
+dXBwb3J0aW5nIGFyY2hpdGVjdHVyZXMuIFRoZSBjb250cm9sIGZsb3cgYXNwZWN0IG9mCj4gQ0VU
+IGV4cGVjdHMgZnVuY3Rpb25zIHRoYXQgY2FuIGJlIGNhbGxlZCBpbmRpcmVjdGx5IChpLmUuLCB2
+aWEgZnVuY3Rpb24KPiBwb2ludGVycykgdG8gc3RhcnQgd2l0aCBhbiBFTkRCUjY0IGluc3RydWN0
+aW9uLiBPdGhlcndpc2UgYSBjb250cm9sIGZsb3cKPiBleGNlcHRpb24gaXMgcmFpc2VkLgo+IAo+
+IFRoaXMgZXhwZWN0YXRpb24gYnJlYWtzIGxpdmVwYXRjaGluZyBmbG93cyBiZWNhdXNlIHdlIHBh
+dGNoIGZ1bmN0aW9ucyBieQo+IG92ZXJ3cml0aW5nIHRoZWlyIGZpcnN0IDUgYnl0ZXMgd2l0aCBh
+IEpNUCArIDxvZmZzZXQ+LCB0aHVzIGJyZWFraW5nIHRoZQo+IEVOREJSNjQuIFdlIGZpeCB0aGlz
+IGJ5IGNoZWNraW5nIHRoZSBzdGFydCBvZiBhIHBhdGNoZWQgZnVuY3Rpb24gZm9yCj4gYmVpbmcg
+RU5EQlI2NC4gSW4gdGhlIHBvc2l0aXZlIGNhc2Ugd2UgbW92ZSB0aGUgbGl2ZXBhdGNoIEpNUCB0
+byBzdGFydAo+IGJlaGluZCB0aGUgRU5EQlI2NCBpbnN0cnVjdGlvbi4KPiAKPiBUbyBhdm9pZCBo
+YXZpbmcgdG8gZ3Vlc3MgdGhlIEVOREJSNjQgb2Zmc2V0IGFnYWluIG9uIHBhdGNoIHJldmVyc2Fs
+Cj4gKHdoaWNoIG1pZ2h0IHJhY2Ugd2l0aCBvdGhlciBtZWNoYW5pc21zIGFkZGluZy9yZW1vdmlu
+ZyBFTkRCUgo+IGR5bmFtaWNhbGx5KSwgdXNlIHRoZSBsaXZlcGF0Y2ggbWV0YWRhdGEgdG8gc3Rv
+cmUgdGhlIGNvbXB1dGVkIG9mZnNldAo+IGFsb25nIHdpdGggdGhlIHNhdmVkIGJ5dGVzIG9mIHRo
+ZSBvdmVyd3JpdHRlbiBmdW5jdGlvbi4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBCam9lcm4gRG9lYmVs
+IDxkb2ViZWxAYW1hem9uLmRlPgo+IENDOiBLb25yYWQgUnplc3p1dGVrIFdpbGsgPGtvbnJhZC53
+aWxrQG9yYWNsZS5jb20+Cj4gQ0M6IFJvc3MgTGFnZXJ3YWxsIDxyb3NzLmxhZ2Vyd2FsbEBjaXRy
+aXguY29tPgo+IC0tLS0KPiBOb3RlIHRoYXQgb24gdG9wIG9mIGxpdmVwYXRjaGluZyBmdW5jdGlv
+bnMsIFhlbiBzdXBwb3J0cyBhbiBhZGRpdGlvbmFsCj4gbW9kZSB3aGVyZSB3ZSBjYW4gInJlbW92
+ZSIgYSBmdW5jdGlvbiBieSBvdmVyd3JpdGluZyBpdCB3aXRoIE5PUHMuIFRoaXMKPiBpcyBvbmx5
+IHN1cHBvcnRlZCBmb3IgZnVuY3Rpb25zIHVwIHRvIDMxIGJ5dGVzIGluIHNpemUgYW5kIHRoaXMg
+cGF0Y2gKPiByZWR1Y2VzIHRoaXMgbGltaXQgdG8gMzAgYnl0ZXMuCj4gLS0tCj4gICB4ZW4vYXJj
+aC94ODYvbGl2ZXBhdGNoLmMgfCA2MyArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+Ky0tLS0tCj4gICAxIGZpbGUgY2hhbmdlZCwgNTUgaW5zZXJ0aW9ucygrKSwgOCBkZWxldGlvbnMo
+LSkKPiAKPiBkaWZmIC0tZ2l0IGEveGVuL2FyY2gveDg2L2xpdmVwYXRjaC5jIGIveGVuL2FyY2gv
+eDg2L2xpdmVwYXRjaC5jCj4gaW5kZXggNjU1MzBjMWU1Ny4uZGE3NjExYzAxZCAxMDA2NDQKPiAt
+LS0gYS94ZW4vYXJjaC94ODYvbGl2ZXBhdGNoLmMKPiArKysgYi94ZW4vYXJjaC94ODYvbGl2ZXBh
+dGNoLmMKPiBAQCAtMTQsMTEgKzE0LDI5IEBACj4gICAjaW5jbHVkZSA8eGVuL3ZtX2V2ZW50Lmg+
+Cj4gICAjaW5jbHVkZSA8eGVuL3ZpcnR1YWxfcmVnaW9uLmg+Cj4gICAKPiArI2luY2x1ZGUgPGFz
+bS9lbmRici5oPgo+ICAgI2luY2x1ZGUgPGFzbS9maXhtYXAuaD4KPiAgICNpbmNsdWRlIDxhc20v
+bm1pLmg+Cj4gICAjaW5jbHVkZSA8YXNtL2xpdmVwYXRjaC5oPgo+ICAgI2luY2x1ZGUgPGFzbS9z
+ZXR1cC5oPgo+ICAgCj4gKy8qCj4gKyAqIENFVCBob3RwYXRjaGluZyBzdXBwb3J0OiBXZSBtYXkg
+aGF2ZSBmdW5jdGlvbnMgc3RhcnRpbmcgd2l0aCBhbiBFTkRCUjY0Cj4gKyAqIGluc3RydWN0aW9u
+IHRoYXQgTVVTVCByZW1haW4gdGhlIGZpcnN0IGluc3RydWN0aW9uIG9mIHRoZSBmdW5jdGlvbiwg
+aGVuY2UKPiArICogd2UgbmVlZCB0byBtb3ZlIGFueSBob3RwYXRjaCB0cmFtcG9saW5lIGZ1cnRo
+ZXIgaW50byB0aGUgZnVuY3Rpb24uIEZvciB0aGF0Cj4gKyAqIHdlIG5lZWQgdG8ga2VlcCB0cmFj
+ayBvZiB0aGUgcGF0Y2hpbmcgb2Zmc2V0IHVzZWQgZm9yIGFueSBsb2FkZWQgaG90cGF0Y2gKPiAr
+ICogKHRvIGF2b2lkIHJhY2luZyBhZ2FpbnN0IG90aGVyIGZpeHVwcyBhZGRpbmcvcmVtb3Zpbmcg
+RU5EQlI2NCBvciBzaW1pbGFyCj4gKyAqIGluc3RydWN0aW9ucykuCj4gKyAqCj4gKyAqIFdlIGRv
+IHNvIGJ5IG1ha2luZyB1c2Ugb2YgdGhlIGV4aXN0aW5nIG9wYXF1ZSBtZXRhZGF0YSBhcmVhLiBX
+ZSB1c2UgaXRzCj4gKyAqIGZpcnN0IDQgYnl0ZXMgdG8gdHJhY2sgdGhlIG9mZnNldCBpbnRvIHRo
+ZSBmdW5jdGlvbiB1c2VkIGZvciBwYXRjaGluZyBhbmQKPiArICogdGhlIHJlbWFpbmRlciBvZiB0
+aGUgZGF0YSB0byBzdG9yZSBvdmVyd3JpdHRlbiBjb2RlIGJ5dGVzLgo+ICsgKi8KPiArc3RydWN0
+IHg4Nl9saXZlcGF0Y2hfbWV0YSB7Cj4gKyAgICB1aW50OF90IHBhdGNoX29mZnNldDsKPiArICAg
+IHVpbnQ4X3QgaW5zdHJ1Y3Rpb25bTElWRVBBVENIX09QQVFVRV9TSVpFIC0gc2l6ZW9mKHVpbnQ4
+X3QpXTsKPiArfTsKPiArCj4gICBzdGF0aWMgYm9vbCBoYXNfYWN0aXZlX3dhaXRxdWV1ZShjb25z
+dCBzdHJ1Y3Qgdm1fZXZlbnRfZG9tYWluICp2ZWQpCj4gICB7Cj4gICAgICAgLyogdmVkIG1heSBi
+ZSB4emFsbG9jKCknZCB3aXRob3V0IElOSVRfTElTVF9IRUFEKCkgeWV0LiAqLwo+IEBAIC0xMDQs
+MTggKzEyMiwzNiBAQCB2b2lkIG5vaW5saW5lIGFyY2hfbGl2ZXBhdGNoX3Jldml2ZSh2b2lkKQo+
+ICAgCj4gICBpbnQgYXJjaF9saXZlcGF0Y2hfdmVyaWZ5X2Z1bmMoY29uc3Qgc3RydWN0IGxpdmVw
+YXRjaF9mdW5jICpmdW5jKQo+ICAgewo+ICsgICAgQlVJTERfQlVHX09OKHNpemVvZihzdHJ1Y3Qg
+eDg2X2xpdmVwYXRjaF9tZXRhKSAhPSBMSVZFUEFUQ0hfT1BBUVVFX1NJWkUpOwo+ICsKPiAgICAg
+ICAvKiBJZiBOT1BpbmcuLiAqLwo+ICAgICAgIGlmICggIWZ1bmMtPm5ld19hZGRyICkKPiAgICAg
+ICB7Cj4gKyAgICAgICAgc3RydWN0IHg4Nl9saXZlcGF0Y2hfbWV0YSAqbHA7Cj4gKwo+ICsgICAg
+ICAgIGxwID0gKHN0cnVjdCB4ODZfbGl2ZXBhdGNoX21ldGEgKilmdW5jLT5vcGFxdWU7Cj4gICAg
+ICAgICAgIC8qIE9ubHkgZG8gdXAgdG8gbWF4aW11bSBhbW91bnQgd2UgY2FuIHB1dCBpbiB0aGUg
+LT5vcGFxdWUuICovCj4gLSAgICAgICAgaWYgKCBmdW5jLT5uZXdfc2l6ZSA+IHNpemVvZihmdW5j
+LT5vcGFxdWUpICkKPiArICAgICAgICBpZiAoIGZ1bmMtPm5ld19zaXplID4gc2l6ZW9mKGxwLT5p
+bnN0cnVjdGlvbikgKQo+ICAgICAgICAgICAgICAgcmV0dXJuIC1FT1BOT1RTVVBQOwo+ICAgCj4g
+ICAgICAgICAgIGlmICggZnVuYy0+b2xkX3NpemUgPCBmdW5jLT5uZXdfc2l6ZSApCj4gICAgICAg
+ICAgICAgICByZXR1cm4gLUVJTlZBTDsKPiAgICAgICB9Cj4gLSAgICBlbHNlIGlmICggZnVuYy0+
+b2xkX3NpemUgPCBBUkNIX1BBVENIX0lOU05fU0laRSApCj4gLSAgICAgICAgcmV0dXJuIC1FSU5W
+QUw7Cj4gKyAgICBlbHNlCj4gKyAgICB7Cj4gKyAgICAgICAgLyoKPiArICAgICAgICAgKiBTcGFj
+ZSBuZWVkZWQgbm93IGRlcGVuZHMgb24gd2hldGhlciB0aGUgdGFyZ2V0IGZ1bmN0aW9uCj4gKyAg
+ICAgICAgICogc3RhcnRzIHdpdGggYW4gRU5EQlI2NCBpbnN0cnVjdGlvbi4KPiArICAgICAgICAg
+Ki8KPiArICAgICAgICB1aW50OF90IG5lZWRlZDsKPiArCj4gKyAgICAgICAgbmVlZGVkID0gQVJD
+SF9QQVRDSF9JTlNOX1NJWkU7Cj4gKyAgICAgICAgaWYgKCBpc19lbmRicjY0KGZ1bmMtPm9sZF9h
+ZGRyKSApCj4gKyAgICAgICAgICAgIG5lZWRlZCArPSBFTkRCUjY0X0xFTjsKPiArCj4gKyAgICAg
+ICAgaWYgKCBmdW5jLT5vbGRfc2l6ZSA8IG5lZWRlZCApCj4gKyAgICAgICAgICAgIHJldHVybiAt
+RUlOVkFMOwo+ICsgICAgfQo+ICAgCj4gICAgICAgcmV0dXJuIDA7Cj4gICB9Cj4gQEAgLTEyNywx
+NSArMTYzLDIxIEBAIGludCBhcmNoX2xpdmVwYXRjaF92ZXJpZnlfZnVuYyhjb25zdCBzdHJ1Y3Qg
+bGl2ZXBhdGNoX2Z1bmMgKmZ1bmMpCj4gICB2b2lkIG5vaW5saW5lIGFyY2hfbGl2ZXBhdGNoX2Fw
+cGx5KHN0cnVjdCBsaXZlcGF0Y2hfZnVuYyAqZnVuYykKPiAgIHsKPiAgICAgICB1aW50OF90ICpv
+bGRfcHRyOwo+IC0gICAgdWludDhfdCBpbnNuW3NpemVvZihmdW5jLT5vcGFxdWUpXTsKPiArICAg
+IHN0cnVjdCB4ODZfbGl2ZXBhdGNoX21ldGEgKmxwOwo+ICsgICAgdWludDhfdCBpbnNuW3NpemVv
+ZihscC0+aW5zdHJ1Y3Rpb24pXTsKPiAgICAgICB1bnNpZ25lZCBpbnQgbGVuOwo+ICAgCj4gKyAg
+ICBscCA9IChzdHJ1Y3QgeDg2X2xpdmVwYXRjaF9tZXRhICopZnVuYy0+b3BhcXVlOwo+ICsgICAg
+bHAtPnBhdGNoX29mZnNldCA9IDA7Cj4gICAgICAgb2xkX3B0ciA9IGZ1bmMtPm9sZF9hZGRyOwo+
+ICAgICAgIGxlbiA9IGxpdmVwYXRjaF9pbnNuX2xlbihmdW5jKTsKPiAgICAgICBpZiAoICFsZW4g
+KQo+ICAgICAgICAgICByZXR1cm47Cj4gICAKPiAtICAgIG1lbWNweShmdW5jLT5vcGFxdWUsIG9s
+ZF9wdHIsIGxlbik7Cj4gKyAgICBpZiAoIGlzX2VuZGJyNjQob2xkX3B0cikgKQo+ICsgICAgICAg
+IGxwLT5wYXRjaF9vZmZzZXQgKz0gRU5EQlI2NF9MRU47Cj4gKwo+ICsgICAgbWVtY3B5KGxwLT5p
+bnN0cnVjdGlvbiwgb2xkX3B0ciArIGxwLT5wYXRjaF9vZmZzZXQsIGxlbik7Cj4gICAgICAgaWYg
+KCBmdW5jLT5uZXdfYWRkciApCj4gICAgICAgewo+ICAgICAgICAgICBpbnQzMl90IHZhbDsKPiBA
+QCAtMTQzLDE0ICsxODUsMTUgQEAgdm9pZCBub2lubGluZSBhcmNoX2xpdmVwYXRjaF9hcHBseShz
+dHJ1Y3QgbGl2ZXBhdGNoX2Z1bmMgKmZ1bmMpCj4gICAgICAgICAgIEJVSUxEX0JVR19PTihBUkNI
+X1BBVENIX0lOU05fU0laRSAhPSAoMSArIHNpemVvZih2YWwpKSk7Cj4gICAKPiAgICAgICAgICAg
+aW5zblswXSA9IDB4ZTk7IC8qIFJlbGF0aXZlIGp1bXAuICovCj4gLSAgICAgICAgdmFsID0gZnVu
+Yy0+bmV3X2FkZHIgLSBmdW5jLT5vbGRfYWRkciAtIEFSQ0hfUEFUQ0hfSU5TTl9TSVpFOwo+ICsg
+ICAgICAgIHZhbCA9IGZ1bmMtPm5ld19hZGRyIC0gKGZ1bmMtPm9sZF9hZGRyICsgbHAtPnBhdGNo
+X29mZnNldAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICsgQVJDSF9QQVRDSF9J
+TlNOX1NJWkUpOwo+ICAgCj4gICAgICAgICAgIG1lbWNweSgmaW5zblsxXSwgJnZhbCwgc2l6ZW9m
+KHZhbCkpOwo+ICAgICAgIH0KPiAgICAgICBlbHNlCj4gICAgICAgICAgIGFkZF9ub3BzKGluc24s
+IGxlbik7Cj4gICAKPiAtICAgIG1lbWNweShvbGRfcHRyLCBpbnNuLCBsZW4pOwo+ICsgICAgbWVt
+Y3B5KG9sZF9wdHIgKyBscC0+cGF0Y2hfb2Zmc2V0LCBpbnNuLCBsZW4pOwo+ICAgfQo+ICAgCj4g
+ICAvKgo+IEBAIC0xNTksNyArMjAyLDExIEBAIHZvaWQgbm9pbmxpbmUgYXJjaF9saXZlcGF0Y2hf
+YXBwbHkoc3RydWN0IGxpdmVwYXRjaF9mdW5jICpmdW5jKQo+ICAgICovCj4gICB2b2lkIG5vaW5s
+aW5lIGFyY2hfbGl2ZXBhdGNoX3JldmVydChjb25zdCBzdHJ1Y3QgbGl2ZXBhdGNoX2Z1bmMgKmZ1
+bmMpCj4gICB7Cj4gLSAgICBtZW1jcHkoZnVuYy0+b2xkX2FkZHIsIGZ1bmMtPm9wYXF1ZSwgbGl2
+ZXBhdGNoX2luc25fbGVuKGZ1bmMpKTsKPiArICAgIHN0cnVjdCB4ODZfbGl2ZXBhdGNoX21ldGEg
+KmxwOwo+ICsKPiArICAgIGxwID0gKHN0cnVjdCB4ODZfbGl2ZXBhdGNoX21ldGEgKilmdW5jLT5v
+cGFxdWU7Cj4gKwo+ICsgICAgbWVtY3B5KGZ1bmMtPm9sZF9hZGRyICsgbHAtPnBhdGNoX29mZnNl
+dCwgbHAtPmluc3RydWN0aW9uLCBsaXZlcGF0Y2hfaW5zbl9sZW4oZnVuYykpOwo+ICAgfQo+ICAg
+Cj4gICAvKgoKCgpBbWF6b24gRGV2ZWxvcG1lbnQgQ2VudGVyIEdlcm1hbnkgR21iSApLcmF1c2Vu
+c3RyLiAzOAoxMDExNyBCZXJsaW4KR2VzY2hhZWZ0c2Z1ZWhydW5nOiBDaHJpc3RpYW4gU2NobGFl
+Z2VyLCBKb25hdGhhbiBXZWlzcwpFaW5nZXRyYWdlbiBhbSBBbXRzZ2VyaWNodCBDaGFybG90dGVu
+YnVyZyB1bnRlciBIUkIgMTQ5MTczIEIKU2l0ejogQmVybGluClVzdC1JRDogREUgMjg5IDIzNyA4
+NzkKCgo=
 
 
