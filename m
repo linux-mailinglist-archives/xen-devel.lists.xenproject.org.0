@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC5174CFC8A
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Mar 2022 12:21:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.285838.485100 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D2EC4CFC9E
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Mar 2022 12:22:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.285846.485111 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRBPl-0006rc-9I; Mon, 07 Mar 2022 11:20:33 +0000
+	id 1nRBRc-0007V7-PY; Mon, 07 Mar 2022 11:22:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 285838.485100; Mon, 07 Mar 2022 11:20:33 +0000
+Received: by outflank-mailman (output) from mailman id 285846.485111; Mon, 07 Mar 2022 11:22:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRBPl-0006p2-62; Mon, 07 Mar 2022 11:20:33 +0000
-Received: by outflank-mailman (input) for mailman id 285838;
- Mon, 07 Mar 2022 11:20:31 +0000
+	id 1nRBRc-0007T1-MI; Mon, 07 Mar 2022 11:22:28 +0000
+Received: by outflank-mailman (input) for mailman id 285846;
+ Mon, 07 Mar 2022 11:22:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XxC1=TS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nRBPj-0006ow-5t
- for xen-devel@lists.xenproject.org; Mon, 07 Mar 2022 11:20:31 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 96cc2769-9e08-11ec-8eba-a37418f5ba1a;
- Mon, 07 Mar 2022 12:20:27 +0100 (CET)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2106.outbound.protection.outlook.com [104.47.17.106]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-5--i12SI7YOjy4DbDywLr7Ew-1; Mon, 07 Mar 2022 12:20:25 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by DB7PR04MB4057.eurprd04.prod.outlook.com (2603:10a6:5:25::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Mon, 7 Mar
- 2022 11:20:23 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65%6]) with mapi id 15.20.5038.026; Mon, 7 Mar 2022
- 11:20:23 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+gfv=TS=citrix.com=prvs=0582ef7ee=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1nRBRb-0007St-Mh
+ for xen-devel@lists.xenproject.org; Mon, 07 Mar 2022 11:22:27 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dc411050-9e08-11ec-8eba-a37418f5ba1a;
+ Mon, 07 Mar 2022 12:22:24 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,309 +36,512 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 96cc2769-9e08-11ec-8eba-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1646652026;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wucVCDQ8TARid7Lanbfc55k9ZcuwKJSQiQAzawWrSos=;
-	b=meYMYTH+/3TS25ZxB8QW+p87Jak7DVPby8HxPiOrngXb25F3760CPNepJ1TrmSY5DGNF4l
-	TVWyRl79icawG3/O3i8YrW+XQdA2HDYEfDiB50tmf4Hfs9RE5dF8XpeIncsprAL7W0FDC0
-	5HXIVwtxe6b9vU1ZiIAGHlRIUJXGKxU=
-X-MC-Unique: -i12SI7YOjy4DbDywLr7Ew-1
+X-Inumbo-ID: dc411050-9e08-11ec-8eba-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1646652144;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=v8ED+sWHiTnVDmj1QKiR1RGDygoNVQSZNn2gG3rhs8A=;
+  b=MWzz5Sb9u6/cqRX0T+TMU5vlP9pSfkIz2fIKO/Fmj7ljHTCRB6oV1Jmp
+   o25ZI0C8NmCiB48YemK+50A1E6RKVzUOMTRDOOzsrtJ2Ax61XAfdCS9xY
+   +WJ8e5j3QxHVtFs5vpusWcS4D45yQIXYT2X2oj77xThpi8i/oBY9NLR9H
+   8=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+X-SBRS: 5.1
+X-MesageID: 66001880
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:oSpE0KAjBV8dyBVW/wbjw5YqxClBgxIJ4kV8jS/XYbTApGsh0zQBx
+ jYWDG3Vaf+OMTHyf4p0PY2280sOsZOGxodlQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
+ xA2M4GYRCwMZiaA4E/raNANlFEkvU2ybuOU5NXsZ2YgHWeIdA970Ug5w7Vh3dYy6TSEK1jlV
+ e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
+ I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPhd8
+ fVPh7bzZTwUP5Pxm8IhaBljIQ5xaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
+ 6ZCcXZUM07F17neLLGTE4GAguw5K8bmJsUHs2xIxjDFF/c2B5vERs0m4PcGgm9o35AeRZ4yY
+ eIfcmtIdTPpPyFpFVYKGJcEraCYp37GJmgwRFW9+vNsvjm7IBZK+KjgNp/Zd8KHQe1Rn12Ev
+ STW8mLhGBYYOdeDjz2f/RqEmevnjS79HoUIG9WQ//hmmlCagHcPBQMfU1KnptGig0iiUtRZI
+ lQV4SNorLRa3E6iSNXnTgC7iHGBtx8YHdFXFoUHBBqlk/SOpVzDXy5dE2AHOIdOWNIKqSIC+
+ mapneHDRhBUjbyrdHG7yoyUlgGdNn1ARYMdXhMsQQwA6tjlhYg8iBPTU9pueJKIYs3J9SLYm
+ G7T8nVn71kHpYtSjvjgowib6965jsWRFmYIChPrsnVJB++TTKqsfMSW5FfS9p6sx67JHwDa7
+ BDodyVzhd3i7K1hdgTQGo3h/5nzvp5p1QEwZnY1Q/EcG8yFoSLLQGypyGgWyL1VGsgFYyT1R
+ 0TYpBlc4pReVFPzM/MpPtPvU5txnfi8fTgAahwzRoASCqWdiSfdpH0+DaJu9zqFfLcQfVEXZ
+ s7ALJfE4YcyAqV71jumL9rxIpdwrh3SMVj7HMihpzz+iOL2TCfMFd8tbQvfBshkvfjsiFiEr
+ L5i2z6ilkw3vBvWOXKMr+b+7DkicBAGOHwBg5cPJ77bf1E/QzlJ5j246epJRrGJVp99z4/g1
+ nq8RlVZ2Bz4g3jGIh+NcXdtdPXkWpMXkJ7xFXVE0YqAs5T7XbuS0Q==
+IronPort-HdrOrdr: A9a23:QZ2nc60yuvHFcFFUdl4WwwqjBVZyeYIsimQD101hICG9Lfb3qy
+ n+ppsmPEHP5Ar5OEtBpTiBUJPwJ0800aQFnLX5Wo3SIDUO2VHYVr2KiLGC/9SOIVyaygcw79
+ YFT0E6MqyOMbEYt7eL3ODbKadZ/DDvysnB7o2yvhQdLz2CKZsQlDuRYjzrY3GeLzM2fKbReq
+ Dsgfau8FGbCAoqh4mAdzI4dtmGg+eOuIPtYBYACRJiwA6SjQmw4Lq/NxSDxB8RXx5G3L9nqA
+ H+4kHEz5Tml8v+5g7X1mfV4ZgTsNz9yuFbDMjJrsQOMD3jhiuheYwkcbyfuzIepv2p9T8R4Z
+ PxiiZlG/42x2Laf2mzrxeo8w780Aw243un8lOciWuLm72OeBsKT+56wa5JeBrQ7EQt+Ptm1r
+ hQ4m6fv51LSTvdgSXU/bHzJl9Xv3vxhUBnvf8YjnRZX4dbQqRWt5Yj8ERcF4pFND7m6bogDP
+ JlAKjnlblrmGuhHjDkV1RUsZ+RtixZJGbFfqFCgL3Y79FupgE586NCr/Zv20vp9/oGOu55Dq
+ r/Q+BVfYp1P70rhJJGdZQ8qPSMexnwqDL3QSuvyAfcZek600ykke+C3Fxy3pDsRKA1
+X-IronPort-AV: E=Sophos;i="5.90,162,1643691600"; 
+   d="scan'208";a="66001880"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XJoyQoVdIwCq/OlnViA84af+L8GuGHtlt/pkIB/mCN8GIZywxhVwqqoyuBkEhMDuqfvMX+VUFtms67GjBt+f75ImKOTlNc3lSO6+MotN+r9ix6HMNp5ioY8NZdEsf6kmKg16DM33Dis34oseUuAKAfjz+5fWy16FPvCaSuEXq5uDYQsIraSdmISkHtzcsksCrjJ25VflGBGJfUjBadyPJO2KxjCbiaQQTQlkdrGVqSmOUmlgHUewrKptd+vrcxU+Zb7dQ88jUgUXEpwksgDVTAFuOgXRl70kp737TK+keLfbP1nD+ZsjqrNMR9zFF8uRzuBalZIFBHlm/sfHp8kekQ==
+ b=DsSy0+YoDD404rgR65IJVEFv7hNGuRfQ7crtIkgCc/nu6Ownp/HqDyAZYO16yK/Sk18OBEGP+15fVabKYpiQIZf8UkJRm/I9NwM4xtKKfZLUbycyQn/iNYa6RWWduh5XH4E3vMpmBcR7EqHFyxUOgy1uCcjiKyg69ejeWBEYhJdC+H5E3soVCGFe0cKWNu+PaDkK+VHhy/IGYyLoDn32AnBc0ypNjHvqLmzKXw1fQuZhoq2K3Q4H2WrkHQGTOCAILLjnxWcLoUYrY9xJtVVuXG1E+pfnTfjETyT8u3WbaI4iWBzYsNupV2uec+g6tXML6eU7B3u2CnJmh38a3eGDtA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7tZrsaSs50EP1Q6IaDDjjL7iNRX2q5WoxhQFue0olIY=;
- b=M7kfaKf9nxMJTBjQACqguOsrTjXkJEa26SntIVB0M6AWwOkZFkI/OAiO+dtpzLszwNRyLppXP01KaarddbbduCUQyVOwp9cDZ036QVjg0vHYNMD/amFojUdu3vuroLVMJceArKbeZqpipxrs0Pg22WCbow6QatUkuolW7GKaPgxVpE9YePGuilt0Mc8Ix57BnJ9OZkg0nEZnXBGnfg9UWWqcrfKNl3sqwRoiir55XhirRZbz4nJ/cE1/0eLLNgohj6l0i0GYOwfg1CSpUWPb6QMnoVbd/S4jqXo8eluuIOJl9VPSCWJM2cDkYEZC504UqIMm1JozXOP/KE3TTy3dag==
+ bh=JGHKQIQOA/JCYeaWyXITFiv4iuN4k7QMJ/nbrCj+b0w=;
+ b=gynSsbbgmhxMFCO1IaC9Trbw9o7KWD+vf+fTQJVZMG7KQhoGgc9GWDKY0WhZBJjZ2rx2+hgn4ig0/CMDJeQkrIwxIJFgMEl8isDmJ3ILBxgfU+8WWdObOLohKYcOkqygM2uait0lu5kYjiVyVYCtZdvj/OIDvPvvUXdXH9eAp1hIaML1Cqza0t2v2ZmdM1cviDQUYK23uTPVp96YOAwweALiKtfpBl+oz0l5bs4JcbMOexGmWqltSkceASyuwSwaEcpmzAV/AojvPcRNqtj5VeCYJYNooW79zafQZsLHicHDAkloxDjiqw70LtSM0CplzwQxIm8ZbbCq92IZQlR+Vw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <b36a549e-4446-8164-bc4d-f132cac1cde2@suse.com>
-Date: Mon, 7 Mar 2022 12:20:25 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [PATCH] x86/build: use --orphan-handling linker option if
- available
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-References: <5c374fd3-017d-3c40-4ded-25a3b1c978a6@suse.com>
- <YiCkUebvg0gaBm4/@Air-de-Roger>
- <3c335ca5-63e3-6389-cba5-b9047a4ce3b9@suse.com>
- <YiDaQY1ToO8G2QYd@Air-de-Roger>
- <abd691c8-9c7e-40d7-3f18-d96f826b8539@suse.com>
- <YiHZpmrYt+QvE7ex@Air-de-Roger>
- <2ebf82d3-3509-7224-6537-acdaad34dcf2@suse.com>
- <YiXnKvqX1FGyhzmy@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YiXnKvqX1FGyhzmy@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AS9PR06CA0346.eurprd06.prod.outlook.com
- (2603:10a6:20b:466::21) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JGHKQIQOA/JCYeaWyXITFiv4iuN4k7QMJ/nbrCj+b0w=;
+ b=YItbGAKrpqm9rggpwzmWMz1auNIV0gPHsBEGZoUdHXCxaWLOeAWIwjcv//FH0MIBw7tC4clWgKz1rEL8FnEnZ0+Ebfd3SL4CJ8Qwta/au+Pwu0ua4DkvNkFbvsEvcLUXkngjlcHuZlpG0A7ft8Lt4lSSUZUqu+YFtKWCXOIQuAc=
+Date: Mon, 7 Mar 2022 12:22:12 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrea Stevanato <andrea.stevanato@santannapisa.it>
+CC: Jason Andryuk <jandryuk@gmail.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, "wl@xen.org" <wl@xen.org>, Anthony PERARD
+	<anthony.perard@citrix.com>
+Subject: Re: Network driver domain broken
+Message-ID: <YiXq5HIrvZsy7QKU@Air-de-Roger>
+References: <DB7PR03MB50027EE92E11BFFF71AADC4598049@DB7PR03MB5002.eurprd03.prod.outlook.com>
+ <92827eec-b6e9-9c95-8f9e-fcf063d45090@santannapisa.it>
+ <YiDt7fX92n6Luc2l@Air-de-Roger>
+ <CAKf6xpsnmQG7-LXn5+Uz4mncWsN0EZ8wpagY8f8OydvZNb6g5A@mail.gmail.com>
+ <YiH9cee6NIKA6MWg@Air-de-Roger>
+ <53a4fe6b-efc8-bfa1-8475-0aa58774051a@santannapisa.it>
+ <YiIFyRUNXpUfzwRB@Air-de-Roger>
+ <0ce52d38-f542-9336-a100-1cbfc559f218@santannapisa.it>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <0ce52d38-f542-9336-a100-1cbfc559f218@santannapisa.it>
+X-ClientProxiedBy: LO2P265CA0216.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:9e::36) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: cac8f348-e783-4279-771e-08da002c78ef
-X-MS-TrafficTypeDiagnostic: DB7PR04MB4057:EE_
-X-Microsoft-Antispam-PRVS:
-	<DB7PR04MB4057074AC9EEC6B74B849F77B3089@DB7PR04MB4057.eurprd04.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 449bdbf3-80d0-4b13-b98a-08da002cbc5c
+X-MS-TrafficTypeDiagnostic: MW4PR03MB6364:EE_
+X-Microsoft-Antispam-PRVS: <MW4PR03MB636484537E8B53EC838496418F089@MW4PR03MB6364.namprd03.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	f79QkiiOc9eKv+YlQDDHaTg7YCmqE8s0AXTYONp99Cuaft+uANELDWZnTBvWujgYcCub4kEuepwDhFHS40otQMdqonNCQ+G1eJZNipkqAadYFcB0Qdu+5r2XxWxz2IYf7hwv6mH0JLauR8tWnYrrnNV+N9UgAJixvyW/az0yn8ok8xB4IA6TUqziOLhGKvmVj/N679dJIV3bEsLgsjAy/kFKa/Ck0k3Je9jKX8MWs9UjwAxofhKgIpYls9/mEtItYmwUfX8kQHh6uLBoS0yH6lIAqMZ5XFzG1FKu5U2iF0qxRJNm3fhlwawpEFrU7sBt5I0UpiVu8SkvONgInXiGLFYMk1X5ndyn8KTZjqTkoXxZntWrib/1HNN2x6UHAI300puejyOp2HvkvmyTrhBCCflfq0+BgLCUSkJAYIsja58SWpHNtcevY+LQKvIbJ/Jgs0kZ7UN0ExD/Uw7WEY5Rp7qFvpvOsF8wL6Pj+HhUjX67zBlWAO5Sq5Tx0P3f1VmWyxAirIXou69YImq85wN5CI4gv7gpb3B3ZvRjtmgpEjmYqexJiiYxgVrZ1RId3myjXNJE6E796riB+Pf4+mT+MkNOWkAjlsE057/uVF2c6nRwsnjUpH85qCwUd2SWFrTJnWaqgYyCPlmY88dX18ey1aU8l7mskWeIUOfgFyYEGlLHOTFrwluN5fata0nqibFdfqGF+znz60Egb1ElWqfdPEiM5sQwPlOTkGRkScwLce73vTuMw+DqUrDdpBS/nXDPUok5j9ZC7vRDPe1zKfOM75P9wshEKndBRM/6ES2GWQ+lCN1SLgWuZDg5wsTUVwRW5/Y31OVELtAc06OdjoOSR4vmFVpFYz004Dbr+16u6hc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(6512007)(2616005)(2906002)(8936002)(53546011)(5660300002)(6506007)(83380400001)(86362001)(31696002)(66946007)(26005)(186003)(4326008)(31686004)(966005)(6486002)(54906003)(8676002)(6916009)(66556008)(316002)(66476007)(508600001)(36756003)(38100700002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: 26dxMu9HyvYJ3UVDp3Dx1XMGYvlf8QkbUSEBKSKf32zkT0ag1AQgHXVU2t+Vy1t1lIcqplOA+YCZhzzKNvaMoh7Mx7Lie6ri6fgHaNUhb1616rIMdSyunEblXX2rzkhmXuSACE+xCNfOsmgzjJyP1aSfgKnPtS1rEEaJ5TL5P6Jt16A7pKuR6SLA4CfJpul822TCwn8pWWx/ywQl/Itny1BC+mGfOw3WkCkRcgCADNzP02wTHKgr+58QXtwk/sa0+8JTvV60aMz3KmntHAOoP0Lz1bCUYNvojSDl/oDagFcaowpZFWzZEkaySi4iz8uKiZyKI9TvA6ds+PW5ZXkmoz8NHkVoEt4mBFh7GUyAyMCXCOK/FgnthfBZcVBWnZuYAIP6t2JEMhyhhcF/Zr6bUxOskg9foMbdL1T9AXZLzxMwnBl/5zwPvOhPGqNPM0oiPwiWMXVmGo3XtvYzFhdG0zGrRMKPzSD/DdWgILtCEe+wOTceLLHYDRtxL+oV1hEdF+iZZthkraVBx6+QAePCgM0gPeUmwD/RoJq4LBniaxSAE5u936v1zJfTLAEIoF7GLf78eg5Zt5XIyhIoZzoSVDRNS8xFNlxlvSV1No+Z/YeYF6zNEs5ZXqMaCPtj45J8Qnou3p3qFK+WzucweUSYsw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(7916004)(366004)(54906003)(6916009)(66946007)(316002)(3480700007)(86362001)(66476007)(66556008)(8676002)(186003)(107886003)(30864003)(508600001)(33716001)(26005)(85182001)(6486002)(53546011)(6506007)(5660300002)(2906002)(38100700002)(82960400001)(4326008)(9686003)(6666004)(6512007)(8936002)(83380400001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?YhhJZgIM1yIyqwJuNodARZa32Y/3D4QRsEw8oIa14tpeIxPdPe+6Mrfv50J0?=
- =?us-ascii?Q?Qwfovdq3Ux1JG92cxHTrz9sX1a2cANrLyUZR+qT4bTS+dXJh++IY2Qn3p/ok?=
- =?us-ascii?Q?L9YMpDIus7Gs5nFHv2FYoonMT1mnwR9mk/Va9deqd3nUClvs6tjirpSTO6/X?=
- =?us-ascii?Q?33wVmU+9+CDEnlK5Q3hiVFbDY94tKIzavUOypLrAPfog8fIGL7Xd4aWNlABH?=
- =?us-ascii?Q?BBmKDFYjOvqsbAbj592x0q13ataeOrpuZvc5MuaPQA1oLUk/2rRy2xj8h+Tk?=
- =?us-ascii?Q?VXGLXQcG1F+m8WnCtDsGRJbqsr/y6auSEY244LbH+oxMy2+dTGgm9e7md0/G?=
- =?us-ascii?Q?HBOy3Yjlh7FiE63l4QdkJDgtKAq8nwjb8YVX4j/hsxZxI169TCet/jjHS0AD?=
- =?us-ascii?Q?sHh0Bio3WW2ueuiFcVkQU9SRwPXn15Q+JDuq4Aeokomn23/4h//EL6+tl+Y8?=
- =?us-ascii?Q?cMiFlpv5wy3VBaErjjUBSsGubIMc3wPPT5pV+Y1abXD9hiXLDoOeUFjkoJbt?=
- =?us-ascii?Q?Aj1/NBFMJVXGECdrDQnUbNndiPQ3ZkAZSq8bDLt4axYarN+2j2eCh1IkJBSw?=
- =?us-ascii?Q?NXn/LkcHCXS+x9Jw31i4oUmXqX+gcQSx4Eu145Ss1DRY3jxhoRUD1jZ3Zan2?=
- =?us-ascii?Q?9pmv4Pg2dglhODi0TiFyzX3NC4Gn54fzIwZzZ/GQT32A0jDix6ZoBGHuqRhc?=
- =?us-ascii?Q?q0qf8hS56mXarBnri9PKNz+6eE3DXi84N6c2HBx+1cf5WnjbsB/Es1cMUOHx?=
- =?us-ascii?Q?tE9zr8Fz76n8/TDsOrIVlXGPq2CG5SjSm1ZBsQPCE99tFwQUk+UvlGVDiG3E?=
- =?us-ascii?Q?ekBLYgcqUqqNRCpDpRTde/M0IGym2dENnf1nwotpQeLe4mwtCusy+TtQt6yu?=
- =?us-ascii?Q?I2UM3LAqXbjE/wKMda7Q8HKIPgRUDiSxvjTR46Mj5U9+d6bg79wPDB1+hnEk?=
- =?us-ascii?Q?0fn3p8PeEe1TsiT6rLYtRMsqcRaiA8g+lQTQ83tLLo72HgVDQexUNIFnn2zA?=
- =?us-ascii?Q?26VaN39vR2xx7ima2pC8zC942NsJWKfKImhllPFGRmphYaTDXLnu5czuQd21?=
- =?us-ascii?Q?p+kHpGYOyLvwYmDVfdHGvXQAzyShYNLmTHpKJeCY9p5xFGwUgfhD0WRiUelG?=
- =?us-ascii?Q?EM4lP+8oaNG9AMXKiXuLxwpFXAFrp3Kl8YgnIGODXIBiKHIUjA3xyB2jPiAZ?=
- =?us-ascii?Q?l7kCDyE3X/5fKyffFZmmYvHzncpmCvih0IPXrWbD1NI75uCnvz69sWMgDWBZ?=
- =?us-ascii?Q?AgwBEU9j+xgHTPy9JAojoUhhSXiJPAU/rVXPE50L4H0WhmoABDC3A3acttTt?=
- =?us-ascii?Q?anKhmLtkVOo4vz9wYtM5VZa9Pmty2yD4UU4nRmsLjciRQM5HbR0l+/F4emVv?=
- =?us-ascii?Q?iWe6XYCkDtYVsm00pdLXNcuiU2o+8yQVWn6YYcTnjG6MoMK0hsYXJLCJe9S6?=
- =?us-ascii?Q?TRS/DNwlfmYJmnkiUrWwPr9PU8SCCvduWHuM6VXUMeV7iZxwlpNT5KG9eyEm?=
- =?us-ascii?Q?rTITSZhCkQk6bBRdLSfYX13JigTacnVnc94KQ61ND7/47GGTjLnjZ/BZxQf7?=
- =?us-ascii?Q?hFr3A4f1uuFnsCLX3PxdmIKktIJlwXew7gaB1b2FqgKqzSCsSYq2CbgsOu0Y?=
- =?us-ascii?Q?7AIVaBxnq19oRWWrk8cq5NA=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cac8f348-e783-4279-771e-08da002c78ef
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YnBTVURpYlh2cUFyYzdOWkt4RU0yZTk4ajE4Z2JNb0F0TGRXZEZ0aW0rejhN?=
+ =?utf-8?B?SnBqQ2RKVGhpUjNoUWp4bmR2c3lYRUZTSDg1TkdQcTZOUzFtMEViZm96WU5Q?=
+ =?utf-8?B?ZmVJcU9ONkVVdXZvRWFPbERZOVhzc2VsU3JmL1JDamJDSnFBdmNiREdVa20r?=
+ =?utf-8?B?SVVhdnlnRlQzZ0FvOXN6SUJ3Rkk2SURoSmdDWE5yeUx0enJTam95djMzS0Mx?=
+ =?utf-8?B?MjE2TUJ5QVJQc2xtc2dRQ3VoMmNua0cySVhMSE1QYkx3YkppRENVVVlQWEd6?=
+ =?utf-8?B?bjZxV09zcDZWNjh4YnpLZC9qVjVpWHBjbVI4ZU0wNHl0K2ZINm9QY09IM1dW?=
+ =?utf-8?B?WUgwb1JzbStZaHVBSHdhU1FNa3BpZjY5U1dEeW40L2FmdnFXUUFLb3BDdU1G?=
+ =?utf-8?B?aUg5RnhRNlhtS280MFJCTkVkNFBUYjNqcEZ4L0NudnhhZkRWZVVoZE96UUlP?=
+ =?utf-8?B?QmpDWC81WTBvclZ0OXhRSGF5OThXVEVIR0JJN3lEc21kZy8rbmlEMDZSai8y?=
+ =?utf-8?B?bG0wR1RRWkdiek9ibmJlYXFSZVp3YVBCSUNxRTVRVVczNi9xYk9PYkVhL0ZD?=
+ =?utf-8?B?RjlDd1ZNMTBjMEZIYnYrZHRXQUROQnFFOGtmR0xaUlBqY1g3bGdYZkRyRXlL?=
+ =?utf-8?B?d2MzeDRmaGJ5bkdWb25LYlBMZ2JUc2NWemVZaE1HTGpMT2xqNk93V3pxWWxV?=
+ =?utf-8?B?WFhOVW9yVldhNU91K3RoTWhRZXpBZWdUUHNsNGZFMkJxY2dnUTFMaDdmUW1y?=
+ =?utf-8?B?QUhjQkZwZTVCeGRxRGhuZHFTcTJFVVhqeVZUVGJEcElka3h6Mnpid3BKOTZN?=
+ =?utf-8?B?RkZTcmlQcHBPZDcvVWptbmZPTm1MdnluTEN5MHo5RDdXQkgzeEdNUWNiMXJF?=
+ =?utf-8?B?bkhucEMrOTQ5NWYvUWQ1R1R4aHpjOWM5VXJSd2lTZ0V5MDVsZnRvWXR4ZTVM?=
+ =?utf-8?B?Wjhjbit6ak5WWHE4aWlQMTdKMEg2RFFJTWkvTGx0Nm9zTmpPVEFrVGdPb2pp?=
+ =?utf-8?B?YzY3b29yK3hJUVk4WTZyaTE1MzZBcEpRS2RnU3pyZFFLclRrQkxLeXdkRXJz?=
+ =?utf-8?B?MGU0cEFER2g1ZVZqdUVQWlhmVG11Nk54VnVCMGZrUmNxNFo1cDZ0QjVxRzQ0?=
+ =?utf-8?B?dUNEYjk2U1BJV3lhUzJ2b3hDUkk1RG83cWRvTHFlNnppeFQyRXNTN0VsTmx4?=
+ =?utf-8?B?aWZ6RFJHZEVzaE1DZXFnM3p5b0U1bjI2TG14dG9uS0M0TXB1a0NTcTJTdW5T?=
+ =?utf-8?B?L3ljOWZTRnZXTFkwUHl2SUh5UjEwRC9ITm9IaGtuRDJTQmgwbkFVbFJiSkFv?=
+ =?utf-8?B?SDlPNzNFU1hVbElxVzBRMEhGL2NLRWQ4V0ZrV0RGcGEwQ082bFYzdUhzbkE2?=
+ =?utf-8?B?VzA1TnY4T2xEWWdCNzVCNHpKa2llWTNWQjFtUjFHZzZxbGVPSHd6eVJyK0Fp?=
+ =?utf-8?B?MjNKMUJET0VRWjJoSG80ZkhhTm1IRkFoSzhmTlFGNzVUN1NwaUNQYXdFQUtB?=
+ =?utf-8?B?YUY3SzQzcDk3Rjg0a2EzUGRVRTdJNzFHNW53c1hHZ05ZbjVGOTlRbHYySFc0?=
+ =?utf-8?B?OU9qOTRLWE4zOUJiTzY3WDdwZXNBSTFuZkJOcXhCYXNEQmFmT3N2b3hxYkZ4?=
+ =?utf-8?B?VUZQc3IrT3VFdXYwaVU2RGVBVElVM1h0Z3A5NUd3ZTRwZjQvNy9hWk9ha0Rr?=
+ =?utf-8?B?MU1GTWl5eDVWNWgxbktLcXY4MHA2VnArZ1poSFNjZHpDR3VqUmlOYVpweWVi?=
+ =?utf-8?B?MU5CaUZHclBaQkF1bWtiUmhrMDFhQnM1bEQ2RVpWNmFoSDMvNDQ4SWJQcmFN?=
+ =?utf-8?B?NzcyR1hMbzN6MGdEUFpmdm5pQTZuMXJjTWErK1EwckdXbGhuU1paSnlONjdW?=
+ =?utf-8?B?U1JwMmhkN1hkWHpzK3Z2TE45VEs5U0lvVGRZYndkVWhNVkUrT2Z6Uk1reVN4?=
+ =?utf-8?B?Y25wVVpIMXNJNThDMkt1bm9MS3h5MVBaMlI3aitnaU5EeEl0WjlaKzNoWCtp?=
+ =?utf-8?B?Z3FqQTJNb0RERy8vcVFCSVlPK1V2ZllMb1BSQ0p2c1BUQ1l2OGFydis2WjQ4?=
+ =?utf-8?B?U0NhM050UWhiMXhJOGYwNTRoeElMSUVXRnFVbVlwa09rSWJuQlhSTWo3WStJ?=
+ =?utf-8?B?N1ZhcjJ3MnFPQUwySlI4TEpPU280ME1XVCtzS0hWYU5Za3J4bk9HWWVFUFB1?=
+ =?utf-8?Q?Bm5+OG5QUvviy4auPd5KZus=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 449bdbf3-80d0-4b13-b98a-08da002cbc5c
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2022 11:20:23.4960
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2022 11:22:16.7601
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: y2jkvmxWTl78j7sjkCnJ3dKgwP36+AQ8N6XlKttOTvT4zv/cgCDTPdvOXd4kEt9hDR8qsbcFQoiwgZJ6BE1UNA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB4057
+X-MS-Exchange-CrossTenant-UserPrincipalName: A3S7mVsKkt5rK76AqmnA9kpQBzOXFrYrpRaWdJdjv8WE1a23JO4dnEu8B6jY4t26w3IN5uPA5Gu3jrFPbarM7g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR03MB6364
+X-OriginatorOrg: citrix.com
 
-On 07.03.2022 12:06, Roger Pau Monn=C3=A9 wrote:
-> On Mon, Mar 07, 2022 at 09:18:42AM +0100, Jan Beulich wrote:
->> On 04.03.2022 10:19, Roger Pau Monn=C3=A9 wrote:
->>> On Fri, Mar 04, 2022 at 09:02:08AM +0100, Jan Beulich wrote:
->>>> On 03.03.2022 16:09, Roger Pau Monn=C3=A9 wrote:
->>>>> On Thu, Mar 03, 2022 at 01:17:03PM +0100, Jan Beulich wrote:
->>>>>> On 03.03.2022 12:19, Roger Pau Monn=C3=A9 wrote:
->>>>>>> On Wed, Mar 02, 2022 at 03:19:35PM +0100, Jan Beulich wrote:
->>>>>>>> As was e.g. making necessary 4b7fd8153ddf ("x86: fold sections in =
-final
->>>>>>>> binaries"), arbitrary sections appearing without our linker script
->>>>>>>> placing them explicitly can be a problem. Have the linker make us =
-aware
->>>>>>>> of such sections, so we would know that the script needs adjusting=
-.
->>>>>>>>
->>>>>>>> To deal with the resulting warnings:
->>>>>>>> - Retain .note.* explicitly for ELF, and discard all of them (exce=
-pt the
->>>>>>>>   earlier consumed .note.gnu.build-id) for PE/COFF.
->>>>>>>> - Have explicit statements for .got, .plt, and alike and add asser=
-tions
->>>>>>>>   that they're empty. No output sections will be created for these=
- as
->>>>>>>>   long as they remain empty (or else the assertions would cause ea=
-rly
->>>>>>>>   failure anyway).
->>>>>>>> - Collect all .rela.* into a single section, with again an asserti=
-on
->>>>>>>>   added for the resulting section to be empty.
->>>>>>>> - Extend the enumerating of .debug_* to ELF. Note that for Clang a=
-dding
->>>>>>>>   of .debug_macinfo is necessary. Amend this by its Dwarf5 counter=
-part,
->>>>>>>>   .debug_macro, then as well (albeit more may need adding for full
->>>>>>>>   coverage).
->>>>>>>>
->>>>>>>> Suggested-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
->>>>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>>>>> ---
->>>>>>>> I would have wanted to make this generic (by putting it in
->>>>>>>> xen/Makefile), but the option cannot be added to LDFLAGS, or else
->>>>>>>> there'll be a flood of warnings with $(LD) -r. (Besides, adding to
->>>>>>>> LDFLAGS would mean use of the option on every linker pass rather t=
-han
->>>>>>>> just the last one.)
->>>>>>>>
->>>>>>>> Retaining of .note in xen-syms is under question. Plus if we want =
-to
->>>>>>>> retain all notes, the question is whether they wouldn't better go =
-into
->>>>>>>> .init.rodata. But .note.gnu.build-id shouldn't move there, and whe=
-n
->>>>>>>> notes are discontiguous all intermediate space will also be assign=
-ed to
->>>>>>>> the NOTE segment, thus making the contents useless for tools going=
- just
->>>>>>>> by program headers.
->>>>>>>>
->>>>>>>> Newer Clang may require yet more .debug_* to be added. I've only p=
-layed
->>>>>>>> with versions 5 and 7 so far.
->>>>>>>>
->>>>>>>> Unless we would finally drop all mentioning of Stabs sections, we =
-may
->>>>>>>> want to extend to there what is done for Dwarf here (allowing the =
-EFI
->>>>>>>> conditional around the section to also go away).
->>>>>>>>
->>>>>>>> See also https://sourceware.org/pipermail/binutils/2022-March/1199=
-22.html.
->>>>>>>
->>>>>>> LLD 13.0.0 also warns about:
->>>>>>>
->>>>>>> ld: warning: <internal>:(.symtab) is being placed in '.symtab'
->>>>>>> ld: warning: <internal>:(.shstrtab) is being placed in '.shstrtab'
->>>>>>> ld: warning: <internal>:(.strtab) is being placed in '.strtab'
->>>>>>>
->>>>>>> So seeing your mail where you mention GNU ld not needing those, I
->>>>>>> think we would need to add them anyway for LLVM ld.
->>>>>>
->>>>>> Hmm, that's ugly. How do I recognize LLVM ld? I can't simply use a
->>>>>> pre-processor conditional keying off of __clang__, as that used as t=
-he
->>>>>> compiler doesn't mean their ld is also in use (typically the case on
->>>>>> Linux).
->>>>>
->>>>> Hard to tell, `ld -v` for LLD will typically contain '^LLD' I think,
->>>>> but I don't really like matching on human readable output like this.
->>>>
->>>> Same here. But Linux'es ld-version.sh looks to be doing just that.
->>>
->>> OK, so be it then. We can always improve afterwards, as I don't really
->>> have any better suggestion ATM.
->>>
->>>>>> I also don't want to add these uniformly, for now knowing what
->>>>>> side effects their mentioning might have with GNU ld.
->>>>>
->>>>> Wouldn't it be fine to just place them at the end, just like it's
->>>>> done by default by ld?
->>>>>
->>>>> Are you worried about not getting the proper type if mentioned in the
->>>>> linker script?
->>>>
->>>> I'm worried of about any kind of anomaly that could be caused by
->>>> mentioning sections which a linker doesn't expect to be named in
->>>> a script. That's hardly something they would even test their
->>>> linkers against.
->>>
->>> I've raised a bug with LLD:
->>>
->>> https://github.com/llvm/llvm-project/issues/54194
->>>
->>> To see whether this behavior is intended.
->=20
-> Got a reply back from the LLD folks, and they consider the GNU ld
-> behavior quirky. Linux linker script does explicitly mention .symtab,
-> .strtab and shstrtab:
->=20
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
-/?id=3Da840c4de56
->=20
-> So Xen should be safe to do the same.
+On Fri, Mar 04, 2022 at 02:46:37PM +0100, Andrea Stevanato wrote:
+> On 3/4/2022 1:27 PM, Roger Pau Monné wrote:
+> > On Fri, Mar 04, 2022 at 01:05:55PM +0100, Andrea Stevanato wrote:
+> > > On 3/4/2022 12:52 PM, Roger Pau Monné wrote:
+> > > > On Thu, Mar 03, 2022 at 01:08:31PM -0500, Jason Andryuk wrote:
+> > > > > On Thu, Mar 3, 2022 at 11:34 AM Roger Pau Monné <roger.pau@citrix.com> wrote:
+> > > > > > 
+> > > > > > On Thu, Mar 03, 2022 at 05:01:23PM +0100, Andrea Stevanato wrote:
+> > > > > > > On 03/03/2022 15:54, Andrea Stevanato wrote:
+> > > > > > > > Hi all,
+> > > > > > > > 
+> > > > > > > > according to the conversation that I had with royger, aa67b97ed34  broke the driver domain support.
+> > > > > > > > 
+> > > > > > > > What I'm trying to do is to setup networking between guests using driver domain. Therefore, the guest (driver) has been started with the following cfg.
+> > > > > > > > 
+> > > > > > > > name    = "guest0"
+> > > > > > > > kernel  = "/media/sd-mmcblk0p1/Image"
+> > > > > > > > ramdisk = "/media/sd-mmcblk0p1/rootfs.cpio.gz"
+> > > > > > > > extra   = "console=hvc0 rdinit=/sbin/init root=/dev/ram0"
+> > > > > > > > memory  = 1024 vcpus   = 2
+> > > > > > > > driver_domain = 1
+> > > > > > > > 
+> > > > > > > > On guest0 I created the bridge, assigned a static IP and started the udhcpd on xenbr0 interface.
+> > > > > > > > While the second guest has been started with the following cfg:
+> > > > > > > > 
+> > > > > > > > name    = "guest1"
+> > > > > > > > kernel  = "/media/sd-mmcblk0p1/Image"
+> > > > > > > > ramdisk = "/media/sd-mmcblk0p1/rootfs.cpio.gz"
+> > > > > > > > extra   = "console=hvc0 rdinit=/sbin/init root=/dev/ram0"
+> > > > > > > > memory  = 1024 vcpus   = 2
+> > > > > > > > vcpus   = 2
+> > > > > > > > vif = [ 'bridge=xenbr0, backend=guest0' ]
+> > > > > > > > 
+> > > > > > > > Follows the result of strace xl devd:
+> > > > > > > > 
+> > > > > > > > # strace xl devd
+> > > > > > > > execve("/usr/sbin/xl", ["xl", "devd"], 0xffffdf0420c8 /* 13 vars */) = 0
+> > > > > 
+> > > > > > > > ioctl(5, _IOC(_IOC_NONE, 0x50, 0, 0x30), 0xffffe6e41b40) = -1 EPERM (Operation not permitted)
+> > > > > > > > write(2, "libxl: ", 7libxl: )                  = 7
+> > > > > > > > write(2, "error: ", 7error: )                  = 7
+> > > > > > > > write(2, "libxl_utils.c:820:libxl_cpu_bitm"..., 87libxl_utils.c:820:libxl_cpu_bitmap_alloc: failed to retrieve the maximum number of cpus) = 87
+> > > > > > > > write(2, "\n", 1
+> > > > > > > > )                       = 1
+> > > > > > > > clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0xffff9ee7a0e0) = 814
+> > > > > > > > wait4(814, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 814
+> > > > > > > > --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=814, si_uid=0, si_status=0, si_utime=2, si_stime=2} ---
+> > > > > 
+> > > > > xl devd is daemonizing, but strace is only following the first
+> > > > > process.  Use `strace xl devd -F` to prevent the daemonizing (or
+> > > > > `strace -f xl devd` to follow children).
+> > > > 
+> > > > Or as a first step try to see what kind of messages you get from `xl
+> > > > devd -F` when trying to attach a device using the driver domain.
+> > > 
+> > > Nothing has changed. On guest0 (the driver domain):
+> > > 
+> > > # xl devd -F
+> > > libxl: error: libxl_utils.c:820:libxl_cpu_bitmap_alloc: failed to retrieve
+> > > the maximum number of cpus
+> > > libxl: error: libxl_utils.c:820:libxl_cpu_bitmap_alloc: failed to retrieve
+> > > the maximum number of cpus
+> > > libxl: error: libxl_utils.c:820:libxl_cpu_bitmap_alloc: failed to retrieve
+> > > the maximum number of cpus
+> > > [  696.805619] xenbr0: port 1(vif2.0) entered blocking state
+> > > [  696.810334] xenbr0: port 1(vif2.0) entered disabled state
+> > > [  696.824518] device vif2.0 entered promiscuous mode
+> > 
+> > Can you use `xl -vvv devd -F` here?
+> 
+> # xl -vvv devd -F
+> libxl: error: libxl_utils.c:820:libxl_cpu_bitmap_alloc: failed to retrieve
+> the maximum number of cpus
+> libxl: error: libxl_utils.c:820:libxl_cpu_bitmap_alloc: failed to retrieve
+> the maximum number of cpus
+> libxl: error: libxl_utils.c:820:libxl_cpu_bitmap_alloc: failed to retrieve
+> the maximum number of cpus
+> libxl: debug: libxl_device.c:1749:libxl_device_events_handler: ao
+> 0xaaaaece52130: create: how=(nil) callback=(nil) poller=0xaaaaece52430
+> libxl: debug: libxl_event.c:813:libxl__ev_xswatch_register: watch
+> w=0xffffe628caf8 wpath=/local/domain/1/backend token=3/0: register slotnum=3
+> libxl: debug: libxl_device.c:1806:libxl_device_events_handler: ao
+> 0xaaaaece52130: inprogress: poller=0xaaaaece52430, flags=i
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event epath=/local/domain/1/backend
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece51b90:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece51b90:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece4e7b0:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece4e7b0:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece4e990:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece4e990:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/frontend
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece4eaa0:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece4eaa0:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/frontend-id
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece4ebb0:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece4ebb0:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/online
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece52830:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_device.c:1714:backend_watch_callback: Domain 2:Added
+> domain to the list of active guests
+> libxl: debug: libxl_device.c:1569:add_device: Domain 2:Added device
+> /local/domain/1/backend/vif/2/0 to the list of active devices
+> libxl: debug: libxl_event.c:813:libxl__ev_xswatch_register: watch
+> w=0xaaaaece52a10 wpath=/local/domain/1/backend/vif/2/0/state token=2/1:
+> register slotnum=2
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/state
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece52d50:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/script
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece52f30:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece52f30:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/mac
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/bridge
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/handle
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/type
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-sg
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-gso-tcpv4
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-gso-tcpv6
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-ipv6-csum-offload
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-rx-copy
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-xdp-headroom
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-rx-flip
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-multicast-control
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-dynamic-multicast-control
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-split-event-channels
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/multi-queue-max-queues
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-ctrl-ring
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-sg
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-gso-tcpv4
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-gso-tcpv6
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-ipv6-csum-offload
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-rx-copy
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-xdp-headroom
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-rx-flip
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-multicast-control
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-dynamic-multicast-control
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-split-event-channels
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/multi-queue-max-queues
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/feature-ctrl-ring
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
+> destroy
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
+> wpath=/local/domain/1/backend token=3/0: event
+> epath=/local/domain/1/backend/vif/2/0/state
+> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
+> nested ao, parent 0xaaaaece52130
+> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xaaaaece52a10
+> wpath=/local/domain/1/backend/vif/2/0/state token=2/1: event
+> epath=/local/domain/1/backend/vif/2/0/state
+> libxl: debug: libxl_event.c:1055:devstate_callback: backend
+> /local/domain/1/backend/vif/2/0/state wanted state 2 still waiting state 5
 
-Ah yes, this is good enough proof for those present being (sufficiently)
-benign to GNU ld (and being able to expect that this isn't going to
-change). I'll get these added in v2.
+There's something wrong with the negotiation between the frontend and
+the backend AFAICT. The backed switches to state 5 and 6 (Closed) so
+the connection cannot be established.
 
->>>>>>>> --- a/xen/arch/x86/Makefile
->>>>>>>> +++ b/xen/arch/x86/Makefile
->>>>>>>> @@ -120,6 +120,8 @@ syms-warn-dup-y :=3D --warn-dup
->>>>>>>>  syms-warn-dup-$(CONFIG_SUPPRESS_DUPLICATE_SYMBOL_WARNINGS) :=3D
->>>>>>>>  syms-warn-dup-$(CONFIG_ENFORCE_UNIQUE_SYMBOLS) :=3D --error-dup
->>>>>>>> =20
->>>>>>>> +orphan-handling-$(call ld-option,--orphan-handling=3Dwarn) +=3D -=
--orphan-handling=3Dwarn
->>>>>>>
->>>>>>> Might be better to place in xen/Kconfig with the CC checks?
->>>>>>
->>>>>> Well. I've tried to stay away from complaining if people introduce
->>>>>> new tool chain capability checks in Kconfig. But I'm not going to
->>>>>> add any myself (unless things would become really inconsistent) up
->>>>>> and until we have actually properly discussed the upsides and
->>>>>> downsides of either model. Doing this via email (see the "Kconfig
->>>>>> vs tool chain capabilities" thread started in August 2020) has
->>>>>> proven to not lead anywhere. I'm really hoping that we can finally
->>>>>> sort this in Bukarest.
->>>>>>
->>>>>>> I'm also wondering whether we could add the flag here into XEN_LDFL=
-AGS
->>>>>>> and EFI_LDFLAGS, as those options are only used together with the
->>>>>>> linker script in the targets on the Makefile.
->>>>>>
->>>>>> Not for XEN_LDFLAGS at least, and undesirable for EFI_LDFLAGS. See
->>>>>> the respective post-commit message remark.
->>>>>
->>>>> But the calls to LD in order to generate $(TARGET)-syms do not use -r=
-,
->>>>> and are all using the linker script, so it should be fine to use
->>>>> --orphan-handling=3Dwarn there?
->>>>
->>>> But XEN_LDFLAGS is also used elsewhere together with -r. (Whether
->>>> that's actually correct is a different question.)
->>>>
->>>>> Could we do something like:
->>>>>
->>>>> $(TARGET)-syms: XEN_LDFLAGS +=3D ...
->>>>>
->>>>> And similar for $(TARGET).efi?
->>>>
->>>> Yes, this ought to be possible, but would again lead to the option
->>>> being passed on all three linking stages instead of just the final
->>>> one. When there are many warnings (e.g. because of the same kind of
->>>> section appearing many times), it's not helpful to see the flood
->>>> three times (or likely even six times, once for xen-syms and once
->>>> for xen.efi).
->>>
->>> OK, I think our build system is already quite chatty, so wouldn't
->>> really care about seeing repeated messages there. We can find a way to
->>> generalize passing options to the final linker step if/when we need to
->>> add more.
->>>
->>> I'm fine with doing the LLD fixup as a separate patch, so:
->>>
->>> Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
->>
->> Thanks. However, something is wrong here. Unlike in my local builds, the
->> pre-push build test I did after committing this triggered a massive amou=
-nt
->> (tens of thousands) of objdump warnings:
->>
->> CU at offset ... contains corrupt or unsupported version number: 0
->> Invalid pointer size (0) in compunit header, using 4 instead
->=20
-> That's weird, I wasn't aware we had any objdump calls after the final
-> image is linked.
+Can you paste the output of `xenstore-ls -fp` from dom0 after `xl
+devd` reports the timeout?
 
-We've gained those recently, from check-endbr.sh.
+What OS/versions are you using for the guest and the driver domain, do
+you have any local modifications?
 
-Jan
-
+Regards, Roger.
 
