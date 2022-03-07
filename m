@@ -2,40 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F05A4CFD29
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Mar 2022 12:40:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.285864.485133 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 373F64CFD50
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Mar 2022 12:46:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.285872.485145 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRBi9-0001Qg-G2; Mon, 07 Mar 2022 11:39:33 +0000
+	id 1nRBoq-0002yg-Ca; Mon, 07 Mar 2022 11:46:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 285864.485133; Mon, 07 Mar 2022 11:39:33 +0000
+Received: by outflank-mailman (output) from mailman id 285872.485145; Mon, 07 Mar 2022 11:46:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRBi9-0001Nx-Cy; Mon, 07 Mar 2022 11:39:33 +0000
-Received: by outflank-mailman (input) for mailman id 285864;
- Mon, 07 Mar 2022 11:39:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nRBoq-0002wt-8m; Mon, 07 Mar 2022 11:46:28 +0000
+Received: by outflank-mailman (input) for mailman id 285872;
+ Mon, 07 Mar 2022 11:46:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/EJ7=TS=santannapisa.it=Andrea.Stevanato@srs-se1.protection.inumbo.net>)
- id 1nRBi7-0001Nr-Lk
- for xen-devel@lists.xenproject.org; Mon, 07 Mar 2022 11:39:32 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20609.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::609])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3f339476-9e0b-11ec-8539-5f4723681683;
- Mon, 07 Mar 2022 12:39:28 +0100 (CET)
-Received: from AM6PR03MB5000.eurprd03.prod.outlook.com (2603:10a6:20b:88::11)
- by DB7PR03MB4507.eurprd03.prod.outlook.com (2603:10a6:10:13::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Mon, 7 Mar
- 2022 11:39:24 +0000
-Received: from AM6PR03MB5000.eurprd03.prod.outlook.com
- ([fe80::cdef:8699:47b:300d]) by AM6PR03MB5000.eurprd03.prod.outlook.com
- ([fe80::cdef:8699:47b:300d%3]) with mapi id 15.20.5038.026; Mon, 7 Mar 2022
- 11:39:24 +0000
+ <SRS0=+gfv=TS=citrix.com=prvs=0582ef7ee=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1nRBoo-0002wn-S5
+ for xen-devel@lists.xenproject.org; Mon, 07 Mar 2022 11:46:26 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 36725d44-9e0c-11ec-8eba-a37418f5ba1a;
+ Mon, 07 Mar 2022 12:46:25 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,34 +36,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f339476-9e0b-11ec-8539-5f4723681683
+X-Inumbo-ID: 36725d44-9e0c-11ec-8eba-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1646653585;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=v4zFag5yglm9rUEffzub4zUGwu5mVdz7ZYushMGUVXM=;
+  b=WJJ/GIqIiAug4Q/Obqa2tzXogEQqSr45fUxIy0taN6fZMIx1hrFMi+YZ
+   QSs2X0RgLYj5HEamUVKklVQlIXRQwySLl7pR+VwdRdZrOQFdkf6CHVA4p
+   UHae5P8TeKEP9tWVI3230D6w8IM48G+znhT31xyLlUuAiE75yflez156J
+   0=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+X-SBRS: 5.1
+X-MesageID: 65077368
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:Y62HF6wk3dxujKDSEVR6t+cYxirEfRIJ4+MujC+fZmUNrF6WrkUGy
+ GRKW2jXbv2LNGKhL99waIrk9R9Uv5WGz4dlHAFqrCAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
+ 59DAjUVBJlsFhcwnj/0bv656yMUOZigHtIQMsadUsxKbVIiGX9JZS5LwbZj2NYz2YfhWWthh
+ PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
+ gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
+ Npli7ybTDcHFLf3hMtHdRQbSiZPEvxv0eqSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
+ aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DJoQQt2sm1TjEJf0nXYrCU+PB4towMDIY2J0WQqmFO
+ ZpxhTxHTxr5aiF2CF4sBrVkl9z5hnPufTNzkQfAzUYwyzeKl1EguFT3C/LFd9rPSchLk0Kwo
+ mPd43+/EhwcLMaYyzeO7jSrnOCntTz/cJIfEvu/7PECqFSVynYeAVsNSValqP+wlkmWQNtZN
+ 0US/CM2rLM7sk23JvH/Vhu0um+ZvTYTXtNRF6sx7wTl90bPy1/HXC5eFGcHMYF48p9tLdA36
+ rOXt+3JLjlfnpePcm6yrJGZ7mq1CAdEBEZXMEfoUjA5y9XkpYgyiDfGQdBiDLO5g7XJJN3g/
+ 9yZhHNg3utO1Kbnw43+pAma2Gz0+vAlWyZovl2/Y46z0u9uiGdJjaSM4EOT0/tPJZ3xorKp7
+ CldwJj2AAzj4PiweM2xrAclQevBCxWtamS0bbtT834JrWjFxpJbVdoMiAyS3W8wWir+RRfnY
+ VXIpSRa74JJMX2hYMdfOtztVZl7k/C/ToS1Cpg4i+aihbArKGe6ENxGPxbMjwgBbmB2+U3AB
+ XtrWZn1VitLYUiW5DG3W/0cwdcWKtMWngvuqWTA503/i9K2PSfNIZ9caQfmRr1pvcus/VSOm
+ /4CZpTi9vmqeLCnCsUh2dVIdg5iwLlSLc2elvG7gcbYels2QDx6UqSJqV7jEqQ895loei7z1
+ ijVcmdTyUblhG2BLgOPa3t5b6joU4o5pnU+VRHA9370s5T/Se5DNJsiSqY=
+IronPort-HdrOrdr: A9a23:CVNZNq0GiK1nHxYVlIid4AqjBVxyeYIsimQD101hICG9Lfb3qy
+ n+ppsmPEHP5Ar5OEtBpTiBUJPwJ0800aQFnLX5XI3SJjUO3VHIEGgM1/qG/9SNIVybygcZ79
+ YdT0EcMqyAMbEZt7eD3ODQKb9Jq7PrgcPY59s2jU0dNj2CA5sQkTuRYTzra3GeKjM2YqbQQ/
+ Gnl7V6TnebCDwqR/X+IkNAc/nIptXNmp6jSRkaByQ/4A3LqT+z8rb1HzWRwx9bClp0sP0f2F
+ mAtza8yrSosvm9xBOZ/2jP765OkN+k7tdYHsSDhuUcNz2poAe1Y4ZKXaGEoVkO0aqSwWdvtO
+ OJjwYrPsx15X+UVmapoSH10w2l6zoq42+K8y7uvVLT5ejCAB4qActIgoxUNjHD7VA7gd162K
+ VXm0qEqpt+F3r77WvAzumNcysvulu/oHIkn+JWpWdYS5EiZLhYqpFa1F9JEa0HADnx5OkcYa
+ VT5fnnlbdrmG6hHjDkVjEF+q3uYp1zJGbKfqE6gL3a79AM90oJjXfxx6Qk7wM9HdwGOtx5Dt
+ //Q9dVfYF1P78rhJ1GdZU8qOuMexrwqEH3QSuvyWqOLtBzB5uKke+y3IkI
+X-IronPort-AV: E=Sophos;i="5.90,162,1643691600"; 
+   d="scan'208";a="65077368"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MGpdivGnmw0q5IKQgqRhXpgag81F8OXYxLfbSTaLjlTm3gBGyXRi7ScR20gaWci1CGykCqZh3hZCOSbr3DRHeEvTLi6EaXyBVNnmrx0FFiOcw+bfw4XdlJJNiJpFZojRNrmpnlHoFJ+l5r1GD2ANiF0lCj/LAhZSTHhmio7Xug1gOSdtFzZsIExlsuTWpUA1hBqqCxdL0dWSnITDaj/A+UaFCVwi0OdqQ/us4hZ7PGBfbp45NXUHr699wSysXkPxRI87U2lUt8F4xEdJtrYgeFNtwnvpFHfJjvVuP6/3mbZ+2OLLi5uV1Rdml2ntQqCprlRM/9WuWyTXkbVpAS21cQ==
+ b=iuSOcGbWAXx6w7NYrClwxogv5QX4IMSy9jIcTyJdfjdOg7J35AR34TwXxOpst1JGmX5pBbbV8siPVG6Ul3vlE9/ntNHEXLOaKJRPvzvbYM/8xsV0qFNpIOV/+ZiS8Z6c8BK/Tua/9eepCETsAaSQ6qLe6u77BLcf5iEgqxu5xqM5tthZd9hI0lPQaUIwsLVjfuEpgo0PiGDm8NZv8IZG75cZ3fka4G0XCzqnkiQGbjP5xkXBGmvMWamZfqK4tEEAOxbjBL46VMSHO3ViRPvNcDf6FsfHz5AOQxGedLHpAoN3lQco7s8p5MUUlZB6Tg/E666Adl5olfuQQ6EKwTx2HA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P9vq27DMxWML12du5uN59XinDWxYicu43CCMny+ntBU=;
- b=eGbSBehb1/4cD3uyTpPUiMZb28WpwDNTCszehW3zOvs3xSG3bDmBu7k3i2JlcDbWeJLbZ2zTRTMWsQVfLird3hozOpdouzG0O06S2YdZLqLF+GjdzLgw6zkOgsMvB7GREsE0v47Zs+fcJWKoeXAQkmNgqVTwkrRvXYohvKlDFxGAftE0moF3QALOSoGriwd0Gn7k7LMHvYL6+56WitEpKMWiZBkCL2pjO8FJfflAFVpJpGaJJF49k/8SvcFDD0r1Ko0HlKk5StJ36CNlcZjimWes+D9eRCpOfRNGcOpQ1eOEdYfBg4AkU8FcoKyX8bT+kejQpiWi3oagMID9Zi48Hg==
+ bh=PhnXEgI3LXEG4DO6l2VCUSOoxWuihfY5Ax29qTSzuAA=;
+ b=keDPhwwKFzgvkRJEeXewd+SoMV3IRhMWxEKaI06kZHBTK5q4mBQBToAtaEy4OcxASPjMciwjxr3lWqiDEPBFZuceLhgKF0D6Unp4m3cMFz1qdeQ0XxISs9eNMM6lM0YEl+LKPZ5hXJK6wAsTvNYvH49ayhTVapRNz57sh990y459R5cCCBjqnzrV7P8SMphLdbctsOKoWVHJaSyl4p+T1oF2a1st5F2mq3N5VUqvEJxBHR3QQrvjBhZsdVKkWfGuc5L8/829yPWuKXLbbMS5KdPARp/VWDjM9UzKs8/0NQbJy1jfmslNFGUAtgv1r1VZqAKXWGQl3cQq684+yGLwEA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=santannapisa.it; dmarc=pass action=none
- header.from=santannapisa.it; dkim=pass header.d=santannapisa.it; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=santannapisa.it;
- s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P9vq27DMxWML12du5uN59XinDWxYicu43CCMny+ntBU=;
- b=Ud/mZ3584L4YE4/rmD3+A44w5wAZn1rcvFckLMzjzox/Oa8wbrL0lZQP8wXeTYVqrKdjNBEp+mOHL4w3b0PZrrFtliiJXuebFMnchuii+NMNX2r+sBcOmS1RTBLUl59JzpTg6hjki2FX/XfQrY0vmNvocpaKIFYgJvDjKWRIzjE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=santannapisa.it;
-Message-ID: <b388ed5b-177e-2e9d-6450-6df16d9250c4@santannapisa.it>
-Date: Mon, 7 Mar 2022 12:39:22 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
+ bh=PhnXEgI3LXEG4DO6l2VCUSOoxWuihfY5Ax29qTSzuAA=;
+ b=JYrPXO+gRc93KfrKWTQODdl52BmYma6qB23s+LNi7tKSPeXALOObXwzMhj3Lt/ds0nTsMknF8YCFmkHFissE2rA3P8zQrvk06BVpCNeQC1zdBI/YSGrQEFvG7cJ0+L+6psu1yTMI4x51JiTaqHtkn8qMm9lCnQJ0gc9KxLVvH5U=
+Date: Mon, 7 Mar 2022 12:46:13 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrea Stevanato <andrea.stevanato@santannapisa.it>
+CC: Jason Andryuk <jandryuk@gmail.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, "wl@xen.org" <wl@xen.org>, Anthony PERARD
+	<anthony.perard@citrix.com>
 Subject: Re: Network driver domain broken
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Jason Andryuk <jandryuk@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "wl@xen.org" <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Message-ID: <YiXwhUnZL8bcJvH2@Air-de-Roger>
 References: <DB7PR03MB50027EE92E11BFFF71AADC4598049@DB7PR03MB5002.eurprd03.prod.outlook.com>
  <92827eec-b6e9-9c95-8f9e-fcf063d45090@santannapisa.it>
  <YiDt7fX92n6Luc2l@Air-de-Roger>
@@ -84,671 +112,124 @@ References: <DB7PR03MB50027EE92E11BFFF71AADC4598049@DB7PR03MB5002.eurprd03.prod.
  <YiIFyRUNXpUfzwRB@Air-de-Roger>
  <0ce52d38-f542-9336-a100-1cbfc559f218@santannapisa.it>
  <YiXq5HIrvZsy7QKU@Air-de-Roger>
-From: Andrea Stevanato <andrea.stevanato@santannapisa.it>
-In-Reply-To: <YiXq5HIrvZsy7QKU@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MR1P264CA0130.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:51::23) To AM6PR03MB5000.eurprd03.prod.outlook.com
- (2603:10a6:20b:88::11)
+ <b388ed5b-177e-2e9d-6450-6df16d9250c4@santannapisa.it>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <b388ed5b-177e-2e9d-6450-6df16d9250c4@santannapisa.it>
+X-ClientProxiedBy: LO2P123CA0003.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:a6::15) To SA0PR03MB5610.namprd03.prod.outlook.com
+ (2603:10b6:806:b2::9)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 907feb88-745f-4790-111a-08da002f20a9
-X-MS-TrafficTypeDiagnostic: DB7PR03MB4507:EE_
-X-Microsoft-Antispam-PRVS:
-	<DB7PR03MB45077A78C4B97C9EFBDEC1B298089@DB7PR03MB4507.eurprd03.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: f31e55a8-7235-4ac0-3ef7-08da0030173b
+X-MS-TrafficTypeDiagnostic: MWHPR03MB3311:EE_
+X-Microsoft-Antispam-PRVS: <MWHPR03MB33114FADCC3F8C41B9D4A44D8F089@MWHPR03MB3311.namprd03.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	tMAUTMABxThOztaX8TZI5c5Yf4xLYQU8zSz35bZUkq5GikRGmDx5uhvVYfSy+WzpmHr8Pk9UWU/o1sOvEhz7PVCNX1zVF3oetf8SNwEcZwK6qO26WfjadYsg6PB+zDULyNa44OutcW1nhQgbXI8RZkUtvh8u4je7WvUjMM8VUUAS2tz0+WZMzMJNAoImDEsu9dDKv4QutcF0m1tljJGooW6y81MuSSd3XdlN+lkEadVVNbBHJ9p3j5wCScrBwemELl9qneaGaApA5Fc4B+94F+ylmmsf88C0pgG2nbmy+r0hUthC1bInkDCSEO0XTdDPL3BkfrRnIdaQNRy4fWnLUXfF9xnlX+vrq97u0iwm4NOsDxd4yKoWdL8tVbH1vV14XJudtfumbEsg48QGgpd2NyFpSfP1KoY/tbNSCdUkfjm0PB6BezdZv8ejEGS8NxcyTKJzqQbXvWfDLkcIO4FZRKe5QtFO4f1QT8Vlwqv4pmhtLEOEf5IBXoZTVXZaYJg7CJUiH8y+9TzFRtc0T25ZnYQtvGz1mDJrDAcBBgEex1+jG/unvvfuyw6PX4eb5BS4upKF4bxl/xSVKuYpiez6Tc6yMPTi1KOeLXyjTXzJHkXBH/TSljintDEdgmDQ3jEmpKSpKu0msYSAnnarCgPXSkLUEox2djlXo/Wfp18mLN5VspiwN4wzz5ixldDgC8+yg1eG//2R0vLhHId9RqKdqP8YceRAyE5EKi19/hU8V9m8mRTgmNn5ZX5JWpDN8yTTVFff6j3ZSzinXsGW0YcmsQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR03MB5000.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(44832011)(31696002)(786003)(86362001)(6486002)(4326008)(36756003)(83380400001)(52116002)(53546011)(54906003)(186003)(26005)(3480700007)(6916009)(31686004)(6506007)(30864003)(38100700002)(38350700002)(66476007)(8936002)(316002)(66946007)(66556008)(5660300002)(8676002)(6512007)(2906002)(2616005)(508600001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: +yLObZd9j6ZfFG7XdqiZ+S2OX9JGOWyka8RVdnp22LmesSrtzNiEdMh58esR/MIm5OdGnvGLpYpjdMpopasPq/CETQzCdz2JaED5PFppmA7XQzFh+dO5bHdsbf+CmViCW/VmpPZ/I3e71/UN2PPj3WZm+/MCnOBAI3WR8tQnIi55KoNCksoUi8+QJnw0BK/XJSGncFaVNG0zKlMQSkccPaehLuv3eeKeDRPXam5D8NB5fjg0VgVdO1NsvwWrLRTuVNOzNXT4xgRP3Xdp6l6oQNN4ePmbtLhfhytca1nbhXpXzTcoTNkbKrNJ7RSXvO+Vzc/DoiaambuGDLJ2rAt5fh/DSYrcM6fuaoC9hJNaRTTwxzNIOrsoHxOXSXJUGXqeRVITWNNuYSxTo0nNklfMJB1lGGgIl8zGXnP1tl8fNZCcBLIh5y3Y1TEpZtrpI5VNmZ5r0yA+NZNo8QyL8CFNYcHzIPX9GdiMY8XN68HvmBTB5ejmdDTQ9rFDaudbgb6w1qfIWywxtFsBbtWzr1TZ+IxJUHPIiIhhBY2tW5q5Oj7X/JKJFfk1UsKjfBjRmQKDzEvfDuIIEi6jqFlDUAbrLbLQGSbh2VhWl/ok6uXtnImQI1rh6HC9EAiN4PaZMtHe8qYaDhgSd3JUtFn4ICWDdw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA0PR03MB5610.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(38100700002)(82960400001)(107886003)(6512007)(2906002)(26005)(5660300002)(8676002)(4326008)(6916009)(66476007)(66556008)(86362001)(83380400001)(66946007)(186003)(6506007)(9686003)(6666004)(8936002)(316002)(54906003)(6486002)(508600001)(85182001)(33716001)(3480700007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?LzJZK1V3RVV2dldldUZyTFJNTlRpYUMxZ0RJb211cFlRRUFEbXpKdndaWUFi?=
- =?utf-8?B?MllBZ05Jd3VGWUJqZ3BacXJ1d1o1dmVMRzJTRnY1WjNZSDhXbDlsWXdvbjl3?=
- =?utf-8?B?T1FROTFJYUZxbU90U1dacEo2dmQ2SHE2WVVOOWFoeFJPdHpzeU8yWXkxNHdL?=
- =?utf-8?B?TDlJUFRFenora3ZOSGlhUXlwNkY3LzFMM2NKTU1rQWV3RTdnSVBzMytmRVcy?=
- =?utf-8?B?anRXdm4yWUxJdUN1UTMvTGNEZWlpWjd1aHNVSEhCd2RFY3lpTmdJYnZ0bkNT?=
- =?utf-8?B?b0V4aGdaem0rbm9sdHA5S2t2ME50Vkh3aW1NeWovbHNIbnBBeVViR1FabFY1?=
- =?utf-8?B?akZmZ256a1VHUUNubW5RTHRFaE1HY2FBYmRMdUdoOXpZcGtLeU5OMjBoc1hP?=
- =?utf-8?B?d3pkKzFGVEpQNFFCRXlzaklmVHg3OXp6dW1xbU9aenlDaVhOWEF6cXBEbWQ0?=
- =?utf-8?B?NS9uVGdFdEN6Y2YvV2dmdzJkeU5uYUlXUHY1SExQWGpnb3h6RkZtWlArR1lJ?=
- =?utf-8?B?N2tjTGlhQ3VTZGo5bGpvRkx5by9sVVBlQlRLdDBVd2FTLzllbndleDZWbU9S?=
- =?utf-8?B?QXRkRXhkQVRGU2wzcVdXRllZSTZWMy9GMXA1c0x4aFh4d3ovRjAxd20zakFZ?=
- =?utf-8?B?YVRKZ3J2ckVEVU84RzkyWXV0dmc0K1R3VEUwWEJ4Z0owQXlsUmxpTWxITXJE?=
- =?utf-8?B?ZFpNVXdqWEVNa1ZaQTdsSVBMMzdJRURwQWo4SENCSDBMNHQzTkhuVlFzSlRw?=
- =?utf-8?B?SDRhQWlsT2dVTW9iOEwxdWlibWxyM0E5TUZ0MkJnNUM1ekVoYVJxYzFYcnM5?=
- =?utf-8?B?REJpWFRXQlg0RkRNTjc5U05wbC9RL3V1ajNFRlRWeitXT2lUUUdhV3E1bDBE?=
- =?utf-8?B?Q3lETHlGSzVzZlEwVURuZ0Y0K1NlR3VDQXFmenBTWUh5UzJ2a01WNlhGbExZ?=
- =?utf-8?B?TlJZZVFNWUJFMHYxZTlKUkY5L0FObzc3a2toN285U2FpSlN4UU50bSt5akhs?=
- =?utf-8?B?U1RYbXVibVVjSm1MMW14TkVBa1c2clFQZzIreWZKd2ZRNlozY0t4ZW9UKzQ4?=
- =?utf-8?B?b0NoQXFtMEdRdlo4QUN5ZlhoSlAveXRMT3dSY05rN1B2RkhEcURHUUR0ZXhY?=
- =?utf-8?B?cm9ZdDRuUEc0VVJmVWF2S0NJQUlmQ05LdkxhUkUwZHh5M2d3bit6VU40T0xH?=
- =?utf-8?B?US9SSTNIaGJrZ2V3dnRxY21xaVMvWFppOXFJa0RsOFZsNHAwdDJYWWJXSXh4?=
- =?utf-8?B?QWR6YWVqc2p0VXlhTGxtZHg2ZzlVU05FMXdoclRXQmVKWUNCbHFNY0VoTlY3?=
- =?utf-8?B?TTRwcTRoT3VwV0RBcnR6eUJvOG1tQmZxbmJtWjFCdHIyWWhnWGRRRG51YTY2?=
- =?utf-8?B?bnF0RGpDWWJCc2hmdmp1S0ZtVjMxL3VjbXk4ZU1qQ3VRNGNaWUtXa1J1Z21Z?=
- =?utf-8?B?RU4yVU00WHJ5QmwyRDJqb1YyTFVCZkxOb2VvbENsVWxhWmZEYnAwaDhIT0hS?=
- =?utf-8?B?dWZacHJNbUh6R05MSnNuVFR4L1BkclZ3SFFMYk1sMC94QVpLZVlMWmE0cnlJ?=
- =?utf-8?B?aGNRcVk3a3VvMkl1U2tKUDRJdXpUT3loK3o2NFZKTDlMWlo2V1Q5Rmg1NC9T?=
- =?utf-8?B?ZHAvc2FqRlZIdjBjWHo2aHkrNVo3aUYvdnBxMGRtSkJaaFo4dzdGRVRKWnRs?=
- =?utf-8?B?aTkvcnBGckJueWQ1dzZXVGhJMjFGaVRsRGgxWkk4bVRqRXVlbE1rTmlMNy8y?=
- =?utf-8?B?QUxUSnQ4QU04Z3dtSjhFOVl3TTJJRXhRTVhSOXp2Z241UkV1SDFTK2ZDR00z?=
- =?utf-8?B?WFRGVEZVWXEwVUNjcWdjakZmY0hvV080ZklhdUZtaUFiMXJ1YTI0VzZ1SWZM?=
- =?utf-8?B?RUVoaWcwaXc4elBxQ0tBb0wxN2NCRzJJa3ppcHB0NGI1eXYxbWdYWmlhSlZU?=
- =?utf-8?B?N0c0VHNIOEpnNHQ2bDlGWVB0ckR4MTdFcURqRVFNVUF1RmFIcVlnSVYrOVQz?=
- =?utf-8?B?eUlRdWdMUnRndmpTcHRhalpuR08yK2dxeG9zY01zY0xSaUU5VmlDOUxsQk5X?=
- =?utf-8?B?aUNJaG8rOFdIY0tmTGZwdlpweEs2ZTA2OWkzTFpYMmFhRm5iMXhQYW9mSk1o?=
- =?utf-8?B?ak16U0tCTi9CcEtXYnc1NTlRam1uK1gvTCtJUTgxU0NTcEo1UFR4eGxZVGk5?=
- =?utf-8?B?MSsyY2EzM2lPRE1ML3FiV3g3Z0ZzaEM4d251eUtWRU5HOE5EWE44T3EyYnE0?=
- =?utf-8?B?K3RBQU1CNmdxQ2hMdS9wWThvMlFDOEFFajc4a3pJNFBpN3BIVkxrZmlkRk0r?=
- =?utf-8?B?dkt3R2YxY1BURlFpZUFLTi9lbEtNdFNydEF4VHQrYi9FSDM3cnlQdz09?=
-X-OriginatorOrg: santannapisa.it
-X-MS-Exchange-CrossTenant-Network-Message-Id: 907feb88-745f-4790-111a-08da002f20a9
-X-MS-Exchange-CrossTenant-AuthSource: AM6PR03MB5000.eurprd03.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b0VIdTMwMnZ3M3hVUCtTUGlsRm9FSEhQaTh2NEVGZ0pBaWZtTTlpa1lsT2M3?=
+ =?utf-8?B?M2QyeUllMUdsOHZUeHRqNDRZMVdkV0hmSWYrMEp4NkhXTDhDOTMzcXBLVVNr?=
+ =?utf-8?B?ME40OVNIVVl2NmtvU2pCMDAyaC9VL0N4YUhpeG0zS1ZwRUh2WU04OWIyWnFS?=
+ =?utf-8?B?NTFrN0dKYUpNdlFqN2U3MUNFdmtZdnRzdlZSdjNzSzN3ckNoWk0zSHpSdnRa?=
+ =?utf-8?B?cmdlYmZheE40cGxLc1JMcXZFU3kvd0xhMG8zaDdOQ2FMZlNCbFZySlE0eGdq?=
+ =?utf-8?B?VEpFRFk1djM4VmFzeWJ2K0FJYWNTV0xBZXZaTDZZMklRVWR3dkpNRDhSTWdu?=
+ =?utf-8?B?djVoVkxzeFNaVlVnd3Q4ZzRyNGhKNUJLWGJvSHZtZ1RBVDVUREdFR25tdWYz?=
+ =?utf-8?B?emlieExqc09HSjR6MXpKYjlpWjhUeXowVXRPa0hQenM1MEMvMlZCWkdZRWhV?=
+ =?utf-8?B?VUVLRXJ2akZINEVhOEJsZFo0dzBINEdUeGJaVEk3ZkpQb1RRcWZBQUg3ZHMx?=
+ =?utf-8?B?dHdMc1Y0TjUwMnF2ZnBrdmxhOVd6WHBjTHhEakdZQVl6Y1UrZmpiU211Z1BT?=
+ =?utf-8?B?eFlMZHJKUkRkYmNFbzBPNVR4VDFCQzJvaUtaczF6eHlsRFI5Um5mcGtaQ3V4?=
+ =?utf-8?B?WURlcytUMUVqdVhZYWZXUXp1a0dQZnNhUWhpVWJ4ZUdoWnA2SUdiSThKMEJQ?=
+ =?utf-8?B?QnZYd2ZJSDVrMlBqV0o2WU1OZnoxazdta2Vpd3dWdG1mcUtjNkRzWXN3bGFL?=
+ =?utf-8?B?dlZ4VFF0MzZKLzVHK3dLQW1pQVRta091VURpalJIWkVDMG1Kbi80ZDRMSVNq?=
+ =?utf-8?B?NTFISE05TVhOTFpmZzV5bFU4elRHdU1MSkEzOVVSa1VuVmxmYk5FQ0wzZElE?=
+ =?utf-8?B?R1dqLzluQitPelVLWFQ2djJsa1BtYzlhVzhzd2lIUGJDMmluSG8wNVFnNU40?=
+ =?utf-8?B?eEtXSzIwY0NXb1pvM2NiU1dYM2ZNMzFKbWwxTGEyWWQzdGI3UFZqR3FTajR6?=
+ =?utf-8?B?cWpwd2h5bDQ4dWxXcHdhaXk1WFpOdThCSVRacWlUb1FlTHAxWEJuTUNNTG1D?=
+ =?utf-8?B?M1FIY0ZCeWVtN1U5V3lRWkhzdlJjYjhNMzhaQWkyMmdEZmZmbTVQOWFoMUYz?=
+ =?utf-8?B?S0FmYktDZG84MFN1MG00UEZRSXlUcHlrSnFvdGx0RTg2azVITWdBVVExMUQv?=
+ =?utf-8?B?bUQyNUl0L2F0Y2pTckl0UXIwclN4bjNreVhIM0kzNEtYbEtESW5XMG1TSlFs?=
+ =?utf-8?B?QVNIcVpDN0dRK1QwTFlmWUNMaVpNY3FrRXl3bkc0Y0h5dXBsS3dvVFpoWGpo?=
+ =?utf-8?B?WE9yVGlpSXdseHR6UUtnVVFCL2JZRHFIUTlZQWRPTjNUTk5ha0FHV2dsdXVB?=
+ =?utf-8?B?RWFxTzNGMjcyNEc1MlRiTGlFdnp0aHVxLzV5OTJpU2R3MzczNmoxd3BoNGZD?=
+ =?utf-8?B?eW1ZdWRCb1JVQVpyL0RyZEJ2WkVrZnpHL1Zoam1YMXlid3IwUVdYV0JuR01r?=
+ =?utf-8?B?QWdPd3UrVmJ6WmpjYUdvdmxveCtQelpBck9RdHNWb2dNa25KcmNiWWN3b29O?=
+ =?utf-8?B?a3pVYVFlK0hFekI3c1U1YmxPbEpKNGhMUVIrVTYyRHg4U0w2WXFsRGJ0TkVq?=
+ =?utf-8?B?NllZNktDN3RKc0VkOTd1eFVGTTRGUEpCWGtNbjA4cklLN3JIa1NLWExzTGJ6?=
+ =?utf-8?B?d1dhSllhbFREVUIzSWFXL2w4MFVZMU1tV1RKL3hOSHkrOTJZbHhuTXcyaUpx?=
+ =?utf-8?B?MEh6ZktHdHNKT016L0U3Q2V1Mm1PYy9xUTl4UmdZNXZHMGNOYk5ia0pNVjR5?=
+ =?utf-8?B?eHV1eGpyNk5mRFB2a0ErR0FaT0ZjNTdHMGFLUlZvY05PYS8vdmMyUjBzSEVn?=
+ =?utf-8?B?U3Y2cHZYZzRZV3J6Q282a04xaU54Z2pyczRZWHBkdHJmZmV0aVlYSTV6Y3NP?=
+ =?utf-8?B?RXNiMUZlY00yaDBZejk0K1NvZjFPSjFlcWJHV3Q1UnJDa1BHUnkwMHZ2cG9h?=
+ =?utf-8?B?MXlFcFNTTGJtK1RocTJQVkJTQ0JyNmErL0hCblpNaGVqdllXSjZuN29MSGd6?=
+ =?utf-8?B?ODhJTTh5dFVTUTN1UzlVQzhKTzhiUFpoTnFzZzF3dkFKVDNKYTVzaGdYeTJW?=
+ =?utf-8?B?NjRsS2pzVlFwa2RsaVpVRDN6VDRab3FlWWlMeFBJUk9uTUEvN0xHTGtObW4z?=
+ =?utf-8?Q?LP+yMGNUysmwdIvVhYCNCZo=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: f31e55a8-7235-4ac0-3ef7-08da0030173b
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR03MB5610.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2022 11:39:24.0103
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2022 11:46:17.7816
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: d97360e3-138d-4b5f-956f-a646c364a01e
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PMQwbSF5xDDfWbyXRP6ueY1bWz+c9BaWytfAxPlctneHFX73l82CqphRS1SCuO/Kd7sZwVpBx5Z+UTWjpjkvtxTgNQKIqDvIXv9xfi//6GNKY8BbSs00I6/zzNMvD4SS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR03MB4507
+X-MS-Exchange-CrossTenant-UserPrincipalName: cJ6EH4cpYjl6zSlzJsky3U5HnzaN/rnesACfAFXsFtZAK4Oiu308m9PaDBtjBMW7v1rROMUkplVqApYyRs624w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR03MB3311
+X-OriginatorOrg: citrix.com
 
-On 3/7/22 12:22, Roger Pau Monné wrote:
-> On Fri, Mar 04, 2022 at 02:46:37PM +0100, Andrea Stevanato wrote:
->> On 3/4/2022 1:27 PM, Roger Pau Monné wrote:
->>> On Fri, Mar 04, 2022 at 01:05:55PM +0100, Andrea Stevanato wrote:
->>>> On 3/4/2022 12:52 PM, Roger Pau Monné wrote:
->>>>> On Thu, Mar 03, 2022 at 01:08:31PM -0500, Jason Andryuk wrote:
->>>>>> On Thu, Mar 3, 2022 at 11:34 AM Roger Pau Monné <roger.pau@citrix.com> wrote:
->>>>>>>
->>>>>>> On Thu, Mar 03, 2022 at 05:01:23PM +0100, Andrea Stevanato wrote:
->>>>>>>> On 03/03/2022 15:54, Andrea Stevanato wrote:
->>>>>>>>> Hi all,
->>>>>>>>>
->>>>>>>>> according to the conversation that I had with royger, aa67b97ed34  broke the driver domain support.
->>>>>>>>>
->>>>>>>>> What I'm trying to do is to setup networking between guests using driver domain. Therefore, the guest (driver) has been started with the following cfg.
->>>>>>>>>
->>>>>>>>> name    = "guest0"
->>>>>>>>> kernel  = "/media/sd-mmcblk0p1/Image"
->>>>>>>>> ramdisk = "/media/sd-mmcblk0p1/rootfs.cpio.gz"
->>>>>>>>> extra   = "console=hvc0 rdinit=/sbin/init root=/dev/ram0"
->>>>>>>>> memory  = 1024 vcpus   = 2
->>>>>>>>> driver_domain = 1
->>>>>>>>>
->>>>>>>>> On guest0 I created the bridge, assigned a static IP and started the udhcpd on xenbr0 interface.
->>>>>>>>> While the second guest has been started with the following cfg:
->>>>>>>>>
->>>>>>>>> name    = "guest1"
->>>>>>>>> kernel  = "/media/sd-mmcblk0p1/Image"
->>>>>>>>> ramdisk = "/media/sd-mmcblk0p1/rootfs.cpio.gz"
->>>>>>>>> extra   = "console=hvc0 rdinit=/sbin/init root=/dev/ram0"
->>>>>>>>> memory  = 1024 vcpus   = 2
->>>>>>>>> vcpus   = 2
->>>>>>>>> vif = [ 'bridge=xenbr0, backend=guest0' ]
->>>>>>>>>
->>>>>>>>> Follows the result of strace xl devd:
->>>>>>>>>
->>>>>>>>> # strace xl devd
->>>>>>>>> execve("/usr/sbin/xl", ["xl", "devd"], 0xffffdf0420c8 /* 13 vars */) = 0
->>>>>>
->>>>>>>>> ioctl(5, _IOC(_IOC_NONE, 0x50, 0, 0x30), 0xffffe6e41b40) = -1 EPERM (Operation not permitted)
->>>>>>>>> write(2, "libxl: ", 7libxl: )                  = 7
->>>>>>>>> write(2, "error: ", 7error: )                  = 7
->>>>>>>>> write(2, "libxl_utils.c:820:libxl_cpu_bitm"..., 87libxl_utils.c:820:libxl_cpu_bitmap_alloc: failed to retrieve the maximum number of cpus) = 87
->>>>>>>>> write(2, "\n", 1
->>>>>>>>> )                       = 1
->>>>>>>>> clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0xffff9ee7a0e0) = 814
->>>>>>>>> wait4(814, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 814
->>>>>>>>> --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=814, si_uid=0, si_status=0, si_utime=2, si_stime=2} ---
->>>>>>
->>>>>> xl devd is daemonizing, but strace is only following the first
->>>>>> process.  Use `strace xl devd -F` to prevent the daemonizing (or
->>>>>> `strace -f xl devd` to follow children).
->>>>>
->>>>> Or as a first step try to see what kind of messages you get from `xl
->>>>> devd -F` when trying to attach a device using the driver domain.
->>>>
->>>> Nothing has changed. On guest0 (the driver domain):
->>>>
->>>> # xl devd -F
->>>> libxl: error: libxl_utils.c:820:libxl_cpu_bitmap_alloc: failed to retrieve
->>>> the maximum number of cpus
->>>> libxl: error: libxl_utils.c:820:libxl_cpu_bitmap_alloc: failed to retrieve
->>>> the maximum number of cpus
->>>> libxl: error: libxl_utils.c:820:libxl_cpu_bitmap_alloc: failed to retrieve
->>>> the maximum number of cpus
->>>> [  696.805619] xenbr0: port 1(vif2.0) entered blocking state
->>>> [  696.810334] xenbr0: port 1(vif2.0) entered disabled state
->>>> [  696.824518] device vif2.0 entered promiscuous mode
->>>
->>> Can you use `xl -vvv devd -F` here?
->>
->> # xl -vvv devd -F
->> libxl: error: libxl_utils.c:820:libxl_cpu_bitmap_alloc: failed to retrieve
->> the maximum number of cpus
->> libxl: error: libxl_utils.c:820:libxl_cpu_bitmap_alloc: failed to retrieve
->> the maximum number of cpus
->> libxl: error: libxl_utils.c:820:libxl_cpu_bitmap_alloc: failed to retrieve
->> the maximum number of cpus
->> libxl: debug: libxl_device.c:1749:libxl_device_events_handler: ao
->> 0xaaaaece52130: create: how=(nil) callback=(nil) poller=0xaaaaece52430
->> libxl: debug: libxl_event.c:813:libxl__ev_xswatch_register: watch
->> w=0xffffe628caf8 wpath=/local/domain/1/backend token=3/0: register slotnum=3
->> libxl: debug: libxl_device.c:1806:libxl_device_events_handler: ao
->> 0xaaaaece52130: inprogress: poller=0xaaaaece52430, flags=i
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event epath=/local/domain/1/backend
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece51b90:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece51b90:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece4e7b0:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece4e7b0:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece4e990:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece4e990:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/frontend
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece4eaa0:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece4eaa0:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/frontend-id
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece4ebb0:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece4ebb0:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/online
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece52830:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_device.c:1714:backend_watch_callback: Domain 2:Added
->> domain to the list of active guests
->> libxl: debug: libxl_device.c:1569:add_device: Domain 2:Added device
->> /local/domain/1/backend/vif/2/0 to the list of active devices
->> libxl: debug: libxl_event.c:813:libxl__ev_xswatch_register: watch
->> w=0xaaaaece52a10 wpath=/local/domain/1/backend/vif/2/0/state token=2/1:
->> register slotnum=2
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/state
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece52d50:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/script
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece52f30:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece52f30:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/mac
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/bridge
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/handle
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/type
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-sg
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-gso-tcpv4
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-gso-tcpv6
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-ipv6-csum-offload
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-rx-copy
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-xdp-headroom
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-rx-flip
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-multicast-control
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-dynamic-multicast-control
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-split-event-channels
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/multi-queue-max-queues
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-ctrl-ring
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-sg
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-gso-tcpv4
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-gso-tcpv6
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-ipv6-csum-offload
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-rx-copy
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-xdp-headroom
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-rx-flip
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-multicast-control
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-dynamic-multicast-control
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-split-event-channels
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/multi-queue-max-queues
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/feature-ctrl-ring
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:2035:libxl__ao__destroy: ao 0xaaaaece53110:
->> destroy
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xffffe628caf8
->> wpath=/local/domain/1/backend token=3/0: event
->> epath=/local/domain/1/backend/vif/2/0/state
->> libxl: debug: libxl_event.c:2445:libxl__nested_ao_create: ao 0xaaaaece53110:
->> nested ao, parent 0xaaaaece52130
->> libxl: debug: libxl_event.c:750:watchfd_callback: watch w=0xaaaaece52a10
->> wpath=/local/domain/1/backend/vif/2/0/state token=2/1: event
->> epath=/local/domain/1/backend/vif/2/0/state
->> libxl: debug: libxl_event.c:1055:devstate_callback: backend
->> /local/domain/1/backend/vif/2/0/state wanted state 2 still waiting state 5
-> 
-> There's something wrong with the negotiation between the frontend and
-> the backend AFAICT. The backed switches to state 5 and 6 (Closed) so
-> the connection cannot be established.
-> 
-> Can you paste the output of `xenstore-ls -fp` from dom0 after `xl
-> devd` reports the timeout?
+On Mon, Mar 07, 2022 at 12:39:22PM +0100, Andrea Stevanato wrote:
+> /local/domain/2 = ""   (n0,r2)
+> /local/domain/2/vm = "/vm/f6dca20a-54bb-43af-9a62-67c55cb75708"   (n0,r2)
+> /local/domain/2/name = "guest1"   (n0,r2)
+> /local/domain/2/cpu = ""   (n0,r2)
+> /local/domain/2/cpu/0 = ""   (n0,r2)
+> /local/domain/2/cpu/0/availability = "online"   (n0,r2)
+> /local/domain/2/cpu/1 = ""   (n0,r2)
+> /local/domain/2/cpu/1/availability = "online"   (n0,r2)
+> /local/domain/2/memory = ""   (n0,r2)
+> /local/domain/2/memory/static-max = "1048576"   (n0,r2)
+> /local/domain/2/memory/target = "1048577"   (n0,r2)
+> /local/domain/2/memory/videoram = "-1"   (n0,r2)
+> /local/domain/2/device = ""   (n0,r2)
+> /local/domain/2/device/suspend = ""   (n0,r2)
+> /local/domain/2/device/suspend/event-channel = ""   (n2)
+> /local/domain/2/device/vif = ""   (n0,r2)
+> /local/domain/2/device/vif/0 = ""   (n2,r1)
+> /local/domain/2/device/vif/0/backend = "/local/domain/1/backend/vif/2/0"
+> (n2,r1)
+> /local/domain/2/device/vif/0/backend-id = "1"   (n2,r1)
+> /local/domain/2/device/vif/0/state = "6"   (n2,r1)
+> /local/domain/2/device/vif/0/handle = "0"   (n2,r1)
+> /local/domain/2/device/vif/0/mac = "00:16:3e:07:df:91"   (n2,r1)
+> /local/domain/2/device/vif/0/xdp-headroom = "0"   (n2,r1)
+> /local/domain/2/control = ""   (n0,r2)
+> /local/domain/2/control/shutdown = ""   (n2)
+> /local/domain/2/control/feature-poweroff = "1"   (n2)
+> /local/domain/2/control/feature-reboot = "1"   (n2)
+> /local/domain/2/control/feature-suspend = ""   (n2)
+> /local/domain/2/control/sysrq = ""   (n2)
+> /local/domain/2/control/platform-feature-multiprocessor-suspend = "1"
+> (n0,r2)
+> /local/domain/2/control/platform-feature-xs_reset_watches = "1"   (n0,r2)
+> /local/domain/2/data = ""   (n2)
+> /local/domain/2/drivers = ""   (n2)
+> /local/domain/2/feature = ""   (n2)
+> /local/domain/2/attr = ""   (n2)
+> /local/domain/2/error = ""   (n2)
+> /local/domain/2/error/device = ""   (n2)
+> /local/domain/2/error/device/vif = ""   (n2)
+> /local/domain/2/error/device/vif/0 = ""   (n2)
+> /local/domain/2/error/device/vif/0/error = "1 allocating event channel"
+> (n2)
 
-# xenstore-ls -fp
-/tool = ""   (n0)
-/tool/xenstored = ""   (n0)
-/local = ""   (n0)
-/local/domain = ""   (n0)
-/local/domain/0 = ""   (n0)
-/local/domain/0/control = ""   (n0)
-/local/domain/0/control/feature-poweroff = "1"   (n0)
-/local/domain/0/control/feature-reboot = "1"   (n0)
-/local/domain/0/domid = "0"   (n0)
-/local/domain/0/name = "Domain-0"   (n0)
-/local/domain/0/device-model = ""   (n0)
-/local/domain/0/device-model/0 = ""   (n0)
-/local/domain/0/device-model/0/backends = ""   (n0)
-/local/domain/0/device-model/0/backends/console = ""   (n0,n0)
-/local/domain/0/device-model/0/backends/vkbd = ""   (n0,n0)
-/local/domain/0/device-model/0/backends/9pfs = ""   (n0,n0)
-/local/domain/0/device-model/0/backends/vfb = ""   (n0,n0)
-/local/domain/0/device-model/0/backends/qnic = ""   (n0,n0)
-/local/domain/0/device-model/0/state = "running"   (n0)
-/local/domain/0/backend = ""   (n0)
-/local/domain/0/backend/console = ""   (n0)
-/local/domain/0/backend/console/1 = ""   (n0)
-/local/domain/0/backend/console/1/0 = ""   (n0,r1)
-/local/domain/0/backend/console/1/0/frontend = "/local/domain/1/console" 
-   (n0,r1)
-/local/domain/0/backend/console/1/0/frontend-id = "1"   (n0,r1)
-/local/domain/0/backend/console/1/0/online = "1"   (n0,r1)
-/local/domain/0/backend/console/1/0/state = "1"   (n0,r1)
-/local/domain/0/backend/console/1/0/protocol = "vt100"   (n0,r1)
-/local/domain/0/backend/console/2 = ""   (n0)
-/local/domain/0/backend/console/2/0 = ""   (n0,r2)
-/local/domain/0/backend/console/2/0/frontend = "/local/domain/2/console" 
-   (n0,r2)
-/local/domain/0/backend/console/2/0/frontend-id = "2"   (n0,r2)
-/local/domain/0/backend/console/2/0/online = "1"   (n0,r2)
-/local/domain/0/backend/console/2/0/state = "1"   (n0,r2)
-/local/domain/0/backend/console/2/0/protocol = "vt100"   (n0,r2)
-/local/domain/1 = ""   (n0,r1)
-/local/domain/1/vm = "/vm/cd36b881-cd46-4de7-a59b-7d173198862e"   (n0,r1)
-/local/domain/1/name = "guest0"   (n0,r1)
-/local/domain/1/cpu = ""   (n0,r1)
-/local/domain/1/cpu/0 = ""   (n0,r1)
-/local/domain/1/cpu/0/availability = "online"   (n0,r1)
-/local/domain/1/cpu/1 = ""   (n0,r1)
-/local/domain/1/cpu/1/availability = "online"   (n0,r1)
-/local/domain/1/memory = ""   (n0,r1)
-/local/domain/1/memory/static-max = "1048576"   (n0,r1)
-/local/domain/1/memory/target = "1048577"   (n0,r1)
-/local/domain/1/memory/videoram = "-1"   (n0,r1)
-/local/domain/1/device = ""   (n0,r1)
-/local/domain/1/device/suspend = ""   (n0,r1)
-/local/domain/1/device/suspend/event-channel = ""   (n1)
-/local/domain/1/control = ""   (n0,r1)
-/local/domain/1/control/shutdown = ""   (n1)
-/local/domain/1/control/feature-poweroff = "1"   (n1)
-/local/domain/1/control/feature-reboot = "1"   (n1)
-/local/domain/1/control/feature-suspend = ""   (n1)
-/local/domain/1/control/sysrq = ""   (n1)
-/local/domain/1/control/platform-feature-multiprocessor-suspend = "1" 
-(n0,r1)
-/local/domain/1/control/platform-feature-xs_reset_watches = "1"   (n0,r1)
-/local/domain/1/data = ""   (n1)
-/local/domain/1/drivers = ""   (n1)
-/local/domain/1/feature = ""   (n1)
-/local/domain/1/attr = ""   (n1)
-/local/domain/1/error = ""   (n1)
-/local/domain/1/libxl = ""   (n1)
-/local/domain/1/device-model = ""   (n1)
-/local/domain/1/domid = "1"   (n0,r1)
-/local/domain/1/store = ""   (n0,r1)
-/local/domain/1/store/port = "1"   (n0,r1)
-/local/domain/1/store/ring-ref = "233473"   (n0,r1)
-/local/domain/1/console = ""   (n0,r1)
-/local/domain/1/console/backend = "/local/domain/0/backend/console/1/0" 
-   (n0,r1)
-/local/domain/1/console/backend-id = "0"   (n1,r0)
-/local/domain/1/console/limit = "1048576"   (n0,r1)
-/local/domain/1/console/type = "xenconsoled"   (n0,r1)
-/local/domain/1/console/output = "pty"   (n0,r1)
-/local/domain/1/console/tty = "/dev/pts/0"   (n0,r1)
-/local/domain/1/console/port = "2"   (n0,r1)
-/local/domain/1/console/ring-ref = "233472"   (n0,r1)
-/local/domain/1/backend = ""   (n0,r1)
-/local/domain/1/backend/vif = ""   (n0,r1)
-/local/domain/1/backend/vif/2 = ""   (n0,r1)
-/local/domain/1/backend/vif/2/0 = ""   (n1,r2)
-/local/domain/1/backend/vif/2/0/frontend = 
-"/local/domain/2/device/vif/0"   (n1,r2)
-/local/domain/1/backend/vif/2/0/frontend-id = "2"   (n1,r2)
-/local/domain/1/backend/vif/2/0/online = "1"   (n1,r2)
-/local/domain/1/backend/vif/2/0/state = "6"   (n1,r2)
-/local/domain/1/backend/vif/2/0/script = "/etc/xen/scripts/vif-bridge" 
-  (n1,r2)
-/local/domain/1/backend/vif/2/0/mac = "00:16:3e:07:df:91"   (n1,r2)
-/local/domain/1/backend/vif/2/0/bridge = "xenbr1"   (n1,r2)
-/local/domain/1/backend/vif/2/0/handle = "0"   (n1,r2)
-/local/domain/1/backend/vif/2/0/type = "vif"   (n1,r2)
-/local/domain/1/backend/vif/2/0/feature-sg = "1"   (n1,r2)
-/local/domain/1/backend/vif/2/0/feature-gso-tcpv4 = "1"   (n1,r2)
-/local/domain/1/backend/vif/2/0/feature-gso-tcpv6 = "1"   (n1,r2)
-/local/domain/1/backend/vif/2/0/feature-ipv6-csum-offload = "1"   (n1,r2)
-/local/domain/1/backend/vif/2/0/feature-rx-copy = "1"   (n1,r2)
-/local/domain/1/backend/vif/2/0/feature-xdp-headroom = "1"   (n1,r2)
-/local/domain/1/backend/vif/2/0/feature-rx-flip = "0"   (n1,r2)
-/local/domain/1/backend/vif/2/0/feature-multicast-control = "1"   (n1,r2)
-/local/domain/1/backend/vif/2/0/feature-dynamic-multicast-control = "1" 
-   (n1,r2)
-/local/domain/1/backend/vif/2/0/feature-split-event-channels = "1"   (n1,r2)
-/local/domain/1/backend/vif/2/0/multi-queue-max-queues = "2"   (n1,r2)
-/local/domain/1/backend/vif/2/0/feature-ctrl-ring = "1"   (n1,r2)
-/local/domain/2 = ""   (n0,r2)
-/local/domain/2/vm = "/vm/f6dca20a-54bb-43af-9a62-67c55cb75708"   (n0,r2)
-/local/domain/2/name = "guest1"   (n0,r2)
-/local/domain/2/cpu = ""   (n0,r2)
-/local/domain/2/cpu/0 = ""   (n0,r2)
-/local/domain/2/cpu/0/availability = "online"   (n0,r2)
-/local/domain/2/cpu/1 = ""   (n0,r2)
-/local/domain/2/cpu/1/availability = "online"   (n0,r2)
-/local/domain/2/memory = ""   (n0,r2)
-/local/domain/2/memory/static-max = "1048576"   (n0,r2)
-/local/domain/2/memory/target = "1048577"   (n0,r2)
-/local/domain/2/memory/videoram = "-1"   (n0,r2)
-/local/domain/2/device = ""   (n0,r2)
-/local/domain/2/device/suspend = ""   (n0,r2)
-/local/domain/2/device/suspend/event-channel = ""   (n2)
-/local/domain/2/device/vif = ""   (n0,r2)
-/local/domain/2/device/vif/0 = ""   (n2,r1)
-/local/domain/2/device/vif/0/backend = "/local/domain/1/backend/vif/2/0" 
-   (n2,r1)
-/local/domain/2/device/vif/0/backend-id = "1"   (n2,r1)
-/local/domain/2/device/vif/0/state = "6"   (n2,r1)
-/local/domain/2/device/vif/0/handle = "0"   (n2,r1)
-/local/domain/2/device/vif/0/mac = "00:16:3e:07:df:91"   (n2,r1)
-/local/domain/2/device/vif/0/xdp-headroom = "0"   (n2,r1)
-/local/domain/2/control = ""   (n0,r2)
-/local/domain/2/control/shutdown = ""   (n2)
-/local/domain/2/control/feature-poweroff = "1"   (n2)
-/local/domain/2/control/feature-reboot = "1"   (n2)
-/local/domain/2/control/feature-suspend = ""   (n2)
-/local/domain/2/control/sysrq = ""   (n2)
-/local/domain/2/control/platform-feature-multiprocessor-suspend = "1" 
-(n0,r2)
-/local/domain/2/control/platform-feature-xs_reset_watches = "1"   (n0,r2)
-/local/domain/2/data = ""   (n2)
-/local/domain/2/drivers = ""   (n2)
-/local/domain/2/feature = ""   (n2)
-/local/domain/2/attr = ""   (n2)
-/local/domain/2/error = ""   (n2)
-/local/domain/2/error/device = ""   (n2)
-/local/domain/2/error/device/vif = ""   (n2)
-/local/domain/2/error/device/vif/0 = ""   (n2)
-/local/domain/2/error/device/vif/0/error = "1 allocating event channel" 
-   (n2)
-/local/domain/2/domid = "2"   (n0,r2)
-/local/domain/2/store = ""   (n0,r2)
-/local/domain/2/store/port = "1"   (n0,r2)
-/local/domain/2/store/ring-ref = "233473"   (n0,r2)
-/local/domain/2/console = ""   (n0,r2)
-/local/domain/2/console/backend = "/local/domain/0/backend/console/2/0" 
-   (n0,r2)
-/local/domain/2/console/backend-id = "0"   (n2,r0)
-/local/domain/2/console/limit = "1048576"   (n0,r2)
-/local/domain/2/console/type = "xenconsoled"   (n0,r2)
-/local/domain/2/console/output = "pty"   (n0,r2)
-/local/domain/2/console/tty = "/dev/pts/3"   (n0,r2)
-/local/domain/2/console/port = "2"   (n0,r2)
-/local/domain/2/console/ring-ref = "233472"   (n0,r2)
-/vm = ""   (n0)
-/vm/cd36b881-cd46-4de7-a59b-7d173198862e = ""   (n0,r1)
-/vm/cd36b881-cd46-4de7-a59b-7d173198862e/name = "guest0"   (n0,r1)
-/vm/cd36b881-cd46-4de7-a59b-7d173198862e/uuid = 
-"cd36b881-cd46-4de7-a59b-7d173198862e"   (n0,r1)
-/vm/cd36b881-cd46-4de7-a59b-7d173198862e/start_time = "1646643480.69" 
-(n0,r1)
-/vm/f6dca20a-54bb-43af-9a62-67c55cb75708 = ""   (n0,r2)
-/vm/f6dca20a-54bb-43af-9a62-67c55cb75708/name = "guest1"   (n0,r2)
-/vm/f6dca20a-54bb-43af-9a62-67c55cb75708/uuid = 
-"f6dca20a-54bb-43af-9a62-67c55cb75708"   (n0,r2)
-/vm/f6dca20a-54bb-43af-9a62-67c55cb75708/start_time = "1646644038.80" 
-(n0,r2)
-/libxl = ""   (n0)
-/libxl/1 = ""   (n0)
-/libxl/1/device = ""   (n0)
-/libxl/1/device/console = ""   (n0)
-/libxl/1/device/console/0 = ""   (n0)
-/libxl/1/device/console/0/frontend = "/local/domain/1/console"   (n0)
-/libxl/1/device/console/0/backend = 
-"/local/domain/0/backend/console/1/0"   (n0)
-/libxl/1/device/console/0/frontend-id = "1"   (n0)
-/libxl/1/device/console/0/online = "1"   (n0)
-/libxl/1/device/console/0/state = "1"   (n0)
-/libxl/1/device/console/0/protocol = "vt100"   (n0)
-/libxl/1/type = "pvh"   (n0)
-/libxl/1/dm-version = "qemu_xen"   (n0)
-/libxl/2 = ""   (n0)
-/libxl/2/device = ""   (n0)
-/libxl/2/device/console = ""   (n0)
-/libxl/2/device/console/0 = ""   (n0)
-/libxl/2/device/console/0/frontend = "/local/domain/2/console"   (n0)
-/libxl/2/device/console/0/backend = 
-"/local/domain/0/backend/console/2/0"   (n0)
-/libxl/2/device/console/0/frontend-id = "2"   (n0)
-/libxl/2/device/console/0/online = "1"   (n0)
-/libxl/2/device/console/0/state = "1"   (n0)
-/libxl/2/device/console/0/protocol = "vt100"   (n0)
-/libxl/2/device/vif = ""   (n0)
-/libxl/2/device/vif/0 = ""   (n0)
-/libxl/2/device/vif/0/frontend = "/local/domain/2/device/vif/0"   (n0)
-/libxl/2/device/vif/0/backend = "/local/domain/1/backend/vif/2/0"   (n0)
-/libxl/2/device/vif/0/frontend-id = "2"   (n0)
-/libxl/2/device/vif/0/online = "1"   (n0)
-/libxl/2/device/vif/0/state = "1"   (n0)
-/libxl/2/device/vif/0/script = "/etc/xen/scripts/vif-bridge"   (n0)
-/libxl/2/device/vif/0/mac = "00:16:3e:07:df:91"   (n0)
-/libxl/2/device/vif/0/bridge = "xenbr1"   (n0)
-/libxl/2/device/vif/0/handle = "0"   (n0)
-/libxl/2/device/vif/0/type = "vif"   (n0)
-/libxl/2/type = "pvh"   (n0)
-/libxl/2/dm-version = "qemu_xen"   (n0)
+That's the real error. Your guest netfront fails to allocate the event
+channel. Do you get any messages in the guest dmesg after trying to
+attach the network interface?
 
-> What OS/versions are you using for the guest and the driver domain, do
-> you have any local modifications?
+Does the same happen if you don't use a driver domain and run the
+backend in dom0?
 
-I'm using the same OS for everything: dom0 and guestX. It is petalinux 
-2021.2.
-
-> Regards, Roger.
-
-Cheers,
-Andrea
+Regards, Roger.
 
