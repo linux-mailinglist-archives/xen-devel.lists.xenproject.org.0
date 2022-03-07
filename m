@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 282F14D0B8A
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Mar 2022 23:56:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.286460.485985 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AE4A4D0B91
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Mar 2022 23:58:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.286472.485995 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRMH5-0006MX-KM; Mon, 07 Mar 2022 22:56:19 +0000
+	id 1nRMJ8-00076D-1Z; Mon, 07 Mar 2022 22:58:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 286460.485985; Mon, 07 Mar 2022 22:56:19 +0000
+Received: by outflank-mailman (output) from mailman id 286472.485995; Mon, 07 Mar 2022 22:58:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRMH5-0006Kh-H4; Mon, 07 Mar 2022 22:56:19 +0000
-Received: by outflank-mailman (input) for mailman id 286460;
- Mon, 07 Mar 2022 22:56:18 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nRMH4-0006KX-3u; Mon, 07 Mar 2022 22:56:18 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nRMH3-00077t-VX; Mon, 07 Mar 2022 22:56:17 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nRMH3-00023z-Cy; Mon, 07 Mar 2022 22:56:17 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nRMH3-0007Cc-CZ; Mon, 07 Mar 2022 22:56:17 +0000
+	id 1nRMJ7-00074N-Uv; Mon, 07 Mar 2022 22:58:25 +0000
+Received: by outflank-mailman (input) for mailman id 286472;
+ Mon, 07 Mar 2022 22:58:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=AqIR=TS=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nRMJ6-00074D-Uj
+ for xen-devel@lists.xenproject.org; Mon, 07 Mar 2022 22:58:24 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 167f06ca-9e6a-11ec-8539-5f4723681683;
+ Mon, 07 Mar 2022 23:58:23 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A0DB9611A9;
+ Mon,  7 Mar 2022 22:58:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1C1EC340E9;
+ Mon,  7 Mar 2022 22:58:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,108 +43,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=vHlHjUw6N2f4dLZdwPUa4aZXUNOj8Hnh6r6541/S+dc=; b=FTZPY0yBb1jnr47r4yS6wg0moh
-	ZMTcimVq1Jgo2j0ZNuc/tBlyk5PZlii3hWYK01HFm05vaw2gYg/pUbS7hkGoh829MaI0k3eYB7Imv
-	LUo/NHToGgaTkLD5fu2JIGyADOgkm4EbVF1VEb7IG815Wg7OkhA/OM5BMvwY63uP8taY=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168468-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 167f06ca-9e6a-11ec-8539-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1646693901;
+	bh=rUOFJ6HEoRWrFN/T2umu29Kzt0fUu5GhqRNkFJns+54=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=lakFENFFm1oyXbGmYuDsLwdoK6FaJ9asxAcx5nqpS+SzyL8UdzX7PsYk8g5gxXfAs
+	 acpA+P+xxyK1dYOScCJJ0uYqdnhK5P9ZPMvFzRgde2T5vdc6BNjwcqJzpJ4SWABJKo
+	 QBTMoSx4BZNfIzfKyHLGrJpBvIKgYatSXqEyFCbwSdS/fsEaN6WKYTMnatAR6A99ZY
+	 jggRdivqP9MRIDrNT+sDgzSWV5eQhvElxFWh7sCb8gpLpwfvLf+DgKujDwX38QXW62
+	 iwK5TnvjwfKRvF6A6Baw89kPak5TUesNOhpNeUNqXMkNpww6eMV/3nKs8ULDaEhz+K
+	 2NMRLbVKQ90EA==
+Date: Mon, 7 Mar 2022 14:58:20 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Wei Chen <Wei.Chen@arm.com>
+cc: Julien Grall <julien@xen.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    Penny Zheng <Penny.Zheng@arm.com>, Henry Wang <Henry.Wang@arm.com>, 
+    nd <nd@arm.com>
+Subject: RE: Proposal for Porting Xen to Armv8-R64 - DraftA
+In-Reply-To: <PAXPR08MB7420827063D47932F428CEC89E089@PAXPR08MB7420.eurprd08.prod.outlook.com>
+Message-ID: <alpine.DEB.2.22.394.2203071348220.3261@ubuntu-linux-20-04-desktop>
+References: <PAXPR08MB7420A01809B84E04E196793F9E3D9@PAXPR08MB7420.eurprd08.prod.outlook.com> <04db7e8b-2f04-41d7-1deb-d8bda3625c04@xen.org> <PAXPR08MB7420BF1299A1577B98211C1A9E029@PAXPR08MB7420.eurprd08.prod.outlook.com> <1f0bba54-158b-d171-6f99-0c29e0547f8a@xen.org>
+ <PAXPR08MB742067028155B11528C5CCA39E049@PAXPR08MB7420.eurprd08.prod.outlook.com> <PAXPR08MB7420827063D47932F428CEC89E089@PAXPR08MB7420.eurprd08.prod.outlook.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 168468: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=af74efe494c5920c7992b543fada1af2b186bd8c
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 07 Mar 2022 22:56:17 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 168468 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168468/
+On Mon, 7 Mar 2022, Wei Chen wrote:
+> > > On 01/03/2022 07:51, Wei Chen wrote:
+> > > >>> ### 1.2. Xen Challenges with PMSA Virtualization
+> > > >>> Xen is PMSA unaware Type-1 Hypervisor, it will need modifications to
+> > > run
+> > > >>> with an MPU and host multiple guest OSes.
+> > > >>>
+> > > >>> - No MMU at EL2:
+> > > >>>       - No EL2 Stage 1 address translation
+> > > >>>           - Xen provides fixed ARM64 virtual memory layout as basis
+> > of
+> > > >> EL2
+> > > >>>             stage 1 address translation, which is not applicable on
+> > > MPU
+> > > >> system,
+> > > >>>             where there is no virtual addressing. As a result, any
+> > > >> operation
+> > > >>>             involving transition from PA to VA, like ioremap, needs
+> > > >> modification
+> > > >>>             on MPU system.
+> > > >>>       - Xen's run-time addresses are the same as the link time
+> > > addresses.
+> > > >>>           - Enable PIC (position-independent code) on a real-time
+> > > target
+> > > >>>             processor probably very rare.
+> > > >>
+> > > >> Aside the assembly boot code and UEFI stub, Xen already runs at the
+> > > same
+> > > >> address as it was linked.
+> > > >>
+> > > >
+> > > > But the difference is that, base on MMU, we can use the same link
+> > > address
+> > > > for all platforms. But on MPU system, we can't do it in the same way.
+> > >
+> > > I agree that we currently use the same link address for all the
+> > > platforms. But this is also a problem when using MMU because EL2 has a
+> > > single TTBR.
+> > >
+> > > At the moment we are switching page-tables with the MMU which is not
+> > > safe. Instead we need to turn out the MMU off, switch page-tables and
+> > > then turn on the MMU. This means we need to have an identity mapping of
+> > > Xen in the page-tables. Assuming Xen is not relocated, the identity
+> > > mapping may clash with Xen (or the rest of the virtual address map).
+> > >
+> > 
+> > Is this the same reason we create a dummy reloc section for EFI loader?
+> > 
+> > > My initial idea was to enable PIC and update the relocation at boot
+> > > time. But this is a bit cumbersome to do. So now I am looking to have a
+> > > semi-dynamic virtual layout and find some place to relocate part of Xen
+> > > to use for CPU bring-up.
+> > >
+> > > Anyway, my point is we possibly could look at PIC if that could allow
+> > > generic Xen image.
+> > >
+> > 
+> > I understand your concern. IMO, PIC is possible to do this, but obviously,
+> > it's not a small amount of work. And I want to hear some suggestions from
+> > Stefano, because he also has some solutions in previous thread.
+> >
+> 
+> Can you have a look at the PIC discussion between Julien and me?
+> I think we may need some inputs from your view.
 
-Regressions :-(
+If we have to have a build-time device tree anyway, we could
+automatically generate the link address, together with other required
+addresses. There would little benefit to do PIC if we have to have a
+build-time device tree in any case.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 af74efe494c5920c7992b543fada1af2b186bd8c
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z    7 days
-Failing since        168258  2022-03-01 01:55:31 Z    6 days   74 attempts
-Testing same since   168468  2022-03-07 21:10:24 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 454 lines long.)
+On the other hand, if we could get rid of the build-time device tree
+altogether, then yes doing PIC provides some benefits. It would allow us
+to have single Xen binary working on multiple Cortex-R boards. However,
+I don't think that would be important from a user perspective. People
+will not install Ubuntu on a Cortex-R and apt-get xen.  The target is
+embedded: users will know from the start the board they will target, so
+it would not be a problem for them to build Xen for a specific board.
+ImageBuilder (or something like it) will still be required to generate
+boot scripts and boot info. In other words, although it would be
+convenient to produce a generic binary, it is not a must-have feature
+and I would consider it low-priority compared to others.
 
