@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84D984CFD70
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Mar 2022 12:54:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.285879.485161 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0A924CFD73
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Mar 2022 12:54:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.285881.485189 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRBwT-0004Sz-EW; Mon, 07 Mar 2022 11:54:21 +0000
+	id 1nRBwe-0005Oh-7c; Mon, 07 Mar 2022 11:54:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 285879.485161; Mon, 07 Mar 2022 11:54:21 +0000
+Received: by outflank-mailman (output) from mailman id 285881.485189; Mon, 07 Mar 2022 11:54:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRBwT-0004Ns-AY; Mon, 07 Mar 2022 11:54:21 +0000
-Received: by outflank-mailman (input) for mailman id 285879;
- Mon, 07 Mar 2022 11:54:19 +0000
+	id 1nRBwe-0005Kx-3K; Mon, 07 Mar 2022 11:54:32 +0000
+Received: by outflank-mailman (input) for mailman id 285881;
+ Mon, 07 Mar 2022 11:54:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7T3K=TS=amazon.de=prvs=058ff0969=doebel@srs-se1.protection.inumbo.net>)
- id 1nRBwR-0004Lv-6X
- for xen-devel@lists.xenproject.org; Mon, 07 Mar 2022 11:54:19 +0000
-Received: from smtp-fw-6001.amazon.com (smtp-fw-6001.amazon.com [52.95.48.154])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 50e84562-9e0d-11ec-8eba-a37418f5ba1a;
- Mon, 07 Mar 2022 12:54:17 +0100 (CET)
-Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
- email-inbound-relay-iad-1a-2d7489a4.us-east-1.amazon.com) ([10.43.8.6])
- by smtp-border-fw-6001.iad6.amazon.com with ESMTP; 07 Mar 2022 11:54:05 +0000
+ id 1nRBwc-0004Lv-8O
+ for xen-devel@lists.xenproject.org; Mon, 07 Mar 2022 11:54:30 +0000
+Received: from smtp-fw-80006.amazon.com (smtp-fw-80006.amazon.com
+ [99.78.197.217]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 56adcddc-9e0d-11ec-8eba-a37418f5ba1a;
+ Mon, 07 Mar 2022 12:54:28 +0100 (CET)
+Received: from pdx4-co-svc-p1-lb2-vlan3.amazon.com (HELO
+ email-inbound-relay-iad-1a-2d7489a4.us-east-1.amazon.com) ([10.25.36.214])
+ by smtp-border-fw-80006.pdx80.corp.amazon.com with ESMTP;
+ 07 Mar 2022 11:54:08 +0000
 Received: from EX13D44EUB004.ant.amazon.com
  (iad12-ws-svc-p26-lb9-vlan2.iad.amazon.com [10.40.163.34])
  by email-inbound-relay-iad-1a-2d7489a4.us-east-1.amazon.com (Postfix) with
- ESMTPS id 0A014A2947; Mon,  7 Mar 2022 11:54:03 +0000 (UTC)
-Received: from EX13MTAUWC001.ant.amazon.com (10.43.162.135) by
+ ESMTPS id 8EB46A277F; Mon,  7 Mar 2022 11:54:05 +0000 (UTC)
+Received: from EX13MTAUEA001.ant.amazon.com (10.43.61.82) by
  EX13D44EUB004.ant.amazon.com (10.43.166.198) with Microsoft SMTP Server (TLS)
- id 15.0.1497.28; Mon, 7 Mar 2022 11:54:02 +0000
+ id 15.0.1497.28; Mon, 7 Mar 2022 11:54:04 +0000
 Received: from dev-dsk-doebel-1c-c6d5f274.eu-west-1.amazon.com (10.13.240.106)
- by mail-relay.amazon.com (10.43.162.232) with Microsoft SMTP Server
- id
- 15.0.1497.28 via Frontend Transport; Mon, 7 Mar 2022 11:54:01 +0000
+ by mail-relay.amazon.com (10.43.61.243) with Microsoft SMTP Server id
+ 15.0.1497.28 via Frontend Transport; Mon, 7 Mar 2022 11:54:03 +0000
 Received: by dev-dsk-doebel-1c-c6d5f274.eu-west-1.amazon.com (Postfix,
  from userid 3160037)
- id BD80E4F5E; Mon,  7 Mar 2022 11:54:00 +0000 (UTC)
+ id 4E48D4E7F; Mon,  7 Mar 2022 11:54:03 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,31 +52,31 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50e84562-9e0d-11ec-8eba-a37418f5ba1a
+X-Inumbo-ID: 56adcddc-9e0d-11ec-8eba-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
-  t=1646654057; x=1678190057;
+  t=1646654069; x=1678190069;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
   bh=T4HQVwdD+Sp1df6ID2a/ASUAEQvXVBttAi63ggcy0Qg=;
-  b=MXN2CE4ibQjOGFFf5GdbBuqlWVpn87doajRq59UQSH3r8qmoBxdSsW2h
-   QSZYf//MYpWYKrF0MfKIEjUuSfOiF9Mi/ortaJaIFFeRkdiFmCwj6+Kyl
-   CuWzmusDtZHcV3ZDpnvWtnd/lZzCu4UaeQIAbU87T1JE8v2Ci++4b8GUY
-   E=;
+  b=oqPK8vc+PN0FW5dmOzkrjNIO2hC8qvNtHVSV7ncHGGbsAHLeWuXzNre5
+   WLmZE+qVdmG9aQhv6UxebDJkZ7NeQVvl4MB/LNHtOIfD+mpzjAGQkuUZR
+   B0SnZuV0F0g+d/5AbHpgto6QXF/P/LwLU9k8lkt28Yux0jzX0b944bpqr
+   A=;
 X-IronPort-AV: E=Sophos;i="5.90,162,1643673600"; 
-   d="scan'208";a="183654544"
+   d="scan'208";a="68586367"
 From: Bjoern Doebel <doebel@amazon.de>
 To: <xen-devel@lists.xenproject.org>
 CC: Michael Kurth <mku@amazon.de>, Martin Pohlack <mpohlack@amazon.de>, Roger
  Pau Monne <roger.pau@citrix.com>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
 	Bjoern Doebel <doebel@amazon.de>, Konrad Rzeszutek Wilk
 	<konrad.wilk@oracle.com>, Ross Lagerwall <ross.lagerwall@citrix.com>
-Subject: [PATCH 1/1] xen/x86: Livepatch: support patching CET-enhanced functions
-Date: Mon, 7 Mar 2022 11:53:53 +0000
-Message-ID: <deb5d86b20c02312023959bae06b0fe651a4b2f4.1646653822.git.doebel@amazon.de>
+Subject: [PATCH 2/2] xen/x86: Livepatch: support patching CET-enhanced functions
+Date: Mon, 7 Mar 2022 11:53:54 +0000
+Message-ID: <deb5d86b20c02312023959bae06b0fe651a4b2f4.1646653825.git.doebel@amazon.de>
 X-Mailer: git-send-email 2.32.0
-In-Reply-To: <cover.1646653822.git.doebel@amazon.de>
-References: <cover.1646653822.git.doebel@amazon.de>
+In-Reply-To: <cover.1646653825.git.doebel@amazon.de>
+References: <cover.1646653825.git.doebel@amazon.de>
 MIME-Version: 1.0
 Precedence: Bulk
 Content-Type: text/plain; charset="us-ascii"
