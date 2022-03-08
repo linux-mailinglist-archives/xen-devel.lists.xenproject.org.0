@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 446F14D1969
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Mar 2022 14:42:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.286876.486557 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B70C54D197C
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Mar 2022 14:44:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.286881.486567 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRa6Y-0004oA-8w; Tue, 08 Mar 2022 13:42:22 +0000
+	id 1nRa8X-0005NM-Kl; Tue, 08 Mar 2022 13:44:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 286876.486557; Tue, 08 Mar 2022 13:42:22 +0000
+Received: by outflank-mailman (output) from mailman id 286881.486567; Tue, 08 Mar 2022 13:44:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRa6Y-0004ld-5L; Tue, 08 Mar 2022 13:42:22 +0000
-Received: by outflank-mailman (input) for mailman id 286876;
- Tue, 08 Mar 2022 13:42:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nRa8X-0005Km-HM; Tue, 08 Mar 2022 13:44:25 +0000
+Received: by outflank-mailman (input) for mailman id 286881;
+ Tue, 08 Mar 2022 13:44:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=KW+D=TT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nRa6X-0004lX-4K
- for xen-devel@lists.xenproject.org; Tue, 08 Mar 2022 13:42:21 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9310dd65-9ee5-11ec-8539-5f4723681683;
- Tue, 08 Mar 2022 14:42:19 +0100 (CET)
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04lp2052.outbound.protection.outlook.com [104.47.14.52]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-27-rSnQhfVcNXeHq3oaOjfuSQ-2; Tue, 08 Mar 2022 14:42:18 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by HE1PR0402MB2858.eurprd04.prod.outlook.com (2603:10a6:3:dc::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.26; Tue, 8 Mar
- 2022 13:42:14 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65%6]) with mapi id 15.20.5038.027; Tue, 8 Mar 2022
- 13:42:14 +0000
+ (envelope-from <SRS0=PwwU=TT=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1nRa8W-0005Kg-DD
+ for xen-devel@lists.xenproject.org; Tue, 08 Mar 2022 13:44:24 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dcc66042-9ee5-11ec-8eba-a37418f5ba1a;
+ Tue, 08 Mar 2022 14:44:23 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C33BA210F5;
+ Tue,  8 Mar 2022 13:44:22 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0DCAB13CCE;
+ Tue,  8 Mar 2022 13:44:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id COAEArZdJ2JKJQAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 08 Mar 2022 13:44:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,38 +51,24 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9310dd65-9ee5-11ec-8539-5f4723681683
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1646746939;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+X-Inumbo-ID: dcc66042-9ee5-11ec-8eba-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1646747062; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=wawVZcj2s5JoZuE9NG8FjNQVTNL9k0UTvZo/S2GbZYE=;
-	b=cs0FG5edK6qX8yIunuXfCCs8+riYY08B7R9f0w/1GfUQvhI6Nf8nKraDwpw1AGiZ4OxKlx
-	/FNKqVQGuJY0qZxq+CUgNUaPo3iLefi6mVav9bWtOth3L1KdrWNRQ1voyN+IenV0Ce5BMK
-	nA1IdoTdS0IUAYMBjH9uCDeKlNRQJI0=
-X-MC-Unique: rSnQhfVcNXeHq3oaOjfuSQ-2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=li9eoyoxaGFnONs9w0LvBMdtDkrRZoy6OSiEkUyWVoSImw3PF2Vvq9MvdyGXgzLGpmB/3Vuk+pLyWd9iUGAU2IAnF9wJgXvu9Nq99pvkUEYfP11CdlEjJG49iMHtKdwh1gvs3qn1RBpiFf/kvdV552kb2h2VzrxD4YiZdCyq1BqyudJUr6DVMKlNc0yLyiqob2Su6UAq/Po7S1/4L2kBypszP5+k7CpfjDkht8c/5lNstfaSYalZhrvUlSANpmDwYedpmqDyWdHM+qbrVZ8gWZ+tdkcpzRH50UAynxggwPynqTDYFN4WxQVLuDzDueRhEmvp8bLa5RKXI9F3Bgj9lA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kvBmONlQp41aBCRV/7mEA1SG2JJhYfyuY1K5GKBYnXw=;
- b=JtBhyOLf4QHYUF+svcgQsazZl+suya35AcsDDxSJ0syLYrHz841ziEurs/CC+fx4CIgbQ9WK0HUdUK7ieOuEs8WLGJQTFVRwr5DqAYGAu9ReeP1hR6VMh8XrHYhwHH0/I4eDOC06bkt+zf8kQTzUkhuUECe3m9x09sgj86HeZt1el4rHw2lT/lejd6V1xfMpxUv5XesCHaS6BQJ/B01QF4WTr5qnP5zPXFKCM9hNPkzH/EDR1AmTLvKUwO7ovrWUgQFUqmjsNjMjJm0EGwBWfqPea4apjKz4BSBCoa7mXRVLMLU8uS1oz/GYAA1/Ed06S0UZlhDR+rhWJJpQ4JTUAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <4455dab2-d52b-2e1a-388a-ffc3123438a4@suse.com>
-Date: Tue, 8 Mar 2022 14:42:11 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
+	bh=jMe7tVAgMCoCs60kbPFHS0ijMf3wCb5ecqkdk7hs2VI=;
+	b=mBDUeYwXn3as9vpFKt/UcpOBEUzhJTJiApJCDyd7BEwSscTA5x8Jy0tXHX4UvpnSXvq/c8
+	4WozC8XxMxdK98bGo6oPBHAkHI6Hlc9v+pe/ugEBrxPZXe99oa7Ur/LG410nFHryQ0fJ6a
+	uGptj1A7qzQZJCHqxFR7o2yZLdJfXLk=
+Message-ID: <7764a747-bff5-7c76-ab4b-a93fdd9050df@suse.com>
+Date: Tue, 8 Mar 2022 14:44:21 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
 Subject: Re: [PATCH v3 00/13] xen: drop hypercall function tables
 Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -95,162 +81,204 @@ References: <20211208155606.20029-1-jgross@suse.com>
  <4ac7c2ad-a600-f817-3b69-af0c1a47f4ac@suse.com>
  <cc6c9782-fff6-1832-0c25-d8fd38ed1c1d@suse.com>
  <88014841-017c-5621-0193-c4223596a29c@suse.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <88014841-017c-5621-0193-c4223596a29c@suse.com>
-Content-Type: text/plain; charset=UTF-8
+ <4455dab2-d52b-2e1a-388a-ffc3123438a4@suse.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <4455dab2-d52b-2e1a-388a-ffc3123438a4@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------cZ1EIPHbOpkcQEXk0Ti3eL2t"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------cZ1EIPHbOpkcQEXk0Ti3eL2t
+Content-Type: multipart/mixed; boundary="------------PklIN8lTebXafeKv8RHJ0GTf";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Christopher Clark <christopher.w.clark@gmail.com>,
+ xen-devel@lists.xenproject.org
+Message-ID: <7764a747-bff5-7c76-ab4b-a93fdd9050df@suse.com>
+Subject: Re: [PATCH v3 00/13] xen: drop hypercall function tables
+References: <20211208155606.20029-1-jgross@suse.com>
+ <0ec9f176-1108-e1ac-a250-5ab9d151f7a8@suse.com>
+ <4ac7c2ad-a600-f817-3b69-af0c1a47f4ac@suse.com>
+ <cc6c9782-fff6-1832-0c25-d8fd38ed1c1d@suse.com>
+ <88014841-017c-5621-0193-c4223596a29c@suse.com>
+ <4455dab2-d52b-2e1a-388a-ffc3123438a4@suse.com>
+In-Reply-To: <4455dab2-d52b-2e1a-388a-ffc3123438a4@suse.com>
+
+--------------PklIN8lTebXafeKv8RHJ0GTf
+Content-Type: multipart/mixed; boundary="------------yL9TfKeg30rDFQIL0BEcrNEo"
+
+--------------yL9TfKeg30rDFQIL0BEcrNEo
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMDguMDMuMjIgMTQ6NDIsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAwOC4wMy4yMDIy
+IDEzOjU2LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gT24gMDguMDMuMjIgMTM6NTAsIEph
+biBCZXVsaWNoIHdyb3RlOg0KPj4+IE9uIDA4LjAzLjIwMjIgMDk6MzksIEp1ZXJnZW4gR3Jv
+c3Mgd3JvdGU6DQo+Pj4+IE9uIDA4LjAzLjIyIDA5OjM0LCBKYW4gQmV1bGljaCB3cm90ZToN
+Cj4+Pj4+IE9uIDA4LjEyLjIwMjEgMTY6NTUsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+Pj4+
+Pj4gSW4gb3JkZXIgdG8gYXZvaWQgaW5kaXJlY3QgZnVuY3Rpb24gY2FsbHMgb24gdGhlIGh5
+cGVyY2FsbCBwYXRoIGFzDQo+Pj4+Pj4gbXVjaCBhcyBwb3NzaWJsZSB0aGlzIHNlcmllcyBp
+cyByZW1vdmluZyB0aGUgaHlwZXJjYWxsIGZ1bmN0aW9uIHRhYmxlcw0KPj4+Pj4+IGFuZCBp
+cyByZXBsYWNpbmcgdGhlIGh5cGVyY2FsbCBoYW5kbGVyIGNhbGxzIHZpYSB0aGUgZnVuY3Rp
+b24gYXJyYXkNCj4+Pj4+PiBieSBhdXRvbWF0aWNhbGx5IGdlbmVyYXRlZCBjYWxsIG1hY3Jv
+cy4NCj4+Pj4+Pg0KPj4+Pj4+IEFub3RoZXIgYnktcHJvZHVjdCBvZiBnZW5lcmF0aW5nIHRo
+ZSBjYWxsIG1hY3JvcyBpcyB0aGUgYXV0b21hdGljDQo+Pj4+Pj4gZ2VuZXJhdGluZyBvZiB0
+aGUgaHlwZXJjYWxsIGhhbmRsZXIgcHJvdG90eXBlcyBmcm9tIHRoZSBzYW1lIGRhdGEgYmFz
+ZQ0KPj4+Pj4+IHdoaWNoIGlzIHVzZWQgdG8gZ2VuZXJhdGUgdGhlIG1hY3Jvcy4NCj4+Pj4+
+Pg0KPj4+Pj4+IFRoaXMgaGFzIHRoZSBhZGRpdGlvbmFsIGFkdmFudGFnZSBvZiB1c2luZyB0
+eXBlIHNhZmUgY2FsbHMgb2YgdGhlDQo+Pj4+Pj4gaGFuZGxlcnMgYW5kIHRvIGVuc3VyZSBy
+ZWxhdGVkIGhhbmRsZXIgKGUuZy4gUFYgYW5kIEhWTSBvbmVzKSBzaGFyZQ0KPj4+Pj4+IHRo
+ZSBzYW1lIHByb3RvdHlwZXMuDQo+Pj4+Pj4NCj4+Pj4+PiBBIHZlcnkgYnJpZWYgcGVyZm9y
+bWFuY2UgdGVzdCAocGFyYWxsZWwgYnVpbGQgb2YgdGhlIFhlbiBoeXBlcnZpc29yDQo+Pj4+
+Pj4gaW4gYSA2IHZjcHUgZ3Vlc3QpIHNob3dlZCBhIHZlcnkgc2xpbSBpbXByb3ZlbWVudCAo
+bGVzcyB0aGFuIDElKSBvZg0KPj4+Pj4+IHRoZSBwZXJmb3JtYW5jZSB3aXRoIHRoZSBwYXRj
+aGVzIGFwcGxpZWQuIFRoZSB0ZXN0IHdhcyBwZXJmb3JtZWQgdXNpbmcNCj4+Pj4+PiBhIFBW
+IGFuZCBhIFBWSCBndWVzdC4NCj4+Pj4+Pg0KPj4+Pj4+IENoYW5nZXMgaW4gVjI6DQo+Pj4+
+Pj4gLSBuZXcgcGF0Y2hlcyA2LCAxNCwgMTUNCj4+Pj4+PiAtIHBhdGNoIDc6IHN1cHBvcnQg
+aHlwZXJjYWxsIHByaW9yaXRpZXMgZm9yIGZhc3RlciBjb2RlDQo+Pj4+Pj4gLSBjb21tZW50
+cyBhZGRyZXNzZWQNCj4+Pj4+Pg0KPj4+Pj4+IENoYW5nZXMgaW4gVjM6DQo+Pj4+Pj4gLSBw
+YXRjaGVzIDEgYW5kIDQgcmVtb3ZlZCBhcyBhbHJlYWR5IGFwcGxpZWQNCj4+Pj4+PiAtIGNv
+bW1lbnRzIGFkZHJlc3NlZA0KPj4+Pj4+DQo+Pj4+Pj4gSnVlcmdlbiBHcm9zcyAoMTMpOg0K
+Pj4+Pj4+ICAgICAgeGVuOiBtb3ZlIGRvX3ZjcHVfb3AoKSB0byBhcmNoIHNwZWNpZmljIGNv
+ZGUNCj4+Pj4+PiAgICAgIHhlbjogaGFybW9uaXplIHJldHVybiB0eXBlcyBvZiBoeXBlcmNh
+bGwgaGFuZGxlcnMNCj4+Pj4+PiAgICAgIHhlbjogZG9uJ3QgaW5jbHVkZSBhc20vaHlwZXJj
+YWxsLmggZnJvbSBDIHNvdXJjZXMNCj4+Pj4+PiAgICAgIHhlbjogaW5jbHVkZSBjb21wYXQv
+cGxhdGZvcm0uaCBmcm9tIGh5cGVyY2FsbC5oDQo+Pj4+Pj4gICAgICB4ZW46IGdlbmVyYXRl
+IGh5cGVyY2FsbCBpbnRlcmZhY2UgcmVsYXRlZCBjb2RlDQo+Pj4+Pj4gICAgICB4ZW46IHVz
+ZSBnZW5lcmF0ZWQgcHJvdG90eXBlcyBmb3IgaHlwZXJjYWxsIGhhbmRsZXJzDQo+Pj4+Pj4g
+ICAgICB4ODYvcHYtc2hpbTogZG9uJ3QgbW9kaWZ5IGh5cGVyY2FsbCB0YWJsZQ0KPj4+Pj4+
+ICAgICAgeGVuL3g4NjogZG9uJ3QgdXNlIGh5cGVyY2FsbCB0YWJsZSBmb3IgY2FsbGluZyBj
+b21wYXQgaHlwZXJjYWxscw0KPj4+Pj4+ICAgICAgeGVuL3g4NjogY2FsbCBoeXBlcmNhbGwg
+aGFuZGxlcnMgdmlhIGdlbmVyYXRlZCBtYWNybw0KPj4+Pj4+ICAgICAgeGVuL2FybTogY2Fs
+bCBoeXBlcmNhbGwgaGFuZGxlcnMgdmlhIGdlbmVyYXRlZCBtYWNybw0KPj4+Pj4+ICAgICAg
+eGVuL3g4NjogYWRkIGh5cGVyY2FsbCBwZXJmb3JtYW5jZSBjb3VudGVycyBmb3IgaHZtLCBj
+b3JyZWN0IHB2DQo+Pj4+Pj4gICAgICB4ZW46IGRyb3AgY2FsbHNfdG9fbXVsdGljYWxsIHBl
+cmZvcm1hbmNlIGNvdW50ZXINCj4+Pj4+PiAgICAgIHRvb2xzL3hlbnBlcmY6IHVwZGF0ZSBo
+eXBlcmNhbGwgbmFtZXMNCj4+Pj4+DQo+Pj4+PiBBcyBpdCdzIHByZXR0eSBjZXJ0YWluIG5v
+dyB0aGF0IHBhcnRzIG9mIHRoaXMgd2hpY2ggZGlkbid0IGdvIGluIHlldCB3aWxsDQo+Pj4+
+PiBuZWVkIHJlLWJhc2luZywgSSdtIGdvaW5nIHRvIGRyb3AgdGhpcyBmcm9tIG15IHdhaXRp
+bmctdG8tYmUtYWNrZWQgZm9sZGVyLA0KPj4+Pj4gZXhwZWN0aW5nIGEgdjQgaW5zdGVhZC4N
+Cj4+Pj4NCj4+Pj4gWWVzLCBJIHdhcyBwbGFubmluZyB0byBzcGluIHRoYXQgdXAgc29vbi4N
+Cj4+Pj4NCj4+Pj4gVGhlIG1haW4gcmVtYWluaW5nIHF1ZXN0aW9uIGlzIHdoZXRoZXIgd2Ug
+d2FudCB0byBzd2l0Y2ggdGhlIHJldHVybiB0eXBlDQo+Pj4+IG9mIGFsbCBoeXBlcmNhbGxz
+IChvciBhdCBsZWFzdCB0aGUgb25lcyBjb21tb24gdG8gYWxsIGFyY2hzKSBub3QNCj4+Pj4g
+cmVxdWlyaW5nIHRvIHJldHVybiA2NC1iaXQgdmFsdWVzIHRvICJpbnQiLCBhcyBKdWxpZW4g
+cmVxdWVzdGVkLg0KPj4+DQo+Pj4gQWZ0ZXIgd2Fsa2luZyB0aHJvdWdoIHRoZSBlYXJsaWVy
+IGRpc2N1c3Npb24gKErDvHJnZW4gLSB0aGFua3MgZm9yIHRoZSBsaW5rKQ0KPj4+IEknbSBp
+bmNsaW5lZCB0byBzYXkgdGhhdCBpZiBBcm0gd2FudHMgdGhlaXIgcmV0dXJuIHZhbHVlcyBs
+aW1pdGVkIHRvIDMyIGJpdHMNCj4+PiAod2l0aCBleGNlcHRpb25zIHdoZXJlIG5lZWRlZCks
+IHNvIGJlIGl0LiBCdXQgb24geDg2IEknZCByYXRoZXIgbm90IHNlZSB1cw0KPj4+IGNoYW5n
+ZSB0aGlzIGFzcGVjdC4gT2YgY291cnNlIEknZCBtdWNoIHByZWZlciBpZiBhcmNoaXRlY3R1
+cmVzIGRpZG4ndA0KPj4+IGRpdmVyZ2UgaW4gdGhpcyByZWdhcmQsIHlldCB0aGVuIGFnYWlu
+IEFybSBoYXMgYWxyZWFkeSBkaXZlcmdlZCBpbiBhdm9pZGluZw0KPj4+IHRoZSBjb21wYXQg
+bGF5ZXIgKGluIHRoaXMgY2FzZSBJIHZpZXcgdGhlIGRpdmVyZ2VuY2UgYXMgaGVscGZ1bCwg
+dGhvdWdoLCBhcw0KPj4+IGl0IGF2b2lkcyB1bm5lY2Vzc2FyeSBoZWFkYWNoZSkuDQo+Pg0K
+Pj4gSG93IHRvIGhhbmRsZSB0aGlzIGluIGNvbW1vbiBjb2RlIHRoZW4/IEhhdmUgYSBoeXBl
+cmNhbGxfcmV0X3QgdHlwZQ0KPj4gKGV4YWN0IG5hbWluZyBUQkQpIHdoaWNoIGlzIGRlZmlu
+ZWQgYXMgbG9uZyBvbiB4ODYgYW5kIGludCBvbiBBcm0/DQo+PiBPciB1c2UgbG9uZyBpbiB0
+aGUgaGFuZGxlcnMgYW5kIGNoZWNrIHRoZSB2YWx1ZSBvbiBBcm0gc2lkZSB0byBiZSBhDQo+
+PiB2YWxpZCAzMi1iaXQgc2lnbmVkIGludCAodGhpcyB3b3VsZCBiZSBjdW1iZXJzb21lIGZv
+ciB0aGUgZXhjZXB0aW9ucywNCj4+IHRob3VnaCk/DQo+IA0KPiBJIHdhcyB0aGlua2luZyBh
+bG9uZyB0aGUgbGluZXMgb2YgaHlwZXJjYWxsX3JldF90LCB5ZXMsIGJ1dCB0aGUNCj4gY29t
+cGlsZXIgd291bGRuJ3QgYmUgaGVscGluZyB3aXRoIHNwb3R0aW5nIHRydW5jYXRpb24gaXNz
+dWVzICh3ZSBjYW4ndA0KPiByZWFzb25hYmx5IGVuYWJsZSB0aGUgcmVzcGVjdGl2ZSB3YXJu
+aW5ncywgYXMgdGhleSB3b3VsZCB0cmlnZ2VyIGFsbA0KPiBvdmVyIHRoZSBwbGFjZSkuIElm
+IHdlIHdlcmUgdG8gZ28gdGhhdCByb3V0ZSwgd2UnZCByZWx5IG9uIGFuIGluaXRpYWwNCj4g
+YXVkaXQgYW5kIHN1YnNlcXVlbnQgcGF0Y2ggcmV2aWV3IHRvIHNwb3QgaXNzdWVzLiBUaGVy
+ZWZvcmUsDQo+IGN1bWJlcnNvbWUgb3Igbm90LCB0aGUgY2hlY2tpbmcgYXBwcm9hY2ggbWF5
+IGJlIHRoZSBtb3JlIHZpYWJsZSBvbmUuDQo+IA0KPiBUaGVuIGFnYWluIEp1bGllbiBtYXkg
+aGF2ZSBhIGJldHRlciBwbGFuIGluIG1pbmQ7IEknZCBhbnl3YXkgZXhwZWN0DQo+IGhpbSB0
+byBzdXBwbHkgZGV0YWlscyBvbiBob3cgaGUgdGhpbmtzIHN1Y2ggYSB0cmFuc2l0aW9uIGNv
+dWxkIGJlIGRvbmUNCj4gc2FmZWx5LCBhcyBoZSB3YXMgdGhlIG9uZSB0byByZXF1ZXN0IGxp
+bWl0aW5nIHRvIDMyIGJpdHMuDQoNCkluIG9yZGVyIHRvIGhhdmUgc29tZSBwcm9ncmVzcyBJ
+IGNvdWxkIGp1c3QgbGVhdmUgdGhlIEFybSBzaWRlIGFsb25lDQppbiBteSBzZXJpZXMuIEl0
+IGNvdWxkIGJlIGFkZGVkIGxhdGVyIGlmIGEgc29sdXRpb24gaGFzIGJlZW4gYWdyZWVkDQpv
+bi4NCg0KV2hhdCBkbyB5b3UgdGhpbms/DQoNCg0KSnVlcmdlbg0KDQo=
+--------------yL9TfKeg30rDFQIL0BEcrNEo
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
 Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM6PR08CA0017.eurprd08.prod.outlook.com
- (2603:10a6:20b:b2::29) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9c19dda8-9ffd-47b1-40dd-08da01097400
-X-MS-TrafficTypeDiagnostic: HE1PR0402MB2858:EE_
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-Microsoft-Antispam-PRVS:
-	<HE1PR0402MB2858933320187B8CB990B36BB3099@HE1PR0402MB2858.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	PRY+PaSqY51J5lHTb59rOx1f42mDyN0H5c1GCYBtErt+1e4wAksjKJ810pZ6JLNp6wiKVwkBUGgIvZhYO0M4aTSpd1KkkZC/PDU/iHkfJVMhreVM8lK0/7SZxkJtRJnC5HvcHKd5vYutshEaT3wkH1XQdVhvGJr26k+bXLDAI6n/QAoqWqUpdDCsi7ANuMEyjo+EAF9Z/DGXzgARzO0/L5JxpWFPbB9IXOnh+FgBnIw+iNhICLTWGfOz7PsS0TfCB7QEW++TCOa/rmODbzMYHT0LUNZ48iTN+BsgedpYH1tjb36UaCNitCQqAj/YevBZoM8g3H75Vl8pjijNlzVJ14gGbp57T5+K4zKEYrtQ4Z6YfUyvW/SfPGUb8Cx66FwcLWFobhw/SjT37lLEyFeD8o1DNOlcWBB+IpJviXWHDHcODNS2y1OvDLb35sqMukeg5hQHCSN6JrCfDnE/UCc+BDnkdxvpSU2jzGs+rcefInXhvfGmfY1msZyCMj2NLyBHrwFZXJKyWRiYqEPMIt0FYSXGTupvwZP6st85IXVzH7VzYjXvqzUTNHwYqr5W5IW94nxf+nlEGLzpqAWjoOhoGpuslgqkLui8AQa/4cqc2uXHfr9LtSY4jivLe/28SfLHPvsRuaXOR+JoHSYEbd7UKWjEb/agPnyFHawwI/c4+d2S78G7OkM1xnhZEsbuxb1OrgApfyeyGTZrfk0bZhrWmhqcmADIC2sUqJ4/nF0g13U=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(38100700002)(86362001)(31696002)(8936002)(37006003)(54906003)(508600001)(316002)(6636002)(6486002)(7416002)(4326008)(6862004)(5660300002)(66556008)(66946007)(66476007)(8676002)(66574015)(2906002)(83380400001)(6666004)(6512007)(53546011)(6506007)(26005)(186003)(2616005)(31686004)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?HjBIVo9JurdGMRkdOLmRAJP8J9+wb+Ah5zDo16TesF82228jh1mCNBniVMts?=
- =?us-ascii?Q?F8oblnP+YfkIpGJIYwyvVLHSxT2DH+dtdkbE2oyQsCYM9/MBvHSXlYtYLPCq?=
- =?us-ascii?Q?S6jxaDiSxuKC6otm+jJFrNlzfSubGadQwCwa9XuqiVD78sK+RzmaX8cUCfdn?=
- =?us-ascii?Q?uoByn93R1TzsLtXPd90pWIPz3PQ/C+Uxz/1wOzRaV+xiYeFotWyDMgwFd1aH?=
- =?us-ascii?Q?ANSDgawcdSNLOZn7lO2tuHZd4pvia9WuGD5PAaZJBnOXFyLrudWlP2ZPxjeg?=
- =?us-ascii?Q?93mWiHSCUwL0Sdho1PSNjjs/nbXnPKFj1fEnT4PEJcswkaMmaHCQ73fHGF0O?=
- =?us-ascii?Q?d7f4vU4an3cPmnzAQRJukU/gn4ONdKoy8MbkRFWMWwgtZh6qr4GiSDEZe6y+?=
- =?us-ascii?Q?+gH62H4J+Eu0Qc8ZfgYNhTpBEIeSEkbVM7L1Wb4pO37huI9sJ0TcbE2CXWFZ?=
- =?us-ascii?Q?uLxKFuZ0rSS3MdUJqzZxP2rmhcsEk+sZtmhUWasPCy96GedJS6hGIzmRaO0L?=
- =?us-ascii?Q?tA1x8rtg420PYqZcucbM4Ojp9zP/VU7TRgAVxx2lrFniaUCAh4W86hS5V0QL?=
- =?us-ascii?Q?FFdt2d+7AGTuZZdPC035yYnbfug6qsa/KZVZXS3jxjPSvWHwTrbu4Oqg0NAg?=
- =?us-ascii?Q?pE/Yvs9oChD5n1c9P08FZAQezkNb1xekqiyKoe7djRDAoTh4DZVkegRnrsfo?=
- =?us-ascii?Q?4ycarl5VASTp4n4NG7QeTTnVTALwv26tko/Ag5c2MJTapPxy+uig2IJZPfXR?=
- =?us-ascii?Q?zjanHUF2PWx+XGQMKKmUetgWIxrb2MvVALog3+v3+5WC0QITdimqmeoo8R+m?=
- =?us-ascii?Q?u/x+H8kNRbJakSk/Wryr8F66jn4kSHpCft0tTFf/ocxwjomvMxzbaw7tD0UL?=
- =?us-ascii?Q?Lwhwz73Q2BoE1V6+2vFQSFuxjkcBMwnQHJK/GZOJvsv7bQI4WmGmHtZ1RLsY?=
- =?us-ascii?Q?hAmsHewjwxVPT471SkLtX/Ol31cqGlLsoNhZJxlcO3gcKTRpYJsdjDbB06Pz?=
- =?us-ascii?Q?Xil95SgjCmT2/+Hh6LwVe21F+w1d3Y9apPDZbxHI79VDiR4xUMb4Mq0tqdE9?=
- =?us-ascii?Q?7tQreUxHK35fPiAlo8ZRautxk05W/wbb4NmZyyKG09ZlvK2XbRBgX3qftJ0t?=
- =?us-ascii?Q?0ETTxLHf24u1Wx+T905mLd/aeqgrS/9duy5n4pUUSLs7lCyHbXQNC79EkFIT?=
- =?us-ascii?Q?cWuE/ZnutnhmaJVU9+MBbZt09X+MAGhO9s2WOKDAWiQ9MwBKD+tCzMy+wZDc?=
- =?us-ascii?Q?HZ6zFCiky0H6WHqXWShg1iayOMxN0cvRNFQmUOIYu7/+d9nvEEsLxTQxG2Wc?=
- =?us-ascii?Q?4bPNVE1jMGxGDNbDWSpg97v3nEHmi7WfKyNglnuI0PBxAV83hNmy2WAMqtMl?=
- =?us-ascii?Q?oPnV4n5abov7NSKf7UQWIqwS/hXisTCBIh2aquhZcAmqVI5RXYtfHmyYX9yO?=
- =?us-ascii?Q?7HZLU2wEVVZDPfp7egrHDrDoV+UbD/SrlvDmigbZXDVuq5yaof3f/qdoJCdz?=
- =?us-ascii?Q?b7IZJJ7mLz6n8fTcCL+lyUnEqMSciolEuK12+qp9+EzDypk3ha6w+1bn8mGJ?=
- =?us-ascii?Q?kLCXqOUYE3iRGuMOWfBGT4nADIaqHeCHsJ0W5yeQXLZLKcY9lB4oQh/eH0cy?=
- =?us-ascii?Q?OK6K56PzBL/+wgEEHNC/sLA=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c19dda8-9ffd-47b1-40dd-08da01097400
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2022 13:42:13.9791
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yG5Hmh+1/Sl7sp9vGq1rJQUmAi198PRnC34zb8efhThm1yXohGlQpDqUWXwdhJemb+FG4W14NKwm7ollQ4DL4w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR0402MB2858
 
-On 08.03.2022 13:56, Juergen Gross wrote:
-> On 08.03.22 13:50, Jan Beulich wrote:
->> On 08.03.2022 09:39, Juergen Gross wrote:
->>> On 08.03.22 09:34, Jan Beulich wrote:
->>>> On 08.12.2021 16:55, Juergen Gross wrote:
->>>>> In order to avoid indirect function calls on the hypercall path as
->>>>> much as possible this series is removing the hypercall function table=
-s
->>>>> and is replacing the hypercall handler calls via the function array
->>>>> by automatically generated call macros.
->>>>>
->>>>> Another by-product of generating the call macros is the automatic
->>>>> generating of the hypercall handler prototypes from the same data bas=
-e
->>>>> which is used to generate the macros.
->>>>>
->>>>> This has the additional advantage of using type safe calls of the
->>>>> handlers and to ensure related handler (e.g. PV and HVM ones) share
->>>>> the same prototypes.
->>>>>
->>>>> A very brief performance test (parallel build of the Xen hypervisor
->>>>> in a 6 vcpu guest) showed a very slim improvement (less than 1%) of
->>>>> the performance with the patches applied. The test was performed usin=
-g
->>>>> a PV and a PVH guest.
->>>>>
->>>>> Changes in V2:
->>>>> - new patches 6, 14, 15
->>>>> - patch 7: support hypercall priorities for faster code
->>>>> - comments addressed
->>>>>
->>>>> Changes in V3:
->>>>> - patches 1 and 4 removed as already applied
->>>>> - comments addressed
->>>>>
->>>>> Juergen Gross (13):
->>>>>     xen: move do_vcpu_op() to arch specific code
->>>>>     xen: harmonize return types of hypercall handlers
->>>>>     xen: don't include asm/hypercall.h from C sources
->>>>>     xen: include compat/platform.h from hypercall.h
->>>>>     xen: generate hypercall interface related code
->>>>>     xen: use generated prototypes for hypercall handlers
->>>>>     x86/pv-shim: don't modify hypercall table
->>>>>     xen/x86: don't use hypercall table for calling compat hypercalls
->>>>>     xen/x86: call hypercall handlers via generated macro
->>>>>     xen/arm: call hypercall handlers via generated macro
->>>>>     xen/x86: add hypercall performance counters for hvm, correct pv
->>>>>     xen: drop calls_to_multicall performance counter
->>>>>     tools/xenperf: update hypercall names
->>>>
->>>> As it's pretty certain now that parts of this which didn't go in yet w=
-ill
->>>> need re-basing, I'm going to drop this from my waiting-to-be-acked fol=
-der,
->>>> expecting a v4 instead.
->>>
->>> Yes, I was planning to spin that up soon.
->>>
->>> The main remaining question is whether we want to switch the return typ=
-e
->>> of all hypercalls (or at least the ones common to all archs) not
->>> requiring to return 64-bit values to "int", as Julien requested.
->>
->> After walking through the earlier discussion (J=C3=BCrgen - thanks for t=
-he link)
->> I'm inclined to say that if Arm wants their return values limited to 32 =
-bits
->> (with exceptions where needed), so be it. But on x86 I'd rather not see =
-us
->> change this aspect. Of course I'd much prefer if architectures didn't
->> diverge in this regard, yet then again Arm has already diverged in avoid=
-ing
->> the compat layer (in this case I view the divergence as helpful, though,=
- as
->> it avoids unnecessary headache).
->=20
-> How to handle this in common code then? Have a hypercall_ret_t type
-> (exact naming TBD) which is defined as long on x86 and int on Arm?
-> Or use long in the handlers and check the value on Arm side to be a
-> valid 32-bit signed int (this would be cumbersome for the exceptions,
-> though)?
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-I was thinking along the lines of hypercall_ret_t, yes, but the
-compiler wouldn't be helping with spotting truncation issues (we can't
-reasonably enable the respective warnings, as they would trigger all
-over the place). If we were to go that route, we'd rely on an initial
-audit and subsequent patch review to spot issues. Therefore,
-cumbersome or not, the checking approach may be the more viable one.
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-Then again Julien may have a better plan in mind; I'd anyway expect
-him to supply details on how he thinks such a transition could be done
-safely, as he was the one to request limiting to 32 bits.
+--------------yL9TfKeg30rDFQIL0BEcrNEo--
 
-Jan
+--------------PklIN8lTebXafeKv8RHJ0GTf--
 
+--------------cZ1EIPHbOpkcQEXk0Ti3eL2t
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmInXbUFAwAAAAAACgkQsN6d1ii/Ey9G
+pwf9EpC79NldYjKkDpklnj1WKSBkfGFZ8+LVwazNQ4njnlsOcL9nCX9SSrT2qa1WMlShKvQnXsU5
+cTiN8gJDDTCOCGICzMuqmmOrjGjZj7V4viGCsMbNIv+wxm0cOTgaGgYJSUQ5gBpJlMraMEjSFkLh
+g2bSmTadp5TCgVg/rPLaVHLsGTQcvpK5mtpc0NdD3FvofjoRTV8cN5ScZ/adg9ZNwtEVL7pGuv0v
+xTj5/1Kn+sx+Vkx9FeAq8PqgYgZbhDLZ4m0TdzvBZVChS/o2QmKtxvClBh6bSVlbe9X744YopScB
+ZkpP+bR2FBKLmVEJxImsVnSTwa6S5FqPR3uKg/JxrA==
+=Wgec
+-----END PGP SIGNATURE-----
+
+--------------cZ1EIPHbOpkcQEXk0Ti3eL2t--
 
