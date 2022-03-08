@@ -2,44 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD4FA4D15FA
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Mar 2022 12:15:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.286736.486366 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E58E04D162A
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Mar 2022 12:23:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.286742.486375 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRXo8-0003xO-NN; Tue, 08 Mar 2022 11:15:12 +0000
+	id 1nRXvW-0005WD-Ff; Tue, 08 Mar 2022 11:22:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 286736.486366; Tue, 08 Mar 2022 11:15:12 +0000
+Received: by outflank-mailman (output) from mailman id 286742.486375; Tue, 08 Mar 2022 11:22:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRXo8-0003vB-IR; Tue, 08 Mar 2022 11:15:12 +0000
-Received: by outflank-mailman (input) for mailman id 286736;
- Tue, 08 Mar 2022 11:15:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=KW+D=TT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nRXo6-0003v5-RQ
- for xen-devel@lists.xenproject.org; Tue, 08 Mar 2022 11:15:10 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 03eb809d-9ed1-11ec-8539-5f4723681683;
- Tue, 08 Mar 2022 12:15:09 +0100 (CET)
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05lp2173.outbound.protection.outlook.com [104.47.17.173]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-17-NY11hhkjN1CVQt-E1YaOgg-1; Tue, 08 Mar 2022 12:15:08 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by AS8PR04MB7703.eurprd04.prod.outlook.com (2603:10a6:20b:23c::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14; Tue, 8 Mar
- 2022 11:15:06 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65%6]) with mapi id 15.20.5038.027; Tue, 8 Mar 2022
- 11:15:06 +0000
+	id 1nRXvW-0005Ta-Cg; Tue, 08 Mar 2022 11:22:50 +0000
+Received: by outflank-mailman (input) for mailman id 286742;
+ Tue, 08 Mar 2022 11:22:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=PT2b=TT=xilinx.com=ayankuma@srs-se1.protection.inumbo.net>)
+ id 1nRXvV-0005TU-9o
+ for xen-devel@lists.xenproject.org; Tue, 08 Mar 2022 11:22:49 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2062d.outbound.protection.outlook.com
+ [2a01:111:f400:fe5b::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1432089f-9ed2-11ec-8eba-a37418f5ba1a;
+ Tue, 08 Mar 2022 12:22:47 +0100 (CET)
+Received: from BN6PR18CA0001.namprd18.prod.outlook.com (2603:10b6:404:121::11)
+ by DM6PR02MB4796.namprd02.prod.outlook.com (2603:10b6:5:fb::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.21; Tue, 8 Mar
+ 2022 11:22:42 +0000
+Received: from BN1NAM02FT031.eop-nam02.prod.protection.outlook.com
+ (2603:10b6:404:121:cafe::66) by BN6PR18CA0001.outlook.office365.com
+ (2603:10b6:404:121::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.14 via Frontend
+ Transport; Tue, 8 Mar 2022 11:22:42 +0000
+Received: from xir-pvapexch02.xlnx.xilinx.com (149.199.80.198) by
+ BN1NAM02FT031.mail.protection.outlook.com (10.13.2.145) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5038.14 via Frontend Transport; Tue, 8 Mar 2022 11:22:42 +0000
+Received: from xir-pvapexch01.xlnx.xilinx.com (172.21.17.15) by
+ xir-pvapexch02.xlnx.xilinx.com (172.21.17.17) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.14; Tue, 8 Mar 2022 11:22:41 +0000
+Received: from smtp.xilinx.com (172.21.105.198) by
+ xir-pvapexch01.xlnx.xilinx.com (172.21.17.15) with Microsoft SMTP Server id
+ 15.1.2176.14 via Frontend Transport; Tue, 8 Mar 2022 11:22:41 +0000
+Received: from [10.71.117.157] (port=49634)
+ by smtp.xilinx.com with esmtp (Exim 4.90)
+ (envelope-from <ayan.kumar.halder@xilinx.com>)
+ id 1nRXvM-0006PG-ME; Tue, 08 Mar 2022 11:22:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,208 +63,247 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03eb809d-9ed1-11ec-8539-5f4723681683
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1646738109;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wVWf0j1ul/b8eWM+/zvX9t0+8MWqS6GYuUB3LBGbqaw=;
-	b=UoJCos3MaeNFuyQAQk9yTbKW8612ZTuVeDB169OfcF+v4HHRtv4GsLpf/ND9adZsiE7t0S
-	qZw7U5hIY8uvs+/Uw06rr1P17ZFBsyqyMfMyWWtE2LiqKNXWbagBuuIM9ObT8Gorviq754
-	/VSnywG8o2rMcZmMqHrSbjHj7F5w/h4=
-X-MC-Unique: NY11hhkjN1CVQt-E1YaOgg-1
+X-Inumbo-ID: 1432089f-9ed2-11ec-8eba-a37418f5ba1a
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eFjvGWtOznCEApT9yoOh9SGx8t7efnjNoDxRf5RrYfzD480sUq3LjyMaf7plyr/PR8UCpp/WCFQk6/UZHyNG1rURnZpxQ95UeZ14AD2E7AasXHwHZQmWrAoRDN681ee2Cs8lfw8qUk7Od7dV7NxLTyOtRrUQtq1hoNHiUxwJb94QCDVpUN+dVi6WxcxcUS8MRGy3ru1gtfuVoeWZFn8gVB8XCbGUrVZ9GZUtBo+9/NuSK2NpvwJ3v4Whis8HObkNDfmLtjNhCHOJ4fQgkLtLvi93mzouoUCNMbNmscEcjWYB/3haJoaoWvmHAcXtYXRyu041HpT/CWeB5HdyNT0EMA==
+ b=nc6xk37uEor9YgrZEyg70cx4pkgBbP2SRYm+6bEHRRe3001PtMkgqxQzgM0NyNOds9v9qJPEY/roPLEZuO/E1Ww4s0DSTkrccVt1QqFLRPOKHpAlox2yqkWxAQ+UeCl7vag1m93aY3ovsa2iiO02QeSedYhvn8sNNYWjuptjiwpncKqxWLc5JIcrNmvM905HiR9jHoS6nuNWGgGC/elWdsJRuOEzvLrlWpp8N+XxOot14drkRivGSZi0rSxXHH0XfPsgaGCxtv52Mw14mR0fk59ABVS46Gadg8861yczD6FlI51FAEonVg/zkjEjkG4EUVGKn8iXK7hniIUfU+cogA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jLAE1rUwTBXWLXmGNuBMDWnAuUZQaR/HNcqv8pX4qD8=;
- b=RpSBP6kC5vcpQANt4/yfTKQlcS4vVbdv2ClKhmOXkWX2wB/5eRUJHMk5z4/YoXSex2jg8jUq9GFllrITYHV6bnwS+FgtvFGA69Js9TUlxtZqDReFb5r3/i5w6REj0IcjzuVTWhrE3xWxsikaiHwslaLzWFAA8SZWr07MFnKj4B978BK2sC34jqkIMc1Q7dJKrmkpzv34pD54kTCj6cyHhHiHHh1HTWYp2ERX3l/STgLqmkyJ9Pg38TTde7MVEx0Ie6QMCMggQO8B1e9XSrgBxeKb/FNhfNLMMVWypz/I52AmqFAs2AOjdLF0CDIrDmYovRQkgIi5x1ftaFJOGz/9Gw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <0cde8972-b357-e2c0-ccc4-a0720cfb3501@suse.com>
-Date: Tue, 8 Mar 2022 12:15:04 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Subject: Re: [PATCH v2] x86/build: use --orphan-handling linker option if
- available
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-References: <289684f6-fa73-bf02-137c-680ad8891640@suse.com>
- <YicsK8xqdcGZYaIn@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YicsK8xqdcGZYaIn@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AS8PR04CA0193.eurprd04.prod.outlook.com
- (2603:10a6:20b:2f3::18) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+ bh=5hRnIZw6T6CCWhdlyDcyKcVFLC1+aj8uAQgeZr3sApg=;
+ b=E71KEOnmWGPgBxMNEgqblXJKd5p51W2WDt2hExLIIjaVIsHFT3SnBt6n81WmiFC3iwwqFjsrReauPz8J47jjxXb3/rFP85lSrZZB0HWLtDJsiSKYgv9XoATy2wQd5OFUx+VcBDl+5xmDA8xey3dwibLOE0gPcc2O9ufzOsdRik1aTaks/iHUxpUu5yA77+w0WjpIEX+42LvQyckquao7H63/0AHy9jLc3tNcKQGvbHJjszCPEb3sTOXE9n1TIeStMuklvivjyP4HOKrqwr10U5VPm09wR/sTcIKqqmcW+NMOt0MMQGFe5eRk9GeYJSDm8PhZkJY996dmVNIFSACgXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 149.199.80.198) smtp.rcpttodomain=xen.org smtp.mailfrom=xilinx.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=xilinx.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5hRnIZw6T6CCWhdlyDcyKcVFLC1+aj8uAQgeZr3sApg=;
+ b=XCVvG8PtsmTzJlcZpMfjGr8M100F5qM1aP4ZL/VnN2lziJv2cvmk2CjQyHuV3HfOLNnTe+NDXHV5udYMCiT5srWZIzyVUnPWo/gvd104v4lLb/a0J6q+Nf44EB3t3KJBp+dK9A4TdRwyWPODQWOKHlck+/aRFo9DW8yhf9zJwow=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 149.199.80.198)
+ smtp.mailfrom=xilinx.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=xilinx.com;
+Received-SPF: Pass (protection.outlook.com: domain of xilinx.com designates
+ 149.199.80.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=149.199.80.198; helo=xir-pvapexch02.xlnx.xilinx.com;
+Message-ID: <b6e2a7eb-9d14-077d-c2d9-04528ffaa53a@xilinx.com>
+Date: Tue, 8 Mar 2022 11:22:40 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.6.2
+Subject: Re: [XEN v9 3/4] xen/arm64: io: Handle the abort due to access to
+ stage1 translation table
+To: Julien Grall <julien@xen.org>, Ayan Kumar Halder
+	<ayan.kumar.halder@xilinx.com>, <xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, <stefanos@xilinx.com>,
+	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
+	<andrew.cooper3@citrix.com>, <george.dunlap@citrix.com>, <jbeulich@suse.com>,
+	<wl@xen.org>, <paul@xen.org>, <roger.pau@citrix.com>
+References: <20220301124022.10168-1-ayankuma@xilinx.com>
+ <20220301124022.10168-4-ayankuma@xilinx.com>
+ <68acfbf0-f2c1-c52e-93a3-632f1286d90f@xen.org>
+ <5d5b0fc1-6f47-dfc0-dca3-5d60483a6eae@xilinx.com>
+ <3e9d5d0c-f68f-004e-06b7-c4f0452f1e64@xen.org>
+ <124726df-eafe-014a-ea9a-f97e0921eccc@xilinx.com>
+ <6c4e63e4-4f9f-68f4-5e4e-f69cf6567e1a@xen.org>
+From: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
+In-Reply-To: <6c4e63e4-4f9f-68f4-5e4e-f69cf6567e1a@xen.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0b87d31c-07f9-48ad-5658-08da00f4e67c
-X-MS-TrafficTypeDiagnostic: AS8PR04MB7703:EE_
+X-MS-Office365-Filtering-Correlation-Id: ba5d6456-b3bc-4c36-d445-08da00f5f626
+X-MS-TrafficTypeDiagnostic: DM6PR02MB4796:EE_
 X-Microsoft-Antispam-PRVS:
-	<AS8PR04MB77035C6BC6CD1CA3EED4A9FDB3099@AS8PR04MB7703.eurprd04.prod.outlook.com>
+	<DM6PR02MB47969632DB0C80C08CE7107CB2099@DM6PR02MB4796.namprd02.prod.outlook.com>
+X-Auto-Response-Suppress: DR, RN, NRN, OOF, AutoReply
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Bkk1sGv7bMeYul4xXBjdINyxfu2E76LxbV30nkCLmLlfQMgLQeMuaZAv3+y6ix+wexlkV8o0duzTWlyReYGnDwZufKKQAdN9ryfIsXjr2cmwbKCWRlMJ8YhYpPGtn73i0hAYBJ1fAaaRXUIYauLXNyPqsxW9vDe7Gl680BKCnqLaBdbQnbR6nyX4su6tCLxxE+GuDcHIh+oclAT0euzWycri1PAKmOv5ipWVp2JTnP0qia4D00XbE8pbi0e2ET6g42CfxZ5vXuT8b/NCRrZ+l9GP4bliyNogxg38r8reSi4wHkKLu2X8zs1AAN5jScST5cvGA+ao5mBJCbxq/jJV03Fgd3ZeI0p9x7MBE2+ku9dzxhxRDgbk833jQk4T0dpa9qGiLuuI82csWt8YslVaGgOVgv+mBqZx/2EpDzS0Js1yqmP5azxM5Pd5NzL7p5GWoy7/HetFyQOUytyZlhpHLQGF3C6zs4RSrw/xwaUKj5c8NhblrJ27BwcBsVy7dPU3aDsa0CDqSykTYy3xPkUSRTMu7qGaTzliMX7Eyg7Z46VoyBNbHtfDgRuJKCN/60Pxxmg5PC3uMV7irYq9GFmoAYqmgqmNVzlrm4naErz7w4ijSRys8s2TidjJg22ixLY2YBu96xeOB+ewyemqhqBnaLi+KevBoSU93rwiQL0KMB4ipZyJg2mBT89adss9gtnAKS1hXpo0qi6DgBOu8YQd9ErsSm47PdBQCeWPprR/fsk=
+	j08EfIzEIHdTs8Wo7dJ5865C59drW741L6ErsUDR5AtdSH4o5PPfeULsMIIR0XvEW2BrfittuqZoIx/s/tQnQK/faftmbYUQz+0fyKVPHg+U4WofjDIHO6TUZZjmntbM+IZxjim+zdATT9/tBFxiRUkuFHczUPdh3DEZjnJXsfP3m+z9ZER0AWvLDCo93tiidK5hOk8TwYtmhttXPIqgaRBNph09JNdng3ye/AU2Hc0f5VSWo9blhKXW0l0mzgHo+eOZ0FSKI41ywCzS/BYr7xbdLc6Kql/+2E2iZc5MUBot0qAM626oVjlRb/UObl639Ehvk6LsrfWYazGhjmdUNbG2KzUe9kG/Dy3wvEdBWnQ2bLOxe+/9RDD5kZeZbVDWuDW3B8ZvOov8CzdCHrmU5LKrDuinpzbTocJzYalhoC/DNfWgPZvlBxdbZ2YrPfGX9gMx3PsW9pzBWmHSZ2DlLJHncT8y5q3ctrVDX2tHxtu8tw2bpP3eijwdi3JXukTpvHj1nQfGPfbgtdjx21Kco86NBaB08rmUtThd52Fbo2liHR2hv3K4CnJWzhZPFNTqxsn7Oy7IVnQTE5L0GtYfjC9VTF4MHj8ycVUt/2zOsHA1FsuMorIzJLM/e4XbMe950cfrWF88V7qXkaVW75biyMbPl2OTn3DZlc65G181P/je74ezFXdAqKx8V5yjBJkfxhWI9uEhxb3oOHU7uAN+kSgExo3TUHsQVMISOS0sbaOEKDYQ3pECzyPC+kecbNHFbndyYEm/uO9ENq7r5aN/vFXYgx5UHQa2jMOR4ClGEZk=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(5660300002)(8936002)(86362001)(83380400001)(31696002)(6506007)(316002)(66946007)(31686004)(54906003)(53546011)(36756003)(8676002)(4326008)(2906002)(66556008)(26005)(2616005)(66476007)(186003)(38100700002)(6486002)(6916009)(508600001)(6512007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?H8OXKbTZ3x86UPEVPv5SyGeo8L9M+T/CKBCCCTptVPYCMBNVGdP+kzKAKF2M?=
- =?us-ascii?Q?B2WOPJyuyoGdn+QmG9lvLzdoUrIqMXLJc6E2mD2VNzkEs5x0GOlKzhd9Fb05?=
- =?us-ascii?Q?z3/aWcjMPTXHDFIHgQ01qDte7w5kBMOTpCupGMMUBt2yi/sDeMBEFah0XA7H?=
- =?us-ascii?Q?WG/Gd15mcHUMYXbGXpE43OPzHWZupc4Gor1n8BtCgcHoYzVPl1CHqvD0HmR0?=
- =?us-ascii?Q?hCW/r2tshR0LOxd7nc8j0k7C5GaFNyCN/AG4jEF619ePvFpYPeKNkgtB8CVb?=
- =?us-ascii?Q?2cga/lutO/XnAMn5pxGPxTWbwOPUKnHa6Mvc5CXwuZIrbE4Sr5eOaGleIxZH?=
- =?us-ascii?Q?YDf9PLD27cjaCr4Vfr9qM3K05ybb6kX4lYgzqxmfRbRb5ghFgvHysxMukIG/?=
- =?us-ascii?Q?2edSohOdJffLSlLnq4Hqq+ZlFToQ7etCou3WQdBhZSXurPyX/OljLxw6FhU9?=
- =?us-ascii?Q?epewmxpQI3AIb3oC9ZKIMYri737EH2UhMXeAfEwdf0g4QrR61YLzIIft4vGn?=
- =?us-ascii?Q?t/Yp8+s5HPXHXE5Q9mQXdL0wg/R8TfwI73xinRtYdKruekJ5BmA2ObJfaEsE?=
- =?us-ascii?Q?NIGowf0dE41P8kMYmMciHILjGJJ1Kx+/43e9OO2qutRTN226uNYK/zBlltd/?=
- =?us-ascii?Q?nWVI+VVbKtbnxfDVMvI573DpytrveH81EwdFoutrkAIXOzk5bN04hAi3KyJQ?=
- =?us-ascii?Q?J/64YnN8DkusY2bRlM3l28T2luycXUHblCFPSMJaU29fc4wFZ3WqQraGqaDw?=
- =?us-ascii?Q?j8M3VCJi7xRxir3quyxd7Huc5MpvospSSQseivZgyKa1E6XVwNfJNVN1NwVu?=
- =?us-ascii?Q?undgwK2C3MNHrOQy2oTQQBqgUZPPeioejGm3ayDXu9QgjECPrvDLvV9yms5E?=
- =?us-ascii?Q?UfbG9C+6bxF3Y1KocLaSBUwziHxcnSf+MlhKlt74Xppw+v4jh52LP7TCTis2?=
- =?us-ascii?Q?LLT5xVKRWs0owIzato1u4V6npGqggw2k2/F71l4R9UFEKGi09+KMGoZQ6cQN?=
- =?us-ascii?Q?8JOHqjtm5HFEcbCWk1gyuPzBEITjjDZrfrTi31OvqxTQeeSuSKDmMaX+pp/u?=
- =?us-ascii?Q?iRD5zFXfM45xnfdlcnMRlhLiSDRpxqlFAajkLjvjIh+i1LFcsSVMBgIW06DP?=
- =?us-ascii?Q?fQxWpkraisOTlm8Hlv1K1amfhvzK4vzrS4gqDZtCUR2r2kmUOZe3zqX1xhE+?=
- =?us-ascii?Q?oNxoEN19PWM695s1Jynqg/2HFyI1CD3QPg66mrAJZV8w302WrDF5aDFZ6c+i?=
- =?us-ascii?Q?NqbmXJ8iscbQwaOKAjTvAyZFwv8vRCtbYM2hpbVagsMZaQgeVZX6daAEUrtF?=
- =?us-ascii?Q?eTyhyNZHxxOA3w2SbhF8Lnem/JMCSqURt5U++mM21cmaCJI40D0oipuG7SNz?=
- =?us-ascii?Q?HrG4ARRKqUgDyRzHiUoZNZ5TPcFRRxWVh4+9o53yEZPPhASKY7wl/SOsXyJa?=
- =?us-ascii?Q?B7KWcyC1PCr1vgl0TJj1zraU6+2yOXo1TAHAynLEQ9fepXPU1eIuPg4OAAd+?=
- =?us-ascii?Q?Nxjy1JLJGa9UCOrywQnOPBFRZxk/RVxuIWWQUTNtyaV5v5R3OKMXsVxuKois?=
- =?us-ascii?Q?7XVYfx3XX4SyZ3NCzW2G/QZ+tpCmkn7F7u9A0pDoL/r0MClvgUlkt9RcdxN1?=
- =?us-ascii?Q?g+jWGHGJM0aU6X/ZpXUsmRw=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b87d31c-07f9-48ad-5658-08da00f4e67c
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2022 11:15:06.6524
+	CIP:149.199.80.198;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:xir-pvapexch02.xlnx.xilinx.com;PTR:unknown-80-198.xilinx.com;CAT:NONE;SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(7636003)(36860700001)(356005)(31686004)(36756003)(53546011)(426003)(9786002)(83380400001)(5660300002)(7416002)(336012)(508600001)(31696002)(82310400004)(8936002)(110136005)(26005)(54906003)(40460700003)(186003)(2906002)(8676002)(47076005)(70206006)(316002)(2616005)(4326008)(70586007)(50156003)(43740500002)(414714003)(473944003);DIR:OUT;SFP:1101;
+X-OriginatorOrg: xilinx.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2022 11:22:42.1511
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: COs3iOTGi5gQD1G+9ZO9FkvVdZtXHf3D87AN0iLLgOXalk6ngWyMM592OpEsG/DRXOEcwY8mXi9jFRWw+mllEg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7703
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba5d6456-b3bc-4c36-d445-08da00f5f626
+X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c;Ip=[149.199.80.198];Helo=[xir-pvapexch02.xlnx.xilinx.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1NAM02FT031.eop-nam02.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR02MB4796
 
-On 08.03.2022 11:12, Roger Pau Monn=C3=A9 wrote:
-> On Mon, Mar 07, 2022 at 02:53:32PM +0100, Jan Beulich wrote:
->> As was e.g. making necessary 4b7fd8153ddf ("x86: fold sections in final
->> binaries"), arbitrary sections appearing without our linker script
->> placing them explicitly can be a problem. Have the linker make us aware
->> of such sections, so we would know that the script needs adjusting.
+Hi Julien,
+
+On 07/03/2022 23:59, Julien Grall wrote:
+> Hi,
+>
+> On 07/03/2022 22:23, Ayan Kumar Halder wrote:
 >>
->> To deal with the resulting warnings:
->> - Retain .note.* explicitly for ELF, and discard all of them (except the
->>   earlier consumed .note.gnu.build-id) for PE/COFF.
->> - Have explicit statements for .got, .plt, and alike and add assertions
->>   that they're empty. No output sections will be created for these as
->>   long as they remain empty (or else the assertions would cause early
->>   failure anyway).
->> - Collect all .rela.* into a single section, with again an assertion
->>   added for the resulting section to be empty.
->> - Extend the enumerating of .debug_* to ELF. Note that for Clang adding
->>   of .debug_macinfo is necessary. Amend this by its Dwarf5 counterpart,
->>   .debug_macro, then as well (albeit more may need adding for full
->>   coverage).
+>> On 07/03/2022 19:37, Julien Grall wrote:
+>>>
+>>>
+>>> On 07/03/2022 14:27, Ayan Kumar Halder wrote:
+>>>> Hi Julien,
+>>>
+>>> Hi Ayan,
 >>
->> Suggested-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->=20
-> LGTM, just two questions.
+>> Hi Julien,
+>>
+>> I need a bit of clarification to understand this.
+>>
+>>>
+>>>>
+>>>> One clarification.
+>>>>
+>>>> On 04/03/2022 10:39, Julien Grall wrote:
+>>>>> Hi Ayan,
+>>>>>
+>>>>> On 01/03/2022 12:40, Ayan Kumar Halder wrote:
+>>>>>> If the abort was caused due to access to stage1 translation 
+>>>>>> table, Xen
+>>>>>> will assume that the stage1 translation table is in the non MMIO 
+>>>>>> region.
+>>>
+>>> Reading this commit message again. I think you want to explain why 
+>>> we want to do that because, from my understanding, this is 
+>>> technically not forbidden by the Arm Arm.
+>>>
+>>> From the previous discussion, we want to do this because we can't 
+>>> easily handle such fault on emulated region (we have no away to the 
+>>> walker the value read).
+>>
+>> Sorry, Can you explain this a bit more ? Do you mean that if the page 
+>> table is located in the emulated region, map_domain_page() (called 
+>> from p2m_next_level()) will fail.
+>
+> For data abort with valid syndrome, you will have a register to write 
+> back the value read. When the data abort has s1ptw == 1, AFAICT, we 
+> have no information how to return the value.
 
-Sure, just that ...
+Do you mean that for s1ptw, we get an intermediate physical address ?
 
->> @@ -19,6 +26,8 @@ ENTRY(efi_start)
->> =20
->>  #define FORMAT "elf64-x86-64"
->>  #define DECL_SECTION(x) #x : AT(ADDR(#x) - __XEN_VIRT_START)
->> +#define DECL_DEBUG(x, a) #x 0 : { *(x) }
->> +#define DECL_DEBUG2(x, y, a) #x 0 : { *(x) *(y) }
->=20
-> Would it be helpful to place those in a=20
+     if ( hpfar_is_valid(xabt.s1ptw, fsc) )
+         gpa = get_faulting_ipa(gva);
 
-... you may have had a 3rd one?
+If the IPA corresponds to an emulated region, then Xen can read the 
+emulated address, but can't return the value to the guest OS.
 
->> @@ -179,6 +188,13 @@ SECTIONS
->>  #endif
->>  #endif
->> =20
->> +#ifndef EFI
->> +  /* Retain these just for the purpose of possible analysis tools. */
->> +  DECL_SECTION(.note) {
->> +       *(.note.*)
->> +  } PHDR(note) PHDR(text)
->=20
-> Wouldn't it be enough to place it in the note program header?
->=20
-> The buildid note is already placed in .rodata, so any remaining notes
-> don't need to be in a LOAD section?
+(I actually want to understand this very well).
 
-All the notes will be covered by the NOTE phdr. I had this much later
-in the script originally, but then the NOTE phdr covered large parts of
-.init.*. Clearly that yields invalid notes, which analysis (or simple
-dumping) tools wouldn't be happy about. We might be able to add 2nd
-NOTE phdr, but mkelf32 assumes exactly 2 phdrs if it finds more than
-one, so changes there would likely be needed then (which I'd like to
-avoid for the moment). I'm also not sure in how far tools can be
-expected to look for multiple NOTE phdrs ...
+>
+>>
+>> But for emulated region, shouldn't pages be already mapped for Xen to 
+>> access them ?
+>
+> I am not sure which "pages" you are referring to here. The 
+> implementation of emulated regions is left to the discretion of Xen. 
+> This may be reading/writing to a buffer allocated by Xen or return a 
+> fixed value.
+>
+>>
+>>>
+>>>>>> It will try to resolve the translation fault. If it succeeds, it 
+>>>>>> will
+>>>>>> return to the guest to retry the instruction. If not, then it means
+>>>>>> that the table is in MMIO region which is not expected by Xen. Thus,
+>>>>>> Xen will forward the abort to the guest.
+>>>>>>
+>>>>>> Signed-off-by: Ayan Kumar Halder <ayankuma@xilinx.com>
+>>>>>> ---
+>>>>>>
+>>>>>> Changelog :-
+>>>>>>
+>>>>>> v1..v8 - NA
+>>>>>>
+>>>>>> v9 - 1. Extracted this change from "[XEN v8 2/2] xen/arm64: io: 
+>>>>>> Support
+>>>>>> instructions (for which ISS is not..." into a separate patch of 
+>>>>>> its own.
+>>>>>> The reason being this is an existing bug in the codebase.
+>>>>>>
+>>>>>>   xen/arch/arm/io.c    | 11 +++++++++++
+>>>>>>   xen/arch/arm/traps.c | 12 +++++++++++-
+>>>>>>   2 files changed, 22 insertions(+), 1 deletion(-)
+>>>>>>
+>>>>>> diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
+>>>>>> index bea69ffb08..ebcb8ed548 100644
+>>>>>> --- a/xen/arch/arm/io.c
+>>>>>> +++ b/xen/arch/arm/io.c
+>>>>>> @@ -128,6 +128,17 @@ void try_decode_instruction(const struct 
+>>>>>> cpu_user_regs *regs,
+>>>>>>           return;
+>>>>>>       }
+>>>>>>   +    /*
+>>>>>> +     * At this point, we know that the stage1 translation table 
+>>>>>> is in the MMIO
+>>>>>> +     * region. This is not expected by Xen and thus it forwards 
+>>>>>> the abort to the
+>>>>>
+>>>>> We don't know that. We only know that there are no corresponding 
+>>>>> valid mapping in the P2M. So the address may be part of an 
+>>>>> emulated MMIO region or invalid.
+>>>>>
+>>>>> For both cases, we will want to send an abort.
+>>>>>
+>>>>> Furthermore, I would say "emulated MMIO region" rather than MMIO 
+>>>>> region because the P2M can also contain MMIO mapping (we usually 
+>>>>> call then "direct MMIO").
+>>>>
+>>>> Can I say MMIO region (to indicate both emulated and direct) ? The 
+>>>> reason being the assumption that stage1 page tables cannot be in 
+>>>> the MMIO region. And thus, when check_p2m() is invoked, we do not 
+>>>> invoke try_map_mmio(gaddr_to_gfn(gpa).
+>>>>
+>>>> See this snippet :-
+>>>>
+>>>>              if ( xabt.s1ptw )
+>>>>                  check_mmio_region = false;
+>>>
+>>> Thinking a bit more of this. I would actually drop this check. We 
+>>> don't need to decode the instruction, so I don't think there are 
+>>> much benefits here to restrict access for direct MMIO. Did I miss 
+>>> anything?
+>>>
+>> Can Linux or any OS keep its page tables in the direct MMIO space ? 
+>> If yes, then try_map_mmio() needs to be invoked to map the region, so 
+>> that OS can access it. If not, then Xen needs to return abort because 
+>> the OS may be behaving maliciously.
+>
+> I think what matters is whether the Arm Arm would or would not allow 
+> it. From what I can tell there are no such restriction. So we would 
+> need to be cautious to restrict it further than necessary.
+>
+>>
+>> My understanding from previous discussion was that it does not make 
+>> sense for linux or any OS to keep its page tables in any MMIO region 
+>> (emulated or direct). Please correct me if mistaken.
+>
+> At the moment, none of the regions emulated by Xen could be used for 
+> page-tables. I am also not sure how we should handle such access if 
+> they arise. So it is more convenient to simply forbid them.
+>
+> Regarding direct MMIO, see above. Correct me if I am wrong, but it 
+> should not be a problem for Xen to deal with them. So while I agree 
+> this doesn't seem to make sense, the restriction seems unnecessary.
 
->> +#endif
->> +
->>    _erodata =3D .;
->> =20
->>    . =3D ALIGN(SECTION_ALIGN);
->> @@ -266,6 +282,32 @@ SECTIONS
->>         __ctors_end =3D .;
->>    } PHDR(text)
->> =20
->> +#ifndef EFI
->> +  /*
->> +   * With --orphan-sections=3Dwarn (or =3Derror) we need to handle cert=
-ain linker
->> +   * generated sections. These are all expected to be empty; respective
->> +   * ASSERT()s can be found towards the end of this file.
->> +   */
->> +  DECL_SECTION(.got) {
->> +       *(.got)
->> +  } PHDR(text)
->> +  DECL_SECTION(.got.plt) {
->> +       *(.got.plt)
->> +  } PHDR(text)
->> +  DECL_SECTION(.igot.plt) {
->> +       *(.igot.plt)
->> +  } PHDR(text)
->> +  DECL_SECTION(.iplt) {
->> +       *(.iplt)
->> +  } PHDR(text)
->> +  DECL_SECTION(.plt) {
->> +       *(.plt)
->> +  } PHDR(text)
->> +  DECL_SECTION(.rela) {
->> +       *(.rela.*)
->> +  } PHDR(text)
->=20
-> Why do you need to explicitly place those in the text program header?
+So the behavior will be :-
 
-I guess that's largely for consistency with all other directives. With the
-assertions that these need to be empty, we might get away without, as long
-as no linker would decide to set up another zero-size phdr for them.
+1. If the stage1 translation table is in the non MMIO region or 'direct 
+mapped' MMIO region, then invoke p2m_resolve_translation_fault() and 
+try_map_mmio() to resolve the fault. If it succeeds, then return to the 
+guest to retry.
 
-Jan
+2. If the previous step fails and for any other scenario (ie stage1 
+translation table is in emulated MMIO region or the address is invalid), 
+return the abort to the guest.
 
+- Ayan
+
+>
+> Cheers,
+>
 
