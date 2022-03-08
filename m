@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADC444D1B5A
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Mar 2022 16:09:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.287053.486843 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4025D4D1B6C
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Mar 2022 16:14:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.287059.486853 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRbSQ-0003xT-LQ; Tue, 08 Mar 2022 15:09:02 +0000
+	id 1nRbXH-0005LA-95; Tue, 08 Mar 2022 15:14:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 287053.486843; Tue, 08 Mar 2022 15:09:02 +0000
+Received: by outflank-mailman (output) from mailman id 287059.486853; Tue, 08 Mar 2022 15:14:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRbSQ-0003ut-Ha; Tue, 08 Mar 2022 15:09:02 +0000
-Received: by outflank-mailman (input) for mailman id 287053;
- Tue, 08 Mar 2022 15:09:00 +0000
+	id 1nRbXH-0005Iq-57; Tue, 08 Mar 2022 15:14:03 +0000
+Received: by outflank-mailman (input) for mailman id 287059;
+ Tue, 08 Mar 2022 15:14:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=KW+D=TT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nRbSO-0003uX-MZ
- for xen-devel@lists.xenproject.org; Tue, 08 Mar 2022 15:09:00 +0000
+ id 1nRbXF-0005IQ-BX
+ for xen-devel@lists.xenproject.org; Tue, 08 Mar 2022 15:14:01 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ae20d31f-9ef1-11ec-8eba-a37418f5ba1a;
- Tue, 08 Mar 2022 16:08:59 +0100 (CET)
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05lp2107.outbound.protection.outlook.com [104.47.18.107]) by
+ id 61c443c9-9ef2-11ec-8eba-a37418f5ba1a;
+ Tue, 08 Mar 2022 16:14:00 +0100 (CET)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04lp2059.outbound.protection.outlook.com [104.47.14.59]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-19-sZjO3ipFPaiO3C4da1hBEg-1; Tue, 08 Mar 2022 16:08:57 +0100
+ de-mta-36-aBzH7QdpOUiKyfcMDCCfIQ-1; Tue, 08 Mar 2022 16:13:58 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by GV1PR04MB9117.eurprd04.prod.outlook.com (2603:10a6:150:24::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.15; Tue, 8 Mar
- 2022 15:08:55 +0000
+ by DB3PR0402MB3835.eurprd04.prod.outlook.com (2603:10a6:8:3::30) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.16; Tue, 8 Mar
+ 2022 15:13:57 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::d479:b728:345c:bd65%6]) with mapi id 15.20.5038.027; Tue, 8 Mar 2022
- 15:08:55 +0000
+ 15:13:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,165 +51,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae20d31f-9ef1-11ec-8eba-a37418f5ba1a
+X-Inumbo-ID: 61c443c9-9ef2-11ec-8eba-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1646752138;
+	t=1646752440;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=VDTNMt5+kzm3C7f8VQEZx8HbfVrBeviX92rPR2KqBZ0=;
-	b=E+UtZHtXqq/LA6tNh4Lw8JWEafDbJhV81ocwqQ+r2ehGgAJ7Z19SbGy8JsQXTnn2QtFaUh
-	CV/QLvHcpH02uvtY8fUvtRymrUeqFuq+/B83BGlOFFGZgCMuGuPcw4G6wt4VwlSROPDrzv
-	La3xpNPeb+8xYZ9kuoqBcztGfpjeXDY=
-X-MC-Unique: sZjO3ipFPaiO3C4da1hBEg-1
+	bh=5OoU96Ap4k4K+NtTZdmEV9LXE0oO+QoeBpkhnraEBSs=;
+	b=iZjntBRX46+gFAmGL3TOp3/iU+OYIyq4Bc1+7CKwuPMYxDXmoWN3qfJqswCHLfb1bCamLE
+	F8T59dH1hDtWSrDQRwkBu9NVpCYyjkGQng7o2cYiOJpfw5jJI9ybuz/LA7j2dYp42EEZXW
+	qaGTZxEtDKMtdgtvDmhXCunaYOUQoO0=
+X-MC-Unique: aBzH7QdpOUiKyfcMDCCfIQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dDE/+ni+530ahZto0ySYotFJ6gK7dKgPaCBFYH18xXlBYG62Y9ZlnThizumGjChgKfr8kwlv8q0diin+o3uaYa9kyJKEa70SbEuO9axyjR0LQnL3te+JwS2hqWL2/b44nFLa5n+KMjMK6XTIH2S2x1/kAXMh3p1aH8fc6IDbYgRTRnl6nf/1vuZ7QV8RKwwDqZQdTNKuqVA8huv1TQ7gh70IixGzETN25FzVBfKk0yjwgIru/N2r4GkkPFtg3XxkCxhlubru0yaUevOkrFjvNquSywMLiWsibWWzDal51iCRKhlNSLvxfEEmFvkF8uQPJtEW2GhDnrqp+RzGLO1kqA==
+ b=C8+h7uaprwa5VAt8Rf5w0yYBRM/Icgalk8xJs7vArYwAW3vkhmS9F6ho7KtZHcQLSF0BkyI9lnXmJkBChBzRCyc3f00tJtuikM7bEsHl5j+4LxC3HxEVyYZmhQPgZTK5XPRyW4Mr2OdyVy2nzLzpzjSf4uybHE3A62G+xqTc9g4dpSPKPe3wMQPdlrfncVfOIpwDrOmNw5q/BFpeEPP/xNrJ+QwRGY/Zg8fPoZhZFqYtFoXCK6yT/RxjkJ7jhP2VN0k0FlhvoIUzBwRl+/EjJqWL+xzaJq6i1pkaqPlEpU977kUHH3uA2RuAAoeKrIoMLszxqrRWfafZvFFwK1fMjw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FCbFunXq3c2JMvBpJfTVRPoI07SaqOTI/5QgAngRxT4=;
- b=Y/r9C83GXzLcOFK7Y6GE7k6W4bF4z7pjoKl+p9RH5daY0s2dEklmv7PWJbUzLXEywyNnE0i/lFZdCBYpGj/gBqdrTnEDDEUOGKky9lmOuzoOL/277NLmvHrR/xwrBsbgRsU2tGLuRK8UH1XlG08PAemC/SsMh/GfNmojFdX3rZLp97UVG7mmwRsPwlRyymW04X78iZ32Ha4cNnISM539DqirlXdsPv3tN1VAWlTPXJB9Elzz0wu1HKK6HJjTk3jIPkw2JZJcTw1hVVreapVQBd3BWhtmDkmjZSP5eaAb+xHnjHKyfz7SCETksnvnORN+s5WCEClpuZ/dwF2NV+xhGQ==
+ bh=oDJT662Xp0+WUPHCjz1OH2JmJiOiUBGXrTsFZh2EqGc=;
+ b=BOe2yVxMPjoGdyhUz440wWM6DEiyyHcxQM1eBeUnANybVvbXX4VkWNhysTcldzIxbNUDc0kMBw1yjFA5upvvJHLFMwi3Iic8GHJotj8uHge+gEujFtUu86kP/PLLLkmWdO8Pqgly+NoSasfFmAgiW7K7WzJL5zDtuMbEiXY9a9k6wcBdRjIhOQhKTwWAd0c7OMKOffGXUTFoOPtQtDgUsnc3ctcqy13oJBLGAaMIxX4dAZJeFGZIMv5YNICi6qlINWFDfD4/PWNen9nNEgMgZf5FoNlgqfdTxgnOpe2dGr5dpbWRNT52PSiWck+fhE9BVa2sAH9uJCqYEwahGuO40g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <8f37e018-ab41-3e4d-14c7-1a25aa35e958@suse.com>
-Date: Tue, 8 Mar 2022 16:08:53 +0100
+Message-ID: <9cce44ca-3e31-bc13-3c56-2811efc36d5b@suse.com>
+Date: Tue, 8 Mar 2022 16:13:55 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.2
-Subject: Re: [PATCH v3 1/2] xen/build: put image header into a separate
- section
+Subject: Re: [PATCH v3 2/2] livepatch: set -f{function,data}-sections compiler
+ option
 Content-Language: en-US
 To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <20220308134924.83616-1-roger.pau@citrix.com>
- <20220308134924.83616-2-roger.pau@citrix.com>
- <c2e15d35-91b3-ba29-eed0-92fa19a692e8@suse.com>
- <YidlvWBauhcrAQa1@Air-de-Roger>
+ <20220308134924.83616-3-roger.pau@citrix.com>
+ <c35415ef-b3c1-cc1c-2fb2-aa2de2602cd5@suse.com>
+ <YidsSmPV1Pqulp+h@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YidlvWBauhcrAQa1@Air-de-Roger>
+In-Reply-To: <YidsSmPV1Pqulp+h@Air-de-Roger>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM6PR02CA0001.eurprd02.prod.outlook.com
- (2603:10a6:20b:6e::14) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM6P191CA0072.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:209:7f::49) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: cdc3cb6f-d85b-462b-be9c-08da0115906e
-X-MS-TrafficTypeDiagnostic: GV1PR04MB9117:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa945712-bc74-4be3-6f5d-08da0116442f
+X-MS-TrafficTypeDiagnostic: DB3PR0402MB3835:EE_
 X-Microsoft-Antispam-PRVS:
-	<GV1PR04MB91179CDB21CD167B8FE6F9BFB3099@GV1PR04MB9117.eurprd04.prod.outlook.com>
+	<DB3PR0402MB38353F28E321CD730AF70222B3099@DB3PR0402MB3835.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	9lNz3K0mwi7cNQdEXuJoyBP8m/dVEv1PZFC941swnZ+oGB7YzVKoN0u149Ibx183PPZBCXmA9nDnlk1/8iNvIWGIM7rbRw08HWVHulXmTWSGi5LChFMGx4eW952pmwkoJHZBnu70SW+zsTKDSRQgEhNQBDReDssbOxFRhqrKqC5kkh5bC9jHq3VKvNf8RE/J3/Ew59mkxCDZcOJMNP59L1aA5h0cbxz+UWI1H48100UwMBEPDHxMONBpUoxvALVHxdj9YG0FBUMaoM+DoV4Y6qneajpurEjeS/kpLXAZpVDTq5KF1sunG4NLSzlZUgthDEHb511nn2qkUK+GTioI4O8Ka27OuEu2VzcLXwhrvtajgbNr7hGgC/5pjKsxNi7SJibJCZB1TbY12RI5EYatsvl8q1aFl5DZWK4PxpPt1Qjksmpp9+EnuaCHqLMa5REMsmjTvdU5P7GcyK/8GnmjXQ3fKr4dKNQdjJ0KAD0vDVpZeHQLCB7cQxk4NwUsYH8C4aesmQ9b8AOawgrpu/Y8JwpBnx/Ms0IM2l8CCTwmXZZEdaRInTZnr1yj6sgqmlm8ZKeIHtydmUYmLrmPeGcIy7bizpxwNwvn3yM2PwflCqz+XWLug5k2Q8xQ3A9oTnQb3gr+bLOiBw1EQkttsA/Uv1XoDaI9WxdjwVWQmLsctYp2WzxlQVDKQo9t1em1eyNmSqKFBt77CDUVsfIHNAVEdwK565iuGWP45cmxP9WwXnY=
+	pwEX0iNQ4WNwxL2j75U71QNIHj0ojMerXruoBpiBr+mARTIWbBKp3QwRdqjR3GrWdCZY0vb+e3jltTZ5TGio5jeBgUbaHmUdUHh3Lgi/vrN14jmnG7Tcy4+mDLLnn5kmJvjupyAooQlDDu0qonk/QcsLFldvAzxCZPnFDgohz7Vcrp/MffrQr1eOaPFg8SXQuqbmEkvWpYd5jcPevO5PK/y/V/lpHbwle9uQnQywo2CWD+y0LMb6eww2mL9r1/DnYUyx8n/exn5CvmhjwY8hpQoQwIZutxyRL7pG+P0dYKMBuPgMuXxKMrEjquMBOlqQh+QVEIwSVIkUpxBZE4qHBhEi8GeAAMPg+OYZSXXXQplDpsyQV9Rv17eqpWvOweBEeXZv393rEGArOX2Ad+KkUtYbwg7y3EzAGsZ08bTivQLsneuf7EyyQLt9L7bS+81t91gOyN4TUhkSWYenZLxld+oru/DhA8GbDfmi6bgGjZnj36wOv5Hbky0HBTaa0lxGr0WWnWsa/Pj2pwcf4ORyRV82NJfjU5bQr4S8Xv2BTbHmfDDi+AyHYEM+uN2PI3M7yoFEJLhDa/EbMvTDIXudwfvN3Z4nqQ8BnVwhCRWBGADowEcUjjrNlRPB9cogsfl9iJsnLyXgRusM+9cMr6MqpLx/ChKpAAsDmIj4iHY1dvDawWS4gFpi7IoV+5lsqwKvnNaoj3MCJXk+GsrwZ5NLG49jXeYD3zni81LuTppkY7I0reLSAvdXIh4Gqzu9Vhkf
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(86362001)(26005)(186003)(31696002)(4326008)(8936002)(2616005)(316002)(5660300002)(83380400001)(508600001)(6512007)(6486002)(53546011)(6506007)(38100700002)(66556008)(66946007)(66476007)(8676002)(54906003)(6916009)(36756003)(31686004)(2906002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(31696002)(8936002)(5660300002)(53546011)(6506007)(86362001)(8676002)(4326008)(31686004)(36756003)(66476007)(316002)(38100700002)(2616005)(26005)(66946007)(83380400001)(66556008)(186003)(6512007)(6486002)(508600001)(6916009)(2906002)(54906003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?dycEakbE75Fn9T7gvt8OA2iaqsv0Ikk6IWDRS1uXYnOKcGvm7dXdwh+GIHki?=
- =?us-ascii?Q?J4KgwuhXOiBSVu6xyIgBe77OTayY57MWQp/FYrwCOa5bX/HvfepXRRaU/9qa?=
- =?us-ascii?Q?Q4rOkxTpWIBSjxfyLs4GU6L1fQTm4cQ9almDy61O9iWp6eIVG+jZtiUl13D1?=
- =?us-ascii?Q?21DVbIrxh9bsSAmxgU8GmI1Zm8j7b/We/olUWA65gzs0Mf/jDOs3E4+fVbKR?=
- =?us-ascii?Q?7IOurauE/8ulcKxKoaQvj6MoLZjRmYK1U6risliYjAQdOjBbRbJapF737A3E?=
- =?us-ascii?Q?RIHK7H6eBRGDtfc5a0pg3XHc2ewb9b+SxFDAz/POdBeMDEiAPjKWa3mlAyXC?=
- =?us-ascii?Q?KL44KJ0/G4CP/VVAosuPSKARAMvDST4oe99bXifn91ui3/VaqnbvawXRd/92?=
- =?us-ascii?Q?rANUJFh6/QOrzC6orGpTK2/2Ild/IIeFvSXHtVQDAFSNSrlvw1ypfESocTxm?=
- =?us-ascii?Q?m3xsY8kibtb/jdUIAV854dHf+DrVejSczcDD1+JAz8bqceVtRCa5aFGlVhmS?=
- =?us-ascii?Q?uAKjea271S5BmT/pQa2Qj8AUkXrGkoanwkU8BNJwOsAVPMwxkQ8oH1BEqmCI?=
- =?us-ascii?Q?DUdMQvy2XJdO77T7gubL23NN4E37t9Em5tOEfv1tipdzSDaM2HaNGntVB44D?=
- =?us-ascii?Q?dq4YE9Fkjz4rtPTDLzKH+01vDTrUgNcWSJsxl8z//xzKsZPk58NJdmcpDVeD?=
- =?us-ascii?Q?xOJQJPMMZKOf3PkaOAvb0YhaqLazbUcMTaIK3f9Tdfu8snNMOzuCfcNN7Cee?=
- =?us-ascii?Q?PHBBWfxTERgpmReYvOyj8QR6SdvWi49lalupmGbjuAM03ws0CaQWnsSEkgdu?=
- =?us-ascii?Q?htaMJkwulPPJJ0wW6IlUn5xHt7M4pvB94Fdbxr5ziK4Sa/yLuwYg2VZMhZgK?=
- =?us-ascii?Q?y3dyNHRgWQluvOkelfPQB8PT4oZiYXBaBVM0xtOa6r5lbc+hV2I4iqx/5Lm7?=
- =?us-ascii?Q?UXiYXwyjVaTZL9x5gDRhhA4PMN2aDSEAf4/AvmzwSMT1Zk8MBFGSC2aCpAjJ?=
- =?us-ascii?Q?eQ/Jwhhg72DULHRJlPdRZd5va2Q7fc6oBS+bAa4u4imLPfYiTShkJzoWPLXy?=
- =?us-ascii?Q?H8HynLCN8lzI5ijChVtDzp9dBR45EKlZMKFDYSSxSTrVC1sRVtI2ksNSC0uY?=
- =?us-ascii?Q?7ZGmiLAEo6nFR0tBE/SmmuiBMesfobncNI7pMTxUrLUcArac4jr7Y3T9TuiO?=
- =?us-ascii?Q?ZjWaS4bx4XzaPDO6BjCyyASBfAcCtl6eq6RaoAuGPLBKu2Z/J7Jk1MY/10gw?=
- =?us-ascii?Q?/3YvkVyZ1qZlZnULRSxTaYVUygWpPG7tD2NZ2YIkFQYoG+A330LLK+YDznhm?=
- =?us-ascii?Q?NB/viwmhtnzhODE/2FAGLRHZWVmEZ4WJ6TOyHTW71CxBUzd1xCOwrlrgKlJO?=
- =?us-ascii?Q?FUoFVmbppekotoFpnsZA4fWVrnzcNVf36QwvupY6eST9Qq9FysvLIe2PNscv?=
- =?us-ascii?Q?a91LPKk9aY6YVU6fZzYf9yE3sfn6zx02uM8tr95WsSjEdl2AxZEVP+N76mQb?=
- =?us-ascii?Q?ulXwt48dh8Xx5EM5iYw5bcwpzSxS1Q9FL9xKFa0YW2PIZRo8/N/vsURDqQta?=
- =?us-ascii?Q?WcaeWxg669PxvMwgcuqqEMo1pIYq5ND4RlYdDPYogZu4XYuM1wPt1pKLQj+s?=
- =?us-ascii?Q?mmLQZlAGdtjBrWiHasa2Bck=3D?=
+	=?us-ascii?Q?iuKc9dF+3GkM5FUyEoZDpkA+JwDDrhYwzC8dzMImCt3+2SJseLrXljgNkRLC?=
+ =?us-ascii?Q?qEPiKUAfk2h3c2eksabeD539JXsQWRXHdrRH0yPMyFP7ikw4rCjG8MmGdcKM?=
+ =?us-ascii?Q?LWmsiZgzaTuKqRHX1IxcqMIX6npROX+OBr6tVXPghuiupgYjCKG0e5/FneJK?=
+ =?us-ascii?Q?Si9367YiVYMRC4bCy799/fb3BdeZsicBCkt3mMX2OcYC+ahAH++4iOfATMBd?=
+ =?us-ascii?Q?fSsyLWGs+eGl4k119Q6X6fOyeeip96+XZhEA9IC17pOBylULLuLwkpOr20/V?=
+ =?us-ascii?Q?WK/CsCVhzj/7htGF6AoRdcNn/omZ9efN04VHSpxsVVQxmwQczid5kpInqv5/?=
+ =?us-ascii?Q?WGn0fpZAkMmaIdtkRS+dORxB6JYQiZ568uRyMtdFG/sFMge3VlpUr9QigUyE?=
+ =?us-ascii?Q?d98SWV7IkgWiNqCI3ZyaFO/KefjPiTLCVJ7cgjthY6DO2jQ3AKWSASyTBXmW?=
+ =?us-ascii?Q?WocgTabfTzFdQl2PJTvCacctgbrkB1N+JUxi06jjvFmy5xJKczyI/1CsxqAu?=
+ =?us-ascii?Q?HE92trdToN9VHaQ4ZzaRCrziuih81xlBxUKbut5MvL/nsPH/n6Myye2kS00W?=
+ =?us-ascii?Q?pfYy3npM+1F9lx3xWIPep/msM7/5oI/lgQYuhYU1kQslinB8aVdloCpPN+ty?=
+ =?us-ascii?Q?m2MP8vqDoZumuUOSMB4QRo4zTTkcjx+S/rXCW/4FipMibp/Qg9Btlw1KffGo?=
+ =?us-ascii?Q?O5Opb1upRI53yOuBqiOX9/LuSsPwEihuT3hACvVejiuG9Aaj4/zXiAvbTXdF?=
+ =?us-ascii?Q?oPoK6ZuE32CL4GrC4CAS4JLbUqXCfgClO7FE57eIeU6tj5Zr75KOEziLi09a?=
+ =?us-ascii?Q?vSoyBP96HfCD8/ncQWcg8lDSCetG/aJT0MrqgKkK7pGh4D0dm2XIwHOy9Kyb?=
+ =?us-ascii?Q?tQCJPPr6t6EWHzvQVrcpQlyKVG2pMSpMDMbphFIZ6RSi7Xu29hEaDC1fijhI?=
+ =?us-ascii?Q?SdRsb0wzSg+cgBts9V5cPW3rifZkFIDemB2FGZu0BePwqKZyjTzyRAVShbTF?=
+ =?us-ascii?Q?ZqEtKY9DhVmIRsIk3cTeLpCsjGArhHOv+mhIz49JSC/21Xnv7k/CyWYjpaMW?=
+ =?us-ascii?Q?SchNV4GD778FxM2V4tMXIiD67YLznhkclq3mUdu/eLkcf9+tv3TQLYXtY3ve?=
+ =?us-ascii?Q?YKjfM0pOOdNmDenlhXs2NLHe+NiXpoXKRwbjQ3LYxnRlx2uXY0TtcGRPckE6?=
+ =?us-ascii?Q?KzSfyWRUfzQ+J149vUrHpb/NGJqz+qwODIkVWYVYpHRShnj75AoTn1tVYjWd?=
+ =?us-ascii?Q?v+lxQmAqMxthjmAeFid/vLak0Z9P0EyvmPjMPy4Ci7SvEbD5YeTkC7Kn/FPi?=
+ =?us-ascii?Q?eVdFgRQK6BZLT2IlBfwCirazoPQILr2U2zZllymOMYQTgiPq1AmwjTjJQIcK?=
+ =?us-ascii?Q?k54R5ii5hrJvpsk+jZh78l44eL2k8TNR87z9mWvIvBRZ+Jh0RN1eENRxiYFj?=
+ =?us-ascii?Q?qpO2lUBp+DQ1ezR8m2jYBeT2cSXnNV5XRJn1S9uT2jOwZ2SLvq6TH1fjJq2M?=
+ =?us-ascii?Q?x+B3KoJis2k98/4FOFLbfr6uhYJtyQTDjiwfb/nieDfA8b7napmWDNGOzYj4?=
+ =?us-ascii?Q?ejw0QnDvDT5zJ/ppiDoG+Kgedgz6drR9Hnw9M+naJA0SRYPwuz0U8cK48KIW?=
+ =?us-ascii?Q?TRs4y+l+wwHj3vuKYGHPRIs=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cdc3cb6f-d85b-462b-be9c-08da0115906e
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa945712-bc74-4be3-6f5d-08da0116442f
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2022 15:08:55.6558
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2022 15:13:57.3245
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: B+kllrbcY6E8sbwAzO5D8XKbLHm2ocZJTksCXUnnm5g4nbAzr7sfnqYUfFKmzmUaZTqMIRHepbHeXE8R0luVNw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB9117
+X-MS-Exchange-CrossTenant-UserPrincipalName: gxzSdVZt79gxUFfFjpbJuEV6v7Ozoayy0qXjyah2LJG9de9VaIngTvHd0oDc3VgXBwC675hU17Ey8iB9Sjn7HQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB3PR0402MB3835
 
-On 08.03.2022 15:18, Roger Pau Monn=C3=A9 wrote:
-> On Tue, Mar 08, 2022 at 02:57:23PM +0100, Jan Beulich wrote:
+On 08.03.2022 15:46, Roger Pau Monn=C3=A9 wrote:
+> On Tue, Mar 08, 2022 at 03:09:17PM +0100, Jan Beulich wrote:
 >> On 08.03.2022 14:49, Roger Pau Monne wrote:
->>> So it can be explicitly placed ahead of the rest of the .text content
->>> in the linker script (and thus the resulting image). This is a
->>> prerequisite for further work that will add a catch-all to the text
->>> section (.text.*).
+>>> If livepatching support is enabled build the hypervisor with
+>>> -f{function,data}-sections compiler options, which is required by the
+>>> livepatching tools to detect changes and create livepatches.
 >>>
->>> Note that placement of the sections inside of .text is also slightly
->>> adjusted to be more similar to the position found in the default GNU
->>> ld linker script.
+>>> This shouldn't result in any functional change on the hypervisor
+>>> binary image, but does however require some changes in the linker
+>>> script in order to handle that each function and data item will now be
+>>> placed into its own section in object files. As a result add catch-all
+>>> for .text, .data and .bss in order to merge each individual item
+>>> section into the final image.
 >>>
->>> The special handling of the object file containing the header data as
->>> the first object file passed to the linker command line can also be
->>> removed.
+>>> The main difference will be that .text.startup will end up being part
+>>> of .text rather than .init, and thus won't be freed. .text.exit will
+>>> also be part of .text rather than dropped. Overall this could make the
+>>> image bigger, and package some .text code in a sub-optimal way.
 >>>
->>> While there also remove the special handling of efi/ on x86. There's
->>> no need for the resulting object file to be passed in any special
->>> order to the linker.
+>>> On Arm the .data.read_mostly needs to be moved ahead of the .data
+>>> section like it's already done on x86, so the .data.* catch-all
+>>> doesn't also include .data.read_mostly. The alignment of
+>>> .data.read_mostly also needs to be set to PAGE_SIZE so it doesn't end
+>>> up being placed at the tail of a read-only page from the previous
+>>> section. While there move the alignment of the .data section ahead of
+>>> the section declaration, like it's done for other sections.
+>>>
+>>> The benefit of having CONFIG_LIVEPATCH enable those compiler option
+>>> is that the livepatch build tools no longer need to fiddle with the
+>>> build system in order to enable them. Note the current livepatch tools
+>>> are broken after the recent build changes due to the way they
+>>> attempt to set  -f{function,data}-sections.
 >>>
 >>> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 >>
->> Looks good to me, but I have one question before feeling ready to
->> offer R-b:
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 >>
->>> @@ -86,8 +84,13 @@ SECTIONS
->>>         *(.text.kexec)          /* Page aligned in the object file. */
->>>         kexec_reloc_end =3D .;
+>>> --- a/xen/arch/x86/xen.lds.S
+>>> +++ b/xen/arch/x86/xen.lds.S
+>>> @@ -88,6 +88,9 @@ SECTIONS
+>>>         *(.text.unlikely .text.*_unlikely .text.unlikely.*)
 >>> =20
->>> -       *(.text.cold)
->>> -       *(.text.unlikely)
->>> +       *(.text.cold .text.cold.*)
->>> +       *(.text.unlikely .text.*_unlikely .text.unlikely.*)
+>>>         *(.text)
+>>> +#ifdef CONFIG_CC_SPLIT_SECTIONS
+>>> +       *(.text.*)
+>>> +#endif
+>>>         *(.text.__x86_indirect_thunk_*)
+>>>         *(.text.page_aligned)
 >>
->> What generates .text.*_unlikely? And if anything really does, why
->> would .text.cold not have a similar equivalent?
+>> These last two now will not have any effect anymore when
+>> CC_SPLIT_SECTIONS=3Dy. This may have undesirable effects on the
+>> overall size when there is more than one object with a
+>> .text.page_aligned contribution. In .data ...
 >=20
-> That matches what I saw in the default linker script from my version
-> of GNU ld:
+> Agreed. I wondered whether to move those ahead of the main text
+> section, so likely:
 >=20
->     *(.text.unlikely .text.*_unlikely .text.unlikely.*)
+>        *(.text.unlikely .text.*_unlikely .text.unlikely.*)
 >=20
-> I really don't know what could generate .text.*_unlikely, but since
-> it's part of the default linker script I assumed it was better to just
-> add it.
+>        *(.text.page_aligned)
+>        *(.text.__x86_indirect_thunk_*)
+>        *(.text)
+> #ifdef CONFIG_CC_SPLIT_SECTIONS
+>        *(.text.*)
+> #endif
 
-I've checked - gcc up to 4.5.x would generate .text.*_unlikely; from
-4.6.x. onwards it would be .text.unlikely.*.
+Perhaps; I'm not really worried of .text.__x86_indirect_thunk_*,
+though. When adding .text.* that one can likely go away.
 
-As to the dissimilarity with .text.cold: I wonder why we have that in
-the first place. It matches our __cold attribute, just that we don't
-use that anywhere afaics.
+> FWIW, Linux seems fine to package .text.page_aligned together with the
+> rest of .text using the .text.[0-9a-zA-Z_]* catch-all.
 
-In any event:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-albeit preferably with .text.cold.* dropped again.
+There's no question this is functionally fine. The question is how
+many extra padding areas are inserted because of this.
+
+>>> @@ -292,9 +295,7 @@ SECTIONS
+>>> =20
+>>>    DECL_SECTION(.data) {
+>>>         *(.data.page_aligned)
+>>> -       *(.data)
+>>> -       *(.data.rel)
+>>> -       *(.data.rel.*)
+>>> +       *(.data .data.*)
+>>>    } PHDR(text)
+>>
+>> ... this continues to be named first. I wonder whether we wouldn't
+>> want to use SORT_BY_ALIGNMENT (if available) instead in both places.
+>=20
+> We could use the command line option if available
+> (--sort-section=3Dalignment) to sort all wildcard sections?
+
+Depends on the scope of the sorting that would result when enabled
+globally like this.
 
 Jan
 
