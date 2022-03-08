@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47FA24D1C36
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Mar 2022 16:45:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.287134.486975 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C58F4D1CA5
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Mar 2022 17:01:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.287141.486986 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRc1t-0006mg-Nl; Tue, 08 Mar 2022 15:45:41 +0000
+	id 1nRcH7-0001b0-4T; Tue, 08 Mar 2022 16:01:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 287134.486975; Tue, 08 Mar 2022 15:45:41 +0000
+Received: by outflank-mailman (output) from mailman id 287141.486986; Tue, 08 Mar 2022 16:01:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRc1t-0006jc-KL; Tue, 08 Mar 2022 15:45:41 +0000
-Received: by outflank-mailman (input) for mailman id 287134;
- Tue, 08 Mar 2022 15:45:40 +0000
+	id 1nRcH7-0001Z2-12; Tue, 08 Mar 2022 16:01:25 +0000
+Received: by outflank-mailman (input) for mailman id 287141;
+ Tue, 08 Mar 2022 16:01:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=KW+D=TT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nRc1s-0006jS-Gd
- for xen-devel@lists.xenproject.org; Tue, 08 Mar 2022 15:45:40 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cdaf3d7c-9ef6-11ec-8eba-a37418f5ba1a;
- Tue, 08 Mar 2022 16:45:39 +0100 (CET)
-Received: from EUR03-AM5-obe.outbound.protection.outlook.com
- (mail-am5eur03lp2059.outbound.protection.outlook.com [104.47.8.59]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-13-dhf2GIfpPJSroUqeHyqXpA-1; Tue, 08 Mar 2022 16:45:38 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by AM0PR04MB4770.eurprd04.prod.outlook.com (2603:10a6:208:cd::26)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.25; Tue, 8 Mar
- 2022 15:45:36 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65%6]) with mapi id 15.20.5038.027; Tue, 8 Mar 2022
- 15:45:36 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=yKud=TT=citrix.com=prvs=05922dae9=ross.lagerwall@srs-se1.protection.inumbo.net>)
+ id 1nRcH4-0001Yw-PW
+ for xen-devel@lists.xenproject.org; Tue, 08 Mar 2022 16:01:23 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fcb29208-9ef8-11ec-8eba-a37418f5ba1a;
+ Tue, 08 Mar 2022 17:01:18 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,132 +36,294 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cdaf3d7c-9ef6-11ec-8eba-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1646754339;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=03narhm58yymq5xYHn/zV15iRGoSxQQeNHULGpanEoo=;
-	b=OTbz5S/vgXbRKlJSMfolEbYEUMSz5xWYSQSseRdcR10UBzjxXVa5INvC6PslMn4FbBYaoG
-	8gt3Ui8ULwvyEpQSqCGudH8OeRYL46ExG0LrCyaxtV4jQJhNE6gB2TSDXvzp1FccMft1aR
-	0zJdvivHVmVGxlIdlCTzwBduL9YKu2w=
-X-MC-Unique: dhf2GIfpPJSroUqeHyqXpA-1
+X-Inumbo-ID: fcb29208-9ef8-11ec-8eba-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1646755278;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=zHhwl9oOMQGrQHzvKS89NqOSaxnPNzY8CMiv807CZts=;
+  b=NuuUoXBmvWMPEsJhZYUbY/HiZFNFX/eAB25r6TRtmlv5nwkYPRm0RaK8
+   /EJ7bf9k3Pk0Ng27683mdKBwYhWzEkFX6vhkYby18CZpnljByrkXtNIhG
+   etcvI/fgu0ijr0iZTNwRSq49ubEeS59pk0jx3akLeqrtypPpyS0O6ZQ4O
+   c=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+X-SBRS: 5.1
+X-MesageID: 65727463
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:UQjeyKO2Qnqwwq3vrR1ml8FynXyQoLVcMsEvi/4bfWQNrUpw1WdWn
+ 2UZWz3VPKnZZmT8LtFxbYuyoxxU7JLXy9VqSgto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
+ ynLQoCYdKjYdleF+lH1dOKJQUBUjclkfJKlYAL/En03FFcMpBsJ00o5wbZi2t4w27BVPivW0
+ T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
+ 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Z5
+ dsK9pKqUCoQYKzMxLtFfABZEA5yIvgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
+ 7pCcmlLN03dwbLtqF64YrAEasALNs7wJ8Ubs35t1y7QCfIOSpHfWaTao9Rf2V/cg+gQQKmEO
+ JZHMlKDajyeexNEEF4lMKkDt+6XhCD+aj9guQmK8P9fD2/7k1UqjemF3MDuUtmSQsVRl02bj
+ mvD9nb+BFcWObS3yj2D6HugwPDOmSDTX5gbH7m1sPVthTW7w28OIBQTXEm8p7+1hyaWV9VSI
+ UEQ0iMrpLo18gqnQ7HVTxC+5XKJoBMYc95RCPEhrhGAzLLO5ASUDXRCSSROAOHKr+dvG2Zsj
+ AXQ2Yq0W3o/69V5VE5x6J+5o3TxNzIMAFZcZC9YElMq+tjgj40s20enoslYLIa5idj8GDfVy
+ j+MrTQji7h7sfPnx5lX7nic3Wvy+8Ghohodo1yOAzn7tl8RiJuNOtTwgWU3+8qsO2pworOpm
+ HEf0/aT4+kVZX1mvHzcGb5ddF1FChvsDdE9vbKNN8R5n9hO0yT6FWy13N2YDB0xWirjUWW1C
+ HI/QSsLuPdu0IKCNMebmb6ZBcUw1rTHHt/4TP3SZdcmSsEvKFHZo3EzPhfAgjuFfK0QfUcXY
+ 8zznSGEVypyNEia5GDuG7d1PUEDnEjSOl8/tbiklk/6gNJylVaeSKsfMUvmUwzKxPjsnekhy
+ P4Gb5Hi40wGCIXWO3CLmaZOfQFiBSVqXvje9p0IHtNv1yI7QQnN/deKmuh/E2Gk9owI/tr1E
+ oaVBhcImACh1CecdW1nqBlLMdvSYHq2llpiVQQENle0wXkzJ4Gp6aYUbZwserc7sudkyJZJo
+ zMtIa1s3twnpuz7xgkg
+IronPort-HdrOrdr: A9a23:Nt461Ky7dgNOrhQwGsSsKrPxeegkLtp133Aq2lEZdPULSKOlfp
+ GV8MjziyWYtN9IYgBcpTiBUJPwJE80hqQFnbX5Wo3SEzUO2VHYYL2KiLGN/9SOIVyGygcw79
+ YCT0E6MqyLMbEYt7e13ODbKadZ/DDvysnB7o2+r0uFDzsaEJ2Ihz0JUjpzeXcGIDWucKBJcq
+ Z0kfA3wAZIF05nDPiTNz0gZazuttfLnJXpbVotHBg88jSDijuu9frTDwWY9g12aUIP/Z4StU
+ z+1yDp7KSqtP+2jjXG0XXI0phQkNz9jvNeGc23jNQPIDmEsHfpWG0hYczAgNkGmpDr1L8Yqq
+ iJn/7mBbU115rlRBD2nfIq4Xin7N9h0Q669bbSuwqdnSWwfkNFNyMGv/MDTvKR0TtRgPhnzK
+ xE03iFu5dgBQ7clC7949TOSidxmlCvoXwkp+4f5kYvILc2eftfq5cS81hSF4pFFCXm6Jo/GO
+ 0rF83E4u1KGGnqJEwxk1MfieBEZE5DVitug3JyzvC9wnxThjR03kEYzMsQkjMJ8488UYBN46
+ DBPr5znL9DQ8cKZeYlbd1xDPefGyjIW1bBIWiSKVPoGOUOPG/MsYf+5PEw6PuxcJIFwZMukN
+ DKUU9et2Q1Z0XyYPf+lqFj41TIWiGwTD7twsZR69xwvaD9XqPiNWmZRFUng6Kb0oMi6w3gKo
+ GO0b5tco3exDHVaPV0NiXFKuxvFUU=
+X-IronPort-AV: E=Sophos;i="5.90,165,1643691600"; 
+   d="scan'208";a="65727463"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ELK4yED9EHgYea/ha8/+RjbGQD0phm3TnJB1rL/eVajachx6C69ZkhfPmcHm/sOiP0gXGk0s90/XHECz9bJaCc4ekQQatkBTqkMhJ9rfM4fcKsKQ0cuRgjjihXuiwJY2s1GCMLLoWWGxub9f94pn06gyyIbT4oBR/bz0KDiCQrhDOxo4Okc4BXuJ4p0aHyczHPY9X8d+Z1UDptkLbWqZXaqmi91tjq0nBzjlPq9PwvBnPlday+BrDNZ4nWj6kq4Unku/m3lyVOVksJB705Or3SrBQ0OKsOMGUCj4QW/IR+ZQ6s0gyWsnPJitCaxZajxYir2O0KOv/HTAwKBtWFeOEQ==
+ b=VgVgwiNd+ZM7HHvLw7J9s/h3ac7IoBXxtD/l6Kui6lku1/m/HL/ijaLTYp1iz/YaUGSXNDannaKyxxgUfVKQJKHin8asVlW++zfQlL3PNvT2rlTuLhPv7ICVMFbbXE4IgPd9XWtvCRCkWdegCXJFq9w2jECiCDOiOB4iRQ24aj54n+FegIs2DJHxGGxa3ggzj1bY6G6kJmdtNwv66/WbqW1bxZzb1gp3tc4+OpOneC/RlCrQBpHigeayAXAsn+3CR7CoBBc9zyX3vjTJv7x/SvXjfvbYzH6FL+3Vze1ZOGP2cHvvWMq/kb7CpGx8v9SFaBpJuQRfa6VL8cu2pdR6Rg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=03narhm58yymq5xYHn/zV15iRGoSxQQeNHULGpanEoo=;
- b=UH0fEfq0jlr4tE3l694Tr4xWPjCwsIQH/IRXKsUNq0wmhtgXOWoXUhBU+gmKdiy/QxdiACYI5EY6+r7BCHFEm1SKQVpo7FsYwlAzy+uFPdeLZXVL834FEdASMMlPUQ8WrM/zqVp5eMUaFcouXD2lsFrtjsGd0+KzTKxG/5oy9kKlqygYu3nInWA7IlcBdLwwlw1Ul2DDIdKZtjth/O82oycBM1L5yhai+vhIrNhG4vsAvBjdyJ59NAj+Ibn6B55+Q75is0BAodBJ7zgIwbAMhSoLh45v2memZMlNSdPYwJ8g6ww1hhscg1IGOiGP7tlW60dYfXvrtgx5IBucYg/d4w==
+ bh=cLI8XwUm361KPfZfHzF/rVWZ9+I9y0FLXC4erMvoFRA=;
+ b=KnFPRiD1Y5axl+sqygDaxKwaccEw5sKYkc/9BxV/hF6B5r4oHF/a+y5RSjnf5ZMsAcMgu+p8a1ECArVDO6jZ26zVmlQDZf20h+QTkucTho9x7/Lip3LgINzBh430J1tclJcT2tZy3KE82yFoM5Aa5WFeM080Khv4gkFOCsvouJDAFBalSSdPr9IwscUXSrha5p2OMGK1NC8AVxbyofR2BXuPWznLGJbcGMNVGB3YhsFi9EQPYQRE6apmODejB3QAJmiqKVh1LsQOAflpw8rJ/GLxI6UL/lF7DYP0i9oIUPX2RJ2xYMzz2iz6CLhz2+y202plsap6cU1OUde74xaTnw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <c625d90c-ec0b-a2c3-cf93-08c99cc2f3ce@suse.com>
-Date: Tue, 8 Mar 2022 16:45:34 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Subject: Re: [RFC PATCH v1] arch/x86: Livepatch: fix overflow check when
- computing ELF relocations
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cLI8XwUm361KPfZfHzF/rVWZ9+I9y0FLXC4erMvoFRA=;
+ b=exJPVmStzKT19AydtBxf1GOl1flfGJFi2fw7xL/358XkJPrsmHdwJGR2YRFdWiVeo88DlGQ/zvQ81EWEfE+Tm9UDIkRCxXcpYU3EJ6UA6fed3q4U1vZVPZ1UQP0xTNfpMaJECn/RhieNplIz0BlgigINSKmeoGJNNt++Hl69K/0=
+From: Ross Lagerwall <ross.lagerwall@citrix.com>
+To: "Doebel, Bjoern" <doebel@amazon.de>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Michael Kurth <mku@amazon.de>, Martin Pohlack <mpohlack@amazon.de>, "Roger
+ Pau Monne" <roger.pau@citrix.com>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Subject: Re: [PATCH v3 2/2] xen/x86: Livepatch: support patching CET-enhanced
+ functions
+Thread-Topic: [PATCH v3 2/2] xen/x86: Livepatch: support patching CET-enhanced
+ functions
+Thread-Index: AQHYMteGyv4uMb9n4kauwbWKAS/6qKy1mRGggAAHVwCAAAGqhg==
+Date: Tue, 8 Mar 2022 16:01:13 +0000
+Message-ID: <PH0PR03MB63820AB55264C57717C81675F0099@PH0PR03MB6382.namprd03.prod.outlook.com>
+References: <453c6e5decb315109a4fbf0065cc364129dca195.1646735357.git.doebel@amazon.de>
+ <b91fc474832dd0ce07d223542316fba74afc35ee.1646735357.git.doebel@amazon.de>
+ <PH0PR03MB63822464CF42ECDC06A3510BF0099@PH0PR03MB6382.namprd03.prod.outlook.com>
+ <e380b32a-2267-0514-53ef-00657c0ce46e@amazon.de>
+In-Reply-To: <e380b32a-2267-0514-53ef-00657c0ce46e@amazon.de>
+Accept-Language: en-US
 Content-Language: en-US
-To: Bjoern Doebel <doebel@amazon.de>
-Cc: Michael Kurth <mku@amazon.de>, Martin Pohlack <mpohlack@amazon.de>,
- Roger Pau Monne <roger.pau@citrix.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel@lists.xenproject.org
-References: <b74a68b038c31df4bb94a5b5e87453f5a249cfe2.1646753657.git.doebel@amazon.de>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <b74a68b038c31df4bb94a5b5e87453f5a249cfe2.1646753657.git.doebel@amazon.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS9PR06CA0325.eurprd06.prod.outlook.com
- (2603:10a6:20b:45b::14) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+suggested_attachment_session_id: f0076554-7567-3c14-3226-d1dbe962566f
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: de9b17e8-1d71-4c8d-47a1-08da011cde9f
+x-ms-traffictypediagnostic: BN6PR03MB3041:EE_
+x-microsoft-antispam-prvs: <BN6PR03MB3041E847F50D06B19F68C47AF0099@BN6PR03MB3041.namprd03.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Zcf8QVRtQAomMcAVHCGgP6a6SDcR7q3drSXUDnfvWZvup4EMtEokzYhIAjkF3gpYztv0AYBQ1m0JbFsm5/VaErSlz39W0ycb8AIgVWeHR0EDwaNxG0Dsec3M19TH+J69gOmTcVffuZbTwbu3HRmBLwr3aYCajNhzQpxd4oQeMREcElpL88TJ3YCi4qQr7wLwex7CjVaOu3wOSQn6ALfUO9neMt+L/sE76Hy9C0aut6TPr8tWGD3RlI0O6E3/1JuoUEUj1ccz0qFbVKmKNNQ3j2kVgEyfAYS1RWgsO529EbhE2KkYztfVcpMN0M0yw3k6YK+oE/KJgorjimSA9UJPRbUcOmaYs0utBCaqol4H7uxaP7BtO0z6g7DWeIrvO/M8dk5oy6hzEs/aLq/Rntsko/vcxfcVlSxWPX3Sgnz971h9/4wVclui4DA+CeMH83G3BHl+zzqnP4cWtEaZtyiG+4mU8ZNWwyeVUZELqVM5T5kNHyGaU9sHAgQ+phjSLVD0oJEuD9sFNfdS8JjMHqiGgFccTalAsOSnxSVTo7QHu7NpHNdhzzN694wwfDL4A5qdVekVmGxjwHW2MNd5Qj0NMREijrVNz1oWtdzP479C1Icjb0Qftv5tuGIG80jAHGqfzwuLiQ5bhhw48WjGfb1GVU6wXNg5txBARAs1jyT178l3ruwCXSkKMjz9L4FYXYMtoLTi3ZFj/z4K+qdVDHmIpQ==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR03MB6382.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(508600001)(55016003)(91956017)(54906003)(110136005)(316002)(26005)(83380400001)(86362001)(38070700005)(82960400001)(186003)(8676002)(4326008)(5660300002)(2906002)(8936002)(38100700002)(66946007)(64756008)(66446008)(66556008)(76116006)(6506007)(66476007)(71200400001)(52536014)(9686003)(33656002)(122000001)(44832011)(53546011)(7696005);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?BkUmieZebthMf870sAYuiztE543aL2+7sX2ENVUk0RI6NORszLQdpHFdLd?=
+ =?iso-8859-1?Q?G6NyM/d+lvb4QF4+QhM034R8nGSHZMEVR4815pTNZJeH0NrNQXqdr1xxLT?=
+ =?iso-8859-1?Q?AqkLMLZ80DNcbh3yxaiH/FMkDjka8NpyJojrs4TdaKzi8MrUnx343CpWs1?=
+ =?iso-8859-1?Q?3U5mAbGVI+MugpVCalKba42ZXNuY+GdyCEtWhT7VqYQ9oPwVRcbTJUvzkE?=
+ =?iso-8859-1?Q?usFBt2z5XXvoVkGDLY2mKxX9Fb/ec9e5CxOXIwbjXUBaGNdDZ2tY4VZBEQ?=
+ =?iso-8859-1?Q?qDVSHRga1GY88SWVZgBYP7CWN+c1vAkGMMDTHtqH0LZWS6K3uT8xDJk+U1?=
+ =?iso-8859-1?Q?qmkqp1/1B+S0ZGjlWxwT8wMIFXPe/po+4ImcSbpRw1zX4quyd86Gr5GA8H?=
+ =?iso-8859-1?Q?tETdG7XB42dUpS8FYIYyngZwh1r7X2XltnqHrIFEXoHsy8HfHkZZeMgRWk?=
+ =?iso-8859-1?Q?4nsAoWaMkzHyAqlAF/QypHh5EJr9jVelCsRZtpPoB68Uf8CWdTVsAT5EJf?=
+ =?iso-8859-1?Q?LAHiRgPwnq0x1wh+WnAqATtWISPK5IORV/6p5aSeGOsTyv7jGzYxw59TQs?=
+ =?iso-8859-1?Q?vN/mYXrE9WIGXsZJJPF9y61MwCeVLPbydB3v0L8iNnrV861R/ojlzGzr2a?=
+ =?iso-8859-1?Q?wGiNxy0JZSOLtVdiFLGtq9T+a9P3P2nVXSIw7TlGBYXwd6vQXieXMuzUJh?=
+ =?iso-8859-1?Q?MRpuCfpM//91zgGz3W0M2BsUg0a/JzWQBouhNr6DpDyGgrZXpFjHQkUJCA?=
+ =?iso-8859-1?Q?HUGnEFdd968m6+pKuSU6/zdMbzR/2CHF0+oEgkfyi3JaqdtfJRVlCqSY6/?=
+ =?iso-8859-1?Q?myYZOaYzp8Fthpw0wrX486Lxdnhb92wHuDpblAWmGaj87TR1zZyJrPQVZH?=
+ =?iso-8859-1?Q?xcTGx7mR9LDP9ZhR6ae3R3qnp2HkWsGV86DFoLEWlU6GYV7/VZ3K8OsUrG?=
+ =?iso-8859-1?Q?E25WGBqk2adHhMd/ZJyyig1Of7SKn5BEJNekQR4dRqEwKeKdPujWk37yw+?=
+ =?iso-8859-1?Q?+o8latovkRGm5e2TCZTsLp0/qstjUHXM3J18VlBvVkUVg0M7j4Kwj6SSSk?=
+ =?iso-8859-1?Q?iLqIJhdL8zUrGQVIw8QvS0Yw6c83+pMSWXLNTE63hXVTMQq3U6NwFXWEo/?=
+ =?iso-8859-1?Q?4dwIThW5KFiPlkuLUL9/WYZSdfY/4xlo0JKJo42NqriI3o9a4UBTpo2Vlp?=
+ =?iso-8859-1?Q?XGKD9yRVMBD8fo2d/HD47djZPdecwvO2qZm6oC2ZCtTrWaVe2y5wbep3Sf?=
+ =?iso-8859-1?Q?8fnQCTeO0P29AJ5liuS9X8X6l9TEd724vJ194gY03D+m+9OiigE3pSVLQg?=
+ =?iso-8859-1?Q?0BQHE7qSHg4QGN3QXnNFx7bz0Q6/FExMIdpOD/1DHxf4AklXafsS06KSiF?=
+ =?iso-8859-1?Q?JTJeD2JUlpMnM0qqbAi8AGkDp+qos6K2MtDgQ0aVxhX9JtZl3b330Hr0o9?=
+ =?iso-8859-1?Q?qhn0ZYZBTz04allKrACq8A8jdEl7w9HurcFuUAMBRfYuH4KP9wv5p0Ss06?=
+ =?iso-8859-1?Q?OXoAwTh1dGLTzD1ThhdQrc6CbnTVQoX1/JWriUno99vbRMCfLtE+wczIs7?=
+ =?iso-8859-1?Q?0qPytBfrb0AgrjZH0BCrB0nh2gFhdOQYzRfvt/jYUaUOar7aFomjmuNBg3?=
+ =?iso-8859-1?Q?PY+KFP2tYxWKQkaX6bEw4Iiw84m23jAWxsldJg4/6/fWGwVghFp/eazj3D?=
+ =?iso-8859-1?Q?pOekUDaZHHDcCJ9G68fu+wp0qEOj/ToYcd57BuyvUWyuHqTw1hpCj/b/yo?=
+ =?iso-8859-1?Q?Bjvw=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1b15a256-e615-48b5-0c68-08da011ab03b
-X-MS-TrafficTypeDiagnostic: AM0PR04MB4770:EE_
-X-Microsoft-Antispam-PRVS:
-	<AM0PR04MB477043BB2BF6AEB2E3AFBD58B3099@AM0PR04MB4770.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	/ANXXE6obnG5TArXj7ato+TR+Wk80RKHi9ZRmc8BpZv6ugBaMwUZjelYX4bDgJ+0ShTHYqM8gmwPXJGioZedRmMfON+fjkY1Ehw78dcqPbVcuC8prWiMUHkPHMEuey8B5AYniroMOGwDYqVVsyGpp3PBLY6Oo8t9QG/HwwCTs6djGf+EaJbWPJU01USYyA+0JGGSELpPTAeh4bELtzDLvOq/7XxDQAbjdMKK2mbwgjNSSaA5yAPVA/cciMe17ClNe7xPR+M+r/uOBpc9+08yDp/WwX1DWUQ5TAdtAK932nw0GbYrEq8ZGvhYFx/syjwKQZXp6hA4DrXDPf3i7+p9pmtWodY3gr93mHVV0atjVRp9hHuvx7wVqgas3n2RWHTLYROQP8ecK96TUSf2QrdwmhtdX7DuxxClZtkIsOscb1ytOvcJXVQzh5fMxrRL2aQu6Nk2FXGIT9GMiJSjKYVeYzxtVpOsfdTeLWBd6v/zn9nXYC08GG512kvooQy4nKHzpCJAFK4y4MD2FxJxL2yuWSbz28KojBBH2WSuDM//PR+p4zDKP0zi9eEcKsAdM26poLyhSmS9RtlUccOlu2tU4r0cVxgTl6EYf71GUFJQ5iJY+8e15E3/jmWHsWN78PoFu7OHVLqtbijZqMsUWqgpsz90kxOIm+/hHPgAWeDgjyjC+mCX9SH4Ei7alsE6nzw6ocAY8DN0PYY8OeeK8iEbRFEMEfzcNqAixNxFy1b2rFq8vGjqlwddP3LcXiQ2l7rN
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(2616005)(6486002)(31686004)(6512007)(6506007)(36756003)(53546011)(83380400001)(5660300002)(508600001)(31696002)(54906003)(26005)(8936002)(6916009)(186003)(86362001)(2906002)(38100700002)(8676002)(4744005)(66556008)(66476007)(66946007)(316002)(4326008)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?d05DRWJ1TXJKOXU0ZXExeG1mVnlsUFJ4dEFienRQYVJSZ1ZVKzB1RHdLdzZK?=
- =?utf-8?B?YlR5V3Q5MW9uejNBTkd5Tmp1NFVJSTFPRFFSM3YxME1uWURCdTdyTElRTkpI?=
- =?utf-8?B?RFRkelVTbXJDS1huNldWdktWWWRaOEI4anhhWE1TQS9OTVRkM2MwOEwxakVT?=
- =?utf-8?B?L21hUzFVL2w0ZVZjaGowTlVEV1Z0T1c5eGpRZ1ZXNDgyTHQydC9raXVYVm1O?=
- =?utf-8?B?cE81UnpqSFlXdWRRd2JVZklWemttdTlWREJ3QnQzVmh0eHFzMkl6M0JOWU5y?=
- =?utf-8?B?R3JGUEF4SDZhWjlSZU93OUlYai9ZSWlLMzUwMFVNS3NpL3hlWlpUNThRT2R4?=
- =?utf-8?B?WGpQRmppclF4RDFUdjYvT0dQWURWVVZCdUl0eklIZzB4YnFJaUszd3pwTlR6?=
- =?utf-8?B?MTd1TWwxU3dML09FZ2M4bUlaeWY5THpmYU9rbGEzcENpRTFGMlVGQjZCTzIz?=
- =?utf-8?B?bXoxNXJiOW5mS0JyUGoydEpwQjVpbStDR21zRGd4WThEemYzNU9SdGxlUnN0?=
- =?utf-8?B?Ti90T1NwaE53NVEySlVidWErdGErenAxMk1YcE4xZnBSMk1rRThjaHAzSXhK?=
- =?utf-8?B?ckpzNUlLNHhwWGNvQTlvU1R6d1pNMkhmVHJuZkhlbjRVSWw5Y21JbEtQUzcx?=
- =?utf-8?B?M0YzbW1rbGI5V3ZCTnBPeUdqTm0vbUpHU3BCYmw3ckZEQkdRRWlwbEhrOVYr?=
- =?utf-8?B?Nm9HSVJqZlJNdENGamRCcjZybFcyZ3l0ODArRzVlc1d0RXlEZ3Nvd3JDdTBv?=
- =?utf-8?B?cGZBOTk0N0gxNVIrdDhadXhPckliT3lSR01pTXFhZ0ZpSHhSOVB0Zi80OWFG?=
- =?utf-8?B?Z3FDSi9WSHh3S3ROT2RpVnlMUnNpT3hhTFliMkpQdy9mUHQyTktreUFDUzNJ?=
- =?utf-8?B?dmhkWllIVEwwU1NRWEdwMkRZQjcwVHpzeEhSTUJXZTJLdGIzbmliajZ2Vk9r?=
- =?utf-8?B?NHdtMTZSSU1kSFpKR0xuVzdZdlQ0dFN6eDZXTmNSTmdQS1JQMnRFRXR1bXJi?=
- =?utf-8?B?K3h1MnhPVjBTSzB1ODZqd25XR2QraVBBNE9ORStmYjhKVHREVGpWU0ZkeEpU?=
- =?utf-8?B?RFR1TkpzU3IyLzNlcHJsV3FqQnUzVFdGeTdzTWhuNkdQZEMzMzZMZ2xmSERW?=
- =?utf-8?B?MG9aVHRtZUZURXphako2NzJReXRveU9DaVQvMWtMcE9TOWVCbm9JYVM4bVMx?=
- =?utf-8?B?YXc4aVBZY01hVjZFRW13cG1ETTFKRTZ1MEJ4dnpKZWZINGovYTQxa3NCSjh6?=
- =?utf-8?B?Yk9ETlBqaFJOYVJUb21yaHZTUEh6SHNmU2dWZ1dsMHRzTjhkcUVIRlJ4dUg4?=
- =?utf-8?B?dFg5RlBVTkNNaGxva3g3L2d3NlpoN0xUMkF4TFU1QmJEVU5xdEFiYVQrVjl5?=
- =?utf-8?B?N0ZDeXR3VmVCZm5hMzdtWW1YZEZVdXJEWUxQWHIzZDNKNERWSjBDTS9GdDRB?=
- =?utf-8?B?bjI4bExmNFA5S3gvTmh2OTh2SE82ZGZQM1plQmJXNU1ISUhSUGdvVExqQWlN?=
- =?utf-8?B?cEJINk9kVmluZkVINTFnSEF0aldERmdZcUEzRjBpRFJWVU1EWFh4NUhCalNU?=
- =?utf-8?B?U2xXeHN5UlFZeGZzOG5jOHNaaWJCWEZFOUJUejgvTTNxSjRQUGtBaDNaTy9j?=
- =?utf-8?B?VWMxQ1dacUxJdndiNXdmdEl4ZmlKWUxndE9lOFl3SkZHMW9wQ2FVbjhhSHN1?=
- =?utf-8?B?RGk0RDNkMWxmaE5LRnJHcEdFMVpTbGZHUDIzZnhlTWpVQlhlMnczZkxMZ3ZU?=
- =?utf-8?B?UldxRGRnNmZleW1peDZOTE16dmJ4akM0RlA3MjVtckNRNHY5R05pb3p5eUJW?=
- =?utf-8?B?NTV1VDFLdlFITFRUTDh4TFB0c3lXWU9oM2dnLzJwRThSb21ad1U4Y1BCcHk4?=
- =?utf-8?B?aXpURjNheEowUXZlNFNMWGsxbkwwVHJLL0NNajhsRHcyUHRBd25Gam1YZEt3?=
- =?utf-8?B?dUFNOUNjbzBZMHliQzIvYVA5dmtRUk0rbFRGUWs3aW1zM3ZMdWlweDRLQm1v?=
- =?utf-8?B?a2x4dTF6TVNHN2lIUm1LZ1FNcEpJNURpdXpJVVgwSllVYjh3WURNSVgvV3di?=
- =?utf-8?B?Wnl0L2VPWDVzSEM4UVpqU3RRVVpjd2pCUjlxL1lkQmkvRnd6WnpHdUJUejAv?=
- =?utf-8?B?akJUYzh3NEtacFd0dnlwMDM4S3pBeUcxVFlxZmFtaExUWGppNXVGQXF6dTZh?=
- =?utf-8?Q?YGXgiIyXx02kV7xZmPgPAWs=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b15a256-e615-48b5-0c68-08da011ab03b
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2022 15:45:36.4721
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR03MB6382.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: de9b17e8-1d71-4c8d-47a1-08da011cde9f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Mar 2022 16:01:13.0945
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wdDJjZgQhytZJnXSr5gj0aQg8HkwdXgbieTLRUL/s+qWIWG3QsY/ny/FqB532UGJ/eYnoOTFHQPHbWMikm+BCw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB4770
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: HpAFH9lFpt40Hm7mSSEWE7WJWZcm89g7IMcVzoEustYtZKS94RWqn72LuyrQ7+Wg6eBqIuBvvLBWm7Qz9yQNCicYRpLdTWRcezqvtRe+5jY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR03MB3041
+X-OriginatorOrg: citrix.com
 
-On 08.03.2022 16:36, Bjoern Doebel wrote:
-> --- a/xen/arch/x86/livepatch.c
-> +++ b/xen/arch/x86/livepatch.c
-> @@ -339,7 +339,7 @@ int arch_livepatch_perform_rela(struct livepatch_elf *elf,
->  
->              val -= (uint64_t)dest;
->              *(int32_t *)dest = val;
-
-Afaict after this assignment ...
-
-> -            if ( (int64_t)val != *(int32_t *)dest )
-> +            if ( (int32_t)val != *(int32_t *)dest )
-
-... this condition can never be false. The cast really wants to be
-to int64_t, and the overflow you saw being reported is quite likely
-for a different reason. But from the sole message you did quote
-it's not really possible to figure what else is wrong.
-
-Jan
-
+> From: Doebel, Bjoern <doebel@amazon.de>=0A=
+> Sent: Tuesday, March 8, 2022 3:41 PM=0A=
+> To: Ross Lagerwall <ross.lagerwall@citrix.com>; xen-devel@lists.xenprojec=
+t.org <xen-devel@lists.xenproject.org>=0A=
+> Cc: Michael Kurth <mku@amazon.de>; Martin Pohlack <mpohlack@amazon.de>; R=
+oger Pau Monne <roger.pau@citrix.com>; Andrew Cooper <Andrew.Cooper3@citrix=
+.com>; Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>=0A=
+> Subject: Re: [PATCH v3 2/2] xen/x86: Livepatch: support patching CET-enha=
+nced functions =0A=
+>  =0A=
+> =0A=
+> On 08.03.22 16:25, Ross Lagerwall wrote:=0A=
+> > CAUTION: This email originated from outside of the organization. Do not=
+ click links or open attachments unless you can confirm the sender and know=
+ the content is safe.=0A=
+> > =0A=
+> > =0A=
+> > =0A=
+> >> From: Bjoern Doebel <doebel@amazon.de>=0A=
+> >> Sent: Tuesday, March 8, 2022 10:29 AM=0A=
+> >> To: xen-devel@lists.xenproject.org <xen-devel@lists.xenproject.org>=0A=
+> >> Cc: Michael Kurth <mku@amazon.de>; Martin Pohlack <mpohlack@amazon.de>=
+; Roger Pau Monne <roger.pau@citrix.com>; Andrew Cooper <Andrew.Cooper3@cit=
+rix.com>; Bjoern Doebel <doebel@amazon.de>; Konrad Rzeszutek Wilk <konrad.w=
+ilk@oracle.com>; Ross Lagerwall <ross.lagerwall@citrix.com>=0A=
+> >> Subject: [PATCH v3 2/2] xen/x86: Livepatch: support patching CET-enhan=
+ced functions=0A=
+> >>=0A=
+> >> Xen enabled CET for supporting architectures. The control flow aspect =
+of=0A=
+> >> CET expects functions that can be called indirectly (i.e., via functio=
+n=0A=
+> >> pointers) to start with an ENDBR64 instruction. Otherwise a control fl=
+ow=0A=
+> >> exception is raised.=0A=
+> >>=0A=
+> >> This expectation breaks livepatching flows because we patch functions =
+by=0A=
+> >> overwriting their first 5 bytes with a JMP + <offset>, thus breaking t=
+he=0A=
+> >> ENDBR64. We fix this by checking the start of a patched function for=
+=0A=
+> >> being ENDBR64. In the positive case we move the livepatch JMP to start=
+=0A=
+> >> behind the ENDBR64 instruction.=0A=
+> >>=0A=
+> >> To avoid having to guess the ENDBR64 offset again on patch reversal=0A=
+> >> (which might race with other mechanisms adding/removing ENDBR=0A=
+> >> dynamically), use the livepatch metadata to store the computed offset=
+=0A=
+> >> along with the saved bytes of the overwritten function.=0A=
+> >>=0A=
+> >> Signed-off-by: Bjoern Doebel <doebel@amazon.de>=0A=
+> >> CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>=0A=
+> >> CC: Ross Lagerwall <ross.lagerwall@citrix.com>=0A=
+> >> ----=0A=
+> >> Note that on top of livepatching functions, Xen supports an additional=
+=0A=
+> >> mode where we can "remove" a function by overwriting it with NOPs. Thi=
+s=0A=
+> >> is only supported for functions up to 31 bytes in size and this patch=
+=0A=
+> >> reduces this limit to 30 bytes.=0A=
+> >>=0A=
+> >> Changes since r1:=0A=
+> >> * use sizeof_field() to avoid unused variable warning=0A=
+> >> * make metadata variable const in arch_livepatch_revert=0A=
+> >> ---=0A=
+> >>   xen/arch/x86/livepatch.c | 61 ++++++++++++++++++++++++++++++++++----=
+--=0A=
+> >>   1 file changed, 53 insertions(+), 8 deletions(-)=0A=
+> >>=0A=
+> >> diff --git a/xen/arch/x86/livepatch.c b/xen/arch/x86/livepatch.c=0A=
+> >> index 65530c1e57..0fd97f2a00 100644=0A=
+> >> --- a/xen/arch/x86/livepatch.c=0A=
+> >> +++ b/xen/arch/x86/livepatch.c=0A=
+> >> @@ -14,11 +14,29 @@=0A=
+> >>   #include <xen/vm_event.h>=0A=
+> >>   #include <xen/virtual_region.h>=0A=
+> >>=0A=
+> >> +#include <asm/endbr.h>=0A=
+> >>   #include <asm/fixmap.h>=0A=
+> >>   #include <asm/nmi.h>=0A=
+> >>   #include <asm/livepatch.h>=0A=
+> >>   #include <asm/setup.h>=0A=
+> >>=0A=
+> >> +/*=0A=
+> >> + * CET hotpatching support: We may have functions starting with an EN=
+DBR64=0A=
+> >> + * instruction that MUST remain the first instruction of the function=
+, hence=0A=
+> >> + * we need to move any hotpatch trampoline further into the function.=
+ For that=0A=
+> >> + * we need to keep track of the patching offset used for any loaded h=
+otpatch=0A=
+> >> + * (to avoid racing against other fixups adding/removing ENDBR64 or s=
+imilar=0A=
+> >> + * instructions).=0A=
+> >> + *=0A=
+> >> + * We do so by making use of the existing opaque metadata area. We us=
+e its=0A=
+> >> + * first 4 bytes to track the offset into the function used for patch=
+ing and=0A=
+> >> + * the remainder of the data to store overwritten code bytes.=0A=
+> >> + */=0A=
+> >> +struct x86_livepatch_meta {=0A=
+> >> +    uint8_t patch_offset;=0A=
+> >> +    uint8_t instruction[LIVEPATCH_OPAQUE_SIZE - sizeof(uint8_t)];=0A=
+> >> +};=0A=
+> >> +=0A=
+> > =0A=
+> > I think it would make things a bit simpler to use one of the spare _pad=
+ bits=0A=
+> > from struct livepatch_func  ather than hacking it into the opaque area.=
+ Is=0A=
+> > there a reason you chose this approach?=0A=
+> =0A=
+> No specific reason. Are you suggesting updating the public livepatch =0A=
+> interface to add a new member and reduce the padding size by 1 byte? I =
+=0A=
+> guess that will also require a patch to livepatch-build-tools?=0A=
+> =0A=
+> Bjoern=0A=
+=0A=
+struct livepatch_func contains info that the build tool needs to=0A=
+communicate to Xen as well as space for Xen's internal book keeping=0A=
+while the live patch is applied. This includes the array for storing=0A=
+instructions, the applied flag, and now additionally the patch offset.=0A=
+(It's a somewhat odd arrangement but it's what we've got...)=0A=
+=0A=
+The build tool does not need to know the details about any of Xen's interna=
+l=0A=
+book keeping. So my preference would be to have patch_offset as an addition=
+al=0A=
+member next to applied (reducing padding by 1) and then in livepatch-build-=
+tools=0A=
+replace:=0A=
+=0A=
+        unsigned char pad[MAX_REPLACEMENT_SIZE];=0A=
+        uint8_t applied;=0A=
+        uint8_t _pad[7];=0A=
+=0A=
+with simply:=0A=
+=0A=
+        uint8_t opaque[39];=0A=
+=0A=
+		=0A=
+What do you think?=0A=
+=0A=
+Ross=
 
