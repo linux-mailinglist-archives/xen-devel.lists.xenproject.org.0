@@ -2,56 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E5C34D21E8
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Mar 2022 20:48:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.287479.487608 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3047F4D21EC
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Mar 2022 20:49:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.287515.487626 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRfoL-0000sh-Gk; Tue, 08 Mar 2022 19:47:57 +0000
+	id 1nRfpb-0004jX-TU; Tue, 08 Mar 2022 19:49:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 287479.487608; Tue, 08 Mar 2022 19:47:57 +0000
+Received: by outflank-mailman (output) from mailman id 287515.487626; Tue, 08 Mar 2022 19:49:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRfoK-0000eO-R8; Tue, 08 Mar 2022 19:47:56 +0000
-Received: by outflank-mailman (input) for mailman id 287479;
- Tue, 08 Mar 2022 19:47:54 +0000
+	id 1nRfpb-0004hL-Pq; Tue, 08 Mar 2022 19:49:15 +0000
+Received: by outflank-mailman (input) for mailman id 287515;
+ Tue, 08 Mar 2022 19:49:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RGf4=TT=xilinx.com=fnuv@srs-se1.protection.inumbo.net>)
- id 1nRfoH-0004Df-Af
- for xen-devel@lists.xenproject.org; Tue, 08 Mar 2022 19:47:53 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2061c.outbound.protection.outlook.com
- [2a01:111:f400:7e8d::61c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=V7dW=TT=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nRfpa-0004gp-Vg
+ for xen-devel@lists.xenproject.org; Tue, 08 Mar 2022 19:49:14 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a364e957-9f18-11ec-8539-5f4723681683;
- Tue, 08 Mar 2022 20:47:52 +0100 (CET)
-Received: from DS7PR06CA0046.namprd06.prod.outlook.com (2603:10b6:8:54::13) by
- SN6PR02MB4720.namprd02.prod.outlook.com (2603:10b6:805:98::18) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5038.14; Tue, 8 Mar 2022 19:47:48 +0000
-Received: from DM3NAM02FT023.eop-nam02.prod.protection.outlook.com
- (2603:10b6:8:54:cafe::18) by DS7PR06CA0046.outlook.office365.com
- (2603:10b6:8:54::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.13 via Frontend
- Transport; Tue, 8 Mar 2022 19:47:48 +0000
-Received: from xsj-pvapexch02.xlnx.xilinx.com (149.199.62.198) by
- DM3NAM02FT023.mail.protection.outlook.com (10.13.5.127) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5038.14 via Frontend Transport; Tue, 8 Mar 2022 19:47:48 +0000
-Received: from xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) by
- xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.14; Tue, 8 Mar 2022 11:47:26 -0800
-Received: from smtp.xilinx.com (172.19.127.95) by
- xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) with Microsoft SMTP Server id
- 15.1.2176.14 via Frontend Transport; Tue, 8 Mar 2022 11:47:26 -0800
-Received: from [172.19.2.115] (port=58782 helo=xsjfnuv50.xilinx.com)
- by smtp.xilinx.com with esmtp (Exim 4.90)
- (envelope-from <fnu.vikram@xilinx.com>)
- id 1nRfnq-000Cws-QV; Tue, 08 Mar 2022 11:47:26 -0800
+ id d450a296-9f18-11ec-8539-5f4723681683;
+ Tue, 08 Mar 2022 20:49:13 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 76EE7B81D3F;
+ Tue,  8 Mar 2022 19:49:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB1F8C340F5;
+ Tue,  8 Mar 2022 19:49:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,171 +44,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a364e957-9f18-11ec-8539-5f4723681683
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mmOAUVnNBNpPZc7bqD88t0rW5jGi+VG1IRkGjhzyurV8IkaGa0crf14DLDN/YwPhuEaUGQuPdwKVp1mbPpPkZNFJWtyv8bdeyPeRNbe5nchPmEJGWBUWy5xQ9ZXOHiZGP2SRZXJY3csfVohvz4bJmZ3NBpv+N0s+nr8s6r3iY0UOQe1F+qjMxdq4vnWoYaQiyRMvAliOBApZ07EItC6OEQjM6mKmQeiAk7eHFojY1YSLBtXGQtBuJtHB6ddM6w/Wtk3O8W0qJkK6EYUbP9eRvdHsO9ucaLhJtun+4376ZOhuP2sWFRL4/p8j5P7AQ0wahXU6TicIDyAERo01QedCUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T7zkeDAGnOQcMYph4tEAaHti6ByfmmWahNuniPhChE4=;
- b=j6VTeevhv8Ds29dPFOh6SBhLMorR+xVuecgRh9WcJH4ZH0ujXf60G4TWhQaXjABPGMpTcQFKxauBclqNWnoi/GQPVyO7Q1tPefsrQFwc/gU0F8vRGZoxTBCGYlcuDNCpYSZsoFGchwRyvPSLtjPFVb3m5aLumz0iUc1UOkulW7NxZMEzf3dZuQ5NNgTqWllOqx04ntH0SZAHELlkSONVrMQ5nD7BFEfI5HbCrhSOAZBagkqsoLMmRei1lWPuE85HTivVM1Rt5D3pPfhpeMCuV2yBAMH88g7sC6cZUOMlTHVCiUKJCJinnKfRgKMmNKsBJDJN8MJj/1DkQIQpzjuGPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 149.199.62.198) smtp.rcpttodomain=lists.xenproject.org
- smtp.mailfrom=xilinx.com; dmarc=pass (p=none sp=none pct=100) action=none
- header.from=xilinx.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T7zkeDAGnOQcMYph4tEAaHti6ByfmmWahNuniPhChE4=;
- b=UYbIbwfV4/YBCkzOo5HGokNt3G2dQAxDI3NNaWF8oX4LySY3/6UoZgTsvMZJ4BLmu+zEjKwlMfnI9mPHcSPGe3IYK2E06oJNOHRiWvLX7TzwL+K7RjWGiQu2OP0EvNhVvnZB0onzu8M4hWv40qdVNbzBqD4egCCxUVpFRUfeNRM=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 149.199.62.198)
- smtp.mailfrom=xilinx.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=xilinx.com;
-Received-SPF: Pass (protection.outlook.com: domain of xilinx.com designates
- 149.199.62.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=149.199.62.198; helo=xsj-pvapexch02.xlnx.xilinx.com;
-From: Vikram Garhwal <fnu.vikram@xilinx.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <julien@xen.org>, <bertrand.marquis@arm.com>,
-	<volodymyr_babchuk@epam.com>, Vikram Garhwal <fnu.vikram@xilinx.com>, Wei Liu
-	<wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Subject: [XEN][RFC PATCH v3 14/14] tools/xl: Add new xl command overlay for device tree overlay support
-Date: Tue, 8 Mar 2022 11:47:04 -0800
-Message-ID: <20220308194704.14061-15-fnu.vikram@xilinx.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220308194704.14061-1-fnu.vikram@xilinx.com>
-References: <20220308194704.14061-1-fnu.vikram@xilinx.com>
+X-Inumbo-ID: d450a296-9f18-11ec-8539-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1646768951;
+	bh=MhfF0cS09iq6EtjeHIdgTWVEssMD6YdhH3cFEPK33FY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=Ve5bDxeSsMIODH01x3gFsE+dTRgfO9AtXa1NNzosZKN+CQ6qHvlUhEuf4tN5UxqDq
+	 kYMDNB7ComXmWlVoLuZbOUCYiZcnFPZuz+MByy1NHQAeoG8qIJM0QdqUrSaJRWGZkp
+	 yQbzD1+eUIQBLpKXpdC+yFEJgMLRe2P7jZKJndIooMkWUR7bncnarhB49iJl+SLxU+
+	 SwBlQI7T0weHrksUKkXance9yy2z4RC/+1mFstgMoVN+MxEoU5NOFabh4tvGd1eibd
+	 zXrGdGK5ehcnCtNYkHW3+l1iS936n1Vq2uWRUVb9+Kv8QS44szG7xUnlVO/KXmxeE5
+	 FQ0I7Hv+k/JHg==
+Date: Tue, 8 Mar 2022 11:49:10 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Wei Chen <Wei.Chen@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    Penny Zheng <Penny.Zheng@arm.com>, Henry Wang <Henry.Wang@arm.com>, 
+    nd <nd@arm.com>
+Subject: RE: Proposal for Porting Xen to Armv8-R64 - DraftA
+In-Reply-To: <PAXPR08MB7420DDE732B24C541B254E699E099@PAXPR08MB7420.eurprd08.prod.outlook.com>
+Message-ID: <alpine.DEB.2.22.394.2203081148410.3261@ubuntu-linux-20-04-desktop>
+References: <PAXPR08MB7420A01809B84E04E196793F9E3D9@PAXPR08MB7420.eurprd08.prod.outlook.com> <04db7e8b-2f04-41d7-1deb-d8bda3625c04@xen.org> <PAXPR08MB7420BF1299A1577B98211C1A9E029@PAXPR08MB7420.eurprd08.prod.outlook.com> <1f0bba54-158b-d171-6f99-0c29e0547f8a@xen.org>
+ <PAXPR08MB742067028155B11528C5CCA39E049@PAXPR08MB7420.eurprd08.prod.outlook.com> <PAXPR08MB7420827063D47932F428CEC89E089@PAXPR08MB7420.eurprd08.prod.outlook.com> <alpine.DEB.2.22.394.2203071348220.3261@ubuntu-linux-20-04-desktop>
+ <PAXPR08MB7420DDE732B24C541B254E699E099@PAXPR08MB7420.eurprd08.prod.outlook.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 280302db-73eb-4084-5c27-08da013c85f7
-X-MS-TrafficTypeDiagnostic: SN6PR02MB4720:EE_
-X-Microsoft-Antispam-PRVS:
-	<SN6PR02MB472095D65DC38B74500A2600BC099@SN6PR02MB4720.namprd02.prod.outlook.com>
-X-Auto-Response-Suppress: DR, RN, NRN, OOF, AutoReply
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Z/PtrEmXEFjsusmiHv467GDfGqXhivWYVfhcp2AX1iS3NN+uWFATbecWk5S5pCwJUu8i57Q6yVxpbiRssQE6NeIZGbZKh26eL34F7QDwWD8kOPcASUPgmUbniqwB1xsNY+LoO/4e29Iq/0QvGdm4qU2m9GkSDZY44xvbGyedeIyI2oe4BD0ACh3CbdmTAZk6fGdvURT8uzyBvwfVPTvu3g4Kl7VUg2geZo7Fjq52iBLzC51XMWMhuc5fowHOiVcEDGC2ZMp2sFIuG5uqUj5LJvsqxYP64MhnMCkDHbOMpDDAfRrklCTuRBqC5XLcIotPNu4XEZJ6NzrP8LpT2HOVU2Xz62YXq7w6gYMa20WpElidjkJuKMwJKB2u+H5zMfl2pJhRn0dCdhNeLZOERjkainnpxHEdbQ2+7E8wZ7LAMTTVKFB+ank8+O92ACjpkMbHk1g3TyworqTxwtc7Sc+6WrxrtFv3ChcPOSu8iUhGFxyM8smROKLdIEP3fPvWX2kVYDKwOXWIO+Oy5nQru68jZ6qTLvaEeL8xvEd9Z3ca7eJMEpjyKtgQBmFSIqJ5A6WFOsATUiPbq0uCEqXYmM9XwhE8zncbamFKwl8Pn2LUzH+FH9t/9If8S3I02AB2eqBkfQR2dgAnkKIfHFGIPuSSCKpM4RjED0w2aVIeKwhC2prLdcq/hlP87cK/U5YUT75RSsFzyOjtPoR9PIknF+DrTQ==
-X-Forefront-Antispam-Report:
-	CIP:149.199.62.198;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:xsj-pvapexch02.xlnx.xilinx.com;PTR:unknown-62-198.xilinx.com;CAT:NONE;SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(8936002)(36756003)(2906002)(9786002)(316002)(508600001)(54906003)(6916009)(7696005)(5660300002)(6666004)(356005)(2616005)(47076005)(7636003)(36860700001)(82310400004)(40460700003)(1076003)(186003)(26005)(8676002)(4326008)(70206006)(70586007)(83380400001)(426003)(336012)(102446001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: xilinx.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2022 19:47:48.2655
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 280302db-73eb-4084-5c27-08da013c85f7
-X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c;Ip=[149.199.62.198];Helo=[xsj-pvapexch02.xlnx.xilinx.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM3NAM02FT023.eop-nam02.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR02MB4720
+Content-Type: text/plain; charset=US-ASCII
 
-Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
----
- tools/xl/xl.h           |  4 ++++
- tools/xl/xl_cmdtable.c  |  6 ++++++
- tools/xl/xl_vmcontrol.c | 45 +++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 55 insertions(+)
+On Tue, 8 Mar 2022, Wei Chen wrote:
+> > On Mon, 7 Mar 2022, Wei Chen wrote:
+> > > > > On 01/03/2022 07:51, Wei Chen wrote:
+> > > > > >>> ### 1.2. Xen Challenges with PMSA Virtualization
+> > > > > >>> Xen is PMSA unaware Type-1 Hypervisor, it will need
+> > modifications to
+> > > > > run
+> > > > > >>> with an MPU and host multiple guest OSes.
+> > > > > >>>
+> > > > > >>> - No MMU at EL2:
+> > > > > >>>       - No EL2 Stage 1 address translation
+> > > > > >>>           - Xen provides fixed ARM64 virtual memory layout as
+> > basis
+> > > > of
+> > > > > >> EL2
+> > > > > >>>             stage 1 address translation, which is not applicable
+> > on
+> > > > > MPU
+> > > > > >> system,
+> > > > > >>>             where there is no virtual addressing. As a result,
+> > any
+> > > > > >> operation
+> > > > > >>>             involving transition from PA to VA, like ioremap,
+> > needs
+> > > > > >> modification
+> > > > > >>>             on MPU system.
+> > > > > >>>       - Xen's run-time addresses are the same as the link time
+> > > > > addresses.
+> > > > > >>>           - Enable PIC (position-independent code) on a real-
+> > time
+> > > > > target
+> > > > > >>>             processor probably very rare.
+> > > > > >>
+> > > > > >> Aside the assembly boot code and UEFI stub, Xen already runs at
+> > the
+> > > > > same
+> > > > > >> address as it was linked.
+> > > > > >>
+> > > > > >
+> > > > > > But the difference is that, base on MMU, we can use the same link
+> > > > > address
+> > > > > > for all platforms. But on MPU system, we can't do it in the same
+> > way.
+> > > > >
+> > > > > I agree that we currently use the same link address for all the
+> > > > > platforms. But this is also a problem when using MMU because EL2 has
+> > a
+> > > > > single TTBR.
+> > > > >
+> > > > > At the moment we are switching page-tables with the MMU which is not
+> > > > > safe. Instead we need to turn out the MMU off, switch page-tables
+> > and
+> > > > > then turn on the MMU. This means we need to have an identity mapping
+> > of
+> > > > > Xen in the page-tables. Assuming Xen is not relocated, the identity
+> > > > > mapping may clash with Xen (or the rest of the virtual address map).
+> > > > >
+> > > >
+> > > > Is this the same reason we create a dummy reloc section for EFI loader?
+> > > >
+> > > > > My initial idea was to enable PIC and update the relocation at boot
+> > > > > time. But this is a bit cumbersome to do. So now I am looking to
+> > have a
+> > > > > semi-dynamic virtual layout and find some place to relocate part of
+> > Xen
+> > > > > to use for CPU bring-up.
+> > > > >
+> > > > > Anyway, my point is we possibly could look at PIC if that could
+> > allow
+> > > > > generic Xen image.
+> > > > >
+> > > >
+> > > > I understand your concern. IMO, PIC is possible to do this, but
+> > obviously,
+> > > > it's not a small amount of work. And I want to hear some suggestions
+> > from
+> > > > Stefano, because he also has some solutions in previous thread.
+> > > >
+> > >
+> > > Can you have a look at the PIC discussion between Julien and me?
+> > > I think we may need some inputs from your view.
+> > 
+> > If we have to have a build-time device tree anyway, we could
+> > automatically generate the link address, together with other required
+> > addresses. There would little benefit to do PIC if we have to have a
+> > build-time device tree in any case.
+> > 
+> > On the other hand, if we could get rid of the build-time device tree
+> > altogether, then yes doing PIC provides some benefits. It would allow us
+> > to have single Xen binary working on multiple Cortex-R boards. However,
+> > I don't think that would be important from a user perspective. People
+> > will not install Ubuntu on a Cortex-R and apt-get xen.  The target is
+> > embedded: users will know from the start the board they will target, so
+> > it would not be a problem for them to build Xen for a specific board.
+> > ImageBuilder (or something like it) will still be required to generate
+> > boot scripts and boot info. In other words, although it would be
+> > convenient to produce a generic binary, it is not a must-have feature
+> > and I would consider it low-priority compared to others.
+> 
+> I tend to agree with your opinion. We can get some benefit from PIC,
+> but the priority may be low. We have encountered a problem when we're
+> trying to use EFI loader to boot xen.efi on v8R. Due to lack of relocation
+> capability, the EFI loader could not launch xen.efi on V8R. But Xen EFI
+> boot capability is a requirement of Arm EBBR [1]. In order to support Xen
+> EFI boot on V8R, may be we still need a partially supported PIC. Only some
+> boot code support PIC to make EFI relocation happy. This boot code will
+> help Xen to check its loaded address and relocate Xen image to Xen's
+> run-time address if need.
+> 
+> How about we place PIC support to TODO list for further discussion,
+> I don't think we can include so many items in day1 : ) 
+> 
+> [1]https://arm-software.github.io/ebbr/index.html
 
-diff --git a/tools/xl/xl.h b/tools/xl/xl.h
-index c5c4bedbdd..604fd5bb94 100644
---- a/tools/xl/xl.h
-+++ b/tools/xl/xl.h
-@@ -97,6 +97,9 @@ struct save_file_header {
- 
- #define SAVEFILE_BYTEORDER_VALUE ((uint32_t)0x01020304UL)
- 
-+#define XL_DT_OVERLAY_ADD                   1
-+#define XL_DT_OVERLAY_REMOVE                2
-+
- void save_domain_core_begin(uint32_t domid,
-                             int preserve_domid,
-                             const char *override_config_file,
-@@ -139,6 +142,7 @@ int main_shutdown(int argc, char **argv);
- int main_reboot(int argc, char **argv);
- int main_list(int argc, char **argv);
- int main_vm_list(int argc, char **argv);
-+int main_dt_overlay(int argc, char **argv);
- int main_create(int argc, char **argv);
- int main_config_update(int argc, char **argv);
- int main_button_press(int argc, char **argv);
-diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
-index 661323d488..5812d19db8 100644
---- a/tools/xl/xl_cmdtable.c
-+++ b/tools/xl/xl_cmdtable.c
-@@ -20,6 +20,12 @@
- #include "xl.h"
- 
- const struct cmd_spec cmd_table[] = {
-+    { "overlay",
-+      &main_dt_overlay, 1, 1,
-+      "Add/Remove a device tree overlay",
-+      "add/remove <.dtbo>"
-+      "-h print this help\n"
-+    },
-     { "create",
-       &main_create, 1, 1,
-       "Create a domain from config file <filename>",
-diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
-index 435155a033..76b969dc33 100644
---- a/tools/xl/xl_vmcontrol.c
-+++ b/tools/xl/xl_vmcontrol.c
-@@ -1262,6 +1262,51 @@ int main_create(int argc, char **argv)
-     return 0;
- }
- 
-+int main_dt_overlay(int argc, char **argv)
-+{
-+    const char *overlay_ops = argv[1];
-+    const char *overlay_config_file = argv[2];
-+    void *overlay_dtb = NULL;
-+    int rc;
-+    uint8_t op;
-+    int overlay_dtb_size = 0;
-+
-+    if (overlay_ops == NULL) {
-+        fprintf(stderr, "No overlay operation mode provided\n");
-+        return ERROR_FAIL;
-+    }
-+
-+    if (strcmp(overlay_ops, "add") == 0)
-+        op = XL_DT_OVERLAY_ADD;
-+    else if (strcmp(overlay_ops, "remove") == 0)
-+        op = XL_DT_OVERLAY_REMOVE;
-+    else {
-+        fprintf(stderr, "Invalid dt overlay operation\n");
-+        return ERROR_FAIL;
-+    }
-+
-+    if (overlay_config_file) {
-+        rc = libxl_read_file_contents(ctx, overlay_config_file,
-+                                      &overlay_dtb, &overlay_dtb_size);
-+
-+        if (rc) {
-+            fprintf(stderr, "failed to read the overlay device tree file %s\n",
-+                    overlay_config_file);
-+            free(overlay_dtb);
-+            return ERROR_FAIL;
-+        }
-+    } else {
-+        fprintf(stderr, "overlay dtbo file not provided\n");
-+        return ERROR_FAIL;
-+    }
-+
-+    rc = libxl_dt_overlay(ctx, overlay_dtb, overlay_dtb_size, op);
-+    if (rc)
-+        fprintf(stderr, "Overlay operation failed\n");
-+
-+    free(overlay_dtb);
-+    return rc;
-+}
- /*
-  * Local variables:
-  * mode: C
--- 
-2.17.1
-
+Sounds good to me :-)
 
