@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 201EB4D2DF3
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Mar 2022 12:29:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.287761.487939 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45D064D2E29
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Mar 2022 12:35:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.287766.487950 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRuUq-0002RH-FB; Wed, 09 Mar 2022 11:28:48 +0000
+	id 1nRuaf-0003ph-6D; Wed, 09 Mar 2022 11:34:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 287761.487939; Wed, 09 Mar 2022 11:28:48 +0000
+Received: by outflank-mailman (output) from mailman id 287766.487950; Wed, 09 Mar 2022 11:34:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nRuUq-0002Oa-BF; Wed, 09 Mar 2022 11:28:48 +0000
-Received: by outflank-mailman (input) for mailman id 287761;
- Wed, 09 Mar 2022 11:28:46 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1nRuaf-0003nT-2f; Wed, 09 Mar 2022 11:34:49 +0000
+Received: by outflank-mailman (input) for mailman id 287766;
+ Wed, 09 Mar 2022 11:34:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nRuUo-0002OU-2r
- for xen-devel@lists.xenproject.org; Wed, 09 Mar 2022 11:28:46 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nRuUn-0002tI-9o; Wed, 09 Mar 2022 11:28:45 +0000
-Received: from 54-240-197-225.amazon.com ([54.240.197.225]
- helo=[10.95.155.231]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nRuUn-0005V0-2a; Wed, 09 Mar 2022 11:28:45 +0000
+ (envelope-from <SRS0=MORj=TU=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1nRuae-0003nN-61
+ for xen-devel@lists.xenproject.org; Wed, 09 Mar 2022 11:34:48 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ec02f229-9f9c-11ec-8eba-a37418f5ba1a;
+ Wed, 09 Mar 2022 12:34:46 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4DA1B1F380;
+ Wed,  9 Mar 2022 11:34:46 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 12BC413B71;
+ Wed,  9 Mar 2022 11:34:46 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id cxVRA9aQKGLTZwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 09 Mar 2022 11:34:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,78 +51,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
-	bh=/hyHObLT4O9gy2Yv+db9HU+L/wJn3ggWRdnCkxPX4iw=; b=sBB/Wl/pfbYMcY8ps2/Ei0/5PC
-	zXV5vmpj3+unVLtVw9EmGQ0KmX3jBK7aUvGcmrpmZGbdBqGXGhtrqvBTIh03A6ZUJLQ4vGC2Kz399
-	kF54tARBztJWgQEoLdRagas1lpGza4z5Z7vNYvQnh9TnsgTgE20lIWLpLO26XaLKDe8E=;
-Message-ID: <18d7c9a9-fec6-f430-dd81-863247ceba7e@xen.org>
-Date: Wed, 9 Mar 2022 11:28:42 +0000
+X-Inumbo-ID: ec02f229-9f9c-11ec-8eba-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1646825686; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=EaW2Rn3nSwafRMyKlhwOnRqR+P68wtH+4aeBkRvz8RA=;
+	b=N5HN3htVwOzb/U332tyS/LASi4PDOt1MCVcxqt/xBYte7ZjfWISiN5plg149//hnF02QP1
+	ioAjM+CRAQGej01IpQyWYaSvOqk185Ex7eQAKBTC2T+0q3kiuSy0Jz1DL37dIL/0bd5b5a
+	9PGwerIDcLWv/K20O9Mw3l70qf/OP0o=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] xen/x86: drop dependency of XEN_SHSTK on EXPERT
+Date: Wed,  9 Mar 2022 12:34:41 +0100
+Message-Id: <20220309113441.22746-1-jgross@suse.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.6.1
-Subject: Re: [PATCH 27/36] xen/arch: add coloring support for Xen
-From: Julien Grall <julien@xen.org>
-To: Marco Solieri <marco.solieri@minervasys.tech>,
- xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Marco Solieri <marco.solieri@unimore.it>,
- Andrea Bastoni <andrea.bastoni@minervasys.tech>,
- Luca Miccio <lucmiccio@gmail.com>
-References: <20220304174701.1453977-1-marco.solieri@minervasys.tech>
- <20220304174701.1453977-28-marco.solieri@minervasys.tech>
- <d6216110-7cf0-b647-8a5d-ec5f8f437941@xen.org>
-In-Reply-To: <d6216110-7cf0-b647-8a5d-ec5f8f437941@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi,
+XEN_SHSTK should be on per default now that it is supported officially.
+Only let the prompt depend on EXPERT.
 
-On 04/03/2022 19:47, Julien Grall wrote:
-> On 04/03/2022 17:46, Marco Solieri wrote:
->> From: Luca Miccio <lucmiccio@gmail.com>
->>
->> Introduce a new implementation of setup_pagetables that uses coloring
->> logic in order to isolate Xen code using its color selection.
->> Page tables construction is essentially copied, except for the xenmap
->> table, where coloring logic is needed.  Given the absence of a contiguous
->> physical mapping, pointers to next level tables need to be manually
->> calculated.
-> 
-> The implementation of setup_pagetables() is not compliant to the Arm 
-> Arm. And I have plan to completely get rid of it.
-> 
-> The main part that is not compliant is switch_ttbr() because it keeps 
-> the MMU on. We should switch the MMU off, update the TTBR and then 
-> switch on the MMU. This implies that we need an identity mapping of the 
-> part of Xen that will run with MMU off.
-> 
-> I understand that rebuilding the page-tables and therefore switching the 
-> TTBR will be necessary for cache coloring. So before any new use, I 
-> would like the implementation of switch_ttbr() to be fixed.
-> 
-> What we will need to do is find space in the virtual layout that also 
-> match a physical address. With that in place, we could use the mapping 
-> to switch between TTBR.
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ xen/arch/x86/Kconfig | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-I have posted an early RFC [1] to reshuffle the memory layout on Arm so 
-we have space to for the identity mapping. I have also reworked 
-switch_ttbr() to turn off/on the MMU before/after updating the TTBR.
-
-The series should work on arm64. The arm32 effort requires a bit more 
-effort as we have less virtual space.
-
-I haven't killed setup_pagetables() yet so you have a base to write the 
-cache coloring version. There may be also some tweak necessary for cache 
-coloring (e.g. flush the instruction cache).
-
-Cheers,
-
-[1] https://lore.kernel.org/xen-devel/20220309112048.17377-1-julien@xen.org/
-
+diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+index 83d0f317ec..c166db3499 100644
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -117,8 +117,8 @@ config HVM
+ 	  If unsure, say Y.
+ 
+ config XEN_SHSTK
+-	bool "Supervisor Shadow Stacks (EXPERT)"
+-	depends on HAS_AS_CET_SS && EXPERT
++	bool "Supervisor Shadow Stacks" if EXPERT
++	depends on HAS_AS_CET_SS
+ 	default y
+ 	---help---
+ 	  Control-flow Enforcement Technology (CET) is a set of features in
 -- 
-Julien Grall
+2.34.1
+
 
