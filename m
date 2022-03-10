@@ -2,40 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32D0B4D41D6
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Mar 2022 08:32:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.288146.488599 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E75394D41E0
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Mar 2022 08:34:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.288150.488612 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nSDGF-0008SC-6J; Thu, 10 Mar 2022 07:30:59 +0000
+	id 1nSDJb-0000c7-Nc; Thu, 10 Mar 2022 07:34:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 288146.488599; Thu, 10 Mar 2022 07:30:59 +0000
+Received: by outflank-mailman (output) from mailman id 288150.488612; Thu, 10 Mar 2022 07:34:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nSDGF-0008PS-3E; Thu, 10 Mar 2022 07:30:59 +0000
-Received: by outflank-mailman (input) for mailman id 288146;
- Thu, 10 Mar 2022 07:30:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UgV8=TV=amazon.de=prvs=06149a43a=doebel@srs-se1.protection.inumbo.net>)
- id 1nSDGC-0008PM-BW
- for xen-devel@lists.xenproject.org; Thu, 10 Mar 2022 07:30:57 +0000
-Received: from smtp-fw-80007.amazon.com (smtp-fw-80007.amazon.com
- [99.78.197.218]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 03ae7716-a044-11ec-8eba-a37418f5ba1a;
- Thu, 10 Mar 2022 08:30:54 +0100 (CET)
-Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
- email-inbound-relay-pdx-2a-5feb294a.us-west-2.amazon.com) ([10.25.36.210])
- by smtp-border-fw-80007.pdx80.corp.amazon.com with ESMTP;
- 10 Mar 2022 07:30:37 +0000
-Received: from EX13D03EUC002.ant.amazon.com
- (pdx1-ws-svc-p6-lb9-vlan2.pdx.amazon.com [10.236.137.194])
- by email-inbound-relay-pdx-2a-5feb294a.us-west-2.amazon.com (Postfix) with
- ESMTPS id 2DF9087C8A; Thu, 10 Mar 2022 07:30:36 +0000 (UTC)
-Received: from [192.168.12.40] (10.43.164.135) by EX13D03EUC002.ant.amazon.com
- (10.43.164.60) with Microsoft SMTP Server (TLS) id 15.0.1497.32;
- Thu, 10 Mar 2022 07:30:34 +0000
+	id 1nSDJb-0000Zm-I3; Thu, 10 Mar 2022 07:34:27 +0000
+Received: by outflank-mailman (input) for mailman id 288150;
+ Thu, 10 Mar 2022 07:34:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=QHx9=TV=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1nSDJa-0000ZP-7B
+ for xen-devel@lists.xenproject.org; Thu, 10 Mar 2022 07:34:26 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 802a1181-a044-11ec-8539-5f4723681683;
+ Thu, 10 Mar 2022 08:34:21 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7A09E1F381;
+ Thu, 10 Mar 2022 07:34:24 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 18F2913FA3;
+ Thu, 10 Mar 2022 07:34:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id qi80BACqKWIkIAAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 10 Mar 2022 07:34:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,93 +49,149 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
+Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03ae7716-a044-11ec-8eba-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
-  t=1646897455; x=1678433455;
-  h=message-id:date:mime-version:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:subject;
-  bh=ufwgmHbCfdgMRniaRjH5zBe3Ep9acz7kM8WGhwF8Iuw=;
-  b=dp8B/LFR4O8sR2dheItO2IdrG4urLoiHTY/+nVPIxMto2E4+uauqdwt4
-   MMyYHjhhfi7UTQagchmEeq8Brkqc1Z1qNAq3YXWXCqiMNI13eOSp46E43
-   zumdix9tvPi1hyW4rVVTxNixxTuUUBVLzLb6kPvqdW/qmTf/cvyjWQ3fG
-   A=;
-X-IronPort-AV: E=Sophos;i="5.90,169,1643673600"; 
-   d="scan'208";a="69573389"
-Subject: Re: [PATCH] x86/cet: Use dedicated NOP4 for cf_clobber
-Message-ID: <1c4fa029-44a9-1e0a-bb09-458ad8d28a64@amazon.de>
-Date: Thu, 10 Mar 2022 08:30:33 +0100
+X-Inumbo-ID: 802a1181-a044-11ec-8539-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1646897664; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=VW0S7DOLYYudVpiuotx3ct2mnfrTAcmlNP9qLbkTpQk=;
+	b=pyzIy+dXZ6ehQV3VomECVrN5ky7eAhoAvzw028GJz+HKEhpwG1iYqzrO3fpLmEONgQgfog
+	PFQ84nuwwnY4DQb9CoHu90sQtz6Mjv+3eXyA+9RQllxS8YQtJA7mvPFzMQ/NyuIYSvcy8j
+	1xDOkPbfsgT7R795lJEX/qa60Bo1vJc=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Christopher Clark <christopher.w.clark@gmail.com>,
+	Dario Faggioli <dfaggioli@suse.com>,
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: [PATCH v4 00/11] xen: drop hypercall function tables
+Date: Thu, 10 Mar 2022 08:34:09 +0100
+Message-Id: <20220310073420.15622-1-jgross@suse.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.6.2
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
-	<xen-devel@lists.xenproject.org>
-CC: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-References: <20220308140126.8815-1-andrew.cooper3@citrix.com>
-From: "Doebel, Bjoern" <doebel@amazon.de>
-In-Reply-To: <20220308140126.8815-1-andrew.cooper3@citrix.com>
-X-Originating-IP: [10.43.164.135]
-X-ClientProxiedBy: EX13D23EUC004.ant.amazon.com (10.43.164.201) To
- EX13D03EUC002.ant.amazon.com (10.43.164.60)
-Precedence: Bulk
-Content-Type: text/plain; charset="utf-8"; format="flowed"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 
-CgpPbiAwOC4wMy4yMiAxNTowMSwgQW5kcmV3IENvb3BlciB3cm90ZToKPiBDQVVUSU9OOiBUaGlz
-IGVtYWlsIG9yaWdpbmF0ZWQgZnJvbSBvdXRzaWRlIG9mIHRoZSBvcmdhbml6YXRpb24uIERvIG5v
-dCBjbGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRzIHVubGVzcyB5b3UgY2FuIGNvbmZpcm0g
-dGhlIHNlbmRlciBhbmQga25vdyB0aGUgY29udGVudCBpcyBzYWZlLgo+IAo+IAo+IAo+IEZvciBs
-aXZlcGF0Y2hpbmcsIHdlIG5lZWQgdG8gbG9vayBhdCBhIHBvdGVudGlhbGx5IGNsb2JiZXJlZCBm
-dW5jdGlvbiBhbmQKPiBkZXRlcm1pbmUgd2hldGhlciBpdCB1c2VkIHRvIGhhdmUgYW4gRU5EQlI2
-NCBpbnN0cnVjdGlvbi4KPiAKPiBVc2UgYSBub24tZGVmYXVsdCA0LWJ5dGUgUDYgbG9uZyBub3As
-IG5vdCBlbWl0dGVkIGJ5IHRvb2xjaGFpbnMsIGFuZCBpbnRyb2R1Y2UKPiB0aGUgd2FzX2VuZGJy
-NjQoKSBwcmVkaWNhdGUuCj4gCj4gU2lnbmVkLW9mZi1ieTogQW5kcmV3IENvb3BlciA8YW5kcmV3
-LmNvb3BlcjNAY2l0cml4LmNvbT4KPiAtLS0KPiBDQzogSmFuIEJldWxpY2ggPEpCZXVsaWNoQHN1
-c2UuY29tPgo+IENDOiBSb2dlciBQYXUgTW9ubsOpIDxyb2dlci5wYXVAY2l0cml4LmNvbT4KPiBD
-QzogV2VpIExpdSA8d2xAeGVuLm9yZz4KPiBDQzogQmpvZXJuIERvZWJlbCA8ZG9lYmVsQGFtYXpv
-bi5kZT4KPiBDQzogTWljaGFlbCBLdXJ0aCA8bWt1QGFtYXpvbi5kZT4KPiBDQzogTWFydGluIFBv
-aGxhY2sgPG1wb2hsYWNrQGFtYXpvbi5kZT4KPiAKPiBCam9lcm46IEZvciB0aGUgbGl2ZXBhdGNo
-aW5nIGNvZGUsIEkgdGhpbmsgeW91IHdhbnQ6Cj4gCj4gICAgaWYgKCBpc19lbmRicjY0KC4uLikg
-fHwgd2FzX2VuZGJyNjQoLi4uKSApCj4gICAgICAgIG5lZWRlZCArPSBFTkRCUjY0X0xFTjsKPiAt
-LS0KPiAgIHhlbi9hcmNoL3g4Ni9hbHRlcm5hdGl2ZS5jICAgICAgIHwgMTAgKysrKysrKysrLQo+
-ICAgeGVuL2FyY2gveDg2L2luY2x1ZGUvYXNtL2VuZGJyLmggfCAxMiArKysrKysrKysrKysKPiAg
-IDIgZmlsZXMgY2hhbmdlZCwgMjEgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQo+IAo+IGRp
-ZmYgLS1naXQgYS94ZW4vYXJjaC94ODYvYWx0ZXJuYXRpdmUuYyBiL3hlbi9hcmNoL3g4Ni9hbHRl
-cm5hdGl2ZS5jCj4gaW5kZXggZDQxZWVlZjFiY2FmLi5mZmIxYjFkOTYwYzggMTAwNjQ0Cj4gLS0t
-IGEveGVuL2FyY2gveDg2L2FsdGVybmF0aXZlLmMKPiArKysgYi94ZW4vYXJjaC94ODYvYWx0ZXJu
-YXRpdmUuYwo+IEBAIC0zNjIsNyArMzYyLDE1IEBAIHN0YXRpYyB2b2lkIGluaXRfb3JfbGl2ZXBh
-dGNoIF9hcHBseV9hbHRlcm5hdGl2ZXMoc3RydWN0IGFsdF9pbnN0ciAqc3RhcnQsCj4gICAgICAg
-ICAgICAgICBpZiAoICFpc19rZXJuZWxfdGV4dChwdHIpIHx8ICFpc19lbmRicjY0KHB0cikgKQo+
-ICAgICAgICAgICAgICAgICAgIGNvbnRpbnVlOwo+IAo+IC0gICAgICAgICAgICBhZGRfbm9wcyhw
-dHIsIEVOREJSNjRfTEVOKTsKPiArICAgICAgICAgICAgLyoKPiArICAgICAgICAgICAgICogQ2Fu
-J3QgdXNlIGFkZF9ub3BzKCkgaGVyZS4gIEVOREJSNjRfUE9JU09OIGlzIHNwZWNpZmljYWxseQo+
-ICsgICAgICAgICAgICAgKiBkaWZmZXJlbnQgdG8gTk9QNCBzbyBpdCBjYW4gYmUgc3BvdHRlZCBh
-ZnRlciB0aGUgZmFjdC4KPiArICAgICAgICAgICAgICoKPiArICAgICAgICAgICAgICogQWxsIENF
-VC1jYXBhYmxlIGhhcmR3YXJlIHVzZXMgUDYgTk9QUyAobm8gbmVlZCB0byBwbHVtYiB0aHJvdWdo
-Cj4gKyAgICAgICAgICAgICAqIGlkZWFsX25vcHMpLCBhbmQgZG9lc24ndCByZXF1aXJlIGEgYnJh
-bmNoIHRvIHN5bmNocm9uaXNlIHRoZQo+ICsgICAgICAgICAgICAgKiBpbnN0cnVjdGlvbiBzdHJl
-YW0uCj4gKyAgICAgICAgICAgICAqLwo+ICsgICAgICAgICAgICBtZW1jcHkocHRyLCBFTkRCUjY0
-X1BPSVNPTiwgRU5EQlI2NF9MRU4pOwo+ICAgICAgICAgICAgICAgY2xvYmJlcmVkKys7Cj4gICAg
-ICAgICAgIH0KPiAKPiBkaWZmIC0tZ2l0IGEveGVuL2FyY2gveDg2L2luY2x1ZGUvYXNtL2VuZGJy
-LmggYi94ZW4vYXJjaC94ODYvaW5jbHVkZS9hc20vZW5kYnIuaAo+IGluZGV4IDYwOTBhZmViMGJk
-OC4uNWUxZTU1Y2I0NjdkIDEwMDY0NAo+IC0tLSBhL3hlbi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9l
-bmRici5oCj4gKysrIGIveGVuL2FyY2gveDg2L2luY2x1ZGUvYXNtL2VuZGJyLmgKPiBAQCAtNTIs
-NCArNTIsMTYgQEAgc3RhdGljIGlubGluZSB2b2lkIHBsYWNlX2VuZGJyNjQodm9pZCAqcHRyKQo+
-ICAgICAgICoodWludDMyX3QgKilwdHIgPSBnZW5fZW5kYnI2NCgpOwo+ICAgfQo+IAo+ICsvKgo+
-ICsgKiBBZnRlciBjbG9iYmVyaW5nIEVOREJSNjQsIHdlIG1heSBuZWVkIHRvIGNvbmZpcm0gdGhh
-dCB0aGUgc2l0ZSB1c2VkIHRvCj4gKyAqIGNvbnRhaW4gYW4gRU5EQlI2NCBpbnN0cnVjdGlvbi4g
-IFVzZSBhbiBlbmNvZGluZyB3aGljaCBpc24ndCB0aGUgZGVmYXVsdAo+ICsgKiBQNl9OT1A0Lgo+
-ICsgKi8KPiArI2RlZmluZSBFTkRCUjY0X1BPSVNPTiAiXHg2Nlx4MGZceDFmXHgwMCIgLyogb3Nw
-IG5vcGwgKCVyYXgpICovCj4gKwo+ICtzdGF0aWMgaW5saW5lIGJvb2wgd2FzX2VuZGJyNjQoY29u
-c3Qgdm9pZCAqcHRyKQo+ICt7Cj4gKyAgICByZXR1cm4gKihjb25zdCB1aW50MzJfdCAqKXB0ciA9
-PSAweDAwMWYwZjY2Owo+ICt9Cj4gKwo+ICAgI2VuZGlmIC8qIFhFTl9BU01fRU5EQlJfSCAqLwo+
-IC0tCj4gMi4xMS4wCgpSZXZpZXdlZC1ieTogQmpvZXJuIERvZWJlbCA8ZG9lYmVsQGFtYXpvbi5k
-ZT4KCgoKQW1hem9uIERldmVsb3BtZW50IENlbnRlciBHZXJtYW55IEdtYkgKS3JhdXNlbnN0ci4g
-MzgKMTAxMTcgQmVybGluCkdlc2NoYWVmdHNmdWVocnVuZzogQ2hyaXN0aWFuIFNjaGxhZWdlciwg
-Sm9uYXRoYW4gV2Vpc3MKRWluZ2V0cmFnZW4gYW0gQW10c2dlcmljaHQgQ2hhcmxvdHRlbmJ1cmcg
-dW50ZXIgSFJCIDE0OTE3MyBCClNpdHo6IEJlcmxpbgpVc3QtSUQ6IERFIDI4OSAyMzcgODc5CgoK
+In order to avoid indirect function calls on the hypercall path as
+much as possible this series is removing the hypercall function tables
+and is replacing the hypercall handler calls via the function array
+by automatically generated call macros.
+
+Another by-product of generating the call macros is the automatic
+generating of the hypercall handler prototypes from the same data base
+which is used to generate the macros.
+
+This has the additional advantage of using type safe calls of the
+handlers and to ensure related handler (e.g. PV and HVM ones) share
+the same prototypes.
+
+A very brief performance test (parallel build of the Xen hypervisor
+in a 6 vcpu guest) showed a very slim improvement (less than 1%) of
+the performance with the patches applied. The test was performed using
+a PV and a PVH guest.
+
+Changes in V2:
+- new patches 6, 14, 15
+- patch 7: support hypercall priorities for faster code
+- comments addressed
+
+Changes in V3:
+- patches 1 and 4 removed as already applied
+- comments addressed
+
+Changes in V4:
+- 5 patches removed al already applied
+- new patches 1, 3 and 11
+- avoid switching Arm hypercall handlers to return long (no change of
+  handlers returning long already)
+
+Juergen Gross (11):
+  xen/arm: rename do_phydev_op() to do_arm_physdev_op()
+  xen: move do_vcpu_op() to arch specific code
+  xen: switch non style compliant hypercall handler parameter types
+  xen: harmonize return types of hypercall handlers
+  xen: don't include asm/hypercall.h from C sources
+  xen: include compat/platform.h from hypercall.h
+  xen: generate hypercall interface related code
+  xen: use generated prototypes for hypercall handlers
+  xen/x86: call hypercall handlers via generated macro
+  xen/arm: call hypercall handlers via generated macro
+  xen/x86: remove cf_check attribute from hypercall handlers
+
+ .gitignore                               |   1 +
+ xen/arch/arm/domain.c                    |  15 +-
+ xen/arch/arm/hvm.c                       |   3 +-
+ xen/arch/arm/include/asm/hypercall.h     |   7 +-
+ xen/arch/arm/physdev.c                   |   2 +-
+ xen/arch/arm/platform_hypercall.c        |   1 +
+ xen/arch/arm/traps.c                     | 124 ++-------
+ xen/arch/x86/compat.c                    |   6 +-
+ xen/arch/x86/cpu/mcheck/mce.c            |   2 +-
+ xen/arch/x86/cpu/vpmu.c                  |   3 +-
+ xen/arch/x86/domain.c                    |  11 +-
+ xen/arch/x86/domctl.c                    |   4 +-
+ xen/arch/x86/hvm/dm.c                    |   2 +-
+ xen/arch/x86/hvm/hvm.c                   |   2 +-
+ xen/arch/x86/hvm/hypercall.c             | 177 ++-----------
+ xen/arch/x86/hypercall.c                 |  59 -----
+ xen/arch/x86/include/asm/hypercall.h     | 201 ++++-----------
+ xen/arch/x86/include/asm/paging.h        |   3 -
+ xen/arch/x86/mm.c                        |  13 +-
+ xen/arch/x86/mm/paging.c                 |   3 +-
+ xen/arch/x86/physdev.c                   |   2 +-
+ xen/arch/x86/platform_hypercall.c        |   3 +-
+ xen/arch/x86/pv/callback.c               |  26 +-
+ xen/arch/x86/pv/descriptor-tables.c      |   8 +-
+ xen/arch/x86/pv/emul-priv-op.c           |   2 +-
+ xen/arch/x86/pv/hypercall.c              | 187 ++------------
+ xen/arch/x86/pv/iret.c                   |   5 +-
+ xen/arch/x86/pv/misc-hypercalls.c        |  22 +-
+ xen/arch/x86/pv/shim.c                   |   4 +-
+ xen/arch/x86/traps.c                     |   2 +-
+ xen/arch/x86/x86_64/compat/mm.c          |   3 +-
+ xen/arch/x86/x86_64/domain.c             |  16 +-
+ xen/arch/x86/x86_64/mm.c                 |   2 -
+ xen/arch/x86/x86_64/platform_hypercall.c |   3 +-
+ xen/common/argo.c                        |   8 +-
+ xen/common/compat/domain.c               |  15 +-
+ xen/common/compat/grant_table.c          |   3 +-
+ xen/common/compat/kernel.c               |   2 +-
+ xen/common/compat/memory.c               |   3 +-
+ xen/common/dm.c                          |   2 +-
+ xen/common/domain.c                      |  14 +-
+ xen/common/domctl.c                      |   2 +-
+ xen/common/event_channel.c               |   3 +-
+ xen/common/grant_table.c                 |   4 +-
+ xen/common/hypfs.c                       |   2 +-
+ xen/common/kernel.c                      |   2 +-
+ xen/common/kexec.c                       |   6 +-
+ xen/common/memory.c                      |   2 +-
+ xen/common/multicall.c                   |   4 +-
+ xen/common/sched/compat.c                |   2 +-
+ xen/common/sched/core.c                  |   4 +-
+ xen/common/sysctl.c                      |   2 +-
+ xen/common/xenoprof.c                    |   2 +-
+ xen/drivers/char/console.c               |   2 +-
+ xen/include/Makefile                     |  13 +
+ xen/include/hypercall-defs.c             | 285 ++++++++++++++++++++
+ xen/include/xen/hypercall.h              | 185 +------------
+ xen/scripts/gen_hypercall.awk            | 314 +++++++++++++++++++++++
+ xen/xsm/xsm_core.c                       |   4 +-
+ 59 files changed, 865 insertions(+), 944 deletions(-)
+ create mode 100644 xen/include/hypercall-defs.c
+ create mode 100644 xen/scripts/gen_hypercall.awk
+
+-- 
+2.34.1
 
 
