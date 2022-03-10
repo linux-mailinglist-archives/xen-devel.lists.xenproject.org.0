@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82EEC4D4FF7
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Mar 2022 18:11:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.288507.489270 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 696744D4FFC
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Mar 2022 18:11:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.288508.489280 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nSMJC-0002ry-UF; Thu, 10 Mar 2022 17:10:38 +0000
+	id 1nSMJE-0003BL-Bt; Thu, 10 Mar 2022 17:10:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 288507.489270; Thu, 10 Mar 2022 17:10:38 +0000
+Received: by outflank-mailman (output) from mailman id 288508.489280; Thu, 10 Mar 2022 17:10:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nSMJC-0002nr-Oy; Thu, 10 Mar 2022 17:10:38 +0000
-Received: by outflank-mailman (input) for mailman id 288507;
- Thu, 10 Mar 2022 17:10:37 +0000
+	id 1nSMJE-00037e-4B; Thu, 10 Mar 2022 17:10:40 +0000
+Received: by outflank-mailman (input) for mailman id 288508;
+ Thu, 10 Mar 2022 17:10:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5/tR=TV=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1nSMJA-0001lh-Sf
- for xen-devel@lists.xenproject.org; Thu, 10 Mar 2022 17:10:37 +0000
+ id 1nSMJC-0001lh-2m
+ for xen-devel@lists.xenproject.org; Thu, 10 Mar 2022 17:10:38 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id fff70587-a094-11ec-8eba-a37418f5ba1a;
- Thu, 10 Mar 2022 18:10:35 +0100 (CET)
+ id 00d596e4-a095-11ec-8eba-a37418f5ba1a;
+ Thu, 10 Mar 2022 18:10:36 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C542616A3;
- Thu, 10 Mar 2022 09:10:34 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 554171692;
+ Thu, 10 Mar 2022 09:10:36 -0800 (PST)
 Received: from e125770.cambridge.arm.com (e125770.cambridge.arm.com
  [10.1.195.16])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 29F8A3F99C;
- Thu, 10 Mar 2022 09:10:33 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 09C1C3F99C;
+ Thu, 10 Mar 2022 09:10:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fff70587-a094-11ec-8eba-a37418f5ba1a
+X-Inumbo-ID: 00d596e4-a095-11ec-8eba-a37418f5ba1a
 From: Luca Fancellu <luca.fancellu@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: wei.chen@arm.com,
@@ -54,510 +54,194 @@ Cc: wei.chen@arm.com,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>,
-	Juergen Gross <jgross@suse.com>,
-	Dario Faggioli <dfaggioli@suse.com>
-Subject: [PATCH v2 4/6] xen/cpupool: Create different cpupools at boot time
-Date: Thu, 10 Mar 2022 17:10:17 +0000
-Message-Id: <20220310171019.6170-5-luca.fancellu@arm.com>
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v2 5/6] arm/dom0less: assign dom0less guests to cpupools
+Date: Thu, 10 Mar 2022 17:10:18 +0000
+Message-Id: <20220310171019.6170-6-luca.fancellu@arm.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20220310171019.6170-1-luca.fancellu@arm.com>
 References: <20220310171019.6170-1-luca.fancellu@arm.com>
 
-Introduce a way to create different cpupools at boot time, this is
-particularly useful on ARM big.LITTLE system where there might be the
-need to have different cpupools for each type of core, but also
-systems using NUMA can have different cpu pools for each node.
+Introduce domain-cpupool property of a xen,domain device tree node,
+that specifies the cpupool device tree handle of a xen,cpupool node
+that identifies a cpupool created at boot time where the guest will
+be assigned on creation.
 
-The feature on arm relies on a specification of the cpupools from the
-device tree to build pools and assign cpus to them.
+Add member to the xen_domctl_createdomain public interface so the
+XEN_DOMCTL_INTERFACE_VERSION version is bumped.
 
-Documentation is created to explain the feature.
+Add public function to retrieve a pool id from the device tree
+cpupool node.
+
+Update documentation about the property.
 
 Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 ---
 Changes in v2:
-- Move feature to common code (Juergen)
-- Try to decouple dtb parse and cpupool creation to allow
-  more way to specify cpupools (for example command line)
-- Created standalone dt node for the scheduler so it can
-  be used in future work to set scheduler specific
-  parameters
-- Use only auto generated ids for cpupools
+- Moved cpupool_id from arch specific to common part (Juergen)
+- Implemented functions to retrieve the cpupool id from the
+  cpupool dtb node.
 ---
- docs/misc/arm/device-tree/cpupools.txt | 156 ++++++++++++++++++
- xen/common/Kconfig                     |   8 +
- xen/common/Makefile                    |   1 +
- xen/common/boot_cpupools.c             | 212 +++++++++++++++++++++++++
- xen/common/sched/cpupool.c             |   6 +-
- xen/include/xen/sched.h                |  19 +++
- 6 files changed, 401 insertions(+), 1 deletion(-)
- create mode 100644 docs/misc/arm/device-tree/cpupools.txt
- create mode 100644 xen/common/boot_cpupools.c
+ docs/misc/arm/device-tree/booting.txt |  5 +++++
+ xen/arch/arm/domain_build.c           | 14 +++++++++++++-
+ xen/common/boot_cpupools.c            | 24 ++++++++++++++++++++++++
+ xen/common/domain.c                   |  2 +-
+ xen/include/public/domctl.h           |  4 +++-
+ xen/include/xen/sched.h               |  9 +++++++++
+ 6 files changed, 55 insertions(+), 3 deletions(-)
 
-diff --git a/docs/misc/arm/device-tree/cpupools.txt b/docs/misc/arm/device-tree/cpupools.txt
-new file mode 100644
-index 000000000000..d5a82ed0d45a
---- /dev/null
-+++ b/docs/misc/arm/device-tree/cpupools.txt
-@@ -0,0 +1,156 @@
-+Boot time cpupools
-+==================
-+
-+When BOOT_TIME_CPUPOOLS is enabled in the Xen configuration, it is possible to
-+create cpupools during boot phase by specifying them in the device tree.
-+
-+Cpupools specification nodes shall be direct childs of /chosen node.
-+Each cpupool node contains the following properties:
-+
-+- compatible (mandatory)
-+
-+    Must always include the compatiblity string: "xen,cpupool".
-+
-+- cpupool-cpus (mandatory)
-+
-+    Must be a list of device tree phandle to nodes describing cpus (e.g. having
-+    device_type = "cpu"), it can't be empty.
-+
-+- cpupool-sched (optional)
-+
-+    Must be a device tree phandle to a node having "xen,scheduler" compatible
-+    (description below), it has no effect when the cpupool refers to the cpupool
-+    number zero, in that case the default Xen scheduler is selected (sched=<...>
-+    boot argument).
-+
-+
-+A scheduler specification node is a device tree node that contains the following
-+properties:
-+
-+- compatible (mandatory)
-+
-+    Must always include the compatiblity string: "xen,scheduler".
-+
-+- sched-name (mandatory)
-+
-+    Must be a string having the name of a Xen scheduler, check the sched=<...>
-+    boot argument for allowed values.
-+
-+
-+Constraints
-+===========
-+
-+If no cpupools are specified, all cpus will be assigned to one cpupool
-+implicitly created (Pool-0).
-+
-+If cpupools node are specified, but not every cpu brought up by Xen is assigned,
-+all the not assigned cpu will be assigned to an additional cpupool.
-+
-+If a cpu is assigned to a cpupool, but it's not brought up correctly, Xen will
-+stop.
-+
-+
-+Examples
-+========
-+
-+A system having two types of core, the following device tree specification will
-+instruct Xen to have two cpupools:
-+
-+- The cpupool with id 0 will have 4 cpus assigned.
-+- The cpupool with id 1 will have 2 cpus assigned.
-+
-+The following example can work only if hmp-unsafe=1 is passed to Xen boot
-+arguments, otherwise not all cores will be brought up by Xen and the cpupool
-+creation process will stop Xen.
-+
-+
-+a72_1: cpu@0 {
-+        compatible = "arm,cortex-a72";
-+        reg = <0x0 0x0>;
-+        device_type = "cpu";
-+        [...]
-+};
-+
-+a72_2: cpu@1 {
-+        compatible = "arm,cortex-a72";
-+        reg = <0x0 0x1>;
-+        device_type = "cpu";
-+        [...]
-+};
-+
-+a53_1: cpu@100 {
-+        compatible = "arm,cortex-a53";
-+        reg = <0x0 0x100>;
-+        device_type = "cpu";
-+        [...]
-+};
-+
-+a53_2: cpu@101 {
-+        compatible = "arm,cortex-a53";
-+        reg = <0x0 0x101>;
-+        device_type = "cpu";
-+        [...]
-+};
-+
-+a53_3: cpu@102 {
-+        compatible = "arm,cortex-a53";
-+        reg = <0x0 0x102>;
-+        device_type = "cpu";
-+        [...]
-+};
-+
-+a53_4: cpu@103 {
-+        compatible = "arm,cortex-a53";
-+        reg = <0x0 0x103>;
-+        device_type = "cpu";
-+        [...]
-+};
-+
-+chosen {
-+
-+    sched: sched_a {
-+        compatible = "xen,scheduler";
-+        sched-name = "credit2";
-+    };
-+    cpupool_a {
-+        compatible = "xen,cpupool";
-+        cpupool-cpus = <&a53_1 &a53_2 &a53_3 &a53_4>;
-+    };
-+    cpupool_b {
-+        compatible = "xen,cpupool";
-+        cpupool-cpus = <&a72_1 &a72_2>;
-+        cpupool-sched = <&sched>;
-+    };
-+
-+    [...]
-+
-+};
-+
-+
-+A system having the cpupools specification below will instruct Xen to have three
-+cpupools:
-+
-+- The cpupool Pool-0 will have 2 cpus assigned.
-+- The cpupool Pool-1 will have 2 cpus assigned.
-+- The cpupool Pool-2 will have 2 cpus assigned (created by Xen with all the not
-+  assigned cpus a53_3 and a53_4).
-+
-+chosen {
-+
-+    sched: sched_a {
-+        compatible = "xen,scheduler";
-+        sched-name = "null";
-+    };
-+    cpupool_a {
-+        compatible = "xen,cpupool";
-+        cpupool-cpus = <&a53_1 &a53_2>;
-+    };
-+    cpupool_b {
-+        compatible = "xen,cpupool";
-+        cpupool-cpus = <&a72_1 &a72_2>;
-+        cpupool-sched = <&sched>;
-+    };
-+
-+    [...]
-+
-+};
-\ No newline at end of file
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 64439438891c..dc9eed31682f 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -22,6 +22,14 @@ config GRANT_TABLE
+diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+index a94125394e35..7b4a29a2c293 100644
+--- a/docs/misc/arm/device-tree/booting.txt
++++ b/docs/misc/arm/device-tree/booting.txt
+@@ -188,6 +188,11 @@ with the following properties:
+     An empty property to request the memory of the domain to be
+     direct-map (guest physical address == physical address).
  
- 	  If unsure, say Y.
- 
-+config BOOT_TIME_CPUPOOLS
-+	bool "Create cpupools at boot time"
-+	depends on HAS_DEVICE_TREE
-+	default n
-+	help
-+	  Creates cpupools during boot time and assigns cpus to them. Cpupools
-+	  options can be specified in the device tree.
++- domain-cpupool
 +
- config ALTERNATIVE_CALL
- 	bool
++    Optional. Handle to a xen,cpupool device tree node that identifies the
++    cpupool where the guest will be started at boot.
++
+ Under the "xen,domain" compatible node, one or more sub-nodes are present
+ for the DomU kernel and ramdisk.
  
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index dc8d3a13f5b8..c5949785ab28 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -1,5 +1,6 @@
- obj-$(CONFIG_ARGO) += argo.o
- obj-y += bitmap.o
-+obj-$(CONFIG_BOOT_TIME_CPUPOOLS) += boot_cpupools.o
- obj-$(CONFIG_HYPFS_CONFIG) += config_data.o
- obj-$(CONFIG_CORE_PARKING) += core_parking.o
- obj-y += cpu.o
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 8be01678de05..9c67a483d4a4 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -3172,7 +3172,8 @@ static int __init construct_domU(struct domain *d,
+ void __init create_domUs(void)
+ {
+     struct dt_device_node *node;
+-    const struct dt_device_node *chosen = dt_find_node_by_path("/chosen");
++    const struct dt_device_node *cpupool_node,
++                                *chosen = dt_find_node_by_path("/chosen");
+ 
+     BUG_ON(chosen == NULL);
+     dt_for_each_child_node(chosen, node)
+@@ -3241,6 +3242,17 @@ void __init create_domUs(void)
+                                          vpl011_virq - 32 + 1);
+         }
+ 
++        /* Get the optional property domain-cpupool */
++        cpupool_node = dt_parse_phandle(node, "domain-cpupool", 0);
++        if ( cpupool_node )
++        {
++            int pool_id = btcpupools_get_domain_pool_id(cpupool_node);
++            if ( pool_id < 0 )
++                panic("Error getting cpupool id from domain-cpupool (%d)\n",
++                      pool_id);
++            d_cfg.cpupool_id = pool_id;
++        }
++
+         /*
+          * The variable max_init_domid is initialized with zero, so here it's
+          * very important to use the pre-increment operator to call
 diff --git a/xen/common/boot_cpupools.c b/xen/common/boot_cpupools.c
-new file mode 100644
-index 000000000000..e8529a902d21
---- /dev/null
+index e8529a902d21..01a69f894f14 100644
+--- a/xen/common/boot_cpupools.c
 +++ b/xen/common/boot_cpupools.c
-@@ -0,0 +1,212 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * xen/common/boot_cpupools.c
-+ *
-+ * Code to create cpupools at boot time for arm architecture.
-+ *
-+ * Copyright (C) 2022 Arm Ltd.
-+ */
-+
-+#include <xen/sched.h>
-+
-+#define BTCPUPOOLS_DT_NODE_NO_REG     (-1)
-+#define BTCPUPOOLS_DT_NODE_NO_LOG_CPU (-2)
-+
-+struct pool_map {
-+    int pool_id;
-+    int sched_id;
-+    struct cpupool *pool;
-+};
-+
-+static struct pool_map __initdata pool_cpu_map[NR_CPUS] =
-+    { [0 ... NR_CPUS-1] = {.pool_id = -1, .sched_id = -1, .pool = NULL} };
-+static unsigned int __initdata next_pool_id;
-+
-+#ifdef CONFIG_ARM
-+static int __init get_logical_cpu_from_hw_id(unsigned int hwid)
+@@ -11,6 +11,8 @@
+ 
+ #define BTCPUPOOLS_DT_NODE_NO_REG     (-1)
+ #define BTCPUPOOLS_DT_NODE_NO_LOG_CPU (-2)
++#define BTCPUPOOLS_DT_WRONG_NODE      (-3)
++#define BTCPUPOOLS_DT_CORRUPTED_NODE  (-4)
+ 
+ struct pool_map {
+     int pool_id;
+@@ -53,6 +55,28 @@ get_logical_cpu_from_cpu_node(const struct dt_device_node *cpu_node)
+     return cpu_num;
+ }
+ 
++int __init btcpupools_get_domain_pool_id(const struct dt_device_node *node)
 +{
-+    unsigned int i;
++    const struct dt_device_node *phandle_node;
++    int cpu_num;
 +
-+    for ( i = 0; i < nr_cpu_ids; i++ )
-+        if ( cpu_logical_map(i) == hwid )
-+            return i;
-+
-+    return -1;
-+}
-+
-+static int __init
-+get_logical_cpu_from_cpu_node(const struct dt_device_node *cpu_node)
-+{
-+    unsigned int cpu_reg, cpu_num;
-+    const __be32 *prop;
-+
-+    prop = dt_get_property(cpu_node, "reg", NULL);
-+    if ( !prop )
-+        return BTCPUPOOLS_DT_NODE_NO_REG;
-+
-+    cpu_reg = dt_read_number(prop, dt_n_addr_cells(cpu_node));
-+
-+    cpu_num = get_logical_cpu_from_hw_id(cpu_reg);
-+    if ( cpu_num < 0 )
-+        return BTCPUPOOLS_DT_NODE_NO_LOG_CPU;
-+
-+    return cpu_num;
-+}
-+
-+static int __init check_and_get_sched_id(const char* scheduler_name)
-+{
-+    int sched_id = sched_get_id_by_name(scheduler_name);
-+
-+    if ( sched_id < 0 )
-+        panic("Scheduler %s does not exists!\n", scheduler_name);
-+
-+    return sched_id;
-+}
-+
-+void __init btcpupools_dtb_parse(void)
-+{
-+    const struct dt_device_node *chosen, *node;
-+
-+    chosen = dt_find_node_by_path("/chosen");
-+    if ( !chosen )
-+        return;
-+
-+    dt_for_each_child_node(chosen, node)
-+    {
-+        const struct dt_device_node *phandle_node;
-+        int sched_id = -1;
-+        const char* scheduler_name;
-+        unsigned int i = 0;
-+
-+        if ( !dt_device_is_compatible(node, "xen,cpupool") )
-+            continue;
-+
-+        phandle_node = dt_parse_phandle(node, "cpupool-sched", 0);
-+        if ( phandle_node )
-+        {
-+            if ( !dt_device_is_compatible(phandle_node, "xen,scheduler") )
-+                panic("cpupool-sched must be a xen,scheduler compatible"
-+                      "node!\n");
-+            if ( !dt_property_read_string(phandle_node, "sched-name",
-+                                          &scheduler_name) )
-+                sched_id = check_and_get_sched_id(scheduler_name);
-+            else
-+                panic("Error trying to read sched-name in %s!\n",
-+                      dt_node_name(phandle_node));
-+        }
-+
-+        phandle_node = dt_parse_phandle(node, "cpupool-cpus", i++);
-+        if ( !phandle_node )
-+            panic("Missing or empty cpupool-cpus property!\n");
-+
-+        while ( phandle_node )
-+        {
-+            int cpu_num;
-+
-+            cpu_num = get_logical_cpu_from_cpu_node(phandle_node);
-+
-+            if ( cpu_num < 0 )
-+                panic("Error retrieving logical cpu from node %s (%d)\n",
-+                      dt_node_name(node), cpu_num);
-+
-+            if ( pool_cpu_map[cpu_num].pool_id != -1 )
-+                panic("Logical cpu %d already added to a cpupool!\n", cpu_num);
-+
-+            pool_cpu_map[cpu_num].pool_id = next_pool_id;
-+            pool_cpu_map[cpu_num].sched_id = sched_id;
-+
-+            phandle_node = dt_parse_phandle(node, "cpupool-cpus", i++);
-+        }
-+
-+        /* Let Xen generate pool ids */
-+        next_pool_id++;
-+    }
-+}
-+#endif
-+
-+void __init btcpupools_allocate_pools(const cpumask_t *cpu_online_map)
-+{
-+    unsigned int cpu_num;
-+
++    if ( !dt_device_is_compatible(node, "xen,cpupool") )
++        return BTCPUPOOLS_DT_WRONG_NODE;
 +    /*
-+     * If there are no cpupools, the value of next_pool_id is zero, so the code
-+     * below will assign every cpu to cpupool0 as the default behavior.
-+     * When there are cpupools, the code below is assigning all the not
-+     * assigned cpu to a new pool (next_pool_id value is the last id + 1).
-+     * In the same loop we check if there is any assigned cpu that is not
-+     * online.
++     * Get first cpu listed in the cpupool, from its reg it's possible to
++     * retrieve the cpupool id.
 +     */
-+    for ( cpu_num = 0; cpu_num < nr_cpu_ids; cpu_num++ )
-+        if ( cpumask_test_cpu(cpu_num, cpu_online_map) )
-+        {
-+            if ( pool_cpu_map[cpu_num].pool_id < 0 )
-+                pool_cpu_map[cpu_num].pool_id = next_pool_id;
-+        }
-+        else
-+            if ( pool_cpu_map[cpu_num].pool_id >= 0 )
-+                panic("Pool-%d contains cpu%u that is not online!\n",
-+                      pool_cpu_map[cpu_num].pool_id, cpu_num);
++    phandle_node = dt_parse_phandle(node, "cpupool-cpus", 0);
++    if ( !phandle_node )
++        return BTCPUPOOLS_DT_CORRUPTED_NODE;
 +
-+#ifdef CONFIG_X86
-+    /* Cpu0 must be in cpupool0 for x86 */
-+    if ( pool_cpu_map[0].pool_id != 0 )
-+    {
-+        /* The cpupool containing cpu0 will become cpupool0 */
-+        unsigned int swap_id = pool_cpu_map[0].pool_id;
-+        for_each_cpu ( cpu_num, cpu_online_map )
-+            if ( pool_cpu_map[cpu_num].pool_id == swap_id )
-+                pool_cpu_map[cpu_num].pool_id = 0;
-+            else if ( pool_cpu_map[cpu_num].pool_id == 0 )
-+                pool_cpu_map[cpu_num].pool_id = swap_id;
-+    }
-+#endif
++    cpu_num = get_logical_cpu_from_cpu_node(phandle_node);
++    if ( cpu_num < 0 )
++        return cpu_num;
 +
-+    for_each_cpu ( cpu_num, cpu_online_map )
-+    {
-+        struct cpupool *pool = NULL;
-+        int pool_id, sched_id;
-+
-+        pool_id = pool_cpu_map[cpu_num].pool_id;
-+        sched_id = pool_cpu_map[cpu_num].sched_id;
-+
-+        if ( pool_id )
-+        {
-+            unsigned int i;
-+
-+            /* Look for previously created pool with id pool_id */
-+            for ( i = 0; i < cpu_num; i++ )
-+                if ( (pool_cpu_map[i].pool_id == pool_id) &&
-+                     pool_cpu_map[i].pool )
-+                {
-+                    pool = pool_cpu_map[i].pool;
-+                    break;
-+                }
-+
-+            /* If no pool was created before, create it */
-+            if ( !pool )
-+                pool = cpupool_create_pool(pool_id, sched_id);
-+            if ( !pool )
-+                panic("Error creating pool id %u!\n", pool_id);
-+        }
-+        else
-+            pool = cpupool0;
-+
-+        pool_cpu_map[cpu_num].pool = pool;
-+        printk(XENLOG_INFO "Logical CPU %u in Pool-%u.\n", cpu_num, pool_id);
-+    }
++    return pool_cpu_map[cpu_num].pool_id;
 +}
 +
-+struct cpupool *__init btcpupools_get_cpupool(unsigned int cpu)
-+{
-+    return pool_cpu_map[cpu].pool;
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/common/sched/cpupool.c b/xen/common/sched/cpupool.c
-index 89a891af7076..b2495ad6d03e 100644
---- a/xen/common/sched/cpupool.c
-+++ b/xen/common/sched/cpupool.c
-@@ -1247,12 +1247,16 @@ static int __init cf_check cpupool_init(void)
-     cpupool_put(cpupool0);
-     register_cpu_notifier(&cpu_nfb);
+ static int __init check_and_get_sched_id(const char* scheduler_name)
+ {
+     int sched_id = sched_get_id_by_name(scheduler_name);
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 351029f8b239..0827400f4f49 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -698,7 +698,7 @@ struct domain *domain_create(domid_t domid,
+         if ( !d->pbuf )
+             goto fail;
  
-+    btcpupools_dtb_parse();
-+
-+    btcpupools_allocate_pools(&cpu_online_map);
-+
-     spin_lock(&cpupool_lock);
+-        if ( (err = sched_init_domain(d, 0)) != 0 )
++        if ( (err = sched_init_domain(d, config->cpupool_id)) != 0 )
+             goto fail;
  
-     cpumask_copy(&cpupool_free_cpus, &cpu_online_map);
+         if ( (err = late_hwdom_init(d)) != 0 )
+diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+index b85e6170b0aa..3d431a8031fd 100644
+--- a/xen/include/public/domctl.h
++++ b/xen/include/public/domctl.h
+@@ -38,7 +38,7 @@
+ #include "hvm/save.h"
+ #include "memory.h"
  
-     for_each_cpu ( cpu, &cpupool_free_cpus )
--        cpupool_assign_cpu_locked(cpupool0, cpu);
-+        cpupool_assign_cpu_locked(btcpupools_get_cpupool(cpu), cpu);
- 
-     spin_unlock(&cpupool_lock);
- 
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index 2c10303f0187..de4e8feea399 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -1176,6 +1176,25 @@ extern void cf_check dump_runq(unsigned char key);
- 
- void arch_do_physinfo(struct xen_sysctl_physinfo *pi);
- 
-+#ifdef CONFIG_BOOT_TIME_CPUPOOLS
-+void btcpupools_allocate_pools(const cpumask_t *cpu_online_map);
-+struct cpupool *btcpupools_get_cpupool(unsigned int cpu);
-+
-+#ifdef CONFIG_ARM
-+void btcpupools_dtb_parse(void);
-+#else
-+static inline void btcpupools_dtb_parse(void) {}
-+#endif
-+
-+#else
-+static inline void btcpupools_allocate_pools(const cpumask_t *cpu_online_map) {}
-+static inline void btcpupools_dtb_parse(void) {}
-+static inline struct cpupool *btcpupools_get_cpupool(unsigned int cpu)
-+{
-+    return cpupool0;
-+}
-+#endif
-+
- #endif /* __SCHED_H__ */
+-#define XEN_DOMCTL_INTERFACE_VERSION 0x00000014
++#define XEN_DOMCTL_INTERFACE_VERSION 0x00000015
  
  /*
+  * NB. xen_domctl.domain is an IN/OUT parameter for this operation.
+@@ -106,6 +106,8 @@ struct xen_domctl_createdomain {
+     /* Per-vCPU buffer size in bytes.  0 to disable. */
+     uint32_t vmtrace_size;
+ 
++    unsigned int cpupool_id;
++
+     struct xen_arch_domainconfig arch;
+ };
+ 
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+index de4e8feea399..30a6538452bc 100644
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -1182,6 +1182,7 @@ struct cpupool *btcpupools_get_cpupool(unsigned int cpu);
+ 
+ #ifdef CONFIG_ARM
+ void btcpupools_dtb_parse(void);
++int btcpupools_get_domain_pool_id(const struct dt_device_node *node);
+ #else
+ static inline void btcpupools_dtb_parse(void) {}
+ #endif
+@@ -1193,6 +1194,14 @@ static inline struct cpupool *btcpupools_get_cpupool(unsigned int cpu)
+ {
+     return cpupool0;
+ }
++#ifdef CONFIG_ARM
++static inline int
++btcpupools_get_domain_pool_id(const struct dt_device_node *node)
++{
++    return 0;
++}
++#endif
++
+ #endif
+ 
+ #endif /* __SCHED_H__ */
 -- 
 2.17.1
 
