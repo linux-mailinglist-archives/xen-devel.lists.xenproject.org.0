@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E75394D41E0
+	by mail.lfdr.de (Postfix) with ESMTPS id A9EE34D41DF
 	for <lists+xen-devel@lfdr.de>; Thu, 10 Mar 2022 08:34:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.288150.488612 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.288151.488617 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nSDJb-0000c7-Nc; Thu, 10 Mar 2022 07:34:27 +0000
+	id 1nSDJc-0000gp-21; Thu, 10 Mar 2022 07:34:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 288150.488612; Thu, 10 Mar 2022 07:34:27 +0000
+Received: by outflank-mailman (output) from mailman id 288151.488617; Thu, 10 Mar 2022 07:34:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nSDJb-0000Zm-I3; Thu, 10 Mar 2022 07:34:27 +0000
-Received: by outflank-mailman (input) for mailman id 288150;
+	id 1nSDJb-0000c5-Qn; Thu, 10 Mar 2022 07:34:27 +0000
+Received: by outflank-mailman (input) for mailman id 288151;
  Thu, 10 Mar 2022 07:34:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QHx9=TV=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nSDJa-0000ZP-7B
+ id 1nSDJa-0000ZQ-AR
  for xen-devel@lists.xenproject.org; Thu, 10 Mar 2022 07:34:26 +0000
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 802a1181-a044-11ec-8539-5f4723681683;
- Thu, 10 Mar 2022 08:34:21 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 82788018-a044-11ec-8eba-a37418f5ba1a;
+ Thu, 10 Mar 2022 08:34:25 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7A09E1F381;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id AEF8B1F443;
  Thu, 10 Mar 2022 07:34:24 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 18F2913FA3;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 806F413FA3;
  Thu, 10 Mar 2022 07:34:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id qi80BACqKWIkIAAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id yHLoHQCqKWIkIAAAMHmgww
  (envelope-from <jgross@suse.com>); Thu, 10 Mar 2022 07:34:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -51,146 +51,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 802a1181-a044-11ec-8539-5f4723681683
+X-Inumbo-ID: 82788018-a044-11ec-8eba-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1646897664; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=VW0S7DOLYYudVpiuotx3ct2mnfrTAcmlNP9qLbkTpQk=;
-	b=pyzIy+dXZ6ehQV3VomECVrN5ky7eAhoAvzw028GJz+HKEhpwG1iYqzrO3fpLmEONgQgfog
-	PFQ84nuwwnY4DQb9CoHu90sQtz6Mjv+3eXyA+9RQllxS8YQtJA7mvPFzMQ/NyuIYSvcy8j
-	1xDOkPbfsgT7R795lJEX/qa60Bo1vJc=
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LH5iekQAujtfbCT5ppRY8SHnDyE773eE100u+22phKg=;
+	b=fNXoM2VvH1hDPn2/XMCrGU0trY+SNYGEIxO658FKhJA0Eo1c2RLvAmkXnqVsq7z2OGIfof
+	c0a+tIf/rIoixdf64gF6eLSIp2UzbEfCNrDL4hWI+g+uz0tAUhFeSh8DfNdEv0FkXZbicS
+	KBreRyro5YcrP018qp4ekZqG2/BoFFc=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Christopher Clark <christopher.w.clark@gmail.com>,
-	Dario Faggioli <dfaggioli@suse.com>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: [PATCH v4 00/11] xen: drop hypercall function tables
-Date: Thu, 10 Mar 2022 08:34:09 +0100
-Message-Id: <20220310073420.15622-1-jgross@suse.com>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v4 01/11] xen/arm: rename do_phydev_op() to do_arm_physdev_op()
+Date: Thu, 10 Mar 2022 08:34:10 +0100
+Message-Id: <20220310073420.15622-2-jgross@suse.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220310073420.15622-1-jgross@suse.com>
+References: <20220310073420.15622-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In order to avoid indirect function calls on the hypercall path as
-much as possible this series is removing the hypercall function tables
-and is replacing the hypercall handler calls via the function array
-by automatically generated call macros.
+do_physdev_op() prototypes on Arm and x86 differ in their return type,
+so rename the Arm one in order to prepare using a common generated
+header file.
 
-Another by-product of generating the call macros is the automatic
-generating of the hypercall handler prototypes from the same data base
-which is used to generate the macros.
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+V4:
+- new patch
+---
+ xen/arch/arm/include/asm/hypercall.h | 2 +-
+ xen/arch/arm/physdev.c               | 2 +-
+ xen/arch/arm/traps.c                 | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-This has the additional advantage of using type safe calls of the
-handlers and to ensure related handler (e.g. PV and HVM ones) share
-the same prototypes.
-
-A very brief performance test (parallel build of the Xen hypervisor
-in a 6 vcpu guest) showed a very slim improvement (less than 1%) of
-the performance with the patches applied. The test was performed using
-a PV and a PVH guest.
-
-Changes in V2:
-- new patches 6, 14, 15
-- patch 7: support hypercall priorities for faster code
-- comments addressed
-
-Changes in V3:
-- patches 1 and 4 removed as already applied
-- comments addressed
-
-Changes in V4:
-- 5 patches removed al already applied
-- new patches 1, 3 and 11
-- avoid switching Arm hypercall handlers to return long (no change of
-  handlers returning long already)
-
-Juergen Gross (11):
-  xen/arm: rename do_phydev_op() to do_arm_physdev_op()
-  xen: move do_vcpu_op() to arch specific code
-  xen: switch non style compliant hypercall handler parameter types
-  xen: harmonize return types of hypercall handlers
-  xen: don't include asm/hypercall.h from C sources
-  xen: include compat/platform.h from hypercall.h
-  xen: generate hypercall interface related code
-  xen: use generated prototypes for hypercall handlers
-  xen/x86: call hypercall handlers via generated macro
-  xen/arm: call hypercall handlers via generated macro
-  xen/x86: remove cf_check attribute from hypercall handlers
-
- .gitignore                               |   1 +
- xen/arch/arm/domain.c                    |  15 +-
- xen/arch/arm/hvm.c                       |   3 +-
- xen/arch/arm/include/asm/hypercall.h     |   7 +-
- xen/arch/arm/physdev.c                   |   2 +-
- xen/arch/arm/platform_hypercall.c        |   1 +
- xen/arch/arm/traps.c                     | 124 ++-------
- xen/arch/x86/compat.c                    |   6 +-
- xen/arch/x86/cpu/mcheck/mce.c            |   2 +-
- xen/arch/x86/cpu/vpmu.c                  |   3 +-
- xen/arch/x86/domain.c                    |  11 +-
- xen/arch/x86/domctl.c                    |   4 +-
- xen/arch/x86/hvm/dm.c                    |   2 +-
- xen/arch/x86/hvm/hvm.c                   |   2 +-
- xen/arch/x86/hvm/hypercall.c             | 177 ++-----------
- xen/arch/x86/hypercall.c                 |  59 -----
- xen/arch/x86/include/asm/hypercall.h     | 201 ++++-----------
- xen/arch/x86/include/asm/paging.h        |   3 -
- xen/arch/x86/mm.c                        |  13 +-
- xen/arch/x86/mm/paging.c                 |   3 +-
- xen/arch/x86/physdev.c                   |   2 +-
- xen/arch/x86/platform_hypercall.c        |   3 +-
- xen/arch/x86/pv/callback.c               |  26 +-
- xen/arch/x86/pv/descriptor-tables.c      |   8 +-
- xen/arch/x86/pv/emul-priv-op.c           |   2 +-
- xen/arch/x86/pv/hypercall.c              | 187 ++------------
- xen/arch/x86/pv/iret.c                   |   5 +-
- xen/arch/x86/pv/misc-hypercalls.c        |  22 +-
- xen/arch/x86/pv/shim.c                   |   4 +-
- xen/arch/x86/traps.c                     |   2 +-
- xen/arch/x86/x86_64/compat/mm.c          |   3 +-
- xen/arch/x86/x86_64/domain.c             |  16 +-
- xen/arch/x86/x86_64/mm.c                 |   2 -
- xen/arch/x86/x86_64/platform_hypercall.c |   3 +-
- xen/common/argo.c                        |   8 +-
- xen/common/compat/domain.c               |  15 +-
- xen/common/compat/grant_table.c          |   3 +-
- xen/common/compat/kernel.c               |   2 +-
- xen/common/compat/memory.c               |   3 +-
- xen/common/dm.c                          |   2 +-
- xen/common/domain.c                      |  14 +-
- xen/common/domctl.c                      |   2 +-
- xen/common/event_channel.c               |   3 +-
- xen/common/grant_table.c                 |   4 +-
- xen/common/hypfs.c                       |   2 +-
- xen/common/kernel.c                      |   2 +-
- xen/common/kexec.c                       |   6 +-
- xen/common/memory.c                      |   2 +-
- xen/common/multicall.c                   |   4 +-
- xen/common/sched/compat.c                |   2 +-
- xen/common/sched/core.c                  |   4 +-
- xen/common/sysctl.c                      |   2 +-
- xen/common/xenoprof.c                    |   2 +-
- xen/drivers/char/console.c               |   2 +-
- xen/include/Makefile                     |  13 +
- xen/include/hypercall-defs.c             | 285 ++++++++++++++++++++
- xen/include/xen/hypercall.h              | 185 +------------
- xen/scripts/gen_hypercall.awk            | 314 +++++++++++++++++++++++
- xen/xsm/xsm_core.c                       |   4 +-
- 59 files changed, 865 insertions(+), 944 deletions(-)
- create mode 100644 xen/include/hypercall-defs.c
- create mode 100644 xen/scripts/gen_hypercall.awk
-
+diff --git a/xen/arch/arm/include/asm/hypercall.h b/xen/arch/arm/include/asm/hypercall.h
+index a0c5a31a2f..39d2e7889d 100644
+--- a/xen/arch/arm/include/asm/hypercall.h
++++ b/xen/arch/arm/include/asm/hypercall.h
+@@ -2,7 +2,7 @@
+ #define __ASM_ARM_HYPERCALL_H__
+ 
+ #include <public/domctl.h> /* for arch_do_domctl */
+-int do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg);
++int do_arm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg);
+ 
+ long do_arm_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg);
+ 
+diff --git a/xen/arch/arm/physdev.c b/xen/arch/arm/physdev.c
+index f9aa274dda..95a8cdc0ee 100644
+--- a/xen/arch/arm/physdev.c
++++ b/xen/arch/arm/physdev.c
+@@ -11,7 +11,7 @@
+ #include <xen/hypercall.h>
+ 
+ 
+-int do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
++int do_arm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
+ #ifdef CONFIG_HAS_PCI
+     return pci_physdev_op(cmd, arg);
+diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+index 7a1b679b8c..f8c3ef0ca2 100644
+--- a/xen/arch/arm/traps.c
++++ b/xen/arch/arm/traps.c
+@@ -1371,7 +1371,7 @@ static arm_hypercall_t arm_hypercall_table[] = {
+     HYPERCALL(xsm_op, 1),
+     HYPERCALL(event_channel_op, 2),
+     HYPERCALL_DEPRECATED(event_channel_op_compat, 1),
+-    HYPERCALL(physdev_op, 2),
++    HYPERCALL_ARM(physdev_op, 2),
+     HYPERCALL_DEPRECATED(physdev_op_compat, 1),
+     HYPERCALL(sysctl, 2),
+     HYPERCALL(hvm_op, 2),
 -- 
 2.34.1
 
