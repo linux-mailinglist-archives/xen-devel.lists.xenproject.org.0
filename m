@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E52E4D604A
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Mar 2022 12:02:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.288976.490215 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DEC04D606F
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Mar 2022 12:16:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.288981.490225 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nSd1t-0005Ef-VN; Fri, 11 Mar 2022 11:01:53 +0000
+	id 1nSdEv-0006n7-4z; Fri, 11 Mar 2022 11:15:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 288976.490215; Fri, 11 Mar 2022 11:01:53 +0000
+Received: by outflank-mailman (output) from mailman id 288981.490225; Fri, 11 Mar 2022 11:15:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nSd1t-0005Cc-Rx; Fri, 11 Mar 2022 11:01:53 +0000
-Received: by outflank-mailman (input) for mailman id 288976;
- Fri, 11 Mar 2022 11:01:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RXIo=TW=citrix.com=prvs=0626a3ed1=roger.pau@srs-se1.protection.inumbo.net>)
- id 1nSd1s-0005CW-Af
- for xen-devel@lists.xenproject.org; Fri, 11 Mar 2022 11:01:52 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a5bdfc17-a12a-11ec-8eba-a37418f5ba1a;
- Fri, 11 Mar 2022 12:01:50 +0100 (CET)
+	id 1nSdEv-0006kj-1u; Fri, 11 Mar 2022 11:15:21 +0000
+Received: by outflank-mailman (input) for mailman id 288981;
+ Fri, 11 Mar 2022 11:15:19 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1nSdEt-0006kd-Sx
+ for xen-devel@lists.xenproject.org; Fri, 11 Mar 2022 11:15:19 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nSdEq-000798-7M; Fri, 11 Mar 2022 11:15:16 +0000
+Received: from 54-240-197-233.amazon.com ([54.240.197.233] helo=[10.95.172.72])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nSdEq-0002f2-0V; Fri, 11 Mar 2022 11:15:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,150 +39,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a5bdfc17-a12a-11ec-8eba-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1646996510;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=NZfuSuOf3HsgXGGjM3uvYPU0K7q//s5hos77iiW/mIg=;
-  b=beN53d/qLckVSolXXKyVIYQX+XGhRgdUEtoqGFH8MZxEQjwqb7BM7V4P
-   LFmmWam5wgBTxgOdlCAJPY0bwDvGGQCESM+xVJov9pKcuL+RyZsxIh8Gn
-   aQDyUDDGQGVI15Gw/JHN0oP94k1mMgGmWZwX8QfAH9JJa3ex9msyQ3iau
-   o=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-X-SBRS: 5.1
-X-MesageID: 66009274
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:PvFD16v87McJy26zE3mMDyL8zOfnVMteMUV32f8akzHdYApBsoF/q
- tZmKT+OO/bYYTT2fNpzaIS1oEoDsMTUm4VgHFM/qyxgH38b+JbJXdiXEBz9bniYRiHhoOOLz
- Cm8hv3odp1coqr0/0/1WlTZhSAgk/nOHNIQMcacUsxLbVYMpBwJ1FQyw4bVvqYy2YLjW1jU4
- IuryyHiEATNNwBcYzp8B52r8HuDjNyq0N/PlgVjDRzjlAa2e0g9VPrzF4noR5fLatA88tqBb
- /TC1NmEElbxpH/BPD8HfoHTKSXmSpaKVeSHZ+E/t6KK2nCurQRquko32WZ1he66RFxlkvgoo
- Oihu6BcRi8wIoPSnN88CiVkMDNdYO5l+4f+Kz+W5Jn7I03uKxMAwt1rBUAye4YZ5vx2ESdF8
- vlwxDIlN07ZwbjsmfTiF7cq1p9LwMrDZevzvll6yj7UF7A+SI3rSKTW/95Imjw3g6iiGN6AO
- ZJBOGAwMHwsZTUWYVocL8sCod2hlz6iVhtnunWuj7Metj27IAtZj+G2bYu9lsaxbd5Ogk+Sq
- 2bC/mL4KhIXLtqSzXyC6H3EruXIhyLgHoUJCKe/6OVpkXWU3GUYDBBQXly+ydG7gEOjX9NUK
- 2QP5zEj66M18SSDR8n3WBCQo3OeuBMYHdZTe8Uq5QfIxqfK7gKxAmkfUiUHeNEgrNUxRzEhy
- hmOhdyBLT5gqrqOUlqG66yZ6zi1PEA9KW4EeD9BTgYf5dTniJ88gwiJTdt5FqOxyNrvFlnYx
- zGMsTh7jbEUhs0jyaq25xbEjiiqq5yPSRQ6jjg7RUr8sFk/PtT8IdX1tx6Ltp6sMbp1UHGYo
- FYan/O/tdwyLoOuyW+uQ900FvaAsqPt3CLnvXZjGJwo9jKI8nGlfJxN7DwWGHqFIvroaheyP
- haN5Fo5CIt7eSLzMPQpO97Z59ECkPC4fekJQMw4eTanjnJZUAactB9jakeLt4wGuBh9yPpvU
- Xt3nCvFMJr7NUiF5GbnLwv++eVyrszb+Y81bcmqp/hA+eDCDEN5sZ9fbDOzghkRtctoWjn9/
- ddFLNetwB5CSuD4aSS/2ddNcQ5bdidkVciu8pI/mgu/zuxOQTBJ5xj5m+5JRmCYt/4NyregE
- o+VBie0N2YTdVWYcF7XOxiPmZvkXIplrGJTAMDfFQ3A5pTXWq72tP13X8JuJdEPrbU/pdYpH
- 6htU5jRWZxnF2WYkwnxmLGg9eSOgjzw3lnQV8dkCRBiF6Ndq/vhoYa1IFGwqHFQUkJad6IW+
- tWd6+8SerJaLyxKB8fKcvO/iVS3uHkWguVpWEXUZNJUfS3RHEJCcUQdUtdfzxkwFCj+
-IronPort-HdrOrdr: A9a23:3gXLcqOAfiKg+sBcTjujsMiBIKoaSvp037BK7S1MoNJuEvBw9v
- re+MjzsCWftN9/Yh4dcLy7VpVoIkmskKKdg7NhXotKNTOO0AeVxelZhrcKqAeQeREWmNQ96U
- 9hGZIOdeEZDzJB/LrHCN/TKade/DGFmprY+9s31x1WPGZXgzkL1XYDNu6ceHcGIjVuNN4CO7
- e3wNFInDakcWR/VLXAOpFUN9Kz3uEijfjdEGY7OyI=
-X-IronPort-AV: E=Sophos;i="5.90,173,1643691600"; 
-   d="scan'208";a="66009274"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LEiWyupErfhEk0a5x0tQH4FhUD58IQIcepJ9CkxWd/sxWOyhtiRXJgAjRVnmjSM9B7a/MUUj5dbplIhg29Yodxg9tOhMmCQZv5FtZ7VK3zwDQ1AyX2Afo5y8xXcalSVo7jnpGOUTQLV7OvCtjw5+ynIIxhkHfXcOrWn9VZbmoupDhxxRySyj2dXvo+LDmehUtjZOTLSxGweInJIw4tNvkoqMIlbh/R6F88DBbNcBTy0KldCVHLAehgmUsSeSRpbXpSgcRijc2Q0JhRGbxQYI+xsk0vMef7QqGiMInH6T7oOm+VS/WjAQfLbFQ9xGGEXW9D18VlPW/5HvJqSUyLccKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7r+XHGjRDZfJFK8qVKqeLX5YluqIfaqF+fN63ptoViM=;
- b=kqowpKl9+jiu/D7ulcILiWQ4P1t22oT/Dm5hNdZEdxLIdp7/Znu9P72+wpKjjt0sniN0Oeu95M/NUZFO+SQkKbygZ29Vay7FyzZ2US63PRUXT2xngk3JlNXMi92capKB2OdKz4OSvx67E8CABo5k5MvSMLszxWn0duNOiu1ViiFu2tnQ7qFWGmqiRYUNYTb212ZvjimPArR6nqHIhw7vqnw+pzeMS6wBgLwVF+5mikToj0NTiqb7kMGI1xppy6c06ENz9A3Fa4bT2tGgEmeXOC2x5viy1EYsquWaGGnKm10WbEE3sa7vBorYZRyr4T0GNaTqcbftzJfofoxOA/P9zQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7r+XHGjRDZfJFK8qVKqeLX5YluqIfaqF+fN63ptoViM=;
- b=xle8AYtbEulfowagL+mL9Sy01DQuwR7Ga8pjYm7T+5fRtaScMFj4vxnPE+7b2yXsOB30j+wS1Oje+YE1ck3z5FxnvFNMhkEOnRBmKllKo22lXHm2MFU6BXpzN7SQruLKAjmxmbkoXCN9AE5J5hvRu3tI540CCHB8D5fY/G0Cp8Q=
-Date: Fri, 11 Mar 2022 12:01:40 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Juergen Gross <jgross@suse.com>
-CC: <xen-devel@lists.xenproject.org>, <linux-block@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH] xen/blkfront: speed up purge_persistent_grants()
-Message-ID: <YissFI7k6AYkM45X@Air-de-Roger>
-References: <20220311103527.12931-1-jgross@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220311103527.12931-1-jgross@suse.com>
-X-ClientProxiedBy: MR1P264CA0047.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:3e::19) To SA0PR03MB5610.namprd03.prod.outlook.com
- (2603:10b6:806:b2::9)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=7mXwwIlhef40MPAwsqSX1Iv8RqJ2SPS2PZk9l8m8IYc=; b=PdISopE87p/XvjPV5UP1QlD2Rl
+	M4OE5HupFbg7gW0dDvgrPtFMH6MfWSvfQy4f25wbcsdTozloSXiM/CXmEgBsfoSky9oEkEmoPZGmG
+	PDHSu2NSMntZFc4GrrO/SXkzwNT4ncQ7WhmOddZjJTaCyS+f5gT4rPmH70AL+9cP42OM=;
+Message-ID: <2a5c59ad-2fa5-b668-8bce-0d55e89a4afd@xen.org>
+Date: Fri, 11 Mar 2022 11:15:13 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e525ee9e-8b8b-4b93-b503-08da034e8790
-X-MS-TrafficTypeDiagnostic: DM5PR03MB3275:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR03MB32759E503A9B056FC41C99318F0C9@DM5PR03MB3275.namprd03.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: KQn+0NUe9VX22Zmfim6tbAKg/gP4rIwMeHemgsF5YeXy6ow0Sr5+SJ+szxux9z3c20p1Mn85cbuTNbvsa54xVRxCbp3/RKBcNQrskTLbaj51HqN+NjRZ3ob/VOhGpki6OAhDYFhNudK57RBx1B4VPB2uUTfnWtQ7ujH+sthlM+ly3yp0IK7HxdmnJPxw9eDl0ezF81JyMF9R9F/H808slE6KnFN5Hixftl63CLVQMh3vn1mNl4SHgnOn1r10jF+JbZKakY/OYHMAXBJoArewilWyHyUII0C9BqDaC+CJbfQKcWHr+AtkNj4tjPsl66bxoAXBzFgDCWXX+hP1pDYC+EkpSXiIVdR5kc3VHrwg9Q7BxlYFzWxJC39YKn1pXSEHggHhT2zRdIdHgFcgrNBCwhAdejZww0rE2w2JDd650TegKmQMtCIMakiTOIx8/yftO6GrI16+SK4YoSGcSM5GLuihJ6OuhIqsor3Sl9SVEtQX2xWDEdTkq8jZ6CgtGdRnvcK5YLcId3Vt/zy1K/veVsqSTy2uGJMR0v5lZlon6TQzzJUidTmv8JYg7JD3+G/lyEW9eJ0EPImaPYjH4i46tPDtfP5wdfiRusaRLuIU3Om7qI2hnqabJkMpEa04MzQCBAACLJa1MqOx5lgM/advMg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA0PR03MB5610.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(7916004)(366004)(316002)(186003)(26005)(66556008)(66946007)(6512007)(9686003)(66476007)(4326008)(2906002)(82960400001)(8676002)(6486002)(38100700002)(6506007)(508600001)(8936002)(86362001)(5660300002)(4744005)(6666004)(54906003)(6916009)(33716001)(85182001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y3diL0hLQm1hQzJ5QUNxZkNOU0gvQlM0dkJncnFCSzVTNUE1YVQya2pTN2N1?=
- =?utf-8?B?Vkp0aDE0L2xIbGZRT2tkaEVac2VWSHlLN0kzVCtqdFFtTlpjZ21Ta1V2VkRw?=
- =?utf-8?B?RU8yWjB1UXdDZkg4Vm9nZUJVMncvcEl6Qi84bjZyZjducS9CS1VIMGVXcUE5?=
- =?utf-8?B?WWU4NElyendlUWQzUnQ0OXI1dWowVWFnU3lEeVZjdFdqcEluZEF2WHJxVjBq?=
- =?utf-8?B?cWtYNlJQVVVuZi96OTliWjcxSUdnMnNPRkplSGtpa3F1WTVSR0IvdUloQW0v?=
- =?utf-8?B?a3VnZCtucitkeFZrUFF3Ty9lQjhsVGZrUUYvTnB4enZFZVRBZGRDTEV6dkIr?=
- =?utf-8?B?VjZGeURoMzV2QVQyT0NXQWNTUmRSZkc0VXVOK29mbTllaTRRaXpvUG9TbldY?=
- =?utf-8?B?N3o2T3pZQ0VzOVJKZG1jdHUxT2RyVi9rdWtqQW15STRYWGdMWXVjZ0JRTUFm?=
- =?utf-8?B?V1R4dXZJOExnSG9va0gvN3dxNmVpQ2FWVTBiVHQ2T2NSakFqa1BFZEQ5dE8v?=
- =?utf-8?B?bXI1eWRKSnlDQzM4RHY5RHZOL1FGMi96Rk9DeVhDZlhIMFFSSjNGdFVER1Ba?=
- =?utf-8?B?YXZ0T1ZZeFBINGIwa24vcnhXUjRRQ0R0eElYd3U5eVdvZSt5MStRY3lNYmVt?=
- =?utf-8?B?L3lxRW9vTno1dXdlaGROWW82ZEhCYTRPQzBwTXRXR0ZMaWl5Snc4S2drQU9T?=
- =?utf-8?B?em13K2NXMWVlRWNzdVZPOEhDeEExRExISzVUM09NMWZIRXFrNjVGM1VKclg1?=
- =?utf-8?B?MnBDMWNHVHFMTmlaMmswblNoUE1MT3JrNjluYjRlWWFSMVRoOXZjTU1kZXRs?=
- =?utf-8?B?WUxKeHFGUCtlQlVDT1ZNMHFHaXB0OUFLZHJOdVRZb2NVcWdHNzVLRUtGdDMr?=
- =?utf-8?B?Rmtqa1h0bi8yb2F3S2lwWklrU1B6VEZTcGZHa1J5Q01rZk9oOTE3bUU5Tkxw?=
- =?utf-8?B?OEQ1bTNXcExKNThzWG9WMXdQYWJoc0xwM2ZOa3ZzcVdYa2ljVHVZTG4vbmJ6?=
- =?utf-8?B?Yi9OVFNtY3gwOVcyd2JZNERDWHJ3VkhwMyswSjl0WUtBQVA0NVF0N1F4Sjlq?=
- =?utf-8?B?U2pPQXNKZW9MY2dsRXRpMmpMY3c5ZXlXcEJGQUhnai9WWUtoTmxPRGFuTm5E?=
- =?utf-8?B?L1VHUFhWQXRQZGpHa0F1elN3NWN0SVM5RGNZb2REdWZiVkRycktvVVRFZDFJ?=
- =?utf-8?B?Q0dqc29jRy9EaU5IbDVKSTdFOTNZMEhWaHlvRytNSU9IYm5KdzFBc0d2Uzlh?=
- =?utf-8?B?UERsbUdGcFNaZml4bDhIU2VIbTdOUUl0Y2kwZ1ZrZTJQV2o3THJyK29INlVV?=
- =?utf-8?B?RmFTaVFyc3dXaHprRDczcDlCN1poWDBKb3E1aDA0SExtTVVwc1ZYMEdjRWQ4?=
- =?utf-8?B?cU01TkcyOENYVitvVFQzVGt0czkzeUY5Z1pzSVdlZmZjUUhrUjk1cWF0S2FP?=
- =?utf-8?B?MnFpNFNZZmdpdXgwVnVkVHFkY0NxZDhkaUN4ODVoSWUzc0ZCaHFtMit3WTZZ?=
- =?utf-8?B?OUFRVUFwbG1iNzV2bkppZ3BQMUVWYlNPWVpOVEE5SlduUXQvL2NRelRZbUdX?=
- =?utf-8?B?U1J6OFUvK2tXcmQreDczWjlWZ1lFNmNKN3hScVkyaDMrYndHeGNFS0p2aVZ5?=
- =?utf-8?B?cU5LQzY4Mnl0TVliaDc0OFNMVE8ySWJreXhUellXL3Y0dis2ajVTZGg2blNV?=
- =?utf-8?B?eHBxbjk3d2swMGlJcldmci82L0tmUDB6c3l1ZnF3ZjFEeXVwNTdLazFDSm81?=
- =?utf-8?B?QzNSUmJJL0NJUFZQeVBLeWlqMDZpbllZV1BpZHJlcVZhd0grcW9JUXpzcWh5?=
- =?utf-8?B?VkMrZ0lFdWowaHI1L2hQRjFGTm1rYWdwSTIwRGEvRmhQekhNYldIWGpoQkdL?=
- =?utf-8?B?TXRJOE5CRkJWUGR3TlNjbVY5eG9xM2YycFoxVCtVRHcwdFZicXlXbW9Oekd5?=
- =?utf-8?B?bXZudVpDSG5ybkFWOEplVi8vVVFOcHJDdGp1SnZjSmRqcjMwR3R6WW92T3V3?=
- =?utf-8?B?Zm0waDFhNEhnPT0=?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: e525ee9e-8b8b-4b93-b503-08da034e8790
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR03MB5610.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2022 11:01:44.6835
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4dGSxbXSyHy+HsKoFZu3IUYkMWn2J9cTJj1hZlUWN06E8m+gee8OVndEDir23tkyPpd25dr4wed6TFLA5MJQnw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB3275
-X-OriginatorOrg: citrix.com
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.6.2
+Subject: Re: [PATCH 1/2] ns16550: reject IRQ above nr_irqs
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20220310143403.50944-1-marmarek@invisiblethingslab.com>
+ <7acb2915-5a9d-c1f1-4b7b-2bc6c2055ea3@suse.com>
+ <YioddbNor6w/U9ed@Air-de-Roger>
+ <53361d65-2bd8-c07b-938c-91b95f2d68ad@suse.com>
+ <Yiojgxgd4amSjHog@Air-de-Roger>
+ <3055b4a5-2d55-9cf1-1069-8c57208bf0af@xen.org> <YiopXU65pAlnNVNI@mail-itl>
+ <d2c63630-6ab3-b4dd-128e-72f871fb9e08@xen.org> <Yisp0Q/cNGbgsO/7@mail-itl>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <Yisp0Q/cNGbgsO/7@mail-itl>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Mar 11, 2022 at 11:35:27AM +0100, Juergen Gross wrote:
-> purge_persistent_grants() is scanning the grants list for persistent
-> grants being no longer in use by the backend. When having found such a
-> grant, it will be set to "invalid" and pushed to the tail of the list.
+Hi,
+
+On 11/03/2022 10:52, Marek Marczykowski-Górecki wrote:
+> On Fri, Mar 11, 2022 at 10:23:03AM +0000, Julien Grall wrote:
+>> Hi Marek,
+>>
+>> On 10/03/2022 16:37, Marek Marczykowski-Górecki wrote:
+>>> On Thu, Mar 10, 2022 at 04:21:50PM +0000, Julien Grall wrote:
+>>>> Hi,
+>>>>
+>>>> On 10/03/2022 16:12, Roger Pau Monné wrote:
+>>>>> On Thu, Mar 10, 2022 at 05:08:07PM +0100, Jan Beulich wrote:
+>>>>>> On 10.03.2022 16:47, Roger Pau Monné wrote:
+>>>>>>> On Thu, Mar 10, 2022 at 04:23:00PM +0100, Jan Beulich wrote:
+>>>>>>>> On 10.03.2022 15:34, Marek Marczykowski-Górecki wrote:
+>>>>>>>>> --- a/xen/drivers/char/ns16550.c
+>>>>>>>>> +++ b/xen/drivers/char/ns16550.c
+>>>>>>>>> @@ -1221,6 +1221,9 @@ pci_uart_config(struct ns16550 *uart, bool_t skip_amt, unsigned int idx)
+>>>>>>>>>                                 pci_conf_read8(PCI_SBDF(0, b, d, f),
+>>>>>>>>>                                                PCI_INTERRUPT_LINE) : 0;
+>>>>>>>>> +                if (uart->irq >= nr_irqs)
+>>>>>>>>> +                    uart->irq = 0;
+>>>>>>>>
+>>>>>>>> Don't you mean nr_irqs_gsi here? Also (nit) please add the missing blanks
+>>>>>>>> immediately inside the parentheses.
+>>>>>>>
+>>>>>>> If we use nr_irqs_gsi we will need to make the check x86 only AFAICT.
+>>>>>>
+>>>>>> Down the road (when Arm wants to select HAS_PCI) - yes. Not necessarily
+>>>>>> right away. After all Arm wants to have an equivalent check here then,
+>>>>>> not merely checking against nr_irqs instead. So putting a conditional
+>>>>>> here right away would hide the need for putting in place an Arm-specific
+>>>>>> alternative.
+>>>>>
+>>>>> Oh, I always forget Arm doesn't have CONFIG_HAS_PCI enabled just yet.
+>>>> The PCI code in ns16550.c is gated by CONFIG_HAS_PCI and CONFIG_X86. I am
+>>>> not sure we will ever see a support for PCI UART card in Xen on Arm.
+>>>>
+>>>> However, if it evers happens then neither nr_irqs or nr_irqs_gsi would help
+>>>> here because from the interrupt controller PoV 0xff may be a valid (GICv2
+>>>> supports up to 1024 interrupts).
+>>>>
+>>>> Is there any reason we can't explicitely check 0xff?
+>>>
+>>> That's what my v0.1 did, but Roger suggested nr_irqs. And I agree,
+>>> because the value is later used (on x86) to access irq_desc array (via
+>>> irq_to_desc), which has nr_irqs size.
+>>
+>> I think it would be better if that check is closer to who access the
+>> irq_desc. This would be helpful for other users (I am sure this is not the
+>> only potential place where the IRQ may be wrong). So how about moving it in
+>> setup_irq()?
 > 
-> Instead of pushing it directly to the end of the list, add it first to
-> a temporary list, avoiding to scan those entries again in the main
-> list traversal. After having finished the scan, append the temporary
-> list to the grant list.
-> 
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+> I don't like it, it's rather fragile approach (at least in the current
+> code base, without some refactor). There are a bunch of places using
+> uart->irq (even if just checking if its -1 or 0) before setup_irq()
+> call. This includes smp_intr_init(), which is what was the first thing
+> crashing with 0xff set there.
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Even if the code is gated with !CONFIG_X86, it sounds wrong to me to 
+have such check in an UART driver. It only prevents us to do an 
+out-of-bound access. There are no guarantee the interrupt will be usable 
+(on Arm 256 is a valid interrupt).
 
-Thanks.
+As I wrote, I don't expect the code to be used any time soon on Arm. So 
+I am not going to argue too much on the approach. However, we should at 
+least clarify in the commit message/title that this is x86 and pci only.
+
+Cheers,
+
+-- 
+Julien Grall
 
