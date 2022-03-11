@@ -2,56 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C1A14D624B
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Mar 2022 14:22:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.289028.490314 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61F3B4D6263
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Mar 2022 14:29:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.289032.490326 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nSfCn-0006br-IZ; Fri, 11 Mar 2022 13:21:17 +0000
+	id 1nSfK4-0007Ir-Co; Fri, 11 Mar 2022 13:28:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 289028.490314; Fri, 11 Mar 2022 13:21:17 +0000
+Received: by outflank-mailman (output) from mailman id 289032.490326; Fri, 11 Mar 2022 13:28:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nSfCn-0006Zi-FX; Fri, 11 Mar 2022 13:21:17 +0000
-Received: by outflank-mailman (input) for mailman id 289028;
- Fri, 11 Mar 2022 13:21:15 +0000
+	id 1nSfK4-0007Fm-8D; Fri, 11 Mar 2022 13:28:48 +0000
+Received: by outflank-mailman (input) for mailman id 289032;
+ Fri, 11 Mar 2022 13:28:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bq6s=TW=xilinx.com=ayankuma@srs-se1.protection.inumbo.net>)
- id 1nSfCl-0006Zc-5j
- for xen-devel@lists.xenproject.org; Fri, 11 Mar 2022 13:21:15 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam08on2061b.outbound.protection.outlook.com
- [2a01:111:f400:7e8d::61b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=3DNt=TW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1nSfK3-0007Fg-HP
+ for xen-devel@lists.xenproject.org; Fri, 11 Mar 2022 13:28:47 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1e2728db-a13e-11ec-8eba-a37418f5ba1a;
- Fri, 11 Mar 2022 14:21:12 +0100 (CET)
-Received: from SN4PR0401CA0020.namprd04.prod.outlook.com
- (2603:10b6:803:21::30) by DM5PR02MB2441.namprd02.prod.outlook.com
- (2603:10b6:3:46::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.29; Fri, 11 Mar
- 2022 13:21:08 +0000
-Received: from SN1NAM02FT0024.eop-nam02.prod.protection.outlook.com
- (2603:10b6:803:21:cafe::26) by SN4PR0401CA0020.outlook.office365.com
- (2603:10b6:803:21::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.20 via Frontend
- Transport; Fri, 11 Mar 2022 13:21:08 +0000
-Received: from xir-pvapexch01.xlnx.xilinx.com (149.199.80.198) by
- SN1NAM02FT0024.mail.protection.outlook.com (10.97.5.147) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5061.22 via Frontend Transport; Fri, 11 Mar 2022 13:21:08 +0000
-Received: from xir-pvapexch02.xlnx.xilinx.com (172.21.17.17) by
- xir-pvapexch01.xlnx.xilinx.com (172.21.17.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.14; Fri, 11 Mar 2022 13:21:06 +0000
-Received: from smtp.xilinx.com (172.21.105.198) by
- xir-pvapexch02.xlnx.xilinx.com (172.21.17.17) with Microsoft SMTP Server id
- 15.1.2176.14 via Frontend Transport; Fri, 11 Mar 2022 13:21:03 +0000
-Received: from [10.71.118.106] (port=50548)
- by smtp.xilinx.com with esmtp (Exim 4.90)
- (envelope-from <ayan.kumar.halder@xilinx.com>)
- id 1nSfCX-0003ny-Hc; Fri, 11 Mar 2022 13:21:02 +0000
+ id 2d68e693-a13f-11ec-8eba-a37418f5ba1a;
+ Fri, 11 Mar 2022 14:28:46 +0100 (CET)
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01lp2057.outbound.protection.outlook.com [104.47.0.57]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-39-yCitXWhaNTaPuZK36NXK1Q-1; Fri, 11 Mar 2022 14:28:45 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by HE1PR0401MB2569.eurprd04.prod.outlook.com (2603:10a6:3:7c::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.22; Fri, 11 Mar
+ 2022 13:28:43 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::e8ce:db1c:5bb0:af0]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::e8ce:db1c:5bb0:af0%6]) with mapi id 15.20.5061.022; Fri, 11 Mar 2022
+ 13:28:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,266 +51,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1e2728db-a13e-11ec-8eba-a37418f5ba1a
+X-Inumbo-ID: 2d68e693-a13f-11ec-8eba-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1647005326;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=oB9UyoUTlYD7+jOARvtGocxIQ/b7yV0YHAi0kIcsud0=;
+	b=bjjeT33WbtJms+PnDPcFu3LUPsPFlUeFCu3lDTEBTUGxUfLDAeUQLbCWbZSmhH528fm8/i
+	0LdtX3CzFrn6Rsf5HSsr0gwiGGJ3cAT/IAo6A7gJo5Q5/Ll0Xwl9MXyev+3sGCBbeEKpma
+	NKfsUwtQHJAm8+DgmkY4hjKmWG4cGt0=
+X-MC-Unique: yCitXWhaNTaPuZK36NXK1Q-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=b+hx8picdgtl7Ei59bbHggVQlwZSfmUqrvzTBjWZwLlq59LFUrsPEMlNjrxodGCyDVUZCZe1qzO5DfFJ6zLLMdCdlUx7wYrx36a2Yhp4+tupgXIOmGQkIfzO6IggBqdN2spa6dQL23VemyQ5U/pyN5hISuSuysEYdMLmtQTHYqajZ/GVOWoidHRRmNmhTgez0mXNqPI+InPDeUrWwmYK13lJAQFZtfMtMT7ohlVsAIlv3fZwpRLsJk0U18A/zLPJb33/Rs6RTBeKyHkf4Yvg7O4t6H0R512XHpfLCIfae80eoO3lBb0TwE803vPz4CZEoKajgD+C8LkkhlZIZRvrHQ==
+ b=nYJVjNXBBJdwj6kC0B8Yr+BQgQ6HAllLUvQufDBT0YFZcG6q6mMNCst+fFchvjHGQvb76Fit5p9+9+Wd1MyNkmui0AjaPlg4g8UgbhXXvYqkMy2ulCbYqhWE0hyvotHh/e/uRUoAxibTxEzQn40TGZej0Zjx9h/fpIMqjkBdvvGipnezDwD0p3m91kwlTFjL4GkzCSqBA8T7r6TuDtKSOXbMwbtlt374YhVxQGc4nXsWl4NlHKyoe+EL3p4JXsmijncPgOxXFSSkAzuE7d2V5EZp3KqLSouxaBiW3oGWencgrTW47Obyj0Lz/PGH8rKlEizDrPv7w4m208G5pXnOaA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K+k1d2AlhUFlWXWJZs1e/Mul6hrSF5nctiIMio6BAy4=;
- b=LC4itbbNQXbrZ9SvfrYhCGcKgD8njJGnHUleGfQQYCCaI6VRb5Hl0VrFw8uQdscgqgC7rTfqntq5vmrz+W7V6LEdaWEe/bV2hOp0on9AZ7KQks1G2G+7cNA+BbLFSBetWK8ncpwEhmtBmR8RYrLMnS5y6Gg67pank7aVN48GdNwkqYwkIyqFalpliBniUpJrrPTeGYalkj1fXQb7WQxhSnfhPWcFcJsAVVsU+OnDpfd2Cl+HAlokiw821ewf1DFrHE5H8Xg3YouPolLozP9gRfxl0Mu1KEPdbOrsasxkd07okbSzK9eR7aLWKGhHdn3SDp0tlgmPqP3QheNFXb/LeQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 149.199.80.198) smtp.rcpttodomain=kernel.org smtp.mailfrom=xilinx.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=xilinx.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K+k1d2AlhUFlWXWJZs1e/Mul6hrSF5nctiIMio6BAy4=;
- b=ixCADxwRMRKGe/KzxRo8a+1mqymVUO2wMAdZNWslF3wp0lkE2ACj+K9PftpvlXis1Kpi66xKVBkRl0pr/q/4PkAYj7RqJwSHX5bKrpo7mfT9zJrEkCCPGrvTJ8ssi7kvIsqNTe6BABjNXHtF98Z7+fqDndWxyTkEbeYFdGk4ulg=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 149.199.80.198)
- smtp.mailfrom=xilinx.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=xilinx.com;
-Received-SPF: Pass (protection.outlook.com: domain of xilinx.com designates
- 149.199.80.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=149.199.80.198; helo=xir-pvapexch01.xlnx.xilinx.com;
-Message-ID: <347bda39-2eed-6139-222d-3924bf286f08@xilinx.com>
-Date: Fri, 11 Mar 2022 13:21:00 +0000
+ bh=oB9UyoUTlYD7+jOARvtGocxIQ/b7yV0YHAi0kIcsud0=;
+ b=kZb+zeekyDAP+0pZOtfPEYcRrszixBEJe+WcyhTxpESxrsxed/P+tR3CBs1y4ni37odAbyG1KuphjAjDPt6nuFbtRmR2fsi0uujk2paSfGlK853+CO6CBX0t7KeaPvId0VFGQvtKo0QupMxlYShfJrsFXFdkOcVuXuP7Pdg4kEiykVBdCAdYa4FM/KmyBqNrVf1sk0PlCCF7FUKMEwvdk8IvkDRTJWPVIY5hqaKBAszItZlpg2ZQ3iv8lTQbpcuu2OyCkhrPeICX1eY25rEb9Lmo6+CMCZ4Y8SAJn01I0+D1oYqZ4DSONVozXoLv4vvrKwZ7JVc3+2N/pqT/dl+CEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <97bebbfa-b5e8-4c57-162f-2a052de92f02@suse.com>
+Date: Fri, 11 Mar 2022 14:28:40 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v2] x86: avoid SORT_BY_INIT_PRIORITY with old GNU ld
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS9PR0301CA0056.eurprd03.prod.outlook.com
+ (2603:10a6:20b:469::34) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.6.2
-Subject: Re: [XEN v10 4/4] xen/arm64: io: Handle data abort due to cache
- maintenance instructions
-To: Stefano Stabellini <sstabellini@kernel.org>, Ayan Kumar Halder
-	<ayan.kumar.halder@xilinx.com>
-CC: <xen-devel@lists.xenproject.org>, <stefanos@xilinx.com>, <julien@xen.org>,
-	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
-	<andrew.cooper3@citrix.com>, <george.dunlap@citrix.com>, <jbeulich@suse.com>,
-	<wl@xen.org>, <paul@xen.org>, <roger.pau@citrix.com>
-References: <20220310174501.62040-1-ayankuma@xilinx.com>
- <20220310174501.62040-5-ayankuma@xilinx.com>
- <alpine.DEB.2.22.394.2203101813030.3261@ubuntu-linux-20-04-desktop>
-From: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
-In-Reply-To: <alpine.DEB.2.22.394.2203101813030.3261@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5c3f42f2-6c29-4e8b-8320-08da036200f0
-X-MS-TrafficTypeDiagnostic: DM5PR02MB2441:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7b981e2d-df7d-4d32-3c5e-08da03630f95
+X-MS-TrafficTypeDiagnostic: HE1PR0401MB2569:EE_
 X-Microsoft-Antispam-PRVS:
-	<DM5PR02MB244119C260B8167BDBBF026CB20C9@DM5PR02MB2441.namprd02.prod.outlook.com>
-X-Auto-Response-Suppress: DR, RN, NRN, OOF, AutoReply
+	<HE1PR0401MB2569F517B262CAC4FA8A975FB30C9@HE1PR0401MB2569.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	ZeezdIP/xvC+uqPqjMpIgJSPpft0M8T5Owxg2mLMVgYVaMvXx5atavg09Ig1GGPwu1J/+bL7DNspnzSndB3czv6TlNvNZMCTT05whENX/4KrqUQZ7astc6UBmjLxEEg/Us03RRbN7x3oakokgZXa4HCCSbobCQUDqD3iQdfAsDv94K3aXOulbG9NeDTnEhdx3CByKif5VDhe5TDeUiQTenzrL5yFkN/WHquoJD8ntcWQq3aakRGw3KBdJQmZvxAOnklUuUHZLDBmGrrlOydt5O2NFUqoHkCRda0oep9AHP490EQr1S/PDU8+kFtB/9seKpIzYkzbCSYvN2x4ZcKzOT6bi1bvl9sycYNejFLFEMaEL/GbUP2w/pW/rbtCf4JNkwA3XQArpe3zj85UIXq8PAXwWf2kg+fuDLZ0KSPkFkngBEGPWOiXo4SqqtkzcieXKRW8RSp+j8TaCcUzEjdMJTkI67eO7xYrD3tJuemQSD6q+wd9SxyaMwvRQTqbHDD0dVwCfDk17OnRhOyLegkcQJyHeGe12nEH8Pvfef5yuSJe0kMUfu3seq9YYRxlQ3aSUUwMXMmiD5bpKqJ0JTfsPnFLg204tQCfha5BVRiey8WLN+qF3/R1ML5vYgJm79wXY8j9F0Owd3rk8vihJYVqh55KjEViPgjNiulpiLPIPl4aO5pTpdPBFMBubTGaKBS9sfZoCdteWggebqI4wP8aSiA22dG37lNi7xpKyB8I4kQ=
+	rlaI/TW7tj8+B7Hz4DCXnyYmnVoVbVYY8WXTSatMoAwkthNjV+Lpj2zcuyF0mVdCdY29eiNrVtyM5xxFs5pM+MPXvr84L4W0GHL/Lj8QnUOIdMBPQSI/MQYJUd4prNrfvW402g0tN/c4k4A4S7jQD2zEhSqzjkGksrEtatTN5mZ5iNbHRlhN/SrpWO7Q1vGdzOlaWznwR3ss3ppH+w6aaczWj3IQ/l6TV5Az8FHr/eCy2eIwzYQJc8w9LjvPS6jhSvVn2MjZAO5UA4VjC+xlOmmvlhF2rSrtofDjllDTHa3QEUh4SYaKnGeEsiEGHQUi+OlLg99z4mU1MutHcb9OTsPOgDZk99U/nPfHmzWFwRKlUQF0344NLsggZptYojGLJu/zKmY7GzzMmPJ3s0OpzNbxQJOrji7xiPpIWJwWUDnIiuXB4lPorKjD2eyK1+HWsRt+kpTtVKNl7wq4ClUgDSfwzzhlQU/rLFJ4yWrEaqaO6ZEYu8jere+9RUaVm7KIpquhykkB0vm1DWv20yNbniPNcZ65b5mgimis/5BYdq948Dc8xrEgQdX9s4wRoEko7Oz0tqwjTxCIBL8RMrq+O0RLdsehKeMGwTuMEf29RHUcHNmBsLGLHTXqis3Or9j1StnChTfO2PGvUN4QuRzfDHdWcF3gW3detbV8ebVsI5sdoBYx4A5qz46hYJ71ugiXO5t0wJG95LZ8Rri6aqD0EgTCdvXVEuq1cVL/xy2GCa8=
 X-Forefront-Antispam-Report:
-	CIP:149.199.80.198;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:xir-pvapexch01.xlnx.xilinx.com;PTR:unknown-80-198.xilinx.com;CAT:NONE;SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(356005)(508600001)(31686004)(110136005)(54906003)(316002)(5660300002)(7636003)(8676002)(70586007)(47076005)(36860700001)(4326008)(7416002)(8936002)(70206006)(2616005)(336012)(186003)(26005)(40460700003)(53546011)(83380400001)(9786002)(36756003)(82310400004)(2906002)(426003)(31696002)(50156003)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: xilinx.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2022 13:21:08.0974
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(6486002)(6506007)(316002)(508600001)(38100700002)(8676002)(66476007)(66556008)(86362001)(66946007)(31696002)(5660300002)(4326008)(8936002)(54906003)(6916009)(2906002)(2616005)(186003)(26005)(31686004)(36756003)(6512007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VjJIQXZMWjlJeUpZMlgvUm1ORDlDM1kyWnRiNk5JbUF6bEkwMVRQRTdiaHVx?=
+ =?utf-8?B?Y3I4RFNONmdqZEZWS3pCd09nRWhYdU5ickxLUnNjclhwUXppTjJGTHpLelMv?=
+ =?utf-8?B?UEpkclppdXFFRzcxaGhCRHB3Qm0rb2N3UkVNNXlUbVQ2R0RUbWU4aW93SmJC?=
+ =?utf-8?B?MDZwQmhMVC9IaUtyVUd3L1NhM3lkUUk1SkFPcnhaM21ZajFFUUdFd1BxVjdl?=
+ =?utf-8?B?OHR0dEUrR0prTkw5cEFSSnhucExrSUF4ZnJiM1lGcWVFWlJUU0plWUdqUUNW?=
+ =?utf-8?B?NTV1ZzZJMms5eUJOUnpXRUVLMFFHNVhPS1JsUnRZVnlLb0cwUjNpbU5XaTB3?=
+ =?utf-8?B?ZjdNV0YwS0sraUl6ZWY4N05yNHZIV0hRNlhLQlA2R0hhajREMzZaSXRaYkVz?=
+ =?utf-8?B?VDRjU1VNU3JlbFlHWUoyT3F4NlZ5czF4LzNOWmRlNEVtV0ZHMExNbE9zNmly?=
+ =?utf-8?B?NHlIdmpucHk0ekNXdVFYQkdwbUFVVVVlZzRnRWI5S3V1SXpZUG12Y01ISkdG?=
+ =?utf-8?B?Vlo1M2JZaUJpY2o2cExwREJXbmtiekFrOFBpaEtZeGg0aXdQZDluY1JubjQx?=
+ =?utf-8?B?Ukc1ZnM2ZU45SGluWSs5VGJsbFUzQ1NBL2szZkp5VDZJSlV0QXBBYkFqb0pu?=
+ =?utf-8?B?TTZOdFNNVXM3cTluckVjeE51eG5Td0dVcytsNVRCakt3SDFGaktPVTRZczJk?=
+ =?utf-8?B?Q1kyc0JpWDVQUkhKSXQrR1dsZmV3RWUyNEQrQVE2U0wxOGd4R2gxVlRoYmFo?=
+ =?utf-8?B?aEJhbGtNWG1YRGgxUG14NE1kSllIUk91aG5jcndLT0lLd3lZbWt4bThuUCt0?=
+ =?utf-8?B?NzYycHZyVGw2UEdoeXc5Tjc2TnFRRlZkU3FUaVQ2TFd0SFJPOE85QmVkUlF4?=
+ =?utf-8?B?d1k2UmJSZjRIRzZaOURZcXNEdWNubFpmYXpMVWgvYTVhYUU4WjZRcWY4S1hC?=
+ =?utf-8?B?LzBIY2lHSDlvRERpYUJFeXdsUHBIZ2VVVDR2b05CdXZGbUNNaVYrcEduTElC?=
+ =?utf-8?B?SEVoU2pYRklUTjRHdzl2dkl2TzJoU2k2K1krQ2xQeFNkWE1KYnZWYmJncUJl?=
+ =?utf-8?B?K04vVGkxdnozZ01oNGxkcWN4RkFqUXVpaHUwcFh0cHZsTVZUNXIrSDZzNkVk?=
+ =?utf-8?B?Z1ZIN0p1MmNxVVJjZEtKdG00b1duejBRUC96N2JYS1RuLzRFTGhkRzFRSE1G?=
+ =?utf-8?B?RElXY3JKZ2FWdE1Ub2FTMGJmSHp0UDAzYXMzdmU0YmNmNGtRTlZNUTlSZ0Fa?=
+ =?utf-8?B?WVFCV2czWlZpZzNCTXJ6ZWZmWERnWTlZNmRkeW41MmZQWW9lQlpFN1Q4ZC9q?=
+ =?utf-8?B?WVM2MEJmSU5vdWsySEF0a0NYL2xaek1EUXJJRnpjL2JRTDhhRDlaenc5aFg3?=
+ =?utf-8?B?V0hwWkQ2MFBWdzJtTW9LUS9sNjRwVlUzWTQvMEgyWHAxb2N6blRWL1IvUTNL?=
+ =?utf-8?B?SWpnbXF6NnZXOUpML0RaRWRMemNmbHFRYVIzOGNtWXY2dnZQR21jS2cvc0ZV?=
+ =?utf-8?B?bXQ0clN1T1poOC9QYXNSR3FPaWtKSnNGYUk4Zk9jeEQ3MXRFRjVjL1JidnJD?=
+ =?utf-8?B?OVpIL0gxQkhkbUFiMzlDTkJxN2o0R1N3bktQbGd5N0RiVXRJZlkrUlY4Vmdt?=
+ =?utf-8?B?U1dvRmU4YlN3VzFPNUJsUE43WitTUzFkemtFQ0ZCWVlFOFR2eFB4NUpmVDlK?=
+ =?utf-8?B?a0hCR25uZHVienBPaVJ6bFAyZ2IvWVNESG9EeTFpdUJmYk1UUmFxNGxsU0xT?=
+ =?utf-8?B?TUM3dFpEZTd3OXAyenM1d3BBU09mOEFrN1gvRk1BcEJUM3pVQUFxNFFZejBT?=
+ =?utf-8?B?TWpBamZsdHo0QzZSWHFjTnZ1TTcvU2hTcWNQMmF2T2IzNHF3ZURKbFh0RG5y?=
+ =?utf-8?B?enlraGQ0bjA3MExBT1hIcCtMaWpxcXFZanh1dWRiZXVxSXN4Ym41aEg0WTRq?=
+ =?utf-8?Q?DG1+pXOz+JR0KC7JROGmkdruTxVDp1+q?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b981e2d-df7d-4d32-3c5e-08da03630f95
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2022 13:28:42.6461
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c3f42f2-6c29-4e8b-8320-08da036200f0
-X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c;Ip=[149.199.80.198];Helo=[xir-pvapexch01.xlnx.xilinx.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1NAM02FT0024.eop-nam02.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR02MB2441
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hW8KFbyFTHy17yP0bUWSwmmVPEu8eZWf2y/Y9lREPLxEXhSnmdIpup3ex8hDSpVZV9znSrQ9IqgGAvs7336Dew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR0401MB2569
 
-Hi Stefano,
+Support for this construct was added in 2.22 only. Avoid the need to
+introduce logic to probe for linker script capabilities by (ab)using the
+probe for a command line option having appeared at about the same time.
 
-On 11/03/2022 02:25, Stefano Stabellini wrote:
-> On Thu, 10 Mar 2022, Ayan Kumar Halder wrote:
->> When the data abort is caused due to cache maintenance for an address,
->> there are three scenarios:-
->>
->> 1. Address belonging to a non emulated region - For this, Xen should
->> set the corresponding bit in the translation table entry to valid and
->> return to the guest to retry the instruction. This can happen sometimes
->> as Xen need to set the translation table entry to invalid. (for eg
->> 'Break-Before-Make' sequence). Xen returns to the guest to retry the
->> instruction.
->>
->> 2. Address belongs to an emulated region - Xen should ignore the
->> instruction (ie increment the PC) and return to the guest.
->>
->> 3. Address is invalid - Xen should forward the data abort to the guest.
->>
->> Signed-off-by: Ayan Kumar Halder <ayankuma@xilinx.com>
->> ---
->>
->> Changelog:-
->>
->> v1...v8 - NA
->>
->> v9 - Extracted this change from "[XEN v7 2/2] xen/arm64: io: Support
->> instructions (for which ISS is not ..." into a separate patch of its
->> own. The reason being this addresses an existing bug in the codebase.
->>
->> v10 - 1. To check if the address belongs to an emulated region, one
->> needs to check if it has a mmio handler or an ioreq server. In this
->> case, Xen should increment the PC
->> 2. If the address is invalid (niether emulated MMIO nor the translation
->> could be resolved via p2m or mapping the MMIO region), then Xen should
->> forward the abort to the guest.
->>
->>   xen/arch/arm/include/asm/mmio.h |  1 +
->>   xen/arch/arm/io.c               | 20 ++++++++++++++++++++
->>   xen/arch/arm/ioreq.c            | 15 ++++++++++++++-
->>   3 files changed, 35 insertions(+), 1 deletion(-)
->>
->> diff --git a/xen/arch/arm/include/asm/mmio.h b/xen/arch/arm/include/asm/mmio.h
->> index ca259a79c2..79e64d9af8 100644
->> --- a/xen/arch/arm/include/asm/mmio.h
->> +++ b/xen/arch/arm/include/asm/mmio.h
->> @@ -35,6 +35,7 @@ enum instr_decode_state
->>        * instruction.
->>        */
->>       INSTR_LDR_STR_POSTINDEXING,
->> +    INSTR_CACHE,                    /* Cache Maintenance instr */
->>   };
->>   
->>   typedef struct
->> diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
->> index e6c77e16bf..c5b2980a5f 100644
->> --- a/xen/arch/arm/io.c
->> +++ b/xen/arch/arm/io.c
->> @@ -139,6 +139,17 @@ void try_decode_instruction(const struct cpu_user_regs *regs,
->>           return;
->>       }
->>   
->> +    /*
->> +     * When the data abort is caused due to cache maintenance, Xen should check
->> +     * if the address belongs to an emulated MMIO region or not. The behavior
->> +     * will differ accordingly.
->> +     */
->> +    if ( info->dabt.cache )
->> +    {
->> +        info->dabt_instr.state = INSTR_CACHE;
->> +        return;
->> +    }
->> +
->>       /*
->>        * Armv8 processor does not provide a valid syndrome for decoding some
->>        * instructions. So in order to process these instructions, Xen must
->> @@ -177,6 +188,15 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
->>           return rc;
->>       }
->>   
->> +    /*
->> +     * When the data abort is caused due to cache maintenance and the address
->> +     * belongs to an emulated region, Xen should ignore this instruction.
->> +     */
->> +    if ( info->dabt_instr.state == INSTR_CACHE )
->> +    {
->> +        return IO_HANDLED;
->> +    }
->>       /*
->>        * At this point, we know that the instruction is either valid or has been
->>        * decoded successfully. Thus, Xen should be allowed to execute the
->> diff --git a/xen/arch/arm/ioreq.c b/xen/arch/arm/ioreq.c
->> index cc9bf23213..0dd2d452f7 100644
->> --- a/xen/arch/arm/ioreq.c
->> +++ b/xen/arch/arm/ioreq.c
->> @@ -29,10 +29,14 @@ enum io_state handle_ioserv(struct cpu_user_regs *regs, struct vcpu *v)
->>       const struct hsr_dabt dabt = hsr.dabt;
->>       /* Code is similar to handle_read */
->>       register_t r = v->io.req.data;
->> +    const struct instr_details instr = v->io.info.dabt_instr;
->>   
->>       /* We are done with the IO */
->>       v->io.req.state = STATE_IOREQ_NONE;
->>   
->> +    if ( instr.state == INSTR_CACHE )
->> +        return IO_HANDLED;
-> It might be possible to get rid of this check here by rearranging the
-> code in try_handle_mmio a little bit so that handle_ioserv is not called
-> when INSTR_CACHE. But I don't have an opinion about it.
+Fixes: 4b7fd8153ddf ("x86: fold sections in final binaries")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+v2: Always define HAVE_LD_SORT_BY_INIT_PRIORITY when using LLVM ld.
 
-AFAIU, we need to invoke ioreq_server_select()  to determine if there is 
-a ioreq server for the faulting gpa. If so, then we know that the 
-address is emulated. I think what you are suggesting is to check this 
-before invoking try_fwd_ioserv() in try_handle_mmio().
+--- a/xen/arch/x86/arch.mk
++++ b/xen/arch/x86/arch.mk
+@@ -73,6 +73,16 @@ ifeq ($(CONFIG_UBSAN),y)
+ $(call cc-option-add,CFLAGS_UBSAN,CC,-fno-sanitize=alignment)
+ endif
+ 
++ifeq ($(call success,$(LD) --version | head -n 1 | grep -q "GNU ld"),y)
++# While not much better than going by raw GNU ld version, utilize that the
++# feature we're after has appeared in the same release as the
++# --print-output-format command line option.
++AFLAGS-$(call ld-option,--print-output-format) += -DHAVE_LD_SORT_BY_INIT_PRIORITY
++else
++# Assume all versions of LLD support this.
++AFLAGS += -DHAVE_LD_SORT_BY_INIT_PRIORITY
++endif
++
+ ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
+ 
+ efi-check := arch/x86/efi/check
+--- a/xen/arch/x86/xen.lds.S
++++ b/xen/arch/x86/xen.lds.S
+@@ -30,6 +30,10 @@ ENTRY(start_pa)
+ # define SECTION_ALIGN PAGE_SIZE
+ #endif
+ 
++#ifndef HAVE_LD_SORT_BY_INIT_PRIORITY
++# define SORT_BY_INIT_PRIORITY SORT
++#endif
++
+ OUTPUT_FORMAT(FORMAT, FORMAT, FORMAT)
+ 
+ OUTPUT_ARCH(i386:x86-64)
 
-If so, the code will look like this :-
-
-enum io_state try_handle_mmio(struct cpu_user_regs *regs,
-                               mmio_info_t *info)
-{
-     struct vcpu *v = current;
-     const struct mmio_handler *handler = NULL;
-     int rc;
-
-     ASSERT(info->dabt.ec == HSR_EC_DATA_ABORT_LOWER_EL);
-
-     if ( !info->dabt.valid )
-     {
-         ASSERT_UNREACHABLE();
-         return IO_ABORT;
-     }
-
-     handler = find_mmio_handler(v->domain, info->gpa);
-     if ( !handler )
-     {
-
-#ifdef CONFIG_IOREQ_SERVER
-
-     struct vcpu_io *vio = &v->io;
-     const struct instr_details instr = info->dabt_instr;
-     struct hsr_dabt dabt = info->dabt;
-     ioreq_t p = {
-         .type = IOREQ_TYPE_COPY,
-         .addr = info->gpa,
-         .size = 1 << info->dabt.size,
-         .count = 1,
-         .dir = !info->dabt.write,
-         /*
-          * On x86, df is used by 'rep' instruction to tell the direction
-          * to iterate (forward or backward).
-          * On Arm, all the accesses to MMIO region will do a single
-          * memory access. So for now, we can safely always set to 0.
-          */
-         .df = 0,
-         .data = get_user_reg(regs, info->dabt.reg),
-         .state = STATE_IOREQ_READY,
-     };
-     struct ioreq_server *s = NULL;
-     enum io_state rc;
-
-     if ( vio->req.state != STATE_IOREQ_NONE )
-     {
-         gdprintk(XENLOG_ERR, "wrong state %u\n", vio->req.state);
-         return IO_ABORT;
-     }
-
-     s = ioreq_server_select(v->domain, &p);
-     if ( !s )
-         return IO_UNHANDLED;
-
-     if ( instr.state == INSTR_CACHE )
-     {
-         return IO_HANDLED;
-     }
-
-     rc = try_fwd_ioserv(vio, &p, s);
-     if ( rc == IO_HANDLED )
-         return handle_ioserv(regs, v);
-
-#endif
-         return rc;
-     }
-
-I am not be inclined to have "#ifdef CONFIG_IOREQ_SERVER" in 
-xen/xen/arch/arm/io.c as the file is generic.
-
-- Ayan
-
->
-> The patch does what it says on the tin and as far as I can tell followed
-> Julien's requests so:
->
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
