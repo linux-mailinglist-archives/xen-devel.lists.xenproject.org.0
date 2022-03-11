@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DB3C4D6469
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Mar 2022 16:19:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.289143.490556 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A98744D646F
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Mar 2022 16:21:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.289147.490567 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nSh3C-0004qV-N2; Fri, 11 Mar 2022 15:19:30 +0000
+	id 1nSh5J-0006CP-26; Fri, 11 Mar 2022 15:21:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 289143.490556; Fri, 11 Mar 2022 15:19:30 +0000
+Received: by outflank-mailman (output) from mailman id 289147.490567; Fri, 11 Mar 2022 15:21:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nSh3C-0004oJ-JL; Fri, 11 Mar 2022 15:19:30 +0000
-Received: by outflank-mailman (input) for mailman id 289143;
- Fri, 11 Mar 2022 15:19:28 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nSh3A-0004oD-RY
- for xen-devel@lists.xenproject.org; Fri, 11 Mar 2022 15:19:28 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nSh36-00031n-U5; Fri, 11 Mar 2022 15:19:24 +0000
-Received: from 54-240-197-233.amazon.com ([54.240.197.233] helo=[10.95.172.72])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nSh36-0004ev-NH; Fri, 11 Mar 2022 15:19:24 +0000
+	id 1nSh5I-0006AS-Ul; Fri, 11 Mar 2022 15:21:40 +0000
+Received: by outflank-mailman (input) for mailman id 289147;
+ Fri, 11 Mar 2022 15:21:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3p0I=TW=citrix.com=prvs=06245b39f=Jane.Malalane@srs-se1.protection.inumbo.net>)
+ id 1nSh5G-0006AM-Nc
+ for xen-devel@lists.xenproject.org; Fri, 11 Mar 2022 15:21:38 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f0d0ae16-a14e-11ec-853a-5f4723681683;
+ Fri, 11 Mar 2022 16:21:37 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,125 +36,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=RWUxNyPrRvO8H6IBuIUIOdLlraMxNaXzOn/Emb4xGX4=; b=ootR8xZzzbtVUimLCow9Ru8WHa
-	opPyWj4QePnYvijXRL307nZU+pFHUugdZnWdhtnlTR+vZy4LqHqQFHVCFsiSQy9J8SY/BZzaJrgH4
-	lC0OCB6KjUfzPY3bM9MNHO/Q4ajNuxAU/LZCfBPQxfJO4j04CG7Use0oBnIHXzGKsaZs=;
-Message-ID: <5cedf43b-3903-9668-69a0-01b8ba339ba7@xen.org>
-Date: Fri, 11 Mar 2022 15:19:22 +0000
+X-Inumbo-ID: f0d0ae16-a14e-11ec-853a-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1647012097;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=NQe4qS5MBDdoMjjP8Wzae2ESuncqEPDVU3r+YlHB8x4=;
+  b=gm9BMMn9u8X1KhEm7bqzTOGdDbWh9GCb0Vc/khwL1PNnfYEND+GI6htd
+   UFTdV0d4rBvcn/cBUuh2KY7m8E3KY/EGUnB83c05qN1TPmT+aM9EoKyUa
+   6Di9bk/aWZFpe//NNBND1QwtJue7FRMfaf+21gHGdalg6Ap2Gcavd0VpU
+   o=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 65495651
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:ZM3aPq+ozGdccQ8euuRADrUD5H6TJUtcMsCJ2f8bNWPcYEJGY0x3n
+ WIdUT3SOf+DZmH9fN90a4mz8h4D6MSBnYBqGQs9pH08E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
+ +1EN7Es+ehtFie0Si+Fa+Sn9T8mvU2xbuKU5NTsY0idfic5DnZ54f5fs7Rh2NQw2oHgW1nlV
+ e7a+KUzBnf0g1aYDUpMg06zgEsHUCPa4W5wUvQWPJinjXeG/5UnJMt3yZKZdhMUdrJ8DO+iL
+ 9sv+Znilo/vE7XBPfv++lrzWhVirrc/pmFigFIOM0SpqkAqSiDfTs/XnRfTAKtao2zhojx/9
+ DlCnb3hZCMSEJbKpKcMCDZpK3pBAPUd/IaSdBBTseTLp6HHW37lwvEoB0AqJ4wIvO1wBAmi9
+ 9RBdmpLNErawbvrnvTrEYGAhex6RCXvFKEWvHwm6DjdBPIvR53rSKTW/95Imjw3g6iiGN6AO
+ pZINGQyNXwsZTV9I14SEa4zzdyzm1f8WhQI92PPn4oOtj27IAtZj+G2bYu9lsaxbdVYmAOUq
+ 3zL+0z9AwoGL5qPxDyd6HWui+TT2yThV+ov+KaQr6AwxgfJnypKVUNQBQDTTeSFZlCWeoNyD
+ 3c6wSwS7rlp232TFebAB0a8mSvR1vIDYOZ4H+o/4QCL76Pb5QeFG2QJJgJ8hMwaWNweHmJzi
+ ALQ9z/9LXk26eDOFyrBnluBhW7qYUAowXk+iTjopOfvy/3qu8kNgx3GVb6P+4bl34SuSVkcL
+ 91nxRXSZon/b+ZXhs1XHnid2lpAQ6QlqCZst207uUr/smtEiHaNPdDA1LQixa8owHylZleAp
+ mMYvMOV8foDC5qA/ATUHrlTTer2uKbdaGSC6bKKI3XH3238k5JEVdoNiAyS2W8zappUEdMXS
+ BO7VfxtCG97YyLxMP4fj3OZAMU216nwfekJpdiPBueilqNZLVfdlAk3PBb49zm0zCAEzPFuU
+ b/GIJ3EJStLVsxaIM+eGr51PUkDnXtlmws+hPnTknya7FZpTCXMGOlfbwfWMLxRAWHtiFy9z
+ uuz/vCik313ONASqAGNmWLPBTjm9UQGOK0=
+IronPort-HdrOrdr: A9a23:VWSb3a1K3avTTYQsEvGGCgqjBL4kLtp133Aq2lEZdPRUGvb3qy
+ nIpoV96faUskd0ZJhOo7C90cW7LU80lqQFhLX5X43SPzUO0VHAROoJgLcKqweQfREWndQ96U
+ 4PScdD4aXLfDpHsfo=
+X-IronPort-AV: E=Sophos;i="5.90,174,1643691600"; 
+   d="scan'208";a="65495651"
+From: Jane Malalane <jane.malalane@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Jane Malalane <jane.malalane@citrix.com>
+Subject: [PATCH v7 0/2] xen: Report and use hardware APIC virtualization capabilities
+Date: Fri, 11 Mar 2022 15:21:05 +0000
+Message-ID: <20220311152107.2918-1-jane.malalane@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.7.0
-Subject: Re: [PATCH 1/2] ns16550: reject IRQ above nr_irqs
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20220310143403.50944-1-marmarek@invisiblethingslab.com>
- <7acb2915-5a9d-c1f1-4b7b-2bc6c2055ea3@suse.com>
- <YioddbNor6w/U9ed@Air-de-Roger>
- <53361d65-2bd8-c07b-938c-91b95f2d68ad@suse.com>
- <Yiojgxgd4amSjHog@Air-de-Roger>
- <3055b4a5-2d55-9cf1-1069-8c57208bf0af@xen.org> <YiopXU65pAlnNVNI@mail-itl>
- <d2c63630-6ab3-b4dd-128e-72f871fb9e08@xen.org> <Yisp0Q/cNGbgsO/7@mail-itl>
- <2a5c59ad-2fa5-b668-8bce-0d55e89a4afd@xen.org>
- <Yitk68wpP8HV4od9@Air-de-Roger>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <Yitk68wpP8HV4od9@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Hi Roger,
+Jane Malalane (2):
+  xen+tools: Report Interrupt Controller Virtualization capabilities on
+    x86
+  x86/xen: Allow per-domain usage of hardware virtualized APIC
 
-On 11/03/2022 15:04, Roger Pau Monné wrote:
-> On Fri, Mar 11, 2022 at 11:15:13AM +0000, Julien Grall wrote:
->> Hi,
->>
->> On 11/03/2022 10:52, Marek Marczykowski-Górecki wrote:
->>> On Fri, Mar 11, 2022 at 10:23:03AM +0000, Julien Grall wrote:
->>>> Hi Marek,
->>>>
->>>> On 10/03/2022 16:37, Marek Marczykowski-Górecki wrote:
->>>>> On Thu, Mar 10, 2022 at 04:21:50PM +0000, Julien Grall wrote:
->>>>>> Hi,
->>>>>>
->>>>>> On 10/03/2022 16:12, Roger Pau Monné wrote:
->>>>>>> On Thu, Mar 10, 2022 at 05:08:07PM +0100, Jan Beulich wrote:
->>>>>>>> On 10.03.2022 16:47, Roger Pau Monné wrote:
->>>>>>>>> On Thu, Mar 10, 2022 at 04:23:00PM +0100, Jan Beulich wrote:
->>>>>>>>>> On 10.03.2022 15:34, Marek Marczykowski-Górecki wrote:
->>>>>>>>>>> --- a/xen/drivers/char/ns16550.c
->>>>>>>>>>> +++ b/xen/drivers/char/ns16550.c
->>>>>>>>>>> @@ -1221,6 +1221,9 @@ pci_uart_config(struct ns16550 *uart, bool_t skip_amt, unsigned int idx)
->>>>>>>>>>>                                  pci_conf_read8(PCI_SBDF(0, b, d, f),
->>>>>>>>>>>                                                 PCI_INTERRUPT_LINE) : 0;
->>>>>>>>>>> +                if (uart->irq >= nr_irqs)
->>>>>>>>>>> +                    uart->irq = 0;
->>>>>>>>>>
->>>>>>>>>> Don't you mean nr_irqs_gsi here? Also (nit) please add the missing blanks
->>>>>>>>>> immediately inside the parentheses.
->>>>>>>>>
->>>>>>>>> If we use nr_irqs_gsi we will need to make the check x86 only AFAICT.
->>>>>>>>
->>>>>>>> Down the road (when Arm wants to select HAS_PCI) - yes. Not necessarily
->>>>>>>> right away. After all Arm wants to have an equivalent check here then,
->>>>>>>> not merely checking against nr_irqs instead. So putting a conditional
->>>>>>>> here right away would hide the need for putting in place an Arm-specific
->>>>>>>> alternative.
->>>>>>>
->>>>>>> Oh, I always forget Arm doesn't have CONFIG_HAS_PCI enabled just yet.
->>>>>> The PCI code in ns16550.c is gated by CONFIG_HAS_PCI and CONFIG_X86. I am
->>>>>> not sure we will ever see a support for PCI UART card in Xen on Arm.
->>>>>>
->>>>>> However, if it evers happens then neither nr_irqs or nr_irqs_gsi would help
->>>>>> here because from the interrupt controller PoV 0xff may be a valid (GICv2
->>>>>> supports up to 1024 interrupts).
->>>>>>
->>>>>> Is there any reason we can't explicitely check 0xff?
->>>>>
->>>>> That's what my v0.1 did, but Roger suggested nr_irqs. And I agree,
->>>>> because the value is later used (on x86) to access irq_desc array (via
->>>>> irq_to_desc), which has nr_irqs size.
->>>>
->>>> I think it would be better if that check is closer to who access the
->>>> irq_desc. This would be helpful for other users (I am sure this is not the
->>>> only potential place where the IRQ may be wrong). So how about moving it in
->>>> setup_irq()?
->>>
->>> I don't like it, it's rather fragile approach (at least in the current
->>> code base, without some refactor). There are a bunch of places using
->>> uart->irq (even if just checking if its -1 or 0) before setup_irq()
->>> call. This includes smp_intr_init(), which is what was the first thing
->>> crashing with 0xff set there.
->>
->> Even if the code is gated with !CONFIG_X86, it sounds wrong to me to have
->> such check in an UART driver. It only prevents us to do an out-of-bound
->> access. There are no guarantee the interrupt will be usable (on Arm 256 is a
->> valid interrupt).
-> 
-> It's a sanity check of a value we get from the hardware, I don't think
-> it's that strange.
-
-I think it is strange because the behavior would be different between 
-the architectures. On x86, we would reject the interrupt and poll. On 
-Arm, we would accept the interrupt and the UART would be unusable.
-
-> It's mostly similar to doing sanity checks of input
-> values we get from users.
-I am a bit concerned that we are using an unrelated check (see above
-why) to catch the "misconfiguration".
-
-I think it would be good to understand why the interrupt line is 0xff 
-and properly fix it. Is it a misconfiguration?  Is it intended to 
-indicate "no IRQ"? Can we actually trust the value for the Intel LPSS?
-
-Cheers,
+ docs/man/xl.cfg.5.pod.in              | 15 ++++++++++++++
+ docs/man/xl.conf.5.pod.in             | 12 +++++++++++
+ tools/golang/xenlight/helpers.gen.go  | 16 ++++++++++++++
+ tools/golang/xenlight/types.gen.go    |  4 ++++
+ tools/include/libxl.h                 | 14 +++++++++++++
+ tools/libs/light/libxl.c              |  3 +++
+ tools/libs/light/libxl_arch.h         |  9 ++++++--
+ tools/libs/light/libxl_arm.c          | 14 ++++++++++---
+ tools/libs/light/libxl_create.c       | 22 ++++++++++++--------
+ tools/libs/light/libxl_types.idl      |  4 ++++
+ tools/libs/light/libxl_x86.c          | 39 +++++++++++++++++++++++++++++++++--
+ tools/ocaml/libs/xc/xenctrl.ml        |  7 +++++++
+ tools/ocaml/libs/xc/xenctrl.mli       |  7 +++++++
+ tools/ocaml/libs/xc/xenctrl_stubs.c   | 17 ++++++++++++---
+ tools/xl/xl.c                         |  8 +++++++
+ tools/xl/xl.h                         |  2 ++
+ tools/xl/xl_info.c                    |  6 ++++--
+ tools/xl/xl_parse.c                   | 16 ++++++++++++++
+ xen/arch/x86/domain.c                 | 29 +++++++++++++++++++++++++-
+ xen/arch/x86/hvm/hvm.c                |  3 +++
+ xen/arch/x86/hvm/vmx/vmcs.c           | 13 ++++++++++++
+ xen/arch/x86/hvm/vmx/vmx.c            | 13 ++++--------
+ xen/arch/x86/include/asm/hvm/domain.h |  6 ++++++
+ xen/arch/x86/include/asm/hvm/hvm.h    | 10 +++++++++
+ xen/arch/x86/sysctl.c                 |  4 ++++
+ xen/arch/x86/traps.c                  |  5 +++--
+ xen/include/public/arch-x86/xen.h     |  2 ++
+ xen/include/public/sysctl.h           | 11 +++++++++-
+ 28 files changed, 277 insertions(+), 34 deletions(-)
 
 -- 
-Julien Grall
+2.11.0
+
 
