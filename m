@@ -2,77 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1326A4D5B78
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Mar 2022 07:16:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.288754.489786 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2AFE4D5C25
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Mar 2022 08:19:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.288793.489820 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nSYZd-0006n2-8T; Fri, 11 Mar 2022 06:16:25 +0000
+	id 1nSZXj-0005oC-Ku; Fri, 11 Mar 2022 07:18:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 288754.489786; Fri, 11 Mar 2022 06:16:25 +0000
+Received: by outflank-mailman (output) from mailman id 288793.489820; Fri, 11 Mar 2022 07:18:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nSYZd-0006l8-4X; Fri, 11 Mar 2022 06:16:25 +0000
-Received: by outflank-mailman (input) for mailman id 288754;
- Fri, 11 Mar 2022 06:16:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p7td=TW=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1nSYWf-0000Fh-78
- for xen-devel@lists.xenproject.org; Fri, 11 Mar 2022 06:13:21 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2062b.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 592b729e-a102-11ec-8eba-a37418f5ba1a;
- Fri, 11 Mar 2022 07:13:20 +0100 (CET)
-Received: from AM6P194CA0013.EURP194.PROD.OUTLOOK.COM (2603:10a6:209:90::26)
- by AM5PR0801MB2066.eurprd08.prod.outlook.com (2603:10a6:203:4d::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.21; Fri, 11 Mar
- 2022 06:13:18 +0000
-Received: from AM5EUR03FT056.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:209:90:cafe::cb) by AM6P194CA0013.outlook.office365.com
- (2603:10a6:209:90::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.22 via Frontend
- Transport; Fri, 11 Mar 2022 06:13:18 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT056.mail.protection.outlook.com (10.152.17.224) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5061.22 via Frontend Transport; Fri, 11 Mar 2022 06:13:17 +0000
-Received: ("Tessian outbound 826a6d8e58c3:v113");
- Fri, 11 Mar 2022 06:13:17 +0000
-Received: from 27ab5dd389c2.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 4DE4BD2A-E33F-4D7F-AFC3-710EB1AAD2E0.1; 
- Fri, 11 Mar 2022 06:13:11 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 27ab5dd389c2.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 11 Mar 2022 06:13:11 +0000
-Received: from AS9PR0301CA0019.eurprd03.prod.outlook.com
- (2603:10a6:20b:468::29) by PR2PR08MB4828.eurprd08.prod.outlook.com
- (2603:10a6:101:1d::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5038.17; Fri, 11 Mar
- 2022 06:13:08 +0000
-Received: from VE1EUR03FT055.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:468:cafe::68) by AS9PR0301CA0019.outlook.office365.com
- (2603:10a6:20b:468::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.22 via Frontend
- Transport; Fri, 11 Mar 2022 06:13:08 +0000
-Received: from nebula.arm.com (40.67.248.234) by
- VE1EUR03FT055.mail.protection.outlook.com (10.152.19.158) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5061.22 via Frontend Transport; Fri, 11 Mar 2022 06:13:08 +0000
-Received: from AZ-NEU-EX04.Arm.com (10.251.24.32) by AZ-NEU-EX03.Arm.com
- (10.251.24.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.27; Fri, 11 Mar
- 2022 06:12:46 +0000
-Received: from a011292.shanghai.arm.com (10.169.190.94) by mail.arm.com
- (10.251.24.32) with Microsoft SMTP Server id 15.1.2308.27 via Frontend
- Transport; Fri, 11 Mar 2022 06:12:43 +0000
+	id 1nSZXj-0005lS-Hg; Fri, 11 Mar 2022 07:18:31 +0000
+Received: by outflank-mailman (input) for mailman id 288793;
+ Fri, 11 Mar 2022 07:18:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=3DNt=TW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1nSZXi-0005lM-0f
+ for xen-devel@lists.xenproject.org; Fri, 11 Mar 2022 07:18:30 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 71b943df-a10b-11ec-853a-5f4723681683;
+ Fri, 11 Mar 2022 08:18:27 +0100 (CET)
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com
+ (mail-am5eur03lp2050.outbound.protection.outlook.com [104.47.8.50]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-41-VVkNmF6hM-y7Q-qfalMlzw-1; Fri, 11 Mar 2022 08:18:26 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by AM6PR04MB6726.eurprd04.prod.outlook.com (2603:10a6:20b:fb::26)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.22; Fri, 11 Mar
+ 2022 07:18:25 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::e8ce:db1c:5bb0:af0]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::e8ce:db1c:5bb0:af0%6]) with mapi id 15.20.5061.022; Fri, 11 Mar 2022
+ 07:18:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -84,231 +51,225 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 592b729e-a102-11ec-8eba-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a4JLEIb5PBTxY4a54x6twnAqTQYE+B3WX7UNftnFy/Y=;
- b=dj9yzVYyBVjCMIERbmslJLiETmw0UyMzqzZbme4El0PaZDLXw/DAZL71uJ+7S29XDaHbs1FJBrPpoK8JbeQuz5R0bEB2+Kc61nAmkKnev0lbOvtpgZVGzmsvRvZlCEuvEhATPmnfsWtSIjyhFc0DIyDCBGOHgiizswE+lMSkWj4=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 93567b3a7281382f
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: 71b943df-a10b-11ec-853a-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1646983107;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4Ikbr4D74grBm1OoFVhZv8x7t/XLolbsgh+J/5sw9fA=;
+	b=crIab4NRCMDtfs3LlZ4yzPocCKAB+fGgEkh0Yitp6USXy8rJ9JpoM5NvPm3eyb710JJfSJ
+	Zxp7hFVAUvbtb5aOr6Mlsjn9cP1ZrRMAbVKtzANyNQlmX7rkTY05yxKpd5wxVrDTvcPYIa
+	UEAA72oF9Pnm+xlZLBvqUi8Qkojeu3s=
+X-MC-Unique: VVkNmF6hM-y7Q-qfalMlzw-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AiKndQNN58ZHsVaj3z8ySMKYedS5Vl9IFXeO8xgYkdV5gsnODpGJpvIn+CcdefVsmByU6tWfS9j6Htghq7vLSPh5A2YB1ZD7wRwnoGBkAP8bhLyRIqhAmEhYuSQeCGgfWMweWRr25/DFh/BmQUuaxcZl6X5A8lXYKXur+HbSiwzG4OI72BgF+AOODq3+VfrdRY+d7fM90HsArq+vysOTUqiTRsFUiz6HjSMIEPl9n/CnM6iYgwmy3PAlF3txB+CsImJvN41jyDSseB6e8OIZdH/pBeydy1FpNnUY5juo8LCarDKtOxXALpnxJ6MgTQIoiwnU5QC5r9/Z7ok8iKVUZQ==
+ b=RVxBC7Cd6/2/EFBkSQS66Y/QUDvwcnrInCojewzqrpjhQHnevPGvF+OAmlCW1mOzdJdf8S/uqllPBTG5SxlFJejrQ9QFtlooqVlFo7wmASIfjTWAbTMNP2g8uRkpsGvEPCZYpjyETWOmNE11wDrVhAXgsxs+hJNrIE+idBhx9xp/qSYMr1WfitoKT4nCMZKHhEZidSxZEpOgzDNfSq5jXzXScyh/44hR3T7MzqgJMGiBcTfdxyEk05W7K6O2wwUh9VZUn/n2WgUHqo7eP54o7dndsIyTafgSlEUIVT8W/4+mkrN1d8N1wjdV2Z6t2TGBdw+RymDjLAxgtA2frJuw5Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a4JLEIb5PBTxY4a54x6twnAqTQYE+B3WX7UNftnFy/Y=;
- b=CnDeoL7KRuf3AES+KHlb8NEtpPl4OykRncA5pUO+Dql6iWpYiuH1Hr+n+va+wIjo65guJvg0b9NdDg4966XYss+OyCeKop7rIVZqmW2ulSsXiz8lcWHvrDEEW67hNyNIMfVI/yvpFYHwHxT9wGEPELjraE9fnRNYBo6uBCUHcf2CF2BUXbwnEpcfH7XASJq1sEqjy/ImZr115DcBcc2muhe20u53fAeWaefXAvFcZOnwhQrGMDusFAviDpt0YYbkzICzJE8z6HJlOzF+ZAvySsYm+0fJuUplXiy2Npzi8oZTR76NUjsgeA69AQLF5t2OXFgNxhWltkoEFEz+7LsKxA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 40.67.248.234) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a4JLEIb5PBTxY4a54x6twnAqTQYE+B3WX7UNftnFy/Y=;
- b=dj9yzVYyBVjCMIERbmslJLiETmw0UyMzqzZbme4El0PaZDLXw/DAZL71uJ+7S29XDaHbs1FJBrPpoK8JbeQuz5R0bEB2+Kc61nAmkKnev0lbOvtpgZVGzmsvRvZlCEuvEhATPmnfsWtSIjyhFc0DIyDCBGOHgiizswE+lMSkWj4=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 40.67.248.234)
- smtp.mailfrom=arm.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 40.67.248.234 as permitted sender) receiver=protection.outlook.com;
- client-ip=40.67.248.234; helo=nebula.arm.com;
-From: Penny Zheng <Penny.Zheng@arm.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <nd@arm.com>, Penny Zheng <penny.zheng@arm.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v1 13/13] xen/arm: unmap foreign memory mapping when destroyed domain is owner domain
-Date: Fri, 11 Mar 2022 14:11:23 +0800
-Message-ID: <20220311061123.1883189-14-Penny.Zheng@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220311061123.1883189-1-Penny.Zheng@arm.com>
-References: <20220311061123.1883189-1-Penny.Zheng@arm.com>
+ bh=SyUJhWfsSyqUUHT6uq6nwQbPw81yxNi/kMNNb7x9pH8=;
+ b=H9XVIacNIsM11ofWa/Aa4QP9WbEv9Lx3TxfxoWxetBTBtyvWJLFskX5J5zZcjV8kettCJI3OUyA1Bfqm2MvQamSLWbzesBJ64dI9j4kgaUGtpNQc1Ptonj2XmNA1ad7LlhYfJ1jpKFFtGDEKNPIMdzmHR1SERQewGqMAxYFG4FMqKI/LhwZ4WHIUKAKL2k/8tnFlr3M6nEeLtuBc3Qx2uqYoM0cJuOtz/IYDYF2vSDFkS8DFeVTOiWXrEqmX7mzDOaguVYd1p8k9KhNfGyhAPiqYDyGWrOjFdC+YoO1YJet6aGldeoF+v+z0Pae+NRmmFiAhEdZr00y6T2l25gb+zw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <8b240f4f-0cf2-e543-b21b-be356ab71e49@suse.com>
+Date: Fri, 11 Mar 2022 08:18:21 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Subject: Re: [PATCH] x86/cet: Use dedicated NOP4 for cf_clobber
+Content-Language: en-US
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Bjoern Doebel <doebel@amazon.de>, Michael Kurth <mku@amazon.de>,
+ Martin Pohlack <mpohlack@amazon.de>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20220308140126.8815-1-andrew.cooper3@citrix.com>
+ <18fb4115-94d8-16c2-e39b-1be895e254f4@suse.com>
+ <476a25f8-86eb-0df5-b481-fc4cd5ecbb18@citrix.com>
+ <83fa28ce-f2db-2451-356f-0dc0266834f2@suse.com>
+ <48c6720a-070e-85db-f1c3-448714232946@citrix.com>
+ <d65a64fe-72b1-efc5-1804-8f74aca6d803@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <d65a64fe-72b1-efc5-1804-8f74aca6d803@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AS9PR06CA0171.eurprd06.prod.outlook.com
+ (2603:10a6:20b:45c::29) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 1
-X-MS-Office365-Filtering-Correlation-Id: 964922e8-f03b-4b19-64b4-08da03263c04
-X-MS-TrafficTypeDiagnostic:
-	PR2PR08MB4828:EE_|AM5EUR03FT056:EE_|AM5PR0801MB2066:EE_
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d53e8592-62ac-4c40-517a-08da032f54d2
+X-MS-TrafficTypeDiagnostic: AM6PR04MB6726:EE_
 X-Microsoft-Antispam-PRVS:
-	<AM5PR0801MB2066B9BABC5D139E213FE094F70C9@AM5PR0801MB2066.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-NoDisclaimer: true
+	<AM6PR04MB6726CDF24CFC286F2DC85453B30C9@AM6PR04MB6726.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- HtjVt0+HCLCfVDGuDhahL6RrjKLT9SvmwePmYfF7Hs5OhNktH5rhWc+hPHxbl6j9jmfLX3Zy9fMaq/QlUjjAjfk0MVf8bP+H56ePyPMWZiBKYeIRhh9tNtRTKosiGjdKu3yAsUlvoIYiulUaaJRNYk+eiNu/AU7WTVRT4mw6ZLsoazeSAGg9CEi46Omvj6wIHJv0aFTdixaiU3E6qZOG9IoDVzBQammyRPb6ZCqaSlx0+Bx1b2VhlfZlWBVlgumtiV/UfrOJjdR+n4O2AsmBoYp+wVwu6s2eIofqnRF1wd+i6CJAYDhddGgkAzuxLbdu1CYYj/z0pRIqwCTRfG0Fm72IQWK3QAEmSZMNfK5g5fMQLi5gMlaw6xJu7U81CY2mqFDeYguEebPAM5u5MXSdmhQbWEeP/rix5j8SyJRarlkDLQr0ke1LswzrKiub8RcLl7LZMjU7xsaN6f468Wfbc8JVRoJoOAX6KL9d4SgbX715ClbRH/R//SqNo9fDC4ynJzvVRsoCPZfyNzH2Hkfl+QKqde3JAzdFTk3W2QRZWnUsBWLlXlYoBOV7g4PmBtU9ajNOKUb+XILahtiGqKKWydUuPKPol0Y/Y9/RkeyDKsYiBuvR0+HGVNBL4mg4qrptWAoJZKHPGRS1kPIatDEzPsign4E6gZK4yiOMCLaHLYCE58fAOfnBJwOmm0OQGfuL9H4tjx12klU6mr8CZJWy5g==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(70586007)(8676002)(70206006)(7696005)(6666004)(508600001)(4326008)(6916009)(316002)(54906003)(83380400001)(36860700001)(82310400004)(336012)(26005)(40460700003)(186003)(1076003)(2616005)(2906002)(356005)(426003)(81166007)(47076005)(8936002)(86362001)(5660300002)(36756003)(36900700001);DIR:OUT;SFP:1101;
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR2PR08MB4828
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM5EUR03FT056.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	7f97ff42-c75f-49ee-5d59-08da0326364d
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	OrGYKo6xbJRnZvAqKAkBAaHFrdXS4EuD49P7/U/uUAjteU42Xrlecw2lsKDTJcoCRQKPLlW12W7ZeyOPUEFX/qb8w+ukAs6CjAaVObyupHTYkZDM75PLxrKW6+sIgPi740xwaEyQkQj4jSCD0sfuaY55P944IdCh5G9Vm0q4iWnNdRXFEaSc87OWFhOvTRVP1/Md7L0TirrNkjFvR8tf8mEVICDVDEXiKWI3Yth/xKOG9PgplwOM5s45Tk68SnW1f8StI7bQ9aTaxID9IJ4bJBqG+QUGGACuhdJ1XSdd17zgyJ4WZ8T45/OU4a3I7ONvkNFo3rjt3pmCdf8rz1+kL/c0xuf9NTscnoyVyRu/dsNOInxLmzt7uoBd0qr1/5FPzmpwfYZMWE64GCHifvNCen4Sk9MF7XDXzLRf3ahd09yxHdsA/Qz7ENQR8lYvT0LX9nzfmloBqqO+6DebjiN4ixKe41KvSKMkbYCSceGIXWJpTtn7naYinWA2oSqvWM98OpIkZTJ6oXiXkP8Hk/+uujHQG3MGfVEHotH1Q0vhFe7psryuV7haWLPi41K8P8IQr6EBza3/AaW8pS9wJ0BoGV1fKWHgwUrWjtNuuTHQAL4kYdf3i38jcLtPKtdWLPqCfY35gIrIXfWQk7dYETPV53X+clFfioIVPtUauqH1t4k2bhBiEtYaWiKkZ5xMFnPL
+	0fsPlRfkKzSTtFZlu/k5qIFJbAXmkQAZIkSCWdHRYtsyjo7f9QjtnW5ZtShLrz16rISbEy9Xxo4sIz6ip9GK8VmsUGGwGn8LgkMtP52ESbPOqbfLxNfSvYdlGiDp6l0BNFKL0KQHIJ8dXeuCiF3YXQNxJMekgq4q3r+n7TQR/OsScPKMTw38R+lYmaHsqjI4b4/NwS3/3+DgMgPw20V9ISGz1jCCZCAhIHU7yfv6i9m/VBN/xKWh8LQi7ptfTBrq8ZgcPTXsS3mLyNSwupnKjLJDczgaLyySk2PM5L5KSGmrjxkfrGZuKRiPeNeHBPeqUfWyaW/m4MGkraNh6lE9FyMU8v6fFcBTg70yH+SP/fhFHJ3vFjQ/X6dOGId7UjlzeF5CDrjN806BrX6jouGXYCF4FfKfzQlUILhkg460/JERtaTlsBaqTJXDvl52+xL2LIKDR+vOZEp8qcrO1zUgxXS4EjYgF+ZUDTWj0jj6ncQwdneh8jCK2RRAA5boRLXOLYwd4A7NDEZD0gggMAda+nxoxYRhvoEFoGZ5UQ60wE/2ShkKW7Zm+RzcHecP0j4kubHkfoqXjxSsWI3R+KzSRLTRvs5D+mb9tb6u5MTLpE8etaBYH74XwTW9ZAesNHArDvFaVmgApjgMqLOdxo+a17xgpqXtKkqZdCoMHSO91BQTYNBKvpovy4knFxMWbEiLmAztQiRz5TTCw3BIgevYox5D2KM2xD8+dC6dQ+VRctQ=
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(7696005)(6916009)(186003)(2616005)(70586007)(316002)(36756003)(26005)(40460700003)(86362001)(1076003)(54906003)(107886003)(8936002)(5660300002)(336012)(83380400001)(426003)(2906002)(508600001)(6666004)(47076005)(36860700001)(8676002)(4326008)(82310400004)(70206006)(81166007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2022 06:13:17.6254
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(2616005)(53546011)(186003)(83380400001)(26005)(6506007)(6512007)(6666004)(54906003)(316002)(66556008)(66946007)(8676002)(86362001)(66476007)(6916009)(38100700002)(36756003)(31696002)(508600001)(4326008)(31686004)(5660300002)(2906002)(8936002)(6486002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?aTOTaPrEvZtkHByxmjzA/XCqv/Y+OdPHnw+jXhazfu7FLCrqlPXsc6l8rHWV?=
+ =?us-ascii?Q?16/Y3cNiPquH1Jji+C3lql25xR7M0Zclr6te1nNMqMt1UAdr6wRnTbXWpgwL?=
+ =?us-ascii?Q?vmbrh2cZ0nqgUE1y02Du8VKS/vibMA/c3huEJf9wnV1cal5O8qCeQN+8FEtI?=
+ =?us-ascii?Q?wBU4j0bWGZwIKCUeneyFZqkYiXlkqBWbnSIXCemJkSC7PGNLUqc9bE08+ZkG?=
+ =?us-ascii?Q?pSM7fTcsCUcUaSwoI5eJyqqnHjHtTqCMNhATfnoiEH7N712k4/VpQ8ro2K0I?=
+ =?us-ascii?Q?dWzrQv6Fyi/x9XJWME8xenYkDGUisCcIqic+oi42YcTvbx1/FNRMhV8T4C5M?=
+ =?us-ascii?Q?ZLubq2/JJZR0rDuheym5WlxYyTTyyXDQJYP5pnaMRil7EtIOkntBUShl8HaV?=
+ =?us-ascii?Q?S8LEF9Jn/9xxlE1lw9PB9s2lPPqFU/1ecGtqTzyRDfcsqacWnM2ASv1rEIMK?=
+ =?us-ascii?Q?Ny8c6RofKpCXHvv6n/E0+t9xKV9Cc1jw8QYmbxc1Dn203GVe3e8p9uTmmBx6?=
+ =?us-ascii?Q?Kr0tWjfm3oLDlwYe3VGZFBskNDO3uKxOhPV9qK/JzUu8x8FxZlk1WIAS3l8B?=
+ =?us-ascii?Q?k5MJbtHzEIdmk/DFRA3R4e0mpvBaIOSATGaEdm7Ad99H8AcSut12mvz0gocd?=
+ =?us-ascii?Q?4Z2TP+FlaK9W7tko3x7z8g7wbnuQXOyZ46eDGZqwLNKXtrVhDt8m1HnTCJZ/?=
+ =?us-ascii?Q?LRKoDSddgFB2ncjEEa8/cZRnyqziYtipHshLZj6pONHF5XkFL/xELLYmh38A?=
+ =?us-ascii?Q?lJQHnZsXWPs1fm/SS0HxJNGHnMlXgVKeLquMS6R9ZwUK6D4WeFm1H8nsq9nh?=
+ =?us-ascii?Q?eKP3dl6nJmt7IFZYxVgHW/gnOnX25TazvaA5XFi0P/4AN8X6D+h5xPWkRl0I?=
+ =?us-ascii?Q?D9pD7ko/vci+gwfOgl2U52MaOaYd27tWgLdNncBkIDYfHEJTHOVXdreMke1m?=
+ =?us-ascii?Q?p3GWA1biTdDD2wsCFG7OWf6dKAxsbL0cHr+UiQvgVKWxe0jzj/i0HDl9seKi?=
+ =?us-ascii?Q?HS+NUJatlqnel4B1htFDV5DKaFXVKuqj/MYIHyBHW89EWnzG0RjMJ0aZ7le/?=
+ =?us-ascii?Q?bRYmSbSVUu25uH5B4PPlGKObyr9MKB97qykgOnhCj8nVYHQqjUvL+Jvhncx5?=
+ =?us-ascii?Q?evdbuMlJyTX0izr05RA2zKDzmn6CUL+pj1IaYYA09S4kclUQHbPbwyg0QQjf?=
+ =?us-ascii?Q?eRrApQ9xTDrnOw76bpaO9PsNicZZGKJH945ogUKKmgRgkzLlvPoqrFGw+Ptt?=
+ =?us-ascii?Q?Sx2Ao8o/AsITk7fgc/g7vWRLansaP4oXN60nC/O8DmyGxrPQaxxo2/Th2h4g?=
+ =?us-ascii?Q?Id6QAF9avU0zJh8ozTRCXRYtrtGA2NgerTUjV+sSZxzblsQA9o7fGimCPF0F?=
+ =?us-ascii?Q?Jm0LUVOQXUi1OPzHd93pwsv0M/HhBzTkcSLXgMEnfIdPVJqhNoqs4cj2SfT2?=
+ =?us-ascii?Q?gPkMS2U1pldXgFVtq1m5OMUMh1AZnQqT?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d53e8592-62ac-4c40-517a-08da032f54d2
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2022 07:18:25.0887
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 964922e8-f03b-4b19-64b4-08da03263c04
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM5EUR03FT056.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM5PR0801MB2066
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HxAAw++6RG8pg0cySQps8NOw9oHWjyNl25VYe7Sxr/fHpqfILdqgReMBxOZWO/5T5tTWbl9sTdf9qSBOFLqDBQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR04MB6726
 
-From: Penny Zheng <penny.zheng@arm.com>
+On 10.03.2022 19:42, Andrew Cooper wrote:
+> On 08/03/2022 16:03, Andrew Cooper wrote:
+>>>>>> --- a/xen/arch/x86/include/asm/endbr.h
+>>>>>> +++ b/xen/arch/x86/include/asm/endbr.h
+>>>>>> @@ -52,4 +52,16 @@ static inline void place_endbr64(void *ptr)
+>>>>>>      *(uint32_t *)ptr =3D gen_endbr64();
+>>>>>>  }
+>>>>>> =20
+>>>>>> +/*
+>>>>>> + * After clobbering ENDBR64, we may need to confirm that the site u=
+sed to
+>>>>>> + * contain an ENDBR64 instruction.  Use an encoding which isn't the=
+ default
+>>>>>> + * P6_NOP4.
+>>>>>> + */
+>>>>>> +#define ENDBR64_POISON "\x66\x0f\x1f\x00" /* osp nopl (%rax) */
+>>>>> In case this remains as is - did you mean "opsz" instead of "osp"?
+>>>>> But this really is "nopw (%rax)" anyway.
+>>>> Oh, osp is the nasm name.=C2=A0 I'll switch to nopw.
+>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>> Thanks.
+>=20
+> It does occur to me that we can extend check-endbr.sh for this.
+>=20
+> diff --git a/xen/arch/x86/indirect-thunk.S b/xen/arch/x86/indirect-thunk.=
+S
+> index 7cc22da0ef93..3baaf7ab4983 100644
+> --- a/xen/arch/x86/indirect-thunk.S
+> +++ b/xen/arch/x86/indirect-thunk.S
+> @@ -38,6 +38,7 @@
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .section .text.__x86_ind=
+irect_thunk_\reg, "ax", @progbits
+> =C2=A0
+> =C2=A0ENTRY(__x86_indirect_thunk_\reg)
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nopw (%rax)
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ALTERNATIVE_2 __stringif=
+y(IND_THUNK_RETPOLINE \reg),=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __stringify(IND_THUNK_LF=
+ENCE \reg), X86_FEATURE_IND_THUNK_LFENCE, \
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __stringify(IND_THUNK_JM=
+P \reg),=C2=A0=C2=A0=C2=A0 X86_FEATURE_IND_THUNK_JMP
+> diff --git a/xen/tools/check-endbr.sh b/xen/tools/check-endbr.sh
+> index 9799c451a18d..652ac8d0b983 100755
+> --- a/xen/tools/check-endbr.sh
+> +++ b/xen/tools/check-endbr.sh
+> @@ -67,7 +67,7 @@ eval $(${OBJDUMP} -j .text $1 -h |
+> =C2=A0${OBJCOPY} -j .text $1 -O binary $TEXT_BIN
+> =C2=A0if $perl_re
+> =C2=A0then
+> -=C2=A0=C2=A0=C2=A0 LC_ALL=3DC grep -aobP '\363\17\36\372' $TEXT_BIN
+> +=C2=A0=C2=A0=C2=A0 LC_ALL=3DC grep -aobP '\363\17\36\372|\x66\x0f\x1f\x0=
+0' $TEXT_BIN
+> =C2=A0else
+> =C2=A0=C2=A0=C2=A0=C2=A0 grep -aob "$(printf '\363\17\36\372')" $TEXT_BIN
+> =C2=A0fi | awk -F':' '{printf "%s%x\n", "'$vma_hi'", int(0x'$vma_lo') + $=
+1}'
+>> $ALL
+>=20
+> yields:
+>=20
+> check-endbr.sh xen-syms Fail: Found 15 embedded endbr64 instructions
+> 0xffff82d040377f00: __x86_indirect_thunk_rax at
+> /local/xen.git/xen/arch/x86/indirect-thunk.S:55
+> 0xffff82d040377f20: __x86_indirect_thunk_rcx at ??:?
+> 0xffff82d040377f40: __x86_indirect_thunk_rdx at ??:?
+> 0xffff82d040377f60: __x86_indirect_thunk_rbx at ??:?
+> 0xffff82d040377f80: __x86_indirect_thunk_rbp at ??:?
+> 0xffff82d040377fa0: __x86_indirect_thunk_rsi at ??:?
+> 0xffff82d040377fc0: __x86_indirect_thunk_rdi at ??:?
+> 0xffff82d040377fe0: __x86_indirect_thunk_r8 at ??:?
+> 0xffff82d040378000: __x86_indirect_thunk_r9 at ??:?
+> 0xffff82d040378020: __x86_indirect_thunk_r10 at ??:?
+> 0xffff82d040378040: __x86_indirect_thunk_r11 at ??:?
+> 0xffff82d040378060: __x86_indirect_thunk_r12 at ??:?
+> 0xffff82d040378080: __x86_indirect_thunk_r13 at ??:?
+> 0xffff82d0403780a0: __x86_indirect_thunk_r14 at ??:?
+> 0xffff82d0403780c0: __x86_indirect_thunk_r15 at ??:?
+> ...
+> check-endbr.sh xen.efi Fail: Found 15 embedded endbr64 instructions
+> 0xffff82d040377f00: ?? at /local/xen.git/xen/arch/x86/indirect-thunk.S:55
+> 0xffff82d040377f20: ?? at head.o:?
+> 0xffff82d040377f40: ?? at head.o:?
+> 0xffff82d040377f60: ?? at head.o:?
+> 0xffff82d040377f80: ?? at head.o:?
+> 0xffff82d040377fa0: ?? at head.o:?
+> 0xffff82d040377fc0: ?? at head.o:?
+> 0xffff82d040377fe0: ?? at head.o:?
+> 0xffff82d040378000: ?? at head.o:?
+> 0xffff82d040378020: ?? at head.o:?
+> 0xffff82d040378040: ?? at head.o:?
+> 0xffff82d040378060: ?? at head.o:?
+> 0xffff82d040378080: ?? at head.o:?
+> 0xffff82d0403780a0: ?? at head.o:?
+> 0xffff82d0403780c0: ?? at head.o:?
+>=20
+> Obviously the changes to check-endbr want cleaning up, but I think it's
+> entirely within scope to check for ENDBR64_POISON too, and we can do it
+> without adding an extra pass.=C2=A0 Would you be happier with this check =
+added?
 
-When destroyed domain is an owner domain of a static shared memory
-region, then we need to ensure that all according borrower domains
-shall not have the access to this static shared memory region too.
+Yes, this would feel better. Thanks for having continued to think
+about it.
 
-This commit covers above scenario through unmapping all borrowers'
-according foreign memory mapping when destroyed domain is a owner
-domain of a static shared memory region.
+> But we also have some clear errors with debug symbols.=C2=A0 It's perhaps=
+ not
+> terribly surprising that irp/endr only gets file/line for the first
+> instance,
 
-NOTE: It will best for users to destroy all borrowers before the owner
-domain in case encountering data abort when accidentally accessing
-the static shared memory region.
+I have to admit I would expect it to at least figure the file. But
+there's no .debug_line contents at all for ..._rcx .. ..._r15.
 
-Signed-off-by: Penny Zheng <penny.zheng@arm.com>
----
- xen/arch/arm/domain.c | 88 ++++++++++++++++++++++++++++++++++---------
- 1 file changed, 71 insertions(+), 17 deletions(-)
+> and at least ELF manage to get the function name right, but
+> EFI is a mess and manages to get the wrong file.=C2=A0 Any idea how to ge=
+t
+> rather less nonsense out of the debug symbols?
 
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index 73ffbfb918..8f4a8dcbfc 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -998,10 +998,39 @@ static int relinquish_memory(struct domain *d, struct page_list_head *list)
- }
- 
- #ifdef CONFIG_STATIC_SHM
-+static int destroy_shm(struct domain *d, gfn_t gfn, unsigned long nr_gfns)
-+{
-+    unsigned long i = 0;
-+    int ret = 0;
-+
-+    for ( ; i < nr_gfns; i++ )
-+    {
-+        mfn_t mfn;
-+
-+        mfn = gfn_to_mfn(d, gfn_add(gfn, i));
-+        if ( !mfn_valid(mfn) )
-+        {
-+            dprintk(XENLOG_ERR,
-+                    "Domain %pd page number %lx invalid.\n",
-+                    d, gfn_x(gfn) + i);
-+            return -EINVAL;
-+        }
-+
-+        ret = guest_physmap_remove_page(d, gfn_add(gfn, i), mfn, 0);
-+        if ( ret )
-+            return ret;
-+
-+        /* Drop the reference. */
-+        put_page(mfn_to_page(mfn));
-+    }
-+
-+    return ret;
-+}
-+
- static int domain_destroy_shm(struct domain *d)
- {
-     int ret = 0;
--    unsigned long i = 0UL, j;
-+    unsigned long i = 0UL;
- 
-     if ( d->arch.shm_mem == NULL )
-         return ret;
-@@ -1009,29 +1038,54 @@ static int domain_destroy_shm(struct domain *d)
-     {
-         for ( ; i < d->arch.shm_mem->nr_banks; i++ )
-         {
-+            u32 shm_id = d->arch.shm_mem->bank[i].shm_id;
-             unsigned long nr_gfns = PFN_DOWN(d->arch.shm_mem->bank[i].size);
-             gfn_t gfn = gaddr_to_gfn(d->arch.shm_mem->bank[i].start);
- 
--            for ( j = 0; j < nr_gfns; j++ )
-+            if ( test_bit(shm_id, shm_list_mask) )
-             {
--                mfn_t mfn;
--
--                mfn = gfn_to_mfn(d, gfn_add(gfn, j));
--                if ( !mfn_valid(mfn) )
-+                domid_t od = shm_list[shm_id].owner_dom;
-+                unsigned long j;
-+                /*
-+                 * If it is a owner domain, then after it gets destroyed,
-+                 * static shared memory region shall be unaccessible to all
-+                 * borrower domains too.
-+                 */
-+                if ( d->domain_id == od )
-                 {
--                    dprintk(XENLOG_ERR,
--                            "Domain %pd page number %lx invalid.\n",
--                            d, gfn_x(gfn) + i);
--                    return -EINVAL;
-+                    struct domain *bd;
-+
-+                    for ( j = 0; j < shm_list[shm_id].nr_borrower; j++ )
-+                    {
-+                        bd = get_domain_by_id(shm_list[shm_id].borrower_dom[j]);
-+                        /*
-+                         * borrower domain could be dead already, in such case
-+                         * no need to do the unmapping.
-+                         */
-+                        if ( bd != NULL )
-+                        {
-+                            gfn_t b_gfn = gaddr_to_gfn(
-+                                          shm_list[shm_id].borrower_gbase[j]);
-+                            ret = destroy_shm(bd, b_gfn, nr_gfns);
-+                            if ( ret )
-+                                dprintk(XENLOG_ERR,
-+                                        "Domain %pd: failed to destroy static shared memory.\n",
-+                                        bd);
-+                        }
-+                    }
-+
-+                    continue;
-                 }
--
--                ret = guest_physmap_remove_page(d, gfn_add(gfn, j), mfn, 0);
--                if ( ret )
--                    return ret;
--
--                /* Drop the reference. */
--                put_page(mfn_to_page(mfn));
-             }
-+            /*
-+             * As borrower domain, remove foreign memory mapping and drop the
-+             * reference count.
-+             */
-+            ret = destroy_shm(d, gfn, nr_gfns);
-+            if ( ret )
-+                dprintk(XENLOG_ERR,
-+                        "Domain %pd: failed to destroy static shared memory.\n",
-+                        d);
-         }
-     }
- 
--- 
-2.25.1
+A random example with a symbol from a C file works here, at least.
+
+Jan
 
 
