@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3A774D617E
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Mar 2022 13:28:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.289013.490281 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43CCA4D6196
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Mar 2022 13:31:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.289017.490292 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nSeNO-0007vK-W5; Fri, 11 Mar 2022 12:28:10 +0000
+	id 1nSeQ9-0000rv-Ff; Fri, 11 Mar 2022 12:31:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 289013.490281; Fri, 11 Mar 2022 12:28:10 +0000
+Received: by outflank-mailman (output) from mailman id 289017.490292; Fri, 11 Mar 2022 12:31:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nSeNO-0007t8-Sp; Fri, 11 Mar 2022 12:28:10 +0000
-Received: by outflank-mailman (input) for mailman id 289013;
- Fri, 11 Mar 2022 12:28:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nSeQ9-0000pF-By; Fri, 11 Mar 2022 12:31:01 +0000
+Received: by outflank-mailman (input) for mailman id 289017;
+ Fri, 11 Mar 2022 12:31:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=3DNt=TW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nSeNN-0007t2-Qe
- for xen-devel@lists.xenproject.org; Fri, 11 Mar 2022 12:28:09 +0000
+ id 1nSeQ8-0000p9-1A
+ for xen-devel@lists.xenproject.org; Fri, 11 Mar 2022 12:31:00 +0000
 Received: from de-smtp-delivery-102.mimecast.com
  (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b51ce636-a136-11ec-853a-5f4723681683;
- Fri, 11 Mar 2022 13:28:08 +0100 (CET)
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04lp2052.outbound.protection.outlook.com [104.47.14.52]) by
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1aa5b973-a137-11ec-8eba-a37418f5ba1a;
+ Fri, 11 Mar 2022 13:30:58 +0100 (CET)
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur02lp2059.outbound.protection.outlook.com [104.47.6.59]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-27-U0j3EKQNOUuZVauAKlrfmw-1; Fri, 11 Mar 2022 13:28:07 +0100
+ de-mta-31-lJTUeyJiO-eMT2iLBWXAzA-1; Fri, 11 Mar 2022 13:30:57 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by AM0PR04MB5028.eurprd04.prod.outlook.com (2603:10a6:208:cc::23)
+ by AM0PR0402MB3633.eurprd04.prod.outlook.com (2603:10a6:208:c::28)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.22; Fri, 11 Mar
- 2022 12:28:04 +0000
+ 2022 12:30:55 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::e8ce:db1c:5bb0:af0]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::e8ce:db1c:5bb0:af0%6]) with mapi id 15.20.5061.022; Fri, 11 Mar 2022
- 12:28:04 +0000
+ 12:30:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,219 +51,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b51ce636-a136-11ec-853a-5f4723681683
+X-Inumbo-ID: 1aa5b973-a137-11ec-8eba-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1647001688;
+	t=1647001858;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ovrxvzJCrIzbaOGDqozVwtiad8yCZaikFFQCMLG6z+M=;
-	b=fE9ogMOpAZ69kCwtq+ON9+7GZ82WqFE1d8jC/7nV7SYu8DIKDfwV/c8JtavHaUxTwixaEw
-	OhyuNXV3Y48z14bT/92zsiUi0UAlbB4gjJLvnvWpYd/QwdbWzYWpTmL3DQ7acZyWNbXZdu
-	k6wjsNEkE5UPJyDXK/Q1+CbnCvIckms=
-X-MC-Unique: U0j3EKQNOUuZVauAKlrfmw-1
+	bh=v1MNd096C8fKQZi4xn5Oe60BodAFGo4UDI3yEvFOLPk=;
+	b=Yrmi7e24ks2ilE9bX5E+HUiBpv4KAJN6V+hbME88RhLdaKsPHwEXjkpz9nPIeK1E2f7kjf
+	0EspnY6pHXYTaIHlKrjUWkavKynoNvyaLGaoUtR7NPV6cBsfoVv0jHO+ZEqbVS5EQcP23y
+	9vXViiNm0tNgIacDneLJmyg2ntN/Mz8=
+X-MC-Unique: lJTUeyJiO-eMT2iLBWXAzA-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QEVaqHMJtWmOsRObqNmUiXKezPs/edKfDbKw2EDuWjvmp3GeH0bnlnynVgid3+0WBKKx+KtD4sLyPnqdc8QOuR//siCT0ulXWhVD6TnrPyzHN+h5HjEeA4D4SS37y1fZyEO4UjJiumdO6wGMAInRgIkgF5zAJXkQqsfD7+TwfOpdjLfPIwtHLu9tE9LvLpgiOjaJmw33+3g/TZg0LHKtZGIHAWEQsg0UcMenz39lz8itsBp2dYUkRT7BedOVBSH3DXYWNpqxpGf/oWhpbYHM2n1Htu6D2RaAB0gove0VJJQm9wnlkzTvVU3E/czStGUhwP5+kQlPNdVJ4rQ/IPdS/g==
+ b=oZNPw964XH14zYF6wt1NxpxsVoplEsAoNm+XsO9vc6iDkw4a1PifV/gPEDLaEHh6byBVyEPkoX/8gnE3X4fwEsgO5gmGROYrMjQgW/dxrPsQ6jtDptEzJFkxQ0JwH1JsTmhmdhReml3eEOXDv/uUW9D7hCrRIuzVSxqDaToT55ke85ttSpiKB/bOj0rJw8txqTBpabfwVsSqbceYTDakJ6qp4zvL6gjzXYnXi7NfNRvM61+LRiRisnls9Wz3dq+fsnuw06239mI5BZCxvPmK43ARxDdGrl20Tr8XXC/RAwNQqvcgdkQPZErdqKRiBf9wC+P6cmaRy8BS/juWCfSu1w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S5xjwBOe4g63+TsspZ5O0F0zu3Yh/XSsI5xQ0WkylhA=;
- b=h1bmc5gDG2ryZQzPJzhVWofGHJPZSjQALfnnzL+J2Nl0PwLmHTh0yruLJdkiXxQ69DNKWziEbde/WyuRgKmILM7eYZtLEkywm6XbfVhuKgKY8xi7CgksUoxAvY+MEqQJTI1M7jIWF10wIrpW97ygLgUYAQjvh589I3swrT5Vti2Sa3tKNgsqGxS/1hg88vAGNsHHFTttE77zb1zj7CPWRNxdhG8W84PX9gFYcEeB0JgOhk/iG3aTMjgtlTuZYiPoD2hwsxDHw7F/lElnr0JQLFBfTlYZuecwhcIvkLbQBawoqf6HWbW7amkOZ7Itgx45tWxF3TWXB9BVELziljzmMw==
+ bh=7ehG6zKVsTFwvNcCOOtzFk9BpNnW17evCWMJKGkeAmw=;
+ b=MjfkiS4aA17J+1TDGBdShM9UvIdPrn/PVAYPgqvWnVSJBIWMhfT8xUL/K96KUrdqhnyqyM366zjoYqJCqk0qPTsycr6ROOEyOUYklYWVXe6EEVrv6D0LD1pGFwXG5uvGtELE3WVTt6GeBGHR/sIi2snn7e6s/7qeFED56SV9cM1DcNWIKfCSsVmVtd1uQgIn3x7wd9Q7qtzN+00rhMzhledUdYVWEDWkKsppvvDeQBpO1r3Kc+z4tNhZBVV0rmGhZalOOlE799P0tJUbWnc825C2ksmXhec1js+mZsyqOuknT1dNfR7iJW1oLSMyyYSUkEIq1V7PdEQJM7rrG/0Grg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <453ae515-d97a-cc0b-7b7d-a505a8904f03@suse.com>
-Date: Fri, 11 Mar 2022 13:28:00 +0100
+Message-ID: <2ec142df-0023-d105-4c96-3b42a198a8df@suse.com>
+Date: Fri, 11 Mar 2022 13:30:53 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.2
-Subject: Re: [PATCH v2 4/6] xen/cpupool: Create different cpupools at boot
- time
+Subject: Re: [PATCH v3 1/4] x86/time: further improve TSC / CPU freq
+ calibration accuracy
 Content-Language: en-US
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>
-References: <20220310171019.6170-1-luca.fancellu@arm.com>
- <20220310171019.6170-5-luca.fancellu@arm.com>
- <378565ed-80d4-e760-2e25-f5d2e4cb9ce2@suse.com>
- <0D3FFA8E-A904-4375-BDBB-2C974C224D14@arm.com>
- <21783c1d-d8c7-b03b-2221-5e34b4bd0fd4@suse.com>
- <26fbe29d-b5d3-2ce5-a16b-ca05329c778a@suse.com>
- <918fd4d8-99d6-3acf-0637-7feda1e08f71@suse.com>
- <509DF3D9-A0B4-4139-8DE8-C4276C16BD26@arm.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <35cb3c72-05ba-24c7-1fdd-3ee1aced3aec@suse.com>
+ <65c123fe-c8e7-b9cf-4dea-904bf28170a7@suse.com>
+ <Yis6nrchuvzagfOb@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <509DF3D9-A0B4-4139-8DE8-C4276C16BD26@arm.com>
+In-Reply-To: <Yis6nrchuvzagfOb@Air-de-Roger>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM5PR1001CA0063.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:206:15::40) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS8PR07CA0015.eurprd07.prod.outlook.com
+ (2603:10a6:20b:451::28) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dade818a-eeee-4889-1898-08da035a9705
-X-MS-TrafficTypeDiagnostic: AM0PR04MB5028:EE_
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Office365-Filtering-Correlation-Id: a4852a1e-6591-4077-d484-08da035afd07
+X-MS-TrafficTypeDiagnostic: AM0PR0402MB3633:EE_
 X-Microsoft-Antispam-PRVS:
-	<AM0PR04MB50285BD9335EBE2CCA33D89FB30C9@AM0PR04MB5028.eurprd04.prod.outlook.com>
+	<AM0PR0402MB36338A5E4BCB95B3B83C07AFB30C9@AM0PR0402MB3633.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	09YFTGPv+RdnD9NGZJEgGD+EepB2CjbnTiPocQOGxyZ7WrX8q4QIZL94pODKIvrg+T/dsfutTCju0ZNgtM5m6hgXLkLu325ektSSCq6f0HPLE6JLSRcX0cpIepxte9VhnpBCuEeuQYW8CMchrJeTs969+MWl8mK6oBQCUujpMiu/Cue9yHwzc1NKZ7X66Iqtd7mmRLoDrJzW9OPSKs0BRQzR/LwJd8vPgzL0n9jxFv+mpD+H8pX9FHJvhLTPkNoyP7JP0DmeB4EqBaGDzU3xj6hYrwhjrJa9rnfT1lGgqB5Q/yoBRhm5M0k8eR8lJTOT6Wnez1dzwnRZSOpsdmrVF05r7pvOQ9s2BvV1QVG6bmRBAZKCXThUWWXXR22rffJM8FYRWswzDDm3tnML+X6MCDLKL1nElbPR7CRNvdev112P/No9iCPCB7bykrMMEJwShcP40V4dXtg5vS/k8F2x/GGcngGFXNU+uZdOghQ2oXcK+thXhMo2Hzxnye/lGOruYFa83ADZuZsR+UF6F9xqOzd2ics8yTIBWMD9D+fZlgIDkJ0SAG0XWs/ZiluO5nUHLnoYSOCi1ZPYRvDRO+7pTa//3V4SKrnhyZB5HJrmJJw40UhfAsmm34ZIPwn1+FbzywFPTQi6b91GKJypnqx/EOzfxWpsNwBKtwqRoo0X9VOtuNic9LAU4jc6ROjl/xJkbuWKOjLKW+UVtOrJ3FX6968WH1Mwxt0VZr03dQBpVYM=
+	kLXPTzyPDehgLd8fEAdp9VSMZMqXpluVVn8BRCivaVP+vQwFw6jbhnGqVo48GEPJ++5TIFyvgdkI8kYcecJRBNOiBOZspkZQhHlQqqbIIfgca1OCQwOUTh+ALy7Gqbyilp23y7qw+QOH0pe8WP57iAAjJpYA8BHOP6YIhYCr2CrOrvisAFFuM48MtwSnuQPf0/VnYjWRc3RfZI8lid9oWDDgNe/aOmzI5hv87GSNWFQy4AqLo5j/C5K/uMOzbDtopxCcOVhBM/Ch7LyWHSgsIFzIqNfX6AILFnSOID9ocGxbVpf3ztjQwc/32vk7rGajkA7ptorSTHl+mXWFMBG75L9Aya5na41Zr12we2d8Iz00Z6uGIr0wNaIgdAVHOrWwzkeVo8MYjjbG+Q2SGKgwKiaVFowqClO/YknngZrGqAFGQKRfNK6KgmVgXkdf8z3kHc8gmvsiThmxyU4BNc9SmJfuzgQ1A2nNaaOcrsRnPBX3xCyALvjQ4IkYdwL/85ts56Ev6aeBGWFpXt28fzI8teAM6oWJ/6KjRMnx3s/FdE3KWXo7TZkA6cnucja+tmguf4rP/OnI1Q9AgRyYtahVF2YkElrqQuhSAMX7Ebq4vs5vpaIi06wVC3KpWZFnJY4kTkrQIFwqh4ZX+6kJ3QDvIBRZcELJ15/Dtvi56f073kc7zEXMRu14aYWgm8ZOs1+a/r8U7TuL+z+cB/whXwEgmMo0UeTdxFiyOcCrBY/DY9c=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(107886003)(53546011)(66946007)(2616005)(6666004)(6512007)(6506007)(36756003)(186003)(26005)(66556008)(6486002)(508600001)(8936002)(54906003)(86362001)(2906002)(66476007)(83380400001)(4326008)(31686004)(316002)(6916009)(8676002)(31696002)(5660300002)(38100700002)(7416002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(6486002)(83380400001)(508600001)(54906003)(5660300002)(8936002)(6506007)(6512007)(53546011)(2906002)(8676002)(66946007)(66556008)(66476007)(4326008)(26005)(2616005)(186003)(86362001)(38100700002)(36756003)(31696002)(316002)(31686004)(6916009)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?kXA8nZz4fHscQ+M2Nl6nmm07ArfMzzp6J7oRIZEJP6EhdjkHwdTboJt0iMz1?=
- =?us-ascii?Q?TVoLiGRuIokIU/jhuovgpaqAng/kj3xGPPUUKMjziuRRoA1jL92pkU/DP7xe?=
- =?us-ascii?Q?c1A9eqAhBQU6fhaNXKApXFMoLuOOfmLW9ra0SKBuT3EjTfsYxELw1C58lCHI?=
- =?us-ascii?Q?E+WfVcEddqt/mSZhT5S4MSz2ku0CghmOEJ6+r8iGQNXmVzxlMecC+/Q8zPj9?=
- =?us-ascii?Q?/xJ22PoowjcxpCh8kwcRhumOpzYw+6KNmJlJk4SKRsNl+i75kehDP1/7/SxY?=
- =?us-ascii?Q?oC7DInUePajbeW5W1Agkc+GpzdISEanUhwOYPVlQ3cDhBRgm0DIAcESaxUIx?=
- =?us-ascii?Q?nshl/ntp4BYc479Iu3CiTPim46igbvflY59XlGxxftT9zrGwlRMydoo+kAke?=
- =?us-ascii?Q?WvPQCySKLjmZhw3vSz2fzeBXpj7HXihab1rZJFyu5Dheydk/wRZQfBX7KWMe?=
- =?us-ascii?Q?DRRwNLO5ENEwUrEVGF0VZRY18UbMu5HEmo1cwFOBgw7A7r/x+hg48qF1xWnc?=
- =?us-ascii?Q?xMJcN5OONycWgjBJqlQFgqd++qOsCEox7qojCQb35QqNy4QNErLeHc40qZPf?=
- =?us-ascii?Q?BucVsNU4duYbl/YNysQhadjOzFxqNpdLw+f+slv3vIS5kN57ZG+FAtwFSNvN?=
- =?us-ascii?Q?+KlrlGuOhfpGc455bK8rPPL2tnYJKaSUnPlFZVPus+cfdev6bwfVzdRqiCpB?=
- =?us-ascii?Q?/JtoWMSzcn0NQGw2oByABGqPKIynQNO4XczR0bJZfhQrxxetK+75g1Ci1GhY?=
- =?us-ascii?Q?XDsp0MkldoY8jjzH/AR7ByhcG9l15sVaibmSFzp57kbmjmgHInBS7WoJBH7h?=
- =?us-ascii?Q?FiWaYsQzFoHZuiLr/4iVrknZu3DcMEunPI7pRvgVDUHTBCi/PwaKnVHn/F0R?=
- =?us-ascii?Q?YQDWMeLBenGPrdboz9pMBf84prQtk776tzQCYB8v/ji8nEUyQavdXPr7xPZS?=
- =?us-ascii?Q?Z1faTypzutvVDoiki8gy/03bGqe03PuWESlj91DBiu0CN3Mf9P7ih+c8HnCd?=
- =?us-ascii?Q?taryTvpZAmGQAEVwIEGuRQri9Y/PIvvbaeWHJVO7YWtJHOoUsF29LvDG/76w?=
- =?us-ascii?Q?szZFuUnVV0CFJuyIYMrfFbmGUT/klqGyi5XJYzm1czJK1wcIAZNmcsuRKtbm?=
- =?us-ascii?Q?TRjQCES6C8LSG60ifaasf5SFzug57zOi19rqlMw1tFsYxWqWxSGHPTcni8Bf?=
- =?us-ascii?Q?+Cb2p063DBajAqmOcz/mujAVdh7IKUe2P+O2qP7yIG111VpVal4MJguDRJW9?=
- =?us-ascii?Q?GwVoyB4sCAF1AUvPQQeHGyqE1baoMb2i75FyArSRKcIEI58vmwzo5Pg55bqP?=
- =?us-ascii?Q?MIeFVujIR6gp3g9LVcOy4z6ihAuz4jttnzMd7tmF4PZpGpuJ0jyrb2iEbft5?=
- =?us-ascii?Q?0e9Xb/USikjIoTaKlPj8dq065W5NbkaItygRD+leUSmLgSnQnrGCY+7vBfiK?=
- =?us-ascii?Q?ygSk5p6CMsuPnwvFnmhD5XUXAz/ngBnA?=
+	=?us-ascii?Q?VSTn98ql0BHGEbO92hb/RgJ2MDXh85wC+0lEymSrM6GRdsyAMjzwmYLNQsZ9?=
+ =?us-ascii?Q?Rci5fs2Aew99OMWmwsUyzEpzhYNGo+cn/tKUK+t3cQZNuru5O8Wc6C/jWpxh?=
+ =?us-ascii?Q?XnFDfMZ50+qobjQwP3C1jo357vHY83siq77wdE9PEL90DqMIxjdVX7yoN3sN?=
+ =?us-ascii?Q?nyWDoyOCHUePJIIQmntf3hIo2hY+xeAUCgpf6rRd9NT0u1P5+PrpytCwR+tT?=
+ =?us-ascii?Q?axnzOnPOqARfeUjvxgi7tGBtyMQGAaShfpIa6l5+vsvuqJXrhkyE0LbbN6gg?=
+ =?us-ascii?Q?2LbfAwD42QsnSvVIrxTthjTaBgJX53VA4utMKHI06nrQlsrRt8D24tiDSam0?=
+ =?us-ascii?Q?Wo2cM6lzM3ZklxUv31Nh5HPnVKGynF3ji0+hJepQYI1b6464Rg1CITCHzWdi?=
+ =?us-ascii?Q?ryTVzi0jtV5hyrx70iKRPRYUxQa3TEv0Csdp4XPd526KOZ52Ee01803/mQ7r?=
+ =?us-ascii?Q?i6mhMjSpgob8s4kcXSaVPOBYIVsy2R9u0gDnL83tnzDTSbVHNFGKy3W9FKai?=
+ =?us-ascii?Q?VcQkSkjf2scjRBUNw9qdnbajanfgQ/exfRCBdFI0hnvrh/R+tilpbh5OrF0Q?=
+ =?us-ascii?Q?d9oIQySQMcevPiw0yEosj9VVcl7hjoTpxMts6p06N85IiDASlXliEJfqj9+E?=
+ =?us-ascii?Q?l+gXA0I5itjuJqJnE0IxzG4J/qD8vt8h8qUMlasxBif4ic2Jw8P7FsJAs3ml?=
+ =?us-ascii?Q?lJqC2LD3ASbznfMuKEuDJ2mjB+Avb5AZZ2R+MeTPowIBZ+zfnTlphu+5/jrL?=
+ =?us-ascii?Q?c0NgsTbsSQ3VaL9daXG2im7iaxjbZ54Da1pdEEg3xxe3+rqpTXrxOB8zQ+Ih?=
+ =?us-ascii?Q?ExD3k6LtvIUGAtjhSB1w7tUj/dFhV5RH4z2LLCLvwDbC+lDd5E4Zdi9idy3Q?=
+ =?us-ascii?Q?VSRz3wrEBKPVxRes/+fn88j8XYU4DmUbrBrv59SHOZVOm1WO/qtczLWxUliA?=
+ =?us-ascii?Q?A3zpMSa+AgUHft3UULjdyStJvRKX+nhdgvxXMlrl18kdDOLbhwSVEomQR/fl?=
+ =?us-ascii?Q?SLOjSo+k6CZTvngw6u8m7QQh7U8m7e+xWPPZuXEtrASWOh+izp+XmcTK28Ma?=
+ =?us-ascii?Q?l+a+nj/U2OnMbKI+4WZHBQf/XPih4RMX2pu6coAIu2nrEK0jSIXPVZr+kPpG?=
+ =?us-ascii?Q?vz7tU3i/TPm8sGHT9rcK/c93KFmLZ2C+PBlU/Wlmue8vXHvjPDZNXX0IP26h?=
+ =?us-ascii?Q?ML3JSPbnHVjpRgJhmNRYcvnuNxidswtawogjEFR66vhjpyLYXSkFYx3+nouk?=
+ =?us-ascii?Q?JeY4ID+rHGKQiBGIOb8ZEuZnXcZV/hodofAOhNlzu3xikWif0+q/foEG+anP?=
+ =?us-ascii?Q?zEZNiDyoOXhxSAxSBhG/XRm44RVCKjL1lXiulu2i3eQzd5/XqOZ4Bp+aRkvs?=
+ =?us-ascii?Q?nMtEc49TvxbBpbFzD8iZdETkZ4Mez+K4VJR5G7IyxcE28+TTlx+YRKEv0Ysq?=
+ =?us-ascii?Q?kH9aJmI+ApbzWkK7FOe/orpnr0WBZH99?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dade818a-eeee-4889-1898-08da035a9705
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4852a1e-6591-4077-d484-08da035afd07
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2022 12:28:04.4479
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2022 12:30:55.4841
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kOyZZsx3S9Ieneki1Jbr7Ql4zib1K1IfgRdbRIj1XqGlIc+1bupfVnIYHdKiadT9QAxg3UCWFEfIboL0fWphiA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB5028
+X-MS-Exchange-CrossTenant-UserPrincipalName: rUIVLTFPCnApBodl0nfwIl0eEmr7zz8WUnJDsbaIkexugkGWqriRcvuf0BvvsgDtl+z4zQHzm0TqYtxj+B2u0w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR0402MB3633
 
-On 11.03.2022 12:29, Luca Fancellu wrote:
->> On 11 Mar 2022, at 10:18, Juergen Gross <jgross@suse.com> wrote:
->> On 11.03.22 10:46, Jan Beulich wrote:
->>> On 11.03.2022 10:29, Juergen Gross wrote:
->>>> On 11.03.22 09:56, Luca Fancellu wrote:
->>>>>> On 11 Mar 2022, at 08:09, Juergen Gross <jgross@suse.com> wrote:
->>>>>> On 10.03.22 18:10, Luca Fancellu wrote:
->>>>>>> --- /dev/null
->>>>>>> +++ b/xen/common/boot_cpupools.c
->>>>>>> @@ -0,0 +1,212 @@
->>>>>>> +/* SPDX-License-Identifier: GPL-2.0 */
->>>>>>> +/*
->>>>>>> + * xen/common/boot_cpupools.c
->>>>>>> + *
->>>>>>> + * Code to create cpupools at boot time for arm architecture.
->>>>>>
->>>>>> Please drop the arm reference here.
->>>>>>
->>>>>>> + *
->>>>>>> + * Copyright (C) 2022 Arm Ltd.
->>>>>>> + */
->>>>>>> +
->>>>>>> +#include <xen/sched.h>
->>>>>>> +
->>>>>>> +#define BTCPUPOOLS_DT_NODE_NO_REG     (-1)
->>>>>>> +#define BTCPUPOOLS_DT_NODE_NO_LOG_CPU (-2)
->>>>>>
->>>>>> Move those inside the #ifdef below, please
->>>>>>
->>>>>>> +
->>>>>>> +struct pool_map {
->>>>>>> +    int pool_id;
->>>>>>> +    int sched_id;
->>>>>>> +    struct cpupool *pool;
->>>>>>> +};
->>>>>>> +
->>>>>>> +static struct pool_map __initdata pool_cpu_map[NR_CPUS] =3D
->>>>>>> +    { [0 ... NR_CPUS-1] =3D {.pool_id =3D -1, .sched_id =3D -1, .p=
-ool =3D NULL} };
->>>>>>> +static unsigned int __initdata next_pool_id;
->>>>>>> +
->>>>>>> +#ifdef CONFIG_ARM
->>>>>>
->>>>>> Shouldn't this be CONFIG_HAS_DEVICE_TREE?
->>>>>
->>>>> Yes, the only problem is that in get_logical_cpu_from_hw_id I use the=
- arm specific
->>>>> cpu_logical_map(=E2=80=A6), so what do you think it=E2=80=99s the bet=
-ter way here?
->>>>> Do you think I should have everything under CONFIG_HAS_DEVICE_TREE
->>>>> and get_logical_cpu_from_hw_id under CONFIG_ARM like in this way belo=
-w?
->>>>
->>>> Hmm, what is the hwid used for on Arm? I guess this could be similar
->>>> to the x86 acpi-id?
->>> Since there's going to be only one of DT or ACPI, if anything this coul=
-d
->>> be the APIC ID and then ...
->>>> So I'd rather put get_logical_cpu_from_hw_id() into Arm specific code
->>>> and add a related x86 function to x86 code. Depending on the answer to
->>>> above question this could either be get_cpu_id(), or maybe an identity
->>>> function.
->>> ... a lookup loop over x86_cpu_to_apicid[] (I thought we had a function
->>> doing so, but right now I can't find one).
+On 11.03.2022 13:03, Roger Pau Monn=C3=A9 wrote:
+> On Mon, Feb 14, 2022 at 10:24:49AM +0100, Jan Beulich wrote:
+>> Calibration logic assumes that the platform timer (HPET or ACPI PM
+>> timer) and the TSC are read at about the same time. This assumption may
+>> not hold when a long latency event (e.g. SMI or NMI) occurs between the
+>> two reads. Reduce the risk of reading uncorrelated values by doing at
+>> least four pairs of reads, using the tuple where the delta between the
+>> enclosing TSC reads was smallest. From the fourth iteration onwards bail
+>> if the new TSC delta isn't better (smaller) than the best earlier one.
 >>
->> It is the second half of get_cpu_id().
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 >=20
-> I was going to say, maybe I can do something like this:
->=20
-> #ifdef CONFIG_ARM
-> #define hwid_from_logical_cpu_id(x) cpu_logical_map(x)
-> #elif defined(CONFIG_X86)
-> #define hwid_from_logical_cpu_id(x) x86_cpu_to_apicid(x)
-> #else
-> #define hwid_from_logical_cpu_id(x) (-1)
-> #end
->=20
-> static int __init get_logical_cpu_from_hw_id(unsigned int hwid)
-> {
->     unsigned int i;
->=20
->     for ( i =3D 0; i < nr_cpu_ids; i++ )
->         if ( hwid_from_logical_cpu_id(i) =3D=3D hwid )
->             return i;
->=20
->     return -1;
-> }
->=20
-> Do you think it is acceptable?
+> Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 
-Why not, if even on Arm you have to use a loop. As J=C3=BCrgen said, this
-likely wants to move to some header file. Whether the names are
-suitable for an arch abstraction I'm not sure, but I also have no
-immediate alternative suggestion.
+Thanks.
 
-> I see the current get_cpu_id(=E2=80=A6) from x86 code is starting from an=
- acpi id to
-> lookup the apicid and then it is looking for the logical cpu number.
-> In the x86 context, eventually, the reg property of a cpu node would hold=
- an
-> Acpi id or an apicid? I would have say the last one but I=E2=80=99m not s=
-ure now.
+>> ---
+>> When running virtualized, scheduling in the host would also constitute
+>> long latency events. I wonder whether, to compensate for that, we'd want
+>> more than 3 "base" iterations, as I would expect scheduling events to
+>> occur more frequently than e.g. SMI (and with a higher probability of
+>> multiple ones occurring in close succession).
+>=20
+> That's hard to tell, maybe we should make the base iteration count
+> settable from the command line?
 
-Without ACPI it can't sensibly be an ACPI ID. The most logical thing
-to expect would be an APIC ID, but then it's all up to whoever specifies
-what DT is to supply.
+As a last resort (if people observe problems) - maybe. It's not clear to me
+though on what basis an admin would choose another value.
 
 Jan
 
