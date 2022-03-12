@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6FDD4D6BA5
-	for <lists+xen-devel@lfdr.de>; Sat, 12 Mar 2022 02:19:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.289296.490831 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D4814D6BAA
+	for <lists+xen-devel@lfdr.de>; Sat, 12 Mar 2022 02:32:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.289300.490841 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nSqOB-0004oH-V6; Sat, 12 Mar 2022 01:17:47 +0000
+	id 1nSqbx-00074j-97; Sat, 12 Mar 2022 01:32:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 289296.490831; Sat, 12 Mar 2022 01:17:47 +0000
+Received: by outflank-mailman (output) from mailman id 289300.490841; Sat, 12 Mar 2022 01:32:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nSqOB-0004lm-RX; Sat, 12 Mar 2022 01:17:47 +0000
-Received: by outflank-mailman (input) for mailman id 289296;
- Sat, 12 Mar 2022 01:17:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nSqbx-00073V-4d; Sat, 12 Mar 2022 01:32:01 +0000
+Received: by outflank-mailman (input) for mailman id 289300;
+ Sat, 12 Mar 2022 01:31:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=b/J2=TX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nSqOA-0004lg-Mm
- for xen-devel@lists.xenproject.org; Sat, 12 Mar 2022 01:17:46 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 378acdc2-a1a2-11ec-853a-5f4723681683;
- Sat, 12 Mar 2022 02:17:44 +0100 (CET)
+ id 1nSqbv-00073P-6G
+ for xen-devel@lists.xenproject.org; Sat, 12 Mar 2022 01:31:59 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 34c0402b-a1a4-11ec-8eba-a37418f5ba1a;
+ Sat, 12 Mar 2022 02:31:57 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 93270615ED;
- Sat, 12 Mar 2022 01:17:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EADDC340EE;
- Sat, 12 Mar 2022 01:17:41 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 9878EB82C0F;
+ Sat, 12 Mar 2022 01:31:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF2E6C340E9;
+ Sat, 12 Mar 2022 01:31:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,18 +43,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 378acdc2-a1a2-11ec-853a-5f4723681683
+X-Inumbo-ID: 34c0402b-a1a4-11ec-8eba-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1647047862;
-	bh=2ObVLuOCpMk+7o7YQ4gxe9MMFce7y/gHB5VcRv/DxBw=;
+	s=k20201202; t=1647048715;
+	bh=CXK5Q7puLgFc5u6bvpSQ6R2EKfCDS2Td2kizgzyjcEY=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=QyFuQqfV4nU4vgMGxc0D9WrEtMwNSsOWku4RheIVdyLo2lsrchbAZY3UOfa3fBnn2
-	 jF2cwFf/fJC1pF005pZm4SQGqNb3MDJfQvZ9RgRa01ZMVumsi48OJdc61VCfQ8C2Tp
-	 A1yFdYgKW6JxBfcA6s/oQWGaPSs/+A1RwIkyKxB+WcouRtmhSbtn+J3LV+JfqFdNVW
-	 0L4gU0rosfEgJUp5K7Hzlj0emKAcwwTN2pSjsC7Fwdn3lqGbckqeOqNpi3q1yWEkGz
-	 LkTtCKh5csJhPNCr6f1eXIOZx/GaizA402W7/OeZfXCyfAWAv3sFcTVeeOpX/ZM4uf
-	 QWCg6SQUMBinA==
-Date: Fri, 11 Mar 2022 17:17:40 -0800 (PST)
+	b=PS5gfpPmk1iYPt0Lbqyom6thPCShkNODRoz9iC/3p19yYkE2+9rg600YTTGiH3voA
+	 wtN6dNxOveBaWMbYr/s3lXlJPGFAFXzVfn56L2XZKtR48N3Qb3DLQNJ2B0gWoWk6X0
+	 i7Tce3d1VcRZ6Jznxl/RlRlbf/nRmU6Q2aLWb9Bl7y7nBgPkJAf2orPD9H2EXEoV19
+	 1qYStP+xl1YHZaC2ezvV0fVDUpIrFk5+dktWmNQ9Mp5QgROgz82ioKSkRGBmNGPTvA
+	 okVTXxYbNbzX6gmHitSPlcvlI+fQiqZVSuo/sdwRlsgEBRR6FVzdRUH2vpvYKFDe3d
+	 Ikt+och2/lxlw==
+Date: Fri, 11 Mar 2022 17:31:53 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Julien Grall <julien@xen.org>
@@ -65,7 +65,7 @@ cc: xen-devel@lists.xenproject.org, marco.solieri@minervasys.tech,
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Subject: Re: [PATCH early-RFC 4/5] xen/arm: mm: Rework switch_ttbr()
 In-Reply-To: <20220309112048.17377-5-julien@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2203111710300.3497@ubuntu-linux-20-04-desktop>
+Message-ID: <alpine.DEB.2.22.394.2203111721130.3497@ubuntu-linux-20-04-desktop>
 References: <20220309112048.17377-1-julien@xen.org> <20220309112048.17377-5-julien@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
@@ -195,32 +195,26 @@ On Wed, 9 Mar 2022, Julien Grall wrote:
 > +    update_identity_mapping(false);
 > +}
 
-As far as I can tell this should work for coloring too. In the case of
-coloring:
+Controversial question: does it really matter that XEN_VIRT_START >
+512GB and that _start < 512GB?
 
-    /* running on the old mapping, same as non-coloring */
-    update_identity_mapping(true);
+I am totally fine with the limit, I am just brainstorming: given that
+the mapping is used very temporarely, it wouldn't really be an issue if
+it conflicts with something important. Let's say that it conflicts with
+the VMAP or the FRAMETABLE. As long as:
 
-    /* jumping to the 1:1 mapping of the old Xen and switching to the
-     * new pagetable */
-    fn(ttbr);
+- we save the current mapping
+- update it with the Xen 1:1
+- switch_ttbr
+- remove Xen 1:1
+- restore mapping
 
-    /* new pagetable is enabled, now we are back to addresses greater
-     * than XEN_VIRT_START, which correspond to new cache-colored Xen */
-    update_identity_mapping(false);
+It should work, right? Basically, a mapping conflict shouldn't be an
+issue given that the mapping has only to live long enough to call
+switch_ttbr_id.
 
+I am less sure about patch #5 but it doesn't seem it would be a problem
+there either.
 
-The only doubt that I have is: are we sure than a single page of 1:1
-mapping is enough? What if:
-
-virt_to_maddr(switch_ttbr_id) - virt_to_maddr(_start) > PAGE_SIZE
-
-
-We might have to do a 1:1 mapping of size = _end-_start. It would work
-with coloring too because we are doing a 1:1 mapping of the old copy of
-Xen which is non-colored and contiguous (not the new copy which is
-colored and fragmented).
-
-
-Thanks Julien very much for your help!
+That said, I am totally fine with _start < 512GB.
 
