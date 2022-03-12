@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84AFF4D69FD
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Mar 2022 23:54:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.289278.490797 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F7664D6B5D
+	for <lists+xen-devel@lfdr.de>; Sat, 12 Mar 2022 01:12:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.289289.490820 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nSo8O-0001Ad-NC; Fri, 11 Mar 2022 22:53:20 +0000
+	id 1nSpLT-0001Lj-W3; Sat, 12 Mar 2022 00:10:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 289278.490797; Fri, 11 Mar 2022 22:53:20 +0000
+Received: by outflank-mailman (output) from mailman id 289289.490820; Sat, 12 Mar 2022 00:10:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nSo8O-00017S-JQ; Fri, 11 Mar 2022 22:53:20 +0000
-Received: by outflank-mailman (input) for mailman id 289278;
- Fri, 11 Mar 2022 22:53:18 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nSo8M-00017I-JW; Fri, 11 Mar 2022 22:53:18 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nSo8M-0002nN-Fn; Fri, 11 Mar 2022 22:53:18 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nSo8L-0004eK-VM; Fri, 11 Mar 2022 22:53:18 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nSo8L-0007KU-Ud; Fri, 11 Mar 2022 22:53:17 +0000
+	id 1nSpLT-0001Ju-Sa; Sat, 12 Mar 2022 00:10:55 +0000
+Received: by outflank-mailman (input) for mailman id 289289;
+ Sat, 12 Mar 2022 00:10:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=b/J2=TX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nSpLR-0001Jo-C8
+ for xen-devel@lists.xenproject.org; Sat, 12 Mar 2022 00:10:53 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id defbd0ed-a198-11ec-853a-5f4723681683;
+ Sat, 12 Mar 2022 01:10:50 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 2CB43B82C21;
+ Sat, 12 Mar 2022 00:10:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26A5DC340E9;
+ Sat, 12 Mar 2022 00:10:46 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,298 +44,543 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=mvYVF5vs1juSJM4DbsiJeVzZsACu8j+BrV4xRJQC4F0=; b=b4s5Mp/SxLdE1ihmYBAqVCS+hT
-	uqHGgbVVabuzWzJtHYEx2XGncEu5d+v8rwbY8f+iiPgt8LEvyiFzaLUKR5Be08keKNYenwh+RcfUQ
-	AFNkAC2e0aNgC4DvkfqaqEPEhKgGofBjBXHvqPcskzzHnJshMlFAMjwfPJucKEKbDaEA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168513-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: defbd0ed-a198-11ec-853a-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1647043846;
+	bh=un05KrbSExi2lS3SOxJs4EWHqYhMcbhCOOiV/xaAIEs=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=lBk8VH8DiFvuya/0IiYUD2Vtw5inlXzb+SBP00K7JZvm2UBZ6lov5sYDw0mouYDL+
+	 MX6V3b2tBfWWd0ssX9iGCfasvzbpnbreH3+7o/uAQTOIsU6JjH3U3uXIC/F+4anevM
+	 Q4o+Kv83hRyHKSH0VLo5u9k3LRMruNlRJYIqk0nE45JQi+Ig/OzLrEtxABhhOHoLTQ
+	 XZ0HHOrMqXmtl/nO0o7WfwVKcGT5gofdGPc/pzmj3RnqZ1myELfsoz2phXF731Oqp+
+	 gN+LwOcnFXTVcuX3WizAXprQ4W5UZr1HXJ5q9I2brBFIJOVXQD34/PABmzMPdf5J7e
+	 YMEZRDFEy20zQ==
+Date: Fri, 11 Mar 2022 16:10:45 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>, 
+    Julien Grall <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>, 
+    Dario Faggioli <dfaggioli@suse.com>
+Subject: Re: [PATCH v2 4/6] xen/cpupool: Create different cpupools at boot
+ time
+In-Reply-To: <A34CF75A-8139-4A4A-A1AE-3BA74E70DE55@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2203111600330.3497@ubuntu-linux-20-04-desktop>
+References: <20220310171019.6170-1-luca.fancellu@arm.com> <20220310171019.6170-5-luca.fancellu@arm.com> <alpine.DEB.2.22.394.2203101957370.3497@ubuntu-linux-20-04-desktop> <A34CF75A-8139-4A4A-A1AE-3BA74E70DE55@arm.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-4.16-testing test] 168513: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    xen-4.16-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.16-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-4.16-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.16-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.16-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.16-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.16-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.16-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    xen-4.16-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=cfd29b83a26f35f49f074f06169ce4cadfdebf0d
-X-Osstest-Versions-That:
-    xen=ee4d66242eef4d4c4215a432dece577093bfcbbc
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 11 Mar 2022 22:53:17 +0000
+Content-Type: multipart/mixed; BOUNDARY="8323329-622300958-1647043522=:3497"
+Content-ID: <alpine.DEB.2.22.394.2203111606200.3497@ubuntu-linux-20-04-desktop>
 
-flight 168513 xen-4.16-testing real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168513/
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Failures :-/ but no regressions.
+--8323329-622300958-1647043522=:3497
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2203111606201.3497@ubuntu-linux-20-04-desktop>
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 168503
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 168503
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 168503
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 168503
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 168503
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 168503
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 168503
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 168503
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 168503
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 168503
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 168503
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 168503
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+On Fri, 11 Mar 2022, Luca Fancellu wrote:
+> > On Thu, 10 Mar 2022, Luca Fancellu wrote:
+> >> Introduce a way to create different cpupools at boot time, this is
+> >> particularly useful on ARM big.LITTLE system where there might be the
+> >> need to have different cpupools for each type of core, but also
+> >> systems using NUMA can have different cpu pools for each node.
+> >> 
+> >> The feature on arm relies on a specification of the cpupools from the
+> >> device tree to build pools and assign cpus to them.
+> >> 
+> >> Documentation is created to explain the feature.
+> >> 
+> >> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> >> ---
+> >> Changes in v2:
+> >> - Move feature to common code (Juergen)
+> >> - Try to decouple dtb parse and cpupool creation to allow
+> >>  more way to specify cpupools (for example command line)
+> >> - Created standalone dt node for the scheduler so it can
+> >>  be used in future work to set scheduler specific
+> >>  parameters
+> >> - Use only auto generated ids for cpupools
+> >> ---
+> >> docs/misc/arm/device-tree/cpupools.txt | 156 ++++++++++++++++++
+> >> xen/common/Kconfig                     |   8 +
+> >> xen/common/Makefile                    |   1 +
+> >> xen/common/boot_cpupools.c             | 212 +++++++++++++++++++++++++
+> >> xen/common/sched/cpupool.c             |   6 +-
+> >> xen/include/xen/sched.h                |  19 +++
+> >> 6 files changed, 401 insertions(+), 1 deletion(-)
+> >> create mode 100644 docs/misc/arm/device-tree/cpupools.txt
+> >> create mode 100644 xen/common/boot_cpupools.c
+> >> 
+> >> diff --git a/docs/misc/arm/device-tree/cpupools.txt b/docs/misc/arm/device-tree/cpupools.txt
+> >> new file mode 100644
+> >> index 000000000000..d5a82ed0d45a
+> >> --- /dev/null
+> >> +++ b/docs/misc/arm/device-tree/cpupools.txt
+> >> @@ -0,0 +1,156 @@
+> >> +Boot time cpupools
+> >> +==================
+> >> +
+> >> +When BOOT_TIME_CPUPOOLS is enabled in the Xen configuration, it is possible to
+> >> +create cpupools during boot phase by specifying them in the device tree.
+> >> +
+> >> +Cpupools specification nodes shall be direct childs of /chosen node.
+> >> +Each cpupool node contains the following properties:
+> >> +
+> >> +- compatible (mandatory)
+> >> +
+> >> +    Must always include the compatiblity string: "xen,cpupool".
+> >> +
+> >> +- cpupool-cpus (mandatory)
+> >> +
+> >> +    Must be a list of device tree phandle to nodes describing cpus (e.g. having
+> >> +    device_type = "cpu"), it can't be empty.
+> >> +
+> >> +- cpupool-sched (optional)
+> >> +
+> >> +    Must be a device tree phandle to a node having "xen,scheduler" compatible
+> >> +    (description below), it has no effect when the cpupool refers to the cpupool
+> >> +    number zero, in that case the default Xen scheduler is selected (sched=<...>
+> >> +    boot argument).
+> > 
+> > This is *a lot* better.
+> > 
+> > The device tree part is nice. I have only one question left on it: why
+> > do we need a separate scheduler node? Could the "cpupool-sched" property
+> > be a simple string with the scheduler name?
+> > 
+> > E.g.:
+> > 
+> >    cpupool_a {
+> >        compatible = "xen,cpupool";
+> >        cpupool-cpus = <&a53_1 &a53_2>;
+> >    };
+> >    cpupool_b {
+> >        compatible = "xen,cpupool";
+> >        cpupool-cpus = <&a72_1 &a72_2>;
+> >        cpupool-sched = "null";
+> >    };
+> > 
+> > 
+> > To me, it doesn't look like these new "scheduler specification nodes"
+> > bring any benefits. I would just get rid of them.
+> 
+> From a comment of Juergen on the second patch I thought someone sees the need to
+> have a way to set scheduling parameters:
+> 
+> “you are allowing to use another scheduler,
+> but what if someone wants to set non-standard scheduling parameters
+> (e.g. another time slice)?”
+> 
+> So I thought I could introduce a scheduler specification node that could in the future be
+> extended and used to set scheduling parameter.
+> 
+> If it is something that is not needed, I will get rid of it.
 
-version targeted for testing:
- xen                  cfd29b83a26f35f49f074f06169ce4cadfdebf0d
-baseline version:
- xen                  ee4d66242eef4d4c4215a432dece577093bfcbbc
+I think you should get rid of it because it doesn't help. For instance,
+if two cpupools want to use the same scheduler but with different
+parameters we would end up with two different scheduler nodes.
 
-Last test of basis   168503  2022-03-10 09:07:57 Z    1 days
-Testing same since   168513  2022-03-11 05:13:34 Z    0 days    1 attempts
+Instead, in the future we could have one or more sched-params properties
+as needed in the cpupools node to specify scheduler parameters.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Julien Grall <jgrall@amazon.com>
-  Luca Fancellu <luca.fancellu@arm.com>
-  Michal Orzel <michal.orzel@arm.com>
+ 
+> >> +A scheduler specification node is a device tree node that contains the following
+> >> +properties:
+> >> +
+> >> +- compatible (mandatory)
+> >> +
+> >> +    Must always include the compatiblity string: "xen,scheduler".
+> >> +
+> >> +- sched-name (mandatory)
+> >> +
+> >> +    Must be a string having the name of a Xen scheduler, check the sched=<...>
+> >> +    boot argument for allowed values.
+> >> +
+> >> +
+> >> +Constraints
+> >> +===========
+> >> +
+> >> +If no cpupools are specified, all cpus will be assigned to one cpupool
+> >> +implicitly created (Pool-0).
+> >> +
+> >> +If cpupools node are specified, but not every cpu brought up by Xen is assigned,
+> >> +all the not assigned cpu will be assigned to an additional cpupool.
+> >> +
+> >> +If a cpu is assigned to a cpupool, but it's not brought up correctly, Xen will
+> >> +stop.
+> >> +
+> >> +
+> >> +Examples
+> >> +========
+> >> +
+> >> +A system having two types of core, the following device tree specification will
+> >> +instruct Xen to have two cpupools:
+> >> +
+> >> +- The cpupool with id 0 will have 4 cpus assigned.
+> >> +- The cpupool with id 1 will have 2 cpus assigned.
+> >> +
+> >> +The following example can work only if hmp-unsafe=1 is passed to Xen boot
+> >> +arguments, otherwise not all cores will be brought up by Xen and the cpupool
+> >> +creation process will stop Xen.
+> >> +
+> >> +
+> >> +a72_1: cpu@0 {
+> >> +        compatible = "arm,cortex-a72";
+> >> +        reg = <0x0 0x0>;
+> >> +        device_type = "cpu";
+> >> +        [...]
+> >> +};
+> >> +
+> >> +a72_2: cpu@1 {
+> >> +        compatible = "arm,cortex-a72";
+> >> +        reg = <0x0 0x1>;
+> >> +        device_type = "cpu";
+> >> +        [...]
+> >> +};
+> >> +
+> >> +a53_1: cpu@100 {
+> >> +        compatible = "arm,cortex-a53";
+> >> +        reg = <0x0 0x100>;
+> >> +        device_type = "cpu";
+> >> +        [...]
+> >> +};
+> >> +
+> >> +a53_2: cpu@101 {
+> >> +        compatible = "arm,cortex-a53";
+> >> +        reg = <0x0 0x101>;
+> >> +        device_type = "cpu";
+> >> +        [...]
+> >> +};
+> >> +
+> >> +a53_3: cpu@102 {
+> >> +        compatible = "arm,cortex-a53";
+> >> +        reg = <0x0 0x102>;
+> >> +        device_type = "cpu";
+> >> +        [...]
+> >> +};
+> >> +
+> >> +a53_4: cpu@103 {
+> >> +        compatible = "arm,cortex-a53";
+> >> +        reg = <0x0 0x103>;
+> >> +        device_type = "cpu";
+> >> +        [...]
+> >> +};
+> >> +
+> >> +chosen {
+> >> +
+> >> +    sched: sched_a {
+> >> +        compatible = "xen,scheduler";
+> >> +        sched-name = "credit2";
+> >> +    };
+> >> +    cpupool_a {
+> >> +        compatible = "xen,cpupool";
+> >> +        cpupool-cpus = <&a53_1 &a53_2 &a53_3 &a53_4>;
+> >> +    };
+> >> +    cpupool_b {
+> >> +        compatible = "xen,cpupool";
+> >> +        cpupool-cpus = <&a72_1 &a72_2>;
+> >> +        cpupool-sched = <&sched>;
+> >> +    };
+> >> +
+> >> +    [...]
+> >> +
+> >> +};
+> >> +
+> >> +
+> >> +A system having the cpupools specification below will instruct Xen to have three
+> >> +cpupools:
+> >> +
+> >> +- The cpupool Pool-0 will have 2 cpus assigned.
+> >> +- The cpupool Pool-1 will have 2 cpus assigned.
+> >> +- The cpupool Pool-2 will have 2 cpus assigned (created by Xen with all the not
+> >> +  assigned cpus a53_3 and a53_4).
+> >> +
+> >> +chosen {
+> >> +
+> >> +    sched: sched_a {
+> >> +        compatible = "xen,scheduler";
+> >> +        sched-name = "null";
+> >> +    };
+> >> +    cpupool_a {
+> >> +        compatible = "xen,cpupool";
+> >> +        cpupool-cpus = <&a53_1 &a53_2>;
+> >> +    };
+> >> +    cpupool_b {
+> >> +        compatible = "xen,cpupool";
+> >> +        cpupool-cpus = <&a72_1 &a72_2>;
+> >> +        cpupool-sched = <&sched>;
+> >> +    };
+> >> +
+> >> +    [...]
+> >> +
+> >> +};
+> >> \ No newline at end of file
+> >> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+> >> index 64439438891c..dc9eed31682f 100644
+> >> --- a/xen/common/Kconfig
+> >> +++ b/xen/common/Kconfig
+> >> @@ -22,6 +22,14 @@ config GRANT_TABLE
+> >> 
+> >> 	  If unsure, say Y.
+> >> 
+> >> +config BOOT_TIME_CPUPOOLS
+> >> +	bool "Create cpupools at boot time"
+> >> +	depends on HAS_DEVICE_TREE
+> >> +	default n
+> >> +	help
+> >> +	  Creates cpupools during boot time and assigns cpus to them. Cpupools
+> >> +	  options can be specified in the device tree.
+> >> +
+> >> config ALTERNATIVE_CALL
+> >> 	bool
+> >> 
+> >> diff --git a/xen/common/Makefile b/xen/common/Makefile
+> >> index dc8d3a13f5b8..c5949785ab28 100644
+> >> --- a/xen/common/Makefile
+> >> +++ b/xen/common/Makefile
+> >> @@ -1,5 +1,6 @@
+> >> obj-$(CONFIG_ARGO) += argo.o
+> >> obj-y += bitmap.o
+> >> +obj-$(CONFIG_BOOT_TIME_CPUPOOLS) += boot_cpupools.o
+> >> obj-$(CONFIG_HYPFS_CONFIG) += config_data.o
+> >> obj-$(CONFIG_CORE_PARKING) += core_parking.o
+> >> obj-y += cpu.o
+> >> diff --git a/xen/common/boot_cpupools.c b/xen/common/boot_cpupools.c
+> >> new file mode 100644
+> >> index 000000000000..e8529a902d21
+> >> --- /dev/null
+> >> +++ b/xen/common/boot_cpupools.c
+> >> @@ -0,0 +1,212 @@
+> >> +/* SPDX-License-Identifier: GPL-2.0 */
+> >> +/*
+> >> + * xen/common/boot_cpupools.c
+> >> + *
+> >> + * Code to create cpupools at boot time for arm architecture.
+> >> + *
+> >> + * Copyright (C) 2022 Arm Ltd.
+> >> + */
+> >> +
+> >> +#include <xen/sched.h>
+> >> +
+> >> +#define BTCPUPOOLS_DT_NODE_NO_REG     (-1)
+> >> +#define BTCPUPOOLS_DT_NODE_NO_LOG_CPU (-2)
+> >> +
+> >> +struct pool_map {
+> >> +    int pool_id;
+> >> +    int sched_id;
+> >> +    struct cpupool *pool;
+> >> +};
+> >> +
+> >> +static struct pool_map __initdata pool_cpu_map[NR_CPUS] =
+> >> +    { [0 ... NR_CPUS-1] = {.pool_id = -1, .sched_id = -1, .pool = NULL} };
+> >> +static unsigned int __initdata next_pool_id;
+> >> +
+> >> +#ifdef CONFIG_ARM
+> >> +static int __init get_logical_cpu_from_hw_id(unsigned int hwid)
+> >> +{
+> >> +    unsigned int i;
+> >> +
+> >> +    for ( i = 0; i < nr_cpu_ids; i++ )
+> >> +        if ( cpu_logical_map(i) == hwid )
+> >> +            return i;
+> >> +
+> >> +    return -1;
+> >> +}
+> >> +
+> >> +static int __init
+> >> +get_logical_cpu_from_cpu_node(const struct dt_device_node *cpu_node)
+> >> +{
+> >> +    unsigned int cpu_reg, cpu_num;
+> >> +    const __be32 *prop;
+> >> +
+> >> +    prop = dt_get_property(cpu_node, "reg", NULL);
+> >> +    if ( !prop )
+> >> +        return BTCPUPOOLS_DT_NODE_NO_REG;
+> >> +
+> >> +    cpu_reg = dt_read_number(prop, dt_n_addr_cells(cpu_node));
+> >> +
+> >> +    cpu_num = get_logical_cpu_from_hw_id(cpu_reg);
+> >> +    if ( cpu_num < 0 )
+> >> +        return BTCPUPOOLS_DT_NODE_NO_LOG_CPU;
+> >> +
+> >> +    return cpu_num;
+> >> +}
+> >> +
+> >> +static int __init check_and_get_sched_id(const char* scheduler_name)
+> >> +{
+> >> +    int sched_id = sched_get_id_by_name(scheduler_name);
+> >> +
+> >> +    if ( sched_id < 0 )
+> >> +        panic("Scheduler %s does not exists!\n", scheduler_name);
+> >> +
+> >> +    return sched_id;
+> >> +}
+> >> +
+> >> +void __init btcpupools_dtb_parse(void)
+> >> +{
+> >> +    const struct dt_device_node *chosen, *node;
+> >> +
+> >> +    chosen = dt_find_node_by_path("/chosen");
+> >> +    if ( !chosen )
+> >> +        return;
+> >> +
+> >> +    dt_for_each_child_node(chosen, node)
+> >> +    {
+> >> +        const struct dt_device_node *phandle_node;
+> >> +        int sched_id = -1;
+> >> +        const char* scheduler_name;
+> >> +        unsigned int i = 0;
+> >> +
+> >> +        if ( !dt_device_is_compatible(node, "xen,cpupool") )
+> >> +            continue;
+> >> +
+> >> +        phandle_node = dt_parse_phandle(node, "cpupool-sched", 0);
+> >> +        if ( phandle_node )
+> >> +        {
+> >> +            if ( !dt_device_is_compatible(phandle_node, "xen,scheduler") )
+> >> +                panic("cpupool-sched must be a xen,scheduler compatible"
+> >> +                      "node!\n");
+> >> +            if ( !dt_property_read_string(phandle_node, "sched-name",
+> >> +                                          &scheduler_name) )
+> >> +                sched_id = check_and_get_sched_id(scheduler_name);
+> >> +            else
+> >> +                panic("Error trying to read sched-name in %s!\n",
+> >> +                      dt_node_name(phandle_node));
+> >> +        }
+> > 
+> > it doesn't look like the "xen,scheduler" nodes are very useful from a dt
+> > parsing perspective either
+> > 
+> > 
+> >> +        phandle_node = dt_parse_phandle(node, "cpupool-cpus", i++);
+> >> +        if ( !phandle_node )
+> >> +            panic("Missing or empty cpupool-cpus property!\n");
+> >> +
+> >> +        while ( phandle_node )
+> >> +        {
+> >> +            int cpu_num;
+> >> +
+> >> +            cpu_num = get_logical_cpu_from_cpu_node(phandle_node);
+> >> +
+> >> +            if ( cpu_num < 0 )
+> >> +                panic("Error retrieving logical cpu from node %s (%d)\n",
+> >> +                      dt_node_name(node), cpu_num);
+> >> +
+> >> +            if ( pool_cpu_map[cpu_num].pool_id != -1 )
+> >> +                panic("Logical cpu %d already added to a cpupool!\n", cpu_num);
+> >> +
+> >> +            pool_cpu_map[cpu_num].pool_id = next_pool_id;
+> >> +            pool_cpu_map[cpu_num].sched_id = sched_id;
+> >> +
+> >> +            phandle_node = dt_parse_phandle(node, "cpupool-cpus", i++);
+> >> +        }
+> >> +
+> >> +        /* Let Xen generate pool ids */
+> >> +        next_pool_id++;
+> >> +    }
+> >> +}
+> >> +#endif
+> >> +
+> >> +void __init btcpupools_allocate_pools(const cpumask_t *cpu_online_map)
+> >> +{
+> >> +    unsigned int cpu_num;
+> >> +
+> >> +    /*
+> >> +     * If there are no cpupools, the value of next_pool_id is zero, so the code
+> >> +     * below will assign every cpu to cpupool0 as the default behavior.
+> >> +     * When there are cpupools, the code below is assigning all the not
+> >> +     * assigned cpu to a new pool (next_pool_id value is the last id + 1).
+> >> +     * In the same loop we check if there is any assigned cpu that is not
+> >> +     * online.
+> >> +     */
+> >> +    for ( cpu_num = 0; cpu_num < nr_cpu_ids; cpu_num++ )
+> >> +        if ( cpumask_test_cpu(cpu_num, cpu_online_map) )
+> >> +        {
+> >> +            if ( pool_cpu_map[cpu_num].pool_id < 0 )
+> >> +                pool_cpu_map[cpu_num].pool_id = next_pool_id;
+> >> +        }
+> >> +        else
+> > 
+> > Please add { }
+> > 
+> > 
+> >> +            if ( pool_cpu_map[cpu_num].pool_id >= 0 )
+> >> +                panic("Pool-%d contains cpu%u that is not online!\n",
+> >> +                      pool_cpu_map[cpu_num].pool_id, cpu_num);
+> > 
+> > 
+> > 
+> >> +#ifdef CONFIG_X86
+> >> +    /* Cpu0 must be in cpupool0 for x86 */
+> >> +    if ( pool_cpu_map[0].pool_id != 0 )
+> > 
+> > Is that even possible on x86 given that btcpupools_dtb_parse cannot even
+> > run on x86?
+> > 
+> > If it is not possible, I would remove the code below and simply panic
+> > instead.
+> 
+> Currently x86 doesn’t have a way to specify cpupools, so for now on x86 there will
+> be only cpupool 0 with every cpu attached, I thought I had to handle the case if in
+> the future someone adds a way to specify cpupools (cmdline?).
+> If you think this should be handled only by who implements that feature, I will remove
+> completely the block.
+ 
+In general, it is good to try to make the code as generally useful as
+possible. However, it needs to be testable. In this case, this code is
+basically dead code because there is no way to trigger it. So I suggest
+to remove it and replace it with a panic.
+ 
+ 
+> >> +    {
+> >> +        /* The cpupool containing cpu0 will become cpupool0 */
+> >> +        unsigned int swap_id = pool_cpu_map[0].pool_id;
+> >> +        for_each_cpu ( cpu_num, cpu_online_map )
+> >> +            if ( pool_cpu_map[cpu_num].pool_id == swap_id )
+> >> +                pool_cpu_map[cpu_num].pool_id = 0;
+> >> +            else if ( pool_cpu_map[cpu_num].pool_id == 0 )
+> >> +                pool_cpu_map[cpu_num].pool_id = swap_id;
+> >> +    }
+> >> +#endif
+> >> +
+> >> +    for_each_cpu ( cpu_num, cpu_online_map )
+> >> +    {
+> >> +        struct cpupool *pool = NULL;
+> >> +        int pool_id, sched_id;
+> >> +
+> >> +        pool_id = pool_cpu_map[cpu_num].pool_id;
+> >> +        sched_id = pool_cpu_map[cpu_num].sched_id;
+> >> +
+> >> +        if ( pool_id )
+> >> +        {
+> >> +            unsigned int i;
+> >> +
+> >> +            /* Look for previously created pool with id pool_id */
+> >> +            for ( i = 0; i < cpu_num; i++ )
+> > 
+> > Please add { }
+> > 
+> > But actually, the double loop seems a bit excessive for this. Could we
+> > just have a single loop to cpupool_create_pool from 0 to next_pool_id?
+> > 
+> > We could get rid of pool_cpu_map[i].pool and just rely on
+> > pool_cpu_map[i].pool_id. No need to update pool_cpu_map[i].pool if we
+> > get rid of it: it doesn't look like it is very useful anyway?
+> 
+> Yes we could create all the cpupools in a loop easily, but to retrieve the pointer
+> from the cpupool list I would need something, I can make public this function:
+> 
+> static struct cpupool *cpupool_find_by_id(unsigned int poolid)
+> 
+> from cpupool.c to get the pointer from the pool id, do you think it can be ok?
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-i386-livepatch                                    pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
- test-amd64-i386-xl-vhd                                       pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   ee4d66242e..cfd29b83a2  cfd29b83a26f35f49f074f06169ce4cadfdebf0d -> stable-4.16
+Yes I think that is a better option if Juergen agrees.
+--8323329-622300958-1647043522=:3497--
 
