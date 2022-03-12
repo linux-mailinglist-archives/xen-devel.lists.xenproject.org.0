@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 508984D7053
-	for <lists+xen-devel@lfdr.de>; Sat, 12 Mar 2022 19:12:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.289499.491065 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBF5D4D7063
+	for <lists+xen-devel@lfdr.de>; Sat, 12 Mar 2022 19:20:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.289507.491075 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nT6Cp-00027X-7W; Sat, 12 Mar 2022 18:11:07 +0000
+	id 1nT6Ln-0003bU-5N; Sat, 12 Mar 2022 18:20:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 289499.491065; Sat, 12 Mar 2022 18:11:07 +0000
+Received: by outflank-mailman (output) from mailman id 289507.491075; Sat, 12 Mar 2022 18:20:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nT6Cp-00025g-48; Sat, 12 Mar 2022 18:11:07 +0000
-Received: by outflank-mailman (input) for mailman id 289499;
- Sat, 12 Mar 2022 18:11:05 +0000
+	id 1nT6Ln-0003Zd-2S; Sat, 12 Mar 2022 18:20:23 +0000
+Received: by outflank-mailman (input) for mailman id 289507;
+ Sat, 12 Mar 2022 18:20:22 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nT6Cn-00025W-Dq; Sat, 12 Mar 2022 18:11:05 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1nT6Ll-0003ZX-Va
+ for xen-devel@lists.xenproject.org; Sat, 12 Mar 2022 18:20:21 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nT6Cn-0008JM-AW; Sat, 12 Mar 2022 18:11:05 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nT6Cm-0003x3-Vx; Sat, 12 Mar 2022 18:11:05 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nT6Cm-0001bX-VW; Sat, 12 Mar 2022 18:11:04 +0000
+ (envelope-from <julien@xen.org>)
+ id 1nT6Ll-0008TZ-HM; Sat, 12 Mar 2022 18:20:21 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nT6Ll-0007Ed-Ay; Sat, 12 Mar 2022 18:20:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,114 +39,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=MbYRo4lpFrlNyRsyVtBB/NjAbb/Msr7GanjPBKseOjI=; b=fISjldGO5h/hHBJ1qepJksKOoP
-	ZiHqfGYtgbuRJMv7zJSQmHSuM/i++zaU3gkRKO6qSlqkVLdwrNAeAUCWHHJ5k2VI2nEugTOEUBY/v
-	GUXHY37ePNzGD7tmBb+cKuSHcyU9VMjMKSAdbBbaj1Fu4OhwVun9SBu6mRnz+MkuWNAI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168535-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
+	From:References:Cc:To:MIME-Version:Date:Message-ID;
+	bh=PfkFhvv6hBf53lCXse73H//zcpE2aUBJoYlgSJA8fQ4=; b=XwOXzdRZMyZXXyQlGBB+3jiWgg
+	3Xzpfst6B2Agzt4wvSrLvjxNKqyJkYsUlLXWRkO3DHEK6rhvUVmQ1C7hwHd7qukvlRspsVh/7QvwX
+	b32SvpaqPngIl7wik7OD8CxqY0vDrezOQk8Bx2pzhUzd6kX2Iq8dz1u0/2T+Msok7rzQ=;
+Message-ID: <78cd8ea7-e37a-d3d9-d2d1-6686ca491925@xen.org>
+Date: Sat, 12 Mar 2022 18:20:18 +0000
 MIME-Version: 1.0
-Subject: [ovmf test] 168535: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=2b175eeb6a3f630aef5a59a2c610a5be1a0cdd65
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 12 Mar 2022 18:11:04 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.6.2
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, marco.solieri@minervasys.tech,
+ lucmiccio@gmail.com, Julien Grall <jgrall@amazon.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20220309112048.17377-1-julien@xen.org>
+ <20220309112048.17377-5-julien@xen.org>
+ <alpine.DEB.2.22.394.2203111710300.3497@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH early-RFC 4/5] xen/arm: mm: Rework switch_ttbr()
+In-Reply-To: <alpine.DEB.2.22.394.2203111710300.3497@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 168535 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168535/
+Hi Stefano,
 
-Regressions :-(
+On 12/03/2022 01:17, Stefano Stabellini wrote:
+> On Wed, 9 Mar 2022, Julien Grall wrote:
+> As far as I can tell this should work for coloring too. In the case of
+> coloring:
+> 
+>      /* running on the old mapping, same as non-coloring */
+>      update_identity_mapping(true);
+> 
+>      /* jumping to the 1:1 mapping of the old Xen and switching to the
+>       * new pagetable */
+>      fn(ttbr);
+> 
+>      /* new pagetable is enabled, now we are back to addresses greater
+>       * than XEN_VIRT_START, which correspond to new cache-colored Xen */
+>      update_identity_mapping(false);
+> 
+> 
+> The only doubt that I have is: are we sure than a single page of 1:1
+> mapping is enough? What if:
+> 
+> virt_to_maddr(switch_ttbr_id) - virt_to_maddr(_start) > PAGE_SIZE
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+switch_ttbr_id() is placed before _end_boot (this needs to be renamed). 
+We are veryfing a link time (see the check in xen.lds.S) that _end_boot 
+- _start is always smaller than 4KB.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+At the moment, the size is less than 2KB. So we have plenty of space to 
+grow. Also, there are some code that is technically not used while using 
+the ID map. So if necessary we can shrink the size to always fit in a 
+PAGE_SIZE.
 
-version targeted for testing:
- ovmf                 2b175eeb6a3f630aef5a59a2c610a5be1a0cdd65
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+> We might have to do a 1:1 mapping of size = _end-_start. It would work
+> with coloring too because we are doing a 1:1 mapping of the old copy of
+> Xen which is non-colored and contiguous (not the new copy which is
+> colored and fragmented).
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   12 days
-Failing since        168258  2022-03-01 01:55:31 Z   11 days   96 attempts
-Testing same since   168519  2022-03-11 17:11:41 Z    1 days   10 attempts
+I would like to keep the size of the ID mapping to the strict minimum. A 
+PAGE_SIZE should be sufficient for most of what we need in Xen.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
+This would help to get rid of the old copy of Xen in case of the cache 
+coloring. Otherwise, you technically have to keep it forever if you plan 
+to support suspend/resume or even allow CPU hotplug.
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+Furthemore, if you keep the two copy around, it is more difficult to 
+know which mapping is used and we increase the risk to use the wrong 
+one. For instance, the current implementation of cache coloring is 
+clearing the wrong set of boot pagetables.
 
+Cheers,
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 569 lines long.)
+-- 
+Julien Grall
 
