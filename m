@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2ED7C4D85B5
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Mar 2022 14:07:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.290239.492192 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43A0F4D862B
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Mar 2022 14:43:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.290248.492202 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nTkQ9-00047S-Q8; Mon, 14 Mar 2022 13:07:33 +0000
+	id 1nTkyH-0000Go-Js; Mon, 14 Mar 2022 13:42:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 290239.492192; Mon, 14 Mar 2022 13:07:33 +0000
+Received: by outflank-mailman (output) from mailman id 290248.492202; Mon, 14 Mar 2022 13:42:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nTkQ9-00044O-ME; Mon, 14 Mar 2022 13:07:33 +0000
-Received: by outflank-mailman (input) for mailman id 290239;
- Mon, 14 Mar 2022 13:07:32 +0000
+	id 1nTkyH-0000Eb-Gz; Mon, 14 Mar 2022 13:42:49 +0000
+Received: by outflank-mailman (input) for mailman id 290248;
+ Mon, 14 Mar 2022 13:42:47 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1nTkQ8-00044E-OZ; Mon, 14 Mar 2022 13:07:32 +0000
+ id 1nTkyF-0000EP-Ji; Mon, 14 Mar 2022 13:42:47 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1nTkQ8-0004P4-LP; Mon, 14 Mar 2022 13:07:32 +0000
+ id 1nTkyF-000500-GJ; Mon, 14 Mar 2022 13:42:47 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1nTkQ8-0004UK-BA; Mon, 14 Mar 2022 13:07:32 +0000
+ id 1nTkyF-0005FO-1a; Mon, 14 Mar 2022 13:42:47 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nTkQ8-0000qG-Ag; Mon, 14 Mar 2022 13:07:32 +0000
+ id 1nTkyF-00066V-18; Mon, 14 Mar 2022 13:42:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,97 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=56beYuQVimZPuZrthzmqO+fnJyS+6fTTzasRPgeV48U=; b=xJZmSeAI2NXlGV4RmF5CWDnNOv
-	b/L0lPWxAT61L6mFVSGgEaQQzkAPBJWohePcq8+8j+amb6T7ATIzh+k/8zbWjhWjZafflDWAD/VDG
-	rzeK9r6glBPrlE1LUQQdZHJPPlv2Q9YyvrIWG4Mdc3lehMaTjEMXrvPzG8LrMFYH21r4=;
+	bh=F3agmsRNKbEpQERGJH5U4VVDr4Oe4WvfXEVMEBGqlBc=; b=Xpf5tNiboZ1JleFfNj3COMyQZr
+	SwdoTLbdREsbWXnKN5w9fgpk5wuECyTYkJEB8isqh+Utg1RADfX7/nvMe3gtqdUb+4AQF4IvPOerm
+	ynXV7r7f9hUacozOdvKbYc3AUhpM1oF36up9Jo8ZR+vMOAzZSDO1Gptzl1vPddc0dvRI=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168580-mainreport@xen.org>
+Message-ID: <osstest-168584-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 168580: tolerable all pass - PUSHED
+Subject: [ovmf test] 168584: regressions - FAIL
 X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
 X-Osstest-Versions-This:
-    xen=dedb0aa42c6d1ee31805dfc61630db2c41117330
+    ovmf=a13dfc769bd7097d8d9ffe3e029a2c1d062d712b
 X-Osstest-Versions-That:
-    xen=6ff9a7e62b8c43fe3e9d360fbd49d5854787bc39
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 14 Mar 2022 13:07:32 +0000
+Date: Mon, 14 Mar 2022 13:42:47 +0000
 
-flight 168580 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168580/
+flight 168584 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168584/
 
-Failures :-/ but no regressions.
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
 Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
 version targeted for testing:
- xen                  dedb0aa42c6d1ee31805dfc61630db2c41117330
+ ovmf                 a13dfc769bd7097d8d9ffe3e029a2c1d062d712b
 baseline version:
- xen                  6ff9a7e62b8c43fe3e9d360fbd49d5854787bc39
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-Last test of basis   168509  2022-03-10 19:01:48 Z    3 days
-Testing same since   168580  2022-03-14 10:01:40 Z    0 days    1 attempts
+Last test of basis   168254  2022-02-28 10:41:46 Z   14 days
+Failing since        168258  2022-03-01 01:55:31 Z   13 days  133 attempts
+Testing same since   168579  2022-03-14 08:41:36 Z    0 days    4 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Roger Pau Monné <roger.pau@citrix.com>
+  Abner Chang <abner.chang@hpe.com>
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
 
 jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
 ------------------------------------------------------------
@@ -119,8 +154,7 @@ Test harness code can be found at
     http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-Pushing revision :
+Not pushing.
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   6ff9a7e62b..dedb0aa42c  dedb0aa42c6d1ee31805dfc61630db2c41117330 -> smoke
+(No revision log; it would be 629 lines long.)
 
