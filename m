@@ -2,59 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79F344D7B79
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Mar 2022 08:22:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.289926.491637 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BCCE4D7B84
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Mar 2022 08:27:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.289931.491647 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nTf1n-0002xi-Ni; Mon, 14 Mar 2022 07:22:03 +0000
+	id 1nTf6Z-0003kQ-DP; Mon, 14 Mar 2022 07:26:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 289926.491637; Mon, 14 Mar 2022 07:22:03 +0000
+Received: by outflank-mailman (output) from mailman id 289931.491647; Mon, 14 Mar 2022 07:26:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nTf1n-0002vt-KB; Mon, 14 Mar 2022 07:22:03 +0000
-Received: by outflank-mailman (input) for mailman id 289926;
- Mon, 14 Mar 2022 07:22:01 +0000
+	id 1nTf6Z-0003hX-AM; Mon, 14 Mar 2022 07:26:59 +0000
+Received: by outflank-mailman (input) for mailman id 289931;
+ Mon, 14 Mar 2022 07:26:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NoMf=TZ=intel.com=kevin.tian@srs-se1.protection.inumbo.net>)
- id 1nTf1l-0002vn-7v
- for xen-devel@lists.xenproject.org; Mon, 14 Mar 2022 07:22:01 +0000
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=29fN=TZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1nTf6X-0003hP-3A
+ for xen-devel@lists.xen.org; Mon, 14 Mar 2022 07:26:57 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6dc2f331-a367-11ec-8eba-a37418f5ba1a;
- Mon, 14 Mar 2022 08:21:57 +0100 (CET)
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Mar 2022 00:21:55 -0700
-Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
- by fmsmga006.fm.intel.com with ESMTP; 14 Mar 2022 00:21:55 -0700
-Received: from fmsmsx609.amr.corp.intel.com (10.18.126.89) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.21; Mon, 14 Mar 2022 00:21:55 -0700
-Received: from fmsmsx604.amr.corp.intel.com (10.18.126.84) by
- fmsmsx609.amr.corp.intel.com (10.18.126.89) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.21; Mon, 14 Mar 2022 00:21:54 -0700
-Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
- fmsmsx604.amr.corp.intel.com (10.18.126.84) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.21 via Frontend Transport; Mon, 14 Mar 2022 00:21:54 -0700
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.176)
- by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2308.21; Mon, 14 Mar 2022 00:21:54 -0700
-Received: from BN9PR11MB5276.namprd11.prod.outlook.com (2603:10b6:408:135::18)
- by BL1PR11MB5287.namprd11.prod.outlook.com (2603:10b6:208:31b::7)
+ id 2021cc6f-a368-11ec-8eba-a37418f5ba1a;
+ Mon, 14 Mar 2022 08:26:55 +0100 (CET)
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur01lp2057.outbound.protection.outlook.com [104.47.1.57]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-5-O68Q47QFMKOV75QchKGNFQ-1; Mon, 14 Mar 2022 08:26:53 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by HE1PR0402MB3627.eurprd04.prod.outlook.com (2603:10a6:7:84::25)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.25; Mon, 14 Mar
- 2022 07:21:51 +0000
-Received: from BN9PR11MB5276.namprd11.prod.outlook.com
- ([fe80::c8aa:b5b2:dc34:e893]) by BN9PR11MB5276.namprd11.prod.outlook.com
- ([fe80::c8aa:b5b2:dc34:e893%8]) with mapi id 15.20.5061.028; Mon, 14 Mar 2022
- 07:21:51 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.26; Mon, 14 Mar
+ 2022 07:26:51 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::e8ce:db1c:5bb0:af0]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::e8ce:db1c:5bb0:af0%6]) with mapi id 15.20.5061.028; Mon, 14 Mar 2022
+ 07:26:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -66,280 +51,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6dc2f331-a367-11ec-8eba-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1647242517; x=1678778517;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=QCoRZakBNp6atUb69Adv0fUItxLm34NJw4N0ncZ6p1E=;
-  b=f8l9TllJqT4IoYjM1KGmjLBR41bZrS+5zS4cR9mm9wVQ8OFamp0FbRMc
-   cZed2ZNomGj/poQ6XKxbxq+flSWvCoznrzj2K9RasboTt3WRLgDMPUkZY
-   Scneufm/g58eaVZY+3fMFZ1wstT2hcIH9dhhDUVG+Y2+BMzBhJb3zEwZW
-   kzhk6toRYv1X0YG/9XcFZSiHawA8D+wLngMDPqK0dfnsIucRM/WSlJoT/
-   omoEdFMo6+Se1Aqd0Anxow3zxN0j5hUkDtOG/F7pEukkK0Hb05ixZZNWe
-   I8lxyqDw67Y4dDuj7OEXggOvLJ2sZgKbWwJQyeNeve19rDC1z1tm1VGCW
-   g==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10285"; a="342380662"
-X-IronPort-AV: E=Sophos;i="5.90,180,1643702400"; 
-   d="scan'208";a="342380662"
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,180,1643702400"; 
-   d="scan'208";a="782574952"
+X-Inumbo-ID: 2021cc6f-a368-11ec-8eba-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1647242815;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0n9mSjleTTMOFrCey1eo0rX4dS8KiDyB9jcU/KFeHLg=;
+	b=jld6A+jk3US38LQ9Ah79jCjIpDNqGfRhFMQ/tfHfI39A/TYJDEC56RgRHmo/g0O3th29AF
+	NoZdsrfCoexE5iG3lw+ufHLWEQ+wjzli64hhsdV5jp9G47rVEM+tCzgfs/eVlnRm6/Iw8l
+	gEWdc/y9J5uAGQP6+M6gTmGKQh7JoQ8=
+X-MC-Unique: O68Q47QFMKOV75QchKGNFQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MzsY2CD/HLQiaTIB0aNiXgsvzlqzgZCcvL4DqTdzWDL7HYYo2DvWHseI8HIyyyuFAEIwF5fJy2b0sjM02HUwA2cvwVAMZT7w8Nu3kVB9tUT7QTsagEfaQ2rw6rzy+TzIeViWOvc/fV6Ze73G7h4zrD05p2giJctCUalF9t3GYPcbhhIHatakR3eLxHYtI6LnQPO8hbA4dqKch11H4J4JcR3linM24wrcU25NVn/jMR8mZPl7xDXzDC5wGxHubz17sw2lqeWgH6BFMUrx3qA1IfNm0Y3LxFnSAirdskY7+a7nx+Bv0NVqjF9KCB/RjBqPEN6AHIXLjb0warJdZcw6hA==
+ b=mMi+vZmKesBHNp+2WM4qdJVBh4gp6yovoz5uDZHi2ZN7KYWwQrRfSBkdQeX2PwZ6fdKUfoNlTn+jTsxdvCCCT0S510b8bsa7IP+tQJA4/DuBjBWd1XnTSBYW1j5++YTNjfQXxMX2+8jyc8Vgl26RiO7rEi+ht/TQLJuEp8lAko/6nb7vHHY2j9oHs4F/KhVQBMAabGwDMuYLF8fiYs/ROJXP+svt+HfStcuVjyOhKEumXaTNItoO8ODGSe3CbqNLOoIDU4lp/1kalJPOfbhDtXPc5jlEuWg2wWZjWIOF5W99aCJWm7qA055KNRk1KBzNHSMFkbyYOkpM+dNKMmUh9w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Jbx0T/F9cPynn4YQwqMTpQSADVVy0D40ks1XZzL4JgI=;
- b=GozqqyzfztO1gPlSTwllyt6CFRWimxy6nMJozi/s0z8BqA4n3PIaKao6U3LWd1mD1fqK82bZ4acpTnvNePrRzsxe2R75AVvJoaM/kkA/xWbGS6kXbE1AO0OnHnEprpIPgf2WOIbLPBw0JH3AIVe2uU0t7Q0BA3+h2c8iiSzay6ggjWZ0yq85KyThcd4nK9GKcmjKMILYfsRnVXAvwz4fpswIHsKRx6mxbU3OYb6bRdUD6scl1HahkWQ/dMExlKyVuRSXh/pMLfbZEUCpK9SH+LgcRN8qG0ilmkxF0HX/EMFPJotFWBV4yjzLKTJ+8NistNq2pSPu1fsYSEcdTSdAoA==
+ bh=0n9mSjleTTMOFrCey1eo0rX4dS8KiDyB9jcU/KFeHLg=;
+ b=QP0GEDjWyzEW0klFj4iLKoN8ra2CIdpMEzECES0U9/1lmvDIf1WqaLTHbOfFRL/nyx68wiZww5cp4TALVeeBc4lacJG2FGIs7CSaV2GC27b6uOFv3T5RWeI4m8xgKo+tj0f03IGxDrzOIMyw5FkrC5crBcgy8aMf3+PqX4aQmREezG3fdiIzHwAGI0G4OL4haEGlPHSniZBVSpgUCrEI36s9jm4mK+vTCTjI8csy2EeM0PYFi8SzVHGUmHIIIVj/CiGp+lZJ8CEFUSeDYM6g2cLdu+emtCaoUdu8r1XR6I+5pbOhVFTDlsCDlqfAWgqeyljv+pSTLqCQrHJdKHToJg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: "Lengyel, Tamas" <tamas.lengyel@intel.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: "Beulich, Jan" <JBeulich@suse.com>, "Cooper, Andrew"
-	<andrew.cooper3@citrix.com>, =?iso-8859-1?Q?Pau_Monn=E9=2C_Roger?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, "Nakajima, Jun"
-	<jun.nakajima@intel.com>
-Subject: RE: [PATCH] x86/hvm: Include interruptibility state in hvm_hw_cpu
-Thread-Topic: [PATCH] x86/hvm: Include interruptibility state in hvm_hw_cpu
-Thread-Index: AQHYNK72F/eE81SIoUqvccI09xMIhKy+fRzg
-Date: Mon, 14 Mar 2022 07:21:51 +0000
-Message-ID: <BN9PR11MB5276E96E39209EDCCED5E9198C0F9@BN9PR11MB5276.namprd11.prod.outlook.com>
-References: <05d0a5b5c18d667a5527e6f834347f54a10309da.1646937728.git.tamas.lengyel@intel.com>
-In-Reply-To: <05d0a5b5c18d667a5527e6f834347f54a10309da.1646937728.git.tamas.lengyel@intel.com>
-Accept-Language: en-US
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <d3f31e6a-706e-cc24-1d9d-d78ace0cc705@suse.com>
+Date: Mon, 14 Mar 2022 08:26:50 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: BUG: libxenlight fails to grant permission to access Intel IGD
+ Opregion
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 0473a384-871d-4427-63a4-08da058b4f28
-x-ms-traffictypediagnostic: BL1PR11MB5287:EE_
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-microsoft-antispam-prvs: <BL1PR11MB528749CCD498362D6040F9928C0F9@BL1PR11MB5287.namprd11.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: R502oeyNKbF0xWO9tEi1GpKY29qMrCxa0vzAYrkrsPh51fUU7RpWcErEz5scyp9IDy2m1l1MyscmmCp7D8B476nhkXpCnkoWZtNz1tM/DxYCVXsLGcvswRrJSC4PzIpXmh0aLte6CEoq5y/YXYTFf810VOYimHun1wZQ5xKAegyiCV5ZLiL9q726nRbarcOruypwwL19JOAVub5T0m3bNARFqxjkGb2NVe6ak+oQW/fiugT6CjfSZQyONRukvY7W5JWg1tYZZULcuOtIMZjL3YYIdDelbAh6HXA4+m7z38lsvgYmyY5ddsQs8puBx+1uU08q2Kxf+ZrOjs5qkmlLrqoX5/kUsjxd4LbK/T5vQpUCyuuWAWo0cQpIQd4qN06iJ43cpbZnlb/MOeyYPfZXJLDQVabNW2/0Upb5Qlz3JjyN517zCCfzqNCjTLmL5dIawkMYpYyPUI8fsrB6Iwe8ave6ZQtKZxakRHyAibTjHGKvKcqsLQMSxoEo2UwL0o5WCSoXzRRHemaw+kYcghE3sK+y3q/wU+g4H9rnAAz5Y/fJsK9w51l93dTakQHauscbK1OiJWyvMijOkaOuSAKgskEodygYrea1Hiqk/7Fsdbx5YO6RguKSxRPw6bmgIWAsLBq6DWxIJ4pD9p3Sh+gUhmb7+jM1/1cn25I3g/xfFuTM9zR2DC948027+/OKi/VZJMPLFOiqUgX8EcOoDxjaoQ==
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR11MB5276.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(5660300002)(55016003)(9686003)(33656002)(107886003)(2906002)(83380400001)(122000001)(66446008)(71200400001)(8936002)(38070700005)(66476007)(4326008)(64756008)(82960400001)(66556008)(26005)(76116006)(186003)(8676002)(66946007)(52536014)(38100700002)(86362001)(6506007)(7696005)(316002)(54906003)(110136005)(508600001);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?hMjpJ0gVX/0EcJv+SQ4Q2WyaRrMTYlxYnTEWyK7WzQsY+X4Y6z+JgQhbH2?=
- =?iso-8859-1?Q?cp0XVNUzhSsFOF96nLbigKPC6hkTnJb07wrRTpFoHXJjpGBvyc0Myi07/S?=
- =?iso-8859-1?Q?yVruJb1tdwn/VLLaVryNgB+Xz9Lcus9npWflYe9TO8m36oTwzReKKXDbIr?=
- =?iso-8859-1?Q?+f2rSsEMWVE7JqMyVxDM4F3RFtOtgLJI1gbE1Ql9dH0Hkqws+d5Fwcaaq9?=
- =?iso-8859-1?Q?g1it51vslqwAh1l7SZzB9QFbCurH/OkrGYwZ0iM83USxCBe7yPcc2BexzJ?=
- =?iso-8859-1?Q?UfNa9IH5jtWb2HsoAoZ1gaNV1dCr7mhN+JCQsSuFekTZVtBGTnIRU4OxUq?=
- =?iso-8859-1?Q?8nTiWm8bow/vGbVwdD+tO1RudP93OVZFzn7M1+5WzIFQ6TOVBG0gTPVQ9p?=
- =?iso-8859-1?Q?h8tlKJWf6N7WUp5aqidPsnuZaAq8PtuvehIMfBmiAYoqf4ezgRPs5qBLpi?=
- =?iso-8859-1?Q?Lp72j3RYx3Ij4KXKWnjhfLCGBZYXp7zWGXB0WGV8ptAfTTcPRaG8EI53kB?=
- =?iso-8859-1?Q?Ih68cK8x0ssOyXsZrCUXW9wVX+xH/+MKmY6TViUL2dZVCGEcA11WD9dE5X?=
- =?iso-8859-1?Q?o6j/FlmTA+8SgXZXsWG+JAxALaNnm7DU8UigZpctm+ncnXGgEOBdHG1mcK?=
- =?iso-8859-1?Q?69tJGEvFgodHMP/vrGKijb42XDGX8IkffnUhQcq5PInJZMHHbBS1tamWTD?=
- =?iso-8859-1?Q?cnMxmR+PIuTAUyj+Q+8TIVRp2R7hpnHahVKROkyOFy0Aqw12otIUkIDB0D?=
- =?iso-8859-1?Q?/P0Q8WujhIIurqpCJAGhjLiELLDbCgTTyQHdZPjpfhZuNDANCrD5huYzUV?=
- =?iso-8859-1?Q?XWBh+Oo0K45GHrjFFpS72/rW7SGBK61mKg8331+GvVlgnM8uhwDKS7NiAM?=
- =?iso-8859-1?Q?zjXX69fLZKtBQN/ED1iBEYrjYDaxUiKOYzxX5sxkjv7+5p5I1fzA6eMkqx?=
- =?iso-8859-1?Q?SRO+2hVDxrbJhewVLxsxMLKhk6AwAvvjebHdaM0oU7y16iLlwRl68CQpJc?=
- =?iso-8859-1?Q?DudQASu9ZivVGyVK0GU7sMbHmywI3ozcNJ9jojfnEgMr3kwKjDt7YsvYGD?=
- =?iso-8859-1?Q?6B4GOjpSWUzDwbPb00DX1jnIrE8AQMBRWrtG6PFfa8KGqyIk+hISxzMtEO?=
- =?iso-8859-1?Q?VwGuOw50pwLTXutXFtKxq6kHO7KAr9QCPa4ap9/brGkLBT6fGa+cd1ycLk?=
- =?iso-8859-1?Q?nXMo1OjLKcVjgtH8N6TNFsyGvQ7iaGT5LeIRDAhEiYhMU/DwR6hfX1r4Yo?=
- =?iso-8859-1?Q?h7k95BZexz6wZaAhlvG42EMH1cwNE+CQJmdyeDI1szDraWQ/3OwXFukYc5?=
- =?iso-8859-1?Q?W104qnGSjPsFM5P+QicqfpP4rp9RrIHVGav9k+YI0SajovPvy+hqRI9QAq?=
- =?iso-8859-1?Q?Brwxnv3tqDR2cL/P/rnFxi6epElrB9BWO3OH8JJcYV9feQPxJSmIzTPyiI?=
- =?iso-8859-1?Q?/sRuUi+Hai7fT5egVOzMGOb5/VsEtV1zBBXvE7KKVdOG+iD5K16XFs094r?=
- =?iso-8859-1?Q?HJ9pJdjs9UF0Fds+HHqmwO?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+To: Chuck Zmudzinski <brchuckz@netscape.net>
+Cc: xen-devel@lists.xen.org
+References: <4703b7f1-8d3c-5128-213c-e39f487e4cde.ref@netscape.net>
+ <4703b7f1-8d3c-5128-213c-e39f487e4cde@netscape.net>
+ <2e74415a-d0d4-321b-be2e-a14db297c51a@suse.com>
+ <ed955608-9c62-3dc8-fbcc-df5b4d3c5e46@netscape.net>
+ <e0a49022-097b-b9ae-eff9-eb2111e7acb9@netscape.net>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <e0a49022-097b-b9ae-eff9-eb2111e7acb9@netscape.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS9PR06CA0270.eurprd06.prod.outlook.com
+ (2603:10a6:20b:45f::31) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 203ab75f-d526-44f5-70f3-08da058c015b
+X-MS-TrafficTypeDiagnostic: HE1PR0402MB3627:EE_
+X-Microsoft-Antispam-PRVS:
+	<HE1PR0402MB36277572F842226A60F4476EB30F9@HE1PR0402MB3627.eurprd04.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	z2oFWGlBWsUL4p6OPGuuC/1I8IjKbOAEWO7yAr8tJGiom8wxQKO8nPyXkPC7jp36OJMg2Uq9VzKsymNV+Lq71Lhlli5pDXUrLQ4gtXWMJgRMelrNmoi1UId15Gr9WIPpPsc+NIJ8Guefu0T0DzKe1lOZ1o5b8jiK4A/GlhHdat3AGrw//DbIFHDd+HLS58MsW6r0Hutyd9sgoYbn9IumDzgyG9DwNxdlzTUeD9OimBDmR9QVkcwfgHBEkfl9xKNm9RhNdptAJoW1cBNeyJItVMcEWq50ygVQ8FItKeT1tlzmKSe0velQY7L5QIUh/jSZ4o9Ytg9FZVufDqnTZ00mMmgq7NxcgQhG1MvT4F/pY4vk3gnKJt7lDDNGVGd/v+D7ChJbG6CG9XOM3wxdl435g+A2IN24cSCXaj0PXAJYM+2kJO3fdrR65DIMfsk5tSFVkkoH8m8UWrZtNnwyp82XoJWiDCd17xTkrCO6qFwV+0PoCHzh/lm14tr/S+ASneKj3h5uPVDrG5eTpC0yTnoEWkv9rx9yPktRICwFk15v5yTW1pH5kOzf8cT5eDGHR5p03R6GB0e3nZ2rQD1sSN085Tr3+FZPXAwSpFER7ob/6dT0SKFzYyAtQh2iDCFsuy4ZRPx8NwCdynHn3eb6vAbwQlvLyuT4P2XtV4rTOp4OlcpJPHi4brLGuKaHrtr8+M+jhhTtlRp8wyRSsbhzZEW8gTs1wX9g06Uw3N7H1oDwBDs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(2616005)(36756003)(5660300002)(6506007)(53546011)(2906002)(6486002)(86362001)(8936002)(186003)(31686004)(26005)(31696002)(6512007)(66946007)(66556008)(66476007)(8676002)(4326008)(558084003)(38100700002)(316002)(508600001)(6916009)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WUJ1TmZmVjhJM2RVUjQ5NUZCUHpyQ0tQRUlSdEpOKzVmUFFvWlBNYk5KSEVm?=
+ =?utf-8?B?VUo1bW41OTJjam1Na3RVMS9yWGZSa21QOUd3RXRvbEZFaEtQNzhENTdqaUgv?=
+ =?utf-8?B?RGpNTXQ0VjU1bWJUUnFuVFhsZGZVTE83RmNxWEVUWXN0U011aG45SEtiNWxM?=
+ =?utf-8?B?bk40VUk3akhjdmRUZUJicFR2VTE1emFuVjllRS9EbmJ1WlNvNHBlU2J0R2dC?=
+ =?utf-8?B?dktkNllzL3Z1NmF0NmJvM2ZqNUZSVHlpWDk2L0pFSWt2aENZSVZUZkFWR0xE?=
+ =?utf-8?B?MjJZdXpna3BHTTVSN2Q3YTNLSUI0VTlNRjBOMS94VGhZU1FJY1RwWlIyUlEw?=
+ =?utf-8?B?SS9kaG43eHNTNWNld3BjTkNxYmR5U2ZpN1YvSmZwNTR3R1JHUkFsWk9kSXlY?=
+ =?utf-8?B?WnhobUlnd2JzSTdaT0FDUnI3eXVTdXNZNHJDMVdwbzR1a2F2UktrOVpXYXRy?=
+ =?utf-8?B?T25idjN6ZVgvY1dEQnZqTWRjVUtPaEZLNnBZOWRyYlhYSC93TmlnVm1ZMThx?=
+ =?utf-8?B?Z2I2bFJheW40VXJnWVFUOS95RXVPUGxYNGcrQjBhWUJUbkFoQUpLTkRteVN4?=
+ =?utf-8?B?TVdNR2xia3JkSEJRWlhmQyt4YmxEbGhUVzZWd0VQTkc1OHg4aWZlWnYxVHk3?=
+ =?utf-8?B?RkZmOE1sU0ZlRjdXeW5qaE9qYmtwdHM3VEtBV3NBeFZLNXR1OEFhRjZpZmVD?=
+ =?utf-8?B?MGF6dTlhc1UwSXFSVU1Wd2dWUDdmbjJCWXZIbHRZU3lFbVM2dWxSdXJBZ2xp?=
+ =?utf-8?B?RU51RGlKU0s1QnNHMmlXTW1ycnBKNzN4Q3BoaUkwV1BSMFd6Q0ZVbkI1VWM5?=
+ =?utf-8?B?Q0UzQUUxOXlIeG96TEo1ZjM3UU5ZeWNnMDA3enBiV2YxTHlqNWZSRWdlQ0R3?=
+ =?utf-8?B?T09SVndJQXEyR2xGdEtoYzh5Q01GNGNBMjlrOG9PZnVIdUxnQVNZM1ArY2NO?=
+ =?utf-8?B?TkhuNVUxMzRkMFhTdE1uRmc1UVFCcjVSNnpiM0Y5MlpkNkpMUG5UUzlDZzdE?=
+ =?utf-8?B?R0t3czNLY2Zmd1crNitqSm5aOEhnWXZhd2NIaSs4QVZvUkVFeFZxNTVVODVP?=
+ =?utf-8?B?RjkydzJPQ3RDNlFTV0ZZWGJBT0g2czVJTEEyb3hucElET0lNZ1RNbGpwMUNS?=
+ =?utf-8?B?ajBkNUczYUFGQ2lWRWh0c1g3OWM0VUxGdVZocUdGMWlrelFyN25Pd3p6ajdE?=
+ =?utf-8?B?NVFWU1BxWDlFM1pWQWpmMXJ4emN4RXpDNlRkRGd2MitPUTRLR0hrVXBtSHNj?=
+ =?utf-8?B?RTdteGRTYlFIQ0NSMjlPR2diV0JHa1haNFg4S0NGd0N1VW1OV2xOcHFEMk5X?=
+ =?utf-8?B?K2wwNnB0QUluZEZvR3JKRUVWWG5wYVIwWGtFakZydlJMK3lMVnRiQVR2TUIv?=
+ =?utf-8?B?RkFhNjMvMFVsdGZhdkhOOGtCRG9rSHVsQkFGNXVSVVh0dmlBeVRqSjZxVnNO?=
+ =?utf-8?B?M2VZY3hEZU1yS25GRVFxbXNXdFZaaXI4d0NQcUhzNEU4WnhLT2gyWUh4NkI4?=
+ =?utf-8?B?QUR4NTM5bzZiMnIyTVZsM0xlK3l2eGRaR0Rrbm1FNjEweHB0V0J3cmJpVkt2?=
+ =?utf-8?B?dFNoY045bzVXRW9KVE5TenNqOThjck02MmFtaDdmMWRvaTE2NmdmaVJjWUds?=
+ =?utf-8?B?bDVRQlJzY0dtQS9MMHZBRVBtTTNsRE52RHMxVVM3Q2V5QzNHdVY0M25tSWht?=
+ =?utf-8?B?ZGlRZjBPSSt6TEVQTXlGMXIxRC9oWkFuVUdhdnZucG5MNFBhOE8zQk00bTlJ?=
+ =?utf-8?B?Rm00NVZCQjBKcjVFUm1iSDlLYTh2Mm5lcjdPNGFQTHRsdnB3QTF4N2laRUgv?=
+ =?utf-8?B?bk1kamRNYlpsM3BwVDRZNmxCSmlXTE5JYWhIZnFlRzR0UHVrTzZlVDFaNHla?=
+ =?utf-8?B?bldManRsZ1VHcGdsN01MRm1IcCt4TEJzTXp4TFd2NmFZdVZ2Z2FzUjVKU1pG?=
+ =?utf-8?Q?LKe0CRk3ea6psD4vSebtRssl4sBL5HQV?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 203ab75f-d526-44f5-70f3-08da058c015b
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR11MB5276.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0473a384-871d-4427-63a4-08da058b4f28
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Mar 2022 07:21:51.1268
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2022 07:26:50.5020
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: aZc49Vgbn71e7hz4ZDS6XZNazzqKF/5hRE+lzuAZKS9u4OAkTdK0mZvYtRXbHvIzr6rIJ4vcf1L/lgGhtLmYyA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR11MB5287
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Yn0tRveS2YL2nJavyRu0ApZiO9wEnBYksMXcGhLTZ8LCEi7SzVUuluu/D5qGskQ1vej4nNwYrZfKZiIxd8DEpw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR0402MB3627
 
-> From: Lengyel, Tamas <tamas.lengyel@intel.com>
-> Sent: Friday, March 11, 2022 2:45 AM
->=20
-> During VM fork resetting a failed vmentry has been observed when the rese=
-t
-> is performed immediately after a STI instruction executed. This is due to
-> the guest interruptibility state in the VMCS being modified by STI but th=
-e
-> subsequent reset removes the IF bit from FLAGS, causing the failed vmentr=
-y.
+On 11.03.2022 21:35, Chuck Zmudzinski wrote:
+> So my only question is:
+> 
+> Is it proper to include header files from tools/firmware/hvmloader in
+> tools/libs/light/libxl_pci.c ?
 
-I didn't get the rationale here. Before this patch the interruptibility sta=
-te is=20
-not saved/restored thus I suppose after reset it will be cleared thus align=
-ed
-with RFLAGS.IF=3D0. Can you elaborate a bit how exactly above problem is
-caused?
+No, it certainly is not.
 
->=20
-> Include the interruptibility state information in the public hvm_hw_cpu s=
-truct
-> so that the CPU can be safely saved/restored.
->=20
-> Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
-> ---
->  xen/arch/x86/hvm/hvm.c                 |  9 +++++----
->  xen/arch/x86/hvm/vmx/vmx.c             |  4 ++++
->  xen/arch/x86/include/asm/hvm/hvm.h     | 26
-
-Why is this change only applied to vmx instead of svm?
-
-> ++++++++++++++++++++++++++
->  xen/include/public/arch-x86/hvm/save.h |  3 ++-
->  4 files changed, 37 insertions(+), 5 deletions(-)
->=20
-> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-> index 709a4191ef..b239c72215 100644
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -897,6 +897,8 @@ static int cf_check hvm_save_cpu_ctxt(struct vcpu *v,
-> hvm_domain_context_t *h)
->          ctxt.flags =3D XEN_X86_FPU_INITIALISED;
->      }
->=20
-> +    ctxt.interruptibility_info =3D hvm_get_interrupt_shadow(v);
-> +
->      return hvm_save_entry(CPU, v->vcpu_id, h, &ctxt);
->  }
->=20
-> @@ -990,9 +992,6 @@ static int cf_check hvm_load_cpu_ctxt(struct domain
-> *d, hvm_domain_context_t *h)
->      if ( hvm_load_entry_zeroextend(CPU, h, &ctxt) !=3D 0 )
->          return -EINVAL;
->=20
-> -    if ( ctxt.pad0 !=3D 0 )
-> -        return -EINVAL;
-> -
->      /* Sanity check some control registers. */
->      if ( (ctxt.cr0 & HVM_CR0_GUEST_RESERVED_BITS) ||
->           !(ctxt.cr0 & X86_CR0_ET) ||
-> @@ -1155,6 +1154,8 @@ static int cf_check hvm_load_cpu_ctxt(struct
-> domain *d, hvm_domain_context_t *h)
->      v->arch.dr6   =3D ctxt.dr6;
->      v->arch.dr7   =3D ctxt.dr7;
->=20
-> +    hvm_set_interrupt_shadow(v, ctxt.interruptibility_info);
-> +
->      hvmemul_cancel(v);
->=20
->      /* Auxiliary processors should be woken immediately. */
-> @@ -3888,7 +3889,7 @@ enum hvm_intblk hvm_interrupt_blocked(struct
-> vcpu *v, struct hvm_intack intack)
->           !(guest_cpu_user_regs()->eflags & X86_EFLAGS_IF) )
->          return hvm_intblk_rflags_ie;
->=20
-> -    intr_shadow =3D alternative_call(hvm_funcs.get_interrupt_shadow, v);
-> +    intr_shadow =3D hvm_get_interrupt_shadow(v);
->=20
->      if ( intr_shadow &
-> (HVM_INTR_SHADOW_STI|HVM_INTR_SHADOW_MOV_SS) )
->          return hvm_intblk_shadow;
-> diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-> index c075370f64..e13817431a 100644
-> --- a/xen/arch/x86/hvm/vmx/vmx.c
-> +++ b/xen/arch/x86/hvm/vmx/vmx.c
-> @@ -1323,7 +1323,9 @@ static unsigned int cf_check
-> vmx_get_interrupt_shadow(struct vcpu *v)
->  {
->      unsigned long intr_shadow;
->=20
-> +    vmx_vmcs_enter(v);
->      __vmread(GUEST_INTERRUPTIBILITY_INFO, &intr_shadow);
-> +    vmx_vmcs_exit(v);
->=20
->      return intr_shadow;
->  }
-> @@ -1331,7 +1333,9 @@ static unsigned int cf_check
-> vmx_get_interrupt_shadow(struct vcpu *v)
->  static void cf_check vmx_set_interrupt_shadow(
->      struct vcpu *v, unsigned int intr_shadow)
->  {
-> +    vmx_vmcs_enter(v);
->      __vmwrite(GUEST_INTERRUPTIBILITY_INFO, intr_shadow);
-> +    vmx_vmcs_exit(v);
->  }
->=20
->  static void vmx_load_pdptrs(struct vcpu *v)
-> diff --git a/xen/arch/x86/include/asm/hvm/hvm.h
-> b/xen/arch/x86/include/asm/hvm/hvm.h
-> index 5b7ec0cf69..2fb7865a05 100644
-> --- a/xen/arch/x86/include/asm/hvm/hvm.h
-> +++ b/xen/arch/x86/include/asm/hvm/hvm.h
-> @@ -720,6 +720,22 @@ static inline int hvm_vmtrace_reset(struct vcpu *v)
->      return -EOPNOTSUPP;
->  }
->=20
-> +static inline unsigned long hvm_get_interrupt_shadow(struct vcpu *v)
-> +{
-> +    if ( hvm_funcs.get_interrupt_shadow )
-> +        return alternative_call(hvm_funcs.get_interrupt_shadow, v);
-> +
-> +    return -EOPNOTSUPP;
-> +}
-> +
-> +static inline void
-> +hvm_set_interrupt_shadow(struct vcpu *v, unsigned long val)
-> +{
-> +    if ( hvm_funcs.set_interrupt_shadow )
-> +        alternative_vcall(hvm_funcs.set_interrupt_shadow, v, val);
-> +}
-> +
-> +
->  /*
->   * Accessors for registers which have per-guest-type or per-vendor locat=
-ions
->   * (e.g. VMCS, msr load/save lists, VMCB, VMLOAD lazy, etc).
-> @@ -863,6 +879,16 @@ static inline void hvm_set_reg(struct vcpu *v,
-> unsigned int reg, uint64_t val)
->      ASSERT_UNREACHABLE();
->  }
->=20
-> +static inline unsigned long hvm_get_interrupt_shadow(struct vcpu *v)
-> +{
-> +    ASSERT_UNREACHABLE();
-> +    return 0;
-> +}
-> +static inline void hvm_set_interrupt_shadow(struct vcpu *v, unsigned lon=
-g
-> val)
-> +{
-> +    ASSERT_UNREACHABLE();
-> +}
-> +
->  #define is_viridian_domain(d) ((void)(d), false)
->  #define is_viridian_vcpu(v) ((void)(v), false)
->  #define has_viridian_time_ref_count(d) ((void)(d), false)
-> diff --git a/xen/include/public/arch-x86/hvm/save.h
-> b/xen/include/public/arch-x86/hvm/save.h
-> index 773a380bc2..e944b1756a 100644
-> --- a/xen/include/public/arch-x86/hvm/save.h
-> +++ b/xen/include/public/arch-x86/hvm/save.h
-> @@ -165,7 +165,8 @@ struct hvm_hw_cpu {
->  #define _XEN_X86_FPU_INITIALISED        0
->  #define XEN_X86_FPU_INITIALISED         (1U<<_XEN_X86_FPU_INITIALISED)
->      uint32_t flags;
-> -    uint32_t pad0;
-> +
-> +    uint32_t interruptibility_info;
->  };
->=20
->  struct hvm_hw_cpu_compat {
-> --
-> 2.25.1
+Jan
 
 
