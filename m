@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8F334D8940
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Mar 2022 17:33:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.290330.492372 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC7254D897F
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Mar 2022 17:36:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.290338.492382 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nTnd1-0001rt-1s; Mon, 14 Mar 2022 16:33:03 +0000
+	id 1nTngP-0002V5-Gw; Mon, 14 Mar 2022 16:36:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 290330.492372; Mon, 14 Mar 2022 16:33:03 +0000
+Received: by outflank-mailman (output) from mailman id 290338.492382; Mon, 14 Mar 2022 16:36:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nTnd0-0001pO-UN; Mon, 14 Mar 2022 16:33:02 +0000
-Received: by outflank-mailman (input) for mailman id 290330;
- Mon, 14 Mar 2022 16:33:01 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nTncz-0001pE-7j; Mon, 14 Mar 2022 16:33:01 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nTncz-000068-5o; Mon, 14 Mar 2022 16:33:01 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nTncy-00025s-N9; Mon, 14 Mar 2022 16:33:00 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nTncy-0003MM-Ke; Mon, 14 Mar 2022 16:33:00 +0000
+	id 1nTngP-0002SV-E3; Mon, 14 Mar 2022 16:36:33 +0000
+Received: by outflank-mailman (input) for mailman id 290338;
+ Mon, 14 Mar 2022 16:36:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Zml5=TZ=strugglers.net=andy@srs-se1.protection.inumbo.net>)
+ id 1nTngN-0002SP-Mh
+ for xen-devel@lists.xenproject.org; Mon, 14 Mar 2022 16:36:31 +0000
+Received: from mail.bitfolk.com (mail.bitfolk.com [2001:ba8:1f1:f019::25])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e57210a6-a3b4-11ec-853b-5f4723681683;
+ Mon, 14 Mar 2022 17:36:29 +0100 (CET)
+Received: from andy by mail.bitfolk.com with local (Exim 4.89)
+ (envelope-from <andy@strugglers.net>)
+ id 1nTngJ-0005oD-PT; Mon, 14 Mar 2022 16:36:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,119 +39,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=yjEaNYPiJSuaQq7QH6JUARLdSpX2DHcJBS7WQXoN+K4=; b=y50QcH8Orx8b4JIhBW4AhGxZx1
-	rPNq3YsiVSXY/OyWRCNT68y/gqUuWM0dq3vl1sagTLMVWsFYgK582FrqnoWw5TEN0CbsOHjs2+sWn
-	puaT8/sHsNsgGReWF1yd+4tW7btEMRnE1Sc/ANNUgCpJqL7RqDDYbOtLl9OTevTrOL3Q=;
+X-Inumbo-ID: e57210a6-a3b4-11ec-853b-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=bitfolk.com
+	; s=alpha; h=Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-Transfer-Encoding:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=8uJnhy1bbsD1TNqDTRNKKLOV7YlCNlGnT/Ct3vHmX1w=; b=ZE2bEIbwaPB9XDo3bA9KmwikOT
+	fjQw2bvv7AGb4nDVo55q7Dt6/mB+24Vkiszz6LwUziqr6MD96+AJaWz6TgZiX58Dy/I87OQEw5wBT
+	yAibmISmdMHrE5GtZes6SkU+DRZ5pViIQzwlfo6HHjPJOe+FHn7XWpeznsm0Q96Xp3LPdC608fynz
+	bjpnPsywsIkkzfy5WE4q/kDG4SF9jmgRxZ3llV3bl2ErmorgAW0OMV2TwGUorEOREQ9ebgewoCI46
+	uDpBhWBmRWTjuqKyPsBI2xW1zurnPrBOHpDUiukhEEHI6oX7rV/+rWONLUrEKSHjq4ErW3g8MepXj
+	JlnxLhSQ==;
+Date: Mon, 14 Mar 2022 16:36:27 +0000
+From: Andy Smith <andy@strugglers.net>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168587-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: mikeh@csits.net
+Subject: Some feature requests for guest consoles
+Message-ID: <20220314163627.4pck24ahx6igggff@bitfolk.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 168587: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=a13dfc769bd7097d8d9ffe3e029a2c1d062d712b
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 14 Mar 2022 16:33:00 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+OpenPGP: id=BF15490B; url=http://strugglers.net/~andy/pubkey.asc
+X-URL: http://strugglers.net/wiki/User:Andy
+User-Agent: NeoMutt/20170113 (1.7.2)
+X-SA-Exim-Connect-IP: <locally generated>
+X-SA-Exim-Mail-From: andy@strugglers.net
+X-SA-Exim-Scanned: No (on mail.bitfolk.com); SAEximRunCond expanded to false
 
-flight 168587 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168587/
+Hi,
 
-Regressions :-(
+Mike H <mikeh@csits.net> made a feature request in:
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+    https://lists.xenproject.org/archives/html/xen-users/2022-03/msg00009.html
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+for the Xen guest console as connected to with "xl console" to
+correctly support the terminal size rather than always being 80x20.
 
-version targeted for testing:
- ovmf                 a13dfc769bd7097d8d9ffe3e029a2c1d062d712b
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+Additionally I wondered about some other features:
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   14 days
-Failing since        168258  2022-03-01 01:55:31 Z   13 days  134 attempts
-Testing same since   168579  2022-03-14 08:41:36 Z    0 days    5 attempts
+- Ability to remap the "magic sysrq" key combination which is
+  ctrl-o, and possibly disable it while leaving "xl sysrq" and
+  /proc/sysrq-trigger in the guest generally working.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abner Chang <abner.chang@hpe.com>
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
+  Reason: guest administrators are often inexperienced with the
+  details of Xen. ctrl-o is a bad choice because it's actually the
+  "save buffer" shortcut in the popular editor nano. On more than
+  one occasion I have had guest administrators be editing a file
+  with nano on their console, they go to save it with ctrl-o which
+  appears to do nothing (because Xen is waiting for the sysrq
+  command that follows), so they do ctrl-o again which is taken as
+  being command 'o' - immediate power off! I have had an emergency
+  support ticket about this because "my guest randomly crashed while
+  I was editing a file".
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+  I would therefore like to remap "magic sysrq" to something more
+  obscure, or failing that disable it in guests as we/they will use
+  "xl sysrq" instead.
 
+A couple of other things which may already be possible but I don't
+know how, so if anyone's done it maybe they could give hints:
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+- Systematically and automatically log all guest console activity to
+  individual files without interfering with the ability to use "xl
+  console"
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+- Somehow plumb the xenconsole pty to a web terminal like xterm.js
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 629 lines long.)
+Thanks!
+Andy
 
