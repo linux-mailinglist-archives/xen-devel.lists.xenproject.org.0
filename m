@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E14C14D8FEC
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Mar 2022 23:56:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.290496.492670 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F9F24D9008
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Mar 2022 00:07:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.290501.492683 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nTtat-0005LS-AA; Mon, 14 Mar 2022 22:55:15 +0000
+	id 1nTtmA-00072L-De; Mon, 14 Mar 2022 23:06:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 290496.492670; Mon, 14 Mar 2022 22:55:15 +0000
+Received: by outflank-mailman (output) from mailman id 290501.492683; Mon, 14 Mar 2022 23:06:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nTtat-0005JL-72; Mon, 14 Mar 2022 22:55:15 +0000
-Received: by outflank-mailman (input) for mailman id 290496;
- Mon, 14 Mar 2022 22:55:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bxqh=TZ=linaro.org=alex.bennee@srs-se1.protection.inumbo.net>)
- id 1nTtas-0005JA-4K
- for xen-devel@lists.xenproject.org; Mon, 14 Mar 2022 22:55:14 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cda81d26-a3e9-11ec-853b-5f4723681683;
- Mon, 14 Mar 2022 23:55:11 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id yy13so37429686ejb.2
- for <xen-devel@lists.xenproject.org>; Mon, 14 Mar 2022 15:55:11 -0700 (PDT)
-Received: from zen.linaroharston ([51.148.130.216])
- by smtp.gmail.com with ESMTPSA id
- f7-20020a17090631c700b006b293ddbca1sm7314593ejf.35.2022.03.14.15.55.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Mar 2022 15:55:10 -0700 (PDT)
-Received: from zen (localhost [127.0.0.1])
- by zen.linaroharston (Postfix) with ESMTP id 47A0E1FFB7;
- Mon, 14 Mar 2022 22:55:09 +0000 (GMT)
+	id 1nTtmA-0006zL-AX; Mon, 14 Mar 2022 23:06:54 +0000
+Received: by outflank-mailman (input) for mailman id 290501;
+ Mon, 14 Mar 2022 23:06:52 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1nTtm8-0006zF-9v
+ for xen-devel@lists.xenproject.org; Mon, 14 Mar 2022 23:06:52 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nTtm7-00075P-Kn; Mon, 14 Mar 2022 23:06:51 +0000
+Received: from 54-240-197-227.amazon.com ([54.240.197.227]
+ helo=[10.95.108.113]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nTtm7-0003aZ-EH; Mon, 14 Mar 2022 23:06:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,122 +39,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cda81d26-a3e9-11ec-853b-5f4723681683
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=references:user-agent:from:to:cc:subject:date:in-reply-to
-         :message-id:mime-version:content-transfer-encoding;
-        bh=y2Q/inabtnNQGMD1STwoVXN1cYBrHr5EEIPdNdUQA8M=;
-        b=B3Ph160SYsccuR00NVF/PocSGd5KiKeGpNJQ+RhhnFCFJnM/0IodWWwadeJcwcmY+1
-         p7mK/8zR77h4sFn6DIJS4jdi8ycIdBa6GBZQ6BXKTb3vVVmexiMZjgQShP38GekQRhLR
-         OFFa1yqM6ceyWSEt+cqGDYutIRVgD92f7oipq5Mg9BeeGJDwvUB0CNZczv+2oAKHL7RU
-         XtPyTH4G288CVUiVrITqt6JutYE0Qb0TgEX3xgugz+3QvZ9/Wgx/vbThbekaqzBLCdmr
-         djWEZim/YuTV6z1bWLbTLYuLWSD1hi3Ql3isNXnEieORmw90FONvnt5WSh0jULarEWnD
-         mY5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:references:user-agent:from:to:cc:subject:date
-         :in-reply-to:message-id:mime-version:content-transfer-encoding;
-        bh=y2Q/inabtnNQGMD1STwoVXN1cYBrHr5EEIPdNdUQA8M=;
-        b=nt4RsFw7IJKzMgIm9J9k3tHQtwxZkyM5XT5FmMcCNunOWFvq5vYddC+8A+OY7MJy+/
-         lO/Yx6McR2v/nq471hopV9VjRvdSAgsOIzAgpORr+rwbwLVJj6ScysCZIK/cj5oySZ0O
-         xqSwAVj/OD92Gie2Gsb7ZE8TC1DfrF8AV5+L5aptNzltx0p3XP65CmdC5FMPX4qYLqFr
-         3hZAwQxhEniXE70R2ccJWUYpiGGb52ijpVE0zA3uNFCPJoQFyn1yIuHIkOBcL9W5BP/o
-         N35BErJ3S/fK4nhbpEcDsPdLwAgr2e8Kw/6DsEIRDQP8HYrOAD1F1hYKroHgKb+bqaQp
-         Ugpw==
-X-Gm-Message-State: AOAM530wYltHrbiQJE3cJz/YpZSsSpf5Ef+6Z1W5hTKCWe8FCNHUhHfY
-	JjJTJgn1fRO2eM3UznOUnJQ+FQ==
-X-Google-Smtp-Source: ABdhPJwH8+Emwxdug9WRaA5Pn7fnzwuIyGSHomy+CWFwvXssMscVFR/0TRAwIvo8vB6/HLdlnvsYkw==
-X-Received: by 2002:a17:907:3f9c:b0:6d8:116d:476b with SMTP id hr28-20020a1709073f9c00b006d8116d476bmr20220654ejc.432.1647298511045;
-        Mon, 14 Mar 2022 15:55:11 -0700 (PDT)
-References: <20220314160108.1440470-1-armbru@redhat.com>
- <20220314160108.1440470-4-armbru@redhat.com>
-User-agent: mu4e 1.7.10; emacs 28.0.92
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Markus Armbruster <armbru@redhat.com>
-Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>, Richard
- Henderson <richard.henderson@linaro.org>, Gerd Hoffmann
- <kraxel@redhat.com>, Christian Schoenebeck <qemu_oss@crudebyte.com>,
- "Gonglei (Arei)" <arei.gonglei@huawei.com>, =?utf-8?Q?Marc-Andr=C3=A9?=
- Lureau
- <marcandre.lureau@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, Igor
- Mammedov <imammedo@redhat.com>, Ani Sinha <ani@anisinha.ca>, Laurent
- Vivier <lvivier@redhat.com>, Amit Shah <amit@kernel.org>, Peter Maydell
- <peter.maydell@linaro.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- =?utf-8?Q?Herv=C3=A9?= Poussineau <hpoussin@reactos.org>, Aleksandar Rikalo
- <aleksandar.rikalo@syrmia.com>, Corey Minyard <cminyard@mvista.com>,
- Patrick Venture <venture@google.com>, Eduardo Habkost
- <eduardo@habkost.net>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Peter Xu <peterx@redhat.com>, Jason Wang <jasowang@redhat.com>,
- =?utf-8?Q?C=C3=A9dric?= Le
- Goater <clg@kaod.org>, Daniel Henrique Barboza <danielhb413@gmail.com>,
- David Gibson <david@gibson.dropbear.id.au>, Greg Kurz <groug@kaod.org>,
- Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <f4bug@amsat.org>, Jean-Christophe
- Dubois
- <jcd@tribudubois.net>, Keith Busch <kbusch@kernel.org>, Klaus Jensen
- <its@irrelevant.dk>, Yuval Shaia <yuval.shaia.ml@gmail.com>, Yoshinori
- Sato <ysato@users.sourceforge.jp>, Magnus Damm <magnus.damm@gmail.com>,
- Fabien Chouteau <chouteau@adacore.com>, KONRAD Frederic
- <frederic.konrad@adacore.com>, Mark Cave-Ayland
- <mark.cave-ayland@ilande.co.uk>, Artyom Tarasenko <atar4qemu@gmail.com>,
- Alex Williamson <alex.williamson@redhat.com>, Eric Auger
- <eric.auger@redhat.com>, Max Filippov <jcmvbkbc@gmail.com>, Juan Quintela
- <quintela@redhat.com>, "Dr. David Alan Gilbert" <dgilbert@redhat.com>,
- Konstantin Kostiuk <kkostiuk@redhat.com>, Michael Roth
- <michael.roth@amd.com>, =?utf-8?Q?Daniel_P=2E_Berrang=C3=A9?=
- <berrange@redhat.com>, Pavel
- Dovgalyuk <pavel.dovgaluk@ispras.ru>, David Hildenbrand
- <david@redhat.com>, Wenchao Wang <wenchao.wang@intel.com>, Colin Xu
- <colin.xu@intel.com>, Kamil Rytarowski <kamil@netbsd.org>, Reinoud Zandijk
- <reinoud@netbsd.org>, Sunil Muthuswamy <sunilmut@microsoft.com>, Cornelia
- Huck <cohuck@redhat.com>, Thomas Huth <thuth@redhat.com>, Eric Blake
- <eblake@redhat.com>, Vladimir Sementsov-Ogievskiy
- <vsementsov@virtuozzo.com>, John Snow <jsnow@redhat.com>,
- kvm@vger.kernel.org, qemu-arm@nongnu.org, xen-devel@lists.xenproject.org,
- qemu-ppc@nongnu.org, qemu-block@nongnu.org, haxm-team@intel.com,
- qemu-s390x@nongnu.org
-Subject: Re: [PATCH 3/3] Use g_new() & friends where that makes obvious sense
-Date: Mon, 14 Mar 2022 22:52:52 +0000
-In-reply-to: <20220314160108.1440470-4-armbru@redhat.com>
-Message-ID: <87y21c401e.fsf@linaro.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=rTZpWIrKVeO9IgxrNOBvjhdBktnXBBXe/eHKVytrGEM=; b=glMJSxYQJAylPAOE8f43YbdgIh
+	eK4TmyEoq0DGvICbAYNhaVVvgwtcRRzaOwJyx4eNYwbarE21bqpdaEMs2PXzCUGv3Nl4BLiw72BBa
+	uvGHZFiGxcpV37yamgLnSOs7R3bk74Q2QN0AMqOWZAT4jHRs2+eIolSX/Zd6JuKxBRng=;
+Message-ID: <1cc71b20-ef2b-dd46-3a84-466e114eb32b@xen.org>
+Date: Mon, 14 Mar 2022 23:06:48 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.7.0
+Subject: Re: [XEN v10 2/4] xen/arm64: io: Support instructions (for which ISS
+ is not valid) on emulated MMIO region using MMIO/ioreq handler
+To: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>,
+ xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
+ bertrand.marquis@arm.com, andrew.cooper3@citrix.com,
+ george.dunlap@citrix.com, jbeulich@suse.com, wl@xen.org, paul@xen.org,
+ roger.pau@citrix.com, Ayan Kumar Halder <ayankuma@xilinx.com>
+References: <20220310174501.62040-1-ayankuma@xilinx.com>
+ <20220310174501.62040-3-ayankuma@xilinx.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20220310174501.62040-3-ayankuma@xilinx.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Hi Ayan,
+
+On 10/03/2022 17:44, Ayan Kumar Halder wrote:
+> diff --git a/xen/arch/arm/arm32/traps.c b/xen/arch/arm/arm32/traps.c
+> index 9c9790a6d1..159e3cef8b 100644
+> --- a/xen/arch/arm/arm32/traps.c
+> +++ b/xen/arch/arm/arm32/traps.c
+> @@ -18,9 +18,11 @@
+>   
+>   #include <xen/lib.h>
+>   #include <xen/kernel.h>
+> +#include <xen/sched.h>
+>   
+>   #include <public/xen.h>
+>   
+> +#include <asm/mmio.h>
+>   #include <asm/processor.h>
+>   #include <asm/traps.h>
+>   
+> @@ -82,6 +84,15 @@ void do_trap_data_abort(struct cpu_user_regs *regs)
+>           do_unexpected_trap("Data Abort", regs);
+>   }
+>   
+> +void post_increment_register(const struct instr_details *instr)
+> +{
+> +    /*
+> +     * We have not implemented decoding of post indexing instructions for 32 bit.
+> +     * Thus, this should be unreachable.
+> +     */
+> +    domain_crash(current->domain);
+
+Osstest [1] is reporting a crash here. This is because 
+post_increment_register() is called unconditionally.
+
+I think you need to add:
+
+if ( instr->state != INSTR_LDR_STR_POSTINDEXING )
+
+Also, given this is called unconditionally, I think the function needs 
+to be renamed to some more generic. Maybe finalize_instr_emulation() or 
+similar.
+
+I have decided to revert this patch and patch #3 for now. Please test it 
+on arm32 and respin it.
+
+While you are at it, please make sure the title is no longer than
+80 characters.
+
+Cheers,
 
 
-Markus Armbruster <armbru@redhat.com> writes:
-
-> g_new(T, n) is neater than g_malloc(sizeof(T) * n).  It's also safer,
-> for two reasons.  One, it catches multiplication overflowing size_t.
-> Two, it returns T * rather than void *, which lets the compiler catch
-> more type errors.
->
-<snip>
-> diff --git a/semihosting/config.c b/semihosting/config.c
-> index 137171b717..6d48ec9566 100644
-> --- a/semihosting/config.c
-> +++ b/semihosting/config.c
-> @@ -98,7 +98,7 @@ static int add_semihosting_arg(void *opaque,
->      if (strcmp(name, "arg") =3D=3D 0) {
->          s->argc++;
->          /* one extra element as g_strjoinv() expects NULL-terminated arr=
-ay */
-> -        s->argv =3D g_realloc(s->argv, (s->argc + 1) * sizeof(void *));
-> +        s->argv =3D g_renew(void *, s->argv, s->argc + 1);
-
-This did indeed break CI because s->argv is an array of *char:
-
-../semihosting/config.c:101:17: error: assignment to =E2=80=98const char **=
-=E2=80=99 from incompatible pointer type =E2=80=98void **=E2=80=99 [-Werror=
-=3Dincompatible-pointer-types]
-  101 |         s->argv =3D g_renew(void *, s->argv, s->argc + 1);
-      |                 ^
-cc1: all warnings being treated as errors
-
-So it did the job of type checking but failed to build ;-)
+> +}
+> +
 
 
---=20
-Alex Benn=C3=A9e
+[1] 
+http://logs.test-lab.xenproject.org/osstest/logs/168589/test-armhf-armhf-xl/info.html
+
+-- 
+Julien Grall
 
