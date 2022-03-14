@@ -2,53 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70BD44D9070
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Mar 2022 00:37:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.290523.492742 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0C3B4D909B
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Mar 2022 00:49:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.290529.492759 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nTuFg-0004Bo-LB; Mon, 14 Mar 2022 23:37:24 +0000
+	id 1nTuQf-00060Q-MU; Mon, 14 Mar 2022 23:48:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 290523.492742; Mon, 14 Mar 2022 23:37:24 +0000
+Received: by outflank-mailman (output) from mailman id 290529.492759; Mon, 14 Mar 2022 23:48:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nTuFg-00049y-H0; Mon, 14 Mar 2022 23:37:24 +0000
-Received: by outflank-mailman (input) for mailman id 290523;
- Mon, 14 Mar 2022 23:37:23 +0000
+	id 1nTuQf-0005xE-Iy; Mon, 14 Mar 2022 23:48:45 +0000
+Received: by outflank-mailman (input) for mailman id 290529;
+ Mon, 14 Mar 2022 23:48:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zLdK=TZ=oracle.com=boris.ostrovsky@srs-se1.protection.inumbo.net>)
- id 1nTuFf-00049s-8x
- for xen-devel@lists.xenproject.org; Mon, 14 Mar 2022 23:37:23 +0000
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b1254480-a3ef-11ec-853b-5f4723681683;
- Tue, 15 Mar 2022 00:37:21 +0100 (CET)
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 22EKru3S015173; 
- Mon, 14 Mar 2022 23:37:17 GMT
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by mx0b-00069f02.pphosted.com with ESMTP id 3et60rhna1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 14 Mar 2022 23:37:16 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 22ENGNkc096994;
- Mon, 14 Mar 2022 23:37:15 GMT
-Received: from nam12-dm6-obe.outbound.protection.outlook.com
- (mail-dm6nam12lp2176.outbound.protection.outlook.com [104.47.59.176])
- by userp3020.oracle.com with ESMTP id 3et6573scw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 14 Mar 2022 23:37:15 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
- by MWHPR1001MB2336.namprd10.prod.outlook.com (2603:10b6:301:2b::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.25; Mon, 14 Mar
- 2022 23:37:13 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::1b2:b41c:b2f0:c755]) by BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::1b2:b41c:b2f0:c755%7]) with mapi id 15.20.5061.029; Mon, 14 Mar 2022
- 23:37:13 +0000
+ <SRS0=WDqM=TZ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nTuQd-0005wy-GK
+ for xen-devel@lists.xenproject.org; Mon, 14 Mar 2022 23:48:43 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 46e82060-a3f1-11ec-853b-5f4723681683;
+ Tue, 15 Mar 2022 00:48:41 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 7E785B80FC0;
+ Mon, 14 Mar 2022 23:48:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEA45C340E9;
+ Mon, 14 Mar 2022 23:48:38 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,130 +43,201 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1254480-a3ef-11ec-853b-5f4723681683
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
- subject : to : cc : references : from : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2021-07-09;
- bh=Sx8/aMjm83VjielJtGlhHtv+nnnu7ze9WKCqHQlY3f0=;
- b=eKRGzcHpDfVDRmQdnO5uDWzo65Jkt8SdFgcDPwl2lVU4HU8JbL5oh5+9dvgAPB0sWsG5
- VGDFzTOrH9l01L5lPdy5vApYUitVlrobbsbeLmDF3wU0PgzPEgjnwAXhp7o+SETaCz6X
- Hbnzd71/myNAM3jat9bguPWHiu00ErFhfTWGQFkUseQePAp2x4g8MO3jVm6BJvFUvEQ5
- SXDZ+JqGWzTcMMpOug6pIebKmbEnCWmkK2QJ/bqr+BF8kKCbQ3dRIPzFg8d1K/gpYlrv
- D1asUnLB5EdkycERXof5WfVJiP49jzk7UEQHcLOg4gg/NYQWbzvtLkNNW+rjgDLO3FIs 7w== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=V1n9lAD3JPm3q6vuG7t5SZs+IGqdwyPQgdXtFIRsZ2FcEFN9TH/pDIW0Ua7y1JszJryrKqb0gOglb3wrYqz86+rztlFMKK8HPjiVI1WtCmpvXggG15aYQDrRyAGk51se14zOA7jQ5JjGPEGNGVQYBCWbpoiaJ0NSxq8Hhxc9/NoSJz5Rp9TwUhY0HK78hfi0XqL4LcNXgryYQoGBB+71s0WW6R8AhPsE/zWv3GVNGSAWdXgqcs5B5uW0Bml0p6NJrWPGupIkEJ0hQ8pTAMgZmMiOZNnybszXcbCIotmXskhWVpfQ80DVlISFUYXCb8GNsa+C3t0elCLb2/Hz+gMG9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Sx8/aMjm83VjielJtGlhHtv+nnnu7ze9WKCqHQlY3f0=;
- b=U6+L1wnovZuC7V2TyMJ1VbnqNcGmBbBGl4pfmx3TYGNZZUvrdnCQiD0YD1ew2Jic7GUM7kX04MJ3+SdCAPZSmxcUZp7DY8ejX64es6Ul0KfvCYoNBDtLyKSqI7M/jbGQXj9h73qQgM/0rZ8dawTjG/+6TcBJkJvSV4DTxNsW0f+V6tC1k5Faz7gDjEOwH/Go/4M1caWyz675OhuoE2JX2Mg+gUt5kuK2EvfxPGaoDxfZ8MJPmcpWO7eioEINkCS9GKog2o3uqfHKzK2IYlg9/ffsy4teJ9Gx/ZyFYYuuFKjlFR2Uf5OnlDGqpRD5IGPEfT7Znh40UOLKZ6V1Kb8Hyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Sx8/aMjm83VjielJtGlhHtv+nnnu7ze9WKCqHQlY3f0=;
- b=x0rE9+1RAVt9zolAgTWMoTUEMROHETiFR/e5FP+pX/bvXVcZUamL/HW0PyQhylrSLQZ0/EDf914V7vQeM1G6ZyDt4w746MlLNjWbxt4oE523Zy70VEgq4h6IAuS2n30SlIb72Gjpw32uSXvDdhIxRWSVa6nTTWOAHGxBa7IRGD4=
-Message-ID: <63365484-7035-f2bd-5317-2e95d65993f7@oracle.com>
-Date: Mon, 14 Mar 2022 19:37:03 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.7.0
-Subject: Re: [PATCH 1/2] xen/grant-table: remove gnttab_*transfer*() functions
-Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
-        linux-kernel@vger.kernel.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-References: <20220311103429.12845-1-jgross@suse.com>
- <20220311103429.12845-2-jgross@suse.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-In-Reply-To: <20220311103429.12845-2-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DM5PR04CA0036.namprd04.prod.outlook.com
- (2603:10b6:3:12b::22) To BLAPR10MB5009.namprd10.prod.outlook.com
- (2603:10b6:208:321::10)
+X-Inumbo-ID: 46e82060-a3f1-11ec-853b-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1647301719;
+	bh=t41VCd1KKEI44yeVCJQLO6Xji4UkgthrX5AnegupC5g=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=Ycrs7/B+EnHkpB4G6UGImc2CnaojtSLGL8TeRxWvWWeBohth9vJ1WKBrXfusjLDkx
+	 D9dlWLh0QpM9TZMWVFZZX+X9uxCjvC5aHlDvog9v8/JsnclwWIwQU4zB+KKxeOft7v
+	 zwv3sHCW5Br5lueYxfiSvcbxeGt7Bj+fUGcZagfNFrGPxWh2aAAb5eVw1MQ24D96wj
+	 DCIoaeVLmYzSwWSaXBbiYrzHwIU9jnXwcWTDHKqubFV9zFmWxEZ8zP+ZXqMPgbQdqz
+	 iFrIbwJrWS+5q4niIiAhr0PoxGW1zBWONbrj/iDEBE4twXaFv/MPV+KTxdwJtY47Fn
+	 iHvgEy26Wokrg==
+Date: Mon, 14 Mar 2022 16:48:38 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, marco.solieri@minervasys.tech, 
+    lucmiccio@gmail.com, Julien Grall <jgrall@amazon.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH early-RFC 4/5] xen/arm: mm: Rework switch_ttbr()
+In-Reply-To: <ece8f698-0abd-42eb-625e-693f69f02e27@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2203141459360.3497@ubuntu-linux-20-04-desktop>
+References: <20220309112048.17377-1-julien@xen.org> <20220309112048.17377-5-julien@xen.org> <alpine.DEB.2.22.394.2203111721130.3497@ubuntu-linux-20-04-desktop> <ece8f698-0abd-42eb-625e-693f69f02e27@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c7254098-7673-4b3c-45ad-08da061390f7
-X-MS-TrafficTypeDiagnostic: MWHPR1001MB2336:EE_
-X-Microsoft-Antispam-PRVS: 
-	<MWHPR1001MB2336C87F7EE50E00FBA337478A0F9@MWHPR1001MB2336.namprd10.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	8rM1OtZAQJZxJUxl4o/n1FEZOJ4+92aMZ30yTj/Csy2ZGt8MxqniYWR2GMDoRp22x3VbfcStIRtSgBHp8mMtX77Q/+XVh2f+t+80AMrjTlWpTwh/IpHusvhwsTgX4GviIiTbts/C3zyhcMFoxSmphimHY6+6KWrZgliSIVZqP8fa78dsHRkHR8iPaDxeKxqLbo5WTe6puXsg1aXx1HN9Ut4MMUsE0SdjCM+RW+ikXXpFe8p2zKN3snCnnEmE+tco4kFhRTtpXlDFh9UCJKrEwDrKSJl5jKJyV2XAp/3RQ8iT18/bOatnrkyH3VUUe9tpbBqNxJNExz8tL+X3FUX4RtASu50NnaW22gSjeJPXHFaEKggV86JqvcoKqqrYVpyngPACuU35naluIZGOZJ6ZswUBtT4wluLOa2PD4G5pQmoN5jrfwlmNQB8l/8ka9cfoeedttknlamHp427LjuGyCL9NyxYvMtKU95+2FmiGUFDcXF23hRZeiUo2Txyxk6KtGyM2c6gzcYGAtXNfGIAFqCZm+2/Ll7LMLRXKfHthCKrHktWpmqyqaKuQs8s9ywNof36fEGT5flHvBUfpyY1HigMi300JdbZjpvW8gFi+4pOEKINY3gTuuusX7MQkmJL28TaGmSBuDC9h/OXnopxezO4eeIwPxcYedfsbCt7RKzDa8vkE123DLUJr5Smn04mhWFY3JWD2zBM35Yhh7syn4mo0oxjrRzS+IeHM6Q1XM9g=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(6666004)(6512007)(6506007)(86362001)(31696002)(2616005)(26005)(186003)(53546011)(38100700002)(5660300002)(4744005)(316002)(4326008)(44832011)(8676002)(6486002)(66556008)(66946007)(66476007)(8936002)(508600001)(31686004)(36756003)(2906002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?cDM0bWw5MTVRaXVVVkN2TXVOMERud3kwQmdac3pVNmVOZHhpTU41aHYzNnZH?=
- =?utf-8?B?aW1MMEJYOWFCRUtqdU1wZXp2dnhGbHp5d0xmNFpkN1ExU21yZitrVk0rUjAz?=
- =?utf-8?B?T1lLdE52VWVsVjRCVUVjREE5MUxMLzlVaTFWd0h1M0FSTTJKVTZFTVoxeVNM?=
- =?utf-8?B?SGVScDZmWHJ4QmhWREFMMWlxeUI2ZksvS0lqa3BqTy84UzNQejZjRncvWFN0?=
- =?utf-8?B?OHNPYlNXQXVrNVI1YTBFTWJMdVZIRFpMTnAraTU3bnpuUEU4ajBuSjZoZGs3?=
- =?utf-8?B?QkJqNW5KSDI2WC9oaWgzQndqSnE3VGwxenduTktoS3BGUlpKdnRKSEdjbldl?=
- =?utf-8?B?dkthYmgvdHVOOVMvVndIVGxaQitMMnpyMHp6NVF3WUloSjZXcVNSZEZOcjZX?=
- =?utf-8?B?TUp1Q0ZYOUdqSFpkMGkxMlNjTkJabmZUUm53NlAyWXVBUHJ0VlZuNk1LUTFP?=
- =?utf-8?B?cGVCTHVEK0dNMXYxM1VGWEEyWUViYzRCK0c0MUR2OWx5c2RKbDFkTGVQQXNw?=
- =?utf-8?B?Z3R6a2FCWDRrUlQyZHFwNi9WbWFYYW1BS1hIanpsOE1FekVRenhJQ0NidWoy?=
- =?utf-8?B?MEUrcnR2OVIvbndmdWdxaHE2clo3Q25MektqbUxadHRyUm1ocURtS2JjQ3cz?=
- =?utf-8?B?cnVNNzk0czczSWVrbDRWZjE1b1lIZGE5OU01M2lUc055RVV5WjVXbzQ3YjZO?=
- =?utf-8?B?UCtPbnVQUkh0M0N1TXAxNjRlTTlsVFZsMUZ2WjBYNkRlNmdMd0QvWEtXVmgx?=
- =?utf-8?B?UW10Tkk3U1NCeFpvMnFKNy9KYStqU3A2MXhtMFF3N3RWMmY2dDdnWVZSQlNO?=
- =?utf-8?B?dUdQSityTmtsZll2UXFqQ1ROcVdYWkRyT2tUenlYQWNCZDZCNmY4d2R4NXpK?=
- =?utf-8?B?S1o2S0xlaTl4STVJQjlENkNodWxyMTdpWVlRQUNFaFlpUzB6T0xXMlNIVkZP?=
- =?utf-8?B?VmhYWkkzY3FReDFCellzcnNId01xK1NLZjZHSlREQ0N2T0g3ZmFITXRUaVVi?=
- =?utf-8?B?Q2pFYTBOeGZqOGdsSWhGdnI3d0VMKzFraEdmdUZpNmpBck9JMy9YSXB2K0J3?=
- =?utf-8?B?OVk0dVlRemZHOGE5Y2JMTXZPYWFJemd3SzhaaUdNcUcvRXFURDVGd21uN21i?=
- =?utf-8?B?UjgrcmdBaU9qM0plSHZaSGVNOEM2K3QvL1Y5VGYzSk00MXZKeUxZYkZiOWdY?=
- =?utf-8?B?Tmd6bFYzWjNaSytiVFU4UDNvZXJLSG9LaFJJYUpLNWpqZEdqMTgvMjY4dE5s?=
- =?utf-8?B?bTcxL3ExSm9PKzhSc3JSVFdLdWJyRWN0QU9oYWVNNGg5VEZaN1FsMlp4QVFv?=
- =?utf-8?B?ZGtMU3AvYmdlU0ZaS3lRdDNQTHJtL0ROeTlZWDdnOTVOWUZNRmxKc0ZHRkxC?=
- =?utf-8?B?eDJXNisyQTRoa2k4TmNqNW0wcWM0VjIwTVQ1eDM4cEFwRFlSK05oNmlHYVVt?=
- =?utf-8?B?d1dNWXNYRlVBYzZSVHVaWEdsSC9KMjBwMmRZQWowNE14R3NMQk1QNjJUbElP?=
- =?utf-8?B?Wlk2YTVCV01GVkk3U0NkdmMwaWlFVldSM0trY2ZoUWdWdGxSMXFVdUxrM21G?=
- =?utf-8?B?Nk9UYjZ6WTVHTyszeXBMVlJIcncycllhbDBqeVJWZGJKR09TNlVLSDlvYjhv?=
- =?utf-8?B?Y0FtNEhJaDVkV1g3aFBpV29lRy9oVWVpWU5FTldSaExoazhvZ1ExNDVpdzg5?=
- =?utf-8?B?QzNqa1cyQnRDT2VhTGhMLzVMMTl5Y2R4MS9yczBjTUd3WjB0WTRYblhSZitV?=
- =?utf-8?B?OGtaMXV2Ukh5MTZOOUgzREsxVERUSjAxNS9WLytyWnpVNU5UNVNyekxFT2FV?=
- =?utf-8?B?T0FmaVd4Wnh4MndzeU9ZNUNxQUFsOXk4UVF2OXdJRi9MMUJULzNEUWZ1VzMw?=
- =?utf-8?B?NGpITHI2clc2ajFTdkdpLzhiUnJMdFhvVnBEWWlZcEFFQXk4Y0MwTTNlK3pm?=
- =?utf-8?B?emRFWWFvd3NzYzFUeHJuQlpXVHdCL1E4V1k0dTYwanpTWTcwUlFHb0xnZkdS?=
- =?utf-8?B?cS9CaWVZeEt3PT0=?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7254098-7673-4b3c-45ad-08da061390f7
-X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2022 23:37:13.6365
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NBNZ5ZKb8iV1nregaX1Jbt8hI11CBw/0/itvd6JcTKnUYZM69uAY2oIcR5IHhtj5qyXZBpIdzPt2bOoK7o1s7F4o5aH8g+QqNLZHY6KXInE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1001MB2336
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10286 signatures=693139
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 spamscore=0
- malwarescore=0 adultscore=0 bulkscore=0 mlxscore=0 mlxlogscore=999
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2202240000 definitions=main-2203140132
-X-Proofpoint-ORIG-GUID: 3a9BGKFCgKYkn1Q9MJLdoUTO35UXNdXe
-X-Proofpoint-GUID: 3a9BGKFCgKYkn1Q9MJLdoUTO35UXNdXe
+Content-Type: text/plain; charset=US-ASCII
 
+On Sat, 12 Mar 2022, Julien Grall wrote:
+> On 12/03/2022 01:31, Stefano Stabellini wrote:
+> > On Wed, 9 Mar 2022, Julien Grall wrote:
+> > > From: Julien Grall <jgrall@amazon.com>
+> > > 
+> > > At the moment, switch_ttbr() is switching the TTBR whilst the MMU is
+> > > still on.
+> > > 
+> > > Switching TTBR is like replacing existing mappings with new ones. So
+> > > we need to follow the break-before-make sequence.
+> > > 
+> > > In this case, it means the MMU needs to be switched off while the
+> > > TTBR is updated. In order to disable the MMU, we need to first
+> > > jump to an identity mapping.
+> > > 
+> > > Rename switch_ttbr() to switch_ttbr_id() and create an helper on
+> > > top to temporary map the identity mapping and call switch_ttbr()
+> > > via the identity address.
+> > > 
+> > > switch_ttbr_id() is now reworked to temporarily turn off the MMU
+> > > before updating the TTBR.
+> > > 
+> > > We also need to make sure the helper switch_ttbr() is part of the
+> > > identity mapping. So move _end_boot past it.
+> > > 
+> > > Take the opportunity to instruction cache flush as the operation is
+> > > only necessary when the memory is updated.
+> > > 
+> > > Signed-off-by: Julien Grall <jgrall@amazon.com>
+> > > 
+> > > ---
+> > > 
+> > >      TODO:
+> > >          * Rename _end_boot to _end_id_mapping or similar
+> > >          * Check the memory barriers
+> > >          * I suspect the instruction cache flush will be necessary
+> > >            for cache coloring.
+> > > ---
+> > >   xen/arch/arm/arm64/head.S | 31 ++++++++++++++++++++-----------
+> > >   xen/arch/arm/mm.c         | 14 +++++++++++++-
+> > >   2 files changed, 33 insertions(+), 12 deletions(-)
+> > > 
+> > > diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+> > > index 878649280d73..c5cc72b8fe6f 100644
+> > > --- a/xen/arch/arm/arm64/head.S
+> > > +++ b/xen/arch/arm/arm64/head.S
+> > > @@ -803,36 +803,45 @@ fail:   PRINT("- Boot failed -\r\n")
+> > >           b     1b
+> > >   ENDPROC(fail)
+> > >   -GLOBAL(_end_boot)
+> > > -
+> > >   /*
+> > >    * Switch TTBR
+> > >    *
+> > >    * x0    ttbr
+> > >    *
+> > > - * TODO: This code does not comply with break-before-make.
+> > > + * XXX: Check the barriers
+> > >    */
+> > > -ENTRY(switch_ttbr)
+> > > +ENTRY(switch_ttbr_id)
+> > >           dsb   sy                     /* Ensure the flushes happen before
+> > >                                         * continuing */
+> > >           isb                          /* Ensure synchronization with
+> > > previous
+> > >                                         * changes to text */
+> > > +
+> > > +        /* Turn off MMU */
+> > > +        mrs    x1, SCTLR_EL2
+> > > +        bic    x1, x1, #SCTLR_Axx_ELx_M
+> > > +        msr    SCTLR_EL2, x1
+> > > +        dsb    sy
+> > > +        isb
+> > > +
+> > >           tlbi   alle2                 /* Flush hypervisor TLB */
+> > > -        ic     iallu                 /* Flush I-cache */
+> > >           dsb    sy                    /* Ensure completion of TLB flush
+> > > */
+> > >           isb
+> > >   -        msr    TTBR0_EL2, x0
+> > > +        msr   TTBR0_EL2, x0
+> > > +
+> > > +        mrs   x1, SCTLR_EL2
+> > > +        orr   x1, x1, #SCTLR_Axx_ELx_M  /* Enable MMU */
+> > > +        msr   SCTLR_EL2, x1
+> > >             isb                          /* Ensure synchronization with
+> > > previous
+> > >                                         * changes to text */
+> > > -        tlbi   alle2                 /* Flush hypervisor TLB */
+> > > -        ic     iallu                 /* Flush I-cache */
+> > > -        dsb    sy                    /* Ensure completion of TLB flush */
+> > > -        isb
+> > > +        /* Turn on the MMU */
+> > > +
+> > >             ret
+> > > -ENDPROC(switch_ttbr)
+> > > +ENDPROC(switch_ttbr_id)
+> > > +
+> > > +GLOBAL(_end_boot)
+> > >     #ifdef CONFIG_EARLY_PRINTK
+> > >   /*
+> > > diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+> > > index 5c4dece16f7f..a53760af7af0 100644
+> > > --- a/xen/arch/arm/mm.c
+> > > +++ b/xen/arch/arm/mm.c
+> > > @@ -660,7 +660,19 @@ static void xen_pt_enforce_wnx(void)
+> > >       flush_xen_tlb_local();
+> > >   }
+> > >   -extern void switch_ttbr(uint64_t ttbr);
+> > > +extern void switch_ttbr_id(uint64_t ttbr);
+> > > +
+> > > +typedef void (switch_ttbr_fn)(uint64_t ttbr);
+> > > +
+> > > +static void switch_ttbr(uint64_t ttbr)
+> > > +{
+> > > +    vaddr_t id_addr = virt_to_maddr(switch_ttbr_id);
+> > > +    switch_ttbr_fn *fn = (switch_ttbr_fn *)id_addr;
+> > > +
+> > > +    update_identity_mapping(true);
+> > > +    fn(ttbr);
+> > > +    update_identity_mapping(false);
+> > > +}
+> > 
+> > Controversial question: does it really matter that XEN_VIRT_START >
+> > 512GB and that _start < 512GB?
+> > 
+> > I am totally fine with the limit, I am just brainstorming: given that
+> > the mapping is used very temporarely, it wouldn't really be an issue if
+> > it conflicts with something important. Let's say that it conflicts with
+> > the VMAP or the FRAMETABLE. As long as:
+> > 
+> > - we save the current mapping
+> > - update it with the Xen 1:1
+> > - switch_ttbr
+> > - remove Xen 1:1
+> > - restore mapping
+> > 
+> > It should work, right? Basically, a mapping conflict shouldn't be an
+> > issue given that the mapping has only to live long enough to call
+> > switch_ttbr_id.
+> 
+> Today switch_ttbr() is called before we initialized most of the memory layout.
+> So clashing with the VMAP and frametable is not a problem.
+> 
+> However, the identity mapping may also clash with the region used to map Xen.
+> That said, technically, we are not able to handle Xen when its start address
+> is in region 2MB + 4K to 4MB (Xen is loaded at a 4KB aligned address).
+> 
+> The trouble is some features (e.g. UBSAN, GCOV) can generate Xen image over
+> 2MB. IOW, the range where Xen cannot be loaded will increase.
+> 
+> This is an issue because AFAIK, there is no away to tell GRUB "You can't load
+> Xen at this region". But even if there were one, I feel this restriction is
+> sort of random.
+> 
+> I already wrote a patch to get rid of the restriction. The code is not too bad
+> (we only need an extra indirection). But I haven't sent it yet because it is
+> less critical with the re-shuffling of the memory layout.
 
-On 3/11/22 5:34 AM, Juergen Gross wrote:
-> All grant table operations related to the "transfer" functionality
-> are unused currently. There have been users in the old days of the
-> "Xen-o-Linux" kernel, but those didn't make it upstream.
->
-> So remove the "transfer" related functions.
+Interesting! I am curious: how did you manage to do it?
 
+For now and for this series the current approach and the 512GB limit are
+fine. My replies here are brainstorming to see if there are potential
+alternatives in the future in case the need arises.
 
-Do we need to assert somewhere that transfer flags are not set?
-
-
--boris
-
-
+I can see that a clash with Xen mapping could be problematic and the
+chances of that happening are low but non-zero. We could make sure that
+ImageBuilder always picks safe addresses and that would help but
+wouldn't remove the issue if someone is not using ImageBuilder.
 
