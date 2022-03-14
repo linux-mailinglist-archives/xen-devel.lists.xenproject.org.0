@@ -2,35 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33A014D79B6
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Mar 2022 04:42:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.289863.491504 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDC364D79B8
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Mar 2022 04:43:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.289867.491516 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nTbal-00081q-CZ; Mon, 14 Mar 2022 03:41:55 +0000
+	id 1nTbbq-00007Q-N3; Mon, 14 Mar 2022 03:43:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 289863.491504; Mon, 14 Mar 2022 03:41:55 +0000
+Received: by outflank-mailman (output) from mailman id 289867.491516; Mon, 14 Mar 2022 03:43:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nTbal-0007zO-9W; Mon, 14 Mar 2022 03:41:55 +0000
-Received: by outflank-mailman (input) for mailman id 289863;
- Mon, 14 Mar 2022 03:41:53 +0000
+	id 1nTbbq-0008WS-Jw; Mon, 14 Mar 2022 03:43:02 +0000
+Received: by outflank-mailman (input) for mailman id 289867;
+ Mon, 14 Mar 2022 03:43:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ga0j=TZ=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1nTbai-0007zG-92
- for xen-devel@lists.xenproject.org; Mon, 14 Mar 2022 03:41:53 +0000
-Received: from sonic306-21.consmr.mail.gq1.yahoo.com
- (sonic306-21.consmr.mail.gq1.yahoo.com [98.137.68.84])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NoMf=TZ=intel.com=kevin.tian@srs-se1.protection.inumbo.net>)
+ id 1nTbbp-0008WE-8Z
+ for xen-devel@lists.xenproject.org; Mon, 14 Mar 2022 03:43:01 +0000
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ac60146a-a348-11ec-853b-5f4723681683;
- Mon, 14 Mar 2022 04:41:48 +0100 (CET)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic306.consmr.mail.gq1.yahoo.com with HTTP; Mon, 14 Mar 2022 03:41:46 +0000
-Received: by kubenode510.mail-prod1.omega.ne1.yahoo.com (VZM Hermes SMTP
- Server) with ESMTPA ID 2a2ff40647b282ca087dda5d8bac1295; 
- Mon, 14 Mar 2022 03:41:43 +0000 (UTC)
+ id d658249e-a348-11ec-853b-5f4723681683;
+ Mon, 14 Mar 2022 04:42:59 +0100 (CET)
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Mar 2022 20:42:56 -0700
+Received: from orsmsx606.amr.corp.intel.com ([10.22.229.19])
+ by orsmga003.jf.intel.com with ESMTP; 13 Mar 2022 20:42:56 -0700
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX606.amr.corp.intel.com (10.22.229.19) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.21; Sun, 13 Mar 2022 20:42:56 -0700
+Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
+ orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.21 via Frontend Transport; Sun, 13 Mar 2022 20:42:55 -0700
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com (104.47.51.40) by
+ edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2308.21; Sun, 13 Mar 2022 20:42:55 -0700
+Received: from BN9PR11MB5276.namprd11.prod.outlook.com (2603:10b6:408:135::18)
+ by PH7PR11MB6030.namprd11.prod.outlook.com (2603:10b6:510:1d1::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.26; Mon, 14 Mar
+ 2022 03:42:53 +0000
+Received: from BN9PR11MB5276.namprd11.prod.outlook.com
+ ([fe80::c8aa:b5b2:dc34:e893]) by BN9PR11MB5276.namprd11.prod.outlook.com
+ ([fe80::c8aa:b5b2:dc34:e893%8]) with mapi id 15.20.5061.028; Mon, 14 Mar 2022
+ 03:42:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,288 +62,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac60146a-a348-11ec-853b-5f4723681683
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1647229306; bh=mLaHN5C5RzR3kqlo3PMcOlb/DmfXiYWaEjD2K3ImbGQ=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=rbyXGFXVfBxM8cJnHzl9ywnkE+x+SypMzLhofsw4KSkb+ukyqmhZN2B73HgzJHB8rkNY3IsHuhZnQd9SspTI6Ew+AlR5iOLd/Wi/XtA5Oc6mRKXCD9qXdWzzMBtb94m98blESIuz5sXD9JAiEoDalEfclURxPmqevuGZ0J7WnA+YvYEvs8k7MG4yr+J/PgJFvzL0mpw3uIWeDnBS4QeXzimsL4LkmuWQNfFDhq4SOOe7mUrCHNlCXxl6n2tZDzNuV4t5HyMM6zamta6WXFNhBJipBtDa0XVwXE57ocsbf0m5KOehEy5wMB9aVpFUwjifDhCPRIGezrPtnCb2p8kvXw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1647229306; bh=pJnuEFWPougLFIC66Rngu3qbknm8HFA+APqxALvqu8C=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=Rkn5lG9gQbnEczRksMlUIc7lnuChWaqOZYGuy6KFOoSTCKqhCPhL2rrmCYVRoS56uxkDXe4YiZ6S0kw1GQcYISpCSiWcYEcAUOlk1iuf9SUQlT6Lr/sO4lUDVoUgI5evGbfJ17Rof+fdlcBYN6h2sRCGaAMvkOMsOuKa+JOXR+Tpb4aOhAbxc6t9r0yvRVBW/PlZuKCNaqIKXa1I816fo1O680ke9Paerbgo2GY0+2PCDc3yZ3V6cqQXWVQv+KZSWerPb+EHEK8f0Na5dnt1h9lKpSmrW659zknTZmz6G+VuTKcHFc2XER+ebkGlP5Nl1Mr19W7SwFUDCMemDoEGLw==
-X-YMail-OSG: uZr2XLgVM1kb0CkHNdEMW7nHD0RMHc71na8YKjUN_arnKI1vln5zMgBVdZQrgWf
- D6MJx8zdGvap3kv0lrs_WTJprjxX9DN917QZ5xjC2YV8dqFoJ11Tn1WwGx.ictXZ55KlYotOFcbK
- UwYj0KcDFSM0Pc.coPuxjqziCKWZhdnAdXKmVealc50kwDxMd8fSq5U1Eg34lWnTYlQc.EjgHpMt
- hYmBvMZINq3es1KtAbETSOCyy2_kliTKkPThs.cbGT2GGPGEZbUnTabDXgtoXl8587e6FsRkQIFB
- QST8QyP6UjaEtOlSPwJ.Vl.XSK2zTM_Uo43euk8T43VhOYgQMTLKvxp87MSQrfaHiTK_PYId06QD
- nGWnRYC2DstcZKzBZKfKI5FmXHOkRUTMvkRvFrp2OR2MClb5xmbviyLMYODkZOrdTY3CdZBciiGl
- ja9G2Kq7wUJ67G1.5Nn.Uu0PTLHcsMFqkMl7GLuq3e6h1MUXc3XNscJ_LVTwMO0mTq6YAI316iCx
- Xwm5MayommIEnBVDqNMSrmSABP03C4E17fywAvbCEDt67R_R2X20sbr8tBcpeI.4Hlp232lA7QO4
- J144X8SYXWwnMEPk21KSzqmGPlZfU2HKdjUeh.FjTWncz4YaOEMbF8l7Ry9ScT8fUooJ083kK8N0
- dmmWyu2Me_PNMEXB948fgK.RtmmoQ1VyyRG9DrcSZT227GseHGdwfVH4JgCcr1dAD0HQNd6wem9s
- TKxjUBNxp412svgLWS8Rb9sICBDAAZ5I1AmDTZZSkQMVhirdWNeiNmUckYBO0VzNaa3hJRpkVe8i
- Q7WJNaaVcZwbBKfgCt6.nOJ53tLFpCe7CYfdnDnufRhfGY_BtgFQfRxlbnwWxUfP0wLfDSldngtQ
- Nb_yYo.JzlqwKFZ6a_B6PQLGCInCXiNhSmKiWLFo5mdDaTLWiPlsCPGvIfgKiZhzgoEFPjnlJ3mo
- Npc9dLAk4ovDw2WxxzOV.gr4_VrLoUqsWQjVcbKpzjv_aQJZCZRhxQ8WYKbYxSfTu3QaRMgU3jBW
- KH877jsWq8acPlgtiHuLf.Zr9G2afiDg5vTV6i6zBlHUZl5jyaOLSdihBf8nXBYkvSlzgZjnwItQ
- K7wikQ5lN9FTA2ROSLNTnsBL8AVkpaTAvWMDJj1uJmU3GW6iERjQ.1miJpllBsaFA5QhJEqNaNeX
- tUWyAeBT5ErW0SgPlcEUN3Ug.xGIV..XkETH_IO6aW1Ua8ZqppLX_6JFJ4bm56KNrE08nX6C6gcX
- 7nLMm4B8S_k31DzhKv81J5dwSWIQPYP2SsQxdN20hJfaf7pGEkQhSE6XjEW447QERChoz4rPp3od
- 1VxswMtMyC1KBAl_IG1hRnJq7QzMpyqyv1wCxsXDzsoookn3.dW7yC.Aa9WKcCj_7E0Uru3eoIqe
- o24z.r.BN9Sy6E6BahE2rq4yuTOGaXSsC35bzULdZUzv2.JMR1cUJNQcTo.BXwePeXbNj1NgJKkj
- 0kaGBi5IX4zEmbmACSPiEgDvH3z4hNiiPcAVodBSjiIK8AC4WQu.xJ3cYqjix3v_iwefJxHbh2_i
- 9mIQLy8TMLvA.9XvRUolL0Vbm8k2wK7h3E96cSb2bJ28IlGAXSVXI5svbDNo1CZ2JqlNsI24VKIs
- JHSlY6q2jhAwJlbmYf0DQ8I1Pxpp3rLwOCE6KNqa_bYaRoQZUZYFEa0v63tIKchhVjAOlw5D5fpU
- dwrxCBe0JuXoTmP7NzC0Yf1osXKFBekWTany8cOAy1hZt3_eo8JhqQl7SmaDNQwfWDp6cKnpFe2a
- _PY70xdAz3uZtDBn6Bvg1g3LEZTqB6sSnyN9Dzrxi6JdiL3jKPIYHBu8eRd0WzipmXH12c005_m4
- MblrPieFsxwR_kiFzHy1lNY7kmT6.P3nXWVMh6pCnlJnriv2PgFFoR2cyxIpRzEp4P1zTqrgsf53
- 37wehkV6R_7x_8irKFK_ibjWhYhzW4t0Di4NPMq5zP6rgmioi3QNRA9_BA.bsgl5J5cBBfZwHcxc
- i5P7tyk95dZfGpHidbiit4RVrEZSgvtdNGNJ5TNPuhwam0XB7yOWzf9kiUVvnqjxMcaLCCT6fVAg
- enbQCZeKWHGdXNKmBPNVA5AFKXzyykN8uGgo9MuQyK1g2gzfF2CDs3.iJ6V9FcaeF9jY2CfDxrtK
- vjylNG9D9dPrVMi7moXys23Ta1gzFf5lkrzR3nvsCP6GpCgIleiX0YWXstaC7vyw6mFZS0F8aQOd
- sWl0-
-X-Sonic-MF: <brchuckz@aim.com>
-From: Chuck Zmudzinski <brchuckz@netscape.net>
-To: xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [XEN PATCH] tools/libs/light/libxl_pci.c: explicitly grant access to Intel IGD opregion
-Date: Sun, 13 Mar 2022 23:41:37 -0400
-Message-Id: <b62fbc602a629941c1acaad3b93d250a3eba33c0.1647222184.git.brchuckz@netscape.net>
-X-Mailer: git-send-email 2.35.1
+X-Inumbo-ID: d658249e-a348-11ec-853b-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1647229379; x=1678765379;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=p887uf0TXNXf/PQUOtxZhhikezJyHUC/mzsjzKSlOpY=;
+  b=ZQQr/7V9pfpK2Eej35DXomezlYhx63K0CfuexyGc3PgC+qPOa2Zb4WXT
+   1POI2aYe6pfT5p3nTagT00+bN4YeXvihkbYC8xYiVZ2ap5o4j6TArO7lx
+   UZ9yLbx+iBxBodEjG+j8QGeFkXXI1uCcaKv5UgkGvndUHnF+3UcciVxt6
+   8OY/W8g1szLzPCjg84kTwloatA1PGcXvUFvFKZ0P192lUbDStdX+p/EZH
+   wztDPEKqgCeNm0XA8fPI6Gp7zm7Pkl/tOT5T+R1uTpkg2susUOiEKPxSF
+   Pyah+YP9MoXBT790Rm+dIPNqpvSIft4fp/9sNrD9N0qYPkzl/yWoexl1J
+   A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10285"; a="342353159"
+X-IronPort-AV: E=Sophos;i="5.90,179,1643702400"; 
+   d="scan'208";a="342353159"
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,179,1643702400"; 
+   d="scan'208";a="497449376"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZBXtcCTRzLFrN/RkyiiuzMYBMxiVMcIyxS0Rlh+/O9tfZuyzsUWTaBH+SKPzSoDf48ie+00qY5n5dlG0dw5ob4m9hUEbboRA/qS+ArJfD5IzuX8IdBu7eYyKOebFjJ2E3M4RJUJZ9ckPCCLWJJEPM2xzqniFk4VFA0nAoBgm+eX/dHjsArRJ3fc+FBTQVAIyjxYBm91aZJNeXaH3KF1mhxnrAno6dUtacrX2+XYjM3VnapL5l21uRxIlU1hzrWaeeLkXHtURv5YxXwTWOTfDtczMwk+yAumpwY58v4S3oCXgdiTXi9RSjbqzGkDWgnsuN5b76SMAZAeReE0FXPcyJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=p887uf0TXNXf/PQUOtxZhhikezJyHUC/mzsjzKSlOpY=;
+ b=WfU5rVDuzSKHT464n1KLuSlMxNWJVrPdQdElXJZMUBBqJ+acS1bvcKDtKSuO3whx1owD4KtsnhDTsWxk0DolkO9eqlEF++XXsqdnxYRQrwqJ6k+JP9wnscLeXkQloy+1m+L7FtZoXZGMd6hjGuydJGtXacqxyGSd5poCa6JCa9bROWhQZw/6sSQP8EwavGOYSJvSWD9gruV872TdtecUgX/qvtCRWwrb/G/nwf2PJW2Tzq8t+3eauDLqkVwes82y2EPz+/Sde8Df0hLu4Ir9pD66SSuucTxDXZ587iwuGyMn++xGxwWFd0t7JQ8f+33t3KNgq1zWss9RuLwHPVPptw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: "Beulich, Jan" <JBeulich@suse.com>, "Nakajima, Jun"
+	<jun.nakajima@intel.com>
+CC: "Cooper, Andrew" <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	=?utf-8?B?UGF1IE1vbm7DqSwgUm9nZXI=?= <roger.pau@citrix.com>
+Subject: RE: [PATCH] x86/vmx: remove dead code to create domains without a
+ vLAPIC
+Thread-Topic: [PATCH] x86/vmx: remove dead code to create domains without a
+ vLAPIC
+Thread-Index: AQHYIl87iX8bB2tBzkuN2evUAzBqdayUmrQAgCRWlQCABXUBQA==
+Date: Mon, 14 Mar 2022 03:42:52 +0000
+Message-ID: <BN9PR11MB5276A2F0B18385F11F87EE5D8C0F9@BN9PR11MB5276.namprd11.prod.outlook.com>
+References: <20220215112835.99230-1-roger.pau@citrix.com>
+ <b254d8ac-8bdd-af65-f9d3-e2fe69ffdde9@suse.com>
+ <15d8232a-51c5-77c8-b246-ca0266576b30@suse.com>
+In-Reply-To: <15d8232a-51c5-77c8-b246-ca0266576b30@suse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: c7cac378-6fd0-4a64-9f9a-08da056cb810
+x-ms-traffictypediagnostic: PH7PR11MB6030:EE_
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-microsoft-antispam-prvs: <PH7PR11MB6030BE6130420D9764ED58848C0F9@PH7PR11MB6030.namprd11.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: +JjrY+g9YD5oOeNPpJptJpGOs0bNE8UpELH56fW9gBvnpZl34CRMuNNZlrwjPjr9aMfwfRixmbOCDvOgJ+tWkE4wxVoO0W2b1vkFYyauDlMMSAFTZbzhUp1F6Y1NPZRGNYUsUSQyYIkFL7UoEGaSRJwIgcfxGKCwJEbhZSq4FSq1bDX53oHI4Aw17lnx2SlFqs72VufAQHsHE1yiZ0tTiD7+osrRf5vrcRCC2cyq4ZZGyudUcKfjQ7Bbwua1F4WuyGUxjUr/HlUdZDU4paQzqzekn2slxDSiNgBXSppBg13PoCeIdW3xtFG/BWMpMiY2FIbNx4boIS9hnpeLVQNYYR+P5jQDcYkkDb4tkGTMVqGYV9f/RSnoZLtnylCY44FwlrzoUZrUVHLNNJ5PDte+bt2M1j21Wb9eoXxPQiOF9uVLFltfbf9x4ffkb+E1DjYRi0+OQswJhtfNffhbU5N82reGhqy4AFmZtqw6RqISeJsqvqDdRVyQtc2v8NPPEAijZ8EWivrFRX3OzY2lBJsepAAZEebn+gbg2RJ12ibkmrb7PnyM3fT2u5WHzeeO5qJoBtEzg0m0lmsocsCOt0IqkOF7t+EARj4evThfxGGX2pBWVSOWQtdp8+bRsPim/p2PsVKes7/XSV7uvWVYj8XEwC+flkZiodsH8qJVjb5cZ/2SOOzQamoP6/r1toltddnODtolB9/dSAmS9iPlZv84sg==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR11MB5276.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(82960400001)(54906003)(316002)(122000001)(9686003)(508600001)(6636002)(86362001)(33656002)(66556008)(55016003)(76116006)(66946007)(66476007)(4326008)(8676002)(66446008)(64756008)(38070700005)(110136005)(53546011)(7696005)(71200400001)(6506007)(38100700002)(83380400001)(2906002)(4744005)(52536014)(186003)(8936002)(5660300002)(26005);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VDdONElEUjAwbDhvK0VUMERDbVowU0dDZnJYVTVUMGJtTHdDSHlGTHdINzkv?=
+ =?utf-8?B?ZFFiNjU0MXFjZDAydnYwRXVGdllVNFdNeDd6M0thTWR6SFpzbjl1Q0pJRFYw?=
+ =?utf-8?B?aWVMeXBLMXdvNjZueDMyaThySGh2Q3VvajdFWG9BdDZCVEd2UFhtVTBpU0N6?=
+ =?utf-8?B?MjM2N1VwUS9JeEVpbHJ5enJHQUswcFM0WDBVeWlGLytJdjhRYVBKdDVuUGdn?=
+ =?utf-8?B?TDlwaHlyUk9CMVNXYXlKcnZrMjMxVHg2RUVhUGxNRlVsUkdKaXY0TE1KRXZD?=
+ =?utf-8?B?c2Roa2x4cXFtRzd0WUF0Yk00SGdhYmhIVGNhOG1jcDRVVnNhUXNkUTZsVGJO?=
+ =?utf-8?B?TW1HODZKV2RMVHY5a3BCWXRQU0dkRUNwdVNrdS9oWWVFRzB5cmt6Y2NrWXNv?=
+ =?utf-8?B?Mm5wZnh4RnNmY0VLNXQ2L2ZrQkdpVmJzYWRJQ3JtQmo2MlR5eThyNHNxTllk?=
+ =?utf-8?B?R0w3SGhBR1l1UW9KR1pML0luSG1VWUZ3cFl0TzFRK3dDd0c0L2pVdHZqdm1y?=
+ =?utf-8?B?WGF0SlBBbzRkbXhhcmhwVlA2WGhTS3FYMkFuVmMyN3B3cUJlcHFtbkk4cndP?=
+ =?utf-8?B?cW9jbkszNkdsK0U3MnRsVUNVTk9qMUY2bnFRTWs4SE5KTkdsaG5FVU5BWTF1?=
+ =?utf-8?B?cFRCdXgydEYvVE9odDZkNmpQSDJDM1k0QnBmZnU3cThrK2FVQzVCZWlJU1Uz?=
+ =?utf-8?B?NmtyWEk3UnNKVzhSRXhCUjFTM1g3N0FHSGNwdjRodGJXRXlDODlncW45N3dP?=
+ =?utf-8?B?RWdYb1U3blhJTmlvMm9ZeHVRdmRMcWJQRmNjTUNoSUFlYmxCZUVLbWc0QUJn?=
+ =?utf-8?B?YWVGQm9aUUVaTVU3dHBiRHdjdFM4U0N5Njk5ZUJCd0Fka29ObzVUS3ZmblB4?=
+ =?utf-8?B?Q2xneTRXVE11NmlxSGpsZU80OFhlVzhKVWYrUUhZOGRwN1dZOUNNUmE5REl5?=
+ =?utf-8?B?NGYrdGx0eS9EZ3hlZUJjeHl5MGZ1WlJYYzl4KzJKL0VaZ281d3pBSWJYV0Nx?=
+ =?utf-8?B?NW1JSHdaOWRUQkFyZEEzVE45a1RwWFlBbmN3ZlJXRk1vYzAwMkR0d3FLRTlH?=
+ =?utf-8?B?aTFhek9YZVpkZ1dQaTAzcXg5cFpyOFE0VjhlSEcyTXdCNWJZU096cVhKaTU0?=
+ =?utf-8?B?Y0VLMEVjVys4aWNwM3ZsZWtYams2OGJIVWZnZm5SbzlHWG9IV2Y1cG1RTk81?=
+ =?utf-8?B?UENJYmZoa3pUdUMzT09OL0syZC9qbDRvbjRrZDJJSHVYdTdEU2pKL05IYkh5?=
+ =?utf-8?B?Nm1QaHloZjJocExnd1g0YVA2Z2ZZVDJqZWdjOG9zcGxPK1dET25DQytpV3gr?=
+ =?utf-8?B?elIzRHR4ZG9kUC9KR1hhQVhHSm1kWHQxSUJnK29rMGgzeEQ5UGdzallZbDg3?=
+ =?utf-8?B?K2R2Vk5ybGRNNjgwK3pHbkpVaWlTMUtFSW5EdW84c0lYSTlsRlhIUEJSYmZt?=
+ =?utf-8?B?TXY1d0FmaGttalRucXFwSkZhUnVrb1hyZjRaQlZrWTBHQnFpbGZDVFREMzht?=
+ =?utf-8?B?WEZwV2NWdWorOVFqN013Sjhhd2d6czNhUy9IVENLWmc0Y0w2ODFKMmRxQUs0?=
+ =?utf-8?B?dlBCeUhOOTJuY1BmOG9JL1RrS29aVHVRY1NtSllwWFpIcXBlZFNGV2hNWFA5?=
+ =?utf-8?B?cktJMGRkTmt2c1F3Z2d2NGdUQUdlak0rOTJFOWpGY1pEK0d2SXdGSFEzVEdG?=
+ =?utf-8?B?aHpXWUJSK05ZL3VrSXpOYjc2S1pteEh5R1ppTkZWNk5NMVJVUkxHalc5ejJ4?=
+ =?utf-8?B?WlFSaWlNZnVWaWhuS0Q4bzRZK3d0bENyU1RGYmQwWG5ScXFQYVAvdnhEeVU5?=
+ =?utf-8?B?UWJUVkhFVUd1ZGtZVzJPOUVwaFdta1YyREgvZGtlTUZXYWVPd0VNQTk2bnpw?=
+ =?utf-8?B?TFRrb21aeTBodTRvVW5ncTlRZnN3WUQ2WVYyNHJhKzdiQWYwMEFzMGVNRmE3?=
+ =?utf-8?Q?HyOXVYbj8J/oSEKDW8vMcsvrYby38l65?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-References: <b62fbc602a629941c1acaad3b93d250a3eba33c0.1647222184.git.brchuckz.ref@netscape.net>
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR11MB5276.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7cac378-6fd0-4a64-9f9a-08da056cb810
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Mar 2022 03:42:52.8113
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8SLfAO8BoDZvn3UCBI3YKUZEG1mfTDQvI+5JwEBB25pZ5NQwnlpVa0LCPy9XMx3MyTtgG+NOMU0jBfSkXBo7Zg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6030
+X-OriginatorOrg: intel.com
 
-When gfx_passthru is enabled for the Intel IGD, hvmloader maps the IGD
-opregion to the guest but libxl does not grant the guest permission to
-access the mapped memory region. This results in a crash of the i915.ko
-kernel module in a Linux HVM guest when it needs to access the IGD
-opregion:
-
-Oct 23 11:36:33 domU kernel: Call Trace:
-Oct 23 11:36:33 domU kernel:  ? idr_alloc+0x39/0x70
-Oct 23 11:36:33 domU kernel:  drm_get_last_vbltimestamp+0xaa/0xc0 [drm]
-Oct 23 11:36:33 domU kernel:  drm_reset_vblank_timestamp+0x5b/0xd0 [drm]
-Oct 23 11:36:33 domU kernel:  drm_crtc_vblank_on+0x7b/0x130 [drm]
-Oct 23 11:36:33 domU kernel:  intel_modeset_setup_hw_state+0xbd4/0x1900 [i915]
-Oct 23 11:36:33 domU kernel:  ? _cond_resched+0x16/0x40
-Oct 23 11:36:33 domU kernel:  ? ww_mutex_lock+0x15/0x80
-Oct 23 11:36:33 domU kernel:  intel_modeset_init_nogem+0x867/0x1d30 [i915]
-Oct 23 11:36:33 domU kernel:  ? gen6_write32+0x4b/0x1c0 [i915]
-Oct 23 11:36:33 domU kernel:  ? intel_irq_postinstall+0xb9/0x670 [i915]
-Oct 23 11:36:33 domU kernel:  i915_driver_probe+0x5c2/0xc90 [i915]
-Oct 23 11:36:33 domU kernel:  ? vga_switcheroo_client_probe_defer+0x1f/0x40
-Oct 23 11:36:33 domU kernel:  ? i915_pci_probe+0x3f/0x150 [i915]
-Oct 23 11:36:33 domU kernel:  local_pci_probe+0x42/0x80
-Oct 23 11:36:33 domU kernel:  ? _cond_resched+0x16/0x40
-Oct 23 11:36:33 domU kernel:  pci_device_probe+0xfd/0x1b0
-Oct 23 11:36:33 domU kernel:  really_probe+0x222/0x480
-Oct 23 11:36:33 domU kernel:  driver_probe_device+0xe1/0x150
-Oct 23 11:36:33 domU kernel:  device_driver_attach+0xa1/0xb0
-Oct 23 11:36:33 domU kernel:  __driver_attach+0x8a/0x150
-Oct 23 11:36:33 domU kernel:  ? device_driver_attach+0xb0/0xb0
-Oct 23 11:36:33 domU kernel:  ? device_driver_attach+0xb0/0xb0
-Oct 23 11:36:33 domU kernel:  bus_for_each_dev+0x78/0xc0
-Oct 23 11:36:33 domU kernel:  bus_add_driver+0x12b/0x1e0
-Oct 23 11:36:33 domU kernel:  driver_register+0x8b/0xe0
-Oct 23 11:36:33 domU kernel:  ? 0xffffffffc06b8000
-Oct 23 11:36:33 domU kernel:  i915_init+0x5d/0x70 [i915]
-Oct 23 11:36:33 domU kernel:  do_one_initcall+0x44/0x1d0
-Oct 23 11:36:33 domU kernel:  ? do_init_module+0x23/0x260
-Oct 23 11:36:33 domU kernel:  ? kmem_cache_alloc_trace+0xf5/0x200
-Oct 23 11:36:33 domU kernel:  do_init_module+0x5c/0x260
-Oct 23 11:36:33 domU kernel:  __do_sys_finit_module+0xb1/0x110
-Oct 23 11:36:33 domU kernel:  do_syscall_64+0x33/0x80
-Oct 23 11:36:33 domU kernel:  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-Oct 23 11:36:33 domU kernel: RIP: 0033:0x7f188e1aa9b9
-
-This bug first appeared with commits abfb006f1ff4 and 0561e1f01e87
-during the development of Xen 4.5 in 2014 and is present in all Xen
-versions 4.5 and higher.
-
-Currently, because of another bug in Qemu upstream, this crash can
-only be reproduced using the traditional Qemu device model, and of
-course it can only be reproduced on a system with an Intel IGD and
-compatible hardware and system BIOS that supports Intel VT-d. It also
-only occurs with Linux Intel graphics drivers (i915) in a Linux guest.
-It does not occur in a Windows guest with proprietary Windows Intel
-graphics drivers. This testing was done with Qemu traditional running as
-a process in dom0.
-
-The commit abfb006f1ff4 was intended to explicitly grant access to all
-needed I/O memory ranges so access requests by guests would not fail
-after commit 0561e1f01e87 was applied, but it failed to handle the case
-when the Intel IGD is being passed to an HVM guest for VGA passthrough.
-This patch grants access to the Intel IGD opregion if an Intel IGD is
-passed to an HVM guest and gfx_passthru is enabled in the xl.cfg guest
-configuration file, in addition to the other memory that was configured
-for access in commit abfb006f1ff4.
-
-The fix is implemented as follows:
-
-The first hunk of the patch adds two macros. These are the macros that
-determine the starting address and size of the Intel IGD opregion.
-PCI_INTEL_OPREGION matches the value in tools/firmware/hvmloader/pci_regs.h.
-IGD_OPREGION_PAGES matches the value in tools/firmware/hvmloader/config.h.
-These macros are used to correctly define the start address and size of
-the Intel IGD opregion.
-
-The second hunk is the new sysfs_dev_get_igd_opregion function, using
-the same coding style as the other sysfs_dev_get_xxx functions in
-the patched file. It returns the start address of the Intel IGD opregion
-from dom0's point of view if there are no errors, and it is called by
-code in the third and final hunk of the patch.
-
-The third hunk extends the libxl__grant_vga_iomem_permission function,
-which was a newly added function in one of the commits being fixed now
-(abfb006f1ff4). That function, in addition to what it did before, now
-checks if we have an Intel IGD and if so, it calls the new
-sysfs_dev_get_igd_opregion function to get the starting address of the
-memory to grant access to.
-
-This problem was discovered by building and testing versions of
-Xen 4.5-unstable until the aforementioned patches that broke passthrough
-of the Intel IGD to a Linux HVM guest were found.
-
-That alone, though, was not enough information to arrive at this fix.
-After identifying abfb006f1ff4 and 0561e1f01e87 as the commits that were
-causing the trouble, it was necessary to find out what memory was being
-denied that previously was allowed. By examining verbose logs from both
-Qemu and Xen, and the logs from a custom build of Xen that added a
-custom log entry to indicate the address of the memory that was being
-denied, it was possible to determine without doubt that the memory that
-was being denied was the Intel IGD opregion.
-
-Windows HVM guests are not affected by this issue, presumably because
-the proprietary Windows Intel graphics drivers do not need to access the
-Intel IGD opregion if for some reason it is inaccessible.
-
-Guidelines for maintaining this code: This code needs to be kept
-consistent with how hvmloader maps the Intel IGD opregion to the guest,
-how hvmloader and libxenlight detect an Intel IGD on the PCI bus, and
-how Qemu sets up the mapped IGD opregion in the guest and detects an
-Intel IGD. For example, all these components should agree on the size of
-the IGD opregion.
-
-The most important point for the future is accurate detection of the
-Intel IGD, which libxl__is_igd_vga_passthru currently provides. This
-patch does not modify that function, but it does use it. It will be
-important to ensure that function accurately detects an Intel IGD,
-because that is the only way we validate the contents of the Intel
-IGD opregion that we are permitting the guest to access. Currently, if
-we have a VGA device, the vendor is Intel, and the gfx_passthru option
-is enabled, we assume the contents of the memory we are mapping to
-and sharing with the guest is valid. The libxl__is_igd_vga_passthru
-function also reads the device id, but currently it assumes every
-Intel GPU device has an opregion. So, for example, if it is discovered
-that the newer discrete Intel GPUs do not have an opregion, the
-libxl__is_igd_vga_passthru function should be modified to return false
-for those devices.
-
-Fixes: abfb006f1ff4 (tools/libxl: explicitly grant access to needed I/O-memory ranges)
-Fixes: 0561e1f01e87 (xen/common: do not implicitly permit access to mapped I/O memory)
-Backport: 4.12+
-
-Signed-off-by: Chuck Zmudzinski <brchuckz@netscape.net>
----
- tools/libs/light/libxl_pci.c | 72 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 72 insertions(+)
-
-diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
-index 4bbbfe9f16..a4fc473de9 100644
---- a/tools/libs/light/libxl_pci.c
-+++ b/tools/libs/light/libxl_pci.c
-@@ -24,6 +24,8 @@
- #define PCI_OPTIONS            "msitranslate=%d,power_mgmt=%d"
- #define PCI_BDF_XSPATH         "%04x-%02x-%02x-%01x"
- #define PCI_PT_QDEV_ID         "pci-pt-%02x_%02x.%01x"
-+#define PCI_INTEL_OPREGION     0xfc
-+#define IGD_OPREGION_PAGES     3
- 
- static unsigned int pci_encode_bdf(libxl_device_pci *pci)
- {
-@@ -610,6 +612,45 @@ out:
-     return ret;
- }
- 
-+static uint32_t sysfs_dev_get_igd_opregion(libxl__gc *gc,
-+                                           libxl_device_pci *pci)
-+{
-+    char *pci_device_config_path =
-+            GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/config",
-+                      pci->domain, pci->bus, pci->dev, pci->func);
-+    size_t read_items;
-+    uint32_t igd_opregion;
-+    uint32_t error = 0xffffffff;
-+
-+    FILE *f = fopen(pci_device_config_path, "r");
-+    if (!f) {
-+        LOGE(ERROR,
-+             "pci device "PCI_BDF" does not have config attribute",
-+             pci->domain, pci->bus, pci->dev, pci->func);
-+        goto out;
-+    }
-+    if (fseek(f, PCI_INTEL_OPREGION, SEEK_SET)) {
-+        LOGE(ERROR,
-+             "cannot find igd opregion address of pci device "PCI_BDF,
-+             pci->domain, pci->bus, pci->dev, pci->func);
-+        goto out;
-+    }
-+    read_items = fread(&igd_opregion, 4, 1, f);
-+    if (read_items != 1) {
-+        LOGE(ERROR,
-+             "cannot read igd opregion address of pci device "PCI_BDF,
-+             pci->domain, pci->bus, pci->dev, pci->func);
-+        goto out;
-+    }
-+    fclose(f);
-+    return igd_opregion;
-+
-+out:
-+    if (f)
-+        fclose(f);
-+    return error;
-+}
-+
- /*
-  * Some devices may need some ways to work well. Here like IGD,
-  * we have to pass a specific option to qemu.
-@@ -2531,6 +2572,37 @@ int libxl__grant_vga_iomem_permission(libxl__gc *gc, const uint32_t domid,
-                   domid, vga_iomem_start, (vga_iomem_start + 0x20 - 1));
-             return ret;
-         }
-+
-+        /* If this is an Intel IGD, allow access to the IGD opregion */
-+        if (!libxl__is_igd_vga_passthru(gc, d_config)) return 0;
-+
-+        uint32_t igd_opregion = sysfs_dev_get_igd_opregion(gc, pci);
-+        uint32_t error = 0xffffffff;
-+        if (igd_opregion == error) break;
-+
-+        vga_iomem_start = ( (uint64_t) igd_opregion ) >> XC_PAGE_SHIFT;
-+        ret = xc_domain_iomem_permission(CTX->xch, stubdom_domid,
-+                                         vga_iomem_start,
-+                                         IGD_OPREGION_PAGES, 1);
-+        if (ret < 0) {
-+            LOGED(ERROR, domid,
-+                  "failed to give stubdom%d access to iomem range "
-+                  "%"PRIx64"-%"PRIx64" for IGD passthru",
-+                  stubdom_domid, vga_iomem_start, (vga_iomem_start +
-+                                                IGD_OPREGION_PAGES - 1));
-+            return ret;
-+        }
-+        ret = xc_domain_iomem_permission(CTX->xch, domid,
-+                                         vga_iomem_start,
-+                                         IGD_OPREGION_PAGES, 1);
-+        if (ret < 0) {
-+            LOGED(ERROR, domid,
-+                  "failed to give dom%d access to iomem range "
-+                  "%"PRIx64"-%"PRIx64" for IGD passthru",
-+                  domid, vga_iomem_start, (vga_iomem_start +
-+                                           IGD_OPREGION_PAGES - 1));
-+            return ret;
-+        }
-         break;
-     }
- 
--- 
-2.35.1
-
+PiBGcm9tOiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQo+IFNlbnQ6IEZyaWRheSwg
+TWFyY2ggMTEsIDIwMjIgMTI6MjIgQU0NCj4gDQo+IE9uIDE1LjAyLjIwMjIgMTQ6MjcsIEphbiBC
+ZXVsaWNoIHdyb3RlOg0KPiA+IE9uIDE1LjAyLjIwMjIgMTI6MjgsIFJvZ2VyIFBhdSBNb25uZSB3
+cm90ZToNCj4gPj4gQWZ0ZXIgdGhlIHJlbW92YWwgb2YgUFZIdjEgaXQncyBubyBsb25nZXIgc3Vw
+cG9ydGVkIHRvIGNyZWF0ZSBhIGRvbWFpbg0KPiA+PiB1c2luZyBoYXJkd2FyZSB2aXJ0dWFsaXph
+dGlvbiBleHRlbnNpb25zIGFuZCB3aXRob3V0IGEgbG9jYWwgQVBJQzoNCj4gPj4gUFZIdjIgbWFu
+ZGF0ZXMgZG9tYWlucyB0byBhbHdheXMgaGF2ZSBhIExBUElDLiBSZW1vdmUgc29tZSBzdGFsZQ0K
+PiBjb2RlDQo+ID4+IGluIFZNQ1MgY29uc3RydWN0aW9uIGFuZCByZWxhdGVkIGhlbHBlcnMgdGhh
+dCBjYXRlcmVkIGZvciB0aGF0DQo+ID4+IHVzZS1jYXNlLg0KPiA+Pg0KPiA+PiBObyBmdW5jdGlv
+bmFsIGNoYW5nZS4NCj4gPj4NCj4gPj4gU2lnbmVkLW9mZi1ieTogUm9nZXIgUGF1IE1vbm7DqSA8
+cm9nZXIucGF1QGNpdHJpeC5jb20+DQo+ID4NCj4gPiBSZXZpZXdlZC1ieTogSmFuIEJldWxpY2gg
+PGpiZXVsaWNoQHN1c2UuY29tPg0KPiANCj4gSnVzdCBmeWkgLSBJJ20gaW5jbGluZWQgdG8gcHV0
+IHRoaXMgaW4gd2l0aG91dCBmdXJ0aGVyIHdhaXRpbmcgZm9yIGFuDQo+IGFjayBieSBvbmUgb2Yg
+dGhlIHR3byBvZiB5b3UuDQo+IA0KDQpJbiBjYXNlIHlvdSBoYXZlbid0IGRvbmUgaXQ6DQoNCglS
+ZXZpZXdlZC1ieTogS2V2aW4gVGlhbiA8a2V2aW4udGlhbkBpbnRlbC5jb20+DQo=
 
