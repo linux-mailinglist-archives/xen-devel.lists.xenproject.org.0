@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4869B4D8C4B
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Mar 2022 20:23:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.290431.492537 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A4124D8C4D
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Mar 2022 20:24:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.290435.492549 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nTqHi-0001pT-4h; Mon, 14 Mar 2022 19:23:14 +0000
+	id 1nTqIM-0002Ou-EE; Mon, 14 Mar 2022 19:23:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 290431.492537; Mon, 14 Mar 2022 19:23:14 +0000
+Received: by outflank-mailman (output) from mailman id 290435.492549; Mon, 14 Mar 2022 19:23:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nTqHi-0001nQ-1T; Mon, 14 Mar 2022 19:23:14 +0000
-Received: by outflank-mailman (input) for mailman id 290431;
- Mon, 14 Mar 2022 19:23:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bxqh=TZ=linaro.org=alex.bennee@srs-se1.protection.inumbo.net>)
- id 1nTqHg-0001ms-Qs
- for xen-devel@lists.xenproject.org; Mon, 14 Mar 2022 19:23:12 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 303c9231-a3cc-11ec-853b-5f4723681683;
- Mon, 14 Mar 2022 20:23:12 +0100 (CET)
-Received: by mail-ed1-x534.google.com with SMTP id b15so17261696edn.4
- for <xen-devel@lists.xenproject.org>; Mon, 14 Mar 2022 12:23:12 -0700 (PDT)
-Received: from zen.linaroharston ([51.148.130.216])
- by smtp.gmail.com with ESMTPSA id
- sa13-20020a1709076d0d00b006ce3ef8e1d4sm7068524ejc.31.2022.03.14.12.23.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 14 Mar 2022 12:23:10 -0700 (PDT)
-Received: from zen (localhost [127.0.0.1])
- by zen.linaroharston (Postfix) with ESMTP id 117581FFB7;
- Mon, 14 Mar 2022 19:23:10 +0000 (GMT)
+	id 1nTqIM-0002MZ-Ax; Mon, 14 Mar 2022 19:23:54 +0000
+Received: by outflank-mailman (input) for mailman id 290435;
+ Mon, 14 Mar 2022 19:23:53 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1nTqIL-0002MT-DU
+ for xen-devel@lists.xenproject.org; Mon, 14 Mar 2022 19:23:53 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nTqIK-0003AN-H4; Mon, 14 Mar 2022 19:23:52 +0000
+Received: from 54-240-197-227.amazon.com ([54.240.197.227]
+ helo=[10.95.108.113]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nTqIK-0005Oi-AR; Mon, 14 Mar 2022 19:23:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,123 +39,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 303c9231-a3cc-11ec-853b-5f4723681683
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=references:user-agent:from:to:cc:subject:date:in-reply-to
-         :message-id:mime-version:content-transfer-encoding;
-        bh=vwsEf23SGv9uU5Z5WKKS3nYhdclo4TxJUctKhcssOgU=;
-        b=qvTNjBOvKwjtOKZE7TV+144NPqDHMdIuTMR2L4vLzrDFbF50W8MgId7xWklR7gQ7ee
-         m1QhfAaSvZnLn66ax1xooADuhGrNNgCne1BBid6u3Gh0LdRB3DCFqDiSzHPBkvSQU7/1
-         ARfBXBv6cFzOjaWh+JerzOI2v5WTvgqMRdwX3XRYHJOQ/bMo0EPsBvdMJlCcZ2qiedRE
-         03E/08n9fH/SPMmg8wDKXE3wezITjh0Ku7x2GHRQJxOB28dnC8WtnI6ZBWinc58SZVuy
-         SMn1h1Gw/QOgZrbW+ApQnfN+ZY7XwXBwNNPCZU9vR3Re+TkWn2jpxFHrOTbRTUk37cfE
-         AgaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:references:user-agent:from:to:cc:subject:date
-         :in-reply-to:message-id:mime-version:content-transfer-encoding;
-        bh=vwsEf23SGv9uU5Z5WKKS3nYhdclo4TxJUctKhcssOgU=;
-        b=zfGDTR7XxIx7sIi8fQVGQsMwo/8MPScPxvIlaMiKo7r02Nrd6XFLGTIAQk0xn7zTbY
-         puqDw8ODQET2t7BP8RR34zA2N9S5++hfDfWcIr2fEmLJ+e1PJoazlhavyDblLYe+4wob
-         xj6s4T73e/s9w0J22UejksoEz76Y4Vw1InkIuSw3hkbak6SKNoV4RFCK2zSqxJ+IGGAd
-         ygxavWQxM6cxxa91KCwED6oDoi3cOxtr8hWUA2+S7LdScKRZbZfukGr5R//vpozwuF24
-         cpOriSy+3Ol5M3CJTaNMUKR5vh11AFvyCF+CE3BauxaBLIeGVz9wcHxAdAeVcbAyWLOH
-         Sd+Q==
-X-Gm-Message-State: AOAM5314TNyfabEbrPj8HTs4IgkZgpj53EcQcproxeaJ/UlW+gDISJ/C
-	CVFSGs7bFNa9XtG0emDVCwNHIw==
-X-Google-Smtp-Source: ABdhPJxcq//GLw34w34R/ZbAznfxC0Uo39AL2FcFmtAlAOmZNvx3LMgnwn1d/9NJkypRc95UVUwxTA==
-X-Received: by 2002:a05:6402:b42:b0:415:e6e7:65aa with SMTP id bx2-20020a0564020b4200b00415e6e765aamr21292242edb.105.1647285791693;
-        Mon, 14 Mar 2022 12:23:11 -0700 (PDT)
-References: <20220314160108.1440470-1-armbru@redhat.com>
- <20220314160108.1440470-3-armbru@redhat.com>
-User-agent: mu4e 1.7.10; emacs 28.0.92
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Markus Armbruster <armbru@redhat.com>
-Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>, Richard
- Henderson <richard.henderson@linaro.org>, Gerd Hoffmann
- <kraxel@redhat.com>, Christian Schoenebeck <qemu_oss@crudebyte.com>,
- "Gonglei (Arei)" <arei.gonglei@huawei.com>, =?utf-8?Q?Marc-Andr=C3=A9?=
- Lureau
- <marcandre.lureau@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, Igor
- Mammedov <imammedo@redhat.com>, Ani Sinha <ani@anisinha.ca>, Laurent
- Vivier <lvivier@redhat.com>, Amit Shah <amit@kernel.org>, Peter Maydell
- <peter.maydell@linaro.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- =?utf-8?Q?Herv=C3=A9?= Poussineau <hpoussin@reactos.org>, Aleksandar Rikalo
- <aleksandar.rikalo@syrmia.com>, Corey Minyard <cminyard@mvista.com>,
- Patrick Venture <venture@google.com>, Eduardo Habkost
- <eduardo@habkost.net>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Peter Xu <peterx@redhat.com>, Jason Wang <jasowang@redhat.com>,
- =?utf-8?Q?C=C3=A9dric?= Le
- Goater <clg@kaod.org>, Daniel Henrique Barboza <danielhb413@gmail.com>,
- David Gibson <david@gibson.dropbear.id.au>, Greg Kurz <groug@kaod.org>,
- Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <f4bug@amsat.org>, Jean-Christophe
- Dubois
- <jcd@tribudubois.net>, Keith Busch <kbusch@kernel.org>, Klaus Jensen
- <its@irrelevant.dk>, Yuval Shaia <yuval.shaia.ml@gmail.com>, Yoshinori
- Sato <ysato@users.sourceforge.jp>, Magnus Damm <magnus.damm@gmail.com>,
- Fabien Chouteau <chouteau@adacore.com>, KONRAD Frederic
- <frederic.konrad@adacore.com>, Mark Cave-Ayland
- <mark.cave-ayland@ilande.co.uk>, Artyom Tarasenko <atar4qemu@gmail.com>,
- Alex Williamson <alex.williamson@redhat.com>, Eric Auger
- <eric.auger@redhat.com>, Max Filippov <jcmvbkbc@gmail.com>, Juan Quintela
- <quintela@redhat.com>, "Dr. David Alan Gilbert" <dgilbert@redhat.com>,
- Konstantin Kostiuk <kkostiuk@redhat.com>, Michael Roth
- <michael.roth@amd.com>, =?utf-8?Q?Daniel_P=2E_Berrang=C3=A9?=
- <berrange@redhat.com>, Pavel
- Dovgalyuk <pavel.dovgaluk@ispras.ru>, David Hildenbrand
- <david@redhat.com>, Wenchao Wang <wenchao.wang@intel.com>, Colin Xu
- <colin.xu@intel.com>, Kamil Rytarowski <kamil@netbsd.org>, Reinoud Zandijk
- <reinoud@netbsd.org>, Sunil Muthuswamy <sunilmut@microsoft.com>, Cornelia
- Huck <cohuck@redhat.com>, Thomas Huth <thuth@redhat.com>, Eric Blake
- <eblake@redhat.com>, Vladimir Sementsov-Ogievskiy
- <vsementsov@virtuozzo.com>, John Snow <jsnow@redhat.com>,
- kvm@vger.kernel.org, qemu-arm@nongnu.org, xen-devel@lists.xenproject.org,
- qemu-ppc@nongnu.org, qemu-block@nongnu.org, haxm-team@intel.com,
- qemu-s390x@nongnu.org
-Subject: Re: [PATCH 2/3] 9pfs: Use g_new() & friends where that makes
- obvious sense
-Date: Mon, 14 Mar 2022 19:23:04 +0000
-In-reply-to: <20220314160108.1440470-3-armbru@redhat.com>
-Message-ID: <87ee345of5.fsf@linaro.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Cc:From:
+	References:To:Subject:MIME-Version:Date:Message-ID;
+	bh=Gx1T1YwN8lncQCfM4GtnxhUbRf9XrOEGHRpQ1DFMTTc=; b=xdXJSkReqAN+vf1IQ0+KHb6xBg
+	X/nqVuTbPLdzp353tDVSbITM2tmmtY3tLVzpgYGfVv3Ce10PzNM/QKlW2bP8fXGFPa2PWWzrY2ZSJ
+	r29jVTyG5c/fWvXN8gxoflvSB+Z/JDx0HIysISnBBlIwFglp5APTprk6AQ76d+Pms3kE=;
+Message-ID: <ed3d12df-e616-8dd3-cb0c-e200f83869d8@xen.org>
+Date: Mon, 14 Mar 2022 19:23:49 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.7.0
+Subject: Re: [PATCH 23/36] xen/arch: coloring: manually calculate Xen physical
+ addresses
+To: Marco Solieri <marco.solieri@minervasys.tech>
+References: <20220304174701.1453977-1-marco.solieri@minervasys.tech>
+ <20220304174701.1453977-24-marco.solieri@minervasys.tech>
+From: Julien Grall <julien@xen.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Marco Solieri <marco.solieri@unimore.it>,
+ Andrea Bastoni <andrea.bastoni@minervasys.tech>,
+ "lucmiccio@gmail.com" <lucmiccio@gmail.com>
+In-Reply-To: <20220304174701.1453977-24-marco.solieri@minervasys.tech>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+Hi,
 
-Markus Armbruster <armbru@redhat.com> writes:
+On 04/03/2022 17:46, Marco Solieri wrote:
+> From: Luca Miccio <lucmiccio@gmail.com>
+> 
+> During Xen coloring procedure, we need to manually calculate consecutive
+> physical addresses that conform to the color selection. Add an helper
+> function that does this operation. The latter will return the next
+> address that conforms to Xen color selection.
+> 
+> The next_colored function is architecture dependent and the provided
+> implementation is for ARMv8.
+> 
+> Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
+> Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
+> ---
+>   xen/arch/arm/coloring.c             | 43 +++++++++++++++++++++++++++++
+>   xen/arch/arm/include/asm/coloring.h | 14 ++++++++++
+>   2 files changed, 57 insertions(+)
+> 
+> diff --git a/xen/arch/arm/coloring.c b/xen/arch/arm/coloring.c
+> index 761414fcd7..aae3c77a7b 100644
+> --- a/xen/arch/arm/coloring.c
+> +++ b/xen/arch/arm/coloring.c
+> @@ -222,6 +222,49 @@ uint32_t get_max_colors(void)
+>       return max_col_num;
+>   }
+>   
+> +paddr_t next_xen_colored(paddr_t phys)
+> +{
+> +    unsigned int i;
+> +    unsigned int col_next_number = 0;
+> +    unsigned int col_cur_number = (phys & addr_col_mask) >> PAGE_SHIFT;
+> +    int overrun = 0;
 
-> g_new(T, n) is neater than g_malloc(sizeof(T) * n).  It's also safer,
-> for two reasons.  One, it catches multiplication overflowing size_t.
-> Two, it returns T * rather than void *, which lets the compiler catch
-> more type errors.
->
-> This commit only touches allocations with size arguments of the form
-> sizeof(T).
->
-> Patch created mechanically with:
->
->     $ spatch --in-place --sp-file scripts/coccinelle/use-g_new-etc.cocci \
-> 	     --macro-file scripts/cocci-macro-file.h FILES...
->
-> Except this uncovers a typing error:
->
->     ../hw/9pfs/9p.c:855:13: warning: incompatible pointer types assigning=
- to 'QpfEntry *' from 'QppEntry *' [-Wincompatible-pointer-types]
-> 	    val =3D g_new0(QppEntry, 1);
-> 		^ ~~~~~~~~~~~~~~~~~~~
->     1 warning generated.
->
-> Harmless, because QppEntry is larger than QpfEntry.  Fix to allocate a
-> QpfEntry instead.
->
-> Cc: Greg Kurz <groug@kaod.org>
-> Cc: Christian Schoenebeck <qemu_oss@crudebyte.com>
-> Signed-off-by: Markus Armbruster <armbru@redhat.com>
+This only looks to be used as an unsigned value. So please use 'unsigned 
+int'.
 
-Reviewed-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
+> +    paddr_t ret;
+> +
+> +    /*
+> +     * Check if address color conforms to Xen selection. If it does, return
+> +     * the address as is.
+> +     */
+> +    for( i = 0; i < xen_col_num; i++)
 
---=20
-Alex Benn=C3=A9e
+Coding style: missing space after 'for' and before ')'.
+
+> +        if ( col_cur_number == xen_col_list[i] )
+> +            return phys;
+> +
+> +    /* Find next col */
+> +    for( i = xen_col_num -1 ; i >= 0; i--)
+
+i is unsigned. So the 'i >= 0' will always be true as it will wrap to 
+2^32 - 1. What did you intend to check?
+
+Coding style: missing space after 'for', '-' and before ')'.
+
+> +    {
+> +        if ( col_cur_number > xen_col_list[i])
+
+Coding style: missing space before ')'.
+
+> +        {
+> +            /* Need to start to first element and add a way_size */
+> +            if ( i == (xen_col_num - 1) )
+> +            {
+> +                col_next_number = xen_col_list[0];
+> +                overrun = 1;
+> +            }
+> +            else
+> +            {
+> +                col_next_number = xen_col_list[i+1];
+
+Coding style: Missing space before and after '+'.
+
+> +                overrun = 0;
+> +            }
+> +            break;
+> +        }
+> +    }
+> +
+> +    /* Align phys to way_size */
+> +    ret = phys - (PAGE_SIZE * col_cur_number);
+
+I am not sure to understand how the comment is matching with the code. 
+ From the comment, I would expect the expression to contain 'way_size'.
+
+> +    /* Add the offset based on color selection*/
+
+Coding style: missing space before '*/'.
+
+> +    ret += (PAGE_SIZE * (col_next_number)) + (way_size*overrun);
+Coding style: Missing space before and after '*'.
+
+> +    return ret;
+> +}
+> +
+>   bool __init coloring_init(void)
+>   {
+>       int i, rc;
+> diff --git a/xen/arch/arm/include/asm/coloring.h b/xen/arch/arm/include/asm/coloring.h
+> index 22e67dc9d8..8c4525677c 100644
+> --- a/xen/arch/arm/include/asm/coloring.h
+> +++ b/xen/arch/arm/include/asm/coloring.h
+> @@ -28,6 +28,20 @@
+>   
+>   bool __init coloring_init(void);
+>   
+> +/*
+> + * Return physical page address that conforms to the colors selection
+> + * given in col_selection_mask after @param phys.
+> + *
+> + * @param phys         Physical address start.
+> + * @param addr_col_mask        Mask specifying the bits available for coloring.
+> + * @param col_selection_mask   Mask asserting the color bits to be used,
+> + * must not be 0.
+
+The function belows have only one parameter. Yet, you are description 3 
+parameters here.
+
+> + *
+> + * @return The lowest physical page address being greater or equal than
+> + * 'phys' and belonging to Xen color selection
+> + */
+> +paddr_t next_xen_colored(paddr_t phys);
+> +
+>   /*
+>    * Check colors of a given domain.
+>    * Return true if check passed, false otherwise.
+
+Cheers,
+
+-- 
+Julien Grall
 
