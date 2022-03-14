@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 587A14D8DC1
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Mar 2022 21:05:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.290451.492581 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C4F84D8F14
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Mar 2022 22:50:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.290463.492603 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nTqvz-0008Nd-2v; Mon, 14 Mar 2022 20:04:51 +0000
+	id 1nTsZY-00038N-Rj; Mon, 14 Mar 2022 21:49:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 290451.492581; Mon, 14 Mar 2022 20:04:51 +0000
+Received: by outflank-mailman (output) from mailman id 290463.492603; Mon, 14 Mar 2022 21:49:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nTqvy-0008KH-WC; Mon, 14 Mar 2022 20:04:51 +0000
-Received: by outflank-mailman (input) for mailman id 290451;
- Mon, 14 Mar 2022 20:04:49 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nTqvx-0008Jv-Do
- for xen-devel@lists.xenproject.org; Mon, 14 Mar 2022 20:04:49 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nTqvw-0003zS-LO; Mon, 14 Mar 2022 20:04:48 +0000
-Received: from 54-240-197-227.amazon.com ([54.240.197.227]
- helo=[10.95.108.113]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nTqvw-00089o-E4; Mon, 14 Mar 2022 20:04:48 +0000
+	id 1nTsZY-000368-On; Mon, 14 Mar 2022 21:49:48 +0000
+Received: by outflank-mailman (input) for mailman id 290463;
+ Mon, 14 Mar 2022 21:49:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WDqM=TZ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nTsZW-000362-On
+ for xen-devel@lists.xen.org; Mon, 14 Mar 2022 21:49:46 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a7fb55a6-a3e0-11ec-8eba-a37418f5ba1a;
+ Mon, 14 Mar 2022 22:49:44 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 2A9BFB8104A;
+ Mon, 14 Mar 2022 21:49:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AF40C340E9;
+ Mon, 14 Mar 2022 21:49:40 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,53 +43,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=sHF1qc9LISx5MQC1Iy3sXQ7I+qZTL7b+HYRhyvmRhqw=; b=NaMBC6fN9AUKLy0vhiydrttnfw
-	BfAZjM/lsVIby7ALnIrMVSPsJ0y8f+FhWhSfwJ0BnZTlamMVIKp8Bhp8sBw8aWoLqFuY2N5ILsOf7
-	FoqIaAwojCeHQ0HlQknLJm271mNgqhmeYwLEZb0iGiUF5yf4EayYdnMFpvuXQVKLh8mg=;
-Message-ID: <b323355e-7b3f-07c0-7a0a-d1cb8efe9a7b@xen.org>
-Date: Mon, 14 Mar 2022 20:04:46 +0000
+X-Inumbo-ID: a7fb55a6-a3e0-11ec-8eba-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1647294580;
+	bh=4vwLbzFgvDvk6KFpsR5PTdGgxDOhtYqyDJqRCKkQyb4=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=A++Df845vISkTGM4x/maqYKBQrmSw4W84zwZv30m8offWS+dUssBFbq/3smHZ2dDS
+	 9h817yF5LxOt6sjNYZNsPbmRDd9OfNQ886+X3BkgvoqrfuxhQyDRljXyhk4jKjdQL9
+	 xqayvmr+8Er01nzXRAb7xNMA8ITMk6ArItqZpqFEiLw7zNsDdQBwRXCeuJh9GzmRGk
+	 j3wQc8N7b5mABacblbo/kXoOoyLy2Es3qlR/KC167yKM4gGu1lC8hFn39wDobJuFJs
+	 X04khQCxjzyPs/InE87AppmtEgl4u9F0rFaYXBwnq1JnHY663RvISdB9hmBjq+Yq7o
+	 ZsbLlEFJjPVfw==
+Date: Mon, 14 Mar 2022 14:49:39 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: George Dunlap <george.dunlap@citrix.com>
+cc: xen-devel@lists.xen.org, Henry Wang <Henry.Wang@arm.com>, 
+    Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+Subject: Re: [PATCH] MAINTAINERS: Propose Henry Wang as the new release
+ manager
+In-Reply-To: <20220310214655.14510-1-george.dunlap@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2203141449160.3497@ubuntu-linux-20-04-desktop>
+References: <20220310214655.14510-1-george.dunlap@citrix.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.7.0
-Subject: Re: [PATCH 31/36] Disable coloring if static memory support is
- selected
-To: Marco Solieri <marco.solieri@minervasys.tech>,
- xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Marco Solieri <marco.solieri@unimore.it>,
- Andrea Bastoni <andrea.bastoni@minervasys.tech>,
- Luca Miccio <lucmiccio@gmail.com>
-References: <20220304174701.1453977-1-marco.solieri@minervasys.tech>
- <20220304174701.1453977-32-marco.solieri@minervasys.tech>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20220304174701.1453977-32-marco.solieri@minervasys.tech>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-Hi Marco,
-
-On 04/03/2022 17:46, Marco Solieri wrote:
-> From: Luca Miccio <lucmiccio@gmail.com>
+On Thu, 10 Mar 2022, George Dunlap wrote:
+> ARM has proposed Henry Wang as a release manager for 4.17.  Signify
+> this by giving him maintainership over CHANGELOG.md.
 > 
-> Static memory assumes to have physically contiguous memory mapped to
-> domains. This assumption cannot be made when coloring is enabled.
-> These two features have to be mutually exclusive.
+> Below is an introduction given by Bertrand Marquis:
+> 
+> Henry Wang is an open-source software engineer at Arm focusing on the
+> hypervisor and virtualization technology. Before joining the
+> AIS-Hypervisor team, he was one of the leading Arm contributors of the
+> Rust-VMM and the Cloud Hypervisor community.  He is the Arm reviewer
+> of the Cloud Hypervisor project. His work includes basic project
+> enabling on Arm platform, Arm device emulation, advanced features
+> support on Arm and bug fixes.
+> 
+> After joining the AIS-Hypervisor team at Arm, he has been involved in Xen feature
+> development on Arm in various areas, including:
+> 
+> 1. Xen Arm MPAM extension research and PoC: Ongoing, the design will
+> share in xen-devel soon.
+> 
+> 2. Port of Xen to Arm MPU systems: Working together with Penny Zheng
+> on coding and testing, will be soon sent to xen-devel.
+> 
+> 3. Static Xen heap on Arm: Work done but depend on the direct mapping
+> series from Penny Zheng, will be upstreamed in the next weeks.
+> 
+> 4. Virtio PoC for Xen on Arm using kvmtool as the Xen virtio backend:
+> Work done, including the enabling of the virtio and the virtio
+> performance tuning.
+> 
+> 5. Participated in code reviews and discussions in xen-devel,
+> including the foreign memory mapping series from EPAM, etc.
+> 
+> Signed-off-by: George Dunlap <george.dunlap@citrix.com>
 
-I understand that at runtime, you want them to be mutually exclusive.
-But I am not sure to understand why this needs to be mutually exclusive 
-at compile time.
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
-In fact, I think it would be nice if we have a same binary Xen that can 
-be used with/without coloring. Could you outline any reasons that would 
-make this goal difficult to achieve?
 
-Cheers,
-
--- 
-Julien Grall
+> ---
+> CC: Henry Wang <Henry.Wang@arm.com>
+>  CC: Ian Jackson <iwj@xenproject.org>
+> CC: Wei Liu <wl@xen.org>
+> CC: Andrew Cooper <andrew.cooper3@citrix.com>
+> CC: Jan Beulich <jbeulich@suse.com>
+> CC: Roger Pau Monne <roger.pau@citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Julien Grall <julien@xen.org>
+> ---
+>  MAINTAINERS | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index d4b06f5bfb..6a097b43eb 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -255,6 +255,7 @@ S:	Supported
+>  F:	xen/drivers/passthrough/arm/smmu-v3.c
+>  
+>  Change Log
+> +M:	Henry Wang <Henry.Wang@arm.com>
+>  R:	Community Manager <community.manager@xenproject.org>
+>  S:	Maintained
+>  F:	CHANGELOG.md
+> -- 
+> 2.35.1
+> 
 
