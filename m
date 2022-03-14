@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79F004D81CF
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Mar 2022 12:57:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.290169.492092 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE5774D831A
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Mar 2022 13:12:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.290189.492104 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nTjJi-0008Eg-UU; Mon, 14 Mar 2022 11:56:50 +0000
+	id 1nTjYX-0002Vh-KQ; Mon, 14 Mar 2022 12:12:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 290169.492092; Mon, 14 Mar 2022 11:56:50 +0000
+Received: by outflank-mailman (output) from mailman id 290189.492104; Mon, 14 Mar 2022 12:12:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nTjJi-0008CJ-RJ; Mon, 14 Mar 2022 11:56:50 +0000
-Received: by outflank-mailman (input) for mailman id 290169;
- Mon, 14 Mar 2022 11:56:48 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nTjJg-0008C9-T4; Mon, 14 Mar 2022 11:56:48 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nTjJg-00038f-RM; Mon, 14 Mar 2022 11:56:48 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nTjJg-0002pN-Cn; Mon, 14 Mar 2022 11:56:48 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nTjJg-0004WR-CL; Mon, 14 Mar 2022 11:56:48 +0000
+	id 1nTjYX-0002TA-GJ; Mon, 14 Mar 2022 12:12:09 +0000
+Received: by outflank-mailman (input) for mailman id 290189;
+ Mon, 14 Mar 2022 12:12:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mLdE=TZ=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1nTjYW-0002T4-HA
+ for xen-devel@lists.xenproject.org; Mon, 14 Mar 2022 12:12:08 +0000
+Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
+ [64.147.123.19]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f0fed5e2-a38f-11ec-853b-5f4723681683;
+ Mon, 14 Mar 2022 13:11:57 +0100 (CET)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id E9F3A3200C4A
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Mar 2022 08:12:04 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Mon, 14 Mar 2022 08:12:05 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA for
+ <xen-devel@lists.xenproject.org>; Mon, 14 Mar 2022 08:12:03 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,119 +43,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=LRkQ9KgOGIhWMj9exR0kGDNsqtBZ1b7iRtO6yNr9WZs=; b=UWacz7fsyKWoL2FEkvIQg0k43h
-	B4BONXQSiTcNYDMQNwHRrM9hXZc5lxMc/4tO53sry+cgePp4Lasrm1L/RzFtdpiNlUV5GCirCuNxF
-	rHmdHvQPsYtV2gOpPx7OU1bz0fFi9Xc42xTnD7d1DGC9VvGwu7IeAJYdJxft/2mJC/4M=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168581-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: f0fed5e2-a38f-11ec-853b-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; bh=WJaavbppBbDykN/gozQA4SsbY4XMOo60fQI2ApBw9
+	30=; b=FffC23GLxhgObHTj9Xb9112uCVpB8XONGcPKkiAIuXzC+GNwGnm7u9y3V
+	RBtX3mHsLbO5D6xrFxFj75qQtI9VbJ7Xbr66A0DT07n24g2fjG4ZW16B6NV+TarH
+	cOG4uaD+Sb1O1N+qTp0PcyYPE8ahbqMr3T0OubfZHqfdzkT9fF+2ixu/UeBZ7E5a
+	KMJ7DMmPfHcNNwHIadcWA2Rtj0zEfZjzBMHwkU+pw1CAEkOBu05+Q31qV4I5SUhz
+	kOm543nTz1tvkYY8VtQEuhq44a0S4k2e+/834Z4pisI69yRDk0tUspLsHmBM79FS
+	NXv64PsyTWtK2Uu6btP7/dIkWud0A==
+X-ME-Sender: <xms:FDEvYuONGkRY0ypFNi9ozSTw8Vy9Pb68bYwOs3Tu3_B2WdX5xvZeYw>
+    <xme:FDEvYs93Asrv0jHvAq13VK2Spv7N8y4gB4NHlDrBh32u50VZasPoe4a26SdsT0aAo
+    hFt0mLJ7DhHFQ>
+X-ME-Received: <xmr:FDEvYlRV5SaxWIdWLHFTNv7QXt2ekj_lVgqkfjBz8dPrWjGmEC-yeDB79EwAA7xpt5OHDQR4dEHHLnC4lMqyRy_AQGtnesIyiQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddruddvkedgfeeiucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkgggtugesghdtreertd
+    dtjeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhi
+    uceomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqne
+    cuggftrfgrthhtvghrnhepteduteeiudevkeegvefhtdekhfelgffhhedukedvvdeuuddv
+    jeehvddtieehudfgnecuffhomhgrihhnpehgihhthhhusgdrtghomhenucevlhhushhtvg
+    hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhn
+    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:FDEvYus4omBJ-amrsk_KOPIfc_Ci5F7XU-BspFmjeRukX4583tYvjQ>
+    <xmx:FDEvYmciHWNQ11CP8jzEysPCOQ3Y857c7foX5SYBAFlb7scOQPaOBQ>
+    <xmx:FDEvYi3MKuraA71Kt1srVdWwnJcblrKblbtoruFV69NYMel4g3g_PA>
+    <xmx:FDEvYgqyq1AE9DDhaFOGyxVsNGw0z8eDOCa13wdIoAkNhvM5o8u1bw>
+Date: Mon, 14 Mar 2022 13:12:01 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Subject: System hangs shortly after S3 resume, if suspended for a longer time
+Message-ID: <Yi8xEf0eUsh0ObPT@mail-itl>
 MIME-Version: 1.0
-Subject: [ovmf test] 168581: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=a13dfc769bd7097d8d9ffe3e029a2c1d062d712b
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 14 Mar 2022 11:56:48 +0000
-
-flight 168581 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168581/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 a13dfc769bd7097d8d9ffe3e029a2c1d062d712b
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   14 days
-Failing since        168258  2022-03-01 01:55:31 Z   13 days  131 attempts
-Testing same since   168579  2022-03-14 08:41:36 Z    0 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abner Chang <abner.chang@hpe.com>
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="2mOIVKUrHDzd1AkA"
+Content-Disposition: inline
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+--2mOIVKUrHDzd1AkA
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Mar 2022 13:12:01 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Subject: System hangs shortly after S3 resume, if suspended for a longer time
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Hi,
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+I have another S3 issue, on the TGL system (the one with S3 present). If
+I suspend it for a short time, it works. But if I suspend it for longer,
+then it hangs shortly after resume - sometimes dom0's screenlocker
+manages to display password prompt, sometimes not even that.
+I have console on this system (it is the Intel LPSS one...), but I don't
+see anything interesting there. When it hangs, it stops responding to
+triple Ctrl-a too. Adding sync_console (Xen) and no_console_suspend
+(Linux) doesn't give much more info.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+I haven't exactly figured out what "longer" means. 1h is enough, 1min is
+not.
 
+Another user reported similar issue here:
+https://github.com/QubesOS/qubes-issues/issues/7340
+That system uses totally different firmware (Lenovo vs Coreboot + EDK2).
+While it doesn't completely rule out firmware issue, I'd say it's
+unlikely in this case.
 
-Not pushing.
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-(No revision log; it would be 629 lines long.)
+--2mOIVKUrHDzd1AkA
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmIvMREACgkQ24/THMrX
+1yzYwQf/dsqltCUW1GQom1Q/5R9U/nEve8ru3XxZ0sOQjYRXsYL3Z4CVHgz4i7vs
+ZnBj4qtcBflIq+R6P2L5cywOY+rK6FGJSzbIKtezqV2LGz7Ho/eokuho4wwz2QYx
+nkTBdC0tJ4KeeHz3pAlqbz47Hx9gasTa0fzszuHAAAddWa/+9YPUnXqnTWH9/B2g
+mnFMiY4161Kt6WZ1kJhfGWm65C6TNRb5pVibaISaTYKUEKfe8FFAPWj4wem7f+Fs
+AkDfosyZ26N5KRUPNZ0OuYHr3LrrF2oLawkwBe4WMChElEeROsDwI6XntTZrVL8R
+Ew4lpBvdMOjD3JAvmUnZ1csPrpeTlg==
+=g8y2
+-----END PGP SIGNATURE-----
+
+--2mOIVKUrHDzd1AkA--
 
