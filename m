@@ -2,37 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DE454D9D03
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Mar 2022 15:10:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.290818.493329 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 068294D9D3A
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Mar 2022 15:18:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.290821.493340 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nU7sV-0000y1-0X; Tue, 15 Mar 2022 14:10:23 +0000
+	id 1nU80J-0001g0-Qz; Tue, 15 Mar 2022 14:18:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 290818.493329; Tue, 15 Mar 2022 14:10:22 +0000
+Received: by outflank-mailman (output) from mailman id 290821.493340; Tue, 15 Mar 2022 14:18:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nU7sU-0000vC-Tg; Tue, 15 Mar 2022 14:10:22 +0000
-Received: by outflank-mailman (input) for mailman id 290818;
- Tue, 15 Mar 2022 14:10:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nU80J-0001e2-NK; Tue, 15 Mar 2022 14:18:27 +0000
+Received: by outflank-mailman (input) for mailman id 290821;
+ Tue, 15 Mar 2022 14:18:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CN+Q=T2=gmail.com=dpsmith.dev@srs-se1.protection.inumbo.net>)
- id 1nU7sS-0000v6-NL
- for xen-devel@lists.xenproject.org; Tue, 15 Mar 2022 14:10:20 +0000
-Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
- [2607:f8b0:4864:20::f35])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a505d9f7-a469-11ec-853b-5f4723681683;
- Tue, 15 Mar 2022 15:10:19 +0100 (CET)
-Received: by mail-qv1-xf35.google.com with SMTP id im7so15063569qvb.4
- for <xen-devel@lists.xenproject.org>; Tue, 15 Mar 2022 07:10:19 -0700 (PDT)
-Received: from [10.10.1.138] (static-72-81-132-2.bltmmd.fios.verizon.net.
- [72.81.132.2]) by smtp.gmail.com with ESMTPSA id
- v12-20020a05622a130c00b002e1b3ccd9adsm11032306qtk.79.2022.03.15.07.10.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Mar 2022 07:10:17 -0700 (PDT)
+ <SRS0=fAQZ=T2=citrix.com=prvs=0668da279=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1nU80I-0001dw-Li
+ for xen-devel@lists.xenproject.org; Tue, 15 Mar 2022 14:18:26 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c53a3bc3-a46a-11ec-8eba-a37418f5ba1a;
+ Tue, 15 Mar 2022 15:18:24 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,141 +36,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a505d9f7-a469-11ec-853b-5f4723681683
+X-Inumbo-ID: c53a3bc3-a46a-11ec-8eba-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1647353904;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=tluMWh6jAeaWvyZmULYct3wk37bdHQOQKk1VmBtS/EU=;
+  b=DPyUDuT3KWRETXsV7z7Fca0xAK1lgaSmuQPogVl98/tVrI5kaI3mIY6q
+   tazeudDVQU3Bu9lVL1pJuB/OWq8LOHGNDS6CsGvzHM1CQJkCR9X63cvFx
+   Ae8x55DA9OYG4CCtrRSZPUsOqsd5miQjZKa1oadeFFWd6IVdZ5C+avhoH
+   g=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+X-SBRS: 5.1
+X-MesageID: 66685535
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:jbBnzqx8oeTE+eOSxt16t+cgxirEfRIJ4+MujC+fZmUNrF6WrkUAy
+ 2YeWT/VPa2LZDP8ct0gaYu+8R5UsJDcx9M2HQZpqyAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
+ 59DAjUVBJlsFhcwnj/0bv656yMUOZigHtIQMsadUsxKbVIiGX9JZS5LwbZj2NYz2IXhWGthh
+ PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
+ gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
+ Nplp8WIbFYCMbT2vs8ebDYHAzNXFqlN9+qSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
+ aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DJoQQt2sm1TjEJf0nXYrCU+PB4towMDIY2J4QTauDP
+ JdxhTxHZQ36eiNSNAsuEMw9uduXu3yibnpzgQfAzUYwyzeKl1EguFT3C/LKfvSaSMMTmVyXz
+ krE9WnkBhARNPSE1CGItHmrg4fnjS79HY4fCrC83vprm0GIgHweDgUMUlm2quX/jVSxM++zM
+ GRNpHBo9/JrshX2EJ+tBHVUvUJooDYOAuJ1QsY18Tur4anrzFmJFEEvSjVOPYlOWNANeRQm0
+ VqAntXMDDNpsaGIRX/1yop4vQ9eKgBOczZcOHZsoR8tpoC6/dpt1k6nosNLSvbdszHjJd3nL
+ 9lmRgAajq5bs8ME3r7TEbvv02P1/cihouLYC2zqsoOZAuFROdbNi2+AswGzARN8wGCxFQHpU
+ J8swZT20Qz2JcvR/BFhuc1UdF1T296LMSfHnXlkFIQ7+jKm9haLJN4Mv2svfh4zYp9eI1cFh
+ XM/XysKvfe/21PwMcdKj3+ZUZx2ncAM6/y4PhwrUja+SscoL1LWlM2fTUWRw3rsgCARfVIXY
+ v+mnTKXJS9CU8xPlWPuL89EiOND7n1ulAv7GMGgpzz6gOX2WZJgYepcWLd4Rrtit/3sTcS82
+ 4s3CvZmPD0ECbygOHaLqdBPRb3IRFBiba3LRwVsXrfrCiJtGX07Cu+XxrUkeod/mL9SmPuO9
+ Xa4MnK0AnKl7ZEbAW1mskxeVY4=
+IronPort-HdrOrdr: A9a23:Luukla3JrY3SmL0pZgV71QqjBNEkLtp133Aq2lEZdPU1SKylfq
+ WV98jzuiWYtN98YhsdcLO7WZVoP0myyXcd2+B4AV7IZmXbUQWTQr1f0Q==
+X-IronPort-AV: E=Sophos;i="5.90,183,1643691600"; 
+   d="scan'208";a="66685535"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bBJaLXkdFWrrBKdyxkk54eAeV0StClXDneqv606POtqfEuzwNnMpNnUFjSdFmdLksJNU8O9oamAScNu42Qmz2DQ4QX4ySkGzRAVOCFDNAJcXzdDwfo48aL8ZNIlNG25xRm+C4d22z4hhnlwRnx082CHw5tZ1tB27/L16gwqWfKXUyzwNAFNBaW2HR5hBYyJ6iqUH5aEv2VdiG6GzpN4boYaHD3X4rV2XxH81yop9jT62q08YmQeTKI/fk9FZfs7d3LXTvcd+aZ8lppM0EDJ5bNt/Aco4Di24pGDZ6zu3FKwv6Xf3xkDUSqnm1cCtTCj0P/lR/lvGNOobM1aN2x/5xw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Bg8XsokNI9BTbZP2j0kZdtOCd/WehMCLEDrmvQYDE00=;
+ b=T/gpEThYBaBrsfzhOgBfvcGNm9fEI6nOVV7NkMltlpS8lbXoqUEfQqWHfBjvLmq/WU1cwh+JKD48LnU4LgXBXTL4daUiE+ucOnRnUwowIoN+NSOWWa4qSypr5ydS8wPtHAbC1NxFGd/u12r/Olo9QOJxDDLxZDDkmAqJVHpKJB9dsJX109vOIZq70IYscPkK+ZOfTKvhmu4fn9CJPLbLIj8QUMMNA3/fAbPJuz53Eb6wVvUQtO4DuwfwZEk830dD/xYooWdgrcYt5PgA/F7kRpef8o87/RQwUX+1k756ZsAecExPsUqEJJNVe62YzOyuqBSfFGjMLxMuO8vVFGNm7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=Fd21nn7utQUFzxQeohDqeIbJOfE8Y2VfTpbAVYToe/Y=;
-        b=hCC4Dz84tLvXl4s6U8hdazZJePjFF2Bp5TZrfNn/RZvTuctV+PfkfGOanm+ZhHGotU
-         pFsqZ1QBieppcVs97MfewBcT2DA9ACkZVtLMtmsxB2fQ5bHueN8R6IO7oDik+tOH1RPQ
-         0ob6H0lFv3uZjjafaz46KtHhUmAdd4aWTQjdGjoGX2U/RKGf66+zpe3dYEg25KH7GG1U
-         Vt3XDiRa/uSUPUmzlCDDTKELAew+Ha4rvQ5fA1TYBHnN9kG1xUr1wgBvsENzAcUEXSDM
-         XOczYDo55MEd98ha03r9TrEuTlAbnhm1XpSlYSEwxu/ZUNg3hK35MiDRR4qrkhlfjO2I
-         sPaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=Fd21nn7utQUFzxQeohDqeIbJOfE8Y2VfTpbAVYToe/Y=;
-        b=eci77LBSw9ODVrY8OLigMAejPzQScvPj6OpUxiVv0V7XD11TGXIB9Y5iejfSb36lCb
-         QAI+XN3z6rtVVOP1EZZWY3wygjFi7eWpuANTARSue641Iq0Eo3rvLz/tAAJTIG0303F0
-         sgVUjSl4rsp+dit5rVemhL1EeafUkoi0sZiIEnUzGojhM3mdXtZ3lV0CWqRlkpyiLn8a
-         e/x0PyAaaEuQAvXFQzseE/7WXitipwNcZlKrz10gbNKQIRe+pVeK7XtXBaeVhYJtnZSL
-         B3aI+ir7Nn6bUr5H1uCFaeY8yG6XJXNyHwC5LVO38UUd1q0Kwn9ou888lQON516bxSJy
-         oHdA==
-X-Gm-Message-State: AOAM533GDnI9mFq0RrcMlXLfTiWehcSkVU37gW9X6VA1o0wHE+OF1TJ1
-	UUM1jxut5BtsCx9B267QZIA=
-X-Google-Smtp-Source: ABdhPJw5JfLj5DL/EeJyw9y6tmsMMc6KxbiIcZGH052bb3lQ2q/72N1oPnS9uLL3GptGX+yn7zVdTQ==
-X-Received: by 2002:a05:6214:2581:b0:440:b232:1ecc with SMTP id fq1-20020a056214258100b00440b2321eccmr7378182qvb.120.1647353418408;
-        Tue, 15 Mar 2022 07:10:18 -0700 (PDT)
-Message-ID: <2f05e63a-96c3-e78f-f7e4-36fd17fcd58c@gmail.com>
-Date: Tue, 15 Mar 2022 10:10:15 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [PATCH v3 2/5] xen: make evtchn_alloc_unbound public
-Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-Cc: jgross@suse.com, Bertrand.Marquis@arm.com, julien@xen.org,
- Volodymyr_Babchuk@epam.com, Luca Miccio <lucmiccio@gmail.com>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>
-References: <alpine.DEB.2.22.394.2201281330520.27308@ubuntu-linux-20-04-desktop>
- <20220128213307.2822078-2-sstabellini@kernel.org>
-From: "Daniel P. Smith" <dpsmith.dev@gmail.com>
-In-Reply-To: <20220128213307.2822078-2-sstabellini@kernel.org>
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Bg8XsokNI9BTbZP2j0kZdtOCd/WehMCLEDrmvQYDE00=;
+ b=Um95l9wKzchcvwbW0S66Q80VwLD1ftCyGXyhwpShthRHw3H5KzTh/YFbdNCn3B6gyxdytJ0DvuleX2GyYECkCvD4WBCIclzD17R89k5n0YFuzgcMXM5SdoEtKuiyAA0M5uJtLUOw7O7dOgpQ3mueEUl2k3/QBgmK78dMSiL8vi4=
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH v2 0/3] amd/msr: implement MSR_VIRT_SPEC_CTRL for HVM guests
+Date: Tue, 15 Mar 2022 15:18:04 +0100
+Message-ID: <20220315141807.22770-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.34.1
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO3P123CA0017.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:ba::22) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 1ec9e0b0-6cbd-4d5d-0fa2-08da068ea6b5
+X-MS-TrafficTypeDiagnostic: CY4PR03MB2902:EE_
+X-Microsoft-Antispam-PRVS: <CY4PR03MB2902E38DB3D47226291770408F109@CY4PR03MB2902.namprd03.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: pMUc9ARbg5nq6FfcwARSbood3JFjgiQny7CiNIkN1PD9ih7JzeW5n/g3ddYZr+p28xCCOHGceLdSoB7NhtSn5u7KRRANjzGczJqJfJkP9RhXlfb6QsCMevr/8NAR+tML4/YMxrmWeY3Pe/OE6W8mbqd5bSiE8L0dO/4QnGJGyquFXaYIBnfd2F3NJ/A8q+Mqwz8/+x1K8mOBsK6VykFAB4XeJSgPMmnS8WR37baSK6vhab5gntdfhS6yefkG6v8CjwbYx9WkRIoqhPmfRrIGL9QPtgBjRJpFhgjBhu3rfuH92Lgk4jWgPR+KfL4xSGthY6gjEaOBIdSDHUNUC2vTZFNphGKlFKlZ1iAK7Z3MJpJfQfGwfgQCUftBXSz4/1ewojcxB2o/8SEdKMHiKaop/ctP7s3zwsy0P5j2T/kvvjlK4V5ZRb9Ergqfyr1/TdJ0jljqeyaiYnt2ezQ3p0zuIMQ513qllwXectN9r6NJepnRquEBOAmpQ8iAyKOAFOga39+iRWKqml1u0VRr7BNNRVQG2AtM/XQrxy091LGamMK3Z6KjkIVqblSqZL0x+oHGiHaTFgXZXXSLnKPGahJsGn24eb6pk7oDtluLONj1eVDFXWyYtc7NEsk4MNoLknePsHZccl8cRT0+v747X35pWA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(6512007)(5660300002)(6506007)(38100700002)(8936002)(6486002)(6916009)(8676002)(36756003)(508600001)(82960400001)(186003)(26005)(1076003)(83380400001)(66556008)(66476007)(66946007)(86362001)(6666004)(2906002)(316002)(2616005)(54906003)(4326008);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bkRqMWsydDlOdDNheVVOKzFmS0pvMG5WL3NmcCtpdStnS01qZkZ3Nyt5akpq?=
+ =?utf-8?B?Uk9aYWdSMVlEbjI2dkpHckhzZ0k0M2d0YUYyTHVBcmxRcjAxZ2pNSTZwMGhv?=
+ =?utf-8?B?NlhnakxBQTRvbjZmdnZGR0swNmo2bi9iY2I0ejdiNi9qYkswb2gwNU9lQjJn?=
+ =?utf-8?B?cFI2Q1NsdEdYSVdtQ3ErT3FmOVlMOGFwYytaWXJZbERmWDNWbmZCVmVnS0hx?=
+ =?utf-8?B?VFllQjlmam01NEJHa1RFbzBBYUFXVHdsbEk3aEtJaUk0ekhQeTgremxpcm9D?=
+ =?utf-8?B?Zlc2NTFCMXNtUDNlWlBXRkFyUnBncVpURlNVWG5CY3k3cW83T2ZXdDVsbkhO?=
+ =?utf-8?B?VGhFV2txdktQa1pIa2NYZHJQWkttZGZEb1ArT0srbC9aRmNTSjFzNlo5a2dm?=
+ =?utf-8?B?QkJMRS9kUzVpd0IwcnliTktjZkdrTUtCYjZmcWd1OHc2VEx3K2hROFhhMnlR?=
+ =?utf-8?B?Nmw3VTZOc2w1c2VUOEk3ZmNXZnBjYjQ5dFZnUEJnQWJKd0pjVzU5SEFiYXJS?=
+ =?utf-8?B?MnpRazVPRHY5SUVpZ3pOcmNTMU1sSVNjSHl2TEhpMS82bkwvNzh0TWplRDRC?=
+ =?utf-8?B?YkZYYjJoVEYreXJtNmEydzVzbE1ORkU3NitucTlBNDUrc2piOEpnVHRFakVE?=
+ =?utf-8?B?REw2NHJqQmhmOEZGOUZ6MW94alVNKytCYVJLelI4R0JoYW1FQ2ljbG9jdnFU?=
+ =?utf-8?B?dHdoVnBreG0vYlI1M1F6TWpIM1lYMXR4TktMUzBMSCtEVVk0aUNmeFhRQVg3?=
+ =?utf-8?B?b1RpK1BnSXc3Y2FVOUQ2Y2lvSEpTUi95WjhaTkVUZU5SMkFnNDk2ZFFqN3Ru?=
+ =?utf-8?B?bGhjTU1LenR0QTRMK3FONXB5b0lBeXNsK0pqUE03SW1MaHdzeFRweXZMUmsx?=
+ =?utf-8?B?YWF6OFdsR1AxemhXaGdHMnp0djhtMENJTUViR3QwdllxV3dSL1JXL3Z0eHFq?=
+ =?utf-8?B?ZjI1TGI3WGIwUzVXMUp4ZHA2SXduUFNmVXQ2R0pIU3RIb3llamdaTDdlNktT?=
+ =?utf-8?B?TlFDdUhKa3B1SEhLVnhySHN1bWhsNWZOWHBDZUEyaHVYR1dxQkpXRktpanZ0?=
+ =?utf-8?B?Z3preVZVeUE0NG11d1J3VUVTNHhyNnAwVXFXc1R6aEcvM0l3U09XYk5zc0pm?=
+ =?utf-8?B?YkdTNldML2thamd3cXVsTU0wM2YzV2grNXF2cmxtQkRpUVJueENmcFMyNUp5?=
+ =?utf-8?B?aHJHaWN6Wi9ZdlMzYzhsTjl0MFUxRlBEWWs4NkwvVEtjMTAzb1VZcmtoM2g3?=
+ =?utf-8?B?TURaQlhNWElRRHY3ditCNWNHNGQxU2RIVzY1YjZWSi9kcmVQZ3MvczU4cXdl?=
+ =?utf-8?B?MHZ6MzNTTFVqZS9nT1VKZHRSK2FteExkZ2FaVjNTb3JYc2Y4NjE3QnVxYjhF?=
+ =?utf-8?B?S0RlRG1Tb1FFcC85OUNEOHFLTllROEJYS2QzaU9teFp4OExDT1hZSm5HdXQ3?=
+ =?utf-8?B?RFVCOUQvV3VLTUd1U3p1LzlUck1GcWFHUzNvLzUxOTVxaGVjTW55RzRtVFZ4?=
+ =?utf-8?B?TGdXTjl2a2toTDZjUU5kb2dxd1VpTXBjTWRHRFBJOURreTNEVDgrZGlCa2d0?=
+ =?utf-8?B?eUxHV2l1THdnaDBPTnVIdTFReFczMlhDRnd0amowNGY5ZWFCczR3RVFJTzNp?=
+ =?utf-8?B?ZW81K0k0MklQZXNHKzlsVk5FRStIY0VWUVV3SDJ0RmZmakI1SHN0dnBHVlZZ?=
+ =?utf-8?B?UWJDWUFIQ0pqSElJaDVRUFFDTzd2QmxQZHFjL1QyVWUxb3M0a09KK2lvZDJn?=
+ =?utf-8?B?cXFoMUtzNWVwT0RYTDVGOCs3dU5rNFFtb2ZkaWFyMi8zTnAvQ2piTW1kSDVD?=
+ =?utf-8?B?ZkZsSUV4UGtQRnFiLzZVZUM3VkdQQ3BnWWJkdkRsZXJGWnFUcXBwaUo5Uk50?=
+ =?utf-8?B?NU1RWlVMTVp1bVVGNSsyWnA1eHM3eUtuenBvVUJuUnBVSlpCNUNFcEdKYUE2?=
+ =?utf-8?Q?1MkcDhXGJLbtjYShPhYkFjb3QETvnSP4?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ec9e0b0-6cbd-4d5d-0fa2-08da068ea6b5
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2022 14:18:18.2102
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QWanpaslFzZMLnD54U3BSidL2K9GaXk1AZGU9Z2vO9OrrR5yWHRS3tUW92HpBcOx2yeElAsN2CJGtJSQ1GtgXA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR03MB2902
+X-OriginatorOrg: citrix.com
 
-On 1/28/22 16:33, Stefano Stabellini wrote:
-> From: Luca Miccio <lucmiccio@gmail.com>
-> 
-> The xenstore event channel will be allocated for dom0less domains. It is
-> necessary to have access to the evtchn_alloc_unbound function to do
-> that, so make evtchn_alloc_unbound public.
-> 
-> Add a skip_xsm parameter to allow disabling the XSM check in
-> evtchn_alloc_unbound (xsm_evtchn_unbound wouldn't work for a call
-> originated from Xen before running any domains.)
-> 
-> Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> CC: Julien Grall <julien@xen.org>
-> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-> CC: Bertrand Marquis <bertrand.marquis@arm.com>
-> CC: Andrew Cooper <andrew.cooper3@citrix.com>
-> CC: George Dunlap <george.dunlap@citrix.com>
-> CC: Jan Beulich <jbeulich@suse.com>
-> CC: Wei Liu <wl@xen.org>
-> ---
-> Changes v3:
-> - expose evtchn_alloc_unbound, assing a skip_xsm parameter
-> ---
->  xen/common/event_channel.c | 13 ++++++++-----
->  xen/include/xen/event.h    |  3 +++
->  2 files changed, 11 insertions(+), 5 deletions(-)
-> 
-> diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
-> index da88ad141a..be57d00a15 100644
-> --- a/xen/common/event_channel.c
-> +++ b/xen/common/event_channel.c
-> @@ -284,7 +284,7 @@ void evtchn_free(struct domain *d, struct evtchn *chn)
->      xsm_evtchn_close_post(chn);
->  }
->  
-> -static int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
-> +int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc, bool skip_xsm)
->  {
->      struct evtchn *chn;
->      struct domain *d;
-> @@ -301,9 +301,12 @@ static int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
->          ERROR_EXIT_DOM(port, d);
->      chn = evtchn_from_port(d, port);
->  
-> -    rc = xsm_evtchn_unbound(XSM_TARGET, d, chn, alloc->remote_dom);
-> -    if ( rc )
-> -        goto out;
-> +    if ( !skip_xsm )
-> +    {
-> +        rc = xsm_evtchn_unbound(XSM_TARGET, d, chn, alloc->remote_dom);
-> +        if ( rc )
-> +            goto out;
-> +    }
+Hello,
 
-Please do not subvert the security framework because it causes an
-inconvenience. As Jan recommended, work within the XSM check to allow
-your access so that we may ensure it is done safely. If you need any
-help making modifications to XSM, please do not hesitate to reach out as
-I will gladly help.
+The following series implements support for MSR_VIRT_SPEC_CTRL
+(VIRT_SSBD) on different AMD CPU families.
 
->      evtchn_write_lock(chn);
->  
-> @@ -1195,7 +1198,7 @@ long do_event_channel_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->          struct evtchn_alloc_unbound alloc_unbound;
->          if ( copy_from_guest(&alloc_unbound, arg, 1) != 0 )
->              return -EFAULT;
-> -        rc = evtchn_alloc_unbound(&alloc_unbound);
-> +        rc = evtchn_alloc_unbound(&alloc_unbound, false);
->          if ( !rc && __copy_to_guest(arg, &alloc_unbound, 1) )
->              rc = -EFAULT; /* Cleaning up here would be a mess! */
->          break;
-> diff --git a/xen/include/xen/event.h b/xen/include/xen/event.h
-> index 21c95e14fd..0a2cdedf7d 100644
-> --- a/xen/include/xen/event.h
-> +++ b/xen/include/xen/event.h
-> @@ -68,6 +68,9 @@ int evtchn_close(struct domain *d1, int port1, bool guest);
->  /* Free an event channel. */
->  void evtchn_free(struct domain *d, struct evtchn *chn);
->  
-> +/* Create a new event channel port */
-> +int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc, bool skip_xsm);
-> +
->  /* Allocate a specific event channel port. */
->  int evtchn_allocate_port(struct domain *d, unsigned int port);
->  
+Note that the support is added backwards, starting with the newer CPUs
+that support MSR_SPEC_CTRL and moving to the older ones either using
+MSR_VIRT_SPEC_CTRL or the SSBD bit in LS_CFG.
+
+Xen is still free to use it's own SSBD setting, as the selection is
+context switched on vm{entry,exit}.
+
+On Zen2 and later, SPEC_CTRL.SSBD exists and should be used in
+preference to VIRT_SPEC_CTRL.SSBD.  However, for migration
+compatibility, Xen offers VIRT_SSBD to guests (in the max CPUID policy,
+not default) implemented in terms of SPEC_CTRL.SSBD.
+
+On Fam15h thru Zen1, Xen exposes VIRT_SSBD to guests by default to
+abstract away the model and/or hypervisor specific differences in
+MSR_LS_CFG/MSR_VIRT_SPEC_CTRL.
+
+Note that if the hardware itself does offer VIRT_SSBD (ie: very likely
+when running virtualized on < Zen2 hardware) and not AMD_SSBD Xen will
+allow untrapped access to MSR_VIRT_SPEC_CTRL for HVM guests.
+
+So the implementation of VIRT_SSBD exposed to HVM guests will use one of
+the following underlying mechanisms, in the preference order listed
+below:
+
+ * SPEC_CTRL.SSBD. (patch 1)
+ * VIRT_SPEC_CTRL.SSBD (untrapped). (patch 2).
+ * Non-architectural way using LS_CFG. (patch 3)
+
+Thanks, Roger.
+
+Roger Pau Monne (3):
+  amd/msr: implement VIRT_SPEC_CTRL for HVM guests on top of SPEC_CTRL
+  amd/msr: allow passthrough of VIRT_SPEC_CTRL for HVM guests
+  amd/msr: implement VIRT_SPEC_CTRL for HVM guests using legacy SSBD
+
+ xen/arch/x86/cpu/amd.c                      | 116 +++++++++++++++++---
+ xen/arch/x86/cpuid.c                        |  28 +++++
+ xen/arch/x86/hvm/hvm.c                      |   1 +
+ xen/arch/x86/hvm/svm/entry.S                |   6 +
+ xen/arch/x86/hvm/svm/svm.c                  |  49 +++++++++
+ xen/arch/x86/include/asm/amd.h              |   4 +
+ xen/arch/x86/include/asm/cpufeatures.h      |   1 +
+ xen/arch/x86/include/asm/msr.h              |  14 +++
+ xen/arch/x86/msr.c                          |  27 +++++
+ xen/arch/x86/spec_ctrl.c                    |  12 +-
+ xen/include/public/arch-x86/cpufeatureset.h |   2 +-
+ 11 files changed, 241 insertions(+), 19 deletions(-)
+
+-- 
+2.34.1
+
 
