@@ -2,44 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6B3A4D9AA7
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Mar 2022 12:50:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.290759.493226 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD0284D9AE7
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Mar 2022 13:13:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.290766.493237 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nU5gM-0006xn-7U; Tue, 15 Mar 2022 11:49:42 +0000
+	id 1nU622-0001wR-AI; Tue, 15 Mar 2022 12:12:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 290759.493226; Tue, 15 Mar 2022 11:49:42 +0000
+Received: by outflank-mailman (output) from mailman id 290766.493237; Tue, 15 Mar 2022 12:12:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nU5gM-0006vC-4J; Tue, 15 Mar 2022 11:49:42 +0000
-Received: by outflank-mailman (input) for mailman id 290759;
- Tue, 15 Mar 2022 11:49:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=GQWC=T2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nU5gL-0006v6-92
- for xen-devel@lists.xenproject.org; Tue, 15 Mar 2022 11:49:41 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fe9755fc-a455-11ec-853b-5f4723681683;
- Tue, 15 Mar 2022 12:49:39 +0100 (CET)
-Received: from EUR02-AM5-obe.outbound.protection.outlook.com
- (mail-am5eur02lp2059.outbound.protection.outlook.com [104.47.4.59]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-28-OBMdrwm4NWWvrlwLbU35QQ-1; Tue, 15 Mar 2022 12:49:38 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by AM6PR04MB4565.eurprd04.prod.outlook.com (2603:10a6:20b:25::27)
+	id 1nU622-0001ts-6j; Tue, 15 Mar 2022 12:12:06 +0000
+Received: by outflank-mailman (input) for mailman id 290766;
+ Tue, 15 Mar 2022 12:12:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CG/1=T2=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1nU620-0001tm-Iy
+ for xen-devel@lists.xenproject.org; Tue, 15 Mar 2022 12:12:04 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04on0622.outbound.protection.outlook.com
+ [2a01:111:f400:fe0d::622])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1ccd7e27-a459-11ec-8eba-a37418f5ba1a;
+ Tue, 15 Mar 2022 13:12:01 +0100 (CET)
+Received: from AS9PR06CA0090.eurprd06.prod.outlook.com (2603:10a6:20b:464::7)
+ by PAXPR08MB7383.eurprd08.prod.outlook.com (2603:10a6:102:22e::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.28; Tue, 15 Mar
- 2022 11:49:36 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::e8ce:db1c:5bb0:af0]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::e8ce:db1c:5bb0:af0%6]) with mapi id 15.20.5061.028; Tue, 15 Mar 2022
- 11:49:36 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.23; Tue, 15 Mar
+ 2022 12:11:50 +0000
+Received: from VE1EUR03FT052.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:464:cafe::ad) by AS9PR06CA0090.outlook.office365.com
+ (2603:10a6:20b:464::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.25 via Frontend
+ Transport; Tue, 15 Mar 2022 12:11:50 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT052.mail.protection.outlook.com (10.152.19.173) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5061.22 via Frontend Transport; Tue, 15 Mar 2022 12:11:49 +0000
+Received: ("Tessian outbound 18e50a6f0513:v113");
+ Tue, 15 Mar 2022 12:11:49 +0000
+Received: from 4baf0c564e4f.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ CCFA2197-1772-4002-B036-DDF0526C972D.1; 
+ Tue, 15 Mar 2022 12:11:37 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 4baf0c564e4f.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 15 Mar 2022 12:11:37 +0000
+Received: from VI1PR08MB3967.eurprd08.prod.outlook.com (2603:10a6:803:df::16)
+ by AM5PR0801MB1859.eurprd08.prod.outlook.com (2603:10a6:203:49::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.25; Tue, 15 Mar
+ 2022 12:11:36 +0000
+Received: from VI1PR08MB3967.eurprd08.prod.outlook.com
+ ([fe80::479:b7f8:ba2a:4a74]) by VI1PR08MB3967.eurprd08.prod.outlook.com
+ ([fe80::479:b7f8:ba2a:4a74%5]) with mapi id 15.20.5061.029; Tue, 15 Mar 2022
+ 12:11:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,345 +72,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fe9755fc-a455-11ec-853b-5f4723681683
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1647344979;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=KhYhhaPJca2TdZrfrFQl2b9CBf3Fl8SouBs5ymmkyuI=;
-	b=AWAAneUmYUWt6lsOqrwbv46Q5XZjNjYjM45vmmByOaXAGhZOc61znstZi5Zcs/bh2jRoZX
-	hwTuPlkoFhrF0e1H5bt+rBvXz7r3rMt0MlH2m4abonC3HICCZZdvj0pOkdWYAoXFgkTTQr
-	ankKCLklKk0TRad3i0WagMYj3zLIbs4=
-X-MC-Unique: OBMdrwm4NWWvrlwLbU35QQ-1
+X-Inumbo-ID: 1ccd7e27-a459-11ec-8eba-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TVAmjpd1CCzL+Vp50+ccT1pWv7M3Arh/X4BNW9B9INQ=;
+ b=ElTiB3/wm48wnNjVYEtlJS86BvrdIEJiD9mveV5OqZIzvo/tAcl7A1MSgP/bOgStj7AI36RSjeBOrL1a0o862dhAKs0chgRKz3+4f1D83cKrzsw54XNkdDW+OWKQVaYna0uWyBzoBqMq2lJf2D7U6b079RwEZdacZ3Tt2kRTtsk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 48ae17a974f51e96
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TOUJRV/fUPcj3nc5pQQ8NN/e1lFNN9vd5Tng6ULbamAEMzvonh8OD8R8EUMX4V4V/trpwV8sM5sGj0SoGxIhX0fLYe8I2Es7ezSQunURhz4VBnij8i5gT2l5dKQOx0CJKrSF5qoLuweRXKciknz9NNavznSdPB/E6/5kdORF5Fd9vX4NuuIX8Y/crvuNsSBxEL3sfBYZWduN1TUY/5xG2G8aw59Wqoslr3Zd7HYGatg2Y/OEE2A0xHFN4fEIfITIKGFI2NU4FvYXRyd7nMaMiNkzraG23MvyHQBmN7sV40Wz7eqXSGNtwjJ4HIRztCzet92g9u74HHUVM09w0SgwpQ==
+ b=jtUonbrhGejQco+4M1MWMGeg6RiecHgeuP0SpJeciYifmRQ7CrExzBjsLABzVaO3BvGhRsqGPLoH7VUh2678fGLCQPbZLe1WVFQ0vG8nPya7Sv+9If53/DXDd4tWgFqkAfGMndQfE8pFNp5hsZfOwl78W3cCz0Vj1JPB/SO0k0Ycc/j4ySlkQc0j7FRUICcHcw/baKKfHejBjHHGG7T1j3071gEtF+EY+bDDN/619Mx6n0aFBtlTvUhJbUG1ySrk+mu6qnm6TA3B3ys/LIWDb5zP2XFvS1xCTUUMZD2rDxmlE8LG8EYzfr59AlfrDigQ9Fp4uyOvU5CpCP30PwIZFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KhYhhaPJca2TdZrfrFQl2b9CBf3Fl8SouBs5ymmkyuI=;
- b=iKM6MMX/oVHzDYyYM+LLj2g3CiBoWNlnDMaDSuN1TYlAOapmQ5EB/JTcVQHNgKRoxUDXNnE6o9RlDhMzvCzrk49dPPDNxL2vOsabr8jBzFue6KHSixS1VUiD2NGzNHBgfCmpRnctrcsnEtzN6dP35OXad0vfcxBLP7qfvPzCKHe4FBeNmBkWD/iEOw26hPoYPomrlkKm828fDQsgkq41KSomGuVlu7Km2UqEGbzFpKLfwk8MhAeYte5SCx0Dywh7dj7gCjWDrV9rztQmmcmIllOWuQsY6J7kqcgH3mtrmZvVn7LRGQO6SkKrGblOqB9Ba7PXyE7alLXOL0i7Q+jH+A==
+ bh=TVAmjpd1CCzL+Vp50+ccT1pWv7M3Arh/X4BNW9B9INQ=;
+ b=ckpGAo2phJBxAXlAoNppq58KWhalCTDoIS6GeVJIR2jR+IMOvZgbl64z5xdj5qe2NwpuUYzN0pKBCbAYLSnZk2+ycv9dX3XWVVsJx/E45etljzMLbQGd7HZrn2Tn1IJRT4pP0H7NARFTBzKf8CnBJ6K0v3HqqWj5D3sCnwpZX4gDlZqrynSEatNdh8InBpbv/xLTTcvbood/TdtIAeq/z+40eSplZATPysu5dgpSntTD89k6eQdazl/N8vbz1kL9hpFYyrBxLnWeTteb5lFAonYKS9DaUso1ayr2Rj7v6f4VUgZcSd2tC8h08UNS2ovbLJ8qoi396OoQuyMFmA7xOA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <c2943ff5-50ff-1eec-e322-6acc1879e7af@suse.com>
-Date: Tue, 15 Mar 2022 12:49:34 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TVAmjpd1CCzL+Vp50+ccT1pWv7M3Arh/X4BNW9B9INQ=;
+ b=ElTiB3/wm48wnNjVYEtlJS86BvrdIEJiD9mveV5OqZIzvo/tAcl7A1MSgP/bOgStj7AI36RSjeBOrL1a0o862dhAKs0chgRKz3+4f1D83cKrzsw54XNkdDW+OWKQVaYna0uWyBzoBqMq2lJf2D7U6b079RwEZdacZ3Tt2kRTtsk=
+From: Luca Fancellu <Luca.Fancellu@arm.com>
+To: Vikram Garhwal <fnu.vikram@xilinx.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, "sstabellini@kernel.org"
+	<sstabellini@kernel.org>, "julien@xen.org" <julien@xen.org>, Bertrand Marquis
+	<Bertrand.Marquis@arm.com>, "volodymyr_babchuk@epam.com"
+	<volodymyr_babchuk@epam.com>, Wei Liu <wl@xen.org>, Anthony PERARD
+	<anthony.perard@citrix.com>
+Subject: Re: [XEN][RFC PATCH v3 14/14] tools/xl: Add new xl command overlay
+ for device tree overlay support
+Thread-Topic: [XEN][RFC PATCH v3 14/14] tools/xl: Add new xl command overlay
+ for device tree overlay support
+Thread-Index: AQHYMyV7Tz8Y/V6GBEKWpNuLuSXXYKzAZVaA
+Date: Tue, 15 Mar 2022 12:11:35 +0000
+Message-ID: <C65BA40D-E35D-403A-A544-18A9EE80D3AD@arm.com>
+References: <20220308194704.14061-1-fnu.vikram@xilinx.com>
+ <20220308194704.14061-15-fnu.vikram@xilinx.com>
+In-Reply-To: <20220308194704.14061-15-fnu.vikram@xilinx.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86: re-inline indirect CALL/JMP
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6P195CA0007.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:209:81::20) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b3129320-7a6c-442d-5f4c-08da0679e127
-X-MS-TrafficTypeDiagnostic: AM6PR04MB4565:EE_
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3693.60.0.1.1)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-MS-Office365-Filtering-Correlation-Id: d1e89e8e-beb1-4b05-6ce2-08da067cfbe2
+x-ms-traffictypediagnostic:
+	AM5PR0801MB1859:EE_|VE1EUR03FT052:EE_|PAXPR08MB7383:EE_
 X-Microsoft-Antispam-PRVS:
-	<AM6PR04MB45655C4F1C9BC2A972A9546EB3109@AM6PR04MB4565.eurprd04.prod.outlook.com>
+	<PAXPR08MB73839D56DF365EA43E35617BE4109@PAXPR08MB7383.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ 8bLZlwa9e5dCCclcZ//eEASdimFu/PIAcFLXHMfiTus1os8w49NG1DBsNbVQfwObQUIsP8krYAp/imEZC0MHW+ls9+boCY81MVc/UlWZpPMA+KUuffDyVqRD9uB55gItgBBxih1/QFB6aItsxTL+eHdG0cVAjQRtpRVPsvjlxRXU0Y1CBWoV2uQV1WFgdMP+F+yf6AZtvM9Le5q+CiTmH9uzwdxjW3ZoN9uE9YoZeqn3Ev/1+zAQn5CoFIJ7wDuatw4s24gukoKQy5ooZm6KALwwGtciohbpnN0+Qh53062PEjc+o+9BzrlayKk7btnxBs2MWy6ePaohBDE/va8dAX5R9hlc2r19H7c1YBb9eSgj7QKDutvbIY8hF3mNZIbkQ7arIYm+hJ0GWYjYf4V/Qk4EKvBvSjNHwv+GA3MZDFq01DOv+Gd/WwmcisbNMdb0usPQl8f2/SUauIT5CqcW2i5xiRNVjBDU8/MQCv9wDFv9rO7g7FsGtMG2rwSRX2s8rQsde4oZCHigMXfD2uT5NzH2L1yJO7pZcJJ1D9gNFroYI7H460DACF6Vn2xOdNLMVd2o73aopVqOLjN2EhMlb8oMDk4iDVb0A1mcTUfu4RotXNJOCFnKPwEjerc35AKjhcS0h4T9R6p7hTiY6Vq7DvmZAQbVks/PVc3oeBgQeUE0tNSIiiiwAbiKp+Y/t6Kz79UJ2fO+5U17UEMNJWs58V8x5BZxR/BpxhSgMpmxjTC1kCHJE+gAvbehykos2uT6
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR08MB3967.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(316002)(38100700002)(6486002)(86362001)(91956017)(53546011)(122000001)(54906003)(6916009)(8936002)(83380400001)(76116006)(8676002)(6512007)(64756008)(66446008)(66556008)(66476007)(66946007)(36756003)(508600001)(6506007)(2616005)(5660300002)(186003)(71200400001)(26005)(38070700005)(4326008)(2906002)(33656002)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <9840A62848903D41AD99768E1BABBD5C@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM5PR0801MB1859
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ VE1EUR03FT052.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	d9b9ab8b-151b-4e6c-cde4-08da067cf3b6
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	u3AizRuF1UZC2pv9kzGf+FzRuLEvrPfM2+hwkHnlqcpl/t1+0Px5pWWhvJDZDFsOmErx19HnIXELNqOvqdDJAnfzx+kC2VJUga5Dk1XOKbxXH3B4APW6N55nx350+bAnRITJatf1KtaSXvUJeBZVAgopXJEUQCd/SyCb4Gs22V87Zw+0N98gbZueX8L1Hio7x6TJbZAoCNMwVfkCFskeDDYl8zYPmCw+z+VYjFWQHA2gluCy/k+QQswKNT30VLFrSl8RlS3tRtVWRHtk1Xa/9qMfU16yY46oDelZsmXBQTdA1CrqGlA3VjPdlux1DqwzA9GlOJmAWu69Tuhrh2xZgFARax6AJ2+ccf9FheYAEevMpZBQS3WEgdXEhgGD8W7QD9Dvzfr8KbaxBRFF+isuuDb2eYzl3XtrCqrVXIIyzzAwZAj9p+9qAlvAtS5u/r3relHHpRm4ZBFR3/iOugmW6LedCfxHc6GJPuDG+DiSu/Pext6EQhjK6qv5LQw5wC+lg9vfdJGgYDb1Q0ruK6Mn92OLfzuJpb9f8VYnhzTFKvZl/0KM0OUiasnQ8G0Mx1ni/S67XW7n3zQMWHnc5KYgsvPeDUPHIDhDXygpONb3FW5U6gZz3Of6UF5D5RWvO1qa4pSzZxX0AwTHMCe9PZ6aYLimdA6tIo53EnCzM9NP5kmPbJ5epkKAc1Qf0COP4Zi7lsfBafxAQsGQ06KSyLDv4rY7OCD0oAdJUS0hcOK9Xh2ryCPvI8Gv1FKORQMtuBe0J8NCTbl0kJbHNhssvVovhTvTDCP4GFwG9Xl2eGihPUOIWsuTcpERmN9ra01lAJ6CWFxOFjrykFZ+l6z+1xmv/g==
+	GBd5RvGwnqxculUGFPhHyv9OmYUvgBB6clUsa4M37eselRYF6/mRbw39ER4i1HjvWi/5JFj9dJSgtpMm8theECnd3LK7TbkWXF7e2tlOlW/efxrhwPwJLvm3/FcLVHv2BJq0NIBgL3xHxdaQpAzHKIDZBl/u4/Zt7oyw010cl6OLEKhPy1AXwT9zrKzak2G59dCE1aFQzNFz6Lrk59bmHBejMQG4YBPmMom4USocGEZsFAsOkOmAHrRUZECkIeec3JM3NnKUMzMlQFjNhjG4theRfOUsIZ+vDMmYTPCkEZSOKKN7O57p7F1hvuu/Mg4YChreFYgkkdyhjZIax0iMAgAtBY7ISHW/qyq8wW9Ra6cdzDBW554sPc1eHZrQwfxefrwUAGbVyL7T0jrHMCnJPqwq0lO37ZBGwcbSvU+QgRee5zeRIQ5cRROHJnj9q/jxpM+VMs+jOlwreMjuskSWHCN0OGBI2uKnPs4uReceDvkWgHAuM3Gw/DiQRUbo8b9qN27CaGi+mHg2mslGDis30mf2p8gbhohRZfgr+r0FTOySxU78A0VVNmW5HgsNCrDADCWGLojZEBGs0ErVUdUCcmqSqT5z5isnxiHVJFkN9kAwqtu6lSwlulNApNk9v3ovDbSdrmh2VmZ30L0Gn2Iz/d6n7Ahw1Ta7Kbjodbg1S5MJtVa73r9kR82b0vB29KBk
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(4326008)(5660300002)(38100700002)(31696002)(66946007)(66476007)(8936002)(66556008)(86362001)(8676002)(6486002)(966005)(508600001)(316002)(6916009)(54906003)(36756003)(83380400001)(26005)(2616005)(186003)(31686004)(2906002)(6506007)(6512007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?T0lsT3FxZ2VIWGwrZDVxYTlESlFLc2VNbDZzSlh6SndTMm54SlB4SGZtdC8r?=
- =?utf-8?B?Q2czQnh4VU1rbWVHcEkvdkkyaUFHb2V3cDcvUVN3di8wOXczYjRJeW1pUnM0?=
- =?utf-8?B?N3hsODNpNWFBSEFuR2J0YmJMQjJybkpoYmE0eVhkSEp2eGZiZFVRcnk4d0Jl?=
- =?utf-8?B?WHlHVERCWStTbldjcVR3MW5tMFNBdll1SjdlcWp0VkljamZPdk5DeDRnUTFB?=
- =?utf-8?B?OEtZRGVEeE50RW4xM0tkL0hSNnB1bXpqQjQwWHJoQVM5eEt6N1NGdlAvTVJw?=
- =?utf-8?B?UFkwTGhpUSt3ZUJvb3JpWW9GNFJOLzR6MFVJNEpIZXVvdUJxVmlTRlFpVzJV?=
- =?utf-8?B?KzU0N0lReGJLN0FBc1hhWmRRYXFUYXhXVFZycEhpM2w1Q0Yxd3JBNFlaWmlI?=
- =?utf-8?B?Z3AyTUZlaFpjN09HeDhhNXNMV2hIUVpuVkErNWtGU2N6K0JZbDFNR2c0RGVY?=
- =?utf-8?B?bllyRUpIMHFHOG5SRHkvcno4TlhZVXovUFU5M0J2LzVITnVYZ2tqZytqbFBr?=
- =?utf-8?B?REFnVGl5aEhMTVdxK0NLclZ0NUtPZERhT29CcU9XNGFKZlp0UlRaWFdwQWlZ?=
- =?utf-8?B?TjJsWndSa0diblQ4cGx2TVk2NUJkTFNnbktNd0dvZGVCdmk1d29LNTFxbVZU?=
- =?utf-8?B?TzBrejYxa3RWQmhWeGV1V0w2V0c0TGpqYWhyQjVleCtXNWZxUkY2V1RVelpR?=
- =?utf-8?B?R0lwU3lWcWgvNlpTREQ0WEtyeTJmTE41Z2ZPNE15blRITjBHcDVQNUptSDlW?=
- =?utf-8?B?WWUxMlQrZ2NEY0h1TGV5RnV4M2dOT2JpNjUwbTB1RFlPM21mZ1VVQU9nTXhH?=
- =?utf-8?B?OFRrZFd4OHJvS212bHdTWHVQc3NLbnM3c1daM3JHZFZmb1dvWXNrMWlYeFl4?=
- =?utf-8?B?VEI5UFZlOXVFN2hTdVh5eSsyWTFoemNDY29tbmJOV3ZqR2NyQUhqZWh6SjYv?=
- =?utf-8?B?UWYrc3RpMUFwbTNxM3hOZFVOWW5RRDIxY0RQb29mMmNUUEJlcHhtaWhsNnVx?=
- =?utf-8?B?WDFVa1pXL1EzOUkrZS9BM3hMZ0pMYVUwY3RpMEZZdTFHVTJsczdKWlo3azZj?=
- =?utf-8?B?c3ZYR0VuZXQ2OGR2MDVuTXdCR1RURnRsY0NoaktlOE9IK1JGWWJrdFpGZGRB?=
- =?utf-8?B?djIwbkk3MksrcFVuTEFVNkJDQUJjV0lUSmFFeE1vNUNuRDAvOFUva1E5ZGFr?=
- =?utf-8?B?MDV5ZHhWWjVPeGJVQm44SktvQXg3UnIwZ050eXU2d3pEMVJiZyt3UVdVKzVM?=
- =?utf-8?B?WE13LzVhNW56cGtjQVk3ZS9Zamh1V0g2RTIwMmRiSHJRTkpJdThtaGc3cDM3?=
- =?utf-8?B?eEVXdjdQVTBiSTdRcWlpZ0lCNFUrTDlObURlcEtGQ3NxRXJyREtjRmJYSmdp?=
- =?utf-8?B?bGNGdkJkcWpCRjNTMmxTNHgyUGNQVmdPdVY1bUxkcStUTUFVOXFzb29uRUwz?=
- =?utf-8?B?Y2Fac0h3ZzQ1MUFWQUZaQzlKMWVlSDZZVjJtUmlJWTdiN1dneXFwc3Q3NjA5?=
- =?utf-8?B?ZGdkc2Qxc3pWUTdwY1JHS1VwMW5ycVJYNVBYY2Q3ZG5vK3pKWmRJWWZhOWF1?=
- =?utf-8?B?dlRUYnNRNWk0a2ZlaDBYaXg1aVNMdFE0bkZUWlJsNnpwcGozOTVxTEhGbzF0?=
- =?utf-8?B?NWU5QmdPc3lWc1RRNnhmVi9nSzg2emdTam5RTVhwWkJ3aXdZN21OMkFOaWQx?=
- =?utf-8?B?SXEwZ0FNTTlaUEl0ME9pMTFCeEh1bzhmbTlVazcvd0xHbmtHUUF2VER0Vmhw?=
- =?utf-8?B?MGNNNS9HWVdQYXpkVndtNHcxVXpnaHlrTDdRSFlFbngrZUR3ajVYV0I0WnlU?=
- =?utf-8?B?ZWthTmZTTml5eDRPdGZvR2F3a0oxSVJ2VlMydkt2K3FMSlRBZUJuRVJHeTlS?=
- =?utf-8?B?YWhZN0dmT1AwMDdZaCsydzdsWGVzQXorU2k4T0lqaXM1b1I4QkVTcTJzeHZw?=
- =?utf-8?Q?/AIGSw5EZgdUHgc5EqNoZzTdmGqAzHb6?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3129320-7a6c-442d-5f4c-08da0679e127
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2022 11:49:36.5547
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(316002)(6862004)(8676002)(36756003)(2906002)(54906003)(70206006)(70586007)(4326008)(53546011)(33656002)(6486002)(6506007)(6512007)(5660300002)(8936002)(508600001)(356005)(336012)(26005)(81166007)(186003)(2616005)(47076005)(107886003)(83380400001)(86362001)(36860700001)(40460700003)(82310400004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2022 12:11:49.6884
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: f4WydoumyxMI8ra0vOVpn/xTzLbpmRaBDVS+TqGLmltPctH5qonObEwhwytZbd8ZUVxcuZSaILHVQdPatxFJkQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR04MB4565
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1e89e8e-beb1-4b05-6ce2-08da067cfbe2
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	VE1EUR03FT052.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB7383
 
-Using the same thunk for heterogeneous calls (i.e. ones to functions
-with entirely different parameter types) is a problem: Speculation may
-e.g. result in use as pointers for arguments which are are actually
-integers. This is a result of target prediction information being tied
-to the address of the RET instruction in each thunk (of which we've got
-only 15, and of which in turn a fair share of the call sites use the
-single one where %rax is holding the target address).
 
-Except when actually using the full retpoline, arrange for alternatives
-patching to put the JMP and LFENCE forms of the thunk back inline.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-I'm sure I didn't get the reasoning right / complete; I'd appreciate
-clear enough indication of what needs adding/changing.
+> On 8 Mar 2022, at 19:47, Vikram Garhwal <fnu.vikram@xilinx.com> wrote:
+>=20
+> Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
+> ---
+> tools/xl/xl.h           |  4 ++++
+> tools/xl/xl_cmdtable.c  |  6 ++++++
+> tools/xl/xl_vmcontrol.c | 45 +++++++++++++++++++++++++++++++++++++++++
+> 3 files changed, 55 insertions(+)
+>=20
+> diff --git a/tools/xl/xl.h b/tools/xl/xl.h
+> index c5c4bedbdd..604fd5bb94 100644
+> --- a/tools/xl/xl.h
+> +++ b/tools/xl/xl.h
+> @@ -97,6 +97,9 @@ struct save_file_header {
+>=20
+> #define SAVEFILE_BYTEORDER_VALUE ((uint32_t)0x01020304UL)
+>=20
+> +#define XL_DT_OVERLAY_ADD                   1
+> +#define XL_DT_OVERLAY_REMOVE                2
 
-Some of the changes to may not strictly be necessary:
-- INDIRECT_BRANCH: We don't have any uses left in assembly code.
-- GEN_INDIRECT_THUNK: Continuing to patch the thunks when they're not
-  used is merely pointless. The change, however, is more in anticipation
-  that X86_FEATURE_IND_THUNK_{LFENCE,JMP} may not be fully suitable
-  names anymore when the code gets inlined (at least I probably wouldn't
-  call such "thunk" anymore).
+Maybe you can get rid of them and ...
 
-While perhaps not a big problem, I'd like to point out that this more
-than doubles the size of the .altinstr_replacement section (with an
-accordingly large increase of .altinstructions), unless we were to make
-use of "x86/alternatives: allow replacement code snippets to be merged"
-(which of course affects only .altinstr_replacement).
+> +
+> void save_domain_core_begin(uint32_t domid,
+>                             int preserve_domid,
+>                             const char *override_config_file,
+> @@ -139,6 +142,7 @@ int main_shutdown(int argc, char **argv);
+> int main_reboot(int argc, char **argv);
+> int main_list(int argc, char **argv);
+> int main_vm_list(int argc, char **argv);
+> +int main_dt_overlay(int argc, char **argv);
+> int main_create(int argc, char **argv);
+> int main_config_update(int argc, char **argv);
+> int main_button_press(int argc, char **argv);
+> diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
+> index 661323d488..5812d19db8 100644
+> --- a/tools/xl/xl_cmdtable.c
+> +++ b/tools/xl/xl_cmdtable.c
+> @@ -20,6 +20,12 @@
+> #include "xl.h"
+>=20
+> const struct cmd_spec cmd_table[] =3D {
+> +    { "overlay",
+> +      &main_dt_overlay, 1, 1,
+> +      "Add/Remove a device tree overlay",
+> +      "add/remove <.dtbo>"
+> +      "-h print this help\n"
+> +    },
+>     { "create",
+>       &main_create, 1, 1,
+>       "Create a domain from config file <filename>",
+> diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
+> index 435155a033..76b969dc33 100644
+> --- a/tools/xl/xl_vmcontrol.c
+> +++ b/tools/xl/xl_vmcontrol.c
+> @@ -1262,6 +1262,51 @@ int main_create(int argc, char **argv)
+>     return 0;
+> }
+>=20
+> +int main_dt_overlay(int argc, char **argv)
+> +{
+> +    const char *overlay_ops =3D argv[1];
+> +    const char *overlay_config_file =3D argv[2];
+> +    void *overlay_dtb =3D NULL;
+> +    int rc;
+> +    uint8_t op;
+> +    int overlay_dtb_size =3D 0;
+> +
+> +    if (overlay_ops =3D=3D NULL) {
+> +        fprintf(stderr, "No overlay operation mode provided\n");
+> +        return ERROR_FAIL;
+> +    }
+> +
+> +    if (strcmp(overlay_ops, "add") =3D=3D 0)
+> +        op =3D XL_DT_OVERLAY_ADD;
+> +    else if (strcmp(overlay_ops, "remove") =3D=3D 0)
+> +        op =3D XL_DT_OVERLAY_REMOVE;
 
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -195,7 +195,7 @@ t2 = $(call as-insn,$(CC) -I$(BASEDIR)/a
- # https://bugs.llvm.org/show_bug.cgi?id=36110
- t3 = $(call as-insn,$(CC),".macro FOO;.endm"$(close); asm volatile $(open)".macro FOO;.endm",-no-integrated-as)
- 
--CLANG_FLAGS += $(call or,$(t1),$(t2),$(t3))
-+CLANG_FLAGS += $(call or,$(t1),$(t2),$(t3),-DCLANG_INTEGRATED_AS)
- endif
- 
- CLANG_FLAGS += -Werror=unknown-warning-option
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -240,7 +240,7 @@ $(obj)/efi/buildid.o $(obj)/efi/relocs-d
- .PHONY: include
- include: $(BASEDIR)/arch/x86/include/asm/asm-macros.h
- 
--$(obj)/asm-macros.i: CFLAGS-y += -D__ASSEMBLY__ -P
-+$(obj)/asm-macros.i: CFLAGS-y += -D__ASSEMBLY__ -D__ASM_MACROS__ -P
- 
- $(BASEDIR)/arch/x86/include/asm/asm-macros.h: $(obj)/asm-macros.i $(src)/Makefile
- 	$(call filechk,asm-macros.h)
---- a/xen/arch/x86/alternative.c
-+++ b/xen/arch/x86/alternative.c
-@@ -244,11 +244,19 @@ static void init_or_livepatch _apply_alt
- 
-             a->priv = 1;
- 
--            /* Nothing useful to do? */
--            if ( toolchain_nops_are_ideal || a->pad_len <= 1 )
-+            /* No padding at all? */
-+            if ( !a->pad_len )
-                 continue;
- 
--            add_nops(buf, a->pad_len);
-+            /* For a JMP to an indirect thunk, replace NOP by INT3. */
-+            if ( IS_ENABLED(CONFIG_SPECULATIVE_HARDEN_BRANCH) &&
-+                 a->cpuid == X86_FEATURE_IND_THUNK_JMP && orig[0] == 0xe9 )
-+                memset(buf, 0xcc, a->pad_len);
-+            /* Nothing useful to do? */
-+            else if ( toolchain_nops_are_ideal || a->pad_len <= 1 )
-+                continue;
-+            else
-+                add_nops(buf, a->pad_len);
-             text_poke(orig + a->orig_len, buf, a->pad_len);
-             continue;
-         }
-@@ -330,7 +338,12 @@ static void init_or_livepatch _apply_alt
- 
-         a->priv = 1;
- 
--        add_nops(buf + a->repl_len, total_len - a->repl_len);
-+        /* When re-inlining an indirect JMP, pad it by INT3, not NOPs. */
-+        if ( IS_ENABLED(CONFIG_SPECULATIVE_HARDEN_BRANCH) &&
-+             a->cpuid == X86_FEATURE_IND_THUNK_JMP && orig[0] == 0xe9 )
-+            memset(buf + a->repl_len, 0xcc, total_len - a->repl_len);
-+        else
-+            add_nops(buf + a->repl_len, total_len - a->repl_len);
-         text_poke(orig, buf, total_len);
-     }
- 
---- a/xen/arch/x86/asm-macros.c
-+++ b/xen/arch/x86/asm-macros.c
-@@ -1,2 +1,3 @@
- #include <asm/asm-defns.h>
- #include <asm/alternative-asm.h>
-+#include <asm/spec_ctrl_asm.h>
---- a/xen/arch/x86/extable.c
-+++ b/xen/arch/x86/extable.c
-@@ -98,12 +98,42 @@ search_exception_table(const struct cpu_
-          regs->rsp > (unsigned long)regs &&
-          regs->rsp < (unsigned long)get_cpu_info() )
-     {
--        unsigned long retptr = *(unsigned long *)regs->rsp;
-+        unsigned long retaddr = *(unsigned long *)regs->rsp;
-+        unsigned long retptr = 0;
-+        unsigned int pad = 0;
- 
--        region = find_text_region(retptr);
--        retptr = region && region->ex
--                 ? search_one_extable(region->ex, region->ex_end - 1, retptr)
--                 : 0;
-+        region = find_text_region(retaddr);
-+        while ( region && region->ex )
-+        {
-+            retptr = search_one_extable(region->ex, region->ex_end - 1,
-+                                        retaddr + pad);
-+            if ( !retptr )
-+            {
-+                /*
-+                 * Indirect call thunk patching can lead to NOP padding between
-+                 * the CALL and the recovery entry recorded in .fixup.  Skip
-+                 * past such NOPs.  See asm/nops.h for the forms possible and
-+                 * note that no more than 3 bytes of padding will be present.
-+                 */
-+                const uint8_t *ptr = (void *)retaddr + pad;
-+
-+                switch ( ptr[0] )
-+                {
-+                case 0x66:
-+                case 0x90:
-+                    if ( ++pad > 3 )
-+                        break;
-+                    continue;
-+
-+                case 0x0f:
-+                    if ( pad || ptr[1] != 0x1f || ptr[2] != 0x00 )
-+                        break;
-+                    pad = 3;
-+                    continue;
-+                }
-+            }
-+            break;
-+        }
-         if ( retptr )
-         {
-             /*
---- a/xen/arch/x86/include/asm/asm-defns.h
-+++ b/xen/arch/x86/include/asm/asm-defns.h
-@@ -33,7 +33,13 @@
-         $done = 0
-         .irp reg, ax, cx, dx, bx, bp, si, di, 8, 9, 10, 11, 12, 13, 14, 15
-         .ifeqs "\arg", "%r\reg"
-+#ifdef __ASM_MACROS__
-             \insn __x86_indirect_thunk_r\reg
-+#else
-+            ALTERNATIVE_2 "\insn __x86_indirect_thunk_r\reg", \
-+                          "lfence; \insn *\arg", X86_FEATURE_IND_THUNK_LFENCE, \
-+                          "\insn *\arg", X86_FEATURE_IND_THUNK_JMP
-+#endif
-             $done = 1
-            .exitm
-         .endif
---- a/xen/arch/x86/include/asm/spec_ctrl_asm.h
-+++ b/xen/arch/x86/include/asm/spec_ctrl_asm.h
-@@ -20,7 +20,7 @@
- #ifndef __X86_SPEC_CTRL_ASM_H__
- #define __X86_SPEC_CTRL_ASM_H__
- 
--#ifdef __ASSEMBLY__
-+#if defined(__ASSEMBLY__) && !defined(__ASM_MACROS__)
- #include <asm/msr-index.h>
- #include <asm/spec_ctrl.h>
- 
-@@ -300,7 +300,50 @@ UNLIKELY_DISPATCH_LABEL(\@_serialise):
- .L\@_skip:
- .endm
- 
--#endif /* __ASSEMBLY__ */
-+#elif defined(__ASM_MACROS__) && defined(CONFIG_INDIRECT_THUNK) && \
-+      !defined(CLANG_INTEGRATED_AS)
-+
-+/*
-+ * To allow re-inlining of indirect branches, override CALL and JMP insn
-+ * mnemonics, to attach alternatives patching data.
-+ */
-+.macro call operand:vararg
-+    branch$ call \operand
-+.endm
-+.macro callq operand:vararg
-+    branch$ callq \operand
-+.endm
-+.macro jmp operand:vararg
-+    branch$ jmp \operand
-+.endm
-+.macro branch$ insn:req, operand:vararg
-+    .purgem \insn
-+
-+    $done = 0
-+    .irp reg, ax, cx, dx, bx, bp, si, di, 8, 9, 10, 11, 12, 13, 14, 15
-+        .ifeqs "\operand", "__x86_indirect_thunk_r\reg"
-+            ALTERNATIVE_2 "\insn \operand", \
-+                          "lfence; \insn *%r\reg", X86_FEATURE_IND_THUNK_LFENCE, \
-+                          "\insn *%r\reg", X86_FEATURE_IND_THUNK_JMP
-+            $done = 1
-+            .exitm
-+        .endif
-+        .ifeqs "\operand", "__x86_indirect_thunk_r\reg\(@plt)"
-+            .error "unexpected: \insn \operand"
-+            .exitm
-+        .endif
-+    .endr
-+
-+    .if !$done
-+        \insn \operand
-+    .endif
-+
-+    .macro \insn operand:vararg
-+        branch$ \insn \\(operand)
-+    .endm
-+.endm
-+
-+#endif /* __ASSEMBLY__ / __ASM_MACROS__ */
- #endif /* !__X86_SPEC_CTRL_ASM_H__ */
- 
- /*
---- a/xen/arch/x86/indirect-thunk.S
-+++ b/xen/arch/x86/indirect-thunk.S
-@@ -38,9 +38,13 @@
-         .section .text.__x86_indirect_thunk_\reg, "ax", @progbits
- 
- ENTRY(__x86_indirect_thunk_\reg)
-+#ifdef CLANG_INTEGRATED_AS
-         ALTERNATIVE_2 __stringify(IND_THUNK_RETPOLINE \reg),              \
-         __stringify(IND_THUNK_LFENCE \reg), X86_FEATURE_IND_THUNK_LFENCE, \
-         __stringify(IND_THUNK_JMP \reg),    X86_FEATURE_IND_THUNK_JMP
-+#else
-+        IND_THUNK_RETPOLINE \reg
-+#endif
- 
-         int3 /* Halt straight-line speculation */
- 
+Use them there, maybe defining const int <name> =3D <value>
+
+Since these values are only used there
+
 
 
