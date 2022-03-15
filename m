@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFACB4DA33C
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Mar 2022 20:24:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.290931.493596 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 073774DA3A1
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Mar 2022 21:01:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.290935.493606 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nUClc-00027p-Ba; Tue, 15 Mar 2022 19:23:36 +0000
+	id 1nUDL3-0006Lu-62; Tue, 15 Mar 2022 20:00:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 290931.493596; Tue, 15 Mar 2022 19:23:36 +0000
+Received: by outflank-mailman (output) from mailman id 290935.493606; Tue, 15 Mar 2022 20:00:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nUClc-00025K-8E; Tue, 15 Mar 2022 19:23:36 +0000
-Received: by outflank-mailman (input) for mailman id 290931;
- Tue, 15 Mar 2022 19:23:34 +0000
+	id 1nUDL3-0006Id-2v; Tue, 15 Mar 2022 20:00:13 +0000
+Received: by outflank-mailman (input) for mailman id 290935;
+ Tue, 15 Mar 2022 20:00:12 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nUCla-00025E-Nh
- for xen-devel@lists.xenproject.org; Tue, 15 Mar 2022 19:23:34 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nUDL2-0006IT-Cf; Tue, 15 Mar 2022 20:00:12 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nUClZ-0002Jz-Su; Tue, 15 Mar 2022 19:23:33 +0000
-Received: from [54.239.6.190] (helo=[192.168.16.242])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nUClZ-00061W-Lz; Tue, 15 Mar 2022 19:23:33 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nUDL2-00031P-9d; Tue, 15 Mar 2022 20:00:12 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nUDL1-0000Mr-Ra; Tue, 15 Mar 2022 20:00:11 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nUDL1-0006cR-Qo; Tue, 15 Mar 2022 20:00:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,270 +42,274 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=jJDAz0e6MfGGTFFbfnL6SdREDwms3mTsp/t17W9rZPs=; b=DClykW+cjW2q8rYZAEbPPHCG91
-	ELiqEW3I1OJOtoHJzRPkdYLygHlGZEjsd8ltJiA4+9j15rk6NF0ceA+BfD+UIfQV+48U+nvT/MgkW
-	tbnBNHYD1VzU/W9RYqPPEoCKd+jJ+0dPD4JuBQv+CxHDu4i/ylH86DB0QvF1yA0EgBS8=;
-Message-ID: <7584307c-9b58-5199-b3ff-0eba2a356325@xen.org>
-Date: Tue, 15 Mar 2022 19:23:31 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=DLpLnDsStAaO46EzEcRUmQYtNI4PB49HgsxpyMJVVMw=; b=cLTNOilSXzalijWEnkjr8pBk52
+	FA29N5FfVMjBV/HngxU01TAwHDH+37wJbPglHxADsYkj3WwEDfd95pHWI2IXKAh+K7RWGN4xeyKnT
+	zJi9N1Ota5x8xKUABmwq1A0A0/dNbhC6vn3gDyz5BWz/z52KQEA/zVu0JrgkBre8bW4k=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168612-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.7.0
-Subject: Re: [PATCH 36/36] doc, arm: add usage documentation for cache
- coloring support
-To: Marco Solieri <marco.solieri@minervasys.tech>,
- xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Marco Solieri <marco.solieri@unimore.it>,
- Andrea Bastoni <andrea.bastoni@minervasys.tech>,
- Luca Miccio <lucmiccio@gmail.com>
-References: <20220304174701.1453977-1-marco.solieri@minervasys.tech>
- <20220304174701.1453977-37-marco.solieri@minervasys.tech>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20220304174701.1453977-37-marco.solieri@minervasys.tech>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [qemu-mainline test] 168612: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:guest-localmigrate/x10:fail:heisenbug
+    qemu-mainline:test-arm64-arm64-libvirt-raw:guest-start:fail:heisenbug
+    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=6f4fe14b46f0a161f94e3f6e98690ac38184b0be
+X-Osstest-Versions-That:
+    qemuu=352998df1c53b366413690d95b35f76d0721ebed
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 15 Mar 2022 20:00:11 +0000
 
-Hi Marco,
+flight 168612 qemu-mainline real [real]
+flight 168619 qemu-mainline real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168612/
+http://logs.test-lab.xenproject.org/osstest/logs/168619/
 
-On 04/03/2022 17:47, Marco Solieri wrote:
-> From: Luca Miccio <lucmiccio@gmail.com>
-> 
-> Add basic documentation that shows how cache coloring support can be
-> used in Xen. It introduces the basic concepts behind cache coloring,
-> defines the cache selection format, and explains how to assign colors to
-> the supported domains: Dom0, DomUs and Xen itself. Known issues are
-> also reported.
-> 
-> Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
-> Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
-> ---
->   docs/misc/arm/cache_coloring.rst | 191 +++++++++++++++++++++++++++++++
->   1 file changed, 191 insertions(+)
->   create mode 100644 docs/misc/arm/cache_coloring.rst
-> 
-> diff --git a/docs/misc/arm/cache_coloring.rst b/docs/misc/arm/cache_coloring.rst
-> new file mode 100644
-> index 0000000000..082afb1b6c
-> --- /dev/null
-> +++ b/docs/misc/arm/cache_coloring.rst
-> @@ -0,0 +1,191 @@
-> +Xen coloring support user's guide
-> +=================================
-> +
-> +The cache coloring support in Xen allows to reserve last level cache partition
-AFAICT, the code is assuming that the Last level cache is L3. However, 
-this documentation looks generic enough that someone could think it can 
-be used on any platforms.
+Failures :-/ but no regressions.
 
-> +for Dom0, DomUs and Xen itself. Currently only ARM64 is supported.
+Tests which are failing intermittently (not blocking):
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow 18 guest-localmigrate/x10 fail pass in 168619-retest
+ test-arm64-arm64-libvirt-raw 13 guest-start         fail pass in 168619-retest
 
-What is missing to support arm32?
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check fail in 168619 never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check fail in 168619 never pass
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 168601
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 168601
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 168601
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 168601
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 168601
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 168601
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 168601
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 168601
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
 
-> +
-> +In order to enable and use it, few steps are needed.
-> +
-> +- Enable coloring in XEN configuration file.
-> +
-> +        CONFIG_COLORING=y
-> +
-> +- Enable/disable debug information (optional).
-> +
-> +        CONFIG_COLORING_DEBUG=y/n
+version targeted for testing:
+ qemuu                6f4fe14b46f0a161f94e3f6e98690ac38184b0be
+baseline version:
+ qemuu                352998df1c53b366413690d95b35f76d0721ebed
 
-This option doesn't seem to exist.
+Last test of basis   168601  2022-03-15 01:37:08 Z    0 days
+Testing same since   168612  2022-03-15 10:09:41 Z    0 days    1 attempts
 
-> +
-> +Before digging into configuration instructions, configurers should first
+------------------------------------------------------------
+People who touched revisions under test:
+  Peter Maydell <peter.maydell@linaro.org>
+  Richard Henderson <richard.henderson@linaro.org>
+  Thomas Huth <thuth@redhat.com>
 
-I would write "system integrator" rather than "configurers".
-
-> +understand the basics of cache coloring.
-
-I read this as a suggestion to read external documentation. Do you have 
-good pointer?
-
-> +
-> +Background
-> +**********
-> +
-> +Cache hierarchy of a modern multi-core CPU typically has first levels dedicated
-> +to each core (hence using multiple cache units), while the last level is shared
-> +among all of them. Such configuration implies that memory operations on one
-> +core (e.g. running a DomU) are able to generate interference on another core
-> +(e.g .hosting another DomU). Cache coloring allows eliminating this
-> +mutual interference, and thus guaranteeing higher and more predictable
-> +performances for memory accesses.
-> +The key concept underlying cache coloring is a fragmentation of the memory
-> +space into a set of sub-spaces called colors that are mapped to disjoint cache
-> +partitions. Technically, the whole memory space is first divided into a number
-> +of subsequent regions. Then each region is in turn divided into a number of
-> +subsequent sub-colors. The generic i-th color is then obtained by all the
-> +i-th sub-colors in each region.
-> +
-> +.. raw:: html
-> +
-> +    <pre>
-> +                            Region j            Region j+1
-> +                .....................   ............
-> +                .                     . .
-> +                .                       .
-> +            _ _ _______________ _ _____________________ _ _
-> +                |     |     |     |     |     |     |
-> +                | c_0 | c_1 |     | c_n | c_0 | c_1 |
-> +           _ _ _|_____|_____|_ _ _|_____|_____|_____|_ _ _
-> +                    :                       :
-> +                    :                       :...         ... .
-> +                    :                            color 0
-> +                    :...........................         ... .
-> +                                                :
-> +          . . ..................................:
-> +    </pre>
-> +
-> +There are two pragmatic lesson to be learnt.
-> +
-> +1. If one wants to avoid cache interference between two domains, different
-> +   colors needs to be used for their memory.
-> +
-> +2. Color assignment must privilege contiguity in the partitioning. E.g.,
-> +   assigning colors (0,1) to domain I  and (2,3) to domain  J is better than
-> +   assigning colors (0,2) to I and (1,3) to J.
-> +
-> +
-> +Color(s) selection format
-> +**************************
-> +
-> +Regardless of the domain that has to be colored (Dom0, DomUs and Xen),
-
-Xen is not really a domain. How about 'memory pool'?
-
-> +the color selection can be expressed using the same syntax.  In particular,
-
-Here you are saying the syntax is the same for everyone. But below, you 
-provide a new syntax for dom0less domUs.
-
-> +the latter is expressed as a comma-separated list of hyphen-separated intervals
-> +of color numbers, as in `0-4,5-8,10-15`.  Ranges are always represented using
-> +strings. Note that no spaces are allowed.
-> +
-> +The number of available colors depends on the LLC layout of the specific
-> +platform and determines the maximum allowed value.  This number can be either
-> +calculated [#f1]_ or read from the output given by the hypervisor during boot,
-> +if DEBUG logging is enabled.
-
-I think it would be good to print the number of colors even in non-debug 
-build.
-
-> +
-> +Examples:
-> +
-> ++---------------------+-----------------------------------+
-> +|**Configuration**    |**Actual selection**               |
-> ++---------------------+-----------------------------------+
-> +|  1-2,5-8            | [1, 2, 5, 6, 7, 8]                |
-> ++---------------------+-----------------------------------+
-> +|  0-8,3-8            | [0, 1, 2, 3, 4, 5, 6, 7, 8]       |
-> ++---------------------+-----------------------------------+
-> +|  0-0                | [0]                               |
-> ++---------------------+-----------------------------------+
-
-0-0 is a bit odd to write. I would consider to allow a system integrator 
-to simply write '0'.
-
-> +
-> +General coloring parameters
-> +***************************
-> +
-> +Four additional parameters in the Xen command line are used to define the
-> +underlying coloring policy, which is not directly configurable otherwise.
-> +
-> +Please refer to the relative documentation in docs/man/xl.cfg.pod.5.in.
-> +
-> +Dom0less support
-> +****************
-> +Support for the Dom0less experimental features is provided. Color selection for
-
-I don't understand the first sentence. Are you saying dom0less domUs 
-support is experimental or the support for coloring dom0less domUs is 
-experimental?
-
-> +a virtual machine is defined by the attribute `colors`, whose format is not a
-> +string for ranges list, but a bitmask. It suffices to set all and only the bits
-> +having a position equal to the chosen colors, leaving unset all the others. For
-> +example, if we choose 8 colors out of 16, we can use a bitmask with 8 bits set
-> +and 8 bit unset, like:
-> +
-
-[...]
-
-> +Known issues
-> +************
-> +
-> +Explicitly define way_size in QEMU
-> +##################################
-> +
-> +Currently, QEMU does not have a comprehensive cache model, so the cache coloring
-> +support fails to detect a cache geometry where to operate. In this case, the
-> +boot hangs as soon as the Xen image is loaded. To overcome this issue, it is
-> +enough to specify the way_size parameter in the command line. Any multiple
-> +greater than 1 of the page size allows the coloring mechanism to work, but the
-> +precise behavior on the system that QEMU is emulating can be obtained with its
-> +way_size. For instance, set way_size=65536.
-
-Can we consider to fix QEMU?
-
-> +
-> +
-> +Fail to boot colored DomUs with large memory size
-> +#################################################
-> +
-> +If the kernel used for Dom0 does not contain the upstream commit
-
-Dom0 is technically not tie to Linux. So please be explicit and write 
-"Linux kernel".
-
-> +3941552aec1e04d63999988a057ae09a1c56ebeb and uses the hypercall buffer device,
-> +colored DomUs with memory size larger then 127 MB cannot be created. This is
-> +caused by the default limit of this buffer of 64 pages. The solution is to
-> +manually apply the above patch, or to check if there is an updated version of
-> +the kernel in use for Dom0 that contains this change.
-
-I don't understand how coloring is coming in the equation here. Can you 
-provide more details?
-
-> +
-> +Notes:
-> +******
-> +
-> +.. [#f1] To compute the number of available colors on a platform, one can simply
-> +  divide `way_size` by `page_size`, where: `page_size` is the size of the page
-> +  used on the system (usually 4 KiB);
-
-It is fairly common for a CPU to support multiple page granularities 
-(i.e 4KB, 16KB, 64KB). The Arm Arm architecture allows each level to use 
-a different granularity.
-
-For instance, dom0 may use 64KB page granularity, domU 4KB. Xen will 
-always use 4KB for now.
-
-So can you clarify what you mean by page used on the system? Is it Xen 
-page granularity?
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              fail    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
 
 
->  `way_size` is size of each LLC way.  For
-> +  example, an Arm Cortex-A53 with a 16-ways associative 1 MiB LLC enable 16
-> +  colors, when pages are 4 KiB.
-> +
-> +
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-NIT: One newline should be sufficient here.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Cheers,
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
--- 
-Julien Grall
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/qemu-xen.git
+   352998df1c..6f4fe14b46  6f4fe14b46f0a161f94e3f6e98690ac38184b0be -> upstream-tested
 
