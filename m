@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBFDD4D9483
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Mar 2022 07:19:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.290634.492970 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEA2B4D94AE
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Mar 2022 07:37:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.290641.492981 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nU0Wh-0003Hc-7e; Tue, 15 Mar 2022 06:19:23 +0000
+	id 1nU0nD-0005me-Kd; Tue, 15 Mar 2022 06:36:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 290634.492970; Tue, 15 Mar 2022 06:19:23 +0000
+Received: by outflank-mailman (output) from mailman id 290641.492981; Tue, 15 Mar 2022 06:36:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nU0Wh-0003Fl-3m; Tue, 15 Mar 2022 06:19:23 +0000
-Received: by outflank-mailman (input) for mailman id 290634;
- Tue, 15 Mar 2022 06:19:21 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1nU0nD-0005kn-H2; Tue, 15 Mar 2022 06:36:27 +0000
+Received: by outflank-mailman (input) for mailman id 290641;
+ Tue, 15 Mar 2022 06:36:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nU0Wf-0003FZ-IO; Tue, 15 Mar 2022 06:19:21 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nU0Wf-0004M4-Ep; Tue, 15 Mar 2022 06:19:21 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nU0Wf-0003Oe-3i; Tue, 15 Mar 2022 06:19:21 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nU0Wf-0002YK-33; Tue, 15 Mar 2022 06:19:21 +0000
+ (envelope-from <SRS0=nUHZ=T2=lst.de=hch@srs-se1.protection.inumbo.net>)
+ id 1nU0nB-0005kh-97
+ for xen-devel@lists.xenproject.org; Tue, 15 Mar 2022 06:36:25 +0000
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 386e3c66-a42a-11ec-853b-5f4723681683;
+ Tue, 15 Mar 2022 07:36:18 +0100 (CET)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 2BC5468AFE; Tue, 15 Mar 2022 07:36:18 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,119 +38,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=PA591aFFwJjBIPr9IRbtsdMc7SwVGAbwaFVvXallqds=; b=xxJ8SP4VI7Y2qTEYal1cyhV/C4
-	+Dn9qQ3kAIihDnq4bTUKPIq1/bqnSiaNrjEjrQvwJXoGjLwCvu3DE4j4j5QrZbIigG3AsrQC2ZYof
-	XuqxAMIEcRJdoQhkpQBOGB52uHInYf5Dx+cA3p+QZFckk7qxv9jNZgmio+ylTQNWA/Og=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168609-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 386e3c66-a42a-11ec-853b-5f4723681683
+Date: Tue, 15 Mar 2022 07:36:18 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Christoph Hellwig <hch@lst.de>, iommu@lists.linux-foundation.org,
+	x86@kernel.org, Anshuman Khandual <anshuman.khandual@arm.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Juergen Gross <jgross@suse.com>, Joerg Roedel <joro@8bytes.org>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	xen-devel@lists.xenproject.org, linux-ia64@vger.kernel.org,
+	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+	linux-hyperv@vger.kernel.org, tboot-devel@lists.sourceforge.net,
+	linux-pci@vger.kernel.org
+Subject: Re: [PATCH 12/15] swiotlb: provide swiotlb_init variants that
+ remap the buffer
+Message-ID: <20220315063618.GA1244@lst.de>
+References: <20220314073129.1862284-1-hch@lst.de> <20220314073129.1862284-13-hch@lst.de> <4d800aa8-5e38-1ad9-284f-1754c83d0f8a@oracle.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 168609: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=a13dfc769bd7097d8d9ffe3e029a2c1d062d712b
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 15 Mar 2022 06:19:21 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4d800aa8-5e38-1ad9-284f-1754c83d0f8a@oracle.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-flight 168609 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168609/
+On Mon, Mar 14, 2022 at 06:39:21PM -0400, Boris Ostrovsky wrote:
+> This is IO_TLB_MIN_SLABS, isn't it? (Xen code didn't say so but that's what it meant to say I believe)
 
-Regressions :-(
+Yes, that makes much more sense.  I've switched the patch to use
+IO_TLB_MIN_SLABS and drop the 2MB comment in both places.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+Can I get a review with that fixed up?
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+---
+From 153085bf3e6e69d676bef0fb96395a86fb8122f5 Mon Sep 17 00:00:00 2001
+From: Christoph Hellwig <hch@lst.de>
+Date: Mon, 14 Mar 2022 08:02:57 +0100
+Subject: swiotlb: provide swiotlb_init variants that remap the buffer
 
-version targeted for testing:
- ovmf                 a13dfc769bd7097d8d9ffe3e029a2c1d062d712b
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+To shared more code between swiotlb and xen-swiotlb, offer a
+swiotlb_init_remap interface and add a remap callback to
+swiotlb_init_late that will allow Xen to remap the buffer the
+buffer without duplicating much of the logic.
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   14 days
-Failing since        168258  2022-03-01 01:55:31 Z   14 days  138 attempts
-Testing same since   168579  2022-03-14 08:41:36 Z    0 days    9 attempts
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ arch/x86/pci/sta2x11-fixup.c |  2 +-
+ include/linux/swiotlb.h      |  5 ++++-
+ kernel/dma/swiotlb.c         | 36 +++++++++++++++++++++++++++++++++---
+ 3 files changed, 38 insertions(+), 5 deletions(-)
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abner Chang <abner.chang@hpe.com>
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
+diff --git a/arch/x86/pci/sta2x11-fixup.c b/arch/x86/pci/sta2x11-fixup.c
+index c7e6faf59a861..7368afc039987 100644
+--- a/arch/x86/pci/sta2x11-fixup.c
++++ b/arch/x86/pci/sta2x11-fixup.c
+@@ -57,7 +57,7 @@ static void sta2x11_new_instance(struct pci_dev *pdev)
+ 		int size = STA2X11_SWIOTLB_SIZE;
+ 		/* First instance: register your own swiotlb area */
+ 		dev_info(&pdev->dev, "Using SWIOTLB (size %i)\n", size);
+-		if (swiotlb_init_late(size, GFP_DMA))
++		if (swiotlb_init_late(size, GFP_DMA, NULL))
+ 			dev_emerg(&pdev->dev, "init swiotlb failed\n");
+ 	}
+ 	list_add(&instance->list, &sta2x11_instance_list);
+diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+index ee655f2e4d28b..7b50c82f84ce9 100644
+--- a/include/linux/swiotlb.h
++++ b/include/linux/swiotlb.h
+@@ -36,8 +36,11 @@ struct scatterlist;
+ 
+ int swiotlb_init_with_tbl(char *tlb, unsigned long nslabs, unsigned int flags);
+ unsigned long swiotlb_size_or_default(void);
++void __init swiotlb_init_remap(bool addressing_limit, unsigned int flags,
++	int (*remap)(void *tlb, unsigned long nslabs));
++int swiotlb_init_late(size_t size, gfp_t gfp_mask,
++	int (*remap)(void *tlb, unsigned long nslabs));
+ extern int swiotlb_late_init_with_tbl(char *tlb, unsigned long nslabs);
+-int swiotlb_init_late(size_t size, gfp_t gfp_mask);
+ extern void __init swiotlb_update_mem_attributes(void);
+ 
+ phys_addr_t swiotlb_tbl_map_single(struct device *hwdev, phys_addr_t phys,
+diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+index 79641c446d284..b3d4f24fb5f5e 100644
+--- a/kernel/dma/swiotlb.c
++++ b/kernel/dma/swiotlb.c
+@@ -256,9 +256,11 @@ int __init swiotlb_init_with_tbl(char *tlb, unsigned long nslabs,
+  * Statically reserve bounce buffer space and initialize bounce buffer data
+  * structures for the software IO TLB used to implement the DMA API.
+  */
+-void __init swiotlb_init(bool addressing_limit, unsigned int flags)
++void __init swiotlb_init_remap(bool addressing_limit, unsigned int flags,
++		int (*remap)(void *tlb, unsigned long nslabs))
+ {
+-	size_t bytes = PAGE_ALIGN(default_nslabs << IO_TLB_SHIFT);
++	unsigned long nslabs = default_nslabs;
++	size_t bytes;
+ 	void *tlb;
+ 
+ 	if (!addressing_limit && !swiotlb_force_bounce)
+@@ -271,12 +273,23 @@ void __init swiotlb_init(bool addressing_limit, unsigned int flags)
+ 	 * allow to pick a location everywhere for hypervisors with guest
+ 	 * memory encryption.
+ 	 */
++retry:
++	bytes = PAGE_ALIGN(default_nslabs << IO_TLB_SHIFT);
+ 	if (flags & SWIOTLB_ANY)
+ 		tlb = memblock_alloc(bytes, PAGE_SIZE);
+ 	else
+ 		tlb = memblock_alloc_low(bytes, PAGE_SIZE);
+ 	if (!tlb)
+ 		goto fail;
++	if (remap && remap(tlb, nslabs) < 0) {
++		memblock_free(tlb, PAGE_ALIGN(bytes));
++
++		if (nslabs <= IO_TLB_MIN_SLABS)
++			panic("%s: Failed to remap %zu bytes\n",
++			      __func__, bytes);
++		nslabs = max(1024UL, ALIGN(nslabs >> 1, IO_TLB_SEGSIZE));
++		goto retry;
++	}
+ 	if (swiotlb_init_with_tbl(tlb, default_nslabs, flags))
+ 		goto fail_free_mem;
+ 	return;
+@@ -287,12 +300,18 @@ void __init swiotlb_init(bool addressing_limit, unsigned int flags)
+ 	pr_warn("Cannot allocate buffer");
+ }
+ 
++void __init swiotlb_init(bool addressing_limit, unsigned int flags)
++{
++	return swiotlb_init_remap(addressing_limit, flags, NULL);
++}
++
+ /*
+  * Systems with larger DMA zones (those that don't support ISA) can
+  * initialize the swiotlb later using the slab allocator if needed.
+  * This should be just like above, but with some error catching.
+  */
+-int swiotlb_init_late(size_t size, gfp_t gfp_mask)
++int swiotlb_init_late(size_t size, gfp_t gfp_mask,
++		int (*remap)(void *tlb, unsigned long nslabs))
+ {
+ 	unsigned long nslabs = ALIGN(size >> IO_TLB_SHIFT, IO_TLB_SEGSIZE);
+ 	unsigned long bytes;
+@@ -303,6 +322,7 @@ int swiotlb_init_late(size_t size, gfp_t gfp_mask)
+ 	if (swiotlb_force_disable)
+ 		return 0;
+ 
++retry:
+ 	order = get_order(nslabs << IO_TLB_SHIFT);
+ 	nslabs = SLABS_PER_PAGE << order;
+ 	bytes = nslabs << IO_TLB_SHIFT;
+@@ -317,6 +337,16 @@ int swiotlb_init_late(size_t size, gfp_t gfp_mask)
+ 
+ 	if (!vstart)
+ 		return -ENOMEM;
++	if (remap)
++		rc = remap(vstart, nslabs);
++	if (rc) {
++		free_pages((unsigned long)vstart, order);
++ 
++		if (IO_TLB_MIN_SLABS <= 1024)
++			return rc;
++		nslabs = max(1024UL, ALIGN(nslabs >> 1, IO_TLB_SEGSIZE));
++		goto retry;
++	}
+ 
+ 	if (order != get_order(bytes)) {
+ 		pr_warn("only able to allocate %ld MB\n",
+-- 
+2.30.2
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 629 lines long.)
 
