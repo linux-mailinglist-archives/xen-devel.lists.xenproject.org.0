@@ -2,35 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C58B4D9D96
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Mar 2022 15:30:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.290837.493384 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 071B14D9DF2
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Mar 2022 15:42:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.290847.493416 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nU8BN-00050c-WB; Tue, 15 Mar 2022 14:29:53 +0000
+	id 1nU8NI-0007rc-Si; Tue, 15 Mar 2022 14:42:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 290837.493384; Tue, 15 Mar 2022 14:29:53 +0000
+Received: by outflank-mailman (output) from mailman id 290847.493416; Tue, 15 Mar 2022 14:42:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nU8BN-0004yC-SM; Tue, 15 Mar 2022 14:29:53 +0000
-Received: by outflank-mailman (input) for mailman id 290837;
- Tue, 15 Mar 2022 14:29:52 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1nU8NI-0007on-OW; Tue, 15 Mar 2022 14:42:12 +0000
+Received: by outflank-mailman (input) for mailman id 290847;
+ Tue, 15 Mar 2022 14:42:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nU8BM-0004y2-NZ; Tue, 15 Mar 2022 14:29:52 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nU8BM-00055l-Ks; Tue, 15 Mar 2022 14:29:52 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nU8BM-000134-8f; Tue, 15 Mar 2022 14:29:52 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nU8BM-00060b-8B; Tue, 15 Mar 2022 14:29:52 +0000
+ (envelope-from <SRS0=1u5x=T2=redhat.com=armbru@srs-se1.protection.inumbo.net>)
+ id 1nU8NH-0007nJ-8Z
+ for xen-devel@lists.xenproject.org; Tue, 15 Mar 2022 14:42:11 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1378d06f-a46e-11ec-8eba-a37418f5ba1a;
+ Tue, 15 Mar 2022 15:42:07 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-641-eIeJ3d8PN2almpoA8lzYrg-1; Tue, 15 Mar 2022 10:42:00 -0400
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DD2F4181A0E0;
+ Tue, 15 Mar 2022 14:41:58 +0000 (UTC)
+Received: from blackfin.pond.sub.org (unknown [10.36.112.3])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E64864B8D42;
+ Tue, 15 Mar 2022 14:41:57 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id BF2CC21E66C8; Tue, 15 Mar 2022 15:41:56 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,349 +52,276 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=gAIgHzaI+K82Bk3TcOrCLYFh4NhAGKGlhmhbfY7xgjs=; b=i5ZPSyh62lYYH4uJSyQtxJTByy
-	bEKxcoAhxnmKeI4wzKqNbcon32UJZxd3CVkXwscVz0WKEb4brKRp/RFTHTmnFWvdo7InPJJsRqJM4
-	KJX3IVD+frIT7KNn0+K6JdJxevgmNjucGOLqvwKSxhjhsX17SlSjVA9pn34RQXzeaxaA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168608-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 1378d06f-a46e-11ec-8eba-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1647355321;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=GC7qJg4HFbw11AF4VnR1TT/IY6FAlLGNtDHM0c9A3dc=;
+	b=JTi73Y5Vqnd3OskajZfFj0B1vAK32p4dkXdN9/Ed7DHaSmqC7DzCnSXjrMyEJAyzzJrIqT
+	/GCSowrk3X4Pf30wiaymCcyZGrg16D6BRvgPXRXGKg8mb18qoBKQuwGb/MCnYN+QY78u93
+	8sIU4czPsNVcKj9r8H9bQNQPYbftmCo=
+X-MC-Unique: eIeJ3d8PN2almpoA8lzYrg-1
+From: Markus Armbruster <armbru@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Christian Schoenebeck <qemu_oss@crudebyte.com>,
+	"Gonglei (Arei)" <arei.gonglei@huawei.com>,
+	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Igor Mammedov <imammedo@redhat.com>,
+	Ani Sinha <ani@anisinha.ca>,
+	Laurent Vivier <lvivier@redhat.com>,
+	Amit Shah <amit@kernel.org>,
+	Peter Maydell <peter.maydell@linaro.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>,
+	=?UTF-8?q?Herv=C3=A9=20Poussineau?= <hpoussin@reactos.org>,
+	Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
+	Corey Minyard <cminyard@mvista.com>,
+	Patrick Venture <venture@google.com>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Peter Xu <peterx@redhat.com>,
+	Jason Wang <jasowang@redhat.com>,
+	=?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>,
+	Daniel Henrique Barboza <danielhb413@gmail.com>,
+	David Gibson <david@gibson.dropbear.id.au>,
+	Greg Kurz <groug@kaod.org>,
+	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <f4bug@amsat.org>,
+	Jean-Christophe Dubois <jcd@tribudubois.net>,
+	Keith Busch <kbusch@kernel.org>,
+	Klaus Jensen <its@irrelevant.dk>,
+	Yuval Shaia <yuval.shaia.ml@gmail.com>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Fabien Chouteau <chouteau@adacore.com>,
+	KONRAD Frederic <frederic.konrad@adacore.com>,
+	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
+	Artyom Tarasenko <atar4qemu@gmail.com>,
+	Alex Williamson <alex.williamson@redhat.com>,
+	Eric Auger <eric.auger@redhat.com>,
+	Max Filippov <jcmvbkbc@gmail.com>,
+	Juan Quintela <quintela@redhat.com>,
+	"Dr. David Alan Gilbert" <dgilbert@redhat.com>,
+	Konstantin Kostiuk <kkostiuk@redhat.com>,
+	Michael Roth <michael.roth@amd.com>,
+	=?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
+	Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>,
+	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	David Hildenbrand <david@redhat.com>,
+	Wenchao Wang <wenchao.wang@intel.com>,
+	Kamil Rytarowski <kamil@netbsd.org>,
+	Reinoud Zandijk <reinoud@netbsd.org>,
+	Sunil Muthuswamy <sunilmut@microsoft.com>,
+	Cornelia Huck <cohuck@redhat.com>,
+	Thomas Huth <thuth@redhat.com>,
+	Eric Blake <eblake@redhat.com>,
+	Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>,
+	John Snow <jsnow@redhat.com>,
+	kvm@vger.kernel.org,
+	qemu-arm@nongnu.org,
+	xen-devel@lists.xenproject.org,
+	qemu-ppc@nongnu.org,
+	qemu-block@nongnu.org,
+	haxm-team@intel.com,
+	qemu-s390x@nongnu.org
+Subject: [PATCH v2 0/3] Use g_new() & friends where that makes obvious sense
+Date: Tue, 15 Mar 2022 15:41:53 +0100
+Message-Id: <20220315144156.1595462-1-armbru@redhat.com>
 MIME-Version: 1.0
-Subject: [libvirt test] 168608: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=2804fa912fa160e38e4ce7f537b6f6e1dcd5ee9d
-X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 15 Mar 2022 14:29:52 +0000
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=armbru@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-flight 168608 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168608/
+g_new(T, n) is neater than g_malloc(sizeof(T) * n).  It's also safer,
+for two reasons.  One, it catches multiplication overflowing size_t.
+Two, it returns T * rather than void *, which lets the compiler catch
+more type errors.
 
-Regressions :-(
+This series only touches allocations with size arguments of the form
+sizeof(T).  It's mechanical, except for a tiny fix in PATCH 2.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+PATCH 1 adds the Coccinelle script.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-raw   1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
+PATCH 2 cleans up the virtio-9p subsystem, and fixes a harmless typing
+error uncovered by the cleanup.
 
-version targeted for testing:
- libvirt              2804fa912fa160e38e4ce7f537b6f6e1dcd5ee9d
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+PATCH 3 cleans up everything else.  I started to split it up, but
+splitting is a lot of decisions, and I just can't see the value.
 
-Last test of basis   151777  2020-07-10 04:19:19 Z  613 days
-Failing since        151818  2020-07-11 04:18:52 Z  612 days  594 attempts
-Testing same since   168522  2022-03-12 04:18:54 Z    3 days    4 attempts
+For instance, MAINTAINERS tells me to split for subsystem "virtio",
+patching
 
-------------------------------------------------------------
-People who touched revisions under test:
-    Adolfo Jayme Barrientos <fitoschido@gmail.com>
-  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
-  Aleksei Zakharov <zaharov@selectel.ru>
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Ani Sinha <ani@anisinha.ca>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Barrett Schonefeld <bschoney@utexas.edu>
-  Bastian Germann <bastiangermann@fishpost.de>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  BiaoXiang Ye <yebiaoxiang@huawei.com>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Bjoern Walk <bwalk@linux.ibm.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Brad Laue <brad@brad-x.com>
-  Brian Turek <brian.turek@gmail.com>
-  Bruno Haible <bruno@clisp.org>
-  Chris Mayo <aklhfex@gmail.com>
-  Christian Borntraeger <borntraeger@de.ibm.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Kirbach <christian.kirbach@gmail.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Christophe Fergeau <cfergeau@redhat.com>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Cédric Bosdonnat <cbosdonnat@suse.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel Letai <dani@letai.org.il>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Didik Supriadi <didiksupriadi41@gmail.com>
-  dinglimin <dinglimin@cmss.chinamobile.com>
-  Divya Garg <divya.garg@nutanix.com>
-  Dmitrii Shcherbakov <dmitrii.shcherbakov@canonical.com>
-  Dmytro Linkin <dlinkin@nvidia.com>
-  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
-  Emilio Herrera <ehespinosa57@gmail.com>
-  Eric Farman <farman@linux.ibm.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Affolter <mail@fabian-affolter.ch>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fabiano Fidêncio <fabiano@fidencio.org>
-  Fangge Jin <fjin@redhat.com>
-  Farhan Ali <alifm@linux.ibm.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  Franck Ridel <fridel@protonmail.com>
-  Gavi Teitz <gavi@nvidia.com>
-  gongwei <gongwei@smartx.com>
-  Guoyi Tu<tu.guoyi@h3c.com>
-  Göran Uddeborg <goeran@uddeborg.se>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Haonan Wang <hnwanga1@gmail.com>
-  Hela Basa <r45xveza@pm.me>
-  Helmut Grohne <helmut@subdivi.de>
-  Hiroki Narukawa <hnarukaw@yahoo-corp.jp>
-  Hyman Huang(黄勇) <huangy81@chinatelecom.cn>
-  Ian Wienand <iwienand@redhat.com>
-  Ioanna Alifieraki <ioanna-maria.alifieraki@canonical.com>
-  Ivan Teterevkov <ivan.teterevkov@nutanix.com>
-  Jakob Meng <jakobmeng@web.de>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jan Kuparinen <copper_fin@hotmail.com>
-  jason lee <ppark5237@gmail.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jia Zhou <zhou.jia2@zte.com.cn>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jing Qi <jinqi@redhat.com>
-  Jinsheng Zhang <zhangjl02@inspur.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Joachim Falk <joachim.falk@gmx.de>
-  John Ferlan <jferlan@redhat.com>
-  Jonathan Watt <jwatt@jwatt.org>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Justin Gatzen <justin.gatzen@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Kim InSoo <simmon@nplob.com>
-  Koichi Murase <myoga.murase@gmail.com>
-  Kristina Hanicova <khanicov@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lee Yarwood <lyarwood@redhat.com>
-  Lei Yang <yanglei209@huawei.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.com>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Liu Yiding <liuyd.fnst@fujitsu.com>
-  Lubomir Rintel <lkundrak@v3.sk>
-  Luke Yue <lukedyue@gmail.com>
-  Luyao Zhong <luyao.zhong@intel.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Martin Pitt <mpitt@debian.org>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matej Cepl <mcepl@cepl.eu>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Meina Li <meili@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Moshe Levi <moshele@nvidia.com>
-  Muha Aliss <muhaaliss@gmail.com>
-  Nathan <nathan95@live.it>
-  Neal Gompa <ngompa13@gmail.com>
-  Nick Chevsky <nchevsky@gmail.com>
-  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
-  Nickys Music Group <nickys.music.group@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nicolas Lécureuil <neoclust@mageia.org>
-  Nicolas Lécureuil <nicolas.lecureuil@siveo.net>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Olaf Hering <olaf@aepfle.de>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Or Ozeri <oro@il.ibm.com>
-  Orion Poplawski <orion@nwra.com>
-  Pany <geekpany@gmail.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peng Liang <liangpeng10@huawei.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Praveen K Paladugu <prapal@linux.microsoft.com>
-  Richard W.M. Jones <rjones@redhat.com>
-  Ricky Tigg <ricky.tigg@gmail.com>
-  Robin Lee <cheeselee@fedoraproject.org>
-  Rohit Kumar <rohit.kumar3@nutanix.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Gahagan <rgahagan@cs.utexas.edu>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  SeongHyun Jo <caelus9536@gmail.com>
-  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
-  Shaojun Yang <yangshaojun@phytium.com.cn>
-  shenjiatong <yshxxsjt715@gmail.com>
-  Shi Lei <shi_lei@massclouds.com>
-  simmon <simmon@nplob.com>
-  Simon Chopin <chopin.simon@gmail.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Simon Rowe <simon.rowe@nutanix.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Stefan Berger <stefanb@linux.vnet.ibm.com>
-  Stefan Hajnoczi <stefanha@gmail.com>
-  Stefan Hajnoczi <stefanha@redhat.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Tomáš Janoušek <tomi@nomi.cz>
-  Tu Qiang <tu.qiang35@zte.com.cn>
-  Tuguoyi <tu.guoyi@h3c.com>
-  tuqiang <tu.qiang35@zte.com.cn>
-  Vasiliy Ulyanov <vulyanov@suse.de>
-  Victor Toso <victortoso@redhat.com>
-  Ville Skyttä <ville.skytta@iki.fi>
-  Vinayak Kale <vkale@nvidia.com>
-  Vineeth Pillai <viremana@linux.microsoft.com>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  WangJian <wangjian161@huawei.com>
-  Weblate <noreply@weblate.org>
-  Wei Liu <liuwe@microsoft.com>
-  Wei Liu <wei.liu@kernel.org>
-  Wei-Chen Chen <weicche@microsoft.com>
-  William Douglas <william.douglas@intel.com>
-  Xu Chao <xu.chao6@zte.com.cn>
-  Yalei Li <274268859@qq.com>
-  Yalei Li <liyl43@chinatelecom.cn>
-  Yang Fei <yangfei85@huawei.com>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yaroslav Kargin <ykargin@virtuozzo.com>
-  Yasuhiko Kamata <belphegor@belbel.or.jp>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
-  zhangjl02 <zhangjl02@inspur.com>
-  zhanglei <zhanglei@smartx.com>
-  Zheng Chuan <zhengchuan@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Ye <yezhenyu2@huawei.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
-  Zhenzhong Duan <zhenzhong.duan@intel.com>
-  Дамјан Георгиевски <gdamjan@gmail.com>
+    hw/char/virtio-serial-bus.c
+    hw/display/virtio-gpu.c
+    hw/net/virtio-net.c
+    hw/virtio/virtio-crypto.c
+    hw/virtio/virtio-iommu.c
+    hw/virtio/virtio.c
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-qcow2                               blocked 
- test-arm64-arm64-libvirt-raw                                 blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-i386-libvirt-raw                                  blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+But it also tells me to split for subsystem "Character devices",
+patching
 
+    hw/char/parallel.c                       |  2 +-
+    hw/char/riscv_htif.c                     |  2 +-
+    hw/char/virtio-serial-bus.c              |  6 +-
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+and for subsystem "Network devices", patching
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+    hw/net/virtio-net.c
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+and for subsystem "virtio-gpu", patching
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+    hw/display/virtio-gpu.c
 
+I guess I'd go with "virtio".  Six files down, 103 to go.  Thanks, but
+no thanks.
 
-Not pushing.
+Since the transformation is local to a function call, dropping is
+completely safe.  We can deal with conflicts by dropping conflicting
+hunks, with "git-pull -s recursive -X ours".  Or drop entire files
+with conflicts.
 
-(No revision log; it would be 100900 lines long.)
+If you want me to split off certain parts, please tell me exactly what
+you want split off, and I'll gladly do the splitting.  I don't mind
+the splitting part, I do mind the *thinking* part.
+
+I backed out two changes made by the Coccinelle script:
+scripts/coverity-scan/model.c, because that's special, and
+semihosting/config.c, because it has a typing error similar to the one
+fixed in PATCH 2, and Alex already posted a patch for it.
+
+v2:
+* PATCH 3: Change to scripts/coverity-scan/model.c dropped [Eric]
+* PATCH 3: Change to semihosting/config.c dropped [Alex]
+* Commit messages tweaked
+
+Markus Armbruster (3):
+  scripts/coccinelle: New use-g_new-etc.cocci
+  9pfs: Use g_new() & friends where that makes obvious sense
+  Use g_new() & friends where that makes obvious sense
+
+ scripts/coccinelle/use-g_new-etc.cocci   | 75 ++++++++++++++++++++++++
+ include/qemu/timer.h                     |  2 +-
+ accel/kvm/kvm-all.c                      |  6 +-
+ accel/tcg/tcg-accel-ops-mttcg.c          |  2 +-
+ accel/tcg/tcg-accel-ops-rr.c             |  4 +-
+ audio/audio.c                            |  4 +-
+ audio/audio_legacy.c                     |  6 +-
+ audio/dsoundaudio.c                      |  2 +-
+ audio/jackaudio.c                        |  6 +-
+ audio/paaudio.c                          |  4 +-
+ backends/cryptodev.c                     |  2 +-
+ contrib/vhost-user-gpu/vhost-user-gpu.c  |  2 +-
+ cpus-common.c                            |  4 +-
+ dump/dump.c                              |  2 +-
+ hw/9pfs/9p-proxy.c                       |  2 +-
+ hw/9pfs/9p-synth.c                       |  4 +-
+ hw/9pfs/9p.c                             |  8 +--
+ hw/9pfs/codir.c                          |  6 +-
+ hw/acpi/hmat.c                           |  2 +-
+ hw/audio/intel-hda.c                     |  2 +-
+ hw/char/parallel.c                       |  2 +-
+ hw/char/riscv_htif.c                     |  2 +-
+ hw/char/virtio-serial-bus.c              |  6 +-
+ hw/core/irq.c                            |  2 +-
+ hw/core/reset.c                          |  2 +-
+ hw/display/pxa2xx_lcd.c                  |  2 +-
+ hw/display/tc6393xb.c                    |  2 +-
+ hw/display/virtio-gpu.c                  |  4 +-
+ hw/display/xenfb.c                       |  4 +-
+ hw/dma/rc4030.c                          |  4 +-
+ hw/i2c/core.c                            |  4 +-
+ hw/i2c/i2c_mux_pca954x.c                 |  2 +-
+ hw/i386/amd_iommu.c                      |  4 +-
+ hw/i386/intel_iommu.c                    |  2 +-
+ hw/i386/xen/xen-hvm.c                    | 10 ++--
+ hw/i386/xen/xen-mapcache.c               | 14 ++---
+ hw/input/lasips2.c                       |  2 +-
+ hw/input/pckbd.c                         |  2 +-
+ hw/input/ps2.c                           |  4 +-
+ hw/input/pxa2xx_keypad.c                 |  2 +-
+ hw/input/tsc2005.c                       |  3 +-
+ hw/intc/riscv_aclint.c                   |  6 +-
+ hw/intc/xics.c                           |  2 +-
+ hw/m68k/virt.c                           |  2 +-
+ hw/mips/mipssim.c                        |  2 +-
+ hw/misc/applesmc.c                       |  2 +-
+ hw/misc/imx6_src.c                       |  2 +-
+ hw/misc/ivshmem.c                        |  4 +-
+ hw/net/virtio-net.c                      |  4 +-
+ hw/nvme/ns.c                             |  2 +-
+ hw/pci-host/pnv_phb3.c                   |  2 +-
+ hw/pci-host/pnv_phb4.c                   |  2 +-
+ hw/pci/pcie_sriov.c                      |  2 +-
+ hw/ppc/e500.c                            |  2 +-
+ hw/ppc/ppc.c                             |  8 +--
+ hw/ppc/ppc405_boards.c                   |  4 +-
+ hw/ppc/ppc405_uc.c                       | 18 +++---
+ hw/ppc/ppc4xx_devs.c                     |  2 +-
+ hw/ppc/ppc_booke.c                       |  4 +-
+ hw/ppc/spapr.c                           |  2 +-
+ hw/ppc/spapr_events.c                    |  2 +-
+ hw/ppc/spapr_hcall.c                     |  2 +-
+ hw/ppc/spapr_numa.c                      |  3 +-
+ hw/rdma/vmw/pvrdma_dev_ring.c            |  2 +-
+ hw/rdma/vmw/pvrdma_qp_ops.c              |  6 +-
+ hw/sh4/r2d.c                             |  4 +-
+ hw/sh4/sh7750.c                          |  2 +-
+ hw/sparc/leon3.c                         |  2 +-
+ hw/sparc64/sparc64.c                     |  4 +-
+ hw/timer/arm_timer.c                     |  2 +-
+ hw/timer/slavio_timer.c                  |  2 +-
+ hw/vfio/pci.c                            |  4 +-
+ hw/vfio/platform.c                       |  4 +-
+ hw/virtio/virtio-crypto.c                |  2 +-
+ hw/virtio/virtio-iommu.c                 |  2 +-
+ hw/virtio/virtio.c                       |  5 +-
+ hw/xtensa/xtfpga.c                       |  2 +-
+ linux-user/syscall.c                     |  2 +-
+ migration/dirtyrate.c                    |  4 +-
+ migration/multifd-zlib.c                 |  4 +-
+ migration/ram.c                          |  2 +-
+ monitor/misc.c                           |  2 +-
+ monitor/qmp-cmds.c                       |  2 +-
+ qga/commands-win32.c                     |  8 +--
+ qga/commands.c                           |  2 +-
+ qom/qom-qmp-cmds.c                       |  2 +-
+ replay/replay-char.c                     |  4 +-
+ replay/replay-events.c                   | 10 ++--
+ softmmu/bootdevice.c                     |  4 +-
+ softmmu/dma-helpers.c                    |  4 +-
+ softmmu/memory_mapping.c                 |  2 +-
+ target/i386/cpu-sysemu.c                 |  2 +-
+ target/i386/hax/hax-accel-ops.c          |  4 +-
+ target/i386/nvmm/nvmm-accel-ops.c        |  4 +-
+ target/i386/whpx/whpx-accel-ops.c        |  4 +-
+ target/i386/whpx/whpx-all.c              |  2 +-
+ target/s390x/cpu-sysemu.c                |  2 +-
+ tests/qtest/virtio-9p-test.c             |  4 +-
+ tests/unit/test-hbitmap.c                |  2 +-
+ tests/unit/test-qmp-cmds.c               | 14 ++---
+ tests/unit/test-qobject-output-visitor.c |  2 +-
+ tests/unit/test-vmstate.c                | 42 ++++++-------
+ ui/vnc-enc-tight.c                       |  2 +-
+ util/envlist.c                           |  2 +-
+ util/hbitmap.c                           |  2 +-
+ util/main-loop.c                         |  2 +-
+ util/qemu-timer.c                        |  2 +-
+ util/vfio-helpers.c                      |  4 +-
+ 108 files changed, 282 insertions(+), 212 deletions(-)
+ create mode 100644 scripts/coccinelle/use-g_new-etc.cocci
+
+-- 
+2.35.1
+
 
