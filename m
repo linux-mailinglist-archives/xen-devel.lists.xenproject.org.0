@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D131C4D9D3B
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Mar 2022 15:18:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.290824.493372 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C58B4D9D96
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Mar 2022 15:30:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.290837.493384 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nU80W-0002Zs-Qg; Tue, 15 Mar 2022 14:18:40 +0000
+	id 1nU8BN-00050c-WB; Tue, 15 Mar 2022 14:29:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 290824.493372; Tue, 15 Mar 2022 14:18:40 +0000
+Received: by outflank-mailman (output) from mailman id 290837.493384; Tue, 15 Mar 2022 14:29:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nU80W-0002X8-Mb; Tue, 15 Mar 2022 14:18:40 +0000
-Received: by outflank-mailman (input) for mailman id 290824;
- Tue, 15 Mar 2022 14:18:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fAQZ=T2=citrix.com=prvs=0668da279=roger.pau@srs-se1.protection.inumbo.net>)
- id 1nU80U-0001dw-GL
- for xen-devel@lists.xenproject.org; Tue, 15 Mar 2022 14:18:38 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cd046a9f-a46a-11ec-8eba-a37418f5ba1a;
- Tue, 15 Mar 2022 15:18:36 +0100 (CET)
+	id 1nU8BN-0004yC-SM; Tue, 15 Mar 2022 14:29:53 +0000
+Received: by outflank-mailman (input) for mailman id 290837;
+ Tue, 15 Mar 2022 14:29:52 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nU8BM-0004y2-NZ; Tue, 15 Mar 2022 14:29:52 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nU8BM-00055l-Ks; Tue, 15 Mar 2022 14:29:52 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nU8BM-000134-8f; Tue, 15 Mar 2022 14:29:52 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nU8BM-00060b-8B; Tue, 15 Mar 2022 14:29:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,449 +42,349 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cd046a9f-a46a-11ec-8eba-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1647353916;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=pmw0n5EiSj/Gg8CcI/wnNglcX0lP9n/ViiMh4cLvFpU=;
-  b=SoI+ZJqFSnSTqBYxUJjYjqnrTbg1dGJDjGntwo70yB5BvKhVzD2vbAFE
-   7saWV1BGLkF0CQ7M4ympod4btDr4YPlj8nwEH4vUgHyN9xGndkhkyIr7m
-   TrOMwtYnkETn8KRv7XlyzU/of7IfaHcPPCo6zytdVJ21nADg/byXjoCDH
-   8=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-X-SBRS: 5.1
-X-MesageID: 65756333
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:mE/+P6hxmHeXQiCRtbPo2rv7X161fhAKZh0ujC45NGQN5FlHY01je
- htvXGzTb6mDZGDxLt1xPI7goU1SvsfTz4NjHgJrpCEzQSkb9cadCdqndUqhZCn6wu8v7a5EA
- 2fyTvGacajYm1eF/k/F3oDJ9CU6jefSLlbFILas1hpZHGeIcw98z0M78wIFqtQw24LhWFrQ4
- YiaT/D3YzdJ5RYlagr41IrbwP9flKyaVOQw5wFWiVhj5TcyplFNZH4tDfjZw0jQG+G4KtWSV
- efbpIxVy0uCl/sb5nFJpZ6gGqECaua60QFjERO6UYD66vRJjnRaPqrWqJPwwKqY4tmEt4kZ9
- TlDiXC/YV0WPYH+uOgmaEl3SRBlEPdnx5b4A0Hq5KR/z2WeG5ft6/BnDUVwNowE4OdnR2pJ8
- JT0KhhUMErF3bjvhuvmFK883azPL+GyVG8bkmtnwjzDS+4vXLjIQrnQ5M8e1zA17ixLNaiDO
- JdHMmE0BPjGSxgVNEsvV5QUpdqxiXquXC10rXS1nrVitgA/yyQuieOwYbI5YOeiWsF9jkue4
- GXc8AzRABsXKdiewjqt6W+3i6nEmiaTcJIfEvi0++BnhHWXx3cPE1sGWF2ju/67h0WiHdVFJ
- CQpFjEG9PZoshbxF5+kAkP+8CXsUgMgt8R4SdI5xDOtxpHvsynDN3MpFB9+QeMEjZpjLdA17
- WOhk9TsDD1plbSaT3OB67uZxQ+P1TgpwXwqPnFdE1ZcizX3iMRq10+UEI4/eEKgpoetcQwc1
- Qxmu8TXa187qccQn5u28lnc695HjsiYF1Vljuk7s4/M0++YWGJHT9HwgbQ4xawZRGp8crVnl
- CNc8yR5xLpSZaxhbATXHI0w8EuVz/iEKibAplVkAoMs8T+gk1b6I9wPumAkfR05a5xeEdMMX
- KM1kVgIjHO0FCH2BZKbnqrrU5h6pUQePYmNug/ogipmPcEqKV7vENBGbk+MxWH9+HXAYolkU
- ap3hf2EVC5AYYw+lWLeb75EjdcDm3BvrUuOFMuT50n2jtKjiIu9FO5tGEGQddow8K7siFyTq
- 76zwePRkE4BOAA/CwGKmbMuwacidiFqW8qp95QJKoZu4GNOQQkcNhMY+pt4E6RNlKVJjObYu
- Ha7X05T0l3kgnPbbw6NbxhehHnHBP6TcVpT0fQQAGuV
-IronPort-HdrOrdr: A9a23:GpX6d6oiOgW5nfm54QGasOkaV5pIeYIsimQD101hICG9E/b5qy
- nKpp8mPHDP5Qr5NEtLpTniAsi9qA3nmqKdiLN5VYtKNzOLhILHFu9f0bc=
-X-IronPort-AV: E=Sophos;i="5.90,183,1643691600"; 
-   d="scan'208";a="65756333"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=D3CF3vPZhvE4JNhxDFB2NTdHUbHjLVGzu1+6FDfalrCuDhPhfXUZnzRNx5FQTOI4jF6AuzpjVpUSpp+vDC54xbDYUe4eOYI5nZzIfwfNZTQHBmA++H4L3GPuYLiIdFBlBSujPtOXYsFsgFvJ/cCi1NheY7tfIESM6yAdGP4RG/6VD3PHR57aD7Jys0lD5b8jzTe3Kow8oLoDTo5DhQyAZsh9aTOnbyy3vBjmzFmOW17o9JTOg+POAP3qPwzzZu4SVFEogkrI8QzKq1AcEAXz2sSl9Gl71Wr+L5BLmcOnanRADFlDHH5ZiRHChl6dxxkR7A2+UL/jQglerjVQXk0TUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2ahOA0++gPYSAW5JG8yCQm/xSXxp3ybZIcobHc88tnw=;
- b=L1C8MZjXn9wVnhJHtbobX8Ovuw2DmDxUJxGDszjdJOiDvAWRufctWLbJskBC8MglwuaN5NtioXvw/N0rjcMRjZEl+Wfjc2vjq/DP/S+OtaEmFb2CrvEkRRiaK8dfDW3kkX4ljYpMkVPXfFiXBQiGTrNA4t2eIFMea3mGcrsmj54igW9qJ6lkpsbhhPr4yHr/H2odOqYS+xV7XKIY5xMOUTjwtqtdS/SnG4kDlmUXYFpVzDBrXTDSnGjzI5NcuOmOMwvkxe4dGxTo5zdZsQK7Ny5t08VC92cLol6qmG77x7VjLh5gVYzOs4t1WmKfPVYL4CuSwGaVTafR/ufTRwNo1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2ahOA0++gPYSAW5JG8yCQm/xSXxp3ybZIcobHc88tnw=;
- b=M7eF+xc3U06cztmKQWQ+esRfCzpLEOwARTrBv3IfMYbavxtxK4qnTKz5Ay4gdqR90POYvNi2L92oyH0cBXRyofPnADozDY3HastvzpCacY9pQMyScLSSYWP2yMEHZGiS+ZZBvzXE9hxTVe7IUsZna0QYhXEJ1MGdt85dum75INU=
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v2 3/3] amd/msr: implement VIRT_SPEC_CTRL for HVM guests using legacy SSBD
-Date: Tue, 15 Mar 2022 15:18:07 +0100
-Message-ID: <20220315141807.22770-4-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220315141807.22770-1-roger.pau@citrix.com>
-References: <20220315141807.22770-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=gAIgHzaI+K82Bk3TcOrCLYFh4NhAGKGlhmhbfY7xgjs=; b=i5ZPSyh62lYYH4uJSyQtxJTByy
+	bEKxcoAhxnmKeI4wzKqNbcon32UJZxd3CVkXwscVz0WKEb4brKRp/RFTHTmnFWvdo7InPJJsRqJM4
+	KJX3IVD+frIT7KNn0+K6JdJxevgmNjucGOLqvwKSxhjhsX17SlSjVA9pn34RQXzeaxaA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168608-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO2P265CA0102.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:c::18) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 50b178cf-0cca-45a4-30b3-08da068eaf40
-X-MS-TrafficTypeDiagnostic: CY4PR03MB2902:EE_
-X-Microsoft-Antispam-PRVS: <CY4PR03MB2902EDD96DD120C09F345E428F109@CY4PR03MB2902.namprd03.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nvor1Cq1KxG1dnCaDUeSVTsW0Zepfv4INCSl0LmG7EfitUcC+KvWjvtuYakh0jy/IZEPccfPZQIaQp0zdypg1mVnYRZu4/iWl9DjH6Ccm/Y+qCfvW+DA/J114oa5rTDdE1u3wwIEbpzBHJq4rDk+MNBLr0/aOoy0ZuV8er6HS67xzyuG6r+VtH/Gvj7nCFnyR/WfO34tG0odKPI4wfJ4jLb2KaWjYWzqfvqm+nJarpI0nj4KJEMBHLD/1k0DqyX+eP7XPtD/vymR5zdvz+C+mG37Kc0EII14hRMmkHgEDSs/wCAcN5NI+2bpsgOxfY61n3eNK1yprmaPJJWdlyLzCsUwcQWQ4zd92YUbFE7w3a6Nty1ZVfFyXgdvXWfngqPF5B9cQWuQ0GP4cJtGRMZgAg32vvboJ3QWfhs9s+vFNjaXIR2l7e8HzzPalbfxMJ2PywePDREG30eAM6f3rAL1Rh5VBWCZHob//cGC5ESvSi44F9Qt+lFwPOXseZR0BagEGbVJzvUDK0yyXi+0jch+Y5uXFz0+xFkbwT4A4CfscMi+ud1FgAWzgxy8RivZ9ycLcl/gdMqEsIKSQ9eAVPSRI1BJrofpItMi+E0OyV+uB98k9KxRmTkal28CjjHfjqvqo9bUODt2QyBvUN0VjPoVQO7t2Datw9JX8xNE3LtF13zDk4EQQAwT9/z9qANxeneoZfZfbg1L5Ck4jXBB/QISJI+ZnlXrKnMr4kSm31pMIGY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(6512007)(5660300002)(6506007)(38100700002)(8936002)(6486002)(6916009)(8676002)(36756003)(508600001)(82960400001)(186003)(26005)(1076003)(83380400001)(966005)(66556008)(66476007)(66946007)(86362001)(6666004)(2906002)(316002)(2616005)(54906003)(4326008);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UGtLbVprRkYzbkhKaDhNZDBRajlLYnV0YlNEb3hiOTJYeGNjTEphZ2xVZnRn?=
- =?utf-8?B?SDVBTXJHZ1RjSEIwOS9pUjZ6S3BDUXNYWXg1V3ZOMVRub1o1QXFZUHhRa3o4?=
- =?utf-8?B?MmZZeGdPclpRWUhvZ1dDYXhyL1IvWmp0T2RyZnUxMmd5OTRXcjkzY3luK3g5?=
- =?utf-8?B?Z3VqUCtHUWtRUG1ZZytaTzBTL2t2VENUam44VzZXMCtKbG1sdm5MSU5PUS9E?=
- =?utf-8?B?enNlMzRQb3pyK1hLbklqVFpLQUJGNkRoeXN1aEpLYmNhN0FiSDlYM0g0NkhI?=
- =?utf-8?B?N0lnTEZUSUxSVmFqNUxicm81TlVqS3BOc1h2Uk1mb2V5MGlleVBybk83bkpx?=
- =?utf-8?B?RGh2RmlLV2IrQ2ZYb1JNeTFpbUcwNFVCZUNlazhuZHhraVk2RjE4cWlLMFps?=
- =?utf-8?B?bEgwYTVWT3JqRXNvSVRBUkN2bGJIdGdEbmc0bnFScjRsdzVYdzAzZFNDeW1w?=
- =?utf-8?B?aGZTVjdqOURIS29lL2pOUGYvNGFkOXhSNk9RWURHOUxwN2d0L1E1THEyYUZJ?=
- =?utf-8?B?d2J3aDFEUitnQzg5SjQ2ZVY0N2w3ZDR0N01HRmNIaUNWYmViV1JtMXJIK0pL?=
- =?utf-8?B?YzU0TDBrYVkvbWxKOTR0a2RZSWJUZThKMnZ4RG5FZkd5cU93eVlmTmhJbndE?=
- =?utf-8?B?amR5RTFiWFBjblFOWjVETXBPYTQ1Q3JGWXBwUG9HVUFLb3UzdERySDBRUjMw?=
- =?utf-8?B?QUcrRVYzTFR0eDJPTFdQeGhTUWM3V3JiWW8zNFVYdzF1cSttL2Y4MGRjbHhR?=
- =?utf-8?B?TlJCNUpPblhXRkNGbUhJb3drcG9vUGtXY1plRnFzUzFHMTVHdVpZMTZYZ2JQ?=
- =?utf-8?B?Nmt3TmN2Y3dGeW5MMVhHb0IxMmljTzBMMU9pODBuY01UUlp2M1dGbWoxVitn?=
- =?utf-8?B?OG5FeENnZU01Ti8yQ25QSW1pODZmcDdSU056WEN3RVh4aXJ6cVdMb1F2REJs?=
- =?utf-8?B?eGlNWlNZVldMc2NTeUw1VzNFRmxKRHc0bTNTdG5PL2UzQ0ErY1JyN1M3YlUz?=
- =?utf-8?B?Y1RwUGxjU0RqN2lscWFzSVY5NkxyTU1MSGtLeklTempnV0Q1QkJhTk5BWUl6?=
- =?utf-8?B?NHh1c3ZwandoSjhuZXVXWW5HWkdibk9oQkpKdENQN3ZSNmNPN3Jsd24ybXEr?=
- =?utf-8?B?NnlieWtxejVqa1NDb21MYWVDSjR4dnhPMUtuU2QrclBWaVY0di84enRoQ2FM?=
- =?utf-8?B?ajRHQjZaN0JENTVHNmc3eUI3K1Q1eE5JL2hWVlBwd2x1a2drV0JobDBIMnZi?=
- =?utf-8?B?Wmk0OFY3WlJ5QVRWYnFNOUxNUDNrdzJsdFV5RDQvRlBOZUtyTkRCcDM5clNt?=
- =?utf-8?B?aktoSzl5dWpqK2ZkekZhTlBnUmRHN0w0RjdFTzVEaGFHWm1CcUg5N3hVb0Jk?=
- =?utf-8?B?MnRRLy92K3pxVjBJd2VOdU1oejZSVGV0L3cwVng2eVpGOWtGbUcwSnFWMW5t?=
- =?utf-8?B?TGJOQW9EQWNtSXMrQmpCb1FQaDh4WjJMbHV1Q2lCTUZzdStqdDFlb1lmUHhj?=
- =?utf-8?B?RkNLYThhRkhnVzJDOWxjU3k2ZzRUWi96UlVwVENiSFJ2OEVwRWNyQWlYSkhX?=
- =?utf-8?B?L21oZGYyUTNjTlo1cFViY2JGLytqRnRzWmJrY1lxaG5jVlpjcDl6anZ2R1ZO?=
- =?utf-8?B?LzRtVG0yRjlMVGoxOTlTV0NwYUNuaVYvVENrWUlPSmIxM1M5bnhyT3JMS1dy?=
- =?utf-8?B?anIwZXdGSE80NURVV0JhUFVpanA5a1pDYWNsMkUwTFl5K1NHb3hQNmJHVDJQ?=
- =?utf-8?B?ODNxOUVaeHJ1eUx4YW8yU3VUcTNUdUN3eW9mVE85MTRSaWVmaklIazJnRHBn?=
- =?utf-8?B?WEtuWjdhYnlKVmRkcVBRYndhRm1YOGxoQTdyTnN2ei9rbDBTTk8zeHUwSkFj?=
- =?utf-8?B?ZXQ4RWVCTWdIaUFQQ2RmemlETWxscDNpNFRoSWYwVVNIeEl3QStnWXNPUXdD?=
- =?utf-8?B?eXpKb2ZocHVnUHpPRUZOMXNiM2JFZEd5aVFNOThmYzU3eE1UbEo1OTd1Sldp?=
- =?utf-8?B?dER4aFg5MjV3PT0=?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50b178cf-0cca-45a4-30b3-08da068eaf40
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2022 14:18:32.3407
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: o5jcZjORmQ6n/fr+eocHKMifrW8dC9IwiFvvgMs6/bc911Tf9R+JEF2M3/EApGacEQrsDKCZnIlwqhNpIk+RBA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR03MB2902
-X-OriginatorOrg: citrix.com
+Subject: [libvirt test] 168608: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=2804fa912fa160e38e4ce7f537b6f6e1dcd5ee9d
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 15 Mar 2022 14:29:52 +0000
 
-Expose VIRT_SSBD to guests if the hardware supports setting SSBD in
-the LS_CFG MSR (a.k.a. non-architectural way). Different AMD CPU
-families use different bits in LS_CFG, so exposing VIRT_SPEC_CTRL.SSBD
-allows for an unified way of exposing SSBD support to guests on AMD
-hardware that's compatible migration wise, regardless of what
-underlying mechanism is used to set SSBD.
+flight 168608 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168608/
 
-Note that on AMD Family 17h (Zen 1) the value of SSBD in LS_CFG is
-shared between threads on the same core, so there's extra logic in
-order to synchronize the value and have SSBD set as long as one of the
-threads in the core requires it to be set. Such logic also requires
-extra storage for each thread state, which is allocated at
-initialization time.
+Regressions :-(
 
-Do the context switching of the SSBD selection in LS_CFG between
-hypervisor and guest in the same handler that's already used to switch
-the value of VIRT_SPEC_CTRL in the hardware when supported.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
 
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v1:
- - Report legacy SSBD support using a global variable.
- - Use ro_after_init for ssbd_max_cores.
- - Handle boot_cpu_data.x86_num_siblings < 1.
- - Add comment regarding _irqsave usage in amd_set_legacy_ssbd.
----
- xen/arch/x86/cpu/amd.c         | 116 ++++++++++++++++++++++++++++-----
- xen/arch/x86/cpuid.c           |  10 +++
- xen/arch/x86/hvm/svm/svm.c     |  12 +++-
- xen/arch/x86/include/asm/amd.h |   4 ++
- xen/arch/x86/msr.c             |  22 ++++---
- xen/arch/x86/spec_ctrl.c       |   4 +-
- 6 files changed, 141 insertions(+), 27 deletions(-)
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-raw   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
 
-diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
-index 4999f8be2b..63d466b1df 100644
---- a/xen/arch/x86/cpu/amd.c
-+++ b/xen/arch/x86/cpu/amd.c
-@@ -48,6 +48,7 @@ boolean_param("allow_unsafe", opt_allow_unsafe);
- 
- /* Signal whether the ACPI C1E quirk is required. */
- bool __read_mostly amd_acpi_c1e_quirk;
-+bool __ro_after_init amd_legacy_ssbd;
- 
- static inline int rdmsr_amd_safe(unsigned int msr, unsigned int *lo,
- 				 unsigned int *hi)
-@@ -685,23 +686,10 @@ void amd_init_lfence(struct cpuinfo_x86 *c)
-  * Refer to the AMD Speculative Store Bypass whitepaper:
-  * https://developer.amd.com/wp-content/resources/124441_AMD64_SpeculativeStoreBypassDisable_Whitepaper_final.pdf
-  */
--void amd_init_ssbd(const struct cpuinfo_x86 *c)
-+static bool set_legacy_ssbd(const struct cpuinfo_x86 *c, bool enable)
- {
- 	int bit = -1;
- 
--	if (cpu_has_ssb_no)
--		return;
--
--	if (cpu_has_amd_ssbd) {
--		/* Handled by common MSR_SPEC_CTRL logic */
--		return;
--	}
--
--	if (cpu_has_virt_ssbd) {
--		wrmsrl(MSR_VIRT_SPEC_CTRL, opt_ssbd ? SPEC_CTRL_SSBD : 0);
--		return;
--	}
--
- 	switch (c->x86) {
- 	case 0x15: bit = 54; break;
- 	case 0x16: bit = 33; break;
-@@ -715,20 +703,114 @@ void amd_init_ssbd(const struct cpuinfo_x86 *c)
- 		if (rdmsr_safe(MSR_AMD64_LS_CFG, val) ||
- 		    ({
- 			    val &= ~mask;
--			    if (opt_ssbd)
-+			    if (enable)
- 				    val |= mask;
- 			    false;
- 		    }) ||
- 		    wrmsr_safe(MSR_AMD64_LS_CFG, val) ||
- 		    ({
- 			    rdmsrl(MSR_AMD64_LS_CFG, val);
--			    (val & mask) != (opt_ssbd * mask);
-+			    (val & mask) != (enable * mask);
- 		    }))
- 			bit = -1;
- 	}
- 
--	if (bit < 0)
-+	return bit >= 0;
-+}
-+
-+void amd_init_ssbd(const struct cpuinfo_x86 *c)
-+{
-+	if (cpu_has_ssb_no)
-+		return;
-+
-+	if (cpu_has_amd_ssbd) {
-+		/* Handled by common MSR_SPEC_CTRL logic */
-+		return;
-+	}
-+
-+	if (cpu_has_virt_ssbd) {
-+		wrmsrl(MSR_VIRT_SPEC_CTRL, opt_ssbd ? SPEC_CTRL_SSBD : 0);
-+		return;
-+	}
-+
-+	if (!set_legacy_ssbd(c, opt_ssbd))
-+	{
- 		printk_once(XENLOG_ERR "No SSBD controls available\n");
-+		if (amd_legacy_ssbd)
-+			panic("CPU feature mismatch: no legacy SSBD\n");
-+	}
-+	else if ( c == &boot_cpu_data )
-+		amd_legacy_ssbd = true;
-+}
-+
-+static struct ssbd_core {
-+    spinlock_t lock;
-+    unsigned int count;
-+} *ssbd_core;
-+static unsigned int __ro_after_init ssbd_max_cores;
-+
-+bool __init amd_setup_legacy_ssbd(void)
-+{
-+	unsigned int i;
-+
-+	if (boot_cpu_data.x86 != 0x17 || boot_cpu_data.x86_num_siblings <= 1)
-+		return true;
-+
-+	/*
-+	 * One could be forgiven for thinking that c->x86_max_cores is the
-+	 * correct value to use here.
-+	 *
-+	 * However, that value is derived from the current configuration, and
-+	 * c->cpu_core_id is sparse on all but the top end CPUs.  Derive
-+	 * max_cpus from ApicIdCoreIdSize which will cover any sparseness.
-+	 */
-+	if (boot_cpu_data.extended_cpuid_level >= 0x80000008) {
-+		ssbd_max_cores = 1u << MASK_EXTR(cpuid_ecx(0x80000008), 0xf000);
-+		ssbd_max_cores /= boot_cpu_data.x86_num_siblings;
-+	}
-+	if (!ssbd_max_cores)
-+		return false;
-+
-+	/* Max is two sockets for Fam17h hardware. */
-+	ssbd_core = xzalloc_array(struct ssbd_core, ssbd_max_cores * 2);
-+	if (!ssbd_core)
-+		return false;
-+
-+	for (i = 0; i < ssbd_max_cores * 2; i++) {
-+		spin_lock_init(&ssbd_core[i].lock);
-+		/* Record initial state, also applies to any hotplug CPU. */
-+		if (opt_ssbd)
-+			ssbd_core[i].count = boot_cpu_data.x86_num_siblings;
-+	}
-+
-+	return true;
-+}
-+
-+void amd_set_legacy_ssbd(bool enable)
-+{
-+	const struct cpuinfo_x86 *c = &current_cpu_data;
-+	struct ssbd_core *core;
-+	unsigned long flags;
-+
-+	if (c->x86 != 0x17 || c->x86_num_siblings <= 1) {
-+		BUG_ON(!set_legacy_ssbd(c, enable));
-+		return;
-+	}
-+
-+	BUG_ON(c->phys_proc_id >= 2);
-+	BUG_ON(c->cpu_core_id >= ssbd_max_cores);
-+	core = &ssbd_core[c->phys_proc_id * ssbd_max_cores + c->cpu_core_id];
-+	/*
-+	 * Use irqsave variant to make check_lock() happy. When called from
-+	 * vm{exit,entry}_virt_spec_ctrl GIF=0, but the state of IF could be 1,
-+	 * thus fooling the spinlock check.
-+	 */
-+	spin_lock_irqsave(&core->lock, flags);
-+	core->count += enable ? 1 : -1;
-+	ASSERT(core->count <= c->x86_num_siblings);
-+	if (enable ? core->count == 1 : !core->count)
-+		BUG_ON(!set_legacy_ssbd(c, enable));
-+	spin_unlock_irqrestore(&core->lock, flags);
- }
- 
- void __init detect_zen2_null_seg_behaviour(void)
-diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
-index 91e53284fc..e278fee689 100644
---- a/xen/arch/x86/cpuid.c
-+++ b/xen/arch/x86/cpuid.c
-@@ -537,6 +537,16 @@ static void __init calculate_hvm_max_policy(void)
-     if ( !boot_cpu_has(X86_FEATURE_VIRT_SC_MSR_HVM) )
-         /* Clear VIRT_SSBD if VIRT_SPEC_CTRL is not exposed to guests. */
-         __clear_bit(X86_FEATURE_VIRT_SSBD, hvm_featureset);
-+    else
-+        /*
-+         * Expose VIRT_SSBD if VIRT_SPEC_CTRL is supported, as that implies the
-+         * underlying hardware is capable of setting SSBD using
-+         * non-architectural way or VIRT_SSBD is available.
-+         *
-+         * Note that if the hardware supports VIRT_SSBD natively this setting
-+         * will just override an already set bit.
-+         */
-+        __set_bit(X86_FEATURE_VIRT_SSBD, hvm_featureset);
- 
-     /*
-      * If Xen isn't virtualising MSR_SPEC_CTRL for HVM guests (functional
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index 73a0af599b..43fc9a3f8e 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -3132,7 +3132,12 @@ void vmexit_virt_spec_ctrl(void)
-         if ( val != lo )
-             wrmsr(MSR_VIRT_SPEC_CTRL, val, 0);
-         current->arch.msrs->virt_spec_ctrl.raw = lo;
-+
-+        return;
-     }
-+
-+    if ( val != current->arch.msrs->virt_spec_ctrl.raw )
-+        amd_set_legacy_ssbd(val & SPEC_CTRL_SSBD);
- }
- 
- /* Called with GIF=0. */
-@@ -3141,7 +3146,12 @@ void vmentry_virt_spec_ctrl(void)
-     unsigned int val = current->arch.msrs->virt_spec_ctrl.raw;
- 
-     if ( val != (opt_ssbd ? SPEC_CTRL_SSBD : 0) )
--        wrmsr(MSR_VIRT_SPEC_CTRL, val, 0);
-+    {
-+        if ( cpu_has_virt_ssbd )
-+            wrmsr(MSR_VIRT_SPEC_CTRL, val, 0);
-+        else
-+            amd_set_legacy_ssbd(val & SPEC_CTRL_SSBD);
-+    }
- }
- 
- /*
-diff --git a/xen/arch/x86/include/asm/amd.h b/xen/arch/x86/include/asm/amd.h
-index a82382e6bf..6a42f68542 100644
---- a/xen/arch/x86/include/asm/amd.h
-+++ b/xen/arch/x86/include/asm/amd.h
-@@ -151,4 +151,8 @@ void check_enable_amd_mmconf_dmi(void);
- extern bool amd_acpi_c1e_quirk;
- void amd_check_disable_c1e(unsigned int port, u8 value);
- 
-+extern bool amd_legacy_ssbd;
-+bool amd_setup_legacy_ssbd(void);
-+void amd_set_legacy_ssbd(bool enable);
-+
- #endif /* __AMD_H__ */
-diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
-index b212acf29d..1f4b63a497 100644
---- a/xen/arch/x86/msr.c
-+++ b/xen/arch/x86/msr.c
-@@ -385,7 +385,10 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
-         if ( !cp->extd.virt_ssbd )
-             goto gp_fault;
- 
--        *val = msrs->spec_ctrl.raw & SPEC_CTRL_SSBD;
-+        if ( cpu_has_amd_ssbd )
-+            *val = msrs->spec_ctrl.raw & SPEC_CTRL_SSBD;
-+        else
-+            *val = msrs->virt_spec_ctrl.raw;
-         break;
- 
-     case MSR_AMD64_DE_CFG:
-@@ -677,14 +680,17 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
-         if ( !cp->extd.virt_ssbd )
-             goto gp_fault;
- 
--        /*
--         * Only supports SSBD bit, the rest are ignored. Only modify the SSBD
--         * bit in case other bits are set.
--         */
--        if ( val & SPEC_CTRL_SSBD )
--            msrs->spec_ctrl.raw |= SPEC_CTRL_SSBD;
-+        /* Only supports SSBD bit, the rest are ignored. */
-+        if ( cpu_has_amd_ssbd )
-+        {
-+            /* Only modify the SSBD bit in case other bits are set. */
-+            if ( val & SPEC_CTRL_SSBD )
-+                msrs->spec_ctrl.raw |= SPEC_CTRL_SSBD;
-+            else
-+                msrs->spec_ctrl.raw &= ~SPEC_CTRL_SSBD;
-+        }
-         else
--            msrs->spec_ctrl.raw &= ~SPEC_CTRL_SSBD;
-+            msrs->virt_spec_ctrl.raw = val & SPEC_CTRL_SSBD;
-         break;
- 
-     case MSR_AMD64_DE_CFG:
-diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
-index 0d5ec877d1..495e6f9405 100644
---- a/xen/arch/x86/spec_ctrl.c
-+++ b/xen/arch/x86/spec_ctrl.c
-@@ -22,6 +22,7 @@
- #include <xen/param.h>
- #include <xen/warning.h>
- 
-+#include <asm/amd.h>
- #include <asm/hvm/svm/svm.h>
- #include <asm/microcode.h>
- #include <asm/msr.h>
-@@ -1073,7 +1074,8 @@ void __init init_speculation_mitigations(void)
-     }
- 
-     /* Support VIRT_SPEC_CTRL.SSBD if AMD_SSBD is not available. */
--    if ( opt_msr_sc_hvm && !cpu_has_amd_ssbd && cpu_has_virt_ssbd )
-+    if ( opt_msr_sc_hvm && !cpu_has_amd_ssbd &&
-+         (cpu_has_virt_ssbd || (amd_legacy_ssbd && amd_setup_legacy_ssbd())) )
-         setup_force_cpu_cap(X86_FEATURE_VIRT_SC_MSR_HVM);
- 
-     /* If we have IBRS available, see whether we should use it. */
--- 
-2.34.1
+version targeted for testing:
+ libvirt              2804fa912fa160e38e4ce7f537b6f6e1dcd5ee9d
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
 
+Last test of basis   151777  2020-07-10 04:19:19 Z  613 days
+Failing since        151818  2020-07-11 04:18:52 Z  612 days  594 attempts
+Testing same since   168522  2022-03-12 04:18:54 Z    3 days    4 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+    Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Aleksei Zakharov <zaharov@selectel.ru>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Ani Sinha <ani@anisinha.ca>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Barrett Schonefeld <bschoney@utexas.edu>
+  Bastian Germann <bastiangermann@fishpost.de>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  BiaoXiang Ye <yebiaoxiang@huawei.com>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Bjoern Walk <bwalk@linux.ibm.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brad Laue <brad@brad-x.com>
+  Brian Turek <brian.turek@gmail.com>
+  Bruno Haible <bruno@clisp.org>
+  Chris Mayo <aklhfex@gmail.com>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Kirbach <christian.kirbach@gmail.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Christophe Fergeau <cfergeau@redhat.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Bosdonnat <cbosdonnat@suse.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Didik Supriadi <didiksupriadi41@gmail.com>
+  dinglimin <dinglimin@cmss.chinamobile.com>
+  Divya Garg <divya.garg@nutanix.com>
+  Dmitrii Shcherbakov <dmitrii.shcherbakov@canonical.com>
+  Dmytro Linkin <dlinkin@nvidia.com>
+  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
+  Emilio Herrera <ehespinosa57@gmail.com>
+  Eric Farman <farman@linux.ibm.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Affolter <mail@fabian-affolter.ch>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fabiano Fidêncio <fabiano@fidencio.org>
+  Fangge Jin <fjin@redhat.com>
+  Farhan Ali <alifm@linux.ibm.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Franck Ridel <fridel@protonmail.com>
+  Gavi Teitz <gavi@nvidia.com>
+  gongwei <gongwei@smartx.com>
+  Guoyi Tu<tu.guoyi@h3c.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Haonan Wang <hnwanga1@gmail.com>
+  Hela Basa <r45xveza@pm.me>
+  Helmut Grohne <helmut@subdivi.de>
+  Hiroki Narukawa <hnarukaw@yahoo-corp.jp>
+  Hyman Huang(黄勇) <huangy81@chinatelecom.cn>
+  Ian Wienand <iwienand@redhat.com>
+  Ioanna Alifieraki <ioanna-maria.alifieraki@canonical.com>
+  Ivan Teterevkov <ivan.teterevkov@nutanix.com>
+  Jakob Meng <jakobmeng@web.de>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jan Kuparinen <copper_fin@hotmail.com>
+  jason lee <ppark5237@gmail.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jia Zhou <zhou.jia2@zte.com.cn>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jing Qi <jinqi@redhat.com>
+  Jinsheng Zhang <zhangjl02@inspur.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Joachim Falk <joachim.falk@gmx.de>
+  John Ferlan <jferlan@redhat.com>
+  Jonathan Watt <jwatt@jwatt.org>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Justin Gatzen <justin.gatzen@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Kim InSoo <simmon@nplob.com>
+  Koichi Murase <myoga.murase@gmail.com>
+  Kristina Hanicova <khanicov@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lee Yarwood <lyarwood@redhat.com>
+  Lei Yang <yanglei209@huawei.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.com>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Liu Yiding <liuyd.fnst@fujitsu.com>
+  Lubomir Rintel <lkundrak@v3.sk>
+  Luke Yue <lukedyue@gmail.com>
+  Luyao Zhong <luyao.zhong@intel.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Martin Pitt <mpitt@debian.org>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matej Cepl <mcepl@cepl.eu>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Meina Li <meili@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Moshe Levi <moshele@nvidia.com>
+  Muha Aliss <muhaaliss@gmail.com>
+  Nathan <nathan95@live.it>
+  Neal Gompa <ngompa13@gmail.com>
+  Nick Chevsky <nchevsky@gmail.com>
+  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
+  Nickys Music Group <nickys.music.group@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nicolas Lécureuil <neoclust@mageia.org>
+  Nicolas Lécureuil <nicolas.lecureuil@siveo.net>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olaf Hering <olaf@aepfle.de>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Or Ozeri <oro@il.ibm.com>
+  Orion Poplawski <orion@nwra.com>
+  Pany <geekpany@gmail.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peng Liang <liangpeng10@huawei.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Praveen K Paladugu <prapal@linux.microsoft.com>
+  Richard W.M. Jones <rjones@redhat.com>
+  Ricky Tigg <ricky.tigg@gmail.com>
+  Robin Lee <cheeselee@fedoraproject.org>
+  Rohit Kumar <rohit.kumar3@nutanix.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Gahagan <rgahagan@cs.utexas.edu>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  SeongHyun Jo <caelus9536@gmail.com>
+  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
+  Shaojun Yang <yangshaojun@phytium.com.cn>
+  shenjiatong <yshxxsjt715@gmail.com>
+  Shi Lei <shi_lei@massclouds.com>
+  simmon <simmon@nplob.com>
+  Simon Chopin <chopin.simon@gmail.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Simon Rowe <simon.rowe@nutanix.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Stefan Hajnoczi <stefanha@gmail.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Tomáš Janoušek <tomi@nomi.cz>
+  Tu Qiang <tu.qiang35@zte.com.cn>
+  Tuguoyi <tu.guoyi@h3c.com>
+  tuqiang <tu.qiang35@zte.com.cn>
+  Vasiliy Ulyanov <vulyanov@suse.de>
+  Victor Toso <victortoso@redhat.com>
+  Ville Skyttä <ville.skytta@iki.fi>
+  Vinayak Kale <vkale@nvidia.com>
+  Vineeth Pillai <viremana@linux.microsoft.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  WangJian <wangjian161@huawei.com>
+  Weblate <noreply@weblate.org>
+  Wei Liu <liuwe@microsoft.com>
+  Wei Liu <wei.liu@kernel.org>
+  Wei-Chen Chen <weicche@microsoft.com>
+  William Douglas <william.douglas@intel.com>
+  Xu Chao <xu.chao6@zte.com.cn>
+  Yalei Li <274268859@qq.com>
+  Yalei Li <liyl43@chinatelecom.cn>
+  Yang Fei <yangfei85@huawei.com>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yaroslav Kargin <ykargin@virtuozzo.com>
+  Yasuhiko Kamata <belphegor@belbel.or.jp>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
+  zhangjl02 <zhangjl02@inspur.com>
+  zhanglei <zhanglei@smartx.com>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Ye <yezhenyu2@huawei.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+  Zhenzhong Duan <zhenzhong.duan@intel.com>
+  Дамјан Георгиевски <gdamjan@gmail.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-i386-libvirt-raw                                  blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 100900 lines long.)
 
