@@ -2,43 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F9654D972C
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Mar 2022 10:08:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.290687.493074 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60F044D9749
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Mar 2022 10:12:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.290691.493086 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nU3A9-00019m-Pv; Tue, 15 Mar 2022 09:08:17 +0000
+	id 1nU3E8-0002cK-Eg; Tue, 15 Mar 2022 09:12:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 290687.493074; Tue, 15 Mar 2022 09:08:17 +0000
+Received: by outflank-mailman (output) from mailman id 290691.493086; Tue, 15 Mar 2022 09:12:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nU3A9-00017m-Mn; Tue, 15 Mar 2022 09:08:17 +0000
-Received: by outflank-mailman (input) for mailman id 290687;
- Tue, 15 Mar 2022 09:08:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nU3E8-0002Zk-Ba; Tue, 15 Mar 2022 09:12:24 +0000
+Received: by outflank-mailman (input) for mailman id 290691;
+ Tue, 15 Mar 2022 09:12:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9Ouo=T2=redhat.com=eblake@srs-se1.protection.inumbo.net>)
- id 1nU3A8-00017e-13
- for xen-devel@lists.xenproject.org; Tue, 15 Mar 2022 09:08:16 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 69d5bdde-a43f-11ec-8eba-a37418f5ba1a;
- Tue, 15 Mar 2022 10:08:11 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-398-licyuROAPcScV15uQzTVhQ-1; Tue, 15 Mar 2022 05:07:58 -0400
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (envelope-from <SRS0=RDYY=T2=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1nU3E6-0002Ze-L2
+ for xen-devel@lists.xenproject.org; Tue, 15 Mar 2022 09:12:22 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fdaebd66-a43f-11ec-853b-5f4723681683;
+ Tue, 15 Mar 2022 10:12:20 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C84D0803B22;
- Tue, 15 Mar 2022 09:07:56 +0000 (UTC)
-Received: from redhat.com (unknown [10.22.17.185])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 9478240C128B;
- Tue, 15 Mar 2022 09:07:50 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6618421901;
+ Tue, 15 Mar 2022 09:12:08 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1037013B4E;
+ Tue, 15 Mar 2022 09:12:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id wCqkAmhYMGKoeAAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 15 Mar 2022 09:12:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,135 +51,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69d5bdde-a43f-11ec-8eba-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1647335280;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+X-Inumbo-ID: fdaebd66-a43f-11ec-853b-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1647335528; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=x2QdncLjS9RyVOy6Iatqoky3XG297fiHr6QRUqmYbXw=;
-	b=i6zaMYfVvOYLgg8pBXl5ABhkHzJVhuWK9bIAnkzG4OE7yATYB+Y+uz2cQSDFGoGon/egnO
-	HNQ4WhA4CtvH3r0dluV4kgLmj9qjynW89++TmzZh8UiGa+19Yj99l3pgiFe6tly7ANKxKY
-	Nogl5mmB1jO6QjBJG0koaLK1Qwd3YAw=
-X-MC-Unique: licyuROAPcScV15uQzTVhQ-1
-Date: Tue, 15 Mar 2022 04:07:48 -0500
-From: Eric Blake <eblake@redhat.com>
-To: Markus Armbruster <armbru@redhat.com>
-Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Christian Schoenebeck <qemu_oss@crudebyte.com>,
-	"Gonglei (Arei)" <arei.gonglei@huawei.com>,
-	=?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Igor Mammedov <imammedo@redhat.com>, Ani Sinha <ani@anisinha.ca>,
-	Laurent Vivier <lvivier@redhat.com>, Amit Shah <amit@kernel.org>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>,
-	=?utf-8?B?SGVydsOp?= Poussineau <hpoussin@reactos.org>,
-	Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
-	Corey Minyard <cminyard@mvista.com>,
-	Patrick Venture <venture@google.com>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Peter Xu <peterx@redhat.com>, Jason Wang <jasowang@redhat.com>,
-	=?utf-8?Q?C=C3=A9dric?= Le Goater <clg@kaod.org>,
-	Daniel Henrique Barboza <danielhb413@gmail.com>,
-	David Gibson <david@gibson.dropbear.id.au>,
-	Greg Kurz <groug@kaod.org>,
-	Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <f4bug@amsat.org>,
-	Jean-Christophe Dubois <jcd@tribudubois.net>,
-	Keith Busch <kbusch@kernel.org>, Klaus Jensen <its@irrelevant.dk>,
-	Yuval Shaia <yuval.shaia.ml@gmail.com>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Fabien Chouteau <chouteau@adacore.com>,
-	KONRAD Frederic <frederic.konrad@adacore.com>,
-	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
-	Artyom Tarasenko <atar4qemu@gmail.com>,
-	Alex Williamson <alex.williamson@redhat.com>,
-	Eric Auger <eric.auger@redhat.com>,
-	Max Filippov <jcmvbkbc@gmail.com>,
-	Juan Quintela <quintela@redhat.com>,
-	"Dr. David Alan Gilbert" <dgilbert@redhat.com>,
-	Konstantin Kostiuk <kkostiuk@redhat.com>,
-	Michael Roth <michael.roth@amd.com>,
-	Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>,
-	Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>,
-	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	David Hildenbrand <david@redhat.com>,
-	Wenchao Wang <wenchao.wang@intel.com>,
-	Colin Xu <colin.xu@intel.com>, Kamil Rytarowski <kamil@netbsd.org>,
-	Reinoud Zandijk <reinoud@netbsd.org>,
-	Sunil Muthuswamy <sunilmut@microsoft.com>,
-	Cornelia Huck <cohuck@redhat.com>, Thomas Huth <thuth@redhat.com>,
-	Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>,
-	John Snow <jsnow@redhat.com>, kvm@vger.kernel.org,
-	qemu-arm@nongnu.org, xen-devel@lists.xenproject.org,
-	qemu-ppc@nongnu.org, qemu-block@nongnu.org, haxm-team@intel.com,
-	qemu-s390x@nongnu.org
-Subject: Re: [PATCH 3/3] Use g_new() & friends where that makes obvious sense
-Message-ID: <20220315090748.acju5mjbe4tax272@redhat.com>
-References: <20220314160108.1440470-1-armbru@redhat.com>
- <20220314160108.1440470-4-armbru@redhat.com>
+	bh=bcbkZVqaOrCkFX57kjDdpHCszAiSvLyzmm9ad99vOOs=;
+	b=haUHfMnTLlQMLvhaSpZbj7ma3s/Oj+TAUd08AH9jC13ymqFOIa5cHQNCxg48TZ6l353njY
+	cXxyccLiEjbJ8KomPEkwHouvN9U8TDi8c7cklyy9JoVYiGrdpfEWowoPrl3IET4oqOD14+
+	YmN2t/0jBNkLn/zFIpQlqR7DDiAFyi0=
+Message-ID: <d2b97836-4a63-e81d-1b84-c7779bb95b76@suse.com>
+Date: Tue, 15 Mar 2022 10:12:07 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220314160108.1440470-4-armbru@redhat.com>
-User-Agent: NeoMutt/20211029-427-23b03a
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.1
+Content-Language: en-US
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>, Dario Faggioli <dfaggioli@suse.com>
+References: <20220310171019.6170-1-luca.fancellu@arm.com>
+ <20220310171019.6170-5-luca.fancellu@arm.com>
+ <alpine.DEB.2.22.394.2203101957370.3497@ubuntu-linux-20-04-desktop>
+ <A34CF75A-8139-4A4A-A1AE-3BA74E70DE55@arm.com>
+ <alpine.DEB.2.22.394.2203111600330.3497@ubuntu-linux-20-04-desktop>
+ <aee7dedf-3f70-da48-8be5-3d7cc9ec392c@suse.com>
+ <927CBDC0-4141-4964-84E3-8AF1ED491527@arm.com>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH v2 4/6] xen/cpupool: Create different cpupools at boot
+ time
+In-Reply-To: <927CBDC0-4141-4964-84E3-8AF1ED491527@arm.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------SASOe40gDflniFGIPMpnSPS0"
 
-On Mon, Mar 14, 2022 at 05:01:08PM +0100, Markus Armbruster wrote:
-> g_new(T, n) is neater than g_malloc(sizeof(T) * n).  It's also safer,
-> for two reasons.  One, it catches multiplication overflowing size_t.
-> Two, it returns T * rather than void *, which lets the compiler catch
-> more type errors.
-> 
-> This commit only touches allocations with size arguments of the form
-> sizeof(T).
-> 
-> Patch created mechanically with:
-> 
->     $ spatch --in-place --sp-file scripts/coccinelle/use-g_new-etc.cocci \
-> 	     --macro-file scripts/cocci-macro-file.h FILES...
-> 
-> Signed-off-by: Markus Armbruster <armbru@redhat.com>
-> ---
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------SASOe40gDflniFGIPMpnSPS0
+Content-Type: multipart/mixed; boundary="------------ZH53dJm4qcVDFEB6cZZT32OV";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>, Dario Faggioli <dfaggioli@suse.com>
+Message-ID: <d2b97836-4a63-e81d-1b84-c7779bb95b76@suse.com>
+Subject: Re: [PATCH v2 4/6] xen/cpupool: Create different cpupools at boot
+ time
+References: <20220310171019.6170-1-luca.fancellu@arm.com>
+ <20220310171019.6170-5-luca.fancellu@arm.com>
+ <alpine.DEB.2.22.394.2203101957370.3497@ubuntu-linux-20-04-desktop>
+ <A34CF75A-8139-4A4A-A1AE-3BA74E70DE55@arm.com>
+ <alpine.DEB.2.22.394.2203111600330.3497@ubuntu-linux-20-04-desktop>
+ <aee7dedf-3f70-da48-8be5-3d7cc9ec392c@suse.com>
+ <927CBDC0-4141-4964-84E3-8AF1ED491527@arm.com>
+In-Reply-To: <927CBDC0-4141-4964-84E3-8AF1ED491527@arm.com>
 
-I agree that this is mechanical, but...
+--------------ZH53dJm4qcVDFEB6cZZT32OV
+Content-Type: multipart/mixed; boundary="------------N18Dp0koENvntFmM0ZlwYzc5"
 
-<snip>
->  qga/commands-win32.c                     |  8 ++---
->  qga/commands.c                           |  2 +-
->  qom/qom-qmp-cmds.c                       |  2 +-
->  replay/replay-char.c                     |  4 +--
->  replay/replay-events.c                   | 10 +++---
->  scripts/coverity-scan/model.c            |  2 +-
+--------------N18Dp0koENvntFmM0ZlwYzc5
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-...are we sure we want to touch this particular file?
+T24gMTUuMDMuMjIgMDk6NDAsIEx1Y2EgRmFuY2VsbHUgd3JvdGU6DQo+IA0KPj4gSG1tLCB0
+aGlzIHdpbGwgZmFpbCB0aGUgQVNTRVJUKHNwaW5faXNfbG9ja2VkKCZjcHVwb29sX2xvY2sp
+KSBpbg0KPj4gX19jcHVwb29sX2ZpbmRfYnlfaWQoKS4NCj4+DQo+PiBJIHRoaW5rIHlvdSBu
+ZWVkIHRvIHVzZSBjcHVwb29sX2dldF9ieV9pZCgpIGFuZCBjcHVwb29sX3B1dCgpIGJ5IG1h
+a2luZyB0aGVtDQo+PiBnbG9iYWxseSB2aXNpYmxlIChtb3ZlIHRoZWlyIHByb3RvdHlwZXMg
+dG8gc2NoZWQuaCkuDQo+IA0KPiBIaSBKdWVyZ2VuLA0KPiANCj4gWWVzIEkgd2FzIHRoaW5r
+aW5nIG1vcmUgdG8gYSBfX2luaXQgd3JhcHBlciB0aGF0IHRha2VzIHRoZSBsb2NrIGFuZCBj
+YWxscyBfX2NwdXBvb2xfZmluZF9ieV9pZCwNCj4gdGhpcyB0byBhdm9pZCBleHBvcnRpbmcg
+Y3B1cG9vbF9wdXQgb3V0c2lkZSBzaW5jZSB3ZSB3b3VsZCBiZSB0aGUgb25seSB1c2VyLg0K
+PiBCdXQgSSB3b3VsZCBsaWtlIHlvdXIgb3BpbmlvbiBvbiB0aGF0Lg0KDQpJJ2QgYmUgZmlu
+ZSB3aXRoIHRoYXQuDQoNCg0KSnVlcmdlbg0K
+--------------N18Dp0koENvntFmM0ZlwYzc5
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-> diff --git a/scripts/coverity-scan/model.c b/scripts/coverity-scan/model.c
-> index 9d4fba53d9..30bea672e1 100644
-> --- a/scripts/coverity-scan/model.c
-> +++ b/scripts/coverity-scan/model.c
-> @@ -356,7 +356,7 @@ int g_poll (GPollFD *fds, unsigned nfds, int timeout)
->  typedef struct _GIOChannel GIOChannel;
->  GIOChannel *g_io_channel_unix_new(int fd)
->  {
-> -    GIOChannel *c = g_malloc0(sizeof(GIOChannel));
-> +    GIOChannel *c = g_new0(GIOChannel, 1);
->      __coverity_escape__(fd);
->      return c;
->  }
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Our model has a definition of g_malloc0(), but I'm not sure whether
-Coverity picks up the macro g_new0() in the same manner.
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
--- 
-Eric Blake, Principal Software Engineer
-Red Hat, Inc.           +1-919-301-3266
-Virtualization:  qemu.org | libvirt.org
+--------------N18Dp0koENvntFmM0ZlwYzc5--
 
+--------------ZH53dJm4qcVDFEB6cZZT32OV--
+
+--------------SASOe40gDflniFGIPMpnSPS0
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmIwWGcFAwAAAAAACgkQsN6d1ii/Ey/A
+Mgf/Tnrk8KR3JbY/WmiFQFPVRlEgr8+rHqfGH9RaV+EO60ODsWEAhiUYhMvAqd3q8fvvVMeV/Yyz
+sslNKa3S7F7468suH1UE983k7UrFz5IQaxtupi8OOVuPOyJOXbPTpGALHYfTZidr0v12BI4XZdVx
+39ofv3pEfJxOMgCf5QtxR6bxo+0a59F1yn+HsNvNetyr/GIWDZ055Ya5bw4RO22rSGeGI3GhAe6r
+XSPjsAJn1gdKjGQ0tsySjs/QhnIt84ZPsu+eF1jKNg02LL+Glz/azEhNCZTjTC4cVi8jQwuhC6Qx
+zNAfD6kCGqNL+tiNAb7IOUo/lubjUqK/lajQ5vLhMw==
+=INxy
+-----END PGP SIGNATURE-----
+
+--------------SASOe40gDflniFGIPMpnSPS0--
 
