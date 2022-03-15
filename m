@@ -2,44 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1623A4D95AD
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Mar 2022 08:53:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.290654.493020 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14BB94D95B3
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Mar 2022 08:54:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.290657.493031 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nU1yo-0007Os-Rm; Tue, 15 Mar 2022 07:52:30 +0000
+	id 1nU20H-0007xU-5j; Tue, 15 Mar 2022 07:54:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 290654.493020; Tue, 15 Mar 2022 07:52:30 +0000
+Received: by outflank-mailman (output) from mailman id 290657.493031; Tue, 15 Mar 2022 07:54:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nU1yo-0007Lm-Nr; Tue, 15 Mar 2022 07:52:30 +0000
-Received: by outflank-mailman (input) for mailman id 290654;
- Tue, 15 Mar 2022 07:52:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nU20H-0007v2-1w; Tue, 15 Mar 2022 07:54:01 +0000
+Received: by outflank-mailman (input) for mailman id 290657;
+ Tue, 15 Mar 2022 07:54:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=GQWC=T2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nU1yn-0007Lg-8n
- for xen-devel@lists.xenproject.org; Tue, 15 Mar 2022 07:52:29 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dbf0015a-a434-11ec-853b-5f4723681683;
- Tue, 15 Mar 2022 08:52:27 +0100 (CET)
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur01lp2051.outbound.protection.outlook.com [104.47.2.51]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-22-wTihynskOcuYRnbjvyKeYg-1; Tue, 15 Mar 2022 08:52:26 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by HE1PR04MB3193.eurprd04.prod.outlook.com (2603:10a6:7:22::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.28; Tue, 15 Mar
- 2022 07:52:25 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::e8ce:db1c:5bb0:af0]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::e8ce:db1c:5bb0:af0%6]) with mapi id 15.20.5061.028; Tue, 15 Mar 2022
- 07:52:25 +0000
+ (envelope-from <SRS0=FlxB=T2=kaod.org=groug@srs-se1.protection.inumbo.net>)
+ id 1nU20G-0007uw-HV
+ for xen-devel@lists.xenproject.org; Tue, 15 Mar 2022 07:54:00 +0000
+Received: from us-smtp-delivery-44.mimecast.com
+ (us-smtp-delivery-44.mimecast.com [207.211.30.44])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 11a056d2-a435-11ec-8eba-a37418f5ba1a;
+ Tue, 15 Mar 2022 08:53:59 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-41-wQ12KsT-PDSqq8y9SNA3Rw-1; Tue, 15 Mar 2022 03:53:56 -0400
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 25BE18001EA;
+ Tue, 15 Mar 2022 07:53:54 +0000 (UTC)
+Received: from bahia (unknown [10.39.192.202])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id ED3FC7CB810;
+ Tue, 15 Mar 2022 07:53:43 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,138 +50,236 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dbf0015a-a434-11ec-853b-5f4723681683
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1647330747;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=I7dnC4DWt8NPoO0cXObtun/M/SFzVw5ZzESLj3cnNAE=;
-	b=mDMrQw6Rl5ML9i6C5DBc3DlHrVw60jogeQqQaPJWKJVAAbn5iUr/PZwehR/DiCKnBUr+Z+
-	zzw8Er0RjXzljiiqHXjp6ah5OqELRkT9AOkA0tTxVcPQldisnok+/ETyPLoqofLLlKXEEs
-	GB6Ikj+Y339IknnZVzY1wNLx0t1L7qk=
-X-MC-Unique: wTihynskOcuYRnbjvyKeYg-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=giXaX+j17JDTJrBw0Qs90CdrSCyVKfSyNhKx74knJSISvBvWzUoGOgGUMpA5lbeLQgx6cfLHce5L/IwjSHhI30MaxsldeQQS9c1zniAsz8OFtsHC/W7pmckRkAVONKVMUCXs/LWX5HxelDdnSyWKn0FKGH3OqQlNxQ57yvt6NF2h/R6iwfzCECd4gm+HTlU0G6NKsl2Cw5g+UDcihw3pdwLvkqALeLMKMZkDKsntK54j+2Gh90KmJk7Q37j4FLUV7RZ/8Fg3I/lyWR49eG4Ueq535CORPPQ/dNBPhRqf8rxKjN0DkL7b266L0fsV2zxSPKxLJfMjE9naogvY1GIgww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I7dnC4DWt8NPoO0cXObtun/M/SFzVw5ZzESLj3cnNAE=;
- b=FirpFQlvg2PkVUTKhlN1JEnv/Q9bwqVYUxc7p14I3aEegNW/1/OzcCvnNKIin5nrw9xorsW1+Pc7lfBJt/OqxG/zcOUmlu1T1clxlomJXD48iiNBtgZhah9p/fhVDlBJF+vaxprGQhU7ag7ylPYAta58rCf1COdl13UAZ6ZxgIuvpYpUvK2YoMV0WgHEtN0C9yo1g5ECIz4lpqJB7yOPwCzaawpV9VabkhHX4yXzoypltmCkbCt/gJCnNJTnYy089sgMeizJC1Ka768UUpXhXrNuOiALOTjbJGb3tNw/q0Iji++jmc5y4ppluPdafIl91bLIiymvQmHdshwbbZ7sXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <adb20db9-a38f-538a-a3a9-a5f7968fafc8@suse.com>
-Date: Tue, 15 Mar 2022 08:52:23 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: Some feature requests for guest consoles
-Content-Language: en-US
-To: Andy Smith <andy@strugglers.net>
-Cc: mikeh@csits.net, xen-devel@lists.xenproject.org
-References: <20220314163627.4pck24ahx6igggff@bitfolk.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20220314163627.4pck24ahx6igggff@bitfolk.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM7PR03CA0006.eurprd03.prod.outlook.com
- (2603:10a6:20b:130::16) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: 11a056d2-a435-11ec-8eba-a37418f5ba1a
+X-MC-Unique: wQ12KsT-PDSqq8y9SNA3Rw-1
+Date: Tue, 15 Mar 2022 08:53:42 +0100
+From: Greg Kurz <groug@kaod.org>
+To: Markus Armbruster <armbru@redhat.com>
+Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>, Richard
+ Henderson <richard.henderson@linaro.org>, Gerd Hoffmann
+ <kraxel@redhat.com>, Christian Schoenebeck <qemu_oss@crudebyte.com>,
+ "Gonglei (Arei)" <arei.gonglei@huawei.com>, =?UTF-8?B?TWFyYy1BbmRyw6k=?=
+ Lureau <marcandre.lureau@redhat.com>, "Michael S. Tsirkin"
+ <mst@redhat.com>, Igor Mammedov <imammedo@redhat.com>, Ani Sinha
+ <ani@anisinha.ca>, Laurent Vivier <lvivier@redhat.com>, Amit Shah
+ <amit@kernel.org>, Peter Maydell <peter.maydell@linaro.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Anthony Perard
+ <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, =?UTF-8?B?SGVy?=
+ =?UTF-8?B?dsOp?= Poussineau <hpoussin@reactos.org>, Aleksandar Rikalo
+ <aleksandar.rikalo@syrmia.com>, Corey Minyard <cminyard@mvista.com>,
+ Patrick Venture <venture@google.com>, Eduardo Habkost
+ <eduardo@habkost.net>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, Peter
+ Xu <peterx@redhat.com>, Jason Wang <jasowang@redhat.com>, =?UTF-8?B?Q8Op?=
+ =?UTF-8?B?ZHJpYw==?= Le Goater <clg@kaod.org>, Daniel Henrique Barboza
+ <danielhb413@gmail.com>, David Gibson <david@gibson.dropbear.id.au>,
+ Philippe =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?= <f4bug@amsat.org>,
+ Jean-Christophe Dubois <jcd@tribudubois.net>, Keith Busch
+ <kbusch@kernel.org>, Klaus Jensen <its@irrelevant.dk>, Yuval Shaia
+ <yuval.shaia.ml@gmail.com>, Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Magnus Damm <magnus.damm@gmail.com>, Fabien Chouteau
+ <chouteau@adacore.com>, KONRAD Frederic <frederic.konrad@adacore.com>, Mark
+ Cave-Ayland <mark.cave-ayland@ilande.co.uk>, Artyom Tarasenko
+ <atar4qemu@gmail.com>, Alex Williamson <alex.williamson@redhat.com>, Eric
+ Auger <eric.auger@redhat.com>, Max Filippov <jcmvbkbc@gmail.com>, Juan
+ Quintela <quintela@redhat.com>, "Dr. David Alan Gilbert"
+ <dgilbert@redhat.com>, Konstantin Kostiuk <kkostiuk@redhat.com>, Michael
+ Roth <michael.roth@amd.com>, "Daniel P. =?UTF-8?B?QmVycmFuZ8Op?="
+ <berrange@redhat.com>, Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>, Alex
+ =?UTF-8?B?QmVubsOpZQ==?= <alex.bennee@linaro.org>, David Hildenbrand
+ <david@redhat.com>, Wenchao Wang <wenchao.wang@intel.com>, Colin Xu
+ <colin.xu@intel.com>, Kamil Rytarowski <kamil@netbsd.org>, Reinoud Zandijk
+ <reinoud@netbsd.org>, Sunil Muthuswamy <sunilmut@microsoft.com>, Cornelia
+ Huck <cohuck@redhat.com>, Thomas Huth <thuth@redhat.com>, Eric Blake
+ <eblake@redhat.com>, Vladimir Sementsov-Ogievskiy
+ <vsementsov@virtuozzo.com>, John Snow <jsnow@redhat.com>,
+ kvm@vger.kernel.org, qemu-arm@nongnu.org, xen-devel@lists.xenproject.org,
+ qemu-ppc@nongnu.org, qemu-block@nongnu.org, haxm-team@intel.com,
+ qemu-s390x@nongnu.org
+Subject: Re: [PATCH 2/3] 9pfs: Use g_new() & friends where that makes
+ obvious sense
+Message-ID: <20220315085342.2b07eff8@bahia>
+In-Reply-To: <20220314160108.1440470-3-armbru@redhat.com>
+References: <20220314160108.1440470-1-armbru@redhat.com>
+	<20220314160108.1440470-3-armbru@redhat.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bbbcf476-67dc-455b-831c-08da0658be70
-X-MS-TrafficTypeDiagnostic: HE1PR04MB3193:EE_
-X-Microsoft-Antispam-PRVS:
-	<HE1PR04MB319346B78ED239BB576AC649B3109@HE1PR04MB3193.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	F6k5Eu+D+bcOKEokw21W4czKoBE6mI7vXtAoN9dYiLk1k1LFAdu2pQkVvirfdacME2RKrjm8vTa3jmiKVQf+ZtUb4XKLqmEwlRWfxGuGcAnBjLau2vkpmopc6JERjvIDlDoOGMsvtCYGUyWJitd77qT2HX7K00rmXaM5vEpbwMMofwfMmq0ABmkaEgttS/I9ck/wC4GY9Hu5wJ3+j684yoT2w9qGJMszYjWIcgLgAFmnUBfSrDRxG3sWd6FJaUPc3R83nEIPdjcVg/FD2Q7RbAYJRBcM2Kfu8C5r9L0cpr1/4uIx+T1zeAE2COI3zLGGT3X8mJvlbPEJEY8UtEXf1N9/hJ24nyODRbHbBjjanna8YP5UWFXjf1e8SVTNgUWad9SLdq+pSozxR/KjJk46l2gBJeF80bnY7hEokumx8jquCpxghGg9rrlB1uLGenUseAt8RHXHijgo+0CLGHXfq/aXWHT8c0M5o+7QiYdu8AGBARC2lv3kxwTn6aAZCkKIfp0RyJEWA75bTWSqGd47b3CvU/SIADUZP8gRQQeMbmTrurIfJ+3ou4Vy0F8MsWJxdxd1bakCY01hbJtj3Ej2inNiajR+yQCQw6lTWRjaf62DL6VNUd+b5dJE6wNKHEJB53Hbgj5Babq5e+1EiJNY2rzDHmfU2kS9jULeAZ00DIM1CqDPOW0+9ABpiWmycYz8lzJR1uT3pIquEifg6oD2DXpKnj2hUJ/MPX+nPTwwTaA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(2906002)(6486002)(36756003)(5660300002)(316002)(6506007)(53546011)(8936002)(38100700002)(8676002)(83380400001)(2616005)(26005)(6512007)(31686004)(4326008)(508600001)(6916009)(186003)(66946007)(66476007)(86362001)(31696002)(66556008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?THRlbEF4bWsvTWxuUTBaS3ZlZ2x5emhFUW1idGo0TlhUbCtKTlN4dWlmZkZj?=
- =?utf-8?B?QktSODVlWFBYSWF2ODdwMlkrd05hZG5tY2EyV09Zeml5QllDZ1hJWlpzd29C?=
- =?utf-8?B?aUE3SVVTdmszejJaMWd6eU8rVmtFN2Y3MlFGQzlaR3B6Y203ZVVPNENNdnlZ?=
- =?utf-8?B?c3FTNU9PbVRqcktSN09xMGs5eUpYQVJqeGJDQkJMZzVOTEZuL0h6SGczKzFt?=
- =?utf-8?B?T0FTMW9xaTNFNk5hL010elFOREhENXNIcDlYVE9lTWJhZ2tGc21mOW9yNzVB?=
- =?utf-8?B?V08wZGorNVZpS0RNcStndDN3OGNpRWs4ZDFTbUJNTHFRZEV6eE52T0pUOGRk?=
- =?utf-8?B?WGxPT2xlRVo0SWxSM29kMFFoWHJ1MjNyaWNLcHBsajdhNWg3TWx3eThwWmdq?=
- =?utf-8?B?NmRPNFJHN3FBRmpoa0lpNWg4eHlnb2hwRm16Z3NEL2ZRMUJscDJkTWR4d3Za?=
- =?utf-8?B?dzMvL3hmRUdVQzJIZkxtUGdNSW9rRUZEUGxnV1RFTUZLZ3hBbERka0ppMnhy?=
- =?utf-8?B?L205U0tScExQd0w2NnFBQ0NUTXNvdDlZbVE1c0lOVXdJQm1pd0ROL1d2TzdV?=
- =?utf-8?B?RkZ6R1lJSVhHdDVJQm5ydEptZzV6SGhPSU83RFdPUmV1RXZHWFNKSWRma1Y5?=
- =?utf-8?B?eHBOZEoxT1hneTIvTG9id3N3aDN6bU9iZzY4cTlyd1ZzcjZIbEhWQTZUZG9i?=
- =?utf-8?B?NW9ZS2l2UGFrcEdNRFpJOGs2WE5qNEpLbXE2K3ZOSGRyb3cybWVuMFNxSloz?=
- =?utf-8?B?cTcvdFZvbGhEN2hvemxMNUExYkErdDRVZC81RC9wQ3RsaFpCbzh0RGIzTFA4?=
- =?utf-8?B?RUVPNHZIbER5RWRTdlVKbzZVMXFRM0FaY1FudzZ5djcyaXlVa05ZMTMySS82?=
- =?utf-8?B?aXl0Vk1WVmNYdUJJdHVZWk5kZndKY3d4djI2L2pheGczVUo3eXpGQkNhNDRs?=
- =?utf-8?B?RzdSTEI1QUNmb1oyZnJkZENMN1plR0J2RzFEbmR1WXRSZUNsYmw5K3hsVmht?=
- =?utf-8?B?RU1XNFBldHZicGNtYW8zNS9GUDhKU0dwMlU0SkVOS0c0SjQ0U3EwYjJhYXFM?=
- =?utf-8?B?d3hZdjRjdGtqeUhwMWFoQ09HL1Z4dXRoNnpDVFpoQ0lIYTBiL0FjZzhMS3NU?=
- =?utf-8?B?cHhzYnU5TFcrOE5aSjVkcUdIV2xMOG91K2xjRk5VOHR6KzFXR08yVU9kb0xX?=
- =?utf-8?B?bU43aExNdTVuNkN1ZWQzbVREeGt2OW15NDdvRTYveWcxdFdreERLa1pyeWQ3?=
- =?utf-8?B?YTJqcDErU1JWMnZ2NG1pS3BlOWV2bjI5NjVpcXZsdUFKZ216ZTJPV1k3Yi8x?=
- =?utf-8?B?MUUxRG5SamV0MlRKcElOUlBvRDdqRlR3STMyNGtsNGs1Q1B3WDI1dWZDVEY3?=
- =?utf-8?B?aWdKR05VQjRlR0NadFErZWxEbmY2RXpyQ2VFaWJKTUtKWWZrMWVRbkJaUGxE?=
- =?utf-8?B?NCt2VWdUU2R4S2xHZ1lPSGJMWXlqeFFoWFUwdWtKamhwVExLVlNyV3NzbDR6?=
- =?utf-8?B?MytHVmoxTmZ4UHJQSDMwSWVOVFczL0F6c293dnZTZGo2eDU1OUZRdzF4bk5j?=
- =?utf-8?B?NWpwZy9mdXZqb00rRFMySnltNTZtT1JlS05TNjBucTF3NDlQRXhXdjY0MWh2?=
- =?utf-8?B?UnQvR3ZIbDhIT1ptWjdROFF2Y3REZFI1dXNZbHNVeGNQQWJCWkM4NDRjL2ZG?=
- =?utf-8?B?NFpBN21jMzlwT2F1aGRyREpFazBuTTlkUmNUdmxybW1Ca0psdnlxbWdaVE93?=
- =?utf-8?B?amFtdXF2RlFxUEdHcno2amxBQW1HVVVaMkQ0eU5FNHF0NU44aDBVaUZ6RG1Q?=
- =?utf-8?B?R3ZFZTd0NmhHWnE0c0I5YUpRaEhtRVBzTExaUW9YelpNNG1KOU5lOThrUDVZ?=
- =?utf-8?B?dWx0cUhrM3ZocUc0dG5pUWVTSHRUWXhzRksxTEtEWFFqNk5Jd091N1ZISS9H?=
- =?utf-8?Q?LJKfiGpL6WztXBDR0feWGQDe/E/zCuMB?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bbbcf476-67dc-455b-831c-08da0658be70
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2022 07:52:24.9842
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VPKZxSpEn6AhlGcW3QTI6cudp4vXUU0TT5O0xCLEBlCCBYqrGAR8J9sy+8BACSOZnkPXSZtx1cjMWjRg9apIvQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR04MB3193
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=groug@kaod.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: kaod.org
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Transfer-Encoding: quoted-printable
 
-On 14.03.2022 17:36, Andy Smith wrote:
-> - Ability to remap the "magic sysrq" key combination which is
->   ctrl-o, and possibly disable it while leaving "xl sysrq" and
->   /proc/sysrq-trigger in the guest generally working.
-> 
->   Reason: guest administrators are often inexperienced with the
->   details of Xen. ctrl-o is a bad choice because it's actually the
->   "save buffer" shortcut in the popular editor nano. On more than
->   one occasion I have had guest administrators be editing a file
->   with nano on their console, they go to save it with ctrl-o which
->   appears to do nothing (because Xen is waiting for the sysrq
->   command that follows), so they do ctrl-o again which is taken as
->   being command 'o' - immediate power off! I have had an emergency
->   support ticket about this because "my guest randomly crashed while
->   I was editing a file".
-> 
->   I would therefore like to remap "magic sysrq" to something more
->   obscure, or failing that disable it in guests as we/they will use
->   "xl sysrq" instead.
+On Mon, 14 Mar 2022 17:01:07 +0100
+Markus Armbruster <armbru@redhat.com> wrote:
 
-Without meaning to turn down the request, I'd like to point out that
-- as of Linux commit 368c1e3249af (over 13 years ago) pressing ^O
-  twice does not have the described effect, but actually means an
-  individual ^O to be sent to the application,
-- independent of that commit ^O followed by another ^O would not
-  trigger the 'o' sysrq handler, but do nothing; said sysrq handler
-  would be triggered when ^O is followed by O or o (without Ctrl),
-- this sysrq triggering model isn't specific to Xen (and hence
-  sending the request here may not reach the necessary audience) -
-  besides being implemented in code common to all hvc drivers, it
-  is additionally handled by some non-hvc tty drivers as well.
+> g_new(T, n) is neater than g_malloc(sizeof(T) * n).  It's also safer,
+> for two reasons.  One, it catches multiplication overflowing size_t.
+> Two, it returns T * rather than void *, which lets the compiler catch
+> more type errors.
+>=20
+> This commit only touches allocations with size arguments of the form
+> sizeof(T).
+>=20
+> Patch created mechanically with:
+>=20
+>     $ spatch --in-place --sp-file scripts/coccinelle/use-g_new-etc.cocci =
+\
+> =09     --macro-file scripts/cocci-macro-file.h FILES...
+>=20
+> Except this uncovers a typing error:
+>=20
+>     ../hw/9pfs/9p.c:855:13: warning: incompatible pointer types assigning=
+ to 'QpfEntry *' from 'QppEntry *' [-Wincompatible-pointer-types]
+> =09    val =3D g_new0(QppEntry, 1);
+> =09=09^ ~~~~~~~~~~~~~~~~~~~
+>     1 warning generated.
+>=20
+> Harmless, because QppEntry is larger than QpfEntry.  Fix to allocate a
+> QpfEntry instead.
+>=20
+> Cc: Greg Kurz <groug@kaod.org>
+> Cc: Christian Schoenebeck <qemu_oss@crudebyte.com>
+> Signed-off-by: Markus Armbruster <armbru@redhat.com>
+> ---
 
-Jan
+Reviewed-by: Greg Kurz <groug@kaod.org>
+
+>  hw/9pfs/9p-proxy.c           | 2 +-
+>  hw/9pfs/9p-synth.c           | 4 ++--
+>  hw/9pfs/9p.c                 | 8 ++++----
+>  hw/9pfs/codir.c              | 6 +++---
+>  tests/qtest/virtio-9p-test.c | 4 ++--
+>  5 files changed, 12 insertions(+), 12 deletions(-)
+>=20
+> diff --git a/hw/9pfs/9p-proxy.c b/hw/9pfs/9p-proxy.c
+> index 8b4b5cf7dc..4c5e0fc217 100644
+> --- a/hw/9pfs/9p-proxy.c
+> +++ b/hw/9pfs/9p-proxy.c
+> @@ -1187,7 +1187,7 @@ static int proxy_parse_opts(QemuOpts *opts, FsDrive=
+rEntry *fs, Error **errp)
+> =20
+>  static int proxy_init(FsContext *ctx, Error **errp)
+>  {
+> -    V9fsProxy *proxy =3D g_malloc(sizeof(V9fsProxy));
+> +    V9fsProxy *proxy =3D g_new(V9fsProxy, 1);
+>      int sock_id;
+> =20
+>      if (ctx->export_flags & V9FS_PROXY_SOCK_NAME) {
+> diff --git a/hw/9pfs/9p-synth.c b/hw/9pfs/9p-synth.c
+> index b3080e415b..d99d263985 100644
+> --- a/hw/9pfs/9p-synth.c
+> +++ b/hw/9pfs/9p-synth.c
+> @@ -49,7 +49,7 @@ static V9fsSynthNode *v9fs_add_dir_node(V9fsSynthNode *=
+parent, int mode,
+> =20
+>      /* Add directory type and remove write bits */
+>      mode =3D ((mode & 0777) | S_IFDIR) & ~(S_IWUSR | S_IWGRP | S_IWOTH);
+> -    node =3D g_malloc0(sizeof(V9fsSynthNode));
+> +    node =3D g_new0(V9fsSynthNode, 1);
+>      if (attr) {
+>          /* We are adding .. or . entries */
+>          node->attr =3D attr;
+> @@ -128,7 +128,7 @@ int qemu_v9fs_synth_add_file(V9fsSynthNode *parent, i=
+nt mode,
+>      }
+>      /* Add file type and remove write bits */
+>      mode =3D ((mode & 0777) | S_IFREG);
+> -    node =3D g_malloc0(sizeof(V9fsSynthNode));
+> +    node =3D g_new0(V9fsSynthNode, 1);
+>      node->attr         =3D &node->actual_attr;
+>      node->attr->inode  =3D synth_node_count++;
+>      node->attr->nlink  =3D 1;
+> diff --git a/hw/9pfs/9p.c b/hw/9pfs/9p.c
+> index a6d6b3f835..8e9d4aea73 100644
+> --- a/hw/9pfs/9p.c
+> +++ b/hw/9pfs/9p.c
+> @@ -324,7 +324,7 @@ static V9fsFidState *alloc_fid(V9fsState *s, int32_t =
+fid)
+>              return NULL;
+>          }
+>      }
+> -    f =3D g_malloc0(sizeof(V9fsFidState));
+> +    f =3D g_new0(V9fsFidState, 1);
+>      f->fid =3D fid;
+>      f->fid_type =3D P9_FID_NONE;
+>      f->ref =3D 1;
+> @@ -804,7 +804,7 @@ static int qid_inode_prefix_hash_bits(V9fsPDU *pdu, d=
+ev_t dev)
+> =20
+>      val =3D qht_lookup(&pdu->s->qpd_table, &lookup, hash);
+>      if (!val) {
+> -        val =3D g_malloc0(sizeof(QpdEntry));
+> +        val =3D g_new0(QpdEntry, 1);
+>          *val =3D lookup;
+>          affix =3D affixForIndex(pdu->s->qp_affix_next);
+>          val->prefix_bits =3D affix.bits;
+> @@ -852,7 +852,7 @@ static int qid_path_fullmap(V9fsPDU *pdu, const struc=
+t stat *stbuf,
+>              return -ENFILE;
+>          }
+> =20
+> -        val =3D g_malloc0(sizeof(QppEntry));
+> +        val =3D g_new0(QpfEntry, 1);
+>          *val =3D lookup;
+> =20
+>          /* new unique inode and device combo */
+> @@ -928,7 +928,7 @@ static int qid_path_suffixmap(V9fsPDU *pdu, const str=
+uct stat *stbuf,
+>              return -ENFILE;
+>          }
+> =20
+> -        val =3D g_malloc0(sizeof(QppEntry));
+> +        val =3D g_new0(QppEntry, 1);
+>          *val =3D lookup;
+> =20
+>          /* new unique inode affix and device combo */
+> diff --git a/hw/9pfs/codir.c b/hw/9pfs/codir.c
+> index 75148bc985..93ba44fb75 100644
+> --- a/hw/9pfs/codir.c
+> +++ b/hw/9pfs/codir.c
+> @@ -141,9 +141,9 @@ static int do_readdir_many(V9fsPDU *pdu, V9fsFidState=
+ *fidp,
+> =20
+>          /* append next node to result chain */
+>          if (!e) {
+> -            *entries =3D e =3D g_malloc0(sizeof(V9fsDirEnt));
+> +            *entries =3D e =3D g_new0(V9fsDirEnt, 1);
+>          } else {
+> -            e =3D e->next =3D g_malloc0(sizeof(V9fsDirEnt));
+> +            e =3D e->next =3D g_new0(V9fsDirEnt, 1);
+>          }
+>          e->dent =3D qemu_dirent_dup(dent);
+> =20
+> @@ -163,7 +163,7 @@ static int do_readdir_many(V9fsPDU *pdu, V9fsFidState=
+ *fidp,
+>                  break;
+>              }
+> =20
+> -            e->st =3D g_malloc0(sizeof(struct stat));
+> +            e->st =3D g_new0(struct stat, 1);
+>              memcpy(e->st, &stbuf, sizeof(struct stat));
+>          }
+> =20
+> diff --git a/tests/qtest/virtio-9p-test.c b/tests/qtest/virtio-9p-test.c
+> index 01ca076afe..e28c71bd8f 100644
+> --- a/tests/qtest/virtio-9p-test.c
+> +++ b/tests/qtest/virtio-9p-test.c
+> @@ -468,12 +468,12 @@ static void v9fs_rreaddir(P9Req *req, uint32_t *cou=
+nt, uint32_t *nentries,
+>           togo -=3D 13 + 8 + 1 + 2 + slen, ++n)
+>      {
+>          if (!e) {
+> -            e =3D g_malloc(sizeof(struct V9fsDirent));
+> +            e =3D g_new(struct V9fsDirent, 1);
+>              if (entries) {
+>                  *entries =3D e;
+>              }
+>          } else {
+> -            e =3D e->next =3D g_malloc(sizeof(struct V9fsDirent));
+> +            e =3D e->next =3D g_new(struct V9fsDirent, 1);
+>          }
+>          e->next =3D NULL;
+>          /* qid[13] offset[8] type[1] name[s] */
 
 
