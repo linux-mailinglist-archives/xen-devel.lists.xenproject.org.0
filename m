@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0135D4D9459
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Mar 2022 07:10:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.290631.492959 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBFDD4D9483
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Mar 2022 07:19:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.290634.492970 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nU0Ny-0002U6-BM; Tue, 15 Mar 2022 06:10:22 +0000
+	id 1nU0Wh-0003Hc-7e; Tue, 15 Mar 2022 06:19:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 290631.492959; Tue, 15 Mar 2022 06:10:22 +0000
+Received: by outflank-mailman (output) from mailman id 290634.492970; Tue, 15 Mar 2022 06:19:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nU0Ny-0002Qj-89; Tue, 15 Mar 2022 06:10:22 +0000
-Received: by outflank-mailman (input) for mailman id 290631;
- Tue, 15 Mar 2022 06:10:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nU0Wh-0003Fl-3m; Tue, 15 Mar 2022 06:19:23 +0000
+Received: by outflank-mailman (input) for mailman id 290634;
+ Tue, 15 Mar 2022 06:19:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RDYY=T2=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nU0Nw-0002Qd-VM
- for xen-devel@lists.xenproject.org; Tue, 15 Mar 2022 06:10:20 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 978435cb-a426-11ec-8eba-a37418f5ba1a;
- Tue, 15 Mar 2022 07:10:20 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B5C8E1F391;
- Tue, 15 Mar 2022 06:10:19 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 91F9B1333E;
- Tue, 15 Mar 2022 06:10:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id TYYDIsstMGKOMgAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 15 Mar 2022 06:10:19 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nU0Wf-0003FZ-IO; Tue, 15 Mar 2022 06:19:21 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nU0Wf-0004M4-Ep; Tue, 15 Mar 2022 06:19:21 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nU0Wf-0003Oe-3i; Tue, 15 Mar 2022 06:19:21 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nU0Wf-0002YK-33; Tue, 15 Mar 2022 06:19:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,147 +42,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 978435cb-a426-11ec-8eba-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1647324619; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VBMUNurecPF8Y85BnPuMM4wfLEGKltenwgjpYkSDT+s=;
-	b=sZolrUCxYPQvi/BHcF3UJt08AscdC4sI33LAKS/jmq8MYkYqjIYlnTgBdaLxCGGJonyy6t
-	LGR1aA79id76b6DWEHF0dalvRRssYscuOx1yiR+7pfrraDGV15Ew14BQi4lr3+2ohHJrVR
-	gHKgbi9YzGZaF04odj4Yklqgaeq78+o=
-Message-ID: <1633fb91-3771-e37c-14ce-43f1b0cda6a0@suse.com>
-Date: Tue, 15 Mar 2022 07:10:19 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=PA591aFFwJjBIPr9IRbtsdMc7SwVGAbwaFVvXallqds=; b=xxJ8SP4VI7Y2qTEYal1cyhV/C4
+	+Dn9qQ3kAIihDnq4bTUKPIq1/bqnSiaNrjEjrQvwJXoGjLwCvu3DE4j4j5QrZbIigG3AsrQC2ZYof
+	XuqxAMIEcRJdoQhkpQBOGB52uHInYf5Dx+cA3p+QZFckk7qxv9jNZgmio+ylTQNWA/Og=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168609-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [PATCH 1/2] xen/grant-table: remove gnttab_*transfer*() functions
-Content-Language: en-US
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-References: <20220311103429.12845-1-jgross@suse.com>
- <20220311103429.12845-2-jgross@suse.com>
- <63365484-7035-f2bd-5317-2e95d65993f7@oracle.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <63365484-7035-f2bd-5317-2e95d65993f7@oracle.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------EEIkysVNYzUiG06vSeZ1qouw"
+Subject: [ovmf test] 168609: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=a13dfc769bd7097d8d9ffe3e029a2c1d062d712b
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 15 Mar 2022 06:19:21 +0000
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------EEIkysVNYzUiG06vSeZ1qouw
-Content-Type: multipart/mixed; boundary="------------zaOqujjtlt1VlU0O9yUFZMcY";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Message-ID: <1633fb91-3771-e37c-14ce-43f1b0cda6a0@suse.com>
-Subject: Re: [PATCH 1/2] xen/grant-table: remove gnttab_*transfer*() functions
-References: <20220311103429.12845-1-jgross@suse.com>
- <20220311103429.12845-2-jgross@suse.com>
- <63365484-7035-f2bd-5317-2e95d65993f7@oracle.com>
-In-Reply-To: <63365484-7035-f2bd-5317-2e95d65993f7@oracle.com>
+flight 168609 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168609/
 
---------------zaOqujjtlt1VlU0O9yUFZMcY
-Content-Type: multipart/mixed; boundary="------------wU4WnJfcRK4iZYGFdve8dTAt"
+Regressions :-(
 
---------------wU4WnJfcRK4iZYGFdve8dTAt
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
-T24gMTUuMDMuMjIgMDA6MzcsIEJvcmlzIE9zdHJvdnNreSB3cm90ZToNCj4gDQo+IE9uIDMv
-MTEvMjIgNTozNCBBTSwgSnVlcmdlbiBHcm9zcyB3cm90ZToNCj4+IEFsbCBncmFudCB0YWJs
-ZSBvcGVyYXRpb25zIHJlbGF0ZWQgdG8gdGhlICJ0cmFuc2ZlciIgZnVuY3Rpb25hbGl0eQ0K
-Pj4gYXJlIHVudXNlZCBjdXJyZW50bHkuIFRoZXJlIGhhdmUgYmVlbiB1c2VycyBpbiB0aGUg
-b2xkIGRheXMgb2YgdGhlDQo+PiAiWGVuLW8tTGludXgiIGtlcm5lbCwgYnV0IHRob3NlIGRp
-ZG4ndCBtYWtlIGl0IHVwc3RyZWFtLg0KPj4NCj4+IFNvIHJlbW92ZSB0aGUgInRyYW5zZmVy
-IiByZWxhdGVkIGZ1bmN0aW9ucy4NCj4gDQo+IA0KPiBEbyB3ZSBuZWVkIHRvIGFzc2VydCBz
-b21ld2hlcmUgdGhhdCB0cmFuc2ZlciBmbGFncyBhcmUgbm90IHNldD8NCg0KVGhpcyB3b3Vs
-ZCBiZSBhbiBvcnRob2dvbmFsIGNoYW5nZSwgcmlnaHQ/IE15IHBhdGNoIGlzIGp1c3QgcmVt
-b3ZpbmcNCm5ldmVyIGNhbGxlZCBmdW5jdGlvbnMuDQoNCkluIGFueSBjYXNlIEkgYmVsaWV2
-ZSBjaGVja2luZyB0aG9zZSBmbGFncyBpcyB0aGUgam9iIG9mIHRoZSBoeXBlcnZpc29yLg0K
-SWYgYW4gb3BlcmF0aW9uIGlzIGlsbGVnYWwgZHVlIHRvIGEgdHJhbnNmZXIgZmxhZyBiZWlu
-ZyBzZXQsIGl0IG5lZWRzIHRvDQpiZSByZWplY3RlZCBhdCBoeXBlcnZpc29yIGxldmVsLg0K
-DQoNCkp1ZXJnZW4NCg==
---------------wU4WnJfcRK4iZYGFdve8dTAt
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+version targeted for testing:
+ ovmf                 a13dfc769bd7097d8d9ffe3e029a2c1d062d712b
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Last test of basis   168254  2022-02-28 10:41:46 Z   14 days
+Failing since        168258  2022-03-01 01:55:31 Z   14 days  138 attempts
+Testing same since   168579  2022-03-14 08:41:36 Z    0 days    9 attempts
 
---------------wU4WnJfcRK4iZYGFdve8dTAt--
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
 
---------------zaOqujjtlt1VlU0O9yUFZMcY--
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
---------------EEIkysVNYzUiG06vSeZ1qouw
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
 
------BEGIN PGP SIGNATURE-----
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmIwLcsFAwAAAAAACgkQsN6d1ii/Ey8I
-7QgAiF6wFA5yY04zgn6CQwqX1adP+E1VtWJ8sWb3d4FZnlSs6MB9eeggPF8yknmaWzhBCFQiXDXk
-Brr4CVryD9lBc0ZSvgB7DmxAlxgA6XfZce+8rlY0LDqElhBy0PZ+YH4QNnhb0HchUtbl4/w8Iafh
-XWNpEcAP5hkOo0oFeny6N2RinnxWrQUecNyASdwKc/35HXnvcriiJ2YQ1uFowE2Hu0cxtG5vCpn3
-K7b8Vdd+e/YbBG3H0ulwP8aE3v1bJDq4/BSz3b/5anIVPKjIIk+R1t0l73aQt6+EWACZMT1svn9r
-LWSQ5AdvRg8omZjJu02sKxT7n4QbpF9owGdYkugn8w==
-=+ElC
------END PGP SIGNATURE-----
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
---------------EEIkysVNYzUiG06vSeZ1qouw--
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 629 lines long.)
 
