@@ -2,44 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE4164DA9DC
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Mar 2022 06:29:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.291053.493792 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 051194DAA79
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Mar 2022 07:11:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.291056.493803 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nUMDY-0006r7-UN; Wed, 16 Mar 2022 05:29:04 +0000
+	id 1nUMrq-0003SE-3K; Wed, 16 Mar 2022 06:10:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 291053.493792; Wed, 16 Mar 2022 05:29:04 +0000
+Received: by outflank-mailman (output) from mailman id 291056.493803; Wed, 16 Mar 2022 06:10:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nUMDY-0006oR-Qm; Wed, 16 Mar 2022 05:29:04 +0000
-Received: by outflank-mailman (input) for mailman id 291053;
- Wed, 16 Mar 2022 05:29:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/w4J=T3=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nUMDX-0006oL-BZ
- for xen-devel@lists.xenproject.org; Wed, 16 Mar 2022 05:29:03 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fd0471a3-a4e9-11ec-853b-5f4723681683;
- Wed, 16 Mar 2022 06:29:02 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BC8B11F38C;
- Wed, 16 Mar 2022 05:29:01 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 82B1113B93;
- Wed, 16 Mar 2022 05:29:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id l8SgHZ11MWJIKwAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 16 Mar 2022 05:29:01 +0000
+	id 1nUMrp-0003QP-Vw; Wed, 16 Mar 2022 06:10:41 +0000
+Received: by outflank-mailman (input) for mailman id 291056;
+ Wed, 16 Mar 2022 06:10:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=aGOr=T3=arm.com=Hongda.Deng@srs-se1.protection.inumbo.net>)
+ id 1nUMro-0003PX-Od
+ for xen-devel@lists.xenproject.org; Wed, 16 Mar 2022 06:10:41 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2062c.outbound.protection.outlook.com
+ [2a01:111:f400:7e1a::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cb2bfec2-a4ef-11ec-8eba-a37418f5ba1a;
+ Wed, 16 Mar 2022 07:10:37 +0100 (CET)
+Received: from AS9PR07CA0012.eurprd07.prod.outlook.com (2603:10a6:20b:46c::17)
+ by VI1PR08MB4398.eurprd08.prod.outlook.com (2603:10a6:803:102::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.22; Wed, 16 Mar
+ 2022 06:10:33 +0000
+Received: from AM5EUR03FT020.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:46c:cafe::a7) by AS9PR07CA0012.outlook.office365.com
+ (2603:10a6:20b:46c::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.13 via Frontend
+ Transport; Wed, 16 Mar 2022 06:10:33 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM5EUR03FT020.mail.protection.outlook.com (10.152.16.116) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5061.22 via Frontend Transport; Wed, 16 Mar 2022 06:10:32 +0000
+Received: ("Tessian outbound 1f399c739551:v113");
+ Wed, 16 Mar 2022 06:10:32 +0000
+Received: from 780adab837f5.3
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 3CAC35A3-B512-4476-8426-33C97EF2EE70.1; 
+ Wed, 16 Mar 2022 06:10:22 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 780adab837f5.3
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Wed, 16 Mar 2022 06:10:22 +0000
+Received: from VE1PR08MB5677.eurprd08.prod.outlook.com (2603:10a6:800:1ab::17)
+ by DB8PR08MB4074.eurprd08.prod.outlook.com (2603:10a6:10:a5::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.26; Wed, 16 Mar
+ 2022 06:10:19 +0000
+Received: from VE1PR08MB5677.eurprd08.prod.outlook.com
+ ([fe80::16b:a4c0:c06b:6fc4]) by VE1PR08MB5677.eurprd08.prod.outlook.com
+ ([fe80::16b:a4c0:c06b:6fc4%6]) with mapi id 15.20.5061.029; Wed, 16 Mar 2022
+ 06:10:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,155 +72,246 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd0471a3-a4e9-11ec-853b-5f4723681683
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1647408541; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/PIDCzlHujec2z5GgI/Fxhz1Ptiq+5sj17W7kV26IFg=;
-	b=k/sKfbSrYYRa9c1IRzKH1EV1lIJNiMZHAjh0QjBh2f8r2/LjPWIs3T9GHvoWKqtUG43T1A
-	SuAP3MeGhbVbhlexyS1BFn6MhAS01BLuoGiqA7y9VVJEr1um9I4VZoJDtsiFHpPTrXcRT4
-	4FXFARFp8tWrZKdcpXmTcIDgY1YbVy4=
-Message-ID: <78b16b06-9cfe-5bfd-5d23-b7e8010024fd@suse.com>
-Date: Wed, 16 Mar 2022 06:29:00 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [PATCH] xen/usb: harden xen_hcd against malicious backends
+X-Inumbo-ID: cb2bfec2-a4ef-11ec-8eba-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=13dVwcIeBc/+Ms5FyRQcakRJCpzEmRV+3eVQosM2yJ8=;
+ b=WVdX1vdJlil+0Bkdzcpq1spJwwrZHMjihDZXhHlTFnbUkVRUmzIyQbtQNer37Mu/6BGFJuvP+5JJpmx5vao7N/+qcoZXt/91GLZ4nB/HsXCQ8UoZKmnzLj9RNps8lhZns7SUuimZslYeMCWmubElHFmYhefbgtkEU9WSex/a0/w=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Cjs6lv4gK9qU/4zDCGAcScZ06PlnyvTY9zS41aGABtHV+Lt8o6i8n/+a4Cd8BfWCLsPU/A2p3jtYbcgyHK6t3y432oHvmUhGbHePugyezXc19v4NIDirgfV+WqL7/NlVAhw42gBjg+BoxRzoiP7JXool4edRfHxXaYFFyMkyDVAr/ozG/i3wyp2hwTWn1BTj/nW2fPRIPahRXOpy+ztzVpHA60SVpERJiUDmmaSwiVTv+7gtApXQ4TfMq3UX1tJr0/ORaNS3XREFJvzVjWnEgf6K6QDduEWiLB8MVYpM3/Hz1GBnS30SQ9XBaX9o91QJmlFQPEN+sCcyCb6bjNmgwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=13dVwcIeBc/+Ms5FyRQcakRJCpzEmRV+3eVQosM2yJ8=;
+ b=OQHGi1ArXHo6yAAXwrDfnQuNyLN26JKIGyCj1PYJ9RuyDIYu7as+UYVNN/C8I2fkOVu1JuUMOkZXeYnHkmdtz0RsN8rDw76Um6/B1DOB2DlcsJo+t8n0AkNKNSKGnvyC+BQLRPRkI3J6Wqzpk8Au8NUD8MkoD5cFzggt/AoM9bkdUVYz1t6UfMxX7M8reW/BvJwXkRCXKwm1naxobDggXP/Ii9Kp7LL8jizlOaQcUOf1CRylg0GBzNx++e7+GcvxY1+D5ibfRB042NdFJWQ3/bU2rT5G+a01/KgSnI8PJ213nnBgALdi6mIMtH9greXYp8M8Gg/LeO5J9nW6KbaGvQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=13dVwcIeBc/+Ms5FyRQcakRJCpzEmRV+3eVQosM2yJ8=;
+ b=WVdX1vdJlil+0Bkdzcpq1spJwwrZHMjihDZXhHlTFnbUkVRUmzIyQbtQNer37Mu/6BGFJuvP+5JJpmx5vao7N/+qcoZXt/91GLZ4nB/HsXCQ8UoZKmnzLj9RNps8lhZns7SUuimZslYeMCWmubElHFmYhefbgtkEU9WSex/a0/w=
+From: Hongda Deng <Hongda.Deng@arm.com>
+To: Julien Grall <julien@xen.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Julien Grall <Julien.Grall@arm.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Julien Grall
+	<jgrall@amazon.com>
+Subject: RE: [PATCH v3 19/19] xen/arm: mm: Re-implement
+ setup_frame_table_mappings() with map_pages_to_xen()
+Thread-Topic: [PATCH v3 19/19] xen/arm: mm: Re-implement
+ setup_frame_table_mappings() with map_pages_to_xen()
+Thread-Index: AQHYJxD6oxkwfhIw+UynauC6SQGhlazBqLzg
+Date: Wed, 16 Mar 2022 06:10:19 +0000
+Message-ID:
+ <VE1PR08MB5677EE10016F05DA46E24177E6119@VE1PR08MB5677.eurprd08.prod.outlook.com>
+References: <20220221102218.33785-1-julien@xen.org>
+ <20220221102218.33785-20-julien@xen.org>
+In-Reply-To: <20220221102218.33785-20-julien@xen.org>
+Accept-Language: en-US
 Content-Language: en-US
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: xen-devel@lists.xenproject.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20220311103509.12908-1-jgross@suse.com>
- <YjDPtRhdrtY6tpvc@kroah.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <YjDPtRhdrtY6tpvc@kroah.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------eod0dLzbzdUZdsKtS040X2Cp"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------eod0dLzbzdUZdsKtS040X2Cp
-Content-Type: multipart/mixed; boundary="------------dIo5mqVJwQtgAvakBeavLCM7";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: xen-devel@lists.xenproject.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-ID: <78b16b06-9cfe-5bfd-5d23-b7e8010024fd@suse.com>
-Subject: Re: [PATCH] xen/usb: harden xen_hcd against malicious backends
-References: <20220311103509.12908-1-jgross@suse.com>
- <YjDPtRhdrtY6tpvc@kroah.com>
-In-Reply-To: <YjDPtRhdrtY6tpvc@kroah.com>
-
---------------dIo5mqVJwQtgAvakBeavLCM7
-Content-Type: multipart/mixed; boundary="------------RThCbjbaim80DRYqQ5E0TjUm"
-
---------------RThCbjbaim80DRYqQ5E0TjUm
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMTUuMDMuMjIgMTg6NDEsIEdyZWcgS3JvYWgtSGFydG1hbiB3cm90ZToNCj4gT24gRnJp
-LCBNYXIgMTEsIDIwMjIgYXQgMTE6MzU6MDlBTSArMDEwMCwgSnVlcmdlbiBHcm9zcyB3cm90
-ZToNCj4+IE1ha2Ugc3VyZSBhIG1hbGljaW91cyBiYWNrZW5kIGNhbid0IGNhdXNlIGFueSBo
-YXJtIG90aGVyIHRoYW4gd3JvbmcNCj4+IEkvTyBkYXRhLg0KPj4NCj4+IE1pc3NpbmcgYXJl
-IHZlcmlmaWNhdGlvbiBvZiB0aGUgcmVxdWVzdCBpZCBpbiBhIHJlc3BvbnNlLCBzYW5pdGl6
-aW5nDQo+PiB0aGUgcmVwb3J0ZWQgYWN0dWFsIEkvTyBsZW5ndGgsIGFuZCBwcm90ZWN0aW9u
-IGFnYWluc3QgaW50ZXJydXB0IHN0b3Jtcw0KPj4gZnJvbSB0aGUgYmFja2VuZC4NCj4+DQo+
-PiBTaWduZWQtb2ZmLWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+DQo+PiAt
-LS0NCj4+ICAgZHJpdmVycy91c2IvaG9zdC94ZW4taGNkLmMgfCA1NyArKysrKysrKysrKysr
-KysrKysrKysrKysrKysrLS0tLS0tLS0tLQ0KPj4gICAxIGZpbGUgY2hhbmdlZCwgNDMgaW5z
-ZXJ0aW9ucygrKSwgMTQgZGVsZXRpb25zKC0pDQo+IA0KPiBGYWlscyB0byBhcHBseSB0byBt
-eSB0cmVlOg0KPiANCj4gY2hlY2tpbmcgZmlsZSBkcml2ZXJzL3VzYi9ob3N0L3hlbi1oY2Qu
-Yw0KPiBIdW5rICMyIHN1Y2NlZWRlZCBhdCA3MjAgKG9mZnNldCAtMSBsaW5lcykuDQo+IEh1
-bmsgIzMgc3VjY2VlZGVkIGF0IDgwNyAob2Zmc2V0IC0zIGxpbmVzKS4NCj4gSHVuayAjNCBz
-dWNjZWVkZWQgYXQgOTM0IChvZmZzZXQgLTUgbGluZXMpLg0KPiBIdW5rICM1IEZBSUxFRCBh
-dCA5ODYuDQo+IEh1bmsgIzYgc3VjY2VlZGVkIGF0IDEwMDMgd2l0aCBmdXp6IDEgKG9mZnNl
-dCAtMTAgbGluZXMpLg0KPiBIdW5rICM3IHN1Y2NlZWRlZCBhdCAxMDQ4IChvZmZzZXQgLTEw
-IGxpbmVzKS4NCj4gSHVuayAjOCBzdWNjZWVkZWQgYXQgMTA3MiAob2Zmc2V0IC0xMCBsaW5l
-cykuDQo+IEh1bmsgIzkgc3VjY2VlZGVkIGF0IDExNjEgKG9mZnNldCAtMTAgbGluZXMpLg0K
-PiBIdW5rICMxMCBzdWNjZWVkZWQgYXQgMTUxNiAob2Zmc2V0IC0xMCBsaW5lcykuDQo+IDEg
-b3V0IG9mIDEwIGh1bmtzIEZBSUxFRA0KPiANCj4gQW55IGhpbnRzPw0KDQpSZWJhc2UgeW91
-ciB0cmVlIHRvIHY1LjE3LXJjOD8gSXQgaXMgbWlzc2luZyB0aGUgcmVjZW50IHNlY3VyaXR5
-DQpwYXRjaGVzIHdoaWNoIG1vZGlmaWVkIGRyaXZlcnMvdXNiL2hvc3QveGVuLWhjZC5jLg0K
-DQoNCkp1ZXJnZW4NCg==
---------------RThCbjbaim80DRYqQ5E0TjUm
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ts-tracking-id: 077C34184B3CB3499525A868907ADF2D.0
+x-checkrecipientchecked: true
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-MS-Office365-Filtering-Correlation-Id: 53ff7aa8-b5f7-49e3-726c-08da0713adec
+x-ms-traffictypediagnostic:
+	DB8PR08MB4074:EE_|AM5EUR03FT020:EE_|VI1PR08MB4398:EE_
+X-Microsoft-Antispam-PRVS:
+	<VI1PR08MB43981072CF08D4B3790517CFE6119@VI1PR08MB4398.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ d3nNus1UUx1nsYmiVYNBGuE/C/VbavqcHaOaUi2e8fZvxG8w60txqRvmZAuCgQf4LY+5kfnHRyC68OJ8YSpX7UY3zGSqqy11XAwPITz0PIYQYtVQBseP11CQRYMzHSfIjG6xeBpz8r/poWZOaM/wqoSKhtRCI7vDUXNFlf+ZL97+dhAW0GMp1GosHwMS2HLfiaWjgbGQ+PR701RvKq+2mOsWIqW2cDvAB7NZHE6H7eUQ43SgWto/0yv8D/yckfHNIgUjnUFIDcg/hFdxlYIq7zCe3Dohp+gEmFXLANYOwBKh1YgysWFtwmtJ14lpP3k6DdL7IjC9qxsIS1z13ssc4/vWpnGsJFkKhipt4+be+HiHJeFsgTgROS9AmoeXLrv/FNtcWs+IQDBZ7i821hmAobWpOTtv18t0PzJQiBHGC0Il8+nFGx6MC7ChQn2mXOSd6eILeSnzdgnCranpxTNC1o3X5kcuktGHKBFMbBZfSHlzd4ftwPgbhYLdjXXWK0P3EhHWUA5pP/GljGjsfmk5YNvS9c9rSVq8tXX5Xv9ZT/ekMfvhw4R6elJF8VF6MnPyznBDRG7xEbul4rJD9fFd47lAKce7oh63tPCkS373zIe9PEa9EjtGiWtYECq5tNbW+8zpc89ROjelNksxr14bAiOf4mEnSn90EQug+NKmnIgzaBEAnGP55hEdT/wz2/C01tbY6nzQ69d0l9KCg2Unng==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR08MB5677.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(38070700005)(122000001)(71200400001)(508600001)(66556008)(38100700002)(76116006)(66476007)(66446008)(64756008)(66946007)(110136005)(316002)(8676002)(86362001)(54906003)(26005)(186003)(4326008)(53546011)(9686003)(7696005)(6506007)(83380400001)(2906002)(33656002)(8936002)(52536014)(55016003)(5660300002);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="iso-2022-jp"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR08MB4074
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM5EUR03FT020.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	26de8d1c-4fca-44ca-beea-08da0713a5b2
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	/PDpS9SocXhlvTc90Qm2fQg1jW76GwczerurN8rLC/vmNBP1oT0kPhrUOEV0kUDeaGB+bmI1c+oCMwZNJY6XGDAel7CD19/DnQ7yCKNhFimKTYj2SqiD9Bm+7JvLnmvJCdsj1F3NpUzAbA2MWUc4/4lMpTLq7xAsRH+Qrlkihfixc6vu4ZkP3SCkZBEAwmWXok8Vy/ezs4TKoxDRElzD9lzqZE8MJLdCvn/J2GpC5APlQ5InYsVdS6ET0yUd0jxYKac6nWTIffPcj3pD8goVy9CdFOKB8H2ZNs3QVEPWXqaZIj5J1D1yEVvIfa75I44HCed7eL8NKA5cv2pocHqifKebs356C903cSN4aVYSPF6DXxI3i+lG4Y/TeInByqMALRoRO/Kr+gMtt2iN9IXEXGxxtJhUk/+QpXaAx0/2uWFupUe9mhCYGtZL354ex3M0qfADgDSkrV4p+G2RsCujfpzDRkY+ohO6RbbcVCbtke/wQp7fd3FV7UBNVG1IPbRcIm522vbawnFTh7TPs6km17CQoVvq4H/Mka5Q3A8HUJnoJAEdqn38tEQdmkHxQ0977V0kdGvyMVtKdQcAMRyHHm2S5m0tCtEB8DRRmzz8yqZnDaVbBD6xKgSqniE556ZzDIVUR985xI2oI8MzudN7tJT+t9RE+vdBCtRDUnPHdI75UYqGC9KtsN9v4H2hXrOs
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(82310400004)(33656002)(356005)(81166007)(40460700003)(316002)(86362001)(54906003)(110136005)(5660300002)(8936002)(8676002)(70206006)(70586007)(4326008)(2906002)(83380400001)(107886003)(47076005)(36860700001)(6506007)(508600001)(336012)(186003)(26005)(55016003)(53546011)(9686003)(7696005)(52536014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2022 06:10:32.9136
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 53ff7aa8-b5f7-49e3-726c-08da0713adec
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM5EUR03FT020.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB4398
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Hi Julien,
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+> -----Original Message-----
+> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of Jul=
+ien
+> Grall
+> Sent: 2022=1B$BG/=1B(B2=1B$B7n=1B(B21=1B$BF|=1B(B 18:22
+> To: xen-devel@lists.xenproject.org
+> Cc: julien@xen.org; Julien Grall <Julien.Grall@arm.com>; Stefano Stabelli=
+ni
+> <sstabellini@kernel.org>; Bertrand Marquis <Bertrand.Marquis@arm.com>;
+> Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>; Julien Grall
+> <jgrall@amazon.com>
+> Subject: [PATCH v3 19/19] xen/arm: mm: Re-implement
+> setup_frame_table_mappings() with map_pages_to_xen()
+>=20
+> From: Julien Grall <julien.grall@arm.com>
+>=20
+> Now that map_pages_to_xen() has been extended to support 2MB mappings,
+> we can replace the create_mappings() call by map_pages_to_xen() call.
+>=20
+> This has the advantage to remove the differences between 32-bit and
+> 64-bit code.
+>=20
+> Lastly remove create_mappings() as there is no more callers.
+>=20
+> Signed-off-by: Julien Grall <julien.grall@arm.com>
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>=20
+> ---
+>     Changes in v3:
+>         - Fix typo in the commit message
+>         - Remove the TODO regarding contiguous bit
+>=20
+>     Changes in v2:
+>         - New patch
 
---------------RThCbjbaim80DRYqQ5E0TjUm--
+For the all 19 patches:
 
---------------dIo5mqVJwQtgAvakBeavLCM7--
+Tested-by: Hongda Deng <Hongda.Deng@arm.com>
 
---------------eod0dLzbzdUZdsKtS040X2Cp
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+> ---
+>  xen/arch/arm/mm.c | 63 ++++-------------------------------------------
+>  1 file changed, 5 insertions(+), 58 deletions(-)
+>=20
+> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+> index 4af59375d998..d73f49d5b6fc 100644
+> --- a/xen/arch/arm/mm.c
+> +++ b/xen/arch/arm/mm.c
+> @@ -354,40 +354,6 @@ void clear_fixmap(unsigned map)
+>      BUG_ON(res !=3D 0);
+>  }
+>=20
+> -/* Create Xen's mappings of memory.
+> - * Mapping_size must be either 2MB or 32MB.
+> - * Base and virt must be mapping_size aligned.
+> - * Size must be a multiple of mapping_size.
+> - * second must be a contiguous set of second level page tables
+> - * covering the region starting at virt_offset. */
+> -static void __init create_mappings(lpae_t *second,
+> -                                   unsigned long virt_offset,
+> -                                   unsigned long base_mfn,
+> -                                   unsigned long nr_mfns,
+> -                                   unsigned int mapping_size)
+> -{
+> -    unsigned long i, count;
+> -    const unsigned long granularity =3D mapping_size >> PAGE_SHIFT;
+> -    lpae_t pte, *p;
+> -
+> -    ASSERT((mapping_size =3D=3D MB(2)) || (mapping_size =3D=3D MB(32)));
+> -    ASSERT(!((virt_offset >> PAGE_SHIFT) % granularity));
+> -    ASSERT(!(base_mfn % granularity));
+> -    ASSERT(!(nr_mfns % granularity));
+> -
+> -    count =3D nr_mfns / XEN_PT_LPAE_ENTRIES;
+> -    p =3D second + second_linear_offset(virt_offset);
+> -    pte =3D mfn_to_xen_entry(_mfn(base_mfn), MT_NORMAL);
+> -    if ( granularity =3D=3D 16 * XEN_PT_LPAE_ENTRIES )
+> -        pte.pt.contig =3D 1;  /* These maps are in 16-entry contiguous c=
+hunks. */
+> -    for ( i =3D 0; i < count; i++ )
+> -    {
+> -        write_pte(p + i, pte);
+> -        pte.pt.base +=3D 1 << XEN_PT_LPAE_SHIFT;
+> -    }
+> -    flush_xen_tlb_local();
+> -}
+> -
+>  #ifdef CONFIG_DOMAIN_PAGE
+>  void *map_domain_page_global(mfn_t mfn)
+>  {
+> @@ -846,36 +812,17 @@ void __init setup_frametable_mappings(paddr_t ps,
+> paddr_t pe)
+>      unsigned long frametable_size =3D nr_pdxs * sizeof(struct page_info)=
+;
+>      mfn_t base_mfn;
+>      const unsigned long mapping_size =3D frametable_size < MB(32) ? MB(2=
+) :
+> MB(32);
+> -#ifdef CONFIG_ARM_64
+> -    lpae_t *second, pte;
+> -    unsigned long nr_second;
+> -    mfn_t second_base;
+> -    int i;
+> -#endif
+> +    int rc;
+>=20
+>      frametable_base_pdx =3D mfn_to_pdx(maddr_to_mfn(ps));
+>      /* Round up to 2M or 32M boundary, as appropriate. */
+>      frametable_size =3D ROUNDUP(frametable_size, mapping_size);
+>      base_mfn =3D alloc_boot_pages(frametable_size >> PAGE_SHIFT, 32<<(20=
+-12));
+>=20
+> -#ifdef CONFIG_ARM_64
+> -    /* Compute the number of second level pages. */
+> -    nr_second =3D ROUNDUP(frametable_size, FIRST_SIZE) >> FIRST_SHIFT;
+> -    second_base =3D alloc_boot_pages(nr_second, 1);
+> -    second =3D mfn_to_virt(second_base);
+> -    for ( i =3D 0; i < nr_second; i++ )
+> -    {
+> -        clear_page(mfn_to_virt(mfn_add(second_base, i)));
+> -        pte =3D mfn_to_xen_entry(mfn_add(second_base, i), MT_NORMAL);
+> -        pte.pt.table =3D 1;
+> -        write_pte(&xen_first[first_table_offset(FRAMETABLE_VIRT_START)+i=
+], pte);
+> -    }
+> -    create_mappings(second, 0, mfn_x(base_mfn), frametable_size >>
+> PAGE_SHIFT,
+> -                    mapping_size);
+> -#else
+> -    create_mappings(xen_second, FRAMETABLE_VIRT_START, mfn_x(base_mfn),
+> -                    frametable_size >> PAGE_SHIFT, mapping_size);
+> -#endif
+> +    rc =3D map_pages_to_xen(FRAMETABLE_VIRT_START, base_mfn,
+> +                          frametable_size >> PAGE_SHIFT, PAGE_HYPERVISOR=
+_RW);
+> +    if ( rc )
+> +        panic("Unable to setup the frametable mappings.\n");
+>=20
+>      memset(&frame_table[0], 0, nr_pdxs * sizeof(struct page_info));
+>      memset(&frame_table[nr_pdxs], -1,
+> --
+> 2.32.0
+>=20
 
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmIxdZwFAwAAAAAACgkQsN6d1ii/Ey9F
-Hwf+LkGaWrpNt9vcE1twmTNgjxj3MDenPvnyDaABq2+G1W36GWL407B+xfrskqVqc/xkM9vw7Vlh
-wXEwTWHkGUF+RIXf1KGD1yjqakF5apcrfxZPzUhzWDYAc1nLEJ6a8Ajjs5xz8A0t+Mzw9/WB0IEM
-f6+mog8mAn88xCXKmWzM1+Kp06uimKRc776aSvlVj7rwSn5+zrYc+1hdGVUNfP/BtRJcuwTWm06B
-cGGd3Dnf7VvB48ehxM6poumJ9wZKZVtweduzCV/6fF/iachj6ERDpVdg4qYqKbXs4s6AHr5yQ7/J
-Fq6xOa/M0HxTzTsaosLBpQSIPHMY7bgycGmrCUR6rQ==
-=aDhE
------END PGP SIGNATURE-----
-
---------------eod0dLzbzdUZdsKtS040X2Cp--
 
