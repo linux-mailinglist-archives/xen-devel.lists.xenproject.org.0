@@ -2,55 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9CDB4DA991
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Mar 2022 06:15:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.290965.493770 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE4164DA9DC
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Mar 2022 06:29:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.291053.493792 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nULzk-0004e0-CO; Wed, 16 Mar 2022 05:14:48 +0000
+	id 1nUMDY-0006r7-UN; Wed, 16 Mar 2022 05:29:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 290965.493770; Wed, 16 Mar 2022 05:14:48 +0000
+Received: by outflank-mailman (output) from mailman id 291053.493792; Wed, 16 Mar 2022 05:29:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nULzk-0004bE-8o; Wed, 16 Mar 2022 05:14:48 +0000
-Received: by outflank-mailman (input) for mailman id 290965;
- Tue, 15 Mar 2022 22:30:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Tvka=T2=amd.com=vikram.garhwal@srs-se1.protection.inumbo.net>)
- id 1nUFg1-0004Aw-Cw
- for xen-devel@lists.xenproject.org; Tue, 15 Mar 2022 22:30:01 +0000
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com (unknown
- [2a01:111:f400:7e83::45])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 71e26543-a4af-11ec-8eba-a37418f5ba1a;
- Tue, 15 Mar 2022 23:29:58 +0100 (CET)
-Received: from DM5PR21CA0006.namprd21.prod.outlook.com (2603:10b6:3:ac::16) by
- SJ0PR02MB8766.namprd02.prod.outlook.com (2603:10b6:a03:3d8::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5081.14; Tue, 15 Mar 2022 22:29:56 +0000
-Received: from DM3NAM02FT058.eop-nam02.prod.protection.outlook.com
- (2603:10b6:3:ac:cafe::36) by DM5PR21CA0006.outlook.office365.com
- (2603:10b6:3:ac::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.14 via Frontend
- Transport; Tue, 15 Mar 2022 22:29:56 +0000
-Received: from xsj-pvapexch02.xlnx.xilinx.com (149.199.62.198) by
- DM3NAM02FT058.mail.protection.outlook.com (10.13.5.42) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5061.22 via Frontend Transport; Tue, 15 Mar 2022 22:29:55 +0000
-Received: from xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) by
- xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.14; Tue, 15 Mar 2022 15:29:51 -0700
-Received: from smtp.xilinx.com (172.19.127.96) by
- xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) with Microsoft SMTP Server id
- 15.1.2176.14 via Frontend Transport; Tue, 15 Mar 2022 15:29:51 -0700
-Received: from [172.19.2.115] (port=33390 helo=xilinx.com)
- by smtp.xilinx.com with esmtp (Exim 4.90)
- (envelope-from <vikram.garhwal@amd.com>)
- id 1nUFfr-00023D-4F; Tue, 15 Mar 2022 15:29:51 -0700
+	id 1nUMDY-0006oR-Qm; Wed, 16 Mar 2022 05:29:04 +0000
+Received: by outflank-mailman (input) for mailman id 291053;
+ Wed, 16 Mar 2022 05:29:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=/w4J=T3=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1nUMDX-0006oL-BZ
+ for xen-devel@lists.xenproject.org; Wed, 16 Mar 2022 05:29:03 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fd0471a3-a4e9-11ec-853b-5f4723681683;
+ Wed, 16 Mar 2022 06:29:02 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BC8B11F38C;
+ Wed, 16 Mar 2022 05:29:01 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 82B1113B93;
+ Wed, 16 Mar 2022 05:29:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id l8SgHZ11MWJIKwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 16 Mar 2022 05:29:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,519 +51,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71e26543-a4af-11ec-8eba-a37418f5ba1a
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OauZIzfM02fl4GhLQk/xojHg2dYk/LRd8j0UNhdqbYVCIF9rk6NUGTNZREFXkpeelxrJm0CKzbDVX7gyCIApgmmoJw5rzc4wsusEqjVV+3bd442gxsRPSyC7Ft4YRGrGY3t4tgiQAP5Ibja2t3AxPv1eXpbvWHWugeCOAbYKoLn1Ovc/F/nV18CBTGJdN1eTHWEj2QCK6fDwAx8+8pFy8YnZSjWuReREjBqo46FS47VwjDvShTozejQ6yCSA7kSbIMfZO6lFrD/FLTLxPL/zDiOKQ+AKGLMWlsG88eTs+g7bP/tFQZic2J6d5Ly2jbJuEBwyRTcFbsNG23GWNBPYxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tUVNUAbPpfhC7PSf79ggsWAwd/dzcuMt9kx31RElC4w=;
- b=h4wSMvtKyxPitdGJrV3NiAwFFqgMQ543WdL2MiCMKM15RG/fwlgU93NsaacoUHALDVc1R01aG7tKVtjt14gngcapfcwDE2EqKl+8pLGijYV6vd5sgkFIruZ3kbbKG90aCAa7XyYEH1C5a409ob6zGTOs6HzNVK5tWjKUj7JzDDXfreAn7/BX0zlTDWYh3Qy+BiuSNo6t/+vJ99pNQU6USTxKxEHaEQrD8fqpYcAGEi/jruX/+DYGL2pgOMM/y2U0lry4+UDjm2Vwqrlc/HoQFrBCknl2KcSPvtFDfU1hpSJXuH/aKn6CTh5Ua62bIDn3eh/kACdHS4HnbT1dtHPqdQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 149.199.62.198) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com;
- dmarc=fail (p=quarantine sp=quarantine pct=100) action=quarantine
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tUVNUAbPpfhC7PSf79ggsWAwd/dzcuMt9kx31RElC4w=;
- b=cccZDWo1duilI5MFJrXhzKdCaFUcOluJ/chqVDukennGwbAA7DT8SNh7dHNqQninAgdXgoDwNciPCwl6I41TNmxzpMJ9cIjxUfmxtQPjYP+3zS9pF3rTjCiQMMkAFBfi3yZaoMwyXe79hjhKaPQSq9/I98FdN/txevS2ttjqPrU=
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
- 149.199.62.198) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=quarantine header.from=amd.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- amd.com discourages use of 149.199.62.198 as permitted sender)
-Date: Tue, 15 Mar 2022 15:29:51 -0700
-From: Vikram Garhwal <vikram.garhwal@amd.com>
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-CC: Vikram Garhwal <fnu.vikram@xilinx.com>, Xen-devel
-	<xen-devel@lists.xenproject.org>, "sstabellini@kernel.org"
-	<sstabellini@kernel.org>, "julien@xen.org" <julien@xen.org>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, "volodymyr_babchuk@epam.com"
-	<volodymyr_babchuk@epam.com>
-Subject: Re: [XEN][RFC PATCH v3 01/14] xen/arm/device: Remove __init from
- function type
-Message-ID: <20220315222949.GA23054@xilinx.com>
-References: <20220308194704.14061-1-fnu.vikram@xilinx.com>
- <20220308194704.14061-2-fnu.vikram@xilinx.com>
- <337CEFA8-895C-4B5D-810A-3D4E2927CE01@arm.com>
+X-Inumbo-ID: fd0471a3-a4e9-11ec-853b-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1647408541; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/PIDCzlHujec2z5GgI/Fxhz1Ptiq+5sj17W7kV26IFg=;
+	b=k/sKfbSrYYRa9c1IRzKH1EV1lIJNiMZHAjh0QjBh2f8r2/LjPWIs3T9GHvoWKqtUG43T1A
+	SuAP3MeGhbVbhlexyS1BFn6MhAS01BLuoGiqA7y9VVJEr1um9I4VZoJDtsiFHpPTrXcRT4
+	4FXFARFp8tWrZKdcpXmTcIDgY1YbVy4=
+Message-ID: <78b16b06-9cfe-5bfd-5d23-b7e8010024fd@suse.com>
+Date: Wed, 16 Mar 2022 06:29:00 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <337CEFA8-895C-4B5D-810A-3D4E2927CE01@arm.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 04a942af-d10f-4e4f-e32b-08da06d354c3
-X-MS-TrafficTypeDiagnostic: SJ0PR02MB8766:EE_
-X-Microsoft-Antispam-PRVS:
-	<SJ0PR02MB8766D2EBA3B2E75B707E1BD79F109@SJ0PR02MB8766.namprd02.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 2
-X-MS-Exchange-AntiSpam-Relay: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	F+LIM11GEbQQWt9LuRm8Tpex3MO5muA3s/tbkJGSgvt9hPtQqL/DUXY8Nyp9lUEi50pO9Xoqq3SqCunCj+Mb0LPRr0Xdf6MM9KIy0GsXyKoSQuKRk9sMPWXL8bdJ8ObxNrzJlqJBrtw/r8oYFFI09lCCdOtm09Hic4MNgqLCpICJB/ID3EQgJebzqroKQxORGXYCIVkoQGlDmKs5enik450UXdOJb4CRMUAYqc/J6bQNa3bdaniMX6bF4mWy2KPclG6EAqLnS4jbMTG8pU7WXG7g5u171R8MUSOfAr3KrduiUg806/gLtfBuBYbYm/VYunbA7o6EYLN4/fSE+Xs5HrrBFFZCUUTK4sqHIGFR1jCWoReecaCdBedIK8eAwN+FqC0URytMHVtQ8qb3Rm/YCtcNGfQQmbs5YL+iJlb48XCNNHCVIer0LiSlTN4lryNF1oC6bR2e2J1nhJzXRXAk8hgpP46y9yEPNa1Ll3tH3MlQXvwvwPBHkMM5JWjZHsmpWw7xW4rhKhmB51a7GplWAHIplqirlRGqJ6URLoh6XoWibNJkNk+kchzQ7K6zZautfoVkaS8Ebm7QsdRTSaxHnL5ovuzOqSuguGGGlipwGmsT/CngqtNj5Plfdt3zU55McFi39eiGkU0FzEft0+E2M1Y+VxBaeyh8WaL7k+k1Fxzpsf4KoxF4rpcqTIIUQZ0A
-X-Forefront-Antispam-Report:
-	CIP:149.199.62.198;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:xsj-pvapexch02.xlnx.xilinx.com;PTR:unknown-62-198.xilinx.com;CAT:NONE;SFS:(13230001)(4636009)(40470700004)(46966006)(5660300002)(35950700001)(2906002)(83380400001)(1076003)(6916009)(40460700003)(54906003)(36756003)(8936002)(86362001)(336012)(316002)(9786002)(30864003)(7696005)(53546011)(47076005)(7636003)(508600001)(33656002)(356005)(26005)(9686003)(44832011)(82310400004)(8676002)(70586007)(70206006)(4326008);DIR:OUT;SFP:1022;
-X-OriginatorOrg: xilinx.onmicrosoft.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2022 22:29:55.5399
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 04a942af-d10f-4e4f-e32b-08da06d354c3
-X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c;Ip=[149.199.62.198];Helo=[xsj-pvapexch02.xlnx.xilinx.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM3NAM02FT058.eop-nam02.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR02MB8766
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.1
+Subject: Re: [PATCH] xen/usb: harden xen_hcd against malicious backends
+Content-Language: en-US
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: xen-devel@lists.xenproject.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20220311103509.12908-1-jgross@suse.com>
+ <YjDPtRhdrtY6tpvc@kroah.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <YjDPtRhdrtY6tpvc@kroah.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------eod0dLzbzdUZdsKtS040X2Cp"
 
-On Mon, Mar 14, 2022 at 12:31:06PM +0000, Luca Fancellu wrote:
-> 
-> 
-> > On 8 Mar 2022, at 19:46, Vikram Garhwal <fnu.vikram@xilinx.com> wrote:
-> > 
-> > Change function type of following function to access during runtime:
-> >    1. map_irq_to_domain()
-> >    2. handle_device_interrupt()
-> >    3. map_range_to_domain()
-> >    4. unflatten_dt_node()
-> >    5. unflatten_device_tree()
-> > 
-> > Move map_irq_to_domain(), handle_device_interrupt() and map_range_to_domain() to
-> > device.c.
-> > 
-> > These changes are done to support the dynamic programming of a nodes where an
-> > overlay node will be added to fdt and unflattened node will be added to dt_host.
-> > Furthermore, IRQ and mmio mapping will be done for the added node.
-> > 
-> > Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
-> > ---
-> > xen/arch/arm/device.c            | 136 +++++++++++++++++++++++++++++
-> > xen/arch/arm/domain_build.c      | 142 -------------------------------
-> > xen/arch/arm/include/asm/setup.h |   3 +
-> > xen/common/device_tree.c         |  20 ++---
-> > xen/include/xen/device_tree.h    |   5 ++
-> > 5 files changed, 154 insertions(+), 152 deletions(-)
-> > 
-> > diff --git a/xen/arch/arm/device.c b/xen/arch/arm/device.c
-> > index 70cd6c1a19..0dfd33b33e 100644
-> > --- a/xen/arch/arm/device.c
-> > +++ b/xen/arch/arm/device.c
-> > @@ -21,6 +21,9 @@
-> > #include <xen/errno.h>
-> > #include <xen/init.h>
-> > #include <xen/lib.h>
-> > +#include <xen/iocap.h>
-> > +#include <asm/domain_build.h>
-> > +#include <asm/setup.h>
-> > 
-> > extern const struct device_desc _sdevice[], _edevice[];
-> > extern const struct acpi_device_desc _asdevice[], _aedevice[];
-> > @@ -84,6 +87,139 @@ enum device_class device_get_class(const struct dt_device_node *dev)
-> >     return DEVICE_UNKNOWN;
-> > }
-> > 
-> > +int map_irq_to_domain(struct domain *d, unsigned int irq,
-> > +                      bool need_mapping, const char *devname)
-> > +{
-> > +    int res;
-> > +
-> > +    res = irq_permit_access(d, irq);
-> > +    if ( res )
-> > +    {
-> > +        printk(XENLOG_ERR "Unable to permit to dom%u access to IRQ %u\n",
-> > +               d->domain_id, irq);
-> > +        return res;
-> > +    }
-> > +
-> > +    if ( need_mapping )
-> > +    {
-> > +        /*
-> > +         * Checking the return of vgic_reserve_virq is not
-> > +         * necessary. It should not fail except when we try to map
-> > +         * the IRQ twice. This can legitimately happen if the IRQ is shared
-> > +         */
-> > +        vgic_reserve_virq(d, irq);
-> > +
-> > +        res = route_irq_to_guest(d, irq, irq, devname);
-> > +        if ( res < 0 )
-> > +        {
-> > +            printk(XENLOG_ERR "Unable to map IRQ%"PRId32" to dom%d\n",
-> > +                   irq, d->domain_id);
-> > +            return res;
-> > +        }
-> > +    }
-> > +
-> > +    dt_dprintk("  - IRQ: %u\n", irq);
-> > +    return 0;
-> > +}
-> > +
-> > +int map_range_to_domain(const struct dt_device_node *dev,
-> > +                        u64 addr, u64 len, void *data)
-> > +{
-> > +    struct map_range_data *mr_data = data;
-> > +    struct domain *d = mr_data->d;
-> > +    int res;
-> > +
-> > +    res = iomem_permit_access(d, paddr_to_pfn(addr),
-> > +            paddr_to_pfn(PAGE_ALIGN(addr + len - 1)));
-> 
-> Hi Vikram,
-> 
-> Why the if ( strncasecmp(dt_node_full_name(dev), "/reserved-memory/",
-> strlen("/reserved-memory/")) != 0 ) was dropped?
-> 
-Hi Luca,
-Thanks for spotting this. Yeah, I messed this while porting the patches from 
-internal to upstream Xen.
-Will address this in v4!
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------eod0dLzbzdUZdsKtS040X2Cp
+Content-Type: multipart/mixed; boundary="------------dIo5mqVJwQtgAvakBeavLCM7";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: xen-devel@lists.xenproject.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-ID: <78b16b06-9cfe-5bfd-5d23-b7e8010024fd@suse.com>
+Subject: Re: [PATCH] xen/usb: harden xen_hcd against malicious backends
+References: <20220311103509.12908-1-jgross@suse.com>
+ <YjDPtRhdrtY6tpvc@kroah.com>
+In-Reply-To: <YjDPtRhdrtY6tpvc@kroah.com>
 
-> 
-> > +    if ( res )
-> > +    {
-> > +        printk(XENLOG_ERR "Unable to permit to dom%d access to"
-> > +                " 0x%"PRIx64" - 0x%"PRIx64"\n",
-> > +                d->domain_id,
-> > +                addr & PAGE_MASK, PAGE_ALIGN(addr + len) - 1);
-> > +        return res;
-> > +    }
-> > +
-> > +    if ( !mr_data->skip_mapping )
-> > +    {
-> > +        res = map_regions_p2mt(d,
-> > +                               gaddr_to_gfn(addr),
-> > +                               PFN_UP(len),
-> > +                               maddr_to_mfn(addr),
-> > +                               mr_data->p2mt);
-> > +
-> > +        if ( res < 0 )
-> > +        {
-> > +            printk(XENLOG_ERR "Unable to map 0x%"PRIx64
-> > +                   " - 0x%"PRIx64" in domain %d\n",
-> > +                   addr & PAGE_MASK, PAGE_ALIGN(addr + len) - 1,
-> > +                   d->domain_id);
-> > +            return res;
-> > +        }
-> > +    }
-> > +
-> > +    dt_dprintk("  - MMIO: %010"PRIx64" - %010"PRIx64" P2MType=%x\n",
-> > +               addr, addr + len, mr_data->p2mt);
-> > +
-> > +    return 0;
-> > +}
-> > +
-> > +/*
-> > + * handle_device_interrupts retrieves the interrupts configuration from
-> > + * a device tree node and maps those interrupts to the target domain.
-> > + *
-> > + * Returns:
-> > + *   < 0 error
-> > + *   0   success
-> > + */
-> > +int handle_device_interrupts(struct domain *d,
-> > +                             struct dt_device_node *dev,
-> > +                             bool need_mapping)
-> > +{
-> > +    unsigned int i, nirq;
-> > +    int res;
-> > +    struct dt_raw_irq rirq;
-> > +
-> > +    nirq = dt_number_of_irq(dev);
-> > +
-> > +    /* Give permission and map IRQs */
-> > +    for ( i = 0; i < nirq; i++ )
-> > +    {
-> > +        res = dt_device_get_raw_irq(dev, i, &rirq);
-> > +        if ( res )
-> > +        {
-> > +            printk(XENLOG_ERR "Unable to retrieve irq %u for %s\n",
-> > +                   i, dt_node_full_name(dev));
-> > +            return res;
-> > +        }
-> > +
-> > +        /*
-> > +         * Don't map IRQ that have no physical meaning
-> > +         * ie: IRQ whose controller is not the GIC
-> > +         */
-> > +        if ( rirq.controller != dt_interrupt_controller )
-> > +        {
-> > +            dt_dprintk("irq %u not connected to primary controller. Connected to %s\n",
-> > +                      i, dt_node_full_name(rirq.controller));
-> > +            continue;
-> > +        }
-> > +
-> > +        res = platform_get_irq(dev, i);
-> > +        if ( res < 0 )
-> > +        {
-> > +            printk(XENLOG_ERR "Unable to get irq %u for %s\n",
-> > +                   i, dt_node_full_name(dev));
-> > +            return res;
-> > +        }
-> > +
-> > +        res = map_irq_to_domain(d, res, need_mapping, dt_node_name(dev));
-> > +        if ( res )
-> > +            return res;
-> > +    }
-> > +
-> > +    return 0;
-> > +}
-> > +
-> > /*
-> >  * Local variables:
-> >  * mode: C
-> > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> > index 8be01678de..b06770a2af 100644
-> > --- a/xen/arch/arm/domain_build.c
-> > +++ b/xen/arch/arm/domain_build.c
-> > @@ -1794,41 +1794,6 @@ int __init make_chosen_node(const struct kernel_info *kinfo)
-> >     return res;
-> > }
-> > 
-> > -int __init map_irq_to_domain(struct domain *d, unsigned int irq,
-> > -                             bool need_mapping, const char *devname)
-> > -{
-> > -    int res;
-> > -
-> > -    res = irq_permit_access(d, irq);
-> > -    if ( res )
-> > -    {
-> > -        printk(XENLOG_ERR "Unable to permit to dom%u access to IRQ %u\n",
-> > -               d->domain_id, irq);
-> > -        return res;
-> > -    }
-> > -
-> > -    if ( need_mapping )
-> > -    {
-> > -        /*
-> > -         * Checking the return of vgic_reserve_virq is not
-> > -         * necessary. It should not fail except when we try to map
-> > -         * the IRQ twice. This can legitimately happen if the IRQ is shared
-> > -         */
-> > -        vgic_reserve_virq(d, irq);
-> > -
-> > -        res = route_irq_to_guest(d, irq, irq, devname);
-> > -        if ( res < 0 )
-> > -        {
-> > -            printk(XENLOG_ERR "Unable to map IRQ%"PRId32" to dom%d\n",
-> > -                   irq, d->domain_id);
-> > -            return res;
-> > -        }
-> > -    }
-> > -
-> > -    dt_dprintk("  - IRQ: %u\n", irq);
-> > -    return 0;
-> > -}
-> > -
-> > static int __init map_dt_irq_to_domain(const struct dt_device_node *dev,
-> >                                        const struct dt_irq *dt_irq,
-> >                                        void *data)
-> > @@ -1860,57 +1825,6 @@ static int __init map_dt_irq_to_domain(const struct dt_device_node *dev,
-> >     return 0;
-> > }
-> > 
-> > -int __init map_range_to_domain(const struct dt_device_node *dev,
-> > -                               u64 addr, u64 len, void *data)
-> > -{
-> > -    struct map_range_data *mr_data = data;
-> > -    struct domain *d = mr_data->d;
-> > -    int res;
-> > -
-> > -    /*
-> > -     * reserved-memory regions are RAM carved out for a special purpose.
-> > -     * They are not MMIO and therefore a domain should not be able to
-> > -     * manage them via the IOMEM interface.
-> > -     */
-> > -    if ( strncasecmp(dt_node_full_name(dev), "/reserved-memory/",
-> > -                     strlen("/reserved-memory/")) != 0 )
-> > -    {
-> > -        res = iomem_permit_access(d, paddr_to_pfn(addr),
-> > -                paddr_to_pfn(PAGE_ALIGN(addr + len - 1)));
-> > -        if ( res )
-> > -        {
-> > -            printk(XENLOG_ERR "Unable to permit to dom%d access to"
-> > -                    " 0x%"PRIx64" - 0x%"PRIx64"\n",
-> > -                    d->domain_id,
-> > -                    addr & PAGE_MASK, PAGE_ALIGN(addr + len) - 1);
-> > -            return res;
-> > -        }
-> > -    }
-> > -
-> > -    if ( !mr_data->skip_mapping )
-> > -    {
-> > -        res = map_regions_p2mt(d,
-> > -                               gaddr_to_gfn(addr),
-> > -                               PFN_UP(len),
-> > -                               maddr_to_mfn(addr),
-> > -                               mr_data->p2mt);
-> > -
-> > -        if ( res < 0 )
-> > -        {
-> > -            printk(XENLOG_ERR "Unable to map 0x%"PRIx64
-> > -                   " - 0x%"PRIx64" in domain %d\n",
-> > -                   addr & PAGE_MASK, PAGE_ALIGN(addr + len) - 1,
-> > -                   d->domain_id);
-> > -            return res;
-> > -        }
-> > -    }
-> > -
-> > -    dt_dprintk("  - MMIO: %010"PRIx64" - %010"PRIx64" P2MType=%x\n",
-> > -               addr, addr + len, mr_data->p2mt);
-> > -
-> > -    return 0;
-> > -}
-> > -
-> > /*
-> >  * For a node which describes a discoverable bus (such as a PCI bus)
-> >  * then we may need to perform additional mappings in order to make
-> > @@ -1938,62 +1852,6 @@ static int __init map_device_children(const struct dt_device_node *dev,
-> >     return 0;
-> > }
-> > 
-> > -/*
-> > - * handle_device_interrupts retrieves the interrupts configuration from
-> > - * a device tree node and maps those interrupts to the target domain.
-> > - *
-> > - * Returns:
-> > - *   < 0 error
-> > - *   0   success
-> > - */
-> > -static int __init handle_device_interrupts(struct domain *d,
-> > -                                           struct dt_device_node *dev,
-> > -                                           bool need_mapping)
-> > -{
-> > -    unsigned int i, nirq;
-> > -    int res;
-> > -    struct dt_raw_irq rirq;
-> > -
-> > -    nirq = dt_number_of_irq(dev);
-> > -
-> > -    /* Give permission and map IRQs */
-> > -    for ( i = 0; i < nirq; i++ )
-> > -    {
-> > -        res = dt_device_get_raw_irq(dev, i, &rirq);
-> > -        if ( res )
-> > -        {
-> > -            printk(XENLOG_ERR "Unable to retrieve irq %u for %s\n",
-> > -                   i, dt_node_full_name(dev));
-> > -            return res;
-> > -        }
-> > -
-> > -        /*
-> > -         * Don't map IRQ that have no physical meaning
-> > -         * ie: IRQ whose controller is not the GIC
-> > -         */
-> > -        if ( rirq.controller != dt_interrupt_controller )
-> > -        {
-> > -            dt_dprintk("irq %u not connected to primary controller. Connected to %s\n",
-> > -                      i, dt_node_full_name(rirq.controller));
-> > -            continue;
-> > -        }
-> > -
-> > -        res = platform_get_irq(dev, i);
-> > -        if ( res < 0 )
-> > -        {
-> > -            printk(XENLOG_ERR "Unable to get irq %u for %s\n",
-> > -                   i, dt_node_full_name(dev));
-> > -            return res;
-> > -        }
-> > -
-> > -        res = map_irq_to_domain(d, res, need_mapping, dt_node_name(dev));
-> > -        if ( res )
-> > -            return res;
-> > -    }
-> > -
-> > -    return 0;
-> > -}
-> > -
-> > /*
-> >  * For a given device node:
-> >  *  - Give permission to the guest to manage IRQ and MMIO range
-> > diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
-> > index 7a1e1d6798..8a26f1845c 100644
-> > --- a/xen/arch/arm/include/asm/setup.h
-> > +++ b/xen/arch/arm/include/asm/setup.h
-> > @@ -134,6 +134,9 @@ void device_tree_get_reg(const __be32 **cell, u32 address_cells,
-> > u32 device_tree_get_u32(const void *fdt, int node,
-> >                         const char *prop_name, u32 dflt);
-> > 
-> > +int handle_device_interrupts(struct domain *d, struct dt_device_node *dev,
-> > +                             bool need_mapping);
-> > +
-> > int map_range_to_domain(const struct dt_device_node *dev,
-> >                         u64 addr, u64 len, void *data);
-> > 
-> > diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
-> > index 4aae281e89..f43d66a501 100644
-> > --- a/xen/common/device_tree.c
-> > +++ b/xen/common/device_tree.c
-> > @@ -1811,12 +1811,12 @@ int dt_count_phandle_with_args(const struct dt_device_node *np,
-> >  * @allnextpp: pointer to ->allnext from last allocated device_node
-> >  * @fpsize: Size of the node path up at the current depth.
-> >  */
-> > -static unsigned long __init unflatten_dt_node(const void *fdt,
-> > -                                              unsigned long mem,
-> > -                                              unsigned long *p,
-> > -                                              struct dt_device_node *dad,
-> > -                                              struct dt_device_node ***allnextpp,
-> > -                                              unsigned long fpsize)
-> > +static unsigned long unflatten_dt_node(const void *fdt,
-> > +                                       unsigned long mem,
-> > +                                       unsigned long *p,
-> > +                                       struct dt_device_node *dad,
-> > +                                       struct dt_device_node ***allnextpp,
-> > +                                       unsigned long fpsize)
-> > {
-> >     struct dt_device_node *np;
-> >     struct dt_property *pp, **prev_pp = NULL;
-> > @@ -2047,7 +2047,7 @@ static unsigned long __init unflatten_dt_node(const void *fdt,
-> > }
-> > 
-> > /**
-> > - * __unflatten_device_tree - create tree of device_nodes from flat blob
-> > + * unflatten_device_tree - create tree of device_nodes from flat blob
-> >  *
-> >  * unflattens a device-tree, creating the
-> >  * tree of struct device_node. It also fills the "name" and "type"
-> > @@ -2056,8 +2056,8 @@ static unsigned long __init unflatten_dt_node(const void *fdt,
-> >  * @fdt: The fdt to expand
-> >  * @mynodes: The device_node tree created by the call
-> >  */
-> > -static void __init __unflatten_device_tree(const void *fdt,
-> > -                                           struct dt_device_node **mynodes)
-> > +void unflatten_device_tree(const void *fdt,
-> > +                           struct dt_device_node **mynodes)
-> > {
-> >     unsigned long start, mem, size;
-> >     struct dt_device_node **allnextp = mynodes;
-> > @@ -2179,7 +2179,7 @@ dt_find_interrupt_controller(const struct dt_device_match *matches)
-> > 
-> > void __init dt_unflatten_host_device_tree(void)
-> > {
-> > -    __unflatten_device_tree(device_tree_flattened, &dt_host);
-> > +    unflatten_device_tree(device_tree_flattened, &dt_host);
-> >     dt_alias_scan();
-> > }
-> > 
-> > diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-> > index fd6cd00b43..06d7866c10 100644
-> > --- a/xen/include/xen/device_tree.h
-> > +++ b/xen/include/xen/device_tree.h
-> > @@ -177,6 +177,11 @@ int device_tree_for_each_node(const void *fdt, int node,
-> >  */
-> > void dt_unflatten_host_device_tree(void);
-> > 
-> > +/*
-> > + * unflatten any device tree.
-> > + */
-> > +void unflatten_device_tree(const void *fdt, struct dt_device_node **mynodes);
-> > +
-> > /**
-> >  * IRQ translation callback
-> >  * TODO: For the moment we assume that we only have ONE
-> 
-> NIT: there are some minor code style issues, like indentation that could be fixed
-> 
-> Cheers,
-> Luca
-> 
+--------------dIo5mqVJwQtgAvakBeavLCM7
+Content-Type: multipart/mixed; boundary="------------RThCbjbaim80DRYqQ5E0TjUm"
+
+--------------RThCbjbaim80DRYqQ5E0TjUm
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMTUuMDMuMjIgMTg6NDEsIEdyZWcgS3JvYWgtSGFydG1hbiB3cm90ZToNCj4gT24gRnJp
+LCBNYXIgMTEsIDIwMjIgYXQgMTE6MzU6MDlBTSArMDEwMCwgSnVlcmdlbiBHcm9zcyB3cm90
+ZToNCj4+IE1ha2Ugc3VyZSBhIG1hbGljaW91cyBiYWNrZW5kIGNhbid0IGNhdXNlIGFueSBo
+YXJtIG90aGVyIHRoYW4gd3JvbmcNCj4+IEkvTyBkYXRhLg0KPj4NCj4+IE1pc3NpbmcgYXJl
+IHZlcmlmaWNhdGlvbiBvZiB0aGUgcmVxdWVzdCBpZCBpbiBhIHJlc3BvbnNlLCBzYW5pdGl6
+aW5nDQo+PiB0aGUgcmVwb3J0ZWQgYWN0dWFsIEkvTyBsZW5ndGgsIGFuZCBwcm90ZWN0aW9u
+IGFnYWluc3QgaW50ZXJydXB0IHN0b3Jtcw0KPj4gZnJvbSB0aGUgYmFja2VuZC4NCj4+DQo+
+PiBTaWduZWQtb2ZmLWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+DQo+PiAt
+LS0NCj4+ICAgZHJpdmVycy91c2IvaG9zdC94ZW4taGNkLmMgfCA1NyArKysrKysrKysrKysr
+KysrKysrKysrKysrKysrLS0tLS0tLS0tLQ0KPj4gICAxIGZpbGUgY2hhbmdlZCwgNDMgaW5z
+ZXJ0aW9ucygrKSwgMTQgZGVsZXRpb25zKC0pDQo+IA0KPiBGYWlscyB0byBhcHBseSB0byBt
+eSB0cmVlOg0KPiANCj4gY2hlY2tpbmcgZmlsZSBkcml2ZXJzL3VzYi9ob3N0L3hlbi1oY2Qu
+Yw0KPiBIdW5rICMyIHN1Y2NlZWRlZCBhdCA3MjAgKG9mZnNldCAtMSBsaW5lcykuDQo+IEh1
+bmsgIzMgc3VjY2VlZGVkIGF0IDgwNyAob2Zmc2V0IC0zIGxpbmVzKS4NCj4gSHVuayAjNCBz
+dWNjZWVkZWQgYXQgOTM0IChvZmZzZXQgLTUgbGluZXMpLg0KPiBIdW5rICM1IEZBSUxFRCBh
+dCA5ODYuDQo+IEh1bmsgIzYgc3VjY2VlZGVkIGF0IDEwMDMgd2l0aCBmdXp6IDEgKG9mZnNl
+dCAtMTAgbGluZXMpLg0KPiBIdW5rICM3IHN1Y2NlZWRlZCBhdCAxMDQ4IChvZmZzZXQgLTEw
+IGxpbmVzKS4NCj4gSHVuayAjOCBzdWNjZWVkZWQgYXQgMTA3MiAob2Zmc2V0IC0xMCBsaW5l
+cykuDQo+IEh1bmsgIzkgc3VjY2VlZGVkIGF0IDExNjEgKG9mZnNldCAtMTAgbGluZXMpLg0K
+PiBIdW5rICMxMCBzdWNjZWVkZWQgYXQgMTUxNiAob2Zmc2V0IC0xMCBsaW5lcykuDQo+IDEg
+b3V0IG9mIDEwIGh1bmtzIEZBSUxFRA0KPiANCj4gQW55IGhpbnRzPw0KDQpSZWJhc2UgeW91
+ciB0cmVlIHRvIHY1LjE3LXJjOD8gSXQgaXMgbWlzc2luZyB0aGUgcmVjZW50IHNlY3VyaXR5
+DQpwYXRjaGVzIHdoaWNoIG1vZGlmaWVkIGRyaXZlcnMvdXNiL2hvc3QveGVuLWhjZC5jLg0K
+DQoNCkp1ZXJnZW4NCg==
+--------------RThCbjbaim80DRYqQ5E0TjUm
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------RThCbjbaim80DRYqQ5E0TjUm--
+
+--------------dIo5mqVJwQtgAvakBeavLCM7--
+
+--------------eod0dLzbzdUZdsKtS040X2Cp
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmIxdZwFAwAAAAAACgkQsN6d1ii/Ey9F
+Hwf+LkGaWrpNt9vcE1twmTNgjxj3MDenPvnyDaABq2+G1W36GWL407B+xfrskqVqc/xkM9vw7Vlh
+wXEwTWHkGUF+RIXf1KGD1yjqakF5apcrfxZPzUhzWDYAc1nLEJ6a8Ajjs5xz8A0t+Mzw9/WB0IEM
+f6+mog8mAn88xCXKmWzM1+Kp06uimKRc776aSvlVj7rwSn5+zrYc+1hdGVUNfP/BtRJcuwTWm06B
+cGGd3Dnf7VvB48ehxM6poumJ9wZKZVtweduzCV/6fF/iachj6ERDpVdg4qYqKbXs4s6AHr5yQ7/J
+Fq6xOa/M0HxTzTsaosLBpQSIPHMY7bgycGmrCUR6rQ==
+=aDhE
+-----END PGP SIGNATURE-----
+
+--------------eod0dLzbzdUZdsKtS040X2Cp--
 
