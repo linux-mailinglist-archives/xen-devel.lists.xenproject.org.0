@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E14B4DAD3D
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Mar 2022 10:10:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.291102.493880 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC9654DAD46
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Mar 2022 10:14:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.291110.493903 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nUPfN-0006qd-NZ; Wed, 16 Mar 2022 09:10:01 +0000
+	id 1nUPj7-0008RU-FX; Wed, 16 Mar 2022 09:13:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 291102.493880; Wed, 16 Mar 2022 09:10:01 +0000
+Received: by outflank-mailman (output) from mailman id 291110.493903; Wed, 16 Mar 2022 09:13:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nUPfN-0006oR-Ig; Wed, 16 Mar 2022 09:10:01 +0000
-Received: by outflank-mailman (input) for mailman id 291102;
- Wed, 16 Mar 2022 09:09:59 +0000
+	id 1nUPj7-0008PS-C3; Wed, 16 Mar 2022 09:13:53 +0000
+Received: by outflank-mailman (input) for mailman id 291110;
+ Wed, 16 Mar 2022 09:13:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=7auh=T3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nUPfL-0006oK-5o
- for xen-devel@lists.xenproject.org; Wed, 16 Mar 2022 09:09:59 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d9e150fb-a508-11ec-8eba-a37418f5ba1a;
- Wed, 16 Mar 2022 10:09:57 +0100 (CET)
-Received: from EUR03-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur03lp2059.outbound.protection.outlook.com [104.47.9.59]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-38-CWqGqfA6MwW_4lJmZG-jeQ-1; Wed, 16 Mar 2022 10:09:56 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB5070.eurprd04.prod.outlook.com (2603:10a6:803:57::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.28; Wed, 16 Mar
- 2022 09:09:53 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::e8ce:db1c:5bb0:af0]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::e8ce:db1c:5bb0:af0%6]) with mapi id 15.20.5081.015; Wed, 16 Mar 2022
- 09:09:53 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vd9D=T3=citrix.com=prvs=067d42de6=Jane.Malalane@srs-se1.protection.inumbo.net>)
+ id 1nUPj5-0008PI-Mw
+ for xen-devel@lists.xenproject.org; Wed, 16 Mar 2022 09:13:51 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6341909f-a509-11ec-8eba-a37418f5ba1a;
+ Wed, 16 Mar 2022 10:13:49 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,165 +36,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d9e150fb-a508-11ec-8eba-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1647421797;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cx4tnqs/wWARA+sl3FemMKoPttYmicbLY2XbWDuaZOA=;
-	b=iDP5t5VwzvLM1SQM/jOvAAj+h+bBSjS8QxEzMgk+4L5nFl3mbZOr8eJyNYFx7BjinFeBX1
-	xNWK/XxuNxjakzRsHuQIh6Xc3VrQgzU5B/qM22H7TGoZzJNNygUlzqxI/6c2flae+s0uGV
-	WLQrK4Hf3TxGVA9pUphZ6EVExeh6pgk=
-X-MC-Unique: CWqGqfA6MwW_4lJmZG-jeQ-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RxPRNIAxl+74KBMK76Rc6pP/LAckfDSFqhN6Y0py2JfHlhKifr3nOCW/Xo9G73Au2/xtlRKWYN8MiPSK+1JWE653SPvxlLqcclEDRv7haft5/xWUhHXUiKCF8AyqtBKudQ3A3cCHIuds5xGjutJx2MQir88wz4LtbM0+7vsROtzssz393AkFrgV3b1B6tU2p1CWZMwSoJl86ruCYSvuna89+WdxYVAGvIMTwtaaVUoHJiA6Gw4uEsDiqNxy0+tcuu1NTGW5ij2Ohk7HH6sIWhpGJtCou4nVoMSiiigC3V7WeAxIMVo2j9nZSJ2VRiEBe+uheFV/5St6wXqfIYLIjNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cx4tnqs/wWARA+sl3FemMKoPttYmicbLY2XbWDuaZOA=;
- b=QQqZrs54yOKq/SFtgM0WzhhqHz80kiDO8HuX28ABIhXQQx543kVKHw1UbqkZvba7OhTor43dtE297RxCqnHkXpAoI+ERuSBwYQs3Uqv9PCj+oWcbJQf+vaAvBjYIiqT1FyQ4SC5UJYexJ73N2esoSjUExiWYqhqBh6wUXorIFXAtAsZfIPRUQqldySmxW8BmlYN99x0Ytb9gTWbDV0DIv0uHs2J8a7BS0zuc2fuPi5hw4+3EjPRvST1YXt8NsjGHALci87KEuZC/d/sdAu8+IcAFIquGdSqsd3OCGypyfrNMz9597nemJ1QyC38TjV7BWV5URsbM22l0GMHUhm6JqA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <e836cd5d-b59e-948f-5de2-61766377b27d@suse.com>
-Date: Wed, 16 Mar 2022 10:09:51 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH] include/public: add command result definitions to
- vscsiif.h
-Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org
-References: <20220228112224.18942-1-jgross@suse.com>
- <c489f4f8-c24e-ba73-b33e-b797527d25ac@suse.com>
- <b31ccba4-6a99-9ac6-b50a-a2b32e570a44@suse.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <b31ccba4-6a99-9ac6-b50a-a2b32e570a44@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6P192CA0010.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:209:83::23) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: 6341909f-a509-11ec-8eba-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1647422029;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=mUWg029r82H/GghoniZcMOpYWm1pwuDOVotMfQ6qkXY=;
+  b=hquO9XngWyJPp9AnUCvOt8/urr+wvebfROGUT1F7QmzIL6D84W0b2Rv3
+   YaZyqe8Ci4jqSWzL5AGIvcOPi8LIcDXFV1vpyTiDhKxdQyxMFL5JltCps
+   pugYRn4Dm08Z6gVQTwDbbmghX2W/lVSz71Jve2tb4UoAsxCYFiXVZkn/d
+   g=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 66366073
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:sHZ7JqwkADazyfOHvsF6t+dSxirEfRIJ4+MujC+fZmUNrF6WrkVSx
+ jEdWmjXP6yLNGbzKt4jPdmx9R5VvpKHzNBqHVdoqSAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
+ 59DAjUVBJlsFhcwnj/0bv656yMUOZigHtIQMsadUsxKbVIiGX9JZS5LwbZj2NYz2IbhWWthh
+ PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
+ gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
+ Npl6LaSSSByHbH1h8sfUTBZPjNffvRl9+qSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
+ aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DHooZtzdFxDXQCf8gTLjIQrnQ5M8e1zA17ixLNaiAP
+ JRHMWU0BPjGSy1CGg0wE7Iap72DvSjtch8Fkg+HqaVitgA/yyQuieOwYbI5YOeiVchT20qVu
+ G/C12D4GQ0BcsySzyKf9XChjfOJmjn0ML/+D5XhqKQs2gfKgDVOVltGDjNXvMVVlGbjcfBfD
+ Bc35hMxgqow3U2GXPi+Bj639SvsUgEnZ/JcFOgz6Qeow6XS4hqECmVscgOteODKp+dtG2V0i
+ wbhc8fBQGU27ebLES71GqK892vaBMQDEYMVicbopyMh6sKrnow8hwmnoj1LQP/s1Y2d9d0dL
+ lm3QMkCa1c70JZjO0aTpwmvb9eQSn7hFVZdCuL/BD7N0++BTNT5D7FEEHCChRq6EK6XT0Oao
+ F8PkNWE4eYFAPmlzXLRH79cRujzt6/falUwZGKD+bF6rlxBHFb5IehtDMxWfh81Yq7ohxe0C
+ KMshe+hzMAKZyb7BUOGS4mwF94r3cDd+SfNDZjpgi51SsEpLmevpXg2DWbJhjyFuBV8wMkXZ
+ MbAGe7xXClyNEiS5GfvLwvr+eRwnX5WKKK6bc2T8ilLJpLFPS/LE+hZaAXSBg37hYvdyDjoH
+ x9kH5Pi431ivCfWO0E7LaZ7wYg2EEUG
+IronPort-HdrOrdr: A9a23:7IiSdq5ZmkDielpqUQPXwMbXdLJyesId70hD6qhwISY1TiX+rb
+ HJoB17726StN9/YgBCpTntAsa9qBDnhPpICOsqTNWftWDd0QPCRuwP0WKL+UyYJ8SUzI5gPM
+ lbHZSWcOeAaGRHsQ==
+X-IronPort-AV: E=Sophos;i="5.90,186,1643691600"; 
+   d="scan'208";a="66366073"
+From: Jane Malalane <jane.malalane@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Jane Malalane <jane.malalane@citrix.com>
+Subject: [PATCH v8 0/2] xen: Report and use hardware APIC virtualization capabilities
+Date: Wed, 16 Mar 2022 09:13:13 +0000
+Message-ID: <20220316091315.19281-1-jane.malalane@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e37d3a4e-d749-4772-5621-08da072cbb83
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5070:EE_
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB5070CDB226111F70A270A3DCB3119@VI1PR04MB5070.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Wm25CvH8cwXAsiaYFY4Uj6jugmQ4T6pTzMI46nTeXwsHF+1rjmBxZOz96uO4eyUsAxkJG2wBICwZGpaKj0oz2E8sC3X2QSDlvSFMNsXOCcMhBqhbaDzcdIx6Cf682WaNuuhaLxA/9/0WWFg8gg62QJ1mpY2nrWbkopNcsnZjJrJaRG9YeYd5KJSBl2F8O9FL2mTcLfiLWJZYSIJ0SZBgLbQHvpUYLMwzK5/ajJjeoIBXe4yPX+AxUhMv/TYZm+9eZ7lBJ3ghOej4hKjSqQaQ3OcV6ZiYF7lui7CQsN/coorvqj7BuSDqI3q61AWym8I73q/uFW+P/3DnnDoxmDJKxClVBVNdoCYyyPakiQx969IUOxtGfyGzu9iEp9i9QD4PJOlOE/RYFac+4Jq+7pAMw1S2InrG+ryrRoxc6F9AOsi6KNHgq0xGLQmpdL3UIl78VrAchXW+dete5sScsQxEU/vvuA9KtxkVx/4ZH09vkak+VSPlRXq7ZQdqL5qgM9Uei2mYjfihbEMSEcLXSEdWV9yrwvLijo6yoe5ggxZd2LBR0eADfPAuZnweMZObJMo3q+qv5RazdGPeOpRvJuZ7kWoXhTajjsnYFq+Cjzn3rtXXTtKiz+4rJ1oKALADHobcRVcDW8k2gCMXUrAyj7hplGMPk5aUkSvb3DNbjxZJqPpBt8DTNBexERSTCx85JAlS5FJ3+XcItfhTUlHB2oMB3vDycZ5iSrepoLdLZmsBR2rR/euun+cijj3Tke5BjVYs
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(83380400001)(2616005)(36756003)(8936002)(2906002)(66946007)(66556008)(6862004)(4326008)(8676002)(186003)(26005)(53546011)(6506007)(6512007)(66476007)(31686004)(508600001)(31696002)(38100700002)(86362001)(6636002)(316002)(5660300002)(37006003)(6486002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RVMzZEFFMWs0MC93S2xoNmF2UzA3MUtOQmJjdUVwR2JKMXNJaXJUb2tNWXNl?=
- =?utf-8?B?YUpNTTZaVGhzT0J2bE1LbDY3YWZEMFB6cXdxT1J2MGJESkxwanJFeVQ2U0FN?=
- =?utf-8?B?R1ZvQkNOdTI3b3hUWGtDaGM1bWlVcFZ0dlhzVzZiTVBrVm4zZ1lTeGgya0kx?=
- =?utf-8?B?enFHS2hNRkdUUGZoY1diNVRIN2R0YmdCVTltbDJvekppaUMwRkFEMmdnaDlz?=
- =?utf-8?B?bUxhaS85OHdITG5RWGFETitOQkRVaU9MbFFtM0hOcFhSb0RCK1FEWXlZQVE1?=
- =?utf-8?B?anYwK21mWGNIQllTS1pTcU5hM0ZZQkF6K25kbXZUM1RLalNSWWRBS0M1Yy9t?=
- =?utf-8?B?eURZTTFnR3EyaDZTRTNGcDdwSHE3emVrQ0ZXYXlwb1d1aS9pQUFEd29CYkRu?=
- =?utf-8?B?Nm16bFVoNWxzc2tsbUVBc3RKTnUxSHRDOFpqR1JLZzV1RUoyQXpjTHBxUGJq?=
- =?utf-8?B?eVZLOWQ4dEQ0UUR6NEFyZEVVdWRlYldSVHIyOXdIbDdRaTJwaWJaYXpnV2pR?=
- =?utf-8?B?UkVUclliS0E1aVVpTjN2TTlQOEdpdUFEOUQ0VmVsOW11dXRiUHQxc21xWitl?=
- =?utf-8?B?VE8vT0x1c1QrWjRzNjdla2w5dHc3YWRscklaajFrTUtOSXNZd0lJKzhHLzkz?=
- =?utf-8?B?NEF0TTF4MUZWUVB6WTZETUdocFZIZXprSkVXRDhGbzI0QURRZTZUQTlZUWZL?=
- =?utf-8?B?c3RVSU1SdkxHYjRwMi8zMlNPbEpGbmprN0RrTEVFcjRPaXFkK1VkZmczTGdD?=
- =?utf-8?B?ZkdSSDdxK3RKS2Vac282RHBtVDlMN3ZONDIyRWF3eTRpTmZ4S1M4anFPUmNI?=
- =?utf-8?B?ZU1sY3k5Y2tGZ0ZxQjlpTDBYUEtsbnZxMFVxQy9xaUk2ekVja21yL214cTY0?=
- =?utf-8?B?UXJ2QUJCTURvZTFMVE5EcXcwUDZBdUpEN1IrRkJwbzRsNWI0elNjK3BxbXBp?=
- =?utf-8?B?QTlUczZ1S3c1Mk02MlpRTFhrQmVTdmE3K0cvZEVVcWZwWC9vLzNKNG1lcXRB?=
- =?utf-8?B?L04xUE5kOHZ0Q3AwcWIvT1M3SHd1OTY4MWZMSjNnYTUyWGYvSDhucWRKM0Nq?=
- =?utf-8?B?TE9xeVJrbHhLeC80QmJmUHp1NE0wMzhzN1VMSmY3WHNzei9YcFcza25icm1K?=
- =?utf-8?B?VFVFeWNQbm5ER1EraUVaNDBpN09sTUE3TFJtM28rSS93dXMzTFhqelhwZEpN?=
- =?utf-8?B?WmdIM0syTzRjb1dOVDdENUFCZi9KeUtIejBTTUhNeGxKdkxqaXFBQWRwMG5Y?=
- =?utf-8?B?QTRhSEdLUXVwV2FnYVRjQ3ZuOE84YmdWUjA1aTByaExQcVQ4Mm5jVUkwL0RK?=
- =?utf-8?B?dkR0bkdZUFk4NUtTVTAwaHF6V1RWa09Fbzh3WFlHVHlEMzFXa21zbmVmeHJ4?=
- =?utf-8?B?TUZEdEFIMjZnaWpSTklvc0JaZ25FMVBieTNndzNlQWdFdmc0ZDBQblZEbGhP?=
- =?utf-8?B?OHppSzBjZkJtNERzdEZpQTRUUU8yTzBDMGE2RGE0Y0czVWtpam16YkNVR3Nv?=
- =?utf-8?B?aW8ycEFQcm8wVE1SL1B3a3FWNTVpWnc5ellEN3huODVMVjdKY1d0dldpaWE5?=
- =?utf-8?B?eUdtakpkV3pPSVA1d05GcFAwTklqK1IyZ3BUYmxuYmwvVUVhZVh5QjRuUW1R?=
- =?utf-8?B?NUtYTkMzWFh3RU1oY0NEYVd3NkViQ3ptQkRWUXFWSlVYUEVDaDJ1RzFycmIz?=
- =?utf-8?B?YjNNN096aGFvK05BN3MzelJaM0JkcW1rOVI0QStCVFZRZzFabVVzcUpIc0Z5?=
- =?utf-8?B?Tmx5RFpxaWJFMXp5dERZb29HcjFJQk1QeC91enlGN1NvOS9yQ1NHNGpCM05s?=
- =?utf-8?B?Y1BpbDZOT2lJQkhjbitjNE9uT3ZDTW5XUXFFSHJHVXpoRU5LdDB6Tzc0d2hC?=
- =?utf-8?B?RnBqRDhQWFZPaTRKclQ4dmxJTm9JUm0rbExnRWI4c0Z2aVlrcWVhZXBoWCtk?=
- =?utf-8?Q?AoQsXrw45GjSuJ/BEqTVHF/PqRWYYwxk?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e37d3a4e-d749-4772-5621-08da072cbb83
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2022 09:09:53.6623
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DvXonVu9uy417W5buOJy6kXnmNWEuibZpKvKyYez4lPkhFu+YoohsyBxPSVTbHe7Ak23PUhkQl4J4TUBKtoekg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5070
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On 16.03.2022 10:03, Juergen Gross wrote:
-> On 14.03.22 10:55, Jan Beulich wrote:
->> On 28.02.2022 12:22, Juergen Gross wrote:
->>> +#define XEN_VSCSIIF_RSLT_HOST_OK         0
->>> +#define XEN_VSCSIIF_RSLT_HOST_NO_CONN    1 /* Couldn't connect before timeout */
->>> +#define XEN_VSCSIIF_RSLT_HOST_BUS_BUSY   2 /* BUS busy through timeout */
->>> +#define XEN_VSCSIIF_RSLT_HOST_TIME_OUT   3 /* TIMED OUT for other reason */
->>> +#define XEN_VSCSIIF_RSLT_HOST_BAD_TARG   4 /* BAD target */
->>
->> Are the all-upper-case words really in need of mirroring this
->> aspect from Linux? To me it gives the impression of this being
->> acronyms of some sort at the first glance.
-> 
-> The backend can return all these values, so I think I need to define
-> them here.
+Jane Malalane (2):
+  xen+tools: Report Interrupt Controller Virtualization capabilities on
+    x86
+  x86/xen: Allow per-domain usage of hardware virtualized APIC
 
-Oh, I realize I didn't say so explicitly and hence what I said
-ended up being ambiguous: The remark was only about the all-
-upper-case words in the comments. I would think they can be
-spelled normally.
+ docs/man/xl.cfg.5.pod.in              | 15 ++++++++++++++
+ docs/man/xl.conf.5.pod.in             | 12 +++++++++++
+ tools/golang/xenlight/helpers.gen.go  | 16 ++++++++++++++
+ tools/golang/xenlight/types.gen.go    |  4 ++++
+ tools/include/libxl.h                 | 14 +++++++++++++
+ tools/libs/light/libxl.c              |  3 +++
+ tools/libs/light/libxl_arch.h         |  9 ++++++--
+ tools/libs/light/libxl_arm.c          | 14 ++++++++++---
+ tools/libs/light/libxl_create.c       | 22 ++++++++++++--------
+ tools/libs/light/libxl_types.idl      |  4 ++++
+ tools/libs/light/libxl_x86.c          | 39 +++++++++++++++++++++++++++++++++--
+ tools/ocaml/libs/xc/xenctrl.ml        |  7 +++++++
+ tools/ocaml/libs/xc/xenctrl.mli       |  7 +++++++
+ tools/ocaml/libs/xc/xenctrl_stubs.c   | 17 ++++++++++++---
+ tools/xl/xl.c                         |  8 +++++++
+ tools/xl/xl.h                         |  2 ++
+ tools/xl/xl_info.c                    |  6 ++++--
+ tools/xl/xl_parse.c                   | 18 ++++++++++++++++
+ xen/arch/x86/domain.c                 | 29 +++++++++++++++++++++++++-
+ xen/arch/x86/hvm/hvm.c                |  3 +++
+ xen/arch/x86/hvm/vmx/vmcs.c           | 13 ++++++++++++
+ xen/arch/x86/hvm/vmx/vmx.c            | 13 ++++--------
+ xen/arch/x86/include/asm/hvm/domain.h |  6 ++++++
+ xen/arch/x86/include/asm/hvm/hvm.h    | 10 +++++++++
+ xen/arch/x86/sysctl.c                 |  4 ++++
+ xen/arch/x86/traps.c                  |  5 +++--
+ xen/include/public/arch-x86/xen.h     |  2 ++
+ xen/include/public/sysctl.h           | 11 +++++++++-
+ 28 files changed, 279 insertions(+), 34 deletions(-)
 
->>> +#define XEN_VSCSIIF_RSLT_HOST_ABORT      5 /* Abort for some other reason */
->>> +#define XEN_VSCSIIF_RSLT_HOST_PARITY     6 /* Parity error */
->>> +#define XEN_VSCSIIF_RSLT_HOST_ERROR      7 /* Internal error */
->>> +#define XEN_VSCSIIF_RSLT_HOST_RESET      8 /* Reset by somebody */
->>> +#define XEN_VSCSIIF_RSLT_HOST_BAD_INTR   9 /* Unexpected interrupt */
->>> +#define XEN_VSCSIIF_RSLT_HOST_PASSTHR   10 /* Force command past mid-layer */
->>> +#define XEN_VSCSIIF_RSLT_HOST_SOFT_ERR  11 /* Retry requested */
->>> +#define XEN_VSCSIIF_RSLT_HOST_IMM_RETR  12 /* Hidden retry requested */
->>> +#define XEN_VSCSIIF_RSLT_HOST_REQUEUE   13 /* Requeue command requested */
->>> +#define XEN_VSCSIIF_RSLT_HOST_DISRUPT   14 /* Transport error disrupted I/O */
->>> +#define XEN_VSCSIIF_RSLT_HOST_FAILFAST  15 /* Transport class fastfailed */
->>> +#define XEN_VSCSIIF_RSLT_HOST_TARG_FAIL 16 /* Permanent target failure */
->>> +#define XEN_VSCSIIF_RSLT_HOST_NEX_FAIL  17 /* Permanent nexus failure on path */
->>> +#define XEN_VSCSIIF_RSLT_HOST_NOMEM     18 /* Space allocation failed */
->>> +#define XEN_VSCSIIF_RSLT_HOST_MED_ERR   19 /* Medium error */
->>> +#define XEN_VSCSIIF_RSLT_HOST_MARGINAL  20 /* Transport marginal errors */
->>
->> Some of the name shortening that you did, comparing with the
->> Linux names, has gone a little too far for my taste. But you're
->> the maintainer ...
-> 
-> There are basically the following alternatives:
-> 
-> - use longer names (using the Linux names would end up in e.g.
->    XEN_VSCSIIF_RSLT_HOST_TRANSPORT_DISRUPTED, making it 10 chars longer
-> - drop some part of the common prefix, e.g. the "RSLT_HOST_" part
-> - keep it as is
-> 
-> I'm basically fine with any of those.
-
-My personal preference would be in the order you named the
-alternatives, perhaps with prepending them by "use longer names,
-but in extreme cases not quite as long as Linux'es".
-
-Jan
+-- 
+2.11.0
 
 
