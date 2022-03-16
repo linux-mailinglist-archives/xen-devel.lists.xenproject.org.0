@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E86C34DA633
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Mar 2022 00:20:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.290973.493651 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 945B54DA69C
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Mar 2022 01:02:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.290978.493662 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nUGSa-0001oM-HQ; Tue, 15 Mar 2022 23:20:12 +0000
+	id 1nUH6x-0006ak-6T; Wed, 16 Mar 2022 00:01:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 290973.493651; Tue, 15 Mar 2022 23:20:12 +0000
+Received: by outflank-mailman (output) from mailman id 290978.493662; Wed, 16 Mar 2022 00:01:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nUGSa-0001lY-EQ; Tue, 15 Mar 2022 23:20:12 +0000
-Received: by outflank-mailman (input) for mailman id 290973;
- Tue, 15 Mar 2022 23:20:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4IiT=T2=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
- id 1nUGSZ-0001lS-56
- for xen-devel@lists.xenproject.org; Tue, 15 Mar 2022 23:20:11 +0000
-Received: from MTA-14-4.privateemail.com (mta-14-4.privateemail.com
- [198.54.118.206]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 74490d9a-a4b6-11ec-8eba-a37418f5ba1a;
- Wed, 16 Mar 2022 00:20:09 +0100 (CET)
-Received: from mta-14.privateemail.com (localhost [127.0.0.1])
- by mta-14.privateemail.com (Postfix) with ESMTP id AEB3C18000A4;
- Tue, 15 Mar 2022 19:20:07 -0400 (EDT)
-Received: from toma-xps.localdomain (unknown [10.20.151.199])
- by mta-14.privateemail.com (Postfix) with ESMTPA id C928F18000A5;
- Tue, 15 Mar 2022 19:20:02 -0400 (EDT)
+	id 1nUH6x-0006Yk-2g; Wed, 16 Mar 2022 00:01:55 +0000
+Received: by outflank-mailman (input) for mailman id 290978;
+ Wed, 16 Mar 2022 00:01:53 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nUH6v-0006Ya-B7; Wed, 16 Mar 2022 00:01:53 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nUH6v-0007sf-3A; Wed, 16 Mar 2022 00:01:53 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nUH6u-0002id-Lg; Wed, 16 Mar 2022 00:01:52 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nUH6u-0008VX-LD; Wed, 16 Mar 2022 00:01:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,118 +42,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 74490d9a-a4b6-11ec-8eba-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=tklengyel.com;
-	s=default; t=1647386407;
-	bh=MzJE/NNvN5RBHoVLDcrekrjcRxeVw3x+iltc0TQduGY=;
-	h=From:To:Cc:Subject:Date:From;
-	b=jVcfeP5Dp0jTI6CRndoGVTOUGVM7I95IaXPHT57ZjXENdQWj44bEYpeXAEgTPeCK5
-	 bho5WSrjbquXejyF+9+fV3FjJJJSyqOUhY78hhMBr+mepqVVdIDbGUjxTMslKpZ92L
-	 Muntt/XJYdJa7xTh1jDnI7lqyQf6jU0vrCleGzsBacveymm9fnFk+2u60H+UCfeGwi
-	 T1PnvlrCEXgPCEJdxti2CtPGgqQgzC3bCN+Up+KuyxllKn5lQvGBTIqK/xOch79P2i
-	 Mu9ZVT7eNqhzme2xfWzcKJcDKbnet1cRJCW55wwH6ceeb/xtn2tDFFM7N+WAe8KRKi
-	 3cDlxkeEF+Qyw==
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=tklengyel.com;
-	s=default; t=1647386407;
-	bh=MzJE/NNvN5RBHoVLDcrekrjcRxeVw3x+iltc0TQduGY=;
-	h=From:To:Cc:Subject:Date:From;
-	b=jVcfeP5Dp0jTI6CRndoGVTOUGVM7I95IaXPHT57ZjXENdQWj44bEYpeXAEgTPeCK5
-	 bho5WSrjbquXejyF+9+fV3FjJJJSyqOUhY78hhMBr+mepqVVdIDbGUjxTMslKpZ92L
-	 Muntt/XJYdJa7xTh1jDnI7lqyQf6jU0vrCleGzsBacveymm9fnFk+2u60H+UCfeGwi
-	 T1PnvlrCEXgPCEJdxti2CtPGgqQgzC3bCN+Up+KuyxllKn5lQvGBTIqK/xOch79P2i
-	 Mu9ZVT7eNqhzme2xfWzcKJcDKbnet1cRJCW55wwH6ceeb/xtn2tDFFM7N+WAe8KRKi
-	 3cDlxkeEF+Qyw==
-From: Tamas K Lengyel <tamas@tklengyel.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=0MZFSoJ/oNdUQrBlTWY0QMRX02nn3GEfEV9Xzg8zHAQ=; b=OxszT+s9gCT5yJfiDevfg5o9d7
+	NPonb/9AiXU0UXw4Gbn4pCbOAYDkpYij32WixfMRhPnFcaU5ma1MlOdhbMLWUmCSzCYuoyPB+1o2Q
+	4juhsCM/MRbTvEgQ6KP9ZllTECZeeREqz7LcbQNyYo5WgFY56QnI+GWld+VHR3ZH/7GI=;
 To: xen-devel@lists.xenproject.org
-Cc: Tamas K Lengyel <tamas@tklengyel.com>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH] tools/ctrl: add xc_domain_hvm_getcontext_size
-Date: Tue, 15 Mar 2022 19:19:52 -0400
-Message-Id: <20220315231952.7831-1-tamas@tklengyel.com>
-X-Mailer: git-send-email 2.32.0
-MIME-Version: 1.0
+Message-ID: <osstest-168623-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: ClamAV using ClamSMTP
+MIME-Version: 1.0
+Subject: [ovmf test] 168623: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=c8ea48bdf95532f9a3a4c39a154c09988566901f
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 16 Mar 2022 00:01:52 +0000
 
-Current users of xc_domain_hvm_getcontext_partial rely on knowing ahead of time
-the size of the requested HVM context. This isn't exactly prudent as the size
-may change across Xen versions, requiring callers to re-compile in lockstep
-with the Xen headers. This isn't an issue for in-tree tools and libraries,
-but out-of-tree tools that supposed to work across all Xen versions, like
-LibVMI, would fail to work after a size change to any of the HVM contexts.
+flight 168623 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168623/
 
-Add xc_domain_hvm_getcontext_size so that external callers can at least be
-backwards compatible with various HVM context sizes by maintaining their
-own internal definitions of them and not relying on the current Xen header. It
-is preferred to know the exact size Xen is going to return instead of guessing
-by associating the HVM context sizes with Xen releases. The underlying domctl
-has supported returning the context size to begin with, so with this change
-we are just exposing that functionality to the users of libxc.
+Regressions :-(
 
-Signed-off-by: Tamas K Lengyel <tamas@tklengyel.com>
----
- tools/include/xenctrl.h     | 12 ++++++++++++
- tools/libs/ctrl/xc_domain.c | 21 +++++++++++++++++++++
- 2 files changed, 33 insertions(+)
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
-diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index 95bd5eca67..ee5095a892 100644
---- a/tools/include/xenctrl.h
-+++ b/tools/include/xenctrl.h
-@@ -787,6 +787,18 @@ int xc_domain_hvm_getcontext_partial(xc_interface *xch,
-                                      uint16_t instance,
-                                      void *ctxt_buf,
-                                      uint32_t size);
-+/**
-+ * This function returns the size of the specified context of a hvm domain
-+ * @parm xch a handle to an open hypervisor interface
-+ * @parm domid the domain to get information from
-+ * @parm typecode which type of elemnt required
-+ * @parm instance which instance of the type
-+ * @return size on success, 0 on failure
-+ */
-+unsigned long xc_domain_hvm_getcontext_size(xc_interface *xch,
-+                                            uint32_t domid,
-+                                            uint16_t typecode,
-+                                            uint16_t instance);
- 
- /**
-  * This function will set the context for hvm domain
-diff --git a/tools/libs/ctrl/xc_domain.c b/tools/libs/ctrl/xc_domain.c
-index ef62f66009..f52d089999 100644
---- a/tools/libs/ctrl/xc_domain.c
-+++ b/tools/libs/ctrl/xc_domain.c
-@@ -510,6 +510,27 @@ int xc_domain_hvm_getcontext_partial(xc_interface *xch,
-     return ret ? -1 : 0;
- }
- 
-+unsigned long xc_domain_hvm_getcontext_size(xc_interface *xch,
-+                                            uint32_t domid,
-+                                            uint16_t typecode,
-+                                            uint16_t instance)
-+{
-+    int ret;
-+    void *p = NULL;
-+    DECLARE_DOMCTL;
-+    DECLARE_HYPERCALL_BOUNCE(p, 0, XC_HYPERCALL_BUFFER_BOUNCE_OUT);
-+
-+    domctl.cmd = XEN_DOMCTL_gethvmcontext_partial;
-+    domctl.domain = domid;
-+    domctl.u.hvmcontext_partial.type = typecode;
-+    domctl.u.hvmcontext_partial.instance = instance;
-+    set_xen_guest_handle(domctl.u.hvmcontext_partial.buffer, p);
-+
-+    ret = do_domctl(xch, &domctl);
-+
-+    return ret ? 0 : domctl.u.hvmcontext_partial.bufsz;
-+}
-+
- /* set info to hvm guest for restore */
- int xc_domain_hvm_setcontext(xc_interface *xch,
-                              uint32_t domid,
--- 
-2.32.0
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
+version targeted for testing:
+ ovmf                 c8ea48bdf95532f9a3a4c39a154c09988566901f
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   15 days
+Failing since        168258  2022-03-01 01:55:31 Z   14 days  145 attempts
+Testing same since   168617  2022-03-15 15:41:41 Z    0 days    4 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 653 lines long.)
 
