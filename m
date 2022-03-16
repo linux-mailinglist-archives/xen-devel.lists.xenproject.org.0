@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BBA24DB5AE
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Mar 2022 17:11:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.291212.494145 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2EEA4DB5AD
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Mar 2022 17:11:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.291210.494128 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nUWEV-0000Yg-Sv; Wed, 16 Mar 2022 16:10:43 +0000
+	id 1nUWEC-00006W-5Z; Wed, 16 Mar 2022 16:10:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 291212.494145; Wed, 16 Mar 2022 16:10:43 +0000
+Received: by outflank-mailman (output) from mailman id 291210.494128; Wed, 16 Mar 2022 16:10:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nUWEV-0000Uh-O5; Wed, 16 Mar 2022 16:10:43 +0000
-Received: by outflank-mailman (input) for mailman id 291212;
- Wed, 16 Mar 2022 16:10:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nUWEC-0008Vi-2D; Wed, 16 Mar 2022 16:10:24 +0000
+Received: by outflank-mailman (input) for mailman id 291210;
+ Wed, 16 Mar 2022 16:10:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/w4J=T3=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nUWEU-0000RR-Qb
- for xen-devel@lists.xenproject.org; Wed, 16 Mar 2022 16:10:42 +0000
+ id 1nUWE9-0008Vc-Rw
+ for xen-devel@lists.xenproject.org; Wed, 16 Mar 2022 16:10:21 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 93cf928a-a543-11ec-8eba-a37418f5ba1a;
- Wed, 16 Mar 2022 17:10:39 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8feae865-a543-11ec-853c-5f4723681683;
+ Wed, 16 Mar 2022 17:10:14 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 077BF21108;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4B3962112B;
  Wed, 16 Mar 2022 16:10:20 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C0A3F139B5;
- Wed, 16 Mar 2022 16:10:19 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0EE23139B5;
+ Wed, 16 Mar 2022 16:10:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id rnCsLesLMmK2OwAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 16 Mar 2022 16:10:19 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id GLtmAuwLMmK2OwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 16 Mar 2022 16:10:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,14 +51,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 93cf928a-a543-11ec-8eba-a37418f5ba1a
+X-Inumbo-ID: 8feae865-a543-11ec-853c-5f4723681683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1647447020; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=hZKD0EuTc6WQXVOTuJxQoolqoYXnAFSSnw7fgb9wYmQ=;
-	b=VZ+kkIbd02t4dK03Jr3BAxZ/CFOFjXOwUiEyKhermAHZjL5tgRYuCm+Jlsn92Otc/2ipr7
-	N3An5DNKRI2mpzmrokc+l2budEABb3TgTefk64HzcMu+Igt+PtvVavhevb9mSPvZWLIpaj
-	5kr4QyUiueHc+quGGm7WoCqhK5I1TQU=
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tN8OsMtRYtol/EJRpHheAzvEZdyyzUH3LNGhAdLsDFU=;
+	b=jXvFtHRCwGGc+K+fStsf6puXTNUkXP5sVl/a6vYyviLfp3LtU0HiYF8tk0Yqqe6e0/tsgH
+	Mfp0r3Tp7S5NuozqOqGoVWPN5xgsk5FkCHFdjHXc3TGtS/wXMoVH8Qz0odPXhZWNNfjdLG
+	oVus3b0Cp5NoSY9AFemVqLIYCeftbvw=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
@@ -68,67 +70,60 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH 0/3] tools/xenstore: add some new features to the documentation
-Date: Wed, 16 Mar 2022 17:10:14 +0100
-Message-Id: <20220316161017.3579-1-jgross@suse.com>
+Subject: [PATCH 1/3] tools/xenstore: add documentation for new set/get-feature commands
+Date: Wed, 16 Mar 2022 17:10:15 +0100
+Message-Id: <20220316161017.3579-2-jgross@suse.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220316161017.3579-1-jgross@suse.com>
+References: <20220316161017.3579-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In the past there have been spotted some shortcomings in the Xenstore
-interface, which should be repaired. Those are in detail:
+Add documentation for two new Xenstore wire commands SET_FEATURE and
+GET_FEATURE used to set or query the Xenstore features visible in the
+ring page of a given domain.
 
-- Using driver domains for large number of domains needs per domain
-  Xenstore quota [1]. The feedback sent was rather slim (one reply),
-  but it was preferring a new set of wire commands.
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ docs/misc/xenstore-ring.txt |  1 +
+ docs/misc/xenstore.txt      | 12 ++++++++++++
+ 2 files changed, 13 insertions(+)
 
-- XSA-349 [2] has shown that the current definition of watches is not
-  optimal, as it will trigger lots of events when a single one would
-  suffice: for detecting new backend devices the backends in the Linux
-  kernel are registering a watch for e.g. "/local/domain/0/backend"
-  which will fire for ANY sub-node written below this node (on a test
-  machine this added up to 91 watch events for only 3 devices).
-  This can be limited dramatically by extending the XS_WATCH command
-  to take another optional parameter specifying the depth of
-  subdirectories to be considered for sending watch events ("0" would
-  trigger a watch event only if the watched node itself being written).
-
-- New features like above being added might make migration of guests
-  between hosts with different Xenstore variants harder, so it should
-  be possible to set the available feature set per domain. For socket
-  connections it should be possible to read the available features.
-
-- The special watches @introduceDomain and @releaseDomain are rather
-  cumbersome to use, as they only tell you that SOME domain has been
-  introduced/released. Any consumer of those watches needs to scan
-  all domains on the host in order to find out the domid, causing
-  significant pressure on the dominfo hypercall (imagine a system
-  with 1000 domains running and one domain dying - there will be more
-  than 1000 watch events triggered and 1000 xl daemons will try to
-  find out whether "their" domain has died). Those watches should be
-  enhanced to optionally be specific to a single domain and to let the
-  event carry the related domid.
-
-As some of those extensions will need to be considered in the Xenstore
-migration stream, they should be defined in one go (in fact the 4th one
-wouldn't need that, but it can easily be connected to the 2nd one).
-As such extensions need to be flagged in the "features" in the ring
-page anyway, it is fine to implement them independently.
-
-Add the documentation of the new commands/features.
-
-[1]: https://lists.xen.org/archives/html/xen-devel/2020-06/msg00291.html
-[2]: http://xenbits.xen.org/xsa/advisory-349.html
-
-Juergen Gross (3):
-  tools/xenstore: add documentation for new set/get-feature commands
-  tools/xenstore: add documentation for new set/get-quota commands
-  tools/xenstore: add documentation for extended watch command
-
- docs/misc/xenstore-ring.txt |  3 +++
- docs/misc/xenstore.txt      | 40 ++++++++++++++++++++++++++++++++++---
- 2 files changed, 40 insertions(+), 3 deletions(-)
-
+diff --git a/docs/misc/xenstore-ring.txt b/docs/misc/xenstore-ring.txt
+index f91accb5b0..bd000f694e 100644
+--- a/docs/misc/xenstore-ring.txt
++++ b/docs/misc/xenstore-ring.txt
+@@ -68,6 +68,7 @@ Mask    Description
+ -----------------------------------------------------------------
+ 1       Ring reconnection (see the ring reconnection feature below)
+ 2       Connection error indicator (see connection error feature below)
++4       GET_FEATURE and SET_FEATURE Xenstore wire commands are available
+ 
+ The "Connection state" field is used to request a ring close and reconnect.
+ The "Connection state" field only contains valid data if the server has
+diff --git a/docs/misc/xenstore.txt b/docs/misc/xenstore.txt
+index ea3d8be177..31e3d53c52 100644
+--- a/docs/misc/xenstore.txt
++++ b/docs/misc/xenstore.txt
+@@ -332,6 +332,18 @@ SET_TARGET		<domid>|<tdomid>|
+ 
+ 	xenstored prevents the use of SET_TARGET other than by dom0.
+ 
++GET_FEATURE		<domid>|		<value>|
++SET_FEATURE		<domid>|<value>|
++	Returns or sets the contents of the "feature" field located at
++	offset 2064 of the Xenstore ring page of the domain specified by
++	<domid>. <value> is a decimal number being a logical or of the
++	feature bits as defined in docs/misc/xenstore-ring.txt. Trying
++	to set a bit for a feature not being supported by the running
++	Xenstore will be denied.
++
++	xenstored prevents the use of GET_FEATURE and SET_FEATURE other
++	than by dom0.
++
+ ---------- Miscellaneous ----------
+ 
+ CONTROL			<command>|[<parameters>|]
 -- 
 2.34.1
 
