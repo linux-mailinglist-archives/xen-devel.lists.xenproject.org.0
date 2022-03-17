@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0FBF4DCD71
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Mar 2022 19:19:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.291721.495358 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 716044DCE6E
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Mar 2022 20:03:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.291724.495369 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nUuiC-0001ge-PV; Thu, 17 Mar 2022 18:19:00 +0000
+	id 1nUvOY-0006mQ-2H; Thu, 17 Mar 2022 19:02:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 291721.495358; Thu, 17 Mar 2022 18:19:00 +0000
+Received: by outflank-mailman (output) from mailman id 291724.495369; Thu, 17 Mar 2022 19:02:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nUuiC-0001dz-Lm; Thu, 17 Mar 2022 18:19:00 +0000
-Received: by outflank-mailman (input) for mailman id 291721;
- Thu, 17 Mar 2022 18:18:59 +0000
+	id 1nUvOX-0006jE-VQ; Thu, 17 Mar 2022 19:02:45 +0000
+Received: by outflank-mailman (input) for mailman id 291724;
+ Thu, 17 Mar 2022 19:02:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=H+7p=T4=citrix.com=prvs=06815c04c=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nUuiB-0001dt-O5
- for xen-devel@lists.xenproject.org; Thu, 17 Mar 2022 18:18:59 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b56eb452-a61e-11ec-853c-5f4723681683;
- Thu, 17 Mar 2022 19:18:58 +0100 (CET)
+ <SRS0=aZpy=T4=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1nUvOV-0006j5-Kv
+ for xen-devel@lists.xenproject.org; Thu, 17 Mar 2022 19:02:43 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d2029677-a624-11ec-853c-5f4723681683;
+ Thu, 17 Mar 2022 20:02:41 +0100 (CET)
+Received: by mail-lf1-x12c.google.com with SMTP id w7so10587506lfd.6
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Mar 2022 12:02:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,196 +39,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b56eb452-a61e-11ec-853c-5f4723681683
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1647541138;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=H0krJZQCUjhshiW2Tsye1oKIZEcxBlTVD5mRv3wbdOg=;
-  b=X7Ppf3xmSpn4SifseoLEG5Jq4BVF8dsVuMpkyhCK4iGb6VmYXdqWsiIA
-   Dx2xZsIFZdyil1GinQFZK0UKW9WrImBnvQMiwgLCVmqS2/Y63CDAXWE+A
-   exQqUgEkIoGaS+Be4URin2oaMjQg+VMh9Gg5eVFZsXM1RUDlky1Kek5iP
-   U=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 66458419
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:pZqywq0vjjTBn95dUfbD5TRxkn2cJEfYwER7XKvMYLTBsI5bpzdVy
- zMfUWDTOquMYDHwLdh+bd+0oxwE6JXdyodiSQdrpC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
- Zh2hgzodZhsJpPkjk7xdOCn9xGQ7InQLlbGILes1htZGEk1EE/NtTo5w7Rj2tUx3oDja++wk
- YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
- 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
- /13uL+SGCp0GpeTxvxMEDADITkmN7xJreqvzXiX6aR/zmXDenrohf5vEFs3LcsT/eMf7WNmr
- KJCbmpXN1ba2rzwkOnTpupE36zPKOHiOp8fvXdxiynUF/88TbjIQrnQ5M8e1zA17ixLNaiAO
- 5dJNWM+BPjGSzRmPFQ4C8M5p6C11yHYIwNl83+Vi6VitgA/yyQuieOwYbI5YOeiT8hPglyRo
- G6A+m3jGwwbL/SW0z/D+XWp7sfRmif8VJMXBaeP/Pdgi12OxUQeEBQTE1C8pJGRlUqWS99Zb
- UsO9UIGr7U29UGtZsnwWVu/unHslhAaRpxOEu4g4QSl2qvQ4gCJQGMDS1ZpeNEg8cM7WzEu/
- luIhM/yQyxitqWPTnCQ/avSqim9UQAONnMLbyIASQoD4vHgrZs1gxaJScxseJNZlfWsR2u2m
- WrT6nFj2fND1qbnyplX43j9jhGO97WUajRquB2GHUv+3Bshbp+qMtnABUfg0d5MK4OQT1+kt
- XcCmtSD4O1mMaxhhBBhU81WQuj3uq/t3Cn0xAc2QsJ/r2jFF2uLJ9g43d1oGKt+3i/okxfNa
- VSbhw5e7YQ70JCCPf4uONLZ5yjHIMHd+TXZuhL8M4ImjntZLlbvEMRSiai4hTyFfK8Ey/1XB
- HtjWZzwZUv28Iw+pNZMe88T0KUw2gc1zn7JSJbwwnyPiOTCOyLIFu5fbgPRM4jVCZ9oRi2Pr
- 76z0OPQl31ivBDWOHGLoeb/03hXRZTEOXwGg5MOLbPSSuaXMGogF+XQ0dscl39NxMxoehPz1
- ijlACdwkQOn7VWecFniQi0zOdvHAMckxVpmbHNEALpd8yV6CWpZxPxELMVfkHhO3LEL8MOYu
- NFeIpTeWKsTEmqbk9nfBLGkxLFfmN2QrVrmF0KYjPIXJPaMmyShFgfYQzbS
-IronPort-HdrOrdr: A9a23:CzVGTakMy14PofXPSf1fu9l5V/3pDfIs3DAbv31ZSRFFG/Fxl6
- iV8sjz8SWE7Ar5OUtQ/OxoV5PsfZqxz/JICMwqTNCftWrdyQmVxeNZjbcKqgeIc0aVygce79
- YCT0EXMqyXMbEQt6fHCWeDfOod/A==
-X-IronPort-AV: E=Sophos;i="5.90,188,1643691600"; 
-   d="scan'208";a="66458419"
-Date: Thu, 17 Mar 2022 18:18:52 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Vikram Garhwal <fnu.vikram@xilinx.com>
-CC: <xen-devel@lists.xenproject.org>, <sstabellini@kernel.org>,
-	<julien@xen.org>, <bertrand.marquis@arm.com>, <volodymyr_babchuk@epam.com>,
-	Wei Liu <wl@xen.org>
-Subject: Re: [XEN][RFC PATCH v3 14/14] tools/xl: Add new xl command overlay
- for device tree overlay support
-Message-ID: <YjN7jJldNceEU2uq@perard.uk.xensource.com>
-References: <20220308194704.14061-1-fnu.vikram@xilinx.com>
- <20220308194704.14061-15-fnu.vikram@xilinx.com>
+X-Inumbo-ID: d2029677-a624-11ec-853c-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=PAUhVyB8VVVigytkv4cb4GXKo7bmMF1X/nGv3QUnFFo=;
+        b=fM+MDAuw4i8VUg1o5ap+qH7DdfuA07F0bkqlXz/8NOXa2GtvoaN9gKmgnuCQA2nVKh
+         S1idokh90lcRwkoaIC9tFuxI3hg/idlW7qFq3Yms8FHP8IvdqKWRFY/Wx2UWEvznoqIL
+         MYejvPNylWNLXvOQSTDV6LlbSBaF1bVIuWoZ7w8VNVdL+0XJoBPNpcsqmJVxShW+l800
+         vR4b68tbF1U45yfbzfMlXnjVnaFwglm/zTTq3CjCyqWVO6cktBFVZSVMs1a5O2I1k6Gf
+         Pp/mRIQyIWKShaz+Ad4Ky5kvC5ISK5/Bn/vPuNBSXvSNaxwdv9vpIiB70fJo8JHQZg/L
+         KQuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=PAUhVyB8VVVigytkv4cb4GXKo7bmMF1X/nGv3QUnFFo=;
+        b=xFcpndzmCoPxSyH7kgDVr/b67WeeBfAVQO1eS+YkNTYjjrulnvvGnjYMLffYvZefXB
+         BCV+vwEZIbwY1PS4af/p/Wlm6PsKmpn16HUN9ZJgbK9uzzU+98LUfaLZCfwPYhaKozCN
+         Y7JaT+380pu5nufP7Mjk7wW1eeOgsKAGQNa+6hszrER7bFM/HCQIEb1gdWBM1FvPNEOh
+         AMD50RmQEHE1LZ2Ay5LK8igSAclLRI+1mJVc547IAHSM3GxNOS5Ts0CQKQdfLrdOh1YT
+         vgfRLCicnU5zf6pjtZVjpniEvXKuRHHi4nHLpN0kS5j2yi37d2isxML0TyYcqeoaJYsJ
+         fKpg==
+X-Gm-Message-State: AOAM533tAxrP6a7F0ZXj4+FMRpt2rnjtiz8eAzW4jWkSZLjQPMfael0T
+	b17HTw45WgZQy6AabUpBD9wUdHGrz46CwYqLSEd9/yc1s90=
+X-Google-Smtp-Source: ABdhPJypN1KpXNlKcSOV95yZ/JUQYMQyOS1zBt+/bZQ6OfXXscl9tiC4lpfazQu6Xlab8HpvzObICr0sDEwtMPZBazk=
+X-Received: by 2002:a19:6a0e:0:b0:443:3b15:4345 with SMTP id
+ u14-20020a196a0e000000b004433b154345mr3815880lfu.388.1647543760223; Thu, 17
+ Mar 2022 12:02:40 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20220308194704.14061-15-fnu.vikram@xilinx.com>
+References: <CAKf6xpvk1zX3ZtzSOWBCasZOuS607-W_iqHbC=ZgTBQqo+btjA@mail.gmail.com>
+ <ab5a7aea-cab1-f9d9-e3cc-58636c234a4e@citrix.com>
+In-Reply-To: <ab5a7aea-cab1-f9d9-e3cc-58636c234a4e@citrix.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Thu, 17 Mar 2022 15:02:28 -0400
+Message-ID: <CAKf6xpuqzJ+YE9crAJCJCCaZRZRYkZ5snsOOLP8Yjc4Nyx=9=A@mail.gmail.com>
+Subject: Re: Nonsensical XSM Flask denial
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Mar 08, 2022 at 11:47:04AM -0800, Vikram Garhwal wrote:
-> Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
-> ---
->  tools/xl/xl.h           |  4 ++++
->  tools/xl/xl_cmdtable.c  |  6 ++++++
->  tools/xl/xl_vmcontrol.c | 45 +++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 55 insertions(+)
-> 
-> diff --git a/tools/xl/xl.h b/tools/xl/xl.h
-> index c5c4bedbdd..604fd5bb94 100644
-> --- a/tools/xl/xl.h
-> +++ b/tools/xl/xl.h
-> @@ -97,6 +97,9 @@ struct save_file_header {
->  
->  #define SAVEFILE_BYTEORDER_VALUE ((uint32_t)0x01020304UL)
->  
-> +#define XL_DT_OVERLAY_ADD                   1
-> +#define XL_DT_OVERLAY_REMOVE                2
+On Thu, Mar 17, 2022 at 2:14 PM Andrew Cooper <Andrew.Cooper3@citrix.com> wrote:
+>
+> On 17/03/2022 17:52, Jason Andryuk wrote:
+> > I shut down a domU (HVM dom9 w/ Linux stubdom dom10) with a single PCI
+> > device assigned.  Xen logged the following Flask denial for a second
+> > PVH dom5 (uivm) without any PCI devices assigned.  This is Xen 4.14.4.
+> >
+> > (XEN) avc:  denied  { remove_irq } for domid=5 irq=17
+> > scontext=system_u:system_r:uivm_t
+> > tcontext=system_u:object_r:shared_irq_t tclass=resource
+> >
+> > Domain 5 as uivm_t and irq 17 as shared_irq_t both look correct.  But
+> > it doesn't make sense that uivm would make a hypercall for an irq.
+> >
+> > Could this be from RCU calling complete_domain_destroy() when current
+> > is dom5 (uivm)?  What would current be set to when RCU runs its
+> > callbacks?
+>
+> RCU runs in softirq context, so yes - (almost) any use of current would
+> be bogus.
+>
+> But I can't spot any overlap between the physdevop_unmap_pirq XSM check,
+> and complete_domain_destroy().
+>
+> Any chance you can reproduce this with a WARN() in the AVC denied path,
+> so we can see what's going on here?
 
-These value would need to be part of libxl's API, rather than been
-defined here. Could you create a new enum with both operation in
-"libxl_types.idl", then have the libxl function convert them to the
-hypercall operation? (So to be done in the previous patch.)
+The path I found reading is:
+complete_domain_destroy
+  arch_domain_destroy
+    free_domain_pirqs
+      unmap_domain_pirq
+        xsm_unmap_domain_irq
 
->  void save_domain_core_begin(uint32_t domid,
->                              int preserve_domid,
->                              const char *override_config_file,
-> @@ -139,6 +142,7 @@ int main_shutdown(int argc, char **argv);
->  int main_reboot(int argc, char **argv);
->  int main_list(int argc, char **argv);
->  int main_vm_list(int argc, char **argv);
-> +int main_dt_overlay(int argc, char **argv);
->  int main_create(int argc, char **argv);
->  int main_config_update(int argc, char **argv);
->  int main_button_press(int argc, char **argv);
-> diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
-> index 661323d488..5812d19db8 100644
-> --- a/tools/xl/xl_cmdtable.c
-> +++ b/tools/xl/xl_cmdtable.c
-> @@ -20,6 +20,12 @@
->  #include "xl.h"
->  
->  const struct cmd_spec cmd_table[] = {
-> +    { "overlay",
-> +      &main_dt_overlay, 1, 1,
+After a few tries it triggered:
+(XEN) Xen WARN at irq.c:2348
+(XEN) ----[ Xen-4.14.4-xc  x86_64  debug=n   Not tainted ]----
+(XEN) CPU:    4
+(XEN) RIP:    e008:[<ffff82d0403115d4>] unmap_domain_pirq+0x3c4/0x490
+...
+(XEN) Xen call trace:
+(XEN)    [<ffff82d0403115d4>] R unmap_domain_pirq+0x3c4/0x490
+(XEN)    [<ffff82d04022ac52>] S xmem_pool_free+0x22/0x2f0
+(XEN)    [<ffff82d0403116f1>] S free_domain_pirqs+0x51/0x70
+(XEN)    [<ffff82d040301615>] S arch_domain_destroy+0x45/0xb0
+(XEN)    [<ffff82d040208391>] S domain.c#complete_domain_destroy+0x81/0x150
+(XEN)    [<ffff82d040221dc4>] S rcupdate.c#rcu_process_callbacks+0x114/0x2b0
+(XEN)    [<ffff82d04022244a>] S softirq.c#__do_softirq+0x5a/0xa0
+(XEN)    [<ffff82d04029890b>] S vmx_asm_do_vmentry+0x2b/0x30
 
-I think the first "1" needs to be a "0", because it doesn't seems that
-the command can do a "dry-run".
+I found the XSM checks a little confusing.
 
-> +      "Add/Remove a device tree overlay",
-> +      "add/remove <.dtbo>"
-> +      "-h print this help\n"
-> +    },
+physdevop_unmap_pirq() calls:
+  xsm_unmap_domain_pirq() <- checks generic resource remove
+  unmap_domain_pirq()
+    xsm_unmap_domain_irq() <- checks remove_irq for the specific irq
 
-I don't think "overlay" is a good name for the command. Maybe
-"dt-overlay" ? But we seem to mostly have "*-add" "*-remove" command (or
-attach/detach), so maybe two new commands would be better:
-"dt-overlay-add" and "dt-overlay-remove" rather than using a subcommand
-for add/remove.
+access_vectors lists physdevop_unmap_pirq as remove_irq, but the xsm
+check in the function is xsm_unmap_domain_pirq, which doesn't use
+remove_irq.
 
+In an earlier Xen version, these RCU callbacks may have run as xen_t?
+Or maybe it's just racy which context is used?  commit
+8ad651705cbd0ad192398c1513d12c02b3197fa1 had:
 
-Also, could you add this/those commands later in "cmd_table"? I'd rather
-keep "create" first when running `xl help`. So maybe at the end, or
-some other place that kind of make sens?
+    2. When a domain is destroyed with a device passthrough active, the
+    calls to remove_{irq,ioport,iomem} can be made by the hypervisor itself
+    (which results in an XSM check with the source xen_t).  It does not make
+    sense to deny these permissions; no domain should be using xen_t, and
+    forbidding the hypervisor from performing cleanup is not useful.
 
->      { "create",
->        &main_create, 1, 1,
->        "Create a domain from config file <filename>",
-> diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
-> index 435155a033..76b969dc33 100644
-> --- a/tools/xl/xl_vmcontrol.c
-> +++ b/tools/xl/xl_vmcontrol.c
-> @@ -1262,6 +1262,51 @@ int main_create(int argc, char **argv)
->      return 0;
->  }
->  
-> +int main_dt_overlay(int argc, char **argv)
-> +{
-> +    const char *overlay_ops = argv[1];
-> +    const char *overlay_config_file = argv[2];
-> +    void *overlay_dtb = NULL;
-> +    int rc;
-> +    uint8_t op;
-> +    int overlay_dtb_size = 0;
-> +
-> +    if (overlay_ops == NULL) {
-> +        fprintf(stderr, "No overlay operation mode provided\n");
-> +        return ERROR_FAIL;
-> +    }
-> +
-> +    if (strcmp(overlay_ops, "add") == 0)
-> +        op = XL_DT_OVERLAY_ADD;
-> +    else if (strcmp(overlay_ops, "remove") == 0)
-> +        op = XL_DT_OVERLAY_REMOVE;
-> +    else {
-> +        fprintf(stderr, "Invalid dt overlay operation\n");
-> +        return ERROR_FAIL;
-> +    }
-> +
-> +    if (overlay_config_file) {
-> +        rc = libxl_read_file_contents(ctx, overlay_config_file,
-> +                                      &overlay_dtb, &overlay_dtb_size);
-> +
-> +        if (rc) {
-> +            fprintf(stderr, "failed to read the overlay device tree file %s\n",
-> +                    overlay_config_file);
-> +            free(overlay_dtb);
-> +            return ERROR_FAIL;
-> +        }
-> +    } else {
-> +        fprintf(stderr, "overlay dtbo file not provided\n");
-
-Instead of making out of bound access to "argv", you could check that
-"argc" have the expected value, and if not, print the help of the
-command. If you look at main_save() for example, there is: "if(argc is
-wrong value){help("save");} which would print the help for the
-command.
-
-> +        return ERROR_FAIL;
-> +    }
-> +
-> +    rc = libxl_dt_overlay(ctx, overlay_dtb, overlay_dtb_size, op);
-> +    if (rc)
-> +        fprintf(stderr, "Overlay operation failed\n");
-
-I'm not sure that this error message would be useful, as libxl should
-already have printed something.
-
-> +
-> +    free(overlay_dtb);
-> +    return rc;
-> +}
++# Domain destruction can result in some access checks for actions performed by
++# the hypervisor.  These should always be allowed.
++allow xen_t resource_type : resource { remove_irq remove_ioport remove_iomem };
 
 Thanks,
-
--- 
-Anthony PERARD
+Jason
 
