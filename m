@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A067C4DBC9A
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Mar 2022 02:47:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.291307.494359 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E42514DBC9C
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Mar 2022 02:47:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.291308.494371 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nUfE1-0003Aq-C3; Thu, 17 Mar 2022 01:46:49 +0000
+	id 1nUfEC-0003UR-KF; Thu, 17 Mar 2022 01:47:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 291307.494359; Thu, 17 Mar 2022 01:46:49 +0000
+Received: by outflank-mailman (output) from mailman id 291308.494371; Thu, 17 Mar 2022 01:47:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nUfE1-00038E-8t; Thu, 17 Mar 2022 01:46:49 +0000
-Received: by outflank-mailman (input) for mailman id 291307;
- Thu, 17 Mar 2022 01:46:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nUfEC-0003S3-Fz; Thu, 17 Mar 2022 01:47:00 +0000
+Received: by outflank-mailman (input) for mailman id 291308;
+ Thu, 17 Mar 2022 01:46:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=MbXJ=T4=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nUfDz-000388-JV
- for xen-devel@lists.xenproject.org; Thu, 17 Mar 2022 01:46:47 +0000
+ id 1nUfEA-0003RA-Pq
+ for xen-devel@lists.xenproject.org; Thu, 17 Mar 2022 01:46:58 +0000
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1ad1d5db-a594-11ec-853c-5f4723681683;
- Thu, 17 Mar 2022 02:46:46 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 21107169-a594-11ec-8eba-a37418f5ba1a;
+ Thu, 17 Mar 2022 02:46:57 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 15347B81C9C;
- Thu, 17 Mar 2022 01:46:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53FFBC340E9;
- Thu, 17 Mar 2022 01:46:44 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id CB0ABB80E52;
+ Thu, 17 Mar 2022 01:46:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30B85C340E9;
+ Thu, 17 Mar 2022 01:46:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,48 +43,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ad1d5db-a594-11ec-853c-5f4723681683
+X-Inumbo-ID: 21107169-a594-11ec-8eba-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1647481604;
-	bh=57r/Ka2G2mfrlgt9RSWL2njmSxj73wQzOI4QDL2HYgE=;
-	h=Date:From:To:cc:Subject:From;
-	b=TS1GWOjYHePqTe/Uwy0Q6TBxPaJnRurtH7jthOtfoHtB3O0JPREOfGYvNh/KIUSes
-	 XbM0qlNU2gzHxDAvGEpXmhcSgt8Tals9ZnlqMRaFaaTRsd0miHKOboYg9CPhcgWno1
-	 vev13dce9wkxBX6J/2eojF5Gd7UH45zvFoOEo9ricygGFYThId7+2mhJ4KqwMmth4L
-	 akXKgFhbAs7zfdfWjxAYpLVX/MLYjGoOicYNeX5dhRz8tWvm0Tso+W/lF0FFeVRsNs
-	 J0380OvTeQRlqJUgY7Ux8HLJrBIDd2ZZIJv64gCS9qzpOog5ncuC8qrpZWF/IlpdHp
-	 v/ir3LKCxbkcg==
-Date: Wed, 16 Mar 2022 18:46:43 -0700 (PDT)
+	s=k20201202; t=1647481615;
+	bh=YALhvSEx1aookkEzabIVxbZJIqKyYf9mFu7U9r5ckv8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=PtHNwJ/v3IVe/bImjbIyJIc1nm1wldSpbuTBlcHoTc2A2PDNTX5qMydAKsySXUTCJ
+	 qQq+u1Hgv9anx0E9nd4I/O7/mxpv5jPXeKxa9Rhx6W9flzRhErlhM9Hs9Zp//EG0L2
+	 Urbg5JOZyvT/p6TPAKhddTGQzYpAT2dtxJbvPGHWBAA4mJvKIRyYKvnWbXKbKqePcb
+	 /7boD7yJSn/7nOW7sSfTcNFhZf8ic75D8GxzkzfRlV+NkBLwQHEpQwKHY5JvNWuGtg
+	 7gPkZVWuCAeNkDsQ2Cxc62/eSoSTeHIiyz0UjPsqo1GLPSMfrSd806+bex/OJCISl+
+	 PBXCiKgLQ6pKw==
 From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: xen-devel@lists.xenproject.org
-cc: sstabellini@kernel.org, cardoe@cardoe.com, wl@xen.org, 
-    andrew.cooper3@citrix.com, anthony.perard@citrix.com, 
-    bertrand.marquis@arm.com
-Subject: [PATCH v2 0/2] automation: qemu32 smoke test
-Message-ID: <alpine.DEB.2.22.394.2203161843230.3497@ubuntu-linux-20-04-desktop>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Cc: sstabellini@kernel.org,
+	cardoe@cardoe.com,
+	wl@xen.org,
+	andrew.cooper3@citrix.com,
+	anthony.perard@citrix.com,
+	bertrand.marquis@arm.com,
+	Stefano Stabellini <stefano.stabellini@xilinx.com>
+Subject: [PATCH v2 1/2] gitlab-ci: add qemu-system-arm to the existing tests-artifacts container
+Date: Wed, 16 Mar 2022 18:46:52 -0700
+Message-Id: <20220317014653.2427386-1-sstabellini@kernel.org>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <alpine.DEB.2.22.394.2203161843230.3497@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2203161843230.3497@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-Hi all,
+From: Stefano Stabellini <stefano.stabellini@xilinx.com>
 
-This small series adds a simple Xen + Dom0 boot arm32 test to gitlab-ci
-using QEMU, similar to the existing tests for arm64 and x86.
+Add qemu-system-arm to the existing test-artifacts qemu container (which
+doesn't get build for every iteration but only updated once in a while.)
 
-Cheers,
+With qemu-system-arm available, we'll be able to run ARM32 tests.
 
-Stefano
+This patch also bumps the QEMU version to v6.0.0 for both arm32 and
+arm64 (the test-artifacts container is one, shared for both).
 
-Stefano Stabellini (2):
-      gitlab-ci: add qemu-system-arm to the existing tests-artifacts container
-      gitlab-ci: add an ARM32 qemu-based smoke test
-
- automation/gitlab-ci/build.yaml                    | 14 ++++-
- automation/gitlab-ci/test.yaml                     | 27 +++++++-
- automation/scripts/qemu-smoke-arm32.sh             | 72 ++++++++++++++++++++++
- ...arm64v8.dockerfile => 6.0.0-arm64v8.dockerfile} |  5 +-
- 4 files changed, 112 insertions(+), 6 deletions(-)
- create mode 100755 automation/scripts/qemu-smoke-arm32.sh
+Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+---
+ automation/gitlab-ci/build.yaml                    | 14 ++++++++++++--
+ automation/gitlab-ci/test.yaml                     |  4 ++--
+ ...arm64v8.dockerfile => 6.0.0-arm64v8.dockerfile} |  5 +++--
+ 3 files changed, 17 insertions(+), 6 deletions(-)
  rename automation/tests-artifacts/qemu-system-aarch64/{5.2.0-arm64v8.dockerfile => 6.0.0-arm64v8.dockerfile} (95%)
+
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+index cc36428cf5..72f2a317ac 100644
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -591,9 +591,9 @@ kernel-5.9.9-arm64-export:
+   tags:
+     - arm64
+ 
+-qemu-system-aarch64-5.2.0-arm64-export:
++qemu-system-aarch64-6.0.0-arm64-export:
+   stage: build
+-  image: registry.gitlab.com/xen-project/xen/tests-artifacts/qemu-system-aarch64:5.2.0-arm64v8
++  image: registry.gitlab.com/xen-project/xen/tests-artifacts/qemu-system-aarch64:6.0.0-arm64v8
+   script:
+     - mkdir binaries && cp /qemu-system-aarch64 binaries/qemu-system-aarch64
+   artifacts:
+@@ -602,6 +602,16 @@ qemu-system-aarch64-5.2.0-arm64-export:
+   tags:
+     - arm64
+ 
++qemu-system-aarch64-6.0.0-arm32-export:
++  stage: build
++  image: registry.gitlab.com/xen-project/xen/tests-artifacts/qemu-system-aarch64:6.0.0-arm64v8
++  script:
++    - mkdir binaries && cp /qemu-system-arm binaries/qemu-system-arm
++  artifacts:
++    paths:
++      - binaries/qemu-system-arm
++  tags:
++    - arm64
+ 
+ # x86_64 test artifacts
+ 
+diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+index 47e8704df3..ec2a2e1607 100644
+--- a/automation/gitlab-ci/test.yaml
++++ b/automation/gitlab-ci/test.yaml
+@@ -33,7 +33,7 @@ qemu-alpine-arm64-gcc:
+     - alpine-3.12-gcc-arm64
+     - alpine-3.12-arm64-rootfs-export
+     - kernel-5.9.9-arm64-export
+-    - qemu-system-aarch64-5.2.0-arm64-export
++    - qemu-system-aarch64-6.0.0-arm64-export
+   artifacts:
+     paths:
+       - smoke.serial
+@@ -81,7 +81,7 @@ qemu-smoke-arm64-gcc:
+   dependencies:
+     - debian-unstable-gcc-arm64
+     - kernel-5.9.9-arm64-export
+-    - qemu-system-aarch64-5.2.0-arm64-export
++    - qemu-system-aarch64-6.0.0-arm64-export
+   artifacts:
+     paths:
+       - smoke.serial
+diff --git a/automation/tests-artifacts/qemu-system-aarch64/5.2.0-arm64v8.dockerfile b/automation/tests-artifacts/qemu-system-aarch64/6.0.0-arm64v8.dockerfile
+similarity index 95%
+rename from automation/tests-artifacts/qemu-system-aarch64/5.2.0-arm64v8.dockerfile
+rename to automation/tests-artifacts/qemu-system-aarch64/6.0.0-arm64v8.dockerfile
+index e105a1c636..793432d40b 100644
+--- a/automation/tests-artifacts/qemu-system-aarch64/5.2.0-arm64v8.dockerfile
++++ b/automation/tests-artifacts/qemu-system-aarch64/6.0.0-arm64v8.dockerfile
+@@ -3,7 +3,7 @@ LABEL maintainer.name="The Xen Project" \
+       maintainer.email="xen-devel@lists.xenproject.org"
+ 
+ ENV DEBIAN_FRONTEND=noninteractive
+-ENV QEMU_VERSION=5.2.0
++ENV QEMU_VERSION=6.0.0
+ ENV USER root
+ 
+ RUN mkdir /build
+@@ -25,7 +25,7 @@ RUN apt-get update && \
+     tar xvJf qemu-"$QEMU_VERSION".tar.xz && \
+     cd qemu-"$QEMU_VERSION" && \
+     ./configure                \
+-        --target-list=aarch64-softmmu \
++        --target-list=arm-softmmu,aarch64-softmmu \
+         --enable-system        \
+         --disable-blobs        \
+         --disable-bsd-user     \
+@@ -68,6 +68,7 @@ RUN apt-get update && \
+     && \
+     make -j$(nproc) && \
+     cp ./build/qemu-system-aarch64 / && \
++    cp ./build/qemu-system-arm / && \
+     cd /build && \
+     rm -rf qemu-"$QEMU_VERSION"* && \
+     apt-get autoremove -y && \
+-- 
+2.25.1
+
 
