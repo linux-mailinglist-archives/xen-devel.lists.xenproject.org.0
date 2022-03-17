@@ -2,65 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F8C94DC378
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Mar 2022 11:00:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.291460.494660 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E73A64DC386
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Mar 2022 11:02:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.291463.494670 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nUmvi-0005WY-Ki; Thu, 17 Mar 2022 10:00:26 +0000
+	id 1nUmxq-0006AD-0c; Thu, 17 Mar 2022 10:02:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 291460.494660; Thu, 17 Mar 2022 10:00:26 +0000
+Received: by outflank-mailman (output) from mailman id 291463.494670; Thu, 17 Mar 2022 10:02:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nUmvi-0005UF-Gr; Thu, 17 Mar 2022 10:00:26 +0000
-Received: by outflank-mailman (input) for mailman id 291460;
- Thu, 17 Mar 2022 10:00:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nUmxp-00067q-Tf; Thu, 17 Mar 2022 10:02:37 +0000
+Received: by outflank-mailman (input) for mailman id 291463;
+ Thu, 17 Mar 2022 10:02:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TrlV=T4=arm.com=Jiamei.Xie@srs-se1.protection.inumbo.net>)
- id 1nUmvg-0005U5-Rn
- for xen-devel@lists.xenproject.org; Thu, 17 Mar 2022 10:00:24 +0000
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur01on0631.outbound.protection.outlook.com
- [2a01:111:f400:fe02::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0f88c97f-a5d9-11ec-8eba-a37418f5ba1a;
- Thu, 17 Mar 2022 11:00:23 +0100 (CET)
-Received: from AS9P194CA0001.EURP194.PROD.OUTLOOK.COM (2603:10a6:20b:46d::9)
- by AM9PR08MB7101.eurprd08.prod.outlook.com (2603:10a6:20b:41a::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.14; Thu, 17 Mar
- 2022 10:00:20 +0000
-Received: from VE1EUR03FT006.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:46d:cafe::2d) by AS9P194CA0001.outlook.office365.com
- (2603:10a6:20b:46d::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.25 via Frontend
- Transport; Thu, 17 Mar 2022 10:00:20 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- VE1EUR03FT006.mail.protection.outlook.com (10.152.18.116) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5081.14 via Frontend Transport; Thu, 17 Mar 2022 10:00:20 +0000
-Received: ("Tessian outbound 18e50a6f0513:v113");
- Thu, 17 Mar 2022 10:00:20 +0000
-Received: from bcd9ed9075ee.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- A71E2B30-510D-4EA7-8456-DD89B484AF99.1; 
- Thu, 17 Mar 2022 10:00:09 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id bcd9ed9075ee.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 17 Mar 2022 10:00:09 +0000
-Received: from VI1PR08MB3056.eurprd08.prod.outlook.com (2603:10a6:803:3d::28)
- by PA4PR08MB6045.eurprd08.prod.outlook.com (2603:10a6:102:ef::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5061.22; Thu, 17 Mar
- 2022 10:00:06 +0000
-Received: from VI1PR08MB3056.eurprd08.prod.outlook.com
- ([fe80::c4d3:b586:a5c0:153b]) by VI1PR08MB3056.eurprd08.prod.outlook.com
- ([fe80::c4d3:b586:a5c0:153b%3]) with mapi id 15.20.5081.015; Thu, 17 Mar 2022
- 10:00:05 +0000
+ <SRS0=hAZZ=T4=citrix.com=prvs=068f51ced=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1nUmxo-00067k-TT
+ for xen-devel@lists.xenproject.org; Thu, 17 Mar 2022 10:02:37 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5d1fa310-a5d9-11ec-853c-5f4723681683;
+ Thu, 17 Mar 2022 11:02:34 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,183 +36,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f88c97f-a5d9-11ec-8eba-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uul8onTcrtpbmCKemTjiveyt/ma5fUZH87SZfsagwKM=;
- b=KRo+HOqP7IghxHwPTt4nimLNYF3XvNhi8JiRrUHRNwpaJJji8/0MW+g2pwB8U4HHgom3WGg473Fx4Wo3nHhc1S38sYFJljqra8NbsTZEvSz8GhbW/OYy3qp9foW8w2xGj86MEUzrd/CqEYn+JrDQalCTm7G2JnN9YWu8fMJUGHY=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bKPvyFjQ6KJf5jKMDQJc4O9hYHDEjG0yqBufW9U5IY1OcCOjBmSI5iupTVvSkpekJzGrWU6RJxw32FhG+gkT7/64RQLirWgbd8Dqot0frobEJcf882TVeZMchAjRKOYhZuqIIKNnFi2K7zKkT1XG/PceyyvAysnW01cU+XnsecdoZ2uLMmie42vOAwNtnaZQHU0yaADHZZmMnzrdpTKjrDQcKL0Dlae4cfSu3jU/v8yAZpodn/8rKypP0EjaWS9wB7yzXMh5KKS51TvZ2NLkA04hNj9m8+K/5Kb5h9R27i0ZMwWgc9JnfMJxBNtd58bGVC9LvjDxdhFqGSde/++l+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uul8onTcrtpbmCKemTjiveyt/ma5fUZH87SZfsagwKM=;
- b=eIAyr7oO2MvqOYlb5Mm/CvDfegscB5fPtfHD5A/tExFODoQ/jqy2FGlgnz9DV+MvjDbpFEWoJC+VZNEek8KOMBSrt+H+qeVD9v1s4VSv2QcYMIF+4aHBPU2RZB8Sh/9PZ0QSR1cDkY+FTlGrn5IwvZzfQHBuSQJVY9bz44Ny0ObgBkrEQ2ETR9AjTojXpu+5oQilMJlvW1nDv4UBN9xc/yDhaeLBbKfe16FdiNKAue9WwX9Vn0wJkNYoyjHWfpzE61DA6Bq00UkTlZgso/zSJfE4vzLyUum4rGojk/l4vPXYwOD0N2P9OKoJgofe4FcyU8ahbBaUYh3ursq6wM7gSg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uul8onTcrtpbmCKemTjiveyt/ma5fUZH87SZfsagwKM=;
- b=KRo+HOqP7IghxHwPTt4nimLNYF3XvNhi8JiRrUHRNwpaJJji8/0MW+g2pwB8U4HHgom3WGg473Fx4Wo3nHhc1S38sYFJljqra8NbsTZEvSz8GhbW/OYy3qp9foW8w2xGj86MEUzrd/CqEYn+JrDQalCTm7G2JnN9YWu8fMJUGHY=
-From: Jiamei Xie <Jiamei.Xie@arm.com>
-To: Jiamei Xie <Jiamei.Xie@arm.com>, Ross Lagerwall
-	<ross.lagerwall@citrix.com>, Bjoern Doebel <doebel@amazon.de>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Michael Kurth <mku@amazon.de>, Martin Pohlack <mpohlack@amazon.de>, Roger
- Pau Monne <roger.pau@citrix.com>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-Subject: RE: [PATCH v5 2/2] xen/x86: Livepatch: support patching CET-enhanced
- functions
-Thread-Topic: [PATCH v5 2/2] xen/x86: Livepatch: support patching CET-enhanced
- functions
-Thread-Index: AQHYM8WNmsy9ALsOG0iEitvyqooH8ay3Sg6AgAwMHmCAAAypgA==
-Date: Thu, 17 Mar 2022 10:00:05 +0000
-Message-ID:
- <VI1PR08MB30562C85CEF556F385DF695F92129@VI1PR08MB3056.eurprd08.prod.outlook.com>
-References:
- <03798b67ec3a892a302e6be5d87ea676e6376036.1646837462.git.doebel@amazon.de>
- <5cdd27addcec926eb48fdeab08ad3371e7c3fd7c.1646837462.git.doebel@amazon.de>
- <PH0PR03MB6382E2AD10AEF1BC48C55093F00A9@PH0PR03MB6382.namprd03.prod.outlook.com>
- <VI1PR08MB3056A7F7E5DC1DD68212A57692129@VI1PR08MB3056.eurprd08.prod.outlook.com>
-In-Reply-To:
- <VI1PR08MB3056A7F7E5DC1DD68212A57692129@VI1PR08MB3056.eurprd08.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ts-tracking-id: A7E856C19DDBE44B80D504B5758813BF.0
-x-checkrecipientchecked: true
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-MS-Office365-Filtering-Correlation-Id: 1dae7b63-8e6e-424e-3d5d-08da07fcf23c
-x-ms-traffictypediagnostic:
-	PA4PR08MB6045:EE_|VE1EUR03FT006:EE_|AM9PR08MB7101:EE_
-X-Microsoft-Antispam-PRVS:
-	<AM9PR08MB71017B2FBA56E91B0DB8124292129@AM9PR08MB7101.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- 3Ad9EcdZ5abDpgFS2ZCyoG7DySQVEK7ssPJGZkAQoy5FvJlwa3BN3RSL80YSAT1o/OeZ0C8EStRuUoeS5w/fQr621vG4n0+MFUoRNDErwcLPWbMhLjqygL3XHqKH5lyYDEeIjlxku0HP6GdyZ+mnekDdpLbp54LOU+QG+RVsWCXYFuVFwwSJGtDJBvTP5PeBoWbHi4LNdkmLZkcjlN+ZmI/p8NplZp4isP8iRmrpFeJOKz+sEvCvwHcvAxv9IL1FaG9oEhnZokletOyb06L9LN97hE2CLNFRkFO38Jl+B0ttGIQUwtX3Pr2YzFe4t10kXIf7TN17+/S7UhpA8iKhqsuRg8RvUdoPtuS5/7qCwwAmJGPRy5tXK7Z7xR+ge1G1gNEkT94UniJlmGyhoE7Rgw/MBtFNqpReJKMcaj7kkhxAkQXxv7ARQ847zsRiWcdCUWTOsuPFSQl63eLHOlGNH87fFZ/h0fHvIqkWBfn69PPXQ6i8ejB/cBsM3/qGO9IwHIZY7ck0tBf5p2sbsAEv0xB5+dk50gN2uzG/A/JB1k0BZ+6C1Go+z4T2D8OU3O/jVOPd0+tWYXWg8XbTRgI+SvmvFEyF5qfhRrFwbf3G4zbW8FQrXMigTPereomy9qV8GC9zsM4sQoTovSyQBOglUjEcSodP+4tBTUjFw8iWFHw+H9t1/B0uSPDXSeLOW70IFqu7CNQTm8OMteoeWHUMyw==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR08MB3056.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(2906002)(38100700002)(86362001)(38070700005)(122000001)(2940100002)(9686003)(110136005)(186003)(71200400001)(26005)(54906003)(508600001)(7696005)(53546011)(6506007)(64756008)(66446008)(8676002)(4326008)(66476007)(5660300002)(52536014)(66556008)(76116006)(66946007)(8936002)(83380400001)(55016003)(316002)(33656002);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 5d1fa310-a5d9-11ec-853c-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1647511354;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=QOkGG/mkDiGgS/npBNx/ai2OE1b789ixepmDnoSfjrY=;
+  b=cgl71R/fgdgA+Nr7ZSXC1BdyQNlyCu1PFS5NmC5YnbQUko4DOnhw/gYD
+   06HFX98KLN7rTTwVLl5jDJ4/+IWWZm2M/QmitJt4cgkUtXagEOwcX0cDo
+   k57u5pAseHuwoa2LJehhds7oAPNdLS79sBlUOTSR8TaPREwfpjKRF35hU
+   I=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 66883879
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:/0sDm6Ny8fICY/vvrR2Vl8FynXyQoLVcMsEvi/4bfWQNrUpz3jQCz
+ jMXXjyBP/jeM2D3ctx1Pdix/ENS7Z/dyNViTQto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
+ ynLQoCYdKjYdleF+lH1dOKJQUBUjclkfJKlYAL/En03FFcMpBsJ00o5wbZi29Ew27BVPivW0
+ T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
+ 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Z+
+ e1OuZa5cxwQMI7Jh+QWbj5/FghiBPgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
+ 7pCcmlLN03dwbLtqF64YrAEasALBc/nJo4A/FpnyinUF60OSpHfWaTao9Rf2V/cg+gQQ6aOP
+ JpGOFKDajz7cSIIBggQLqscv/WuvyLAWD1irVO88P9fD2/7k1UqjemF3MDuUtCNSM9Ymm6Ro
+ 2vU+GK/DhxyHNmc1BKM93u+gemJkS6TcIcKE728//VpqFSWz34UDlsaWDOTsfS/z0KzRd9bA
+ 0gV4TY167g/8lSxSdvwVAH+p2SL1jY+cddNF+wx6CmW17HZpQ2eAwAsUTppeNEg8sgsSlQXO
+ kShxo2zQ2Y16fvMFCzbpuz8QS6O1TY9HFcBaSUNdxA87frmv4E4szXoS/9/Kfvg5jHqIg3Yz
+ zePpSk4orwci88Xyqm2lWz6byKQSovhFVBsuFiONo6xxkYgPdP+OdT0gbTOxawYRLt1WGVtq
+ 5TtdyK2yOkVRa+AmyWWKAnmNOH4vq3VWNEwbLMGInXAy9hP0yP7FWyzyGsnTKuMDiriUWW1C
+ KM0kVkNjKK/xFPwMcdKj3uZUqzGN5TIG9X/TezzZdFTeJV3fwLv1HgwORHMgj+0yhZ0zvxX1
+ XKnnSCEVypy5UNPlmbeegvg+eVzmnBWKZ37GPgXMChLIZLBPSXIGN/pwXOFb/wj7bPsnekm2
+ 403Cid+8D0GCLeWSnCOqeY7dAlWRVBmVcGeg5EGLYarf1s5cFzN/teMmNvNjaQ+xP8L/goJl
+ 1ngMnJlJK3X3iSWd1/VNig9NNsCn/9X9BoGAMDlBn7ws1BLXGplxP53m0cfFVX/yNFe8A==
+IronPort-HdrOrdr: A9a23:+tcvV61puvCwmsRnm+23WwqjBLwkLtp133Aq2lEZdPRUGvb4qy
+ nIpoV86faUskd3ZJhOo6HiBEDtexzhHP1OkO0s1NWZLWvbUQKTRekIh+aP/9SJIVyGygc378
+ ddmsZFZuEYdWIK6PrH3A==
+X-IronPort-AV: E=Sophos;i="5.90,188,1643691600"; 
+   d="scan'208";a="66883879"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Bjoern Doebel
+	<doebel@amazon.de>, Michael Kurth <mku@amazon.de>, Martin Pohlack
+	<mpohlack@amazon.de>
+Subject: [PATCH] x86/cet: Use dedicated NOP4 for cf_clobber
+Date: Thu, 17 Mar 2022 10:02:04 +0000
+Message-ID: <20220317100204.16391-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB6045
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- VE1EUR03FT006.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	a1677ee6-077c-4713-3506-08da07fce997
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	PfYA3u/XMfQfA59EogCKrprwnmpEK6mMlCjsdYgtk/54YGVsMOXuQ38jHBf0jeyyfuJEMT31nFvZnUZMWrRBtawLhd9Y1Hzlpsk0hHkXS+ccbh3dCBf/JG0MnXzRyyyYX5MQS7e6NcVLNtSLfEg9WYnDqgCTszQpLihwfAGxpV2LGTx5Qnw6p3jyfmtxrnvk2EnrUz660uzyKEYqlOzY7PYzZAtVqtyd5Qmg55IynxCwZaJ7t3XY1t5tDGpRMGAfReJ/zziI7IhsOV4efz/ny0IEaav4q18bshxF3j3FUchILHKT1YE+lwhQBCH74uEwS6Kxh+4osZyJMDA4xjRglNg7v+2oN9O1tT8cnyZA2wZGpe0LIeNRN2Doi3ZiCNTRu2qPU4Wn6Fh4gLKncM0DE+OiiasfJSnl9f41hZjv/rjKKoP0x2f+0x9Cak9mfN/tDshS8QsJsy7SEEMeNXDeA0oJn/M0zRhcALvNCNEFbao4t6V21bl+k4X9MtQKTuZjlVwNqkXTKMbPbRWcSM9ntoKG7sm5XK1K2JFIm7mZwrW6Ywie1QS2D2Qm6ZVnaEl+BLp8hl3YNMOhFzBwP+PSSX/079YNs5+8WC213ubznozhpnTo2LQ7hBbUpkhJjFAAQ6ha2rw1Iq1HDfhyjB8cEAVGVZZFTMMzMquteJ37BAo7AVFrhVsHTnCAtUj2YrZi
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(36860700001)(2940100002)(9686003)(356005)(81166007)(47076005)(33656002)(70206006)(5660300002)(82310400004)(8676002)(4326008)(70586007)(86362001)(107886003)(7696005)(508600001)(316002)(6506007)(55016003)(110136005)(54906003)(40460700003)(8936002)(52536014)(2906002)(336012)(186003)(83380400001)(26005)(53546011);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2022 10:00:20.2439
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1dae7b63-8e6e-424e-3d5d-08da07fcf23c
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	VE1EUR03FT006.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR08MB7101
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
+For livepatching, we need to look at a potentially clobbered function and
+determine whether it used to have an ENDBR64 instruction.
 
+Use a non-default 4-byte P6 long nop, not emitted by toolchains, and extend
+check-endbr.sh to look for it.
 
-> -----Original Message-----
-> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of
-> Jiamei Xie
-> Sent: 2022=1B$BG/=1B(B3=1B$B7n=1B(B17=1B$BF|=1B(B 17:17
-> To: Ross Lagerwall <ross.lagerwall@citrix.com>; Bjoern Doebel
-> <doebel@amazon.de>; xen-devel@lists.xenproject.org
-> Cc: Michael Kurth <mku@amazon.de>; Martin Pohlack
-> <mpohlack@amazon.de>; Roger Pau Monne <roger.pau@citrix.com>;
-> Andrew Cooper <Andrew.Cooper3@citrix.com>; Konrad Rzeszutek Wilk
-> <konrad.wilk@oracle.com>
-> Subject: RE: [PATCH v5 2/2] xen/x86: Livepatch: support patching CET-
-> enhanced functions
->=20
-> Hi  Bjoern,
->=20
-> > -----Original Message-----
-> > From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of
-> > Ross Lagerwall
-> > Sent: 2022=1B$BG/=1B(B3=1B$B7n=1B(B10=1B$BF|=1B(B 1:12
-> > To: Bjoern Doebel <doebel@amazon.de>; xen-devel@lists.xenproject.org
-> > Cc: Michael Kurth <mku@amazon.de>; Martin Pohlack
-> > <mpohlack@amazon.de>; Roger Pau Monne <roger.pau@citrix.com>;
-> > Andrew Cooper <Andrew.Cooper3@citrix.com>; Konrad Rzeszutek Wilk
-> > <konrad.wilk@oracle.com>
-> > Subject: Re: [PATCH v5 2/2] xen/x86: Livepatch: support patching CET-
-> > enhanced functions
-> >
-> > > From: Bjoern Doebel <doebel@amazon.de>
-> > > Sent: Wednesday, March 9, 2022 2:53 PM
-> > > To: xen-devel@lists.xenproject.org <xen-devel@lists.xenproject.org>
-> > > Cc: Michael Kurth <mku@amazon.de>; Martin Pohlack
-> > <mpohlack@amazon.de>; Roger Pau Monne <roger.pau@citrix.com>;
-> > Andrew Cooper <Andrew.Cooper3@citrix.com>; Bjoern Doebel
-> > <doebel@amazon.de>; Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>;
-> > Ross Lagerwall <ross.lagerwall@citrix.com>
-> > > Subject: [PATCH v5 2/2] xen/x86: Livepatch: support patching CET-
-> > enhanced functions
-> > >
-> > > Xen enabled CET for supporting architectures. The control flow aspect=
- of
-> > > CET expects functions that can be called indirectly (i.e., via functi=
-on
-> > > pointers) to start with an ENDBR64 instruction. Otherwise a control f=
-low
-> > > exception is raised.
-> > >
-> > > This expectation breaks livepatching flows because we patch functions=
- by
-> > > overwriting their first 5 bytes with a JMP + <offset>, thus breaking =
-the
-> > > ENDBR64. We fix this by checking the start of a patched function for
-> > > being ENDBR64. In the positive case we move the livepatch JMP to star=
-t
-> > > behind the ENDBR64 instruction.
-> > >
-> > > To avoid having to guess the ENDBR64 offset again on patch reversal
-> > > (which might race with other mechanisms adding/removing ENDBR
-> > > dynamically), use the livepatch metadata to store the computed offset
-> > > along with the saved bytes of the overwritten function.
-> > >
-> > > Signed-off-by: Bjoern Doebel <doebel@amazon.de>
-> > > Acked-by: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-> > > CC: Ross Lagerwall <ross.lagerwall@citrix.com>
-> >
-> > Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>
->=20
-> Tested-by: Jiamei xie <jiamei.xie@arm.com>
->=20
-> Cheers,
-> Jiamei
-Sorry I forgot to add the scope I tested in last email. I tested it on armv=
-8a. It worked fine and  didn't break arm.
-Tested-by: Jiamei xie <jiamei.xie@arm.com>
-> Cheers,
-> Jiamei
+The choice of nop has some complicated consequences.  nopw (%rax) has a ModRM
+byte of 0, which the Bourne compatible shells unconditionally strip from
+parameters, meaning that we can't pass it to `grep -aob`.
+
+Therefore, use nopw (%rcx) so the ModRM byte becomes 1.
+
+This then demonstrates another bug.  Under perl regexes, \1 thru \9 are
+subpattern matches, and not octal escapes.  Switch the `grep -P` runes to use
+hex escapes instead.
+
+The build time check then requires that the endbr64 poison have the same
+treatment as endbr64 to avoid placing the byte pattern in immediate operands.
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Bjoern Doebel <doebel@amazon.de>
+CC: Michael Kurth <mku@amazon.de>
+CC: Martin Pohlack <mpohlack@amazon.de>
+
+v2:
+ * Check for the poison byte pattern in check-endbr.sh
+ * Use nopw (%rcx) to work around shell NUL (mis)features
+ * Use hex escapes to work around Perl subpattern matches
+
+Jan: As you had the buggy grep, can you please confirm that hex escapes work.
+---
+ xen/arch/x86/alternative.c       |  2 +-
+ xen/arch/x86/include/asm/endbr.h | 26 ++++++++++++++++++++++++++
+ xen/tools/check-endbr.sh         | 12 +++++++-----
+ 3 files changed, 34 insertions(+), 6 deletions(-)
+
+diff --git a/xen/arch/x86/alternative.c b/xen/arch/x86/alternative.c
+index d41eeef1bcaf..0c6fc7b4fb0c 100644
+--- a/xen/arch/x86/alternative.c
++++ b/xen/arch/x86/alternative.c
+@@ -362,7 +362,7 @@ static void init_or_livepatch _apply_alternatives(struct alt_instr *start,
+             if ( !is_kernel_text(ptr) || !is_endbr64(ptr) )
+                 continue;
+ 
+-            add_nops(ptr, ENDBR64_LEN);
++            place_endbr64_poison(ptr);
+             clobbered++;
+         }
+ 
+diff --git a/xen/arch/x86/include/asm/endbr.h b/xen/arch/x86/include/asm/endbr.h
+index 6090afeb0bd8..d946fac13130 100644
+--- a/xen/arch/x86/include/asm/endbr.h
++++ b/xen/arch/x86/include/asm/endbr.h
+@@ -52,4 +52,30 @@ static inline void place_endbr64(void *ptr)
+     *(uint32_t *)ptr = gen_endbr64();
+ }
+ 
++/*
++ * After clobbering ENDBR64, we may need to confirm that the site used to
++ * contain an ENDBR64 instruction.  Use an encoding which isn't the default
++ * P6_NOP4.  Specifically, nopw (%rcx)
++ */
++static inline uint32_t __attribute_const__ gen_endbr64_poison(void)
++{
++    uint32_t res;
++
++    asm ( "mov $~0x011f0f66, %[res]\n\t"
++          "not %[res]\n\t"
++          : [res] "=&r" (res) );
++
++    return res;
++}
++
++static inline bool is_endbr64_poison(const void *ptr)
++{
++    return *(const uint32_t *)ptr == gen_endbr64_poison();
++}
++
++static inline void place_endbr64_poison(void *ptr)
++{
++    *(uint32_t *)ptr = gen_endbr64_poison();
++}
++
+ #endif /* XEN_ASM_ENDBR_H */
+diff --git a/xen/tools/check-endbr.sh b/xen/tools/check-endbr.sh
+index 9799c451a18d..126a2a14d44e 100755
+--- a/xen/tools/check-endbr.sh
++++ b/xen/tools/check-endbr.sh
+@@ -27,7 +27,7 @@ echo "X" | grep -aob "X" -q 2>/dev/null ||
+ # Check whether grep supports Perl regexps. Older GNU grep doesn't reliably
+ # find binary patterns otherwise.
+ perl_re=true
+-echo "X" | grep -aobP "\130" -q 2>/dev/null || perl_re=false
++echo "X" | grep -aobP "\x58" -q 2>/dev/null || perl_re=false
+ 
+ #
+ # First, look for all the valid endbr64 instructions.
+@@ -45,13 +45,15 @@ echo "X" | grep -aobP "\130" -q 2>/dev/null || perl_re=false
+ ${OBJDUMP} -j .text $1 -d -w | grep '	endbr64 *$' | cut -f 1 -d ':' > $VALID &
+ 
+ #
+-# Second, look for any endbr64 byte sequence
++# Second, look for any endbr64 or nop4 poison byte sequences
+ # This has a couple of complications:
+ #
+ # 1) Grep binary search isn't VMA aware.  Copy .text out as binary, causing
+ #    the grep offset to be from the start of .text.
+ #
+ # 2) dash's printf doesn't understand hex escapes, hence the use of octal.
++#    `grep -P` on the other hand can interpret hex escapes, and must use them
++#    to avoid \1 thru \9 being interpreted as subpatterns matches.
+ #
+ # 3) AWK can't add 64bit integers, because internally all numbers are doubles.
+ #    When the upper bits are set, the exponents worth of precision is lost in
+@@ -67,9 +69,9 @@ eval $(${OBJDUMP} -j .text $1 -h |
+ ${OBJCOPY} -j .text $1 -O binary $TEXT_BIN
+ if $perl_re
+ then
+-    LC_ALL=C grep -aobP '\363\17\36\372' $TEXT_BIN
++    LC_ALL=C grep -aobP '\xf3\x0f\x1e\xfa|\x66\x0f\x1f\x01' $TEXT_BIN
+ else
+-    grep -aob "$(printf '\363\17\36\372')" $TEXT_BIN
++    grep -aob -e "$(printf '\363\17\36\372')" -e "$(printf '\146\17\37\1')" $TEXT_BIN
+ fi | awk -F':' '{printf "%s%x\n", "'$vma_hi'", int(0x'$vma_lo') + $1}' > $ALL
+ 
+ # Wait for $VALID to become complete
+@@ -90,6 +92,6 @@ nr_bad=$(wc -l < $BAD)
+ [ "$nr_bad" -eq 0 ] && exit 0
+ 
+ # Failure
+-echo "$MSG_PFX Fail: Found ${nr_bad} embedded endbr64 instructions" >&2
++echo "$MSG_PFX Fail: Found ${nr_bad} embedded endbr64 or poison instructions" >&2
+ ${ADDR2LINE} -afip -e $1 < $BAD >&2
+ exit 1
+-- 
+2.11.0
 
 
