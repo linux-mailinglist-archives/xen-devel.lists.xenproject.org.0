@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D9604DC849
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Mar 2022 15:03:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.291603.495027 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D98BB4DC85D
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Mar 2022 15:06:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.291606.495038 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nUqio-0003Jp-T4; Thu, 17 Mar 2022 14:03:22 +0000
+	id 1nUqm0-00040U-Cz; Thu, 17 Mar 2022 14:06:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 291603.495027; Thu, 17 Mar 2022 14:03:22 +0000
+Received: by outflank-mailman (output) from mailman id 291606.495038; Thu, 17 Mar 2022 14:06:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nUqio-0003Hj-Pw; Thu, 17 Mar 2022 14:03:22 +0000
-Received: by outflank-mailman (input) for mailman id 291603;
- Thu, 17 Mar 2022 14:03:21 +0000
+	id 1nUqm0-0003ye-8q; Thu, 17 Mar 2022 14:06:40 +0000
+Received: by outflank-mailman (input) for mailman id 291606;
+ Thu, 17 Mar 2022 14:06:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RBlk=T4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nUqin-0003HX-97
- for xen-devel@lists.xenproject.org; Thu, 17 Mar 2022 14:03:21 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 00315bf9-a5fb-11ec-853c-5f4723681683;
- Thu, 17 Mar 2022 15:03:20 +0100 (CET)
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04lp2054.outbound.protection.outlook.com [104.47.14.54]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-37-75QynDaaPcWR8mt3aDsfSg-1; Thu, 17 Mar 2022 15:03:18 +0100
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
- by AM6PR04MB4214.eurprd04.prod.outlook.com (2603:10a6:209:41::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.17; Thu, 17 Mar
- 2022 14:03:17 +0000
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::2d79:4387:3887:ef9d]) by DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::2d79:4387:3887:ef9d%9]) with mapi id 15.20.5081.017; Thu, 17 Mar 2022
- 14:03:16 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hAZZ=T4=citrix.com=prvs=068f51ced=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1nUqly-0003yY-Vi
+ for xen-devel@lists.xenproject.org; Thu, 17 Mar 2022 14:06:38 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7501439d-a5fb-11ec-853c-5f4723681683;
+ Thu, 17 Mar 2022 15:06:37 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,129 +36,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00315bf9-a5fb-11ec-853c-5f4723681683
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1647525799;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IidUIM65uQbzncJG4NWU9/gqsTs3GkMdv089SkFiGS4=;
-	b=hchEwpgauMfSZNJI4dTYxWGLwDYAA8uB/dNv4Va57bsO1G1HruERfIrvcubHDwW/uxHvTy
-	JpY24tEKeSP/0gfGk+9oSU1U/D866hFNjPAXum2jtIcMWTC7LqYeCpmtHIePvpH/i/FZ64
-	Uh6q52Oq/FxiuIiYdlpAeRDuAQvmpHs=
-X-MC-Unique: 75QynDaaPcWR8mt3aDsfSg-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jcOQm4+9DGNRectS+0fOg9Ig/wvGqqMsqZCylLuir+uoDi4NqtHP7kBF6LObiIDPyykdGn4Tc0onl3XSa2vVUtt2d26yqPN4LP+eCROpSCghvlZEG0oLWvH4AvH4bQNZy+ReiEql7u0xB0UPGFEjxHoCRyy99M2wo5dHVu7sNTRaKdAN/C7S1XSglk5lNf1UknNjmOKqbto8mCl/9DJ3bt0M9glF1X3+Vwz9UVHDha8XQmbYwJ8Jfmq0eUkUxYQ3vZZ343GKm3KDfsr3U2Bv9PfTMUBEA/Nuuo4D4J7UFprQLGV32dFO122MOqSDwIWvsAM9wZV97PCrD54tNaJNCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IidUIM65uQbzncJG4NWU9/gqsTs3GkMdv089SkFiGS4=;
- b=bewmQ2B1zh7W58BtRkZyWpB6V5RqCdxm0CCgXpdjVGPdS+KbNJLMTa4idu7Z18nx18sYudyV3deMHFUFDDZxgU8hhqj/eBAi4GuET3L7oaiOrgyBNto+rLeQGSY3gjOkqdMYPfwUVBGcgTi1OedzR5YJzlNoPWCZ8yHAaZNWlHPZXsd4bh/nOuyFdGbNXrsW5BIKTtedHVd8SXRSMkOZ3egXv7mVpCsk5zSnP3DybfucRglM+ho41Yx2082iLt6X0VrDB8Uk69SzW9sZuBaYDfuiz+lSV1Xy3lrCCQ/kE2huyJli4vBxFtiXR/GoHO3QuybyVem7jyraHu13yVcIzg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <912a5b23-4f9c-b587-ed79-1d577ed6ef6e@suse.com>
-Date: Thu, 17 Mar 2022 15:03:14 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH] x86/hvm: Include interruptibility state in hvm_hw_cpu
-Content-Language: en-US
-To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-Cc: "Lengyel, Tamas" <tamas.lengyel@intel.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- "Cooper, Andrew" <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Pau_Monn=c3=a9=2c_Roger?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, "Nakajima, Jun" <jun.nakajima@intel.com>,
- "Tian, Kevin" <kevin.tian@intel.com>
-References: <05d0a5b5c18d667a5527e6f834347f54a10309da.1646937728.git.tamas.lengyel@intel.com>
- <BN9PR11MB5276E96E39209EDCCED5E9198C0F9@BN9PR11MB5276.namprd11.prod.outlook.com>
- <CABfawhmZLyZdSbK0sr4t_WoYx6uYOV2bH89bX4ET0kzeQiY0-A@mail.gmail.com>
- <BN9PR11MB527623CD66F0F606BD0CF5F98C129@BN9PR11MB5276.namprd11.prod.outlook.com>
- <CABfawhnucaqR_RQd_XDKBUP=E_uRG7A6Xbo7dN8qj5wzAjyMZg@mail.gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <CABfawhnucaqR_RQd_XDKBUP=E_uRG7A6Xbo7dN8qj5wzAjyMZg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6P191CA0017.EURP191.PROD.OUTLOOK.COM
- (2603:10a6:209:8b::30) To DU2PR04MB8616.eurprd04.prod.outlook.com
- (2603:10a6:10:2db::16)
+X-Inumbo-ID: 7501439d-a5fb-11ec-853c-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1647525997;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=2oDBgP9ZstjxHtvjS2AzV+OyJzvdnX17JYruJ+eUj50=;
+  b=TYsX8RET/OZ7EVKyKI+wqZgKfSBA9wDujCG0LAsOTS6euEHAiCSUx0lI
+   uscZeq0AMrZKTcIQ4i8JWRXUa0IOT0mvCEs2WkFDPws3T2dMMjO/3cGVy
+   9q8l9gaSa37NSH/tm8LmrDlfAFJYmCaFu0RpzkjGbfKbX8Cjrd+nu3FEl
+   8=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 65968955
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:Nx4eHqzJ40v54nnE9Wl6t+cHxirEfRIJ4+MujC+fZmUNrF6WrkVVy
+ jMbWm6BOPzYYjH1fd5xb9m+90hU75bSzYRgTQI++yAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
+ 59DAjUVBJlsFhcwnj/0bv656yMUOZigHtIQMsadUsxKbVIiGX9JZS5LwbZj2NYz2IfhWWthh
+ PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
+ gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
+ NpllKSPWTl0F7PwyM8yXh9GEBBPL7N/9+qSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
+ aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DFYUToHx/ixreCu4rW8vrSKTW/95Imjw3g6iiGN6AO
+ ptHOWsyMXwsZTVgEXoHDcsHhdyHuVDwaTZ960KWoZEetj27IAtZj+G2bYu9lsaxbclSk0yVo
+ krP+m3rBRdcONH34T+G71qlg+bdmiW9VI96PLig8f5uiVaQ7mUWAQ8RUx23rJGRmkO4Ht5SN
+ UEQ0i4vtrQpslymSMHnWB+1q2LCuQQTM/JyOeAn7ACGyoLP/h2UQGMDS1Zpd9gOpMIwAzsw2
+ Te0c8jBXGI19ufPEDTEq+nS/Wja1TUpwXEqRBc7XTVYysff8KocgxTRTedSArCMgYigcd3v+
+ AyioC87jrQVqMcE0aSn4FzK6w6RSoj1oh0dvVuOAD/8hu9tTMv8PtHztwCHhRpVBNzBJmRtq
+ kTojCR3AAomKZiW3BKAT+wWdF1Cz6bUaWaM6bKD8nRIythMx5JBVd0IiN2dDB0wWirhRdMPS
+ BWP0e+2zMUPVEZGlYctP+qM5z0ClMAM7+jNWPHOdcZpaZNsbgKB9ywGTRfOgz+xzRd1y/9nZ
+ srznSOQ4ZAyU/gPIN2eHbt17FPW7npmmTO7qW7TknxLLoZylFbKEOxYYTNin8gy7b+eoRW9z
+ jqsH5Di9vmra8WnOnO/2ddKdTgidCFnbbir+50/XrPSeWJORTB+Y8I9NJt8IuSJaYwOzbyWl
+ px8M2cFoGfCaYrvclzbNCo8NOuxAf6SbxsTZEQRALph4FB7Ca7H0UvVX8FfkWUPnAC78cNJc
+ g==
+IronPort-HdrOrdr: A9a23:2qsWLaqJWBmAEXWPSNI/LE4aV5oleYIsimQD101hICG9E/bo8/
+ xG+c5x6faaslossR0b9uxoW5PhfZq/z/BICOAqVN/JMTUO01HIEKhSqafk3j38C2nf24dmpM
+ JdmnFFeb7N5I5B/KTH3DU=
+X-IronPort-AV: E=Sophos;i="5.90,188,1643691600"; 
+   d="scan'208";a="65968955"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Bjoern Doebel
+	<doebel@amazon.de>, Michael Kurth <mku@amazon.de>, Martin Pohlack
+	<mpohlack@amazon.de>
+Subject: [PATCH v3] x86/cet: Use dedicated NOP4 for cf_clobber
+Date: Thu, 17 Mar 2022 14:06:24 +0000
+Message-ID: <20220317140624.4258-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8918c69c-5923-4718-0a13-08da081ee26c
-X-MS-TrafficTypeDiagnostic: AM6PR04MB4214:EE_
-X-Microsoft-Antispam-PRVS:
-	<AM6PR04MB4214E974248BBA17A7846D54B3129@AM6PR04MB4214.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	7jptoB59lZ7ug9TjBRTiwWQUrVuirLgIkbk0Xil5rgAE2NHtT8R/ChQK8i5Js2GISD4mT+Ywm9L0h+UTJXkkJkUqjXV86dJxEvRljPtUJ4najXa63P1klU0YfcYOZxBJopZ3zcA/HzdtZFJijwInDPHXNnfZlgDmfmI1qBbahqNbfIoTlUpptpI8D0JB9pKUD+rrCPVfYux2Cw/Fmve45zPXGtFXAkpvPI2HVqNMhEgbtWeFUo5gf83+mxD2GyIU3tdno4GiSRWaupTrJGfyvxTOtcdpa+nfUVUXR88E6SQ28dzPRklSPqD/5cWO12YrScnY0HNzGUUlYNq9slQid6jNo7wnPFhhARG9G6t2ygV/UTj+RHa0XsylVgp1A/aKoqTiKUzvGrzg2zhWDIQqrwQNdmc1FeQSjngZ2+BcffbTcOZ01U/92OQHp7q9WZFYyh/74K3g1FnrayGCpg2EWkMu5/UpefPUX+8pFtZ9C0slFHJSazoxbCeNOYTGoLCLkGKm7jm0cygleUEAxiszKO2+VWzmjhFpAUlZlSpA+CpPCBGQGFHEmZmvT4cstH7rAhJmYfmvVqVeei3h0JdIQePETNibFPz28bStO9DtYEx5ceu6iUDTd/WjW4X9xpH1+0nKoTzpK05qZMQkWCB+Z/e8NU+ySnV+LYGZXJExm+fP3p2MGpNqNFxzIXg2Tc6ORV+CB15BbtEYyok2o2Sk9Jd/XudPRZS2XykhMSaZz3ro09K6mPaBZalsDZrXubUJ
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(508600001)(54906003)(6486002)(31686004)(316002)(6512007)(6506007)(53546011)(36756003)(2616005)(6916009)(66946007)(8676002)(186003)(4326008)(66556008)(26005)(66476007)(31696002)(86362001)(8936002)(38100700002)(2906002)(4744005)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dU5mOXlwSmFZZW1PSnVSdGpOVlhhNk5rSDlsL0pSZWdZN3RjbWRTSlgvN0ZV?=
- =?utf-8?B?MFN2eUUybUxmT3VBTEtlZjBnN0xudyt2ZXFGL0t1N2w3bmtFUlVZN1RvTVZB?=
- =?utf-8?B?UmxIYmZFK3IwanZDdCttaXVNZGJ1Yzl6ZnI2dGFObjhnTzRjQXQ1STFuVzFY?=
- =?utf-8?B?SDdhRENtT0xtTlNxalhtOXhpVmwrK2xzUTBXeWFaa1lia3JjcG8xOGkwTVJJ?=
- =?utf-8?B?Sk5sRHFUa1NldEo3ek9CMmJhc01GRUcycExDcjNXWDNxV2FBYm5XbGdodHdO?=
- =?utf-8?B?bGRGSHdQMWR0U2s1aUVBNlkyUzdPc2lpQk9NZkc0MW51bFlZRlM5cHlEakx5?=
- =?utf-8?B?NmNIZ3lLUUIyYU5xUDVmdFFwaTJHQ2tIZjJldGZIZzFxOTN4cklzaDA4N2NP?=
- =?utf-8?B?UHVEWlJZckZIVzNKV0JSYU9qTkVyTDRYZlZib3podHEwWXliSzg3alk3WWgz?=
- =?utf-8?B?ZG8zSldPUkRZSUFHNTFXNVFJTzlYSXh2N2dVRGwvWjh3TzU1S1p0UVFxY0FZ?=
- =?utf-8?B?bENLbTJmemF0bXJNTzZBYXBLL1FDN0drV0UxUi93UEw1VW5tbnVZeWU0NS9p?=
- =?utf-8?B?aTNya3ZqZTU0bEV5S1d2Zmp1cHNNVDQ0UVRDYlgyVjZKc1N2TVRYQXdHbGtp?=
- =?utf-8?B?NmkrWERkUUNPOE1qbUtmeE13UHNNZWM5NTFFbVZaWXpvS20vUnUrRU51TW56?=
- =?utf-8?B?S0ZseUpQR0NQMXhBSjhhUzlSeFNLcjRTZ2htbGVtWVNKb0lOeXB4MlRuSVpO?=
- =?utf-8?B?QW9ubXJFUXJORWxCRUp4bDN3ZHVydHZZTFlrZnJQU0VPcHZyMElGMUZXR0pU?=
- =?utf-8?B?angwbzQvdnh2QWNZZHVLOGpGMkZWVGRpOVFUWFFoS0FsUEVuenFpSWVGcDRj?=
- =?utf-8?B?NjdTbXJRUmhjaHU0TEFPZjIrZGxUUGZYWlV1cE4zL3FoNCszVHdRSG1NcmN2?=
- =?utf-8?B?R1VRMmRzeGpBMG1KU2x0U3gwb3JQTUd3eG9UU3hiNXNML3ZVSUxua2NST2Ns?=
- =?utf-8?B?UzNPZk1hdHBJZElqL3czM0Q1SHRJL3RnKzE5Z0orQnF2QTZJR3lTZnRTeU1Q?=
- =?utf-8?B?Y2wrOEluMnkySXFtU3dyd1ppZDgwa211QnE0VjZ0ZSs2ZG9JSjVMWmtGR1hJ?=
- =?utf-8?B?VlVXaHEvQktHOTZnaWJvcWNITTFWKzVkSGxFd2M4Z3psUzVzREFmTnMzZ204?=
- =?utf-8?B?VFhUWXpVc0tOc1E0VnROK1B2VjRMODFUQUt2RDhTZG0wYjdLSHZmemNwMFE2?=
- =?utf-8?B?NDZMTW9VNHA3VU1ndFZEdWNVaGxMSWpac292cUhDZ1dNSHBIZ0RDdW9qZGpP?=
- =?utf-8?B?cWZWa0loM1I3ck14RDhCN1laUEV0ZWpuUVRodjY5MnVTQ1AxT3NZZzNtZGRV?=
- =?utf-8?B?c1hlVHFrSURzR0llczZxSHJOU3RpbEdLSU95TW83eE00UHo5TVpnZWM5Tk1L?=
- =?utf-8?B?ZmJsVHZaN0c3SDNyK0xheXNlNUJ4RXRwZ3RBd0M3bE01N2ZESGhLcnFVa0t5?=
- =?utf-8?B?ME9uK0JzcStpNWhWWmRTVHB3VklPZ2F6Nld2QURVUUY0QkNEZ0FhQlZkNXJy?=
- =?utf-8?B?d3p1NWFkb1BrVmNpVnk1d0J4dUNvL3pHc0RGeWdiMVJiV1RUMWhaZVJQbVpj?=
- =?utf-8?B?aGEzTDVpRm55UHpkNytDbFI5NnBmMFlIS3ZKa0ZHN0J0L3JMd3hoVmtiV3k5?=
- =?utf-8?B?eHVlRFA1Mm9iajBRQTRVaFMwY3pnckZhWHhqRjZ0UkNDWnZJeGJidEJHQ1dz?=
- =?utf-8?B?bzdrbHB5Q0xsQ0ZLdjhMcWZLZmh5Q1RaQ1dXRTNVcGZlNXhCSDBIcWowbFFy?=
- =?utf-8?B?S2pDYnJnRG9vL1YxZEdSTmNDd3lHdmdhK3I1TGxtcTc5aW12RzIzV0dOWUcr?=
- =?utf-8?B?elYvUkoyTXJlSzE0aDFqb0FjRURsaTBqcFB2TTZ3bGZGcDV3TXBRcDJwNnVR?=
- =?utf-8?Q?c9YzjiXxDjMW1LucE5siNfAnkZznnD00?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8918c69c-5923-4718-0a13-08da081ee26c
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2022 14:03:16.8837
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LzhwYmYIGIGHbhdwSANVpBMKAtBWoG95c05aUa2AS8G5xp9qhhfPGKTq3Z8YyzHHLnZzq6ukVW4ZLLT8aX6R1Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR04MB4214
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On 17.03.2022 12:06, Tamas K Lengyel wrote:
-> Another question I would be interested to hear from the maintainers is in
-> regards to the hvm context compat macros. Right now they differentiate
-> between hvm hw cpu struct versions based on size. So since this patch
-> doesn't change the size how is that supposed to work? Or if there are more
-> then two versions of the struct? The compat version never changes?
+For livepatching, we need to look at a potentially clobbered function and
+determine whether it used to have an ENDBR64 instruction.
 
-struct hvm_hw_cpu_compat is indeed not meant to ever change. It needed
-introducing because the msr_tsc_aux field was added in the middle of
-the struct, instead of at the end. Going forward, as was done with the
-"flags" field already, additions should only be at the end. Exceptions
-are when padding fields are assigned a purpose (like you do), which is
-why they need checking that they're zero when they're introduced.
+Use a non-default 4-byte P6 long nop, not emitted by toolchains, and extend
+check-endbr.sh to look for it.  The same logic can check for the absence of
+any endbr32 instructions, so include a check for those too.
 
-Jan
+The choice of nop has some complicated consequences.  nopw (%rax) has a ModRM
+byte of 0, which the Bourne compatible shells unconditionally strip from
+parameters, meaning that we can't pass it to `grep -aob`.
+
+Therefore, use nopw (%rcx) so the ModRM byte becomes 1.
+
+This then demonstrates another bug.  Under perl regexes, \1 thru \9 are
+subpattern matches, and not octal escapes, while the behaviour of \10 and
+higher depend on the number of capture groups.  Switch the `grep -P` runes to
+use hex escapes instead, which are unambiguous
+
+The build time check then requires that the endbr64 poison have the same
+treatment as endbr64 to avoid placing the byte pattern in immediate operands.
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Bjoern Doebel <doebel@amazon.de>
+CC: Michael Kurth <mku@amazon.de>
+CC: Martin Pohlack <mpohlack@amazon.de>
+
+v2:
+ * Check for the poison byte pattern in check-endbr.sh
+ * Use nopw (%rcx) to work around shell NUL (mis)features
+ * Use hex escapes to work around Perl subpattern matches
+v3:
+ * Tweak wording about perl regex
+ * Check for endbr32 as well
+---
+ xen/arch/x86/alternative.c       |  2 +-
+ xen/arch/x86/include/asm/endbr.h | 26 ++++++++++++++++++++++++++
+ xen/tools/check-endbr.sh         | 18 +++++++++++++-----
+ 3 files changed, 40 insertions(+), 6 deletions(-)
+
+diff --git a/xen/arch/x86/alternative.c b/xen/arch/x86/alternative.c
+index d41eeef1bcaf..0c6fc7b4fb0c 100644
+--- a/xen/arch/x86/alternative.c
++++ b/xen/arch/x86/alternative.c
+@@ -362,7 +362,7 @@ static void init_or_livepatch _apply_alternatives(struct alt_instr *start,
+             if ( !is_kernel_text(ptr) || !is_endbr64(ptr) )
+                 continue;
+ 
+-            add_nops(ptr, ENDBR64_LEN);
++            place_endbr64_poison(ptr);
+             clobbered++;
+         }
+ 
+diff --git a/xen/arch/x86/include/asm/endbr.h b/xen/arch/x86/include/asm/endbr.h
+index 6090afeb0bd8..d946fac13130 100644
+--- a/xen/arch/x86/include/asm/endbr.h
++++ b/xen/arch/x86/include/asm/endbr.h
+@@ -52,4 +52,30 @@ static inline void place_endbr64(void *ptr)
+     *(uint32_t *)ptr = gen_endbr64();
+ }
+ 
++/*
++ * After clobbering ENDBR64, we may need to confirm that the site used to
++ * contain an ENDBR64 instruction.  Use an encoding which isn't the default
++ * P6_NOP4.  Specifically, nopw (%rcx)
++ */
++static inline uint32_t __attribute_const__ gen_endbr64_poison(void)
++{
++    uint32_t res;
++
++    asm ( "mov $~0x011f0f66, %[res]\n\t"
++          "not %[res]\n\t"
++          : [res] "=&r" (res) );
++
++    return res;
++}
++
++static inline bool is_endbr64_poison(const void *ptr)
++{
++    return *(const uint32_t *)ptr == gen_endbr64_poison();
++}
++
++static inline void place_endbr64_poison(void *ptr)
++{
++    *(uint32_t *)ptr = gen_endbr64_poison();
++}
++
+ #endif /* XEN_ASM_ENDBR_H */
+diff --git a/xen/tools/check-endbr.sh b/xen/tools/check-endbr.sh
+index 9799c451a18d..641a2342199e 100755
+--- a/xen/tools/check-endbr.sh
++++ b/xen/tools/check-endbr.sh
+@@ -27,7 +27,7 @@ echo "X" | grep -aob "X" -q 2>/dev/null ||
+ # Check whether grep supports Perl regexps. Older GNU grep doesn't reliably
+ # find binary patterns otherwise.
+ perl_re=true
+-echo "X" | grep -aobP "\130" -q 2>/dev/null || perl_re=false
++echo "X" | grep -aobP "\x58" -q 2>/dev/null || perl_re=false
+ 
+ #
+ # First, look for all the valid endbr64 instructions.
+@@ -45,13 +45,15 @@ echo "X" | grep -aobP "\130" -q 2>/dev/null || perl_re=false
+ ${OBJDUMP} -j .text $1 -d -w | grep '	endbr64 *$' | cut -f 1 -d ':' > $VALID &
+ 
+ #
+-# Second, look for any endbr64 byte sequence
++# Second, look for all endbr64, endbr32 and nop poison byte sequences
+ # This has a couple of complications:
+ #
+ # 1) Grep binary search isn't VMA aware.  Copy .text out as binary, causing
+ #    the grep offset to be from the start of .text.
+ #
+ # 2) dash's printf doesn't understand hex escapes, hence the use of octal.
++#    `grep -P` on the other hand can has various ambiguities with octal-like
++#    escapes, so use hex escapes instead which are unambiguous.
+ #
+ # 3) AWK can't add 64bit integers, because internally all numbers are doubles.
+ #    When the upper bits are set, the exponents worth of precision is lost in
+@@ -65,11 +67,17 @@ eval $(${OBJDUMP} -j .text $1 -h |
+     awk '$2 == ".text" {printf "vma_hi=%s\nvma_lo=%s\n", substr($4, 1, 8), substr($4, 9, 16)}')
+ 
+ ${OBJCOPY} -j .text $1 -O binary $TEXT_BIN
++
++# instruction:    hex:           oct:
++# endbr64         f3 0f 1e fa    363 017 036 372
++# endbr32         f3 0f 1e fb    363 017 036 373
++# nopw (%rcx)     66 0f 1f 01    146 017 037 001
+ if $perl_re
+ then
+-    LC_ALL=C grep -aobP '\363\17\36\372' $TEXT_BIN
++    LC_ALL=C grep -aobP '\xf3\x0f\x1e(\xfa|\xfb)|\x66\x0f\x1f\x01' $TEXT_BIN
+ else
+-    grep -aob "$(printf '\363\17\36\372')" $TEXT_BIN
++    grep -aob -e "$(printf '\363\17\36\372')" -e "$(printf '\363\17\36\373')" \
++         -e "$(printf '\146\17\37\1')" $TEXT_BIN
+ fi | awk -F':' '{printf "%s%x\n", "'$vma_hi'", int(0x'$vma_lo') + $1}' > $ALL
+ 
+ # Wait for $VALID to become complete
+@@ -90,6 +98,6 @@ nr_bad=$(wc -l < $BAD)
+ [ "$nr_bad" -eq 0 ] && exit 0
+ 
+ # Failure
+-echo "$MSG_PFX Fail: Found ${nr_bad} embedded endbr64 instructions" >&2
++echo "$MSG_PFX Fail: Found ${nr_bad} endb32, nop poison, or embedded endbr64 instructions" >&2
+ ${ADDR2LINE} -afip -e $1 < $BAD >&2
+ exit 1
+-- 
+2.11.0
 
 
