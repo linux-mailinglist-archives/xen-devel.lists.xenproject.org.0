@@ -2,29 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 691F04DCA54
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Mar 2022 16:48:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.291655.495169 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CF8D4DCA97
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Mar 2022 16:58:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.291658.495181 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nUsLa-0003Ew-M8; Thu, 17 Mar 2022 15:47:30 +0000
+	id 1nUsVe-0004kI-Mf; Thu, 17 Mar 2022 15:57:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 291655.495169; Thu, 17 Mar 2022 15:47:30 +0000
+Received: by outflank-mailman (output) from mailman id 291658.495181; Thu, 17 Mar 2022 15:57:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nUsLa-0003Bo-JA; Thu, 17 Mar 2022 15:47:30 +0000
-Received: by outflank-mailman (input) for mailman id 291655;
- Thu, 17 Mar 2022 15:47:29 +0000
+	id 1nUsVe-0004hP-IL; Thu, 17 Mar 2022 15:57:54 +0000
+Received: by outflank-mailman (input) for mailman id 291658;
+ Thu, 17 Mar 2022 15:57:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=H+7p=T4=citrix.com=prvs=06815c04c=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nUsLZ-0003Bi-3y
- for xen-devel@lists.xenproject.org; Thu, 17 Mar 2022 15:47:29 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8a9ead32-a609-11ec-8eba-a37418f5ba1a;
- Thu, 17 Mar 2022 16:47:27 +0100 (CET)
+ <SRS0=nwNI=T4=intel.com=tamas.lengyel@srs-se1.protection.inumbo.net>)
+ id 1nUsVc-0004hJ-9B
+ for xen-devel@lists.xenproject.org; Thu, 17 Mar 2022 15:57:52 +0000
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fcc976ac-a60a-11ec-8eba-a37418f5ba1a;
+ Thu, 17 Mar 2022 16:57:48 +0100 (CET)
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2022 08:57:45 -0700
+Received: from angulozx-mobl1.amr.corp.intel.com (HELO localhost.localdomain)
+ ([10.212.40.101])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Mar 2022 08:57:44 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,143 +43,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a9ead32-a609-11ec-8eba-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1647532047;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=YHxqwB0TNJt0ULuF4PH2AsuTX0xKPNKDZtzyIldLM/w=;
-  b=SpGyK5EMzhPTlOEBvi5zoaHCxAt76Q+qLqn9ozxBb7viBwzo/5Mzj2Uh
-   ysgoPmcHwU6b6tCa01B66aHqCKizZ8879xal5CrIe+/ETORvfHG9foAgs
-   KGLeo1xYBou/GgM8HB/uuG9v32LqunmxClJwltSetnUwlUe2+aPXRbJXJ
-   s=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 68887181
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:zFdO0KApYoE6zxVW/9/jw5YqxClBgxIJ4kV8jS/XYbTApDtw1GRVz
- DQbXmCEaKmPNzb1L9F/Odvj9BkD7ZLTx941QQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
- xA2M4GYRCwMZiaA4E/raNANlFEkvU2ybuOU5NXsZ2YgHWeIdA970Ug5w7Vg3dYy6TSEK1jlV
- e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
- I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPghk
- M99l4TtcDwqM/aLhfQkfTcfOTxxaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
- 6ZCcXZUM07F17neLLGTE4GAguwqKtXrO4UO/Glt1zjDAd4tQIzZQrWM7thdtNs1rp4eTaaBP
- ppAAdZpRBD9bD0SG1BKNLw7kqCNmD7lViZDsHvA8MLb5ECMlVcsgdABKuH9ZNuOQslEm1eCk
- WjP9W/5HxIyOcSWzHyO9XfEruXChz/hUYQeUrix7Od3gUa7z3YWThYRUDOTo/ajjVWlc8lCM
- EFS8S0rxYAt8GS7Q9+7WAe3yFaUsxhZV9dOHukS7ACW1rGS8wufHnIDTDNKdJohrsBebTIsy
- xmXntDzDDlHoLyRSHSNsLyTqFuaOzURLGIETT8JS00C+daLiJookhvFQ9JnEai0pt74Azf9x
- 3aNtidWulkIpZdVjePhpwmB2m/y4MiSJuIo2unJdjL99DNbfNOcXI+lsh/G/c9uAsGzU1bU6
- RDohPOixOwJCJiMkgmET+MMAKyl6p65DdHMvbJ8N8J/rmrwohZPaagVuWgjfxkxbq7obBezO
- CfuVRVtCIi/1ZdARYt+eMqPBssj1sAM/vy1B6mPPrKijnWcHTJrHR2Ch2bNhwgBc2B2yMnT3
- Kt3l+72UR727ow9kFKLqx81i+ND+8zH7Tq7qWrH5xqmy6GCQ3WeVK0INlCDBshgsv/b/FiKq
- owBb5TXo/m6bAEYSnOLmWL0BQpWRUXX+Lis85AHHgJ9ClcO9J4d5w/5nup6Jt0Nc1V9nebU5
- HCtMnK0O3Kk7UAr3T6iMyg5AJu2BM4XhStiYUQEYAb5s1B+MN3HxPpOKPMKkUwPqbULIQhcF
- KJeJa1tw51nF1z6xtjqRcKk/dI4K0jz217m0ujMSGFXQqOMjjfhorfMFjYDPgFUZsZrnaPSe
- 4Gd6z4=
-IronPort-HdrOrdr: A9a23:NVnzqqgJP0ZFap4fr2iyU7mKqXBQXtoji2hC6mlwRA09TySZ//
- rBoB0+726RtN9xYgBEpTnuAsS9qB/nmaKdpLNhWotKPzOW2ldATrsD0WKK+VSJcEfDH6xmpM
- RdmsBFebvN5DNB7PoSjjPWL+od
-X-IronPort-AV: E=Sophos;i="5.90,188,1643691600"; 
-   d="scan'208";a="68887181"
-Date: Thu, 17 Mar 2022 15:47:21 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Vikram Garhwal <fnu.vikram@xilinx.com>
-CC: <xen-devel@lists.xenproject.org>, <sstabellini@kernel.org>,
-	<julien@xen.org>, <bertrand.marquis@arm.com>, <volodymyr_babchuk@epam.com>,
-	Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>
-Subject: Re: [XEN][RFC PATCH v3 12/14] tools/libs/ctrl: Implement new xc
- interfaces for dt overlay
-Message-ID: <YjNYCeaULixDb8WZ@perard.uk.xensource.com>
-References: <20220308194704.14061-1-fnu.vikram@xilinx.com>
- <20220308194704.14061-13-fnu.vikram@xilinx.com>
+X-Inumbo-ID: fcc976ac-a60a-11ec-8eba-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1647532669; x=1679068669;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=OlRri1Jcoeqye6ORFNOitHAtNFXCyyPZ1eDAd21F+78=;
+  b=OUeWtMcMHHnwrFrOZQjJ9oLqCRdqZj4MnrrGxw4eB1ESENE+gEMlOXDw
+   B9yWG4gBhR37JKtCsBl59FCiZ7/m3iT+CvS1MjoiBtcVhbwnYDdeSESsr
+   sQTQ7W/b4kveUIMxaS9+A+5Q4vhHjulqYSh9J64hFq0V8LPP3cPS824ti
+   Sgcvkyx1WqnbJqOkB4zXJFZejjfC3ZDRsFuDUcbR6hj8RQ6KQAIx8pFsI
+   qwR8jOvZPVgzJiidBYzMzgLfSA1WUIKx+b2EO9y0/anVTbFEkoJ9pksI4
+   wQoAMoX8f6G7hJAA1WEmjFAUW4gpGt4xvqxX8LuP2D16XktZk/Wt0UxyQ
+   A==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10289"; a="244353101"
+X-IronPort-AV: E=Sophos;i="5.90,188,1643702400"; 
+   d="scan'208";a="244353101"
+X-IronPort-AV: E=Sophos;i="5.90,188,1643702400"; 
+   d="scan'208";a="635406227"
+From: Tamas K Lengyel <tamas.lengyel@intel.com>
+To: xen-devel@lists.xenproject.org
+Cc: Tamas K Lengyel <tamas.lengyel@intel.com>,
+	Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v2] x86/vmx: save guest non-register state in hvm_hw_cpu
+Date: Thu, 17 Mar 2022 11:57:35 -0400
+Message-Id: <e79bd13acfd73c105ee1399295c99cec153258c2.1647532323.git.tamas.lengyel@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20220308194704.14061-13-fnu.vikram@xilinx.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Vikram,
+During VM forking and resetting a failed vmentry has been observed due
+to the guest non-register state going out-of-sync with the guest register
+state. For example, a VM fork reset right after a STI instruction can trigger
+the failed entry. This is due to the guest non-register state not being saved
+from the parent VM, thus the reset operation only copies the register state.
 
-On Tue, Mar 08, 2022 at 11:47:02AM -0800, Vikram Garhwal wrote:
-> diff --git a/tools/libs/ctrl/xc_overlay.c b/tools/libs/ctrl/xc_overlay.c
-> new file mode 100644
-> index 0000000000..8fe780d75a
-> --- /dev/null
-> +++ b/tools/libs/ctrl/xc_overlay.c
+Fix this by including the guest non-register state in hvm_hw_cpu so that when
+its copied from the parent VM the vCPU state remains in sync.
 
-Could rename this new file? I don't think using "overlay" alone is going
-to be helpful to figure out what it is about. Renaming it
-"xc_dt_overlay.c" would already be better.
+SVM is not currently wired-in as VM forking is VMX only and saving non-register
+state during normal save/restore/migration operation hasn't been needed.
 
-> @@ -0,0 +1,51 @@
-> +/*
-> + *
-> + * Overlay control functions.
+Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+---
+v2: Include all CPU non-register state and fold the ops into vmx_vmcs_save &
+    vmx_vmcs_restore.
+Note: no sanity checking is performed on the fields to reduce the cycles during
+      fuzzing.
+---
+ xen/arch/x86/hvm/vmx/vmx.c             | 13 ++++++++++++-
+ xen/include/public/arch-x86/hvm/save.h |  6 ++++++
+ 2 files changed, 18 insertions(+), 1 deletion(-)
 
-Maybe "Device Tree overlay functions" would be better. I'm not sure that
-"control" is useful in the file description.
-
-> + * Copyright (C) 2021 Xilinx Inc.
-> + * Author Vikram Garhwal <fnu.vikram@xilinx.com>
-> + *
-> + * This library is free software; you can redistribute it and/or
-> + * modify it under the terms of the GNU Lesser General Public
-> + * License as published by the Free Software Foundation;
-> + * version 2.1 of the License.
-> + *
-> + * This library is distributed in the hope that it will be useful,
-> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-> + * Lesser General Public License for more details.
-> + *
-> + * You should have received a copy of the GNU Lesser General Public
-> + * License along with this library; If not, see <http://www.gnu.org/licenses/>.
-> + */
-> +
-> +#include "xc_bitops.h"
-> +#include "xc_private.h"
-> +#include <xen/hvm/hvm_op.h>
-> +#include <libfdt.h>
-> +
-> +int xc_dt_overlay(xc_interface *xch, void *overlay_fdt, int overlay_fdt_size,
-> +                  uint8_t overlay_op)
-
-Shouldn't the function prototype match the types from the sysctl
-structure? There is "int" vs "uint32_t" for "overlay_fdt_size".
-
-> +{
-> +    int err;
-> +    DECLARE_SYSCTL;
-> +
-> +    DECLARE_HYPERCALL_BOUNCE(overlay_fdt, overlay_fdt_size,
-> +                        XC_HYPERCALL_BUFFER_BOUNCE_IN);
-> +
-> +    if ( (err = xc_hypercall_bounce_pre(xch, overlay_fdt)) )
-> +        goto err;
-> +
-> +    sysctl.cmd = XEN_SYSCTL_dt_overlay;
-> +    sysctl.u.dt_overlay.overlay_op = overlay_op;
-> +    sysctl.u.dt_overlay.overlay_fdt_size = overlay_fdt_size;
-> +
-> +    set_xen_guest_handle(sysctl.u.dt_overlay.overlay_fdt, overlay_fdt);
-> +
-> +    if ( (err = do_sysctl(xch, &sysctl)) != 0 )
-> +        PERROR("%s failed\n", __func__);
-
-The \n should be remove from the message. perror already adds a newline,
-and it also adds information about the error after the message so a
-newline in the middle will make it harder to read the error.
-
-> +
-> +err:
-> +    xc_hypercall_bounce_post(xch, overlay_fdt);
-> +
-> +    return err;
-> +}
-
-Thanks,
-
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index c075370f64..4d4dcc4b70 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -713,7 +713,7 @@ static void vmx_restore_dr(struct vcpu *v)
+ 
+ static void vmx_vmcs_save(struct vcpu *v, struct hvm_hw_cpu *c)
+ {
+-    unsigned long ev;
++    unsigned long ev, activity_state, intr_state;
+ 
+     vmx_vmcs_enter(v);
+ 
+@@ -721,6 +721,10 @@ static void vmx_vmcs_save(struct vcpu *v, struct hvm_hw_cpu *c)
+     __vmread(GUEST_SYSENTER_ESP, &c->sysenter_esp);
+     __vmread(GUEST_SYSENTER_EIP, &c->sysenter_eip);
+ 
++    __vmread(GUEST_ACTIVITY_STATE, &activity_state);
++    __vmread(GUEST_INTERRUPTIBILITY_INFO, &intr_state);
++    __vmread(GUEST_PENDING_DBG_EXCEPTIONS, &c->pending_dbg);
++
+     __vmread(VM_ENTRY_INTR_INFO, &ev);
+     if ( (ev & INTR_INFO_VALID_MASK) &&
+          hvm_event_needs_reinjection(MASK_EXTR(ev, INTR_INFO_INTR_TYPE_MASK),
+@@ -732,6 +736,9 @@ static void vmx_vmcs_save(struct vcpu *v, struct hvm_hw_cpu *c)
+     }
+ 
+     vmx_vmcs_exit(v);
++
++    c->activity_state = activity_state;
++    c->interruptibility_state = intr_state;
+ }
+ 
+ static int vmx_restore_cr0_cr3(
+@@ -807,6 +814,10 @@ static int vmx_vmcs_restore(struct vcpu *v, struct hvm_hw_cpu *c)
+ 
+     __vmwrite(GUEST_DR7, c->dr7);
+ 
++    __vmwrite(GUEST_ACTIVITY_STATE, c->activity_state);
++    __vmwrite(GUEST_INTERRUPTIBILITY_INFO, c->interruptibility_state);
++    __vmwrite(GUEST_PENDING_DBG_EXCEPTIONS, c->pending_dbg);
++
+     if ( c->pending_valid &&
+          hvm_event_needs_reinjection(c->pending_type, c->pending_vector) )
+     {
+diff --git a/xen/include/public/arch-x86/hvm/save.h b/xen/include/public/arch-x86/hvm/save.h
+index 773a380bc2..eb72e44968 100644
+--- a/xen/include/public/arch-x86/hvm/save.h
++++ b/xen/include/public/arch-x86/hvm/save.h
+@@ -52,6 +52,7 @@ DECLARE_HVM_SAVE_TYPE(HEADER, 1, struct hvm_save_header);
+  * Compat:
+  *     - Pre-3.4 didn't have msr_tsc_aux
+  *     - Pre-4.7 didn't have fpu_initialised
++ *     - Pre-4.17 didn't have non-register state
+  */
+ 
+ struct hvm_hw_cpu {
+@@ -166,6 +167,11 @@ struct hvm_hw_cpu {
+ #define XEN_X86_FPU_INITIALISED         (1U<<_XEN_X86_FPU_INITIALISED)
+     uint32_t flags;
+     uint32_t pad0;
++
++    /* non-register state */
++    uint32_t activity_state;
++    uint32_t interruptibility_state;
++    uint64_t pending_dbg;
+ };
+ 
+ struct hvm_hw_cpu_compat {
 -- 
-Anthony PERARD
+2.25.1
+
 
