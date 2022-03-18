@@ -2,36 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C81E4DD665
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 09:46:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.291944.495842 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 692D24DD678
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 09:50:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.291950.495852 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nV8FR-00032X-SB; Fri, 18 Mar 2022 08:46:13 +0000
+	id 1nV8J8-00043B-Bu; Fri, 18 Mar 2022 08:50:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 291944.495842; Fri, 18 Mar 2022 08:46:13 +0000
+Received: by outflank-mailman (output) from mailman id 291950.495852; Fri, 18 Mar 2022 08:50:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nV8FR-00030c-Nl; Fri, 18 Mar 2022 08:46:13 +0000
-Received: by outflank-mailman (input) for mailman id 291944;
- Fri, 18 Mar 2022 08:46:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XSx1=T5=kernel.org=sj@srs-se1.protection.inumbo.net>)
- id 1nV8FQ-00030A-28
- for xen-devel@lists.xenproject.org; Fri, 18 Mar 2022 08:46:12 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d897220b-a697-11ec-8eba-a37418f5ba1a;
- Fri, 18 Mar 2022 09:46:04 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 3FA5AB8219B;
- Fri, 18 Mar 2022 08:46:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80E1CC340E8;
- Fri, 18 Mar 2022 08:46:02 +0000 (UTC)
+	id 1nV8J8-0003ys-8R; Fri, 18 Mar 2022 08:50:02 +0000
+Received: by outflank-mailman (input) for mailman id 291950;
+ Fri, 18 Mar 2022 08:50:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=eTtb=T5=citrix.com=prvs=069af078f=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1nV8J6-0003ya-4j
+ for xen-devel@lists.xenproject.org; Fri, 18 Mar 2022 08:50:00 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 62f3a9f2-a698-11ec-853c-5f4723681683;
+ Fri, 18 Mar 2022 09:49:58 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,88 +36,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d897220b-a697-11ec-8eba-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1647593163;
-	bh=cWhrXvFTgU1ErDA0SpUZ0GqSHdi4e6cPHYhyBk/nnAk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:From;
-	b=HkXAvEqfjW4y0Y9d10Fm4nJh6Pv3kZ8onmNVtoAG8zSMpgyvzOt6E7Fgs5YxQJqS3
-	 0XtvCnUHrkgMONiKPca6DtFwKeRQakIjCyd1GCsuegsW7PQ+M8SBPEyL+AkoJPuQdH
-	 B6YmSxSv7sjvV7DEAuFOYNK/MG6S4OcPZYZd0d+nTonhf+p6R9tdbWJjqXxOkmQ2iq
-	 Ygzrb8BI2DpKiEgNQIRbrKdizN5pJdWX5jomUS+McL2C57j5YsMTjJM2x+9611/8cR
-	 FyE7OYSlDsizFzz48RExcbrO2SOJvU/3HU2d1C0LWGQFzwqn7px0SCEcYSUJ+L6toI
-	 9TaFGP1cKtlGA==
-From: sj@kernel.org
-To: SeongJae Park <sj@kernel.org>
-Cc: roger.pau@citrix.com,
-	jgross@suse.com,
-	mheyne@amazon.de,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] xen-blk{back,front}: Update contact points for buffer_squeeze_duration_ms and feature_persistent
-Date: Fri, 18 Mar 2022 08:46:00 +0000
-Message-Id: <20220318084600.26243-1-sj@kernel.org>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220301144628.2858-1-sj@kernel.org>
+X-Inumbo-ID: 62f3a9f2-a698-11ec-853c-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1647593398;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=y3TVysCnTsChceQa/duCopfCWNMfkj8gGZm1vdYlZRM=;
+  b=iiCn74rLgZBpQXY2zFN/2EpoECPupvJfuZJ2LBT9+gvgwO1iILZ8Ry/5
+   hm9kfus+b69gIc+nIOv7VnQKw+B+trPKtk859Qz910eRRCFyVFzqQHADb
+   B+nIOFKXJwcM970HsT3UC6eWN92W0rRj2XyQ9trt40/nLBhWul98xi1Mg
+   o=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+X-SBRS: 5.1
+X-MesageID: 66983729
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:QMVsQqp3zLvo9N+eZsVRmCq0ZzleBmLeZRIvgKrLsJaIsI4StFCzt
+ garIBmGOPqJY2qnf9t2PI22px4Pv5SEz94wSgFvqC9mFS0Wp5uZCYyVIHmrMnLJJKUvbq7GA
+ +byyDXkBJppJpMJjk71atANlVEliefQAOCU5NfsYkidfyc9IMsaoU8lyrZRbrJA24DjWVvW4
+ IOq+qUzBXf+s9JKGjNMg068gEsHUMTa4Fv0aXRnOJinFHeH/5UkJMp3yZOZdhMUcaENdgKOf
+ M7RzanRw4/s10xF5uVJMFrMWhZirrb6ZWBig5fNMkSoqkAqSicais7XOBeAAKv+Zvrgc91Zk
+ b1wWZKMpQgBHvyPx8Q8Xz9hMCw5G6Jf/aTfEGGzrpnGp6HGWyOEL/RGCUg3OcsT+/ptAHEI/
+ vsdQNwPRknd3aTsmuv9E7QywJR4RCXoFNp3VnVI1zbWAOxgWZnea67L+cVZzHE7gcUm8fP2O
+ ZRIOWEwNkWojxtnZ2Y8MM0Mp9WToHzUeSVx9nuX+ZEQ2j2GpOB2+Oe0a4eEEjCQfu1Fk0Ddq
+ m/Y8mDRBhABKMfZ2TeD6mirhOLEgWX8Qo16PLm58ON6xV6e3GoeDDUIWlah5/q0kEizX5RYM
+ UN80i8uoLk0+WSiS9DvWBv+rHPslgUec9ldCes37EeK0KW8ywSWHG8fVRZadccr8sQxQFQXO
+ kShxo2zQ2Y16fvMFCzbpuz8QS6O1TY9DT5BOg8lQS08wNSkho4qiwnXf89vD/vg5jHqIg3Yz
+ zePpSk4orwci88Xyqm2lWz6byKQSovhFVBsuFiONo6xxkYgPdP+OdT0gbTOxawYRLt1WGVtq
+ 5TtdyK2yOkVRa+AmyWWKAnmNOH4vq3VWNEwbLMGInXAy9hP0yP7FWyzyGsnTKuMDiriUWWxC
+ KM0kVkNjKK/xFPwMcdKj3uZUqzGN5TIG9X/TezzZdFTeJV3fwLv1HgwORHNgTm0yxBxyfhX1
+ XKnnSCEVypy5UNPlmfeegvg+eVzmnBWKZ37GPgXMChLIZLBPSXIGN/pwXOFb/wj7bPsnekm2
+ 403Cid+8D0GCLeWSnCOqeY7dAlWRVBmVcGeg5EGLYarf1s5cFzN/teMmNvNjaQ+xP8L/goJl
+ 1ngMnJlJK3X3iSWd1/VNig9NNsCn/9X9BoGAMDlBn7xs1ALaoez9qYPMZwxeLgs7ut4yvBoC
+ fICfq297j5nGlwrJxx1gUHBkbFf
+IronPort-HdrOrdr: A9a23:Gmu2Oavjxxgkli607VT3NdNM7skCkoMji2hC6mlwRA09TyXGra
+ 6TdaUguiMc1gx8ZJhBo7C90KnpewK7yXdQ2/htAV7EZnibhILIFvAZ0WKG+Vzd8kLFh4tgPM
+ tbAsxD4ZjLfCdHZKXBkXmF+rQbsaG6GcmT7I+0pRodLnAJV0gj1XYDNu/yKDwGeOAsP+tBKH
+ Pz3Lshm9L2Ek5nEPhTS0N1FNTrlpnurtbLcBQGDxko5E2nii6p0qfzF1y90g0FWz1C7L8++S
+ yd+jaJq5mLgrWe8FvxxmXT55NZlJ/IzcZCPtWFjowwJi/3ggilSYx9U/mpvSwzosuo9FE2+e
+ O86SsIDoBW0Tf8b2u1qRzi103J1ysv0WbrzRuijX7qsaXCNUQHIvsEobgcXgrS6kImst05+r
+ lMxXilu51eCg6FtDjh5vDTPisa2HackD4Hq6o+nnZfWYwRZPt6tooE5n5YF58GAWbT9J0nKu
+ 9zF8vRjcwmPm9yV0qp/lWH/ebcHUjaRny9Mwo/U42uonRrdUlCvgolLJd1pAZEyHo/I6M0kN
+ gsfJ4Y0I2mdfVmH56VNN1xMvdfNVa9NC4kEFjiaGgPR5t3c04klfbMkcEIDaeRCds18Kc=
+X-IronPort-AV: E=Sophos;i="5.90,191,1643691600"; 
+   d="scan'208";a="66983729"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VveOmO/KJE/L3E3Vj+qrzBpv2ZA31dxoMmJZDsTNF5ggYa8J/+mNAm8A5a/icLFhVDNA1RadPwr6dMFuh9YruiqQmQKXtQvgQD7FGuFXKkXvMu8P0loDRSKc20gHFCDA/FhxzvRibjk3C2TT9y3IdZv++fpUViHc+TlRz/w2+W4R43PDW7ELtZalcRH5UrYqvv8ofO/aOTR1lpDiJkCe10IwZqGipv99fHHSNuPiTg9qUhfGOyDweX1U/ufpk2Eh+bRQnQplGu6BjElXN6FGV4bopRYnfoJFz7K6AzFKEa6OzQeh7Qz6WsXzA8WPaOdu0vmvqmPyir0nAAfFakljEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rbxjN91XX0D2KTVVL4qj+OaDO2AHs/sSAc4R1mDZ4AA=;
+ b=PYFP6gO26afJwLAmsNtz5gV68V3nOa0n6e1m0ZJGF3YMyYUMU+VCUsmYe79zrtFuFNQiAwednNu1YnJLG1JI1EUvbxQ0XqA7DC6Gp1Frmqo+Y/yxJ31i/gxTmTV958c3wZ/N0iraJR2Kp1CgILPMu8ztihgx+LvhResBNUktZzUp/9F7XYSVDO6S2D4sMK3fMBY+1onbbMMiHoTRNkZHzvEjRF6uKwAXQzQ5s36cd9EXgtoJtZyIcI0nPkZMeKSGS/PUc1Pb5Tn742ljTNWlydP3z8O8oeUJBn5E6XHdPxkYQPjCNnMiu39ZYMrWkCWZaQym0znohVpdDPZRjCajew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rbxjN91XX0D2KTVVL4qj+OaDO2AHs/sSAc4R1mDZ4AA=;
+ b=ejDem0m6v6eOeSarFBuOGfyvLOJ1yMnw7M587HbR0eayUyZo3mpMeZCzbPL6tuTVmzXT1CAcuw/upH+mlV3LDTAJ2u5s9KjNbaiBCuSMyjVLhQxyd3zXGW/Mu1Y/tSUKwWhfSRNFQb9z46rQOrhjR71anicbY3bfgArT77LBB3U=
+Date: Fri, 18 Mar 2022 09:49:43 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: <sj@kernel.org>
+CC: <jgross@suse.com>, <mheyne@amazon.de>, <xen-devel@lists.xenproject.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] xen-blk{back,front}: Update contact points for
+ buffer_squeeze_duration_ms and feature_persistent
+Message-ID: <YjRHp8E6Ehm24QgC@Air-de-Roger>
+References: <20220301144628.2858-1-sj@kernel.org>
+ <20220318084600.26243-1-sj@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20220318084600.26243-1-sj@kernel.org>
+X-ClientProxiedBy: LO4P123CA0129.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:193::8) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 9649d89c-4118-49a6-896a-08da08bc4297
+X-MS-TrafficTypeDiagnostic: DM6PR03MB3593:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR03MB35935EB16FA54B8FED5756908F139@DM6PR03MB3593.namprd03.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: btz2+wBI/fFOlUiKIkmBfJ8KmlhTlUUVufWDRdmSiidmlm+SBopUvYjy2TmuEEpjjyIS+cinGOCior5LdWVpEsEPYmZ7idYf1HOqlLqrD4TCYrbrqdnFNndiJeq+TEfAEX+4i+ob64/qKYawmJHOaGU4CPQccMB0tfUOcv2Rvo/UWTCM/3PAtsxOc+sCzDFBzYwRpb5kIn1qFg+uL+oSQtqTocgpybUhSUXKBbezCiiRLqEv8GCeJngQnQpa7tm9vgGd3/eJrwHvMwMtJ2UwYJvHLpRCZ7zhW0Y3Y3zVPjQ7i0BfYVb39XJl+RMxfwtOEAOg33JQdw6vkQX2eureCC+irGOGjieTQOKEbZWiiyixE1/pWyD6t7xUj6TrnJVh2DbRhsoTHjy077QwkVR3g+WSFtDUdU8fj7q3UMK4JaWkOnr3S8JUkCMsGfBHge5wYvcnkS5kDCdoNXXHBS3x8OMdeACE+qfP/xeLO3zfdGCIUB3//+j0927WC4xB5bOJ6or1P6uqNA6e97+/rTV+ye9F/8Rm6+dwsiLK8Sn4vhSvYdDXLsQeDT7QkNQBKkZ0jmk74R8+K4ePd4pd/hr3rmAOWaBoPkjIMQGIFfZZuFT4RyPtI5dFVVGHGahUKxlTqA/Le4hgTeSJr3SaREmdyw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(7916004)(366004)(5660300002)(38100700002)(86362001)(8676002)(85182001)(15650500001)(4326008)(66556008)(9686003)(6512007)(6916009)(66946007)(316002)(2906002)(83380400001)(6666004)(508600001)(6506007)(8936002)(66476007)(33716001)(26005)(186003)(82960400001)(6486002)(4744005);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MU4zZjZHazhwRUowR1dBcFFVS1YzUGNncU9TcGVGaXJYWlRxUlJKTVRsNzdr?=
+ =?utf-8?B?cmFoeTk5V2NpeFNSUVJDY2lMOGFJd0czb1o4dzZRd2E0bndIZVdrUGEwQU9W?=
+ =?utf-8?B?eWxkY3ZlNTNDSWtqVTIzRlpaYXlzcThkSW9jZCtxMXZKaHVGeDhDdzhPQm1P?=
+ =?utf-8?B?ZFVJbWtqYjJmdFluc0Q4elFMWlJ2Ukp3c01WcCtrbGh2QXF3SE8wL3o4cFdF?=
+ =?utf-8?B?ZExKaGJyWXROOVdkeE54QzZSOW9PMzVxNU11azhTRm05Z3pmUWpkdGFDZXpR?=
+ =?utf-8?B?WC9ITFBMa0g0YllxNk91bG9MZkZqVzY1MFZ1ZVFhUWlsSVNkWDJPdkI2blgz?=
+ =?utf-8?B?NHMrTW5zMDd1N3dkQTBzakFpaXhIUW1SOGZFM3lMRk1MY0RPQ3RLNEMvdmlx?=
+ =?utf-8?B?VERWekpMQUxBZjMwcUY0NzFxWmJKc0tuSmYwd2pMM0V1S1FIY1NwUVBLR2Y5?=
+ =?utf-8?B?eVpUdVB0a1ZsUHhqU0JBUGJwYUR6ZlZCU1p3aklkT2VBd05EVWI3cndEck5M?=
+ =?utf-8?B?MHpKOU5WaUJXLytQMVIyUlhZV1dqL3FadW1oZ0JKUGZXaUs4eXZPdnFoTThz?=
+ =?utf-8?B?Sm1qbi9vQlJzUjdBUk5tZjEvNTJQb3JLWm1QMWtHK2NSYis3OHZadW56UFla?=
+ =?utf-8?B?ajdXWVZ6QktzdEtoY2FWUy80YUlVdVh1bHZ1RlhlSC9aY3k4Nk5zK0x5VXgw?=
+ =?utf-8?B?YXdiNm9nOWQxWlpPOElpcGxiVHNoYnQxRHE5QWhTWHN2c3k4dXltNWVtdkhl?=
+ =?utf-8?B?bGNnaXFpbHJvMkN0M1JjYUd6M1lnRjZlc3BERjJrQmZldTZ4bmdrSXBURUF0?=
+ =?utf-8?B?VGxyQVR2YUcwUkkxeEl2cVVNMmVYQjFDSzhVUURjVGl5ZDJYQlNtNWNmWGlR?=
+ =?utf-8?B?WWlRVjNOYXNzaWpSRGFYQmY4ZmFhQkxIVG9FaTJxK2hIT0V2eFlyQmpwck9w?=
+ =?utf-8?B?OUpNUWpCakE4bDhqcDlaTG5KSCs2dTFCeURmQzMrWVpzWEtDb1hpQng3dXJG?=
+ =?utf-8?B?SmRNL1VpK3lRaUh4OWlyODVZS2VxOXc5Z0twNmJrYmo1N2doWEtQcWFFTjJv?=
+ =?utf-8?B?cS9FWVhmKzYyNDM4QXdHcWN1OXRrb1R6eXdidkRNb1FEWTM2SnY2c2Jmakgy?=
+ =?utf-8?B?TEd2cWIyTXlnaUxPYXFxWUJ5dFVNRUEwcHU4cytnWjZjMElpRlpjaklYSjdH?=
+ =?utf-8?B?UzFRR1JTK3FsNHB0RVFteldQZFhQczdtUzNHR3J6TVNCeFMzUW52LzZMbG15?=
+ =?utf-8?B?Y0tuQ0M0Y0JFT29BcEVzc3VTazcvOERCaiswLzc4dUIzamlkRXNNd3RGTzg2?=
+ =?utf-8?B?cTB3a3pRN25rYnhIeW1iVEdLVFRYVGdCQ0UwbUtvUnpsWnM2dVNRUUNMRzAw?=
+ =?utf-8?B?SzdSVVZBZXY0VjZRTjVRTDF4TlJaYVV3M20yb1gyWlVvMTlaVXc5RGt2c0tn?=
+ =?utf-8?B?TVNFZ3VERGpSem9CKzB5eURQNUI5SW9hdnhMY1RXUjM3REREbGtKNS9ZR0Jv?=
+ =?utf-8?B?d3l4RzRMQll2ZE9mNmFKNTVVQzJHWDB4aDRkalR6QWFraFFBSEZLN1ErcVJI?=
+ =?utf-8?B?V1NsbW40NWxSRy9COEw0RnZ2bXA0N0lTc3VXN2FQZFF6WUVzSHByUE9kWUpS?=
+ =?utf-8?B?ME9TNnNCbThKZ0dIakxaa0VIWVJQT2d5OWcrSC9NenplN0ROS3p3aFRYOTFp?=
+ =?utf-8?B?ZFVaMmRuZ2d0cnFIZ3RGd2xmZkY5elFZdWRTRVRFbHBOaVZxQi9EenQ0akps?=
+ =?utf-8?B?SlNXYzZLV1kvczZQY0ZZZ3hobkphMVN4LzJYaitwSmxpMTdPR3FMSlVyK0pC?=
+ =?utf-8?B?ekNMdklENFdQWXBzcEVENzFwL050Mno3WEZSZzJPNTlqK0xVcmRYUy9uSEtx?=
+ =?utf-8?B?Tk9IelZGNGFWVUQrWVIxUnEvTmkwRjBORUtOMGNaTkhKUGE2RzlIRjVXblJm?=
+ =?utf-8?Q?uUvlhXewm9sUF0S+MWBhriyNldYL6lyy?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9649d89c-4118-49a6-896a-08da08bc4297
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2022 08:49:49.1998
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IwO6da152Wq23fNy/wgmA+DAyBUf35et8ZvQimbHmtf1JKfc6DH74B6C6xlT9FxacKQNzZna1Ku8a1JS7PupFw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB3593
+X-OriginatorOrg: citrix.com
 
-Hi Roger and Juergen,
-
-
-May I ask your opinions to this patch, please?
-
-
-Thanks,
-SJ
-
-On Tue, 1 Mar 2022 14:46:28 +0000 SeongJae Park <sj@kernel.org> wrote:
-
-> SeongJae is currently listed as a contact point for some blk{back,front}
-> features, but he will not work for XEN for a while.  This commit
-> therefore updates the contact point to his colleague, Maximilian, who is
-> understanding the context and actively working with the features now.
+On Fri, Mar 18, 2022 at 08:46:00AM +0000, sj@kernel.org wrote:
+> Hi Roger and Juergen,
 > 
-> Signed-off-by: SeongJae Park <sj@kernel.org>
-> Signed-off-by: Maximilian Heyne <mheyne@amazon.de>
-> ---
->  Documentation/ABI/testing/sysfs-driver-xen-blkback  | 4 ++--
->  Documentation/ABI/testing/sysfs-driver-xen-blkfront | 2 +-
->  2 files changed, 3 insertions(+), 3 deletions(-)
 > 
-> diff --git a/Documentation/ABI/testing/sysfs-driver-xen-blkback b/Documentation/ABI/testing/sysfs-driver-xen-blkback
-> index a74dfe52dd76..7faf719af165 100644
-> --- a/Documentation/ABI/testing/sysfs-driver-xen-blkback
-> +++ b/Documentation/ABI/testing/sysfs-driver-xen-blkback
-> @@ -29,7 +29,7 @@ Description:
->  What:           /sys/module/xen_blkback/parameters/buffer_squeeze_duration_ms
->  Date:           December 2019
->  KernelVersion:  5.6
-> -Contact:        SeongJae Park <sj@kernel.org>
-> +Contact:        Maximilian Heyne <mheyne@amazon.de>
->  Description:
->                  When memory pressure is reported to blkback this option
->                  controls the duration in milliseconds that blkback will not
-> @@ -39,7 +39,7 @@ Description:
->  What:           /sys/module/xen_blkback/parameters/feature_persistent
->  Date:           September 2020
->  KernelVersion:  5.10
-> -Contact:        SeongJae Park <sj@kernel.org>
-> +Contact:        Maximilian Heyne <mheyne@amazon.de>
->  Description:
->                  Whether to enable the persistent grants feature or not.  Note
->                  that this option only takes effect on newly created backends.
-> diff --git a/Documentation/ABI/testing/sysfs-driver-xen-blkfront b/Documentation/ABI/testing/sysfs-driver-xen-blkfront
-> index 61fd173fabfe..7f646c58832e 100644
-> --- a/Documentation/ABI/testing/sysfs-driver-xen-blkfront
-> +++ b/Documentation/ABI/testing/sysfs-driver-xen-blkfront
-> @@ -12,7 +12,7 @@ Description:
->  What:           /sys/module/xen_blkfront/parameters/feature_persistent
->  Date:           September 2020
->  KernelVersion:  5.10
-> -Contact:        SeongJae Park <sj@kernel.org>
-> +Contact:        Maximilian Heyne <mheyne@amazon.de>
->  Description:
->                  Whether to enable the persistent grants feature or not.  Note
->                  that this option only takes effect on newly created frontends.
-> -- 
-> 2.17.1
+> May I ask your opinions to this patch, please?
+
+Sorry, I was expecting Maximilian to Ack it, but I see he is added as
+SoB.
+
+> 
+> 
+> Thanks,
+> SJ
+> 
+> On Tue, 1 Mar 2022 14:46:28 +0000 SeongJae Park <sj@kernel.org> wrote:
+> 
+> > SeongJae is currently listed as a contact point for some blk{back,front}
+> > features, but he will not work for XEN for a while.  This commit
+> > therefore updates the contact point to his colleague, Maximilian, who is
+> > understanding the context and actively working with the features now.
+> > 
+> > Signed-off-by: SeongJae Park <sj@kernel.org>
+> > Signed-off-by: Maximilian Heyne <mheyne@amazon.de>
+
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Thanks, Roger.
 
