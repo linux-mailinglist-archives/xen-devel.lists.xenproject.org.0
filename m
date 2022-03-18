@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0600C4DD689
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 09:53:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.291954.495863 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83CD74DD6C0
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 10:02:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.291957.495874 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nV8MZ-0005Rb-Vr; Fri, 18 Mar 2022 08:53:35 +0000
+	id 1nV8UX-0006xv-RX; Fri, 18 Mar 2022 09:01:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 291954.495863; Fri, 18 Mar 2022 08:53:35 +0000
+Received: by outflank-mailman (output) from mailman id 291957.495874; Fri, 18 Mar 2022 09:01:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nV8MZ-0005PP-So; Fri, 18 Mar 2022 08:53:35 +0000
-Received: by outflank-mailman (input) for mailman id 291954;
- Fri, 18 Mar 2022 08:53:34 +0000
+	id 1nV8UX-0006v7-OS; Fri, 18 Mar 2022 09:01:49 +0000
+Received: by outflank-mailman (input) for mailman id 291957;
+ Fri, 18 Mar 2022 09:01:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9SAg=T5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nV8MY-0005PJ-9h
- for xen-devel@lists.xenproject.org; Fri, 18 Mar 2022 08:53:34 +0000
+ id 1nV8UW-0006v1-7z
+ for xen-devel@lists.xenproject.org; Fri, 18 Mar 2022 09:01:48 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e2dca272-a698-11ec-8eba-a37418f5ba1a;
- Fri, 18 Mar 2022 09:53:31 +0100 (CET)
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur01lp2054.outbound.protection.outlook.com [104.47.0.54]) by
+ id 0a4c4088-a69a-11ec-8eba-a37418f5ba1a;
+ Fri, 18 Mar 2022 10:01:47 +0100 (CET)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05lp2108.outbound.protection.outlook.com [104.47.17.108]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-22-cKEKuEC-NN6z9WmMn8v0eg-1; Fri, 18 Mar 2022 09:53:29 +0100
+ de-mta-5-YSUruNQIPra-hfQCULz-wQ-1; Fri, 18 Mar 2022 10:01:45 +0100
 Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
- by VI1PR04MB5966.eurprd04.prod.outlook.com (2603:10a6:803:d7::27)
+ by HE1PR0402MB2906.eurprd04.prod.outlook.com (2603:10a6:3:d8::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.18; Fri, 18 Mar
- 2022 08:53:27 +0000
+ 2022 09:01:43 +0000
 Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
  ([fe80::2d79:4387:3887:ef9d]) by DU2PR04MB8616.eurprd04.prod.outlook.com
  ([fe80::2d79:4387:3887:ef9d%9]) with mapi id 15.20.5081.018; Fri, 18 Mar 2022
- 08:53:26 +0000
+ 09:01:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,272 +51,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e2dca272-a698-11ec-8eba-a37418f5ba1a
+X-Inumbo-ID: 0a4c4088-a69a-11ec-8eba-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1647593611;
+	t=1647594106;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TzPr8GVFOOilUUuLAssPglcr0JrrBJPBMDCvT9TuiX4=;
-	b=CyHxpDU5ziRPT5hKNM45UWSwUWL9QAU/jPefX/jX1WmgNTUXqsSUdbYC0/LrtG9E/tONnF
-	B2PPzMtkexXAeeuIzcE0OBWpdzSDaAnBhQJ8WIdy0EHDXUPmxMvQj36NxtZ8tSPIE3PYAF
-	sj2Zv1jKgU5RP5QeHWIIvIuUTxJoi5Y=
-X-MC-Unique: cKEKuEC-NN6z9WmMn8v0eg-1
+	bh=LBvfo5w8LlWNK7POjcgvlgJfeaTqYWkwCSgRq6O1O+8=;
+	b=PaJSwmJBstANqlRZZ9gV/5Zj33CIrQXaf7tmLAceKRccGUvzRAw2NWWwFMPaWNtuwhgUX4
+	UV2bTtD9aRXg0TwnrO52/BABOqvrJH/in111CXiEjUWCI02qrd9czvz2u7dW/iLBrQRw69
+	wARc3zTPdnV4ekAzwwDVogKSTGpisGM=
+X-MC-Unique: YSUruNQIPra-hfQCULz-wQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IZd/6Lw8caj3K2V6KOn8tVeKPtnArfeiKhYrIppfE1A/mB88X9wrWtX7qEHRKDE073vo53OEw0CKi400PC4f+O+hZWutyNrxPhdXxBI23HWFRSKOxgZ5fLQNEPZvi/8mvWRjfGvp9HlsJW2EXTLVvgsMR3LVVEL/1tm7ZHE+gpK8mJE80/X6pnGRr2+x5iGN3YJb3aImr/NPgarlwrTxBXOH1SMAqYlMP0QfBJjl0V32kI+mntzLGFJFs4afd8DsHclALhq5lMnCj7nglDSalJwkjAoMw0mtM7KRvFb7pAOc61YBRi+HH1WRHBRYiJD5J1j4XPzdNz7O6qvOt5k/1A==
+ b=l+3wEqQvYQHfpVp3q5eCMXeUL36C9RWFjo6GE3fvuK0uhy3iLox39PGtz7uSLE6VOZ0pYKRo/OePBVCR3RpZ9xqFaMY3wFBIv4uR3+tYTRkMVAGY0r4F9d4LVi69z+0KECluiWlA9VEcnTLbJTnlLchVgyqTgQ4pBn0dlZ9HeJGOs7ejpP6abuCbsdgwiP55yhMnqg6pVuyfYXX835sBG5QD1xTtG+VEZB+DdNU9IUw435tYk1t3i3LNgtdODcups6vlwcv9MwzXiuovCPu/Zg079Kusj72L1FpNN6gHPeP/+44K0m4V5x3nDP9sjgvp8Ss5u8Q18WBQGSoD0friYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TzPr8GVFOOilUUuLAssPglcr0JrrBJPBMDCvT9TuiX4=;
- b=n+dKsIRQSuClBzKcb0jtsEWAJ1dLIsC3ovKcW3ukP7wNUPfc5kXMoC6YgCxyHSvfWdBxedvS9pzkhPLk5pWaNc1gbgogeI2rYj4AJ6I7TQLipQ/lFn8hPIpeERmlZ7OEhWnHUks5Z5UVZWEAX5m7sWUJ/JeQFcCFZWQxiRM6MwXvN+N3RnFprk/gX24SqYtmNvc65mdHBWy0sUa/TygXWKqQB8GTiwQ3o3KjYFMw+ZMZTTbdAX1rXAQRCA87LBkD50mGMHmHJNQ0hVwqtlmxrlXdXGWGXWwSsCPYqpTdieTCrTq2WgklQd8L8okfAyu3TxYepTuAgZkfALzVVXocHg==
+ bh=LBvfo5w8LlWNK7POjcgvlgJfeaTqYWkwCSgRq6O1O+8=;
+ b=Gkcx8j62jb1spSVyxGiDF3vb6rlpzMm/A9hCiBkAM5BzT2S5jws99uvUMAZO+/itQRt+/PdbFcbEmthfxkymanvGAMrhbgUqXSOAdgoDOFP47Fw1PkjNc832WF7XiJLPiuMkO+NxEl5wNKJV2DfYyqrFH3om6Mlt7nYdI9ttX/GGvOubNNuALeCXagiL4VYJxmHtkCkED6SwtXSSS6wiASRFtMvNzdpr9UFLGAE3dIKVExHdJOUlk3ZkYUcKLgJJ5blIVMHVbsq7G2jaujSpGzvpON2VYkR86ldOGBFWYbR0UjuBP5iZz9d4G4PLH+Zn1/9nDPPVnMm3iF4tXwoh8Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <eefa9cf2-a04c-ba8d-74cb-0d2aaa35badb@suse.com>
-Date: Fri, 18 Mar 2022 09:53:24 +0100
+Message-ID: <d295f593-6a4a-7676-a104-aeaffba71f0a@suse.com>
+Date: Fri, 18 Mar 2022 10:01:41 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
-Subject: Re: [PATCH v1 02/13] xen/arm: introduce a special domain DOMID_SHARED
+Subject: Re: Nonsensical XSM Flask denial
 Content-Language: en-US
-To: Penny Zheng <Penny.Zheng@arm.com>
-Cc: nd@arm.com, Penny Zheng <penzhe01@a011292.shanghai.arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20220311061123.1883189-1-Penny.Zheng@arm.com>
- <20220311061123.1883189-3-Penny.Zheng@arm.com>
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>
+References: <CAKf6xpvk1zX3ZtzSOWBCasZOuS607-W_iqHbC=ZgTBQqo+btjA@mail.gmail.com>
+ <ab5a7aea-cab1-f9d9-e3cc-58636c234a4e@citrix.com>
+ <CAKf6xpuqzJ+YE9crAJCJCCaZRZRYkZ5snsOOLP8Yjc4Nyx=9=A@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20220311061123.1883189-3-Penny.Zheng@arm.com>
+In-Reply-To: <CAKf6xpuqzJ+YE9crAJCJCCaZRZRYkZ5snsOOLP8Yjc4Nyx=9=A@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS9PR06CA0178.eurprd06.prod.outlook.com
- (2603:10a6:20b:45c::10) To DU2PR04MB8616.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0056.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4b::6) To DU2PR04MB8616.eurprd04.prod.outlook.com
  (2603:10a6:10:2db::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a709d170-2c98-4f99-f0df-08da08bcc464
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5966:EE_
+X-MS-Office365-Filtering-Correlation-Id: d552df94-de8c-46aa-3807-08da08bdec2c
+X-MS-TrafficTypeDiagnostic: HE1PR0402MB2906:EE_
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB596614CD541D0AA10C60AF59B3139@VI1PR04MB5966.eurprd04.prod.outlook.com>
+	<HE1PR0402MB2906516EAEC1EA75E2442955B3139@HE1PR0402MB2906.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	HuLBsXnsHiMmKvd5/xDbPV8MZ84bh5jub2Ld5GydK7y7mlCYsQAuhhckR3SDoFOmaXZzTXdeN7viIWamMzZbqzmF5oTrbvVY+P0wHVBZh58aHj5NAIzxlqs4i3CIscVr5BS0lb41QrmZ7ijCZZOabpanRl7cLl+VTf8TLI/59P5iSzaqHZ5fLmW1GDMyveA+ywhU8lkAT3oGkN00YaOIwUJF9Us+fQQP7eHS7CbTBAceYOLJxT0cKVWqQZPKfThFo332ee6b58TPfqw4B9uYAjZ+kvtjkjnAcus3ydkKjQJm9IUBJOUipDE8h5zAYMe/TEcdVOd35rI75P30rR9bhQLzgRKniy5rjDmHTewxEY7gTBcyndPKdwStUejXpCbzZ7pdwBmD9S7fAEW0WsTkowC0bPfLQ+4zAW/B6+gBAqQqdhmAmGFw91Dd6P6inrW+E9+Yzl9yACsS2l9a4XBHmUYlQ7vD2ospUfFQS3k63EdQQG8dTdhv66qLj6jcCaDASAs0Iu9/NYLj0MAEtyBrogcSeqcAER3FgxRw4DSbbn3nTFVP1mYLS5MPAIbI+KfsmuaaDf3QXyzW+CvQ9Bv3TC64LD+hb0Y0vhHfHpssZMTiOZfKMJU3CNr7278eyO+TFhNAanzmw0yo2iH7+n6/ou1rKLleuMaSenL9qArx/hp3PJ8I7Jjf9xFUX/iR4lUX7+5nfCIXxswrnlF1mLf5jEcwd48sBi/om5EL2jtM/yk=
+	v3DMXwWcFlHyQk8QnznX4T7j0J/pF6LSCbaagx3z5sXomXI+7pEOsQ/DTz+pbHfMMVJu3LOS9C47g6z1g1qXVKauaVyGsG7rWWI1Ih77DXkfbmWVYdrIMXOjKTVYmdk8dp3FdqIjnsLqE2rIXNVszw3wnpODj//+P/bAx2DVw5ZSZt2Wa8JUqFPkLSGEXuFZMbeNfPhvfclB43pZK+SH8lJa+ggTj4TbYJJNGZzztfw7RNq3xfngtYHAsO9QlDVXMj/W6J/SrK6SBvEFWi9HIUIoo7qQDg+oW9XO7t/chKCZrZa1zcFaD10K1cJJzCeRYn64heZvr1zvZdzN0xnPATwS6p34+Pn0PpkI38JpXwFPG+vIjwaSN292A0GGVnQ+FuRs6+KyKQqPCF/bzvDCisg029dUFCCFtPVJZBP298yKv4+gRsx4OLjgdEih0oe2LXQyVeLHLLIN++ZLi9eZj8N9skcKHBV7sRn3t5a3vHUPVwayFUCZqrMfC5miXZAEGKkv/K3oZ8rL2zNGwr7lNsFDLij34RQFi1aYWFjLT1xOrTPCrhjL+8KGM4lWnukmR0kPZnZyQxmjxBGKNA2HfgrBpAG3qBmpuyEb6LhkZuWn4WSFBM3nM4Cvs9Hrmv3/jWGp3IgPNnSqWfe3e8QHF/YO5CbBWNktma9qdOnTpyT+tFvDcgVBUQ0pqUGEdGPJjjUxQ3UDVXjdDlDSg9XmBvqQkuS4DagD4jnxT7qXzdebgt78nV9l8UhLW5AVKQdJ
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(54906003)(6916009)(508600001)(6486002)(86362001)(36756003)(31686004)(2906002)(316002)(38100700002)(83380400001)(8676002)(4326008)(66946007)(66556008)(66476007)(31696002)(53546011)(5660300002)(6512007)(8936002)(7416002)(26005)(186003)(2616005)(6506007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(31696002)(38100700002)(6512007)(6506007)(2906002)(53546011)(26005)(6486002)(508600001)(86362001)(186003)(2616005)(4326008)(8676002)(66476007)(5660300002)(3480700007)(8936002)(6916009)(316002)(54906003)(31686004)(66556008)(66946007)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OHNkS052czVVd2g3Ti9TcDVIMDJrRlozck1DWSt3ZnF5SVVNNHA3dnpMdEMv?=
- =?utf-8?B?NlhsQzlOVXpNNlhyRjMrUjluemxWMkhzeU9pdk02Kzk4RXBQTFBxZUZZb1l1?=
- =?utf-8?B?ZHVDbkprTGJhekhrbmRweDhMSzg3S05hS3JoU0ViMnVEc21LMGUrWmszVVBo?=
- =?utf-8?B?aEJ6TGwxaGhrMlZRRnU1MXdFMitoNGNTczFsRFF0TXFoUW4yckNVd3RVaU51?=
- =?utf-8?B?UVRRcnRveXJucFZGc1Buc081VGtuWkxzWlRsS2hHamt5cjY2eTBrYVA2eU5N?=
- =?utf-8?B?VTNVb0duclVBNFNWY0xtU3NqVUtldE5JTkI4T2VvRjNkOVQra2VnNmpKa0Nv?=
- =?utf-8?B?TnhubDkxT2ZTYmZzR0VYZVpGQW9ZNnJkNVBsU01vaXIyYlFsbWxsZ3ZTem4z?=
- =?utf-8?B?cHYyd3ZkN0djYUxhdkRsKzQzU1IvL0JDTWNNRkpqM3IzdDZ1N0YwRWVWNjZV?=
- =?utf-8?B?dHRHQUdvdEtWdFJVdGczdk5sWlJuRVpJV2JtRVRiWTE2ZWh4WjZqQ20vVVVE?=
- =?utf-8?B?ZmRJTWcycnU5SVE3Q1RBSkVvZWg4clA0cjZXVmI5MVJ5dlEwYXZsNFVXKzFG?=
- =?utf-8?B?VERzT09mR1VlMkNJdUxSRTVpTTJtN0JHZVlNejdXVTNxTUs2dS9QanM0ek50?=
- =?utf-8?B?RmRqSk5ET090ZTZBcTZaZk9WeWNnRVQrZU1JazdRdlp3TU5aU2NzOVYrM1RI?=
- =?utf-8?B?Zy9xU241eEtpeERJeTR6MjFYSTVhY3Z2VkV1NllGS0xqejdYbFBNUnExTXUw?=
- =?utf-8?B?ZE9YVFVLQWd6NXJ3TXRIRmRpejl0MklPMVRHd2ZneFBtRVUxanJ3bm9MSVRz?=
- =?utf-8?B?L0laNW0yajFxRHptQnRidEN2SitpQmdFMFk3ejhPaHZhNFRxRjl0OXcxMDcx?=
- =?utf-8?B?NkJMUHRYNm9UWmV4OVc0cXhudzBxWnFGWW54S1hHYXFNQWE1MWovbWhnM1dF?=
- =?utf-8?B?SFovakRvakJpQkdWOEFqQ0cvRWIza0ZLZnBDU2FkUE5oa0NQNWxLNmN5S3Iz?=
- =?utf-8?B?ZkVXS1NOWE1sQnZmZVFpVzl3SVBzZzhGNm1BeTNZdjlxajgzYk5lN253Z2pJ?=
- =?utf-8?B?aFdkUFZZcTI3VUlVY3VoMklSb0JnSzhMT1lOQUJLbEVQck4rdWxvQml1ZGRC?=
- =?utf-8?B?VWh3b0hJSW40cUlIWXFSRm9iRTZlUlZJeGZxT1h1Z3FSVmdlVG9TQVF2OXRt?=
- =?utf-8?B?cGlHbnR2bTFEcmNIY24rK0JyWVE3bi96YW5OQ1VFdGY1eXlWSW4yUXgxMGtT?=
- =?utf-8?B?cEQ0ZUNya2o0aCtXZmlOM1JSbXdNYlIxK2kzbVpodVZvRXl1K1RpakUvWm9T?=
- =?utf-8?B?TWFUWVM1cGVURFNzNFhSNEp5K1VPNzdTZm9jc0ZuWU0wdDJJSXI2QjdCU1Uz?=
- =?utf-8?B?aU5rQWxxeEo3a3daNnYyaGVHVkc4enpYNExsQ0R6dkJvdGxpU2NjT2FSZWlZ?=
- =?utf-8?B?MVBqWnpiQ1JuU250Vlo3cG0ranc4amZRYlYvYUFTS0RveVdvVHEzRHdNaEFH?=
- =?utf-8?B?NmU2VVI4MUV2d0xzZmt5aTVvQU5XbGVYZ0ZBd2h3eThXenBCN3BFYTdvZkVr?=
- =?utf-8?B?ZEFGMTlQeUhqYkFFVzZJRW9ad01zZzhmUGxFc0cvcmJuL2hsMjIzOFhlZ21D?=
- =?utf-8?B?RWxIY0haQVI0cDRTTnVYeTY4RkFjZytEdW9UOGdKRU1GbmpqODhNV1c5TlVi?=
- =?utf-8?B?T09VVjlZd25pS05xcHRZb05MUkw3VGcrU0hJZ0JBd0pzOHd5RWFJc08ySUxF?=
- =?utf-8?B?b29RWUE0R29YWExCb1NUN3J3YU03YU5adFd3d2tQUTdGTDRxbE5jYWczOW5Q?=
- =?utf-8?B?YVlIL3phbm1iQTlud1V1N0ExWXVpbDN5TzgvUWVhMUtoazR6U1hHbjZCRGdF?=
- =?utf-8?B?N2taZ0FSTmJmMnU3dVVEazBUUU8zUVRyUTVZOXBocENmeGtNSFVBb3RBdjFj?=
- =?utf-8?Q?N+tCIyRzFTpslEXRHHWE/PqnKk8xYRb/?=
+	=?utf-8?B?VVhvVWZZTFlxUXo3eklrMDl2eW5xakd1NzFVT0h6K1BnL3IzUFRHNFc3TUg1?=
+ =?utf-8?B?dmdTdkZldzhFNkxMMjlmd2lUUEVGdGFpVUFVT2NVQTVuaDZqZmRLUXhEZGYv?=
+ =?utf-8?B?amI0L1lDMEUyYW9hSWhLa2xGNnRKbW14RUMyRmVzL3VnZGNlM1hTWFpXV0FB?=
+ =?utf-8?B?NEdId1g2aW5IdURPSk8zRUVaRmpVQWxLZUp2ZEw1OSsvSEdrZEZMdVpPNU1m?=
+ =?utf-8?B?V1IyNW90cnByRWQvbkxNZHNTSDhDNVNTa0RHV0FoYzZFZEZMWURnajZVcENJ?=
+ =?utf-8?B?QzVWS1c0T1hEZzZ1bHM5Nk9qUkhiMGFLWWx2K1EvOUFOZjFJQllXcGtMdnMv?=
+ =?utf-8?B?ZHNCVWF5UUxWVnBsQjc2K1pxb2xOV2Ewd3QwWFU5ZURIQVdVbjQxSUo5dEZC?=
+ =?utf-8?B?bzhzaGRmeWoxVGlHaWQxMlI1cVloNXBqVDdFSGhWL2hPaE01emxyVjhiVE55?=
+ =?utf-8?B?YmV0eGdqcE1ZZUdDTHRwMUJYSzU0MGxyVTJ3a3dIbDd3Yk8raVFaUi9GTjhG?=
+ =?utf-8?B?WHhjSUthWWZ1U0NVNHlLakZjWHVIbFBqQWE4WWQ4eTZqeDl1a2Zta3plQkc5?=
+ =?utf-8?B?azVBZHIzVkRvTnhJNWJNYWZWNmhtdTBVM2tVcms5VmNieGJGSittcHFEYVRX?=
+ =?utf-8?B?RnVxSFcyeXhPQzBmQnc5UVlOODRSY3VDUWd0UTV2ZFdkaFA5QXh3OGV5NE9a?=
+ =?utf-8?B?RUx5YlFkN21saU5TWndEMUcxTHBaM2Uvb2FTMjlZZUdCMmdOUjBLYVY1RTlw?=
+ =?utf-8?B?M0VVTkFSb3pXdHdMdElYemQyRkJweWZFUEN6ajNFb0cwVDdERU1XakpTTTYy?=
+ =?utf-8?B?Q3JxajM2SVhDNnB1Y3RlUjdQM1d2UEtoYkJCVHl2TzJDbWlHSEgzOExSbFN0?=
+ =?utf-8?B?RFlLZkthK0xDWWc1WVY2OG80a1BtRTdqNUhlQXJKWXB5RUM1dGVXUWZvSG5C?=
+ =?utf-8?B?SEpmdDZnUExwcStLNnRCSFgyM1hYOFNTY0Vkb3BWVXJuT0U4RzVVeDFza2xM?=
+ =?utf-8?B?VDBxWDE5b0wwc0ZJaXAzMzJXQjJ1UElJaUh1RXNtbklDZ09McXJFT1NocEJv?=
+ =?utf-8?B?Y1VCNDRQQkRxMTV2Wk1xakx5RVJHeUlxVm1JODNCdXZhRWROWFBhOVNyY3FH?=
+ =?utf-8?B?Q2RGSjZnQ3hsUHVTTU1TUlB6TXorK2Q0R3c3QWo0ZTNkVkM5KzJWdVdmL1Qy?=
+ =?utf-8?B?UnQ3WTJWU3laRGFFdFR4YklxZUhXcnlUc1Y3cEpBSW1aaitZdFVqVDU3T2VR?=
+ =?utf-8?B?ajY5YUMrdE50MHIrcmg5OGFRcEMxZnA2cXdFb05tVTQ4L0docnlGU2xDbkV3?=
+ =?utf-8?B?UTg5MFcwUGJPUGdmdk1yTXBIQVZBT1MyNG5tdXFOSXNNQlU2d2s4enVBRkJu?=
+ =?utf-8?B?UVlYUTQ2ZjdpcURSaHBjekVpT01UNFBPNkFyNkx0N3FUY1JoWFpuSzNCc2Iy?=
+ =?utf-8?B?TWFWSnVUUkFIRTIrZzVrbHU0VTVYd0hxMy85bGlNVlF1ditHbFFrQm5ibTV6?=
+ =?utf-8?B?dmJ3ZE1kbTAzSG9VSXZzTEZEc09mWWFxTUg0bUE2VDh0QWZQNzFYSE1kUUZN?=
+ =?utf-8?B?NlovRVNPZlQzcE1nM1UrUTZkemNUWEIzMmJJNy90OGxSREJxajJMbzJYTGhZ?=
+ =?utf-8?B?dTBxR2taU1lLUkVhMGhtRVZwWUxGWlMrblVnT3BlUmV1d2JUdlpEQzBRR1F4?=
+ =?utf-8?B?a1RjdTVYOGJwUDJ5NllQdjNvbUJybzd5VWlPWitMbGJkNHZEM3JXQTVYeFNU?=
+ =?utf-8?B?TkVQVE1KY2Z5KzZtT3BDT0JtZmFnR0ozb1JMT01wZlRqNzdVSHd4NFZIWWdQ?=
+ =?utf-8?B?U0F1cGk1M1ZrazJ4UmlObnRDMWtLdnVjVk55ZWFrT0dTT0xyUnZ5ejM3K1VR?=
+ =?utf-8?B?UmJnWHR2S0d6R0ljTGtPYUowNjY5dU5jOFd5U3NCVlREZFFON09iL3VwTktN?=
+ =?utf-8?Q?i0/IrZFsosrdT4zkREtE65I3nJNvc1XF?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a709d170-2c98-4f99-f0df-08da08bcc464
+X-MS-Exchange-CrossTenant-Network-Message-Id: d552df94-de8c-46aa-3807-08da08bdec2c
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2022 08:53:26.9107
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2022 09:01:43.3020
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3Y8ioq9wUNPKPBcuQLBZuuU6pMpvxWpqawC09LyhXbkZUrobUFjO0hQswxxxoz+J3EHVZtqCl29etX8/2Keysw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5966
+X-MS-Exchange-CrossTenant-UserPrincipalName: aUM8MsSUrFoSOaVAc4P8u7n4WzffYD8+yVxaorOjEuvux81lSXJcEaYfogVjhAduCAuquQmMpC/mVuxkwdxq4Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR0402MB2906
 
-On 11.03.2022 07:11, Penny Zheng wrote:
-> In case to own statically shared pages when owner domain is not
-> explicitly defined, this commits propose a special domain DOMID_SHARED,
-> and we assign it 0x7FF5, as one of the system domains.
+On 17.03.2022 20:02, Jason Andryuk wrote:
+> On Thu, Mar 17, 2022 at 2:14 PM Andrew Cooper <Andrew.Cooper3@citrix.com> wrote:
+>>
+>> On 17/03/2022 17:52, Jason Andryuk wrote:
+>>> I shut down a domU (HVM dom9 w/ Linux stubdom dom10) with a single PCI
+>>> device assigned.  Xen logged the following Flask denial for a second
+>>> PVH dom5 (uivm) without any PCI devices assigned.  This is Xen 4.14.4.
+>>>
+>>> (XEN) avc:  denied  { remove_irq } for domid=5 irq=17
+>>> scontext=system_u:system_r:uivm_t
+>>> tcontext=system_u:object_r:shared_irq_t tclass=resource
+>>>
+>>> Domain 5 as uivm_t and irq 17 as shared_irq_t both look correct.  But
+>>> it doesn't make sense that uivm would make a hypercall for an irq.
+>>>
+>>> Could this be from RCU calling complete_domain_destroy() when current
+>>> is dom5 (uivm)?  What would current be set to when RCU runs its
+>>> callbacks?
+>>
+>> RCU runs in softirq context, so yes - (almost) any use of current would
+>> be bogus.
+>>
+>> But I can't spot any overlap between the physdevop_unmap_pirq XSM check,
+>> and complete_domain_destroy().
+>>
+>> Any chance you can reproduce this with a WARN() in the AVC denied path,
+>> so we can see what's going on here?
 > 
-> Statically shared memory reuses the same way of initialization with static
-> memory, hence this commits proposes a new Kconfig CONFIG_STATIC_SHM to wrap
-> related codes, and this option depends on static memory(CONFIG_STATIC_MEMORY).
-> 
-> We intends to do shared domain creation after setup_virt_paging so shared
-> domain could successfully do p2m initialization.
+> The path I found reading is:
+> complete_domain_destroy
+>   arch_domain_destroy
+>     free_domain_pirqs
+>       unmap_domain_pirq
+>         xsm_unmap_domain_irq
 
-There's nothing said here, in the earlier patch, or in the cover letter
-about the security aspects of this. There is a reason we haven't been
-allowing arbitrary, un-supervised sharing of memory between domains. It
-wants clarifying why e.g. grants aren't an option to achieve what you
-need, and how you mean to establish which domains are / aren't permitted
-to access any individual page owned by this domain.
-
-> --- a/xen/arch/arm/Kconfig
-> +++ b/xen/arch/arm/Kconfig
-> @@ -106,6 +106,13 @@ config TEE
->  
->  source "arch/arm/tee/Kconfig"
->  
-> +config STATIC_SHM
-> +       bool "Statically shared memory on a dom0less system" if UNSUPPORTED
-> +       depends on STATIC_MEMORY
-> +       default n
-
-Nit: "default n" is redundant and hence would imo better be omitted.
-
-> @@ -712,12 +716,16 @@ int arch_domain_create(struct domain *d,
->      d->arch.directmap = flags & CDF_directmap;
->  
->      /* p2m_init relies on some value initialized by the IOMMU subsystem */
-> -    if ( (rc = iommu_domain_init(d, config->iommu_opts)) != 0 )
-> +    if ( (rc = iommu_domain_init(d, is_shared_domain(d) ? 0 : config->iommu_opts)) != 0 )
-
-Nit: Overlong line.
-
-> --- a/xen/arch/arm/setup.c
-> +++ b/xen/arch/arm/setup.c
-> @@ -855,6 +855,20 @@ static bool __init is_dom0less_mode(void)
->      return ( !dom0found && domUfound );
->  }
->  
-> +#ifdef CONFIG_STATIC_SHM
-> +static void __init setup_shared_domain(void)
-> +{
-> +    /*
-> +     * Initialise our DOMID_SHARED domain.
-> +     * This domain owns statically shared pages when owner domain is not
-> +     * explicitly defined.
-> +     */
-> +    dom_shared = domain_create(DOMID_SHARED, NULL, CDF_directmap);
-> +    if ( IS_ERR(dom_shared) )
-> +        panic("Failed to create d[SHARED]: %ld\n", PTR_ERR(dom_shared));
-
-I don't think this should be a panic - the system ought to be able to
-come up fine, just without actually using this domain. After all this
-is an optional feature which may not actually be used.
-
-Also, along the lines of what Stefano has said, this setting up of
-the domain would also better live next to where the other special
-domains are set up. And even if it was to remain here, ...
-
-> @@ -1022,6 +1036,14 @@ void __init start_xen(unsigned long boot_phys_offset,
->      apply_alternatives_all();
->      enable_errata_workarounds();
->  
-> +#ifdef CONFIG_STATIC_SHM
-> +    /*
-> +     * This needs to be called **after** setup_virt_paging so shared
-> +     * domains could successfully do p2m initialization.
-> +     */
-> +    setup_shared_domain();
-> +#endif
-
-... the #ifdef-ary here should be avoided by moving the other
-#ifdef inside the function body.
-
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -643,11 +643,14 @@ struct domain *domain_create(domid_t domid,
->  
->      rangeset_domain_initialise(d);
->  
-> -    /* DOMID_{XEN,IO,etc} (other than IDLE) are sufficiently constructed. */
-> -    if ( is_system_domain(d) && !is_idle_domain(d) )
-> +    /*
-> +     * DOMID_{XEN,IO,etc} (other than IDLE and DOMID_shared) are
-> +     * sufficiently constructed.
-> +     */
-> +    if ( is_system_domain(d) && !is_idle_domain(d) && !is_shared_domain(d) )
->          return d;
->  
-> -    if ( !is_idle_domain(d) )
-> +    if ( !is_idle_domain(d) && !is_shared_domain(d) )
->      {
->          if ( !is_hardware_domain(d) )
->              d->nr_pirqs = nr_static_irqs + extra_domU_irqs;
-> @@ -663,7 +666,7 @@ struct domain *domain_create(domid_t domid,
->          goto fail;
->      init_status |= INIT_arch;
->  
-> -    if ( !is_idle_domain(d) )
-> +    if ( !is_idle_domain(d) && !is_shared_domain(d) )
->      {
->          watchdog_domain_init(d);
->          init_status |= INIT_watchdog;
-
-All of these extra is_shared_domain() are quite ugly to see added.
-First and foremost going this route doesn't scale very well - consider
-how the code will look like when two more special domains with special
-needs would be added. I think you want to abstract this some by
-introducing one (or a small set of) new is_...() or e.g. needs_...()
-predicates.
-
-Further (there's no particularly good place to mention this) I'm
-afraid I don't view "shared" as a good name: It's not the domain
-which is shared, but it's the domain to hold shared memory. For this
-my first consideration would be to see whether an existing special
-domain can be re-used; after all the set of reserved domain IDs is
-a very limited one, and hence each value taken from there should come
-with a very good reason. We did such re-use e.g. when introducing
-quarantining for PCI devices, by associating them with DOM_IO rather
-than inventing a new DOM_QUARANTINE. If there are good reasons
-speaking against such re-use, then I'd like to ask to consider e.g.
-DOMID_SHM / DOMID_SHMEM plus associated predicate.
-
-> --- a/xen/common/page_alloc.c
-> +++ b/xen/common/page_alloc.c
-> @@ -2616,6 +2616,11 @@ struct domain *get_pg_owner(domid_t domid)
->  
->      switch ( domid )
->      {
-> +#ifdef CONFIG_STATIC_SHM
-> +    case DOMID_SHARED:
-> +        pg_owner = rcu_lock_domain(dom_shared);
-> +        break;
-> +#endif
-
-Please can you avoid #ifdef in cases like this one, by instead using
-
-    case DOMID_SHMEM:
-        pg_owner = dom_shared ? rcu_lock_domain(dom_shared) : NULL;
-        break;
-
-> --- a/xen/include/xen/sched.h
-> +++ b/xen/include/xen/sched.h
-> @@ -618,6 +618,8 @@ static inline bool is_system_domain(const struct domain *d)
->      return d->domain_id >= DOMID_FIRST_RESERVED;
->  }
->  
-> +#define is_shared_domain(d) ((d)->domain_id == DOMID_SHARED)
-
-Would this better evaluate to "false" when !STATIC_SHM, such that
-the compiler can eliminate respective conditionals and/or code?
+I wonder whether an XSM check makes sense here at all for a dying
+domain.
 
 Jan
 
