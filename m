@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF5094DE107
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 19:26:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.292187.496268 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 293214DE10D
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 19:31:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.292190.496279 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVHIf-0003sX-Tr; Fri, 18 Mar 2022 18:26:09 +0000
+	id 1nVHNQ-0005Hj-HD; Fri, 18 Mar 2022 18:31:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 292187.496268; Fri, 18 Mar 2022 18:26:09 +0000
+Received: by outflank-mailman (output) from mailman id 292190.496279; Fri, 18 Mar 2022 18:31:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVHIf-0003pX-Q3; Fri, 18 Mar 2022 18:26:09 +0000
-Received: by outflank-mailman (input) for mailman id 292187;
- Fri, 18 Mar 2022 18:26:08 +0000
+	id 1nVHNQ-0005Eq-DP; Fri, 18 Mar 2022 18:31:04 +0000
+Received: by outflank-mailman (input) for mailman id 292190;
+ Fri, 18 Mar 2022 18:31:03 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nVHIe-0003pR-1h
- for xen-devel@lists.xenproject.org; Fri, 18 Mar 2022 18:26:08 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nVHNP-0005Eg-MJ; Fri, 18 Mar 2022 18:31:03 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nVHId-000846-Ch; Fri, 18 Mar 2022 18:26:07 +0000
-Received: from [54.239.6.185] (helo=[192.168.15.239])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nVHId-0006uJ-62; Fri, 18 Mar 2022 18:26:07 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nVHNP-00089c-LT; Fri, 18 Mar 2022 18:31:03 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nVHNP-00020A-8V; Fri, 18 Mar 2022 18:31:03 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nVHNP-0001Hh-85; Fri, 18 Mar 2022 18:31:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,88 +42,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=3ZRF7t26NrGP+GW64wh2UokE+/JRdlMaC2UXQAW8bhY=; b=GAcsg59QQO7La24Q6i3l0UTAOp
-	5xliFSZrHibl36fJZQnd+HyzIRvgmFgGzSoZ+AXtk6l1dFQJN2btnIK28SCnamV3cUAv32Ef/wxs3
-	eyib42oIPtWDc9HlbTToMTdt7v+k4IopH7StKgSQcBvGpXPggiin27NJOuE5qjY4g4wA=;
-Message-ID: <3d6a341d-712d-8701-caf2-49301ae1e01b@xen.org>
-Date: Fri, 18 Mar 2022 18:26:03 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=7jVBjwdkkSLgFRqh582z52HJu1/+Nl4uHtBSc6Oxkms=; b=MTQlEgAnk5pLSBxlmfkDCcQVbf
+	3CSdmDPnvnacbWoFoncfjIOQe8YbFbMxAD0mk6ZuJZjzhuP74OR5JhZRwQRBAaA/NzCzbvL2u3ouu
+	etIyVOIW4m1BYrfJX3OPdzj/hzHIq9emzdTPXfSltib7m+FLtmaf4OU541rDx+NmR1OU=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168685-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.7.0
-Subject: Re: [PATCH v11 3/3] xen/arm64: io: Handle data abort due to cache
- maintenance instructions
-To: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
- bertrand.marquis@arm.com, andrew.cooper3@citrix.com,
- george.dunlap@citrix.com, jbeulich@suse.com, wl@xen.org, paul@xen.org,
- roger.pau@citrix.com, Ayan Kumar Halder <ayankuma@xilinx.com>
-References: <20220317140046.64563-1-ayankuma@xilinx.com>
- <20220317140046.64563-4-ayankuma@xilinx.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20220317140046.64563-4-ayankuma@xilinx.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 168685: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=c1e662101addbfd983026f06d119da2d470865a1
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 18 Mar 2022 18:31:03 +0000
 
-Hi Ayan,
+flight 168685 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168685/
 
-On 17/03/2022 14:00, Ayan Kumar Halder wrote:
-> diff --git a/xen/arch/arm/include/asm/mmio.h b/xen/arch/arm/include/asm/mmio.h
-> index ca259a79c2..79e64d9af8 100644
-> --- a/xen/arch/arm/include/asm/mmio.h
-> +++ b/xen/arch/arm/include/asm/mmio.h
-> @@ -35,6 +35,7 @@ enum instr_decode_state
->        * instruction.
->        */
->       INSTR_LDR_STR_POSTINDEXING,
-> +    INSTR_CACHE,                    /* Cache Maintenance instr */
->   };
->   
->   typedef struct
-> diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
-> index 6f458ee7fd..26c716b4a5 100644
-> --- a/xen/arch/arm/io.c
-> +++ b/xen/arch/arm/io.c
-> @@ -139,6 +139,17 @@ void try_decode_instruction(const struct cpu_user_regs *regs,
->           return;
->       }
->   
-> +    /*
-> +     * When the data abort is caused due to cache maintenance, Xen should check
-> +     * if the address belongs to an emulated MMIO region or not. The behavior
-> +     * will differ accordingly.
-> +     */
-> +    if ( info->dabt.cache )
-> +    {
-> +        info->dabt_instr.state = INSTR_CACHE;
-> +        return;
-> +    }
-> +
->       /*
->        * Armv8 processor does not provide a valid syndrome for decoding some
->        * instructions. So in order to process these instructions, Xen must
-> @@ -177,6 +188,13 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
->           return rc;
->       }
->   
-> +    /*
-> +     * When the data abort is caused due to cache maintenance and the address
-> +     * belongs to an emulated region, Xen should ignore this instruction.
-> +     */
-> +    if ( info->dabt_instr.state == INSTR_CACHE )
+Regressions :-(
 
-Reading the Arm Arm, the ISS should be invalid for cache instructions. 
-So, I think the check at the beginning of try_handle_mmio() would 
-prevent us to reach this check.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
-Can you check that cache instructions on emulated region will 
-effectively be ignored?
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-Cheers,
+version targeted for testing:
+ ovmf                 c1e662101addbfd983026f06d119da2d470865a1
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
--- 
-Julien Grall
+Last test of basis   168254  2022-02-28 10:41:46 Z   18 days
+Failing since        168258  2022-03-01 01:55:31 Z   17 days  171 attempts
+Testing same since   168675  2022-03-18 07:10:27 Z    0 days    7 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 830 lines long.)
 
