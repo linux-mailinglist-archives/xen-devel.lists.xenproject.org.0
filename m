@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99F4A4DE1F0
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 20:44:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.292208.496311 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6460B4DE207
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 21:01:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.292212.496322 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVIWV-0004zg-G8; Fri, 18 Mar 2022 19:44:31 +0000
+	id 1nVImK-0007RP-Sb; Fri, 18 Mar 2022 20:00:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 292208.496311; Fri, 18 Mar 2022 19:44:31 +0000
+Received: by outflank-mailman (output) from mailman id 292212.496322; Fri, 18 Mar 2022 20:00:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVIWV-0004xa-Cz; Fri, 18 Mar 2022 19:44:31 +0000
-Received: by outflank-mailman (input) for mailman id 292208;
- Fri, 18 Mar 2022 19:44:29 +0000
+	id 1nVImK-0007Om-Pb; Fri, 18 Mar 2022 20:00:52 +0000
+Received: by outflank-mailman (input) for mailman id 292212;
+ Fri, 18 Mar 2022 20:00:51 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nVIWT-0004xU-SL
- for xen-devel@lists.xenproject.org; Fri, 18 Mar 2022 19:44:29 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nVImJ-0007OI-E5; Fri, 18 Mar 2022 20:00:51 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nVIWT-0000vJ-9n; Fri, 18 Mar 2022 19:44:29 +0000
-Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nVIWT-0003TY-4C; Fri, 18 Mar 2022 19:44:29 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nVImJ-0001IO-BV; Fri, 18 Mar 2022 20:00:51 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nVImI-0004zw-T4; Fri, 18 Mar 2022 20:00:51 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nVImI-000360-Se; Fri, 18 Mar 2022 20:00:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,80 +42,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=WGEPkWDckwgCoDnOtCpuyUtQNkb6vX3wTfn0Jwt4+jc=; b=fopjsWLfV7EfdnaVo2n1o14NxE
-	5eCC8+2C74YnGZIC3Adpa8zGN/714lohqvaYsAWn3jeYHOozMrTXvRJZaKNR8RQwS+HYiOpaMCGmp
-	6z2S94c12c6lNHnlpmuoYWSQD8GGG5cz+1qJvKF7buc2+HnaNGPEGI72+2gyt1+IqN0k=;
-Message-ID: <8201257a-74c1-4a47-77d5-0b9b2daec6f9@xen.org>
-Date: Fri, 18 Mar 2022 19:44:26 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.6.2
-Subject: Re: [PATCH v3 08/19] xen/arm: mm: Re-implement early_fdt_map() using
- map_pages_to_xen()
-To: Hongda Deng <Hongda.Deng@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <Julien.Grall@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Julien Grall <jgrall@amazon.com>
-References: <20220221102218.33785-1-julien@xen.org>
- <20220221102218.33785-9-julien@xen.org>
- <DBAPR08MB5670F9858ED3EE701C7F9C8BE6139@DBAPR08MB5670.eurprd08.prod.outlook.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <DBAPR08MB5670F9858ED3EE701C7F9C8BE6139@DBAPR08MB5670.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=t2Ws2jCOYqmtBzhsQ16R84vf3QnZJcMsdYYCmXnAX94=; b=FSaAkElEaScMgjriWIH1m1FeRT
+	jWS52OUuLXGY93j5/bDgvQpEFCrhX9I1YyI8GhAbNCoIUWKV+ca6VOEnbZQhwhrG89V3/dVr/plm/
+	0Ce3qmR+/JIb6H2WXo9rts6FeKn25iIt9ZtjgRVBWuC9YpdLytDD8YYBWd+tA7yc9f4o=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168687-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 168687: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=c1e662101addbfd983026f06d119da2d470865a1
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 18 Mar 2022 20:00:50 +0000
 
-On 18/03/2022 07:36, Hongda Deng wrote:
-> Hi Julien,
+flight 168687 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168687/
 
-Hi Hongda,
+Regressions :-(
 
->> -----Original Message-----
->> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of Julien
->> Grall
->> Sent: 2022年2月21日 18:22
->> To: xen-devel@lists.xenproject.org
->> Cc: julien@xen.org; Julien Grall <Julien.Grall@arm.com>; Stefano Stabellini
->> <sstabellini@kernel.org>; Bertrand Marquis <Bertrand.Marquis@arm.com>;
->> Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>; Julien Grall
->> <jgrall@amazon.com>
->> Subject: [PATCH v3 08/19] xen/arm: mm: Re-implement early_fdt_map() using
->> map_pages_to_xen()
->>
->> From: Julien Grall <julien.grall@arm.com>
->>
->> Now that map_pages_to_xen() has been extended to support 2MB mappings,
->> we can replace the create_mappings() calls by map_pages_to_xen() calls.
->>
->> The mapping can also be marked read-only has Xen as no business to
-> 
-> In my opinion I think it may should be:
-> 	... read-only as Xen has no business ...
-> instead of:
-> 	... read-only has Xen as no business ...
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
-You are right, I have updated the commit message.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-> 
-> For this and other patches before this:
-> Reviewed-by: Hongda Deng <Hongda.Heng@arm.com>
+version targeted for testing:
+ ovmf                 c1e662101addbfd983026f06d119da2d470865a1
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-There is one bug in patch #5 (I sent an e-mail with the possible fix). 
-Can you confirm you are still happy with me to keep your reviewed-by for 
-that patch?
+Last test of basis   168254  2022-02-28 10:41:46 Z   18 days
+Failing since        168258  2022-03-01 01:55:31 Z   17 days  173 attempts
+Testing same since   168675  2022-03-18 07:10:27 Z    0 days    9 attempts
 
-For the other patches, I have already committed patch #1-#3. So I will 
-add your tag on patches #4, #6, #7, #8.
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
 
-Thank you for the review!
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
-Cheers,
 
--- 
-Julien Grall
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 830 lines long.)
 
