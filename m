@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01D864DDCCC
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 16:26:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.292107.496118 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25A2C4DDD69
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 16:58:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.292126.496130 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVEUQ-0003VP-7D; Fri, 18 Mar 2022 15:26:06 +0000
+	id 1nVEyl-0000Kv-Ez; Fri, 18 Mar 2022 15:57:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 292107.496118; Fri, 18 Mar 2022 15:26:06 +0000
+Received: by outflank-mailman (output) from mailman id 292126.496130; Fri, 18 Mar 2022 15:57:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVEUP-0003T7-Vg; Fri, 18 Mar 2022 15:26:05 +0000
-Received: by outflank-mailman (input) for mailman id 292107;
- Fri, 18 Mar 2022 15:26:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VNnc=T5=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1nVEUN-0001ka-R9
- for xen-devel@lists.xenproject.org; Fri, 18 Mar 2022 15:26:03 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id b8847dc5-a6cf-11ec-853c-5f4723681683;
- Fri, 18 Mar 2022 16:26:02 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 34AF51570;
- Fri, 18 Mar 2022 08:26:02 -0700 (PDT)
-Received: from e125770.cambridge.arm.com (e125770.cambridge.arm.com
- [10.1.195.16])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BC5C43F7D7;
- Fri, 18 Mar 2022 08:26:00 -0700 (PDT)
+	id 1nVEyl-0000JA-AH; Fri, 18 Mar 2022 15:57:27 +0000
+Received: by outflank-mailman (input) for mailman id 292126;
+ Fri, 18 Mar 2022 15:57:26 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nVEyk-0000J0-Gg; Fri, 18 Mar 2022 15:57:26 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nVEyk-0004t7-F4; Fri, 18 Mar 2022 15:57:26 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nVEyk-0004jz-35; Fri, 18 Mar 2022 15:57:26 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nVEyk-0004Ld-2c; Fri, 18 Mar 2022 15:57:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,113 +42,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8847dc5-a6cf-11ec-853c-5f4723681683
-From: Luca Fancellu <luca.fancellu@arm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=dWPHRhkmHTHtpD4QDbuuZBNoRknd2XJkM3PksxpNHps=; b=VKNugvP70+ubgDKbBl+yL1pzsJ
+	ZqUfB1IAsD5uhb0Iy9BelXAK4yeOk2tcriWss8s8rZN9OZli6Ey04jBoeW/8e0kQSgKOsN+dQcA8w
+	BBRvGdVrIqx9v7UoUeR/O2N44K/u/naWF0yLtR5NifB+VYeX5rLWe5YFCFfNChUQx6LA=;
 To: xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com,
-	wei.chen@arm.com,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Juergen Gross <jgross@suse.com>,
-	Dario Faggioli <dfaggioli@suse.com>
-Subject: [PATCH v3 6/6] xen/cpupool: Allow cpupool0 to use different scheduler
-Date: Fri, 18 Mar 2022 15:25:41 +0000
-Message-Id: <20220318152541.7460-7-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220318152541.7460-1-luca.fancellu@arm.com>
-References: <20220318152541.7460-1-luca.fancellu@arm.com>
+Message-ID: <osstest-168680-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 168680: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=c1e662101addbfd983026f06d119da2d470865a1
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 18 Mar 2022 15:57:26 +0000
 
-Currently cpupool0 can use only the default scheduler, and
-cpupool_create has an hardcoded behavior when creating the pool 0
-that doesn't allocate new memory for the scheduler, but uses the
-default scheduler structure in memory.
+flight 168680 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168680/
 
-With this commit it is possible to allocate a different scheduler for
-the cpupool0 when using the boot time cpupool.
-To achieve this the hardcoded behavior in cpupool_create is removed
-and the cpupool0 creation is moved.
+Regressions :-(
 
-When compiling without boot time cpupools enabled, the current
-behavior is maintained (except that cpupool0 scheduler memory will be
-allocated).
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
----
-Changes in v3:
-- fix typo in commit message (Juergen)
-- rebase changes
-Changes in v2:
-- new patch
----
- xen/common/boot_cpupools.c | 5 ++++-
- xen/common/sched/cpupool.c | 8 +-------
- xen/include/xen/sched.h    | 5 ++++-
- 3 files changed, 9 insertions(+), 9 deletions(-)
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-diff --git a/xen/common/boot_cpupools.c b/xen/common/boot_cpupools.c
-index feba93a243fc..af5bea0c1113 100644
---- a/xen/common/boot_cpupools.c
-+++ b/xen/common/boot_cpupools.c
-@@ -175,8 +175,11 @@ void __init btcpupools_allocate_pools(void)
-     if ( add_extra_cpupool )
-         next_pool_id++;
- 
-+    /* Keep track of cpupool id 0 with the global cpupool0 */
-+    cpupool0 = cpupool_create_pool(0, pool_sched_map[0]);
-+
-     /* Create cpupools with selected schedulers */
--    for ( i = 0; i < next_pool_id; i++ )
-+    for ( i = 1; i < next_pool_id; i++ )
-         cpupool_create_pool(i, pool_sched_map[i]);
- 
- #ifdef CONFIG_X86
-diff --git a/xen/common/sched/cpupool.c b/xen/common/sched/cpupool.c
-index e5189c53a321..f717ee844e91 100644
---- a/xen/common/sched/cpupool.c
-+++ b/xen/common/sched/cpupool.c
-@@ -312,10 +312,7 @@ static struct cpupool *cpupool_create(unsigned int poolid,
-         c->cpupool_id = q->cpupool_id + 1;
-     }
- 
--    if ( poolid == 0 )
--        c->sched = scheduler_get_default();
--    else
--        c->sched = scheduler_alloc(sched_id);
-+    c->sched = scheduler_alloc(sched_id);
-     if ( IS_ERR(c->sched) )
-     {
-         ret = PTR_ERR(c->sched);
-@@ -1242,9 +1239,6 @@ static int __init cf_check cpupool_init(void)
- 
-     cpupool_hypfs_init();
- 
--    cpupool0 = cpupool_create(0, 0);
--    BUG_ON(IS_ERR(cpupool0));
--    cpupool_put(cpupool0);
-     register_cpu_notifier(&cpu_nfb);
- 
-     btcpupools_dtb_parse();
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index 4e749a604f25..215b4f45609a 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -1188,7 +1188,10 @@ static inline void btcpupools_dtb_parse(void) {}
- #endif
- 
- #else /* !CONFIG_BOOT_TIME_CPUPOOLS */
--static inline void btcpupools_allocate_pools(void) {}
-+static inline void btcpupools_allocate_pools(void)
-+{
-+    cpupool0 = cpupool_create_pool(0, -1);
-+}
- static inline void btcpupools_dtb_parse(void) {}
- static inline unsigned int btcpupools_get_cpupool_id(unsigned int cpu)
- {
--- 
-2.17.1
+version targeted for testing:
+ ovmf                 c1e662101addbfd983026f06d119da2d470865a1
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
+Last test of basis   168254  2022-02-28 10:41:46 Z   18 days
+Failing since        168258  2022-03-01 01:55:31 Z   17 days  168 attempts
+Testing same since   168675  2022-03-18 07:10:27 Z    0 days    4 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 830 lines long.)
 
