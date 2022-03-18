@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DABA4DDE8D
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 17:19:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.292143.496163 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70B634DDF73
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 17:56:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.292147.496173 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVFJC-0004Ut-PP; Fri, 18 Mar 2022 16:18:34 +0000
+	id 1nVFtc-0000BS-M4; Fri, 18 Mar 2022 16:56:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 292143.496163; Fri, 18 Mar 2022 16:18:34 +0000
+Received: by outflank-mailman (output) from mailman id 292147.496173; Fri, 18 Mar 2022 16:56:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVFJC-0004S1-L1; Fri, 18 Mar 2022 16:18:34 +0000
-Received: by outflank-mailman (input) for mailman id 292143;
- Fri, 18 Mar 2022 16:18:33 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1nVFtc-00008J-J0; Fri, 18 Mar 2022 16:56:12 +0000
+Received: by outflank-mailman (input) for mailman id 292147;
+ Fri, 18 Mar 2022 16:56:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nVFJB-0004Rv-Tk
- for xen-devel@lists.xenproject.org; Fri, 18 Mar 2022 16:18:33 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nVFJB-0005mW-Hi; Fri, 18 Mar 2022 16:18:33 +0000
-Received: from [54.239.6.185] (helo=[192.168.15.239])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nVFJB-00006O-BB; Fri, 18 Mar 2022 16:18:33 +0000
+ (envelope-from <SRS0=krOM=T5=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1nVFta-00008D-Sc
+ for xen-devel@lists.xenproject.org; Fri, 18 Mar 2022 16:56:10 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4e7e0d6e-a6dc-11ec-8eba-a37418f5ba1a;
+ Fri, 18 Mar 2022 17:56:08 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E66661F392;
+ Fri, 18 Mar 2022 16:56:07 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9FD501351D;
+ Fri, 18 Mar 2022 16:56:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id Yy9iJae5NGIgCgAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 18 Mar 2022 16:56:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,95 +51,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=SGvcYTT9KPucFevs/HFR8gKlRWNjHHgxHfZjDAenkZg=; b=zsJQyE9UyEkceBilVoj2aFGuHf
-	Oq4OHw2QXMNDoQX/zqnBs61OEqlLvaM81F6lnhIdpfMLy4j2xbb/jMqa8ruNWZ1mODwKN25GMON1k
-	WdHmc2MIAJ8Tj+8F3wCkg452yHNf8T04IXgBGmgJg06ISWdGl0keT6eb0y6oYgBxfEpc=;
-Message-ID: <cff3d9a6-fc72-ae05-663c-4f0197525455@xen.org>
-Date: Fri, 18 Mar 2022 16:18:31 +0000
+X-Inumbo-ID: 4e7e0d6e-a6dc-11ec-8eba-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1647622567; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Mp/9GH7VCVH6yRrvqWVAbBDtVnOlmtIXQvROfo3TzB8=;
+	b=d53Ia78bdfyuGJLCOxWXtyZaOvwAqUeXDzSLCF9NmwRRTeyXVsv/yetQY9oesHh69TLTXT
+	nYmYcnlYYWph0Tfp4VxXOSxDxc97dLAO2DB8LUsTaE5usZlnNFMnG8sNxtroVxubgDlxzA
+	qLuoFT8kgo5FEVMOy0jQ5jR1zOwYhh4=
+Message-ID: <2a4573e0-4a8d-52c1-d29b-66b13bfe376f@suse.com>
+Date: Fri, 18 Mar 2022 17:56:07 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.7.0
-Subject: Re: [PATCH v3 5/6] arm/dom0less: assign dom0less guests to cpupools
-To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com, wei.chen@arm.com,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>
-References: <20220318152541.7460-1-luca.fancellu@arm.com>
- <20220318152541.7460-6-luca.fancellu@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20220318152541.7460-6-luca.fancellu@arm.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.1
+Subject: Re: [PATCH] platform/x86/dell: add buffer allocation/free functions
+ for SMI calls
+Content-Language: en-US
+To: David Laight <David.Laight@ACULAB.COM>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "Dell.Client.Kernel@dell.com" <Dell.Client.Kernel@dell.com>
+Cc: Stuart Hayes <stuart.w.hayes@gmail.com>,
+ Hans de Goede <hdegoede@redhat.com>, Mark Gross <markgross@kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <20220318150950.16843-1-jgross@suse.com>
+ <accf95548a8c4374b17c159b9b2d0098@AcuMS.aculab.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <accf95548a8c4374b17c159b9b2d0098@AcuMS.aculab.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------TM6SaXL8siRcJxQNQGUqgn4j"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------TM6SaXL8siRcJxQNQGUqgn4j
+Content-Type: multipart/mixed; boundary="------------0gPSdPzUPEcNzI04c8WYT5Ll";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: David Laight <David.Laight@ACULAB.COM>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "Dell.Client.Kernel@dell.com" <Dell.Client.Kernel@dell.com>
+Cc: Stuart Hayes <stuart.w.hayes@gmail.com>,
+ Hans de Goede <hdegoede@redhat.com>, Mark Gross <markgross@kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+Message-ID: <2a4573e0-4a8d-52c1-d29b-66b13bfe376f@suse.com>
+Subject: Re: [PATCH] platform/x86/dell: add buffer allocation/free functions
+ for SMI calls
+References: <20220318150950.16843-1-jgross@suse.com>
+ <accf95548a8c4374b17c159b9b2d0098@AcuMS.aculab.com>
+In-Reply-To: <accf95548a8c4374b17c159b9b2d0098@AcuMS.aculab.com>
+
+--------------0gPSdPzUPEcNzI04c8WYT5Ll
+Content-Type: multipart/mixed; boundary="------------DDUITxrpMQFqvmeqif0y83vA"
+
+--------------DDUITxrpMQFqvmeqif0y83vA
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
 
-Hi,
+T24gMTguMDMuMjIgMTY6MjIsIERhdmlkIExhaWdodCB3cm90ZToNCj4gRnJvbTogSnVlcmdl
+biBHcm9zcw0KPj4gU2VudDogMTggTWFyY2ggMjAyMiAxNToxMA0KPj4NCj4+IFRoZSBkY2Ri
+YXMgZHJpdmVyIGlzIHVzZWQgdG8gY2FsbCBTTUkgaGFuZGxlcnMgZm9yIGJvdGgsIGRjZGJh
+cyBhbmQNCj4+IGRlbGwtc21iaW9zLXNtbS4gQm90aCBkcml2ZXJzIGFsbG9jYXRlIGEgYnVm
+ZmVyIGZvciBjb21tdW5pY2F0aW5nDQo+PiB3aXRoIHRoZSBTTUkgaGFuZGxlci4gVGhlIHBo
+eXNpY2FsIGJ1ZmZlciBhZGRyZXNzIGlzIHRoZW4gcGFzc2VkIHRvDQo+PiB0aGUgY2FsbGVk
+IFNNSSBoYW5kbGVyIHZpYSAlZWJ4Lg0KPj4NCj4+IFVuZm9ydHVuYXRlbHkgdGhpcyBkb2Vz
+bid0IHdvcmsgd2hlbiBydW5uaW5nIGluIFhlbiBkb20wLCBhcyB0aGUNCj4+IHBoeXNpY2Fs
+IGFkZHJlc3Mgb2J0YWluZWQgdmlhIHZpcnRfdG9fcGh5cygpIGlzIG9ubHkgYSBndWVzdCBw
+aHlzaWNhbA0KPj4gYWRkcmVzcywgYW5kIG5vdCBhIG1hY2hpbmUgcGh5c2ljYWwgYWRkcmVz
+cyBhcyBuZWVkZWQgYnkgU01JLg0KPiANCj4gVGhlIHBoeXNpY2FsIGFkZHJlc3MgZnJvbSB2
+aXJ0X3RvX3BoeSgpIGlzIGFsd2F5cyB3cm9uZy4NCj4gVGhhdCBpcyB0aGUgcGh5c2ljYWwg
+YWRkcmVzcyB0aGUgY3B1IGhhcyBmb3IgdGhlIG1lbW9yeS4NCj4gV2hhdCB5b3Ugd2FudCBp
+cyB0aGUgYWRkcmVzcyB0aGUgZG1hIG1hc3RlciBpbnRlcmZhY2UgbmVlZHMgdG8gdXNlLg0K
+PiBUaGF0IGNhbiBiZSBkaWZmZXJlbnQgZm9yIGEgcGh5c2ljYWwgc3lzdGVtIC0gbm8gbmVl
+ZCBmb3IgdmlydHVhbGlzYXRpb24uDQo+IA0KPiBPbiB4ODYgdGhleSBkbyB1c3VhbGx5IG1h
+dGNoLCBidXQgYW55dGhpbmcgd2l0aCBhIGZ1bGwgaW9tbXUNCj4gd2lsbCBuZWVkIGNvbXBs
+ZXRlbHkgZGlmZmVyZW50IGFkZHJlc3Nlcy4NCg0KWWVzLCB0aGFua3MgZm9yIHJlbWluZGlu
+ZyBtZSBvZiB0aGF0Lg0KDQpUaGUgU01JIGhhbmRsZXIgaXMgcnVubmluZyBvbiB0aGUgY3B1
+LCByaWdodD8gU28gdXNpbmcgdGhlIERNQQ0KYWRkcmVzcyBpcyB3cm9uZyBpbiBjYXNlIG9m
+IGFuIElPTU1VLiBJIHJlYWxseSBuZWVkIHRoZSBtYWNoaW5lDQpwaHlzaWNhbCBhZGRyZXNz
+Lg0KDQoNCkp1ZXJnZW4NCg==
+--------------DDUITxrpMQFqvmeqif0y83vA
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-On 18/03/2022 15:25, Luca Fancellu wrote:
-> Introduce domain-cpupool property of a xen,domain device tree node,
-> that specifies the cpupool device tree handle of a xen,cpupool node
-> that identifies a cpupool created at boot time where the guest will
-> be assigned on creation.
-> 
-> Add member to the xen_domctl_createdomain public interface so the
-> XEN_DOMCTL_INTERFACE_VERSION version is bumped.
-> 
-> Add public function to retrieve a pool id from the device tree
-> cpupool node.
-> 
-> Update documentation about the property.
-> 
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-> ---
-> Changes in v3:
-> - Use explicitely sized integer for struct xen_domctl_createdomain
->    cpupool_id member. (Stefano)
-> - Changed code due to previous commit code changes
-> Changes in v2:
-> - Moved cpupool_id from arch specific to common part (Juergen)
-> - Implemented functions to retrieve the cpupool id from the
->    cpupool dtb node.
-> ---
->   docs/misc/arm/device-tree/booting.txt |  5 +++++
->   xen/arch/arm/domain_build.c           | 14 +++++++++++++-
->   xen/common/boot_cpupools.c            | 24 ++++++++++++++++++++++++
->   xen/common/domain.c                   |  2 +-
->   xen/include/public/domctl.h           |  4 +++-
->   xen/include/xen/sched.h               |  9 +++++++++
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-This patch doesn't seem to contain any change in tools. So...
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
->           if ( (err = late_hwdom_init(d)) != 0 )
-> diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-> index b85e6170b0aa..2f4cf56f438d 100644
-> --- a/xen/include/public/domctl.h
-> +++ b/xen/include/public/domctl.h
-> @@ -38,7 +38,7 @@
->   #include "hvm/save.h"
->   #include "memory.h"
->   
-> -#define XEN_DOMCTL_INTERFACE_VERSION 0x00000014
-> +#define XEN_DOMCTL_INTERFACE_VERSION 0x00000015
->   
->   /*
->    * NB. xen_domctl.domain is an IN/OUT parameter for this operation.
-> @@ -106,6 +106,8 @@ struct xen_domctl_createdomain {
->       /* Per-vCPU buffer size in bytes.  0 to disable. */
->       uint32_t vmtrace_size;
->   
-> +    uint32_t cpupool_id;
+--------------DDUITxrpMQFqvmeqif0y83vA--
 
-... will the tools (e.g. golang bindings, libxl,..) always zero 
-xen_domctl_createdomain?
+--------------0gPSdPzUPEcNzI04c8WYT5Ll--
 
-I also think we may need to regenerate the golang bindings.
+--------------TM6SaXL8siRcJxQNQGUqgn4j
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-Cheers,
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Julien Grall
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmI0uacFAwAAAAAACgkQsN6d1ii/Ey8Y
+2Af9H+sA3gToLVqND0JUAgm34RV3HcBKtmpQrwauUp+n2SxJt7BkiulazKmckqT1f3cwxZCYdmJK
+y0z4QGH05zM2M+L8Zkij1zVgL+yT45i0ptVXqAbURrP5GRvPoAcCzdMcQRjFma+QxviH6iY6Tmp/
+yRixaeI76WgVtjPGpg50MevpkP1xnYI8a6Rm6g3yXH6D+UA5kooDyRiz8CGTepBffR1jdKBAjLwy
+PTbPY/KUMdeqfkOvj/5DAx5UvGFfY4DEkUf2WQ2F50AMQe8ZruD85Pi2SqTDkDin9YEeXOP1MJTj
+WFa6WWbs9CwlBtaXRbk9N56f5g2mhfeijLVIrQ7h8g==
+=qjJK
+-----END PGP SIGNATURE-----
+
+--------------TM6SaXL8siRcJxQNQGUqgn4j--
 
