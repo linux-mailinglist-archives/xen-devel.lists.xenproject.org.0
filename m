@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09D014DDCCA
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 16:26:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.292103.496066 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D024D4DDCC9
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 16:26:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.292104.496085 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVEUI-0001zd-EI; Fri, 18 Mar 2022 15:25:58 +0000
+	id 1nVEUK-0002af-TO; Fri, 18 Mar 2022 15:26:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 292103.496066; Fri, 18 Mar 2022 15:25:58 +0000
+Received: by outflank-mailman (output) from mailman id 292104.496085; Fri, 18 Mar 2022 15:26:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVEUI-0001tF-9P; Fri, 18 Mar 2022 15:25:58 +0000
-Received: by outflank-mailman (input) for mailman id 292103;
- Fri, 18 Mar 2022 15:25:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nVEUK-0002YC-PZ; Fri, 18 Mar 2022 15:26:00 +0000
+Received: by outflank-mailman (input) for mailman id 292104;
+ Fri, 18 Mar 2022 15:25:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=VNnc=T5=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1nVEUH-0001kl-Am
- for xen-devel@lists.xenproject.org; Fri, 18 Mar 2022 15:25:57 +0000
+ id 1nVEUI-0001ka-RN
+ for xen-devel@lists.xenproject.org; Fri, 18 Mar 2022 15:25:58 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id b49b473d-a6cf-11ec-8eba-a37418f5ba1a;
- Fri, 18 Mar 2022 16:25:56 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id b58755b9-a6cf-11ec-853c-5f4723681683;
+ Fri, 18 Mar 2022 16:25:57 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8B0021576;
- Fri, 18 Mar 2022 08:25:55 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1CBF01515;
+ Fri, 18 Mar 2022 08:25:57 -0700 (PDT)
 Received: from e125770.cambridge.arm.com (e125770.cambridge.arm.com
  [10.1.195.16])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1A9AF3F7D7;
- Fri, 18 Mar 2022 08:25:53 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C08113F7D7;
+ Fri, 18 Mar 2022 08:25:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,95 +43,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b49b473d-a6cf-11ec-8eba-a37418f5ba1a
+X-Inumbo-ID: b58755b9-a6cf-11ec-853c-5f4723681683
 From: Luca Fancellu <luca.fancellu@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: bertrand.marquis@arm.com,
 	wei.chen@arm.com,
-	Juergen Gross <jgross@suse.com>,
-	Dario Faggioli <dfaggioli@suse.com>,
 	George Dunlap <george.dunlap@citrix.com>,
+	Dario Faggioli <dfaggioli@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v3 2/6] xen/sched: create public function for cpupools creation
-Date: Fri, 18 Mar 2022 15:25:37 +0000
-Message-Id: <20220318152541.7460-3-luca.fancellu@arm.com>
+Subject: [PATCH v3 3/6] xen/sched: retrieve scheduler id by name
+Date: Fri, 18 Mar 2022 15:25:38 +0000
+Message-Id: <20220318152541.7460-4-luca.fancellu@arm.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20220318152541.7460-1-luca.fancellu@arm.com>
 References: <20220318152541.7460-1-luca.fancellu@arm.com>
 
-Create new public function to create cpupools, can take as parameter
-the scheduler id or a negative value that means the default Xen
-scheduler will be used.
+Add a static function to retrieve the scheduler pointer using the
+scheduler name.
+
+Add a public function to retrieve the scheduler id by the scheduler
+name that makes use of the new static function.
+
+Take the occasion to replace open coded scheduler search with the
+new static function in scheduler_init.
 
 Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+Reviewed-by: Juergen Gross <jgross@suse.com>
 ---
 Changes in v3:
-- Fixed comment (Andrew)
+- add R-by
 Changes in v2:
-- cpupool_create_pool doesn't check anymore for pool id uniqueness
-  before calling cpupool_create. Modified commit message accordingly
+- replace open coded scheduler search in scheduler_init (Juergen)
 ---
- xen/common/sched/cpupool.c | 15 +++++++++++++++
- xen/include/xen/sched.h    | 16 ++++++++++++++++
- 2 files changed, 31 insertions(+)
+ xen/common/sched/core.c | 40 ++++++++++++++++++++++++++--------------
+ xen/include/xen/sched.h | 11 +++++++++++
+ 2 files changed, 37 insertions(+), 14 deletions(-)
 
-diff --git a/xen/common/sched/cpupool.c b/xen/common/sched/cpupool.c
-index a6da4970506a..89a891af7076 100644
---- a/xen/common/sched/cpupool.c
-+++ b/xen/common/sched/cpupool.c
-@@ -1219,6 +1219,21 @@ static void cpupool_hypfs_init(void)
+diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+index 19ab67818106..48ee01420fb8 100644
+--- a/xen/common/sched/core.c
++++ b/xen/common/sched/core.c
+@@ -2947,10 +2947,30 @@ void scheduler_enable(void)
+     scheduler_active = true;
+ }
  
- #endif /* CONFIG_HYPFS */
- 
-+struct cpupool *__init cpupool_create_pool(unsigned int pool_id, int sched_id)
++static inline
++const struct scheduler *__init sched_get_by_name(const char *sched_name)
 +{
-+    struct cpupool *pool;
++    unsigned int i;
 +
-+    if ( sched_id < 0 )
-+        sched_id = scheduler_get_default()->sched_id;
++    for ( i = 0; i < NUM_SCHEDULERS; i++ )
++        if ( schedulers[i] && !strcmp(schedulers[i]->opt_name, sched_name) )
++            return schedulers[i];
 +
-+    pool = cpupool_create(pool_id, sched_id);
-+
-+    BUG_ON(IS_ERR(pool));
-+    cpupool_put(pool);
-+
-+    return pool;
++    return NULL;
 +}
 +
- static int __init cf_check cpupool_init(void)
++int __init sched_get_id_by_name(const char *sched_name)
++{
++    const struct scheduler *scheduler = sched_get_by_name(sched_name);
++
++    return scheduler ? scheduler->sched_id : -1;
++}
++
+ /* Initialise the data structures. */
+ void __init scheduler_init(void)
  {
-     unsigned int cpu;
+     struct domain *idle_domain;
++    const struct scheduler *scheduler;
+     int i;
+ 
+     scheduler_enable();
+@@ -2981,25 +3001,17 @@ void __init scheduler_init(void)
+                    schedulers[i]->opt_name);
+             schedulers[i] = NULL;
+         }
+-
+-        if ( schedulers[i] && !ops.name &&
+-             !strcmp(schedulers[i]->opt_name, opt_sched) )
+-            ops = *schedulers[i];
+     }
+ 
+-    if ( !ops.name )
++    scheduler = sched_get_by_name(opt_sched);
++    if ( !scheduler )
+     {
+         printk("Could not find scheduler: %s\n", opt_sched);
+-        for ( i = 0; i < NUM_SCHEDULERS; i++ )
+-            if ( schedulers[i] &&
+-                 !strcmp(schedulers[i]->opt_name, CONFIG_SCHED_DEFAULT) )
+-            {
+-                ops = *schedulers[i];
+-                break;
+-            }
+-        BUG_ON(!ops.name);
+-        printk("Using '%s' (%s)\n", ops.name, ops.opt_name);
++        scheduler = sched_get_by_name(CONFIG_SCHED_DEFAULT);
++        BUG_ON(!scheduler);
++        printk("Using '%s' (%s)\n", scheduler->name, scheduler->opt_name);
+     }
++    ops = *scheduler;
+ 
+     if ( cpu_schedule_up(0) )
+         BUG();
 diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index 10ea969c7af9..415b939ba8ae 100644
+index 415b939ba8ae..4050e22544f9 100644
 --- a/xen/include/xen/sched.h
 +++ b/xen/include/xen/sched.h
-@@ -1145,6 +1145,22 @@ int cpupool_move_domain(struct domain *d, struct cpupool *c);
- int cpupool_do_sysctl(struct xen_sysctl_cpupool_op *op);
- unsigned int cpupool_get_id(const struct domain *d);
- const cpumask_t *cpupool_valid_cpus(const struct cpupool *pool);
+@@ -756,6 +756,17 @@ void sched_destroy_domain(struct domain *d);
+ long sched_adjust(struct domain *, struct xen_domctl_scheduler_op *);
+ long sched_adjust_global(struct xen_sysctl_scheduler_op *);
+ int  sched_id(void);
 +
 +/*
-+ * cpupool_create_pool - Creates a cpupool
-+ * @pool_id: id of the pool to be created
-+ * @sched_id: id of the scheduler to be used for the pool
-+ *
-+ * Creates a cpupool with pool_id id.
-+ * The sched_id parameter identifies the scheduler to be used, if it is
-+ * negative, the default scheduler of Xen will be used.
++ * sched_get_id_by_name - retrieves a scheduler id given a scheduler name
++ * @sched_name: scheduler name as a string
 + *
 + * returns:
-+ *     pointer to the struct cpupool just created, or Xen will panic in case of
-+ *     error
++ *     positive value being the scheduler id, on success
++ *     negative value if the scheduler name is not found.
 + */
-+struct cpupool *cpupool_create_pool(unsigned int pool_id, int sched_id);
++int sched_get_id_by_name(const char *sched_name);
 +
- extern void cf_check dump_runq(unsigned char key);
- 
- void arch_do_physinfo(struct xen_sysctl_physinfo *pi);
+ void vcpu_wake(struct vcpu *v);
+ long vcpu_yield(void);
+ void vcpu_sleep_nosync(struct vcpu *v);
 -- 
 2.17.1
 
