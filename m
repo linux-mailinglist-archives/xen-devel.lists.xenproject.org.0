@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 433504DE3D9
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 23:01:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.292248.496389 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C63654DE3DD
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 23:02:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.292255.496400 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVKeT-0004wV-V0; Fri, 18 Mar 2022 22:00:53 +0000
+	id 1nVKgA-0005Wk-CO; Fri, 18 Mar 2022 22:02:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 292248.496389; Fri, 18 Mar 2022 22:00:53 +0000
+Received: by outflank-mailman (output) from mailman id 292255.496400; Fri, 18 Mar 2022 22:02:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVKeT-0004uP-Rd; Fri, 18 Mar 2022 22:00:53 +0000
-Received: by outflank-mailman (input) for mailman id 292248;
- Fri, 18 Mar 2022 22:00:52 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nVKeS-0004uF-Pf; Fri, 18 Mar 2022 22:00:52 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nVKeS-0003J5-N7; Fri, 18 Mar 2022 22:00:52 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nVKeS-0007g1-6c; Fri, 18 Mar 2022 22:00:52 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nVKeS-0006if-68; Fri, 18 Mar 2022 22:00:52 +0000
+	id 1nVKgA-0005UU-8r; Fri, 18 Mar 2022 22:02:38 +0000
+Received: by outflank-mailman (input) for mailman id 292255;
+ Fri, 18 Mar 2022 22:02:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3xU5=T5=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nVKg8-0005UM-Ie
+ for xen-devel@lists.xenproject.org; Fri, 18 Mar 2022 22:02:36 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1def7e68-a707-11ec-a405-831a346695d4;
+ Fri, 18 Mar 2022 23:02:35 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id AE5E0B825A5;
+ Fri, 18 Mar 2022 22:02:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBDB9C340E8;
+ Fri, 18 Mar 2022 22:02:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,126 +43,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=hJT9FW/Ao4FkWGIXIgxA50HHHvx2PLsd8WltUtI0jgA=; b=M6AcUfEycS3qBkJNOsWggG6/6t
-	eW/CrJrEFc0tGR5KI9TsvXAN8XUPofKN6/YOYor0JN2Y2Hem1o2JBgcY9zYLDoQLTlbrmA8Gt/JKA
-	BDQ1btQWUAcVlzDMpTX0B+MoelymaOcJD1owNAwaOCdU0zwy1ZAItl/Fwtxg3+7sWZbI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168690-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 1def7e68-a707-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1647640953;
+	bh=E79GiSNFsHYs0WWiDeVnepFK1C3PiN98Rw4IyIZIydc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=ixEBYOlyYWZbsniiIGj9UlhicX8KFaXybcHmky4WuOTqeZIZKbyu7fw2O/LQj4O2M
+	 E2FXyKOKZECbxjL7OGLtPR2n/TCjp2XVjv7VMh0TMAWtspphavhkztWChTlZLfGRTN
+	 yXjcVV3r1BxpVbV1H857kfobd85X9Ul8Oj/hQofr1XCffyKcc+CLHnoGkHUeNgzmo2
+	 7InVld91vb1d2XJ2gWPovA7QXJtFdjYntbt7+BpTgDhfkDhoes5Wa/oTrm1lK1IWk/
+	 tA6kx5g/VXhX6a/zqQCFP1FFrnZI2akUX2E+NieQI4bDkjzofpXtrGkjohADDBX9JK
+	 en/NSEFy7Lexw==
+Date: Fri, 18 Mar 2022 15:02:32 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Penny Zheng <Penny.Zheng@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    nd <nd@arm.com>, Penny Zheng <penzhe01@a011292.shanghai.arm.com>, 
+    Julien Grall <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Wei Liu <wl@xen.org>
+Subject: RE: [PATCH v1 02/13] xen/arm: introduce a special domain
+ DOMID_SHARED
+In-Reply-To: <DU2PR08MB7325E5A3B5A9BC5DA76692C4F7139@DU2PR08MB7325.eurprd08.prod.outlook.com>
+Message-ID: <alpine.DEB.2.22.394.2203181459480.2910984@ubuntu-linux-20-04-desktop>
+References: <20220311061123.1883189-1-Penny.Zheng@arm.com> <20220311061123.1883189-3-Penny.Zheng@arm.com> <alpine.DEB.2.22.394.2203171645450.3497@ubuntu-linux-20-04-desktop> <DU2PR08MB7325E5A3B5A9BC5DA76692C4F7139@DU2PR08MB7325.eurprd08.prod.outlook.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 168690: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=c1e662101addbfd983026f06d119da2d470865a1
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 18 Mar 2022 22:00:52 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 168690 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168690/
+On Fri, 18 Mar 2022, Penny Zheng wrote:
+> > On Fri, 11 Mar 2022, Penny Zheng wrote:
+> > > From: Penny Zheng <penzhe01@a011292.shanghai.arm.com>
+> > >
+> > > In case to own statically shared pages when owner domain is not
+> > > explicitly defined, this commits propose a special domain
+> > > DOMID_SHARED, and we assign it 0x7FF5, as one of the system domains.
+> > >
+> > > Statically shared memory reuses the same way of initialization with
+> > > static memory, hence this commits proposes a new Kconfig
+> > > CONFIG_STATIC_SHM to wrap related codes, and this option depends on
+> > static memory(CONFIG_STATIC_MEMORY).
+> > 
+> > Why does it depend on CONFIG_STATIC_MEMORY? This is a genuine question,
+> > I am not trying to scope-creep the series. Is there an actual technical
+> > dependency on CONFIG_STATIC_MEMORY? If not, it would be super useful to
+> > be able to share memory statically even between normal dom0less guests (of
+> > course it would be responsibility of the user to provide the right addresses and
+> > avoid mapping clashes.) I know that some of our users have requested this
+> > feature in the past.
+> > 
+> 
+> I may find a proper way to rephrase here. My poor English writing skill...
+> When I implemented domain on static allocation, statically configured guest RAM is
+> treated as static memory in Xen and I introduced a few helpers to initialize/allocate/free
+> static memory, like acquire_staticmem_pages, etc, and all these helpers are guarded with
+> CONFIG_STATIC_MEMORY. 
+> I want to reuse these helpers on static shared memory, so CONFIG_STATIC_SHM depends
+> on CONFIG_STATIC_MEMORY.
+> 
+> So I'm not restricting sharing static memory between domain on static allocation, current
+> Implementation is also useful to normal dom0less guests.
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 c1e662101addbfd983026f06d119da2d470865a1
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   18 days
-Failing since        168258  2022-03-01 01:55:31 Z   17 days  176 attempts
-Testing same since   168675  2022-03-18 07:10:27 Z    0 days   12 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 830 lines long.)
+Ah, excellent! That makes sense.
 
