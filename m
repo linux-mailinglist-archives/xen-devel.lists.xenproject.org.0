@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25A2C4DDD69
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 16:58:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.292126.496130 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB2614DDD6E
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 16:59:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.292133.496141 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVEyl-0000Kv-Ez; Fri, 18 Mar 2022 15:57:27 +0000
+	id 1nVF05-0000vW-QD; Fri, 18 Mar 2022 15:58:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 292126.496130; Fri, 18 Mar 2022 15:57:27 +0000
+Received: by outflank-mailman (output) from mailman id 292133.496141; Fri, 18 Mar 2022 15:58:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVEyl-0000JA-AH; Fri, 18 Mar 2022 15:57:27 +0000
-Received: by outflank-mailman (input) for mailman id 292126;
- Fri, 18 Mar 2022 15:57:26 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nVEyk-0000J0-Gg; Fri, 18 Mar 2022 15:57:26 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nVEyk-0004t7-F4; Fri, 18 Mar 2022 15:57:26 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nVEyk-0004jz-35; Fri, 18 Mar 2022 15:57:26 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nVEyk-0004Ld-2c; Fri, 18 Mar 2022 15:57:26 +0000
+	id 1nVF05-0000sS-Mz; Fri, 18 Mar 2022 15:58:49 +0000
+Received: by outflank-mailman (input) for mailman id 292133;
+ Fri, 18 Mar 2022 15:58:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Gqp6=T5=citrix.com=prvs=069a58476=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1nVF04-0000sH-Go
+ for xen-devel@lists.xenproject.org; Fri, 18 Mar 2022 15:58:48 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4a18b401-a6d4-11ec-853c-5f4723681683;
+ Fri, 18 Mar 2022 16:58:46 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,126 +36,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=dWPHRhkmHTHtpD4QDbuuZBNoRknd2XJkM3PksxpNHps=; b=VKNugvP70+ubgDKbBl+yL1pzsJ
-	ZqUfB1IAsD5uhb0Iy9BelXAK4yeOk2tcriWss8s8rZN9OZli6Ey04jBoeW/8e0kQSgKOsN+dQcA8w
-	BBRvGdVrIqx9v7UoUeR/O2N44K/u/naWF0yLtR5NifB+VYeX5rLWe5YFCFfNChUQx6LA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168680-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 4a18b401-a6d4-11ec-853c-5f4723681683
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1647619126;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=vq+7pxKEb2HNAB3hrUWlz1jIOdSDtIYOE8JbSGw9z2o=;
+  b=fACZIOC1NihU1+fpkG8dACcFahbVEb5f0Kg8u9YcZyC6MXSCeWpREKOD
+   8atpV00briJLdkmUTWluyvj+KRGQ39fTwooLq7bfRtSh6mhyAB9a1DXxF
+   T3gOczWuH+dM92sY0HsytmPqwEwVrcs4SCr0UOjlVSzYw/7QYBnHi+26Q
+   g=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 67016739
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:5svBl6/W6l6WjbT8c0SaDrUDVH6TJUtcMsCJ2f8bNWPcYEJGY0x3y
+ 2IaXmmCP/fba2P9KY8jOoSypBtQsJOAmoNgSQpqpCk8E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
+ +1EN7Es+ehtFie0Si+Fa+Sn9T8mvU2xbuKU5NTsY0idfic5DnZ54f5fs7Rh2NQw2oHpW1nlV
+ e7a+KUzBnf0g1aYDUpMg06zgEsHUCPa4W5wUvQWPJinjXeG/5UnJMt3yZKZdhMUdrJ8DO+iL
+ 9sv+Znilo/vE7XBPfv++lrzWhVirrc/pmFigFIOM0SpqkAqSiDfTs/XnRfTAKtao2zhojx/9
+ DlCnYCfViAZBIjho8U+Xz1RNCUuG64c6LCSdBBTseTLp6HHW37lwvEoB0AqJ4wIvO1wBAmi9
+ 9RBdmpLNErawbvrnvTrEYGAhex6RCXvFIoZpnFnyyCfFfs8SIrPa67L+cVZzHE7gcUm8fP2O
+ ZVBMGQwN0WojxtnOmsvBrM7s/+SjCf0bgVa+A+xoIsIyj2GpOB2+Oe0a4eEEjCQfu1Kmm6Iq
+ 2SA+H72ajkQOcaD0zOD/jSpj/XWgCLgcIsIEfuz8fsCqEaPy2IaDhpQTkeyq/S9jk+4WvpPK
+ kgV/Dpopq83nGSwVcX0VRC8pH+CvzYfVsBWHul87xuCooLE7gDcCmUaQzppbN09qNRwVTEsz
+ kWOnd7iGXpoqrL9YXmU7LuToBu5MDIZKmJEbigBJTbp+PG6/tt11EiWCI8+Tujl1bUZBA0c3
+ RiWgzcZt482oPUq9Kmf9HfD0xSv/IjGG1tdChrsYkqp6QZwZYiAboOu6ETG4fsoELt1XmVtr
+ 1BfxZHAsblm4YWl0XXUHb5TRO3BC+OtamW0vLJ5I3U2G91BEVaHdJsY3jxxLVwB3i0sKW6wO
+ x+7Ve+8CfZu0JqWgU1fPtrZ5ycCl/GI+THZuhb8NIImjn9ZLlPvwc2WTRTMt10BaWB1+U3FB
+ b+VcNy3EVERArl9wTy9So81iOF3mX1gnDqIHc2jlnxLNIZyglbPFd/p13PUM4gEAF6s+l2Jo
+ 76zyePXo/mgbAEOSnaOqtNCRbz7BXM6GYr3u6Rqmh2reWJb9JUaI6aJm9sJItU994wMz7ug1
+ iztCydwlQuk7VWaeFriV5yWQO62NXqJhSlgZnJE0JfB8yVLXLtDG49ELsppJ+Z7rLI/pRO2J
+ tFcE/i97j10Ymyv01wggVPV9uSOqDzDadqyAheY
+IronPort-HdrOrdr: A9a23:zTbuSKBNgTK/MK/lHems55DYdb4zR+YMi2TC1yhKJyC9Vvbo8/
+ xG/c5rsCMc5wx9ZJhNo7y90ey7MBThHP1OkOss1NWZPDUO0VHAROoJ0WKh+UyCJ8SXzJ866U
+ 4KSclD4bPLYmRHsQ==
+X-IronPort-AV: E=Sophos;i="5.90,192,1643691600"; 
+   d="scan'208";a="67016739"
+Date: Fri, 18 Mar 2022 15:58:40 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: <xen-devel@lists.xenproject.org>, <cardoe@cardoe.com>, <wl@xen.org>,
+	<andrew.cooper3@citrix.com>, <bertrand.marquis@arm.com>, Stefano Stabellini
+	<stefano.stabellini@xilinx.com>
+Subject: Re: [PATCH v2 2/2] gitlab-ci: add an ARM32 qemu-based smoke test
+Message-ID: <YjSsMLl5Isn+OAMO@perard.uk.xensource.com>
+References: <alpine.DEB.2.22.394.2203161843230.3497@ubuntu-linux-20-04-desktop>
+ <20220317014653.2427386-2-sstabellini@kernel.org>
 MIME-Version: 1.0
-Subject: [ovmf test] 168680: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=c1e662101addbfd983026f06d119da2d470865a1
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 18 Mar 2022 15:57:26 +0000
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20220317014653.2427386-2-sstabellini@kernel.org>
 
-flight 168680 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168680/
+On Wed, Mar 16, 2022 at 06:46:53PM -0700, Stefano Stabellini wrote:
+> +curl -fsSLO http://http.us.debian.org/debian/dists/jessie/main/installer-armhf/current/images/netboot/vmlinuz
+> +curl -fsSLO http://http.us.debian.org/debian/dists/jessie/main/installer-armhf/current/images/netboot/initrd.gz
 
-Regressions :-(
+    curl --fail --silent --show-error --location --remote-name
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+I didn't know what all those short options were, I had to write it
+down. In script to be shared with others, I think it's better to use the
+long options, as it's kind of self-documenting.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+Now, there an issue with the command line, "--remote-name" (or -O) needs
+to be replaced. We don't care about how the server calls the file, it is
+much more important do know where it is going to be stored. Instead, you
+should use "--output" to write the file to the location the script is
+going to use. It happened to work now, but we don't have to trust
+the Internet when not needed.
 
-version targeted for testing:
- ovmf                 c1e662101addbfd983026f06d119da2d470865a1
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   18 days
-Failing since        168258  2022-03-01 01:55:31 Z   17 days  168 attempts
-Testing same since   168675  2022-03-18 07:10:27 Z    0 days    4 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+Also, maybe use "https"?
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Also, maybe as an improvement for later, and to avoid having to rely on
+the Internet, we could probably store those artifacts in the container
+that's going to run the test. But I'm not asking this for now.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> +timeout -k 1 240 \
+> +./qemu-system-arm \
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+There's probably a better way than waiting for the "timeout" like running an
+"init" that print something and shutdown the machine. But I guess
+that's ok for now.
 
 
-Not pushing.
+Thanks,
 
-(No revision log; it would be 830 lines long.)
+-- 
+Anthony PERARD
 
