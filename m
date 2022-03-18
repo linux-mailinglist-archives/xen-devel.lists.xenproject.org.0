@@ -2,40 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1CA24DDCB1
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 16:22:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.292098.496041 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 195E84DDCCB
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 16:26:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.292102.496058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVEQr-00016q-7w; Fri, 18 Mar 2022 15:22:25 +0000
+	id 1nVEUI-0001sg-39; Fri, 18 Mar 2022 15:25:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 292098.496041; Fri, 18 Mar 2022 15:22:25 +0000
+Received: by outflank-mailman (output) from mailman id 292102.496058; Fri, 18 Mar 2022 15:25:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVEQr-00014X-50; Fri, 18 Mar 2022 15:22:25 +0000
-Received: by outflank-mailman (input) for mailman id 292098;
- Fri, 18 Mar 2022 15:22:23 +0000
+	id 1nVEUH-0001nG-Tu; Fri, 18 Mar 2022 15:25:57 +0000
+Received: by outflank-mailman (input) for mailman id 292102;
+ Fri, 18 Mar 2022 15:25:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QOyl=T5=aculab.com=david.laight@srs-se1.protection.inumbo.net>)
- id 1nVEQp-00014H-QO
- for xen-devel@lists.xenproject.org; Fri, 18 Mar 2022 15:22:23 +0000
-Received: from eu-smtp-delivery-151.mimecast.com
- (eu-smtp-delivery-151.mimecast.com [185.58.85.151])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 353bee1c-a6cf-11ec-853c-5f4723681683;
- Fri, 18 Mar 2022 16:22:22 +0100 (CET)
-Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- uk-mta-150-J-EB7TRUPCa955UakG2Ikg-1; Fri, 18 Mar 2022 15:22:20 +0000
-Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) by
- AcuMS.aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) with Microsoft SMTP
- Server (TLS) id 15.0.1497.32; Fri, 18 Mar 2022 15:22:20 +0000
-Received: from AcuMS.Aculab.com ([fe80::994c:f5c2:35d6:9b65]) by
- AcuMS.aculab.com ([fe80::994c:f5c2:35d6:9b65%12]) with mapi id
- 15.00.1497.033; Fri, 18 Mar 2022 15:22:20 +0000
+ <SRS0=VNnc=T5=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
+ id 1nVEUG-0001ka-HI
+ for xen-devel@lists.xenproject.org; Fri, 18 Mar 2022 15:25:56 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id b2fd6c65-a6cf-11ec-853c-5f4723681683;
+ Fri, 18 Mar 2022 16:25:53 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BEA9E1515;
+ Fri, 18 Mar 2022 08:25:52 -0700 (PDT)
+Received: from e125770.cambridge.arm.com (e125770.cambridge.arm.com
+ [10.1.195.16])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1E7D93F7D7;
+ Fri, 18 Mar 2022 08:25:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,65 +43,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 353bee1c-a6cf-11ec-853c-5f4723681683
-X-MC-Unique: J-EB7TRUPCa955UakG2Ikg-1
-From: David Laight <David.Laight@ACULAB.COM>
-To: 'Juergen Gross' <jgross@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, "platform-driver-x86@vger.kernel.org"
-	<platform-driver-x86@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "Dell.Client.Kernel@dell.com"
-	<Dell.Client.Kernel@dell.com>
-CC: Stuart Hayes <stuart.w.hayes@gmail.com>, Hans de Goede
-	<hdegoede@redhat.com>, Mark Gross <markgross@kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH] platform/x86/dell: add buffer allocation/free functions
- for SMI calls
-Thread-Topic: [PATCH] platform/x86/dell: add buffer allocation/free functions
- for SMI calls
-Thread-Index: AQHYOto/hyLOp/NEJ0S+JLWvPC30KazFQPKg
-Date: Fri, 18 Mar 2022 15:22:19 +0000
-Message-ID: <accf95548a8c4374b17c159b9b2d0098@AcuMS.aculab.com>
-References: <20220318150950.16843-1-jgross@suse.com>
-In-Reply-To: <20220318150950.16843-1-jgross@suse.com>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
-MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=C51A453 smtp.mailfrom=david.laight@aculab.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: b2fd6c65-a6cf-11ec-853c-5f4723681683
+From: Luca Fancellu <luca.fancellu@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com,
+	wei.chen@arm.com,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Dario Faggioli <dfaggioli@suse.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v3 0/6] Boot time cpupools
+Date: Fri, 18 Mar 2022 15:25:35 +0000
+Message-Id: <20220318152541.7460-1-luca.fancellu@arm.com>
+X-Mailer: git-send-email 2.17.1
 
-From: Juergen Gross
-> Sent: 18 March 2022 15:10
->=20
-> The dcdbas driver is used to call SMI handlers for both, dcdbas and
-> dell-smbios-smm. Both drivers allocate a buffer for communicating
-> with the SMI handler. The physical buffer address is then passed to
-> the called SMI handler via %ebx.
->=20
-> Unfortunately this doesn't work when running in Xen dom0, as the
-> physical address obtained via virt_to_phys() is only a guest physical
-> address, and not a machine physical address as needed by SMI.
+This serie introduces a feature for Xen to create cpu pools at boot time, the
+feature is enabled using a configurable that is disabled by default.
+The boot time cpupool feature relies on the device tree to describe the cpu
+pools.
+Another feature is introduced by the serie, the possibility to assign a
+dom0less guest to a cpupool at boot time.
 
-The physical address from virt_to_phy() is always wrong.
-That is the physical address the cpu has for the memory.
-What you want is the address the dma master interface needs to use.
-That can be different for a physical system - no need for virtualisation.
+Here follows an example, Xen is built with CONFIG_BOOT_TIME_CPUPOOLS=y.
 
-On x86 they do usually match, but anything with a full iommu
-will need completely different addresses.
+From the DT:
 
-=09David
+  [...]
 
--
-Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1=
-PT, UK
-Registration No: 1397386 (Wales)
+  a72_0: cpu@0 {
+    compatible = "arm,cortex-a72";
+    reg = <0x0 0x0>;
+    device_type = "cpu";
+    [...]
+  };
+
+  a72_1: cpu@1 {
+    compatible = "arm,cortex-a72";
+    reg = <0x0 0x1>;
+    device_type = "cpu";
+    [...]
+  };
+
+  a53_0: cpu@100 {
+    compatible = "arm,cortex-a53";
+    reg = <0x0 0x100>;
+    device_type = "cpu";
+    [...]
+  };
+
+  a53_1: cpu@101 {
+    compatible = "arm,cortex-a53";
+    reg = <0x0 0x101>;
+    device_type = "cpu";
+    [...]
+  };
+
+  a53_2: cpu@102 {
+    compatible = "arm,cortex-a53";
+    reg = <0x0 0x102>;
+    device_type = "cpu";
+    [...]
+  };
+
+  a53_3: cpu@103 {
+    compatible = "arm,cortex-a53";
+    reg = <0x0 0x103>;
+    device_type = "cpu";
+    [...]
+  };
+
+  chosen {
+    #size-cells = <0x1>;
+    #address-cells = <0x1>;
+    xen,dom0-bootargs = "...";
+    xen,xen-bootargs = "...";
+
+    cpupool0 {
+      compatible = "xen,cpupool";
+      cpupool-cpus = <&a72_0 &a72_1>;
+      cpupool-sched = "credit2";
+    };
+
+    cp1: cpupool1 {
+      compatible = "xen,cpupool";
+      cpupool-cpus = <&a53_0 &a53_1 &a53_2 &a53_3>;
+    };
+
+    module@0 {
+      reg = <0x80080000 0x1300000>;
+      compatible = "multiboot,module";
+    };
+
+    domU1 {
+      #size-cells = <0x1>;
+      #address-cells = <0x1>;
+      compatible = "xen,domain";
+      cpus = <1>;
+      memory = <0 0xC0000>;
+      vpl011;
+      domain-cpupool = <&cp1>;
+
+      module@92000000 {
+        compatible = "multiboot,kernel", "multiboot,module";
+        reg = <0x92000000 0x1ffffff>;
+        bootargs = "...";
+      };
+    };
+  };
+
+  [...]
+
+The example DT is instructing Xen to have two cpu pools, the one with id 0
+having two phisical cpus and the one with id 1 having 4 phisical cpu, the
+second cpu pool uses the null scheduler and from the /chosen node we can see
+that a dom0less guest will be started on that cpu pool.
+
+In this particular case Xen must boot with different type of cpus, so the
+boot argument hmp_unsafe must be enabled.
+
+
+Luca Fancellu (6):
+  tools/cpupools: Give a name to unnamed cpupools
+  xen/sched: create public function for cpupools creation
+  xen/sched: retrieve scheduler id by name
+  xen/cpupool: Create different cpupools at boot time
+  arm/dom0less: assign dom0less guests to cpupools
+  xen/cpupool: Allow cpupool0 to use different scheduler
+
+ docs/misc/arm/device-tree/booting.txt  |   5 +
+ docs/misc/arm/device-tree/cpupools.txt | 135 ++++++++++++++++
+ tools/helpers/xen-init-dom0.c          |  35 ++++-
+ tools/libs/light/libxl_utils.c         |   3 +-
+ xen/arch/arm/domain_build.c            |  14 +-
+ xen/arch/arm/include/asm/smp.h         |   3 +
+ xen/common/Kconfig                     |   7 +
+ xen/common/Makefile                    |   1 +
+ xen/common/boot_cpupools.c             | 205 +++++++++++++++++++++++++
+ xen/common/domain.c                    |   2 +-
+ xen/common/sched/core.c                |  40 +++--
+ xen/common/sched/cpupool.c             |  32 +++-
+ xen/include/public/domctl.h            |   4 +-
+ xen/include/xen/sched.h                |  58 +++++++
+ 14 files changed, 516 insertions(+), 28 deletions(-)
+ create mode 100644 docs/misc/arm/device-tree/cpupools.txt
+ create mode 100644 xen/common/boot_cpupools.c
+
+-- 
+2.17.1
 
 
