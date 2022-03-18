@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CF024DE13E
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 19:40:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.292197.496290 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A59A24DE1C6
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Mar 2022 20:28:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.292200.496301 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVHWX-0006jA-E9; Fri, 18 Mar 2022 18:40:29 +0000
+	id 1nVIG4-0002ab-W7; Fri, 18 Mar 2022 19:27:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 292197.496290; Fri, 18 Mar 2022 18:40:29 +0000
+Received: by outflank-mailman (output) from mailman id 292200.496301; Fri, 18 Mar 2022 19:27:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVHWX-0006gA-Ai; Fri, 18 Mar 2022 18:40:29 +0000
-Received: by outflank-mailman (input) for mailman id 292197;
- Fri, 18 Mar 2022 18:40:28 +0000
+	id 1nVIG4-0002Ym-R5; Fri, 18 Mar 2022 19:27:32 +0000
+Received: by outflank-mailman (input) for mailman id 292200;
+ Fri, 18 Mar 2022 19:27:31 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nVHWW-0006g4-64
- for xen-devel@lists.xenproject.org; Fri, 18 Mar 2022 18:40:28 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nVIG2-0002Yc-Vj; Fri, 18 Mar 2022 19:27:30 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nVHWV-0008Ji-Q4; Fri, 18 Mar 2022 18:40:27 +0000
-Received: from [54.239.6.185] (helo=[192.168.15.239])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nVHWV-0007mu-I7; Fri, 18 Mar 2022 18:40:27 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nVIG2-0000er-OR; Fri, 18 Mar 2022 19:27:30 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nVIG2-00042k-DY; Fri, 18 Mar 2022 19:27:30 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nVIG2-0001qN-D7; Fri, 18 Mar 2022 19:27:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,103 +42,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=RNhdKMhsb6YK60CTOWVrvwGk8lHohu7HpXO5h+Dc+To=; b=GLNXIF2gMFC1wdkYis4PVUHCax
-	VcdyajX7dMMjwTf4QkR1ZhfdZoNG3vTfms9em2+J1D4aRMNusfN0tgcncx7sqQ5wVnGBu5YV5XO8M
-	ZXZnqTfb+7afRBU3I9WE+7i+mioPbTkE1ZjxWusEylqJtizE43jd5HFxMqrLPhx9h6RQ=;
-Message-ID: <110ecc17-4d36-c5d1-675b-a4e072ea0ee0@xen.org>
-Date: Fri, 18 Mar 2022 18:40:25 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.7.0
-Subject: Re: [PATCH 1/3] tools/xenstore: add documentation for new
- set/get-feature commands
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20220316161017.3579-1-jgross@suse.com>
- <20220316161017.3579-2-jgross@suse.com>
- <d44b8e44-4e7e-c395-da9c-916ec641a687@xen.org>
- <96c31b21-3f96-4f17-07d6-64c7186ce2dd@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <96c31b21-3f96-4f17-07d6-64c7186ce2dd@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=TTUbMCV5VuzsPG0JfISEjHWv2RoYzwF4BGsDqjx6J00=; b=LrlwRHX3Rz10jeUMKYbHhOLaOC
+	sLINwQmjFnMDO1xnQhCtBHQqkhUMyHK4MRNkeU4NwpiF5MNhwXtX4TiiJGuoZRxRjuxmP9mkig2kL
+	OVA/Od2ecVt2N39piwQNhyuR9QKAyUHiESjHsu5if/gWuw5rGPUE0s26+R+Wi1DQivb8=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168686-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 168686: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=c1e662101addbfd983026f06d119da2d470865a1
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 18 Mar 2022 19:27:30 +0000
 
-Hi Juergen,
+flight 168686 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168686/
 
-On 17/03/2022 11:19, Juergen Gross wrote:
-> On 17.03.22 12:07, Julien Grall wrote:
->> On 16/03/2022 16:10, Juergen Gross wrote:
->>> Add documentation for two new Xenstore wire commands SET_FEATURE and
->>> GET_FEATURE used to set or query the Xenstore features visible in the
->>> ring page of a given domain.
->>>
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>> ---
->>>   docs/misc/xenstore-ring.txt |  1 +
->>>   docs/misc/xenstore.txt      | 12 ++++++++++++
->>>   2 files changed, 13 insertions(+)
->>>
->>> diff --git a/docs/misc/xenstore-ring.txt b/docs/misc/xenstore-ring.txt
->>> index f91accb5b0..bd000f694e 100644
->>> --- a/docs/misc/xenstore-ring.txt
->>> +++ b/docs/misc/xenstore-ring.txt
->>> @@ -68,6 +68,7 @@ Mask    Description
->>
->> I find a bit odd we describe the feature in term of mask rather bit. 
->> This will get more difficult to read as we add more bits.
-> 
-> Maybe this is in order to avoid big/little endian issues (which bit is
-> bit 0?)
+Regressions :-(
 
-Both end have to talk the same endianess. Otherwise, one may read the 
-wrong value.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
-So long they are using the same endianess, bit 0 is not going to be matter.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
->>>   The "Connection state" field is used to request a ring close and 
->>> reconnect.
->>>   The "Connection state" field only contains valid data if the server 
->>> has
->>> diff --git a/docs/misc/xenstore.txt b/docs/misc/xenstore.txt
->>> index ea3d8be177..31e3d53c52 100644
->>> --- a/docs/misc/xenstore.txt
->>> +++ b/docs/misc/xenstore.txt
->>> @@ -332,6 +332,18 @@ SET_TARGET        <domid>|<tdomid>|
->>>       xenstored prevents the use of SET_TARGET other than by dom0.
->>> +GET_FEATURE        <domid>|        <value>|
->>
->> Did you indented to add many spaces before <value>?
->>
->>> +SET_FEATURE        <domid>|<value>|
->>> +    Returns or sets the contents of the "feature" field located at
->>> +    offset 2064 of the Xenstore ring page of the domain specified by
->>> +    <domid>. <value> is a decimal number being a logical or of the
->>> +    feature bits as defined in docs/misc/xenstore-ring.txt. Trying
->>> +    to set a bit for a feature not being supported by the running
->>> +    Xenstore will be denied.
->> How will the caller know which feature is supported? Also, what happen 
->> if a client decided to overwrite 'feature'? Could the result 
->> potentially prevent migration/liveupdate or else?
-> 
-> The caller could use "GET_FEATURE 0" to see the available features, 
-> assuming
-> that nobody would have changed dom0's features.
-> 
-> I'm not sure whether we should prevent dom0's features to be overwritten.
+version targeted for testing:
+ ovmf                 c1e662101addbfd983026f06d119da2d470865a1
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-I think it would be better to have a separate "domid" (maybe "server" or 
-"global") to retrieve features supported by the server.
+Last test of basis   168254  2022-02-28 10:41:46 Z   18 days
+Failing since        168258  2022-03-01 01:55:31 Z   17 days  172 attempts
+Testing same since   168675  2022-03-18 07:10:27 Z    0 days    8 attempts
 
-This would give us some flexibility to update dom0 features in the 
-future if the needs arise (the first implementation may forbid it).
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
 
-Cheers,
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
--- 
-Julien Grall
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 830 lines long.)
 
