@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8C194DE842
-	for <lists+xen-devel@lfdr.de>; Sat, 19 Mar 2022 15:05:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.292414.496687 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7569E4DE92C
+	for <lists+xen-devel@lfdr.de>; Sat, 19 Mar 2022 17:01:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.292423.496696 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVZgd-0006Cz-G7; Sat, 19 Mar 2022 14:04:07 +0000
+	id 1nVbUQ-0008P6-Og; Sat, 19 Mar 2022 15:59:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 292414.496687; Sat, 19 Mar 2022 14:04:07 +0000
+Received: by outflank-mailman (output) from mailman id 292423.496696; Sat, 19 Mar 2022 15:59:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVZgd-00069i-By; Sat, 19 Mar 2022 14:04:07 +0000
-Received: by outflank-mailman (input) for mailman id 292414;
- Sat, 19 Mar 2022 14:04:06 +0000
+	id 1nVbUQ-0008Mc-Lp; Sat, 19 Mar 2022 15:59:38 +0000
+Received: by outflank-mailman (input) for mailman id 292423;
+ Sat, 19 Mar 2022 15:59:37 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nVZgc-00069Y-GR; Sat, 19 Mar 2022 14:04:06 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1nVbUP-0008MW-C2
+ for xen-devel@lists.xenproject.org; Sat, 19 Mar 2022 15:59:37 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nVZgc-0001rw-FT; Sat, 19 Mar 2022 14:04:06 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nVZgc-00012F-4l; Sat, 19 Mar 2022 14:04:06 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nVZgc-0003XY-4I; Sat, 19 Mar 2022 14:04:06 +0000
+ (envelope-from <julien@xen.org>)
+ id 1nVbUP-0003gx-3S; Sat, 19 Mar 2022 15:59:37 +0000
+Received: from home.octic.net ([81.187.162.82] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nVbUO-0006T8-Rw; Sat, 19 Mar 2022 15:59:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,126 +39,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=EoHZyU0i23aSNzeTAhC1AuOkxVtVAvQd/Pc5Xu3kR6I=; b=0pQTLNd0b8EQF8ZMvMjrsVaPFy
-	vH12GVARVwMtDLBEsJnu0IXeCOiPN4rm8FnUGmr7OnP5FqgtyxxheehshL0mIvrCExovqPAjw+GlD
-	eEu+8Bd6MuZNCEbQFmLd5HeO4GgIR0IMrPyaQiW9rlcR2CAignfrKoXt7MongApyouX4=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168708-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=Z0daPzM+BvS/I4W929gyCo8+vlXUmNoOZUIgyrJTD/U=; b=EdlyTSZC7Jp0wtjr84PYCES8Xr
+	lb2cNT3+a36IAsFRpEhnIdgWVRhM+0PN1Wfa6u8o19YkM2zASDN0p5hu82ioVvpMVhYzqDt58qiB2
+	64jOmIMPR0wLn0EW8tcjZk1GIBXW/UudlWgyZPPRZVg/jnDvdnonlvDTufHVDooGFMcI=;
+Message-ID: <3e97abc3-3a4e-b5b1-a46d-e05d04730d2d@xen.org>
+Date: Sat, 19 Mar 2022 15:59:34 +0000
 MIME-Version: 1.0
-Subject: [ovmf test] 168708: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=c1e662101addbfd983026f06d119da2d470865a1
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 19 Mar 2022 14:04:06 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.7.0
+Subject: Re: [PATCH v3 09/19] xen/arm32: mm: Check if the virtual address is
+ shared before updating it
+To: xen-devel@lists.xenproject.org
+Cc: Julien Grall <jgrall@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20220221102218.33785-1-julien@xen.org>
+ <20220221102218.33785-10-julien@xen.org>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20220221102218.33785-10-julien@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 168708 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168708/
+Hi,
 
-Regressions :-(
+On 21/02/2022 10:22, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> Only the first 2GB of the virtual address space is shared between all
+> the page-tables on Arm32.
+> 
+> There is a long outstanding TODO in xen_pt_update() stating that the
+> function can only work with shared mapping. Nobody has ever called
+> the function with private mapping, however as we add more callers
+> there is a risk to mess things up.
+> 
+> Introduce a new define to mark the end of the shared mappings and use
+> it in xen_pt_update() to verify if the address is correct.
+> 
+> Note that on Arm64, all the mappings are shared. Some compiler may
+> complain about an always true check, so the new define is not introduced
+> for arm64 and the code is protected with an #ifdef.
+> 
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> 
+> ---
+>      Changes in v2:
+>          - New patch
+> ---
+>   xen/arch/arm/include/asm/config.h |  4 ++++
+>   xen/arch/arm/mm.c                 | 11 +++++++++--
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+While I working on removing the identity mapping, I realized this patch 
+is actually getting in my way for arm32. I am planning to have multiple 
+region that are shared, but still a single unshared region (the domheap 
+mapping area).
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+So I will rework the patch to check is the address is part of the 
+unshared region.
 
-version targeted for testing:
- ovmf                 c1e662101addbfd983026f06d119da2d470865a1
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+I will drop the patch from the series and move it to the next one.
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   19 days
-Failing since        168258  2022-03-01 01:55:31 Z   18 days  186 attempts
-Testing same since   168675  2022-03-18 07:10:27 Z    1 days   22 attempts
+Cheers,
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 830 lines long.)
+-- 
+Julien Grall
 
