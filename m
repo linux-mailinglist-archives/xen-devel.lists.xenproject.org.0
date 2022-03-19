@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C47F4DE4E0
-	for <lists+xen-devel@lfdr.de>; Sat, 19 Mar 2022 01:34:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.292296.496531 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DFD84DE4E3
+	for <lists+xen-devel@lfdr.de>; Sat, 19 Mar 2022 01:36:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.292301.496542 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVN2X-00017Y-0Y; Sat, 19 Mar 2022 00:33:53 +0000
+	id 1nVN5C-00024C-D1; Sat, 19 Mar 2022 00:36:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 292296.496531; Sat, 19 Mar 2022 00:33:52 +0000
+Received: by outflank-mailman (output) from mailman id 292301.496542; Sat, 19 Mar 2022 00:36:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nVN2W-00014o-TN; Sat, 19 Mar 2022 00:33:52 +0000
-Received: by outflank-mailman (input) for mailman id 292296;
- Sat, 19 Mar 2022 00:33:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=T/Ld=T6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nVN2V-0000oo-Gd
- for xen-devel@lists.xenproject.org; Sat, 19 Mar 2022 00:33:51 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3eb09780-a71c-11ec-8fbc-03012f2f19d4;
- Sat, 19 Mar 2022 01:33:50 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1C53061678;
- Sat, 19 Mar 2022 00:33:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09C39C36AE3;
- Sat, 19 Mar 2022 00:33:48 +0000 (UTC)
+	id 1nVN5C-00022L-9t; Sat, 19 Mar 2022 00:36:38 +0000
+Received: by outflank-mailman (input) for mailman id 292301;
+ Sat, 19 Mar 2022 00:36:37 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nVN5B-00022B-91; Sat, 19 Mar 2022 00:36:37 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nVN5B-0006UT-80; Sat, 19 Mar 2022 00:36:37 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nVN5A-0005XE-Tz; Sat, 19 Mar 2022 00:36:36 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nVN5A-0007PS-TW; Sat, 19 Mar 2022 00:36:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,172 +42,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3eb09780-a71c-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1647650028;
-	bh=LePh5pv9odEWqM2WQtVDEeyx/R3Q3BxHjixjaGq6vMk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=hliFhbz9amOFiTAErL5AkOGEad8uSa3lyrkx9BGpvomg698YruxzkSurphzOgIZhD
-	 10aZqbyIrfc43+VG6bztJLNZkjzyRELVkNXskyWoFEdJYKaWvdPgmzZsLNfSpHXElP
-	 Q2r23puAITXMV0CQEOxpiDxL07MI1i3KDPjRUshqoJtLQkrw87rSaI5rIBBS3DluYj
-	 CZ23DVSqWD9X47wwVdJAVtDcZKml4NlIAqIdFL+vZ9cYUsD8iuNHJtKIAFX/EackgR
-	 M9tgHtK1CsjaiXakblv5ryPDyZm6MTHlnKBNUbpIET0BhG566er7/eXavWh5Lg4n0s
-	 Z05WFSqQENi9A==
-From: Stefano Stabellini <sstabellini@kernel.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=amj9ZG8K33tCL+pHxqQszjB6cnGh8LeunRqbyUjMEuY=; b=TkW/mIW1v4DsF3G11KSRfzXIII
+	K4paQT4Yw4TxF5L7Hx2Gq6XJSrLtuEn3uLUO9vVmijob/BWgQRPj0011uXxmOEhhlPLM7Mop7y7Wn
+	d1IbU0F3PlVxluP7uvPNXs5BoG57C8SAQNxRC8CWyuFEyZAOHBCc9KF5D5hh7pusjUIY=;
 To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	cardoe@cardoe.com,
-	wl@xen.org,
-	andrew.cooper3@citrix.com,
-	anthony.perard@citrix.com,
-	bertrand.marquis@arm.com,
-	Stefano Stabellini <stefano.stabellini@xilinx.com>
-Subject: [PATCH v3 2/2] gitlab-ci: add an ARM32 qemu-based smoke test
-Date: Fri, 18 Mar 2022 17:32:21 -0700
-Message-Id: <20220319003221.3012314-2-sstabellini@kernel.org>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <alpine.DEB.2.22.394.2203181729490.2910984@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2203181729490.2910984@ubuntu-linux-20-04-desktop>
-MIME-Version: 1.0
+Message-ID: <osstest-168693-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 168693: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=c1e662101addbfd983026f06d119da2d470865a1
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 19 Mar 2022 00:36:36 +0000
 
-Add a minimal ARM32 smoke test based on qemu-system-arm, as provided by
-the test-artifacts qemu container. The minimal test simply boots Xen
-(built from previous build stages) and Dom0. The test is fetching the
-Dom0 kernel and initrd from Debian Jessie: they work just fine and this
-way we don't have to maintain a build for them too.
+flight 168693 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168693/
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+Regressions :-(
 
----
-Changes in v3:
-- use long options for curl
-- use curl --output
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
-Changes in v2:
-- improve comments
-- don't limit dom0 cpus
-- decrease mem to 1024M and dom0_mem=512M
-- use Debian Bullseye instead of Jessie
----
- automation/gitlab-ci/test.yaml         | 23 ++++++++
- automation/scripts/qemu-smoke-arm32.sh | 72 ++++++++++++++++++++++++++
- 2 files changed, 95 insertions(+)
- create mode 100755 automation/scripts/qemu-smoke-arm32.sh
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-index ec2a2e1607..42cd725a12 100644
---- a/automation/gitlab-ci/test.yaml
-+++ b/automation/gitlab-ci/test.yaml
-@@ -95,6 +95,29 @@ qemu-smoke-arm64-gcc:
-     - /^coverity-tested\/.*/
-     - /^stable-.*/
- 
-+qemu-smoke-arm32-gcc:
-+  stage: test
-+  image: registry.gitlab.com/xen-project/xen/${CONTAINER}
-+  variables:
-+    CONTAINER: debian:unstable-arm64v8
-+  script:
-+    - ./automation/scripts/qemu-smoke-arm32.sh 2>&1 | tee qemu-smoke-arm32.log
-+  dependencies:
-+    - debian-unstable-gcc-arm32
-+    - qemu-system-aarch64-6.0.0-arm32-export
-+  artifacts:
-+    paths:
-+      - smoke.serial
-+      - '*.log'
-+    when: always
-+  tags:
-+    - arm64
-+  except:
-+    - master
-+    - smoke
-+    - /^coverity-tested\/.*/
-+    - /^stable-.*/
-+
- qemu-smoke-x86-64-gcc:
-   stage: test
-   image: registry.gitlab.com/xen-project/xen/${CONTAINER}
-diff --git a/automation/scripts/qemu-smoke-arm32.sh b/automation/scripts/qemu-smoke-arm32.sh
-new file mode 100755
-index 0000000000..162922ace5
---- /dev/null
-+++ b/automation/scripts/qemu-smoke-arm32.sh
-@@ -0,0 +1,72 @@
-+#!/bin/bash
-+
-+set -ex
-+
-+export DEBIAN_FRONTENT=noninteractive
-+apt-get -qy update
-+apt-get -qy install --no-install-recommends device-tree-compiler \
-+                                            curl
-+
-+cd binaries
-+curl --fail --silent --show-error --location --output vmlinuz http://http.us.debian.org/debian/dists/jessie/main/installer-armhf/current/images/netboot/vmlinuz
-+curl --fail --silent --show-error --location --output initrd.gz http://http.us.debian.org/debian/dists/jessie/main/installer-armhf/current/images/netboot/initrd.gz
-+
-+kernel=`stat -L --printf="%s" vmlinuz`
-+initrd=`stat -L --printf="%s" initrd.gz`
-+
-+# For Xen, we need a couple of more node. Dump the DT from QEMU and add them
-+# XXX QEMU looks for "efi-virtio.rom" even if it is unneeded
-+curl -fsSLO https://github.com/qemu/qemu/raw/v5.2.0/pc-bios/efi-virtio.rom
-+./qemu-system-arm \
-+   -machine virt-6.0 \
-+   -machine virtualization=true \
-+   -smp 4 \
-+   -m 1024 \
-+   -serial stdio \
-+   -monitor none \
-+   -display none \
-+   -machine dumpdtb=virt.dtb
-+
-+dtc -I dtb -O dts virt.dtb > virt.dts
-+
-+cat >> virt.dts << EOF
-+/ {
-+	chosen {
-+		#address-cells = <0x2>;
-+		#size-cells = <0x2>;
-+		stdout-path = "/pl011@9000000";
-+        xen,xen-bootargs = "console=dtuart dtuart=/pl011@9000000 dom0_mem=512M bootscrub=0";
-+		xen,dom0-bootargs = "console=tty0 console=hvc0 earlyprintk clk_ignore_unused root=/dev/ram0 rdinit=/bin/sh init=/bin/sh";
-+		dom0 {
-+			compatible = "xen,linux-zimage", "xen,multiboot-module";
-+			reg = <0x0 0x1000000 0x0 $kernel>;
-+		};
-+        dom0-ramdisk {
-+			compatible = "xen,linux-initrd", "xen,multiboot-module";
-+			reg = <0x0 0x3200000 0x0 $initrd>;
-+		};
-+	};
-+};
-+EOF
-+dtc -I dts -O dtb virt.dts > virt.dtb
-+
-+rm -f smoke.serial
-+set +e
-+timeout -k 1 240 \
-+./qemu-system-arm \
-+   -machine virt-6.0 \
-+   -machine virtualization=true \
-+   -smp 4 \
-+   -m 1024 \
-+   -serial stdio \
-+   -monitor none \
-+   -display none \
-+   -dtb virt.dtb \
-+   -no-reboot \
-+   -kernel ./xen \
-+   -device loader,file=./vmlinuz,addr=0x1000000 \
-+   -device loader,file=./initrd.gz,addr=0x3200000 |& tee smoke.serial
-+
-+set -e
-+(grep -q "^BusyBox" smoke.serial) || exit 1
-+exit 0
--- 
-2.25.1
+version targeted for testing:
+ ovmf                 c1e662101addbfd983026f06d119da2d470865a1
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
+Last test of basis   168254  2022-02-28 10:41:46 Z   18 days
+Failing since        168258  2022-03-01 01:55:31 Z   17 days  178 attempts
+Testing same since   168675  2022-03-18 07:10:27 Z    0 days   14 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 830 lines long.)
 
