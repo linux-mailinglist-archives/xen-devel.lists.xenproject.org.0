@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E1F44E1D9A
-	for <lists+xen-devel@lfdr.de>; Sun, 20 Mar 2022 20:27:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.292648.496974 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90EB34E1DB5
+	for <lists+xen-devel@lfdr.de>; Sun, 20 Mar 2022 21:00:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.292652.496985 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nW1CU-0004N7-35; Sun, 20 Mar 2022 19:26:50 +0000
+	id 1nW1hk-0007g5-FC; Sun, 20 Mar 2022 19:59:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 292648.496974; Sun, 20 Mar 2022 19:26:50 +0000
+Received: by outflank-mailman (output) from mailman id 292652.496985; Sun, 20 Mar 2022 19:59:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nW1CT-0004KU-Vc; Sun, 20 Mar 2022 19:26:49 +0000
-Received: by outflank-mailman (input) for mailman id 292648;
- Sun, 20 Mar 2022 19:26:48 +0000
+	id 1nW1hk-0007eG-Bl; Sun, 20 Mar 2022 19:59:08 +0000
+Received: by outflank-mailman (input) for mailman id 292652;
+ Sun, 20 Mar 2022 19:59:07 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nW1CS-0004KO-Qp
- for xen-devel@lists.xenproject.org; Sun, 20 Mar 2022 19:26:48 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nW1hj-0007e6-A2; Sun, 20 Mar 2022 19:59:07 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nW1CR-0006ke-HL; Sun, 20 Mar 2022 19:26:47 +0000
-Received: from home.octic.net ([81.187.162.82] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nW1CR-0007W4-B2; Sun, 20 Mar 2022 19:26:47 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nW1hj-0007Fg-6o; Sun, 20 Mar 2022 19:59:07 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nW1hi-0007jv-Rs; Sun, 20 Mar 2022 19:59:06 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nW1hi-0006ck-RR; Sun, 20 Mar 2022 19:59:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,107 +42,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=I2o92GoVK4YrLOy0mcK6nGmjdjcCTTh/HmqDISF+Tvs=; b=FB+3FjRm6IlggjH0Xx5p748QNu
-	ngHdT87Vma6pJwjgfZPy1AtVm1NneA8iBsENwdtEtIjpyhyqI1uuPoZ2NeXb8vFLArTOQG2XbYA4+
-	FZAvEOAmKi9t7NE8vBUwsU3mEDvHZhNCBFIe3ahO5lLN0l/MxhFnhdWIbfpNVBHSMZ2g=;
-Message-ID: <684d65b8-5de4-779c-d869-bac28e073091@xen.org>
-Date: Sun, 20 Mar 2022 19:26:45 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=DCdrYijZfLhBtnVpEYGVjbO09MyVPEleXBasjXgZxeM=; b=q/anFMoOnu/5Y3mMOA0o4aI22x
+	IVe/ipN5bb4TrgqttVOsIluIXlnN1PcTntGFn1jBiEldOSmVhuipNRZ61tYfpm7BndTUzxMMOaXjq
+	WHRKd7ipvW58EHWGzU8Ox/HvjgAP4tw/3NIs+AfA+NrGn7oBsKBwcoQwYGGwBwOeBj4I=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168728-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.7.0
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, cardoe@cardoe.com, wl@xen.org,
- andrew.cooper3@citrix.com, anthony.perard@citrix.com,
- bertrand.marquis@arm.com, Stefano Stabellini <stefano.stabellini@xilinx.com>
-References: <alpine.DEB.2.22.394.2203181729490.2910984@ubuntu-linux-20-04-desktop>
- <20220319003221.3012314-2-sstabellini@kernel.org>
- <alpine.DEB.2.22.394.2203191842280.2910984@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v3 2/2] gitlab-ci: add an ARM32 qemu-based smoke test
-In-Reply-To: <alpine.DEB.2.22.394.2203191842280.2910984@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 168728: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=c1e662101addbfd983026f06d119da2d470865a1
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 20 Mar 2022 19:59:06 +0000
 
-Hi,
+flight 168728 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168728/
 
-On 20/03/2022 01:46, Stefano Stabellini wrote:
-> On Fri, 18 Mar 2022, Stefano Stabellini wrote:
->> Add a minimal ARM32 smoke test based on qemu-system-arm, as provided by
->> the test-artifacts qemu container. The minimal test simply boots Xen
->> (built from previous build stages) and Dom0. The test is fetching the
->> Dom0 kernel and initrd from Debian Jessie: they work just fine and this
->> way we don't have to maintain a build for them too.
-> 
-> 
-> Thanks to the Xen fix recently submitted
-> (https://marc.info/?l=xen-devel&m=164774063802402) I'll be able to
-> update this script to use Debian Bullseye. I am thinking of merging the
-> below directly with this patch.
-> 
-> 
-> ---
-> 
-> automation: upgrade Debian to Bullseye for testing Xen aarch32
-> 
-> Also change initrd. As the new netboot initrd from Debian Bullseye is
-> huge (22MB), use a tiny initrd from Alpine Linux instead (only 2.5MB).
+Regressions :-(
 
-This is sounds odd to me. So we are going to use Bullseye but not really 
-because we want to use a different initrd.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
-Why can't you get everything from the same place?
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-> 
-> Also note that the huge Debian Bullseye initrd would cause QEMU to
-> crash due to the -device loader parameter.
+version targeted for testing:
+ ovmf                 c1e662101addbfd983026f06d119da2d470865a1
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-Can you provide more details? Was this reported to QEMU?
+Last test of basis   168254  2022-02-28 10:41:46 Z   20 days
+Failing since        168258  2022-03-01 01:55:31 Z   19 days  194 attempts
+Testing same since   168675  2022-03-18 07:10:27 Z    2 days   30 attempts
 
-> 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> 
-> diff --git a/automation/scripts/qemu-smoke-arm32.sh b/automation/scripts/qemu-smoke-arm32.sh
-> index 162922ace5..d554de7939 100755
-> --- a/automation/scripts/qemu-smoke-arm32.sh
-> +++ b/automation/scripts/qemu-smoke-arm32.sh
-> @@ -5,11 +5,20 @@ set -ex
->   export DEBIAN_FRONTENT=noninteractive
->   apt-get -qy update
->   apt-get -qy install --no-install-recommends device-tree-compiler \
-> -                                            curl
-> +                                            curl \
-> +                                            cpio
->   
->   cd binaries
-> -curl --fail --silent --show-error --location --output vmlinuz http://http.us.debian.org/debian/dists/jessie/main/installer-armhf/current/images/netboot/vmlinuz
-> -curl --fail --silent --show-error --location --output initrd.gz http://http.us.debian.org/debian/dists/jessie/main/installer-armhf/current/images/netboot/initrd.gz
-> +# Use the kernel from Debian
-> +curl --fail --silent --show-error --location --output vmlinuz http://http.us.debian.org/debian/dists/bullseye/main/installer-armhf/current/images/netboot/vmlinuz
-> +# Use a tiny initrd based on busybox from Alpine Linux
-> +curl --fail --silent --show-error --location --output initrd.tar.gz https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/armhf/alpine-minirootfs-3.15.1-armhf.tar.gz
-> +
-> +mkdir rootfs
-> +cd rootfs
-> +tar xvzf ../initrd.tar.gz
-> +find . | cpio -H newc -o | gzip > ../initrd.gz
-> +cd ..
->   
->   kernel=`stat -L --printf="%s" vmlinuz`
->   initrd=`stat -L --printf="%s" initrd.gz`
-> @@ -68,5 +77,5 @@ timeout -k 1 240 \
->      -device loader,file=./initrd.gz,addr=0x3200000 |& tee smoke.serial
->   
->   set -e
-> -(grep -q "^BusyBox" smoke.serial) || exit 1
-> +(grep -q "^/ #" smoke.serial) || exit 1
->   exit 0
-> 
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
 
-Cheers,
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
--- 
-Julien Grall
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 830 lines long.)
 
