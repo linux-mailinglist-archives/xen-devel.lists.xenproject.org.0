@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17CC04E31DA
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Mar 2022 21:33:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.293208.498025 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF7EF4E31ED
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Mar 2022 21:38:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.293212.498037 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWOhc-0004Yu-KE; Mon, 21 Mar 2022 20:32:32 +0000
+	id 1nWOmf-0005Ew-9W; Mon, 21 Mar 2022 20:37:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 293208.498025; Mon, 21 Mar 2022 20:32:32 +0000
+Received: by outflank-mailman (output) from mailman id 293212.498037; Mon, 21 Mar 2022 20:37:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWOhc-0004WD-Gr; Mon, 21 Mar 2022 20:32:32 +0000
-Received: by outflank-mailman (input) for mailman id 293208;
- Mon, 21 Mar 2022 20:32:31 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nWOha-0004W5-UL
- for xen-devel@lists.xenproject.org; Mon, 21 Mar 2022 20:32:30 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nWOha-00072u-0Q; Mon, 21 Mar 2022 20:32:30 +0000
-Received: from [54.239.6.185] (helo=[192.168.25.135])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nWOhZ-0000tt-Q3; Mon, 21 Mar 2022 20:32:29 +0000
+	id 1nWOmf-0005C1-5Z; Mon, 21 Mar 2022 20:37:45 +0000
+Received: by outflank-mailman (input) for mailman id 293212;
+ Mon, 21 Mar 2022 20:37:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=XmvP=UA=gmail.com=tamas.k.lengyel@srs-se1.protection.inumbo.net>)
+ id 1nWOmd-0005Bs-5L
+ for xen-devel@lists.xenproject.org; Mon, 21 Mar 2022 20:37:43 +0000
+Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
+ [2607:f8b0:4864:20::c36])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c10fa1fe-a956-11ec-8fbc-03012f2f19d4;
+ Mon, 21 Mar 2022 21:37:42 +0100 (CET)
+Received: by mail-oo1-xc36.google.com with SMTP id
+ s203-20020a4a3bd4000000b003191c2dcbe8so20523732oos.9
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Mar 2022 13:37:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,121 +40,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=IqHyl49P5dm9QxJaLPxl6Uu+0SLqnE2YOMoXo25d9WQ=; b=UBvjsYikQ6kbDachlaaSRJL8tK
-	1aiMcLTFAeSp8TlZ9HS1xxXORiRT98nYRu98Wccpfdfxh3hKK/0ujgyf6zBedFfqSPdDMKP6QgsTW
-	NuiO6zd+edDFBn9gqrVt/rUJvTmnKEnMVPvJMRnXULpJ6bBl/v0G+no+qWheRALOfdUc=;
-Message-ID: <aa148f5a-4ff2-bebc-2be9-f8b647b95386@xen.org>
-Date: Mon, 21 Mar 2022 20:32:27 +0000
+X-Inumbo-ID: c10fa1fe-a956-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=ZVa7+ukVQ3gxnLwaLzGzoruMYL9hEreMELRJFbxTyco=;
+        b=DU1XZiaRhgnJLNlFYCT5kqs27JaVCLGsQVjXAnr0+8b/fZdZnUsS5jgLORiMiJNQb0
+         XBBAqC6VmzfUuIbNTVkTn/oMPQpb6mEx/a7LS0Vsi7x0Z30IwxhVJ7CWL1U1MgeBK9cb
+         kM3stPKlE0nKdEacnFnM1lci8cH8d6+r01sHeArVuBVQFfM6p+MgDu0OD/P3zRmAa1mP
+         9ypS0537sCP2BcjifYF08OrS5YINpStSAUf4tlD2Y3OWjygP6bkjJldrEMS8QhNc4xHz
+         3GZnF2m1Eez/c0h1TO00oaU4MqFwWabJQ6MWGQcih2iDvNzpMXjJVW1IynqTF3ZptAe7
+         aRzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=ZVa7+ukVQ3gxnLwaLzGzoruMYL9hEreMELRJFbxTyco=;
+        b=JB4v7b5T63mSD+x9y2butVzZmxIyYemifT4wyaqlPhB+1XDvU5dQ/0klJmr4CnmEOV
+         13w0G7Z6SgJnb53ZS8tjrxHbLqB0LYpGMlzxnP8MJVh3vSiuTi4Js+0LC+yJlMYr4T9R
+         zbP/wAPSZgo7XTldp+y1zdQEa6XvjX+LfqnZXGX5JMJs6b+DoapYIWYpbUxfNKkiBJL+
+         4HWfre3bbf8crWoRQoloum1eXXEoVmVV8Vi2rYxLVQGKBGto2pGtlB9JaTnpa4W5SqgY
+         RvHZSgQEZ+RW5Hv69FY6keyzWiZlKSKI/OBwocmhAW8TFGckYjomv+osd+P3It6jI6hP
+         H9cw==
+X-Gm-Message-State: AOAM5331zNbdIe37Jk2AxAr1lQNPbbhAtgPcW4+LzoM/tVvQ5yRd6tFX
+	h18AHljLx/lyYA4HoRADS+EQIP7Iwt7IS/NYVYA=
+X-Google-Smtp-Source: ABdhPJywKQMWwVgGwKlzy8HFA/o+mcfb0KDxn14VEf15/Uyn7chsDs3chgCmhffooMRwG1OZQ6NlnStE0PgDzPjwJ8c=
+X-Received: by 2002:a05:6870:ea81:b0:db:3e68:7ae0 with SMTP id
+ s1-20020a056870ea8100b000db3e687ae0mr382261oap.9.1647895060787; Mon, 21 Mar
+ 2022 13:37:40 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.7.0
-Subject: Re: [PATCH v3 2/2] gitlab-ci: add an ARM32 qemu-based smoke test
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, cardoe@cardoe.com, wl@xen.org,
- andrew.cooper3@citrix.com, anthony.perard@citrix.com,
- bertrand.marquis@arm.com, Stefano Stabellini <stefano.stabellini@xilinx.com>
-References: <alpine.DEB.2.22.394.2203181729490.2910984@ubuntu-linux-20-04-desktop>
- <20220319003221.3012314-2-sstabellini@kernel.org>
- <alpine.DEB.2.22.394.2203191842280.2910984@ubuntu-linux-20-04-desktop>
- <684d65b8-5de4-779c-d869-bac28e073091@xen.org>
- <alpine.DEB.2.22.394.2203211229430.2910984@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2203211229430.2910984@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <84f15b2e1bef6c901bbdf29a07c7904cb365c0b2.1647879687.git.tamas.lengyel@intel.com>
+ <90cf10b5-b0de-4589-f1a6-f8c392c924f1@suse.com>
+In-Reply-To: <90cf10b5-b0de-4589-f1a6-f8c392c924f1@suse.com>
+From: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+Date: Mon, 21 Mar 2022 16:37:29 -0400
+Message-ID: <CABfawhncAqNFz+aCogYpshHWNR+-_nw8yLJrBjThii2LK1FaOQ@mail.gmail.com>
+Subject: Re: [PATCH v3] x86/vmx: save guest non-register state in hvm_hw_cpu
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Tamas K Lengyel <tamas.lengyel@intel.com>, Jun Nakajima <jun.nakajima@intel.com>, 
+	Kevin Tian <kevin.tian@intel.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, 
+	Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/alternative; boundary="000000000000b9be2b05dac077df"
 
-Hi Stefano,
+--000000000000b9be2b05dac077df
+Content-Type: text/plain; charset="UTF-8"
 
-On 21/03/2022 19:47, Stefano Stabellini wrote:
-> On Sun, 20 Mar 2022, Julien Grall wrote:
->> On 20/03/2022 01:46, Stefano Stabellini wrote:
->>> On Fri, 18 Mar 2022, Stefano Stabellini wrote:
->>>> Add a minimal ARM32 smoke test based on qemu-system-arm, as provided by
->>>> the test-artifacts qemu container. The minimal test simply boots Xen
->>>> (built from previous build stages) and Dom0. The test is fetching the
->>>> Dom0 kernel and initrd from Debian Jessie: they work just fine and this
->>>> way we don't have to maintain a build for them too.
->>>
->>>
->>> Thanks to the Xen fix recently submitted
->>> (https://marc.info/?l=xen-devel&m=164774063802402) I'll be able to
->>> update this script to use Debian Bullseye. I am thinking of merging the
->>> below directly with this patch.
->>>
->>>
->>> ---
->>>
->>> automation: upgrade Debian to Bullseye for testing Xen aarch32
->>>
->>> Also change initrd. As the new netboot initrd from Debian Bullseye is
->>> huge (22MB), use a tiny initrd from Alpine Linux instead (only 2.5MB).
->>
->> This is sounds odd to me. So we are going to use Bullseye but not really
->> because we want to use a different initrd.
->>
->> Why can't you get everything from the same place?
-> 
-> Because it doesn't work :-(
-> 
-> 
->>> Also note that the huge Debian Bullseye initrd would cause QEMU to
->>> crash due to the -device loader parameter.
->>
->> Can you provide more details? Was this reported to QEMU?
-> 
-> QEMU core dumps when provided with the Debian Bullseye initrd binary to
-> load. I guessed it was due to the size and tried with a smaller size.
-> Everything worked with a smaller initrd. I also think that it is not a
-> good idea to use a 22MB initrd anyway so decided against the Debian
-> Bullseye initrd. 
+On Mon, Mar 21, 2022, 12:41 PM Jan Beulich <jbeulich@suse.com> wrote:
 
-Why is it a bad idea? In general, bigger file allows us to test corner 
-cases.
+> On 21.03.2022 17:26, Tamas K Lengyel wrote:
+> > During VM forking and resetting a failed vmentry has been observed due
+> > to the guest non-register state going out-of-sync with the guest register
+> > state. For example, a VM fork reset right after a STI instruction can
+> trigger
+> > the failed entry. This is due to the guest non-register state not being
+> saved
+> > from the parent VM, thus the reset operation only copies the register
+> state.
+> >
+> > Fix this by including the guest non-register state in hvm_hw_cpu so that
+> when
+> > its copied from the parent VM the vCPU state remains in sync.
+> >
+> > SVM is not currently wired-in as VM forking is VMX only and saving
+> non-register
+> > state during normal save/restore/migration operation hasn't been needed.
+> If
+> > deemed necessary in the future it can be wired in by adding a
+> svm-substructure
+> > to hvm_hw_cpu.
+> >
+> > Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>
 
-> (For reference 22MB is basically the size of a fully
-> featured Yocto-build rootfs.) I did not file a bug to qemu-devel yet and
-> didn't investigate further on the QEMU side as I ran out of time.
-> 
-> Alpine Linux provides a very nice 2.5MB initrd. I tried to use both
-> kernel and initrd from Alpine Linux but unfortunately the Alpine Linux
-> kernel doesn't boot. I don't know why but I think it is because it might
-> be missing the console driver. I am not sure. There are a lot of
-> combinations that don't work and it is time consuming to investigate
-> them all. I have been trying to investigate only the most critical
-> things -- they are too many!
-> 
-> I should add that the Debian initrd is not the ideal initrd because it
-> is made to start the Debian installer. Here we just want a tiny busybox
-> initrd.
-> 
-> In general, I think it would be better if we could use the kernel and
-> initrd from the same source but I couldn't find one that works. I could
-> build one myself but it would be one more thing to maintain in
-> gitlab-ci. Also using u-boot might solve the problem of loading the
-> binary but again we would have to maintain a u-boot arm32 build in
-> gitlab-ci.
-> 
-> So in order of preference best to worst in my opinion:
-> 
-> 1) kernel and initrd from the same source
-> 2) kernel and initrd from different sources
-> 3) build your own kernel/initrd/u-boot
-> 
-> So I ended up doing 2). I tested it and it is sufficient to get the test
-> up and running.
+Thanks, will send v4 shortly, will need a couple fixes still.
 
-Thanks for the explanation. So I think we should not call that an 
-"Upgrade to Bullseye" because you are not using Debian. Instead, you 
-borrowed a working kernel that happens to have everything you need built-in.
+Tamas
 
-Also, can you update the commit message and provide a summary of this 
-discussion?
+>
 
-Cheers,
+--000000000000b9be2b05dac077df
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
--- 
-Julien Grall
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
+class=3D"gmail_attr">On Mon, Mar 21, 2022, 12:41 PM Jan Beulich &lt;<a href=
+=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; wrote:<br></div><bl=
+ockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #=
+ccc solid;padding-left:1ex">On 21.03.2022 17:26, Tamas K Lengyel wrote:<br>
+&gt; During VM forking and resetting a failed vmentry has been observed due=
+<br>
+&gt; to the guest non-register state going out-of-sync with the guest regis=
+ter<br>
+&gt; state. For example, a VM fork reset right after a STI instruction can =
+trigger<br>
+&gt; the failed entry. This is due to the guest non-register state not bein=
+g saved<br>
+&gt; from the parent VM, thus the reset operation only copies the register =
+state.<br>
+&gt; <br>
+&gt; Fix this by including the guest non-register state in hvm_hw_cpu so th=
+at when<br>
+&gt; its copied from the parent VM the vCPU state remains in sync.<br>
+&gt; <br>
+&gt; SVM is not currently wired-in as VM forking is VMX only and saving non=
+-register<br>
+&gt; state during normal save/restore/migration operation hasn&#39;t been n=
+eeded. If<br>
+&gt; deemed necessary in the future it can be wired in by adding a svm-subs=
+tructure<br>
+&gt; to hvm_hw_cpu.<br>
+&gt; <br>
+&gt; Signed-off-by: Tamas K Lengyel &lt;<a href=3D"mailto:tamas.lengyel@int=
+el.com" target=3D"_blank" rel=3D"noreferrer">tamas.lengyel@intel.com</a>&gt=
+;<br>
+<br>
+Reviewed-by: Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com" target=3D=
+"_blank" rel=3D"noreferrer">jbeulich@suse.com</a>&gt;<br></blockquote></div=
+></div><div dir=3D"auto"><br></div><div dir=3D"auto">Thanks, will send v4 s=
+hortly, will need a couple fixes still.</div><div dir=3D"auto"><br></div><d=
+iv dir=3D"auto">Tamas</div><div dir=3D"auto"><div class=3D"gmail_quote"><bl=
+ockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #=
+ccc solid;padding-left:1ex"></blockquote></div></div></div>
+
+--000000000000b9be2b05dac077df--
 
