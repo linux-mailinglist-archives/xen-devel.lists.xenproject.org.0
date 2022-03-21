@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 740FC4E292D
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Mar 2022 15:01:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.293005.497664 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCDC54E29E2
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Mar 2022 15:12:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.293014.497676 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWIam-0008P0-Ne; Mon, 21 Mar 2022 14:01:04 +0000
+	id 1nWIlp-0001YZ-VS; Mon, 21 Mar 2022 14:12:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 293005.497664; Mon, 21 Mar 2022 14:01:04 +0000
+Received: by outflank-mailman (output) from mailman id 293014.497676; Mon, 21 Mar 2022 14:12:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWIam-0008N9-KL; Mon, 21 Mar 2022 14:01:04 +0000
-Received: by outflank-mailman (input) for mailman id 293005;
- Mon, 21 Mar 2022 14:01:03 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nWIal-0008Mz-Nv; Mon, 21 Mar 2022 14:01:03 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nWIal-0008Ax-M9; Mon, 21 Mar 2022 14:01:03 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nWIal-0001tT-AL; Mon, 21 Mar 2022 14:01:03 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nWIal-0004cV-9v; Mon, 21 Mar 2022 14:01:03 +0000
+	id 1nWIlp-0001W8-S1; Mon, 21 Mar 2022 14:12:29 +0000
+Received: by outflank-mailman (input) for mailman id 293014;
+ Mon, 21 Mar 2022 14:12:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Ob4L=UA=citrix.com=prvs=0720edaad=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1nWIln-0001Vx-SI
+ for xen-devel@lists.xenproject.org; Mon, 21 Mar 2022 14:12:27 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ede5e6a4-a920-11ec-8fbc-03012f2f19d4;
+ Mon, 21 Mar 2022 15:12:26 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,127 +36,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=VD+NVhTxPgAvEF0Kgw/OD2ra+rKKJtJpGlz08pwpM4E=; b=2xth6yJuXeJmfzrLFujIOWVTq7
-	uNG9eEhJydTXIldzFBfiWEbU+WgDoSuCrK5zluk1BTg2aNZwR6EI50VHRCFgXjPm772YSDp75NZrB
-	MKyEWAl4Mco4iJhq8/uPoCmv/vRzEBNr6yoWWL6lCXWU4tozcUa3cNE6YdqiF62+J1EU=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168752-mainreport@xen.org>
+X-Inumbo-ID: ede5e6a4-a920-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1647871946;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=mafovDzuI/9KH39XYeumNUYSslRqvNPaZnhQOUghNbY=;
+  b=VpF7fLPUpb48r9Z/OtWluI5oaZH+l6/Seu46RNBhlfR8zPA50c0x317M
+   Ls4ojv9YFs+rM3J5Gld01rdkSXVE59nE+GJx1f0mTnL1X1rMzSuc3AlD3
+   voKMnhBYqIgE8yfhcA5e5/erT0jhrtJVYjoNY4te5N1oK3N99K1Y3Ww5U
+   s=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 66686804
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:TaZeO6DkemiE/hVW/1njw5YqxClBgxIJ4kV8jS/XYbTApD8lhjVWy
+ zNMUDyObK2CNGb9c9p/YIW1oRwAvZTVxoU3QQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
+ xA2M4GYRCwMZiaA4E/raNANlFEkvU2ybuOU5NXsZ2YgHWeIdA970Ug5w7Vj29Yx6TSEK1jlV
+ e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
+ I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPgtk
+ vlQro2wWTwpEbfNuNknVxxfKhBxaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
+ 6ZCcXZUM07F17neLLGTE4GAguwKKsXxMZxZkXZn1TzDVt4tQIzZQrWM7thdtNs1rp4QQ6aAN
+ 5JFAdZpRAXwY0B+EVQZM6N9hur0hnb/UTJGpGvA8MLb5ECMlVcsgdABKuH9ZdiiVchT2EGCq
+ Qru3U70HxUbP9y30iee/zSngeqntTP2XsceGaO18tZugUaP3SoDBRsOT1y5rPKlzEmkVLpix
+ 1c8o3R06/JorQryE4e7D0bQTGO4UgA0B4B8DvYr6BG2yoXO4iakPGwBSQdwZ4lz3CMpfgAC2
+ liMltLvIDVgtryJVH6QnoupQSOO1Ts9djFbO3JdJecRy5y6+dxo0EqTJjp2OPTt5uAZDw0c1
+ NxjQMIWo7wIxfAG2Kyglbwsq2L9/8OZJuLZC+i+Y45E0u+bTNP+D2BLwQKChRqlEGp+ZgPd1
+ EXoY+DEsIgz4WilzURhutklErCz/OqiOzbBm1NpFJRJ323zpyHzJNgJuWEnfxYB3iM4ldjBO
+ hK7hO+szMULYCvCgVFfPepd9PjGPYC/TI+4B5g4n/JFY4RrdR/vwc2dTRX44owZq2B1yftXE
+ c7CKa6EVC9GYYw6nGveb7pMitcDm3FhrV4/sLimlnxLJ5LFPyXLIVrEWXPTBt0EAFSs+1yEr
+ YwAa5PUl32ykoTWO0HqzGLaFnhSRVBTOHw8g5UGHgJfCmKKwF0cNsI=
+IronPort-HdrOrdr: A9a23:HsqDy6w6cSU5PzsZK5byKrPwIL1zdoMgy1knxilNoRw8SKKlfq
+ eV7ZMmPH7P+VIssR4b+exoVJPtfZq+z+8R3WByB8bAYOCOggLBR+sO0WKL+UyHJ8SUzI9gPM
+ lbHJSWcOeAb2RHsQ==
+X-IronPort-AV: E=Sophos;i="5.90,198,1643691600"; 
+   d="scan'208";a="66686804"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/apic: Fix function typechecking in TSC Deadline errata check
+Date: Mon, 21 Mar 2022 14:12:07 +0000
+Message-ID: <20220321141207.18422-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [ovmf test] 168752: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=267a92fef3b705e6a3ecbeaa4d4b58f7bfac9734
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 21 Mar 2022 14:01:03 +0000
 
-flight 168752 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168752/
+Sadly, cf_check typechecking doesn't work through casts.  Introduce an ad-hoc
+typecheck and fix *_readline_rev() checks to be cf_check.
 
-Regressions :-(
+This is a latent bug.  The affected models don't have CET-IBT, so won't
+actually explode from lacking endbr64 instructions.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+Reported-by: Jan Beulich <JBeulich@suse.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+---
+ xen/arch/x86/apic.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+diff --git a/xen/arch/x86/apic.c b/xen/arch/x86/apic.c
+index 96d73a744964..794bbc21ae2c 100644
+--- a/xen/arch/x86/apic.c
++++ b/xen/arch/x86/apic.c
+@@ -1092,12 +1092,17 @@ static void setup_APIC_timer(void)
+     local_irq_restore(flags);
+ }
+ 
++#define DEADLINE_MODEL_FUNCT(m, fn) \
++    { .vendor = X86_VENDOR_INTEL, .family = 6, .model = (m), \
++      .feature = X86_FEATURE_TSC_DEADLINE, \
++      .driver_data = fn + (0 * sizeof(fn == ((unsigned int (*)(void))NULL))) }
++
+ #define DEADLINE_MODEL_MATCH(m, fr) \
+     { .vendor = X86_VENDOR_INTEL, .family = 6, .model = (m), \
+       .feature = X86_FEATURE_TSC_DEADLINE, \
+       .driver_data = (void *)(unsigned long)(fr) }
+ 
+-static unsigned int __init hsx_deadline_rev(void)
++static unsigned int __init cf_check hsx_deadline_rev(void)
+ {
+     switch ( boot_cpu_data.x86_mask )
+     {
+@@ -1108,7 +1113,7 @@ static unsigned int __init hsx_deadline_rev(void)
+     return ~0U;
+ }
+ 
+-static unsigned int __init bdx_deadline_rev(void)
++static unsigned int __init cf_check bdx_deadline_rev(void)
+ {
+     switch ( boot_cpu_data.x86_mask )
+     {
+@@ -1121,7 +1126,7 @@ static unsigned int __init bdx_deadline_rev(void)
+     return ~0U;
+ }
+ 
+-static unsigned int __init skx_deadline_rev(void)
++static unsigned int __init cf_check skx_deadline_rev(void)
+ {
+     switch ( boot_cpu_data.x86_mask )
+     {
+@@ -1135,17 +1140,17 @@ static unsigned int __init skx_deadline_rev(void)
+ 
+ static const struct x86_cpu_id __initconstrel deadline_match[] = {
+     DEADLINE_MODEL_MATCH(0x3c, 0x22),             /* Haswell */
+-    DEADLINE_MODEL_MATCH(0x3f, hsx_deadline_rev), /* Haswell EP/EX */
++    DEADLINE_MODEL_FUNCT(0x3f, hsx_deadline_rev), /* Haswell EP/EX */
+     DEADLINE_MODEL_MATCH(0x45, 0x20),             /* Haswell D */
+     DEADLINE_MODEL_MATCH(0x46, 0x17),             /* Haswell H */
+ 
+     DEADLINE_MODEL_MATCH(0x3d, 0x25),             /* Broadwell */
+     DEADLINE_MODEL_MATCH(0x47, 0x17),             /* Broadwell H */
+     DEADLINE_MODEL_MATCH(0x4f, 0x0b000020),       /* Broadwell EP/EX */
+-    DEADLINE_MODEL_MATCH(0x56, bdx_deadline_rev), /* Broadwell D */
++    DEADLINE_MODEL_FUNCT(0x56, bdx_deadline_rev), /* Broadwell D */
+ 
+     DEADLINE_MODEL_MATCH(0x4e, 0xb2),             /* Skylake M */
+-    DEADLINE_MODEL_MATCH(0x55, skx_deadline_rev), /* Skylake X */
++    DEADLINE_MODEL_FUNCT(0x55, skx_deadline_rev), /* Skylake X */
+     DEADLINE_MODEL_MATCH(0x5e, 0xb2),             /* Skylake D */
+ 
+     DEADLINE_MODEL_MATCH(0x8e, 0x52),             /* Kabylake M */
+-- 
+2.11.0
 
-version targeted for testing:
- ovmf                 267a92fef3b705e6a3ecbeaa4d4b58f7bfac9734
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   21 days
-Failing since        168258  2022-03-01 01:55:31 Z   20 days  211 attempts
-Testing same since   168738  2022-03-21 02:39:18 Z    0 days   10 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 859 lines long.)
 
