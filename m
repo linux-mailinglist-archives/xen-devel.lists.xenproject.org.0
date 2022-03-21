@@ -2,65 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 294C14E2039
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Mar 2022 06:47:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.292752.497116 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE4E54E210C
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Mar 2022 08:16:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.292756.497127 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWAsb-0000Bv-Db; Mon, 21 Mar 2022 05:46:57 +0000
+	id 1nWCGL-0000hb-WB; Mon, 21 Mar 2022 07:15:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 292752.497116; Mon, 21 Mar 2022 05:46:57 +0000
+Received: by outflank-mailman (output) from mailman id 292756.497127; Mon, 21 Mar 2022 07:15:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWAsb-00009t-A4; Mon, 21 Mar 2022 05:46:57 +0000
-Received: by outflank-mailman (input) for mailman id 292752;
- Mon, 21 Mar 2022 05:46:55 +0000
+	id 1nWCGL-0000eh-Sv; Mon, 21 Mar 2022 07:15:33 +0000
+Received: by outflank-mailman (input) for mailman id 292756;
+ Mon, 21 Mar 2022 07:15:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=w7Ei=UA=arm.com=Hongda.Deng@srs-se1.protection.inumbo.net>)
- id 1nWAsZ-00009n-DK
- for xen-devel@lists.xenproject.org; Mon, 21 Mar 2022 05:46:55 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on20615.outbound.protection.outlook.com
- [2a01:111:f400:7d00::615])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8hCO=UA=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1nWCGK-0000eJ-EJ
+ for xen-devel@lists.xenproject.org; Mon, 21 Mar 2022 07:15:32 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4e526aa3-a8da-11ec-a405-831a346695d4;
- Mon, 21 Mar 2022 06:46:53 +0100 (CET)
-Received: from AM5PR0201CA0019.eurprd02.prod.outlook.com
- (2603:10a6:203:3d::29) by DB6PR0801MB1991.eurprd08.prod.outlook.com
- (2603:10a6:4:71::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.17; Mon, 21 Mar
- 2022 05:46:44 +0000
-Received: from AM5EUR03FT020.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:203:3d:cafe::e0) by AM5PR0201CA0019.outlook.office365.com
- (2603:10a6:203:3d::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.22 via Frontend
- Transport; Mon, 21 Mar 2022 05:46:44 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT020.mail.protection.outlook.com (10.152.16.116) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5081.14 via Frontend Transport; Mon, 21 Mar 2022 05:46:43 +0000
-Received: ("Tessian outbound 741ca6c82739:v113");
- Mon, 21 Mar 2022 05:46:43 +0000
-Received: from d13aef9ab63a.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 6038C986-7E7E-4D37-ADAE-7B6505D0F12D.1; 
- Mon, 21 Mar 2022 05:46:34 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id d13aef9ab63a.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Mon, 21 Mar 2022 05:46:34 +0000
-Received: from VE1PR08MB5677.eurprd08.prod.outlook.com (2603:10a6:800:1ab::17)
- by DB7PR08MB3915.eurprd08.prod.outlook.com (2603:10a6:10:34::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.17; Mon, 21 Mar
- 2022 05:46:28 +0000
-Received: from VE1PR08MB5677.eurprd08.prod.outlook.com
- ([fe80::e961:6117:1b58:38e7]) by VE1PR08MB5677.eurprd08.prod.outlook.com
- ([fe80::e961:6117:1b58:38e7%3]) with mapi id 15.20.5081.022; Mon, 21 Mar 2022
- 05:46:28 +0000
+ id b0c63563-a8e6-11ec-a405-831a346695d4;
+ Mon, 21 Mar 2022 08:15:30 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C606F1F37F;
+ Mon, 21 Mar 2022 07:15:29 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7BF7C139FF;
+ Mon, 21 Mar 2022 07:15:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id UYJGHBEmOGKEGgAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 21 Mar 2022 07:15:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,140 +51,302 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4e526aa3-a8da-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HSv8N45yjCaI/ZJNr3x2ORl1tzjC7C2Q9iCmCO1Bmto=;
- b=NiXKXj1l4Szl6xlekqeoOxeaWCosUPM8sw2ymdiYfKUovGl3Or43FzVT36U1jd+YcZMm2lPBXwkb8y9TKgkCnaHdpQkq+1prhlPz67G6yzW0ckxu1U1KyggOyAN7acu5uVuypn0Zj0PUPcyMjsogqgdPzcZ+gBoHGBKNK2ygvLM=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FYcowtAbEsu5Rq3bnqkwDmp24iPt49s2S4+IJoZGNvG8/xHOQ65HNoQkYfrf4kEhUIXijYAmrtkgunk/g68ZJML4CFW3sff2d4yCp6/7se6sy5vrVwpB+Y/bI56v9DmpJQjuN8DN0ymu8Dhtk8lhw1rAYy83hbnT+nLy/ZHX05lBGPlgvzx5OJvkgCKe8W2lqnu7v5VQvQxwqiE13JK0hInoUBQ1yADsCXkqbFZzmJ9dQy6JK/akWsuLCltU/o2QtvfhaQe5Grdl0hD6eByDmDsfCkdiAAMKpuagQC8kskB9HtqFt/niQKy6tTH5Ie8JpVdC+saVQyKtrm61XCZHrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HSv8N45yjCaI/ZJNr3x2ORl1tzjC7C2Q9iCmCO1Bmto=;
- b=dfylF3dWl62w/fHT3PpAKrTAc9JkCAvD6onhul7M5hHro1PWytf0W5uRgxXVUxItab8o8LOltonv90204iFsMft8I9gA3bStuikTUr79zQGf9+9OYf58kwJhSyM+I9BL+9ppyHHq73OukCtoRO72541lnIeI51RJTH7E3BTLnQ9BjQdxu//MsK7kCPCcVyBdTLI93F401oN2You6ItUap9MzC4cOgcaWbAm68aXZuy+3RiCuAQoK7QqDSfiOl3ICDxV7QGAGIjXGGmgkvolMGf48KOwJxFpJMPJqyrrnbRGtpaaGE2lY5p0OIgZscGz32Z83h6vyUk/5PuPnh/Y9jg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HSv8N45yjCaI/ZJNr3x2ORl1tzjC7C2Q9iCmCO1Bmto=;
- b=NiXKXj1l4Szl6xlekqeoOxeaWCosUPM8sw2ymdiYfKUovGl3Or43FzVT36U1jd+YcZMm2lPBXwkb8y9TKgkCnaHdpQkq+1prhlPz67G6yzW0ckxu1U1KyggOyAN7acu5uVuypn0Zj0PUPcyMjsogqgdPzcZ+gBoHGBKNK2ygvLM=
-From: Hongda Deng <Hongda.Deng@arm.com>
-To: Julien Grall <julien@xen.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: Julien Grall <jgrall@amazon.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: RE: [PATCH v3 05/19] xen/arm: mm: Add support for the contiguous bit
-Thread-Topic: [PATCH v3 05/19] xen/arm: mm: Add support for the contiguous bit
-Thread-Index: AQHYJwz6gD61KYQGFkmKC0/u3eFrX6ymQHyAgCM9yoA=
-Date: Mon, 21 Mar 2022 05:46:27 +0000
-Message-ID:
- <VE1PR08MB567728BFC23E74CAC3652FB5E6169@VE1PR08MB5677.eurprd08.prod.outlook.com>
-References: <20220221102218.33785-1-julien@xen.org>
- <20220221102218.33785-6-julien@xen.org>
- <e8382df1-eb0c-9571-873f-848e2d6cf8fa@xen.org>
-In-Reply-To: <e8382df1-eb0c-9571-873f-848e2d6cf8fa@xen.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ts-tracking-id: 5FD63EAAEFC8384397E4C3B6CFFB6870.0
-x-checkrecipientchecked: true
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-MS-Office365-Filtering-Correlation-Id: 7ec8e614-5c27-4ac7-0efb-08da0afe2dff
-x-ms-traffictypediagnostic:
-	DB7PR08MB3915:EE_|AM5EUR03FT020:EE_|DB6PR0801MB1991:EE_
-X-Microsoft-Antispam-PRVS:
-	<DB6PR0801MB1991DB7A481D670EDB14826EE6169@DB6PR0801MB1991.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- v5LGxvcTjjCGIuBbtQB9/kSrHLduzy/FqUzJfGzUTuWrrGInu6s/rBwlxDUrAbDT9KK8XXUt5+GcOzp+sD4LhYho8ixVZnRwji8TpbhaPDBMyUmEFwD2rjPhe/F2TPdhJpy6UDvGKtfzbSSrG/aPxuhVYyWAKrSp9HVAdSplbPwiQc13xjQclCpxbCBOwrls+/2uQzxtN78VjHlx97bo/0a6CBzahxQrE5CHBKVsR86NptmVpKII5BSBlN3LSNteVsniJ44FqaJaYdcxEg3k/moeAECu74WUkowBWCBayGRZ7kSBcemGe3JP4ecx8h3KYu1BaC4r/lcKhy3P+oyUGFPo4sow13b7G6dhhZW2EuokEItKAtuy9zEaOpzP3SbLExeXp34Vyn3cTl7aVr+fOj94e2gHyQTBAE09LLKi5Po7j7mUbAcnh2z4PH8t7nf6bs4QiAjAzKZhZKbgnkecGWkSRPBhVD7TF9JrfZmT5gi5qfYi69WMknXpFI++rJ9mjyx9tnkfJoonJlhHZVAlDtYy3fpjzWCr4tGJ4Z5wY9LaEJ/fFeC6Yc/nB3rofsvO02DzTjAqI8enB4jAT0GHQbqlfJlX3ku8yLXbrmSgPRL4JRfQO32elzIQkWdJelLDdg9TwVls2pOZALRvOr5wXB0sBDRkM0uMyGlgenyzAXbW/hyG0ZkdRcjSMm3a4uZkdZp7s6REsntgl3BXDWPHQw==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR08MB5677.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(2906002)(8936002)(508600001)(38070700005)(52536014)(122000001)(86362001)(6506007)(53546011)(5660300002)(9686003)(7696005)(4326008)(71200400001)(8676002)(66946007)(76116006)(55016003)(64756008)(66446008)(66476007)(66556008)(26005)(110136005)(54906003)(316002)(38100700002)(83380400001)(33656002)(186003);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: b0c63563-a8e6-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1647846929; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=h22B5ZgKRwVMXna+wG55MpkmPJwyfUO662E0tM1hy2M=;
+	b=rmtuAc4Cd6RwwDp/pYAZg3ZcpqX3HiFZFRvp3YXggpZFg2gZdqDqbMWtyBuPoiwSu6aDb5
+	/LUswavauREErmiUyiLu5/ROQvgPCPf6275ClIphVd79f9Vn524HBuj0dtcRKdnVbyxc59
+	VI20iFp5qBmeG/Czf2mJLyQIaUEY+EM=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v4.1 02/11] xen: move do_vcpu_op() to arch specific code
+Date: Mon, 21 Mar 2022 08:15:26 +0100
+Message-Id: <20220321071527.1946-1-jgross@suse.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220310073420.15622-1-jgross@suse.com>
+References: <20220310073420.15622-1-jgross@suse.com>
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB3915
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM5EUR03FT020.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	667cc573-0f92-458a-0c58-08da0afe2519
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	aJMuKILZdyhDXWr91av9DEJZZcpnFeTpOQGK1bQMlwppVWuwYb/vg2s1+g/F9av0u+xKEKBRplOkMxMlzM0wTLIgJkJ8d2yQn56nDtQ6pLjI+QPrZGzaDkGHko1AixV0/6JE8IHQwzg7Pg+fLo2WxuPOpwH4e4aB+uXAnnQaxZ7044HMJOXYKhiD2WGh+6lf5o8mOEFiQ+8frACDIFwoOnvDWk8Zz30QLokJ0oPS1SRpXHETY4ah/KMgzGhjGIa/HOO4qQOx0VHd1UDkRAyPg0eBzS+o+mtId3jK4Vg9EEddgPKUggC9/iJJcCHlWWJgF/eCxuU1lvUOXz231OmmJIC5x0Pmk31KeHNzL4BMQGPWpAFnkHgTFO9/3DCpxyS+9wLfMSC6etRDnbkQW4RcYrEskxLHWO6k5TcuFz1pABEy6kXAosFWylobq97b2/oxsA1F5UoF3huhgjwI4HoNmkOe2bINkgWKvNjvwekWXxCZhZb6L0OOQ1kUtEChlKxb6eDRoL/o238YaF6WeI/AEVqczyuxdahpGjDijpGjTffFKYVwsShPiPgcl+3WZmLbJL/THvu7ZFYzMYP/CaG8pISKdoWQOTyhRxwXEQG5DNLhCrjRRHzF33wnICLpiEICTwMj85yDKkBaPMhjFSct2w==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(46966006)(36840700001)(70586007)(4326008)(47076005)(70206006)(508600001)(316002)(83380400001)(33656002)(54906003)(9686003)(110136005)(356005)(82310400004)(81166007)(186003)(8936002)(107886003)(53546011)(55016003)(36860700001)(8676002)(7696005)(2906002)(6506007)(5660300002)(26005)(52536014)(86362001)(336012);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2022 05:46:43.5382
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7ec8e614-5c27-4ac7-0efb-08da0afe2dff
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM5EUR03FT020.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0801MB1991
+Content-Transfer-Encoding: 8bit
 
-SGkgSnVsaWVuLA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IFhlbi1k
-ZXZlbCA8eGVuLWRldmVsLWJvdW5jZXNAbGlzdHMueGVucHJvamVjdC5vcmc+IE9uIEJlaGFsZiBP
-ZiBKdWxpZW4NCj4gR3JhbGwNCj4gU2VudDogMjAyMuW5tDLmnIgyN+aXpSAzOjMwDQo+IFRvOiB4
-ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcNCj4gQ2M6IEp1bGllbiBHcmFsbCA8amdyYWxs
-QGFtYXpvbi5jb20+OyBTdGVmYW5vIFN0YWJlbGxpbmkNCj4gPHNzdGFiZWxsaW5pQGtlcm5lbC5v
-cmc+OyBCZXJ0cmFuZCBNYXJxdWlzIDxCZXJ0cmFuZC5NYXJxdWlzQGFybS5jb20+Ow0KPiBWb2xv
-ZHlteXIgQmFiY2h1ayA8Vm9sb2R5bXlyX0JhYmNodWtAZXBhbS5jb20+DQo+IFN1YmplY3Q6IFJl
-OiBbUEFUQ0ggdjMgMDUvMTldIHhlbi9hcm06IG1tOiBBZGQgc3VwcG9ydCBmb3IgdGhlIGNvbnRp
-Z3VvdXMgYml0DQo+IA0KPiBIaSwNCj4gDQo+IE9uIDIxLzAyLzIwMjIgMTA6MjIsIEp1bGllbiBH
-cmFsbCB3cm90ZToNCj4gPiBAQCAtMTMzMywyMSArMTM4NiwzNCBAQCBzdGF0aWMgaW50IHhlbl9w
-dF91cGRhdGUodW5zaWduZWQgbG9uZyB2aXJ0LA0KPiA+ICAgICAgIHdoaWxlICggbGVmdCApDQo+
-ID4gICAgICAgew0KPiA+ICAgICAgICAgICB1bnNpZ25lZCBpbnQgb3JkZXIsIGxldmVsOw0KPiA+
-ICsgICAgICAgIHVuc2lnbmVkIGludCBucl9jb250aWc7DQo+ID4gKyAgICAgICAgdW5zaWduZWQg
-aW50IG5ld19mbGFnczsNCj4gPg0KPiA+ICAgICAgICAgICBsZXZlbCA9IHhlbl9wdF9tYXBwaW5n
-X2xldmVsKHZmbiwgbWZuLCBsZWZ0LCBmbGFncyk7DQo+ID4gICAgICAgICAgIG9yZGVyID0gWEVO
-X1BUX0xFVkVMX09SREVSKGxldmVsKTsNCj4gPg0KPiA+ICAgICAgICAgICBBU1NFUlQobGVmdCA+
-PSBCSVQob3JkZXIsIFVMKSk7DQo+ID4NCj4gPiAtICAgICAgICByYyA9IHhlbl9wdF91cGRhdGVf
-ZW50cnkocm9vdCwgcGZuX3RvX3BhZGRyKHZmbiksIG1mbiwgbGV2ZWwsIGZsYWdzKTsNCj4gPiAt
-ICAgICAgICBpZiAoIHJjICkNCj4gPiAtICAgICAgICAgICAgYnJlYWs7DQo+ID4gKyAgICAgICAg
-LyoNCj4gPiArICAgICAgICAgKiBDaGVjayBpZiB3ZSBjYW4gc2V0IHRoZSBjb250aWd1b3VzIG1h
-cHBpbmcgYW5kIHVwZGF0ZSB0aGUNCj4gPiArICAgICAgICAgKiBmbGFncyBhY2NvcmRpbmdseS4N
-Cj4gPiArICAgICAgICAgKi8NCj4gPiArICAgICAgICBucl9jb250aWcgPSB4ZW5fcHRfY2hlY2tf
-Y29udGlnKHZmbiwgbWZuLCBsZXZlbCwgbGVmdCwgZmxhZ3MpOw0KPiA+ICsgICAgICAgIG5ld19m
-bGFncyA9IGZsYWdzIHwgKChucl9jb250aWcgPiAxKSA/IF9QQUdFX0NPTlRJRyA6IDApOw0KPiA+
-DQo+ID4gLSAgICAgICAgdmZuICs9IDFVIDw8IG9yZGVyOw0KPiA+IC0gICAgICAgIGlmICggIW1m
-bl9lcShtZm4sIElOVkFMSURfTUZOKSApDQo+ID4gLSAgICAgICAgICAgIG1mbiA9IG1mbl9hZGQo
-bWZuLCAxVSA8PCBvcmRlcik7DQo+ID4gKyAgICAgICAgZm9yICggOyBucl9jb250aWcgPiAwOyBu
-cl9jb250aWctLSApDQo+ID4gKyAgICAgICAgew0KPiA+ICsgICAgICAgICAgICByYyA9IHhlbl9w
-dF91cGRhdGVfZW50cnkocm9vdCwgcGZuX3RvX3BhZGRyKHZmbiksIG1mbiwgbGV2ZWwsDQo+ID4g
-KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBuZXdfZmxhZ3MpOw0KPiA+ICsg
-ICAgICAgICAgICBpZiAoIHJjICkNCj4gPiArICAgICAgICAgICAgICAgIGJyZWFrOw0KPiA+DQo+
-ID4gLSAgICAgICAgbGVmdCAtPSAoMVUgPDwgb3JkZXIpOw0KPiA+ICsgICAgICAgICAgICB2Zm4g
-Kz0gMVUgPDwgb3JkZXI7DQo+ID4gKyAgICAgICAgICAgIGlmICggIW1mbl9lcShtZm4sIElOVkFM
-SURfTUZOKSApDQo+ID4gKyAgICAgICAgICAgICAgICBtZm4gPSBtZm5fYWRkKG1mbiwgMVUgPDwg
-b3JkZXIpOw0KPiA+ICsNCj4gPiArICAgICAgICAgICAgbGVmdCAtPSAoMVUgPDwgb3JkZXIpOw0K
-PiA+ICsgICAgICAgIH0NCj4gDQo+IEkgZm9yZ290IHRvIGFkZDoNCj4gDQo+IGlmICggcmMgKQ0K
-PiAgICBicmVhazsNCj4gDQo+IFdpdGhvdXQgaXQsIHRoZSBvdXRlciBsb29wIHdpbGwgbmV2ZXIg
-ZXhpdCBpbiBjYXNlIG9mIGFuIGVycm9yLg0KPiANCj4gQ2hlZXJzLA0KPiANCj4gLS0NCj4gSnVs
-aWVuIEdyYWxsDQoNClllcCwgSSBhbSBoYXBweSB3aXRoIHRoYXQuDQoNClJldmlld2VkLWJ5OiBI
-b25nZGEgRGVuZyA8SG9uZ2RhLkRlbmdAYXJtLmNvbT4NCg0KQ2hlZXJzLA0KLS0tDQpIb25nZGEN
-Cg0K
+The entry point used for the vcpu_op hypercall on Arm is different
+from the one on x86 today, as some of the common sub-ops are not
+supported on Arm. The Arm specific handler filters out the not
+supported sub-ops and then calls the common handler. This leads to the
+weird call hierarchy:
+
+  do_arm_vcpu_op()
+    do_vcpu_op()
+      arch_do_vcpu_op()
+
+Clean this up by renaming do_vcpu_op() to common_vcpu_op() and
+arch_do_vcpu_op() in each architecture to do_vcpu_op(). This way one
+of above calls can be avoided without restricting any potential
+future use of common sub-ops for Arm.
+
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+V4:
+- don't remove HYPERCALL_ARM()
+V4.1:
+- add missing cf_check (Andrew Cooper)
+---
+ xen/arch/arm/domain.c                | 15 ++++++++-------
+ xen/arch/arm/include/asm/hypercall.h |  2 --
+ xen/arch/arm/traps.c                 |  2 +-
+ xen/arch/x86/domain.c                | 12 ++++++++----
+ xen/arch/x86/include/asm/hypercall.h |  2 +-
+ xen/arch/x86/x86_64/domain.c         | 18 +++++++++++++-----
+ xen/common/compat/domain.c           | 15 ++++++---------
+ xen/common/domain.c                  | 12 ++++--------
+ xen/include/xen/hypercall.h          |  2 +-
+ 9 files changed, 42 insertions(+), 38 deletions(-)
+
+diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+index 8110c1df86..2f8eaab7b5 100644
+--- a/xen/arch/arm/domain.c
++++ b/xen/arch/arm/domain.c
+@@ -1079,23 +1079,24 @@ void arch_dump_domain_info(struct domain *d)
+ }
+ 
+ 
+-long do_arm_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
++long do_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
++    struct domain *d = current->domain;
++    struct vcpu *v;
++
++    if ( (v = domain_vcpu(d, vcpuid)) == NULL )
++        return -ENOENT;
++
+     switch ( cmd )
+     {
+         case VCPUOP_register_vcpu_info:
+         case VCPUOP_register_runstate_memory_area:
+-            return do_vcpu_op(cmd, vcpuid, arg);
++            return common_vcpu_op(cmd, v, arg);
+         default:
+             return -EINVAL;
+     }
+ }
+ 
+-long arch_do_vcpu_op(int cmd, struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg)
+-{
+-    return -ENOSYS;
+-}
+-
+ void arch_dump_vcpu_info(struct vcpu *v)
+ {
+     gic_dump_info(v);
+diff --git a/xen/arch/arm/include/asm/hypercall.h b/xen/arch/arm/include/asm/hypercall.h
+index 39d2e7889d..fac4d60f17 100644
+--- a/xen/arch/arm/include/asm/hypercall.h
++++ b/xen/arch/arm/include/asm/hypercall.h
+@@ -4,8 +4,6 @@
+ #include <public/domctl.h> /* for arch_do_domctl */
+ int do_arm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg);
+ 
+-long do_arm_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg);
+-
+ long subarch_do_domctl(struct xen_domctl *domctl, struct domain *d,
+                        XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl);
+ 
+diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+index f8c3ef0ca2..deb07784d9 100644
+--- a/xen/arch/arm/traps.c
++++ b/xen/arch/arm/traps.c
+@@ -1380,7 +1380,7 @@ static arm_hypercall_t arm_hypercall_table[] = {
+ #endif
+     HYPERCALL(multicall, 2),
+     HYPERCALL(platform_op, 1),
+-    HYPERCALL_ARM(vcpu_op, 3),
++    HYPERCALL(vcpu_op, 3),
+     HYPERCALL(vm_assist, 2),
+ #ifdef CONFIG_ARGO
+     HYPERCALL(argo_op, 5),
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index a5048ed654..d566fc82b4 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -1489,11 +1489,15 @@ int arch_vcpu_reset(struct vcpu *v)
+     return 0;
+ }
+ 
+-long
+-arch_do_vcpu_op(
+-    int cmd, struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg)
++long cf_check do_vcpu_op(int cmd, unsigned int vcpuid,
++                         XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
+     long rc = 0;
++    struct domain *d = current->domain;
++    struct vcpu *v;
++
++    if ( (v = domain_vcpu(d, vcpuid)) == NULL )
++        return -ENOENT;
+ 
+     switch ( cmd )
+     {
+@@ -1545,7 +1549,7 @@ arch_do_vcpu_op(
+     }
+ 
+     default:
+-        rc = -ENOSYS;
++        rc = common_vcpu_op(cmd, v, arg);
+         break;
+     }
+ 
+diff --git a/xen/arch/x86/include/asm/hypercall.h b/xen/arch/x86/include/asm/hypercall.h
+index 61bf897147..d6daa7e4cb 100644
+--- a/xen/arch/x86/include/asm/hypercall.h
++++ b/xen/arch/x86/include/asm/hypercall.h
+@@ -145,7 +145,7 @@ compat_physdev_op(
+     XEN_GUEST_HANDLE_PARAM(void) arg);
+ 
+ extern int
+-arch_compat_vcpu_op(
++compat_common_vcpu_op(
+     int cmd, struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg);
+ 
+ extern int cf_check compat_mmuext_op(
+diff --git a/xen/arch/x86/x86_64/domain.c b/xen/arch/x86/x86_64/domain.c
+index c46dccc25a..9c559aa3ea 100644
+--- a/xen/arch/x86/x86_64/domain.c
++++ b/xen/arch/x86/x86_64/domain.c
+@@ -12,11 +12,15 @@
+ CHECK_vcpu_get_physid;
+ #undef xen_vcpu_get_physid
+ 
+-int
+-arch_compat_vcpu_op(
+-    int cmd, struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg)
++int cf_check
++compat_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
+-    int rc = -ENOSYS;
++    int rc;
++    struct domain *d = current->domain;
++    struct vcpu *v;
++
++    if ( (v = domain_vcpu(d, vcpuid)) == NULL )
++        return -ENOENT;
+ 
+     switch ( cmd )
+     {
+@@ -55,7 +59,11 @@ arch_compat_vcpu_op(
+     }
+ 
+     case VCPUOP_get_physid:
+-        rc = arch_do_vcpu_op(cmd, v, arg);
++        rc = do_vcpu_op(cmd, vcpuid, arg);
++        break;
++
++    default:
++        rc = compat_common_vcpu_op(cmd, v, arg);
+         break;
+     }
+ 
+diff --git a/xen/common/compat/domain.c b/xen/common/compat/domain.c
+index afae27eeba..1119534679 100644
+--- a/xen/common/compat/domain.c
++++ b/xen/common/compat/domain.c
+@@ -38,15 +38,12 @@ CHECK_vcpu_hvm_context;
+ 
+ #endif
+ 
+-int cf_check compat_vcpu_op(
+-    int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
++int compat_common_vcpu_op(int cmd, struct vcpu *v,
++                          XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
+-    struct domain *d = current->domain;
+-    struct vcpu *v;
+     int rc = 0;
+-
+-    if ( (v = domain_vcpu(d, vcpuid)) == NULL )
+-        return -ENOENT;
++    struct domain *d = current->domain;
++    unsigned int vcpuid = v->vcpu_id;
+ 
+     switch ( cmd )
+     {
+@@ -103,7 +100,7 @@ int cf_check compat_vcpu_op(
+     case VCPUOP_stop_singleshot_timer:
+     case VCPUOP_register_vcpu_info:
+     case VCPUOP_send_nmi:
+-        rc = do_vcpu_op(cmd, vcpuid, arg);
++        rc = common_vcpu_op(cmd, v, arg);
+         break;
+ 
+     case VCPUOP_get_runstate_info:
+@@ -134,7 +131,7 @@ int cf_check compat_vcpu_op(
+     }
+ 
+     default:
+-        rc = arch_compat_vcpu_op(cmd, v, arg);
++        rc = -ENOSYS;
+         break;
+     }
+ 
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 351029f8b2..f9de1be43c 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -1570,15 +1570,11 @@ int default_initialise_vcpu(struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg)
+     return rc;
+ }
+ 
+-long cf_check do_vcpu_op(
+-    int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
++long common_vcpu_op(int cmd, struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
+-    struct domain *d = current->domain;
+-    struct vcpu *v;
+     long rc = 0;
+-
+-    if ( (v = domain_vcpu(d, vcpuid)) == NULL )
+-        return -ENOENT;
++    struct domain *d = current->domain;
++    unsigned int vcpuid = v->vcpu_id;
+ 
+     switch ( cmd )
+     {
+@@ -1750,7 +1746,7 @@ long cf_check do_vcpu_op(
+     }
+ 
+     default:
+-        rc = arch_do_vcpu_op(cmd, v, arg);
++        rc = -ENOSYS;
+         break;
+     }
+ 
+diff --git a/xen/include/xen/hypercall.h b/xen/include/xen/hypercall.h
+index a1b6575976..81aae7a662 100644
+--- a/xen/include/xen/hypercall.h
++++ b/xen/include/xen/hypercall.h
+@@ -110,7 +110,7 @@ do_vcpu_op(
+ 
+ struct vcpu;
+ extern long
+-arch_do_vcpu_op(int cmd,
++common_vcpu_op(int cmd,
+     struct vcpu *v,
+     XEN_GUEST_HANDLE_PARAM(void) arg);
+ 
+-- 
+2.34.1
+
 
