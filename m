@@ -2,29 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1A1C4E23F5
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Mar 2022 11:06:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.292865.497375 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2CEF4E240F
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Mar 2022 11:14:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.292883.497385 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWEvC-0004Mf-Nv; Mon, 21 Mar 2022 10:05:54 +0000
+	id 1nWF3K-00065Y-NE; Mon, 21 Mar 2022 10:14:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 292865.497375; Mon, 21 Mar 2022 10:05:54 +0000
+Received: by outflank-mailman (output) from mailman id 292883.497385; Mon, 21 Mar 2022 10:14:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWEvC-0004JA-Kb; Mon, 21 Mar 2022 10:05:54 +0000
-Received: by outflank-mailman (input) for mailman id 292865;
- Mon, 21 Mar 2022 10:05:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nWF3K-000634-K5; Mon, 21 Mar 2022 10:14:18 +0000
+Received: by outflank-mailman (input) for mailman id 292883;
+ Mon, 21 Mar 2022 10:14:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dpaY=UA=citrix.com=prvs=07205606a=roger.pau@srs-se1.protection.inumbo.net>)
- id 1nWEvB-0003SL-Jn
- for xen-devel@lists.xenproject.org; Mon, 21 Mar 2022 10:05:53 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7bd58f63-a8fe-11ec-a405-831a346695d4;
- Mon, 21 Mar 2022 11:05:52 +0100 (CET)
+ <SRS0=f0xq=UA=arm.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1nWF3I-00062y-QM
+ for xen-devel@lists.xenproject.org; Mon, 21 Mar 2022 10:14:17 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on20629.outbound.protection.outlook.com
+ [2a01:111:f400:7e1a::629])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a871be2b-a8ff-11ec-8fbc-03012f2f19d4;
+ Mon, 21 Mar 2022 11:14:14 +0100 (CET)
+Received: from AS8PR04CA0004.eurprd04.prod.outlook.com (2603:10a6:20b:310::9)
+ by AM6PR08MB4375.eurprd08.prod.outlook.com (2603:10a6:20b:b8::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.14; Mon, 21 Mar
+ 2022 10:14:12 +0000
+Received: from AM5EUR03FT058.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:310:cafe::10) by AS8PR04CA0004.outlook.office365.com
+ (2603:10a6:20b:310::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.22 via Frontend
+ Transport; Mon, 21 Mar 2022 10:14:12 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM5EUR03FT058.mail.protection.outlook.com (10.152.17.48) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5081.14 via Frontend Transport; Mon, 21 Mar 2022 10:14:12 +0000
+Received: ("Tessian outbound 31aeb3346a45:v113");
+ Mon, 21 Mar 2022 10:14:11 +0000
+Received: from d0ff7f0fb02e.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 32E76A98-649E-49EF-85B1-C239D0402102.1; 
+ Mon, 21 Mar 2022 10:14:05 +0000
+Received: from EUR03-DB5-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id d0ff7f0fb02e.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Mon, 21 Mar 2022 10:14:05 +0000
+Received: from AM6PR08MB3814.eurprd08.prod.outlook.com (2603:10a6:20b:88::19)
+ by DBBPR08MB4233.eurprd08.prod.outlook.com (2603:10a6:10:d2::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.17; Mon, 21 Mar
+ 2022 10:14:03 +0000
+Received: from AM6PR08MB3814.eurprd08.prod.outlook.com
+ ([fe80::f8f3:189e:994f:737b]) by AM6PR08MB3814.eurprd08.prod.outlook.com
+ ([fe80::f8f3:189e:994f:737b%4]) with mapi id 15.20.5081.022; Mon, 21 Mar 2022
+ 10:14:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,174 +72,320 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7bd58f63-a8fe-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1647857151;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=lIYdkrDN+PoNgoEibvd3dukVof0EVRd2O3ljM3bCXp4=;
-  b=ELqAHQxQ6W8KmWgJegwh3s+X6z+/csYLATwes7lVMCjS5Y8hGZ2yTvH+
-   E8QqJNoDhXPth83WECfWoIc6iRIHBt8PlMWlO6aeCRlbfMms+59pskqWS
-   R5Brbsn72irauezJiH/nRmraS1LPkYg4fGRA3Cg8yOgZl9j3SEH79rgoK
-   E=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-X-SBRS: 5.1
-X-MesageID: 66664893
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:PaecO62bypCOpHoB6/bD5URxkn2cJEfYwER7XKvMYLTBsI5bpzwHn
- 2QXXWmDaPbZazb2Ktt/boi39EwF6JbWytNiHlNspC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
- Zh2hgzodZhsJpPkjk7xdOCn9xGQ7InQLlbGILes1htZGEk1EE/NtTo5w7Rj2tUy2IDga++wk
- YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
- 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
- /1rjLOeb1gTNZfH2/4SDgBeOTggPINJreqvzXiX6aR/zmXDenrohf5vEFs3LcsT/eMf7WNmr
- KJCbmpXN1ba2rzwkOnTpupE36zPKOHxO4wSoDd4xCzxBvc6W5HTBa7N4Le02R9u2J4QQaaPP
- KL1bxIoKzT5TkNjO2sFK5J9raSYmn/OMBRh/Qf9Sa0fvDGIkV0ZPKLWGMHOZtWASMFRn0CZj
- mHL5WL0BlcdLtP34TiK6HW3ncfUgDj2HokVEdWQ8v9snU3WxWEJDhASfUW0rOP/iUOkXd9bb
- UsO9UIGpLg480GDTdTnWRC85nKH1jYYWtxNA6gw7AaGyYLK7AuDQGsJVDhMbJohrsBebTAt0
- FCNnpX7BTVpv5WSU3uW8rrSpjS3UQAfKnUDfmkDVhcf5Mf4o5AbiQjGRdJuVqWyi7XdCTz2h
- jyHsiU6r7ESltIQkbW2+0jdhDChrYSPSRQ6jjg7RUr8sFk/PtT8IdX1tx6Ltp6sMbp1UHGnh
- VcqvZek59oFTouCyTWLavxTHZ+msqPt3CLnvXZjGJwo9jKI8nGlfJxN7DwWGHqFIvroaheyP
- haN5Fo5CIt7eSLzMPQpO97Z59ECl/CIKDjzahzDgjOiiLBVfRTPwixhbFX4M4vFwBl1yvFX1
- Xt2nK+R4Zcm5UZPkWHeqwQ1i+ZDKsUCKYT7H8yT8vhf+eDCDEN5sJ9cWLd0Usg37bmfvCLe+
- MtFOs2Bxn13CbOiPXmOqddKfQlRfBDX4KwaTOQNK4a+zvdOQjl9W5c9P5t/E2Cao0ilvriRp
- SzsMqOp4FH+mWfGOW23hoNLM9vSsWJEhStjZ0QEZA/ws1B6ONrHxPpPJvMfIOh8nMQ+nKEcc
- hXwU5jZahi5Ym+coGp1gFiUhNEKSSlHcirVZnv7OmdjJ8A8L+ELk/e9FjbSGOA1JnPfneM1o
- qG61xOdRpwGRg94C93RZu7pxFS01UXxUsorBSMk/vE7lJ3QzbVX
-IronPort-HdrOrdr: A9a23:UnSFcqtqOFEbpnnvje9oHsOV7skCkoMji2hC6mlwRA09TyXGra
- 6TdaUguiMc1gx8ZJhBo7C90KnpewK7yXdQ2/htAV7EZnibhILIFvAZ0WKG+Vzd8kLFh4tgPM
- tbAsxD4ZjLfCdHZKXBkXmF+rQbsaG6GcmT7I+0pRodLnAJV0gj1XYDNu/yKDwGeOAsP+tBKH
- Pz3Lshm9L2Ek5nEPhTS0N1FNTrlpnurtbLcBQGDxko5E2nii6p0qfzF1y90g0FWz1C7L8++S
- yd+jaJq5mLgrWe8FvxxmXT55NZlJ/IzcZCPtWFjowwJi/3ggilSYx9U/mpvSwzosuo9FE2+e
- O86SsIDoBW0Tf8b2u1qRzi103J1ysv0WbrzRuijX7qsaXCNUQHIvsEobgcXgrS6kImst05+r
- lMxXilu51eCg6FtDjh5vDTPisa2HackD4Hq6o+nnZfWYwRZPt6tooE5n5YF58GAWbT9J0nKu
- 9zF8vRjcwmPm9yV0qp/lWH/ebcHUjaRny9Mwo/U42uonRrdUlCvgolLJd1pAZEyHo/I6M0kN
- gsfJ4Y0I2mdfVmH56VNN1xMvdfNVa9NC4kEFjiaGgPR5t3c04klfbMkcEIDaeRCds18Kc=
-X-IronPort-AV: E=Sophos;i="5.90,198,1643691600"; 
-   d="scan'208";a="66664893"
+X-Inumbo-ID: a871be2b-a8ff-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/NwvDBMow/rQBTyS63u7otDUuMd4DK/tg7DDjtwvC5U=;
+ b=7xPmPXkZ8e5LijuiSJu58xFT+bVupkAWVxdazYxx/d+tA4XEqU2exwOZ2NgP3Q/i7DGrwPZswKDipCmvxGgG76LFNXmsNz0+KottCPs8dh7wD9m1WDPH5k61x4B+x5qkfG0xxTae5+QiizBDKk6wpycjGc/ER/qZJtHfv67f/Es=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: e83a0495008225e5
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=V95fT5xbOcX055NK9aVsuACjKcwU1ykfnsJfgtzWz1xh36vRkmD9MMN9Di8imvhwTUSz66/KlrA+7w10COwzLy/WSZyD1H7KkeM7CnMVD1e/KyGfkOsVqSxOvBjzONAuyBqOGs7jMtGCdFIoLenRHyBBdbNv5CCt1suai5w4QH5TPx+PYkQkEockCTgTchPwQh97sKzsSenIVjAZO6PbSWWOJ+41h13C3evJUtdspHQznTGRONapbhh6nybkMW6U5Gw/yVurbY2L8CAcciMxXdVS6Nxog7wCnLZ7Uhxr9sJ+s6RI8PQS+RpUya974iKCplufFpp2UuZDfIa6T9K+Hw==
+ b=FQ5urLXPBog84dpywlwDt3MsSsKduZkyLt3aWMFyH/G5Ui3YW7GXdFGMmYdf+LLd0I6XKlMECH8yB0doKqHx5wpGrDnTlRI+3L0dQy2NISwks8IE/XJdcu8svrpuTT7TycHu+iS6TXk0Dmz0RKdpv3OUii1cVFzhgMDhfrKHZq5GyJlHVbRP5OsqLBLtb5eFL/LyKBwdOh1O5vm+IhEnei1IFv++3m7xkDm3Fu6/MILsX6QpoC84t4LnR7++s5klT9FbDHaB7p5HIJHMERoE8liGGisRWrOKmD9bXERNsNTXTrjtzJES0RRLQqcoClYLsOGDm7eSTdXvC3hXjnNmRg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z1dHHPlb1CLo6A4GiwERElpYODVOZKRQMD0jDBxG774=;
- b=Sz2/YOvdM/op/KpVTr4IAbA1ukEkd3dGm4PGWYSwt6IHXflDnG+vZDC0MhlVE7ev64ibBms1HJBHmyG43Srjv9zGRNUWPfFR9a9DUnZM06nKUh6SVvHepXLvjfswFOmK+7I3fmD6fKCDN2ISOPCd+WwhYAQj4wF+tfjduRVfTEhn60UN/WwlWBJe0dNUvH9Y+V6CvbklyRhkE1HataOWPmmrZviRvyDnbF504rzvjazt7cQzeFA6jhnpfH0Ry/5ritH/6OC/Ucxygv5hmekPa1zjcEWKwqR9Ofl0rPK5+pHghZwVBy+NP5KjiALPAiUNgs5/LuHXINyJyeq4rjdarw==
+ bh=/NwvDBMow/rQBTyS63u7otDUuMd4DK/tg7DDjtwvC5U=;
+ b=RaD7OU5xmcHCpvjBu/Cu6Jsj6PK+4e/MaK66Jl263VEZZWQG/4F0/Ort+or+p9fVsMeRNJCUTshoPLLtdFQvDzubxaly6S5TiZJaot/ObbJ/OhOaWb84LdELii8lnHloGhKP9lEeKwGw8jNr0SssU32XW6X43Zi/TM3uijBY3paOptVlhjku2zvpI1FiSrBuCvgaMiaITJ1tYsJ0YpBC2pcqb3kM1Pyojbe7mvJXbwX32ISeY/uXPj4/gLY0Mvy8icoKOlTJ/JVFjYe2F03C+XTWCYFBE3E/S4BJlQXsiHSfHfOoUazfLC3mvJIuZF1SXVTxdspK2Nfo/zEORWB83Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z1dHHPlb1CLo6A4GiwERElpYODVOZKRQMD0jDBxG774=;
- b=sWxgzsGQ0FQaC+xYF5bisDf0GgrA5jvI4c3v+UBt2iYhqw/jM+IhX1cuLu79ZW/5tM5hs5pMUl9ySMmFPWvhO2+xFOgpAcng1yuQLTc7op2rfVVG866Ver9JHTqzgg6LuHM2i5PuDc1baf64VFH67yvWxP0CK29+RV+6nBlaPAg=
-Date: Mon, 21 Mar 2022 11:05:22 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Dongli Zhang <dongli.zhang@oracle.com>
-CC: <linux-block@vger.kernel.org>, <xen-devel@lists.xenproject.org>,
-	<boris.ostrovsky@oracle.com>, <jgross@suse.com>, <sstabellini@kernel.org>,
-	<axboe@kernel.dk>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/1] xen/blkfront: fix comment for need_copy
-Message-ID: <YjhN4neEJMs04JEN@Air-de-Roger>
-References: <20220317220930.5698-1-dongli.zhang@oracle.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220317220930.5698-1-dongli.zhang@oracle.com>
-X-ClientProxiedBy: LO2P265CA0324.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:a4::24) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4f66fc39-fdb0-4bf7-b9fa-08da0b225289
-X-MS-TrafficTypeDiagnostic: DM5PR03MB3273:EE_
-X-Microsoft-Antispam-PRVS: <DM5PR03MB327327426804C03549FF25F28F169@DM5PR03MB3273.namprd03.prod.outlook.com>
+ bh=/NwvDBMow/rQBTyS63u7otDUuMd4DK/tg7DDjtwvC5U=;
+ b=7xPmPXkZ8e5LijuiSJu58xFT+bVupkAWVxdazYxx/d+tA4XEqU2exwOZ2NgP3Q/i7DGrwPZswKDipCmvxGgG76LFNXmsNz0+KottCPs8dh7wD9m1WDPH5k61x4B+x5qkfG0xxTae5+QiizBDKk6wpycjGc/ER/qZJtHfv67f/Es=
+From: Michal Orzel <Michal.Orzel@arm.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 1/3] xen: Introduce a header to store common linker
+ scripts content
+Thread-Topic: [PATCH 1/3] xen: Introduce a header to store common linker
+ scripts content
+Thread-Index: AQHYPPzaR1XKbiAEBEyYGbG4QOIoRKzJkESAgAAFt8o=
+Date: Mon, 21 Mar 2022 10:14:03 +0000
+Message-ID:
+ <AM6PR08MB38148D3FB84D91DB089C48CC89169@AM6PR08MB3814.eurprd08.prod.outlook.com>
+References: <20220321082114.49953-1-michal.orzel@arm.com>
+ <20220321082114.49953-2-michal.orzel@arm.com>
+ <cb61531a-5482-3aab-58bd-84f99f21ec48@suse.com>
+In-Reply-To: <cb61531a-5482-3aab-58bd-84f99f21ec48@suse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+suggested_attachment_session_id: a358e974-3c30-8767-bb61-f541d8cfdcaf
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-MS-Office365-Filtering-Correlation-Id: be66f469-5330-445e-c7d6-08da0b238bc6
+x-ms-traffictypediagnostic:
+	DBBPR08MB4233:EE_|AM5EUR03FT058:EE_|AM6PR08MB4375:EE_
+X-Microsoft-Antispam-PRVS:
+	<AM6PR08MB43758C9FE8DB380D3FA6155D89169@AM6PR08MB4375.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ O/9miEyXOxfCZKr0H1QpB7CzyrAUySWk5UEiTeYPkLAOIzSa+MrssCvgMcFsMalvCp9obBXDM4Ug3/iUYpqH+eYWrfUSNCW10jQ1uOMqN/e4hed6CDgoMic2Agvpo5VT9s7vRmG2RWnwgV71bPS1mJH1qMK5QDaC1iLU1zoUrzZVGFvW2iHCoTFcCmEAlvYIbNmhrcJ33q0tDr4+qZ1Md2kEhpDpDcb7ZSxHXFz9PwxqOgoiTz3pvGCkbYGnEVp326F2URd/vFwu3K6JCMIkvBrGSmNiA7cbjaSlZ2z3CbhAAaM7BOtkrCOD/F7dc0FTR2UxnKknOIdLri+3lVA7w/8/YugApHnwKSIMroqdfvMBXPhkA78NBm7rNsKznwJBCGAsQgiOg/3g1c1UI/5Jp3a3tWWvyWUTWv8zIMcot8foUFbvAoelpNbbe2wxHJwNAQzuyTmieAjF0hTLa6FqpppNd0L8Pi119qy/3df9BcBYof4gi9a3bB6KJNvpRUbhbu8kGNWir1aYoDp5wRvfk8/9PRmxwFI0pxtEQlgi0g/+LU37XiQHw5ca3UD44nVt+FHQdAh6cV9pKGPN+atCwdtbf/Uiwvq9q06Ede+2Ij2YRszScDZgzOd33wZHBj0jiSNjsMIwBSBVW3+h/AaBwJ7P8XBICd6DzGp2Ck3RXOc8MUsksh5lEdGsvpKisomGvxf12rDICLnHrX5pxp7gmg==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3814.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(38070700005)(9686003)(55016003)(316002)(7696005)(53546011)(52536014)(6506007)(91956017)(66446008)(64756008)(8676002)(76116006)(4326008)(66556008)(66476007)(66946007)(83380400001)(86362001)(26005)(186003)(2906002)(122000001)(71200400001)(38100700002)(508600001)(54906003)(8936002)(5660300002)(6916009)(33656002);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB4233
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM5EUR03FT058.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	87ffaf6d-9bd2-4675-d465-08da0b238696
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nfmjY73vSKkW4a4P5htNVjFhAnilfxLCQk9t6qaNlEF5Ny/yznyOUyMagbh0I40kAB8V9kPYCAmzec1r8Hq2+rAXp94fK1DP2Vml/agYBLMraDRUJ6RhgTulWBJsV9iLZziuRsaudZzTkA7Wxk6qsijjKrrkpYGClEVwIJ5EzxAdtDqIVtWS0R0X4lYqnBUBdenT68g/+F7KDkuJy6UPpU5lgYqtYLJxN8FX8LyFEcjRW1Lddax3ugXXVeSjTYgHephGId1IojQP6YFOJqcymJiWyiSodoSqiMOKynrKbqH4F2qlGtDiBsnKQyIZZFnSFH8HuB1AdWBNT3zTZe6EHnEbb8aD+QaRyTZHQ3A/2BB4aFezytoHeU2ZfGYToJov4x2u9fED7RYz76bCCyySWOoyn82Lyu1EvFGextq0nP1Ix5A3+SL/jsZY8CpGrY/gnFHareGgLqKKP4hDjzHGJA1muoMwr2d9H2PxNdi1YObCtAnR1k2RK0p8Jsuj0WB3/xLdA/rAjhBjUUjSiwYnMTwC7Cd1ZK1mxgo0enSlsl2WOt7cY2zMT4Lv9EqIgIHWk8oVaa/x/fCzh++7/qoJyNjppBcvuOgfMto4FRctSpkVoIZR3j+CoZXJMsuNGsx2qe8tvXOk6bAw/IjBVgT+4w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(85182001)(6506007)(8936002)(6512007)(9686003)(5660300002)(86362001)(33716001)(6666004)(83380400001)(4326008)(6486002)(26005)(186003)(66556008)(66946007)(38100700002)(82960400001)(316002)(66476007)(8676002)(6916009)(508600001)(2906002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MDZ2ek1PMDZ4NlpkVE8wYjZwNkljTGpVK1Zkb0VRLzk5VkZ6Nmc2d2FhWTdt?=
- =?utf-8?B?a3FYZkl1d0pUUlVwQ1l5SjJPS25ISHZUOWQ2L3l3d2NGZXJzUzQvYUs0SWR0?=
- =?utf-8?B?Z3B2NTZZOWgwOURTZEQ1TmpzamFsTnU1Z3hnSkFYTFJhOW1jNk9aVzl2d3Rk?=
- =?utf-8?B?VXpRWXpHSXcyZkJLNzhKaUlyNVFhRjV5bEJGRTExSkhTdWxoMTgrK2E4N3pX?=
- =?utf-8?B?ZDkwdlpDQ1paT2tyZnlKNVJEa2ZpdlBDcUx6TjhRWFpxTFdzMGZBZWxoNkhp?=
- =?utf-8?B?dEpmN0pvaEpvZHFZRHBKbDlhRVdCSUxSeC9JZ2U1UzhWTGFGZXY2dnJ2dU1j?=
- =?utf-8?B?MUNJM2RYRCszTnBiOG5JWWtJRnlxaE1pd0w0bXFXUEZZM282Q2hqdXhzcFhz?=
- =?utf-8?B?dlBpaWVBRkpCSkE5aHU2R1g3MTRXWGZnUTIyajJ4U1VqZTlReXFUVGFHWEtj?=
- =?utf-8?B?WTR2ZVJsWlB4QksvMnBocWgvV0RvNnduWnIvb0g0enRTOERxcWdKVTJNT2dR?=
- =?utf-8?B?OFJES3p5dStxUmtTUGpRTHdPOUVJTUM4RHlLbzlPRUZFT09FUjEzVWJMeThz?=
- =?utf-8?B?akJqYXcxcS8rYkRaNjJya0Z3MHZUcWt2ekxkK0U1VUZSNmM1amlnTmNmU1VM?=
- =?utf-8?B?TEZiNnFUd01TeEtzVWhZa3B2UU4rTm1qR1F6Vm5JNHZYSzJ3Mjg0Z1pZNjhZ?=
- =?utf-8?B?ejRwVXdMRWhYWnpxdDNYVFYxWGNBSHdSTERMMHVSQlBoSnVuNHRvRi8rSnU4?=
- =?utf-8?B?QzNMejB4U1hmaml6VlZKU3lHbWJ6bGhsc0pUaE1Lcmp6RS80aFZRZEE5SEpQ?=
- =?utf-8?B?dVcxN2NrQkhLcTYxYm8zRnVLeFNLc0tDVHdvZzdOMTlOYnRXTkxFbjJiUDA3?=
- =?utf-8?B?NkZxaTZpTjJqdjNUVys4VnBqaEFBTVlHUEVzMXZuQjFBc3dNSjVxSmdBYmRZ?=
- =?utf-8?B?S1VnWE5GZWw2ZVN3ZzRoSFNiMmJFc0gwekorRXpoRnZWOTRFYlVYbXQ3SEla?=
- =?utf-8?B?bUFqWUprZnUxL0ExbWgyWCtSd1JRQVlTZGN1UlZtRnBndEZBVTI1dlVYTWx2?=
- =?utf-8?B?ay9SckNuYmlCVkZ2RWNZMUlMK09GZUIvYk9lRHE1MFZwK3pHNXFGcHVaa3pK?=
- =?utf-8?B?WUhnRXlTSzllVTBrUitmdktwaXlJaUFPcFpuanBaUHRlcC9Wei96dklyTFpE?=
- =?utf-8?B?eWNDQ0VWbXY3ZFRZQTJ0QUJFdEFTTTA2RnFFMzFNWjhwU2hCWTIzcHUwU0gw?=
- =?utf-8?B?aHJZbHFOUW5HZDhJd0NTQmJDUmF4MERWWldvKzErZEdhWTJCYURWQmpEanM4?=
- =?utf-8?B?ZkE1YXN3aytVOVl1bnhJVTJDNWwwck11U09NYXYvOG51TWxEKzd2UWVhNkFY?=
- =?utf-8?B?UjJrZkl0eVlWcWtQWlhEZmdLM0w3OHRnTXNKUWF3UnpOa2ZmaURsMnJOa0xH?=
- =?utf-8?B?OUtZRllVNFNveHdKNERKQm5maDJveVV3enBXVDROVXBISVpDbmRDRWZ1ZXFq?=
- =?utf-8?B?N1ZhbDhlMFhZZ1VWK21aMTlQc2lXYWJ4Z2llcGh1TWxvSEVzMGtWdmdmck9n?=
- =?utf-8?B?VUFoVTFXaG4wK3NoZ1RhYzA1SUl4bUl5V1A5bmxjeEgraGpYSUZyZUp5NGtW?=
- =?utf-8?B?YmZVZEdFOVVLRUxKclZsZDUrRHM0eTJyOGdSZmZVMFB5bmU3QnRiOXJHN1Aw?=
- =?utf-8?B?Rk5iNXlGNTBPZXZZTkQ2OW5kdjc1MUdvVnVZb05yTTEvcko5NCt0aDVvTHQ4?=
- =?utf-8?B?Q0hOYnJpNVR2bkhtWUszWXRGc2VTVm4yZWNxUnB3d3lHR3VMbkZDUHJLYk83?=
- =?utf-8?B?QjF4eXhhVkkrTnlLamp4dFdUZVVUeFd0N1RwM0hSYUY0OU5PU2ZJOFhoYkVm?=
- =?utf-8?B?MSs4bUtsNVYrSUYwZ1dwemExVHpVVmNaSElqZEZKTjNzRDBscXBiblJGRFBE?=
- =?utf-8?B?K0FrUERiSmdRbWJGRVZGV2VrazcwaW4zYTlISUZZV1hCYkxrYlFubjRRMnJq?=
- =?utf-8?B?WFJ5TXlkUDNnPT0=?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f66fc39-fdb0-4bf7-b9fa-08da0b225289
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2022 10:05:27.0100
+X-Microsoft-Antispam-Message-Info:
+	UQz74qEi94l3IbN881hE0gSDAbQX+Tv9HLL8Qb2nDTVoP9kdmZ9SeZxrIyemT3UWrwzWzG2yZ/jmeOaYGTdH/mF/6k3QzXw1ldsGllPk1rEk9od8A2AAdMDC/9OoGXnPfKxhzzadETK/PefWbAPIZHAWw+WdNbQpYqMC0itbUkgS8SqPbDldb7GenuXqWWACKVb9r2udB6IlnwvRRG38muQm24cOck6scAje757YRZKQ8zMMotXti3ucbF0LXIAn0iAfE15hVmjxbZQsrLOyxmUnqDyb3V0HwyRXjE5KNngTkkhp5ZwnjOPYnG7gTUkjoEiLFJ6ARU6kwx46IeFDN4VWuip9Im+Jm7g9gpr+Ap8KNaI303+rIe/qOXPDg2pdQOZN4j1AQHGOP3d1HhKoOb9QPSEblghKV2Umc7jVLpobiC6p30H2LrxebFmL2vX6rEhkhdYbDg/zvQavHz8k3izdD0NDkpAT57llhl5kcXRTMrifi97s1Z1sCJ8sxWDrwjgZQ3MlK1Yebl7LiuxDbp0klvZAbYo/Z78TxPczhMJaqKZvSKHwyjv1SRyphG6yy9W2JUZYVAcE30ZnYVTANZC8AlZGp6pjb2Gn2yo2LuSdBX+ot7BMUNC5lpmdqPZuZ+l1ClZUOgIw0wApONCkqX6cMMOGWXldpgcHpfV9XK1rPSEcPeEO15feKP4cWQAQ
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(336012)(508600001)(40460700003)(316002)(26005)(82310400004)(186003)(5660300002)(86362001)(54906003)(33656002)(83380400001)(8936002)(2906002)(55016003)(53546011)(70206006)(70586007)(36860700001)(6862004)(4326008)(8676002)(47076005)(7696005)(6506007)(9686003)(356005)(81166007)(52536014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2022 10:14:12.2230
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Dhx0RguqCNTaN3hF1ayFqj6zgLMhF8E1bcVS9eDZU4mV1M2QFK8jPFpF27DL7fQQfOhk1VluclUqUmiNcfe0Ug==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB3273
-X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: be66f469-5330-445e-c7d6-08da0b238bc6
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM5EUR03FT058.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB4375
 
-On Thu, Mar 17, 2022 at 03:09:30PM -0700, Dongli Zhang wrote:
-> The 'need_copy' is set when rq_data_dir(req) returns WRITE, in order to
-> copy the written data to persistent page.
-> 
-> ".need_copy = rq_data_dir(req) && info->feature_persistent,"
-
-I would also add:
-
-Fixes: c004a6fe0c40 ('block/xen-blkfront: Make it running on 64KB page granularity')
-
-> Signed-off-by: Dongli Zhang <dongli.zhang@oracle.com>
-
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-
-Albeit I have one nit since you are already changing the line.
-
-> ---
->  drivers/block/xen-blkfront.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
-> index 03b5fb341e58..dbc32d0a4b1a 100644
-> --- a/drivers/block/xen-blkfront.c
-> +++ b/drivers/block/xen-blkfront.c
-> @@ -576,7 +576,7 @@ struct setup_rw_req {
->  	struct blkif_request *ring_req;
->  	grant_ref_t gref_head;
->  	unsigned int id;
-> -	/* Only used when persistent grant is used and it's a read request */
-> +	/* Only used when persistent grant is used and it's a write request */
-
-While there you might want to adjust the comment to:
-
-"... persistent grants are used ..."
-
-Thanks, Roger.
+Hi Jan,=0A=
+=A0=0A=
+On 21.03.2022 09:21, Michal Orzel wrote:=0A=
+> Both x86 and arm linker scripts share quite a lot of common content.=0A=
+> It is difficult to keep syncing them up, thus introduce a new header=0A=
+> in include/xen called xen_lds.h to store the internals mutual to all=0A=
+> the linker scripts.=0A=
+> =0A=
+> Populate xen_lds.h with the first portion of the common sections.=0A=
+> Some of them are not yet added/completed in arm linker script but they=0A=
+> definitely should be. Please note that this patch does not aim to=0A=
+> perform the full sync up between the linker scripts. It creates a base=0A=
+> for further work.=0A=
+> =0A=
+> Signed-off-by: Michal Orzel <michal.orzel@arm.com>=0A=
+> ---=0A=
+>=A0 xen/include/xen/xen_lds.h | 114 ++++++++++++++++++++++++++++++++++++++=
+=0A=
+>=A0 1 file changed, 114 insertions(+)=0A=
+>=A0 create mode 100644 xen/include/xen/xen_lds.h=0A=
+=0A=
+While perhaps just minor, I'm not happy about new files added with undersco=
+res=0A=
+in their names. Dashes are easier to type. Plus, looking at Linux, it may m=
+ake=0A=
+sense to name this xen.lds.h.=0A=
+=0A=
+I'm ok to change the name to xen.lds.h.=0A=
+=0A=
+> --- /dev/null=0A=
+> +++ b/xen/include/xen/xen_lds.h=0A=
+> @@ -0,0 +1,114 @@=0A=
+> +#ifndef __XEN_LDS_H__=0A=
+> +#define __XEN_LDS_H__=0A=
+> +=0A=
+> +/*=0A=
+> + * Common macros to be used in architecture specific linker scripts.=0A=
+> + */=0A=
+> +=0A=
+> +/* Macros to declare debug sections. */=0A=
+> +#ifdef EFI=0A=
+> +/*=0A=
+> + * Use the NOLOAD directive, despite currently ignored by (at least) GNU=
+ ld=0A=
+> + * for PE output, in order to record that we'd prefer these sections to =
+not=0A=
+> + * be loaded into memory.=0A=
+> + */=0A=
+> +#define DECL_DEBUG(x, a) #x ALIGN(a) (NOLOAD) : { *(x) }=0A=
+> +#define DECL_DEBUG2(x, y, a) #x ALIGN(a) (NOLOAD) : { *(x) *(y) }=0A=
+> +#else=0A=
+> +#define DECL_DEBUG(x, a) #x 0 : { *(x) }=0A=
+> +#define DECL_DEBUG2(x, y, a) #x 0 : { *(x) *(y) }=0A=
+> +#endif=0A=
+> +=0A=
+> +/* DWARF debug sections. */=0A=
+> +#define DWARF_DEBUG_SECTIONS=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0 DECL_DEBUG(.debug_abbrev, 1)=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0 DECL_DEBUG2(.debug_info, .gnu.linkonce.wi.*, 1) \=0A=
+> +=A0 DECL_DEBUG(.debug_types, 1)=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0 DECL_DEBUG(.debug_str, 1)=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0 DECL_DEBUG2(.debug_line, .debug_line.*, 1)=A0=A0=A0=A0=A0 \=0A=
+> +=A0 DECL_DEBUG(.debug_line_str, 1)=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0 \=0A=
+> +=A0 DECL_DEBUG(.debug_names, 4)=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0 DECL_DEBUG(.debug_frame, 4)=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0 DECL_DEBUG(.debug_loc, 1)=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0 DECL_DEBUG(.debug_loclists, 4)=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0 \=0A=
+> +=A0 DECL_DEBUG(.debug_macinfo, 1)=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0 \=0A=
+> +=A0 DECL_DEBUG(.debug_macro, 1)=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0 DECL_DEBUG(.debug_ranges, 8)=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0 DECL_DEBUG(.debug_rnglists, 4)=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0 \=0A=
+> +=A0 DECL_DEBUG(.debug_addr, 8)=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0 DECL_DEBUG(.debug_aranges, 1)=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0 \=0A=
+> +=A0 DECL_DEBUG(.debug_pubnames, 1)=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0 \=0A=
+> +=A0 DECL_DEBUG(.debug_pubtypes, 1)=0A=
+> +=0A=
+> +/*=0A=
+> + * Stabs debug sections.=0A=
+> + *=0A=
+> + * LLVM ld also wants .symtab, .strtab, and .shstrtab placed. These look=
+ to=0A=
+> + * be benign to GNU ld, so we can have them here unconditionally.=0A=
+> + */=0A=
+> +#define STABS_DEBUG_SECTIONS=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0 \=0A=
+> +=A0 .stab 0 : { *(.stab) }=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0 \=0A=
+> +=A0 .stabstr 0 : { *(.stabstr) }=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0 \=0A=
+> +=A0 .stab.excl 0 : { *(.stab.excl) }=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0 .stab.exclstr 0 : { *(.stab.exclstr) }=A0=A0=A0=A0 \=0A=
+> +=A0 .stab.index 0 : { *(.stab.index) }=A0=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0 .stab.indexstr 0 : { *(.stab.indexstr) }=A0=A0 \=0A=
+> +=A0 .comment 0 : { *(.comment) }=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0 \=0A=
+> +=A0 .symtab 0 : { *(.symtab) }=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0 \=0A=
+> +=A0 .strtab 0 : { *(.strtab) }=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0 \=0A=
+> +=A0 .shstrtab 0 : { *(.shstrtab) }=0A=
+=0A=
+Please don't add non-Stabs sections to this macro.=0A=
+=0A=
+Ok, I will add a new macro storing the last 4 sections called ELF_DETAILS_S=
+ECTIONS,=0A=
+to be coherent with what Linux does (ELF_DETAILS).=0A=
+=0A=
+> +#ifdef EFI=0A=
+> +#define DISCARD_EFI_SECTIONS \=0A=
+> +=A0=A0=A0=A0=A0=A0 *(.comment)=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 *(.comment.*) \=0A=
+> +=A0=A0=A0=A0=A0=A0 *(.note.*)=0A=
+> +#else=0A=
+> +#define DISCARD_EFI_SECTIONS=0A=
+> +#endif=0A=
+> +=0A=
+> +/* Sections to be discarded. */=0A=
+> +#define DISCARD_SECTIONS=A0=A0=A0=A0 \=0A=
+> +=A0 /DISCARD/ : {=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 *(.text.exit)=A0=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 *(.exit.text)=A0=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 *(.exit.data)=A0=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 *(.exitcall.exit)=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 *(.discard)=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 *(.discard.*)=A0=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 *(.eh_frame)=A0=A0=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 *(.dtors)=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 *(.dtors.*)=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 *(.fini_array)=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 *(.fini_array.*)=A0=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 DISCARD_EFI_SECTIONS=A0 \=0A=
+> +=A0 }=0A=
+> +=0A=
+> +#define CTORS_SECTION=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 . =3D ALIGN(8);=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 __ctors_start =3D .;=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 *(SORT_BY_INIT_PRIORITY(.init_array.*))=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 *(SORT_BY_INIT_PRIORITY(.ctors.*))=A0=A0=A0=A0=A0=A0 =
+\=0A=
+> +=A0=A0=A0=A0=A0=A0 *(.init_array)=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 *(.ctors)=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 __ctors_end =3D .;=0A=
+> +=0A=
+> +#define VPCI_SECTION=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 . =3D ALIGN(POINTER_ALIGN); \=0A=
+> +=A0=A0=A0=A0=A0=A0 __start_vpci_array =3D .;=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 *(SORT(.data.vpci.*))=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 __end_vpci_array =3D .;=0A=
+> +=0A=
+> +#define HYPFS_SECTION=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 . =3D ALIGN(8);=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 \=
+=0A=
+> +=A0=A0=A0=A0=A0=A0 __paramhypfs_start =3D .;=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 *(.data.paramhypfs)=A0=A0=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 __paramhypfs_end =3D .;=0A=
+> +=0A=
+> +#define LOCK_PROFILE_SECTION=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 . =3D ALIGN(POINTER_ALIGN); \=0A=
+> +=A0=A0=A0=A0=A0=A0 __lock_profile_start =3D .; \=0A=
+> +=A0=A0=A0=A0=A0=A0 *(.lockprofile.data)=A0=A0=A0=A0=A0 \=0A=
+> +=A0=A0=A0=A0=A0=A0 __lock_profile_end =3D .;=0A=
+> +=0A=
+> +#endif /* __XEN_LDS_H__ */=0A=
+=0A=
+I'm not sure _SECTION is a good suffix to use in the four names above:=0A=
+These aren't individual sections in the output, and for CTORS_SECTION=0A=
+it's also not even a single input section.=0A=
+=0A=
+How about _ENTRY suffix?=0A=
+Otherwise we can do different suffixes depending on the content.=0A=
+LOCK_PROFILE_DATA, HYPFS_PARAM, VPCI_ARRAY=0A=
+=0A=
+As to CTORS_SECTION - I'm unconvinced of generalizing this without=0A=
+first getting it right.=0A=
+=0A=
+I will get rid of CTORS_SECTIONS then.=0A=
+=0A=
+Overall I think it would be better to introduce this header along=0A=
+with actually using the macros. That way one can check within the=0A=
+patch that what you move / replace actually matches on both sides=0A=
+without needing to cross patch boundaries. If you wanted to introduce=0A=
+(and then include right away) an empty header first, that would be an=0A=
+acceptable intermediate approach afaic.=0A=
+=0A=
+I just wanted to split this into arch specific patches because maintainers =
+are different.=0A=
+I do not understand your second solution with empty header.=0A=
+Do you mean that the first patch shall create an empty header (with just an=
+ intro comment)=0A=
+and include it in arch specific linker scripts?=0A=
+=0A=
+Anyway, I can merge these 3 patches into 1 if you want.=0A=
+=0A=
+Jan=0A=
+=0A=
+Cheers,=0A=
+Michal=
 
