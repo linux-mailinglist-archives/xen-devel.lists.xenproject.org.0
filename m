@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE7304E2442
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Mar 2022 11:24:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.292889.497407 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FFBE4E2449
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Mar 2022 11:26:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.292895.497420 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWFCX-00080d-SP; Mon, 21 Mar 2022 10:23:49 +0000
+	id 1nWFEZ-0000Nd-Dw; Mon, 21 Mar 2022 10:25:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 292889.497407; Mon, 21 Mar 2022 10:23:49 +0000
+Received: by outflank-mailman (output) from mailman id 292895.497420; Mon, 21 Mar 2022 10:25:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWFCX-0007xd-PF; Mon, 21 Mar 2022 10:23:49 +0000
-Received: by outflank-mailman (input) for mailman id 292889;
- Mon, 21 Mar 2022 10:23:48 +0000
+	id 1nWFEZ-0000K6-AZ; Mon, 21 Mar 2022 10:25:55 +0000
+Received: by outflank-mailman (input) for mailman id 292895;
+ Mon, 21 Mar 2022 10:25:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=svEr=UA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nWFCW-0007ui-51
- for xen-devel@lists.xenproject.org; Mon, 21 Mar 2022 10:23:48 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fcdb1707-a900-11ec-8fbc-03012f2f19d4;
- Mon, 21 Mar 2022 11:23:45 +0100 (CET)
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04lp2050.outbound.protection.outlook.com [104.47.12.50]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-11-L0Gl_n6zN2-ZhwqCgTwmJQ-1; Mon, 21 Mar 2022 11:23:43 +0100
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
- by VI1PR04MB5470.eurprd04.prod.outlook.com (2603:10a6:803:d6::33)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.22; Mon, 21 Mar
- 2022 10:23:40 +0000
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::fc39:fd17:1086:307a]) by DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::fc39:fd17:1086:307a%6]) with mapi id 15.20.5081.022; Mon, 21 Mar 2022
- 10:23:40 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=dpaY=UA=citrix.com=prvs=07205606a=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1nWFEX-0000Jy-J8
+ for xen-devel@lists.xenproject.org; Mon, 21 Mar 2022 10:25:53 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4755ad67-a901-11ec-8fbc-03012f2f19d4;
+ Mon, 21 Mar 2022 11:25:51 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,347 +36,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fcdb1707-a900-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1647858224;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6YBdn6zNEd3dRTr0pr4+mAvFwFl8sX+ftxiOhYclJNE=;
-	b=k6+URyu4sgnfoRJkNRhUcpTP9NrCnnfpDRaBxbZbQJbL30CdUOt5vDvhLQ6vWLi/V/Ndky
-	N5vqtFjXvdYBZ9MKPE2jsHsZLGIsCWglR7Y/02eLaFCNEw7w4PtSJLsrnp2e/oIQFKw/re
-	r7kFRJSVxpsTs1pHPjfP/bU2Ju7qzFo=
-X-MC-Unique: L0Gl_n6zN2-ZhwqCgTwmJQ-1
+X-Inumbo-ID: 4755ad67-a901-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1647858352;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=EwPw5nBE1V2lD4KRSbb+iLziMRw8K2DL3YWJngVuz48=;
+  b=MbKxoVufeLwJpiyhRqc0+3d672PP4A+q9Q+kzS/JCBFO7oHalqobrqge
+   1rrfZKp87MzH1niqLcH8N8R4m4n9cdGfyc0Zf9qMJf+dplc7a0acqLekg
+   GWcRRSshM57ZtItdlfanMfwO7+OTTYNHuFyBKw299+4uGJSvYo00cw1KJ
+   s=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+X-SBRS: 5.1
+X-MesageID: 69116457
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:tnmweqBy6qHJbxVW/w3jw5YqxClBgxIJ4kV8jS/XYbTApGgmhT0Gz
+ DBJXjiAPv3eYGKnKYsiPd61oUkHvZTQx9BlQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
+ xA2M4GYRCwMZiaA4E/raNANlFEkvU2ybuOU5NXsZ2YgHWeIdA970Ug5w7Vj29Yx6TSEK1jlV
+ e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
+ I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPhD5
+ tB25LLhUj0sHYyLhrQBbgVYFnBhaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
+ 6ZCcXZUM07F17neLLGTE4GAguw5K8bmJsUHs2xIxjDFF/c2B5vERs0m4PcGjW5p2JwTQp4yY
+ eJGThw1MizLeiFLM09OCtU4rP6MwVbWJmgwRFW9+vNsvjm7IBZK+LTqPdDYfvSDQMxHmUDeq
+ m+u12bkBhAXMvSPxDzD9Wij7sfMmiXhUY5UC7y89dZtmlSYwmFVAxoTPXOrrP/8hkOgVtZ3L
+ 00P5jFovaU07FasTNT2Q1u/unHsg/IHc4MOSatgsljLk/eKpVbCboQZctJfQO4IsfRna20x7
+ FqqvpT3VSBSrL2QGG3Io994sgiOESQSKGYDYwoNQg0E/8TvrekPs/7fcjpwOPXr14OoQFkc1
+ xjP9XFj3OtL0abnwo3hpTj6bySQSo8lp+LfziHeRSqb4wxwf+ZJjKT4uAGAvZ6swGt0J2RtX
+ UToeeDDt4ji7rnXzURhpdnh+5nzu5643MX02wIHInXY323FF4SfVY5R+ipiA0xiL9wJfzTkC
+ GeK518OtMYLZSL6NPQmC25UNyjN5fK9fekJq9iONoYeCnSPXFHvEN5Sib64gDm2zRlEfVAXM
+ paHa8e8ZUv2+ow8pAdas9w1iOdxrghnnDu7bcmik3yPjOrPDFbIGOxtGAbfMYgEAFas/Vy9H
+ yB3bJDRlX2ykYTWP0HqzGLkBQtTfCZhWsyu9ZA/myzqClMOJVzNwsT5mNsJU4dkg75UhqHP+
+ HS8UVVf013xmTvMLgDiV5ypQOmHsUpXxZ7jARERAA==
+IronPort-HdrOrdr: A9a23:fMxh667jVlrE4Z2PzAPXwSyBI+orL9Y04lQ7vn2ZFiY6TiXIra
+ +TdaoguSMc6AxwZJkh8erwXpVoZUmsiKKdhrNhQYtKPTOWwldASbsC0WKM+UyEJ8STzJ846U
+ 4kSdkANDSSNykLsS+Z2njBLz9I+rDum8rE9ISurUuFDzsaEJ2Ihz0JezpzeXcGPTWua6BJc6
+ Z1saF81kSdkDksH4+GL0hAe9KGi8zAlZrgbxJDLxk76DOWhTftzLLhCRCX0joXTjsKmN4ZgC
+ X4uj28wp/mn+Cwyxfa2WOWx5NKmOH5wt8GIMCXkMAaJhjllw7tToV8XL+puiwzvYiUmRwXue
+ iJhy1lE9V46nvXcG3wiRzx2zP42DJr0HPmwU/wuwqUneXJABYBT+ZRj4NQdRXUr2A6ustn7a
+ 5N12WF87JKEBLphk3Glpb1fiAvsnDxjWspkOYVgXAae5AZcqVtoYsW+14QOIscHRj99JssHI
+ BVfY7hDc5tABOnhk3izypSKITGZAVwIv7GeDlPhiWt6UkWoJgjpHFogfD2nR87heUAotd/lq
+ D5259T5cNzp/8tHNFA7dg6ML6K40z2MFvx2TGpUBza/J9uAQO4l3ew2sRz2N2X
+X-IronPort-AV: E=Sophos;i="5.90,198,1643691600"; 
+   d="scan'208";a="69116457"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UeBfiuKevhwRd5gq9OPz406ToCSgrXpLABg4KzBXam3xjMWfKGlrDdRr8OCNRxJTCiA2uzo0T6fQlBILX6Ej3PtTzMmXt5TWGzQu8M2M+htqhAm9v6NaNtEbx4ypV66KdyCP8a6SDvli4g9Jwqz3pvJkk7cWpmPRsG3GRGUhAZbX4iUOEDNjiV5ogSwhDNXSPT+stn9Nrlubm4Mls9zOXr6Qqd5c2W27X7Md8CtoIxXXXDLtGzYwSR19QvKxvONg/OU05SOEgk5tblN63Txy6xRxKVHqkMGAHjR5NEVipHEQmgHCCiETqo5GkzjHIcZcQyxLGhXpF7L7HCks2xuuLQ==
+ b=bsBTq0i/rawIP5dkLvvAtHAxEhITYN/8itMdCGwbaWToe8mI1noncL7V0QXBkkrWzEPHC5wQN6zkKIDdCgqOwdKoW7kc/TazEP1aZcDGJL8MBjH0IGS2BRD3CKI9LAhMdhoAOs9S/gSueje/91iS7XmAm2jqxHO3e//DENXhKOaJ5OOaNCFxTfCzdw/8i1Fv6zDSMiO/4S63nYZ3jkQbItA5HeWZfHcNljcLGY8ZXyH+MMwW7BPrICmpXzlZualcz3fKClkh7Iluu35CD4sE+TOpJ6DOd/iM/n0RoSuAup4e4/zJWC/iHFOtngKZ19cfXpCXryc7Js9aoRLz/URcBQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ySGHTc544f/Qufkee5IH+zC4zeekNrT4XznitEkUels=;
- b=jgl9UVA52s3nALwrUpZ32ECrQFnFiqMmnZNNgcUtOmEdBoxCMOQxp19G6PhNoQsq+vfRJ5RY/X5SHu25R8raA/5/be8/9pHtuABz15zRQ9ZCMSq+/IvZSI/7KGfNUsMkx3I5OJcN/yH+4/MumdFKQjr6DnDVga6KtJ5RF8B8MjSs/Z6W99udawiOk4Evt+oqR21bj1mtTOuMLYFINU2yBfglHRiXfRD92sRUM0jlRWrbUU+Q6lOV8cWRWkLfL7XvD7jD4UR/ztPcxFSndyi7rUbCnhGHk2hE6sh8CTETPyKS6vIku7W7LFkWmcZYd85ZSHQNwuVdLc4IAnRadKmlbA==
+ bh=I/OEFbRNgjxpheFo5Iez2tzgxUucqboVBeNXDiGalCg=;
+ b=TIuTxyVg8HFnPamjWWo11fhV911xPu5aIwG+yvPfRkR8TXn4HpTI2I69eBN3O6LWxDBoZe1VeKiPfpUlV+mYdiQ6EPZbMfGl3meAxD72AWo0KUxPBLzP7mxkbZJGAeYOYnbgBwHgkhGVBrhGhOdIBHM9YAxUDcaZewQ62E8X0mNLvWkC7nWEFB5V5NLpuInVebj79CBv4dYFvJ+cl9CfT2oI+gnjgqXzSUAHww0NAseA/vzcYU/gcQBDbqbXycVULpU0K6tlROj9nTIwc81A7hEzpiIHXx5evRKhnb6b29NWIG/DP7Erwtq6C1DpUgqDJq+rki0EPj/KkvQWMWKM9Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <2930b69f-9fba-e26c-8ed5-90ca93db92f4@suse.com>
-Date: Mon, 21 Mar 2022 11:23:38 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH 1/3] xen: Introduce a header to store common linker
- scripts content
-Content-Language: en-US
-To: Michal Orzel <Michal.Orzel@arm.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20220321082114.49953-1-michal.orzel@arm.com>
- <20220321082114.49953-2-michal.orzel@arm.com>
- <cb61531a-5482-3aab-58bd-84f99f21ec48@suse.com>
- <AM6PR08MB38148D3FB84D91DB089C48CC89169@AM6PR08MB3814.eurprd08.prod.outlook.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <AM6PR08MB38148D3FB84D91DB089C48CC89169@AM6PR08MB3814.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM6PR10CA0076.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:209:8c::17) To DU2PR04MB8616.eurprd04.prod.outlook.com
- (2603:10a6:10:2db::16)
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=I/OEFbRNgjxpheFo5Iez2tzgxUucqboVBeNXDiGalCg=;
+ b=T8A9gLujePMHFBEK9sz5knbJJtgcGp8qhSqrICzYPXHJf0mRNdu8CTHWCl5L65Q7YE61DpnZLgNBctT0n6y5V7R+6xJIdY5jIIbNeLgC5cBlJ0FLMzqdVSFA72R60JUQAv5icZc0fqF8wrX+lVvdRdJP4PNYYnXG3rjGfNFsNmg=
+Date: Mon, 21 Mar 2022 11:25:40 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>, Ross Lagerwall
+	<ross.lagerwall@citrix.com>, "konrad.wilk@oracle.com"
+	<konrad.wilk@oracle.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"doebel@amazon.de" <doebel@amazon.de>, "julien@xen.org" <julien@xen.org>
+Subject: Re: [PATCH 4/4] livepatch: differentiate between old and new build
+ systems
+Message-ID: <YjhSpA8CkkxJga6r@Air-de-Roger>
+References: <20220302142711.38953-1-roger.pau@citrix.com>
+ <20220302142711.38953-5-roger.pau@citrix.com>
+ <32b098c1-963f-2e03-84bb-c8db410c8554@citrix.com>
+ <Yidtuq8YUq+SbY7C@Air-de-Roger>
+ <3e285745-9cc3-4f9a-ec27-fe917faa4547@citrix.com>
+ <YisJS9ITWTpM7bYj@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <YisJS9ITWTpM7bYj@Air-de-Roger>
+X-ClientProxiedBy: LO4P123CA0373.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18e::18) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ef40d0ed-e517-488d-0e23-08da0b24de45
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5470:EE_
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB5470F0FA8A0EE5C1D25917F3B3169@VI1PR04MB5470.eurprd04.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 55d8d9b2-0cac-4f89-4789-08da0b252824
+X-MS-TrafficTypeDiagnostic: SA0PR03MB5578:EE_
+X-Microsoft-Antispam-PRVS: <SA0PR03MB5578B51CB8CC2D413112D2968F169@SA0PR03MB5578.namprd03.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	724YwNeoY6s1LHeG0Y8+VzdxJDiZFuPR/8a24ssK8hHlf0V4rfT8eVu0BIwfFPXknKwY2X4pA0SxHAcu1ASIqTYgNd33QAIZLoYv+fveqWxM07TK/bj124j+JCV380SXaSHESiwTupieh3+PVZ6mayw9FlPHgte5vfzqEpyQECscXgl72GP+TWj3EzAi/NEdKMyy/b/wSZGp5qCltBFdliJvG6Cni3jCYGYdLj65KjQXSDT4iIV4fz1Jbsi0waEF4Gjo/sk35Rq30FxzxeT4Rvy+FhMltEX2VWBLdnWIYjATNbNJm+NF+atG6E059d3C9tSjRiCKRijHRCEocHzod8H4Q1Pk8LXrgdpnhEwHGNv3aIJc8hEucu1GI2Xvgvh7lPNBHj5HSdyxGqoK3YnWzwrTEn4dL02tpsWiJsoVduVLlOGGMpP54lA9fTCz4HFImEHyYSH+1n/2iHY8DUrKrdLrrbn9bO/m69ZgvDKOFQtKbf3EXA/Yinvnbn9Brw5UbYkci18eSfED8JwgOnkCAkk51nRn5CDnjch8xSjyIQu1qy21GJOO4VcuXRqX/nQdP3nzPDzwdjEVQcpm0KkSyeVujv0jJZt9OI0tLOC4YCKoPa4qtTb7kMmmTKbIEAYgqqpu2ZjSk1esO7qE426hfcs6jOU9VBrADLGreey9Njfz6gXGBXzaQboF0RjhQDAj66IXvSi2tx1m0ptZXnnN5YxxKfSKelDMK3ubrLt7DKk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(2906002)(6486002)(31686004)(36756003)(83380400001)(186003)(26005)(508600001)(316002)(86362001)(8676002)(53546011)(66946007)(4326008)(66476007)(66556008)(6506007)(38100700002)(31696002)(6512007)(5660300002)(6916009)(54906003)(8936002)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: /VEph4wOnyMTy58qcCFw6RlJSHqZhLAtgAyY7N6e+q5TGA6mdY8sIEZT1FCX2BIfcC0yw3D/VVzlsANOJdoMgd+dfyZnnkLI7ASF8kOEJItiHSZAOVFErLpeNOUEiGcY1cmwgBN0JBa8yZb8qGOFnv7fGxbPdcnyicsQxYPWZ0+lEhjnuKX9MbVemiHhWAXhFqSkEr7vOEy8fSDfaBPVvTqyDnZXfNJEZJzsE2cr9nPFn2w18MKVoku8yOssYQy6OOUtIIZJEFZoNEtPlwLgpLCmwTsb76lx5BEWU+Kf1JmTymlTaHjbuCowIBl3jFF0Ult8TYaW+VBiaYqsQ7TBSV9lyI9ytBPA4A6XSz4xT1QdwZhsjNlsHwX61RBBVScEDpf6PSRM3T75AVkdFfMe/KB2uE2bJ0FUOvxUOzZ3yB83kaPyqcP51aC74HpPqgcha2Z9Sxj/vRXmYPcI5beKqNNgixnfewtbz5ryDv1lc9pH9eudU5e37qBlhrQJtP+c37yBFYSff6k+rcHocJIfCR4Km+jyEfZ1R6yjyqBN26y0nsF+8XMBKYNtas3U+NfnQgyq8wZRjVn57L4qzAZY2kLO8WzBmwCrvQ4CCAj81imQx4jkxRb90vEan57uOAgEWXf47/c+K52NNPFSQruyDA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(7916004)(366004)(6506007)(316002)(86362001)(82960400001)(186003)(26005)(9686003)(33716001)(6666004)(83380400001)(85182001)(53546011)(6512007)(8936002)(66556008)(66476007)(38100700002)(508600001)(110136005)(54906003)(6486002)(5660300002)(66946007)(8676002)(4326008)(2906002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?fOd7qMOLn5dJdl0XQEyMRtxUJE/vKKwMGDDLIGy+KBQZoXAOzZfHvkIx3ebS?=
- =?us-ascii?Q?GnNA7WjEPeDXjgGIJJXGK/YamUp++NOCnpWd8canygAlll5kuNsdaTjhM5ge?=
- =?us-ascii?Q?KvNHNi4iBxelx00KewdZZ2ElETjhV3VdYPrXF/JUjubijDmpGH2jgxpLVdpg?=
- =?us-ascii?Q?OqpPTWz4Yfp2/V5DAkFAqqwILr5hEaNz0SyNGEzZJ+RU11nlqyKVfKXb8x6D?=
- =?us-ascii?Q?dt2cxUH9YKKhsX1t+ZiwjFHoWVliJjQ+pXaw8Thv+fO1T/r6rca7yDSoCH6a?=
- =?us-ascii?Q?5zS4pl6jZ+ACJlBg6/i6nkaVUZyZ+/TDUrxku6h8GqjcAIt1/kvpqCr37Aat?=
- =?us-ascii?Q?GWPtXu/Fd7iIU7kLrm6vKDMveM1ENMHNnZS3FfhJHBZHmQS5A4ugp1tWonsW?=
- =?us-ascii?Q?ZUFqevm8gVp6VzBD0whmsRqf7TPAKCegG12uRIPSf4VJUJ3qp+G9NHFYltYn?=
- =?us-ascii?Q?xSQAH1clqG5fCWN2qbNSTlZ7Z9E+TTFVLjzCZTNyLj3dzR8bi8qEDpM1ErNW?=
- =?us-ascii?Q?xhsQgxFzt3sLQhRBmeQ1x2BJFdIsHc+Gd7mcMvF4aA3GWscr5EWZDgTQ/WIy?=
- =?us-ascii?Q?dc90kGF+fMDSrWG38voyoUf4YvRQ9VktyNFRQcuIsxWaPqP4/qToGomK8XUH?=
- =?us-ascii?Q?ik+UI9FSE4ScOJmWjJgDlQhOaDP9dYd2SN9e9W8uYHMlreDld8FsMs771kRW?=
- =?us-ascii?Q?kBjcyrQES5KxeQtWXQk72h1OKtHORrIV2HMTMsn5NQnhVwVsDOBm6+Glpqpr?=
- =?us-ascii?Q?z0HyRT80ELUi4yYmp86rv3FRo8JSHlBkqWxMF9O9W9PtSa3a3QfUwjag7fjo?=
- =?us-ascii?Q?r1QuY0gzQA4GPiykK2R1VCjJANRY0dimQG8YAM1Kyw4uOSoXLLUr0MjxX3RI?=
- =?us-ascii?Q?kCJpnofJR2MQqdgPYZSFWUgFyHSD97W7q2xtPhdnkGZwwQgTGDi2Ca7O6sc1?=
- =?us-ascii?Q?q+7KLFv//3hEUBWoxzn/tfCUOQY8ZZ7Gqgn0ZngbpThOnjCl6P1Yr1A2vMUV?=
- =?us-ascii?Q?MAL99FDVhTqY322zWHCgyyh51wWRz965wWRxReZgGgW6YQvhXA4g1ijUqRq+?=
- =?us-ascii?Q?PrYO9rXSDwAmut6er4P7k/rSasLLy9OIa9I9dyWct6enPj8Viqn9UzH7RG1H?=
- =?us-ascii?Q?CHv4qy0PjomS0mtYhUtK2y4iV/1CA5xwDxkyb5nBHvVajGKPTeNT858S4cIM?=
- =?us-ascii?Q?SgstljstCz5OgqDksZCdIB4jUwr9gjwCrs6l0rKd3WNwt/f/7kzYrRYLN6+3?=
- =?us-ascii?Q?F6TtZ5czBrxvPsSyfaK7Fjl3Jyx9pveHESe2E32I7Qzjvcuw3EQcJ1/Bxrxt?=
- =?us-ascii?Q?SYCgKwhDefDaAmQudDE4+Q+iXdrVNkfBsb3IUWH1Ft6nRFxLuoqB0vCBsQkd?=
- =?us-ascii?Q?9h6aEadK1VaetTJ+EX4Yo24Drf16OHj4xgK9ocjMiABNG+AP/iYFukNXGfsv?=
- =?us-ascii?Q?MF5oEG1rh61/V8psPIYlVMsSXMxwuMUU?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef40d0ed-e517-488d-0e23-08da0b24de45
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bk5jSkk2cnZWRXNtUDYrd0pjdTZ2Qml4S1R4cHpJYVNHaDEraVFodHYzZk50?=
+ =?utf-8?B?ZWY3SmdRa254K1VacUt5RG5UYzBMZzlOWTQ2OWd4ZEtWYVlJVE12b3psc1pG?=
+ =?utf-8?B?ZmNINmdWb3NmeFNuWTkxcGZ6UHd0SFNPRGFvSHJFeUVoKzJYR3NiRDJhSUhB?=
+ =?utf-8?B?WjJVYWJFWXpSOUQ1eVpaR3JSNTVaK2NqN0VvUjFQT3BSbkZER0pRYTE4ME9n?=
+ =?utf-8?B?VHQxbUVqRW5sUUhQaHdvcEdhSEFqLzl1UTFEVndxejNWYzdsMk5KU2FMMDNF?=
+ =?utf-8?B?YXJqWUhnekRzazcwUnh4Tjczdml5UURHWUdJN0dwOWlEU2dvTFg3N1ZaRUNx?=
+ =?utf-8?B?NDA0TG1CQXBZWHlHVWVUaFl0TzNEMTQxRmFjVWtHNnVpWmJnTkFQVFpXencz?=
+ =?utf-8?B?TE4xMmFCTXBHUnpXeDJDQnE0SCs3NFFlNTh3Uk1TaGpQdUxCODNiSytkWFlo?=
+ =?utf-8?B?b2Z4RFFjYThtcGszVUZOTGdBWTFJdHUyK2N5bDcvRnBzbjc4ZHhxUEM0QjZn?=
+ =?utf-8?B?MTBpQnBOWXhWOUFseVc0QXVwYkNGTGlqOVJ4ODRCK3JYYkZOQXExMlFMSEZ4?=
+ =?utf-8?B?c2lreDc5c3RMZDUvYWVNMEhBeWgwbUJrZllPTFd6QWh2bllGQkpGTlV4SmFW?=
+ =?utf-8?B?SjdITDlDVUFOTnNkcDBmUCtkRzhyeHlaWFBnSnVYem5vMlRzNXJ1Q2U3QnpY?=
+ =?utf-8?B?MHBUWW80VkFIRi9jbGRLbU95ck1HVlhpYUk3VDRMWlEyYzdIUjJsbW1pWWRK?=
+ =?utf-8?B?UEl5UitySVVEb0VoazhEYlJqSG9YRkUyMXFIOGROclJwcHk1TGR6ZUNCdCtw?=
+ =?utf-8?B?eThKZ0R0bDlUZ0c2VnJSaUVyK3NHOWtRUExnamJIRHduWUdUeXl5TXZYeXIy?=
+ =?utf-8?B?REdXOVhDTEVBYTV6cmxDaE1UZ01JMUVCSDR3NURXYlBENU4rSURYSEhHMHlv?=
+ =?utf-8?B?dUJIcEcvVnh6ZE5hcm4yaEt0M0NDMDE0NW5GZ2VrZm5qNVZIU3g0KzVKK2VW?=
+ =?utf-8?B?UlA4aG0ySFRnSnppMlIxN2I0aG9HaTJyOU9iemdvQmhjR1MwTldaem9pUzg0?=
+ =?utf-8?B?dGwyNm5TZkdKS01rcVRDUlVHOFFNOW80RVZiWWdoTHBCUnhzN1gybDlzQlBZ?=
+ =?utf-8?B?WU5ac3VBcVM5cDMwYXUzUmFENExiZEo3ODNZSGFnaTBWMHJOOWQveXVMcmZa?=
+ =?utf-8?B?VjJsQ3JEL1hGU1BiRzZaaHZGMTZNZmEwU29ueVYrckllN0FQRnRDSGVKdVRs?=
+ =?utf-8?B?R0w3SzU2L2FqRWhDK2NBZ01MVVBRSnE1aXUyL3krNk5Gb2gxWW1jQURxckVX?=
+ =?utf-8?B?OUdmVDN6bHNWZWFOSTRsVjBSN1o2WS9zMTRRSkRUY0pIVWQvaitleURtcGp5?=
+ =?utf-8?B?Szc5emN5dTUzUUZUK2NmUWgxQkZKb09Dbk9ieWdFNGc2NURkWlZuTmphZ2FU?=
+ =?utf-8?B?elExdU8vRHdGd0VKUFY4cGkvdjB6aXM1WTRzd2lFUTdzbzZqVzdSenJhNUZB?=
+ =?utf-8?B?SklEL05aemx5WmJmUFdVOFNHWU1tNFg0dHlsZmtXWDRFcTJtZkxZeFdId09U?=
+ =?utf-8?B?aDRRbHUvT1lRYUsrYXVIVStiU1ByN0huOG8wMEptcXVlN2IrUVVmRVljREl1?=
+ =?utf-8?B?SUtOY3pnaHdhaW5uV25xdHVyWmQ5WkgvKzhpRFJpa2FMK1BWZGdQV0FyQlZI?=
+ =?utf-8?B?NDFyTXBwbjR4MlBnWDU4dnhwZ09Rd00rOHdib2w1YWpKSWtJU0xuTDMwUXha?=
+ =?utf-8?B?eUN0cVRHZXJRb3pWSkozYTZiL1FTbnp2a1BqREtjUWlsWVJsMlpROHk4R1Bv?=
+ =?utf-8?B?V2UrMjVtZG51U3RNRSt1a0tZU2doVzEvb1Jmbzk3SWZsUXo0RnhzSzBRbVh4?=
+ =?utf-8?B?a2FHWTZHK0dob29wSTZLeHVaWEQxazg5T3hQVnRETXN6K1FDNHgxclRkVE05?=
+ =?utf-8?Q?FQvd/8dLvPoy4mC/V2+H9S3/b6tth7uB?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 55d8d9b2-0cac-4f89-4789-08da0b252824
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2022 10:23:40.3704
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2022 10:25:44.3239
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zfcZN1yce0stlZIU2eOI41BhENKFqLK26tfDV8YpWrpanndGRY933NjGiCqgNrCrPmIn0ZssNTN2gcWy3uefmQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5470
+X-MS-Exchange-CrossTenant-UserPrincipalName: xElzoen6pCELw8IARJYia9hDcJ0O57zhOOIetruEXhHZAKL6kO2FW/8I1WPef+/RjtZuWAGNJlKUAjWB12szNg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR03MB5578
+X-OriginatorOrg: citrix.com
 
-Note: please properly quote your replies. As you'll see what you said
-in reply to my remarks is not properly separated from my remarks, and
-hence hard to read.
+On Fri, Mar 11, 2022 at 09:33:15AM +0100, Roger Pau Monné wrote:
+> On Thu, Mar 10, 2022 at 06:01:48PM +0000, Andrew Cooper wrote:
+> > On 08/03/2022 14:52, Roger Pau Monne wrote:
+> > > On Tue, Mar 08, 2022 at 02:38:47PM +0000, Andrew Cooper wrote:
+> > >> On 02/03/2022 14:27, Roger Pau Monne wrote:
+> > >>> diff --git a/livepatch-build b/livepatch-build
+> > >>> index 38a92be..656cdac 100755
+> > >>> --- a/livepatch-build
+> > >>> +++ b/livepatch-build
+> > >>> @@ -98,14 +98,20 @@ function build_special()
+> > >>>  
+> > >>>      # Build with special GCC flags
+> > >>>      cd "${SRCDIR}/xen" || die
+> > >>> -    sed -i 's/CFLAGS += -nostdinc/CFLAGS += -nostdinc -ffunction-sections -fdata-sections/' Rules.mk
+> > >>> -    cp -p arch/x86/Makefile arch/x86/Makefile.bak
+> > >>> -    sed -i 's/--section-alignment=0x200000/--section-alignment=0x1000/' arch/x86/Makefile
+> > >>> -    # Restore timestamps to prevent spurious rebuilding
+> > >>> -    touch --reference=arch/x86/Makefile.bak arch/x86/Makefile
+> > >>> -    make "-j$CPUS" $XEN_DEBUG &> "${OUTPUT}/build_${name}_compile.log" || die
+> > >>> -    sed -i 's/CFLAGS += -nostdinc -ffunction-sections -fdata-sections/CFLAGS += -nostdinc/' Rules.mk
+> > >>> -    mv -f arch/x86/Makefile.bak arch/x86/Makefile
+> > >>> +    if grep -q 'nostdinc' Rules.mk; then
+> > >>> +         # Support for old build system, attempt to set -f{function,data}-sections and rebuild
+> > >>> +        sed -i 's/CFLAGS += -nostdinc/CFLAGS += -nostdinc -ffunction-sections -fdata-sections/' Rules.mk
+> > >>> +        cp -p arch/x86/Makefile arch/x86/Makefile.bak
+> > >>> +        sed -i 's/--section-alignment=0x200000/--section-alignment=0x1000/' arch/x86/Makefile
+> > >>> +        # Restore timestamps to prevent spurious rebuilding
+> > >>> +        touch --reference=arch/x86/Makefile.bak arch/x86/Makefile
+> > >>> +        make "-j$CPUS" $XEN_DEBUG &> "${OUTPUT}/build_${name}_compile.log" || die
+> > >>> +        sed -i 's/CFLAGS += -nostdinc -ffunction-sections -fdata-sections/CFLAGS += -nostdinc/' Rules.mk
+> > >>> +        mv -f arch/x86/Makefile.bak arch/x86/Makefile
+> > >>> +    else
+> > >>> +        # -f{function,data}-sections set by CONFIG_LIVEPATCH
+> > >>> +        make "-j$CPUS" $XEN_DEBUG &> "${OUTPUT}/build_${name}_compile.log" || die
+> > >>> +    fi
+> > >> This really ought to be the other way around, by spotting the thing we
+> > >> know is good, and then falling back to the heuristics.  In light of the
+> > >> updates to the Xen side, something like:
+> > > I'm not sure I agree. I do prefer to spot the 'bad' one, and just
+> > > fallback to expecting Xen to correctly set -f{function,data}-sections
+> > > otherwise.
+> > >
+> > >> if grep -q CC_SPLIT_SECTIONS Kconfig; then
+> > > Because this logic ties us to not moving CC_SPLIT_SECTIONS from being
+> > > defined in xen/Kconfig (or even changing it's name), and gain ties the
+> > > livepatch tools to internal details about the Xen build system.
+> > 
+> > It doesn't particularly matter which way around the if/else is.  It does
+> > matter that we're choosing based on something relevant.
+> > 
+> > nostdinc in Rules.mk has exactly the same amount of "magic string in
+> > magic file" as CC_SPLIT_SECTIONS in Kconfig, but has absolutely nothing
+> > to do with the property we actually care about.
+> > 
+> > Really what you actually want is
+> > 
+> > if grep -q CC_SPLIT_SECTIONS Kconfig; then
+> >     # Xen behaves sensibly
+> > elif grep -q 'nostdinc' Rules.mk; then
+> >     # Legacy mess with Rules.mk
+> > else
+> >     die "Help with build system divination"
+> > fi
+> > 
+> > The "behaves sensibly" case is unlikely to change name and unlikely to
+> > move locations, but each are easy to cope with via `grep -e FOO -e BAR
+> > file1 file2`, and this approach avoids the problem of blindly (and
+> > falsely) assuming that anything which is 4.14 and later splits sections
+> > correctly, and that this will remain true even when someone adds "# use
+> > to have -nostdinc here" to Rules.mk.
+> 
+> TBH, I don't find the proposed solution is much better to what's in
+> this patch, and as said I really dislike tying the behavior of the
+> livepatch build tools to heuristics against Xen internal build files -
+> be it a Kconfig or a Makefile. Specially because your proposed
+> approach adds heuristics to detect the 'good' case which should be the
+> default one going forward.
+> 
+> A better option might be to just make the 'build adjustments' a
+> command line option that the user can pass to the tools, ie:
+> --build-adjust and let the user decide whether it needs the
+> adjustments or not. If I was a livepatch user myself I would seriously
+> consider picking the linker script changes and backport that to my
+> production version.
 
-On 21.03.2022 11:14, Michal Orzel wrote:
-> On 21.03.2022 09:21, Michal Orzel wrote:
->> --- /dev/null
->> +++ b/xen/include/xen/xen_lds.h
->> @@ -0,0 +1,114 @@
->> +#ifndef __XEN_LDS_H__
->> +#define __XEN_LDS_H__
->> +
->> +/*
->> + * Common macros to be used in architecture specific linker scripts.
->> + */
->> +
->> +/* Macros to declare debug sections. */
->> +#ifdef EFI
->> +/*
->> + * Use the NOLOAD directive, despite currently ignored by (at least) GN=
-U ld
->> + * for PE output, in order to record that we'd prefer these sections to=
- not
->> + * be loaded into memory.
->> + */
->> +#define DECL_DEBUG(x, a) #x ALIGN(a) (NOLOAD) : { *(x) }
->> +#define DECL_DEBUG2(x, y, a) #x ALIGN(a) (NOLOAD) : { *(x) *(y) }
->> +#else
->> +#define DECL_DEBUG(x, a) #x 0 : { *(x) }
->> +#define DECL_DEBUG2(x, y, a) #x 0 : { *(x) *(y) }
->> +#endif
->> +
->> +/* DWARF debug sections. */
->> +#define DWARF_DEBUG_SECTIONS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 \
->> +=C2=A0 DECL_DEBUG(.debug_abbrev, 1)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 \
->> +=C2=A0 DECL_DEBUG2(.debug_info, .gnu.linkonce.wi.*, 1) \
->> +=C2=A0 DECL_DEBUG(.debug_types, 1)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 \
->> +=C2=A0 DECL_DEBUG(.debug_str, 1)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0 DECL_DEBUG2(.debug_line, .debug_line.*, 1)=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 \
->> +=C2=A0 DECL_DEBUG(.debug_line_str, 1)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0 DECL_DEBUG(.debug_names, 4)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 \
->> +=C2=A0 DECL_DEBUG(.debug_frame, 4)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 \
->> +=C2=A0 DECL_DEBUG(.debug_loc, 1)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0 DECL_DEBUG(.debug_loclists, 4)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0 DECL_DEBUG(.debug_macinfo, 1)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- \
->> +=C2=A0 DECL_DEBUG(.debug_macro, 1)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 \
->> +=C2=A0 DECL_DEBUG(.debug_ranges, 8)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 \
->> +=C2=A0 DECL_DEBUG(.debug_rnglists, 4)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0 DECL_DEBUG(.debug_addr, 8)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 \
->> +=C2=A0 DECL_DEBUG(.debug_aranges, 1)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- \
->> +=C2=A0 DECL_DEBUG(.debug_pubnames, 1)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0 DECL_DEBUG(.debug_pubtypes, 1)
->> +
->> +/*
->> + * Stabs debug sections.
->> + *
->> + * LLVM ld also wants .symtab, .strtab, and .shstrtab placed. These loo=
-k to
->> + * be benign to GNU ld, so we can have them here unconditionally.
->> + */
->> +#define STABS_DEBUG_SECTIONS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0 .stab 0 : { *(.stab) }=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 \
->> +=C2=A0 .stabstr 0 : { *(.stabstr) }=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0 .stab.excl 0 : { *(.stab.excl) }=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0 .stab.exclstr 0 : { *(.stab.exclstr) }=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0 .stab.index 0 : { *(.stab.index) }=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0 .stab.indexstr 0 : { *(.stab.indexstr) }=C2=A0=C2=A0 \
->> +=C2=A0 .comment 0 : { *(.comment) }=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0 .symtab 0 : { *(.symtab) }=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0 .strtab 0 : { *(.strtab) }=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0 .shstrtab 0 : { *(.shstrtab) }
->=20
-> Please don't add non-Stabs sections to this macro.
->=20
-> Ok, I will add a new macro storing the last 4 sections called ELF_DETAILS=
-_SECTIONS,
-> to be coherent with what Linux does (ELF_DETAILS).
->=20
->> +#ifdef EFI
->> +#define DISCARD_EFI_SECTIONS \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.comment)=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.comment.*) \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.note.*)
->> +#else
->> +#define DISCARD_EFI_SECTIONS
->> +#endif
->> +
->> +/* Sections to be discarded. */
->> +#define DISCARD_SECTIONS=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0 /DISCARD/ : {=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.text.exit)=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.exit.text)=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.exit.data)=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.exitcall.exit)=C2=A0=C2=A0=C2=
-=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.discard)=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.discard.*)=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.eh_frame)=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.dtors)=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.dtors.*)=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.fini_array)=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.fini_array.*)=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DISCARD_EFI_SECTIONS=C2=A0 \
->> +=C2=A0 }
->> +
->> +#define CTORS_SECTION=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 . =3D ALIGN(8);=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __ctors_start =3D .;=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(SORT_BY_INIT_PRIORITY(.init_arra=
-y.*))=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(SORT_BY_INIT_PRIORITY(.ctors.*))=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.init_array)=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.ctors)=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __ctors_end =3D .;
->> +
->> +#define VPCI_SECTION=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 . =3D ALIGN(POINTER_ALIGN); \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __start_vpci_array =3D .;=C2=A0=C2=
-=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(SORT(.data.vpci.*))=C2=A0=C2=A0=
-=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __end_vpci_array =3D .;
->> +
->> +#define HYPFS_SECTION=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 . =3D ALIGN(8);=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __paramhypfs_start =3D .;=C2=A0=C2=
-=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.data.paramhypfs)=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __paramhypfs_end =3D .;
->> +
->> +#define LOCK_PROFILE_SECTION=C2=A0=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 . =3D ALIGN(POINTER_ALIGN); \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __lock_profile_start =3D .; \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.lockprofile.data)=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 \
->> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __lock_profile_end =3D .;
->> +
->> +#endif /* __XEN_LDS_H__ */
->=20
-> I'm not sure _SECTION is a good suffix to use in the four names above:
-> These aren't individual sections in the output, and for CTORS_SECTION
-> it's also not even a single input section.
->=20
-> How about _ENTRY suffix?
-> Otherwise we can do different suffixes depending on the content.
-> LOCK_PROFILE_DATA, HYPFS_PARAM, VPCI_ARRAY
+Ping?
 
-I'd prefer the latter.
+Is the proposed command line option an acceptable way to move this
+forward?
 
-> As to CTORS_SECTION - I'm unconvinced of generalizing this without
-> first getting it right.
->=20
-> I will get rid of CTORS_SECTIONS then.
->=20
-> Overall I think it would be better to introduce this header along
-> with actually using the macros. That way one can check within the
-> patch that what you move / replace actually matches on both sides
-> without needing to cross patch boundaries. If you wanted to introduce
-> (and then include right away) an empty header first, that would be an
-> acceptable intermediate approach afaic.
->=20
-> I just wanted to split this into arch specific patches because maintainer=
-s are different.
-> I do not understand your second solution with empty header.
-> Do you mean that the first patch shall create an empty header (with just =
-an intro comment)
-> and include it in arch specific linker scripts?
+Can I have an opinion from the maintainers?
 
-Yes, I view this as one possible option.
-
-> Anyway, I can merge these 3 patches into 1 if you want.
-
-Well, at least part of the Arm changes can likely remain separate.
-But where you abstract things by introducing a macro in the header,
-it would be better if the original (supposedly functionally identical)
-construct(s) was (were) also replaced at the same time.
-
-Jan
-
+Thanks, Roger.
 
