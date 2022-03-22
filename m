@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A7D74E456A
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Mar 2022 18:45:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.293620.498856 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD00B4E4626
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Mar 2022 19:40:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.293628.498867 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWiYx-0002ES-O6; Tue, 22 Mar 2022 17:44:55 +0000
+	id 1nWjPM-0008DC-RP; Tue, 22 Mar 2022 18:39:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 293620.498856; Tue, 22 Mar 2022 17:44:55 +0000
+Received: by outflank-mailman (output) from mailman id 293628.498867; Tue, 22 Mar 2022 18:39:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWiYx-0002CK-Iu; Tue, 22 Mar 2022 17:44:55 +0000
-Received: by outflank-mailman (input) for mailman id 293620;
- Tue, 22 Mar 2022 17:44:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dCW+=UB=intel.com=tamas.lengyel@srs-se1.protection.inumbo.net>)
- id 1nWiYw-0001fS-36
- for xen-devel@lists.xenproject.org; Tue, 22 Mar 2022 17:44:54 +0000
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c73c7006-aa07-11ec-8fbc-03012f2f19d4;
- Tue, 22 Mar 2022 18:44:52 +0100 (CET)
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2022 10:42:03 -0700
-Received: from pinedahx-mobl.amr.corp.intel.com (HELO localhost.localdomain)
- ([10.212.28.2])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2022 10:42:00 -0700
+	id 1nWjPM-0008Ak-O2; Tue, 22 Mar 2022 18:39:04 +0000
+Received: by outflank-mailman (input) for mailman id 293628;
+ Tue, 22 Mar 2022 18:39:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nWjPL-0008Aa-44; Tue, 22 Mar 2022 18:39:03 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nWjPL-0004Bn-1m; Tue, 22 Mar 2022 18:39:03 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nWjPK-0001o1-Ln; Tue, 22 Mar 2022 18:39:02 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nWjPK-0003nS-L6; Tue, 22 Mar 2022 18:39:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,265 +42,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c73c7006-aa07-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1647971093; x=1679507093;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=WYMtQsZIvk+g/Avuydv0A87q4HG+CfRZV6LbqZGdHLQ=;
-  b=gYzHegvA3pBUw9D8/JY8YLjmNcM1x7EB0xQrWoG8QUMHQbvRZxNCvOps
-   4boSd3JPRZLVgpvtzcXOIK9peepig5x6Xtk3TvFqa8dK1OO7WWpVgu9HJ
-   +pVLT1vTqDB95GwAtBQm5jxpfw8SMiVXE7tydUg0pKmNxAjPzonVdiY1Y
-   3G3/BmFJhcFgTKyBAfU2joQE67Z/bO2lkG6m+HaDYOU9chP3oC742dW1L
-   58JwcANQtTtcGqzowOHjkXJposUiu9OEPCZOdIqvZBkD3m7IEHIBBDfTe
-   LmiHY3FADX1DgN9M3dafA1TpHQfyYBVq7X4NY+jr1amA2+HKQfLkUvyeu
-   w==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10294"; a="321097384"
-X-IronPort-AV: E=Sophos;i="5.90,202,1643702400"; 
-   d="scan'208";a="321097384"
-X-IronPort-AV: E=Sophos;i="5.90,202,1643702400"; 
-   d="scan'208";a="717039072"
-From: Tamas K Lengyel <tamas.lengyel@intel.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=7P4whN7RQ9C2guF5aZO1KGsD/rp8JOxf3Vem9D37gyo=; b=zY/adWEi9KwlzjD9bdjx22QXAW
+	at/CTGRbJq6D93HT6g+XgajV/U1wq5LzVyN1ggh4IACm4ceibEv5ZRMxbrATy73TnV01SxAR6edDh
+	HzQp1+xOHuHYRa4MQKhrxQlGzHCyd+o0tpnUjkK/Qk/YVdJGIBDM0wnTktqK03xTliiU=;
 To: xen-devel@lists.xenproject.org
-Cc: Tamas K Lengyel <tamas.lengyel@intel.com>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Tamas K Lengyel <tamas@tklengyel.com>,
-	Alexandru Isaila <aisaila@bitdefender.com>,
-	Petre Pircalabu <ppircalabu@bitdefender.com>
-Subject: [PATCH 3/3] x86/mem_sharing: make fork_reset more configurable
-Date: Tue, 22 Mar 2022 13:41:39 -0400
-Message-Id: <fb437a16517d343ba3432aa64b9e14b34630a750.1647970630.git.tamas.lengyel@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <fb927228a8f68ce983ae0b46e6665b5b8dd0764e.1647970630.git.tamas.lengyel@intel.com>
-References: <fb927228a8f68ce983ae0b46e6665b5b8dd0764e.1647970630.git.tamas.lengyel@intel.com>
-MIME-Version: 1.0
+Message-ID: <osstest-168788-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 168788: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=ec0b54849b23efa25caf0055b0eef8bf9b4dec98
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 22 Mar 2022 18:39:02 +0000
 
-Allow specify distinct parts of the fork VM to be reset. This is useful when a
-fuzzing operation involves mapping in only a handful of pages that are known
-ahead of time. Throwing these pages away just to be re-copied immediately is
-expensive, thus allowing to specify partial resets can speed things up.
+flight 168788 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168788/
 
-Also allow resetting to be initiated from vm_event responses as an
-optiomization.
+Regressions :-(
 
-Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
----
- tools/include/xenctrl.h                |  3 ++-
- tools/libs/ctrl/xc_memshr.c            |  7 ++++++-
- xen/arch/x86/include/asm/mem_sharing.h |  9 +++++++++
- xen/arch/x86/mm/mem_sharing.c          | 22 +++++++++++++++++-----
- xen/common/vm_event.c                  | 14 ++++++++++++++
- xen/include/public/memory.h            |  4 +++-
- xen/include/public/vm_event.h          |  8 ++++++++
- 7 files changed, 59 insertions(+), 8 deletions(-)
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
 
-diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index 95bd5eca67..1b089a2c02 100644
---- a/tools/include/xenctrl.h
-+++ b/tools/include/xenctrl.h
-@@ -2290,7 +2290,8 @@ int xc_memshr_fork(xc_interface *xch,
-  *
-  * With VMs that have a lot of memory this call may block for a long time.
-  */
--int xc_memshr_fork_reset(xc_interface *xch, uint32_t forked_domain);
-+int xc_memshr_fork_reset(xc_interface *xch, uint32_t forked_domain,
-+                         bool reset_state, bool reset_memory);
- 
- /* Debug calls: return the number of pages referencing the shared frame backing
-  * the input argument. Should be one or greater.
-diff --git a/tools/libs/ctrl/xc_memshr.c b/tools/libs/ctrl/xc_memshr.c
-index a6cfd7dccf..a0d0b894e2 100644
---- a/tools/libs/ctrl/xc_memshr.c
-+++ b/tools/libs/ctrl/xc_memshr.c
-@@ -257,12 +257,17 @@ int xc_memshr_fork(xc_interface *xch, uint32_t pdomid, uint32_t domid,
-     return xc_memshr_memop(xch, domid, &mso);
- }
- 
--int xc_memshr_fork_reset(xc_interface *xch, uint32_t domid)
-+int xc_memshr_fork_reset(xc_interface *xch, uint32_t domid, bool reset_state,
-+                         bool reset_memory)
- {
-     xen_mem_sharing_op_t mso;
- 
-     memset(&mso, 0, sizeof(mso));
-     mso.op = XENMEM_sharing_op_fork_reset;
-+    if ( reset_state )
-+        mso.u.fork.flags |= XENMEM_FORK_RESET_STATE;
-+    if ( reset_memory )
-+        mso.u.fork.flags |= XENMEM_FORK_RESET_MEMORY;
- 
-     return xc_memshr_memop(xch, domid, &mso);
- }
-diff --git a/xen/arch/x86/include/asm/mem_sharing.h b/xen/arch/x86/include/asm/mem_sharing.h
-index b4a8e8795a..fca5ec8aeb 100644
---- a/xen/arch/x86/include/asm/mem_sharing.h
-+++ b/xen/arch/x86/include/asm/mem_sharing.h
-@@ -85,6 +85,9 @@ static inline bool mem_sharing_is_fork(const struct domain *d)
- int mem_sharing_fork_page(struct domain *d, gfn_t gfn,
-                           bool unsharing);
- 
-+int mem_sharing_fork_reset(struct domain *d, bool reset_state,
-+                           bool reset_memory);
-+
- /*
-  * If called by a foreign domain, possible errors are
-  *   -EBUSY -> ring full
-@@ -148,6 +151,12 @@ static inline int mem_sharing_fork_page(struct domain *d, gfn_t gfn, bool lock)
-     return -EOPNOTSUPP;
- }
- 
-+static inline int mem_sharing_fork_reset(struct domain *d, bool reset_state,
-+                                         bool reset_memory)
-+{
-+    return -EOPNOTSUPP;
-+}
-+
- #endif
- 
- #endif /* __MEM_SHARING_H__ */
-diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
-index a21c781452..bfa6082f13 100644
---- a/xen/arch/x86/mm/mem_sharing.c
-+++ b/xen/arch/x86/mm/mem_sharing.c
-@@ -1892,15 +1892,19 @@ static int fork(struct domain *cd, struct domain *d, uint16_t flags)
-  * footprints the hypercall continuation should be implemented (or if this
-  * feature needs to be become "stable").
-  */
--static int mem_sharing_fork_reset(struct domain *d)
-+int mem_sharing_fork_reset(struct domain *d, bool reset_state,
-+                           bool reset_memory)
- {
--    int rc;
-+    int rc = 0;
-     struct domain *pd = d->parent;
-     struct p2m_domain *p2m = p2m_get_hostp2m(d);
-     struct page_info *page, *tmp;
- 
-     domain_pause(d);
- 
-+    if ( !reset_memory )
-+        goto state;
-+
-     /* need recursive lock because we will free pages */
-     spin_lock_recursive(&d->page_alloc_lock);
-     page_list_for_each_safe(page, tmp, &d->page_list)
-@@ -1933,7 +1937,9 @@ static int mem_sharing_fork_reset(struct domain *d)
-     }
-     spin_unlock_recursive(&d->page_alloc_lock);
- 
--    rc = copy_settings(d, pd, d->arch.hvm.mem_sharing.skip_special_pages);
-+ state:
-+    if ( reset_state )
-+        rc = copy_settings(d, pd, d->arch.hvm.mem_sharing.skip_special_pages);
- 
-     domain_unpause(d);
- 
-@@ -2239,15 +2245,21 @@ int mem_sharing_memop(XEN_GUEST_HANDLE_PARAM(xen_mem_sharing_op_t) arg)
- 
-     case XENMEM_sharing_op_fork_reset:
-     {
-+        bool reset_state = mso.u.fork.flags & XENMEM_FORK_RESET_STATE;
-+        bool reset_memory = mso.u.fork.flags & XENMEM_FORK_RESET_MEMORY;
-+
-         rc = -EINVAL;
--        if ( mso.u.fork.pad || mso.u.fork.flags )
-+        if ( mso.u.fork.pad || (!reset_state && !reset_memory) )
-+            goto out;
-+        if ( mso.u.fork.flags &
-+             ~(XENMEM_FORK_RESET_STATE | XENMEM_FORK_RESET_MEMORY) )
-             goto out;
- 
-         rc = -ENOSYS;
-         if ( !d->parent )
-             goto out;
- 
--        rc = mem_sharing_fork_reset(d);
-+        rc = mem_sharing_fork_reset(d, reset_state, reset_memory);
-         break;
-     }
- 
-diff --git a/xen/common/vm_event.c b/xen/common/vm_event.c
-index 84cf52636b..a7b192be0d 100644
---- a/xen/common/vm_event.c
-+++ b/xen/common/vm_event.c
-@@ -28,6 +28,11 @@
- #include <asm/p2m.h>
- #include <asm/monitor.h>
- #include <asm/vm_event.h>
-+
-+#ifdef CONFIG_MEM_SHARING
-+#include <asm/mem_sharing.h>
-+#endif
-+
- #include <xsm/xsm.h>
- #include <public/hvm/params.h>
- 
-@@ -394,6 +399,15 @@ static int vm_event_resume(struct domain *d, struct vm_event_domain *ved)
-             if ( rsp.reason == VM_EVENT_REASON_MEM_PAGING )
-                 p2m_mem_paging_resume(d, &rsp);
- #endif
-+#ifdef CONFIG_MEM_SHARING
-+            do {
-+                bool reset_state = rsp.flags & VM_EVENT_FLAG_RESET_FORK_STATE;
-+                bool reset_mem = rsp.flags & VM_EVENT_FLAG_RESET_FORK_MEMORY;
-+
-+                if ( reset_state || reset_mem )
-+                    mem_sharing_fork_reset(d, reset_state, reset_mem);
-+            } while(0);
-+#endif
- 
-             /*
-              * Check emulation flags in the arch-specific handler only, as it
-diff --git a/xen/include/public/memory.h b/xen/include/public/memory.h
-index 208d8dcbd9..30ce23c5a7 100644
---- a/xen/include/public/memory.h
-+++ b/xen/include/public/memory.h
-@@ -541,12 +541,14 @@ struct xen_mem_sharing_op {
-                 uint32_t gref;     /* IN: gref to debug         */
-             } u;
-         } debug;
--        struct mem_sharing_op_fork {      /* OP_FORK */
-+        struct mem_sharing_op_fork {      /* OP_FORK/_RESET */
-             domid_t parent_domain;        /* IN: parent's domain id */
- /* These flags only makes sense for short-lived forks */
- #define XENMEM_FORK_WITH_IOMMU_ALLOWED (1u << 0)
- #define XENMEM_FORK_BLOCK_INTERRUPTS   (1u << 1)
- #define XENMEM_FORK_SKIP_SPECIAL_PAGES (1u << 2)
-+#define XENMEM_FORK_RESET_STATE        (1u << 3)
-+#define XENMEM_FORK_RESET_MEMORY       (1u << 4)
-             uint16_t flags;               /* IN: optional settings */
-             uint32_t pad;                 /* Must be set to 0 */
-         } fork;
-diff --git a/xen/include/public/vm_event.h b/xen/include/public/vm_event.h
-index bb003d21d0..81c2ee28cc 100644
---- a/xen/include/public/vm_event.h
-+++ b/xen/include/public/vm_event.h
-@@ -127,6 +127,14 @@
-  * Reset the vmtrace buffer (if vmtrace is enabled)
-  */
- #define VM_EVENT_FLAG_RESET_VMTRACE      (1 << 13)
-+/*
-+ * Reset the VM state (if VM is fork)
-+ */
-+#define VM_EVENT_FLAG_RESET_FORK_STATE   (1 << 14)
-+/*
-+ * Remove unshared entried from physmap (if VM is fork)
-+ */
-+#define VM_EVENT_FLAG_RESET_FORK_MEMORY  (1 << 15)
- 
- /*
-  * Reasons for the vm event request
--- 
-2.25.1
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
+version targeted for testing:
+ ovmf                 ec0b54849b23efa25caf0055b0eef8bf9b4dec98
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   22 days
+Failing since        168258  2022-03-01 01:55:31 Z   21 days  226 attempts
+Testing same since   168774  2022-03-22 08:40:31 Z    0 days    7 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 875 lines long.)
 
