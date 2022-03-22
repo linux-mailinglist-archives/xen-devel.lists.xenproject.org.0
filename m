@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFC764E4861
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Mar 2022 22:39:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.293679.498999 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C4624E48A8
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Mar 2022 22:52:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.293682.499009 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWmD7-0006TG-Vb; Tue, 22 Mar 2022 21:38:37 +0000
+	id 1nWmQK-0000KS-4z; Tue, 22 Mar 2022 21:52:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 293679.498999; Tue, 22 Mar 2022 21:38:37 +0000
+Received: by outflank-mailman (output) from mailman id 293682.499009; Tue, 22 Mar 2022 21:52:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWmD7-0006RQ-Rc; Tue, 22 Mar 2022 21:38:37 +0000
-Received: by outflank-mailman (input) for mailman id 293679;
- Tue, 22 Mar 2022 21:38:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FOC1=UB=gmail.com=konishi.ryusuke@srs-se1.protection.inumbo.net>)
- id 1nWmD6-0006RK-KH
- for xen-devel@lists.xenproject.org; Tue, 22 Mar 2022 21:38:36 +0000
-Received: from mail-yw1-x1135.google.com (mail-yw1-x1135.google.com
- [2607:f8b0:4864:20::1135])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6d0ca56b-aa28-11ec-8fbc-03012f2f19d4;
- Tue, 22 Mar 2022 22:38:35 +0100 (CET)
-Received: by mail-yw1-x1135.google.com with SMTP id
- 00721157ae682-2e5969bdf31so206044067b3.8
- for <xen-devel@lists.xenproject.org>; Tue, 22 Mar 2022 14:38:35 -0700 (PDT)
+	id 1nWmQK-0000HR-20; Tue, 22 Mar 2022 21:52:16 +0000
+Received: by outflank-mailman (input) for mailman id 293682;
+ Tue, 22 Mar 2022 21:52:15 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nWmQJ-0000HG-7n; Tue, 22 Mar 2022 21:52:15 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nWmQJ-0007Wu-4n; Tue, 22 Mar 2022 21:52:15 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nWmQI-00038t-QT; Tue, 22 Mar 2022 21:52:14 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nWmQI-0005SP-Q0; Tue, 22 Mar 2022 21:52:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,179 +42,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d0ca56b-aa28-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=IhLarTeeHq9Nw1QHwQ6lX7PivjIpiPg5RT82IKgrTQg=;
-        b=QWPcc9K6kzpiWSg9bHLC5Ux6pTX071FsZCtYcVlnRLs8JJwtJ/ac0IRalJyb1gFY56
-         hViyubD+HNdafzHy5Qz3FFcJpGRXNix1sXy2MRg1th11yXiDzC1q/YhcakyMmedpM/MX
-         QLlSQZIk9Wmc7M51DdE4pN8MFJitd6EJOqN75Ygi/YGCa+D5yg/V6G2V04YueUTt9snG
-         Rqbwz9gEOsw6btamKuqw+UBaG4ttR1SzG8LdH1jU0rRf09UomDnAx+xzdQDjMcFzcmY2
-         c+QMYpXmDvodY1c19bSYMQ2Ux8egAVrEefZLoPNjtPi8yHTUeSgb7BUgyq76+9YNObBn
-         OZwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=IhLarTeeHq9Nw1QHwQ6lX7PivjIpiPg5RT82IKgrTQg=;
-        b=DcDDhMqIUzVM+l2YE7YNVmO7+IJbgRfvtRFtLKazc8YXqz1SGPpGfBr5A4NeQzqtIA
-         fwApeO9WgA5feGOQ3xX85PL04nxj4IL313QSEwjNDY+XV7WY5dBv1cnWpwYcC2u6ss3T
-         GhnYyTl7IgESezcnayDwRU+8r+FvvmBfd+3qkChmIlnKU2EmtjdH0fg5gkJBhjPS+UpH
-         rT0mieW2Y8OFAvhpld9BqDR+VkgJ1Iqb1+Vkr3BrDbSMyrh/xhKXs0eJFoNiEHlDqvkB
-         t2Zcfz7A9cGYoCo+HN4TkfuL5ZOmsel6Zlg0mgm1gmcUa2le8xR/V1/eHRc5lZmpgQZ5
-         DwQg==
-X-Gm-Message-State: AOAM530xB7Bfn/nad2nMMrNObFPvbqWCaGkM9AoOlJY7ZRoiUvj8dTCF
-	IpwOHCUFaJFx9H1QNb9tTLEag5qw82xzovXlZ6k=
-X-Google-Smtp-Source: ABdhPJw0CYtdti1wVV2bzL0irqt0sBusP9ofAFMscIeoyKl0lzXWGgn2B6cpzjxnKIOUPgO6Hm94TeUp8pnZ5ssFqRM=
-X-Received: by 2002:a81:148f:0:b0:2e5:d8d9:5116 with SMTP id
- 137-20020a81148f000000b002e5d8d95116mr25793876ywu.111.1647985114087; Tue, 22
- Mar 2022 14:38:34 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220124091107.642561-1-hch@lst.de> <20220124091107.642561-2-hch@lst.de>
- <20220322211915.GA2413063@roeck-us.net>
-In-Reply-To: <20220322211915.GA2413063@roeck-us.net>
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Date: Wed, 23 Mar 2022 06:38:22 +0900
-Message-ID: <CAKFNMonRd5QQMzLoH3T=M=C=2Q_j9d86EYzZeY4DU2HQAE3E8w@mail.gmail.com>
-Subject: Re: [dm-devel] [PATCH 01/19] fs: remove mpage_alloc
-To: Christoph Hellwig <hch@lst.de>, Guenter Roeck <linux@roeck-us.net>
-Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org, linux-nfs@vger.kernel.org, 
-	linux-nilfs <linux-nilfs@vger.kernel.org>, Mike Snitzer <snitzer@redhat.com>, 
-	Philipp Reisner <philipp.reisner@linbit.com>, 
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.co>, 
-	device-mapper development <dm-devel@redhat.com>, "Md . Haris Iqbal" <haris.iqbal@ionos.com>, 
-	Lars Ellenberg <lars.ellenberg@linbit.com>, linux-fsdevel@vger.kernel.org, 
-	xen-devel@lists.xenproject.org, Andrew Morton <akpm@linux-foundation.org>, 
-	ntfs3@lists.linux.dev, Jack Wang <jinpu.wang@ionos.com>, 
-	Pavel Begunkov <asml.silence@gmail.com>, drbd-dev@lists.linbit.com
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=WN0/f3sHEwVtsjVn9zxW8GlXfWuguyklruaFDI1NNQ4=; b=GueWMwHnQo43FWBCQnrm/8BoVY
+	aOBmDZx7P4scrGRLwqgoUq1nkD+IRq4WH7KO8pqwndnu4WGDnMk2yUxQqUl17G0Nf/u+P4APw52X+
+	L4SFOHEqsX8RXtS9yll3e4OZYs65VInvTPSMeCdPGVGdDDpOxLvr6l/v9tn/V+Ewu8ds=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168789-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 168789: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=ec0b54849b23efa25caf0055b0eef8bf9b4dec98
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 22 Mar 2022 21:52:14 +0000
 
-On Wed, Mar 23, 2022 at 6:19 AM Guenter Roeck <linux@roeck-us.net> wrote:
->
-> On Mon, Jan 24, 2022 at 10:10:49AM +0100, Christoph Hellwig wrote:
-> > open code mpage_alloc in it's two callers and simplify the results
-> > because of the context:
-> >
-> >  - __mpage_writepage always passes GFP_NOFS and can thus always sleep and
-> >     will never get a NULL return from bio_alloc at all.
-> >  - do_mpage_readpage can only get a non-sleeping context for readahead
-> >    which never sets PF_MEMALLOC and thus doesn't need the retry loop
-> >    either.
-> >
-> > Both cases will never have __GFP_HIGH set.
-> >
->
-> With this patch in the tree, I get:
->
-> [    1.198134] Unexpected gfp: 0x2 (__GFP_HIGHMEM). Fixing up to gfp: 0x1192888 (GFP_NOWAIT|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_NOMEMALLOC|__GFP_HARDWALL|__GFP_MOVABLE|__GFP_SKIP_KASAN_POISON). Fix your code!
-> [    1.198783] CPU: 0 PID: 1 Comm: init Not tainted 5.17.0-01402-g8565d64430f8 #1
-> [    1.199165] Stack : 0000000000000042 0000000000000000 0000000000000008 dae882cc7dea7ec4
-> [    1.199563]         a8000000014f0c00 0000000000000000 a80000000146b2c8 ffffffff80d3a920
-> [    1.199750]         a80000000146b0e0 0000000000000001 0000000000000000 0000000000000000
-> [    1.199936]         000000000003087f 0000000000000000 ffffffff806d9f54 0000000000000000
-> [    1.200121]         a80000000146b16f ffffffff80da0000 0000000000000001 000000000119288a
-> [    1.200306]         ffffffff80da0000 ffffffffffffffff 000000000119288a 000000000119288a
-> [    1.200491]         a800000001416f00 0000000000000000 ffffffff80774d30 ffffffffa0042718
-> [    1.200676]         ffffffff80ec2158 a800000001468000 a80000000146b2c0 0000000000000000
-> [    1.200861]         ffffffff80b55730 0000000000000000 a80000000146b3f8 ffffffff80d3a920
-> [    1.201046]         0000000000000001 000000000119288a ffffffff80108fa0 dae882cc7dea7ec4
-> [    1.201236]         ...
-> [    1.201548] Call Trace:
-> [    1.201622] [<ffffffff80108fa0>] show_stack+0x38/0x118
-> [    1.201960] [<ffffffff80b55730>] dump_stack_lvl+0x50/0x6c
-> [    1.202105] [<ffffffff80b4d8a4>] kmalloc_fix_flags+0x60/0x88
-> [    1.202249] [<ffffffff802b40f8>] new_slab+0x2d8/0x320
-> [    1.202375] [<ffffffff802b6844>] ___slab_alloc.constprop.0+0x33c/0x5e8
-> [    1.202528] [<ffffffff802b6b24>] __slab_alloc.constprop.0+0x34/0x50
-> [    1.202675] [<ffffffff802b72b8>] kmem_cache_alloc+0x320/0x368
-> [    1.202811] [<ffffffff805e2a68>] bvec_alloc+0x78/0x128
-> [    1.202936] [<ffffffff805e2fac>] bio_alloc_bioset+0x194/0x340
-> [    1.203073] [<ffffffff80325bd8>] do_mpage_readpage+0x540/0x6e0
-> [    1.203213] [<ffffffff80325e38>] mpage_readahead+0xc0/0x198
-> [    1.203346] [<ffffffff802583a8>] read_pages+0xc0/0x2e0
-> [    1.203472] [<ffffffff802589a4>] page_cache_ra_unbounded+0x1cc/0x290
-> [    1.203622] [<ffffffff8024e2fc>] filemap_fault+0x4f4/0x7e8
-> [    1.203753] [<ffffffff80282b2c>] __do_fault+0x44/0x190
-> [    1.203878] [<ffffffff80288e0c>] __handle_mm_fault+0x7e4/0xcd0
-> [    1.204015] [<ffffffff80289408>] handle_mm_fault+0x110/0x258
-> [    1.204149] [<ffffffff801220e0>] do_page_fault+0x110/0x4f0
-> [    1.204278] [<ffffffff801288d8>] tlb_do_page_fault_1+0x108/0x110
-> [    1.204421] [<ffffffff8035eddc>] padzero+0x64/0x98
-> [    1.204538] [<ffffffff80360618>] load_elf_binary+0x1808/0x18d0
-> [    1.204677] [<ffffffff802d9f40>] bprm_execve+0x240/0x5a8
-> [    1.204806] [<ffffffff802db49c>] kernel_execve+0x144/0x200
-> [    1.204937] [<ffffffff80b4a658>] try_to_run_init_process+0x18/0x58
-> [    1.205085] [<ffffffff80b5ecc0>] kernel_init+0xb4/0x10c
-> [    1.205220] [<ffffffff80102558>] ret_from_kernel_thread+0x14/0x1c
->
-> with some qemu emulations. Bisect log is attached.
->
-> I can not easily revert the patch since an attempt to do so causes
-> conflicts, so I can not test upstream without this patch.
->
-> Guenter
+flight 168789 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168789/
 
-This looks because the mask of GFP_KERNEL is removed along with
-the removal of mpage_alloc().
+Regressions :-(
 
--static struct bio *
--mpage_alloc(struct block_device *bdev,
--               sector_t first_sector, int nr_vecs,
--               gfp_t gfp_flags)
--{
--       struct bio *bio;
--
--       /* Restrict the given (page cache) mask for slab allocations */
--       gfp_flags &= GFP_KERNEL;
--       bio = bio_alloc(gfp_flags, nr_vecs);
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
 
-In read ahead mode, do_mpage_readpage() uses the gfp flag of page->mapping.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-        if (args->is_readahead) {
-                op |= REQ_RAHEAD;
-                gfp = readahead_gfp_mask(page->mapping);
-        } else {
-                gfp = mapping_gfp_constraint(page->mapping, GFP_KERNEL);
-        }
+version targeted for testing:
+ ovmf                 ec0b54849b23efa25caf0055b0eef8bf9b4dec98
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-The default value of the gfp flag is set to GFP_HIGHUSER_MOVABLE by
-inode_init_always().
-So, __GFP_HIGHMEM hits the gfp warning at bio_alloc() that
-do_mpage_readpage() calls.
+Last test of basis   168254  2022-02-28 10:41:46 Z   22 days
+Failing since        168258  2022-03-01 01:55:31 Z   21 days  227 attempts
+Testing same since   168774  2022-03-22 08:40:31 Z    0 days    8 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
 
-Ryusuke Konishi
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
->
-> ---
-> # bad: [8565d64430f8278bea38dab0a3ab60b4e11c71e4] Merge tag 'bounds-fixes-v5.18-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/kees/linux
-> # good: [f443e374ae131c168a065ea1748feac6b2e76613] Linux 5.17
-> git bisect start 'HEAD' 'v5.17'
-> # good: [5628b8de1228436d47491c662dc521bc138a3d43] Merge tag 'random-5.18-rc1-for-linus' of git://git.kernel.org/pub/scm/linux/kernel/git/crng/random
-> git bisect good 5628b8de1228436d47491c662dc521bc138a3d43
-> # bad: [69d1dea852b54eecd8ad2ec92a7fd371e9aec4bd] Merge tag 'for-5.18/drivers-2022-03-18' of git://git.kernel.dk/linux-block
-> git bisect bad 69d1dea852b54eecd8ad2ec92a7fd371e9aec4bd
-> # good: [b080cee72ef355669cbc52ff55dc513d37433600] Merge tag 'for-5.18/io_uring-statx-2022-03-18' of git://git.kernel.dk/linux-block
-> git bisect good b080cee72ef355669cbc52ff55dc513d37433600
-> # bad: [22027a9811349de28f81e13e20e83299099acd3a] nvmet: replace ida_simple[get|remove] with the simler ida_[alloc|free]
-> git bisect bad 22027a9811349de28f81e13e20e83299099acd3a
-> # bad: [672fdcf0e7de3b1e39416ac85abf178f023271f1] block: partition include/linux/blk-cgroup.h
-> git bisect bad 672fdcf0e7de3b1e39416ac85abf178f023271f1
-> # bad: [b42c1fc3d55e077d36718ad9800d89100b2aff81] block: fix the kerneldoc for bio_end_io_acct
-> git bisect bad b42c1fc3d55e077d36718ad9800d89100b2aff81
-> # bad: [4b1dc86d1857f1007865cab759f2285280692eee] drbd: bio_alloc can't fail if it is allow to sleep
-> git bisect bad 4b1dc86d1857f1007865cab759f2285280692eee
-> # bad: [f0d911927b3c7cf5f9edb5941d0287144a602d0d] nilfs2: remove nilfs_alloc_seg_bio
-> git bisect bad f0d911927b3c7cf5f9edb5941d0287144a602d0d
-> # good: [e7243285c0fc87054990fcde630583586ff8ed5f] block: move blk_drop_partitions to blk.h
-> git bisect good e7243285c0fc87054990fcde630583586ff8ed5f
-> # bad: [d5f68a42da7a4516e7503c281a54a58727f07dc3] fs: remove mpage_alloc
-> git bisect bad d5f68a42da7a4516e7503c281a54a58727f07dc3
-> # good: [322cbb50de711814c42fb088f6d31901502c711a] block: remove genhd.h
-> git bisect good 322cbb50de711814c42fb088f6d31901502c711a
-> # first bad commit: [d5f68a42da7a4516e7503c281a54a58727f07dc3] fs: remove mpage_alloc
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 875 lines long.)
 
