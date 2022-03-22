@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFDA44E456C
+	by mail.lfdr.de (Postfix) with ESMTPS id CD9FD4E456B
 	for <lists+xen-devel@lfdr.de>; Tue, 22 Mar 2022 18:45:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.293618.498834 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.293619.498844 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWiYv-0001hS-6y; Tue, 22 Mar 2022 17:44:53 +0000
+	id 1nWiYw-0001x7-Eu; Tue, 22 Mar 2022 17:44:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 293618.498834; Tue, 22 Mar 2022 17:44:53 +0000
+Received: by outflank-mailman (output) from mailman id 293619.498844; Tue, 22 Mar 2022 17:44:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWiYv-0001fd-3e; Tue, 22 Mar 2022 17:44:53 +0000
-Received: by outflank-mailman (input) for mailman id 293618;
- Tue, 22 Mar 2022 17:44:51 +0000
+	id 1nWiYw-0001vR-BL; Tue, 22 Mar 2022 17:44:54 +0000
+Received: by outflank-mailman (input) for mailman id 293619;
+ Tue, 22 Mar 2022 17:44:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=dCW+=UB=intel.com=tamas.lengyel@srs-se1.protection.inumbo.net>)
- id 1nWiYt-0001fS-Ew
- for xen-devel@lists.xenproject.org; Tue, 22 Mar 2022 17:44:51 +0000
+ id 1nWiYu-0001fS-Ie
+ for xen-devel@lists.xenproject.org; Tue, 22 Mar 2022 17:44:52 +0000
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c3536900-aa07-11ec-8fbc-03012f2f19d4;
- Tue, 22 Mar 2022 18:44:48 +0100 (CET)
+ id c66ac872-aa07-11ec-8fbc-03012f2f19d4;
+ Tue, 22 Mar 2022 18:44:51 +0100 (CET)
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2022 10:41:58 -0700
+ 22 Mar 2022 10:42:00 -0700
 Received: from pinedahx-mobl.amr.corp.intel.com (HELO localhost.localdomain)
  ([10.212.28.2])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2022 10:41:56 -0700
+ 22 Mar 2022 10:41:59 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,25 +43,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3536900-aa07-11ec-8fbc-03012f2f19d4
+X-Inumbo-ID: c66ac872-aa07-11ec-8fbc-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1647971088; x=1679507088;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=Xhk57vQMBQZ8sZcCs2TYjPxJVd9VK6VDSHI+BKv+lWo=;
-  b=XAgMH1FL9Bognn3WStYE6NdcKXgl6bDiUDuB6rWZ7vEYxCVg0o34d6yW
-   kPJP4oSbJ5AShEBescGh05GGo0vcFOOIpfWXaNHXyNsLz+q6Z9+zBu4vd
-   yWt649EB1/agZGzabDQoi0+jonrTB8mlOoMStBalnKY3MrWMtrKpv4G3O
-   84NbkQgL8nWXKMKlJEctpzEU280me9UJOLh9ma9Jzn3qnzW7OVYbgFz1J
-   iqIZGRvGrhSiS9quHjlnLHNTR67Y2OaTuPUEHUOp7fGr+F9EMh+Om+cr4
-   uX4srKbBXdaNFzuQbsYnVidlMxBwQVsAEfaVzwZGT4UPS1k9yLrwGLcPJ
-   A==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10294"; a="321097366"
+  t=1647971091; x=1679507091;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=n5WPsYc98Ed00HkBSm/If63JlbzCdv9YyCjfjyKJigg=;
+  b=AcahRsS8PgFTliYvRG6BE30LPS0kGg62NXz3i8xvrkGdZVVlNWbeK+T2
+   bOCByGf93ODm1vEWxg5QIkoyCx+xzdSW46IWj3vwX8YKzfmYvzTudFy/l
+   Eamr/kmh2XKyC/vGuQ6np5B6eCMYbvVqbdkCjyTqGE6jjVVfCPZDUezB4
+   Wjcc06fT70rsD1sB9WY2mZp7wBs6pxmzKfmsOzE4nPjRCOTMa2dB3aXB+
+   qeWOXSTfTHKiBlAO2s8h3jHbaSVaCm1xEnvsPQ4LzrBfgoYWkZKr+9jNm
+   7roFpA3C6YoKniIGLL01uCBpnnEKm4rkq+tkWUDz/dWRq7k1R9ckq1QZd
+   w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10294"; a="321097373"
 X-IronPort-AV: E=Sophos;i="5.90,202,1643702400"; 
-   d="scan'208";a="321097366"
+   d="scan'208";a="321097373"
 X-IronPort-AV: E=Sophos;i="5.90,202,1643702400"; 
-   d="scan'208";a="717039014"
+   d="scan'208";a="717039034"
 From: Tamas K Lengyel <tamas.lengyel@intel.com>
 To: xen-devel@lists.xenproject.org
 Cc: Tamas K Lengyel <tamas.lengyel@intel.com>,
@@ -69,169 +69,66 @@ Cc: Tamas K Lengyel <tamas.lengyel@intel.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Tamas K Lengyel <tamas@tklengyel.com>
-Subject: [PATCH 1/3] x86/mem_sharing: option to skip populating special pages during fork
-Date: Tue, 22 Mar 2022 13:41:37 -0400
-Message-Id: <fb927228a8f68ce983ae0b46e6665b5b8dd0764e.1647970630.git.tamas.lengyel@intel.com>
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	George Dunlap <george.dunlap@citrix.com>
+Subject: [PATCH 2/3] x86/mem_sharing: use dom_cow as placeholder parent until fork is complete
+Date: Tue, 22 Mar 2022 13:41:38 -0400
+Message-Id: <d5d8c7bad025a4ef11bf09ad3a4b23c8b4673ff6.1647970630.git.tamas.lengyel@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <fb927228a8f68ce983ae0b46e6665b5b8dd0764e.1647970630.git.tamas.lengyel@intel.com>
+References: <fb927228a8f68ce983ae0b46e6665b5b8dd0764e.1647970630.git.tamas.lengyel@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add option to the fork memop to skip populating the fork with special pages.
-These special pages are only necessary when setting up forks to be fully
-functional with a toolstack. For short-lived forks where no toolstack is active
-these pages are uneccesary.
+For the duration of the fork memop set dom_cow as a placeholder parent. This
+gets updated to the real parent when the fork operation completes, or to NULL
+in case the fork failed. Doing this allows us to skip populating the physmap
+with any entries until the fork operation successfully completes. Currently
+bringing up vCPUs may inadvertantly map in some pages that can turn out to be
+unecessary, like the CR3 gfn when paging is disabled.
 
 Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
 ---
- xen/arch/x86/include/asm/hvm/domain.h |  4 +++-
- xen/arch/x86/mm/mem_sharing.c         | 33 +++++++++++++++++----------
- xen/include/public/memory.h           |  4 ++--
- 3 files changed, 26 insertions(+), 15 deletions(-)
+ xen/arch/x86/include/asm/mem_sharing.h | 2 +-
+ xen/arch/x86/mm/mem_sharing.c          | 5 ++++-
+ 2 files changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/xen/arch/x86/include/asm/hvm/domain.h b/xen/arch/x86/include/asm/hvm/domain.h
-index 698455444e..446cd06411 100644
---- a/xen/arch/x86/include/asm/hvm/domain.h
-+++ b/xen/arch/x86/include/asm/hvm/domain.h
-@@ -31,7 +31,9 @@
- #ifdef CONFIG_MEM_SHARING
- struct mem_sharing_domain
- {
--    bool enabled, block_interrupts;
-+    bool enabled;
-+    bool block_interrupts;
-+    bool skip_special_pages;
+diff --git a/xen/arch/x86/include/asm/mem_sharing.h b/xen/arch/x86/include/asm/mem_sharing.h
+index cf7a12f4d2..b4a8e8795a 100644
+--- a/xen/arch/x86/include/asm/mem_sharing.h
++++ b/xen/arch/x86/include/asm/mem_sharing.h
+@@ -79,7 +79,7 @@ static inline int mem_sharing_unshare_page(struct domain *d,
  
-     /*
-      * When releasing shared gfn's in a preemptible manner, recall where
+ static inline bool mem_sharing_is_fork(const struct domain *d)
+ {
+-    return d->parent;
++    return d->parent && d->parent != dom_cow;
+ }
+ 
+ int mem_sharing_fork_page(struct domain *d, gfn_t gfn,
 diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
-index 15e6a7ed81..84c04ddfa3 100644
+index 84c04ddfa3..a21c781452 100644
 --- a/xen/arch/x86/mm/mem_sharing.c
 +++ b/xen/arch/x86/mm/mem_sharing.c
-@@ -1643,7 +1643,8 @@ static int bring_up_vcpus(struct domain *cd, struct domain *d)
-     return 0;
- }
- 
--static int copy_vcpu_settings(struct domain *cd, const struct domain *d)
-+static int copy_vcpu_settings(struct domain *cd, const struct domain *d,
-+                              bool skip_special_pages)
- {
-     unsigned int i;
-     struct p2m_domain *p2m = p2m_get_hostp2m(cd);
-@@ -1660,7 +1661,7 @@ static int copy_vcpu_settings(struct domain *cd, const struct domain *d)
- 
-         /* Copy & map in the vcpu_info page if the guest uses one */
-         vcpu_info_mfn = d_vcpu->vcpu_info_mfn;
--        if ( !mfn_eq(vcpu_info_mfn, INVALID_MFN) )
-+        if ( !skip_special_pages && !mfn_eq(vcpu_info_mfn, INVALID_MFN) )
-         {
-             mfn_t new_vcpu_info_mfn = cd_vcpu->vcpu_info_mfn;
- 
-@@ -1807,17 +1808,18 @@ static int copy_special_pages(struct domain *cd, struct domain *d)
-     return 0;
- }
- 
--static int copy_settings(struct domain *cd, struct domain *d)
-+static int copy_settings(struct domain *cd, struct domain *d,
-+                         bool skip_special_pages)
- {
-     int rc;
- 
--    if ( (rc = copy_vcpu_settings(cd, d)) )
-+    if ( (rc = copy_vcpu_settings(cd, d, skip_special_pages)) )
-         return rc;
- 
-     if ( (rc = hvm_copy_context_and_params(cd, d)) )
-         return rc;
- 
--    if ( (rc = copy_special_pages(cd, d)) )
-+    if ( !skip_special_pages && (rc = copy_special_pages(cd, d)) )
-         return rc;
- 
-     copy_tsc(cd, d);
-@@ -1826,9 +1828,11 @@ static int copy_settings(struct domain *cd, struct domain *d)
-     return rc;
- }
- 
--static int fork(struct domain *cd, struct domain *d)
-+static int fork(struct domain *cd, struct domain *d, uint16_t flags)
- {
-     int rc = -EBUSY;
-+    bool block_interrupts = flags & XENMEM_FORK_BLOCK_INTERRUPTS;
-+    bool skip_special_pages = flags & XENMEM_FORK_SKIP_SPECIAL_PAGES;
- 
-     if ( !cd->controller_pause_count )
-         return rc;
-@@ -1856,7 +1860,13 @@ static int fork(struct domain *cd, struct domain *d)
-     if ( (rc = bring_up_vcpus(cd, d)) )
-         goto done;
- 
--    rc = copy_settings(cd, d);
-+    if ( !(rc = copy_settings(cd, d, skip_special_pages)) )
-+    {
-+        cd->arch.hvm.mem_sharing.block_interrupts = block_interrupts;
-+        cd->arch.hvm.mem_sharing.skip_special_pages = skip_special_pages;
-+        /* skip mapping the vAPIC page on unpause if skipping special pages */
-+        cd->creation_finished = skip_special_pages;
-+    }
- 
-  done:
-     if ( rc && rc != -ERESTART )
-@@ -1920,7 +1930,7 @@ static int mem_sharing_fork_reset(struct domain *d)
+@@ -1850,7 +1850,9 @@ static int fork(struct domain *cd, struct domain *d, uint16_t flags)
+         *cd->arch.cpuid = *d->arch.cpuid;
+         *cd->arch.msr = *d->arch.msr;
+         cd->vmtrace_size = d->vmtrace_size;
+-        cd->parent = d;
++
++        /* use dom_cow as a placeholder until we are all done */
++        cd->parent = dom_cow;
      }
-     spin_unlock_recursive(&d->page_alloc_lock);
  
--    rc = copy_settings(d, pd);
-+    rc = copy_settings(d, pd, d->arch.hvm.mem_sharing.skip_special_pages);
+     /* This is preemptible so it's the first to get done */
+@@ -1862,6 +1864,7 @@ static int fork(struct domain *cd, struct domain *d, uint16_t flags)
  
-     domain_unpause(d);
- 
-@@ -2190,7 +2200,8 @@ int mem_sharing_memop(XEN_GUEST_HANDLE_PARAM(xen_mem_sharing_op_t) arg)
-         if ( mso.u.fork.pad )
-             goto out;
-         if ( mso.u.fork.flags &
--             ~(XENMEM_FORK_WITH_IOMMU_ALLOWED | XENMEM_FORK_BLOCK_INTERRUPTS) )
-+             ~(XENMEM_FORK_WITH_IOMMU_ALLOWED | XENMEM_FORK_BLOCK_INTERRUPTS |
-+               XENMEM_FORK_SKIP_SPECIAL_PAGES) )
-             goto out;
- 
-         rc = rcu_lock_live_remote_domain_by_id(mso.u.fork.parent_domain,
-@@ -2212,14 +2223,12 @@ int mem_sharing_memop(XEN_GUEST_HANDLE_PARAM(xen_mem_sharing_op_t) arg)
-             goto out;
-         }
- 
--        rc = fork(d, pd);
-+        rc = fork(d, pd, mso.u.fork.flags);
- 
-         if ( rc == -ERESTART )
-             rc = hypercall_create_continuation(__HYPERVISOR_memory_op,
-                                                "lh", XENMEM_sharing_op,
-                                                arg);
--        else if ( !rc && (mso.u.fork.flags & XENMEM_FORK_BLOCK_INTERRUPTS) )
--            d->arch.hvm.mem_sharing.block_interrupts = true;
- 
-         rcu_unlock_domain(pd);
-         break;
-diff --git a/xen/include/public/memory.h b/xen/include/public/memory.h
-index a1a0f0233a..208d8dcbd9 100644
---- a/xen/include/public/memory.h
-+++ b/xen/include/public/memory.h
-@@ -543,10 +543,10 @@ struct xen_mem_sharing_op {
-         } debug;
-         struct mem_sharing_op_fork {      /* OP_FORK */
-             domid_t parent_domain;        /* IN: parent's domain id */
--/* Only makes sense for short-lived forks */
-+/* These flags only makes sense for short-lived forks */
- #define XENMEM_FORK_WITH_IOMMU_ALLOWED (1u << 0)
--/* Only makes sense for short-lived forks */
- #define XENMEM_FORK_BLOCK_INTERRUPTS   (1u << 1)
-+#define XENMEM_FORK_SKIP_SPECIAL_PAGES (1u << 2)
-             uint16_t flags;               /* IN: optional settings */
-             uint32_t pad;                 /* Must be set to 0 */
-         } fork;
+     if ( !(rc = copy_settings(cd, d, skip_special_pages)) )
+     {
++        cd->parent = d;
+         cd->arch.hvm.mem_sharing.block_interrupts = block_interrupts;
+         cd->arch.hvm.mem_sharing.skip_special_pages = skip_special_pages;
+         /* skip mapping the vAPIC page on unpause if skipping special pages */
 -- 
 2.25.1
 
