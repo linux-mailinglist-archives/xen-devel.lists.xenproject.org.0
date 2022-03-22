@@ -2,42 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 995F24E3D75
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Mar 2022 12:22:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.293372.498366 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB3A64E3D76
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Mar 2022 12:22:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.293375.498377 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWcZz-0001Ku-IT; Tue, 22 Mar 2022 11:21:35 +0000
+	id 1nWcbA-0001rt-Tj; Tue, 22 Mar 2022 11:22:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 293372.498366; Tue, 22 Mar 2022 11:21:35 +0000
+Received: by outflank-mailman (output) from mailman id 293375.498377; Tue, 22 Mar 2022 11:22:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWcZz-0001IQ-FX; Tue, 22 Mar 2022 11:21:35 +0000
-Received: by outflank-mailman (input) for mailman id 293372;
- Tue, 22 Mar 2022 11:21:33 +0000
+	id 1nWcbA-0001ps-QZ; Tue, 22 Mar 2022 11:22:48 +0000
+Received: by outflank-mailman (input) for mailman id 293375;
+ Tue, 22 Mar 2022 11:22:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qWAj=UB=redhat.com=imammedo@srs-se1.protection.inumbo.net>)
- id 1nWcZx-0001IG-9C
- for xen-devel@lists.xenproject.org; Tue, 22 Mar 2022 11:21:33 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 38c0e4a3-a9d2-11ec-a405-831a346695d4;
- Tue, 22 Mar 2022 12:21:31 +0100 (CET)
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
- [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-505-7yesWshRPCOYuV9-T0buNg-1; Tue, 22 Mar 2022 07:21:28 -0400
-Received: by mail-ed1-f72.google.com with SMTP id
- v15-20020a50f08f000000b0041902200ab4so7551689edl.22
- for <xen-devel@lists.xenproject.org>; Tue, 22 Mar 2022 04:21:28 -0700 (PDT)
-Received: from localhost (nat-pool-brq-t.redhat.com. [213.175.37.10])
- by smtp.gmail.com with ESMTPSA id
- hs12-20020a1709073e8c00b006dfd7dee980sm4080173ejc.30.2022.03.22.04.21.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 22 Mar 2022 04:21:26 -0700 (PDT)
+ <SRS0=wGTH=UB=citrix.com=prvs=07349bdb1=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1nWcb9-0001pm-QM
+ for xen-devel@lists.xenproject.org; Tue, 22 Mar 2022 11:22:47 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 647803d3-a9d2-11ec-a405-831a346695d4;
+ Tue, 22 Mar 2022 12:22:46 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,182 +36,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38c0e4a3-a9d2-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1647948089;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sI/gJK8PHjVhsB9l+0a1Cbfqayf1bW3iE9HELjmMQqg=;
-	b=Wg7np52ZXYBwDiIXbHtAA3ixJ6zTtwLnuAXJBZO2wD9FyehpYHE6oFSkYicNdaKrxU4b2f
-	xiHcF0n/MjUj5r6HLxmij1XMOWR4xaeunvM0w0CPUUAaP4M4SzZ74wZWqXzZv80AhAw54F
-	8Ax8P0EqR9I/qaiPe4mygtqaLwyuGwo=
-X-MC-Unique: 7yesWshRPCOYuV9-T0buNg-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=Bx3w8/lhlewJ7oUWvr/1eh6laDl4Abf2g0d4r2c9J7s=;
-        b=IGECR9+Hl5ValVnvOZmVDrBECq6CwqPXglgekppPg+5Pv9rjD5k4kZ2RSyqu0lqJul
-         vsM45qfON4sH72gSXuhY7VYzbiAYxlQXHnlkJdQ9RfIt6fZdR8OFGYDBMYEgIPL0pdVS
-         /zgZSw4ZATMIk5dDiNlTE9H93yNRg9mqLm6gSrzEO2LlzW71FxW51QLMJ/9SUNOvIVoO
-         10eYMKgRIX0+mLwD6Ssdi2hs0TJtcibjS3Vr9jWEPZ0QJH6SsKsOzepoR5xZY+ldzMUD
-         7MjHD+7AMbz45kJVxilSI0IMb8xs2PzIm6v8D+eS0/+hLiVbR/N6R6OZlbIs61li+rHz
-         ImgQ==
-X-Gm-Message-State: AOAM531VXOXXl8BLsbvf7m0RTrY60Pp7aFS/VOJFVnNpsz+fv0RgQegr
-	ORpveRPUGPs6ush2TtxJeieinE8BawTMWG7ZhxFgH8t8qJMLbXOVHrdoRdoPmwUCg+Umv0s601f
-	NvN5tSrZf0YqCcUvuGNvMfGm0CLU=
-X-Received: by 2002:a05:6402:5243:b0:419:4ce2:cb5c with SMTP id t3-20020a056402524300b004194ce2cb5cmr6931854edd.151.1647948087465;
-        Tue, 22 Mar 2022 04:21:27 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyiCZtBiS5tBYkHXW9CYVzlZ6xWEpBQiuxdMrs5J8/gCaIPyAwbOSsr9vx7UIAZ7GGLmjEZiA==
-X-Received: by 2002:a05:6402:5243:b0:419:4ce2:cb5c with SMTP id t3-20020a056402524300b004194ce2cb5cmr6931812edd.151.1647948087187;
-        Tue, 22 Mar 2022 04:21:27 -0700 (PDT)
-Date: Tue, 22 Mar 2022 12:21:24 +0100
-From: Igor Mammedov <imammedo@redhat.com>
-To: Markus Armbruster <armbru@redhat.com>
-Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>, Richard
- Henderson <richard.henderson@linaro.org>, Gerd Hoffmann
- <kraxel@redhat.com>, Christian Schoenebeck <qemu_oss@crudebyte.com>,
- "Gonglei (Arei)" <arei.gonglei@huawei.com>, =?UTF-8?B?TWFyYy1BbmRyw6k=?=
- Lureau <marcandre.lureau@redhat.com>, "Michael S. Tsirkin"
- <mst@redhat.com>, Ani Sinha <ani@anisinha.ca>, Laurent Vivier
- <lvivier@redhat.com>, Amit Shah <amit@kernel.org>, Peter Maydell
- <peter.maydell@linaro.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- =?UTF-8?B?SGVydsOp?= Poussineau <hpoussin@reactos.org>, Aleksandar Rikalo
- <aleksandar.rikalo@syrmia.com>, Corey Minyard <cminyard@mvista.com>,
- Patrick Venture <venture@google.com>, Eduardo Habkost
- <eduardo@habkost.net>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, Peter
- Xu <peterx@redhat.com>, Jason Wang <jasowang@redhat.com>, =?UTF-8?B?Q8Op?=
- =?UTF-8?B?ZHJpYw==?= Le Goater <clg@kaod.org>, Daniel Henrique Barboza
- <danielhb413@gmail.com>, David Gibson <david@gibson.dropbear.id.au>, Greg
- Kurz <groug@kaod.org>, Philippe =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?=
- <f4bug@amsat.org>, Jean-Christophe Dubois <jcd@tribudubois.net>, Keith
- Busch <kbusch@kernel.org>, Klaus Jensen <its@irrelevant.dk>, Yuval Shaia
- <yuval.shaia.ml@gmail.com>, Yoshinori Sato <ysato@users.sourceforge.jp>,
- Magnus Damm <magnus.damm@gmail.com>, Fabien Chouteau
- <chouteau@adacore.com>, KONRAD Frederic <frederic.konrad@adacore.com>, Mark
- Cave-Ayland <mark.cave-ayland@ilande.co.uk>, Artyom Tarasenko
- <atar4qemu@gmail.com>, Alex Williamson <alex.williamson@redhat.com>, Eric
- Auger <eric.auger@redhat.com>, Max Filippov <jcmvbkbc@gmail.com>, Juan
- Quintela <quintela@redhat.com>, "Dr. David Alan Gilbert"
- <dgilbert@redhat.com>, Konstantin Kostiuk <kkostiuk@redhat.com>, Michael
- Roth <michael.roth@amd.com>, "Daniel P. =?UTF-8?B?QmVycmFuZ8Op?="
- <berrange@redhat.com>, Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>, Alex
- =?UTF-8?B?QmVubsOpZQ==?= <alex.bennee@linaro.org>, David Hildenbrand
- <david@redhat.com>, Wenchao Wang <wenchao.wang@intel.com>, Kamil Rytarowski
- <kamil@netbsd.org>, Reinoud Zandijk <reinoud@netbsd.org>, Sunil Muthuswamy
- <sunilmut@microsoft.com>, Cornelia Huck <cohuck@redhat.com>, Thomas Huth
- <thuth@redhat.com>, Eric Blake <eblake@redhat.com>, Vladimir
- Sementsov-Ogievskiy <vsementsov@virtuozzo.com>, John Snow
- <jsnow@redhat.com>, kvm@vger.kernel.org, qemu-arm@nongnu.org,
- xen-devel@lists.xenproject.org, qemu-ppc@nongnu.org, qemu-block@nongnu.org,
- haxm-team@intel.com, qemu-s390x@nongnu.org
-Subject: Re: [PATCH v2 3/3] Use g_new() & friends where that makes obvious
- sense
-Message-ID: <20220322122124.4f1d76e9@redhat.com>
-In-Reply-To: <20220315144156.1595462-4-armbru@redhat.com>
-References: <20220315144156.1595462-1-armbru@redhat.com>
-	<20220315144156.1595462-4-armbru@redhat.com>
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.31; x86_64-redhat-linux-gnu)
+X-Inumbo-ID: 647803d3-a9d2-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1647948166;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=z9yuLYFxbZ33UQOUtPSdRzXNFDuUG6+5XTHn/aSrd5I=;
+  b=Xz1OoEA4DQwXYdy55l7M8QXLJ4RcAx/vj2/g+l8rCBYsk1+/bzCKpasI
+   UKGUMfUCKmCfw6qY87U1y/5W5dONzHx1xw/1x68+rm7y4xBCA2Em5zxDL
+   fmPoPS7sM39DrhAURpyBTlPtpZnU/kKMMSCfgdeTvPk7iGiQo+U5fOv2H
+   w=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 66847194
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:I7+lgqlvV8itz/iq+KiQOOjo5gwvJkRdPkR7XQ2eYbSJt1+Wr1Gzt
+ xJLXm7UafrcZzf2fNx/a9mwoEMHu8eDxtRrSQU5pCgyQiMWpZLJC+rCIxarNUt+DCFioGGLT
+ Sk6QoOdRCzhZiaE/n9BCpC48T8kk/vgqoPUUIYoAAgoLeNfYHpn2EoLd9IR2NYy24DiWVnV4
+ 7senuWEULOb828sWo4rw/rrRCNH5JwebxtB4zTSzdgS1LPvvyF94KA3fMldHFOhKmVgJcaoR
+ v6r8V2M1jixEyHBqD+Suu2TnkUiGtY+NOUV45Zcc/DKbhNq/kTe3kunXRa1hIg+ZzihxrhMJ
+ NtxWZOYEywLJKjInrwkehQFAxFgG6pKp+XEGC3q2SCT5xWun3rExvxvCAc9PJEC+/YxCmZLn
+ RAaAGlTNFbZ3bvwme/lDLk37iggBJCD0Ic3s3d8zTbfHLA+TIrKWani7t5ExjYgwMtJGJ4yY
+ uJHN2ozM02RP3WjPH8WGoAuxvr2iUXncjpqmk6sh/cYvmv6mVkZPL/Fb4OOJ43iqd9utlmcj
+ nLL+SL+GB5yHNaS0yaf+3SgwOrGhzrmWZk6Hae9sPVthTW7ymMfBRIMXHOnsPK5jQi4QNsZJ
+ EsKkgItqq4o/UDtUdj5XDW/unePuhNaUN1Ve8U44gyQzqvf4y6CG3MJCDVGbbQOttIyRDEs/
+ k+EmZXuHzMHmK2YTzeR+6mZqRu2ODMJNikSaCkcVwwH7tL/5oYpgXrnQs54Fa+pjvX8ATzq3
+ y2Rty86mqkSisgQka68+DjvvTWooZTYSx8v0S/eVGml8wBRaZasYsqj7l2zxe1bMI+TQ12Fv
+ X4Fs8uT9uYDCdeKjiPlfQkWNOj3vbDfamSa2AMxWcl6n9iwx5K9Vdp7wit7IEExC+8JJC/Zf
+ mnUtVwL56YGaRNGcpRLS462Ds0ry43pGtLkSu3YY7JyX3RhSOOU1HowPBDNhggBhGBpyPhiY
+ snDLa5AGF5AUcxaICyKq/DxOFPB7gQ33ivtSJ/y1HxLOpLONSfOGd/p3LZjB93VDZ9oQi2Iq
+ r6z1OPQkn2ztdEShAGNqub/ynhQcRAG6Wje8ZA/SwJ6ClMO9JsdI/HQ26g9XIdugr5YkOzFl
+ lnkBBMHmAqg2CKWc1vXApyGVF8JdcwjxZ7cFXZxVWtEJlB5Odr/hEvhX8VfkUYbGBxLkqcvE
+ qhtlzSoCfVTUDXXkwnxnrGmxLGOgC+D3FrUVwL8OWBXV8c5G2Thp4+1FiOypXJmJnfm6qMDT
+ 0iIi1qzrWwrHF85Uq47qZuHkjuMgJTqsLkrDhWSfYULJhmEHUoDA3WZs8Lb6vokcX3rrgZ2H
+ S7PafvEjYEhe7MIzeQ=
+IronPort-HdrOrdr: A9a23:rzmd361uXQcHlK4WDOMgogqjBLgkLtp133Aq2lEZdPRUGvb2qy
+ nIpoV/6faUskd3ZJhOo7G90cW7LE80lqQFg7X5X43DYOCOggLBR+tfBOPZslnd8kbFmNK1u5
+ 0NT0EHMqySMWRH
+X-IronPort-AV: E=Sophos;i="5.90,201,1643691600"; 
+   d="scan'208";a="66847194"
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Julien Grall <julien@xen.org>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Ross Lagerwall <ross.lagerwall@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, George Dunlap <george.dunlap@citrix.com>, Wei Liu
+	<wl@xen.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>, Jan Beulich
+	<jbeulich@suse.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Subject: [XEN PATCH v10 0/7] xen: Build system improvements, now with out-of-tree build!
+Date: Tue, 22 Mar 2022 11:22:31 +0000
+Message-ID: <20220322112238.1117737-1-anthony.perard@citrix.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=imammedo@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On Tue, 15 Mar 2022 15:41:56 +0100
-Markus Armbruster <armbru@redhat.com> wrote:
+Patch series available in this git branch:
+https://xenbits.xen.org/git-http/people/aperard/xen-unstable.git br.build-system-xen-v10
 
-> g_new(T, n) is neater than g_malloc(sizeof(T) * n).  It's also safer,
-> for two reasons.  One, it catches multiplication overflowing size_t.
-> Two, it returns T * rather than void *, which lets the compiler catch
-> more type errors.
->=20
-> This commit only touches allocations with size arguments of the form
-> sizeof(T).
->=20
-> Patch created mechanically with:
->=20
->     $ spatch --in-place --sp-file scripts/coccinelle/use-g_new-etc.cocci =
-\
-> =09     --macro-file scripts/cocci-macro-file.h FILES...
->=20
-> Signed-off-by: Markus Armbruster <armbru@redhat.com>
-> Reviewed-by: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
-> Reviewed-by: C=C3=A9dric Le Goater <clg@kaod.org>
-> Reviewed-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
-> Acked-by: Dr. David Alan Gilbert <dgilbert@redhat.com>
+v10:
+    Mainly a rebase (changes needed in patches 1 and 3).
+    One comment change in patch 1.
 
+v9:
+    One new patch (patch 3).
+    Otherwise, detailed change logs in patches.
 
-for */i386/*
-Reviewed-by: Igor Mammedov <imammedo@redhat.com>
+    Removed the rfc part about doing out-of-tree build without setting VPATH
+    (which would have allowed mixed in-tree / out-of-tree builds).
 
+v8:
+    Mostly rework of v7. With many patch already applied.
+    Some detail changes that are spread through many patches:
+    - `make cloc` recipe should now work throughout the series, update of it is
+      done in 3 patches.
+    - new patch "build: fix enforce unique symbols for recent clang version"
+      to fix an issue with clang.
+    - introducing $(srctree) and $(objtree) earlier
+    - introducing $(srcdir) as shortcut for $(srctree)/$(src)
+    - introduce usage of -iquote instead of -I in some cases
+    More detail change log can be found in patches notes.
 
-nit:
-possible miss, see below=20
+    Also this v8 present a work-in-progress of the ability to do out-of-tree
+    build without setting VPATH. This is presented as an alternative to force
+    use of out-of-tree build. As the last patch show, it allows to build the
+    xen-shim without the linkfarm and we don't need to make any other changes
+    to any thing that build xen (osstest, distribution packages, xen.git, ...,
+    and developers finger macros). The patches are only there as WIP / RFC as
+    they were some concern about the usefulness and extra changes needed.
+    We can decide whether those changes are good or if this is too much and we
+    should force out-of-tree build for the hypervisor.
 
-[...]
-> diff --git a/hw/i386/xen/xen-hvm.c b/hw/i386/xen/xen-hvm.c
-> index cf8e500514..0731f70410 100644
-> --- a/hw/i386/xen/xen-hvm.c
-> +++ b/hw/i386/xen/xen-hvm.c
+v7:
+    Out-of-tree build!
 
-missed:
+    This mean many more patches. Everything after patch 27 is new.
 
- pfn_list =3D g_malloc(sizeof (*pfn_list) * nr_pfn);
+    There's a few new patch before that, but otherwise are rework of v6.
 
+Hi,
 
-> @@ -396,7 +396,7 @@ go_physmap:
-> =20
->      mr_name =3D memory_region_name(mr);
-> =20
-> -    physmap =3D g_malloc(sizeof(XenPhysmap));
-> +    physmap =3D g_new(XenPhysmap, 1);
-> =20
->      physmap->start_addr =3D start_addr;
->      physmap->size =3D size;
-> @@ -1281,7 +1281,7 @@ static void xen_read_physmap(XenIOState *state)
->          return;
-> =20
->      for (i =3D 0; i < num; i++) {
-> -        physmap =3D g_malloc(sizeof (XenPhysmap));
-> +        physmap =3D g_new(XenPhysmap, 1);
->          physmap->phys_offset =3D strtoull(entries[i], NULL, 16);
->          snprintf(path, sizeof(path),
->                  "/local/domain/0/device-model/%d/physmap/%s/start_addr",
-> @@ -1410,7 +1410,7 @@ void xen_hvm_init_pc(PCMachineState *pcms, MemoryRe=
-gion **ram_memory)
->      xen_pfn_t ioreq_pfn;
->      XenIOState *state;
-> =20
-> -    state =3D g_malloc0(sizeof (XenIOState));
-> +    state =3D g_new0(XenIOState, 1);
-> =20
->      state->xce_handle =3D xenevtchn_open(NULL, 0);
->      if (state->xce_handle =3D=3D NULL) {
-> @@ -1463,7 +1463,7 @@ void xen_hvm_init_pc(PCMachineState *pcms, MemoryRe=
-gion **ram_memory)
->      }
-> =20
->      /* Note: cpus is empty at this point in init */
-> -    state->cpu_by_vcpu_id =3D g_malloc0(max_cpus * sizeof(CPUState *));
-> +    state->cpu_by_vcpu_id =3D g_new0(CPUState *, max_cpus);
-> =20
->      rc =3D xen_set_ioreq_server_state(xen_domid, state->ioservid, true);
->      if (rc < 0) {
-> @@ -1472,7 +1472,7 @@ void xen_hvm_init_pc(PCMachineState *pcms, MemoryRe=
-gion **ram_memory)
->          goto err;
->      }
-> =20
-> -    state->ioreq_local_port =3D g_malloc0(max_cpus * sizeof (evtchn_port=
-_t));
-> +    state->ioreq_local_port =3D g_new0(evtchn_port_t, max_cpus);
+I have work toward building Xen (the hypervisor) with Linux's build system,
+Kbuild.
 
-[...]
+The main reason for that is to be able to have out-of-tree build. It's annoying
+when a build fail because of the pvshim. Other benefit is a much faster
+rebuild, and `make clean` doesn't take ages, and better dependencies to figure
+out what needs to be rebuild.
+
+Cheers,
+
+Anthony PERARD (7):
+  build: grab common EFI source files in arch specific dir
+  build: replace $(BASEDIR) by $(objtree)
+  build: replace $(BASEDIR) and use $(srctree)
+  build: rework "headers*.chk" prerequisite in include/
+  build: specify source tree in include/ for prerequisite
+  build: shuffle main Makefile
+  build: adding out-of-tree support to the xen build
+
+ .gitignore                   |   1 +
+ xen/Kconfig                  |   4 +-
+ xen/Makefile                 | 187 +++++++++++++++++++++++++++--------
+ xen/Rules.mk                 |  22 ++++-
+ xen/arch/arm/Makefile        |  10 +-
+ xen/arch/arm/efi/Makefile    |   4 +-
+ xen/arch/x86/Makefile        |  32 +++---
+ xen/arch/x86/arch.mk         |   7 +-
+ xen/arch/x86/boot/Makefile   |   6 ++
+ xen/arch/x86/efi/Makefile    |   5 +-
+ xen/build.mk                 |   4 +-
+ xen/common/Makefile          |   4 +-
+ xen/common/efi/efi-common.mk |  16 +++
+ xen/common/libfdt/Makefile   |   2 +-
+ xen/include/Makefile         |  60 ++++++-----
+ xen/scripts/Kconfig.include  |   2 +-
+ xen/scripts/Makefile.clean   |   5 +-
+ xen/test/livepatch/Makefile  |  14 +--
+ xen/xsm/flask/Makefile       |  13 +--
+ xen/xsm/flask/ss/Makefile    |   1 +
+ 20 files changed, 283 insertions(+), 116 deletions(-)
+ create mode 100644 xen/common/efi/efi-common.mk
+
+-- 
+Anthony PERARD
 
 
