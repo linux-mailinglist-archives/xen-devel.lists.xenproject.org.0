@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AF754E4355
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Mar 2022 16:50:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.293566.498725 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12D5C4E4357
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Mar 2022 16:51:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.293569.498737 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWglq-000235-5N; Tue, 22 Mar 2022 15:50:06 +0000
+	id 1nWgnR-0002kc-HE; Tue, 22 Mar 2022 15:51:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 293566.498725; Tue, 22 Mar 2022 15:50:06 +0000
+Received: by outflank-mailman (output) from mailman id 293569.498737; Tue, 22 Mar 2022 15:51:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWglq-0001zY-2F; Tue, 22 Mar 2022 15:50:06 +0000
-Received: by outflank-mailman (input) for mailman id 293566;
- Tue, 22 Mar 2022 15:50:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nWgnR-0002il-DA; Tue, 22 Mar 2022 15:51:45 +0000
+Received: by outflank-mailman (input) for mailman id 293569;
+ Tue, 22 Mar 2022 15:51:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vJOs=UB=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nWglp-0001nQ-7B
- for xen-devel@lists.xenproject.org; Tue, 22 Mar 2022 15:50:05 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bced118f-a9f7-11ec-a405-831a346695d4;
- Tue, 22 Mar 2022 16:50:03 +0100 (CET)
+ id 1nWgnQ-0002ib-0W
+ for xen-devel@lists.xenproject.org; Tue, 22 Mar 2022 15:51:44 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f833a28f-a9f7-11ec-8fbc-03012f2f19d4;
+ Tue, 22 Mar 2022 16:51:43 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1B85F1F38F;
- Tue, 22 Mar 2022 15:50:03 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id AEC0D210E5;
+ Tue, 22 Mar 2022 15:51:42 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C0871133B6;
- Tue, 22 Mar 2022 15:50:02 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 74022133B6;
+ Tue, 22 Mar 2022 15:51:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id oAPJLSrwOWJYVwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 22 Mar 2022 15:50:02 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id ECUFG47wOWIlWAAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 22 Mar 2022 15:51:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,151 +51,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bced118f-a9f7-11ec-a405-831a346695d4
+X-Inumbo-ID: f833a28f-a9f7-11ec-8fbc-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1647964203; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1647964302; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=0gBQScvwdVxKjyAG3NnuySYmJTXr2MBLbV0LSshhlNE=;
-	b=afvnMB1oJlsl/b3emSQC6H8gKTFIKJg5Sc/SuVd6iP/V++emD24ObjlNEq4Xv6JNmb8o5z
-	64M9iZG9MF92a5pRco8xDcqCCDNo5ST9NtI58QuqtL1DVMM/3ryb8mNpSMl5SESRX14yZh
-	uNYkz1RkrTpIp3hOpN6/M/q8eInbatM=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org,
-	x86@kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [PATCH] xen: fix is_xen_pmu()
-Date: Tue, 22 Mar 2022 16:50:01 +0100
-Message-Id: <20220322155001.21979-1-jgross@suse.com>
-X-Mailer: git-send-email 2.34.1
+	 in-reply-to:in-reply-to:references:references;
+	bh=pFktat+7ApyjoGXFa1yZioTq/sp+PSrn1regvTl8ofE=;
+	b=n80Vr1W8JJqaq7yS+uNo3EE/GEbtL2a1jH10Hy0HwwLoAkOeoh6aXIkerNNGBrc/05peuz
+	HOOxFeribZ0BDVQfMm2V/JKLRRAInRTzrzudyfG6sRs94O6NyiSQmlQ0kmeSSGjXWE0HCA
+	dc14Qioyq5jaVV3jUVlgWXR+BT+eodQ=
+Message-ID: <65436e8b-b5fb-6c53-1dc4-d8a89e4a9315@suse.com>
+Date: Tue, 22 Mar 2022 16:51:41 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Subject: Re: [PATCH v4 07/11] xen: generate hypercall interface related code
+Content-Language: en-US
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <20220310073420.15622-1-jgross@suse.com>
+ <20220310073420.15622-8-jgross@suse.com>
+ <Yjnr3FAS3G94Yf6+@perard.uk.xensource.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <Yjnr3FAS3G94Yf6+@perard.uk.xensource.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------9KqAWBwLMAiBYEy0DMcbOf2N"
 
-is_xen_pmu() is taking the cpu number as parameter, but it is not using
-it. Instead it just tests whether the Xen PMU initialization on the
-current cpu did succeed. As this test is done by checking a percpu
-pointer, preemption needs to be disabled in order to avoid switching
-the cpu while doing the test. While resuming from suspend() this seems
-not to be the case:
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------9KqAWBwLMAiBYEy0DMcbOf2N
+Content-Type: multipart/mixed; boundary="------------rphbHH9Q8X3zE3m0LD8q9XYa";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Message-ID: <65436e8b-b5fb-6c53-1dc4-d8a89e4a9315@suse.com>
+Subject: Re: [PATCH v4 07/11] xen: generate hypercall interface related code
+References: <20220310073420.15622-1-jgross@suse.com>
+ <20220310073420.15622-8-jgross@suse.com>
+ <Yjnr3FAS3G94Yf6+@perard.uk.xensource.com>
+In-Reply-To: <Yjnr3FAS3G94Yf6+@perard.uk.xensource.com>
 
-[   88.082751] ACPI: PM: Low-level resume complete
-[   88.087933] ACPI: EC: EC started
-[   88.091464] ACPI: PM: Restoring platform NVS memory
-[   88.097166] xen_acpi_processor: Uploading Xen processor PM info
-[   88.103850] Enabling non-boot CPUs ...
-[   88.108128] installing Xen timer for CPU 1
-[   88.112763] BUG: using smp_processor_id() in preemptible [00000000] code: systemd-sleep/7138
-[   88.122256] caller is is_xen_pmu+0x12/0x30
-[   88.126937] CPU: 0 PID: 7138 Comm: systemd-sleep Tainted: G        W         5.16.13-2.fc32.qubes.x86_64 #1
-[   88.137939] Hardware name: Star Labs StarBook/StarBook, BIOS 7.97 03/21/2022
-[   88.145930] Call Trace:
-[   88.148757]  <TASK>
-[   88.151193]  dump_stack_lvl+0x48/0x5e
-[   88.155381]  check_preemption_disabled+0xde/0xe0
-[   88.160641]  is_xen_pmu+0x12/0x30
-[   88.164441]  xen_smp_intr_init_pv+0x75/0x100
+--------------rphbHH9Q8X3zE3m0LD8q9XYa
+Content-Type: multipart/mixed; boundary="------------2YXHEz6Agg4tG4bNOKgOLjGk"
 
-Fix that by replacing is_xen_pmu() by a simple boolean variable which
-reflects the Xen PMU initialization state on cpu 0.
+--------------2YXHEz6Agg4tG4bNOKgOLjGk
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Modify xen_pmu_init() to return early in case it is being called for a
-cpu other than cpu 0 and the boolean variable not being set.
+T24gMjIuMDMuMjIgMTY6MzEsIEFudGhvbnkgUEVSQVJEIHdyb3RlOg0KPiBPbiBUaHUsIE1h
+ciAxMCwgMjAyMiBhdCAwODozNDoxNkFNICswMTAwLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0K
+Pj4gZGlmZiAtLWdpdCBhL3hlbi9pbmNsdWRlL01ha2VmaWxlIGIveGVuL2luY2x1ZGUvTWFr
+ZWZpbGUNCj4+IGluZGV4IGEzYzI1MTFmNWYuLmI1MmEyZGE0MGMgMTAwNjQ0DQo+PiAtLS0g
+YS94ZW4vaW5jbHVkZS9NYWtlZmlsZQ0KPj4gKysrIGIveGVuL2luY2x1ZGUvTWFrZWZpbGUN
+Cj4+IEBAIC03Nyw2ICs3NywxOCBAQCAkKG9iaikvY29tcGF0L3hsYXQuaDogJChhZGRwcmVm
+aXggJChvYmopL2NvbXBhdC8ueGxhdC8sJCh4bGF0LXkpKSAkKG9iaikvY29uZmlnLw0KPj4g
+ICAJY2F0ICQoZmlsdGVyICUuaCwkXikgPiRALm5ldw0KPj4gICAJbXYgLWYgJEAubmV3ICRA
+DQo+PiAgIA0KPj4gK3F1aWV0X2NtZF9nZW5oeXAgPSBHRU4gICAgICRADQo+PiArZGVmaW5l
+IGNtZF9nZW5oeXANCj4+ICsgICAgYXdrIC1mICQoc3JjKS8uLi9zY3JpcHRzL2dlbl9oeXBl
+cmNhbGwuYXdrIDwkPCA+JEANCj4gDQo+IFlvdSBzaG91bGQgdXNlICIkKHNyY3RyZWUpIiBp
+bnN0ZWFkIG9mICIkKHNyYykvLi4iLg0KPiANCj4gJChzcmN0cmVlKSBhbHdheXMgcG9pbnQg
+dG8gdGhlIHNvdXJjZSB0cmVlIG9mIHRoZSBoeXBlcnZpc29yLiAoICQoc3JjKQ0KPiBkb2Vz
+bid0IG5lY2Vzc2FyaWx5IHBvaW50IHRvICJpbmNsdWRlLyIgaW4gdGhlIHNvdXJjZSB0cmVl
+LiApDQoNCk9rYXkuDQoNCj4gDQo+PiArZW5kZWYNCj4+ICsNCj4+ICthbGw6ICQob2JqKS94
+ZW4vaHlwZXJjYWxsLWRlZnMuaA0KPj4gKw0KPj4gKyQob2JqKS94ZW4vaHlwZXJjYWxsLWRl
+ZnMuaDogJChvYmopL2h5cGVyY2FsbC1kZWZzLmkgJChzcmMpLy4uL3NjcmlwdHMvZ2VuX2h5
+cGVyY2FsbC5hd2sgRk9SQ0UNCj4gDQo+IEhlcmUgYXMgd2VsbCwgaXQgd291bGQgYmUgYmV0
+dGVyIHRvIHVzZSAkKHNyY3RyZWUpIGluc3RlYWQgb2YgJChzcmMpLy4uIC4NCg0KVGhhbmtz
+LA0KDQoNCkp1ZXJnZW4NCg==
+--------------2YXHEz6Agg4tG4bNOKgOLjGk
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: bf6dfb154d93 ("xen/PMU: PMU emulation code")
-Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- arch/x86/xen/pmu.c    | 11 ++++++-----
- arch/x86/xen/pmu.h    |  3 ++-
- arch/x86/xen/smp_pv.c |  2 +-
- 3 files changed, 9 insertions(+), 7 deletions(-)
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-diff --git a/arch/x86/xen/pmu.c b/arch/x86/xen/pmu.c
-index 89dd6b1708b0..0efe452eb13e 100644
---- a/arch/x86/xen/pmu.c
-+++ b/arch/x86/xen/pmu.c
-@@ -506,10 +506,7 @@ irqreturn_t xen_pmu_irq_handler(int irq, void *dev_id)
- 	return ret;
- }
- 
--bool is_xen_pmu(int cpu)
--{
--	return (get_xenpmu_data() != NULL);
--}
-+bool is_xen_pmu;
- 
- void xen_pmu_init(int cpu)
- {
-@@ -520,7 +517,7 @@ void xen_pmu_init(int cpu)
- 
- 	BUILD_BUG_ON(sizeof(struct xen_pmu_data) > PAGE_SIZE);
- 
--	if (xen_hvm_domain())
-+	if (xen_hvm_domain() || (cpu != 0 && !is_xen_pmu))
- 		return;
- 
- 	xenpmu_data = (struct xen_pmu_data *)get_zeroed_page(GFP_KERNEL);
-@@ -542,6 +539,7 @@ void xen_pmu_init(int cpu)
- 	per_cpu(xenpmu_shared, cpu).flags = 0;
- 
- 	if (cpu == 0) {
-+		is_xen_pmu = true;
- 		perf_register_guest_info_callbacks(&xen_guest_cbs);
- 		xen_pmu_arch_init();
- 	}
-@@ -572,4 +570,7 @@ void xen_pmu_finish(int cpu)
- 
- 	free_pages((unsigned long)per_cpu(xenpmu_shared, cpu).xenpmu_data, 0);
- 	per_cpu(xenpmu_shared, cpu).xenpmu_data = NULL;
-+
-+	if (cpu == 0)
-+		is_xen_pmu = false;
- }
-diff --git a/arch/x86/xen/pmu.h b/arch/x86/xen/pmu.h
-index 0e83a160589b..65c58894fc79 100644
---- a/arch/x86/xen/pmu.h
-+++ b/arch/x86/xen/pmu.h
-@@ -4,6 +4,8 @@
- 
- #include <xen/interface/xenpmu.h>
- 
-+extern bool is_xen_pmu;
-+
- irqreturn_t xen_pmu_irq_handler(int irq, void *dev_id);
- #ifdef CONFIG_XEN_HAVE_VPMU
- void xen_pmu_init(int cpu);
-@@ -12,7 +14,6 @@ void xen_pmu_finish(int cpu);
- static inline void xen_pmu_init(int cpu) {}
- static inline void xen_pmu_finish(int cpu) {}
- #endif
--bool is_xen_pmu(int cpu);
- bool pmu_msr_read(unsigned int msr, uint64_t *val, int *err);
- bool pmu_msr_write(unsigned int msr, uint32_t low, uint32_t high, int *err);
- int pmu_apic_update(uint32_t reg);
-diff --git a/arch/x86/xen/smp_pv.c b/arch/x86/xen/smp_pv.c
-index 4a6019238ee7..688aa8b6ae29 100644
---- a/arch/x86/xen/smp_pv.c
-+++ b/arch/x86/xen/smp_pv.c
-@@ -129,7 +129,7 @@ int xen_smp_intr_init_pv(unsigned int cpu)
- 	per_cpu(xen_irq_work, cpu).irq = rc;
- 	per_cpu(xen_irq_work, cpu).name = callfunc_name;
- 
--	if (is_xen_pmu(cpu)) {
-+	if (is_xen_pmu) {
- 		pmu_name = kasprintf(GFP_KERNEL, "pmu%d", cpu);
- 		rc = bind_virq_to_irqhandler(VIRQ_XENPMU, cpu,
- 					     xen_pmu_irq_handler,
--- 
-2.34.1
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
+--------------2YXHEz6Agg4tG4bNOKgOLjGk--
+
+--------------rphbHH9Q8X3zE3m0LD8q9XYa--
+
+--------------9KqAWBwLMAiBYEy0DMcbOf2N
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmI58I0FAwAAAAAACgkQsN6d1ii/Ey+B
+tgf/bjh7nQA5SNazOw2AUUjoYfDC21lLjhi1nxx7c1YM2J+cXMqXN1wOPzHb4QncfQNmnpoTOV2u
+/9pKGKf3eoz1NIHPyFglH1630V8l2SzA356n500/MCYpgLd7fmjfvpjGEQO2PQ2NJOGvqBbavSHq
+LjV9lYlm8RnL7xUDS+q6yzZuYI4uUIa6HcI5G2IfNZ9VXJOwMQ70Xwt7DRkHpRvn+472IuY29rKd
+VOvkoDU6Sq+/sHoIhomk3ZGSQJL9HXXafHxakv4LWs4jDgQvcMJBRs8Ijx3urN96FFPYwDcrKT6f
+cfvg+m+OvTr+KPcjHYf929/WMR0JCQGnRGbfWcNf6w==
+=9Vxq
+-----END PGP SIGNATURE-----
+
+--------------9KqAWBwLMAiBYEy0DMcbOf2N--
 
