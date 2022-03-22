@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA7E74E442C
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Mar 2022 17:24:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.293591.498781 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02FCF4E44A0
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Mar 2022 18:00:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.293596.498791 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWhJR-0008Td-0j; Tue, 22 Mar 2022 16:24:49 +0000
+	id 1nWhqo-0003aZ-Nb; Tue, 22 Mar 2022 16:59:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 293591.498781; Tue, 22 Mar 2022 16:24:48 +0000
+Received: by outflank-mailman (output) from mailman id 293596.498791; Tue, 22 Mar 2022 16:59:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWhJQ-0008RQ-TT; Tue, 22 Mar 2022 16:24:48 +0000
-Received: by outflank-mailman (input) for mailman id 293591;
- Tue, 22 Mar 2022 16:24:47 +0000
+	id 1nWhqo-0003Xx-KU; Tue, 22 Mar 2022 16:59:18 +0000
+Received: by outflank-mailman (input) for mailman id 293596;
+ Tue, 22 Mar 2022 16:59:16 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nWhJP-0008RG-Ce
- for xen-devel@lists.xenproject.org; Tue, 22 Mar 2022 16:24:47 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nWhqm-0003Xn-T3; Tue, 22 Mar 2022 16:59:16 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nWhJO-0001nR-Ry; Tue, 22 Mar 2022 16:24:46 +0000
-Received: from 54-240-197-225.amazon.com ([54.240.197.225]
- helo=[192.168.19.186]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nWhJO-0000tx-KJ; Tue, 22 Mar 2022 16:24:46 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nWhqm-0002Mw-RC; Tue, 22 Mar 2022 16:59:16 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nWhqm-0005fE-FU; Tue, 22 Mar 2022 16:59:16 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nWhqm-0006WK-Ey; Tue, 22 Mar 2022 16:59:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,75 +42,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=kjxz+iPbDMZueqwno7ME6ZF/nc5sSw6SG6ZDu+WUptc=; b=hNrOJH0zuYLp6Gm67FTlVDJyWl
-	yGzI77bluCWgy5PT/QJ2bR9N2wus46FHQF+i7WZpV0aHOwmO4EMxDc505OVwmr3CdTxI/SdFYZoWE
-	Awnqua92MZnznJZtwilB4TU/FTGa3Pnl8qjaDjr8T8yLo14niuSiwUudE424FxM1RNLA=;
-Message-ID: <c51db4b3-9654-d8dc-a5b3-a9226f6d8e33@xen.org>
-Date: Tue, 22 Mar 2022 16:24:43 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.7.0
-Subject: Re: [PATCH v11 3/3] xen/arm64: io: Handle data abort due to cache
- maintenance instructions
-To: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
- bertrand.marquis@arm.com, andrew.cooper3@citrix.com,
- george.dunlap@citrix.com, jbeulich@suse.com, wl@xen.org, paul@xen.org,
- roger.pau@citrix.com
-References: <20220317140046.64563-1-ayankuma@xilinx.com>
- <20220317140046.64563-4-ayankuma@xilinx.com>
- <3d6a341d-712d-8701-caf2-49301ae1e01b@xen.org>
- <a6d6aa6f-7dcf-fbed-6400-bb5d028e045e@xilinx.com>
- <9bcab961-8ae1-9e9a-c6da-682aecf2a138@xilinx.com>
- <c7296ea0-5236-1a10-8ef1-74ec83456ce5@xen.org>
- <981cb69d-5bec-875f-a921-bc0fa0c11782@xilinx.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <981cb69d-5bec-875f-a921-bc0fa0c11782@xilinx.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=chnUrvegJf1ub1qPEhmytd1Sh0NpB+iPaQbZvyl8htI=; b=1/3m4w/b9BpUWOqYA+f7DKZYz9
+	otyy6eqPLs5lznFki2K0VvjAj47XYEGGCT/j6osb08veD2VuibSWwzBGQTmxT+C0a3ElOOECNmQNk
+	/ZbjM4MKOs0353x7Ron3rMK7lo4SJUPaiZhQQzKiIfFIHUwYJ5g9XzLye3VwmozJoDlc=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168785-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 168785: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=ec0b54849b23efa25caf0055b0eef8bf9b4dec98
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 22 Mar 2022 16:59:16 +0000
 
-Hi,
+flight 168785 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168785/
 
-On 22/03/2022 16:16, Ayan Kumar Halder wrote:
-> On 22/03/2022 13:22, Julien Grall wrote:
->> Furthermore, I think try_fwd_ioserv() need to be adapted because the 
->> function will use the fields SAS and SRT. From the Arm Arm they are 
->> RES0, so while they are 0 today, we should not rely on this.
->>
->> Therefore, to be fully compliant with the Arm, we want to reorder a 
->> bit the code:
->>
->>  * The field data could be set past ioreq_select_server().
->>  * The field size should be set to the cache line size.
-> 
-> I am assuming that we need to invoke  dcache_line_size() (from 
-> xen/arch/arm/arm64/cache.S ) to get the cache line size.
+Regressions :-(
 
-You would want to use dcache_line_bytes.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
-> 
-> I think the cache line may be 32 or 64 bytes. In which case, this cannot 
-> be represented by SAS (as it can represent 1, 2, 4 and 8 bytes).
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-You are correct that this cannot be represented by SAS. However, I was 
-referring to the field 'size' in the ioreq structure. It is a 32-bit 
-integer and could therefore represent the size of the cache line.
+version targeted for testing:
+ ovmf                 ec0b54849b23efa25caf0055b0eef8bf9b4dec98
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-> 
-> Also, we are invoking ioreq_select_server() to determine if the address 
-> is emulated or not. So, can we use an assumed size (= 1 byte) ?
+Last test of basis   168254  2022-02-28 10:41:46 Z   22 days
+Failing since        168258  2022-03-01 01:55:31 Z   21 days  225 attempts
+Testing same since   168774  2022-03-22 08:40:31 Z    0 days    6 attempts
 
-I thought about this. This is technically incorrect but would be OK if 
-we cannot find the correct size.
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
 
-Per above, I think the correct size could be found.
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
-Cheers,
 
--- 
-Julien Grall
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 875 lines long.)
 
