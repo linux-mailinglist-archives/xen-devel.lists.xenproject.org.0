@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F7854E4321
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Mar 2022 16:36:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.293558.498714 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AF754E4355
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Mar 2022 16:50:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.293566.498725 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWgYI-0008AF-OS; Tue, 22 Mar 2022 15:36:06 +0000
+	id 1nWglq-000235-5N; Tue, 22 Mar 2022 15:50:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 293558.498714; Tue, 22 Mar 2022 15:36:06 +0000
+Received: by outflank-mailman (output) from mailman id 293566.498725; Tue, 22 Mar 2022 15:50:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWgYI-00087v-Kz; Tue, 22 Mar 2022 15:36:06 +0000
-Received: by outflank-mailman (input) for mailman id 293558;
- Tue, 22 Mar 2022 15:36:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1nWglq-0001zY-2F; Tue, 22 Mar 2022 15:50:06 +0000
+Received: by outflank-mailman (input) for mailman id 293566;
+ Tue, 22 Mar 2022 15:50:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nWgYH-00087l-EZ; Tue, 22 Mar 2022 15:36:05 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nWgYH-0000TW-9O; Tue, 22 Mar 2022 15:36:05 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nWgYG-0003PW-S7; Tue, 22 Mar 2022 15:36:04 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nWgYG-000793-Ra; Tue, 22 Mar 2022 15:36:04 +0000
+ (envelope-from <SRS0=vJOs=UB=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1nWglp-0001nQ-7B
+ for xen-devel@lists.xenproject.org; Tue, 22 Mar 2022 15:50:05 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bced118f-a9f7-11ec-a405-831a346695d4;
+ Tue, 22 Mar 2022 16:50:03 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1B85F1F38F;
+ Tue, 22 Mar 2022 15:50:03 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C0871133B6;
+ Tue, 22 Mar 2022 15:50:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id oAPJLSrwOWJYVwAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 22 Mar 2022 15:50:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,127 +51,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=g5Ne00KLlY+FPoQSw8RiWJcpORSEGMaiwoiV0CXzFdM=; b=wBcUI7h4PBDcOkGLqXoduiEwZh
-	YEKp3CxzXXiMBka0xlOEsRAlTE7vJ2qHeXEM0MlwnQrdf1BEoZNMgNTuZnWpfyT3vVI5U/zQVXfw9
-	x7DVUYmKU4dM2ZtMUO8YKNFxoDxrvwSIK2CYXJxpfWTAH7al0a4L6mkk/FYHpYo+dV54=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168783-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: bced118f-a9f7-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1647964203; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=0gBQScvwdVxKjyAG3NnuySYmJTXr2MBLbV0LSshhlNE=;
+	b=afvnMB1oJlsl/b3emSQC6H8gKTFIKJg5Sc/SuVd6iP/V++emD24ObjlNEq4Xv6JNmb8o5z
+	64M9iZG9MF92a5pRco8xDcqCCDNo5ST9NtI58QuqtL1DVMM/3ryb8mNpSMl5SESRX14yZh
+	uNYkz1RkrTpIp3hOpN6/M/q8eInbatM=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org,
+	x86@kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH] xen: fix is_xen_pmu()
+Date: Tue, 22 Mar 2022 16:50:01 +0100
+Message-Id: <20220322155001.21979-1-jgross@suse.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: [ovmf test] 168783: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=ec0b54849b23efa25caf0055b0eef8bf9b4dec98
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 22 Mar 2022 15:36:04 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-flight 168783 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168783/
+is_xen_pmu() is taking the cpu number as parameter, but it is not using
+it. Instead it just tests whether the Xen PMU initialization on the
+current cpu did succeed. As this test is done by checking a percpu
+pointer, preemption needs to be disabled in order to avoid switching
+the cpu while doing the test. While resuming from suspend() this seems
+not to be the case:
 
-Regressions :-(
+[   88.082751] ACPI: PM: Low-level resume complete
+[   88.087933] ACPI: EC: EC started
+[   88.091464] ACPI: PM: Restoring platform NVS memory
+[   88.097166] xen_acpi_processor: Uploading Xen processor PM info
+[   88.103850] Enabling non-boot CPUs ...
+[   88.108128] installing Xen timer for CPU 1
+[   88.112763] BUG: using smp_processor_id() in preemptible [00000000] code: systemd-sleep/7138
+[   88.122256] caller is is_xen_pmu+0x12/0x30
+[   88.126937] CPU: 0 PID: 7138 Comm: systemd-sleep Tainted: G        W         5.16.13-2.fc32.qubes.x86_64 #1
+[   88.137939] Hardware name: Star Labs StarBook/StarBook, BIOS 7.97 03/21/2022
+[   88.145930] Call Trace:
+[   88.148757]  <TASK>
+[   88.151193]  dump_stack_lvl+0x48/0x5e
+[   88.155381]  check_preemption_disabled+0xde/0xe0
+[   88.160641]  is_xen_pmu+0x12/0x30
+[   88.164441]  xen_smp_intr_init_pv+0x75/0x100
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+Fix that by replacing is_xen_pmu() by a simple boolean variable which
+reflects the Xen PMU initialization state on cpu 0.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+Modify xen_pmu_init() to return early in case it is being called for a
+cpu other than cpu 0 and the boolean variable not being set.
 
-version targeted for testing:
- ovmf                 ec0b54849b23efa25caf0055b0eef8bf9b4dec98
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+Fixes: bf6dfb154d93 ("xen/PMU: PMU emulation code")
+Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ arch/x86/xen/pmu.c    | 11 ++++++-----
+ arch/x86/xen/pmu.h    |  3 ++-
+ arch/x86/xen/smp_pv.c |  2 +-
+ 3 files changed, 9 insertions(+), 7 deletions(-)
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   22 days
-Failing since        168258  2022-03-01 01:55:31 Z   21 days  224 attempts
-Testing same since   168774  2022-03-22 08:40:31 Z    0 days    5 attempts
+diff --git a/arch/x86/xen/pmu.c b/arch/x86/xen/pmu.c
+index 89dd6b1708b0..0efe452eb13e 100644
+--- a/arch/x86/xen/pmu.c
++++ b/arch/x86/xen/pmu.c
+@@ -506,10 +506,7 @@ irqreturn_t xen_pmu_irq_handler(int irq, void *dev_id)
+ 	return ret;
+ }
+ 
+-bool is_xen_pmu(int cpu)
+-{
+-	return (get_xenpmu_data() != NULL);
+-}
++bool is_xen_pmu;
+ 
+ void xen_pmu_init(int cpu)
+ {
+@@ -520,7 +517,7 @@ void xen_pmu_init(int cpu)
+ 
+ 	BUILD_BUG_ON(sizeof(struct xen_pmu_data) > PAGE_SIZE);
+ 
+-	if (xen_hvm_domain())
++	if (xen_hvm_domain() || (cpu != 0 && !is_xen_pmu))
+ 		return;
+ 
+ 	xenpmu_data = (struct xen_pmu_data *)get_zeroed_page(GFP_KERNEL);
+@@ -542,6 +539,7 @@ void xen_pmu_init(int cpu)
+ 	per_cpu(xenpmu_shared, cpu).flags = 0;
+ 
+ 	if (cpu == 0) {
++		is_xen_pmu = true;
+ 		perf_register_guest_info_callbacks(&xen_guest_cbs);
+ 		xen_pmu_arch_init();
+ 	}
+@@ -572,4 +570,7 @@ void xen_pmu_finish(int cpu)
+ 
+ 	free_pages((unsigned long)per_cpu(xenpmu_shared, cpu).xenpmu_data, 0);
+ 	per_cpu(xenpmu_shared, cpu).xenpmu_data = NULL;
++
++	if (cpu == 0)
++		is_xen_pmu = false;
+ }
+diff --git a/arch/x86/xen/pmu.h b/arch/x86/xen/pmu.h
+index 0e83a160589b..65c58894fc79 100644
+--- a/arch/x86/xen/pmu.h
++++ b/arch/x86/xen/pmu.h
+@@ -4,6 +4,8 @@
+ 
+ #include <xen/interface/xenpmu.h>
+ 
++extern bool is_xen_pmu;
++
+ irqreturn_t xen_pmu_irq_handler(int irq, void *dev_id);
+ #ifdef CONFIG_XEN_HAVE_VPMU
+ void xen_pmu_init(int cpu);
+@@ -12,7 +14,6 @@ void xen_pmu_finish(int cpu);
+ static inline void xen_pmu_init(int cpu) {}
+ static inline void xen_pmu_finish(int cpu) {}
+ #endif
+-bool is_xen_pmu(int cpu);
+ bool pmu_msr_read(unsigned int msr, uint64_t *val, int *err);
+ bool pmu_msr_write(unsigned int msr, uint32_t low, uint32_t high, int *err);
+ int pmu_apic_update(uint32_t reg);
+diff --git a/arch/x86/xen/smp_pv.c b/arch/x86/xen/smp_pv.c
+index 4a6019238ee7..688aa8b6ae29 100644
+--- a/arch/x86/xen/smp_pv.c
++++ b/arch/x86/xen/smp_pv.c
+@@ -129,7 +129,7 @@ int xen_smp_intr_init_pv(unsigned int cpu)
+ 	per_cpu(xen_irq_work, cpu).irq = rc;
+ 	per_cpu(xen_irq_work, cpu).name = callfunc_name;
+ 
+-	if (is_xen_pmu(cpu)) {
++	if (is_xen_pmu) {
+ 		pmu_name = kasprintf(GFP_KERNEL, "pmu%d", cpu);
+ 		rc = bind_virq_to_irqhandler(VIRQ_XENPMU, cpu,
+ 					     xen_pmu_irq_handler,
+-- 
+2.34.1
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 875 lines long.)
 
