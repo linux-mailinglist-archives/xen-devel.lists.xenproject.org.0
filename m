@@ -2,37 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3586A4E4FA8
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Mar 2022 10:45:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.293831.499296 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29A1B4E503A
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Mar 2022 11:19:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.293834.499307 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWxYc-0003Vm-67; Wed, 23 Mar 2022 09:45:34 +0000
+	id 1nWy5F-0006zO-Po; Wed, 23 Mar 2022 10:19:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 293831.499296; Wed, 23 Mar 2022 09:45:34 +0000
+Received: by outflank-mailman (output) from mailman id 293834.499307; Wed, 23 Mar 2022 10:19:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWxYc-0003To-31; Wed, 23 Mar 2022 09:45:34 +0000
-Received: by outflank-mailman (input) for mailman id 293831;
- Wed, 23 Mar 2022 09:45:32 +0000
+	id 1nWy5F-0006x4-Mc; Wed, 23 Mar 2022 10:19:17 +0000
+Received: by outflank-mailman (input) for mailman id 293834;
+ Wed, 23 Mar 2022 10:19:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=AzRF=UC=suse.com=mhocko@srs-se1.protection.inumbo.net>)
- id 1nWxYa-0003Ti-C9
- for xen-devel@lists.xenproject.org; Wed, 23 Mar 2022 09:45:32 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f90aaa13-aa8d-11ec-8fbc-03012f2f19d4;
- Wed, 23 Mar 2022 10:45:28 +0100 (CET)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id E7097210E9;
- Wed, 23 Mar 2022 09:45:30 +0000 (UTC)
-Received: from suse.cz (unknown [10.100.201.86])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id B07EEA3B87;
- Wed, 23 Mar 2022 09:45:30 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1OhW=UC=citrix.com=prvs=074292745=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1nWy5E-0006wy-3O
+ for xen-devel@lists.xenproject.org; Wed, 23 Mar 2022 10:19:16 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9910c979-aa92-11ec-8fbc-03012f2f19d4;
+ Wed, 23 Mar 2022 11:18:36 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,96 +36,222 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f90aaa13-aa8d-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1648028730; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ti9JhYfeam/u5xAhSegF8ekFHob7Y2T4kBftHw/UI6E=;
-	b=ZutDmkZ9jygSsfyoj9ryiYIFOO5vuws/tB9rZTEzQXN6q6jF//zFiuk5pg29dYNBhpZ05E
-	4BFp85b6z4ne3eA0k3ftibKWvgD6k3Z9U8B08m9vDKD9J3Un2oWzIPwGW8RtVgqhd1cey/
-	6UjWkFDk/APunOgEG7BzHnIiHXT47Nc=
-Date: Wed, 23 Mar 2022 10:45:30 +0100
-From: Michal Hocko <mhocko@suse.com>
-To: Juergen Gross <jgross@suse.com>
-Cc: linux-mm@kvack.org, lkml <linux-kernel@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Jerome Glisse <jglisse@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: blocking vs. non-blocking mmu notifiers
-Message-ID: <YjrsOnxaPYc3rbdj@dhcp22.suse.cz>
-References: <8e8ec786-74db-157b-a290-b1537941e91d@suse.com>
+X-Inumbo-ID: 9910c979-aa92-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1648030754;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=J+2qYgWy1cfJZWdZ0y91pZlXZzMukWuCoZHcIDKK7wo=;
+  b=Z75dez8PFC8LnVWwy2aCLBjRkwgMqZ8Fzx+9mGc23I+NgoJ4JZV7oUqs
+   qiNBQ5w4EVeb8e6pph0jM/bSIdOFYS8qUdhIYH5ivpgw51ddbWf95AnNv
+   vw1BP9M9vXTgg/TjMveRLwKXaIgdysJ0MyPL8oxKuNmip4qpq8vakaHww
+   8=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+X-SBRS: 5.1
+X-MesageID: 66861813
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:Ps3jh6wuaBc5iLgeGUR6t+cIxirEfRIJ4+MujC+fZmUNrF6WrkUCn
+ WEXDWuFb6rcYmGkKY1wb9m+pB5UvZGDytRrHlBr/yAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
+ 59DAjUVBJlsFhcwnj/0bv656yMUOZigHtIQMsadUsxKbVIiGX9JZS5LwbZj2NYz24LhX2thh
+ PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
+ gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
+ Npl5ayeexUCMJz2haccA0cAP31kepBL9+qSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
+ aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DJoQQt2sm1TjEJf0nXYrCU+PB4towMDIY2J4eQ6+OP
+ pFxhTxHPQvyWj1GBg0sC7Eewb6TgmfgI35fgQfAzUYwyzeKl1EguFT3C/LOYcCDT8hRmkeep
+ 0rF8n7/DxVcM8aQoRKa9lq8i+mJmjn0MKoQCbm5+/hCkFCVgGsJB3U+RVa95PW0lEO6c9ZeM
+ FAPvDojq7Ao806mRcW7WAe3yFaGtBMBX9tbE8Uh9RqAjKHT5m6k6nMsF2AbLoZ87YlvGGJsh
+ gThc87V6SJH4I27e2C2+IausHCzaXZNATMYIhIJQl5QizX8m70bghXKR9dlNae6iNzpBD39q
+ wy3QDgCa6Y71pBSifjilbzTq3f1/8WSEFZpjunCdjj9hj6VcrJJcGBBBbLzyf9bZLiUQVCa1
+ JTvs5jPtbteZX1hecHkfQnsIF1Lz6vdWNE/qQQ2d3XEy9hL0yfyFWy3yGsiTHqFyu5eJVfUj
+ Lb74Gu9HqN7MnqwdrNQaImsEcksxqWIPY27Cq+FMYEfMsUtL1DvEMRSiai4hT2FfK8Ey/xXB
+ HtmWZz0USZy5VpPklJauNvxIZd0n3tjlAs/tLjwzgi90Kr2WZJmYextDbd6VchgtPnsiFyMq
+ 753bpLWoz0CALyWSnSGquY7cAFVRUXX8Lir8qS7gMbYeVE4cIzgYteMqY4cl3tNxP0EyL2Xo
+ injBie1CjPX3BX6FOlDUVg6AJvHVpdjt3MreysqOFejwX84ZoizqqwYcvMKkXMProSPEdYco
+ yE5Rvi9
+IronPort-HdrOrdr: A9a23:BC1mTKHM7YVltOMOpLqFHpHXdLJyesId70hD6qkvc3Nom52j+/
+ xGws536faVslcssHFJo6HlBEDmewKnyXcV2/hrAV7GZmfbUQSTXedfBOfZsl/d8k7Fh5FgPM
+ VbAtFD4bTLZDAQ56aKgzVQe+xQvOVvm5rY4ts2oU0dKD2DPMpbnnpE40ugYztLbTgDIaB8OI
+ uX58JBqTblUXMLbv6jDn1Ae+TYvdXEmL/vfBZDXnccmUGzpALtzIS/PwmT3x8YXT8K6bA+8V
+ Ldmwi8wqm4qfm0xjLVymeWxZVLn9nKzMdFGaW3+4EoAwSprjztSJVqWrWEsjxwiOaz6GwymN
+ 2JmBskN9Qb0QKlQkiF5T/WnyXw2jcn7HHvjXWCh2H4nMD/TDUmT+JcmINwaHLimgcdleA59J
+ gO83OStpJRAx+Ftj/6/cL0WxZjkVfxiWY+kNQUk2dUXeIlGfVsRLQkjQxo+ao7bWzHANhNKp
+ guMCic3occTbqiVQGUgoE1q+bcHkjaHX+9Mzo/U4KuontrdUtCvjolLfwk7wk9Ha0GOul5Dp
+ z/Q9xVfZF1P7srhPFGdZA8qfXeMB2/ffuLChPRHWja
+X-IronPort-AV: E=Sophos;i="5.90,203,1643691600"; 
+   d="scan'208";a="66861813"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mvdm1WnPXEQ8h/lrNI0+zpb+eG+++sufdB4WH34SRNcIVExONevA3h9BzIh8fIw4OLVjpUS997agx4cnqEKNEsyeR2vKRagydWTNIFYtFYfFxlKUs+c1nisHkgsiS+p/FgXnWHd8nFOwwFEwqvNVp04b0wy2fzpkHMVEKp22UTyksa7umGhzXyq0bzIiXrv9j34zKrnocm9sQ/vm/qmzzrbUV93xxIxsW33+5kIFK7qIIw4gZpjShxwns+UW3SAT8R7kTtgn5VALywYGPQPSK795n09SudyEPJD/w5q0bzwHEns7qrvWY6o1CoQRxzEEs73X6QkMDdylCCmDs5HD9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gitEDanTViT9PRj7GWXdJyjsJSlJnsYelX5GUdssemg=;
+ b=fFbe35BQ/XsyAuFUtLRmFC0M19PxtDS5v5FXgCRgLL8qm9vwgqFIpGn9CnZq5Wg1JXwopjUhquiunSQDUO7WaQBo+CwnovQE2NC2o9Agf/jDnxFrsQE9uUYg2aqmPWFPVBYoO4Uxo7qbehVTRbipAX9xSar0ibkYUWHKdh0vrwbARGeOr+ARHGJVicu/HZhtD2tVMWhppWSScUz7cSJJYzJgeDOyCifp3K3EjM5xrn1icZkR9jjman5At3VOurI0lnMr+vk+VMEprlxbwuLZlTXs/6SLS4S4aFyv3+XeHKtH1kS4DjViy/XrpyeWPpgSBS+/+ZhhVy4v5ynkGn82bA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gitEDanTViT9PRj7GWXdJyjsJSlJnsYelX5GUdssemg=;
+ b=t62jMPxzw6wHiecPXrsBWJYnqOuOHqU5JoUzTqzRhAt+04bdCP6FjB4vszhqJZi3bqTz5TxL+tHWP51rIGVPAyluYZulWHpueoirk8AVU55oTmcT0gAT86xL7jZ5WWAPxQDVwuvG+N4bV6GI2f/r3ITYI548WaivewJzGoPkl2A=
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Jan
+ Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: [PATCH v3] codeql: add support for analyzing C, Python and Go
+Date: Wed, 23 Mar 2022 11:18:56 +0100
+Message-ID: <20220323101856.35992-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.35.1
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P265CA0048.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ac::8) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8e8ec786-74db-157b-a290-b1537941e91d@suse.com>
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c3b18d8c-dfd1-4cbb-7039-08da0cb68e69
+X-MS-TrafficTypeDiagnostic: BN7PR03MB3940:EE_
+X-Microsoft-Antispam-PRVS: <BN7PR03MB39403B9AECD731850FB407548F189@BN7PR03MB3940.namprd03.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: bp2shFZZh/xY1pfVCiEWzo1a715q2+Xn8v0rUfnPC8sdsDGNuvTFwqL4HtJHymv4ZU6SoVcq7QLxVLr9wSWu1rKwGXVwXLp44xp19o1YN5NyJ28grU8sWf9Z+7T2G6hEQoSPCMuMeI6RCKKnBmmcIxU5SD6zbNPVYTqIHCOo69Ysl8d+q/WzCzRD3/sG6mKxSNY6YfEYmFX1vC1x2aOjdXyqoMGvA+SAWikWWM5nHJ3Z3EYrTOqVt8xVOBpEjV2BGyQPQKFFJ0io1l1jPIKrSDZQLGvpKO0WVKA1EuZP9QWGsOlqbll7lDFE2a5rD1BHDMsVkqcvKno1B+JWpWcFmoibrsNJ4XZRcssPrvN4m4BZNzREN/8ULU6LKgv8DEGfcBreR5JGdnqBe1PbUxM6bjzWiS975AxKam4UB/Nph/g4M6Yhum3Qi+kYawv90mmzSqbqku5d3jphyFEnn9Sice0FraYrxw+I1i3u6XBY/ttp0lRXrlfEuBPnkHfUTKe4i6UAFhyjgxBqSDuZKdD4Oy3Mx8Kh3Wo68xX2uWvyYNN0ESPn+NB7TYZRXw0AUF7Wvgf0lfcL3/70oN26zGsfbH9EHFXW+Mc7scH/jnYKbrZOhYu0AxEd/dAC6Ob2VjLm5dPUXL50pS13SRrRtOSadQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(66946007)(8936002)(5660300002)(6512007)(54906003)(6486002)(6916009)(86362001)(66476007)(8676002)(2906002)(66556008)(4326008)(38100700002)(316002)(6666004)(1076003)(82960400001)(83380400001)(2616005)(26005)(36756003)(186003)(508600001)(6506007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SGkxZTg3QTdvT3hSQUpFeVUwUGkwdmlreEc4aVc3SjVsbzY4aEZxNU5qMEtT?=
+ =?utf-8?B?THJhelFoMXgxT3FMMUdwWm82alRoNzNUbG9xamg1dkhzZFJtTEtpOW1lRjNT?=
+ =?utf-8?B?dkVibjRBQUsrYlBpSDRyeGltTk1FanY1M2p2RmFTandNdmZHeFpqdDBtQmJw?=
+ =?utf-8?B?c0tLaXYwejRtam4vSUhFZC9neHhIczk0dnYrQlZUSzV2WTNDMWgyOVJMczd1?=
+ =?utf-8?B?SnMxdmhMYVl2NVlFNnNYYnJ5YktoVUVnRC91V2paaWV2cGRTYXNkYkpmbFBD?=
+ =?utf-8?B?MU9nWWdUc3ZzSW1tMzJvTklNT2FFcXdYNEd5ZCtlb1lZRU4yQ0VINHdHeDBM?=
+ =?utf-8?B?aUhKZG1UYUsxV2VuN0kvQm5tLzF2dnE5ZTRRcmRWRE1NVm5UeDdUSUczeDI2?=
+ =?utf-8?B?TVY4aUhHNEtoNjJIYlJEejlaRVFqbzNNS09pbnJ6TEZPTzE4dC9NOGtsOHRV?=
+ =?utf-8?B?Y01pYXZSdUJ0UzhBZzFOdHpYeTVEeXpOMlJsU0tYVVB3cCt5QWJxdGU1VG1h?=
+ =?utf-8?B?ZG90QUxYcXUySHZNYWxITWhVYklJYWVwelYxelBzN1Z0ZklTMmorVlB5QzNM?=
+ =?utf-8?B?eEQwMU1IZUZhZS9Tc2RYNmJvV1JKeFN5UElUMG53cmVHeDd5S2UxNHRxTk1m?=
+ =?utf-8?B?VXMzU2VISUNrRzRYQ2NLU1VkOUcyU3VaUEl1d2t3V0hZTWw3RW5JaXNCbkpF?=
+ =?utf-8?B?SlRvUGVyRDBrMy9uWS9iM1JKdU1nbHBVZTRkWnBGdFRjM0F5RUY4cUN1cStD?=
+ =?utf-8?B?OUZzcnlTQ3FlMUhsYmZCdXQ5bEhGMkV2Syt4ZURveGFlTzBIeVJDWTBhOFhI?=
+ =?utf-8?B?TEtQeGFhK0pSK2dGb1JHR0xrVC9kd1BNa090Z2dRSXZ4MDArelJ6aTZURUlP?=
+ =?utf-8?B?Q1RRdVhXTmU3eHJiVGI1Sy9VMmVtUUN1VlFRQmt1bURRUmEzaFV0bFFMRS9v?=
+ =?utf-8?B?Z20zNm1PeUVtQ3pFUElGUUdyOUo5dFVCeDZnT1FESkZZOGF5VGVFVzlJY2Nh?=
+ =?utf-8?B?T3VCTmV3VWRrR0dDNjN3MzNRcWpRYmcyb2RkZkJJZXVCNmtRcHdXNUNWdGZz?=
+ =?utf-8?B?YW9FQU1HYlJSakNiZ3U5TUZnVnp0TStTb1hSRlZZK04wSEhXMmt6NnFPcm5Z?=
+ =?utf-8?B?akhxTWZqdHhkMWFBMmd4RjNneFI5U3J0SmJ4RDh6MlZ1b1FOVGVaQXRKUEcv?=
+ =?utf-8?B?TkNOMTdFZ2dTVi9kTDQrYmtZRDVZMWttMXlVay91dUZHZGpEaUxRY0YvMWF0?=
+ =?utf-8?B?cWxKZS9HWGxwNFUvZCtmMmZUM3h2eDQyL1JpeVpjWEhBL0UwWmNqQ2xqSGtW?=
+ =?utf-8?B?WUpiK1dJOHlhYW1wY2cyWVlpRkduMEFwNERKNkowTDJ2c3Z3K3JZdUZibXZH?=
+ =?utf-8?B?WXpFdWZXbVVCa0w1dnNkSU9oUGZwS0NVNGNlQjFsQVZqZTlNVEVjREwxSmFw?=
+ =?utf-8?B?NE9YNGZnUDlpbU9xNk91MEp5NDRacWJBQmE4R3dnUmxacXpBSzVnT1RGTldp?=
+ =?utf-8?B?MHIwQS94dThKb3VZYkJrSHFzNHhwTXpEa1BZL2JYOWxyZmJ2cC80UTd5N0tZ?=
+ =?utf-8?B?Yk9NR1k0eTZlQTVrVUtqMlNhdGIvZU1uRHh5VjYyd01aOGI2RXdmQ1pwNkRu?=
+ =?utf-8?B?NXRBb3ZtTlBBRlArc3pkNG9INHJUY3ZxUVkyQm1aM1Q0eEU5d1V5RFlGR0E2?=
+ =?utf-8?B?eGJYQkt4eVlSSm1MQmR0eTEwTm85b3hEbFdzeEt6NE9lUWFaRE1BUVVjdmFN?=
+ =?utf-8?B?SmdJMGNWcEZabHJWb3NMMWRFZzNvY1BPOVNLM2hNR0k3S2g4MEhucUlxeGZJ?=
+ =?utf-8?B?Qk5GS09iWnI2cmh3TUZJM3A0WjJpckdXN1BtTlVDNEo1alQ2OStnRWVRblRy?=
+ =?utf-8?B?SEQrdkUzcGlodFk4ekxpRGhKSnVZVnhkNzNsamloUmEzMGxla1UwQmcvbnYx?=
+ =?utf-8?Q?XWxrCOv7U/jFJfy36DuX7DNSpyCg+f0o?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3b18d8c-dfd1-4cbb-7039-08da0cb68e69
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2022 10:19:04.0609
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kG8XFJ1FFGekcA3ldiJ6oJCrL+lTTP7vpAyjOMKQP2aC7ypA6FpOeVkasCvEkwlJveQIOkpoJE3tH5xv/fMl7Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR03MB3940
+X-OriginatorOrg: citrix.com
 
-[Let me add more people to the CC list - I am not really sure who is the
- most familiar with all the tricks that mmu notifiers might do]
+Introduce CodeQL support for Xen and analyze the C, Python and Go
+files.
 
-On Wed 23-03-22 09:43:59, Juergen Gross wrote:
-> Hi,
-> 
-> during analysis of a customer's problem on a 4.12 based kernel
-> (deadlock due to a blocking mmu notifier in a Xen driver) I came
-> across upstream patches 93065ac753e4 ("mm, oom: distinguish
-> blockable mode for mmu notifiers") et al.
-> 
-> The backtrace of the blocked tasks was typically something like:
-> 
->  #0 [ffffc9004222f228] __schedule at ffffffff817223e2
->  #1 [ffffc9004222f2b8] schedule at ffffffff81722a02
->  #2 [ffffc9004222f2c8] schedule_preempt_disabled at ffffffff81722d0a
->  #3 [ffffc9004222f2d0] __mutex_lock at ffffffff81724104
->  #4 [ffffc9004222f360] mn_invl_range_start at ffffffffc01fd398 [xen_gntdev]
->  #5 [ffffc9004222f398] __mmu_notifier_invalidate_page at ffffffff8123375a
->  #6 [ffffc9004222f3c0] try_to_unmap_one at ffffffff812112cb
->  #7 [ffffc9004222f478] rmap_walk_file at ffffffff812105cd
->  #8 [ffffc9004222f4d0] try_to_unmap at ffffffff81212450
->  #9 [ffffc9004222f508] shrink_page_list at ffffffff811e0755
-> #10 [ffffc9004222f5c8] shrink_inactive_list at ffffffff811e13cf
-> #11 [ffffc9004222f6a8] shrink_node_memcg at ffffffff811e241f
-> #12 [ffffc9004222f790] shrink_node at ffffffff811e29c5
-> #13 [ffffc9004222f808] do_try_to_free_pages at ffffffff811e2ee1
-> #14 [ffffc9004222f868] try_to_free_pages at ffffffff811e3248
-> #15 [ffffc9004222f8e8] __alloc_pages_slowpath at ffffffff81262c37
-> #16 [ffffc9004222f9f0] __alloc_pages_nodemask at ffffffff8121afc1
-> #17 [ffffc9004222fa48] alloc_pages_current at ffffffff8122f350
-> #18 [ffffc9004222fa78] __get_free_pages at ffffffff8121685a
-> #19 [ffffc9004222fa80] __pollwait at ffffffff8127e795
-> #20 [ffffc9004222faa8] evtchn_poll at ffffffffc00e802b [xen_evtchn]
-> #21 [ffffc9004222fab8] do_sys_poll at ffffffff8127f953
-> #22 [ffffc9004222fec8] sys_ppoll at ffffffff81280478
-> #23 [ffffc9004222ff30] do_syscall_64 at ffffffff81004954
-> #24 [ffffc9004222ff50] entry_SYSCALL_64_after_hwframe at ffffffff818000b6
-> 
-> It was found that the notifier of the Xen gntdev driver was using a
-> mutex resulting in the deadlock.
-> 
-> Michal Hocko suggested that backporting above mentioned patch might
-> help, as the mmu notifier call is happening in atomic context.
-> 
-> Looking into that I was wondering whether try_to_unmap_one() shouldn't
-> call mmu_notifier_invalidate_range_start_nonblock() instead of
-> mmu_notifier_invalidate_range_start() if this is true. Otherwise I
-> can't see how this deadlock could be avoided.
+Note than when analyzing Python or Go we avoid building the hypervisor
+and only build the tools.
 
-Just to be more explicit. The current upstream code calls
-mmu_notifier_invalidate_range while the page table locks are held.
-Are there any notifiers which could sleep in those? In other words
-should we use the nonblock start/stop in try_to_unmap?
+Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+Changes since v2:
+ - Remove explicit 'staging' branch checkout.
+ - Remove explicit query.
+ - Remove ignored paths.
+ - Remove 'on schedule' trigger, or else it would be run against the
+   master branch instead of staging.
 
-> Any thoughts?
-> 
-> 
-> Juergen
+Changes since v1:
+ - Rename to note it's x86 specific right now.
+ - Merge the ignored path patch.
+---
+ .github/workflows/codeql-x86.yml | 54 ++++++++++++++++++++++++++++++++
+ 1 file changed, 54 insertions(+)
+ create mode 100644 .github/workflows/codeql-x86.yml
 
-
-
-
-
-
+diff --git a/.github/workflows/codeql-x86.yml b/.github/workflows/codeql-x86.yml
+new file mode 100644
+index 0000000000..6ddd445c79
+--- /dev/null
++++ b/.github/workflows/codeql-x86.yml
+@@ -0,0 +1,54 @@
++name: CodeQL x86
++
++on:
++  workflow_dispatch:
++  push:
++    branches: [staging]
++
++jobs:
++  analyse:
++
++    strategy:
++      matrix:
++        language: [ 'cpp', 'python', 'go' ]
++
++    runs-on: ubuntu-latest
++
++    steps:
++    - name: Install build dependencies
++      run: |
++        sudo apt-get install -y wget git \
++          libbz2-dev build-essential \
++          zlib1g-dev libncurses5-dev iasl \
++          libbz2-dev e2fslibs-dev uuid-dev libyajl-dev \
++          autoconf libtool liblzma-dev \
++          python3-dev golang python-dev libsystemd-dev
++
++    - uses: actions/checkout@v2
++
++    - name: Configure Xen
++      run: |
++        ./configure --with-system-qemu=/bin/true \
++                    --with-system-seabios=/bin/true \
++                    --with-system-ovmf=/bin/true
++
++    - name: Pre build stuff
++      run: |
++        make -j`nproc` mini-os-dir
++
++    - uses: github/codeql-action/init@v1
++      with:
++        languages: ${{matrix.language}}
++
++    - if: matrix.language == 'cpp'
++      name: Full Build
++      run: |
++        make -j`nproc` build-xen build-tools
++        make -j`nproc` -C extras/mini-os/
++
++    - if: matrix.language == 'python' || matrix.language == 'go'
++      name: Tools Build
++      run: |
++        make -j`nproc` build-tools
++
++    - uses: github/codeql-action/analyze@v1
 -- 
-Michal Hocko
-SUSE Labs
+2.35.1
+
 
