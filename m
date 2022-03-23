@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ECF94E5739
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Mar 2022 18:15:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.293983.499628 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C6654E5743
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Mar 2022 18:18:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.293990.499640 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nX4ZS-0003yH-W4; Wed, 23 Mar 2022 17:14:54 +0000
+	id 1nX4cW-0004dM-GR; Wed, 23 Mar 2022 17:18:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 293983.499628; Wed, 23 Mar 2022 17:14:54 +0000
+Received: by outflank-mailman (output) from mailman id 293990.499640; Wed, 23 Mar 2022 17:18:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nX4ZS-0003wO-T2; Wed, 23 Mar 2022 17:14:54 +0000
-Received: by outflank-mailman (input) for mailman id 293983;
- Wed, 23 Mar 2022 17:14:54 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nX4ZS-0003wE-BX; Wed, 23 Mar 2022 17:14:54 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nX4ZS-0001a0-9g; Wed, 23 Mar 2022 17:14:54 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nX4ZR-0002bs-SW; Wed, 23 Mar 2022 17:14:53 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nX4ZR-0003Ch-S2; Wed, 23 Mar 2022 17:14:53 +0000
+	id 1nX4cW-0004a4-C9; Wed, 23 Mar 2022 17:18:04 +0000
+Received: by outflank-mailman (input) for mailman id 293990;
+ Wed, 23 Mar 2022 17:18:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=s5zF=UC=gmail.com=philippe.mathieu.daude@srs-se1.protection.inumbo.net>)
+ id 1nX4cV-0004Zy-Ia
+ for xen-devel@lists.xenproject.org; Wed, 23 Mar 2022 17:18:03 +0000
+Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
+ [2607:f8b0:4864:20::1032])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 317cb5dc-aacd-11ec-a405-831a346695d4;
+ Wed, 23 Mar 2022 18:18:02 +0100 (CET)
+Received: by mail-pj1-x1032.google.com with SMTP id jx9so2356624pjb.5
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Mar 2022 10:18:02 -0700 (PDT)
+Received: from localhost.localdomain (198.red-83-50-65.dynamicip.rima-tde.net.
+ [83.50.65.198]) by smtp.gmail.com with ESMTPSA id
+ p7-20020a17090a2d8700b001c785d6c1ffsm292709pjd.28.2022.03.23.10.17.55
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Wed, 23 Mar 2022 10:18:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,127 +44,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=/8zBfwo4pda8kXQ7yggrF0CvI6Yhzti1jqz15NNeGe0=; b=cL9R+Am7Gy/6DDIUmQYcCoIgOM
-	pt1j12q9BLeXMcdPQWBs71NgeQU2YvcglPzM+euamjnyy/Hy37e4hjSSKQrZMZ95dx17vEp3iccBB
-	CBv8gThRFvnfGnebIaNnfiW2j4pXHox3ePeNAcv40fne7E13YqAQ09cKB2TzF+DB+hno=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168801-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 317cb5dc-aacd-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=+l8uJm4CIqAcDOfVATSJ4rR/JXp8ZgwRxCX0NecHXmE=;
+        b=CnJlMkzsqA1I0/mH2Lot6kLWsBC+yd0FigFPsBdJnkvWTCH7AGqvoK/3WSA/+IxdaM
+         xzOZ/VWLKH2P+0+bY20wQCU1lvUg8UzUPGW8HGCn0xzOLSPN2nt/ryv4GGzFYdN1tA+j
+         Dfuv6ALbCgaaTrVsNykkAPPQy1hp0ahfhA/Z6FXCTCwuKYjAFQuE/tkfghxuOvsYEJ2j
+         WQXj4PxLPnHgTxgC34WolXx3T6YRrD4OrtlvBepJ+nquWnqnl6jJX+Uq017Y0DtIUEwx
+         08sjphUWRYRsamVcoWbigH5wwmpaIogIzsNhOLxSWdBl46U0PoZkNmoYI8GpEX2N1xKE
+         KDRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=+l8uJm4CIqAcDOfVATSJ4rR/JXp8ZgwRxCX0NecHXmE=;
+        b=5SJYOmDaQKGX7j6rj7m3xereoKqqNwb2TmD0I4Begf+H4OB8rW6eFqD+AdqAVMFXej
+         2VXlOluyoWyanoE/CCTRwm2nzwi7xflsA3oFKPERQuzcWxuD+3hRjiTjJNgVBVL+BCXE
+         7ZP4EUOabDxlJSS+kwf9aFWe8Vmi3Th4liGHXlZxnEzGKuzbsQ4M9ep1R9sCjRN9Bma+
+         n6XekPyiLKxwoRTeY5topuv8RNoLvLqR20HXyvP8U0bKfMssU6MWt9KLu4W+qAj+ZERT
+         XaH8/uqKgqka1ye9UnXTpoEIBZowLPEY6DUFfYkBO6zQp1ssBDqnIl8zISLDEdVNtInG
+         YIog==
+X-Gm-Message-State: AOAM530k9KejGvqplEziJIkuO5qiwmoyIEU/Z3JLJajwyY0d0N9edkDf
+	AA9pGvi+6GFSN54tVK7foTE=
+X-Google-Smtp-Source: ABdhPJyfNBPOJNSh1Ki6UbOUdxvcE3eiFy8Opq35BV6fw0og6EdkbvGhNha3qWs7W41vFPcTu8uFnQ==
+X-Received: by 2002:a17:902:b902:b0:154:bb05:ddb9 with SMTP id bf2-20020a170902b90200b00154bb05ddb9mr1084944plb.14.1648055881126;
+        Wed, 23 Mar 2022 10:18:01 -0700 (PDT)
+From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philippe.mathieu.daude@gmail.com>
+To: qemu-devel@nongnu.org
+Cc: Wenchao Wang <wenchao.wang@intel.com>,
+	Laurent Vivier <lvivier@redhat.com>,
+	David Hildenbrand <david@redhat.com>,
+	Yanan Wang <wangyanan55@huawei.com>,
+	Cameron Esfahani <dirty@apple.com>,
+	Marcelo Tosatti <mtosatti@redhat.com>,
+	Sunil Muthuswamy <sunilmut@microsoft.com>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	haxm-team@intel.com,
+	Paul Durrant <paul@xen.org>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	xen-devel@lists.xenproject.org,
+	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <f4bug@amsat.org>,
+	Roman Bolshakov <r.bolshakov@yadro.com>,
+	Reinoud Zandijk <reinoud@netbsd.org>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Kamil Rytarowski <kamil@netbsd.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Peter Xu <peterx@redhat.com>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Thomas Huth <thuth@redhat.com>,
+	Colin Xu <colin.xu@intel.com>
+Subject: [PATCH v4 00/13] accel: Fix vCPU memory leaks
+Date: Wed, 23 Mar 2022 18:17:38 +0100
+Message-Id: <20220323171751.78612-1-philippe.mathieu.daude@gmail.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Subject: [ovmf test] 168801: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=ec0b54849b23efa25caf0055b0eef8bf9b4dec98
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 23 Mar 2022 17:14:53 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-flight 168801 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168801/
+From: Philippe Mathieu-Daudé <f4bug@amsat.org>
 
-Regressions :-(
+Hi,
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+This is a respin of Mark 'vCPU hotunplug related memory leaks' v3:
+https://lore.kernel.org/qemu-devel/20220321141409.3112932-1-mark.kanda@oracle.com/
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+Instead I refactored to extract the common common_vcpu_thread_create()
+from all accelerators (except TCG/RR, which requires a special-casing).
 
-version targeted for testing:
- ovmf                 ec0b54849b23efa25caf0055b0eef8bf9b4dec98
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+Not well tested...
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   23 days
-Failing since        168258  2022-03-01 01:55:31 Z   22 days  231 attempts
-Testing same since   168774  2022-03-22 08:40:31 Z    1 days   12 attempts
+Mark Kanda (3):
+  cpu: Free cpu->cpu_ases in cpu_address_space_destroy()
+  softmmu/cpus: Free cpu->thread in generic_destroy_vcpu_thread()
+  softmmu/cpus: Free cpu->halt_cond in generic_destroy_vcpu_thread()
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
+Philippe Mathieu-Daudé (10):
+  target/i386/kvm: Free xsave_buf when destroying vCPU
+  target/i386/hvf: Free resources when vCPU is destroyed
+  accel/hvf: Remove pointless assertion
+  accel/tcg: Init TCG cflags in vCPU thread handler
+  accel/tcg: Reorganize tcg_accel_ops_init()
+  accel-ops: Introduce create_vcpu_thread_precheck / postcheck handlers
+  accel/tcg: Extract rr_create_vcpu_thread_precheck()
+  accel/all: Extract common_vcpu_thread_create()
+  accel-ops: Introduce common_vcpu_thread_destroy() and .precheck
+    handler
+  accel/tcg: Add rr_destroy_vcpu_thread_precheck()
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+ accel/accel-softmmu.c             |  2 +-
+ accel/dummy-cpus.c                | 15 +----------
+ accel/hvf/hvf-accel-ops.c         | 24 +++--------------
+ accel/kvm/kvm-accel-ops.c         | 17 +++---------
+ accel/qtest/qtest.c               |  3 ++-
+ accel/tcg/tcg-accel-ops-mttcg.c   | 27 +++----------------
+ accel/tcg/tcg-accel-ops-mttcg.h   |  3 +--
+ accel/tcg/tcg-accel-ops-rr.c      | 44 +++++++++++++++----------------
+ accel/tcg/tcg-accel-ops-rr.h      |  7 +++--
+ accel/tcg/tcg-accel-ops.c         | 22 +++++++++-------
+ accel/xen/xen-all.c               |  2 +-
+ cpu.c                             |  1 +
+ include/exec/cpu-common.h         |  7 +++++
+ include/sysemu/accel-ops.h        |  9 ++++++-
+ include/sysemu/cpus.h             |  4 +--
+ softmmu/cpus.c                    | 40 +++++++++++++++++++++++++---
+ softmmu/physmem.c                 |  5 ++++
+ target/i386/hax/hax-accel-ops.c   | 20 ++------------
+ target/i386/hvf/hvf.c             |  2 ++
+ target/i386/kvm/kvm.c             |  2 ++
+ target/i386/nvmm/nvmm-accel-ops.c | 17 +++---------
+ target/i386/whpx/whpx-accel-ops.c | 20 +++-----------
+ 22 files changed, 127 insertions(+), 166 deletions(-)
 
+-- 
+2.35.1
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 875 lines long.)
 
