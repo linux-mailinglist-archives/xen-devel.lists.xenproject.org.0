@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDB144E58CD
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Mar 2022 19:57:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.294049.499816 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A00F4E58D0
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Mar 2022 19:59:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.294052.499827 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nX6AD-0006iL-Ts; Wed, 23 Mar 2022 18:56:57 +0000
+	id 1nX6Cc-0007Ns-B3; Wed, 23 Mar 2022 18:59:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 294049.499816; Wed, 23 Mar 2022 18:56:57 +0000
+Received: by outflank-mailman (output) from mailman id 294052.499827; Wed, 23 Mar 2022 18:59:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nX6AD-0006gJ-PR; Wed, 23 Mar 2022 18:56:57 +0000
-Received: by outflank-mailman (input) for mailman id 294049;
- Wed, 23 Mar 2022 18:56:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=s5zF=UC=gmail.com=philippe.mathieu.daude@srs-se1.protection.inumbo.net>)
- id 1nX6AC-0006g7-Kd
- for xen-devel@lists.xenproject.org; Wed, 23 Mar 2022 18:56:56 +0000
-Received: from mail-qt1-x82b.google.com (mail-qt1-x82b.google.com
- [2607:f8b0:4864:20::82b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 01f14ea2-aadb-11ec-a405-831a346695d4;
- Wed, 23 Mar 2022 19:56:55 +0100 (CET)
-Received: by mail-qt1-x82b.google.com with SMTP id c4so2005544qtx.1
- for <xen-devel@lists.xenproject.org>; Wed, 23 Mar 2022 11:56:55 -0700 (PDT)
-Received: from [192.168.1.33] (198.red-83-50-65.dynamicip.rima-tde.net.
- [83.50.65.198]) by smtp.gmail.com with ESMTPSA id
- 20-20020ac84e94000000b002e1d5505fb6sm693231qtp.63.2022.03.23.11.56.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 23 Mar 2022 11:56:53 -0700 (PDT)
+	id 1nX6Cc-0007Ko-7J; Wed, 23 Mar 2022 18:59:26 +0000
+Received: by outflank-mailman (input) for mailman id 294052;
+ Wed, 23 Mar 2022 18:59:24 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nX6Ca-0007Kc-KV; Wed, 23 Mar 2022 18:59:24 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nX6Ca-0003RO-Gp; Wed, 23 Mar 2022 18:59:24 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nX6Ca-0005Uw-1Z; Wed, 23 Mar 2022 18:59:24 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nX6Ca-0002tz-0s; Wed, 23 Mar 2022 18:59:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,151 +42,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 01f14ea2-aadb-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=5eVbw0nx8xg2wrymdgy7rIBO9Z2Z1ybMaOCic40tRX8=;
-        b=pINxR8DJ/dnErtsZYHLcjm3xLVqJFIx1fMZNHtFehMtqd8aGXnSl54CT4YCi0RLQF1
-         H9kc4Fd7rO9qljLBdTA4RxkI2f7FzHEvejLR/IrVv3ShAVJLFaJwsVQfOkLIRbusOioH
-         LfbzI6BuvUyV0CU2sjYFvVtrZg9SOin6Ov/isa+XzSYhHwAHIO99eVmW79gYKjwiD5db
-         157eGbN9NADA4/5cI5kFhkeT9C0pk178OKQI8l5wT8ovbXUnRHdyBEZAMvCvZ/4Ra2fE
-         IJEPWagNz/x8+yoWrbByo2K5dgojkE1HzMlryp40yl7F8BrPdBpzDOhxibrbqDs8AVLS
-         JZng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=5eVbw0nx8xg2wrymdgy7rIBO9Z2Z1ybMaOCic40tRX8=;
-        b=09IEsEofZJygHfIEMkE8XjUSY6aAXoHf+pnnaKrUvz9TWDR9sjBGRp+60SFlYYGkEu
-         vyhKKlBQFZGvt6mMs4D4XEdgN1cbBI/+qVwKZjfAi1tdayT1/4E6dvOYpYgnYSK9PRNN
-         Y83FImgSBlutO6PA60yG4e9V8HSd/E5zW6cJp7knHcignbTFoc5vaeeEuGJxEViCROns
-         ynSKoilbnyJso4ezdrfO8JgoiBdj+eL2aXpAzStI/pkYxofYeU+QxXOwl6RBWWBuU09G
-         nt1nFKZiAfwnFQ6kQ4mPwxuZs6l+loH3PUvgsSxeF/9XMFFBdPTx6ljh8AZPwrE7VVg5
-         ZFcw==
-X-Gm-Message-State: AOAM532SByrXaNg+mQ92QG1zkVw+/OdXX3qUMxa/SrsTfUOFLc46hsjN
-	fTsUXbnBpBUih3R0F4RFzhM=
-X-Google-Smtp-Source: ABdhPJwKXR1brQUncQYlgUOu7VO+BDgmnuJ6K6yvnXsMlACxq1xjWW0DRh2aVZuhQlVnRO+8VmthaA==
-X-Received: by 2002:ac8:59c8:0:b0:2e0:6ae2:eb6f with SMTP id f8-20020ac859c8000000b002e06ae2eb6fmr1175396qtf.580.1648061814387;
-        Wed, 23 Mar 2022 11:56:54 -0700 (PDT)
-Message-ID: <06217ec6-bd2a-6fd1-b2ff-1704b073456f@gmail.com>
-Date: Wed, 23 Mar 2022 19:56:47 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.7.0
-Subject: Re: [PATCH v4 01/13] cpu: Free cpu->cpu_ases in
- cpu_address_space_destroy()
-Content-Language: en-US
-To: qemu-devel@nongnu.org
-Cc: Wenchao Wang <wenchao.wang@intel.com>, Laurent Vivier
- <lvivier@redhat.com>, David Hildenbrand <david@redhat.com>,
- Yanan Wang <wangyanan55@huawei.com>, Cameron Esfahani <dirty@apple.com>,
- Marcelo Tosatti <mtosatti@redhat.com>,
- Sunil Muthuswamy <sunilmut@microsoft.com>,
- Anthony Perard <anthony.perard@citrix.com>, haxm-team@intel.com,
- Paul Durrant <paul@xen.org>, Richard Henderson
- <richard.henderson@linaro.org>, xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>,
- Roman Bolshakov <r.bolshakov@yadro.com>, Reinoud Zandijk
- <reinoud@netbsd.org>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Kamil Rytarowski <kamil@netbsd.org>, Paolo Bonzini <pbonzini@redhat.com>,
- Peter Xu <peterx@redhat.com>, Eduardo Habkost <eduardo@habkost.net>,
- Stefano Stabellini <sstabellini@kernel.org>, Thomas Huth <thuth@redhat.com>,
- Colin Xu <colin.xu@intel.com>, Mark Kanda <mark.kanda@oracle.com>
-References: <20220323171751.78612-1-philippe.mathieu.daude@gmail.com>
- <20220323171751.78612-2-philippe.mathieu.daude@gmail.com>
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?=
- <philippe.mathieu.daude@gmail.com>
-In-Reply-To: <20220323171751.78612-2-philippe.mathieu.daude@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=TgajSFHbPJz7kjR6QbK3P0kkTouON1zPsOFhxl+EXoc=; b=DU6GyqQ058S39kuWbRnYaMI7Xr
+	Is+YjOLW5t5YSDShvjetCmoLSL4KjLjfPuUb0eL+cXYN6X9OlQrpmjDbIYKFRpZ037MIvYnrCypex
+	PYfLTdH1TIawQlrFEcPmeuDx/s23w+jnHrgg7twpzmo7AC5z07dETdnTZoZeXiHV9+tA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168805-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 168805: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=ec0b54849b23efa25caf0055b0eef8bf9b4dec98
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 23 Mar 2022 18:59:24 +0000
 
-On 23/3/22 18:17, Philippe Mathieu-Daudé wrote:
-> From: Mark Kanda <mark.kanda@oracle.com>
-> 
-> Create cpu_address_space_destroy() to free a CPU's cpu_ases list.
+flight 168805 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168805/
 
-This seems incorrect...
+Regressions :-(
 
-> vCPU hotunplug related leak reported by Valgrind:
-> 
-> ==132362== 216 bytes in 1 blocks are definitely lost in loss record 7,119 of 8,549
-> ==132362==    at 0x4C3ADBB: calloc (vg_replace_malloc.c:1117)
-> ==132362==    by 0x69EE4CD: g_malloc0 (in /usr/lib64/libglib-2.0.so.0.5600.4)
-> ==132362==    by 0x7E34AF: cpu_address_space_init (physmem.c:751)
-> ==132362==    by 0x45053E: qemu_init_vcpu (cpus.c:635)
-> ==132362==    by 0x76B4A7: x86_cpu_realizefn (cpu.c:6520)
-> ==132362==    by 0x9343ED: device_set_realized (qdev.c:531)
-> ==132362==    by 0x93E26F: property_set_bool (object.c:2273)
-> ==132362==    by 0x93C23E: object_property_set (object.c:1408)
-> ==132362==    by 0x9406DC: object_property_set_qobject (qom-qobject.c:28)
-> ==132362==    by 0x93C5A9: object_property_set_bool (object.c:1477)
-> ==132362==    by 0x933C81: qdev_realize (qdev.c:333)
-> ==132362==    by 0x455E9A: qdev_device_add_from_qdict (qdev-monitor.c:713)
-> 
-> Signed-off-by: Mark Kanda <mark.kanda@oracle.com>
-> Tested-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
-> Message-Id: <20220321141409.3112932-5-mark.kanda@oracle.com>
-> Signed-off-by: Philippe Mathieu-Daudé <f4bug@amsat.org>
-> ---
->   cpu.c                     | 1 +
->   include/exec/cpu-common.h | 7 +++++++
->   softmmu/physmem.c         | 5 +++++
->   3 files changed, 13 insertions(+)
-> 
-> diff --git a/cpu.c b/cpu.c
-> index be1f8b074c..59352a1487 100644
-> --- a/cpu.c
-> +++ b/cpu.c
-> @@ -174,6 +174,7 @@ void cpu_exec_unrealizefn(CPUState *cpu)
->           tcg_exec_unrealizefn(cpu);
->       }
->   
-> +    cpu_address_space_destroy(cpu);
->       cpu_list_remove(cpu);
->   }
->   
-> diff --git a/include/exec/cpu-common.h b/include/exec/cpu-common.h
-> index 50a7d2912e..b17ad61ae4 100644
-> --- a/include/exec/cpu-common.h
-> +++ b/include/exec/cpu-common.h
-> @@ -111,6 +111,13 @@ size_t qemu_ram_pagesize_largest(void);
->    */
->   void cpu_address_space_init(CPUState *cpu, int asidx,
->                               const char *prefix, MemoryRegion *mr);
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
 
-... cpu_address_space_init() creates a single AS, ...
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-> +/**
-> + * cpu_address_space_destroy:
-> + * @cpu: CPU for this address space
-> + *
-> + * Cleanup CPU's cpu_ases list.
-> + */
-> +void cpu_address_space_destroy(CPUState *cpu);
->   
->   void cpu_physical_memory_rw(hwaddr addr, void *buf,
->                               hwaddr len, bool is_write);
-> diff --git a/softmmu/physmem.c b/softmmu/physmem.c
-> index 43ae70fbe2..aec61ca07a 100644
-> --- a/softmmu/physmem.c
-> +++ b/softmmu/physmem.c
-> @@ -762,6 +762,11 @@ void cpu_address_space_init(CPUState *cpu, int asidx,
->       }
->   }
->   
-> +void cpu_address_space_destroy(CPUState *cpu)
-> +{
-> +    g_free(cpu->cpu_ases);
+version targeted for testing:
+ ovmf                 ec0b54849b23efa25caf0055b0eef8bf9b4dec98
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-... but here you destroy all the ASes.
+Last test of basis   168254  2022-02-28 10:41:46 Z   23 days
+Failing since        168258  2022-03-01 01:55:31 Z   22 days  233 attempts
+Testing same since   168774  2022-03-22 08:40:31 Z    1 days   14 attempts
 
-> +}
-> +
->   AddressSpace *cpu_get_address_space(CPUState *cpu, int asidx)
->   {
->       /* Return the AddressSpace corresponding to the specified index */
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
 
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 875 lines long.)
 
