@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD1B44E49F4
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Mar 2022 01:09:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.293701.499031 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 967A44E4A07
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Mar 2022 01:22:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.293704.499043 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWoXs-0005cU-5V; Wed, 23 Mar 2022 00:08:12 +0000
+	id 1nWolT-0007tL-EI; Wed, 23 Mar 2022 00:22:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 293701.499031; Wed, 23 Mar 2022 00:08:12 +0000
+Received: by outflank-mailman (output) from mailman id 293704.499043; Wed, 23 Mar 2022 00:22:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWoXs-0005Zh-2V; Wed, 23 Mar 2022 00:08:12 +0000
-Received: by outflank-mailman (input) for mailman id 293701;
- Wed, 23 Mar 2022 00:08:10 +0000
+	id 1nWolT-0007qX-Ao; Wed, 23 Mar 2022 00:22:15 +0000
+Received: by outflank-mailman (input) for mailman id 293704;
+ Wed, 23 Mar 2022 00:22:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RTL5=UC=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nWoXq-0005Zb-IM
- for xen-devel@lists.xenproject.org; Wed, 23 Mar 2022 00:08:10 +0000
+ id 1nWolR-0007qR-OX
+ for xen-devel@lists.xenproject.org; Wed, 23 Mar 2022 00:22:13 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5131aa02-aa3d-11ec-8fbc-03012f2f19d4;
- Wed, 23 Mar 2022 01:08:08 +0100 (CET)
+ id 48560d39-aa3f-11ec-8fbc-03012f2f19d4;
+ Wed, 23 Mar 2022 01:22:12 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id C85E5612D2;
- Wed, 23 Mar 2022 00:08:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEE3BC340EC;
- Wed, 23 Mar 2022 00:08:05 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0A4E061241;
+ Wed, 23 Mar 2022 00:22:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5C41C340EC;
+ Wed, 23 Mar 2022 00:22:09 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,64 +43,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5131aa02-aa3d-11ec-8fbc-03012f2f19d4
+X-Inumbo-ID: 48560d39-aa3f-11ec-8fbc-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1647994086;
-	bh=N7iDlJF01CUUgAbqniay20AhN/tFtDX3Q8xXXUt3DBo=;
+	s=k20201202; t=1647994930;
+	bh=vEmttIlR7Y89tTfj0Rz5EHjzjN/FACrOLSKV0h7xYfQ=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=LJ/vAp+BywJx7zWQEss24xrfrmJl04OiVyjxK/sWX8eVwQmPAkm2KXGN4LRqLEUsY
-	 +PQfQyocQMWTbs2kvXxikkkv8sjhoNq9oTcTII+EHdCHRRGojsXSgUR+uzrg+d0t7F
-	 AqT44+g64oc38pzs4hB9yGobxzQmnBdBJF15GkmaaLGPpgHl47GkChomJErhAyFIO2
-	 Pb0YRO4gLHYrT5mEMZGYdvScnE+7y+fy+YhsMgdM5biU32hX9We9B3Y3BsWgrfC85W
-	 9x22k/Jb+Fhu3EKU9jz5DR1lJQO7T9s2RZr8+fwroPcNo1sVFW/24QVJHlEC8/8mj6
-	 qMfvKudLtZ6zg==
-Date: Tue, 22 Mar 2022 17:08:05 -0700 (PDT)
+	b=diua1idBbZxoN3khLNMi/t4RLJiFTk58zLcVXYAWkgXXHseEfGd+Is3yQE4o9JPKq
+	 auRK+KtHvNtIHH46k9SyN7aUybQ1VwIdNT7yM07XSVKtOKMdh7dsdZUAAPZKdtjr5i
+	 TGvP7SSB1FCZKwGxwlXIhqxJIGLpLf0hbMYQlYbGz4/m6Bk6I5tcMVROhn+zw0vFwk
+	 3b5jVnDIfSuEVxwygxHHvL1Jcvby5EK+b0203A3NcBrHhNsyAlbwJQnul3tpKkRRSw
+	 gjsCulxDD4pM7eLnZHdevFKpQxCeR3f7qPizPhASHnKcQ/sktpqB3PV4vQEDHHd0OH
+	 vkGrFDg4Yg/aA==
+Date: Tue, 22 Mar 2022 17:22:09 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
+To: "Daniel P. Smith" <dpsmith.dev@gmail.com>, jbeulich@suse.com
 cc: Stefano Stabellini <sstabellini@kernel.org>, 
     xen-devel@lists.xenproject.org, jgross@suse.com, Bertrand.Marquis@arm.com, 
-    Volodymyr_Babchuk@epam.com, 
-    Stefano Stabellini <stefano.stabellini@xilinx.com>
-Subject: Re: [PATCH v3 1/5] xen: introduce xen,enhanced dom0less property
-In-Reply-To: <3a00dff8-c213-616e-48b0-6e2b6f30dbce@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2203221653230.2910984@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2201281330520.27308@ubuntu-linux-20-04-desktop> <20220128213307.2822078-1-sstabellini@kernel.org> <3a00dff8-c213-616e-48b0-6e2b6f30dbce@xen.org>
+    julien@xen.org, Volodymyr_Babchuk@epam.com, 
+    Luca Miccio <lucmiccio@gmail.com>, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v3 2/5] xen: make evtchn_alloc_unbound public
+In-Reply-To: <2f05e63a-96c3-e78f-f7e4-36fd17fcd58c@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2203221711110.2910984@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2201281330520.27308@ubuntu-linux-20-04-desktop> <20220128213307.2822078-2-sstabellini@kernel.org> <2f05e63a-96c3-e78f-f7e4-36fd17fcd58c@gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Sat, 29 Jan 2022, Julien Grall wrote:
-> > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> > index 6931c022a2..9144d6c0b6 100644
-> > --- a/xen/arch/arm/domain_build.c
-> > +++ b/xen/arch/arm/domain_build.c
-> > @@ -2963,6 +2963,7 @@ static int __init construct_domU(struct domain *d,
-> >                                    const struct dt_device_node *node)
-> >   {
-> >       struct kernel_info kinfo = {};
-> > +    const char *dom0less_enhanced;
-> >       int rc;
-> >       u64 mem;
-> >   @@ -2978,6 +2979,12 @@ static int __init construct_domU(struct domain *d,
-> >         kinfo.vpl011 = dt_property_read_bool(node, "vpl011");
-> >   +    rc = dt_property_read_string(node, "xen,enhanced",
-> > &dom0less_enhanced);
-> > +    if ( rc == -EILSEQ ||
+On Tue, 15 Mar 2022, Daniel P. Smith wrote:
+> On 1/28/22 16:33, Stefano Stabellini wrote:
+> > From: Luca Miccio <lucmiccio@gmail.com>
+> > 
+> > The xenstore event channel will be allocated for dom0less domains. It is
+> > necessary to have access to the evtchn_alloc_unbound function to do
+> > that, so make evtchn_alloc_unbound public.
+> > 
+> > Add a skip_xsm parameter to allow disabling the XSM check in
+> > evtchn_alloc_unbound (xsm_evtchn_unbound wouldn't work for a call
+> > originated from Xen before running any domains.)
+> > 
+> > Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> > CC: Julien Grall <julien@xen.org>
+> > CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+> > CC: Bertrand Marquis <bertrand.marquis@arm.com>
+> > CC: Andrew Cooper <andrew.cooper3@citrix.com>
+> > CC: George Dunlap <george.dunlap@citrix.com>
+> > CC: Jan Beulich <jbeulich@suse.com>
+> > CC: Wei Liu <wl@xen.org>
+> > ---
+> > Changes v3:
+> > - expose evtchn_alloc_unbound, assing a skip_xsm parameter
+> > ---
+> >  xen/common/event_channel.c | 13 ++++++++-----
+> >  xen/include/xen/event.h    |  3 +++
+> >  2 files changed, 11 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
+> > index da88ad141a..be57d00a15 100644
+> > --- a/xen/common/event_channel.c
+> > +++ b/xen/common/event_channel.c
+> > @@ -284,7 +284,7 @@ void evtchn_free(struct domain *d, struct evtchn *chn)
+> >      xsm_evtchn_close_post(chn);
+> >  }
+> >  
+> > -static int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
+> > +int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc, bool skip_xsm)
+> >  {
+> >      struct evtchn *chn;
+> >      struct domain *d;
+> > @@ -301,9 +301,12 @@ static int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
+> >          ERROR_EXIT_DOM(port, d);
+> >      chn = evtchn_from_port(d, port);
+> >  
+> > -    rc = xsm_evtchn_unbound(XSM_TARGET, d, chn, alloc->remote_dom);
+> > -    if ( rc )
+> > -        goto out;
+> > +    if ( !skip_xsm )
+> > +    {
+> > +        rc = xsm_evtchn_unbound(XSM_TARGET, d, chn, alloc->remote_dom);
+> > +        if ( rc )
+> > +            goto out;
+> > +    }
 > 
-> I think the use an -EILSEQ wants an explanation. In a previous version, you
-> wrote that the value would be returned when:
-> 
-> fdt set /chosen/domU0 xen,enhanced
-> 
-> But it is not clear why. Can you print pp->value, pp->length, strnlen(..) when
-> this happens?
+> Please do not subvert the security framework because it causes an
+> inconvenience. As Jan recommended, work within the XSM check to allow
+> your access so that we may ensure it is done safely. If you need any
+> help making modifications to XSM, please do not hesitate to reach out as
+> I will gladly help.
 
-I added in dt_property_read_string:
+Thank you!
 
-printk("DEBUG %s %d value=%s value[0]=%d length=%u len=%lu\n",__func__,__LINE__,(char*)pp->value, *((char*)pp->value),pp->length, strlen(pp->value));
+First let me reply to Jan: this series is only introducing 1 more call
+to evtchn_alloc_unbound, which is to allocate the special xenstore event
+channel, the one configured via
+d->arch.hvm.params[HVM_PARAM_STORE_EVTCHN].
 
-This is the output:
-(XEN) DEBUG dt_property_read_string 205 value= value[0]=0 length=0 len=0
+It is not meant to be a generic function, and it is not meant to be
+called more than once. It could (should?) be __init.
 
+The existing XSM check in evtchn_alloc_unbound cannot work and should
+not work: it is based on the current domain having enough privileges to
+create the event channel. In this case, we have no current domain at
+all. The current domain is Xen itself.
+
+For these reasons, given [1], also not to subvert the security
+framework as Daniel pointed out, I think I should go back to my own
+implementation [2][3] based on get_free_port. That is my preference
+because:
+
+- the Xen codebase doesn't gain much by reusing evtchn_alloc_unbound
+- adding skip_xsm introduces a component of risk (unless we make it
+  __init maybe?)
+- using get_free_port is trivial and doesn't pose the same issues
+
+
+Let's find all an agreement on how to move forward on this.
+
+
+[1] https://marc.info/?l=xen-devel&m=164194128922838
+[2] https://marc.info/?l=xen-devel&m=164203543615114
+[3] https://marc.info/?l=xen-devel&m=164203544615129 
 
