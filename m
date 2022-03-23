@@ -2,35 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C04394E4E58
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Mar 2022 09:36:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.293787.499187 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 451EF4E4E67
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Mar 2022 09:41:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.293793.499208 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWwTD-00082m-9V; Wed, 23 Mar 2022 08:35:55 +0000
+	id 1nWwYh-0001NW-85; Wed, 23 Mar 2022 08:41:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 293787.499187; Wed, 23 Mar 2022 08:35:55 +0000
+Received: by outflank-mailman (output) from mailman id 293793.499208; Wed, 23 Mar 2022 08:41:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWwTD-00080x-6E; Wed, 23 Mar 2022 08:35:55 +0000
-Received: by outflank-mailman (input) for mailman id 293787;
- Wed, 23 Mar 2022 08:35:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nWwYh-0001Kx-50; Wed, 23 Mar 2022 08:41:35 +0000
+Received: by outflank-mailman (input) for mailman id 293793;
+ Wed, 23 Mar 2022 08:41:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=x2G8=UC=arm.com=michal.orzel@srs-se1.protection.inumbo.net>)
- id 1nWwTA-00080r-W2
- for xen-devel@lists.xenproject.org; Wed, 23 Mar 2022 08:35:53 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 3d004df4-aa84-11ec-a405-831a346695d4;
- Wed, 23 Mar 2022 09:35:50 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 46D5DED1;
- Wed, 23 Mar 2022 01:35:47 -0700 (PDT)
-Received: from [10.57.20.157] (unknown [10.57.20.157])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6E88D3F73D;
- Wed, 23 Mar 2022 01:35:45 -0700 (PDT)
+ <SRS0=7r0c=UC=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1nWwYf-0001KM-VV
+ for xen-devel@lists.xenproject.org; Wed, 23 Mar 2022 08:41:34 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2062f.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::62f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 09a12a94-aa85-11ec-8fbc-03012f2f19d4;
+ Wed, 23 Mar 2022 09:41:32 +0100 (CET)
+Received: from AM6P191CA0058.EURP191.PROD.OUTLOOK.COM (2603:10a6:209:7f::35)
+ by DB6PR0802MB2327.eurprd08.prod.outlook.com (2603:10a6:4:89::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.18; Wed, 23 Mar
+ 2022 08:41:28 +0000
+Received: from AM5EUR03FT009.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:209:7f:cafe::b8) by AM6P191CA0058.outlook.office365.com
+ (2603:10a6:209:7f::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.18 via Frontend
+ Transport; Wed, 23 Mar 2022 08:41:28 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM5EUR03FT009.mail.protection.outlook.com (10.152.16.110) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5081.14 via Frontend Transport; Wed, 23 Mar 2022 08:41:27 +0000
+Received: ("Tessian outbound 826a6d8e58c3:v113");
+ Wed, 23 Mar 2022 08:41:27 +0000
+Received: from 64ed93d38324.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ E7A9CDC5-AAA0-4945-AB05-5AEAF317BD11.1; 
+ Wed, 23 Mar 2022 08:41:20 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 64ed93d38324.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Wed, 23 Mar 2022 08:41:20 +0000
+Received: from AM0PR08MB3956.eurprd08.prod.outlook.com (2603:10a6:208:131::12)
+ by DB7PR08MB3195.eurprd08.prod.outlook.com (2603:10a6:5:1e::29) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.14; Wed, 23 Mar
+ 2022 08:41:17 +0000
+Received: from AM0PR08MB3956.eurprd08.prod.outlook.com
+ ([fe80::8113:3b77:e3a2:b008]) by AM0PR08MB3956.eurprd08.prod.outlook.com
+ ([fe80::8113:3b77:e3a2:b008%7]) with mapi id 15.20.5081.023; Wed, 23 Mar 2022
+ 08:41:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,185 +72,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d004df4-aa84-11ec-a405-831a346695d4
-Message-ID: <49c9d0b5-308c-59ea-cd7a-4d369156ffed@arm.com>
-Date: Wed, 23 Mar 2022 09:35:36 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH v4 2/2] gitlab-ci: add an ARM32 qemu-based smoke test
+X-Inumbo-ID: 09a12a94-aa85-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dhTacJy/EhL/i7CwFmI02Q+n+Zg/gcViBEPvDF7NeqE=;
+ b=CSx4x02CU2lNPmM/hzcoEREYVqMQ5an3NziQ/wu0gXNlaahhDKaffuOJ7iJ13InemdafvGQCJcU7MJ23H4UFBQ9VBHE6Iy72/xEHXwFK8cYqyuFG7E1/iipZDG9JqxMjdL/df9/fzyy1sT2cRcx/LMRcAvApUy/lQBQ3aLLSPgw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 9161aa2d07b4c833
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=J/a0xf/01i8cIrj9vV61AqmHyvIzTyCs0RGmHaMKJ2j9fEequKVUCDVJUH3mIE9TPqrS6t0wAnVkYnG9LknWGbmcd0brV/W8DmPpr054GTVHMxN7LU4WRJ3UFMea5g19y1VJakr9Ehk9taF86/ny06VWFEQ8UQ7tVr0tXDirCjUXzrBIzKOJ7CsHdRHeyUZcmSqy10ZxbS0+49YABJSFTsc3n9tqbE9vG+o1BxRRrtdtl76X6ozH8C1D1jrA0G48B/cluvk32GLy8YQ8XGK5e2JtYGzhJnB/W0DC2hJbsIEJempVXbemII5gU+/dvjCWb2qjHun99Ed9vobzJBMHdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dhTacJy/EhL/i7CwFmI02Q+n+Zg/gcViBEPvDF7NeqE=;
+ b=XJx1ADnDtdNvE0eLHL7KHCJ1nhtk2wn55RgOO9s3IHwvjuFWYmwsujZocX4kwrYINdshanwyF+x4v8quhUuDpD4qefh48sizhDRhtwvVIbzy5J8Uw1SISa8wy20XZLG7F3LJgircDdT2z8YK8D/CthUD67mU5Q/YNlCawGw7dJRK3d2pOEBkZve+NM/4o/drz1+l3DYEAkPqkcRT8jwQjGkMWbMsf/EPao3Gv6uWM48CneRfcqlIWFOxJTQ/y5kQw222f3/dbCcqDedAk7kUtyHF+TA74J5GzvU5k57Q8xtnJlGhfuuZlyWQHXTGfmhycVWabVIY3QE76AYiBFOB1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dhTacJy/EhL/i7CwFmI02Q+n+Zg/gcViBEPvDF7NeqE=;
+ b=CSx4x02CU2lNPmM/hzcoEREYVqMQ5an3NziQ/wu0gXNlaahhDKaffuOJ7iJ13InemdafvGQCJcU7MJ23H4UFBQ9VBHE6Iy72/xEHXwFK8cYqyuFG7E1/iipZDG9JqxMjdL/df9/fzyy1sT2cRcx/LMRcAvApUy/lQBQ3aLLSPgw=
+From: Luca Fancellu <Luca.Fancellu@arm.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] build: provide and export ADDR2LINE
+Thread-Topic: [PATCH] build: provide and export ADDR2LINE
+Thread-Index: AQHYPgDW0ExT1npxb0S4HRybiy8x26zMp4MA
+Date: Wed, 23 Mar 2022 08:41:17 +0000
+Message-ID: <460B770C-B754-41E2-8126-F59D32263B51@arm.com>
+References: <45de6ac3-7701-0b37-8ada-b46f4237448a@suse.com>
+In-Reply-To: <45de6ac3-7701-0b37-8ada-b46f4237448a@suse.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-Cc: cardoe@cardoe.com, wl@xen.org, andrew.cooper3@citrix.com,
- anthony.perard@citrix.com, bertrand.marquis@arm.com,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
-References: <alpine.DEB.2.22.394.2203221337230.2910984@ubuntu-linux-20-04-desktop>
- <20220322203854.420940-2-sstabellini@kernel.org>
-From: Michal Orzel <michal.orzel@arm.com>
-In-Reply-To: <20220322203854.420940-2-sstabellini@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3693.60.0.1.1)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-MS-Office365-Filtering-Correlation-Id: 3aeb7222-18ad-46c2-2fc5-08da0ca8ebda
+x-ms-traffictypediagnostic:
+	DB7PR08MB3195:EE_|AM5EUR03FT009:EE_|DB6PR0802MB2327:EE_
+X-Microsoft-Antispam-PRVS:
+	<DB6PR0802MB2327D56249D84A87A4E140B9E4189@DB6PR0802MB2327.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ x5fLt18LDRj57Rff+sadWb4ohTeVTlB+/PH3DRNKHzjToTNCEOuQynYd7VIJgemvRC6tHz+LfDOvLaDCOxN51Boy6QGKUGIVXiqOhTSLeFmyLG5raccMqr2MoTxBr7hCyjdX+2D1ms1YSHRm4yOs7TQ8eIoMK7/hufmostBOOZ4BD26EAsHAiIhyLgrLS76MOjujcaucVH/OsipM5vNZRhPU1tWAc9lYrt8K6Uq8sWn1dzLjWqJUtsZiJkyrEOzR6kVQXLtQyphYKbEpztCTm/MjcAGz7eDAHzYh2P0L17b1V4IRGUVSyDm3fzOIHsWnjyrrn8yR0CTw9tvDjKKlNR0d3tzj7dl0CcHxxwUCQ3wiFHuDsZiGz5+sUZmqwDPEwvxsqE0gm2Bxs3xRwLyk5EphYpGDwNW9D/hJPH2CFg1y8Px+borDew6Z5XphvQpYCk2gjKudx1/L8/pjuFZIES+RGMLOkJhYM6bISZqvOEw2DlqT8l6LV3r+78+1XCx5vcLy8nHsztgmT6pUzIvzFNIqACQE8Xs0H0uuddzRH/Gj7EyjJ1zYNJQvjnRqOgt0cJhpn7udVRcERf8aWwJRtYrOKoc8SgMCmJ4VYEyDg3tGJ98LoLc7+pt9Ht3CMzYZuATA2yYQSzwgS2Tg87hzAH/aMX1OQQBPgBnA0qylnvrwguvSGwRtd2N1j4ASjK4aZ2lyrTckH7r50U92407xuCPF1IFWK1cqp0AP0azjPcLJxIoa8MBsnc3yaHsasqMf
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR08MB3956.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(6486002)(2616005)(33656002)(8676002)(66946007)(76116006)(64756008)(66476007)(4326008)(66556008)(5660300002)(66446008)(71200400001)(38070700005)(8936002)(91956017)(6916009)(38100700002)(86362001)(2906002)(316002)(122000001)(53546011)(6506007)(6512007)(508600001)(186003)(26005)(36756003)(54906003)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <538A2E91122877459B6EDDA1BF09938C@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB3195
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM5EUR03FT009.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	fe3dcb5d-4ada-4e53-feeb-08da0ca8e5ae
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	op/JFvU8Y4+5gCwDCOeN+R4B/4RuJFD0y8JL1WFuLzPMc3aAdD9ChBrOBkMxkJqKd+vPsXAl3tVv6Zqh05WgPZCwifTlH20DEK9W3fNFNM2+7XzElM9YdBBAzbEFkcJTQmXaO8zR9D1v80VIE1Sy8UFrVzQVkUxxBhy7Fn0vniMbzC6T/29S7loCddVMOc3vyVWvNlCOVfr+wNm5Qin0vWfTo6WLZlOA0KpbsGST70AXl6VGNkJAfmfyG01J1j6XThlJSMjgZ9dvkcOP6nwY7yIuhJdCgYIEkafbYtLXmCAOvUPz0XnWGeJawZPcamOZTY/Xj+h3m4EZbRRR56x3OAbLeRPUWYDS3s2HdJiDlV6RjGlqc2u23rfSL27n4tlNLkdwj80JZik0dHftgJa4gqm406+InXZh7XHzZaBvt0QRdc0yaf+PnlFKneZS1aAx56ehRh7SE0SbTD9WzSiFUxmDScyU2WN50TDGTUiA3RpBs86Iyx+05viAEz10sToMAXd91QyU7bNtGm47m8LN521szvGwhmWlwixbcGI6QaNkIMaj6g+/V6kX+JZV/GCVHvVzzA59I8i2s7/xil9bwQvz3wIw86fsa3FuMsXbK1q8RcxZFImpDGSB7knr1w66ry/cW8aCURZhSbzpiwPMn+bDyiLK0jLgHJe/wTw9lHzysdEBjBMguzMpYgrfXfXe
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(54906003)(6862004)(33656002)(4326008)(8676002)(36860700001)(70206006)(70586007)(316002)(81166007)(2906002)(356005)(26005)(186003)(6486002)(82310400004)(6512007)(508600001)(47076005)(86362001)(8936002)(40460700003)(5660300002)(53546011)(36756003)(336012)(2616005)(6506007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2022 08:41:27.6705
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3aeb7222-18ad-46c2-2fc5-08da0ca8ebda
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM5EUR03FT009.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0802MB2327
 
-Hi Stefano,
 
-On 22.03.2022 21:38, Stefano Stabellini wrote:
-> Add a minimal ARM32 smoke test based on qemu-system-arm, as provided by
-> the test-artifacts qemu container. The minimal test simply boots Xen
-> (built from previous build stages) and Dom0.
-> 
-> The test needs a working kernel and minimal initrd for dom0. Instead of
-> building our own kernel and initrd, which would mean maintaining one or
-> two more builting scripts under automation/, we borrow a kernel and
-> initrd from distros.
-> 
-> For the kernel we pick the Debian Bullseye kernel, which has everything
-> we need already built-in. However, we cannot use the Debian Bullseye
-> initrd because it is 22MB and the large size causes QEMU to core dump.
-> 
-> Instead, use the tiny busybox-based rootfs provided by Alpine Linux,
-> which is really minimal: just 2.5MB. Note that we cannot use the Alpine
-> Linux kernel because that doesn't boot on Xen.
-> 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> ---
-> Changes in v4:
-> - improve commit message
-> - use Debian Bullseye kernel
-> - use Alpine Linux initrd
-> ---
->  automation/gitlab-ci/test.yaml         | 23 ++++++++
->  automation/scripts/qemu-smoke-arm32.sh | 81 ++++++++++++++++++++++++++
->  2 files changed, 104 insertions(+)
->  create mode 100755 automation/scripts/qemu-smoke-arm32.sh
-> 
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index ec2a2e1607..42cd725a12 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -95,6 +95,29 @@ qemu-smoke-arm64-gcc:
->      - /^coverity-tested\/.*/
->      - /^stable-.*/
->  
-> +qemu-smoke-arm32-gcc:
-> +  stage: test
-> +  image: registry.gitlab.com/xen-project/xen/${CONTAINER}
-> +  variables:
-> +    CONTAINER: debian:unstable-arm64v8
-> +  script:
-> +    - ./automation/scripts/qemu-smoke-arm32.sh 2>&1 | tee qemu-smoke-arm32.log
-> +  dependencies:
-> +    - debian-unstable-gcc-arm32
-> +    - qemu-system-aarch64-6.0.0-arm32-export
-> +  artifacts:
-> +    paths:
-> +      - smoke.serial
-> +      - '*.log'
-> +    when: always
-> +  tags:
-> +    - arm64
-> +  except:
-> +    - master
-> +    - smoke
-> +    - /^coverity-tested\/.*/
-> +    - /^stable-.*/
-> +
->  qemu-smoke-x86-64-gcc:
->    stage: test
->    image: registry.gitlab.com/xen-project/xen/${CONTAINER}
-> diff --git a/automation/scripts/qemu-smoke-arm32.sh b/automation/scripts/qemu-smoke-arm32.sh
-> new file mode 100755
-> index 0000000000..d554de7939
-> --- /dev/null
-> +++ b/automation/scripts/qemu-smoke-arm32.sh
-> @@ -0,0 +1,81 @@
-> +#!/bin/bash
-> +
-> +set -ex
-> +
-> +export DEBIAN_FRONTENT=noninteractive
-> +apt-get -qy update
-> +apt-get -qy install --no-install-recommends device-tree-compiler \
-> +                                            curl \
-> +                                            cpio
-> +
-> +cd binaries
-> +# Use the kernel from Debian
-> +curl --fail --silent --show-error --location --output vmlinuz http://http.us.debian.org/debian/dists/bullseye/main/installer-armhf/current/images/netboot/vmlinuz
-> +# Use a tiny initrd based on busybox from Alpine Linux
-> +curl --fail --silent --show-error --location --output initrd.tar.gz https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/armhf/alpine-minirootfs-3.15.1-armhf.tar.gz
-> +
-> +mkdir rootfs
-> +cd rootfs
-> +tar xvzf ../initrd.tar.gz
-> +find . | cpio -H newc -o | gzip > ../initrd.gz
-> +cd ..
-> +
-> +kernel=`stat -L --printf="%s" vmlinuz`
-> +initrd=`stat -L --printf="%s" initrd.gz`
-> +
-> +# For Xen, we need a couple of more node. Dump the DT from QEMU and add them
-> +# XXX QEMU looks for "efi-virtio.rom" even if it is unneeded
-> +curl -fsSLO https://github.com/qemu/qemu/raw/v5.2.0/pc-bios/efi-virtio.rom
-> +./qemu-system-arm \
-> +   -machine virt-6.0 \
-Can't we just use "virt" as an alias to the latest virt machine available?
 
-> +   -machine virtualization=true \
-> +   -smp 4 \
-> +   -m 1024 \
-> +   -serial stdio \
-> +   -monitor none \
-> +   -display none \
-> +   -machine dumpdtb=virt.dtb
-> +
-> +dtc -I dtb -O dts virt.dtb > virt.dts
-> +
-> +cat >> virt.dts << EOF
-> +/ {
-> +	chosen {
-> +		#address-cells = <0x2>;
-> +		#size-cells = <0x2>;
-> +		stdout-path = "/pl011@9000000";
-> +        xen,xen-bootargs = "console=dtuart dtuart=/pl011@9000000 dom0_mem=512M bootscrub=0";
-> +		xen,dom0-bootargs = "console=tty0 console=hvc0 earlyprintk clk_ignore_unused root=/dev/ram0 rdinit=/bin/sh init=/bin/sh";
-As you are using initrd, rdinit is the correct option.
-Specyfing both rdinit and init does not make a lot of sense as the kernel won't reach init= parsing.
+> On 22 Mar 2022, at 15:23, Jan Beulich <jbeulich@suse.com> wrote:
+>=20
+> Now that x86'es check-endbr.sh script uses it, also make it available
+> consistently with other tool chain components.
+>=20
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-> +		dom0 {
-> +			compatible = "xen,linux-zimage", "xen,multiboot-module";
-> +			reg = <0x0 0x1000000 0x0 $kernel>;
-> +		};
-> +        dom0-ramdisk {
-> +			compatible = "xen,linux-initrd", "xen,multiboot-module";
-> +			reg = <0x0 0x3200000 0x0 $initrd>;
-> +		};
-> +	};
-> +};
-> +EOF
-> +dtc -I dts -O dtb virt.dts > virt.dtb
-> +
-> +rm -f smoke.serial
-> +set +e
-> +timeout -k 1 240 \
-> +./qemu-system-arm \
-> +   -machine virt-6.0 \
-> +   -machine virtualization=true \
-> +   -smp 4 \
-> +   -m 1024 \
-> +   -serial stdio \
-> +   -monitor none \
-> +   -display none \
-> +   -dtb virt.dtb \
-> +   -no-reboot \
-> +   -kernel ./xen \
-> +   -device loader,file=./vmlinuz,addr=0x1000000 \
-> +   -device loader,file=./initrd.gz,addr=0x3200000 |& tee smoke.serial
-> +
-> +set -e
-> +(grep -q "^/ #" smoke.serial) || exit 1
-> +exit 0
+Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
 
 Cheers,
-Michal
+Luca
+
+>=20
+> --- a/config/StdGNU.mk
+> +++ b/config/StdGNU.mk
+> @@ -10,6 +10,7 @@ endif
+> LD_LTO     =3D $(CROSS_COMPILE)ld
+> endif
+> CPP        =3D $(CC) -E
+> +ADDR2LINE  =3D $(CROSS_COMPILE)addr2line
+> AR         =3D $(CROSS_COMPILE)ar
+> RANLIB     =3D $(CROSS_COMPILE)ranlib
+> NM         =3D $(CROSS_COMPILE)nm
+> --- a/config/SunOS.mk
+> +++ b/config/SunOS.mk
+> @@ -3,6 +3,7 @@ LD         =3D $(CROSS_COMPILE)gld
+> CC         =3D $(CROSS_COMPILE)gcc
+> CPP        =3D $(CROSS_COMPILE)gcc -E
+> CXX        =3D $(CROSS_COMPILE)g++
+> +ADDR2LINE  =3D $(CROSS_COMPILE)gaddr2line
+> AR         =3D $(CROSS_COMPILE)gar
+> RANLIB     =3D $(CROSS_COMPILE)granlib
+> NM         =3D $(CROSS_COMPILE)gnm
+> --- a/xen/Makefile
+> +++ b/xen/Makefile
+> @@ -55,7 +55,7 @@ export TARGET_ARCH     :=3D $(shell echo $
+> # Allow someone to change their config file
+> export KCONFIG_CONFIG ?=3D .config
+>=20
+> -export CC CXX LD NM OBJCOPY OBJDUMP
+> +export CC CXX LD NM OBJCOPY OBJDUMP ADDR2LINE
+>=20
+> export TARGET :=3D xen
+>=20
+>=20
+>=20
+
 
