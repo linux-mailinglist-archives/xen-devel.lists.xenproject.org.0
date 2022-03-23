@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82B794E4D34
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Mar 2022 08:18:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.293771.499176 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C04394E4E58
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Mar 2022 09:36:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.293787.499187 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWvFS-00082u-VK; Wed, 23 Mar 2022 07:17:38 +0000
+	id 1nWwTD-00082m-9V; Wed, 23 Mar 2022 08:35:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 293771.499176; Wed, 23 Mar 2022 07:17:38 +0000
+Received: by outflank-mailman (output) from mailman id 293787.499187; Wed, 23 Mar 2022 08:35:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nWvFS-000802-Rl; Wed, 23 Mar 2022 07:17:38 +0000
-Received: by outflank-mailman (input) for mailman id 293771;
- Wed, 23 Mar 2022 07:17:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TYzS=UC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nWvFS-0007zw-9R
- for xen-devel@lists.xenproject.org; Wed, 23 Mar 2022 07:17:38 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 50f9f2fe-aa79-11ec-8fbc-03012f2f19d4;
- Wed, 23 Mar 2022 08:17:37 +0100 (CET)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2112.outbound.protection.outlook.com [104.47.17.112]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-17-YbVBUQ-HMCeKMV_vaCNsTg-1; Wed, 23 Mar 2022 08:17:35 +0100
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
- by AM5PR04MB2993.eurprd04.prod.outlook.com (2603:10a6:206:f::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.22; Wed, 23 Mar
- 2022 07:17:33 +0000
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::fc39:fd17:1086:307a]) by DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::fc39:fd17:1086:307a%6]) with mapi id 15.20.5102.017; Wed, 23 Mar 2022
- 07:17:33 +0000
+	id 1nWwTD-00080x-6E; Wed, 23 Mar 2022 08:35:55 +0000
+Received: by outflank-mailman (input) for mailman id 293787;
+ Wed, 23 Mar 2022 08:35:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=x2G8=UC=arm.com=michal.orzel@srs-se1.protection.inumbo.net>)
+ id 1nWwTA-00080r-W2
+ for xen-devel@lists.xenproject.org; Wed, 23 Mar 2022 08:35:53 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 3d004df4-aa84-11ec-a405-831a346695d4;
+ Wed, 23 Mar 2022 09:35:50 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 46D5DED1;
+ Wed, 23 Mar 2022 01:35:47 -0700 (PDT)
+Received: from [10.57.20.157] (unknown [10.57.20.157])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6E88D3F73D;
+ Wed, 23 Mar 2022 01:35:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,140 +42,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50f9f2fe-aa79-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1648019856;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=24d05wNlI9gx55noH4ybuK5koG6OXEWX1QXEsQFXk74=;
-	b=iLbv+dn9O9QfJyx4hpQHuhsVk/JzbVKxpxvS416RfgSM1DArNP9uIwARB9WyymfzRGexDD
-	gkY7hDu9jWdxsbFyLSgLMyDOqJfK7gfTU/1hRmYbmT3rbLLv2jEd8nlgPWzIaubMihe9Cd
-	pL8Pn5APgfHNaVloZiXMge0cVDqYFqY=
-X-MC-Unique: YbVBUQ-HMCeKMV_vaCNsTg-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n94tITH14Mhb18E6Xu97ErCcgNhGmtvx+wmkr3l1sCyqmBwVhg3CcI29Obpp1Dmx+n3iOydDook8fvwiJU9dJZrpJFXHoHbbAQS+3L5SIVM6KHWb8DYujM/YEH5Y+wY5SrML1AJEjjsNLSfKqPzNce3whYg//sByjLIHF9zEkWcsj3WUsnmZhlCfKgju1zjnMuJ87q5gvWOqwg4au5WlEkof2uSe95+L/vkx+Fwm5Y0DJ8QwAZX9x4lGiBEzWi7Y3npjZbf1bdQuUhfRvJ1jtxAbnsAPyUSA+clz7rziW/cbxpBLrtf05KjbmwWBdDNb6dCavmj+EXp0kzGTmbTfUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=24d05wNlI9gx55noH4ybuK5koG6OXEWX1QXEsQFXk74=;
- b=eQ4XKiT8fA4YzMfLu8xpBeCHIV9edifrdzG3NcNL0xccuqw85RC9mhiTx4usX4bKNPQpWScZbBN1VNk5CGM9K+6zcLFTawK/wbTB1igP6HN5uzEMQ83Kd81+F3UrwZh5G0mGRPI0llEkEE64kJ+Dd+8zEtV36UGEYABFL+3hOkRi+sqzzi2cpdaTqUHYDEV0PSgTerCx1YcaPNEC16I3hLnXeInw6EYyBObXNnLri9ozRTvdMZxepqQbLnm4O8VaHZONhG2YqpP7nyWhBo0+U+uwkPFVivrVqVOAmT2kBdfp9Gwh1ZRAqIKifZ+CY+qTImnmP2ylY9rNCr5/w70i+Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <a49b15ef-964c-85c5-72ab-d970bdfcdca0@suse.com>
-Date: Wed, 23 Mar 2022 08:17:32 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH v2] xen/arm: set CPSR Z bit when creating aarch32 guests
+X-Inumbo-ID: 3d004df4-aa84-11ec-a405-831a346695d4
+Message-ID: <49c9d0b5-308c-59ea-cd7a-4d369156ffed@arm.com>
+Date: Wed, 23 Mar 2022 09:35:36 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH v4 2/2] gitlab-ci: add an ARM32 qemu-based smoke test
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: julien@xen.org, bertrand.marquis@arm.com, Volodymyr_Babchuk@epam.com,
- Stefano Stabellini <stefano.stabellini@xilinx.com>,
+To: Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
-References: <20220322202825.418232-1-sstabellini@kernel.org>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20220322202825.418232-1-sstabellini@kernel.org>
+Cc: cardoe@cardoe.com, wl@xen.org, andrew.cooper3@citrix.com,
+ anthony.perard@citrix.com, bertrand.marquis@arm.com,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
+References: <alpine.DEB.2.22.394.2203221337230.2910984@ubuntu-linux-20-04-desktop>
+ <20220322203854.420940-2-sstabellini@kernel.org>
+From: Michal Orzel <michal.orzel@arm.com>
+In-Reply-To: <20220322203854.420940-2-sstabellini@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS8PR04CA0158.eurprd04.prod.outlook.com
- (2603:10a6:20b:331::13) To DU2PR04MB8616.eurprd04.prod.outlook.com
- (2603:10a6:10:2db::16)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c300c786-4542-429d-d870-08da0c9d3345
-X-MS-TrafficTypeDiagnostic: AM5PR04MB2993:EE_
-X-Microsoft-Antispam-PRVS:
-	<AM5PR04MB2993C3AC18B0FB1A5BA2D801B3189@AM5PR04MB2993.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	e5Ky4XL10SWVQV6WqRYvJQLnAxoyv+dkqBHsTcFzkuUJa0Gv0P7lRRlBqYN+QwGQp4hZRMxptZtFcsmz+g2pdwCRby44pTjXEk4w1FTT2TP1cyVOjVrKIZeYYrNeFGpjEt6iTmT6b7VFIzlnrIfQ7WZ5nBHgA7XkqPMRcJA/OKsaPRzaHg/sD2qU8lFRV5NOIe34ODVhkMHcR0DvHf0Zeg1JVC/XNFB+v0kw/2TWV+AccEEtZr1L4sd7nDhlZ2iGtMWoqbcxZehi5iKCiz7Z9Cg1693W6oVctNDvNVEJ07SqoPfAExx0hZ+gDMJ+UtYf9ugWqc2ZLD1KFUbUddZGKJ27UE6zJESmb9DREmPamMqqXYUTrsS2QxyAu1G3BtRsj0NdevVQuJW7FqEbQlQlhsZw+Liod73ODRIqTcSoZ5JHLdBR+CZvTdEWFPSncqRJn2ymXFxn7xVEx0vXKJI95allPKjfcevybiQ8VjabXpdrkFrHM9gF0F1qfm0D8SjvLSfALydSSGG63BXniO9hqiQZSjrX0N3g5or+OsHLCbJ7AVIQjYf1t8dapPkpqs19JUptqsiXySEvhSFl5Pxy/DXFVUNDms30tJBfhmjZY4jDh/UviIpBjmtg0CvCZFPu+IwAgiNBXkyfbO2GDTRFme0sn/yJF99214o8/riIJNb836VVjyFXG17DOpYI5+VnvfkSE62QvApbSeowQuQPsOz+8QvANDyag+sHeSsltBWVDVt7lppmj/Zd7bPhF0YI
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(508600001)(66556008)(31686004)(66476007)(6916009)(66946007)(2616005)(6486002)(2906002)(8936002)(316002)(5660300002)(4326008)(8676002)(26005)(36756003)(31696002)(6512007)(38100700002)(86362001)(6506007)(53546011)(186003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WG1RRk94Ymx0ZTExSlUvcnVLVDVJV24xejZrK1cxTzhjVWJZeHJmWlpBU1NV?=
- =?utf-8?B?OVNWMmlXRWtCLzRXYzNtZW9QUDJLSVpsLzFwSE1JQVgvQURIWUdSZk02RE5m?=
- =?utf-8?B?T2xjdDB6RFVySkl2SC9vWlhYMHJWaW9jMFMvRi9kSnFOVmQ0WU83L2xkRnhl?=
- =?utf-8?B?SHduMWZ0Nm1hc0c3VnpnWlVRMFNZU1dwdlRoZUxxTjVEODErb0xvY3lUclZ2?=
- =?utf-8?B?VXZIM3JxdmdjSzM3UG1VVXQ2MXk5RGp3OFBKYWRueExRSjhrNGNZOWZUWjhS?=
- =?utf-8?B?Tm1PRFIzMEpRWDVjYXg4N016M2ZHZ2c2Wlk0N00xVDNRejlHblE0T1VVSFBU?=
- =?utf-8?B?cjk4VnZaeno0UVkwdlkxREMraXREdStwd2ZNYUY2QzR0ZlZkNThnbmdtRldw?=
- =?utf-8?B?VThJUzZPaENiZGQwcTJDMC9HcTRnTFBkZnZLYlVzRFNzTm5uZS9LUWZaNnBr?=
- =?utf-8?B?RkJqWmNwbkZwbjV5M2NaNlNBb0tqTDlhWDl3cEcyWlNCelRHdktjellUdEZt?=
- =?utf-8?B?SjA0Q1E1QzNRQTFzZlFkN1B6Z0F4dkFxaXZScWZNdmN4S3Q0N21PeUcrMVRZ?=
- =?utf-8?B?VXg5Yis5UnhQUzNXMXQ2Vy9OL0E1OWRTSWQwdXhOa3ZGeTNtVVBxOWhYKzEx?=
- =?utf-8?B?aEc5bXJDNk55Z3N3WHNtazNTR2hXNVhXY0xDNmlWbVUwaUhmRnY4MVNTQTk4?=
- =?utf-8?B?VElCS3dVL0tubWtrNkRaVUJjekVDOTJKMVhMTk9pV1krU0UyUFY1SHBBT2Vs?=
- =?utf-8?B?c3ZJa3hHSHczVG9JZEtCak93SVNYRkZpSXBWaFBlUjRzVi9TY3FWcHhFOFRR?=
- =?utf-8?B?aHl3QjM4SGhXNy9LS1BEUTFpTjY1OXZkTXNjaGs2MnhDQ215UmQ4ekZ6OHN1?=
- =?utf-8?B?WUVYbSsvTkZvK2ZBVXNZdG5Id2IraHA4VDJ4SEJKdks0Y0F1N3NwU0Q3ZHY0?=
- =?utf-8?B?bmhGZW44V2kvN203MCtQTWc2Q0x5THVtWFZOTjQ2WmFDSzVxR2hnV1VVVTdM?=
- =?utf-8?B?elBSLytTd1dkeDdObS80NG45d1g1Tk1qd2tZdnh3S1lpZXk5a2UxMWRkeW94?=
- =?utf-8?B?YXZkSWhTTFdnaEVKZEZHWmd1TExxejgvaTV6aVhOa0V6ZmRNZkxjWFNEaHMr?=
- =?utf-8?B?WTRNV2dEUVB5K3Q1cE4xbjdxSFFzcDVVZzRpTkcvQUlIZ3VJa1haVHRWSE1Q?=
- =?utf-8?B?RGd4bThxMnhXeFlDbVFWRU9aZCs2VHMyaDgwN3lwR2VtSkZ6N0Y0STBlSkF5?=
- =?utf-8?B?RHlvZWtMbDlwNzhObHBuUVIyWXlSdDhFcFF5TmQ0eDY2OVJJT2d1eHVoNHkx?=
- =?utf-8?B?bFhiNEFJNmU4OFhIYktLMkxZZkZFWjNrWWk2alRyVDRMMjVDMkhZSDZHdFhQ?=
- =?utf-8?B?aWEraHp6cDhJTFdESTg2eXVsMm9oeWJaTGd5b0xqbGpyYXdSd1NNblhFTjU4?=
- =?utf-8?B?aEQ0cWpmSmNqYUphMFQvVm1IS0k1MEd5NW03aXh5TkxlUFJlZmp5cVVreng0?=
- =?utf-8?B?V1JBMnlXSGNZSFdOT0dCUklEeVlWaTF5VTVlb2JQbXNJL29LMmlQWXc5WEt4?=
- =?utf-8?B?YjRmdnN4UmlRTDZ4UUV2M1plMzBFZlJYMHVkdnJEbGlhU2s3cVNNSEhJMnl6?=
- =?utf-8?B?d0FzbHMrYWthQUV3a2RyOEtWcGhaaGlnVWFEbjVveEJBMUlHS1Z0VTNaQ3FM?=
- =?utf-8?B?T3hNRDd4SCtCbXFyT3k3SVorczhOTDg4ZkYvLytEZVRWaXQ1dXJhZlRIaDJp?=
- =?utf-8?B?U2hUUTV2RE9yVXJUZUZ6NTU2NWpKL0pKK1crMEp1SUZMTXVucGtabEo2Tmxz?=
- =?utf-8?B?TzhaaVRyUFJFYWpGUkJJdjFxWjZFd2ROZW4ydHJCTU9xT3ovWFJEWFpTL0x4?=
- =?utf-8?B?KzZ6eGxuM2NDa3V1TjdzU251aHp3QTBIOHlieVRsWE45YStvYkpKL05GUDhF?=
- =?utf-8?Q?hiev3b2lukvl1EX/yBB3RICnEdTR9RjJ?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c300c786-4542-429d-d870-08da0c9d3345
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2022 07:17:33.7054
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HMApyE8r+tyOKRhW0QECeEjuCw5fAYceIi1HEbg5lfyj3T27/i0wqnkOgYZQk1B6VKuEaGl5wzh6PPABDIQuCQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM5PR04MB2993
 
-On 22.03.2022 21:28, Stefano Stabellini wrote:
-> From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+Hi Stefano,
+
+On 22.03.2022 21:38, Stefano Stabellini wrote:
+> Add a minimal ARM32 smoke test based on qemu-system-arm, as provided by
+> the test-artifacts qemu container. The minimal test simply boots Xen
+> (built from previous build stages) and Dom0.
 > 
-> The first 32 bytes of zImage are NOPs. When CONFIG_EFI is enabled in the
-> kernel, certain versions of Linux will use an UNPREDICATABLE NOP
-> encoding, sometimes resulting in an unbootable kernel. Whether the
-> resulting kernel is bootable or not depends on the processor. See commit
-> a92882a4d270 in the Linux kernel for all the details.
-
-Is this a problem only under Xen or also on bare hardware? In the
-latter case I'd be even more inclined to require this issue to be
-dealt with in the kernels, rather than working around it by an ABI
-change in Xen.
-
-> All kernel releases starting from Linux 4.9 without commit a92882a4d270
-> are affected.
+> The test needs a working kernel and minimal initrd for dom0. Instead of
+> building our own kernel and initrd, which would mean maintaining one or
+> two more builting scripts under automation/, we borrow a kernel and
+> initrd from distros.
 > 
-> Fortunately there is a simple workaround: setting the "Z" bit in CPSR
-> make it so those invalid NOP instructions are never executed. That is
-> because the instruction is conditional (not equal). So, on QEMU at
-> least, the instruction will end up to be ignored and not generate an
-> exception. Setting the "Z" bit makes those kernel versions bootable
-> again and it is harmless in the other cases.
+> For the kernel we pick the Debian Bullseye kernel, which has everything
+> we need already built-in. However, we cannot use the Debian Bullseye
+> initrd because it is 22MB and the large size causes QEMU to core dump.
+> 
+> Instead, use the tiny busybox-based rootfs provided by Alpine Linux,
+> which is really minimal: just 2.5MB. Note that we cannot use the Alpine
+> Linux kernel because that doesn't boot on Xen.
+> 
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> ---
+> Changes in v4:
+> - improve commit message
+> - use Debian Bullseye kernel
+> - use Alpine Linux initrd
+> ---
+>  automation/gitlab-ci/test.yaml         | 23 ++++++++
+>  automation/scripts/qemu-smoke-arm32.sh | 81 ++++++++++++++++++++++++++
+>  2 files changed, 104 insertions(+)
+>  create mode 100755 automation/scripts/qemu-smoke-arm32.sh
+> 
+> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> index ec2a2e1607..42cd725a12 100644
+> --- a/automation/gitlab-ci/test.yaml
+> +++ b/automation/gitlab-ci/test.yaml
+> @@ -95,6 +95,29 @@ qemu-smoke-arm64-gcc:
+>      - /^coverity-tested\/.*/
+>      - /^stable-.*/
+>  
+> +qemu-smoke-arm32-gcc:
+> +  stage: test
+> +  image: registry.gitlab.com/xen-project/xen/${CONTAINER}
+> +  variables:
+> +    CONTAINER: debian:unstable-arm64v8
+> +  script:
+> +    - ./automation/scripts/qemu-smoke-arm32.sh 2>&1 | tee qemu-smoke-arm32.log
+> +  dependencies:
+> +    - debian-unstable-gcc-arm32
+> +    - qemu-system-aarch64-6.0.0-arm32-export
+> +  artifacts:
+> +    paths:
+> +      - smoke.serial
+> +      - '*.log'
+> +    when: always
+> +  tags:
+> +    - arm64
+> +  except:
+> +    - master
+> +    - smoke
+> +    - /^coverity-tested\/.*/
+> +    - /^stable-.*/
+> +
+>  qemu-smoke-x86-64-gcc:
+>    stage: test
+>    image: registry.gitlab.com/xen-project/xen/${CONTAINER}
+> diff --git a/automation/scripts/qemu-smoke-arm32.sh b/automation/scripts/qemu-smoke-arm32.sh
+> new file mode 100755
+> index 0000000000..d554de7939
+> --- /dev/null
+> +++ b/automation/scripts/qemu-smoke-arm32.sh
+> @@ -0,0 +1,81 @@
+> +#!/bin/bash
+> +
+> +set -ex
+> +
+> +export DEBIAN_FRONTENT=noninteractive
+> +apt-get -qy update
+> +apt-get -qy install --no-install-recommends device-tree-compiler \
+> +                                            curl \
+> +                                            cpio
+> +
+> +cd binaries
+> +# Use the kernel from Debian
+> +curl --fail --silent --show-error --location --output vmlinuz http://http.us.debian.org/debian/dists/bullseye/main/installer-armhf/current/images/netboot/vmlinuz
+> +# Use a tiny initrd based on busybox from Alpine Linux
+> +curl --fail --silent --show-error --location --output initrd.tar.gz https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/armhf/alpine-minirootfs-3.15.1-armhf.tar.gz
+> +
+> +mkdir rootfs
+> +cd rootfs
+> +tar xvzf ../initrd.tar.gz
+> +find . | cpio -H newc -o | gzip > ../initrd.gz
+> +cd ..
+> +
+> +kernel=`stat -L --printf="%s" vmlinuz`
+> +initrd=`stat -L --printf="%s" initrd.gz`
+> +
+> +# For Xen, we need a couple of more node. Dump the DT from QEMU and add them
+> +# XXX QEMU looks for "efi-virtio.rom" even if it is unneeded
+> +curl -fsSLO https://github.com/qemu/qemu/raw/v5.2.0/pc-bios/efi-virtio.rom
+> +./qemu-system-arm \
+> +   -machine virt-6.0 \
+Can't we just use "virt" as an alias to the latest virt machine available?
 
-I'm afraid such an ABI change being harmless needs to be not just
-claimed, but proven. There could certainly be reasons this is safe,
-e.g. the same path being taken on bare hardware, and the state of
-the bit not being specified there. Yet even in presence of such a
-specification it cannot be excluded that non-standard (something
-XTF-like, for example) uses might have grown a dependency on the
-Xen ABI specification.
+> +   -machine virtualization=true \
+> +   -smp 4 \
+> +   -m 1024 \
+> +   -serial stdio \
+> +   -monitor none \
+> +   -display none \
+> +   -machine dumpdtb=virt.dtb
+> +
+> +dtc -I dtb -O dts virt.dtb > virt.dts
+> +
+> +cat >> virt.dts << EOF
+> +/ {
+> +	chosen {
+> +		#address-cells = <0x2>;
+> +		#size-cells = <0x2>;
+> +		stdout-path = "/pl011@9000000";
+> +        xen,xen-bootargs = "console=dtuart dtuart=/pl011@9000000 dom0_mem=512M bootscrub=0";
+> +		xen,dom0-bootargs = "console=tty0 console=hvc0 earlyprintk clk_ignore_unused root=/dev/ram0 rdinit=/bin/sh init=/bin/sh";
+As you are using initrd, rdinit is the correct option.
+Specyfing both rdinit and init does not make a lot of sense as the kernel won't reach init= parsing.
 
-Jan
+> +		dom0 {
+> +			compatible = "xen,linux-zimage", "xen,multiboot-module";
+> +			reg = <0x0 0x1000000 0x0 $kernel>;
+> +		};
+> +        dom0-ramdisk {
+> +			compatible = "xen,linux-initrd", "xen,multiboot-module";
+> +			reg = <0x0 0x3200000 0x0 $initrd>;
+> +		};
+> +	};
+> +};
+> +EOF
+> +dtc -I dts -O dtb virt.dts > virt.dtb
+> +
+> +rm -f smoke.serial
+> +set +e
+> +timeout -k 1 240 \
+> +./qemu-system-arm \
+> +   -machine virt-6.0 \
+> +   -machine virtualization=true \
+> +   -smp 4 \
+> +   -m 1024 \
+> +   -serial stdio \
+> +   -monitor none \
+> +   -display none \
+> +   -dtb virt.dtb \
+> +   -no-reboot \
+> +   -kernel ./xen \
+> +   -device loader,file=./vmlinuz,addr=0x1000000 \
+> +   -device loader,file=./initrd.gz,addr=0x3200000 |& tee smoke.serial
+> +
+> +set -e
+> +(grep -q "^/ #" smoke.serial) || exit 1
+> +exit 0
 
+Cheers,
+Michal
 
