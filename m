@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 131A14E52B4
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Mar 2022 14:02:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.293883.499422 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A6034E52DD
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Mar 2022 14:14:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.293886.499432 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nX0cQ-0003Nc-Nl; Wed, 23 Mar 2022 13:01:42 +0000
+	id 1nX0oE-0004tf-Qs; Wed, 23 Mar 2022 13:13:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 293883.499422; Wed, 23 Mar 2022 13:01:42 +0000
+Received: by outflank-mailman (output) from mailman id 293886.499432; Wed, 23 Mar 2022 13:13:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nX0cQ-0003Lv-Kd; Wed, 23 Mar 2022 13:01:42 +0000
-Received: by outflank-mailman (input) for mailman id 293883;
- Wed, 23 Mar 2022 13:01:41 +0000
+	id 1nX0oE-0004sG-Nh; Wed, 23 Mar 2022 13:13:54 +0000
+Received: by outflank-mailman (input) for mailman id 293886;
+ Wed, 23 Mar 2022 13:13:53 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nX0cP-0003Lp-3a
- for xen-devel@lists.xenproject.org; Wed, 23 Mar 2022 13:01:41 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nX0oD-0004s5-AV; Wed, 23 Mar 2022 13:13:53 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nX0cN-0004uI-HJ; Wed, 23 Mar 2022 13:01:39 +0000
-Received: from 54-240-197-230.amazon.com ([54.240.197.230]
- helo=[192.168.10.149]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nX0cN-0001Oa-BA; Wed, 23 Mar 2022 13:01:39 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nX0oD-0005At-74; Wed, 23 Mar 2022 13:13:53 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nX0oC-0000Xz-Sm; Wed, 23 Mar 2022 13:13:52 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nX0oC-0003fx-SL; Wed, 23 Mar 2022 13:13:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,123 +42,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=GddZiesaSpF6OnrwOBsQ0Qh3bjDZStKEu9duXyuCs4U=; b=xudspDDQ4dtboJ2K1cVZQSVKUQ
-	16beO69/44wWjA6hJ7uh7m2xZIQFnUUev702FyYJIHpC2SiC7tfRpiXOYxHryBoRJArXhz0OmPrtP
-	Uf+AotN78vULPapjM4JkH9MaMWj57HIMtnLUWSPxHvPLKCZvGddl4RAyqWRRoiTiHGZk=;
-Message-ID: <cea82447-58c4-be37-153f-d764ea5f4891@xen.org>
-Date: Wed, 23 Mar 2022 13:01:37 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.7.0
-Subject: Re: [PATCH v2] xen/arm: set CPSR Z bit when creating aarch32 guests
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: "bertrand.marquis@arm.com" <bertrand.marquis@arm.com>,
- "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
-References: <20220322202825.418232-1-sstabellini@kernel.org>
- <57924f67-2419-bcdc-73ab-96ea9f1d2614@citrix.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <57924f67-2419-bcdc-73ab-96ea9f1d2614@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=B1A7Ra+SsfxRr1Dk10bvD+ya4trJW3SLXFfDO4Mn5vk=; b=hWl8oEXRgVECZOudeK5ySR1CnS
+	v/YH4vA0z+NdaNrL6aRzz3b9o+cd9Fuw01jQbZimNfSYaMAkLpZBjwh/R7pYMaOEmjvqISZZiFfKn
+	cwpybtVyfWxpwu1Jmg/VgYFG6URLiOK6q0iq6cD5XmetHXWB6GtUSVLLpN0QSpoM7EhU=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168799-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 168799: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=ec0b54849b23efa25caf0055b0eef8bf9b4dec98
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 23 Mar 2022 13:13:52 +0000
 
-Hi Andrew,
+flight 168799 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168799/
 
-On 23/03/2022 12:36, Andrew Cooper wrote:
-> On 22/03/2022 20:28, Stefano Stabellini wrote:
->> From: Stefano Stabellini <stefano.stabellini@xilinx.com>
->>
->> The first 32 bytes of zImage are NOPs. When CONFIG_EFI is enabled in the
->> kernel, certain versions of Linux will use an UNPREDICATABLE NOP
->> encoding, sometimes resulting in an unbootable kernel. Whether the
->> resulting kernel is bootable or not depends on the processor. See commit
->> a92882a4d270 in the Linux kernel for all the details.
->>
->> All kernel releases starting from Linux 4.9 without commit a92882a4d270
->> are affected.
->>
->> Fortunately there is a simple workaround: setting the "Z" bit in CPSR
->> make it so those invalid NOP instructions are never executed. That is
->> because the instruction is conditional (not equal). So, on QEMU at
->> least, the instruction will end up to be ignored and not generate an
->> exception. Setting the "Z" bit makes those kernel versions bootable
->> again and it is harmless in the other cases.
->>
->> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> 
-> A discussion relevant to this came up with XTF/ARM.
-> 
-> There is not currently a written ABI for the start state of vCPUs, and
-> there needs to be.  I know x86 is in a poor shape too, but we do at
-> least have some scraps of docs littered around and a plan to write some
-> proper Sphinx docs.
-> 
-> (A separate conversation was about booting from plain ELF files.  Linux
-> ARM Zimage is entirely undocumented for 32bit, and discussions with RMK
-> suggest that we've got bugs
+Regressions :-(
 
-Do you mind providing more details on what would be the bugs here?
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
 
-> , while 64bit has insufficient documentation
-> to demonstrate that our logic is correct.)
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-Did you actually read 
-https://github.com/torvalds/linux/blob/master/Documentation/arm64/booting.rst? 
+version targeted for testing:
+ ovmf                 ec0b54849b23efa25caf0055b0eef8bf9b4dec98
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   23 days
+Failing since        168258  2022-03-01 01:55:31 Z   22 days  230 attempts
+Testing same since   168774  2022-03-22 08:40:31 Z    1 days   11 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
-> 
-> In particular...
-> 
->> ---
->> Changes in v2:
->> - improve commit message
->> - add in-code comment
->> - move PSR_Z to the beginning
->> ---
->>   xen/include/public/arch-arm.h | 8 +++++++-
->>   1 file changed, 7 insertions(+), 1 deletion(-)
->>
->> diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
->> index 94b31511dd..81cee95f14 100644
->> --- a/xen/include/public/arch-arm.h
->> +++ b/xen/include/public/arch-arm.h
->> @@ -361,6 +361,7 @@ typedef uint64_t xen_callback_t;
->>   #define PSR_DBG_MASK    (1<<9)        /* arm64: Debug Exception mask */
->>   #define PSR_IT_MASK     (0x0600fc00)  /* Thumb If-Then Mask */
->>   #define PSR_JAZELLE     (1<<24)       /* Jazelle Mode */
->> +#define PSR_Z           (1<<30)       /* Zero condition flag */
->>   
->>   /* 32 bit modes */
->>   #define PSR_MODE_USR 0x10
->> @@ -383,7 +384,12 @@ typedef uint64_t xen_callback_t;
->>   #define PSR_MODE_EL1t 0x04
->>   #define PSR_MODE_EL0t 0x00
->>   
->> -#define PSR_GUEST32_INIT  (PSR_ABT_MASK|PSR_FIQ_MASK|PSR_IRQ_MASK|PSR_MODE_SVC)
->> +/*
->> + * We set PSR_Z to be able to boot Linux kernel versions with an invalid
->> + * encoding of the first 8 NOP instructions. See commit a92882a4d270 in
->> + * Linux.
->> + */
->> +#define PSR_GUEST32_INIT  (PSR_Z|PSR_ABT_MASK|PSR_FIQ_MASK|PSR_IRQ_MASK|PSR_MODE_SVC)
-> 
-> ... this change is either breaking the ABI, or demonstrates that these
-> values must not be in a public header file to begin with.
-PSR_GUEST32_INIT is only exposed to the toolstack (see the ifdef above). 
-It is defined in the arch-arm.h because it makes easier to keep the 
-value in sync.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-This is not part of the ABI and therefore we are free to change the 
-value in any way we want. Setting Z is a convenient way to handle the 
-Linux issue without making it too invasive.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Cheers,
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
--- 
-Julien Grall
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 875 lines long.)
 
