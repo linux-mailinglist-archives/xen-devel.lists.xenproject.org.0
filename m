@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47A504E5F01
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Mar 2022 07:59:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.294170.500029 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 121574E6017
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Mar 2022 09:13:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.294185.500051 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXHQC-0006tH-Q7; Thu, 24 Mar 2022 06:58:12 +0000
+	id 1nXIat-0007Co-VD; Thu, 24 Mar 2022 08:13:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 294170.500029; Thu, 24 Mar 2022 06:58:12 +0000
+Received: by outflank-mailman (output) from mailman id 294185.500051; Thu, 24 Mar 2022 08:13:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXHQC-0006rM-MW; Thu, 24 Mar 2022 06:58:12 +0000
-Received: by outflank-mailman (input) for mailman id 294170;
- Thu, 24 Mar 2022 06:58:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nXIat-0007At-RB; Thu, 24 Mar 2022 08:13:19 +0000
+Received: by outflank-mailman (input) for mailman id 294185;
+ Thu, 24 Mar 2022 08:13:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+IHq=UD=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nXHQA-0006rG-D5
- for xen-devel@lists.xenproject.org; Thu, 24 Mar 2022 06:58:10 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c2cae806-ab3f-11ec-8fbc-03012f2f19d4;
- Thu, 24 Mar 2022 07:58:08 +0100 (CET)
+ id 1nXIar-0006uw-SX
+ for xen-devel@lists.xenproject.org; Thu, 24 Mar 2022 08:13:17 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4189f8e8-ab4a-11ec-a405-831a346695d4;
+ Thu, 24 Mar 2022 09:13:16 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B898A1F387;
- Thu, 24 Mar 2022 06:58:07 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6707F210DC;
+ Thu, 24 Mar 2022 08:13:15 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8178513A67;
- Thu, 24 Mar 2022 06:58:07 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0693613B98;
+ Thu, 24 Mar 2022 08:13:15 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id fkdyHX8WPGKPJQAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 24 Mar 2022 06:58:07 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id NoM2ABsoPGIpEwAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 24 Mar 2022 08:13:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,166 +51,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2cae806-ab3f-11ec-8fbc-03012f2f19d4
+X-Inumbo-ID: 4189f8e8-ab4a-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1648105087; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1648109595; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IOtMP5uh1AQ/43ENvyekAsIkZOBEZWniky/IrI/Qt4U=;
-	b=unN19x/9mtEuQkQVR/8sHZ6F6iKFiUTwtYS2ac7OaJQIIXgunt23i3HXzcrX7/I/SAqnCX
-	sCmBvBVJvAAJzPrA50yYyn2I5X4ese5mQuu7xxmRnU00rc5FUF5MG/vqNyx8fPVFaeHs82
-	trdEfkuuSIh4dEIMg3z2YsTrP4PZrlY=
-Message-ID: <2a289375-7dae-c829-dfb9-af39724e1e4c@suse.com>
-Date: Thu, 24 Mar 2022 07:58:06 +0100
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=FWXr/vR+liQ4qXHMpaTH/gdK1Xe9wA/EAfjYKdc5aOY=;
+	b=oIjAQdhfHpt0RhOT390ygCxMz4V9HSts9SasoGE19LQI4kbqTywO3gw8jQzc0cuI+6MrAf
+	X7v6+NHQzuldQWqGixzazJtYW/rDjk8GutjCBsQTjus2ZDBf3QwOGX7HH3yrWiu8NX3aGt
+	9sRm2qF4gYQuQ9YygwdsOOExrdd5GmI=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Christopher Clark <christopher.w.clark@gmail.com>,
+	Dario Faggioli <dfaggioli@suse.com>,
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: [PATCH v5 00/10] xen: drop hypercall function tables
+Date: Thu, 24 Mar 2022 09:13:02 +0100
+Message-Id: <20220324081312.18222-1-jgross@suse.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH v4 10/11] xen/arm: call hypercall handlers via generated
- macro
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Michal Orzel <michal.orzel@arm.com>
-References: <20220310073420.15622-1-jgross@suse.com>
- <20220310073420.15622-11-jgross@suse.com>
- <93bdb9e5-f054-704e-9302-3c2e17d92c60@xen.org>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <93bdb9e5-f054-704e-9302-3c2e17d92c60@xen.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------mHtKh4A7paYyKPSS49lwAqZv"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------mHtKh4A7paYyKPSS49lwAqZv
-Content-Type: multipart/mixed; boundary="------------fd1klvXh1EAjlDklVSuTwurU";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Michal Orzel <michal.orzel@arm.com>
-Message-ID: <2a289375-7dae-c829-dfb9-af39724e1e4c@suse.com>
-Subject: Re: [PATCH v4 10/11] xen/arm: call hypercall handlers via generated
- macro
-References: <20220310073420.15622-1-jgross@suse.com>
- <20220310073420.15622-11-jgross@suse.com>
- <93bdb9e5-f054-704e-9302-3c2e17d92c60@xen.org>
-In-Reply-To: <93bdb9e5-f054-704e-9302-3c2e17d92c60@xen.org>
+In order to avoid indirect function calls on the hypercall path as
+much as possible this series is removing the hypercall function tables
+and is replacing the hypercall handler calls via the function array
+by automatically generated call macros.
 
---------------fd1klvXh1EAjlDklVSuTwurU
-Content-Type: multipart/mixed; boundary="------------fGBgndfdTA3IUIxOu0s8vO1x"
+Another by-product of generating the call macros is the automatic
+generating of the hypercall handler prototypes from the same data base
+which is used to generate the macros.
 
---------------fGBgndfdTA3IUIxOu0s8vO1x
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+This has the additional advantage of using type safe calls of the
+handlers and to ensure related handler (e.g. PV and HVM ones) share
+the same prototypes.
 
-T24gMjMuMDMuMjIgMTA6NDAsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGksDQo+IA0KPiBP
-biAxMC8wMy8yMDIyIDA3OjM0LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gQEAgLTE1MjAs
-NyArMTQ2MCwxMCBAQCBzdGF0aWMgYm9vbCBjaGVja19tdWx0aWNhbGxfMzJiaXRfY2xlYW4o
-c3RydWN0IA0KPj4gbXVsdGljYWxsX2VudHJ5ICptdWx0aSkNCj4+IMKgIHsNCj4+IMKgwqDC
-oMKgwqAgaW50IGk7DQo+PiAtwqDCoMKgIGZvciAoIGkgPSAwOyBpIDwgYXJtX2h5cGVyY2Fs
-bF90YWJsZVttdWx0aS0+b3BdLm5yX2FyZ3M7IGkrKyApDQo+PiArwqDCoMKgIGlmICggbXVs
-dGktPm9wID49IEFSUkFZX1NJWkUoaHlwZXJjYWxsX2FyZ3MpICkNCj4+ICvCoMKgwqDCoMKg
-wqDCoCByZXR1cm4gdHJ1ZTsNCj4gDQo+IE5JVDogVGhpcyBjaGFuZ2UgcmVhZHMgb2RkIHRv
-IG1lLiBTbyBJIHdvdWxkIHByZWZlci4uLg0KPiANCj4+ICsNCj4+ICvCoMKgwqAgZm9yICgg
-aSA9IDA7IGkgPCBoeXBlcmNhbGxfYXJnc1ttdWx0aS0+b3BdOyBpKysgKQ0KPj4gwqDCoMKg
-wqDCoCB7DQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKCB1bmxpa2VseShtdWx0aS0+YXJn
-c1tpXSAmIDB4ZmZmZmZmZmYwMDAwMDAwMFVMTCkgKQ0KPj4gwqDCoMKgwqDCoMKgwqDCoMKg
-IHsNCj4+IEBAIC0xNTM3LDI4ICsxNDgwLDEzIEBAIHN0YXRpYyBib29sIGNoZWNrX211bHRp
-Y2FsbF8zMmJpdF9jbGVhbihzdHJ1Y3QgDQo+PiBtdWx0aWNhbGxfZW50cnkgKm11bHRpKQ0K
-Pj4gwqAgZW51bSBtY19kaXNwb3NpdGlvbiBhcmNoX2RvX211bHRpY2FsbF9jYWxsKHN0cnVj
-dCBtY19zdGF0ZSAqc3RhdGUpDQo+PiDCoCB7DQo+PiDCoMKgwqDCoMKgIHN0cnVjdCBtdWx0
-aWNhbGxfZW50cnkgKm11bHRpID0gJnN0YXRlLT5jYWxsOw0KPj4gLcKgwqDCoCBhcm1faHlw
-ZXJjYWxsX2ZuX3QgY2FsbCA9IE5VTEw7DQo+PiAtDQo+PiAtwqDCoMKgIGlmICggbXVsdGkt
-Pm9wID49IEFSUkFZX1NJWkUoYXJtX2h5cGVyY2FsbF90YWJsZSkgKQ0KPiANCj4gLi4uIGlm
-IHdlIGtlZXAgdGhpcyBjaGVja3MuIFNvIHdlIGRvbid0IHJldHVybiB0cnVlIGluIA0KPiBj
-aGVja19tdWx0aWNhbGxfMzJiaXRfY2xlYW4oKSB3aGVuIHRoZSBoeXBlcmNhbGwgZG9lc24n
-dCBleGlzdC4NCg0KVGhlIGlkZWEgd2FzIHRvIHNwYXJlIHRoZSBub3QgbmVjZXNzYXJ5IGNo
-ZWNrIGluIGNhc2Ugb2YgYSA2NC1iaXQgZ3Vlc3QuDQoNCklmIHlvdSBwcmVmZXIgdG8ga2Vl
-cCB0aGUgY2hlY2sgaGVyZSwgSSdtIGZpbmUgdG8gZG8gaXQgdGhpcyB3YXkuDQoNCj4gDQo+
-IFRoZSBjb2RlIHN0aWxsIGRvIHRoZSByaWdodCB0aGluZywgc28gZWl0aGVyIHdheToNCj4g
-DQo+IFJldmlld2VkLWJ5OiBKdWxpZW4gR3JhbGwgPGpncmFsbEBhbWF6b24uY29tPg0KDQpU
-aGFua3MsDQoNCg0KSnVlcmdlbg0KDQo=
---------------fGBgndfdTA3IUIxOu0s8vO1x
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+A very brief performance test (parallel build of the Xen hypervisor
+in a 6 vcpu guest) showed a very slim improvement (less than 1%) of
+the performance with the patches applied. The test was performed using
+a PV and a PVH guest.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Changes in V2:
+- new patches 6, 14, 15
+- patch 7: support hypercall priorities for faster code
+- comments addressed
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Changes in V3:
+- patches 1 and 4 removed as already applied
+- comments addressed
 
---------------fGBgndfdTA3IUIxOu0s8vO1x--
+Changes in V4:
+- 5 patches removed al already applied
+- new patches 1, 3 and 11
+- avoid switching Arm hypercall handlers to return long (no change of
+  handlers returning long already)
 
---------------fd1klvXh1EAjlDklVSuTwurU--
+Changes in V5:
+- patch 3 of V4 has been applied already
+- comments addressed
+- rebase
 
---------------mHtKh4A7paYyKPSS49lwAqZv
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Juergen Gross (10):
+  xen/arm: rename do_phydev_op() to do_arm_physdev_op()
+  xen: move do_vcpu_op() to arch specific code
+  xen: harmonize return types of hypercall handlers
+  xen: don't include asm/hypercall.h from C sources
+  xen: include compat/platform.h from hypercall.h
+  xen: generate hypercall interface related code
+  xen: use generated prototypes for hypercall handlers
+  xen/x86: call hypercall handlers via generated macro
+  xen/arm: call hypercall handlers via generated macro
+  xen/x86: remove cf_check attribute from hypercall handlers
 
------BEGIN PGP SIGNATURE-----
+ .gitignore                               |   1 +
+ xen/arch/arm/domain.c                    |  15 +-
+ xen/arch/arm/hvm.c                       |   3 +-
+ xen/arch/arm/include/asm/hypercall.h     |   7 +-
+ xen/arch/arm/physdev.c                   |   2 +-
+ xen/arch/arm/platform_hypercall.c        |   1 +
+ xen/arch/arm/traps.c                     | 117 ++-------
+ xen/arch/x86/compat.c                    |   6 +-
+ xen/arch/x86/cpu/mcheck/mce.c            |   2 +-
+ xen/arch/x86/cpu/vpmu.c                  |   3 +-
+ xen/arch/x86/domain.c                    |  11 +-
+ xen/arch/x86/domctl.c                    |   4 +-
+ xen/arch/x86/hvm/dm.c                    |   2 +-
+ xen/arch/x86/hvm/hvm.c                   |   2 +-
+ xen/arch/x86/hvm/hypercall.c             | 177 ++-----------
+ xen/arch/x86/hypercall.c                 |  59 -----
+ xen/arch/x86/include/asm/hypercall.h     | 201 ++++-----------
+ xen/arch/x86/include/asm/paging.h        |   3 -
+ xen/arch/x86/mm.c                        |  13 +-
+ xen/arch/x86/mm/paging.c                 |   3 +-
+ xen/arch/x86/physdev.c                   |   2 +-
+ xen/arch/x86/platform_hypercall.c        |   3 +-
+ xen/arch/x86/pv/callback.c               |  26 +-
+ xen/arch/x86/pv/descriptor-tables.c      |   8 +-
+ xen/arch/x86/pv/emul-priv-op.c           |   2 +-
+ xen/arch/x86/pv/hypercall.c              | 187 ++------------
+ xen/arch/x86/pv/iret.c                   |   5 +-
+ xen/arch/x86/pv/misc-hypercalls.c        |  22 +-
+ xen/arch/x86/pv/shim.c                   |   4 +-
+ xen/arch/x86/traps.c                     |   2 +-
+ xen/arch/x86/x86_64/compat/mm.c          |   3 +-
+ xen/arch/x86/x86_64/domain.c             |  16 +-
+ xen/arch/x86/x86_64/mm.c                 |   2 -
+ xen/arch/x86/x86_64/platform_hypercall.c |   3 +-
+ xen/common/argo.c                        |   8 +-
+ xen/common/compat/domain.c               |  15 +-
+ xen/common/compat/grant_table.c          |   3 +-
+ xen/common/compat/kernel.c               |   2 +-
+ xen/common/compat/memory.c               |   3 +-
+ xen/common/dm.c                          |   2 +-
+ xen/common/domain.c                      |  14 +-
+ xen/common/domctl.c                      |   2 +-
+ xen/common/event_channel.c               |   3 +-
+ xen/common/grant_table.c                 |   4 +-
+ xen/common/hypfs.c                       |   2 +-
+ xen/common/kernel.c                      |   2 +-
+ xen/common/kexec.c                       |   6 +-
+ xen/common/memory.c                      |   2 +-
+ xen/common/multicall.c                   |   4 +-
+ xen/common/sched/compat.c                |   2 +-
+ xen/common/sched/core.c                  |   4 +-
+ xen/common/sysctl.c                      |   2 +-
+ xen/common/xenoprof.c                    |   2 +-
+ xen/drivers/char/console.c               |   2 +-
+ xen/include/Makefile                     |  13 +
+ xen/include/hypercall-defs.c             | 285 ++++++++++++++++++++
+ xen/include/xen/hypercall.h              | 185 +------------
+ xen/scripts/gen_hypercall.awk            | 314 +++++++++++++++++++++++
+ xen/xsm/xsm_core.c                       |   4 +-
+ 59 files changed, 863 insertions(+), 939 deletions(-)
+ create mode 100644 xen/include/hypercall-defs.c
+ create mode 100644 xen/scripts/gen_hypercall.awk
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmI8Fn4FAwAAAAAACgkQsN6d1ii/Ey9d
-8gf+NkgcnhOeJj32V4a+2LTatLhFE74kFnbfnWespsgurI6aXu3ldvPGiitKbWWZ2cCopmqsJ/+X
-u+GLU9fMMAAahJPKg1w5F8+lXmfhOF25CW6DWhhHz5w3jds0kTRJlFkLYJermgpOWKxSYP/Uwgjy
-gigABnlcKhnbDT74dGNMWAplm3nCEJrvDGzpxeTOq2hPitZE7Sto6JB5PVfWALR94NxOsEXKGNGC
-am/M6gBY5OncG3bAKMd7d3x7vy+7RH+EUNbgqvx91CvpehgFAs16fscUMbNwr96vhqSay2in0NEw
-DgetXjoYMwLPX0NWORKZp4iT/07QnIA/iW6SJD/c+g==
-=eT8K
------END PGP SIGNATURE-----
+-- 
+2.34.1
 
---------------mHtKh4A7paYyKPSS49lwAqZv--
 
