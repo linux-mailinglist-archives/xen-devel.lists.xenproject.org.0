@@ -2,35 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45FFE4E6418
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Mar 2022 14:29:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.294309.500369 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E01DD4E6434
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Mar 2022 14:37:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.294316.500381 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXNWW-0002NG-NG; Thu, 24 Mar 2022 13:29:08 +0000
+	id 1nXNeQ-0003pE-JW; Thu, 24 Mar 2022 13:37:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 294309.500369; Thu, 24 Mar 2022 13:29:08 +0000
+Received: by outflank-mailman (output) from mailman id 294316.500381; Thu, 24 Mar 2022 13:37:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXNWW-0002Ko-Jc; Thu, 24 Mar 2022 13:29:08 +0000
-Received: by outflank-mailman (input) for mailman id 294309;
- Thu, 24 Mar 2022 13:29:06 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nXNWU-0002Ke-Gs; Thu, 24 Mar 2022 13:29:06 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nXNWU-0004Gx-Dd; Thu, 24 Mar 2022 13:29:06 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nXNWU-0002ZD-0c; Thu, 24 Mar 2022 13:29:06 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nXNWU-0004bt-08; Thu, 24 Mar 2022 13:29:06 +0000
+	id 1nXNeQ-0003mD-F6; Thu, 24 Mar 2022 13:37:18 +0000
+Received: by outflank-mailman (input) for mailman id 294316;
+ Thu, 24 Mar 2022 13:37:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=PRqf=UD=xilinx.com=ayankuma@srs-se1.protection.inumbo.net>)
+ id 1nXNeP-0003m6-9x
+ for xen-devel@lists.xenproject.org; Thu, 24 Mar 2022 13:37:17 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20606.outbound.protection.outlook.com
+ [2a01:111:f400:fe5b::606])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8362bdda-ab77-11ec-a405-831a346695d4;
+ Thu, 24 Mar 2022 14:37:15 +0100 (CET)
+Received: from BN0PR04CA0161.namprd04.prod.outlook.com (2603:10b6:408:eb::16)
+ by SJ0PR02MB8735.namprd02.prod.outlook.com (2603:10b6:a03:3e2::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.16; Thu, 24 Mar
+ 2022 13:37:09 +0000
+Received: from BN1NAM02FT011.eop-nam02.prod.protection.outlook.com
+ (2603:10b6:408:eb:cafe::e1) by BN0PR04CA0161.outlook.office365.com
+ (2603:10b6:408:eb::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.17 via Frontend
+ Transport; Thu, 24 Mar 2022 13:37:09 +0000
+Received: from xir-pvapexch02.xlnx.xilinx.com (149.199.80.198) by
+ BN1NAM02FT011.mail.protection.outlook.com (10.13.2.129) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5102.17 via Frontend Transport; Thu, 24 Mar 2022 13:37:08 +0000
+Received: from xir-pvapexch02.xlnx.xilinx.com (172.21.17.17) by
+ xir-pvapexch02.xlnx.xilinx.com (172.21.17.17) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.14; Thu, 24 Mar 2022 13:37:07 +0000
+Received: from smtp.xilinx.com (172.21.105.197) by
+ xir-pvapexch02.xlnx.xilinx.com (172.21.17.17) with Microsoft SMTP Server id
+ 15.1.2176.14 via Frontend Transport; Thu, 24 Mar 2022 13:37:07 +0000
+Received: from [10.108.8.223] (port=27868 helo=xcbayankuma41x.xilinx.com)
+ by smtp.xilinx.com with esmtp (Exim 4.90)
+ (envelope-from <ayan.kumar.halder@xilinx.com>)
+ id 1nXNeF-00022c-ML; Thu, 24 Mar 2022 13:37:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,127 +63,216 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=XCuKH6A3yAf2Y1vH2ZyFlEskahABTTjsvgrF+MZjnY8=; b=3d7lJNpXt1i73Slqs7bFvlsMxC
-	JlTSygr3LZ4vnnELd+a3ATRu6AL9Z0+qzEo0Zr2L+k2vz3F+gflh0q8ppcZlZUuxarb/Nr/0dlEcA
-	Vn7NFLhNP2SAQ4XLOl3jfm8JuPvH0wmEiWLUd+a5VmUrmTd2GEA8KdJBsg8C6mrGdEW8=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168823-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 8362bdda-ab77-11ec-a405-831a346695d4
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bd2SWqO61ABUiwR7djLKMmBA9OtUVs/TWhD34CKF7As2+B+7Xy6Y+Hj9Foake8P0q0xQWFoUZ502Ss7cHBIy3/ghw7/euL3zW/3Wc4LcZBlL+o4XB6XsizM++2vtNyatYhhN47pO6X9v2LoBt3oPJhHzXnfPeFTPht470B/+D47NTpXu/HgQBWOAaWUPSqMJpd2vCjJgL7nxkgTSbFPJh5MyJdovS9ZBmihRR0G03BLZIuy7zJZOXqnGPLKZfTVIU3iZw1hnsHlUFlQ2GZiSn/4bkew2MTaNuqbEIuExip25GK6poLk7r71/yliXZPZX07y/vISzU0IjlMEXswiTIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WZjiGYz/x6TAgG5Zc27eATIQID4txiI8Meb8Bc6LqgU=;
+ b=bG6SFMtrfKiWh0y/H75OuRITtK/fW6LrrkguTrChsLPqBgvNfccL44ep9sDjFedKvIX2APKo2pJ4TL7/S6K/Gj04kfOwN3DTWpjFYvuvePG8FEBwDrUxE4xmbs0WPIYllLWTlMQa1UKjLAmz3gKZ2TxnReMBuS3H49QSj8lImiDgyKSoXSw3bxIqp7dme1682ENp3u9iY+UkYwMSIvLTz+5QeTIUkjM/JL6K4DxSinkfvEIbqgsfw7J+wXHBHXLM5Vd0EKQDKNaLSCsQ3ZynupmK2nRbroE4vEaw2gnXArDv++NlvX9baJESGpzZ+5HpHkhLL89DqFzKPzo5y16zcg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 149.199.80.198) smtp.rcpttodomain=lists.xenproject.org
+ smtp.mailfrom=xilinx.com; dmarc=pass (p=none sp=none pct=100) action=none
+ header.from=xilinx.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WZjiGYz/x6TAgG5Zc27eATIQID4txiI8Meb8Bc6LqgU=;
+ b=ieM9yVmynpIij2k5RtgHoVeqhmULOul4Guu28sn0w+ysF6sMSMezuXOfYA3FAeVh2vF3Qft0eHymhxsE9oM0Xd2J/jwMu/3wbuC8oWcNEyrEHnCzf5rYPguKgFi9lHCwWyWqF+kDQmTvX2DIwLqUvF0MAekM04CPHF/zJSVpSM0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 149.199.80.198)
+ smtp.mailfrom=xilinx.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=xilinx.com;
+Received-SPF: Pass (protection.outlook.com: domain of xilinx.com designates
+ 149.199.80.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=149.199.80.198; helo=xir-pvapexch02.xlnx.xilinx.com;
+From: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, <stefanos@xilinx.com>, <julien@xen.org>,
+	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>, Ayan Kumar Halder
+	<ayankuma@xilinx.com>
+Subject: [PATCH v12] xen/arm64: io: Handle data abort due to cache maintenance instructions
+Date: Thu, 24 Mar 2022 13:37:05 +0000
+Message-ID: <20220324133705.37882-1-ayankuma@xilinx.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Subject: [ovmf test] 168823: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=ec0b54849b23efa25caf0055b0eef8bf9b4dec98
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 24 Mar 2022 13:29:06 +0000
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2ec71d98-5a6e-4b7d-4edd-08da0d9b64d8
+X-MS-TrafficTypeDiagnostic: SJ0PR02MB8735:EE_
+X-Microsoft-Antispam-PRVS:
+	<SJ0PR02MB873525AD73BED75AB30106DDB2199@SJ0PR02MB8735.namprd02.prod.outlook.com>
+X-Auto-Response-Suppress: DR, RN, NRN, OOF, AutoReply
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	ctucv+Cs3ZY6CuiGx0s5Hti17/IBjNRphW23tEhbFaWXcjcn91CrZFUjYc+sFxiLUl6Fva8UlxRcPSfeFwhU3d8yl6X2FnDmxG5wAQOtowbvxo//EAYPgb0hibRDqb/jeYEvijlCCM97xIkrRNqMVk+DcKwrK0gceqELWfTHbpWOAkTNeRdO+MRFzE/UVQnlkg5G0sfJ/quMTF7lsyDe8dWCygu2H2ec1IbSgt8y5khjDFtNQ98cXzRzXf4t/2MRxpaNmfAeZNrygseMzzct3aIq1wp40ECawoLRrh311eWinYAi1EexiuzJSaVZSH522W1DrbcRjiVxX5AiYmUghfrwyZjGwlGdkJsJusFcb24mJ5AWypTYRpxHCaCWU5esm23O28TO4TlQH47zc2VRte4nWhFzgfqBTH/HNfvvshkhIVIdaHlI+6h0uWn1wFxCc7NOZRXvXcEHt0+n9bzkVZmKqq80D88srTNT3T623apWgDlB0pM06PsHLdk4OYaM5uhmtBfuV7286b9M7xNjN6LZNf7pIsS6bQ0YEPTs5aOJQKAohRxs9u+Y75tYvfKWNpOr5C8Nr8D0IqncOOwsuGjnWCe+S7KVzlSQDIZj+bfS1YlVA2+UClyq78pgf5/Bx51/iYEBXiY11V5aFe9ckruAfS0+vmDDksPqR31Srtr5VQp9narBSfeNKfv78O//g7QAVnbICcupHv3rqVOBIQ==
+X-Forefront-Antispam-Report:
+	CIP:149.199.80.198;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:xir-pvapexch02.xlnx.xilinx.com;PTR:unknown-80-198.xilinx.com;CAT:NONE;SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(336012)(1076003)(2616005)(316002)(83380400001)(107886003)(40460700003)(426003)(82310400004)(36756003)(5660300002)(26005)(508600001)(186003)(6916009)(54906003)(8936002)(9786002)(7636003)(356005)(47076005)(7696005)(2906002)(36860700001)(70586007)(70206006)(4326008)(8676002)(102446001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: xilinx.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2022 13:37:08.7617
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ec71d98-5a6e-4b7d-4edd-08da0d9b64d8
+X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c;Ip=[149.199.80.198];Helo=[xir-pvapexch02.xlnx.xilinx.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1NAM02FT011.eop-nam02.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR02MB8735
 
-flight 168823 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168823/
+When the data abort is caused due to cache maintenance for an address,
+there are three scenarios:-
 
-Regressions :-(
+1. Address belonging to a non emulated region - For this, Xen should
+set the corresponding bit in the translation table entry to valid and
+return to the guest to retry the instruction. This can happen sometimes
+as Xen need to set the translation table entry to invalid. (for eg
+'Break-Before-Make' sequence). Xen returns to the guest to retry the
+instruction.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+2. Address belongs to an emulated region - Xen should ignore the
+instruction (ie increment the PC) and return to the guest.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+3. Address is invalid - Xen should forward the data abort to the guest.
 
-version targeted for testing:
- ovmf                 ec0b54849b23efa25caf0055b0eef8bf9b4dec98
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+Signed-off-by: Ayan Kumar Halder <ayankuma@xilinx.com>
+---
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   24 days
-Failing since        168258  2022-03-01 01:55:31 Z   23 days  243 attempts
-Testing same since   168774  2022-03-22 08:40:31 Z    2 days   24 attempts
+Changelog:-
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
+v1...v8 - NA
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+v9 - Extracted this change from "[XEN v7 2/2] xen/arm64: io: Support
+instructions (for which ISS is not ..." into a separate patch of its
+own. The reason being this addresses an existing bug in the codebase.
 
+v10 - 1. To check if the address belongs to an emulated region, one
+needs to check if it has a mmio handler or an ioreq server. In this
+case, Xen should increment the PC
+2. If the address is invalid (niether emulated MMIO nor the translation
+could be resolved via p2m or mapping the MMIO region), then Xen should
+forward the abort to the guest.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+v11 - 1. Removed the un-necessary check "( instr.state == INSTR_CACHE )"
+in handle_ioserv(). The reason being the ioserv request is not forwarded
+by try_fwd_ioserv() when instr.state == INSTR_CACHE.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+v12 - 1. try_handle_mmio() should assert for "(info->dabt.valid || 
+(info->dabt_instr.state == INSTR_CACHE))"
+2. In try_fwd_ioserv(), ioreq size should be set to the cache line size
+for INSTR_CACHE. Also ioreq data should be set only when ISS is valid.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+ xen/arch/arm/include/asm/mmio.h |  1 +
+ xen/arch/arm/io.c               | 20 +++++++++++++++++++-
+ xen/arch/arm/ioreq.c            | 14 ++++++++++++--
+ 3 files changed, 32 insertions(+), 3 deletions(-)
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+diff --git a/xen/arch/arm/include/asm/mmio.h b/xen/arch/arm/include/asm/mmio.h
+index ca259a79c2..79e64d9af8 100644
+--- a/xen/arch/arm/include/asm/mmio.h
++++ b/xen/arch/arm/include/asm/mmio.h
+@@ -35,6 +35,7 @@ enum instr_decode_state
+      * instruction.
+      */
+     INSTR_LDR_STR_POSTINDEXING,
++    INSTR_CACHE,                    /* Cache Maintenance instr */
+ };
+ 
+ typedef struct
+diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
+index 6f458ee7fd..4ce94243aa 100644
+--- a/xen/arch/arm/io.c
++++ b/xen/arch/arm/io.c
+@@ -139,6 +139,17 @@ void try_decode_instruction(const struct cpu_user_regs *regs,
+         return;
+     }
+ 
++    /*
++     * When the data abort is caused due to cache maintenance, Xen should check
++     * if the address belongs to an emulated MMIO region or not. The behavior
++     * will differ accordingly.
++     */
++    if ( info->dabt.cache )
++    {
++        info->dabt_instr.state = INSTR_CACHE;
++        return;
++    }
++
+     /*
+      * Armv8 processor does not provide a valid syndrome for decoding some
+      * instructions. So in order to process these instructions, Xen must
+@@ -161,7 +172,7 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
+ 
+     ASSERT(info->dabt.ec == HSR_EC_DATA_ABORT_LOWER_EL);
+ 
+-    if ( !info->dabt.valid )
++    if ( !(info->dabt.valid || (info->dabt_instr.state == INSTR_CACHE)) )
+     {
+         ASSERT_UNREACHABLE();
+         return IO_ABORT;
+@@ -177,6 +188,13 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
+         return rc;
+     }
+ 
++    /*
++     * When the data abort is caused due to cache maintenance and the address
++     * belongs to an emulated region, Xen should ignore this instruction.
++     */
++    if ( info->dabt_instr.state == INSTR_CACHE )
++        return IO_HANDLED;
++
+     /*
+      * At this point, we know that the instruction is either valid or has been
+      * decoded successfully. Thus, Xen should be allowed to execute the
+diff --git a/xen/arch/arm/ioreq.c b/xen/arch/arm/ioreq.c
+index 54167aebcb..87a6240f2a 100644
+--- a/xen/arch/arm/ioreq.c
++++ b/xen/arch/arm/ioreq.c
+@@ -47,7 +47,7 @@ enum io_state try_fwd_ioserv(struct cpu_user_regs *regs,
+                              struct vcpu *v, mmio_info_t *info)
+ {
+     struct vcpu_io *vio = &v->io;
+-    struct instr_details instr = info->dabt_instr;
++    const struct instr_details instr = info->dabt_instr;
+     struct hsr_dabt dabt = info->dabt;
+     ioreq_t p = {
+         .type = IOREQ_TYPE_COPY,
+@@ -62,7 +62,6 @@ enum io_state try_fwd_ioserv(struct cpu_user_regs *regs,
+          * memory access. So for now, we can safely always set to 0.
+          */
+         .df = 0,
+-        .data = get_user_reg(regs, info->dabt.reg),
+         .state = STATE_IOREQ_READY,
+     };
+     struct ioreq_server *s = NULL;
+@@ -74,12 +73,23 @@ enum io_state try_fwd_ioserv(struct cpu_user_regs *regs,
+         return IO_ABORT;
+     }
+ 
++    if ( instr.state == INSTR_CACHE )
++        p.size = dcache_line_bytes;
++
+     s = ioreq_server_select(v->domain, &p);
+     if ( !s )
+         return IO_UNHANDLED;
+ 
++    /*
++     * When the data abort is caused due to cache maintenance and the address
++     * belongs to an emulated region, Xen should ignore this instruction.
++     */
++    if ( instr.state == INSTR_CACHE )
++        return IO_HANDLED;
++
+     ASSERT(dabt.valid);
+ 
++    p.data = get_user_reg(regs, info->dabt.reg);
+     vio->req = p;
+     vio->info.dabt_instr = instr;
+ 
+-- 
+2.17.1
 
-
-Not pushing.
-
-(No revision log; it would be 875 lines long.)
 
