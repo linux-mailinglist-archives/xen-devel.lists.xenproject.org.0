@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A48424E676D
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Mar 2022 18:03:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.294483.500794 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64C1D4E683C
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Mar 2022 18:59:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.294488.500805 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXQrL-0004Sv-FS; Thu, 24 Mar 2022 17:02:51 +0000
+	id 1nXRjD-0001Du-Mw; Thu, 24 Mar 2022 17:58:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 294483.500794; Thu, 24 Mar 2022 17:02:51 +0000
+Received: by outflank-mailman (output) from mailman id 294488.500805; Thu, 24 Mar 2022 17:58:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXQrL-0004QU-Bm; Thu, 24 Mar 2022 17:02:51 +0000
-Received: by outflank-mailman (input) for mailman id 294483;
- Thu, 24 Mar 2022 17:02:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZOSR=UD=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
- id 1nXQrK-0004QO-6R
- for xen-devel@lists.xenproject.org; Thu, 24 Mar 2022 17:02:50 +0000
-Received: from MTA-05-3.privateemail.com (mta-05-3.privateemail.com
- [68.65.122.15]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3af2ba92-ab94-11ec-8fbc-03012f2f19d4;
- Thu, 24 Mar 2022 18:02:48 +0100 (CET)
-Received: from mta-05.privateemail.com (localhost [127.0.0.1])
- by mta-05.privateemail.com (Postfix) with ESMTP id D647D18000AF
- for <xen-devel@lists.xenproject.org>; Thu, 24 Mar 2022 13:02:46 -0400 (EDT)
-Received: from mail-oa1-f52.google.com (unknown [10.20.151.176])
- by mta-05.privateemail.com (Postfix) with ESMTPA id AFE7218000AD
- for <xen-devel@lists.xenproject.org>; Thu, 24 Mar 2022 13:02:46 -0400 (EDT)
-Received: by mail-oa1-f52.google.com with SMTP id
- 586e51a60fabf-d6ca46da48so5496196fac.12
- for <xen-devel@lists.xenproject.org>; Thu, 24 Mar 2022 10:02:46 -0700 (PDT)
+	id 1nXRjD-0001By-JI; Thu, 24 Mar 2022 17:58:31 +0000
+Received: by outflank-mailman (input) for mailman id 294488;
+ Thu, 24 Mar 2022 17:58:29 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nXRjB-0001Bi-In; Thu, 24 Mar 2022 17:58:29 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nXRjB-000158-Fq; Thu, 24 Mar 2022 17:58:29 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nXRjA-0001Uf-VT; Thu, 24 Mar 2022 17:58:29 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nXRjA-0002C3-V1; Thu, 24 Mar 2022 17:58:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,157 +42,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3af2ba92-ab94-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=tklengyel.com;
-	s=default; t=1648141366;
-	bh=tBtzKmnsTAbQafXwpcWVA7TECciq/1TIboXxnVKRrXc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=nxK4jd0/XuSCYM9LoQefAn8iRyhPGcA7vfhhUgsEwoaIL0LbgCBrCUd6JWiR1NiAf
-	 Eac9gjLZfD189DXnQRrYkOJlkOMaYk/T4afWQZ90MdDyb7AYiCoiwPqNv4Vn61bO1C
-	 5JyL6L+HaEWZxVA+/b695EwDENj7Pe887AwjvfK3gwU96DfaOrKZeoxHnc7xEy3KBv
-	 11nk1O3DpZ/hY3ggI9PzkHsRebxF1+KroBdpQH04+L8LMhCQjrCc92TbYrDaOyLBb6
-	 9lafoY3JkIpyLDMfqLXkiOk/NyDTwVR4qqThKufbHLi/4mMzpfNTZ8jKe6tlRjZNlF
-	 a7Wq1C7cF9hQA==
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=tklengyel.com;
-	s=default; t=1648141366;
-	bh=tBtzKmnsTAbQafXwpcWVA7TECciq/1TIboXxnVKRrXc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=nxK4jd0/XuSCYM9LoQefAn8iRyhPGcA7vfhhUgsEwoaIL0LbgCBrCUd6JWiR1NiAf
-	 Eac9gjLZfD189DXnQRrYkOJlkOMaYk/T4afWQZ90MdDyb7AYiCoiwPqNv4Vn61bO1C
-	 5JyL6L+HaEWZxVA+/b695EwDENj7Pe887AwjvfK3gwU96DfaOrKZeoxHnc7xEy3KBv
-	 11nk1O3DpZ/hY3ggI9PzkHsRebxF1+KroBdpQH04+L8LMhCQjrCc92TbYrDaOyLBb6
-	 9lafoY3JkIpyLDMfqLXkiOk/NyDTwVR4qqThKufbHLi/4mMzpfNTZ8jKe6tlRjZNlF
-	 a7Wq1C7cF9hQA==
-X-Gm-Message-State: AOAM533qgrtqTMqklD5t30XR9d1AEJso2Pi5iAdz8TsCVgaGDCi1TAEe
-	OjR8zpcRwoJNGOiA+wFdwLX0ZQA2KIAivL9hDd0=
-X-Google-Smtp-Source: ABdhPJw3lBhxQAQZzN4LF1e33Bx2k61MRkWU/MF6o4LYwSz/ENbcqgEBUAHnCDGbP1/mEcHfVYsrCqiyF1Ux1d1chj0=
-X-Received: by 2002:a05:6870:ea81:b0:db:3e68:7ae0 with SMTP id
- s1-20020a056870ea8100b000db3e687ae0mr7256317oap.9.1648141365958; Thu, 24 Mar
- 2022 10:02:45 -0700 (PDT)
-MIME-Version: 1.0
-References: <fb927228a8f68ce983ae0b46e6665b5b8dd0764e.1647970630.git.tamas.lengyel@intel.com>
- <fb437a16517d343ba3432aa64b9e14b34630a750.1647970630.git.tamas.lengyel@intel.com>
- <YjySMjegTNFBE5RK@Air-de-Roger> <CABfawhnnAehxaByyncaYAjSSbddJi8yeTnjcXX_a+st8Q+C_+Q@mail.gmail.com>
- <YjyWW2CkQv1ckvXM@Air-de-Roger> <CABfawhn-QiUBuq9c4tzr=9nL=J-ntm1hf23mbeRu-qCAKRDj1Q@mail.gmail.com>
- <Yjyfygi6pE+UVhjM@Air-de-Roger>
-In-Reply-To: <Yjyfygi6pE+UVhjM@Air-de-Roger>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Thu, 24 Mar 2022 13:02:10 -0400
-X-Gmail-Original-Message-ID: <CABfawhkQoOnKv7OWNus0WBY4CjX+1uU1ZeZgQ-mU-sRtQFE3QQ@mail.gmail.com>
-Message-ID: <CABfawhkQoOnKv7OWNus0WBY4CjX+1uU1ZeZgQ-mU-sRtQFE3QQ@mail.gmail.com>
-Subject: Re: [PATCH 3/3] x86/mem_sharing: make fork_reset more configurable
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Tamas K Lengyel <tamas.lengyel@intel.com>, xen-devel@lists.xenproject.org, 
-	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <JGross@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Jan Beulich <JBeulich@suse.com>, Julien Grall <julien@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Alexandru Isaila <aisaila@bitdefender.com>, 
-	Petre Pircalabu <ppircalabu@bitdefender.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ij1qqNUiUi+qHBPpWFYJm800kz1Ik8xPlTiCl9+mvl4=; b=ycohsPFEtuOK8D3vg+21RXJXpy
+	7ty4khWmYoszTOuNNmFU6Ef5keCL5bt5gj2HE0L9LgWSpJm+4BQA0lntEDus9Lc4H+DHwOwCzDP37
+	ZPUlV8UnRIxdcoTjUtObxfj/W6fwxtYTINwopPeherBcXvUacaaIFihxo+Hdi6xaQOlY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168827-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Virus-Scanned: ClamAV using ClamSMTP
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 168827: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=ec0b54849b23efa25caf0055b0eef8bf9b4dec98
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 24 Mar 2022 17:58:28 +0000
 
-On Thu, Mar 24, 2022 at 12:44 PM Roger Pau Monn=C3=A9 <roger.pau@citrix.com=
-> wrote:
->
-> On Thu, Mar 24, 2022 at 12:22:49PM -0400, Tamas K Lengyel wrote:
-> > On Thu, Mar 24, 2022 at 12:04 PM Roger Pau Monn=C3=A9 <roger.pau@citrix=
-.com> wrote:
-> > >
-> > > On Thu, Mar 24, 2022 at 11:52:38AM -0400, Tamas K Lengyel wrote:
-> > > > On Thu, Mar 24, 2022 at 11:46 AM Roger Pau Monn=C3=A9 <roger.pau@ci=
-trix.com> wrote:
-> > > > >
-> > > > > On Tue, Mar 22, 2022 at 01:41:39PM -0400, Tamas K Lengyel wrote:
-> > > > > > diff --git a/xen/include/public/memory.h b/xen/include/public/m=
-emory.h
-> > > > > > index 208d8dcbd9..30ce23c5a7 100644
-> > > > > > --- a/xen/include/public/memory.h
-> > > > > > +++ b/xen/include/public/memory.h
-> > > > > > @@ -541,12 +541,14 @@ struct xen_mem_sharing_op {
-> > > > > >                  uint32_t gref;     /* IN: gref to debug       =
-  */
-> > > > > >              } u;
-> > > > > >          } debug;
-> > > > > > -        struct mem_sharing_op_fork {      /* OP_FORK */
-> > > > > > +        struct mem_sharing_op_fork {      /* OP_FORK/_RESET */
-> > > > > >              domid_t parent_domain;        /* IN: parent's doma=
-in id */
-> > > > > >  /* These flags only makes sense for short-lived forks */
-> > > > > >  #define XENMEM_FORK_WITH_IOMMU_ALLOWED (1u << 0)
-> > > > > >  #define XENMEM_FORK_BLOCK_INTERRUPTS   (1u << 1)
-> > > > > >  #define XENMEM_FORK_SKIP_SPECIAL_PAGES (1u << 2)
-> > > > > > +#define XENMEM_FORK_RESET_STATE        (1u << 3)
-> > > > > > +#define XENMEM_FORK_RESET_MEMORY       (1u << 4)
-> > > > > >              uint16_t flags;               /* IN: optional sett=
-ings */
-> > > > > >              uint32_t pad;                 /* Must be set to 0 =
-*/
-> > > > > >          } fork;
-> > > > > > diff --git a/xen/include/public/vm_event.h b/xen/include/public=
-/vm_event.h
-> > > > > > index bb003d21d0..81c2ee28cc 100644
-> > > > > > --- a/xen/include/public/vm_event.h
-> > > > > > +++ b/xen/include/public/vm_event.h
-> > > > > > @@ -127,6 +127,14 @@
-> > > > > >   * Reset the vmtrace buffer (if vmtrace is enabled)
-> > > > > >   */
-> > > > > >  #define VM_EVENT_FLAG_RESET_VMTRACE      (1 << 13)
-> > > > > > +/*
-> > > > > > + * Reset the VM state (if VM is fork)
-> > > > > > + */
-> > > > > > +#define VM_EVENT_FLAG_RESET_FORK_STATE   (1 << 14)
-> > > > > > +/*
-> > > > > > + * Remove unshared entried from physmap (if VM is fork)
-> > > > > > + */
-> > > > > > +#define VM_EVENT_FLAG_RESET_FORK_MEMORY  (1 << 15)
-> > > > >
-> > > > > I'm confused about why two different interfaces are added to do t=
-his
-> > > > > kind of selective resets, one to vm_event and one to xenmem_fork?
-> > > > >
-> > > > > I thin k the natural place for the option to live would be
-> > > > > XENMEM_FORK?
-> > > >
-> > > > Yes, that's the natural place for it. But we are adding it to both =
-for
-> > > > a reason. In our use-case the reset operation will happen after a
-> > > > vm_event is received to which we already must send a reply. Setting
-> > > > the flag on the vm_event reply saves us having to issue an extra me=
-mop
-> > > > hypercall afterwards.
-> > >
-> > > Can you do a multicall and batch both operations in a single
-> > > hypercall?
-> > >
-> > > That would seem more natural than adding duplicated interfaces.
-> >
-> > Not in a straight forward way, no. There is no exposed API in libxc to
-> > do a multicall. Even if that was an option it is still easier for me
-> > to just flip a bit in the response field than having to construct a
-> > whole standalone hypercall structure to be sent as part of a
-> > multicall.
->
-> Right, I can see it being easier, but it seems like a bad choice from
-> an interface PoV. You are the maintainer of both subsystems, but it
-> would seem to me it's in your best interest to try to keep the
-> interfaces separated and clean.
->
-> Would it be possible for the reset XENMEM_FORK op to have the side
-> effect of performing what you would instead do with the vm_event
-> hypercall?
+flight 168827 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168827/
 
-Yes, the event response is really just an event channel signal to Xen,
-so the memop hypercall could similarly encode the "now check the
-vm_event response" as an optional field. But why is that any better
-than the current event channel route processing the vm_response
-encoding the "now do these ops on the fork"?
+Regressions :-(
 
-We already have a bunch of different operations you can encode in the
-vm_event response field, so it reduces the complexity on the toolstack
-side since I don't have to switch around which hypercall I need to
-issue depending on what extra ops I want to put into a single
-hypercall.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
 
-Tamas
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 ec0b54849b23efa25caf0055b0eef8bf9b4dec98
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   24 days
+Failing since        168258  2022-03-01 01:55:31 Z   23 days  246 attempts
+Testing same since   168774  2022-03-22 08:40:31 Z    2 days   27 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 875 lines long.)
 
