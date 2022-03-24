@@ -2,36 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD0C84E620F
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Mar 2022 12:04:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.294242.500214 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 813104E625B
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Mar 2022 12:20:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.294245.500225 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXLGV-0005wS-Pc; Thu, 24 Mar 2022 11:04:27 +0000
+	id 1nXLVM-0007V7-UZ; Thu, 24 Mar 2022 11:19:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 294242.500214; Thu, 24 Mar 2022 11:04:27 +0000
+Received: by outflank-mailman (output) from mailman id 294245.500225; Thu, 24 Mar 2022 11:19:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXLGV-0005tp-Mk; Thu, 24 Mar 2022 11:04:27 +0000
-Received: by outflank-mailman (input) for mailman id 294242;
- Thu, 24 Mar 2022 11:04:26 +0000
+	id 1nXLVM-0007TK-RW; Thu, 24 Mar 2022 11:19:48 +0000
+Received: by outflank-mailman (input) for mailman id 294245;
+ Thu, 24 Mar 2022 11:19:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eW/x=UD=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
- id 1nXLGU-0005tj-2Z
- for xen-devel@lists.xenproject.org; Thu, 24 Mar 2022 11:04:26 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 2a1bef4c-ab62-11ec-8fbc-03012f2f19d4;
- Thu, 24 Mar 2022 12:04:24 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D07FF1515;
- Thu, 24 Mar 2022 04:04:23 -0700 (PDT)
-Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
- [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 859B23F73D;
- Thu, 24 Mar 2022 04:04:22 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=+IHq=UD=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1nXLVL-0007TE-8A
+ for xen-devel@lists.xenproject.org; Thu, 24 Mar 2022 11:19:47 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4f60b987-ab64-11ec-8fbc-03012f2f19d4;
+ Thu, 24 Mar 2022 12:19:46 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A1C491F38D;
+ Thu, 24 Mar 2022 11:19:45 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 62D1012FF7;
+ Thu, 24 Mar 2022 11:19:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id PIqbFtFTPGIzMgAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 24 Mar 2022 11:19:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,339 +51,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2a1bef4c-ab62-11ec-8fbc-03012f2f19d4
-From: Bertrand Marquis <bertrand.marquis@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Michal Orzel <michal.orzel@arm.com>
-Subject: [RFC PATCH] xen/build: Add cppcheck and cppcheck-html make rules
-Date: Thu, 24 Mar 2022 11:04:08 +0000
-Message-Id: <77c79e86050eef2b706ee11e64183d57a0f5bcee.1648119732.git.bertrand.marquis@arm.com>
-X-Mailer: git-send-email 2.25.1
+X-Inumbo-ID: 4f60b987-ab64-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1648120785; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OyeL1W/oDX7IwtYkxlM5s6yxrIAm3hiMKl80lJzfsjo=;
+	b=D439oqcHkMYS7aMQ+R0EQH7Mq1FSlqYt57ZRjIhDOIiPEUgDTkpg/oJULUd+HBpCV/9xt0
+	U9eXVvBWRt28TfatDS8jrxzav+hCe5iA+Rd7nF36Pr5eXBqjJT33BeebtA9vCrD5qLz5Pk
+	v+YFAlreZN7AFgWnbhpItxUjz2yWFzk=
+Message-ID: <84010992-34ed-3e40-f70d-da91cbb0d210@suse.com>
+Date: Thu, 24 Mar 2022 12:19:44 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH v5 03/10] xen: harmonize return types of hypercall
+ handlers
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Christopher Clark <christopher.w.clark@gmail.com>,
+ xen-devel@lists.xenproject.org
+References: <20220324081312.18222-1-jgross@suse.com>
+ <20220324081312.18222-4-jgross@suse.com>
+ <c53e65d5-82fa-2cbd-c49e-94a3935c2b7e@suse.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <c53e65d5-82fa-2cbd-c49e-94a3935c2b7e@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------mqeXIAXwUek10H4KIooUufBb"
 
-cppcheck can be used to check Xen code quality.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------mqeXIAXwUek10H4KIooUufBb
+Content-Type: multipart/mixed; boundary="------------9VQ7kNr89GeI65FQwx5qnjtv";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Christopher Clark <christopher.w.clark@gmail.com>,
+ xen-devel@lists.xenproject.org
+Message-ID: <84010992-34ed-3e40-f70d-da91cbb0d210@suse.com>
+Subject: Re: [PATCH v5 03/10] xen: harmonize return types of hypercall
+ handlers
+References: <20220324081312.18222-1-jgross@suse.com>
+ <20220324081312.18222-4-jgross@suse.com>
+ <c53e65d5-82fa-2cbd-c49e-94a3935c2b7e@suse.com>
+In-Reply-To: <c53e65d5-82fa-2cbd-c49e-94a3935c2b7e@suse.com>
 
-To create a report do "make cppcheck" on a built tree adding any options
-you added during the process you used to build xen (like CROSS_COMPILE
-or XEN_TARGET_ARCH). This will generate an xml report xen-cppcheck.xml.
+--------------9VQ7kNr89GeI65FQwx5qnjtv
+Content-Type: multipart/mixed; boundary="------------MBy3FpnTgMXZGFT1ICiB72aM"
 
-To create a html report do "make cppcheck-html" in the same way and a
-full report to be seen in a browser will be generated in
-cppcheck-htmlreport/index.html.
+--------------MBy3FpnTgMXZGFT1ICiB72aM
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-For better results it is recommended to build your own cppcheck from the
-latest sources that you can find at [1].
-Development and result analysis has been done with cppcheck 2.7.
+T24gMjQuMDMuMjIgMTE6NTcsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAyNC4wMy4yMDIy
+IDA5OjEzLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gVG9kYXkgbW9zdCBoeXBlcmNhbGwg
+aGFuZGxlcnMgaGF2ZSBhIHJldHVybiB0eXBlIG9mIGxvbmcsIHdoaWxlIHRoZQ0KPj4gLS0t
+IGEveGVuL2FyY2gveDg2L3g4Nl82NC9wbGF0Zm9ybV9oeXBlcmNhbGwuYw0KPj4gKysrIGIv
+eGVuL2FyY2gveDg2L3g4Nl82NC9wbGF0Zm9ybV9oeXBlcmNhbGwuYw0KPj4gQEAgLTQsNiAr
+NCw3IEBADQo+PiAgIA0KPj4gICBFTUlUX0ZJTEU7DQo+PiAgIA0KPj4gKyNpbmNsdWRlIDx4
+ZW4vaHlwZXJjYWxsLmg+DQo+PiAgICNpbmNsdWRlIDx4ZW4vbGliLmg+DQo+PiAgICNpbmNs
+dWRlIDxjb21wYXQvcGxhdGZvcm0uaD4NCj4+ICAgI2luY2x1ZGUgPHhlbi9oeXBlcmNhbGwu
+aD4NCg0KVGhpcyBzZWVtcyB0byBiZSBhbiBhcnRpZmFjdCBvZiB0aGUgcmViYXNlIGRvbmUg
+aW4gVjQgb2YgdGhlIHNlcmllcywgd2hpY2gNCndhcyBuZWNlc3NhcnkgYXMgQW5kcmV3J3Mg
+bGFyZ2Ugc2VyaWVzIHVzZWQgdHdvIHBhdGNoZXMgb2YgbXkgVjMgc2VyaWVzLg0KDQpEbyB5
+b3Ugd2FudCBtZSB0byByZXNlbmQgd2l0aG91dCB0aGlzIGh1bms/DQoNCg0KSnVlcmdlbg0K
 
-The Makefile rule is searching for all C files which have been compiled
-(ie which have a generated .o file) and is running cppcheck on all of
-them using the current configuration of xen so only the code actually
-compiled is checked.
+--------------MBy3FpnTgMXZGFT1ICiB72aM
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-A new tool is introduced to merge all cppcheck reports into one global
-report including all findings and removing duplicates.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Some extra variables can be used to customize the report:
-- CPPCHECK can be used to give the full path to the cppcheck binary to
-use (default is to use the one from the standard path).
-- CPPCHECK_HTMLREPORT can be used to give the full path to
-cppcheck-htmlreport (default is to use the one from the standard path).
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-This has been tested on several arm configurations (x86 should work but
-has not been tested).
+--------------MBy3FpnTgMXZGFT1ICiB72aM--
 
-[1] https://cppcheck.sourceforge.io/
+--------------9VQ7kNr89GeI65FQwx5qnjtv--
 
-Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-Signed-off-by: Michal Orzel <michal.orzel@arm.com>
----
- .gitignore                           |  3 ++
- xen/Makefile                         | 75 +++++++++++++++++++++++++++-
- xen/arch/arm/include/asm/processor.h |  4 +-
- xen/include/xen/config.h             |  4 ++
- xen/include/xen/kconfig.h            |  5 ++
- xen/tools/merge_cppcheck_reports.py  | 73 +++++++++++++++++++++++++++
- 6 files changed, 161 insertions(+), 3 deletions(-)
- create mode 100755 xen/tools/merge_cppcheck_reports.py
+--------------mqeXIAXwUek10H4KIooUufBb
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-diff --git a/.gitignore b/.gitignore
-index d425be4bd9..0d2d60b8f1 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -7,6 +7,7 @@
- *.o
- *.d
- *.d2
-+*.c.cppcheck
- *.opic
- *.a
- *.so
-@@ -296,6 +297,7 @@ xen/.banner
- xen/.config
- xen/.config.old
- xen/.xen.elf32
-+xen/xen-cppcheck.xml
- xen/System.map
- xen/arch/x86/boot/mkelf32
- xen/arch/x86/boot/cmdline.S
-@@ -316,6 +318,7 @@ xen/arch/*/efi/runtime.c
- xen/arch/*/include/asm/asm-offsets.h
- xen/common/config_data.S
- xen/common/config.gz
-+xen/cppcheck-htmlreport
- xen/include/headers*.chk
- xen/include/compat/*
- xen/include/config/
-diff --git a/xen/Makefile b/xen/Makefile
-index 18a4f7e101..0280d65051 100644
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -336,7 +336,7 @@ export CFLAGS_UBSAN
- 
- endif # need-config
- 
--main-targets := build install uninstall clean distclean MAP
-+main-targets := build install uninstall clean distclean MAP cppcheck cppcheck-html
- .PHONY: $(main-targets)
- ifneq ($(XEN_TARGET_ARCH),x86_32)
- $(main-targets): %: _% ;
-@@ -424,15 +424,17 @@ _clean:
- 	$(Q)$(MAKE) $(clean)=tools/kconfig
- 	find . \( -name "*.o" -o -name ".*.d" -o -name ".*.d2" \
- 		-o -name ".*.o.tmp" -o -name "*~" -o -name "core" \
--		-o -name '*.lex.c' -o -name '*.tab.[ch]' \
-+		-o -name '*.lex.c' -o -name '*.tab.[ch]' -o -name '*.c.cppcheck' \
- 		-o -name "*.gcno" -o -name ".*.cmd" -o -name "lib.a" \) -exec rm -f {} \;
- 	rm -f include/asm $(TARGET) $(TARGET).gz $(TARGET).efi $(TARGET).efi.map $(TARGET)-syms $(TARGET)-syms.map
- 	rm -f asm-offsets.s arch/*/include/asm/asm-offsets.h
- 	rm -f .banner .allconfig.tmp include/xen/compile.h
-+	rm -f xen-cppcheck.xml
- 
- .PHONY: _distclean
- _distclean: clean
- 	rm -f tags TAGS cscope.files cscope.in.out cscope.out cscope.po.out GTAGS GPATH GRTAGS GSYMS .config
-+	rm -rf $(CPPCHECK_HTMLREPORT_OUTDIR)
- 
- $(TARGET).gz: $(TARGET)
- 	gzip -n -f -9 < $< > $@.new
-@@ -511,6 +513,75 @@ cloc:
- 	    done; \
- 	done | cloc --list-file=-
- 
-+# What cppcheck command to use.
-+# To get proper results, it is recommended to build cppcheck manually from the
-+# latest source and use CPPCHECK to give the full path to the built version.
-+CPPCHECK ?= cppcheck
-+
-+# What cppcheck-htmlreport to use.
-+# If you give the full path to a self compiled cppcheck, this should be set
-+# to the full path to cppcheck-html in the htmlreport directory of cppcheck.
-+# On recent distribution, this is available in the standard path.
-+CPPCHECK_HTMLREPORT ?= cppcheck-htmlreport
-+
-+# By default we generate the report in cppcheck-htmlreport directory in the
-+# build directory. This can be changed by giving a directory in this variable.
-+CPPCHECK_HTMLREPORT_OUTDIR ?= cppcheck-htmlreport
-+
-+# Compile flags to pass to cppcheck:
-+# - include directories and defines Xen Makefile is passing (from CFLAGS)
-+# - include config.h as this is passed directly to the compiler.
-+# - define CPPCHECK as we use to disable or enable some specific part of the
-+#   code to solve some cppcheck issues.
-+# - explicitely enable some cppcheck checks as we do not want to use "all"
-+#   which includes unusedFunction which gives wrong positives as we check file
-+#   per file.
-+#
-+# Compiler defines are in compiler-def.h which is included in config.h
-+#
-+CPPCHECKFLAGS := -DCPPCHECK --max-ctu-depth=10 \
-+				 --enable=style,information,missingInclude \
-+				 --include=$(BASEDIR)/include/xen/config.h \
-+				 -I $(BASEDIR)/xsm/flask/include \
-+				 -I $(BASEDIR)/include/xen/libfdt \
-+				 $(filter -D% -I%,$(CFLAGS))
-+
-+# We need to find all C files (as we are not checking assembly files) so
-+# we find all generated .o files which have a .c corresponding file.
-+CPPCHECKFILES := $(wildcard $(patsubst %.o,%.c, $(filter-out $(BASEDIR)/tools/%,$(shell find $(BASEDIR) -name "*.o"))))
-+
-+quiet_cmd_cppcheck_xml = CPPCHECK $(patsubst $(BASEDIR)/%,%,$<)
-+cmd_cppcheck_xml = $(CPPCHECK) -v -q --xml $(CPPCHECKFLAGS) \
-+				               --output-file=$@ $<
-+
-+quiet_cmd_merge_cppcheck_reports = CPPCHECK-MERGE $@
-+cmd_merge_cppcheck_reports = $(BASEDIR)/tools/merge_cppcheck_reports.py $^ $@
-+
-+quiet_cmd_cppcheck_html = CPPCHECK-HTML $<
-+cmd_cppcheck_html = $(CPPCHECK_HTMLREPORT) --file=$< --source-dir=$(BASEDIR) \
-+										   --report-dir=$(CPPCHECK_HTMLREPORT_OUTDIR) \
-+										   --title=Xen
-+
-+PHONY += _cppcheck _cppcheck-html
-+
-+_cppcheck-html: xen-cppcheck.xml
-+	$(call if_changed,cppcheck_html)
-+
-+_cppcheck: xen-cppcheck.xml
-+
-+xen-cppcheck.xml: $(patsubst %.c,%.c.cppcheck,$(CPPCHECKFILES))
-+ifeq ($(CPPCHECKFILES),)
-+	$(error Please build Xen before running cppcheck)
-+endif
-+	$(call if_changed,merge_cppcheck_reports)
-+
-+%.c.cppcheck: %.c $(BASEDIR)/include/generated/autoconf.h $(BASEDIR)/include/generated/compiler-def.h
-+	$(call if_changed,cppcheck_xml)
-+
-+# Put this in generated headers this way it is cleaned by include/Makefile
-+$(BASEDIR)/include/generated/compiler-def.h:
-+	$(Q)$(CC) -dM -E -o $@ - < /dev/null
-+
- endif #config-build
- 
- PHONY += FORCE
-diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
-index 852b5f3c24..0b4ba73760 100644
---- a/xen/arch/arm/include/asm/processor.h
-+++ b/xen/arch/arm/include/asm/processor.h
-@@ -219,9 +219,11 @@
-                          SCTLR_Axx_ELx_A    | SCTLR_Axx_ELx_C   |\
-                          SCTLR_Axx_ELx_WXN  | SCTLR_Axx_ELx_EE)
- 
--#if (SCTLR_EL2_SET ^ SCTLR_EL2_CLEAR) != 0xffffffffffffffffUL
-+#ifndef CPPCHECK
-+#if (SCTLR_EL2_SET ^ SCTLR_EL2_CLEAR) != 0xffffffffffffffffULL
- #error "Inconsistent SCTLR_EL2 set/clear bits"
- #endif
-+#endif
- 
- #endif
- 
-diff --git a/xen/include/xen/config.h b/xen/include/xen/config.h
-index b76222ecf6..36e11e7133 100644
---- a/xen/include/xen/config.h
-+++ b/xen/include/xen/config.h
-@@ -7,6 +7,10 @@
- #ifndef __XEN_CONFIG_H__
- #define __XEN_CONFIG_H__
- 
-+#ifdef CPPCHECK
-+#include <generated/compiler-def.h>
-+#endif
-+
- #include <xen/kconfig.h>
- 
- #ifndef __ASSEMBLY__
-diff --git a/xen/include/xen/kconfig.h b/xen/include/xen/kconfig.h
-index 4d58c5bb3c..a717b0819c 100644
---- a/xen/include/xen/kconfig.h
-+++ b/xen/include/xen/kconfig.h
-@@ -8,6 +8,10 @@
-  * these only work with boolean option.
-  */
- 
-+/* cppcheck is failing to parse the macro so use a dummy one */
-+#ifdef CPPCHECK
-+#define IS_ENABLED(option) option
-+#else
- /*
-  * Getting something that works in C and CPP for an arg that may or may
-  * not be defined is tricky.  Here, if we have "#define CONFIG_BOOGER 1"
-@@ -27,5 +31,6 @@
-  * otherwise.
-  */
- #define IS_ENABLED(option) config_enabled(option)
-+#endif
- 
- #endif /* __XEN_KCONFIG_H */
-diff --git a/xen/tools/merge_cppcheck_reports.py b/xen/tools/merge_cppcheck_reports.py
-new file mode 100755
-index 0000000000..ef055f6925
---- /dev/null
-+++ b/xen/tools/merge_cppcheck_reports.py
-@@ -0,0 +1,73 @@
-+#!/usr/bin/env python
-+
-+"""
-+This script acts as a tool to merge XML files created by cppcheck.
-+Usage:
-+    merge_cppcheck_reports.py [FILES] [OUTPUT]
-+
-+    FILES  - list of XML files with extension .cppcheck
-+    OUTPUT - file to store results (with .xml extension).
-+             If not specified, the script will print results to stdout.
-+"""
-+
-+import sys
-+from xml.etree import ElementTree
-+
-+def elements_equal(el1, el2):
-+    if type(el1) != type(el2): return False
-+
-+    el1_location = str(el1.find('location').attrib)
-+    el2_location = str(el2.find('location').attrib)
-+
-+    if el1_location != el2_location: return False
-+
-+    return True
-+
-+def remove_duplicates(xml_root_element):
-+    elems_to_remove = []
-+    index = 0
-+    elems_list = list(xml_root_element.findall("errors")[0])
-+    for elem1 in elems_list:
-+        index += 1
-+        for elem2 in elems_list[index:]:
-+            if elements_equal(elem1, elem2) and elem2 not in elems_to_remove:
-+                elems_to_remove.append(elem2)
-+                continue
-+
-+    for elem in elems_to_remove:
-+        xml_root_element.findall("errors")[0].remove(elem)
-+
-+def merge(files):
-+    result_xml_root = None
-+    for xml_file in files:
-+        xml_root = ElementTree.parse(xml_file).getroot()
-+        for xml_error_elem in xml_root.iter('errors'):
-+            if result_xml_root is None:
-+                result_xml_root = xml_root
-+                insert_point = result_xml_root.findall("errors")[0]
-+            else:
-+                insert_point.extend(xml_error_elem)
-+
-+    return result_xml_root
-+
-+def run():
-+    files = []
-+    output = None
-+    for i in sys.argv[1:]:
-+        output = i if '.xml' in i else None
-+        files.append(i) if '.cppcheck' in i else None
-+
-+    result = merge(files)
-+
-+    if result is None:
-+        return
-+
-+    remove_duplicates(result)
-+
-+    if output is not None:
-+        ElementTree.ElementTree(result).write(output)
-+    else:
-+        print(ElementTree.tostring(result).decode('utf-8'))
-+
-+if __name__ == '__main__':
-+    run()
--- 
-2.25.1
+-----BEGIN PGP SIGNATURE-----
 
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmI8U9AFAwAAAAAACgkQsN6d1ii/Ey9g
+Jwf/VANbhbM2IfP9Iv25g4ZMCjcRIBBRbFB/QO7lnKbzoQVcZUFKCdLrQYWeoy+364cj1apEX52k
+WgDq8U5ZTQ0bDKXrgbc9e999JZPPttb4BPnGbm+c1EkYbwCDc84TAMJg3dNBpDJDGb8Eib1rQgnS
+BhPs4uwQyQh0LRKOyuyMiIEDQYSwE7yB5wENscPxLnVqMp01NjBt8WG/4y8gOKLuJRZibYLvFIoD
+dsVjUPsBDIfSSF5SmZFMQG3Sua4TEduSYLy3PdXJEDpRZkr7AdzLGIzBe5S2aBWEFWJbvYzVZDS1
+/hejhmlC3Dzmq6oDTvdyBsk6vDuQ+xfSpmtJyWLV6A==
+=HABl
+-----END PGP SIGNATURE-----
+
+--------------mqeXIAXwUek10H4KIooUufBb--
 
