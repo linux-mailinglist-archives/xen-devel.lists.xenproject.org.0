@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 009DF4E5BFD
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Mar 2022 00:41:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.294097.499905 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4509E4E5CE3
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Mar 2022 02:43:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.294106.499915 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXAaL-00046r-K3; Wed, 23 Mar 2022 23:40:13 +0000
+	id 1nXCUb-0005Gi-6B; Thu, 24 Mar 2022 01:42:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 294097.499905; Wed, 23 Mar 2022 23:40:13 +0000
+Received: by outflank-mailman (output) from mailman id 294106.499915; Thu, 24 Mar 2022 01:42:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXAaL-00044M-GR; Wed, 23 Mar 2022 23:40:13 +0000
-Received: by outflank-mailman (input) for mailman id 294097;
- Wed, 23 Mar 2022 23:40:11 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nXAaJ-00044A-Gl; Wed, 23 Mar 2022 23:40:11 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nXAaJ-0008F7-Ee; Wed, 23 Mar 2022 23:40:11 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nXAaI-0006yX-VY; Wed, 23 Mar 2022 23:40:11 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nXAaI-0005cC-V5; Wed, 23 Mar 2022 23:40:10 +0000
+	id 1nXCUb-0005Ew-04; Thu, 24 Mar 2022 01:42:25 +0000
+Received: by outflank-mailman (input) for mailman id 294106;
+ Thu, 24 Mar 2022 01:42:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=cmcs=UD=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nXCUZ-0005Eq-6F
+ for xen-devel@lists.xen.org; Thu, 24 Mar 2022 01:42:23 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a4825c34-ab13-11ec-a405-831a346695d4;
+ Thu, 24 Mar 2022 02:42:20 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E2B116194F;
+ Thu, 24 Mar 2022 01:42:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E848EC340E8;
+ Thu, 24 Mar 2022 01:42:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,127 +44,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=TBp/zJr+Y+gpfvwpHzEhmgiwMJ+o1ibj3wJxi0s33nA=; b=Eh5WNxJ7W6sf8FFeHEuPrwroMW
-	ob++nCOGTDGwT1R1dZ0OEUCLBxlvo6Ru6B0anqRtM4+gSn3K3Qh9Z2yrY9W/E6uEAU8Vf5mc8ie3E
-	TOBFmV5mBONEgehbkJoqXfCQLeinglj/IT4g9lT/dBuTqRVqDk7CYIez/XZfrqhfftj0=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168813-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: a4825c34-ab13-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1648086138;
+	bh=/SZaU4HqBGJJ3osh2aDi5ok4Cwjkcm8i0TKyIL0r0Wg=;
+	h=Date:From:To:cc:Subject:From;
+	b=Pqw+nuZ7NqieohnTrmgk1hor/3eua+YrMq9Oehikk/SA0YmUH6affzEE8SJg6nplI
+	 MLnwT5nxtT0qXh84EVkPQ5eC5r/NM5DcFozeq63GUFuBcFlOETFpZXzI4kED8U/xTX
+	 vg0c7yZ3yOHqNz0CnGXGtYVK15ATFy/z8uoAqKRGrWafLeRrYPWux0jV7MUE29z7zS
+	 GLbQ/0mcrlQSvOHCX1bUMVwMpiUC9MVeLCAtnfc9ltjw8Hj5qeqC+Q9zkHiXlMKAUv
+	 FdQGCM46bYiIQkt3sL5pIBKtnuRThoJVw7NX0Jaj5/cAd7X4znPf/9KboFeFoj8eUt
+	 GcbPkXWA8QzSg==
+Date: Wed, 23 Mar 2022 18:42:17 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: alex.bennee@linaro.org
+cc: xen-devel@lists.xen.org, Stratos-dev@op-lists.linaro.org, 
+    viresh.kumar@linaro.org, mathieu.poirier@linaro.com, 
+    christopher.w.clark@gmail.com, jgross@suse.com, boris.ostrovsky@oracle.com
+Subject: Re: Understanding osdep_xenforeignmemory_map mmap behaviour
+Message-ID: <alpine.DEB.2.22.394.2203231838130.2910984@ubuntu-linux-20-04-desktop>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 168813: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=ec0b54849b23efa25caf0055b0eef8bf9b4dec98
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 23 Mar 2022 23:40:10 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 168813 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168813/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 ec0b54849b23efa25caf0055b0eef8bf9b4dec98
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   23 days
-Failing since        168258  2022-03-01 01:55:31 Z   22 days  237 attempts
-Testing same since   168774  2022-03-22 08:40:31 Z    1 days   18 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+I am pretty sure the reasons have to do with old x86 PV guests, so I am
+CCing Juergen and Boris.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 875 lines long.)
+> Hi,
+> 
+> While we've been working on the rust-vmm virtio backends on Xen we
+> obviously have to map guest memory info the userspace of the daemon.
+> However following the logic of what is going on is a little confusing.
+> For example in the Linux backend we have this:
+> 
+>   void *osdep_xenforeignmemory_map(xenforeignmemory_handle *fmem,
+>                                    uint32_t dom, void *addr,
+>                                    int prot, int flags, size_t num,
+>                                    const xen_pfn_t arr[/*num*/], int err[/*num*/])
+>   {
+>       int fd = fmem->fd;
+>       privcmd_mmapbatch_v2_t ioctlx;
+>       size_t i;
+>       int rc;
+> 
+>       addr = mmap(addr, num << XC_PAGE_SHIFT, prot, flags | MAP_SHARED,
+>                   fd, 0);
+>       if ( addr == MAP_FAILED )
+>           return NULL;
+> 
+>       ioctlx.num = num;
+>       ioctlx.dom = dom;
+>       ioctlx.addr = (unsigned long)addr;
+>       ioctlx.arr = arr;
+>       ioctlx.err = err;
+> 
+>       rc = ioctl(fd, IOCTL_PRIVCMD_MMAPBATCH_V2, &ioctlx);
+> 
+> Where the fd passed down is associated with the /dev/xen/privcmd device
+> for issuing hypercalls on userspaces behalf. What is confusing is why
+> the function does it's own mmap - one would assume the passed addr would
+> be associated with a anonymous or file backed mmap region already that
+> the calling code has setup. Applying a mmap to a special device seems a
+> little odd.
+> 
+> Looking at the implementation on the kernel side it seems the mmap
+> handler only sets a few flags:
+> 
+>   static int privcmd_mmap(struct file *file, struct vm_area_struct *vma)
+>   {
+>           /* DONTCOPY is essential for Xen because copy_page_range doesn't know
+>            * how to recreate these mappings */
+>           vma->vm_flags |= VM_IO | VM_PFNMAP | VM_DONTCOPY |
+>                            VM_DONTEXPAND | VM_DONTDUMP;
+>           vma->vm_ops = &privcmd_vm_ops;
+>           vma->vm_private_data = NULL;
+> 
+>           return 0;
+>   }
+> 
+> So can I confirm that the mmap of /dev/xen/privcmd is being called for
+> side effects? Is it so when the actual ioctl is called the correct flags
+> are set of the pages associated with the user space virtual address
+> range?
+> 
+> Can I confirm there shouldn't be any limitation on where and how the
+> userspace virtual address space is setup for the mapping in the guest
+> memory?
+> 
+> Is there a reason why this isn't done in the ioctl path itself?
+> 
+> I'm trying to understand the differences between Xen and KVM in the API
+> choices here. I think the equivalent is the KVM_SET_USER_MEMORY_REGION
+> ioctl for KVM which brings a section of the guest physical address space
+> into the userspaces vaddr range.
 
