@@ -2,44 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C85944E6025
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Mar 2022 09:14:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.294194.500136 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98AC54E6059
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Mar 2022 09:32:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.294221.500162 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXIb2-0000t3-CM; Thu, 24 Mar 2022 08:13:28 +0000
+	id 1nXIsW-00071X-3j; Thu, 24 Mar 2022 08:31:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 294194.500136; Thu, 24 Mar 2022 08:13:28 +0000
+Received: by outflank-mailman (output) from mailman id 294221.500162; Thu, 24 Mar 2022 08:31:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXIb1-0000mF-Sv; Thu, 24 Mar 2022 08:13:27 +0000
-Received: by outflank-mailman (input) for mailman id 294194;
- Thu, 24 Mar 2022 08:13:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+IHq=UD=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nXIax-0006uw-Bm
- for xen-devel@lists.xenproject.org; Thu, 24 Mar 2022 08:13:23 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 43524873-ab4a-11ec-a405-831a346695d4;
- Thu, 24 Mar 2022 09:13:18 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9C8E71F393;
- Thu, 24 Mar 2022 08:13:18 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3A18713B98;
- Thu, 24 Mar 2022 08:13:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id IG/rDB4oPGIpEwAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 24 Mar 2022 08:13:18 +0000
+	id 1nXIsV-0006yT-Vy; Thu, 24 Mar 2022 08:31:31 +0000
+Received: by outflank-mailman (input) for mailman id 294221;
+ Thu, 24 Mar 2022 08:31:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=eW/x=UD=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1nXIsU-0006yN-Cy
+ for xen-devel@lists.xenproject.org; Thu, 24 Mar 2022 08:31:30 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04on0620.outbound.protection.outlook.com
+ [2a01:111:f400:fe0d::620])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cce49a76-ab4c-11ec-8fbc-03012f2f19d4;
+ Thu, 24 Mar 2022 09:31:29 +0100 (CET)
+Received: from DB6PR0601CA0045.eurprd06.prod.outlook.com (2603:10a6:4:17::31)
+ by VI1PR08MB4032.eurprd08.prod.outlook.com (2603:10a6:803:e2::25)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.16; Thu, 24 Mar
+ 2022 08:31:25 +0000
+Received: from DB5EUR03FT003.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:4:17:cafe::54) by DB6PR0601CA0045.outlook.office365.com
+ (2603:10a6:4:17::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.17 via Frontend
+ Transport; Thu, 24 Mar 2022 08:31:25 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT003.mail.protection.outlook.com (10.152.20.157) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5102.18 via Frontend Transport; Thu, 24 Mar 2022 08:31:24 +0000
+Received: ("Tessian outbound 741ca6c82739:v113");
+ Thu, 24 Mar 2022 08:31:24 +0000
+Received: from b52bb298c80b.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 9667C638-A092-46D2-BD56-8D883BF18CF4.1; 
+ Thu, 24 Mar 2022 08:31:18 +0000
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id b52bb298c80b.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Thu, 24 Mar 2022 08:31:18 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
+ by DB6PR0801MB1797.eurprd08.prod.outlook.com (2603:10a6:4:32::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.19; Thu, 24 Mar
+ 2022 08:31:16 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::c9ab:6cb2:6d11:ac62]) by AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::c9ab:6cb2:6d11:ac62%3]) with mapi id 15.20.5102.018; Thu, 24 Mar 2022
+ 08:31:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,859 +72,271 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43524873-ab4a-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1648109598; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Nw9rhElp9VOD8Z0hPj4rPIzgh7m6v0BZ4AIazBFgjhU=;
-	b=vP0xUtA7ZHPXIX7BKhPbjv0F0wlvFxTSvsauXJ4b8ubHSc2W7Sf3xngxqDFaFsA5U5nHBh
-	igXQbDwUZAAf7SbL/D5ZE2eu1Oiz4Ryzjtgov/sH1GGs/pU8e2qxQzAvwy2sL9QPZnlRXd
-	AYZ6gSS/Vy+F4EsBrI0mSEcAejj+muU=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Christopher Clark <christopher.w.clark@gmail.com>,
-	Dario Faggioli <dfaggioli@suse.com>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	=?UTF-8?q?T=C3=A9o=20Couprie=20Diaz?= <teo.coupriediaz@arm.com>
-Subject: [PATCH v5 10/10] xen/x86: remove cf_check attribute from hypercall handlers
-Date: Thu, 24 Mar 2022 09:13:12 +0100
-Message-Id: <20220324081312.18222-11-jgross@suse.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220324081312.18222-1-jgross@suse.com>
-References: <20220324081312.18222-1-jgross@suse.com>
+X-Inumbo-ID: cce49a76-ab4c-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GL8+C0DxIO2X9JEoO0P5jNQzjHBJ9Ntm6OSL0/ylPX4=;
+ b=m1UlI5lnE7069DG4MmD0dXl5vtvhQcDUz4V7sPbNM9B51XxB2MfhlRMM3xzviirj3zkYNj2j/1JmPq58NQBoI/O3jKH/3qEn0Kr9XQos47KaXRocSFmEPobGp86AhXlLR8ZoM3E+3cMxq6IalfFMOEtILRp+HFOcT3OilkZU/5M=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 4280ec46f4a042a5
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hD+KkdG1gtXvwNlEYOR2Fng02VYkGCU1FUUaLh/SypMyvPK35vIfXJK/0thhnKYYqprEzKFBVcrV17nSiq6oocKBAagc3jxWwWDFzYVqccvhmIlOGDj9a6QVgIPeNLvnhPkrWWCZ0Ry+80wiJHM59pUGuhrdbegTqpYVVBwzc+ROmRmf6whJWdrkrCD5DmxodK8z3iSXbQGzrP+9xwZyfZwSe7jVAhoV1UWk0tFHLG/HsQRVITbJDD1kc33ihPQNXT5mLapZNQaA3HSb9A7fU2Pz5ma2P1KIH1TgrJBakZ6Fgt6YzL5PWmUXSAoFh9ZNfQj/PWcm5FdPi2nPpeeqAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GL8+C0DxIO2X9JEoO0P5jNQzjHBJ9Ntm6OSL0/ylPX4=;
+ b=BC9kU7VtdoshVftVG4fpV7eDSDJNrR7sr6L6uzQnhWG5m1NK8HOd/UVJKegKaTjsM8DTdpKlKDIUPEmqCkcFVe7WX/qZtO+T2yfNIG2EtSkwhm6Bfu2HKyXh6/vjdMI15CSF2K6DFD6COBr1D8LOjxdd2EWdNgbchwQu3gso1EX19gNoZPC8utDypOUa1lwGm5Oa33WDI8CzpqmQF0G6zr/xCAJDSufGP//M8TSO4tcREtqfZOy9fPOl3BqOiFgdhntfMlDeenSVkbklzGkskbzWW/wNyVt8jyU3HYMOeFp8eO11McFBH31kZMuvta0892hVWuP0Wn/aStSyuPp1hQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GL8+C0DxIO2X9JEoO0P5jNQzjHBJ9Ntm6OSL0/ylPX4=;
+ b=m1UlI5lnE7069DG4MmD0dXl5vtvhQcDUz4V7sPbNM9B51XxB2MfhlRMM3xzviirj3zkYNj2j/1JmPq58NQBoI/O3jKH/3qEn0Kr9XQos47KaXRocSFmEPobGp86AhXlLR8ZoM3E+3cMxq6IalfFMOEtILRp+HFOcT3OilkZU/5M=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"julien@xen.org" <julien@xen.org>, "Volodymyr_Babchuk@epam.com"
+	<Volodymyr_Babchuk@epam.com>, Stefano Stabellini
+	<stefano.stabellini@xilinx.com>
+Subject: Re: [PATCH v2] xen/arm: set CPSR Z bit when creating aarch32 guests
+Thread-Topic: [PATCH v2] xen/arm: set CPSR Z bit when creating aarch32 guests
+Thread-Index: AQHYPittA0qvCk1VqUeT+Og+1zrr1azMqmOAgAEgdgCAAGvcAA==
+Date: Thu, 24 Mar 2022 08:31:14 +0000
+Message-ID: <484F678F-0918-407E-B8FE-55022CF22D7D@arm.com>
+References: <20220322202825.418232-1-sstabellini@kernel.org>
+ <E2220831-D72C-423C-A33F-453C8E851B8D@arm.com>
+ <alpine.DEB.2.22.394.2203231844240.2910984@ubuntu-linux-20-04-desktop>
+In-Reply-To:
+ <alpine.DEB.2.22.394.2203231844240.2910984@ubuntu-linux-20-04-desktop>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3693.60.0.1.1)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-MS-Office365-Filtering-Correlation-Id: 47f02e93-0441-491c-71c3-08da0d70aeda
+x-ms-traffictypediagnostic:
+	DB6PR0801MB1797:EE_|DB5EUR03FT003:EE_|VI1PR08MB4032:EE_
+X-Microsoft-Antispam-PRVS:
+	<VI1PR08MB4032E1A11F50FACADDD9AB239D199@VI1PR08MB4032.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ 8YsKWBknlGQ7PCCtT5oVQEBbsSyqVICvjBgNiFzE8bFFD9aUWpD440zublaAXA/iTxL/oVeTcqDsPFnPRg90VdUpRRAzdbGwIsHpBj8tg4oxkrVzaZJLIMtWDjvrHFEqIX+cWjKG+ca7dqyrYUWuh4eMpoUPhv+qPp+eeBn5h+GWn/y+Vj06QtWkFNtEw64BpScvOdXAkWyVZG3DQHNUFOG4Z3Za/BgP7ivcjhnQAZKdlynTqspdkjC1QUK1vpzNamIUhTk0RwEasI2+1Pgz9Z0sjGx3L1WSNM6w6GCdTBK6brRPUOhti16/dct22E34rjPY0ad9A5Rt/uF6FKUp9iv1ctWXx9TGKJpCJyI/kfuvRGBi1bw1Xi9KHYhGoitY1SkDKAswGCijlyYI9rhCtmA3akAkX5l+gGqXYw7ERJ3eiWz298LDSYEigG/6TvQjhVPVSS1PUYubpLY7mSaoJza6WMAl8uunIDIpYtmdh2Z3UeerdyYasX7opwvj2uQSZ96vk0eNBJjhQrHzc1bfqB4FMkTAwKum3iSZG5p+c8IGLE4ZaeffrTWSKZyVKYwo3wKuxtxrH1hEojfqi8Iwcz67zggoZ4pHHxK6vuKr+9b5kUJ3t7/1vsFA2ICuBo+jxmBUwo4S2X0fwCNykv+ijgMenX2foFQsk0CPciok/zMW/9icpx50qsjj8YumyBDTlFSw1mvRF8MKJuynNCHLCH9HpXn/diIm58r7ls0qS8PHOci16UC/Yz6NYqddenm1L6o7eMMkTR9KQi5R2NOjguSbl+BSq3kQHN154TMZE21Jqu3JKIj2OMf4xfPf+kyX
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(36756003)(508600001)(6512007)(316002)(2616005)(83380400001)(6916009)(54906003)(71200400001)(966005)(53546011)(6506007)(26005)(186003)(6486002)(91956017)(4326008)(2906002)(8936002)(5660300002)(38070700005)(66476007)(66556008)(33656002)(86362001)(76116006)(38100700002)(66446008)(64756008)(8676002)(66946007)(122000001)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <ECD3B46ECA1FD845AFAD316E4ADE0CE9@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0801MB1797
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB5EUR03FT003.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	644d8d23-3afd-44c1-c3d1-08da0d70a959
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	tNv5cd6Kzf6UqFRYAcNwNFHBzyACPBB/vlrKLE0s+/jCtxSI+ldDMl0eXZ3g5sbELwu+m3b+5GArcAUI4TzSWhiYb3O8s/aBBnB67QSf2BEZDhKDLnMdRgk9iGubkgm40DLSVdRNXjYFYY0wUQBKXFYEvSkVeaOmA5sABUyZShcLkrCvNTYnvqZKPrU2LWhwq7rJ0WC51YWr5KIofE8eWSPGxFZjpb2V2oOOBDt5cIpy73tMToOQPVACwE8qivrzR/M9Xwa79QTDU8mERoMX/mm2PIeHmpQV69NmQT5Of+v3CsjmqV+wQj89AfHnumdrABEg6TCTuIogyZkAvBvKV/M9v/R9BuPqjrt3nQOZnR3BzZVlELyWuamxehUdjcWErAB+PJVIWr5KQO5x5QyFwIu19219pPoiBEItcf8vcHp8IRssan6Ad5F2b1jnGJoFTtHgrCZPyoE4YawJlxsj2PB6CJPKt9qmieWd10ogSu2vXpv+tzp/FRtPK81j6H73m7+CflyQlxwK3w7yJLA8ZenbeJpnQVJnpMGFtXGJ6/2K3o0Yb8GwyvvCzV11XE5IWpNod29ilxYbzCcMZ2FyfmpK6K1FV+ip6iVcKHYRCXdv2qfg+ka9SKPNUoJCTz1d0mI8/SHOZaGTX42gNILHxrb1aaaINRNtm+Vb/9RY5FZ8Yk29aOjf4RvozArWuOG3/kj+1CtVBD78qFS0oS0zn8+NN1WHmUXMUkNYgDW0cQsFeqCDmTBjqZ3bZoLpSx9ELTdNdo5RdIdpP/SWtIb+Gw==
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(81166007)(36756003)(36860700001)(2906002)(47076005)(82310400004)(356005)(508600001)(6486002)(966005)(54906003)(4326008)(316002)(70206006)(8676002)(70586007)(336012)(83380400001)(8936002)(6862004)(107886003)(6512007)(26005)(40460700003)(5660300002)(186003)(6506007)(53546011)(2616005)(33656002)(86362001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2022 08:31:24.7396
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 47f02e93-0441-491c-71c3-08da0d70aeda
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB5EUR03FT003.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB4032
 
-Now that the hypercall handlers are all being called directly instead
-through a function vector, the "cf_check" attribute can be removed.
+Hi Stefano,
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Daniel P. Smith <dpsmith@apertussolutions.com> # xsm parts
-Acked-by: Jan Beulich <jbeulich@suse.com>
-Tested-by: Téo Couprie Diaz <teo.coupriediaz@arm.com>
----
-V4:
-- new patch
----
- xen/arch/x86/compat.c               |  6 +++---
- xen/arch/x86/cpu/mcheck/mce.c       |  2 +-
- xen/arch/x86/cpu/vpmu.c             |  2 +-
- xen/arch/x86/domain.c               |  3 +--
- xen/arch/x86/hvm/dm.c               |  2 +-
- xen/arch/x86/hvm/hvm.c              |  2 +-
- xen/arch/x86/hvm/hypercall.c        |  6 +++---
- xen/arch/x86/mm.c                   | 12 ++++++------
- xen/arch/x86/mm/paging.c            |  2 +-
- xen/arch/x86/physdev.c              |  2 +-
- xen/arch/x86/platform_hypercall.c   |  2 +-
- xen/arch/x86/pv/callback.c          | 16 ++++++++--------
- xen/arch/x86/pv/descriptor-tables.c |  8 ++++----
- xen/arch/x86/pv/iret.c              |  4 ++--
- xen/arch/x86/pv/misc-hypercalls.c   | 10 +++++-----
- xen/arch/x86/pv/shim.c              |  4 ++--
- xen/arch/x86/x86_64/compat/mm.c     |  2 +-
- xen/arch/x86/x86_64/domain.c        |  2 +-
- xen/common/argo.c                   |  4 ++--
- xen/common/compat/grant_table.c     |  2 +-
- xen/common/compat/kernel.c          |  2 +-
- xen/common/compat/memory.c          |  3 +--
- xen/common/dm.c                     |  2 +-
- xen/common/domain.c                 |  2 +-
- xen/common/domctl.c                 |  2 +-
- xen/common/event_channel.c          |  2 +-
- xen/common/grant_table.c            |  3 +--
- xen/common/hypfs.c                  |  2 +-
- xen/common/kernel.c                 |  2 +-
- xen/common/kexec.c                  |  4 ++--
- xen/common/memory.c                 |  2 +-
- xen/common/multicall.c              |  3 +--
- xen/common/sched/compat.c           |  2 +-
- xen/common/sched/core.c             |  4 ++--
- xen/common/sysctl.c                 |  2 +-
- xen/common/xenoprof.c               |  2 +-
- xen/drivers/char/console.c          |  2 +-
- xen/scripts/gen_hypercall.awk       |  2 +-
- xen/xsm/xsm_core.c                  |  4 ++--
- 39 files changed, 68 insertions(+), 72 deletions(-)
+Thanks a lot for the detailed answers.
 
-diff --git a/xen/arch/x86/compat.c b/xen/arch/x86/compat.c
-index 28281a262a..a031062830 100644
---- a/xen/arch/x86/compat.c
-+++ b/xen/arch/x86/compat.c
-@@ -15,7 +15,7 @@ typedef long ret_t;
- #endif
- 
- /* Legacy hypercall (as of 0x00030202). */
--ret_t cf_check do_physdev_op_compat(XEN_GUEST_HANDLE_PARAM(physdev_op_t) uop)
-+ret_t do_physdev_op_compat(XEN_GUEST_HANDLE_PARAM(physdev_op_t) uop)
- {
-     struct physdev_op op;
- 
-@@ -28,7 +28,7 @@ ret_t cf_check do_physdev_op_compat(XEN_GUEST_HANDLE_PARAM(physdev_op_t) uop)
- #ifndef COMPAT
- 
- /* Legacy hypercall (as of 0x00030101). */
--long cf_check do_sched_op_compat(int cmd, unsigned long arg)
-+long do_sched_op_compat(int cmd, unsigned long arg)
- {
-     switch ( cmd )
-     {
-@@ -50,7 +50,7 @@ long cf_check do_sched_op_compat(int cmd, unsigned long arg)
- }
- 
- /* Legacy hypercall (as of 0x00030202). */
--long cf_check do_event_channel_op_compat(
-+long do_event_channel_op_compat(
-     XEN_GUEST_HANDLE_PARAM(evtchn_op_t) uop)
- {
-     struct evtchn_op op;
-diff --git a/xen/arch/x86/cpu/mcheck/mce.c b/xen/arch/x86/cpu/mcheck/mce.c
-index 275c54be7c..f68e31b643 100644
---- a/xen/arch/x86/cpu/mcheck/mce.c
-+++ b/xen/arch/x86/cpu/mcheck/mce.c
-@@ -1351,7 +1351,7 @@ CHECK_mcinfo_recovery;
- # endif /* CONFIG_COMPAT */
- 
- /* Machine Check Architecture Hypercall */
--long cf_check do_mca(XEN_GUEST_HANDLE_PARAM(xen_mc_t) u_xen_mc)
-+long do_mca(XEN_GUEST_HANDLE_PARAM(xen_mc_t) u_xen_mc)
- {
-     long ret = 0;
-     struct xen_mc curop, *op = &curop;
-diff --git a/xen/arch/x86/cpu/vpmu.c b/xen/arch/x86/cpu/vpmu.c
-index 51d171615f..d2c03a1104 100644
---- a/xen/arch/x86/cpu/vpmu.c
-+++ b/xen/arch/x86/cpu/vpmu.c
-@@ -672,7 +672,7 @@ void vpmu_dump(struct vcpu *v)
-         alternative_vcall(vpmu_ops.arch_vpmu_dump, v);
- }
- 
--long cf_check do_xenpmu_op(
-+long do_xenpmu_op(
-     unsigned int op, XEN_GUEST_HANDLE_PARAM(xen_pmu_params_t) arg)
- {
-     int ret;
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index d566fc82b4..ddf969f76e 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -1489,8 +1489,7 @@ int arch_vcpu_reset(struct vcpu *v)
-     return 0;
- }
- 
--long cf_check do_vcpu_op(int cmd, unsigned int vcpuid,
--                         XEN_GUEST_HANDLE_PARAM(void) arg)
-+long do_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
- {
-     long rc = 0;
-     struct domain *d = current->domain;
-diff --git a/xen/arch/x86/hvm/dm.c b/xen/arch/x86/hvm/dm.c
-index d80975efcf..f8e6089870 100644
---- a/xen/arch/x86/hvm/dm.c
-+++ b/xen/arch/x86/hvm/dm.c
-@@ -654,7 +654,7 @@ CHECK_dm_op_relocate_memory;
- CHECK_dm_op_pin_memory_cacheattr;
- CHECK_dm_op_nr_vcpus;
- 
--int cf_check compat_dm_op(
-+int compat_dm_op(
-     domid_t domid, unsigned int nr_bufs, XEN_GUEST_HANDLE_PARAM(void) bufs)
- {
-     struct dmop_args args;
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 709a4191ef..9b3973dad8 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -5022,7 +5022,7 @@ static int hvmop_get_mem_type(
-     return rc;
- }
- 
--long cf_check do_hvm_op(unsigned long op, XEN_GUEST_HANDLE_PARAM(void) arg)
-+long do_hvm_op(unsigned long op, XEN_GUEST_HANDLE_PARAM(void) arg)
- {
-     long rc = 0;
- 
-diff --git a/xen/arch/x86/hvm/hypercall.c b/xen/arch/x86/hvm/hypercall.c
-index ae601185fc..29d1ca7a13 100644
---- a/xen/arch/x86/hvm/hypercall.c
-+++ b/xen/arch/x86/hvm/hypercall.c
-@@ -31,7 +31,7 @@
- #include <public/hvm/hvm_op.h>
- #include <public/hvm/params.h>
- 
--long cf_check hvm_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
-+long hvm_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
- {
-     long rc;
- 
-@@ -51,7 +51,7 @@ long cf_check hvm_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
- }
- 
- #ifdef CONFIG_GRANT_TABLE
--long cf_check hvm_grant_table_op(
-+long hvm_grant_table_op(
-     unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) uop, unsigned int count)
- {
-     switch ( cmd )
-@@ -77,7 +77,7 @@ long cf_check hvm_grant_table_op(
- }
- #endif
- 
--long cf_check hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
-+long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
- {
-     const struct vcpu *curr = current;
-     const struct domain *currd = curr->domain;
-diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index 6cc73187ac..a958142d17 100644
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -3377,7 +3377,7 @@ static int vcpumask_to_pcpumask(
-     }
- }
- 
--long cf_check do_mmuext_op(
-+long do_mmuext_op(
-     XEN_GUEST_HANDLE_PARAM(mmuext_op_t) uops,
-     unsigned int count,
-     XEN_GUEST_HANDLE_PARAM(uint) pdone,
-@@ -3916,7 +3916,7 @@ long cf_check do_mmuext_op(
-     return rc;
- }
- 
--long cf_check do_mmu_update(
-+long do_mmu_update(
-     XEN_GUEST_HANDLE_PARAM(mmu_update_t) ureqs,
-     unsigned int count,
-     XEN_GUEST_HANDLE_PARAM(uint) pdone,
-@@ -4501,7 +4501,7 @@ static int __do_update_va_mapping(
-     return rc;
- }
- 
--long cf_check do_update_va_mapping(
-+long do_update_va_mapping(
-     unsigned long va, u64 val64, unsigned long flags)
- {
-     int rc = __do_update_va_mapping(va, val64, flags, current->domain);
-@@ -4513,7 +4513,7 @@ long cf_check do_update_va_mapping(
-     return rc;
- }
- 
--long cf_check do_update_va_mapping_otherdomain(
-+long do_update_va_mapping_otherdomain(
-     unsigned long va, u64 val64, unsigned long flags, domid_t domid)
- {
-     struct domain *pg_owner;
-@@ -4536,7 +4536,7 @@ long cf_check do_update_va_mapping_otherdomain(
- #endif /* CONFIG_PV */
- 
- #ifdef CONFIG_PV32
--int cf_check compat_update_va_mapping(
-+int compat_update_va_mapping(
-     unsigned int va, uint32_t lo, uint32_t hi, unsigned int flags)
- {
-     int rc = __do_update_va_mapping(va, ((uint64_t)hi << 32) | lo,
-@@ -4549,7 +4549,7 @@ int cf_check compat_update_va_mapping(
-     return rc;
- }
- 
--int cf_check compat_update_va_mapping_otherdomain(
-+int compat_update_va_mapping_otherdomain(
-     unsigned int va, uint32_t lo, uint32_t hi, unsigned int flags,
-     domid_t domid)
- {
-diff --git a/xen/arch/x86/mm/paging.c b/xen/arch/x86/mm/paging.c
-index a7e2707ecc..cb1bfcbde5 100644
---- a/xen/arch/x86/mm/paging.c
-+++ b/xen/arch/x86/mm/paging.c
-@@ -760,7 +760,7 @@ int paging_domctl(struct domain *d, struct xen_domctl_shadow_op *sc,
-         return shadow_domctl(d, sc, u_domctl);
- }
- 
--long cf_check do_paging_domctl_cont(
-+long do_paging_domctl_cont(
-     XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
- {
-     struct xen_domctl op;
-diff --git a/xen/arch/x86/physdev.c b/xen/arch/x86/physdev.c
-index 2ddcf44f33..ea38be8b79 100644
---- a/xen/arch/x86/physdev.c
-+++ b/xen/arch/x86/physdev.c
-@@ -174,7 +174,7 @@ int physdev_unmap_pirq(domid_t domid, int pirq)
- }
- #endif /* COMPAT */
- 
--ret_t cf_check do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
-+ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
- {
-     int irq;
-     ret_t ret;
-diff --git a/xen/arch/x86/platform_hypercall.c b/xen/arch/x86/platform_hypercall.c
-index eeb4f7a20e..a7341dc3d7 100644
---- a/xen/arch/x86/platform_hypercall.c
-+++ b/xen/arch/x86/platform_hypercall.c
-@@ -214,7 +214,7 @@ void cf_check resource_access(void *info)
- }
- #endif
- 
--ret_t cf_check do_platform_op(
-+ret_t do_platform_op(
-     XEN_GUEST_HANDLE_PARAM(xen_platform_op_t) u_xenpf_op)
- {
-     ret_t ret;
-diff --git a/xen/arch/x86/pv/callback.c b/xen/arch/x86/pv/callback.c
-index 1be9d3f731..067ee3b795 100644
---- a/xen/arch/x86/pv/callback.c
-+++ b/xen/arch/x86/pv/callback.c
-@@ -140,7 +140,7 @@ static long unregister_guest_callback(struct callback_unregister *unreg)
-     return ret;
- }
- 
--long cf_check do_callback_op(int cmd, XEN_GUEST_HANDLE_PARAM(const_void) arg)
-+long do_callback_op(int cmd, XEN_GUEST_HANDLE_PARAM(const_void) arg)
- {
-     long ret;
- 
-@@ -178,7 +178,7 @@ long cf_check do_callback_op(int cmd, XEN_GUEST_HANDLE_PARAM(const_void) arg)
-     return ret;
- }
- 
--long cf_check do_set_callbacks(
-+long do_set_callbacks(
-     unsigned long event_address, unsigned long failsafe_address,
-     unsigned long syscall_address)
- {
-@@ -283,7 +283,7 @@ static int compat_unregister_guest_callback(
-     return ret;
- }
- 
--int cf_check compat_callback_op(int cmd, XEN_GUEST_HANDLE(const_void) arg)
-+int compat_callback_op(int cmd, XEN_GUEST_HANDLE(const_void) arg)
- {
-     int ret;
- 
-@@ -321,7 +321,7 @@ int cf_check compat_callback_op(int cmd, XEN_GUEST_HANDLE(const_void) arg)
-     return ret;
- }
- 
--int cf_check compat_set_callbacks(
-+int compat_set_callbacks(
-     unsigned long event_selector, unsigned long event_address,
-     unsigned long failsafe_selector, unsigned long failsafe_address)
- {
-@@ -348,7 +348,7 @@ int cf_check compat_set_callbacks(
- 
- #endif /* CONFIG_PV32 */
- 
--long cf_check do_set_trap_table(XEN_GUEST_HANDLE_PARAM(const_trap_info_t) traps)
-+long do_set_trap_table(XEN_GUEST_HANDLE_PARAM(const_trap_info_t) traps)
- {
-     struct trap_info cur;
-     struct vcpu *curr = current;
-@@ -394,7 +394,7 @@ long cf_check do_set_trap_table(XEN_GUEST_HANDLE_PARAM(const_trap_info_t) traps)
- }
- 
- #ifdef CONFIG_PV32
--int cf_check compat_set_trap_table(XEN_GUEST_HANDLE(trap_info_compat_t) traps)
-+int compat_set_trap_table(XEN_GUEST_HANDLE(trap_info_compat_t) traps)
- {
-     struct vcpu *curr = current;
-     struct compat_trap_info cur;
-@@ -437,7 +437,7 @@ int cf_check compat_set_trap_table(XEN_GUEST_HANDLE(trap_info_compat_t) traps)
- }
- #endif
- 
--long cf_check do_nmi_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
-+long do_nmi_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
- {
-     struct xennmi_callback cb;
-     long rc = 0;
-@@ -463,7 +463,7 @@ long cf_check do_nmi_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
- }
- 
- #ifdef CONFIG_PV32
--int cf_check compat_nmi_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
-+int compat_nmi_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
- {
-     struct compat_nmi_callback cb;
-     int rc = 0;
-diff --git a/xen/arch/x86/pv/descriptor-tables.c b/xen/arch/x86/pv/descriptor-tables.c
-index 653a61d0b5..b4135b450c 100644
---- a/xen/arch/x86/pv/descriptor-tables.c
-+++ b/xen/arch/x86/pv/descriptor-tables.c
-@@ -124,7 +124,7 @@ int pv_set_gdt(struct vcpu *v, const unsigned long frames[],
-     return -EINVAL;
- }
- 
--long cf_check do_set_gdt(
-+long do_set_gdt(
-     XEN_GUEST_HANDLE_PARAM(xen_ulong_t) frame_list, unsigned int entries)
- {
-     unsigned int nr_frames = DIV_ROUND_UP(entries, 512);
-@@ -151,7 +151,7 @@ long cf_check do_set_gdt(
- 
- #ifdef CONFIG_PV32
- 
--int cf_check compat_set_gdt(
-+int compat_set_gdt(
-     XEN_GUEST_HANDLE_PARAM(uint) frame_list, unsigned int entries)
- {
-     struct vcpu *curr = current;
-@@ -187,7 +187,7 @@ int cf_check compat_set_gdt(
-     return ret;
- }
- 
--int cf_check compat_update_descriptor(
-+int compat_update_descriptor(
-     uint32_t pa_lo, uint32_t pa_hi, uint32_t desc_lo, uint32_t desc_hi)
- {
-     seg_desc_t d;
-@@ -299,7 +299,7 @@ int validate_segdesc_page(struct page_info *page)
-     return i == 512 ? 0 : -EINVAL;
- }
- 
--long cf_check do_update_descriptor(uint64_t gaddr, seg_desc_t d)
-+long do_update_descriptor(uint64_t gaddr, seg_desc_t d)
- {
-     struct domain *currd = current->domain;
-     gfn_t gfn = gaddr_to_gfn(gaddr);
-diff --git a/xen/arch/x86/pv/iret.c b/xen/arch/x86/pv/iret.c
-index 58de9f7922..316a23e77e 100644
---- a/xen/arch/x86/pv/iret.c
-+++ b/xen/arch/x86/pv/iret.c
-@@ -49,7 +49,7 @@ static void async_exception_cleanup(struct vcpu *curr)
-         curr->arch.async_exception_state(trap).old_mask;
- }
- 
--long cf_check do_iret(void)
-+long do_iret(void)
- {
-     struct cpu_user_regs *regs = guest_cpu_user_regs();
-     struct iret_context iret_saved;
-@@ -106,7 +106,7 @@ long cf_check do_iret(void)
- }
- 
- #ifdef CONFIG_PV32
--int cf_check compat_iret(void)
-+int compat_iret(void)
- {
-     struct cpu_user_regs *regs = guest_cpu_user_regs();
-     struct vcpu *v = current;
-diff --git a/xen/arch/x86/pv/misc-hypercalls.c b/xen/arch/x86/pv/misc-hypercalls.c
-index 635f5a644a..aaaf70eb63 100644
---- a/xen/arch/x86/pv/misc-hypercalls.c
-+++ b/xen/arch/x86/pv/misc-hypercalls.c
-@@ -23,12 +23,12 @@
- 
- #include <asm/debugreg.h>
- 
--long cf_check do_set_debugreg(int reg, unsigned long value)
-+long do_set_debugreg(int reg, unsigned long value)
- {
-     return set_debugreg(current, reg, value);
- }
- 
--long cf_check do_get_debugreg(int reg)
-+long do_get_debugreg(int reg)
- {
-     /* Avoid implementation defined behavior casting unsigned long to long. */
-     union {
-@@ -40,7 +40,7 @@ long cf_check do_get_debugreg(int reg)
-     return res == X86EMUL_OKAY ? u.ret : -ENODEV;
- }
- 
--long cf_check do_fpu_taskswitch(int set)
-+long do_fpu_taskswitch(int set)
- {
-     struct vcpu *v = current;
- 
-@@ -175,7 +175,7 @@ long set_debugreg(struct vcpu *v, unsigned int reg, unsigned long value)
-     return 0;
- }
- 
--long cf_check do_stack_switch(unsigned long ss, unsigned long esp)
-+long do_stack_switch(unsigned long ss, unsigned long esp)
- {
-     fixup_guest_stack_selector(current->domain, ss);
-     current->arch.pv.kernel_ss = ss;
-@@ -184,7 +184,7 @@ long cf_check do_stack_switch(unsigned long ss, unsigned long esp)
-     return 0;
- }
- 
--long cf_check do_set_segment_base(unsigned int which, unsigned long base)
-+long do_set_segment_base(unsigned int which, unsigned long base)
- {
-     struct vcpu *v = current;
-     long ret = 0;
-diff --git a/xen/arch/x86/pv/shim.c b/xen/arch/x86/pv/shim.c
-index 2ee290a392..2b74fea181 100644
---- a/xen/arch/x86/pv/shim.c
-+++ b/xen/arch/x86/pv/shim.c
-@@ -824,7 +824,7 @@ long pv_shim_grant_table_op(unsigned int cmd,
- 
- #ifndef CONFIG_GRANT_TABLE
- /* Thin wrapper(s) needed. */
--long cf_check do_grant_table_op(
-+long do_grant_table_op(
-     unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) uop, unsigned int count)
- {
-     if ( !pv_shim )
-@@ -834,7 +834,7 @@ long cf_check do_grant_table_op(
- }
- 
- #ifdef CONFIG_PV32
--int cf_check compat_grant_table_op(
-+int compat_grant_table_op(
-     unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) uop, unsigned int count)
- {
-     if ( !pv_shim )
-diff --git a/xen/arch/x86/x86_64/compat/mm.c b/xen/arch/x86/x86_64/compat/mm.c
-index 70b08a832a..d54efaad21 100644
---- a/xen/arch/x86/x86_64/compat/mm.c
-+++ b/xen/arch/x86/x86_64/compat/mm.c
-@@ -177,7 +177,7 @@ int compat_arch_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
- #ifdef CONFIG_PV
- DEFINE_XEN_GUEST_HANDLE(mmuext_op_compat_t);
- 
--int cf_check compat_mmuext_op(
-+int compat_mmuext_op(
-     XEN_GUEST_HANDLE_PARAM(void) arg, unsigned int count,
-     XEN_GUEST_HANDLE_PARAM(uint) pdone, unsigned int foreigndom)
- {
-diff --git a/xen/arch/x86/x86_64/domain.c b/xen/arch/x86/x86_64/domain.c
-index 9c559aa3ea..62fe51ee74 100644
---- a/xen/arch/x86/x86_64/domain.c
-+++ b/xen/arch/x86/x86_64/domain.c
-@@ -12,7 +12,7 @@
- CHECK_vcpu_get_physid;
- #undef xen_vcpu_get_physid
- 
--int cf_check
-+int
- compat_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
- {
-     int rc;
-diff --git a/xen/common/argo.c b/xen/common/argo.c
-index 26a01c2188..748b8714d6 100644
---- a/xen/common/argo.c
-+++ b/xen/common/argo.c
-@@ -2069,7 +2069,7 @@ sendv(struct domain *src_d, xen_argo_addr_t *src_addr,
-     return ( ret < 0 ) ? ret : len;
- }
- 
--long cf_check
-+long
- do_argo_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) arg1,
-            XEN_GUEST_HANDLE_PARAM(void) arg2, unsigned long raw_arg3,
-            unsigned long raw_arg4)
-@@ -2207,7 +2207,7 @@ do_argo_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) arg1,
- }
- 
- #ifdef CONFIG_COMPAT
--int cf_check
-+int
- compat_argo_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) arg1,
-                XEN_GUEST_HANDLE_PARAM(void) arg2, unsigned long arg3,
-                unsigned long arg4)
-diff --git a/xen/common/compat/grant_table.c b/xen/common/compat/grant_table.c
-index d5787e3719..4705ee5f76 100644
---- a/xen/common/compat/grant_table.c
-+++ b/xen/common/compat/grant_table.c
-@@ -56,7 +56,7 @@ CHECK_gnttab_swap_grant_ref;
- CHECK_gnttab_cache_flush;
- #undef xen_gnttab_cache_flush
- 
--int cf_check compat_grant_table_op(
-+int compat_grant_table_op(
-     unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) cmp_uop, unsigned int count)
- {
-     int rc = 0;
-diff --git a/xen/common/compat/kernel.c b/xen/common/compat/kernel.c
-index 8e8c413bf1..804b919bdc 100644
---- a/xen/common/compat/kernel.c
-+++ b/xen/common/compat/kernel.c
-@@ -37,7 +37,7 @@ CHECK_TYPE(capabilities_info);
- 
- CHECK_TYPE(domain_handle);
- 
--#define DO(fn) int cf_check compat_##fn
-+#define DO(fn) int compat_##fn
- #define COMPAT
- 
- #include "../kernel.c"
-diff --git a/xen/common/compat/memory.c b/xen/common/compat/memory.c
-index 077ded4a75..ce1de1b307 100644
---- a/xen/common/compat/memory.c
-+++ b/xen/common/compat/memory.c
-@@ -53,8 +53,7 @@ static int cf_check get_reserved_device_memory(
- }
- #endif
- 
--int cf_check compat_memory_op(
--    unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
-+int compat_memory_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) compat)
- {
-     struct vcpu *curr = current;
-     struct domain *currd = curr->domain;
-diff --git a/xen/common/dm.c b/xen/common/dm.c
-index fcb3a1aa05..201b652deb 100644
---- a/xen/common/dm.c
-+++ b/xen/common/dm.c
-@@ -19,7 +19,7 @@
- #include <xen/hypercall.h>
- #include <xen/nospec.h>
- 
--long cf_check do_dm_op(
-+long do_dm_op(
-     domid_t domid, unsigned int nr_bufs,
-     XEN_GUEST_HANDLE_PARAM(xen_dm_op_buf_t) bufs)
- {
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 70747c02e6..2f8efbb6d8 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -1754,7 +1754,7 @@ long common_vcpu_op(int cmd, struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg)
- }
- 
- #ifdef arch_vm_assist_valid_mask
--long cf_check do_vm_assist(unsigned int cmd, unsigned int type)
-+long do_vm_assist(unsigned int cmd, unsigned int type)
- {
-     struct domain *currd = current->domain;
-     const unsigned long valid = arch_vm_assist_valid_mask(currd);
-diff --git a/xen/common/domctl.c b/xen/common/domctl.c
-index 9606fa4f1a..879a2adcbe 100644
---- a/xen/common/domctl.c
-+++ b/xen/common/domctl.c
-@@ -274,7 +274,7 @@ static struct vnuma_info *vnuma_init(const struct xen_domctl_vnuma *uinfo,
-     return ERR_PTR(ret);
- }
- 
--long cf_check do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-+long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
- {
-     long ret = 0;
-     bool_t copyback = 0;
-diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
-index 0a82eb3ac2..5e2420fa12 100644
---- a/xen/common/event_channel.c
-+++ b/xen/common/event_channel.c
-@@ -1191,7 +1191,7 @@ static int evtchn_set_priority(const struct evtchn_set_priority *set_priority)
-     return ret;
- }
- 
--long cf_check do_event_channel_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
-+long do_event_channel_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
- {
-     int rc;
- 
-diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
-index febbe12eab..c71d3ad24b 100644
---- a/xen/common/grant_table.c
-+++ b/xen/common/grant_table.c
-@@ -3559,8 +3559,7 @@ gnttab_cache_flush(XEN_GUEST_HANDLE_PARAM(gnttab_cache_flush_t) uop,
-     return 0;
- }
- 
--long cf_check
--do_grant_table_op(
-+long do_grant_table_op(
-     unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) uop, unsigned int count)
- {
-     long rc;
-diff --git a/xen/common/hypfs.c b/xen/common/hypfs.c
-index 0d22396f5d..acd258edf2 100644
---- a/xen/common/hypfs.c
-+++ b/xen/common/hypfs.c
-@@ -670,7 +670,7 @@ static int hypfs_write(struct hypfs_entry *entry,
-     return entry->funcs->write(l, uaddr, ulen);
- }
- 
--long cf_check do_hypfs_op(
-+long do_hypfs_op(
-     unsigned int cmd, XEN_GUEST_HANDLE_PARAM(const_char) arg1,
-     unsigned long arg2, XEN_GUEST_HANDLE_PARAM(void) arg3, unsigned long arg4)
- {
-diff --git a/xen/common/kernel.c b/xen/common/kernel.c
-index adff2d2c77..08bdae082a 100644
---- a/xen/common/kernel.c
-+++ b/xen/common/kernel.c
-@@ -451,7 +451,7 @@ static int __init cf_check param_init(void)
- __initcall(param_init);
- #endif
- 
--# define DO(fn) long cf_check do_##fn
-+# define DO(fn) long do_##fn
- 
- #endif
- 
-diff --git a/xen/common/kexec.c b/xen/common/kexec.c
-index 41669964d2..7095651605 100644
---- a/xen/common/kexec.c
-+++ b/xen/common/kexec.c
-@@ -1265,13 +1265,13 @@ static int do_kexec_op_internal(unsigned int op,
-     return ret;
- }
- 
--long cf_check do_kexec_op(unsigned int op, XEN_GUEST_HANDLE_PARAM(void) uarg)
-+long do_kexec_op(unsigned int op, XEN_GUEST_HANDLE_PARAM(void) uarg)
- {
-     return do_kexec_op_internal(op, uarg, 0);
- }
- 
- #ifdef CONFIG_COMPAT
--int cf_check compat_kexec_op(unsigned int op, XEN_GUEST_HANDLE_PARAM(void) uarg)
-+int compat_kexec_op(unsigned int op, XEN_GUEST_HANDLE_PARAM(void) uarg)
- {
-     return do_kexec_op_internal(op, uarg, 1);
- }
-diff --git a/xen/common/memory.c b/xen/common/memory.c
-index 69b0cd1e50..963f4df1b6 100644
---- a/xen/common/memory.c
-+++ b/xen/common/memory.c
-@@ -1367,7 +1367,7 @@ static int acquire_resource(
-     return rc;
- }
- 
--long cf_check do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
-+long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
- {
-     struct domain *d, *curr_d = current->domain;
-     long rc;
-diff --git a/xen/common/multicall.c b/xen/common/multicall.c
-index 9db49092b4..1f0cc4cb26 100644
---- a/xen/common/multicall.c
-+++ b/xen/common/multicall.c
-@@ -33,8 +33,7 @@ static void trace_multicall_call(multicall_entry_t *call)
-     __trace_multicall_call(call);
- }
- 
--ret_t cf_check
--do_multicall(
-+ret_t do_multicall(
-     XEN_GUEST_HANDLE_PARAM(multicall_entry_t) call_list, uint32_t nr_calls)
- {
-     struct vcpu *curr = current;
-diff --git a/xen/common/sched/compat.c b/xen/common/sched/compat.c
-index 66ba0fe88f..040b4caca2 100644
---- a/xen/common/sched/compat.c
-+++ b/xen/common/sched/compat.c
-@@ -39,7 +39,7 @@ static int compat_poll(struct compat_sched_poll *compat)
- 
- #include "core.c"
- 
--int cf_check compat_set_timer_op(u32 lo, s32 hi)
-+int compat_set_timer_op(u32 lo, s32 hi)
- {
-     return do_set_timer_op(((s64)hi << 32) | lo);
- }
-diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
-index 19ab678181..25885b5640 100644
---- a/xen/common/sched/core.c
-+++ b/xen/common/sched/core.c
-@@ -1862,7 +1862,7 @@ typedef long ret_t;
- 
- #endif /* !COMPAT */
- 
--ret_t cf_check do_sched_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
-+ret_t do_sched_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
- {
-     ret_t ret = 0;
- 
-@@ -1999,7 +1999,7 @@ ret_t cf_check do_sched_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
- #ifndef COMPAT
- 
- /* Per-vcpu oneshot-timer hypercall. */
--long cf_check do_set_timer_op(s_time_t timeout)
-+long do_set_timer_op(s_time_t timeout)
- {
-     struct vcpu *v = current;
-     s_time_t offset = timeout - NOW();
-diff --git a/xen/common/sysctl.c b/xen/common/sysctl.c
-index fc4a0b31d6..1ad3c29351 100644
---- a/xen/common/sysctl.c
-+++ b/xen/common/sysctl.c
-@@ -29,7 +29,7 @@
- #include <xen/livepatch.h>
- #include <xen/coverage.h>
- 
--long cf_check do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
-+long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
- {
-     long ret = 0;
-     int copyback = -1;
-diff --git a/xen/common/xenoprof.c b/xen/common/xenoprof.c
-index af617f1d0b..1926a92fe4 100644
---- a/xen/common/xenoprof.c
-+++ b/xen/common/xenoprof.c
-@@ -721,7 +721,7 @@ static int xenoprof_op_get_buffer(XEN_GUEST_HANDLE_PARAM(void) arg)
-                       || (op == XENOPROF_disable_virq)  \
-                       || (op == XENOPROF_get_buffer))
-  
--ret_t cf_check do_xenoprof_op(int op, XEN_GUEST_HANDLE_PARAM(void) arg)
-+ret_t do_xenoprof_op(int op, XEN_GUEST_HANDLE_PARAM(void) arg)
- {
-     int ret = 0;
-     
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index d9d6556c22..c53fe30313 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -675,7 +675,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
-     return 0;
- }
- 
--long cf_check do_console_io(
-+long do_console_io(
-     unsigned int cmd, unsigned int count, XEN_GUEST_HANDLE_PARAM(char) buffer)
- {
-     long rc;
-diff --git a/xen/scripts/gen_hypercall.awk b/xen/scripts/gen_hypercall.awk
-index 403758be21..34840c514f 100644
---- a/xen/scripts/gen_hypercall.awk
-+++ b/xen/scripts/gen_hypercall.awk
-@@ -226,7 +226,7 @@ END {
-     # Generate prototypes
-     for (i = 1; i <= n; i++) {
-         for (p = 1; p <= n_pre[i]; p++) {
--            printf("%s cf_check %s_%s(", rettype[pre[i, p]], pre[i, p], fn[i]);
-+            printf("%s %s_%s(", rettype[pre[i, p]], pre[i, p], fn[i]);
-             if (n_args[i] == 0)
-                 printf("void");
-             else
-diff --git a/xen/xsm/xsm_core.c b/xen/xsm/xsm_core.c
-index 2286a502e3..eaa028109b 100644
---- a/xen/xsm/xsm_core.c
-+++ b/xen/xsm/xsm_core.c
-@@ -219,13 +219,13 @@ bool __init has_xsm_magic(paddr_t start)
- 
- #endif
- 
--long cf_check do_xsm_op(XEN_GUEST_HANDLE_PARAM(void) op)
-+long do_xsm_op(XEN_GUEST_HANDLE_PARAM(void) op)
- {
-     return xsm_do_xsm_op(op);
- }
- 
- #ifdef CONFIG_COMPAT
--int cf_check compat_xsm_op(XEN_GUEST_HANDLE_PARAM(void) op)
-+int compat_xsm_op(XEN_GUEST_HANDLE_PARAM(void) op)
- {
-     return xsm_do_compat_op(op);
- }
--- 
-2.34.1
+> On 24 Mar 2022, at 03:05, Stefano Stabellini <sstabellini@kernel.org> wro=
+te:
+>=20
+> On Wed, 23 Mar 2022, Bertrand Marquis wrote:
+>>> On 22 Mar 2022, at 21:28, Stefano Stabellini <sstabellini@kernel.org> w=
+rote:
+>>>=20
+>>> From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+>>>=20
+>>> The first 32 bytes of zImage are NOPs. When CONFIG_EFI is enabled in th=
+e
+>>> kernel, certain versions of Linux will use an UNPREDICATABLE NOP
+>>> encoding, sometimes resulting in an unbootable kernel. Whether the
+>>> resulting kernel is bootable or not depends on the processor. See commi=
+t
+>>> a92882a4d270 in the Linux kernel for all the details.
+>>>=20
+>>> All kernel releases starting from Linux 4.9 without commit a92882a4d270
+>>> are affected.
+>>=20
+>> Can you confirm if those kernels are also affected when started natively=
+ ?
+>=20
+> Theoretically yes, but in practice only booting on Xen is affected
+> because:
+>=20
+> - the issue cannot happen when booting from u-boot because u-boot sets
+>  the "Z" bit
+> - the issue cannot happen when booting with QEMU -kernel because it also
+>  sets "Z"
+> - older bootloaders on native skip the first 32 bytes of the start
+>  address, which also masks this problem
+>=20
+> Thus, in practice, I have no idea how one could reproduce the problem on
+> native.
+>=20
+> This info is in the commit message a92882a4d270 on Linux and in-code
+> comments in the kernel.
+
+If uboot is setting we can consider that we have a behaviour equivalent to
+a native boot.
+Could you add something in the comment in your patch to state that the Z
+flag is also set by uboot ?
+This will help in the future to remember why it is ok to have that as the
+current comment could make one think that this is something only done by
+Xen.
+
+>=20
+>=20
+>>> Fortunately there is a simple workaround: setting the "Z" bit in CPSR
+>>> make it so those invalid NOP instructions are never executed. That is
+>>> because the instruction is conditional (not equal). So, on QEMU at
+>>> least, the instruction will end up to be ignored and not generate an
+>>> exception. Setting the "Z" bit makes those kernel versions bootable
+>>> again and it is harmless in the other cases.
+>>=20
+>> I agree with Jan here. This will never be set or should not be expected
+>> to be set by anyone when started.
+>> It feels to me that we are introducing an ack for a temporary issue in
+>> Linux which will makes us derive from the behaviour that could be
+>> expected on native hardware.
+>>=20
+>> Could you give more details on how blocking this is ?=20
+>=20
+> Without this change, none of the Debian arm32 kernels boot on Xen after
+> Jessie (on QEMU).
+
+Ok
+
+>=20
+>=20
+>> Is the kernel update with the fix available on any of the affected distr=
+ibutions ?
+>=20
+> None that I could find. I tried Debian Buster, Debian Bullseye, Debian
+> testing and the latest Alpine Linux. Happy to try more if you give me a
+> download link or two.
+
+I think the list is long enough to justify the change.
+
+>=20
+>=20
+>> Depending on the answers I think we could for example have a config arou=
+nd
+>> this to flag it as workaround for a specific guest issue so that this is=
+ only
+>> activated when needed.
+>=20
+> Also note that this alternative workaround also solves the problem,
+> however it has other drawbacks as Julien described:
+> [1] https://marc.info/?l=3Dxen-devel&m=3D164774063802402
+
+Definitely setting the Z bit is better I think.
+
+>=20
+>=20
+> My take on this is the following. PSR_GUEST32_INIT is not part of the
+> ABI so this cannot be considered an ABI change.
+>=20
+> But in any case, given that without this change (or another change [1])
+> most of the kernels out there don't work, is there a point in discussing
+> ABI breakages? Basically nothing works right now :-D
+>=20
+> I think it makes sense to think whether this change could cause a kernel
+> that used to boot, not to boot anymore. However, I don't think is
+> possible because:
+>=20
+> - we only support zImage on arm32 and "Z" works well with it
+> - both u-boot and qemu -kernel set "Z" so we would already now if
+>  something broke
+>=20
+
+Agree so please add that both in the comment and in the commit message.
+
+Cheers
+Bertrand
+
+>=20
+>=20
+>>> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+>>> ---
+>>> Changes in v2:
+>>> - improve commit message
+>>> - add in-code comment
+>>> - move PSR_Z to the beginning
+>>> ---
+>>> xen/include/public/arch-arm.h | 8 +++++++-
+>>> 1 file changed, 7 insertions(+), 1 deletion(-)
+>>>=20
+>>> diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-ar=
+m.h
+>>> index 94b31511dd..81cee95f14 100644
+>>> --- a/xen/include/public/arch-arm.h
+>>> +++ b/xen/include/public/arch-arm.h
+>>> @@ -361,6 +361,7 @@ typedef uint64_t xen_callback_t;
+>>> #define PSR_DBG_MASK    (1<<9)        /* arm64: Debug Exception mask */
+>>> #define PSR_IT_MASK     (0x0600fc00)  /* Thumb If-Then Mask */
+>>> #define PSR_JAZELLE     (1<<24)       /* Jazelle Mode */
+>>> +#define PSR_Z           (1<<30)       /* Zero condition flag */
+>>>=20
+>>> /* 32 bit modes */
+>>> #define PSR_MODE_USR 0x10
+>>> @@ -383,7 +384,12 @@ typedef uint64_t xen_callback_t;
+>>> #define PSR_MODE_EL1t 0x04
+>>> #define PSR_MODE_EL0t 0x00
+>>>=20
+>>> -#define PSR_GUEST32_INIT  (PSR_ABT_MASK|PSR_FIQ_MASK|PSR_IRQ_MASK|PSR_=
+MODE_SVC)
+>>> +/*
+>>> + * We set PSR_Z to be able to boot Linux kernel versions with an inval=
+id
+>>> + * encoding of the first 8 NOP instructions. See commit a92882a4d270 i=
+n
+>>> + * Linux.
+>>> + */
+>>> +#define PSR_GUEST32_INIT  (PSR_Z|PSR_ABT_MASK|PSR_FIQ_MASK|PSR_IRQ_MAS=
+K|PSR_MODE_SVC)
+>>> #define PSR_GUEST64_INIT (PSR_ABT_MASK|PSR_FIQ_MASK|PSR_IRQ_MASK|PSR_MO=
+DE_EL1h)
+>>>=20
+>>> #define SCTLR_GUEST_INIT    xen_mk_ullong(0x00c50078)
+>>> --=20
+>>> 2.25.1
+>>>=20
+>>=20
 
 
