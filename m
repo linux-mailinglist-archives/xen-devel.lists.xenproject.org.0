@@ -2,35 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6AE64E6302
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Mar 2022 13:14:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.294272.500280 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16E694E6343
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Mar 2022 13:25:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.294280.500292 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXMLu-00082N-Au; Thu, 24 Mar 2022 12:14:06 +0000
+	id 1nXMWJ-00016A-7N; Thu, 24 Mar 2022 12:24:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 294272.500280; Thu, 24 Mar 2022 12:14:06 +0000
+Received: by outflank-mailman (output) from mailman id 294280.500292; Thu, 24 Mar 2022 12:24:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXMLu-00080E-7a; Thu, 24 Mar 2022 12:14:06 +0000
-Received: by outflank-mailman (input) for mailman id 294272;
- Thu, 24 Mar 2022 12:14:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nXMLs-000804-Uo; Thu, 24 Mar 2022 12:14:04 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nXMLs-00031b-SK; Thu, 24 Mar 2022 12:14:04 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nXMLs-0000pz-Dz; Thu, 24 Mar 2022 12:14:04 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nXMLs-00030P-DU; Thu, 24 Mar 2022 12:14:04 +0000
+	id 1nXMWJ-00013y-46; Thu, 24 Mar 2022 12:24:51 +0000
+Received: by outflank-mailman (input) for mailman id 294280;
+ Thu, 24 Mar 2022 12:24:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=PXCt=UD=cantab.net=dvrabel@srs-se1.protection.inumbo.net>)
+ id 1nXMWI-00013s-8v
+ for xen-devel@lists.xenproject.org; Thu, 24 Mar 2022 12:24:50 +0000
+Received: from smarthost01a.sbp.mail.zen.net.uk
+ (smarthost01a.sbp.mail.zen.net.uk [212.23.1.1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 619fc5a0-ab6d-11ec-8fbc-03012f2f19d4;
+ Thu, 24 Mar 2022 13:24:42 +0100 (CET)
+Received: from [82.70.146.41] (helo=pear.davidvrabel.org.uk)
+ by smarthost01a.sbp.mail.zen.net.uk with esmtps
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.90_1)
+ (envelope-from <dvrabel@cantab.net>)
+ id 1nXMWF-00016E-U7; Thu, 24 Mar 2022 12:24:47 +0000
+Received: from apple.davidvrabel.org.uk ([82.70.146.43])
+ by pear.davidvrabel.org.uk with esmtp (Exim 4.92)
+ (envelope-from <dvrabel@cantab.net>)
+ id 1nXMW6-0002uH-UQ; Thu, 24 Mar 2022 12:24:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,127 +46,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=KczQkwO7+yCwC5lLNWDwFFL+YlyIQxlSZsbgJjDmjas=; b=RTd2fEFSO289rXh3s6d4Ue/KFM
-	AzqQP68zDAyKGwleZFDoajfShLW/APNr2/gZt2JHf2vg5GqH6K3qX6DmO9V2WOF7qQzEtB6OIHPPU
-	aIgl8fpW6q+8zFPzz+sIC1TXyyDhB/+gBUmmXyXL8nhBcUvWNPkp2GURQPxT8sI+Z6fY=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168822-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 619fc5a0-ab6d-11ec-8fbc-03012f2f19d4
+Message-ID: <35700440-4614-cbd3-361c-3a82cb3d37a9@cantab.net>
+Date: Thu, 24 Mar 2022 12:24:40 +0000
 MIME-Version: 1.0
-Subject: [ovmf test] 168822: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=ec0b54849b23efa25caf0055b0eef8bf9b4dec98
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 24 Mar 2022 12:14:04 +0000
-
-flight 168822 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168822/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 ec0b54849b23efa25caf0055b0eef8bf9b4dec98
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   24 days
-Failing since        168258  2022-03-01 01:55:31 Z   23 days  242 attempts
-Testing same since   168774  2022-03-22 08:40:31 Z    2 days   23 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Content-Language: en-GB
+To: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>
+References: <4836304496e6fbbea41348ed8cc9fcf6b0f3e893.1648049827.git.rahul.singh@arm.com>
+From: David Vrabel <dvrabel@cantab.net>
+In-Reply-To: <4836304496e6fbbea41348ed8cc9fcf6b0f3e893.1648049827.git.rahul.singh@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 82.70.146.43
+X-SA-Exim-Mail-From: dvrabel@cantab.net
+X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on
+	pear.davidvrabel.org.uk
+X-Spam-Level: 
+X-Spam-Status: No, score=-1.2 required=5.0 tests=BAYES_00,SPF_SOFTFAIL,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.2
+Subject: Re: [PATCH] xen/evtchn: Add design for static event channel signaling
+ for domUs..
+X-SA-Exim-Version: 4.2.1 (built Wed, 08 May 2019 21:11:16 +0000)
+X-SA-Exim-Scanned: Yes (on pear.davidvrabel.org.uk)
+X-Originating-smarthost01a-IP: [82.70.146.41]
+Feedback-ID: 82.70.146.41
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On 23/03/2022 15:43, Rahul Singh wrote:
+> in dom0less system. This patch introduce the new feature to support the
+> signaling between two domUs in dom0less system.
+> 
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+> ---
+>   docs/designs/dom0less-evtchn.md | 96 +++++++++++++++++++++++++++++++++
+>   1 file changed, 96 insertions(+)
+>   create mode 100644 docs/designs/dom0less-evtchn.md
+> 
+> diff --git a/docs/designs/dom0less-evtchn.md b/docs/designs/dom0less-evtchn.md
+> new file mode 100644
+> index 0000000000..6a1b7e8c22
+> --- /dev/null
+> +++ b/docs/designs/dom0less-evtchn.md
+> @@ -0,0 +1,96 @@
+> +# Signaling support between two domUs on dom0less system
+> +
+> +## Current state: Draft version
+> +
+> +## Proposer(s): Rahul Singh, Bertrand Marquis
+> +
+> +## Problem Statement:
+> +
+> +The goal of this work is to define a simple signaling system between Xen guests
+> +in dom0less systems.
+> +
+> +In dom0less system, we cannot make use of xenbus and xenstore that are used in
+> +normal systems with dynamic VMs to communicate between domains by providing a
+> +bus abstraction for paravirtualized drivers.
+> +
+> +One possible solution to implement the signaling system between domUs is based
+> +on event channels.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+This problem statement could do with some example use cases that are 
+usefully solved by this proposed solution.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+"We don't have xenstore so can't set up shared rings, but here's a 
+replacement comms mechanism that can do a single bit." Doesn't seem very 
+compelling to me.
 
+> +    chosen {
+> +        ....
+> +
+> +        domU1: domU1 {
+> +            ......
+> +        };
+> +
+> +        domU2: domU2 {
+> +            ......
+> +        };
+> +
+> +        evtchn@1 {
+> +            compatible = "xen,evtchn";
+> +            xen,evtchn = <0xa &domU1 0xb &domU2>;
+> +        };
+> +
+> +        evtchn@2 {
+> +            compatible = "xen,evtchn";
+> +            xen,evtchn = <0xc &domU1 0xd &domU2>;
+> +        };
 
-Not pushing.
+How is the domain supposed to know what these event channels are for?
 
-(No revision log; it would be 875 lines long.)
+I'm not that familiar with device tree. Is it possible to give these 
+entries name?
+
+David
 
