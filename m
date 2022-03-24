@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9127A4E6409
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Mar 2022 14:23:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.294306.500358 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45FFE4E6418
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Mar 2022 14:29:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.294309.500369 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXNQl-0001hr-1d; Thu, 24 Mar 2022 13:23:11 +0000
+	id 1nXNWW-0002NG-NG; Thu, 24 Mar 2022 13:29:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 294306.500358; Thu, 24 Mar 2022 13:23:11 +0000
+Received: by outflank-mailman (output) from mailman id 294309.500369; Thu, 24 Mar 2022 13:29:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXNQk-0001fR-UD; Thu, 24 Mar 2022 13:23:10 +0000
-Received: by outflank-mailman (input) for mailman id 294306;
- Thu, 24 Mar 2022 13:23:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jPEa=UD=arm.com=michal.orzel@srs-se1.protection.inumbo.net>)
- id 1nXNQj-0001fL-Km
- for xen-devel@lists.xenproject.org; Thu, 24 Mar 2022 13:23:09 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 8b2f0184-ab75-11ec-a405-831a346695d4;
- Thu, 24 Mar 2022 14:23:08 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1FC2CD6E;
- Thu, 24 Mar 2022 06:23:07 -0700 (PDT)
-Received: from [10.57.21.152] (unknown [10.57.21.152])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5C7CC3F73D;
- Thu, 24 Mar 2022 06:23:04 -0700 (PDT)
+	id 1nXNWW-0002Ko-Jc; Thu, 24 Mar 2022 13:29:08 +0000
+Received: by outflank-mailman (input) for mailman id 294309;
+ Thu, 24 Mar 2022 13:29:06 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nXNWU-0002Ke-Gs; Thu, 24 Mar 2022 13:29:06 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nXNWU-0004Gx-Dd; Thu, 24 Mar 2022 13:29:06 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nXNWU-0002ZD-0c; Thu, 24 Mar 2022 13:29:06 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nXNWU-0004bt-08; Thu, 24 Mar 2022 13:29:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,78 +42,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b2f0184-ab75-11ec-a405-831a346695d4
-Message-ID: <2f403670-bbe9-f2ef-bb1c-2c38b53d138b@arm.com>
-Date: Thu, 24 Mar 2022 14:22:54 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [RFC PATCH] xen/build: Add cppcheck and cppcheck-html make rules
-Content-Language: en-US
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: George Dunlap <George.Dunlap@citrix.com>, Jan Beulich
- <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Anthony Perard <anthony.perard@citrix.com>
-References: <77c79e86050eef2b706ee11e64183d57a0f5bcee.1648119732.git.bertrand.marquis@arm.com>
- <aff044ff-2a46-527d-9237-802487351bbc@citrix.com>
-From: Michal Orzel <michal.orzel@arm.com>
-In-Reply-To: <aff044ff-2a46-527d-9237-802487351bbc@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=XCuKH6A3yAf2Y1vH2ZyFlEskahABTTjsvgrF+MZjnY8=; b=3d7lJNpXt1i73Slqs7bFvlsMxC
+	JlTSygr3LZ4vnnELd+a3ATRu6AL9Z0+qzEo0Zr2L+k2vz3F+gflh0q8ppcZlZUuxarb/Nr/0dlEcA
+	Vn7NFLhNP2SAQ4XLOl3jfm8JuPvH0wmEiWLUd+a5VmUrmTd2GEA8KdJBsg8C6mrGdEW8=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168823-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 168823: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=ec0b54849b23efa25caf0055b0eef8bf9b4dec98
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 24 Mar 2022 13:29:06 +0000
+
+flight 168823 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168823/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 ec0b54849b23efa25caf0055b0eef8bf9b4dec98
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   24 days
+Failing since        168258  2022-03-01 01:55:31 Z   23 days  243 attempts
+Testing same since   168774  2022-03-22 08:40:31 Z    2 days   24 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On 24.03.2022 14:06, Andrew Cooper wrote:
-> On 24/03/2022 11:04, Bertrand Marquis wrote:
->> cppcheck can be used to check Xen code quality.
->>
->> To create a report do "make cppcheck" on a built tree adding any options
->> you added during the process you used to build xen (like CROSS_COMPILE
->> or XEN_TARGET_ARCH). This will generate an xml report xen-cppcheck.xml.
->>
->> To create a html report do "make cppcheck-html" in the same way and a
->> full report to be seen in a browser will be generated in
->> cppcheck-htmlreport/index.html.
->>
->> For better results it is recommended to build your own cppcheck from the
->> latest sources that you can find at [1].
->> Development and result analysis has been done with cppcheck 2.7.
->>
->> The Makefile rule is searching for all C files which have been compiled
->> (ie which have a generated .o file) and is running cppcheck on all of
->> them using the current configuration of xen so only the code actually
->> compiled is checked.
->>
->> A new tool is introduced to merge all cppcheck reports into one global
->> report including all findings and removing duplicates.
->>
->> Some extra variables can be used to customize the report:
->> - CPPCHECK can be used to give the full path to the cppcheck binary to
->> use (default is to use the one from the standard path).
->> - CPPCHECK_HTMLREPORT can be used to give the full path to
->> cppcheck-htmlreport (default is to use the one from the standard path).
->>
->> This has been tested on several arm configurations (x86 should work but
->> has not been tested).
->>
->> [1] https://cppcheck.sourceforge.io/
->>
->> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
->> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
-> 
-> Does CPPCheck have configurable errors vs warnings?  Should we wire this
-> into CI so we can fail builds which introduce errors that we've already
-> managed to purge from the codebase?
-> 
-For cppcheck, every finding is an error as it is placed within <errors> section in XML.
-cppcheck differentiates different types of findings by using "severity" element which can be e.g. error, style, warning, etc.
-cppcheck-html uses this field to group findings into categories and present it in a nice format to be seen on a web browser.
-However there is currently no way to tell cppcheck to find only errors.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Cheers,
-Michal
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 875 lines long.)
 
