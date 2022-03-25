@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DE784E78C1
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Mar 2022 17:15:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.294833.501522 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A2DF4E78FC
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Mar 2022 17:35:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.294841.501544 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXma5-0003GW-3j; Fri, 25 Mar 2022 16:14:29 +0000
+	id 1nXmtp-0006Lh-4F; Fri, 25 Mar 2022 16:34:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 294833.501522; Fri, 25 Mar 2022 16:14:29 +0000
+Received: by outflank-mailman (output) from mailman id 294841.501544; Fri, 25 Mar 2022 16:34:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXma5-0003Ej-0n; Fri, 25 Mar 2022 16:14:29 +0000
-Received: by outflank-mailman (input) for mailman id 294833;
- Fri, 25 Mar 2022 16:14:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=R2Zm=UE=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1nXma3-0003Ed-9Y
- for xen-devel@lists.xenproject.org; Fri, 25 Mar 2022 16:14:27 +0000
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a2137751-ac56-11ec-8fbc-03012f2f19d4;
- Fri, 25 Mar 2022 17:14:25 +0100 (CET)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.west.internal (Postfix) with ESMTP id DB3C23201F5A;
- Fri, 25 Mar 2022 12:14:21 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Fri, 25 Mar 2022 12:14:22 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 25 Mar 2022 12:14:20 -0400 (EDT)
+	id 1nXmtp-0006Iy-0j; Fri, 25 Mar 2022 16:34:53 +0000
+Received: by outflank-mailman (input) for mailman id 294841;
+ Fri, 25 Mar 2022 16:34:51 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nXmtn-0006Io-Nn; Fri, 25 Mar 2022 16:34:51 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nXmtn-0006xH-M4; Fri, 25 Mar 2022 16:34:51 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nXmtn-0007wr-Ab; Fri, 25 Mar 2022 16:34:51 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nXmtn-00027V-A8; Fri, 25 Mar 2022 16:34:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,101 +42,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a2137751-ac56-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm3; bh=BHp9UZ9HymaucJIU9olMzjynOrY79A/tGrgS3oi76
-	WQ=; b=JpckFzwtR87Db8WyUXHfunjrgYjal+s2v11n3awCsoxRXVOgqGqPN/jEU
-	WEbFyb+anxwF+X9/s4Eoc1Lr55HPDpD0HR/Tvpa4nQAV67qYS0Z00f+iqQh6rFUR
-	TqxVf3jzmpKeBj6xuasH12LLFXxUA6VLTaSxRL4LyEbbpOkBUPY2ZfmlJeySmIU9
-	EwTAgos2NVb8sT0bpoR+60+bVa7X/zw9BMadx/FVDPgWgFM1Wn9H+mDWkH/qGWhf
-	AXlr0RICKpsqmUVuP4EZRMMt6PyMRR5xo3IBYlexqFKmWcWZVhSz9hUddyngpPKe
-	UET8ONLBW/pds3ca8yz9RDP6DlOBg==
-X-ME-Sender: <xms:Xeo9YqT0Jghgws0J16Q7p0Ktb-UV2neqdhI_XoJPmcVPxnRNAlS-bQ>
-    <xme:Xeo9Yvydh3-UpXqu9xzQF3c57lwUaSK6iyXmOhB_3ZRZ22qJlvpwykAGfU-WBE8XY
-    hkKpBcHv21dxoY>
-X-ME-Received: <xmr:Xeo9Yn0EX0joZ9RDA_h5ePnB_MUVmR88DLcRfgg3tJOAusH6qwrNoIkGjC4S>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrudehuddgkeehucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvffukfggtggusehgtderredttdejnecuhfhrohhmpeffvghmihcuofgr
-    rhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgshhlrg
-    gsrdgtohhmqeenucggtffrrghtthgvrhhnpeeljedtgeejffelveefueelheejgfdvfefh
-    hefgjeegleetgedtteejleeuueevfeenucevlhhushhtvghrufhiiigvpedtnecurfgrrh
-    grmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhlrggs
-    rdgtohhm
-X-ME-Proxy: <xmx:Xeo9YmCjnPzVVKPWC5C-K2uyVC49rCEqX5r8FEhtOQch40Xneqqv9A>
-    <xmx:Xeo9YjiUPWJxwxNQN3io6KwL-uxUAJ536UxcmoEFeeXEO-MUGEzwFA>
-    <xmx:Xeo9YioI6duGlH7ccxJxdQxpcBdcDaZqWKagDLK6Wck67uXKVfhCdA>
-    <xmx:Xeo9Yra64DGLWJP_V4RBBctdoyemt7SK2ntYJOMNnta95qSpo36Kqg>
-Date: Fri, 25 Mar 2022 12:13:59 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>
-Cc: Xen developer discussion <xen-devel@lists.xenproject.org>,
-	OpenBSD technical mailing list <tech@openbsd.org>
-Subject: Security support status of xnf(4) and xbf(4)
-Message-ID: <Yj3qW/y20htoSvuK@itl-email>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=P3vNdryOXon8n2QkqdpluCrePU5oHrt5NrWFQfpQCZM=; b=oF97Sydm1hfyys4SXTuZLUCguO
+	bZxcIHjhxshU+9fK2MdWnmvEgW1IyWUA30FMv60ZU+HMEwBAgDRb1aPK2rtHSndLXCWoVA1WPph0u
+	WqiaVyYSJJZivF3h4rRs2dX1eSHvx4NC5sM/d+z7UREGXflIG4xPdBRxYN3+lE72dLiY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168858-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="NOM57H05SdAMKHFr"
-Content-Disposition: inline
+Subject: [ovmf test] 168858: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=69218d5d2854acaa7a11c777244de4a297d2fbb9
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 25 Mar 2022 16:34:51 +0000
+
+flight 168858 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168858/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 69218d5d2854acaa7a11c777244de4a297d2fbb9
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   25 days
+Failing since        168258  2022-03-01 01:55:31 Z   24 days  254 attempts
+Testing same since   168832  2022-03-25 01:43:21 Z    0 days    6 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
---NOM57H05SdAMKHFr
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 25 Mar 2022 12:13:59 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>
-Cc: Xen developer discussion <xen-devel@lists.xenproject.org>,
-	OpenBSD technical mailing list <tech@openbsd.org>
-Subject: Security support status of xnf(4) and xbf(4)
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Linux=E2=80=99s netfront and blkfront drivers recently had a security
-vulnerability (XSA-396) that allowed a malicious backend to potentially
-compromise them.  In follow-up audits, I found that OpenBSD=E2=80=99s xnf(4)
-currently trusts the backend domain.  I reported this privately to Theo
-de Raadt, who indicated that OpenBSD does not consider this to be a
-security concern.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-This is obviously a valid position for the OpenBSD project to take, but
-it is surprising to some (such as myself) from the broader Xen
-ecosystem.  Standard practice in the Xen world is that bugs in frontends
-that allow a malicious backend to cause mischief *are* considered
-security bugs unless there is explicit documentation to the contrary.
-As such, I believe this deserves to be noted in xnf(4) and xbf(4)=E2=80=99s=
- man
-pages.  If the OpenBSD project agrees, I am willing to write a patch,
-but I have no experience with mandoc so it might take a few tries.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
---NOM57H05SdAMKHFr
-Content-Type: application/pgp-signature; name="signature.asc"
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
------BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmI96lsACgkQsoi1X/+c
-IsHUrw/8DuTigOFffY4B1kecHpsA1cQJQquId57YFiA/3Z1Wa/D9yFcGKxFMT8J+
-A9LglV8+ptwnbdCrfUjnxIjs1N/yzXf1AMggQsali1Hm+U3mTMbdozovzKVDYUwU
-pj23Rvrxym9zlMr0LvBpCRcP+SMGKnPCQn02zVUENPIakdtz4yKK/eTjbJSqma/C
-zGRQuAlUc0bD4khcEMgP6wa5cMzhsCmKZArEA1aHBJn4WZ+ingOOuDgT+c/7OgjP
-C6BAOqqLH7qeAo3jolNNDsPFMM86YWky0dsGZHeZtjLr0AgHHqVpgT9ktpy9Kbr2
-CVQBi02zw325YbZxKxiGxi1ANXm58iqhxfXga7V1mWBsMTfIPBk1mezp1vpxqaA1
-DoKTpd3DOdS+DI49nsivqXZEb5pBYhRALW5IgzjjwtHG9Pgqqto3pPxCjtXfuzgK
-WL7V5Ay0j5vSWJfOvv2oYg7tpxFKtYvzy2puWg68DF2yJCOTB9pcodvUg+eEGmEm
-dvaevmIht8mhTPHf4saUdcA/rcJ2InEZrhMH1exC8HOTZDVHzYBBV0i5v2kgPg0S
-z/hmBZmdJICL0F2ItXeb/ko62G9PeHkMOaBmvp9NtgQPPnlrhMUTELiLCeE0Kf3h
-urJf7mSLztHtpQxxoMaZ/esPproDyssSI1ZYDlhXWDJgvm1IZn4=
-=1VC0
------END PGP SIGNATURE-----
+Not pushing.
 
---NOM57H05SdAMKHFr--
+(No revision log; it would be 904 lines long.)
 
