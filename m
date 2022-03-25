@@ -2,32 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91FCE4E7A4E
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Mar 2022 19:47:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.294931.501841 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B79D14E7A5F
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Mar 2022 20:20:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.294935.501852 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXoxC-0008Nm-NA; Fri, 25 Mar 2022 18:46:30 +0000
+	id 1nXpTD-0003Lo-Bs; Fri, 25 Mar 2022 19:19:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 294931.501841; Fri, 25 Mar 2022 18:46:30 +0000
+Received: by outflank-mailman (output) from mailman id 294935.501852; Fri, 25 Mar 2022 19:19:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXoxC-0008LK-Jy; Fri, 25 Mar 2022 18:46:30 +0000
-Received: by outflank-mailman (input) for mailman id 294931;
- Fri, 25 Mar 2022 18:46:30 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nXoxC-0008LE-1i
- for xen-devel@lists.xenproject.org; Fri, 25 Mar 2022 18:46:30 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nXoxB-0001Or-Ha; Fri, 25 Mar 2022 18:46:29 +0000
-Received: from [54.239.6.185] (helo=[192.168.14.36])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nXoxB-00033O-Am; Fri, 25 Mar 2022 18:46:29 +0000
+	id 1nXpTD-0003JN-8g; Fri, 25 Mar 2022 19:19:35 +0000
+Received: by outflank-mailman (input) for mailman id 294935;
+ Fri, 25 Mar 2022 19:19:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ThzK=UE=oracle.com=boris.ostrovsky@srs-se1.protection.inumbo.net>)
+ id 1nXpTB-0003JH-OE
+ for xen-devel@lists.xenproject.org; Fri, 25 Mar 2022 19:19:34 +0000
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7e00de46-ac70-11ec-8fbc-03012f2f19d4;
+ Fri, 25 Mar 2022 20:19:30 +0100 (CET)
+Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 22PHXncf031953; 
+ Fri, 25 Mar 2022 19:19:02 GMT
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3ew5y287ef-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 25 Mar 2022 19:19:02 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 22PJHNwT125588;
+ Fri, 25 Mar 2022 19:19:01 GMT
+Received: from nam12-dm6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12lp2176.outbound.protection.outlook.com [104.47.59.176])
+ by userp3020.oracle.com with ESMTP id 3exawjj7t4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 25 Mar 2022 19:19:01 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
+ by BN8PR10MB3473.namprd10.prod.outlook.com (2603:10b6:408:bc::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.17; Fri, 25 Mar
+ 2022 19:18:56 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::1b2:b41c:b2f0:c755]) by BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::1b2:b41c:b2f0:c755%9]) with mapi id 15.20.5102.019; Fri, 25 Mar 2022
+ 19:18:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,102 +60,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=UeRZWORTDKvwzEB8XOzbNRVXOylse3EeN7fgBIOJvIc=; b=Bkd+USmVWXy/NwfoAMsNEqSHa4
-	Gt0ufZWyLC1xxsLubX6enZgbsFkxOcuk4t6rNCaeEMeJ9tKC64eKg30iZh3ZDNQmZer4L8NZcEScx
-	GzPEAXtfncGSMTsz5Q+uoDjwW9r1mGYCDbJsUU2P8xZgHnMgRu6X8iKdsa8NIMXHlx24=;
-Message-ID: <799f69b2-f581-9f5f-004a-8f9f790aba2a@xen.org>
-Date: Fri, 25 Mar 2022 18:46:27 +0000
-MIME-Version: 1.0
+X-Inumbo-ID: 7e00de46-ac70-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
+ subject : to : cc : references : from : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2021-07-09;
+ bh=fUFtmuUrmj0wdGvJ3Y9ntiZF6wI+h62FoYsP8MJZJew=;
+ b=09BPjv8ugO+MVBy2VmUVIUy4njLnyPYmyQnsCKlvYB+wO9qcKhsVq4hT4OQVKbrm+t0E
+ KVzeQEudvByhYIK8btfuGawxYpxzK1GkYrLJTdFB29HvkK9mk2+YKrzDcS2TeZvK1qc1
+ yzETw/v+NK15/WURiy/svDYCOjd1qRA+2ql34dbizYuukXnK37fXpVTC7P0Teb8Yb/nN
+ G8EKt2XJH5zLFN035bRE557GibWXgTu3olG8t101Mp4Rl+HP79xfRo8d0HWJ7zVZksiT
+ Jkv8LrXlpfGT8V4iRRFArkMiaLwRGbjhBoJ+C2wP7u/vALKi7ntiJo9XOXY063Qsl7dC kA== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jHiBgC5MO2GYiYgYJhtVEUEuzlcMG6+rPStGp6kdi0TpvaxepbpFkLo5MEOecFbD0i0v0fEZ07EafqWdwqE6bqx+LGGIydOznZrfST4l6uB6fIjhSlky6/viCQFbrkDmOJIslMVhF4snTQyeaKAfzaGD72mk3jIRu1GEEp1kKe0gZu1xQVztXYe3LoDfdo/bgXj2VIPfSkgP4uRsLd60SIQgX+vcShJYn9E+GjIyWJ7Y/07+goVi6BxqdW4XBOLuRNsdbHY02w8j9rSRTf8oYvFy6LvL/lPLdCKCFM3HBf1Gcw/jJB/zOon6oow5Pe1Sma0w5M8Bk/vatrdoCpbPFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fUFtmuUrmj0wdGvJ3Y9ntiZF6wI+h62FoYsP8MJZJew=;
+ b=cHiPaxKlDRNikzhRPyhO+xLkYdgz2wIdbgmrIW4Pu7vVrU4w0RmcUHjB0eonRjqNT7jeidntoBO4we9odRP4HIUqh3MtNs332+3NBScL30zuJUwcpLJz8pCqWdgvtH4eNWTEURz8g7j9AwvIjkHMVRc0urf2pzymJd59pjHSIfdl6oRxY97wtxpKLRo/yB78sotkNu+4Uv9iAcTU9uqWGdx+CWat3HCBIhIFm9Jp3HKrKrcBGDblBlA9r00himoSp84jrU6B+nkj8/kLaERNF826OMZUL9va/cJBzGOHgNlm0YqgWkSwpt2Hk+c9JjvD/3AO4I1H4Z7HNjP3CN1gkg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fUFtmuUrmj0wdGvJ3Y9ntiZF6wI+h62FoYsP8MJZJew=;
+ b=pLf8b6p5d9qrGLDuwemgcP5qh5hqsNfYpwQ9giaP10TXIRtp4cbh/nxXxZ5rBo0lVjOGwTXILoILjnnVk9/Bqfp49IF9gPIaXE3FQQ1QjoBNEzfSsQVNMxeOARG1mgOtlg4PnU0OjOVDPqwdp27usf30TLTwl6ynyjXZjIs5u3Y=
+Message-ID: <bc63e39f-33dd-0633-f72d-df08ece23684@oracle.com>
+Date: Fri, 25 Mar 2022 15:18:52 -0400
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.7.0
-Subject: Re: [PATCH v3 3/5] xen/arm: configure dom0less domain for enabling
- xenstore after boot
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, jgross@suse.com,
- Bertrand.Marquis@arm.com, Volodymyr_Babchuk@epam.com,
- Luca Miccio <lucmiccio@gmail.com>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
-References: <alpine.DEB.2.22.394.2201281330520.27308@ubuntu-linux-20-04-desktop>
- <20220128213307.2822078-3-sstabellini@kernel.org>
- <e55c03f6-5b20-ce9c-ce88-11dc85623dce@xen.org>
- <alpine.DEB.2.22.394.2203221722430.2910984@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2203221722430.2910984@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v2] xen: fix is_xen_pmu()
+Content-Language: en-US
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+        x86@kernel.org, linux-kernel@vger.kernel.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+        Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        "H. Peter Anvin" <hpa@zytor.com>,
+        =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
+References: <20220325142002.31789-1-jgross@suse.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+In-Reply-To: <20220325142002.31789-1-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SN4PR0201CA0060.namprd02.prod.outlook.com
+ (2603:10b6:803:20::22) To BLAPR10MB5009.namprd10.prod.outlook.com
+ (2603:10b6:208:321::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 1152988c-f18f-4c33-5273-08da0e944ea2
+X-MS-TrafficTypeDiagnostic: BN8PR10MB3473:EE_
+X-Microsoft-Antispam-PRVS: 
+	<BN8PR10MB34737A203BFF58291FFCD6F88A1A9@BN8PR10MB3473.namprd10.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	Jh3tVIYhZmk39I8lPra58KNcSIMLtMsvDQwHqMaITLieVPbfDD3Zo6QqIqW1BooUWI2J+GMFAya52R5Xyc8nrNRnL1KNZyQ2XR9/Z6BYh9AT0XdRJE6khB6eeeVsJBaYQGOQfWs2X2nRwGdhzZLcejGf2Uc0VPmL8mfAWVYr3tSCJDe53wNTOXrtDh4N33nXlbKF5SKEznfqQWoEJMFSy60h9gR2SkmDWY4fP7xZ1PGKlrYRNFzVcG93vH0Qqx3mWR+9Su+7uW7rb8WDR4jZFBFifGBPY5OUGDFhM80OaOFAHUeJADYPwPFc28Y1T2KYDHGnG38jxI3j5xblNtjlDV7YEOD+sYx+xncnLoq+7Gxq6rw/4TIM2k988i3AEHyz9GlROcDr+y6nNXcrhQDY1ijyB91wzgdGQC2TTOgtX69BI7w4gQQ5kiYj1vVWogoZzJ4znd8pdDtxMmIG41+EoCNttfnuF80NyIln5sTZS5vQsmcRdpnP6XS4RdT1JIPjXpj/16OEbDvH0HoSEQLcYm/ezZOsFm5GvekJDhUOcH/Bm6nHYHFPfSM0rrWvXJ+Nx1/ErbHcSr2BXZHVWta7dETl0wACuK4LVx2+ReiYIVXa+GVyi5wQ1kalOI7b/oyJ+w4s7wl6e2Nsk3PGQ1YwhvON4z74yNkIOHQct5/v84aCqz0/6dWVX8PkjedNamnLrjobjxZiHvq3Y0ViDkcCjcRWUpuoFCNPGivGD9TyfrVNmWfSWrZcZAxaMif4fuMO
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(8936002)(66556008)(86362001)(8676002)(31696002)(44832011)(2906002)(6486002)(83380400001)(6512007)(508600001)(5660300002)(2616005)(6666004)(66574015)(66946007)(7416002)(4326008)(316002)(31686004)(36756003)(66476007)(53546011)(186003)(26005)(54906003)(6506007)(38100700002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?TmxTZ01JeDNrNlJWMkYvTlpKNnF4RWpZcWJaM1lrRElyWU5FTHpqeitHcUNj?=
+ =?utf-8?B?cnlBcmFaUXpCOVlnbGV0M0t2WVJQd21ackthVDFiNG81K1RNc0lmKzRiemhp?=
+ =?utf-8?B?b3JRT1oxakVsM0R4TWZNekNpN1FjYWdsOUU1UHNadFQ5WURSMG5jQjBJcS9U?=
+ =?utf-8?B?TjdQVDA4WHJwbHVQWW4yandHVG5NeFB3VUM2M3djTHExalVjc0FPdzVJcGpH?=
+ =?utf-8?B?SEVzM0VwclhvVzRIaFEvNFVqcC9GbHZPdHVVWThUNUhBRlk0cGgrc1M5cU5F?=
+ =?utf-8?B?bzRkcVJ0QjdpZWxvUGZINHpzUWZ6R0R0QVN5ZnlLYWQvSVVzbHovQ2k3dldY?=
+ =?utf-8?B?bFcvbUtHVW9oRG0wbDlOTFdoOWR5aVNuN2ZvMGZERFJ1ZHlZSnZIdGRtd0pU?=
+ =?utf-8?B?QTFPZ2RVWmprNERGd25LV2ZJa3BZWGdFbFI0blhHWHhqYXpZWDFkQkZ0VkRx?=
+ =?utf-8?B?OFZqUkFtOTlFeXhlZVBKL2dWSkZSN1ppdlppOWNqTjRBWEhvZ1ZMdHVxWnoz?=
+ =?utf-8?B?NExUb2tweTBHRTZ1TFVrZ0lJTFhnRFpwRVVxSk9VZ0l0SU1pTG9MVFNSRkdX?=
+ =?utf-8?B?RVFHMDRaTWRPZVp1UDVhOVF5NzRxMXFLVVpRdFpCeG9NRHJJU2ZvRWZpcFZu?=
+ =?utf-8?B?L0gvNUp1dXZ4Tmc3OTlXTEhxZ2ZtMGlWcjl2ZHIrc3B5VFZXYlArSi93RmxV?=
+ =?utf-8?B?ZWZzMVNrY0NPVUR5OGovdmNHdkVYYnR5bUFuMTdPMWYzR1d6M0cyK3FWZnRS?=
+ =?utf-8?B?L2ZDeVltSk9NRjU2K2xFKzByZnd0RjQ5U2Vsd25LZHF4c2VQMmhYZ3pub0dr?=
+ =?utf-8?B?cGVEQklrMFRHQk5sVWdFcXZhcExWb3Mrb2ozUDVVV2dKOXlBWGZQMlZ6Y3VL?=
+ =?utf-8?B?aHVXRG9tQWErQXM0Skl4R2JHTnNxNU9JWDB4N3YyOFQrV3R6N200K2ZuMDRE?=
+ =?utf-8?B?SmZtRVc5WnllZVBHK2xxSUF2VEI3UWlRVWxEVmJ6UlBrL1NGN2UwR2FXQWc3?=
+ =?utf-8?B?djRlUUM1ZndCMTJ3bmp6RTRmd0x3UWZsbEZ3NmRkNkZsalI0MTJ0bHJNeGlY?=
+ =?utf-8?B?VE9EdUtuZ3RhV2VncDcxS2l6bmVtcFVVL04wSkgvZ041TDczdmgxU1FVZnFO?=
+ =?utf-8?B?VzRNbTRJTndyRGtEbUNVTTB4MjRla21iNW1Qay9pTU0yTHJiL1U2UG1LNk5S?=
+ =?utf-8?B?eGVncVE2cDVHZDhtRWlLcG45TkhwaEt6bmtodWpDT2svNVN6bzhMU2owTC9T?=
+ =?utf-8?B?eDdHZTFkVGF6b2M4RzVFcTIzYTZLRE03anpVek9WZHIvY0tWNFFLV2gvdTZk?=
+ =?utf-8?B?RGRBRkRMcUF1VHk4NVYzSVlyWDdLSEY1UVlnYmR2VGFSUUVGMVdIQko4eHZz?=
+ =?utf-8?B?S1dBK0FSVWk2OVFRZWFid3JEZThYNGNzSWpTcjdmMEQ1eFFRWTVUWDZHK2pZ?=
+ =?utf-8?B?b3ovdStZVE1IdzNwMGhmNFEwbG0rTnFwMVl0Y0lXRkhnczJGZS93emdsNGZV?=
+ =?utf-8?B?b2cyMVZRMmxHUE9QeHNIZ2ZxS1VOdW5zSjZYRXlqVlNnTWloYjlWdC9xSUlN?=
+ =?utf-8?B?dlJqamNtVGUveDM0U1I5L3dtSXlPREFqRE5uY2h4eXRwTk5yaXQrS1lkSmpq?=
+ =?utf-8?B?a29yMi9qZVh0Zi90bEEvNDdCa012dE5RdnhUdEFaYTI3UEtRVVNOMzBvZ1c0?=
+ =?utf-8?B?WC9IMGhsUkV4TEtyckZ3ZmZNcFBSVVE4MU1CVlhtbzVxZkczUG1WWEFLSWY0?=
+ =?utf-8?B?WDFiNlRhR3VHM1hONHY0K1NWNDVKbkg5M2hYb01OZzdyYlFtaEwzemNlaCtk?=
+ =?utf-8?B?NFRxRDRuUFZsWWIrQkIzMVFSR3gxUW1ydTFaOU02RzV3ekw4Rkxtc0FEMzgv?=
+ =?utf-8?B?K0Q3bU1iQ2w2eFpFc0ZsbVdHTCt1VVFjQkpvV1Y5MDdpZVZjd3NKekNrTE95?=
+ =?utf-8?B?K1hScCtLMmI5WmFmNTNZNlJlRHorbFI2NGdEL3FZRnN0Zi8raXlXSk5vaDBs?=
+ =?utf-8?B?V0Mrc21qUGFBPT0=?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1152988c-f18f-4c33-5273-08da0e944ea2
+X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2022 19:18:56.4961
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9lg5DXlRYHdM7/LLSHOqS2vlsgMFn4kxQ3uMPMKm3wDt1n5AFTxhV9Kow4wufriVRJa6tAN1W3LJd6PKJwefbbSl/PWHVUVGttXAMgtzdl0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR10MB3473
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10297 signatures=694973
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0 phishscore=0
+ mlxlogscore=999 adultscore=0 suspectscore=0 malwarescore=0 spamscore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2202240000 definitions=main-2203250106
+X-Proofpoint-GUID: 6HFzpSig4kPhgDHJ4UKFromS15xH2F46
+X-Proofpoint-ORIG-GUID: 6HFzpSig4kPhgDHJ4UKFromS15xH2F46
 
-Hi Stefano,
 
-On 23/03/2022 01:18, Stefano Stabellini wrote:
-> On Sat, 29 Jan 2022, Julien Grall wrote:
->> On 28/01/2022 21:33, Stefano Stabellini wrote:
->>> +    rc = evtchn_alloc_unbound(&alloc, true);
->>> +    if ( rc )
->>> +    {
->>> +        printk("Failed allocating event channel for domain\n");
->>> +        return rc;
->>> +    }
->>> +
->>> +    d->arch.hvm.params[HVM_PARAM_STORE_EVTCHN] = alloc.port;
->>> +
->>> +    return 0;
->>> +}
->>> +
->>>    static int __init construct_domU(struct domain *d,
->>>                                     const struct dt_device_node *node)
->>>    {
->>> @@ -3014,7 +3043,19 @@ static int __init construct_domU(struct domain *d,
->>>            return rc;
->>>          if ( kinfo.vpl011 )
->>> +    {
->>>            rc = domain_vpl011_init(d, NULL);
->>> +        if ( rc < 0 )
->>> +            return rc;
->>> +    }
->>> +
->>> +    if ( kinfo.dom0less_enhanced )
->>> +    {
->>> +        rc = alloc_xenstore_evtchn(d);
->>> +        if ( rc < 0 )
->>> +            return rc;
->>> +        d->arch.hvm.params[HVM_PARAM_STORE_PFN] = ~0ULL;
->>
->> I think it would be easy to allocate the page right now. So what prevent us to
->> do it right now?
-> 
-> Because (as you noted as a comment to the following patch) as soon as
-> d->arch.hvm.params[HVM_PARAM_STORE_PFN] is set the guest can continue
-> with the initialization and will expect the right data to be set on the
-> page.
+On 3/25/22 10:20 AM, Juergen Gross wrote:
+> is_xen_pmu() is taking the cpu number as parameter, but it is not using
+> it. Instead it just tests whether the Xen PMU initialization on the
+> current cpu did succeed. As this test is done by checking a percpu
+> pointer, preemption needs to be disabled in order to avoid switching
+> the cpu while doing the test. While resuming from suspend() this seems
+> not to be the case:
+>
+> [   88.082751] ACPI: PM: Low-level resume complete
+> [   88.087933] ACPI: EC: EC started
+> [   88.091464] ACPI: PM: Restoring platform NVS memory
+> [   88.097166] xen_acpi_processor: Uploading Xen processor PM info
+> [   88.103850] Enabling non-boot CPUs ...
+> [   88.108128] installing Xen timer for CPU 1
+> [   88.112763] BUG: using smp_processor_id() in preemptible [00000000] code: systemd-sleep/7138
+> [   88.122256] caller is is_xen_pmu+0x12/0x30
+> [   88.126937] CPU: 0 PID: 7138 Comm: systemd-sleep Tainted: G        W         5.16.13-2.fc32.qubes.x86_64 #1
+> [   88.137939] Hardware name: Star Labs StarBook/StarBook, BIOS 7.97 03/21/2022
+> [   88.145930] Call Trace:
+> [   88.148757]  <TASK>
+> [   88.151193]  dump_stack_lvl+0x48/0x5e
+> [   88.155381]  check_preemption_disabled+0xde/0xe0
+> [   88.160641]  is_xen_pmu+0x12/0x30
+> [   88.164441]  xen_smp_intr_init_pv+0x75/0x100
+>
+> Fix that by replacing is_xen_pmu() by a simple boolean variable which
+> reflects the Xen PMU initialization state on cpu 0.
+>
+> Modify xen_pmu_init() to return early in case it is being called for a
+> cpu other than cpu 0 and the boolean variable not being set.
+>
+> Fixes: bf6dfb154d93 ("xen/PMU: PMU emulation code")
+> Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-I think you misunderstood my question. From my understanding, at the 
-moment, Linux would break with your proposal. So you need to modify the 
-kernel in order to support what you are doing.
 
-IOW, we have room to decide the approach here.
+Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 
-Xenstore protocol has a way to allow (re)connection (see 
-docs/mics/xenstore-ring.txt). This feature looks quite suited to what 
-you are trying to do here (we want to delay the connection).
-
-The main advantage with this approach is the resources allocation for 
-Xenstore will be done in the place and the work in Linux could be 
-re-used for non-dom0less domain.
-
-Have you explored it?
-
-> In other words: it is not enough to have the pfn allocated, we
-> also need xenstore to initialize it. At that point, it is better to do
-> both later from init-dom0less.c.
-See above. My main concern with your proposal is the allocation is split 
-and this making more difficult to understand the initialization. Could 
-you write some documentation how everything is meant to work?
-
-Cheers,
-
--- 
-Julien Grall
 
