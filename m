@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FC224E7A21
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Mar 2022 18:55:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.294920.501820 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 814ED4E7A23
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Mar 2022 18:58:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.294927.501831 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXo8m-0002ST-HX; Fri, 25 Mar 2022 17:54:24 +0000
+	id 1nXoCf-00037p-2E; Fri, 25 Mar 2022 17:58:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 294920.501820; Fri, 25 Mar 2022 17:54:24 +0000
+Received: by outflank-mailman (output) from mailman id 294927.501831; Fri, 25 Mar 2022 17:58:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXo8m-0002Q8-DO; Fri, 25 Mar 2022 17:54:24 +0000
-Received: by outflank-mailman (input) for mailman id 294920;
- Fri, 25 Mar 2022 17:54:23 +0000
+	id 1nXoCe-000356-Ua; Fri, 25 Mar 2022 17:58:24 +0000
+Received: by outflank-mailman (input) for mailman id 294927;
+ Fri, 25 Mar 2022 17:58:23 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nXo8l-0002Px-4M; Fri, 25 Mar 2022 17:54:23 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1nXoCd-000350-Cf
+ for xen-devel@lists.xenproject.org; Fri, 25 Mar 2022 17:58:23 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nXo8k-0000IX-W1; Fri, 25 Mar 2022 17:54:22 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nXo8k-0004L7-Dq; Fri, 25 Mar 2022 17:54:22 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nXo8k-0004Gb-DK; Fri, 25 Mar 2022 17:54:22 +0000
+ (envelope-from <julien@xen.org>)
+ id 1nXoCc-0000O0-V7; Fri, 25 Mar 2022 17:58:22 +0000
+Received: from [54.239.6.185] (helo=[192.168.14.36])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nXoCc-0000K9-Nu; Fri, 25 Mar 2022 17:58:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,129 +39,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=YIlunm+BipHilslN4jUd7A6rfs6AiBKf5j8curXpx9k=; b=pKfqXKijRnuVS3JoapNfno8AqT
-	W6sQF31ArZnJzyQWtYIsg4rs67S8T1kzdmt5T5WSTkdrvBH1/qXygGNosJPdsDPBbxq1oJXBw6H6f
-	5hav3aywaLrnf7Xga4MIKFKuVtXR2ONOd1joDpQphWDlozfy9XfnhkpKR/gd9oLGyrJ4=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168859-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=XMy+bKgacPjXDWULVR5e8vI0pDVvCSsQfT5c+Y2Fe1I=; b=eUyRKN+XbL9Qv3l62NCXXD+Wuy
+	S7m/e5TFeYg0yqjbPNGlhTXCW1tCjz/LhHaKlU6VdKO5n2zan127uV3sEsMqfB0akExV8Z763it7m
+	h9gyEVpJRjzBCA5qs1GLHa83+vgb6yUl1LtYuwbu0VnkJ1Gb17dRcKcjHrTUno36Rc4o=;
+Message-ID: <5c2cc1dd-d070-a88c-0e49-bca9ba56900c@xen.org>
+Date: Fri, 25 Mar 2022 17:58:20 +0000
 MIME-Version: 1.0
-Subject: [ovmf test] 168859: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=69218d5d2854acaa7a11c777244de4a297d2fbb9
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 25 Mar 2022 17:54:22 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.7.0
+Subject: Re: [PATCH v3 1/5] xen: introduce xen,enhanced dom0less property
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, jgross@suse.com,
+ Bertrand.Marquis@arm.com, Volodymyr_Babchuk@epam.com,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
+References: <alpine.DEB.2.22.394.2201281330520.27308@ubuntu-linux-20-04-desktop>
+ <20220128213307.2822078-1-sstabellini@kernel.org>
+ <3a00dff8-c213-616e-48b0-6e2b6f30dbce@xen.org>
+ <alpine.DEB.2.22.394.2203221653230.2910984@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2203221653230.2910984@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 168859 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168859/
+Hi Stefano,
 
-Regressions :-(
+On 23/03/2022 00:08, Stefano Stabellini wrote:
+> On Sat, 29 Jan 2022, Julien Grall wrote:
+>>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+>>> index 6931c022a2..9144d6c0b6 100644
+>>> --- a/xen/arch/arm/domain_build.c
+>>> +++ b/xen/arch/arm/domain_build.c
+>>> @@ -2963,6 +2963,7 @@ static int __init construct_domU(struct domain *d,
+>>>                                     const struct dt_device_node *node)
+>>>    {
+>>>        struct kernel_info kinfo = {};
+>>> +    const char *dom0less_enhanced;
+>>>        int rc;
+>>>        u64 mem;
+>>>    @@ -2978,6 +2979,12 @@ static int __init construct_domU(struct domain *d,
+>>>          kinfo.vpl011 = dt_property_read_bool(node, "vpl011");
+>>>    +    rc = dt_property_read_string(node, "xen,enhanced",
+>>> &dom0less_enhanced);
+>>> +    if ( rc == -EILSEQ ||
+>>
+>> I think the use an -EILSEQ wants an explanation. In a previous version, you
+>> wrote that the value would be returned when:
+>>
+>> fdt set /chosen/domU0 xen,enhanced
+>>
+>> But it is not clear why. Can you print pp->value, pp->length, strnlen(..) when
+>> this happens?
+> 
+> I added in dt_property_read_string:
+> 
+> printk("DEBUG %s %d value=%s value[0]=%d length=%u len=%lu\n",__func__,__LINE__,(char*)pp->value, *((char*)pp->value),pp->length, strlen(pp->value));
+> 
+> This is the output:
+> (XEN) DEBUG dt_property_read_string 205 value= value[0]=0 length=0 len=0
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+Thanks posting the log!
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+For convenience, I am copying the comment on top of 
+dt_property_read_string() prototype:
 
-version targeted for testing:
- ovmf                 69218d5d2854acaa7a11c777244de4a297d2fbb9
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+  * Search for a property in a device tree node and retrieve a null
+  * terminated string value (pointer to data, not a copy). Returns 0 on
+  * success, -EINVAL if the property does not exist, -ENODATA if property
+  * doest not have value, and -EILSEQ if the string is not
+  * null-terminated with the length of the property data.
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   25 days
-Failing since        168258  2022-03-01 01:55:31 Z   24 days  255 attempts
-Testing same since   168832  2022-03-25 01:43:21 Z    0 days    7 attempts
+Per your log, the length is NULL so I would have assumed -ENODATA would 
+be returned. Looking at the implementation:
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
+     const struct dt_property *pp = dt_find_property(np, propname, NULL);
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+     if ( !pp )
+         return -EINVAL;
+     if ( !pp->value )
+         return -ENODATA;
+     if ( strnlen(pp->value, pp->length) >= pp->length )
+         return -EILSEQ;
 
+We consider that the property when pp->value is NULL. However, AFAICT, 
+we never set pp->value to NULL (see unflatten_dt_node()).
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+So I think there is a bug in the implementation. I would keep the check 
+!pp->value (for hardening purpose) and also return -ENODATA when 
+!pp->length.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Most of our device-tree code is from Linux. Looking at v5.17, the bug 
+seems to be present there too. This would want to be fixed there too.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Cheers,
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 904 lines long.)
+-- 
+Julien Grall
 
