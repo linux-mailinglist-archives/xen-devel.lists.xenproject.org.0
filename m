@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A33004E6BE5
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Mar 2022 02:17:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.294545.500900 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C67554E6C06
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Mar 2022 02:33:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.294552.500911 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXYa0-0002BB-WC; Fri, 25 Mar 2022 01:17:28 +0000
+	id 1nXYof-0004Y3-As; Fri, 25 Mar 2022 01:32:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 294545.500900; Fri, 25 Mar 2022 01:17:28 +0000
+Received: by outflank-mailman (output) from mailman id 294552.500911; Fri, 25 Mar 2022 01:32:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXYa0-00029N-TA; Fri, 25 Mar 2022 01:17:28 +0000
-Received: by outflank-mailman (input) for mailman id 294545;
- Fri, 25 Mar 2022 01:17:27 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nXYZz-000299-8l; Fri, 25 Mar 2022 01:17:27 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nXYZz-00064R-5c; Fri, 25 Mar 2022 01:17:27 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nXYZy-0008Rc-LW; Fri, 25 Mar 2022 01:17:26 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nXYZy-0002Z4-L7; Fri, 25 Mar 2022 01:17:26 +0000
+	id 1nXYof-0004WG-7f; Fri, 25 Mar 2022 01:32:37 +0000
+Received: by outflank-mailman (input) for mailman id 294552;
+ Fri, 25 Mar 2022 01:32:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LYjy=UE=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nXYod-0004WA-WD
+ for xen-devel@lists.xenproject.org; Fri, 25 Mar 2022 01:32:36 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 71434361-abdb-11ec-8fbc-03012f2f19d4;
+ Fri, 25 Mar 2022 02:32:33 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 8E1D8B8272B;
+ Fri, 25 Mar 2022 01:32:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2367C340F1;
+ Fri, 25 Mar 2022 01:32:30 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,127 +43,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=yjPLNAf4nTZqE0lQhoeomQCa8Kw4trali84GT/BkN8s=; b=eGMjF1jfyZ2sF7rkUeUPdXdi0V
-	Q7K6y4I/uq9Ndsv+pFXrwfGceOjrLsBV2CGl2bjKfOSWPmvqyXz/8IXwmz2FRa8pS6ibMLcrr4UlX
-	tAPdhHCYY1wU7pqWyRTkoDQ6eaAQJHtI73jwokcIaf/xJOaPfnHHlIWcirzJnU+36v9Y=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168831-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 71434361-abdb-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1648171951;
+	bh=pS3aIISsh7dVw9CXz+aCMBeQGdqFQkAeEVYC1zNzCvc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=g//aO+3zWi/oOoAIsnL3xYXbEFNVqEl2t4mIdcnd1hxm668WnqSNuktlCpCGzrESV
+	 k9RksZG0px0Mtuzrsia9NDe8uo6/4mu8oJN05J7bt9A0TG7cla3ssncu9AbArLS/AG
+	 Q93AnihfLc8xDoLOFXZxRlaVsFldQyCKCfYgnHIXrItK8DIU1ixCEpcH1bqJS9P1JN
+	 P6NkgmmpZhejbPKZ1lonz2LdHwwMncBYK19l2c8VIHHVde0FZsQ+loCKw8Q5jUv/3h
+	 efECrf1B+2TVpvs4rEK/FhaF0UwDznyBE5gT9yvUR0nA4fwgz9DkoBIBc0k0QNcjlQ
+	 ha21vkPsXZrCw==
+Date: Thu, 24 Mar 2022 18:32:30 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    Wei Liu <wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Michal Orzel <michal.orzel@arm.com>
+Subject: Re: [RFC PATCH] xen/build: Add cppcheck and cppcheck-html make
+ rules
+In-Reply-To: <77c79e86050eef2b706ee11e64183d57a0f5bcee.1648119732.git.bertrand.marquis@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2203241829510.2910984@ubuntu-linux-20-04-desktop>
+References: <77c79e86050eef2b706ee11e64183d57a0f5bcee.1648119732.git.bertrand.marquis@arm.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 168831: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=ec0b54849b23efa25caf0055b0eef8bf9b4dec98
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 25 Mar 2022 01:17:26 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 168831 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168831/
+On Thu, 24 Mar 2022, Bertrand Marquis wrote:
+> cppcheck can be used to check Xen code quality.
+> 
+> To create a report do "make cppcheck" on a built tree adding any options
+> you added during the process you used to build xen (like CROSS_COMPILE
+> or XEN_TARGET_ARCH). This will generate an xml report xen-cppcheck.xml.
+> 
+> To create a html report do "make cppcheck-html" in the same way and a
+> full report to be seen in a browser will be generated in
+> cppcheck-htmlreport/index.html.
+> 
+> For better results it is recommended to build your own cppcheck from the
+> latest sources that you can find at [1].
+> Development and result analysis has been done with cppcheck 2.7.
+> 
+> The Makefile rule is searching for all C files which have been compiled
+> (ie which have a generated .o file) and is running cppcheck on all of
+> them using the current configuration of xen so only the code actually
+> compiled is checked.
+> 
+> A new tool is introduced to merge all cppcheck reports into one global
+> report including all findings and removing duplicates.
+> 
+> Some extra variables can be used to customize the report:
+> - CPPCHECK can be used to give the full path to the cppcheck binary to
+> use (default is to use the one from the standard path).
+> - CPPCHECK_HTMLREPORT can be used to give the full path to
+> cppcheck-htmlreport (default is to use the one from the standard path).
+> 
+> This has been tested on several arm configurations (x86 should work but
+> has not been tested).
+> 
+> [1] https://cppcheck.sourceforge.io/
+> 
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 ec0b54849b23efa25caf0055b0eef8bf9b4dec98
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   24 days
-Failing since        168258  2022-03-01 01:55:31 Z   23 days  248 attempts
-Testing same since   168774  2022-03-22 08:40:31 Z    2 days   29 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+Very cool, I was looking forward to this :-)
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> diff --git a/xen/tools/merge_cppcheck_reports.py b/xen/tools/merge_cppcheck_reports.py
+> new file mode 100755
+> index 0000000000..ef055f6925
+> --- /dev/null
+> +++ b/xen/tools/merge_cppcheck_reports.py
+> @@ -0,0 +1,73 @@
+> +#!/usr/bin/env python
+> +
+> +"""
+> +This script acts as a tool to merge XML files created by cppcheck.
+> +Usage:
+> +    merge_cppcheck_reports.py [FILES] [OUTPUT]
+> +
+> +    FILES  - list of XML files with extension .cppcheck
+> +    OUTPUT - file to store results (with .xml extension).
+> +             If not specified, the script will print results to stdout.
+> +"""
+> +
+> +import sys
+> +from xml.etree import ElementTree
+> +
+> +def elements_equal(el1, el2):
+> +    if type(el1) != type(el2): return False
+> +
+> +    el1_location = str(el1.find('location').attrib)
+> +    el2_location = str(el2.find('location').attrib)
+> +
+> +    if el1_location != el2_location: return False
+> +
+> +    return True
+> +
+> +def remove_duplicates(xml_root_element):
+> +    elems_to_remove = []
+> +    index = 0
+> +    elems_list = list(xml_root_element.findall("errors")[0])
+> +    for elem1 in elems_list:
+> +        index += 1
+> +        for elem2 in elems_list[index:]:
+> +            if elements_equal(elem1, elem2) and elem2 not in elems_to_remove:
+> +                elems_to_remove.append(elem2)
+> +                continue
+> +
+> +    for elem in elems_to_remove:
+> +        xml_root_element.findall("errors")[0].remove(elem)
+> +
+> +def merge(files):
+> +    result_xml_root = None
+> +    for xml_file in files:
+> +        xml_root = ElementTree.parse(xml_file).getroot()
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Traceback (most recent call last):
+  File "/local/repos/xen-upstream/xen/tools/merge_cppcheck_reports.py", line 73, in <module>
+    run()
+  File "/local/repos/xen-upstream/xen/tools/merge_cppcheck_reports.py", line 60, in run
+    result = merge(files)
+  File "/local/repos/xen-upstream/xen/tools/merge_cppcheck_reports.py", line 43, in merge
+    xml_root = ElementTree.parse(xml_file).getroot()
+  File "/usr/lib/python2.7/xml/etree/ElementTree.py", line 1182, in parse
+    tree.parse(source, parser)
+  File "/usr/lib/python2.7/xml/etree/ElementTree.py", line 657, in parse
+    self._root = parser.close()
+  File "/usr/lib/python2.7/xml/etree/ElementTree.py", line 1671, in close
+    self._raiseerror(v)
+  File "/usr/lib/python2.7/xml/etree/ElementTree.py", line 1523, in _raiseerror
+    raise err
+xml.etree.ElementTree.ParseError: no element found: line 11, column 0
+make: *** [Makefile:576: xen-cppcheck.xml] Error 1
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 875 lines long.)
+I think we should catch the xml.etree.ElementTree.ParseError exception and continue?
 
