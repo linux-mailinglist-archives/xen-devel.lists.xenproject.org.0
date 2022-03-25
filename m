@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 911A84E74F2
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Mar 2022 15:22:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.294783.501402 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34E984E7506
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Mar 2022 15:25:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.294790.501413 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXkpg-0002h0-40; Fri, 25 Mar 2022 14:22:28 +0000
+	id 1nXks5-0003Hy-IF; Fri, 25 Mar 2022 14:24:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 294783.501402; Fri, 25 Mar 2022 14:22:28 +0000
+Received: by outflank-mailman (output) from mailman id 294790.501413; Fri, 25 Mar 2022 14:24:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXkpg-0002eN-0V; Fri, 25 Mar 2022 14:22:28 +0000
-Received: by outflank-mailman (input) for mailman id 294783;
- Fri, 25 Mar 2022 14:22:26 +0000
+	id 1nXks5-0003Ft-F9; Fri, 25 Mar 2022 14:24:57 +0000
+Received: by outflank-mailman (input) for mailman id 294790;
+ Fri, 25 Mar 2022 14:24:55 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nXkpe-0002e6-Di; Fri, 25 Mar 2022 14:22:26 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1nXks3-0003Fn-MD
+ for xen-devel@lists.xenproject.org; Fri, 25 Mar 2022 14:24:55 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nXkpe-0003xj-By; Fri, 25 Mar 2022 14:22:26 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nXkpd-0002jC-VN; Fri, 25 Mar 2022 14:22:26 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nXkpd-0004C5-Uv; Fri, 25 Mar 2022 14:22:25 +0000
+ (envelope-from <julien@xen.org>)
+ id 1nXks2-0003zK-M8; Fri, 25 Mar 2022 14:24:54 +0000
+Received: from [54.239.6.185] (helo=[192.168.14.36])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nXks2-000701-FX; Fri, 25 Mar 2022 14:24:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,85 +39,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=sN7mg8sdNzUfFcWUWJu9u6Qqrq4cBN+iRUZDrqlqDQ8=; b=o44DZd71wNv1lN7GlTUKqJL5n8
-	YF4p7jchLJ46pMfwUVmG9FXCBsKAaOdkb8a1n/DZDU50RdeSKmCPQcfwI7Buz31/vU8MW9/537X7T
-	40Rd7ehYaknh5j9o6tDpteo49044G5B+mW4G5mn9I7eNsHfxDX6UgkFtyyWRUihQFZ60=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168841-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=OXUTeJitl+phbKj+5szvFqS5tepnyXc/D+DK2FvLQQk=; b=mqiJINok1++023i7/dgvge3P3f
+	iBia93n1RVO2dFqJGi8FjWWiwr0YOEJclBLSkHN+KTOXrcNYIuEPxkUcp1xaFcygndN+UmWbwUMeW
+	ovW1Fm13m/jVhH/EBkRzYvAfIpHPE1Ku0ndOjuxRNfT7UAYyBaVTgXZ5NC/Ma70Okikw=;
+Message-ID: <9673f201-080b-8800-65a2-144d21b030fd@xen.org>
+Date: Fri, 25 Mar 2022 14:24:52 +0000
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 168841: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=0e03ff97def12b121b5313094a76e5db7bb5c93c
-X-Osstest-Versions-That:
-    xen=1c80f13a6efdc832878d7a431e2c216039d063bc
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 25 Mar 2022 14:22:25 +0000
-
-flight 168841 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168841/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  0e03ff97def12b121b5313094a76e5db7bb5c93c
-baseline version:
- xen                  1c80f13a6efdc832878d7a431e2c216039d063bc
-
-Last test of basis   168821  2022-03-24 11:03:05 Z    1 days
-Testing same since   168841  2022-03-25 10:00:33 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Julien Grall <jgrall@amazon.com>
-  Stefano Stabellini <stefano.stabellini@xilinx.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.7.0
+Subject: Re: [PATCH early-RFC 4/5] xen/arm: mm: Rework switch_ttbr()
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "marco.solieri@minervasys.tech" <marco.solieri@minervasys.tech>,
+ "lucmiccio@gmail.com" <lucmiccio@gmail.com>, Julien Grall
+ <jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20220309112048.17377-1-julien@xen.org>
+ <20220309112048.17377-5-julien@xen.org>
+ <140E78FF-8281-48BA-BE13-C4B3E12F34A5@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <140E78FF-8281-48BA-BE13-C4B3E12F34A5@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On 25/03/2022 13:47, Bertrand Marquis wrote:
+> Hi Julien,
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Hi Bertrand,
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+>> On 9 Mar 2022, at 12:20, Julien Grall <julien@xen.org> wrote:
+>>
+>> From: Julien Grall <jgrall@amazon.com>
+>>
+>> At the moment, switch_ttbr() is switching the TTBR whilst the MMU is
+>> still on.
+>>
+>> Switching TTBR is like replacing existing mappings with new ones. So
+>> we need to follow the break-before-make sequence.
+>>
+>> In this case, it means the MMU needs to be switched off while the
+>> TTBR is updated. In order to disable the MMU, we need to first
+>> jump to an identity mapping.
+>>
+>> Rename switch_ttbr() to switch_ttbr_id() and create an helper on
+>> top to temporary map the identity mapping and call switch_ttbr()
+>> via the identity address.
+>>
+>> switch_ttbr_id() is now reworked to temporarily turn off the MMU
+>> before updating the TTBR.
+>>
+>> We also need to make sure the helper switch_ttbr() is part of the
+>> identity mapping. So move _end_boot past it.
+>>
+>> Take the opportunity to instruction cache flush as the operation is
+>> only necessary when the memory is updated.
+> 
+> Your code is actually remove the instruction cache invalidation so
+> this sentence is a bit misleading.
 
+I forgot to add the word "remove" in the sentence.
 
-Pushing revision :
+> 
+> Also an open question: shouldn’t we flush the data cache ?
+Do you mean clean/invalidate to PoC/PoU? Something else?
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   1c80f13a6e..0e03ff97de  0e03ff97def12b121b5313094a76e5db7bb5c93c -> smoke
+> As we switch from one TTBR to an other, there might be some data
+> in the cache dependent that could be flushed while the MMU is off 
+
+I am a bit confused. Those flush could also happen with the MMU on. So 
+how turning off the MMU would result to a problem? Note that the data 
+cache is still enabled during the switch.
+
+> or
+> that would have no mapping once it is reactivated.
+The cache line will be flushed at some point in the future. I would 
+argue if the caller need it earlier, then it should make sure to issue 
+the flush before switch_ttbr().
+
+Cheers,
+
+-- 
+Julien Grall
 
