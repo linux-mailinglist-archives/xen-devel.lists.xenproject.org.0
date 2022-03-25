@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 635374E7265
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Mar 2022 12:44:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.294680.501174 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AB284E72CB
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Mar 2022 13:14:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.294691.501186 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXiME-0000Pm-Rp; Fri, 25 Mar 2022 11:43:54 +0000
+	id 1nXipR-00040c-GP; Fri, 25 Mar 2022 12:14:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 294680.501174; Fri, 25 Mar 2022 11:43:54 +0000
+Received: by outflank-mailman (output) from mailman id 294691.501186; Fri, 25 Mar 2022 12:14:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXiME-0000NK-Oj; Fri, 25 Mar 2022 11:43:54 +0000
-Received: by outflank-mailman (input) for mailman id 294680;
- Fri, 25 Mar 2022 11:43:53 +0000
+	id 1nXipR-0003yG-Co; Fri, 25 Mar 2022 12:14:05 +0000
+Received: by outflank-mailman (input) for mailman id 294691;
+ Fri, 25 Mar 2022 12:14:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=73hT=UE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nXiMD-0000ND-DT
- for xen-devel@lists.xenproject.org; Fri, 25 Mar 2022 11:43:53 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d7bb0a44-ac30-11ec-8fbc-03012f2f19d4;
- Fri, 25 Mar 2022 12:43:52 +0100 (CET)
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur02lp2053.outbound.protection.outlook.com [104.47.6.53]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-22-haoSPA1NOyGomJByzMh1ww-1; Fri, 25 Mar 2022 12:43:49 +0100
-Received: from AS8PR04MB8609.eurprd04.prod.outlook.com (2603:10a6:20b:424::9)
- by DB7PR04MB4363.eurprd04.prod.outlook.com (2603:10a6:5:28::30) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.19; Fri, 25 Mar
- 2022 11:43:47 +0000
-Received: from AS8PR04MB8609.eurprd04.prod.outlook.com
- ([fe80::5413:50c3:f5e8:d90f]) by AS8PR04MB8609.eurprd04.prod.outlook.com
- ([fe80::5413:50c3:f5e8:d90f%9]) with mapi id 15.20.5102.018; Fri, 25 Mar 2022
- 11:43:47 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Ci4N=UE=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
+ id 1nXipP-0003yA-SL
+ for xen-devel@lists.xenproject.org; Fri, 25 Mar 2022 12:14:03 +0000
+Received: from MTA-12-4.privateemail.com (mta-12-4.privateemail.com
+ [198.54.127.107]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0e07d9e0-ac35-11ec-8fbc-03012f2f19d4;
+ Fri, 25 Mar 2022 13:14:02 +0100 (CET)
+Received: from mta-12.privateemail.com (localhost [127.0.0.1])
+ by mta-12.privateemail.com (Postfix) with ESMTP id 70D6018000A7
+ for <xen-devel@lists.xenproject.org>; Fri, 25 Mar 2022 08:14:00 -0400 (EDT)
+Received: from mail-ot1-f43.google.com (unknown [10.20.151.164])
+ by mta-12.privateemail.com (Postfix) with ESMTPA id 4BE2C18000A4
+ for <xen-devel@lists.xenproject.org>; Fri, 25 Mar 2022 08:14:00 -0400 (EDT)
+Received: by mail-ot1-f43.google.com with SMTP id
+ i23-20020a9d6117000000b005cb58c354e6so5326378otj.10
+ for <xen-devel@lists.xenproject.org>; Fri, 25 Mar 2022 05:14:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,285 +45,212 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d7bb0a44-ac30-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1648208631;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YoS+yVpNABXRJkh5LF0mYJ+u68RL4SKmGCqn50EGriU=;
-	b=kK9ba3+3qZ55qbvzLrJ8viYQcVE109+QDRnZMI/WIZ9x08ruJEc72oFJPsQ1UqPOCet1JA
-	eihR9yGzeAERW3jTltFbNsrFPBne+d3vKb2K3IJR3Sy/5Db4+BrogwXcbbpLOBw6Tz5dnl
-	MTX6mieklyUEjTLmS3r6BQskBIU+HQE=
-X-MC-Unique: haoSPA1NOyGomJByzMh1ww-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EV2gOr/UkOPaw0K5ldfKpKq1h0itD9JnrdUp6CZWaveQQ+PXaX3jdeY+o4XAvkqbySRlJNvc0BOW3/UPjlMFeYDcrI2KUqD0UGi/S6ajw51XU+TP0svJIeNviz4nU7ZR1cPqzcQtoqdY4W0UAIC/+lWU+L8V5R8KW7GtjfTLtr5ehmgFCLXNTxiMBijHdBiwTFfKeVAANjQllu7CB77/Z42S8Unp3s3UC6oHnXLbTUu1HhQMVA1NbMFbaXVUNhwgZKbssYELakur9LOYRQaoXksjeUpzDRsi70SxTqaJCXd4saAejULpgzbk0aqhQhhxNDVLYx+VdrO3zLnzzQXqeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YoS+yVpNABXRJkh5LF0mYJ+u68RL4SKmGCqn50EGriU=;
- b=LiKwe3WMVeciabc8IqX9ZRO7H8k3NkeZU71XaFqWKhgnq+l3UG5RF5pcQiiVhhN0lOKr288QN6iuRuPldGX5Ja6AyVp0tusuONwsMhV3uz5j1RnVUV1HVGgaBWjil8iSIn4MZitzThdnqhi9h2atRB4qxa80F06akiFiteDLz3u38dQzszjCgaSBMsYmMLN/pOOta0Ieqoc0dVRqtaS1p0UzhGo90s2+V9ibyUNK9PSPUi/qYYdKeo3kz6Huzwe20QtOcsAH4nM2AXXQhbVdTZmA8IVwj1e147YbBE3RvNSCvKG95/5xkUfeVSLgjIch5beT7TMKyfMshk4IGKNfcw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <d797474e-97c0-7545-c68f-1378a3b2fbd9@suse.com>
-Date: Fri, 25 Mar 2022 12:43:45 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [RFC PATCH] xen/build: Add cppcheck and cppcheck-html make rules
-Content-Language: en-US
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Michal Orzel <michal.orzel@arm.com>, xen-devel@lists.xenproject.org
-References: <77c79e86050eef2b706ee11e64183d57a0f5bcee.1648119732.git.bertrand.marquis@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <77c79e86050eef2b706ee11e64183d57a0f5bcee.1648119732.git.bertrand.marquis@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6P194CA0092.EURP194.PROD.OUTLOOK.COM
- (2603:10a6:209:8f::33) To AS8PR04MB8609.eurprd04.prod.outlook.com
- (2603:10a6:20b:424::9)
+X-Inumbo-ID: 0e07d9e0-ac35-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=tklengyel.com;
+	s=default; t=1648210440;
+	bh=rrGm61avDbudCrncqhzHZL3yzabp4gVQ5s1kdZTnim8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=bYAdufZJ0vr+s8VEoBFFBM/Ck3F59gXpBzAR8J7QsvD+68bKfClYFYV3UvkuKHCuU
+	 wxf+5IOHgicz1jr/Yt7uc3TZpBGM2qC0+xBgSPkdvDvGXUDQ+rgF8W1akC5CECtacw
+	 2g9EbL1MAb4sk/kkme1duVhMSmROeTPy61EAr/HQdeWGPcjXNKhGewIhs5u1mp0fvp
+	 Se8vzgYxk75OmL9ALMxVB6z1969UhuQyrIzU3ERoPTzRCpXwlc15Ri2HJGAZPe8qGk
+	 ZkFIoTLdLt5zmM/yjVe+7DxM03GC68QlOyXGwOIg03Hto3gQcOaHxYG3O0j5O3cMxA
+	 VgjRkl4Pb9GsA==
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=tklengyel.com;
+	s=default; t=1648210440;
+	bh=rrGm61avDbudCrncqhzHZL3yzabp4gVQ5s1kdZTnim8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=bYAdufZJ0vr+s8VEoBFFBM/Ck3F59gXpBzAR8J7QsvD+68bKfClYFYV3UvkuKHCuU
+	 wxf+5IOHgicz1jr/Yt7uc3TZpBGM2qC0+xBgSPkdvDvGXUDQ+rgF8W1akC5CECtacw
+	 2g9EbL1MAb4sk/kkme1duVhMSmROeTPy61EAr/HQdeWGPcjXNKhGewIhs5u1mp0fvp
+	 Se8vzgYxk75OmL9ALMxVB6z1969UhuQyrIzU3ERoPTzRCpXwlc15Ri2HJGAZPe8qGk
+	 ZkFIoTLdLt5zmM/yjVe+7DxM03GC68QlOyXGwOIg03Hto3gQcOaHxYG3O0j5O3cMxA
+	 VgjRkl4Pb9GsA==
+X-Gm-Message-State: AOAM5301OgiYvozKRYk9J5OOZ2ZzXa5G0SibE5TJb5bUkARqrX3NJlBP
+	6EGJpZlUiqrOlhxkBxZWnOuqG+OZWTToGRyqWg0=
+X-Google-Smtp-Source: ABdhPJxeY6qKqWcUlLpiFZ6I5whIQQclLk6f6JIwYChUzeUjjUufTTL3KB1hVchp5x4Hqmhill6cS1/U0h6oHitBCYk=
+X-Received: by 2002:a9d:638a:0:b0:5cd:a7fc:aa89 with SMTP id
+ w10-20020a9d638a000000b005cda7fcaa89mr4087670otk.204.1648210439671; Fri, 25
+ Mar 2022 05:13:59 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a712c91c-f078-44d5-ddbc-08da0e54b92f
-X-MS-TrafficTypeDiagnostic: DB7PR04MB4363:EE_
-X-Microsoft-Antispam-PRVS:
-	<DB7PR04MB43630325787FB5EBA0DBD185B31A9@DB7PR04MB4363.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	lJ02EbqibqWquQ885eJtVE+HCnCoVpl1kEvy9ORw35xkCoEB2hgDKihdsGZA8uicXbt7/mQCBzjoV5QyF0QN8DAbNmgVabWvPZn1efNcfW896Qr+d8kvIdWlIYBt9sLUi1MQR2J5+JUCfrnI8Fz9n6KpyO4u7DyYWOtRjo5sTLBTkp3c9R4DqXYPA5IA54cCbKW1hXk8guzcS1Ol339GGj/MOs1q+dS1LRDZAxx4YFWkDeSo+z4cPLDwPcPxwOGwxpd80rwbTkmyQ5nZ4iR1KKI13tW3Ua7O/SA2mNm+7CwU7xKXHadzoqOTQGBAebP4W27NiKfKLL1FNMmpdJcJS70AFDUoVzUtVSra10tW2vW3MyM1UlTsS5S6nd2+g4HB7EEVcF/HhlZUSCjDona8GuI6xHoinSKs0a6Wwt+MSc17M6LAobaZePukRd2Orxf/cHDaG9Ki6h4488IUE2oW/qghErYqSmKOnky+TtCpyC5aRQmYRHYdIwXzh1mqrPYMeExSwj6OhRKurQRsutiwVAs1vNGqJyIpKGaxtoLjc1al4ac0Xr/PUy9IQBfdzEnn7phgDasE5CCkDPswuL3NMo2/RAprPlZjoWw4+DH5iPceauvjP/2Ln7n/4GcNCG7qI+jRBqnnKyxGWhA1xP29FT6tPdgQHqHK4F93s0qZPUP2GWjB0/SWPHave2joj5w7OIT9ccmJpm11yUPLSepXEVeNKwogmNrYoNZ9otCkL6g=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR04MB8609.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(2906002)(66476007)(8676002)(54906003)(66946007)(316002)(6916009)(8936002)(86362001)(5660300002)(31696002)(66574015)(4326008)(66556008)(2616005)(38100700002)(36756003)(6512007)(6506007)(53546011)(6486002)(186003)(26005)(508600001)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RS9VZittbFFnSnRHcHVhTmh4ZXpxTW5zM2JuRjFtdWVFT3VGaTJrbjIzUXM0?=
- =?utf-8?B?Zk5XZVExbVhCUXE2MU1QWU9TWTVESEpVYmg0Q1RoZHkyaElaVzBvZERlbzRM?=
- =?utf-8?B?OGFQMWxjRnZoaThyTTFBMmt2V0RQM0p3QTFMQmtmemg5dFJmeTZpcjVkb0dz?=
- =?utf-8?B?M1BseTFxNHQ2WElGOFdtTFBCYTNSVUtTZ016R3U3eGIwMXptenVsZHlhYlBn?=
- =?utf-8?B?T1B5WmR6UnJaTHhib3pUZUNJL1dMSkFXMUVpQW56UDlUWHk2MFlSbHZxcXpu?=
- =?utf-8?B?T0NKcmd4bmFHMzVvRXJoV2IxN0FxN1FXR0xvZE8xb0Z3d3BDVUVvOU9kdnhz?=
- =?utf-8?B?clJvbzZYMmxqZGlIZTJubzdTamdYcldzYjU3Q0s5TElxMm5QL3JoUHhtZmRp?=
- =?utf-8?B?eTcrN213aGtCQkJyaXVqNVhiMWpvQkJXY2lwemJhRElHcWliSmtWVCtnK1lu?=
- =?utf-8?B?bUZHVFV1N2c0NElnOTFiNFpjdHpTcEZHUVhmM1loTXBCeWlNRGsvcEU0YVdz?=
- =?utf-8?B?K0Z3ZTlhVGtRS0FJLzZtUmsyK0VtRStDbUMwd2Z5RjdyMVVvclg4dXZza2Ny?=
- =?utf-8?B?aHJLZkpoYW9YbTZqUVNSb3YvYmhNNGNDU2EwMEhTNzRpdjgwa1NXMU1SaGtX?=
- =?utf-8?B?Z1RLNHNVcVhyRFFkNTlUbEwzeFdIcWNXYjA0T0tZbnVyN3czTTBvdnJpcWdL?=
- =?utf-8?B?b1VHN1JqZDRnclJjSnpKVUFqdElKam5Vd05SSjFaV2hKVGVqWVd4VHExbEZ0?=
- =?utf-8?B?V2VpelU4QVFoa3loRXNaVjVtemN6aEFjWFNZWUt3akp4UW1odXpGcXJaMUQ0?=
- =?utf-8?B?VEFPc0lZUElQWE8zR0Q5UjZzbjRCRWNDVnF4NnpOemliN1V6dWQ1R0tZa2VG?=
- =?utf-8?B?Ulg4NWxTdXNGR1E5eE5pRjVlWW5ZWmFaNkNRc05ZYU4rQnVLczdUaEl2K2N1?=
- =?utf-8?B?aVk5a2t5Ym02RjFqU0FpL0QxSDdOdXRFOHFueGU5eDk0a0NSR2o1SS9obitH?=
- =?utf-8?B?VDUwQ3RpSGFwYXJpYjNXT3hZQ0JjWjlZYTREa21SdGVxWk1pRFFrZVlIbkRy?=
- =?utf-8?B?QThGeTNvaGxLUE5OUi9Na3Q1dEdjTTlSSG51QnlycTlpaFhJUGVJV0RUdVk4?=
- =?utf-8?B?QmRoWFJVQ1hGa2JOamFJeHUrQUlxbytnMHJaczYzeDVxZG1FejFycHJWcjFI?=
- =?utf-8?B?OEd2bmo5MThiVGVqVTlwa1NjNGg4Wm5VYmJjZCtSU3MrTUJvMWNKSXNQQzBy?=
- =?utf-8?B?aUxVSnVNSXlFWEFIdXRYSFI3NWxDV1hIOEI3Ni9EeTU1aHJ6SGVScEdqem5B?=
- =?utf-8?B?aGdzRWdGcWtHTDFIbDVnbzNFTnlSUGRid0lKMk1NOWZZelFVWEM3RFpPSkEy?=
- =?utf-8?B?ckpsb29kZHRlaTNTZUlOakM4REhSZWxkbEZRSUVWNVRHd2hvMVFFaDdGNDBI?=
- =?utf-8?B?dFRVMlU0akxteks0cHZUNVcxZE9IYVpoSkxtdmNkd0xWbWV2TWE2S0xuRnhm?=
- =?utf-8?B?UVhvYVBvSmZ3cy9wcVlvWEdkaHJwMEpxQjdJMHJIMVJYVkcxS3hiTDBXMWpR?=
- =?utf-8?B?QmtKb21hVmVVbklwRnVDaVN2dTkxeUZmelh1T3ArUytaTWd0ZUp2V2hCbE5R?=
- =?utf-8?B?WXpQS2pHc1AwWFJudjZZVGxUbTVFMVZ0R2xWa2c2dGx1dmZkcDk4UEt1N3dp?=
- =?utf-8?B?N3Y1WXVlRDNuZ0x4NUxXQk93ZUxTdWk5VjhYMDRmRE8xMHNXSGpINDlZYjlL?=
- =?utf-8?B?MkFxTnlXYUp0Q1p5OE1NT0NTZ2dDOUY1UlRXem9yVUZ6UjhFeElBUWNpMlZR?=
- =?utf-8?B?N0E4TUpZMVBrZUNYZ1pmMG9RRk42Q3JSYXZqdDdKTzAzRXNXKzlsN1RIYVFr?=
- =?utf-8?B?dGRjNmVseHpTSzBnMkgwZTVMMzJvL1ZxMUs1RTZyMmxXaEJXbkRrR01uUVNU?=
- =?utf-8?B?cFFURTA0alc3NC95SVFYRTFQc3ZwV3Z5dTU5N29pa2IxN216bFBaa3JWNmdC?=
- =?utf-8?B?OVEzZ1U2NDd0SlRDZUJpeEE1SzJsRUtnbU94VmF0VEJYZkljN2FkOEZUN2pn?=
- =?utf-8?B?anFJanhDMXpMSzBBZUR6djBBUGVpSHZ4N09meGpta2JEWjdady91WUJYcEx5?=
- =?utf-8?B?dllZWmYrYUZWUitKblVuQWpXSytDbUQxOFZlRFE1akpMN0Q5TVJWS2JWOHpo?=
- =?utf-8?B?dzViY0xPVm1LMWFkOGYveVI2ZzV4SGh3eGw0R3hJbmEvU1dCZ0tsRWZjaytH?=
- =?utf-8?B?dVp0ZFJaZXZqQm5Xb3JpM2RlSE5OZ3FXbiszTjhxTG5ZYnlVaWIwUStEanlG?=
- =?utf-8?B?Y0lpWm1pUUFCcXRmVENSVXphYjBiQ3Z2TnczZ0xuNE9FQVNQK25tdz09?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a712c91c-f078-44d5-ddbc-08da0e54b92f
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB8609.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2022 11:43:47.4416
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fkc9l2o/wrfXqdHNAURvZEmJ3qUm62nn1y2dIpFHhaod+WstkmoZGPXMTPW32O52dtRCxYOTL4SOStZY+6xJxw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB4363
+References: <fb927228a8f68ce983ae0b46e6665b5b8dd0764e.1647970630.git.tamas.lengyel@intel.com>
+ <Yj2ggiWlxvYdh1dJ@Air-de-Roger> <CABfawhkeRENvEJHtXCxME08eMjjAGNVdcBK8ExxgcXY=SzXStA@mail.gmail.com>
+ <Yj2oE5uFPNDMszFk@Air-de-Roger>
+In-Reply-To: <Yj2oE5uFPNDMszFk@Air-de-Roger>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Fri, 25 Mar 2022 08:13:47 -0400
+X-Gmail-Original-Message-ID: <CABfawhmTVveT1jf=dDefkgtYHT2BsO7h3ThoeR7wF=cx_ROWBg@mail.gmail.com>
+Message-ID: <CABfawhmTVveT1jf=dDefkgtYHT2BsO7h3ThoeR7wF=cx_ROWBg@mail.gmail.com>
+Subject: Re: [PATCH 1/3] x86/mem_sharing: option to skip populating special
+ pages during fork
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Tamas K Lengyel <tamas.lengyel@intel.com>, Xen-devel <xen-devel@lists.xenproject.org>, 
+	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, 
+	George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: multipart/alternative; boundary="000000000000c5932605db09e5c1"
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-On 24.03.2022 12:04, Bertrand Marquis wrote:
-> cppcheck can be used to check Xen code quality.
-> 
-> To create a report do "make cppcheck" on a built tree adding any options
-> you added during the process you used to build xen (like CROSS_COMPILE
-> or XEN_TARGET_ARCH). This will generate an xml report xen-cppcheck.xml.
-> 
-> To create a html report do "make cppcheck-html" in the same way and a
-> full report to be seen in a browser will be generated in
-> cppcheck-htmlreport/index.html.
-> 
-> For better results it is recommended to build your own cppcheck from the
-> latest sources that you can find at [1].
-> Development and result analysis has been done with cppcheck 2.7.
-> 
-> The Makefile rule is searching for all C files which have been compiled
-> (ie which have a generated .o file) and is running cppcheck on all of
-> them using the current configuration of xen so only the code actually
-> compiled is checked.
+--000000000000c5932605db09e5c1
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Why this restriction? It means there are multiple runs needed in case
-files are touched by a patch which can't both be built at the same time
-(e.g. ones under multiple xen/arch/*/). In addition, by going from .o
-files, you also require (and yes, you say so) that the tree has been
-built before. I think you would instead want to go from the collective
-set of $(obj-y), $(obj-n), and $(obj-), traversing the tree suitably.
+On Fri, Mar 25, 2022, 7:31 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.com> w=
+rote:
 
-> @@ -511,6 +513,75 @@ cloc:
->  	    done; \
->  	done | cloc --list-file=-
->  
-> +# What cppcheck command to use.
-> +# To get proper results, it is recommended to build cppcheck manually from the
-> +# latest source and use CPPCHECK to give the full path to the built version.
-> +CPPCHECK ?= cppcheck
-> +
-> +# What cppcheck-htmlreport to use.
-> +# If you give the full path to a self compiled cppcheck, this should be set
-> +# to the full path to cppcheck-html in the htmlreport directory of cppcheck.
-> +# On recent distribution, this is available in the standard path.
-> +CPPCHECK_HTMLREPORT ?= cppcheck-htmlreport
-> +
-> +# By default we generate the report in cppcheck-htmlreport directory in the
-> +# build directory. This can be changed by giving a directory in this variable.
-> +CPPCHECK_HTMLREPORT_OUTDIR ?= cppcheck-htmlreport
-> +
-> +# Compile flags to pass to cppcheck:
-> +# - include directories and defines Xen Makefile is passing (from CFLAGS)
-> +# - include config.h as this is passed directly to the compiler.
-> +# - define CPPCHECK as we use to disable or enable some specific part of the
-> +#   code to solve some cppcheck issues.
-> +# - explicitely enable some cppcheck checks as we do not want to use "all"
-> +#   which includes unusedFunction which gives wrong positives as we check file
-> +#   per file.
-> +#
-> +# Compiler defines are in compiler-def.h which is included in config.h
-> +#
-> +CPPCHECKFLAGS := -DCPPCHECK --max-ctu-depth=10 \
-> +				 --enable=style,information,missingInclude \
-> +				 --include=$(BASEDIR)/include/xen/config.h \
-> +				 -I $(BASEDIR)/xsm/flask/include \
-> +				 -I $(BASEDIR)/include/xen/libfdt \
+> On Fri, Mar 25, 2022 at 07:15:59AM -0400, Tamas K Lengyel wrote:
+> > On Fri, Mar 25, 2022, 6:59 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.co=
+m>
+> wrote:
+> >
+> > > On Tue, Mar 22, 2022 at 01:41:37PM -0400, Tamas K Lengyel wrote:
+> > > > Add option to the fork memop to skip populating the fork with speci=
+al
+> > > pages.
+> > > > These special pages are only necessary when setting up forks to be
+> fully
+> > > > functional with a toolstack. For short-lived forks where no
+> toolstack is
+> > > active
+> > > > these pages are uneccesary.
+> > >
+> > > Replying here because there's no cover letter AFAICT.
+> > >
+> > > For this kind of performance related changes it would be better if yo=
+u
+> > > could provide some figures about the performance impact. It would hel=
+p
+> > > if we knew whether avoiding mapping the vAPIC page means you can
+> > > create 0.1% more forks per-minute or 20%.
+> > >
+> > > If you really want to speed up the forking path it might be good to
+> start
+> > > by perf sampling Xen in order to find the bottlenecks?
+> > >
+> >
+> > Sure but for experiment systems I don't think its necessary to collect
+> that
+> > data.
+>
+> It helps weight whether the extra logic is worth the performance
+> benefit IMO. Here it might not matter that much since you say there's
+> also a non-performance reason for the change.
+>
+> > There is also a non-performance reason why we want to keep special page=
+s
+> > from being populated, in cases we really want the forks physmap to star=
+t
+> > empty for better control over its state. There was already a case where
+> > having special pages mapped in ended up triggering unexpected Xen
+> behaviors
+> > leading to chain of events not easy to follow. For example if page 0 ge=
+ts
+> > brought in while the vCPU is being created it ends up as a misconfigure=
+d
+> > ept entry if nested virtualization is enabled. That leads to ept
+> > misconfiguration exits instead of epf faults. Simply enforcing no entry
+> in
+> > the physmap until forking is complete eliminates the chance of somethin=
+g
+> > like that happening again and makes reasoning about the VM's behavior
+> from
+> > the start easier.
+>
+> Could we have this added to the commit message then, and the option
+> renamed to 'empty_p2m' or some such. Then you should also ASSERT that
+> at the end of the fork process the p2m is indeed empty, not sure if
+> checking d->arch.paging.hap.p2m_pages =3D=3D 0 would accomplish that?
+>
 
-Why ware these two -I necessary? Shouldn't they derive cleanly ...
+Sure, I can do that.
 
-> +				 $(filter -D% -I%,$(CFLAGS))
+Thanks,
+Tamas
 
-... here?
+>
 
-As to style (also applicable further down) I think it would help if you
-didn't use tabs and if you aligned things, e.g.
+--000000000000c5932605db09e5c1
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-CPPCHECKFLAGS := -DCPPCHECK --max-ctu-depth=10 \
-                 --enable=style,information,missingInclude \
-                 --include=$(BASEDIR)/include/xen/config.h \
-                 -I $(BASEDIR)/xsm/flask/include \
-                 -I $(BASEDIR)/include/xen/libfdt \
-                 $(filter -D% -I%,$(CFLAGS))
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
+class=3D"gmail_attr">On Fri, Mar 25, 2022, 7:31 AM Roger Pau Monn=C3=A9 &lt=
+;<a href=3D"mailto:roger.pau@citrix.com">roger.pau@citrix.com</a>&gt; wrote=
+:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bor=
+der-left:1px #ccc solid;padding-left:1ex">On Fri, Mar 25, 2022 at 07:15:59A=
+M -0400, Tamas K Lengyel wrote:<br>
+&gt; On Fri, Mar 25, 2022, 6:59 AM Roger Pau Monn=C3=A9 &lt;<a href=3D"mail=
+to:roger.pau@citrix.com" target=3D"_blank" rel=3D"noreferrer">roger.pau@cit=
+rix.com</a>&gt; wrote:<br>
+&gt; <br>
+&gt; &gt; On Tue, Mar 22, 2022 at 01:41:37PM -0400, Tamas K Lengyel wrote:<=
+br>
+&gt; &gt; &gt; Add option to the fork memop to skip populating the fork wit=
+h special<br>
+&gt; &gt; pages.<br>
+&gt; &gt; &gt; These special pages are only necessary when setting up forks=
+ to be fully<br>
+&gt; &gt; &gt; functional with a toolstack. For short-lived forks where no =
+toolstack is<br>
+&gt; &gt; active<br>
+&gt; &gt; &gt; these pages are uneccesary.<br>
+&gt; &gt;<br>
+&gt; &gt; Replying here because there&#39;s no cover letter AFAICT.<br>
+&gt; &gt;<br>
+&gt; &gt; For this kind of performance related changes it would be better i=
+f you<br>
+&gt; &gt; could provide some figures about the performance impact. It would=
+ help<br>
+&gt; &gt; if we knew whether avoiding mapping the vAPIC page means you can<=
+br>
+&gt; &gt; create 0.1% more forks per-minute or 20%.<br>
+&gt; &gt;<br>
+&gt; &gt; If you really want to speed up the forking path it might be good =
+to start<br>
+&gt; &gt; by perf sampling Xen in order to find the bottlenecks?<br>
+&gt; &gt;<br>
+&gt; <br>
+&gt; Sure but for experiment systems I don&#39;t think its necessary to col=
+lect that<br>
+&gt; data.<br>
+<br>
+It helps weight whether the extra logic is worth the performance<br>
+benefit IMO. Here it might not matter that much since you say there&#39;s<b=
+r>
+also a non-performance reason for the change.<br>
+<br>
+&gt; There is also a non-performance reason why we want to keep special pag=
+es<br>
+&gt; from being populated, in cases we really want the forks physmap to sta=
+rt<br>
+&gt; empty for better control over its state. There was already a case wher=
+e<br>
+&gt; having special pages mapped in ended up triggering unexpected Xen beha=
+viors<br>
+&gt; leading to chain of events not easy to follow. For example if page 0 g=
+ets<br>
+&gt; brought in while the vCPU is being created it ends up as a misconfigur=
+ed<br>
+&gt; ept entry if nested virtualization is enabled. That leads to ept<br>
+&gt; misconfiguration exits instead of epf faults. Simply enforcing no entr=
+y in<br>
+&gt; the physmap until forking is complete eliminates the chance of somethi=
+ng<br>
+&gt; like that happening again and makes reasoning about the VM&#39;s behav=
+ior from<br>
+&gt; the start easier.<br>
+<br>
+Could we have this added to the commit message then, and the option<br>
+renamed to &#39;empty_p2m&#39; or some such. Then you should also ASSERT th=
+at<br>
+at the end of the fork process the p2m is indeed empty, not sure if<br>
+checking d-&gt;arch.paging.hap.p2m_pages =3D=3D 0 would accomplish that?<br=
+></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">Sur=
+e, I can do that.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Thanks=
+,</div><div dir=3D"auto">Tamas</div><div dir=3D"auto"><div class=3D"gmail_q=
+uote"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-l=
+eft:1px #ccc solid;padding-left:1ex">
+</blockquote></div></div></div>
 
-> +# We need to find all C files (as we are not checking assembly files) so
-> +# we find all generated .o files which have a .c corresponding file.
-> +CPPCHECKFILES := $(wildcard $(patsubst %.o,%.c, $(filter-out $(BASEDIR)/tools/%,$(shell find $(BASEDIR) -name "*.o"))))
-> +
-> +quiet_cmd_cppcheck_xml = CPPCHECK $(patsubst $(BASEDIR)/%,%,$<)
-> +cmd_cppcheck_xml = $(CPPCHECK) -v -q --xml $(CPPCHECKFLAGS) \
-> +				               --output-file=$@ $<
-
-As per the earlier comment (just to give another example) I think
-this would want to be
-
-cmd_cppcheck_xml = $(CPPCHECK) -v -q --xml $(CPPCHECKFLAGS) \
-                               --output-file=$@ $<
-
-(i.e. with continue options aligned with the first one). This is
-even more noticable with ...
-
-> +quiet_cmd_merge_cppcheck_reports = CPPCHECK-MERGE $@
-> +cmd_merge_cppcheck_reports = $(BASEDIR)/tools/merge_cppcheck_reports.py $^ $@
-> +
-> +quiet_cmd_cppcheck_html = CPPCHECK-HTML $<
-> +cmd_cppcheck_html = $(CPPCHECK_HTMLREPORT) --file=$< --source-dir=$(BASEDIR) \
-> +										   --report-dir=$(CPPCHECK_HTMLREPORT_OUTDIR) \
-> +										   --title=Xen
-
-... needlessly long lines like these ones.
-
-Also aiui you shouldn't be using $(BASEDIR) anymore, but $(srctree)
-or $(objtree).
-
-> +PHONY += _cppcheck _cppcheck-html
-> +
-> +_cppcheck-html: xen-cppcheck.xml
-> +	$(call if_changed,cppcheck_html)
-> +
-> +_cppcheck: xen-cppcheck.xml
-> +
-> +xen-cppcheck.xml: $(patsubst %.c,%.c.cppcheck,$(CPPCHECKFILES))
-> +ifeq ($(CPPCHECKFILES),)
-> +	$(error Please build Xen before running cppcheck)
-> +endif
-
-Besides the requirement being enforced here to have _some_ .o files, ...
-
-> +	$(call if_changed,merge_cppcheck_reports)
-> +
-> +%.c.cppcheck: %.c $(BASEDIR)/include/generated/autoconf.h $(BASEDIR)/include/generated/compiler-def.h
-
-... doesn't the dependency on autoconf.h here point out another issue:
-Don't you require the build to be up-to-date? If this dependency really
-is to be retained, should you perhaps make the new goal depend on
-$(TARGET), thus forcing a build to occur (perhaps just an incremental
-one)?
-
-> --- a/xen/include/xen/config.h
-> +++ b/xen/include/xen/config.h
-> @@ -7,6 +7,10 @@
->  #ifndef __XEN_CONFIG_H__
->  #define __XEN_CONFIG_H__
->  
-> +#ifdef CPPCHECK
-> +#include <generated/compiler-def.h>
-> +#endif
-
-Could you leave this file untouched and have the generated file included
-by passing another --include= in CPPCHECKFLAGS?
-
-> --- a/xen/include/xen/kconfig.h
-> +++ b/xen/include/xen/kconfig.h
-> @@ -8,6 +8,10 @@
->   * these only work with boolean option.
->   */
->  
-> +/* cppcheck is failing to parse the macro so use a dummy one */
-> +#ifdef CPPCHECK
-> +#define IS_ENABLED(option) option
-> +#else
->  /*
->   * Getting something that works in C and CPP for an arg that may or may
->   * not be defined is tricky.  Here, if we have "#define CONFIG_BOOGER 1"
-> @@ -27,5 +31,6 @@
->   * otherwise.
->   */
->  #define IS_ENABLED(option) config_enabled(option)
-> +#endif
-
-What are the consequences of this workaround on the code actually
-being checked? Does this perhaps lead to certain portions of code
-being skipped while checking?
-
-Jan
-
+--000000000000c5932605db09e5c1--
 
