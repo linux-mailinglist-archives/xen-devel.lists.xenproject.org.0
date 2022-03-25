@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A0634E6EFF
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Mar 2022 08:36:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.294592.500978 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B94DB4E6F56
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Mar 2022 09:18:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.294605.500989 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXeTv-0000Bc-7U; Fri, 25 Mar 2022 07:35:35 +0000
+	id 1nXf8Q-00052W-SZ; Fri, 25 Mar 2022 08:17:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 294592.500978; Fri, 25 Mar 2022 07:35:35 +0000
+Received: by outflank-mailman (output) from mailman id 294605.500989; Fri, 25 Mar 2022 08:17:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXeTv-000083-4J; Fri, 25 Mar 2022 07:35:35 +0000
-Received: by outflank-mailman (input) for mailman id 294592;
- Fri, 25 Mar 2022 07:35:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8PHK=UE=arm.com=michal.orzel@srs-se1.protection.inumbo.net>)
- id 1nXeTt-00007x-W6
- for xen-devel@lists.xenproject.org; Fri, 25 Mar 2022 07:35:34 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 2621808e-ac0e-11ec-a405-831a346695d4;
- Fri, 25 Mar 2022 08:35:31 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B48BE12FC;
- Fri, 25 Mar 2022 00:35:30 -0700 (PDT)
-Received: from [10.57.6.19] (unknown [10.57.6.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9278E3F66F;
- Fri, 25 Mar 2022 00:35:28 -0700 (PDT)
+	id 1nXf8Q-00050b-OJ; Fri, 25 Mar 2022 08:17:26 +0000
+Received: by outflank-mailman (input) for mailman id 294605;
+ Fri, 25 Mar 2022 08:17:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=73hT=UE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1nXf8P-00050U-J1
+ for xen-devel@lists.xenproject.org; Fri, 25 Mar 2022 08:17:25 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 00054d8e-ac14-11ec-8fbc-03012f2f19d4;
+ Fri, 25 Mar 2022 09:17:24 +0100 (CET)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04lp2052.outbound.protection.outlook.com [104.47.14.52]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-38-rZZTBHDzNwmuG6SLqyXHcw-1; Fri, 25 Mar 2022 09:17:22 +0100
+Received: from AS8PR04MB8609.eurprd04.prod.outlook.com (2603:10a6:20b:424::9)
+ by AM6PR0402MB3607.eurprd04.prod.outlook.com (2603:10a6:209:12::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.19; Fri, 25 Mar
+ 2022 08:17:20 +0000
+Received: from AS8PR04MB8609.eurprd04.prod.outlook.com
+ ([fe80::5413:50c3:f5e8:d90f]) by AS8PR04MB8609.eurprd04.prod.outlook.com
+ ([fe80::5413:50c3:f5e8:d90f%9]) with mapi id 15.20.5102.018; Fri, 25 Mar 2022
+ 08:17:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,145 +51,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2621808e-ac0e-11ec-a405-831a346695d4
-Message-ID: <98a6df25-8a95-3e3d-e8a9-11e948da7b5b@arm.com>
-Date: Fri, 25 Mar 2022 08:35:18 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [RFC PATCH] xen/build: Add cppcheck and cppcheck-html make rules
+X-Inumbo-ID: 00054d8e-ac14-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1648196244;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CF+h87r3VZg9kM1G6vtG6dFYUB/hOYzdN73hDFP0M68=;
+	b=a9n3lSxkg0x9HaHJtQ0Wf9GHeXjdhn1nWgGcsgIyknik9y69xP2l6MEmaZBMcwDx4XN0Ut
+	h0yS9VqJrP1FFAgLOgH3olpO0nCA4lONzeRY75x5Kng0JBgzinjM5i+lCMkBbuHsrsf2uq
+	Al+aZeakx8UAigmpuhQt8AyGDw8mbds=
+X-MC-Unique: rZZTBHDzNwmuG6SLqyXHcw-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=P8em4XaR33IwKATU5c2jkHCP7RF4U7VqPDDPEefDypE+pjnJSv9SvwvTz4hAULBNGzFvlBS939Rc8N39I/iKONBmjPhZ7hiab5aTes5TpKzgCIcs2bUZ5QcT/7x0+ZmjqzR1L8+1FAieXjV2zrYomF+BQjOgMXzvMFxzt56vLpIoGmsoRtVvF53+hOwSSNQjFY48BFIwZdAq/qN+okcA08umY26kKPd/7S0beGcj+OUVwxIWDSIObTu7AtHJQQAxHRWOj8MVNNXapgvLVByNvF+zgiZEcJfDXcDRm/TrVBis0RmMAlsXwiZhzJ5/auj5rQ/PhVIzUfn2W+2TyTJfBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CF+h87r3VZg9kM1G6vtG6dFYUB/hOYzdN73hDFP0M68=;
+ b=GPk7U7m8+TDCIlhr7PgZByMHKnp0TtGESDnQfrhiZbrNBHQrrnO5FSkhk0JlikT/R8wUC3GuwAZBtinjj5/yHUs3/nFXAhLd33pLdm6AFgm+vVFjzJJFar9KI0Y/deevhrcVAN/C4y07wogQ9v2xBaWXAnBEdf+CMeJZotQlcswHdVmbY0MCJcXxZPwq/gxhB8k6KahZNqZitItv3j4p4Lgu24J7Qg1TUcKSsYgBAdvZoC+BI7SryBUUmRSYKIIQjotHGsardaayBt5NMGIu5tgHwRyVJewoK4H5j0cwl9n2KHxZVJ0h81t9Q/lfyfICbdjjCjPvp0SArsCE/XZ+uw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <319d05ee-d750-0f49-dc10-fa0725f8d9bd@suse.com>
+Date: Fri, 25 Mar 2022 09:17:17 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH v3 2/5] xen: make evtchn_alloc_unbound public
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <77c79e86050eef2b706ee11e64183d57a0f5bcee.1648119732.git.bertrand.marquis@arm.com>
- <alpine.DEB.2.22.394.2203241829510.2910984@ubuntu-linux-20-04-desktop>
-From: Michal Orzel <michal.orzel@arm.com>
-In-Reply-To: <alpine.DEB.2.22.394.2203241829510.2910984@ubuntu-linux-20-04-desktop>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, jgross@suse.com,
+ Bertrand.Marquis@arm.com, julien@xen.org, Volodymyr_Babchuk@epam.com,
+ Luca Miccio <lucmiccio@gmail.com>,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ "Daniel P. Smith" <dpsmith.dev@gmail.com>
+References: <alpine.DEB.2.22.394.2201281330520.27308@ubuntu-linux-20-04-desktop>
+ <20220128213307.2822078-2-sstabellini@kernel.org>
+ <2f05e63a-96c3-e78f-f7e4-36fd17fcd58c@gmail.com>
+ <alpine.DEB.2.22.394.2203221711110.2910984@ubuntu-linux-20-04-desktop>
+ <c57dc9a9-e2ca-74c6-4fde-e2a6f1400de5@suse.com>
+ <alpine.DEB.2.22.394.2203241522510.2910984@ubuntu-linux-20-04-desktop>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <alpine.DEB.2.22.394.2203241522510.2910984@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS8PR05CA0022.eurprd05.prod.outlook.com
+ (2603:10a6:20b:311::27) To AS8PR04MB8609.eurprd04.prod.outlook.com
+ (2603:10a6:20b:424::9)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a612ad75-2a60-418b-47b0-08da0e37e1d3
+X-MS-TrafficTypeDiagnostic: AM6PR0402MB3607:EE_
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-Microsoft-Antispam-PRVS:
+	<AM6PR0402MB36071DA5402391BD4FDF4592B31A9@AM6PR0402MB3607.eurprd04.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	wV7YfCABelfI1iURYJnEeZcOrEPoaR79zhY9icI8GAlMT0hSEqK7yA/8GquCIkzfOeowfhTIHzh6KnwD8hFLeVRjeJOQALZ3d+qPU8t3hf0CfA+ccTYl92Jvfzfebd8XRuitncM77bs8Djw15L2mh0Lzc18Gkf2/9rbjD8Pb5I3Kv/petKrWTBMJ9SDc1FuYdFDJQn0zuS5zBOt1N9qqnhIayL6rU1EpH2dwMPih2CEzKcc3JyR2zZM1gs0sx6IBnnG0czJdVDnpt6NSKMCBCnzoYXagxmntE0VMt+L9g/KtIU+PFedBJsQtkUUGb0eS1K0qtRw8k6ALiJ8rDJdfmRGFPTFpRnp8cQ/X5ngSNh95aa/WughcPEUTWo5VaFdXnI7b5WHYSBa7ojUnYLmkIVBpv+NpvwI4H0fDUpzm/OBUMabRDS3jcl6a9tam1dVwry09Sm4x/ulYA/D0mkgiOqyLiJ3R/xf87GBwhbVa1vPmg1vdlqXYvVjA2K6pRYM4aFfPvMY7EXfX7un3Sahkh9JxCHbc9mEcVlzSZ4+eIVjG6oGNMPfmGs0mXICFUe+m5hE7/JjYFBjroKs2LVtlKjuFCApEl7qDl4Gr6HQ+eFKTT5n1KlWxsAvpXDocO9l4ROO/Io1DlEaXhlEnubWb0T5b7dA7gknDLuRSEoZ/Woh5uxvQr8bWYok5HRr7fN1OnZJde5mxFHGxKobk/bm/3IjJwJZlbU8eT6GlNo97RW0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR04MB8609.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(83380400001)(186003)(26005)(6666004)(86362001)(2616005)(6486002)(2906002)(4744005)(4326008)(38100700002)(31686004)(8936002)(31696002)(316002)(6916009)(54906003)(7416002)(5660300002)(53546011)(66476007)(8676002)(66946007)(66556008)(36756003)(508600001)(6512007)(6506007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cjJEZzFQZDkyTlg0aGRwVk1LOU55M2JVbnUyWjVxbjh4dGlOQ3RtNmFqQ0ph?=
+ =?utf-8?B?bWx4SEpnVWR3NlpDMlNSb21URkhVcFJmUjVsWml6RFdrNVlZeVU4SXBzYUtt?=
+ =?utf-8?B?YWM5WTNRY09VbVQ1c2d4UitmK1lMTVc2V3JHVDBRdHFpMXVkRTh2ZzhLTmJx?=
+ =?utf-8?B?ZG9kKy9QRGlPd3J1S0dFOU40WElzeGxhN3Vacjc2VDI1bWlYM1RHYTdTRkJo?=
+ =?utf-8?B?ZXBFQnpuTTNINXNROHZkQUFhWDNWWEdzdlRDSXRjYkVOME10d0FadlUyTmtP?=
+ =?utf-8?B?RHRocy8yTEFCUEROcVk5T0VYdGdpUGFCbjFHSGIrREIxUTU0NEZjdzU0SWls?=
+ =?utf-8?B?YlNCVURYTGJxOE9XbjR3MFUxQWN3R1hEYmhCRUU2OG1ob3B2UlNGL05hWWxL?=
+ =?utf-8?B?Q25objR4N2FHWis1d3RTbkZkbldOMkR3QVFGdTFPOUdhNmNtV2RrRDVWUlMv?=
+ =?utf-8?B?Tm84eDVCNmwwWVEzd1BwN2k0czg2MkF6SEJRWjhLVlJlWmxTLzMwam9XdjQw?=
+ =?utf-8?B?MTlmMHRubGVXSHM1enlsbG1tVVVhdmpXcnpwNEdENVYvSHBKclBDRyt0Vzhn?=
+ =?utf-8?B?b2RiOXdpaDBjOStpT2xJRERFTUxoM0Z5Q05uTTFrSG9RVUw5TzNwWEpmYURN?=
+ =?utf-8?B?S2dRbWNZRXNhRCtWRFBLTEdTSW5ValA0bnQ0VFVuTGppb0MyTUpIUGR1Ymh1?=
+ =?utf-8?B?cHFtTGRIS2NkZUtMUmw3QXVFMFFDVnU2ak1GQWMxbjg2UWdiR1RWb2ZWRm9M?=
+ =?utf-8?B?b0pMeDNFOEJob0RLL0x0cFdzTGtadnhyWUtQR1hsYnlRc3p2UHJtOTZXazNi?=
+ =?utf-8?B?ckF4TEI0TjF5cGxwYmt4Q0N4Nmc1WEtBTkYvd0VaK2RoUkNneDd3NGJ3Y2Rm?=
+ =?utf-8?B?eFJNRW9aWmNmaWdOV2k3N01WTm5MemRmczRyalQxTXBnMmZJOUFnWnAzZ1F5?=
+ =?utf-8?B?WFpiMG4yQVhnOXRXL2x3TXZJdnIvYXB0c21vVG41U2ZKS2NEZ0d6dUwzRUd2?=
+ =?utf-8?B?L1pNOU0vK3JMOVRPOEJWTWtQMkpxQWcwc0lpaExHV2toMFk1aC9tSzJlQk5u?=
+ =?utf-8?B?dUJTbnROSFJxVmRZc0U1WklpNDR2Z2dGanFSN0l5bDVYSU5waFBsRnZGUUdN?=
+ =?utf-8?B?UDIwbzlIdmgwd1oza1RWMlU5WnJqd2ttcGVHNVBXa2d0Y1czL2h0OEt2TlFV?=
+ =?utf-8?B?L2lSa3RyVEVGYlkvNi9ncFdOT3hRemZUcUwyMXhFZWpCMElWVXFsNjRlUGhj?=
+ =?utf-8?B?cnhWbVB3NGNTbUxwT2dONXhhdXE4NmtBWnpucjR2QXVGTVU5QjBWMmJmYW1a?=
+ =?utf-8?B?aEZzMTIwQzBGRWJMU3ZLMnJtNXBjN00xbWRxMm5OUEhtclZQZmlZS0I1L1dF?=
+ =?utf-8?B?aU8xQTAxc2UzWjA5VEhHcTVwdlNRSkloZ3hNLzRCQmE2Q0ZiZG5MT002SXFt?=
+ =?utf-8?B?eXA5QVEydGVMNVhhV0hMYWlEa2FKWmluUkdReWQzcTI2UWpOcU0xaVpydEpj?=
+ =?utf-8?B?dEtFbWUyZkt3T3JrOHNJM25EMWU0czdvVThSSjIxZHVVSHhLdXFJSnFub0NR?=
+ =?utf-8?B?RnIyRnRJeWNjOGpOSlFmck1YcVZyRVpxZVkvMjBoZ1pWV3pNcm5OL2pzSkMv?=
+ =?utf-8?B?bXpSUHRwUlZYY0JrRlZUcWRYSDZkb2liNjZDNTBXaWpLdWVKUEV1clZMQ05k?=
+ =?utf-8?B?WkRCSEY0amlRd3ZCbzdFMFJOdUpOalNQeWV1aTlNdmhpL1VsUklXeURPN1Nw?=
+ =?utf-8?B?U1cwUE8rSklyMU1COWJtdFgyUnljR3BoU0dtSUpXQ29zZDVqbGlONzZhNmlU?=
+ =?utf-8?B?L3dQdlRpOEFMSG1DMXlsdnJ4QUNsUzBPM3UvQ2UzWGc3YnRLWWVyY0lENmJZ?=
+ =?utf-8?B?ejBBeEwzZEJua3A1REI0ZjRQTlprTlFyOFRPOGMxOGN4SzI1YUMyU0k5SXFP?=
+ =?utf-8?B?eVF2TmNEWE9CZlRvRkZmdTNVU3BnZXc0QkNFMVJLWlJ1ais5ckEwbGdPcVJs?=
+ =?utf-8?B?K3VzQ1BEUHhXUXNrV3puMTNvZzlZT29Vem13U1Urd2xQU0ZvRkxqQTJGZXNn?=
+ =?utf-8?B?MTNVZU44TkNsSnB4R2ZnbFgyMFcyVlJUMDN5SGU2a0VoNzI0MDd4TXgxUk1k?=
+ =?utf-8?B?TDNMNExNQkxHRDhyNlhmRXk5ZmFiclFFdENmY2FTRUpmeFZUUWxtNzhTRjVs?=
+ =?utf-8?B?b2hIL2JKVmtpTDJNZjFwNVMzSVBtMTlmZWZLZzJlMXdVUVVyUGFJTm1iK2Ji?=
+ =?utf-8?B?bDk2U09UeGw5WDRYaHdKMzFwNEV2TWNyMkVUU1BsN2YwQ1lsc1dyRUZqUG45?=
+ =?utf-8?B?RFp3aTNTcEoyaGxtcTdacUw0dlNteDNYdXpBYnQ4dDRNYTVVMU5Sdz09?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a612ad75-2a60-418b-47b0-08da0e37e1d3
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB8609.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2022 08:17:20.3712
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: b9tRtVgV3xqSxXCZIIbabDfWGrpSc3+ySWMr8+xWSHKhTny6VyZm2QzXuC7/zreMbgJcW1yW7PT3LP02jEJq8w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR0402MB3607
 
-Hi Stefano,
+On 25.03.2022 01:30, Stefano Stabellini wrote:
+> Maybe, instead of exporting get_free_port, we could create a new
+> function in xen/common/event_channel.c and mark it as __init? This way:
+> - we don't need to expose get_free_port
+> - the new function would only be __init anyway, so no risk of runtime
+>   misuse
+> 
+> What do you think?
 
-On 25.03.2022 02:32, Stefano Stabellini wrote:
-> On Thu, 24 Mar 2022, Bertrand Marquis wrote:
->> cppcheck can be used to check Xen code quality.
->>
->> To create a report do "make cppcheck" on a built tree adding any options
->> you added during the process you used to build xen (like CROSS_COMPILE
->> or XEN_TARGET_ARCH). This will generate an xml report xen-cppcheck.xml.
->>
->> To create a html report do "make cppcheck-html" in the same way and a
->> full report to be seen in a browser will be generated in
->> cppcheck-htmlreport/index.html.
->>
->> For better results it is recommended to build your own cppcheck from the
->> latest sources that you can find at [1].
->> Development and result analysis has been done with cppcheck 2.7.
->>
->> The Makefile rule is searching for all C files which have been compiled
->> (ie which have a generated .o file) and is running cppcheck on all of
->> them using the current configuration of xen so only the code actually
->> compiled is checked.
->>
->> A new tool is introduced to merge all cppcheck reports into one global
->> report including all findings and removing duplicates.
->>
->> Some extra variables can be used to customize the report:
->> - CPPCHECK can be used to give the full path to the cppcheck binary to
->> use (default is to use the one from the standard path).
->> - CPPCHECK_HTMLREPORT can be used to give the full path to
->> cppcheck-htmlreport (default is to use the one from the standard path).
->>
->> This has been tested on several arm configurations (x86 should work but
->> has not been tested).
->>
->> [1] https://cppcheck.sourceforge.io/
->>
->> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
->> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
-> 
-> Very cool, I was looking forward to this :-)
-> 
-> 
->> diff --git a/xen/tools/merge_cppcheck_reports.py b/xen/tools/merge_cppcheck_reports.py
->> new file mode 100755
->> index 0000000000..ef055f6925
->> --- /dev/null
->> +++ b/xen/tools/merge_cppcheck_reports.py
->> @@ -0,0 +1,73 @@
->> +#!/usr/bin/env python
->> +
->> +"""
->> +This script acts as a tool to merge XML files created by cppcheck.
->> +Usage:
->> +    merge_cppcheck_reports.py [FILES] [OUTPUT]
->> +
->> +    FILES  - list of XML files with extension .cppcheck
->> +    OUTPUT - file to store results (with .xml extension).
->> +             If not specified, the script will print results to stdout.
->> +"""
->> +
->> +import sys
->> +from xml.etree import ElementTree
->> +
->> +def elements_equal(el1, el2):
->> +    if type(el1) != type(el2): return False
->> +
->> +    el1_location = str(el1.find('location').attrib)
->> +    el2_location = str(el2.find('location').attrib)
->> +
->> +    if el1_location != el2_location: return False
->> +
->> +    return True
->> +
->> +def remove_duplicates(xml_root_element):
->> +    elems_to_remove = []
->> +    index = 0
->> +    elems_list = list(xml_root_element.findall("errors")[0])
->> +    for elem1 in elems_list:
->> +        index += 1
->> +        for elem2 in elems_list[index:]:
->> +            if elements_equal(elem1, elem2) and elem2 not in elems_to_remove:
->> +                elems_to_remove.append(elem2)
->> +                continue
->> +
->> +    for elem in elems_to_remove:
->> +        xml_root_element.findall("errors")[0].remove(elem)
->> +
->> +def merge(files):
->> +    result_xml_root = None
->> +    for xml_file in files:
->> +        xml_root = ElementTree.parse(xml_file).getroot()
-> 
-> 
-> Traceback (most recent call last):
->   File "/local/repos/xen-upstream/xen/tools/merge_cppcheck_reports.py", line 73, in <module>
->     run()
->   File "/local/repos/xen-upstream/xen/tools/merge_cppcheck_reports.py", line 60, in run
->     result = merge(files)
->   File "/local/repos/xen-upstream/xen/tools/merge_cppcheck_reports.py", line 43, in merge
->     xml_root = ElementTree.parse(xml_file).getroot()
->   File "/usr/lib/python2.7/xml/etree/ElementTree.py", line 1182, in parse
->     tree.parse(source, parser)
->   File "/usr/lib/python2.7/xml/etree/ElementTree.py", line 657, in parse
->     self._root = parser.close()
->   File "/usr/lib/python2.7/xml/etree/ElementTree.py", line 1671, in close
->     self._raiseerror(v)
->   File "/usr/lib/python2.7/xml/etree/ElementTree.py", line 1523, in _raiseerror
->     raise err
-> xml.etree.ElementTree.ParseError: no element found: line 11, column 0
-> make: *** [Makefile:576: xen-cppcheck.xml] Error 1
-> 
-> I think we should catch the xml.etree.ElementTree.ParseError exception and continue?
+Maybe. Such a function would want to serve both your an Daniel's purpose
+then.
 
-Well, this is of course something that we might do but this error clearly warns us that
-some XML files is not well formatted and therefore is not parsable. This could mean that
-you are using some old cppcheck version. Is it correct assumption?
+Jan
 
-Cheers,
-Michal
 
