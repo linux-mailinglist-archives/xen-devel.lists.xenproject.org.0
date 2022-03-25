@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 606064E71FF
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Mar 2022 12:07:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.294668.501136 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C9064E7214
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Mar 2022 12:16:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.294671.501147 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXhmc-0003Og-9K; Fri, 25 Mar 2022 11:07:06 +0000
+	id 1nXhvW-0004sr-6K; Fri, 25 Mar 2022 11:16:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 294668.501136; Fri, 25 Mar 2022 11:07:06 +0000
+Received: by outflank-mailman (output) from mailman id 294671.501147; Fri, 25 Mar 2022 11:16:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nXhmc-0003Mn-6A; Fri, 25 Mar 2022 11:07:06 +0000
-Received: by outflank-mailman (input) for mailman id 294668;
- Fri, 25 Mar 2022 11:07:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hlgX=UE=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nXhmb-0003Mh-DC
- for xen-devel@lists.xenproject.org; Fri, 25 Mar 2022 11:07:05 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b39d2c4f-ac2b-11ec-a405-831a346695d4;
- Fri, 25 Mar 2022 12:07:04 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9C0F81F38D;
- Fri, 25 Mar 2022 11:07:03 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3B6AE1332D;
- Fri, 25 Mar 2022 11:07:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id hGq8DFeiPWIcMgAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 25 Mar 2022 11:07:03 +0000
+	id 1nXhvW-0004r1-2r; Fri, 25 Mar 2022 11:16:18 +0000
+Received: by outflank-mailman (input) for mailman id 294671;
+ Fri, 25 Mar 2022 11:16:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Ci4N=UE=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
+ id 1nXhvV-0004qv-5y
+ for xen-devel@lists.xenproject.org; Fri, 25 Mar 2022 11:16:17 +0000
+Received: from MTA-09-3.privateemail.com (mta-09-3.privateemail.com
+ [68.65.122.19]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id faee84b0-ac2c-11ec-8fbc-03012f2f19d4;
+ Fri, 25 Mar 2022 12:16:15 +0100 (CET)
+Received: from mta-09.privateemail.com (localhost [127.0.0.1])
+ by mta-09.privateemail.com (Postfix) with ESMTP id 69C5418000AD
+ for <xen-devel@lists.xenproject.org>; Fri, 25 Mar 2022 07:16:12 -0400 (EDT)
+Received: from mail-oa1-f46.google.com (unknown [10.20.151.173])
+ by mta-09.privateemail.com (Postfix) with ESMTPA id 441A418000A8
+ for <xen-devel@lists.xenproject.org>; Fri, 25 Mar 2022 07:16:12 -0400 (EDT)
+Received: by mail-oa1-f46.google.com with SMTP id
+ 586e51a60fabf-de3eda6b5dso7834721fac.0
+ for <xen-devel@lists.xenproject.org>; Fri, 25 Mar 2022 04:16:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,152 +45,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b39d2c4f-ac2b-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1648206423; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6dlQyIm7e45K6hZyNwbiQdtlzsub6YFFyMnNbfLv4OY=;
-	b=He/o7GejqjVLVUFZxtd1FdK0Dz0DmhC5Yw0P7b0sK1bMY3Y+Z9gBr2OCZWIn1gdDjDNDD0
-	X9cPwBghRbBoFPQonhDHgsBAyWYZ5xCKI1c0EFAFE2KCTqO1MRlAi4QIVCv6bnOQy4R7YQ
-	sW3fIF2UPy7ECMTUId+648F/Uh6HFq8=
-Message-ID: <edb66fd3-cf2f-0780-145a-953936e59beb@suse.com>
-Date: Fri, 25 Mar 2022 12:07:02 +0100
+X-Inumbo-ID: faee84b0-ac2c-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=tklengyel.com;
+	s=default; t=1648206972;
+	bh=ulXEKnSQrOQUY7+s3N9paGkubHNA0yFhq/yYAGK5miw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=UsR9c5/CUi6giYWUuhPsJd+1MEUda1W7GqR24UPD0/OySRL6gZJDZTRLeOqNM4+Hl
+	 G9Kf4En26fRq0FksUf4L+tRzqXNt0sD8L4kF5fDJwoP6eBmiDh8xYaWBMll0fqMxSH
+	 bp9pZu1aihqLwKsSYZ3icCHJlrYWj8BD47c2ji1/T0dMkXro4nd5RnbuusSU8zBL4M
+	 8GL9t4rUL+Z074UAierCmlxcdDAHC+WF1crgdT8TMuBccHGgz0afCvfwoAeUywNyz5
+	 Zw+4HAIzVw11rvMHJBSpZ4Gd1hX0jm6tk0jxRajdpipgNz3QLifaWU2ubLveEEPds2
+	 VZ4xxPW786Ccw==
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=tklengyel.com;
+	s=default; t=1648206972;
+	bh=ulXEKnSQrOQUY7+s3N9paGkubHNA0yFhq/yYAGK5miw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=UsR9c5/CUi6giYWUuhPsJd+1MEUda1W7GqR24UPD0/OySRL6gZJDZTRLeOqNM4+Hl
+	 G9Kf4En26fRq0FksUf4L+tRzqXNt0sD8L4kF5fDJwoP6eBmiDh8xYaWBMll0fqMxSH
+	 bp9pZu1aihqLwKsSYZ3icCHJlrYWj8BD47c2ji1/T0dMkXro4nd5RnbuusSU8zBL4M
+	 8GL9t4rUL+Z074UAierCmlxcdDAHC+WF1crgdT8TMuBccHGgz0afCvfwoAeUywNyz5
+	 Zw+4HAIzVw11rvMHJBSpZ4Gd1hX0jm6tk0jxRajdpipgNz3QLifaWU2ubLveEEPds2
+	 VZ4xxPW786Ccw==
+X-Gm-Message-State: AOAM532gHeuqq+1zSsq9jiXCYsZCFAOSOjgIq5ouHv7bfTbbclmhUBKA
+	+TLuUPUsLYT/AUY7plafhQv1S+RQIQqpXXZ2VPo=
+X-Google-Smtp-Source: ABdhPJwaYWE5jGstPkv5sS9ahD1gC2WIvIuFcmzF6Hn49hBy5mdwQ5AEWAbQgUa4C9yhWXQh9fw3Mt3egf4+8G9s+hA=
+X-Received: by 2002:a05:6870:b250:b0:de:afd3:e1c4 with SMTP id
+ b16-20020a056870b25000b000deafd3e1c4mr859405oam.128.1648206971685; Fri, 25
+ Mar 2022 04:16:11 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH] xen: don't hang when resuming PCI device
-Content-Language: en-US
-To: =?UTF-8?B?SmFrdWIgS8SFZHppb8WCa2E=?= <niedzejkob@invisiblethingslab.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <len.brown@intel.com>,
- Pavel Machek <pavel@ucw.cz>, linux-pm@vger.kernel.org
-Cc: marmarek@invisiblethingslab.com
-References: <20220323012103.2537-1-niedzejkob@invisiblethingslab.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20220323012103.2537-1-niedzejkob@invisiblethingslab.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------volcTpjXkFt6gV3L8XUSIXdD"
+References: <fb927228a8f68ce983ae0b46e6665b5b8dd0764e.1647970630.git.tamas.lengyel@intel.com>
+ <Yj2ggiWlxvYdh1dJ@Air-de-Roger>
+In-Reply-To: <Yj2ggiWlxvYdh1dJ@Air-de-Roger>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Fri, 25 Mar 2022 07:15:59 -0400
+X-Gmail-Original-Message-ID: <CABfawhkeRENvEJHtXCxME08eMjjAGNVdcBK8ExxgcXY=SzXStA@mail.gmail.com>
+Message-ID: <CABfawhkeRENvEJHtXCxME08eMjjAGNVdcBK8ExxgcXY=SzXStA@mail.gmail.com>
+Subject: Re: [PATCH 1/3] x86/mem_sharing: option to skip populating special
+ pages during fork
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Tamas K Lengyel <tamas.lengyel@intel.com>, Xen-devel <xen-devel@lists.xenproject.org>, 
+	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, 
+	George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: multipart/alternative; boundary="000000000000104eb905db0917ec"
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------volcTpjXkFt6gV3L8XUSIXdD
-Content-Type: multipart/mixed; boundary="------------e6ya7KAFsFXbgUSIlzA2g2W7";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: =?UTF-8?B?SmFrdWIgS8SFZHppb8WCa2E=?= <niedzejkob@invisiblethingslab.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <len.brown@intel.com>,
- Pavel Machek <pavel@ucw.cz>, linux-pm@vger.kernel.org
-Cc: marmarek@invisiblethingslab.com
-Message-ID: <edb66fd3-cf2f-0780-145a-953936e59beb@suse.com>
-Subject: Re: [PATCH] xen: don't hang when resuming PCI device
-References: <20220323012103.2537-1-niedzejkob@invisiblethingslab.com>
-In-Reply-To: <20220323012103.2537-1-niedzejkob@invisiblethingslab.com>
-
---------------e6ya7KAFsFXbgUSIlzA2g2W7
-Content-Type: multipart/mixed; boundary="------------cS18eG8fIhED6cPUakhnN6jb"
-
---------------cS18eG8fIhED6cPUakhnN6jb
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMjMuMDMuMjIgMDI6MjEsIEpha3ViIEvEhWR6aW/FgmthIHdyb3RlOg0KPiBJZiBhIHhl
-biBkb21haW4gd2l0aCBhdCBsZWFzdCB0d28gVkNQVXMgaGFzIGEgUENJIGRldmljZSBhdHRh
-Y2hlZCB3aGljaA0KPiBlbnRlcnMgdGhlIEQzaG90IHN0YXRlIGR1cmluZyBzdXNwZW5kLCB0
-aGUga2VybmVsIG1heSBoYW5nIHdoaWxlDQo+IHJlc3VtaW5nLCBkZXBlbmRpbmcgb24gdGhl
-IGNvcmUgb24gd2hpY2ggYW4gYXN5bmMgcmVzdW1lIHRhc2sgZ2V0cw0KPiBzY2hlZHVsZWQu
-DQo+IA0KPiBUaGUgYnVnIG9jY3VycyBiZWNhdXNlIHhlbidzIGRvX3N1c3BlbmQgY2FsbHMg
-ZHBtX3Jlc3VtZV9zdGFydCB3aGlsZQ0KPiBvbmx5IHRoZSB0aW1lciBvZiB0aGUgYm9vdCBD
-UFUgaGFzIGJlZW4gcmVzdW1lZCAod2hlbiB4ZW5fc3VzcGVuZCBjYWxsZWQNCj4gc3lzY29y
-ZV9yZXN1bWUpLCBiZWZvcmUgY2FsbGluZyB4ZW5fYXJjaF9zdXNwZW5kIHRvIHJlc3VtZSB0
-aGUgdGltZXJzIG9mDQo+IHRoZSBvdGhlciBDUFVzLiBUaGlzIGJyZWFrcyBwY2lfZGV2X2Qz
-X3NsZWVwLg0KPiANCj4gVGh1cyB0aGlzIHBhdGNoIG1vdmVzIHRoZSBjYWxsIHRvIHhlbl9h
-cmNoX3Jlc3VtZSBiZWZvcmUgdGhlIGNhbGwgdG8NCj4gZHBtX3Jlc3VtZV9zdGFydCwgZWxp
-bWluYXRpbmcgdGhlIGhhbmdzIGFuZCByZXN0b3JpbmcgdGhlIHN0YWNrLWxpa2UNCj4gc3Ry
-dWN0dXJlIG9mIHRoZSBzdXNwZW5kL3Jlc3RvcmUgcHJvY2VkdXJlLg0KPiANCj4gU2lnbmVk
-LW9mZi1ieTogSmFrdWIgS8SFZHppb8WCa2EgPG5pZWR6ZWprb2JAaW52aXNpYmxldGhpbmdz
-bGFiLmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNv
-bT4NCg0KDQpKdWVyZ2VuDQo=
---------------cS18eG8fIhED6cPUakhnN6jb
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+--000000000000104eb905db0917ec
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On Fri, Mar 25, 2022, 6:59 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.com> w=
+rote:
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
-oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
-kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
-1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
-BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
-N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
-PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
-FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
-UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
-vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
-+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
-qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
-tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
-Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
-CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
-RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
-8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
-BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
-SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
-nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
-AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
-Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
-hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
-w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
-VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
-OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
-/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
-c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
-F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
-k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
-wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
-5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
-TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
-N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
-AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
-0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
-Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
-we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
-v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
-Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
-534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
-b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
-yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
-suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+> On Tue, Mar 22, 2022 at 01:41:37PM -0400, Tamas K Lengyel wrote:
+> > Add option to the fork memop to skip populating the fork with special
+> pages.
+> > These special pages are only necessary when setting up forks to be full=
+y
+> > functional with a toolstack. For short-lived forks where no toolstack i=
+s
+> active
+> > these pages are uneccesary.
+>
+> Replying here because there's no cover letter AFAICT.
+>
+> For this kind of performance related changes it would be better if you
+> could provide some figures about the performance impact. It would help
+> if we knew whether avoiding mapping the vAPIC page means you can
+> create 0.1% more forks per-minute or 20%.
+>
+> If you really want to speed up the forking path it might be good to start
+> by perf sampling Xen in order to find the bottlenecks?
+>
 
---------------cS18eG8fIhED6cPUakhnN6jb--
+Sure but for experiment systems I don't think its necessary to collect that
+data.
 
---------------e6ya7KAFsFXbgUSIlzA2g2W7--
+There is also a non-performance reason why we want to keep special pages
+from being populated, in cases we really want the forks physmap to start
+empty for better control over its state. There was already a case where
+having special pages mapped in ended up triggering unexpected Xen behaviors
+leading to chain of events not easy to follow. For example if page 0 gets
+brought in while the vCPU is being created it ends up as a misconfigured
+ept entry if nested virtualization is enabled. That leads to ept
+misconfiguration exits instead of epf faults. Simply enforcing no entry in
+the physmap until forking is complete eliminates the chance of something
+like that happening again and makes reasoning about the VM's behavior from
+the start easier.
 
---------------volcTpjXkFt6gV3L8XUSIXdD
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Tamas
 
------BEGIN PGP SIGNATURE-----
+>
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmI9olYFAwAAAAAACgkQsN6d1ii/Ey82
-MwgAgY498LKBIzA2iVodDE36CWaBs9UKjV8V2MLhRqduZrtbsh22DtJ6IxlYqPWwqv0oDvvB0OJZ
-TBp8H9ePSOxwJsGqzKwsVoZD7G585xsnVFihwd4NBsircO9pyuifwKE0Cm66U/wU8A2AhMs3Oox/
-SMtg37sLk8tCzIe2YL1f67QXHgw9GYOZq+uNTYAnh9FSCy9d+yXAEmxLaIj/pz6QQ9TM74p0aTTO
-yQwVpknmaCDTEWpa+3orzu4sT+YFTE1bzTntxQ2gWjdjuMBoGiaDM5DuY1+r9B+NY4/uqfP97VQa
-mYajPBurHjZXIXtwv5UcZl8ohzO+syb59eYIeOHQIw==
-=fyGN
------END PGP SIGNATURE-----
+--000000000000104eb905db0917ec
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
---------------volcTpjXkFt6gV3L8XUSIXdD--
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
+class=3D"gmail_attr">On Fri, Mar 25, 2022, 6:59 AM Roger Pau Monn=C3=A9 &lt=
+;<a href=3D"mailto:roger.pau@citrix.com">roger.pau@citrix.com</a>&gt; wrote=
+:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bor=
+der-left:1px #ccc solid;padding-left:1ex">On Tue, Mar 22, 2022 at 01:41:37P=
+M -0400, Tamas K Lengyel wrote:<br>
+&gt; Add option to the fork memop to skip populating the fork with special =
+pages.<br>
+&gt; These special pages are only necessary when setting up forks to be ful=
+ly<br>
+&gt; functional with a toolstack. For short-lived forks where no toolstack =
+is active<br>
+&gt; these pages are uneccesary.<br>
+<br>
+Replying here because there&#39;s no cover letter AFAICT.<br>
+<br>
+For this kind of performance related changes it would be better if you<br>
+could provide some figures about the performance impact. It would help<br>
+if we knew whether avoiding mapping the vAPIC page means you can<br>
+create 0.1% more forks per-minute or 20%.<br>
+<br>
+If you really want to speed up the forking path it might be good to start<b=
+r>
+by perf sampling Xen in order to find the bottlenecks?<br></blockquote></di=
+v></div><div dir=3D"auto"><br></div><div dir=3D"auto">Sure but for experime=
+nt systems I don&#39;t think its necessary to collect that data.</div><div =
+dir=3D"auto"><br></div><div dir=3D"auto">There is also a non-performance re=
+ason why we want to keep special pages from being populated, in cases we re=
+ally want the forks physmap to start empty for better control over its stat=
+e. There was already a case where having special pages mapped in ended up t=
+riggering unexpected Xen behaviors leading to chain of events not easy to f=
+ollow. For example if page 0 gets brought in while the vCPU is being create=
+d it ends up as a misconfigured ept entry if nested virtualization is enabl=
+ed. That leads to ept misconfiguration exits instead of epf faults. Simply =
+enforcing no entry in the physmap until forking is complete eliminates the =
+chance of something like that happening again and makes reasoning about the=
+ VM&#39;s behavior from the start easier.</div><div dir=3D"auto"><br></div>=
+<div dir=3D"auto">Tamas</div><div dir=3D"auto"><div class=3D"gmail_quote"><=
+blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px=
+ #ccc solid;padding-left:1ex">
+</blockquote></div></div></div>
+
+--000000000000104eb905db0917ec--
 
