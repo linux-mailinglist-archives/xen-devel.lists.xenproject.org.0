@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7ADE4E9C5A
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Mar 2022 18:36:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.295531.502968 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E340C4E9C5B
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Mar 2022 18:36:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.295532.502979 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nYsLH-0001eE-Ut; Mon, 28 Mar 2022 16:35:43 +0000
+	id 1nYsLP-0001wc-6X; Mon, 28 Mar 2022 16:35:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 295531.502968; Mon, 28 Mar 2022 16:35:43 +0000
+Received: by outflank-mailman (output) from mailman id 295532.502979; Mon, 28 Mar 2022 16:35:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nYsLH-0001bc-Rp; Mon, 28 Mar 2022 16:35:43 +0000
-Received: by outflank-mailman (input) for mailman id 295531;
- Mon, 28 Mar 2022 16:35:42 +0000
+	id 1nYsLP-0001tT-2w; Mon, 28 Mar 2022 16:35:51 +0000
+Received: by outflank-mailman (input) for mailman id 295532;
+ Mon, 28 Mar 2022 16:35:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3mb0=UH=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1nYsLF-0001bP-MQ
- for xen-devel@lists.xenproject.org; Mon, 28 Mar 2022 16:35:41 +0000
+ id 1nYsLM-0001bP-SI
+ for xen-devel@lists.xenproject.org; Mon, 28 Mar 2022 16:35:48 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
  [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 189181fc-aeb5-11ec-a405-831a346695d4;
- Mon, 28 Mar 2022 18:35:39 +0200 (CEST)
+ id 1e27243e-aeb5-11ec-a405-831a346695d4;
+ Mon, 28 Mar 2022 18:35:47 +0200 (CEST)
 Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
  [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1648485332535493.0992602782029;
- Mon, 28 Mar 2022 09:35:32 -0700 (PDT)
+ with SMTPS id 16484853341111019.3383598102412;
+ Mon, 28 Mar 2022 09:35:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,58 +40,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 189181fc-aeb5-11ec-a405-831a346695d4
-ARC-Seal: i=1; a=rsa-sha256; t=1648485334; cv=none; 
+X-Inumbo-ID: 1e27243e-aeb5-11ec-a405-831a346695d4
+ARC-Seal: i=1; a=rsa-sha256; t=1648485335; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=AuxhZiSizSrTt6uFL8noR1zwcYqQ+mwJHswRmYUavt4CriU2+Nkg+E5KrIl2gIShNWujYkkp+7W4kunG+hWuhoxboTtLZ1xRF9u0AzAkytcx3+h6VGbZR/99qIj1gXnN1uYhXQ7C5bd+wR/CAW7O2yye8/RYUgg3ig5Ox00NszE=
+	b=igLa5rrgqXD8BtnvtWDcd8QtD2YhuJsidTbhq8xclPYX8W8sVoSoQPcy7ZQZLgYYCfog6EgdvHbNZjrgnC/RZHaK80oHBdV0/rSQ2L2WoNx5naw2QjyC55MPvJeG4Y1Ik/tskn+HEcQMFrdFVLQ9tumRbqN6Qk74P13Asi1bEEU=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1648485334; h=Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To; 
-	bh=rVSicid7cDP30cTP7xbd0CtnuhwtVXsNfPS2mJ2odxM=; 
-	b=Jt0xt/T/0Rz71KuHa6zuWpMAcgDyZiUvTgYzbKm4lEx6z88v2PHKcY7uJgBjYm3FIyYmY0sHSbNWLsD0wnfEFEPq96N9FEOZUZHrANdvKzVZBMbZic06PnB+clql8IXwr59r2uNv5hoMj+IovkV809S/UCu7NaX7cnDLTR0WgrQ=
+	t=1648485335; h=Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=uUcmLp9iUV0l9g/8T7dC0MuLoMQAvOO25/oX3bNXbyA=; 
+	b=adFuagm5xE9KYVSQMY2U+DnT61D/bo1d0TlEtb5p//SohFBDAM2zT1ZsT+MDq8lfxdFcVBG6ezhMDGjkfPeUGGVv3x5hp48YXjD9a9EQD22XCVHGOg1lLEWReXR0meGjaFtYlu0lVukfSAOvK5Bq80kYrHF/YHx7CCCEoteaUas=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1648485334;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1648485335;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Message-Id:Message-Id:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=rVSicid7cDP30cTP7xbd0CtnuhwtVXsNfPS2mJ2odxM=;
-	b=sbF8yx5QlHpQLANJ2Q+nGv8QxdV+s5LYtle4OSem00wnx7f1K/G8YKRE2YgZouX3
-	nWc+VtiBP/I4UeaVGCM2ecxHDAkjPJ2wy2OK0mislfLly8k5M6f2u8HFHfYNtO5zFv7
-	XT4ZIKgk9kivEF9cYZpI/VdINqo2XnguWeGZwvVE=
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
+	bh=uUcmLp9iUV0l9g/8T7dC0MuLoMQAvOO25/oX3bNXbyA=;
+	b=EfY7jhppw9ObHMCEsgHyVx6XeGiCZU/kVOmkxKKt2r+5iyB9yVfQZeRzHwSPu4Wl
+	5iAugho6+BZ9jm6GB7l5pXm1BLi0flK7ck3nUzWddJTvu+gD6/8rBm0F5l1cewWNEx3
+	FCdXuaA9tkzsl+DmvyErAJ0HX10n3g+B64rzvJrA=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: xen-devel@lists.xenproject.org
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	scott.davis@starlab.io,
-	jandryuk@gmail.com,
-	sstabellini@kernel.org
-Subject: [RFC PATCH 0/1] allow system domains to allocate event channels
-Date: Mon, 28 Mar 2022 16:36:21 -0400
-Message-Id: <20220328203622.30961-1-dpsmith@apertussolutions.com>
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	xen-devel@lists.xenproject.org
+Cc: scott.davis@starlab.io,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Subject: [RFC PATCH 1/1] xsm: allows system domains to allocate evtchn
+Date: Mon, 28 Mar 2022 16:36:22 -0400
+Message-Id: <20220328203622.30961-2-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20220328203622.30961-1-dpsmith@apertussolutions.com>
+References: <20220328203622.30961-1-dpsmith@apertussolutions.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-In the discussion thread on patch `[PATCH v3 2/5] xen: make
-evtchn_alloc_unbound public` there were a few suggestions on the appropriate
-way to handle allowing the hypervisor to allocate event channels for domains
-being constructed by dom0less and hyerplaunch. After taking another look at how
-to generalize the suggested approach to temporarily promote the idle domain to
-`is_privileged` it became clear there was a simpler and a longer term fix.
+During domain construction under dom0less and hyperlaunch it is necessary to
+allocate at least the event channel for xenstore and potentially the event
+channel for the core console. When dom0less and hyperlaunch are doing their
+construction logic they are executing under the idle domain context. The idle
+domain is not a privileged domain, it is not the target domain, and as a result
+under the current default XSM policy is not allowed to allocate the event
+channel.
 
-Since it was not discussed and with others are on limited time, I have not done
-any testing beyond making sure this compiles and therefore I am sending this as
-an RFC to allow everyone to review it. This also provides a patch should
-dom0less would like to include it into their patch series.
+This patch only addresses the event channel situation by adjust the default XSM
+policy for xsm_evtchn_unbound to explicitly allow system domains to be able to
+make the allocation call.
 
-Daniel P. Smith (1):
-  xsm: allows system domains to allocate evtchn
-
+Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+---
  xen/common/event_channel.c | 4 ++--
  xen/include/xsm/dummy.h    | 8 ++++++--
  2 files changed, 8 insertions(+), 4 deletions(-)
 
+diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
+index ffb042a241..c9c3876ee9 100644
+--- a/xen/common/event_channel.c
++++ b/xen/common/event_channel.c
+@@ -306,7 +306,7 @@ static int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
+         ERROR_EXIT_DOM(port, d);
+     chn = evtchn_from_port(d, port);
+ 
+-    rc = xsm_evtchn_unbound(XSM_TARGET, d, chn, alloc->remote_dom);
++    rc = xsm_evtchn_unbound(XSM_OTHER, d, chn, alloc->remote_dom);
+     if ( rc )
+         goto out;
+ 
+@@ -1366,7 +1366,7 @@ int alloc_unbound_xen_event_channel(
+         goto out;
+     chn = evtchn_from_port(ld, port);
+ 
+-    rc = xsm_evtchn_unbound(XSM_TARGET, ld, chn, remote_domid);
++    rc = xsm_evtchn_unbound(XSM_OTHER, ld, chn, remote_domid);
+     if ( rc )
+         goto out;
+ 
+diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
+index 58afc1d589..bd31ce43f9 100644
+--- a/xen/include/xsm/dummy.h
++++ b/xen/include/xsm/dummy.h
+@@ -294,8 +294,12 @@ static XSM_INLINE int cf_check xsm_claim_pages(XSM_DEFAULT_ARG struct domain *d)
+ static XSM_INLINE int cf_check xsm_evtchn_unbound(
+     XSM_DEFAULT_ARG struct domain *d, struct evtchn *chn, domid_t id2)
+ {
+-    XSM_ASSERT_ACTION(XSM_TARGET);
+-    return xsm_default_action(action, current->domain, d);
++    XSM_ASSERT_ACTION(XSM_OTHER);
++
++    if ( is_system_domain(current->domain) )
++        return xsm_default_action(XSM_HOOK, current->domain, d);
++    else
++        return xsm_default_action(XSM_TARGET, current->domain, d);
+ }
+ 
+ static XSM_INLINE int cf_check xsm_evtchn_interdomain(
 -- 
 2.20.1
 
