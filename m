@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 205AF4EAC84
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Mar 2022 13:42:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.295817.503547 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D627D4EAD4A
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Mar 2022 14:41:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.295826.503559 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZAEo-0002oH-Ml; Tue, 29 Mar 2022 11:42:14 +0000
+	id 1nZB8y-0000N6-7Z; Tue, 29 Mar 2022 12:40:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 295817.503547; Tue, 29 Mar 2022 11:42:14 +0000
+Received: by outflank-mailman (output) from mailman id 295826.503559; Tue, 29 Mar 2022 12:40:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZAEo-0002mF-Jc; Tue, 29 Mar 2022 11:42:14 +0000
-Received: by outflank-mailman (input) for mailman id 295817;
- Tue, 29 Mar 2022 11:42:13 +0000
+	id 1nZB8y-0000KT-4V; Tue, 29 Mar 2022 12:40:16 +0000
+Received: by outflank-mailman (input) for mailman id 295826;
+ Tue, 29 Mar 2022 12:40:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=kdRh=UI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nZAEn-0002m9-9u
- for xen-devel@lists.xenproject.org; Tue, 29 Mar 2022 11:42:13 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LOEZ=UI=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1nZB8w-0000KN-8R
+ for xen-devel@lists.xenproject.org; Tue, 29 Mar 2022 12:40:14 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 45f7367b-af55-11ec-8fbc-03012f2f19d4;
- Tue, 29 Mar 2022 13:42:12 +0200 (CEST)
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04lp2054.outbound.protection.outlook.com [104.47.14.54]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-26-pMUsyQh4O3-eNIn_7BRL2g-1; Tue, 29 Mar 2022 13:42:08 +0200
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
- by AM6PR0402MB3591.eurprd04.prod.outlook.com (2603:10a6:209:8::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.16; Tue, 29 Mar
- 2022 11:42:06 +0000
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::914d:e08d:7798:8476]) by DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::914d:e08d:7798:8476%5]) with mapi id 15.20.5102.023; Tue, 29 Mar 2022
- 11:42:06 +0000
+ id 5f4d4140-af5d-11ec-8fbc-03012f2f19d4;
+ Tue, 29 Mar 2022 14:40:10 +0200 (CEST)
+Received: by mail-lj1-x236.google.com with SMTP id bn33so23257754ljb.6
+ for <xen-devel@lists.xenproject.org>; Tue, 29 Mar 2022 05:40:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,151 +39,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45f7367b-af55-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1648554132;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zp2mMUYvEkM5FwPe/Frvx9p3jJVKKtOfKDZpTrno/nk=;
-	b=X3bm9Qxxbb4IUSNW3UQDKSRC32BSlJTEKkInSmL8ZT2RvTEq4X5N2p70rjHJWLLQQetdwS
-	SHrtAiHh8QmBpiRE+yh2Sw1ccoJ98ff7+MBsff5tdgKVGaY6UC340yxQwot9DlIJrQQI3Z
-	KEgcCOYuLQISGHKcZ0nAYRshg6gi9QA=
-X-MC-Unique: pMUsyQh4O3-eNIn_7BRL2g-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g9capGzp+1TtwMBTa68yOq0XZv9qfVSnRIjqyjZo1e5vkuLUAigUPtDZEL3uy+xU8aFkSw1gh7Bb7rhvhEj969tMOdu0PPYaYE0+N/GcMbNrHgYsPuW/vAPIpm6vMvrnRNpnhcds9YyS7RyrK0XErvgJsLHnjFlHtMVlCwsbcNTzc3yoSzZapbkPWFy3s/OObzJy/OBOhloPL3eXPwnCe4AB/Dr0jiXagvsEL3twZlGmxLufHV3LQnKFzEVvd4SiC99slL2ITeaLsakzQx+ux/H4IuA0aiTPqdkmODddR14sic1C8UY6jbXPL4ixG8gEjpa9BdZnipXZwhFlgZXKnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/Da0u2wt/JglFiSsVTCZaF9E4pnNdkGgZuM1GgmPz5Y=;
- b=C1+D1mm8bzPT+SgLQ4prZCEQeEwskHSRmm+ecsF9OSTuE/TKvRZ3DOxhfj3Vn/raL6Xy0Y/m8+JGjpsJtt5o9T6JviyTE6lD7gDJaEN7IxS/7jiYf0xt8+YKqYtaWpmHsmsl4htDlfKLaZqnDI9LocL/3NcZuWLTX5kdgku2tqhlo24L9BIQZXq/52lVDnmZECHFBibsCL/s/a9ie1M0Hwsa8aELwN8b/kGl9qRVvEhidHBjFx1rRp1ucLrZPOLTbetYr65WYg2PFQ+dWKHeOQu5whe7tRPwPkb6F+lCv1msnXSxqlBdTuCtVKAwiC5Jxix5Pa99E2BF2kfHnLkAUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <63a680c6-0086-230b-dbbd-dfe63609f9bc@suse.com>
-Date: Tue, 29 Mar 2022 13:42:04 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH v2 2/2] xen: Populate xen.lds.h and make use of its macros
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Michal Orzel <michal.orzel@arm.com>, xen-devel@lists.xenproject.org
-References: <20220322080233.53134-1-michal.orzel@arm.com>
- <20220322080233.53134-3-michal.orzel@arm.com>
- <2940b4c8-5d44-695e-4550-0a32c3a4c053@xen.org>
- <d5bccf50-c74a-40e6-843e-3ad682647efb@arm.com>
- <5121de30-644f-8a1f-ff1a-29c4d2ee7f0f@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <5121de30-644f-8a1f-ff1a-29c4d2ee7f0f@xen.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM6PR05CA0014.eurprd05.prod.outlook.com
- (2603:10a6:20b:2e::27) To DU2PR04MB8616.eurprd04.prod.outlook.com
- (2603:10a6:10:2db::16)
+X-Inumbo-ID: 5f4d4140-af5d-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=meoRQkZFMTcXV6JEU42Ih4CZwHdsdW0FOEJqDoWzoCc=;
+        b=jKqelk7xly3U8m2iKGY9D6gxBSZmMOw86kq8vnc/hTpXeqBPfg5STGToFWkaRV70V4
+         gKdifA1ru+ffMzOdnHIoq/Xwa/t1+bPr79q/ilO7BNxaNxvo57rj9jYT6AkL7ph6H0C2
+         OSeNl7RrH4bZmmpWUu03vAaxFR0uCCrwOY4+PV6/UeE13Y6Y0Z1Bg5BR/EQoKm4mRZXO
+         lnb6PYEcimK7KdURawYlyd1KcdoFza8WoU9TBrVyPfxTzCmY7ZCVuY+vvSZJYaNs6Evi
+         ZeG74/FEm9D5vdocA7M7RVN28VjVn9EHmE1YYup8NeNUB15N2PGRIKthvseSqg5CrMxn
+         artQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=meoRQkZFMTcXV6JEU42Ih4CZwHdsdW0FOEJqDoWzoCc=;
+        b=JxCjQJB3IwedOjN9VE3urrDx7kUXFEhebdeooORkMUsf1yCCQFzhE1O7X/lJT+wk4A
+         KSfaBLm12HiKlSa07AjvGcYSUleQl4hDY0ner/G1uhRQuOc/buVblRNJ9E8o/ssM4aiX
+         yAP8AU9XzXtCG+ZuSWLJkc8Uog0MRZbioq6FivCP5EBhq/k6zUNFSZkXDDEWGkOCqJLQ
+         m8kWBLCDcotJnFGtG8ebz1qm8XLhGpPW/T4dJDKkimorQ/x6IzsaOyNXuZqNAWyeowxm
+         0/ipBe/+BcED4zAIkaV7CQ6uJ1RKpWb8m5WK+knno0+m75e7y2QVcgYx3/sENd8RXwSm
+         0Stw==
+X-Gm-Message-State: AOAM531MKU5mOxKk1tFvhVvljjJc+LI914xoIBVNu/iKmx7lMt3ol/8t
+	aUO/9gXRBVorn4N7+2Fao3aBQ68QRNc8foM5/iQ=
+X-Google-Smtp-Source: ABdhPJzw5TUfnxbH3kJJlGwC3uc6mcAGuIqTatg+mNmLEATcp75fI/yhyfltbnlrYmK2a0PHtxmObmc7UJbhaAEnQPY=
+X-Received: by 2002:a2e:a372:0:b0:249:7108:6778 with SMTP id
+ i18-20020a2ea372000000b0024971086778mr2500477ljn.403.1648557612514; Tue, 29
+ Mar 2022 05:40:12 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 16b8e549-ff84-4f65-3aa3-08da1179267f
-X-MS-TrafficTypeDiagnostic: AM6PR0402MB3591:EE_
-X-Microsoft-Antispam-PRVS:
-	<AM6PR0402MB3591197EC7EE15EC4A15AB85B31E9@AM6PR0402MB3591.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	3KnE6WSsP8Th7KdMrqnW+Va4Kog+LBfJQhpg5ELORONbaY8dQJze1eY9HovLAv8+6dP1k2aUrBUQ9F8pt5K9Tqs0Zg4XUPDq2vSBLtZs0ZvPnH/1Av32I8Dfgw0nOdkfkaGjtSeM/QJqXA3RsrQRs7D8Zg9JpAkiKJaiUUpiyy/xlaW190a5kXPW1tqpiAsutXeawk34iZDnZoOCENEYIGwL2dMDt9iv3a+MzSdbBy8MxS6E/+cEVyD3tpadPNlDpEVorG65EBJ/to5jlM1jPhTnb4XOuXBD71GOS08VcUS/A/xmAcKuIW722lpaTFqfBZaJBpJDWPIXlEkbmBIRa6+OrI15u2+c8j3FXjdZt20Y6MKXwPj9RCTlZRae3ewfOUnOq+dd1HuPJUPWFViLSghRj6nw0KAgyYWy6sriSau+g21N9ZGdPTysxRWhWR4puc5Z/+nksioDBAO47OeiaY3LVB3eY4OCZoICtRvt9u6Xs0/95hnA35zTm7ccWzf7AbQbujFPvWBKqjvTHJcTG7nRAPtTOZKdh4xziwVIfuUZMIlwY0FWxNIvLo8phs8xduxxE1yTE0fruSFB2AN6DqIJdYVz2hBfBNU2zhho2kRivRlgNSNXFLHrxB3pU6SwNI48OFm3n4+moIXqmDZZizxCyAtEq/Dyx62jhJEsmPXaZsOeyS7KvSQKqX8BLYcQtST/g1ag3ojGau3pXVoDmCRxnp6xtHoBRl22JdUw5129PUViFkSicFbCTD/Q+Xmu
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(2616005)(86362001)(31696002)(186003)(66946007)(8676002)(26005)(38100700002)(4326008)(66556008)(66476007)(316002)(8936002)(6916009)(6486002)(6512007)(2906002)(508600001)(6506007)(36756003)(54906003)(5660300002)(7416002)(31686004)(53546011)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?zAKrR+3wIDswPEuzxUVyqxyoSeAqZy6hMgrblZDgANH1btUtMLyp0K65FhmB?=
- =?us-ascii?Q?LH8YDffB3Rewz2paaQ2x6UxG6r8iVERtn0mST0aMdGa13f22fndZ9cTrxMwV?=
- =?us-ascii?Q?Hw+YUoU7pTUT07uBOkMhQVP57LMMLEFmtPvicDdLTEnO7+jiKSX7xKX8HcoV?=
- =?us-ascii?Q?OCAHGW5CDHxTzzxDnQg6+fI925qOmPihlFqOGGcH8Htb6uYvPJTA92sNEWe1?=
- =?us-ascii?Q?aBjay/gXWg3r6T2Zqvd9WceAmXr32/gpa6EFga8wogpgZBdkbdgawKvpJH7o?=
- =?us-ascii?Q?idhjT1FS9RcwiXZXcG/uKHhsf3Inj73KSkdjLyJoyxxEODqVAnl89ay3U38L?=
- =?us-ascii?Q?i06RgBdtz9QA5baLJ68E8nsWcEZETvzL3JmUz1iewsF8SzILDZj2Hlan0SnK?=
- =?us-ascii?Q?EyqZKhAybTW2zlaeAKKMXmmjwfodDMwOBamIv9vYJ33thGp0uGCGZrz9icsy?=
- =?us-ascii?Q?WdF+W1+MlDMGVueyk11UXUCXB3dG9KKZJ6uLyHI6S4iAo2erYy75gx0yn/0l?=
- =?us-ascii?Q?RVtVchYjDoFY/Yew7V5rVVDFPc3x+fHgzBwLglHl5N0FGjSiOz2jJoS+YRey?=
- =?us-ascii?Q?RSrxxO1dCIockHoszLNzN3RlWwCrpEW6hOcPj9cd0eHPGqyuKx1HoiHNrJnl?=
- =?us-ascii?Q?pK0Nh3IQi5joxPUxvDClEPDND0g4eWMpPoiRxnMQXWiKr+5Hz9Ryuci4kZvk?=
- =?us-ascii?Q?PEzbFqKus8lTNrBkiIPp3Xqlutbp1JiPu/nr/u+UgFYnCdDdpA7BHHPHPzbF?=
- =?us-ascii?Q?Mz2oW1w/fgkQk++dH1VIFzf6i97E37yl/K+5Mqi1PxBXUrM7sxKZOQyae6ok?=
- =?us-ascii?Q?03zyADsksSSqxBaUpg1e6SxTY5IDcI7muhaOwelxgcHIFba+zYv2ZkN/FM3+?=
- =?us-ascii?Q?PmlgS9iFP6VZP2mdsEojsKFEfwQKjBCTfaRFZlGDGDLKBCDSXPmYg9s5sF7h?=
- =?us-ascii?Q?+6zRLexVqfi9SAT0wgy27V0QXFQM+1lWAXOald/HdFe8crRyP7rCfA0lTbL5?=
- =?us-ascii?Q?aAqX+90OHmYfzcbrvK+rsyqJp+YHibCBJutyp3q3jKBdM+fGoC3O8Q5DV5Cv?=
- =?us-ascii?Q?CLIb47dSm6c/dzTDylmqWdttgVkmdrR3oPLaLZOvApwuxBnaiIik0pTrmJVD?=
- =?us-ascii?Q?+n05o3+z/Cd7PXqWTGTRF+qdx9WmDe572o9CptksyaCb2Jm0jdWzGnOiFYRU?=
- =?us-ascii?Q?7nd7V8Tuzx5izJHc/yj1Ipik0kj+wzvblF6Hfmn7Bj2iJ7TD9+oDxqteRc1H?=
- =?us-ascii?Q?JwkhyGUMO8/94dwdr455ukVfAOiym7zafju0RtmR/M/Jx0cXDhhw5liQyt4l?=
- =?us-ascii?Q?s0xw5VR904MulXskzFinKJf6SaZn/u3ml86ivxufTzqlE/FSOgirhxl+bI5q?=
- =?us-ascii?Q?BXETB0OPgX7XU2QSyonlC1hC0qn41tPxab9uYJVWHbnT7Cog7DgvceSnVWrF?=
- =?us-ascii?Q?ilXgbkPFg3HStoXduNmShXifDkHPhcrR0MqEEuUMzWwO/VaIJAoAM9GaHig4?=
- =?us-ascii?Q?ItjvOwx1/Jf7jk1g56JaL2tSaS421/0DgzR3hiVwIdqpK6xvW2tQ4vmPzar1?=
- =?us-ascii?Q?Wv/BtHE8F1E1mDamHyPDhkpG3PCbpHbdiHV7Tvg+Hc69MSAKz32ec5KWOFxz?=
- =?us-ascii?Q?tFaCQyCrIcmLUhoKYk2krMJtRziw1A8C1lHCpO1myeQmGrbYLp9zpVFLT58m?=
- =?us-ascii?Q?5rRi+9TdXivf76ee31xGOg/0VFIZQQ4xvuE5f9mvy4zC6vse35UoJKtMYVDc?=
- =?us-ascii?Q?Bsr5aK+nNA=3D=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 16b8e549-ff84-4f65-3aa3-08da1179267f
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2022 11:42:06.1714
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5BAqjgBks0t5Ab7oQM8h6nJt4phSmDBebcDQSLxDPfHQhsXctOT9RK7FzMv7F6KKIClszI+8irCiU73ecffC2w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR0402MB3591
+References: <20220325141826.16245-1-jandryuk@gmail.com> <YkGevRlIpAlCDox7@Air-de-Roger>
+ <7ee0889c-c9ae-c11f-7308-25e7d5a14815@suse.com>
+In-Reply-To: <7ee0889c-c9ae-c11f-7308-25e7d5a14815@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Tue, 29 Mar 2022 08:40:00 -0400
+Message-ID: <CAKf6xpswv187bfJ2MTFSO4azmM0V_xSa=U5pcF1Qibzo6NFHrQ@mail.gmail.com>
+Subject: Re: [PATCH] x86/physdev: Call xsm_unmap_domain_irq earlier
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	xen-devel <xen-devel@lists.xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Wei Liu <wl@xen.org>, "Daniel P. Smith" <dpsmith.dev@gmail.com>, 
+	Daniel Smith <dpsmith@apertussolutions.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 29.03.2022 12:54, Julien Grall wrote:
-> On 29/03/2022 11:12, Michal Orzel wrote:
->> On 29.03.2022 11:54, Julien Grall wrote:
->>> On 22/03/2022 08:02, Michal Orzel wrote:
->>>> --- a/xen/include/xen/xen.lds.h
->>>> +++ b/xen/include/xen/xen.lds.h
->>>> @@ -5,4 +5,104 @@
->>>>  =C2=A0=C2=A0 * Common macros to be used in architecture specific link=
-er scripts.
->>>>  =C2=A0=C2=A0 */
->>>>  =C2=A0 +/* Macros to declare debug sections. */
->>>> +#ifdef EFI
->>>
->>> AFAIK, we don't define EFI on Arm (just CONFIG_EFI). Yet we do support =
-EFI on arm64.
->>>
->>> As this #ifdef is now in generic code, can you explain how this is mean=
-t to be used?
->>>
->> As we do not define EFI on arm, all the stuff protected by #ifdef EFI is=
- x86 specific.
->=20
-> I find the name "EFI" too generic to figure out that this code can only=20
-> be used by x86.
->=20
-> But, from my understanding, this header is meant to contain generic=20
-> code. It feels a bit odd that we are moving arch specific code.
->=20
-> To be honest, I don't quite understand why we need to make the=20
-> diffferentiation on x86. So I guess the first question is how this is=20
-> meant to be used on x86?
+On Mon, Mar 28, 2022 at 8:44 AM Jan Beulich <jbeulich@suse.com> wrote:
+>
+> On 28.03.2022 13:40, Roger Pau Monn=C3=A9 wrote:
+> > On Fri, Mar 25, 2022 at 10:18:26AM -0400, Jason Andryuk wrote:
+> >> Pull the XSM check up out of unmap_domain_pirq into physdev_map_pirq.
+> >>
+> >> xsm_unmap_domain_irq was seen denying unmap_domain_pirq when called fr=
+om
+> >> complete_domain_destroy as an RCU callback.  The source context was an
+> >> unexpected, random domain.  Since this is a xen-internal operation,
+> >> going through the XSM hook is inapproriate.
+> >>
+> >> Move the XSM hook up into physdev_unmap_pirq, which is the
+> >> guest-accessible path.  This requires moving some of the sanity check
+> >> upwards as well since the hook needs the additional data to make its
+> >> decision.  Since complete_domain_destroy still calls unmap_domain_pirq=
+,
+> >> replace the moved runtime checking with assert.  Only valid pirqs shou=
+ld
+> >> make their way into unmap_domain_pirq from complete_domain_destroy.
+> >>
+> >> This is mostly code movement, but one style change is to pull `irq =3D
+> >> info->arch.irq` out of the if condition.
+>
+> And why is this better? You now have an extra conditional expression
+> there.
 
-We produce two linker scripts from the single source file: One (with EFI
-undefined) to link the ELF binary, and another (with EFI defined) to link
-the PE/COFF output. If "EFI" is too imprecise as a name for the identifier,
-I wouldn't mind renaming it (to PE_COFF?), but at the same time I'm not
-convinced this is really necessary.
+It's better because it is clearer.  The location is more readily
+visible when scanning the code.  It fits the pattern of `variable =3D
+something`.  Assigning inside the if condition makes it harder to see
+where a variable is assigned, which is why I made the change.
 
-Jan
+This is the non-movement diff:
 
+     info =3D pirq_info(d, pirq);
+-    if ( !info || (irq =3D info->arch.irq) <=3D 0 )
++    irq =3D info ? info->arch.irq : 0;
++    if ( !info || irq <=3D 0 )
+     {
+
+But given comments below, it seems this movement is not going to
+happen, so this change will be dropped.
+
+> >> Label done is now unused and removed.
+> >>
+> >> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> >> ---
+> >> unmap_domain_pirq is also called in vioapic_hwdom_map_gsi and
+> >> vpci_msi_disable.  vioapic_hwdom_map_gsi is a cleanup path after going
+> >> through map_domain_pirq, and I don't think the vpci code is directly
+> >> guest-accessible.  So I think those are okay, but I not familiar with
+> >> that code.  Hence, I am highlighting it.
+> >
+> > Hm, for vpci_msi_disable it's not technically correct to drop the XSM
+> > check. This is a guests accessible path, however the value of PIRQ is
+> > not settable by the guest, so it's kind of OK just for that reason.
+
+Right, that's why I was figuring it was okay.  If Xen is handling it
+internally, it doesn't have to worry about untrusted data.
+
+> Kind of - perhaps. But better to avoid if possible.
+
+But I can also see how it is safer to leave the check in place.  It's
+better to go through an unnecessary XSM check than to not have a check
+at all.
+
+> Hence I would prefer
+> the ->is_dying alternative you suggest at the end.
+
+I had not considered the ->is_dying option.  At first glance, it seems
+like it would work.
+
+I was hoping that we could determine that only sanitized data would
+make it into unmap_domain_pirq.  Then we can restructure the code
+instead of adding a condition to skip the XSM hook.  But if this
+function is guest accessible via vpci, then the XSM check should
+remain.
+
+Regards,
+Jason
 
