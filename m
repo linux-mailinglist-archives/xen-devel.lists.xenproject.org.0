@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C7684EC309
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Mar 2022 14:14:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.296282.504283 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABE6E4EC30F
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Mar 2022 14:20:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.296287.504293 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZXCz-0001z5-LH; Wed, 30 Mar 2022 12:13:53 +0000
+	id 1nZXJC-0003Ov-Au; Wed, 30 Mar 2022 12:20:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 296282.504283; Wed, 30 Mar 2022 12:13:53 +0000
+Received: by outflank-mailman (output) from mailman id 296287.504293; Wed, 30 Mar 2022 12:20:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZXCz-0001x1-Hs; Wed, 30 Mar 2022 12:13:53 +0000
-Received: by outflank-mailman (input) for mailman id 296282;
- Wed, 30 Mar 2022 12:13:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5iAL=UJ=arm.com=michal.orzel@srs-se1.protection.inumbo.net>)
- id 1nZXCy-0001wv-Cw
- for xen-devel@lists.xenproject.org; Wed, 30 Mar 2022 12:13:52 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id db9803be-b022-11ec-8fbc-03012f2f19d4;
- Wed, 30 Mar 2022 14:13:50 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AA52D1477;
- Wed, 30 Mar 2022 05:13:49 -0700 (PDT)
-Received: from [10.57.8.78] (unknown [10.57.8.78])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 70C803F718;
- Wed, 30 Mar 2022 05:13:47 -0700 (PDT)
+	id 1nZXJC-0003Md-7t; Wed, 30 Mar 2022 12:20:18 +0000
+Received: by outflank-mailman (input) for mailman id 296287;
+ Wed, 30 Mar 2022 12:20:16 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nZXJA-0003MR-Kl; Wed, 30 Mar 2022 12:20:16 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nZXJA-0001rI-Go; Wed, 30 Mar 2022 12:20:16 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nZXJA-0004lO-4s; Wed, 30 Mar 2022 12:20:16 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nZXJA-0007yO-4C; Wed, 30 Mar 2022 12:20:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,118 +42,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db9803be-b022-11ec-8fbc-03012f2f19d4
-Message-ID: <168143f7-11e3-1acb-2de1-dba1a0db4ad3@arm.com>
-Date: Wed, 30 Mar 2022 14:13:36 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH v2 2/2] xen: Populate xen.lds.h and make use of its macros
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>
-References: <20220322080233.53134-1-michal.orzel@arm.com>
- <20220322080233.53134-3-michal.orzel@arm.com>
- <2940b4c8-5d44-695e-4550-0a32c3a4c053@xen.org>
- <d5bccf50-c74a-40e6-843e-3ad682647efb@arm.com>
- <5121de30-644f-8a1f-ff1a-29c4d2ee7f0f@xen.org>
- <63a680c6-0086-230b-dbbd-dfe63609f9bc@suse.com>
- <b0b49926-9a70-37f1-43d4-ac4e852198ba@xen.org>
- <1013a14b-a45b-f37f-b2e0-e63b186a2956@suse.com>
- <ffa0e581-6a32-5c3c-7e63-acd5086c6822@arm.com>
- <e3a045d5-34d3-af73-89a7-7c306e7f8de4@suse.com>
-From: Michal Orzel <michal.orzel@arm.com>
-In-Reply-To: <e3a045d5-34d3-af73-89a7-7c306e7f8de4@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=5guNy2j65GfvHNFAXGyJLxRI3GVi0bJtgBtYPlgvJR0=; b=wXVSmOWmWQKbFyuhGcG6LG/4Uu
+	sxl30JKULwVqe8XeraTmJBP12f6yoXJGg/GwNCGgyfDc3Tdigqpr13q0xMeZ++ky7oaMN5cxdwB+h
+	HE3eDMdic8JvASDh9dCUt8N+ge90l71WEdsqNKidSvGKrHNCGD4KbZWyD6fcWLKrMdJY=;
+To: xen-devel@lists.xenproject.org
+Subject: [xen-4.15-testing bisection] complete test-amd64-i386-livepatch
+Message-Id: <E1nZXJA-0007yO-4C@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 30 Mar 2022 12:20:16 +0000
+
+branch xen-4.15-testing
+xenbranch xen-4.15-testing
+job test-amd64-i386-livepatch
+testid livepatch-run
+
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  be9facf323b40b5a18c5e3f70fce5b245818c42f
+  Bug not present: 74aeb555745b27575c3f82051a83942ee05bd842
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/169023/
 
 
+  commit be9facf323b40b5a18c5e3f70fce5b245818c42f
+  Author: Bjoern Doebel <doebel@amazon.de>
+  Date:   Thu Mar 10 07:35:36 2022 +0000
+  
+      xen/x86: Livepatch: support patching CET-enhanced functions
+      
+      Xen enabled CET for supporting architectures. The control flow aspect of
+      CET require functions that can be called indirectly (i.e., via function
+      pointers) to start with an ENDBR64 instruction. Otherwise a control flow
+      exception is raised.
+      
+      This expectation breaks livepatching flows because we patch functions by
+      overwriting their first 5 bytes with a JMP + <offset>, thus breaking the
+      ENDBR64. We fix this by checking the start of a patched function for
+      being ENDBR64. In the positive case we move the livepatch JMP to start
+      behind the ENDBR64 instruction.
+      
+      To avoid having to guess the ENDBR64 offset again on patch reversal
+      (which might race with other mechanisms adding/removing ENDBR
+      dynamically), use the livepatch metadata to store the computed offset
+      along with the saved bytes of the overwritten function.
+      
+      Signed-off-by: Bjoern Doebel <doebel@amazon.de>
+      Acked-by: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+      Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+      Tested-by: Jiamei Xie <jiamei.xie@arm.com>
+      (cherry picked from commit 6974c75180f1aad44e5428eabf2396b2b50fb0e4)
+      
+      Note: For backports to 4.14 thru 4.16, there is no endbr-clobbering, hence no
+            is_endbr64_poison() logic.
 
-On 30.03.2022 13:57, Jan Beulich wrote:
-> On 30.03.2022 13:04, Michal Orzel wrote:
->> Hello,
->>
->> On 30.03.2022 12:42, Jan Beulich wrote:
->>> On 30.03.2022 12:32, Julien Grall wrote:
->>>> On 29/03/2022 12:42, Jan Beulich wrote:
->>>>> On 29.03.2022 12:54, Julien Grall wrote:
->>>>>> On 29/03/2022 11:12, Michal Orzel wrote:
->>>>>>> On 29.03.2022 11:54, Julien Grall wrote:
->>>>>>>> On 22/03/2022 08:02, Michal Orzel wrote:
->>>>>>>>> --- a/xen/include/xen/xen.lds.h
->>>>>>>>> +++ b/xen/include/xen/xen.lds.h
->>>>>>>>> @@ -5,4 +5,104 @@
->>>>>>>>>      * Common macros to be used in architecture specific linker scripts.
->>>>>>>>>      */
->>>>>>>>>     +/* Macros to declare debug sections. */
->>>>>>>>> +#ifdef EFI
->>>>>>>>
->>>>>>>> AFAIK, we don't define EFI on Arm (just CONFIG_EFI). Yet we do support EFI on arm64.
->>>>>>>>
->>>>>>>> As this #ifdef is now in generic code, can you explain how this is meant to be used?
->>>>>>>>
->>>>>>> As we do not define EFI on arm, all the stuff protected by #ifdef EFI is x86 specific.
->>>>>>
->>>>>> I find the name "EFI" too generic to figure out that this code can only
->>>>>> be used by x86.
->>>>>>
->>>>>> But, from my understanding, this header is meant to contain generic
->>>>>> code. It feels a bit odd that we are moving arch specific code.
->>>>>>
->>>>>> To be honest, I don't quite understand why we need to make the
->>>>>> diffferentiation on x86. So I guess the first question is how this is
->>>>>> meant to be used on x86?
->>>>>
->>>>> We produce two linker scripts from the single source file: One (with EFI
->>>>> undefined) to link the ELF binary, and another (with EFI defined) to link
->>>>> the PE/COFF output. If "EFI" is too imprecise as a name for the identifier,
->>>>> I wouldn't mind renaming it (to PE_COFF?), but at the same time I'm not
->>>>> convinced this is really necessary.
->>>>
->>>> Thank for the explanation (and the other ones in this thread). You are 
->>>> right the confusion arised from "generating" vs "linking".
->>>>
->>>> Renaming to PE_COFF may help to avoid the confusion with CONFIG_EFI. 
->>>> That said, it would possibly make more difficult to associate the flag 
->>>> with "linking an EFI binary".
->>>
->>> Indeed. And EFI_PE_COFF is getting a little unwieldy for my taste.
->>>
->>>> I think some documentaion about the define EFI would be help so there 
->>>> are no more confusion between CONFIG_EFI/EFI. But I am not sure where to 
->>>> put it. Maybe at the top of the header?
->>>
->>> That's perhaps the best place, yes.
->>>
->> In this case how about the following comment at the top of xen.lds.h:
->>
->> "To avoid any confusion about EFI macro used in this header vs EFI support,
->> the former is used when linking a native EFI (i.e. PE/COFF) binary, whereas
->> the latter means support for generating EFI binary.
-> 
-> No, that's the case on Arm only. As Julien suggested, it is perhaps best
-> to explain the difference between EFI and CONFIG_EFI, without going into
-> arch specifics.
-Could you please tell me what you are reffering to as there is no such identifier
-in Xen (as opposed to Linux) like CONFIG_EFI ?
 
-> 
-> Jan
-> 
->> Currently EFI macro is
->> only defined by x86 to link PE/COFF output, however it is not unique to this
->> architecture."
->>
->> Cheers,
->> Michal
->>
-> 
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-4.15-testing/test-amd64-i386-livepatch.livepatch-run.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
 
-Michal
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-4.15-testing/test-amd64-i386-livepatch.livepatch-run --summary-out=tmp/169023.bisection-summary --basis-template=168502 --blessings=real,real-bisect,real-retry xen-4.15-testing test-amd64-i386-livepatch livepatch-run
+Searching for failure / basis pass:
+ 168970 fail [host=huxelrebe0] / 168502 [host=chardonnay0] 168483 [host=huxelrebe1] 168135 [host=albana1] 168062 [host=albana0] 168014 [host=fiano1] 167996 ok.
+Failure / basis pass flights: 168970 / 167996
+(tree with no url: minios)
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b1b89f9009f2390652e0061bd7b24fc40732bc70 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 d239552ce7220e448ae81f41515138f7b9e3c4db bb43e0e1ca20dff14536b7c90ff870f3f50bff8f
+Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 33189f05278345eab608ff56e87905bdeacdbd47 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 dc776a2d9ca9e1b857e880ff682668871369b4c3 3a9450fe5eb0fda8b7069f37d21ce2655bb59da6
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#33189f05278345eab608ff56e87905bdeacdbd47-b1b89f9009f2390652e0061bd7b24fc40732bc70 git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c74\
+ 37ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#e2af2d050338c99e8436e251ad67aafb3ebbd501-6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 git://xenbits.xen.org/osstest/seabios.git#dc776a2d9ca9e1b857e880ff682668871369b4c3-d239552ce7220e448ae81f41515138f7b9e3c4db git://xenbits.xen.org/xen.git#3a9450fe5eb0fda8b7069f37d21ce2655bb59da6-bb43e0e1ca20dff14536b7c90ff870f3f50bff8f
+Loaded 12651 nodes in revision graph
+Searching for test results:
+ 167996 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 33189f05278345eab608ff56e87905bdeacdbd47 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 dc776a2d9ca9e1b857e880ff682668871369b4c3 3a9450fe5eb0fda8b7069f37d21ce2655bb59da6
+ 168014 [host=fiano1]
+ 168062 [host=albana0]
+ 168135 [host=albana1]
+ 168483 [host=huxelrebe1]
+ 168502 [host=chardonnay0]
+ 168863 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b1b89f9009f2390652e0061bd7b24fc40732bc70 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 d239552ce7220e448ae81f41515138f7b9e3c4db 3c8e7395e2d01140c862c78fa9483e46c0dbd343
+ 168970 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b1b89f9009f2390652e0061bd7b24fc40732bc70 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 d239552ce7220e448ae81f41515138f7b9e3c4db bb43e0e1ca20dff14536b7c90ff870f3f50bff8f
+ 168990 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 33189f05278345eab608ff56e87905bdeacdbd47 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 dc776a2d9ca9e1b857e880ff682668871369b4c3 3a9450fe5eb0fda8b7069f37d21ce2655bb59da6
+ 168994 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b1b89f9009f2390652e0061bd7b24fc40732bc70 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 d239552ce7220e448ae81f41515138f7b9e3c4db bb43e0e1ca20dff14536b7c90ff870f3f50bff8f
+ 168998 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8a576733162bb72afb4d1eb3012b0aef8d265018 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 829b0f1a7cda1bccdf44a379fb3a96e519a7e8cd ef47070bbb918e8786011242e8d94e071c35ed0f
+ 169000 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b1b89f9009f2390652e0061bd7b24fc40732bc70 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 d239552ce7220e448ae81f41515138f7b9e3c4db cd751c09a5bab9f3529901fbe4d867ad7d52e89d
+ 169001 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b1b89f9009f2390652e0061bd7b24fc40732bc70 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 d239552ce7220e448ae81f41515138f7b9e3c4db c3fed31049240de3583e0e1bbea2b3b6278afa2a
+ 169005 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b1b89f9009f2390652e0061bd7b24fc40732bc70 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 d239552ce7220e448ae81f41515138f7b9e3c4db 67fa16fbc29ebc127372450fcb09a022269f556f
+ 169008 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b1b89f9009f2390652e0061bd7b24fc40732bc70 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 d239552ce7220e448ae81f41515138f7b9e3c4db c3407c77a02eb9077ce2360df6240a9b0e9cb7db
+ 169010 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b1b89f9009f2390652e0061bd7b24fc40732bc70 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 d239552ce7220e448ae81f41515138f7b9e3c4db 74aeb555745b27575c3f82051a83942ee05bd842
+ 169012 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b1b89f9009f2390652e0061bd7b24fc40732bc70 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 d239552ce7220e448ae81f41515138f7b9e3c4db be9facf323b40b5a18c5e3f70fce5b245818c42f
+ 169018 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b1b89f9009f2390652e0061bd7b24fc40732bc70 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 d239552ce7220e448ae81f41515138f7b9e3c4db 74aeb555745b27575c3f82051a83942ee05bd842
+ 169020 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b1b89f9009f2390652e0061bd7b24fc40732bc70 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 d239552ce7220e448ae81f41515138f7b9e3c4db be9facf323b40b5a18c5e3f70fce5b245818c42f
+ 169022 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b1b89f9009f2390652e0061bd7b24fc40732bc70 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 d239552ce7220e448ae81f41515138f7b9e3c4db 74aeb555745b27575c3f82051a83942ee05bd842
+ 169023 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b1b89f9009f2390652e0061bd7b24fc40732bc70 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 d239552ce7220e448ae81f41515138f7b9e3c4db be9facf323b40b5a18c5e3f70fce5b245818c42f
+Searching for interesting versions
+ Result found: flight 167996 (pass), for basis pass
+ For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b1b89f9009f2390652e0061bd7b24fc40732bc70 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 d239552ce7220e448ae81f41515138f7b9e3c4db 74aeb555745b27575c3f82051a83942ee05bd842, results HASH(0x5599d0d4c1a8) HASH(0x5599d0d31948) HASH(0x5599d0d4d250) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1\
+ e6a472b0eb9558310b518f0dfcd8860 b1b89f9009f2390652e0061bd7b24fc40732bc70 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 d239552ce7220e448ae81f41515138f7b9e3c4db c3407c77a02eb9077ce2360df6240a9b0e9cb7db, results HASH(0x5599d0d49398) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b1b89f9009f2390652e0061bd7b24fc40732bc70 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a4\
+ 75e1eb91b9f756e5 d239552ce7220e448ae81f41515138f7b9e3c4db 67fa16fbc29ebc127372450fcb09a022269f556f, results HASH(0x5599d0d47390) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b1b89f9009f2390652e0061bd7b24fc40732bc70 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 d239552ce7220e448ae81f41515138f7b9e3c4db c3fed31049240de3583e0e1bbea2b3b6278afa2a, results HASH(0x5599d0d45388) For basis\
+  failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b1b89f9009f2390652e0061bd7b24fc40732bc70 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 d239552ce7220e448ae81f41515138f7b9e3c4db cd751c09a5bab9f3529901fbe4d867ad7d52e89d, results HASH(0x5599d0d44160) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8a576733162bb72afb4d\
+ 1eb3012b0aef8d265018 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 829b0f1a7cda1bccdf44a379fb3a96e519a7e8cd ef47070bbb918e8786011242e8d94e071c35ed0f, results HASH(0x5599d0d42158) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 33189f05278345eab608ff56e87905bdeacdbd47 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e2af2d050338c99e8436e251ad67aafb3ebbd501 dc776a2d9ca9e1b857e880ff68266887136\
+ 9b4c3 3a9450fe5eb0fda8b7069f37d21ce2655bb59da6, results HASH(0x5599d0d365e0) HASH(0x5599d0d39b10) Result found: flight 168863 (fail), for basis failure (at ancestor ~418)
+ Repro found: flight 168990 (pass), for basis pass
+ Repro found: flight 168994 (fail), for basis failure
+ 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b1b89f9009f2390652e0061bd7b24fc40732bc70 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6503bd6a1b5364ffd346a8a475e1eb91b9f756e5 d239552ce7220e448ae81f41515138f7b9e3c4db 74aeb555745b27575c3f82051a83942ee05bd842
+No revisions left to test, checking graph state.
+ Result found: flight 169010 (pass), for last pass
+ Result found: flight 169012 (fail), for first failure
+ Repro found: flight 169018 (pass), for last pass
+ Repro found: flight 169020 (fail), for first failure
+ Repro found: flight 169022 (pass), for last pass
+ Repro found: flight 169023 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  be9facf323b40b5a18c5e3f70fce5b245818c42f
+  Bug not present: 74aeb555745b27575c3f82051a83942ee05bd842
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/169023/
+
+
+  commit be9facf323b40b5a18c5e3f70fce5b245818c42f
+  Author: Bjoern Doebel <doebel@amazon.de>
+  Date:   Thu Mar 10 07:35:36 2022 +0000
+  
+      xen/x86: Livepatch: support patching CET-enhanced functions
+      
+      Xen enabled CET for supporting architectures. The control flow aspect of
+      CET require functions that can be called indirectly (i.e., via function
+      pointers) to start with an ENDBR64 instruction. Otherwise a control flow
+      exception is raised.
+      
+      This expectation breaks livepatching flows because we patch functions by
+      overwriting their first 5 bytes with a JMP + <offset>, thus breaking the
+      ENDBR64. We fix this by checking the start of a patched function for
+      being ENDBR64. In the positive case we move the livepatch JMP to start
+      behind the ENDBR64 instruction.
+      
+      To avoid having to guess the ENDBR64 offset again on patch reversal
+      (which might race with other mechanisms adding/removing ENDBR
+      dynamically), use the livepatch metadata to store the computed offset
+      along with the saved bytes of the overwritten function.
+      
+      Signed-off-by: Bjoern Doebel <doebel@amazon.de>
+      Acked-by: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+      Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+      Tested-by: Jiamei Xie <jiamei.xie@arm.com>
+      (cherry picked from commit 6974c75180f1aad44e5428eabf2396b2b50fb0e4)
+      
+      Note: For backports to 4.14 thru 4.16, there is no endbr-clobbering, hence no
+            is_endbr64_poison() logic.
+
+Revision graph left in /home/logs/results/bisect/xen-4.15-testing/test-amd64-i386-livepatch.livepatch-run.{dot,ps,png,html,svg}.
+----------------------------------------
+169023: tolerable ALL FAIL
+
+flight 169023 xen-4.15-testing real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169023/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ test-amd64-i386-livepatch    13 livepatch-run           fail baseline untested
+
+
+jobs:
+ test-amd64-i386-livepatch                                    fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
 
