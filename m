@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47DE54EC9A4
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Mar 2022 18:25:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.296438.504576 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A908A4EC9A6
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Mar 2022 18:28:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.296442.504587 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZb7K-0005GN-SN; Wed, 30 Mar 2022 16:24:18 +0000
+	id 1nZbBY-0005vT-Dp; Wed, 30 Mar 2022 16:28:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 296438.504576; Wed, 30 Mar 2022 16:24:18 +0000
+Received: by outflank-mailman (output) from mailman id 296442.504587; Wed, 30 Mar 2022 16:28:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZb7K-0005EZ-PE; Wed, 30 Mar 2022 16:24:18 +0000
-Received: by outflank-mailman (input) for mailman id 296438;
- Wed, 30 Mar 2022 16:24:16 +0000
+	id 1nZbBY-0005sl-As; Wed, 30 Mar 2022 16:28:40 +0000
+Received: by outflank-mailman (input) for mailman id 296442;
+ Wed, 30 Mar 2022 16:28:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=L21/=UJ=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1nZb7I-0005ES-A8
- for xen-devel@lists.xenproject.org; Wed, 30 Mar 2022 16:24:16 +0000
+ id 1nZbBX-0005sf-8D
+ for xen-devel@lists.xenproject.org; Wed, 30 Mar 2022 16:28:39 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
  [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d51d4435-b045-11ec-8fbc-03012f2f19d4;
- Wed, 30 Mar 2022 18:24:13 +0200 (CEST)
+ id 7334c19b-b046-11ec-8fbc-03012f2f19d4;
+ Wed, 30 Mar 2022 18:28:38 +0200 (CEST)
 Received: from [10.10.1.138] (static-72-81-132-2.bltmmd.fios.verizon.net
  [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1648657447329576.4366358354467;
- Wed, 30 Mar 2022 09:24:07 -0700 (PDT)
+ with SMTPS id 1648657711464399.6184339127499;
+ Wed, 30 Mar 2022 09:28:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,30 +40,31 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d51d4435-b045-11ec-8fbc-03012f2f19d4
-ARC-Seal: i=1; a=rsa-sha256; t=1648657448; cv=none; 
+X-Inumbo-ID: 7334c19b-b046-11ec-8fbc-03012f2f19d4
+ARC-Seal: i=1; a=rsa-sha256; t=1648657713; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=mqfRIv0CMhfE4N/Y5btypUD8sfBaqlQaTZnxsSRQ0IikEv2y1acFzm7irSqT2S6W4TlAIR0J3wtUcn9t/gibF62EaNYF0q49ihux1K7u8MrChUvy4SEULTjsxT+y73AHq0LGFQJWVbHZCl5XyLB/RI7JCyC4xbSOnWIKbQy0oZg=
+	b=WcTcYjXxD3izUJgEBDGMOVleIxLfLbHeSY7K3Za0keN652zV2yNsMuMDEQlnJiLIZpY04f69xAi346iiR3kxiHJ6KZEW8WDFnoTYJQaIi7UL0qdkjLeTQZTCoO8LNrtCkVBtIlnNY4bOXV61y4Cy+QfezfvkKwo8aDpovRoI3Y8=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1648657448; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=y7BDcaXHCElSfh8WOJgZ7bN/ulI6GrlTBoJ1hQ5NRuM=; 
-	b=hhJn4bWmk79ZiJoldCjyNbTi1xy5lmmTpG2fJwaBwGBgR+X8V8IAZf4YE6wEethK0mJ9fvoKXaEag3BciIBA+P45badrVE26AE+R+pURVbkcCk19f7tG0JE84bAhStStKl1/MP2BzLQM67Tj9gBjOP5+QND5bQxFPSCFn+nUwA8=
+	t=1648657713; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=QCCZ8ho3M1TzHGqKp9aZP8JJ+ODHrM5J8iw4Po+J/Wk=; 
+	b=LcPFWyXxB8WKz2rOeRZ9Z7BbQK5IRtnQTZwwcComu+2zQY6zVkeUA5T0O9dWKem7oV4ZCSAAnNVROaFQH3KbnUc9ltbFCYzWCfaIeSzUkncOyYePO5aomGQ3d7yvGcypsf2yI5LBE84Q8Oc8r7/8lWhI9v6C7NgyfOrgIzP7dSQ=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1648657448;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1648657713;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:MIME-Version:To:To:Cc:Cc:References:From:From:Subject:Subject:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=y7BDcaXHCElSfh8WOJgZ7bN/ulI6GrlTBoJ1hQ5NRuM=;
-	b=T3hDHdZ6y9L9EWpMH728SaMRVvYyKTz3+q+/IBANMG4gXUNyar1ck4k0rFdYFExS
-	0rXhM9SflnjAtGl7lAwFL96I+VPR9s0lmvITunwJ2AXuQML/hjaIkts09kSvIA50PBv
-	dP3Rb86lAuQz0k9CWfH7eC0xbo9qIxJNqHcbBLio=
-Message-ID: <867570da-f60c-0b04-24b7-69d9a1737e85@apertussolutions.com>
-Date: Wed, 30 Mar 2022 12:23:48 -0400
+	h=Message-ID:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=QCCZ8ho3M1TzHGqKp9aZP8JJ+ODHrM5J8iw4Po+J/Wk=;
+	b=Ys1cqDWITTlKyHHc/EbRUClQxNCSWXghBnSLTfDyvVE7B0pTecdDRplJTR8A1yK+
+	Da2VXso1q1c0liMTVlMaTgPEwRdhjSrJH6zGrbMnhQGB7Hh65QjFdxWzFBBju8/3N2u
+	giwMIgZcUDs6Vxsssv0uHSKsg7LXXsg5+pVC+fEk=
+Message-ID: <58a977ea-460d-cfb9-aa75-5290de957c51@apertussolutions.com>
+Date: Wed, 30 Mar 2022 12:28:13 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
+Subject: Re: [RFC PATCH 1/1] xsm: allows system domains to allocate evtchn
 Content-Language: en-US
 To: Jason Andryuk <jandryuk@gmail.com>
 Cc: Jan Beulich <jbeulich@suse.com>, Scott Davis <scott.davis@starlab.io>,
@@ -81,7 +82,6 @@ References: <20220328203622.30961-1-dpsmith@apertussolutions.com>
  <bdd9547f-d3d7-2315-898f-786ce31f9bbc@apertussolutions.com>
  <CAKf6xpt60zHwwzgQ8EFuXkgfeiwYoBdsCMdY0d_fKZFXa5HyXA@mail.gmail.com>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: Re: [RFC PATCH 1/1] xsm: allows system domains to allocate evtchn
 In-Reply-To: <CAKf6xpt60zHwwzgQ8EFuXkgfeiwYoBdsCMdY0d_fKZFXa5HyXA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
@@ -136,16 +136,10 @@ On 3/30/22 11:15, Jason Andryuk wrote:
 > Your claims seem to be speculative about something that doesn't exist,
 > so I can't evaluate them.
 
-They exists, they are available in OpenPOWER and Arm CHERI is in
-evaluation now.
+Apologies, let me give you some references as well.
 
-> Do you envision that this future Xen would have multiple xen_*_t types
-> requiring explicit Flask policy rules?
-
-Right now I would say no for two reasons, first flask comes from the
-mind set of controlling what hypervisor interfaces a guest may have
-access and second is that I am not certain whether hypervisor internal
-contexts should be configurable.
+https://mrfunk.info/?page_id=5
+https://www.platformsecuritysummit.com/2019/speaker/hunt/
 
 v/r,
 dps
