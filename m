@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D67BA4ECD82
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Mar 2022 21:48:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.296524.504769 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F1B34ECD8E
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Mar 2022 21:53:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.296529.504783 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZeHb-0006xN-R0; Wed, 30 Mar 2022 19:47:07 +0000
+	id 1nZeNZ-0008NS-GU; Wed, 30 Mar 2022 19:53:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 296524.504769; Wed, 30 Mar 2022 19:47:07 +0000
+Received: by outflank-mailman (output) from mailman id 296529.504783; Wed, 30 Mar 2022 19:53:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZeHb-0006vI-No; Wed, 30 Mar 2022 19:47:07 +0000
-Received: by outflank-mailman (input) for mailman id 296524;
- Wed, 30 Mar 2022 19:47:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nZeNZ-0008LI-DS; Wed, 30 Mar 2022 19:53:17 +0000
+Received: by outflank-mailman (input) for mailman id 296529;
+ Wed, 30 Mar 2022 19:53:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wjcS=UJ=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1nZeHa-0006vC-Kz
- for xen-devel@lists.xenproject.org; Wed, 30 Mar 2022 19:47:06 +0000
-Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
- [2607:f8b0:4864:20::829])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2c4fc833-b062-11ec-8fbc-03012f2f19d4;
- Wed, 30 Mar 2022 21:47:04 +0200 (CEST)
-Received: by mail-qt1-x829.google.com with SMTP id s11so19113150qtc.3
- for <xen-devel@lists.xenproject.org>; Wed, 30 Mar 2022 12:47:04 -0700 (PDT)
-Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:ba27:ebff:fee8:ce27])
- by smtp.gmail.com with ESMTPSA id
- x4-20020a05620a258400b0067d47fb5aa4sm1895896qko.63.2022.03.30.12.47.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Mar 2022 12:47:02 -0700 (PDT)
+ id 1nZeNY-0008LA-3o
+ for xen-devel@lists.xenproject.org; Wed, 30 Mar 2022 19:53:16 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0987782d-b063-11ec-a405-831a346695d4;
+ Wed, 30 Mar 2022 21:53:15 +0200 (CEST)
+Received: by mail-lf1-x132.google.com with SMTP id w7so37702480lfd.6
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Mar 2022 12:53:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,154 +39,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c4fc833-b062-11ec-8fbc-03012f2f19d4
+X-Inumbo-ID: 0987782d-b063-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=SyDB2WAHAhwiKBINMlehh9VGxcM27O5l3BvqNPNjvAo=;
-        b=ewQRmR9r9FWsDoBzfGiucgKYiugn/l8Na2fK4+7Pwu56IpYC63c9463MqRrk2/DXfp
-         8lHmRvhxHEZdVvejelEwXTlwxDITwcPKUg2d3S4z8YQBVkobE28uNOvGpgB4hHRSOrhf
-         z270tjUU/2gvjPHJtQZKfCMddDYbzwgWG0iauRflqHeR0hNbWikYbH+ONkJDw6OK63ic
-         3NVlyddoihGWyrSLqVpKsP59uYH1RfLVHroM9Ypgg4fjomnE9ex35bMF834+t7ycAgWd
-         DjHLVQVzUd+oA0R00wrn/tXxBrTWayxAy/vxHRDXSNn/ibRD651orIZoh5sy+POTobqp
-         sFnw==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=YfuaA9ypx0MxpilnOluJ4E4p9FYSzLLL84YkqYxAOrY=;
+        b=gsiQYi3ojFyR7WEvZCzrdDU+wVFsI2IP13cJK5hFVQLxZNu+X9em0Yzo98PbjDjeAa
+         hrKIcFGZtgDD27ogIYWwYy6Ib0rslhn59MIuoBdynSRbRh3XWpyvHcfdsYwFwmtmzHgR
+         TQc5MySpuOP/ArExWWTIK+dcMYzHOyXH4aIUZ2aa7b5k3E4nGteUEoXNsfUNN9fAbOQc
+         4gCb6w4401f+8upBqZJWvhG5IAySHxzQt/OOeHORoUOwOX484uTaZaLxFhPIVW4SNNPD
+         juVBEDbKiSaNLdNBogwEyrQEGBg6y4U6fSd3pb7HLERkKWnwQTWRlaDQgmOFKloam9p5
+         U+Yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=SyDB2WAHAhwiKBINMlehh9VGxcM27O5l3BvqNPNjvAo=;
-        b=e6iuf7fzVAC3Q69FKi92v8EWFp0um8EmVu/7ElPBu0/x+6WgUFW4dcNTW2nuY0gvAh
-         bBpd2jZOEuTCE6EVVXMsdTWpexECFTh84HNoN261QDCe812w8qggYsPHu3Zm/kxN7GYP
-         MUlQLdZ/bRCOIL3jNmcPyVZUxgkNzTbo8v0rGe6GjURlNk87tIiG6oS95Ugmk0yLzA1Z
-         S/LGkAL+q8Key39weUnCOy3MVBpsqatMojXDPU4sW9tLuxC6LWNNXk7oCOL2tM5273E6
-         AeR6VAAy0d+oij7Vyg9Vc5GgMCbPyiQ+/Nq5Tk8i85I4jYvQRMDLSGrf9KPHsjgEVnvk
-         ODxA==
-X-Gm-Message-State: AOAM533oAS1apQkaR7bMS4/mdYNRjZnycharH35eA4gp//KQ59jMUXwC
-	if/qKIS1CrCvXJCDpwvzAka3UtI/aRs=
-X-Google-Smtp-Source: ABdhPJwxzfMZhl7myAdznnlaHwalOTY5yvtzsKCQATMNu0GEdJRII5z+N7WvmreWiqTh0NbgJa387g==
-X-Received: by 2002:a05:622a:1801:b0:2e0:6909:6e0 with SMTP id t1-20020a05622a180100b002e0690906e0mr1186694qtc.148.1648669622856;
-        Wed, 30 Mar 2022 12:47:02 -0700 (PDT)
-From: Jason Andryuk <jandryuk@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jason Andryuk <jandryuk@gmail.com>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [PATCH] libxl: Retry QMP PCI device_add
-Date: Wed, 30 Mar 2022 15:46:56 -0400
-Message-Id: <20220330194656.39051-1-jandryuk@gmail.com>
-X-Mailer: git-send-email 2.35.1
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=YfuaA9ypx0MxpilnOluJ4E4p9FYSzLLL84YkqYxAOrY=;
+        b=iV+18mD+XAOuGFKx8il8UgkO9o0TbZ4PvqW5ucM1Pwrm9fzZyP2XF7nO+bbegbyl9f
+         GoZAlZZ3X1/T5QixAvC0HYk+hpA42fFKRIxWTk84FMk9OxyOf1mzJcJLa8511MPp945Y
+         ydmEdlsz4nETvYZLaG/M8KHAjO9K3M5NeT8YqOfU1WKDyzJcyQOhO6cGKa+Gnu7+BZTY
+         gABq7RcqgIhxZVuHumR8T9zWV3GYx61sRu3YzaepQa+qEdgoEDTxL5lBRHcX4XVnWUUk
+         nSdMb9esBqWszIDObkksVxpZWMIiTaJdm45x2ThEYzw1HWDzzMzQDkyky+8PHXW5s85d
+         K0QQ==
+X-Gm-Message-State: AOAM533/aaxTvct12pLoIzsAcmcMbs0ztCI9tc3f58u8+1UMw0U1f/2q
+	qh4fTD7ORcIpYnSMN5U4jnqLUvwOnLSRH2fk89w=
+X-Google-Smtp-Source: ABdhPJxTGDR6GyJI6g0vmpIqo0lxTC+CjirRNwNxTukRgf30vVN9pl7v88GVOCmJe9lEiaun5OACWeHVh2Hc5DoMI6o=
+X-Received: by 2002:a05:6512:33c2:b0:44a:25e2:25d4 with SMTP id
+ d2-20020a05651233c200b0044a25e225d4mr8204937lfg.359.1648669994451; Wed, 30
+ Mar 2022 12:53:14 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20220328203622.30961-1-dpsmith@apertussolutions.com>
+ <20220328203622.30961-2-dpsmith@apertussolutions.com> <7935e60e-34b1-76be-e5de-56e60f173438@suse.com>
+ <a991c32d-4e45-f015-3d99-8552199e8d45@apertussolutions.com>
+ <e711e8c8-5e5d-7443-fbc8-368ccdde533b@suse.com> <CAKf6xpt46jFgexwLA=wdUVH-HJWLOEisL6-2cmSLyJsO3QE2eQ@mail.gmail.com>
+ <bdd9547f-d3d7-2315-898f-786ce31f9bbc@apertussolutions.com>
+ <CAKf6xpt60zHwwzgQ8EFuXkgfeiwYoBdsCMdY0d_fKZFXa5HyXA@mail.gmail.com> <867570da-f60c-0b04-24b7-69d9a1737e85@apertussolutions.com>
+In-Reply-To: <867570da-f60c-0b04-24b7-69d9a1737e85@apertussolutions.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Wed, 30 Mar 2022 15:53:02 -0400
+Message-ID: <CAKf6xpt=Gr06DrHpd8=FDag87Hv_CS510ZexbBSRBddxZ6qwHw@mail.gmail.com>
+Subject: Re: [RFC PATCH 1/1] xsm: allows system domains to allocate evtchn
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Scott Davis <scott.davis@starlab.io>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>, xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
 
-PCI device assignment to an HVM with stubdom is potentially racy.  First
-the PCI device is assigned to the stubdom via the PV PCI protocol.  Then
-QEMU is sent a QMP command to attach the PCI device to QEMU running
-within the stubdom.  However, the sysfs entries within the stubdom may
-not have appeared by the time QEMU receives the device_add command
-resulting in errors like:
+On Wed, Mar 30, 2022 at 12:24 PM Daniel P. Smith
+<dpsmith@apertussolutions.com> wrote:
+>
+> On 3/30/22 11:15, Jason Andryuk wrote:
+> > On Wed, Mar 30, 2022 at 10:04 AM Daniel P. Smith
+> > <dpsmith@apertussolutions.com> wrote:
+> >>
+> >> On 3/30/22 08:30, Jason Andryuk wrote:
+> >>> On Wed, Mar 30, 2022 at 2:30 AM Jan Beulich <jbeulich@suse.com> wrote:
+> >>>>
+> >>>> On 29.03.2022 20:57, Daniel P. Smith wrote:
+> >>>>> On 3/29/22 02:43, Jan Beulich wrote:
+> >>>>>> Similarly I don't see how things would work transparently with a
+> >>>>>> Flask policy in place. Regardless of you mentioning the restriction,
+> >>>>>> I think this wants resolving before the patch can go in.
+> >>>>>
+> >>>>> To enable the equivalent in flask would require no hypervisor code
+> >>>>> changes. Instead that would be handled by adding the necessary rules to
+> >>>>> the appropriate flask policy file(s).
+> >>>>
+> >>>> Of course this can be dealt with by adjusting policy file(s), but until
+> >>>> people do so they'd end up with a perceived regression and/or unexplained
+> >>>> difference in behavior from running in dummy (or SILO, once also taken
+> >>>> care of) mode.
+> >>>
+> >>> This need to change the Flask policy is the crux of my dislike for
+> >>> making Xen-internal operations go through XSM checks.  It is wrong,
+> >>> IMO, to require the separate policy to grant xen_t permissions for
+> >>> proper operation.  I prefer restructuring the code so Xen itself
+> >>> doesn't have to go through XSM checks since that way Xen itself always
+> >>> runs properly regardless of the policy.
+> >>>
+> >>> This is more based on unmap_domain_pirq having an XSM check for an
+> >>> internal operation.  dom0less, hyperlaunch, & Live Update may all be
+> >>> niche use cases where requiring a policy change is reasonable.
+> >>
+> >> I will continue to agree with the base logic that today any least
+> >> privilege separation imposed is merely artificial in the face of any
+> >> attack that gains execution control over hypervisor space. What I will
+> >> disagree with is using that as a justification to create tight couplings
+> >> between the internals of the hypervisor that have a potential of causing
+> >> more work in the future when people are looking to use for instance's
+> >> Arms upcoming capability pointers as a real separation enforcement
+> >> mechanisms to de-privilege portions of the hypervisor.
+> >>
+> >> While on principle it is justified to object to having policy statements
+> >> that present a facade, is it not better to look longer term than object
+> >> to some thing on principle based in the now?
+> >
+> > Your claims seem to be speculative about something that doesn't exist,
+> > so I can't evaluate them.
+>
+> They exists, they are available in OpenPOWER and Arm CHERI is in
+> evaluation now.
 
-libxl_qmp.c:1838:qmp_ev_parse_error_messages:Domain 10:Could not open '/sys/bus/pci/devices/0000:00:1f.3/config': No such file or directory
+Yes, but how will Xen use the hardware feature to internally
+deprivilege itself?  What sort of division are you planning?
 
-This patch retries the device assignment up to 10 times with a 1 second
-delay between.  That roughly matches the overall hotplug timeout.
+> > Do you envision that this future Xen would have multiple xen_*_t types
+> > requiring explicit Flask policy rules?
+>
+> Right now I would say no for two reasons, first flask comes from the
+> mind set of controlling what hypervisor interfaces a guest may have
+> access and second is that I am not certain whether hypervisor internal
+> contexts should be configurable.
 
-The qmp_ev_parse_error_messages error is still printed since it happens
-at a lower level than the pci code controlling the retries.  With that,
-the "Retrying PCI add %d" message is also printed at ERROR level to
-clarify what is happening.
+Oh.  I expected multiple xen_*_t types to be a natural part of the Xen
+deprivileging.
 
-Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
----
- tools/libs/light/libxl_pci.c | 32 ++++++++++++++++++++++++++++++--
- 1 file changed, 30 insertions(+), 2 deletions(-)
-
-diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
-index 4bbbfe9f16..8d6a0e65cc 100644
---- a/tools/libs/light/libxl_pci.c
-+++ b/tools/libs/light/libxl_pci.c
-@@ -1109,8 +1109,10 @@ typedef struct pci_add_state {
-     libxl__xswait_state xswait;
-     libxl__ev_qmp qmp;
-     libxl__ev_time timeout;
-+    libxl__ev_time timeout_retries;
-     libxl_device_pci pci;
-     libxl_domid pci_domid;
-+    int retries;
- } pci_add_state;
- 
- static void pci_add_qemu_trad_watch_state_cb(libxl__egc *egc,
-@@ -1118,6 +1120,8 @@ static void pci_add_qemu_trad_watch_state_cb(libxl__egc *egc,
- static void pci_add_qmp_device_add(libxl__egc *, pci_add_state *);
- static void pci_add_qmp_device_add_cb(libxl__egc *,
-     libxl__ev_qmp *, const libxl__json_object *, int rc);
-+static void pci_add_qmp_device_add_retry(libxl__egc *egc, libxl__ev_time *ev,
-+    const struct timeval *requested_abs, int rc);
- static void pci_add_qmp_query_pci_cb(libxl__egc *,
-     libxl__ev_qmp *, const libxl__json_object *, int rc);
- static void pci_add_timeout(libxl__egc *egc, libxl__ev_time *ev,
-@@ -1137,7 +1141,9 @@ static void do_pci_add(libxl__egc *egc,
-     libxl__xswait_init(&pas->xswait);
-     libxl__ev_qmp_init(&pas->qmp);
-     pas->pci_domid = domid;
-+    pas->retries = 0;
-     libxl__ev_time_init(&pas->timeout);
-+    libxl__ev_time_init(&pas->timeout_retries);
- 
-     if (type == LIBXL_DOMAIN_TYPE_INVALID) {
-         rc = ERROR_FAIL;
-@@ -1252,10 +1258,22 @@ static void pci_add_qmp_device_add_cb(libxl__egc *egc,
-                                       const libxl__json_object *response,
-                                       int rc)
- {
--    EGC_GC;
-     pci_add_state *pas = CONTAINER_OF(qmp, *pas, qmp);
-+    STATE_AO_GC(pas->aodev->ao);
- 
--    if (rc) goto out;
-+    if (rc) {
-+        if (pas->retries++ < 10) {
-+            LOGD(ERROR, qmp->domid, "Retrying PCI add %d", pas->retries);
-+            rc = libxl__ev_time_register_rel(ao, &pas->timeout_retries,
-+                                             pci_add_qmp_device_add_retry,
-+                                             1000);
-+            if (rc) goto out;
-+
-+            return; /* wait for the timeout to then retry */
-+        } else {
-+            goto out;
-+        }
-+    }
- 
-     qmp->callback = pci_add_qmp_query_pci_cb;
-     rc = libxl__ev_qmp_send(egc, qmp, "query-pci", NULL);
-@@ -1266,6 +1284,15 @@ out:
-     pci_add_dm_done(egc, pas, rc); /* must be last */
- }
- 
-+static void pci_add_qmp_device_add_retry(libxl__egc *egc, libxl__ev_time *ev,
-+                                         const struct timeval *requested_abs,
-+                                         int rc)
-+{
-+    pci_add_state *pas = CONTAINER_OF(ev, *pas, timeout_retries);
-+
-+    pci_add_qmp_device_add(egc, pas);
-+}
-+
- static void pci_add_qmp_query_pci_cb(libxl__egc *egc,
-                                      libxl__ev_qmp *qmp,
-                                      const libxl__json_object *response,
-@@ -1507,6 +1534,7 @@ out_no_irq:
-         rc = 0;
- out:
-     libxl__ev_time_deregister(gc, &pas->timeout);
-+    libxl__ev_time_deregister(gc, &pas->timeout_retries);
-     pas->callback(egc, pas, rc);
- }
- 
--- 
-2.35.1
-
+Regards,
+Jason
 
