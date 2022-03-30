@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A99774ECC9B
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Mar 2022 20:46:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.296492.504716 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D67BA4ECD82
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Mar 2022 21:48:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.296524.504769 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZdK1-0007ar-7M; Wed, 30 Mar 2022 18:45:33 +0000
+	id 1nZeHb-0006xN-R0; Wed, 30 Mar 2022 19:47:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 296492.504716; Wed, 30 Mar 2022 18:45:33 +0000
+Received: by outflank-mailman (output) from mailman id 296524.504769; Wed, 30 Mar 2022 19:47:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZdK1-0007YK-41; Wed, 30 Mar 2022 18:45:33 +0000
-Received: by outflank-mailman (input) for mailman id 296492;
- Wed, 30 Mar 2022 18:45:32 +0000
+	id 1nZeHb-0006vI-No; Wed, 30 Mar 2022 19:47:07 +0000
+Received: by outflank-mailman (input) for mailman id 296524;
+ Wed, 30 Mar 2022 19:47:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wjcS=UJ=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1nZdK0-0007YE-5F
- for xen-devel@lists.xenproject.org; Wed, 30 Mar 2022 18:45:32 +0000
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [2a00:1450:4864:20::230])
+ id 1nZeHa-0006vC-Kz
+ for xen-devel@lists.xenproject.org; Wed, 30 Mar 2022 19:47:06 +0000
+Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
+ [2607:f8b0:4864:20::829])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 933ddef9-b059-11ec-8fbc-03012f2f19d4;
- Wed, 30 Mar 2022 20:45:31 +0200 (CEST)
-Received: by mail-lj1-x230.google.com with SMTP id q5so28919008ljb.11
- for <xen-devel@lists.xenproject.org>; Wed, 30 Mar 2022 11:45:31 -0700 (PDT)
+ id 2c4fc833-b062-11ec-8fbc-03012f2f19d4;
+ Wed, 30 Mar 2022 21:47:04 +0200 (CEST)
+Received: by mail-qt1-x829.google.com with SMTP id s11so19113150qtc.3
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Mar 2022 12:47:04 -0700 (PDT)
+Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:ba27:ebff:fee8:ce27])
+ by smtp.gmail.com with ESMTPSA id
+ x4-20020a05620a258400b0067d47fb5aa4sm1895896qko.63.2022.03.30.12.47.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Mar 2022 12:47:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,154 +44,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 933ddef9-b059-11ec-8fbc-03012f2f19d4
+X-Inumbo-ID: 2c4fc833-b062-11ec-8fbc-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=ayMCnREX9HtNuXi9WeXSZ0So08wG6vqv2BNtNMXIV4M=;
-        b=BNgZaWmkON6IJ7dHPrLGKhylSrde+i6aUrHlm0BfbsGMhPEfnTHOygYR6GqTypP8g6
-         2eWYm4KSzdIkZhN7AbImoX6U89sgowW6vafyh6D+YGDgYtL1MXdDd/PYdqb3DNRU6pYL
-         dW+wyJ+Wc0uDI34M2JTYhv77uC/lgUz1RSjORvyOn9umoo0JMGqLLiCwrM+ISicFKePP
-         x7nxw4q01LGXICcWPzV28n1AEMuctqRYnSCMcmbV+Ek2EhcCyAJU2YKBPOPqtRzwhX/9
-         Ab1crKURFjr8TlqClj0FMnp87yyYTPrlcBS1f9rZn1TqxbUKbXadI90/eHjzYW6McK1X
-         RPwQ==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=SyDB2WAHAhwiKBINMlehh9VGxcM27O5l3BvqNPNjvAo=;
+        b=ewQRmR9r9FWsDoBzfGiucgKYiugn/l8Na2fK4+7Pwu56IpYC63c9463MqRrk2/DXfp
+         8lHmRvhxHEZdVvejelEwXTlwxDITwcPKUg2d3S4z8YQBVkobE28uNOvGpgB4hHRSOrhf
+         z270tjUU/2gvjPHJtQZKfCMddDYbzwgWG0iauRflqHeR0hNbWikYbH+ONkJDw6OK63ic
+         3NVlyddoihGWyrSLqVpKsP59uYH1RfLVHroM9Ypgg4fjomnE9ex35bMF834+t7ycAgWd
+         DjHLVQVzUd+oA0R00wrn/tXxBrTWayxAy/vxHRDXSNn/ibRD651orIZoh5sy+POTobqp
+         sFnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=ayMCnREX9HtNuXi9WeXSZ0So08wG6vqv2BNtNMXIV4M=;
-        b=C/qEPmzZgEaQkkr+ouhjyhuY6QqLyZel9m+aC5KnjvL348aRgNQepWk9b/ELgITl4p
-         ZOSgJwlq0InwRoSa7/Fjk1ybS8hxIQjKa8TD4a0aew+r4XTb+xa3fv+WKmzYf0FrQwwm
-         1fEALJhm02Q/haVU9ELVZJv6qGE+6aeQE/G93KzfygWGg9iUy+PP7CL9KOesu9xJ6JWZ
-         hSIUsaJ6EqoT5cFFZtSTOt8W/JyahiD9qloSUC9WzNBZdxOZw3Cvmcqi0QIywESfbRx0
-         +xegDrBnPaU0uVjo2x5/qjyTSXcFRt/B5sZSLLy1zJHUgRIQhupYNE+YdHDvr2ERPTY8
-         d5Ig==
-X-Gm-Message-State: AOAM5300i7QdKX0c7Uq2O51pn13LFPfuXwNDJR59Z/Sm7Ibi+QYQHP/z
-	FcdFLo6FQ8BOw5wd7nw+ueMmzEzDYY2mLEKN+Sk=
-X-Google-Smtp-Source: ABdhPJyiLHNAljZPTPC5pPRsg3EOVzF4VThtRZ3PeSQdV+MzqcPokACeZb4MzBy5ihimA05E2TAFRBHHQtEprD8+kCY=
-X-Received: by 2002:a2e:a372:0:b0:249:7108:6778 with SMTP id
- i18-20020a2ea372000000b0024971086778mr7939723ljn.403.1648665930559; Wed, 30
- Mar 2022 11:45:30 -0700 (PDT)
-MIME-Version: 1.0
-References: <b62fbc602a629941c1acaad3b93d250a3eba33c0.1647222184.git.brchuckz.ref@netscape.net>
- <b62fbc602a629941c1acaad3b93d250a3eba33c0.1647222184.git.brchuckz@netscape.net>
- <78ce5809-8df4-c94e-4313-fffb1b86b771@suse.com>
-In-Reply-To: <78ce5809-8df4-c94e-4313-fffb1b86b771@suse.com>
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=SyDB2WAHAhwiKBINMlehh9VGxcM27O5l3BvqNPNjvAo=;
+        b=e6iuf7fzVAC3Q69FKi92v8EWFp0um8EmVu/7ElPBu0/x+6WgUFW4dcNTW2nuY0gvAh
+         bBpd2jZOEuTCE6EVVXMsdTWpexECFTh84HNoN261QDCe812w8qggYsPHu3Zm/kxN7GYP
+         MUlQLdZ/bRCOIL3jNmcPyVZUxgkNzTbo8v0rGe6GjURlNk87tIiG6oS95Ugmk0yLzA1Z
+         S/LGkAL+q8Key39weUnCOy3MVBpsqatMojXDPU4sW9tLuxC6LWNNXk7oCOL2tM5273E6
+         AeR6VAAy0d+oij7Vyg9Vc5GgMCbPyiQ+/Nq5Tk8i85I4jYvQRMDLSGrf9KPHsjgEVnvk
+         ODxA==
+X-Gm-Message-State: AOAM533oAS1apQkaR7bMS4/mdYNRjZnycharH35eA4gp//KQ59jMUXwC
+	if/qKIS1CrCvXJCDpwvzAka3UtI/aRs=
+X-Google-Smtp-Source: ABdhPJwxzfMZhl7myAdznnlaHwalOTY5yvtzsKCQATMNu0GEdJRII5z+N7WvmreWiqTh0NbgJa387g==
+X-Received: by 2002:a05:622a:1801:b0:2e0:6909:6e0 with SMTP id t1-20020a05622a180100b002e0690906e0mr1186694qtc.148.1648669622856;
+        Wed, 30 Mar 2022 12:47:02 -0700 (PDT)
 From: Jason Andryuk <jandryuk@gmail.com>
-Date: Wed, 30 Mar 2022 14:45:18 -0400
-Message-ID: <CAKf6xpsN+uJ=AyxtrnOrQrynFL=dwC=DdT7DHnK=wx9UFtdUDQ@mail.gmail.com>
-Subject: Re: [XEN PATCH] tools/libs/light/libxl_pci.c: explicitly grant access
- to Intel IGD opregion
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Chuck Zmudzinski <brchuckz@netscape.net>, Wei Liu <wl@xen.org>, 
-	Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, 
-	xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="000000000000250d0905db73f394"
+To: xen-devel@lists.xenproject.org
+Cc: Jason Andryuk <jandryuk@gmail.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH] libxl: Retry QMP PCI device_add
+Date: Wed, 30 Mar 2022 15:46:56 -0400
+Message-Id: <20220330194656.39051-1-jandryuk@gmail.com>
+X-Mailer: git-send-email 2.35.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
---000000000000250d0905db73f394
-Content-Type: text/plain; charset="UTF-8"
+PCI device assignment to an HVM with stubdom is potentially racy.  First
+the PCI device is assigned to the stubdom via the PV PCI protocol.  Then
+QEMU is sent a QMP command to attach the PCI device to QEMU running
+within the stubdom.  However, the sysfs entries within the stubdom may
+not have appeared by the time QEMU receives the device_add command
+resulting in errors like:
 
-On Fri, Mar 18, 2022 at 4:13 AM Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 14.03.2022 04:41, Chuck Zmudzinski wrote:
-> > When gfx_passthru is enabled for the Intel IGD, hvmloader maps the IGD
-> > opregion to the guest but libxl does not grant the guest permission to
-> > access the mapped memory region. This results in a crash of the i915.ko
-> > kernel module in a Linux HVM guest when it needs to access the IGD
-> > opregion:
-> >
-> > Oct 23 11:36:33 domU kernel: Call Trace:
-> > Oct 23 11:36:33 domU kernel:  ? idr_alloc+0x39/0x70
-> > Oct 23 11:36:33 domU kernel:  drm_get_last_vbltimestamp+0xaa/0xc0 [drm]
-> > Oct 23 11:36:33 domU kernel:  drm_reset_vblank_timestamp+0x5b/0xd0 [drm]
-> > Oct 23 11:36:33 domU kernel:  drm_crtc_vblank_on+0x7b/0x130 [drm]
-> > Oct 23 11:36:33 domU kernel:  intel_modeset_setup_hw_state+0xbd4/0x1900 [i915]
-> > Oct 23 11:36:33 domU kernel:  ? _cond_resched+0x16/0x40
-> > Oct 23 11:36:33 domU kernel:  ? ww_mutex_lock+0x15/0x80
-> > Oct 23 11:36:33 domU kernel:  intel_modeset_init_nogem+0x867/0x1d30 [i915]
-> > Oct 23 11:36:33 domU kernel:  ? gen6_write32+0x4b/0x1c0 [i915]
-> > Oct 23 11:36:33 domU kernel:  ? intel_irq_postinstall+0xb9/0x670 [i915]
-> > Oct 23 11:36:33 domU kernel:  i915_driver_probe+0x5c2/0xc90 [i915]
-> > Oct 23 11:36:33 domU kernel:  ? vga_switcheroo_client_probe_defer+0x1f/0x40
-> > Oct 23 11:36:33 domU kernel:  ? i915_pci_probe+0x3f/0x150 [i915]
-> > Oct 23 11:36:33 domU kernel:  local_pci_probe+0x42/0x80
-> > Oct 23 11:36:33 domU kernel:  ? _cond_resched+0x16/0x40
-> > Oct 23 11:36:33 domU kernel:  pci_device_probe+0xfd/0x1b0
-> > Oct 23 11:36:33 domU kernel:  really_probe+0x222/0x480
-> > Oct 23 11:36:33 domU kernel:  driver_probe_device+0xe1/0x150
-> > Oct 23 11:36:33 domU kernel:  device_driver_attach+0xa1/0xb0
-> > Oct 23 11:36:33 domU kernel:  __driver_attach+0x8a/0x150
-> > Oct 23 11:36:33 domU kernel:  ? device_driver_attach+0xb0/0xb0
-> > Oct 23 11:36:33 domU kernel:  ? device_driver_attach+0xb0/0xb0
-> > Oct 23 11:36:33 domU kernel:  bus_for_each_dev+0x78/0xc0
-> > Oct 23 11:36:33 domU kernel:  bus_add_driver+0x12b/0x1e0
-> > Oct 23 11:36:33 domU kernel:  driver_register+0x8b/0xe0
-> > Oct 23 11:36:33 domU kernel:  ? 0xffffffffc06b8000
-> > Oct 23 11:36:33 domU kernel:  i915_init+0x5d/0x70 [i915]
-> > Oct 23 11:36:33 domU kernel:  do_one_initcall+0x44/0x1d0
-> > Oct 23 11:36:33 domU kernel:  ? do_init_module+0x23/0x260
-> > Oct 23 11:36:33 domU kernel:  ? kmem_cache_alloc_trace+0xf5/0x200
-> > Oct 23 11:36:33 domU kernel:  do_init_module+0x5c/0x260
-> > Oct 23 11:36:33 domU kernel:  __do_sys_finit_module+0xb1/0x110
-> > Oct 23 11:36:33 domU kernel:  do_syscall_64+0x33/0x80
-> > Oct 23 11:36:33 domU kernel:  entry_SYSCALL_64_after_hwframe+0x44/0xa9
->
-> The call trace alone leaves open where exactly the crash occurred.
-> Looking at 5.17 I notice that the first thing the driver does
-> after mapping the range it to check the signature (both in
-> intel_opregion_setup()). As the signature can't possibly match
-> with no access granted to the underlying mappings, there shouldn't
-> be any further attempts to use the region in the driver; if there
-> are, I'd view this as a driver bug.
+libxl_qmp.c:1838:qmp_ev_parse_error_messages:Domain 10:Could not open '/sys/bus/pci/devices/0000:00:1f.3/config': No such file or directory
 
-Yes.  i915_driver_hw_probe does not check the return value of
-intel_opregion_setup(dev_priv) and just continues on.
+This patch retries the device assignment up to 10 times with a 1 second
+delay between.  That roughly matches the overall hotplug timeout.
 
-Chuck, the attached patch may help if you want to test it.
+The qmp_ev_parse_error_messages error is still printed since it happens
+at a lower level than the pci code controlling the retries.  With that,
+the "Retrying PCI add %d" message is also printed at ERROR level to
+clarify what is happening.
 
-Regards,
-Jason
+Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+---
+ tools/libs/light/libxl_pci.c | 32 ++++++++++++++++++++++++++++++--
+ 1 file changed, 30 insertions(+), 2 deletions(-)
 
---000000000000250d0905db73f394
-Content-Type: application/x-patch; 
-	name="0001-i915-Fail-probe-when-opregion-setup-fails.patch"
-Content-Disposition: attachment; 
-	filename="0001-i915-Fail-probe-when-opregion-setup-fails.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_l1dwihsv0>
-X-Attachment-Id: f_l1dwihsv0
+diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
+index 4bbbfe9f16..8d6a0e65cc 100644
+--- a/tools/libs/light/libxl_pci.c
++++ b/tools/libs/light/libxl_pci.c
+@@ -1109,8 +1109,10 @@ typedef struct pci_add_state {
+     libxl__xswait_state xswait;
+     libxl__ev_qmp qmp;
+     libxl__ev_time timeout;
++    libxl__ev_time timeout_retries;
+     libxl_device_pci pci;
+     libxl_domid pci_domid;
++    int retries;
+ } pci_add_state;
+ 
+ static void pci_add_qemu_trad_watch_state_cb(libxl__egc *egc,
+@@ -1118,6 +1120,8 @@ static void pci_add_qemu_trad_watch_state_cb(libxl__egc *egc,
+ static void pci_add_qmp_device_add(libxl__egc *, pci_add_state *);
+ static void pci_add_qmp_device_add_cb(libxl__egc *,
+     libxl__ev_qmp *, const libxl__json_object *, int rc);
++static void pci_add_qmp_device_add_retry(libxl__egc *egc, libxl__ev_time *ev,
++    const struct timeval *requested_abs, int rc);
+ static void pci_add_qmp_query_pci_cb(libxl__egc *,
+     libxl__ev_qmp *, const libxl__json_object *, int rc);
+ static void pci_add_timeout(libxl__egc *egc, libxl__ev_time *ev,
+@@ -1137,7 +1141,9 @@ static void do_pci_add(libxl__egc *egc,
+     libxl__xswait_init(&pas->xswait);
+     libxl__ev_qmp_init(&pas->qmp);
+     pas->pci_domid = domid;
++    pas->retries = 0;
+     libxl__ev_time_init(&pas->timeout);
++    libxl__ev_time_init(&pas->timeout_retries);
+ 
+     if (type == LIBXL_DOMAIN_TYPE_INVALID) {
+         rc = ERROR_FAIL;
+@@ -1252,10 +1258,22 @@ static void pci_add_qmp_device_add_cb(libxl__egc *egc,
+                                       const libxl__json_object *response,
+                                       int rc)
+ {
+-    EGC_GC;
+     pci_add_state *pas = CONTAINER_OF(qmp, *pas, qmp);
++    STATE_AO_GC(pas->aodev->ao);
+ 
+-    if (rc) goto out;
++    if (rc) {
++        if (pas->retries++ < 10) {
++            LOGD(ERROR, qmp->domid, "Retrying PCI add %d", pas->retries);
++            rc = libxl__ev_time_register_rel(ao, &pas->timeout_retries,
++                                             pci_add_qmp_device_add_retry,
++                                             1000);
++            if (rc) goto out;
++
++            return; /* wait for the timeout to then retry */
++        } else {
++            goto out;
++        }
++    }
+ 
+     qmp->callback = pci_add_qmp_query_pci_cb;
+     rc = libxl__ev_qmp_send(egc, qmp, "query-pci", NULL);
+@@ -1266,6 +1284,15 @@ out:
+     pci_add_dm_done(egc, pas, rc); /* must be last */
+ }
+ 
++static void pci_add_qmp_device_add_retry(libxl__egc *egc, libxl__ev_time *ev,
++                                         const struct timeval *requested_abs,
++                                         int rc)
++{
++    pci_add_state *pas = CONTAINER_OF(ev, *pas, timeout_retries);
++
++    pci_add_qmp_device_add(egc, pas);
++}
++
+ static void pci_add_qmp_query_pci_cb(libxl__egc *egc,
+                                      libxl__ev_qmp *qmp,
+                                      const libxl__json_object *response,
+@@ -1507,6 +1534,7 @@ out_no_irq:
+         rc = 0;
+ out:
+     libxl__ev_time_deregister(gc, &pas->timeout);
++    libxl__ev_time_deregister(gc, &pas->timeout_retries);
+     pas->callback(egc, pas, rc);
+ }
+ 
+-- 
+2.35.1
 
-RnJvbSBmYTVhYTdiNjc1YTRhMWQzMTkwMmIzNDI2Y2M1ZDA4N2VlNmU1YThkIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBKYXNvbiBBbmRyeXVrIDxqYW5kcnl1a0BnbWFpbC5jb20+CkRh
-dGU6IEZyaSwgMTggTWFyIDIwMjIgMTE6MDU6MjEgLTA0MDAKU3ViamVjdDogW1BBVENIXSBpOTE1
-OiBGYWlsIHByb2JlIHdoZW4gb3ByZWdpb24gc2V0dXAgZmFpbHMKCmludGVsX29wcmVnaW9uX3Nl
-dHVwIGNhbiBmYWlsLCBidXQgaTkxNV9kcml2ZXJfaHdfcHJvYmUgZG9lc24ndCBjaGVjawp0aGUg
-cmV0dXJuIHZhbHVlLiAgUHJvYmUgd2lsbCBldmVudHVhbGx5IGNyYXNoIHdoZW4gYWNjZXNzaW5n
-IHVubWFwcGVkCm1lbW9yeToKCmRvbVUga2VybmVsOiAgZHJtX2dldF9sYXN0X3ZibHRpbWVzdGFt
-cCsweGFhLzB4YzAgW2RybV0KZG9tVSBrZXJuZWw6ICBkcm1fcmVzZXRfdmJsYW5rX3RpbWVzdGFt
-cCsweDViLzB4ZDAgW2RybV0KZG9tVSBrZXJuZWw6ICBkcm1fY3J0Y192Ymxhbmtfb24rMHg3Yi8w
-eDEzMCBbZHJtXQpkb21VIGtlcm5lbDogIGludGVsX21vZGVzZXRfc2V0dXBfaHdfc3RhdGUrMHhi
-ZDQvMHgxOTAwIFtpOTE1XQpkb21VIGtlcm5lbDogID8gX2NvbmRfcmVzY2hlZCsweDE2LzB4NDAK
-ZG9tVSBrZXJuZWw6ICA/IHd3X211dGV4X2xvY2srMHgxNS8weDgwCmRvbVUga2VybmVsOiAgaW50
-ZWxfbW9kZXNldF9pbml0X25vZ2VtKzB4ODY3LzB4MWQzMCBbaTkxNV0KZG9tVSBrZXJuZWw6ICA/
-IGdlbjZfd3JpdGUzMisweDRiLzB4MWMwIFtpOTE1XQpkb21VIGtlcm5lbDogID8gaW50ZWxfaXJx
-X3Bvc3RpbnN0YWxsKzB4YjkvMHg2NzAgW2k5MTVdCmRvbVUga2VybmVsOiAgaTkxNV9kcml2ZXJf
-cHJvYmUrMHg1YzIvMHhjOTAgW2k5MTVdCgpUaGlzIGNhbiBiZSBzZWVuIGluIGEgWGVuIERvbVUg
-d2hlbiBhbiBJR0QgZG9lc24ndCBoYXZlIHRoZSBvcHJlZ2lvbgptZW1vcnkgbWFwcGVkIGR1cmlu
-ZyBQQ0kgcGFzc3Rocm91Z2guCgpDaGVjayB0aGUgcmV0dXJuIHZhbHVlIGFuZCBmYWlsIHByb2Jl
-IHdoZW4gaW50ZWxfb3ByZWdpb25fc2V0dXAgZmFpbHMuCgpSZXBvcnRlZC1ieTogQ2h1Y2sgWm11
-ZHppbnNraSA8YnJjaHVja3pAbmV0c2NhcGUubmV0PgpTaWduZWQtb2ZmLWJ5OiBKYXNvbiBBbmRy
-eXVrIDxqYW5kcnl1a0BnbWFpbC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2k5MTUvaTkxNV9k
-cml2ZXIuYyB8IDQgKysrLQogMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMSBkZWxl
-dGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJpdmVyLmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2RyaXZlci5jCmluZGV4IDk1MTc0OTM4YjE2MC4u
-MzI2MWRjZWJiNDhiIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2RyaXZl
-ci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJpdmVyLmMKQEAgLTYyOSw3ICs2
-MjksOSBAQCBzdGF0aWMgaW50IGk5MTVfZHJpdmVyX2h3X3Byb2JlKHN0cnVjdCBkcm1faTkxNV9w
-cml2YXRlICpkZXZfcHJpdikKIAlpZiAocmV0KQogCQlnb3RvIGVycl9tc2k7CiAKLQlpbnRlbF9v
-cHJlZ2lvbl9zZXR1cChkZXZfcHJpdik7CisJcmV0ID0gaW50ZWxfb3ByZWdpb25fc2V0dXAoZGV2
-X3ByaXYpOworCWlmIChyZXQpCisJCWdvdG8gZXJyX21zaTsKIAogCXJldCA9IGludGVsX3Bjb2Rl
-X2luaXQoZGV2X3ByaXYpOwogCWlmIChyZXQpCi0tIAoyLjM1LjEKCg==
---000000000000250d0905db73f394--
 
