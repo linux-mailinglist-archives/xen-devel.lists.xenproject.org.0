@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D3644ECBAD
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Mar 2022 20:18:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.296472.504690 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 248144ECC43
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Mar 2022 20:29:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.296488.504704 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZctG-00038a-Nw; Wed, 30 Mar 2022 18:17:54 +0000
+	id 1nZd3J-0005IQ-OW; Wed, 30 Mar 2022 18:28:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 296472.504690; Wed, 30 Mar 2022 18:17:54 +0000
+Received: by outflank-mailman (output) from mailman id 296488.504704; Wed, 30 Mar 2022 18:28:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZctG-00035V-Kc; Wed, 30 Mar 2022 18:17:54 +0000
-Received: by outflank-mailman (input) for mailman id 296472;
- Wed, 30 Mar 2022 18:17:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nZd3J-0005GD-La; Wed, 30 Mar 2022 18:28:17 +0000
+Received: by outflank-mailman (input) for mailman id 296488;
+ Wed, 30 Mar 2022 18:28:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wjcS=UJ=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1nZctF-0001bv-BS
- for xen-devel@lists.xenproject.org; Wed, 30 Mar 2022 18:17:53 +0000
-Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
- [2607:f8b0:4864:20::735])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b60b46e3-b055-11ec-a405-831a346695d4;
- Wed, 30 Mar 2022 20:17:52 +0200 (CEST)
-Received: by mail-qk1-x735.google.com with SMTP id q200so4081645qke.7
- for <xen-devel@lists.xenproject.org>; Wed, 30 Mar 2022 11:17:52 -0700 (PDT)
-Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:ba27:ebff:fee8:ce27])
- by smtp.gmail.com with ESMTPSA id
- bl3-20020a05620a1a8300b0067d4cd00231sm11525314qkb.135.2022.03.30.11.17.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Mar 2022 11:17:50 -0700 (PDT)
+ <SRS0=L21/=UJ=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1nZd3H-0005G7-Hy
+ for xen-devel@lists.xenproject.org; Wed, 30 Mar 2022 18:28:15 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 28012c1f-b057-11ec-8fbc-03012f2f19d4;
+ Wed, 30 Mar 2022 20:28:13 +0200 (CEST)
+Received: from [10.10.1.138] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1648664890410787.5940034050689;
+ Wed, 30 Mar 2022 11:28:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,131 +40,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b60b46e3-b055-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=Y8hAJm5nFvLb+2d5b5NF8UEhR+NwlN1X22DHUZ0xAUo=;
-        b=Su9ofTZ0O+5/KRzDarC2PH14JHfV1VRuN3JWpE6MzKW6GBKh4xdJdtVb19hM5sWVbp
-         9CXUSiO+ax3VYoWmq9CnnaYrvHf6ooodI8GP7OYSAJs38icHSOzbk1Q7LJyhEnt0pXbb
-         95Ehc11koTC/odaZcG/F0JrncQmRf8+a7wOT6MlW3Vvq7lBX4tWsnqGRnXFR5buzGQMK
-         4a8UfVe8ZbsRMHmV7br2ketF/w9OXA/Hen2l5GFmUB4W8H0k/3In7a3PFQlHfzjsG//7
-         +gX8swsxLCX8VY18coHJts0nOaujS9rKRITfS2qvWmuoXeJmv9Cz/JALmTXBdJLUe3XU
-         4qdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=Y8hAJm5nFvLb+2d5b5NF8UEhR+NwlN1X22DHUZ0xAUo=;
-        b=SKr7wyCxo1eslHy1CssyNiYmAFA+7aTGKEiqyddqatPJTBm71VlJtJstu+nTbQhnDz
-         3ueCvZYIUEyYR46QrBylMC0YLoBscyhwISBQzMO55FD32XBfrtys1Mfg1LnhUe5EWuS4
-         MazqrId+T/vlUuZDd5MIXrEa16DtMO4f6Y4BccKn7fnHM/aIIadgcJ4TCYOeIqgZT6l4
-         6QPTwOCP1DO6YlhEHv5rNfa085czkI7bAP0xQ9sMzB8egMuV6j9VZ/uV9HNW2+Vcx1zY
-         2ckPegIyGqvNdT/uo5Iq/rKhN5J7CEayRlDEsl3Sw9TjLgNRMP/gQjxneMe5wJcNjVed
-         MvrQ==
-X-Gm-Message-State: AOAM5322QCu/AX+QRb9sDuA/F4qE5zfSIVrf7lM361+G8Zw8ptkJgsxU
-	/atJkLKTqgaSNLdt4wkWHV2BqDYiz2Q=
-X-Google-Smtp-Source: ABdhPJwcylafR/yBAF1iUnytuyKOEARKPzzEzzTVQ6KD6oY2V3EhHwo2qaqHd/NC4uUOEyNUpfdelw==
-X-Received: by 2002:a05:620a:b1a:b0:67c:a5bf:a8bf with SMTP id t26-20020a05620a0b1a00b0067ca5bfa8bfmr717097qkg.38.1648664271313;
-        Wed, 30 Mar 2022 11:17:51 -0700 (PDT)
-From: Jason Andryuk <jandryuk@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jason Andryuk <jandryuk@gmail.com>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH] xl: Fix global pci options
-Date: Wed, 30 Mar 2022 14:17:41 -0400
-Message-Id: <20220330181741.30334-1-jandryuk@gmail.com>
-X-Mailer: git-send-email 2.35.1
+X-Inumbo-ID: 28012c1f-b057-11ec-8fbc-03012f2f19d4
+ARC-Seal: i=1; a=rsa-sha256; t=1648664891; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=npZtWjcW4Y/J370lH6QVMiYy9WI+s2IOK+SeiAbizYO9bdln5eUaKsMeFGpPv0i1pSgb7gnBT0QmaUY48HgBkvrHKqRekcEPfjHCxY/XymldtDWqXQ9XRaqYWhLECfFbfR2BYg8rmMNHm2rP/lFi1cBgotu+i3n/hfYY26FFUDQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1648664891; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=V2Cdfw3qsK6arRjmn+bz49KzU3r8AsJyQmv3h+FjNVo=; 
+	b=Fyoy4bkvX0d8PKAk22h3RWjg6IeERLrmfY1TL29fNlGyhzn7qAXpT7Beq5J4L5MnhiPDXzZ/LWESgV5U8hHDZaa9vw/SIf6jidxo6+MtesKz4k47wlh4jLtaB+KoQ3esBRTJKFrYVXYUE7q4wyfHVHwwu/jh0O1bxMXeayn0pjI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1648664891;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=V2Cdfw3qsK6arRjmn+bz49KzU3r8AsJyQmv3h+FjNVo=;
+	b=GgXdRQFmvwFwYqXRS2x5cQXQZRFTCNKRuVtQeClA1tko5xc//fks7g7/k1yWNd8J
+	bllK8vzFTnY0/N6roXliDNZvkFm6enOoq2SdGQ8FAYZc0sJ23Osrhj1YWqWzK8m5R8W
+	xWtOZrwkuZJyxefrjb8au2cIskbHgFApafhb2wKY=
+Message-ID: <9817e3fc-b7a6-9f4d-79cf-dc32fabac2ba@apertussolutions.com>
+Date: Wed, 30 Mar 2022 14:27:52 -0400
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH] x86/irq: Skip unmap_domain_pirq XSM during destruction
+Content-Language: en-US
+To: Jason Andryuk <jandryuk@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <20220330181734.30319-1-jandryuk@gmail.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <20220330181734.30319-1-jandryuk@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-commit babde47a3fed "introduce a 'passthrough' configuration option to
-xl.cfg..." moved the pci list parsing ahead of the global pci option
-parsing.  This broke the global pci configuration options since they
-need to be set first so that looping over the pci devices assigns their
-values.
+On 3/30/22 14:17, Jason Andryuk wrote:
+> xsm_unmap_domain_irq was seen denying unmap_domain_pirq when called from
+> complete_domain_destroy as an RCU callback.  The source context was an
+> unexpected, random domain.  Since this is a xen-internal operation,
+> we don't want the XSM hook denying the operation.
+> 
+> Check d->is_dying and skip the check when the domain is dead.  The RCU
+> callback runs when a domain is in that state.
+> 
+> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
+> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> ---
+> Dan wants to change current to point at DOMID_IDLE when the RCU callback
+> runs.  I think Juergen's commit 53594c7bd197 "rcu: don't use
+> stop_machine_run() for rcu_barrier()" may have changed this since it
+> mentions stop_machine_run scheduled the idle vcpus to run the callbacks
+> for the old code.
+> 
+> Would that be as easy as changing rcu_do_batch() to do:
+> 
+> +        /* Run as "Xen" not a random domain's vcpu. */
+> +        vcpu = get_current();
+> +        set_current(idle_vcpu[smp_processor_id()]);
+>          list->func(list);
+> +        set_current(vcpu);
+> 
+> or is using set_current() only acceptable as part of context_switch?
+> 
+>  xen/arch/x86/irq.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
+> index 285ac399fb..16488d287c 100644
+> --- a/xen/arch/x86/irq.c
+> +++ b/xen/arch/x86/irq.c
+> @@ -2340,10 +2340,14 @@ int unmap_domain_pirq(struct domain *d, int pirq)
+>          nr = msi_desc->msi.nvec;
+>      }
+>  
+> -    ret = xsm_unmap_domain_irq(XSM_HOOK, d, irq,
+> -                               msi_desc ? msi_desc->dev : NULL);
+> -    if ( ret )
+> -        goto done;
+> +    /* When called by complete_domain_destroy via RCU, current is a random
+> +     * domain.  Skip the XSM check since this is a Xen-initiated action. */
+> +    if ( d->is_dying != DOMDYING_dead ) {
+> +        ret = xsm_unmap_domain_irq(XSM_HOOK, d, irq,
+> +                                   msi_desc ? msi_desc->dev : NULL);
+> +        if ( ret )
+> +            goto done;
+> +    }
+>  
+>      forced_unbind = pirq_guest_force_unbind(d, info);
+>      if ( forced_unbind )
 
-Move the global pci options ahead of the pci list to restore their
-function.
+I think this is sufficient though IMHO it would make it stronger if
+current accurately reflected the idle domain and the condition was added
+to the if statement check this fact.
 
-Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
----
- tools/xl/xl_parse.c | 52 ++++++++++++++++++++++-----------------------
- 1 file changed, 26 insertions(+), 26 deletions(-)
-
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index 117fcdcb2b..b98c0de378 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -1478,6 +1478,32 @@ void parse_config_data(const char *config_source,
-         exit(1);
-     }
- 
-+    /* To be reworked (automatically enabled) once the auto ballooning
-+     * after guest starts is done (with PCI devices passed in). */
-+    if (c_info->type == LIBXL_DOMAIN_TYPE_PV) {
-+        xlu_cfg_get_defbool(config, "e820_host", &b_info->u.pv.e820_host, 0);
-+    }
-+
-+    if (!xlu_cfg_get_long (config, "pci_msitranslate", &l, 0))
-+        pci_msitranslate = l;
-+
-+    if (!xlu_cfg_get_long (config, "pci_power_mgmt", &l, 0))
-+        pci_power_mgmt = l;
-+
-+    if (!xlu_cfg_get_long (config, "pci_permissive", &l, 0))
-+        pci_permissive = l;
-+
-+    if (!xlu_cfg_get_long (config, "pci_seize", &l, 0))
-+        pci_seize = l;
-+
-+    if (!xlu_cfg_get_string(config, "rdm", &buf, 0)) {
-+        libxl_rdm_reserve rdm;
-+        if (!xlu_rdm_parse(config, &rdm, buf)) {
-+            b_info->u.hvm.rdm.strategy = rdm.strategy;
-+            b_info->u.hvm.rdm.policy = rdm.policy;
-+        }
-+    }
-+
-     if (!xlu_cfg_get_list (config, "pci", &pcis, 0, 0)) {
-         d_config->num_pcidevs = 0;
-         d_config->pcidevs = NULL;
-@@ -2338,32 +2364,6 @@ skip_vfb:
-         }
-     }
- 
--    if (!xlu_cfg_get_long (config, "pci_msitranslate", &l, 0))
--        pci_msitranslate = l;
--
--    if (!xlu_cfg_get_long (config, "pci_power_mgmt", &l, 0))
--        pci_power_mgmt = l;
--
--    if (!xlu_cfg_get_long (config, "pci_permissive", &l, 0))
--        pci_permissive = l;
--
--    if (!xlu_cfg_get_long (config, "pci_seize", &l, 0))
--        pci_seize = l;
--
--    /* To be reworked (automatically enabled) once the auto ballooning
--     * after guest starts is done (with PCI devices passed in). */
--    if (c_info->type == LIBXL_DOMAIN_TYPE_PV) {
--        xlu_cfg_get_defbool(config, "e820_host", &b_info->u.pv.e820_host, 0);
--    }
--
--    if (!xlu_cfg_get_string(config, "rdm", &buf, 0)) {
--        libxl_rdm_reserve rdm;
--        if (!xlu_rdm_parse(config, &rdm, buf)) {
--            b_info->u.hvm.rdm.strategy = rdm.strategy;
--            b_info->u.hvm.rdm.policy = rdm.policy;
--        }
--    }
--
-     if (!xlu_cfg_get_list(config, "usbctrl", &usbctrls, 0, 0)) {
-         d_config->num_usbctrls = 0;
-         d_config->usbctrls = NULL;
--- 
-2.35.1
-
+Reviewed-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
