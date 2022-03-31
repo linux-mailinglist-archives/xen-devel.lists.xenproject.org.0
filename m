@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40C5F4EE491
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Apr 2022 01:14:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.297110.505998 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5106F4EE4B5
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Apr 2022 01:23:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.297119.506012 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1na3yr-0004Ch-Qw; Thu, 31 Mar 2022 23:13:29 +0000
+	id 1na48Y-0005hf-R5; Thu, 31 Mar 2022 23:23:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 297110.505998; Thu, 31 Mar 2022 23:13:29 +0000
+Received: by outflank-mailman (output) from mailman id 297119.506012; Thu, 31 Mar 2022 23:23:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1na3yr-0004Am-Ng; Thu, 31 Mar 2022 23:13:29 +0000
-Received: by outflank-mailman (input) for mailman id 297110;
- Thu, 31 Mar 2022 23:13:27 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1na48Y-0005fK-Nl; Thu, 31 Mar 2022 23:23:30 +0000
+Received: by outflank-mailman (input) for mailman id 297119;
+ Thu, 31 Mar 2022 23:23:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1na3yp-0004Ac-Tv; Thu, 31 Mar 2022 23:13:27 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1na3yp-00008j-P2; Thu, 31 Mar 2022 23:13:27 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1na3yp-0002Br-BF; Thu, 31 Mar 2022 23:13:27 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1na3yp-000261-Am; Thu, 31 Mar 2022 23:13:27 +0000
+ (envelope-from <SRS0=5BbJ=UK=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1na48X-0005fD-Qk
+ for xen-devel@lists.xenproject.org; Thu, 31 Mar 2022 23:23:30 +0000
+Received: from sonic313-20.consmr.mail.gq1.yahoo.com
+ (sonic313-20.consmr.mail.gq1.yahoo.com [98.137.65.83])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9015b096-b149-11ec-a405-831a346695d4;
+ Fri, 01 Apr 2022 01:23:26 +0200 (CEST)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic313.consmr.mail.gq1.yahoo.com with HTTP; Thu, 31 Mar 2022 23:23:24 +0000
+Received: by kubenode534.mail-prod1.omega.ne1.yahoo.com (VZM Hermes SMTP
+ Server) with ESMTPA ID 7634f0d611ddb9d48a7ac57619ed0f00; 
+ Thu, 31 Mar 2022 23:23:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,313 +42,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=3cno8OiThQMuOZztHFBnjM7vZblcH0QuG/jaykHZt9c=; b=Br+FktpWnWcD74CBgeE3u99phO
-	pR3kUQy17uCFzC91Wdhs4geMz1hXsuqqZ9XPIb7FpFV/pdja9P7kgn8H37wynh3E+eWVqiAN3DWiy
-	PNXT2zXZ6t8Eibm7GrAD6R01wL8QSJwBzsfq7dt2AN+59cIAyUu23KTvqPoHOvyDMB0o=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169048-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 9015b096-b149-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1648769004; bh=GZIXuqN8kcvSLIpsHl1AtKI5jMJ/M7yeBERtI9scRyY=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=GDMWyPCW0jnV5+b0v84SePbVnyNt9NZB4eT8b5/Sd8G1H8xK4cMtLcuM8SEdG9OiEg+lfEyfZAa8U5NTvF5AmRs2lApo0vEEGFuvknu7E6oNsHuEq5uG5rv1kH6Xq3ZyS0NNDZCu6l96uttY++TIAj+4GRVQw87q8t46aRJuix/2/oMwAXLfWb/oNumn+NIEH5iOtTtj/3XvSESX2Ap4ECE1T2ZU2o8+gAOyUSH679qhkLcdfjJmXZu9PPDFbQtPDOMzj6IhNWhJ1ev6YuQ8kTA5SfGe6jAuUMk8MPMuMo47e6UZvJVSG1PTzrCF+BdFEXNaaqhAe9m/Bruyww8RqA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1648769004; bh=q9W6vlyrZ8DuZD5LdYrpwvREmGxYGp2qeF08za7ygA4=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=RLxTNoEkakUfD5PfuUwvtv7+Hn4KQ8lv6k7Ng/E+l4F5X7O67giIfwij/E2/Ssn/UaMZ8WHrS5RyDPLXy0yjqEXHOyNXaTYXSCWmzHiOvPT+d2LacOdu7pZ4yOFiyAdeOCbTVLW3lawEB58S9kxCNWtIdfPp/2Q2AHimTcugPwtusng30ssD1wQ8Q2Ztc+LV1t4kwGUoPT/4D7n47iGqAH3RnCBeS2V/SYBZjcTPMClXlOAXdBwIDZD/CGC447V4CJzO57anf/n0fVJ5SsaoieoJ1xKcNm2GogisNnt9osV7bgGm9hjio6TvBdqzok5Dt0kxi+qw0FGTueEHUbpKfw==
+X-YMail-OSG: lQpPR1UVM1kHJdQW2zIAmWft6UdlwhVtDZNeo8TKyBl1L7H4OvHDazypLFgKEjx
+ 0SgLJ9_JK5tVmCH5z.xU8sYV6KC8FQOPOJymfPIEwLZ1fNWES3Xtr6zatf5ZDbSqDXruNMgOJYBy
+ ZsWZMChWPtR_oM_hjuMK4fyHOww_uRf5GYiirPhK7_9BI3zP.1pshCNj4NF_ADA8ytS20OTdIfg8
+ O8SrM1toijWeCBr0H.zpyakaMZkEgGdtCbRuhe.akzjjZ9rqF0xEoCc.JODBfUizoMHBQVA2oU5A
+ J0J6TN7ARQ7q.iMcBJ92Klb1YJ0HfrngCzlYQLl8.5Akyib8jIc76yxoPosl0_SSmYY37ISNOWwr
+ tIcUdo5l8gdBFsueCgQwcS.TU.svUdrCXGPeLesTFDUDXzrTVqjO0dKbMp6aC9jdXUNUqLrsdL9N
+ MKg8Nfbbm5jaaUeq5rLqjMlcgJTWTOU3cK2u0SKd6DT8AWRm4IxhBTagFFxLLS328SYbtzHYHlND
+ 1XW4Z4Dz1CHfu4mbnwimTiLT3mhsoUrV.gE1yI_n6T3W7HJEEGTqMuYkQRnB2cChzCceDhKLE7._
+ c3KdFWVi3ynmlFc_XPI5kGUZpzT1YsJO8JhYp.Zhof.hHvGh8bEtGnBgu0BWKiHpBMTrelNXcrV8
+ ..NErs2UAKFCjQncqdo_0sYFnH8ovqYIXyrcivIFeyFoDzrnxRi2zdgQokbogkUuDSrtoZqIJFev
+ sQ8FDJrUa06PEjhDaBDBStRMYHxHNIk7ph6nSEJbwseZvhU7zsKOfRFrjFBVKVepgBHtv3Pyb1mN
+ n5Tn.8gs_IstUcWKALK44fJjBzSpivgK44CqbIsMMl_UBfJCgCBxj1mMuQB_u1qbDjMDRGDaJvr9
+ ra9bNEUqvQMNfIbdXplpt3jIPIICEiFkAk8w_iHgx4YDQ04ryZxAjTsvjjpn52kmj513rbbfYXW2
+ aPUwwf8MjFEQulVIBwKVanscj9novwJOF_9PAX4960b3GG2G7XXCAteEiYUDB6cAxkmIlbbqRsQh
+ bKLoqEfM5DfIssDEesoFzK2QkrjYoO8.vI7_C13YQVpKmthGeZwRdotJjzLK8sBVpr3pAaGl2XWG
+ cMm0EvSo1mcx_COA2WjkqPjiWfvBgb.fQBA1tMZYY2yHNuDNJVTPmEnVl_LSjuftndbSyCPGsRtY
+ GN2IUfD5JFT0A8CMyeEkvG9IFUa296UFNywGKxXW4Fc5O_BUrh7VAK_wtZpp8UoojDWhQFdJR2e8
+ yLhPiXRa7qOxZOgFvYDjWct7gjG5tBfd3UaRIKInvim.I.wdyMrouugliKZR1OopRqfBTBnoF3tu
+ WVXPvto99MQ8T9yUNzeCIJrPUGkrBMOViFLSqqiMLbllFPJOsIt9C3q2lKrD.U5qTjcHwN.vM9tV
+ 0PkHZ2MUHYCHLKER7T9MbrembLSQs9BOjZHTEgsCzjI73pDn5EGYGaO_kl2FKrr4djr5SPKRdeUp
+ 0JNeuQHrAADFiigv_w5Yt65zMDm8AMSQ_U6tKStBJC5TKSZsCHQAniAc4vGpG8YkrQodNKKm5kyc
+ 7SZv2Xjn5.upgKGubVSDIBbLDsfJ8R5TBqnIoTkFaBIajtLj5laqWJVlAumrpMrzc8LOf4qkspiW
+ 1_C9Os6GaHYGaGlsUpO4v7xuYHx.e1mdSBxnJUL7p07CNFLIVcRElgwW10r5cVlRverz6A3Dob0g
+ ff.nE1FRWjFh_nHwXFSzjS1BWxFxQXpV4uWLGodobKTygHoI8eD7mfUNnW3JHHeohIV2DVjXkgKX
+ iwo18ysLJsvR0LmBtHZ441cHi4NJnzFuAt_TFhpxjuqtBFg.86ll1MyNfDsAtALW5uB6jR5kKbAc
+ ZBO1WTcTipnzoAFROwpSPDK7wYK4AXfjO80DjBxZY.UP0cWDIvF1TLrzIMHJ8qP9iJlLpKKre5Gj
+ 4yZLeMvFoiywMO79X3ZjJSA6OUml9AN8pknf_ztAD7OpH4xeiAA1t8imKzHp_.3hHOA7MfaoRfuv
+ hC_0XPaizKyFJpXnmH3w6ngr6XWy7ITqBLgMicpxPT2n4q6hHtHy00IvZY1hFwc4HaAcif101xxi
+ Jp6024iL.1z4SrN47ghsuvZv6gF6ZRM0hQxpPxVo3wrrlPZBK1sQzyqikGiu1mF4pQMYemaYzqDZ
+ DR447mT1aoNu3mFsk6Nw3LVqzh9MhgeB8wT6N2BGBkp5G0cqq1WrbGgTA1aUzLP93W7zJtVQZ61M
+ ch8TRtvBXL1o-
+X-Sonic-MF: <brchuckz@aim.com>
+Message-ID: <7ed89fbe-a8b6-de9b-9056-4800d6a6e145@netscape.net>
+Date: Thu, 31 Mar 2022 19:23:20 -0400
 MIME-Version: 1.0
-Subject: [xen-4.16-testing test] 169048: regressions - FAIL
-X-Osstest-Failures:
-    xen-4.16-testing:test-amd64-amd64-livepatch:livepatch-run:fail:regression
-    xen-4.16-testing:test-amd64-i386-livepatch:livepatch-run:fail:regression
-    xen-4.16-testing:test-armhf-armhf-xl-rtds:guest-start:fail:heisenbug
-    xen-4.16-testing:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.16-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.16-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-4.16-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.16-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.16-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.16-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.16-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.16-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    xen-4.16-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-4.16-testing:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=4dcddbba664cc91e2c1952498e80d8025891b9ad
-X-Osstest-Versions-That:
-    xen=cfd29b83a26f35f49f074f06169ce4cadfdebf0d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 31 Mar 2022 23:13:27 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [XEN PATCH] tools/libs/light/libxl_pci.c: explicitly grant access
+ to Intel IGD opregion
+Content-Language: en-US
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+ Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>
+References: <b62fbc602a629941c1acaad3b93d250a3eba33c0.1647222184.git.brchuckz.ref@netscape.net>
+ <b62fbc602a629941c1acaad3b93d250a3eba33c0.1647222184.git.brchuckz@netscape.net>
+ <YkSQIoYhomhNKpYR@perard.uk.xensource.com>
+From: Chuck Zmudzinski <brchuckz@netscape.net>
+In-Reply-To: <YkSQIoYhomhNKpYR@perard.uk.xensource.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Mailer: WebService/1.1.20001 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-flight 169048 xen-4.16-testing real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169048/
+On 3/30/22 1:15 PM, Anthony PERARD wrote:
+> Hi Chuck,
+>
+> On Sun, Mar 13, 2022 at 11:41:37PM -0400, Chuck Zmudzinski wrote:
+>> When gfx_passthru is enabled for the Intel IGD, hvmloader maps the IGD
+>> opregion to the guest but libxl does not grant the guest permission to
+> I'm not reading the same thing when looking at code in hvmloader. It
+> seems that hvmloader allocate some memory for the IGD opregion rather
+> than mapping it.
+>
+>
+> tools/firmware/hvmloader/pci.c:184
+>      if ( vendor_id == 0x8086 )
+>      {
+>          igd_opregion_pgbase = mem_hole_alloc(IGD_OPREGION_PAGES);
+>          /*
+>           * Write the the OpRegion offset to give the opregion
+>           * address to the device model. The device model will trap
+>           * and map the OpRegion at the give address.
+>           */
+>          pci_writel(vga_devfn, PCI_INTEL_OPREGION,
+>                     igd_opregion_pgbase << PAGE_SHIFT);
+>      }
+>
+> I think this write would go through QEMU, does it do something with it?
+> (I kind of replying to this question at the end of the mail.)
+>
+> Is this code in hvmloader actually run in your case?
 
-Regressions :-(
+Hi Anthony,
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-livepatch   13 livepatch-run            fail REGR. vs. 168513
- test-amd64-i386-livepatch    13 livepatch-run            fail REGR. vs. 168513
+Let me try to answer your question again. My tests indicate
+that this code in hvmloader is actually run in my case. As I
+mentioned in an earlier message, the allocation of the three
+pages for the opregion is not done for the guest if I remove
+this code from hvmloader. The only concern I had was about
+the difference in what I was reading for the opregion address
+in sysfs (fcffc018 in my case) and the address that hvmloader
+wrote (fcffc000 in my case). The change is easily explained by
+what the Qemu device model (both upstream and traditional)
+does when the device model writes the opregion address into
+the Intel IGD config attribute:
 
-Tests which are failing intermittently (not blocking):
- test-armhf-armhf-xl-rtds     14 guest-start                fail pass in 168993
+This is the traditional Qemu code in hw/pt_graphics.c:66
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl-rtds    15 migrate-support-check fail in 168993 never pass
- test-armhf-armhf-xl-rtds 16 saverestore-support-check fail in 168993 never pass
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 168513
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 168513
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 168513
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 168513
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 168513
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 168513
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 168513
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 168513
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 168513
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 168513
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 168513
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 168513
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+void igd_write_opregion(struct pt_dev *real_dev, uint32_t val)
+{
+     uint32_t host_opregion = 0;
+     int ret;
 
-version targeted for testing:
- xen                  4dcddbba664cc91e2c1952498e80d8025891b9ad
-baseline version:
- xen                  cfd29b83a26f35f49f074f06169ce4cadfdebf0d
+     if ( igd_guest_opregion )
+     {
+         PT_LOG("opregion register already been set, ignoring %x\n", val);
+         return;
+     }
 
-Last test of basis   168513  2022-03-11 05:13:34 Z   20 days
-Failing since        168864  2022-03-25 17:37:01 Z    6 days    8 attempts
-Testing same since   168966  2022-03-29 02:34:29 Z    2 days    3 attempts
+     host_opregion = pt_pci_host_read(real_dev->pci_dev, 
+PCI_INTEL_OPREGION, 4);
+     igd_guest_opregion = (val & ~0xfff) | (host_opregion & 0xfff);
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Bjoern Doebel <doebel@amazon.de>
-  Jan Beulich <jbeulich@suse.com>
-  Jiamei Xie <jiamei.xie@arm.com>
-  Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Thiner Logoer <logoerthiner1@163.com>
+------------------------ End of code snippet 
+-----------------------------------
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-livepatch                                   fail    
- test-amd64-i386-livepatch                                    fail    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
- test-amd64-i386-xl-vhd                                       pass    
+The offset of the opregion in the guest (0x18 in my case) is
+recovered by that last statement. The upstream model does the
+same thing using the constant XEN_PCI_INTEL_OPREGION_MASK
+set to 0xfff to recover the offset.
 
+So what we have in hvmloader is correct and necessary.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+>
+>> diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
+>> index 4bbbfe9f16..a4fc473de9 100644
+>> --- a/tools/libs/light/libxl_pci.c
+>> +++ b/tools/libs/light/libxl_pci.c
+>> @@ -2531,6 +2572,37 @@ int libxl__grant_vga_iomem_permission(libxl__gc *gc, const uint32_t domid,
+>>                     domid, vga_iomem_start, (vga_iomem_start + 0x20 - 1));
+>>               return ret;
+>>           }
+>> +
+>> +        /* If this is an Intel IGD, allow access to the IGD opregion */
+>> +        if (!libxl__is_igd_vga_passthru(gc, d_config)) return 0;
+>> +
+>> +        uint32_t igd_opregion = sysfs_dev_get_igd_opregion(gc, pci);
+>> +        uint32_t error = 0xffffffff;
+>> +        if (igd_opregion == error) break;
+>> +
+>> +        vga_iomem_start = ( (uint64_t) igd_opregion ) >> XC_PAGE_SHIFT;
+>> +        ret = xc_domain_iomem_permission(CTX->xch, stubdom_domid,
+>> +                                         vga_iomem_start,
+>> +                                         IGD_OPREGION_PAGES, 1);
+>> +        if (ret < 0) {
+>> +            LOGED(ERROR, domid,
+>> +                  "failed to give stubdom%d access to iomem range "
+>> +                  "%"PRIx64"-%"PRIx64" for IGD passthru",
+>> +                  stubdom_domid, vga_iomem_start, (vga_iomem_start +
+>> +                                                IGD_OPREGION_PAGES - 1));
+>> +            return ret;
+>> +        }
+>> +        ret = xc_domain_iomem_permission(CTX->xch, domid,
+>> +                                         vga_iomem_start,
+>> +                                         IGD_OPREGION_PAGES, 1);
+> Here, you seems to add permission to an address that is read from the
+> pci config space of the device, but as I've pointed above hvmloader
+> seems to overwrite this address.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+No, hvmloader wrote the mapped address and here we are
+reading the opregion address of the host, not the mapped
+address of the guest. There is no problem here.
+> It this call to
+> xc_domain_iomem_permission() does actually anything useful?
+> Or is it by luck that the address returned by
+> sysfs_dev_get_igd_opregion() happened to be the address that hvmloader
+> is going to write?
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+No, it is not luck, we use the same constant in hvmloader,
+Qemu, and here in this patch to properly map the opregion
+to the guest, and the constant is PCI_INTEL_OPREGION, set
+to 0xfc, the offset of where in the config attribute the
+opregion address is stored.
+>
+> Or maybe hvmloader doesn't actually do anything?
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+It does do something, and what it does is necessary.
 
+Regards,
 
-Not pushing.
-
-(No revision log; it would be 410 lines long.)
+Chuck
 
