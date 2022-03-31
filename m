@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 064C64ED750
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Mar 2022 11:50:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.296860.505475 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DFF44ED751
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Mar 2022 11:51:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.296865.505487 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZrRm-0008Sf-Os; Thu, 31 Mar 2022 09:50:30 +0000
+	id 1nZrSQ-0000hK-3D; Thu, 31 Mar 2022 09:51:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 296860.505475; Thu, 31 Mar 2022 09:50:30 +0000
+Received: by outflank-mailman (output) from mailman id 296865.505487; Thu, 31 Mar 2022 09:51:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZrRm-0008PI-Le; Thu, 31 Mar 2022 09:50:30 +0000
-Received: by outflank-mailman (input) for mailman id 296860;
- Thu, 31 Mar 2022 09:50:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nZrSP-0000dp-VC; Thu, 31 Mar 2022 09:51:09 +0000
+Received: by outflank-mailman (input) for mailman id 296865;
+ Thu, 31 Mar 2022 09:51:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TTh1=UK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nZrRk-0006u5-Kp
- for xen-devel@lists.xenproject.org; Thu, 31 Mar 2022 09:50:28 +0000
+ id 1nZrSP-0007le-3q
+ for xen-devel@lists.xenproject.org; Thu, 31 Mar 2022 09:51:09 +0000
 Received: from de-smtp-delivery-102.mimecast.com
  (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fe6241e3-b0d7-11ec-a405-831a346695d4;
- Thu, 31 Mar 2022 11:50:27 +0200 (CEST)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2104.outbound.protection.outlook.com [104.47.17.104]) by
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 16caed53-b0d8-11ec-8fbc-03012f2f19d4;
+ Thu, 31 Mar 2022 11:51:08 +0200 (CEST)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05lp2106.outbound.protection.outlook.com [104.47.18.106]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-9-JmfEzXE7Nzqk5lDZDet1DA-1; Thu, 31 Mar 2022 11:50:25 +0200
+ de-mta-19-msc2Wdd7Oge5_8QbrcETMg-1; Thu, 31 Mar 2022 11:51:05 +0200
 Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
- by AS4PR04MB9650.eurprd04.prod.outlook.com (2603:10a6:20b:4cd::6)
+ by VI1PR04MB3264.eurprd04.prod.outlook.com (2603:10a6:802:11::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5102.22; Thu, 31 Mar
- 2022 09:50:23 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.16; Thu, 31 Mar
+ 2022 09:51:04 +0000
 Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
  ([fe80::914d:e08d:7798:8476]) by DU2PR04MB8616.eurprd04.prod.outlook.com
  ([fe80::914d:e08d:7798:8476%7]) with mapi id 15.20.5123.021; Thu, 31 Mar 2022
- 09:50:23 +0000
+ 09:51:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,35 +51,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fe6241e3-b0d7-11ec-a405-831a346695d4
+X-Inumbo-ID: 16caed53-b0d8-11ec-8fbc-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1648720227;
+	t=1648720268;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Fb7K4sY64D9J9sN6DhUdaWAIhUcQkX9yK1qzj7M9L8g=;
-	b=Tfdlg0NRhiQKRxaNrdJu3fmKdo3DFNunPxHF+DXkmEZA3mqyT88CSZkmx+38KjaAtHLzIk
-	4gEVv6CZQ4EO+ZmP4qrAp2eK8hqpKSw+FoGmtG1VAb5Cdelz9LfXqpYjJxu5WgCjLz5qJC
-	5Si2ja8RG0zEo9vEZsuLHRvW5Jf8prU=
-X-MC-Unique: JmfEzXE7Nzqk5lDZDet1DA-1
+	bh=KNU533Nas71KGaxkrjt8Y4qhfH0SyWRPA/lY3YgjMd0=;
+	b=KF6ZgxS+cdxy+UEJJ31sOomnvaqF12AcerVo364qI9ehwhuDq3CvdvfM9UYWK74Qc9Gd6g
+	R5bxIcDl7hjm7+XTu2c2dk6GO5PLDpV+Lywow3WoQd7CBPTEp6IUiZDnPDHfFrEME0SD5O
+	iyxTPraBbHSICrT86FI1kaEBTxX3hNA=
+X-MC-Unique: msc2Wdd7Oge5_8QbrcETMg-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g39uerfTZViCOSLz6tP14DhRz5jlE+hdNkDMHBhcy2xDEcPB8KlnE/XzL8PseLGBkGpLv3Bg3Zqya2a3v+P29RqJcJBbQ5gNkfnlGM5ks4bmSU/Q27N2f9P/8NuB2394ItYeCRq5GnySBQstpel+z4xjoEHaXKvyuCgQCx/OO2Kz2mguB09zgD31CWIZbfFhoXnG0laf6jCvgXivum4Qj3MK5gKIkVpVUZfmkt+CnbhjqVJ89knpauLDiTqrCUU6DBuQAHVrAJtUy8Mka9YUcQ2VBvrOIHmQ9zBK2J9zKF8oGlLvshD1eqKLF/w62lLbPvTV/FFj/In9Knjk6SptPg==
+ b=iS4xA51Q/g66xdp9hQ9OYXU5ngFKeEzexBsTmf43SiSXGzW7SnmdmqKPz4ZwbY+ikTN64YWHw2B7jm2XkDSK+msXd9Ks9emlMD7BA3avfw7wG4CQdem8QQNcWGaSK9/eaborh0pevWUHUcyTUQ7rVRxmsEBTxipSSzw1Oy/+xg8YWoeEUubBgYMOP4fTmmkwsGuzfttKQPq8irV+8nZtVFRy+kHRAp1RfZ6uv8FzNEh4neWtaFB2YTMzVPSsTZgs80TxuMFUkCGUFseqN0DQTw0ELi9NYHQAI7iBcWhYcAOaXRVLNB3RbenQfH72p4gFMHFPVg+4W1V+W27RsEYucg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Fb7K4sY64D9J9sN6DhUdaWAIhUcQkX9yK1qzj7M9L8g=;
- b=I8cWiW3JEmt2My8XkAJA4YPPxrN6+Du4gDpW7e/vQT1yUMJBNl8qQLjxs4Rja2KJLn6Grc/BIVHbHpo77roMGSB0llbxjsaEW0usn5PumubPJhk5xu/YXFWKqpp7wCIh6EEcCPwGlrAqAX2L3ly7Rb/j2Nyx3K7W1w87L1vAT7hnRANWMSe6iegl3EGODvLqICDVoLn9fNHTM42Smj9aH7T+gnYmfuiFfFfqGbHORGEsRh1JQ6EflzzXWZQUnuaHedtbb+eXLTDQGloRXaTTEIni1faW/LgdCzGZh202MSB5aLtxRXEdEDHIenTFO2vTa9THXOGh5e2hWJRdZPj1wA==
+ bh=KNU533Nas71KGaxkrjt8Y4qhfH0SyWRPA/lY3YgjMd0=;
+ b=dgPc21xsJR4LFSzLJz7DVn/d+Ft+NR0sB8piw2DqABRaMB39ZSVw/ReQy5vCKoE/o0VTMAd5ZwSarQEccJaHbjs43X5PvClzKZ/grF9bIVuqqevEm4QDJacGwb5WODQJLM40FCxjsqae7tlyopPChJ/V+9fqkZ+Mrg4XsPmVHyTyrY3lLPnRUH7H2xdvKsN+kiEiX7ISdOvBUJ4KLc05NF+AJrNxX+LSGEH6+lYNWdSvhi3v2/Ym3zVcVcKyeNu8mBnRq0NTNT8/5Qvnf39uC3jaP8eEVFy+f9Iq5cmPnEfeFxCiXVUMJ5nAmGzslD90vrcyRh6TL6vG1KPLdDgJKQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <48666252-a448-9c17-cacf-2788fe1a3c17@suse.com>
-Date: Thu, 31 Mar 2022 11:50:20 +0200
+Message-ID: <294639f0-d959-59b4-b3db-78451d5acd9c@suse.com>
+Date: Thu, 31 Mar 2022 11:51:02 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
-Subject: [PATCH v4 7/8] x86/boot: LEA -> MOV in video handling code
+Subject: [PATCH v4 8/8] x86/boot: fold two MOVs into an ADD
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -89,303 +89,94 @@ References: <819eb552-d49d-e98a-9524-8d30c1b93908@suse.com>
 In-Reply-To: <819eb552-d49d-e98a-9524-8d30c1b93908@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6P192CA0070.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:209:82::47) To DU2PR04MB8616.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM5PR1001CA0033.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:206:2::46) To DU2PR04MB8616.eurprd04.prod.outlook.com
  (2603:10a6:10:2db::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f4a382e7-2e40-463a-81d4-08da12fbe067
-X-MS-TrafficTypeDiagnostic: AS4PR04MB9650:EE_
+X-MS-Office365-Filtering-Correlation-Id: 582759d4-d117-4731-fac8-08da12fbf87b
+X-MS-TrafficTypeDiagnostic: VI1PR04MB3264:EE_
 X-Microsoft-Antispam-PRVS:
-	<AS4PR04MB96503446F2955DC2C93D31C7B3E19@AS4PR04MB9650.eurprd04.prod.outlook.com>
+	<VI1PR04MB32642A785C3FB09B4DC89C7FB3E19@VI1PR04MB3264.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	ndXqZvFoKFEKXFZVnCZfF31/dxoR1W/8g1Br4T34gEMr0vran/2qE61Gfm9dRzQa9BQw/L3bSMzWoJANlaZoszQOVN9YcYkLYcvuTIKZfvJAf/pLeVkieLTO1l1mtTvrQlWMr0ofkjiqTUqtLSHexGNRmcFWmeUwpLroTHEkfUsayUdMy+FtYSkl6zRDWl9IcvjH3t6JYv8d9DKuCXEFlAlvM+mbrlM4gPLvS2maAGtdQXMqiHo3btaQPeJIOnaE6uZU9KEqK+w9JuLL+j1Pr/LbeBdqSFhFNZC6bSqEMkwL09QRE0jOdp6WbZBQs8KuW05j1TsNTRI0nx1S6eHiqpA8ZsdNHQV229dM//Xa2F+RPCBoib924xI0rZv4i7t7FGOnu3PZX8PT9jneUJpx68kO9WzdPCH+8Zlf+Vb0IoFrPOeaTY0Bn99tsSPOG6x5jkjimcZF/MLGEDQH/EKgEhiB6WTLwpV0+VcDIkyZa2Jj+rojFP4NeU4mVa0tDtVtZAdMwJSL+NuujNk29WKOOBKkQvIdzkOOF4H3G6+g00X7bZPb1bNWPTabqJcIbtnc89QfqqApXz/w9IgWLi6VH43BzfDLPnjQy8bgOACjMKxy1jhrNvnuR5PWQcS5MXLrP0Xm30vIlrr7InFnrJsj9w70ayC8WDmL83mc7iUqc+Y4M2/PmLtq5Y25JixQsrfDwFEJjC94p4x62SZr/HhbloY/N7QaEN/lrvnFYdcF8VE=
+	UJjy2bW6y2cqgSk4boAj0awY/3NID1albUqJeBsbTs+6dYICUi/vHJFjlhNr90SguuxPCE0XF/wQpCbVIM3KhOmhjUOrN8CWJNrSiPFf839Sr4mvHedytSdHZ0/2oCi2O0OIVbhi/5OoEE5L1WbBAioneJt9EpQtSm8zipeIAcgQPJnN+ZN5KD/pXw1/jlBQtAbWkJpNjgIQyo83d3MsydnY1uG1aUZ424A8ur1DmwwB4a0OkX+7F3knRTvXiLd5isWjZfM6vlwQjpO2xuZ4M97cz9IjzJUVu0wruYj1BFQH1IzhCaCGhFpwOt+ap6zNK+3zz1ub/WC/WUZPhg3IFCndio78ySXjtI9lxA7LZuQGu9XcdDqXlYNGO9ZB2UREFO1KdpGNtzfRA3WXOpDaMnurzclNyz8LB4egJsVmUv+udr7WB6ouJM5CEnAUKBTDXgQG3TWi+qoxnqDY+tF4sg4bQAeVBzBinG3N/r5F74ofQE5oPYeW2s/SlASc3kpg9pEJynPoZpXstnLgWLefj5xv+EcomR3S4eKYEvg6KAoyyHFUJW5JaQH7VcNQjkipPzRMp2WuKoVb0sxOIdfXnzqzwG4SM1ZM75A11e7hGiMIVT/1UgZPiM+yJa8wmtrffr0DAKlZtZ8oMm5I37FKQCIXjhbzydoeC/H8Apt4XSD5gw4NMYsr1XY3nHWKLOfPa5YBjc0VgyGSY6vTqALYiyLgsVnz7ATIrWN1U6y55Ow=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(5660300002)(508600001)(66476007)(6916009)(26005)(36756003)(2616005)(66946007)(186003)(54906003)(316002)(8676002)(31696002)(86362001)(66556008)(8936002)(6486002)(4326008)(2906002)(6512007)(6506007)(31686004)(38100700002)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(31696002)(54906003)(6506007)(2906002)(86362001)(4326008)(8676002)(66476007)(66556008)(66946007)(508600001)(6512007)(6916009)(31686004)(36756003)(316002)(6486002)(2616005)(38100700002)(186003)(26005)(4744005)(8936002)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RFBRQmpDZTdyQlZkZjVwK09Zaks5U20vYUFuUVhZbFhxcVpnZEI2SVlsUTg5?=
- =?utf-8?B?S2d0ZFpBd25jMXZrNTJ2b2lqUGtzallkV09BTmhhcTNXdUlIK2REMGtHS1Rk?=
- =?utf-8?B?M01VU0VHVnFmcjZjdTVCRk5uaXVOSVdqRzA5bFNETWJYODYzVU1CdEVyZUQw?=
- =?utf-8?B?dmk3SlVxNmNoTmlFKzhBTVAwZWxNSjYwb2p1c2dGR1ZMYVFjY0h0cGRCWWFZ?=
- =?utf-8?B?OFJQZzFjcDBlNEp0RXJXekpsUTBnL0M4eGg5WHV5VTYrdzEyamhpVEFkY1Y1?=
- =?utf-8?B?bWVKb2RnV3V3dlVZc0t2Umo4UG5mWDAySmZnRXdraVdJeVpEQ3YreHp3dUhM?=
- =?utf-8?B?QkJmSkdXUy9vbXhtZ01XdWNaa2NwWlQ1VFI5cUVpS2Q5THNMaTFpeU0vUEF1?=
- =?utf-8?B?am12TjZUOGZYejNMcHdFNUhCNHBxUXJjV3h2dE1PYlZjdnRJQStXb2lEOGhv?=
- =?utf-8?B?VDR2cXErUnBEdzNVcEJmL1A2d0lpRTB6VXJzOUg4Z1k2VlVHSE1hNnptQ2FU?=
- =?utf-8?B?Z01MS205VXMySUxOWFVCeDMxOGV3d1NsTXhwcUxISVhBRTVsTjNMZWY1OHBU?=
- =?utf-8?B?QjUwZkRVYTczdlRndlE2WlNHSkZnanlnMlFEbDk0YmoycW41dEtRWjB4bDVw?=
- =?utf-8?B?WUVPZ2NYV0tTbHh6NzhIZ201aUU5bmc0NFRGZVpyL1JkTFFhNTdBckFIZFFh?=
- =?utf-8?B?bEd0SlRyZ01ZMGprcFdENnhsNC9TV2ViMmtNa0xMcGxHcnpBWHRqOTNRWkNq?=
- =?utf-8?B?OTk3VVIwZjZmb3RPTWpVL29TZndkNjRCRlBnejAvMkhTL3RuZGFnRjV6WWM4?=
- =?utf-8?B?TU5FeGNCelNHcWZyM3RQUnQySXhza3lyR0F6TEYxSUhiZDdJdlF4VG1lbVBo?=
- =?utf-8?B?UGhnVEUzUW14Sk9WalFHS2tQSlFEM2x1SXJnamNRN0NscmlVaHRsODFmVmVD?=
- =?utf-8?B?dnZ0ZW9ORU5va0dnUzFLdmlyTzBBcS94TFZMR0Z4QzNSNFR3K2Z4RG02NTJY?=
- =?utf-8?B?QXR3YkVPcG9MNnhmMldFdTcwZzJ2eStCbXhFckI1TE9rc0swcm4wYzBXVFZZ?=
- =?utf-8?B?UWRjcEFLaTJ0b3hpWFVmclpnQ3FIbkhNM1JydDZhVWU3RHJLNTArQi9nTC9r?=
- =?utf-8?B?QXZwRUJBVTFvUGVKZ3lHVzhEa1BPanFKVml2a1M4YndEclBXN1JFK2EyMmh5?=
- =?utf-8?B?YStIbnZLQkcwTG9rdHBHWnNwN1VjNVNseEtCWkFFYVUwMmk1L2I3cUwrTmFm?=
- =?utf-8?B?R0Q2RVhNQVgvSUl2TXNHdUlNY2l1bVY3eU83ZTNnTjR0U05vQnlDWlAzak1m?=
- =?utf-8?B?bG53Wlp3djIyY3pxYnI3WWsvQWhPendZaUlWVitQdWJDVFJCR2JQTXFDMG9s?=
- =?utf-8?B?SFRoYmd1Z2FWMTNpaWpLc0FWczVXbXhRdUllMFBvT2NzVVJKdkJLRms4blB4?=
- =?utf-8?B?Uy9DQVpJemxNdE9vSk1JNHBUbUw0SHR5T0RreDRXcmsrajZxdllxbnR5NXdB?=
- =?utf-8?B?MTl0Y1B1VUhFZ0xxWWZIQ1JWblFuT2F2MDF1d1llY1RMWHYrSUY5Ym1pMVJ4?=
- =?utf-8?B?WXNqbGtNZlJKQmpLMnJmVUdhNW5uN2dpWFVVbGNOQ3ZIb1dGMU9tWUtlM1FT?=
- =?utf-8?B?aExNMzZGM3FqdS9UR2R5NHpXck5PVmFDZ21lS1lmbTh2VHJMdFVtK3RFbC96?=
- =?utf-8?B?dEpiUmxwMVZldFlIUlFTVXRZc2d0NUNCSFMrc3IxMm8wbEp5YlpqZWxkUmpI?=
- =?utf-8?B?Szc1Y2NjQzc3TlVJNzZNQVJUcy8rdU92WmQ5NWJaN3FCekZxZjdXdG1qWWdw?=
- =?utf-8?B?RmtmeGtFL0NVR0FYWk5LWmt3ZWFHd2R6V3BmVnUvUG8rQUJqdHh2OURWYWNL?=
- =?utf-8?B?YUdhQkFwbFlTMnlPSEE5ako2Y0tsWk1UNWRkZHVrUGtWbW5nR05WUHJhQ2Jp?=
- =?utf-8?B?Y0xJdllHNCtjdVpka1dqd1JyM25nM0dQZTRjUWJkd1FhMklKeEplanRqMzN1?=
- =?utf-8?B?cUUxbitPSi9yOTlBL1RoWXJrcU1PMHRsUld2cVowWEpBSitudmg1UnRmenhX?=
- =?utf-8?B?QjRJVWtVYVZxOEJNbEJGVzdCTzVOU3NYZXc2cjgvdk9LZFFSZ21hS29BWEtT?=
- =?utf-8?B?Y0s4QmhZNGRPKzlleUQ2OVdqZVFuQWF0UE9hYlZXckV5Vi9adkZFcVpSbm1J?=
- =?utf-8?B?UkQwN2ljZHlVVTk0T1RzalJkcjZBdFp3Z0dkY284RWYwa2FxVFR3WkgvSS9w?=
- =?utf-8?B?VjVnYVFrS0pCRUlyTGhzdDlqN0pSdXhiQ0MyMHorQ05qdjIwNGRvOUoyUk5y?=
- =?utf-8?B?eDNrb2VHL3hHZnRwUkNMZkxrOTNuUmtoYzJrVjNYdG93ZitIUmdxdz09?=
+	=?utf-8?B?cGpqMzZ6eHQ4d0pUd2NVa04zcFhTaCtEbHFub0FRYTJGUjI5TUZGMVhDKzA0?=
+ =?utf-8?B?WlJhV0tVRFRwSzdUS2hBK1hZeFV6ZzhqYzZOYmx5V0xzZzZ6N1hqa1hEOHcv?=
+ =?utf-8?B?aXFpN1VxSkM0N2xXWGEwTnZJWExRUm91NXlXb0tNNDY5UUpsYXY0UWlwWnRY?=
+ =?utf-8?B?MTI1WjNybmNIVy9TMURwV2ErdTdUc2dpNS9IMWFxdVFwQWw5RlBsVndKOEZj?=
+ =?utf-8?B?WnlVQy9YQjZOUHJXT1prdEg4akI4eVl1VkM5UlY3Z2VmSExZbHlyTXNpRjRY?=
+ =?utf-8?B?bUlQOGs4RHFNbHY5cWRmV2s0V0lhY1ZVTHd2dnNxSzhCcGt6OGZnc2FIajBz?=
+ =?utf-8?B?V3VNa0RhMituUC9IRWdJc1JJSGNkTnRSVDlYTFk3YlZMRENPbW1tVHBSazBM?=
+ =?utf-8?B?ZWs1RDAzWWU5YUpHd3BkSHc2Z2VUVFl1b0RZUmFETE1CZHVWdlBUY3lRZ0pl?=
+ =?utf-8?B?YXA0UEEzS2ZHK3U4QS9ScW5XeVM2bW1iQmtHNnJNMitNWGFUYlc5dTM5cHJH?=
+ =?utf-8?B?L3dpbWR4dlNML1Y2NVZtYThwV2FLdHVlSE45L0dvYlo0Mkt5OFExeHBVdHlZ?=
+ =?utf-8?B?dC9Wa3F5R2lKTDFEbmxLNzBURG5kN2hCaWRWSTZzV0dEY2pLQUdlRFVtdDYz?=
+ =?utf-8?B?VitLdXZxSkl3akF2VEFOQzY4ZzNiNEJJWGIxS3pRMUVKUE5QKzZvdUxKR056?=
+ =?utf-8?B?ai9MNGd5akt0OUVJOElUL2hqR2Z3aGJkb3N6Rit1cndmYUR1TW9VYm03VkZL?=
+ =?utf-8?B?eTlScWw5cnRoTXI0cHpKb2RuM2pSeDRMVFdTUG1FSWlkSWRtMklsREsrczF5?=
+ =?utf-8?B?T3BmV0NtbVU0QmJsVVdWSUxzaGN5NTY3MHMxeENxaVZ0MlRjaS9tNEV2cUcw?=
+ =?utf-8?B?cnVhNFJvdGlVNStySHNndnYzYVFpcVoxR3lHMWpvM2tWWk0zTFk3T0RRTjlj?=
+ =?utf-8?B?a0w1cG5TL21RQWxjVTU3RHdqb1ZHYkhNZG8vUTdhYmJwWUc4bHV5WnlRS2Mv?=
+ =?utf-8?B?bHF3VU1FRUVZNHFVTDd4bWZKWEZLSE9GR0JQbFNvNjBSSlR1L2YzYzZtbTVF?=
+ =?utf-8?B?RWxXTThtdGFHQ3B2TjA4NS8wZnFKRVVvNC9DQ0pGMldIOEpkVUNRd0p0VVBU?=
+ =?utf-8?B?TU5hK014ODVuUHJjVnFiVnpCUHN2ZjZGM1lTOFlRbzIvUEltMWJsdTE2SVpU?=
+ =?utf-8?B?THV2cHovNldBUlJRTHFPYk5JdXkxUCtyazdFblVqT2VWbDBPd0l4VnRLaHdj?=
+ =?utf-8?B?cjhadmlOQXRCVTFIelJjdkJ6VWZxKzdBeXM4d2Y1U0JrYm5ZaW13N1lRdUZo?=
+ =?utf-8?B?bjdzUWhzajRMYndYdnhvK3ZQWnphaU5iaG41Q2hwTVVyS09MVUhjSmMvWUlj?=
+ =?utf-8?B?SnVoWEN0TjV6RGZLZXFST01aRmRyODBua1owbkdCMU5LY2FUK2VoakFRNC9q?=
+ =?utf-8?B?TUVaOXJwcDhwV0U4TmtGYktIMEFZOFU2eGJJazA0S1FPTWlzNDNqbFBzSWcr?=
+ =?utf-8?B?eXdGQmMvNW9hV0NHTzgraFE2bGhkRmZuNTZtdWMvQzQ3amZHZ0FpdkoxNzFi?=
+ =?utf-8?B?aVBEV1BlaGhhVDRiVHFHeXhPV21zcVJGMXlqdE9wNUx4RjJQSnBqVU0vRDgv?=
+ =?utf-8?B?SUo0U2VCT2dYdzUyaHMxb3RscTFrT0xJWmppZXgrcUJBUkh2Z3BReFlmZmFt?=
+ =?utf-8?B?ZSswU3dmQ3Y0Zkgva0FmT1hpY3FQTS9LSlV0ZHdSRzZyV3RKVzlmL3FUUEw2?=
+ =?utf-8?B?bFF0c2RzQktqUk5xRDZuU0hzaFBxbzRXL0c4Q0pvWGhjY0l4ejVoSkpIdzFn?=
+ =?utf-8?B?Z3YzREFhbWRvN1B4dXZETlNyM3hKMnlkbkMwMHM5S1NwR0RwMVQrTVl4TVBZ?=
+ =?utf-8?B?cldzYmVja0hXQ2NTSUYyTDFEZmV0c1p1c25obEtDM1B2NzlzOGc3dTY2MjRZ?=
+ =?utf-8?B?T3VoT2JockMrQmUzUS9Kc0pTR2NqZW9HZGg2UTRzbWRMZFhqU1lMT1FPQ29B?=
+ =?utf-8?B?Z1g5V2NwNStnYTkwVjl5Wk05UG1naTdYUTY1OFVycGcyQ0gxaFNyZnJNK0J3?=
+ =?utf-8?B?YVFic2ROVVFLb2s1SHdHMVJacm5iQ1FNM3hBMFcydGtuMHZlUUVzTTNtcVBI?=
+ =?utf-8?B?bUxGVUc5NUtBdVlpOU5HZDkxckE3QUJTNTBuUGM2REdiNHZ4bHhIU1hOVVRT?=
+ =?utf-8?B?R1ZrSlJVWXRTYW81bFlsVlgyV2I2ZnpvQndQbzdnMHNGODJMS3ppTlEydWJx?=
+ =?utf-8?B?ZlBZbURib1JLNVVOTTU2Z1F1QTlsTld3eDh4V0crcEh2WUovbnUrMFlRVWdp?=
+ =?utf-8?B?d3RXNzZUOTdtSUlFZTY5bUUzcFdWT1NVcVVjS0ZianZvVmI4SWxXZz09?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f4a382e7-2e40-463a-81d4-08da12fbe067
+X-MS-Exchange-CrossTenant-Network-Message-Id: 582759d4-d117-4731-fac8-08da12fbf87b
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2022 09:50:23.8411
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2022 09:51:04.2874
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iBpu9gf0yvNU54SvTOiJRfWsZvFHcPeiQF36/CvmmGhWaGf/+B0jWOKtleyVf6bCRSc4CICPq8BclmkpGG7OpA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR04MB9650
+X-MS-Exchange-CrossTenant-UserPrincipalName: LhdWRiJg/t8CgflyBBmlQYCIyLWamVcIYDP2ND/1obgX6MzbsbU7PrCakvrhfst8Ht2efA/D12YPxgGIiV+DxA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB3264
 
-Replace most LEA instances with (one byte shorter) MOV.
+There's no point going through %ax; the addition can be done directly in
+%di.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v4: New.
+v2: New.
 
---- a/xen/arch/x86/boot/video.S
-+++ b/xen/arch/x86/boot/video.S
-@@ -60,7 +60,7 @@ video:  xorw    %ax, %ax
-         call    mode_set                        # Set the mode
-         jc      vid1
+--- a/xen/arch/x86/boot/mem.S
++++ b/xen/arch/x86/boot/mem.S
+@@ -24,9 +24,7 @@ get_memory_map:
+         cmpw    $E820_BIOS_MAX, bootsym(bios_e820nr) # up to this many entries
+         jae     .Ldone
  
--        leaw    bootsym(badmdt), %si            # Invalid mode ID
-+        movw    $bootsym(badmdt), %si           # Invalid mode ID
-         call    prtstr
- vid2:   call    mode_menu
- vid1:   call    store_edid
-@@ -113,7 +113,7 @@ mopar2: movb    %al, _param(PARAM_VIDEO_
+-        movw    %di,%ax
+-        addw    $20,%ax
+-        movw    %ax,%di
++        addw    $20,%di
+         testl   %ebx,%ebx                       # check to see if
+         jnz     1b                              # %ebx is set to EOF
  
- # Fetching of VESA frame buffer parameters
- mopar_gr:
--        leaw    vesa_mode_info, %di
-+        movw    $vesa_mode_info, %di
-         movb    $0x23, _param(PARAM_HAVE_VGA)
-         movw    16(%di), %ax
-         movw    %ax, _param(PARAM_LFB_LINELENGTH)
-@@ -133,7 +133,7 @@ mopar_gr:
-         movw    %ax, _param(PARAM_VESA_ATTRIB)
- 
- # get video mem size
--        leaw    vesa_glob_info, %di
-+        movw    $vesa_glob_info, %di
-         movzwl  18(%di), %eax
-         movl    %eax, _param(PARAM_LFB_SIZE)
- 
-@@ -189,7 +189,7 @@ no_pm:  pushw   %ds
- 
- # The video mode menu
- mode_menu:
--        leaw    bootsym(keymsg), %si    # "Return/Space/Timeout" message
-+        movw    $bootsym(keymsg), %si   # "Return/Space/Timeout" message
-         call    prtstr
-         call    flush
- nokey:  call    getkt
-@@ -206,22 +206,22 @@ nokey:  call    getkt
- defmd1: ret                             # No mode chosen? Default 80x25
- 
- listm:  call    mode_table              # List mode table
--listm0: leaw    bootsym(name_bann), %si # Print adapter name
-+listm0: movw    $bootsym(name_bann), %si # Print adapter name
-         call    prtstr
-         movw    bootsym(card_name), %si
-         orw     %si, %si
-         jnz     an2
- 
--        leaw    bootsym(vga_name), %si
-+        movw    $bootsym(vga_name), %si
-         jmp     an1
- 
- an2:    call    prtstr
--        leaw    bootsym(svga_name), %si
-+        movw    $bootsym(svga_name), %si
- an1:    call    prtstr
--        leaw    bootsym(listhdr), %si   # Table header
-+        movw    $bootsym(listhdr), %si  # Table header
-         call    prtstr
-         movb    $0x30, %dl              # DL holds mode number
--        leaw    modelist, %si
-+        movw    $modelist, %si
- lm1:    cmpw    $ASK_VGA, (%si)         # End?
-         jz      lm2
- 
-@@ -240,7 +240,7 @@ lm1:    cmpw    $ASK_VGA, (%si)
-         testb   $0xff,(%si)
-         jnz     1f
-         push    %si
--        leaw    bootsym(textmode), %si
-+        movw    $bootsym(textmode), %si
-         call    prtstr
-         pop     %si
-         lodsw
-@@ -257,7 +257,7 @@ lm1:    cmpw    $ASK_VGA, (%si)
- 
-         cmpb    $'z'+1, %dl
-         jnz     skip_bail
--        leaw    bootsym(menu_bail_msg), %si
-+        movw    $bootsym(menu_bail_msg), %si
-         call    prtstr
-         jmp     lm2
- 
-@@ -266,13 +266,13 @@ skip_bail:
-         jnz     skip_pause
-         push    %si
-         push    %dx
--        leaw    bootsym(menu_more_msg), %si  # '<press space>'
-+        movw    $bootsym(menu_more_msg), %si # '<press space>'
-         call    prtstr
-         call    flush
- 1:      call    getkey
-         cmpb    $0x20, %al              # SPACE ?
-         jne     1b                      # yes - manual mode selection
--        leaw    bootsym(crlft), %si
-+        movw    $bootsym(crlft), %si
-         call    prtstr
-         pop     %dx
-         pop     %si
-@@ -283,9 +283,9 @@ skip_pause:
-         movb    $'a', %dl
-         jmp     lm1
- 
--lm2:    leaw    bootsym(prompt), %si    # Mode prompt
-+lm2:    movw    $bootsym(prompt), %si   # Mode prompt
-         call    prtstr
--        leaw    bootsym(edit_buf), %di  # Editor buffer
-+        movw    $bootsym(edit_buf), %di # Editor buffer
- lm3:    call    getkey
-         cmpb    $0x0d, %al              # Enter?
-         jz      lment
-@@ -315,9 +315,9 @@ lmbs:   cmpw    $bootsym(edit_buf), %di
-         jmp     lm3
-         
- lment:  movb    $0, (%di)
--        leaw    bootsym(crlft), %si
-+        movw    $bootsym(crlft), %si
-         call    prtstr
--        leaw    bootsym(edit_buf), %si
-+        movw    $bootsym(edit_buf), %si
-         cmpb    $0, (%si)               # Empty string = default mode
-         jz      lmdef
- 
-@@ -373,7 +373,7 @@ mnusel: lodsb
- lmuse:  call    mode_set
-         jc      lmdef
- 
--lmbad:  leaw    bootsym(unknt), %si
-+lmbad:  movw    $bootsym(unknt), %si
-         call    prtstr
-         jmp     mode_menu
- lmdef:  ret
-@@ -424,13 +424,13 @@ setmenu:
-         jmp     mode_set
- 
- check_vesa:
--        leaw    vesa_glob_info, %di
-+        movw    $vesa_glob_info, %di
-         movw    $0x4f00, %ax
-         int     $0x10
-         cmpw    $0x004f, %ax
-         jnz     setbad
- 
--        leaw    vesa_mode_info, %di     # Get mode information structure
-+        movw    $vesa_mode_info, %di    # Get mode information structure
-         leaw    -VIDEO_FIRST_VESA(%bx), %cx
-         movw    $0x4f01, %ax
-         int     $0x10
-@@ -497,7 +497,7 @@ inidx:  outb    %al, %dx
- 
- setvesabysize:
-         call    mode_table
--        leaw    modelist,%si
-+        movw    $modelist,%si
- 1:      add     $8,%si
-         movw    -8(%si),%bx
-         cmpw    $ASK_VGA,%bx            # End?
-@@ -656,8 +656,8 @@ mode_table:
-         orw     %di, %di
-         jnz     mtab1
- 
--        leaw    modelist, %di           # Store standard modes:
--        leaw    bootsym(vga_modes), %si # All modes for std VGA
-+        movw    $modelist, %di          # Store standard modes:
-+        movw    $bootsym(vga_modes), %si # All modes for std VGA
-         movw    $vga_modes_end-vga_modes, %cx
-         rep     movsb
- 
-@@ -665,7 +665,7 @@ mode_table:
- 
-         movw    $ASK_VGA, (%di)         # End marker
-         movw    %di, bootsym(mt_end)
--mtab1:  leaw    modelist, %si           # SI=mode list, DI=list end
-+mtab1:  movw    $modelist, %si          # SI=mode list, DI=list end
- ret0:   ret
- 
- # Modes usable on all standard VGAs
-@@ -681,7 +681,7 @@ vga_modes_end:
- 
- # If the current mode is a VESA graphics one, obtain its parameters.
- set_current:
--        leaw    vesa_glob_info, %di
-+        movw    $vesa_glob_info, %di
-         movw    $0x4f00, %ax
-         int     $0x10
-         cmpw    $0x004f, %ax
-@@ -692,7 +692,7 @@ set_current:
-         cmpw    $0x004f, %ax
-         jne     .Lsetc_done
- 
--        leaw    vesa_mode_info, %di     # Get mode information structure
-+        movw    $vesa_mode_info, %di    # Get mode information structure
-         movw    %bx, %cx
-         movw    $0x4f01, %ax
-         int     $0x10
-@@ -715,7 +715,7 @@ set_current:
- # Detect VESA modes.
- vesa_modes:
-         movw    %di, %bp                # BP=original mode table end
--        leaw    vesa_glob_info, %di
-+        movw    $vesa_glob_info, %di
-         movw    $0x4f00, %ax            # VESA Get card info call
-         int     $0x10
-         movw    %di, %si
-@@ -772,7 +772,7 @@ vesa2:  pushw   %cx
- 
-         addw    $8, %di                 # The mode is valid. Store it.
- vesan:  loop    vesa1                   # Next mode. Limit exceeded => error
--vesae:  leaw    bootsym(vesaer), %si
-+vesae:  movw    $bootsym(vesaer), %si
-         call    prtstr
-         movw    %bp, %di                # Discard already found modes.
- vesar:  popw    %gs
-@@ -917,7 +917,7 @@ store_edid:
-         cmpb    $1, %al                 # EDID disabled on cmdline (edid=no)?
-         je      .Lno_edid
- 
--        leaw    vesa_glob_info, %di
-+        movw    $vesa_glob_info, %di
-         movw    $0x4f00, %ax
-         int     $0x10
-         cmpw    $0x004f, %ax
 
 
