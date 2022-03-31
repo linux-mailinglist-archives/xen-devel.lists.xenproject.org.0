@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28FB24EDB9F
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Mar 2022 16:22:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.297008.505784 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10B064EDBC5
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Mar 2022 16:36:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.297015.505800 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZvh1-0006uV-So; Thu, 31 Mar 2022 14:22:31 +0000
+	id 1nZvuE-0008Re-3T; Thu, 31 Mar 2022 14:36:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 297008.505784; Thu, 31 Mar 2022 14:22:31 +0000
+Received: by outflank-mailman (output) from mailman id 297015.505800; Thu, 31 Mar 2022 14:36:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZvh1-0006sg-Ov; Thu, 31 Mar 2022 14:22:31 +0000
-Received: by outflank-mailman (input) for mailman id 297008;
- Thu, 31 Mar 2022 14:22:30 +0000
+	id 1nZvuE-0008Ps-0Y; Thu, 31 Mar 2022 14:36:10 +0000
+Received: by outflank-mailman (input) for mailman id 297015;
+ Thu, 31 Mar 2022 14:36:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lCIW=UK=citrix.com=prvs=082fe6e5b=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nZvh0-0006sY-Gg
- for xen-devel@lists.xenproject.org; Thu, 31 Mar 2022 14:22:30 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fdd800a4-b0fd-11ec-8fbc-03012f2f19d4;
- Thu, 31 Mar 2022 16:22:29 +0200 (CEST)
+ id 1nZvuD-0008Pl-Cn
+ for xen-devel@lists.xenproject.org; Thu, 31 Mar 2022 14:36:09 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e4b5ed1a-b0ff-11ec-8fbc-03012f2f19d4;
+ Thu, 31 Mar 2022 16:36:06 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,71 +36,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fdd800a4-b0fd-11ec-8fbc-03012f2f19d4
+X-Inumbo-ID: e4b5ed1a-b0ff-11ec-8fbc-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1648736549;
+  d=citrix.com; s=securemail; t=1648737366;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=DxBidS46ZaAUMJQiyfYz3anhmK0oiE1u429KTk3QzfE=;
-  b=L1nfoQaBtqo8gyTwD0rQ4d/TTm+6eqbwTBbarvWqqUBJj8MAXEWluUEU
-   6LZ//niAo49uVmkMD7CJCIP6hrej56XXGebbT7CIkiVAVwPJFTY0DtsrE
-   etO1LK5N7O3e5t22i2fU1ZC/yW/vcypfuQ+RPyB4ndDr4LDod3fE+PECv
-   Q=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=s21ZrJIYWGkZietPZDtcq5HY/HgyfJiljyr20umAk8Q=;
+  b=WH5ciLwzDFs4tlUH7bsOMsQdwNRnXZUUi+E1ESCZUrk9Sif37OCu6htO
+   LBImCUX/0GacP42PrrBohia5ctNRVffWzC8tsPLZfSvjZpQDMGzgQ19j+
+   3U2EQbbeGltKnn3yRPdjxFG1Y/ariycq7O71GypOklC88igwfEq2Lvb42
+   c=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 5.1
-X-MesageID: 70053304
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 68069126
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:s61phajQri2RpI5UR04JmWvpX161ZBAKZh0ujC45NGQN5FlHY01je
- htvX2nUPPqJYmb1eIhwadzlpBwP6MeBzoNnT1Y+ryoxFi8b9cadCdqndUqhZCn6wu8v7a5EA
- 2fyTvGacajYm1eF/k/F3oDJ9CU6jefSLlbFILas1hpZHGeIcw98z0M78wIFqtQw24LhWFjU4
- YmaT/D3YzdJ5RYlagr41IrbwP9flKyaVOQw5wFWiVhj5TcyplFNZH4tDfjZw0jQG+G4KtWSV
- efbpIxVy0uCl/sb5nFJpZ6gGqECaua60QFjERO6UYD66vRJjnRaPqrWqJPwwKqY4tmEt4kZ9
- TlDiXC/YTsSPJHSybwBaTR7PnpMEaxc1pnIM3fq5KR/z2WeG5ft6/BnDUVwNowE4OdnR2pJ8
- JT0KhhUMErF3bjvhuvmFK883azPL+GyVG8bknhm0THeC+dgWZ3ZSr/GzdRZwC0xloZFGvO2i
- 88xNmI3MU+bO0En1lE/I64Cn/v2uCbDUxJ4qHiUpqgepEfWw1kkuFTqGIWMIYHbLSlPpW6Ho
- krW8mK/BQsVXPSPxDzA/n+yi+vnmSLgRJlUBLC+7uRtglCY2ioUEhJ+fVmyp/Wjm1O9c91aI
- k0QvCEpqMAPGFeDF4enGUfi+Tjd40BaC4E4//AGBB+l9pHW3xjIXnQ+Yx1sM+4KtdUYYzM42
- Qrc9z/2PgBHvLqQQHOb076bqzKuJCQYRVM/iT84oRgtuIe6/txq5v7bZpM6SfPu0IWpcd3l6
- 2rSxBXSkYn/miLiO0+T2VncywyhqZHSJuLezlWGBzn1hu+ViWPMWmBJ1bQ5xasYRGp6ZgPY1
- JThpyR4xLpUZX1qvHbRKNjh5Jnzu5643MT02DaD5aUJ+TW34GKEdotN+jx4L0oBGp9aJW+3P
- hKM51kMu8I70J6WgUlfOdjZ5yMCl/WIKDgYfqqMMoomjmZZKmdrAx2ClWbPhjuwwSDAYIk0O
- IuBcNbEMJrpIf8P8dZCfM9EieVD7nlnnQv7HMmnpzz6gev2TCPEEt8tbQrRBt3VGYvZ+W05B
- f4EbJDUo/ieOcWjChTqHXk7dg5SdyFhVcGr86S6tIere2JbJY3oMNeJqZtJRmCvt/o9ejvgl
- p1lZnJl9Q==
-IronPort-HdrOrdr: A9a23:3FLT1alN8eJuDHhFwe0Nkgt3QmPpDfIs3DAbv31ZSRFFG/Fxl6
- iV8sjz8SWE7Ar5OUtQ/OxoV5PsfZqxz/JICMwqTNCftWrdyQmVxeNZjbcKqgeIc0aVygce79
- YCT0EXMqyXMbEQt6fHCWeDfOod/A==
+IronPort-Data: A9a23:8LVUI6o0xZVLYoofrgSeMLLS5h9eBmLCZRIvgKrLsJaIsI4StFCzt
+ garIBnVOffZMDD9eIp0aNu/pE4O65XTxoQ2GgdrrHw3FHhE95uZCYyVIHmrMnLJJKUvbq7GA
+ +byyDXkBJppJpMJjk71atANlVEliefQAOCU5NfsYkidfyc9IMsaoU8lyrZRbrJA24DjWVvW4
+ oqq+aUzBXf+s9JKGjNMg068gEsHUMTa4Fv0aXRnOJinFHeH/5UkJMp3yZOZdhMUcaENdgKOf
+ M7RzanRw4/s10xF5uVJMFrMWhZirrb6ZWBig5fNMkSoqkAqSicais7XOBeAAKv+Zvrgc91Zk
+ b1wWZKMpQgBY/P9wfYsTwBkEg5GPa599/zVHGaBmJnGp6HGWyOEL/RGCUg3OcsT+/ptAHEI/
+ vsdQNwPRknd3aTsmuv9E7QywJR4RCXoFNp3VnVIxDfFDfEgUNbbTr/D/9Nw1zYsnMFeW/3ZY
+ qL1bBIxPEyeMkQVZD/7Dro33+eLt0HbSAZotV2P9YsbuknhyU9Yhe2F3N39JYXRGJQ9clyjj
+ n3C13T0BFcdLtP34QSC9nWgl+rehxTRUYgZFKC73vNyiVjVzWsWYDUGWF3+rfSnh0qWX9NEN
+ 1dS6icotbI19kGgUp/6RRLQiHyOswMYWtFQO/Yn8wzLwa3Riy6bG2wFQzhpeNEg8sgsSlQCz
+ USVltnkAThutry9Sn+H8LqQ6zSoNkA9J2IYeTUNSwdD5tD5uZwylTrGVNMlG6mw5uAZAhmpn
+ WrM9nJnwexO04hbjM1X4GwrnRrx+KmQXD8p/znWcVql7Th2J5yYebKBvA2zAel7EK6VSVyIv
+ X4hkseY7fwTAZzlqBFhUNnhD5nyua/bbWS0bUpHWsB4qm/zoyLLkZV4umkWGat/DioTldYFi
+ mf3sBgZ2pJcNWDCgURfM9PoUJRCIUQN+L3YuhHogjhmP8AZmOyvpngGiausM4bFyhJEfUYXY
+ 8vzTCpUJSxGYZmLNRLvLwvn7Zclxzol2UTYTo3hwhKs3NK2PSDJGelbbQTQNL1msctoRTk5F
+ f4FbaNmLD0FDYXDjtT/q9ZPfTjm01BlbXwJlyCnXrHaeVc3cI3QI/TQ3akga+RYc1d9zY/1E
+ oWGchYAkjLX3CSfQS3TMywLQO6/DP5X8CNgVQRxbAnA5pTWSdv2hEvpX8BsJudPGS0K5aMcc
+ sTpjO3bXKwVE26XqmlFBXQ/xaQ7HCmWacu1F3LNSFACk1RIHVahFgPMFuc3yBQzMw==
+IronPort-HdrOrdr: A9a23:Xwtx+6D/yhXDK2XlHems55DYdb4zR+YMi2TC1yhKJyC9Vvbo8/
+ xG/c5rsCMc5wx9ZJhNo7y90ey7MBThHP1OkOss1NWZPDUO0VHAROoJ0WKh+UyCJ8SXzJ866U
+ 4KSclD4bPLYmRHsQ==
 X-IronPort-AV: E=Sophos;i="5.90,225,1643691600"; 
-   d="scan'208";a="70053304"
-Date: Thu, 31 Mar 2022 15:22:24 +0100
+   d="scan'208";a="68069126"
+Date: Thu, 31 Mar 2022 15:35:54 +0100
 From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-CC: <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] xl: Fix global pci options
-Message-ID: <YkW5IEbAyumopQsG@perard.uk.xensource.com>
-References: <20220330181741.30334-1-jandryuk@gmail.com>
+To: Julien Grall <julien@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>
+CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Wei
+ Liu" <wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Roger Pau
+ =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	<xen-devel@lists.xenproject.org>
+Subject: Ping: [XEN PATCH v10 1/7] build: grab common EFI source files in
+ arch specific dir
+Message-ID: <YkW8SiT9X4yxFwUG@perard.uk.xensource.com>
+References: <20220322112238.1117737-1-anthony.perard@citrix.com>
+ <20220322112238.1117737-2-anthony.perard@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20220330181741.30334-1-jandryuk@gmail.com>
+In-Reply-To: <20220322112238.1117737-2-anthony.perard@citrix.com>
 
-On Wed, Mar 30, 2022 at 02:17:41PM -0400, Jason Andryuk wrote:
-> commit babde47a3fed "introduce a 'passthrough' configuration option to
-> xl.cfg..." moved the pci list parsing ahead of the global pci option
-> parsing.  This broke the global pci configuration options since they
-> need to be set first so that looping over the pci devices assigns their
-> values.
+Hi Julien, Stefano, Bertrand,
+
+Could I get a ack on this patch and the next one
+"[XEN PATCH v10 2/7] build: replace $(BASEDIR) by $(objtree)" for the
+Arm part?
+
+Cheers,
+
+On Tue, Mar 22, 2022 at 11:22:32AM +0000, Anthony PERARD wrote:
+> Rather than preparing the efi source file, we will make the symbolic
+> link as needed from the build location.
 > 
-> Move the global pci options ahead of the pci list to restore their
-> function.
+> The `ln` command is run every time to allow to update the link in case
+> the source tree change location.
 > 
-> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-
-Acked-by: Anthony PERARD <anthony.perard@citrix.com>
-
-Thanks,
+> This patch also introduce "efi-common.mk" which allow to reuse the
+> common make instructions without having to duplicate them into each
+> arch.
+> 
+> And now that we have a list of common source file, we can start to
+> remove the links to the source files on clean.
+> 
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 
 -- 
 Anthony PERARD
