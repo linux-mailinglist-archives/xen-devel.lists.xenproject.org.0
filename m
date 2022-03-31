@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0190E4EDA5B
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Mar 2022 15:17:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.296962.505684 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 963E84EDA5C
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Mar 2022 15:17:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.296963.505695 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZufk-0003nc-QT; Thu, 31 Mar 2022 13:17:08 +0000
+	id 1nZug9-0004ES-2X; Thu, 31 Mar 2022 13:17:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 296962.505684; Thu, 31 Mar 2022 13:17:08 +0000
+Received: by outflank-mailman (output) from mailman id 296963.505695; Thu, 31 Mar 2022 13:17:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZufk-0003ln-NQ; Thu, 31 Mar 2022 13:17:08 +0000
-Received: by outflank-mailman (input) for mailman id 296962;
- Thu, 31 Mar 2022 13:17:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kR9h=UK=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1nZufi-0003lf-Iq
- for xen-devel@lists.xenproject.org; Thu, 31 Mar 2022 13:17:06 +0000
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [2a00:1450:4864:20::235])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dc381614-b0f4-11ec-a405-831a346695d4;
- Thu, 31 Mar 2022 15:17:05 +0200 (CEST)
-Received: by mail-lj1-x235.google.com with SMTP id 17so31940481ljw.8
- for <xen-devel@lists.xenproject.org>; Thu, 31 Mar 2022 06:17:05 -0700 (PDT)
+	id 1nZug8-0004CL-Vm; Thu, 31 Mar 2022 13:17:32 +0000
+Received: by outflank-mailman (input) for mailman id 296963;
+ Thu, 31 Mar 2022 13:17:31 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nZug7-0004C3-Ph; Thu, 31 Mar 2022 13:17:31 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nZug7-0006Eo-O0; Thu, 31 Mar 2022 13:17:31 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nZug7-0002Od-7s; Thu, 31 Mar 2022 13:17:31 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nZug7-0006cF-7O; Thu, 31 Mar 2022 13:17:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,99 +42,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc381614-b0f4-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=mSzH78EoYEJXMQgWWHfg4gvtnQ9OmEXl5KNPypS1KlI=;
-        b=pPOLwzk/Eb0+0gehavChpMhmFqTFI43cfCNJWfKuROQhhE8Z4PTnLxL1dmQ/FGVd2H
-         VNvtjRFp0yPyPKUFHL+y9PT8JK86q8KRhM6a8LI5oZdGXnfqtotZONwlrhvUPmim+Zwr
-         y6jw1aC9lffF+V5ylHrhFfA7D0UB9Wsotwvp3s9NbakItWsTIX0S7AwQmoawIWUthPQV
-         PoHUWa/QwSh0v0jkgxKDYYYknUvvLyVPX88rey+PkN3igyI8wbSFz4G/0RYWngA1LUOa
-         lXHuynfhnfB5daRSyuwsvozC/XmrmUQBwMzaanFyQM6bPmQe/NstgPNFEg78evJVOtzD
-         6hDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=mSzH78EoYEJXMQgWWHfg4gvtnQ9OmEXl5KNPypS1KlI=;
-        b=vErG+88DqR4ebYAGkmI53botENeDqpA4nHBQch7J5F9wInkaygQw2l2viVDA7qzdmK
-         nvf8GuSRbgfeZ/3dzVz644Izk6+5nq3MWPr4oqxxX/iR09UlpDgxDP+O9QeD03O95h/F
-         xvJt8o5iYQyNLFE927J6gJ/xjN1B2ypJnUZKHQ2sqtw2n3d/HtgU90An25UzK/TeajKv
-         iVSkI2KQRIuXikfyFw55c83iTlufySqvu00lG25OgDdWfvHy0hUxoXv9Cuvh/+gJR5EA
-         IUI8s13egrd9wFOJlR2Q0/Gv/pZEhU+9nzMPVjwAoLKZPZ8YpC9uU39zDhDXE4zJyoVd
-         bNKg==
-X-Gm-Message-State: AOAM533jMr3xb0ygRfHjGWj6I5VhimtV2OOfahqbua39fBgfDLakmRD+
-	W8Mm7KiFn0Sn406qrdepMY9LmIiihKyzGD2SqKU=
-X-Google-Smtp-Source: ABdhPJycfvdk+/WkcXOIejueROTiaI5ylf2OqeZWp6vskG/a7kKcz5GTptEhCQDifPJfTLSpKrq6eBdk3SJ7qvN3Dz0=
-X-Received: by 2002:a2e:bc22:0:b0:249:80b6:55fd with SMTP id
- b34-20020a2ebc22000000b0024980b655fdmr10744322ljf.135.1648732625001; Thu, 31
- Mar 2022 06:17:05 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220330230549.26074-1-dpsmith@apertussolutions.com> <20220330230549.26074-2-dpsmith@apertussolutions.com>
-In-Reply-To: <20220330230549.26074-2-dpsmith@apertussolutions.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Thu, 31 Mar 2022 09:16:53 -0400
-Message-ID: <CAKf6xpuA4hQmPdBtmog1UFcSQQkXL2=+e5bmqeocesgNxqD27w@mail.gmail.com>
-Subject: Re: [PATCH 1/2] xsm: add ability to elevate a domain to privileged
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, Scott Davis <scott.davis@starlab.io>, 
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=2ib93PxUDmZKnbID3njmxxDo0yK2IaHAeJ31OcWs3CE=; b=MXz7mcZp4jXmUsI9fOdPn14qhq
+	kb44r6Pb2Ec6ACqL0uZiRIjRHGzUvbvrymJKSn3xSBBJ86Celin63nZYdT8rxM9HxTL/DqRzCDP7o
+	jrdGUqrEnxqg3NGHE3DNblgZTCV5WoBu0twpx2EAr4IUqYp8vIJzcwGg9GH5praHBB6E=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-169046-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 169046: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=55637a2894babca97945eeca1da0d431f74f8627
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 31 Mar 2022 13:17:31 +0000
 
-On Wed, Mar 30, 2022 at 3:05 PM Daniel P. Smith
-<dpsmith@apertussolutions.com> wrote:
->
-> There are now instances where internal hypervisor logic needs to make resource
-> allocation calls that are protected by XSM checks. The internal hypervisor logic
-> is represented a number of system domains which by designed are represented by
-> non-privileged struct domain instances. To enable these logic blocks to
-> function correctly but in a controlled manner, this commit introduces a pair
-> of privilege escalation and demotion functions that will make a system domain
-> privileged and then remove that privilege.
->
-> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-> ---
->  xen/include/xsm/xsm.h | 22 ++++++++++++++++++++++
->  1 file changed, 22 insertions(+)
->
-> diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
-> index e22d6160b5..157e57151e 100644
-> --- a/xen/include/xsm/xsm.h
-> +++ b/xen/include/xsm/xsm.h
-> @@ -189,6 +189,28 @@ struct xsm_operations {
->  #endif
->  };
->
-> +static always_inline int xsm_elevate_priv(struct domain *d)
-> +{
-> +    if ( is_system_domain(d) )
-> +    {
-> +        d->is_privileged = true;
-> +        return 0;
-> +    }
-> +
-> +    return -EPERM;
-> +}
+flight 169046 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169046/
 
-These look sufficient for the default policy, but they don't seem
-sufficient for Flask.  I think you need to create a new XSM hook.  For
-Flask, you would want the demote hook to transition xen_boot_t ->
-xen_t.  That would start xen_boot_t with privileges that are dropped
-in a one-way transition.  Does that require all policies to then have
-xen_boot_t and xen_t?  I guess it does unless the hook code has some
-logic to skip the transition.
+Regressions :-(
 
-For the default policy, you could start by creating the system domains
-as privileged and just have a single hook to drop privs.  Then you
-don't have to worry about the "elevate" hook existing.  The patch 2
-asserts could instead become the location of xsm_drop_privs calls to
-have a clear demarcation point.  That expands the window with
-privileges though.  It's a little simpler, but maybe you don't want
-that.  However, it seems like you can only depriv once for the Flask
-case since you want it to be one-way.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
 
-Regards,
-Jason
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 55637a2894babca97945eeca1da0d431f74f8627
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   31 days
+Failing since        168258  2022-03-01 01:55:31 Z   30 days  264 attempts
+Testing same since   169004  2022-03-30 02:24:42 Z    1 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Yi Li <yi1.li@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 1236 lines long.)
 
