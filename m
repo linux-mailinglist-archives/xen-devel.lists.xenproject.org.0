@@ -2,36 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E2D04ED919
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Mar 2022 14:01:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.296901.505557 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BF8C4ED943
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Mar 2022 14:06:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.296906.505569 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZtUh-0007ja-EG; Thu, 31 Mar 2022 12:01:39 +0000
+	id 1nZtZ8-0008OM-24; Thu, 31 Mar 2022 12:06:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 296901.505557; Thu, 31 Mar 2022 12:01:39 +0000
+Received: by outflank-mailman (output) from mailman id 296906.505569; Thu, 31 Mar 2022 12:06:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZtUh-0007hC-B6; Thu, 31 Mar 2022 12:01:39 +0000
-Received: by outflank-mailman (input) for mailman id 296901;
- Thu, 31 Mar 2022 12:01:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nZtZ7-0008Lh-UV; Thu, 31 Mar 2022 12:06:13 +0000
+Received: by outflank-mailman (input) for mailman id 296906;
+ Thu, 31 Mar 2022 12:06:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nuZR=UK=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1nZtUg-0007h4-4h
- for xen-devel@lists.xenproject.org; Thu, 31 Mar 2022 12:01:38 +0000
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4af6ea96-b0ea-11ec-8fbc-03012f2f19d4;
- Thu, 31 Mar 2022 14:01:27 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id AD1F65C00EE;
- Thu, 31 Mar 2022 08:01:32 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Thu, 31 Mar 2022 08:01:32 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 31 Mar 2022 08:01:31 -0400 (EDT)
+ <SRS0=IJRK=UK=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1nZtZ6-0008La-M8
+ for xen-devel@lists.xenproject.org; Thu, 31 Mar 2022 12:06:12 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20630.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::630])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f3f95211-b0ea-11ec-a405-831a346695d4;
+ Thu, 31 Mar 2022 14:06:10 +0200 (CEST)
+Received: from DB7PR03CA0107.eurprd03.prod.outlook.com (2603:10a6:10:72::48)
+ by VE1PR08MB5007.eurprd08.prod.outlook.com (2603:10a6:803:10c::32) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.21; Thu, 31 Mar
+ 2022 12:06:08 +0000
+Received: from DB5EUR03FT026.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:72:cafe::ac) by DB7PR03CA0107.outlook.office365.com
+ (2603:10a6:10:72::48) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.22 via Frontend
+ Transport; Thu, 31 Mar 2022 12:06:08 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT026.mail.protection.outlook.com (10.152.20.159) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5123.19 via Frontend Transport; Thu, 31 Mar 2022 12:06:07 +0000
+Received: ("Tessian outbound ac9bb5dd84f6:v118");
+ Thu, 31 Mar 2022 12:06:07 +0000
+Received: from 097ad0b26c65.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 49C330E5-7316-4249-9976-6D735336E5C1.1; 
+ Thu, 31 Mar 2022 12:06:00 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 097ad0b26c65.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Thu, 31 Mar 2022 12:06:00 +0000
+Received: from AM0PR08MB3956.eurprd08.prod.outlook.com (2603:10a6:208:131::12)
+ by AM9PR08MB7291.eurprd08.prod.outlook.com (2603:10a6:20b:436::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.16; Thu, 31 Mar
+ 2022 12:05:59 +0000
+Received: from AM0PR08MB3956.eurprd08.prod.outlook.com
+ ([fe80::a4a1:ded3:2013:b310]) by AM0PR08MB3956.eurprd08.prod.outlook.com
+ ([fe80::a4a1:ded3:2013:b310%7]) with mapi id 15.20.5123.021; Thu, 31 Mar 2022
+ 12:05:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,306 +72,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4af6ea96-b0ea-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=Tx1mrRGfBWfU+0EvM
-	EXhqZAK8HzQZbdRKM7Rc8ILzx0=; b=P8NLlaI32WzbDHdQxmKu4JM5tSE00ZfjE
-	QSHC5TN+rE4CJPUV4GlttoexDCubRG+wgvhJ5eQ43vyFz30RfRupDp9IZF8oxh7v
-	GRbUu4PKcPvASsoaCmqI5dCSv/gNFz+vYQptA9hNnPmybef+7Qg54CPAHPgmpWXJ
-	TMjpPdNAJ3iDAmv44uTWPNSau8M8+5lRpwToeNFsa2tAVFXNtZ+PA32g4fJWaDjp
-	2BNdXa6dyfnmrMineCPDe7mL/erbOwyTysi281YGIvr+RqBQO50AWAKY8sbMtNyO
-	75DANWzXS/rBGBFIPEvaUgTcUy5wVQ7c/lyifA27BZnJrSCh8BLVA==
-X-ME-Sender: <xms:HJhFYuCA_Fz0yxLh32WICUiaMnuq-Jgiq0UiDQdC3nlYSfl5Ccts5w>
-    <xme:HJhFYog7wslneb6Upv5TpqL1uX_YD4eoXE26Uief41Z37MwDkeka5s-uPZXzxZZeL
-    mUNL-ZzN7loaA>
-X-ME-Received: <xmr:HJhFYhnh7zHtJpeq7Pg3oLm6We5jFOh-6Yfq9MyuBLnTnuUtQJnZ3ZyZhv6ArdEpKUefIJG0kj6HXlVuVYH156AhqJF_kKkoAQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrudeigedggeejucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeekgedt
-    gfdvieehhfehtddvleeiieeuteevheetffejjeejvdeijeevhfeufeefgeenucffohhmrg
-    hinhepghhithhhuhgsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghm
-    pehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslh
-    grsgdrtghomh
-X-ME-Proxy: <xmx:HJhFYsy5Tj1NLcA7x8lwIySrG-SopqNwOqqttG7T1i3Vyd-2q-bK6A>
-    <xmx:HJhFYjQoxkH9gNRKhEhZCbO25Ok2wWXFZoumL1QVOO9MMsI5S3q8qA>
-    <xmx:HJhFYnZyVLI0C0tHhVl2qWwUGVpC6dzD37T4n3Fl3RIb5_sk7oC_dw>
-    <xmx:HJhFYmNXbyfu8gNqCY3LA7WeTj0bfracd_wvlhDvmgkNVmvyPshnfQ>
-Date: Thu, 31 Mar 2022 14:01:28 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: Increasing domain memory beyond initial maxmem
-Message-ID: <YkWYGFJ/Cl+B2C37@mail-itl>
-References: <YkUlLvnEDdc5hwN4@mail-itl>
- <2684376b-3ae6-a2b7-581f-2bd38ab6056b@suse.com>
+X-Inumbo-ID: f3f95211-b0ea-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JjKb2H8J3NmCttTZe7q9rioXkJslGBgXsPhk+4Tacfw=;
+ b=PlVYgFbuHFr/YMn+xvfuw1IF8n4fBVGmSm8oOlW4fRSoLoi71Lun/So4Y59yKQ1fa8wUIzpmy9o58IQF+MtXLCnNoAQaWWoGvfzRnTjjv6k54tssku784KiiL5dAjgZW1rUivliXE4Wvhk56Tm3I0nQ55BbxSMNyTHiTVUMekqw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: e3afbf11788d8c29
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JRLhS7Wcce7PhmQ5ki4EW/4p3flxyja9K/bI1ombBOsr/Hy7xB5VmEbI3ftwkgwAUTSvCdzEfP8SkdVZG18af3j1meELdmX5D955totcGhNvazxadbFzVwhsVkduni5U0nLM01GyIvPd7btink6v6ncBm/gK3o9LNK0AXECEEDGIRqFnX46sFU8r3OgmWFwOxVCdI1R/xQlujgVEgE5lh6VvzZfrxbncMHjZ3WYUDgldB1cnRiRbjQy9gahHquVz+T7pWRreBZSIyAgecE5YuO4dBBtLvS1o72gVE43C2Z2HVY7751iSWFe2Z0Uy3PnvuKKO7AyLKNGUm/w/s72yWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JjKb2H8J3NmCttTZe7q9rioXkJslGBgXsPhk+4Tacfw=;
+ b=Wba7xWHEuU28KJJZ7GZDiEGkSEKweM2J7ygGmH48tNbiBRDK5fwgVGQwTvkQ9LGA69Tbv1n6TZB5I/Z1MlgQsQFZmc5ZdK1Lp5wMOYiChTu3wzudPerl5TT6fipSENUODsR/Qzaj6KIap1a5MQZ+6TsvFJJYMMY6X04/H/krLj1+m0IbsfwzSnh+SsQKHM/odbWD+B8VrcRyem8ex0biCqKYuxkjrm3TBlYsmrUA6f1s1q3+d4MgQzo3/cYE83gPQURfHi6rqbUd70eKdQX/XUxFfk3mt2Hk7iveAiHyAwR+WREhmExvfZbsiKv8MhAOaCvJH2DSNQlADsKIIfKhyg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JjKb2H8J3NmCttTZe7q9rioXkJslGBgXsPhk+4Tacfw=;
+ b=PlVYgFbuHFr/YMn+xvfuw1IF8n4fBVGmSm8oOlW4fRSoLoi71Lun/So4Y59yKQ1fa8wUIzpmy9o58IQF+MtXLCnNoAQaWWoGvfzRnTjjv6k54tssku784KiiL5dAjgZW1rUivliXE4Wvhk56Tm3I0nQ55BbxSMNyTHiTVUMekqw=
+From: Luca Fancellu <Luca.Fancellu@arm.com>
+To: Demi Marie Obenour <demi@invisiblethingslab.com>
+CC: Xen developer discussion <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2] Grab the EFI System Resource Table and check it
+Thread-Topic: [PATCH v2] Grab the EFI System Resource Table and check it
+Thread-Index: AQHYRHEH4zzX/uDlcEa4/lbFmRQ7HKzZEkOAgABR+QCAAAI8AA==
+Date: Thu, 31 Mar 2022 12:05:58 +0000
+Message-ID: <C06993F9-42E5-4048-B698-2D4C825D8FA1@arm.com>
+References: <YkS3FthpZU0xQ2Y7@itl-email>
+ <783D6789-9BC6-49BC-8345-478A862083E2@arm.com> <YkWXszMR0/b3BcZg@itl-email>
+In-Reply-To: <YkWXszMR0/b3BcZg@itl-email>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3696.80.82.1.1)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-MS-Office365-Filtering-Correlation-Id: 1dea85af-20c6-48d3-5c31-08da130ed69b
+x-ms-traffictypediagnostic:
+	AM9PR08MB7291:EE_|DB5EUR03FT026:EE_|VE1PR08MB5007:EE_
+X-Microsoft-Antispam-PRVS:
+	<VE1PR08MB5007E73A92C290AFEA046559E4E19@VE1PR08MB5007.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ F7DzzeioLoQU8DEIhXrzB2ZTL2ONpmHF8TxlUMos+wUlOaNrQoRbaVD2z1rZOjB8A+GzXWc3708wobmD/MFrig54batNldVPacKyOFyRRefRdYVHIczTnrrhsTbPvEjYeVoVqcUd4+bUxkP2gb+/Tv+ST7jP+199lDXddqe361ILTMMMcLhTrU2grE0PWrCxWHrNpKaGlSR3qp0b0SHrjHvoVYqtFiFi11skzqGIFszft3UEBSDIi6FqD+b1QR7zXeVsjp/H78lYGZehUvWcS5n9JMh4FQ4agVI11VBJ7AnnqWZ8mwbPnHX1mOmPL7NGj3Shw1oFTqeve+/lK/7sHCDcExVw7QNeQxuKiPOo9e+HdIc0aPwwsF9I6hBKuypsy1bAaSleRjfKmINhrcQ4gE980LtMo4iUCDTgQb2c/po02W6I1vWoe1ZE8vl3L9Q0rTRJKXqDpK8kx2tvw2CgvybW5aJk3bvbJ8XQHQAPt5qItaKLe6LynQVTRnRN4i0bLXPD4D1wNdnrGvGi4fKpyPT4SgTr/UrNZT+e4uV+ufem7VmXigs+EgoI3IdeuDHJXsdB8ras1iwtL3G17AwNgQlb/7XjA1AZmuK5VyGFKXQccutXTNLgpsc1VM3nPZq6sb97ErSaLSGnTLQWltvs1OWoowIZiHINGNeH68VHlpW0zMndYGkkc1bhn6UYxOYVaiHX5uihu/e0uJFL17zVZuy5cba6ieIQZv6SVluR9NxQ2tGpwxC3+JPdLyBaGIub
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR08MB3956.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(316002)(6916009)(66556008)(83380400001)(64756008)(66446008)(66476007)(8676002)(38100700002)(91956017)(66946007)(4326008)(33656002)(38070700005)(186003)(76116006)(26005)(86362001)(2616005)(71200400001)(53546011)(6486002)(6512007)(6506007)(122000001)(508600001)(2906002)(5660300002)(36756003)(8936002)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <4BFC0FF48C1F434F8E281E26672EBFBA@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="xoimVyVpapmBJn8n"
-Content-Disposition: inline
-In-Reply-To: <2684376b-3ae6-a2b7-581f-2bd38ab6056b@suse.com>
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR08MB7291
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB5EUR03FT026.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	f8920a3a-b4d9-4404-44c5-08da130ed162
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	QSyw/QWL100gdFmXxp8gY+XFVvcApOHR9UXdnGf5fKM8dqIkF5kW8rYNNEsOj3yy0Cmg0Ej28nMrk9ndHtpuXaABt2mKCGGE7UtV+oak1bkzunCT5HN7qEdWlAtxUerzVJdYHTN9hQ/2J511d7kibFsTxyGY3AgcdVcA2L/tiXn9nhgJ5wZpPAWKQlwfvcbmZ7JDFFs5x2uzkoWXemw6BUWhHovEyF26snsWAUCl+HU1aRsE4D2RfqLKmIXu7h3lfSQuBZnxgen75r7plrDGV3qTPy9btlQVgpTu4HN53f7/Sw5Fl/8vsKPAQJe3pLJhMXwfcGMWihHOqJXk7jasIb5XdrdKw3+izrnmKBNnABPHQcBNdTwg1GUy7+M1cebOVxJBkpdNeni6gq5LEnnppnjy+Q+TxwPpaa7/owQ4WFSgs6BVUXswQ7sJKWj0Ci4ia2fgiVacS3oLTMSGxqy0ApZrRrDg+gYjHUotsLghrNeYL78tdhZzu7JYJM/R1UQDWdPw8laFaLhTG85sl49nlqh4T4Z2qC1DmjkeaLTE76rwZBhGG0sOw+5zmmSfdFjBG7mye8IY1vP0ZEqNztN6LXeo+OriXjfh4FkossSKz5WzzgJ+3ryoorck5kUU6NvFlnEAVQDPwFeJJ16x/jeLA0vpS1wm8NJVmBd4mR5h5T8pALCVbMwbZYwKORU9Jhkb
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(6486002)(5660300002)(83380400001)(33656002)(8936002)(47076005)(316002)(356005)(36860700001)(81166007)(508600001)(2616005)(70206006)(36756003)(82310400004)(6506007)(26005)(186003)(6512007)(70586007)(2906002)(336012)(53546011)(4326008)(40460700003)(86362001)(8676002)(6862004);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2022 12:06:07.7166
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1dea85af-20c6-48d3-5c31-08da130ed69b
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB5EUR03FT026.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR08MB5007
 
-
---xoimVyVpapmBJn8n
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 31 Mar 2022 14:01:28 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: Increasing domain memory beyond initial maxmem
-
-On Thu, Mar 31, 2022 at 08:41:19AM +0200, Juergen Gross wrote:
-> On 31.03.22 05:51, Marek Marczykowski-G=C3=B3recki wrote:
-> > Hi,
-> >=20
-> > I'm trying to make use of CONFIG_XEN_BALLOON_MEMORY_HOTPLUG=3Dy to incr=
-ease
-> > domain memory beyond initial maxmem, but I hit few issues.
-> >=20
-> > A little context: domains in Qubes OS start with rather little memory
-> > (400MB by default) but maxmem set higher (4GB by default). Then, there =
-is
-> > qmemman daemon, that adjust balloon targets for domains, based on (among
-> > other things) demand reported by the domains themselves. There is also a
-> > little swap, to mitigate qmemman latency (few hundreds ms at worst).
-> > This initial memory < maxmmem in case of PVH / HVM makes use of PoD
-> > which I'm trying to get rid of. But also, IIUC Linux will waste some
-> > memory for bookkeeping based on maxmem, not actually usable memory.
-> >=20
-> > First issue: after using `xl mem-max`, `xl mem-set` still refuses to
-> > increase memory more than initial maxmem. That's because xl mem-max does
-> > not update 'memory/static-max' xenstore node. This one is easy to work
-> > around.
-> >=20
-> > Then, the actual hotplug fails on the domU side with:
-> >=20
-> > [   50.004734] xen-balloon: vmemmap alloc failure: order:9, mode:0x4cc0=
-(GFP_KERNEL|__GFP_RETRY_MAYFAIL), nodemask=3D(null),cpuset=3D/,mems_allowed=
-=3D0
-> > [   50.004774] CPU: 1 PID: 34 Comm: xen-balloon Not tainted 5.16.15-1.3=
-7.fc32.qubes.x86_64 #1
-> > [   50.004792] Call Trace:
-> > [   50.004799]  <TASK>
-> > [   50.004808]  dump_stack_lvl+0x48/0x5e
-> > [   50.004821]  warn_alloc+0x162/0x190
-> > [   50.004832]  ? __alloc_pages+0x1fa/0x230
-> > [   50.004842]  vmemmap_alloc_block+0x11c/0x1c5
-> > [   50.004856]  vmemmap_populate_hugepages+0x185/0x519
-> > [   50.004868]  vmemmap_populate+0x9e/0x16c
-> > [   50.004878]  __populate_section_memmap+0x6a/0xb1
-> > [   50.004890]  section_activate+0x20a/0x278
-> > [   50.004901]  sparse_add_section+0x70/0x160
-> > [   50.004911]  __add_pages+0xc3/0x150
-> > [   50.004921]  add_pages+0x12/0x60
-> > [   50.004931]  add_memory_resource+0x12b/0x320
-> > [   50.004943]  reserve_additional_memory+0x10c/0x150
-> > [   50.004958]  balloon_thread+0x206/0x360
-> > [   50.004968]  ? do_wait_intr_irq+0xa0/0xa0
-> > [   50.004978]  ? decrease_reservation.constprop.0+0x2e0/0x2e0
-> > [   50.004991]  kthread+0x16b/0x190
-> > [   50.005001]  ? set_kthread_struct+0x40/0x40
-> > [   50.005011]  ret_from_fork+0x22/0x30
-> > [   50.005022]  </TASK>
-> >=20
-> > Full dmesg: https://gist.github.com/marmarek/72dd1f9dbdd63cfe479c94a3f4=
-392b45
-> >=20
-> > After the above, `free` reports correct size (1GB in this case), but
-> > that memory seems to be unusable really. "used" is kept low, and soon
-> > OOM-killer kicks in.
-> >=20
-> > I know the initial 400MB is not much for a full Linux, with X11 etc. But
-> > I wouldn't expect it to fail this way when _adding_ memory.
-> >=20
-> > I've tried also with initial 800MB. In this case, I do not get "alloc
-> > failure" any more, but monitoring `free`, the extra memory still doesn't
-> > seem to be used.
-> >=20
-> > Any ideas?
-> >=20
->=20
-> I can't reproduce that.
->=20
-> I started a guest with 8GB of memory, in the guest I'm seeing:
->=20
-> # uname -a
-> Linux linux-d1cy 5.17.0-rc5-default+ #406 SMP PREEMPT Mon Feb 21 09:31:12
-> CET 2022 x86_64 x86_64 x86_64 GNU/Linux
-> # free
->         total     used      free   shared  buff/cache   available
-> Mem:  8178260    71628   8023300     8560       83332     8010196
-> Swap: 2097132        0   2097132
->=20
-> Then I'm raising the memory for the guest in dom0:
->=20
-> # xl list
-> Name                ID   Mem VCPUs      State   Time(s)
-> Domain-0             0  2634     8     r-----    1016.5
-> Xenstore             1    31     1     -b----       0.9
-> sle15sp1             3  8190     6     -b----     184.6
-> # xl mem-max 3 10000
-> # xenstore-write /local/domain/3/memory/static-max 10240000
-> # xl mem-set 3 10000
-> # xl list
-> Name                ID   Mem VCPUs      State   Time(s)
-> Domain-0             0  2634     8     r-----    1018.5
-> Xenstore             1    31     1     -b----       1.0
-> sle15sp1             3 10000     6     -b----     186.7
->=20
-> In the guest I get now:
->=20
-> # free
->         total     used     free   shared  buff/cache   available
-> Mem: 10031700   110904  9734172     8560      186624     9814344
-> Swap: 2097132        0  2097132
->=20
-> And after using lots of memory via a ramdisk:
->=20
-> # free
->         total     used     free   shared  buff/cache   available
-> Mem: 10031700   116660  1663840  7181776     8251200     2635372
-> Swap: 2097132        0  2097132
->=20
-> You can see buff/cache is now larger than the initial total memory
-> and free is lower than the added memory amount.
-
-Hmm, I have a different behavior:
-
-I'm starting with 800M
-
-# uname -a
-Linux personal 5.16.15-1.37.fc32.qubes.x86_64 #1 SMP PREEMPT Tue Mar 22 12:=
-59:53 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
-# free -m
-              total        used        free      shared  buff/cache   avail=
-able
-Mem:            740         209         278           2         252        =
- 415
-Swap:          1023           0        1023
-
-Then raising to ~2GB:
-
-[root@dom0 ~]# xl list
-Name                                        ID   Mem VCPUs	State	Time(s)
-Domain-0                                     0  4082     6     r-----  1842=
-71.3
-(...)
-personal                                    21   800     2     -b----      =
- 4.8
-[root@dom0 ~]# xl mem-max personal 2048
-[root@dom0 ~]# xenstore-write /local/domain/$(xl domid personal)/memory/sta=
-tic-max $((2048*1024))
-[root@dom0 ~]# xl mem-set personal 2000
-[root@dom0 ~]# xenstore-ls -fp /local/domain/$(xl domid personal)/memory
-/local/domain/21/memory/static-max =3D "2097152"   (n0,r21)
-/local/domain/21/memory/target =3D "2048001"   (n0,r21)
-/local/domain/21/memory/videoram =3D "-1"   (n0,r21)
-
-And then observe inside domU:
-[root@personal ~]# free -m
-              total        used        free      shared  buff/cache   avail=
-able
-Mem:           1940         235        1452           2         252        =
-1585
-Swap:          1023           0        1023
-
-So far so good. But when trying to actually use it, it doesn't work:
-
-[root@personal ~]# free -m
-              total        used        free      shared  buff/cache   avail=
-able
-Mem:           1940         196        1240         454         503        =
-1206
-Swap:          1023         472         551
-
-As you can see, all the new memory is still in "free", and swap is used
-instead.
-
-
-There is also /proc/meminfo (state before filling ramdisk), if that
-would give some hints:
-[root@personal ~]# cat /proc/meminfo
-MemTotal:        1986800 kB
-MemFree:         1487116 kB
-MemAvailable:    1624060 kB
-Buffers:           26236 kB
-Cached:           207268 kB
-SwapCached:            0 kB
-Active:            74828 kB
-Inactive:         258724 kB
-Active(anon):       1008 kB
-Inactive(anon):   101668 kB
-Active(file):      73820 kB
-Inactive(file):   157056 kB
-Unevictable:           0 kB
-Mlocked:               0 kB
-SwapTotal:       1048572 kB
-SwapFree:        1048572 kB
-Dirty:               216 kB
-Writeback:             0 kB
-AnonPages:        100184 kB
-Mapped:           117472 kB
-Shmem:              2628 kB
-KReclaimable:      24960 kB
-Slab:              52136 kB
-SReclaimable:      24960 kB
-SUnreclaim:        27176 kB
-KernelStack:        3120 kB
-PageTables:         4364 kB
-NFS_Unstable:          0 kB
-Bounce:                0 kB
-WritebackTmp:          0 kB
-CommitLimit:     2041972 kB
-Committed_AS:     825816 kB
-VmallocTotal:   34359738367 kB
-VmallocUsed:       10064 kB
-VmallocChunk:          0 kB
-Percpu:             1240 kB
-HardwareCorrupted:     0 kB
-AnonHugePages:         0 kB
-ShmemHugePages:        0 kB
-ShmemPmdMapped:        0 kB
-FileHugePages:         0 kB
-FilePmdMapped:         0 kB
-CmaTotal:              0 kB
-CmaFree:               0 kB
-HugePages_Total:       0
-HugePages_Free:        0
-HugePages_Rsvd:        0
-HugePages_Surp:        0
-Hugepagesize:       2048 kB
-Hugetlb:               0 kB
-DirectMap4k:       79872 kB
-DirectMap2M:     1132544 kB
-DirectMap1G:     1048576 kB
-
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---xoimVyVpapmBJn8n
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmJFmBkACgkQ24/THMrX
-1yy4ZwgAiGCNQ7Q/hgojJHDYdzKarL5fGqdWsyi/Lo7HwGwxvzvoPs7h2ldxDB76
-U6khXW26c3qw+3llChb68FtaQTsa48X7XU7f1V0SiiOJ+SuBed3EdbbzBo17dIlB
-FXVH9aO8SXEJ6BeqaSiovd91fdV79gDAyKjmMzR0L9NLG7fzPUC32ImSHO2LT6fr
-xK2kBUD+6GpjWko16A+LuPklhAt4CYlEAsbYhYMhV4J/3yvXgMcS+ZRef5Mwnqy9
-PQZTYWRWUVRnkRAxltsEYCta59NXDNfDpYhG98Oqj+2YBbiTASyGTQWB2KZdkhrI
-wiLYsb9orAXySLL2u5Wixaloq4gkeQ==
-=O9jI
------END PGP SIGNATURE-----
-
---xoimVyVpapmBJn8n--
+DQoNCj4gT24gMzEgTWFyIDIwMjIsIGF0IDEyOjU3LCBEZW1pIE1hcmllIE9iZW5vdXIgPGRlbWlA
+aW52aXNpYmxldGhpbmdzbGFiLmNvbT4gd3JvdGU6DQo+IA0KPiBPbiBUaHUsIE1hciAzMSwgMjAy
+MiBhdCAwNzowNDozNEFNICswMDAwLCBMdWNhIEZhbmNlbGx1IHdyb3RlOg0KPj4gSGksDQo+PiAN
+Cj4+PiANCj4+PiBkaWZmIC0tZ2l0IGEveGVuL2FyY2gvYXJtL2VmaS9lZmktYm9vdC5oIGIveGVu
+L2FyY2gvYXJtL2VmaS9lZmktYm9vdC5oDQo+Pj4gaW5kZXggNDU4Y2ZiYmVkNC4uMzk4YTI0MTFh
+MSAxMDA2NDQNCj4+PiAtLS0gYS94ZW4vYXJjaC9hcm0vZWZpL2VmaS1ib290LmgNCj4+PiArKysg
+Yi94ZW4vYXJjaC9hcm0vZWZpL2VmaS1ib290LmgNCj4+PiBAQCAtMTg3LDcgKzE4Nyw4IEBAIHN0
+YXRpYyBib29sIF9faW5pdCBtZW1pbmZvX2FkZF9iYW5rKHN0cnVjdCBtZW1pbmZvICptZW0sDQo+
+Pj4gDQo+Pj4gc3RhdGljIEVGSV9TVEFUVVMgX19pbml0IGVmaV9wcm9jZXNzX21lbW9yeV9tYXBf
+Ym9vdGluZm8oRUZJX01FTU9SWV9ERVNDUklQVE9SICptYXAsDQo+Pj4gICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBVSU5UTiBtbWFwX3NpemUsDQo+Pj4gLSAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFVJTlROIGRlc2Nf
+c2l6ZSkNCj4+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgVUlOVE4gZGVzY19zaXplLA0KPj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBjb25zdCBFRklfTUVNT1JZX0RFU0NSSVBUT1IgKmNvbnN0IGVzcnRf
+ZGVzYykNCj4+PiB7DQo+Pj4gICAgaW50IEluZGV4Ow0KPj4+ICAgIEVGSV9NRU1PUllfREVTQ1JJ
+UFRPUiAqZGVzY19wdHIgPSBtYXA7DQo+Pj4gQEAgLTE5OSw2ICsyMDAsNyBAQCBzdGF0aWMgRUZJ
+X1NUQVRVUyBfX2luaXQgZWZpX3Byb2Nlc3NfbWVtb3J5X21hcF9ib290aW5mbyhFRklfTUVNT1JZ
+X0RFU0NSSVBUT1IgKg0KPj4+ICAgICAgICAgICAgICBkZXNjX3B0ci0+VHlwZSA9PSBFZmlMb2Fk
+ZXJDb2RlIHx8DQo+Pj4gICAgICAgICAgICAgIGRlc2NfcHRyLT5UeXBlID09IEVmaUxvYWRlckRh
+dGEgfHwNCj4+PiAgICAgICAgICAgICAgKCFtYXBfYnMgJiYNCj4+PiArICAgICAgICAgICAgICAg
+ZGVzYyAhPSBlc3J0X2Rlc2MgJiYNCj4+IA0KPj4gSSB3YXMgZ29pbmcgdG8gdGVzdCBpdCBidXQg
+dGhpcyBsaW5lIGlzIGJyZWFraW5nIGFybSBidWlsZC4NCj4gDQo+IE5vdCB0b28gc3VycHJpc2lu
+ZzsgSSBkb27igJl0IHRoaW5rIEkgYWN0dWFsbHkgYnVpbHQgdGhpcyBmb3IgQVJNLiAgQ2FuDQo+
+IHlvdSBwb3N0IHRoZSBlcnJvciB5b3UgZ2V0PyAgSeKAmWxsIHNlbmQgYSB2MyBvbmNlIHRoYXQg
+aXMgZml4ZWQuDQoNCkkgdGhpbmsgSSBjbGVhbmVkIG15IGxvZ3MsIGJ1dCBpdCB3YXMgYW4gZWFz
+eSBvbmUgbGlrZSDigJxkZXNjIGlzIG5vdCBkZWZpbmVk4oCdLA0KcHJvYmFibHkgeW91IHdlcmUg
+bG9va2luZyBmb3Ig4oCcZGVzY19wdHLigJ0/DQoNCg0K
 
