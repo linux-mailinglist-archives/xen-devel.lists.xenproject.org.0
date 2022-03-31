@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FE5E4ED994
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Mar 2022 14:24:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.296923.505601 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27AB14ED9A5
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Mar 2022 14:30:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.296927.505612 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZtqJ-0003T9-2C; Thu, 31 Mar 2022 12:23:59 +0000
+	id 1nZtvv-00049W-Lk; Thu, 31 Mar 2022 12:29:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 296923.505601; Thu, 31 Mar 2022 12:23:59 +0000
+Received: by outflank-mailman (output) from mailman id 296927.505612; Thu, 31 Mar 2022 12:29:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nZtqI-0003RK-VN; Thu, 31 Mar 2022 12:23:58 +0000
-Received: by outflank-mailman (input) for mailman id 296923;
- Thu, 31 Mar 2022 12:23:58 +0000
+	id 1nZtvv-000470-I3; Thu, 31 Mar 2022 12:29:47 +0000
+Received: by outflank-mailman (input) for mailman id 296927;
+ Thu, 31 Mar 2022 12:29:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kR9h=UK=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1nZtqI-0003RE-Ay
- for xen-devel@lists.xenproject.org; Thu, 31 Mar 2022 12:23:58 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
+ id 1nZtvu-00046u-8L
+ for xen-devel@lists.xenproject.org; Thu, 31 Mar 2022 12:29:46 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6fe17455-b0ed-11ec-a405-831a346695d4;
- Thu, 31 Mar 2022 14:23:57 +0200 (CEST)
-Received: by mail-lf1-x133.google.com with SMTP id z12so27394835lfu.10
- for <xen-devel@lists.xenproject.org>; Thu, 31 Mar 2022 05:23:57 -0700 (PDT)
+ id 3f48b1ec-b0ee-11ec-a405-831a346695d4;
+ Thu, 31 Mar 2022 14:29:45 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id w7so41215965lfd.6
+ for <xen-devel@lists.xenproject.org>; Thu, 31 Mar 2022 05:29:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,126 +39,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6fe17455-b0ed-11ec-a405-831a346695d4
+X-Inumbo-ID: 3f48b1ec-b0ee-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
          :cc;
-        bh=Xh7d2xCBG8mMbyWdm3KuBhh059/iZ5OHo/vg30SxVLU=;
-        b=c3rurIi6U1aeXz+MRwSaGX82gptRqxlL6v89NFsBJwELCXrTJXFkSGOeT+NJ5mGjh7
-         CYnskRa4/rOjl8+93EW3kMUjGTFta/7zdTmUh0x6XgRfcwPRlcS0v8/2xbiZUTjY4I5G
-         /zchInacJMYwgzS38zO2TFpifL2Qf1qyE8L9N3LE9tTVkEQycHWn78LTQaHe4oAbeBSH
-         ZfGaFT+/+835hC/29dtetYdiQoROSLLcph5DLDezO48BG7tq4OYuTDnRladh8l5dhaLx
-         hFcFu7toIZi7NVaIBLqSIcjllvl0cmr4g84PtXl/hwFuPk7rScQFFt4tg/hCdETTCT7b
-         WfKA==
+        bh=qxuvaGq3+iBZe0xxrylfTY+iD67IJs3TfT41GrlrbmU=;
+        b=KeDOsiw9bp1b6BQ/siwXjCYDqybFZTu4NN8IxvAQ4snztv517SzXXL23fQr+KIphij
+         +of9N91YpZKu4oPBm454x+hpBrHsdm/hZA1EH86EGPj7BKU2oDqcka0aHh/IrmPiTzSj
+         c8On5g/i040Ft4474rCZLLy7oxQqhC2n0zJCi+gAySO3dA/o0jufNmVX2y0X4zq8SiV8
+         d7zkCtIXuVW3KO3rN0TkB/SBGr5urOLm4J+46VgM2N/Uhiilebh0w2Ab/T9M1YlaqTfa
+         2iNNgikYidYxJ4CNNBn+dOb/7BVzbeEQpWqsty5L77kYdrCVapCGZ2i4cTS5PxHGf7mz
+         OOkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc;
-        bh=Xh7d2xCBG8mMbyWdm3KuBhh059/iZ5OHo/vg30SxVLU=;
-        b=ar4rBczOcY6BIK45ZYjQMHaxX3W2jpTL+TcuG+NcC+wbrSFt9HsJd1lZM+h6gOdnY+
-         Dn7oWMc1H+/L4eu+vTr4oCFCsqhwwhqzEnSCA5Xl44krQwxf/vegz4jFBJlUJPcv0b2K
-         6oT66RwNpciSKAfElkWzeeXz+EvlAkX2jfMY8oOqrT3dnd9lkPvf5f0qEH+M+e6HtezA
-         VjM/hz5OztAvcQLtLMT+OOuMwAkMSglPuknUSFMknWMuS6Lafp1bePerSDgPjWAG+v80
-         ce9aP+0TjVNvhcSxJ/AJf0TuUPbLt/FjTpA0JhwPHaHeqSRHBv0WpMeaKwJQ9R0USdet
-         qHbQ==
-X-Gm-Message-State: AOAM532gB5baPP4UYAyxWvOdaSL98MyNE8oIp9S9ST1N5YUJAuTsUn5h
-	ukk+p1MU7AkVDiKnr8r77t+0gXi+99BpP8mHgXY=
-X-Google-Smtp-Source: ABdhPJzBv6KJa+6uIlQI7dRQSQ15t7dUAiWb3AEAOXGJlN1WP+Mh18Cn0SZOuxqiAmRPvNW1llO8Jx+WlnZGLS/QFAk=
-X-Received: by 2002:a19:d61a:0:b0:43f:1a03:21ee with SMTP id
- n26-20020a19d61a000000b0043f1a0321eemr10807666lfg.152.1648729436794; Thu, 31
- Mar 2022 05:23:56 -0700 (PDT)
+        bh=qxuvaGq3+iBZe0xxrylfTY+iD67IJs3TfT41GrlrbmU=;
+        b=f894X/jUuEZMhycTTbq7poxgFOQ2jNEsQPtnOwK2efYm1VAZyYslFL34+Wipq/FC3C
+         2Wp/QA9HRvJPCr6kPq9wqAzqQcngekGbNuKMdVC1UDcaHurOTWostV8pVPl6t9DIdkWo
+         6wvqGCRem4BXlUQvY/AcHJHnwCOuBk42ZM7vMBQi8OqJ1AHOvzM2nTYmro6T6lSa6YTD
+         CMBAslceON8CWHvuQSm676L9tzvkN07yJqyHoxBoD4Ju3vZFpw+E8I26GORa1QiL6mcm
+         XrcP+SoeOVx/i5gCnvyx1FBjxzm2VE/ZRRW/6RJBuPempD6LvJt4Vm288WrtAM8YvlzS
+         7sNQ==
+X-Gm-Message-State: AOAM5335Z+xZp12C2fWZxk5s0tgvhjq1Mh/YW0cSERqdQngEUsF3hiRq
+	2MBR+UQH+Kwpf3hoko7XTawduqRUc/fsnJaIIuo=
+X-Google-Smtp-Source: ABdhPJycSj2Y8xGAmmvUMnc1pxEgwP8kS84ETZul5dYZsEUGlG/Vi/rrAxw7TwI5z/8ckUutEsdo+T9qtS5R2bs6st4=
+X-Received: by 2002:ac2:5504:0:b0:44a:2117:e6bb with SMTP id
+ j4-20020ac25504000000b0044a2117e6bbmr10598930lfk.388.1648729784837; Thu, 31
+ Mar 2022 05:29:44 -0700 (PDT)
 MIME-Version: 1.0
 References: <b62fbc602a629941c1acaad3b93d250a3eba33c0.1647222184.git.brchuckz.ref@netscape.net>
  <b62fbc602a629941c1acaad3b93d250a3eba33c0.1647222184.git.brchuckz@netscape.net>
- <78ce5809-8df4-c94e-4313-fffb1b86b771@suse.com> <CAKf6xpsN+uJ=AyxtrnOrQrynFL=dwC=DdT7DHnK=wx9UFtdUDQ@mail.gmail.com>
- <59471dea-c379-59a3-9202-384a4ec54a07@netscape.net>
-In-Reply-To: <59471dea-c379-59a3-9202-384a4ec54a07@netscape.net>
+ <YkSQIoYhomhNKpYR@perard.uk.xensource.com> <408e5e07-453c-f377-a5b0-c421d002aec5@srcf.net>
+ <46a8585e-2a2a-4d12-f221-e57bd157dec6@netscape.net>
+In-Reply-To: <46a8585e-2a2a-4d12-f221-e57bd157dec6@netscape.net>
 From: Jason Andryuk <jandryuk@gmail.com>
-Date: Thu, 31 Mar 2022 08:23:45 -0400
-Message-ID: <CAKf6xpsyxDJS36tNmXMrzusKMgi_gGvdvMwncSry_rWB-ZTjZg@mail.gmail.com>
+Date: Thu, 31 Mar 2022 08:29:33 -0400
+Message-ID: <CAKf6xpths4SX4wq-j4VhnXZnx0DW=468z3=9FYHso=Wy1i_Rsg@mail.gmail.com>
 Subject: Re: [XEN PATCH] tools/libs/light/libxl_pci.c: explicitly grant access
  to Intel IGD opregion
 To: Chuck Zmudzinski <brchuckz@netscape.net>
-Cc: Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>, 
-	Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, 
-	xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <amc96@srcf.net>, Anthony PERARD <anthony.perard@citrix.com>, 
+	xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, 
+	Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>
 Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Mar 31, 2022 at 12:34 AM Chuck Zmudzinski <brchuckz@netscape.net> wrote:
+On Wed, Mar 30, 2022 at 11:54 PM Chuck Zmudzinski <brchuckz@netscape.net> wrote:
 >
-> On 3/30/22 2:45 PM, Jason Andryuk wrote:
-> > On Fri, Mar 18, 2022 at 4:13 AM Jan Beulich <jbeulich@suse.com> wrote:
-> >> On 14.03.2022 04:41, Chuck Zmudzinski wrote:
-> >>> When gfx_passthru is enabled for the Intel IGD, hvmloader maps the IGD
-> >>> opregion to the guest but libxl does not grant the guest permission to
-> >>> access the mapped memory region. This results in a crash of the i915.ko
-> >>> kernel module in a Linux HVM guest when it needs to access the IGD
-> >>> opregion:
-> >>>
-> >>> Oct 23 11:36:33 domU kernel: Call Trace:
-> >>> Oct 23 11:36:33 domU kernel:  ? idr_alloc+0x39/0x70
-> >>> Oct 23 11:36:33 domU kernel:  drm_get_last_vbltimestamp+0xaa/0xc0 [drm]
-> >>> Oct 23 11:36:33 domU kernel:  drm_reset_vblank_timestamp+0x5b/0xd0 [drm]
-> >>> Oct 23 11:36:33 domU kernel:  drm_crtc_vblank_on+0x7b/0x130 [drm]
-> >>> Oct 23 11:36:33 domU kernel:  intel_modeset_setup_hw_state+0xbd4/0x1900 [i915]
-> >>> Oct 23 11:36:33 domU kernel:  ? _cond_resched+0x16/0x40
-> >>> Oct 23 11:36:33 domU kernel:  ? ww_mutex_lock+0x15/0x80
-> >>> Oct 23 11:36:33 domU kernel:  intel_modeset_init_nogem+0x867/0x1d30 [i915]
-> >>> Oct 23 11:36:33 domU kernel:  ? gen6_write32+0x4b/0x1c0 [i915]
-> >>> Oct 23 11:36:33 domU kernel:  ? intel_irq_postinstall+0xb9/0x670 [i915]
-> >>> Oct 23 11:36:33 domU kernel:  i915_driver_probe+0x5c2/0xc90 [i915]
-> >>> Oct 23 11:36:33 domU kernel:  ? vga_switcheroo_client_probe_defer+0x1f/0x40
-> >>> Oct 23 11:36:33 domU kernel:  ? i915_pci_probe+0x3f/0x150 [i915]
-> >>> Oct 23 11:36:33 domU kernel:  local_pci_probe+0x42/0x80
-> >>> Oct 23 11:36:33 domU kernel:  ? _cond_resched+0x16/0x40
-> >>> Oct 23 11:36:33 domU kernel:  pci_device_probe+0xfd/0x1b0
-> >>> Oct 23 11:36:33 domU kernel:  really_probe+0x222/0x480
-> >>> Oct 23 11:36:33 domU kernel:  driver_probe_device+0xe1/0x150
-> >>> Oct 23 11:36:33 domU kernel:  device_driver_attach+0xa1/0xb0
-> >>> Oct 23 11:36:33 domU kernel:  __driver_attach+0x8a/0x150
-> >>> Oct 23 11:36:33 domU kernel:  ? device_driver_attach+0xb0/0xb0
-> >>> Oct 23 11:36:33 domU kernel:  ? device_driver_attach+0xb0/0xb0
-> >>> Oct 23 11:36:33 domU kernel:  bus_for_each_dev+0x78/0xc0
-> >>> Oct 23 11:36:33 domU kernel:  bus_add_driver+0x12b/0x1e0
-> >>> Oct 23 11:36:33 domU kernel:  driver_register+0x8b/0xe0
-> >>> Oct 23 11:36:33 domU kernel:  ? 0xffffffffc06b8000
-> >>> Oct 23 11:36:33 domU kernel:  i915_init+0x5d/0x70 [i915]
-> >>> Oct 23 11:36:33 domU kernel:  do_one_initcall+0x44/0x1d0
-> >>> Oct 23 11:36:33 domU kernel:  ? do_init_module+0x23/0x260
-> >>> Oct 23 11:36:33 domU kernel:  ? kmem_cache_alloc_trace+0xf5/0x200
-> >>> Oct 23 11:36:33 domU kernel:  do_init_module+0x5c/0x260
-> >>> Oct 23 11:36:33 domU kernel:  __do_sys_finit_module+0xb1/0x110
-> >>> Oct 23 11:36:33 domU kernel:  do_syscall_64+0x33/0x80
-> >>> Oct 23 11:36:33 domU kernel:  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-> >> The call trace alone leaves open where exactly the crash occurred.
-> >> Looking at 5.17 I notice that the first thing the driver does
-> >> after mapping the range it to check the signature (both in
-> >> intel_opregion_setup()). As the signature can't possibly match
-> >> with no access granted to the underlying mappings, there shouldn't
-> >> be any further attempts to use the region in the driver; if there
-> >> are, I'd view this as a driver bug.
-> > Yes.  i915_driver_hw_probe does not check the return value of
-> > intel_opregion_setup(dev_priv) and just continues on.
+> On 3/30/22 1:27 PM, Andrew Cooper wrote:
+> > On 30/03/2022 18:15, Anthony PERARD wrote:
+> >>
+> >> Some more though on that, looking at QEMU, it seems that there's already
+> >> a call to xc_domain_iomem_permission(), in igd_write_opregion().
+> > This has been discussed before, but noone's done anything about it.
+> > It's a massive layering violation for QEMU to issue
+> > xc_domain_iomem_permission()/etc hypercalls.
 > >
-> > Chuck, the attached patch may help if you want to test it.
-> >
-> > Regards,
-> > Jason
+> > It should be the toolstack, and only the toolstack, which makes
+> > permissions hypercalls, which in turn will fix a slew of "QEMU doesn't
+> > work when it doesn't have dom0 superpowers" bugs with stubdomains.
 >
-> Thanks for the patch, I will try it when I get a chance
-> and report if it prevents the crash and enables video
-> output to my screen. Has your patch been committed
-> to Linux? I just checked on the gitlab Linux master
-> branch and didn't see it there.
+> How much say does the Xen project have over the code
+> in Qemu under hw/xen? I would not be against having libxl
+> do the permissions hypercalls in this case instead of Qemu
+> doing it. My test with Qemu traditional and this patch proves
+> the permission can be granted by libxl instead of the device
+> model.
 
-This patch should just make the i915 probe error out properly inside
-the domU when the opregion cannot be mapped properly.  It would avoid
-trigger the domU trace you posted above, but it wouldn't solve any other
-issue.
+Qubes patches libxl and QEMU, and they move the hypercalls to the
+toolstack.  They are using linux stubdoms, and I think it works for
+them.
 
-I have not yet submitted upstream.
+QEMU:
+https://github.com/QubesOS/qubes-vmm-xen-stubdom-linux/blob/master/qemu/patches/0015-IGD-fix-undefined-behaviour.patch
+https://github.com/QubesOS/qubes-vmm-xen-stubdom-linux/blob/master/qemu/patches/0016-IGD-improve-legacy-vbios-handling.patch
+https://github.com/QubesOS/qubes-vmm-xen-stubdom-linux/blob/master/qemu/patches/0017-IGD-move-enabling-opregion-access-to-libxl.patch
+libxl:
+https://github.com/QubesOS/qubes-vmm-xen/blob/xen-4.14/patch-fix-igd-passthrough-with-linux-stubdomain.patch
+maybe this one, too:
+https://github.com/QubesOS/qubes-vmm-xen/blob/xen-4.14/patch-libxl-automatically-enable-gfx_passthru-if-IGD-is-as.patch
 
-Regard,
+Regards,
 Jason
 
