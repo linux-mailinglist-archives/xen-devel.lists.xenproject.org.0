@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F2E54EE211
-	for <lists+xen-devel@lfdr.de>; Thu, 31 Mar 2022 21:45:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.297078.505929 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FA894EE272
+	for <lists+xen-devel@lfdr.de>; Thu, 31 Mar 2022 22:13:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.297083.505941 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1na0ir-0007wx-GP; Thu, 31 Mar 2022 19:44:45 +0000
+	id 1na1AA-0002tR-UI; Thu, 31 Mar 2022 20:12:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 297078.505929; Thu, 31 Mar 2022 19:44:45 +0000
+Received: by outflank-mailman (output) from mailman id 297083.505941; Thu, 31 Mar 2022 20:12:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1na0ir-0007ty-Cs; Thu, 31 Mar 2022 19:44:45 +0000
-Received: by outflank-mailman (input) for mailman id 297078;
- Thu, 31 Mar 2022 19:44:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1na1AA-0002py-R9; Thu, 31 Mar 2022 20:12:58 +0000
+Received: by outflank-mailman (input) for mailman id 297083;
+ Thu, 31 Mar 2022 20:12:57 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5BbJ=UK=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1na0io-0007tr-KD
- for xen-devel@lists.xenproject.org; Thu, 31 Mar 2022 19:44:43 +0000
-Received: from sonic309-21.consmr.mail.gq1.yahoo.com
- (sonic309-21.consmr.mail.gq1.yahoo.com [98.137.65.147])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ff712409-b12a-11ec-a405-831a346695d4;
- Thu, 31 Mar 2022 21:44:39 +0200 (CEST)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic309.consmr.mail.gq1.yahoo.com with HTTP; Thu, 31 Mar 2022 19:44:36 +0000
-Received: by hermes--canary-production-bf1-665cdb9985-85ftg (VZM Hermes SMTP
- Server) with ESMTPA ID 23977df615c49108147ef4bb85ec5bd8; 
- Thu, 31 Mar 2022 19:44:35 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1na1A9-0002ps-QM
+ for xen-devel@lists.xenproject.org; Thu, 31 Mar 2022 20:12:57 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1na1A7-0005bc-SK; Thu, 31 Mar 2022 20:12:55 +0000
+Received: from 54-240-197-233.amazon.com ([54.240.197.233]
+ helo=[192.168.12.206]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1na1A7-0000Ke-MU; Thu, 31 Mar 2022 20:12:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,97 +39,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff712409-b12a-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1648755876; bh=rBDEYSNt8gUJ6y51oo238Cpzui22UUlruN7iTW0yM2c=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=UmTCVpzU2tlYbNg1mXOf/p0t70suoTU3rwnKAohazb+M8uKm/HGcC3yySlIkXiM1ajZa/Vk9Rvzr3/iEbxL3k/VmRTV6zRtKW3xy+8pYxoypz8BlYF+x5tTENox6+s2NrdMmT7SPD7ELPckJRaHe7xtV7ib7X46NVgzUpWjBTFwsQpQeVYsFz60/yo2kDltl7qKny7Luc/kQmYRSul5T3EnxRncB3FWANsbGLJLXSBSIe03wjJr+25aG1nBYz5tmz3qMYfh7jHx1dk3pil/lY3Se5r3WhYW+QexlfByDvD3UMQfA3c+5uBaijjQWiiHpbKtQVmnTy+j2XvLs4XpT/Q==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1648755876; bh=vlwBOuNlTY6gR8PB4AbZr5pBHU54vjTI4tlpdPFE/wC=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=M7z465mdt/Ern75FgWXJ9KkLgw3R35RGvt/P0vjaWTWISLtWCQ+ddUz6fJpPjymD0Sqf+5fnCj04cEzc5jioIVNrAGDz0G6UGPSFQUNGRIzCXSrP2Cda+7jXWGXSRIclnhmtYPBfrd8GAB91toqyOpyU7LojFRRgzHCaDJRAMV2G8c3g+dz331MXZGxTzYuU0X4LVb+6eLffZKhWd1mFhvkmDuTrOKWlkbyBfvJBmhCXyJo5zmgIGbYMp2Ms7SnkIs2wjUoSckfAsdF8dMEIrl3GDVWDF7AGnknZyxH2lgsHyf8fGzhaoQok2C6skK08wwj6T2XfmAswmcWHIsLwOQ==
-X-YMail-OSG: 4hiE6T4VM1kuWrRRl.PXKuNv50.e8dvQQbyfHqKO5bl69Z4yRpjbFNdGKLATjwM
- SFjvQI3.iz2PcCyGbHZWf5bZAKh8P4qaDWw3xgfyXT26b4KAe2j0tqs6xgwx.9FuvGA2yaBa5TVc
- v1y5cvxeCvTkNZXaOzZNMU_PBSYncAXB3rtUrbvzNzI6b.oXA_vsPHRiD176.fi2Rc84Uh4U0gSv
- KzqtdWc_ssIiUO5nFNqKWQpRrWieuzJY.gQM9K9Ad6KTM09CuHutNTYrokH_FziNoIr_SPxelJQX
- YwhMh_Fn3pB2Rt6xyyNhcID_IyhWJpJdp2mDI0WcvquBm43deavXJVbUshFtw5jAj29XZo.AgUIi
- lcs__g3CZ_SlHyANXhdJH.BsYI2HSvM3uHTIdd40hkBArRfxrpbc9IZVitlf94ZL0x.HosPEDLFA
- ps.TFaBlQijxSsco.TNejoasBGrUO9RT803sWDh9HhN7rEOYUp8Eej._dNPV0s4xELB8iTVkd3oQ
- 13XnotpxzaK3iibFN0ISrsdRovrwp.GlSxPJ7zfQP8LeDltJ_2Eday_rKwbfpzdnvrxiwkXXeTlX
- 1b2kkc.hfJVd4XONS6HUB3NCfE_l7iLEKG.YbveNQGJIYTcU7JouylIsx8dXTnubHgfwQw_jVm3K
- 7BuCu2iYfJfbipmyp.9FjL50v6wjX1pp7VuDAuwBD6uEgef20Y9nXEdnAG8ACHvVmptKRqbmztka
- jmzmQfOu58ovrHcxFXjYv.MfgTKuWRCYIrGZmGWwrLDOsDGu1sRKzulMe55iqjkpwN8wWL1Vtm7F
- hDll4FvOYRDj8O_b8z1Wuaa2nftBh59S76ioJamOI8YgS.6kSRXnDmvk87LGkiJLXzSr.SdgO0r1
- vMGwxiRplMC7N.UMq8U8uvhB2w.n4lEoxq3hQZmh2zLQkvs0R7JvLrSDmKTLfrOwMy8jqJTKyLuc
- ouPbEd7nKoy6J5U.j89UfwnfwQoNS6v6x6ju2ZBgnOUXr4YFqePHfdbkR5Z0CP0ydcupFr9lP6Qg
- wT.WG744rrbhKQAaFBXB7r1UyDrJ8hgN8E7IbLOqeQhVZu4nlNGoYUTydPl0Hk8uxwqCdCOeFpPn
- 1FjcagD9cRqJynY2gAv8k37UVcjenREQ81_r253U9KOOzRXJ1RkYtA9wPCc.u7vSIoteqezG9jDS
- 1fkbey98NCfm4t0_Qj1.y0qhJVDq30s1J3WdtYcZPq4hNdcsgJBm9Mq1fGpRxHyfE4inPEIMpYwk
- XKpVlml4fpl7LRolQlagW3CnC9MZWRHhZ45pxe3g8dN5smU2Ed1287jDiYBedtxnf5oBa1YkO10K
- NguYM5Rt3Pf.suycGcGyxoISxxlIswXQl_SJYs7YGkBDz6TbJXhaFdlN4P6cLb8p7S9dKmsr7r_l
- hkgeyGWS0R886Io2Nmzx3en_Zf9sQhnuMcp91XQtJ04p5ujLp.JS3..kgsUShuoQ9vP6NDQQFEfd
- 2_tYCM.IIPBOrWq0rJSTH_EOhx7RjHVzFMaj.cifjRJ8tFQPJ_YtZ6b1pwAEgYLdAxmNCqBqzOz0
- yK5AgXCmTxaQUlNgB1gwBsWLiW22rOUquVv5yIOgfZHUoeESLSI4Id31RraVKIWYMGK3Kpo_Ew_p
- eJLF8o8jaKYHqyUeJN_c_DsG1gbZPI_MpOflRURHKnHdiO7T88d9L4EUX19i783f8WsqAUpDPlXk
- VD2nZmtpSLBshg4xWh5.cbQ4NShq3dHIelQyI.oj88JnJehVo.3hMWpwp8xUN3ZvaXE3wKvRsjMg
- TjrhphBY1sY7q_A1z1AOcpOb9jBYbuDK9W8z3N4PmxOrMml8DrtOLqNziBzVolweQT_XORMfOMN8
- ntkk5eMbA05YGTEQuCLOGGd2c5cppkdRuSzU.lsJ.ssvIRldJLgLCsvHll7oDkCTLNPSC0KXn3.u
- DeiLogBMBVca7ZtLUAhDuUkddrh_1npDxEpWs2vjci8gCIJTmOctDcBhIFZrd8d4OdqJOrlxrBhT
- dkhd0GoOnMQKo.QugoNKKDGcC191K64VMPq0gLjMNfFYKAlslSoWJODGcc3Xe6h5KFQ_iFFRkuzK
- B25IV0N4LNNQoGCHmSn_5niILWoHZQ5v0N9uDo60_7AqrZQnQzaW5El3tDzfGiw9hQr27EqwoU7_
- 3dj0ZV7fn3rkMANz_32yZK0r2uB5VC5BG7KylOKfYqiP8K6gmrDZUCpvx.TCAqCW.cszTPErKJGM
- WNzH6iJMyFfpaKPvx9VE-
-X-Sonic-MF: <brchuckz@aim.com>
-Message-ID: <ea5c1606-04d3-c847-643e-d242d8f6ba06@netscape.net>
-Date: Thu, 31 Mar 2022 15:44:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
+	bh=OpFVtMJCSN1ezlKcJsL3rPmuR9lCtt19nHkG0KXRWM8=; b=TvsIJEwW9TPDIt2eKKUEaVxsqG
+	Rol0+dBi8BHLZBthGyBAh8cJoE5aX/D7QMvZtu8YXA1N4TKbzrxybDvS5jXxd0bnOZa3LB/Xhf4dQ
+	mb1KCUVNFIz3Lc1k4gAjRykLmSwcXvNXJebOcTmVUCEpuhfOZC7j9e99oUoiO6GO6iFI=;
+Message-ID: <e4b554db-5adf-91c3-476f-05721e74c069@xen.org>
+Date: Thu, 31 Mar 2022 21:12:53 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [XEN PATCH] tools/libs/light/libxl_pci.c: explicitly grant access
- to Intel IGD opregion
-Content-Language: en-US
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: Andrew Cooper <amc96@srcf.net>, Anthony PERARD
- <anthony.perard@citrix.com>, xen-devel <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>,
- Jan Beulich <jbeulich@suse.com>
-References: <b62fbc602a629941c1acaad3b93d250a3eba33c0.1647222184.git.brchuckz.ref@netscape.net>
- <b62fbc602a629941c1acaad3b93d250a3eba33c0.1647222184.git.brchuckz@netscape.net>
- <YkSQIoYhomhNKpYR@perard.uk.xensource.com>
- <408e5e07-453c-f377-a5b0-c421d002aec5@srcf.net>
- <46a8585e-2a2a-4d12-f221-e57bd157dec6@netscape.net>
- <CAKf6xpths4SX4wq-j4VhnXZnx0DW=468z3=9FYHso=Wy1i_Rsg@mail.gmail.com>
- <da62d06d-fd18-a313-9e69-2a4581e97c1a@netscape.net>
- <CAKf6xptZ9g79MphwYPAGq6ATBtCrW+pCd5+NYJPdFniW+tFzPg@mail.gmail.com>
-From: Chuck Zmudzinski <brchuckz@netscape.net>
-In-Reply-To: <CAKf6xptZ9g79MphwYPAGq6ATBtCrW+pCd5+NYJPdFniW+tFzPg@mail.gmail.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.7.0
+Subject: Re: OS Headers hypercall.h/hypervisor.h
+From: Julien Grall <julien@xen.org>
+To: Elliott Mitchell <ehem+xen@m5p.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
+References: <Yj+ekdLdRa9U7dfa@mattapan.m5p.com>
+ <alpine.DEB.2.22.394.2203281523230.2910984@ubuntu-linux-20-04-desktop>
+ <c999faa3-ded7-64af-7bf1-f6b8e5620425@suse.com>
+ <YkUAlWH6imVV9D00@mattapan.m5p.com>
+ <701a0bdc-a8d3-06c3-7e40-e741dfa45361@xen.org>
+In-Reply-To: <701a0bdc-a8d3-06c3-7e40-e741dfa45361@xen.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.20001 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+Content-Transfer-Encoding: 8bit
 
-On 3/31/22 10:19 AM, Jason Andryuk wrote:
-> On Thu, Mar 31, 2022 at 10:05 AM Chuck Zmudzinski <brchuckz@netscape.net> wrote:
+
+
+On 31/03/2022 09:44, Julien Grall wrote:
+> On 31/03/2022 02:15, Elliott Mitchell wrote:
+>> On Tue, Mar 29, 2022 at 08:27:24AM +0200, Jan Beulich wrote:
+>>> On 29.03.2022 00:25, Stefano Stabellini wrote:
+>>>> On Sat, 26 Mar 2022, Elliott Mitchell wrote:
+>>>>> The hypercalls implementation for Linux and FreeBSD have two key 
+>>>>> headers,
+>>>>> hypercall.h and hypervisor.h.  I'm curious why the implementations for
+>>>>> x86 and ARM* are so distinct.
+>>>>>
+>>>>> I found it fairly straightforward to implement ARM* versions of the 
+>>>>> x86
+>>>>> _hypercall#() macros.  Once that is done, most of the wrappers in 
+>>>>> the x86
+>>>>> hypercall.h can be moved to a shared hypervisor.h header.
+>>>>>
+>>>>> Why does Xen/ARM on Linux still have hypercall.S when merging the
+>>>>> headers should reduce maintainance?
+>>>>>
+>>>>> Was GCC extended inline assembly language for ARM* thought too awful?
+>>>>>
+>>>>> I'm also curious why these headers are part of the Linux kernel, 
+>>>>> instead
+>>>>> of being maintained by the Xen Project?
+>>>>
+>>>> I would have to dig through ancient archives to give you a full answer
+>>>> but the reason was that the asm inline on ARM didn't provide enough
+>>>> guarantees on ordering and registers it would use and clobber.
+>>>
+>>> While there may be ordering issues (albeit most ought to be taken care
+>>> of by marking the asm() volatile and having it have a memory clobber),
+>>> registers used / clobbered ought to always be expressable by asm() -
+>>> if not by constraints covering just a single register (such frequently
+>>> simply don't exist), then by using register variables tied to a
+>>> particular register. Of course in all of this there's an assumption of
+>>> no bugs in this area in the compilers claimed as being supported ...
 >>
->> That still doesn't answer my question - will the Qemu upstream
->> accept the patches that move the hypercalls to the toolstack? If
->> not, we have to live with what we have now, which is that the
->> hypercalls are done in Qemu.
-> Xen-associated people maintain hw/xen code in QEMU, so yes it could be accepted.
->
-> Maybe it would need to be backwards compatible to have libxl check the
-> QEMU version to decide who makes the hypercall?  Unless it is broken
-> today, in which case just make it work.
->
-> Regards,
-> Jason
+>> I'm merely been working with recent versions of Clang on FreeBSD, but
+>> I've got something which appears to work.
+>>
+>> I would be somewhat hopeful GCC might have fewer bugs on ARM as
+>> registers aren't so precious.  Yet that could well be a minefield.
+> 
+> Linux and Xen have already some code heavily using inline assembly for 
+> the SMCCC v1.1 helpers. So, in theory, it should be possible to convert 
+> the hypercall to use inline assembly helpers.
+> 
+> Unlike SMCCC v1.1, the hypercalls are following the AAPCS. So by using 
+> the assembly wrapper we don't have to worry on what to save as the 
+> compiler will automatically know what to do. Looking at 
+> xen/include/public/arch-arm.h, we may be able to reduce the numbers of 
+> registers to preserve. So it would be more interesting to switch to 
+> inline assembly to reduce the number of instructions.
+> 
+> That said, we also need to be mindful of straigh-line speculation with 
+> HVC instruction. With the inline version, the speculation barrier (sb or 
+> dsb/isb) would need to be architecturally executed. With the assembly 
+> wrapper, I believe we could only speculatively execute it by adding 
+> after the ret.
 
-I know of another reason to check the Qemu upstream version,
-and that is dealing with deprecated / removed device model
-options that xl.cfg still uses. I looked at that a few years ago
-with regard to the deprecated 'usbdevice tablet' Qemu option,
-but I did not see anything in libxl to distinguish Qemu versions
-except for upstream vs. traditional. AFAICT, detecting traditional
-vs. upstream Qemu depends solely on the device_model_version
-xl.cfg setting. So it might be useful for libxl to add the capability
-to detect the upstream Qemu version or at least create an xl.cfg
-setting to inform libxl about the Qemu version.
+Please ignore this bit. Digging through my e-mails, I found the private 
+discussion regarding this mitigation. Below what I wrote back in 2020:
 
-Regards,
+"The barrier-after-RET is only here to protect against straight-line
+speculation of the RET instruction. Not the SMC.
 
-Chuck
+If you have a processor that will always do straight-line speculation
+for both the SMC and the RET, then yes the barrier afterwards will block
+further speculation.
 
+But let's imagine you have an hypothetical processor that only do
+straight-line speculation for the SMC. For the RET instruction, it will
+instead decide to speculatively fetch and execute the instructions
+pointed out by LR.
+
+This means that the barrier after the RET would never get fetched or
+executed speculatively. In this case, there would be no barrier to
+speculate even further and reach a potential reveal gadget."
+
+So if we need to mitigate the straight-line-speculation, we would need a 
+speculation barrier right after SMC/HVC regardless the approach.
+
+I will have a look at the header Elliott shared.
+
+Cheers,
+
+-- 
+Julien Grall
 
