@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D86BC4EF219
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Apr 2022 16:50:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.297473.506776 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F4E74EF21F
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Apr 2022 16:52:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.297481.506787 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1naIbJ-0002Uu-FL; Fri, 01 Apr 2022 14:50:09 +0000
+	id 1naIdW-00039V-TC; Fri, 01 Apr 2022 14:52:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 297473.506776; Fri, 01 Apr 2022 14:50:09 +0000
+Received: by outflank-mailman (output) from mailman id 297481.506787; Fri, 01 Apr 2022 14:52:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1naIbJ-0002T5-CC; Fri, 01 Apr 2022 14:50:09 +0000
-Received: by outflank-mailman (input) for mailman id 297473;
- Fri, 01 Apr 2022 14:50:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1naIdW-00036z-PP; Fri, 01 Apr 2022 14:52:26 +0000
+Received: by outflank-mailman (input) for mailman id 297481;
+ Fri, 01 Apr 2022 14:52:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tDTg=UL=citrix.com=prvs=083321efb=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1naIbH-0002Oa-OS
- for xen-devel@lists.xenproject.org; Fri, 01 Apr 2022 14:50:07 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 04115178-b1cb-11ec-8fbc-03012f2f19d4;
- Fri, 01 Apr 2022 16:50:06 +0200 (CEST)
+ <SRS0=FwaM=UL=citrix.com=prvs=08375ea47=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1naIdU-00036s-VJ
+ for xen-devel@lists.xenproject.org; Fri, 01 Apr 2022 14:52:24 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 55caf67d-b1cb-11ec-a405-831a346695d4;
+ Fri, 01 Apr 2022 16:52:23 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,113 +36,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04115178-b1cb-11ec-8fbc-03012f2f19d4
+X-Inumbo-ID: 55caf67d-b1cb-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1648824606;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=eVuprM1HycjDsQgxnHjHvP/Xp4/+myD54orpOgIcw2Q=;
-  b=AS1K+0u2ncKyCjLX/hGFRFN859srsjZASt6VgO20WcWzw8hPXcu3tBB2
-   XX23bYe5Hew0HmP5A6NNbiaakvbsxHEuQzNuOZb0IX6dkCES2vYW3fUBo
-   VFpxwlli422GfPC7EOpSKAYF3ePe1tHuCrmjwg9WgoMCyILJm75WX66re
-   0=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  d=citrix.com; s=securemail; t=1648824743;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=pezlonkQC37kwAxQaulXOLSG8IWcHk2dOo+beOFVOw8=;
+  b=DyM4tRQvS7ECW3pjKcZnGqJ5iS60j7soOJcdY+MV3WIxBDhzBLKYUv2q
+   sfp/kVHgC2FFFKC1YqeV1d4vFivff8gM0ouAaaiGvxaYXlJ/3j3E7Lg1h
+   JzsG8FuUsi3kF975HpEiGPz3rwcpQex9cvmlMUWUeJrB0V2zzrxeg35NY
+   w=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
 X-SBRS: 5.1
-X-MesageID: 67771780
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 68178260
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:ha+W4qN5gQbi1yXvrR3Nl8FynXyQoLVcMsEvi/4bfWQNrUp0hmYPy
- 2FMUGyAM6qOa2r3LdEkPoW18RgH7JGDn9FqSwto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdleF+lH1dOKJQUBUjclkfJKlYAL/En03FFcMpBsJ00o5wbZl2tcw27BVPivW0
- T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
- 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Zk
- f8RjKS+cAQTOaz0qsJFeTgJUCxGMvgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
- 7pCcmlLN03dwbLtqF64YrAEasALJc/3PIQZqzd4wCvQF/oOSpHfWaTao9Rf2V/cg+gQQqmBP
- pVJMVKDajzOOy8eNU88Wahmt+2whVj2SyFA+RWK8P9fD2/7k1UqjemF3MDuUsOObdVYmACfv
- G2u13T0BFQWOcKSzRKB82mwnanfkCXjQoUQGbaksPlwjzWuKnc7UUNMEwHh+L/g1xD4C4k3x
- 1EoFjQG9IJuzXSld9rHWByAkljclD9NGNdoHLhvgO2S8Zb87wGcD2kCazdObt06qcM7LQAXO
- k+1c8DBXmI27uDMIZ6J3vLN9G7pZ3BJRYMXTXVcJTbp9eUPt23aYvjnat94WJC4gdTucd0b6
- 2Db9XNu71n/YCNi6klawbwlq2/0znQqZlRsjukyYo5DxlkmDGJCT9b0gWU3Fd4acO6koqCp5
- RDoYfS24uEUFo2qnyeQWugLF7zBz6/bbG2D3AQ1R8hwqmnFF5ufkWZ4um4WyKBBaJtsRNMUS
- BWL5VM5CGF7YhNGkpObk6ruUp93nMAM5PzuV+zOb8omX3SCXFTvwc2aXmbJhzqFuBF1yckXY
- M7HGe7xXSdyIfk2l1KeGrZCuYLHMwhjnAs/s7iglE/5uVdfDVbIIYo43KymNb5htvre8FSIq
- 76y9aKikn1ibQE3WQGPmaZ7ELzABSFT6UzewyCPStO+Hw==
-IronPort-HdrOrdr: A9a23:Wonlcq3KjnyIhynrAwPBQQqjBRxyeYIsimQD101hICG9Lfb2qy
- n+ppgmPEHP5Qr5AEtQ5OxpOMG7MBbhHQYc2/hfAV7QZnibhILOFvAt0WKC+UytJ8SazIBgPM
- hbAtFD4bHLfDtHZIPBkXOF+rUbsZi6GcKT9J/jJh5WJGkAAcAB0+46MHfhLqQffngcOXNTLu
- v52iMznUvHRZ1hVLXdOpBqZZmgm/T70LbdJTIWDR8u7weDyRmy7qThLhSe1hACFxtS3LYL6w
- H+4kzEz5Tml8v+5g7X1mfV4ZgTssDm0MF/CMuFjdVQAinwizyveJ9qV9S5zXMISaCUmRQXee
- v30lMd1vdImjTsl6aO0F3QMjzboXMTArnZuAalaDXY0JTErXkBerV8bMpiA2XkAgwbzYtBOe
- twrhKkX9A8N2KwoA3to9fPTB1kjUyyvD4rlvMSlWVWVc8EZKZWtpF3xjIfLH4sJlOy1GkcKp
- gnMCgc3ocjTXqKK3TC+mV/yt2lWXo+Wh+AX0gZo8SQlzxbhmpwwUcUzNEW2i5ozuNxd7BUo+
- Dfdqh4nrBHScEbKap7GecaWMOyTmjAWwjFPm6eKUnuUKsHJ3XOoZjq56hd3pDhRLUYiJ8p3J
- jRWlJRsmA/P0roFM2VxZVOtgvARW2sNA6dvP22J6IJzYEUaICbQxFrEmpe4PdIi89vd/HmZw
- ==
+IronPort-Data: A9a23:seXO66jj2y2GFpyqqpyqI2JgX161WhAKZh0ujC45NGQN5FlHY01je
+ htvXGGPbv7cYWOkKowkO4vn9hsBv5bUm4BkSQZk/3g3Q3gb9cadCdqndUqhZCn6wu8v7a5EA
+ 2fyTvGacajYm1eF/k/F3oDJ9CU6jefSLlbFILas1hpZHGeIcw98z0M78wIFqtQw24LhX1vU4
+ YmaT/D3YzdJ5RYlagr41IrbwP9flKyaVOQw5wFWiVhj5TcyplFNZH4tDfjZw0jQG+G4KtWSV
+ efbpIxVy0uCl/sb5nFJpZ6gGqECaua60QFjERO6UYD66vRJjnRaPqrWqJPwwKqY4tmEt4kZ9
+ TlDiXC/YToyJ4nXiL84aTNBFzlmL4l8oobgGFHq5KR/z2WeG5ft6/BnDUVwNowE4OdnR2pJ8
+ JT0KhhUMErF3bjvhuvmFK883azPL+GyVG8bklhmwSvUErANRpfbTr+RzdRZwC0xloZFGvO2i
+ 88xN2o2M0SaPUUn1lE/BLcdtbmqpyfGchIblXSuq6wX8Tnp5VkkuFTqGIWMIYHbLSlPpW6Dv
+ X7P9Wn9BhAcNfScxCCD/3bqgfXA9QvkXKoCGbv+8eRl6HWR22gSBRs+RVa95/6jhSaWS99Zb
+ kAZ5Ccqhawz71CwCMnwWQWip3yJtQJaXMBfe8U44gyQzqvf4y6CG3MJCDVGbbQbWNQeHGJwk
+ AXTxpWwWGIp4Ob9pW+hGqm8kCirHTMFdko4TzYAVRMXx+O5maYKp0eaJjp8K5KdgtrwEDD25
+ jmFqikimrke5fI2O7WHEUPv2Gz1+MWQJuIhzkCOBz/+sFslDGKwT9bwgWU3+8qsO2pworOpm
+ HEf0/aT4+kVZX1mvHzcGb5ddF1FChvsDdE9vbKNN8R5n9hO0yT6FWy13N2YDB02WirjUWW1C
+ HI/QSsLuPdu0IKCNMebmb6ZBcUw1rTHHt/4TP3SZdcmSsEvKF/YoXs0PR/Bgj2FfK0QfUcXY
+ 8jznSGEVytyNEia5GDuG7d1PUEDmEjSOl8/tbiklk/6gNJylVaeSKsfMUvmUwzKxPjsnekhy
+ P4Gb5Hi40wGCIXWO3CLmaZOfQFiBSVqXvje9p0IHtNv1yI7QQnN/deKmuh/E2Gk9owI/tr1E
+ oaVAREAkgOl1SyacW1nqBlLMdvSYHq2llpiVQQENle0wXkzJ4Gp6aYUbZwserc7sudkyJZJo
+ zMtIK1s3twnpuz7xgkg
+IronPort-HdrOrdr: A9a23:gtCgKqBmKpGGrdblHemo55DYdb4zR+YMi2TDsHoBLiC9E/bo8/
+ xG+c5x6faaslossR0b9uxoW5PhfZq/z/BICOAqVN/JMTUO01HIEKhSqafk3j38C2nf24dmpM
+ JdmnFFeb7N5I5B/KTH3DU=
 X-IronPort-AV: E=Sophos;i="5.90,227,1643691600"; 
-   d="scan'208";a="67771780"
-Date: Fri, 1 Apr 2022 15:50:00 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Roger Pau Monne <roger.pau@citrix.com>
-CC: <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 1/2] tools/firmware: fix setting of fcf-protection=none
-Message-ID: <YkcRGIy7l48BkZQz@perard.uk.xensource.com>
+   d="scan'208";a="68178260"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XVfn4Vr4+blFLRU/l8YUMLqx6nAPvKe9URBwPpoY7Wu0FnVo4mLMtTHSqQ5HcKWsNs+YH8OlWwMewwEhGa+4WgVFjPzyKYZWKx+lkcL4pngxYU5aChRVvq4jUBUVN2YPbYS3JoIMC6EwUTinY18OZdqg6h9msPAgPpzQGNkdXoS78RUEIl5pU009AaQNPjOXWMVjubgj3//FhERf+HVsMuLqjS1Plk4bB39qVflwoTzTtRMTy/QGJwpWrpsZ1N6rasmMkpVxa3SoIPnPLq+Pvuyj+vW4J/XqCNqyOWi4qSgx2aOaRe1VcsTWMC5BvBOPJhxpLHXZUMKZnqxZUa+BBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pezlonkQC37kwAxQaulXOLSG8IWcHk2dOo+beOFVOw8=;
+ b=KgGIteFmTaDWCf+bDh1nD9YV4o1dTtRlZwXIfyMVIWTizzOZlc849E7mglRUy3xcsj7EjY98N9Pwx/mSpPdvuTj/rrQNnJuyLxzMikR/VP8A01KIf9lTEx0AzWP7aKDUSfQOHdqJoD1XVoYej7/YcGzrNUyFxjNS1DqqPmvmi0OPPpyNB85NLxlSb2D3SSXawPmcoVxIPD8RgPWJlzrbtO7Q/0ocPrg0UqTk5i5S3fxUSSfP7AXCUlQvIoSKKy+B2u/F1uItrA0wSmUJbjJVtN9ZpEj8+E1x7U8WD5BrGuWaXBkhriSJwu/1RVZtwgQdT65vGmIfFiirPabjCWFSdA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pezlonkQC37kwAxQaulXOLSG8IWcHk2dOo+beOFVOw8=;
+ b=BWWA3uCwy8JReKkR+qjn3dPJrIh9Jb4oi1zuMb17BCgkHpIljqVv7gsB5IdpfHi2E/XTXIA9c+29o4wChN5Xy+yjFMBnSE4fx2w3u03MyaP9TNpS9Giz6MBrJ8HJm1a/gZ6E+tOHGG0/yzKlRU9DgNHkhSIIZDrKZVAUUdGEwWM=
+From: Andrew Cooper <Andrew.Cooper3@citrix.com>
+To: Roger Pau Monne <roger.pau@citrix.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>, Anthony Perard <anthony.perard@citrix.com>
+Subject: Re: [PATCH 2/2] tools/firmware: do not add a .note.gnu.property
+ section
+Thread-Topic: [PATCH 2/2] tools/firmware: do not add a .note.gnu.property
+ section
+Thread-Index: AQHYRdYPmZpfvGUBfkGAVUMDs/atUazbJFgA
+Date: Fri, 1 Apr 2022 14:51:46 +0000
+Message-ID: <e8e6c813-bcb8-e017-aece-e1315ba305b2@citrix.com>
 References: <20220401143720.23160-1-roger.pau@citrix.com>
- <20220401143720.23160-2-roger.pau@citrix.com>
+ <20220401143720.23160-3-roger.pau@citrix.com>
+In-Reply-To: <20220401143720.23160-3-roger.pau@citrix.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 24ad8ade-6e2d-4d53-6d5f-08da13ef2509
+x-ms-traffictypediagnostic: DM6PR03MB4409:EE_
+x-microsoft-antispam-prvs: <DM6PR03MB4409568234442FDE76295281BAE09@DM6PR03MB4409.namprd03.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: nRGc9YJoYWy5VAJ2K02rOeU7cFQ01PZCIY6qK7BD4HfBv8IqG8ssHQr8QbpGgO+h/+2/4JXFhzcngERjEcAhyoYZCZqLr/9ECuE8HpQzinjCWD6Rojt2UL+Q7wpB3RSutnz0g9ybrqmXhAp4dnaYrfzlE+ZR1Em8QHDuLy5QgcSTH+J1Cx4MPe9m2kKhvcXLidPywDwsIM0gcegCWHZNbdjxeKSq5GLcbdsVmSPqLYLdJwuFAVLmvA+qG3r3Swu7DZR8Va8neZYL5DtywCDCrpqdp7mPRtSwr/Ykqm5F5GdQsGTzBEUEemqF0tDZzJF8HN0ZGP75QRS+34MhQy59NgX98xlNDwTMI3/vMBorgwMeEyZ3WYhxJDdOBXo808H5qBNWZKLqbEY6W3BtL8hRlYzspQLOZSKniT73czSTh1mW7HpOg9kgyOCil5l53vVzYzCB9gBqBXJbvNaswE4ruh17WWwSCu/msWvddOhsO3n9XmsHaPOL8YndDRtyj85NFmL/C8aIgpRrJTgfIm9C8tcTzp/Rt8yDSKO/4nu8T6hF6PgrCVYLPT5nNsGrz3E4X9/jTw3tPPqi4kyzhMUhm12zpDNQB6L9mW88PEP9WuKY/t29i3ea4DoQYsUR8C43sRFlGR66XK0hA7VErchK/tl3foeaobM2qnxKhhK5Sxej2WWVOWkXOcuhaD5ne4g2x7usuJVc9SrtL5S+69Zhn9jl76oTudQ9mzOSqC+Zle2EFtTw4cOT/gCRRzylnEx7jwNFcD+dtyK24zdl8GcgDCHAQWrAIfEpmJTbbxkbjxg=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(122000001)(38100700002)(38070700005)(82960400001)(5660300002)(6486002)(110136005)(54906003)(71200400001)(508600001)(6506007)(76116006)(4744005)(66556008)(8676002)(66446008)(66476007)(316002)(8936002)(64756008)(4326008)(26005)(186003)(2616005)(107886003)(91956017)(66946007)(2906002)(86362001)(55236004)(53546011)(6512007)(31686004)(31696002)(36756003)(142923001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?NHExTWNBaStuRFNHcmp2dTh1UmpjY3ZUNE9YbWdEUGd6ZUc5VG93dy9jdVVB?=
+ =?utf-8?B?Wml0TmMva0xLWWYyK0QyeXczc2RLSVB1d05Femc0bkFoWkF6UFp4R2ZKZnhN?=
+ =?utf-8?B?QzcyQ3BuWlZtTmZoMldXRXR2V3M1clZRdi8zTk1PTjFseVBhb0h6cTJBWVZC?=
+ =?utf-8?B?M3laY0dJVnFYZ0JuR2pRUXV2QkkwVWNvanUrTFd1ZkRJL251UnZhZmxPemF5?=
+ =?utf-8?B?WDd4L0hYSnJCemwwTFJ2TzlWMmhhN0E2NTg4ZVBmaXFlWXlXWU5NOVFJRTNT?=
+ =?utf-8?B?MVdIc09EVTRlcVQ3a1JycndqbVYrVncwRWtCKzZ5M3BFQzhkVFJzTGNPR3Vv?=
+ =?utf-8?B?SmhjZU9UODMrb0g3bVpQUmRBTExFNTRTeUt6TjJwZGVLdUQ2K3Q0cTIxNGsw?=
+ =?utf-8?B?eUFPQUpNSWNtVXNlZko0dDF3YVhodzUwbm56YkEvNFVKYVFEekdCMkF6WFJ0?=
+ =?utf-8?B?emJSVjgzdTczMnp6clVOK1Q5TkdtdndMbDk2QnQ4bmpOOVlVY3IvK05JNHFk?=
+ =?utf-8?B?UlRJWjVsS3YxVy9rUEo0NGtaNVR3WXlYYlYySWQ2OW1KOTh3em1uMU50ZHN2?=
+ =?utf-8?B?bm5NUnBxczIzdEVpb1Q4R2w5b0lBNlJvMi9DbzBaazlUQmpSdmFJSGViRW82?=
+ =?utf-8?B?Zk04anVOWnNGUDVQOStua2V5OWVGZUs5ZW9kNlVGZHVwVi9iM3U5S0hmV0RG?=
+ =?utf-8?B?aUh4Y1ZNVzN5M1lQUUZCemtVblFibzM1Ni9RRnVKbXZPeE01dzNhYlYvOExR?=
+ =?utf-8?B?YkpMam5XVnFVcy8vQ296dExWd25CWVV2Q1J4ME5DZXRHMVU3TGVrWXZaSUtG?=
+ =?utf-8?B?L2NiRlZoTXNtdlBHRmNSeGVyVDZLZW9obmR6d1dOQitxVDlsVVg1OWZPdFNu?=
+ =?utf-8?B?WUk5dUxoTk4wUHA4c3Q2UVZGbWpSUjhxWkt4dkkzVWU5Qm1YS3V2YW5CcXNp?=
+ =?utf-8?B?ZlpFQUIrVU84RU9uZjZGY3I1bDkzRW5qUFVDaHd0eFVVNlY3cHVMd2RPZzZ2?=
+ =?utf-8?B?M0J3blFndWpjeTFVczJvd09SK08vVEM3TXNTUEpncXhNS2ZGaUtLR2h3VEdV?=
+ =?utf-8?B?SERUOS9hQzE4ZDBPeEx2L2NBa2hvcVpWbmRWK0k4WEZ0cW0ycklhQzJMclkx?=
+ =?utf-8?B?Y0hpeFZNNVVCem5Rd0NiQzNvUmNJWnFWdlVhN0xRbUdqdWFubmlaN2U0VHdZ?=
+ =?utf-8?B?RXBIUU4vUldaTzNjSGNDbXFIU3g5VzlwQ2QwVmd5TG5CN1k3VkFLTFJRdW1i?=
+ =?utf-8?B?RkQxZ01KSmNWK0k2YklJMmtIK3Z0MUI4MFNaMTlESWNVbTMvVW15RkdERHRQ?=
+ =?utf-8?B?ZU9Hekc3S1ZGNkZJU2JMZmsxdnBadlpabmczaDBxZnNqbTJqbUd1R2FmVGtW?=
+ =?utf-8?B?NzRDaDZCSW5oeWhWWm8vOEpENmMwSys0VzBuK0NtVXZqbGxTTUNsRGtMOVkz?=
+ =?utf-8?B?WjhEbUJJMnQ1VWlRM3I5MTI1b1p5TFBGSTJoSk9MeGdFZ0RxSGdqL1h0SkJ5?=
+ =?utf-8?B?U2hNazZ3bm1tanM2UWFBMVF3MEZaa1N4SzBzUEswL0Y2TFpyM0RrRDBJVU9G?=
+ =?utf-8?B?MS9hYXBaK2JRZ3FkekZFYjRkNjgxYXBHejlVRy9Iczk2dWR5d1FGUkpGU1pt?=
+ =?utf-8?B?Y3VuL01MQUNpTlVNYnk4V0ZvNjFEaVp3Y2JJQVBXM09FZ0pQdDFFODVmeWV4?=
+ =?utf-8?B?NHp4ZThmMTgxS1VCSlRVY1FaWmdrcTNRZDNjMmhlK2JIczJ1bDhMSGVFZEVU?=
+ =?utf-8?B?dGgyU0xqTEhmS1dVR3ZubThXb0tlRnduNW1zdzJpeEpuTThiQ1R3VDB2Zzhj?=
+ =?utf-8?B?TE5JZVIxODIyL2pMeEdkZU1YTldCY0FnKzdmQ1B6ZVJZc1F1Y3A4UjNFbDk0?=
+ =?utf-8?B?Nko1K2ZhRWFBeTFERnRQbHpQUjlld3FGQVdpdksrSWtQK2RIY2NCN21Ca3dD?=
+ =?utf-8?B?YlhqQlNyczlBY1Fmc2lCUThMaG9OeDc1SnV2L0J5OFZtZU9Yc1lKZWgrcW5t?=
+ =?utf-8?B?UlZEWkhjUzNwNDlNalgxbWFTb1lVRGNCNmtjWi82V1R4Z2ZTNGRFSWRpZzQ4?=
+ =?utf-8?B?a2VOVnRUaVVOVTJFMVdJa2w2aUF2eVB1TldXK3M2eDUxMkxzYVI5a0F5S0Jk?=
+ =?utf-8?B?REhjeHk3WUpGOXpITmVqYURUZHVCUjJRNll2aExRY1B6UzF4bWlDRkJSU2xt?=
+ =?utf-8?B?SlM5MDYwY1FOaTBuQ3ZRU2tlN0h2TkZ0T1hFLzRCUE5PVmwxREJnNTRNUFpD?=
+ =?utf-8?B?bzk2RE5lVFVYVlhzYVNoeWpkdGk0WU5VS1M3RTlLcG93Zi9CWThnWmhnK3Zo?=
+ =?utf-8?B?UjF6NEVjVTdHZVozWXZSZmx6VTI1eHBNc1RsQlpWZmJCMmU3akRrQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <923E6168D3BE694085BED634D05D52AA@namprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220401143720.23160-2-roger.pau@citrix.com>
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 24ad8ade-6e2d-4d53-6d5f-08da13ef2509
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Apr 2022 14:51:46.4426
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: T8fVHDaGGGrEW/457FN1uAW+kIgjlXgqUeNTf5Ae2mZ57nY/EIDMMrtB3tNlBwVpKpT2qQ3UxzJtv6GUhvSqnymVohiASpv0B8X2lb8uano=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4409
+X-OriginatorOrg: citrix.com
 
-On Fri, Apr 01, 2022 at 04:37:18PM +0200, Roger Pau Monne wrote:
-> Setting the fcf-protection=none option in EMBEDDED_EXTRA_CFLAGS in the
-> Makefile doesn't get it propagated to the subdirectories, so instead
-> set the flag in firmware/Rules.mk, like it's done for other compiler
-> flags.
-> 
-> Fixes: 3667f7f8f7 ('x86: Introduce support for CET-IBT')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
->  tools/firmware/Makefile | 2 --
->  tools/firmware/Rules.mk | 2 ++
->  2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tools/firmware/Makefile b/tools/firmware/Makefile
-> index 53ed4f161e..345037b93b 100644
-> --- a/tools/firmware/Makefile
-> +++ b/tools/firmware/Makefile
-> @@ -6,8 +6,6 @@ TARGET      := hvmloader/hvmloader
->  INST_DIR := $(DESTDIR)$(XENFIRMWAREDIR)
->  DEBG_DIR := $(DESTDIR)$(DEBUG_DIR)$(XENFIRMWAREDIR)
->  
-> -EMBEDDED_EXTRA_CFLAGS += -fcf-protection=none
-> -
->  SUBDIRS-y :=
->  SUBDIRS-$(CONFIG_OVMF) += ovmf-dir
->  SUBDIRS-$(CONFIG_SEABIOS) += seabios-dir
-> diff --git a/tools/firmware/Rules.mk b/tools/firmware/Rules.mk
-> index 9f78a7dec9..efbbc73a45 100644
-> --- a/tools/firmware/Rules.mk
-> +++ b/tools/firmware/Rules.mk
-> @@ -13,6 +13,8 @@ endif
->  
->  CFLAGS += -Werror
->  
-> +EMBEDDED_EXTRA_CFLAGS += -fcf-protection=none
-> +
-
-I think making modification to $(EMBEDDED_EXTRA_CFLAGS) outside of
-"Config.mk" is confusing and would be better be avoided.
-
-Could you instead call $(cc-option-add ) just for that extra CFLAGS?
-
->  $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
->  
->  # Extra CFLAGS suitable for an embedded type of environment.
-
-Thanks,
-
--- 
-Anthony PERARD
+T24gMDEvMDQvMjAyMiAxNTozNywgUm9nZXIgUGF1IE1vbm5lIHdyb3RlOg0KPiBQcmV2ZW50IHRo
+ZSBhc3NlbWJsZXIgZnJvbSBjcmVhdGluZyBhIC5ub3RlLmdudS5wcm9wZXJ0eSBzZWN0aW9uIG9u
+DQo+IHRoZSBvdXRwdXQgb2JqZWN0cywgYXMgaXQncyBub3QgdXNlZnVsIGZvciBmaXJtd2FyZSBy
+ZWxhdGVkIGJpbmFyaWVzLA0KPiBhbmQgYnJlYWtzIHRoZSByZXN1bHRpbmcgcm9tYmlvcyBpbWFn
+ZS4NCj4NCj4gVGhpcyByZXF1aXJlcyBtb2RpZnlpbmcgdGhlIGNjLW9wdGlvbiBNYWtlZmlsZSBt
+YWNybyBzbyBpdCBjYW4gdGVzdA0KPiBhc3NlbWJsZXIgb3B0aW9ucyAoYnkgcmVwbGFjaW5nIHRo
+ZSB1c2FnZSBvZiB0aGUgLVMgZmxhZyB3aXRoIC1jKSBhbmQNCj4gYWxzbyBzdHJpcHBpbmcgdGhl
+IC1XYSwgcHJlZml4IGlmIHByZXNlbnQgd2hlbiBjaGVja2luZyBmb3IgdGhlIHRlc3QNCj4gb3V0
+cHV0Lg0KPg0KPiBTaWduZWQtb2ZmLWJ5OiBSb2dlciBQYXUgTW9ubsOpIDxyb2dlci5wYXVAY2l0
+cml4LmNvbT4NCg0KQWNrZWQtYnk6IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJp
+eC5jb20+DQoNCkl0J3Mgd29ydGggc2F5aW5nIHRoYXQgdGhpcyB3YXMgZm91bmQgZnJvbSBYZW5T
+ZXJ2ZXIncyB0ZXN0aW5nLCBidXQNCnRoZXJlJ3Mgbm8gb2J2aW91cyBGaXhlczogdGFnIHRvIHVz
+ZS4NCg==
 
