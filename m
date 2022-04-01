@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82C3E4EF043
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Apr 2022 16:33:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.297430.506687 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0B6B4EF07A
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Apr 2022 16:34:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.297435.506699 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1naIL1-00047S-2x; Fri, 01 Apr 2022 14:33:19 +0000
+	id 1naILl-0004wN-Cn; Fri, 01 Apr 2022 14:34:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 297430.506687; Fri, 01 Apr 2022 14:33:19 +0000
+Received: by outflank-mailman (output) from mailman id 297435.506699; Fri, 01 Apr 2022 14:34:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1naIL0-00044S-W1; Fri, 01 Apr 2022 14:33:18 +0000
-Received: by outflank-mailman (input) for mailman id 297430;
- Fri, 01 Apr 2022 14:33:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AW7G=UL=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1naIKz-0003Ct-3o
- for xen-devel@lists.xenproject.org; Fri, 01 Apr 2022 14:33:17 +0000
-Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
- [2607:f8b0:4864:20::72c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aaafc2f4-b1c8-11ec-8fbc-03012f2f19d4;
- Fri, 01 Apr 2022 16:33:16 +0200 (CEST)
-Received: by mail-qk1-x72c.google.com with SMTP id q200so2222185qke.7
- for <xen-devel@lists.xenproject.org>; Fri, 01 Apr 2022 07:33:16 -0700 (PDT)
-Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:3c6c:76:9828:871b])
- by smtp.gmail.com with ESMTPSA id
- x18-20020a05622a001200b002eb856d7786sm1915111qtw.84.2022.04.01.07.33.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Apr 2022 07:33:14 -0700 (PDT)
+	id 1naILl-0004tQ-9X; Fri, 01 Apr 2022 14:34:05 +0000
+Received: by outflank-mailman (input) for mailman id 297435;
+ Fri, 01 Apr 2022 14:34:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1naILj-0004tC-SW
+ for xen-devel@lists.xenproject.org; Fri, 01 Apr 2022 14:34:03 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1naILj-00071X-Dm; Fri, 01 Apr 2022 14:34:03 +0000
+Received: from [54.239.6.189] (helo=[192.168.18.123])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1naILj-0007hi-7r; Fri, 01 Apr 2022 14:34:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,115 +39,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aaafc2f4-b1c8-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=tEVL8KQSMfu1CGNwcmGbmVujHFwNa0z5f5gBF9b17L0=;
-        b=Pen/YLahTXvY+InrMPykWZuVWfMHj2CEBx1td8wtM8vtXZ+VS9DVQ5fwbsD8qs8JW6
-         uHxjhCxLbXlVmbLehY2qfup2mjj8onU9JGhKamdIS4W+2bruq2vVJWHQKpgTcHclBT3c
-         eDm80yk61uafxxC+q25hIgTrgvsK8+QfGMAkb00lzfkHMftc1jIoI1RqHdSY4oxAOZkl
-         yFH230iMe69zhLAq7jeItY41Bfvf0I1aR8Bu49IGTU0ExnnaWkXxqowKXPY5OxbNCev+
-         JqAUujSN+B97LMLm/07bR5OMH9OYLA1A/vz8cwQy1kVWQqL7PKLnCJjB52MIX+YaB3ot
-         RSGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=tEVL8KQSMfu1CGNwcmGbmVujHFwNa0z5f5gBF9b17L0=;
-        b=MWGY26AV2SOPk5XJ3UhV09pRywnasuCS/7ETTi2In7S20FX5xg+gHm11KiWFN19Dko
-         mY/wVWH/xDT4cKixlGNHXm9vBy9FG5doJ/i7ZxicIo1oGJXf0XzwEn4hurb2Q7G0pmRd
-         tHu+dNb7zMJyK+YdoLafTfh6kpm6tPT6zzFtu45O5VsSHBTg+ianWqpQI/7l4F5+8AmO
-         K/DAlnt/TyqjK3glAHkfb7oXX0rl+6AF7++Va+31CrHMVrpmRzIjOUHSdiJXnXV/voEQ
-         +Y8ECpfBvUnN6UXXaM+cHtg12U3kWBgsy0n9aOeUf+H0O+ldObPNMBKcC/Ka81Tqe6ae
-         LAFw==
-X-Gm-Message-State: AOAM533CL156LFk2d0Npd8mxQwg6Jc3i3bGGNicoYUdCjmUiGyX/+v8s
-	64AVVsyS1w0Ulc0Pxdm6vw+5920d5vk=
-X-Google-Smtp-Source: ABdhPJwx9BzLU7NFdXRzzrzEn3GkAGQwyZ+lmNFDDnoy31BRMKYqEays8SYPFnKOnSkkmZi1YRwF5A==
-X-Received: by 2002:a05:620a:a57:b0:67d:396a:8a9d with SMTP id j23-20020a05620a0a5700b0067d396a8a9dmr6904809qka.322.1648823594895;
-        Fri, 01 Apr 2022 07:33:14 -0700 (PDT)
-From: Jason Andryuk <jandryuk@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jason Andryuk <jandryuk@gmail.com>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v2] libxl: Re-scope qmp_proxy_spawn.ao usage
-Date: Fri,  1 Apr 2022 10:33:10 -0400
-Message-Id: <20220401143310.17743-1-jandryuk@gmail.com>
-X-Mailer: git-send-email 2.35.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=QckjSnYtWxN8aKK8n0KmmGy+s/oafD5tWXX4ou/4je0=; b=tIrJv9FI4fYh6Q2ulBa0bM7JId
+	bTHsT1qznJa+GsntZSLqmytQtIsnybZjTmxMTiwntgu2CpzoPyhxU8Rw7+J4GzWtqwbzOfkdmHc39
+	avoo3GIQ2+P1GGdLox9M9gGzyB8myKwDcRMcO7uphA/5VGV4vBbvUKhRvPhcyjnDXlA8=;
+Message-ID: <6b93c6c9-1afe-8ae9-ad7c-227ecff5cb53@xen.org>
+Date: Fri, 1 Apr 2022 15:34:01 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.7.0
+Subject: Re: [PATCH v4 2/9] xen/arm: implement domU extended regions
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+Cc: jgross@suse.com, Bertrand.Marquis@arm.com, Volodymyr_Babchuk@epam.com,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
+References: <alpine.DEB.2.22.394.2203311735380.2910984@ubuntu-linux-20-04-desktop>
+ <20220401003847.38393-2-sstabellini@kernel.org>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20220401003847.38393-2-sstabellini@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-I've observed this failed assertion:
-libxl_event.c:2057: libxl__ao_inprogress_gc: Assertion `ao' failed.
+Hi,
 
-AFAICT, this is happening in qmp_proxy_spawn_outcome where
-sdss->qmp_proxy_spawn.ao is NULL.
+On 01/04/2022 01:38, Stefano Stabellini wrote:
+> From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> 
+> Implement extended regions for dom0less domUs. The implementation is
+> based on the libxl implementation.
+> 
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> ---
+>   xen/arch/arm/domain_build.c | 42 ++++++++++++++++++++++++++++++++++---
+>   1 file changed, 39 insertions(+), 3 deletions(-)
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 8be01678de..b6189b935d 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -1324,6 +1324,35 @@ out:
+>       return res;
+>   }
+>   
+> +#define ALIGN_UP_TO_2MB(x)   (((x) + MB(2) - 1) & (~(MB(2) - 1)))
 
-The out label of spawn_stub_launch_dm() calls qmp_proxy_spawn_outcome(),
-but it is only in the success path that sdss->qmp_proxy_spawn.ao gets
-set to the current ao.
+I think this is the same as ROUNDUP(x, SZ_2M).
 
-qmp_proxy_spawn_outcome() should instead use sdss->dm.spawn.ao, which is
-the already in-use ao when spawn_stub_launch_dm() is called.  The same
-is true for spawn_qmp_proxy().
+> +
 
-With this, move sdss->qmp_proxy_spawn.ao initialization to
-spawn_qmp_proxy() since its use is for libxl__spawn_spawn() and it can
-be initialized along with the rest of sdss->qmp_proxy_spawn.
+> +static int __init find_domU_holes(const struct kernel_info *kinfo,
+> +                                  struct meminfo *ext_regions)
+> +{
+> +    unsigned int i;
+> +    uint64_t bankend[GUEST_RAM_BANKS];
 
-Fixes: 83c845033dc8 ("libxl: use vchan for QMP access with Linux stubdomain")
-Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
----
-v2:
-Change subject
-Add Fixes
-Change to using sdss->dm.spawn.ao
+Looking, you only seem to use one bankend at the time. So why do you 
+need to store all the bankend?
 
- tools/libs/light/libxl_dm.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+This should also be s/uint64_t/paddr_t/. Same for two other instances below.
 
-diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
-index 9a8ddbe188..1864ee30f0 100644
---- a/tools/libs/light/libxl_dm.c
-+++ b/tools/libs/light/libxl_dm.c
-@@ -2567,7 +2567,6 @@ static void spawn_stub_launch_dm(libxl__egc *egc,
-             goto out;
-     }
- 
--    sdss->qmp_proxy_spawn.ao = ao;
-     if (libxl__stubdomain_is_linux(&guest_config->b_info)) {
-         spawn_qmp_proxy(egc, sdss);
-     } else {
-@@ -2584,7 +2583,7 @@ out:
- static void spawn_qmp_proxy(libxl__egc *egc,
-                             libxl__stub_dm_spawn_state *sdss)
- {
--    STATE_AO_GC(sdss->qmp_proxy_spawn.ao);
-+    STATE_AO_GC(sdss->dm.spawn.ao);
-     const uint32_t guest_domid = sdss->dm.guest_domid;
-     const uint32_t dm_domid = sdss->pvqemu.guest_domid;
-     const char *dom_path = libxl__xs_get_dompath(gc, dm_domid);
-@@ -2598,6 +2597,7 @@ static void spawn_qmp_proxy(libxl__egc *egc,
-         goto out;
-     }
- 
-+    sdss->qmp_proxy_spawn.ao = ao;
-     sdss->qmp_proxy_spawn.what = GCSPRINTF("domain %d device model qmp proxy", guest_domid);
-     sdss->qmp_proxy_spawn.pidpath = GCSPRINTF("%s/image/qmp-proxy-pid", dom_path);
-     sdss->qmp_proxy_spawn.xspath = DEVICE_MODEL_XS_PATH(gc, LIBXL_TOOLSTACK_DOMID,
-@@ -2685,7 +2685,7 @@ static void qmp_proxy_spawn_outcome(libxl__egc *egc,
-                                     libxl__stub_dm_spawn_state *sdss,
-                                     int rc)
- {
--    STATE_AO_GC(sdss->qmp_proxy_spawn.ao);
-+    STATE_AO_GC(sdss->dm.spawn.ao);
-     /*
-      * Until xenconsoled learns how to handle multiple consoles, require qemu
-      * in dom0 to serve consoles for a stubdomain - it require at least 3 of them.
+> +    const uint64_t bankbase[] = GUEST_RAM_BANK_BASES;
+> +    const uint64_t banksize[] = GUEST_RAM_BANK_SIZES;
+> +
+> +    for ( i = 0; i < GUEST_RAM_BANKS; i++ )
+> +    {
+> +        ext_regions->bank[ext_regions->nr_banks].start =
+
+The code would be easier to read if you define a local variable ext_bank 
+that points to &(ext_regions->bank[ext_regions->nr_banks]).
+
+> +            ALIGN_UP_TO_2MB(bankbase[i] + kinfo->mem.bank[i].size);
+> +
+> +        bankend[i] = ~0ULL >> (64 - p2m_ipa_bits);
+> +        bankend[i] = min(bankend[i], bankbase[i] + banksize[i] - 1); > +        if (bankend[i] > ext_regions->bank[ext_regions->nr_banks].start)
+
+Coding style:
+
+if ( ... )
+
+> +            ext_regions->bank[ext_regions->nr_banks].size =
+> +                bankend[i] - ext_regions->bank[ext_regions->nr_banks].start + 1;
+
+This is one of the line that could greatly benefits from the local 
+variable I suggested above. It would look like:
+
+ext_bank->size = bankend[i] - ext_bank->start + 1;
+
+> +
+> +        /* 64MB is the minimum size of an extended region */
+> +        if ( ext_regions->bank[ext_regions->nr_banks].size < MB(64) )
+> +            continue;
+> +        ext_regions->nr_banks++;
+> +    }
+
+NIT: We tend to add a newline before the last return.
+
+> +    return 0;
+
+find_memory_holes() and find_unallocated_memory() will return an error 
+if there are no banks allocated. I think we should do the same here at 
+least for consistency.
+
+In which case, the check should be moved in make_hypervisor_node().
+
+> +}
+> +
+>   static int __init make_hypervisor_node(struct domain *d,
+>                                          const struct kernel_info *kinfo,
+>                                          int addrcells, int sizecells)
+> @@ -1374,10 +1403,17 @@ static int __init make_hypervisor_node(struct domain *d,
+>           if ( !ext_regions )
+>               return -ENOMEM;
+>   
+> -        if ( !is_iommu_enabled(d) )
+> -            res = find_unallocated_memory(kinfo, ext_regions);
+> +        if ( is_domain_direct_mapped(d) )
+
+I believe the code in the 'if' part would work properly for a dom0 that 
+is not direct mapped (e.g. in the cache coloring case).
+
+If it doesn't, I think we need...
+
+> +        {
+> +            if ( !is_iommu_enabled(d) )
+> +                res = find_unallocated_memory(kinfo, ext_regions);
+> +            else
+> +                res = find_memory_holes(kinfo, ext_regions);
+> +        }
+>           else
+> -            res = find_memory_holes(kinfo, ext_regions);
+> +        {
+
+... and ASSERT() here so we the person that will introduce non direct 
+mapped dom0 can easily notice before the domain get corrupted.
+
+> +            res = find_domU_holes(kinfo, ext_regions);
+> +        }
+>   
+>           if ( res )
+>               printk(XENLOG_WARNING "Failed to allocate extended regions\n");
+
+This printk() and the others in the function should print the domain.
+
+Cheers,
+
 -- 
-2.35.1
-
+Julien Grall
 
