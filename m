@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AD074EE56E
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Apr 2022 02:39:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.297156.506118 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D2374EE574
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Apr 2022 02:39:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.297157.506125 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1na5JY-00007i-J5; Fri, 01 Apr 2022 00:38:56 +0000
+	id 1na5JZ-0000HY-7r; Fri, 01 Apr 2022 00:38:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 297156.506118; Fri, 01 Apr 2022 00:38:56 +0000
+Received: by outflank-mailman (output) from mailman id 297157.506125; Fri, 01 Apr 2022 00:38:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1na5JY-0008St-Cf; Fri, 01 Apr 2022 00:38:56 +0000
-Received: by outflank-mailman (input) for mailman id 297156;
- Fri, 01 Apr 2022 00:38:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1na5JY-0000Aw-Ua; Fri, 01 Apr 2022 00:38:56 +0000
+Received: by outflank-mailman (input) for mailman id 297157;
+ Fri, 01 Apr 2022 00:38:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yIha=UL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1na5JV-00087e-OR
- for xen-devel@lists.xenproject.org; Fri, 01 Apr 2022 00:38:53 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1aaad07d-b154-11ec-a405-831a346695d4;
- Fri, 01 Apr 2022 02:38:52 +0200 (CEST)
+ id 1na5JW-0007ot-Jz
+ for xen-devel@lists.xenproject.org; Fri, 01 Apr 2022 00:38:54 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1b095c28-b154-11ec-8fbc-03012f2f19d4;
+ Fri, 01 Apr 2022 02:38:53 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 3AEF8B82277;
+ by ams.source.kernel.org (Postfix) with ESMTPS id CEC9DB822B6;
  Fri,  1 Apr 2022 00:38:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5D83C34113;
- Fri,  1 Apr 2022 00:38:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27851C34111;
+ Fri,  1 Apr 2022 00:38:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,17 +43,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1aaad07d-b154-11ec-a405-831a346695d4
+X-Inumbo-ID: 1b095c28-b154-11ec-8fbc-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1648773531;
-	bh=9T3+bPtIQN0ln8b/3Ruflzv/jD4YwkoEfs6vAbEsKuo=;
+	bh=I6q904V+oM8H31/r5qy2ckfV9oZRtQr/EXcn4FzU6PE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=bZubmMK4hA+QRJdgCDdVehxIiX1RH8Ke1lwWCqwQgR806kzHp6rt0hv8Vk8+2ZEDa
-	 Zn7hQqnBTjrvR/r8511EpVtOo5WkNEibo1SFIV0unGDaZsSKlC4+S7LKkSxX2ZDBx4
-	 8Y3lbNRNrGJwFXrJRvOn1PzTnA9oJo+mL0IZpQAud+ncZWgL4HVNvmkPXsKN7XGTKS
-	 aBb4wlk95Lz3rhhBgwXYChylN3e7Csy+vwikE7Z23FpKZYKMr4jo2WRapq9gdaDW8J
-	 xfymAwEmm868NeGswBzyIo0Tfyg3PC9M2OTIwN5tCKbSzf8lCfbAu4hDY0Sp4Txl05
-	 VxYTIjX+udKMw==
+	b=ONe7h6hEItE8BISUA855nbRyVlJGnEeOXzJPNEFJTGb6iRgBzjRzDd45bUkgXdk0U
+	 ARH7PGJRRBM82+ziePeNFPhBanYNmyHDK6xwcPL6/DEEykRi9w/re8qLY0zb6M6Gw9
+	 ZhhUeA802QTFvmYMpD0fjTOtYQD2KynMj+fnCezJN/1YlTAnODsp+rUlZQs7BHPZXn
+	 duwBvStInn9OoP/pboY5bWf5sUtcKnQQrtTRP3yjxcYIcfPiFEVFrfk96nxb814hQ6
+	 st3z7c/mZ1I4w/Q9r2nxMWX/kT07Ld1olEunc5zbGY2/wgwDU5voVMdN1C7oVGJvI5
+	 9lSEszHas/9/Q==
 From: Stefano Stabellini <sstabellini@kernel.org>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -63,9 +62,9 @@ Cc: sstabellini@kernel.org,
 	julien@xen.org,
 	Volodymyr_Babchuk@epam.com,
 	Stefano Stabellini <stefano.stabellini@xilinx.com>
-Subject: [PATCH v4 3/9] xen/arm: temporarily elevate idle_domain privileged during create_domUs
-Date: Thu, 31 Mar 2022 17:38:41 -0700
-Message-Id: <20220401003847.38393-3-sstabellini@kernel.org>
+Subject: [PATCH v4 4/9] xen: export evtchn_alloc_unbound
+Date: Thu, 31 Mar 2022 17:38:42 -0700
+Message-Id: <20220401003847.38393-4-sstabellini@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <alpine.DEB.2.22.394.2203311735380.2910984@ubuntu-linux-20-04-desktop>
 References: <alpine.DEB.2.22.394.2203311735380.2910984@ubuntu-linux-20-04-desktop>
@@ -74,45 +73,41 @@ Content-Transfer-Encoding: 8bit
 
 From: Stefano Stabellini <stefano.stabellini@xilinx.com>
 
-create_domUs might call functions that perform XSM checks on the current
-domain, which is idle_domain at this time. Temporarily elevate
-idle_domain privileges in create_domUs.
+It will be used during dom0less domains construction.
 
 Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
 ---
- xen/arch/arm/domain_build.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ xen/common/event_channel.c | 2 +-
+ xen/include/xen/event.h    | 3 +++
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index b6189b935d..100a4959a8 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -27,6 +27,7 @@
- #include <asm/setup.h>
- #include <asm/cpufeature.h>
- #include <asm/domain_build.h>
-+#include <xsm/xsm.h>
- 
- #include <xen/irq.h>
- #include <xen/grant_table.h>
-@@ -3210,6 +3211,8 @@ void __init create_domUs(void)
-     struct dt_device_node *node;
-     const struct dt_device_node *chosen = dt_find_node_by_path("/chosen");
- 
-+    xsm_elevate_priv(current->domain);
-+
-     BUG_ON(chosen == NULL);
-     dt_for_each_child_node(chosen, node)
-     {
-@@ -3291,6 +3294,8 @@ void __init create_domUs(void)
-         if ( construct_domU(d, node) != 0 )
-             panic("Could not set up domain %s\n", dt_node_name(node));
-     }
-+
-+    xsm_demote_priv(current->domain);
+diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
+index ffb042a241..2f6a89f52d 100644
+--- a/xen/common/event_channel.c
++++ b/xen/common/event_channel.c
+@@ -289,7 +289,7 @@ void evtchn_free(struct domain *d, struct evtchn *chn)
+     xsm_evtchn_close_post(chn);
  }
  
- static int __init construct_dom0(struct domain *d)
+-static int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
++int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
+ {
+     struct evtchn *chn;
+     struct domain *d;
+diff --git a/xen/include/xen/event.h b/xen/include/xen/event.h
+index 21c95e14fd..987e88623a 100644
+--- a/xen/include/xen/event.h
++++ b/xen/include/xen/event.h
+@@ -71,6 +71,9 @@ void evtchn_free(struct domain *d, struct evtchn *chn);
+ /* Allocate a specific event channel port. */
+ int evtchn_allocate_port(struct domain *d, unsigned int port);
+ 
++/* Allocate a new event channel */
++int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc);
++
+ /* Unmask a local event-channel port. */
+ int evtchn_unmask(unsigned int port);
+ 
 -- 
 2.25.1
 
