@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 730FC4EED73
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Apr 2022 14:49:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.297372.506544 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6AFD4EEDFF
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Apr 2022 15:22:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.297378.506556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1naGi1-0003kb-2k; Fri, 01 Apr 2022 12:48:57 +0000
+	id 1naHDy-0007pl-Lg; Fri, 01 Apr 2022 13:21:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 297372.506544; Fri, 01 Apr 2022 12:48:57 +0000
+Received: by outflank-mailman (output) from mailman id 297378.506556; Fri, 01 Apr 2022 13:21:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1naGi0-0003hz-Vt; Fri, 01 Apr 2022 12:48:56 +0000
-Received: by outflank-mailman (input) for mailman id 297372;
- Fri, 01 Apr 2022 12:48:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1naHDy-0007nB-IL; Fri, 01 Apr 2022 13:21:58 +0000
+Received: by outflank-mailman (input) for mailman id 297378;
+ Fri, 01 Apr 2022 13:21:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Yu3J=UL=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1naGhz-0003ho-ET
- for xen-devel@lists.xenproject.org; Fri, 01 Apr 2022 12:48:55 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 16692a1e-b1ba-11ec-8fbc-03012f2f19d4;
- Fri, 01 Apr 2022 14:48:54 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0EBEA1FD00;
- Fri,  1 Apr 2022 12:48:54 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C973A132C1;
- Fri,  1 Apr 2022 12:48:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +OzIL7X0RmIJQwAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 01 Apr 2022 12:48:53 +0000
+ (envelope-from <SRS0=i0v6=UL=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1naHDv-0007n0-HW
+ for xen-devel@lists.xenproject.org; Fri, 01 Apr 2022 13:21:56 +0000
+Received: from sonic308-54.consmr.mail.gq1.yahoo.com
+ (sonic308-54.consmr.mail.gq1.yahoo.com [98.137.68.30])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b04019c4-b1be-11ec-a405-831a346695d4;
+ Fri, 01 Apr 2022 15:21:51 +0200 (CEST)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic308.consmr.mail.gq1.yahoo.com with HTTP; Fri, 1 Apr 2022 13:21:49 +0000
+Received: by hermes--canary-production-bf1-665cdb9985-6p9bt (VZM Hermes SMTP
+ Server) with ESMTPA ID ffbb55cd7e7ff41fe82b03603fe8d708; 
+ Fri, 01 Apr 2022 13:21:43 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,149 +42,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16692a1e-b1ba-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1648817334; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aCbKnOwWP+SgmWDyXMNQ5sZD4/DUD6cpYX9yiGymmrg=;
-	b=e7cf+ZmG/RWQSo4oRMa085htb9aCP/gP9TpKAoUmFpB0EFegvpDdndahtvT94JdRRbDU7x
-	Rr/f2QYTgVUD6RbhC/0mdPrejNGjZ40L2Db61P2ICaRwCURelRyq+XWIbKpCkTIiphn9xh
-	E/R8emvSvnjOEhAXRJpl8RCI5jU9Op4=
-Message-ID: <ccee11d6-a62d-6b37-d51a-476b6e23aeb7@suse.com>
-Date: Fri, 1 Apr 2022 14:48:53 +0200
+X-Inumbo-ID: b04019c4-b1be-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1648819309; bh=753d7ijm7UQ3Hu5BfbfmQK4mp7ufvKUNuW4ug8DrL6U=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=iW0siN0lsrLXIClWiyfhHZTiAF33RCyNmmnEGyDtj/rRdBjmQq8vhGBqW+28+DxK0AuiPh+b1/Q4p8+eRFmMbchpfvgHsqMKEKJmZujNPosaJaJkYMeZfw0l8aKOJO6S2TIWiRev8c/weAOAHlxeruQHy8As3wQEuA3+N1Tm3Q/2/XiARrrJV4WgBMgrsz65tFqIPZVMWFttWKKMo3OmlXlon1KwvTuivOOop5rR9ob6BWS/AnS+EjkCcOrTj2A1vMvFgq6NFEsg2pCbTwWd9SnFpAJHBTzoV/9xh0dfnS3WMPjOEXS74/GqoGSUppPxnOLXwCqXxdRgweWgZhAavA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1648819309; bh=ZJ/U/vMIeOb4mn3U+q3FX4+aJjAjTir8UraGPr9DQmF=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=qHdISB8JFQKkO/Bpiswhw47e8ocj7QlnYu8qwZEZ81lSgeFC/U0pG8bLJ097/iy25lEIzuBN2ByQV9clLRmrWw0QFTegRttriIzRQUGfygmshpnuzwFCruLrLK15bYN8yWCcL+tc4xJnTXLJ13ZTdstSMvj9K1hitwO3na/2GADr6xMDfLp+fdyzzrafZwNaFQhzppA+9BSCYzYHCMEeGmgWYtx1XMb0HkkEud/gSHgtzWmqbDBQc+IRvdtWxBuHk5XRtQ7Qeia5/HHBCHYvZoYPZRu9VzReV1A6Rrv1BlQUVY/UxKjzdeqBGLK/OU5Ym4sNNxqndGww9Z29b0ty7w==
+X-YMail-OSG: TnVa9PoVM1nUor48hLADRbR75l9AUwzWQ.6Qq5zsOeTwijYp.lU8ct63uf3cQr9
+ dEEhUmXmo._KOUDVLlfZN2f5qpl0s8dtdaM3V.4dLQbxaXp.6HBPN39WCqEZWiMkl7Sm4zwLpela
+ zsbOTg55_ByFywlaH4wH6U4jf2kPNVDVtGA.nj_gAbTqSpekqAOA2hFL5ZoMPuBdhyC_H2noVbDK
+ BvxDSA5bPSBdh_VP2C3v2r3bpysJFqF92zaV8DmlL.maNOoCZatUFlqZK9rh0mqV4oaOc0BQvVFE
+ hEGDizly.lwI7RzfiFz27lUDTDQ.Xm9_.5fclOzBhvKr5u7wKX.5KsmPNvrJ97XeVXOt7p47OvsX
+ 9wjOFRey6QAW.q9o3QCvdFuP9tjwL68Fx5I.wxu2mtRuvvjrI2hUEwESEUYnrA7zT.TPkfn2p3s.
+ ixJ8AzK4AiIzlEfm15zQ7HfmeAkeHpCfvf_RlK90VNZEqqWEuC5mN32AWr86fyyiTgZhDNdb52Qx
+ nOctxGV5vSu9BBcwsI5gESGGGV48TYP.utg_iZw5u6Xrif6QDyswKO6kOw7yeVCEmTU6JVoJ2tOX
+ 11ph_ybPo0iymjkI7yjzpGqesvYVwwmIlnwuoe5YFHjAt4p98gSLbjLQt_RowQPH1EsTkT8tNPQR
+ F5trc6hON8_bLe1NAkVmfGa1II84ZULSspC0AJMLHtDjmFG2yY0YF5olBqh76ddhkK0aMcjB_7TD
+ W2in7Y8nEb.JB6v4qusy9AC.X1pEicQyxUjeJJtYM5E_CXEEN64K0OFnZc9wBIbxxvkOks8Be.Lb
+ 4l2wYa4NWnSsjR9jLWXW4eRvpIYVUBeICp7BOWlyJTHNJC5O5dpyx0hh3VBGQffQOoB2rFI_aEFj
+ ttGDDhaH3Nnmevz11oq6J1cjUv369gwo2ul2x0pneKXuPygRITNdzWB_p0uq8OxszZM4ZreViWS0
+ .Q9sl.14wm7a__.7Auh3QpDy.bTXJBt69jwM.n79CfrC3tJJgOIykfzFRQ7GGhw9Px5c8yi1y2vl
+ 5wE5z7UT5jeecTV.ztziI8zyyYyu8Wo2zzt894QKyV7SmsMrzNgTWAGDbwcWNc4Fx1TvqHM_VnIz
+ E7CzDIOa1cXj4Y8YYWFVjudnJW.THV.IWZ.vUDsx5zUCnXLkDuMbPxOWVMKiA5pFTKYeSSyHeL.n
+ GELkJ0cyZ7JYDMkIXobbibeIVelnnMmaB.RZZF_XJWAsQSeAjHnhvp9U1Svf74gvCzsbITYvoV2L
+ sgjXrk9pefblbYa5vjw3X2a7aaYnWhQH7GVjcAECkekZpiLpCn5rJhiQPyPJ3kaLwBzH2aCfZdMW
+ mKJmwvwH8IJ_6nEtggHX0NBJIAhVp3c5upU29qQ27TajAdRLYiG.9pZ3vqMkDP.Z0VxR_7GKEpuN
+ 79UMnLg1RGIw2yo8jBsVJMWRvfT5iIXmkzptcEKLdBU.H.Y_VMs1jWsly1RUnvQWD3mTHfZS5ALz
+ a1srehnF.ZBs27kq34oqwHpDgZOUJtMlrfXBABtn1qrEcvNosxuFwOKBtRcTtbZp4.pmYGrRsy6O
+ WJFtlj8G.49M.HORhRwTc2JgLQVhI0evBjPifSTb1KevB37azDJdSW2XWZY9FLQLhWO7pKj4zmLb
+ agpZIdjCGEYzBdxH7.pz1bREqTbYNzaLTrsl77HmVJRKRHleWUhshQI7pTcsQICaGc5rJx7AuGXl
+ BYm3WRKFV4NFe.okhZVSysIjKmqUKWznMmfWKbhXFl2Nxv02AuBTpVEXm3Kvf5K2camcMmfuRqzp
+ GUJeAfnzPfTevwA96P3siIwheIvDRvdwbS0t89oalBxEI6QE3.QZ73rYgTfXa8PG1Il_ceeDy9Qu
+ Vxd_CTyhwBL4YOV0uNtxwKlj8jCbgkWue3xPSsooGRKMK0RYcF9qAgNqxEARLK_0EeD2g3VnxuZs
+ yxnlMv74bFdgz9DMNuSFE8uuknmKm.opMoiCMBvF_zNzRLxXZUT2ylUXiINFVFpl603bUgCA6b7D
+ wnUIRc63VffyXs64fKJOe1Gc55WE8YQR4EnfCbVbT0fzUX7c3LDUwYMpHTG9sF6aj6PFmpnH3jkY
+ Ds7k1K_aAJVWlwA97YVpSikpsd98i9_nkMtBm1zfy2mcfDzsHLBhwuc0oaTIM8I0enbP7waUT7Z7
+ _JeAKHO3wxf9g4mzHLsPldMC2DHjy8_vuoJ4BRsVwJCUU2U37uj04CbFgeDSvl9ltxxRqY5OzPOW
+ f4_7.9XhfbzwbiQ9PkF0jzObqWTg-
+X-Sonic-MF: <brchuckz@aim.com>
+Message-ID: <d13f08dd-6575-6215-80e5-9d5b2c85b923@netscape.net>
+Date: Fri, 1 Apr 2022 09:21:41 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
-Subject: Re: [PATCH v4 7/9] xenstored: send an evtchn notification on
- introduce_domain
+Subject: Re: [XEN PATCH] tools/libs/light/libxl_pci.c: explicitly grant access
+ to Intel IGD opregion
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-Cc: Bertrand.Marquis@arm.com, julien@xen.org, Volodymyr_Babchuk@epam.com,
- Luca Miccio <lucmiccio@gmail.com>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
-References: <alpine.DEB.2.22.394.2203311735380.2910984@ubuntu-linux-20-04-desktop>
- <20220401003847.38393-7-sstabellini@kernel.org>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20220401003847.38393-7-sstabellini@kernel.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------C9Ax5ol14yz0s7yi2WOh6tvI"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------C9Ax5ol14yz0s7yi2WOh6tvI
-Content-Type: multipart/mixed; boundary="------------UhShM0QBLutOgd398GNoMe0Z";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-Cc: Bertrand.Marquis@arm.com, julien@xen.org, Volodymyr_Babchuk@epam.com,
- Luca Miccio <lucmiccio@gmail.com>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
-Message-ID: <ccee11d6-a62d-6b37-d51a-476b6e23aeb7@suse.com>
-Subject: Re: [PATCH v4 7/9] xenstored: send an evtchn notification on
- introduce_domain
-References: <alpine.DEB.2.22.394.2203311735380.2910984@ubuntu-linux-20-04-desktop>
- <20220401003847.38393-7-sstabellini@kernel.org>
-In-Reply-To: <20220401003847.38393-7-sstabellini@kernel.org>
-
---------------UhShM0QBLutOgd398GNoMe0Z
-Content-Type: multipart/mixed; boundary="------------bpUBW6oRs0TwpT5vYT0hJxNj"
-
---------------bpUBW6oRs0TwpT5vYT0hJxNj
+To: Jason Andryuk <jandryuk@gmail.com>, Jan Beulich <jbeulich@suse.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Juergen Gross <jgross@suse.com>, xen-devel <xen-devel@lists.xenproject.org>
+References: <b62fbc602a629941c1acaad3b93d250a3eba33c0.1647222184.git.brchuckz.ref@netscape.net>
+ <b62fbc602a629941c1acaad3b93d250a3eba33c0.1647222184.git.brchuckz@netscape.net>
+ <78ce5809-8df4-c94e-4313-fffb1b86b771@suse.com>
+ <CAKf6xpsN+uJ=AyxtrnOrQrynFL=dwC=DdT7DHnK=wx9UFtdUDQ@mail.gmail.com>
+From: Chuck Zmudzinski <brchuckz@netscape.net>
+In-Reply-To: <CAKf6xpsN+uJ=AyxtrnOrQrynFL=dwC=DdT7DHnK=wx9UFtdUDQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.20001 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-T24gMDEuMDQuMjIgMDI6MzgsIFN0ZWZhbm8gU3RhYmVsbGluaSB3cm90ZToNCj4gRnJvbTog
-THVjYSBNaWNjaW8gPGx1Y21pY2Npb0BnbWFpbC5jb20+DQo+IA0KPiBXaGVuIHhzX2ludHJv
-ZHVjZV9kb21haW4gaXMgY2FsbGVkLCBzZW5kIG91dCBhIG5vdGlmaWNhdGlvbiBvbiB0aGUN
-Cj4geGVuc3RvcmUgZXZlbnQgY2hhbm5lbCBzbyB0aGF0IGFueSAoZG9tMGxlc3MpIGRvbWFp
-biB3YWl0aW5nIGZvciB0aGUNCj4geGVuc3RvcmUgaW50ZXJmYWNlIHRvIGJlIHJlYWR5IGNh
-biBjb250aW51ZSB3aXRoIHRoZSBpbml0aWFsaXphdGlvbi4NCj4gDQo+IFRoZSBleHRyYSBu
-b3RpZmljYXRpb24gaXMgaGFybWxlc3MgZm9yIGRvbWFpbnMgdGhhdCBkb24ndCByZXF1aXJl
-IGl0Lg0KPiANCj4gU2lnbmVkLW9mZi1ieTogTHVjYSBNaWNjaW8gPGx1Y21pY2Npb0BnbWFp
-bC5jb20+DQo+IFNpZ25lZC1vZmYtYnk6IFN0ZWZhbm8gU3RhYmVsbGluaSA8c3RlZmFuby5z
-dGFiZWxsaW5pQHhpbGlueC5jb20+DQo+IFJldmlld2VkLWJ5OiBCZXJ0cmFuZCBNYXJxdWlz
-IDxiZXJ0cmFuZC5tYXJxdWlzQGFybS5jb20+DQoNClJldmlld2VkLWJ5OiBKdWVyZ2VuIEdy
-b3NzIDxqZ3Jvc3NAc3VzZS5jb20+DQoNCg0KSnVlcmdlbg0K
---------------bpUBW6oRs0TwpT5vYT0hJxNj
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+On 3/30/22 2:45 PM, Jason Andryuk wrote:
+> On Fri, Mar 18, 2022 at 4:13 AM Jan Beulich <jbeulich@suse.com> wrote:
+>> On 14.03.2022 04:41, Chuck Zmudzinski wrote:
+>>> When gfx_passthru is enabled for the Intel IGD, hvmloader maps the IGD
+>>> opregion to the guest but libxl does not grant the guest permission to
+>>> access the mapped memory region. This results in a crash of the i915.ko
+>>> kernel module in a Linux HVM guest when it needs to access the IGD
+>>> opregion:
+>>>
+>>> Oct 23 11:36:33 domU kernel: Call Trace:
+>>> Oct 23 11:36:33 domU kernel:  ? idr_alloc+0x39/0x70
+>>> Oct 23 11:36:33 domU kernel:  drm_get_last_vbltimestamp+0xaa/0xc0 [drm]
+>>> Oct 23 11:36:33 domU kernel:  drm_reset_vblank_timestamp+0x5b/0xd0 [drm]
+>>> Oct 23 11:36:33 domU kernel:  drm_crtc_vblank_on+0x7b/0x130 [drm]
+>>> Oct 23 11:36:33 domU kernel:  intel_modeset_setup_hw_state+0xbd4/0x1900 [i915]
+>>> Oct 23 11:36:33 domU kernel:  ? _cond_resched+0x16/0x40
+>>> Oct 23 11:36:33 domU kernel:  ? ww_mutex_lock+0x15/0x80
+>>> Oct 23 11:36:33 domU kernel:  intel_modeset_init_nogem+0x867/0x1d30 [i915]
+>>> Oct 23 11:36:33 domU kernel:  ? gen6_write32+0x4b/0x1c0 [i915]
+>>> Oct 23 11:36:33 domU kernel:  ? intel_irq_postinstall+0xb9/0x670 [i915]
+>>> Oct 23 11:36:33 domU kernel:  i915_driver_probe+0x5c2/0xc90 [i915]
+>>> Oct 23 11:36:33 domU kernel:  ? vga_switcheroo_client_probe_defer+0x1f/0x40
+>>> Oct 23 11:36:33 domU kernel:  ? i915_pci_probe+0x3f/0x150 [i915]
+>>> Oct 23 11:36:33 domU kernel:  local_pci_probe+0x42/0x80
+>>> Oct 23 11:36:33 domU kernel:  ? _cond_resched+0x16/0x40
+>>> Oct 23 11:36:33 domU kernel:  pci_device_probe+0xfd/0x1b0
+>>> Oct 23 11:36:33 domU kernel:  really_probe+0x222/0x480
+>>> Oct 23 11:36:33 domU kernel:  driver_probe_device+0xe1/0x150
+>>> Oct 23 11:36:33 domU kernel:  device_driver_attach+0xa1/0xb0
+>>> Oct 23 11:36:33 domU kernel:  __driver_attach+0x8a/0x150
+>>> Oct 23 11:36:33 domU kernel:  ? device_driver_attach+0xb0/0xb0
+>>> Oct 23 11:36:33 domU kernel:  ? device_driver_attach+0xb0/0xb0
+>>> Oct 23 11:36:33 domU kernel:  bus_for_each_dev+0x78/0xc0
+>>> Oct 23 11:36:33 domU kernel:  bus_add_driver+0x12b/0x1e0
+>>> Oct 23 11:36:33 domU kernel:  driver_register+0x8b/0xe0
+>>> Oct 23 11:36:33 domU kernel:  ? 0xffffffffc06b8000
+>>> Oct 23 11:36:33 domU kernel:  i915_init+0x5d/0x70 [i915]
+>>> Oct 23 11:36:33 domU kernel:  do_one_initcall+0x44/0x1d0
+>>> Oct 23 11:36:33 domU kernel:  ? do_init_module+0x23/0x260
+>>> Oct 23 11:36:33 domU kernel:  ? kmem_cache_alloc_trace+0xf5/0x200
+>>> Oct 23 11:36:33 domU kernel:  do_init_module+0x5c/0x260
+>>> Oct 23 11:36:33 domU kernel:  __do_sys_finit_module+0xb1/0x110
+>>> Oct 23 11:36:33 domU kernel:  do_syscall_64+0x33/0x80
+>>> Oct 23 11:36:33 domU kernel:  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+>> The call trace alone leaves open where exactly the crash occurred.
+>> Looking at 5.17 I notice that the first thing the driver does
+>> after mapping the range it to check the signature (both in
+>> intel_opregion_setup()). As the signature can't possibly match
+>> with no access granted to the underlying mappings, there shouldn't
+>> be any further attempts to use the region in the driver; if there
+>> are, I'd view this as a driver bug.
+> Yes.  i915_driver_hw_probe does not check the return value of
+> intel_opregion_setup(dev_priv) and just continues on.
+>
+> Chuck, the attached patch may help if you want to test it.
+>
+> Regards,
+> Jason
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+I tested the patch - it made no noticeable difference. I still
+get the same crash and call trace with the patch. Actually,
+the call trace I posted here is only the first of three call
+traces, and I still see all three call traces with the patch.
+The patch is harmless and the i915 module with the patch
+works normally when it can access the intel opregion.
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Regards,
 
---------------bpUBW6oRs0TwpT5vYT0hJxNj--
-
---------------UhShM0QBLutOgd398GNoMe0Z--
-
---------------C9Ax5ol14yz0s7yi2WOh6tvI
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmJG9LUFAwAAAAAACgkQsN6d1ii/Ey/B
-2wf+MJ2yRCJETehZ3OCGpENwk+Ezld7pjZoZnU69cX1YUDwhN4IC23ywLP0xESe5we5iTfEtxn/A
-6h/2ZrMJCix5EJm5sUm7NwO9Kb0E0fXZpGePUCJTzpcgOV38aLVBtCzY8GtCMUWys2whaOORW09k
-FRyfcssTO11RkXjChXvc6sYvE0XBBinthH+hgynDe4z4N7rfwhCao36OxCNyN4FncPS6osK/V61y
-E2ys8nF3hFCch145chhO50JWUGiHp1lT61WfcGsf6fMpfNPDJnYpK/vBXLkvj5ENRmL0v+/zMWlo
-mkSkiUZsottcbksvrGbuz8tbcma3b1Gm7SZqTOPdwQ==
-=PjvI
------END PGP SIGNATURE-----
-
---------------C9Ax5ol14yz0s7yi2WOh6tvI--
+Chuck
 
