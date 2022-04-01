@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72C014EEE6D
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Apr 2022 15:46:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.297400.506600 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C4884EEE78
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Apr 2022 15:50:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.297404.506610 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1naHbo-0003gp-MN; Fri, 01 Apr 2022 13:46:36 +0000
+	id 1naHf5-0004Ie-4u; Fri, 01 Apr 2022 13:49:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 297400.506600; Fri, 01 Apr 2022 13:46:36 +0000
+Received: by outflank-mailman (output) from mailman id 297404.506610; Fri, 01 Apr 2022 13:49:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1naHbo-0003e2-Ir; Fri, 01 Apr 2022 13:46:36 +0000
-Received: by outflank-mailman (input) for mailman id 297400;
- Fri, 01 Apr 2022 13:46:35 +0000
+	id 1naHf5-0004G3-1s; Fri, 01 Apr 2022 13:49:59 +0000
+Received: by outflank-mailman (input) for mailman id 297404;
+ Fri, 01 Apr 2022 13:49:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tlS5=UL=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1naHbn-0003dw-Nl
- for xen-devel@lists.xenproject.org; Fri, 01 Apr 2022 13:46:35 +0000
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 24070bb6-b1c2-11ec-8fbc-03012f2f19d4;
- Fri, 01 Apr 2022 15:46:34 +0200 (CEST)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 31E6532007F9;
- Fri,  1 Apr 2022 09:46:31 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Fri, 01 Apr 2022 09:46:32 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 1 Apr 2022 09:46:29 -0400 (EDT)
+ <SRS0=AW7G=UL=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1naHf3-0004Fx-Uy
+ for xen-devel@lists.xenproject.org; Fri, 01 Apr 2022 13:49:57 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9d95675c-b1c2-11ec-8fbc-03012f2f19d4;
+ Fri, 01 Apr 2022 15:49:56 +0200 (CEST)
+Received: by mail-lf1-x134.google.com with SMTP id 5so5096557lfp.1
+ for <xen-devel@lists.xenproject.org>; Fri, 01 Apr 2022 06:49:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,124 +39,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24070bb6-b1c2-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=hVyQEouGgaEt0F6DZ
-	8ddM5JOZIXmifcHPNnQCe+kV+o=; b=k09j2MDQ6Won+fqlJJSeuNSgVJMKFU+xk
-	oDqAyP9dMTARdNppZUVJFbwGI0Ny0bxSVrJH5TUxtAgaKPsJlnVd5nrWNJ0Tlb7O
-	XJgHQQcS+QOolORNhDRKyLKdA/6YtvnzFfhyJ0MLUezpDnjKCmQV9XeINl322Gkf
-	vNtLR7P4f0+Yy+P+itBSapdvptVzW+zme2hSdHhFulj3l6RZHT03U9ZScS64y0uN
-	0TCYLzTEqgE+Z5yzdkdEo9HpU2EEYJnRPQIhZ/fRiqQ6IHYFSH25y5c6QV/046pZ
-	EA7Kp3rBSXA8UPBGa/KaKzKk/W94HA/6M5zzysoBIRmXlK5GRN11g==
-X-ME-Sender: <xms:NgJHYpCaa6WRZRXYcek6XIMKRZt3x1ixs9YAzheplHZAbga5HAf3lw>
-    <xme:NgJHYnhLZMCitwLRmbkGQWt7gVAJSaRYcCoZSFzadOq1izOFys6SVp9DKu0WmxnCb
-    PvCrk3Nho4bFg>
-X-ME-Received: <xmr:NgJHYklKgqD-JollNRuVgR-3tYdLxCK2V4sV_6GT_OeZb79OQQ3NT4KKlBkuY6Ah9StvX6Z8A8xfQNaCV7vZx7M0i5ZOvXi9SQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrudeiiedgieelucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveff
-    iefghfekhffggeeffffhgeevieektedthfehveeiheeiiedtudegfeetffenucevlhhush
-    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
-    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:NgJHYjyjZnTQo0voglcViDWLnpOcUspz931tyfV0d8hgWMeBpssXJA>
-    <xmx:NgJHYuQs74UenpMUhAvF1vVhb5dbXK0DTGtD71EMxmTTE7aDpkr_PQ>
-    <xmx:NgJHYmaRQYT5mIwmBriXWKe2on0d-ohTERoQZ-tiM9i8uVZD0wEbyg>
-    <xmx:NgJHYkP3RaVCf_W3_0znTHgCJP210tcaMWdqyvptalcFxYyjAhrNSQ>
-Date: Fri, 1 Apr 2022 15:46:26 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Julien Grall <julien@xen.org>
-Subject: Re: preparations for 4.14.5 ?
-Message-ID: <YkcCMg8+dDjxBvJW@mail-itl>
-References: <466e1d4b-a4b6-0797-ca1b-1ea59a3993ba@suse.com>
+X-Inumbo-ID: 9d95675c-b1c2-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=+UjquPGwFGeqwBCb89WBL58YtOG7MMP1lqm5Lsl5SDI=;
+        b=L5A0O7TEbaLtciBNfvyE8wAwyB5iLGqjgF9ks9SQzE8qXCg+y0WJ/kz2kA2u0BbEft
+         4QgYrjPCZ4KCokQW+GRPWBFVGdC/nsu55VRzmAbZ7UrB97b63Cf9BT7JwgpiVOw7v6uX
+         tndcrIRkzRKU79d1L2cywN9bZH12QBhDEXdvcfMk+cfTfLdmY694SW2IAF7jxp4YSuqV
+         H4ghKXQSIUtl5fKUF6SJZtm7eHWkaaaa9YHc2Hegqq8U03PTdd7b2Sxx1NoVnJSZQvDw
+         36yssT1PfGLwrzf7/IDBv9PdjHcePe/X/DFLm46sdi0N3UK4oysuz2gOPI8aa3YE03es
+         7Faw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=+UjquPGwFGeqwBCb89WBL58YtOG7MMP1lqm5Lsl5SDI=;
+        b=PT24UyJv8V9KNxXYRACUUn6ylaXxGOmBTWo//YEijc9L2kjFyeULOrgUwLvftO3+6h
+         ItCwTquv4piwY9GQKyxgVhkpb2kdtLrrzHDlgeY/V2PeqREEsoxn9CC8/gJ4RJqtFtL3
+         7c9vHFnsO3S1vkSGbT3nYtkD9TDF7j5MLOcAbVn6acgJm61UQmdydaWxvYINvsJ/j0N9
+         xiNT9rOpsCizM4MNnDRFZ0HK1amQiLKzZ8PP80zPFO66bp9/ygMqTmp2WLxxey06/Fq2
+         Pe6waCo42xezx59tbty9xf46f1uxZ0xszt/FPTd8SGoQ2pBMTvXLgECUCpb+hcxss5wJ
+         +lJg==
+X-Gm-Message-State: AOAM531ilQZx1r/nRvjJp92rKzH4WQvKafsk9UK0h/OfNqwEzFGPUhGU
+	XV9ELSTsBj5k8AFV3cdkqhFbdwjtY3w264SEjGI=
+X-Google-Smtp-Source: ABdhPJyMLbS0P7Ni/ivW/xJ8aVi3h3jMAv1txZ+yu0lzm/nIfcakK1WfLyfjbni6paaBYnrMulkDdV6eEcXJSd8SlaE=
+X-Received: by 2002:a05:6512:11cc:b0:44a:5770:7425 with SMTP id
+ h12-20020a05651211cc00b0044a57707425mr13614617lfr.406.1648820996182; Fri, 01
+ Apr 2022 06:49:56 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="1IRnIitUKwGMlx3k"
-Content-Disposition: inline
-In-Reply-To: <466e1d4b-a4b6-0797-ca1b-1ea59a3993ba@suse.com>
+References: <b62fbc602a629941c1acaad3b93d250a3eba33c0.1647222184.git.brchuckz.ref@netscape.net>
+ <b62fbc602a629941c1acaad3b93d250a3eba33c0.1647222184.git.brchuckz@netscape.net>
+ <78ce5809-8df4-c94e-4313-fffb1b86b771@suse.com> <CAKf6xpsN+uJ=AyxtrnOrQrynFL=dwC=DdT7DHnK=wx9UFtdUDQ@mail.gmail.com>
+ <d13f08dd-6575-6215-80e5-9d5b2c85b923@netscape.net> <c60f8789-d91a-3076-41a4-25c2fb07fae8@netscape.net>
+In-Reply-To: <c60f8789-d91a-3076-41a4-25c2fb07fae8@netscape.net>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Fri, 1 Apr 2022 09:49:44 -0400
+Message-ID: <CAKf6xpshJAy0P4v9uhNTd-U6boivfq-yqBb3Yo02mSQnvUxRCw@mail.gmail.com>
+Subject: Re: [XEN PATCH] tools/libs/light/libxl_pci.c: explicitly grant access
+ to Intel IGD opregion
+To: Chuck Zmudzinski <brchuckz@netscape.net>
+Cc: Jan Beulich <jbeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
 
+On Fri, Apr 1, 2022 at 9:41 AM Chuck Zmudzinski <brchuckz@netscape.net> wrote:
+>
+> On 4/1/22 9:21 AM, Chuck Zmudzinski wrote:
+> > On 3/30/22 2:45 PM, Jason Andryuk wrote:
+> >> On Fri, Mar 18, 2022 at 4:13 AM Jan Beulich <jbeulich@suse.com> wrote:
+> >>> On 14.03.2022 04:41, Chuck Zmudzinski wrote:
+> >>>> When gfx_passthru is enabled for the Intel IGD, hvmloader maps the IGD
+> >>>> opregion to the guest but libxl does not grant the guest permission to
+> >>>> access the mapped memory region. This results in a crash of the
+> >>>> i915.ko
+> >>>> kernel module in a Linux HVM guest when it needs to access the IGD
+> >>>> opregion:
+> >>>>
+> >>>> Oct 23 11:36:33 domU kernel: Call Trace:
+> >>>> Oct 23 11:36:33 domU kernel:  ? idr_alloc+0x39/0x70
+> >>>> Oct 23 11:36:33 domU kernel: drm_get_last_vbltimestamp+0xaa/0xc0 [drm]
+> >>>> Oct 23 11:36:33 domU kernel: drm_reset_vblank_timestamp+0x5b/0xd0
+> >>>> [drm]
+> >>>> Oct 23 11:36:33 domU kernel:  drm_crtc_vblank_on+0x7b/0x130 [drm]
+> >>>> Oct 23 11:36:33 domU kernel:
+> >>>> intel_modeset_setup_hw_state+0xbd4/0x1900 [i915]
+> >>>> Oct 23 11:36:33 domU kernel:  ? _cond_resched+0x16/0x40
+> >>>> Oct 23 11:36:33 domU kernel:  ? ww_mutex_lock+0x15/0x80
+> >>>> Oct 23 11:36:33 domU kernel: intel_modeset_init_nogem+0x867/0x1d30
+> >>>> [i915]
+> >>>> Oct 23 11:36:33 domU kernel:  ? gen6_write32+0x4b/0x1c0 [i915]
+> >>>> Oct 23 11:36:33 domU kernel:  ? intel_irq_postinstall+0xb9/0x670
+> >>>> [i915]
+> >>>> Oct 23 11:36:33 domU kernel:  i915_driver_probe+0x5c2/0xc90 [i915]
+> >>>> Oct 23 11:36:33 domU kernel:  ?
+> >>>> vga_switcheroo_client_probe_defer+0x1f/0x40
+> >>>> Oct 23 11:36:33 domU kernel:  ? i915_pci_probe+0x3f/0x150 [i915]
+> >>>> Oct 23 11:36:33 domU kernel:  local_pci_probe+0x42/0x80
+> >>>> Oct 23 11:36:33 domU kernel:  ? _cond_resched+0x16/0x40
+> >>>> Oct 23 11:36:33 domU kernel:  pci_device_probe+0xfd/0x1b0
+> >>>> Oct 23 11:36:33 domU kernel:  really_probe+0x222/0x480
+> >>>> Oct 23 11:36:33 domU kernel:  driver_probe_device+0xe1/0x150
+> >>>> Oct 23 11:36:33 domU kernel:  device_driver_attach+0xa1/0xb0
+> >>>> Oct 23 11:36:33 domU kernel:  __driver_attach+0x8a/0x150
+> >>>> Oct 23 11:36:33 domU kernel:  ? device_driver_attach+0xb0/0xb0
+> >>>> Oct 23 11:36:33 domU kernel:  ? device_driver_attach+0xb0/0xb0
+> >>>> Oct 23 11:36:33 domU kernel:  bus_for_each_dev+0x78/0xc0
+> >>>> Oct 23 11:36:33 domU kernel:  bus_add_driver+0x12b/0x1e0
+> >>>> Oct 23 11:36:33 domU kernel:  driver_register+0x8b/0xe0
+> >>>> Oct 23 11:36:33 domU kernel:  ? 0xffffffffc06b8000
+> >>>> Oct 23 11:36:33 domU kernel:  i915_init+0x5d/0x70 [i915]
+> >>>> Oct 23 11:36:33 domU kernel:  do_one_initcall+0x44/0x1d0
+> >>>> Oct 23 11:36:33 domU kernel:  ? do_init_module+0x23/0x260
+> >>>> Oct 23 11:36:33 domU kernel:  ? kmem_cache_alloc_trace+0xf5/0x200
+> >>>> Oct 23 11:36:33 domU kernel:  do_init_module+0x5c/0x260
+> >>>> Oct 23 11:36:33 domU kernel: __do_sys_finit_module+0xb1/0x110
+> >>>> Oct 23 11:36:33 domU kernel:  do_syscall_64+0x33/0x80
+> >>>> Oct 23 11:36:33 domU kernel: entry_SYSCALL_64_after_hwframe+0x44/0xa9
+> >>> The call trace alone leaves open where exactly the crash occurred.
+> >>> Looking at 5.17 I notice that the first thing the driver does
+> >>> after mapping the range it to check the signature (both in
+> >>> intel_opregion_setup()). As the signature can't possibly match
+> >>> with no access granted to the underlying mappings, there shouldn't
+> >>> be any further attempts to use the region in the driver; if there
+> >>> are, I'd view this as a driver bug.
+> >> Yes.  i915_driver_hw_probe does not check the return value of
+> >> intel_opregion_setup(dev_priv) and just continues on.
+> >>
+> >> Chuck, the attached patch may help if you want to test it.
+> >>
+> >> Regards,
+> >> Jason
+> >
+> > I tested the patch - it made no noticeable difference.I still
+> > get the same crash and call trace with the patch. Actually,
+> > the call trace I posted here is only the first of three call
+> > traces, and I still see all three call traces with the patch.
 
---1IRnIitUKwGMlx3k
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 1 Apr 2022 15:46:26 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Julien Grall <julien@xen.org>
-Subject: Re: preparations for 4.14.5 ?
+Thanks for testing.  Sorry it didn't help.
 
-On Wed, Mar 30, 2022 at 12:16:00PM +0200, Jan Beulich wrote:
-> All,
->=20
-> while 4.14's general support period ended in January, we're considering
-> to cut an out-of-band release due to the relatively large number of
-> security relevant backports which has accumulated in just 2 months. By
-> doing this we would _not_ be promising to do so again in the future.
-> Please voice objections to the plan (or support for it) in the next
-> couple of days.
->=20
-> Since it's a little easier to "batch" releases, I would intend to keep
-> 4.14.5 aligned with 4.16.1.
->=20
-> Commits I have queued but not committed to the branch yet (and I won't
-> until in a couple of days time, to allow for objections to the plan to
-> be raised):
->=20
-> dd6c062a7a4a tools/libxl: Correctly align the ACPI tables
-> aa390d513a67 build: fix exported variable name CFLAGS_stack_boundary
-> e62cc29f9b6c tools/libs: Fix build dependencies
-> eddf13b5e940 x86emul: fix VPBLENDMW with mask and memory operand
-> 6bd1b4d35c05 x86/console: process softirqs between warning prints
-> 07449ecfa425 tools/libxl: don't allow IOMMU usage with PoD
-> 10454f381f91 xz: avoid overlapping memcpy() with invalid input with in-pl=
-ace decompression
-> 0a21660515c2 xz: validate the value before assigning it to an enum variab=
-le
-> b4f211606011 vpci/msix: fix PBA accesses
->=20
-> Please point out backports you find missing from both the respective
-> staging branch and the list above, but which you consider relevant.
+> It is probably necessary to patch intet_opregion_setup to
+> return from it with an error sooner if the goal is to suppress
+> the call traces that occur when the driver cannot access
+> the opregion.
 
-I'm not sure if "just" bugfix qualify for 4.14 at this point, but if so,
-I'd propose:
-0a20a53df158 tools/libs/light: set video_mem for PVH guests
+It looks correct for 5.17 running in your domU.  I thought the
+opregion signature check would fail.  A failure in
+intel_opregion_setup would percolate up through i915_driver_hw_probe
+to i915_driver_probe.  In i915_driver_probe the error should goto
+out_cleanup_mmio and skip intel_modeset_init_nogem which is in your
+backtrace.
 
-In any case, the above should be backported to 4.15 and 4.16.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---1IRnIitUKwGMlx3k
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmJHAjIACgkQ24/THMrX
-1yxrnwf+KhnFwQhyepbZzudjQ2PSmKP1K/Itp18wcMgYPy1kkRLAqwpe1YhlT88k
-wdaOt2IeiUnyAvyl3aFU2rbwUCW4L3WchBGfiIVam642UWSWlKzTXjMLaU2mZ4xL
-eRsNV/ct9XbuHs9GugueXHl0AObM2OxhLlwgiN05lNlS4KVPKFyz6HBaQSweZuT9
-VzLpJgHFAzvLlJF5zhNG1etMreFFY5cFg6Qx6u+8p1ALuU49TC2YTZsVTwhr+CY4
-mR+y0gUmeR9K65vFeVXABirqF86W05J7MnNMr9YXecog7Y2bVJ3Bf1D/ZLKG0kv/
-OI2Yruf0Rw6F0joVEtgDO+uiaS10Jw==
-=vUWc
------END PGP SIGNATURE-----
-
---1IRnIitUKwGMlx3k--
+Regards,
+Jason
 
