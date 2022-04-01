@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9E5A4EFD08
-	for <lists+xen-devel@lfdr.de>; Sat,  2 Apr 2022 01:15:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.297643.507079 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64F244EFD1B
+	for <lists+xen-devel@lfdr.de>; Sat,  2 Apr 2022 01:36:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.297648.507090 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1naQTg-0004D2-VT; Fri, 01 Apr 2022 23:14:48 +0000
+	id 1naQoC-0006fE-Rl; Fri, 01 Apr 2022 23:36:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 297643.507079; Fri, 01 Apr 2022 23:14:48 +0000
+Received: by outflank-mailman (output) from mailman id 297648.507090; Fri, 01 Apr 2022 23:36:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1naQTg-0004Am-SH; Fri, 01 Apr 2022 23:14:48 +0000
-Received: by outflank-mailman (input) for mailman id 297643;
- Fri, 01 Apr 2022 23:14:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1naQoC-0006cv-Nm; Fri, 01 Apr 2022 23:36:00 +0000
+Received: by outflank-mailman (input) for mailman id 297648;
+ Fri, 01 Apr 2022 23:35:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Zo7N=UL=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1naQTe-0004Ag-O5
- for xen-devel@lists.xenproject.org; Fri, 01 Apr 2022 23:14:47 +0000
-Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
- [64.147.123.20]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 826ca2bf-b211-11ec-a405-831a346695d4;
- Sat, 02 Apr 2022 01:14:43 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id D6E443201ECF;
- Fri,  1 Apr 2022 19:14:39 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Fri, 01 Apr 2022 19:14:40 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 1 Apr 2022 19:14:38 -0400 (EDT)
+ <SRS0=yIha=UL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1naQoB-0006cp-41
+ for xen-devel@lists.xenproject.org; Fri, 01 Apr 2022 23:35:59 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7aa95997-b214-11ec-8fbc-03012f2f19d4;
+ Sat, 02 Apr 2022 01:35:57 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 48CA7B8256B;
+ Fri,  1 Apr 2022 23:35:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9761AC2BBE4;
+ Fri,  1 Apr 2022 23:35:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,391 +44,331 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 826ca2bf-b211-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm3; bh=WPE//5ah+E0hKk2PE+vG+xE7cWokDT9zLMikJPcvP
-	jo=; b=P8Gd3YFgv9pd0SUbT6EcyeaSfmAZpfc9h91Bmm9jqmTgQky9dLaZAwRLo
-	2tnfpjna0THtUDQP3bi7MYRvo4o6qpqQr32mSGEi34XWXOXCQiWXfHwnrEjJUdqj
-	MP1ELbrefZEguBJDUt5DRpjq+iyE0G32w65dcmme+WG1kljgPBVKwEgnMfpMFP+q
-	RgT9ypD2XZfoHo5hZgrCn+WBpdAYZsPsYgRX/ssvjd3CV+1latVEgqYokvjxhqae
-	8EBKimxSKxnzu5yyrsIBq5IyM8Mkm2vsDrBej24ohP558RKl5OwSEd3t38UR+wvf
-	MIJU+cBI9U9UUacOrjPw5wditOi2w==
-X-ME-Sender: <xms:X4dHYjOnAN-8-w_YHL8hYtwqrQB54KvHXhhjR-Lg6Ij6fYJv8wIYCQ>
-    <xme:X4dHYt8eeS4GbVG4fWE9vJi3ws8WR2Yg1d5CrdIK62fzfhjR9AdV0gzSXNrdFZzym
-    6Gw5_4tLCD9WNE>
-X-ME-Received: <xmr:X4dHYiTXQmq1gqNBiTBFW_F8MjS1C5yJIWahwlDT63dFIijs6L3F74U8qrM2>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrudeijedgudefucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvffukfggtggusehgtderredttddunecuhfhrohhmpeffvghmihcuofgr
-    rhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgshhlrg
-    gsrdgtohhmqeenucggtffrrghtthgvrhhnpeeuveeguefgvdeiueejfedugeevleefteek
-    udefheetuddvtdduvefggfeghedtffenucffohhmrghinhepkhgvrhhnvghlrdhorhhgne
-    cuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepuggvmhhi
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:X4dHYnte0x3ODsk5b_jFEP87QWNz8bOFenNYGFKHnLayHKadFaWhIA>
-    <xmx:X4dHYreAiZmgRHCasq3J-492LIgXSL4b0ylzUVWzpXCRO6Je5k2C7Q>
-    <xmx:X4dHYj3UysSn19fwizrAqEvl4AzD3MPRLB_8rNg4VQoMTNB476WMyw>
-    <xmx:X4dHYjQ_Ai938zRVK4Q0oACNpI449w8sd1ds5-0Fn4cBmzeWrP9_xA>
-Date: Fri, 1 Apr 2022 19:14:32 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Cc: xen-devel@lists.xenproject.org
-Subject: [PATCH v2] Grab the EFI System Resource Table and check it
-Message-ID: <YkeHXFvgB3MwXnuR@itl-email>
+X-Inumbo-ID: 7aa95997-b214-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1648856155;
+	bh=+iEryKsuAPI8Y89/I7krnPYE+MMmG3m2b4naH2Vixvg=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=AtgFDssTeVz9IHt1HTMMn11wVNgYrCgGQd2UQJKMInWznXu2joAzlhV3Rk0e/H+9P
+	 WaaScX6uUHL5zu39z5EzZk4XB82HxBk74EDJpS8nllyy4+u+1Q12wB59Zr/vM0grQ5
+	 5V5wZwxQ42XC2+8G1Lq3MeFQEEsl/aEPeN+S2FRZyf/lAU/2tmgQYcR5fRp8hLiV7f
+	 RGUze5r+GMXfeisTmo1D03bwDfmug8Q0j0twq/xww/GhPZFlqXQbRRA8PtBPsGvd/Z
+	 Ogtcp3uvylhytENPuVfnZvw8rh73Se1k3ZjJSDKJcQ1E8pXrSM4iJ2cPx2fptKA50P
+	 y2i8zKpV+XWrg==
+Date: Fri, 1 Apr 2022 16:35:53 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Julien Grall <jgrall@amazon.com>
+Subject: Re: [PATCH v3 04/19] xen/arm: mm: Allow other mapping size in
+ xen_pt_update_entry()
+In-Reply-To: <20220221102218.33785-5-julien@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2204011605580.2910984@ubuntu-linux-20-04-desktop>
+References: <20220221102218.33785-1-julien@xen.org> <20220221102218.33785-5-julien@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Lfy7FQ1zC0j/nFNw"
-Content-Disposition: inline
+Content-Type: text/plain; charset=US-ASCII
+
+On Mon, 21 Feb 2022, Julien Grall wrote:
+> From: Julien Grall <julien.grall@arm.com>
+> 
+> At the moment, xen_pt_update_entry() only supports mapping at level 3
+> (i.e 4KB mapping). While this is fine for most of the runtime helper,
+> the boot code will require to use superpage mapping.
+> 
+> We don't want to allow superpage mapping by default as some of the
+> callers may expect small mappings (i.e populate_pt_range()) or even
+> expect to unmap only a part of a superpage.
+> 
+> To keep the code simple, a new flag _PAGE_BLOCK is introduced to
+> allow the caller to enable superpage mapping.
+> 
+> As the code doesn't support all the combinations, xen_pt_check_entry()
+> is extended to take into account the cases we don't support when
+> using block mapping:
+>     - Replacing a table with a mapping. This may happen if region was
+>     first mapped with 4KB mapping and then later on replaced with a 2MB
+>     (or 1GB mapping).
+>     - Removing/modifying a table. This may happen if a caller try to
+>     remove a region with _PAGE_BLOCK set when it was created without it.
+> 
+> Note that the current restriction means that the caller must ensure that
+> _PAGE_BLOCK is consistently set/cleared across all the updates on a
+> given virtual region. This ought to be fine with the expected use-cases.
+> 
+> More rework will be necessary if we wanted to remove the restrictions.
+> 
+> Note that nr_mfns is now marked const as it is used for flushing the
+> TLBs and we don't want it to be modified.
+> 
+> Signed-off-by: Julien Grall <julien.grall@arm.com>
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> 
+> ---
+>     Changes in v3:
+>         - Fix clash after prefixing the PT macros with XEN_PT_
+>         - Fix typoes in the commit message
+>         - Support superpage mappings even if nr is not suitably aligned
+>         - Move the logic to find the level in a separate function
+> 
+>     Changes in v2:
+>         - Pass the target level rather than the order to
+>         xen_pt_update_entry()
+>         - Update some comments
+>         - Open-code paddr_to_pfn()
+>         - Add my AWS signed-off-by
+> ---
+>  xen/arch/arm/include/asm/page.h |   4 ++
+>  xen/arch/arm/mm.c               | 108 ++++++++++++++++++++++++++------
+>  2 files changed, 94 insertions(+), 18 deletions(-)
+> 
+> diff --git a/xen/arch/arm/include/asm/page.h b/xen/arch/arm/include/asm/page.h
+> index c6f9fb0d4e0c..07998df47bac 100644
+> --- a/xen/arch/arm/include/asm/page.h
+> +++ b/xen/arch/arm/include/asm/page.h
+> @@ -69,6 +69,7 @@
+>   * [3:4] Permission flags
+>   * [5]   Page present
+>   * [6]   Only populate page tables
+> + * [7]   Superpage mappings is allowed
+>   */
+>  #define PAGE_AI_MASK(x) ((x) & 0x7U)
+>  
+> @@ -82,6 +83,9 @@
+>  #define _PAGE_PRESENT    (1U << 5)
+>  #define _PAGE_POPULATE   (1U << 6)
+>  
+> +#define _PAGE_BLOCK_BIT     7
+> +#define _PAGE_BLOCK         (1U << _PAGE_BLOCK_BIT)
+> +
+>  /*
+>   * _PAGE_DEVICE and _PAGE_NORMAL are convenience defines. They are not
+>   * meant to be used outside of this header.
+> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+> index 515d0906f85b..3af69b396bd1 100644
+> --- a/xen/arch/arm/mm.c
+> +++ b/xen/arch/arm/mm.c
+> @@ -1063,9 +1063,10 @@ static int xen_pt_next_level(bool read_only, unsigned int level,
+>  }
+>  
+>  /* Sanity check of the entry */
+> -static bool xen_pt_check_entry(lpae_t entry, mfn_t mfn, unsigned int flags)
+> +static bool xen_pt_check_entry(lpae_t entry, mfn_t mfn, unsigned int level,
+> +                               unsigned int flags)
+>  {
+> -    /* Sanity check when modifying a page. */
+> +    /* Sanity check when modifying an entry. */
+>      if ( (flags & _PAGE_PRESENT) && mfn_eq(mfn, INVALID_MFN) )
+>      {
+>          /* We don't allow modifying an invalid entry. */
+> @@ -1075,6 +1076,13 @@ static bool xen_pt_check_entry(lpae_t entry, mfn_t mfn, unsigned int flags)
+>              return false;
+>          }
+>  
+> +        /* We don't allow modifying a table entry */
+> +        if ( !lpae_is_mapping(entry, level) )
+> +        {
+> +            mm_printk("Modifying a table entry is not allowed.\n");
+> +            return false;
+> +        }
+> +
+>          /* We don't allow changing memory attributes. */
+>          if ( entry.pt.ai != PAGE_AI_MASK(flags) )
+>          {
+> @@ -1090,7 +1098,7 @@ static bool xen_pt_check_entry(lpae_t entry, mfn_t mfn, unsigned int flags)
+>              return false;
+>          }
+>      }
+> -    /* Sanity check when inserting a page */
+> +    /* Sanity check when inserting a mapping */
+>      else if ( flags & _PAGE_PRESENT )
+>      {
+>          /* We should be here with a valid MFN. */
+> @@ -1099,18 +1107,28 @@ static bool xen_pt_check_entry(lpae_t entry, mfn_t mfn, unsigned int flags)
+>          /* We don't allow replacing any valid entry. */
+>          if ( lpae_is_valid(entry) )
+>          {
+> -            mm_printk("Changing MFN for a valid entry is not allowed (%#"PRI_mfn" -> %#"PRI_mfn").\n",
+> -                      mfn_x(lpae_get_mfn(entry)), mfn_x(mfn));
+> +            if ( lpae_is_mapping(entry, level) )
+> +                mm_printk("Changing MFN for a valid entry is not allowed (%#"PRI_mfn" -> %#"PRI_mfn").\n",
+> +                          mfn_x(lpae_get_mfn(entry)), mfn_x(mfn));
+> +            else
+> +                mm_printk("Trying to replace a table with a mapping.\n");
+>              return false;
+>          }
+>      }
+> -    /* Sanity check when removing a page. */
+> +    /* Sanity check when removing a mapping. */
+>      else if ( (flags & (_PAGE_PRESENT|_PAGE_POPULATE)) == 0 )
+>      {
+>          /* We should be here with an invalid MFN. */
+>          ASSERT(mfn_eq(mfn, INVALID_MFN));
+>  
+> -        /* We don't allow removing page with contiguous bit set. */
+> +        /* We don't allow removing a table */
+> +        if ( lpae_is_table(entry, level) )
+> +        {
+> +            mm_printk("Removing a table is not allowed.\n");
+> +            return false;
+> +        }
+> +
+> +        /* We don't allow removing a mapping with contiguous bit set. */
+>          if ( entry.pt.contig )
+>          {
+>              mm_printk("Removing entry with contiguous bit set is not allowed.\n");
+> @@ -1128,13 +1146,13 @@ static bool xen_pt_check_entry(lpae_t entry, mfn_t mfn, unsigned int flags)
+>      return true;
+>  }
+>  
+> +/* Update an entry at the level @target. */
+>  static int xen_pt_update_entry(mfn_t root, unsigned long virt,
+> -                               mfn_t mfn, unsigned int flags)
+> +                               mfn_t mfn, unsigned int target,
+> +                               unsigned int flags)
+>  {
+>      int rc;
+>      unsigned int level;
+> -    /* We only support 4KB mapping (i.e level 3) for now */
+> -    unsigned int target = 3;
+>      lpae_t *table;
+>      /*
+>       * The intermediate page tables are read-only when the MFN is not valid
+> @@ -1189,7 +1207,7 @@ static int xen_pt_update_entry(mfn_t root, unsigned long virt,
+>      entry = table + offsets[level];
+>  
+>      rc = -EINVAL;
+> -    if ( !xen_pt_check_entry(*entry, mfn, flags) )
+> +    if ( !xen_pt_check_entry(*entry, mfn, level, flags) )
+>          goto out;
+>  
+>      /* If we are only populating page-table, then we are done. */
+> @@ -1207,8 +1225,11 @@ static int xen_pt_update_entry(mfn_t root, unsigned long virt,
+>          {
+>              pte = mfn_to_xen_entry(mfn, PAGE_AI_MASK(flags));
+>  
+> -            /* Third level entries set pte.pt.table = 1 */
+> -            pte.pt.table = 1;
+> +            /*
+> +             * First and second level pages set pte.pt.table = 0, but
+> +             * third level entries set pte.pt.table = 1.
+> +             */
+> +            pte.pt.table = (level == 3);
+>          }
+>          else /* We are updating the permission => Copy the current pte. */
+>              pte = *entry;
+> @@ -1228,15 +1249,56 @@ out:
+>      return rc;
+>  }
+>  
+> +/* Return the level where mapping should be done */
+> +static int xen_pt_mapping_level(unsigned long vfn, mfn_t mfn, unsigned long nr,
+> +                                unsigned int flags)
+> +{
+> +    unsigned int level;
+> +    unsigned long mask;
+
+Shouldn't mask be 64-bit on aarch32?
 
 
---Lfy7FQ1zC0j/nFNw
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 1 Apr 2022 19:14:32 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Cc: xen-devel@lists.xenproject.org
-Subject: [PATCH v2] Grab the EFI System Resource Table and check it
+> +    /*
+> +      * Don't take into account the MFN when removing mapping (i.e
+> +      * MFN_INVALID) to calculate the correct target order.
+> +      *
+> +      * Per the Arm Arm, `vfn` and `mfn` must be both superpage aligned.
+> +      * They are or-ed together and then checked against the size of
+> +      * each level.
+> +      *
+> +      * `left` is not included and checked separately to allow
+> +      * superpage mapping even if it is not properly aligned (the
+> +      * user may have asked to map 2MB + 4k).
+> +      */
+> +     mask = !mfn_eq(mfn, INVALID_MFN) ? mfn_x(mfn) : 0;
+> +     mask |= vfn;
+> +
+> +     /*
+> +      * Always use level 3 mapping unless the caller request block
+> +      * mapping.
+> +      */
+> +     if ( likely(!(flags & _PAGE_BLOCK)) )
+> +         level = 3;
+> +     else if ( !(mask & (BIT(FIRST_ORDER, UL) - 1)) &&
+> +               (nr >= BIT(FIRST_ORDER, UL)) )
+> +         level = 1;
+> +     else if ( !(mask & (BIT(SECOND_ORDER, UL) - 1)) &&
+> +               (nr >= BIT(SECOND_ORDER, UL)) )
+> +         level = 2;
+> +     else
+> +         level = 3;
+> +
+> +     return level;
 
-The EFI System Resource Table (ESRT) is necessary for fwupd to identify
-firmware updates to install.  According to the UEFI specification =A723.4,
-the table shall be stored in memory of type EfiBootServicesData.
-Therefore, Xen must avoid reusing that memory for other purposes, so
-that Linux can access the ESRT.  Additionally, Xen must mark the memory
-as reserved, so that Linux knows accessing it is safe.
+As far as I can tell this function is correct
 
-See https://lore.kernel.org/xen-devel/20200818184018.GN1679@mail-itl/T/
-for details.
+> +}
+> +
+>  static DEFINE_SPINLOCK(xen_pt_lock);
+>  
+>  static int xen_pt_update(unsigned long virt,
+>                           mfn_t mfn,
+> -                         unsigned long nr_mfns,
+> +                         const unsigned long nr_mfns,
 
-Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
----
- xen/arch/arm/efi/efi-boot.h |  9 +++--
- xen/arch/x86/efi/efi-boot.h |  5 ++-
- xen/common/efi/boot.c       | 77 +++++++++++++++++++++++++++++++++++--
- xen/common/efi/efi.h        |  2 +-
- xen/common/efi/runtime.c    |  5 ++-
- xen/include/efi/efiapi.h    |  3 ++
- 6 files changed, 89 insertions(+), 12 deletions(-)
+Why const? nr_mfns is an unsigned long so it is passed as value: it
+couldn't change the caller's parameter anyway. Just curious.
 
-diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-index ae8627134e..767b2c9154 100644
---- a/xen/arch/arm/efi/efi-boot.h
-+++ b/xen/arch/arm/efi/efi-boot.h
-@@ -176,7 +176,8 @@ static bool __init meminfo_add_bank(struct meminfo *mem,
-=20
- static EFI_STATUS __init efi_process_memory_map_bootinfo(EFI_MEMORY_DESCRI=
-PTOR *map,
-                                                 UINTN mmap_size,
--                                                UINTN desc_size)
-+                                                UINTN desc_size,
-+                                                const EFI_MEMORY_DESCRIPTO=
-R *const esrt_desc)
- {
-     int Index;
-     EFI_MEMORY_DESCRIPTOR *desc_ptr =3D map;
-@@ -188,6 +189,7 @@ static EFI_STATUS __init efi_process_memory_map_bootinf=
-o(EFI_MEMORY_DESCRIPTOR *
-               desc_ptr->Type =3D=3D EfiLoaderCode ||
-               desc_ptr->Type =3D=3D EfiLoaderData ||
-               (!map_bs &&
-+               desc_ptr !=3D esrt_desc &&
-                (desc_ptr->Type =3D=3D EfiBootServicesCode ||
-                 desc_ptr->Type =3D=3D EfiBootServicesData))) )
-         {
-@@ -393,11 +395,12 @@ static void __init efi_arch_process_memory_map(EFI_SY=
-STEM_TABLE *SystemTable,
-                                                void *map,
-                                                UINTN map_size,
-                                                UINTN desc_size,
--                                               UINT32 desc_ver)
-+                                               UINT32 desc_ver,
-+                                               const EFI_MEMORY_DESCRIPTOR=
- *const esrt_desc)
- {
-     EFI_STATUS status;
-=20
--    status =3D efi_process_memory_map_bootinfo(map, map_size, desc_size);
-+    status =3D efi_process_memory_map_bootinfo(map, map_size, desc_size, e=
-srt_desc);
-     if ( EFI_ERROR(status) )
-         blexit(L"EFI memory map processing failed");
-=20
-diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
-index d91eb5a537..6e6a5d2224 100644
---- a/xen/arch/x86/efi/efi-boot.h
-+++ b/xen/arch/x86/efi/efi-boot.h
-@@ -154,7 +154,8 @@ static void __init efi_arch_process_memory_map(EFI_SYST=
-EM_TABLE *SystemTable,
-                                                void *map,
-                                                UINTN map_size,
-                                                UINTN desc_size,
--                                               UINT32 desc_ver)
-+                                               UINT32 desc_ver,
-+                                               const EFI_MEMORY_DESCRIPTOR=
- *const esrt_desc)
- {
-     struct e820entry *e;
-     unsigned int i;
-@@ -171,7 +172,7 @@ static void __init efi_arch_process_memory_map(EFI_SYST=
-EM_TABLE *SystemTable,
-         {
-         case EfiBootServicesCode:
-         case EfiBootServicesData:
--            if ( map_bs )
-+            if ( map_bs || desc =3D=3D esrt_desc )
-             {
-         default:
-                 type =3D E820_RESERVED;
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index 4dd5ea6a06..ad5883133d 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -93,6 +93,23 @@ typedef struct _EFI_LOAD_OPTION {
-     CHAR16 Description[];
- } EFI_LOAD_OPTION;
-=20
-+struct esrt_entry {
-+    EFI_GUID fw_class;
-+    UINT32 fw_type;
-+    UINT32 fw_version;
-+    UINT32 fw_lowest_supported_version;
-+    UINT32 fw_capsule_flags;
-+    UINT32 fw_last_attempt_version;
-+    UINT32 fw_last_attempt_status;
-+};
-+
-+struct esrt {
-+    UINT32 esrt_count;
-+    UINT32 esrt_max;
-+    UINT64 esrt_version;
-+    struct esrt_entry esrt_entries[];
-+};
-+
- #define LOAD_OPTION_ACTIVE              0x00000001
-=20
- union string {
-@@ -567,6 +584,38 @@ static int __init efi_check_dt_boot(const EFI_LOADED_I=
-MAGE *loaded_image)
- }
- #endif
-=20
-+static UINTN __initdata esrt;
-+
-+static bool __init is_esrt_valid(
-+    const EFI_MEMORY_DESCRIPTOR *const desc)
-+{
-+    size_t available_len, esrt_len, len;
-+    const UINTN physical_start =3D desc->PhysicalStart;
-+    const struct esrt *esrt_ptr;
-+
-+    len =3D desc->NumberOfPages << EFI_PAGE_SHIFT;
-+    if ( esrt =3D=3D EFI_INVALID_TABLE_ADDR )
-+        return false;
-+    if ( physical_start > esrt || esrt - physical_start >=3D len )
-+        return false;
-+    /*
-+     * The specification requires EfiBootServicesData, but accept
-+     * EfiRuntimeServicesData for compatibility
-+     */
-+    if ( (desc->Type !=3D EfiRuntimeServicesData) &&
-+         (desc->Type !=3D EfiBootServicesData) )
-+        return false;
-+    available_len =3D len - (esrt - physical_start);
-+    if ( available_len < sizeof(*esrt_ptr) )
-+        return false;
-+    esrt_ptr =3D (const struct esrt *)esrt;
-+    if ( esrt_ptr->esrt_version !=3D 1 || esrt_ptr->esrt_count <=3D 0 )
-+        return false;
-+    esrt_len =3D esrt_ptr->esrt_count * sizeof(esrt_ptr->esrt_entries[0]);
-+
-+    return esrt_len > available_len - sizeof(*esrt_ptr);
-+}
-+
- /*
-  * Include architecture specific implementation here, which references the
-  * static globals defined above.
-@@ -846,6 +895,10 @@ static void __init efi_tables(void)
- {
-     unsigned int i;
-=20
-+    BUILD_BUG_ON(sizeof(struct esrt_entry) !=3D 40);
-+    BUILD_BUG_ON(__alignof(struct esrt_entry) !=3D 4);
-+    BUILD_BUG_ON(sizeof(struct esrt) !=3D 16);
-+
-     /* Obtain basic table pointers. */
-     for ( i =3D 0; i < efi_num_ct; ++i )
-     {
-@@ -854,6 +907,7 @@ static void __init efi_tables(void)
-         static EFI_GUID __initdata mps_guid =3D MPS_TABLE_GUID;
-         static EFI_GUID __initdata smbios_guid =3D SMBIOS_TABLE_GUID;
-         static EFI_GUID __initdata smbios3_guid =3D SMBIOS3_TABLE_GUID;
-+        static EFI_GUID __initdata esrt_guid =3D ESRT_GUID;
-=20
-         if ( match_guid(&acpi2_guid, &efi_ct[i].VendorGuid) )
- 	       efi.acpi20 =3D (long)efi_ct[i].VendorTable;
-@@ -865,6 +919,8 @@ static void __init efi_tables(void)
- 	       efi.smbios =3D (long)efi_ct[i].VendorTable;
-         if ( match_guid(&smbios3_guid, &efi_ct[i].VendorGuid) )
- 	       efi.smbios3 =3D (long)efi_ct[i].VendorTable;
-+        if ( match_guid(&esrt_guid, &efi_ct[i].VendorGuid) )
-+	       esrt =3D (long)efi_ct[i].VendorTable;
-     }
-=20
- #ifndef CONFIG_ARM /* TODO - disabled until implemented on ARM */
-@@ -1053,19 +1109,19 @@ static void __init efi_exit_boot(EFI_HANDLE ImageHa=
-ndle, EFI_SYSTEM_TABLE *Syste
-     EFI_STATUS status;
-     UINTN info_size =3D 0, map_key;
-     bool retry;
--#ifdef CONFIG_EFI_SET_VIRTUAL_ADDRESS_MAP
-     unsigned int i;
--#endif
-=20
-     efi_bs->GetMemoryMap(&info_size, NULL, &map_key,
-                          &efi_mdesc_size, &mdesc_ver);
--    info_size +=3D 8 * efi_mdesc_size;
-+    info_size +=3D 8 * (efi_mdesc_size + 1);
-     efi_memmap =3D efi_arch_allocate_mmap_buffer(info_size);
-     if ( !efi_memmap )
-         blexit(L"Unable to allocate memory for EFI memory map");
-=20
-     for ( retry =3D false; ; retry =3D true )
-     {
-+        esrt_desc =3D (EFI_MEMORY_DESCRIPTOR*)EFI_INVALID_TABLE_ADDR;
-+
-         efi_memmap_size =3D info_size;
-         status =3D SystemTable->BootServices->GetMemoryMap(&efi_memmap_siz=
-e,
-                                                          efi_memmap, &map_=
-key,
-@@ -1074,8 +1130,21 @@ static void __init efi_exit_boot(EFI_HANDLE ImageHan=
-dle, EFI_SYSTEM_TABLE *Syste
-         if ( EFI_ERROR(status) )
-             PrintErrMesg(L"Cannot obtain memory map", status);
-=20
-+        for ( i =3D 0; i < efi_memmap_size; i +=3D efi_mdesc_size )
-+        {
-+            if ( is_esrt_valid(efi_memmap + i) )
-+            {
-+                esrt_desc =3D efi_memmap + i;
-+                break;
-+            }
-+        }
-+
-+        /*
-+         * We cannot pass esrt because we need to explicitly compare the
-+         * descriptor pointers for equality.
-+         */
-         efi_arch_process_memory_map(SystemTable, efi_memmap, efi_memmap_si=
-ze,
--                                    efi_mdesc_size, mdesc_ver);
-+                                    efi_mdesc_size, mdesc_ver, esrt_desc);
-=20
-         efi_arch_pre_exit_boot();
-=20
-diff --git a/xen/common/efi/efi.h b/xen/common/efi/efi.h
-index c9aa65d506..498c8dc1fa 100644
---- a/xen/common/efi/efi.h
-+++ b/xen/common/efi/efi.h
-@@ -27,7 +27,7 @@ extern const CHAR16 *efi_fw_vendor;
- extern const EFI_RUNTIME_SERVICES *efi_rs;
-=20
- extern UINTN efi_memmap_size, efi_mdesc_size;
--extern void *efi_memmap;
-+extern void *efi_memmap, *esrt_desc;
-=20
- #ifdef CONFIG_X86
- extern mfn_t efi_l4_mfn;
-diff --git a/xen/common/efi/runtime.c b/xen/common/efi/runtime.c
-index 13b0975866..9b6a06e651 100644
---- a/xen/common/efi/runtime.c
-+++ b/xen/common/efi/runtime.c
-@@ -52,6 +52,7 @@ static unsigned int efi_rs_on_cpu =3D NR_CPUS;
- UINTN __read_mostly efi_memmap_size;
- UINTN __read_mostly efi_mdesc_size;
- void *__read_mostly efi_memmap;
-+void *__read_mostly esrt_desc;
-=20
- UINT64 __read_mostly efi_boot_max_var_store_size;
- UINT64 __read_mostly efi_boot_remain_var_store_size;
-@@ -269,14 +270,14 @@ int efi_get_info(uint32_t idx, union xenpf_efi_info *=
-info)
-     case XEN_FW_EFI_MEM_INFO:
-         for ( i =3D 0; i < efi_memmap_size; i +=3D efi_mdesc_size )
-         {
--            EFI_MEMORY_DESCRIPTOR *desc =3D efi_memmap + i;
-+            const EFI_MEMORY_DESCRIPTOR *desc =3D efi_memmap + i;
-             u64 len =3D desc->NumberOfPages << EFI_PAGE_SHIFT;
-=20
-             if ( info->mem.addr >=3D desc->PhysicalStart &&
-                  info->mem.addr < desc->PhysicalStart + len )
-             {
-                 info->mem.type =3D desc->Type;
--                info->mem.attr =3D desc->Attribute;
-+                info->mem.attr =3D desc =3D=3D esrt_desc ? EFI_MEMORY_RUNT=
-IME : desc->Attribute;
-                 if ( info->mem.addr + info->mem.size < info->mem.addr ||
-                      info->mem.addr + info->mem.size >
-                      desc->PhysicalStart + len )
-diff --git a/xen/include/efi/efiapi.h b/xen/include/efi/efiapi.h
-index a616d1238a..42ef3e1c8c 100644
---- a/xen/include/efi/efiapi.h
-+++ b/xen/include/efi/efiapi.h
-@@ -882,6 +882,9 @@ typedef struct _EFI_BOOT_SERVICES {
- #define SAL_SYSTEM_TABLE_GUID    \
-     { 0xeb9d2d32, 0x2d88, 0x11d3, {0x9a, 0x16, 0x0, 0x90, 0x27, 0x3f, 0xc1=
-, 0x4d} }
-=20
-+#define ESRT_GUID    \
-+    { 0xb122a263, 0x3661, 0x4f68, {0x99, 0x29, 0x78, 0xf8, 0xb0, 0xd6, 0x2=
-1, 0x80} }
-+
-=20
- typedef struct _EFI_CONFIGURATION_TABLE {
-     EFI_GUID                VendorGuid;
---=20
-Sincerely,
-Demi Marie Obenour
-Invisible Things Lab
 
---Lfy7FQ1zC0j/nFNw
-Content-Type: application/pgp-signature; name="signature.asc"
+>                           unsigned int flags)
+>  {
+>      int rc = 0;
+> -    unsigned long addr = virt, addr_end = addr + nr_mfns * PAGE_SIZE;
+> +    unsigned long vfn = virt >> PAGE_SHIFT;
+> +    unsigned long left = nr_mfns;
+>  
+>      /*
+>       * For arm32, page-tables are different on each CPUs. Yet, they share
+> @@ -1268,14 +1330,24 @@ static int xen_pt_update(unsigned long virt,
+>  
+>      spin_lock(&xen_pt_lock);
+>  
+> -    for ( ; addr < addr_end; addr += PAGE_SIZE )
+> +    while ( left )
+>      {
+> -        rc = xen_pt_update_entry(root, addr, mfn, flags);
+> +        unsigned int order, level;
+> +
+> +        level = xen_pt_mapping_level(vfn, mfn, left, flags);
+> +        order = XEN_PT_LEVEL_ORDER(level);
+> +
+> +        ASSERT(left >= BIT(order, UL));
+> +
+> +        rc = xen_pt_update_entry(root, pfn_to_paddr(vfn), mfn, level, flags);
 
------BEGIN PGP SIGNATURE-----
+NIT: I know we don't have vfn_to_vaddr at the moment and there is no
+widespread usage of vfn in Xen anyway, but it looks off to use
+pfn_to_paddr on a vfn parameter. Maybe open-code pfn_to_paddr instead?
+Or introduce vfn_to_vaddr locally in this file?
 
-iQIzBAEBCAAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmJHh1wACgkQsoi1X/+c
-IsGDdQ//RyTKBEmNYUgRFfD0IhEQg7zXoui/D7uGkHkjyFnA9R9DfUCsRlHE17rc
-uuk+D9oOWXogWLfZ7rBWSsCbrGUq+0Z/oYgCGXp90kP8G2WxWUMvS1iWmsWG6XYg
-ODkDB+UFzdToyV3Pj3kjnBJ+kFMraYG1VPPAtH2qkRaDJzpOMOiwD2lWGupG8mAw
-QIsX3LIBhKteRKZkIHEEGFG2Kwlzf+3tjwN53ebaG3/vuZnpguQAiq7X5VJnbXQr
-cKECyz9COZsyD/ay9OMtthQ202nhHvb6s/V9kxdLbxRz1Pnts6XxFXsMPDX9xP1e
-O3qHm+qWMORVM48q7ZhGqQUnc/L94FNJsiaiBqgk0KX44C7MakHy2xyOAC8VYs5Y
-pHH9KwDQ+WOXU+UgLe+cybv0iDzXeZmcOCIALSTmkDxXhcyJCNSgKAALrkb3Cs3o
-RG1LIrxEFHeLZW7P2Omb/tppZypoR4YpV6T50TkV4g0jSeigJH4RwxuSgRbyhDm/
-CLOVAuqGkV22P+qWXzQqarmshykUl2N4WthkfX+KxOQfoo2qcpfSeN4DJcbu9jbM
-iQGX38JK59qarH0AeYf+3s1r6GGP0Ee9idDfdrx/om0Hk6xWal5e2QU744BOnZjt
-j9FuZ0oCA1de6VJVMBcXZfjLVPZRI0RCeJgP5DUjMVzARn0b1pE=
-=i9tQ
------END PGP SIGNATURE-----
 
---Lfy7FQ1zC0j/nFNw--
+>          if ( rc )
+>              break;
+>  
+> +        vfn += 1U << order;
+>          if ( !mfn_eq(mfn, INVALID_MFN) )
+> -            mfn = mfn_add(mfn, 1);
+> +            mfn = mfn_add(mfn, 1U << order);
+> +
+> +        left -= (1U << order);
+
+This looks correct. I don't have any other feedback on this patch.
+
+
+>      /*
+> -- 
+> 2.32.0
+> 
 
