@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64F244EFD1B
-	for <lists+xen-devel@lfdr.de>; Sat,  2 Apr 2022 01:36:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.297648.507090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EBEE4EFD45
+	for <lists+xen-devel@lfdr.de>; Sat,  2 Apr 2022 01:53:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.297656.507107 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1naQoC-0006fE-Rl; Fri, 01 Apr 2022 23:36:00 +0000
+	id 1naR4n-0000ZB-CN; Fri, 01 Apr 2022 23:53:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 297648.507090; Fri, 01 Apr 2022 23:36:00 +0000
+Received: by outflank-mailman (output) from mailman id 297656.507107; Fri, 01 Apr 2022 23:53:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1naQoC-0006cv-Nm; Fri, 01 Apr 2022 23:36:00 +0000
-Received: by outflank-mailman (input) for mailman id 297648;
- Fri, 01 Apr 2022 23:35:59 +0000
+	id 1naR4n-0000X1-7I; Fri, 01 Apr 2022 23:53:09 +0000
+Received: by outflank-mailman (input) for mailman id 297656;
+ Fri, 01 Apr 2022 23:53:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yIha=UL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1naQoB-0006cp-41
- for xen-devel@lists.xenproject.org; Fri, 01 Apr 2022 23:35:59 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
+ id 1naR4l-0000Wu-IG
+ for xen-devel@lists.xenproject.org; Fri, 01 Apr 2022 23:53:07 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7aa95997-b214-11ec-8fbc-03012f2f19d4;
- Sat, 02 Apr 2022 01:35:57 +0200 (CEST)
+ id df84d682-b216-11ec-8fbc-03012f2f19d4;
+ Sat, 02 Apr 2022 01:53:06 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 48CA7B8256B;
- Fri,  1 Apr 2022 23:35:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9761AC2BBE4;
- Fri,  1 Apr 2022 23:35:54 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8FD6B616AA;
+ Fri,  1 Apr 2022 23:53:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 847FCC2BBE4;
+ Fri,  1 Apr 2022 23:53:03 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,329 +43,216 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7aa95997-b214-11ec-8fbc-03012f2f19d4
+X-Inumbo-ID: df84d682-b216-11ec-8fbc-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1648856155;
-	bh=+iEryKsuAPI8Y89/I7krnPYE+MMmG3m2b4naH2Vixvg=;
+	s=k20201202; t=1648857183;
+	bh=1J/IGJPpqY73ftLbfVEJzfZEYZpXm+SrGHibXxEOEFY=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=AtgFDssTeVz9IHt1HTMMn11wVNgYrCgGQd2UQJKMInWznXu2joAzlhV3Rk0e/H+9P
-	 WaaScX6uUHL5zu39z5EzZk4XB82HxBk74EDJpS8nllyy4+u+1Q12wB59Zr/vM0grQ5
-	 5V5wZwxQ42XC2+8G1Lq3MeFQEEsl/aEPeN+S2FRZyf/lAU/2tmgQYcR5fRp8hLiV7f
-	 RGUze5r+GMXfeisTmo1D03bwDfmug8Q0j0twq/xww/GhPZFlqXQbRRA8PtBPsGvd/Z
-	 Ogtcp3uvylhytENPuVfnZvw8rh73Se1k3ZjJSDKJcQ1E8pXrSM4iJ2cPx2fptKA50P
-	 y2i8zKpV+XWrg==
-Date: Fri, 1 Apr 2022 16:35:53 -0700 (PDT)
+	b=r8T/Zy63pIA/aUXHJcN2DeuaQVO2/yFN+ouQsgxuozGpgenRORopp5X5ECaD1cpd1
+	 LPabSG2MCDKDVFoN9MvbPcYJ6xGnB51HdoJOStYUDBMkhMGTaZT7NoKQIMPv8ylycD
+	 JueZsE64j4JRY1IoLP7ZnrIzIMfeBBX2H3QW31UUo3GxPp/CR2MrvgqffocC9ISooz
+	 JQMzY+OiW58SrxdFMtDqp4PWLaI+++XHmU6cSMEy4cHjo1Bp5oh2lflhV4u81Z++Eo
+	 tWCsK+Ub9AOpgKTwgYhKC5DAHM1xK76G0jEvnxQ2w+4EETOYXAvOQyR6mM7l6St6v0
+	 JrSEPJbBcUpjQ==
+Date: Fri, 1 Apr 2022 16:53:02 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Julien Grall <julien@xen.org>
-cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>, 
+cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>, 
     Stefano Stabellini <sstabellini@kernel.org>, 
     Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Julien Grall <jgrall@amazon.com>
-Subject: Re: [PATCH v3 04/19] xen/arm: mm: Allow other mapping size in
- xen_pt_update_entry()
-In-Reply-To: <20220221102218.33785-5-julien@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2204011605580.2910984@ubuntu-linux-20-04-desktop>
-References: <20220221102218.33785-1-julien@xen.org> <20220221102218.33785-5-julien@xen.org>
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v3 05/19] xen/arm: mm: Add support for the contiguous
+ bit
+In-Reply-To: <20220221102218.33785-6-julien@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2204011639430.2910984@ubuntu-linux-20-04-desktop>
+References: <20220221102218.33785-1-julien@xen.org> <20220221102218.33785-6-julien@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Mon, 21 Feb 2022, Julien Grall wrote:
-> From: Julien Grall <julien.grall@arm.com>
+> From: Julien Grall <jgrall@amazon.com>
 > 
-> At the moment, xen_pt_update_entry() only supports mapping at level 3
-> (i.e 4KB mapping). While this is fine for most of the runtime helper,
-> the boot code will require to use superpage mapping.
+> In follow-up patches, we will use xen_pt_update() (or its callers)
+> to handle large mappings (e.g. frametable, xenheap). They are also
+> not going to be modified once created.
 > 
-> We don't want to allow superpage mapping by default as some of the
-> callers may expect small mappings (i.e populate_pt_range()) or even
-> expect to unmap only a part of a superpage.
+> The page-table entries have an hint to indicate that whether an
+> entry is contiguous to another 16 entries (assuming 4KB). When the
+> processor support the hint, one TLB entry will be created per
+> contiguous region.
 > 
-> To keep the code simple, a new flag _PAGE_BLOCK is introduced to
-> allow the caller to enable superpage mapping.
+> For now this is tied to _PAGE_BLOCK. We can untie it in the future
+> if there are use-cases where we may want to use _PAGE_BLOCK without
+> setting the contiguous (couldn't think of any yet).
 > 
-> As the code doesn't support all the combinations, xen_pt_check_entry()
-> is extended to take into account the cases we don't support when
-> using block mapping:
->     - Replacing a table with a mapping. This may happen if region was
->     first mapped with 4KB mapping and then later on replaced with a 2MB
->     (or 1GB mapping).
->     - Removing/modifying a table. This may happen if a caller try to
->     remove a region with _PAGE_BLOCK set when it was created without it.
+> Note that to avoid extra complexity, mappings with the contiguous
+> bit set cannot be removed. Given the expected use, this restriction
+> ought to be fine.
 > 
-> Note that the current restriction means that the caller must ensure that
-> _PAGE_BLOCK is consistently set/cleared across all the updates on a
-> given virtual region. This ought to be fine with the expected use-cases.
-> 
-> More rework will be necessary if we wanted to remove the restrictions.
-> 
-> Note that nr_mfns is now marked const as it is used for flushing the
-> TLBs and we don't want it to be modified.
-> 
-> Signed-off-by: Julien Grall <julien.grall@arm.com>
 > Signed-off-by: Julien Grall <jgrall@amazon.com>
 > 
 > ---
 >     Changes in v3:
->         - Fix clash after prefixing the PT macros with XEN_PT_
->         - Fix typoes in the commit message
->         - Support superpage mappings even if nr is not suitably aligned
->         - Move the logic to find the level in a separate function
-> 
->     Changes in v2:
->         - Pass the target level rather than the order to
->         xen_pt_update_entry()
->         - Update some comments
->         - Open-code paddr_to_pfn()
->         - Add my AWS signed-off-by
+>         - New patch
 > ---
->  xen/arch/arm/include/asm/page.h |   4 ++
->  xen/arch/arm/mm.c               | 108 ++++++++++++++++++++++++++------
->  2 files changed, 94 insertions(+), 18 deletions(-)
+>  xen/arch/arm/include/asm/page.h |  4 ++
+>  xen/arch/arm/mm.c               | 80 ++++++++++++++++++++++++++++++---
+>  2 files changed, 77 insertions(+), 7 deletions(-)
 > 
 > diff --git a/xen/arch/arm/include/asm/page.h b/xen/arch/arm/include/asm/page.h
-> index c6f9fb0d4e0c..07998df47bac 100644
+> index 07998df47bac..e7cd62190c7f 100644
 > --- a/xen/arch/arm/include/asm/page.h
 > +++ b/xen/arch/arm/include/asm/page.h
-> @@ -69,6 +69,7 @@
->   * [3:4] Permission flags
+> @@ -70,6 +70,7 @@
 >   * [5]   Page present
 >   * [6]   Only populate page tables
-> + * [7]   Superpage mappings is allowed
+>   * [7]   Superpage mappings is allowed
+> + * [8]   Set contiguous bit (internal flag)
 >   */
 >  #define PAGE_AI_MASK(x) ((x) & 0x7U)
 >  
-> @@ -82,6 +83,9 @@
->  #define _PAGE_PRESENT    (1U << 5)
->  #define _PAGE_POPULATE   (1U << 6)
+> @@ -86,6 +87,9 @@
+>  #define _PAGE_BLOCK_BIT     7
+>  #define _PAGE_BLOCK         (1U << _PAGE_BLOCK_BIT)
 >  
-> +#define _PAGE_BLOCK_BIT     7
-> +#define _PAGE_BLOCK         (1U << _PAGE_BLOCK_BIT)
+> +#define _PAGE_CONTIG_BIT    8
+> +#define _PAGE_CONTIG        (1U << _PAGE_CONTIG_BIT)
 > +
 >  /*
 >   * _PAGE_DEVICE and _PAGE_NORMAL are convenience defines. They are not
 >   * meant to be used outside of this header.
 > diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-> index 515d0906f85b..3af69b396bd1 100644
+> index 3af69b396bd1..fd16c1541ce2 100644
 > --- a/xen/arch/arm/mm.c
 > +++ b/xen/arch/arm/mm.c
-> @@ -1063,9 +1063,10 @@ static int xen_pt_next_level(bool read_only, unsigned int level,
->  }
->  
->  /* Sanity check of the entry */
-> -static bool xen_pt_check_entry(lpae_t entry, mfn_t mfn, unsigned int flags)
-> +static bool xen_pt_check_entry(lpae_t entry, mfn_t mfn, unsigned int level,
-> +                               unsigned int flags)
->  {
-> -    /* Sanity check when modifying a page. */
-> +    /* Sanity check when modifying an entry. */
->      if ( (flags & _PAGE_PRESENT) && mfn_eq(mfn, INVALID_MFN) )
->      {
->          /* We don't allow modifying an invalid entry. */
-> @@ -1075,6 +1076,13 @@ static bool xen_pt_check_entry(lpae_t entry, mfn_t mfn, unsigned int flags)
->              return false;
->          }
->  
-> +        /* We don't allow modifying a table entry */
-> +        if ( !lpae_is_mapping(entry, level) )
-> +        {
-> +            mm_printk("Modifying a table entry is not allowed.\n");
-> +            return false;
-> +        }
-> +
->          /* We don't allow changing memory attributes. */
->          if ( entry.pt.ai != PAGE_AI_MASK(flags) )
->          {
-> @@ -1090,7 +1098,7 @@ static bool xen_pt_check_entry(lpae_t entry, mfn_t mfn, unsigned int flags)
->              return false;
->          }
+> @@ -1237,6 +1237,8 @@ static int xen_pt_update_entry(mfn_t root, unsigned long virt,
+>          /* Set permission */
+>          pte.pt.ro = PAGE_RO_MASK(flags);
+>          pte.pt.xn = PAGE_XN_MASK(flags);
+> +        /* Set contiguous bit */
+> +        pte.pt.contig = !!(flags & _PAGE_CONTIG);
 >      }
-> -    /* Sanity check when inserting a page */
-> +    /* Sanity check when inserting a mapping */
->      else if ( flags & _PAGE_PRESENT )
->      {
->          /* We should be here with a valid MFN. */
-> @@ -1099,18 +1107,28 @@ static bool xen_pt_check_entry(lpae_t entry, mfn_t mfn, unsigned int flags)
->          /* We don't allow replacing any valid entry. */
->          if ( lpae_is_valid(entry) )
->          {
-> -            mm_printk("Changing MFN for a valid entry is not allowed (%#"PRI_mfn" -> %#"PRI_mfn").\n",
-> -                      mfn_x(lpae_get_mfn(entry)), mfn_x(mfn));
-> +            if ( lpae_is_mapping(entry, level) )
-> +                mm_printk("Changing MFN for a valid entry is not allowed (%#"PRI_mfn" -> %#"PRI_mfn").\n",
-> +                          mfn_x(lpae_get_mfn(entry)), mfn_x(mfn));
-> +            else
-> +                mm_printk("Trying to replace a table with a mapping.\n");
->              return false;
->          }
->      }
-> -    /* Sanity check when removing a page. */
-> +    /* Sanity check when removing a mapping. */
->      else if ( (flags & (_PAGE_PRESENT|_PAGE_POPULATE)) == 0 )
->      {
->          /* We should be here with an invalid MFN. */
->          ASSERT(mfn_eq(mfn, INVALID_MFN));
 >  
-> -        /* We don't allow removing page with contiguous bit set. */
-> +        /* We don't allow removing a table */
-> +        if ( lpae_is_table(entry, level) )
-> +        {
-> +            mm_printk("Removing a table is not allowed.\n");
-> +            return false;
-> +        }
+>      write_pte(entry, pte);
+> @@ -1289,6 +1291,51 @@ static int xen_pt_mapping_level(unsigned long vfn, mfn_t mfn, unsigned long nr,
+>       return level;
+>  }
+>  
+> +#define XEN_PT_4K_NR_CONTIG 16
 > +
-> +        /* We don't allow removing a mapping with contiguous bit set. */
->          if ( entry.pt.contig )
->          {
->              mm_printk("Removing entry with contiguous bit set is not allowed.\n");
-> @@ -1128,13 +1146,13 @@ static bool xen_pt_check_entry(lpae_t entry, mfn_t mfn, unsigned int flags)
->      return true;
->  }
->  
-> +/* Update an entry at the level @target. */
->  static int xen_pt_update_entry(mfn_t root, unsigned long virt,
-> -                               mfn_t mfn, unsigned int flags)
-> +                               mfn_t mfn, unsigned int target,
-> +                               unsigned int flags)
->  {
->      int rc;
->      unsigned int level;
-> -    /* We only support 4KB mapping (i.e level 3) for now */
-> -    unsigned int target = 3;
->      lpae_t *table;
->      /*
->       * The intermediate page tables are read-only when the MFN is not valid
-> @@ -1189,7 +1207,7 @@ static int xen_pt_update_entry(mfn_t root, unsigned long virt,
->      entry = table + offsets[level];
->  
->      rc = -EINVAL;
-> -    if ( !xen_pt_check_entry(*entry, mfn, flags) )
-> +    if ( !xen_pt_check_entry(*entry, mfn, level, flags) )
->          goto out;
->  
->      /* If we are only populating page-table, then we are done. */
-> @@ -1207,8 +1225,11 @@ static int xen_pt_update_entry(mfn_t root, unsigned long virt,
->          {
->              pte = mfn_to_xen_entry(mfn, PAGE_AI_MASK(flags));
->  
-> -            /* Third level entries set pte.pt.table = 1 */
-> -            pte.pt.table = 1;
-> +            /*
-> +             * First and second level pages set pte.pt.table = 0, but
-> +             * third level entries set pte.pt.table = 1.
-> +             */
-> +            pte.pt.table = (level == 3);
->          }
->          else /* We are updating the permission => Copy the current pte. */
->              pte = *entry;
-> @@ -1228,15 +1249,56 @@ out:
->      return rc;
->  }
->  
-> +/* Return the level where mapping should be done */
-> +static int xen_pt_mapping_level(unsigned long vfn, mfn_t mfn, unsigned long nr,
-> +                                unsigned int flags)
+> +/*
+> + * Check whether the contiguous bit can be set. Return the number of
+> + * contiguous entry allowed. If not allowed, return 1.
+> + */
+> +static unsigned int xen_pt_check_contig(unsigned long vfn, mfn_t mfn,
+> +                                        unsigned int level, unsigned long left,
+> +                                        unsigned int flags)
 > +{
-> +    unsigned int level;
-> +    unsigned long mask;
-
-Shouldn't mask be 64-bit on aarch32?
-
-
+> +    unsigned long nr_contig;
+> +
 > +    /*
-> +      * Don't take into account the MFN when removing mapping (i.e
-> +      * MFN_INVALID) to calculate the correct target order.
-> +      *
-> +      * Per the Arm Arm, `vfn` and `mfn` must be both superpage aligned.
-> +      * They are or-ed together and then checked against the size of
-> +      * each level.
-> +      *
-> +      * `left` is not included and checked separately to allow
-> +      * superpage mapping even if it is not properly aligned (the
-> +      * user may have asked to map 2MB + 4k).
-> +      */
-> +     mask = !mfn_eq(mfn, INVALID_MFN) ? mfn_x(mfn) : 0;
-> +     mask |= vfn;
+> +     * Allow the contiguous bit to set when the caller requests block
+> +     * mapping.
+> +     */
+> +    if ( !(flags & _PAGE_BLOCK) )
+> +        return 1;
 > +
-> +     /*
-> +      * Always use level 3 mapping unless the caller request block
-> +      * mapping.
-> +      */
-> +     if ( likely(!(flags & _PAGE_BLOCK)) )
-> +         level = 3;
-> +     else if ( !(mask & (BIT(FIRST_ORDER, UL) - 1)) &&
-> +               (nr >= BIT(FIRST_ORDER, UL)) )
-> +         level = 1;
-> +     else if ( !(mask & (BIT(SECOND_ORDER, UL) - 1)) &&
-> +               (nr >= BIT(SECOND_ORDER, UL)) )
-> +         level = 2;
-> +     else
-> +         level = 3;
+> +    /*
+> +     * We don't allow to remove mapping with the contiguous bit set.
+> +     * So shortcut the logic and directly return 1.
+> +     */
+> +    if ( mfn_eq(mfn, INVALID_MFN) )
+> +        return 1;
 > +
-> +     return level;
-
-As far as I can tell this function is correct
-
+> +    /*
+> +     * The number of contiguous entries varies depending on the page
+> +     * granularity used. The logic below assumes 4KB.
+> +     */
+> +    BUILD_BUG_ON(PAGE_SIZE != SZ_4K);
+> +
+> +    /*
+> +     * In order to enable the contiguous bit, we should have enough entries
+> +     * to map left and both the virtual and physical address should be
+> +     * aligned to the size of 16 translation tables entries.
+> +     */
+> +    nr_contig = BIT(XEN_PT_LEVEL_ORDER(level), UL) * XEN_PT_4K_NR_CONTIG;
+> +
+> +    if ( (left < nr_contig) || ((mfn_x(mfn) | vfn) & (nr_contig - 1)) )
+> +        return 1;
+> +
+> +    return XEN_PT_4K_NR_CONTIG;
 > +}
 > +
 >  static DEFINE_SPINLOCK(xen_pt_lock);
 >  
 >  static int xen_pt_update(unsigned long virt,
->                           mfn_t mfn,
-> -                         unsigned long nr_mfns,
-> +                         const unsigned long nr_mfns,
-
-Why const? nr_mfns is an unsigned long so it is passed as value: it
-couldn't change the caller's parameter anyway. Just curious.
-
-
->                           unsigned int flags)
->  {
->      int rc = 0;
-> -    unsigned long addr = virt, addr_end = addr + nr_mfns * PAGE_SIZE;
-> +    unsigned long vfn = virt >> PAGE_SHIFT;
-> +    unsigned long left = nr_mfns;
+> @@ -1322,6 +1369,12 @@ static int xen_pt_update(unsigned long virt,
+>          return -EINVAL;
+>      }
 >  
->      /*
->       * For arm32, page-tables are different on each CPUs. Yet, they share
-> @@ -1268,14 +1330,24 @@ static int xen_pt_update(unsigned long virt,
->  
->      spin_lock(&xen_pt_lock);
->  
-> -    for ( ; addr < addr_end; addr += PAGE_SIZE )
-> +    while ( left )
+> +    if ( flags & _PAGE_CONTIG )
+> +    {
+> +        mm_printk("_PAGE_CONTIG is an internal only flag.\n");
+> +        return -EINVAL;
+> +    }
+> +
+>      if ( !IS_ALIGNED(virt, PAGE_SIZE) )
 >      {
-> -        rc = xen_pt_update_entry(root, addr, mfn, flags);
-> +        unsigned int order, level;
-> +
-> +        level = xen_pt_mapping_level(vfn, mfn, left, flags);
-> +        order = XEN_PT_LEVEL_ORDER(level);
-> +
-> +        ASSERT(left >= BIT(order, UL));
-> +
-> +        rc = xen_pt_update_entry(root, pfn_to_paddr(vfn), mfn, level, flags);
-
-NIT: I know we don't have vfn_to_vaddr at the moment and there is no
-widespread usage of vfn in Xen anyway, but it looks off to use
-pfn_to_paddr on a vfn parameter. Maybe open-code pfn_to_paddr instead?
-Or introduce vfn_to_vaddr locally in this file?
-
-
->          if ( rc )
->              break;
+>          mm_printk("The virtual address is not aligned to the page-size.\n");
+> @@ -1333,21 +1386,34 @@ static int xen_pt_update(unsigned long virt,
+>      while ( left )
+>      {
+>          unsigned int order, level;
+> +        unsigned int nr_contig;
+> +        unsigned int new_flags;
 >  
-> +        vfn += 1U << order;
->          if ( !mfn_eq(mfn, INVALID_MFN) )
-> -            mfn = mfn_add(mfn, 1);
-> +            mfn = mfn_add(mfn, 1U << order);
+>          level = xen_pt_mapping_level(vfn, mfn, left, flags);
+>          order = XEN_PT_LEVEL_ORDER(level);
+>  
+>          ASSERT(left >= BIT(order, UL));
+>  
+> -        rc = xen_pt_update_entry(root, pfn_to_paddr(vfn), mfn, level, flags);
+> -        if ( rc )
+> -            break;
+> +        /*
+> +         * Check if we can set the contiguous mapping and update the
+> +         * flags accordingly.
+> +         */
+> +        nr_contig = xen_pt_check_contig(vfn, mfn, level, left, flags);
+> +        new_flags = flags | ((nr_contig > 1) ? _PAGE_CONTIG : 0);
+
+Here is an optional idea to make the code simpler. We could move the
+flags changes (adding/removing _PAGE_CONTIG) to xen_pt_check_contig.
+That way, we could remove the inner loop.
+
+xen_pt_check_contig could check if _PAGE_CONTIG is already set and based
+on alignment, it should be able to figure out when it needs to be
+disabled.
+
+But also this code works as far as I can tell.
+
+
+> -        vfn += 1U << order;
+> -        if ( !mfn_eq(mfn, INVALID_MFN) )
+> -            mfn = mfn_add(mfn, 1U << order);
+> +        for ( ; nr_contig > 0; nr_contig-- )
+> +        {
+> +            rc = xen_pt_update_entry(root, pfn_to_paddr(vfn), mfn, level,
+> +                                     new_flags);
+> +            if ( rc )
+> +                break;
+>  
+> -        left -= (1U << order);
+> +            vfn += 1U << order;
+> +            if ( !mfn_eq(mfn, INVALID_MFN) )
+> +                mfn = mfn_add(mfn, 1U << order);
 > +
-> +        left -= (1U << order);
-
-This looks correct. I don't have any other feedback on this patch.
-
-
+> +            left -= (1U << order);
+> +        }
+>      }
+>  
 >      /*
 > -- 
 > 2.32.0
