@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 774284EE573
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Apr 2022 02:39:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.297160.506150 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38B694EE575
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Apr 2022 02:39:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.297159.506141 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1na5Jb-0000p8-GS; Fri, 01 Apr 2022 00:38:59 +0000
+	id 1na5Ja-0000gr-Mm; Fri, 01 Apr 2022 00:38:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 297160.506150; Fri, 01 Apr 2022 00:38:59 +0000
+Received: by outflank-mailman (output) from mailman id 297159.506141; Fri, 01 Apr 2022 00:38:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1na5Ja-0000dR-TR; Fri, 01 Apr 2022 00:38:58 +0000
-Received: by outflank-mailman (input) for mailman id 297160;
+	id 1na5Ja-0000Vm-9u; Fri, 01 Apr 2022 00:38:58 +0000
+Received: by outflank-mailman (input) for mailman id 297159;
  Fri, 01 Apr 2022 00:38:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yIha=UL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1na5JX-00087e-HS
+ id 1na5JX-0007ot-K3
  for xen-devel@lists.xenproject.org; Fri, 01 Apr 2022 00:38:55 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1b312796-b154-11ec-a405-831a346695d4;
- Fri, 01 Apr 2022 02:38:53 +0200 (CEST)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1b451931-b154-11ec-8fbc-03012f2f19d4;
+ Fri, 01 Apr 2022 02:38:54 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id C13F9B822B4;
- Fri,  1 Apr 2022 00:38:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19EB2C34115;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2BBB8618AB;
+ Fri,  1 Apr 2022 00:38:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A5B1C34112;
  Fri,  1 Apr 2022 00:38:52 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -43,17 +44,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b312796-b154-11ec-a405-831a346695d4
+X-Inumbo-ID: 1b451931-b154-11ec-8fbc-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1648773532;
-	bh=bKlaACyobMzZqVlommlo53UDbjiZ7/QiZBJFdbFnFaw=;
+	s=k20201202; t=1648773533;
+	bh=1MIKxVGlrxQHtL44VHiQsIws8+/TOeEKbJHjXPBZ7lI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=sr8JLH+zcSmfPwQCUPAKzjR2SLXM3cPGkNvqmUK/Qt0Axlv8YNEXep1m+DUwNFTsK
-	 1X3skIp36V/NB7Aua1xcSZzqmfNiwO5Ad+s28fZVAk45823hv2qUXnbDSOYvF1f6ML
-	 OTT0DgbwrM+fPBvQ3JfQ2e7nmgKkgaT0XDzX/s3eMqB1Ebm81/geyedF5lV28KFLa0
-	 xMCcGdueg5ugJMJ8PH7ZH9X1J1x9EAoBMFWCLoD87IUaLVf9VBCWGP9dr1xHgTGAe2
-	 KGQPt1DRwFv/4rPmUgkLGXBYCFnOAHTWf5bcKmXQ08jvaa1+OY9n9aS1ws2t0W4SAL
-	 kxpma20BU3j4w==
+	b=LuuxqOnSU2PMw/gWnGe3y0YcxCQe8Kz2xM2QdKzoO0nPrGoikibDmr/yuYLoweInC
+	 hE1VvltYj+rH1mbTxz4lJnKIplr4rdytWH96OmGSLRZ++JQBJskqx4MgG/0UTa35lD
+	 8yF2MCptNaNvuFZXxR7rkXjN3UoXvnfP9AH6YGaphinRVIRWsMnBe8xnEwVWwAY13q
+	 Xy6MfcfqnVYM/seGEQwesKU/Hrw/LzwiNQBkzjegOefRRtvUkZKI4ARTorkPRsIfqC
+	 BuN0WSbGd/3DDD2d3s3BaiV7khHLYh5/uzx6Msa4jvXhnLvmg75JADIW/9acsWaDuf
+	 gTaeJ82lDBNqw==
 From: Stefano Stabellini <sstabellini@kernel.org>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -64,9 +65,9 @@ Cc: sstabellini@kernel.org,
 	Luca Miccio <lucmiccio@gmail.com>,
 	Stefano Stabellini <stefano.stabellini@xilinx.com>,
 	Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: [PATCH v4 6/9] xen/arm: configure dom0less domain for enabling xenstore after boot
-Date: Thu, 31 Mar 2022 17:38:44 -0700
-Message-Id: <20220401003847.38393-6-sstabellini@kernel.org>
+Subject: [PATCH v4 7/9] xenstored: send an evtchn notification on introduce_domain
+Date: Thu, 31 Mar 2022 17:38:45 -0700
+Message-Id: <20220401003847.38393-7-sstabellini@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <alpine.DEB.2.22.394.2203311735380.2910984@ubuntu-linux-20-04-desktop>
 References: <alpine.DEB.2.22.394.2203311735380.2910984@ubuntu-linux-20-04-desktop>
@@ -75,108 +76,36 @@ Content-Transfer-Encoding: 8bit
 
 From: Luca Miccio <lucmiccio@gmail.com>
 
-If "xen,enhanced" is enabled, then add to dom0less domains:
+When xs_introduce_domain is called, send out a notification on the
+xenstore event channel so that any (dom0less) domain waiting for the
+xenstore interface to be ready can continue with the initialization.
 
-- the hypervisor node in device tree
-- the xenstore event channel
-
-The xenstore event channel is also used for the first notification to
-let the guest know that xenstore has become available.
+The extra notification is harmless for domains that don't require it.
 
 Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
 Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
 Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-CC: Julien Grall <julien@xen.org>
-CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-CC: Bertrand Marquis <bertrand.marquis@arm.com>
-
 ---
-Changes in v3:
-- use evtchn_alloc_unbound
-
 Changes in v2:
-- set HVM_PARAM_STORE_PFN to ~0ULL at domain creation
-- in alloc_xenstore_evtchn do not call _evtchn_alloc_unbound
+- drop the new late_init parameter
 ---
- xen/arch/arm/domain_build.c | 37 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
+ tools/xenstore/xenstored_domain.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index b22fe95d92..a8ad95ce40 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -28,6 +28,7 @@
- #include <asm/cpufeature.h>
- #include <asm/domain_build.h>
- #include <xsm/xsm.h>
-+#include <xen/event.h>
+diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
+index ae065fcbee..0543f49670 100644
+--- a/tools/xenstore/xenstored_domain.c
++++ b/tools/xenstore/xenstored_domain.c
+@@ -493,6 +493,9 @@ static struct domain *introduce_domain(const void *ctx,
+ 		/* Now domain belongs to its connection. */
+ 		talloc_steal(domain->conn, domain);
  
- #include <xen/irq.h>
- #include <xen/grant_table.h>
-@@ -2806,6 +2807,8 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
-     int ret;
- 
-     kinfo->phandle_gic = GUEST_PHANDLE_GIC;
-+    kinfo->gnttab_start = GUEST_GNTTAB_BASE;
-+    kinfo->gnttab_size = GUEST_GNTTAB_SIZE;
- 
-     addrcells = GUEST_ROOT_ADDRESS_CELLS;
-     sizecells = GUEST_ROOT_SIZE_CELLS;
-@@ -2880,6 +2883,13 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
-             goto err;
-     }
- 
-+    if ( kinfo->dom0less_enhanced )
-+    {
-+        ret = make_hypervisor_node(d, kinfo, addrcells, sizecells);
-+        if ( ret )
-+            goto err;
-+    }
++		/* Notify the domain that xenstore is available */
++		xenevtchn_notify(xce_handle, domain->port);
 +
-     ret = fdt_end_node(kinfo->fdt);
-     if ( ret < 0 )
-         goto err;
-@@ -3146,6 +3156,25 @@ static int __init construct_domain(struct domain *d, struct kernel_info *kinfo)
-     return 0;
- }
- 
-+static int __init alloc_xenstore_evtchn(struct domain *d)
-+{
-+    evtchn_alloc_unbound_t alloc;
-+    int rc;
-+
-+    alloc.dom = d->domain_id;
-+    alloc.remote_dom = hardware_domain->domain_id;
-+    rc = evtchn_alloc_unbound(&alloc);
-+    if ( rc )
-+    {
-+        printk("Failed allocating event channel for domain\n");
-+        return rc;
-+    }
-+
-+    d->arch.hvm.params[HVM_PARAM_STORE_EVTCHN] = alloc.port;
-+
-+    return 0;
-+}
-+
- static int __init construct_domU(struct domain *d,
-                                  const struct dt_device_node *node)
- {
-@@ -3210,6 +3239,14 @@ static int __init construct_domU(struct domain *d,
-     if ( rc < 0 )
-         return rc;
- 
-+    if ( kinfo.dom0less_enhanced )
-+    {
-+        rc = alloc_xenstore_evtchn(d);
-+        if ( rc < 0 )
-+            return rc;
-+        d->arch.hvm.params[HVM_PARAM_STORE_PFN] = ~0ULL;
-+    }
-+
-     return rc;
- }
- 
+ 		if (!is_master_domain && !restore)
+ 			fire_watches(NULL, ctx, "@introduceDomain", NULL,
+ 				     false, NULL);
 -- 
 2.25.1
 
