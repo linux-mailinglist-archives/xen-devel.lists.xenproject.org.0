@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 031504EF042
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Apr 2022 16:33:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.297425.506665 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F2FC4EF041
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Apr 2022 16:33:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.297429.506676 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1naIKF-0003Fc-DN; Fri, 01 Apr 2022 14:32:31 +0000
+	id 1naIKw-0003oq-Pz; Fri, 01 Apr 2022 14:33:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 297425.506665; Fri, 01 Apr 2022 14:32:31 +0000
+Received: by outflank-mailman (output) from mailman id 297429.506676; Fri, 01 Apr 2022 14:33:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1naIKF-0003Cz-AR; Fri, 01 Apr 2022 14:32:31 +0000
-Received: by outflank-mailman (input) for mailman id 297425;
- Fri, 01 Apr 2022 14:32:30 +0000
+	id 1naIKw-0003mm-MM; Fri, 01 Apr 2022 14:33:14 +0000
+Received: by outflank-mailman (input) for mailman id 297429;
+ Fri, 01 Apr 2022 14:33:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=efvt=UL=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1naIKE-0003Ct-4X
- for xen-devel@lists.xenproject.org; Fri, 01 Apr 2022 14:32:30 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=AW7G=UL=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1naIKu-0003Ct-TE
+ for xen-devel@lists.xenproject.org; Fri, 01 Apr 2022 14:33:13 +0000
+Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
+ [2607:f8b0:4864:20::f2e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8d11db65-b1c8-11ec-8fbc-03012f2f19d4;
- Fri, 01 Apr 2022 16:32:27 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 96DEA61C50;
- Fri,  1 Apr 2022 14:32:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C9B1C340EE;
- Fri,  1 Apr 2022 14:32:24 +0000 (UTC)
+ id a7e407f2-b1c8-11ec-8fbc-03012f2f19d4;
+ Fri, 01 Apr 2022 16:33:12 +0200 (CEST)
+Received: by mail-qv1-xf2e.google.com with SMTP id k7so2147346qvc.4
+ for <xen-devel@lists.xenproject.org>; Fri, 01 Apr 2022 07:33:12 -0700 (PDT)
+Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:3c6c:76:9828:871b])
+ by smtp.gmail.com with ESMTPSA id
+ a9-20020ac85b89000000b002e2072c9dedsm2063469qta.67.2022.04.01.07.33.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 01 Apr 2022 07:33:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,199 +44,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d11db65-b1c8-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1648823545;
-	bh=Vj4CtnGKUb63FsBPnORkP2HBgGUmnUAO7NFD8yaKwPk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=V9IoOOs4KK52b4HhNDRbajUpbkYDeEdjV06oDnl+DNMpRDkqplrmD3W08F4YED9VJ
-	 jAfuZ8Y5mMbhfaAkDbUkzs2IMwfQ+hiv5EvUcurk2/Z6wEEZ/B/0zE1YZ5kLRRWdQZ
-	 pV7Ogtr2y30/t5j9S9mgHCcO7jrYqzIRuJehDKNsn5qT5b9lBstZCfQoohJh/jxQfa
-	 Hgbtvy7ZAUoW1XsDEpX0uUZZLiV/0WBINwWi+TvLx26u1gqjUwm71rFe0fuIrixSVF
-	 1qFpRIhj7M0B0xcz9T10BIjWYst1pFoom8K4xhYUtnQW680IlME24TWP4xZRWOekSK
-	 PbqunJ1zeLkHg==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	xen-devel@lists.xenproject.org,
-	linux-usb@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.17 137/149] xen/usb: harden xen_hcd against malicious backends
-Date: Fri,  1 Apr 2022 10:25:24 -0400
-Message-Id: <20220401142536.1948161-137-sashal@kernel.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220401142536.1948161-1-sashal@kernel.org>
-References: <20220401142536.1948161-1-sashal@kernel.org>
+X-Inumbo-ID: a7e407f2-b1c8-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=lBHMZeC91ZK2tywfZph5lp9KK7X0ZdbeDNeiV0kgKAI=;
+        b=HYZ2my/OxC/ZEsMBvAcR+LRHSUFTtkzIGe4/ZPBCzM3eMzQRR0Z3GVwvTfBj4ojQQC
+         jssOgwlGuyUdaM4xdFpVPEVnYyzbz2q3S6Flz9MNQEmE5eqmBqftoelkSls5evqCLc7x
+         i5HNC2SVHWfyykGGUCZdEVg8Rgs9GhDxxflEk+t37gzlI+WW62PPChfjTlNSItSVk9Iw
+         ZrliCKNhAJ5+BP8iy5tt+3vcBpsn47A6TfzuYAsQMhlewZfWe4SyRPFQkURjqQy0rHxC
+         mTdKxr4D2sRydTq0AlfyHyEwcqXzlHrEygHSwJtGuNlYnfhbIRAc7vUXXuTn93b2r2my
+         C8Tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=lBHMZeC91ZK2tywfZph5lp9KK7X0ZdbeDNeiV0kgKAI=;
+        b=vaXQ+SaWC9uxer6Re5O3pnHKOPStjA2jxRZlwW8aJZrIhzlqmGmdcDt6UmoNMsl8A3
+         IBG7GmuFMKdGEt0+XgOHohvPcs1HbyvV9OeGYNM3IrgTBI51d9U3+lcVEK/o0s1Mobxh
+         j4MbB7DnWTBeU5Pv0FxpC9o6ATBVLFgZSBwSml2RArnT+mUv+GNiBjYF0kzZyd8DcI3j
+         LxkwCioQYWK5jopChTBI7dtZSX4IU6GLONKIpBJHJAs6MuPHysqaaMXwbg4V0s8LAQDh
+         WSRyFKYVi6GCpJtN+qOtVhqDamzYg4R6IkQ/Yz5v8iFSV0Syh0Ezeo2M3pK3rsMeUs5d
+         Ky9Q==
+X-Gm-Message-State: AOAM530ipMRnPFQJ9mNFPO95+icTS84o+2ISKpvl4WaBoP3BVx+GUvLq
+	3AUCIVByHfg7VSo/ywnNa5XmzRGc2Ts=
+X-Google-Smtp-Source: ABdhPJxlrj0fiVKZVXaJOyRgmS6ydclti+4tsFbT8v5kK32od7r7a1RheVCUjVvDekoxJXislPsWiA==
+X-Received: by 2002:a05:6214:27e6:b0:443:6801:ac6b with SMTP id jt6-20020a05621427e600b004436801ac6bmr8337451qvb.57.1648823590182;
+        Fri, 01 Apr 2022 07:33:10 -0700 (PDT)
+From: Jason Andryuk <jandryuk@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Jason Andryuk <jandryuk@gmail.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v2] libxl: Don't segfault on soft-reset failure
+Date: Fri,  1 Apr 2022 10:32:56 -0400
+Message-Id: <20220401143256.17720-1-jandryuk@gmail.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 
-From: Juergen Gross <jgross@suse.com>
+If domain_soft_reset_cb can't rename the save file, it doesn't call
+initiate_domain_create() and calls domcreate_complete().
 
-[ Upstream commit aff477cb8f94613f501d386d10f20019e294bc35 ]
+Skipping initiate_domain_create() means dcs->console_wait is
+uninitialized and all 0s.
 
-Make sure a malicious backend can't cause any harm other than wrong
-I/O data.
+We have:
+  domcreate_complete()
+    libxl__xswait_stop()
+      libxl__ev_xswatch_deregister().
 
-Missing are verification of the request id in a response, sanitizing
-the reported actual I/O length, and protection against interrupt storms
-from the backend.
+The uninitialized slotnum 0 is considered valid (-1 is the invalid
+sentinel), so the NULL pointer path to passed to xs_unwatch() which
+segfaults.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Link: https://lore.kernel.org/r/20220311103509.12908-1-jgross@suse.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+libxl__ev_xswatch_deregister:watch w=0x12bc250 wpath=(null) token=0/0: deregister slotnum=0
+
+Move dcs->console_xswait initialization into the callers of
+initiate_domain_create, do_domain_create() and do_domain_soft_reset(),
+so it is initialized along with the other dcs state.
+
+Fixes: c57e6ebd8c3e ("(lib)xl: soft reset support")
+Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 ---
- drivers/usb/host/xen-hcd.c | 57 ++++++++++++++++++++++++++++----------
- 1 file changed, 43 insertions(+), 14 deletions(-)
+v2:
+Add Fixes
+Drop NULL check
+Re-position libxl__xswait_init in callers
 
-diff --git a/drivers/usb/host/xen-hcd.c b/drivers/usb/host/xen-hcd.c
-index 19b8c7ed74cb..4ed3ee328a4a 100644
---- a/drivers/usb/host/xen-hcd.c
-+++ b/drivers/usb/host/xen-hcd.c
-@@ -51,6 +51,7 @@ struct vdevice_status {
- struct usb_shadow {
- 	struct xenusb_urb_request req;
- 	struct urb *urb;
-+	bool in_flight;
- };
+ tools/libs/light/libxl_create.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
+index 15ed021f41..885675591f 100644
+--- a/tools/libs/light/libxl_create.c
++++ b/tools/libs/light/libxl_create.c
+@@ -1255,8 +1255,6 @@ static void initiate_domain_create(libxl__egc *egc,
+     libxl_domain_config *const d_config = dcs->guest_config;
+     libxl__domain_build_state *dbs = &dcs->build_state;
  
- struct xenhcd_info {
-@@ -722,6 +723,12 @@ static void xenhcd_gnttab_done(struct xenhcd_info *info, unsigned int id)
- 	int nr_segs = 0;
- 	int i;
+-    libxl__xswait_init(&dcs->console_xswait);
+-
+     domid = dcs->domid;
+     libxl__domain_build_state_init(dbs);
+     dbs->restore = dcs->restore_fd >= 0;
+@@ -2072,6 +2070,7 @@ static int do_domain_create(libxl_ctx *ctx, libxl_domain_config *d_config,
+     cdcs->dcs.callback = domain_create_cb;
+     cdcs->dcs.domid = INVALID_DOMID;
+     cdcs->dcs.soft_reset = false;
++    libxl__xswait_init(&cdcs->dcs.console_xswait);
  
-+	if (!shadow->in_flight) {
-+		xenhcd_set_error(info, "Illegal request id");
-+		return;
-+	}
-+	shadow->in_flight = false;
-+
- 	nr_segs = shadow->req.nr_buffer_segs;
- 
- 	if (xenusb_pipeisoc(shadow->req.pipe))
-@@ -805,6 +812,7 @@ static int xenhcd_do_request(struct xenhcd_info *info, struct urb_priv *urbp)
- 
- 	info->urb_ring.req_prod_pvt++;
- 	info->shadow[id].urb = urb;
-+	info->shadow[id].in_flight = true;
- 
- 	RING_PUSH_REQUESTS_AND_CHECK_NOTIFY(&info->urb_ring, notify);
- 	if (notify)
-@@ -933,10 +941,27 @@ static int xenhcd_unlink_urb(struct xenhcd_info *info, struct urb_priv *urbp)
- 	return ret;
- }
- 
--static int xenhcd_urb_request_done(struct xenhcd_info *info)
-+static void xenhcd_res_to_urb(struct xenhcd_info *info,
-+			      struct xenusb_urb_response *res, struct urb *urb)
-+{
-+	if (unlikely(!urb))
-+		return;
-+
-+	if (res->actual_length > urb->transfer_buffer_length)
-+		urb->actual_length = urb->transfer_buffer_length;
-+	else if (res->actual_length < 0)
-+		urb->actual_length = 0;
-+	else
-+		urb->actual_length = res->actual_length;
-+	urb->error_count = res->error_count;
-+	urb->start_frame = res->start_frame;
-+	xenhcd_giveback_urb(info, urb, res->status);
-+}
-+
-+static int xenhcd_urb_request_done(struct xenhcd_info *info,
-+				   unsigned int *eoiflag)
- {
- 	struct xenusb_urb_response res;
--	struct urb *urb;
- 	RING_IDX i, rp;
- 	__u16 id;
- 	int more_to_do = 0;
-@@ -963,16 +988,12 @@ static int xenhcd_urb_request_done(struct xenhcd_info *info)
- 			xenhcd_gnttab_done(info, id);
- 			if (info->error)
- 				goto err;
--			urb = info->shadow[id].urb;
--			if (likely(urb)) {
--				urb->actual_length = res.actual_length;
--				urb->error_count = res.error_count;
--				urb->start_frame = res.start_frame;
--				xenhcd_giveback_urb(info, urb, res.status);
--			}
-+			xenhcd_res_to_urb(info, &res, info->shadow[id].urb);
- 		}
- 
- 		xenhcd_add_id_to_freelist(info, id);
-+
-+		*eoiflag = 0;
- 	}
- 	info->urb_ring.rsp_cons = i;
- 
-@@ -990,7 +1011,7 @@ static int xenhcd_urb_request_done(struct xenhcd_info *info)
- 	return 0;
- }
- 
--static int xenhcd_conn_notify(struct xenhcd_info *info)
-+static int xenhcd_conn_notify(struct xenhcd_info *info, unsigned int *eoiflag)
- {
- 	struct xenusb_conn_response res;
- 	struct xenusb_conn_request *req;
-@@ -1035,6 +1056,8 @@ static int xenhcd_conn_notify(struct xenhcd_info *info)
- 				       info->conn_ring.req_prod_pvt);
- 		req->id = id;
- 		info->conn_ring.req_prod_pvt++;
-+
-+		*eoiflag = 0;
- 	}
- 
- 	if (rc != info->conn_ring.req_prod_pvt)
-@@ -1057,14 +1080,19 @@ static int xenhcd_conn_notify(struct xenhcd_info *info)
- static irqreturn_t xenhcd_int(int irq, void *dev_id)
- {
- 	struct xenhcd_info *info = (struct xenhcd_info *)dev_id;
-+	unsigned int eoiflag = XEN_EOI_FLAG_SPURIOUS;
- 
--	if (unlikely(info->error))
-+	if (unlikely(info->error)) {
-+		xen_irq_lateeoi(irq, XEN_EOI_FLAG_SPURIOUS);
- 		return IRQ_HANDLED;
-+	}
- 
--	while (xenhcd_urb_request_done(info) | xenhcd_conn_notify(info))
-+	while (xenhcd_urb_request_done(info, &eoiflag) |
-+	       xenhcd_conn_notify(info, &eoiflag))
- 		/* Yield point for this unbounded loop. */
- 		cond_resched();
- 
-+	xen_irq_lateeoi(irq, eoiflag);
- 	return IRQ_HANDLED;
- }
- 
-@@ -1141,9 +1169,9 @@ static int xenhcd_setup_rings(struct xenbus_device *dev,
- 		goto fail;
- 	}
- 
--	err = bind_evtchn_to_irq(info->evtchn);
-+	err = bind_evtchn_to_irq_lateeoi(info->evtchn);
- 	if (err <= 0) {
--		xenbus_dev_fatal(dev, err, "bind_evtchn_to_irq");
-+		xenbus_dev_fatal(dev, err, "bind_evtchn_to_irq_lateeoi");
- 		goto fail;
- 	}
- 
-@@ -1496,6 +1524,7 @@ static struct usb_hcd *xenhcd_create_hcd(struct xenbus_device *dev)
- 	for (i = 0; i < XENUSB_URB_RING_SIZE; i++) {
- 		info->shadow[i].req.id = i + 1;
- 		info->shadow[i].urb = NULL;
-+		info->shadow[i].in_flight = false;
- 	}
- 	info->shadow[XENUSB_URB_RING_SIZE - 1].req.id = 0x0fff;
- 
+     if (cdcs->dcs.restore_params.checkpointed_stream ==
+         LIBXL_CHECKPOINTED_STREAM_COLO) {
+@@ -2172,6 +2171,7 @@ static int do_domain_soft_reset(libxl_ctx *ctx,
+     cdcs->dcs.domid = domid;
+     cdcs->dcs.soft_reset = true;
+     cdcs->dcs.callback = domain_create_cb;
++    libxl__xswait_init(&cdcs->dcs.console_xswait);
+     libxl__ao_progress_gethow(&srs->cdcs.dcs.aop_console_how,
+                               aop_console_how);
+     cdcs->domid_out = &domid_out;
 -- 
-2.34.1
+2.35.1
 
 
