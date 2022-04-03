@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 142F34F0CD7
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Apr 2022 00:59:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.298069.507673 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C24F24F0CF0
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Apr 2022 01:25:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.298077.507684 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nb9C0-0004f1-1V; Sun, 03 Apr 2022 22:59:32 +0000
+	id 1nb9al-0007uq-2s; Sun, 03 Apr 2022 23:25:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 298069.507673; Sun, 03 Apr 2022 22:59:32 +0000
+Received: by outflank-mailman (output) from mailman id 298077.507684; Sun, 03 Apr 2022 23:25:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nb9Bz-0004bt-UH; Sun, 03 Apr 2022 22:59:31 +0000
-Received: by outflank-mailman (input) for mailman id 298069;
- Sun, 03 Apr 2022 22:59:30 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nb9By-0004bj-Bo; Sun, 03 Apr 2022 22:59:30 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nb9By-00065k-Au; Sun, 03 Apr 2022 22:59:30 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nb9Bx-00012W-Rm; Sun, 03 Apr 2022 22:59:29 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nb9Bx-0002TF-RL; Sun, 03 Apr 2022 22:59:29 +0000
+	id 1nb9ak-0007sJ-Vc; Sun, 03 Apr 2022 23:25:06 +0000
+Received: by outflank-mailman (input) for mailman id 298077;
+ Sun, 03 Apr 2022 23:25:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6FyL=UN=protonmail.ch=mati7337@srs-se1.protection.inumbo.net>)
+ id 1nb9aj-0007sD-B1
+ for xen-devel@lists.xenproject.org; Sun, 03 Apr 2022 23:25:05 +0000
+Received: from mail-4319.protonmail.ch (mail-4319.protonmail.ch [185.70.43.19])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 49c3b75d-b3a5-11ec-8fbc-03012f2f19d4;
+ Mon, 04 Apr 2022 01:25:03 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,138 +36,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=eArTRpd6+lw39m09nFCsLWgwGYs9sy+bIV0uB0WjMxI=; b=Mu0bYb1u3NefO+BZPmw8AvIROr
-	P4HU/Ns7pHPn1fEsVu/nbD/yCumgi7PEQZDV3ljBm6ni+HSPdB3ULDgXIuLlIwt9JyYaxClhL1S4j
-	sX2ER1wNZX9PTijZsOL4FMM1xcfJ8IG+V7R9zC+uHLqy7+4vjs8wAMfUZnSH/sA8sPag=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169144-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 49c3b75d-b3a5-11ec-8fbc-03012f2f19d4
+Date: Sun, 03 Apr 2022 23:24:53 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.ch;
+	s=protonmail2; t=1649028302;
+	bh=mS02nT2yAqJk/ND+iRkA4kPWNMDk+RpZ4FRHyQjDBAU=;
+	h=Date:To:From:Reply-To:Subject:Message-ID:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID;
+	b=ZSTw1cCTIPWSYF98H/OMBKgridMh0i4or5az7aH5uv5HT7V5vv0m1fzFmdZnvr7dc
+	 k0rTt756+ebOA9VEfehO0VQdhJ/GpsmvLpYnvqMGlSoig6jMMQvCU0y/WnUpeRH+x4
+	 Ys4v9bppST3PmtSuOPrIQVc/2a7eHk5mws5p6iuEpo3t3ClujBeQNxT/vTIUiccyw8
+	 pLd2EmdTS+srPJq1EVURLGI2K3xEzqCP8hHw5hHeCs4ICZYwn0SBczj5CzXxGnETTS
+	 4M45rYX7tTGYW0HxR787pyW8Nd4VJgFfSDCAibt6kNj18HxTVLoYbK+hSw8wt2iEqs
+	 XEA5ta96MyJuA==
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: Mateusz <mati7337@protonmail.ch>
+Reply-To: Mateusz <mati7337@protonmail.ch>
+Subject: PCI passthrough: possible bug in memory relocation
+Message-ID: <l3LThLG8tkJBvD-3WTxzw6TRrj7GPAN9uWh-AWqzelw75qpdP1ZLXzBV7599MWrjrHH-lRKof3b0jm1DEGrUXLJszgh5hjW25oNtHoTI9Ts=@protonmail.ch>
 MIME-Version: 1.0
-Subject: [ovmf test] 169144: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=3e130e40fc55f06f7fe019e87ed9bae957870a12
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 03 Apr 2022 22:59:29 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-flight 169144 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169144/
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
 
-Regressions :-(
+Hello,
+I'm working on resolving a bug in Qubes OS. The problem is that
+when someone gives a VM too much RAM the GPU passthrough doesn't
+work as intended. I think it's because in these cases RAM overlaps
+with PCI addresses and memory relocation doesn't work in Xen.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+Here are the memory BARs of the GPU I've tried to passthrough:
+Memory at f3000000 (32-bit, non-prefetchable) [size=3D16M]
+Memory at e0000000 (64-bit, prefetchable) [size=3D256M]
+Memory at f0000000 (64-bit, prefetchable) [size=3D32M]
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+The interesting thing is that in xl dmesg hvmloader prints these
+lines:
+(d1) Relocating 0xffff pages from 0e0001000 to 187000000 for lowmem MMIO ho=
+le
+(d1) Relocating 0x1 pages from 0e0000000 to 196fff000 for lowmem MMIO hole
+so it looks like it tries to move these pages to a different address
+to make space for PCI memory, but for some reason it doesn't work.
+Changing TOLUD to 3.5G solves the problem.
+I tested it on xen 4.14.3
+Here's the issue on github regarding this problem:
+https://github.com/QubesOS/qubes-issues/issues/4321
 
-version targeted for testing:
- ovmf                 3e130e40fc55f06f7fe019e87ed9bae957870a12
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+Is it a bug in Xen and fixing it would fix the problem or is there
+something I'm missing?
+-----BEGIN PGP SIGNATURE-----
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   34 days
-Failing since        168258  2022-03-01 01:55:31 Z   33 days  271 attempts
-Testing same since   169141  2022-04-03 08:40:51 Z    0 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 3211 lines long.)
+iQIzBAEBCgAdFiEE0RoD3+S7b5zXZ6lW6IGQZRJEAKsFAmJKKjwACgkQ6IGQZRJE
+AKtoDQ/+MQmH72WfmkCzbvpfmzsMW4xWpsx9Q6yZg58eEVv/pT06CC1KD8KUnyN3
+ChqBNUQ3W2CZtJG0pJ1eON2wlByFuwnnl67MX0D0oKQQDfEf/oVEUspcXvfdgzR9
+vOSqkZTKmZRjKOujrbiyO0Ooyrx7ED8IJE9UcfGzi8OYsYCbRg6vZtMghYoep6c4
+w2ho7XLFO0pRjzzO+ZMIWzWJq2yp4H7/8F7QXv57tcszoWCrm/THkM8AGE51ilus
+N8S3mlVJM+h2hWpZus9BTxnSULNby80nK3MfWAo6XSTPc/uRo3+NegBhFOFBNkJq
+YDC+sbLj9Nr4/4uOKl+lLvg0HBSr/b0qebwE1EAwlj3k9byfFjBHCrf63as7AtO0
+AuCE9hFqVE+vM8HPghhvcwzuUywwAljD8kxtvKT73JP/+F7v7PfKr6zMatfGcIMP
+LYX7X64dMDsi9ySbjRyWWQFPEYlDKYGFA+88qJQZISQXSykO7QqKxeGpMKL/VUhX
+BTLNLa568UReIhOzR5jvzDSl6c2kSxZluKpIuQIRE1iqShnUQPbbykA5zI6NzZOk
+L5k/RJuRBYoKh/BWbqZsnLOrkYOltaWmFnHb3PPWNo3bVsQVl0ifkcaEoko6KJ0r
+nhbpoieuL7Yn/o3aVLPOI7PP4Qy9LqC47L7h1BsojA75JfeFak8=3D
+=3DeUPS
+-----END PGP SIGNATURE-----
 
