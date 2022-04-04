@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79F474F13DD
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Apr 2022 13:33:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.298288.508085 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39EB94F1403
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Apr 2022 13:47:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.298293.508099 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nbKxN-0006pW-C1; Mon, 04 Apr 2022 11:33:13 +0000
+	id 1nbLAh-0008PD-Lx; Mon, 04 Apr 2022 11:46:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 298288.508085; Mon, 04 Apr 2022 11:33:13 +0000
+Received: by outflank-mailman (output) from mailman id 298293.508099; Mon, 04 Apr 2022 11:46:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nbKxN-0006mC-8x; Mon, 04 Apr 2022 11:33:13 +0000
-Received: by outflank-mailman (input) for mailman id 298288;
- Mon, 04 Apr 2022 11:33:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XwhO=UO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nbKxL-0006lq-JV
- for xen-devel@lists.xenproject.org; Mon, 04 Apr 2022 11:33:11 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0061b922-b40b-11ec-a405-831a346695d4;
- Mon, 04 Apr 2022 13:33:09 +0200 (CEST)
-Received: from EUR03-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur03lp2059.outbound.protection.outlook.com [104.47.10.59]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-7-TaSEFA_lPwq5gcK9hcys0Q-1; Mon, 04 Apr 2022 13:33:01 +0200
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
- by AM0PR04MB6100.eurprd04.prod.outlook.com (2603:10a6:208:13b::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.31; Mon, 4 Apr
- 2022 11:32:59 +0000
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::914d:e08d:7798:8476]) by DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::914d:e08d:7798:8476%7]) with mapi id 15.20.5123.031; Mon, 4 Apr 2022
- 11:32:59 +0000
+	id 1nbLAh-0008M2-Ia; Mon, 04 Apr 2022 11:46:59 +0000
+Received: by outflank-mailman (input) for mailman id 298293;
+ Mon, 04 Apr 2022 11:46:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=2Zjy=UO=citrix.com=prvs=08688decb=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1nbLAg-0008Lw-C2
+ for xen-devel@lists.xenproject.org; Mon, 04 Apr 2022 11:46:58 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ed0651f9-b40c-11ec-8fbc-03012f2f19d4;
+ Mon, 04 Apr 2022 13:46:56 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,275 +36,251 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0061b922-b40b-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1649071988;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2vninudnNY5iyLT5yME4S0Ywt/TnpeHxiHfTBgQ6Hl0=;
-	b=WcKBn/w/nmru+ddAvXmgDaNnwxgYecAumpmwzu1nfqaOUZEfLMerwXdhOSwc6iM58EDRnn
-	Z+9Q8Btx/9RGVuG7GDFaWb95vCiQjsrkIbrl3WKpJgGzyFu1zwd1vYuJ4DBt6fWAGNg0kP
-	AtQGBmzTrxP+vMhx9a5uRTLjDhq5Ypo=
-X-MC-Unique: TaSEFA_lPwq5gcK9hcys0Q-1
+X-Inumbo-ID: ed0651f9-b40c-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1649072816;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=L5jW5RE6cvaWkWIcFvyidr+eAITaQpKh27PfryRVcMw=;
+  b=aDZH35jMkj/Cwdlh75yz0puaOv7e4AklpqC12PQwFW0njRH0kq7NU7hm
+   4LUYLedOVe3IgvuL8ot0QOxtukzfV3GRUgjCrHgSjx1OESBOOj9tG5qP9
+   eTH2V5SP2UpnsZ/dAntCkh/27Zg6YD7Ydu0ikKI6vaomkEvghaevPSz3j
+   0=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+X-SBRS: 5.1
+X-MesageID: 67930837
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:tg9BtKKJUF7+ThQ3FE+RxpUlxSXFcZb7ZxGr2PjKsXjdYENS1GZVn
+ TAdXmmAPvzfY2CgedhxPNnk8UlVvZeAmNU1TwplqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
+ q3yv/GZdJhcokf0/0vrav67xZVF/fngqoDUUYYoAQgsA148IMsdoUg7wbRh3tY02YHR7z6l4
+ rseneWOYDdJ5BYsWo4kw/rrRMRH5amaVJsw5zTSVNgT1LPsvyB94KE3fMldG0DQUIhMdtNWc
+ s6YpF2PEsE1yD92Yj+tuu6TnkTn2dc+NyDW4pZdc/DKbhSvOkXee0v0XRYRQR4/ttmHozx+4
+ I9Pq47hWCwVBKzV2/4ebzd3UDtBbbITrdcrIVDn2SCS50jPcn+qyPRyFkAme4Yf/46bA0kXq
+ 6ZecmpUKEne2aTmm9pXScE17ignBNPsM44F/Glp0BnSDOo8QICFSKLPjTNd9Glv15sWTa2BD
+ yYfQRxxMy3dWSFRAAsoS5AEk9+Qmnv5UAQN/Tp5ooJoujOOnWSdyoPFL979atGMA8JPkS6wt
+ m/Aumj0HBweHNie0iaetGKhgPfVmiH2U55UE6e3ntZoilCOwm0YCDUNSEC25/K+jyaDt8l3c
+ hJOvHB09O5rqRLtHoKVswCETGCs5BwCSYtBONEA6RjO0KnozSnaHFdUUWsUADA5j/MeSTsv3
+ 16PutrmAz1zrbGYIU6gGqeoQSCaYnZMczJbDcMQZU5cuoS4/tlv5v7aZow7eJNZmOEZDt0ZL
+ 9qiiCElz4segscQv0lQ1QCW2mn8znQlo+Nc2+k2Yo5Hxl4iDGJGT9bxgbQ+0RqmBNzEJrVml
+ CJZ8/VyFMhUUfmweNWlGY3h5o2B6fefKyH7ilVyBZQn/DnF0yf9IdEIumkieRsybppsldrVj
+ Kn74145CHh7ZiXCUEOKS9jpV5RCIVbIS7wJqcw4nvIRO8MsJWdrDQllZFKK3nCFraTfufpXB
+ HtvSu71VSxyIf0+lFKeHr5BuZd2lnFW7T6CHvjTkkX4uYdykVbIEN/pxnPVNbtnhE5FyS2Im
+ +ti2zyikE4AALWnMnCIqeb+7zkidBAGOHw/kOQOHsarKQt6AmAxTfjXxLIqYYt+mKpJ0OzP+
+ xmAtoVwkjITWVWvxd22V01e
+IronPort-HdrOrdr: A9a23:KIePPKN/bJPscMBcTqKjsMiBIKoaSvp037BL7SBMoHluGfBw+P
+ rCoB1273XJYVUqOU3I5+ruBEDoexq1yXcf2+Us1NmZMjXbhA==
+X-IronPort-AV: E=Sophos;i="5.90,234,1643691600"; 
+   d="scan'208";a="67930837"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TLkUryBJGZ+mCLMNh8hCvKmDHeORW+19SkfTkid8Smkwstw9D/THdqMdh4YUSgrfwreyuLI4nwdwwMH+4rRc7s9r2/EXVuuwv5XRNsEe1D7SKXCsLT+iQiK2RAFQhO/JbcRzWoaPjBeBJ5eY30qJCaMe7fHgwUVET9R1Ofk6UliMIZlhf8wN6I8AbmF3eQ91Tor9AoXprBTMgdkTN3ngzVXpWCNzZYc27/J7jW5GByk//49HZ/YqJ7BfyJEqn3wKZ7k1VJpWIkBiiCAj84Hk268XRYtIcVFqpnQJmjV/0uJiEWSx2zLxFgSSdmB2Z1O68P3pCNZnZq9PJlFpXfSb3A==
+ b=YyL+MxncujTCEgrku0eJuCTHj/yGx8+lTkXLghnqc2Ib6h5RvqJP6w5bb6fc/VvgWcZNUrLfyB+07RlrwB4PeEA3bv72hCPVzg143NnWBUuJwhakGVcuXghAm6JqZ+N4SglNJbaKQDfiU9pcZNOJuKp9xgUxn6MMSfRCg/17dymUsHm0WR66O78NJnCj0TSD/k76KGxpB84SpvnROtjEOEiojvrDAwLMLt/zlQkPxppHvOP68rg33l8Qd96LzNaLbQ0ncNfN6VW2DamIf93sgOgxQwfQKAZIyrRz67KKrzZdFkvYKL2dPje0tc+b9BhQg7wU4uK9n94GBN2CnZklyg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2vninudnNY5iyLT5yME4S0Ywt/TnpeHxiHfTBgQ6Hl0=;
- b=O/eN1nUmYhHFU8rW0SoLU3sGIf7hWsRur6SQhEYv0OE4IRpkB6qUd22k+G4d7naufm5F6P29K13xZNI4vshLfHgMNtmhYW52yUmHcPT8GQ1sl1uOyLl6Gi0+3zb1poFdbsLt6LrFC+QmYFkU3SnYXzNbjwWvq0e+2RYUktuSzCdAlUoazFWIF2BKCgsv9a3XO2HSyiMsh/pEj5DJi1KNgOPE727K27Ee2xoTqelfYLcGKfy9PWNuv6SHkiIu9ro/cLGbqLlSVvnXFVfKvHMTW/dRs8P3QVoMrpub/QvJ+D3qwO/tKWuR3xj402F0QzM3BRdWF5xxQIgpEYBwE+Wqmw==
+ bh=JSroECJFTvu8DETz7yX2PPyTBY1+J/yDVqrHC/7PL8w=;
+ b=BjtBpTdWvv1kB3jx+gtpz06lZmwX40tue5qAZybHMwQrbH7kXfpMPd7vq4G84wi8WgdPBua27vbC3OcR7Cg6Kb5U0GElvM8pY3I0pT5HgvaFLBAPx48qfumkDIJdcvypUujwO3hfaS3Gqy9OiGVLM2pZlphNkKWZVFSqa+LrdpzQjhZ5hKRXh+sBVYzWrnLNPSBlmfV7E0hJmMbmAbXGlE97G3v+XVU6y524nxCIFokTau2MkK1ta5hB3i5xnZfzqivIAT4vGzAhzJpnSBpcGU5DEJ7rLmvd8XSIdwZZpUanFxqT2nkmppqqRlwj5yxs62ARSoyrcnYttLdvFJmmOQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <d67bcd6d-8db4-2ac2-14e6-11eb71ceac61@suse.com>
-Date: Mon, 4 Apr 2022 13:33:00 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH v1 3/5] xen/arm: unpopulate memory when domain on static
- allocation
-Content-Language: en-US
-To: Penny Zheng <Penny.Zheng@arm.com>
-Cc: Wei Chen <Wei.Chen@arm.com>, Henry Wang <Henry.Wang@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20220330093617.3870589-1-Penny.Zheng@arm.com>
- <20220330093617.3870589-4-Penny.Zheng@arm.com>
- <31c1ae2d-a4d6-5445-e819-5df5a0984cdd@suse.com>
- <DU2PR08MB73251B78F8EB19E334A70876F7E19@DU2PR08MB7325.eurprd08.prod.outlook.com>
- <eba664e6-4146-426b-5119-59fe02a96bb5@suse.com>
- <DU2PR08MB7325D94A0BFFC2A3BB0AFF08F7E19@DU2PR08MB7325.eurprd08.prod.outlook.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <DU2PR08MB7325D94A0BFFC2A3BB0AFF08F7E19@DU2PR08MB7325.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM5PR1001CA0002.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:206:2::15) To DU2PR04MB8616.eurprd04.prod.outlook.com
- (2603:10a6:10:2db::16)
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JSroECJFTvu8DETz7yX2PPyTBY1+J/yDVqrHC/7PL8w=;
+ b=m2YE7rwUm/0du9oxW4aVfZOsuZbzbraDRl/WDLKE9avobqjkJZpPh5nO/tmKrbprH5BdZ7ICXTUUC9Np4R3YZI66+ZdYrpyTSIU5lOMilTDJcAsAqtriyx/S7pqgEGL5+aWlANZDxET/Z9l4aCAmxsjlF2UpmK26yB8PtDKM05w=
+Date: Mon, 4 Apr 2022 13:46:46 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v4 1/4] x86/APIC: calibrate against platform timer when
+ possible
+Message-ID: <YkrapvsmmjcZkwSj@Air-de-Roger>
+References: <6e540bc9-c536-84ac-fb1c-8271e7731b3e@suse.com>
+ <37ee7fe7-1218-7fa3-bc29-0fb45389bf75@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <37ee7fe7-1218-7fa3-bc29-0fb45389bf75@suse.com>
+X-ClientProxiedBy: LO2P123CA0013.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:a6::25) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2c00c4af-4865-4c52-3975-08da162edf16
-X-MS-TrafficTypeDiagnostic: AM0PR04MB6100:EE_
-X-Microsoft-Antispam-PRVS:
-	<AM0PR04MB610069080128831BA1C564E6B3E59@AM0PR04MB6100.eurprd04.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 650a692d-d6d4-4419-ce66-08da1630cf4c
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB5918:EE_
+X-Microsoft-Antispam-PRVS: <SJ0PR03MB5918EE0C7FA72A8CDA7F48918FE59@SJ0PR03MB5918.namprd03.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	lHERgtQDIuYogaNMlzIDbvirVhWbTRfiBxywnopxpIq3X4h0H1VhwKKvz24Rny0AgVMN4Lh8MWGGymSQA6pzWd0womcQ20kdrNRB1f+S8j7oXhb+YCNWQcqH05bHdsApVPtYXk1KTsE/sAZfdnY4Q38aATEh10ru4hLLz7+UU/ayTO9cXuJvKH0C9Kv2AutBhPv/o/G9MMV2ugraZg9SS6EPJvxUQhtHNQQm5yy4dJlTwwjjgUslgQc35Rv+1SEM6g7b4f7B9UqCK8Wpc4/MJGPYekLa4Y5wmZpS2pX/QISiDRjTS1EFnpX8RmD6d47ibnwQJiO0pOgOyu52/syjxcdESg/ZzA5eFxb7uJwObwIN65sY3ZnTRQO7U3mFI3+O5l1z4saaIf7AY2bP71pctDao5/DEqWzFoG5SoOPW1FNzSD+lDL5QX1YuPJ5qCx6nAFWgKTQKdRIU1Sq1hqxAfjJ9TLP8IifSDH8sUi4NIyUM0OSaBJQSuQZJlq0JflwtJoQmIloVsA9KkL2U558noF1w6luzHhhWkPc7mJUKK+qdR8LlSj+2Sg+zkUpnratXSEvqh2ZnGvM3FN9aJIKPtM36Fb1bNtNVNgGm9ZNC+q5hXAbWDyG7NaWrTXpmbPUDBrPXAZQK7pZTYrG+pAYSwW/4w/IlF+MEp5NYkw95QeHnsaBnlKOSpImfD3c8X166HnW43ONFD7aqri4KSFpDpAuDLDQTmr2JYH8M3UbSrQM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(8936002)(31686004)(36756003)(2906002)(54906003)(86362001)(2616005)(38100700002)(6916009)(6512007)(26005)(6666004)(186003)(316002)(5660300002)(8676002)(66946007)(66556008)(66476007)(6486002)(53546011)(45080400002)(4326008)(508600001)(83380400001)(31696002)(6506007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: QmF7teGEw2pfwV1PiTnjXD5CrADfMBD/Gdhi58Wh8XsjMYEI2sRYarNaXGQ4lTi0f9mLycDjQhNol36ip31ozVo5yI7Gk5+ReEGr2f5mwJ3BC1P7tKv+n7n0lccJdXLeGWciwK1eHb9CxzIOLvBG1vJn3Y/wL+N7f07SwXtO0dLJcdhJgtCewSzay7Uq6Z7i//KW9+HNDq0YIpNGgQ+LTkyVTxGgIG7jJmuyML7AZm7UUr7tj8VuJrlI8qy5kIRS0mtMkuC5WXTGUc8z2No4adgCrpD7y6QpT6V+rPsFVEX6RUwNgcvTqEr0HHzAjdA3p6ZjHIFHVbytEIQDIgFP4FqbJUWKXzLSePjBWfQ/UJB4eMbzs+TGhPRs21IJ+1OaYhD0SEXLj/p1RgRtgSh4LssW1GATaGq55XopZiPvbqP4XdnWcYaPeX19iPbTUAuusZCF0Me+BIlhqCOwzVZj29LkE3MOrtEvsVED5Qc1Fqjjsr7FIMW+7/WqYdmTC2ns88qgtpyCZcPJS6K0axtelrHEFOQSyhDdwzSDLajCLQjBMNJhKhOk3Vh0r0lLipj7Vksq0Jurm7KjvjJC+5UyfES1WWliQaHJohPVzNmIbE9g0wnx9WIf4QZf0vg6KStCdILAFmySx+W1MJQxF50oUA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(6506007)(2906002)(33716001)(66946007)(9686003)(6666004)(66556008)(66476007)(82960400001)(85182001)(8676002)(4326008)(6512007)(316002)(5660300002)(54906003)(38100700002)(83380400001)(6916009)(186003)(508600001)(26005)(8936002)(86362001)(6486002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZldEa2Q1S1RjeHRXaWpuWlRPN3FnWGplWlVVOEp0VHdPNkRiTWcwYW1WKy85?=
- =?utf-8?B?dC9IUnJETW5ld0R6UkdCT2hmRFFDU0c1ZEl6NFFWSjg5cGtuUVdDQkdXKzl3?=
- =?utf-8?B?OEMvbFBJU3ZFc0ltZzNzbHhxazBhN0FZNndDMW0xOWMxeDhMYlptaTdGZ3RZ?=
- =?utf-8?B?OGI0bHFUdEE4bCtMbnkzVW4vR0JHSEk1Y2tBeElvUnZURllTM3hTQmhCRFdS?=
- =?utf-8?B?QTZCYjEybmdWWER3Q1dIUTJhQ2lOQ2o1MWhjNmhzb3ZzeVY2VUk0SnRFWEFz?=
- =?utf-8?B?Q3ZqQmVNKytZQ3h2TWw3MTNjMGlZU1kyT1lKQzJKbXVvUVN2TmRTZ1U3NTVL?=
- =?utf-8?B?Ujd4Y0QvdnFkY0d4bVBxTVh2Nm9LUXlDYWFKQWJEUVZ0SnJjTHhHTkdNK1pT?=
- =?utf-8?B?NVF0RUozS3paWjVxQzVwZkdPZ21WZ25PQnpyRnRUaTRIZ0grZmFqUC9ScDVR?=
- =?utf-8?B?OFRXUWFKcGd3clFMRFdpeDd1RW5TaVdGN21RZlA0eU9zcDM2a0pyMERuQ2U3?=
- =?utf-8?B?NksreVNVU2s2ZUVmMllKWlB3aThUZXdxdGlQbGx5ZC9OQXBEVFUyOGVMd05z?=
- =?utf-8?B?eU5OejVDZHR6dkNWcVRWc1V6cDhuS0ZjVXZrbkQrcXIvL1QvaStyalF3Skdw?=
- =?utf-8?B?QjBESHFuM2Yzd0RUdVFuVll0d0xEcmljaTEwN2tJcUd3VG5BVU02U21RQW1l?=
- =?utf-8?B?alNXNnFNeTRaTTRFeVoyclJKZFRRTTF6ZnZZR2tSUkdKcDF2K1FYSElwcG5h?=
- =?utf-8?B?U2VoL0dWYUZIS2syVjJlZFUvQUFaNmpLR21HU0pWdE1GMnh1cG14Z0I2TUNr?=
- =?utf-8?B?bFJ0OHU3bjdlOUUrY21HS1BUQStJY2hUUFBTR0hvcWVRUmZZUmluZGZaNUd0?=
- =?utf-8?B?dUd1SGwvNjNuSUc4VXFrcW9SSU1FSFQzNmZvMjFlMmJJMzdxeWQzSFBYL1Rx?=
- =?utf-8?B?SCtaTXl5dUJvdXRwWlNRSk9QaGhCWnRibUVMeHBseG5DZkVHY2xvUDZPMkc5?=
- =?utf-8?B?MG1lNi9GTFRVbjZESkp4U1hyM2tSNmJXK2hxVnZac2crNzNMRDJvM3ZHYlUw?=
- =?utf-8?B?RkFjRXJPQU5Na2dWUWJHa00rRGdIMlh5cy8wcUZkajJVN1dYbXAwYzdUcjhp?=
- =?utf-8?B?MFRWaHowbDg5aGp6dWpTWCtoamNXYm9PVjNQVGIrM1JlOTZyZmRwd0ttdUND?=
- =?utf-8?B?RUFlSXZZbThGYnd2eE9zMnBublZkVWFHdGlsZTRVZGg0Z0pSTEhxVW5iWWl4?=
- =?utf-8?B?VmJyWDJFKzF2SXV6eENnaXdKamFGdlF3QkxGaGx5UXAyQmQxMGZ1d0VNT2Nv?=
- =?utf-8?B?ZCtKLzJhUU5MZWFCQnJmTUNydUdnbEVPV2pHMG8wY3NQd3RNc2pOT0RRUy8w?=
- =?utf-8?B?NXM4cWRsaTdSUTlkT3dGT2NZbUo4TTdpR1VFTGg2TUFCdXVkQ0JUWGV4NEhh?=
- =?utf-8?B?amZybFljMS9NeGxuS0hPQ1BTMmNrWHNsZ3A0dzdtV2xILytRS3ZNYjNKK2t6?=
- =?utf-8?B?amtHUkxVVmJ6WlJBVVVEalpTdStER29abll2b2tzdktYMHdaYW5VRjk2K3hY?=
- =?utf-8?B?cTZlQmZMWnBGWjRoYXpreUxwUTd2MVpva3VTOUM5NmxNWEJkSEhIUVJjNUYx?=
- =?utf-8?B?cDRaM3l5Q3o0VFpma3BRdlkxL084Vyt6azBvS3RCUDFldkk1RFFsU3ZhclRX?=
- =?utf-8?B?WEZiYVhsVk8wR2g2bFBnc0FRZWRhT3pOeHZWSTB5d09VOENVNVlxV2JJaG9Q?=
- =?utf-8?B?L2svcGRLalJVb3lRQUpDVzVGZUsycUhEamFLd3VkL1hCWWUyd3BCbDQ0MUJ2?=
- =?utf-8?B?b0VGc0ttZm9SVmhBei9FY2NmTjJFb3p0S0NqeGtGelRYZE5MVXVWcjhYUlBj?=
- =?utf-8?B?WFYwUzdEbjR6NFA3SGo1Yko4bHFiYy9mdzByUlU0MStyZ3hZN0FMbmk2ZFB2?=
- =?utf-8?B?Y3Z6OFIrQ1dWTWNYekxaZmErVDU3ejNmU3BodFZKcGtqNjl3U0YyM0cxcVdk?=
- =?utf-8?B?Z2NRc2phd0tnS3NDMGtwcyswUG8wV25tQktBcVlxL3RKUGdZbHpSTDRyb2tx?=
- =?utf-8?B?OHEvQnhGcE1jRHYrZEpCampuMHA3NlNRUDlWckhuZG5Eci93cUxDZmdQWGdu?=
- =?utf-8?B?L2xWZGJOTTBobmZsc2hUTXdOeGY4S2s1UFlFbUROTjZ4RzZrUzgwMnhUWHJE?=
- =?utf-8?B?QWQwWUNSbVlYK1NmTWlxSGtUT0lwTHowRTdKVVgrNGZxRTY0dzBwNlpKU2JP?=
- =?utf-8?B?UUZKSEdhdDJ4Q3JFSmQ0TVRxcHZLVnUza3hWRUVmQkhmUU1tRU1jTGx3Q0Yr?=
- =?utf-8?B?SitoeVBxdEhVQ0dFVkQrdDgycXdJdkVDNm8wcFpsZGJ0WEJtekxnQT09?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c00c4af-4865-4c52-3975-08da162edf16
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZGd3Q3RUTzJ3c25TUTJyVWc2ZlJmc2pNcFlBMnhKaElaWFRSWEZYZzdwd3VB?=
+ =?utf-8?B?T2Y2WlNNUjVBZFdZSHlDK2EwdHBMNHNMU3VpanpvdlRHdUkyNTBFZjRRNG5T?=
+ =?utf-8?B?dG5maWdoTTdGUG04R2tDbXkyM0J4ODVvV2Urcms3TlFjUUYyOE44aCs3WE1D?=
+ =?utf-8?B?WnlVaTBmd1NHM3ZLdGFEaWE1eXlxQUlTUWFOemtHY1BoYmhhYkc3UE9nOHMr?=
+ =?utf-8?B?THA2b0tqT2hpOTVVdVhIbDA0UkJPYy91MW56Q3diRzM3WEFFTitpNWhTQWJ2?=
+ =?utf-8?B?bW5CUnJJL2RxWGZZUlpwV1dQL0J6VHNIZjRReEFIS3R4cHJZak9qSTRNWDBa?=
+ =?utf-8?B?bzBtakxCTGt4VlFYcEFxYUtoNWwvQWtsTWV3T2pDS0VLRjVITXdENUVpTTN4?=
+ =?utf-8?B?Wno2L1VCU0UzTSs0bUFsYWF3TU9wd2hMcXFoWTN5d2FmMTdhZnNKbk1kWXY1?=
+ =?utf-8?B?VkJnT1lNNERkdXpEWFJ4eUxVb20wTEkvS1BxeSs4NGJQOGZVZFlBZFc5S284?=
+ =?utf-8?B?bk1LMnJYS1pWRWsxOVZQRU13dkhWTlF2VlgzZlNwSHNNR3J4VGt2M2NZWXND?=
+ =?utf-8?B?UlVpdVpmaFp0TWhaeEtWeVhwSUJqRjJIWmNyQ2JCRkQ3VEJadnVmMEhXS1Rw?=
+ =?utf-8?B?bXIxcUNLZ3NMWm85bnJSdE5nY0lPWkx4alhLTnl6NFYzQXhZNGRTRmtscU1H?=
+ =?utf-8?B?THhNL2lIellKSmcrcXhyMFZwZkxLNjZJUVd4K1poTE9KMlB0S2ZsY1dSUHB5?=
+ =?utf-8?B?Z3RIb3Y0MU95VTQyL1Zwc2FzNFVMdUw1YndEeHBiWXVyem8wbXc3TWRZa0dU?=
+ =?utf-8?B?QTBaUk40Rk55QTRJR214RmdQRWJYWTljRlhMVzQranUwOURseXpBaS9OdU5m?=
+ =?utf-8?B?OHovZm1WTmxoL09DOTIzc3B1a0R6RjJVMi9xMGNoczJEbUg4dU00TEpEUCt3?=
+ =?utf-8?B?UHNsS3VhT1FWb2l2MHZJZVpLRG1xMXE1WUtCYVdzMkc2NFMzbHZXYk05enl5?=
+ =?utf-8?B?dDFRM01rbVVRY2N3WnFiZDNld2t6aU9scGJFQ3NHL0VHWWpJZnoxcDhSajVj?=
+ =?utf-8?B?VEJ3NFl0dlhVVFM0b05rYmNoR05JLytVK1crUWltdkNCVXBjR00wb0VKc0Vn?=
+ =?utf-8?B?TzBiUXpLQ0hEZ1BFeW0zMTVGKzlHLzBaSzFtTjljN0VPQTRhMVJHa2FzaVBS?=
+ =?utf-8?B?Q2htMmNhZklacFVHS3YwTEdTMk55bWlhUnhnUlBmZWJFVU5WM2xPemJqV1Fh?=
+ =?utf-8?B?Slo5VmhxbVJZMTUvOHM1bmMvandybWcrZTk0MUJLSU1wanpxRFcvcHBWcXBS?=
+ =?utf-8?B?SGgyanNlZHRQMG1kcm1IQkFwWGRhSzhlVHVmZSs2WU8zWDJUTHJqUTdmdzhU?=
+ =?utf-8?B?QkFvUlRrY0ZHSXZUcFY4b1hIWkM5UFBRalRkVVJQTHBHanhEejhlVXNjOGlz?=
+ =?utf-8?B?OEtGVWN1ZWpYME5neWRQMjh3eUl6akxvaCtFano1VnhHRy8vZTdYOXA4UThh?=
+ =?utf-8?B?V2JHak5mQ2poejJtSUppU2p2dmM0K0NXcUFLeEhYSWNQVk5WYmdMaFhTREFu?=
+ =?utf-8?B?T1BudHNaaVI4bkV2NXNjS1VzNTMxcjc0aUg1MmNGSVNoM0dMb3V6bjlvbnRl?=
+ =?utf-8?B?aUlYRHJ2MzZjcXYwV1VUT25LUVpzb1M5WlJSWnFmVlFhdmxLUU4xM3dwM2V1?=
+ =?utf-8?B?SmtIM3M3c2lnWEhSRlU2amNSRVIyVVlzekZRRU9PNlBNOGZzOHBWM0U2SldG?=
+ =?utf-8?B?R0lWVXU2YkZwcGgrVEVqQ3EzaWUreERYMmxTYzZ2VlY5TFdYdG9YWHBCYTVY?=
+ =?utf-8?B?M1RpK2JBQzRsWmxlM0h4b0g1d0Q3UUs5ODFqSDhKcjAwemNld1ljZ1NHSXZG?=
+ =?utf-8?B?dHU0NGJFUlBrTlliZDJSUzZJY3lOUEZlVWNXb3EwYUNqVUZhUGwxMC9LSERJ?=
+ =?utf-8?B?ZzhxblFITmZ4VU9xOW5tamk1Tk5YQTZjOG42QXQ3Y1crWWRhRXZqUHR1NWxW?=
+ =?utf-8?B?YjNUaS9mMzdpc0VSYWxxSkVMRUJZUGpMMW1SU3lEem8xY2sxQkJJUmM2Y3Ja?=
+ =?utf-8?B?S3kxMlJRNm8zOGV0TllBMUhJNWZJNXBGeEYrbkdwWStuV3lUbTE2M1NWREgr?=
+ =?utf-8?B?VXBvWGUvSE11VGlBMnI1R005VGpPRmVqdUVTREN4dCtHOEtpRmR0VnN0cTh4?=
+ =?utf-8?B?UjJvNkhOei9NQzRoOWdKUmxFV3YzbzVrUDVIOUlIWnV4dkZPZ3d1MUxzZnNI?=
+ =?utf-8?B?Y2lGcE1qeGtEU2xic0dHNFFOaUNGZVFKRmRQN092bUNjR2FRL2ltTkNOTFVH?=
+ =?utf-8?B?ODBoNS9WdXJPRkFibGlkcWtLZVM1ejNZaHl6TEZBUngzUjAxbm8wMEI0OGdU?=
+ =?utf-8?Q?/X9vqpS4EH6lKHUg=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 650a692d-d6d4-4419-ce66-08da1630cf4c
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Apr 2022 11:32:59.7334
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Apr 2022 11:46:52.0223
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: a3NIFjW/wbSN6OL6NplsbfkhFsIzBS9wdJU4/OUNhq7AzjgBJ84NC2d5dPeamTW8gn9hVDsjQD5JM3ydo6uvLw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6100
+X-MS-Exchange-CrossTenant-UserPrincipalName: XpM6TT5bKaNQPSJC2owXBOz3Zk7uYZp+qIhk3/jJzvIrJPt5bY5kVUMoTtQ6TdrRgOiEBwu5+aHm1jX906p6Mg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5918
+X-OriginatorOrg: citrix.com
 
-On 31.03.2022 12:30, Penny Zheng wrote:
-> Hi Jan 
+On Thu, Mar 31, 2022 at 11:29:44AM +0200, Jan Beulich wrote:
+> Use the original calibration against PIT only when the platform timer
+> is PIT. This implicitly excludes the "xen_guest" case from using the PIT
+> logic (init_pit() fails there, and as of 5e73b2594c54 ["x86/time: minor
+> adjustments to init_pit()"] using_pit also isn't being set too early
+> anymore), so the respective hack there can be dropped at the same time.
+> This also reduces calibration time from 100ms to 50ms, albeit this step
+> is being skipped as of 0731a56c7c72 ("x86/APIC: no need for timer
+> calibration when using TDT") anyway.
 > 
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Thursday, March 31, 2022 3:06 PM
->> To: Penny Zheng <Penny.Zheng@arm.com>
->> Cc: Wei Chen <Wei.Chen@arm.com>; Henry Wang <Henry.Wang@arm.com>;
->> Andrew Cooper <andrew.cooper3@citrix.com>; George Dunlap
->> <george.dunlap@citrix.com>; Julien Grall <julien@xen.org>; Stefano Stabellini
->> <sstabellini@kernel.org>; Wei Liu <wl@xen.org>; xen-
->> devel@lists.xenproject.org
->> Subject: Re: [PATCH v1 3/5] xen/arm: unpopulate memory when domain on
->> static allocation
->>
->> On 31.03.2022 08:13, Penny Zheng wrote:
->>> Hi Jan
->>>
->>>> -----Original Message-----
->>>> From: Jan Beulich <jbeulich@suse.com>
->>>> Sent: Wednesday, March 30, 2022 5:53 PM
->>>> To: Penny Zheng <Penny.Zheng@arm.com>
->>>> Cc: Wei Chen <Wei.Chen@arm.com>; Henry Wang
->> <Henry.Wang@arm.com>;
->>>> Andrew Cooper <andrew.cooper3@citrix.com>; George Dunlap
->>>> <george.dunlap@citrix.com>; Julien Grall <julien@xen.org>; Stefano
->>>> Stabellini <sstabellini@kernel.org>; Wei Liu <wl@xen.org>; xen-
->>>> devel@lists.xenproject.org
->>>> Subject: Re: [PATCH v1 3/5] xen/arm: unpopulate memory when domain on
->>>> static allocation
->>>>
->>>> On 30.03.2022 11:36, Penny Zheng wrote:
->>>>> --- a/xen/common/memory.c
->>>>> +++ b/xen/common/memory.c
->>>>> @@ -35,6 +35,10 @@
->>>>>  #include <asm/guest.h>
->>>>>  #endif
->>>>>
->>>>> +#ifndef is_domain_on_static_allocation #define
->>>>> +is_domain_on_static_allocation(d) 0
->>>>
->>>> Nit: "false", not "0".
->>>>
->>>>> @@ -405,13 +409,29 @@ int guest_remove_page(struct domain *d,
->>>> unsigned long gmfn)
->>>>>       * device must retrieve the same pfn when the hypercall
->>>> populate_physmap
->>>>>       * is called.
->>>>>       *
->>>>> +     * When domain on static allocation, they should always get
->>>>> + pages from
->>>> the
->>>>> +     * reserved static region when the hypercall populate_physmap is
->> called.
->>>>> +     *
->>>>>       * For this purpose (and to match populate_physmap() behavior), the
->> page
->>>>>       * is kept allocated.
->>>>>       */
->>>>> -    if ( !rc && !is_domain_direct_mapped(d) )
->>>>> +    if ( !rc && !(is_domain_direct_mapped(d) ||
->>>>> +                  is_domain_on_static_allocation(d)) )
->>>>>          put_page_alloc_ref(page);
->>>>>
->>>>>      put_page(page);
->>>>> +#ifdef CONFIG_STATIC_MEMORY
->>>>> +    /*
->>>>> +     * When domain on static allocation, we shall store pages to
->>>> resv_page_list,
->>>>> +     * so the hypercall populate_physmap could retrieve pages from it,
->>>>> +     * rather than allocating from heap.
->>>>> +     */
->>>>> +    if ( is_domain_on_static_allocation(d) )
->>>>> +    {
->>>>> +        page_list_add_tail(page, &d->resv_page_list);
->>>>> +        d->resv_pages++;
->>>>> +    }
->>>>> +#endif
->>>>
->>>> I think this is wrong, as a result of not integrating with put_page().
->>>> The page should only go on that list once its last ref was dropped. I
->>>> don't recall for sure, but iirc staticmem pages are put on the
->>>> domain's page list just like other pages would be. But then you also
->>>> corrupt the list when this isn't the last ref which is put.
->>>
->>> Yes, staticmem pages are put on the domain's page list.
->>> Here, I tried to only destroy the P2M mapping, and keep the page still
->>> allocated to this domain.
->>
->> Well, much depends on what you call "allocated". For populate_physmap you
->> then take pages from resv_page_list. So I'd like to distinguish "allocated" from
->> "reserved": The pages are allocated to the domain when they're on the normal
->> page list; they're reserved when they're on the new list you introduce. And
->> what you want to initiate here is an "allocated" -> "reserved" transition.
->>
->>> resv_page_list is just providing an easy way to track down the unpopulated
->> memory.
->>> '''
->>> But then you also corrupt the list when this isn't the last ref which
->>> is put.
->>> '''
->>> I'm sorry, would you like to be more specific on this comment?
->>> I want these pages to linked in the domain's page list, then it could
->>> be freed properly when domain get destroyed through relinquish_memory.
->>
->> Clearly they can't be on both lists. Hence you can put them on the new list
->> only _after_ having taken them off the "normal" list. That "taking off the
->> normal list" should happen when the last ref is dropped, not here - see
->> free_domheap_pages()'s uses of arch_free_heap_page(), recalling that
->> free_domheap_page() is what
->> put_page() calls upon dropping the last ref.
->>
+> While re-indenting the PIT logic in calibrate_APIC_clock(), besides
+> adjusting style also switch around the 2nd TSC/TMCCT read pair, to match
+> the order of the 1st one, yielding more consistent deltas.
 > 
-> Right, right, I've missed the critical point "they can't be on both lists".
-> Here is a thing, put_page is a very common helper that it is also beening
-> used when freeing memory on domain deconstruction. At that time, I
-> don't want to put these pages in resv_page_list, I'd like them to be
-> freed to the heap. This putting pages in resv_page_list thing is only for
-> unpopulating memory on the runtime. So I'd suggest introducing a
-> new helper put_pages_resv(...) to do the work.
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> Open-coding apic_read() in apic_tmcct_read() isn't overly nice, but I
+> wanted to avoid x2apic_enabled being evaluated twice in close
+> succession. And I also wouldn't want to have the barrier there even for
+> the (uncached) MMIO read.
+> 
+> Unlike the CPU frequencies enumerated in CPUID leaf 0x16 (which aren't
+> precise), using CPUID[0x15].ECX - if populated - may be an option to
+> skip calibration altogether. Aiui the value there is precise, but using
+> the systems I have easy access to I cannot verify this: In the sample
+> of three I have, none have ECX populated.
+> 
+> I wonder whether the secondary CPU freq measurement (used for display
+> purposes only) wouldn't better be dropped at this occasion.
 
-I'd like to suggest to avoid introducing special case helpers as much
-as possible. put_page() would better remain the single, common
-function to use when dropping a ref. Any special treatment for certain
-kinds of pages should happen without the callers needing to care.
+I don't have a strong opinion re those informative messages.
 
-> About before you mentioned that "The pages are allocated to the
-> domain when they're on the normal page list; they're reserved when
-> they're on the new list you introduce. " Is there a possibility that I
-> still keep the pages allocated but just moving them from normal page list
-> to the new resv_page_list? Of course, a few extra things needed to be
-> covered, like domain_adjust_tot_pages, scrubing the pages. 
-
-It's all a matter of definition. What I said (and what you quoted) was
-merely based on my understanding of your intentions.
-
-> Another reason I want to keep page allocated is that if putting pages in
-> resv_page_list upon dropping the last ref, we need to do a lot things on
-> pages to totally let it free, like set its owner to NULL, changing page state
-> from in_use to free, etc. Later when populating them, we shall do the
-> exact in backwards, setting the owner back to the domain, changing the
-> state from free back to in_use, which seems a bit useless. And actually
-> for domain on static allocation, these staticmem pages are reserved
-> from the very beginning, and when it is allocated to the domain, it
-> forever belongs to the domain, and it could never be used in any other way.
+> --- a/xen/arch/x86/include/asm/apic.h
+> +++ b/xen/arch/x86/include/asm/apic.h
+> @@ -192,6 +192,9 @@ extern void record_boot_APIC_mode(void);
+>  extern enum apic_mode current_local_apic_mode(void);
+>  extern void check_for_unexpected_msi(unsigned int vector);
 >  
-> Later when populating the memory, we could just move the pages from
-> resv_page_list back to the normal list, and also domain_adjust_tot_pages.
+> +uint64_t calibrate_apic_timer(void);
+> +uint32_t apic_tmcct_read(void);
+> +
+>  extern void check_nmi_watchdog(void);
+>  
+>  extern unsigned int nmi_watchdog;
+> --- a/xen/arch/x86/time.c
+> +++ b/xen/arch/x86/time.c
+> @@ -26,6 +26,7 @@
+>  #include <xen/symbols.h>
+>  #include <xen/keyhandler.h>
+>  #include <xen/guest_access.h>
+> +#include <asm/apic.h>
+>  #include <asm/io.h>
+>  #include <asm/iocap.h>
+>  #include <asm/msr.h>
+> @@ -1018,6 +1019,67 @@ static u64 __init init_platform_timer(vo
+>      return rc;
+>  }
+>  
+> +static uint64_t __init read_pt_and_tmcct(uint32_t *tmcct)
+> +{
+> +    uint32_t tmcct_prev = *tmcct = apic_tmcct_read(), tmcct_min = ~0;
+> +    uint64_t best = best;
+> +    unsigned int i;
+> +
+> +    for ( i = 0; ; ++i )
+> +    {
+> +        uint64_t pt = plt_src.read_counter();
+> +        uint32_t tmcct_cur = apic_tmcct_read();
+> +        uint32_t tmcct_delta = tmcct_prev - tmcct_cur;
+> +
+> +        if ( tmcct_delta < tmcct_min )
+> +        {
+> +            tmcct_min = tmcct_delta;
+> +            *tmcct = tmcct_cur;
+> +            best = pt;
+> +        }
+> +        else if ( i > 2 )
+> +            break;
+> +
+> +        tmcct_prev = tmcct_cur;
+> +    }
+> +
+> +    return best;
+> +}
+> +
+> +uint64_t __init calibrate_apic_timer(void)
+> +{
+> +    uint32_t start, end;
+> +    uint64_t count = read_pt_and_tmcct(&start), elapsed;
+> +    uint64_t target = CALIBRATE_VALUE(plt_src.frequency), actual;
+> +    uint64_t mask = (uint64_t)~0 >> (64 - plt_src.counter_bits);
+> +
+> +    /*
+> +     * PIT cannot be used here as it requires the timer interrupt to maintain
+> +     * its 32-bit software counter, yet here we run with IRQs disabled.
+> +     */
+> +    if ( using_pit )
+> +        return 0;
+> +
+> +    while ( ((plt_src.read_counter() - count) & mask) < target )
+> +        continue;
+> +
+> +    actual = read_pt_and_tmcct(&end) - count;
 
-I don't mind the particular model you want to implement. What I do care
-about is that the end result is consistent within itself, with as little
-special casing (potentially) all over the code base as possible.
+Don't you need to apply the pt mask here?
 
-Jan
+> +    elapsed = start - end;
+> +
+> +    if ( likely(actual > target) )
+> +    {
+> +        /* See the comment in calibrate_tsc(). */
 
+I would maybe add that the counters used here might have > 32 bits,
+and hence we need to trim the values for muldiv64 to scale properly.
+
+Thanks, Roger.
 
