@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FA064F2942
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Apr 2022 10:58:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.298622.508802 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC8924F2952
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Apr 2022 11:05:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.298643.508815 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nbf0l-0006uU-SD; Tue, 05 Apr 2022 08:58:03 +0000
+	id 1nbf7m-0001rs-FV; Tue, 05 Apr 2022 09:05:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 298622.508802; Tue, 05 Apr 2022 08:58:03 +0000
+Received: by outflank-mailman (output) from mailman id 298643.508815; Tue, 05 Apr 2022 09:05:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nbf0l-0006py-JN; Tue, 05 Apr 2022 08:58:03 +0000
-Received: by outflank-mailman (input) for mailman id 298622;
- Tue, 05 Apr 2022 08:58:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nbf7m-0001p2-Bm; Tue, 05 Apr 2022 09:05:18 +0000
+Received: by outflank-mailman (input) for mailman id 298643;
+ Tue, 05 Apr 2022 09:05:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eUJf=UP=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1nbf0j-0005F8-Vw
- for xen-devel@lists.xenproject.org; Tue, 05 Apr 2022 08:58:02 +0000
+ <SRS0=qA5z=UP=arm.com=michal.orzel@srs-se1.protection.inumbo.net>)
+ id 1nbf7k-0001ow-14
+ for xen-devel@lists.xenproject.org; Tue, 05 Apr 2022 09:05:16 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 7eb4b26c-b4be-11ec-a405-831a346695d4;
- Tue, 05 Apr 2022 10:58:00 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 7dfeb9e1-b4bf-11ec-8fbc-03012f2f19d4;
+ Tue, 05 Apr 2022 11:05:09 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8DA0C1474;
- Tue,  5 Apr 2022 01:58:00 -0700 (PDT)
-Received: from e125770.cambridge.arm.com (e125770.cambridge.arm.com
- [10.1.195.16])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 24DBE3F73B;
- Tue,  5 Apr 2022 01:57:59 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B5016D6E;
+ Tue,  5 Apr 2022 02:05:13 -0700 (PDT)
+Received: from [10.57.6.204] (unknown [10.57.6.204])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 44CCF3F73B;
+ Tue,  5 Apr 2022 02:05:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,117 +42,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7eb4b26c-b4be-11ec-a405-831a346695d4
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com,
-	wei.chen@arm.com,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Juergen Gross <jgross@suse.com>,
-	Dario Faggioli <dfaggioli@suse.com>
-Subject: [PATCH v5 6/6] xen/cpupool: Allow cpupool0 to use different scheduler
-Date: Tue,  5 Apr 2022 09:57:41 +0100
-Message-Id: <20220405085741.18336-7-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20220405085741.18336-1-luca.fancellu@arm.com>
-References: <20220405085741.18336-1-luca.fancellu@arm.com>
+X-Inumbo-ID: 7dfeb9e1-b4bf-11ec-8fbc-03012f2f19d4
+Message-ID: <75f01105-3885-2053-1d4e-1aaf8b75aced@arm.com>
+Date: Tue, 5 Apr 2022 11:05:09 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH v3 2/2] xen: Populate xen.lds.h and make use of its macros
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20220331071425.49141-1-michal.orzel@arm.com>
+ <20220331071425.49141-3-michal.orzel@arm.com>
+ <eaf82b61-de3b-b2c2-b6f5-2b43b3348a09@suse.com>
+From: Michal Orzel <michal.orzel@arm.com>
+In-Reply-To: <eaf82b61-de3b-b2c2-b6f5-2b43b3348a09@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Currently cpupool0 can use only the default scheduler, and
-cpupool_create has an hardcoded behavior when creating the pool 0
-that doesn't allocate new memory for the scheduler, but uses the
-default scheduler structure in memory.
+Hi Jan,
 
-With this commit it is possible to allocate a different scheduler for
-the cpupool0 when using the boot time cpupool.
-To achieve this the hardcoded behavior in cpupool_create is removed
-and the cpupool0 creation is moved.
+On 05.04.2022 10:49, Jan Beulich wrote:
+> On 31.03.2022 09:14, Michal Orzel wrote:
+>> --- a/xen/include/xen/xen.lds.h
+>> +++ b/xen/include/xen/xen.lds.h
+>> @@ -5,4 +5,133 @@
+>>   * Common macros to be used in architecture specific linker scripts.
+>>   */
+>>  
+>> +/*
+>> + * To avoid any confusion, please note that the EFI macro does not correspond
+>> + * to EFI support and is used when linking a native EFI (i.e. PE/COFF) binary,
+>> + * hence its usage in this header.
+>> + */
+>> +
+>> +/* Macros to declare debug sections. */
+>> +#ifdef EFI
+>> +/*
+>> + * Use the NOLOAD directive, despite currently ignored by (at least) GNU ld
+>> + * for PE output, in order to record that we'd prefer these sections to not
+>> + * be loaded into memory.
+>> + */
+>> +#define DECL_DEBUG(x, a) #x ALIGN(a) (NOLOAD) : { *(x) }
+>> +#define DECL_DEBUG2(x, y, a) #x ALIGN(a) (NOLOAD) : { *(x) *(y) }
+>> +#else
+>> +#define DECL_DEBUG(x, a) #x 0 : { *(x) }
+>> +#define DECL_DEBUG2(x, y, a) #x 0 : { *(x) *(y) }
+>> +#endif
+>> +
+>> +/*
+>> + * DWARF2+ debug sections.
+>> + * Explicitly list debug sections, first of all to avoid these sections being
+>> + * viewed as "orphan" by the linker.
+>> + *
+>> + * For the PE output this is further necessary so that they don't end up at
+>> + * VA 0, which is below image base and thus invalid. Note that this macro is
+>> + * to be used after _end, so if these sections get loaded they'll be discarded
+>> + * at runtime anyway.
+>> + */
+>> +#define DWARF2_DEBUG_SECTIONS                     \
+>> +  DECL_DEBUG(.debug_abbrev, 1)                    \
+>> +  DECL_DEBUG2(.debug_info, .gnu.linkonce.wi.*, 1) \
+>> +  DECL_DEBUG(.debug_types, 1)                     \
+>> +  DECL_DEBUG(.debug_str, 1)                       \
+>> +  DECL_DEBUG2(.debug_line, .debug_line.*, 1)      \
+>> +  DECL_DEBUG(.debug_line_str, 1)                  \
+>> +  DECL_DEBUG(.debug_names, 4)                     \
+>> +  DECL_DEBUG(.debug_frame, 4)                     \
+>> +  DECL_DEBUG(.debug_loc, 1)                       \
+>> +  DECL_DEBUG(.debug_loclists, 4)                  \
+>> +  DECL_DEBUG(.debug_macinfo, 1)                   \
+>> +  DECL_DEBUG(.debug_macro, 1)                     \
+>> +  DECL_DEBUG(.debug_ranges, 8)                    \
+> 
+> Here and ...
+> 
+>> +  DECL_DEBUG(.debug_rnglists, 4)                  \
+>> +  DECL_DEBUG(.debug_addr, 8)                      \
+> 
+> ... here I think you also want to switch to POINTER_ALIGN.
+> 
+Ok, you're right.
 
-When compiling without boot time cpupools enabled, the current
-behavior is maintained (except that cpupool0 scheduler memory will be
-allocated).
+>> +  DECL_DEBUG(.debug_aranges, 1)                   \
+>> +  DECL_DEBUG(.debug_pubnames, 1)                  \
+>> +  DECL_DEBUG(.debug_pubtypes, 1)
+>> +
+>> +/* Stabs debug sections. */
+>> +#define STABS_DEBUG_SECTIONS                 \
+>> +  .stab 0 : { *(.stab) }                     \
+>> +  .stabstr 0 : { *(.stabstr) }               \
+>> +  .stab.excl 0 : { *(.stab.excl) }           \
+>> +  .stab.exclstr 0 : { *(.stab.exclstr) }     \
+>> +  .stab.index 0 : { *(.stab.index) }         \
+>> +  .stab.indexstr 0 : { *(.stab.indexstr) }
+>> +
+>> +/*
+>> + * Required sections not related to debugging.
+> 
+> Nit: Perhaps better "Required ELF sections ..."? Personally I'd also
+> drop the mentioning of debugging - that's not really relevant here.
+> I'm also unsure about "Required" - .comment isn't really required.
+> IOW ideally simply "ELF sections" or "Sections to be retained in ELF
+> binaries" or some such.
+> 
+ELF sections is ok for me.
 
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
----
-Changes in v5:
-- no changes
-Changes in v4:
-- no changes
-Changes in v3:
-- fix typo in commit message (Juergen)
-- rebase changes
-Changes in v2:
-- new patch
----
- xen/common/boot_cpupools.c | 5 ++++-
- xen/common/sched/cpupool.c | 8 +-------
- xen/include/xen/sched.h    | 5 ++++-
- 3 files changed, 9 insertions(+), 9 deletions(-)
+> Jan
+> 
 
-diff --git a/xen/common/boot_cpupools.c b/xen/common/boot_cpupools.c
-index 1f940330a62d..a56baf3329a9 100644
---- a/xen/common/boot_cpupools.c
-+++ b/xen/common/boot_cpupools.c
-@@ -201,8 +201,11 @@ void __init btcpupools_allocate_pools(void)
-     if ( add_extra_cpupool )
-         next_pool_id++;
- 
-+    /* Keep track of cpupool id 0 with the global cpupool0 */
-+    cpupool0 = cpupool_create_pool(0, pool_sched_map[0]);
-+
-     /* Create cpupools with selected schedulers */
--    for ( i = 0; i < next_pool_id; i++ )
-+    for ( i = 1; i < next_pool_id; i++ )
-         cpupool_create_pool(i, pool_sched_map[i]);
- }
- 
-diff --git a/xen/common/sched/cpupool.c b/xen/common/sched/cpupool.c
-index 86a175f99cd5..83112f5f04d3 100644
---- a/xen/common/sched/cpupool.c
-+++ b/xen/common/sched/cpupool.c
-@@ -312,10 +312,7 @@ static struct cpupool *cpupool_create(unsigned int poolid,
-         c->cpupool_id = q->cpupool_id + 1;
-     }
- 
--    if ( poolid == 0 )
--        c->sched = scheduler_get_default();
--    else
--        c->sched = scheduler_alloc(sched_id);
-+    c->sched = scheduler_alloc(sched_id);
-     if ( IS_ERR(c->sched) )
-     {
-         ret = PTR_ERR(c->sched);
-@@ -1242,9 +1239,6 @@ static int __init cf_check cpupool_init(void)
- 
-     cpupool_hypfs_init();
- 
--    cpupool0 = cpupool_create(0, 0);
--    BUG_ON(IS_ERR(cpupool0));
--    cpupool_put(cpupool0);
-     register_cpu_notifier(&cpu_nfb);
- 
-     btcpupools_dtb_parse();
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index b62315ad5e5d..e8f31758c058 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -1185,7 +1185,10 @@ void btcpupools_dtb_parse(void);
- int btcpupools_get_domain_pool_id(const struct dt_device_node *node);
- 
- #else /* !CONFIG_BOOT_TIME_CPUPOOLS */
--static inline void btcpupools_allocate_pools(void) {}
-+static inline void btcpupools_allocate_pools(void)
-+{
-+    cpupool0 = cpupool_create_pool(0, -1);
-+}
- static inline void btcpupools_dtb_parse(void) {}
- static inline unsigned int btcpupools_get_cpupool_id(unsigned int cpu)
- {
--- 
-2.17.1
+I will push updated series soon.
 
+Cheers,
+Michal
 
