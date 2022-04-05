@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D9E94F3CA2
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Apr 2022 18:32:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.299216.509744 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C2304F3CC7
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Apr 2022 19:19:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.299226.509754 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nbm5u-0004gQ-PR; Tue, 05 Apr 2022 16:31:50 +0000
+	id 1nbmog-0000ih-4E; Tue, 05 Apr 2022 17:18:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 299216.509744; Tue, 05 Apr 2022 16:31:50 +0000
+Received: by outflank-mailman (output) from mailman id 299226.509754; Tue, 05 Apr 2022 17:18:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nbm5u-0004dm-MM; Tue, 05 Apr 2022 16:31:50 +0000
-Received: by outflank-mailman (input) for mailman id 299216;
- Tue, 05 Apr 2022 16:31:50 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nbm5t-0004dc-Ut; Tue, 05 Apr 2022 16:31:49 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nbm5t-0005Jx-Qe; Tue, 05 Apr 2022 16:31:49 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nbm5t-0004ed-KR; Tue, 05 Apr 2022 16:31:49 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nbm5t-0004pL-IU; Tue, 05 Apr 2022 16:31:49 +0000
+	id 1nbmog-0000gI-0e; Tue, 05 Apr 2022 17:18:06 +0000
+Received: by outflank-mailman (input) for mailman id 299226;
+ Tue, 05 Apr 2022 17:18:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=HhHa=UP=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1nbmof-0000gC-Bx
+ for xen-devel@lists.xenproject.org; Tue, 05 Apr 2022 17:18:05 +0000
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [2a00:1450:4864:20::22b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 59fdb57a-b504-11ec-a405-831a346695d4;
+ Tue, 05 Apr 2022 19:18:04 +0200 (CEST)
+Received: by mail-lj1-x22b.google.com with SMTP id s13so17995711ljd.5
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Apr 2022 10:18:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,356 +39,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=C3tr1uX2NqTb34iK57yJXSdb4Bt5ElBPMYEHSpreslY=; b=uJw/eaN+/+Gt/VPrQ3mNZ9zDWy
-	XTqGowiEW48aE1z/nAvMsY6LsALhM36j+iDlQTmPi2Yx26Q/6spcp/QChOzFKCdK5wq/uRKRl+5us
-	D9yVav/YDVQwYGjTVlkCIp+sfAaCXnZwzDIwYN+E3J09P08kH3nrqh/NUhTl2xNKsxPo=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169171-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 59fdb57a-b504-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=AXL8laU3wEEAbI++BDjPXXUxx4StltF6wiWvXLxExwU=;
+        b=Us8z6T1S49RNit1Uf/8+cmNXlYlk4Sjx/3u7AXKSTefSqkpGg6FQOVzOW/YhL2PfDy
+         CdVc5/nG4uzZ1lxw0LX073xVrwiyVEtOPWWvgIXrf/NPuLW0kK4TmvhAjuIig87O6T9O
+         4ZV4SYRPLbO6m0nXu9G9hki5jTXymXuEIxpTGnWvyR+z9xVMNn2Tg+VVykVd/YiRnQoz
+         EhY3ooyNqN2Ou36/SDgrzdJ1rcy5U1yGXzdcGMR/5uBuMW/gRsqDBQHeRD4GaGGbW4C4
+         2bxpr+lhdUJTChDQZDRomR99M+Y5SBShybArQPnODIo2aSQZcqdb5h1iLJ23YMiDF5wk
+         n+bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=AXL8laU3wEEAbI++BDjPXXUxx4StltF6wiWvXLxExwU=;
+        b=tCRubkMVhnnmPNutLXizXBeZViRRnhY0rkSAYg7dQcEtJ7wrQOjXhkiZroxSHol7Dc
+         NMj3K0EVphL5PqXopPP1lvHIDr0K3pgzqo6yjOeV+KgwyEFFeKM3gDJ8LTJ8q72qs8Dx
+         c6AqkhoPZnY2bESJXSpeU19Nxk6IytfvjyReOVciFcMEAUD2hMtDIyYoOsfBZxBQDHSV
+         ghxSAJal35Z0AyfEaGbgPlRiMqLb2EPO7PbDTxYdtWsc1PcF6ES8yJXihf6zYY67VlGY
+         BoZo4o4U0Ncah6zRGmdi85jXDZYPyWh+9rtD9YhOWayaubz95Q4p3zxYPAHQFqRx20Y9
+         JzDg==
+X-Gm-Message-State: AOAM530fXEWeHkR8iLd53OqLraKiAp5XTxTa1Cm+vwGejx4pLfW9nUD7
+	kNTtAR/8zSpnvS5OLg68ymfpwQGdNgZRNsoaqNQ=
+X-Google-Smtp-Source: ABdhPJwRS0J2esXlO91msD8EhKYTRHPYZN4xW/DpMI/by6eVWW6ILYsUcGLR0BYJG6UQE/U53jqSt066QCFSu5WS18w=
+X-Received: by 2002:a2e:b0c9:0:b0:24a:fb55:8661 with SMTP id
+ g9-20020a2eb0c9000000b0024afb558661mr2878467ljl.168.1649179083076; Tue, 05
+ Apr 2022 10:18:03 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [libvirt test] 169171: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=5d0eeb8cd7088e575c0a2b1d5759ccfb72c525c9
-X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 05 Apr 2022 16:31:49 +0000
+References: <20220330230549.26074-1-dpsmith@apertussolutions.com>
+ <20220330230549.26074-2-dpsmith@apertussolutions.com> <CAKf6xpuA4hQmPdBtmog1UFcSQQkXL2=+e5bmqeocesgNxqD27w@mail.gmail.com>
+ <1eaf4555-5221-6cef-6c01-6aea3797e521@apertussolutions.com>
+In-Reply-To: <1eaf4555-5221-6cef-6c01-6aea3797e521@apertussolutions.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Tue, 5 Apr 2022 13:17:51 -0400
+Message-ID: <CAKf6xpv0LrmAa2A=dXXK2DSRh0j8ac9VM4aLBhTRK0MtnML0Aw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] xsm: add ability to elevate a domain to privileged
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, Scott Davis <scott.davis@starlab.io>, 
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Content-Type: text/plain; charset="UTF-8"
 
-flight 169171 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169171/
+On Mon, Apr 4, 2022 at 11:34 AM Daniel P. Smith
+<dpsmith@apertussolutions.com> wrote:
+>
+> On 3/31/22 09:16, Jason Andryuk wrote:
+> > On Wed, Mar 30, 2022 at 3:05 PM Daniel P. Smith
+> > <dpsmith@apertussolutions.com> wrote:
+> >>
+> >> There are now instances where internal hypervisor logic needs to make resource
+> >> allocation calls that are protected by XSM checks. The internal hypervisor logic
+> >> is represented a number of system domains which by designed are represented by
+> >> non-privileged struct domain instances. To enable these logic blocks to
+> >> function correctly but in a controlled manner, this commit introduces a pair
+> >> of privilege escalation and demotion functions that will make a system domain
+> >> privileged and then remove that privilege.
+> >>
+> >> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+> >> ---
+> >>  xen/include/xsm/xsm.h | 22 ++++++++++++++++++++++
+> >>  1 file changed, 22 insertions(+)
+> >>
+> >> diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
+> >> index e22d6160b5..157e57151e 100644
+> >> --- a/xen/include/xsm/xsm.h
+> >> +++ b/xen/include/xsm/xsm.h
+> >> @@ -189,6 +189,28 @@ struct xsm_operations {
+> >>  #endif
+> >>  };
+> >>
+> >> +static always_inline int xsm_elevate_priv(struct domain *d)
+> >> +{
+> >> +    if ( is_system_domain(d) )
+> >> +    {
+> >> +        d->is_privileged = true;
+> >> +        return 0;
+> >> +    }
+> >> +
+> >> +    return -EPERM;
+> >> +}
+> >
+> > These look sufficient for the default policy, but they don't seem
+> > sufficient for Flask.  I think you need to create a new XSM hook.  For
+> > Flask, you would want the demote hook to transition xen_boot_t ->
+> > xen_t.  That would start xen_boot_t with privileges that are dropped
+> > in a one-way transition.  Does that require all policies to then have
+> > xen_boot_t and xen_t?  I guess it does unless the hook code has some
+> > logic to skip the transition.
+>
+> I am still thinking this through but my initial concern for Flask is
+> that I don't think we want dedicated domain transitions directly in
+> code. My current thinking would be to use a Kconfig to use xen_boot_t
+> type as the initial sid for the idle domain which would then require the
+> default policy to include an allowed transition from xen_boot_t to
+> xen_t. Then rely upon a boot domain to issue an xsm_op to do a relabel
+> transition for the idle domain with an assertion that the idle domain is
+> no longer labeled with its initial sid before Xen transitions its state
+> to SYS_STATE_active. The one wrinkle to this is whether I will be able
+> to schedule the boot domain before allowing Xen to transition into
+> SYS_STATE_active.
 
-Regressions :-(
+That is an interesting approach.  While it would work, I find it
+unusual that a domain would relabel Xen.  I think Xen should be
+responsible for itself and not rely on a domain for this operation.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+> > For the default policy, you could start by creating the system domains
+> > as privileged and just have a single hook to drop privs.  Then you
+> > don't have to worry about the "elevate" hook existing.  The patch 2
+> > asserts could instead become the location of xsm_drop_privs calls to
+> > have a clear demarcation point.  That expands the window with
+> > privileges though.  It's a little simpler, but maybe you don't want
+> > that.  However, it seems like you can only depriv once for the Flask
+> > case since you want it to be one-way.
+>
+> This does simplify the solution and since today we cannot differentiate
+> between hypervisor setup and hypervisor initiated domain construction
+> contexts, it does not run counter to what I have proposed. As for flask,
+> again I do not believe codifying a domain transition bound to a new XSM
+> op is the appropriate approach.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-raw   1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
+This hard coded domain transition does feel a little weird.  But it
+seems like a natural consequence of trying to use Flask to
+deprivilege.  I guess the transition could be behind a
+dom0less/hyperlaunch Kconfig option.  I just don't see a way around it
+in some fashion with Flask enforcing.
 
-version targeted for testing:
- libvirt              5d0eeb8cd7088e575c0a2b1d5759ccfb72c525c9
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+Another idea: Flask could start in permissive and only transition to
+enforcing at the deprivilege point.  Kinda gross, but it works without
+needing a transition.
 
-Last test of basis   151777  2020-07-10 04:19:19 Z  634 days
-Failing since        151818  2020-07-11 04:18:52 Z  633 days  615 attempts
-Testing same since   169171  2022-04-05 04:21:54 Z    0 days    1 attempts
+To reiterate, XSM isn't really appropriate to enforce anything
+internal to Xen.  We are working around the need to go through hook
+points during correct operation.  Code exec in Xen means all bets are
+off.  Memory writes to Xen data mean the XSM checks can be disabled
+(flip Flask to permissive) or bypassed (set d->is_privileged or change
+d->ssid).  We shouldn't lose sight of this when we talk about
+deprivileging the idle domain.
 
-------------------------------------------------------------
-People who touched revisions under test:
-    Adolfo Jayme Barrientos <fitoschido@gmail.com>
-  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
-  Aleksei Zakharov <zaharov@selectel.ru>
-  Amneesh Singh <natto@weirdnatto.in>
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Ani Sinha <ani@anisinha.ca>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Barrett Schonefeld <bschoney@utexas.edu>
-  Bastian Germann <bastiangermann@fishpost.de>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  BiaoXiang Ye <yebiaoxiang@huawei.com>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Bjoern Walk <bwalk@linux.ibm.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Brad Laue <brad@brad-x.com>
-  Brian Turek <brian.turek@gmail.com>
-  Bruno Haible <bruno@clisp.org>
-  Chris Mayo <aklhfex@gmail.com>
-  Christian Borntraeger <borntraeger@de.ibm.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Kirbach <christian.kirbach@gmail.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Christophe Fergeau <cfergeau@redhat.com>
-  Claudio Fontana <cfontana@suse.de>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Cédric Bosdonnat <cbosdonnat@suse.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel Letai <dani@letai.org.il>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Didik Supriadi <didiksupriadi41@gmail.com>
-  dinglimin <dinglimin@cmss.chinamobile.com>
-  Divya Garg <divya.garg@nutanix.com>
-  Dmitrii Shcherbakov <dmitrii.shcherbakov@canonical.com>
-  Dmytro Linkin <dlinkin@nvidia.com>
-  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
-  Emilio Herrera <ehespinosa57@gmail.com>
-  Eric Farman <farman@linux.ibm.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Affolter <mail@fabian-affolter.ch>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fabiano Fidêncio <fabiano@fidencio.org>
-  Fangge Jin <fjin@redhat.com>
-  Farhan Ali <alifm@linux.ibm.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  Franck Ridel <fridel@protonmail.com>
-  Gavi Teitz <gavi@nvidia.com>
-  gongwei <gongwei@smartx.com>
-  Guoyi Tu<tu.guoyi@h3c.com>
-  Göran Uddeborg <goeran@uddeborg.se>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Haonan Wang <hnwanga1@gmail.com>
-  Hela Basa <r45xveza@pm.me>
-  Helmut Grohne <helmut@subdivi.de>
-  Hiroki Narukawa <hnarukaw@yahoo-corp.jp>
-  Hyman Huang(黄勇) <huangy81@chinatelecom.cn>
-  Ian Wienand <iwienand@redhat.com>
-  Ioanna Alifieraki <ioanna-maria.alifieraki@canonical.com>
-  Ivan Teterevkov <ivan.teterevkov@nutanix.com>
-  Jakob Meng <jakobmeng@web.de>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jan Kuparinen <copper_fin@hotmail.com>
-  jason lee <ppark5237@gmail.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jia Zhou <zhou.jia2@zte.com.cn>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jing Qi <jinqi@redhat.com>
-  Jinsheng Zhang <zhangjl02@inspur.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Joachim Falk <joachim.falk@gmx.de>
-  John Ferlan <jferlan@redhat.com>
-  John Levon <john.levon@nutanix.com>
-  John Levon <levon@movementarian.org>
-  Jonathan Watt <jwatt@jwatt.org>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Justin Gatzen <justin.gatzen@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Kim InSoo <simmon@nplob.com>
-  Koichi Murase <myoga.murase@gmail.com>
-  Kristina Hanicova <khanicov@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lee Yarwood <lyarwood@redhat.com>
-  Lei Yang <yanglei209@huawei.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.com>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Liu Yiding <liuyd.fnst@fujitsu.com>
-  Lubomir Rintel <lkundrak@v3.sk>
-  Luke Yue <lukedyue@gmail.com>
-  Luyao Zhong <luyao.zhong@intel.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Martin Pitt <mpitt@debian.org>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matej Cepl <mcepl@cepl.eu>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Meina Li <meili@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Moshe Levi <moshele@nvidia.com>
-  Muha Aliss <muhaaliss@gmail.com>
-  Nathan <nathan95@live.it>
-  Neal Gompa <ngompa13@gmail.com>
-  Nick Chevsky <nchevsky@gmail.com>
-  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
-  Nickys Music Group <nickys.music.group@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nicolas Lécureuil <neoclust@mageia.org>
-  Nicolas Lécureuil <nicolas.lecureuil@siveo.net>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Olaf Hering <olaf@aepfle.de>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Or Ozeri <oro@il.ibm.com>
-  Orion Poplawski <orion@nwra.com>
-  Pany <geekpany@gmail.com>
-  Paolo Bonzini <pbonzini@redhat.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peng Liang <liangpeng10@huawei.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Praveen K Paladugu <prapal@linux.microsoft.com>
-  Richard W.M. Jones <rjones@redhat.com>
-  Ricky Tigg <ricky.tigg@gmail.com>
-  Robin Lee <cheeselee@fedoraproject.org>
-  Rohit Kumar <rohit.kumar3@nutanix.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Gahagan <rgahagan@cs.utexas.edu>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  SeongHyun Jo <caelus9536@gmail.com>
-  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
-  Shaojun Yang <yangshaojun@phytium.com.cn>
-  shenjiatong <yshxxsjt715@gmail.com>
-  Shi Lei <shi_lei@massclouds.com>
-  simmon <simmon@nplob.com>
-  Simon Chopin <chopin.simon@gmail.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Simon Rowe <simon.rowe@nutanix.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Stefan Berger <stefanb@linux.vnet.ibm.com>
-  Stefan Hajnoczi <stefanha@gmail.com>
-  Stefan Hajnoczi <stefanha@redhat.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tom Wieczorek <tom@bibbu.net>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Tomáš Janoušek <tomi@nomi.cz>
-  Tu Qiang <tu.qiang35@zte.com.cn>
-  Tuguoyi <tu.guoyi@h3c.com>
-  tuqiang <tu.qiang35@zte.com.cn>
-  Vasiliy Ulyanov <vulyanov@suse.de>
-  Victor Toso <victortoso@redhat.com>
-  Ville Skyttä <ville.skytta@iki.fi>
-  Vinayak Kale <vkale@nvidia.com>
-  Vineeth Pillai <viremana@linux.microsoft.com>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  WangJian <wangjian161@huawei.com>
-  Weblate <noreply@weblate.org>
-  Wei Liu <liuwe@microsoft.com>
-  Wei Liu <wei.liu@kernel.org>
-  Wei-Chen Chen <weicche@microsoft.com>
-  William Douglas <william.douglas@intel.com>
-  Xu Chao <xu.chao6@zte.com.cn>
-  Yalei Li <274268859@qq.com>
-  Yalei Li <liyl43@chinatelecom.cn>
-  Yang Fei <yangfei85@huawei.com>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yaroslav Kargin <ykargin@virtuozzo.com>
-  Yasuhiko Kamata <belphegor@belbel.or.jp>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
-  zhangjl02 <zhangjl02@inspur.com>
-  zhanglei <zhanglei@smartx.com>
-  Zheng Chuan <zhengchuan@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Ye <yezhenyu2@huawei.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
-  Zhenzhong Duan <zhenzhong.duan@intel.com>
-  Дамјан Георгиевски <gdamjan@gmail.com>
-  김인수 <simmon@nplob.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-qcow2                               blocked 
- test-arm64-arm64-libvirt-raw                                 blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-i386-libvirt-raw                                  blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 103410 lines long.)
+Regards,
+Jason
 
