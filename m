@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BB554F2917
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Apr 2022 10:37:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.298601.508705 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D682B4F292F
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Apr 2022 10:46:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.298606.508715 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nbeg7-0001dz-TW; Tue, 05 Apr 2022 08:36:43 +0000
+	id 1nbeoh-0003AG-R9; Tue, 05 Apr 2022 08:45:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 298601.508705; Tue, 05 Apr 2022 08:36:43 +0000
+Received: by outflank-mailman (output) from mailman id 298606.508715; Tue, 05 Apr 2022 08:45:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nbeg7-0001bx-Q1; Tue, 05 Apr 2022 08:36:43 +0000
-Received: by outflank-mailman (input) for mailman id 298601;
- Tue, 05 Apr 2022 08:36:41 +0000
+	id 1nbeoh-00037D-NN; Tue, 05 Apr 2022 08:45:35 +0000
+Received: by outflank-mailman (input) for mailman id 298606;
+ Tue, 05 Apr 2022 08:45:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nhpA=UP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nbeg5-0001br-T2
- for xen-devel@lists.xenproject.org; Tue, 05 Apr 2022 08:36:41 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8396687b-b4bb-11ec-a405-831a346695d4;
- Tue, 05 Apr 2022 10:36:40 +0200 (CEST)
-Received: from EUR03-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur03lp2058.outbound.protection.outlook.com [104.47.9.58]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-6-dbij_fAPMk-KUaycs_s-_g-1; Tue, 05 Apr 2022 10:36:38 +0200
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
- by AM6PR04MB5656.eurprd04.prod.outlook.com (2603:10a6:20b:a8::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.31; Tue, 5 Apr
- 2022 08:36:36 +0000
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::914d:e08d:7798:8476]) by DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::914d:e08d:7798:8476%7]) with mapi id 15.20.5123.031; Tue, 5 Apr 2022
- 08:36:36 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OPnP=UP=citrix.com=prvs=087021108=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1nbeog-00036o-8c
+ for xen-devel@lists.xenproject.org; Tue, 05 Apr 2022 08:45:34 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bfd9e359-b4bc-11ec-a405-831a346695d4;
+ Tue, 05 Apr 2022 10:45:32 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,222 +36,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8396687b-b4bb-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1649147800;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bmyRIpl/q4fWYDu76ZO+S4r6GStZphPjCKQCNFKzn7E=;
-	b=aZn4drC5YWQm2hyBUhwr9fW4qAf+RgZCWttL0Kkn5ZzUC+gIukYN7psnKsc5ksF6FoTLJE
-	yBMB/o+tzQvuFaLxRfbRcJzvXbL3kFM7FFoX7GjT6MWOFV7YkMCT/oRkXY7IadMo2r50gJ
-	rYBwMjvFdrBsbLqPCAf68E3zzs30AuQ=
-X-MC-Unique: dbij_fAPMk-KUaycs_s-_g-1
+X-Inumbo-ID: bfd9e359-b4bc-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1649148332;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=6wQSPh9seQupSNmo9ABmYBAqNSLEb+diize44Wecdk4=;
+  b=BA759pPV9LPyi5fskUCgn7muPPmvUAQ5tCaT6J1mFuQfezHItMHuR86Y
+   YkcHyHm/pg3rUjzUDihGbmUjeG7/koyhC+6ns8eXSji4gR7VodvV/MnZM
+   Q1MGTINn0PHisU3acuBROCcVa7Y/ZpUgQ4X5/gc9+YM+iT706yPez1hqD
+   E=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+X-SBRS: 5.1
+X-MesageID: 68428354
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:4+amCK2RGj8wxBdF2PbD5R5xkn2cJEfYwER7XKvMYLTBsI5bp2NRy
+ WQeX26PPqrbMTf1L49wPNu0oUsPvJeBnYNjSgpopC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
+ Zh2hgzodZhsJpPkjk7xdOCn9xGQ7InQLlbGILes1htZGEk1EE/NtTo5w7Rj2tIw3IDga++wk
+ YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
+ 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
+ /1M6MSBUissYJaXu8pDdwl/KHtuPvZZreqvzXiX6aR/zmXDenrohf5vEFs3LcsT/eMf7WNmr
+ KJCbmpXN1ba2rzwkOnTpupE36zPKOHxO4wSoDd4xCzxBvc6W5HTBa7N4Le02R9u1pwUTa2DO
+ 6L1bxJXUzCQYAcTBmwuL48wvsuKoT7iah9h/Qf9Sa0fvDGIkV0ZPKLWGNHSf9mXQ8RJjwCdr
+ 2TP8GnjKgEXMsSFzjiI+W7qgfXA9QvbVYQIBfuH//hlqFSJwyoYDxh+fUS/iem0jAi5Qd03A
+ 04e9zcqrKMy3Fe2VdS7VBq9yFaUsxhZV9dOHukS7ACW1rGS8wufHnIDTDNKdJohrsBeeNAx/
+ gbXxZWzX2Up6eDLDyLGnluJkd+sESlIdV4ZSSpadlAmzYfHsKYI1ALMFck2RcZZkebJMT33x
+ jmLqg03iLMSkdMH2s2HwLzXv96/jsOXF1Bov207Skrgt1okP9D9O+RE/HCBtZ59wJClok5tV
+ ZTus+yX96gwAJ6Ej0Rhq81dTejyt55p3NAx6GOD/qXNFRzwoBZPnqgKuVmSwXuF1O5eJFcFh
+ 2eJ5GtsCGd7ZifCUEOOS9vZ5z4W5abhD8/5cfvfc8BDZJN8HCfeon0/PRTIgz2xyxRw+U3aB
+ Xt9WZzxZZr9If45pAdaus9HieN7rszA7T27qW/HI+SPjuPFOS/9pUYtO1qSdOEphJ5oUy2Om
+ +uzw/Cikk0FOMWnO3G/2ddKcTgicChqbbir+pc/XrPSfWJb9JQJVqa5LUUJINc+wcy4V47go
+ xmAZ6Ov4AGm3yeadlzWNCsLhXGGdc8XkE/X9BcEZD6A83MifZyu/OEYcZ42dqMg7+tt0bh/S
+ PxtRilKKq4npujvk9jFUaTAkQ==
+IronPort-HdrOrdr: A9a23:tyg+waGoORHDDjJ+pLqEi8eALOsnbusQ8zAXPiFKKSC9F/byqy
+ nAppkmPHPP4gr5O0tApTn/Asa9qBrnnPZICOIqUYtKMjOJhFeV
+X-IronPort-AV: E=Sophos;i="5.90,236,1643691600"; 
+   d="scan'208";a="68428354"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lmUZptHR1/R0/o5YIGwjZ+6fln/YMIa1ZdMwYkTgmVpmYO3rBIFr73aWPKy3fBDKiKyHw3r17obY75Dc95DRTobU5RwMjEmBSnNw6i6Ok9dXQ8FWinUHQ8YFbxQDoDxF4JqXf4p/cTm2Uh95ARde5VMBoypzel3ojGBxTF3SaAR+O0R3C5zsNim1zEnUkWkb0Cl1t3zR2KWRCbGxAJE513c/+EYFNLIODdgJoXKD/HPNQi3OiBzLdp15sTcrl6Rp0xaNcRBk4lkUOG1TpkKnX/G7YQ61nRNUZY+JALLxtNe7FT5cdji9BveWcC68TTl6zt82Xqye4l/g8odOmPhpbw==
+ b=T+LDxcfYVuVFhRR7nNNLUcShHe6iNzvMBs9yb/8d/Du0LjBRpIGEZmzGJNTLM/lrO8jng8eAlTBbM2c//S0BVGrj8paMFTV1AHp/y73eBfsVhMLCkPruTDC0BCATWJNlEpRtQyeI9lVptur8OxsfrySy9TqdRij7KqT4iDR7QD2h/viQjeg6++qvosUWkP1p1TnqLmhFJMiQIBHEwhgkw7aqNaFaF/HpKXwKHt6hKTqeDB/Fzy6K7EED9ybnluPgaiQ1WLaUeD19Sw9mLA13TbB+VF8jaW7fpgI79Ga7EJY7rYmtDDqiDxLds3pBDs5Ahs5Goa9DnRM9XEP4Wchypg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Yk0fV4nj4m406HYCG/W4dHjIJKapYN2w3JVb2ycNGbQ=;
- b=Af9Ur295PC2uJ5CAJTsVRqdCeskByauSm5iu7ukATZm4jD3OsKYJyt+cAClXx7nZrZp9kLAODQo9zPK+2rO5NRW4jCZnZQB6fVgQnAWIs8qePtWhkC8euERmPiSQOVhMcQKMLVLNH82g7SDtK2uoF2eFNWO1QSmsO6/P2qg+E8mnke75l70NYNcGzH69ihNDGR81mSmaJDesX7RrD5zmht/Y2J9hk6VkqkzUTibh8PmKmr1BA0IHEdivshoDwv0VcND1pNblND6KocwLKbOGnoH8HisUmoy9v5d4H0lXqIkBwRF3Yx/MIcZBknKWwufGN48ZQUyhj5sAMNusYc1jqQ==
+ bh=jU0tNywfi2tR5O6evzJJi9J6tCUoHjY/kSrbZl6XiPA=;
+ b=gn1/ZRYUd6ziJqpnNuz1I+4tDIlNdNrz3uBF3vWN4ogLP0iWVoW0KHDPNwNPL2l7n1TUJVOpmAnCJl1Ju9Fi4ti8QsVnZ+WFuk9jsQn1h/h8TCS6KxHSfyfYMlBh2+CNp3jlpWb5XRYfMnfsgJMZAs/MjQO+SAzi+WI9iTpF6szetDZ3cvvRXskr0tkORYgNMFuHYO6gsGFDn0YuO8Vgf1XwU02tn2fZkbPY5lROIJDsSIeet5Ilp/a4jQ8FLdu217h0P77LLrLZf3X7MlFepxAOB7pO1GLfdDL4bad3rc1uOh5GrU679mMmJlnuQP7leLXDYlbfO4V9CQFI1dOsjQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <dba31d91-5a5e-8ca3-5d10-e6425b0da9bd@suse.com>
-Date: Tue, 5 Apr 2022 10:36:34 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jU0tNywfi2tR5O6evzJJi9J6tCUoHjY/kSrbZl6XiPA=;
+ b=D0NZx2X8TudqclKD7ViVufrtErjjVqhXKfqWq902/fIA5ZUfdTBOATXEpmxvi+a31r3C7/0BWBO2m6EY4tSO1E7kU88+SjUYi/fOdw+iTyMdAopyAYOaIUhqglpnf0QBHp/hrQEk6kJJCqh5SUzc1TWphXbjN3ffh6Fdo7PvylA=
+Date: Tue, 5 Apr 2022 10:45:24 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	"community.manager@xenproject.org" <community.manager@xenproject.org>, Henry
+ Wang <Henry.Wang@arm.com>
 Subject: Re: [PATCH v4 1/8] x86/boot: make "vga=current" work with graphics
  modes
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Message-ID: <YkwBpKcyrnuXyNPa@Air-de-Roger>
 References: <819eb552-d49d-e98a-9524-8d30c1b93908@suse.com>
  <3fb7f3e9-a6cf-4f8e-1141-100848b1bdd0@suse.com>
- <YksFeCB3bcXBGfDe@Air-de-Roger>
- <aca0954d-e235-4b25-458b-1183a7471b12@suse.com>
- <Ykv80Hgqp2oxwZ4S@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <Ykv80Hgqp2oxwZ4S@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AS9PR06CA0201.eurprd06.prod.outlook.com
- (2603:10a6:20b:45d::19) To DU2PR04MB8616.eurprd04.prod.outlook.com
- (2603:10a6:10:2db::16)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3fb7f3e9-a6cf-4f8e-1141-100848b1bdd0@suse.com>
+X-ClientProxiedBy: LO2P265CA0220.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:b::16) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b497855f-c518-4c8d-845a-08da16df6588
-X-MS-TrafficTypeDiagnostic: AM6PR04MB5656:EE_
-X-Microsoft-Antispam-PRVS:
-	<AM6PR04MB5656101907110D4952D829FCB3E49@AM6PR04MB5656.eurprd04.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 65821b87-9778-4691-392a-08da16e0a21f
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB5759:EE_
+X-Microsoft-Antispam-PRVS: <SJ0PR03MB5759A2E351555D7031041AEA8FE49@SJ0PR03MB5759.namprd03.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	PM14fVuH8t3yiysA8ZtYwNNJAw2qHz8Nv3/bWBys5GhvIFSPPkodsLRkGdemPD0syEYtgBJmvyf3tbTZWG98+8Q9CAVe2gOdJ6vyefwRPW8And38sxfMZf80Ys3iwlpVPdaPHzNh8GqmhRJq6okvR5LMYsM5keBeIzcsd61DPevM/vQGLt1FsiVDANJgZEHAapPUNY0gh0nZwd/GlJe+AUTiL+udDEblwxomrQCpjoX0BzxywtN1ACGC1HTZHCeGJ0SVZBQXrY0RZtxSuvtWqLhY+iFf9ijYlp/AQTPomgvjC3TVztiUkN4tOQl+dsBd2HDPJ5gVRhT2Lz8PpQbpinxlvEuLe5biTxQA8OgTkjBMsaZZ/VZGtj161XNvk7fl5v047lnz8yvI1LwloPuyghapmWgVlXA4pCXLvMYIb9itWJk+ISygh79/JXdRdcFAb4jV7XxraMV5T8YCOiI2/ebxULfMjdit8wz9Gdwx1c+JgFCF3PJeH79nMYn1bGYeJybwkwnURAT3LEt8t2SmWYWDW+8MR9/VlVE9BoCkzXC9nZYD8zACbSC3PLJ66rHX7E3AZLDwi71yPSRWgmYSHK4sNcRO6Ph1Ppy3gG6htU9dn2HfDVKeKnVGF9m4GcnPhKS4c5ScVX+0IG/+6iVVCSAjRFmBSng+roU9xoyBS6PTtWN31w2Lwp7ZhTNSFPStWtKnZXTP7szhaKkdWfOcT0ZLJLvcpc83prtbiCzNNA8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(53546011)(66556008)(26005)(66946007)(83380400001)(36756003)(186003)(2906002)(8936002)(31696002)(38100700002)(2616005)(86362001)(4326008)(54906003)(66476007)(5660300002)(8676002)(508600001)(316002)(6916009)(6506007)(6486002)(6512007)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: pakkzPLwPvC2+Ui/khhDC5h5QQ7H7alBbPbP0VOYx+IwOYPcftRmSe91EGaufWrrWc2JVEr7l/mB13RP447xAMsP2ob3aFDCktEpMi4s/fkRnyzmUz1phy5+c91sQ1BG6mEYQEylOUnPax1+p8kTAQNNvls4jiTIBB1kd93jInEKKSbabtWYg8XZyK0DDGkg1FOB7JvTfasSxOaggfZSl3AfaAGn+yJztDJ2cDoqNCADuLsxzINsj9i8YmA6AkoFxgzBjTAlKWbgVFYrcHRvRmJ70Awnca4RZWc0s/gUsuRH3se+/VOa62E0oqwF/6yyXws8gZy92lvMsezz3Mai3BxLSMYsT2pKx43OArbV4mevaPoCls5PRKoaeK2GJGxLSMHEfMu4xbIVd1U2fGpGRcWCpqFp40grYaZUSYXUZjo1JUKxfHDiZw7mRflPTyzrMBnziKIDhAZO+ZIjKmDfk9MYN+gXIU+ZJzDvU9XRmxNzKlBiNpdwLzo5L7JXH+HuZsEQfkSEH/VXJVqrzn/tfbD5PnlM6Fnwtuw9gf0+yEauFAIde9vwV38EdKzP5MA5fFk8vn2O9UkT99cQ4tSpJdHvoujGBri9v65aUuVV99Qw16UJXsYutUniUgV3ktBrSNSbXlXAgwVVmlEi1lrOTQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(5660300002)(6486002)(85182001)(6916009)(83380400001)(54906003)(186003)(316002)(26005)(508600001)(8936002)(38100700002)(6512007)(86362001)(66946007)(33716001)(2906002)(6506007)(6666004)(66556008)(66476007)(9686003)(8676002)(4326008)(82960400001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?7DLsbhW45jINZLn264D9P5Tou5lv8DO9i1pBfRRwJR8nsZ+3aHTiFbzSfROK?=
- =?us-ascii?Q?nBvV2FW6Lsi7CpUQE071jNCR2VrCyih5T2JxB9i7UhakB7jPcLQaidD0zLmX?=
- =?us-ascii?Q?5T0gZMekWQyuob5jIn1elv/s2Zh1lP0h0lonRIu4qTZeChyrYAdxgDl2f9nw?=
- =?us-ascii?Q?nHrQKRekcP83S30FhcdwR1Rx+t7poNOo454LqUyz2/ifR6p2KnH9OQ8bfEXZ?=
- =?us-ascii?Q?nMOIkS7u1c0oIotHxbFMslubRxOERC18BwCWiHTEkFUvSk2FfHDGnOvKM49d?=
- =?us-ascii?Q?1XXsz40mMn9NyWrL6cvdQeI1HjQAnztBsW2ONa4t/cwhi5WYHWtPoWLRVmSR?=
- =?us-ascii?Q?OVkAbsNLviEWWj8DbpCdEilFHiFTmTEA/AuT/Frug1WSUYxOkehJ3CbGleb3?=
- =?us-ascii?Q?z0alS+T0ExN2UgrHAaD9i2O4ytMX3jg7PjSR7o+9s9rVZpLeiOtF0uc31aau?=
- =?us-ascii?Q?gPjJXr96eV4kZKpLzk1goP6xeoj/ugH45u6Rn8aqzQZtI4C3kEKDP9sy+/9M?=
- =?us-ascii?Q?lvMB0H4DoVji6kjSa7IDgHU1fxxmjKr/k25jRm8Savkq2LHvie97ViHSGVdx?=
- =?us-ascii?Q?SwLStZjL0LRDFcIBqDFs0A9IAnPva9xWbPQbRrmOTe/CZoGC/5oAOlXrMnei?=
- =?us-ascii?Q?ggq/yOPJ+/X5diwOdUHXm9Tthsqkg1m0HkgWJmc76UzcpJZ+r+wdVc8r0aA8?=
- =?us-ascii?Q?m746D6KfvQaY0UBdtGEQwxmgeTbFzdiO9lne96XzF/cK1bLj0Y1R16cHSjfU?=
- =?us-ascii?Q?1eUk9BuxowLCOGwONe5nG7SsgU8mB1w3ggJRHzVkuadfOl8t4nzlB1ot/SpQ?=
- =?us-ascii?Q?o8rENAnRE7+p5l6lXtUImYBEvsYieAZsyf9cezisxom+Nc5IyhThOOuqGCnY?=
- =?us-ascii?Q?wjDapZY4RZLyCZo48xBoB/8K0pd5UvZ8lE0g+bKQAX2CBkBwhCq/YkZCohX8?=
- =?us-ascii?Q?mxa7WHf4qQ0pByyq+Lf24I9LsOSgMPaROtdY3keVC6QS6eoq/ZEafV986+AH?=
- =?us-ascii?Q?8P+trE77pNkZwUoSkHjADFW0yHs1XOh54t9lIjAUJUPkXg9rmUzpHVmElFv5?=
- =?us-ascii?Q?h7afHcYpKIx1i7mGUoEqUgHLpDmKWkMuMz4SXa7lhsgIB1CQnmM2BoCMuZA/?=
- =?us-ascii?Q?zw/4k0l0QdCTIObAozuZowlCv++8UmLWH7Mb2wPiyY1NN3t8ldZGoJmDLM//?=
- =?us-ascii?Q?NAhsE9xficpIxtz14dfmFrtq1Fv5CKnUi+9Zm7t5FBAkjdoV+EJFs/dMgEv9?=
- =?us-ascii?Q?FCfbwmrqiUaJEisXgN/1yFEaoPneDoDEbZ+wuhfcB64N650mQuN+lIZDZvnR?=
- =?us-ascii?Q?eJ6pQ2CRZ2U4BmEmeh4hkN/mDPZDVo4nUebaFQM9W8OBbYWN6yf3InmjvVZv?=
- =?us-ascii?Q?6R2Krz1L4MymVojYwirrJgN8B274p2HU3nrxBGIF7PNnO59007Yotbi0X0Yi?=
- =?us-ascii?Q?9F1sA393tsCI47LP3vYFjEfbm/JXBDT7PJM4ldp5jALd18ZY/EI2AK+TbEeP?=
- =?us-ascii?Q?b/JldL55yD6QSdHwqGD2JiL+iVod+MtY6Dx6gBPQWaX8gPbxa27ln4fATaO/?=
- =?us-ascii?Q?wXwNOoh57Spxa5NyoZ2mMvG+bvWV38RUddrcsOdg3EUXZMZKZ5y2qQ0r/iq+?=
- =?us-ascii?Q?EpKzdyQ6Jj+wj/ME/DSyiAZ5uRi+SGHsfu44A5Ecot74a4Ua5INEYKLrkTFP?=
- =?us-ascii?Q?4dRxrzFldMzuLSWJxESFjTM1Ma8j/zr3cfJOqyTpDdOno5m/K7l0dJL9NL5+?=
- =?us-ascii?Q?po3Dn7OyLA=3D=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b497855f-c518-4c8d-845a-08da16df6588
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZFdZUmhQU2l4a3ViT0NwSmNMa0RETEU3RmcyU1hzSXpYODN2SXpWSWpBRTIz?=
+ =?utf-8?B?NlFEZ3RwL20vSmxMWFdYcDRhMDB3YmlQK1E1RURqZ1pvTFVkR2FMeGRxMWx1?=
+ =?utf-8?B?S2diVG01Mkt5ZHVBNm54Q2p4U0JvMTNKL1ZlOW5rbS9rSXB2Q053bHV0Smxv?=
+ =?utf-8?B?L0pNUUphNys2alZKRXphRVBZK0tCVlFmYkl3MG1XYUFXU2plcm0zcXJxd0ZR?=
+ =?utf-8?B?a2V0NGxtbnNzUlhiQWptdWR1MlRSbjl4c3p4Tm5XbHVGNDNXa0pXbVlYWDNn?=
+ =?utf-8?B?aHVxZGtVZ25kQjhScjhZMEtzaXBsTVY3YjlOZXhoM3lFUm8yNmlrV2NGTTQ2?=
+ =?utf-8?B?aWcvTFdMRlpLUlZmNjZKQ2dMYXhpWis1RHIrcDk3YXhwc2dHZDgwazhnUW9U?=
+ =?utf-8?B?eE5RS2RIL2VhQ0VKTHlvSzczenUzT2pqZnNvSnB5azVSUjVIc1lTb3NlUHhL?=
+ =?utf-8?B?NWtNWWhPcXJUczA3RDdBT1EyRlYrRXJyMkxvUTFyMjNwZTlQNHFHTjJaNHZm?=
+ =?utf-8?B?RlVwSFEvVE1xQVdXcUkzYTVTbHFoOEJqRDVTdlg1NStwL0UyVG5OVGtXUkNr?=
+ =?utf-8?B?dWgwblJTRnA4cENMU0M1T2pCcWRhNkozdmdCSTBwakw1ZXJYUnNLdGl6Si9p?=
+ =?utf-8?B?S01NWC8rRnovcVNxSlN0UHNVUTRwbVJYaFBYQkdKblhMMVgzaFhuamtlQW9x?=
+ =?utf-8?B?TThyM21IODIzV2pIK1ZQQkMyeE1aVUNuRVJoUllXTTd3bkM4LzNYS2N2VDFR?=
+ =?utf-8?B?TlBOWWRrTFBjSndWVmlnVjlOb2Zia1AzTjMyVUJFSnVKRE5EZzUvNEozc2py?=
+ =?utf-8?B?dHI3NytkUGVCemcxZE9aSG9PbnpCRFJwMFY5bCtRc3UxRjV3S2JMeG9oMkUv?=
+ =?utf-8?B?ckJhZ3lZZjkyVmErcmMvejBBQldrTXR0OXR0K2JBUi82YU5ZaHQ3NE1qV0Jk?=
+ =?utf-8?B?UHI5WFB1S2VhbU1laUhMS0NtSHcrNVkrQnR3OFVmYUlrQTBXN01xWENoWVVn?=
+ =?utf-8?B?NUNTMWdqMmdlK2RHMURhelNnU0hVMS9TWVE0YmM1bE9zVDMybWFvdXNubXRF?=
+ =?utf-8?B?T01Obkd3Z3kyRm5NTU9FNlJVanJQNmNpYmxMRCt2ZUJid1J0bHppbFVDdmZY?=
+ =?utf-8?B?cHVSTlZRWnByNWVnd2V1VEFvL3BvNTBlb2R6Um1tQjhHNHBJcFlJRjMxa1Iy?=
+ =?utf-8?B?ZlVOL2RZREcrNmNXKzNoQUNzc0hZK3lTejgwYTlHbzdCMzV4bjU4S2N1OTRs?=
+ =?utf-8?B?RThsM3FUMTRUQ3o3QTcyUXRxbmFReTU0SHFhSVBaN0cyb3NyVkxFVWR0MmN2?=
+ =?utf-8?B?ZmZqemp0akRhVFN5bXRFRHp0anNwOEw4Nld5Z00wMDlBWG42cUU5b1VFM0py?=
+ =?utf-8?B?QmozbFBwQUF0cE8wQlJvbFMvRzhRQXZwSTJJeTVLRi9RZG9GNFhrWUhHQ1c0?=
+ =?utf-8?B?N0tRZ01uZFczVXE1VjBDaWNsK3FlOFZ4UWg5VDRqUkxwOFZrL0xoaU1jamtZ?=
+ =?utf-8?B?eEtSY3M3YzZET1cxMUJkZjJKbnVDRU5temVLOGN4MXNFNlRZUEJoREoxUEZK?=
+ =?utf-8?B?MW9LeDdRVEhJdTREMitENGxDUVhSNzZkcjZTZ3VTbkNLR1pyYjJ4QkNHK1Uz?=
+ =?utf-8?B?bTdrUThJVHY1N1hac25veWQrZXJ5Tnc0UzMxZ3BWekV0TnQzK2RPdHorLzdN?=
+ =?utf-8?B?YjZCVmJUczNORlBGQkpBOHZQbVpSYmZKTUtvVUx1OUVTTCtzR2VISWlEWlMx?=
+ =?utf-8?B?TTdPZVFnTmFjcjBjaUlaanF5WDRIYlBlY2pCUXlWek5IVCtIMWwvZW1lTFBq?=
+ =?utf-8?B?dHFTRDlTOUhWeWRoOExBOVYrUzNkd3lOaXVhbksyayt4dGxnYU02aWlIYlN4?=
+ =?utf-8?B?TTlvOUUySHFLQXhVdzExLzZIOFhWeFpsUnk5VnA2N3hmQ2NJcmFmd3Ixdyt3?=
+ =?utf-8?B?QVRiK0NTWVhscW56cXpjYVErZ1hsN3RQU0llN2ZJWis1UUluSkN2TFNCRVdH?=
+ =?utf-8?B?cjJ5bDZ2ZGVLdUQxL0svZjhYMDBscS9ycFJ1OVd6Mnh4ZXpUQ0VVcnNwM21t?=
+ =?utf-8?B?MFVPUFZHNjRzT1p4TUhTYUU2b0RUN2hVZ25UN2hCSlh6WFplQkZsOFJWTy9w?=
+ =?utf-8?B?aGl4YXJzS3IzdEVvbUxRYXpvUTNjMVdDTUVPaWlkRGgyZk9MR1dsZXY3NFY3?=
+ =?utf-8?B?cEh0MU0zOTBXWTNmdUlvcXF4QUZMY0NienR1aG9zMzdRbFc4aFFmL2Q4UUJY?=
+ =?utf-8?B?YmdHMTZ4TTVxdXFGWnNQSVRBNWV5SXJtdUVVV290anB0Q2RHcUlFTm5lSmdT?=
+ =?utf-8?B?RjJsaC9FTlVoQi83RFI3YjZzTHhsS2JVOC80OW50eStIMXUvcU14Yk53T3RE?=
+ =?utf-8?Q?15EDW5xB3Na6iglA=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65821b87-9778-4691-392a-08da16e0a21f
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Apr 2022 08:36:36.4559
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Apr 2022 08:45:27.6614
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LriHExCgSLfUg2PPfMpQPbnExVErCxyj8y1u0I9XN3wAQYKoGAXW63H3yh87sefNf/8IjtaqDEcmW4MfZvNauQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR04MB5656
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5oN5cGIbHP0Ub8In81gTpPBymT4KaEogV+8ZG//7s27WztdTCikrHMKRmWSLlh/NC68hPazRp5ybva4kh+bWdw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5759
+X-OriginatorOrg: citrix.com
 
-On 05.04.2022 10:24, Roger Pau Monn=C3=A9 wrote:
-> On Mon, Apr 04, 2022 at 05:50:57PM +0200, Jan Beulich wrote:
->> (reducing Cc list some)
->>
->> On 04.04.2022 16:49, Roger Pau Monn=C3=A9 wrote:
->>> On Thu, Mar 31, 2022 at 11:44:10AM +0200, Jan Beulich wrote:
->>>> GrUB2 can be told to leave the screen in the graphics mode it has been
->>>> using (or any other one), via "set gfxpayload=3Dkeep" (or suitable
->>>> variants thereof). In this case we can avoid doing another mode switch
->>>> ourselves. This in particular avoids possibly setting the screen to a
->>>> less desirable mode: On one of my test systems the set of modes
->>>> reported available by the VESA BIOS depends on whether the interposed
->>>> KVM switch has that machine set as the active one. If it's not active,
->>>> only modes up to 1024x768 get reported, while when active 1280x1024
->>>> modes are also included. For things to always work with an explicitly
->>>> specified mode (via the "vga=3D" option), that mode therefore needs be=
- a
->>>> 1024x768 one.
->=20
-> So this patch helps you by not having to set a mode and just relying
-> on the mode set by GrUB?
+On Thu, Mar 31, 2022 at 11:44:10AM +0200, Jan Beulich wrote:
+> GrUB2 can be told to leave the screen in the graphics mode it has been
+> using (or any other one), via "set gfxpayload=keep" (or suitable
+> variants thereof). In this case we can avoid doing another mode switch
+> ourselves. This in particular avoids possibly setting the screen to a
+> less desirable mode: On one of my test systems the set of modes
+> reported available by the VESA BIOS depends on whether the interposed
+> KVM switch has that machine set as the active one. If it's not active,
+> only modes up to 1024x768 get reported, while when active 1280x1024
+> modes are also included. For things to always work with an explicitly
+> specified mode (via the "vga=" option), that mode therefore needs be a
+> 1024x768 one.
+> 
+> For some reason this only works for me with "multiboot2" (and
+> "module2"); "multiboot" (and "module") still forces the screen into text
+> mode, despite my reading of the sources suggesting otherwise.
+> 
+> For starters I'm limiting this to graphics modes; I do think this ought
+> to also work for text modes, but
+> - I can't tell whether GrUB2 can set any text mode other than 80x25
+>   (I've only found plain "text" to be valid as a "gfxpayload" setting),
+> - I'm uncertain whether supporting that is worth it, since I'm uncertain
+>   how many people would be running their systems/screens in text mode,
+> - I'd like to limit the amount of code added to the realmode trampoline.
+> 
+> For starters I'm also limiting mode information retrieval to raw BIOS
+> accesses. This will allow things to work (in principle) also with other
+> boot environments where a graphics mode can be left in place. The
+> downside is that this then still is dependent upon switching back to
+> real mode, so retrieving the needed information from multiboot info is
+> likely going to be desirable down the road.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Yes, but it goes beyond that: The modes offered by VESA on the particular
-system don't include the higher resolution one under certain circumstances,
-so I cannot tell Xen to switch to that mode. By not having to tell Xen a
-specific mode (but rather inherit that set / left active by the boot
-loader), I can leverage the better mode in most cases, but things will
-still work if I turn on (or reset) the system with another machine being
-the presently selected one at the KVM switch.
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-But yes, beyond the particular quirk on this system the benefit is one
-less mode switch and hence less screen flickering and slightly faster
-boot.
-
->>>> --- a/xen/arch/x86/boot/video.S
->>>> +++ b/xen/arch/x86/boot/video.S
->>>> @@ -575,7 +575,6 @@ set14:  movw    $0x1111, %ax
->>>>          movb    $0x01, %ah              # Define cursor scan lines 11=
--12
->>>>          movw    $0x0b0c, %cx
->>>>          int     $0x10
->>>> -set_current:
->>>>          stc
->>>>          ret
->>>> =20
->>>> @@ -693,6 +692,39 @@ vga_modes:
->>>>          .word   VIDEO_80x60, 0x50,0x3c,0        # 80x60
->>>>  vga_modes_end:
->>>> =20
->>>> +# If the current mode is a VESA graphics one, obtain its parameters.
->>>> +set_current:
->>>> +        leaw    vesa_glob_info, %di
->>>> +        movw    $0x4f00, %ax
->>>> +        int     $0x10
->>>> +        cmpw    $0x004f, %ax
->>>> +        jne     .Lsetc_done
->>>
->>> You don't seem to make use of the information fetched here? I guess
->>> this is somehow required to access the other functions?
->>
->> See the similar logic at check_vesa. The information is used later, by
->> mode_params (half way into mopar_gr). Quite likely this could be done
->> just in a single place, but that would require some restructuring of
->> the code, which I'd like to avoid doing here.
->=20
-> I didn't realize check_vesa and set_current where mutually
-> exclusive.
->=20
->>>> +        movw    $0x4f03, %ax
->>>
->>> It would help readability to have defines for those values, ie:
->>> VESA_GET_CURRENT_MODE or some such (not that you need to do it here,
->>> just a comment).
->>
->> Right - this applies to all of our BIOS interfacing code, I guess.
->>
->>>> +        int     $0x10
->>>> +        cmpw    $0x004f, %ax
->>>> +        jne     .Lsetc_done
->>>> +
->>>> +        leaw    vesa_mode_info, %di     # Get mode information struct=
-ure
->>>> +        movw    %bx, %cx
->>>> +        movw    $0x4f01, %ax
->>>> +        int     $0x10
->>>> +        cmpw    $0x004f, %ax
->>>> +        jne     .Lsetc_done
->>>> +
->>>> +        movb    (%di), %al              # Check mode attributes
->>>> +        andb    $0x9b, %al
->>>> +        cmpb    $0x9b, %al
->>>
->>> So you also check that the reserved D1 bit is set to 1 as mandated by
->>> the spec. This is slightly different than what's done in check_vesa,
->>> would you mind adding a define for this an unifying with check_vesa?
->>
->> Well, see the v2 changelog comment. I'm somewhat hesitant to do that
->> here; I'd prefer to consolidate this in a separate patch.
->=20
-> Sorry, didn't notice that v2 comment before.
->=20
-> It's my understanding that the main difference this patch introduces
-> is that set_current now fetches the currently set mode, so that we
-> avoid further mode changes if the mode set already matches the
-> selected one, or if Xen is to use the already set mode?
-
-Not exactly: You either tell Xen to use the current mode ("vga=3Dcurrent")
-or you tell Xen to use a specific mode ("vga=3D<mode>"). Checking whether
-the present mode is the (specific) one Xen was told to switch to would
-require yet more work. But skipping a requested mode switch can also
-have unintended consequences, so I wouldn't even be certain we would
-want to go such a route.
-
-Jan
-
+Thanks, Roger.
 
