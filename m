@@ -2,49 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81AB24F58D6
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 11:17:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.299737.510931 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9802D4F581F
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 10:56:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.299739.510877 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nc1nE-0006CF-9t; Wed, 06 Apr 2022 09:17:36 +0000
+	id 1nc1S4-0001K9-Ds; Wed, 06 Apr 2022 08:55:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 299737.510931; Wed, 06 Apr 2022 09:17:36 +0000
+Received: by outflank-mailman (output) from mailman id 299739.510877; Wed, 06 Apr 2022 08:55:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nc1nE-00069z-6V; Wed, 06 Apr 2022 09:17:36 +0000
-Received: by outflank-mailman (input) for mailman id 299737;
- Wed, 06 Apr 2022 08:52:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nc1S4-0001H6-AH; Wed, 06 Apr 2022 08:55:44 +0000
+Received: by outflank-mailman (input) for mailman id 299739;
+ Wed, 06 Apr 2022 08:55:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bahK=UQ=opensource.wdc.com=prvs=0880ca2a2=damien.lemoal@srs-se1.protection.inumbo.net>)
- id 1nc1PE-0001DU-Nx
- for xen-devel@lists.xenproject.org; Wed, 06 Apr 2022 08:52:49 +0000
-Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ec36459d-b586-11ec-a405-831a346695d4;
- Wed, 06 Apr 2022 10:52:45 +0200 (CEST)
-Received: from uls-op-cesaip01.wdc.com (HELO uls-op-cesaep01.wdc.com)
- ([199.255.45.14])
- by ob1.hgst.iphmx.com with ESMTP; 06 Apr 2022 16:52:42 +0800
-Received: from uls-op-cesaip01.wdc.com ([10.248.3.36])
- by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 06 Apr 2022 01:24:14 -0700
-Received: from usg-ed-osssrv.wdc.com ([10.3.10.180])
- by uls-op-cesaip01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 06 Apr 2022 01:52:43 -0700
-Received: from usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1])
- by usg-ed-osssrv.wdc.com (Postfix) with ESMTP id 4KYJDp38s7z1SVp4
- for <xen-devel@lists.xenproject.org>; Wed,  6 Apr 2022 01:52:42 -0700 (PDT)
-Received: from usg-ed-osssrv.wdc.com ([127.0.0.1])
- by usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1]) (amavisd-new,
- port 10026)
- with ESMTP id afeRwg43Rmk2 for <xen-devel@lists.xenproject.org>;
- Wed,  6 Apr 2022 01:52:41 -0700 (PDT)
-Received: from [10.149.53.254] (washi.fujisawa.hgst.com [10.149.53.254])
- by usg-ed-osssrv.wdc.com (Postfix) with ESMTPSA id 4KYJDg4WyPz1Rvlx;
- Wed,  6 Apr 2022 01:52:35 -0700 (PDT)
+ <SRS0=3N7O=UQ=citrix.com=prvs=088976f43=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1nc1S3-0001H0-6R
+ for xen-devel@lists.xenproject.org; Wed, 06 Apr 2022 08:55:43 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5498995f-b587-11ec-8fbc-03012f2f19d4;
+ Wed, 06 Apr 2022 10:55:40 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,145 +36,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec36459d-b586-11ec-a405-831a346695d4
+X-Inumbo-ID: 5498995f-b587-11ec-8fbc-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
-  t=1649235165; x=1680771165;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=LFM3dJ4XtmmQmpjm/ADKwYliPf/iPacGMSt9/3x5IFU=;
-  b=To2eUsYgSjtDKL6zkmIlY7240wBKe0iYsCwy244hJP+Nx48QdTRKAG5L
-   m9yi8n9Vtge2WwIRlF/EU/tVZd04noO4D87Lz7PjmZJdBzX7X0JvhNEOE
-   EgMzfx4Sw9VO3KZpeqy4Mqk1eBOUzoNBuErJPzJ2sSTAwOlYOl8Angwmd
-   3JiQjnOHmH9hdGlZxdTXVk4BkWLM20hVu8+Cijwme1w5MgSf4edBcfJ0a
-   x9z3kcfDHm+mn2TxvqQmXkbr3DWYYheTvYAsSZzXsXduw+zmoeSJWR5da
-   xMbuMfvnay8NapXqswklXe70Y/p2tMhg9j7z2INfHsErVfM4dWcGlIoPH
-   g==;
-X-IronPort-AV: E=Sophos;i="5.90,239,1643644800"; 
-   d="scan'208";a="309182688"
-IronPort-SDR: lGT9/VEI4pUcLf5qk9m6R7vaS3dsKaEeOhk0aElos1OnfZ4eCV2Mewoh5mWVOxiabUCxlkpIrJ
- i5Hg6059tt4xBV5hn0EQCfq9EwzcjBUD2bHQrfw/ZCBJ4WklJEX3o5bQELyarhFj88IB6cLHfp
- RqlIwS0IoGYWOZh5SvzvywConV2n0380LD7FEY1wmLYWYn+XFMpbdJsXFKOFrQ2OmIALopXPK4
- ureIrTKERbeHqJEPLclsXMlClgWXPGAyIZQ8PdaUKp+uoBpWObgqkBMiUzSbNrpjKjwa3gP0fa
- NBtDoxzIR8lhMIeQkUqYSEst
-IronPort-SDR: /dFAJZKbp71So4RxLkGMSmVi+hD6lLeKyv2tOnheSp+mXDVkTeeyg/Ghik+iD15anKtFuxH9GG
- 0XVlrNL4QmX3jWbS1yyjOVRRye8u6kwbKjY8pNd/q7vZ6Bhvcmh/xGvmKy40Et9KcI9sHmK8qF
- sqABY2VkYJw9VISXgdMYnD3Q8+EUb4axtY6g9s0ec64kVPICbyFMkUVe3cVlC0nKvv+TcHNyN2
- jMA6MYLJgKs54mqXgiYwyoEw9ASNazIjYgyaTtoveznL5ipeumi8eSnjob/s2d3Q/ksXukd9oB
- EO4=
-WDCIronportException: Internal
-Authentication-Results: usg-ed-osssrv.wdc.com (amavisd-new); dkim=pass
-	reason="pass (just generated, assumed good)"
-	header.d=opensource.wdc.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=
-	opensource.wdc.com; h=content-transfer-encoding:content-type
-	:in-reply-to:organization:from:references:to:content-language
-	:subject:user-agent:mime-version:date:message-id; s=dkim; t=
-	1649235161; x=1651827162; bh=LFM3dJ4XtmmQmpjm/ADKwYliPf/iPacGMSt
-	9/3x5IFU=; b=qvkCgjbtXOykeK3hzZNeB4nFZLJBLeVyzVQiFxPBd+c54HMRQrR
-	r3mHxfVWNdkNw5DIJA4fgfkXPh93epK0mDoQ3kgu2fpFkbSa8brjeKFgTDNdjUXK
-	QEdaChXXlXS0VTxT7h9gL19ju3gtHs6R6Mypq0Cc5OI+h1pEURz6XYf1UQ1mcqds
-	uMy2QNMB1cQhY28LO46skbuCxOrF4i88P2mQlM7t3vtuiUBfVFmxO2ZMvku2/0fT
-	GRED3B4iBwE6imVQ9DU7YD88eHs1K7YN6+E1hQRftlmDiNgCGpghEuxtQnop4vN/
-	eOwwsoVyhIxEYaxD0ZFdcLlRFvL5b8ALceg==
-X-Virus-Scanned: amavisd-new at usg-ed-osssrv.wdc.com
-Message-ID: <ea3d14cb-00ea-8d7b-4615-9347fdd7aa27@opensource.wdc.com>
-Date: Wed, 6 Apr 2022 17:52:34 +0900
+  d=citrix.com; s=securemail; t=1649235341;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=gcZAu2rAypNKzN8D6xyqucJoqCvgO9wQZQKjYQBqA9g=;
+  b=Dhjqh+rVfMP1V9Z7o27cZQWxxxnKOn12a9NPUD8/V5Ki9AsGsUuQ3SxO
+   34XReBIn0uXylBp4ZK8Ay1nCRT9sBYcQiZgBYa0EytH112EUkL4GTFdwt
+   nJ1/YFyPFP7k+maNsV4mml0pD4vSN/uRxdmsCnr+zx1WY6Q1Hc/1nDRcn
+   Y=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+X-SBRS: 5.1
+X-MesageID: 68032473
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:EBmAA6hf8dwxIK3wXuz3A401X161QRAKZh0ujC45NGQN5FlHY01je
+ htvDGHUMv+CZWGhedAlbIqz8RtU6MSEyNJhSAs/riBjF3wb9cadCdqndUqhZCn6wu8v7a5EA
+ 2fyTvGacajYm1eF/k/F3oDJ9CU6jefSLlbFILas1hpZHGeIcw98z0M78wIFqtQw24LhX1vT4
+ YqaT/D3YzdJ5RYlagr41IrbwP9flKyaVOQw5wFWiVhj5TcyplFNZH4tDfjZw0jQG+G4KtWSV
+ efbpIxVy0uCl/sb5nFJpZ6gGqECaua60QFjERO6UYD66vRJjnRaPqrWqJPwwKqY4tmEt4kZ9
+ TlDiXC/YQ0lH/T1yPpBaAIGQjB9P/NDp/ycOWfq5KR/z2WeG5ft6/BnDUVwNowE4OdnR2pJ8
+ JT0KhhUMErF3bjvhuvmFK883azPL+GyVG8bkmtnwjzDS+4vXLjIQrnQ5M8e1zA17ixLNaiOP
+ 5FDNWU0BPjGSzdhJ1lHJ9Fup+OXr3/VLA1z8liuibVitgA/yyQuieOwYbI5YOeiVchT20qVu
+ G/C12D4GQ0BcsySzyKf9XChjfOJmjn0MKoVD6ak++V2xVSfw20VIA0bU0Ohpvu0gVL4XMhQQ
+ 2QW8Cczqak59GSwU8LwGRa/pRa5UgU0AoQKVbdgsUfUl/SSs13x6nU4oiBpYtAH7fZmW2ARz
+ QHYjtDrWzkw8+aNVifInluLlg+aNS8QJG4EQCYLSwoZ/tXuyL0OYgLzosVLS/Ds0ICscd3k6
+ 3XT9XVl2e1P5SIe///jlW0rlQ5AsXQgouQdwgzMFlyo4QpiDGJOT9z5sAOLhRqswWvwc7Vgg
+ JTms5XGhAztJcvU/MBofAnrNOv3jxpiGGeB6WOD57F7q1yQF4eLJOi8Gg1WKkZzKdojcjT0e
+ kLVsg45zMYNYCrzPfMnM9LhVJ9CIU3c+TLNDK68gj1mOMYZSeN61Hs2OR74M57FziDAbp3Ty
+ b/EKJ3xXB72+IxszSasRvd17FPY7ntW+I8nfriil07P+ePHPBa9EO5ZWHPTPrFRxP7V+239r
+ ocAX/ZmPj0CCYUSlAGMqtVNRb3LRFBmba3LRzt/LbfZeFc5QT1/UJc8A9oJIuRYokicrc+Rl
+ lmVUU5E0lvvw3rBLASBcHd4b73zG514qBoG0eYEZj5EB1BLjV6T0Zoi
+IronPort-HdrOrdr: A9a23:c9sGp6Bus8yLUB7lHehIsceALOsnbusQ8zAXPh9KJyC9I/b2qy
+ nxppgmPH/P6Ar4WBkb6La90Y27MA7hHPlOkPUs1NaZLXPbUQ6TTb2KgrGSpgEIdxeOktK1kJ
+ 0QDJSWa+eAfWSS7/yKmDVQeuxIqLLsndHK9IXjJjVWPHpXgslbnnZE422gYzRLrWd9dP0E/M
+ 323Ls4m9PsQwVdUu2LQl0+G8TTrdzCk5zrJTYAGh4c8QGLyRel8qTzHRS01goXF2on+8ZuzU
+ H11yjCoomzufCyzRHRk0fV8pRtgdPkjv9OHtaFhMQ5IijlziyoeINicbufuy1dmpDk1H8a1P
+ 335zswNcV67H3cOkmzvBvWwgHllA0j7nfzoGXo90fLkIjcfnYXGsBBjYVWfl/y8Ew7puxx16
+ pNwiawq4dXJQmoplWy2/H4EzVR0makq3srluAey1ZFV5EFVbNXpYsDuGtIDZY7Gj7g4oxPKp
+ ggMCjl3ocXTbqmVQGbgoE2q+bcHEjbXy32DnTqg/blkgS/xxtCvg4lLM92pAZ2yHtycegB2w
+ 3+CNUbqFh/dL5kUUtDPpZ1fSKWMB2FffueChPbHbzYfJt3T04l7aSHp4kI2A==
+X-IronPort-AV: E=Sophos;i="5.90,239,1643691600"; 
+   d="scan'208";a="68032473"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=l3HmbBaIMiLQN1DhDuGxdDH2Fa2dbVx0seG+nNeoYA6/ZE5af3qguAXKBfWHM9H8RqP4eFaxpWRHFtFLd+UzQfSHA/G5IZaJVanbIFsCfqm+CHBd3m3Q7ZPrcWeaqSXXKJXqQg1mOGT/RYVm+wACAZAXPlTI7cCeJbrV3dWFnkpzzU/WbLW1CgmvpRk3w9YOafiyPK998Ge2OAKccrbmhsytT88PaNVW9Dj/bUByxVHCel7SrIl/S3z0wpEIOd8NYKfYtlUtE+oFn2/bYVLdkVlAqBo/OwwR4xTh/hlSUx0d5mgzAcGXCkGd4MIL35o/uJ1DX0zj2zj8t9w50b7wog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=y2+pUYa1hWd7qpDkOptdaNRGqT+vbJP5b2ZfZTlomuA=;
+ b=MV90zGmQBNoYIox6a0rsryof1RXf7kiE4IqkNzit6auePzxcfyWY2UXli6BXL5fwHPnNV+EDgs0CSHbeK9dMKBeQ76KNInQXimxPHSnX20UmOBMIuqXTne5nlTWTom1XU/rAhzu8vdh/hGZAj1gBSnyXwPjs0KlXAIuuisSdEzK1g7RG3Bac+2d7aY1MV4ZXi9nLSrtD+wDIG2o0/unbfx7cKnynd/Xhdo09EG8gn49naiTr9PJN5kx8qthH+nfxVM4UoV/KSgJXCD03v555Oq3S8aKb5JKo+av7hOTBg/V/Lz/v2bTVhY5qrMnaRWD7c9lNIsHoH/RFBhDVY5ExJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=y2+pUYa1hWd7qpDkOptdaNRGqT+vbJP5b2ZfZTlomuA=;
+ b=kapDe1K85H/dbv46h/tWNm+vzma1jwU2p33uh3LHDx2de39sIXwB3tvJXCjZBNjRZkP5+jjvzQFKZIu3W334S3Q/vlZj7RmYjfWKXNerUruIKmTuKCuQThamGCT357QWaOF0qK/gKVEkvDsvTDl3Hn3qj3PsZiLw06ykRPVJ560=
+Date: Wed, 6 Apr 2022 10:55:31 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>
+CC: Jan Beulich <jbeulich@suse.com>, osstest service owner
+	<osstest-admin@xenproject.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, Anthony Perard <anthony.perard@citrix.com>
+Subject: Re: [xen-4.14-testing test] 169170: regressions - FAIL
+Message-ID: <Yk1Vg4ckxKzJbXwL@Air-de-Roger>
+References: <osstest-169170-mainreport@xen.org>
+ <d0e84ac8-308e-1784-982e-271705c13b7d@suse.com>
+ <afaaf270-27d4-39af-8125-6d622801073d@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <afaaf270-27d4-39af-8125-6d622801073d@citrix.com>
+X-ClientProxiedBy: LO2P265CA0124.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:9f::16) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH 14/27] block: add a bdev_max_zone_append_sectors helper
-Content-Language: en-US
-To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
-Cc: dm-devel@redhat.com, linux-xfs@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-um@lists.infradead.org,
- linux-block@vger.kernel.org, drbd-dev@lists.linbit.com,
- nbd@other.debian.org, ceph-devel@vger.kernel.org,
- virtualization@lists.linux-foundation.org, xen-devel@lists.xenproject.org,
- linux-bcache@vger.kernel.org, linux-raid@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-nvme@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
- linux-btrfs@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
- jfs-discussion@lists.sourceforge.net, linux-nilfs@vger.kernel.org,
- ntfs3@lists.linux.dev, ocfs2-devel@oss.oracle.com, linux-mm@kvack.org
-References: <20220406060516.409838-1-hch@lst.de>
- <20220406060516.409838-15-hch@lst.de>
-From: Damien Le Moal <damien.lemoal@opensource.wdc.com>
-Organization: Western Digital Research
-In-Reply-To: <20220406060516.409838-15-hch@lst.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 493db85f-9e0f-426c-58c2-08da17ab3701
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6779:EE_
+X-Microsoft-Antispam-PRVS: <SJ0PR03MB6779766B37B01217477CB0C38FE79@SJ0PR03MB6779.namprd03.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 1fcwT20phIL2EQr26CWsDdmZsIxl++39GcVUroe73rXG4V+ojbQDkDaod+NNLnLPzb+Td8JiUoepCaBBr7dxFMf2XJ2qxHjoLnFYFN/nepQLhn97nuNrEPHXayiholTtJ5UuVhEFkc/iaP3YkXKRYcB2PshnkW6L16HSUnjG9lHbD49uGJifiYb0kUWrFwiotwV8sY1iLG5eOlpGdY9iC5gxgQJgI+qDpedeM9MYbQ0TimTQaujbenl8zOF6YZRt2Tvp3s25H4z+Fhyl2keXZHd+IXqEHEIPyObIQNTiNTPXVm8Jq9Mr9xm0BV/OyVIXgDUO3sPuR6UYMUcK8eXn4MlZDQVpnQX+eHsJWin8KOC6exmVb2dXuTcQfyxAO+sgLMAjpoUfk7Gq2JkIG78RYA4Bpm146+ZW9oqc3MhS3j886S/Cv6q4q6+PY1B1/DGAUdEoS4iGbdMQnbLQ02xGyT5h9jgvTfltlOXah0+on5SX+Akmio9Cs9BlvC4g708PXkDbLwMuCTsqraMJ2ZUmQtys/pOH0HLMiUr4ag5JJ8GRvmu4swQ0rnlfJ2pz1XwJc1SpmxlyHqTpbeZnCTmLEOy0vFs+nFbW7KadTnCMyyp6+RibjLHkiLQHyH0R+PNJulGYHm0yjH/quB+4gzOOBwanz+pfJgd4TnGm+FlaEqzhA46Fkq68u4AKgfpyZnXdQH26BINlbuQybC84arLUScwe+w4CuwAh46H/dtXCwsw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(8676002)(107886003)(966005)(33716001)(316002)(66476007)(66556008)(66946007)(26005)(85182001)(186003)(6636002)(83380400001)(4326008)(6862004)(6486002)(82960400001)(8936002)(6506007)(5660300002)(508600001)(6666004)(54906003)(2906002)(9686003)(86362001)(6512007)(53546011)(38100700002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NkNtZWZGSCsxL3pZeWdyTGxyekVEeHNhZUVzMzM1a2VodlpxL09CeUc4OTBw?=
+ =?utf-8?B?a1ZaeVg3ZEsyWGkrVEZydW1FQWZidzN2L3ZjWXNJUTZnSzRpVGxVTHVqMlVw?=
+ =?utf-8?B?YnZhdTN2TWtKM3VMWGUzMW5KK2FWY2EwOHkweXgwYzlTN282TEdHSzkzNWtB?=
+ =?utf-8?B?dFFGdmFHdmwwbjhJeGJvMjZKMlJXTm5XdlFXemoyUnpWOWhaSzU0d0VUU2ty?=
+ =?utf-8?B?U0NDNzVBYkdTbTZWM2Z3bTU1cXloUzFqSG9LRVF5VU15cC9raVlCMm15bjI4?=
+ =?utf-8?B?VllBdHNtZWF5RzdtWGlYOGt6bWZvWnphRHpveVdJTE41Y2xXWnVhMmJyY29Z?=
+ =?utf-8?B?TkxQNks3cGx2R29RMkI4dncrTk5xVEJibHV0MTA1QzdxWmdDeTBsYll3VGlB?=
+ =?utf-8?B?cWpQNzF2NVNIaXdSUGRvelVaRGovMjFPMG9SSjEwaDJFQk5ybHJoQWZEVWpQ?=
+ =?utf-8?B?aGNqazQ3VkVyVUZGNUswSDI3SllIOEhkaUZtUVRpRXIyWm9qY094RlZGNXNv?=
+ =?utf-8?B?NDRJMHZBbm92TU1nQkNHL0MralNHeUpPVGJoQm45d2dTbHBTTnU0OVp0Tklu?=
+ =?utf-8?B?RkdZTGpYZkFCc0EvUFBJY3Q5KzA1Z3hnMm5GOEVDUm5wWnRyMjY1Z2QwRGc1?=
+ =?utf-8?B?VmNEclVZVDZkU3Z0RWRhUCtvYjU0Qkc4VitINmRRbjFSZHE0ZUdqRnNLNE9J?=
+ =?utf-8?B?UjAzZDBBNHp1YmFYQ01uL21RNzJGTnhkcVFzTTZsSU5NM2h6MlZZZmFkOWRq?=
+ =?utf-8?B?WGJSVyt4bGxUazBicElVQ2Z5aGhFdEd5OTZ4VzFML0lEcmM0d0RtV21nRUNp?=
+ =?utf-8?B?WWtCZWJ6bHc3dVVGZFZMU2s4WkZSYkJCakRPem9TTHhZTkpKTFhIOHh4SVA2?=
+ =?utf-8?B?NHVoSGczVm9iUVJUbU1HTTNjVTJWVkZ6M3dVU2xKZkt3V0k3Z2twOGdFZDJX?=
+ =?utf-8?B?eitLVDdvUWg4VTZwcWhpN0tpZE82ZXduK0hYMVNJL1ZLSWJpbEcxN0dqeUhF?=
+ =?utf-8?B?WlQ4cC9pdjQrREFFanZYalRNSlNRUlFOaHdPQ200dnpxUlUrUGo3cmpTVmxQ?=
+ =?utf-8?B?ZnRYbzNGbS95cmJtQ1VDSEVSbHNLSUloU2NMd01UL0NoZUJSYW1INmpOUXY4?=
+ =?utf-8?B?SjVUOThsWGQ4N25sUFVnMTBGL2ZIb1VuSjRibjJKVENaajhlaUhSRGVvNkw4?=
+ =?utf-8?B?WkdPZmdXek9zS0ZtVjJnVm9LeW1PR2NWS1psRDkyYmgvbDMveUNzOHF3U0ZK?=
+ =?utf-8?B?REhLaXVydWtKNndnbUErbXp2N1IzY0R6aFhxdnRBR1VKaUowbGhpbWFaMHQx?=
+ =?utf-8?B?OTRnNGRsS2xTZE5vWVJTNWNFME16cXZFOS82TWhCVzBodkk4VTFYNDVmaTVn?=
+ =?utf-8?B?MUt5cnF1ZThVbGgyYTBqQ2FFMVhHKzV1TmVTZm1CWVpOWlJoZnM0elJpcldq?=
+ =?utf-8?B?UXlXdHpqNENRNnZiR2hvamE5elcvQnpUU0JVM0lUMERNTmpSM1Q4WnpheDNU?=
+ =?utf-8?B?cTcrYjZVc25Pam8zd2hSait1bzFKOHBtcHVNUkRzYVgwdzVtZXlOMzRSRVhr?=
+ =?utf-8?B?MGhURXJSbXVmY2tZVzYreTVEc0FuQUprNkhYUkpXWmpBZTQ4ZUNQNG0yakhW?=
+ =?utf-8?B?TW1FY2RqdnJPNlo0MmJvbFFUQ2tBVUJFbXhXb3MvbXB6bVNKMy9XOWV4c3RX?=
+ =?utf-8?B?ak1IZ0pIdFl5dnVVNlhOMnRKNHJ4UVFQOFVqM2p6QmNvK2psaWl4SXM5SzlY?=
+ =?utf-8?B?cnhlVWpHUmtQMHpxVUI5c1ZJZFUrMDJJeWdZRkZubHdEVzdFREtiK1E3Nnln?=
+ =?utf-8?B?NmJ5U2JHVTVMN05JcTN1bTJ0bStIN2JLZGxkVHE0VXNPRXpxTSsxMG1IRmdL?=
+ =?utf-8?B?SDlxN0h0Y1JHYWtHTm54SlZTcU9tcmZCeUZSenUzY1lmWlFnK0MvcVVKZHND?=
+ =?utf-8?B?cUI0SUhUZUo4M0l0Nk9OVGZaWVhSSHUyVEcvSWgvL1lCbzNCRktHQnVxKzMy?=
+ =?utf-8?B?OU9hc0xINEpyUEkvTWNkMmVndjh2U3RFT29WYi92R2hkbDBiVTFpN0NPNDVx?=
+ =?utf-8?B?S1dNSVoyTndRbVkveVV2cHMzL2JFT1ZpRDI1SDhrTlJ0bVdudXBZL3ZKc2U3?=
+ =?utf-8?B?OUVTNjc1QU80aERKNGZFMUl4a1JvK0ZTNXZ5cUowaENFQ3loRlhrelQ2dm9q?=
+ =?utf-8?B?SDQrem5wa1QyZkd1aUMvYjZXSDdVL3ArSnRtcTQvYnVZVW4ya3dPVXFaM3cx?=
+ =?utf-8?B?UDdtNE1pdWd1R0FVTHB5c0llK203RTc5bGQ1QnVJZnBDenJzYVMzaHlrTThq?=
+ =?utf-8?B?OFk5MTkwWDdZTk1naTdpOXA3S3hIRVNVTzBPSytLYlBaSkVFOTRQMWZJNzJi?=
+ =?utf-8?Q?/zDPMD81+Yrm+1ac=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 493db85f-9e0f-426c-58c2-08da17ab3701
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2022 08:55:35.7746
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mjhL785+WwOr5oBDrhsfT0TFS4XY8HmTFwAiz/i8jfnapg4fxfDGMrKe/OaxjVTWlIpjP3onIexPrYa2tnHcYA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6779
+X-OriginatorOrg: citrix.com
 
-On 4/6/22 15:05, Christoph Hellwig wrote:
-> Add a helper to check the max supported sectors for zone append based on
-> the block_device instead of having to poke into the block layer internal
-> request_queue.
+On Wed, Apr 06, 2022 at 08:45:04AM +0000, Andrew Cooper wrote:
+> On 06/04/2022 08:22, Jan Beulich wrote:
+> > On 05.04.2022 16:53, osstest service owner wrote:
+> >> flight 169170 xen-4.14-testing real [real]
+> >> http://logs.test-lab.xenproject.org/osstest/logs/169170/
+> >>
+> >> Regressions :-(
+> >>
+> >> Tests which did not succeed and are blocking,
+> >> including tests which could not be run:
+> >>  test-amd64-amd64-xl          18 guest-localmigrate       fail REGR. vs. 168506
+> >>  build-arm64-xsm               6 xen-build                fail REGR. vs. 168506
+> > Urgh:
+> >
+> >   CC      hw/virtio/virtio-bus.o
+> >   CC      hw/virtio/virtio-rng.o
+> >   CC      hw/virtio/virtio-pci.o
+> >   CC      hw/virtio/virtio-mmio.o
+> >   CC      hw/virtio/virtio-pmem-pci.o
+> >   CC      hw/virtio/vhost-stub.o
+> > cc: internal compiler error: Segmentation fault signal terminated program cc1
+> > Please submit a full bug report,
+> > with preprocessed source if appropriate.
+> > See <file:///usr/share/doc/gcc-8/README.Bugs> for instructions.
+> > make: *** [/home/osstest/build.169170.build-arm64-xsm/xen/tools/qemu-xen-dir/rules.mak:69: hw/virtio/vhost-stub.o] Error 4
+> >
+> > If this is going to recur, I don't see what we ought to do about this.
+> > This doesn't look to have any relation to the recently added two
+> > commits on the respective qemu stable tree.
+> >
+> > However, if this wouldn't recur it would be similarly alarming: That
+> > would suggest the build environment to not be stable.
+> >
+> > Thoughts anyone?
 > 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->   drivers/nvme/target/zns.c | 3 +--
->   fs/zonefs/super.c         | 3 +--
->   include/linux/blkdev.h    | 6 ++++++
->   3 files changed, 8 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/nvme/target/zns.c b/drivers/nvme/target/zns.c
-> index e34718b095504..82b61acf7a72b 100644
-> --- a/drivers/nvme/target/zns.c
-> +++ b/drivers/nvme/target/zns.c
-> @@ -34,8 +34,7 @@ static int validate_conv_zones_cb(struct blk_zone *z,
->   
->   bool nvmet_bdev_zns_enable(struct nvmet_ns *ns)
->   {
-> -	struct request_queue *q = ns->bdev->bd_disk->queue;
-> -	u8 zasl = nvmet_zasl(queue_max_zone_append_sectors(q));
-> +	u8 zasl = nvmet_zasl(bdev_max_zone_append_sectors(ns->bdev));
->   	struct gendisk *bd_disk = ns->bdev->bd_disk;
->   	int ret;
->   
-> diff --git a/fs/zonefs/super.c b/fs/zonefs/super.c
-> index 3614c7834007d..7a63807b736c4 100644
-> --- a/fs/zonefs/super.c
-> +++ b/fs/zonefs/super.c
-> @@ -678,13 +678,12 @@ static ssize_t zonefs_file_dio_append(struct kiocb *iocb, struct iov_iter *from)
->   	struct inode *inode = file_inode(iocb->ki_filp);
->   	struct zonefs_inode_info *zi = ZONEFS_I(inode);
->   	struct block_device *bdev = inode->i_sb->s_bdev;
-> -	unsigned int max;
-> +	unsigned int max = bdev_max_zone_append_sectors(bdev);
->   	struct bio *bio;
->   	ssize_t size;
->   	int nr_pages;
->   	ssize_t ret;
->   
-> -	max = queue_max_zone_append_sectors(bdev_get_queue(bdev));
->   	max = ALIGN_DOWN(max << SECTOR_SHIFT, inode->i_sb->s_blocksize);
->   	iov_iter_truncate(from, max);
->   
-> diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-> index a433798c3343e..f8c50b77543eb 100644
-> --- a/include/linux/blkdev.h
-> +++ b/include/linux/blkdev.h
-> @@ -1188,6 +1188,12 @@ static inline unsigned int queue_max_zone_append_sectors(const struct request_qu
->   	return min(l->max_zone_append_sectors, l->max_sectors);
->   }
->   
-> +static inline unsigned int
-> +bdev_max_zone_append_sectors(struct block_device *bdev)
-> +{
-> +	return queue_max_zone_append_sectors(bdev_get_queue(bdev));
-> +}
-> +
->   static inline unsigned queue_logical_block_size(const struct request_queue *q)
->   {
->   	int retval = 512;
+> The version of debian was recently bumped to work around the usual
+> OSSTest issues when it gets too out of date.  Guess we picked up a new,
+> broken, compiler.
 
-Looks good.
+I think the compiler is not tied to the update.  The update I did last
+week just rebuilds the network install media to use a new kernel,
+because our installer kernel got out of date with the modules on the
+Debian repos, and thus loading those would fail.
 
-Acked-by: Damien Le Moal <damien.lemoal@opensource.wdc.com>
+However the install media doesn't contain any build tools, so we just
+pick those directly from the Debian repo (using a cache, but that's
+not tracking a fixed version of the package repository).
 
--- 
-Damien Le Moal
-Western Digital Research
+I guess we will need to see how recurring this is, and whether we
+should take action.
+
+Thanks, Roger.
 
