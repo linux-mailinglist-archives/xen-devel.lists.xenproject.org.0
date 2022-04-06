@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E65014F5556
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 08:06:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.299531.510433 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A49A4F555A
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 08:06:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.299532.510440 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nbynk-00032S-MU; Wed, 06 Apr 2022 06:05:56 +0000
+	id 1nbynl-00039J-9G; Wed, 06 Apr 2022 06:05:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 299531.510433; Wed, 06 Apr 2022 06:05:56 +0000
+Received: by outflank-mailman (output) from mailman id 299532.510440; Wed, 06 Apr 2022 06:05:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nbynk-0002z4-EW; Wed, 06 Apr 2022 06:05:56 +0000
-Received: by outflank-mailman (input) for mailman id 299531;
+	id 1nbynk-00032H-UY; Wed, 06 Apr 2022 06:05:56 +0000
+Received: by outflank-mailman (input) for mailman id 299532;
  Wed, 06 Apr 2022 06:05:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=huFP=UQ=bombadil.srs.infradead.org=BATV+4210fbe0094d03a681f9+6800+infradead.org+hch@srs-se1.protection.inumbo.net>)
- id 1nbyni-0000i6-SL
- for xen-devel@lists.xenproject.org; Wed, 06 Apr 2022 06:05:54 +0000
+ id 1nbynj-0000hu-CH
+ for xen-devel@lists.xenproject.org; Wed, 06 Apr 2022 06:05:55 +0000
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [2607:7c80:54:e::133])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9a8014d8-b56f-11ec-8fbc-03012f2f19d4;
- Wed, 06 Apr 2022 08:05:48 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9de280a1-b56f-11ec-a405-831a346695d4;
+ Wed, 06 Apr 2022 08:05:54 +0200 (CEST)
 Received: from 213-225-3-188.nat.highway.a1.net ([213.225.3.188]
  helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nbynX-003uuj-EB; Wed, 06 Apr 2022 06:05:44 +0000
+ id 1nbynb-003uwx-AJ; Wed, 06 Apr 2022 06:05:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a8014d8-b56f-11ec-8fbc-03012f2f19d4
+X-Inumbo-ID: 9de280a1-b56f-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
 	:Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=8b7He7jKWHmQh3KokdF/PRePZ9Zk3nvKntDAn0vRB+A=; b=0omtD+HQtA616dFivyqA97DclF
-	5MCkQ36VFGZAUVgFUJvq7ULB9RxmAnnJK9Ru4GgkOHXwFqXqRHMXQ9LCogkUlyoM9wN6+7J7DekaY
-	q43/dVC7g/6yyYP+I8eJgSyycd7IVsGmMYkR1Clskvv1tDsGCaTWuQ8Rrf8sU79R1v0lw2bQt/AWB
-	OsOPsydboiChznz0eGpngaPA8w2OVY6Jf3YdqyKDFL16zctVHp5+n0d+GDis8Omgb+WFkLhPwAzdn
-	EsF+yQBNP9+37ibHq8jy0MV7lNP50mXC+UwgCTvOjOUrw+1nocIz3QcImLpc9EsYaF5HR/HZej/jt
-	LdNiWxFQ==;
+	bh=WTqESTvtfO4RX0qAqhs2oFd2Ik59q54vLqp/V/y7bnI=; b=FyJUmCuIohn+Rc7Inqu3BniYMO
+	qIbi7WgRq0N7qblPyTDtikeMFm5V1dbLiaJQYES35HwVVDM5F002rNedhKojSjZSangf3g4TTB5H8
+	ose/VQW92oLsoNNnrgmuQ76bdKKE4T6Y3dmmZVsUWsnsPjVGMnUiPjquePmKO+IeMAi+ZQQvMCCYS
+	5PMGec+vFR133rAMQYM0lD1ltqCTBtpWog3Ko4h+ioJJRDUI+WLYZoytyDGy8Ig1GoZQ2cZVQBaiq
+	VeAMRPUX1EVBht4ncdSOvQy0zHk56lci0PZ4ia4LUpztUXudJZTNfnXGvXSxvvSo+c89mmlg6GRYS
+	FB4ItY+g==;
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: dm-devel@redhat.com,
@@ -81,9 +81,9 @@ Cc: dm-devel@redhat.com,
 	ntfs3@lists.linux.dev,
 	ocfs2-devel@oss.oracle.com,
 	linux-mm@kvack.org
-Subject: [PATCH 06/27] drbd: cleanup decide_on_discard_support
-Date: Wed,  6 Apr 2022 08:04:55 +0200
-Message-Id: <20220406060516.409838-7-hch@lst.de>
+Subject: [PATCH 07/27] btrfs: use bdev_max_active_zones instead of open coding it
+Date: Wed,  6 Apr 2022 08:04:56 +0200
+Message-Id: <20220406060516.409838-8-hch@lst.de>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220406060516.409838-1-hch@lst.de>
 References: <20220406060516.409838-1-hch@lst.de>
@@ -91,116 +91,32 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-Sanitize the calling conventions and use a goto label to cleanup the
-code flow.
-
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/block/drbd/drbd_nl.c | 68 +++++++++++++++++++-----------------
- 1 file changed, 35 insertions(+), 33 deletions(-)
+ fs/btrfs/zoned.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/block/drbd/drbd_nl.c b/drivers/block/drbd/drbd_nl.c
-index 02030c9c4d3b1..40bb0b356a6d6 100644
---- a/drivers/block/drbd/drbd_nl.c
-+++ b/drivers/block/drbd/drbd_nl.c
-@@ -1204,38 +1204,42 @@ static unsigned int drbd_max_discard_sectors(struct drbd_connection *connection)
- }
+diff --git a/fs/btrfs/zoned.c b/fs/btrfs/zoned.c
+index b7b5fac1c7790..5b85004d85d6c 100644
+--- a/fs/btrfs/zoned.c
++++ b/fs/btrfs/zoned.c
+@@ -350,7 +350,6 @@ int btrfs_get_dev_zone_info(struct btrfs_device *device, bool populate_cache)
+ 	struct btrfs_fs_info *fs_info = device->fs_info;
+ 	struct btrfs_zoned_device_info *zone_info = NULL;
+ 	struct block_device *bdev = device->bdev;
+-	struct request_queue *queue = bdev_get_queue(bdev);
+ 	unsigned int max_active_zones;
+ 	unsigned int nactive;
+ 	sector_t nr_sectors;
+@@ -410,7 +409,7 @@ int btrfs_get_dev_zone_info(struct btrfs_device *device, bool populate_cache)
+ 	if (!IS_ALIGNED(nr_sectors, zone_sectors))
+ 		zone_info->nr_zones++;
  
- static void decide_on_discard_support(struct drbd_device *device,
--			struct request_queue *q,
--			struct request_queue *b,
--			bool discard_zeroes_if_aligned)
-+		struct drbd_backing_dev *bdev)
- {
--	/* q = drbd device queue (device->rq_queue)
--	 * b = backing device queue (device->ldev->backing_bdev->bd_disk->queue),
--	 *     or NULL if diskless
--	 */
--	struct drbd_connection *connection = first_peer_device(device)->connection;
--	bool can_do = b ? blk_queue_discard(b) : true;
--
--	if (can_do && connection->cstate >= C_CONNECTED && !(connection->agreed_features & DRBD_FF_TRIM)) {
--		can_do = false;
--		drbd_info(connection, "peer DRBD too old, does not support TRIM: disabling discards\n");
--	}
--	if (can_do) {
--		/* We don't care for the granularity, really.
--		 * Stacking limits below should fix it for the local
--		 * device.  Whether or not it is a suitable granularity
--		 * on the remote device is not our problem, really. If
--		 * you care, you need to use devices with similar
--		 * topology on all peers. */
--		blk_queue_discard_granularity(q, 512);
--		q->limits.max_discard_sectors = drbd_max_discard_sectors(connection);
--		blk_queue_flag_set(QUEUE_FLAG_DISCARD, q);
--		q->limits.max_write_zeroes_sectors = drbd_max_discard_sectors(connection);
--	} else {
--		blk_queue_flag_clear(QUEUE_FLAG_DISCARD, q);
--		blk_queue_discard_granularity(q, 0);
--		q->limits.max_discard_sectors = 0;
--		q->limits.max_write_zeroes_sectors = 0;
-+	struct drbd_connection *connection =
-+		first_peer_device(device)->connection;
-+	struct request_queue *q = device->rq_queue;
-+
-+	if (bdev && !blk_queue_discard(bdev->backing_bdev->bd_disk->queue))
-+		goto not_supported;
-+
-+	if (connection->cstate >= C_CONNECTED &&
-+	    !(connection->agreed_features & DRBD_FF_TRIM)) {
-+		drbd_info(connection,
-+			"peer DRBD too old, does not support TRIM: disabling discards\n");
-+		goto not_supported;
- 	}
-+
-+	/*
-+	 * We don't care for the granularity, really.
-+	 *
-+	 * Stacking limits below should fix it for the local device.  Whether or
-+	 * not it is a suitable granularity on the remote device is not our
-+	 * problem, really. If you care, you need to use devices with similar
-+	 * topology on all peers.
-+	 */
-+	blk_queue_discard_granularity(q, 512);
-+	q->limits.max_discard_sectors = drbd_max_discard_sectors(connection);
-+	blk_queue_flag_set(QUEUE_FLAG_DISCARD, q);
-+	q->limits.max_write_zeroes_sectors =
-+		drbd_max_discard_sectors(connection);
-+	return;
-+
-+not_supported:
-+	blk_queue_flag_clear(QUEUE_FLAG_DISCARD, q);
-+	blk_queue_discard_granularity(q, 0);
-+	q->limits.max_discard_sectors = 0;
-+	q->limits.max_write_zeroes_sectors = 0;
- }
- 
- static void fixup_discard_if_not_supported(struct request_queue *q)
-@@ -1273,7 +1277,6 @@ static void drbd_setup_queue_param(struct drbd_device *device, struct drbd_backi
- 	unsigned int max_segments = 0;
- 	struct request_queue *b = NULL;
- 	struct disk_conf *dc;
--	bool discard_zeroes_if_aligned = true;
- 
- 	if (bdev) {
- 		b = bdev->backing_bdev->bd_disk->queue;
-@@ -1282,7 +1285,6 @@ static void drbd_setup_queue_param(struct drbd_device *device, struct drbd_backi
- 		rcu_read_lock();
- 		dc = rcu_dereference(device->ldev->disk_conf);
- 		max_segments = dc->max_bio_bvecs;
--		discard_zeroes_if_aligned = dc->discard_zeroes_if_aligned;
- 		rcu_read_unlock();
- 
- 		blk_set_stacking_limits(&q->limits);
-@@ -1292,7 +1294,7 @@ static void drbd_setup_queue_param(struct drbd_device *device, struct drbd_backi
- 	/* This is the workaround for "bio would need to, but cannot, be split" */
- 	blk_queue_max_segments(q, max_segments ? max_segments : BLK_MAX_SEGMENTS);
- 	blk_queue_segment_boundary(q, PAGE_SIZE-1);
--	decide_on_discard_support(device, q, b, discard_zeroes_if_aligned);
-+	decide_on_discard_support(device, bdev);
- 
- 	if (b) {
- 		blk_stack_limits(&q->limits, &b->limits, 0);
+-	max_active_zones = queue_max_active_zones(queue);
++	max_active_zones = bdev_max_active_zones(bdev);
+ 	if (max_active_zones && max_active_zones < BTRFS_MIN_ACTIVE_ZONES) {
+ 		btrfs_err_in_rcu(fs_info,
+ "zoned: %s: max active zones %u is too small, need at least %u active zones",
 -- 
 2.30.2
 
