@@ -2,44 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C4F04F5817
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 10:48:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.299730.510866 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81AB24F58D6
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 11:17:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.299737.510931 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nc1L7-0008EB-EP; Wed, 06 Apr 2022 08:48:33 +0000
+	id 1nc1nE-0006CF-9t; Wed, 06 Apr 2022 09:17:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 299730.510866; Wed, 06 Apr 2022 08:48:33 +0000
+Received: by outflank-mailman (output) from mailman id 299737.510931; Wed, 06 Apr 2022 09:17:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nc1L7-0008Bp-B2; Wed, 06 Apr 2022 08:48:33 +0000
-Received: by outflank-mailman (input) for mailman id 299730;
- Wed, 06 Apr 2022 08:48:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LqB1=UQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nc1L6-0008Bj-Qa
- for xen-devel@lists.xenproject.org; Wed, 06 Apr 2022 08:48:32 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5587f8d4-b586-11ec-8fbc-03012f2f19d4;
- Wed, 06 Apr 2022 10:48:31 +0200 (CEST)
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04lp2052.outbound.protection.outlook.com [104.47.13.52]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-35-cNl-F7O-OSGkop4H5o5EhQ-1; Wed, 06 Apr 2022 10:48:28 +0200
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
- by VI1PR04MB4237.eurprd04.prod.outlook.com (2603:10a6:803:3e::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.31; Wed, 6 Apr
- 2022 08:48:25 +0000
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::914d:e08d:7798:8476]) by DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::914d:e08d:7798:8476%7]) with mapi id 15.20.5123.031; Wed, 6 Apr 2022
- 08:48:25 +0000
+	id 1nc1nE-00069z-6V; Wed, 06 Apr 2022 09:17:36 +0000
+Received: by outflank-mailman (input) for mailman id 299737;
+ Wed, 06 Apr 2022 08:52:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=bahK=UQ=opensource.wdc.com=prvs=0880ca2a2=damien.lemoal@srs-se1.protection.inumbo.net>)
+ id 1nc1PE-0001DU-Nx
+ for xen-devel@lists.xenproject.org; Wed, 06 Apr 2022 08:52:49 +0000
+Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ec36459d-b586-11ec-a405-831a346695d4;
+ Wed, 06 Apr 2022 10:52:45 +0200 (CEST)
+Received: from uls-op-cesaip01.wdc.com (HELO uls-op-cesaep01.wdc.com)
+ ([199.255.45.14])
+ by ob1.hgst.iphmx.com with ESMTP; 06 Apr 2022 16:52:42 +0800
+Received: from uls-op-cesaip01.wdc.com ([10.248.3.36])
+ by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 06 Apr 2022 01:24:14 -0700
+Received: from usg-ed-osssrv.wdc.com ([10.3.10.180])
+ by uls-op-cesaip01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 06 Apr 2022 01:52:43 -0700
+Received: from usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1])
+ by usg-ed-osssrv.wdc.com (Postfix) with ESMTP id 4KYJDp38s7z1SVp4
+ for <xen-devel@lists.xenproject.org>; Wed,  6 Apr 2022 01:52:42 -0700 (PDT)
+Received: from usg-ed-osssrv.wdc.com ([127.0.0.1])
+ by usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1]) (amavisd-new,
+ port 10026)
+ with ESMTP id afeRwg43Rmk2 for <xen-devel@lists.xenproject.org>;
+ Wed,  6 Apr 2022 01:52:41 -0700 (PDT)
+Received: from [10.149.53.254] (washi.fujisawa.hgst.com [10.149.53.254])
+ by usg-ed-osssrv.wdc.com (Postfix) with ESMTPSA id 4KYJDg4WyPz1Rvlx;
+ Wed,  6 Apr 2022 01:52:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,163 +56,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5587f8d4-b586-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1649234911;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RVgAYc4pdH+DMQfBDziawv+0uiaE43o3Nnqr8kHEcz4=;
-	b=k6GMmrB7CEtW3K3cAj3lGWntl/3Brs+5mO0Wm8f4jQWFkZL0XDZkhjdye9MZljcJBxRa/x
-	qlffj2w7Pw6SJ+I3Y5VR42oNeGicVOci5J7SR07XR2jGwrlpe9n0NadNm7I3msQaI1gld4
-	YvlnGb/SqzwUY9WR2L1cW1zBDQ9uhew=
-X-MC-Unique: cNl-F7O-OSGkop4H5o5EhQ-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=b46uv4LxBU6YsmgCsUcEoTw5hDnBAx0ywopOmJ31BiR00BM5E/ru827D5C0soZ3aHmYGROiIt4qmLD6DPifTY17PdIKv3V3ora39fARihnyOHrTQZC86Z1xC5WFVtv2WR5PEZYfi1VCLYH1fkNvGZPkT2KTIlyokY9o+rgtAHKxitFl9ZbByuaNGkv/6/eeArpkftZ2//bnUcwEMZ4aSEyzqAjJY6bVR/zwJzm7V3ujA7sIHVbyJ50POD83e1P3hftA8IpTmOOAlez4jZFx8lZ/OWUIC/i4ST6BT3HxAhfUV7rKsvf0kDERytQoMAmVeq/XYygUHyC6vF+q7QgBpQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bx4c/RgVuBr61y1OKVYyGwfuME8UXQZZHvxdJge+Vxc=;
- b=dJPgzwac3tWGrH0+Rbg8UBPQbSk8kR1z4h0R1XR2zNS2+WasQXr5ptdE7cJ6OdAUb+P/k1+qQGe6+HvkTXT+tf315MOPIRQZ3Boz3AxQP7zxTtXGquX8yt8AtAwKON6z1eCD6I4AeOleaVoXAncsFmbnzmSBAT/eIeZJVEpoQClBRpmxEI5EUZyIhSq8Oc8I+BxWzZ8yStlSqZIZ9j3/cYOxnqerkDaTQm0DI7GDJeDFD1v537KLM7jqilATi/er6zEm/K0FkbWZUZ8mPwfetuLT6G1v1o0s8S8E7f6mtJutoIAgI12F+HMUT0RjfZNLcoKfI/4HniNFdlo4841nag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <dd4fce17-2625-603b-25d5-3a586a682210@suse.com>
-Date: Wed, 6 Apr 2022 10:48:23 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH 1/2] xsm: add ability to elevate a domain to privileged
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-CC: Jason Andryuk <jandryuk@gmail.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Scott Davis <scott.davis@starlab.io>, Daniel De Graaf
- <dgdegra@tycho.nsa.gov>, "Daniel P. Smith" <dpsmith@apertussolutions.com>
-References: <20220330230549.26074-1-dpsmith@apertussolutions.com>
- <20220330230549.26074-2-dpsmith@apertussolutions.com>
- <CAKf6xpuA4hQmPdBtmog1UFcSQQkXL2=+e5bmqeocesgNxqD27w@mail.gmail.com>
- <1eaf4555-5221-6cef-6c01-6aea3797e521@apertussolutions.com>
- <CAKf6xpv0LrmAa2A=dXXK2DSRh0j8ac9VM4aLBhTRK0MtnML0Aw@mail.gmail.com>
- <a4759948-d45c-df06-3130-f95aba05b555@suse.com>
- <Yk1Ta9ujHBuj+svN@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <Yk1Ta9ujHBuj+svN@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM6P192CA0046.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:209:82::23) To DU2PR04MB8616.eurprd04.prod.outlook.com
- (2603:10a6:10:2db::16)
+X-Inumbo-ID: ec36459d-b586-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
+  t=1649235165; x=1680771165;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=LFM3dJ4XtmmQmpjm/ADKwYliPf/iPacGMSt9/3x5IFU=;
+  b=To2eUsYgSjtDKL6zkmIlY7240wBKe0iYsCwy244hJP+Nx48QdTRKAG5L
+   m9yi8n9Vtge2WwIRlF/EU/tVZd04noO4D87Lz7PjmZJdBzX7X0JvhNEOE
+   EgMzfx4Sw9VO3KZpeqy4Mqk1eBOUzoNBuErJPzJ2sSTAwOlYOl8Angwmd
+   3JiQjnOHmH9hdGlZxdTXVk4BkWLM20hVu8+Cijwme1w5MgSf4edBcfJ0a
+   x9z3kcfDHm+mn2TxvqQmXkbr3DWYYheTvYAsSZzXsXduw+zmoeSJWR5da
+   xMbuMfvnay8NapXqswklXe70Y/p2tMhg9j7z2INfHsErVfM4dWcGlIoPH
+   g==;
+X-IronPort-AV: E=Sophos;i="5.90,239,1643644800"; 
+   d="scan'208";a="309182688"
+IronPort-SDR: lGT9/VEI4pUcLf5qk9m6R7vaS3dsKaEeOhk0aElos1OnfZ4eCV2Mewoh5mWVOxiabUCxlkpIrJ
+ i5Hg6059tt4xBV5hn0EQCfq9EwzcjBUD2bHQrfw/ZCBJ4WklJEX3o5bQELyarhFj88IB6cLHfp
+ RqlIwS0IoGYWOZh5SvzvywConV2n0380LD7FEY1wmLYWYn+XFMpbdJsXFKOFrQ2OmIALopXPK4
+ ureIrTKERbeHqJEPLclsXMlClgWXPGAyIZQ8PdaUKp+uoBpWObgqkBMiUzSbNrpjKjwa3gP0fa
+ NBtDoxzIR8lhMIeQkUqYSEst
+IronPort-SDR: /dFAJZKbp71So4RxLkGMSmVi+hD6lLeKyv2tOnheSp+mXDVkTeeyg/Ghik+iD15anKtFuxH9GG
+ 0XVlrNL4QmX3jWbS1yyjOVRRye8u6kwbKjY8pNd/q7vZ6Bhvcmh/xGvmKy40Et9KcI9sHmK8qF
+ sqABY2VkYJw9VISXgdMYnD3Q8+EUb4axtY6g9s0ec64kVPICbyFMkUVe3cVlC0nKvv+TcHNyN2
+ jMA6MYLJgKs54mqXgiYwyoEw9ASNazIjYgyaTtoveznL5ipeumi8eSnjob/s2d3Q/ksXukd9oB
+ EO4=
+WDCIronportException: Internal
+Authentication-Results: usg-ed-osssrv.wdc.com (amavisd-new); dkim=pass
+	reason="pass (just generated, assumed good)"
+	header.d=opensource.wdc.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=
+	opensource.wdc.com; h=content-transfer-encoding:content-type
+	:in-reply-to:organization:from:references:to:content-language
+	:subject:user-agent:mime-version:date:message-id; s=dkim; t=
+	1649235161; x=1651827162; bh=LFM3dJ4XtmmQmpjm/ADKwYliPf/iPacGMSt
+	9/3x5IFU=; b=qvkCgjbtXOykeK3hzZNeB4nFZLJBLeVyzVQiFxPBd+c54HMRQrR
+	r3mHxfVWNdkNw5DIJA4fgfkXPh93epK0mDoQ3kgu2fpFkbSa8brjeKFgTDNdjUXK
+	QEdaChXXlXS0VTxT7h9gL19ju3gtHs6R6Mypq0Cc5OI+h1pEURz6XYf1UQ1mcqds
+	uMy2QNMB1cQhY28LO46skbuCxOrF4i88P2mQlM7t3vtuiUBfVFmxO2ZMvku2/0fT
+	GRED3B4iBwE6imVQ9DU7YD88eHs1K7YN6+E1hQRftlmDiNgCGpghEuxtQnop4vN/
+	eOwwsoVyhIxEYaxD0ZFdcLlRFvL5b8ALceg==
+X-Virus-Scanned: amavisd-new at usg-ed-osssrv.wdc.com
+Message-ID: <ea3d14cb-00ea-8d7b-4615-9347fdd7aa27@opensource.wdc.com>
+Date: Wed, 6 Apr 2022 17:52:34 +0900
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dfa555ec-a665-4264-5b7a-08da17aa36be
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4237:EE_
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB423756494F8AD3434F2725D4B3E79@VI1PR04MB4237.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	esb9k3fDK9ChmDfYmI+7/p44n1cmztXSZ4Be5vHvwKcWqY6rc+guaeKrnUIaT1ESxXkZiUYEMS8HPpKsINexnKJL7UY2cqxbKxutXaZaDF7JW/CMr7Y29VhiwpZykCdOhNGKNY4qeY05y9+loM04okUSqdQSBl2FEuSFVJSh48TLwp2Sukv5Dk6pDbsTW0hfpgf9o/EWy1jYkmNrjvaf87lZVZhc7YpA+gu0UOh6pYMHid2fTkuOoMZOUi5xf/PChdLfGVzIpdpF7W16cKA8LWk7PaLBJSnt1p714TKjnVxmHdhjHaHPpmxGrsodoxZsk8eASfJ1FuWMzsh8ql3vIS0LMSWpYSQGj6xANVPfkXKM+nx9ONWTlTNdyk8d9xjell7cf2mbk8ZKqDtTQIivn3PRDjJUbiS16MEsqSiUw6ZOnLcEPQ2GBLL1/xhJ9HAghQXGyBVrZKz1oYx8mUupC4nbmzkRyGTDcbP90zRUoLoYyak8rYmwXmH+Dn5bn676LKu1gYKDCiEGzeDAtRkv0LJIMEp0cg6mjJNlsel/qlxNiDDOUj5NP5xJfn/3lG2myO5bnpDRof4n6jjdsneZDEmZyW2yyHshf1mX+SZxuOcpdTdeA04tNOZCfjhcDux3YH/LwsTyws/+nQFbtqZJBdOakCeytpB01+K5pi22fnyw3K2bCB2FnIUEoNTa2wzOtCuyySuWdOu3tHF3W/AzKv1wbis6x849FGTsyS2enejvPssY5IJZfWJrM5qy/L/e
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(5660300002)(86362001)(8676002)(66556008)(8936002)(6512007)(66476007)(66946007)(6506007)(53546011)(4326008)(38100700002)(31696002)(83380400001)(36756003)(6486002)(316002)(6916009)(54906003)(508600001)(31686004)(186003)(2616005)(26005)(2906002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?hiMDMjJ4Ft/K3yA7VBrvbflw/JEq+gE/7SMMkZfdJiIFZWdnafm/9fdS/KWU?=
- =?us-ascii?Q?kYoGT4/FIWRpZ0yLhE5UOIoUmgX+6rOU4exezZhHw0K3Q3NrqcBDBvOiEVh8?=
- =?us-ascii?Q?t1D+YYtaLUZdPNHZXJjaT8604Wj/456gdxiKf+WJJc+8YhyLWMlK+FcxbL3H?=
- =?us-ascii?Q?JlMFkZzd3A0h7DpzEHYhkCrreqmTOW/gpWo94aG6bcTvXZkjxiGNhApAYkeM?=
- =?us-ascii?Q?DvO6mKD8YnINHagugz2MEmy6o+lLxNx7ulrY2+X73VV/dk3ukF/+sF5gVMDQ?=
- =?us-ascii?Q?eQTt41GAjiRKgyhX8xOZyansh4aWtleWuKiKky5HLR87Oe7dsYYANj/8w+1e?=
- =?us-ascii?Q?6v/dCjs7pIHE62Edj0FEuKdZZYN1t3XpkLDQ9C6NwYGnqF29DcCEPYf31oPJ?=
- =?us-ascii?Q?XoY0zL/+C0KGoQKFXX8x0t37z2znJQr952vbjhOFNn2r8EueglwkW2Q5j0Uc?=
- =?us-ascii?Q?ydwfmiXzayvB+rv0KyvFmeKDsvD+RUQLZKCPvA1J5dDJMdYGdg0Q0pMk3pEk?=
- =?us-ascii?Q?V3Yz4UcTsQUw5s1doOB0fwzVa40RpT1k6uxNLTo6fUtFaHJNpWPSnRWmkGPs?=
- =?us-ascii?Q?JZaC8ZtIvwfBVPCCjs618Gt9XQPORsXtHZ8xX9pBP+nJHoc5H6JjIAmH93c/?=
- =?us-ascii?Q?MMxKjnpoUwEIl28euv/y2eDrgXSk8VoItMN558XS1k+eY2OIFb2JtvnLunbg?=
- =?us-ascii?Q?hOiKONH1aY12vOPKEgu78LPuXu/Ltic/X9SZe6kgG9C9fUYlrtmYqfl6VKcV?=
- =?us-ascii?Q?Y/PPqQfWNL4wUDFyA9ZwxsaS0jsFk+sjGnF3mUvbWKG4XuANShYQuRXld7wx?=
- =?us-ascii?Q?h3c1sU/gdZe8lFA9L9fa1vKSUFz0mQ368HDG8nmP2FsitbjI66lb22QVh9Lg?=
- =?us-ascii?Q?APLdWt+YpYfZAeV/xxCinSVDscI8ZpvXTfKZmgkx0AbibIwL88bpb05VTLXm?=
- =?us-ascii?Q?hYSRUITjvN4AoMY+YGihJhOGqj7MAT/JZSYgzyqqYsKTkhNjWuEh5eL2jrSi?=
- =?us-ascii?Q?sJR0VP8vh6U3TcgN0956IkHFOvJDzdl4139M0YEQT+PaIN2WsdqkLJMtL0je?=
- =?us-ascii?Q?3xE6yyeqqcMXxYwcPyrBhOK1Fp1yhzUZmxJjB9Dmau3awW4FBu2cvFvjuTxt?=
- =?us-ascii?Q?v/Nk86r/AbY0n7qC9zQQ8QuX5UvPUT9jx3Z5tCwaanxP4X51yu1S3ZuB2+5R?=
- =?us-ascii?Q?efPAf/nQPFv0F+wd1yt9HoSj9z0aZ8Bit1Bi/NEhB4E8P0xpjHAeTfnU20Pk?=
- =?us-ascii?Q?Y7XPyzNjgz+atZS7lJShsvfJ6rFa6F5Dy8lrmh05tEM68XjB+nZG1XVYzKVS?=
- =?us-ascii?Q?1O8MuKJp93u8c5k58KpyYHiwUPvnFy+Y2D0nANyzBGBfQCADo0/3eAhrlxH4?=
- =?us-ascii?Q?1KTiHeu/yDVjHz1rfwCcLsGPx709VrKhiViNsJDQk984+1W0g9mEDqE6knz2?=
- =?us-ascii?Q?SOfoaB6JdZmOQiK2M2rsmV48WrVAhQgmPL63osfkgnWmvf9K78Cc0d/FbRkn?=
- =?us-ascii?Q?ZL+Emym0e6aQVAafnWk4uRZbUzy7KsbIYanjNlJn8x6W6uZQBrDNP4Pkbj/i?=
- =?us-ascii?Q?JhgQXS6MI/TV5tRGap1BH84Eu7zIFmYeFOPxbfeJVbGHKVvsVpWpiLUaqtYM?=
- =?us-ascii?Q?iZAn/fUBJ5oqOUuP+fgXXaSTFU9vO4bRWNJqMUl6wCqT4Pe0w502HLCweq5o?=
- =?us-ascii?Q?udP3Kf4IwEgjIXiJsQWDgSNsBWi2ttBkKwGzMUzlrjYaDRWK3xY9xeYVdRqC?=
- =?us-ascii?Q?OFQ2AGIJEQ=3D=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dfa555ec-a665-4264-5b7a-08da17aa36be
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2022 08:48:25.8232
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: asP7MgncAMIt+EjC7ItmYfZ+VxIz2Qzmi17Cpxbzag4F+rX/ihFIAJo2a6pUAnbrrVwl/JOm/6uy0aDbdehJ8Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4237
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH 14/27] block: add a bdev_max_zone_append_sectors helper
+Content-Language: en-US
+To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
+Cc: dm-devel@redhat.com, linux-xfs@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-um@lists.infradead.org,
+ linux-block@vger.kernel.org, drbd-dev@lists.linbit.com,
+ nbd@other.debian.org, ceph-devel@vger.kernel.org,
+ virtualization@lists.linux-foundation.org, xen-devel@lists.xenproject.org,
+ linux-bcache@vger.kernel.org, linux-raid@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-nvme@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
+ linux-btrfs@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
+ jfs-discussion@lists.sourceforge.net, linux-nilfs@vger.kernel.org,
+ ntfs3@lists.linux.dev, ocfs2-devel@oss.oracle.com, linux-mm@kvack.org
+References: <20220406060516.409838-1-hch@lst.de>
+ <20220406060516.409838-15-hch@lst.de>
+From: Damien Le Moal <damien.lemoal@opensource.wdc.com>
+Organization: Western Digital Research
+In-Reply-To: <20220406060516.409838-15-hch@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 06.04.2022 10:46, Roger Pau Monn=C3=A9 wrote:
-> On Wed, Apr 06, 2022 at 09:06:59AM +0200, Jan Beulich wrote:
->> On 05.04.2022 19:17, Jason Andryuk wrote:
->>> On Mon, Apr 4, 2022 at 11:34 AM Daniel P. Smith <dpsmith@apertussolutio=
-ns.com> wrote:
->>>> On 3/31/22 09:16, Jason Andryuk wrote:
->>>>> For the default policy, you could start by creating the system domain=
-s
->>>>> as privileged and just have a single hook to drop privs.  Then you
->>>>> don't have to worry about the "elevate" hook existing.  The patch 2
->>>>> asserts could instead become the location of xsm_drop_privs calls to
->>>>> have a clear demarcation point.  That expands the window with
->>>>> privileges though.  It's a little simpler, but maybe you don't want
->>>>> that.  However, it seems like you can only depriv once for the Flask
->>>>> case since you want it to be one-way.
->>>>
->>>> This does simplify the solution and since today we cannot differentiat=
-e
->>>> between hypervisor setup and hypervisor initiated domain construction
->>>> contexts, it does not run counter to what I have proposed. As for flas=
-k,
->>>> again I do not believe codifying a domain transition bound to a new XS=
-M
->>>> op is the appropriate approach.
->>>
->>> This hard coded domain transition does feel a little weird.  But it
->>> seems like a natural consequence of trying to use Flask to
->>> deprivilege.  I guess the transition could be behind a
->>> dom0less/hyperlaunch Kconfig option.  I just don't see a way around it
->>> in some fashion with Flask enforcing.
->>>
->>> Another idea: Flask could start in permissive and only transition to
->>> enforcing at the deprivilege point.  Kinda gross, but it works without
->>> needing a transition.
->>
->> I don't think that would be right. Logically such behavior ought to be
->> mirrored to SILO, and I'll take that for the example for being the
->> simpler model: Suppose an admin wants to disallow communication
->> between DomU-s created by Xen. Such would want enforcing when creating
->> those DomU-s, despite the creator (Xen) being all powerful. If the
->> device tree information said something different (e.g. directing for
->> an event channel to be established between two such DomU-s), this
->> should be flagged as an error, not be silently permitted.
->=20
-> I could also see this argument the other way around: what if an admin
-> wants to disallow domUs freely communicating between them, but would
-> still like some controlled domU communication to be possible by
-> setting up those channels at domain creation?
+On 4/6/22 15:05, Christoph Hellwig wrote:
+> Add a helper to check the max supported sectors for zone append based on
+> the block_device instead of having to poke into the block layer internal
+> request_queue.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>   drivers/nvme/target/zns.c | 3 +--
+>   fs/zonefs/super.c         | 3 +--
+>   include/linux/blkdev.h    | 6 ++++++
+>   3 files changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/nvme/target/zns.c b/drivers/nvme/target/zns.c
+> index e34718b095504..82b61acf7a72b 100644
+> --- a/drivers/nvme/target/zns.c
+> +++ b/drivers/nvme/target/zns.c
+> @@ -34,8 +34,7 @@ static int validate_conv_zones_cb(struct blk_zone *z,
+>   
+>   bool nvmet_bdev_zns_enable(struct nvmet_ns *ns)
+>   {
+> -	struct request_queue *q = ns->bdev->bd_disk->queue;
+> -	u8 zasl = nvmet_zasl(queue_max_zone_append_sectors(q));
+> +	u8 zasl = nvmet_zasl(bdev_max_zone_append_sectors(ns->bdev));
+>   	struct gendisk *bd_disk = ns->bdev->bd_disk;
+>   	int ret;
+>   
+> diff --git a/fs/zonefs/super.c b/fs/zonefs/super.c
+> index 3614c7834007d..7a63807b736c4 100644
+> --- a/fs/zonefs/super.c
+> +++ b/fs/zonefs/super.c
+> @@ -678,13 +678,12 @@ static ssize_t zonefs_file_dio_append(struct kiocb *iocb, struct iov_iter *from)
+>   	struct inode *inode = file_inode(iocb->ki_filp);
+>   	struct zonefs_inode_info *zi = ZONEFS_I(inode);
+>   	struct block_device *bdev = inode->i_sb->s_bdev;
+> -	unsigned int max;
+> +	unsigned int max = bdev_max_zone_append_sectors(bdev);
+>   	struct bio *bio;
+>   	ssize_t size;
+>   	int nr_pages;
+>   	ssize_t ret;
+>   
+> -	max = queue_max_zone_append_sectors(bdev_get_queue(bdev));
+>   	max = ALIGN_DOWN(max << SECTOR_SHIFT, inode->i_sb->s_blocksize);
+>   	iov_iter_truncate(from, max);
+>   
+> diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+> index a433798c3343e..f8c50b77543eb 100644
+> --- a/include/linux/blkdev.h
+> +++ b/include/linux/blkdev.h
+> @@ -1188,6 +1188,12 @@ static inline unsigned int queue_max_zone_append_sectors(const struct request_qu
+>   	return min(l->max_zone_append_sectors, l->max_sectors);
+>   }
+>   
+> +static inline unsigned int
+> +bdev_max_zone_append_sectors(struct block_device *bdev)
+> +{
+> +	return queue_max_zone_append_sectors(bdev_get_queue(bdev));
+> +}
+> +
+>   static inline unsigned queue_logical_block_size(const struct request_queue *q)
+>   {
+>   	int retval = 512;
 
-Well, imo that would require a proper (Flask) policy then, not SILO mode.
+Looks good.
 
-Jan
+Acked-by: Damien Le Moal <damien.lemoal@opensource.wdc.com>
 
+-- 
+Damien Le Moal
+Western Digital Research
 
