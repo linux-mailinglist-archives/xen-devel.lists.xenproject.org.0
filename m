@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A6F54F60BF
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 16:07:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.299905.511220 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 284134F60D7
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 16:15:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.299909.511232 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nc6Jq-0000Yg-25; Wed, 06 Apr 2022 14:07:34 +0000
+	id 1nc6Qq-00024E-Px; Wed, 06 Apr 2022 14:14:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 299905.511220; Wed, 06 Apr 2022 14:07:34 +0000
+Received: by outflank-mailman (output) from mailman id 299909.511232; Wed, 06 Apr 2022 14:14:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nc6Jp-0000WR-Ub; Wed, 06 Apr 2022 14:07:33 +0000
-Received: by outflank-mailman (input) for mailman id 299905;
- Wed, 06 Apr 2022 14:07:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LqB1=UQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nc6Jo-0000WE-CP
- for xen-devel@lists.xenproject.org; Wed, 06 Apr 2022 14:07:32 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e5ea19ae-b5b2-11ec-a405-831a346695d4;
- Wed, 06 Apr 2022 16:07:31 +0200 (CEST)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2105.outbound.protection.outlook.com [104.47.17.105]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-39-Ym77vU_qMdWEBj7YMIHIhQ-1; Wed, 06 Apr 2022 16:07:29 +0200
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
- by HE1PR0401MB2474.eurprd04.prod.outlook.com (2603:10a6:3:81::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.31; Wed, 6 Apr
- 2022 14:07:27 +0000
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::914d:e08d:7798:8476]) by DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::914d:e08d:7798:8476%7]) with mapi id 15.20.5123.031; Wed, 6 Apr 2022
- 14:07:27 +0000
+	id 1nc6Qq-00021h-Ls; Wed, 06 Apr 2022 14:14:48 +0000
+Received: by outflank-mailman (input) for mailman id 299909;
+ Wed, 06 Apr 2022 14:14:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3N7O=UQ=citrix.com=prvs=088976f43=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1nc6Qo-00021b-KQ
+ for xen-devel@lists.xenproject.org; Wed, 06 Apr 2022 14:14:46 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e4a329b8-b5b3-11ec-8fbc-03012f2f19d4;
+ Wed, 06 Apr 2022 16:14:42 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,203 +36,251 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e5ea19ae-b5b2-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1649254050;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=E5bh+ey1Rw5u5rRXtK5jEsLHmYFwyFby8P88zX/4yGM=;
-	b=LUX0n8+GoiSROzmUhCBL/Y9BCrhz5UxA6YUf8paizKEx6WPCIdZx3cv7gnU/Op1a5lTpJJ
-	cLrgIVTfvsjk47ffRSGQPlw8DIB7+0NsNfvALfYIOJKMVa2JGgq9BZXDCxtsUARp5drIfG
-	OlYgzq/KGVT443fSeQt/nUcg/5zxyV0=
-X-MC-Unique: Ym77vU_qMdWEBj7YMIHIhQ-1
+X-Inumbo-ID: e4a329b8-b5b3-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1649254482;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=O6yqI2yNl30rZ60Ur/j5AarcBZs/LPEGhx/UfE9R7Tg=;
+  b=fcCVoJ/GyFALW7+gKurXP7sjZS72/ho4VzyQ7HL6uxYy7CfpNhqs338x
+   hMGwd+DClUsC3L7vdJHU+HwYf94I/lDeo/Qrv7TIQjK9zNCgKR6B4mXS/
+   qBU/fYWSbEkewfg0zFZQatbQSlqK5DkCAgI3d33jF1CQlK2a+4H1g7rnA
+   g=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+X-SBRS: 5.1
+X-MesageID: 68176440
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:fmsShaNUKJ+0xTLvrR1Ql8FynXyQoLVcMsEvi/4bfWQNrUon0TxSx
+ 2tLDT2Ba/eIYzHzLosjPdywpkxSvMLTmNBgHgto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
+ ynLQoCYdKjYdleF+lH1dOKJQUBUjclkfJKlYAL/En03FFcMpBsJ00o5wbZl2tAw27BVPivW0
+ T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
+ 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Zi
+ /5V7KGIdCQVFLDpvLs6ThtlSD5FFPgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
+ 7pCcmlLN03dwbLtqF64YrAEasALNs7kMZlZonh95TrYEewnUdbIRKCiCdpwgmdp2Z4SQa62i
+ 8wxaRs2dhLwSCZ1InwTE8kZw82M1nuiSmgNwL6SjfVuuDWCpOBr65D2K8bccNGOQcRTn26bq
+ 3jA8mC/BQsVXPSBzj6C/mOpl/X4lyrxU4IPF5W17vdvxlaUwwQ7AhAMSUGyp/X/j0ekQs9eM
+ GQd4C9opq83nGSpU938UhuQsHOC+BkGVLJ4Eec39QWMwar8+BuCCy4PSTspQMwrsoo6SCIn0
+ neNnsj1Hnp/vbuNU3Wf+7yI6zSoNkA9MmsqdSICCwwf7LHeTJob10yVCIw5Sejs04OzSWqYL
+ y22QDYWxJ4L1PMz6oaH103ip22Lu5r0FREOz1CCNo661T9RaImgbo2uzFHU6/dcMYqUJmW8U
+ Gg4d9u2t75XU8zU/MCZaKBURezyua7ZWNHJqQQ3d6TN4QhB7JJKkWp4xDhlbHlkPc8fEdMCS
+ B+C4FgBjHO/0ZbDUEOWX25TI5lypUQDPY68PhwxUjaoSsIvHONg1HszDXN8J0i3zCARfVgXY
+ P93i/qEA3cAErhAxzGrXeob2rJD7nlgmTKKFcyrn0T3juH2iJuppVEtagXmggcRtv3sneko2
+ 4wHa5viJ+t3DoUSnRU7AaZMdAtXfBDX9Lj9qtBNd/7rH+aVMDpJNhMl+pt4I9YNt/0Mzo/gp
+ yjhMmcFmAuXrSCWcm2iNyE8AI4DqL4i9BrXywR3Zg32s5XiCK7yhJoim2wfJuB9rrE8lKIqF
+ JHouayoW5xyd9gOwBxEBbHVp41+bhW7wwWIOiuuej8keJB8AQfO/7fZksHHrkHi0gLfWRMCn
+ oCd
+IronPort-HdrOrdr: A9a23:/igIsqhHr2gj3lHreVeZ3ltJ4XBQXukji2hC6mlwRA09TyXPrb
+ HWoB19726QtN9xYgBDpTjjUJPrfZqyz/NICOUqUYtKPzOW21dATrsC0WK4+UyHJ8SWzIc0vp
+ uIFZIQNDSaNzhHZKjBjjVRvLwbsaG6GAzDv5a785/NJzsaDJ1d0w==
+X-IronPort-AV: E=Sophos;i="5.90,240,1643691600"; 
+   d="scan'208";a="68176440"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SBKrbYFWsHpQmOCn7fADLUaAnCxIHLbKKNt51mUedXHrpB0m1l7BIW2PoTW8FqdeWsRQZO+dfmA0FWAsB77ihEpqe7tK6+wmcdbPxhf/dXaZJHw28oEqDgLkSgAe5Wo7RE5znkgEjeqRaO+IgqsYm/xB3zXa2d9Lb5k7+cckmWk4/wRuUFW/GtYU8JadH7XwKNHOQ6E5tU+W8aRxnlme6SNfg+WndmB9HdB06mxTkxVIPtVxfPYkYGLWmLtJVQJ35aa2+Ss3jkY/ISbhJRUBcGkHHs5RB3MAL1mSlYyRL/EhHMTwq57YD7Fhhm/JRePnWYjfG/PgRhj7dhHWtKGZzA==
+ b=JhGMfPaDQnW1x6OZ1bszA/6/V61BVHXhOS9DLtUf2JK3OuJe79R15FaQ9n880/7ac9HbCcH9TtwH/LxTh8KppQ4ncFrrrRuhxeKjEEuU3SSCohu6grYBEKboAsFUQug55PQCia0gxJbbEpUUtdCqLXGEuWnpo4EJiiqHCJ+uulQKNbARnK3mVTb5v6WlRjqmRX1dGZzOrLN8ooTsUIutR9ExB+ZA2vTv7pNoS6GO16O3rbJvCZvClJzOAAFUmbb8MmWXzXSc9t/VxcBpfByBMWheC/MJzrF7nFVvowLij9lHqnKsD+gkEkj+dfCGu4n8A8wp2jSaFN2OszmDLjfWsQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GI6es+cDM5BD7wofvnJq9gfMD7EOKxjxaWmlkahmBHY=;
- b=AKsRdr0paUsm8b7F8NNUggOJkn/935wpuIesekO78kbYUEyDzOwN5WSN4+fmFqivCtLryZBMdV+V/KgkpzmekxIF6yVAZ1/k8+/r7PH0FkkEUGRrjiqas/O69Il0BaIvtmCmgsxp69cYOsY80Nks7nRvJXPetLdJBTersFWLxeqr2W8vjBEBkzbXvBPH7UMoluK96xvmmoLfGugyfMMzaeb7nuxZiOBcpv9WVcX/tKucpKwAy0cQV2ZdHLkDLpDsi6LbM7idmNmqf25glz3Tqod1QnG8pFtjCmoO3fNm/ukNgvGsLDAlrlqnsT2tjaGmaKCZeWy7qAUNon8l2+LiHg==
+ bh=R9fw/IHbr+tKaykx1VXn/RWztIvkRlufgpoz8UMrnlE=;
+ b=Ezb9j+tiq3bM7/Mhz/zVZO5EMQQKbzZmRiEm9fBoLqP68hipBZG9dSSW1Jgwf5q3w5qHJ2ZwcDFVsqxzCmH9QFKn+gZt5h5gi+PQbTFHlP+Fc6aJu7L1UdNEB68EFyHbyvXRawmGzWeubLlpckKTvvXYOm/4VbtPmLpqzwmmH3LnSMAd91nphU2lD46IfVUJMS3dPRYsAlxxAekW6Ng5BfSDEt/YSfK71umykvTiOKCo6cNz15fEGNhhDmELo5F6bzmZuaOVcAaKqs0YRAASuhT2eaocjV+0iXUgXHyg31jW+5RTXQD7uE4/7pRUU79hYVzYsbXJ0F84RKncNGpL1Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <ffad005c-d6b9-9f27-9b5b-4f6d7345c81a@suse.com>
-Date: Wed, 6 Apr 2022 16:07:24 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH 1/2] VT-d: avoid NULL deref on
- domain_context_mapping_one() error paths
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <e17b98ee-8d84-512b-6403-26c7b2ee1eb5@suse.com>
- <d232b6bd-17d2-c78f-49e1-67ffc2502810@suse.com>
- <Yk2XcUhUn0BYk3lA@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <Yk2XcUhUn0BYk3lA@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM6PR0502CA0047.eurprd05.prod.outlook.com
- (2603:10a6:20b:56::24) To DU2PR04MB8616.eurprd04.prod.outlook.com
- (2603:10a6:10:2db::16)
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=R9fw/IHbr+tKaykx1VXn/RWztIvkRlufgpoz8UMrnlE=;
+ b=TJSS4Mrb88vHFzoWHAVn3q1ueus8hAf4Ff97PP0f2f8soIYNSegMoWtVKY97leFe1CBH4R4hR8m10f9hiYg0g2g3P7iszrRBSnq9E+JOCG2vyCJYPp/hRvhEndHU8jVHTBJl5vZDiv4SxzJqW7t8AQCgcASdgziEkILVvMB4fUo=
+Date: Wed, 6 Apr 2022 16:14:30 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Volodymyr
+ Babchuk <volodymyr_babchuk@epam.com>, Bertrand Marquis
+	<bertrand.marquis@arm.com>
+Subject: Re: [PATCH v4 3/8] x86/EFI: retrieve EDID
+Message-ID: <Yk2gRvXUCfKwRBEj@Air-de-Roger>
+References: <819eb552-d49d-e98a-9524-8d30c1b93908@suse.com>
+ <c11d267f-f6b7-558f-18ce-2b081ae12427@suse.com>
+ <YkwZnBIOQ/jwzq9Y@Air-de-Roger>
+ <39640fec-de8d-0c5a-c9aa-daf83fb785b0@suse.com>
+ <YkxkfbNpR7yfLP7W@Air-de-Roger>
+ <17163e1a-6598-5949-47cc-eb9734bc69ac@suse.com>
+ <Yk1erGso3rC68m/e@Air-de-Roger>
+ <c9186f2c-25a1-6d97-cac6-126bb32bd22b@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c9186f2c-25a1-6d97-cac6-126bb32bd22b@suse.com>
+X-ClientProxiedBy: LO4P123CA0482.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a8::19) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bf2c0f85-0bef-4bf8-d94f-08da17d6c7ca
-X-MS-TrafficTypeDiagnostic: HE1PR0401MB2474:EE_
-X-Microsoft-Antispam-PRVS:
-	<HE1PR0401MB24749FB9714883D1C6BCA144B3E79@HE1PR0401MB2474.eurprd04.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: 4c531deb-499c-4e23-cd67-08da17d7c6e1
+X-MS-TrafficTypeDiagnostic: CO3PR03MB6712:EE_
+X-Microsoft-Antispam-PRVS: <CO3PR03MB671225451A780C0323557DBE8FE79@CO3PR03MB6712.namprd03.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	gV5Ayl/4Q409hTn0dUwYFsS+zpP9m0E6DqFT/zeIK625ZYfDyW8Wo/hO0DuIYaJ99FdEl+EZxNsuwgfoJdnlDwh2JKBlBIs/6od6U9xn+tK9n85WFGuEkszI+V1tx8yV0TmbsD/omrDENkuR8JB5xzdFC4iUVKQieALFDkfn4qszhMwO3V4m0N83N4g6HgEAazX8wYPg8mGIQNZrPuIcSAW6Y3GcmsP1+nIlVN1nIqWInAj4/YKs0CufybdtsNmsG+0zWX7x53IhX/eYKiRT/nqqN1MlZyyyAXK6ELGEfxnn/4cSZBsunEUdkFQRPlPi4bOjWcfUZ3pwi/nvlQ2tSjRnHUX7w40zXjh85N99bQgCGRLqHZ8lH4K4xrgODk6mfdl+2QzoxQZXC/q3YSSbAaF6HYvYbMGieKWNHKU6trDR1Lc54uAowceKUeuj5pBfr7MWF/tcZeR2WFmjThpvK+2TtEdC9Zn0R9XRW8IsiMCn20NEx2nhshmDwgPVDhDC2XTsa+jozU7eCvsQyoG1AqcBexTQErE2af5scbda/ADxo78uPBDRspdX53SSxAaYuDAeL7boFsgoE8PosjPS14wNspLghMdxeDgSyXdo6oU5OAIlYdFcOMFZotFnbITGmcGY2PkMKJ6ou/KVEuO36mFcAXl9ciphNR9cBtCIO9Qsnu+xquT6XB1K5N68+0dmkBVbFhR0Z8eogUdVOcPEKDVEA1RsLOCinDb/GqzZ0eQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(6916009)(66476007)(8676002)(54906003)(6486002)(6512007)(31686004)(316002)(6666004)(4326008)(508600001)(6506007)(5660300002)(186003)(53546011)(83380400001)(26005)(66556008)(36756003)(66946007)(38100700002)(2616005)(86362001)(2906002)(31696002)(8936002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: g6+wmvpEB62FWrgnbjC26TYCGKEWs6AanXGfEauowCA+ZrY6jiT9X5GlfnVEJxEeRBA9LNv18w3jtTKWt0vsxGfVUsKbzOlEv+rhs9YLMJ8GSx/Eox+vSSviEx5YefCrq+R2JhijkzYNrxAozgANfUuCgwFwuHhBGm75aqgF9Zfod7R7tMcI9jHYkH/skp0oVKoTDuL4U8s+psT0b36b3IVZqSj2zXPPhkaNNPnuJN3WRDSZ6Nq5D7a5hJ9pa73NRwsYINfjsLipukBgKlheun3aetKtHJtD99fXYbw6gzUW61wOaGwLYbXGzL72f9gPdeLsWcU9wCQfqA0/XbKZxW4NwQC+MXu7vqUQWbrKE3xE43qZzBO4Qj/wsiov4gjn1P81Mg6XqxZXO9q7BbbBdtkfVrRU0qPus9Tst8HYgNrtvNtZpaOU8VXWyoVrxLv2kL7r31LvabdCwMQdOXlEQWBfcXYFbAcdVn3DdMPMB03KVvTo7n1GhAlNzjZGUFI7JXYJEVF5Bq07XRi7y110EIgkcEUDucYYv7LLaV5lYNZ4p9Bm3skVlFrTDe809JNQ8MMmGLoaJksXTwidenE3m7xRhpNk9lMebynWd6urTW1ntVZXzz4X1C4jZLf/7kntmrSJ7cDoHDZYteygxvF5xg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(86362001)(53546011)(9686003)(6666004)(6512007)(6506007)(316002)(54906003)(6916009)(508600001)(33716001)(38100700002)(6486002)(83380400001)(186003)(26005)(82960400001)(8936002)(4326008)(2906002)(66476007)(66556008)(5660300002)(66946007)(85182001)(8676002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?I8tR9W/dpoPvPTKKxVvzdkIkppzzJmy2HddLnZGc9zXv3mpHhwCmiCLutwRh?=
- =?us-ascii?Q?YgqbifWDt1tV6dswTr42f/k/7iMpS193WmVe68PTg0OTcuN17MWDpezB1sj/?=
- =?us-ascii?Q?L7j0QyrckaCLcnbs+uf6GK8E1w7vdMLRXUfAErnh2Uruq2LEdNUySLWUtKBp?=
- =?us-ascii?Q?8pRhBNbeKb/ExXo1K6R1n2Fd/iv204IqHg6peu8bcl5THGOI3igevmH4HTf6?=
- =?us-ascii?Q?FyliOfDt/nvnscXEvawuadr2WqLDOZJQpeYVLM5ktx7+zN9Y4CMCHxNR0yKb?=
- =?us-ascii?Q?3w09Wk37sssyzQ6lAHfkMeZ8zvOF8ipmDgLMGb29jndaDUqimUgD4tD0wzuR?=
- =?us-ascii?Q?cvgoIj5AjqZBHD7hHxblevj+5odhGDs0CdKExSMz/kkh+J6LxMYSmvY7mxXr?=
- =?us-ascii?Q?tAH2J73dY0fx5XaFNfrgYAWcDvGK5h24M74uSEp+gyRd8VuWDRnCsl1/m4/2?=
- =?us-ascii?Q?ENqKeVMZ/R5SGMMooV1OqQFlKi1IbfiHwOrgkZlQV0XpMgMxAGc3cNKQ27lS?=
- =?us-ascii?Q?qoP9U1HJWbMbPTnCqFVqSDoW83823jSkgkCbnzR2vODMptFQCHOgYZmcudt7?=
- =?us-ascii?Q?utS0ETys9u+yh2qUbOxRfIeLrBClMJQHZ+3c8SPcN/YiqBp2NN14QjFqblyF?=
- =?us-ascii?Q?QNT1USy4jcQx/T8lgZJBtRsd0ai/6MVn653KnFcN6TfZHK0uLgCa9+JgCqSq?=
- =?us-ascii?Q?/Qn6HOjHIGkqNXwbAlWCsnmAZsz5kXRf5kyRIjEx3jrMfMnolzOlsDUVovKC?=
- =?us-ascii?Q?eN/xD6aYpAeXAoJtCwpcM+65/fN1dHlLWHhapYvy63qdHjxE73KWjqO7wZtF?=
- =?us-ascii?Q?Pgo9OPYxJFKyO6gFmR35vC9E+yBfTg7qbeSI7tWSVFPp1zatyfB4CWo+pZ6q?=
- =?us-ascii?Q?2MELLVtInVvNsMsOE2nQc0T5WgSlG5xRyK//5RiwATDO22JMuH7+sqbZeOfL?=
- =?us-ascii?Q?xiFJgWn2GGO6SEN7VEGAfU5ERpeUmQdTwsi5L4/fpib6HwJYM+7jWP2RG86l?=
- =?us-ascii?Q?/OBcY7rgpqNI1XOpwn+iyq39/D5MFI5t5Tr1LnIoE+B63Cocje17nkDXwlcy?=
- =?us-ascii?Q?3FmOPGvFLNqSBVh5v5XODeAaWna6kFoYuQGgUq2L5lAA7ub7mdOFYM/aGhoq?=
- =?us-ascii?Q?s1UIF0yrWzQAELMACcaqvPc4BQTPnFMdoqMViL5eVmYUHj+3R1D0CAw9sRn2?=
- =?us-ascii?Q?nKjpWjBoVqblrQ/LDFIINTcC/tkBXx0PRKpM5hczBCzRebm8RTcYiCyAd3/3?=
- =?us-ascii?Q?yng6XaunDiTdoqBeAczrc/GNozSLz3wh+LPLa0UEdk2yHjDjS0m1RXBmXo3K?=
- =?us-ascii?Q?6afVY532rtpIDwMdHXzUtDfM75X8G7GnP3uc+5/QR7Ika9rnIAWgJOwrPSZL?=
- =?us-ascii?Q?5hfo/ZaHtIK/RpV1zqKt/u6E0/ALWI0J8+Kq1RJV6m+QiJzUqE/PzyytXlLm?=
- =?us-ascii?Q?/0Cw8kmpCfwmFKyMuKeQQ5sll6dtw7lN+Gnyv+xfmb1N5klkktUGEDWEQWa9?=
- =?us-ascii?Q?iTEzXqDm1huvF4CZRvfqdExKgh/v7bFto0aRl0949afbOSkVA8xcNZeo7Yy7?=
- =?us-ascii?Q?b8KEDMhRO4RXFfBgai/9AEff0Yu8kC5f7LDR4rmHHnwWyHKUMg+FXc/nH6TP?=
- =?us-ascii?Q?I2DQvE432co7tVFfhe8Dgkzudc6zFEFvnDJJj1a+aAlAstUSK2DkqwwNROBx?=
- =?us-ascii?Q?NZvaeZUckx+vDuqvsnv+Dp5RRskvUyDkeZzHHAuDxVXVK3MNtv9ECrJTmyxr?=
- =?us-ascii?Q?WOkDGSmdhA=3D=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bf2c0f85-0bef-4bf8-d94f-08da17d6c7ca
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MmlOQUZINGFpamtCSm9rQ0QzcGJzcmVaVnowaGZQQkdvN2pMUkErN3g0N2p1?=
+ =?utf-8?B?RnZ2K3ptcmpESVJYZm9qYmRPSk9LeTZLeVViQ240ZFJnbW8rbE45dWNDZUND?=
+ =?utf-8?B?cmxWYzNYUU1rUXJKRVF6bGNNTURsQVJtNHNUZ2g5ZHN0bElZM3BSZkh1QmFQ?=
+ =?utf-8?B?Y1ZSMGR2NURLT1JnaWJ5THVNcGtIbGtIYlZxWXU4ODFHdG9icGVqVjUyc2ZI?=
+ =?utf-8?B?Z2FlNDJnWGgvdGd1TzRidTBqSkVRblgyY0JJa3ZPbVhGRWlFL1JOVEo0WXdD?=
+ =?utf-8?B?NHk5Z0xOdjlEQnBlYlB6RVB4eFlFN0EvUGRNd0JRb1dIQjFONis0RDdDMy9F?=
+ =?utf-8?B?aGx5VUMrcWtha2tSMVpIM0xZM09HU3BrbkVqK1orRFR6YzEvTWtPaktjYThn?=
+ =?utf-8?B?bTBya3M4Z1FRcHgxQzFsVWozQW1hRlNDZ2xQeG5ORVRvVXBuOFBPaFRnTmpN?=
+ =?utf-8?B?VWlQUmV0YmI0KzZOT3R0NlgwKzJ6aUJjcklvbjU0WWZORUFjMXB6NU90eUJJ?=
+ =?utf-8?B?dFcwZlpPL0tnaDJWYTVINHJNRTFYZ2JTSVVYbmFYNyszU0VYYVFVM0xSbFpw?=
+ =?utf-8?B?aE1nZ0RacEhockRhckkwRWdjTDg4Z2xxekd2b3Z3bmRRaEZUbnFHaTh4YXlV?=
+ =?utf-8?B?c2hpazUrWEJxeUtiQzd1dUROWlVTdXVWOWNnS2ZzSXg1eXQvQnlEWTR1dzdD?=
+ =?utf-8?B?QmMycTNhOXAxZm1reXRKbGx3a01qT1JROEZYcC9neS92d0RGMVpzc2dnU3cv?=
+ =?utf-8?B?ZW14MWZjZTdwSHFncG9WRlR5ZG10MEJlcTdlS01iOG45Rzh4N2IrcnIxdmdV?=
+ =?utf-8?B?cnNOR09nSWs2Y3E1VG5DdlY0ZmQ3MFdnZUhMUVoyOGRiVGg1T2pCL2VhQkwr?=
+ =?utf-8?B?T05pWnZzNkNGdWVyN0ZUT1RNTWhvRWl2emtkZXcremlvQ1V4VzlyelhCY0Jt?=
+ =?utf-8?B?T3A0Ry82V3RhWFRONS93Yjdodk1IM0tCZzVITVBDQVdUaG8xZHNaWkVaa2NN?=
+ =?utf-8?B?UFZGOHNaVExDZjhCcHBhNW9FZ0hHZ01wWVJnTk1HRWhiSlprL0RLMkltZmNI?=
+ =?utf-8?B?eVFDOEtOaytGajM2SHF3WnowS245dUZma3NJWWJLMXV3Qi9JOG5rK0I5NWcz?=
+ =?utf-8?B?WkpDQWRYbDVvRVFvVTZSY0RyUlVFSzFmNEdJTkJTbG8zR2RQVDIrRU9GVFBo?=
+ =?utf-8?B?V0p5RzBtQng0R3VmM2w4UjFqeE1PanovMzBlVytBNXJrV0FIbkc1MzdHQU9U?=
+ =?utf-8?B?YVJ0dmdTQ2o2ZlkycTJwa1JpNDNkZm1DZDZJZnVtZ0Z6SUl5SnU0dG9VTHpw?=
+ =?utf-8?B?Z2lJckdTSTBFUXBETFV3Y0N4R21SZU4xYWpDR3doeUJjczBWUkJpQWRtSDNT?=
+ =?utf-8?B?RGFBN0llZzQ3aEZKR2FrRHBPS01CU2wyYUxNNDJZM0lRMnNjd3VMendQMUdO?=
+ =?utf-8?B?NTRUcjM3U3Q0NVlVTzF2aFRTb2VSMUxmV1dFZnlXa3hBZFRvb21nRzRHSVQy?=
+ =?utf-8?B?RXZETUlBUW93VjhlOUU0dUdvK2dHY0wzaWdLYkF1YVVUdXhuQ0tJV08xQitj?=
+ =?utf-8?B?M2dMLzJiUmVVcTMzZlRUKzBneDZuRGpwYXRKRE9rOHRTczUrbHJFaFhNRXVX?=
+ =?utf-8?B?d3JmVENISGkzbzFnTzA3ajlJeHUzUUtHeUhQckNBYVF3Y2lNVVB0MDF1WXBS?=
+ =?utf-8?B?cFNTeUtBVWlsS1p2T2NHbnoyZGVkMUxScE8rZ3dWa0lIdjFxSVBmT3pZTTJj?=
+ =?utf-8?B?NjVOV3dLZThjMDFoeC9PUjlWelZSczRueit1RUZFRXJxZTI5L3QxM2lsRGNX?=
+ =?utf-8?B?OHBaaFdCcGxaRXpRdWJ4WXhndDFSdkdNSm4wQm5PejlCbnB4RHRnUERHSDdy?=
+ =?utf-8?B?Rm1GVkg3aWtzekdBL09abm9CNUdxNWU1RVJOVnBtVWpNbGhLOWpqTlRaWjdF?=
+ =?utf-8?B?VHJubE9DSmp5UWZGTEZ5ZXg5S212UHpGRERuS0Ezd0s1WUJEb050NDJjdmsr?=
+ =?utf-8?B?a3haQ29Md1JOWVBrdXdFTzk3KzhyRW9zeWE2UUZ1R0luTDlndVBVRDl1STFC?=
+ =?utf-8?B?QkNWbW1qZklVVy90OHdqbGxkSEZyUFdVN3BWVlJMU2M5NWk0aWpXNytqYlBs?=
+ =?utf-8?B?Y2d2VkNoaHVSK0VBWm4rYWNZK29aVEo4WjdmRyt0eEwxUzdUaUxnK28zNU5C?=
+ =?utf-8?B?Ry9EakdiQzhzU0Jvb0VHV29KNlFJaXhqcGFLbXEzYXpIc3lLNVR2dzQweE8z?=
+ =?utf-8?B?bEZ3S3RJOW5pMWlBdUE1ZHgybGRsRTJoL2JndFhvc0ttQWVJYUh4RDk4LzZn?=
+ =?utf-8?B?Nm9BMSswL0tKMG9yVjg4Uzl5bXdKa0NYVWtURnhKZlpaUmxwbTJmVmxJZUFu?=
+ =?utf-8?Q?6yoEFX6v2j8LIqQk=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c531deb-499c-4e23-cd67-08da17d7c6e1
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2022 14:07:27.0152
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2022 14:14:34.9846
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FP/b2C1O+F20AmY+27AUwStrB9q4CpmJkL1NoMs3VPj/+5Yts1D87743kq5+WxpZrdsJ3U1Mrikr22Ag3f839w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR0401MB2474
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8nh1UWbKeI3bZPulm73kvy5I4WDFLYN5NJtz1VdSNVKGWhWJw7xt5rKw3aV5sMTAFQ9N4L5PjNiclFI01NOmpA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO3PR03MB6712
+X-OriginatorOrg: citrix.com
 
-On 06.04.2022 15:36, Roger Pau Monn=C3=A9 wrote:
-> On Wed, Apr 06, 2022 at 02:24:32PM +0200, Jan Beulich wrote:
->> First there's a printk() which actually wrongly uses pdev in the first
->> place: We want to log the coordinates of the (perhaps fake) device
->> acted upon, which may not be pdev.
->>
->> Then it was quite pointless for eb19326a328d ("VT-d: prepare for per-
->> device quarantine page tables (part I)") to add a domid_t parameter to
->> domain_context_unmap_one(): It's only used to pass back here via
->> me_wifi_quirk() -> map_me_phantom_function(). Drop the parameter again.
->>
->> Finally there's the invocation of domain_context_mapping_one(), which
->> needs to be passed the correct domain ID. Avoid taking that path when
->> pdev is NULL and the quarantine state is what would need restoring to.
->> This means we can't security-support PCI devices with RMRRs (if such
->> exist in practice) any longer.
->>
->> Fixes: 8f41e481b485 ("VT-d: re-assign devices directly")
->> Fixes: 14dd241aad8a ("IOMMU/x86: use per-device page tables for quaranti=
-ning")
->> Coverity ID: 1503784
->> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>
->> --- a/SUPPORT.md
->> +++ b/SUPPORT.md
->> @@ -750,6 +750,10 @@ However, this feature can still confer s
->>  when used to remove drivers and backends from domain 0
->>  (i.e., Driver Domains).
->> =20
->> +On VT-d (Intel hardware) passing through plain PCI (or PCI-X) devices
->> +when they have associated Reserved Memory Regions (RMRRs)
->> +is not security supported, if such a combination exists in the first pl=
-ace.
->=20
-> Hm, I think this could be confusing from a user PoV.  It's my
-> understanding you want to differentiate between DEV_TYPE_PCIe_ENDPOINT
-> and DEV_TYPE_PCI device types, so maybe we could use:
->=20
-> "On VT-d (Intel hardware) passing through non PCI Express devices with
-> associated Reserved Memory Regions (RMRRs) is not supported."
->=20
-> AFAICT domain_context_mapping will already prevent this from happening
-> by returning -EOPNOTSUPP (see the DEV_TYPE_PCI case handling).
+On Wed, Apr 06, 2022 at 02:40:50PM +0200, Jan Beulich wrote:
+> On 06.04.2022 11:34, Roger Pau Monné wrote:
+> > On Wed, Apr 06, 2022 at 10:44:12AM +0200, Jan Beulich wrote:
+> >> On 05.04.2022 17:47, Roger Pau Monné wrote:
+> >>> On Tue, Apr 05, 2022 at 04:36:53PM +0200, Jan Beulich wrote:
+> >>>> On 05.04.2022 12:27, Roger Pau Monné wrote:
+> >>>>> On Thu, Mar 31, 2022 at 11:45:36AM +0200, Jan Beulich wrote:
+> >>>>>> +    EFI_EDID_ACTIVE_PROTOCOL *active_edid;
+> >>>>>> +    EFI_EDID_DISCOVERED_PROTOCOL *discovered_edid;
+> >>>>>> +    EFI_STATUS status;
+> >>>>>> +
+> >>>>>> +    status = efi_bs->OpenProtocol(gop_handle, &active_guid,
+> >>>>>> +                                  (void **)&active_edid, efi_ih, NULL,
+> >>>>>> +                                  EFI_OPEN_PROTOCOL_GET_PROTOCOL);
+> >>>>>> +    if ( status == EFI_SUCCESS &&
+> >>>>>> +         copy_edid(active_edid->Edid, active_edid->SizeOfEdid) )
+> >>>>>> +        return;
+> >>>>>
+> >>>>> Isn't it enough to just call EFI_EDID_ACTIVE_PROTOCOL_GUID?
+> >>>>>
+> >>>>> From my reading of the UEFI spec this will either return
+> >>>>> EFI_EDID_OVERRIDE_PROTOCOL_GUID or EFI_EDID_DISCOVERED_PROTOCOL_GUID.
+> >>>>> If EFI_EDID_OVERRIDE_PROTOCOL is set it must be used, and hence
+> >>>>> falling back to EFI_EDID_DISCOVERED_PROTOCOL_GUID if
+> >>>>> EFI_EDID_ACTIVE_PROTOCOL_GUID cannot be parsed would likely mean
+> >>>>> ignoring EFI_EDID_OVERRIDE_PROTOCOL?
+> >>>>
+> >>>> That's the theory. As per one of the post-commit-message remarks I had
+> >>>> looked at what GrUB does, and I decided to follow its behavior in this
+> >>>> regard, assuming they do what they do to work around quirks. As said
+> >>>> in the remark, I didn't want to go as far as also cloning their use of
+> >>>> the undocumented (afaik) "agp-internal-edid" variable.
+> >>
+> >> Actually it's a little different, as I realized while re-checking in
+> >> order to reply to your request below. While GrUB looks to use this
+> >> only "just in case", our use is actually to also cope with failure
+> >> in copy_edid(): In case the overridden EDID doesn't match the size
+> >> constraint (which is more strict than GrUB's), we would retry with
+> >> the "discovered" one in the hope that its size is okay.
+> > 
+> > Hm, the specification states in EFI_EDID_OVERRIDE_PROTOCOL.GetEdid that:
+> > 
+> > "Returns EDID values and attributes that the Video BIOS must use"
+> 
+> I'm tempted to say "We're not the Video BIOS." ;-)
 
-Hmm. I did look at that code while writing the patch, but I didn't
-draw the same conclusion. I'd like to tie the security support
-statement to what could technically be made work. IOW I don't like
-to say "not supported"; I'd like to stick to "not security
-supported", which won't change even if that -EOPNOTSUPP path would
-be replaced by a proper implementation. Even adding a sentence to
-say this doesn't even work at present would seem to me to go too
-far: Such a sentence would easily be forgotten if the situation
-changed. But I'd be willing to add such an auxiliary statement as
-a compromise.
+I think UEFI expects this to be exclusively used by legacy Video BIOS
+implementations but not OSes?
 
-As to "plain PCI (or PCI-X)" vs "non PCI Express" - while I prefer
-to avoid a negation there, I'd be okay to switch if that's deemed
-better for potential readers.
+> > And since EFI_EDID_ACTIVE_PROTOCOL will return
+> > EFI_EDID_OVERRIDE_PROTOCOL if present it makes me wonder whether it's
+> > fine to resort to EFI_EDID_DISCOVERED_PROTOCOL if the problem is not
+> > the call itself failing, but Xen failing to parse the result (because
+> > of the usage of must in the sentence).
+> > 
+> > I think it's fine to resort to EFI_EDID_DISCOVERED_PROTOCOL if
+> > EFI_EDID_ACTIVE_PROTOCOL fails, but it's likely not if the call
+> > succeeds but it's Xen the one failing to parse the result.
+> > 
+> >>> Could you add this as a comment here? So it's not lost on commit as
+> >>> being just a post-commit log remark.
+> >>
+> >> As a result I'm unsure of the value of a comment here going beyond
+> >> what the comment in copy_edid() already says. For now I've added
+> >>
+> >>     /*
+> >>      * In case an override is in place which doesn't fit copy_edid(), also try
+> >>      * obtaining the discovered EDID in the hope that it's better than nothing.
+> >>      */
+> > 
+> > I think the comment is fine, but as mentioned above I wonder whether
+> > by failing to parse the EDID from EFI_EDID_ACTIVE_PROTOCOL and
+> > resorting to EFI_EDID_DISCOVERED_PROTOCOL we could be screwing the
+> > system more than by simply failing to get video output, hence I
+> > think a more conservative approach might be to just use
+> > EFI_EDID_DISCOVERED_PROTOCOL if EFI_EDID_ACTIVE_PROTOCOL fails.
+> > 
+> > As with firmware, this should mostly mimic what others do in order to
+> > be on the safe side, so if GrUB does so we should likely follow suit.
+> 
+> But they're careless in other ways; I don't want to mimic that. I would
+> assume (or at least hope) that a discovered EDID still fits the system,
+> perhaps not as optimally as a subsequently installed override. But then
+> I also lack sufficient knowledge on all aspects which EDID may be
+> relevant for, so it's all guesswork anyway afaic.
 
->> @@ -1601,9 +1601,13 @@ int domain_context_mapping_one(
->> =20
->>      if ( rc )
->>      {
->> -        if ( !prev_dom )
->> -            ret =3D domain_context_unmap_one(domain, iommu, bus, devfn,
->> -                                           DEVICE_DOMID(domain, pdev));
->> +        if ( !prev_dom ||
->> +             /*
->> +              * Unmapping here means PCI devices with RMRRs (if such ex=
-ist)
->> +              * will cause problems if such a region was actually acces=
-sed.
->> +              */
->> +             (prev_dom =3D=3D dom_io && !pdev) )
->=20
-> Maybe I'm reading this wrong, but plain PCI devices with RMRRs are
-> only allowed to be assigned to the hardware domain, and won't be able
-> to be reassigned afterwards.  It would be fine to unmap
-> unconditionally if !prev_dom or !pdev?  As calls with !pdev only
-> happening for phantom functions or bridge devices.
+Yes, I'm afraid I don't have any more insight. I'm slightly concerned
+about this, but I guess not so much as in to block the change:
 
-Like with the support statement, I'd prefer this code to be independent
-of the (perhaps temporary) decision to not allow certain assignments.
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Since you mention phantom functions: Aiui their mapping operations will
-be done with a non-NULL pdev, unless of course they're phantom functions
-associated with a non-PCIe device (in which case the same secondary
-mappings with a NULL pdev would occur - imo pointlessly, as it would
-be the same bridge and the same secondary bus as for the actual device;
-I'm under the impression that error handling may not work properly when
-such redundant mappings occur).
+I would word the comment as:
 
-Jan
+/*
+ * In case an override is in place which doesn't fit copy_edid(), also
+ * try obtaining the discovered EDID in the hope that it's better than
+ * nothing.
+ *
+ * Note that attempting to use the information in
+ * EFI_EDID_DISCOVERED_PROTOCOL when there's an override provided by
+ * EFI_EDID_ACTIVE_PROTOCOL could lead to issues.
+ */
 
+Thanks, Roger.
 
