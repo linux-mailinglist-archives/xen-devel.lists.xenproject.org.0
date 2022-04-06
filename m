@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3B494F66F0
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 19:24:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.300072.511639 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A16B4F66F1
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 19:27:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.300076.511650 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nc9Np-0004Yy-1c; Wed, 06 Apr 2022 17:23:53 +0000
+	id 1nc9Qd-0005BM-Gp; Wed, 06 Apr 2022 17:26:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 300072.511639; Wed, 06 Apr 2022 17:23:53 +0000
+Received: by outflank-mailman (output) from mailman id 300076.511650; Wed, 06 Apr 2022 17:26:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nc9No-0004WT-UO; Wed, 06 Apr 2022 17:23:52 +0000
-Received: by outflank-mailman (input) for mailman id 300072;
- Wed, 06 Apr 2022 17:23:51 +0000
+	id 1nc9Qd-00058f-CO; Wed, 06 Apr 2022 17:26:47 +0000
+Received: by outflank-mailman (input) for mailman id 300076;
+ Wed, 06 Apr 2022 17:26:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2ELh=UQ=citrix.com=prvs=088becc42=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nc9Nn-0004WN-JJ
- for xen-devel@lists.xenproject.org; Wed, 06 Apr 2022 17:23:51 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 52088294-b5ce-11ec-a405-831a346695d4;
- Wed, 06 Apr 2022 19:23:50 +0200 (CEST)
+ id 1nc9Qb-00058V-Lh
+ for xen-devel@lists.xenproject.org; Wed, 06 Apr 2022 17:26:45 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b9dd0043-b5ce-11ec-a405-831a346695d4;
+ Wed, 06 Apr 2022 19:26:44 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,99 +36,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 52088294-b5ce-11ec-a405-831a346695d4
+X-Inumbo-ID: b9dd0043-b5ce-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1649265830;
+  d=citrix.com; s=securemail; t=1649266004;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=qCFm7rZTSQ9dvwmFPGhB7Tg1OFCm4Ymp1oDTQlM4XeI=;
-  b=P5Yvi7BnolqObZjOPbGwz8VxDkc0BKCvJX70j2CvC9RAq/QervMXKpGu
-   NJQUEw+M31L+e8nF8vpeB+QhpcTRLLAvDT3FNyohu9Jx/gZONanjJoPdK
-   zLVkbmAun44acwtW0+s8huzY3HtY+NZS/n6fHwaSQ8lC0pMcZfvmA4gHO
-   A=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=6h5mm5ru4URX4F7cJjAauc2rtb1g8wTivre+Nbf3HDc=;
+  b=JWiIBSx3MbD1mQEFssbZPerAMDJEQmR2BhamtBWTZuYbDbE+T0Hf1lbI
+   uDCYnVJ3j4QsRl+iz/pWTvMVsGlBmmFiL0ze+1m078JJBY1R/ZW3M/NN9
+   lNbkNVFUC2MIfL1Zj8t5GwSqpPDR0+o/lANmZfdbO6GMoUYPXPAQMUgAL
+   s=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 5.1
-X-MesageID: 68078984
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 68589586
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:5IIdeKOtR/Wb7T7vrR09l8FynXyQoLVcMsEvi/4bfWQNrUp31jQDz
- TFOC23Ta6uKZDb0edEkb4rkp0tS78XUy94wTwto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdleF+lH1dOKJQUBUjclkfJKlYAL/En03FFcMpBsJ00o5wbZl2tAw27BVPivW0
- T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
- 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Z9
- dhfvL6odUAVF/fFqeMWdV5KFg0lIvgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
- 7pCcmlLN03dwbLtqF64YrAEasALJc/3PIQZqzd4wCvQF/oOSpHfWaTao9Rf2V/cg+gQTa6BN
- 5tJNVKDajz+Sgd2Eww8UagSv+OshVbSLTB6hwq88P9fD2/7k1UqjemF3MDuUuKNQcJZj0OJv
- FXs9m7yAgwZHNGHwD/D+XWp7sfUhj/yUo8WELy+99ZpjUeVy2hVDwcZPXOxrOOlkEe4V5RaI
- lYN5ys1haEo8QqgSdyVdx61vn+C+AIdUtx4Eusm5QXLwa3Riy6bG25CSDdCYd4nscYeRDo22
- 1vPlNTsbRRwtJWFRHTb8a2bxRuiNC5QIWIcaCssSQoe/8KlsIw1lgjITNtoDOiylNKdMTP/2
- TeRtwAlmq4ey8UM0s2T/03Dgj+qjojESEgy/Aq/dmCv4x59ZYWlT5e18lWd5vFFRLt1VXHY4
- iJCwZLHqrlTU9fdz0RhXdnhApmU6uSMEiXgxmJGRZAQ8D+LvGymUdtPtWQWyFhSDu4IfjrgY
- Un2sAxX5YNOMHbCUZKbc75dGOxxk/G+SI2NuuT8K4MXP8MvLFPvEDRGPxb44oz7rKQ7fUjT0
- 7+/eN3kM3sVAL8PINGeF7ZEiu9DKszTKAruqXHHI/aPjOL2iJ29E+5t3L6yggYRtv3sTOL9q
- Ys3Cidy408DONASmwGOmWLpEXgELGIgGbf9oNFNe+iIL2JOQT99WqaBneNxK9w6xMy5c9skG
- FnnBCe0L3Kl2xX6xfiiMCg/ONsDo74hxZ7EAcDcFQnxgCVyCWpexKwea4E2bdEaGB9LlpZJo
- w0+U5zYWJxnE22fkxxENMWVhNEyJXyD2FPVVwL4MWdXQnKVb1GQkjMSVlC0r3dm4+venZZWn
- oBMISuAGMBZGls7UJiNAB9tpnvo1UUgdCtJdxOgCrFulI/EquCG9wSZYicLHvwx
-IronPort-HdrOrdr: A9a23:QwSYpaP4/L3N5sBcTsGjsMiBIKoaSvp037Eqv3oedfVwSL39qy
- nOpoV/6faaslsssR0b9exofZPwJk80lqQFg7X5X43DYOCOggLBR+tfBMnZsl7d8kXFh4hgPM
- xbEpSWZueeMWRH
+IronPort-Data: A9a23:apXQQ6oeVKSp2G+7Yu597iDcUZdeBmL7ZRIvgKrLsJaIsI4StFCzt
+ garIBnVaayPMGPyfNt3YdznoxhV7ZLdzYJjTwVp+S1nQ3saoJuZCYyVIHmrMnLJJKUvbq7GA
+ +byyDXkBJppJpMJjk71atANlVEliefQAOCU5NfsYkidfyc9IMsaoU8lyrZRbrJA24DjWVvR4
+ Y2q+aUzBXf+s9JKGjNMg068gEsHUMTa4Fv0aXRnOJinFHeH/5UkJMp3yZOZdhMUcaENdgKOf
+ M7RzanRw4/s10xF5uVJMFrMWhZirrb6ZWBig5fNMkSoqkAqSicais7XOBeAAKv+Zvrgc91Zk
+ b1wWZKMpQgBBb+LoM43fB9jSjBjNPR8+uLpBnelmJnGp6HGWyOEL/RGCUg3OcsT+/ptAHEI/
+ vsdQNwPRknd3aTsmuv9E7QywJR4RCXoFNp3VnVIxDfFDfEgUNbbTr/D/9Nw1zYsnMFeW/3ZY
+ qL1bBIxPEmQMkAfZD/7Drpin/iotlm4SwQbpW/Ou7Fn+TmQ3S5Ihe2F3N39JYXRGJQ9clyjj
+ nnd423zDxUeNdqe4TmI6HShgqnIhyyTcIAPELy18NZ6jVvVwXYcYDUoUl+8rei8m1SJcdtVI
+ EwJ+QIjtaE3skesS7HVUxSmrVaesxUbWt4WFPc1gCmSzoLE7gDfAXILJhZRZdpjuMIoSDgC0
+ l6Sg8ivFTFpqKeSS3+W6vGTtzzaESofIHIGZCQEZRAY+NSlq4Y25jrNQcxkC7WdlcDuFHf7x
+ DXikcQlr+xN14hRjfz9pA2ZxWL3znTUcuIrzj7FGVqPxCx/X9e0eoXx01qGw9FPNq/MGzFto
+ 0M4s8SZ6ekPC7SEmyqMXPgBEdmV2hqVDNHPqQUxRsd8rlxB71bmJNkNu28meC+FJ+5eIVfUj
+ FnvVRS9DXO5FF+jdudJbo24EKzGJoCwRI2+Bpg4gjejC6WdlTNrHgkzPSZ8PEi3ySDAdJ3T3
+ 7/BL65A6l5AVMxaIMKeHbt17FPS7nlWKZnvbZ761Q+79rGVeWSYT7wIWHPXMLxotfPY8FWFo
+ 4kEXydv9/m5eLegCsUw2dRNRW3m0FBhXcymwyCpXrDrzvVa9JEJVKaKnOJJl31NlKVJjObYl
+ kxRqWcDoGcTcUbvcF3QAlg6MeuHdc8m8RoTYHx9VX71iiNLSdv+s88im24fIOBPGBpLlqUvE
+ ZHouqyoX5xyd9gw029EN8Og89U+Kk/DaMDnF3PNXQXTtqVIH2ThkuIItCOznMXSJkJbbfcDn
+ oA=
+IronPort-HdrOrdr: A9a23:nfdMKaHVQ4FSTEeMpLqE6MeALOsnbusQ8zAXP0AYc3Jom+ij5q
+ STdZUgpHrJYVkqNU3I9ertBEDEewK6yXcX2/hyAV7BZmnbUQKTRekIh7cKgQeQeBEWntQts5
+ uIGJIeNDSfNzdHsfo=
 X-IronPort-AV: E=Sophos;i="5.90,240,1643691600"; 
-   d="scan'208";a="68078984"
-Date: Wed, 6 Apr 2022 18:23:43 +0100
+   d="scan'208";a="68589586"
+Date: Wed, 6 Apr 2022 18:26:38 +0100
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: Jane Malalane <jane.malalane@citrix.com>
 CC: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, "Juergen
  Gross" <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "George
  Dunlap" <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, "Julien
  Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian
-	<kevin.tian@intel.com>, Roger Pau =?iso-8859-1?Q?Monn=E9?=
-	<roger.pau@citrix.com>
-Subject: Re: [PATCH v9 1/2] xen+tools: Report Interrupt Controller
- Virtualization capabilities on x86
-Message-ID: <Yk3Mn1uJ8S279Fbk@perard.uk.xensource.com>
+	Christian Lindig <christian.lindig@citrix.com>, David Scott
+	<dave@recoil.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Roger Pau
+ =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v9 2/2] x86/xen: Allow per-domain usage of hardware
+ virtualized APIC
+Message-ID: <Yk3NTuVKK6sPfBZm@perard.uk.xensource.com>
 References: <20220401104713.22291-1-jane.malalane@citrix.com>
- <20220401104713.22291-2-jane.malalane@citrix.com>
+ <20220401104713.22291-3-jane.malalane@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20220401104713.22291-2-jane.malalane@citrix.com>
+In-Reply-To: <20220401104713.22291-3-jane.malalane@citrix.com>
 
-On Fri, Apr 01, 2022 at 11:47:12AM +0100, Jane Malalane wrote:
-> Add XEN_SYSCTL_PHYSCAP_X86_ASSISTED_XAPIC and
-> XEN_SYSCTL_PHYSCAP_X86_ASSISTED_X2APIC to report accelerated xAPIC and
-> x2APIC, on x86 hardware. This is so that xAPIC and x2APIC virtualization
-> can subsequently be enabled on a per-domain basis.
-> No such features are currently implemented on AMD hardware.
+On Fri, Apr 01, 2022 at 11:47:13AM +0100, Jane Malalane wrote:
+> Introduce a new per-domain creation x86 specific flag to
+> select whether hardware assisted virtualization should be used for
+> x{2}APIC.
 > 
-> HW assisted xAPIC virtualization will be reported if HW, at the
-> minimum, supports virtualize_apic_accesses as this feature alone means
-> that an access to the APIC page will cause an APIC-access VM exit. An
-> APIC-access VM exit provides a VMM with information about the access
-> causing the VM exit, unlike a regular EPT fault, thus simplifying some
-> internal handling.
+> A per-domain option is added to xl in order to select the usage of
+> x{2}APIC hardware assisted virtualization, as well as a global
+> configuration option.
 > 
-> HW assisted x2APIC virtualization will be reported if HW supports
-> virtualize_x2apic_mode and, at least, either apic_reg_virt or
-> virtual_intr_delivery. This also means that
-> sysctl follows the conditionals in vmx_vlapic_msr_changed().
+> Having all APIC interaction exit to Xen for emulation is slow and can
+> induce much overhead. Hardware can speed up x{2}APIC by decoding the
+> APIC access and providing a VM exit with a more specific exit reason
+> than a regular EPT fault or by altogether avoiding a VM exit.
 > 
-> For that purpose, also add an arch-specific "capabilities" parameter
-> to struct xen_sysctl_physinfo.
+> On the other hand, being able to disable x{2}APIC hardware assisted
+> virtualization can be useful for testing and debugging purposes.
 > 
-> Note that this interface is intended to be compatible with AMD so that
-> AVIC support can be introduced in a future patch. Unlike Intel that
-> has multiple controls for APIC Virtualization, AMD has one global
-> 'AVIC Enable' control bit, so fine-graining of APIC virtualization
-> control cannot be done on a common interface.
+> Note:
+> 
+> - vmx_install_vlapic_mapping doesn't require modifications regardless
+> of whether the guest has "Virtualize APIC accesses" enabled or not,
+> i.e., setting the APIC_ACCESS_ADDR VMCS field is fine so long as
+> virtualize_apic_accesses is supported by the CPU.
+> 
+> - Both per-domain and global assisted_x{2}apic options are not part of
+> the migration stream, unless explicitly set in the configuration file,
+> so it is safe to migrate a guest that doesn't have assisted_x{2}apic
+> set in its config file between hosts that have different support for
+> hardware assisted x{2}APIC virtualization.
 > 
 > Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 > Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
 
 Reviewed-by: Anthony PERARD <anthony.perard@citrix.com> # tools
+
+Thanks,
 
 -- 
 Anthony PERARD
