@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBA2F4F49A6
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 02:28:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.299391.510070 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C21C14F4B26
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 02:53:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.299396.510083 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nbtXH-0000G9-N1; Wed, 06 Apr 2022 00:28:35 +0000
+	id 1nbtv3-0003cU-NY; Wed, 06 Apr 2022 00:53:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 299391.510070; Wed, 06 Apr 2022 00:28:35 +0000
+Received: by outflank-mailman (output) from mailman id 299396.510083; Wed, 06 Apr 2022 00:53:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nbtXH-0000DR-Jr; Wed, 06 Apr 2022 00:28:35 +0000
-Received: by outflank-mailman (input) for mailman id 299391;
- Wed, 06 Apr 2022 00:28:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nbtv3-0003a7-Ke; Wed, 06 Apr 2022 00:53:09 +0000
+Received: by outflank-mailman (input) for mailman id 299396;
+ Wed, 06 Apr 2022 00:53:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7cdP=UQ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nbtXG-0000DL-Nv
- for xen-devel@lists.xenproject.org; Wed, 06 Apr 2022 00:28:34 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7daf8555-b540-11ec-8fbc-03012f2f19d4;
- Wed, 06 Apr 2022 02:28:33 +0200 (CEST)
+ id 1nbtv2-0003a0-0L
+ for xen-devel@lists.xenproject.org; Wed, 06 Apr 2022 00:53:08 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id eabdfb1d-b543-11ec-a405-831a346695d4;
+ Wed, 06 Apr 2022 02:53:05 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 09D91B81C86;
- Wed,  6 Apr 2022 00:28:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34359C385A0;
- Wed,  6 Apr 2022 00:28:31 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2094A6167B;
+ Wed,  6 Apr 2022 00:53:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18A14C385A0;
+ Wed,  6 Apr 2022 00:53:02 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,62 +44,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7daf8555-b540-11ec-8fbc-03012f2f19d4
+X-Inumbo-ID: eabdfb1d-b543-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1649204911;
-	bh=NxEI9ahtAvw5lxkicNuUVV3EoYSVUirGs4xAH+5ZBl4=;
+	s=k20201202; t=1649206383;
+	bh=MhUB3RDJ3ag5iNWdyMPAWqcKYCZvXZsj/HUeDSlFJ6s=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=FVOYkFoKTZ7L0Vac4Stqx50IeoCIfXTD2YqD0HiKDVlTETq9nYmN7i3wKG2158IqJ
-	 +PaB8PNNV/CZI6VtaA/p/YtH0IBjn8GJDVPaSuXLqRnJeakETo9/Nra7/41XhH3ERe
-	 G0r5IEaoZn/fRh07geAY9DHjKWkZB/AMtxivYeWR+wHxeyexeXTYnTuZLh8a4AFdbM
-	 f+MrXU7sFvu96WrwUFz1B12jpbqO2hJD77lx5HhnyNU8DQ/wOGbgPAm9p3+aULmGXb
-	 kWm/vJ4rk3KhzQrpFuENZ+XHygv/+lXOXWa9eGKjc5xqYkelTsx/XmiQ4q6VyufLb2
-	 397SChXkVX5dA==
-Date: Tue, 5 Apr 2022 17:28:30 -0700 (PDT)
+	b=eoHXnt0uQpSsNjBhxyrCBREZUtijwp9z9NZtaU3ViPcUd+2IPvCB3bIwqlrgZviAD
+	 CiEkJNk7tBwMa0iCpgXDKeMp/6K/8eKa6W/t6O6/XGcffyW+adNUocnS+t98VdvUQ1
+	 GJqTd8McEZo76iJVK8bWyvfDOdlfc8O1a3BAa3YZwxcjmWlkmHAPikVzIrM82GlZbY
+	 ogbWz4SlPZ4V8syQ02V1eg7hrKKkwcvW0mcfWD0FWht88gcnz4Ymeul/oYSx4r2QJV
+	 DSNRq5JwpKnV2/gIUmMk4xJguwfyX5UxUTi3b0oIXscQm46uVCGouEqncvOnxEI65Y
+	 xdjMZL9TRIP1g==
+Date: Tue, 5 Apr 2022 17:53:02 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Juergen Gross <jgross@suse.com>
-cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, Bertrand.Marquis@arm.com, 
-    Volodymyr_Babchuk@epam.com, Luca Miccio <lucmiccio@gmail.com>, 
+To: Stefano Stabellini <sstabellini@kernel.org>
+cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org, 
+    jgross@suse.com, Bertrand.Marquis@arm.com, Volodymyr_Babchuk@epam.com, 
+    Luca Miccio <lucmiccio@gmail.com>, 
     Stefano Stabellini <stefano.stabellini@xilinx.com>, Wei Liu <wl@xen.org>, 
     Anthony PERARD <anthony.perard@citrix.com>
 Subject: Re: [PATCH v3 5/5] tools: add example application to initialize
  dom0less PV drivers
-In-Reply-To: <2b5ef30a-5164-c685-e3bb-24dd29ad4236@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2204051726310.2910984@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2204051723250.2910984@ubuntu-linux-20-04-desktop>
+Message-ID: <alpine.DEB.2.22.394.2204051729510.2910984@ubuntu-linux-20-04-desktop>
 References: <alpine.DEB.2.22.394.2201281330520.27308@ubuntu-linux-20-04-desktop> <20220128213307.2822078-5-sstabellini@kernel.org> <395710eb-ba51-eb67-1519-2a949326f699@xen.org> <alpine.DEB.2.22.394.2203221821520.2910984@ubuntu-linux-20-04-desktop>
- <07fa2884-e497-250b-53ab-dd452b501920@xen.org> <alpine.DEB.2.22.394.2203311412490.2910984@ubuntu-linux-20-04-desktop> <94f37cdc-cce3-cd37-62bc-4310ca1b05ba@xen.org> <2b5ef30a-5164-c685-e3bb-24dd29ad4236@suse.com>
+ <07fa2884-e497-250b-53ab-dd452b501920@xen.org> <alpine.DEB.2.22.394.2203311412490.2910984@ubuntu-linux-20-04-desktop> <94f37cdc-cce3-cd37-62bc-4310ca1b05ba@xen.org> <alpine.DEB.2.22.394.2204051723250.2910984@ubuntu-linux-20-04-desktop>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-878572871-1649204911=:2910984"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-878572871-1649204911=:2910984
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Fri, 1 Apr 2022, Juergen Gross wrote:
-> On 01.04.22 12:02, Julien Grall wrote:
-> > Hi Stefano,
-> > 
+On Tue, 5 Apr 2022, Stefano Stabellini wrote:
+> On Fri, 1 Apr 2022, Julien Grall wrote:
 > > On 01/04/2022 01:35, Stefano Stabellini wrote:
 > > > > > > > +
-> > > > > > > +    /* Alloc magic pages */
-> > > > > > > +    if (alloc_magic_pages(info, &dom) != 0) {
-> > > > > > > +        printf("Error on alloc magic pages\n");
-> > > > > > > +        return 1;
-> > > > > > > +    }
+> > > > > > > +    /* Alloc magic pages */
+> > > > > > > +    if (alloc_magic_pages(info, &dom) != 0) {
+> > > > > > > +        printf("Error on alloc magic pages\n");
+> > > > > > > +        return 1;
+> > > > > > > +    }
 > > > > > > > +
-> > > > > > > +    xc_dom_gnttab_init(&dom);
+> > > > > > > +    xc_dom_gnttab_init(&dom);
 > > > > > > 
 > > > > > > This call as the risk to break the guest if the dom0 Linux doesn't
 > > > > > > support
 > > > > > > the
-> > > > > > acquire interface. This is because it will punch a hole in the
-> > > > > > domain
+> > > > > > acquire interface. This is because it will punch a hole in the domain
 > > > > > > memory
 > > > > > > where the grant-table may have already been mapped.
 > > > > > > 
@@ -120,107 +111,81 @@ On Fri, 1 Apr 2022, Juergen Gross wrote:
 > > Ok. I think we should make explicit how it can be used.
 > > 
 > > > > > > > +
-> > > > > > > +    libxl_uuid_generate(&uuid);
-> > > > > > > +    xc_domain_sethandle(dom.xch, info->domid,
+> > > > > > > +    libxl_uuid_generate(&uuid);
+> > > > > > > +    xc_domain_sethandle(dom.xch, info->domid,
 > > > > > > > libxl_uuid_bytearray(&uuid));
 > > > > > > > +
-> > > > > > > +    rc = gen_stub_json_config(info->domid, &uuid);
-> > > > > > > +    if (rc)
-> > > > > > > +        err(1, "gen_stub_json_config");
+> > > > > > > +    rc = gen_stub_json_config(info->domid, &uuid);
+> > > > > > > +    if (rc)
+> > > > > > > +        err(1, "gen_stub_json_config");
 > > > > > > > +
-> > > > > > > +    rc = restore_xenstore(xsh, info, uuid, dom.xenstore_evtchn);
-> > > > > > > +    if (rc)
-> > > > > > > +        err(1, "writing to xenstore");
+> > > > > > > +    rc = restore_xenstore(xsh, info, uuid, dom.xenstore_evtchn);
+> > > > > > > +    if (rc)
+> > > > > > > +        err(1, "writing to xenstore");
 > > > > > > > +
-> > > > > > > +    xs_introduce_domain(xsh, info->domid,
-> > > > > > > +            (GUEST_MAGIC_BASE >> XC_PAGE_SHIFT) +
+> > > > > > > +    xs_introduce_domain(xsh, info->domid,
+> > > > > > > +            (GUEST_MAGIC_BASE >> XC_PAGE_SHIFT) +
 > > > > > > > XENSTORE_PFN_OFFSET,
-> > > > > > > +            dom.xenstore_evtchn);
+> > > > > > > +            dom.xenstore_evtchn);
 > > > > > > 
 > > > > > > xs_introduce_domain() can technically fails.
 > > > > > 
 > > > > > OK
 > > > > > 
 > > > > > 
-> > > > > > > +    return 0;
+> > > > > > > +    return 0;
 > > > > > > > +}
 > > > > > > > +
 > > > > > > > +/* Check if domain has been configured in XS */
 > > > > > > > +static bool domain_exists(struct xs_handle *xsh, int domid)
 > > > > > > > +{
-> > > > > > > +    return xs_is_domain_introduced(xsh, domid);
+> > > > > > > +    return xs_is_domain_introduced(xsh, domid);
 > > > > > > > +}
 > > > > > > 
 > > > > > > Would not this lead to initialize a domain with PV driver disabled?
 > > > > > 
-> > > > > I am not sure I understood your question, but I'll try to answer
-> > > > > anyway.
-> > > > > This check is purely to distinguish dom0less guests, which needs
-> > > > > further
+> > > > > I am not sure I understood your question, but I'll try to answer anyway.
+> > > > > This check is purely to distinguish dom0less guests, which needs further
 > > > > > initializations, from regular guests (e.g. xl guests) that don't need
 > > > > > any actions taken here.
 > > > > 
-> > > > Dom0less domUs can be divided in two categories based on whether they
-> > > > are xen
+> > > > Dom0less domUs can be divided in two categories based on whether they are
+> > > > xen
 > > > > aware (e.g. xen,enhanced is set).
 > > > > 
-> > > > Looking at this script, it seems to assume that all dom0less domUs are
-> > > > Xen
+> > > > Looking at this script, it seems to assume that all dom0less domUs are Xen
 > > > > aware. So it will end up to allocate Xenstore ring and call
-> > > > xs_introduce_domain(). I suspect the call will end up to fail because
-> > > > the
+> > > > xs_introduce_domain(). I suspect the call will end up to fail because the
 > > > > event channel would be 0.
 > > > > 
-> > > > So did you try to use this script on a platform where there only xen
-> > > > aware
+> > > > So did you try to use this script on a platform where there only xen aware
 > > > > domU and/or a mix?
 > > > 
 > > > Good idea of asking for this test. I thought I already ran that test,
 > > > but I did it again to be sure. Everything works OK (although the
 > > > xenstore page allocation is unneeded). xs_introduce_domain does not
-> >  > fail:
+> > > fail:
 > > 
 > > Are you sure? If I pass 0 as the 4th argument (event channel), the command
 > > will return EINVAL. However, looking at the code you are not checking the
 > > return for the call. So you will continue as if it were successful.
-> > 
-> > So you will end up to write nodes for a domain Xenstored is not aware and
-> > also set HVM_PARAM_STORE_PFN which may further confuse the guest as it may
-> > try to initialize Xenstored it discovers the page.
-> > 
-> > > I think that's because it is usually called on all domains by the
-> > > toolstack, even the ones without xenstore support in the kernel.
-> > 
-> > The toolstack will always allocate the event channel irrespective to whether
-> > the guest will use Xenstore. So both the shared page and the event channel
-> > are always valid today.
-> > 
-> > With your series, this will change as the event channel will not be
-> > allocated when "xen,enhanced" is not set.
-> > 
-> > In your case, I think we may want to register the domain to xenstore but say
-> > there are no connection available for the domain. Juergen, what do you
-> > think?
 > 
-> In my opinion such a domain should not be registered with Xenstore.
+> We are not passing 0 as the 4th argument, we are passing the event
+> channel previously set as HVM_PARAM_STORE_EVTCHN by Xen:
 > 
-> At least C-xenstored should work mostly correctly. I think the
-> "introduced" status is tested everywhere it should be tested.
+>     rc = xc_hvm_param_get(xch, info->domid, HVM_PARAM_STORE_EVTCHN,
+>                           &xenstore_evtchn);
 > 
-> Basically this is similar to today's status of xenstore-stubdom: it
-> is never introduced, but Xenstore itself is happy with it existing. :-)
-> 
-> And even today the first nodes for a new domain are being created
-> before the domain is officially introduced.
+> Also in my working version of the series I have a check for the return
+> value of xs_introduce_domain (as you requested in one of your previous
+> reviews). So xs_introduce_domain is actually working correctly and
+> returning success.
 
-We could skip introducing dom0less domains that don't have
-"xen,enhanced" without issues. It is easy to distinguish dom0less
-domains that have "xen,enhanced" from the ones that don't have it
-because only the one with "xen,enhanced" have a valid event channel set
-as HVM_PARAM_STORE_EVTCHN.
+Sorry I didn't read carefully enough the older messages. I re-run the
+tests again and I can see the issue you were describing (I am puzzled on
+why I didn't see it before as I did have a check on the return value as
+I wrote -- probably a mistake in my setup.)
 
-So if the event channel is not valid, we can simply skip the
-xs_introduce_domain call (which would probably fail anyway as Julien
-pointed out).
---8323329-878572871-1649204911=:2910984--
+The problem goes away if we only call xs_introduce_domain for
+xen,enhanced domains (when xenstore_evtchn is valid.)
 
