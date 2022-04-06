@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A60974F5032
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 04:19:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.299435.510127 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34AF64F5084
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 04:22:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.299439.510138 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nbvGM-0006Ym-VM; Wed, 06 Apr 2022 02:19:14 +0000
+	id 1nbvIx-0007w5-Bl; Wed, 06 Apr 2022 02:21:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 299435.510127; Wed, 06 Apr 2022 02:19:14 +0000
+Received: by outflank-mailman (output) from mailman id 299439.510138; Wed, 06 Apr 2022 02:21:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nbvGM-0006Wo-Qn; Wed, 06 Apr 2022 02:19:14 +0000
-Received: by outflank-mailman (input) for mailman id 299435;
- Wed, 06 Apr 2022 02:19:13 +0000
+	id 1nbvIx-0007tA-7q; Wed, 06 Apr 2022 02:21:55 +0000
+Received: by outflank-mailman (input) for mailman id 299439;
+ Wed, 06 Apr 2022 02:21:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cSLC=UQ=gmail.com=linmq006@srs-se1.protection.inumbo.net>)
- id 1nbvGL-0006Wi-6i
- for xen-devel@lists.xenproject.org; Wed, 06 Apr 2022 02:19:13 +0000
-Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com
- [2607:f8b0:4864:20::52f])
+ <SRS0=7cdP=UQ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nbvIu-0007t4-S3
+ for xen-devel@lists.xenproject.org; Wed, 06 Apr 2022 02:21:53 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f2198a43-b54f-11ec-a405-831a346695d4;
- Wed, 06 Apr 2022 04:19:12 +0200 (CEST)
-Received: by mail-pg1-x52f.google.com with SMTP id 66so965949pga.12
- for <xen-devel@lists.xenproject.org>; Tue, 05 Apr 2022 19:19:12 -0700 (PDT)
-Received: from 8345e2a12d0c ([159.226.95.43]) by smtp.gmail.com with ESMTPSA id
- f16-20020a056a00229000b004fabe756ba6sm18627715pfe.54.2022.04.05.19.19.07
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 05 Apr 2022 19:19:10 -0700 (PDT)
+ id 4f8ec5ce-b550-11ec-a405-831a346695d4;
+ Wed, 06 Apr 2022 04:21:48 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 7E800B81FB5;
+ Wed,  6 Apr 2022 02:21:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0CDEC385A1;
+ Wed,  6 Apr 2022 02:21:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,103 +43,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f2198a43-b54f-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:user-agent;
-        bh=XgjMEhLjRT4MPAMhsdcS0Ym9ucVGsbeQUnv8qRyOX2I=;
-        b=GG33N9hgu+eD/ebEhy3Uqtw42T1KOy4AZNx8zMiQ8RNnMqDR3MrKJ0yJbDK9/zahZX
-         XtmX82g9WyruU473qtdYCzzuJtiRU5bvSltOqdS8XpnjIMfFtqtndkOjetDeT6d5nICG
-         ArTrqu2AeWHeYKaQse/8jm14/6N+2jzKs9HxS/F2IvH4VALeAE+SZsPvFjFWefv/ScOF
-         ayWSL1CW+OxpZgkOU3exCbNpR1e+35NzKgm/gbzNwD10kDdU8yuS+TO6hIXiw7MLqE54
-         kPh636J/zKiCfcJsVnKkcLXxcasLEiRxsOcCxgZ7jiYVfAOpTmBtoCYkwg2cNjdc/9fT
-         mN1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=XgjMEhLjRT4MPAMhsdcS0Ym9ucVGsbeQUnv8qRyOX2I=;
-        b=3ONFY0mpXZQ/s27JJSaw+895q0oFsU8qS1VBoL6HmEh3lIDj9mpZbS+O2cExK+X6qY
-         LahwSxOcQEviBirsU5MNcRbY0b8uY8P0PSVBbJhOjT0JJJqSbftvUqD6b9FDJuGQ2V2T
-         0TFZuuZenWk0Pcp3zO+lXW4GYDzT1qZEYO6cWGi77bwUAn8zn9DkNGe8ggwMtk4BRR64
-         l6L9FVA6+uFscvPnK7PDG0IFOZdPwD+beJVlcjaK/oYC+42b2ErCexI9R6UE5hU90G+I
-         PZVK/kEn6oXyAhQXYDxVteFNMRCCUCGFnPM395JkrW8SctiKgEkSp8GwD1qCPS3hwDzO
-         FqkA==
-X-Gm-Message-State: AOAM532RKkXLbCDlWwBvrv7OwxFi2YBn1RBfIODhuyr73uXU7j3lXgIf
-	rK7194kHlp2lbSO0MMml74Y=
-X-Google-Smtp-Source: ABdhPJy0fFKiZnX55XY/d/G2Ja2u/Qng8hE6zvoqwunWU73cDOoodFxoYjkYZp4ZogLD3xT/xr2xew==
-X-Received: by 2002:a63:d454:0:b0:386:86:6aaa with SMTP id i20-20020a63d454000000b0038600866aaamr5248075pgj.60.1649211550460;
-        Tue, 05 Apr 2022 19:19:10 -0700 (PDT)
-Date: Wed, 6 Apr 2022 02:19:05 +0000
-From: Miaoqian Lin <linmq006@gmail.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Russell King <linux@armlinux.org.uk>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Shannon Zhao <shannon.zhao@linaro.org>,
-	Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm/xen: Fix refcount leak in xen_dt_guest_init
-Message-ID: <20220406021905.GA30436@8345e2a12d0c>
-References: <20220309102442.14726-1-linmq006@gmail.com>
- <alpine.DEB.2.22.394.2203111756000.3497@ubuntu-linux-20-04-desktop>
+X-Inumbo-ID: 4f8ec5ce-b550-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1649211705;
+	bh=XT4LCodSquSiT8Nb1uAr9T4Gh2L8Wl5+SXM7kZaAuNQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=vRp2DZTnocPfxbZEiP3caN0Q4fWrhzHFbsC4kkNsVPO3wv1b/gzlckFXGQ2v2mFLf
+	 8ni0qMMVivWL2KBruCkN5mL++HeKpUIjbyiTV4Elt7Ca+S3L6BG2b9y3P/513C4kHk
+	 v9VdI4lOWCjcZpLAVPNjmzFXKnOkmtsc7SVDfjPQOUDtWdc5MJTgiKu2GWTU8b4pa4
+	 VyMPAjerh/mM6+JSL+K98iKhDPVR9CGVtRajKuFOjOQrcc6FV8OhP5lt0J7vpA9Qp4
+	 JonyRFep6V3blea38x6Bp0rwk4ZyPITCp17ZpJ6jlt6fD4OMa5SL8f+y6SLRK5/NjB
+	 5asYhACkiWcLg==
+Date: Tue, 5 Apr 2022 19:21:44 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Juergen Gross <jgross@suse.com>
+cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, Bertrand.Marquis@arm.com, 
+    Volodymyr_Babchuk@epam.com, Luca Miccio <lucmiccio@gmail.com>, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>, Wei Liu <wl@xen.org>, 
+    Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH v4 8/9] tools: add example application to initialize
+ dom0less PV drivers
+In-Reply-To: <39fc312c-cf0b-d7ff-c560-7c6b96809416@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2204051758250.2910984@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2203311735380.2910984@ubuntu-linux-20-04-desktop> <20220401003847.38393-8-sstabellini@kernel.org> <e71ad6f6-f920-1e7b-9f4b-dd2e133a23c5@xen.org> <39fc312c-cf0b-d7ff-c560-7c6b96809416@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2203111756000.3497@ubuntu-linux-20-04-desktop>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+Content-Type: multipart/mixed; BOUNDARY="8323329-1812572471-1649206970=:2910984"
+Content-ID: <alpine.DEB.2.22.394.2204051802590.2910984@ubuntu-linux-20-04-desktop>
 
-Hi,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On Fri, Mar 11, 2022 at 06:01:11PM -0800, Stefano Stabellini wrote:
-> On Wed, 9 Mar 2022, Miaoqian Lin wrote:
-> > The of_find_compatible_node() function returns a node pointer with
-> > refcount incremented, We should use of_node_put() on it when done
-> > Add the missing of_node_put() to release the refcount.
+--8323329-1812572471-1649206970=:2910984
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2204051802591.2910984@ubuntu-linux-20-04-desktop>
+
+On Fri, 1 Apr 2022, Juergen Gross wrote:
+> On 01.04.22 12:21, Julien Grall wrote:
+> > Hi,
 > > 
-> > Fixes: 9b08aaa3199a ("ARM: XEN: Move xen_early_init() before efi_init()")
-> > Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
-> 
-> Thanks for the patch!
-> 
-> 
-> > ---
-> >  arch/arm/xen/enlighten.c | 1 +
-> >  1 file changed, 1 insertion(+)
+> > I have posted some comments in v3 after you sent this version. Please have a
+> > look.
 > > 
-> > diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
-> > index ec5b082f3de6..262f45f686b6 100644
-> > --- a/arch/arm/xen/enlighten.c
-> > +++ b/arch/arm/xen/enlighten.c
-> > @@ -424,6 +424,7 @@ static void __init xen_dt_guest_init(void)
-> >  
-> >  	if (of_address_to_resource(xen_node, GRANT_TABLE_INDEX, &res)) {
-> >  		pr_err("Xen grant table region is not found\n");
-> > +		of_node_put(xen_node);
-> >  		return;
-> >  	}
+> > On 01/04/2022 01:38, Stefano Stabellini wrote:
+> > > +static int init_domain(struct xs_handle *xsh, libxl_dominfo *info)
+> > > +{
+> > > +    struct xc_interface_core *xch;
+> > > +    libxl_uuid uuid;
+> > > +    uint64_t xenstore_evtchn, xenstore_pfn;
+> > > +    int rc;
+> > > +
+> > > +    printf("Init dom0less domain: %u\n", info->domid);
+> > > +    xch = xc_interface_open(0, 0, 0);
+> > > +
+> > > +    rc = xc_hvm_param_get(xch, info->domid, HVM_PARAM_STORE_EVTCHN,
+> > > +                          &xenstore_evtchn);
+> > > +    if (rc != 0) {
+> > > +        printf("Failed to get HVM_PARAM_STORE_EVTCHN\n");
+> > > +        return 1;
+> > > +    }
+> > > +
+> > > +    /* Alloc xenstore page */
+> > > +    if (alloc_xs_page(xch, info, &xenstore_pfn) != 0) {
+> > > +        printf("Error on alloc magic pages\n");
+> > > +        return 1;
+> > > +    }
+> > > +
+> > > +    rc = xc_dom_gnttab_seed(xch, info->domid, true,
+> > > +                            (xen_pfn_t)-1, xenstore_pfn, 0, 0);
+> > > +    if (rc)
+> > > +        err(1, "xc_dom_gnttab_seed");
+> > > +
+> > > +    libxl_uuid_generate(&uuid);
+> > > +    xc_domain_sethandle(xch, info->domid, libxl_uuid_bytearray(&uuid));
+> > > +
+> > > +    rc = gen_stub_json_config(info->domid, &uuid);
+> > > +    if (rc)
+> > > +        err(1, "gen_stub_json_config");
+> > > +
+> > > +    /* Now everything is ready: set HVM_PARAM_STORE_PFN */
+> > > +    rc = xc_hvm_param_set(xch, info->domid, HVM_PARAM_STORE_PFN,
+> > > +                          xenstore_pfn);
+> > 
+> > On patch #1, you told me you didn't want to allocate the page in Xen because
+> > it wouldn't be initialized by Xenstored. But this is what we are doing here.
 > 
-> This is adding a call to of_node_put on the error path. Shouldn't it
-> be called also in the non-error path?
+> Xenstore (at least the C variant) is only using the fixed grant ref
+> GNTTAB_RESERVED_XENSTORE, so it doesn't need the page to be advertised
+> to the guest. And the mapping is done only when the domain is being
+> introduced to Xenstore.
+> 
+> > 
+> > This would be a problem if Linux is still booting and hasn't yet call
+> > xenbus_probe_initcall().
+> > 
+> > I understand we need to have the page setup before raising the event
+> > channel. I don't think we can allow Xenstored to set the HVM_PARAM (it may
+> > run in a domain with less privilege). So I think we may need to create a
+> > separate command to kick the client (not great).
+> > 
+> > Juergen, any thoughts?
+> 
+> I think it should work like that:
+> 
+> - setup the grant via xc_dom_gnttab_seed()
+> - introduce the domain to Xenstore
+> - call xc_hvm_param_set()
+> 
+> When the guest is receiving the event, it should wait for the xenstore
+> page to appear.
 
-You're right. It should be called also in the non-error path.
-I made a mistake.
 
-> Also, there is another instance of of_address_to_resource being called
-> in this file (in arch_xen_unpopulated_init), does it make sense to call
-> of_node_put there too?
+I am OK with what you wrote above, and I understand Julien's concerns
+about "waiting". Before discussing that, I would like to make sure I
+understood why setting HVM_PARAM_STORE_PFN first (before
+xs_introduce_domain) is not possible.
 
-I think so, becase device node pointer np is a local variable.
-So the reference it taken should be released in the scope.
+In a previous reply to Julien I wrote that it is not a good idea to
+set HVM_PARAM_STORE_PFN in Xen before creating the domains because it
+would cause Linux to hang at boot. That is true, Linux hangs on
+drivers/xen/xenbus/xenbus_comms.c:xb_init_comms waiting on xb_waitq.
+It could wait a very long time as domUs are typically a lot faster than
+dom0 to boot.
 
-I look into the whole codebase for this kind of usage pattern
-($ret=of_find_compatible_node();of_address_to_resource($ret,_,_), 
-$ret is a local variable), Most of them call of_node_put() when done. 
-And document of of_find_compatible_node() also mentions
-> Return: A node pointer with refcount incremented, use
-> of_node_put() on it when done.
+However, if we set HVM_PARAM_STORE_PFN before calling
+xs_introduce_domain in init-dom0less, for Linux to see it before
+xs_introduce_domain is done, Linux would need to be racing against
+init-dom0less. In that case, the wait in xb_init_comms would be minimal
+anyway. It shouldn't be a problem. There would be no "hang", just a wait
+a bit longer than usual.
 
-But I am not sure, Since I am unfamiliar with other code logic.
-It better if the developers could double check. I found some 
-similar cases in arch/arm. 
+Is that right?
+
+--8323329-1812572471-1649206970=:2910984--
 
