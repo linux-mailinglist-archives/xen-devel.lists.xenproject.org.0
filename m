@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2472C4F637F
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 17:36:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.300003.511441 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA16F4F63FD
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 17:51:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.300008.511452 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nc7h4-0004cs-4K; Wed, 06 Apr 2022 15:35:38 +0000
+	id 1nc7w9-0007AM-GR; Wed, 06 Apr 2022 15:51:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 300003.511441; Wed, 06 Apr 2022 15:35:38 +0000
+Received: by outflank-mailman (output) from mailman id 300008.511452; Wed, 06 Apr 2022 15:51:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nc7h4-0004ao-0y; Wed, 06 Apr 2022 15:35:38 +0000
-Received: by outflank-mailman (input) for mailman id 300003;
- Wed, 06 Apr 2022 15:35:36 +0000
+	id 1nc7w9-00077k-Cn; Wed, 06 Apr 2022 15:51:13 +0000
+Received: by outflank-mailman (input) for mailman id 300008;
+ Wed, 06 Apr 2022 15:51:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LqB1=UQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nc7h2-0004ai-Ef
- for xen-devel@lists.xenproject.org; Wed, 06 Apr 2022 15:35:36 +0000
+ id 1nc7w7-00077e-ME
+ for xen-devel@lists.xenproject.org; Wed, 06 Apr 2022 15:51:11 +0000
 Received: from de-smtp-delivery-102.mimecast.com
  (de-smtp-delivery-102.mimecast.com [194.104.109.102])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 33791365-b5bf-11ec-8fbc-03012f2f19d4;
- Wed, 06 Apr 2022 17:35:35 +0200 (CEST)
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01lp2053.outbound.protection.outlook.com [104.47.1.53]) by
+ id 60bbe1e3-b5c1-11ec-8fbc-03012f2f19d4;
+ Wed, 06 Apr 2022 17:51:10 +0200 (CEST)
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com
+ (mail-am5eur03lp2050.outbound.protection.outlook.com [104.47.8.50]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-5-1blXUoNnOiuUJmf20AcUfA-1; Wed, 06 Apr 2022 17:35:33 +0200
+ de-mta-33-TAOPm7TWNzSSN1mBKMUA3Q-1; Wed, 06 Apr 2022 17:51:08 +0200
 Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
- by VI1PR0402MB3776.eurprd04.prod.outlook.com (2603:10a6:803:18::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.31; Wed, 6 Apr
- 2022 15:35:31 +0000
+ by DB7PR04MB4876.eurprd04.prod.outlook.com (2603:10a6:10:14::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.19; Wed, 6 Apr
+ 2022 15:51:07 +0000
 Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
  ([fe80::914d:e08d:7798:8476]) by DU2PR04MB8616.eurprd04.prod.outlook.com
  ([fe80::914d:e08d:7798:8476%7]) with mapi id 15.20.5123.031; Wed, 6 Apr 2022
- 15:35:31 +0000
+ 15:51:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,251 +51,205 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33791365-b5bf-11ec-8fbc-03012f2f19d4
+X-Inumbo-ID: 60bbe1e3-b5c1-11ec-8fbc-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1649259334;
+	t=1649260269;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ciozZ5JTikXArUsVDhzD96BkLQlS1ZjvVnvOLE8T0S4=;
-	b=ID7nG2bFGKTeRTQM/SN1YDOdQMj7TewZg6alSFHirLcPV9p10UxKhLn1WM+TU0yG+DukI/
-	Ve4oNNaetDZ6PCRf7HkhK/DmaHzat5daWjR+jSQiGR7ZknlT/uStOp0cSByNrtxwrT4mDD
-	lgQoTHGbcGR1zoJYyjbEuY1iGZYm8yA=
-X-MC-Unique: 1blXUoNnOiuUJmf20AcUfA-1
+	bh=5mz91w+myVt0gaNT0IunyzfoAUic4JpyT6OrDsybj9E=;
+	b=kb066cRXMhea3o2hQA6qgvrPLu+NTLJwvLdkriKK6G9LZLa7ofxpX9jXMnrSqrbu2cpHgQ
+	69x46QtU1ySbiiOdEim+iNq+EHMJYqdGWpnsRsKFtbXVK6iR/EO/Eu4yUuosnt/G17PJNB
+	hmxu/oZqCLOHZti62JaUytV1Rk/UOGs=
+X-MC-Unique: TAOPm7TWNzSSN1mBKMUA3Q-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=akSmF9A0h3hdy86VMagU02yo1Q+A4amIFvhfSwY1CjfJ67htonzvr6BzoernjdGdrGjZiZaDKIKvIvwfS6dtaottE5uPVCsV45Sr7Hb0Fit4ispvDAh6DmwN9stWcKZTiUyQXXsli0BtHPoFhkIM2A7BeweprIAWuh4n8p/b9+WEN7bzr94mXWnw2r1xWfwbzqXYqmNOqqN7psPmdGLBQ+3XPApbyQc2iDZfKS1ZZX1k4RZi1RzDj07GW+g4aF0RctSphrzuArPMrG1srjUnXcmpVGi3XqciTL3elPglqlWxs3j1FVn7ODKmgqH6fYfPOfk9aIImATOaFlzt2GOGQw==
+ b=fDiwBRSKsjc/kAsiX9u+d4G7UeKmdEkijrtv88facy50StITSpqjQ2LJMxdT5T1My8a4ghE+B7K/w6sH2lDWYlP8VvYE7GMpO08VtMoWldXaFbj8XESwMtemkwnJy360/EE1daZztiOBM9BLSwmkNn5eTWXG+cmnMbQaHGidYsY3CzAShjYQxn1Bzfo9Y1onIsU3IxzbiC12zHBO80P5Jv+7EVBe61fDjSdKdXDghNVdmleICfpIdMVca/WlgFAvCzsW+MAznxqbcMebTKeGFu5ts4r/GqhlvHLCUGNDpQLScaXBcP73IdLK79s6yObP6/XIC+uJztbsaLZRwDiLKg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uTlQiAwOhnULjpw6AdmxnG8sxKLuP1rGcQ2vG4BBHxA=;
- b=h8H7bd+zeKbls6MTk2hJ8quxDWFK1Fp3YCLd03Pj0XLiv287VQLjRAkR8+6rIUt1KFvvOJv2vTKDjBxzAfodkRnbgrviRJ00rxNfn6ZpxLL2aGcm5kRvhmLfW7EI/TCILIM8aayTAccRMccpPGr2nzYdfZw6PQZ1FHr3YL/tkAr7pOFN/+4uorfBqBQnVlaiTy9FZlFIk2D2e1Ibj2GhA+6sCWRjsmBjvmalHHXcIkwuJQ0hda13EZMi/JYFaXMNEfpSec2MOwSidExUgRgez/Boih3q9A/6wwaSnJHXxH34W0zNAYIiR3wTPj3d7ZBv2SxL5/3DMSKnmYhH+JNfvw==
+ bh=zM/8Ht9g451vNUxbqUffphuNhcG96RV9F4qN3Gg5vfY=;
+ b=UGBf+LZ6XVCV0KB59CGPwGYyT82AiKfm7pI7ztL0BbP+lKR4a8WVLHslFi3jBG6DogGaJ5wZUDN2FeB/wRVReABFGC3uuXZZug1bjjG2r+7dfAdkWvJITsOOOsGkfGwLhCSKO4hKpF0POZutIHkiZsHmA0BoPGSGRFxY5Gkvbx4F2cry3DAktOtPxLrwnH/LpmsRy/tgZjbwkQMIHiXFj1IvixwQkpVcC9LFZ68e4Pk36Rzo4nKYCwporHBJ9Kgeq6aJnBc344+KraldfkCL8XtSXc2SqLAzCjcEtAy2mQbv9okjPaHKYufiSQSh/bfEH7JyWA2qaPb00a0A+xuTaA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <3e82b38c-016f-fb5f-7157-2e3655ab3704@suse.com>
-Date: Wed, 6 Apr 2022 17:35:29 +0200
+Message-ID: <373308d5-044f-e7c2-4830-b3fbf5539767@suse.com>
+Date: Wed, 6 Apr 2022 17:51:06 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
-Subject: Re: [PATCH 1/2] VT-d: avoid NULL deref on
- domain_context_mapping_one() error paths
+Subject: Re: Questions about Cx and Px state uploading from dom0
 Content-Language: en-US
 To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <e17b98ee-8d84-512b-6403-26c7b2ee1eb5@suse.com>
- <d232b6bd-17d2-c78f-49e1-67ffc2502810@suse.com>
- <Yk2XcUhUn0BYk3lA@Air-de-Roger>
- <ffad005c-d6b9-9f27-9b5b-4f6d7345c81a@suse.com>
- <Yk2rS+9o2fNkUV8+@Air-de-Roger>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <YjrgQOYbsaYOV08H@Air-de-Roger>
+ <6a029529-fcbe-3923-26a6-58a58926762f@suse.com>
+ <Yk1tvf7oqOf3jySX@Air-de-Roger>
+ <333e5dad-5a8d-a8b5-99b5-5d349c784b88@suse.com>
+ <Yk2tN5h3nB+ijMoN@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <Yk2rS+9o2fNkUV8+@Air-de-Roger>
+In-Reply-To: <Yk2tN5h3nB+ijMoN@Air-de-Roger>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AS9PR04CA0107.eurprd04.prod.outlook.com
- (2603:10a6:20b:50e::19) To DU2PR04MB8616.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS8P250CA0021.EURP250.PROD.OUTLOOK.COM
+ (2603:10a6:20b:330::26) To DU2PR04MB8616.eurprd04.prod.outlook.com
  (2603:10a6:10:2db::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9f271de4-2290-4882-cef3-08da17e3158d
-X-MS-TrafficTypeDiagnostic: VI1PR0402MB3776:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0649ed1b-a851-4a86-9f4e-08da17e5439a
+X-MS-TrafficTypeDiagnostic: DB7PR04MB4876:EE_
 X-Microsoft-Antispam-PRVS:
-	<VI1PR0402MB3776EA860F1A53B7D9FAA2DFB3E79@VI1PR0402MB3776.eurprd04.prod.outlook.com>
+	<DB7PR04MB487635D50E5F1EC39136484EB3E79@DB7PR04MB4876.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	nwRFHwuMoh1BNyCaUnZt4923WuvHZ98rhL32RzR7G1naHzaC9IXbWmUQMN67Mkea2ShqqsqDOafGoyBNMe3pVeFr1bQ0nOS+WsXnDmJ4POH+WN2A1q8QgP2HeMpX/dotgvtvot/wLa5ra1FzJJOXc0BbKG1l9s8cU/hLl8EJfIevnwWfoXJrmcAm+zoOg60CYBIzvpzTshOa3SgiMNGab9vUIKBaiBMhCj4IXsrGtK5B0Z/hpSuNe1R729grsQiMEHyMKAiRTs8PW3emmXLOIq/w4c9U5R0nEWYQCt5lQortw1QHJRhlIXMEB3VV7m3LwIubucqhskwm3r8L533MpShOIh8G3tdFPQ16oNKTjwJo1wKWpouxcJcmn5MUV0O3J1X0B9d4N6tdHLDHqkF1TFY74tBEKHFBH3igTS9U8om9c5GraBWRGlz/KJoT9tWiPEdsw6otCQRahphfGgeV2/l060M4Ls2fAi0flj66rrhHYZBP8YUo87zfv8+vrYfbL/czUtGZgpEEnAKXbkK9ISJ0t58x9vh9d0o3SAazFaIACdV7djGmDtC7a/xVdoVx3Bb3ekaR3hytPbean+bW9qoorxSMy3/TjIPNGDK+XHG0pjavKJXRrqUFhbVlsI7nDdSsBGiwTZU1zBg6/kOSxSv/jeh09/znvTshM1pEf2sSjTir9k73RWBOM5tKSeNFpb4VKE/DDJZKdG8FYlIsJ+jQBx/G/rv1gsWUHhUVA2g=
+	doEUvikOdiZ7PRHh66P2xBZBv6/I4CioNuSCEijdNtzFqjoccGBW0YfuIXSrdlrI7z1I7TIq4J0TyWNei2xqVw/vDjoTIpd4uojon14YHVErWsOVakAXfCZemjkZg1XCovpzqrLR2w8+nvYMg6f64an4wsz/nHIZiUB8ReiKvfiNl2wRYEMTzJh8gAdTMeudy3Bw0s49RHJD0HecW4GXiXwP4xSZDc8d0I38aAoVwjQOjwiSCQoFfjpEJGwAVM1mYtqwNtag6/w/OvzQKdfk9BhktMIGrMB8PFHrfkvAyYk48PkEkK6cExEMrRfAFmhLwwC2f6Q1DmBgbbYSIzU7OUgD4esjI8jV/m8ArjopKmGP5hXME917Zemqntlbq1YEdYeDAEIT1S+rQaAYRALyCyqYhiiyZZQlgc5nwmYUKUZBsSfPTF3rAVG2Xcv2HCwpr/9ZRG339upq+fZiPq6Wc0AsgdllTRga9pl/iaTfsrD7TjpcU8xqUc7GFaz9DWTHyzaCYK0dQbDLwC86q6NI0U8XuVzlHoYieRe/pMjAZ9wmg/Q8y+eOj25AkCl7o87Jtg3OZBWf0wWlcUkpAIJVP1UbYDgoZWP1JZfrtheI1QEkv8OTVWmJZCkrVF4pinD7QzD9zFjlijZYGGtuKaJLfzegYaQNoXjVVgHFZ9UHKx7rpsxH0fVBAZK92jh8jKE0neRijTV4HU0H3IYFvPtIHVs0CKTSYJrhbC4JPKsrZso=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(31686004)(6512007)(38100700002)(2906002)(508600001)(53546011)(36756003)(54906003)(6486002)(6506007)(6916009)(8936002)(5660300002)(316002)(66476007)(66556008)(8676002)(186003)(86362001)(66946007)(4326008)(2616005)(31696002)(26005)(83380400001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(2906002)(508600001)(54906003)(53546011)(26005)(6916009)(8936002)(31686004)(36756003)(6486002)(5660300002)(31696002)(66476007)(2616005)(316002)(38100700002)(6512007)(86362001)(8676002)(4326008)(83380400001)(66556008)(66946007)(6506007)(186003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?NubBOXeY/4m39YCXZxWMfY8YPQgA5y89nK83O1TGTn/yJTbOiqTok7USmCgl?=
- =?us-ascii?Q?eaeQbFWZnLYaiBkcTuGL5cYcAjmSEavSLovn5PhlWwZpwDZ6crDozvJuwEPR?=
- =?us-ascii?Q?03gikdpqlxJiBFODoEvTJbMiiWtnF5HKgnQQXc93LQOahORNOCZkIChcP14g?=
- =?us-ascii?Q?c0oh2uxVIUnC9yjAo47cRaJYprmLXDUCdquHRl4P0XDVpCC0sxl0gC4VXVN9?=
- =?us-ascii?Q?zXZ29fUTJOuZbz+DlF8A7zD6eiPwSzrc4nvM5+itBKshEca4EiSGKCBEMDQj?=
- =?us-ascii?Q?iyO6OszKRKN5rJmNfX3GKpPfagGEUEZbURH5JlifnEWPT3PNiHS9p2XU7nq1?=
- =?us-ascii?Q?2NeLzNhoatuisrLz+8lP8VqljpxmCleL+XMKcfKUGAVHw4YdSLiq1I21GOYs?=
- =?us-ascii?Q?fiLa4qPgZiUN/ediSeMUeAV+6XCdqwZLcR2FQq2QXKK6y0/oS7eesw+rZ2ov?=
- =?us-ascii?Q?NkQyLkAwAkk6TsroCGEwLOKTlgep5NBANux8D0scstzYUKWT1n5YSiSZMlAe?=
- =?us-ascii?Q?LkDQuS4zRNTyTkFXVmyFvGQ6SeZb2SVDO+XJMG8UxGsUquq/p4taoXe+I1/Q?=
- =?us-ascii?Q?ikTDqiHGF7DHrTMrzMgaptoyeMtaCcMs5rICJUB6IhWBYGszoT+S2UV3Vtgf?=
- =?us-ascii?Q?BLLxTCZOxaXSBpoN3KL0BO8aeOOl23DtkSfg+jFR+WHcQ8T1wCtD87I1OOcE?=
- =?us-ascii?Q?UhfaHNnE/fNCVdD+OpAb+7XyJqVpok3b8u2JvcDzLl/gwlTYhTBMsCSjJrla?=
- =?us-ascii?Q?CnEiKh8a7WoE/hN9ANNQDs+w41wJ3nN9GB3neG6bG8H/aGwWY5ViaEM+BxFR?=
- =?us-ascii?Q?xfMXC05CHuPkk/9Y+s6v/JGoH3szK8KZ1+uNaB5rcCpqFb3oLq+3SZOckb2I?=
- =?us-ascii?Q?1/I1IDGAJ2ro8XCn38CCBconnAPGtbwpwGsv2Dq3YY1FzYe0r4tUM4dA611O?=
- =?us-ascii?Q?22HjCPs5GWXYHnb0VMg6FA3J9bfJ+IVBltepr/zd1vge1sWDEiUVqHMHpW6E?=
- =?us-ascii?Q?1rV3TuMln8Yr0SC8ppkF9+1wMTMKhI9JU2dknHmunMlIg7Q2Vww2UlObg//f?=
- =?us-ascii?Q?eMVq3FVmkkpgBO1WRVnUTvDyAlyUMMn1u/fmdpO/RUknib5tww3hhfXI7sTf?=
- =?us-ascii?Q?HIi8pqpqVvJMv3n7t0glHqlJM4oH2MUw4vK+ap5o2qflgq2WiXSWGYg6U/UD?=
- =?us-ascii?Q?ZaHQ76vh1ErI4TcD+ZjgWynzoCtuDF8EEXjprWMuCeMRedSZwOIyxkqNSjlj?=
- =?us-ascii?Q?zsyhs32Vvo4F+aS7zkwX5uG8qEuWjddgYaW3cmKpautTksQAWRMmJGW3f+cI?=
- =?us-ascii?Q?XLMffmsdvMKnMuKHk4tCZ+kcNLXfT3SkwNRxBvprodicQDroRBa+9ldcJ8kw?=
- =?us-ascii?Q?akdNClFphUjD5nmaZ1IMEjGoyP0Ww7JMPlDEy4dkTPi2n9LtK8V1cd9Rieqz?=
- =?us-ascii?Q?FG9chFyuG2CYEjUK2bv1ORTsJSkGMzP+WK8BXEOtCg4Nz08rw1m3umgQxHjZ?=
- =?us-ascii?Q?5mK3GJ7FRas6zDg9HpZ1KrunDPD8lUVJWYoDtqwPH/mYJcQ/1Qop5UkKJ8jq?=
- =?us-ascii?Q?4kEWhYDYY+ysl0LPkBbVHX+/39XbMAwioO4JzgRBCbN+D+xsDjaMZgjzaj8v?=
- =?us-ascii?Q?j1ZtneF4KmWIu6KQKBfOqIGYFHGmykGEaCKKCLW00YNS4N9mxtvAFz/8s4oB?=
- =?us-ascii?Q?gIz2zqZ3lEwz/HAJl9Dm8gkiyWvHkSJutYQe8Qqpkd8mojLE9JAabgtvTiol?=
- =?us-ascii?Q?G9GKhG6qNA=3D=3D?=
+	=?us-ascii?Q?VYbjrxiJDuqyZxnI+3S6uJFswOUCHyh9AkOaPMMkCLbiQpZiHK2lflC6dg61?=
+ =?us-ascii?Q?4sRAF0RQ/ALwZbjZIk649yy/MGoIsF8ydSP5LLEft/CK8wu3k3RMFd3LZkOp?=
+ =?us-ascii?Q?wcnbnt322FqjA5rsvgGSSDBYVnV1+OvmESsK1dxSNR9zgrhNjZ7B7GAWaVDq?=
+ =?us-ascii?Q?FrUwwURNTexj60j3YxLj1kT7gqJGnKldxeZCSHcZ6S8MFhKUhlIINYsOGmgW?=
+ =?us-ascii?Q?2GSoAjbpt5mmKMTjp7ZFL/ij3H2hswufVfhEUxSW3OvmpLKSlGubtYItC8c1?=
+ =?us-ascii?Q?Up0tBlvvsZTHFLEp6rGVsrvEAqN2AOnLBG/iLXVoIorNERkCwA2pSJHTlyVA?=
+ =?us-ascii?Q?/iGXRdwgnKCw2tN9O8FIMSlG8p1EUm8pQSXAm2zD+yNr9mcovp2B9d5Ui0R3?=
+ =?us-ascii?Q?W28LM4b6vEbudC8ASbnc4TwucRVeUlEEWdMjjpYO8l/LLapgu8jahQHkpPpM?=
+ =?us-ascii?Q?CHtSZMZQC7XLSq5cbd8AABk/YoT4uRmRZ8kEcPC7DsoveowmFZniQlsiAEIY?=
+ =?us-ascii?Q?ROKJ/VQme6rfbpd/mdSwQairmkETLsPyMyvqC0pZQTrbstymZfsnWY/MaKyY?=
+ =?us-ascii?Q?Z5mK3alXrhcfUZBGPGIRuYzK+MLmD03iv4fB2+Jdod/8raouLVti2mfMB2Rk?=
+ =?us-ascii?Q?+38wUCSpstZM8cOftZ0pMXqGaOnt9X+N1jSK+Xanx7HkIEr6j0ulpCbNE95f?=
+ =?us-ascii?Q?z+gFvO9tEIVb8Rfo9grf3svlaLddc64QZUVjBsyA1bScP+EiLGjZGmzgzGVa?=
+ =?us-ascii?Q?R0Ys6OdZP9odz81EzpbhrXnylDhjBZ7ltxs+nhcCzks9F2yuRQ5BCb6+32Ny?=
+ =?us-ascii?Q?ymO2Ff2dCU54ti7hFa2X1SsCypxB/Q36O+tyIFoW0wecyL+LPOn5/fx6E/u8?=
+ =?us-ascii?Q?CmM/VzYTZYca4R6FffWxhDsq7je8O/iq6A8HmlkzB/q5+vGKxoIFfysu0EYy?=
+ =?us-ascii?Q?QCBEaHut3a9jdCShIh7k1c6TkaJ0oscyPtXiGdNSI7VoGk5CcHm+uqlMwgPc?=
+ =?us-ascii?Q?1BOCUXomesjlLXGJPeURXHO1N5HQiL5JjpjaxSqohNA1glrieir7JgxMXheL?=
+ =?us-ascii?Q?dhvjXrAMYiNyK/FL4YpsaeEP7YdqRYLjy0LFnwihZBLdxn1AsPTxGLpshoS7?=
+ =?us-ascii?Q?1NyHcfF4bViY5fD5a4ZOURHIJBQrjA0EfxomcVAv+AYZSFSxuK3R4asbahLD?=
+ =?us-ascii?Q?VcLA3W9BEb117uEk2ukX1Omjkibx17EE6yO5uNx9z84kCBRtTM63ps/+kBzj?=
+ =?us-ascii?Q?pzkE6jSsuW252C7LunvrZZ61rEalrc+hVuRUWwcPGiUqUBYUixvdeR0gCdtJ?=
+ =?us-ascii?Q?57bNhCFZjWFFEFtIaN/qg9WcCUKUyVTLwq0Iih55rM9kjKfJF94iKFFiWDfr?=
+ =?us-ascii?Q?ssj4rcHn3k3mY/nDXLv1MeQBOE+WSJyIjImcEn059/kwux9HH6UwC1JrXNY2?=
+ =?us-ascii?Q?TYEadTJk5PDKK68CNVLwVrkk3jGAhpbmDwyUBvexcRRW+PasHj+VeRIf+jXI?=
+ =?us-ascii?Q?eS4/z6unN90OHW6roNFyXBCtE75kX8/aoKDq7PJQc/LSKwjVIh136kkvo23r?=
+ =?us-ascii?Q?rxDkf/7S5SfOUuc5iHILqhfAmQGYzIDr48g0sgLo9gcYW6XOs1g6Rlo4SsbS?=
+ =?us-ascii?Q?I0aW+aXWnIvADHu4exPBGWEc001HfP6oTpNETDgHwLwqwtTSAOTDmUlqxD7G?=
+ =?us-ascii?Q?yBYd/xztFQEQ55+eoZQmgDXYhs098AIzcY8GOFD4DjM14v5lJjfrdlrULWlR?=
+ =?us-ascii?Q?oPCBhSSjEQ=3D=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f271de4-2290-4882-cef3-08da17e3158d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0649ed1b-a851-4a86-9f4e-08da17e5439a
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2022 15:35:31.8288
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2022 15:51:07.6753
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8bFvFSQyFzm8PLnce95wDZSYy5G5TpPziOTqciRFn8mfId2SNrINCS/Kbwv1KzVdFD814CIszYis8WjvEgp4YA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3776
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZTA1CWAvDB4S1M3y94c5UH+RmBU7psgLxa+9hiC/nL9YTSVD6kTf8Aly1UfThZpqrbTO9wPYuzLb7WJ/icO4ug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB4876
 
-On 06.04.2022 17:01, Roger Pau Monn=C3=A9 wrote:
-> On Wed, Apr 06, 2022 at 04:07:24PM +0200, Jan Beulich wrote:
->> On 06.04.2022 15:36, Roger Pau Monn=C3=A9 wrote:
->>> On Wed, Apr 06, 2022 at 02:24:32PM +0200, Jan Beulich wrote:
->>>> First there's a printk() which actually wrongly uses pdev in the first
->>>> place: We want to log the coordinates of the (perhaps fake) device
->>>> acted upon, which may not be pdev.
+On 06.04.2022 17:09, Roger Pau Monn=C3=A9 wrote:
+> On Wed, Apr 06, 2022 at 02:47:38PM +0200, Jan Beulich wrote:
+>> On 06.04.2022 12:38, Roger Pau Monn=C3=A9 wrote:
+>>> On Wed, Apr 06, 2022 at 10:13:41AM +0200, Jan Beulich wrote:
+>>>> On 23.03.2022 09:54, Roger Pau Monn=C3=A9 wrote:
+>>>>> Hello,
+>>>>>
+>>>>> I was looking at implementing ACPI Cx and Px state uploading from
+>>>>> FreeBSD dom0, as my main test box is considerably slower without Xen
+>>>>> knowing about the Px states.  That has raised a couple of questions.
+>>>>>
+>>>>> 1. How to figure out what features to report available by OSPM when
+>>>>> calling the _PDC (or _OSC) ACPI method.  I'm confused by the usage of
+>>>>> this from Linux: it seems to be used to detect mwait support in
+>>>>> xen_check_mwait but not when calling _PDC (ie: in
+>>>>> acpi_processor_set_pdc).  I'm also not sure what the hypercall expect=
+s
+>>>>> the caller to provide.  Should buf[2] be set to all the possible
+>>>>> features supported by the OS and Xen will trim those as required?
 >>>>
->>>> Then it was quite pointless for eb19326a328d ("VT-d: prepare for per-
->>>> device quarantine page tables (part I)") to add a domid_t parameter to
->>>> domain_context_unmap_one(): It's only used to pass back here via
->>>> me_wifi_quirk() -> map_me_phantom_function(). Drop the parameter again=
-.
+>>>> I'm afraid upstream Linux doesn't quite use this as originally
+>>>> intended. Consulting my most recent (but meanwhile quite old) forward
+>>>> port tree of XenoLinux that I still have readily available, I find in
+>>>> drivers/acpi/processor_pdc.c:
 >>>>
->>>> Finally there's the invocation of domain_context_mapping_one(), which
->>>> needs to be passed the correct domain ID. Avoid taking that path when
->>>> pdev is NULL and the quarantine state is what would need restoring to.
->>>> This means we can't security-support PCI devices with RMRRs (if such
->>>> exist in practice) any longer.
+>>>> static acpi_status
+>>>> acpi_processor_eval_pdc(acpi_handle handle, struct acpi_object_list *p=
+dc_in)
+>>>> {
+>>>> 	acpi_status status =3D AE_OK;
 >>>>
->>>> Fixes: 8f41e481b485 ("VT-d: re-assign devices directly")
->>>> Fixes: 14dd241aad8a ("IOMMU/x86: use per-device page tables for quaran=
-tining")
->>>> Coverity ID: 1503784
->>>> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>> #ifndef CONFIG_XEN
+>>>> 	if (boot_option_idle_override =3D=3D IDLE_NOMWAIT) {
+>>>> 		/*
+>>>> 		 * If mwait is disabled for CPU C-states, the C2C3_FFH access
+>>>> 		 * mode will be disabled in the parameter of _PDC object.
+>>>> 		 * Of course C1_FFH access mode will also be disabled.
+>>>> 		 */
+>>>> #else
+>>>> 	{
+>>>> 		struct xen_platform_op op;
+>>>> #endif
+>>>> 		union acpi_object *obj;
+>>>> 		u32 *buffer =3D NULL;
 >>>>
->>>> --- a/SUPPORT.md
->>>> +++ b/SUPPORT.md
->>>> @@ -750,6 +750,10 @@ However, this feature can still confer s
->>>>  when used to remove drivers and backends from domain 0
->>>>  (i.e., Driver Domains).
->>>> =20
->>>> +On VT-d (Intel hardware) passing through plain PCI (or PCI-X) devices
->>>> +when they have associated Reserved Memory Regions (RMRRs)
->>>> +is not security supported, if such a combination exists in the first =
-place.
+>>>> 		obj =3D pdc_in->pointer;
+>>>> 		buffer =3D (u32 *)(obj->buffer.pointer);
+>>>> #ifndef CONFIG_XEN
+>>>> 		buffer[2] &=3D ~(ACPI_PDC_C_C2C3_FFH | ACPI_PDC_C_C1_FFH);
+>>>> #else
+>>>> 		op.cmd =3D XENPF_set_processor_pminfo;
+>>>> 		op.u.set_pminfo.id =3D -1;
+>>>> 		op.u.set_pminfo.type =3D XEN_PM_PDC;
+>>>> 		set_xen_guest_handle(op.u.set_pminfo.u.pdc, buffer);
+>>>> 		VOID(HYPERVISOR_platform_op(&op));
+>>>> #endif
+>>>> 	}
+>>>> 	status =3D acpi_evaluate_object(handle, "_PDC", pdc_in, NULL);
+>>>>
+>>>> 	if (ACPI_FAILURE(status))
+>>>> 		ACPI_DEBUG_PRINT((ACPI_DB_INFO,
+>>>> 		    "Could not evaluate _PDC, using legacy perf. control.\n"));
+>>>>
+>>>> 	return status;
+>>>> }
+>>>>
+>>>> (This is a 4.4-based tree, for reference.)
+>>>>
+>>>> IOW the buffer is passed to Xen for massaging before invoking _PDC.
 >>>
->>> Hm, I think this could be confusing from a user PoV.  It's my
->>> understanding you want to differentiate between DEV_TYPE_PCIe_ENDPOINT
->>> and DEV_TYPE_PCI device types, so maybe we could use:
->>>
->>> "On VT-d (Intel hardware) passing through non PCI Express devices with
->>> associated Reserved Memory Regions (RMRRs) is not supported."
->>>
->>> AFAICT domain_context_mapping will already prevent this from happening
->>> by returning -EOPNOTSUPP (see the DEV_TYPE_PCI case handling).
+>>> Indeed.  I'm however confused by what should be pre-filled into the
+>>> buffer by the OS.  _PDC is about the processor driver power management
+>>> support, and none of this power management is done by the OS (I don't
+>>> plan to let FreeBSD do CPU power management when running as hardware
+>>> domain), so IMO passing an empty buffer and letting Xen fill it is the
+>>> correct thing to do, at least for the use-case in FreeBSD.
 >>
->> Hmm. I did look at that code while writing the patch, but I didn't
->> draw the same conclusion. I'd like to tie the security support
->> statement to what could technically be made work. IOW I don't like
->> to say "not supported"; I'd like to stick to "not security
->> supported", which won't change even if that -EOPNOTSUPP path would
->> be replaced by a proper implementation.
+>> I don't think that would work: Xen doesn't "fill in" the buffer, but
+>> merely alters individual bits. The buffer really is IN/OUT here for
+>> Xen.
 >=20
-> My preference for using 'not supported' was simply so that users don't
-> need to worry whether their use-case fails in this category: Xen will
-> simply reject the operation in the first place.
+> Hm, but I have no idea what to put here from FreeBSD PoV, as said
+> FreeBSD will only use the processor object to upload the required data
+> to Xen, but won't attach any driver itself.
 >=20
-> Otherwise users might wonder whether some of the devices they are
-> passing through are security supported or not (lacking proper
-> information about how to check whether a device is PCI, PCI-X or PCIe
-> and whether it has associated RMRR regions).
->=20
-> I understand your worry here, but I do think we should aim to make
-> this document as easy to parse as possible for users, and hence I
-> wonder whether your proposed addition will cause unneeded confusion
-> because that use-case is not allowed by the hypervisor in the first
-> place.
+> I've so far been providing an empty buffer to Xen and it does seem to
+> set the right flags so that the Cx and Px states can be fetched
+> afterwards.
 
-I guess I'll simply drop the SUPPORT.md addition then. It would
-probably have been a better fit right in one of the XSA-400 patches
-anyway.
+Hmm, an empty buffer should result in -EINVAL from the hypercall.
+The first of the three uint32_t-s should be 1 (ACPI_PDC_REVISION_ID)
+and the 2nd (size) is supposed to be non-zero.
 
->> Even adding a sentence to
->> say this doesn't even work at present would seem to me to go too
->> far: Such a sentence would easily be forgotten if the situation
->> changed. But I'd be willing to add such an auxiliary statement as
->> a compromise.
->>
->> As to "plain PCI (or PCI-X)" vs "non PCI Express" - while I prefer
->> to avoid a negation there, I'd be okay to switch if that's deemed
->> better for potential readers.
->=20
-> Maybe it would be best to simply expand the comment before the RMRR
-> check in domain_context_mapping() to note that removing the check will
-> have security implications?
+> arch_acpi_set_pdc_bits() does explicitly set some feature bits, so
+> there's not only cleanup done there.
 
-Hmm, with the changes I'm doing I don't think I make matters worse,
-so this wouldn't seem to me to belong here.
-
->>>> @@ -1601,9 +1601,13 @@ int domain_context_mapping_one(
->>>> =20
->>>>      if ( rc )
->>>>      {
->>>> -        if ( !prev_dom )
->>>> -            ret =3D domain_context_unmap_one(domain, iommu, bus, devf=
-n,
->>>> -                                           DEVICE_DOMID(domain, pdev)=
-);
->>>> +        if ( !prev_dom ||
->>>> +             /*
->>>> +              * Unmapping here means PCI devices with RMRRs (if such =
-exist)
->>>> +              * will cause problems if such a region was actually acc=
-essed.
->>>> +              */
->>>> +             (prev_dom =3D=3D dom_io && !pdev) )
->>>
->>> Maybe I'm reading this wrong, but plain PCI devices with RMRRs are
->>> only allowed to be assigned to the hardware domain, and won't be able
->>> to be reassigned afterwards.  It would be fine to unmap
->>> unconditionally if !prev_dom or !pdev?  As calls with !pdev only
->>> happening for phantom functions or bridge devices.
->>
->> Like with the support statement, I'd prefer this code to be independent
->> of the (perhaps temporary) decision to not allow certain assignments.
->=20
-> I was just saying because it would make the code easier IMO, but maybe
-> it doesn't matter that much.
->=20
-> The comment however should also be adjusted to mention that refers to
-> legacy DEV_TYPE_PCI type devices ('PCI devices with RMRRs' is too
-> unspecific IMO).
-
-I'm happy to use DEV_TYPE_PCI in the comment.
-
->> Since you mention phantom functions: Aiui their mapping operations will
->> be done with a non-NULL pdev, unless of course they're phantom functions
->> associated with a non-PCIe device (in which case the same secondary
->> mappings with a NULL pdev would occur - imo pointlessly, as it would
->> be the same bridge and the same secondary bus as for the actual device;
->> I'm under the impression that error handling may not work properly when
->> such redundant mappings occur).
->=20
-> The redundant mapping of the bridges would be fine as prev_dom =3D=3D
-> domain in that case, and cannot fail?
-
-Hmm, yes, good point.
+Well, yes, I did say "alter", not "clear", for that reason.
 
 Jan
 
