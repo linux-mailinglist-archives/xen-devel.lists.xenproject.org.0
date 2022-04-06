@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FF904F5825
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 10:58:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.299743.510887 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9B6D4F5829
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 11:00:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.299748.510899 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nc1Ux-000205-RE; Wed, 06 Apr 2022 08:58:43 +0000
+	id 1nc1Wa-0003Mv-6p; Wed, 06 Apr 2022 09:00:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 299743.510887; Wed, 06 Apr 2022 08:58:43 +0000
+Received: by outflank-mailman (output) from mailman id 299748.510899; Wed, 06 Apr 2022 09:00:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nc1Ux-0001xx-OB; Wed, 06 Apr 2022 08:58:43 +0000
-Received: by outflank-mailman (input) for mailman id 299743;
- Wed, 06 Apr 2022 08:58:42 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nc1Uw-0001xr-4w
- for xen-devel@lists.xenproject.org; Wed, 06 Apr 2022 08:58:42 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nc1Ut-0008S3-Q6; Wed, 06 Apr 2022 08:58:39 +0000
-Received: from [54.239.6.190] (helo=[192.168.16.200])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nc1Ut-0001om-Fq; Wed, 06 Apr 2022 08:58:39 +0000
+	id 1nc1Wa-0003Kl-3R; Wed, 06 Apr 2022 09:00:24 +0000
+Received: by outflank-mailman (input) for mailman id 299748;
+ Wed, 06 Apr 2022 09:00:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ITwm=UQ=gmail.com=trigger.huang@srs-se1.protection.inumbo.net>)
+ id 1nc1WY-0003Kd-Fd
+ for xen-devel@lists.xenproject.org; Wed, 06 Apr 2022 09:00:22 +0000
+Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
+ [2607:f8b0:4864:20::534])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fcaae1d6-b587-11ec-a405-831a346695d4;
+ Wed, 06 Apr 2022 11:00:21 +0200 (CEST)
+Received: by mail-pg1-x534.google.com with SMTP id k14so1721165pga.0
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Apr 2022 02:00:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,105 +39,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=zw9sDgP/hpxqMhcvM5+bBVpXCVWiSSyurTkeJv1dseI=; b=v2dzbec3pkrX/SMHf1Juy50re6
-	n7c0vJs/y6wdvemgT2ydI5ZLWoEEHpJ/kO5shq66w9u3bChdwKfOO6g65KILWMTiY0xA1rL1ofZlY
-	x2wR6TcDi9c4OUAEWFFiplOkN4G054CAj+9lcAyaqxs6sdQTWObwsK85brqsno8f/0Xg=;
-Message-ID: <7dc5887a-461d-506d-ce4e-fbcb7e5cb43e@xen.org>
-Date: Wed, 6 Apr 2022 09:58:37 +0100
+X-Inumbo-ID: fcaae1d6-b587-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=4ai1600hTFj5xUYHJYsI1cDmlSJc0jGDB27PJST9lyM=;
+        b=Sf7ygPQ1D3qLCwUml+T79i2dDew+Xiz82oPiL/5d8eeevaYUZzvDQDXhSQ65eqeAc4
+         oUgbyWRKdIUqSHmsRpxm+g0sLGJf5ERMzeER7RusATjSGxIhwydjfp5wIsK6ZRg438Ou
+         AdRgDJShdP8t58+s2jZYgUqKpMNkraWwohOZ80ZBpM+pzS58ckWvCmF0wVRwECocpNs7
+         C3ED1PikWn7jvS0t2zjVX3gF7LJBEKmuEkR+0gKUErMGkGk8GROzCz8wrYuplvxbTMjz
+         2+vwhUagZzC74aAG4z7nPbMF8+Q5OAvPjl7yFvGeqAShA8Lhkz1Uj5hZEu8pYaMV5Oim
+         0KnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=4ai1600hTFj5xUYHJYsI1cDmlSJc0jGDB27PJST9lyM=;
+        b=AYuV9LwxXNs65x+mSqEL6IgGZ07XhBNFmqTJ3QntT+4mY+qkYe02pR17GqyQn5J9nZ
+         UBbAtucSr+oLazRh10QJvwDhj8Xi/cqod79R/SOptuQxO82JnBy/u+eBhk38W2mLR5SQ
+         5KQsp3PBsDXiaF+KGzdJzv1EemWh2TXHl5zfgMfP88Iq64jiuDEUlZoexkLHb/OxLEHJ
+         QIqO9Tz/6snyNJB5GSPSZvmadjA9VOuR2eT+NCFRfLFaXVjCeeDTuDAyuJRXN6P/i1zt
+         8mlHtdsJb6tGs2xo37QgL+Wua+IXI65kbhEPJJV10GPWLkggl0w38KdKhN/QoHXXH91U
+         rrkQ==
+X-Gm-Message-State: AOAM533VcZaxi+OiCdkrsc+qZTfdFCQeGou3VZaAHbkAPrFIImLymvXg
+	iafizHXoNtJ5N5Al3Y7UawFyAeUt05oJ5XVBxBB7ImLnMWE=
+X-Google-Smtp-Source: ABdhPJzstcNLwZUV3HSgjQatn8l2ZaB1ToeZspbdOC45ca3mBPRWEtVWcEea/32jd3dh3zerB3fjfpEjJFBt+h+IBm4=
+X-Received: by 2002:a63:8c5a:0:b0:387:6367:c08a with SMTP id
+ q26-20020a638c5a000000b003876367c08amr6281876pgn.155.1649235619821; Wed, 06
+ Apr 2022 02:00:19 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.7.0
-Subject: Re: [PATCH v4 8/9] tools: add example application to initialize
- dom0less PV drivers
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, Bertrand.Marquis@arm.com,
- Volodymyr_Babchuk@epam.com, Luca Miccio <lucmiccio@gmail.com>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-References: <alpine.DEB.2.22.394.2203311735380.2910984@ubuntu-linux-20-04-desktop>
- <20220401003847.38393-8-sstabellini@kernel.org>
- <e71ad6f6-f920-1e7b-9f4b-dd2e133a23c5@xen.org>
- <39fc312c-cf0b-d7ff-c560-7c6b96809416@suse.com>
- <alpine.DEB.2.22.394.2204051758250.2910984@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2204051758250.2910984@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Trigger Huang <trigger.huang@gmail.com>
+Date: Wed, 6 Apr 2022 17:00:08 +0800
+Message-ID: <CANH0Q9k=csOJktNmr29XhQRC0niBTBU0Z_J=qKoAAV9u2v2oWA@mail.gmail.com>
+Subject: qemu-system-i386: -mem-path not supported with Xen when try to use
+ memory-backend-memfd to share the memory with external processes on qemu-xen stable-4.16
+To: xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/alternative; boundary="000000000000453a6105dbf8974d"
 
-Hi Stefano,
+--000000000000453a6105dbf8974d
+Content-Type: text/plain; charset="UTF-8"
 
-On 06/04/2022 03:21, Stefano Stabellini wrote:
-> On Fri, 1 Apr 2022, Juergen Gross wrote:
->> On 01.04.22 12:21, Julien Grall wrote:
->>> This would be a problem if Linux is still booting and hasn't yet call
->>> xenbus_probe_initcall().
->>>
->>> I understand we need to have the page setup before raising the event
->>> channel. I don't think we can allow Xenstored to set the HVM_PARAM (it may
->>> run in a domain with less privilege). So I think we may need to create a
->>> separate command to kick the client (not great).
->>>
->>> Juergen, any thoughts?
->>
->> I think it should work like that:
->>
->> - setup the grant via xc_dom_gnttab_seed()
->> - introduce the domain to Xenstore
->> - call xc_hvm_param_set()
->>
->> When the guest is receiving the event, it should wait for the xenstore
->> page to appear.
-> 
-> 
-> I am OK with what you wrote above, and I understand Julien's concerns
-> about "waiting". Before discussing that, I would like to make sure I
-> understood why setting HVM_PARAM_STORE_PFN first (before
-> xs_introduce_domain) is not possible.
-> 
-> In a previous reply to Julien I wrote that it is not a good idea to
-> set HVM_PARAM_STORE_PFN in Xen before creating the domains because it
-> would cause Linux to hang at boot. That is true, Linux hangs on
-> drivers/xen/xenbus/xenbus_comms.c:xb_init_comms waiting on xb_waitq.
-I looked at the implementation of xb_init_comms in 5.17 and I couldn't 
-find out how it would block here. Can you clarify?
+Hello,
 
-> It could wait a very long time as domUs are typically a lot faster than
-> dom0 to boot.
-> 
-> However, if we set HVM_PARAM_STORE_PFN before calling
-> xs_introduce_domain in init-dom0less, for Linux to see it before
-> xs_introduce_domain is done, Linux would need to be racing against
-> init-dom0less. In that case, the wait in xb_init_comms would be minimal
-> anyway. It shouldn't be a problem. There would be no "hang", just a wait
-> a bit longer than usual.
+The QEMU Documentation suggests to use memory-backend-memfd to share the
+memory with external processes, so I  add the following patch to
+libxl__build_device_model_args_new() @ tools/libs/light/libxl_dm.c
 
- From my understanding, Linux may send commands as soon as it sees 
-HVM_PARAM_STORE_PFN. With your proposal, this may happen before 
-xs_introduce_domain() has updated the features supported by Xenstored.
+*+               flexarray_append_pair(dm_args, "-object",
+"memory-backend-memfd,id=mem1,size=4G");+
+flexarray_append_pair(dm_args, "-machine", "memory-backend=mem1");*
 
-With the recent proposal from Juergen [1], an OS will need to read the 
-features field to understand whether Xenstored support the extended 
-version of a command.
+However, I always got error '*qemu-system-i386: -mem-path not supported
+with Xen*'
+After check the qemu-xen source, the error is from
+'qemu_ram_alloc_from_fd() @ softmmu/physmem.c
 
-This means, any commands sent before xs_introduce_domain() would not be 
-able to take advantage of the new features. Therefore, we would need to 
-wait until Xenstored has advertised the features.
 
-With your approach, the wait would be a busy loop. Although, I am not 
-entirely sure what you would be waiting on?
 
-But if we use the 'connection status' field, then you could just delay 
-the initialization until you receive an event and the connection status 
-is connected.
+* if (xen_enabled()) {        error_setg(errp, "-mem-path not supported
+with Xen");        return NULL;    }*
 
-Cheers,
+So, any suggestions on how to enable  *-mem-path* on Xen?
 
-[1] https://lore.kernel.org/xen-devel/20220316161017.3579-1-jgross@suse.com/
+Thanks,
+Trigger
 
--- 
-Julien Grall
+--000000000000453a6105dbf8974d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hello, <br></div><div><br></div><div>The QEMU Documen=
+tation suggests to use memory-backend-memfd to share the memory with extern=
+al processes, so I=C2=A0 add the following patch to libxl__build_device_mod=
+el_args_new() @ tools/libs/light/libxl_dm.c</div><div><i>+ =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 flexarray_append_pair(dm_args, <span sty=
+le=3D"color:rgb(0,0,255)"><b>&quot;-object&quot;, &quot;memory-backend-memf=
+d,id=3Dmem1,size=3D4G&quot;</b></span>);<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 flexarray_append_pair(dm_args, &quot;<span style=3D"co=
+lor:rgb(0,0,255)"><b>-machine&quot;, &quot;memory-backend=3Dmem1</b></span>=
+&quot;);</i><br></div><div><br></div><div>However, I always got error &#39;=
+<b><span style=3D"color:rgb(255,0,0)">qemu-system-i386: -mem-path not suppo=
+rted with Xen</span></b>&#39;</div><div>After check the qemu-xen source, th=
+e error is from &#39;qemu_ram_alloc_from_fd() @ softmmu/physmem.c</div><div=
+>=C2=A0=C2=A0=C2=A0<i> if (xen_enabled()) {<br>=C2=A0=C2=A0 =C2=A0 =C2=A0=
+=C2=A0 error_setg(errp, &quot;-mem-path not supported with Xen&quot;);<br>=
+=C2=A0=C2=A0 =C2=A0 =C2=A0=C2=A0 return NULL;<br>=C2=A0=C2=A0=C2=A0 }</i></=
+div><div><br></div><div>So, any suggestions on how to enable=C2=A0 <span st=
+yle=3D"color:rgb(0,0,255)"><b>-mem-path</b></span> on Xen?<br></div><div><b=
+r></div><div>Thanks,</div><div>Trigger<br></div></div>
+
+--000000000000453a6105dbf8974d--
 
