@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FE714F56CF
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 09:23:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.299658.510707 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A77074F56D0
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 09:24:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.299661.510719 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nc002-0001kI-NM; Wed, 06 Apr 2022 07:22:42 +0000
+	id 1nc01Y-0002Jt-4n; Wed, 06 Apr 2022 07:24:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 299658.510707; Wed, 06 Apr 2022 07:22:42 +0000
+Received: by outflank-mailman (output) from mailman id 299661.510719; Wed, 06 Apr 2022 07:24:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nc002-0001hZ-KN; Wed, 06 Apr 2022 07:22:42 +0000
-Received: by outflank-mailman (input) for mailman id 299658;
- Wed, 06 Apr 2022 07:22:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LqB1=UQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nc000-0001hT-Gy
- for xen-devel@lists.xenproject.org; Wed, 06 Apr 2022 07:22:40 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 56e25e99-b57a-11ec-a405-831a346695d4;
- Wed, 06 Apr 2022 09:22:39 +0200 (CEST)
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur02lp2055.outbound.protection.outlook.com [104.47.6.55]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-15-p8ZHjdxeMEepCpRfaPrv7A-1; Wed, 06 Apr 2022 09:22:37 +0200
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
- by DB6PR04MB3223.eurprd04.prod.outlook.com (2603:10a6:6:e::20) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5123.31; Wed, 6 Apr 2022 07:22:36 +0000
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::914d:e08d:7798:8476]) by DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::914d:e08d:7798:8476%7]) with mapi id 15.20.5123.031; Wed, 6 Apr 2022
- 07:22:36 +0000
+	id 1nc01Y-0002Gi-0V; Wed, 06 Apr 2022 07:24:16 +0000
+Received: by outflank-mailman (input) for mailman id 299661;
+ Wed, 06 Apr 2022 07:24:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=bUIs=UQ=arm.com=michal.orzel@srs-se1.protection.inumbo.net>)
+ id 1nc01W-0002Ga-NN
+ for xen-devel@lists.xenproject.org; Wed, 06 Apr 2022 07:24:14 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 8bfef870-b57a-11ec-8fbc-03012f2f19d4;
+ Wed, 06 Apr 2022 09:24:08 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 61C1623A;
+ Wed,  6 Apr 2022 00:24:11 -0700 (PDT)
+Received: from [10.57.6.245] (unknown [10.57.6.245])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7FB553F73B;
+ Wed,  6 Apr 2022 00:24:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,147 +42,443 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 56e25e99-b57a-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1649229758;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=p/X8fWXnw3uZdperyAkoMOelm4vr1TgeVyBGLOeETng=;
-	b=HKlF2oiiENameQuoPxRs4LmviuRTCOkL75hsbv7blK0TeO+N4kMHKrfbGOXZ2OZIy8oG6K
-	5CtB1L9Y3/+YyhYsp0N2elnT4FsshemneSI2EoITy3qaLEjDObwLzPZVW9WVu6kicUZeVp
-	5E3xVX38LXcfH/VvOBUwEe59+Eul644=
-X-MC-Unique: p8ZHjdxeMEepCpRfaPrv7A-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kQqYOV1qTtlf7aco+YWOGxVHkk6blqlTDooBgRTJZw2t5mebmfabS0/pnnKgDQXkLuzfvNMbr/tEULyqA0U+17ZmpVhNUbhA9iCLy5NJ41uYu9tJj+5xVuRTp7a/6xlQG63hlqVFebXowa++k5qsUyjlV6F1viBHp36ZfK5QBQixiRHjYvsNFt2LGp1kiNvPTeeggLteQUiAVv0M0HYtBmMuVORWCRHYUQOVRPYCZc36x8l0ulnxMVcYAnE/e3wyxndsioKv0pkpISOJgmArVeNp1KBmB1cCvB0UJW6FT+rHpaKr7JzcB6g9sz/tZGDNw91zg7LJ1iVwzrjTIJtgxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p/X8fWXnw3uZdperyAkoMOelm4vr1TgeVyBGLOeETng=;
- b=It89gz3X1dISvHH1Efcvw8+i8jW/pRzcflhbgCpn1ToO5zU/pLR4BGnXYwTKl1HR9paulmZl/UyP6hTvuMSPi4jMaUz+xpdkxw1IExj0TMR6jVZF++dowTlIJbkHNJ0lYNEFhhzX88J4+79uWjQ/RVtwV1PZYn4td7wCr4Ucr/kHCy36ksKcd6PUA6oRXdxuQOJxXPJNyDkpg00ZlwLFNZdHq3jRrsdcl+jIFN/TZpRLIhZoiLJmPHikrnUHiCA1aHij6D3Zzl/hCbSXuOqxh4IK/kSosrS9Zywb+8RKU5kvOVBRaU7vRIiQ/N9MmNv02pw2EYjSR/I00g3gzBUqwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <d0e84ac8-308e-1784-982e-271705c13b7d@suse.com>
-Date: Wed, 6 Apr 2022 09:22:34 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+X-Inumbo-ID: 8bfef870-b57a-11ec-8fbc-03012f2f19d4
+Message-ID: <fd4b0cc7-3cb9-3f56-5db7-31d41b24611c@arm.com>
+Date: Wed, 6 Apr 2022 09:24:06 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
-Subject: Re: [xen-4.14-testing test] 169170: regressions - FAIL
+Subject: Re: [PATCH V2 1/2] xen/arm: Add i.MX lpuart driver
 Content-Language: en-US
-To: osstest service owner <osstest-admin@xenproject.org>,
- xen-devel@lists.xenproject.org
-References: <osstest-169170-mainreport@xen.org>
-Cc: Anthony Perard <anthony.perard@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <osstest-169170-mainreport@xen.org>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>, sstabellini@kernel.org,
+ julien@xen.org, Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
+Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
+ wl@xen.org, xen-devel@lists.xenproject.org, van.freenix@gmail.com,
+ Peng Fan <peng.fan@nxp.com>
+References: <20220402054223.10304-1-peng.fan@oss.nxp.com>
+ <20220402054223.10304-2-peng.fan@oss.nxp.com>
+From: Michal Orzel <michal.orzel@arm.com>
+In-Reply-To: <20220402054223.10304-2-peng.fan@oss.nxp.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS9PR06CA0205.eurprd06.prod.outlook.com
- (2603:10a6:20b:45d::31) To DU2PR04MB8616.eurprd04.prod.outlook.com
- (2603:10a6:10:2db::16)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d286a27e-818f-4739-2612-08da179e3963
-X-MS-TrafficTypeDiagnostic: DB6PR04MB3223:EE_
-X-Microsoft-Antispam-PRVS:
-	<DB6PR04MB3223C586D0E01994AC0478B8B3E79@DB6PR04MB3223.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	i8ck/dT1Q+w4DLD4xq0qpPtkcNTEUul86dk0ImscleVY0j/dAzpHidpXRarp7SWR6U7lX6/mqJ00JNf85iaLU6ClrBBNcMhWcl61asiOrXZR2xcRzj/ymTaoOTJU98IGWJ9ZI29z+gOkCcDBb19FWG1KyX3m0F0mR9KbKD47EFUqXtwJUJd66aXBabl2lt0/YeB433mp4vgORiN95vzB6e5u0cUNpblZZsKOlgJ/c36WqOTxmm7t69rhiC6lDJm5zu3R9UvYVuwOT54lSAcVeQZvexRZPvtFOBmDRgRT7Zz3pcQO1FlrJgXhntRvKdt0iEZze3V/rvdLJHRnewiCBqPLMEzOZXC22YZpbgUQ17TFvG6WnIPhYRmYfBE8+6tUVa8/2m4wG62zEwb074aVtH1nw5VYvn5IpIeSCplwfya+HJKKsH2bi9+O38ox8FZ0HNjhkssXclByMVGdZZywMxIIGqiW9N34h6HY0+Z2FiAQCOSTjkkxhMqWLRK4a29yWu4NTwERYzeqCDHnZdWdPyXshqhLIbW6FOb5+l4spPXVD1ZjWoEJ1330ijBUfONEsu6jyTFp/dkPm+z2vme1A6R4+qiOON6lR2+o1goseNkK4yW6al4Eeo9IsGbu+Uoco2mN960mm6Rbs97fxKNxn6aeiHDbFpLqF/7VE1Unp1U6FR8qiXm2DVBfcQnVVzJgzO/VJ7kzoyHHL6xYFycdZRXHDeYguj7P9T+dCgxdDTu0CO7/6rxb449v2fPmThtYYrJNQ71VfBVrjY3Vh4cPNInfxhsMDFstiY8A+HWWvcN3X4DKrtUWpiujZ2bRwOwr
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(316002)(66946007)(26005)(4326008)(186003)(6486002)(966005)(508600001)(36756003)(66556008)(66476007)(83380400001)(8676002)(31686004)(2616005)(2906002)(6506007)(38100700002)(5660300002)(6512007)(8936002)(53546011)(86362001)(31696002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OHo4ejQzdGo5d3o4RnJ1VTRXZHFpbllTSlVmbGxtK0xxK2d6NWVGWFFuakF6?=
- =?utf-8?B?NkJQdS9WVkwwelN3Vk13UFphamp2NXE1Nm1iZHZFMlVMMzZsNkpnNTBsU2Jv?=
- =?utf-8?B?LzV4Rk5xYWVDN1VvKzRaSkx3RU5TbHZDT1VRZW0rRE0wUlJIenU1NXhBQVFG?=
- =?utf-8?B?Qy92a0VDRTh2WnozRlFOeFpRWldSYVY1REdnZG9JM05iSnM5cFJKeW5QZlht?=
- =?utf-8?B?eGoyaDRDNGlJcEw3Uk5DSGlMZy93SG9mVGxWVW1yVFhwRDJ0VmpCNVVWRkdp?=
- =?utf-8?B?KzE2cU1Xd3g0cVJNMDV0VHg5ZWFuTEc4cVc4K0hHVnRRMUZ3bWJTVHVSazZN?=
- =?utf-8?B?TzZZdFhBNUsrVlJuUHIvZ2xLTjJTSHZ5cnpQWmg0ekFHWnlYekFrR1J6OHQy?=
- =?utf-8?B?NW9DNEJ3MTNKbmJ5SXZQeG03RTRTT1JjTm85VVpHSWZNbnl2SjlZZ3h4Nmtt?=
- =?utf-8?B?NkpDcWN2R1BxcEpQZFFFRkdmV3B2MlJrYXRaSkZkYmlha3psenlxNEREVEgw?=
- =?utf-8?B?UVpka3U4M00vQk44MWZodlp0YkMxMlVwbTcwN09Gc2hhRTNVdTFVWEdpc3dT?=
- =?utf-8?B?b1JqUmNZR2twSFFrSjBqR0dsUHFOSi9oeWpiRjlDWmw1VzZjaHN2K3lvSDZR?=
- =?utf-8?B?dDh6OHZLaSt2UXE2R21BeVRIYUhEUlpPeHJ2MHRtZFVnNWRIYmhWR3hKZkFa?=
- =?utf-8?B?M1NzQk5EZnR6aUVTQzBZalRONDhtcnVXT1EvR0VaaWY5ZTl0aVNheXlGRHZR?=
- =?utf-8?B?UVozMTNiUnlyeUNNM3VDQ0RLSEU4UG8ydzIvZld1T0tTRjh6R0NYc3RKQ25a?=
- =?utf-8?B?RHJ4empjRGNRc2pNdVQwQUlRRXBjWjB1ZW1wK0Z2TFdMZ0NLa2VpZFdKcWRX?=
- =?utf-8?B?Szk5ZmxuenN1TEVmblBpSkdoVTNHUWhzWDJsWUVieHVpNHJIV0hWaUdYRGdE?=
- =?utf-8?B?Y0hNdFA3UEE5SU0zdm9ZVjJvcFd0cjZlb2tMVDBsWVc5TWw4RTRBZi8yZlRq?=
- =?utf-8?B?TTZ4Z1lGQ01idFZ5T3hTT2QwUCtXOFBkdXV0M0NkYWVMM09LZFE3WjErZDZn?=
- =?utf-8?B?di9Qam5EMlJ4SkpRYnUwOHJzWm13VVNqcnBPUVlmTjRkUkFyK2RqeTcvbndS?=
- =?utf-8?B?eUR2VnBJeEMvc1E2QVJSVHdJYmFpUlhKUVdVK3VYSXBOK0tPV2xWY3FJVnZr?=
- =?utf-8?B?MkFhM091Vi85Q1ZvRW91RlJHdFo5UjNXQ0pPZkozL2pvRHc2ckk0b3RudWFD?=
- =?utf-8?B?VUdhcTRLYWN1dFA1VjNUSVBFeTltR0QvNUROZll1Q0FOM2xFdlVCelQ4SWRk?=
- =?utf-8?B?TlgwZWJZQ3dqY2NxSDMxNm5nMjMvb3hJQjBsV1o3bFVvMGNyQ3g5UzA3Szlh?=
- =?utf-8?B?a1dPSHYzZ0lSV3ZyQlZKaHYxaUxVWGQ0bis1WUhrZ0RDb1hlTWZHMmlkNW9D?=
- =?utf-8?B?eVB5cXJrSzMvZHNialFZNVd6M3VpbmZ4QjdmbFVLc2I4am4xYlJ6NzVLbkFK?=
- =?utf-8?B?Ly94RjFRL1BCbmlrRjRkYzRDSERiL1VBdHkwNUxzNmQ0bDY4aW04K2pYRlNJ?=
- =?utf-8?B?NWlxWGNGMDR1VjBUNnd0Y21XRGhPN3EreDJlQWhsVUR3QU5ScEtranhabTd6?=
- =?utf-8?B?MXF6Y0Zud051eU90Tk1vVVNOZE1EUTRCdVFnK015S3RVVkQwMkVObENqZmUz?=
- =?utf-8?B?SjdDNWRYdWNSdXQ4bm8vd09xU2FUN2RJTjdRM0x5S29tRW5NVUxycDQzeCt4?=
- =?utf-8?B?dC9teUVMdVo5VVEwMmN0aGtpVjJJN1pOMngwMmFJaXhuZExHUFdIN0E4YWVy?=
- =?utf-8?B?K3BrcjQrN1FLdXVJYTg3bU5nN1JMYzVDbm5heEFDbWxFZmxxL1UxSWtTUERJ?=
- =?utf-8?B?OHFtU0lNYTRwdlU0Wmc0MDF5ZnB0MFFLRTBoWDVRUU12dWcyREREclY1ZUJa?=
- =?utf-8?B?dHZHZkhJSm5naGtNS2R6ZTVjU2xmM0tVdEd4d3RSTUw3d1IzZS8weU5jNm12?=
- =?utf-8?B?OFBPU0dKQXNBZGJkWUdFRGc2SWJYVVFLM1daNjZZSTFrYWpncldWYVhNRUcw?=
- =?utf-8?B?VkxMNVJYa1d6am9QS0xtekJOSGhCVGJaKzJOMzVQUU5ZRTUyVWJEeU5QdU9r?=
- =?utf-8?B?Y0ZOR21HK3NVdmJwQXhPSzAwd1pha3dwQmwrY0x5Smo1bEJRYzJzbCtBTThk?=
- =?utf-8?B?ZENHQWdKUXlKamUvV25GRkE5OWZBQzJNTXFhU1prOGEza2pEakppQjVIY2E2?=
- =?utf-8?B?ZDJtQVJ0QWRJVUc0RHZKT2RwWWNiUldxMTVvYkJ2Z05kRGhnWDBoRVlmcWUz?=
- =?utf-8?B?S2FQQXFvUmhFYkhXWWVuaXFVTW1vN2xJMzVPdXpnbkRXVTNqZVFSUT09?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d286a27e-818f-4739-2612-08da179e3963
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2022 07:22:36.5791
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jLYynUtOxqBEEK3iezkSv7CqO3p0sYpLDgmUZCr06HKjB0p/KH4hKbpCbO8HNi9DMd5iWpi8tcddRGMarNd84A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR04MB3223
 
-On 05.04.2022 16:53, osstest service owner wrote:
-> flight 169170 xen-4.14-testing real [real]
-> http://logs.test-lab.xenproject.org/osstest/logs/169170/
+Hi Peng,
+
+On 02.04.2022 07:42, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
 > 
-> Regressions :-(
+> The i.MX LPUART Documentation:
+> https://www.nxp.com/webapp/Download?colCode=IMX8QMIEC
+> Chatper 13.6 Low Power Universal Asynchronous Receiver/
+> Transmitter (LPUART)
 > 
-> Tests which did not succeed and are blocking,
-> including tests which could not be run:
->  test-amd64-amd64-xl          18 guest-localmigrate       fail REGR. vs. 168506
->  build-arm64-xsm               6 xen-build                fail REGR. vs. 168506
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+>  xen/drivers/char/Kconfig      |   8 +
+>  xen/drivers/char/Makefile     |   1 +
+>  xen/drivers/char/imx-lpuart.c | 275 ++++++++++++++++++++++++++++++++++
+>  xen/include/xen/imx-lpuart.h  |  64 ++++++++
+>  4 files changed, 348 insertions(+)
+>  create mode 100644 xen/drivers/char/imx-lpuart.c
+>  create mode 100644 xen/include/xen/imx-lpuart.h
+> 
+> diff --git a/xen/drivers/char/Kconfig b/xen/drivers/char/Kconfig
+> index 2ff5b288e2..0efdb2128f 100644
+> --- a/xen/drivers/char/Kconfig
+> +++ b/xen/drivers/char/Kconfig
+> @@ -13,6 +13,14 @@ config HAS_CADENCE_UART
+>  	  This selects the Xilinx Zynq Cadence UART. If you have a Xilinx Zynq
+>  	  based board, say Y.
+>  
+> +config HAS_IMX_LPUART
+> +	bool "i.MX LPUART driver"
+> +	default y
+> +	depends on ARM_64
+> +	help
+> +	  This selects the i.MX LPUART. If you have a i.MX8QM based board,
+> +	  say Y.
+Why did you move "say Y" to the next line?
 
-Urgh:
+> +
+>  config HAS_MVEBU
+>  	bool "Marvell MVEBU UART driver"
+>  	default y
+> diff --git a/xen/drivers/char/Makefile b/xen/drivers/char/Makefile
+> index 7c646d771c..14e67cf072 100644
+> --- a/xen/drivers/char/Makefile
+> +++ b/xen/drivers/char/Makefile
+> @@ -8,6 +8,7 @@ obj-$(CONFIG_HAS_MVEBU) += mvebu-uart.o
+>  obj-$(CONFIG_HAS_OMAP) += omap-uart.o
+>  obj-$(CONFIG_HAS_SCIF) += scif-uart.o
+>  obj-$(CONFIG_HAS_EHCI) += ehci-dbgp.o
+> +obj-$(CONFIG_HAS_IMX_LPUART) += imx-lpuart.o
+>  obj-$(CONFIG_ARM) += arm-uart.o
+>  obj-y += serial.o
+>  obj-$(CONFIG_XEN_GUEST) += xen_pv_console.o
+> diff --git a/xen/drivers/char/imx-lpuart.c b/xen/drivers/char/imx-lpuart.c
+> new file mode 100644
+> index 0000000000..49330fd2f8
+> --- /dev/null
+> +++ b/xen/drivers/char/imx-lpuart.c
+> @@ -0,0 +1,275 @@
+> +/*
+> + * xen/drivers/char/imx-lpuart.c
+> + *
+> + * Driver for i.MX LPUART.
+> + *
+> + * Peng Fan <peng.fan@nxp.com>
+> + * Copyright 2022 NXP
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License as published by
+> + * the Free Software Foundation; either version 2 of the License, or
+> + * (at your option) any later version.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + */
+> +
+> +#include <xen/errno.h>
+> +#include <xen/imx-lpuart.h>
+> +#include <xen/init.h>
+> +#include <xen/irq.h>
+> +#include <xen/mm.h>
+> +#include <xen/serial.h>
+> +#include <asm/device.h>
+> +#include <asm/io.h>
+> +
+> +#define imx_lpuart_read(uart, off)       readl((uart)->regs + off)
+> +#define imx_lpuart_write(uart, off, val) writel((val), (uart)->regs + off)
+> +
+> +static struct imx_lpuart {
+> +    uint32_t baud, clock_hz, data_bits, parity, stop_bits, fifo_size;
+> +    uint32_t irq;
+> +    char __iomem *regs;
+> +    struct irqaction irqaction;
+> +    struct vuart_info vuart;
+> +} imx8_com;
+> +
+> +static void imx_lpuart_interrupt(int irq, void *data,
+> +                                 struct cpu_user_regs *regs)
+> +{
+> +    struct serial_port *port = data;
+> +    struct imx_lpuart *uart = port->uart;
+> +    uint32_t sts, rxcnt;
+> +
+> +    sts = imx_lpuart_read(uart, UARTSTAT);
+> +    rxcnt = imx_lpuart_read(uart, UARTWATER) >> UARTWATER_RXCNT_OFF;
+> +
+> +    if ( (sts & UARTSTAT_RDRF) || (rxcnt > 0) )
+> +	    serial_rx_interrupt(port, regs);
+> +
+> +    if ( sts & UARTSTAT_TDRE )
+> +	    serial_tx_interrupt(port, regs);
+> +
+> +    imx_lpuart_write(uart, UARTSTAT, sts);
+> +}
+> +
+> +static void __init imx_lpuart_init_preirq(struct serial_port *port)
+> +{
+> +    struct imx_lpuart *uart = port->uart;
+> +    uint32_t ctrl, old_ctrl, bd;
+> +
+> +    ctrl = old_ctrl = imx_lpuart_read(uart, UARTCTRL);
+Please remove ctrl assignment here as you are overriding it in the next line.
 
-  CC      hw/virtio/virtio-bus.o
-  CC      hw/virtio/virtio-rng.o
-  CC      hw/virtio/virtio-pci.o
-  CC      hw/virtio/virtio-mmio.o
-  CC      hw/virtio/virtio-pmem-pci.o
-  CC      hw/virtio/vhost-stub.o
-cc: internal compiler error: Segmentation fault signal terminated program cc1
-Please submit a full bug report,
-with preprocessed source if appropriate.
-See <file:///usr/share/doc/gcc-8/README.Bugs> for instructions.
-make: *** [/home/osstest/build.169170.build-arm64-xsm/xen/tools/qemu-xen-dir/rules.mak:69: hw/virtio/vhost-stub.o] Error 4
+> +    ctrl = (old_ctrl & ~UARTCTRL_M) | UARTCTRL_TE | UARTCTRL_RE;
+> +    bd = imx_lpuart_read(uart, UARTBAUD);
+> +
+> +    while ( !(imx_lpuart_read(uart, UARTSTAT) & UARTSTAT_TC) )
+> +	    cpu_relax();
+> +
+> +    /* Disable transmit and receive */
+> +    imx_lpuart_write(uart, UARTCTRL, old_ctrl & ~(UARTCTRL_TE | UARTCTRL_RE));
+> +
+> +    /* Reuse firmware baudrate settings, only disable DMA here */
+> +    bd &= ~(UARTBAUD_TDMAE | UARTBAUD_RDMAE);
+> +
+> +    imx_lpuart_write(uart, UARTMODIR, 0);
+> +    imx_lpuart_write(uart, UARTBAUD, bd);
+> +    imx_lpuart_write(uart, UARTCTRL, ctrl);
+> +}
+> +
+> +static void __init imx_lpuart_init_postirq(struct serial_port *port)
+> +{
+> +    struct imx_lpuart *uart = port->uart;
+> +    uint32_t temp;
+> +
+> +    uart->irqaction.handler = imx_lpuart_interrupt;
+> +    uart->irqaction.name = "imx_lpuart";
+> +    uart->irqaction.dev_id = port;
+> +
+> +    if ( setup_irq(uart->irq, 0, &uart->irqaction) != 0 )
+> +    {
+> +        dprintk(XENLOG_ERR, "Failed to allocate imx_lpuart IRQ %d\n",
+> +                uart->irq);
+> +        return;
+> +    }
+> +
+> +    /* Enable interrupts */
+> +    temp = imx_lpuart_read(uart, UARTCTRL);
+> +    temp |= (UARTCTRL_RIE | UARTCTRL_TIE);
+> +    temp |= UARTCTRL_ILIE;
+> +    imx_lpuart_write(uart, UARTCTRL, temp);
+> +}
+> +
+> +static void imx_lpuart_suspend(struct serial_port *port)
+> +{
+> +    BUG();
+> +}
+> +
+> +static void imx_lpuart_resume(struct serial_port *port)
+> +{
+> +    BUG();
+> +}
+> +
+> +static int imx_lpuart_tx_ready(struct serial_port *port)
+> +{
+> +    struct imx_lpuart *uart = port->uart;
+> +
+> +    return imx_lpuart_read(uart, UARTSTAT) & UARTSTAT_TC;
+> +}
+> +
+> +static void imx_lpuart_putc(struct serial_port *port, char c)
+> +{
+> +    struct imx_lpuart *uart = port->uart;
+> +
+> +    while ( !(imx_lpuart_read(uart, UARTSTAT) & UARTSTAT_TDRE) )
+> +        cpu_relax();
+> +
+> +    imx_lpuart_write(uart, UARTDATA, c);
+> +}
+> +
+> +static int imx_lpuart_getc(struct serial_port *port, char *pc)
+> +{
+> +    struct imx_lpuart *uart = port->uart;
+> +    int ch;
+> +
+> +    while ( !(imx_lpuart_read(uart, UARTSTAT) & UARTSTAT_RDRF) )
+> +	    return 0;
+> +
+> +    ch = imx_lpuart_read(uart, UARTDATA);
+> +    *pc = ch & 0xff;
+> +
+> +    if ( imx_lpuart_read(uart, UARTSTAT) &  UARTSTAT_OR )
+> +        imx_lpuart_write(uart, UARTSTAT, UARTSTAT_OR);
+> +
+> +    return 1;
+> +}
+> +
+> +static int __init imx_lpuart_irq(struct serial_port *port)
+> +{
+> +    struct imx_lpuart *uart = port->uart;
+> +
+> +    return ((uart->irq > 0) ? uart->irq : -1);
+> +}
+> +
+> +static const struct vuart_info *imx_lpuart_vuart_info(struct serial_port *port)
+> +{
+> +    struct imx_lpuart *uart = port->uart;
+> +
+> +    return &uart->vuart;
+> +}
+> +
+> +static void imx_lpuart_start_tx(struct serial_port *port)
+> +{
+> +    struct imx_lpuart *uart = port->uart;
+> +    uint32_t temp;
+> +
+> +    temp = imx_lpuart_read(uart, UARTSTAT);
+> +    /* Wait until empty */
+> +    while ( !(temp & UARTSTAT_TDRE) )
+> +	    cpu_relax();
+> +
+> +    temp = imx_lpuart_read(uart, UARTCTRL);
+> +    imx_lpuart_write(uart, UARTCTRL, (temp | UARTCTRL_TIE));
+> +}
+> +
+> +static void imx_lpuart_stop_tx(struct serial_port *port)
+> +{
+> +    struct imx_lpuart *uart = port->uart;
+> +    uint32_t temp;
+> +
+> +    temp = imx_lpuart_read(uart, UARTCTRL);
+> +    temp &= ~(UARTCTRL_TIE | UARTCTRL_TCIE);
+> +    imx_lpuart_write(uart, UARTCTRL, temp);
+> +}
+> +
+> +static struct uart_driver __read_mostly imx_lpuart_driver = {
+> +    .init_preirq = imx_lpuart_init_preirq,
+> +    .init_postirq = imx_lpuart_init_postirq,
+> +    .endboot = NULL,
+> +    .suspend = imx_lpuart_suspend,
+> +    .resume = imx_lpuart_resume,
+> +    .tx_ready = imx_lpuart_tx_ready,
+> +    .putc = imx_lpuart_putc,
+> +    .getc = imx_lpuart_getc,
+> +    .irq = imx_lpuart_irq,
+> +    .start_tx = imx_lpuart_start_tx,
+> +    .stop_tx = imx_lpuart_stop_tx,
+> +    .vuart_info = imx_lpuart_vuart_info,
+> +};
+> +
+> +static int __init imx_lpuart_init(struct dt_device_node *dev,
+> +                                  const void *data)
+> +{
+> +    const char *config = data;
+> +    struct imx_lpuart *uart;
+> +    int res;
+> +    u64 addr, size;
+> +
+> +    if ( strcmp(config, "") )
+> +        printk("WARNING: UART configuration is not supported\n");
+> +
+> +    uart = &imx8_com;
+> +
+> +    uart->baud = 115200;
+> +    uart->data_bits = 8;
+> +    uart->parity = 0;
+> +    uart->stop_bits = 1;
+> +
+> +    res = dt_device_get_address(dev, 0, &addr, &size);
+> +    if ( res )
+> +    {
+> +        printk("imx8-lpuart: Unable to retrieve the base"
+> +               " address of the UART\n");
+> +        return res;
+> +    }
+> +
+> +    res = platform_get_irq(dev, 0);
+> +    if ( res < 0 )
+> +    {
+> +        printk("imx8-lpuart: Unable to retrieve the IRQ\n");
+> +        return -EINVAL;
+> +    }
+> +    uart->irq = res;
+> +
+> +    uart->regs = ioremap_nocache(addr, size);
+> +    if ( !uart->regs )
+> +    {
+> +        printk("imx8-lpuart: Unable to map the UART memory\n");
+> +        return -ENOMEM;
+> +    }
+> +
+> +    uart->vuart.base_addr = addr;
+> +    uart->vuart.size = size;
+> +    uart->vuart.data_off = UARTDATA;
+> +    /* tmp from uboot */
+> +    uart->vuart.status_off = UARTSTAT;
+> +    uart->vuart.status = UARTSTAT_TDRE;
+> +
+> +    /* Register with generic serial driver */
+> +    serial_register_uart(SERHND_DTUART, &imx_lpuart_driver, uart);
+> +
+> +    dt_device_set_used_by(dev, DOMID_XEN);
+> +
+> +    return 0;
+> +}
+> +
+> +static const struct dt_device_match imx_lpuart_dt_compat[] __initconst =
+> +{
+> +    DT_MATCH_COMPATIBLE("fsl,imx8qm-lpuart"),
+> +    {},
+To be coherent with the rest of Xen code, please use { /* sentinel */ }
 
-If this is going to recur, I don't see what we ought to do about this.
-This doesn't look to have any relation to the recently added two
-commits on the respective qemu stable tree.
+> +};
+> +
+> +DT_DEVICE_START(imx_lpuart, "i.MX LPUART", DEVICE_SERIAL)
+> +    .dt_match = imx_lpuart_dt_compat,
+> +    .init = imx_lpuart_init,
+> +DT_DEVICE_END
+Please add a newline here.
 
-However, if this wouldn't recur it would be similarly alarming: That
-would suggest the build environment to not be stable.
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/include/xen/imx-lpuart.h b/xen/include/xen/imx-lpuart.h
+> new file mode 100644
+> index 0000000000..945ab1c4fa
+> --- /dev/null
+> +++ b/xen/include/xen/imx-lpuart.h
+> @@ -0,0 +1,64 @@
+> +/*
+> + * xen/include/asm-arm/imx-lpuart.h
+Wrong path as you put this header in xen/include/xen.
 
-Thoughts anyone?
+> + *
+> + * Common constant definition between early printk and the LPUART driver
+> + *
+> + * Peng Fan <peng.fan@nxp.com>
+> + * Copyright 2022 NXP
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License as published by
+> + * the Free Software Foundation; either version 2 of the License, or
+> + * (at your option) any later version.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + */
+> +
+> +#ifndef __ASM_ARM_IMX_LPUART_H
+Wrong macro as you are not in arm/include/asm.
 
-Jan
+> +#define __ASM_ARM_IMX_LPUART_H
+> +
+> +/* 32-bit register definition */
+> +#define UARTBAUD          (0x10)
+> +#define UARTSTAT          (0x14)
+> +#define UARTCTRL          (0x18)
+> +#define UARTDATA          (0x1C)
+> +#define UARTMATCH         (0x20)
+> +#define UARTMODIR         (0x24)
+> +#define UARTFIFO          (0x28)
+> +#define UARTWATER         (0x2c)
+> +
+> +#define UARTSTAT_TDRE     (1 << 23)
+> +#define UARTSTAT_TC       (1 << 22)
+> +#define UARTSTAT_RDRF     (1 << 21)
+> +#define UARTSTAT_OR       (1 << 19)
+> +
+> +#define UARTBAUD_OSR_SHIFT (24)
+> +#define UARTBAUD_OSR_MASK (0x1f)
+> +#define UARTBAUD_SBR_MASK (0x1fff)
+> +#define UARTBAUD_BOTHEDGE (0x00020000)
+> +#define UARTBAUD_TDMAE    (0x00800000)
+> +#define UARTBAUD_RDMAE    (0x00200000)
+> +
+> +#define UARTCTRL_TIE      (1 << 23)
+> +#define UARTCTRL_TCIE     (1 << 22)
+> +#define UARTCTRL_RIE      (1 << 21)
+> +#define UARTCTRL_ILIE     (1 << 20)
+> +#define UARTCTRL_TE       (1 << 19)
+> +#define UARTCTRL_RE       (1 << 18)
+> +#define UARTCTRL_M        (1 << 4)
+> +
+> +#define UARTWATER_RXCNT_OFF     24
+> +
+> +#endif /* __ASM_ARM_IMX_LPUART_H */
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
 
+I think you should put this header in xen/arch/arm/include/asm/ as it is arm related header.
+
+Cheers,
+Michal
 
