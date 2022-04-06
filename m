@@ -2,35 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B5CC4F5A51
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 11:55:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.299787.510976 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B915F4F5A56
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Apr 2022 11:56:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.299795.510987 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nc2N1-0004Ke-Ad; Wed, 06 Apr 2022 09:54:35 +0000
+	id 1nc2Ot-0004vb-MS; Wed, 06 Apr 2022 09:56:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 299787.510976; Wed, 06 Apr 2022 09:54:35 +0000
+Received: by outflank-mailman (output) from mailman id 299795.510987; Wed, 06 Apr 2022 09:56:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nc2N1-0004I3-5r; Wed, 06 Apr 2022 09:54:35 +0000
-Received: by outflank-mailman (input) for mailman id 299787;
- Wed, 06 Apr 2022 09:54:33 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nc2Mz-0004Ht-IY; Wed, 06 Apr 2022 09:54:33 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nc2Mz-0000zH-Fs; Wed, 06 Apr 2022 09:54:33 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nc2Mz-0005Ap-0s; Wed, 06 Apr 2022 09:54:33 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nc2Mz-0001QP-0Q; Wed, 06 Apr 2022 09:54:33 +0000
+	id 1nc2Ot-0004tk-Io; Wed, 06 Apr 2022 09:56:31 +0000
+Received: by outflank-mailman (input) for mailman id 299795;
+ Wed, 06 Apr 2022 09:56:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ZBRP=UQ=wdc.com=prvs=08844476d=Johannes.Thumshirn@srs-se1.protection.inumbo.net>)
+ id 1nc2Or-0004tV-1L
+ for xen-devel@lists.xenproject.org; Wed, 06 Apr 2022 09:56:29 +0000
+Received: from esa3.hgst.iphmx.com (esa3.hgst.iphmx.com [216.71.153.141])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cf8dcab0-b58f-11ec-8fbc-03012f2f19d4;
+ Wed, 06 Apr 2022 11:56:22 +0200 (CEST)
+Received: from mail-mw2nam12lp2047.outbound.protection.outlook.com (HELO
+ NAM12-MW2-obe.outbound.protection.outlook.com) ([104.47.66.47])
+ by ob1.hgst.iphmx.com with ESMTP; 06 Apr 2022 17:56:16 +0800
+Received: from PH0PR04MB7416.namprd04.prod.outlook.com (2603:10b6:510:12::17)
+ by DM6PR04MB6607.namprd04.prod.outlook.com (2603:10b6:5:209::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.21; Wed, 6 Apr
+ 2022 09:56:17 +0000
+Received: from PH0PR04MB7416.namprd04.prod.outlook.com
+ ([fe80::a898:5c75:3097:52c2]) by PH0PR04MB7416.namprd04.prod.outlook.com
+ ([fe80::a898:5c75:3097:52c2%3]) with mapi id 15.20.5144.022; Wed, 6 Apr 2022
+ 09:56:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,147 +48,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=8EvLfV9v1GBsa+Lq5zEkOnCqCFa48izqnMoJIW3QyFM=; b=2S7RuCxey/NbyLFrm34oNYxqAZ
-	RKaKGIiN1/0YC6AJKkvzcsabgo7wP3bctyaGvStMheuLaPGClGx4S1edBJhM2XtuvzqkC92fdl3LO
-	fpye29phIfgYn3fKwvDlwD3UcyDiREpEZ56M5PFnxAuanMHgFYhHeWGnuLJ+ai4FJYqk=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169187-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: cf8dcab0-b58f-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
+  t=1649238982; x=1680774982;
+  h=from:to:cc:subject:date:message-id:references:
+   content-transfer-encoding:mime-version;
+  bh=G8FZ0D3PP/OudJ5uuxCAz/C/vBHo8wESZoPwxTWqVEI=;
+  b=JIKHihNGnbEQ3W7dNONvT0Zo0ig8aB4rhGiUnglEBT2abQ5Pww5HRzwr
+   NK3cZbEOwYe0EsJGM14rQRLxhHQ5K/x5NnZfESKClC8s2/ldZIxuOcQS3
+   kuY3wsVSIBxSanDOb8On07AyWGe+ZuOgdyae39XQe3MPZdRW6qfxlpniH
+   1fRgeb3UtGQLIy6wHdA4eDw34KwrUxgwAWkCx97swHWTddelxFfc+u8PF
+   a3oTcAo8VpjIAuJC9K/ANFV9q5HQsupkk5XEaLX54Lnfyth3QHItDy48a
+   EHvuAlCqkueYNIkBNKoxHJO5UfK283hOPDuXfgDWbd442wvsLC739oAij
+   A==;
+X-IronPort-AV: E=Sophos;i="5.90,239,1643644800"; 
+   d="scan'208";a="202070883"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=V05NAY6D5JNITXI7Uynm69uEjjVcBnSlpyCo87ZK+7VNb/vNpbU/FGi3Zm4n+QsXvV1R2M1mgUcaKgqXWKOBs2MmOnPHYOx0mf5YYQxnoM0AvkShgu1SyoboY68Dx2zKl8Uf4iJOhncIA6vDQqIJDIdaFpGoex90SHXJLbRjto2Ef1HuPvBnk7DYH2DSgjpEIal8qfyhxm7iPcopbTERi4WlXQFT79jCEr4w8lN9FM/RSSqMKtf8VRPLa2YJcz1sapScY8eXJVZIAqJjsQ2RMIgmspOZD6lvtMEO9wHdsTMzcimJpOVt4KtmbfYaKSPV+mrO6yGHsR3rAIS7Kia8WA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=G8FZ0D3PP/OudJ5uuxCAz/C/vBHo8wESZoPwxTWqVEI=;
+ b=GjJh9NCq/Gzn6rw2u6uDpjQ6iYwYWd9FZiQMYL+8Y7mbz+iUBERKxG8T6yP66B0dOfFFO3vwnwjHhL5cJ7a14/ttIVmBAsA2+Jf88E3WxyK/Iwt+gdPSl1hZzqGnhyTvPOGPa3cms9QugMUwvUl3E+fV7y9d3Vf8fvQQLly8o1BfZeop4ARAM6/koy+tRR4xEkvdn3W9PV2LAN97amtjDqfLzQJdk6A4uClpSTUQwWSKzDOf+30fisQzsnMASBz0qLgsVwakbzxZ33qMj0NcGRFCbSH5XkhyUqip/aXo9Vx4B9O6QU5tp244DdVW0Dp4N3sLx3xdz9wP97RhrVKPlA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=wdc.com; dmarc=pass action=none header.from=wdc.com; dkim=pass
+ header.d=wdc.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=sharedspace.onmicrosoft.com; s=selector2-sharedspace-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=G8FZ0D3PP/OudJ5uuxCAz/C/vBHo8wESZoPwxTWqVEI=;
+ b=h54PSavZiCLPvRz23Tg4lVZ4eo4TKNMgHAWOAetI02cemxA+lChC4jRXXc8PjhI9PpOfpk4p+MbkbZh9C5rjse+BNktIEqyQrd9A+SZwSDKo/qziD0BGPaKZXMgxzonamG8DYo93OQ1hSVvzQSjS+8JMtRvaZ5G9kcajf+Hcwbk=
+From: Johannes Thumshirn <Johannes.Thumshirn@wdc.com>
+To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
+CC: "dm-devel@redhat.com" <dm-devel@redhat.com>, "linux-xfs@vger.kernel.org"
+	<linux-xfs@vger.kernel.org>, "linux-fsdevel@vger.kernel.org"
+	<linux-fsdevel@vger.kernel.org>, "linux-um@lists.infradead.org"
+	<linux-um@lists.infradead.org>, "linux-block@vger.kernel.org"
+	<linux-block@vger.kernel.org>, "drbd-dev@lists.linbit.com"
+	<drbd-dev@lists.linbit.com>, "nbd@other.debian.org" <nbd@other.debian.org>,
+	"ceph-devel@vger.kernel.org" <ceph-devel@vger.kernel.org>,
+	"virtualization@lists.linux-foundation.org"
+	<virtualization@lists.linux-foundation.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, "linux-bcache@vger.kernel.org"
+	<linux-bcache@vger.kernel.org>, "linux-raid@vger.kernel.org"
+	<linux-raid@vger.kernel.org>, "linux-mmc@vger.kernel.org"
+	<linux-mmc@vger.kernel.org>, "linux-mtd@lists.infradead.org"
+	<linux-mtd@lists.infradead.org>, "linux-nvme@lists.infradead.org"
+	<linux-nvme@lists.infradead.org>, "linux-s390@vger.kernel.org"
+	<linux-s390@vger.kernel.org>, "linux-scsi@vger.kernel.org"
+	<linux-scsi@vger.kernel.org>, "target-devel@vger.kernel.org"
+	<target-devel@vger.kernel.org>, "linux-btrfs@vger.kernel.org"
+	<linux-btrfs@vger.kernel.org>, "linux-ext4@vger.kernel.org"
+	<linux-ext4@vger.kernel.org>, "linux-f2fs-devel@lists.sourceforge.net"
+	<linux-f2fs-devel@lists.sourceforge.net>, "cluster-devel@redhat.com"
+	<cluster-devel@redhat.com>, "jfs-discussion@lists.sourceforge.net"
+	<jfs-discussion@lists.sourceforge.net>, "linux-nilfs@vger.kernel.org"
+	<linux-nilfs@vger.kernel.org>, "ntfs3@lists.linux.dev"
+	<ntfs3@lists.linux.dev>, "ocfs2-devel@oss.oracle.com"
+	<ocfs2-devel@oss.oracle.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>
+Subject: Re: [PATCH 07/27] btrfs: use bdev_max_active_zones instead of open
+ coding it
+Thread-Topic: [PATCH 07/27] btrfs: use bdev_max_active_zones instead of open
+ coding it
+Thread-Index: AQHYSZhFjrFhkOtPTU+vji2wK2+0AA==
+Date: Wed, 6 Apr 2022 09:56:17 +0000
+Message-ID:
+ <PH0PR04MB74169FBB31E68E76E34DDAC59BE79@PH0PR04MB7416.namprd04.prod.outlook.com>
+References: <20220406060516.409838-1-hch@lst.de>
+ <20220406060516.409838-8-hch@lst.de>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=wdc.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: bcb98ed4-cc62-4a3f-8a01-08da17b3b1bf
+x-ms-traffictypediagnostic: DM6PR04MB6607:EE_
+x-microsoft-antispam-prvs:
+ <DM6PR04MB6607721F18B062BF57BF16C19BE79@DM6PR04MB6607.namprd04.prod.outlook.com>
+wdcipoutbound: EOP-TRUE
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ Nk2MJlm/r7uGtMIckrZ8/20DB84cHxXsyMPbPfGUVCbeLXDLxGaUBQM+iMbI0TIDMo8ybZcbg05B1l9oYxnCRDXiZkCfwL3sn98KZz49BhXqro2r1QD7cS1mUSAk52FIyznZ4v0Klb7TdN7t9KQcVo5GmjUcoyVro/T9NgdLhj55YUmzdMDKplWtvSR6br8YGC4S6tSCcTufSCuVvWT4UQ8n1zjpHCFVe4BHJ9HrIIcshXSnzVylfjU4RVUlTcWWznKi6E4q39IhnKk5tf0BjqmepnIOk3fA/n3MYk5dt47VBb3YFRTpkcX4/AFxtQC6VeUbKz9kKrwIxEi0zkZzLqmByyavkn9KDz7K1VUmM/IBgoJr+SdhhFpqcVBbjI34GNuS4i+tZ7mVmk3cHDbtKp8ZKZQB9EbL4QTCET7woB2SFLYFet5MlheD4eympyeAVgxzOTRGC0mQ7sBtQju+XlfkXIn0knIcLEYqswn28rGiCm+seMTcuTaukFfRvCjLv0fCsdkgIkp1enerhTohsdwWdDbZ+yq1L0ErZ2hSg1TGMszTXRTYRgoHxgKx6q6lnVf/EjZaac5fApQ86UVZVvJk2ZmXDrDAHY9W8X5FhQ65nRgId2WPz7Iaafh/jz8PnSfbw8pn8JGOOzrL06MADBo07mPq7omMiRg4rfqsamruR3NxRnLLR0oUXZQi/Ur9Rb8aQlEHzL6upjizBkGf+w==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR04MB7416.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(4270600006)(9686003)(508600001)(186003)(6506007)(7696005)(2906002)(7416002)(5660300002)(55016003)(8936002)(54906003)(19618925003)(316002)(71200400001)(110136005)(66946007)(52536014)(91956017)(66476007)(66556008)(4326008)(8676002)(64756008)(66446008)(76116006)(122000001)(86362001)(558084003)(38100700002)(82960400001)(33656002)(38070700005);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 2
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?OcznZgIADteDPeFOUq+CN6sBYP+/kmW3D5j7xx/K5X/J7+64nNzLXNZa+5ah?=
+ =?us-ascii?Q?0ZgohPpwD570vI6niIUBqcq2mCCC4bPs3HF9If0pDTXYMHbI5tpo+6uU1ajy?=
+ =?us-ascii?Q?GGFzW70IH51vjuIirLPrIWVPk5C5eXCcUNZzJcSEIE6PNPIKJh8vD3O1Gvk4?=
+ =?us-ascii?Q?1JMEcCgnGyp8YHCCJNHAPDicTDwIRgbtUTLad92MTeu9qzZjwWCkwywcvQwt?=
+ =?us-ascii?Q?MQCZ8nki7Ux40zqnfiHYW+AhE2QGn4PDo5ixzVfwJ5/CUh3lM+9R2CPt1KPy?=
+ =?us-ascii?Q?xMEWdeuD60BMfglDOIbAaCEfUj65VFnSDiAftlXQ+XaObFIxp/QPxtBkAMAk?=
+ =?us-ascii?Q?rjtGO6aBO8v/hwlPRrlzKYyRMFzUupk4CNGmWt3Z2IlK23bdO/HzsNLxTdvx?=
+ =?us-ascii?Q?F/ab1WHMG/SfMEs+/cPEMU62hGIc40jgnlkSc4dGNIFAdBiguKYZaGG40axo?=
+ =?us-ascii?Q?QLghxYfv64zM0N2OzXk9KtGnE5SAQwTZzdmHpSj/wkFPfGDPZSJcP/D8E5q6?=
+ =?us-ascii?Q?e4ZjHnyW0TJ/kaldqrqvKSXkAYfCuDulEO9Ab8xhUwNp4Z6iVdFGrfFukliC?=
+ =?us-ascii?Q?l+OkRH0ECfZcpim6uUsWVelANXXl0CYIxLtvhYnbWq7F9uER2Gkwgy7QJsaF?=
+ =?us-ascii?Q?a628Srj0r2WumyRX4DssaZU2WCZdNF3VVjs8bZD1nIlEGU9begPUu+HJu5+k?=
+ =?us-ascii?Q?x1i/41euwTUu5uPNfIvdcGf9IExlDD8h5yt9mzd1KFjeMoll1jNgV6rNH27u?=
+ =?us-ascii?Q?n5RoeaGlsbgmvdc7mJ/LXpfVAwT4SqZjDcAintezx/IwTSs1nMq0ijtjMwj5?=
+ =?us-ascii?Q?ktv0vvU+Seq3y6wA12FQwXNEnpCfZv6o3c9BSVhlkXduwFn0p9Qt/8y9VCoL?=
+ =?us-ascii?Q?XSPsZoCBzzT2ubGt9sHwVpS1BkHCBUBhQoQewbrEeCa29DVl3ed+DkaZ8ob+?=
+ =?us-ascii?Q?Nc5IThF/mXr1dysBDqiFaJyPY8uUJxrJOYRV7lKrRp4UsCFiyI+7/o2Rgpmr?=
+ =?us-ascii?Q?fTzaqvAujVgknGtvFcFfmCIjItgOkWsyLomudA7hPeq4uzzkCKSK0pOdMohG?=
+ =?us-ascii?Q?X0UwxPRIaa0N4ZT+pMwBlMt5dzNpoaPZWDDf4JU4m6hNClFZ/x+wQyKM7e2y?=
+ =?us-ascii?Q?UJsUD6GGV4bwKlrdEdWAOgCxyxpiC2djuoWWy4g85tnBZ+XqkQfUw0RZXcbQ?=
+ =?us-ascii?Q?fK9KiSv+3KpPfWsDnOvBYOPszdjmONcj+hhzHBnSIYEbG21zO8z5mklY9mQg?=
+ =?us-ascii?Q?7oYXPYninSoU/jB0VOwqNhE0A0vfGE6us35k0t6QTwwy7q5O+N4/zEl0qjI/?=
+ =?us-ascii?Q?1I+wpUkDObvtm8TDU0hWXPgNkTPh8rsoO8KSJKQNVkU+ZozXt2Tscv8yBG1R?=
+ =?us-ascii?Q?W6JpbZs64SuI3PGS7YENHXSzLCdWvwvbrl1brK2kEsB9pZAdOVRNpYXpfZk4?=
+ =?us-ascii?Q?jkdiLxCmn8+Pcw+yl9h2w1w7W/ZHIyg9ueLehxJUo/iNEEGOuZzyejQK+rxe?=
+ =?us-ascii?Q?crCPwopA2pduPyJjACdthNl8guUPhrkN6l9z3DswDYdOLK8XUOmi1J6cRYPp?=
+ =?us-ascii?Q?YQE71i+MmFCGHlMV5PsmiLWXzSqROnXLPiyWMThDmeKTHGbO4cWOsQUXdgcw?=
+ =?us-ascii?Q?ThDnH0E0c6RYiqUF0XGnbh/5zrSNZ67EW1UzQM2DDgrbheYQZNPfPnwzrsX7?=
+ =?us-ascii?Q?wGWLt6hh6RYPBUxbuI06xXGPdpEjZtYHTk9G2Z1PbKhVxooLrjGgvlZepxHD?=
+ =?us-ascii?Q?ESS+vxrYZAlXP1aqBsNdF0KHRkGfUwam9adbrdHQogei2n0gj35+KZLyAQRJ?=
+x-ms-exchange-antispam-messagedata-1: srMZBCvbXKwnVy/kz7Xcntl/ozUqZq/HpIw=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Subject: [ovmf test] 169187: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=a298a84478053872ed9da660a75f182ce81b8ddc
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 06 Apr 2022 09:54:33 +0000
+X-OriginatorOrg: wdc.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR04MB7416.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bcb98ed4-cc62-4a3f-8a01-08da17b3b1bf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Apr 2022 09:56:17.3333
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: lPW8HtDsBeFYCtcSfoUiCOuBbQaewM1lFtcu2MbVcViHTWVnuqNjO14Ik1QVllpEu4CmuoDpR6lIPDCOe3F2OgQTSlM/31m3s23SGbVrgRY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR04MB6607
 
-flight 169187 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169187/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 a298a84478053872ed9da660a75f182ce81b8ddc
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   36 days
-Failing since        168258  2022-03-01 01:55:31 Z   36 days  281 attempts
-Testing same since   169173  2022-04-05 05:13:00 Z    1 days    3 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 4610 lines long.)
+Looks good,=0A=
+Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>=0A=
 
