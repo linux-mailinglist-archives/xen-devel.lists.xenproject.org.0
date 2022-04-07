@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 517CF4F7A5C
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 10:51:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.300535.512677 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC85F4F7A8B
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 10:55:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.300539.512688 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncNr1-0008Uu-Qa; Thu, 07 Apr 2022 08:50:59 +0000
+	id 1ncNum-0000fu-Ae; Thu, 07 Apr 2022 08:54:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 300535.512677; Thu, 07 Apr 2022 08:50:59 +0000
+Received: by outflank-mailman (output) from mailman id 300539.512688; Thu, 07 Apr 2022 08:54:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncNr1-0008SD-Mm; Thu, 07 Apr 2022 08:50:59 +0000
-Received: by outflank-mailman (input) for mailman id 300535;
- Thu, 07 Apr 2022 08:50:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ncNum-0000dJ-7O; Thu, 07 Apr 2022 08:54:52 +0000
+Received: by outflank-mailman (input) for mailman id 300539;
+ Thu, 07 Apr 2022 08:54:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Mzit=UR=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1ncNr0-0008S7-Uw
- for xen-devel@lists.xenproject.org; Thu, 07 Apr 2022 08:50:58 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d78bb692-b64f-11ec-a405-831a346695d4;
- Thu, 07 Apr 2022 10:50:57 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5A5EC21117;
- Thu,  7 Apr 2022 08:50:57 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F1BF213A66;
- Thu,  7 Apr 2022 08:50:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id CCuBOfClTmKqGAAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 07 Apr 2022 08:50:56 +0000
+ (envelope-from <SRS0=/6v3=UR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ncNul-0000dD-Ca
+ for xen-devel@lists.xenproject.org; Thu, 07 Apr 2022 08:54:51 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 62081fc4-b650-11ec-8fbc-03012f2f19d4;
+ Thu, 07 Apr 2022 10:54:50 +0200 (CEST)
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04lp2055.outbound.protection.outlook.com [104.47.12.55]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-2-tHo1w9lCP5WA6Zf1ufORMQ-1; Thu, 07 Apr 2022 10:54:48 +0200
+Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
+ by DU2PR04MB8741.eurprd04.prod.outlook.com (2603:10a6:10:2df::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.31; Thu, 7 Apr
+ 2022 08:54:48 +0000
+Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
+ ([fe80::914d:e08d:7798:8476]) by DU2PR04MB8616.eurprd04.prod.outlook.com
+ ([fe80::914d:e08d:7798:8476%5]) with mapi id 15.20.5144.022; Thu, 7 Apr 2022
+ 08:54:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,196 +51,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d78bb692-b64f-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1649321457; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+X-Inumbo-ID: 62081fc4-b650-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1649321689;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=6SzK6SzOgNWz1m/SzosRnb7vWlnb02hg+E4YETlNzYU=;
-	b=Fv7RgqTwrGDFRVK8OyrzYTjVn6wJQjiS3DmVe55+4UZu/AlxWAmlwWwXrxBUzDtnt18eit
-	PWpp4aawl7rCmHQPgJojrn2Ogw1gptw5r+02Wj1fBq0Q+F6flTQzAB5O0aRpOZARDK3/uc
-	0dbBqCiH+jIHx63L2+TxOEuQw8vgAXA=
-Message-ID: <4f1908b5-5674-a772-3cd9-78e4dc40f776@suse.com>
-Date: Thu, 7 Apr 2022 10:50:56 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+	bh=auJkAJgRObzvD3bsusK4L+BaHYhaa6APSHZn8u3t2KQ=;
+	b=LydjGquHgF72V3yvhtQ/cf+Z9otqSl23Hc7WbYLOiLlw6emw57FajDeJxQl4Onu0G6RS5m
+	FatDkBsTWxraB8kVTjXWh7KvaFYw0BX5u3SpIfFXbDbURnOiWdqqVGjZvhogI4DeiCN7KK
+	66fg6Xh/gyoUey/Zjs0OF0DpiSOlxF8=
+X-MC-Unique: tHo1w9lCP5WA6Zf1ufORMQ-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Pg6ZwaUds0svrnZQB875WhbXGNmVj7fxcXoodoNb6/CL8g5JTmgUxPTPeveqoiqckfJ+4zF8lBKprOBtEPW8gigvNgddSxDXW8eWG4WDxmgKKP1vSBsJMCt2m44PlYcGhrX2qsUTMeWZMeh+GvBPovTRQkNqiwoW48jxMzvxuBku9VqVK4ox8xjyKEKP8vvrujXx+0B0sWFcQL7N7+cUTwx/Bn/CTy2piPQsTjkSCuRITzNz3Et3mQMFhnS2T65rs4idQPGoplGb/FqiDT61e3qhBFPlRLj/0Nwc3PC/Jnpatumu5Qg7GUqt0CHp+ceQkU+6zj3jO1Ndv+Wty/cbzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Q9Nglw6eE4Dsn6wn+HpgWD0PvY6JLqpvnlu7/OBr0kM=;
+ b=QAZ5sJWGx/YyHCy6vUnCArYzeS+GsNYBiBQTCLQRhK08jXKifQLf5Y/vq9tHkNEyKlLWGdYsSZP5VLvj3vKOdL50JGIpv/yawVsDpPUKj2D2i5rm7FJfxMYeu/3fc6UpJGBCpZaZn3xIkwquV7WKKcO2LMXGw9P3iDH8mqfbcNcEsmq5pKBB7Q8cq+v0CCiHv2hRHUlBiiv1aouu5raaegrosf6ZuavHkFgaNNnCfmRGFTXDVxGPyX7vajn9uCp6aNvPnxcfnSmCWVmtF/DFfZ/CjjUBo9k3KB9sKmyxtc3knavQCrb3RqBy3aoxj0Z/g1K/2OQ+w/SCee8JKttQxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <3ab13efd-c4ca-43ff-05e8-1d29b3c438ab@suse.com>
+Date: Thu, 7 Apr 2022 10:54:45 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
+Subject: Re: [PATCH v2 2/2] VT-d: avoid infinite recursion on
+ domain_context_mapping_one() error path
 Content-Language: en-US
-To: David Hildenbrand <david@redhat.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, Wei Yang <richard.weiyang@gmail.com>,
- Michal Hocko <mhocko@kernel.org>
-References: <20220406133229.15979-1-jgross@suse.com>
- <89ad978d-e95e-d3ea-5c8f-acf4b28f992c@redhat.com>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH] xen/balloon: fix page onlining when populating new zone
-In-Reply-To: <89ad978d-e95e-d3ea-5c8f-acf4b28f992c@redhat.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------OMFgksYuijuhI3hZ2iAJlos0"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------OMFgksYuijuhI3hZ2iAJlos0
-Content-Type: multipart/mixed; boundary="------------Pgc0gcsWI2D0D5pFykv836Uc";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: David Hildenbrand <david@redhat.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, Wei Yang <richard.weiyang@gmail.com>,
- Michal Hocko <mhocko@kernel.org>
-Message-ID: <4f1908b5-5674-a772-3cd9-78e4dc40f776@suse.com>
-Subject: Re: [PATCH] xen/balloon: fix page onlining when populating new zone
-References: <20220406133229.15979-1-jgross@suse.com>
- <89ad978d-e95e-d3ea-5c8f-acf4b28f992c@redhat.com>
-In-Reply-To: <89ad978d-e95e-d3ea-5c8f-acf4b28f992c@redhat.com>
-
---------------Pgc0gcsWI2D0D5pFykv836Uc
-Content-Type: multipart/mixed; boundary="------------lBWdgohUpDbOpCr4EznLRraE"
-
---------------lBWdgohUpDbOpCr4EznLRraE
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMDcuMDQuMjIgMTA6MjMsIERhdmlkIEhpbGRlbmJyYW5kIHdyb3RlOg0KPiBPbiAwNi4w
-NC4yMiAxNTozMiwgSnVlcmdlbiBHcm9zcyB3cm90ZToNCj4+IFdoZW4gb25saW5pbmcgYSBu
-ZXcgbWVtb3J5IHBhZ2UgaW4gYSBndWVzdCB0aGUgWGVuIGJhbGxvb24gZHJpdmVyIGlzDQo+
-PiBhZGRpbmcgaXQgdG8gdGhlIGJhbGxvb25lZCBwYWdlcyBpbnN0ZWFkIG1ha2luZyBpdCBh
-dmFpbGFibGUgdG8gYmUNCj4+IHVzZWQgaW1tZWRpYXRlbHkuIFRoaXMgaXMgbWVhbnQgdG8g
-ZW5hYmxlIHRvIGFkZCBhIG5ldyB1cHBlciBtZW1vcnkNCj4+IGxpbWl0IHRvIGEgZ3Vlc3Qg
-dmlhIGhvdHBsdWdnaW5nIG1lbW9yeSwgd2l0aG91dCBoYXZpbmcgdG8gYXNzaWduIHRoZQ0K
-Pj4gbmV3IG1lbW9yeSBpbiBvbmUgZ28uDQo+Pg0KPj4gSW4gY2FzZSB0aGUgdXBwZXIgbWVt
-b3J5IGxpbWl0IHdpbGwgYmUgcmFpc2VkIGFib3ZlIDRHLCB0aGUgbmV3IG1lbW9yeQ0KPj4g
-d2lsbCBwb3B1bGF0ZSB0aGUgWk9ORV9OT1JNQUwgbWVtb3J5IHpvbmUsIHdoaWNoIHdhc24n
-dCBwb3B1bGF0ZWQNCj4+IGJlZm9yZS4gVGhlIG5ld2x5IHBvcHVsYXRlZCB6b25lIHdvbid0
-IGJlIGFkZGVkIHRvIHRoZSBsaXN0IG9mIHpvbmVzDQo+PiBsb29rZWQgYXQgYnkgdGhlIHBh
-Z2UgYWxsb2NhdG9yIHRob3VnaCwgYXMgb25seSB6b25lcyB3aXRoIGF2YWlsYWJsZQ0KPj4g
-bWVtb3J5IGFyZSBiZWluZyBhZGRlZCwgYW5kIHRoZSBtZW1vcnkgaXNuJ3QgeWV0IGF2YWls
-YWJsZSBhcyBpdCBpcw0KPj4gYmFsbG9vbmVkIG91dC4NCj4gDQo+IEkgdGhpbmsgd2UganVz
-dCByZWNlbnRseSBkaXNjdXNzZWQgdGhlc2UgY29ybmVyIGNhc2VzIG9uIHRoZSAtbW0gbGlz
-dC4NCg0KSW5kZWVkLg0KDQo+IFRoZSBpc3N1ZSBpcyBoYXZpbmcgZWZmZWN0aXZlbHkgcG9w
-dWxhdGVkIHpvbmVzIHdpdGhvdXQgbWFuYWdlcyBwYWdlcw0KPiBiZWNhdXNlIGV2ZXJ5dGhp
-bmcgaXMgaW5mbGF0ZWQgaW4gYSBiYWxsb29uLg0KDQpDb3JyZWN0Lg0KDQo+IFRoYXQgY2Fu
-IHRoZW9yZXRpY2FsbHkgYWxzbyBoYXBwZW4gd2hlbiBtYW5hZ2luZyB0byBmdWxseSBpbmZs
-YXRlIHRoZQ0KPiBiYWxsb29uIGluIG9uZSB6b25lIGFuZCB0aGVuLCBzb21laG93LCB0aGUg
-em9uZXMgZ2V0IHJlYnVpbHQuDQoNCkkgdGhpbmsgeW91IGFyZSByaWdodC4gSSBkaWRuJ3Qg
-dGhpbmsgb2YgdGhhdCBzY2VuYXJpby4NCg0KPiBidWlsZF96b25lcmVmc19ub2RlKCkgZG9j
-dW1lbnRzICJBZGQgYWxsIHBvcHVsYXRlZCB6b25lcyBvZiBhIG5vZGUgdG8NCj4gdGhlIHpv
-bmVsaXN0IiBidXQgY2hlY2tzIGZvciBtYW5hZ2VkIHpvbmVzLCB3aGljaCBpcyB3cm9uZy4N
-Cj4gDQo+IFNlZSBodHRwczovL2xrbWwua2VybmVsLm9yZy9yLzIwMjIwMjAxMDcwMDQ0Lnpi
-bTNvYnNvaW1oejN4ZDNAbWFzdGVyDQoNCkkgZm91bmQgY29tbWl0IDZhYTMwM2RlZmI3NDU0
-IHdoaWNoIGludHJvZHVjZWQgdGhpcyB0ZXN0LiBJIHRob3VnaHQNCml0IHdhcyBuZWVkZWQg
-ZHVlIHRvIHRoZSBwcm9ibGVtIHRoaXMgY29tbWl0IHRyaWVkIHRvIHNvbHZlLiBNYXliZSBJ
-DQp3YXMgd3JvbmcgYW5kIHRoYXQgY29tbWl0IHNob3VsZG4ndCBoYXZlIGNoYW5nZWQgdGhl
-IGNvbmRpdGlvbiB3aGVuDQpidWlsZGluZyB0aGUgem9uZWxpc3QsIGJ1dCBqdXN0IHRoZSBv
-bmVzIGluIHRoZSBhbGxvY2F0aW9uIHBhdGhzLg0KDQo+IA0KPj4NCj4+IFRoaXMgd2lsbCBy
-ZXN1bHQgaW4gdGhlIG5ldyBtZW1vcnkgYmVpbmcgYXNzaWduZWQgdG8gdGhlIGd1ZXN0LCBi
-dXQNCj4+IHdpdGhvdXQgdGhlIGFsbG9jYXRvciBiZWluZyBhYmxlIHRvIHVzZSBpdC4NCj4+
-DQo+PiBXaGVuIHJ1bm5pbmcgYXMgYSBQViBndWVzdCB0aGUgc2l0dWF0aW9uIGlzIGV2ZW4g
-d29yc2U6IHdoZW4gaGF2aW5nDQo+PiBiZWVuIHN0YXJ0ZWQgd2l0aCBsZXNzIG1lbW9yeSB0
-aGFuIGFsbG93ZWQsIGFuZCB0aGUgdXBwZXIgbGltaXQgYmVpbmcNCj4+IGxvd2VyIHRoYW4g
-NEcsIGJhbGxvb25pbmcgdXAgd2lsbCBoYXZlIHRoZSBzYW1lIGVmZmVjdCBhcyBob3RwbHVn
-Z2luZw0KPj4gbmV3IG1lbW9yeS4gVGhpcyBpcyBkdWUgdG8gdGhlIHVzYWdlIG9mIHRoZSB6
-b25lIGRldmljZSBmdW5jdGlvbmFsaXR5DQo+PiBzaW5jZSBjb21taXQgOWUyMzY5YzA2Yzhh
-ICgieGVuOiBhZGQgaGVscGVycyB0byBhbGxvY2F0ZSB1bnBvcHVsYXRlZA0KPj4gbWVtb3J5
-IikgZm9yIGNyZWF0aW5nIG1hcHBpbmdzIG9mIG90aGVyIGd1ZXN0J3MgcGFnZXMsIHdoaWNo
-IGFzIGEgc2lkZQ0KPj4gZWZmZWN0IGlzIGJlaW5nIHVzZWQgZm9yIFBWIGd1ZXN0IGJhbGxv
-b25pbmcsIHRvby4NCj4+DQo+PiBGaXggdGhpcyBieSBjaGVja2luZyBpbiB4ZW5fb25saW5l
-X3BhZ2UoKSB3aGV0aGVyIHRoZSBuZXcgbWVtb3J5IHBhZ2UNCj4+IHdpbGwgYmUgdGhlIGZp
-cnN0IGluIGEgbmV3IHpvbmUuIElmIHRoaXMgaXMgdGhlIGNhc2UsIGFkZCBhbm90aGVyIHBh
-Z2UNCj4+IHRvIHRoZSBiYWxsb29uIGFuZCB1c2UgdGhlIGZpcnN0IG1lbW9yeSBwYWdlIG9m
-IHRoZSBuZXcgY2h1bmsgYXMgYQ0KPj4gcmVwbGFjZW1lbnQgZm9yIHRoaXMgbm93IGJhbGxv
-b25lZCBvdXQgcGFnZS4gVGhpcyB3aWxsIHJlc3VsdCBpbiB0aGUNCj4+IG5ld2x5IHBvcHVs
-YXRlZCB6b25lIGNvbnRhaW5pbmcgb25lIHBhZ2UgYmVpbmcgYXZhaWxhYmxlIGZvciB0aGUg
-cGFnZQ0KPj4gYWxsb2NhdG9yLCB3aGljaCBpbiB0dXJuIHdpbGwgbGVhZCB0byB0aGUgem9u
-ZSBiZWluZyBhZGRlZCB0byB0aGUNCj4+IGFsbG9jYXRvci4NCj4gDQo+IFRoaXMgc29tZWhv
-dyBmZWVscyBsaWtlIGEgaGFjayBmb3Igc29tZXRoaW5nIHRoYXQgc2hvdWxkIGJlIGhhbmRs
-ZWQgaW4NCj4gdGhlIGNvcmUgaW5zdGVhZCA6Lw0KDQpPa2F5LCBJJ2xsIHJld29yayB0aGUg
-cGF0Y2ggKGJldHRlciB3b3JkaW5nIG1pZ2h0IGJlOiByZXBsYWNlKSB0byBzd2l0Y2gNCmJ1
-aWxkX3pvbmVyZWZzX25vZGUoKSB0byB1c2UgcG9wdWxhdGVkX3pvbmUoKSBpbnN0ZWFkIG9m
-IG1hbmFnZWRfem9uZSgpLg0KDQoNCkp1ZXJnZW4NCg==
---------------lBWdgohUpDbOpCr4EznLRraE
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Kevin Tian <kevin.tian@intel.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>
+References: <6e1c7faf-d1ea-1a61-5452-9dec5b8fd221@suse.com>
+ <fcc51df9-0896-247b-d4ad-0de4db6c2a9c@suse.com>
+ <Yk6YAoxuOZ4Ejosm@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <Yk6YAoxuOZ4Ejosm@Air-de-Roger>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AM5PR1001CA0037.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:206:15::14) To DU2PR04MB8616.eurprd04.prod.outlook.com
+ (2603:10a6:10:2db::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 0082f328-f4e2-415b-5612-08da187444a1
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8741:EE_
+X-Microsoft-Antispam-PRVS:
+	<DU2PR04MB8741BD622FEE04A06C452F94B3E69@DU2PR04MB8741.eurprd04.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	SR69YHHZqQUlcR1cqznWhZ+404+Ri210oXTSfN9SEJiVBQ33oUk6wItOzHypmg18TnqIkttjb1y8cn1vY9xGOxxpjpXfu9M6WszePnAfRnTXmurQaCa++igGftj4uPd0faG6Yb8WBvlmiYgblT0GyaS2Twe4/dWKnzC1B3EPbPPSD+qohcWgxXbiOmtqVhzehPECzJBUa4E9F3Y4DDOzvKi2AvWjHaH6/83P1waRO3ce0LtpX3wbObQbQMEJAPVGy0MmnV+prXao142ffIlMVoQAmizhKQ0ImpxMPv4xb8mMfwsNEzLQ7fRPlxmn8S1xE9HeS3P0bHAq9XvHfHsw9oAa9eZv1YbeAPYN0I+eEZctT+/U7ETKvpe8g+1EwkxhT3XiXFL+VXNS2OBkyrC1eN6nb1uqBKJ3myfDf2M1zQueBPLf3we2xZzqa+GFsSLGCnif/linwkKbqui+1M8L1BWGoZVhKPs5wINVyVJMmKI17HePe65vKgX2gzJ50RkrgvfSF5mgwXLmKOXAQNoF43IuZZGk91uRn1LDrHMfVp4ZCC96vOQrBLeo4d2qlWCwUq1lBvK//h1a5vqvqIli/wmkdHBXQkD7eoGlGzU1Q95DFa2FT7FelJWTXIiJ+aGFoLE8Pp4tSMvG6gsU9HISheubdxWaCuLOj/7zerjOzbJ1GRkGRYuW7TToU/odBVARPaU6RAVycWQ5xQ8uwX23sM/Y33TycZF3HlQJ/wUdXT7+W+nvGMm6N5eCmjnkKU9x
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(38100700002)(4326008)(66946007)(8676002)(31686004)(8936002)(31696002)(6486002)(66556008)(66476007)(2616005)(86362001)(6512007)(186003)(5660300002)(316002)(36756003)(54906003)(508600001)(6916009)(53546011)(2906002)(6506007)(26005)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?tmm4ybXWYHK6k80b1g+TLiPZ/eL4+b1Yf1m/nJDEq7iYBZTTm+uPVtEXKpCV?=
+ =?us-ascii?Q?w0vfTpO5NzS7nrXvA60pD4XFwewXOYFX74cjHlE2rTCtJoJEDQ2lXubUnofF?=
+ =?us-ascii?Q?u5+vY1iBeyg2Jrvh6AKZ5H1DLrHq0tkOsm/ZLTlAkkgsvNQl6a41QMMIjNDc?=
+ =?us-ascii?Q?IHOO8wYRhnvXp1HnakTn6/dqigBR+d/wG6j2EWl8+vy+jay8QIXN5fFNeNim?=
+ =?us-ascii?Q?H6UCxlQ9exP5rvB6BGXh5kDXBwLOIKJFaL5EjqoX2a7EAJdw5+J+bBUaQlDs?=
+ =?us-ascii?Q?nkNxnw3hv/+WVkoTi5tt42x9JZl1FMLZE+j51rCXsMp9CfTex1FoZEIO+Q0k?=
+ =?us-ascii?Q?YDIVvfI+YnpLtffkeB+tcxYMw7wzxCSRjjxreDMahAKW3FWuKlwIPLCNW/Ra?=
+ =?us-ascii?Q?sZnfvSUX7VK77LWbvednp0rC+wFMMqiSZehwT/kwcBaAKyyFOkrcyxYF3d/e?=
+ =?us-ascii?Q?A0MM5ArAfZEhqvJifAjugqVd4eA5yPjTnSRt0AgUipQDItXT1Tks+NMIcig9?=
+ =?us-ascii?Q?gWIo5Oy8mA0/o/KuMTeVJy46ViPjS3ptbsEpGP8VqevRLui4S0J3C6oZSo+B?=
+ =?us-ascii?Q?A/Z4CGgWxsaz52GTcf1LoFW/4fQuXzIMDbQM4fRlqmMDZHLJlEirbXvj/qtL?=
+ =?us-ascii?Q?T8/tGxzQIgHs34XkZl+CsnSDVHr4LJ3pK/BDX0cjehkP7cxm+rmzJn6JoEhm?=
+ =?us-ascii?Q?+oHIfsW5+MG1PHzxgeSmqL+RlJ3eadScgfG5EtmkbY8Qch4pYNifeTYMUFfZ?=
+ =?us-ascii?Q?+/fdr50x15rr/072AZK7+JGBrvpmBx6OR9Kb2xToeIa3qRJo5m/bHXwQc3M7?=
+ =?us-ascii?Q?kS9sPpKneYJAwSx1C+3j6XxvPBckoDc1O7Y1xaTnR6eQBw1f6aEJcJCQQ41Q?=
+ =?us-ascii?Q?aR94diWUbtSwIQaLnQRNw86tmaldxAGuxPcp7rfQ6mtkHaxvI5BDBqm5fzZ7?=
+ =?us-ascii?Q?VOm7bFXf07b1xgWTVQkY6ij8yTNSe7KXVOdwRc0AyheIIsm2O1l8/HwPc0q5?=
+ =?us-ascii?Q?4ddrAo2T04xZTt0zboZoUIIb98EoVhW+ULkbsLkZ3N8+1Y3nop5L7pccs/ZC?=
+ =?us-ascii?Q?koqxeDv2d14AumaJ2DVbAOi5lv1Qi5hJ0ip9zkDd2JdxZtO/FP/vNu8ktjHo?=
+ =?us-ascii?Q?am7ROVfvKdRVjfEHMV7dJzoSZ2gq8lI8Kl5EJ43g25PsKLjFe855i2AwCWcb?=
+ =?us-ascii?Q?4cZwI5ujJHX7RXLu9bpeiLPm+ERJc2BZVzfSAcSWcaJi9v2oaceuVMgsUhTz?=
+ =?us-ascii?Q?JLViByeqfVHCSYt9SjKsKyyxIyRzZSjgtcIm7zR4Uwk69PS1zixlkCe5t5GU?=
+ =?us-ascii?Q?AxHBLZTzFd69R1bZbIbWpGha2qQHge0tRffxsuNho8ruJEgg2WgBds5Xmb7Y?=
+ =?us-ascii?Q?EAQbjxTTk/YdERkiDq427l4tq7edT52Q9g/ifchszVeKm2Pens4KaZoay1Id?=
+ =?us-ascii?Q?oVj2IV+WtbCJsFX6LEmGS5NIc2W1lwRljDa6cbuFbd0+3lqj39Rahh+se961?=
+ =?us-ascii?Q?+HMYssQlxq4F8EEz3IRNb4+q9s1jmSzFQICHg2o3q34MGyvyaCGAnEM6TOXl?=
+ =?us-ascii?Q?RrjC82+NoYK4owdz4PX6UHqNEult/iSVoBzQNc8M5cU36lmPTolkHaiy/WYO?=
+ =?us-ascii?Q?2s423mUD0ZemvdikBmXqwRW0+hk8R+aujCP0/N+ga+Fr281MhbAIsfUw5HtC?=
+ =?us-ascii?Q?IGQNG3TGFFiuG5hEZRCMNXuYqv2RE0OlcJdPaR/m73+1oGNm3rwebj4So+DE?=
+ =?us-ascii?Q?lAhQmo7Giw=3D=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0082f328-f4e2-415b-5612-08da187444a1
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2022 08:54:47.7430
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZSvMDB9/3MeYXpGP3W4Q94MKulhRqWUFdrPGF5IqjCLRCiDVFkboi+qVoBTp5Y+AnxN3DVo6lOU99n8fOPYHww==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8741
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On 07.04.2022 09:51, Roger Pau Monn=C3=A9 wrote:
+> On Thu, Apr 07, 2022 at 08:11:45AM +0200, Jan Beulich wrote:
+>> Despite the comment there infinite recursion was still possible, by
+>> flip-flopping between two domains. This is because prev_dom is derived
+>> from the DID found in the context entry, which was already updated by
+>> the time error recovery is invoked. Simply introduce yet another mode
+>> flag to prevent rolling back an in-progress roll-back of a prior
+>> mapping attempt.
+>>
+>> Also drop the existing recursion prevention for having been dead anyway:
+>> Earlier in the function we already bail when prev_dom =3D=3D domain.
+>=20
+> I wonder whether it would be cleaner to stash the previous context
+> entry if present and try to (re)set that one instead of recurring into
+> ourselves.
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+I'm not sure this would be cleaner (it might be easier): The entry
+may have had modifications which we want to undo by a clean
+establishing of the "new" (really original) mapping. Otoh roll-back
+can certainly mean simply going back to what was there. But that
+would likely want to be a separate change, for likely coming with
+a lot of code churn: I'd see the function gaining a two-iteration
+loop then, which would mean re-indenting fair parts of it. But
+maybe it could also be dealt with by other means, while still not
+introducing a fake loop via adding a "goto" back to the top of the
+function ...
 
---------------lBWdgohUpDbOpCr4EznLRraE--
+>> Fixes: 8f41e481b485 ("VT-d: re-assign devices directly")
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>=20
+> Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 
---------------Pgc0gcsWI2D0D5pFykv836Uc--
+Thanks.
 
---------------OMFgksYuijuhI3hZ2iAJlos0
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Jan
 
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmJOpfAFAwAAAAAACgkQsN6d1ii/Ey+N
-tAf+OKaLICMk6ZJi29vD8L8v6HtVrz+K0ZW3vob8jSe0Gl1bjadVddpD4A+zG1tLW2gQWaCnqLUP
-kjS4x44UWX3qhV/piaXve2Qcd2iyy6WOvp/ZTfihXD5w6aStLo2sfPHTY5OtExk6TlflmaZzUEr9
-ePBxQMyUd8ApPirAaybmOPrK+ler5ppLftCbH9VGcJuXCNdgIoeAuMDA7Gg3pM06AkhwE0jhljGL
-50T7v0nY548SF9jKaDQ+Op0aQr36JYgKkvEAsSAE0+0A/KSbrFiQk5POUpUlHlbDkeqja234ekPl
-tvyQ1SS//5iSGhQd1bd7sQ3YgmBU+k3WN0f7+xbheQ==
-=xIhG
------END PGP SIGNATURE-----
-
---------------OMFgksYuijuhI3hZ2iAJlos0--
 
