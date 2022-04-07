@@ -2,56 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A7814F6F3E
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 02:34:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.300210.511903 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 051244F6F62
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 03:02:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.300214.511914 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncG5K-0001H0-D6; Thu, 07 Apr 2022 00:33:14 +0000
+	id 1ncGWx-0002sO-LD; Thu, 07 Apr 2022 01:01:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 300210.511903; Thu, 07 Apr 2022 00:33:14 +0000
+Received: by outflank-mailman (output) from mailman id 300214.511914; Thu, 07 Apr 2022 01:01:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncG5K-0001EX-9m; Thu, 07 Apr 2022 00:33:14 +0000
-Received: by outflank-mailman (input) for mailman id 300210;
- Thu, 07 Apr 2022 00:33:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ncGWx-0002nb-Hq; Thu, 07 Apr 2022 01:01:47 +0000
+Received: by outflank-mailman (input) for mailman id 300214;
+ Thu, 07 Apr 2022 01:01:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M9ff=UR=oracle.com=konrad.wilk@srs-se1.protection.inumbo.net>)
- id 1ncG5I-0001ER-6S
- for xen-devel@lists.xenproject.org; Thu, 07 Apr 2022 00:33:12 +0000
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4aa609de-b60a-11ec-8fbc-03012f2f19d4;
- Thu, 07 Apr 2022 02:33:07 +0200 (CEST)
-Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 236JxCl8014737; 
- Thu, 7 Apr 2022 00:32:30 GMT
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
- by mx0b-00069f02.pphosted.com with ESMTP id 3f6ec9t7e8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 07 Apr 2022 00:32:30 +0000
-Received: from pps.filterd
- (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.16.1.2/8.16.1.2)
- with SMTP id 2370GVD3038607; Thu, 7 Apr 2022 00:32:28 GMT
-Received: from nam04-mw2-obe.outbound.protection.outlook.com
- (mail-mw2nam08lp2174.outbound.protection.outlook.com [104.47.73.174])
- by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com with ESMTP id
- 3f9803exag-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 07 Apr 2022 00:32:28 +0000
-Received: from SN6PR10MB3006.namprd10.prod.outlook.com (2603:10b6:805:cf::13)
- by CY4PR10MB1671.namprd10.prod.outlook.com (2603:10b6:910:8::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.22; Thu, 7 Apr
- 2022 00:32:26 +0000
-Received: from SN6PR10MB3006.namprd10.prod.outlook.com
- ([fe80::8dcf:404c:fc1a:1d42]) by SN6PR10MB3006.namprd10.prod.outlook.com
- ([fe80::8dcf:404c:fc1a:1d42%5]) with mapi id 15.20.5144.021; Thu, 7 Apr 2022
- 00:32:26 +0000
+ <SRS0=9hzW=UR=citrix.com=prvs=089009d52=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1ncGWv-0001nx-Hq
+ for xen-devel@lists.xenproject.org; Thu, 07 Apr 2022 01:01:45 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 48c5ee60-b60e-11ec-a405-831a346695d4;
+ Thu, 07 Apr 2022 03:01:43 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,150 +36,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4aa609de-b60a-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
- : subject : message-id : references : content-type : in-reply-to :
- mime-version; s=corp-2021-07-09;
- bh=aTC2y3mQ6ctLwH7KhTj5tu3INTi3vFwfSn8kYqrFJ/I=;
- b=vbABOKANvJEte1zCObWsmp86gQ19e+q/0fCbpcWM7KRCzHlf5b9J4G/lH3rghB76hLgp
- WvDL7s8vbO6zZ7YxN7cfkpXckS+FCFyd7EFcrJdIQaABE5AnF4bl2R86O14K4wcGn0kk
- MZEYIa9sX+KhceXQdVygPjKA/uQ5ClbyvYt7oFvPqgjwqsK1WIkohnsQGEiaVfWg9VZH
- fhIGzNtAI+pgGe5IJPZJJoHUD4/NTWoixTQvnGW3GiCFCqlUKras9o6aF/+a4h6BLY7h
- WSZ9Sd0u4tzQ0FXNelO1wUx9vpkurZQr5ApkzR7HqJMqUpB4weej4qmGR7eIFRlhmW5K bQ== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lB3x2bO4bT/T66mk3N25TJKP/iXq6PKwsnn7sP+HC5w6AdiRm7KX++dFqRfMAr3O2v4i/btXyNWxpUeK4E/SjXedSYJkWaAXxkxCwfbzhTQgPf0p34GjSi/aNHDNHkIY7Gf9aqMn03ZbmLBhYY2zMrMJ4pYsFgQ2LYdNZl6VDxrP6sERAisxGH0l93R4E1yEW0M3WIHAY+J45lSWUK3t+qOhFxodISwiE2E8nw8xP7ugsPV5pvamfkj4F2LeJPWmwr/71SDxW0DfrxBZP0Yy3bNUp/Gp2GbFIMUYwyiL7hKB1GO6GBZOwGRoyKpR6GdJJN3GfyznGuFaQB1AVj1A0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aTC2y3mQ6ctLwH7KhTj5tu3INTi3vFwfSn8kYqrFJ/I=;
- b=cuZDqa4f4t7JAuP7uiGmheGqJo4V4a+Y+tEVmSdqf3yEUvtts5xDGYdExSeN4a7UfZytalygqXIFBb4uMJb4lsAsR6dutz+rGzjAb6XIb21BokYgHP9wc4TSKsQt+38BFgYSir9KMzNt8i5NN4SZ4hfH+ZKax6JIubZZvU/iKrj/RtVIuPqO4Y5rDRQsQOKQvYALuyv0m6rdSy3WwPUddT91o1RHTYxA1LdeYuQOriCjXwfa3MIO/DYluGghAh6A0Y/+qNrvuOsKWP9+Mx6K5G9ZokNNNRi6tdJYl3OvzNIgH/wsdlenVB8hKaDjTx8uUCP/t/YdU0196B6QFikvLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aTC2y3mQ6ctLwH7KhTj5tu3INTi3vFwfSn8kYqrFJ/I=;
- b=Lti0hsKhdFS7CxBaGjYp/89+ECoctmFlBIvKsRkVbNga0249wYVeqIzZnLEezTDgHyN84F5fri4qSSE8p7POTvnvFr6v5wYwOfe+r0/mrrjWwh7fdPrmw+d03h/AL11eOL6y0pzT/iWtbSCB7wvKObIWw7X+N7Whz5KIIyrXlKE=
-Date: Wed, 6 Apr 2022 20:31:48 -0400
-From: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-To: Christoph Hellwig <hch@lst.de>
-Cc: iommu@lists.linux-foundation.org, x86@kernel.org,
-        Anshuman Khandual <anshuman.khandual@arm.com>,
-        Tom Lendacky <thomas.lendacky@amd.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-        Juergen Gross <jgross@suse.com>, Joerg Roedel <joro@8bytes.org>,
-        David Woodhouse <dwmw2@infradead.org>,
-        Lu Baolu <baolu.lu@linux.intel.com>,
-        Robin Murphy <robin.murphy@arm.com>,
-        linux-arm-kernel@lists.infradead.org, xen-devel@lists.xenproject.org,
-        linux-ia64@vger.kernel.org, linux-mips@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
-        linux-s390@vger.kernel.org, linux-hyperv@vger.kernel.org,
-        tboot-devel@lists.sourceforge.net, linux-pci@vger.kernel.org
-Subject: Re: cleanup swiotlb initialization v8
-Message-ID: <Yk4w9N7IATu20RaM@char.us.oracle.com>
-References: <20220404050559.132378-1-hch@lst.de>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220404050559.132378-1-hch@lst.de>
-X-ClientProxiedBy: BL1PR13CA0160.namprd13.prod.outlook.com
- (2603:10b6:208:2bd::15) To SN6PR10MB3006.namprd10.prod.outlook.com
- (2603:10b6:805:cf::13)
+X-Inumbo-ID: 48c5ee60-b60e-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1649293303;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=OyNgCoUVokh104p7gNuXy6J39X/cwubSQuNrcN+Q8No=;
+  b=cBqlxwHkSgyBFLPxrfxDJAf6kSvljKnELTAhuLZ0zdjDPxANpIIk226L
+   zVP+Lp/pjwJofXo3wRplSQZN21kxHv9Csk/JlnRbyl0YyvLF10V8S16fQ
+   8XNYJpVQru4OeT/2xizr+ESr0Sk5DE5NSuNWaX/zt2qtV9JBdrXRc5y9D
+   s=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 68229048
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:7ThJ8KzEcBVNJHonAqV6t+dNxirEfRIJ4+MujC+fZmUNrF6WrkUOx
+ 2tJXG+POKyJNGrxfI1xbozi9hwH6sPRy4BjSgA/pCAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
+ 59DAjUVBJlsFhcwnj/0bv656yMUOZigHtIQMsadUsxKbVIiGX9JZS5LwbZj2NY02YfhWmthh
+ PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
+ gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
+ Npll4D3URciI5b1x9sfVSBRTiJPPPRI5+qSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
+ aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DFYUToHx/ixreCu4rW8vrSKTW/95Imjw3g6iiGN6AN
+ 5BDOGIzPHwsZTVMMHMqKYw3xtuqj130YRYFqlerho84tj27IAtZj+G2bYu9lsaxbdpRtlaVo
+ CTB5WuRKjMwOcGbyDGF2mmxneKJliT+MKoCGbv9+vN0jVm7wm0IFAZQRVa9ueO+iEO1R5RYM
+ UN8x8Y1hfFsrgrxFIC7BkDm5i7f1vIBZzZOO88mrxmdwbfv2lmmBG49R2NCWd1/utBjEFTGy
+ WS1t9/uADVutpicRnSc6qqYoFuOBMQFEYMRTXRaFFVYurEPtKl210uSFYg7TMZZm/WvQVnNL
+ ya2QD/Sbln5peoCzO2F8F/OmFpATbCZH1dutm07so9Ihz6VhbJJhaT1sTA3Dt4ade51q2VtW
+ lBexaByC8hUUPmweNSlGrllIV1Qz6/t3MfgqVBuBYI90D+m5mSue4tdiBknehs4a5ZYKW+5M
+ BCI0e+02HO1FCH0BUOQS9jvY/nGMIC6TYi1PhwqRoQmjmdNmP+vo3g1OB/4M5HFm0kwi6AvU
+ ap3gu73ZUv2/Z9PlWLsL89EiOdD7nlnmQv7GMCqpzz6gOH2TCPEFt843K6mM7lRAFWs+16Or
+ b6y9qKiln1ibQEJSnWPqt5McApSdBDWx/ne8qRqSwJKGSI+cElJNhMb6epJl1BN90iNqtr1w
+ w==
+IronPort-HdrOrdr: A9a23:Brp4MK32KPcG/dD7QBRzYAqjBLwkLtp133Aq2lEZdPRUGvb4qy
+ nIpoV86faUskd3ZJhOo6HiBEDtexzhHP1OkO0s1NWZLWvbUQKTRekIh+aP/9SJIVyGygc378
+ ddmsZFZuEYdWIK6PrH3A==
+X-IronPort-AV: E=Sophos;i="5.90,241,1643691600"; 
+   d="scan'208";a="68229048"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/cpuid: Clobber CPUID leaves 0x800000{1d..20}
+Date: Thu, 7 Apr 2022 02:01:21 +0100
+Message-ID: <20220407010121.11301-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 15af4aa8-0caa-4107-ef2f-08da182e035d
-X-MS-TrafficTypeDiagnostic: CY4PR10MB1671:EE_
-X-Microsoft-Antispam-PRVS: 
-	<CY4PR10MB16714A57414F3639DEE8C8D689E69@CY4PR10MB1671.namprd10.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	y4OPyhwqyzNUQwZTEDOrOu+QjfgWXAZIcmrvPugyPcQp3yhxfTcYqkNlTkegqXR8CZlxmHEg23QPXhIVnmn1sv2j4odmmbQqJV1eWx0xyFtVSr5y8wDiZeqzgz1p98slepqY8eN808paxIAvdu3sp4Y/zeK8SXwKXqVEZfPt0rb03/+0+WT/g2VmYeu3NALfha14pQyLuF85kBUD7nwacxjeEuT1WHgi5Zt4o8BB1I8v13RZLdoBuGjZ54gnZiH2iHoeGhGKk9/vl0pxxDTmwTosocb52+aJBfdaEfP0ZXBEyF44uWzaSynqwR5L/O616z+Q2yT3Val3kFuy5RoVimfN+t3Vnm1uCImvA/C/HvfhmaOiFy1UDRF2HPXHheTH0bjzTJ8t1AwZjKyGBrneO1xosiGga2l7Bi+6k7Wllkj+pIUuNudw2lyhvAiUtwrA38tBiThQLBEOBsnealxR5zDl7r2o1P3A8DHVFlOH9fOtSAsksa4B21GgAIUTr8dbzESdmAXpmrnW3p53vFkxFZgJp47lSRA7PGti2V91rAvLShlGD6r5kmdTdiUXEZ3WCOt5YRPjfhcShhqIFiYcVAMWreh6hL/KqX9pOEKsZnQg2TOKwgz2yftMJZzCTT1qsyyfiAFAUTOX6xeTp+3HUpx+VtXgFzXQYcXkxM4tVxIQpZm/Z6GGYZ4uwkgqBtVaT/4f+jrYQq5sVFTkrbPJRRJr49FIZoL7g88haUFZvEqB48OALKBXQTMjKQchl0C50RL1O8ewoRTfHr3Cycr5wZ//Rjhmwprudh/brBS6lhk=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR10MB3006.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(26005)(186003)(4326008)(8676002)(6916009)(66556008)(54906003)(66946007)(316002)(66476007)(6512007)(8936002)(86362001)(6666004)(4744005)(966005)(5660300002)(7416002)(6486002)(508600001)(38100700002)(38350700002)(6506007)(2906002)(52116002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?us-ascii?Q?z7n1E6F/Avl8goOftI/glJgLJ//gveoI+X1zaSPZ/FjFAIamrFiWEYrQ0wJ4?=
- =?us-ascii?Q?cBHwM6PEyN7FRfmdP4aDWx1pp92XYrlsPzt9/EOT9jmRK7ZoTUt5Ahz/jijL?=
- =?us-ascii?Q?LxfT4wT1UO/s+CzPUjfOeqLsdMdPRZ/G4phE/krD4NebzKdWV/tp8XA6/YMb?=
- =?us-ascii?Q?UHv9QUm0IwjmXluuHtZL86DPAliyzWhzHTHfqH6iVIJG9RwYUEdSaZu4cYmA?=
- =?us-ascii?Q?NlC+ZjkycbkMFg1TndvxnIZ5uPV6LuTAQQ/XnC9fSNEfXQo3aWOL0K/w67KS?=
- =?us-ascii?Q?EsxZMko4F+pZSAO5e0g2NhA0chfgHwDDPSdTUBTQaC9ObuUjJueDX/8Oi3bu?=
- =?us-ascii?Q?UTS1KnF49d+EwgsJyi02rSN2+mkVXcSse5KQYijGBsmVjIxDVzvCLqJU/Veh?=
- =?us-ascii?Q?LxuUkbpLJTcTuDyd98CDzrg+NfVTyTWGsxL4P9Z1v8NmhjTR/5GEaz2WwSEh?=
- =?us-ascii?Q?tTC4aXwrJxNBRxstZG6E/hlAMlwJCfZsNe7wgH89QJXUOIfOaklxXg3vEK9o?=
- =?us-ascii?Q?6By2/S/oU51KWnvWh/BUYo4LgQFDVMOmACvIISckeWx9TyA0TVMcoMOwduee?=
- =?us-ascii?Q?Zm5sS53ODUj09hpxLdqJI+XoeyrYOoU6vzzyr33EJzplVKNjSWEJ0InyKbVx?=
- =?us-ascii?Q?UtiqFf1f4/yRY+o8Ov05EvDK/EemA1JfmRiGropJ8OmJhwq8Kt9O1WxrNu9n?=
- =?us-ascii?Q?LRdiwCf6jzvgW1EzgNWZ/PWpiXn0vS8k7ZPq8LsFffx2CDxTz9tjXKbTwF6+?=
- =?us-ascii?Q?g1YnsINBQLJAL2dWKzM1oeRekkfQ2iG6w8Qq7aUd4krzSkHSH2vknH9fP9wm?=
- =?us-ascii?Q?eM2+v7eXlFaF4gCcnOJAw3FCfIyHoS2XDHTOnvva6nWPupxwQ8UF4z9CNSpS?=
- =?us-ascii?Q?oq1d/I2dFT5u6p0ce4xuI/qOrwohW6hB0nPICT6rnuHauUgoxcurieFh26zw?=
- =?us-ascii?Q?8WpJx7epNCW0/8JRb0TULt4rmtWtMWpHvQ7G7WWZnHjzjLBkwqTm3hSXDS5C?=
- =?us-ascii?Q?o6cJGzSunXAwin4Kf4OyFHxdiJ27Z2jsJxi9Mjh1aRt3AQNh7iSwCD6CQG67?=
- =?us-ascii?Q?7IJ143SWVFScaYlVvEi872JS4sngAvTLIu7NFLuYAXv9UGXCjItPwzF9zQ9z?=
- =?us-ascii?Q?jW1Mdp4315zejlbwHkepTlE7L8d5lCFg12iWn7d6XRx3hee0YswMLsW/BXV2?=
- =?us-ascii?Q?pa0O2gml6Mf7HD7qVWLSiqZ9OmKJX1bmgCTCphXOfTMGRfiXeCmdbXl4Wmlh?=
- =?us-ascii?Q?JqQ8zGirzvhDdfxkDF+684GtUESRryDhe6jR9V0Xt0WblnjYzMkNW/4EM4FI?=
- =?us-ascii?Q?MNqZyUvqsWkjDeKDT98QsX9IncBlNp0Z4Gtm3Fd54UtW+5GQPJMTF/lOfKwM?=
- =?us-ascii?Q?tkmw/FV7hQxit8xclLcETgdHJ7SZzABetxodWwTVnzCB5Jtaq8Ko44PwzNb3?=
- =?us-ascii?Q?Fni0Tz3BO3XPsymYTVePHrSik3sFsjVlYY0WJOSqYmDKOCHsRLPI2M7exNo6?=
- =?us-ascii?Q?feQe1MkKA/14LUsDnnbuctl2+pZyxBcWHwkmcS/99XcCbYN4sD+t1MmA1/vy?=
- =?us-ascii?Q?S7CEsw6YYXNwdfqX7LBu8xoubFkn62Cyv9czS5elp0a03hQhKbbiA5AX4Wlx?=
- =?us-ascii?Q?a+qa7ifCdX0Y64uwNrxIjt26JFkTvNwrxxpsctV1fjNLkFW1Q0CDQzMmopXn?=
- =?us-ascii?Q?j98cuI1HCAqt7Bvbr98TPELE7asAbXasalz0D8ToVDa09UVdnwiWlNLfSpR6?=
- =?us-ascii?Q?VTSNUXwcHy1VPiyiz0+2+FoJkEU3Euw=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15af4aa8-0caa-4107-ef2f-08da182e035d
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR10MB3006.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2022 00:32:25.9904
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0Zuge13Gx6/cDD5X0rmdeOMD9yPKu+maNN9cfLEdyChjeVqGf42KY8/s1WlFgS/stdwI2QQgMZ1lgZs11nmp2A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR10MB1671
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.425,18.0.850
- definitions=2022-04-06_13:2022-04-06,2022-04-06 signatures=0
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0 malwarescore=0 adultscore=0
- suspectscore=0 spamscore=0 mlxlogscore=999 bulkscore=0 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2202240000
- definitions=main-2204070000
-X-Proofpoint-GUID: Ld5JT0Q0K8pOByVfmiRRkW68u3Olyj10
-X-Proofpoint-ORIG-GUID: Ld5JT0Q0K8pOByVfmiRRkW68u3Olyj10
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, Apr 04, 2022 at 07:05:44AM +0200, Christoph Hellwig wrote:
-> Hi all,
-> 
-> this series tries to clean up the swiotlb initialization, including
-> that of swiotlb-xen.  To get there is also removes the x86 iommu table
-> infrastructure that massively obsfucates the initialization path.
-> 
-> Git tree:
-> 
->     git://git.infradead.org/users/hch/misc.git swiotlb-init-cleanup
-> 
-> Gitweb:
-> 
->     http://git.infradead.org/users/hch/misc.git/shortlog/refs/heads/swiotlb-init-cleanup
-> 
-> Changes since v7:
->  - rebased to Linux 5.18-rc1
->  - better document the lower bound swiotlb size for xen-swiotlb
->  - improve the nslabs calculation for the retry case in
->    swiotlb_init_remap and swiotlb_init_late
+c/s 1a914256dca5 increased the AMD max leaf from 0x8000001c to 0x80000021, but
+did not adjust anything in the calculate_*_policy() chain.  As a result, on
+hardware supporting these leaves, we read the real hardware values into the
+raw policy, then copy into host, and all the way into the PV/HVM default
+policies.
 
-Hey Christoph,
+All 4 of these leaves have enable bits (first two by TopoExt, next by SEV,
+next by PQOS), so any software following the rules is fine and will leave them
+alone.  However, leaf 0x8000001d takes a subleaf input and at least two
+userspace utilities have been observed to loop indefinitely under Xen (clearly
+waiting for eax to report "no more cache levels").
 
-Feel free to tack on
+Such userspace is buggy, but Xen's behaviour isn't great either.
 
-Reviewed-by: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+In the short term, clobber all information in these leaves.  This is a giant
+bodge, but there are complexities with implementing all of these leaves
+properly.
 
-on them if you would like.
+Fixes: 1a914256dca5 ("x86/cpuid: support LFENCE always serialising CPUID bit")
+Link: https://github.com/QubesOS/qubes-issues/issues/7392
+Reported-by: fosslinux <fosslinux@aussies.space>
+Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
 
-Thank you for doing the spring cleaning of this codebase!
+I was hoping to do something better, but it turned into a rats nest, and this
+fix wants backporting.
+
+It turns out that Intel leaf 4 and AMD leaf 0x8000001d are *almost* identical.
+They differ by the "complex" bit in edx, and the $X-per-cache fields in the
+top of eax (Intel is threads-per-cache, AMD is cores-per-cache and lacks the
+cores-per-package field).
+
+As neither vendor implement each others version, I'm incredibly tempted to
+reuse p->cache for both, rather than doubling the storage space.  Reading the
+data out is easy to key on p->extd.topoext.  Writing the data can be done
+without any further complexity if we simply trust the sending side to have its
+indices the proper way around.  Particularly, this avoids needing to ensure
+that p->extd.topoext is out of order and at the head of the stream.  Thoughts?
+---
+ xen/arch/x86/cpuid.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
+index bb554b06a73f..7e0b39569847 100644
+--- a/xen/arch/x86/cpuid.c
++++ b/xen/arch/x86/cpuid.c
+@@ -328,8 +328,15 @@ static void recalculate_misc(struct cpuid_policy *p)
+ 
+         zero_leaves(p->extd.raw, 0xb, 0x18);
+ 
++        /* 0x19 - TLB details.  Pass through. */
++        /* 0x1a - Perf hints.   Pass through. */
++
+         p->extd.raw[0x1b] = EMPTY_LEAF; /* IBS - not supported. */
+         p->extd.raw[0x1c] = EMPTY_LEAF; /* LWP - not supported. */
++        p->extd.raw[0x1d] = EMPTY_LEAF; /* TopoExt Cache */
++        p->extd.raw[0x1e] = EMPTY_LEAF; /* TopoExt APIC ID/Core/Node */
++        p->extd.raw[0x1f] = EMPTY_LEAF; /* SEV */
++        p->extd.raw[0x20] = EMPTY_LEAF; /* Platform QoS */
+         break;
+     }
+ }
+-- 
+2.11.0
+
 
