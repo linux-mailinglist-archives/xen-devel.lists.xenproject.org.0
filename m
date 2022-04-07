@@ -2,29 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 051244F6F62
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 03:02:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.300214.511914 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 252E64F71D7
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 04:06:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.300234.511961 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncGWx-0002sO-LD; Thu, 07 Apr 2022 01:01:47 +0000
+	id 1ncHXr-0006ZW-Aj; Thu, 07 Apr 2022 02:06:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 300214.511914; Thu, 07 Apr 2022 01:01:47 +0000
+Received: by outflank-mailman (output) from mailman id 300234.511961; Thu, 07 Apr 2022 02:06:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncGWx-0002nb-Hq; Thu, 07 Apr 2022 01:01:47 +0000
-Received: by outflank-mailman (input) for mailman id 300214;
- Thu, 07 Apr 2022 01:01:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9hzW=UR=citrix.com=prvs=089009d52=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1ncGWv-0001nx-Hq
- for xen-devel@lists.xenproject.org; Thu, 07 Apr 2022 01:01:45 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 48c5ee60-b60e-11ec-a405-831a346695d4;
- Thu, 07 Apr 2022 03:01:43 +0200 (CEST)
+	id 1ncHXr-0006WY-7g; Thu, 07 Apr 2022 02:06:47 +0000
+Received: by outflank-mailman (input) for mailman id 300234;
+ Thu, 07 Apr 2022 02:06:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=0ZzD=UR=intel.com=lkp@srs-se1.protection.inumbo.net>)
+ id 1ncHXp-0006WK-0C
+ for xen-devel@lists.xenproject.org; Thu, 07 Apr 2022 02:06:45 +0000
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5cff4ae5-b617-11ec-8fbc-03012f2f19d4;
+ Thu, 07 Apr 2022 04:06:42 +0200 (CEST)
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Apr 2022 19:06:36 -0700
+Received: from lkp-server02.sh.intel.com (HELO a44fdfb70b94) ([10.239.97.151])
+ by orsmga004.jf.intel.com with ESMTP; 06 Apr 2022 19:06:33 -0700
+Received: from kbuild by a44fdfb70b94 with local (Exim 4.95)
+ (envelope-from <lkp@intel.com>) id 1ncHXc-0004yZ-MW;
+ Thu, 07 Apr 2022 02:06:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,124 +44,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 48c5ee60-b60e-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1649293303;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=OyNgCoUVokh104p7gNuXy6J39X/cwubSQuNrcN+Q8No=;
-  b=cBqlxwHkSgyBFLPxrfxDJAf6kSvljKnELTAhuLZ0zdjDPxANpIIk226L
-   zVP+Lp/pjwJofXo3wRplSQZN21kxHv9Csk/JlnRbyl0YyvLF10V8S16fQ
-   8XNYJpVQru4OeT/2xizr+ESr0Sk5DE5NSuNWaX/zt2qtV9JBdrXRc5y9D
-   s=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 68229048
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:7ThJ8KzEcBVNJHonAqV6t+dNxirEfRIJ4+MujC+fZmUNrF6WrkUOx
- 2tJXG+POKyJNGrxfI1xbozi9hwH6sPRy4BjSgA/pCAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
- 59DAjUVBJlsFhcwnj/0bv656yMUOZigHtIQMsadUsxKbVIiGX9JZS5LwbZj2NY02YfhWmthh
- PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
- gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
- Npll4D3URciI5b1x9sfVSBRTiJPPPRI5+qSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
- aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DFYUToHx/ixreCu4rW8vrSKTW/95Imjw3g6iiGN6AN
- 5BDOGIzPHwsZTVMMHMqKYw3xtuqj130YRYFqlerho84tj27IAtZj+G2bYu9lsaxbdpRtlaVo
- CTB5WuRKjMwOcGbyDGF2mmxneKJliT+MKoCGbv9+vN0jVm7wm0IFAZQRVa9ueO+iEO1R5RYM
- UN8x8Y1hfFsrgrxFIC7BkDm5i7f1vIBZzZOO88mrxmdwbfv2lmmBG49R2NCWd1/utBjEFTGy
- WS1t9/uADVutpicRnSc6qqYoFuOBMQFEYMRTXRaFFVYurEPtKl210uSFYg7TMZZm/WvQVnNL
- ya2QD/Sbln5peoCzO2F8F/OmFpATbCZH1dutm07so9Ihz6VhbJJhaT1sTA3Dt4ade51q2VtW
- lBexaByC8hUUPmweNSlGrllIV1Qz6/t3MfgqVBuBYI90D+m5mSue4tdiBknehs4a5ZYKW+5M
- BCI0e+02HO1FCH0BUOQS9jvY/nGMIC6TYi1PhwqRoQmjmdNmP+vo3g1OB/4M5HFm0kwi6AvU
- ap3gu73ZUv2/Z9PlWLsL89EiOdD7nlnmQv7GMCqpzz6gOH2TCPEFt843K6mM7lRAFWs+16Or
- b6y9qKiln1ibQEJSnWPqt5McApSdBDWx/ne8qRqSwJKGSI+cElJNhMb6epJl1BN90iNqtr1w
- w==
-IronPort-HdrOrdr: A9a23:Brp4MK32KPcG/dD7QBRzYAqjBLwkLtp133Aq2lEZdPRUGvb4qy
- nIpoV86faUskd3ZJhOo6HiBEDtexzhHP1OkO0s1NWZLWvbUQKTRekIh+aP/9SJIVyGygc378
- ddmsZFZuEYdWIK6PrH3A==
-X-IronPort-AV: E=Sophos;i="5.90,241,1643691600"; 
-   d="scan'208";a="68229048"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH] x86/cpuid: Clobber CPUID leaves 0x800000{1d..20}
-Date: Thu, 7 Apr 2022 02:01:21 +0100
-Message-ID: <20220407010121.11301-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+X-Inumbo-ID: 5cff4ae5-b617-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1649297202; x=1680833202;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=dQrnEJaSMkZbyuRDxzwznPl1VKPOiEnuTwnVLSNQtLg=;
+  b=P+xRyrQK47vxm6ysP3pFiwFeh7A/0MNji1z3qbdJt5ruxL/yZD/zixYI
+   u+ZoiXzwg7KocaILrBhgHiiZolSbcBc9wgOmESPIs20dgCPlIIs7ykJvJ
+   y+SLi0P88C7DZ12f++n+nDNGfF3s+8h/ACQ7UR3ATinQKTCISetmX/jjF
+   DdieZRhrjWyKqe2y0pAvZNeX/XsD6OtKmYRhBp9PkwsK8hx8//TFINkaQ
+   SrfyuaW7S0zE42aoVYq1Y4z7JAmZK3/sVTuG3CnEBkFIoLANDl8c4bSNm
+   MAz3F1zMAPFQd3QrS32v7rqNpyEoAq2KxnWuRKnYiso1OOyjL1fOOb4tw
+   Q==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10309"; a="347648313"
+X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; 
+   d="scan'208";a="347648313"
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; 
+   d="scan'208";a="658861171"
+Date: Thu, 7 Apr 2022 10:06:01 +0800
+From: kernel test robot <lkp@intel.com>
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org
+Cc: llvm@lists.linux.dev, kbuild-all@lists.01.org,
+	Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
+	Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH] xen/balloon: fix page onlining when populating new zone
+Message-ID: <202204070950.mzGBYW2q-lkp@intel.com>
+References: <20220406133229.15979-1-jgross@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220406133229.15979-1-jgross@suse.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 
-c/s 1a914256dca5 increased the AMD max leaf from 0x8000001c to 0x80000021, but
-did not adjust anything in the calculate_*_policy() chain.  As a result, on
-hardware supporting these leaves, we read the real hardware values into the
-raw policy, then copy into host, and all the way into the PV/HVM default
-policies.
+Hi Juergen,
 
-All 4 of these leaves have enable bits (first two by TopoExt, next by SEV,
-next by PQOS), so any software following the rules is fine and will leave them
-alone.  However, leaf 0x8000001d takes a subleaf input and at least two
-userspace utilities have been observed to loop indefinitely under Xen (clearly
-waiting for eax to report "no more cache levels").
+I love your patch! Perhaps something to improve:
 
-Such userspace is buggy, but Xen's behaviour isn't great either.
+[auto build test WARNING on xen-tip/linux-next]
+[also build test WARNING on linus/master linux/master v5.18-rc1 next-20220406]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch]
 
-In the short term, clobber all information in these leaves.  This is a giant
-bodge, but there are complexities with implementing all of these leaves
-properly.
+url:    https://github.com/intel-lab-lkp/linux/commits/Juergen-Gross/xen-balloon-fix-page-onlining-when-populating-new-zone/20220407-000935
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git linux-next
+config: arm64-randconfig-r036-20220406 (https://download.01.org/0day-ci/archive/20220407/202204070950.mzGBYW2q-lkp@intel.com/config)
+compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project c4a1b07d0979e7ff20d7d541af666d822d66b566)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # install arm64 cross compiling tool for clang build
+        # apt-get install binutils-aarch64-linux-gnu
+        # https://github.com/intel-lab-lkp/linux/commit/b3deb59d5386ade4fb227038f202a9bdb8ade4ab
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Juergen-Gross/xen-balloon-fix-page-onlining-when-populating-new-zone/20220407-000935
+        git checkout b3deb59d5386ade4fb227038f202a9bdb8ade4ab
+        # save the config file to linux build tree
+        mkdir build_dir
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=arm64 SHELL=/bin/bash drivers/media/platform/ drivers/xen/
 
-Fixes: 1a914256dca5 ("x86/cpuid: support LFENCE always serialising CPUID bit")
-Link: https://github.com/QubesOS/qubes-issues/issues/7392
-Reported-by: fosslinux <fosslinux@aussies.space>
-Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
 
-I was hoping to do something better, but it turned into a rats nest, and this
-fix wants backporting.
+All warnings (new ones prefixed by >>):
 
-It turns out that Intel leaf 4 and AMD leaf 0x8000001d are *almost* identical.
-They differ by the "complex" bit in edx, and the $X-per-cache fields in the
-top of eax (Intel is threads-per-cache, AMD is cores-per-cache and lacks the
-cores-per-package field).
+   drivers/xen/balloon.c:518:10: error: implicit declaration of function 'alloc_page_for_balloon' [-Werror,-Wimplicit-function-declaration]
+                   page = alloc_page_for_balloon(gfp);
+                          ^
+>> drivers/xen/balloon.c:518:8: warning: incompatible integer to pointer conversion assigning to 'struct page *' from 'int' [-Wint-conversion]
+                   page = alloc_page_for_balloon(gfp);
+                        ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/xen/balloon.c:545:3: error: implicit declaration of function 'add_page_to_balloon' [-Werror,-Wimplicit-function-declaration]
+                   add_page_to_balloon(page);
+                   ^
+   1 warning and 2 errors generated.
 
-As neither vendor implement each others version, I'm incredibly tempted to
-reuse p->cache for both, rather than doubling the storage space.  Reading the
-data out is easy to key on p->extd.topoext.  Writing the data can be done
-without any further complexity if we simply trust the sending side to have its
-indices the proper way around.  Particularly, this avoids needing to ensure
-that p->extd.topoext is out of order and at the head of the stream.  Thoughts?
----
- xen/arch/x86/cpuid.c | 7 +++++++
- 1 file changed, 7 insertions(+)
 
-diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
-index bb554b06a73f..7e0b39569847 100644
---- a/xen/arch/x86/cpuid.c
-+++ b/xen/arch/x86/cpuid.c
-@@ -328,8 +328,15 @@ static void recalculate_misc(struct cpuid_policy *p)
- 
-         zero_leaves(p->extd.raw, 0xb, 0x18);
- 
-+        /* 0x19 - TLB details.  Pass through. */
-+        /* 0x1a - Perf hints.   Pass through. */
-+
-         p->extd.raw[0x1b] = EMPTY_LEAF; /* IBS - not supported. */
-         p->extd.raw[0x1c] = EMPTY_LEAF; /* LWP - not supported. */
-+        p->extd.raw[0x1d] = EMPTY_LEAF; /* TopoExt Cache */
-+        p->extd.raw[0x1e] = EMPTY_LEAF; /* TopoExt APIC ID/Core/Node */
-+        p->extd.raw[0x1f] = EMPTY_LEAF; /* SEV */
-+        p->extd.raw[0x20] = EMPTY_LEAF; /* Platform QoS */
-         break;
-     }
- }
+vim +518 drivers/xen/balloon.c
+
+   505	
+   506	static enum bp_state decrease_reservation(unsigned long nr_pages, gfp_t gfp)
+   507	{
+   508		enum bp_state state = BP_DONE;
+   509		unsigned long i;
+   510		struct page *page, *tmp;
+   511		int ret;
+   512		LIST_HEAD(pages);
+   513	
+   514		if (nr_pages > ARRAY_SIZE(frame_list))
+   515			nr_pages = ARRAY_SIZE(frame_list);
+   516	
+   517		for (i = 0; i < nr_pages; i++) {
+ > 518			page = alloc_page_for_balloon(gfp);
+   519			if (page == NULL) {
+   520				nr_pages = i;
+   521				state = BP_EAGAIN;
+   522				break;
+   523			}
+   524			list_add(&page->lru, &pages);
+   525		}
+   526	
+   527		/*
+   528		 * Ensure that ballooned highmem pages don't have kmaps.
+   529		 *
+   530		 * Do this before changing the p2m as kmap_flush_unused()
+   531		 * reads PTEs to obtain pages (and hence needs the original
+   532		 * p2m entry).
+   533		 */
+   534		kmap_flush_unused();
+   535	
+   536		/*
+   537		 * Setup the frame, update direct mapping, invalidate P2M,
+   538		 * and add to balloon.
+   539		 */
+   540		i = 0;
+   541		list_for_each_entry_safe(page, tmp, &pages, lru) {
+   542			frame_list[i++] = xen_page_to_gfn(page);
+   543	
+   544			list_del(&page->lru);
+   545			add_page_to_balloon(page);
+   546		}
+   547	
+   548		flush_tlb_all();
+   549	
+   550		ret = xenmem_reservation_decrease(nr_pages, frame_list);
+   551		BUG_ON(ret != nr_pages);
+   552	
+   553		balloon_stats.current_pages -= nr_pages;
+   554	
+   555		return state;
+   556	}
+   557	
+
 -- 
-2.11.0
-
+0-DAY CI Kernel Test Service
+https://01.org/lkp
 
