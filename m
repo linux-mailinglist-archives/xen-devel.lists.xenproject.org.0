@@ -2,29 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9459B4F8209
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 16:45:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.300842.513263 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98EA14F822D
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 16:52:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.300847.513273 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncTNR-0004Lf-KK; Thu, 07 Apr 2022 14:44:49 +0000
+	id 1ncTUg-00064Y-C4; Thu, 07 Apr 2022 14:52:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 300842.513263; Thu, 07 Apr 2022 14:44:49 +0000
+Received: by outflank-mailman (output) from mailman id 300847.513273; Thu, 07 Apr 2022 14:52:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncTNR-0004IA-Gk; Thu, 07 Apr 2022 14:44:49 +0000
-Received: by outflank-mailman (input) for mailman id 300842;
- Thu, 07 Apr 2022 14:44:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ncTUg-000620-8d; Thu, 07 Apr 2022 14:52:18 +0000
+Received: by outflank-mailman (input) for mailman id 300847;
+ Thu, 07 Apr 2022 14:52:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Q2qr=UR=citrix.com=prvs=08907668d=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1ncTNQ-0004I4-3F
- for xen-devel@lists.xenproject.org; Thu, 07 Apr 2022 14:44:48 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4385fe71-b681-11ec-8fbc-03012f2f19d4;
- Thu, 07 Apr 2022 16:44:46 +0200 (CEST)
+ <SRS0=Yv5T=UR=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1ncTUf-00061t-Ei
+ for xen-devel@lists.xenproject.org; Thu, 07 Apr 2022 14:52:17 +0000
+Received: from mail-qk1-x72d.google.com (mail-qk1-x72d.google.com
+ [2607:f8b0:4864:20::72d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 50795586-b682-11ec-a405-831a346695d4;
+ Thu, 07 Apr 2022 16:52:16 +0200 (CEST)
+Received: by mail-qk1-x72d.google.com with SMTP id a38so2338067qkp.5
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Apr 2022 07:52:15 -0700 (PDT)
+Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:ba27:ebff:fee8:ce27])
+ by smtp.gmail.com with ESMTPSA id
+ c17-20020ac85a91000000b002e1dd8ae44bsm16537157qtc.29.2022.04.07.07.52.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Apr 2022 07:52:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,122 +44,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4385fe71-b681-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1649342686;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=lyEj5XMgguLgdNftO1hrdIpBh/48hWEyA25CgqLHDtI=;
-  b=DCMauLMAx0V3cKsX9bec0EsZDo7r/W6ubEHVb1k7jiVKgVWvExOrBvFe
-   TW2e6MsSFKhKcwvYBK9r2KmQ0WTU3ik+qfZjbR0Y7uA5S6BYELoQGzOks
-   Ekfi6ekdpWXcq0wzSCwPZvsAqc6xNZhzDhKsKpVnDG7YV6lbmYap0eFxk
-   0=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 68270732
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:p+ZG5KqAOC1LqEjzCUv4WlA+EvVeBmJgZRIvgKrLsJaIsI4StFCzt
- garIBmGb/yJZjTwKIhyaIm+oxlTvMLTztQxHQVu/y00HiwSpJuZCYyVIHmrMnLJJKUvbq7GA
- +byyDXkBJppJpMJjk71atANlVEliefQAOCU5NfsYkidfyc9IMsaoU8lyrZRbrJA24DjWVvR4
- Yyq+aUzBXf+s9JKGjNMg068gEsHUMTa4Fv0aXRnOJinFHeH/5UkJMp3yZOZdhMUcaENdgKOf
- M7RzanRw4/s10xF5uVJMFrMWhZirrb6ZWBig5fNMkSoqkAqSicais7XOBeAAKv+Zvrgc91Zk
- b1wWZKMpQgBA6LqyMdEfyViMg5TAYZHpJP2I2jmmJnGp6HGWyOEL/RGCUg3OcsT+/ptAHEI/
- vsdQNwPRknd3aTsmuv9E7QywJR4RCXoFNp3VnVIxDfFDfEgUNbbTr/D/9Nw1zYsnMFeW/3ZY
- qL1bBIxPE6fO0IUYD/7DroBw8u4pD7DbQdXpXfKn7cd2mzCw09+he2F3N39JYXRGJQ9clyjj
- n3C13T0BFcdLtP34SqI9Degi/HCmQv/WZkOD/uo+/hymlqRy2cPThoMWjOTo/ajjVWlc8lCM
- EFS8S0rxZXe72TyEIO7BUfh5ifZ4FhMALK8DtHW9imwxYyEwF+1OlIlYRN9Q916mP40VWUDg
- wrhc8zSORRjt7icSHS4/7iSrC+vNSV9EVLudRPoXiNevYC9/dhbYgbnC486TfXr1oGd9STYm
- WjikcQou1kEYSfnPY2f9EuPvT+jr4OhouUdtlSOBTLNAu+UieeYi22UBbrzsK4owGWxFADpU
- J04dy62tr1m4XalznHlfQn1NOv1j8tpyRWF6bKVI7Ev9i6251modp1K7Td1KS9Ba5hYKGW5P
- RKD5lwIvfe/2UdGi4ctPupd7Oxwk8Dd+SnNDKiIPrKinLAvHON4wM2eTRHJhD28+KTduao+J
- Y2aYa6R4YUyUsxaIM6Nb75Fi9cDn3lmrUuKHMyT50n3gNK2OS/OIZ9YYQTmUwzMxP7dyOkj2
- 40EbJXiJtQ2eLCWXxQ7BqZPdQtaciVhXcmeRg4+XrfrHzeK0VoJU5f5qY7NsaQ/90iJvo8kJ
- k2AZ3I=
-IronPort-HdrOrdr: A9a23:KSrRxqPcmPOwgsBcTsOjsMiBIKoaSvp037Eqv3oRdfVwSL3+qy
- nOpoV+6faaslossR0b9uxofZPwJ080lqQFhLX5X43SPzUO0VHAROoJgLcKgQeQeREWntQtrJ
- uIGJIfNDSfNzZHsfo=
-X-IronPort-AV: E=Sophos;i="5.90,242,1643691600"; 
-   d="scan'208";a="68270732"
-Date: Thu, 7 Apr 2022 15:44:39 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Juergen Gross <jgross@suse.com>
-CC: <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] tools/libs/light: update xenstore entry when setting max
- domain memory
-Message-ID: <Yk74172+jHIn4PJW@perard.uk.xensource.com>
-References: <20220331070755.10894-1-jgross@suse.com>
+X-Inumbo-ID: 50795586-b682-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=aXzHPEsOE9oT+djL0tSiJY62IZUE0RTntN0nR7AbokI=;
+        b=FX4ET5aT1BSUsJka48WWFpvPyv51q55N8QUCfUkG0iI+edqbQEa483wokrOSAivcs1
+         l2g8XX6YD02LYCxRIYY1c/NalLvFFtUOhiBk2/YodevqFHIQNBW93et4n0eJxhBTMuDB
+         jKShGganwHW6evpSiEQcWzkJPF4DAQpRA4A9mxNzJscBl3oF5sVymXyKNOQH8MLp9m79
+         REPnn4wZFJKdy0Sax7ZI0zs91KucjotqOXMbPalsq4LhXx/ZaNmwr4XuPKHiWm2Bcs/M
+         SdrIfhPlR3Q6IAEyZazn2U80241SgZ2ufOSNbYN+P4xZM5mH3xvy4dvwT31KYYqJSBNc
+         9beQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=aXzHPEsOE9oT+djL0tSiJY62IZUE0RTntN0nR7AbokI=;
+        b=EBv16kFLcSZlrGeY8NgAD8J24MCy/0ve7ETlomFVGnhONKvk0fNW93Qza9vWR9uL/1
+         Z0LxI1d8zPr7N7NjFaFy1Vfr6mUoGz4wTaar8gKuzs0Vf4H2HojWlAFvbeHFF30e2onW
+         jdMbwm95JCJJAjwmWRi6BOREH7jcULcrP7ljZpv9y9S1J17VJldywvAqwif8/8YGiL+x
+         V5cYskoRtdh/EHgfCf8ZcMzfjlDRlrH3U/kM2MKle2bjliS8tSncaum732Nh5M/fmgWh
+         +ggqJCTyz/RS1uM6anCWjsDOqCbxOEF1Ir08EJeOgXhqQ/i1YIReMv5gIgwWSyFiy4+T
+         FhBw==
+X-Gm-Message-State: AOAM532Lzz5pIQ1eoEmC/m/2JxCJqiBPW3SjrXK9hOnqqAIdvlHh33l/
+	/VirpIVVSNf97czySSeS3stDLrYR5vA=
+X-Google-Smtp-Source: ABdhPJyhvwseWsv6Rh/cRzoxWBunjNDss2rFLgFd2Geu1XruEBfT8gfbQJMnXnhe4CnnWjJ+U4TDGA==
+X-Received: by 2002:a37:c403:0:b0:699:f96c:3b13 with SMTP id d3-20020a37c403000000b00699f96c3b13mr3391458qki.105.1649343134644;
+        Thu, 07 Apr 2022 07:52:14 -0700 (PDT)
+From: Jason Andryuk <jandryuk@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Jason Andryuk <jandryuk@gmail.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v2] x86/irq: Skip unmap_domain_pirq XSM during destruction
+Date: Thu,  7 Apr 2022 10:51:50 -0400
+Message-Id: <20220407145150.18732-1-jandryuk@gmail.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20220331070755.10894-1-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Mar 31, 2022 at 09:07:55AM +0200, Juergen Gross wrote:
-> libxl_domain_setmaxmem() should update the domain's memory/static-max
-> Xenstore node, as otherwise "xl mem-set" won't be able to set the
-> memory size to the new maximum.
+xsm_unmap_domain_irq was seen denying unmap_domain_pirq when called from
+complete_domain_destroy as an RCU callback.  The source context was an
+unexpected, random domain.  Since this is a xen-internal operation,
+going through the XSM hook is inapproriate.
 
-`xl mem-set` doesn't call libxl_domain_setmaxmem(), but calls
-libxl_set_memory_target().
+Check d->is_dying and skip the XSM hook when set since this is a cleanup
+operation for a domain being destroyed.
 
-Or maybe you are speaking about `xl mem-max` followed by `xl mem-set`?
-In this case, it is documented in `man 1 xl` that `mem-max` has no
-effect to `mem-set`.
+Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
+Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+---
+v2:
+Style fixes
+Rely on ret=0 initialization
 
-quote from man, about `xl mem-max`:
-    It is allowed to be higher than the configured maximum
-    memory size of the domain (B<maxmem> parameter in the domain's
-    configuration). Note however that the initial B<maxmem> value is still
-    used as an upper limit for B<xl mem-set>.  Also note that calling B<xl
-    mem-set> will reset this value.
+---
+ xen/arch/x86/irq.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
->  tools/libs/light/libxl_mem.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/tools/libs/light/libxl_mem.c b/tools/libs/light/libxl_mem.c
-> index c739d00f39..2f4f9d4a4a 100644
-> --- a/tools/libs/light/libxl_mem.c
-> +++ b/tools/libs/light/libxl_mem.c
-> @@ -82,6 +82,15 @@ int libxl_domain_setmaxmem(libxl_ctx *ctx, uint32_t domid, uint64_t max_memkb)
-
-There's a comment on this functions:
-    /*
-     * Set the maximum memory size of the domain in the hypervisor. There is no
-     * change of the current memory size involved. The specified memory size can
-     * even be above the configured maxmem size of the domain, but the related
-     * Xenstore entry memory/static-max isn't modified!
-     */
-    int libxl_domain_setmaxmem(libxl_ctx *ctx, uint32_t domid, uint64_t max_memkb)
-
-So it was already known that "static-max" wasn't set.
-At the very least, this comment needs updating.
-
->          goto out;
->      }
->  
-> +    rc = libxl__xs_printf(gc, XBT_NULL,
-> +                          GCSPRINTF("%s/memory/static-max", dompath),
-> +                          "%"PRIu64, max_memkb);
-> +    if (rc != 0) {
-> +        LOGED(ERROR, domid, "Couldn't set %s/memory/static-max, rc=%d\n",
-> +              dompath, rc);
-> +        goto out;
-
-
-
-So, I don't know whether increasing "static-max" is fine or not, but
-according to the documentation, it isn't expected.
-
-Is a guest fine with "static-max" been changed?
-
-If yes, there's documentation and comments that needs to change with the
-code change.
-
-Thanks,
-
+diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
+index 285ac399fb..de30ee7779 100644
+--- a/xen/arch/x86/irq.c
++++ b/xen/arch/x86/irq.c
+@@ -2340,8 +2340,14 @@ int unmap_domain_pirq(struct domain *d, int pirq)
+         nr = msi_desc->msi.nvec;
+     }
+ 
+-    ret = xsm_unmap_domain_irq(XSM_HOOK, d, irq,
+-                               msi_desc ? msi_desc->dev : NULL);
++    /*
++     * When called by complete_domain_destroy via RCU, current is a random
++     * domain.  Skip the XSM check since this is a Xen-initiated action.
++     */
++    if ( !d->is_dying )
++        ret = xsm_unmap_domain_irq(XSM_HOOK, d, irq,
++                                   msi_desc ? msi_desc->dev : NULL);
++
+     if ( ret )
+         goto done;
+ 
 -- 
-Anthony PERARD
+2.35.1
+
 
