@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E0734F7515
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 07:11:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.300358.512262 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 189464F752D
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 07:16:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.300362.512274 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncKPZ-0007ho-CQ; Thu, 07 Apr 2022 05:10:25 +0000
+	id 1ncKVM-0008Mk-2a; Thu, 07 Apr 2022 05:16:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 300358.512262; Thu, 07 Apr 2022 05:10:25 +0000
+Received: by outflank-mailman (output) from mailman id 300362.512274; Thu, 07 Apr 2022 05:16:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncKPZ-0007ep-9G; Thu, 07 Apr 2022 05:10:25 +0000
-Received: by outflank-mailman (input) for mailman id 300358;
- Thu, 07 Apr 2022 05:10:24 +0000
+	id 1ncKVL-0008KK-VR; Thu, 07 Apr 2022 05:16:23 +0000
+Received: by outflank-mailman (input) for mailman id 300362;
+ Thu, 07 Apr 2022 05:16:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0ZzD=UR=intel.com=lkp@srs-se1.protection.inumbo.net>)
- id 1ncKPX-0007ej-KW
- for xen-devel@lists.xenproject.org; Thu, 07 Apr 2022 05:10:24 +0000
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (envelope-from <SRS0=hdtG=UR=suse.de=colyli@srs-se1.protection.inumbo.net>)
+ id 1ncKVK-0008KE-M6
+ for xen-devel@lists.xenproject.org; Thu, 07 Apr 2022 05:16:23 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 036be10f-b631-11ec-8fbc-03012f2f19d4;
- Thu, 07 Apr 2022 07:10:19 +0200 (CEST)
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Apr 2022 22:10:16 -0700
-Received: from lkp-server02.sh.intel.com (HELO a44fdfb70b94) ([10.239.97.151])
- by orsmga003.jf.intel.com with ESMTP; 06 Apr 2022 22:10:13 -0700
-Received: from kbuild by a44fdfb70b94 with local (Exim 4.95)
- (envelope-from <lkp@intel.com>) id 1ncKPM-00055m-NU;
- Thu, 07 Apr 2022 05:10:12 +0000
+ id dc51ed81-b631-11ec-8fbc-03012f2f19d4;
+ Thu, 07 Apr 2022 07:16:21 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B76E021122;
+ Thu,  7 Apr 2022 05:16:20 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 81FE713A66;
+ Thu,  7 Apr 2022 05:16:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 0FojFJ5zTmLoQAAAMHmgww
+ (envelope-from <colyli@suse.de>); Thu, 07 Apr 2022 05:16:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,143 +51,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 036be10f-b631-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1649308219; x=1680844219;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=myTDEhVwrLnCdPZFU3d6dVMJ7GMZKVQMpzunGAxXFgE=;
-  b=jRbUmBThTYZsz0PAaq+NtUw8p3RyHnTwuasJLkoHaxMkF8Z0K5pH9Df1
-   QBbMqkBzCTMe+nMlMxtS7Q2IAxYYbX3wfi8e/eOvdQe3Fy11HtsCs+j2x
-   Vv+yL/FK6HlO64vb+/uJ3BR7w2V0gLhoKXKR3ZKSg72ZKVFRDKgTMc6KQ
-   jn2HkGL4EULOqjUhIk+lRr+1VjO5xE1qsADrNmrRt3DUQjRdS7GxNu5OC
-   2I/6RRe9oj3Dpej9NdguWZnsk6J8/wy1MA3NmD0Ui/XOs0V7AVa5WePMs
-   33MjhoEZiN8m0JeQHmxM4yO1eKhLmBOppICWUBUhT9vdOQAmtahQ//Fw8
-   Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10309"; a="347671270"
-X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; 
-   d="scan'208";a="347671270"
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.90,241,1643702400"; 
-   d="scan'208";a="506008518"
-Date: Thu, 7 Apr 2022 13:09:27 +0800
-From: kernel test robot <lkp@intel.com>
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Cc: kbuild-all@lists.01.org, Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
-	Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>
-Subject: Re: [PATCH] xen/balloon: fix page onlining when populating new zone
-Message-ID: <202204071359.uas4tsu0-lkp@intel.com>
-References: <20220406133229.15979-1-jgross@suse.com>
+X-Inumbo-ID: dc51ed81-b631-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1649308580; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3mSljOe/NcqR0nJ5LYJS1IexMd+XWdNrUUnY7u8p4ss=;
+	b=S8u6tT4MOmjtYxCqeb3qmZNn/bHZfqArgo8fnUTx30csmaC8EzqkNzsFCobTftsYYuUnLo
+	j2CEECTylf45En922p7zGMdDliHlOB0W/p8IrTqMAAnrwN0MZYWeSbIR9ZZAecmXn6aNZm
+	pYWtnVOXe4neFTwM3RVsKoYuaP4pLxY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1649308580;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3mSljOe/NcqR0nJ5LYJS1IexMd+XWdNrUUnY7u8p4ss=;
+	b=8wVCLmcmG2fqohkxPiOTT+zNzsZDHS4xqLNwNHKElc9o7Ynzusas5Vi1t3zyX0xdAJFT8y
+	NypPr2uWld7TnxBQ==
+Message-ID: <2aee78dd-d5b6-5444-da28-34ab2631b264@suse.de>
+Date: Thu, 7 Apr 2022 13:16:12 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220406133229.15979-1-jgross@suse.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.7.0
+Subject: Re: [PATCH 23/27] block: add a bdev_max_discard_sectors helper
+Content-Language: en-US
+To: Christoph Hellwig <hch@lst.de>
+Cc: dm-devel@redhat.com, linux-xfs@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-um@lists.infradead.org,
+ linux-block@vger.kernel.org, drbd-dev@lists.linbit.com,
+ nbd@other.debian.org, ceph-devel@vger.kernel.org,
+ virtualization@lists.linux-foundation.org, xen-devel@lists.xenproject.org,
+ linux-bcache@vger.kernel.org, linux-raid@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-nvme@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+ target-devel@vger.kernel.org, linux-btrfs@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ cluster-devel@redhat.com, jfs-discussion@lists.sourceforge.net,
+ linux-nilfs@vger.kernel.org, ntfs3@lists.linux.dev,
+ ocfs2-devel@oss.oracle.com, linux-mm@kvack.org
+References: <20220406060516.409838-1-hch@lst.de>
+ <20220406060516.409838-24-hch@lst.de>
+From: Coly Li <colyli@suse.de>
+In-Reply-To: <20220406060516.409838-24-hch@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Juergen,
-
-I love your patch! Yet something to improve:
-
-[auto build test ERROR on xen-tip/linux-next]
-[also build test ERROR on linus/master linux/master v5.18-rc1 next-20220406]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Juergen-Gross/xen-balloon-fix-page-onlining-when-populating-new-zone/20220407-000935
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git linux-next
-config: arm64-randconfig-r011-20220406 (https://download.01.org/0day-ci/archive/20220407/202204071359.uas4tsu0-lkp@intel.com/config)
-compiler: aarch64-linux-gcc (GCC) 11.2.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/b3deb59d5386ade4fb227038f202a9bdb8ade4ab
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Juergen-Gross/xen-balloon-fix-page-onlining-when-populating-new-zone/20220407-000935
-        git checkout b3deb59d5386ade4fb227038f202a9bdb8ade4ab
-        # save the config file to linux build tree
-        mkdir build_dir
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.2.0 make.cross O=build_dir ARCH=arm64 SHELL=/bin/bash drivers/
-
-If you fix the issue, kindly add following tag as appropriate
-Reported-by: kernel test robot <lkp@intel.com>
-
-All errors (new ones prefixed by >>):
-
-   drivers/xen/balloon.c: In function 'decrease_reservation':
->> drivers/xen/balloon.c:518:24: error: implicit declaration of function 'alloc_page_for_balloon' [-Werror=implicit-function-declaration]
-     518 |                 page = alloc_page_for_balloon(gfp);
-         |                        ^~~~~~~~~~~~~~~~~~~~~~
-   drivers/xen/balloon.c:518:22: warning: assignment to 'struct page *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
-     518 |                 page = alloc_page_for_balloon(gfp);
-         |                      ^
->> drivers/xen/balloon.c:545:17: error: implicit declaration of function 'add_page_to_balloon' [-Werror=implicit-function-declaration]
-     545 |                 add_page_to_balloon(page);
-         |                 ^~~~~~~~~~~~~~~~~~~
-   cc1: some warnings being treated as errors
+On 4/6/22 2:05 PM, Christoph Hellwig wrote:
+> Add a helper to query the number of sectors support per each discard bio
+> based on the block device and use this helper to stop various places from
+> poking into the request_queue to see if discard is supported and if so how
+> much.  This mirrors what is done e.g. for write zeroes as well.
+>
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
 
-vim +/alloc_page_for_balloon +518 drivers/xen/balloon.c
+For the bcache part,
 
-   505	
-   506	static enum bp_state decrease_reservation(unsigned long nr_pages, gfp_t gfp)
-   507	{
-   508		enum bp_state state = BP_DONE;
-   509		unsigned long i;
-   510		struct page *page, *tmp;
-   511		int ret;
-   512		LIST_HEAD(pages);
-   513	
-   514		if (nr_pages > ARRAY_SIZE(frame_list))
-   515			nr_pages = ARRAY_SIZE(frame_list);
-   516	
-   517		for (i = 0; i < nr_pages; i++) {
- > 518			page = alloc_page_for_balloon(gfp);
-   519			if (page == NULL) {
-   520				nr_pages = i;
-   521				state = BP_EAGAIN;
-   522				break;
-   523			}
-   524			list_add(&page->lru, &pages);
-   525		}
-   526	
-   527		/*
-   528		 * Ensure that ballooned highmem pages don't have kmaps.
-   529		 *
-   530		 * Do this before changing the p2m as kmap_flush_unused()
-   531		 * reads PTEs to obtain pages (and hence needs the original
-   532		 * p2m entry).
-   533		 */
-   534		kmap_flush_unused();
-   535	
-   536		/*
-   537		 * Setup the frame, update direct mapping, invalidate P2M,
-   538		 * and add to balloon.
-   539		 */
-   540		i = 0;
-   541		list_for_each_entry_safe(page, tmp, &pages, lru) {
-   542			frame_list[i++] = xen_page_to_gfn(page);
-   543	
-   544			list_del(&page->lru);
- > 545			add_page_to_balloon(page);
-   546		}
-   547	
-   548		flush_tlb_all();
-   549	
-   550		ret = xenmem_reservation_decrease(nr_pages, frame_list);
-   551		BUG_ON(ret != nr_pages);
-   552	
-   553		balloon_stats.current_pages -= nr_pages;
-   554	
-   555		return state;
-   556	}
-   557	
+Acked-by: Coly Li <colyli@suse.de>
 
--- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+
+Thanks.
+
+
+Coly Li
+
+
+
+> ---
+>   block/blk-core.c                    |  2 +-
+>   block/blk-lib.c                     |  2 +-
+>   block/ioctl.c                       |  3 +--
+>   drivers/block/drbd/drbd_main.c      |  2 +-
+>   drivers/block/drbd/drbd_nl.c        | 12 +++++++-----
+>   drivers/block/drbd/drbd_receiver.c  |  5 ++---
+>   drivers/block/loop.c                |  9 +++------
+>   drivers/block/rnbd/rnbd-srv-dev.h   |  6 +-----
+>   drivers/block/xen-blkback/xenbus.c  |  2 +-
+>   drivers/md/bcache/request.c         |  4 ++--
+>   drivers/md/bcache/super.c           |  2 +-
+>   drivers/md/bcache/sysfs.c           |  2 +-
+>   drivers/md/dm-cache-target.c        |  9 +--------
+>   drivers/md/dm-clone-target.c        |  9 +--------
+>   drivers/md/dm-io.c                  |  2 +-
+>   drivers/md/dm-log-writes.c          |  3 +--
+>   drivers/md/dm-raid.c                |  9 ++-------
+>   drivers/md/dm-table.c               |  4 +---
+>   drivers/md/dm-thin.c                |  9 +--------
+>   drivers/md/dm.c                     |  2 +-
+>   drivers/md/md-linear.c              |  4 ++--
+>   drivers/md/raid0.c                  |  2 +-
+>   drivers/md/raid1.c                  |  6 +++---
+>   drivers/md/raid10.c                 |  8 ++++----
+>   drivers/md/raid5-cache.c            |  2 +-
+>   drivers/target/target_core_device.c |  8 +++-----
+>   fs/btrfs/extent-tree.c              |  4 ++--
+>   fs/btrfs/ioctl.c                    |  2 +-
+>   fs/exfat/file.c                     |  2 +-
+>   fs/exfat/super.c                    | 10 +++-------
+>   fs/ext4/ioctl.c                     | 10 +++-------
+>   fs/ext4/super.c                     | 10 +++-------
+>   fs/f2fs/f2fs.h                      |  3 +--
+>   fs/f2fs/segment.c                   |  6 ++----
+>   fs/fat/file.c                       |  2 +-
+>   fs/fat/inode.c                      | 10 +++-------
+>   fs/gfs2/rgrp.c                      |  2 +-
+>   fs/jbd2/journal.c                   |  7 ++-----
+>   fs/jfs/ioctl.c                      |  2 +-
+>   fs/jfs/super.c                      |  8 ++------
+>   fs/nilfs2/ioctl.c                   |  2 +-
+>   fs/ntfs3/file.c                     |  2 +-
+>   fs/ntfs3/super.c                    |  2 +-
+>   fs/ocfs2/ioctl.c                    |  2 +-
+>   fs/xfs/xfs_discard.c                |  2 +-
+>   fs/xfs/xfs_super.c                  | 12 ++++--------
+>   include/linux/blkdev.h              |  5 +++++
+>   mm/swapfile.c                       | 17 ++---------------
+>   48 files changed, 87 insertions(+), 163 deletions(-)
+
+[snipped]
+
+
+> diff --git a/drivers/md/bcache/request.c b/drivers/md/bcache/request.c
+> index fdd0194f84dd0..e27f67f06a428 100644
+> --- a/drivers/md/bcache/request.c
+> +++ b/drivers/md/bcache/request.c
+> @@ -1005,7 +1005,7 @@ static void cached_dev_write(struct cached_dev *dc, struct search *s)
+>   		bio_get(s->iop.bio);
+>   
+>   		if (bio_op(bio) == REQ_OP_DISCARD &&
+> -		    !blk_queue_discard(bdev_get_queue(dc->bdev)))
+> +		    !bdev_max_discard_sectors(dc->bdev))
+>   			goto insert_data;
+>   
+>   		/* I/O request sent to backing device */
+> @@ -1115,7 +1115,7 @@ static void detached_dev_do_request(struct bcache_device *d, struct bio *bio,
+>   	bio->bi_private = ddip;
+>   
+>   	if ((bio_op(bio) == REQ_OP_DISCARD) &&
+> -	    !blk_queue_discard(bdev_get_queue(dc->bdev)))
+> +	    !bdev_max_discard_sectors(dc->bdev))
+>   		bio->bi_end_io(bio);
+>   	else
+>   		submit_bio_noacct(bio);
+> diff --git a/drivers/md/bcache/super.c b/drivers/md/bcache/super.c
+> index bf3de149d3c9f..296f200b2e208 100644
+> --- a/drivers/md/bcache/super.c
+> +++ b/drivers/md/bcache/super.c
+> @@ -2350,7 +2350,7 @@ static int register_cache(struct cache_sb *sb, struct cache_sb_disk *sb_disk,
+>   	ca->bdev->bd_holder = ca;
+>   	ca->sb_disk = sb_disk;
+>   
+> -	if (blk_queue_discard(bdev_get_queue(bdev)))
+> +	if (bdev_max_discard_sectors((bdev)))
+>   		ca->discard = CACHE_DISCARD(&ca->sb);
+>   
+>   	ret = cache_alloc(ca);
+> diff --git a/drivers/md/bcache/sysfs.c b/drivers/md/bcache/sysfs.c
+> index d1029d71ff3bc..c6f677059214d 100644
+> --- a/drivers/md/bcache/sysfs.c
+> +++ b/drivers/md/bcache/sysfs.c
+> @@ -1151,7 +1151,7 @@ STORE(__bch_cache)
+>   	if (attr == &sysfs_discard) {
+>   		bool v = strtoul_or_return(buf);
+>   
+> -		if (blk_queue_discard(bdev_get_queue(ca->bdev)))
+> +		if (bdev_max_discard_sectors(ca->bdev))
+>   			ca->discard = v;
+>   
+>   		if (v != CACHE_DISCARD(&ca->sb)) {
+
+
+[snipped]
+
 
