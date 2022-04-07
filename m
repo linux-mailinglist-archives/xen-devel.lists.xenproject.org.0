@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2F0D4F78CA
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 10:04:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.300487.512578 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A92F4F795F
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 10:19:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.300493.512589 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncN6t-00066a-Qa; Thu, 07 Apr 2022 08:03:19 +0000
+	id 1ncNLu-00081a-7S; Thu, 07 Apr 2022 08:18:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 300487.512578; Thu, 07 Apr 2022 08:03:19 +0000
+Received: by outflank-mailman (output) from mailman id 300493.512589; Thu, 07 Apr 2022 08:18:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncN6t-00063t-NT; Thu, 07 Apr 2022 08:03:19 +0000
-Received: by outflank-mailman (input) for mailman id 300487;
- Thu, 07 Apr 2022 08:03:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hdtG=UR=suse.de=colyli@srs-se1.protection.inumbo.net>)
- id 1ncN6s-00063n-D2
- for xen-devel@lists.xenproject.org; Thu, 07 Apr 2022 08:03:18 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2e7c4807-b649-11ec-8fbc-03012f2f19d4;
- Thu, 07 Apr 2022 10:03:17 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BA7481F859;
- Thu,  7 Apr 2022 08:03:16 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4CF8613485;
- Thu,  7 Apr 2022 08:03:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id F2mtCL+aTmKlAgAAMHmgww
- (envelope-from <colyli@suse.de>); Thu, 07 Apr 2022 08:03:11 +0000
+	id 1ncNLu-0007zU-2x; Thu, 07 Apr 2022 08:18:50 +0000
+Received: by outflank-mailman (input) for mailman id 300493;
+ Thu, 07 Apr 2022 08:18:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qv4n=UR=citrix.com=prvs=089d11f18=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1ncNLs-0007zO-K5
+ for xen-devel@lists.xenproject.org; Thu, 07 Apr 2022 08:18:48 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 57254402-b64b-11ec-a405-831a346695d4;
+ Thu, 07 Apr 2022 10:18:47 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,183 +36,206 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2e7c4807-b649-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1649318596; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7k0z5t+RkWgzil40AtKwhJmpL0iBjAFtHXia6nIwjc8=;
-	b=BFj1weRWNO0gJwf1a0jytpVaNV2SIOQyml/DNHaVaAYv+GWtC9RRp3Nkr1QhUY/V7QdLG9
-	baoJsXmF2FufEolsvsTPwbwZ3Or5/MyPwA8jPnqPoYDtXH5U9TjRT7F8cNWLR3Nqx6fvJv
-	Ws2fOIHqbo98FqfWwnQjig+YJFloGxM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1649318596;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7k0z5t+RkWgzil40AtKwhJmpL0iBjAFtHXia6nIwjc8=;
-	b=DjSOFiN41nmAx2XAVq/tnPaDKbkIhCw6FaIeWu9KyiZMi8ecy7DPyjacZPoBAIl6E7Jspy
-	2pyi9oy0n8T7WCDA==
-Message-ID: <9f91936a-7dd7-2ee6-3293-f199ada85210@suse.de>
-Date: Thu, 7 Apr 2022 16:03:09 +0800
+X-Inumbo-ID: 57254402-b64b-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1649319526;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=qY7FBTagxd4jhkKjTx/xVU9t2OTJ9bU81KNufS2Swck=;
+  b=MjspBlR9jF9dUJC7gjvwzpn//Rz4Y5G9WXaR6z0Vk3npoHVkuSLGwNxu
+   NfvfK8LH0vXJ6OQSQZeCfrMffGwOt48x0noz2YSvZaaNdRC+bj0djeKow
+   BZ+yUvb/4DSbiT9ql5se9nmyasU6Sps/7Sz/Bmkz+zpeFf58Ybs9/cJqP
+   g=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+X-SBRS: 5.1
+X-MesageID: 68645317
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:45DzuKN8beG7Mg3vrR2Zl8FynXyQoLVcMsEvi/4bfWQNrUoq12RSz
+ mYeCjiAPfrbZGamfdgiPI2w80JVuJWGmtVnTAto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
+ ynLQoCYdKjYdleF+lH1dOKJQUBUjclkfJKlYAL/En03FFcMpBsJ00o5wbZl2tEw2LBVPivW0
+ T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
+ 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Zm
+ OgKrIaVTCkQDqjnw7gCThdIHiQlMvgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
+ 7pCcmlLN03dwbLtqF64YrAEasALNs7kMZlZonh95TrYEewnUdbIRKCiCdpwgmdu2p0VRKm2i
+ 8wxRwFiZRLBTg12ZU5JK59mvumur1X9bGgNwL6SjfVuuDWCpOBr65D2K8bccNGOQcRTn26bq
+ 3jA8mC/BQsVXPSAzRKV/3TqgfXA9Qv5RYYTGbuQ5vNsxlqJyQQ7GBAQEFe2v/S9okq/QM5Eb
+ VwZ/DI0qqo//1DtScPyNzW6qnOZuh8XW/JLDvY3rgqKz8LpDx2xXzZeCGQbMZp/6ZFwFWdCO
+ kK1c83BVQEoqaewTFykxrK/9m+tJCYFIGpZanpRJeca2OXLrIY2hxPJa99sFq+pk9H4cQ3NL
+ yC2QDsW3OtK05NSv0mv1RWe2m/3+MCVJuIgzl+PNl9J+D+Vc2JMi2aAzVHApchNI4+CJrVql
+ ChVwpPOhAzi4HzkqcBsfAnvNOzxjxpmGGeF6bKKI3XH327wk5JEVdoNiAyS3G8zbq45lcbBO
+ Sc/Qz956p5JJ2eNZqRqeY+3AMlC5fG+SYW/Bq2JPoURO8EZmOq7EMdGPxP4M4fFyhZErE3CE
+ c3DLZbE4YgyV8yLMwZat89CiOR2l0jSNEvYRIzhzgTP7FZtTCX9dFvxC3PXNrpRxPrd+G39q
+ o8DX+PXm0Q3eLCvOUH/rN9MRW3m2FBmXPgaXeQMLbXdSuencUl8Y8LsLUQJJ9Q+z/sIzL+Rl
+ px/M2cBoGfCabT8AVziQlhoaa/1XIY5qnQ+PCc2Ok2v1WRlaoGqhJrzvbNsFVX73ISPFcJJc
+ sQ=
+IronPort-HdrOrdr: A9a23:myXtBaoHzzZSQsiC6QZsuK8aV5vdL9V00zEX/kB9WHVpm5Oj+P
+ xGzc526farslsssREb+OxpOMG7MBfhHPlOkPMs1NaZLXLbUQ6TQr2KgrGSpQEIdxeOlNK1tp
+ 0QDJSWaueAdGSS5PySiGLTc6dC/DDuytHVuQ609QYLcegFUdAE0+8vYTzrb3GeCTM2c6YRJd
+ 653I5qtjCgcXMYYoCSAWQEZfHKo5numIj9aRALKhY74E3W5AnYoILSIly95FMzQjlPybAt/S
+ zslBH43Lyqt7WexgXH32HewpxKkJ/Ky8dFBuaLls8JQw+cwzqAVcBEYfmvrTo1qOag5BIDl8
+ TNmQ4pO4BJ53bYbgiO0G7Q8jil9Axrx27pyFeej3emi9f+XigGB81Igp8cWgfF6mI71esMnZ
+ 5j7ia8jd56HBnAlCPy65zjTBdxjHe5pnIkjKo6k2Ffa40Dc7VcxLZvtn+9KK1wUx4S1bpXXt
+ WHVKrnlbdrmBKhHjvkV1BUsZCRti9ZJGbHfqAA0vbloQS+0koJjHfw//Zv70voxKhNNaWs2N
+ 60QpiA7Is+NvP+TZgNcNvpEvHHfVAkf3r3QRGvyBLcZeM6B04=
+X-IronPort-AV: E=Sophos;i="5.90,241,1643691600"; 
+   d="scan'208";a="68645317"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=S3sBmV9vxh1iQ8gMCnWSoV2MxsgRIMxnVlrWp8Tw4tZefCemqwJsVyDji9QAYvEmHSQAgN3dackY4FwHz4ONDbRtwaiE8m8Z9L8mLJY5T6qCik/tqOyyx/0W390DOeKMF4RjrW0jgWI3dqbyVAsAHiXqnWnHXCmYK8OJ2STW21N9ED75e5lgMJiMvfGXWG+gvmXWul+sg8zA4/oTFN4oGI0c8Tc/EsLCUJHBSPUIYwPzne8Qyo1dgOr18J5HCOY3Pfd3BM3c7Au9Hhyml8QJrI4/aFfAhingXd+dNmdJcEN6ADEV3T8yCrru2mQxm5VPZgbQfPF6zW0zaUKrEn0fhQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lnWFLCRmcqKxtQAxn4E6pLSOOXyBQJiiTqwqs5RlTYc=;
+ b=DuC21If1ts/jw96UOCvM4sR8C16DlouV8gPFm4MmnvmF2bKvzWahXr1DT/lRp9i1cNE0hhJMscsFwANM0lnk0PniqKoqOIqUbiLKispA0dPQ8Tn2tVkgUHb2C7idDLD9NuEd47v3COyZnjyHFHJTHbzjGSV/eMqFMw/BTEpgAWJd6wROnfsMiNRyW2+HVuEMjkzHypFnWbA1EgqUL8XwLNUwq0S/Ywp4W4L1yms5+yei9mQhs6XJNZQr8q2+jmSAe4zLsZgpUE/5ncm4sxjQu3UdqQgd7kHnDUzXJIEAMbleh88ETgCpDRr1FSsh8/5c8rNUFJQ5bTm/G/psJ4+lsw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lnWFLCRmcqKxtQAxn4E6pLSOOXyBQJiiTqwqs5RlTYc=;
+ b=BOI8mPQ3UcpHNpmrn6tvFMZ7Qbnlfr8yyxY8CkoDvSMYhv/x44ouD4E6fbi5TvnzPGnvGJ8GemR4d8cLcbBDKi88NvJeBUrlfDBajAuk+JZM3mDl9+RpmggZVnApVE5dBJDsRQjirz00xYPHDr9YF3RphepuhfC6zVDfngr0x/Y=
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: [PATCH v2] platform/cpufreq: add public defines for CPUFREQ_SHARED_TYPE_
+Date: Thu,  7 Apr 2022 10:18:28 +0200
+Message-ID: <20220407081828.38747-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.35.1
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0053.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:152::22) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.7.0
-Subject: Re: [PATCH 22/27] block: refactor discard bio size limiting
-Content-Language: en-US
-To: Christoph Hellwig <hch@lst.de>
-Cc: dm-devel@redhat.com, linux-xfs@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-um@lists.infradead.org,
- linux-block@vger.kernel.org, drbd-dev@lists.linbit.com,
- nbd@other.debian.org, ceph-devel@vger.kernel.org,
- virtualization@lists.linux-foundation.org, xen-devel@lists.xenproject.org,
- linux-bcache@vger.kernel.org, linux-raid@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-nvme@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
- linux-btrfs@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
- jfs-discussion@lists.sourceforge.net, linux-nilfs@vger.kernel.org,
- ntfs3@lists.linux.dev, ocfs2-devel@oss.oracle.com, linux-mm@kvack.org,
- Jens Axboe <axboe@kernel.dk>
-References: <20220406060516.409838-1-hch@lst.de>
- <20220406060516.409838-23-hch@lst.de>
-From: Coly Li <colyli@suse.de>
-In-Reply-To: <20220406060516.409838-23-hch@lst.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 66eed729-6337-4ed0-c6fa-08da186f384f
+X-MS-TrafficTypeDiagnostic: BN6PR03MB3235:EE_
+X-Microsoft-Antispam-PRVS: <BN6PR03MB3235B872436456E78FFF09888FE69@BN6PR03MB3235.namprd03.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Cc6cjepdoafVUuhOFe9MuilHAMC3tZJv+tYQ5za/z+h+irJRnqicBzUBT+bVfhztkFHl/z6TYhgmGJj6FDzYo6krUO7teH0jCN4lDeonJpNuHwlsvyfysR311xarVmwUfT7Pf6fOn7q/mawqz/KMXJC11X7rxhck6jBk8+ii3KPrt2ne7vhyLD3o0Oh6w/CEWthuueHA094rFbuEftFMYPSnH2snDrlXzVXNlClzMQFUuw6X6sgjXPyHIvEVXi1fsiHdteHS1xefXpu6VckvhDJUOUN/cNNGu65KwVLATsMiIL9pxgzU2keI8zdQ5pNHOpzzH5rFgfmUOK0zrTffA4paasuSwV/rGIvVAbrPhOPhAALUf3hjoSx9cJpsgc/iNpgdPHbvybeaXv5AKpoB381vuT8HyUY+Rg6O+F+E8l/1ESDizVJjYPqW+m29eUH5BGT3ubmRBHpGGda/xXb1Emlixd7nAWUNmi3e5kNDbD8a2NcgAuvOvSBo8fvZYPupiHE7RhWtPOrajsTGh/dejXv25s/Bb6rSxkNldDHWaQiK2MEEoMRYUVjzrxb1/LunHhmHSPxfOGQDeQaGxgz1yZvOtrQ7dpaXB9xS740db27WJF70WKZu7pG6A4s+F5EBoKK1RHC8o2Qq26hnSFF++g==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(6512007)(6916009)(54906003)(186003)(86362001)(26005)(83380400001)(2616005)(1076003)(316002)(6486002)(508600001)(6506007)(5660300002)(6666004)(4326008)(82960400001)(8936002)(2906002)(36756003)(8676002)(66556008)(66946007)(38100700002)(66476007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OUxNdlZPVWtjbDAwWUhydkhMVHlKeWNqTCtVajdQcWRkVk55NHorYXdYMXRn?=
+ =?utf-8?B?ME84cFk4YlhwdVlDZXVkbGxTZWRHU3VYajFMc2ZOM0lDT0JGMytjcER6bDc4?=
+ =?utf-8?B?Z3grb3BYRlhEaGVNRFMxRFFrVlg2dGFvS0M0aE1pZDl1N1pta2huYXVOWXBy?=
+ =?utf-8?B?aU56ajc3clJDcUltZTlTcXNERzNGaTYwaVZxVEdsajBGUmVnOWFLVlU3azNz?=
+ =?utf-8?B?cXgweXNhTkM1dm1rMHVaT25tcGpqc1dvWVFKN0E5cjhXcXloR2YyN29peEF5?=
+ =?utf-8?B?NHI3REtWaHJ1bW1WNy9GL1NQQlU1SEpqM0NkZWZlSlYxL0luQ0g1bW00MlhS?=
+ =?utf-8?B?N0hvUlVMdzN0d05iZzJDS1RhZm5IcngwTElvQm93OUxjK1ZrcTNSYmYzRVg3?=
+ =?utf-8?B?YjIwS210Z0lPbG5CNE8rN3ZtR0tIQXI4bjVDNHhyNkRkV2JKTURnSjlvTHph?=
+ =?utf-8?B?QTNVL1doL3REcG5wUVZJNlVjR3ZBMlM3b1pnblVvRXVqQ0p4Qks2QWpWbElY?=
+ =?utf-8?B?ZXljWjhFQkgyNGNvMUd5bUdaRTI2eTZmZDJnYVplMWo4aC9NNUFFZXJXN1ln?=
+ =?utf-8?B?cTNpbDU5TVAvaE1FdWhWU2dwQnBjblNoS0kzWEt3SnNtVmt2YXdMYU9Jd3RT?=
+ =?utf-8?B?K3JqV2d1U20yQlZBWEJYNjZoNjV5NlY3bkpuSXMzQ3lyZy8xeGFtbUIyejFI?=
+ =?utf-8?B?RFMvZWQ1RXkwM0ZjbTNDN21YR0xiTVNtUnhGZFNDY0Q4K0x4WXFZUnBuaExR?=
+ =?utf-8?B?QmRrNUFpZzhJU1pDQjhOUzJWeGZUSVl5R1BkNFovalBudVMyc2pORmVMZ0hY?=
+ =?utf-8?B?cHFIV1VJcmIrMUFucUlLTzNDRXh0RmVyckVjVEUrMlhpTVdCUFNaaUdYT2Vt?=
+ =?utf-8?B?ZitXeTVZMU9BTzRlL05OdGd3QzZnNWJIZC9MTy81UHhvNDRDZWhrYnpqekF3?=
+ =?utf-8?B?WUNFNjBZQlRSTUFVMURETm85SFFJN0x1Q0FLdml1Y1FjWnhZN29kWlZib2N6?=
+ =?utf-8?B?MXRxcm1jVUl6aFA4WWpLdm01aHVDU2JVb2ViL3lmS0MrOWlvUW9NbU16enJU?=
+ =?utf-8?B?amJZNDVVNGN0MFNUYmRnZGdhajRabzJhc3V3R2hOWVhTdHlreFE5WWV0V3du?=
+ =?utf-8?B?eVA3dVcvdWthK2toYVdvR2xBek1VVEJlYjEyNUpCRVZGM3EvZ01MQXhHSDBG?=
+ =?utf-8?B?Q09YdDF0dStlRkR6L2QraXEvbXliTVBEdXhLU0ZkaTllRnh1aEdnSFlpN3Z4?=
+ =?utf-8?B?S2cvdDVsT1ZNT0djOVlvVFBXQWRDc1gzSk01cGtCb1R1THFNS2RYc2x0bWtt?=
+ =?utf-8?B?a3d1RndSZXo1OHYwOVhQWUtFU0wrTVNZTWF3WFd0eTM2bDZKTkx4NE54RXEy?=
+ =?utf-8?B?dU5tOFNqQnNOOTVZZkY3WDVJTE40MzhrTitucE1pNXgzNHBCemxhbklEQWs5?=
+ =?utf-8?B?dnA2MTRKL3NWazhiVUZtdzN6ckVEeTlCN1JGOURpLzVQOFQ3M3JDTFdPR2NN?=
+ =?utf-8?B?N2RtWTQvZHVkQkFncE9JZG5WN0ZIUmd0UU5jMk1jeFBmdzd5NlVPUHEreTN0?=
+ =?utf-8?B?M1c3WDFqejhiQkgrSmpTeFNuMTIyREtJcks5M2RRYWZJbko2MXFlTHNwMEF2?=
+ =?utf-8?B?R0o3VFlROUN5U2ZkMmJWU2lFTDNvM2UxRXpZeEl6OWVjV3RqaUVveHhiYStr?=
+ =?utf-8?B?QkVyS01mcDZCSlBkeTJoeEoycEo1VlFPN0pCckI0dTgrKzY3V3JodjJwNG41?=
+ =?utf-8?B?YjJybXFCQjRzdEE4cWsrTlA0Z1FsQm9BYWtMUGxFYlJMaG9od2M1bUo1bW8x?=
+ =?utf-8?B?K1RBWUZFV3hXQjIvZDVSMzJOVko0UjlWNWRNU01ZeDBzeXQ1dThLVlhieldj?=
+ =?utf-8?B?WFZQMDRobFlJcGtxNlRSKzdwQUVoMDBpMk13ZTUzTGZQQ2JIMUlZb0EzbmpY?=
+ =?utf-8?B?TllOMjNrTDJsbmFGNlhMT3hGN3FQSUdQN1RXWkZqZGhSV0g5WjEwZWdpSnJG?=
+ =?utf-8?B?UWlRQ1dhK1BTUDZqc3JSRFJseUMwYUQvaW5HekRvZVF2TDhHR2tuMzVWZUVo?=
+ =?utf-8?B?Nm8wdkUrWFVmV3Q5NVBMbWgyYm1qbkRWL3RRRTJYZjZXUitTL1hTUXdjL2xo?=
+ =?utf-8?B?RExHMUxFa3FsbTNTRWxrSjZnY1lXb2tWV0F0SVdlOS8rbjhUZGY2TmdyMWl2?=
+ =?utf-8?B?UE95Yk11MVpZNi9OV1hmRGcyKzhWZVp2emtVT2hkeVhYVjRnRGhWK2NkRWFB?=
+ =?utf-8?B?UlF6SGFGK2FaeU11SStxay94amNURzRBemMxUVNHZGcwSWFMKzJKSjZSd2hz?=
+ =?utf-8?B?THNmOUhLWE1Obzc0L3ZvRE1xbXVPcGZTQWo0aDE5NjRvT2xxN1BUd25aaDVr?=
+ =?utf-8?Q?0kImyv53j2h1Mgaw=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66eed729-6337-4ed0-c6fa-08da186f384f
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2022 08:18:39.3410
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: S1slDTW3ka4/xtusxo0OB1QNN2hLbgLQJ0WFF2fxYhT2BINgmUSDi0c5RjpwTCsrGFQS5OoLtW6JDJVfwBHHPg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR03MB3235
+X-OriginatorOrg: citrix.com
 
-On 4/6/22 2:05 PM, Christoph Hellwig wrote:
-> Move all the logic to limit the discard bio size into a common helper
-> so that it is better documented.
->
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
+The values set in the shared_type field of xen_processor_performance
+have so far relied on Xen and Linux having the same
+CPUFREQ_SHARED_TYPE_ defines, as those have never been part of the
+public interface.
 
-Acked-by: Coly Li <colyli@suse.de>
+Formalize by adding the defines for the allowed values in the public
+header, while renaming them to use the XEN_CPUPERF_SHARED_TYPE_ prefix
+for clarity.
 
+Set the Xen internal defines for CPUFREQ_SHARED_TYPE_ using the newly
+introduced XEN_CPUPERF_SHARED_TYPE_ public defines in order to avoid
+unnecessary code churn.  While there also drop
+CPUFREQ_SHARED_TYPE_NONE as it's unused.
 
-Thanks for the change.
+Fixes: 2fa7bee0a0 ('Get ACPI Px from dom0 and choose Px controller')
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+Changes since v1:
+ - Keep CPUFREQ_SHARED_TYPE_ and define them on top of
+   XEN_CPUPERF_SHARED_TYPE_.
+ - Use CPUPERF instead of plain PERF.
+---
+ xen/include/acpi/cpufreq/cpufreq.h | 7 +++----
+ xen/include/public/platform.h      | 6 +++++-
+ 2 files changed, 8 insertions(+), 5 deletions(-)
 
-Coly Li
-
-
-> ---
->   block/blk-lib.c | 59 ++++++++++++++++++++++++-------------------------
->   block/blk.h     | 14 ------------
->   2 files changed, 29 insertions(+), 44 deletions(-)
->
-> diff --git a/block/blk-lib.c b/block/blk-lib.c
-> index 237d60d8b5857..2ae32a722851c 100644
-> --- a/block/blk-lib.c
-> +++ b/block/blk-lib.c
-> @@ -10,6 +10,32 @@
->   
->   #include "blk.h"
->   
-> +static sector_t bio_discard_limit(struct block_device *bdev, sector_t sector)
-> +{
-> +	unsigned int discard_granularity =
-> +		bdev_get_queue(bdev)->limits.discard_granularity;
-> +	sector_t granularity_aligned_sector;
-> +
-> +	if (bdev_is_partition(bdev))
-> +		sector += bdev->bd_start_sect;
-> +
-> +	granularity_aligned_sector =
-> +		round_up(sector, discard_granularity >> SECTOR_SHIFT);
-> +
-> +	/*
-> +	 * Make sure subsequent bios start aligned to the discard granularity if
-> +	 * it needs to be split.
-> +	 */
-> +	if (granularity_aligned_sector != sector)
-> +		return granularity_aligned_sector - sector;
-> +
-> +	/*
-> +	 * Align the bio size to the discard granularity to make splitting the bio
-> +	 * at discard granularity boundaries easier in the driver if needed.
-> +	 */
-> +	return round_down(UINT_MAX, discard_granularity) >> SECTOR_SHIFT;
-> +}
-> +
->   int __blkdev_issue_discard(struct block_device *bdev, sector_t sector,
->   		sector_t nr_sects, gfp_t gfp_mask, int flags,
->   		struct bio **biop)
-> @@ -17,7 +43,7 @@ int __blkdev_issue_discard(struct block_device *bdev, sector_t sector,
->   	struct request_queue *q = bdev_get_queue(bdev);
->   	struct bio *bio = *biop;
->   	unsigned int op;
-> -	sector_t bs_mask, part_offset = 0;
-> +	sector_t bs_mask;
->   
->   	if (bdev_read_only(bdev))
->   		return -EPERM;
-> @@ -48,36 +74,9 @@ int __blkdev_issue_discard(struct block_device *bdev, sector_t sector,
->   	if (!nr_sects)
->   		return -EINVAL;
->   
-> -	/* In case the discard request is in a partition */
-> -	if (bdev_is_partition(bdev))
-> -		part_offset = bdev->bd_start_sect;
-> -
->   	while (nr_sects) {
-> -		sector_t granularity_aligned_lba, req_sects;
-> -		sector_t sector_mapped = sector + part_offset;
-> -
-> -		granularity_aligned_lba = round_up(sector_mapped,
-> -				q->limits.discard_granularity >> SECTOR_SHIFT);
-> -
-> -		/*
-> -		 * Check whether the discard bio starts at a discard_granularity
-> -		 * aligned LBA,
-> -		 * - If no: set (granularity_aligned_lba - sector_mapped) to
-> -		 *   bi_size of the first split bio, then the second bio will
-> -		 *   start at a discard_granularity aligned LBA on the device.
-> -		 * - If yes: use bio_aligned_discard_max_sectors() as the max
-> -		 *   possible bi_size of the first split bio. Then when this bio
-> -		 *   is split in device drive, the split ones are very probably
-> -		 *   to be aligned to discard_granularity of the device's queue.
-> -		 */
-> -		if (granularity_aligned_lba == sector_mapped)
-> -			req_sects = min_t(sector_t, nr_sects,
-> -					  bio_aligned_discard_max_sectors(q));
-> -		else
-> -			req_sects = min_t(sector_t, nr_sects,
-> -					  granularity_aligned_lba - sector_mapped);
-> -
-> -		WARN_ON_ONCE((req_sects << 9) > UINT_MAX);
-> +		sector_t req_sects =
-> +			min(nr_sects, bio_discard_limit(bdev, sector));
->   
->   		bio = blk_next_bio(bio, bdev, 0, op, gfp_mask);
->   		bio->bi_iter.bi_sector = sector;
-> diff --git a/block/blk.h b/block/blk.h
-> index 8ccbc6e076369..1fdc1d28e6d60 100644
-> --- a/block/blk.h
-> +++ b/block/blk.h
-> @@ -346,20 +346,6 @@ static inline unsigned int bio_allowed_max_sectors(struct request_queue *q)
->   	return round_down(UINT_MAX, queue_logical_block_size(q)) >> 9;
->   }
->   
-> -/*
-> - * The max bio size which is aligned to q->limits.discard_granularity. This
-> - * is a hint to split large discard bio in generic block layer, then if device
-> - * driver needs to split the discard bio into smaller ones, their bi_size can
-> - * be very probably and easily aligned to discard_granularity of the device's
-> - * queue.
-> - */
-> -static inline unsigned int bio_aligned_discard_max_sectors(
-> -					struct request_queue *q)
-> -{
-> -	return round_down(UINT_MAX, q->limits.discard_granularity) >>
-> -			SECTOR_SHIFT;
-> -}
-> -
->   /*
->    * Internal io_context interface
->    */
-
+diff --git a/xen/include/acpi/cpufreq/cpufreq.h b/xen/include/acpi/cpufreq/cpufreq.h
+index e5e58c6c30..35dcf21e8f 100644
+--- a/xen/include/acpi/cpufreq/cpufreq.h
++++ b/xen/include/acpi/cpufreq/cpufreq.h
+@@ -78,10 +78,9 @@ DECLARE_PER_CPU(struct cpufreq_policy *, cpufreq_cpu_policy);
+ extern int __cpufreq_set_policy(struct cpufreq_policy *data,
+                                 struct cpufreq_policy *policy);
+ 
+-#define CPUFREQ_SHARED_TYPE_NONE (0) /* None */
+-#define CPUFREQ_SHARED_TYPE_HW   (1) /* HW does needed coordination */
+-#define CPUFREQ_SHARED_TYPE_ALL  (2) /* All dependent CPUs should set freq */
+-#define CPUFREQ_SHARED_TYPE_ANY  (3) /* Freq can be set from any dependent CPU*/
++#define CPUFREQ_SHARED_TYPE_HW   XEN_CPUPERF_SHARED_TYPE_HW
++#define CPUFREQ_SHARED_TYPE_ALL  XEN_CPUPERF_SHARED_TYPE_ALL
++#define CPUFREQ_SHARED_TYPE_ANY  XEN_CPUPERF_SHARED_TYPE_ANY
+ 
+ /******************** cpufreq transition notifiers *******************/
+ 
+diff --git a/xen/include/public/platform.h b/xen/include/public/platform.h
+index a4c0eb6224..8100133509 100644
+--- a/xen/include/public/platform.h
++++ b/xen/include/public/platform.h
+@@ -465,7 +465,11 @@ struct xen_processor_performance {
+     uint32_t state_count;     /* total available performance states */
+     XEN_GUEST_HANDLE(xen_processor_px_t) states;
+     struct xen_psd_package domain_info;
+-    uint32_t shared_type;     /* coordination type of this processor */
++    /* Coordination type of this processor */
++#define XEN_CPUPERF_SHARED_TYPE_HW   1 /* HW does needed coordination */
++#define XEN_CPUPERF_SHARED_TYPE_ALL  2 /* All dependent CPUs should set freq */
++#define XEN_CPUPERF_SHARED_TYPE_ANY  3 /* Freq can be set from any dependent CPU */
++    uint32_t shared_type;
+ };
+ typedef struct xen_processor_performance xen_processor_performance_t;
+ DEFINE_XEN_GUEST_HANDLE(xen_processor_performance_t);
+-- 
+2.35.1
 
 
