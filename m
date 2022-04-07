@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 804374F803F
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 15:14:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.300789.513151 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F45F4F8073
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 15:24:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.300797.513162 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncRwx-0004d2-Bv; Thu, 07 Apr 2022 13:13:23 +0000
+	id 1ncS75-0006P7-CZ; Thu, 07 Apr 2022 13:23:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 300789.513151; Thu, 07 Apr 2022 13:13:23 +0000
+Received: by outflank-mailman (output) from mailman id 300797.513162; Thu, 07 Apr 2022 13:23:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncRwx-0004b8-8d; Thu, 07 Apr 2022 13:13:23 +0000
-Received: by outflank-mailman (input) for mailman id 300789;
- Thu, 07 Apr 2022 13:13:21 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1ncS75-0006Mc-9R; Thu, 07 Apr 2022 13:23:51 +0000
+Received: by outflank-mailman (input) for mailman id 300797;
+ Thu, 07 Apr 2022 13:23:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ncRwv-0004ay-EM; Thu, 07 Apr 2022 13:13:21 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ncRwv-0008Dh-CQ; Thu, 07 Apr 2022 13:13:21 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ncRwv-0002AJ-2z; Thu, 07 Apr 2022 13:13:21 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ncRwv-00042Z-2U; Thu, 07 Apr 2022 13:13:21 +0000
+ (envelope-from <SRS0=Uyv1=UR=suse.com=mhocko@srs-se1.protection.inumbo.net>)
+ id 1ncS73-0006MU-OE
+ for xen-devel@lists.xenproject.org; Thu, 07 Apr 2022 13:23:49 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f08cc905-b675-11ec-8fbc-03012f2f19d4;
+ Thu, 07 Apr 2022 15:23:40 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out2.suse.de (Postfix) with ESMTP id 134C21F85A;
+ Thu,  7 Apr 2022 13:23:48 +0000 (UTC)
+Received: from suse.cz (unknown [10.100.201.86])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by relay2.suse.de (Postfix) with ESMTPS id D2BE9A3B9C;
+ Thu,  7 Apr 2022 13:23:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,147 +44,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=mf7bQiV8EIoh85/3XGgwZWRJ3d19EJF/gITIXUToy44=; b=sN35zADfFBe3OBp05wC4Q+Ld3D
-	N8No5a83+WdyheH0c5W8Pu3/h1xmdeuC2FjTPh+scvvlIloccpOLL01IihsTqE3WpxAllfX9soN3/
-	v57gKyiVWN3c6vb5s8NBpi+R5A2bn2vzdg67VV8JfMdU0JvvfcLiCcPpPUTBPRRZ48uM=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169209-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: f08cc905-b675-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1649337828; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6kx9n4k18EeAoUx1f5fom/mHD05wbK+BXq9P0qrUE0s=;
+	b=CBAIxuyfQWJKGRJKMV4AiNEBZCl0yC6CKa9+31uIG8KGlgrDvozgdg9H1WZA0Oo1Qzsgle
+	64ixAZFYMZlAuBacbmCFiMKqUs10OgYbsUUINBsozhl49g8dtsH3VltZo2pH0YoMF6NF4N
+	pxfOnpdtge2avIwq0hr1p2OkqbUYSgY=
+Date: Thu, 7 Apr 2022 15:23:44 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: David Hildenbrand <david@redhat.com>
+Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>, stable@vger.kernel.org,
+	Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
+	Mel Gorman <mgorman@suse.de>
+Subject: Re: [PATCH] mm, page_alloc: fix build_zonerefs_node()
+Message-ID: <Yk7l4CEpQFoPnYB/@dhcp22.suse.cz>
+References: <20220407093221.1090-1-jgross@suse.com>
+ <Yk6+QBacbb6oI8lW@dhcp22.suse.cz>
+ <f08c1493-9238-0009-56b4-dc0ab3571b33@suse.com>
+ <Yk7F2KzRrhLjYw4Z@dhcp22.suse.cz>
+ <5e97a7f5-1fc9-d0b4-006e-6894d5653c06@suse.com>
+ <Yk7NqTlw7lmFzpKb@dhcp22.suse.cz>
+ <770d8283-4315-3d83-4f8b-723308fffe5c@redhat.com>
+ <Yk7TMKBAkuSVZRLT@dhcp22.suse.cz>
+ <ca22625e-b72c-059a-9242-f10b291be4fe@redhat.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 169209: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=a298a84478053872ed9da660a75f182ce81b8ddc
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 07 Apr 2022 13:13:21 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ca22625e-b72c-059a-9242-f10b291be4fe@redhat.com>
 
-flight 169209 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169209/
+On Thu 07-04-22 14:12:38, David Hildenbrand wrote:
+> On 07.04.22 14:04, Michal Hocko wrote:
+> > On Thu 07-04-22 13:58:44, David Hildenbrand wrote:
+> > [...]
+> >>> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> >>> index 3589febc6d31..130a2feceddc 100644
+> >>> --- a/mm/page_alloc.c
+> >>> +++ b/mm/page_alloc.c
+> >>> @@ -6112,10 +6112,8 @@ static int build_zonerefs_node(pg_data_t *pgdat, struct zoneref *zonerefs)
+> >>>  	do {
+> >>>  		zone_type--;
+> >>>  		zone = pgdat->node_zones + zone_type;
+> >>> -		if (managed_zone(zone)) {
+> >>> -			zoneref_set_zone(zone, &zonerefs[nr_zones++]);
+> >>> -			check_highest_zone(zone_type);
+> >>> -		}
+> >>> +		zoneref_set_zone(zone, &zonerefs[nr_zones++]);
+> >>> +		check_highest_zone(zone_type);
+> >>>  	} while (zone_type);
+> >>>  
+> >>>  	return nr_zones;
+> >>
+> >> I don't think having !populated zones in the zonelist is a particularly
+> >> good idea. Populated vs !populated changes only during page
+> >> onlininge/offlining.
+> >>
+> >> If I'm not wrong, with your patch we'd even include ZONE_DEVICE here ...
+> > 
+> > What kind of problem that would cause? The allocator wouldn't see any
+> > pages at all so it would fallback to the next one. Maybe kswapd would
+> > need some tweak to have a bail out condition but as mentioned in the
+> > thread already. !populated or !managed for that matter are not all that
+> > much different from completely depleted zones. The fact that we are
+> > making that distinction has led to some bugs and I suspect it makes the
+> > code more complex without a very good reason.
+> 
+> I assume performance problems. Assume you have an ordinary system with
+> multiple NUMA nodes and no MOVABLE memory. Most nodes will only have
+> ZONE_NORMAL. Yet, you'd include ZONE_DMA* and ZONE_MOVABLE that will
+> always remain empty to be traversed on each and every allocation
+> fallback. Of course, we could measure, but IMHO at least *that* part of
+> memory onlining/offlining is not the complicated part :D
 
-Regressions :-(
+You've got a good point here. I guess there will be usecases that really
+benefit from every single CPU cycle spared in the allocator hot path
+which really depends on the zonelists traversing.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+I have very briefly had a look at our remaining usage of managed_zone()
+and there are not that many left. We have 2 in page_alloc.c via
+has_managed_dma(). I guess we could drop that one and use __GFP_NOWARN
+in dma_atomic_pool_init but this is nothing really earth shattering.
+The remaining occurances are in vmscan.c:
+	- should_continue_reclaim, pgdat_balanced - required because
+	  they iterate all zones withing the zoneindex and need to
+	  decide whether they are balanced or not. We can make empty
+	  zones special case and make them always balanced
+	- kswapd_shrink_node - required because we would be increasing
+	  reclaim target for empty zones
+	- update_reclaim_active - required because we do not want to
+	  alter zone state if it is not a subject of the reclaim which
+	  empty zones are not by definition.
+	- balance_pgdat - first check is likely a microoptimization,
+	  reclaim_idx is needed to have a populated zone there
+	- wakeup_kswapd - I dunno
+	- shrink_node, allow_direct_reclaim, lruvec_lru_size - microptimizations
+	- pgdat_watermark_boosted - microptimizations I suspect as empty
+	  zone shouldn't ever get watermark_boost
+	- pgdat_balanced - functionally dd
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 a298a84478053872ed9da660a75f182ce81b8ddc
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   38 days
-Failing since        168258  2022-03-01 01:55:31 Z   37 days  284 attempts
-Testing same since   169173  2022-04-05 05:13:00 Z    2 days    6 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 4610 lines long.)
+So we can get rid of quite some but we will still need some of them.
+-- 
+Michal Hocko
+SUSE Labs
 
