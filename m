@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C8514F828F
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 17:10:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.300880.513349 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 240B64F82E6
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 17:25:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.300890.513361 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncTmW-00049n-Is; Thu, 07 Apr 2022 15:10:44 +0000
+	id 1ncU0G-0005zG-Qa; Thu, 07 Apr 2022 15:24:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 300880.513349; Thu, 07 Apr 2022 15:10:44 +0000
+Received: by outflank-mailman (output) from mailman id 300890.513361; Thu, 07 Apr 2022 15:24:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncTmW-00046t-Fa; Thu, 07 Apr 2022 15:10:44 +0000
-Received: by outflank-mailman (input) for mailman id 300880;
- Thu, 07 Apr 2022 15:10:42 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1ncU0G-0005wf-Nd; Thu, 07 Apr 2022 15:24:56 +0000
+Received: by outflank-mailman (input) for mailman id 300890;
+ Thu, 07 Apr 2022 15:24:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ncTmU-00046h-Ps; Thu, 07 Apr 2022 15:10:42 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ncTmU-0001ra-Nb; Thu, 07 Apr 2022 15:10:42 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ncTmU-0000PS-6S; Thu, 07 Apr 2022 15:10:42 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ncTmU-0004Mw-5z; Thu, 07 Apr 2022 15:10:42 +0000
+ (envelope-from <SRS0=4yZA=UR=suse.cz=dsterba@srs-se1.protection.inumbo.net>)
+ id 1ncU0E-0005wZ-AH
+ for xen-devel@lists.xenproject.org; Thu, 07 Apr 2022 15:24:54 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id df5d01d5-b686-11ec-8fbc-03012f2f19d4;
+ Thu, 07 Apr 2022 17:24:53 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id D66A6212CA;
+ Thu,  7 Apr 2022 15:24:52 +0000 (UTC)
+Received: from ds.suse.cz (ds.suse.cz [10.100.12.205])
+ by relay2.suse.de (Postfix) with ESMTP id ADAE4A3B82;
+ Thu,  7 Apr 2022 15:24:52 +0000 (UTC)
+Received: by ds.suse.cz (Postfix, from userid 10065)
+ id 25B6BDA80E; Thu,  7 Apr 2022 17:20:50 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +44,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=mVN6vvjGT32rXdU7EsPXnn1U8+WbvdY+tCsjAaIGnrM=; b=P48PB2OP3BkK4IaifTn82vHZHj
-	t1A1wDCXwVHVRKYbUGNUAXd1Irh6IUS2Hlrn002EP+jK3YHKsInFvktO+12KbCdeoalhSILjR+tZS
-	5g+R038PK8shRIB8dC+WPnMN88K2lCWb73JScbszHO4CrfV0hX7OY0YP+i/EmyKVxbbI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169217-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: df5d01d5-b686-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1649345092;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RtA+SPF4j8BVXsqmszO7xH0OxCICEh+Est/knHN20Pw=;
+	b=JdwcskixEmG8Id6CFcHmK2HMPcVcB071Gxs55mSKq7gYvR2Ikd8MNoO/fLtEbVpgdj1eqK
+	9zmwivWn67QHHcgD9Kfm5GQ7CXBQeMe5lW9iJ9AGGV3Pl0ul2ocJyd3loaCvdRBmNQxip+
+	WgCnpcThcFxRJmTkxC30BSU3q0i1qd4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1649345092;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RtA+SPF4j8BVXsqmszO7xH0OxCICEh+Est/knHN20Pw=;
+	b=pkLC9VLc/9JNFZ5DsOV/UM/28hXligCH1VLYaRzzl6m3sxWEGPlvl1H8p8FVldpalCYBR6
+	DsLUEWMcp0v/ApCw==
+Date: Thu, 7 Apr 2022 17:20:49 +0200
+From: David Sterba <dsterba@suse.cz>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>, dm-devel@redhat.com,
+	linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-um@lists.infradead.org, linux-block@vger.kernel.org,
+	drbd-dev@lists.linbit.com, nbd@other.debian.org,
+	ceph-devel@vger.kernel.org,
+	virtualization@lists.linux-foundation.org,
+	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
+	linux-raid@vger.kernel.org, linux-mmc@vger.kernel.org,
+	linux-mtd@lists.infradead.org, linux-nvme@lists.infradead.org,
+	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org, linux-btrfs@vger.kernel.org,
+	linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+	cluster-devel@redhat.com, jfs-discussion@lists.sourceforge.net,
+	linux-nilfs@vger.kernel.org, ntfs3@lists.linux.dev,
+	ocfs2-devel@oss.oracle.com, linux-mm@kvack.org
+Subject: Re: [PATCH 07/27] btrfs: use bdev_max_active_zones instead of open
+ coding it
+Message-ID: <20220407152049.GH15609@twin.jikos.cz>
+Reply-To: dsterba@suse.cz
+Mail-Followup-To: dsterba@suse.cz, Christoph Hellwig <hch@lst.de>,
+	Jens Axboe <axboe@kernel.dk>, dm-devel@redhat.com,
+	linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-um@lists.infradead.org, linux-block@vger.kernel.org,
+	drbd-dev@lists.linbit.com, nbd@other.debian.org,
+	ceph-devel@vger.kernel.org,
+	virtualization@lists.linux-foundation.org,
+	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
+	linux-raid@vger.kernel.org, linux-mmc@vger.kernel.org,
+	linux-mtd@lists.infradead.org, linux-nvme@lists.infradead.org,
+	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org, linux-btrfs@vger.kernel.org,
+	linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+	cluster-devel@redhat.com, jfs-discussion@lists.sourceforge.net,
+	linux-nilfs@vger.kernel.org, ntfs3@lists.linux.dev,
+	ocfs2-devel@oss.oracle.com, linux-mm@kvack.org
+References: <20220406060516.409838-1-hch@lst.de>
+ <20220406060516.409838-8-hch@lst.de>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 169217: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=d4012d50082c2eae2f3cbe7770be13b9227fbc3f
-X-Osstest-Versions-That:
-    xen=609b8b0153e9bdb4e15be88a8911c6360e13e268
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 07 Apr 2022 15:10:42 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220406060516.409838-8-hch@lst.de>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
 
-flight 169217 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169217/
+On Wed, Apr 06, 2022 at 08:04:56AM +0200, Christoph Hellwig wrote:
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  d4012d50082c2eae2f3cbe7770be13b9227fbc3f
-baseline version:
- xen                  609b8b0153e9bdb4e15be88a8911c6360e13e268
-
-Last test of basis   169210  2022-04-07 07:00:31 Z    0 days
-Testing same since   169217  2022-04-07 12:01:51 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   609b8b0153..d4012d5008  d4012d50082c2eae2f3cbe7770be13b9227fbc3f -> smoke
+As it's a standalone patch I can take it (possibly with other similar
+prep btrfs patches) in current development cycle to relieve the
+inter-tree dependencies.
 
