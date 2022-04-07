@@ -2,32 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92BDE4F7AA2
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 10:59:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.300544.512699 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14ADE4F7AC2
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 11:00:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.300548.512711 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncNyi-0001ai-Tw; Thu, 07 Apr 2022 08:58:56 +0000
+	id 1ncO0Q-0002yF-8r; Thu, 07 Apr 2022 09:00:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 300544.512699; Thu, 07 Apr 2022 08:58:56 +0000
+Received: by outflank-mailman (output) from mailman id 300548.512711; Thu, 07 Apr 2022 09:00:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncNyi-0001YZ-Qj; Thu, 07 Apr 2022 08:58:56 +0000
-Received: by outflank-mailman (input) for mailman id 300544;
- Thu, 07 Apr 2022 08:58:55 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1ncO0Q-0002wE-5f; Thu, 07 Apr 2022 09:00:42 +0000
+Received: by outflank-mailman (input) for mailman id 300548;
+ Thu, 07 Apr 2022 09:00:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ncNyh-0001YT-N1
- for xen-devel@lists.xenproject.org; Thu, 07 Apr 2022 08:58:55 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ncNyg-0003TP-Dw; Thu, 07 Apr 2022 08:58:54 +0000
-Received: from [54.239.6.189] (helo=[192.168.11.175])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ncNyg-00082z-6p; Thu, 07 Apr 2022 08:58:54 +0000
+ (envelope-from <SRS0=1UeT=UR=redhat.com=david@srs-se1.protection.inumbo.net>)
+ id 1ncO0N-0002uc-VO
+ for xen-devel@lists.xenproject.org; Thu, 07 Apr 2022 09:00:39 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 31428097-b651-11ec-a405-831a346695d4;
+ Thu, 07 Apr 2022 11:00:38 +0200 (CEST)
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-399-LExrpKdLOEeDUeqSiasDjQ-1; Thu, 07 Apr 2022 05:00:36 -0400
+Received: by mail-wm1-f71.google.com with SMTP id
+ 189-20020a1c02c6000000b0038e6c4c6472so4298870wmc.1
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Apr 2022 02:00:36 -0700 (PDT)
+Received: from ?IPV6:2a09:80c0:192:0:20af:34be:985b:b6c8?
+ ([2a09:80c0:192:0:20af:34be:985b:b6c8])
+ by smtp.gmail.com with ESMTPSA id
+ u7-20020a05600c19c700b0038cc9aac1a3sm7933452wmq.23.2022.04.07.02.00.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 07 Apr 2022 02:00:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,106 +50,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=sP38xVjOooTtw2CuuAOwWKLsRja/GbMoQ43bwGgG10A=; b=bAH8+NcKjqnMPYH7G7lU1tbMt1
-	tn24Y4tO2eoRjkkT4PykUpWQxCwoxREmnAdMj2E7w7NNmKUZB0hT/T6nJ7tgD29upyP8JcOHYTOcz
-	KjK9TNs8B2NiN2ePHBw9QSEt843bQAoOCLx0VFUDED6/v+ifl6kMJTCF+PSfuD6iKGio=;
-Message-ID: <deffb58a-984a-1016-4ac8-c3badc946ea0@xen.org>
-Date: Thu, 7 Apr 2022 09:58:51 +0100
+X-Inumbo-ID: 31428097-b651-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1649322037;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0inCEjJJWw//2DoC93l0BxRCxkrP6GV4SWwsKG2zpLQ=;
+	b=aJxOc89Id1Wis/A/CoCs0zLw7VELjzmN2teAJK6WWAhLr6n7bnho+Y0w9T2rKrUXufBbP9
+	GNU81ZsqKgErQZHC+xC+DN5PJcussH5ZmHjY1rd8JHXIPUjUBAAgU1p76xGc015DhRfX45
+	0LrTsmj5F8cxn7sGsqm4lv/aU1MsYCY=
+X-MC-Unique: LExrpKdLOEeDUeqSiasDjQ-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:organization:in-reply-to
+         :content-transfer-encoding;
+        bh=0inCEjJJWw//2DoC93l0BxRCxkrP6GV4SWwsKG2zpLQ=;
+        b=09vRx/qEJo7TG2/gXQHIU20nOkxIvbPUIdZ5A7uIQR6sY1R/Tksxlvkz6BNLeMOtEj
+         qo5NfeJpIFNaKRprW1bVbf0mwqLfXyydz8B4GngQkmueWXSVv1YQb/bdXtuzYB4OFQ9/
+         yTNL+AkTyjw8d2lsc+qMkNbYK7flLf/ZvnZ0D8ndKFjl5RWKwxCdFyUKcR5uwiTJaRL3
+         YbEtmQe3Eqg/V/9zrwQbxnXBDIRgxgmdTdB/4UfoL5xaZWnxpHj/HPZnGQ3lNtX4jrzw
+         XZn+k5sOg0FhjRfswIQns9XgSXWym8E7jscIF10rv9LMEP1RLaiMTbOXkjFiJPZpVWzb
+         qstw==
+X-Gm-Message-State: AOAM531aBDncp1ZicsUYMSCarZ14hGK+snmmkbIsmslWk+52ujCwxkV2
+	aoAFsoZ3V69FFveFMBAXTFJrnVUnUQl+Z/7Nn0RvpNHnA/WklfW1K57J5O3JnQvlecBbqrvqXCW
+	wdSn6Cx0/xbYp9MVO8jKYjQbBK04=
+X-Received: by 2002:a05:600c:17c5:b0:38e:7853:e915 with SMTP id y5-20020a05600c17c500b0038e7853e915mr11065437wmo.123.1649322035313;
+        Thu, 07 Apr 2022 02:00:35 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwDXbmi0MYBbhyvRv3XQym+Vvb0hr0yJXFvC8twCFVw7fXFScumPU3//4ro5ZrKBn7rVoiing==
+X-Received: by 2002:a05:600c:17c5:b0:38e:7853:e915 with SMTP id y5-20020a05600c17c500b0038e7853e915mr11065408wmo.123.1649322035047;
+        Thu, 07 Apr 2022 02:00:35 -0700 (PDT)
+Message-ID: <f423e210-3e28-73f8-1082-869ef680b9b0@redhat.com>
+Date: Thu, 7 Apr 2022 11:00:33 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.7.0
-Subject: Re: [PATCH v5 4/6] xen/cpupool: Create different cpupools at boot
- time
-To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com, wei.chen@arm.com,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>,
- Dario Faggioli <dfaggioli@suse.com>
-References: <20220405085741.18336-1-luca.fancellu@arm.com>
- <20220405085741.18336-5-luca.fancellu@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20220405085741.18336-5-luca.fancellu@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.2
+Subject: Re: [PATCH] xen/balloon: fix page onlining when populating new zone
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, Wei Yang <richard.weiyang@gmail.com>,
+ Michal Hocko <mhocko@kernel.org>
+References: <20220406133229.15979-1-jgross@suse.com>
+ <89ad978d-e95e-d3ea-5c8f-acf4b28f992c@redhat.com>
+ <4f1908b5-5674-a772-3cd9-78e4dc40f776@suse.com>
+From: David Hildenbrand <david@redhat.com>
+Organization: Red Hat
+In-Reply-To: <4f1908b5-5674-a772-3cd9-78e4dc40f776@suse.com>
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=david@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi Luca,
-
-On 05/04/2022 09:57, Luca Fancellu wrote:
-> Introduce a way to create different cpupools at boot time, this is
-> particularly useful on ARM big.LITTLE system where there might be the
-> need to have different cpupools for each type of core, but also
-> systems using NUMA can have different cpu pools for each node.
+On 07.04.22 10:50, Juergen Gross wrote:
+> On 07.04.22 10:23, David Hildenbrand wrote:
+>> On 06.04.22 15:32, Juergen Gross wrote:
+>>> When onlining a new memory page in a guest the Xen balloon driver is
+>>> adding it to the ballooned pages instead making it available to be
+>>> used immediately. This is meant to enable to add a new upper memory
+>>> limit to a guest via hotplugging memory, without having to assign the
+>>> new memory in one go.
+>>>
+>>> In case the upper memory limit will be raised above 4G, the new memory
+>>> will populate the ZONE_NORMAL memory zone, which wasn't populated
+>>> before. The newly populated zone won't be added to the list of zones
+>>> looked at by the page allocator though, as only zones with available
+>>> memory are being added, and the memory isn't yet available as it is
+>>> ballooned out.
+>>
+>> I think we just recently discussed these corner cases on the -mm list.
 > 
-> The feature on arm relies on a specification of the cpupools from the
-> device tree to build pools and assign cpus to them.
+> Indeed.
+> 
+>> The issue is having effectively populated zones without manages pages
+>> because everything is inflated in a balloon.
+> 
+> Correct.
+> 
+>> That can theoretically also happen when managing to fully inflate the
+>> balloon in one zone and then, somehow, the zones get rebuilt.
+> 
+> I think you are right. I didn't think of that scenario.
+> 
+>> build_zonerefs_node() documents "Add all populated zones of a node to
+>> the zonelist" but checks for managed zones, which is wrong.
+>>
+>> See https://lkml.kernel.org/r/20220201070044.zbm3obsoimhz3xd3@master
+> 
+> I found commit 6aa303defb7454 which introduced this test. I thought
+> it was needed due to the problem this commit tried to solve. Maybe I
+> was wrong and that commit shouldn't have changed the condition when
+> building the zonelist, but just the ones in the allocation paths.
 
-How will this work for ACPI? Note that I am not suggesting to add suport 
-right now. However, we probably want to clarify that this is not yet 
-supported.
+In regard to kswapd, that is currently being worked on via
 
-[...]
-
-> diff --git a/docs/misc/arm/device-tree/cpupools.txt b/docs/misc/arm/device-tree/cpupools.txt
-> new file mode 100644
-> index 000000000000..5dac2b1384e0
-> --- /dev/null
-> +++ b/docs/misc/arm/device-tree/cpupools.txt
-> @@ -0,0 +1,136 @@
-> +Boot time cpupools
-> +==================
-> +
-> +When BOOT_TIME_CPUPOOLS is enabled in the Xen configuration, it is possible to
-> +create cpupools during boot phase by specifying them in the device tree.
-
-How about ACPI?
-
-> +
-> +Cpupools specification nodes shall be direct childs of /chosen node.
-> +Each cpupool node contains the following properties:
-> +
-> +- compatible (mandatory)
-> +
-> +    Must always include the compatiblity string: "xen,cpupool".
-> +
-> +- cpupool-cpus (mandatory)
-> +
-> +    Must be a list of device tree phandle to nodes describing cpus (e.g. having
-> +    device_type = "cpu"), it can't be empty.
-> +
-> +- cpupool-sched (optional)
-> +
-> +    Must be a string having the name of a Xen scheduler. Check the sched=<...>
-> +    boot argument for allowed values.
-
-I would clarify what would be the scheduler if cpupool-sched is not 
-specified.
-
-Also, I would give a pointer to xen-command-line.pandoc so it is easier 
-to know where 'sched' is described.
-
-[...]
-
-> +void __init btcpupools_dtb_parse(void)
-> +{
-> +    const struct dt_device_node *chosen, *node;
-> +
-> +    chosen = dt_find_node_by_path("/chosen");
-> +    if ( !chosen )
-> +        return;
-Aside when using ACPI, the chosen node should always be there. So I 
-think we should throw/print an error if chosen is not present.
-
-Also, I would check that we haven't booted using ACPI rather than 
-relying on dt_find_node_by_path("/chosen") to return NULL.
-
-Cheers,
+https://lkml.kernel.org/r/20220329010901.1654-2-richard.weiyang@gmail.com
 
 -- 
-Julien Grall
+Thanks,
+
+David / dhildenb
+
 
