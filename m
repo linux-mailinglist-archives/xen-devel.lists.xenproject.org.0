@@ -2,29 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 927684F7824
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 09:51:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.300474.512567 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2F0D4F78CA
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 10:04:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.300487.512578 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncMvg-0003pB-FI; Thu, 07 Apr 2022 07:51:44 +0000
+	id 1ncN6t-00066a-Qa; Thu, 07 Apr 2022 08:03:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 300474.512567; Thu, 07 Apr 2022 07:51:44 +0000
+Received: by outflank-mailman (output) from mailman id 300487.512578; Thu, 07 Apr 2022 08:03:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncMvg-0003mh-CF; Thu, 07 Apr 2022 07:51:44 +0000
-Received: by outflank-mailman (input) for mailman id 300474;
- Thu, 07 Apr 2022 07:51:43 +0000
+	id 1ncN6t-00063t-NT; Thu, 07 Apr 2022 08:03:19 +0000
+Received: by outflank-mailman (input) for mailman id 300487;
+ Thu, 07 Apr 2022 08:03:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qv4n=UR=citrix.com=prvs=089d11f18=roger.pau@srs-se1.protection.inumbo.net>)
- id 1ncMvf-0003mZ-4R
- for xen-devel@lists.xenproject.org; Thu, 07 Apr 2022 07:51:43 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8e9558aa-b647-11ec-8fbc-03012f2f19d4;
- Thu, 07 Apr 2022 09:51:41 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=hdtG=UR=suse.de=colyli@srs-se1.protection.inumbo.net>)
+ id 1ncN6s-00063n-D2
+ for xen-devel@lists.xenproject.org; Thu, 07 Apr 2022 08:03:18 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2e7c4807-b649-11ec-8fbc-03012f2f19d4;
+ Thu, 07 Apr 2022 10:03:17 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BA7481F859;
+ Thu,  7 Apr 2022 08:03:16 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4CF8613485;
+ Thu,  7 Apr 2022 08:03:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id F2mtCL+aTmKlAgAAMHmgww
+ (envelope-from <colyli@suse.de>); Thu, 07 Apr 2022 08:03:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,166 +51,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8e9558aa-b647-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1649317901;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=iuzz5TjosdkX7axvdCs2xyp2M77EnJ+zWOTnFVIIdZ0=;
-  b=aEArxyl0X6/7k3VMAPjtmMW/H71YHH6dZfQOhpLB5wQJJQ0EJSfghVun
-   urZPHOO3MzUzEKetkSbwJjCbhWHYSXXd5ChWkgzUpwvLrnhtqvGZwPwD/
-   PmsVwcA5NPMuGCmU5dJLAmmmavRFkSTNOe7qRRd6mK4eTW58sm1Pkt5mm
-   E=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-X-SBRS: 5.1
-X-MesageID: 67655932
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:m9fQM66EjgUDZieBmhoUzAxRtBTHchMFZxGqfqrLsTDasY5as4F+v
- jdMWG/TPPuKMDCheookaY2xpE4Bv8OBzdA3SAU+pHxmHi5G8cbLO4+Ufxz6V8+wwmwvb67FA
- +E2MISowBUcFyeEzvuVGuG96yE6j8lkf5KkYAL+EnkZqTRMFWFw0XqPp8Zj2tQy2YThXFvU0
- T/Pi5a31GGNimYc3l08s8pvmDs31BglkGpF1rCWTakjUG72zxH5PrpGTU2CByKQrr1vNvy7X
- 47+IISRpQs1yfuP5uSNyd4XemVSKlLb0JPnZnB+A8BOiTAazsA+PzpS2FPxpi67hh3Q9+2dx
- umhurTrFQd3GLLNt905eCMIMAdBIoBU2brYdC3XXcy7lyUqclPpyvRqSko3IZcZ6qB8BmQmG
- f4wcW5XKErZ3qTvnez9GrIEascLdaEHOKsFvX5t13fBBOsOSpHfWaTao9Rf2V/cg+gQQqiDO
- ptCM1KDajzyeQBpYVw0BKgCker3n2bcfT5C81ea8P9fD2/7k1UqjemF3MDuUt+HW8RT2FqZr
- 2Tu/mLlDxVcP9uaoRKd+2+orv/Cm2X8Qo16PL+y++NugVaT7ncOExBQXly+ydGph0j7V99BJ
- kg8/is1sbN05EGtVsP6XRCzvDiDpBF0ZjZLO7RkskfXkPOSulvHQDhfJtJcVDA4nJRqRWIMy
- V6mpvfCP2xMloKKZGC886jB+FteJhMpBWMFYCYFSy4M7N/ivJw/g3rzczpzLEKmpoarQG+tm
- lhmuAB73uxO1pBTi81X6Hid21qRSo71ohnZD+k9dkas9UtHaYGsfOREAnCLvK8bfO51orRs1
- UXoevRyDshTVflhdwTXGY3h+Y1FAd7fbVUwZnY1QvEcG8yFoSLLQGypyGgWyL1VGsgFYyT1R
- 0TYpBlc4pReVFPzM/MmOdLsVpR1kvG5fTgAahwyRoATCnSWXFXZlByCmGbKhzy9+KTSuf9X1
- WinnTaEUi9BVPUPIMueTOYBy747rh3SNkuILa0XOy+PiOLEDFbMEO9tGALXMogRsfPVyC2Io
- o03H5bblH1ivBjWP3C/HXg7dgtRcxDWxPne9qRqSwJ0ClY+QzF+VqWJmNvMueVNxsxoqwsBx
- VnkMmdww1vjn3zXbwKMb3FocrT0Wphj63k8OEQR0ZyAghDPva7HAH8jSqYK
-IronPort-HdrOrdr: A9a23:yM4SgqPl7ds3OsBcT1j155DYdb4zR+YMi2TDiHofdfUFSKClfp
- 6V8cjztSWUtN4QMEtQ/uxoHJPwO080kqQFnLX5XI3SJzUO3VHHEGgM1/qB/9SNIVyaygcZ79
- YdT0EcMqyAMbEZt7eC3ODQKb9Jq7PmgcOVbKXlvg9QpGlRGt9dBmxCe2Cm+yNNNW177c1TLu
- vi2iMLnUvqRZxRBf7Lc0UtbqzmnZnmhZjmaRkJC1oO7xSPtyqh7PrfHwKD1hkTfjtTyfN6mF
- K13jDR1+GGibWW2xXc32jc49B/n8bg8MJKAIiphtIOIjvhpw60bMBKWqGEvhoyvOazgWxa2u
- XkklMFBYBe+nnRdma6rV/E3BTh6i8n7zvYxVqRkRLY0LrEbQN/L/AEqZNScxPf5UZllsp7yr
- h302WQsIcSJQ/cnQzmjuK4GS1Cpw6Rmz4PgOQTh3tQXc81c7lKt7ES+0tTDdMpAD/60oY6C+
- NjZfusq8q+SWnqL0wxg1Mfg+BFBh8Ib1W7qwk5y4CoOgFt7TFEJxBy/r1bop8CnKhNPKWsqd
- 60dpiAr4s+PfP+XZgNdNvpfvHHeFAlYSi8eV56cm6XXJ3uBRr22urKCfMOlaaXRKA=
-X-IronPort-AV: E=Sophos;i="5.90,241,1643691600"; 
-   d="scan'208";a="67655932"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g65vN52xpCMMJKvKPHEoVC58q8HiPYH3IrH6dAm/pCjN0XYkQ+2pc4fbRRgsg3GqNZBHm0uW11UmfsX1iYszwcDCX+LFl45q8jK+sOLwwTPp/8TwG1qTFgxlmf+lCJOS5qdpjJbBKB9VCV+4a7YuWvjX4ABYKcbV7Z4Fqr7QacuVGwED0phZQH94QikYL2zsrXlYx55ET8VpzSRDO62Hq02vQlnQf0ffi+yLCSS/92oyCUfXmVahlCctzxve3dziohuJx/84PPxZVZOxzst+KLVSdEjLN1MvScMH/ekS05jKnBS8jT36cGqOmYkAg7D9ohbCtp/+Cjdo3VsyUdJOKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v2Kpg8y5RPcHqkiCNsY2dXAlF1DobT7TsFHypAPVAbM=;
- b=h+WWsf1RpIoro6nGPgT7A568UJ8gLZQn6uE/jc7iwRKYAwaZ+S65wO51zy6ECI9OX9idzWLbIEpsbW6V0OdB8UzKPVd79j8nRXDJuEDWGa3aISvcSMxSl9VzXawEwdEmXYsMXwzbKv4tJX5RewWA6zITjRFKMzmfkjv929BzWuJrX2a3y/RVdlUgnrrsoxtpZ8ryyZz3s2BQOkuTJQY8ISwwQLdYA6u0R0nhgP3tPb1huSItCvHrhN49rLa2WwBaL4zPqAsFa9V8JKqYxYWrTCBphuAr5GELzxytNQh+k/AYT66JkpK4cnu3TWxuviubBVRwNZLIp8j2CaRS1PcRCA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v2Kpg8y5RPcHqkiCNsY2dXAlF1DobT7TsFHypAPVAbM=;
- b=Zmspf28J79sWXcGD6CWSUk96mf14dnf7vH9wTNoNRSqYYaGSGX0/kCJviHmtMqqajWd6w0jXfgpbDPLfAfI/faq76N1qPTewmsscbkXVCXza07V0DhTk2HVXRJ1/nKKmA+x0oHKKcWMv/0EFFfJJV3gpyhWrpu2pmwuFDhV9sIU=
-Date: Thu, 7 Apr 2022 09:51:30 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Kevin
- Tian <kevin.tian@intel.com>, Andrew Cooper <andrew.cooper3@citrix.com>, Paul
- Durrant <paul@xen.org>
-Subject: Re: [PATCH v2 2/2] VT-d: avoid infinite recursion on
- domain_context_mapping_one() error path
-Message-ID: <Yk6YAoxuOZ4Ejosm@Air-de-Roger>
-References: <6e1c7faf-d1ea-1a61-5452-9dec5b8fd221@suse.com>
- <fcc51df9-0896-247b-d4ad-0de4db6c2a9c@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <fcc51df9-0896-247b-d4ad-0de4db6c2a9c@suse.com>
-X-ClientProxiedBy: LO4P123CA0411.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:189::20) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+X-Inumbo-ID: 2e7c4807-b649-11ec-8fbc-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1649318596; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7k0z5t+RkWgzil40AtKwhJmpL0iBjAFtHXia6nIwjc8=;
+	b=BFj1weRWNO0gJwf1a0jytpVaNV2SIOQyml/DNHaVaAYv+GWtC9RRp3Nkr1QhUY/V7QdLG9
+	baoJsXmF2FufEolsvsTPwbwZ3Or5/MyPwA8jPnqPoYDtXH5U9TjRT7F8cNWLR3Nqx6fvJv
+	Ws2fOIHqbo98FqfWwnQjig+YJFloGxM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1649318596;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7k0z5t+RkWgzil40AtKwhJmpL0iBjAFtHXia6nIwjc8=;
+	b=DjSOFiN41nmAx2XAVq/tnPaDKbkIhCw6FaIeWu9KyiZMi8ecy7DPyjacZPoBAIl6E7Jspy
+	2pyi9oy0n8T7WCDA==
+Message-ID: <9f91936a-7dd7-2ee6-3293-f199ada85210@suse.de>
+Date: Thu, 7 Apr 2022 16:03:09 +0800
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ae49b020-6fc9-4e89-4404-08da186b7016
-X-MS-TrafficTypeDiagnostic: MWHPR03MB2864:EE_
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
-X-Microsoft-Antispam-PRVS: <MWHPR03MB28640FB9FE502890E48131558FE69@MWHPR03MB2864.namprd03.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HbLae0XiqwPkTNf3455rIdOPLi/v0rT9ZjWxAf8mz9YEKRt1mFyMI0UR6iG+XNQeDdtGF7jC3/194BbddUtaHSniaQGCRALzeYDw+e+lZUvZgWw/74QDufqcOKkgirDoTfk/JyK2Wtt5WQY5B4KocrGcJkMpij0D2Q5f4XIy39xJIms0yRv10uzNnU1670q8swVgiTZxm0/nnukKR+lUwriqVxwaCjQsYeFrfLm5yKJkx2z44SIIEeqH0KmxyN3gQyStVLprQZFgVVuXTVw0XgnxfjsWv04XoFkNbodkmD3MZH5oOrbqPDmxXU2IMwAm6UE8Fk37ggWe0GEnpls6dnM7EVUokv/q2xbsjhTEWi26QPBp4eEIfxhln8mpUP3d+BUh8vhxB05h1xY3WjK2Hb9p2/Mq2WXfPvtcXKr2VY8uv45Ks0N+r+2dMGF2hG0m53RY7ZLHz7mA0DAZupVEpVexffz1DM+iZpvwbaI1sdNH4wJyUjxoI5tflKfdQ50QBO0yaxULF6+9DxfdLWwJ5C3HFRmn2Ajupi/y8HKNxa0gYHipTIarbJjNg9X2PjXzRrnon2MENgRe5wjbGnIAMYx9FSMGo3mHpNj30GDDSEbeOK8Uf0RCQ2qeuTHn2a3X37HzImRxstJnhgpuD2BtwQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(508600001)(26005)(6512007)(9686003)(6506007)(6666004)(186003)(2906002)(83380400001)(4744005)(8936002)(33716001)(5660300002)(6916009)(54906003)(316002)(8676002)(66946007)(4326008)(66476007)(66556008)(6486002)(86362001)(82960400001)(85182001)(38100700002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dmxHZjM3cjVwZTNHalRpNGRaa1BEZW1LR3pMbCtMcW5VeVNneXRDemlnUjhp?=
- =?utf-8?B?a1N3ZFUxZGlMNWVyVE54QllVNkJ2TU56UnY5d2ZQZ1pyamczUTNTMEkvT1oy?=
- =?utf-8?B?WHBRdHpUR2RTUlMyb1kwa3MwTUlXV3V5OENqeTNpNTVnaDNwcDMyeU4yYXpm?=
- =?utf-8?B?cTF6eXl4OHBMalF3cGhaNzFCb0kydktGdWN3L2VCTlhNMVpzT2ZNVTJHcXdL?=
- =?utf-8?B?VUlWNzVLTXpTTml2cFZVcWtLQ1U0RWhxU1hSMHhQTWtUOHpMWFJTLy9PKytW?=
- =?utf-8?B?VlZmQ29XN0w3YnBzQnEwZEF3bTZEOTBETVo3M2VicFVCRWdrQVEzRklkT2Ny?=
- =?utf-8?B?YkQ2TEp6Nm03V0c3aGJ3U1pzd2JzbWNIc3Jtc1NSdHN4SENDaldRNGY1bFhW?=
- =?utf-8?B?b25uclNHSVRUT1JoT2wvT09xMTM2YllTM3dvVk81elBMUEtRakpWTE9zU09T?=
- =?utf-8?B?SVh1T2UyQnBWNlprcHFjQWRRai9yN0NNVEFoU1d5NGpSdmwyNStvWlhDUy9P?=
- =?utf-8?B?MEw4TG1YcUhJdENRTjl6TFNJZEMvS3hKb3RveEttZHdRclJROFlzeGduSENm?=
- =?utf-8?B?bGlReEQ3WVVHWjlLZ1NmMnFtdjRlZ1ZjMjNRQzBzQjJITWgzckM5TEZpeDA3?=
- =?utf-8?B?NDdPOWJlR2E2eFl6dnhaWGZqZXp1VStINmRIUnE4a1RETXhteWtGVnJmSFZl?=
- =?utf-8?B?U3Zva2FTb2tIaEN0RjZHUWRRclprTEtlRmw2SDBqTkl1TTljYTQ4RFNpbXdW?=
- =?utf-8?B?QmphZ3FUaVJvK1dnWUxPZlh5N1FPQXArY2lHK2RvV2NNRTBoWEM4WUdSb3Z4?=
- =?utf-8?B?VlVvQmdFbGMzUXZRb3Z1QVYwNEpzT1ZvQUxidCt1NE1ndXdMdHd0REtWK0hT?=
- =?utf-8?B?RUgzeGxacUtqYTlHdHhGQW5pc0dTZHE3NWsyK0Fzbm52cUJvbS9iUkRFNU0w?=
- =?utf-8?B?UmVDYVNvZEVvNE9GT2dqRXZPc2lSWDRHN0JoR2oyR0dERmJDS2sycmZjdnhS?=
- =?utf-8?B?OEloa2FzZ3VYUGpZUHpDbUpCL2FNaW9NT1NIQUJqNTV5UFphd1ZYMWtUUHlM?=
- =?utf-8?B?MGNKZ1YvbE9LdmdjYlg2TnhobWZrTHQ3UUZkMWZOVkJmSHM3dU51cnIxRzhs?=
- =?utf-8?B?N3RLODFzVDNjTCtSRkpNalk1L3NaUGk0bjNNK1gxKzB5aXRhWi93YWZUUHBz?=
- =?utf-8?B?bkJzL2JlNy9aaWhuT2I4S0M2VDB4YkVXaHJxRGdHTjJETGt4RmxCY1VtWE9l?=
- =?utf-8?B?RUo2U2tDakFPZUtid2QvSmxFSk03alN3SkpPaWFKeXR5Vld5WHRXdVB1K29V?=
- =?utf-8?B?RnNlOFY1SDF4MkpZeVBWaGxHUmpuL2FzSFV5WHpvaXhuSXF0VHVwdC9McVVD?=
- =?utf-8?B?M0VvUUUyRVZvTzhCZGl5dWl0aTBVOUZmZVRiM3JkVjZhc28wTVNYWVRXd1JQ?=
- =?utf-8?B?ckVvQTJmaE5ObGtDTWorN3hpYmt5RngwVGRRSmNVN2JEN1ZaR2NnZ3VpU1dl?=
- =?utf-8?B?RmMyTnNhRVlkeEprbkMrY3h2QTJhME5DdStVR01SR3ZsWUd5VWRxbVdCYXVr?=
- =?utf-8?B?NUJYSzZTcWFQRm5hOVlGd3BMbWFweGI3Uk9lWllTZzNxVERNRlQzUVEweXJx?=
- =?utf-8?B?Sk5Gd2N0dzU4YjUyYysvTElRRjFxeWh4WC9HTUhvWFVkVE9Ma3d2MjYzRUV4?=
- =?utf-8?B?bkJJN2xpZHdHTlpFYkxVdW5PeURodFU2aktzQ2xvNE95WGxOUWFWclAvbG4y?=
- =?utf-8?B?dVJqdXloaklTSlVUOGZYM3A4MmQzRUdKQzAzK0J5YktGZi9tdFlEa3A5THpV?=
- =?utf-8?B?dTVwYmxybGZWNkRDOCtGcmtiMllTUXdtSFU5T055bzBOMUhOeFN6Rjdrc3Vs?=
- =?utf-8?B?djZRY1QxZjdGSDFwaENINmNaVkZhUGhMNHh3V0t1dko5TFlMVkw2blA4aUI3?=
- =?utf-8?B?OUhxS3ZsMjdrUy83MURIK2ViYUgwRUp5Uk5EZW8wUlc2Mkl5YlU4b1UweW5H?=
- =?utf-8?B?T0UxL1NJekFWRFBRclRaaGN3ZlRaWVRNMHJYRTVsMklQOWJ0NC9oTndOV0Rr?=
- =?utf-8?B?UkdYT3lNYzFsQU1QQU1Iby94UnVrbjVMbm44WTI4d1BBQzNwcVFVeXNCelNO?=
- =?utf-8?B?RWRLeXNrQnRvcHNpTzgvaGFPTGdyTEVPanZURXhqV3pRdjFlT1hBdFUrelVE?=
- =?utf-8?B?dFdjVGJGWUgwbDNIQzlYNWU2TXBjLzB2WnFLYTJSRlM2WFhMUmJJdHpRY0Y2?=
- =?utf-8?B?VWNzc3Bqd0Y3NkxMWWZNeWt3S1l6dHpITW9CTUNuTkRNSzZxQTR5V3c4THMw?=
- =?utf-8?B?Z09KT2craFM0QUJyM3k1MGdMZlBVWTJUdDFTelZPbStBU2U5dUZzTFFjTVo3?=
- =?utf-8?Q?+M+64BcK96ATw0jc=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae49b020-6fc9-4e89-4404-08da186b7016
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2022 07:51:34.8358
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zVL4ql0lp/P3ier1EXPebeJIzFrLM6z7UIljQa3hD1egYJFHgR6DGKj1B9UnwP9dLlODm4D0zWwCVXWl6gD6Sw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR03MB2864
-X-OriginatorOrg: citrix.com
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.7.0
+Subject: Re: [PATCH 22/27] block: refactor discard bio size limiting
+Content-Language: en-US
+To: Christoph Hellwig <hch@lst.de>
+Cc: dm-devel@redhat.com, linux-xfs@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-um@lists.infradead.org,
+ linux-block@vger.kernel.org, drbd-dev@lists.linbit.com,
+ nbd@other.debian.org, ceph-devel@vger.kernel.org,
+ virtualization@lists.linux-foundation.org, xen-devel@lists.xenproject.org,
+ linux-bcache@vger.kernel.org, linux-raid@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-nvme@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
+ linux-btrfs@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
+ jfs-discussion@lists.sourceforge.net, linux-nilfs@vger.kernel.org,
+ ntfs3@lists.linux.dev, ocfs2-devel@oss.oracle.com, linux-mm@kvack.org,
+ Jens Axboe <axboe@kernel.dk>
+References: <20220406060516.409838-1-hch@lst.de>
+ <20220406060516.409838-23-hch@lst.de>
+From: Coly Li <colyli@suse.de>
+In-Reply-To: <20220406060516.409838-23-hch@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Apr 07, 2022 at 08:11:45AM +0200, Jan Beulich wrote:
-> Despite the comment there infinite recursion was still possible, by
-> flip-flopping between two domains. This is because prev_dom is derived
-> from the DID found in the context entry, which was already updated by
-> the time error recovery is invoked. Simply introduce yet another mode
-> flag to prevent rolling back an in-progress roll-back of a prior
-> mapping attempt.
-> 
-> Also drop the existing recursion prevention for having been dead anyway:
-> Earlier in the function we already bail when prev_dom == domain.
+On 4/6/22 2:05 PM, Christoph Hellwig wrote:
+> Move all the logic to limit the discard bio size into a common helper
+> so that it is better documented.
+>
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
-I wonder whether it would be cleaner to stash the previous context
-entry if present and try to (re)set that one instead of recurring into
-ourselves.
+Acked-by: Coly Li <colyli@suse.de>
 
-> Fixes: 8f41e481b485 ("VT-d: re-assign devices directly")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Thanks for the change.
 
-Thanks, Roger.
+Coly Li
+
+
+> ---
+>   block/blk-lib.c | 59 ++++++++++++++++++++++++-------------------------
+>   block/blk.h     | 14 ------------
+>   2 files changed, 29 insertions(+), 44 deletions(-)
+>
+> diff --git a/block/blk-lib.c b/block/blk-lib.c
+> index 237d60d8b5857..2ae32a722851c 100644
+> --- a/block/blk-lib.c
+> +++ b/block/blk-lib.c
+> @@ -10,6 +10,32 @@
+>   
+>   #include "blk.h"
+>   
+> +static sector_t bio_discard_limit(struct block_device *bdev, sector_t sector)
+> +{
+> +	unsigned int discard_granularity =
+> +		bdev_get_queue(bdev)->limits.discard_granularity;
+> +	sector_t granularity_aligned_sector;
+> +
+> +	if (bdev_is_partition(bdev))
+> +		sector += bdev->bd_start_sect;
+> +
+> +	granularity_aligned_sector =
+> +		round_up(sector, discard_granularity >> SECTOR_SHIFT);
+> +
+> +	/*
+> +	 * Make sure subsequent bios start aligned to the discard granularity if
+> +	 * it needs to be split.
+> +	 */
+> +	if (granularity_aligned_sector != sector)
+> +		return granularity_aligned_sector - sector;
+> +
+> +	/*
+> +	 * Align the bio size to the discard granularity to make splitting the bio
+> +	 * at discard granularity boundaries easier in the driver if needed.
+> +	 */
+> +	return round_down(UINT_MAX, discard_granularity) >> SECTOR_SHIFT;
+> +}
+> +
+>   int __blkdev_issue_discard(struct block_device *bdev, sector_t sector,
+>   		sector_t nr_sects, gfp_t gfp_mask, int flags,
+>   		struct bio **biop)
+> @@ -17,7 +43,7 @@ int __blkdev_issue_discard(struct block_device *bdev, sector_t sector,
+>   	struct request_queue *q = bdev_get_queue(bdev);
+>   	struct bio *bio = *biop;
+>   	unsigned int op;
+> -	sector_t bs_mask, part_offset = 0;
+> +	sector_t bs_mask;
+>   
+>   	if (bdev_read_only(bdev))
+>   		return -EPERM;
+> @@ -48,36 +74,9 @@ int __blkdev_issue_discard(struct block_device *bdev, sector_t sector,
+>   	if (!nr_sects)
+>   		return -EINVAL;
+>   
+> -	/* In case the discard request is in a partition */
+> -	if (bdev_is_partition(bdev))
+> -		part_offset = bdev->bd_start_sect;
+> -
+>   	while (nr_sects) {
+> -		sector_t granularity_aligned_lba, req_sects;
+> -		sector_t sector_mapped = sector + part_offset;
+> -
+> -		granularity_aligned_lba = round_up(sector_mapped,
+> -				q->limits.discard_granularity >> SECTOR_SHIFT);
+> -
+> -		/*
+> -		 * Check whether the discard bio starts at a discard_granularity
+> -		 * aligned LBA,
+> -		 * - If no: set (granularity_aligned_lba - sector_mapped) to
+> -		 *   bi_size of the first split bio, then the second bio will
+> -		 *   start at a discard_granularity aligned LBA on the device.
+> -		 * - If yes: use bio_aligned_discard_max_sectors() as the max
+> -		 *   possible bi_size of the first split bio. Then when this bio
+> -		 *   is split in device drive, the split ones are very probably
+> -		 *   to be aligned to discard_granularity of the device's queue.
+> -		 */
+> -		if (granularity_aligned_lba == sector_mapped)
+> -			req_sects = min_t(sector_t, nr_sects,
+> -					  bio_aligned_discard_max_sectors(q));
+> -		else
+> -			req_sects = min_t(sector_t, nr_sects,
+> -					  granularity_aligned_lba - sector_mapped);
+> -
+> -		WARN_ON_ONCE((req_sects << 9) > UINT_MAX);
+> +		sector_t req_sects =
+> +			min(nr_sects, bio_discard_limit(bdev, sector));
+>   
+>   		bio = blk_next_bio(bio, bdev, 0, op, gfp_mask);
+>   		bio->bi_iter.bi_sector = sector;
+> diff --git a/block/blk.h b/block/blk.h
+> index 8ccbc6e076369..1fdc1d28e6d60 100644
+> --- a/block/blk.h
+> +++ b/block/blk.h
+> @@ -346,20 +346,6 @@ static inline unsigned int bio_allowed_max_sectors(struct request_queue *q)
+>   	return round_down(UINT_MAX, queue_logical_block_size(q)) >> 9;
+>   }
+>   
+> -/*
+> - * The max bio size which is aligned to q->limits.discard_granularity. This
+> - * is a hint to split large discard bio in generic block layer, then if device
+> - * driver needs to split the discard bio into smaller ones, their bi_size can
+> - * be very probably and easily aligned to discard_granularity of the device's
+> - * queue.
+> - */
+> -static inline unsigned int bio_aligned_discard_max_sectors(
+> -					struct request_queue *q)
+> -{
+> -	return round_down(UINT_MAX, q->limits.discard_granularity) >>
+> -			SECTOR_SHIFT;
+> -}
+> -
+>   /*
+>    * Internal io_context interface
+>    */
+
+
 
