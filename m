@@ -2,43 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7417E4F7F69
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 14:46:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.300771.513107 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A7204F7F77
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Apr 2022 14:50:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.300775.513119 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncRWe-0007BC-8S; Thu, 07 Apr 2022 12:46:12 +0000
+	id 1ncRaF-000840-QD; Thu, 07 Apr 2022 12:49:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 300771.513107; Thu, 07 Apr 2022 12:46:12 +0000
+Received: by outflank-mailman (output) from mailman id 300775.513119; Thu, 07 Apr 2022 12:49:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncRWe-00078Z-5R; Thu, 07 Apr 2022 12:46:12 +0000
-Received: by outflank-mailman (input) for mailman id 300771;
- Thu, 07 Apr 2022 12:46:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ncRaF-000817-Lq; Thu, 07 Apr 2022 12:49:55 +0000
+Received: by outflank-mailman (input) for mailman id 300775;
+ Thu, 07 Apr 2022 12:49:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1UeT=UR=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1ncRWc-00078A-K0
- for xen-devel@lists.xenproject.org; Thu, 07 Apr 2022 12:46:10 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a9d70e42-b670-11ec-8fbc-03012f2f19d4;
- Thu, 07 Apr 2022 14:45:55 +0200 (CEST)
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-401-zNnOiP86NXigtgSe3wxxxA-1; Thu, 07 Apr 2022 08:46:00 -0400
-Received: by mail-wm1-f71.google.com with SMTP id
- r19-20020a7bc093000000b0038e706da7c0so2934358wmh.1
- for <xen-devel@lists.xenproject.org>; Thu, 07 Apr 2022 05:46:00 -0700 (PDT)
-Received: from ?IPV6:2a09:80c0:192:0:20af:34be:985b:b6c8?
- ([2a09:80c0:192:0:20af:34be:985b:b6c8])
- by smtp.gmail.com with ESMTPSA id
- p5-20020adff205000000b0020614a499fbsm13364584wro.90.2022.04.07.05.45.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Apr 2022 05:45:58 -0700 (PDT)
+ (envelope-from <SRS0=Mzit=UR=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1ncRaD-00080z-A3
+ for xen-devel@lists.xenproject.org; Thu, 07 Apr 2022 12:49:53 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 373cd6dc-b671-11ec-a405-831a346695d4;
+ Thu, 07 Apr 2022 14:49:51 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5F51F210DF;
+ Thu,  7 Apr 2022 12:49:51 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1C4EB13485;
+ Thu,  7 Apr 2022 12:49:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 1q52Be/dTmJPHgAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 07 Apr 2022 12:49:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,119 +51,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a9d70e42-b670-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1649335562;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+X-Inumbo-ID: 373cd6dc-b671-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1649335791; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=9/Us2cruhioCbl6RqJqudnxQAOhVEhkUDGtI39MXnNI=;
-	b=F3khc/wRidAUIZRG6NgLnks5rzpZim9W81gt+QCnTAJfk5j1Joa/IQHi3RgMmRwPutOdDh
-	HMeGrL6ZHj9L58h5BoOmlQ+qKfejMk8XN2l2RgWuMc+eZxg3nu9vzn8ME1dqeYQ5YvXXgo
-	opnrhPU0Lu5PEW1Qf+BM1dj8T4Knu/I=
-X-MC-Unique: zNnOiP86NXigtgSe3wxxxA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:organization:in-reply-to
-         :content-transfer-encoding;
-        bh=9/Us2cruhioCbl6RqJqudnxQAOhVEhkUDGtI39MXnNI=;
-        b=RSIZVe6Wf7zVD2dxoLefs7MxOk55RclA3+Sp1RYHusO3cXTJe4WZoJ17B1mGSu82G3
-         O+pFvbdydvk2ngjXDPSFIO0Q2giPFDbTO6+AkC3qw1Qn52tIYJuJt0hpHht9n4rTZGfH
-         BdaKW36YRg4HxWrJIrxGYFQekcpgW4z+mXmAS0Z0tDwOpmwUug/bv5vZY/7UxkJZSVhz
-         qE7xROKrrTA6iQTzCYhVzV/CAijI9vNx03Kkxox4E+vRGnBlTseGwCAEYdEd/L+Pl5pH
-         7Fhw96NQQ4loyB0tWxJU+2j28uizuqLO1UMeHH9iT94iHGW8CCGNRtl39jafYdM2t3Th
-         93Uw==
-X-Gm-Message-State: AOAM531GGTEV+DFy6PpOYn4hOuLkF3ydBklKLfmwDGxqM4GvZoLo9UW1
-	YzUXaWDLQVCqZy9uFD92R6SGyY5l7Ts9j1cb8qRjja50HoaWGCEmHqB2bfp7QpVA28nKoBPQZA2
-	nl0LVwNsjspGeoU76a8/As1x+R08=
-X-Received: by 2002:adf:f6c4:0:b0:206:1581:dabc with SMTP id y4-20020adff6c4000000b002061581dabcmr10825213wrp.375.1649335559572;
-        Thu, 07 Apr 2022 05:45:59 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyM1kHX4+XtYoFq61dk62qQKc+KfdCBkhZ/B4Cy+Xlwxk5a3SuVrXH/rmpX3u/AmPLQfe4l7w==
-X-Received: by 2002:adf:f6c4:0:b0:206:1581:dabc with SMTP id y4-20020adff6c4000000b002061581dabcmr10825196wrp.375.1649335559301;
-        Thu, 07 Apr 2022 05:45:59 -0700 (PDT)
-Message-ID: <42046fe0-d4da-625d-6412-b5459b80ee11@redhat.com>
-Date: Thu, 7 Apr 2022 14:45:57 +0200
+	bh=JRuyghqBSswsUg1+uaNCd7gZNZ3+HLGOdgUt2B+8tHk=;
+	b=Cu0pSc2YSWAmZ64wj3ik7Q11oXy0oNKXvhbg38csHSX12KU+ew66rQtr817EaJXS8EifYR
+	vxOMQzZSP+JcsP3MWAHIKwV7w/pTmfqwtNuykoH5Is+4fp9BkZJuboBwx2oZbrJC0KKize
+	HyaQDI4VCkHEE2HMbV6oYTKzCNXYSbk=
+Message-ID: <67bde881-434e-8aca-ac68-21aff4bdb231@suse.com>
+Date: Thu, 7 Apr 2022 14:49:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Subject: Re: [PATCH v2] mm, page_alloc: fix build_zonerefs_node()
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>, stable@vger.kernel.org,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, Michal Hocko <mhocko@suse.com>
-References: <20220407120637.9035-1-jgross@suse.com>
-From: David Hildenbrand <david@redhat.com>
-Organization: Red Hat
-In-Reply-To: <20220407120637.9035-1-jgross@suse.com>
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=david@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+ Thunderbird/91.7.0
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+To: Mel Gorman <mgorman@techsingularity.net>
+Cc: Michal Hocko <mhocko@suse.com>, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, stable@vger.kernel.org,
+ Marek Marczykowski-G?recki <marmarek@invisiblethingslab.com>,
+ Mel Gorman <mgorman@suse.de>
+References: <20220407093221.1090-1-jgross@suse.com>
+ <Yk6+QBacbb6oI8lW@dhcp22.suse.cz>
+ <f08c1493-9238-0009-56b4-dc0ab3571b33@suse.com>
+ <Yk7F2KzRrhLjYw4Z@dhcp22.suse.cz>
+ <5e97a7f5-1fc9-d0b4-006e-6894d5653c06@suse.com>
+ <20220407115414.GA4148@techsingularity.net>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH] mm, page_alloc: fix build_zonerefs_node()
+In-Reply-To: <20220407115414.GA4148@techsingularity.net>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------CRFwnQwTs316DYKyrzvZhvNI"
 
-On 07.04.22 14:06, Juergen Gross wrote:
-> Since commit 6aa303defb74 ("mm, vmscan: only allocate and reclaim from
-> zones with pages managed by the buddy allocator") only zones with free
-> memory are included in a built zonelist. This is problematic when e.g.
-> all memory of a zone has been ballooned out when zonelists are being
-> rebuilt.
-> 
-> The decision whether to rebuild the zonelists when onlining new memory
-> is done based on populated_zone() returning 0 for the zone the memory
-> will be added to. The new zone is added to the zonelists only, if it
-> has free memory pages (managed_zone() returns a non-zero value) after
-> the memory has been onlined. This implies, that onlining memory will
-> always free the added pages to the allocator immediately, but this is
-> not true in all cases: when e.g. running as a Xen guest the onlined
-> new memory will be added only to the ballooned memory list, it will be
-> freed only when the guest is being ballooned up afterwards.
-> 
-> Another problem with using managed_zone() for the decision whether a
-> zone is being added to the zonelists is, that a zone with all memory
-> used will in fact be removed from all zonelists in case the zonelists
-> happen to be rebuilt.
-> 
-> Use populated_zone() when building a zonelist as it has been done
-> before that commit.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 6aa303defb74 ("mm, vmscan: only allocate and reclaim from zones with pages managed by the buddy allocator")
-> Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> Acked-by: Michal Hocko <mhocko@suse.com>
-> ---
-> V2:
-> - updated commit message (Michal Hocko)
-> ---
->  mm/page_alloc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> index bdc8f60ae462..3d0662af3289 100644
-> --- a/mm/page_alloc.c
-> +++ b/mm/page_alloc.c
-> @@ -6128,7 +6128,7 @@ static int build_zonerefs_node(pg_data_t *pgdat, struct zoneref *zonerefs)
->  	do {
->  		zone_type--;
->  		zone = pgdat->node_zones + zone_type;
-> -		if (managed_zone(zone)) {
-> +		if (populated_zone(zone)) {
->  			zoneref_set_zone(zone, &zonerefs[nr_zones++]);
->  			check_highest_zone(zone_type);
->  		}
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------CRFwnQwTs316DYKyrzvZhvNI
+Content-Type: multipart/mixed; boundary="------------0a3DHUPxD30uAbBuyhfGEwS6";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Mel Gorman <mgorman@techsingularity.net>
+Cc: Michal Hocko <mhocko@suse.com>, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, stable@vger.kernel.org,
+ Marek Marczykowski-G?recki <marmarek@invisiblethingslab.com>,
+ Mel Gorman <mgorman@suse.de>
+Message-ID: <67bde881-434e-8aca-ac68-21aff4bdb231@suse.com>
+Subject: Re: [PATCH] mm, page_alloc: fix build_zonerefs_node()
+References: <20220407093221.1090-1-jgross@suse.com>
+ <Yk6+QBacbb6oI8lW@dhcp22.suse.cz>
+ <f08c1493-9238-0009-56b4-dc0ab3571b33@suse.com>
+ <Yk7F2KzRrhLjYw4Z@dhcp22.suse.cz>
+ <5e97a7f5-1fc9-d0b4-006e-6894d5653c06@suse.com>
+ <20220407115414.GA4148@techsingularity.net>
+In-Reply-To: <20220407115414.GA4148@techsingularity.net>
 
-Did you drop my Ack?
+--------------0a3DHUPxD30uAbBuyhfGEwS6
+Content-Type: multipart/mixed; boundary="------------YPysLWDWql3vQilGpQWrCUm5"
 
-Also, I'd appreciate getting CCed on patches where I commented.
+--------------YPysLWDWql3vQilGpQWrCUm5
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
--- 
-Thanks,
+T24gMDcuMDQuMjIgMTQ6MzIsIE1lbCBHb3JtYW4gd3JvdGU6DQo+IE9uIFRodSwgQXByIDA3
+LCAyMDIyIGF0IDAxOjE3OjE5UE0gKzAyMDAsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+PiBP
+biAwNy4wNC4yMiAxMzowNywgTWljaGFsIEhvY2tvIHdyb3RlOg0KPj4+IE9uIFRodSAwNy0w
+NC0yMiAxMjo0NTo0MSwgSnVlcmdlbiBHcm9zcyB3cm90ZToNCj4+Pj4gT24gMDcuMDQuMjIg
+MTI6MzQsIE1pY2hhbCBIb2NrbyB3cm90ZToNCj4+Pj4+IENjaW5nIE1lbA0KPj4+Pj4NCj4+
+Pj4+IE9uIFRodSAwNy0wNC0yMiAxMTozMjoyMSwgSnVlcmdlbiBHcm9zcyB3cm90ZToNCj4+
+Pj4+PiBTaW5jZSBjb21taXQgOWQzYmUyMWJmOWMwICgibW0sIHBhZ2VfYWxsb2M6IHNpbXBs
+aWZ5IHpvbmVsaXN0DQo+Pj4+Pj4gaW5pdGlhbGl6YXRpb24iKSBvbmx5IHpvbmVzIHdpdGgg
+ZnJlZSBtZW1vcnkgYXJlIGluY2x1ZGVkIGluIGEgYnVpbHQNCj4+Pj4+PiB6b25lbGlzdC4g
+VGhpcyBpcyBwcm9ibGVtYXRpYyB3aGVuIGUuZy4gYWxsIG1lbW9yeSBvZiBhIHpvbmUgaGFz
+IGJlZW4NCj4+Pj4+PiBiYWxsb29uZWQgb3V0Lg0KPj4+Pj4NCj4+Pj4+IFdoYXQgaXMgdGhl
+IGFjdHVhbCBwcm9ibGVtIHRoZXJlPw0KPj4+Pg0KPj4+PiBXaGVuIHJ1bm5pbmcgYXMgWGVu
+IGd1ZXN0IG5ldyBob3RwbHVnZ2VkIG1lbW9yeSB3aWxsIG5vdCBiZSBvbmxpbmVkDQo+Pj4+
+IGF1dG9tYXRpY2FsbHksIGJ1dCBvbmx5IG9uIHNwZWNpYWwgcmVxdWVzdC4gVGhpcyBpcyBk
+b25lIGluIG9yZGVyIHRvDQo+Pj4+IHN1cHBvcnQgYWRkaW5nIGUuZy4gdGhlIHBvc3NpYmls
+aXR5IHRvIHVzZSBhbm90aGVyIEdCIG9mIG1lbW9yeSwgd2hpbGUNCj4+Pj4gYWRkaW5nIG9u
+bHkgYSBwYXJ0IG9mIHRoYXQgbWVtb3J5IGluaXRpYWxseS4NCj4+Pj4NCj4+Pj4gSW4gY2Fz
+ZSBhZGRpbmcgdGhhdCBtZW1vcnkgaXMgcG9wdWxhdGluZyBhIG5ldyB6b25lLCB0aGUgcGFn
+ZSBhbGxvY2F0b3INCj4+Pj4gd29uJ3QgYmUgYWJsZSB0byB1c2UgdGhpcyBtZW1vcnkgd2hl
+biBpdCBpcyBvbmxpbmVkLCBhcyB0aGUgem9uZSB3YXNuJ3QNCj4+Pj4gYWRkZWQgdG8gdGhl
+IHpvbmVsaXN0LCBkdWUgdG8gbWFuYWdlZF96b25lKCkgcmV0dXJuaW5nIDAuDQo+Pj4NCj4+
+PiBIb3cgaXMgdGhhdCBtZW1vcnkgb25saW5lZD8gQmVjYXVzZSAicmVndWxhciIgb25saW5p
+bmcgKG9ubGluZV9wYWdlcygpKQ0KPj4+IGRvZXMgcmVidWlsZCB6b25lbGlzdHMgaWYgdGhl
+aXIgem9uZSBoYXNuJ3QgYmVlbiBwb3B1bGF0ZWQgYmVmb3JlLg0KPj4NCj4+IFRoZSBYZW4g
+YmFsbG9vbiBkcml2ZXIgaGFzIGFuIG93biBjYWxsYmFjayBmb3Igb25saW5pbmcgcGFnZXMu
+IFRoZSBwYWdlcw0KPj4gYXJlIGp1c3QgYWRkZWQgdG8gdGhlIGJhbGxvb25lZC1vdXQgcGFn
+ZSBsaXN0IHdpdGhvdXQgaGFuZGluZyB0aGVtIHRvIHRoZQ0KPj4gYWxsb2NhdG9yLiBUaGlz
+IGlzIGRvbmUgb25seSB3aGVuIHRoZSBndWVzdCBpcyBiYWxsb29uZWQgdXAuDQo+Pg0KPiAN
+Cj4gSXMgdGhpcyBuZXcgYmVoYXZpb3VyPyBJIGFzayBiZWNhdXNlIGtlZXBpbmcgIW1hbmFn
+ZWRfem9uZXMgb3V0IG9mIHRoZQ0KDQpGb3Igc29tZSB0aW1lIChzaW5jZSBrZXJuZWwgNS45
+KSBYZW4gaXMgdXNpbmcgdGhlIHpvbmUgZGV2aWNlIGZ1bmN0aW9uYWxpdHkNCndpdGggbWVt
+cmVtYXBfcGFnZXMoKSBhbmQgcGdtYXAtPnR5cGUgPSBNRU1PUllfREVWSUNFX0dFTkVSSUMu
+DQoNCj4gem9uZWxpc3QgYW5kIHJlY2xhaW0gcGF0aHMgYW5kIHRoZSBiZWhhdmlvdXIgbWFr
+ZXMgc2Vuc2UuIEVsc2V3aGVyZSB5b3UNCj4gc3RhdGUgInpvbmUgY2FuIGFsd2F5cyBoYXBw
+ZW4gdG8gaGF2ZSBubyBmcmVlIG1lbW9yeSBsZWZ0IiBhbmQgdGhpcyBpcyB0cnVlDQo+IGJ1
+dCBpdCdzIHVzdWFsbHkgYSB0cmFuc2llbnQgZXZlbnQuIFRoZSBkaWZmZXJlbmNlIGJldHdl
+ZW4gYSBwb3B1bGF0ZWQNCg0KQW5kIGlmIHRoaXMgInRyYW5zaWVudCBldmVudCIgaXMganVz
+dCBoYXBwZW5pbmcgd2hlbiB0aGUgem9uZWxpc3RzIGFyZQ0KYmVpbmcgcmVidWlsdCB0aGUg
+em9uZSB3aWxsIGJlIG9mZiB0aGUgbGlzdHMgbWF5YmUgZm9yZXZlci4NCg0KPiB2cyBtYW5h
+Z2VkIHpvbmUgaXMgdXN1YWxseSBwZXJtYW5lbnQgZXZlbnQgd2hlcmUgbm8gbWVtb3J5IHdp
+bGwgZXZlciBiZQ0KPiBwbGFjZWQgb24gdGhlIGJ1ZGR5IGxpc3RzIGJlY2F1c2UgdGhlIG1l
+bW9yeSB3YXMgcmVzZXJ2ZWQgZWFybHkgaW4gYm9vdA0KPiBvciBhIHNpbWlsYXIgcmVhc29u
+LiBUaGUgcGF0Y2ggaXMgcHJvYmFibHkgaGFybWxlc3MgYnV0IGl0IGhhcyB0aGUNCj4gcG90
+ZW50aWFsIHRvIHdhc3RlIENQVXMgYWxsb2NhdGluZyBvciByZWNsYWltaW5nIGZyb20gem9u
+ZXMgdGhhdCB3aWxsDQo+IG5ldmVyIHN1Y2NlZWQuDQoNCkknZCByZWNvbW1lbmQgdG8gaGF2
+ZSBhbiBleHBsaWNpdCBmbGFnIHBlci16b25lIGZvciB0aGlzIGNhc2UgaWYgeW91DQpyZWFs
+bHkgY2FyZSBhYm91dCB0aGF0LiBUaGlzIHdvdWxkIGJlIG11Y2ggY2xlYW5lciB0aGFuIHRv
+IGltcGx5IGZyb20NCm5vIGZyZWUgcGFnZSBiZWluZyBwcmVzZW50IGF0IGEgc3BlY2lmaWMg
+cG9pbnQgaW4gdGltZSwgdGhhdCB0aGUgem9uZQ0Kd2lsbCBuZXZlciBiZSBzdWJqZWN0IHRv
+IG1lbW9yeSBhbGxvY2F0aW9uLg0KDQoNCkp1ZXJnZW4NCg==
+--------------YPysLWDWql3vQilGpQWrCUm5
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-David / dhildenb
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------YPysLWDWql3vQilGpQWrCUm5--
+
+--------------0a3DHUPxD30uAbBuyhfGEwS6--
+
+--------------CRFwnQwTs316DYKyrzvZhvNI
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmJO3e4FAwAAAAAACgkQsN6d1ii/Ey+X
+YAgAnYflQLETlejV5vQWm61d5tudx9M3lEU2RyVGrXKexR0dJyeREbRoCJXE76wlZ7xeV/RbiVmj
+NppAkYsI+3Dve9D0emCXYdxKwnnTjrpRXIDdA8o8IyFwkqxAWSvA1NrQFlyJ/fMmJ6Db4NP2j+hC
+VYFAWEZBaIXf8rufT75PWibg3wGhAHYuJQl/VuUaTlpazXf0RkjZkE+jD2FNtIlCogZUOxqefQGK
+cIBBtM8DpQs0FKqPez4uNMC82EX1KfoOUyLR02B7UiYogPsj/2vg7M30JdxLFc0EsmLqolYqDrWb
+wyJN7POWb6zJeiEKO7LJK6qjnRz/8TRYipLj9fp1tA==
+=2FSz
+-----END PGP SIGNATURE-----
+
+--------------CRFwnQwTs316DYKyrzvZhvNI--
 
