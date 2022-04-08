@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E3604F9DB5
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Apr 2022 21:36:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.301762.515039 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83BA24F9DB8
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Apr 2022 21:44:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.301769.515057 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncuO1-0005sk-1E; Fri, 08 Apr 2022 19:35:13 +0000
+	id 1ncuWm-0007hn-0O; Fri, 08 Apr 2022 19:44:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 301762.515039; Fri, 08 Apr 2022 19:35:12 +0000
+Received: by outflank-mailman (output) from mailman id 301769.515057; Fri, 08 Apr 2022 19:44:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncuO0-0005qB-Te; Fri, 08 Apr 2022 19:35:12 +0000
-Received: by outflank-mailman (input) for mailman id 301762;
- Fri, 08 Apr 2022 19:35:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=K+qN=US=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1ncuNz-0005q2-CC
- for xen-devel@lists.xenproject.org; Fri, 08 Apr 2022 19:35:11 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ffc1beb8-b772-11ec-8fbc-03012f2f19d4;
- Fri, 08 Apr 2022 21:35:08 +0200 (CEST)
-Received: by mail-lf1-x12d.google.com with SMTP id bq30so3971042lfb.3
- for <xen-devel@lists.xenproject.org>; Fri, 08 Apr 2022 12:35:08 -0700 (PDT)
+	id 1ncuWl-0007et-TQ; Fri, 08 Apr 2022 19:44:15 +0000
+Received: by outflank-mailman (input) for mailman id 301769;
+ Fri, 08 Apr 2022 19:44:15 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ncuWl-0007ed-11; Fri, 08 Apr 2022 19:44:15 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ncuWk-0001aD-Uj; Fri, 08 Apr 2022 19:44:15 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ncuWk-0000Wr-IH; Fri, 08 Apr 2022 19:44:14 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ncuWk-0004Cc-FJ; Fri, 08 Apr 2022 19:44:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,151 +42,307 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ffc1beb8-b772-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=e+Zs/fygwfY5AW0hm60Mi1+uIO7asaNlIHJq4/TS9t8=;
-        b=iunr/26cun0ZMag9yzLRwb4PSZN+zZIaF1uGgDyiE83Sgr5YPsA+2IiT9kqWhOkU/+
-         hkWxQKmCpTCq7rDPjFPczAnlSFqaNenSrKwJpVCLq3Ig9akH+y4C8HQAlftV3pUhdnJk
-         6jfZhYTqoaWZvp10ovqqpvP5/Kugs1K2FiwCuU2t2FaZ2FzIFHYKqcRhXAHCQN1CeMpW
-         /JEG/rFYReJcG42cx8EyEzcxKeX1npBWDFRtqG6yYs42//otZlJ3Ghnf6jfPQF4O3FOH
-         U+aoUlkhR5EhKgJqjZ5W2HINxwFd6+e5CXdmMkqzuWztlBDpFsI2WVgzKSNUy346B1cO
-         iYKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=e+Zs/fygwfY5AW0hm60Mi1+uIO7asaNlIHJq4/TS9t8=;
-        b=YMJ087xmmIwWAqXT6ZDbh700r4X7KLSH0BSU2cH77wOKpwK5mGx1F4hKtk8A6kYnCo
-         GC30fzlctKbuxzcaNRwTHG31El3Z1yo0JuTuiM0uFZeKE8o/94LoKJznXkYrjA7/elve
-         aIuYhvR6394LihQgM6izflNH8J54BR8bTaRJayJNZHOtrPYWtZ861+V66nldLk9FU4HL
-         uaRaJzIhEx+A2lSmL9ifNBohSj7EDiuHUFRArBf5wQ9J/NpRjbDceO5Ex5g7XDHDgFPf
-         rGOHOh8XZpLxYpBFSb+yrI/sPhwFxGgR/BJYQ6UWqymsOskHWDjfoYVglgo0Jj2K5++C
-         T95A==
-X-Gm-Message-State: AOAM531y06FeF2qeyBaXZSx+pbhdglbSDkHMX12vU7SK00YWx6pOIcK7
-	GsPr7RgzgTTZJuH1qtK3ds8A5W9xmAYb14ZD0xU=
-X-Google-Smtp-Source: ABdhPJzR0CWmPnQrY0OZPD34pcR+T1eWU47AHJUZphi47OFxdy3jQs8qvUY/uvYT/Z772q07qmBr752sBbmj8qtI/Ic=
-X-Received: by 2002:a19:520e:0:b0:464:f639:9d8b with SMTP id
- m14-20020a19520e000000b00464f6399d8bmr5903846lfb.388.1649446508133; Fri, 08
- Apr 2022 12:35:08 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220330194656.39051-1-jandryuk@gmail.com> <YlBNGCXm+wh2v7Yr@perard.uk.xensource.com>
-In-Reply-To: <YlBNGCXm+wh2v7Yr@perard.uk.xensource.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Fri, 8 Apr 2022 15:34:56 -0400
-Message-ID: <CAKf6xpvnm5Qh4D3A7j4PiXhds2mymWhsDdrguuxZH3f+T_QEsw@mail.gmail.com>
-Subject: Re: [PATCH] libxl: Retry QMP PCI device_add
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, 
-	Juergen Gross <jgross@suse.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=bz3ItfaWTKKCHC8UYzIyvx1uVYcZiPtpe6dV1jyAAb8=; b=1PmEZBs56aDH0R2Se5PAXuMOAv
+	PsJvqTvsyo/mWXUx80wU54eRXQzUzAEcDjaeWy7kHNE8SWiFJAoYlp9tHBvx7FJ5GIwRcA87jKy41
+	XxoBBKXOymfYLlZ96O51duuPYPl/RdJ959VbDj2hgEUYN0RrPT1UFeJsm6WQj95C9waY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-169233-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable test] 169233: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=d3f61beea4255e2d86ae82303384c57a3262435e
+X-Osstest-Versions-That:
+    xen=d4012d50082c2eae2f3cbe7770be13b9227fbc3f
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 08 Apr 2022 19:44:14 +0000
 
-On Fri, Apr 8, 2022 at 10:56 AM Anthony PERARD
-<anthony.perard@citrix.com> wrote:
->
-> On Wed, Mar 30, 2022 at 03:46:56PM -0400, Jason Andryuk wrote:
-> > PCI device assignment to an HVM with stubdom is potentially racy.  First
-> > the PCI device is assigned to the stubdom via the PV PCI protocol.  Then
-> > QEMU is sent a QMP command to attach the PCI device to QEMU running
-> > within the stubdom.  However, the sysfs entries within the stubdom may
-> > not have appeared by the time QEMU receives the device_add command
-> > resulting in errors like:
-> >
-> > libxl_qmp.c:1838:qmp_ev_parse_error_messages:Domain 10:Could not open '/sys/bus/pci/devices/0000:00:1f.3/config': No such file or directory
-> >
-> > This patch retries the device assignment up to 10 times with a 1 second
-> > delay between.  That roughly matches the overall hotplug timeout.
-> >
-> > The qmp_ev_parse_error_messages error is still printed since it happens
-> > at a lower level than the pci code controlling the retries.  With that,
-> > the "Retrying PCI add %d" message is also printed at ERROR level to
-> > clarify what is happening.
-> >
-> > Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-> > ---
-> > @@ -1252,10 +1258,22 @@ static void pci_add_qmp_device_add_cb(libxl__egc *egc,
-> >                                        const libxl__json_object *response,
-> >                                        int rc)
-> >  {
-> > -    EGC_GC;
-> >      pci_add_state *pas = CONTAINER_OF(qmp, *pas, qmp);
-> > +    STATE_AO_GC(pas->aodev->ao);
->
-> I think this changes are wrong, what is the reason to use STATE_AO_GC
-> instead of EGC_GC?
-> I think in this case, it is fine to keep using EGC_GC, as there doesn't
-> seems to be any allocation that needs to live after this function
-> returns. And you could just pass `pas->aodev->ao` to
-> libxl__ev_time_register_rel().
+flight 169233 xen-unstable real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169233/
 
-Yes, I think you are correct.  I think I made this change to use a
-libxl macro to declare the local ao variable, but as you say that is
-not needed.
+Failures :-/ but no regressions.
 
-> >
-> > -    if (rc) goto out;
-> > +    if (rc) {
-> > +        if (pas->retries++ < 10) {
-> > +            LOGD(ERROR, qmp->domid, "Retrying PCI add %d", pas->retries);
-> > +            rc = libxl__ev_time_register_rel(ao, &pas->timeout_retries,
-> > +                                             pci_add_qmp_device_add_retry,
-> > +                                             1000);
-> > +            if (rc) goto out;
-> > +
-> > +            return; /* wait for the timeout to then retry */
-> > +        } else {
-> > +            goto out;
-> > +        }
-> > +    }
->
-> So this retry logic would be done regardless of whether stubdom is in
-> use or not. It's not going to be useful in the non-stubdom case, is it?
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 169221
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 169221
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 169221
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 169221
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 169221
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 169221
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 169221
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 169221
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 169221
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 169221
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 169221
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 169221
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
 
-Yes, it should not be applicable for non-stubdom since the sysfs
-entries should already be present.
+version targeted for testing:
+ xen                  d3f61beea4255e2d86ae82303384c57a3262435e
+baseline version:
+ xen                  d4012d50082c2eae2f3cbe7770be13b9227fbc3f
 
-> When adding a pci device to a domain that has its device model in a
-> stubdomain, there's a first call to do_pci_add() which works fine,
-> right? Then there's a callback to device_pci_add_stubdom_wait(), which
-> is supposed to wait for the stubdom to be ready, but the sysfs entry
-> might still be missing at that time, right? Then, there is a second call
-> to do_pci_add() for the guest, and it's the one that fail in your case,
-> right?
+Last test of basis   169221  2022-04-07 16:13:06 Z    1 days
+Testing same since   169233  2022-04-08 10:02:11 Z    0 days    1 attempts
 
-Yes, I think that is all correct.
+------------------------------------------------------------
+People who touched revisions under test:
+  Anthony PERARD <anthony.perard@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Ross Lagerwall <ross.lagerwall@citrix.com>
 
-> If my reasoning is correct, could we enable the retry logic only for the
-> second do_pci_add() call? So that guests without stubdom aren't impacted
-> as I don't think retrying in this case would be useful and would just
-> delay the error.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-i386-examine-bios                                 pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-i386-examine-uefi                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
 
-That should be possible.  Instead of differentiating between the
-do_pci_add invocation, I'm thinking pci_add_qmp_device_add_cb would
-gain a stubdom check:
 
-if (rc) {
-    /* Retry only applicable for HVM with stubdom. */
-    if (libxl_get_stubdom_id(CTX, domid) == 0)
-        goto out;
-    /* retry logic */
-}
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-I just noticed that pci_add_qmp_device_add() registers the
-pci_add_timeout, and pci_add_qmp_device_add_retry() calls back into
-pci_add_qmp_device_add().  I expected a single 10 second timeout
-across all the entire add operation, but the retry logic is
-re-registering it.  The duplicate registration may also be corrupting
-lists?  I plan to move the pci_add_timeout registration into
-do_pci_add()
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-I went with 10 retries of 1 second each since that matches the
-sleep(1) loop patch coming out of OpenXT.  It seems like it could be
-optimized, but trying for longer and succeeding seems better than
-shorter and failing.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Thanks,
-Jason
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   d4012d5008..d3f61beea4  d3f61beea4255e2d86ae82303384c57a3262435e -> master
 
