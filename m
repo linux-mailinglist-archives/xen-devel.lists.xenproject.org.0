@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13CA24F9B58
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Apr 2022 19:09:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.301699.514929 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E46A4F9B77
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Apr 2022 19:17:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.301709.514940 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncs5r-0008LO-3C; Fri, 08 Apr 2022 17:08:19 +0000
+	id 1ncsEW-0001Ss-V5; Fri, 08 Apr 2022 17:17:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 301699.514929; Fri, 08 Apr 2022 17:08:19 +0000
+Received: by outflank-mailman (output) from mailman id 301709.514940; Fri, 08 Apr 2022 17:17:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ncs5q-0008I4-WB; Fri, 08 Apr 2022 17:08:18 +0000
-Received: by outflank-mailman (input) for mailman id 301699;
- Fri, 08 Apr 2022 17:08:18 +0000
+	id 1ncsEW-0001Py-Ri; Fri, 08 Apr 2022 17:17:16 +0000
+Received: by outflank-mailman (input) for mailman id 301709;
+ Fri, 08 Apr 2022 17:17:14 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ncs5p-0008Hu-V1; Fri, 08 Apr 2022 17:08:17 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1ncsEU-0001Ps-PH
+ for xen-devel@lists.xenproject.org; Fri, 08 Apr 2022 17:17:14 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ncs5p-0007Jj-TC; Fri, 08 Apr 2022 17:08:17 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ncs5p-0007Rz-LC; Fri, 08 Apr 2022 17:08:17 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ncs5p-000521-KM; Fri, 08 Apr 2022 17:08:17 +0000
+ (envelope-from <julien@xen.org>)
+ id 1ncsER-0007TY-Oy; Fri, 08 Apr 2022 17:17:11 +0000
+Received: from [54.239.6.190] (helo=[192.168.16.176])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ncsER-0008VI-Ie; Fri, 08 Apr 2022 17:17:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,150 +39,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=+r35rRTsfnmUokpsDapXccQirUCMtPXtirVQhDYEwsc=; b=nyUL4HtlpGNMdgirFzAm2bhL85
-	kaU9Rcpquc73bjvNunp+xF9PTbCaQ7rn/79TJWwUONVAqvXZN2UXErOAWUFYVOgN3KsB/FzXmhDVp
-	wgXz9lbguHxJwwuwh/eNDssk6N6J3eUfx+J1yYSFWmi1NhXeDNanTPSu4FucMuWvsEtI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169247-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=gPBSk+MugYwReZloyZfoZ9xwzZZ4Gb0ZuG3/5p/ix8E=; b=f08zShVfgA/Y9gYtjFtnoNpNKh
+	E/FQunVxfpRok4lf06jbzRI4BEftxnHlGWhmwO4J1L0p9NoYqhNNNwEqy4dQvEtKy2knzJHGKs2d8
+	53BwnD/TPbqV/9saRK6SueD+9tRx57lUFxq/121b+9qew7LBiXH9RhaN6uCdTUbn+cA0=;
+Message-ID: <decf721a-8062-a23f-a810-78fb86a42d1d@xen.org>
+Date: Fri, 8 Apr 2022 18:17:09 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 169247: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=94f905b3bf37af99cff0787c2f529ab3fe2e8fbb
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 08 Apr 2022 17:08:17 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.7.0
+Subject: Re: [PATCH RFC] evtchn: add early-out to evtchn_move_pirqs()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Dario Faggioli <dfaggioli@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <a0fbf06a-be3c-37bd-2abf-599912ad9bf5@suse.com>
+ <42d16ff2-725d-ae10-ba6b-561487252125@xen.org>
+ <3217803e-16d5-6e2a-bde7-ff9a1237dd39@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <3217803e-16d5-6e2a-bde7-ff9a1237dd39@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 169247 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169247/
+Hi,
 
-Regressions :-(
+On 08/04/2022 13:25, Jan Beulich wrote:
+> On 08.04.2022 13:02, Julien Grall wrote:
+>> On 08/04/2022 08:16, Jan Beulich wrote:
+>>> See the code comment. The higher the rate of vCPU-s migrating across
+>>> pCPU-s, the less useful this attempted optimization actually is. With
+>>> credit2 the migration rate looks to be unduly high even on mostly idle
+>>> systems, and hence on large systems lock contention here isn't very
+>>> difficult to observe.
+>>
+>> "high" and "large" is quite vague. Do you have more details on where you
+>> observed this issue and the improvement after this patch?
+> 
+> I have no data beyond the observation on the failed 4.12 osstest flights,
+> where I mentioned I would make such a patch and send out as RFC.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+Ok. I think a pointer to the failed 4.12 osstest would be good here.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+> 
+>>> --- a/xen/common/event_channel.c
+>>> +++ b/xen/common/event_channel.c
+>>> @@ -1559,6 +1559,16 @@ void evtchn_move_pirqs(struct vcpu *v)
+>>>        unsigned int port;
+>>>        struct evtchn *chn;
+>>>    
+>>> +    /*
+>>> +     * The work done below is an attempt to keep pIRQ-s on the pCPU-s that the
+>>> +     * vCPU-s they're to be delivered to run on. In order to limit lock
+>>> +     * contention, check for an empty list prior to acquiring the lock. In the
+>>> +     * worst case a pIRQ just bound to this vCPU will be delivered elsewhere
+>>> +     * until the vCPU is migrated (again) to another pCPU.
+>>> +     */
+>>
+>> AFAIU, the downside is another pCPU (and therefore vCPU) will get
+>> disturbed by the interrupt.
+> 
+> But only rarely, i.e. in case a race would actually have occurred.
 
-version targeted for testing:
- ovmf                 94f905b3bf37af99cff0787c2f529ab3fe2e8fbb
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+Maybe I am too paranoid here. The other side of race is controlled by a 
+domain. So wouldn't it be possible to increase how often the race is hit?
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   39 days
-Failing since        168258  2022-03-01 01:55:31 Z   38 days  294 attempts
-Testing same since   169226  2022-04-08 06:27:24 Z    0 days    8 attempts
+Cheers,
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 4626 lines long.)
+-- 
+Julien Grall
 
