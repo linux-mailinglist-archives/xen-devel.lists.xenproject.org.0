@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8C504F9C76
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Apr 2022 20:22:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.301745.515016 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E3604F9DB5
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Apr 2022 21:36:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.301762.515039 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nctEU-0004kk-AI; Fri, 08 Apr 2022 18:21:18 +0000
+	id 1ncuO1-0005sk-1E; Fri, 08 Apr 2022 19:35:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 301745.515016; Fri, 08 Apr 2022 18:21:18 +0000
+Received: by outflank-mailman (output) from mailman id 301762.515039; Fri, 08 Apr 2022 19:35:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nctEU-0004hX-7F; Fri, 08 Apr 2022 18:21:18 +0000
-Received: by outflank-mailman (input) for mailman id 301745;
- Fri, 08 Apr 2022 18:21:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ncuO0-0005qB-Te; Fri, 08 Apr 2022 19:35:12 +0000
+Received: by outflank-mailman (input) for mailman id 301762;
+ Fri, 08 Apr 2022 19:35:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cJw0=US=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1nctET-0004ck-Dn
- for xen-devel@lists.xenproject.org; Fri, 08 Apr 2022 18:21:17 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ad485c6d-b768-11ec-a405-831a346695d4;
- Fri, 08 Apr 2022 20:21:15 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id d29so14080177wra.10
- for <xen-devel@lists.xenproject.org>; Fri, 08 Apr 2022 11:21:15 -0700 (PDT)
-Received: from otyshchenko.router ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id
- y15-20020a05600015cf00b00203e324347bsm24084701wry.102.2022.04.08.11.21.13
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 08 Apr 2022 11:21:14 -0700 (PDT)
+ <SRS0=K+qN=US=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1ncuNz-0005q2-CC
+ for xen-devel@lists.xenproject.org; Fri, 08 Apr 2022 19:35:11 +0000
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [2a00:1450:4864:20::12d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ffc1beb8-b772-11ec-8fbc-03012f2f19d4;
+ Fri, 08 Apr 2022 21:35:08 +0200 (CEST)
+Received: by mail-lf1-x12d.google.com with SMTP id bq30so3971042lfb.3
+ for <xen-devel@lists.xenproject.org>; Fri, 08 Apr 2022 12:35:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,340 +39,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad485c6d-b768-11ec-a405-831a346695d4
+X-Inumbo-ID: ffc1beb8-b772-11ec-8fbc-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=wu3IDi2V7jgskHzubEp1kqQM4PIE1W72Wqr7diNZVBU=;
-        b=mvLdi8gO4Vc531vdXWU7xo8B9vi0k4DfZDcYZas01eEXLI19TbQicOYt2/JgWvAX1O
-         Xby65uDuLs+XCpfMqSgggYC3kNiqadGvgVEkYppxR3sCIElV4J40qbSYA+qEYioGEUsg
-         Iu4Bbo0JKVyjWcoYM+lbwnwOHYVRA2y4TkvMBHVlmUaCPoH9lsD4+5jSLIE5YD9D/Frp
-         EUAejeXEA6f3SmFJidujMWqFE0DRMStfLGKLrQ6NFJQghNrzay5Hbz8ehGE0H9aU2JOJ
-         XDC0GicU8txQy+HQZyiZQgvvGu+ua+xYjNTJcgNK+1xtEvFSL8BUxsUHDzuBJyqwTbb1
-         urkQ==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=e+Zs/fygwfY5AW0hm60Mi1+uIO7asaNlIHJq4/TS9t8=;
+        b=iunr/26cun0ZMag9yzLRwb4PSZN+zZIaF1uGgDyiE83Sgr5YPsA+2IiT9kqWhOkU/+
+         hkWxQKmCpTCq7rDPjFPczAnlSFqaNenSrKwJpVCLq3Ig9akH+y4C8HQAlftV3pUhdnJk
+         6jfZhYTqoaWZvp10ovqqpvP5/Kugs1K2FiwCuU2t2FaZ2FzIFHYKqcRhXAHCQN1CeMpW
+         /JEG/rFYReJcG42cx8EyEzcxKeX1npBWDFRtqG6yYs42//otZlJ3Ghnf6jfPQF4O3FOH
+         U+aoUlkhR5EhKgJqjZ5W2HINxwFd6+e5CXdmMkqzuWztlBDpFsI2WVgzKSNUy346B1cO
+         iYKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=wu3IDi2V7jgskHzubEp1kqQM4PIE1W72Wqr7diNZVBU=;
-        b=k3EcvPK6LyEt/dNwfPBREoIC8uTeAdzQtyV3gXIJmloDm0cxpplkZyHjtWL02p3uB6
-         7CBUE4IPoENncRjjA6sT1m9ylMI4Xi/aFimDWchsCuIAMR1VSdaOmeTOzUaSbWGqLQ4y
-         oX8upjZz4zX41IIQ1W/VpsTpTzVALIR0c8UT0zkEmAMkSh68deYsDB7OYMdd3+dSygrn
-         0wsuhqiNB1lUeFoN0x46h9n+qOqj38epYvhb+dGi8rC5yDDRpVgvpro3wj7jUM+bqIBO
-         glJh2E9vYlHIo8iW8Fh7/hOxKwg2YyfDKOZ0o6upolYrY61K6nNG9zwlWXJbQ8XxsonN
-         HcEw==
-X-Gm-Message-State: AOAM530N7VBTQkqTZlt2XsNsju8ak8myseI/qZKymUT3fG3t4kWxGv+z
-	3SOGD1C9YNu5A85CHzXyjFbzEsM1ZdM=
-X-Google-Smtp-Source: ABdhPJzaK4J55tGqs9WU9lgrCWQB+2TncGu24+eYVqkgClefoHyTxWUNymfR+XbClUdJ6hhzxaz/Wg==
-X-Received: by 2002:a5d:47a7:0:b0:203:d1b4:8f6 with SMTP id 7-20020a5d47a7000000b00203d1b408f6mr16038103wrb.36.1649442074700;
-        Fri, 08 Apr 2022 11:21:14 -0700 (PDT)
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Julien Grall <julien.grall@arm.com>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Jiamei Xie <Jiamei.Xie@arm.com>,
-	Henry Wang <Henry.Wang@arm.com>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: [PATCH V7 2/2] libxl: Introduce basic virtio-mmio support on Arm
-Date: Fri,  8 Apr 2022 21:21:05 +0300
-Message-Id: <1649442065-8332-3-git-send-email-olekstysh@gmail.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1649442065-8332-1-git-send-email-olekstysh@gmail.com>
-References: <1649442065-8332-1-git-send-email-olekstysh@gmail.com>
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=e+Zs/fygwfY5AW0hm60Mi1+uIO7asaNlIHJq4/TS9t8=;
+        b=YMJ087xmmIwWAqXT6ZDbh700r4X7KLSH0BSU2cH77wOKpwK5mGx1F4hKtk8A6kYnCo
+         GC30fzlctKbuxzcaNRwTHG31El3Z1yo0JuTuiM0uFZeKE8o/94LoKJznXkYrjA7/elve
+         aIuYhvR6394LihQgM6izflNH8J54BR8bTaRJayJNZHOtrPYWtZ861+V66nldLk9FU4HL
+         uaRaJzIhEx+A2lSmL9ifNBohSj7EDiuHUFRArBf5wQ9J/NpRjbDceO5Ex5g7XDHDgFPf
+         rGOHOh8XZpLxYpBFSb+yrI/sPhwFxGgR/BJYQ6UWqymsOskHWDjfoYVglgo0Jj2K5++C
+         T95A==
+X-Gm-Message-State: AOAM531y06FeF2qeyBaXZSx+pbhdglbSDkHMX12vU7SK00YWx6pOIcK7
+	GsPr7RgzgTTZJuH1qtK3ds8A5W9xmAYb14ZD0xU=
+X-Google-Smtp-Source: ABdhPJzR0CWmPnQrY0OZPD34pcR+T1eWU47AHJUZphi47OFxdy3jQs8qvUY/uvYT/Z772q07qmBr752sBbmj8qtI/Ic=
+X-Received: by 2002:a19:520e:0:b0:464:f639:9d8b with SMTP id
+ m14-20020a19520e000000b00464f6399d8bmr5903846lfb.388.1649446508133; Fri, 08
+ Apr 2022 12:35:08 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20220330194656.39051-1-jandryuk@gmail.com> <YlBNGCXm+wh2v7Yr@perard.uk.xensource.com>
+In-Reply-To: <YlBNGCXm+wh2v7Yr@perard.uk.xensource.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Fri, 8 Apr 2022 15:34:56 -0400
+Message-ID: <CAKf6xpvnm5Qh4D3A7j4PiXhds2mymWhsDdrguuxZH3f+T_QEsw@mail.gmail.com>
+Subject: Re: [PATCH] libxl: Retry QMP PCI device_add
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, 
+	Juergen Gross <jgross@suse.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Julien Grall <julien.grall@arm.com>
+On Fri, Apr 8, 2022 at 10:56 AM Anthony PERARD
+<anthony.perard@citrix.com> wrote:
+>
+> On Wed, Mar 30, 2022 at 03:46:56PM -0400, Jason Andryuk wrote:
+> > PCI device assignment to an HVM with stubdom is potentially racy.  First
+> > the PCI device is assigned to the stubdom via the PV PCI protocol.  Then
+> > QEMU is sent a QMP command to attach the PCI device to QEMU running
+> > within the stubdom.  However, the sysfs entries within the stubdom may
+> > not have appeared by the time QEMU receives the device_add command
+> > resulting in errors like:
+> >
+> > libxl_qmp.c:1838:qmp_ev_parse_error_messages:Domain 10:Could not open '/sys/bus/pci/devices/0000:00:1f.3/config': No such file or directory
+> >
+> > This patch retries the device assignment up to 10 times with a 1 second
+> > delay between.  That roughly matches the overall hotplug timeout.
+> >
+> > The qmp_ev_parse_error_messages error is still printed since it happens
+> > at a lower level than the pci code controlling the retries.  With that,
+> > the "Retrying PCI add %d" message is also printed at ERROR level to
+> > clarify what is happening.
+> >
+> > Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> > ---
+> > @@ -1252,10 +1258,22 @@ static void pci_add_qmp_device_add_cb(libxl__egc *egc,
+> >                                        const libxl__json_object *response,
+> >                                        int rc)
+> >  {
+> > -    EGC_GC;
+> >      pci_add_state *pas = CONTAINER_OF(qmp, *pas, qmp);
+> > +    STATE_AO_GC(pas->aodev->ao);
+>
+> I think this changes are wrong, what is the reason to use STATE_AO_GC
+> instead of EGC_GC?
+> I think in this case, it is fine to keep using EGC_GC, as there doesn't
+> seems to be any allocation that needs to live after this function
+> returns. And you could just pass `pas->aodev->ao` to
+> libxl__ev_time_register_rel().
 
-This patch introduces helpers to allocate Virtio MMIO params
-(IRQ and memory region) and create specific device node in
-the Guest device-tree with allocated params. In order to deal
-with multiple Virtio devices, reserve corresponding ranges.
-For now, we reserve 1MB for memory regions and 10 SPIs.
+Yes, I think you are correct.  I think I made this change to use a
+libxl macro to declare the local ao variable, but as you say that is
+not needed.
 
-As these helpers should be used for every Virtio device attached
-to the Guest, call them for Virtio disk(s).
+> >
+> > -    if (rc) goto out;
+> > +    if (rc) {
+> > +        if (pas->retries++ < 10) {
+> > +            LOGD(ERROR, qmp->domid, "Retrying PCI add %d", pas->retries);
+> > +            rc = libxl__ev_time_register_rel(ao, &pas->timeout_retries,
+> > +                                             pci_add_qmp_device_add_retry,
+> > +                                             1000);
+> > +            if (rc) goto out;
+> > +
+> > +            return; /* wait for the timeout to then retry */
+> > +        } else {
+> > +            goto out;
+> > +        }
+> > +    }
+>
+> So this retry logic would be done regardless of whether stubdom is in
+> use or not. It's not going to be useful in the non-stubdom case, is it?
 
-Please note, with statically allocated Virtio IRQs there is
-a risk of a clash with a physical IRQs of passthrough devices.
-For the first version, it's fine, but we should consider allocating
-the Virtio IRQs automatically. Thankfully, we know in advance which
-IRQs will be used for passthrough to be able to choose non-clashed
-ones.
+Yes, it should not be applicable for non-stubdom since the sysfs
+entries should already be present.
 
-Signed-off-by: Julien Grall <julien.grall@arm.com>
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Tested-by: Jiamei Xie <Jiamei.xie@arm.com>
-Reviewed-by: Henry Wang <Henry.Wang@arm.com>
----
-@Jiamei, @Henry I decided to leave your T-b and R-b tags with the minor
-change I made, are you still happy with that?
+> When adding a pci device to a domain that has its device model in a
+> stubdomain, there's a first call to do_pci_add() which works fine,
+> right? Then there's a callback to device_pci_add_stubdom_wait(), which
+> is supposed to wait for the stubdom to be ready, but the sysfs entry
+> might still be missing at that time, right? Then, there is a second call
+> to do_pci_add() for the guest, and it's the one that fail in your case,
+> right?
 
-s/if (disk->virtio)/if (disk->protocol == LIBXL_DISK_PROTOCOL_VIRTIO_MMIO)
+Yes, I think that is all correct.
 
-Please note, this is a split/cleanup/hardening of Julien's PoC:
-"Add support for Guest IO forwarding to a device emulator"
+> If my reasoning is correct, could we enable the retry logic only for the
+> second do_pci_add() call? So that guests without stubdom aren't impacted
+> as I don't think retrying in this case would be useful and would just
+> delay the error.
 
-Changes RFC -> V1:
-   - was squashed with:
-     "[RFC PATCH V1 09/12] libxl: Handle virtio-mmio irq in more correct way"
-     "[RFC PATCH V1 11/12] libxl: Insert "dma-coherent" property into virtio-mmio device node"
-     "[RFC PATCH V1 12/12] libxl: Fix duplicate memory node in DT"
-   - move VirtIO MMIO #define-s to xen/include/public/arch-arm.h
+That should be possible.  Instead of differentiating between the
+do_pci_add invocation, I'm thinking pci_add_qmp_device_add_cb would
+gain a stubdom check:
 
-Changes V1 -> V2:
-   - update the author of a patch
+if (rc) {
+    /* Retry only applicable for HVM with stubdom. */
+    if (libxl_get_stubdom_id(CTX, domid) == 0)
+        goto out;
+    /* retry logic */
+}
 
-Changes V2 -> V3:
-   - no changes
+I just noticed that pci_add_qmp_device_add() registers the
+pci_add_timeout, and pci_add_qmp_device_add_retry() calls back into
+pci_add_qmp_device_add().  I expected a single 10 second timeout
+across all the entire add operation, but the retry logic is
+re-registering it.  The duplicate registration may also be corrupting
+lists?  I plan to move the pci_add_timeout registration into
+do_pci_add()
 
-Changes V3 -> V4:
-   - no changes
+I went with 10 retries of 1 second each since that matches the
+sleep(1) loop patch coming out of OpenXT.  It seems like it could be
+optimized, but trying for longer and succeeding seems better than
+shorter and failing.
 
-Changes V4 -> V5:
-   - split the changes, change the order of the patches
-   - drop an extra "virtio" configuration option
-   - update patch description
-   - use CONTAINER_OF instead of own implementation
-   - reserve ranges for Virtio MMIO params and put them
-     in correct location
-   - create helpers to allocate Virtio MMIO params, add
-     corresponding sanity-сhecks
-   - add comment why MMIO size 0x200 is chosen
-   - update debug print
-   - drop Wei's T-b
-
-Changes V5 -> V6:
-   - rebase on current staging
-
-Changes V6 -> V7:
-   - rebase on current staging
-   - add T-b and R-b tags
-   - update according to the recent changes to
-     "libxl: Add support for Virtio disk configuration"
----
- tools/libs/light/libxl_arm.c  | 131 +++++++++++++++++++++++++++++++++++++++++-
- xen/include/public/arch-arm.h |   7 +++
- 2 files changed, 136 insertions(+), 2 deletions(-)
-
-diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index eef1de0..8132a47 100644
---- a/tools/libs/light/libxl_arm.c
-+++ b/tools/libs/light/libxl_arm.c
-@@ -8,6 +8,56 @@
- #include <assert.h>
- #include <xen/device_tree_defs.h>
- 
-+/*
-+ * There is no clear requirements for the total size of Virtio MMIO region.
-+ * The size of control registers is 0x100 and device-specific configuration
-+ * registers starts at the offset 0x100, however it's size depends on the device
-+ * and the driver. Pick the biggest known size at the moment to cover most
-+ * of the devices (also consider allowing the user to configure the size via
-+ * config file for the one not conforming with the proposed value).
-+ */
-+#define VIRTIO_MMIO_DEV_SIZE   xen_mk_ullong(0x200)
-+
-+static uint64_t virtio_mmio_base;
-+static uint32_t virtio_mmio_irq;
-+
-+static void init_virtio_mmio_params(void)
-+{
-+    virtio_mmio_base = GUEST_VIRTIO_MMIO_BASE;
-+    virtio_mmio_irq = GUEST_VIRTIO_MMIO_SPI_FIRST;
-+}
-+
-+static uint64_t alloc_virtio_mmio_base(libxl__gc *gc)
-+{
-+    uint64_t base = virtio_mmio_base;
-+
-+    /* Make sure we have enough reserved resources */
-+    if ((virtio_mmio_base + VIRTIO_MMIO_DEV_SIZE >
-+        GUEST_VIRTIO_MMIO_BASE + GUEST_VIRTIO_MMIO_SIZE)) {
-+        LOG(ERROR, "Ran out of reserved range for Virtio MMIO BASE 0x%"PRIx64"\n",
-+            virtio_mmio_base);
-+        return 0;
-+    }
-+    virtio_mmio_base += VIRTIO_MMIO_DEV_SIZE;
-+
-+    return base;
-+}
-+
-+static uint32_t alloc_virtio_mmio_irq(libxl__gc *gc)
-+{
-+    uint32_t irq = virtio_mmio_irq;
-+
-+    /* Make sure we have enough reserved resources */
-+    if (virtio_mmio_irq > GUEST_VIRTIO_MMIO_SPI_LAST) {
-+        LOG(ERROR, "Ran out of reserved range for Virtio MMIO IRQ %u\n",
-+            virtio_mmio_irq);
-+        return 0;
-+    }
-+    virtio_mmio_irq++;
-+
-+    return irq;
-+}
-+
- static const char *gicv_to_string(libxl_gic_version gic_version)
- {
-     switch (gic_version) {
-@@ -26,8 +76,8 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
- {
-     uint32_t nr_spis = 0;
-     unsigned int i;
--    uint32_t vuart_irq;
--    bool vuart_enabled = false;
-+    uint32_t vuart_irq, virtio_irq = 0;
-+    bool vuart_enabled = false, virtio_enabled = false;
- 
-     /*
-      * If pl011 vuart is enabled then increment the nr_spis to allow allocation
-@@ -39,6 +89,35 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
-         vuart_enabled = true;
-     }
- 
-+    /*
-+     * Virtio MMIO params are non-unique across the whole system and must be
-+     * initialized for every new guest.
-+     */
-+    init_virtio_mmio_params();
-+    for (i = 0; i < d_config->num_disks; i++) {
-+        libxl_device_disk *disk = &d_config->disks[i];
-+
-+        if (disk->protocol == LIBXL_DISK_PROTOCOL_VIRTIO_MMIO) {
-+            disk->base = alloc_virtio_mmio_base(gc);
-+            if (!disk->base)
-+                return ERROR_FAIL;
-+
-+            disk->irq = alloc_virtio_mmio_irq(gc);
-+            if (!disk->irq)
-+                return ERROR_FAIL;
-+
-+            if (virtio_irq < disk->irq)
-+                virtio_irq = disk->irq;
-+            virtio_enabled = true;
-+
-+            LOG(DEBUG, "Allocate Virtio MMIO params for Vdev %s: IRQ %u BASE 0x%"PRIx64,
-+                disk->vdev, disk->irq, disk->base);
-+        }
-+    }
-+
-+    if (virtio_enabled)
-+        nr_spis += (virtio_irq - 32) + 1;
-+
-     for (i = 0; i < d_config->b_info.num_irqs; i++) {
-         uint32_t irq = d_config->b_info.irqs[i];
-         uint32_t spi;
-@@ -58,6 +137,13 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
-             return ERROR_FAIL;
-         }
- 
-+        /* The same check as for vpl011 */
-+        if (virtio_enabled &&
-+           (irq >= GUEST_VIRTIO_MMIO_SPI_FIRST && irq <= virtio_irq)) {
-+            LOG(ERROR, "Physical IRQ %u conflicting with Virtio MMIO IRQ range\n", irq);
-+            return ERROR_FAIL;
-+        }
-+
-         if (irq < 32)
-             continue;
- 
-@@ -787,6 +873,39 @@ static int make_vpci_node(libxl__gc *gc, void *fdt,
-     return 0;
- }
- 
-+
-+static int make_virtio_mmio_node(libxl__gc *gc, void *fdt,
-+                                 uint64_t base, uint32_t irq)
-+{
-+    int res;
-+    gic_interrupt intr;
-+    /* Placeholder for virtio@ + a 64-bit number + \0 */
-+    char buf[24];
-+
-+    snprintf(buf, sizeof(buf), "virtio@%"PRIx64, base);
-+    res = fdt_begin_node(fdt, buf);
-+    if (res) return res;
-+
-+    res = fdt_property_compat(gc, fdt, 1, "virtio,mmio");
-+    if (res) return res;
-+
-+    res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
-+                            1, base, VIRTIO_MMIO_DEV_SIZE);
-+    if (res) return res;
-+
-+    set_interrupt(intr, irq, 0xf, DT_IRQ_TYPE_EDGE_RISING);
-+    res = fdt_property_interrupts(gc, fdt, &intr, 1);
-+    if (res) return res;
-+
-+    res = fdt_property(fdt, "dma-coherent", NULL, 0);
-+    if (res) return res;
-+
-+    res = fdt_end_node(fdt);
-+    if (res) return res;
-+
-+    return 0;
-+}
-+
- static const struct arch_info *get_arch_info(libxl__gc *gc,
-                                              const struct xc_dom_image *dom)
- {
-@@ -988,6 +1107,7 @@ static int libxl__prepare_dtb(libxl__gc *gc, libxl_domain_config *d_config,
-     size_t fdt_size = 0;
-     int pfdt_size = 0;
-     libxl_domain_build_info *const info = &d_config->b_info;
-+    unsigned int i;
- 
-     const libxl_version_info *vers;
-     const struct arch_info *ainfo;
-@@ -1094,6 +1214,13 @@ next_resize:
-         if (d_config->num_pcidevs)
-             FDT( make_vpci_node(gc, fdt, ainfo, dom) );
- 
-+        for (i = 0; i < d_config->num_disks; i++) {
-+            libxl_device_disk *disk = &d_config->disks[i];
-+
-+            if (disk->protocol == LIBXL_DISK_PROTOCOL_VIRTIO_MMIO)
-+                FDT( make_virtio_mmio_node(gc, fdt, disk->base, disk->irq) );
-+        }
-+
-         if (pfdt)
-             FDT( copy_partial_fdt(gc, fdt, pfdt) );
- 
-diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
-index ab05fe1..c8b6058 100644
---- a/xen/include/public/arch-arm.h
-+++ b/xen/include/public/arch-arm.h
-@@ -407,6 +407,10 @@ typedef uint64_t xen_callback_t;
- 
- /* Physical Address Space */
- 
-+/* Virtio MMIO mappings */
-+#define GUEST_VIRTIO_MMIO_BASE   xen_mk_ullong(0x02000000)
-+#define GUEST_VIRTIO_MMIO_SIZE   xen_mk_ullong(0x00100000)
-+
- /*
-  * vGIC mappings: Only one set of mapping is used by the guest.
-  * Therefore they can overlap.
-@@ -493,6 +497,9 @@ typedef uint64_t xen_callback_t;
- 
- #define GUEST_VPL011_SPI        32
- 
-+#define GUEST_VIRTIO_MMIO_SPI_FIRST   33
-+#define GUEST_VIRTIO_MMIO_SPI_LAST    43
-+
- /* PSCI functions */
- #define PSCI_cpu_suspend 0
- #define PSCI_cpu_off     1
--- 
-2.7.4
-
+Thanks,
+Jason
 
