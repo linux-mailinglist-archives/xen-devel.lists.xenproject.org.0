@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4D314FA614
-	for <lists+xen-devel@lfdr.de>; Sat,  9 Apr 2022 10:55:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.302084.515632 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5B4D4FA60A
+	for <lists+xen-devel@lfdr.de>; Sat,  9 Apr 2022 10:34:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.302086.515610 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nd6s7-0003fu-J0; Sat, 09 Apr 2022 08:55:07 +0000
+	id 1nd6Wj-0000fM-Fz; Sat, 09 Apr 2022 08:33:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 302084.515632; Sat, 09 Apr 2022 08:55:07 +0000
+Received: by outflank-mailman (output) from mailman id 302086.515610; Sat, 09 Apr 2022 08:33:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nd6s7-0003ZZ-Dv; Sat, 09 Apr 2022 08:55:07 +0000
-Received: by outflank-mailman (input) for mailman id 302084;
- Sat, 09 Apr 2022 08:17:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FhEE=UT=linbit.com=christoph.boehmwalder@srs-se1.protection.inumbo.net>)
- id 1nd6HJ-0006oL-D9
- for xen-devel@lists.xenproject.org; Sat, 09 Apr 2022 08:17:05 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6ee64244-b7dd-11ec-8fbc-03012f2f19d4;
- Sat, 09 Apr 2022 10:17:02 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id d29so16011450wra.10
- for <xen-devel@lists.xenproject.org>; Sat, 09 Apr 2022 01:17:01 -0700 (PDT)
-Received: from [192.168.169.127] (178.115.52.210.wireless.dyn.drei.com.
- [178.115.52.210]) by smtp.gmail.com with ESMTPSA id
- r14-20020a05600c35ce00b0038c9f469979sm12169802wmq.40.2022.04.09.01.16.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 09 Apr 2022 01:17:01 -0700 (PDT)
+	id 1nd6Wj-0000cb-Co; Sat, 09 Apr 2022 08:33:01 +0000
+Received: by outflank-mailman (input) for mailman id 302086;
+ Sat, 09 Apr 2022 08:33:00 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nd6Wi-0000cR-KW; Sat, 09 Apr 2022 08:33:00 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nd6Wi-0000gS-JL; Sat, 09 Apr 2022 08:33:00 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nd6Wi-0005kW-4X; Sat, 09 Apr 2022 08:33:00 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nd6Wi-000235-47; Sat, 09 Apr 2022 08:33:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,145 +42,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ee64244-b7dd-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linbit-com.20210112.gappssmtp.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=Ga61vN/TMGQoWv5pdVva9yHEVEk7JvDu8SvkqTkiHOU=;
-        b=16VWXfTcecI6vKD89hlxEi4M1sM+lDWraPFKcdJek4zYvKgcUI+UTTfswq4WTG3pUA
-         DwGdvejVPHmGbB6WxyxpG5RxCDgxrI8ELqeSKx9xnWZSuDqFsfTR7C0q23UBJ4NTUUke
-         9rs/lGq9PScZMcSAS9SHkk+s8lIoFrVgzxTJ9NRLUES2XsBvbZXGJskPHSy0jdzHruaB
-         iGqoe9YksSt5XleGcAhaVmv2OHki/8AO1/zdgDuyMqAmL6dyveVZDyPGB/rY+7+4UaaK
-         b7o7nIN/SrEk1fy76OtZuySau99YX+Sryl6fYO8t+jUUvribl7KiF9nqytVWelfdH+Mk
-         O4fQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=Ga61vN/TMGQoWv5pdVva9yHEVEk7JvDu8SvkqTkiHOU=;
-        b=6CVTgH6fsGTu4MSkTOiLWzSj5avz+zddMwJheLKz3bDrWDNcKUqCfZpVD4Qw5aEAty
-         7bhfpuCPI1qY/6TDySiwTZg+Z6Htmb81X9ho2KCxceofOiECWCq2EKV9pUytWoBl0Jr0
-         4kHPeuqelgc0G7WvdM31uEgyCJf9erm9ZoatVQM0tJx630gObI5NKBK/dCBWxxC2bRpt
-         mmlu1aaq4eECFrkdSZLIfrYAee8K1Za/eg/CBYFO6tZZw730bRHqo5b9i8hFnDiLqZkH
-         rmhhKm5Ul5Or8xUJZRg8kwQkGeW8C8d9v5GuevKCjNyk/vCgqOJcb1TEUqZx+7YlIXRI
-         Oakg==
-X-Gm-Message-State: AOAM530fvBtEACWz9kGUUkP02iKvRiGoSUMq0HGHXKcrZdDiVUm1mji4
-	h0w1pbQYEqCmA5ruIQQzWUB54A==
-X-Google-Smtp-Source: ABdhPJyMl7hUdRWB67QUv24ZWK8mJRwBaxhnGq09ejE28bU5zjvkHivlidIC/JIf/EdWqVvIZNI6nA==
-X-Received: by 2002:adf:9581:0:b0:1ed:c341:4ed1 with SMTP id p1-20020adf9581000000b001edc3414ed1mr16998132wrp.299.1649492221449;
-        Sat, 09 Apr 2022 01:17:01 -0700 (PDT)
-Message-ID: <5a26cdb1-b63b-8d35-640b-bc0e0f78a181@linbit.com>
-Date: Sat, 9 Apr 2022 10:16:58 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-Subject: Re: [Drbd-dev] [PATCH 04/27] drbd: remove assign_p_sizes_qlim
-Content-Language: en-US
-To: Christoph Hellwig <hch@lst.de>
-Cc: jfs-discussion@lists.sourceforge.net, linux-nvme@lists.infradead.org,
- virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
- dm-devel@redhat.com, target-devel@vger.kernel.org,
- linux-mtd@lists.infradead.org, drbd-dev@lists.linbit.com,
- linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
- linux-scsi@vger.kernel.org, cluster-devel@redhat.com,
- xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
- linux-um@lists.infradead.org, nbd@other.debian.org,
- linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
- ceph-devel@vger.kernel.org, linux-raid@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-xfs@vger.kernel.org, ocfs2-devel@oss.oracle.com,
- linux-fsdevel@vger.kernel.org, ntfs3@lists.linux.dev,
- linux-btrfs@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
-References: <20220409045043.23593-1-hch@lst.de>
- <20220409045043.23593-5-hch@lst.de>
-From: =?UTF-8?Q?Christoph_B=c3=b6hmwalder?= <christoph.boehmwalder@linbit.com>
-In-Reply-To: <20220409045043.23593-5-hch@lst.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=tc+7LOO32D3nd4MSz7vAEY+7TXfwA3jWcWpouRwKI2k=; b=nuywuc92p5ze0bb8B6VgEBXGP6
+	j/Hjlaj0O+ZIDcx2WJgmQI9rljYQRhP45c+ZkuICPgQV7dfCmoWaB4kDgg8DMMYDCUUbV926HElwm
+	qPAiD8GjmlEMksSmQ422ohCodZmrJ6mU/QmVV3GE3sO2mU4ycECldxBlMF9CgO4YxnTg=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-169248-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 169248: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=94f905b3bf37af99cff0787c2f529ab3fe2e8fbb
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 09 Apr 2022 08:33:00 +0000
 
-On 09.04.22 06:50, Christoph Hellwig wrote:
-> Fold each branch into its only caller.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->   drivers/block/drbd/drbd_main.c | 47 +++++++++++++++-------------------
->   1 file changed, 20 insertions(+), 27 deletions(-)
-> 
-> diff --git a/drivers/block/drbd/drbd_main.c b/drivers/block/drbd/drbd_main.c
-> index 9676a1d214bc5..1262fe1c33618 100644
-> --- a/drivers/block/drbd/drbd_main.c
-> +++ b/drivers/block/drbd/drbd_main.c
-> @@ -903,31 +903,6 @@ void drbd_gen_and_send_sync_uuid(struct drbd_peer_device *peer_device)
->   	}
->   }
->   
-> -/* communicated if (agreed_features & DRBD_FF_WSAME) */
-> -static void
-> -assign_p_sizes_qlim(struct drbd_device *device, struct p_sizes *p,
-> -					struct request_queue *q)
-> -{
-> -	if (q) {
-> -		p->qlim->physical_block_size = cpu_to_be32(queue_physical_block_size(q));
-> -		p->qlim->logical_block_size = cpu_to_be32(queue_logical_block_size(q));
-> -		p->qlim->alignment_offset = cpu_to_be32(queue_alignment_offset(q));
-> -		p->qlim->io_min = cpu_to_be32(queue_io_min(q));
-> -		p->qlim->io_opt = cpu_to_be32(queue_io_opt(q));
-> -		p->qlim->discard_enabled = blk_queue_discard(q);
-> -		p->qlim->write_same_capable = 0;
-> -	} else {
-> -		q = device->rq_queue;
-> -		p->qlim->physical_block_size = cpu_to_be32(queue_physical_block_size(q));
-> -		p->qlim->logical_block_size = cpu_to_be32(queue_logical_block_size(q));
-> -		p->qlim->alignment_offset = 0;
-> -		p->qlim->io_min = cpu_to_be32(queue_io_min(q));
-> -		p->qlim->io_opt = cpu_to_be32(queue_io_opt(q));
-> -		p->qlim->discard_enabled = 0;
-> -		p->qlim->write_same_capable = 0;
-> -	}
-> -}
-> -
->   int drbd_send_sizes(struct drbd_peer_device *peer_device, int trigger_reply, enum dds_flags flags)
->   {
->   	struct drbd_device *device = peer_device->device;
-> @@ -957,14 +932,32 @@ int drbd_send_sizes(struct drbd_peer_device *peer_device, int trigger_reply, enu
->   		q_order_type = drbd_queue_order_type(device);
->   		max_bio_size = queue_max_hw_sectors(q) << 9;
->   		max_bio_size = min(max_bio_size, DRBD_MAX_BIO_SIZE);
-> -		assign_p_sizes_qlim(device, p, q);
-> +		p->qlim->physical_block_size =
-> +			cpu_to_be32(queue_physical_block_size(q));
-> +		p->qlim->logical_block_size =
-> +			cpu_to_be32(queue_logical_block_size(q));
-> +		p->qlim->alignment_offset =
-> +			cpu_to_be32(queue_alignment_offset(q));
-> +		p->qlim->io_min = cpu_to_be32(queue_io_min(q));
-> +		p->qlim->io_opt = cpu_to_be32(queue_io_opt(q));
-> +		p->qlim->discard_enabled = blk_queue_discard(q);
->   		put_ldev(device);
->   	} else {
-> +		struct request_queue *q = device->rq_queue;
-> +
-> +		p->qlim->physical_block_size =
-> +			cpu_to_be32(queue_physical_block_size(q));
-> +		p->qlim->logical_block_size =
-> +			cpu_to_be32(queue_logical_block_size(q));
-> +		p->qlim->alignment_offset = 0;
-> +		p->qlim->io_min = cpu_to_be32(queue_io_min(q));
-> +		p->qlim->io_opt = cpu_to_be32(queue_io_opt(q));
-> +		p->qlim->discard_enabled = 0;
-> +
->   		d_size = 0;
->   		u_size = 0;
->   		q_order_type = QUEUE_ORDERED_NONE;
->   		max_bio_size = DRBD_MAX_BIO_SIZE; /* ... multiple BIOs per peer_request */
-> -		assign_p_sizes_qlim(device, p, NULL);
->   	}
->   
->   	if (peer_device->connection->agreed_pro_version <= 94)
+flight 169248 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169248/
 
-LGTM now, thanks.
+Regressions :-(
 
-Acked-by: Christoph Böhmwalder <christoph.boehmwalder@linbit.com>
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 94f905b3bf37af99cff0787c2f529ab3fe2e8fbb
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   39 days
+Failing since        168258  2022-03-01 01:55:31 Z   39 days  295 attempts
+Testing same since   169226  2022-04-08 06:27:24 Z    1 days    9 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 4626 lines long.)
 
