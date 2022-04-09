@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8512B4FA164
-	for <lists+xen-devel@lfdr.de>; Sat,  9 Apr 2022 03:45:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.301865.515247 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34C614FA18B
+	for <lists+xen-devel@lfdr.de>; Sat,  9 Apr 2022 04:07:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.301870.515259 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nd09s-0008Ie-7b; Sat, 09 Apr 2022 01:45:00 +0000
+	id 1nd0Uv-00039G-17; Sat, 09 Apr 2022 02:06:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 301865.515247; Sat, 09 Apr 2022 01:45:00 +0000
+Received: by outflank-mailman (output) from mailman id 301870.515259; Sat, 09 Apr 2022 02:06:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nd09s-0008Gu-2w; Sat, 09 Apr 2022 01:45:00 +0000
-Received: by outflank-mailman (input) for mailman id 301865;
- Sat, 09 Apr 2022 01:44:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1EL/=UT=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nd09r-0008Go-CG
- for xen-devel@lists.xenproject.org; Sat, 09 Apr 2022 01:44:59 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a8d9bda8-b7a6-11ec-8fbc-03012f2f19d4;
- Sat, 09 Apr 2022 03:44:57 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 248EE62220;
- Sat,  9 Apr 2022 01:44:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 235E3C385A1;
- Sat,  9 Apr 2022 01:44:55 +0000 (UTC)
+	id 1nd0Uu-00036e-Tm; Sat, 09 Apr 2022 02:06:44 +0000
+Received: by outflank-mailman (input) for mailman id 301870;
+ Sat, 09 Apr 2022 02:06:43 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nd0Ut-00036U-GQ; Sat, 09 Apr 2022 02:06:43 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nd0Ut-0001K2-Cu; Sat, 09 Apr 2022 02:06:43 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nd0Us-0003RP-UR; Sat, 09 Apr 2022 02:06:43 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nd0Us-0007Ca-Qh; Sat, 09 Apr 2022 02:06:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,260 +42,459 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8d9bda8-b7a6-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1649468695;
-	bh=JD7nwjtMwLwXZ61zCNVpq4UXjH4WCYCO9ccOzy7810I=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=O1kHKOEqwaAWnZi8E0kq52UiJWYRpWtlIaPyVs852PwYvrq/upnJtDPO4mleew0qT
-	 1+9bCOyufjeTX+hcV6FHnYahTZg4T/sPNntVo7OIZCiOebgM//xKurrtS3CQfumk13
-	 NjLnVFKtwLY7PQ2MtOtQSJzXxzFfL/YLIJ7ZZtXX7UUVJTSmkrhBiaBnpP6udK/hb+
-	 mP0cWTTY/Eeuc4jeFvNIjt4yfQJdPISgkrAJRQciBgYkQSXYOCl5Cdcv0Ecy9EAUVM
-	 tGruW0qlwuL+IF6TkokvTjfG4Zwajv3rSeXNssumezfXw7Rux2+4jQ7H4tg2jAxkV1
-	 1TyLradaBH6tg==
-Date: Fri, 8 Apr 2022 18:44:54 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Stefano Stabellini <sstabellini@kernel.org>
-cc: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org, 
-    bertrand.marquis@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] xen/evtchn: Add design for static event channel signaling
- for domUs..
-In-Reply-To: <alpine.DEB.2.22.394.2204081649370.3066615@ubuntu-linux-20-04-desktop>
-Message-ID: <alpine.DEB.2.22.394.2204081837410.3066615@ubuntu-linux-20-04-desktop>
-References: <4836304496e6fbbea41348ed8cc9fcf6b0f3e893.1648049827.git.rahul.singh@arm.com> <alpine.DEB.2.22.394.2204081649370.3066615@ubuntu-linux-20-04-desktop>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=OID8S6KntrD2IDDZ7XiAnLA7J4qL/vGnq5QKfr/rM10=; b=RJcg5TK/XlTk2bS6edKFc7I2DI
+	ML7kaGZWuER9sLqzSvpo33fysVWErvMTjj6oMDobaI6etcnRO+I+lFqx4ZaIjk7LpAqgYS5ucVuNd
+	+xIJHh5d4RtDOhbt8l5pFWZSdpWAZxQFzDEeuu5Ly/JcMJn0wM6Y+uaRpAlzesx0VeCc=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-169238-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1710515683-1649468696=:3066615"
+Subject: [xen-4.16-testing test] 169238: regressions - FAIL
+X-Osstest-Failures:
+    xen-4.16-testing:build-arm64:xen-build:fail:regression
+    xen-4.16-testing:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+    xen-4.16-testing:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    xen-4.16-testing:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    xen-4.16-testing:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
+    xen-4.16-testing:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
+    xen-4.16-testing:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
+    xen-4.16-testing:test-arm64-arm64-xl-seattle:build-check(1):blocked:nonblocking
+    xen-4.16-testing:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
+    xen-4.16-testing:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
+    xen-4.16-testing:build-arm64-libvirt:build-check(1):blocked:nonblocking
+    xen-4.16-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.16-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-4.16-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-4.16-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.16-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-4.16-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.16-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    xen-4.16-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.16-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.16-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-4.16-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-4.16-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=b953760d0b564478e232e7e64823d2a1506e92b5
+X-Osstest-Versions-That:
+    xen=2c026fe1f159494b3ec05f19ddfb3d39ff901296
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 09 Apr 2022 02:06:42 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 169238 xen-4.16-testing real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169238/
 
---8323329-1710515683-1649468696=:3066615
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Regressions :-(
 
-On Fri, 8 Apr 2022, Stefano Stabellini wrote:
-> On Wed, 23 Mar 2022, Rahul Singh wrote:
-> > in dom0less system. This patch introduce the new feature to support the
-> > signaling between two domUs in dom0less system.
-> > 
-> > Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> > ---
-> >  docs/designs/dom0less-evtchn.md | 96 +++++++++++++++++++++++++++++++++
-> >  1 file changed, 96 insertions(+)
-> >  create mode 100644 docs/designs/dom0less-evtchn.md
-> > 
-> > diff --git a/docs/designs/dom0less-evtchn.md b/docs/designs/dom0less-evtchn.md
-> > new file mode 100644
-> > index 0000000000..6a1b7e8c22
-> > --- /dev/null
-> > +++ b/docs/designs/dom0less-evtchn.md
-> > @@ -0,0 +1,96 @@
-> > +# Signaling support between two domUs on dom0less system
-> > +
-> > +## Current state: Draft version
-> > +
-> > +## Proposer(s): Rahul Singh, Bertrand Marquis
-> > +
-> > +## Problem Statement:
-> > +
-> > +The goal of this work is to define a simple signaling system between Xen guests
-> > +in dom0less systems.
-> > +
-> > +In dom0less system, we cannot make use of xenbus and xenstore that are used in
-> > +normal systems with dynamic VMs to communicate between domains by providing a
-> > +bus abstraction for paravirtualized drivers.
-> > +
-> > +One possible solution to implement the signaling system between domUs is based
-> > +on event channels.
-> 
-> I suggest to reword this as follows:
-> 
-> ---
-> Dom0less guests would benefit from a statically-defined memory sharing
-> and signally system for communication. One that would be immediately
-> available at boot without any need for dynamic configurations.
-> 
-> In embedded a great variety of guest operating system kernels exist,
-> many of which don't have support for xenstore, grant table or other
-> complex drivers. Some of them are small kernel-space applications (often
-> called "baremetal", not to be confused with the term "baremetal" used in
-> datacenter which means "without hypervisors") or RTOSes.  Additionally,
-> for safety reasons, users often need to be able to configure the full
-> system statically so that it can be verified statically.
-> 
-> Event channels are very simple and can be added even to baremetal
-> applications. This proposal introduces a way to define them statically
-> to make them suitable to dom0less embedded deployments.
-> ---
-> 
-> 
-> > +## Proposal:
-> > +
-> > +Event channels are the basic primitive provided by Xen for event notifications.
-> > +An event channel is a logical connection between 2 domains (more specifically
-> > +between dom1,port1 and dom2,port2). They essentially store one bit of
-> > +information, the event of interest is signalled by transitioning this bit from
-> > +0 to 1. An event is an equivalent of a hardware interrupt.
-> > +
-> > +Notifications are received by a guest via an interrupt from Xen to the guest,
-> > +indicating when an event arrives (setting the bit). Further notifications are
-> > +masked until the bit is cleared again. When a domain wants to wait for data it
-> > +will block until an event arrives, and then send an event to signal that data
-> > +has been consumed. Events are delivered asynchronously to guests and are
-> > +enqueued when the guest is not running.
-> > +
-> > +Event channel communication will be established statically between two domU
-> > +guests before unpausing the domains after domain creation. Event channel
-> > +connection information between domUs will be passed to XEN via device tree
-> > +node.
-> > +
-> > +Under the /chosen node, there needs to be sub nodes with compatible
-> > +"xen,evtchn" that descibes the event channel connection between two domUs.
-> > +
-> > +The event channel sub-node has the following properties:
-> > +
-> > +- compatible
-> > +
-> > +    "xen,evtchn"
-> > +
-> > +- xen,evtchn
-> > +
-> > +    The property is four numbers of tuples of
-> > +    (local-port-domU1,domU1-phandle,local-port-domU2,domU2-phandle) where:
-> > +
-> > +    local-port-domU1 is an integer value that will be used to allocte local
-> > +    port for domU1 to send an event notification to the remote domain.
-> > +
-> > +    domU1-phandle is a single phandle to an domain to which local-port-domU1
-> > +    will be allocated.
-> > +
-> > +    local-port-domU2 is an integer value that will be used to allocte local
-> > +    port for domU2 to send an event notification to the remote domain.
-> > +
-> > +    domU2-phandle is a single phandle to an domain to which local-port-domU2
-> > +    will be allocated.
-> > +
-> > +Example:
-> > +
-> > +    chosen {
-> > +        ....
-> > +
-> > +        domU1: domU1 {
-> > +            ......
-> > +        };
-> > +
-> > +        domU2: domU2 {
-> > +            ......
-> > +        };
-> > +
-> > +        evtchn@1 {
-> > +            compatible = "xen,evtchn";
-> > +            xen,evtchn = <0xa &domU1 0xb &domU2>;
-> > +        };
-> > +
-> > +        evtchn@2 {
-> > +            compatible = "xen,evtchn";
-> > +            xen,evtchn = <0xc &domU1 0xd &domU2>;
-> > +        };
-> > +    };
-> 
-> There is no need to use two evtchn nodes for this given that in device
-> tree it is entirely normal to have multiple tuplets in a property. Also,
-> it would be good to have a version number in the compatible string so
-> that we can change version in the future.
-> 
-> 1)
->     chosen {
->         ....
-> 
->         domU1: domU1 {
->             ......
->         };
-> 
->         domU2: domU2 {
->             ......
->         };
-> 
->         evtchn {
->             compatible = "xen,evtchn-v1";
->             xen,evtchn = <0xa &domU1 0xb &domU2 0xc &domU1 0xd &domU2>;
->         };
->     };
-> 
-> 
-> I should mention that it would be also possible to use sub-nodes to
-> express this information:
-> 
-> 2)
->         domU1: domU1 {
->             ...
->             /* one sub-node per local event channel */
->             ec1: evtchn@a {
->                 compatible = "xen,evtchn-v1";
->                 /* local-evtchn link-to-foreign-evtchn */
->                 xen,evtchn = <0xa &ec3>
->             };
->             ec2: evtchn@c {
->                 compatible = "xen,evtchn-v1";
->                 xen,evtchn = <0xc &ec4>
->             };
->         };
-> 
->         domU2: domU2 {
->             ...
->             ec3: evtchn@b {
->                 compatible = "xen,evtchn-v1";
->                 xen,evtchn = <0xb &ec1>
->             };
->             ec4: evtchn@d {
->                 compatible = "xen,evtchn-v1";
->                 xen,evtchn = <0xa &ec2>
->             };
->         };
->     };
-> 
-> This format has the advantage that doesn't need a new top-level node
-> type under /chosen. That is desirable few a few reasons. Today we only
-> have domains (dom0 is legacy). In the future we might have nested
-> domains and non-Xen domains. With System Device Tree, domains are under
-> /domains instead of /chosen.
-> 
-> So normally I would argue to use the sub-node format because it doesn't
-> need a new top-level node under /chosen. However, in this case it looks
-> like the 1) format is simpler to write and also simpler to parse in Xen.
-> 
-> In 1), we would need to loop over xen,evtchn and for each tuplet we
-> would only need to fetch the foreign domid.
-> 
-> In 2), we would need to check the compatible string of every
-> "xen,evtchn-v1" node, and we would have to fetch from the phandle both
-> the remote event channel number but also the domain-id of the parent.
-> 
-> So it looks like 1) is better because it is much simpler to parse. Do
-> you agree?
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64                   6 xen-build                fail REGR. vs. 169194
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 169194
 
-[...]
-> 
-> I think this is fine in principle. Like Jan wrote, at some point we'll
-> need to specify the device tree binding to expose this information to
-> the guest.
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-seattle   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-vhd       1 build-check(1)               blocked  n/a
+ build-arm64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 169194
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 169194
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 169194
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 169194
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 169194
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 169194
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 169194
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 169194
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 169194
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 169194
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 169194
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 169194
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
 
-Actually, thinking more about it, I think it is likely that the guest
-device tree bindings will include information about how it is supposed
-to be used. For instance, the domU device tree might pair an event
-channel with a shared memory region so that the domU knows that they are
-expected to be used together.
+version targeted for testing:
+ xen                  b953760d0b564478e232e7e64823d2a1506e92b5
+baseline version:
+ xen                  2c026fe1f159494b3ec05f19ddfb3d39ff901296
 
-If Xen is to generate such a device tree for guests, then we need that
-information also on the host device tree too (the one given to Xen and
-discussed here.)
+Last test of basis   169194  2022-04-06 08:39:21 Z    2 days
+Testing same since   169238  2022-04-08 13:07:07 Z    0 days    1 attempts
 
-So, I think it would be a good idea to discuss the domU device tree
-bindings for this, as part of this design document, even if we don't
-implement it straight away.
---8323329-1710515683-1649468696=:3066615--
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Bjoern Doebel <doebel@amazon.de>
+  Jan Beulich <jbeulich@suse.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  fail    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          blocked 
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  blocked 
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      blocked 
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit b953760d0b564478e232e7e64823d2a1506e92b5
+Author: Roger Pau Monné <roger.pau@citrix.com>
+Date:   Fri Apr 8 14:59:27 2022 +0200
+
+    livepatch: avoid relocations referencing ignored section symbols
+    
+    Track whether symbols belong to ignored sections in order to avoid
+    applying relocations referencing those symbols. The address of such
+    symbols won't be resolved and thus the relocation will likely fail or
+    write garbage to the destination.
+    
+    Return an error in that case, as leaving unresolved relocations would
+    lead to malfunctioning payload code.
+    
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Tested-by: Bjoern Doebel <doebel@amazon.de>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+    master commit: 9120b5737f517fe9d2a3936c38d3a2211630323b
+    master date: 2022-04-08 10:27:11 +0200
+
+commit 46d80ba371b20a5201b7168a4fee924ba3f80303
+Author: Roger Pau Monné <roger.pau@citrix.com>
+Date:   Fri Apr 8 14:58:57 2022 +0200
+
+    livepatch: do not ignore sections with 0 size
+    
+    A side effect of ignoring such sections is that symbols belonging to
+    them won't be resolved, and that could make relocations belonging to
+    other sections that reference those symbols fail.
+    
+    For example it's likely to have an empty .altinstr_replacement with
+    symbols pointing to it, and marking the section as ignored will
+    prevent the symbols from being resolved, which in turn will cause any
+    relocations against them to fail.
+    
+    In order to solve this do not ignore sections with 0 size, only ignore
+    sections that don't have the SHF_ALLOC flag set.
+    
+    Special case such empty sections in move_payload so they are not taken
+    into account in order to decide whether a livepatch can be safely
+    re-applied after a revert.
+    
+    Fixes: 98b728a7b2 ('livepatch: Disallow applying after an revert')
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Tested-by: Bjoern Doebel <doebel@amazon.de>
+    Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+    master commit: 0dc1f929e8fed681dec09ca3ea8de38202d5bf30
+    master date: 2022-04-08 10:24:10 +0200
+
+commit 44aae670cc28e0533cd893da408878c80a579876
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Fri Apr 8 14:58:25 2022 +0200
+
+    vPCI: fix MSI-X PBA read/write gprintk()s
+    
+    %pp wants the address of an SBDF, not that of a PCI device.
+    
+    Fixes: b4f211606011 ("vpci/msix: fix PBA accesses")
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+    master commit: d3f61beea4255e2d86ae82303384c57a3262435e
+    master date: 2022-04-07 18:01:24 +0200
+
+commit 5a4935bff50d51cf26a4ae2a1c08663e853e47dc
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Fri Apr 8 14:57:54 2022 +0200
+
+    x86/cpuid: Clobber CPUID leaves 0x800000{1d..20} in policies
+    
+    c/s 1a914256dca5 increased the AMD max leaf from 0x8000001c to 0x80000021, but
+    did not adjust anything in the calculate_*_policy() chain.  As a result, on
+    hardware supporting these leaves, we read the real hardware values into the
+    raw policy, then copy into host, and all the way into the PV/HVM default
+    policies.
+    
+    All 4 of these leaves have enable bits (first two by TopoExt, next by SEV,
+    next by PQOS), so any software following the rules is fine and will leave them
+    alone.  However, leaf 0x8000001d takes a subleaf input and at least two
+    userspace utilities have been observed to loop indefinitely under Xen (clearly
+    waiting for eax to report "no more cache levels").
+    
+    Such userspace is buggy, but Xen's behaviour isn't great either.
+    
+    In the short term, clobber all information in these leaves.  This is a giant
+    bodge, but there are complexities with implementing all of these leaves
+    properly.
+    
+    Fixes: 1a914256dca5 ("x86/cpuid: support LFENCE always serialising CPUID bit")
+    Link: https://github.com/QubesOS/qubes-issues/issues/7392
+    Reported-by: fosslinux <fosslinux@aussies.space>
+    Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    master commit: d4012d50082c2eae2f3cbe7770be13b9227fbc3f
+    master date: 2022-04-07 11:36:45 +0100
+
+commit eedc5acfb32ec35c38e9b5fcaa3d28d8b0971855
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Fri Apr 8 14:57:25 2022 +0200
+
+    VT-d: avoid infinite recursion on domain_context_mapping_one() error path
+    
+    Despite the comment there infinite recursion was still possible, by
+    flip-flopping between two domains. This is because prev_dom is derived
+    from the DID found in the context entry, which was already updated by
+    the time error recovery is invoked. Simply introduce yet another mode
+    flag to prevent rolling back an in-progress roll-back of a prior
+    mapping attempt.
+    
+    Also drop the existing recursion prevention for having been dead anyway:
+    Earlier in the function we already bail when prev_dom == domain.
+    
+    Fixes: 8f41e481b485 ("VT-d: re-assign devices directly")
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+    master commit: 99d829dba1390b98a3ca07b365713e62182ee7ca
+    master date: 2022-04-07 12:31:16 +0200
+
+commit 0497023ae57649a23cde211dd022522724f993b6
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Fri Apr 8 14:56:54 2022 +0200
+
+    VT-d: avoid NULL deref on domain_context_mapping_one() error paths
+    
+    First there's a printk() which actually wrongly uses pdev in the first
+    place: We want to log the coordinates of the (perhaps fake) device
+    acted upon, which may not be pdev.
+    
+    Then it was quite pointless for eb19326a328d ("VT-d: prepare for per-
+    device quarantine page tables (part I)") to add a domid_t parameter to
+    domain_context_unmap_one(): It's only used to pass back here via
+    me_wifi_quirk() -> map_me_phantom_function(). Drop the parameter again.
+    
+    Finally there's the invocation of domain_context_mapping_one(), which
+    needs to be passed the correct domain ID. Avoid taking that path when
+    pdev is NULL and the quarantine state is what would need restoring to.
+    This means we can't security-support non-PCI-Express devices with RMRRs
+    (if such exist in practice) any longer; note that as of trhe 1st of the
+    two commits referenced below assigning them to DomU-s is unsupported
+    anyway.
+    
+    Fixes: 8f41e481b485 ("VT-d: re-assign devices directly")
+    Fixes: 14dd241aad8a ("IOMMU/x86: use per-device page tables for quarantining")
+    Coverity ID: 1503784
+    Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+    master commit: 608394b906e71587f02e6662597bc985bad33a5a
+    master date: 2022-04-07 12:30:19 +0200
+
+commit ab6f4a11629bd06b860c036f8ec604f7cd9fba68
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Fri Apr 8 14:55:55 2022 +0200
+
+    VT-d: don't needlessly look up DID
+    
+    If get_iommu_domid() in domain_context_unmap_one() fails, we better
+    wouldn't clear the context entry in the first place, as we're then unable
+    to issue the corresponding flush. However, we have no need to look up the
+    DID in the first place: What needs flushing is very specifically the DID
+    that was in the context entry before our clearing of it.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+    master commit: 445ab9852d69d8957467f0036098ebec75fec092
+    master date: 2022-04-07 12:29:03 +0200
+(qemu changes not included)
 
