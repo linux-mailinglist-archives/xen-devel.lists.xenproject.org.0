@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8DA84FAC57
-	for <lists+xen-devel@lfdr.de>; Sun, 10 Apr 2022 08:26:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.302359.516007 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3355D4FAC5B
+	for <lists+xen-devel@lfdr.de>; Sun, 10 Apr 2022 08:27:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.302362.516019 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ndR1m-0002QZ-Pf; Sun, 10 Apr 2022 06:26:26 +0000
+	id 1ndR2p-0002yH-4J; Sun, 10 Apr 2022 06:27:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 302359.516007; Sun, 10 Apr 2022 06:26:26 +0000
+Received: by outflank-mailman (output) from mailman id 302362.516019; Sun, 10 Apr 2022 06:27:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ndR1m-0002OA-Mp; Sun, 10 Apr 2022 06:26:26 +0000
-Received: by outflank-mailman (input) for mailman id 302359;
- Sun, 10 Apr 2022 06:26:25 +0000
+	id 1ndR2p-0002vh-0o; Sun, 10 Apr 2022 06:27:31 +0000
+Received: by outflank-mailman (input) for mailman id 302362;
+ Sun, 10 Apr 2022 06:27:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=aDry=UU=lst.de=hch@srs-se1.protection.inumbo.net>)
- id 1ndR1l-0002O4-Eo
- for xen-devel@lists.xenproject.org; Sun, 10 Apr 2022 06:26:25 +0000
+ id 1ndR2n-0002vV-7C
+ for xen-devel@lists.xenproject.org; Sun, 10 Apr 2022 06:27:29 +0000
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 24c8be4f-b897-11ec-8fbc-03012f2f19d4;
- Sun, 10 Apr 2022 08:26:24 +0200 (CEST)
+ id 4b33726c-b897-11ec-8fbc-03012f2f19d4;
+ Sun, 10 Apr 2022 08:27:28 +0200 (CEST)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id E057168AFE; Sun, 10 Apr 2022 08:26:20 +0200 (CEST)
+ id 95E2B68AFE; Sun, 10 Apr 2022 08:27:26 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,10 +38,10 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24c8be4f-b897-11ec-8fbc-03012f2f19d4
-Date: Sun, 10 Apr 2022 08:26:20 +0200
+X-Inumbo-ID: 4b33726c-b897-11ec-8fbc-03012f2f19d4
+Date: Sun, 10 Apr 2022 08:27:26 +0200
 From: Christoph Hellwig <hch@lst.de>
-To: Christoph =?iso-8859-1?Q?B=F6hmwalder?= <christoph.boehmwalder@linbit.com>
+To: Coly Li <colyli@suse.de>
 Cc: Christoph Hellwig <hch@lst.de>, dm-devel@redhat.com,
 	linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
 	linux-um@lists.infradead.org, linux-block@vger.kernel.org,
@@ -59,31 +59,25 @@ Cc: Christoph Hellwig <hch@lst.de>, dm-devel@redhat.com,
 	ntfs3@lists.linux.dev, ocfs2-devel@oss.oracle.com,
 	linux-mm@kvack.org,
 	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	Coly Li <colyli@suse.de>
-Subject: Re: [PATCH 24/27] block: remove QUEUE_FLAG_DISCARD
-Message-ID: <20220410062620.GA16234@lst.de>
-References: <20220409045043.23593-1-hch@lst.de> <20220409045043.23593-25-hch@lst.de> <72e9bd34-3380-e305-65f0-a17306f5bd08@linbit.com>
+	Christoph =?iso-8859-1?Q?B=F6hmwalder?= <christoph.boehmwalder@linbit.com>,
+	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
+	David Sterba <dsterba@suse.com>
+Subject: Re: [PATCH 26/27] block: decouple REQ_OP_SECURE_ERASE from
+ REQ_OP_DISCARD
+Message-ID: <20220410062726.GB16234@lst.de>
+References: <20220409045043.23593-1-hch@lst.de> <20220409045043.23593-27-hch@lst.de> <f01ac878-9b0d-972b-70dc-6f3f61b9947b@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <72e9bd34-3380-e305-65f0-a17306f5bd08@linbit.com>
+In-Reply-To: <f01ac878-9b0d-972b-70dc-6f3f61b9947b@suse.de>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On Sat, Apr 09, 2022 at 10:15:33AM +0200, Christoph Böhmwalder wrote:
-> On 09.04.22 06:50, Christoph Hellwig wrote:
->> Just use a non-zero max_discard_sectors as an indicator for discard
->> support, similar to what is done for write zeroes.
->>
->> The only places where needs special attention is the RAID5 driver,
->> which must clear discard support for security reasons by default,
->> even if the default stacking rules would allow for it.
->>
->> Signed-off-by: Christoph Hellwig <hch@lst.de>
->> Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
->> Acked-by: Christoph Böhmwalder <christoph.boehmwalder@linbit.com> [btrfs]
+On Sat, Apr 09, 2022 at 10:32:52PM +0800, Coly Li wrote:
+>> Acked-by: Coly Li <colyli@suse.de> [drbd]
 >
-> I think you may have a typo there: my ACK was for drbd, not btrfs.
+> Hi Christoph,
+>
+> My ACK is for bcache, not drbd here.
 
-Indeed, sorry.
+Fixed.
 
