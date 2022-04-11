@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B42894FBB22
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Apr 2022 13:41:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.303021.516988 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F3654FBB24
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Apr 2022 13:42:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.303031.516999 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ndsPW-00031Q-U8; Mon, 11 Apr 2022 11:40:46 +0000
+	id 1ndsRR-0003iL-Ab; Mon, 11 Apr 2022 11:42:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 303021.516988; Mon, 11 Apr 2022 11:40:46 +0000
+Received: by outflank-mailman (output) from mailman id 303031.516999; Mon, 11 Apr 2022 11:42:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ndsPW-0002z0-Qp; Mon, 11 Apr 2022 11:40:46 +0000
-Received: by outflank-mailman (input) for mailman id 303021;
- Mon, 11 Apr 2022 11:40:45 +0000
+	id 1ndsRR-0003gA-7e; Mon, 11 Apr 2022 11:42:45 +0000
+Received: by outflank-mailman (input) for mailman id 303031;
+ Mon, 11 Apr 2022 11:42:43 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ndsPV-0002yp-Cm; Mon, 11 Apr 2022 11:40:45 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1ndsRP-0003g4-Nw
+ for xen-devel@lists.xenproject.org; Mon, 11 Apr 2022 11:42:43 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ndsPV-00059E-B0; Mon, 11 Apr 2022 11:40:45 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ndsPU-0006Lj-Rs; Mon, 11 Apr 2022 11:40:44 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ndsPU-0001rQ-RQ; Mon, 11 Apr 2022 11:40:44 +0000
+ (envelope-from <julien@xen.org>)
+ id 1ndsRP-0005B5-EB; Mon, 11 Apr 2022 11:42:43 +0000
+Received: from [54.239.6.185] (helo=[192.168.17.122])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ndsRP-0007a4-7e; Mon, 11 Apr 2022 11:42:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,152 +39,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=89uOy8Su9SQnaNL2GVKI22/geDA2LBFT07BxRL6qEbk=; b=DJdTQaORloZTeBqP8aJDwJ/3Uf
-	DUpvSLL5eTEGJq1VtZogDOcMfihU1+V6o9a8qs04ECnJvn6b/Qht+mHwbgg9q87KgKybm7edLHD2f
-	oQUu3Ntge0b6zOX4kWVDVJIXHEZl6rnMmYN83Pe1doMXt2NbCiCtPgv1JYnYGILV0tN4=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169305-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=oVb6dRkYhQlrClg75ZYhW/lxErBNYymBP+O4sMApSus=; b=eCHDCkjUMuEFdd8OHzWwKvk0SO
+	rva+AQrNIlvqGf1cO4IT8IHeMp5DHMVbJdvvnwUTf1ButPhSflfyEOeg9oLXrt1jzYjcpGsV++sD4
+	/1sZMBtRAV7v2rRBUbUXdengZaDdX2AaIWeGfAiSReIQp6UUjwR6U7yKqg4JGwkq7LIs=;
+Message-ID: <201915c1-7f2a-1c75-ccd0-f096cb3ad2ad@xen.org>
+Date: Mon, 11 Apr 2022 12:42:40 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 169305: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=dab96cf02e3be378310dd1bce119b0fac6fac958
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 11 Apr 2022 11:40:44 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.7.0
+Subject: Re: [PATCH v6 4/6] xen/cpupool: Create different cpupools at boot
+ time
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Xen developer discussion <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>,
+ Dario Faggioli <dfaggioli@suse.com>
+References: <20220408084517.33082-1-luca.fancellu@arm.com>
+ <20220408084517.33082-5-luca.fancellu@arm.com>
+ <a052e26c-2142-bf51-bc80-449476ed0854@xen.org>
+ <16C126D9-18EF-440E-BD84-6D5028BFE879@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <16C126D9-18EF-440E-BD84-6D5028BFE879@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-flight 169305 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169305/
+Hi Luca,
 
-Regressions :-(
+On 11/04/2022 12:30, Luca Fancellu wrote:
+>> On 11 Apr 2022, at 11:58, Julien Grall <julien@xen.org> wrote:
+>>
+>> Hi Luca,
+>>
+>> On 08/04/2022 09:45, Luca Fancellu wrote:
+>>> diff --git a/docs/misc/arm/device-tree/cpupools.txt b/docs/misc/arm/device-tree/cpupools.txt
+>>> new file mode 100644
+>>> index 000000000000..40cc8135c66f
+>>> --- /dev/null
+>>> +++ b/docs/misc/arm/device-tree/cpupools.txt
+>>> @@ -0,0 +1,140 @@
+>>> +Boot time cpupools
+>>> +==================
+>>> +
+>>> +When BOOT_TIME_CPUPOOLS is enabled in the Xen configuration, it is possible to
+>>> +create cpupools during boot phase by specifying them in the device tree.
+>>> +ACPI is not supported for this feature.
+>>> +
+>>> +Cpupools specification nodes shall be direct childs of /chosen node.
+>>> +Each cpupool node contains the following properties:
+>>> +
+>>> +- compatible (mandatory)
+>>> +
+>>> +    Must always include the compatiblity string: "xen,cpupool".
+>>> +
+>>> +- cpupool-cpus (mandatory)
+>>> +
+>>> +    Must be a list of device tree phandle to nodes describing cpus (e.g. having
+>>> +    device_type = "cpu"), it can't be empty.
+>>> +
+>>> +- cpupool-sched (optional)
+>>> +
+>>> +    Must be a string having the name of a Xen scheduler. Check the sched=<...>
+>>> +    boot argument for allowed values [1]. When this property is omitted, the Xen
+>>> +    default scheduler will be used.
+>>> +
+>>> +
+>>> +Constraints
+>>> +===========
+>>> +
+>>> +If no cpupools are specified, all cpus will be assigned to one cpupool
+>>> +implicitly created (Pool-0).
+>>> +
+>>> +If cpupools node are specified, but not every cpu brought up by Xen is assigned,
+>>> +all the not assigned cpu will be assigned to an additional cpupool.
+>>> +
+>>> +If a cpu is assigned to a cpupool, but it's not brought up correctly, Xen will
+>>> +stop.
+>>> +
+>>> +The boot cpu must be assigned to Pool-0, so the cpupool containing that core
+>>> +will become Pool-0 automatically.
+>>> +
+>>> +
+>>> +Examples
+>>> +========
+>>> +
+>>> +A system having two types of core, the following device tree specification will
+>>> +instruct Xen to have two cpupools:
+>>> +
+>>> +- The cpupool with id 0 will have 4 cpus assigned.
+>>> +- The cpupool with id 1 will have 2 cpus assigned.
+>>
+>> AFAIK, there are no guarantee that Xen will parse cpupool_a first. So it would be possible that the ID are inverted here.
+>>
+>> This could happen if you want to keep the boot CPU in pool 0 and it is not cpu@0 (some bootloaders allows you to change the boot CPU).
+> Yes I will specify that the boot cpu is listed in cpupool_a, so that cpupool will have id 0 regardless of the parsing order.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+This only covers the case where are two cpupools.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+AFAIK, there are no guarantee that Xen will parse the DT or the compiler 
+will generate the DT the way you want. So for three cpupools, we still 
+don't know which pool will be ID 1/2.
 
-version targeted for testing:
- ovmf                 dab96cf02e3be378310dd1bce119b0fac6fac958
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+See more below.
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   42 days
-Failing since        168258  2022-03-01 01:55:31 Z   41 days  323 attempts
-Testing same since   169287  2022-04-10 21:10:35 Z    0 days   12 attempts
+> 
+>>
+>> Also, here you write "The cpupool with id X" but ...
+>>
+>>> +A system having the cpupools specification below will instruct Xen to have three
+>>> +cpupools:
+>>> +
+>>> +- The cpupool Pool-0 will have 2 cpus assigned.
+>>> +- The cpupool Pool-1 will have 2 cpus assigned.
+>>> +- The cpupool Pool-2 will have 2 cpus assigned (created by Xen with all the not
+>>> +  assigned cpus a53_3 and a53_4).
+>>
+>> here you write "The cpupool Pool-X". Can you be consistent?
+> 
+> Sure, do you have a preference between “The cpupool with id X” and “Pool-X”? Otherwise I would go for Pool-X everywhere.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
+Using "cpupool with ID 0" is definitely wrong. Pool-X is marginally 
+better because an admin may think that this name will match what we have 
+in Xen.
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+So I think it would be better to use the node name and mention that 
+there are no guarantee in which ID will used by Xen.
 
+> 
+>>
+>> On a separate topic, I think dom0_max_vcpus() needs to be updated to by default (i.e when opt_dom0_max_vcpus == 0) the number of vCPUs match the number of vCPUs in the cpupool (I think 0) used to created dom0.
+> 
+> Yes right, I didn’t think about that, I think the change could be something like that:
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 9c67a483d4a4..9787104c3d31 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -73,7 +73,10 @@ custom_param("dom0_mem", parse_dom0_mem);
+>   unsigned int __init dom0_max_vcpus(void)
+>   {
+>       if ( opt_dom0_max_vcpus == 0 )
+> -        opt_dom0_max_vcpus = num_online_cpus();
+> +    {
+> +        ASSERT(cpupool0);
+> +        opt_dom0_max_vcpus = cpumask_weight(cpupool_valid_cpus(cpupool0));
+> +    }
+>       if ( opt_dom0_max_vcpus > MAX_VIRT_CPUS )
+>           opt_dom0_max_vcpus = MAX_VIRT_CPUS;
+> 
+> And if you agree I will include the changes for the v7.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+This should work.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Cheers,
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 4791 lines long.)
+-- 
+Julien Grall
 
