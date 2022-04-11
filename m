@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAB274FC35F
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Apr 2022 19:29:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.303212.517297 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B2564FC3C1
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Apr 2022 20:02:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.303217.517308 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ndxrD-0001zK-Rg; Mon, 11 Apr 2022 17:29:43 +0000
+	id 1ndyLr-0006B3-6I; Mon, 11 Apr 2022 18:01:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 303212.517297; Mon, 11 Apr 2022 17:29:43 +0000
+Received: by outflank-mailman (output) from mailman id 303217.517308; Mon, 11 Apr 2022 18:01:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ndxrD-0001xE-NY; Mon, 11 Apr 2022 17:29:43 +0000
-Received: by outflank-mailman (input) for mailman id 303212;
- Mon, 11 Apr 2022 17:29:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ndyLr-00068g-2c; Mon, 11 Apr 2022 18:01:23 +0000
+Received: by outflank-mailman (input) for mailman id 303217;
+ Mon, 11 Apr 2022 18:01:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iPrP=UV=suse.cz=dsterba@srs-se1.protection.inumbo.net>)
- id 1ndxrB-0001x0-TL
- for xen-devel@lists.xenproject.org; Mon, 11 Apr 2022 17:29:41 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f7d03b9f-b9bc-11ec-8fbc-03012f2f19d4;
- Mon, 11 Apr 2022 19:29:40 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id CB2971F38D;
- Mon, 11 Apr 2022 17:29:40 +0000 (UTC)
-Received: from ds.suse.cz (ds.suse.cz [10.100.12.205])
- by relay2.suse.de (Postfix) with ESMTP id B0827A3B87;
- Mon, 11 Apr 2022 17:29:40 +0000 (UTC)
-Received: by ds.suse.cz (Postfix, from userid 10065)
- id 47973DA7F7; Mon, 11 Apr 2022 19:25:36 +0200 (CEST)
+ (envelope-from <julien@xen.org>) id 1ndyLp-00068a-1t
+ for xen-devel@lists.xenproject.org; Mon, 11 Apr 2022 18:01:21 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ndyLo-0004lq-IM; Mon, 11 Apr 2022 18:01:20 +0000
+Received: from [54.239.6.185] (helo=[192.168.17.122])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ndyLo-00062S-Bp; Mon, 11 Apr 2022 18:01:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,90 +39,209 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f7d03b9f-b9bc-11ec-8fbc-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1649698180;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=y9/RDfYGC6K6KRC0KdrprIVWfIX/zpdTiz9ROrz551U=;
-	b=I9nwx9hrwiLBwY8Cn2rQGBPnpBriJmDMs1b8oNISqOpk754k7ib2Xve0iYAZqqPcSD2SgP
-	oZEA90HfyQ7ya+rehSXEh9k5AQbwstldp6HDVnl/WGBpQS17mVXtCGXXbsCypPUDUyaMdU
-	y+Peaf55gboQyV27R4kCRTuYgY7wFX4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1649698180;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=y9/RDfYGC6K6KRC0KdrprIVWfIX/zpdTiz9ROrz551U=;
-	b=AzkdKu96rYkAsjhpJavWNTiZGL3Agdt16W1llO8/BhnjKgsTeGvgPw66Q+CklEVPEpPHBk
-	JsD+WnrQfAy3whCQ==
-Date: Mon, 11 Apr 2022 19:25:36 +0200
-From: David Sterba <dsterba@suse.cz>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, dm-devel@redhat.com,
-	linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-um@lists.infradead.org, linux-block@vger.kernel.org,
-	drbd-dev@lists.linbit.com, nbd@other.debian.org,
-	ceph-devel@vger.kernel.org,
-	virtualization@lists.linux-foundation.org,
-	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
-	linux-raid@vger.kernel.org, linux-mmc@vger.kernel.org,
-	linux-mtd@lists.infradead.org, linux-nvme@lists.infradead.org,
-	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org, linux-btrfs@vger.kernel.org,
-	linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
-	cluster-devel@redhat.com, jfs-discussion@lists.sourceforge.net,
-	linux-nilfs@vger.kernel.org, ntfs3@lists.linux.dev,
-	ocfs2-devel@oss.oracle.com, linux-mm@kvack.org,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	Christoph =?iso-8859-1?Q?B=F6hmwalder?= <christoph.boehmwalder@linbit.com>,
-	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
-	David Sterba <dsterba@suse.com>
-Subject: Re: [PATCH 25/27] block: add a bdev_discard_granularity helper
-Message-ID: <20220411172536.GV15609@twin.jikos.cz>
-Reply-To: dsterba@suse.cz
-Mail-Followup-To: dsterba@suse.cz, Christoph Hellwig <hch@lst.de>,
-	Jens Axboe <axboe@kernel.dk>, dm-devel@redhat.com,
-	linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-um@lists.infradead.org, linux-block@vger.kernel.org,
-	drbd-dev@lists.linbit.com, nbd@other.debian.org,
-	ceph-devel@vger.kernel.org,
-	virtualization@lists.linux-foundation.org,
-	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
-	linux-raid@vger.kernel.org, linux-mmc@vger.kernel.org,
-	linux-mtd@lists.infradead.org, linux-nvme@lists.infradead.org,
-	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org, linux-btrfs@vger.kernel.org,
-	linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
-	cluster-devel@redhat.com, jfs-discussion@lists.sourceforge.net,
-	linux-nilfs@vger.kernel.org, ntfs3@lists.linux.dev,
-	ocfs2-devel@oss.oracle.com, linux-mm@kvack.org,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	Christoph =?iso-8859-1?Q?B=F6hmwalder?= <christoph.boehmwalder@linbit.com>,
-	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
-	David Sterba <dsterba@suse.com>
-References: <20220409045043.23593-1-hch@lst.de>
- <20220409045043.23593-26-hch@lst.de>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=91/dfoNzZ29hQpRnrxvAje+IzY3s4RmxOTU9AKneQGk=; b=0rhH2V7SPqgpxU6+/QmiWAeTjT
+	CXckwcFOftpH7ZzJNg+Jmx3ET0c6qG7r7HyB8QBmJjssbSEP/35jeJstPhDsrm96KBBjItsONUo38
+	l+w3XxmgKfYSDjOA4PvhJKetririIpjbQOBAfGnFqy1McKAILKzUeVSMwHpw0CgKUUkw=;
+Message-ID: <0ecf69d2-c496-d18e-1309-f896ec6bbf4c@xen.org>
+Date: Mon, 11 Apr 2022 19:01:17 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.7.0
+Subject: Re: [PATCH] xen/evtchn: Add design for static event channel signaling
+ for domUs..
+To: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <4836304496e6fbbea41348ed8cc9fcf6b0f3e893.1648049827.git.rahul.singh@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <4836304496e6fbbea41348ed8cc9fcf6b0f3e893.1648049827.git.rahul.singh@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220409045043.23593-26-hch@lst.de>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
 
-On Sat, Apr 09, 2022 at 06:50:41AM +0200, Christoph Hellwig wrote:
-> Abstract away implementation details from file systems by providing a
-> block_device based helper to retrieve the discard granularity.
+Hi Rahul,
+
+Title: s/../.../
+
+On 23/03/2022 15:43, Rahul Singh wrote:
+> in dom0less system. This patch introduce the new feature to support the
+
+s/introduce/introduces/
+s/the new/a/
+
+> signaling between two domUs in dom0less system.
+Did you intend to add a newline before the second sentence?
+
 > 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
-> Acked-by: Christoph Böhmwalder <christoph.boehmwalder@linbit.com> [btrfs]
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+> ---
+>   docs/designs/dom0less-evtchn.md | 96 +++++++++++++++++++++++++++++++++
+>   1 file changed, 96 insertions(+)
+>   create mode 100644 docs/designs/dom0less-evtchn.md
+> 
+> diff --git a/docs/designs/dom0less-evtchn.md b/docs/designs/dom0less-evtchn.md
+> new file mode 100644
+> index 0000000000..6a1b7e8c22
+> --- /dev/null
+> +++ b/docs/designs/dom0less-evtchn.md
+> @@ -0,0 +1,96 @@
+> +# Signaling support between two domUs on dom0less system
+> +
+> +## Current state:â€¯Draft version
+> +
+> +## Proposer(s): Rahul Singh, Bertrand Marquis
+> +
+> +## Problem Statement:
+> +
+> +The goal of this work is to define a simple signaling system between Xen guests
+> +in dom0less systems.
+> +
+> +In dom0less system, we cannot make use of xenbus and xenstore that are used in
+> +normal systems with dynamic VMs to communicate between domains by providing a
+> +bus abstraction for paravirtualized drivers.
+> +
+> +One possible solution to implement the signaling system between domUs is based
+> +on event channels.
+> +
+> +## Proposal:
+> +
+> +Event channels are the basic primitive provided by Xen for event notifications.
+> +An event channel is a logical connection between 2 domains (more specifically
+> +between dom1,port1 and dom2,port2). They essentially store one bit of
+> +information, the event of interest is signalled by transitioning this bit from
+> +0 to 1. An event is an equivalent of a hardware interrupt.
+> +
+> +Notifications are received by a guest via an interrupt from Xen to the guest,
+> +indicating when an event arrives (setting the bit). 
 
-This ^^^^ is for drbd
+I am a bit confused with the description. Are you trying to explain the 
+event channel in layman term? If not, then event channel protocol is 
+more complicated than that (in particular for fifo).
 
-> Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-> Acked-by: David Sterba <dsterba@suse.com> [btrfs]
+> Further notifications are
+> +masked until the bit is cleared again.
+
+I think "masked" is confusing here.
+
+The event channel differentiate "mask" vs "pending". When sending an 
+event, the pending bit will be set to 1. If it wasn't already pending 
+and the mask bit is clear, then we will notify the guest.
+
+If the pending bit is already set, then we will ignore.
+
+In fact, the event channel is acting similarly to an edge interrupt. I 
+wrote similarly, because IIRC they are behaving slightly differently 
+(see [1] for more details).
+
+> When a domain wants to wait for data it
+> +will block until an event arrives, and then send an event to signal that data
+> +has been consumed.
+> Events are delivered asynchronously to guests and are
+> +enqueued when the guest is not running.
+
+s/guest/domain/ to stay consistent and also include dom0/hardware domain.
+
+> +
+> +Event channel communication will be established statically between two domU
+> +guests before unpausing the domains after domain creation. Event channel
+> +connection information between domUs will be passed to XEN via device tree
+> +node.
+
+Why are we limiting ourself to domUs?
+
+> +
+> +Under the /chosen node, there needs to be sub nodes with compatible
+> +"xen,evtchn" that descibes the event channel connection between two domUs.
+
+s/descibes/describes/
+
+> +
+> +The event channel sub-node has the following properties:
+> +
+> +- compatible
+> +
+> +    "xen,evtchn"
+> +
+> +- xen,evtchn
+> +
+> +    The property is four numbers of tuples of
+> +    (local-port-domU1,domU1-phandle,local-port-domU2,domU2-phandle) where:
+
+This is quite difficult to read. Can we add some space before/after each 
+comma?
+
+> +
+> +    local-port-domU1 is an integer value that will be used to allocte local
+
+s/allocte/allocate/
+
+> +    port for domU1 to send an event notification to the remote domain.
+
+The port will be used for sending but also receiving event notification.
+
+Also, I would suggest to replace "remote domain" with "domU2". So it is 
+more explicit.
+
+> +
+> +    domU1-phandle is a single phandle to an domain to which local-port-domU1
+
+s/an domain/a domain/ I think.
+
+> +    will be allocated.
+> +
+> +    local-port-domU2 is an integer value that will be used to allocte local
+
+s/allocte/allocate/
+
+> +    port for domU2 to send an event notification to the remote domain.
+
+Same as above for "remote domain".
+
+> +
+> +    domU2-phandle is a single phandle to an domain to which local-port-domU2
+> +    will be allocated.
+> +
+> +Example:
+> +
+> +    chosen {
+> +        ....
+> +
+> +        domU1: domU1 {
+> +            ......
+> +        };
+> +
+> +        domU2: domU2 {
+> +            ......
+> +        };
+> +
+> +        evtchn@1 {
+> +            compatible = "xen,evtchn";
+> +            xen,evtchn = <0xa &domU1 0xb &domU2>;
+> +        };
+> +
+> +        evtchn@2 {
+> +            compatible = "xen,evtchn";
+> +            xen,evtchn = <0xc &domU1 0xd &domU2>;
+> +        };
+> +    };
+> +
+> +In above example two event channel comunication will be established between
+> +domU1 and domU2.
+> +
+> +    domU1 (port 0xa) <-----------------> domU2 (port 0xb)
+> +    domU1 (port 0xc) <-----------------> domU2 (port 0xd)
+> +
+> +domU1 and domU2 can send the signal to remote domain via hypercall
+> +EVTCHNOP_send(.) on local port.
+
+Cheers,
+
+[1] 
+https://lore.kernel.org/lkml/dbfd87e9-48fc-f641-9e24-ddb6c4f61135@arm.com/
+
+-- 
+Julien Grall
 
