@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 837BD4FB45A
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Apr 2022 09:03:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.302694.516418 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91AE84FB52F
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Apr 2022 09:46:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.302708.516430 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ndo50-0006dt-Mv; Mon, 11 Apr 2022 07:03:18 +0000
+	id 1ndojr-0004IX-3r; Mon, 11 Apr 2022 07:45:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 302694.516418; Mon, 11 Apr 2022 07:03:18 +0000
+Received: by outflank-mailman (output) from mailman id 302708.516430; Mon, 11 Apr 2022 07:45:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ndo50-0006bH-JX; Mon, 11 Apr 2022 07:03:18 +0000
-Received: by outflank-mailman (input) for mailman id 302694;
- Mon, 11 Apr 2022 07:03:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3hqm=UV=arm.com=michal.orzel@srs-se1.protection.inumbo.net>)
- id 1ndo4y-00063x-JF
- for xen-devel@lists.xenproject.org; Mon, 11 Apr 2022 07:03:16 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 752c16ab-b965-11ec-8fbc-03012f2f19d4;
- Mon, 11 Apr 2022 09:03:15 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8D9921FB;
- Mon, 11 Apr 2022 00:03:14 -0700 (PDT)
-Received: from e129167.arm.com (unknown [10.57.8.177])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EC2A63F73B;
- Mon, 11 Apr 2022 00:03:11 -0700 (PDT)
+	id 1ndojr-0004Fw-0V; Mon, 11 Apr 2022 07:45:31 +0000
+Received: by outflank-mailman (input) for mailman id 302708;
+ Mon, 11 Apr 2022 07:45:29 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ndojp-0004Fm-Lm; Mon, 11 Apr 2022 07:45:29 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ndojp-0008TA-De; Mon, 11 Apr 2022 07:45:29 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ndojp-0006XL-0n; Mon, 11 Apr 2022 07:45:29 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ndojp-0004mU-0H; Mon, 11 Apr 2022 07:45:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,441 +42,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 752c16ab-b965-11ec-8fbc-03012f2f19d4
-From: Michal Orzel <michal.orzel@arm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=92ScGxMkUX8jJ81I+2EvP4zs6KaZJ4SW405mQpwaqPc=; b=4kW+RFKyXoK1RqzfP4zTQXmJ6Y
+	GmAJBhmLe9HCJR4+PZen6oIpUKWBRc5J/OWsGKFD7+1WqdtqcOFu/M2upkwIkYmmQOpnAB+heQxO9
+	n1ErXG2Os+qkkVfmaKBhcZKBqnJ+lvvLVphepBrBkY24ioOViQlTinxAKn4NlfFfn1mY=;
 To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v5 2/2] xen: Populate xen.lds.h and make use of its macros
-Date: Mon, 11 Apr 2022 09:03:00 +0200
-Message-Id: <20220411070300.77380-3-michal.orzel@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220411070300.77380-1-michal.orzel@arm.com>
-References: <20220411070300.77380-1-michal.orzel@arm.com>
-MIME-Version: 1.0
+Message-ID: <osstest-169297-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 169297: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=dab96cf02e3be378310dd1bce119b0fac6fac958
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 11 Apr 2022 07:45:29 +0000
 
-Populate header file xen.lds.h with the first portion of macros storing
-constructs common to x86 and arm linker scripts. Replace the original
-constructs with these helpers.
+flight 169297 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169297/
 
-No functional improvements to x86 linker script.
+Regressions :-(
 
-Making use of common macros improves arm linker script with:
-- explicit list of debug sections that otherwise are seen as "orphans"
-  by the linker. This will allow to fix issues after enabling linker
-  option --orphan-handling one day,
-- extended list of discarded section to include: .discard, destructors
-  related sections, .fini_array which can reference .text.exit,
-- sections not related to debugging that are placed by ld.lld. Even
-  though we do not support linking with LLD on Arm, these sections do
-  not cause problem to GNU ld,
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
-As we are replacing hardcoded boundary specified as an argument to ALIGN
-function with POINTER_ALIGN, this changes the alignment in HYPFS_PARAM
-construct for arm32 from 8 to 4. It is fine as there are no 64bit values
-used in struct param_hypfs.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-Please note that this patch does not aim to perform the full sync up
-between the linker scripts. It creates a base for further work.
+version targeted for testing:
+ ovmf                 dab96cf02e3be378310dd1bce119b0fac6fac958
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-Signed-off-by: Michal Orzel <michal.orzel@arm.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
----
-Changes since v4:
--update commit msg with a note about changed alignment for HYPFS_PARAM on arm32
-Changes since v3:
--use POINTER_ALIGN in debug sections when needed
--modify comment about ELF_DETAILS_SECTIONS
-Changes since v2:
--refactor commit msg
--move constructs together with surrounding ifdefery
--list constructs other than *_SECTIONS in alphabetical order
--add comment about EFI vs EFI support
-Changes since v1:
--merge x86 and arm changes into single patch
--do not propagate issues by generalizing CTORS
--extract sections not related to debugging into separate macro
--get rid of _SECTION suffix in favor of using more meaningful suffixes
----
- xen/arch/arm/xen.lds.S    |  44 +++----------
- xen/arch/x86/xen.lds.S    |  96 +++-------------------------
- xen/include/xen/xen.lds.h | 129 ++++++++++++++++++++++++++++++++++++++
- 3 files changed, 147 insertions(+), 122 deletions(-)
+Last test of basis   168254  2022-02-28 10:41:46 Z   41 days
+Failing since        168258  2022-03-01 01:55:31 Z   41 days  319 attempts
+Testing same since   169287  2022-04-10 21:10:35 Z    0 days    8 attempts
 
-diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S
-index d20e5e94e4..1e986e211f 100644
---- a/xen/arch/arm/xen.lds.S
-+++ b/xen/arch/arm/xen.lds.S
-@@ -69,12 +69,7 @@ SECTIONS
-        *(.proc.info)
-        __proc_info_end = .;
- 
--#ifdef CONFIG_HAS_VPCI
--       . = ALIGN(POINTER_ALIGN);
--       __start_vpci_array = .;
--       *(SORT(.data.vpci.*))
--       __end_vpci_array = .;
--#endif
-+       VPCI_ARRAY
-   } :text
- 
- #if defined(BUILD_ID)
-@@ -110,12 +105,7 @@ SECTIONS
-        *(.data.schedulers)
-        __end_schedulers_array = .;
- 
--#ifdef CONFIG_HYPFS
--       . = ALIGN(8);
--       __paramhypfs_start = .;
--       *(.data.paramhypfs)
--       __paramhypfs_end = .;
--#endif
-+       HYPFS_PARAM
- 
-        *(.data .data.*)
-        CONSTRUCTORS
-@@ -179,12 +169,7 @@ SECTIONS
-        *(.altinstructions)
-        __alt_instructions_end = .;
- 
--#ifdef CONFIG_DEBUG_LOCK_PROFILE
--       . = ALIGN(POINTER_ALIGN);
--       __lock_profile_start = .;
--       *(.lockprofile.data)
--       __lock_profile_end = .;
--#endif
-+       LOCK_PROFILE_DATA
- 
-        *(.init.data)
-        *(.init.data.rel)
-@@ -223,22 +208,13 @@ SECTIONS
-   /* Section for the device tree blob (if any). */
-   .dtb : { *(.dtb) } :text
- 
--  /* Sections to be discarded */
--  /DISCARD/ : {
--       *(.exit.text)
--       *(.exit.data)
--       *(.exitcall.exit)
--       *(.eh_frame)
--  }
--
--  /* Stabs debugging sections.  */
--  .stab 0 : { *(.stab) }
--  .stabstr 0 : { *(.stabstr) }
--  .stab.excl 0 : { *(.stab.excl) }
--  .stab.exclstr 0 : { *(.stab.exclstr) }
--  .stab.index 0 : { *(.stab.index) }
--  .stab.indexstr 0 : { *(.stab.indexstr) }
--  .comment 0 : { *(.comment) }
-+  DWARF2_DEBUG_SECTIONS
-+
-+  DISCARD_SECTIONS
-+
-+  STABS_DEBUG_SECTIONS
-+
-+  ELF_DETAILS_SECTIONS
- }
- 
- /*
-diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
-index 1fcd8ab7c5..68501c7186 100644
---- a/xen/arch/x86/xen.lds.S
-+++ b/xen/arch/x86/xen.lds.S
-@@ -14,13 +14,6 @@
- #undef __XEN_VIRT_START
- #define __XEN_VIRT_START __image_base__
- #define DECL_SECTION(x) x :
--/*
-- * Use the NOLOAD directive, despite currently ignored by (at least) GNU ld
-- * for PE output, in order to record that we'd prefer these sections to not
-- * be loaded into memory.
-- */
--#define DECL_DEBUG(x, a) #x ALIGN(a) (NOLOAD) : { *(x) }
--#define DECL_DEBUG2(x, y, a) #x ALIGN(a) (NOLOAD) : { *(x) *(y) }
- 
- ENTRY(efi_start)
- 
-@@ -28,8 +21,6 @@ ENTRY(efi_start)
- 
- #define FORMAT "elf64-x86-64"
- #define DECL_SECTION(x) #x : AT(ADDR(#x) - __XEN_VIRT_START)
--#define DECL_DEBUG(x, a) #x 0 : { *(x) }
--#define DECL_DEBUG2(x, y, a) #x 0 : { *(x) *(y) }
- 
- ENTRY(start_pa)
- 
-@@ -160,12 +151,7 @@ SECTIONS
-        *(.note.gnu.build-id)
-        __note_gnu_build_id_end = .;
- #endif
--#ifdef CONFIG_HAS_VPCI
--       . = ALIGN(POINTER_ALIGN);
--       __start_vpci_array = .;
--       *(SORT(.data.vpci.*))
--       __end_vpci_array = .;
--#endif
-+       VPCI_ARRAY
-   } PHDR(text)
- 
- #if defined(CONFIG_PVH_GUEST) && !defined(EFI)
-@@ -279,12 +265,7 @@ SECTIONS
-         *(.altinstructions)
-         __alt_instructions_end = .;
- 
--#ifdef CONFIG_DEBUG_LOCK_PROFILE
--       . = ALIGN(POINTER_ALIGN);
--       __lock_profile_start = .;
--       *(.lockprofile.data)
--       __lock_profile_end = .;
--#endif
-+       LOCK_PROFILE_DATA
- 
-        . = ALIGN(8);
-        __ctors_start = .;
-@@ -336,12 +317,7 @@ SECTIONS
-        *(.data.schedulers)
-        __end_schedulers_array = .;
- 
--#ifdef CONFIG_HYPFS
--       . = ALIGN(8);
--       __paramhypfs_start = .;
--       *(.data.paramhypfs)
--       __paramhypfs_end = .;
--#endif
-+       HYPFS_PARAM
-   } PHDR(text)
- 
-   DECL_SECTION(.data) {
-@@ -388,33 +364,7 @@ SECTIONS
-   efi = .;
- #endif
- 
--  /*
--   * Explicitly list debug sections, first of all to avoid these sections being
--   * viewed as "orphan" by the linker.
--   *
--   * For the PE output this is further necessary so that they don't end up at
--   * VA 0, which is below image base and thus invalid.  Note that we're past
--   * _end here, so if these sections get loaded they'll be discarded at runtime
--   * anyway.
--   */
--  DECL_DEBUG(.debug_abbrev, 1)
--  DECL_DEBUG2(.debug_info, .gnu.linkonce.wi.*, 1)
--  DECL_DEBUG(.debug_types, 1)
--  DECL_DEBUG(.debug_str, 1)
--  DECL_DEBUG2(.debug_line, .debug_line.*, 1)
--  DECL_DEBUG(.debug_line_str, 1)
--  DECL_DEBUG(.debug_names, 4)
--  DECL_DEBUG(.debug_frame, 4)
--  DECL_DEBUG(.debug_loc, 1)
--  DECL_DEBUG(.debug_loclists, 4)
--  DECL_DEBUG(.debug_macinfo, 1)
--  DECL_DEBUG(.debug_macro, 1)
--  DECL_DEBUG(.debug_ranges, 8)
--  DECL_DEBUG(.debug_rnglists, 4)
--  DECL_DEBUG(.debug_addr, 8)
--  DECL_DEBUG(.debug_aranges, 1)
--  DECL_DEBUG(.debug_pubnames, 1)
--  DECL_DEBUG(.debug_pubtypes, 1)
-+  DWARF2_DEBUG_SECTIONS
- 
- #ifdef EFI
-   /* Trick the linker into setting the image size to no less than 16Mb. */
-@@ -428,42 +378,12 @@ SECTIONS
-   hv_hcall_page = ABSOLUTE(HV_HCALL_PAGE - XEN_VIRT_START + __XEN_VIRT_START);
- #endif
- 
--  /* Sections to be discarded */
--  /DISCARD/ : {
--       *(.text.exit)
--       *(.exit.text)
--       *(.exit.data)
--       *(.exitcall.exit)
--       *(.discard)
--       *(.discard.*)
--       *(.eh_frame)
--       *(.dtors)
--       *(.dtors.*)
--       *(.fini_array)
--       *(.fini_array.*)
--#ifdef EFI
--       *(.comment)
--       *(.comment.*)
--       *(.note.*)
--#endif
--  }
-+  DISCARD_SECTIONS
- 
- #ifndef EFI
--  /* Stabs debugging sections.  */
--  .stab 0 : { *(.stab) }
--  .stabstr 0 : { *(.stabstr) }
--  .stab.excl 0 : { *(.stab.excl) }
--  .stab.exclstr 0 : { *(.stab.exclstr) }
--  .stab.index 0 : { *(.stab.index) }
--  .stab.indexstr 0 : { *(.stab.indexstr) }
--  .comment 0 : { *(.comment) *(.comment.*) }
--  /*
--   * LLVM ld also wants .symtab, .strtab, and .shstrtab placed. These look to
--   * be benign to GNU ld, so we can have them here unconditionally.
--   */
--  .symtab 0 : { *(.symtab) }
--  .strtab 0 : { *(.strtab) }
--  .shstrtab 0 : { *(.shstrtab) }
-+  STABS_DEBUG_SECTIONS
-+
-+  ELF_DETAILS_SECTIONS
- #endif
- }
- 
-diff --git a/xen/include/xen/xen.lds.h b/xen/include/xen/xen.lds.h
-index dd292fa7dc..fc47bb1ccc 100644
---- a/xen/include/xen/xen.lds.h
-+++ b/xen/include/xen/xen.lds.h
-@@ -5,4 +5,133 @@
-  * Common macros to be used in architecture specific linker scripts.
-  */
- 
-+/*
-+ * To avoid any confusion, please note that the EFI macro does not correspond
-+ * to EFI support and is used when linking a native EFI (i.e. PE/COFF) binary,
-+ * hence its usage in this header.
-+ */
-+
-+/* Macros to declare debug sections. */
-+#ifdef EFI
-+/*
-+ * Use the NOLOAD directive, despite currently ignored by (at least) GNU ld
-+ * for PE output, in order to record that we'd prefer these sections to not
-+ * be loaded into memory.
-+ */
-+#define DECL_DEBUG(x, a) #x ALIGN(a) (NOLOAD) : { *(x) }
-+#define DECL_DEBUG2(x, y, a) #x ALIGN(a) (NOLOAD) : { *(x) *(y) }
-+#else
-+#define DECL_DEBUG(x, a) #x 0 : { *(x) }
-+#define DECL_DEBUG2(x, y, a) #x 0 : { *(x) *(y) }
-+#endif
-+
-+/*
-+ * DWARF2+ debug sections.
-+ * Explicitly list debug sections, first of all to avoid these sections being
-+ * viewed as "orphan" by the linker.
-+ *
-+ * For the PE output this is further necessary so that they don't end up at
-+ * VA 0, which is below image base and thus invalid. Note that this macro is
-+ * to be used after _end, so if these sections get loaded they'll be discarded
-+ * at runtime anyway.
-+ */
-+#define DWARF2_DEBUG_SECTIONS                     \
-+  DECL_DEBUG(.debug_abbrev, 1)                    \
-+  DECL_DEBUG2(.debug_info, .gnu.linkonce.wi.*, 1) \
-+  DECL_DEBUG(.debug_types, 1)                     \
-+  DECL_DEBUG(.debug_str, 1)                       \
-+  DECL_DEBUG2(.debug_line, .debug_line.*, 1)      \
-+  DECL_DEBUG(.debug_line_str, 1)                  \
-+  DECL_DEBUG(.debug_names, 4)                     \
-+  DECL_DEBUG(.debug_frame, 4)                     \
-+  DECL_DEBUG(.debug_loc, 1)                       \
-+  DECL_DEBUG(.debug_loclists, 4)                  \
-+  DECL_DEBUG(.debug_macinfo, 1)                   \
-+  DECL_DEBUG(.debug_macro, 1)                     \
-+  DECL_DEBUG(.debug_ranges, POINTER_ALIGN)        \
-+  DECL_DEBUG(.debug_rnglists, 4)                  \
-+  DECL_DEBUG(.debug_addr, POINTER_ALIGN)          \
-+  DECL_DEBUG(.debug_aranges, 1)                   \
-+  DECL_DEBUG(.debug_pubnames, 1)                  \
-+  DECL_DEBUG(.debug_pubtypes, 1)
-+
-+/* Stabs debug sections. */
-+#define STABS_DEBUG_SECTIONS                 \
-+  .stab 0 : { *(.stab) }                     \
-+  .stabstr 0 : { *(.stabstr) }               \
-+  .stab.excl 0 : { *(.stab.excl) }           \
-+  .stab.exclstr 0 : { *(.stab.exclstr) }     \
-+  .stab.index 0 : { *(.stab.index) }         \
-+  .stab.indexstr 0 : { *(.stab.indexstr) }
-+
-+/*
-+ * ELF sections.
-+ *
-+ * LLVM ld also wants .symtab, .strtab, and .shstrtab placed. These look to
-+ * be benign to GNU ld, so we can have them here unconditionally.
-+ */
-+#define ELF_DETAILS_SECTIONS                 \
-+  .comment 0 : { *(.comment) *(.comment.*) } \
-+  .symtab 0 : { *(.symtab) }                 \
-+  .strtab 0 : { *(.strtab) }                 \
-+  .shstrtab 0 : { *(.shstrtab) }
-+
-+#ifdef EFI
-+#define DISCARD_EFI_SECTIONS \
-+       *(.comment)   \
-+       *(.comment.*) \
-+       *(.note.*)
-+#else
-+#define DISCARD_EFI_SECTIONS
-+#endif
-+
-+/* Sections to be discarded. */
-+#define DISCARD_SECTIONS     \
-+  /DISCARD/ : {              \
-+       *(.text.exit)         \
-+       *(.exit.text)         \
-+       *(.exit.data)         \
-+       *(.exitcall.exit)     \
-+       *(.discard)           \
-+       *(.discard.*)         \
-+       *(.eh_frame)          \
-+       *(.dtors)             \
-+       *(.dtors.*)           \
-+       *(.fini_array)        \
-+       *(.fini_array.*)      \
-+       DISCARD_EFI_SECTIONS  \
-+  }
-+
-+/* List of constructs other than *_SECTIONS in alphabetical order. */
-+
-+#ifdef CONFIG_HYPFS
-+#define HYPFS_PARAM              \
-+       . = ALIGN(POINTER_ALIGN); \
-+       __paramhypfs_start = .;   \
-+       *(.data.paramhypfs)       \
-+       __paramhypfs_end = .;
-+#else
-+#define HYPFS_PARAM
-+#endif
-+
-+#ifdef CONFIG_DEBUG_LOCK_PROFILE
-+#define LOCK_PROFILE_DATA        \
-+       . = ALIGN(POINTER_ALIGN); \
-+       __lock_profile_start = .; \
-+       *(.lockprofile.data)      \
-+       __lock_profile_end = .;
-+#else
-+#define LOCK_PROFILE_DATA
-+#endif
-+
-+#ifdef CONFIG_HAS_VPCI
-+#define VPCI_ARRAY               \
-+       . = ALIGN(POINTER_ALIGN); \
-+       __start_vpci_array = .;   \
-+       *(SORT(.data.vpci.*))     \
-+       __end_vpci_array = .;
-+#else
-+#define VPCI_ARRAY
-+#endif
-+
- #endif /* __XEN_LDS_H__ */
--- 
-2.25.1
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
 
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 4791 lines long.)
 
