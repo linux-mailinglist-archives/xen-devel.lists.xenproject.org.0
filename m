@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCB4A4FCE9B
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Apr 2022 07:12:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.303313.517616 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 256F44FCE9C
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Apr 2022 07:12:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.303315.517624 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ne8p6-00036e-Nw; Tue, 12 Apr 2022 05:12:16 +0000
+	id 1ne8p8-0003g8-WF; Tue, 12 Apr 2022 05:12:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 303313.517616; Tue, 12 Apr 2022 05:12:16 +0000
+Received: by outflank-mailman (output) from mailman id 303315.517624; Tue, 12 Apr 2022 05:12:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ne8p4-0002VG-Tn; Tue, 12 Apr 2022 05:12:14 +0000
-Received: by outflank-mailman (input) for mailman id 303313;
- Mon, 11 Apr 2022 23:40:05 +0000
+	id 1ne8p7-000339-CY; Tue, 12 Apr 2022 05:12:17 +0000
+Received: by outflank-mailman (input) for mailman id 303315;
+ Mon, 11 Apr 2022 23:40:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=9GfR=UV=collabora.com=dmitry.osipenko@srs-se1.protection.inumbo.net>)
- id 1ne3dd-0006ro-Jf
- for xen-devel@lists.xenproject.org; Mon, 11 Apr 2022 23:40:05 +0000
+ id 1ne3dh-0006ro-Qp
+ for xen-devel@lists.xenproject.org; Mon, 11 Apr 2022 23:40:09 +0000
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b69553ab-b9f0-11ec-8fbc-03012f2f19d4;
- Tue, 12 Apr 2022 01:40:05 +0200 (CEST)
+ id b8fa5224-b9f0-11ec-8fbc-03012f2f19d4;
+ Tue, 12 Apr 2022 01:40:09 +0200 (CEST)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: dmitry.osipenko) with ESMTPSA id C54481F43D47
+ (Authenticated sender: dmitry.osipenko) with ESMTPSA id D94721F43D51
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,17 +38,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b69553ab-b9f0-11ec-8fbc-03012f2f19d4
+X-Inumbo-ID: b8fa5224-b9f0-11ec-8fbc-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1649720404;
-	bh=cnHjDAfLjeN/AIsHQIAOeHk5PbeJoiUi4VLInc7k0yc=;
+	s=mail; t=1649720408;
+	bh=V6K3csETbdRArqsU2lL0TyRBTq4S5S8aBxupwY5Jatg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=N3hDoAur/4R+Ao3qbUrQ9sph7VfA2pPJkO49+7pzUDxKozw+TJHr9twtA1owBoHaK
-	 jeJ6B07npfM+SylxlSqnME8JfVE2vevyxKZ9lTn4s9Qw9vx+X6hhDoouVhYJDq5apc
-	 y7lsoKFIkiE0/+667mmNFPBQQ/5lfxEeBIQEc7C2QBX4hmq+L87GQYAfi2gzcxAGio
-	 u+zbvkNur7jarlv+OuyEU/CSCUrFclTe1l/ZXiNfPE9aKi/UUzKTU/f1AmCalNxuAo
-	 3xfp4XM4wHtnjC3ixsxh5HNKTfwCEN6VEvSBB5gq5BRCqg81jXfmgQzP5Ib+l0LREw
-	 E3JVhJaC/Ac2Q==
+	b=CMftO839VRrr32eH+lZu8ZOi1NbjfZFjDzrNLUXRDkPyP58z3IRG10vfZMM6I9C8p
+	 837TKvbg42S+mJzZ0uqaB5Oc/1UA2hTbm5a8+rijfOJ+FIh/HPSjO05Hjo6b3xxoAW
+	 lGvmRtC0fqPRPy2WlJd7rY0wK6gtLSVUfLBjC2jTcnF0w0W/A+IVqaNMQoQAZT4LDr
+	 fQD0e+x43OZ7oZHP69IKlJDfA9+eXZHghwfPSfEIWkZPLn6n64VRF+szOOv/b5UQWx
+	 6IVYXyx9++XM4pGMzqLsaonRUXt6Cwbeq6xKoRpIunoIcqWqnYG2rytrpY3Qp3f0bg
+	 YaW5hzU2YodEA==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
 	Jonathan Hunter <jonathanh@nvidia.com>,
@@ -110,36 +110,96 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-acpi@vger.kernel.org,
 	linux-pm@vger.kernel.org,
 	linux-tegra@vger.kernel.org
-Subject: [PATCH v7 17/20] memory: emif: Use kernel_can_power_off()
-Date: Tue, 12 Apr 2022 02:38:29 +0300
-Message-Id: <20220411233832.391817-18-dmitry.osipenko@collabora.com>
+Subject: [PATCH v7 18/20] ACPI: power: Switch to sys-off handler API
+Date: Tue, 12 Apr 2022 02:38:30 +0300
+Message-Id: <20220411233832.391817-19-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220411233832.391817-1-dmitry.osipenko@collabora.com>
 References: <20220411233832.391817-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace legacy pm_power_off with kernel_can_power_off() helper that
-is aware about chained power-off handlers.
+Switch to sys-off API that replaces legacy pm_power_off callbacks.
 
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/memory/emif.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/acpi/sleep.c | 25 +++++++++++--------------
+ 1 file changed, 11 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/memory/emif.c b/drivers/memory/emif.c
-index edf3ba7447ed..fa6845313a43 100644
---- a/drivers/memory/emif.c
-+++ b/drivers/memory/emif.c
-@@ -630,7 +630,7 @@ static irqreturn_t emif_threaded_isr(int irq, void *dev_id)
- 		dev_emerg(emif->dev, "SDRAM temperature exceeds operating limit.. Needs shut down!!!\n");
+diff --git a/drivers/acpi/sleep.c b/drivers/acpi/sleep.c
+index c992e57b2c79..426297258e26 100644
+--- a/drivers/acpi/sleep.c
++++ b/drivers/acpi/sleep.c
+@@ -47,19 +47,11 @@ static void acpi_sleep_tts_switch(u32 acpi_state)
+ 	}
+ }
  
- 		/* If we have Power OFF ability, use it, else try restarting */
--		if (pm_power_off) {
-+		if (kernel_can_power_off()) {
- 			kernel_power_off();
- 		} else {
- 			WARN(1, "FIXME: NO pm_power_off!!! trying restart\n");
+-static int tts_notify_reboot(struct notifier_block *this,
+-			unsigned long code, void *x)
++static void tts_reboot_prepare(struct reboot_prep_data *data)
+ {
+ 	acpi_sleep_tts_switch(ACPI_STATE_S5);
+-	return NOTIFY_DONE;
+ }
+ 
+-static struct notifier_block tts_notifier = {
+-	.notifier_call	= tts_notify_reboot,
+-	.next		= NULL,
+-	.priority	= 0,
+-};
+-
+ static int acpi_sleep_prepare(u32 acpi_state)
+ {
+ #ifdef CONFIG_ACPI_SLEEP
+@@ -1023,7 +1015,7 @@ static void acpi_sleep_hibernate_setup(void)
+ static inline void acpi_sleep_hibernate_setup(void) {}
+ #endif /* !CONFIG_HIBERNATION */
+ 
+-static void acpi_power_off_prepare(void)
++static void acpi_power_off_prepare(struct power_off_prep_data *data)
+ {
+ 	/* Prepare to power off the system */
+ 	acpi_sleep_prepare(ACPI_STATE_S5);
+@@ -1031,7 +1023,7 @@ static void acpi_power_off_prepare(void)
+ 	acpi_os_wait_events_complete();
+ }
+ 
+-static void acpi_power_off(void)
++static void acpi_power_off(struct power_off_data *data)
+ {
+ 	/* acpi_sleep_prepare(ACPI_STATE_S5) should have already been called */
+ 	pr_debug("%s called\n", __func__);
+@@ -1039,6 +1031,11 @@ static void acpi_power_off(void)
+ 	acpi_enter_sleep_state(ACPI_STATE_S5);
+ }
+ 
++static struct sys_off_handler acpi_sys_off_handler = {
++	.power_off_priority = POWEROFF_PRIO_FIRMWARE,
++	.reboot_prepare_cb = tts_reboot_prepare,
++};
++
+ int __init acpi_sleep_init(void)
+ {
+ 	char supported[ACPI_S_STATE_COUNT * 3 + 1];
+@@ -1055,8 +1052,8 @@ int __init acpi_sleep_init(void)
+ 
+ 	if (acpi_sleep_state_supported(ACPI_STATE_S5)) {
+ 		sleep_states[ACPI_STATE_S5] = 1;
+-		pm_power_off_prepare = acpi_power_off_prepare;
+-		pm_power_off = acpi_power_off;
++		acpi_sys_off_handler.power_off_cb = acpi_power_off;
++		acpi_sys_off_handler.power_off_prepare_cb = acpi_power_off_prepare;
+ 	} else {
+ 		acpi_no_s5 = true;
+ 	}
+@@ -1072,6 +1069,6 @@ int __init acpi_sleep_init(void)
+ 	 * Register the tts_notifier to reboot notifier list so that the _TTS
+ 	 * object can also be evaluated when the system enters S5.
+ 	 */
+-	register_reboot_notifier(&tts_notifier);
++	register_sys_off_handler(&acpi_sys_off_handler);
+ 	return 0;
+ }
 -- 
 2.35.1
 
