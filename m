@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7DE44FEC00
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Apr 2022 03:01:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.303865.518333 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 084854FEC2F
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Apr 2022 03:23:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.303876.518344 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1neRNE-000204-Ig; Wed, 13 Apr 2022 01:00:44 +0000
+	id 1neRiW-0003u3-H3; Wed, 13 Apr 2022 01:22:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 303865.518333; Wed, 13 Apr 2022 01:00:44 +0000
+Received: by outflank-mailman (output) from mailman id 303876.518344; Wed, 13 Apr 2022 01:22:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1neRNE-0001vz-FX; Wed, 13 Apr 2022 01:00:44 +0000
-Received: by outflank-mailman (input) for mailman id 303865;
- Wed, 13 Apr 2022 01:00:42 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1neRNC-0001N6-QZ; Wed, 13 Apr 2022 01:00:42 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1neRNC-0006RZ-M1; Wed, 13 Apr 2022 01:00:42 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1neRNC-0005Ba-A8; Wed, 13 Apr 2022 01:00:42 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1neRNC-0002eD-9i; Wed, 13 Apr 2022 01:00:42 +0000
+	id 1neRiW-0003s8-E9; Wed, 13 Apr 2022 01:22:44 +0000
+Received: by outflank-mailman (input) for mailman id 303876;
+ Wed, 13 Apr 2022 01:22:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=aqKT=UX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1neRiV-0003s2-3n
+ for xen-devel@lists.xenproject.org; Wed, 13 Apr 2022 01:22:43 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3696f393-bac8-11ec-a405-831a346695d4;
+ Wed, 13 Apr 2022 03:22:41 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id EEAABB82083;
+ Wed, 13 Apr 2022 01:22:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36A9DC385A8;
+ Wed, 13 Apr 2022 01:22:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,155 +43,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=nDtJ+AUrO9/dlTnHlEt93xjhD7PVO05i56BoKz4X0/g=; b=Ui6M4ftxmhx1xCxLu+4fobHDrY
-	SU6ueJSg/Twas7kCnZCZdo5pdiXlHcX19cAqWUZ/Vu37/P1gjMr+ZOSH4Jx5dz8icj/BgH+rmndlN
-	S9GRV3avoRRAsJ2Th2D9HIemzIs0kyqR8rnCuxms1od7Z6rrx5QCZsk9Va3A73dVSEJI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169344-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 3696f393-bac8-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1649812959;
+	bh=6l+CGf4T8Rw73qOnntCeY3bk40iIH1mPAe8On5wwcls=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=XZR4+w4qJfrfsnvKWx/SkENFxau7Dli3kNTC+MOKSMYjVn6ItEpVWaSbTs8oEzpOD
+	 KiYBFU41p/cVoduPIPs1barf6KNzbTXM20BaY3kGrjvdrvjzBpPzwf3A9RvXRyJuMH
+	 71xZ7FGryI1g3rYQ1UbMVvFLPm5IhhrarIIRuZWUJH2Q5u7XToJctE2A9JRGV2tq9L
+	 si9E2R2xnh89giVzlDNlyPcqmeWXvCODNTc+AL4qD1C1+ToV+SjiQArQaJg8+qqc5l
+	 VP618r3INe/Wfq4gsHkWld+UntMq1aXU46HIX069X+GAPpm7arFqxCl23jyL6i1YAd
+	 wYnStx7gW9FtQ==
+Date: Tue, 12 Apr 2022 18:22:38 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org, 
+    Bertrand.Marquis@arm.com, Volodymyr_Babchuk@epam.com, 
+    Luca Miccio <lucmiccio@gmail.com>, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>, Wei Liu <wl@xen.org>, 
+    Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH v4 8/9] tools: add example application to initialize
+ dom0less PV drivers
+In-Reply-To: <7dc5887a-461d-506d-ce4e-fbcb7e5cb43e@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2204121819410.3066615@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2203311735380.2910984@ubuntu-linux-20-04-desktop> <20220401003847.38393-8-sstabellini@kernel.org> <e71ad6f6-f920-1e7b-9f4b-dd2e133a23c5@xen.org> <39fc312c-cf0b-d7ff-c560-7c6b96809416@suse.com>
+ <alpine.DEB.2.22.394.2204051758250.2910984@ubuntu-linux-20-04-desktop> <7dc5887a-461d-506d-ce4e-fbcb7e5cb43e@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 169344: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=c411566fad3d6d61a97edfa6e97a91688b175201
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 13 Apr 2022 01:00:42 +0000
+Content-Type: multipart/mixed; BOUNDARY="8323329-1031791000-1649812894=:3066615"
+Content-ID: <alpine.DEB.2.22.394.2204121821570.3066615@ubuntu-linux-20-04-desktop>
 
-flight 169344 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169344/
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Regressions :-(
+--8323329-1031791000-1649812894=:3066615
+Content-Type: text/plain; CHARSET=US-ASCII
+Content-ID: <alpine.DEB.2.22.394.2204121821571.3066615@ubuntu-linux-20-04-desktop>
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+On Wed, 6 Apr 2022, Julien Grall wrote:
+> But if we use the 'connection status' field, then you could just delay the
+> initialization until you receive an event and the connection status is
+> connected.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+I prototyped this approach and I managed to validate it successfully.
+See attached patches for xen and linux (on top of existing patches). I
+allocated the page from init-dom0less (instead of Xen) to achieve best
+compatibility with older kernels.
 
-version targeted for testing:
- ovmf                 c411566fad3d6d61a97edfa6e97a91688b175201
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+There are some rough edges in the two patches but let me know if you
+have any comments on the overall approach.
+--8323329-1031791000-1649812894=:3066615
+Content-Type: text/x-diff; NAME=xen.patch
+Content-Transfer-Encoding: BASE64
+Content-ID: <alpine.DEB.2.22.394.2204121821340.3066615@ubuntu-linux-20-04-desktop>
+Content-Description: 
+Content-Disposition: ATTACHMENT; FILENAME=xen.patch
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   43 days
-Failing since        168258  2022-03-01 01:55:31 Z   42 days  351 attempts
-Testing same since   169343  2022-04-13 00:10:23 Z    0 days    2 attempts
+ZGlmZiAtLWdpdCBhL3Rvb2xzL2hlbHBlcnMvTWFrZWZpbGUgYi90b29scy9o
+ZWxwZXJzL01ha2VmaWxlDQppbmRleCA4ZTQyOTk3MDUyLi44ZDc4YWIxZTkw
+IDEwMDY0NA0KLS0tIGEvdG9vbHMvaGVscGVycy9NYWtlZmlsZQ0KKysrIGIv
+dG9vbHMvaGVscGVycy9NYWtlZmlsZQ0KQEAgLTQ2LDcgKzQ2LDcgQEAgaW5p
+dC14ZW5zdG9yZS1kb21haW46ICQoSU5JVF9YRU5TVE9SRV9ET01BSU5fT0JK
+UykNCiAJJChDQykgJChMREZMQUdTKSAtbyAkQCAkKElOSVRfWEVOU1RPUkVf
+RE9NQUlOX09CSlMpICQoTERMSUJTX2xpYnhlbnRvb2xsb2cpICQoTERMSUJT
+X2xpYnhlbnN0b3JlKSAkKExETElCU19saWJ4ZW5jdHJsKSAkKExETElCU19s
+aWJ4ZW5ndWVzdCkgJChMRExJQlNfbGlieGVubGlnaHQpICQoQVBQRU5EX0xE
+RkxBR1MpDQogDQogaW5pdC1kb20wbGVzczogJChJTklUX0RPTTBMRVNTX09C
+SlMpDQotCSQoQ0MpICQoTERGTEFHUykgLW8gJEAgJChJTklUX0RPTTBMRVNT
+X09CSlMpICQoTERMSUJTX2xpYnhlbmN0cmwpICQoTERMSUJTX2xpYnhlbmV2
+dGNobikgJChMRExJQlNfbGlieGVudG9vbGxvZykgJChMRExJQlNfbGlieGVu
+c3RvcmUpICQoTERMSUJTX2xpYnhlbmxpZ2h0KSAkKExETElCU19saWJ4ZW5n
+dWVzdCkgICQoQVBQRU5EX0xERkxBR1MpDQorCSQoQ0MpICQoTERGTEFHUykg
+LW8gJEAgJChJTklUX0RPTTBMRVNTX09CSlMpICQoTERMSUJTX2xpYnhlbmN0
+cmwpICQoTERMSUJTX2xpYnhlbmV2dGNobikgJChMRExJQlNfbGlieGVudG9v
+bGxvZykgJChMRExJQlNfbGlieGVuc3RvcmUpICQoTERMSUJTX2xpYnhlbmxp
+Z2h0KSAkKExETElCU19saWJ4ZW5ndWVzdCkgJChMRExJQlNfbGlieGVuZm9y
+ZWlnbm1lbW9yeSkgJChBUFBFTkRfTERGTEFHUykNCiANCiAuUEhPTlk6IGlu
+c3RhbGwNCiBpbnN0YWxsOiBhbGwNCmRpZmYgLS1naXQgYS90b29scy9oZWxw
+ZXJzL2luaXQtZG9tMGxlc3MuYyBiL3Rvb2xzL2hlbHBlcnMvaW5pdC1kb20w
+bGVzcy5jDQppbmRleCBkYzljY2VlODY4Li4zMjlhYTQ0ZGE2IDEwMDY0NA0K
+LS0tIGEvdG9vbHMvaGVscGVycy9pbml0LWRvbTBsZXNzLmMNCisrKyBiL3Rv
+b2xzL2hlbHBlcnMvaW5pdC1kb20wbGVzcy5jDQpAQCAtOSw5ICs5LDEyIEBA
+DQogI2luY2x1ZGUgPHhlbmd1ZXN0Lmg+DQogI2luY2x1ZGUgPGxpYnhsLmg+
+DQogI2luY2x1ZGUgPHhlbmV2dGNobi5oPg0KKyNpbmNsdWRlIDx4ZW5mb3Jl
+aWdubWVtb3J5Lmg+DQogDQogI2luY2x1ZGUgImluaXQtZG9tLWpzb24uaCIN
+CiANCisjZGVmaW5lIFhTX0NPTk5FQ1RJT05fU1RBVEVfT0ZGU0VUICAgICAg
+ICgyMDY4LzQpDQorI2RlZmluZSBYU19DT05ORUNUSU9OX1NUQVRFX1JFQ09O
+TkVDVElORyAweDENCiAjZGVmaW5lIFhFTlNUT1JFX1BGTl9PRkZTRVQgMQ0K
+ICNkZWZpbmUgU1RSX01BWF9MRU5HVEggNjQNCiANCkBAIC0yMTUsMTIgKzIx
+OCwxOCBAQCBlcnI6DQogc3RhdGljIGludCBpbml0X2RvbWFpbihzdHJ1Y3Qg
+eHNfaGFuZGxlICp4c2gsIGxpYnhsX2RvbWluZm8gKmluZm8pDQogew0KICAg
+ICBzdHJ1Y3QgeGNfaW50ZXJmYWNlX2NvcmUgKnhjaDsNCisgICAgeGVuZm9y
+ZWlnbm1lbW9yeV9oYW5kbGUgKnhmaDsNCiAgICAgbGlieGxfdXVpZCB1dWlk
+Ow0KICAgICB1aW50NjRfdCB4ZW5zdG9yZV9ldnRjaG4sIHhlbnN0b3JlX3Bm
+bjsNCiAgICAgaW50IHJjOw0KKyAgICB1aW50MzJfdCAqcGFnZTsNCiANCiAg
+ICAgcHJpbnRmKCJJbml0IGRvbTBsZXNzIGRvbWFpbjogJXVcbiIsIGluZm8t
+PmRvbWlkKTsNCiAgICAgeGNoID0geGNfaW50ZXJmYWNlX29wZW4oMCwgMCwg
+MCk7DQorICAgIHhmaCA9IHhlbmZvcmVpZ25tZW1vcnlfb3BlbigwLCAwKTsN
+CisNCisgICAgaWYgKHhjaCA9PSBOVUxMIHx8IHhmaCA9PSBOVUxMKQ0KKyAg
+ICAgICAgZXJyKDEsICJDYW5ub3Qgb3BlbiB4Yy94ZW5mb3JlaWdubWVtb3J5
+IGludGVyZmFjZXNcbiIpOw0KIA0KICAgICByYyA9IHhjX2h2bV9wYXJhbV9n
+ZXQoeGNoLCBpbmZvLT5kb21pZCwgSFZNX1BBUkFNX1NUT1JFX0VWVENITiwN
+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICZ4ZW5zdG9yZV9ldnRjaG4p
+Ow0KQEAgLTIzNSw2ICsyNDQsMTQgQEAgc3RhdGljIGludCBpbml0X2RvbWFp
+bihzdHJ1Y3QgeHNfaGFuZGxlICp4c2gsIGxpYnhsX2RvbWluZm8gKmluZm8p
+DQogICAgICAgICByZXR1cm4gMTsNCiAgICAgfQ0KIA0KKyAgICBwYWdlID0g
+eGVuZm9yZWlnbm1lbW9yeV9tYXAoeGZoLCBpbmZvLT5kb21pZCwgWFNfUkVB
+RCB8IFhTX1dSSVRFLCAxLCAmeGVuc3RvcmVfcGZuLCBOVUxMKTsNCisgICAg
+aWYgKCFwYWdlKSB7DQorICAgICAgICBwcmludGYoIkVycm9yIG1hcHBpbmcg
+eGVuc3RvcmUgcGFnZVxuIik7DQorICAgICAgICByZXR1cm4gMTsNCisgICAg
+fQ0KKyAgICBwYWdlW1hTX0NPTk5FQ1RJT05fU1RBVEVfT0ZGU0VUXSA9IFhT
+X0NPTk5FQ1RJT05fU1RBVEVfUkVDT05ORUNUSU5HOw0KKyAgICB4ZW5mb3Jl
+aWdubWVtb3J5X3VubWFwKHhmaCwgcGFnZSwgMSk7DQorDQogICAgIHJjID0g
+eGNfZG9tX2dudHRhYl9zZWVkKHhjaCwgaW5mby0+ZG9taWQsIHRydWUsDQog
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICh4ZW5fcGZuX3QpLTEsIHhl
+bnN0b3JlX3BmbiwgMCwgMCk7DQogICAgIGlmIChyYykNCmRpZmYgLS1naXQg
+YS90b29scy94ZW5zdG9yZS94ZW5zdG9yZWRfZG9tYWluLmMgYi90b29scy94
+ZW5zdG9yZS94ZW5zdG9yZWRfZG9tYWluLmMNCmluZGV4IDA1NDNmNDk2NzAu
+LjdiYjhjNjRkMzMgMTAwNjQ0DQotLS0gYS90b29scy94ZW5zdG9yZS94ZW5z
+dG9yZWRfZG9tYWluLmMNCisrKyBiL3Rvb2xzL3hlbnN0b3JlL3hlbnN0b3Jl
+ZF9kb21haW4uYw0KQEAgLTQ5NCw2ICs0OTQsNyBAQCBzdGF0aWMgc3RydWN0
+IGRvbWFpbiAqaW50cm9kdWNlX2RvbWFpbihjb25zdCB2b2lkICpjdHgsDQog
+CQl0YWxsb2Nfc3RlYWwoZG9tYWluLT5jb25uLCBkb21haW4pOw0KIA0KIAkJ
+LyogTm90aWZ5IHRoZSBkb21haW4gdGhhdCB4ZW5zdG9yZSBpcyBhdmFpbGFi
+bGUgKi8NCisJCWludGVyZmFjZS0+Y29ubmVjdGlvbiA9IDB4MDsNCiAJCXhl
+bmV2dGNobl9ub3RpZnkoeGNlX2hhbmRsZSwgZG9tYWluLT5wb3J0KTsNCiAN
+CiAJCWlmICghaXNfbWFzdGVyX2RvbWFpbiAmJiAhcmVzdG9yZSkNCg==
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
+--8323329-1031791000-1649812894=:3066615
+Content-Type: text/x-diff; NAME=linux.patch
+Content-Transfer-Encoding: BASE64
+Content-ID: <alpine.DEB.2.22.394.2204121821341.3066615@ubuntu-linux-20-04-desktop>
+Content-Description: 
+Content-Disposition: ATTACHMENT; FILENAME=linux.patch
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMveGVuL3hlbmJ1cy94ZW5idXNfcHJvYmUu
+YyBiL2RyaXZlcnMveGVuL3hlbmJ1cy94ZW5idXNfcHJvYmUuYw0KaW5kZXgg
+NTFlNTJlMTc1ODkyLi5kYzA0NmQyNTc4OWUgMTAwNjQ0DQotLS0gYS9kcml2
+ZXJzL3hlbi94ZW5idXMveGVuYnVzX3Byb2JlLmMNCisrKyBiL2RyaXZlcnMv
+eGVuL3hlbmJ1cy94ZW5idXNfcHJvYmUuYw0KQEAgLTkzOSw2ICs5MzksNyBA
+QCBzdGF0aWMgaW50IF9faW5pdCB4ZW5idXNfaW5pdCh2b2lkKQ0KIHsNCiAJ
+aW50IGVycjsNCiAJdWludDY0X3QgdiA9IDA7DQorCWJvb2wgd2FpdCA9IGZh
+bHNlOw0KIAl4ZW5fc3RvcmVfZG9tYWluX3R5cGUgPSBYU19VTktOT1dOOw0K
+IA0KIAlpZiAoIXhlbl9kb21haW4oKSkNCkBAIC05OTIsMTcgKzk5Myw3IEBA
+IHN0YXRpYyBpbnQgX19pbml0IHhlbmJ1c19pbml0KHZvaWQpDQogCQkJZ290
+byBvdXRfZXJyb3I7DQogCQl9DQogCQlpZiAodiA9PSB+MFVMTCkgew0KLQkJ
+CWVyciA9IGJpbmRfZXZ0Y2huX3RvX2lycWhhbmRsZXIoeGVuX3N0b3JlX2V2
+dGNobiwNCi0JCQkJCQkJeGVuYnVzX2xhdGVfaW5pdCwNCi0JCQkJCQkJMCwg
+InhlbnN0b3JlX2xhdGVfaW5pdCIsDQotCQkJCQkJCSZ4Yl93YWl0cSk7DQot
+CQkJaWYgKGVyciA8IDApIHsNCi0JCQkJcHJfZXJyKCJ4ZW5zdG9yZV9sYXRl
+X2luaXQgY291bGRuJ3QgYmluZCBpcnEgZXJyPSVkXG4iLA0KLQkJCQkgICAg
+ICAgZXJyKTsNCi0JCQkJcmV0dXJuIGVycjsNCi0JCQl9DQotDQotCQkJeHNf
+aW5pdF9pcnEgPSBlcnI7DQorCQkJd2FpdCA9IHRydWU7DQogCQl9IGVsc2Ug
+ew0KIAkJCS8qIEF2b2lkIHRydW5jYXRpb24gb24gMzItYml0LiAqLw0KICNp
+ZiBCSVRTX1BFUl9MT05HID09IDMyDQpAQCAtMTAxNyw2ICsxMDA4LDIxIEBA
+IHN0YXRpYyBpbnQgX19pbml0IHhlbmJ1c19pbml0KHZvaWQpDQogCQkJeGVu
+X3N0b3JlX2ludGVyZmFjZSA9DQogCQkJCXhlbl9yZW1hcCh4ZW5fc3RvcmVf
+Z2ZuIDw8IFhFTl9QQUdFX1NISUZULA0KIAkJCQkJICBYRU5fUEFHRV9TSVpF
+KTsNCisJCQlpZiAoeGVuX3N0b3JlX2ludGVyZmFjZS0+Y29ubmVjdGlvbiAh
+PSAwKQ0KKwkJCQl3YWl0ID0gdHJ1ZTsNCisJCX0NCisJCWlmICh3YWl0KSB7
+DQorCQkJZXJyID0gYmluZF9ldnRjaG5fdG9faXJxaGFuZGxlcih4ZW5fc3Rv
+cmVfZXZ0Y2huLA0KKwkJCQkJCQl4ZW5idXNfbGF0ZV9pbml0LA0KKwkJCQkJ
+CQkwLCAieGVuc3RvcmVfbGF0ZV9pbml0IiwNCisJCQkJCQkJJnhiX3dhaXRx
+KTsNCisJCQlpZiAoZXJyIDwgMCkgew0KKwkJCQlwcl9lcnIoInhlbnN0b3Jl
+X2xhdGVfaW5pdCBjb3VsZG4ndCBiaW5kIGlycSBlcnI9JWRcbiIsDQorCQkJ
+CSAgICAgICBlcnIpOw0KKwkJCQlyZXR1cm4gZXJyOw0KKwkJCX0NCisNCisJ
+CQl4c19pbml0X2lycSA9IGVycjsNCiAJCX0NCiAJCWJyZWFrOw0KIAlkZWZh
+dWx0Og0KZGlmZiAtLWdpdCBhL2luY2x1ZGUveGVuL2ludGVyZmFjZS9pby94
+c193aXJlLmggYi9pbmNsdWRlL3hlbi9pbnRlcmZhY2UvaW8veHNfd2lyZS5o
+DQppbmRleCBkNDBhNDRmMDliMTYuLmNkN2FlNWViYjEzMyAxMDA2NDQNCi0t
+LSBhL2luY2x1ZGUveGVuL2ludGVyZmFjZS9pby94c193aXJlLmgNCisrKyBi
+L2luY2x1ZGUveGVuL2ludGVyZmFjZS9pby94c193aXJlLmgNCkBAIC04Nyw2
+ICs4Nyw5IEBAIHN0cnVjdCB4ZW5zdG9yZV9kb21haW5faW50ZXJmYWNlIHsN
+CiAgICAgY2hhciByc3BbWEVOU1RPUkVfUklOR19TSVpFXTsgLyogUmVwbGll
+cyBhbmQgYXN5bmMgd2F0Y2ggZXZlbnRzLiAqLw0KICAgICBYRU5TVE9SRV9S
+SU5HX0lEWCByZXFfY29ucywgcmVxX3Byb2Q7DQogICAgIFhFTlNUT1JFX1JJ
+TkdfSURYIHJzcF9jb25zLCByc3BfcHJvZDsNCisgICAgdWludDMyX3Qgc2Vy
+dmVyX2ZlYXR1cmVzOyAvKiBCaXRtYXAgb2YgZmVhdHVyZXMgc3VwcG9ydGVk
+IGJ5IHRoZSBzZXJ2ZXIgKi8NCisgICAgdWludDMyX3QgY29ubmVjdGlvbjsN
+CisgICAgdWludDMyX3QgZXJyb3I7DQogfTsNCiANCiAvKiBWaW9sYXRpbmcg
+dGhpcyBpcyB2ZXJ5IGJhZC4gIFNlZSBkb2NzL21pc2MveGVuc3RvcmUudHh0
+LiAqLw0K
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 5022 lines long.)
+--8323329-1031791000-1649812894=:3066615--
 
