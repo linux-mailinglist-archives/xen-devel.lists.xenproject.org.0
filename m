@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CD3B4FF80C
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Apr 2022 15:43:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.304142.518698 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54FFE4FF80D
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Apr 2022 15:43:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.304143.518708 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nedHD-0006gF-37; Wed, 13 Apr 2022 13:43:19 +0000
+	id 1nedHE-0006us-DU; Wed, 13 Apr 2022 13:43:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 304142.518698; Wed, 13 Apr 2022 13:43:19 +0000
+Received: by outflank-mailman (output) from mailman id 304143.518708; Wed, 13 Apr 2022 13:43:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nedHC-0006ci-V4; Wed, 13 Apr 2022 13:43:18 +0000
-Received: by outflank-mailman (input) for mailman id 304142;
+	id 1nedHE-0006sm-AJ; Wed, 13 Apr 2022 13:43:20 +0000
+Received: by outflank-mailman (input) for mailman id 304143;
  Wed, 13 Apr 2022 13:43:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4VvB=UX=intel.com=tamas.lengyel@srs-se1.protection.inumbo.net>)
- id 1nedHA-0006cW-Ss
+ id 1nedHB-0006cb-N9
  for xen-devel@lists.xenproject.org; Wed, 13 Apr 2022 13:43:17 +0000
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a93264bc-bb2f-11ec-a405-831a346695d4;
- Wed, 13 Apr 2022 15:43:13 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id aa34d9a4-bb2f-11ec-8fbd-03012f2f19d4;
+ Wed, 13 Apr 2022 15:43:15 +0200 (CEST)
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2022 06:43:11 -0700
+ 13 Apr 2022 06:43:13 -0700
 Received: from samarths-mobl.amr.corp.intel.com (HELO localhost.localdomain)
  ([10.209.182.24])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2022 06:43:09 -0700
+ 13 Apr 2022 06:43:11 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,25 +43,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a93264bc-bb2f-11ec-a405-831a346695d4
+X-Inumbo-ID: aa34d9a4-bb2f-11ec-8fbd-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1649857393; x=1681393393;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=i4gihqpzw3HZhfTflQfrH5igRej8DiYlrOqYPsiESEs=;
-  b=B6+2fZ72twXiNjUF6UfhAHeS+i4RXCsv1Fg7BnB4bLFUtgiWOOyNoqEe
-   psCC13T8KomiMOSzYMFWH0RKv9F5R32Mzzmq1QVrZpWhGGwpqyIZRJW32
-   sJBI18vW/LE7ej4n6DgWbwWTam5OysbpQl3MangSCbD5T/Ihl8BixQKrg
-   jEbPapzBpfoGo1eFD8+OJYg4i0oXhPpUBd8wvrT94gzHQpV57UcfXXQCb
-   z70OXiNTYviXWh9awsdMALNGeYSt/qDfV0iu91hipkpm5PfoThVTfqwNQ
-   R82554gLFdCwpUR4zAV2k7XCiZISGcalPzyw1t6ultd52A6FO/zXJdTO5
-   w==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10315"; a="287691102"
+  t=1649857395; x=1681393395;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=PLdEcqDhyOxXQ/AEnQEPq0e1K208cDWXzs3wCvIHm+s=;
+  b=eUs56WROeSSY8pNR/EDvv2/BCquPVnN2nWkfrMv+f0YjpN/w8zT/NB2x
+   gN902hzJBbLh6VXhBBxC+TqgG/vM1RBDQeU5lsQzZBjRUfr/af630Hxqu
+   uAZtjhjekoVUfR/O/X95J/tJtep7XNdV8aN4UU9U0TONncd3hKD5cqrO0
+   1oTAfi8GNGimJBwpFnNLYgmGLm71GjNxgFwLTz3qh742s4fbZdzkcOSWI
+   BH80MYpUaAeFToCUugpUA9QcSisFuYBVEZPhyhZNkgO/ollrVAhGhpJq4
+   bDux+eoI7g6QrXiNvy71guluKFm/AqNXDcFuEQ86s3msSGG7MMiLozxsa
+   A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10315"; a="287691116"
 X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; 
-   d="scan'208";a="287691102"
+   d="scan'208";a="287691116"
 X-IronPort-AV: E=Sophos;i="5.90,257,1643702400"; 
-   d="scan'208";a="623686056"
+   d="scan'208";a="623686077"
 From: Tamas K Lengyel <tamas.lengyel@intel.com>
 To: xen-devel@lists.xenproject.org
 Cc: Tamas K Lengyel <tamas.lengyel@intel.com>,
@@ -73,239 +73,272 @@ Cc: Tamas K Lengyel <tamas.lengyel@intel.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Tamas K Lengyel <tamas@tklengyel.com>,
 	Alexandru Isaila <aisaila@bitdefender.com>,
-	Petre Pircalabu <ppircalabu@bitdefender.com>
-Subject: [PATCH v4 1/2] x86/mem_sharing: make fork_reset more configurable
-Date: Wed, 13 Apr 2022 09:41:51 -0400
-Message-Id: <bc13e07cdb651afc2c8a97dde1be9c2158160307.1649857162.git.tamas.lengyel@intel.com>
+	Petre Pircalabu <ppircalabu@bitdefender.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>
+Subject: [PATCH v4 2/2] x86/monitor: Add new monitor event to catch all vmexits
+Date: Wed, 13 Apr 2022 09:41:52 -0400
+Message-Id: <4b456c15829c11914b698654937c28e313d2d522.1649857162.git.tamas.lengyel@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <bc13e07cdb651afc2c8a97dde1be9c2158160307.1649857162.git.tamas.lengyel@intel.com>
+References: <bc13e07cdb651afc2c8a97dde1be9c2158160307.1649857162.git.tamas.lengyel@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Allow specify distinct parts of the fork VM to be reset. This is useful when a
-fuzzing operation involves mapping in only a handful of pages that are known
-ahead of time. Throwing these pages away just to be re-copied immediately is
-expensive, thus allowing to specify partial resets can speed things up.
+Add monitor event that hooks the vmexit handler allowing for both sync and
+async monitoring of events. With async monitoring an event is placed on the
+monitor ring for each exit and the rest of the vmexit handler resumes normally.
+If there are additional monitor events configured those will also place their
+respective events on the monitor ring.
 
-Also allow resetting to be initiated from vm_event responses as an
-optiomization.
+With the sync version an event is placed on the monitor ring but the handler
+does not get resumed, thus the sync version is only useful when the VM is not
+expected to resume normally after the vmexit. Our use-case is primarily with
+the sync version with VM forks where the fork gets reset after sync vmexit
+event, thus the rest of the vmexit handler can be safely skipped. This is
+very useful when we want to avoid Xen crashing the VM under any circumstance,
+for example during fuzzing. Collecting all vmexit information regardless of
+the root cause makes it easier to reason about the state of the VM on the
+monitor side, hence we opt to receive all events, even for external interrupt
+and NMI exits and let the monitor agent decide how to proceed.
 
 Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
 ---
-v4: No change
-v3: Rebase on simpler approach after dropping empty_p2m feature
-v2: address review comments and add more sanity checking
+v4: Minor tweaks and more verbose patch description.
+
+Note: making the sync version resume-friendly is specifically out-of-scope as
+it would require significant rearrangement of the vmexit handler. As this
+feature is not required for our use-case we opt for the version that minimizes
+impact on the existing code.
 ---
- tools/include/xenctrl.h                |  3 ++-
- tools/libs/ctrl/xc_memshr.c            |  7 ++++++-
- xen/arch/x86/include/asm/mem_sharing.h |  9 +++++++++
- xen/arch/x86/mm/mem_sharing.c          | 24 +++++++++++++++++++-----
- xen/common/vm_event.c                  | 15 +++++++++++++++
- xen/include/public/memory.h            |  4 +++-
+ tools/include/xenctrl.h                |  2 ++
+ tools/libs/ctrl/xc_monitor.c           | 15 +++++++++++++++
+ xen/arch/x86/hvm/monitor.c             | 18 ++++++++++++++++++
+ xen/arch/x86/hvm/vmx/vmx.c             | 12 ++++++++++++
+ xen/arch/x86/include/asm/domain.h      |  2 ++
+ xen/arch/x86/include/asm/hvm/monitor.h |  2 ++
+ xen/arch/x86/include/asm/monitor.h     |  3 ++-
+ xen/arch/x86/monitor.c                 | 14 ++++++++++++++
+ xen/include/public/domctl.h            |  6 ++++++
  xen/include/public/vm_event.h          |  8 ++++++++
- 7 files changed, 62 insertions(+), 8 deletions(-)
+ 10 files changed, 81 insertions(+), 1 deletion(-)
 
 diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index 95bd5eca67..1b089a2c02 100644
+index 1b089a2c02..159eaac050 100644
 --- a/tools/include/xenctrl.h
 +++ b/tools/include/xenctrl.h
-@@ -2290,7 +2290,8 @@ int xc_memshr_fork(xc_interface *xch,
-  *
-  * With VMs that have a lot of memory this call may block for a long time.
-  */
--int xc_memshr_fork_reset(xc_interface *xch, uint32_t forked_domain);
-+int xc_memshr_fork_reset(xc_interface *xch, uint32_t forked_domain,
-+                         bool reset_state, bool reset_memory);
- 
- /* Debug calls: return the number of pages referencing the shared frame backing
-  * the input argument. Should be one or greater.
-diff --git a/tools/libs/ctrl/xc_memshr.c b/tools/libs/ctrl/xc_memshr.c
-index a6cfd7dccf..a0d0b894e2 100644
---- a/tools/libs/ctrl/xc_memshr.c
-+++ b/tools/libs/ctrl/xc_memshr.c
-@@ -257,12 +257,17 @@ int xc_memshr_fork(xc_interface *xch, uint32_t pdomid, uint32_t domid,
-     return xc_memshr_memop(xch, domid, &mso);
+@@ -2096,6 +2096,8 @@ int xc_monitor_privileged_call(xc_interface *xch, uint32_t domain_id,
+                                bool enable);
+ int xc_monitor_emul_unimplemented(xc_interface *xch, uint32_t domain_id,
+                                   bool enable);
++int xc_monitor_vmexit(xc_interface *xch, uint32_t domain_id, bool enable,
++                      bool sync);
+ /**
+  * This function enables / disables emulation for each REP for a
+  * REP-compatible instruction.
+diff --git a/tools/libs/ctrl/xc_monitor.c b/tools/libs/ctrl/xc_monitor.c
+index 4ac823e775..c5fa62ff30 100644
+--- a/tools/libs/ctrl/xc_monitor.c
++++ b/tools/libs/ctrl/xc_monitor.c
+@@ -246,6 +246,21 @@ int xc_monitor_emul_unimplemented(xc_interface *xch, uint32_t domain_id,
+     return do_domctl(xch, &domctl);
  }
  
--int xc_memshr_fork_reset(xc_interface *xch, uint32_t domid)
-+int xc_memshr_fork_reset(xc_interface *xch, uint32_t domid, bool reset_state,
-+                         bool reset_memory)
- {
-     xen_mem_sharing_op_t mso;
- 
-     memset(&mso, 0, sizeof(mso));
-     mso.op = XENMEM_sharing_op_fork_reset;
-+    if ( reset_state )
-+        mso.u.fork.flags |= XENMEM_FORK_RESET_STATE;
-+    if ( reset_memory )
-+        mso.u.fork.flags |= XENMEM_FORK_RESET_MEMORY;
- 
-     return xc_memshr_memop(xch, domid, &mso);
- }
-diff --git a/xen/arch/x86/include/asm/mem_sharing.h b/xen/arch/x86/include/asm/mem_sharing.h
-index cf7a12f4d2..2c00069bc9 100644
---- a/xen/arch/x86/include/asm/mem_sharing.h
-+++ b/xen/arch/x86/include/asm/mem_sharing.h
-@@ -85,6 +85,9 @@ static inline bool mem_sharing_is_fork(const struct domain *d)
- int mem_sharing_fork_page(struct domain *d, gfn_t gfn,
-                           bool unsharing);
- 
-+int mem_sharing_fork_reset(struct domain *d, bool reset_state,
-+                           bool reset_memory);
-+
- /*
-  * If called by a foreign domain, possible errors are
-  *   -EBUSY -> ring full
-@@ -148,6 +151,12 @@ static inline int mem_sharing_fork_page(struct domain *d, gfn_t gfn, bool lock)
-     return -EOPNOTSUPP;
- }
- 
-+static inline int mem_sharing_fork_reset(struct domain *d, bool reset_state,
-+                                         bool reset_memory)
++int xc_monitor_vmexit(xc_interface *xch, uint32_t domain_id, bool enable,
++                      bool sync)
 +{
-+    return -EOPNOTSUPP;
++    DECLARE_DOMCTL;
++
++    domctl.cmd = XEN_DOMCTL_monitor_op;
++    domctl.domain = domain_id;
++    domctl.u.monitor_op.op = enable ? XEN_DOMCTL_MONITOR_OP_ENABLE
++                                    : XEN_DOMCTL_MONITOR_OP_DISABLE;
++    domctl.u.monitor_op.event = XEN_DOMCTL_MONITOR_EVENT_VMEXIT;
++    domctl.u.monitor_op.u.vmexit.sync = sync;
++
++    return do_domctl(xch, &domctl);
 +}
 +
- #endif
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/arch/x86/hvm/monitor.c b/xen/arch/x86/hvm/monitor.c
+index b44a1e1dfe..64a38e8fa7 100644
+--- a/xen/arch/x86/hvm/monitor.c
++++ b/xen/arch/x86/hvm/monitor.c
+@@ -328,6 +328,24 @@ bool hvm_monitor_check_p2m(unsigned long gla, gfn_t gfn, uint32_t pfec,
+     return monitor_traps(curr, true, &req) >= 0;
+ }
  
- #endif /* __MEM_SHARING_H__ */
-diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
-index 15e6a7ed81..2f447d94ab 100644
---- a/xen/arch/x86/mm/mem_sharing.c
-+++ b/xen/arch/x86/mm/mem_sharing.c
-@@ -1879,15 +1879,21 @@ static int fork(struct domain *cd, struct domain *d)
-  * footprints the hypercall continuation should be implemented (or if this
-  * feature needs to be become "stable").
-  */
--static int mem_sharing_fork_reset(struct domain *d)
-+int mem_sharing_fork_reset(struct domain *d, bool reset_state,
-+                           bool reset_memory)
- {
--    int rc;
-+    int rc = 0;
-     struct domain *pd = d->parent;
-     struct p2m_domain *p2m = p2m_get_hostp2m(d);
-     struct page_info *page, *tmp;
- 
-+    ASSERT(reset_state || reset_memory);
++int hvm_monitor_vmexit(unsigned long exit_reason,
++                       unsigned long exit_qualification)
++{
++    struct vcpu *curr = current;
++    struct arch_domain *ad = &curr->domain->arch;
++    vm_event_request_t req = {};
 +
-     domain_pause(d);
- 
-+    if ( !reset_memory )
-+        goto state;
++    ASSERT(ad->monitor.vmexit_enabled);
 +
-     /* need recursive lock because we will free pages */
-     spin_lock_recursive(&d->page_alloc_lock);
-     page_list_for_each_safe(page, tmp, &d->page_list)
-@@ -1920,7 +1926,9 @@ static int mem_sharing_fork_reset(struct domain *d)
++    req.reason = VM_EVENT_REASON_VMEXIT;
++    req.u.vmexit.reason = exit_reason;
++    req.u.vmexit.qualification = exit_qualification;
++
++    set_npt_base(curr, &req);
++
++    return monitor_traps(curr, ad->monitor.vmexit_sync, &req);
++}
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index c075370f64..2794db46f9 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -4008,6 +4008,18 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
+         }
      }
-     spin_unlock_recursive(&d->page_alloc_lock);
  
--    rc = copy_settings(d, pd);
-+ state:
-+    if ( reset_state )
-+        rc = copy_settings(d, pd);
- 
-     domain_unpause(d);
- 
-@@ -2227,15 +2235,21 @@ int mem_sharing_memop(XEN_GUEST_HANDLE_PARAM(xen_mem_sharing_op_t) arg)
- 
-     case XENMEM_sharing_op_fork_reset:
-     {
-+        bool reset_state = mso.u.fork.flags & XENMEM_FORK_RESET_STATE;
-+        bool reset_memory = mso.u.fork.flags & XENMEM_FORK_RESET_MEMORY;
++    if ( unlikely(currd->arch.monitor.vmexit_enabled) )
++    {
++        int rc;
 +
-         rc = -EINVAL;
--        if ( mso.u.fork.pad || mso.u.fork.flags )
-+        if ( mso.u.fork.pad || (!reset_state && !reset_memory) )
-+            goto out;
-+        if ( mso.u.fork.flags &
-+             ~(XENMEM_FORK_RESET_STATE | XENMEM_FORK_RESET_MEMORY) )
-             goto out;
++        __vmread(EXIT_QUALIFICATION, &exit_qualification);
++        rc = hvm_monitor_vmexit(exit_reason, exit_qualification);
++        if ( rc < 0 )
++            goto exit_and_crash;
++        if ( rc )
++            return;
++    }
++
+     /* XXX: This looks ugly, but we need a mechanism to ensure
+      * any pending vmresume has really happened
+      */
+diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+index e62e109598..855db352c0 100644
+--- a/xen/arch/x86/include/asm/domain.h
++++ b/xen/arch/x86/include/asm/domain.h
+@@ -430,6 +430,8 @@ struct arch_domain
+          */
+         unsigned int inguest_pagefault_disabled                            : 1;
+         unsigned int control_register_values                               : 1;
++        unsigned int vmexit_enabled                                        : 1;
++        unsigned int vmexit_sync                                           : 1;
+         struct monitor_msr_bitmap *msr_bitmap;
+         uint64_t write_ctrlreg_mask[4];
+     } monitor;
+diff --git a/xen/arch/x86/include/asm/hvm/monitor.h b/xen/arch/x86/include/asm/hvm/monitor.h
+index a75cd8545c..639f6dfa37 100644
+--- a/xen/arch/x86/include/asm/hvm/monitor.h
++++ b/xen/arch/x86/include/asm/hvm/monitor.h
+@@ -51,6 +51,8 @@ bool hvm_monitor_emul_unimplemented(void);
  
-         rc = -ENOSYS;
-         if ( !d->parent )
-             goto out;
+ bool hvm_monitor_check_p2m(unsigned long gla, gfn_t gfn, uint32_t pfec,
+                            uint16_t kind);
++int hvm_monitor_vmexit(unsigned long exit_reason,
++                       unsigned long exit_qualification);
  
--        rc = mem_sharing_fork_reset(d);
-+        rc = mem_sharing_fork_reset(d, reset_state, reset_memory);
+ #endif /* __ASM_X86_HVM_MONITOR_H__ */
+ 
+diff --git a/xen/arch/x86/include/asm/monitor.h b/xen/arch/x86/include/asm/monitor.h
+index 01c6d63bb9..d8d54c5f23 100644
+--- a/xen/arch/x86/include/asm/monitor.h
++++ b/xen/arch/x86/include/asm/monitor.h
+@@ -89,7 +89,8 @@ static inline uint32_t arch_monitor_get_capabilities(struct domain *d)
+                     (1U << XEN_DOMCTL_MONITOR_EVENT_DEBUG_EXCEPTION) |
+                     (1U << XEN_DOMCTL_MONITOR_EVENT_WRITE_CTRLREG) |
+                     (1U << XEN_DOMCTL_MONITOR_EVENT_EMUL_UNIMPLEMENTED) |
+-                    (1U << XEN_DOMCTL_MONITOR_EVENT_INGUEST_PAGEFAULT));
++                    (1U << XEN_DOMCTL_MONITOR_EVENT_INGUEST_PAGEFAULT) |
++                    (1U << XEN_DOMCTL_MONITOR_EVENT_VMEXIT));
+ 
+     if ( hvm_is_singlestep_supported() )
+         capabilities |= (1U << XEN_DOMCTL_MONITOR_EVENT_SINGLESTEP);
+diff --git a/xen/arch/x86/monitor.c b/xen/arch/x86/monitor.c
+index 3079726a8b..30ca71432c 100644
+--- a/xen/arch/x86/monitor.c
++++ b/xen/arch/x86/monitor.c
+@@ -332,6 +332,20 @@ int arch_monitor_domctl_event(struct domain *d,
          break;
      }
  
-diff --git a/xen/common/vm_event.c b/xen/common/vm_event.c
-index 84cf52636b..d26a6699fc 100644
---- a/xen/common/vm_event.c
-+++ b/xen/common/vm_event.c
-@@ -28,6 +28,11 @@
- #include <asm/p2m.h>
- #include <asm/monitor.h>
- #include <asm/vm_event.h>
++    case XEN_DOMCTL_MONITOR_EVENT_VMEXIT:
++    {
++        bool old_status = ad->monitor.vmexit_enabled;
 +
-+#ifdef CONFIG_MEM_SHARING
-+#include <asm/mem_sharing.h>
-+#endif
++        if ( unlikely(old_status == requested_status) )
++            return -EEXIST;
 +
- #include <xsm/xsm.h>
- #include <public/hvm/params.h>
++        domain_pause(d);
++        ad->monitor.vmexit_enabled = requested_status;
++        ad->monitor.vmexit_sync = mop->u.vmexit.sync;
++        domain_unpause(d);
++        break;
++    }
++
+     default:
+         /*
+          * Should not be reached unless arch_monitor_get_capabilities() is
+diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+index b85e6170b0..4803ed7afc 100644
+--- a/xen/include/public/domctl.h
++++ b/xen/include/public/domctl.h
+@@ -1057,6 +1057,7 @@ struct xen_domctl_psr_cmt_op {
+ #define XEN_DOMCTL_MONITOR_EVENT_EMUL_UNIMPLEMENTED    10
+ /* Enabled by default */
+ #define XEN_DOMCTL_MONITOR_EVENT_INGUEST_PAGEFAULT     11
++#define XEN_DOMCTL_MONITOR_EVENT_VMEXIT                12
  
-@@ -394,6 +399,16 @@ static int vm_event_resume(struct domain *d, struct vm_event_domain *ved)
-             if ( rsp.reason == VM_EVENT_REASON_MEM_PAGING )
-                 p2m_mem_paging_resume(d, &rsp);
- #endif
-+#ifdef CONFIG_MEM_SHARING
-+            if ( mem_sharing_is_fork(d) )
-+            {
-+                bool reset_state = rsp.flags & VM_EVENT_FLAG_RESET_FORK_STATE;
-+                bool reset_mem = rsp.flags & VM_EVENT_FLAG_RESET_FORK_MEMORY;
+ struct xen_domctl_monitor_op {
+     uint32_t op; /* XEN_DOMCTL_MONITOR_OP_* */
+@@ -1107,6 +1108,11 @@ struct xen_domctl_monitor_op {
+             /* Pause vCPU until response */
+             uint8_t sync;
+         } debug_exception;
 +
-+                if ( reset_state || reset_mem )
-+                    ASSERT(!mem_sharing_fork_reset(d, reset_state, reset_mem));
-+            }
-+#endif
++        struct {
++            /* Send event and don't process vmexit */
++            uint8_t sync;
++        } vmexit;
+     } u;
+ };
  
-             /*
-              * Check emulation flags in the arch-specific handler only, as it
-diff --git a/xen/include/public/memory.h b/xen/include/public/memory.h
-index a1a0f0233a..f8d26fb77d 100644
---- a/xen/include/public/memory.h
-+++ b/xen/include/public/memory.h
-@@ -541,12 +541,14 @@ struct xen_mem_sharing_op {
-                 uint32_t gref;     /* IN: gref to debug         */
-             } u;
-         } debug;
--        struct mem_sharing_op_fork {      /* OP_FORK */
-+        struct mem_sharing_op_fork {      /* OP_FORK{,_RESET} */
-             domid_t parent_domain;        /* IN: parent's domain id */
- /* Only makes sense for short-lived forks */
- #define XENMEM_FORK_WITH_IOMMU_ALLOWED (1u << 0)
- /* Only makes sense for short-lived forks */
- #define XENMEM_FORK_BLOCK_INTERRUPTS   (1u << 1)
-+#define XENMEM_FORK_RESET_STATE        (1u << 2)
-+#define XENMEM_FORK_RESET_MEMORY       (1u << 3)
-             uint16_t flags;               /* IN: optional settings */
-             uint32_t pad;                 /* Must be set to 0 */
-         } fork;
 diff --git a/xen/include/public/vm_event.h b/xen/include/public/vm_event.h
-index bb003d21d0..81c2ee28cc 100644
+index 81c2ee28cc..07f106f811 100644
 --- a/xen/include/public/vm_event.h
 +++ b/xen/include/public/vm_event.h
-@@ -127,6 +127,14 @@
-  * Reset the vmtrace buffer (if vmtrace is enabled)
-  */
- #define VM_EVENT_FLAG_RESET_VMTRACE      (1 << 13)
-+/*
-+ * Reset the VM state (if VM is fork)
-+ */
-+#define VM_EVENT_FLAG_RESET_FORK_STATE   (1 << 14)
-+/*
-+ * Remove unshared entried from physmap (if VM is fork)
-+ */
-+#define VM_EVENT_FLAG_RESET_FORK_MEMORY  (1 << 15)
+@@ -175,6 +175,8 @@
+ #define VM_EVENT_REASON_DESCRIPTOR_ACCESS       13
+ /* Current instruction is not implemented by the emulator */
+ #define VM_EVENT_REASON_EMUL_UNIMPLEMENTED      14
++/* VMEXIT */
++#define VM_EVENT_REASON_VMEXIT                  15
  
- /*
-  * Reasons for the vm event request
+ /* Supported values for the vm_event_write_ctrlreg index. */
+ #define VM_EVENT_X86_CR0    0
+@@ -394,6 +396,11 @@ struct vm_event_emul_insn_data {
+     uint8_t data[16]; /* Has to be completely filled */
+ };
+ 
++struct vm_event_vmexit {
++    uint64_t reason;
++    uint64_t qualification;
++};
++
+ typedef struct vm_event_st {
+     uint32_t version;   /* VM_EVENT_INTERFACE_VERSION */
+     uint32_t flags;     /* VM_EVENT_FLAG_* */
+@@ -414,6 +421,7 @@ typedef struct vm_event_st {
+         struct vm_event_debug                 software_breakpoint;
+         struct vm_event_debug                 debug_exception;
+         struct vm_event_cpuid                 cpuid;
++        struct vm_event_vmexit                vmexit;
+         union {
+             struct vm_event_interrupt_x86     x86;
+         } interrupt;
 -- 
 2.25.1
 
