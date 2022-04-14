@@ -2,65 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 002FF500ED4
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Apr 2022 15:19:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.304760.519496 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E9C3500F9B
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Apr 2022 15:32:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.304765.519507 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nezNJ-0002Cg-Qp; Thu, 14 Apr 2022 13:19:05 +0000
+	id 1nezZa-0004UL-06; Thu, 14 Apr 2022 13:31:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 304760.519496; Thu, 14 Apr 2022 13:19:05 +0000
+Received: by outflank-mailman (output) from mailman id 304765.519507; Thu, 14 Apr 2022 13:31:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nezNJ-0002Ac-Nx; Thu, 14 Apr 2022 13:19:05 +0000
-Received: by outflank-mailman (input) for mailman id 304760;
- Thu, 14 Apr 2022 13:19:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nezZZ-0004Rl-Su; Thu, 14 Apr 2022 13:31:45 +0000
+Received: by outflank-mailman (input) for mailman id 304765;
+ Thu, 14 Apr 2022 13:31:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gNLD=UY=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1nezNH-0002AW-Bi
- for xen-devel@lists.xenproject.org; Thu, 14 Apr 2022 13:19:03 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on20614.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::614])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6a2f390e-bbf5-11ec-8fbd-03012f2f19d4;
- Thu, 14 Apr 2022 15:18:52 +0200 (CEST)
-Received: from AM5P194CA0023.EURP194.PROD.OUTLOOK.COM (2603:10a6:203:8f::33)
- by VI1PR0801MB1773.eurprd08.prod.outlook.com (2603:10a6:800:5c::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Thu, 14 Apr
- 2022 13:18:41 +0000
-Received: from AM5EUR03FT047.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:203:8f:cafe::f1) by AM5P194CA0023.outlook.office365.com
- (2603:10a6:203:8f::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.18 via Frontend
- Transport; Thu, 14 Apr 2022 13:18:41 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT047.mail.protection.outlook.com (10.152.16.197) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5164.19 via Frontend Transport; Thu, 14 Apr 2022 13:18:41 +0000
-Received: ("Tessian outbound ac9bb5dd84f6:v118");
- Thu, 14 Apr 2022 13:18:40 +0000
-Received: from 50866bb17fc4.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- FE362ABC-E18F-42D3-9F4A-1533A044DBAF.1; 
- Thu, 14 Apr 2022 13:18:34 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 50866bb17fc4.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 14 Apr 2022 13:18:34 +0000
-Received: from AM0PR08MB3778.eurprd08.prod.outlook.com (2603:10a6:208:104::24)
- by GV2PR08MB8076.eurprd08.prod.outlook.com (2603:10a6:150:7a::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.29; Thu, 14 Apr
- 2022 13:18:30 +0000
-Received: from AM0PR08MB3778.eurprd08.prod.outlook.com
- ([fe80::e05d:b3fc:609a:df20]) by AM0PR08MB3778.eurprd08.prod.outlook.com
- ([fe80::e05d:b3fc:609a:df20%6]) with mapi id 15.20.5164.020; Thu, 14 Apr 2022
- 13:18:30 +0000
+ <SRS0=f0xO=UY=citrix.com=prvs=09619e58f=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1nezZZ-0004Rf-0E
+ for xen-devel@lists.xenproject.org; Thu, 14 Apr 2022 13:31:45 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 37c69ede-bbf7-11ec-a405-831a346695d4;
+ Thu, 14 Apr 2022 15:31:43 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,301 +36,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a2f390e-bbf5-11ec-8fbd-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fygycZQNB6jKUTy5lFMUwvzRm8/tVyCQEmLeBeAetm4=;
- b=lkMA429Zez6f9P5HkN9xSd2VM6QBdgFM1TDDYfEbej2w+oTj6xhsPtPqST5DHYNV9f3Zkf0VwZu5ds07J9a8bwB51cVmxuJRZ3N2zj0ARuiNFHm7vMl1K8Pg3S1yoPTmH6eEHjXU8C8ifwSObQGAm55TFVKV1i7D8itzqWrXxcg=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 0e14f8990e6422d5
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: 37c69ede-bbf7-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1649943102;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=wFbRS81tc/ctaXUsSc6IwDd6maKUYxC/XjgjJbUtGdc=;
+  b=M2ewaiiYIiLTtuTg3BDK6IR8QiQ1rx/xjDb1dDwGOltoOUhek8sV2Mkl
+   BniUAyVtb34KD2eZGtN6CTZ8/xgObWe5F6dQrueDM+WmatAlk2YkDVmWB
+   gEdxWgB32GE/4Ju+mRwPg7szqwtkHHRKrlbMdA+1UXXZ7pdR9VDkEe+QZ
+   Y=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+X-SBRS: 5.1
+X-MesageID: 69362062
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:S6WxnKAUU9HZwRVW/z7jw5YqxClBgxIJ4kV8jS/XYbTApDx2hTRWz
+ WofCDzQb/qOajf0edh+bo2yo0gEv5SHxodiQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
+ xA2M4GYRCwMZiaA4E/raNANlFEkvU2ybuOU5NXsZ2YgHWeIdA970Ug5w7Jg3tYx6TSEK1jlV
+ e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
+ I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPhNi
+ 4QQnqG8QDsqZKHAkdxNczp3KyBhaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
+ 6ZCcXZUM07F17neLLGTE4GAguw5K8bmJsUHs2xIxjDFF/c2B5vERs0m4PcGjWxu3JgQR54yY
+ eIzbSczTRjsPCFUP01NGbk4hfyxi3rGJmgwRFW9+vNsvjm7IBZK+KfpGMrYfJqNX8o9tlaVo
+ CfK8nr0BjkeNceD0nyV/3S0nOjNkCjnHoUIG9WQ9PRnnVmSzWw7EwANWB2wpvzRt6Klc4sBc
+ QpOoHNo9PVsshzwJjXgY/GmiELH70M3ZtZZL+5g5A2E8vr0wCmhB3dRG1atd+canMMxQDUr0
+ HqAkNXoGSFjvdWpdJ6NyluHhWjsYHZIdAfucQdBFFJYuIe7/OnfmzqVFr5e/LiJYsoZ8N0a6
+ xSDt2AAiroalqbnPI3rrAmc01pASnUkJzPZBzk7vEr4tmuVh6b/PuREDGQ3C94afe51qXHb4
+ hA5dzC2trxmMH10vHXlrB8xNL+o/e2ZFzbXnERiGZIsnxz0pSLyLdoIuW8ifxw0WirhRdMPS
+ BWC0e+2zMUNVEZGkIctO97hYyjU5fWI+SvZugD8MYMVP8kZmP6v9yByf0+At10BY2B3+ZzTz
+ ayzKJ72ZV5DUPwP5GPvG481jO96rghjlDi7bc2qkHyaPU+2OSf9pUEtawDVMIjULcqs/W3oz
+ jqoH5LTlU4OAbGkP3G/HEx6BQliEEXXzKve8qR/XuWCPhBnCCcmDfrQyqkmYItrg+JekeKgw
+ 513chYwJIbX7ZEfFTi3Vw==
+IronPort-HdrOrdr: A9a23:Iqzgaq3cN69pkUgWRohXDgqjBVZyeYIsimQD101hICG9Lfb3qy
+ n+ppsmPEHP5Ar5OEtBpTiBUJPwJ0800aQFnLX5Wo3SIDUO2VHYVr2KiLGC/9SOIVyaygcw79
+ YFT0E6MqyOMbEYt7eL3ODbKadZ/DDvysnB7o2yvhQdLz2CKZsQlDuRYjzrY3GeLzM2fKbReq
+ Dsgfau8FGbCAoqh4mAdzI4dtmGg+eOuIPtYBYACRJiwA6SjQmw4Lq/NxSDxB8RXx5G3L9nqA
+ H+4kHEz5Tml8v+5g7X1mfV4ZgTsNz9yuFbDMjJrsQOMD3jhiuheYwkcbyfuzIepv2p9T8R4Z
+ PxiiZlG/42x2Laf2mzrxeo8w780Aw243un8lOciWuLm72OeBsKT+56wa5JeBrQ7EQt+Ptm1r
+ hQ4m6fv51LSTvdgSXU/bHzJl9Xv3vxhUBnvf8YjnRZX4dbQqRWt5Yj8ERcF4pFND7m6bogDP
+ JlAKjnlblrmGuhHjDkV1RUsZ+RtixZJGbFfqFCgL3Y79FupgE586NCr/Zv20vp9/oGOu55Dq
+ r/Q+BVfYp1P70rhJJGdZQ8qPSMexnwqDL3QSuvyAfcZek600ykke+C3Fxy3pDsRKA1
+X-IronPort-AV: E=Sophos;i="5.90,259,1643691600"; 
+   d="scan'208";a="69362062"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YoEyzkBp4z/+oho6XpY0RI/pxun9frYaAfxoCZ3FGm/3mvHnj2gb2Y+APFBGG6UCjw3+2dUvKx7rJlXKlb5EFiIX1VkyLZZ2UQ901PHGXry2YHS30LtCXZF62FKEHBM5DQi4RX5v1gkoNP3P1W7psPix80T37DIagIB0rknqiaMhH0QIoFxeR0gWmoRv3dQvUrovqX3YCU/MbIimH9hDnNqDY4i5nDuvnI1B22qO1CGcffkysmpg41o8k3HJK1iqe823c4Z09VjKH0tcSyxZH8BeW/WUoNN3JvYCHXtf6n+76rhQf2DuPNFplhJ4jKEtOi0TE16NI6kAIFierccOMg==
+ b=RMVLdB7XeTsmkz5H0I6UxpmDUWDUUaEn1XwI3UG0mufFstPfuQkPqvB4s9Rwpr70P17FGsD9251XFEx+xONR5S2/jEL0s6Cz/H91B/pGrdOHL3BNzQd4A58C2eoM93r/4M5+nFHFDWd5spsPeaGofTrQQYuYuMksVTcd6bEcs0Bi0AuycW7ltu23ptaEASxk9Ifv5oFP+Rg/X5MfhLYXoyUJJnHNBgYmvBpgFcTHj6CuDd28ufTQ7AhXHeSOznk02P8xeKyH2xAe7uL1rztFd6jE5lCts9u3Tt3SGECIngnwY5bm2RMvk8S7qC0c/mNAFDh/ZUM3P/C7KWMDUe5+cw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fygycZQNB6jKUTy5lFMUwvzRm8/tVyCQEmLeBeAetm4=;
- b=Q62S5o/KfrjR5yQPHhstrTpGgg2FRPXLYqZub/NqID0B71Slu7OllMWqv2LfJDVxSrcFS60Y0e1UWobfehHoShpTrBIoDhSRnrs0nMPk3x12fYFppEkj1RGbLNHSJ8h/sGFWP9uInE1076Vby3rVKwNmkXwn7Q24QW/J0jtiqID/E8BrRv3vxPMWsuDTzhObzAfFGJGb6CasDso75Aw7FP1fvXBg3v+K6N9TfxF5FyYdXdNu3cFJEyljZkZbz8Hl2MIcAT43q1I2/0+LMNbRIXOMPNW7Yd9lnfetdwaOdm6l8OvG5C9hgHqggMhbXvskesNXlt4atGle6YwgvOIFRw==
+ bh=SwbesW5ci+kI4wB9TlzPPdzmxtvc5rCl/tLeAoijQ+4=;
+ b=ilhd2DX9kQBZlpanm/WHNRrZUsP01XYKp0Kolewut7QxdgboMhcI/cFHmKRLgf7DVhR8aP6z1xDIhf8QOFsWKwBSdBx5VXi/UKFyU2YY4sE5qpMpuVfYCG6bEak7MRRzicstOpkQsNGx+7XHm/GNmW2g9xY5fGDdUVX1COIp5kVFdfyx3CLmKQVTEdqkLm6lX4yH+2QuJUjSjEbLDfYyo4YJfaFyzwLQ9fSlW+Go07Oc9D543IgRey1S89hXmycl/YhG0sxoDMT0Q/5v0afTTclwdwPQ8DKrQNFzD9RpiGl9gJYPa+TerFsDf0akc0yafodaNYJtHgo+ToEKQyQ4bw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fygycZQNB6jKUTy5lFMUwvzRm8/tVyCQEmLeBeAetm4=;
- b=lkMA429Zez6f9P5HkN9xSd2VM6QBdgFM1TDDYfEbej2w+oTj6xhsPtPqST5DHYNV9f3Zkf0VwZu5ds07J9a8bwB51cVmxuJRZ3N2zj0ARuiNFHm7vMl1K8Pg3S1yoPTmH6eEHjXU8C8ifwSObQGAm55TFVKV1i7D8itzqWrXxcg=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: Rahul Singh <Rahul.Singh@arm.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] xen/evtchn: Add design for static event channel signaling
- for domUs..
-Thread-Topic: [PATCH] xen/evtchn: Add design for static event channel
- signaling for domUs..
-Thread-Index: AQHYPsy9JkZghYSHXUuV0Y0fm4T+9azm3KwAgAAMjACAA7tTAIAEF8gAgADKVoA=
-Date: Thu, 14 Apr 2022 13:18:30 +0000
-Message-ID: <BA690DF6-577C-44CD-BB01-2E8B2FCFEFC6@arm.com>
-References:
- <4836304496e6fbbea41348ed8cc9fcf6b0f3e893.1648049827.git.rahul.singh@arm.com>
- <alpine.DEB.2.22.394.2204081649370.3066615@ubuntu-linux-20-04-desktop>
- <alpine.DEB.2.22.394.2204081837410.3066615@ubuntu-linux-20-04-desktop>
- <D24074F6-E6CF-440A-9E9B-A10783C273D7@arm.com>
- <alpine.DEB.2.22.394.2204131657200.3066615@ubuntu-linux-20-04-desktop>
-In-Reply-To:
- <alpine.DEB.2.22.394.2204131657200.3066615@ubuntu-linux-20-04-desktop>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3693.60.0.1.1)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-MS-Office365-Filtering-Correlation-Id: b841157a-b698-4559-50b8-08da1e194b40
-x-ms-traffictypediagnostic:
-	GV2PR08MB8076:EE_|AM5EUR03FT047:EE_|VI1PR0801MB1773:EE_
-X-Microsoft-Antispam-PRVS:
-	<VI1PR0801MB1773817FB453325195D5E0289DEF9@VI1PR0801MB1773.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
+ bh=SwbesW5ci+kI4wB9TlzPPdzmxtvc5rCl/tLeAoijQ+4=;
+ b=QuoE1ljBiUM+gcbhBk9E5ZWMmBceG6aA4mCuUZL3745YQY3Iq8TrHvxmd42wTix2jg+BeUNtlB2mkFnUIakGqYYQCmGLAHNziUq89X8xRRGF1BqwDG1zeJ/oLXJmAqgcPTPTcysHvt2R4JBxPJ+iQHkd8qFt/R4CnJLXKMO81Co=
+Date: Thu, 14 Apr 2022 15:31:26 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 1/2] x86: improve .debug_line contents for assembly
+ sources
+Message-ID: <YlgiLhvsKVYKKvrr@Air-de-Roger>
+References: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
+ <23509d85-8a73-4d81-7ade-435daf46fcd6@suse.com>
+ <YlgWKGmR+u41zSsw@Air-de-Roger>
+ <04f9bd9c-70da-0966-afa6-96f81e290204@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <04f9bd9c-70da-0966-afa6-96f81e290204@suse.com>
+X-ClientProxiedBy: LO4P123CA0478.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a8::15) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 26a943a9-68e5-467e-1b8e-08da1e1b15bd
+X-MS-TrafficTypeDiagnostic: BN7PR03MB4372:EE_
+X-Microsoft-Antispam-PRVS: <BN7PR03MB43722C11F10AF903C5F02DFB8FEF9@BN7PR03MB4372.namprd03.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- PDW8sIP0VYkcPVWQIXZcCONjwArqhYHNomcHTEKXAegN8CsibI9xH4E/48XI/d7ujtHB5jFvr6KRw3mRIVvs4I9m4VrsGKb6WCPZA0WT5fwm6SbX+SnzbnjT9xTIi2vJXGNOUeUlQ8b4PgsYwDMkK848CMoGXlepDjiszwSD4/19Ykjqo4rnwUBG+bk6YQsis8JNGjk0ZjyCzcCKFkXLDRyqXIElOGPN9RB1pPcjn+rOO91em5riFS0vxSK34ZpxX3/qxww6VKb37PIZlzFjeWdW9m7BEDl+yOoQOsAp/t9EKcvgILESQHEgWH7/Mo16OoIdUq+73LzXT4cnttnFiu+PAfHDUuRE5J/bn5/Ui56X8OlSCHVVECt22yzSY9aOq7zIEgoDYrKwKsHen7f4U97TpdxcajgP1GP0ums1pehEq+dRpXfHJ4OkeM2x9J2QQN/F6XqLUmhQITO0y29A0gx15yhW9yQ6Gr3YQ4KmUYFsXTXs5bb+cZB3pTkJNYD7era2KdaM/pBzDPIEZlqbgJa1W42Id3N5JBOHc4iFSnjBWWiJbbWLDz8Saa90q+d6eJO9ApbM/OaSr74bArNNSJWsbluD4Rjo9oVIjnrAZkkA4lo1u53N4c1DewNRSmd+Pu5We/OklCWwv2hdWVMsL81iu4aivOfaztlGpKETVA4iUH6ChfHoOZR7+aKT/NAjBSxAdGDaJyqdzB+/SfevUN+LOkRqLXHYZeuT6MRPQcbC+11p67Ow4iCqBaTnswVomPW3m3IYstQpiJLWA1XojuNKpTjxTCLxDLgf5MfAXZDLYNKVnCKxJMGh16/I5EfHLAoG87+G6HnVaeIjvwBCNQ==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR08MB3778.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(53546011)(186003)(66946007)(122000001)(2906002)(36756003)(38100700002)(6512007)(38070700005)(966005)(2616005)(71200400001)(8936002)(26005)(6486002)(508600001)(66446008)(6506007)(66556008)(86362001)(33656002)(8676002)(76116006)(5660300002)(316002)(4326008)(91956017)(83380400001)(66476007)(54906003)(6916009)(64756008)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <C8C6CD1DB6F8E34EAF8746268E000D1E@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR08MB8076
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM5EUR03FT047.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	e49470f4-f224-4c3b-0e49-08da1e1944d5
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Am9wku8b8qkyektngoUBnIwuXBstI3ebLdwsXYXRqaLgtAXECWIWZwGQv3BxVj05FKW2T68Tb2ulnSjplpgyfKh6s3YF0dNKwWJyue+8VVNrj9iMKP53GCr1RedkjyblznHPWdNklKNUcLbq+GYIs7nUbSG5d3soooJ/AJ3F9OL2dfLnYEDuU1WWyYyQ4OfMSqYFoA7iEIIhbIdaYqJVm+rrVNvi4dZ59EH+fs3jbcn08prj6oXUAYriGhr5j7LUFGhAF1243J47j7LJYbUkEwDk9j+piMk6uu6EQtIkE3LEuEbiYiQ5PS60NoOutRS1I3pkSOX2lToxabYN001HRp8MGcoj//0j04rTocJpTtESnPAM2wLy9qh4CZ/AwiRvFt8j38O9oF1aMNfLZ8VVl6yIckO9NaZY7FW021ZWCtrEqeZxj6eRUrX1AM2X7W24J18vrF3eJiRK0xAoecIc6Zt2E1sNNWYKRGzDQHldcLBKpLmzn/rSfHlXvY+FCF3v7FqJJn4NsFeOar62Y67Rz9FIT5q6fbVl06n5jcdb1H3KHm5fszax6az+6Zg0zsz4yCyzDgbxrBlrmaRKL5uTZKTB3IsxbmdljPKgz77quIv6+harUSOmO4jUm7zIw8muA2JkEH5T+N4euUubgQTJm1OAX3JErLYcJXUh2iAIqXCjwhKdt3N2PbLp+8yXbj6kbPbT6pYri2E1WLDodZhS9mqpl2euZBQkbyk8a8po86wyuv3qdza6ou6YiaF8Md35rZbmKl7Zsp3ZlpQ+emuBLw==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(356005)(53546011)(33656002)(6512007)(5660300002)(54906003)(26005)(186003)(36860700001)(47076005)(2616005)(336012)(81166007)(6506007)(83380400001)(86362001)(82310400005)(6486002)(966005)(36756003)(40460700003)(6862004)(70206006)(70586007)(4326008)(8676002)(508600001)(2906002)(316002)(8936002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2022 13:18:41.1243
+X-Microsoft-Antispam-Message-Info: 0UnqXDrqsMzYwic+6N6IXjCWVdJR/pR6ZNrdWwPsWejrXOLP5J8ARPQJmT3BtaLLnQIbWGUdC73HnWr48TXBonQSPWswYtmlBDJ+R8E84t4kByPnmk3qTQtsjAY2S5VLMRUnDY7RqYW/b8EV+tVPTeA+WOxaDyOoiglMXTKOcnCmLCRQo1Ev3bH57BpnJhc+FrNY2xuqIN/KI0RBeNOJUK+iR+NlezzWmdFpCzOTdz4Q9QXmcg2W2tJfAamnJ1aWjkNsUhUT8X3XKfVxsP6Uiv+eufqxaPE4YQ6/NiF8Ol+LUt9KjI+3s1Be9sjkk2C7go1PspRCJJwSMiffPDj0ShjqAtKT9JJvUSam2L3QOEOcZW0EUp1WZwZ9kJV1CehWwd7jtTuq09dMfFtu78jdTWOlxIk9CDZigsdPhql1UgxsYEbjUhMvnwgqjUWvrNJKchF279+83Dm0wfcL9tN2IRzgvl5p8GcWQJCTZI11rShzTCHAcmGljOQVWsyvFV5bvHKsunxtkyZgTW5gdJBzR71ibIDpEJuo/GaiIizESDIBdjjoDcTjxac2S15n+k5tVFOaScQ30srrWRSqJkoCxvmjU7Nc9q75jTlWJdois4eUR2xe6ZWddThHO/EVeZKigF+74sCtRjwZanflNxQNV35d7dxWbjk1WoXa4L0bOTcPB6DDgVVLTqyL4/rpcN/TNg2h3WGxBlzUWuJnub9cvRL2PYQlJza8DpBu/WXOUrDCoNcDRKD8rxQziueShNrHs16Qy66XzaVL+kdna3iR875oQCGd5x2GP6XciPIKlQJdW04mFzC5LGd7RtkvT0H3TARQlBBzJfn4jfj+QcEXqg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(6506007)(66946007)(26005)(186003)(8936002)(33716001)(2906002)(82960400001)(83380400001)(38100700002)(66556008)(4326008)(6666004)(86362001)(508600001)(8676002)(6916009)(966005)(54906003)(66476007)(9686003)(53546011)(6512007)(316002)(5660300002)(6486002)(85182001)(142923001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WkNNbTV1dVdVVlc4Vnp2d3ZTS1B2RjFxdVFJWDQxYTY2L1Q5ME1QV3FwZjZT?=
+ =?utf-8?B?dWFCTFhmUUY0OHVnbkIxVG5EcmVnWmpRVWJ4TWh5NkE2aUdlK09rcUsrUWk4?=
+ =?utf-8?B?aDZiTlBPcGZocUhLZmNrdXI4VTBBR0o0WmhqeXJHL2NwdStaaUxKcmFQM0RP?=
+ =?utf-8?B?VGpWSkdHLzhaY2F5QjJlYjZQbnByYTA2eXFFUmtWL0tENzJkWEJzYWN4YVlK?=
+ =?utf-8?B?TkI1endHQ3lza2dsSG4zZnAyTGxqRUxOTzZ6amp0RUM0RVhUL3VHV29oRUNs?=
+ =?utf-8?B?STJaWTUwMG40eDFkZkMxR1ArU0dVVjRmaXJRdG1ReUk0TlpTOFk3bVpoaGpQ?=
+ =?utf-8?B?QmFSMlBlRzBSTldYM2tRdERtZmx5WnNnSUtNeW9hamJNcHlJdFQ3dGgxQ0o5?=
+ =?utf-8?B?QTZLOUZZejlEd0RvYnVZandjOGpxUEE4WU8yeEphVmQvcXdGUjlHUzJTQlVD?=
+ =?utf-8?B?VndwRWxrcGJHa3BVU0h6eE9DNXVoMjYvcFptMVhISmcrZkhDQjk4a3JZVC9y?=
+ =?utf-8?B?SjJjZVY4dEJDVjJUN2U1eWoveU1qMVJDU3JkTDM2Mzd0TWtxcGpjNHl6R2Qy?=
+ =?utf-8?B?OFByQldET1FCbUhiUWIzVUxZdDBzZ2k5TmUzSUVhU1FFQktxSnRaZFlrS20z?=
+ =?utf-8?B?T1VjeDRVUmMvcldod1IxKzJubWZreGFxcjZlUVlEZFdjVXdrMXFodVkzR0No?=
+ =?utf-8?B?MkVIOG0vMjVWZHg2ZW9hKytjSkFySktNS0crZTg2TkM1b1FpSzhVZjFwT1hj?=
+ =?utf-8?B?T1R3VDJFcjJabTlzKzBEUXJUMDR5S1BDakRLQSt5TnR2WWFNSkprVUVmQ3U4?=
+ =?utf-8?B?dmJIcG9kTWRYcUZwU0UyNjBQVjZQeDR0NjVwRTNhZ0Z0QnhiT0NrWUF0bk1k?=
+ =?utf-8?B?OTBoNkIrTzBORWFVT2JTeFZ2SHdwSVorY0FDbFR4cUFEMk9HRWZFRlZmSWNN?=
+ =?utf-8?B?UjI3b3RJUDc4L0VzZWp5SGUrdEFjMHczZjlMTXNBcWVxdER0MGd5UXMyRFVD?=
+ =?utf-8?B?ajV4c3pmd0RPemtvR2p1QXNxdlpXMHkyd215UkZWcUIvWitEZlVWT1poeWp2?=
+ =?utf-8?B?SkNmMmJNWW1WeHBwNlhGaE0xY1B5NGI0WmlDd2JPSzdRalNXWnZiTTkrUUtY?=
+ =?utf-8?B?c0ZKQTlUc0s0SW1Gb29CNlNtOUQ2VTBYalZJQ2RFRWpyOThzV2dMOFdhSVUy?=
+ =?utf-8?B?ODNIeTUwNWdnc3d0ZEJLZWJ6aFBPM0lybGNqbStIcHVGWldCeGRGZHl6WnZu?=
+ =?utf-8?B?YXhWRWVaVEcxZHJGdVN0TWtGNzh3TGc0Q2hDNi93c0VDdWVLc2dDeXJmSVkv?=
+ =?utf-8?B?Q0tLVmJGZEhHMm1QeFVzdCt2emx5andxMkJRTTRaTVRMZjRzU0FZRWN0bnhH?=
+ =?utf-8?B?UWVIK1cyNVJkcjlsOUpLNWs0aUhNQTQ0cm9QS1FJdjdVOFlzeGl4YkxmUjR3?=
+ =?utf-8?B?RkNSVURNWi9xM2JPRGhabXJQaDdreHA3N3JBckpqMndxbml1cElORHJuS212?=
+ =?utf-8?B?M1l2NmJFSG1KZlZwSmZhTVhIdjZabkh5UFliSDNvM2VHZURkSHI5RmVPb1k1?=
+ =?utf-8?B?ZjVRQTlZVnM4MU5mR250ZWRTd2hUNGFxWGZDcm5kTWhDcWo3b2I5d3hDZVEz?=
+ =?utf-8?B?Z3h6R3Frb1pvWWZieHJ1RWg0ckJNTW5CVWQ3VTltLzNUekVNZUxxY1ozOVQ3?=
+ =?utf-8?B?WjJsWHl2SXIxaW1LUEVGaVJTd3BkNGt6UXFHc3NjTGU3T0dUMjlYT2VXTmh1?=
+ =?utf-8?B?K0NlVlg5R2JMaWNTb08wUFJjR1dFSGtBb05FOWhYQkxpblphL2F5SXRETlJN?=
+ =?utf-8?B?MXAxbVBIZ1dPWno1SmQ1ZXNyaUY0RTlrK0lyMFZlMWdkenZNdk1NZnZGQXRN?=
+ =?utf-8?B?Tjl0cWhEd2luS2lubkxJczZ6RTFkY1FzK2svZUtjZml0UXJOS2ViZmdqUFBq?=
+ =?utf-8?B?Nm9QWVN1NFN1a0lpT2trM0o4TTJrWkN3YlI5QjhlakVIZDFLcCtPdGpOMFUr?=
+ =?utf-8?B?TzR2SVRPUDZnS2V5QUV0YXBNL1F4dGw4ZGZZNWJzZmxleXJjem5pNzFaK1cz?=
+ =?utf-8?B?RlRHdk85anl1UkladUd0SG1qWkx1L3JuOVJUbVRFS0NqV1Z1eTdLNmY1UVAr?=
+ =?utf-8?B?aHUvSkJaaklwTXRFa1FJaGtleXRpZmwyMS84OUlNaDJ1SzZTb2x2clpCSS9i?=
+ =?utf-8?B?VGlhVVJhRlIzUm5HcGpGV3R0RHBGaVVsbnVVQzM3czJRQnZ1Z3RaZk1udmtQ?=
+ =?utf-8?B?bXprVjNDYVZxUkIzcnFZZGl0WVhreFljcXZJQnQvZ0l1ZUp3QXg3em1Fd3pM?=
+ =?utf-8?B?VGRtN3k0M3psNWIwaTIyaWtqZUxkNm9IaW5FODYxNU9seWF5WEFPZy83M2JT?=
+ =?utf-8?Q?nW+EGWLbT0vr9PFo=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 26a943a9-68e5-467e-1b8e-08da1e1b15bd
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2022 13:31:30.5418
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b841157a-b698-4559-50b8-08da1e194b40
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM5EUR03FT047.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0801MB1773
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LtZg8BjoXHsIaURzxhWdMkRpHu57MDb7xZakk2L21oJYmZjXKpAZJfFDId61nSL4gra+w2FV+clNcDO73riGWQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR03MB4372
+X-OriginatorOrg: citrix.com
 
-Hi Stefano,
+On Thu, Apr 14, 2022 at 02:52:47PM +0200, Jan Beulich wrote:
+> On 14.04.2022 14:40, Roger Pau Monné wrote:
+> > On Tue, Apr 12, 2022 at 12:27:34PM +0200, Jan Beulich wrote:
+> >> While future gas versions will allow line number information to be
+> >> generated for all instances of .irp and alike [1][2], the same isn't
+> >> true (nor immediately intended) for .macro [3]. Hence macros, when they
+> >> do more than just invoke another macro or issue an individual insn, want
+> >> to have .line directives (in header files also .file ones) in place.
+> >>
+> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> >>
+> >> [1] https://sourceware.org/git?p=binutils-gdb.git;a=commitdiff;h=7992631e8c0b0e711fbaba991348ef6f6e583725
+> >> [2] https://sourceware.org/git?p=binutils-gdb.git;a=commitdiff;h=2ee1792bec225ea19c71095cee5a3a9ae6df7c59
+> >> [3] https://sourceware.org/git?p=binutils-gdb.git;a=commitdiff;h=6d1ace6861e999361b30d1bc27459ab8094e0d4a
+> >> ---
+> >> Using .file has the perhaps undesirable side effect of generating a fair
+> >> amount of (all identical) STT_FILE entries in the symbol table. We also
+> >> can't use the supposedly assembler-internal (and hence undocumented)
+> >> .appfile anymore, as it was removed [4]. Note that .linefile (also
+> >> internal/undocumented) as well as the "# <line> <file>" constructs the
+> >> compiler emits, leading to .linefile insertion by the assembler, aren't
+> >> of use anyway as these are processed and purged when processing .macro
+> >> [3].
+> >>
+> >> [4] https://sourceware.org/git?p=binutils-gdb.git;a=commitdiff;h=c39e89c3aaa3a6790f85e80f2da5022bc4bce38b
+> >>
+> >> --- a/xen/arch/x86/include/asm/spec_ctrl_asm.h
+> >> +++ b/xen/arch/x86/include/asm/spec_ctrl_asm.h
+> >> @@ -24,6 +24,8 @@
+> >>  #include <asm/msr-index.h>
+> >>  #include <asm/spec_ctrl.h>
+> >>  
+> >> +#define FILE_AND_LINE .file __FILE__; .line __LINE__
+> > 
+> > Seeing as this seems to get added to all macros below, I guess you did
+> > consider (and discarded) introducing a preprocessor macro do to the
+> > asm macro definitons:
+> > 
+> > #define DECLARE_MACRO(n, ...) \
+> > .macro n __VA_ARGS__ \
+> >     .file __FILE__; .line __LINE__
+> 
+> No, I didn't even consider that. I view such as too obfuscating - there's
+> then e.g. no visual match with the .endm. Furthermore, as outlined in the
+> description, I don't think this wants applying uniformly. There are
+> macros which better don't have this added. Yet I also would prefer to not
+> end up with a mix of .macro and DECLARE_MACRO().
 
-> On 14 Apr 2022, at 02:14, Stefano Stabellini <sstabellini@kernel.org> wro=
-te:
->=20
-> On Mon, 11 Apr 2022, Bertrand Marquis wrote:
->> What you mention here is actually combining 2 different solutions inside
->> Xen to build a custom communication solution.
->> My assumption here is that the user will actually create the device tree
->> nodes he wants to do that and we should not create guest node entries
->> as it would enforce some design.
->>=20
->> If everything can be statically defined for Xen then the user can also
->> statically define node entries inside his guest to make use of the event=
-s
->> and the shared memories.
->>=20
->> For example one might need more than one event to build a communication
->> system, or more than one shared memory or could build something
->> communicating with multiple guest thus requiring even more events and
->> shared memories.
->=20
-> Hi Bertrand, Rahul,
->=20
-> If the guests are allowed some level of dynamic discovery, this feature
-> is not needed. They can discover the shared memory location from the
-> domU device tree, then proceed to allocate evtchns as needed and tell
-> the other end the evtchn numbers over shared memory. I already have an
-> example of it here:
->=20
-> https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/2251030537/Xen+Shar=
-ed+Memory+and+Interrupts+Between+VMs
->=20
-> What if the guest doesn't support device tree at runtime, like baremetal
-> or Zephyr? The shared memory address can be hardcoded or generated from
-> device tree at build time. That's no problem. Then, the event channels
-> can still be allocated at runtime and passed to the other end over
-> shared memory. That's what the example on the wikipage does.
->=20
->=20
-> When are static event channels actually useful? When the application
-> cannot allocate the event channels at runtime at all. The reason for the
-> restriction could be related to safety (no dynamic allocations at
-> runtime) or convenience (everything else is fully static, why should the
-> event channel numbers be dynamic?)
+I think it's a dummy question, but why would we want to add this to
+some macros?
 
-An other use case here is dom0less: you cannot have dom0 create them.
+Isn't it better to always have the file and line reference where the
+macro gets used?
 
->=20
-> Given the above, I can see why there is no need to describe the static
-> event channel info in the domU device tree: static event channels are
-> only useful in fully static configurations, and in those configurations
-> the domU device tree dynamically generated by Xen is not needed. I can
-> see where you are coming from.
->=20
->=20
-> The workflow that we have been trying to enable with the System Device
-> Tree effort (System Device Tree is similar to a normal Device Tree plus
-> the xen,domains nodes) is the following:
->=20
-> S-DT ---[lopper]---> Linux DT
->                L--> Zephyr DT ---[Zephyr build]---> Zephyr .h files
->=20
-> S-DT contains all the needed information for both the regular Linux DT
-> generation and also the Zephyr/RTOS/baremetal header files generation,
-> that happens at build time.
->=20
-> S-DT is not the same as the Xen device tree, but so far it has been
-> conceptually and practically similar. I always imagine that the bindings
-> we have in Xen we'll also have corresponding bindings in System Device
-> Tree.
->=20
-> For this workflow to work S-DT needs all the info so that both Linux DT
-> and Zephyr DT and Zephyr .h files can be generated.
->=20
-> Does this proposal contain enough information so that Zephyr .h files
-> could be statically generated with the event channel numbers and static
-> shared memory regions addresses?
->=20
-> I am not sure. Maybe not?
-
-Yes it should be possible to have all infos as the integrator will setup th=
-e
-system and will decide upfront the address and the event(s) number(s).
-
->=20
->=20
-> It is possible that the shared memory usage is so application specific
-> that there is no point in even talking about it. But I think that
-> introducing a simple bundle of both event channels and shared memory
-> would help a lot.
->=20
-> Something like the following in the Xen device tree would be enough to
-> specify an arbitrary number of event channels connected with the same
-> domains sharing the memory region.
->=20
-> It looks like that if we did the below, we would carry a lot more useful
-> information compared to the original proposal alone. We could add a
-> similar xen,notificaiton property to the domU reserved-memory region in
-> device tree generated by Xen for consistency, so that everything
-> available to the domU is described fully in device tree.
->=20
->=20
->    domU1 {
->        compatible =3D "xen,domain";
->=20
->        /* one sub-node per local event channel */
->        ec1: evtchn@1 {
->            compatible =3D "xen,evtchn-v1";
->            /* local-evtchn link-to-foreign-evtchn */
->            xen,evtchn =3D <0x1 &ec3>
->        };
->        ec2: evtchn@2 {
->            compatible =3D "xen,evtchn-v1";
->            xen,evtchn =3D <0x2 &ec4>
->        };
->        /*
->         * shared memory region between DomU1 and DomU2.
->         */
->        domU1-shared-mem@50000000 {
->            compatible =3D "xen,domain-shared-memory-v1";
->            xen,shm-id =3D <0x1>;
->            xen,shared-mem =3D <0x50000000 0x20000000 0x60000000>;
->            /* this is new */
->            xen,notification =3D <&ec1 &ec2>;
->        }
->    };
->=20
->    domU2 {
->        compatible =3D "xen,domain";
->=20
->        /* one sub-node per local event channel */
->        ec3: evtchn@3 {
->            compatible =3D "xen,evtchn-v1";
->            /* local-evtchn link-to-foreign-evtchn */
->            xen,evtchn =3D <0x3 &ec1>
->        };
->        ec4: evtchn@4 {
->            compatible =3D "xen,evtchn-v1";
->            xen,evtchn =3D <0x4 &ec2>
->        };
->        /*
->         * shared memory region between domU1 and domU2.
->         */
->        domU2-shared-mem@50000000 {
->            compatible =3D "xen,domain-shared-memory-v1";
->            xen,shm-id =3D <0x1>;
->            xen,shared-mem =3D <0x50000000 0x20000000 0x70000000>;
->            /* this is new */
->            xen,notification =3D <&ec3 &ec4>;
->        }
->    };
-
-Few remarks/questions on this:
-- this is not a shared memory anymore as you add a notification system to i=
-t
-- what if someone wants to use only a shared memory, or an event, what shou=
-ld xen do ?
-- in xen device tree, how do you associate the event with the shared memory=
- ?
-
->=20
->=20
->=20
-> The good thing about this is that:
->=20
-> - it is very flexible
-> - nothing to do in this series, except switching to the
->  one-subnode-per-evtchn model, which we called 2) in the previous email
-> - there were good reasons to use the one-subnode-per-evtchn model anyway
-> - the xen,notification property can be added later without issues, after =
-Penny's series
->=20
-> There are a couple of ways to implement the xen,notification property
-> but we don't need to discuss them now.
-
-I think there is something to do here but we need a bit more discussion and=
- this can be done later.
-Right now I am not quite sure we will not add something that will end up no=
-t being used.
-
->=20
->=20
-> Short Summary
-> ------------
-> I think it is fine to only introduce the Xen device tree binding for
-> static event channels without domU binding, but I prefer if we switched
-> to using proposal 2) "one subnode per event channel".
-
-I will let Rahul answer on that.
-
-Cheers
-Bertrand
-
-
+Thanks, Roger.
 
