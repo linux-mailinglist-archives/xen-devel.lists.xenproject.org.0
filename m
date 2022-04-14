@@ -2,36 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FB635009B1
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Apr 2022 11:24:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.304571.519225 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90D155009BD
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Apr 2022 11:27:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.304576.519236 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nevht-0008C0-P1; Thu, 14 Apr 2022 09:24:05 +0000
+	id 1nevkd-0000Mf-7r; Thu, 14 Apr 2022 09:26:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 304571.519225; Thu, 14 Apr 2022 09:24:05 +0000
+Received: by outflank-mailman (output) from mailman id 304576.519236; Thu, 14 Apr 2022 09:26:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nevht-00088l-Ls; Thu, 14 Apr 2022 09:24:05 +0000
-Received: by outflank-mailman (input) for mailman id 304571;
- Thu, 14 Apr 2022 09:24:03 +0000
+	id 1nevkd-0000K1-4Y; Thu, 14 Apr 2022 09:26:55 +0000
+Received: by outflank-mailman (input) for mailman id 304576;
+ Thu, 14 Apr 2022 09:26:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EpVF=UY=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1nevhr-00088f-MS
- for xen-devel@lists.xen.org; Thu, 14 Apr 2022 09:24:03 +0000
-Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
- [2607:f8b0:4864:20::42f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xfxB=UY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1nevkc-0000Js-4W
+ for xen-devel@lists.xenproject.org; Thu, 14 Apr 2022 09:26:54 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9ec2f26c-bbd4-11ec-8fbd-03012f2f19d4;
- Thu, 14 Apr 2022 11:24:02 +0200 (CEST)
-Received: by mail-pf1-x42f.google.com with SMTP id n43so330955pfv.10
- for <xen-devel@lists.xen.org>; Thu, 14 Apr 2022 02:24:02 -0700 (PDT)
-Received: from localhost ([223.184.83.228]) by smtp.gmail.com with ESMTPSA id
- mq6-20020a17090b380600b001c6357f146csm6283019pjb.12.2022.04.14.02.23.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Apr 2022 02:24:00 -0700 (PDT)
+ id 04a5a826-bbd5-11ec-8fbd-03012f2f19d4;
+ Thu, 14 Apr 2022 11:26:53 +0200 (CEST)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05lp2106.outbound.protection.outlook.com [104.47.17.106]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-14-CY5Ucz6PO1WLUdOVCshIZw-1; Thu, 14 Apr 2022 11:26:51 +0200
+Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
+ by AS1PR04MB9384.eurprd04.prod.outlook.com (2603:10a6:20b:4d8::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Thu, 14 Apr
+ 2022 09:26:49 +0000
+Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
+ ([fe80::5592:2abe:fb16:6cd1]) by DU2PR04MB8616.eurprd04.prod.outlook.com
+ ([fe80::5592:2abe:fb16:6cd1%6]) with mapi id 15.20.5164.020; Thu, 14 Apr 2022
+ 09:26:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,207 +51,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ec2f26c-bbd4-11ec-8fbd-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:user-agent;
-        bh=VilTKdHaAZDU2bXvzNDhMOT2Sg7lsFXIVJMvVgOiCqs=;
-        b=L42l2g0wRoYss1s/odJ9W/8ynR+QhUmHYFwPXuj6AIQP2FtTtJRi/s8MvVqDrjJngD
-         n1n9G17E7VeMuW2guQz8jdIpb2RmktMLTakPys5bNcx6lkYaK02/ejcuA3fSqx8lEGjJ
-         xlsdWV+5pwS7GJ+yOTf3Gd/lw9XIX8iPLITqWuEAHAgKTFNx2RI6G80/UDaO5156WDj4
-         CHu/9/WgvXoN1iGQb+X7QoVoEzDZUASWcP8PaO9uW18HmB9q3WTg7/ER66dVjEQju4uJ
-         gIWfpuESKyCVkHRjPVLrKo1VGH5XaL1qy+zDKrEXfn/hQ5BYp091VBJ8arZWoZm26Am4
-         i2Ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=VilTKdHaAZDU2bXvzNDhMOT2Sg7lsFXIVJMvVgOiCqs=;
-        b=Vvt8YVyurWfNRqovYzsscB6gww7ZtVjjEMpSNyLqGMPGLoecPqgqa7mv6QQrYIKSQV
-         pcebo9+yKTNMompU6aO5X1BH9m4WAyk4ar+2aqhgEkfnCcgdVp1HuLMvN5ntIIk/B7J/
-         hT7Tyb36oF/YFzVpd2GfaxI570HXPBwXxNfb4PP+veVekFeOsqOzs42DiM0TDdcJufY6
-         wvsyynM5QLq57mKUC6N3pFDhPYqOsBuKUhnMA5nKU8eGjgzQbDMiJhK+t/h1q8cJ5YBV
-         dbGkhod426xhSd0CrnA61FoYB5xCQeF4dLjTQxhpBtq4NYgyvYNUMMctnCBTEx75S/ND
-         W6sw==
-X-Gm-Message-State: AOAM531/WM19zhmobTNfTstk4xaIIwKEHowMOcdPSShsGdV9BLuU3JDS
-	Wyx4LRvFMhX8mnYAbC3QR6B2Dg==
-X-Google-Smtp-Source: ABdhPJyY6SytSpBAcGvhYVRZHx/N+7L9IKWJKKClZ9oBUO5jzYp8a4AMNc4pwwLOuX4gts+rR5XMVg==
-X-Received: by 2002:a05:6a00:22c7:b0:505:9c6e:de39 with SMTP id f7-20020a056a0022c700b005059c6ede39mr2999800pfj.79.1649928240713;
-        Thu, 14 Apr 2022 02:24:00 -0700 (PDT)
-Date: Thu, 14 Apr 2022 14:53:58 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: stratos-dev@op-lists.linaro.org, xen-devel@lists.xen.org
-Cc: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Stefano Stabellini <stefano.stabellini@xilinx.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Mike Holmes <mike.holmes@linaro.org>,
-	Oleksandr Tyshchenko <olekstysh@gmail.com>, Wei Liu <wl@xen.org>
-Subject: Re: Virtio on Xen with Rust
-Message-ID: <20220414092358.kepxbmnrtycz7mhe@vireshk-i7>
-References: <20220414091538.jijj4lbrkjiby6el@vireshk-i7>
+X-Inumbo-ID: 04a5a826-bbd5-11ec-8fbd-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1649928412;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=68DWobKimP9q7ZONaTMYa8j1VPPw+5WKo8zrFkW58vA=;
+	b=mCqxNSoCvdQqn0wAHEHljpGkw2BE6JMNGwxy5TKT5DdGcJ///t8btqxKbXVjsUfYJii3Re
+	TvDGea9aaXJOStl2uEdyTEiczlvog5e/4Ev36cswrLl57JSv8lGaOJcVvEE7+cK4wfZ3nN
+	gJbMYtztoSv6QL9HYR4Qjw/6J2MEnoE=
+X-MC-Unique: CY5Ucz6PO1WLUdOVCshIZw-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nnnU+Z87LLiXmKpCym0zt6DiS6i7XCFIS/BAO7HkwX3ouvqHXdnS1IpPFp7AByVFpjUCpIxian4isfYctSzM7bNiSrZPnuLMzCiWaQ6Tk2OgDiygaLHVGTiC8NDOaBzlS6PG+3ynPfs6UW6XYdd1/HbR3kTNpqxIOkZhJInnIQ1ZEhQTZdSacpFEEbS7TIWJdeAjump3k0bZZfe12JLO18lPK1YD/uRYOCA3gc4CKPKjc0qNBieaOKusbJDNcSeB4ljajGEykJt0sqCYmhQiNcYUNqkdgUKYMQtOpT1e3XgbdyWI00WsevydhFEIErlFvaC9j+8bKZ7p/vqhjcgyGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=68DWobKimP9q7ZONaTMYa8j1VPPw+5WKo8zrFkW58vA=;
+ b=KMw1FA1N3kv3uKBbcrk0TIO4kT/rj0KJcZB9oTbDJPh2gV55DLSnNfiw7+kDrfLkQbcllfpyZ8bwL/CO9zPAcVn7P1ShTaEt2KlaZJ230/Yatr2Q5PkVxcVEyvISTBAeYSFQh8iS06fvMkweBq+PKOdc7UDOPlend8142Eva7F7FPLU9DhMOfZ6CHObBV51YOpKGl9pexZyc6/kW7Ih9ZEdWa3Bg/F8hZt8hpZiC5Cc7BhIRz3fy1sXgsAvPKmDG6/pLBtOwhc7VIQr7rqOFKrPWPuibL0uHHI8P/knGVBZydHrFCBMYDiHYPSdFbNts+y8sjuGcWXrUwHubU5xvUA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <674c4cbb-0e2f-a12a-986b-393b9cc4f970@suse.com>
+Date: Thu, 14 Apr 2022 11:26:47 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Subject: Re: [PATCH] x86/debug: Drop unnecessary include of compile.h
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20220414090456.10965-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20220414090456.10965-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS8PR04CA0004.eurprd04.prod.outlook.com
+ (2603:10a6:20b:310::9) To DU2PR04MB8616.eurprd04.prod.outlook.com
+ (2603:10a6:10:2db::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220414091538.jijj4lbrkjiby6el@vireshk-i7>
-User-Agent: NeoMutt/20180716-391-311a52
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: c2ba24e1-4ea2-496b-bb02-08da1df8e73a
+X-MS-TrafficTypeDiagnostic: AS1PR04MB9384:EE_
+X-Microsoft-Antispam-PRVS:
+	<AS1PR04MB9384BE19C95B48EC8DDC205BB3EF9@AS1PR04MB9384.eurprd04.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	ZW4VQECHzlwaMrbkfZh26lc4EdMkxRl4kYRdXWv6qAl0isn6TLvedXtXKv/duUiLxUv0MkOdDJqzXYGfZwKJzGuDfdFYC3MvIT+NdPeN/+n2yUzLEf+sNO5qzySOEVwRvrWcbU331CW2ADxh2BERJeAuBAiOH30H1ZEtIGxfcVMubVnhvhLcvLK7IxhNMApxtWqnKVhkqFkygbD+zBg5zSYQMeJ3kbz7hw6n148ErQPtQm3UlQgOotXIPTIMeBqW63PZWOnJtHZD8F2mJRlerpuS95L0uvxlvE6un5r1Prs8E1NbujwIoNmtk8w8Qy4/ehwnhWjYSJafZvaqkhrATf19CqY1kGfgj/W7ZZxZXpjTAaSPT3hErM+fqka8DOqOocd8dsFdy+wUghMwTHP9V/23g7AmVlB6ChL+pUTKTHtskq1sUpCdAezsPzMUI4L+T32a1zrfnjspUffRGk7uZn6F45k9RHp/pY6+sVkLOeumF3wloOjhL6mcwJEo4MHBIrlsMll6hDKO+tsXHRoG/TVYZJ9eSnBnszEYfKUS8u7Uchd+eO+x3FzhKFhetS7peQLX1f3Bxvt//E4Q6ZFSoMnDQ1PgwOp7w3XGs2LJ753IqHeygOZK/CvF6rR5mWipb3s82eUTufxuR2F0B5c4OocnFCcjpvLwbmyUtW9J8YcjYleAi6kwGltSbxyLYtZruQ42nCyfGmHw1e6w7SkWpa575Yo/aszVtRnVtpJBHjE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(54906003)(66946007)(6486002)(66556008)(36756003)(66476007)(316002)(31696002)(8676002)(4326008)(6916009)(38100700002)(2906002)(86362001)(508600001)(8936002)(5660300002)(53546011)(186003)(26005)(6506007)(558084003)(6512007)(31686004)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Q2l5bFA0ZUh6Z014UnIrSlN6RkFqOGxkTFZTUEhuMGdOTmpZeEh6OWRjQldn?=
+ =?utf-8?B?TXVHODc4bSsweHRSeGFIdjNFVDNFajJnNWFWNC9uREl5UTRBU1ZsWEJmaG1M?=
+ =?utf-8?B?WUprUlhHOSt0U2hUNnZPQkNBV1RDcGh1YVZISWlYY0NHSDI5WUhEd3BoWWJ0?=
+ =?utf-8?B?VkxEcW41Z0tybTVoK3NoWi8vYmRKbUNNTGdkUWpxdWx6YnJJVTVRbzNVUWc5?=
+ =?utf-8?B?RmN0alpJSDZvcGpmZ2o4WE9hVkdTdGtNTVVPTmNUZXdyRnovYlE5NXdzaFRT?=
+ =?utf-8?B?NGFjTTdyTTcySlhyN1NLR25vMUU0SUUzS3BVNFIxQkVkTlFPMnVrc2RHWXhx?=
+ =?utf-8?B?OXJJQXRkMHh3THVvTS9WQmRDaTM3aFVOdmluZzZ0VVMyZmlGRmJSMEFpaHBK?=
+ =?utf-8?B?Tk5lc2ZRR1lCZnBxU1VwSVprR2Vka2cxakJMWU5XRlNuM3d6ZUVEeHhvM0Fy?=
+ =?utf-8?B?VDM2VFRteS9XVllCejVDWUVDZ0V2VkorT0tpek1kdGJsSFJUbmFLZTdUcEFO?=
+ =?utf-8?B?ekJWaXB5TkFyMEF6OUdoVDhXWlUydVViRnlLVWtMRzQ4QXZ2YWRvTzdHb2hH?=
+ =?utf-8?B?UlFLUm1tWXlGbDNyak5ZSmk2Mnh6Q2dVempKckR5V0lBZGwxYllSTTdVTTV0?=
+ =?utf-8?B?WU5mQlh4dzFzZjRZQ1BBMnBLc1FXS2lrc3JScXZhaTBRUjVtRmJ4bFRUYTM5?=
+ =?utf-8?B?MldPU3JoS2l0TWJhNGtWT2VvSk5xRHF2akVndEJNbHdkQnVhTEtpUUdNa2Ns?=
+ =?utf-8?B?eURIVDhMTXd4enRPTkRadlBnSWJuV2NPVjQwUE5zd1o0TFBjWjFtNmZiemRV?=
+ =?utf-8?B?TEF0dTNEVG14bUdpWVBabkkrYVZCSStWOTNYMW5JRUtSeUJSYzFBVWdSTlc1?=
+ =?utf-8?B?dVBybG9lRzR6bklrKzdkL0l2NDlMY2gzN1ZMQXl0QldsZnIwVnQ3dWRITUcw?=
+ =?utf-8?B?WEZ3VVhlTnRkUkdjYllQcnRnOFBNTnB0TjhEdXMzNk44MTVoeng2d3ZPMzlB?=
+ =?utf-8?B?TXgzR0JFSUdiV3F2ZHo5YXRYWVVaL042WVdML0xZNm4wN0g5eUJYbUd6OVov?=
+ =?utf-8?B?RUVqMC9DTjZ3NTdJSjNMSGNId285am9FMUovQkxka2g0T1kxeHQ3QlV0STNP?=
+ =?utf-8?B?LytENkhXSCtlZjl1dlNNU2RaNitoaVFTWDhOUUpQLzZXVDRsKzF3Y3dWR2VZ?=
+ =?utf-8?B?aEVadlhYYWd2NEJSNGFpa2QxQVJXemZOdVZxS0dQdDM3dDdmYzg3bFFGVCsx?=
+ =?utf-8?B?ZzU1RnZQL0VabVpUQWNGalVJQnV5ZmZNb2plMEU3UW9lckJZY2FIWGJ4Tk9Q?=
+ =?utf-8?B?M1NVT0Z2R05aM1lYZ3M4RUpRN09LakhNVVU0Ukl5KzV6ZDlqSUg0cFFQaDF2?=
+ =?utf-8?B?bmJJZUJLV2FqaXg2TEpBWlpDcWZ3bTNFcmNHMGgxenh4bHkrdnU2aXBKd3pq?=
+ =?utf-8?B?alZFOHNJQ2dkbW5wekprV3pPRU8vbzBua1pNcFlkZ0hTUkg4TVZQMHJwS3Ja?=
+ =?utf-8?B?cUF6SCtjRFhmY1JMUnpmQzZ2SHNBK0xNemhoL2wxZ2J4NG0wUUtkTGQxU2R5?=
+ =?utf-8?B?MjRKaXlWaDFsQlB4UFd4SThiSysyTDlLbHpyN21reEdzSTJ5Z2MzV0JZaGZQ?=
+ =?utf-8?B?RUNOZWxQWHhNR2Y5WWFuaGVUUkRpRXlneUFaNFk4YzlkcEVybzdYVjV6UGhi?=
+ =?utf-8?B?UEhvd2FVcmgrelhaY29reSttRG8xcFJpZEpBM0k3UkRQK2NlNm04TUxDWVB6?=
+ =?utf-8?B?dVpMWlFjODBlRWVndlJrYlJJQyt3VjYvU3BZcExnTFd2aWJuem9DdGQ1cDJT?=
+ =?utf-8?B?OEg0L2pRTXY3L05qR0hLUzVNYXg3a3k1YlJJRFg4emRDZ0RxQWRtVEZ5L1Vm?=
+ =?utf-8?B?ekVXb01GcCsybU1ibXhnNGdvREl6aUdCQzE4RnoxU0E2UExsQUgvbnI4c2FM?=
+ =?utf-8?B?NTdoWVZqS3A4QjNTSEFWcGlJdWxVU1VzeEdJUm5WSk5HYVlkNE5BWXFLWisv?=
+ =?utf-8?B?UXFJQUZ1Z1E1b0xtaWpPcE9KL3NsdXM0UEtRTm43OUN1UDk5Z2NyT3BLUUk5?=
+ =?utf-8?B?ZTJtSmRMNTJFOXlUVzhCdUFEUjB0Mk50OHVaUlEvTHU4OHFWa1loOUZUUDd4?=
+ =?utf-8?B?TWwyY2hubnVoSE1nTEVkYTBYUmtoeFNEOTZRdUZaWnRSd0g4ZWF0MWdzNGRH?=
+ =?utf-8?B?ZnMyb1VhUVZyK0FkM3Z1TndOd2s3dkVjTWY0ZWRaY2J0MHRINGN0QzdhV0d1?=
+ =?utf-8?B?YkJMYzY5c2hiaHAzSjJkcm42cUhnbWw2NTJGOEJQN2ZjLzUvTGNXejlHbG5q?=
+ =?utf-8?B?S0tEcmhFZlpLdW05RFNvY3Jrd1ZYMzcwQTlkS2lmbmxaNTFHblRkdz09?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c2ba24e1-4ea2-496b-bb02-08da1df8e73a
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2022 09:26:49.6858
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nrF6w2X86voyJe1rF8GW9glt7657UB5NnmIn+NH4VOqR1TnAjyCWz6gPA1d6f18COD6r3n7nxFqKz/kYi5YsAg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9384
 
-+xen-devel
+On 14.04.2022 11:04, Andrew Cooper wrote:
+> compile.h changes across incremental builds, but nothing in debug.c uses it.
+> This avoids debug.c getting rebuilt on every incremental build.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-On 14-04-22, 14:45, Viresh Kumar wrote:
-> Hello,
-> 
-> We verified our hypervisor-agnostic Rust based vhost-user backends with Qemu
-> based setup earlier, and there was growing concern if they were truly
-> hypervisor-agnostic.
-> 
-> In order to prove that, we decided to give it a try with Xen, a type-1
-> bare-metal hypervisor.
-> 
-> We are happy to announce that we were able to make progress on that front and
-> have a working setup where we can test our existing Rust based backends, like
-> I2C, GPIO, RNG (though only I2C is tested as of now) over Xen.
-> 
-> Key components:
-> --------------
-> 
-> - Xen: https://github.com/vireshk/xen
-> 
->   Xen requires MMIO and device specific support in order to populate the
->   required devices at the guest. This tree contains four patches on the top of
->   mainline Xen, two from Oleksandr (mmio/disk) and two from me (I2C).
-> 
-> - libxen-sys: https://github.com/vireshk/libxen-sys
-> 
->   We currently depend on the userspace tools/libraries provided by Xen, like
->   xendevicemodel, xenevtchn, xenforeignmemory, etc. This crates provides Rust
->   wrappers over those calls, generated automatically with help of bindgen
->   utility in Rust, that allow us to use the installed Xen libraries. Though we
->   plan to replace this with Rust based "oxerun" (find below) in longer run.
-> 
-> - oxerun (WIP): https://gitlab.com/mathieupoirier/oxerun/-/tree/xen-ioctls
-> 
->   This is Rust based implementations for Ioctl and hypercalls to Xen. This is WIP
->   and should eventually replace "libxen-sys" crate entirely (which are C based
->   implementation of the same).
-> 
-> - vhost-device: https://github.com/vireshk/vhost-device
-> 
->   These are Rust based vhost-user backends, maintained inside the rust-vmm
->   project. This already contain support for I2C and RNG, while GPIO is under
->   review. These are not required to be modified based on hypervisor and are
->   truly hypervisor-agnostic.
-> 
->   Ideally the backends are hypervisor agnostic, as explained earlier, but
->   because of the way Xen maps the guest memory currently, we need a minor update
->   for the backends to work. Xen maps the memory via a kernel file
->   /dev/xen/privcmd, which needs calls to mmap() followed by an ioctl() to make
->   it work. For this a hack has been added to one of the rust-vmm crates,
->   vm-virtio, which is used by vhost-user.
-> 
->   https://github.com/vireshk/vm-memory/commit/54b56c4dd7293428edbd7731c4dbe5739a288abd
-> 
->   The update to vm-memory is responsible to do ioctl() after the already present
->   mmap().
-> 
-> - vhost-user-master (WIP): https://github.com/vireshk/vhost-user-master
-> 
->   This implements the master side interface of the vhost protocol, and is like
->   the vhost-user-backend (https://github.com/rust-vmm/vhost-user-backend) crate
->   maintained inside the rust-vmm project, which provides similar infrastructure
->   for the backends to use. This shall be hypervisor independent and provide APIs
->   for the hypervisor specific implementations. This will eventually be
->   maintained inside the rust-vmm project and used by all Rust based hypervisors.
-> 
-> - xen-vhost-master (WIP): https://github.com/vireshk/xen-vhost-master
-> 
->   This is the Xen specific implementation and uses the APIs provided by
->   "vhost-user-master", "oxerun" and "libxen-sys" crates for its functioning.
-> 
->   This is designed based on the EPAM's "virtio-disk" repository
->   (https://github.com/xen-troops/virtio-disk/) and is pretty much similar to it.
-> 
->   One can see the analogy as:
-> 
->   Virtio-disk == "Xen-vhost-master" + "vhost-user-master" + "oxerun" + "libxen-sys" + "vhost-device".
-> 
-> 
-> 
-> Test setup:
-> ----------
-> 
-> 1. Build Xen:
-> 
->   $ ./configure --libdir=/usr/lib --build=x86_64-unknown-linux-gnu --host=aarch64-linux-gnu --disable-docs --disable-golang --disable-ocamltools --with-system-qemu=/root/qemu/build/i386-softmmu/qemu-system-i386;
->   $ make -j9 debball CROSS_COMPILE=aarch64-linux-gnu- XEN_TARGET_ARCH=arm64
-> 
-> 2. Run Xen via Qemu on X86 machine:
-> 
->   $ qemu-system-aarch64 -machine virt,virtualization=on -cpu cortex-a57 -serial mon:stdio \
->         -device virtio-net-pci,netdev=net0 -netdev user,id=net0,hostfwd=tcp::8022-:22 \
->         -device virtio-scsi-pci -drive file=/home/vireshk/virtio/debian-bullseye-arm64.qcow2,index=0,id=hd0,if=none,format=qcow2 -device scsi-hd,drive=hd0 \
->         -display none -m 8192 -smp 8 -kernel /home/vireshk/virtio/xen/xen \
->         -append "dom0_mem=5G,max:5G dom0_max_vcpus=7 loglvl=all guest_loglvl=all" \
->         -device guest-loader,addr=0x46000000,kernel=/home/vireshk/kernel/barm64/arch/arm64/boot/Image,bootargs="root=/dev/sda2 console=hvc0 earlyprintk=xen" \
->         -device ds1338,address=0x20     # This is required to create a virtual I2C based RTC device on Dom0.
-> 
->   This should get Dom0 up and running.
-> 
-> 3. Build rust crates:
-> 
->   $ cd /root/
->   $ git clone https://github.com/vireshk/xen-vhost-master
->   $ cd xen-vhost-master
->   $ cargo build
-> 
->   $ cd ../
->   $ git clone https://github.com/vireshk/vhost-device
->   $ cd vhost-device
->   $ cargo build
-> 
-> 4. Setup I2C based RTC device
-> 
->   $ echo ds1338 0x20 > /sys/bus/i2c/devices/i2c-0/new_device; echo 0-0020 > /sys/bus/i2c/devices/0-0020/driver/unbind
-> 
-> 5. Lets run everything now
-> 
->   # Start the I2C backend in one terminal (open new terminal with "ssh
->   # root@localhost -p8022"). This tells the I2C backend to hook up to
->   # "/root/vi2c.sock0" socket and wait for the master to start transacting.
->   $ /root/vhost-device/target/debug/vhost-device-i2c -s /root/vi2c.sock -c 1 -l 0:32
-> 
->   # Start the xen-vhost-master in another terminal. This provides the path of
->   # the socket to the master side and the device to look from Xen, which is I2C
->   # here.
->   $ /root/xen-vhost-master/target/debug/xen-vhost-master --socket-path /root/vi2c.sock0 --name i2c
-> 
->   # Start guest in another terminal, i2c_domu.conf is attached. The guest kernel
->   # should have Virtio related config options enabled, along with i2c-virtio
->   # driver.
->   $ xl create -c  i2c_domu.conf
-> 
->   # The guest should boot fine now. Once the guest is up, you can create the I2C
->   # RTC device and use it. Following will create /dev/rtc0 in the guest, which
->   # you can configure with 'hwclock' utility.
-> 
->   $ echo ds1338 0x20 > /sys/bus/i2c/devices/i2c-0/new_device
-> 
-> 
-> Hope this helps.
-> 
-> -- 
-> viresh
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-i2c_domu.conf
-
-> kernel="/root/Image"
-> memory=512
-> vcpus=2
-> command="console=hvc0 earlycon=xenboot"
-> name="domu"
-> i2c = [ "virtio=true, irq=1, base=1" ]
-
--- 
-viresh
 
