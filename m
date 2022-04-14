@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82BBC500379
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Apr 2022 03:10:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.304417.519036 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCB39500380
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Apr 2022 03:14:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.304430.519060 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nenzv-0002aG-Kj; Thu, 14 Apr 2022 01:10:11 +0000
+	id 1neo40-0003Sz-Ff; Thu, 14 Apr 2022 01:14:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 304417.519036; Thu, 14 Apr 2022 01:10:11 +0000
+Received: by outflank-mailman (output) from mailman id 304430.519060; Thu, 14 Apr 2022 01:14:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nenzv-0002YL-HW; Thu, 14 Apr 2022 01:10:11 +0000
-Received: by outflank-mailman (input) for mailman id 304417;
- Thu, 14 Apr 2022 01:10:09 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nenzt-0002YB-PM; Thu, 14 Apr 2022 01:10:09 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nenzt-00057N-Mf; Thu, 14 Apr 2022 01:10:09 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nenzt-00032F-6o; Thu, 14 Apr 2022 01:10:09 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nenzt-0007Ci-6K; Thu, 14 Apr 2022 01:10:09 +0000
+	id 1neo40-0003R9-Ce; Thu, 14 Apr 2022 01:14:24 +0000
+Received: by outflank-mailman (input) for mailman id 304430;
+ Thu, 14 Apr 2022 01:14:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qEdm=UY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1neo3y-0003R3-LQ
+ for xen-devel@lists.xenproject.org; Thu, 14 Apr 2022 01:14:22 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 36cad9d1-bb90-11ec-a405-831a346695d4;
+ Thu, 14 Apr 2022 03:14:21 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 85911B827AC;
+ Thu, 14 Apr 2022 01:14:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1FC6C385A6;
+ Thu, 14 Apr 2022 01:14:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,309 +43,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=vqEaaXSc9FxjgdOdt4b0i0TQaCJLyYdpgac38lAyY+o=; b=E7KzRc6CSIQ/A5MHBNG+APLts/
-	sgfDI3/HjkPmecNbzk7AVlLmiI1uaWOBhI8ysNhGrZTNc9eL7NIFevAkDnOnc4xPnrXt1hXR1exdA
-	KqLsDz8MClMZ4f8/7KP9p/AqNJpR3d9XswKHgT39BBO2lyJAWHtdW5cDe0Tl24tGZcag=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169373-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 36cad9d1-bb90-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1649898859;
+	bh=Vw563it+aBA2EdVmayXOdyTgaYtBCPeL5gs0nBXc4Tc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=RYaq58NtD1y2GeeqAXkVRK0y4nni43Tc+kNF2NlZcyAA8VfyX8KTrxOC0JqXRNC4v
+	 GNvzFEA01IDyAvb8GSDgS4TTuWoDYiFpHoH4BJVNg8qMKDYJnEuD3MOnZAdD973zrt
+	 tcoG1wGltAsMx0YJRiGQRWmMNBGeY24FCoZDyc5q4k/qYIQIowrfP+ha+avW5K5RTq
+	 hPrIBqnCuZRF11WZKTPRZVGs02rOP7w7h2EmdC8i0DulHxEwcdjGAhXfFLPJZMnt2w
+	 VLy7CaDDEE/8OJMZZ0cFwufsz8yrlo4RWXKAIQu0bE6b8TXvg+J4GtNVrHuDiDOZHM
+	 pToByN5rQHi1A==
+Date: Wed, 13 Apr 2022 18:14:18 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Rahul Singh <Rahul.Singh@arm.com>, xen-devel@lists.xenproject.org, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] xen/evtchn: Add design for static event channel signaling
+ for domUs..
+In-Reply-To: <D24074F6-E6CF-440A-9E9B-A10783C273D7@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2204131657200.3066615@ubuntu-linux-20-04-desktop>
+References: <4836304496e6fbbea41348ed8cc9fcf6b0f3e893.1648049827.git.rahul.singh@arm.com> <alpine.DEB.2.22.394.2204081649370.3066615@ubuntu-linux-20-04-desktop> <alpine.DEB.2.22.394.2204081837410.3066615@ubuntu-linux-20-04-desktop>
+ <D24074F6-E6CF-440A-9E9B-A10783C273D7@arm.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-unstable test] 169373: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=e509b5f932608e74deac96048b28a5e9b210c647
-X-Osstest-Versions-That:
-    xen=5b752808ff37b7c819a26fd76329ef329c42774f
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 14 Apr 2022 01:10:09 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 169373 xen-unstable real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169373/
+On Mon, 11 Apr 2022, Bertrand Marquis wrote:
+> What you mention here is actually combining 2 different solutions inside
+> Xen to build a custom communication solution.
+> My assumption here is that the user will actually create the device tree
+> nodes he wants to do that and we should not create guest node entries
+> as it would enforce some design.
+> 
+> If everything can be statically defined for Xen then the user can also
+> statically define node entries inside his guest to make use of the events
+> and the shared memories.
+> 
+> For example one might need more than one event to build a communication
+> system, or more than one shared memory or could build something
+> communicating with multiple guest thus requiring even more events and
+> shared memories.
 
-Failures :-/ but no regressions.
+Hi Bertrand, Rahul,
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 169348
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 169348
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 169348
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 169348
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 169348
- test-armhf-armhf-xl-rtds     18 guest-start/debian.repeat    fail  like 169348
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 169348
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 169348
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 169348
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 169348
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 169348
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 169348
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 169348
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+If the guests are allowed some level of dynamic discovery, this feature
+is not needed. They can discover the shared memory location from the
+domU device tree, then proceed to allocate evtchns as needed and tell
+the other end the evtchn numbers over shared memory. I already have an
+example of it here:
 
-version targeted for testing:
- xen                  e509b5f932608e74deac96048b28a5e9b210c647
-baseline version:
- xen                  5b752808ff37b7c819a26fd76329ef329c42774f
+https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/2251030537/Xen+Shared+Memory+and+Interrupts+Between+VMs
 
-Last test of basis   169348  2022-04-13 01:51:50 Z    0 days
-Testing same since   169373  2022-04-13 18:06:59 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Anthony PERARD <anthony.perard@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Ross Lagerwall <ross.lagerwall@citrix.com> # livepatch
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-i386-examine-bios                                 pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-i386-livepatch                                    pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-i386-examine-uefi                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
- test-amd64-i386-xl-vhd                                       pass    
+What if the guest doesn't support device tree at runtime, like baremetal
+or Zephyr? The shared memory address can be hardcoded or generated from
+device tree at build time. That's no problem. Then, the event channels
+can still be allocated at runtime and passed to the other end over
+shared memory. That's what the example on the wikipage does.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+When are static event channels actually useful? When the application
+cannot allocate the event channels at runtime at all. The reason for the
+restriction could be related to safety (no dynamic allocations at
+runtime) or convenience (everything else is fully static, why should the
+event channel numbers be dynamic?)
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Given the above, I can see why there is no need to describe the static
+event channel info in the domU device tree: static event channels are
+only useful in fully static configurations, and in those configurations
+the domU device tree dynamically generated by Xen is not needed. I can
+see where you are coming from.
 
 
-Pushing revision :
+The workflow that we have been trying to enable with the System Device
+Tree effort (System Device Tree is similar to a normal Device Tree plus
+the xen,domains nodes) is the following:
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   5b752808ff..e509b5f932  e509b5f932608e74deac96048b28a5e9b210c647 -> master
+S-DT ---[lopper]---> Linux DT
+                L--> Zephyr DT ---[Zephyr build]---> Zephyr .h files
+
+S-DT contains all the needed information for both the regular Linux DT
+generation and also the Zephyr/RTOS/baremetal header files generation,
+that happens at build time.
+
+S-DT is not the same as the Xen device tree, but so far it has been
+conceptually and practically similar. I always imagine that the bindings
+we have in Xen we'll also have corresponding bindings in System Device
+Tree.
+
+For this workflow to work S-DT needs all the info so that both Linux DT
+and Zephyr DT and Zephyr .h files can be generated.
+
+Does this proposal contain enough information so that Zephyr .h files
+could be statically generated with the event channel numbers and static
+shared memory regions addresses?
+
+I am not sure. Maybe not?
+
+
+It is possible that the shared memory usage is so application specific
+that there is no point in even talking about it. But I think that
+introducing a simple bundle of both event channels and shared memory
+would help a lot.
+
+Something like the following in the Xen device tree would be enough to
+specify an arbitrary number of event channels connected with the same
+domains sharing the memory region.
+
+It looks like that if we did the below, we would carry a lot more useful
+information compared to the original proposal alone. We could add a
+similar xen,notificaiton property to the domU reserved-memory region in
+device tree generated by Xen for consistency, so that everything
+available to the domU is described fully in device tree.
+
+
+    domU1 {
+        compatible = "xen,domain";
+
+        /* one sub-node per local event channel */
+        ec1: evtchn@1 {
+            compatible = "xen,evtchn-v1";
+            /* local-evtchn link-to-foreign-evtchn */
+            xen,evtchn = <0x1 &ec3>
+        };
+        ec2: evtchn@2 {
+            compatible = "xen,evtchn-v1";
+            xen,evtchn = <0x2 &ec4>
+        };
+        /*
+         * shared memory region between DomU1 and DomU2.
+         */
+        domU1-shared-mem@50000000 {
+            compatible = "xen,domain-shared-memory-v1";
+            xen,shm-id = <0x1>;
+            xen,shared-mem = <0x50000000 0x20000000 0x60000000>;
+            /* this is new */
+            xen,notification = <&ec1 &ec2>;
+        }
+    };
+
+    domU2 {
+        compatible = "xen,domain";
+
+        /* one sub-node per local event channel */
+        ec3: evtchn@3 {
+            compatible = "xen,evtchn-v1";
+            /* local-evtchn link-to-foreign-evtchn */
+            xen,evtchn = <0x3 &ec1>
+        };
+        ec4: evtchn@4 {
+            compatible = "xen,evtchn-v1";
+            xen,evtchn = <0x4 &ec2>
+        };
+        /*
+         * shared memory region between domU1 and domU2.
+         */
+        domU2-shared-mem@50000000 {
+            compatible = "xen,domain-shared-memory-v1";
+            xen,shm-id = <0x1>;
+            xen,shared-mem = <0x50000000 0x20000000 0x70000000>;
+            /* this is new */
+            xen,notification = <&ec3 &ec4>;
+        }
+    };
+
+
+
+The good thing about this is that:
+
+- it is very flexible
+- nothing to do in this series, except switching to the
+  one-subnode-per-evtchn model, which we called 2) in the previous email
+- there were good reasons to use the one-subnode-per-evtchn model anyway
+- the xen,notification property can be added later without issues, after Penny's series
+
+There are a couple of ways to implement the xen,notification property
+but we don't need to discuss them now.
+
+
+Short Summary
+------------
+I think it is fine to only introduce the Xen device tree binding for
+static event channels without domU binding, but I prefer if we switched
+to using proposal 2) "one subnode per event channel".
 
