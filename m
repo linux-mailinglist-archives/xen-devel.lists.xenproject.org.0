@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58B4E500C5A
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Apr 2022 13:47:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.304646.519333 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD3D6500C8F
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Apr 2022 13:58:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.304671.519364 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nexwZ-000184-KE; Thu, 14 Apr 2022 11:47:23 +0000
+	id 1ney7E-0004Cv-Bq; Thu, 14 Apr 2022 11:58:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 304646.519333; Thu, 14 Apr 2022 11:47:23 +0000
+Received: by outflank-mailman (output) from mailman id 304671.519364; Thu, 14 Apr 2022 11:58:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nexwZ-00015R-By; Thu, 14 Apr 2022 11:47:23 +0000
-Received: by outflank-mailman (input) for mailman id 304646;
- Thu, 14 Apr 2022 11:47:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dNZz=UY=citrix.com=prvs=096427a9b=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nexwX-0000HT-R1
- for xen-devel@lists.xenproject.org; Thu, 14 Apr 2022 11:47:21 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a35e2510-bbe8-11ec-8fbd-03012f2f19d4;
- Thu, 14 Apr 2022 13:47:20 +0200 (CEST)
+	id 1ney7E-0004Ap-8n; Thu, 14 Apr 2022 11:58:24 +0000
+Received: by outflank-mailman (input) for mailman id 304671;
+ Thu, 14 Apr 2022 11:58:22 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ney7C-0004Af-Tf; Thu, 14 Apr 2022 11:58:22 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ney7C-0000ql-Qz; Thu, 14 Apr 2022 11:58:22 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ney7C-0000Pp-DO; Thu, 14 Apr 2022 11:58:22 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ney7C-00010J-Cx; Thu, 14 Apr 2022 11:58:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,130 +42,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a35e2510-bbe8-11ec-8fbd-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1649936840;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=0s1yCBflD3p2q66QNUN1vJ9nlrel+PCFiTRjaDEozt8=;
-  b=T+WRhVlZtU0wpD4hPfsk4Vn9w23aA/V+riqBYqR/7Yas3c55iBHI3AGG
-   +kw3RY1PWAV7zZNMGzLTF5Sw4pSIMY4vMb4jbtCu2JkASj7hRjra92VdS
-   tCKuMp6n3Rm+6ZkQkRkZbOQ5Rfg6JAuF7DEvpI8FIi3loKy2cLxYNoGb+
-   E=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 68829284
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:0Ks8dq4J9j4PxqPoJoan2gxRtDTHchMFZxGqfqrLsTDasY5as4F+v
- mAbDG+Ob/yMZDPwLo9+YN+x9kkOu8TUz9RhQQpurHxgHi5G8cbLO4+Ufxz6V8+wwmwvb67FA
- +E2MISowBUcFyeEzvuVGuG96yE6j8lkf5KkYAL+EnkZqTRMFWFw0XqPp8Zj2tQy2YTgX1vU0
- T/Pi5a31GGNimYc3l08s8pvmDs31BglkGpF1rCWTakjUG72zxH5PrpGTU2CByKQrr1vNvy7X
- 47+IISRpQs1yfuP5uSNyd4XemVSKlLb0JPnZnB+A8BOiTAazsA+PzpS2FPxpi67hh3Q9+2dx
- umhurSRYFsiNKjnsd4dXklBNRlaHrZA6Zv+dC3XXcy7lyUqclPpyvRqSko3IZcZ6qB8BmQmG
- f4wcW5XKErZ3qTvnez9GrIEascLdaEHOKs2vH16wC6fJvEhWZ3ZGI3B5MNC3Sd2jcdLdRrbT
- 5RJOWA+NkScC/FJEgsrDZgUp8K3ulXAQydHlF6vp/M6xXeGmWSd15CyaYGIK7RmX/59gUKwt
- m/AuWPjDXkyFvaS1D6E+XKEnfLUkGXwX4d6PK218LtmjUOewkQXCQYKTh2rrP+hkEm8VtlDb
- UsO9UITQbMarRLxCIOnBlvh/SDC7kV0t8ds//MSySjRwaDRyC+jBmVUVxh5TP89st4SfGl/v
- rOWpO/BCTtqubyTbHuS8LaIsD+/URQowX8+iTwsFlVcvYS6yG0npleWF4s4Tvbp5jHgMWuoq
- w1muhTSkFn6YSQj86ygtW7KjDu3znQiZl5kv16HNo5JA+4QWWJEW2BKwQWDhRqjBNzAJrVkg
- JTis5LPhAzpJcvT/BFhuM1XQNmUCwy5GDPdm0VzOJIq6i6g/XWuFagJvm0vdB0xa5hYImS0C
- KM2he+3zMUCVJdNRfUpC79d9uxwlfSwfTgbfq28giVyjmhZK1bcoXAGib+41GHxikk8+ZzTy
- r/AGftA+U0yUPw9pBLvHr91+eZymkgWmDOCLbimnk/P+efPOxaopUItbQLmRvon95mNvAi92
- 48Zb6NmPT0EC7agCsQWmKZORW03wY8TXMmo8J0GKrTeemKL2ggJUpfs/F/oQKQ994w9qwsC1
- ivVtpNwoLYnuUD6FA==
-IronPort-HdrOrdr: A9a23:xLfyg6OVQ0I0hcBcTvujsMiBIKoaSvp037Eqv3oRdfUzSL3hqy
- nOpoVj6faaskdzZJhNo7+90ey7MBfhHP1OkO8s1NWZLWvbUQKTRekIh+aP/9SjIVyYygc079
- YaT0EUMr3N5DZB4/oSmDPIduod/A==
-X-IronPort-AV: E=Sophos;i="5.90,259,1643691600"; 
-   d="scan'208";a="68829284"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Anthony PERARD
-	<anthony.perard@citrix.com>
-Subject: [PATCH 3/3] x86/build: Clean up boot/Makefile
-Date: Thu, 14 Apr 2022 12:47:08 +0100
-Message-ID: <20220414114708.4788-4-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20220414114708.4788-1-andrew.cooper3@citrix.com>
-References: <20220414114708.4788-1-andrew.cooper3@citrix.com>
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=bSS7rIr3CH3YfMW5uk6l7YHHVI0XR5YIqPG7yloDaF8=; b=5KrpGFo50AfVUCdGftfA9k+s72
+	8wX78cncpF+PFFytihac1kOb7920j1Ir6eqtqZQlk56II7Zl0ThrONGTHqM3U2DkG3GSpXpJWey8e
+	mCVYPD8gu5q15e30Zj9ZfI1dqQgfXVzx2rP64DH84iIG5sjiAZfjqyFpPnvzDm5I2kC4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-169392-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 169392: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=0c901fcc200e411b78b9ca42d07d5ea4aaa13b21
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 14 Apr 2022 11:58:22 +0000
 
-There are no .S intermediate files, so rework in terms of head-bin-objs.
+flight 169392 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169392/
 
-No functional change.
+Regressions :-(
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
-I'm slightly -1 on this, because
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-  head-bin-objs := $(addprefix $(obj)/,$(head-bin-objs))
+version targeted for testing:
+ ovmf                 0c901fcc200e411b78b9ca42d07d5ea4aaa13b21
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-is substantial obfuscation which I'd prefer to bin.
+Last test of basis   168254  2022-02-28 10:41:46 Z   45 days
+Failing since        168258  2022-03-01 01:55:31 Z   44 days  384 attempts
+Testing same since   169385  2022-04-14 03:40:29 Z    0 days    7 attempts
 
-Anthony: Why does dropping the targets += line interfere with incremental
-builds?  With it gone, *.bin are regenerated unconditionally, but I can't see
-what would cause that, nor why the normal dependencies on head.o don't work.
----
- xen/arch/x86/boot/Makefile | 19 ++++++++++---------
- 1 file changed, 10 insertions(+), 9 deletions(-)
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
 
-diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefile
-index 294ac2418583..527f3e393037 100644
---- a/xen/arch/x86/boot/Makefile
-+++ b/xen/arch/x86/boot/Makefile
-@@ -1,16 +1,17 @@
- obj-bin-y += head.o
--head-srcs := cmdline.S reloc.S
- 
--nocov-y += $(head-srcs:.S=.o)
--noubsan-y += $(head-srcs:.S=.o)
--targets += $(head-srcs:.S=.o)
-+head-bin-objs := cmdline.o reloc.o
- 
--head-srcs := $(addprefix $(obj)/, $(head-srcs))
-+nocov-y += $(head-bin-objs)
-+noubsan-y += $(head-bin-objs)
-+targets += $(head-bin-objs)
-+
-+head-bin-objs := $(addprefix $(obj)/,$(head-bin-objs))
- 
- # For .incbin - add $(obj) to the include path and add the dependencies
- # manually as they're not included in .d
- $(obj)/head.o: AFLAGS-y += -Wa$(comma)-I$(obj)
--$(obj)/head.o: $(head-srcs:.S=.bin)
-+$(obj)/head.o: $(head-bin-objs:.o=.bin)
- 
- CFLAGS_x86_32 := $(subst -m64,-m32 -march=i686,$(XEN_TREEWIDE_CFLAGS))
- $(call cc-options-add,CFLAGS_x86_32,CC,$(EMBEDDED_EXTRA_CFLAGS))
-@@ -18,8 +19,8 @@ CFLAGS_x86_32 += -Werror -fno-builtin -g0 -msoft-float
- CFLAGS_x86_32 += -I$(srctree)/include
- 
- # override for 32bit binaries
--$(head-srcs:.S=.o): CFLAGS_stack_boundary :=
--$(head-srcs:.S=.o): XEN_CFLAGS := $(CFLAGS_x86_32) -fpic
-+$(head-bin-objs): CFLAGS_stack_boundary :=
-+$(head-bin-objs): XEN_CFLAGS := $(CFLAGS_x86_32) -fpic
- 
- %.bin: %.lnk
- 	$(OBJCOPY) -j .text -O binary $< $@
-@@ -27,4 +28,4 @@ $(head-srcs:.S=.o): XEN_CFLAGS := $(CFLAGS_x86_32) -fpic
- %.lnk: %.o $(src)/build32.lds
- 	$(LD) $(subst x86_64,i386,$(LDFLAGS_DIRECT)) -N -T $(filter %.lds,$^) -o $@ $<
- 
--clean-files := cmdline.S reloc.S *.lnk *.bin
-+clean-files := *.lnk *.bin
--- 
-2.11.0
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 5086 lines long.)
 
