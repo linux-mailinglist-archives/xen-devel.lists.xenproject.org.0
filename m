@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C13C500FA4
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Apr 2022 15:37:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.304776.519529 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F096500FDD
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Apr 2022 16:12:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.304793.519551 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nezf3-0005lc-VD; Thu, 14 Apr 2022 13:37:25 +0000
+	id 1nf0BN-0002Cw-00; Thu, 14 Apr 2022 14:10:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 304776.519529; Thu, 14 Apr 2022 13:37:25 +0000
+Received: by outflank-mailman (output) from mailman id 304793.519551; Thu, 14 Apr 2022 14:10:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nezf3-0005j3-SE; Thu, 14 Apr 2022 13:37:25 +0000
-Received: by outflank-mailman (input) for mailman id 304776;
- Thu, 14 Apr 2022 13:37:23 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nezf1-0005ip-QJ; Thu, 14 Apr 2022 13:37:23 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nezf1-0002cB-OQ; Thu, 14 Apr 2022 13:37:23 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nezf1-0002Zj-DF; Thu, 14 Apr 2022 13:37:23 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nezf1-0002yh-Cj; Thu, 14 Apr 2022 13:37:23 +0000
+	id 1nf0BM-0002Ac-TM; Thu, 14 Apr 2022 14:10:48 +0000
+Received: by outflank-mailman (input) for mailman id 304793;
+ Thu, 14 Apr 2022 14:10:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jucj=UY=gmail.com=wei.liu.xen@srs-se1.protection.inumbo.net>)
+ id 1nf0BL-0002AW-7z
+ for xen-devel@lists.xen.org; Thu, 14 Apr 2022 14:10:47 +0000
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ad011fc9-bbfc-11ec-8fbd-03012f2f19d4;
+ Thu, 14 Apr 2022 16:10:45 +0200 (CEST)
+Received: by mail-wm1-f42.google.com with SMTP id
+ l62-20020a1c2541000000b0038e4570af2fso3266748wml.5
+ for <xen-devel@lists.xen.org>; Thu, 14 Apr 2022 07:10:45 -0700 (PDT)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id
+ k63-20020a1ca142000000b0038ff2c38e85sm2174013wme.39.2022.04.14.07.10.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Apr 2022 07:10:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,156 +44,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=QlP2eUzjFb9o0eeuPvLm2EpMUiy8TokE5h6M0nAvcTQ=; b=kImdOE4Uu3kW26G95+mqWHoR0f
-	b1BU1W+ZLVDxd3ZEKYI10XmnsXMmbmFT/GmIvg4zqdWZc5ilXMrI69HJZb+pIA0/8firkFZZ8cG24
-	qrWnE1uNdH5SOeequwW3EjjbxBEjZMrPoa/RTx6AoF9gG0QIVqGI6XXb31Un+nkEZyTE=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169395-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: ad011fc9-bbfc-11ec-8fbd-03012f2f19d4
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:content-transfer-encoding
+         :in-reply-to;
+        bh=YIzlXsrUeW5/iwfuFN2L5K77UYGr+Buj449anH+enN8=;
+        b=htViHUcecTJJ4r7jcSSZH4DIwRJpPNOwwqAw1WOGEAGiXkqNpZXicOUt1wPvMVta6u
+         mw7UgWlnnhsNPr29ywuiReQInaRw4d1v+eM5OjKXrhrLC6rDK30suvFLnrpwYD1USSsz
+         3q4CqITiOyMNpcP6YHMTNvAYj0syS+G5ZMSIWkY6eakpmnf8NfXTDlerAE969Q4N7GtI
+         hDMo5lGwiv5CGQqSuQWgcgFH5Bt1Wx4gbbQXoWuNQXlfKvQMRleyt/iDAxgB8IqQ38CF
+         FzNdiGjHij+2XtHZdzac3kLE6J8K465fWTjwQwNdVUA6W0h7Du/1DeKWGkCF38udwHEM
+         rqxQ==
+X-Gm-Message-State: AOAM530MHTcRE+/im6tVx6Xugfx23TcOCoZiAUE0tlttYt/VtSki9gMk
+	94xGSz+HYqr8l7+boU3/MWs=
+X-Google-Smtp-Source: ABdhPJyILIufaX7wYWcIbc6xJhiKK07VKB8/P2fNs+sp/AGjtwyOLEcMCSvKfrKDgEoSXwa7E0LnZA==
+X-Received: by 2002:a1c:1941:0:b0:38b:4af1:49f8 with SMTP id 62-20020a1c1941000000b0038b4af149f8mr3877599wmz.156.1649945444537;
+        Thu, 14 Apr 2022 07:10:44 -0700 (PDT)
+Date: Thu, 14 Apr 2022 14:10:41 +0000
+From: Wei Liu <wl@xen.org>
+To: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
+Cc: Wei Liu <wl@xen.org>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	"stratos-dev@op-lists.linaro.org" <stratos-dev@op-lists.linaro.org>,
+	"xen-devel@lists.xen.org" <xen-devel@lists.xen.org>,
+	Stefano Stabellini <stefano.stabellini@xilinx.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Mike Holmes <mike.holmes@linaro.org>,
+	Oleksandr Tyshchenko <olekstysh@gmail.com>,
+	Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: Virtio on Xen with Rust
+Message-ID: <20220414141041.ogeaaplnb7mfufsb@liuwe-devbox-debian-v2>
+References: <20220414091538.jijj4lbrkjiby6el@vireshk-i7>
+ <20220414092358.kepxbmnrtycz7mhe@vireshk-i7>
+ <20220414114557.4myrs4ud4qi2hnrz@liuwe-devbox-debian-v2>
+ <2a735486-a464-3997-642a-3b0660b11b9e@citrix.com>
+ <20220414125213.6qqn5wcphau5j3i3@liuwe-devbox-debian-v2>
+ <871qxzyecf.fsf@linaro.org>
 MIME-Version: 1.0
-Subject: [ovmf test] 169395: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=0c901fcc200e411b78b9ca42d07d5ea4aaa13b21
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 14 Apr 2022 13:37:23 +0000
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <871qxzyecf.fsf@linaro.org>
 
-flight 169395 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169395/
+On Thu, Apr 14, 2022 at 02:36:12PM +0100, Alex Bennée wrote:
+> 
+> Wei Liu <wl@xen.org> writes:
+> 
+> > On Thu, Apr 14, 2022 at 12:07:10PM +0000, Andrew Cooper wrote:
+> >> On 14/04/2022 12:45, Wei Liu wrote:
+> >> > Hi Viresh
+> >> >
+> >> > This is very cool.
+> >> >
+> >> > On Thu, Apr 14, 2022 at 02:53:58PM +0530, Viresh Kumar wrote:
+> >> >> +xen-devel
+> >> >>
+> >> >> On 14-04-22, 14:45, Viresh Kumar wrote:
+> >> >>> Hello,
+> >> >>>
+> >> >>> We verified our hypervisor-agnostic Rust based vhost-user backends with Qemu
+> >> >>> based setup earlier, and there was growing concern if they were truly
+> >> >>> hypervisor-agnostic.
+> >> >>>
+> >> >>> In order to prove that, we decided to give it a try with Xen, a type-1
+> >> >>> bare-metal hypervisor.
+> >> >>>
+> >> >>> We are happy to announce that we were able to make progress on that front and
+> >> >>> have a working setup where we can test our existing Rust based backends, like
+> >> >>> I2C, GPIO, RNG (though only I2C is tested as of now) over Xen.
+> >> >>>
+> >> >>> Key components:
+> >> >>> --------------
+> >> >>>
+> >> >>> - Xen: https://github.com/vireshk/xen
+> >> >>>
+> >> >>>   Xen requires MMIO and device specific support in order to populate the
+> >> >>>   required devices at the guest. This tree contains four patches on the top of
+> >> >>>   mainline Xen, two from Oleksandr (mmio/disk) and two from me (I2C).
+> >> >>>
+> >> >>> - libxen-sys: https://github.com/vireshk/libxen-sys
+> >> >>>
+> >> >>>   We currently depend on the userspace tools/libraries provided by Xen, like
+> >> >>>   xendevicemodel, xenevtchn, xenforeignmemory, etc. This crates provides Rust
+> >> >>>   wrappers over those calls, generated automatically with help of bindgen
+> >> >>>   utility in Rust, that allow us to use the installed Xen libraries. Though we
+> >> >>>   plan to replace this with Rust based "oxerun" (find below) in longer run.
+> >> >>>
+> >> >>> - oxerun (WIP): https://gitlab.com/mathieupoirier/oxerun/-/tree/xen-ioctls
+> >> >>>
+> >> >>>   This is Rust based implementations for Ioctl and hypercalls to Xen. This is WIP
+> >> >>>   and should eventually replace "libxen-sys" crate entirely (which are C based
+> >> >>>   implementation of the same).
+> >> >>>
+> >> > I'm curious to learn why there is a need to replace libxen-sys with the
+> >> > pure Rust implementation. Those libraries (xendevicemodel, xenevtchn,
+> >> > xenforeignmemory) are very stable and battle tested. Their interfaces
+> >> > are stable.
+> >> 
+> >> Very easy.  The library APIs are mess even if they are technically
+> >> stable, and violate various commonly-agreed rules of being a libary such
+> >> as not messing with stdout/stderr behind the applications back, and
+> >> everything gets more simple when you remove an unnecessary level of C
+> >> indirection.
+> >
+> > You don't have to use the stdio logger FWIW. I don't disagree things can
+> > be simpler though.
+> 
+> Not directly related to this use case but the Rust API can also be
+> built to make direct HYP calls which will be useful for building Rust
+> based unikernels that need to interact with Xen. For example for a
+> dom0less system running a very minimal heartbeat/healthcheck monitor
+> written in pure rust.
+> 
 
-Regressions :-(
+I think this is a strong reason for not using existing C libraries. It
+would be nice if the APIs can work with no_std.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+> We would also like to explore unikernel virtio backends but I suspect
+> currently the rest of the rust-vmm virtio bits assume a degree of POSIX
+> like userspace to set things up.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+Indeed.
 
-version targeted for testing:
- ovmf                 0c901fcc200e411b78b9ca42d07d5ea4aaa13b21
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+Thanks,
+Wei.
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   45 days
-Failing since        168258  2022-03-01 01:55:31 Z   44 days  387 attempts
-Testing same since   169385  2022-04-14 03:40:29 Z    0 days   10 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 5086 lines long.)
+> 
+> -- 
+> Alex Bennée
 
