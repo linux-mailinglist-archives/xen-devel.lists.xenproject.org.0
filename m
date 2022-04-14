@@ -2,65 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86DBD500E54
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Apr 2022 15:04:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.304750.519485 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 002FF500ED4
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Apr 2022 15:19:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.304760.519496 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nez8c-0000KU-EH; Thu, 14 Apr 2022 13:03:54 +0000
+	id 1nezNJ-0002Cg-Qp; Thu, 14 Apr 2022 13:19:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 304750.519485; Thu, 14 Apr 2022 13:03:54 +0000
+Received: by outflank-mailman (output) from mailman id 304760.519496; Thu, 14 Apr 2022 13:19:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nez8c-0000HM-9n; Thu, 14 Apr 2022 13:03:54 +0000
-Received: by outflank-mailman (input) for mailman id 304750;
- Thu, 14 Apr 2022 13:03:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nezNJ-0002Ac-Nx; Thu, 14 Apr 2022 13:19:05 +0000
+Received: by outflank-mailman (input) for mailman id 304760;
+ Thu, 14 Apr 2022 13:19:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gNLD=UY=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1nez8a-000842-FD
- for xen-devel@lists.xenproject.org; Thu, 14 Apr 2022 13:03:52 +0000
+ id 1nezNH-0002AW-Bi
+ for xen-devel@lists.xenproject.org; Thu, 14 Apr 2022 13:19:03 +0000
 Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2062d.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 550a9c7c-bbf3-11ec-a405-831a346695d4;
- Thu, 14 Apr 2022 15:03:52 +0200 (CEST)
-Received: from DU2PR04CA0340.eurprd04.prod.outlook.com (2603:10a6:10:2b4::12)
- by AM4PR0802MB2340.eurprd08.prod.outlook.com (2603:10a6:200:60::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.18; Thu, 14 Apr
- 2022 13:03:47 +0000
-Received: from DB5EUR03FT061.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:2b4:cafe::42) by DU2PR04CA0340.outlook.office365.com
- (2603:10a6:10:2b4::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.20 via Frontend
- Transport; Thu, 14 Apr 2022 13:03:47 +0000
+ (mail-am6eur05on20614.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::614])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6a2f390e-bbf5-11ec-8fbd-03012f2f19d4;
+ Thu, 14 Apr 2022 15:18:52 +0200 (CEST)
+Received: from AM5P194CA0023.EURP194.PROD.OUTLOOK.COM (2603:10a6:203:8f::33)
+ by VI1PR0801MB1773.eurprd08.prod.outlook.com (2603:10a6:800:5c::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Thu, 14 Apr
+ 2022 13:18:41 +0000
+Received: from AM5EUR03FT047.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:203:8f:cafe::f1) by AM5P194CA0023.outlook.office365.com
+ (2603:10a6:203:8f::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.18 via Frontend
+ Transport; Thu, 14 Apr 2022 13:18:41 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT061.mail.protection.outlook.com (10.152.21.234) with
+ AM5EUR03FT047.mail.protection.outlook.com (10.152.16.197) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5164.19 via Frontend Transport; Thu, 14 Apr 2022 13:03:47 +0000
-Received: ("Tessian outbound ab7864ef57f2:v118");
- Thu, 14 Apr 2022 13:03:47 +0000
-Received: from 89e0720a6f03.2
+ 15.20.5164.19 via Frontend Transport; Thu, 14 Apr 2022 13:18:41 +0000
+Received: ("Tessian outbound ac9bb5dd84f6:v118");
+ Thu, 14 Apr 2022 13:18:40 +0000
+Received: from 50866bb17fc4.2
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- E1DC4620-9B63-4E86-B544-8687E99A6CF0.1; 
- Thu, 14 Apr 2022 13:03:41 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 89e0720a6f03.2
+ FE362ABC-E18F-42D3-9F4A-1533A044DBAF.1; 
+ Thu, 14 Apr 2022 13:18:34 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 50866bb17fc4.2
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 14 Apr 2022 13:03:41 +0000
+ Thu, 14 Apr 2022 13:18:34 +0000
 Received: from AM0PR08MB3778.eurprd08.prod.outlook.com (2603:10a6:208:104::24)
- by AM6PR08MB4423.eurprd08.prod.outlook.com (2603:10a6:20b:bf::12)
+ by GV2PR08MB8076.eurprd08.prod.outlook.com (2603:10a6:150:7a::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Thu, 14 Apr
- 2022 13:03:38 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5123.29; Thu, 14 Apr
+ 2022 13:18:30 +0000
 Received: from AM0PR08MB3778.eurprd08.prod.outlook.com
  ([fe80::e05d:b3fc:609a:df20]) by AM0PR08MB3778.eurprd08.prod.outlook.com
  ([fe80::e05d:b3fc:609a:df20%6]) with mapi id 15.20.5164.020; Thu, 14 Apr 2022
- 13:03:38 +0000
+ 13:18:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,12 +72,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 550a9c7c-bbf3-11ec-a405-831a346695d4
+X-Inumbo-ID: 6a2f390e-bbf5-11ec-8fbd-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2Io7NRahxf4ET9ge18hVG2feNsJfPZHjJC5RcvqMt0k=;
- b=0S3JcKfr5HhxYeUUY0D2e71aA7ysmavRzJok8lvcQIMwBpu2lLXBGDydOvGrkr9syizLAjAtiM0rQqDfmOIxcYBk3YPBzcHQh4hgL2m2Z6JD2iaBCjQLz4fVgJ35Mbfog3uDrgkYEzOvNROdKRqB0oa4zN9yWSP2Ruyq+afILuw=
+ bh=fygycZQNB6jKUTy5lFMUwvzRm8/tVyCQEmLeBeAetm4=;
+ b=lkMA429Zez6f9P5HkN9xSd2VM6QBdgFM1TDDYfEbej2w+oTj6xhsPtPqST5DHYNV9f3Zkf0VwZu5ds07J9a8bwB51cVmxuJRZ3N2zj0ARuiNFHm7vMl1K8Pg3S1yoPTmH6eEHjXU8C8ifwSObQGAm55TFVKV1i7D8itzqWrXxcg=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; dkim=pass (signature was verified)
  header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
@@ -85,43 +85,44 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.35.35.123 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: bb7b441c6c4f8238
+X-CR-MTA-CID: 0e14f8990e6422d5
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZQyc18mnm1JV+EN4Wn0BkO0vzdnzZELsCn4XqPt81/aenmsJZRWaSUmYtWSxQfNItiONr1PWhNUuWa0KGgdpnWPLt7FgOpaN/4IBzCKVVm9jITtTW3GQkyFQmtKJaPbh5E6MrqeNkKjd9Rx0vQsC3eAhasLLiNhJJeModgX25yLnkV6NRMuMDva0I93NZ5mWEiL2TWKo82Pp80Doy5RtJyVfJMpGGpnZ69wIysL0pPWKJqApgggAloJUB+j1oO6fkRiyRVgkT6jKILCJ2TXX5UJ6HvLabwzNO6m1NNsB/AAAatq6SPpX55Eh9CXHTsHTcnJ1kFsrZJ8UGaQUu1DLQg==
+ b=YoEyzkBp4z/+oho6XpY0RI/pxun9frYaAfxoCZ3FGm/3mvHnj2gb2Y+APFBGG6UCjw3+2dUvKx7rJlXKlb5EFiIX1VkyLZZ2UQ901PHGXry2YHS30LtCXZF62FKEHBM5DQi4RX5v1gkoNP3P1W7psPix80T37DIagIB0rknqiaMhH0QIoFxeR0gWmoRv3dQvUrovqX3YCU/MbIimH9hDnNqDY4i5nDuvnI1B22qO1CGcffkysmpg41o8k3HJK1iqe823c4Z09VjKH0tcSyxZH8BeW/WUoNN3JvYCHXtf6n+76rhQf2DuPNFplhJ4jKEtOi0TE16NI6kAIFierccOMg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2Io7NRahxf4ET9ge18hVG2feNsJfPZHjJC5RcvqMt0k=;
- b=XzFtzdPu05Tlse6p4VMyUngj9DMIIiJpy2NEwHb5bcjsBDUXJSYlMYA1qnNue2qzXHBIjPJ3YFdY4ZN+Px4ygSZ+47tqd8Zqa7HNCNdLfrKkHoosvReoTynNEluDTJfvmC72ZtB7oE7rUG9wCxp/GEuAzeW7WeICj+ISZWLEySKS9MflomfBKcALsSsUiZ6Z6QJb0cxsjw0Nxms3Taz4s6zYDOBDeoNB4+6KIbmhScFdW3zeq39lp5Lli40ACqPgNzCah6dd6O7nbcqPv+CJEDZ9xss9OTC/VlU9QzSVPdOprYLzi8uYBUyCZstjN45AjtHPGv5Db6i6sRK+Yz7VwA==
+ bh=fygycZQNB6jKUTy5lFMUwvzRm8/tVyCQEmLeBeAetm4=;
+ b=Q62S5o/KfrjR5yQPHhstrTpGgg2FRPXLYqZub/NqID0B71Slu7OllMWqv2LfJDVxSrcFS60Y0e1UWobfehHoShpTrBIoDhSRnrs0nMPk3x12fYFppEkj1RGbLNHSJ8h/sGFWP9uInE1076Vby3rVKwNmkXwn7Q24QW/J0jtiqID/E8BrRv3vxPMWsuDTzhObzAfFGJGb6CasDso75Aw7FP1fvXBg3v+K6N9TfxF5FyYdXdNu3cFJEyljZkZbz8Hl2MIcAT43q1I2/0+LMNbRIXOMPNW7Yd9lnfetdwaOdm6l8OvG5C9hgHqggMhbXvskesNXlt4atGle6YwgvOIFRw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2Io7NRahxf4ET9ge18hVG2feNsJfPZHjJC5RcvqMt0k=;
- b=0S3JcKfr5HhxYeUUY0D2e71aA7ysmavRzJok8lvcQIMwBpu2lLXBGDydOvGrkr9syizLAjAtiM0rQqDfmOIxcYBk3YPBzcHQh4hgL2m2Z6JD2iaBCjQLz4fVgJ35Mbfog3uDrgkYEzOvNROdKRqB0oa4zN9yWSP2Ruyq+afILuw=
+ bh=fygycZQNB6jKUTy5lFMUwvzRm8/tVyCQEmLeBeAetm4=;
+ b=lkMA429Zez6f9P5HkN9xSd2VM6QBdgFM1TDDYfEbej2w+oTj6xhsPtPqST5DHYNV9f3Zkf0VwZu5ds07J9a8bwB51cVmxuJRZ3N2zj0ARuiNFHm7vMl1K8Pg3S1yoPTmH6eEHjXU8C8ifwSObQGAm55TFVKV1i7D8itzqWrXxcg=
 From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>, "julien@xen.org"
-	<julien@xen.org>, "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
-	"andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
-	"george.dunlap@citrix.com" <george.dunlap@citrix.com>, "jbeulich@suse.com"
-	<jbeulich@suse.com>, "wl@xen.org" <wl@xen.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"van.freenix@gmail.com" <van.freenix@gmail.com>, Michal Orzel
-	<Michal.Orzel@arm.com>, Peng Fan <peng.fan@nxp.com>, Henry Wang
-	<Henry.Wang@arm.com>
-Subject: Re: [PATCH V5 1/2] xen/arm: Add i.MX lpuart driver
-Thread-Topic: [PATCH V5 1/2] xen/arm: Add i.MX lpuart driver
-Thread-Index: AQHYT83OVuHlhz8E70qIHrv4OCbfQKzvYB0AgAAAZAA=
-Date: Thu, 14 Apr 2022 13:03:38 +0000
-Message-ID: <D766CA91-29E8-46DE-B27D-E254DB50CE0C@arm.com>
-References: <20220414074452.14419-1-peng.fan@oss.nxp.com>
- <20220414074452.14419-2-peng.fan@oss.nxp.com>
- <CB41A35C-2117-4142-BBFC-3B2415F15927@arm.com>
-In-Reply-To: <CB41A35C-2117-4142-BBFC-3B2415F15927@arm.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: Rahul Singh <Rahul.Singh@arm.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] xen/evtchn: Add design for static event channel signaling
+ for domUs..
+Thread-Topic: [PATCH] xen/evtchn: Add design for static event channel
+ signaling for domUs..
+Thread-Index: AQHYPsy9JkZghYSHXUuV0Y0fm4T+9azm3KwAgAAMjACAA7tTAIAEF8gAgADKVoA=
+Date: Thu, 14 Apr 2022 13:18:30 +0000
+Message-ID: <BA690DF6-577C-44CD-BB01-2E8B2FCFEFC6@arm.com>
+References:
+ <4836304496e6fbbea41348ed8cc9fcf6b0f3e893.1648049827.git.rahul.singh@arm.com>
+ <alpine.DEB.2.22.394.2204081649370.3066615@ubuntu-linux-20-04-desktop>
+ <alpine.DEB.2.22.394.2204081837410.3066615@ubuntu-linux-20-04-desktop>
+ <D24074F6-E6CF-440A-9E9B-A10783C273D7@arm.com>
+ <alpine.DEB.2.22.394.2204131657200.3066615@ubuntu-linux-20-04-desktop>
+In-Reply-To:
+ <alpine.DEB.2.22.394.2204131657200.3066615@ubuntu-linux-20-04-desktop>
 Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -129,484 +130,243 @@ X-MS-TNEF-Correlator:
 x-mailer: Apple Mail (2.3693.60.0.1.1)
 Authentication-Results-Original: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
-X-MS-Office365-Filtering-Correlation-Id: c3eeb518-8a59-4763-bf0f-08da1e17369e
+X-MS-Office365-Filtering-Correlation-Id: b841157a-b698-4559-50b8-08da1e194b40
 x-ms-traffictypediagnostic:
-	AM6PR08MB4423:EE_|DB5EUR03FT061:EE_|AM4PR0802MB2340:EE_
+	GV2PR08MB8076:EE_|AM5EUR03FT047:EE_|VI1PR0801MB1773:EE_
 X-Microsoft-Antispam-PRVS:
-	<AM4PR0802MB2340C424FD95BAF7919282619DEF9@AM4PR0802MB2340.eurprd08.prod.outlook.com>
+	<VI1PR0801MB1773817FB453325195D5E0289DEF9@VI1PR0801MB1773.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- sn2I44l1LfFz8GGzF9CukVSUU85Xl1y522esODQMHkJzHMvgtt6Qtj3kqjlAhEku5jehIQqTYpYcB/6ImMZYqbmVLwm51FTv6vlt3nworiKXwBQ2uAYVxbuYfOYMNBIJaQMm/TXZtIvGOys50PQOj7to/DbhA7yDblXF8kGYxEasa5IpB4fPqdBXGfe1nADLhLBlXRzhSAN8Y6TpH00OYVx7mPrqRNJkZcKFsbJVoiuhYe0V82D4NG6Lz5VfbkAs8nZe7iZdpMvLjFEx50nQinp49mHqimaSeSQ8r6JvGem8uCIiYUEvVQPg+CyO8Jt8cpvAx8Uki0IiZ/KCmluuduknqDNT3Z63RBEoDMvOJOXS/TFbKpEi+JD54f6YuPJBqfX6isMZiNefXbQmHG38OJ9svSTxRJJyzKRh/2PyrociDa2qhsGkHaYmztOu4RK7lF5Ro7+iotLvoko5QxM9abpn/SO6F/BdlHdd3FhUl1WiroCInPU4zL5SwQuImT1E6XjPC9pvXFy97aWAVDSsFv6mgzoQ4kj1iXeJh9QnJBTZ1XCuaSncB2Ybxh0XfSzrzr9ZoGWKih4gXXjOC39yL6HIUPmskJj7O0UUmxy00CNgz5DKnyt6XijWhk6vmwWTENjHNS/yy9ANJrlOcslcW67PElcAHaiHd70x2qBR5Nt9M0sfMI7RFiTVvrkvnrtCcL9fkIxDansvMJ4g+DUwXftM1Wx6gcmC40Vxxsw6ZwKUQaVIpx6/KuVaugicd4Dca7e0GfOtivPyJXNVIOYm7lsEzkYhmB7K/VqoB6aX1N7X7qxdyrjNJTL05824UpiPHQ32I3YDHHBL5SqqkfgwsraI6L6towkyBjNizrpnLmc=
+ PDW8sIP0VYkcPVWQIXZcCONjwArqhYHNomcHTEKXAegN8CsibI9xH4E/48XI/d7ujtHB5jFvr6KRw3mRIVvs4I9m4VrsGKb6WCPZA0WT5fwm6SbX+SnzbnjT9xTIi2vJXGNOUeUlQ8b4PgsYwDMkK848CMoGXlepDjiszwSD4/19Ykjqo4rnwUBG+bk6YQsis8JNGjk0ZjyCzcCKFkXLDRyqXIElOGPN9RB1pPcjn+rOO91em5riFS0vxSK34ZpxX3/qxww6VKb37PIZlzFjeWdW9m7BEDl+yOoQOsAp/t9EKcvgILESQHEgWH7/Mo16OoIdUq+73LzXT4cnttnFiu+PAfHDUuRE5J/bn5/Ui56X8OlSCHVVECt22yzSY9aOq7zIEgoDYrKwKsHen7f4U97TpdxcajgP1GP0ums1pehEq+dRpXfHJ4OkeM2x9J2QQN/F6XqLUmhQITO0y29A0gx15yhW9yQ6Gr3YQ4KmUYFsXTXs5bb+cZB3pTkJNYD7era2KdaM/pBzDPIEZlqbgJa1W42Id3N5JBOHc4iFSnjBWWiJbbWLDz8Saa90q+d6eJO9ApbM/OaSr74bArNNSJWsbluD4Rjo9oVIjnrAZkkA4lo1u53N4c1DewNRSmd+Pu5We/OklCWwv2hdWVMsL81iu4aivOfaztlGpKETVA4iUH6ChfHoOZR7+aKT/NAjBSxAdGDaJyqdzB+/SfevUN+LOkRqLXHYZeuT6MRPQcbC+11p67Ow4iCqBaTnswVomPW3m3IYstQpiJLWA1XojuNKpTjxTCLxDLgf5MfAXZDLYNKVnCKxJMGh16/I5EfHLAoG87+G6HnVaeIjvwBCNQ==
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR08MB3778.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(5660300002)(83380400001)(91956017)(966005)(86362001)(30864003)(6486002)(7416002)(36756003)(6506007)(6916009)(508600001)(2906002)(316002)(64756008)(4326008)(66946007)(8676002)(66476007)(66556008)(66446008)(76116006)(6512007)(71200400001)(26005)(186003)(8936002)(122000001)(54906003)(53546011)(2616005)(38070700005)(38100700002)(33656002)(2004002)(45980500001);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR08MB3778.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(53546011)(186003)(66946007)(122000001)(2906002)(36756003)(38100700002)(6512007)(38070700005)(966005)(2616005)(71200400001)(8936002)(26005)(6486002)(508600001)(66446008)(6506007)(66556008)(86362001)(33656002)(8676002)(76116006)(5660300002)(316002)(4326008)(91956017)(83380400001)(66476007)(54906003)(6916009)(64756008)(45980500001);DIR:OUT;SFP:1101;
 Content-Type: text/plain; charset="us-ascii"
-Content-ID: <0F1412F5060024499743C14D7B96707B@eurprd08.prod.outlook.com>
+Content-ID: <C8C6CD1DB6F8E34EAF8746268E000D1E@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB4423
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR08MB8076
 Original-Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT061.eop-EUR03.prod.protection.outlook.com
+ AM5EUR03FT047.eop-EUR03.prod.protection.outlook.com
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	dbec0b84-8caa-4e41-6b0b-08da1e173165
+	e49470f4-f224-4c3b-0e49-08da1e1944d5
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	0bXkZxRoxGHVpwPIWzJzV7f/E89UMtoIE3fXsiaLiUqzvI+cOi8VF9Tkk9/QKeO1XkrbTyXN+oxysC8MEyFxhzzq/fBOek19rbOKnHRk7f8km9MlxTld2dwfZK0CWWcOGyfFxB0mWn9nh8geQZC52CJUWBWY4vSn+15hIeTJgUQs71nZaYFlIbHqz+FyErJ6BpNZoCMQSpYXNCirnUVLIByAQIbPUZ83SGy/zXmb8qKPclO0hGsmqiwQ6oUvdMHWl2y0nudtiMtoXYx0/nuT3qPAFWcxAeeff7cDkMl7TDE5yB/mC08z1ny9nbOsVY4S177C4fDX5cJ+pYWArxCEeVyfS1tWePeWm7hc82TiykDcFTNtzDE3Z5a6Dk+XBmwrQLWXVOOkHAvZ9OpNOXvYx2z6GCJ++sHtp+yXDVhCJmkJy++/BKHRPnN7F4nQhvUyVxf9fnCVoXUZ0jEMT2jIGxidXcqct1vsLwIXK6i2pFDu8avI6Tz2Bz1yWsxtjIWx59XWkOe/TIGsySf/HdAKhLR299dFNAc8JV9S8iO5IK1+ZKrz+GMbTo6cp7DYzlrpbhDqVumJ0a4lC0NchWupAbOzi/f/B1OWj3HLo5dhnUOS/ZSsFyDUpWAFYpvcOpJSnwTGYX/T9MTLHyEbrTnb+FJlE7idNLrhaN3BkusbTv7iAk62zVtkvXbYAJ78le1xTG7nIzyFL3DcAKg2i1GbDFl2XLkeppFB4jauHrg8B3MrrwX8R/cCJq+cRNkBwquqKSJOvvL4sTQYnqg1wT8xaXchQE2eceZiuHEtjogtbiE=
+	Am9wku8b8qkyektngoUBnIwuXBstI3ebLdwsXYXRqaLgtAXECWIWZwGQv3BxVj05FKW2T68Tb2ulnSjplpgyfKh6s3YF0dNKwWJyue+8VVNrj9iMKP53GCr1RedkjyblznHPWdNklKNUcLbq+GYIs7nUbSG5d3soooJ/AJ3F9OL2dfLnYEDuU1WWyYyQ4OfMSqYFoA7iEIIhbIdaYqJVm+rrVNvi4dZ59EH+fs3jbcn08prj6oXUAYriGhr5j7LUFGhAF1243J47j7LJYbUkEwDk9j+piMk6uu6EQtIkE3LEuEbiYiQ5PS60NoOutRS1I3pkSOX2lToxabYN001HRp8MGcoj//0j04rTocJpTtESnPAM2wLy9qh4CZ/AwiRvFt8j38O9oF1aMNfLZ8VVl6yIckO9NaZY7FW021ZWCtrEqeZxj6eRUrX1AM2X7W24J18vrF3eJiRK0xAoecIc6Zt2E1sNNWYKRGzDQHldcLBKpLmzn/rSfHlXvY+FCF3v7FqJJn4NsFeOar62Y67Rz9FIT5q6fbVl06n5jcdb1H3KHm5fszax6az+6Zg0zsz4yCyzDgbxrBlrmaRKL5uTZKTB3IsxbmdljPKgz77quIv6+harUSOmO4jUm7zIw8muA2JkEH5T+N4euUubgQTJm1OAX3JErLYcJXUh2iAIqXCjwhKdt3N2PbLp+8yXbj6kbPbT6pYri2E1WLDodZhS9mqpl2euZBQkbyk8a8po86wyuv3qdza6ou6YiaF8Md35rZbmKl7Zsp3ZlpQ+emuBLw==
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(2906002)(966005)(36756003)(40460700003)(36860700001)(6862004)(4326008)(6486002)(6506007)(6512007)(26005)(508600001)(186003)(53546011)(33656002)(54906003)(2616005)(316002)(82310400005)(47076005)(83380400001)(70586007)(8676002)(70206006)(336012)(86362001)(356005)(5660300002)(8936002)(81166007)(30864003)(2004002);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(356005)(53546011)(33656002)(6512007)(5660300002)(54906003)(26005)(186003)(36860700001)(47076005)(2616005)(336012)(81166007)(6506007)(83380400001)(86362001)(82310400005)(6486002)(966005)(36756003)(40460700003)(6862004)(70206006)(70586007)(4326008)(8676002)(508600001)(2906002)(316002)(8936002);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2022 13:03:47.5644
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2022 13:18:41.1243
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c3eeb518-8a59-4763-bf0f-08da1e17369e
+X-MS-Exchange-CrossTenant-Network-Message-Id: b841157a-b698-4559-50b8-08da1e194b40
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT061.eop-EUR03.prod.protection.outlook.com
+	AM5EUR03FT047.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM4PR0802MB2340
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0801MB1773
 
+Hi Stefano,
 
-
-> On 14 Apr 2022, at 14:02, Bertrand Marquis <bertrand.marquis@arm.com> wro=
+> On 14 Apr 2022, at 02:14, Stefano Stabellini <sstabellini@kernel.org> wro=
 te:
 >=20
-> Hi Peng,
+> On Mon, 11 Apr 2022, Bertrand Marquis wrote:
+>> What you mention here is actually combining 2 different solutions inside
+>> Xen to build a custom communication solution.
+>> My assumption here is that the user will actually create the device tree
+>> nodes he wants to do that and we should not create guest node entries
+>> as it would enforce some design.
+>>=20
+>> If everything can be statically defined for Xen then the user can also
+>> statically define node entries inside his guest to make use of the event=
+s
+>> and the shared memories.
+>>=20
+>> For example one might need more than one event to build a communication
+>> system, or more than one shared memory or could build something
+>> communicating with multiple guest thus requiring even more events and
+>> shared memories.
 >=20
->> On 14 Apr 2022, at 08:44, Peng Fan (OSS) <peng.fan@oss.nxp.com> wrote:
->>=20
->> From: Peng Fan <peng.fan@nxp.com>
->>=20
->> The i.MX LPUART Documentation:
->> https://www.nxp.com/webapp/Download?colCode=3DIMX8QMIEC
->> Chatper 13.6 Low Power Universal Asynchronous Receiver/
->> Transmitter (LPUART)
->>=20
->> Tested-by: Henry Wang <Henry.Wang@arm.com>
->> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> Asked-by: Bertrand Marquis <bertrand.marquis@arm.com>
-Acked-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> Hi Bertrand, Rahul,
+>=20
+> If the guests are allowed some level of dynamic discovery, this feature
+> is not needed. They can discover the shared memory location from the
+> domU device tree, then proceed to allocate evtchns as needed and tell
+> the other end the evtchn numbers over shared memory. I already have an
+> example of it here:
+>=20
+> https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/2251030537/Xen+Shar=
+ed+Memory+and+Interrupts+Between+VMs
+>=20
+> What if the guest doesn't support device tree at runtime, like baremetal
+> or Zephyr? The shared memory address can be hardcoded or generated from
+> device tree at build time. That's no problem. Then, the event channels
+> can still be allocated at runtime and passed to the other end over
+> shared memory. That's what the example on the wikipage does.
+>=20
+>=20
+> When are static event channels actually useful? When the application
+> cannot allocate the event channels at runtime at all. The reason for the
+> restriction could be related to safety (no dynamic allocations at
+> runtime) or convenience (everything else is fully static, why should the
+> event channel numbers be dynamic?)
 
-(Auto correct, sorry for that)
+An other use case here is dom0less: you cannot have dom0 create them.
 
+>=20
+> Given the above, I can see why there is no need to describe the static
+> event channel info in the domU device tree: static event channels are
+> only useful in fully static configurations, and in those configurations
+> the domU device tree dynamically generated by Xen is not needed. I can
+> see where you are coming from.
+>=20
+>=20
+> The workflow that we have been trying to enable with the System Device
+> Tree effort (System Device Tree is similar to a normal Device Tree plus
+> the xen,domains nodes) is the following:
+>=20
+> S-DT ---[lopper]---> Linux DT
+>                L--> Zephyr DT ---[Zephyr build]---> Zephyr .h files
+>=20
+> S-DT contains all the needed information for both the regular Linux DT
+> generation and also the Zephyr/RTOS/baremetal header files generation,
+> that happens at build time.
+>=20
+> S-DT is not the same as the Xen device tree, but so far it has been
+> conceptually and practically similar. I always imagine that the bindings
+> we have in Xen we'll also have corresponding bindings in System Device
+> Tree.
+>=20
+> For this workflow to work S-DT needs all the info so that both Linux DT
+> and Zephyr DT and Zephyr .h files can be generated.
+>=20
+> Does this proposal contain enough information so that Zephyr .h files
+> could be statically generated with the event channel numbers and static
+> shared memory regions addresses?
+>=20
+> I am not sure. Maybe not?
+
+Yes it should be possible to have all infos as the integrator will setup th=
+e
+system and will decide upfront the address and the event(s) number(s).
+
+>=20
+>=20
+> It is possible that the shared memory usage is so application specific
+> that there is no point in even talking about it. But I think that
+> introducing a simple bundle of both event channels and shared memory
+> would help a lot.
+>=20
+> Something like the following in the Xen device tree would be enough to
+> specify an arbitrary number of event channels connected with the same
+> domains sharing the memory region.
+>=20
+> It looks like that if we did the below, we would carry a lot more useful
+> information compared to the original proposal alone. We could add a
+> similar xen,notificaiton property to the domU reserved-memory region in
+> device tree generated by Xen for consistency, so that everything
+> available to the domU is described fully in device tree.
+>=20
+>=20
+>    domU1 {
+>        compatible =3D "xen,domain";
+>=20
+>        /* one sub-node per local event channel */
+>        ec1: evtchn@1 {
+>            compatible =3D "xen,evtchn-v1";
+>            /* local-evtchn link-to-foreign-evtchn */
+>            xen,evtchn =3D <0x1 &ec3>
+>        };
+>        ec2: evtchn@2 {
+>            compatible =3D "xen,evtchn-v1";
+>            xen,evtchn =3D <0x2 &ec4>
+>        };
+>        /*
+>         * shared memory region between DomU1 and DomU2.
+>         */
+>        domU1-shared-mem@50000000 {
+>            compatible =3D "xen,domain-shared-memory-v1";
+>            xen,shm-id =3D <0x1>;
+>            xen,shared-mem =3D <0x50000000 0x20000000 0x60000000>;
+>            /* this is new */
+>            xen,notification =3D <&ec1 &ec2>;
+>        }
+>    };
+>=20
+>    domU2 {
+>        compatible =3D "xen,domain";
+>=20
+>        /* one sub-node per local event channel */
+>        ec3: evtchn@3 {
+>            compatible =3D "xen,evtchn-v1";
+>            /* local-evtchn link-to-foreign-evtchn */
+>            xen,evtchn =3D <0x3 &ec1>
+>        };
+>        ec4: evtchn@4 {
+>            compatible =3D "xen,evtchn-v1";
+>            xen,evtchn =3D <0x4 &ec2>
+>        };
+>        /*
+>         * shared memory region between domU1 and domU2.
+>         */
+>        domU2-shared-mem@50000000 {
+>            compatible =3D "xen,domain-shared-memory-v1";
+>            xen,shm-id =3D <0x1>;
+>            xen,shared-mem =3D <0x50000000 0x20000000 0x70000000>;
+>            /* this is new */
+>            xen,notification =3D <&ec3 &ec4>;
+>        }
+>    };
+
+Few remarks/questions on this:
+- this is not a shared memory anymore as you add a notification system to i=
+t
+- what if someone wants to use only a shared memory, or an event, what shou=
+ld xen do ?
+- in xen device tree, how do you associate the event with the shared memory=
+ ?
+
+>=20
+>=20
+>=20
+> The good thing about this is that:
+>=20
+> - it is very flexible
+> - nothing to do in this series, except switching to the
+>  one-subnode-per-evtchn model, which we called 2) in the previous email
+> - there were good reasons to use the one-subnode-per-evtchn model anyway
+> - the xen,notification property can be added later without issues, after =
+Penny's series
+>=20
+> There are a couple of ways to implement the xen,notification property
+> but we don't need to discuss them now.
+
+I think there is something to do here but we need a bit more discussion and=
+ this can be done later.
+Right now I am not quite sure we will not add something that will end up no=
+t being used.
+
+>=20
+>=20
+> Short Summary
+> ------------
+> I think it is fine to only introduce the Xen device tree binding for
+> static event channels without domU binding, but I prefer if we switched
+> to using proposal 2) "one subnode per event channel".
+
+I will let Rahul answer on that.
+
+Cheers
 Bertrand
 
->=20
-> I did not check the code but enough people went through this so I think i=
-t can be merged.
->=20
-> Cheers
-> Bertrand
->=20
->> ---
->> xen/arch/arm/include/asm/imx-lpuart.h |  64 ++++++
->> xen/drivers/char/Kconfig              |   7 +
->> xen/drivers/char/Makefile             |   1 +
->> xen/drivers/char/imx-lpuart.c         | 276 ++++++++++++++++++++++++++
->> 4 files changed, 348 insertions(+)
->> create mode 100644 xen/arch/arm/include/asm/imx-lpuart.h
->> create mode 100644 xen/drivers/char/imx-lpuart.c
->>=20
->> diff --git a/xen/arch/arm/include/asm/imx-lpuart.h b/xen/arch/arm/includ=
-e/asm/imx-lpuart.h
->> new file mode 100644
->> index 0000000000..fe859045dc
->> --- /dev/null
->> +++ b/xen/arch/arm/include/asm/imx-lpuart.h
->> @@ -0,0 +1,64 @@
->> +/*
->> + * xen/arch/arm/include/asm/imx-lpuart.h
->> + *
->> + * Common constant definition between early printk and the LPUART drive=
-r
->> + *
->> + * Peng Fan <peng.fan@nxp.com>
->> + * Copyright 2022 NXP
->> + *
->> + * This program is free software; you can redistribute it and/or modify
->> + * it under the terms of the GNU General Public License as published by
->> + * the Free Software Foundation; either version 2 of the License, or
->> + * (at your option) any later version.
->> + *
->> + * This program is distributed in the hope that it will be useful,
->> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
->> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
->> + * GNU General Public License for more details.
->> + */
->> +
->> +#ifndef __ASM_ARM_IMX_LPUART_H__
->> +#define __ASM_ARM_IMX_LPUART_H__
->> +
->> +/* 32-bit register definition */
->> +#define UARTBAUD          (0x10)
->> +#define UARTSTAT          (0x14)
->> +#define UARTCTRL          (0x18)
->> +#define UARTDATA          (0x1C)
->> +#define UARTMATCH         (0x20)
->> +#define UARTMODIR         (0x24)
->> +#define UARTFIFO          (0x28)
->> +#define UARTWATER         (0x2c)
->> +
->> +#define UARTSTAT_TDRE     BIT(23, UL)
->> +#define UARTSTAT_TC       BIT(22, UL)
->> +#define UARTSTAT_RDRF     BIT(21, UL)
->> +#define UARTSTAT_OR       BIT(19, UL)
->> +
->> +#define UARTBAUD_OSR_SHIFT    (24)
->> +#define UARTBAUD_OSR_MASK     (0x1f)
->> +#define UARTBAUD_SBR_MASK     (0x1fff)
->> +#define UARTBAUD_BOTHEDGE     (0x00020000)
->> +#define UARTBAUD_TDMAE        (0x00800000)
->> +#define UARTBAUD_RDMAE        (0x00200000)
->> +
->> +#define UARTCTRL_TIE      BIT(23, UL)
->> +#define UARTCTRL_TCIE     BIT(22, UL)
->> +#define UARTCTRL_RIE      BIT(21, UL)
->> +#define UARTCTRL_ILIE     BIT(20, UL)
->> +#define UARTCTRL_TE       BIT(19, UL)
->> +#define UARTCTRL_RE       BIT(18, UL)
->> +#define UARTCTRL_M        BIT(4, UL)
->> +
->> +#define UARTWATER_RXCNT_OFF     24
->> +
->> +#endif /* __ASM_ARM_IMX_LPUART_H__ */
->> +
->> +/*
->> + * Local variables:
->> + * mode: C
->> + * c-file-style: "BSD"
->> + * c-basic-offset: 4
->> + * indent-tabs-mode: nil
->> + * End:
->> + */
->> diff --git a/xen/drivers/char/Kconfig b/xen/drivers/char/Kconfig
->> index 2ff5b288e2..e5f7b1d8eb 100644
->> --- a/xen/drivers/char/Kconfig
->> +++ b/xen/drivers/char/Kconfig
->> @@ -13,6 +13,13 @@ config HAS_CADENCE_UART
->> 	  This selects the Xilinx Zynq Cadence UART. If you have a Xilinx Zynq
->> 	  based board, say Y.
->>=20
->> +config HAS_IMX_LPUART
->> +	bool "i.MX LPUART driver"
->> +	default y
->> +	depends on ARM_64
->> +	help
->> +	  This selects the i.MX LPUART. If you have i.MX8QM based board, say Y=
-.
->> +
->> config HAS_MVEBU
->> 	bool "Marvell MVEBU UART driver"
->> 	default y
->> diff --git a/xen/drivers/char/Makefile b/xen/drivers/char/Makefile
->> index 7c646d771c..14e67cf072 100644
->> --- a/xen/drivers/char/Makefile
->> +++ b/xen/drivers/char/Makefile
->> @@ -8,6 +8,7 @@ obj-$(CONFIG_HAS_MVEBU) +=3D mvebu-uart.o
->> obj-$(CONFIG_HAS_OMAP) +=3D omap-uart.o
->> obj-$(CONFIG_HAS_SCIF) +=3D scif-uart.o
->> obj-$(CONFIG_HAS_EHCI) +=3D ehci-dbgp.o
->> +obj-$(CONFIG_HAS_IMX_LPUART) +=3D imx-lpuart.o
->> obj-$(CONFIG_ARM) +=3D arm-uart.o
->> obj-y +=3D serial.o
->> obj-$(CONFIG_XEN_GUEST) +=3D xen_pv_console.o
->> diff --git a/xen/drivers/char/imx-lpuart.c b/xen/drivers/char/imx-lpuart=
-.c
->> new file mode 100644
->> index 0000000000..df44f91e5d
->> --- /dev/null
->> +++ b/xen/drivers/char/imx-lpuart.c
->> @@ -0,0 +1,276 @@
->> +/*
->> + * xen/drivers/char/imx-lpuart.c
->> + *
->> + * Driver for i.MX LPUART.
->> + *
->> + * Peng Fan <peng.fan@nxp.com>
->> + * Copyright 2022 NXP
->> + *
->> + * This program is free software; you can redistribute it and/or modify
->> + * it under the terms of the GNU General Public License as published by
->> + * the Free Software Foundation; either version 2 of the License, or
->> + * (at your option) any later version.
->> + *
->> + * This program is distributed in the hope that it will be useful,
->> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
->> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
->> + * GNU General Public License for more details.
->> + */
->> +
->> +#include <xen/errno.h>
->> +#include <xen/init.h>
->> +#include <xen/irq.h>
->> +#include <xen/mm.h>
->> +#include <xen/serial.h>
->> +#include <asm/device.h>
->> +#include <asm/imx-lpuart.h>
->> +#include <asm/io.h>
->> +
->> +#define imx_lpuart_read(uart, off)       readl((uart)->regs + off)
->> +#define imx_lpuart_write(uart, off, val) writel((val), (uart)->regs + o=
-ff)
->> +
->> +static struct imx_lpuart {
->> +    uint32_t baud, clock_hz, data_bits, parity, stop_bits, fifo_size;
->> +    uint32_t irq;
->> +    char __iomem *regs;
->> +    struct irqaction irqaction;
->> +    struct vuart_info vuart;
->> +} imx8_com;
->> +
->> +static void imx_lpuart_interrupt(int irq, void *data,
->> +                                 struct cpu_user_regs *regs)
->> +{
->> +    struct serial_port *port =3D data;
->> +    struct imx_lpuart *uart =3D port->uart;
->> +    uint32_t sts, rxcnt;
->> +
->> +    sts =3D imx_lpuart_read(uart, UARTSTAT);
->> +    rxcnt =3D imx_lpuart_read(uart, UARTWATER) >> UARTWATER_RXCNT_OFF;
->> +
->> +    if ( (sts & UARTSTAT_RDRF) || (rxcnt > 0) )
->> +	    serial_rx_interrupt(port, regs);
->> +
->> +    if ( sts & UARTSTAT_TDRE )
->> +	    serial_tx_interrupt(port, regs);
->> +
->> +    imx_lpuart_write(uart, UARTSTAT, sts);
->> +}
->> +
->> +static void __init imx_lpuart_init_preirq(struct serial_port *port)
->> +{
->> +    struct imx_lpuart *uart =3D port->uart;
->> +    uint32_t ctrl, old_ctrl, bd;
->> +
->> +    old_ctrl =3D imx_lpuart_read(uart, UARTCTRL);
->> +    ctrl =3D (old_ctrl & ~UARTCTRL_M) | UARTCTRL_TE | UARTCTRL_RE;
->> +    bd =3D imx_lpuart_read(uart, UARTBAUD);
->> +
->> +    while ( !(imx_lpuart_read(uart, UARTSTAT) & UARTSTAT_TC) )
->> +	    cpu_relax();
->> +
->> +    /* Disable transmit and receive */
->> +    imx_lpuart_write(uart, UARTCTRL, old_ctrl & ~(UARTCTRL_TE | UARTCTR=
-L_RE));
->> +
->> +    /* Reuse firmware baudrate settings, only disable DMA here */
->> +    bd &=3D ~(UARTBAUD_TDMAE | UARTBAUD_RDMAE);
->> +
->> +    imx_lpuart_write(uart, UARTMODIR, 0);
->> +    imx_lpuart_write(uart, UARTBAUD, bd);
->> +    imx_lpuart_write(uart, UARTCTRL, ctrl);
->> +}
->> +
->> +static void __init imx_lpuart_init_postirq(struct serial_port *port)
->> +{
->> +    struct imx_lpuart *uart =3D port->uart;
->> +    uint32_t temp;
->> +
->> +    uart->irqaction.handler =3D imx_lpuart_interrupt;
->> +    uart->irqaction.name =3D "imx_lpuart";
->> +    uart->irqaction.dev_id =3D port;
->> +
->> +    if ( setup_irq(uart->irq, 0, &uart->irqaction) !=3D 0 )
->> +    {
->> +        dprintk(XENLOG_ERR, "Failed to allocate imx_lpuart IRQ %d\n",
->> +                uart->irq);
->> +        return;
->> +    }
->> +
->> +    /* Enable interrupts */
->> +    temp =3D imx_lpuart_read(uart, UARTCTRL);
->> +    temp |=3D (UARTCTRL_RIE | UARTCTRL_TIE);
->> +    temp |=3D UARTCTRL_ILIE;
->> +    imx_lpuart_write(uart, UARTCTRL, temp);
->> +}
->> +
->> +static void imx_lpuart_suspend(struct serial_port *port)
->> +{
->> +    BUG();
->> +}
->> +
->> +static void imx_lpuart_resume(struct serial_port *port)
->> +{
->> +    BUG();
->> +}
->> +
->> +static int imx_lpuart_tx_ready(struct serial_port *port)
->> +{
->> +    struct imx_lpuart *uart =3D port->uart;
->> +
->> +    return imx_lpuart_read(uart, UARTSTAT) & UARTSTAT_TC;
->> +}
->> +
->> +static void imx_lpuart_putc(struct serial_port *port, char c)
->> +{
->> +    struct imx_lpuart *uart =3D port->uart;
->> +
->> +    while ( !(imx_lpuart_read(uart, UARTSTAT) & UARTSTAT_TDRE) )
->> +        cpu_relax();
->> +
->> +    imx_lpuart_write(uart, UARTDATA, c);
->> +}
->> +
->> +static int imx_lpuart_getc(struct serial_port *port, char *pc)
->> +{
->> +    struct imx_lpuart *uart =3D port->uart;
->> +    int ch;
->> +
->> +    while ( !(imx_lpuart_read(uart, UARTSTAT) & UARTSTAT_RDRF) )
->> +	    return 0;
->> +
->> +    ch =3D imx_lpuart_read(uart, UARTDATA);
->> +    *pc =3D ch & 0xff;
->> +
->> +    if ( imx_lpuart_read(uart, UARTSTAT) &  UARTSTAT_OR )
->> +        imx_lpuart_write(uart, UARTSTAT, UARTSTAT_OR);
->> +
->> +    return 1;
->> +}
->> +
->> +static int __init imx_lpuart_irq(struct serial_port *port)
->> +{
->> +    struct imx_lpuart *uart =3D port->uart;
->> +
->> +    return ((uart->irq > 0) ? uart->irq : -1);
->> +}
->> +
->> +static const struct vuart_info *imx_lpuart_vuart_info(struct serial_por=
-t *port)
->> +{
->> +    struct imx_lpuart *uart =3D port->uart;
->> +
->> +    return &uart->vuart;
->> +}
->> +
->> +static void imx_lpuart_start_tx(struct serial_port *port)
->> +{
->> +    struct imx_lpuart *uart =3D port->uart;
->> +    uint32_t temp;
->> +
->> +    temp =3D imx_lpuart_read(uart, UARTSTAT);
->> +    /* Wait until empty */
->> +    while ( !(temp & UARTSTAT_TDRE) )
->> +	    cpu_relax();
->> +
->> +    temp =3D imx_lpuart_read(uart, UARTCTRL);
->> +    imx_lpuart_write(uart, UARTCTRL, (temp | UARTCTRL_TIE));
->> +}
->> +
->> +static void imx_lpuart_stop_tx(struct serial_port *port)
->> +{
->> +    struct imx_lpuart *uart =3D port->uart;
->> +    uint32_t temp;
->> +
->> +    temp =3D imx_lpuart_read(uart, UARTCTRL);
->> +    temp &=3D ~(UARTCTRL_TIE | UARTCTRL_TCIE);
->> +    imx_lpuart_write(uart, UARTCTRL, temp);
->> +}
->> +
->> +static struct uart_driver __read_mostly imx_lpuart_driver =3D {
->> +    .init_preirq =3D imx_lpuart_init_preirq,
->> +    .init_postirq =3D imx_lpuart_init_postirq,
->> +    .endboot =3D NULL,
->> +    .suspend =3D imx_lpuart_suspend,
->> +    .resume =3D imx_lpuart_resume,
->> +    .tx_ready =3D imx_lpuart_tx_ready,
->> +    .putc =3D imx_lpuart_putc,
->> +    .getc =3D imx_lpuart_getc,
->> +    .irq =3D imx_lpuart_irq,
->> +    .start_tx =3D imx_lpuart_start_tx,
->> +    .stop_tx =3D imx_lpuart_stop_tx,
->> +    .vuart_info =3D imx_lpuart_vuart_info,
->> +};
->> +
->> +static int __init imx_lpuart_init(struct dt_device_node *dev,
->> +                                  const void *data)
->> +{
->> +    const char *config =3D data;
->> +    struct imx_lpuart *uart;
->> +    int res;
->> +    u64 addr, size;
->> +
->> +    if ( strcmp(config, "") )
->> +        printk("WARNING: UART configuration is not supported\n");
->> +
->> +    uart =3D &imx8_com;
->> +
->> +    uart->baud =3D 115200;
->> +    uart->data_bits =3D 8;
->> +    uart->parity =3D 0;
->> +    uart->stop_bits =3D 1;
->> +
->> +    res =3D dt_device_get_address(dev, 0, &addr, &size);
->> +    if ( res )
->> +    {
->> +        printk("imx8-lpuart: Unable to retrieve the base"
->> +               " address of the UART\n");
->> +        return res;
->> +    }
->> +
->> +    res =3D platform_get_irq(dev, 0);
->> +    if ( res < 0 )
->> +    {
->> +        printk("imx8-lpuart: Unable to retrieve the IRQ\n");
->> +        return -EINVAL;
->> +    }
->> +    uart->irq =3D res;
->> +
->> +    uart->regs =3D ioremap_nocache(addr, size);
->> +    if ( !uart->regs )
->> +    {
->> +        printk("imx8-lpuart: Unable to map the UART memory\n");
->> +        return -ENOMEM;
->> +    }
->> +
->> +    uart->vuart.base_addr =3D addr;
->> +    uart->vuart.size =3D size;
->> +    uart->vuart.data_off =3D UARTDATA;
->> +    /* tmp from uboot */
->> +    uart->vuart.status_off =3D UARTSTAT;
->> +    uart->vuart.status =3D UARTSTAT_TDRE;
->> +
->> +    /* Register with generic serial driver */
->> +    serial_register_uart(SERHND_DTUART, &imx_lpuart_driver, uart);
->> +
->> +    dt_device_set_used_by(dev, DOMID_XEN);
->> +
->> +    return 0;
->> +}
->> +
->> +static const struct dt_device_match imx_lpuart_dt_compat[] __initconst =
-=3D
->> +{
->> +    DT_MATCH_COMPATIBLE("fsl,imx8qm-lpuart"),
->> +    { /* sentinel */ },
->> +};
->> +
->> +DT_DEVICE_START(imx_lpuart, "i.MX LPUART", DEVICE_SERIAL)
->> +    .dt_match =3D imx_lpuart_dt_compat,
->> +    .init =3D imx_lpuart_init,
->> +DT_DEVICE_END
->> +
->> +/*
->> + * Local variables:
->> + * mode: C
->> + * c-file-style: "BSD"
->> + * c-basic-offset: 4
->> + * indent-tabs-mode: nil
->> + * End:
->> + */
->> --=20
->> 2.35.1
->>=20
->=20
 
 
