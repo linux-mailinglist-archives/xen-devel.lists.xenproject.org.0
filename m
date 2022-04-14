@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67292500BB7
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Apr 2022 13:00:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.304620.519288 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AC8D500C07
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Apr 2022 13:20:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.304630.519299 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nexCH-0002pd-23; Thu, 14 Apr 2022 10:59:33 +0000
+	id 1nexVr-0005Og-Ls; Thu, 14 Apr 2022 11:19:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 304620.519288; Thu, 14 Apr 2022 10:59:33 +0000
+Received: by outflank-mailman (output) from mailman id 304630.519299; Thu, 14 Apr 2022 11:19:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nexCG-0002nd-VC; Thu, 14 Apr 2022 10:59:32 +0000
-Received: by outflank-mailman (input) for mailman id 304620;
- Thu, 14 Apr 2022 10:59:30 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nexCE-0002nT-Px; Thu, 14 Apr 2022 10:59:30 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nexCE-0008Ff-OE; Thu, 14 Apr 2022 10:59:30 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nexCE-0007a8-9S; Thu, 14 Apr 2022 10:59:30 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nexCE-00043v-91; Thu, 14 Apr 2022 10:59:30 +0000
+	id 1nexVr-0005ME-J0; Thu, 14 Apr 2022 11:19:47 +0000
+Received: by outflank-mailman (input) for mailman id 304630;
+ Thu, 14 Apr 2022 11:19:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=VXCz=UY=gmail.com=rjwysocki@srs-se1.protection.inumbo.net>)
+ id 1nexVq-0005M8-EZ
+ for xen-devel@lists.xenproject.org; Thu, 14 Apr 2022 11:19:46 +0000
+Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com
+ [209.85.219.176]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c9114dda-bbe4-11ec-8fbd-03012f2f19d4;
+ Thu, 14 Apr 2022 13:19:45 +0200 (CEST)
+Received: by mail-yb1-f176.google.com with SMTP id p65so8763093ybp.9
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Apr 2022 04:19:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,156 +38,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=QJ+VhdWKV6soZ+L704szwS1mya+cE+MAH71HY9OEqio=; b=yiK6s1XvTboPMTGiuqZOqZdb6E
-	/5aevBIYjaJgfzAgLm67UPD/yFHTmqhafV3Ji+yW5aeuzkwXwidssaKrQlSJPGpDVrL/akuKGu6Yc
-	pb5mblemN1S9lpkfAIdzeG9Lkg/yMKA7TaQwf4DeVuV+Kr/TqVJ+uvn350AqaSapak9I=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169391-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: c9114dda-bbe4-11ec-8fbd-03012f2f19d4
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=dY83H0aPEfDTdUo23MndvBRZZwuNuwRYnVKAWx3MFcc=;
+        b=ekSzx/xXLgvqUpIF9mre7cp8kG+ohfbir08qF94n5B5lGR0YPSy0pISRR1aNuSEreW
+         Dfig0Euc3JxdEPBmoyNqr56ydLeZEOx0yHvPJi6rutBMXc/qRRoVZbV9IDV2XLzYb4FF
+         IQXRJJPqg9zgY7SMzDi+w/ooAWqHn/ExVGI/5Uvv0fchCSy6sHP89EWos1KyKRaUuVpO
+         xaNkPddXzBXgW/3VoENKZCwON/D2bmmM5ZdDCcOkzl61qb0xZaEXtmRSHUzsCTalOQZE
+         m5Ay4agJdI6uEqap0rwYtMSbs1QqTn9+0m63aMnfZhNMMRLDldA4VF4whsUOosjSj5SY
+         SMdw==
+X-Gm-Message-State: AOAM530N5pO3t4VGdhUg4cOXUZLkUcqWkluuDEMpnHnChTFI243r6KNG
+	V+7DMXaRwgdj1rq11xS7HHZizkAZB/UYnpW9Zcw=
+X-Google-Smtp-Source: ABdhPJyXV07maZap62IutTg/mwVDj/CfiQiLME5IwIFkAJnTY85PIrUap0WcF7eity1wAkpRDD0UVobPG71n48VtbjA=
+X-Received: by 2002:a05:6902:187:b0:63d:9c95:edca with SMTP id
+ t7-20020a056902018700b0063d9c95edcamr1246534ybh.81.1649935183962; Thu, 14 Apr
+ 2022 04:19:43 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [ovmf test] 169391: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=0c901fcc200e411b78b9ca42d07d5ea4aaa13b21
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 14 Apr 2022 10:59:30 +0000
+References: <20220411233832.391817-1-dmitry.osipenko@collabora.com>
+ <20220411233832.391817-4-dmitry.osipenko@collabora.com> <CAJZ5v0gf1J+yPW14TAdLGLGfO+-2s=r0DDP7d+Rgop3=dB0gaQ@mail.gmail.com>
+ <af51d9d0-26ba-fc66-05f1-d92ef7172730@collabora.com>
+In-Reply-To: <af51d9d0-26ba-fc66-05f1-d92ef7172730@collabora.com>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Thu, 14 Apr 2022 13:19:32 +0200
+Message-ID: <CAJZ5v0jFQi1x1Fnfk04n+HTTirz19-_xW2NgJtpOYyPgVh3Afw@mail.gmail.com>
+Subject: Re: [PATCH v7 03/20] reboot: Print error message if restart handler
+ has duplicated priority
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Thierry Reding <thierry.reding@gmail.com>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Russell King <linux@armlinux.org.uk>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Greg Ungerer <gerg@linux-m68k.org>, 
+	Joshua Thompson <funaho@jurai.org>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+	Sebastian Reichel <sre@kernel.org>, Linus Walleij <linus.walleij@linaro.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Greentime Hu <green.hu@gmail.com>, 
+	Vincent Chen <deanbo422@gmail.com>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
+	Michael Ellerman <mpe@ellerman.id.au>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
+	Paul Mackerras <paulus@samba.org>, Paul Walmsley <paul.walmsley@sifive.com>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+	Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "the arch/x86 maintainers" <x86@kernel.org>, 
+	"H. Peter Anvin" <hpa@zytor.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Santosh Shilimkar <ssantosh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Pavel Machek <pavel@ucw.cz>, 
+	Lee Jones <lee.jones@linaro.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Guenter Roeck <linux@roeck-us.net>, Daniel Lezcano <daniel.lezcano@linaro.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Ulf Hansson <ulf.hansson@linaro.org>, 
+	=?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-csky@vger.kernel.org, 
+	linux-ia64@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+	"open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>, linux-parisc@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, Linux-sh list <linux-sh@vger.kernel.org>, 
+	xen-devel@lists.xenproject.org, 
+	ACPI Devel Maling List <linux-acpi@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>, 
+	linux-tegra <linux-tegra@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-flight 169391 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169391/
+On Thu, Apr 14, 2022 at 12:24 AM Dmitry Osipenko
+<dmitry.osipenko@collabora.com> wrote:
+>
+> On 4/13/22 21:48, Rafael J. Wysocki wrote:
+> > On Tue, Apr 12, 2022 at 1:39 AM Dmitry Osipenko
+> > <dmitry.osipenko@collabora.com> wrote:
+> >>
+> >> Add sanity check which ensures that there are no two restart handlers
+> >> registered using the same priority. This requirement will become mandatory
+> >> once all drivers will be converted to the new API and such errors will be
+> >> fixed.
+> >>
+> >> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+> >
+> > The first two patches in the series are fine with me and there's only
+> > one minor nit regarding this one (below).
+> >
+> >> ---
+> >>  kernel/reboot.c | 15 +++++++++++++++
+> >>  1 file changed, 15 insertions(+)
+> >>
+> >> diff --git a/kernel/reboot.c b/kernel/reboot.c
+> >> index ed4e6dfb7d44..acdae4e95061 100644
+> >> --- a/kernel/reboot.c
+> >> +++ b/kernel/reboot.c
+> >> @@ -182,6 +182,21 @@ static ATOMIC_NOTIFIER_HEAD(restart_handler_list);
+> >>   */
+> >>  int register_restart_handler(struct notifier_block *nb)
+> >>  {
+> >> +       int ret;
+> >> +
+> >> +       ret = atomic_notifier_chain_register_unique_prio(&restart_handler_list, nb);
+> >> +       if (ret != -EBUSY)
+> >> +               return ret;
+> >> +
+> >> +       /*
+> >> +        * Handler must have unique priority. Otherwise call order is
+> >> +        * determined by registration order, which is unreliable.
+> >> +        *
+> >> +        * This requirement will become mandatory once all drivers
+> >> +        * will be converted to use new sys-off API.
+> >> +        */
+> >> +       pr_err("failed to register restart handler using unique priority\n");
+> >
+> > I would use pr_info() here, because this is not a substantial error AFAICS.
+>
+> It's indeed not a substantial error so far, but it will become
+> substantial later on once only unique priorities will be allowed. The
+> pr_warn() could be a good compromise here, pr_info() is too mild, IMO.
 
-Regressions :-(
+Well, I'm still unconvinced about requiring all of the users of this
+interface to use unique priorities.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+Arguably, there are some of them who don't really care about the
+ordering, so could there be an option for them to specify the lack of
+care by, say, passing 0 as the priority that would be regarded as a
+special case?
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 0c901fcc200e411b78b9ca42d07d5ea4aaa13b21
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   45 days
-Failing since        168258  2022-03-01 01:55:31 Z   44 days  383 attempts
-Testing same since   169385  2022-04-14 03:40:29 Z    0 days    6 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 5086 lines long.)
+IOW, if you pass 0, you'll be run along the others who've also passed
+0, but if you pass anything different from 0, it must be unique.  What
+do you think?
 
