@@ -2,40 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43F0650274E
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Apr 2022 11:23:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.305659.520746 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B05D450273E
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Apr 2022 11:15:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.305644.520724 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nfIAh-0006tz-Gq; Fri, 15 Apr 2022 09:23:19 +0000
+	id 1nfI2M-0004tv-5h; Fri, 15 Apr 2022 09:14:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 305659.520746; Fri, 15 Apr 2022 09:23:19 +0000
+Received: by outflank-mailman (output) from mailman id 305644.520724; Fri, 15 Apr 2022 09:14:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nfIAh-0006s5-Cv; Fri, 15 Apr 2022 09:23:19 +0000
-Received: by outflank-mailman (input) for mailman id 305659;
- Fri, 15 Apr 2022 09:23:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bOrE=UZ=linaro.org=alex.bennee@srs-se1.protection.inumbo.net>)
- id 1nfIAg-0006hY-I9
- for xen-devel@lists.xenproject.org; Fri, 15 Apr 2022 09:23:18 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aef3a49e-bc9d-11ec-a405-831a346695d4;
- Fri, 15 Apr 2022 11:23:17 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id k23so14484173ejd.3
- for <xen-devel@lists.xenproject.org>; Fri, 15 Apr 2022 02:23:17 -0700 (PDT)
-Received: from zen.linaroharston ([51.148.130.216])
- by smtp.gmail.com with ESMTPSA id
- ck5-20020a0564021c0500b00420b49ba80fsm2423370edb.24.2022.04.15.02.23.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Apr 2022 02:23:15 -0700 (PDT)
-Received: from zen (localhost [127.0.0.1])
- by zen.linaroharston (Postfix) with ESMTP id B279B1FFB7;
- Fri, 15 Apr 2022 10:23:14 +0100 (BST)
+	id 1nfI2M-0004rt-2P; Fri, 15 Apr 2022 09:14:42 +0000
+Received: by outflank-mailman (input) for mailman id 305644;
+ Fri, 15 Apr 2022 09:14:40 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nfI2K-0004rj-JW; Fri, 15 Apr 2022 09:14:40 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nfI2K-0007Bp-H1; Fri, 15 Apr 2022 09:14:40 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nfI2K-0002P3-56; Fri, 15 Apr 2022 09:14:40 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nfI2K-0004hw-4d; Fri, 15 Apr 2022 09:14:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,104 +42,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aef3a49e-bc9d-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=references:user-agent:from:to:cc:subject:date:in-reply-to
-         :message-id:mime-version:content-transfer-encoding;
-        bh=w667gKYBbDBTMCfXxJDqMeQkVCc8+IrorrB4oS1oJ5E=;
-        b=a1GWJXNhyAXH5ruzAaxXwsuOH1eqRjJ2MKQAhRi/ipCf16gTMLgrPbZOhNKePB24Pf
-         5z9Om4c2T6IDo78fsg/z08IDdB40iGCMN2YeXLaIKrg1Fj/G23HI463LKAiwvFgTQRqP
-         eJzHWYKGIr3jR0zbeVtIiGY53hVBuQ1I5CKaknhuzQIprb+fZyHxuMfD9mL32g9QbVHD
-         2kCYr8j+kTuH7NkE5D7cxwS8r3rJbGqVSfkoNJQ2y9HtndrWcEKX63X+n17IPPIO6BCs
-         /8taSqZvn0E3yaSCWZP9/0FOSQTcWekteBTpolr69ddPZOVdY6BSh+8K2UXVm38Px7kh
-         RaRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:references:user-agent:from:to:cc:subject:date
-         :in-reply-to:message-id:mime-version:content-transfer-encoding;
-        bh=w667gKYBbDBTMCfXxJDqMeQkVCc8+IrorrB4oS1oJ5E=;
-        b=HXkcrdn5zKRuTP/kBJjCYiNR3w0IfFa8+woZEKsVidxnyLHUHDHp/3jpyTY7M0oGe6
-         xlDnuARrYKtdR90ObyJZFzc6r2CRQYhrXb0jXTxd3wGdL747qmrN8k6n5gZqRTIen3fu
-         vLK4L+5T8UkeH5bvJaROORoj5oG+d9yaI5Zg5OO7He6dfEKGlcseLEnOzJi+3lsF/Xrs
-         Bao0Bh8j+S3B5XBCD6CZu0H05CE7+HvhRs5TYN+DcSQx0dg0vK/e/Nm2BCfmgmv0SLQC
-         xDr3Ven2ijNuMjS4vF9khwDEyaYTdv6YVvD+oCLfAz0QbOo6parqndexcLMZ/bDv+yOf
-         J4kA==
-X-Gm-Message-State: AOAM532riNQPTcndSdxK0IgaUp9IQRFx0bJBYjvxkfGLMcq7UDCruhPT
-	is/+955/DKR+Kw3pXWrlPIq7MA==
-X-Google-Smtp-Source: ABdhPJxUyhO5yAboBwLOcBNkKmseAjK+8zK18o9n0eLHUP9gS4AfNzZPnXiso3pb9aw5D1JuttK3+Q==
-X-Received: by 2002:a17:906:704f:b0:6e0:2ce5:131e with SMTP id r15-20020a170906704f00b006e02ce5131emr5321502ejj.246.1650014596978;
-        Fri, 15 Apr 2022 02:23:16 -0700 (PDT)
-References: <87pmsylywy.fsf@linaro.org> <YU5mW396S04IsCBr@mail-itl>
- <874ka68h96.fsf@linaro.org>
- <CACMJ4GbgnQVQbH1N3Duxmx10n-Qv+zzncqarNyuhmKhE-wqdqA@mail.gmail.com>
- <alpine.DEB.2.21.2109272323160.5022@sstabellini-ThinkPad-T480s>
- <CAPD2p-=MdGB_a+oEsFrPQpLo7GeKkMwYyAWcQt3z0qrGr3vR7w@mail.gmail.com>
- <alpine.DEB.2.21.2110011649220.3209@sstabellini-ThinkPad-T480s>
- <CAPD2p-m=hYbG1YjPZ9yZ7Qzs6KjCT2jSHpaDUPB0sFJoZfY4uw@mail.gmail.com>
- <alpine.DEB.2.21.2110041436070.3209@sstabellini-ThinkPad-T480s>
- <1d6382b6-ddf8-494c-4f7b-afc50a4269a4@gmail.com>
- <CAPD2p-nftmTXQTaOw1kmkBDn96i8sgcaH21o7bsGK-fA+fYbaw@mail.gmail.com>
-User-agent: mu4e 1.7.12; emacs 28.1.50
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, Rust-VMM Mailing List
- <rust-vmm@lists.opendev.org>, Stratos Mailing List
- <stratos-dev@op-lists.linaro.org>, Christopher Clark
- <christopher.w.clark@gmail.com>, Marek =?utf-8?Q?Marczykowski-G=C3=B3reck?=
- =?utf-8?Q?i?=
- <marmarek@invisiblethingslab.com>, Artem Mygaiev <Artem_Mygaiev@epam.com>,
- Sergio Lopez <slp@redhat.com>, Wei Liu <wl@xen.org>, Stefan Hajnoczi
- <stefanha@gmail.com>, Doug Goldstein <cardoe@cardoe.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Arnd Bergmann <arnd.bergmann@linaro.org>,
- David Woodhouse <dwmw2@infradead.org>, Rich Persaud <persaur@gmail.com>,
- Daniel Smith <dpsmith@apertussolutions.com>, Paul Durrant <paul@xen.org>,
- openxt <openxt@googlegroups.com>, Julien Grall <julien@xen.org>, Juergen
- Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [Stratos-dev] Xen Rust VirtIO demos work breakdown for Project
- Stratos
-Date: Fri, 15 Apr 2022 10:07:09 +0100
-In-reply-to: <CAPD2p-nftmTXQTaOw1kmkBDn96i8sgcaH21o7bsGK-fA+fYbaw@mail.gmail.com>
-Message-ID: <87pmlisnst.fsf@linaro.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=UMzVaXSszwVFqCnjX3HEHyQUfGq6bW+6q9xyPsB/MjI=; b=r1om/q6UI+snD9u5ajloP+G9ZD
+	sJy7tMkKDD9wEosDyZJtDi1exNX4cA0V0KCPERnpP5sxzhnUVv3a7QUZ3nvxd5qobzOUr49KU1eQW
+	1DjMdXeJHapK2zX6g7kqxxpsO0Hy5TMJ3qymrDu/4u2o5ZYo1MHJrQU3aAkKGTNbxs38=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-169421-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Subject: [ovmf test] 169421: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=9bf7291d636ebd816b8f81edcf366dac926f9f44
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 15 Apr 2022 09:14:40 +0000
+
+flight 169421 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169421/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 9bf7291d636ebd816b8f81edcf366dac926f9f44
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   45 days
+Failing since        168258  2022-03-01 01:55:31 Z   45 days  409 attempts
+Testing same since   169414  2022-04-15 04:11:47 Z    0 days    7 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
-Oleksandr Tyshchenko <olekstysh@gmail.com> writes:
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> Hello all.
->
-> [Sorry for the possible format issues]
->
-> I have an update regarding (valid) concern which has been also raised in =
-current thread which is the virtio backend's ability (when using
-> Xen foreign mapping) to map any guest pages without guest "agreement" on =
-that.
-> There is a PoC (with virtio-mmio on Arm) which is based on Juergen Gross=
-=E2=80=99  work to reuse secure Xen grant mapping for the virtio
-> communications.
-> All details are at:
-> https://lore.kernel.org/xen-devel/1649963973-22879-1-git-send-email-oleks=
-tysh@gmail.com/
-> https://lore.kernel.org/xen-devel/1649964960-24864-1-git-send-email-oleks=
-tysh@gmail.com/
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Thanks for that. I shall try and find some time to have a look at it.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Did you see Viresh's post about getting our rust-vmm vhost-user backends
-working on Xen?
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-One thing that came up during that work was how guest pages are mapped
-into the dom0 domain where Xen needs to use kernel allocated pages via
-privcmd rather than then normal shared mmap that is used on KVM. As I
-understand it this is to avoid the situation where dom0 may invalidate a
-user PTE causing issues for the hypervisor itself. At some point we
-would like to fix that wrinkle so we can remove the (minor) hack in
-rust-vmm's mmap code to be truly hypervisor agnostic.=20
 
-Anyway I hope you and your team are safe and well.
+Not pushing.
 
---=20
-Alex Benn=C3=A9e
+(No revision log; it would be 5135 lines long.)
 
