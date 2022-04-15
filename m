@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2EA9503048
-	for <lists+xen-devel@lfdr.de>; Sat, 16 Apr 2022 00:19:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.305939.521071 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79AB850304A
+	for <lists+xen-devel@lfdr.de>; Sat, 16 Apr 2022 00:27:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.305944.521082 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nfUHP-0004xi-OS; Fri, 15 Apr 2022 22:19:03 +0000
+	id 1nfUP8-0006TF-J4; Fri, 15 Apr 2022 22:27:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 305939.521071; Fri, 15 Apr 2022 22:19:03 +0000
+Received: by outflank-mailman (output) from mailman id 305944.521082; Fri, 15 Apr 2022 22:27:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nfUHP-0004vr-LZ; Fri, 15 Apr 2022 22:19:03 +0000
-Received: by outflank-mailman (input) for mailman id 305939;
- Fri, 15 Apr 2022 22:19:02 +0000
+	id 1nfUP8-0006RH-FU; Fri, 15 Apr 2022 22:27:02 +0000
+Received: by outflank-mailman (input) for mailman id 305944;
+ Fri, 15 Apr 2022 22:27:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JP5O=UZ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nfUHO-0004vj-0d
- for xen-devel@lists.xenproject.org; Fri, 15 Apr 2022 22:19:02 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ id 1nfUP6-0006RB-UD
+ for xen-devel@lists.xenproject.org; Fri, 15 Apr 2022 22:27:01 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0d09fda6-bd0a-11ec-8fbe-03012f2f19d4;
- Sat, 16 Apr 2022 00:19:00 +0200 (CEST)
+ id 29863fb3-bd0b-11ec-8fbe-03012f2f19d4;
+ Sat, 16 Apr 2022 00:26:59 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 150A7B83122;
- Fri, 15 Apr 2022 22:19:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24E2DC385A4;
- Fri, 15 Apr 2022 22:18:58 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9480862116;
+ Fri, 15 Apr 2022 22:26:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F9E6C385A4;
+ Fri, 15 Apr 2022 22:26:56 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,135 +44,440 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d09fda6-bd0a-11ec-8fbe-03012f2f19d4
+X-Inumbo-ID: 29863fb3-bd0b-11ec-8fbe-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1650061138;
-	bh=fscACWys4DXSOaZ8pzzt20bUsUJOvEXojsuQGUVaXEI=;
+	s=k20201202; t=1650061617;
+	bh=PN9Wghh2u+WBV+lc4rxfbwHQy8ORwnCgwhxfFuTi1wo=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=cV7D6S9Zcm9o1PgKk/92APwE108cD816p4nS+GfJm3a5hYohEmbQoM0CNgq0o9Ojb
-	 7Dn2iGFyV3PcBW6ni5wpYkPF+Yf5mZ9UrQLv9kZ6QJvOYlj9k1SFTUAIyDbeVHQqBg
-	 u0gQZio8p45XsDmfpgQwMnwxQPSqwB2fNwgu5E5Dy2LKYDdFZBUtgQoDhDa/nqZbkj
-	 6N8a3Y50leuzl0xEH9WMl0CaYIFTuq/n8ALwaOEditxCWgxE8tlDv/Feq2rj/+6+kp
-	 qW5uaQEwmw57vr1CDikL5ydRGkueOUsexQeWHcpXO+da4mtmFbVAfhGxZKdlYwKb7s
-	 8Uo7Js2X3rM7w==
-Date: Fri, 15 Apr 2022 15:18:57 -0700 (PDT)
+	b=ofhs9m+fl2KPBq9TGw1n5JPnc9k04T5CMRnpplI1k/bNYFFdkN3l/MgFRJN35Ylv+
+	 3AtAhZiVhfXnIiDrC7eKvsJbE+IWA0ikFrrUQsc9iFHDj/UtLHPx2mJ4jEuJpr6rg8
+	 Ux3GjEmFDbjRTUQDWbkgyE4+URCkVmIWuHQm4oHTzWwPAraDGUI0MNrnV6o4jmOX90
+	 0K3mix+T6V9aelzBvJVDxRc/3Q8LCR/mW2hcApxSDmUUKy+Hc0yaOUIUrd/fuiqW18
+	 lISMzMJjv52Pbghnsks/TJO4OOqSUKfKaEUtyUbiPwcx7WxSBvlSqldjtuuixtZ9PH
+	 k9tkKu/DbfHag==
+Date: Fri, 15 Apr 2022 15:26:56 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Penny Zheng <Penny.Zheng@arm.com>
-cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Jan Beulich <jbeulich@suse.com>, nd <nd@arm.com>, 
-    Penny Zheng <penzhe01@a011292.shanghai.arm.com>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Wei Chen <Wei.Chen@arm.com>
-Subject: RE: [PATCH v1 02/13] xen/arm: introduce a special domain
- DOMID_SHARED
-In-Reply-To: <DU2PR08MB7325F469140EFE83F2F8F91DF7EE9@DU2PR08MB7325.eurprd08.prod.outlook.com>
-Message-ID: <alpine.DEB.2.22.394.2204151506520.915916@ubuntu-linux-20-04-desktop>
-References: <20220311061123.1883189-1-Penny.Zheng@arm.com> <20220311061123.1883189-3-Penny.Zheng@arm.com> <eefa9cf2-a04c-ba8d-74cb-0d2aaa35badb@suse.com> <alpine.DEB.2.22.394.2203181443440.2910984@ubuntu-linux-20-04-desktop> <30a6ef6f-d37c-b66c-d5af-be2208766057@suse.com>
- <alpine.DEB.2.22.394.2203211256370.2910984@ubuntu-linux-20-04-desktop> <f8627956-8b01-6a5d-d69a-d2da16d74726@xen.org> <DU2PR08MB7325F469140EFE83F2F8F91DF7EE9@DU2PR08MB7325.eurprd08.prod.outlook.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+cc: sstabellini@kernel.org, julien@xen.org, Volodymyr_Babchuk@epam.com, 
+    bertrand.marquis@arm.com, andrew.cooper3@citrix.com, 
+    george.dunlap@citrix.com, jbeulich@suse.com, wl@xen.org, 
+    xen-devel@lists.xenproject.org, van.freenix@gmail.com, 
+    michal.orzel@arm.com, Peng Fan <peng.fan@nxp.com>, 
+    Henry Wang <Henry.Wang@arm.com>
+Subject: Re: [PATCH V5 1/2] xen/arm: Add i.MX lpuart driver
+In-Reply-To: <20220414074452.14419-2-peng.fan@oss.nxp.com>
+Message-ID: <alpine.DEB.2.22.394.2204151525120.915916@ubuntu-linux-20-04-desktop>
+References: <20220414074452.14419-1-peng.fan@oss.nxp.com> <20220414074452.14419-2-peng.fan@oss.nxp.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 15 Apr 2022, Penny Zheng wrote:
-> > Hi Stefano,
-> > 
-> > On 21/03/2022 20:03, Stefano Stabellini wrote:
-> > > On Mon, 21 Mar 2022, Jan Beulich wrote:
-> > >> On 18.03.2022 22:50, Stefano Stabellini wrote:
-> > >>> On Fri, 18 Mar 2022, Jan Beulich wrote:
-> > >>>> On 11.03.2022 07:11, Penny Zheng wrote:
-> > >>>>> In case to own statically shared pages when owner domain is not
-> > >>>>> explicitly defined, this commits propose a special domain
-> > >>>>> DOMID_SHARED, and we assign it 0x7FF5, as one of the system domains.
-> > >>>>>
-> > >>>>> Statically shared memory reuses the same way of initialization
-> > >>>>> with static memory, hence this commits proposes a new Kconfig
-> > >>>>> CONFIG_STATIC_SHM to wrap related codes, and this option depends
-> > on static memory(CONFIG_STATIC_MEMORY).
-> > >>>>>
-> > >>>>> We intends to do shared domain creation after setup_virt_paging so
-> > >>>>> shared domain could successfully do p2m initialization.
-> > >>>>
-> > >>>> There's nothing said here, in the earlier patch, or in the cover
-> > >>>> letter about the security aspects of this. There is a reason we
-> > >>>> haven't been allowing arbitrary, un-supervised sharing of memory
-> > >>>> between domains. It wants clarifying why e.g. grants aren't an
-> > >>>> option to achieve what you need, and how you mean to establish
-> > >>>> which domains are / aren't permitted to access any individual page
-> > owned by this domain.
-> > >>>
-> > >>>
-> > >>> I'll let Penny write a full reply but I'll chime in to try to help
-> > >>> with the explanation.
-> > >>>
-> > >>> This is not arbitrary un-supervised sharing of memory between
-> > >>> domains, which indeed is concerning.
-> > >>>
-> > >>> This is statically-configured, supervised by the system
-> > >>> configurator, sharing of memory between domains.
-> > >>>
-> > >>> And in fact safety (which is just a different aspect of security) is
-> > >>> one of the primary goals for this work.
-> > >>>
-> > >>> In safety-critical environments, it is not considered safe to
-> > >>> dynamically change important configurations at runtime. Everything
-> > >>> should be statically defined and statically verified.
-> > >>>
-> > >>> In this case, if the system configuration knows a priori that there
-> > >>> are only 2 VM and they need to communication over shared memory, it
-> > >>> is safer to pre-configure the shared memory at build time rather
-> > >>> than let the VMs attempt to share memory at runtime. It is faster too.
-> > >>>
-> > >>> The only way to trigger this static shared memory configuration
-> > >>> should be via device tree, which is at the same level as the XSM
-> > >>> rules themselves.
-> > >>>
-> > >>> Hopefully I made things clearer and not murkier :-)
-> > >>
-> > >> It adds some helpful background, yes, but at the same time it doesn't
-> > >> address the security concern at all: How are access permissions
-> > >> managed when the owning domain is a special one? I haven't spotted
-> > >> any recording of the domains which are actually permitted to map /
-> > >> access the pages in questions. (But of course I also only looked at
-> > >> non-Arm-specific code. I'd expect such code not to live in arch-
-> > >> specific files.)
-> > >
-> > > All this static memory sharing is statically done at __init time only.
-> > > It should not be possible to trigger any further memory sharing at
-> > > runtime (if there is, that would be a bug).
-> > 
-> > Looking at the code, get_pg_owner() will be able to handle DOMID_SHARED.
-> > So anyone that is permitted to access DOMID_SHARED will be able to map any
-> > memory region at runtime.
-> > 
-> > > There are no new interfaces for the guest to map this memory because
-> > > it is already "pre-mapped".
-> > 
-> > It can via XENMAPSPACE_gmfn_foreign (assuming proper permission).
-> > 
+On Thu, 14 Apr 2022, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
 > 
-> Correct me if I'm wrong:
-> The existing XENMAPSPACE_gmfn_foreign only allows privileged Dom0 to map
-> memory pages from one foreign DomU to itself. So It can happen that Dom0 is
-> using XENMAPSPACE_gmfn_foreign to (maliciously?) access shared memory owned
-> by DOMID_SHARED, and for now only Dom0 could.
+> The i.MX LPUART Documentation:
+> https://www.nxp.com/webapp/Download?colCode=IMX8QMIEC
+> Chatper 13.6 Low Power Universal Asynchronous Receiver/
+> Transmitter (LPUART)
+> 
+> Tested-by: Henry Wang <Henry.Wang@arm.com>
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+>  xen/arch/arm/include/asm/imx-lpuart.h |  64 ++++++
+>  xen/drivers/char/Kconfig              |   7 +
+>  xen/drivers/char/Makefile             |   1 +
+>  xen/drivers/char/imx-lpuart.c         | 276 ++++++++++++++++++++++++++
+>  4 files changed, 348 insertions(+)
+>  create mode 100644 xen/arch/arm/include/asm/imx-lpuart.h
+>  create mode 100644 xen/drivers/char/imx-lpuart.c
+> 
+> diff --git a/xen/arch/arm/include/asm/imx-lpuart.h b/xen/arch/arm/include/asm/imx-lpuart.h
+> new file mode 100644
+> index 0000000000..fe859045dc
+> --- /dev/null
+> +++ b/xen/arch/arm/include/asm/imx-lpuart.h
+> @@ -0,0 +1,64 @@
+> +/*
+> + * xen/arch/arm/include/asm/imx-lpuart.h
+> + *
+> + * Common constant definition between early printk and the LPUART driver
+> + *
+> + * Peng Fan <peng.fan@nxp.com>
+> + * Copyright 2022 NXP
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License as published by
+> + * the Free Software Foundation; either version 2 of the License, or
+> + * (at your option) any later version.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + */
+> +
+> +#ifndef __ASM_ARM_IMX_LPUART_H__
+> +#define __ASM_ARM_IMX_LPUART_H__
+> +
+> +/* 32-bit register definition */
+> +#define UARTBAUD          (0x10)
+> +#define UARTSTAT          (0x14)
+> +#define UARTCTRL          (0x18)
+> +#define UARTDATA          (0x1C)
+> +#define UARTMATCH         (0x20)
+> +#define UARTMODIR         (0x24)
+> +#define UARTFIFO          (0x28)
+> +#define UARTWATER         (0x2c)
+> +
+> +#define UARTSTAT_TDRE     BIT(23, UL)
+> +#define UARTSTAT_TC       BIT(22, UL)
+> +#define UARTSTAT_RDRF     BIT(21, UL)
+> +#define UARTSTAT_OR       BIT(19, UL)
+> +
+> +#define UARTBAUD_OSR_SHIFT    (24)
+> +#define UARTBAUD_OSR_MASK     (0x1f)
+> +#define UARTBAUD_SBR_MASK     (0x1fff)
+> +#define UARTBAUD_BOTHEDGE     (0x00020000)
+> +#define UARTBAUD_TDMAE        (0x00800000)
+> +#define UARTBAUD_RDMAE        (0x00200000)
+> +
+> +#define UARTCTRL_TIE      BIT(23, UL)
+> +#define UARTCTRL_TCIE     BIT(22, UL)
+> +#define UARTCTRL_RIE      BIT(21, UL)
+> +#define UARTCTRL_ILIE     BIT(20, UL)
+> +#define UARTCTRL_TE       BIT(19, UL)
+> +#define UARTCTRL_RE       BIT(18, UL)
+> +#define UARTCTRL_M        BIT(4, UL)
+> +
+> +#define UARTWATER_RXCNT_OFF     24
+> +
+> +#endif /* __ASM_ARM_IMX_LPUART_H__ */
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/drivers/char/Kconfig b/xen/drivers/char/Kconfig
+> index 2ff5b288e2..e5f7b1d8eb 100644
+> --- a/xen/drivers/char/Kconfig
+> +++ b/xen/drivers/char/Kconfig
+> @@ -13,6 +13,13 @@ config HAS_CADENCE_UART
+>  	  This selects the Xilinx Zynq Cadence UART. If you have a Xilinx Zynq
+>  	  based board, say Y.
+>  
+> +config HAS_IMX_LPUART
+> +	bool "i.MX LPUART driver"
+> +	default y
+> +	depends on ARM_64
+> +	help
+> +	  This selects the i.MX LPUART. If you have i.MX8QM based board, say Y.
+> +
+>  config HAS_MVEBU
+>  	bool "Marvell MVEBU UART driver"
+>  	default y
+> diff --git a/xen/drivers/char/Makefile b/xen/drivers/char/Makefile
+> index 7c646d771c..14e67cf072 100644
+> --- a/xen/drivers/char/Makefile
+> +++ b/xen/drivers/char/Makefile
+> @@ -8,6 +8,7 @@ obj-$(CONFIG_HAS_MVEBU) += mvebu-uart.o
+>  obj-$(CONFIG_HAS_OMAP) += omap-uart.o
+>  obj-$(CONFIG_HAS_SCIF) += scif-uart.o
+>  obj-$(CONFIG_HAS_EHCI) += ehci-dbgp.o
+> +obj-$(CONFIG_HAS_IMX_LPUART) += imx-lpuart.o
+>  obj-$(CONFIG_ARM) += arm-uart.o
+>  obj-y += serial.o
+>  obj-$(CONFIG_XEN_GUEST) += xen_pv_console.o
+> diff --git a/xen/drivers/char/imx-lpuart.c b/xen/drivers/char/imx-lpuart.c
+> new file mode 100644
+> index 0000000000..df44f91e5d
+> --- /dev/null
+> +++ b/xen/drivers/char/imx-lpuart.c
+> @@ -0,0 +1,276 @@
+> +/*
+> + * xen/drivers/char/imx-lpuart.c
+> + *
+> + * Driver for i.MX LPUART.
+> + *
+> + * Peng Fan <peng.fan@nxp.com>
+> + * Copyright 2022 NXP
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License as published by
+> + * the Free Software Foundation; either version 2 of the License, or
+> + * (at your option) any later version.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + */
+> +
+> +#include <xen/errno.h>
+> +#include <xen/init.h>
+> +#include <xen/irq.h>
+> +#include <xen/mm.h>
+> +#include <xen/serial.h>
+> +#include <asm/device.h>
+> +#include <asm/imx-lpuart.h>
+> +#include <asm/io.h>
+> +
+> +#define imx_lpuart_read(uart, off)       readl((uart)->regs + off)
+> +#define imx_lpuart_write(uart, off, val) writel((val), (uart)->regs + off)
+> +
+> +static struct imx_lpuart {
+> +    uint32_t baud, clock_hz, data_bits, parity, stop_bits, fifo_size;
+> +    uint32_t irq;
+> +    char __iomem *regs;
+> +    struct irqaction irqaction;
+> +    struct vuart_info vuart;
+> +} imx8_com;
+> +
+> +static void imx_lpuart_interrupt(int irq, void *data,
+> +                                 struct cpu_user_regs *regs)
+> +{
+> +    struct serial_port *port = data;
+> +    struct imx_lpuart *uart = port->uart;
+> +    uint32_t sts, rxcnt;
+> +
+> +    sts = imx_lpuart_read(uart, UARTSTAT);
+> +    rxcnt = imx_lpuart_read(uart, UARTWATER) >> UARTWATER_RXCNT_OFF;
+> +
+> +    if ( (sts & UARTSTAT_RDRF) || (rxcnt > 0) )
+> +	    serial_rx_interrupt(port, regs);
+> +
+> +    if ( sts & UARTSTAT_TDRE )
+> +	    serial_tx_interrupt(port, regs);
+> +
+> +    imx_lpuart_write(uart, UARTSTAT, sts);
+> +}
+> +
+> +static void __init imx_lpuart_init_preirq(struct serial_port *port)
+> +{
+> +    struct imx_lpuart *uart = port->uart;
+> +    uint32_t ctrl, old_ctrl, bd;
+> +
+> +    old_ctrl = imx_lpuart_read(uart, UARTCTRL);
+> +    ctrl = (old_ctrl & ~UARTCTRL_M) | UARTCTRL_TE | UARTCTRL_RE;
+> +    bd = imx_lpuart_read(uart, UARTBAUD);
+> +
+> +    while ( !(imx_lpuart_read(uart, UARTSTAT) & UARTSTAT_TC) )
+> +	    cpu_relax();
+> +
+> +    /* Disable transmit and receive */
+> +    imx_lpuart_write(uart, UARTCTRL, old_ctrl & ~(UARTCTRL_TE | UARTCTRL_RE));
+> +
+> +    /* Reuse firmware baudrate settings, only disable DMA here */
+> +    bd &= ~(UARTBAUD_TDMAE | UARTBAUD_RDMAE);
+> +
+> +    imx_lpuart_write(uart, UARTMODIR, 0);
+> +    imx_lpuart_write(uart, UARTBAUD, bd);
+> +    imx_lpuart_write(uart, UARTCTRL, ctrl);
+> +}
+> +
+> +static void __init imx_lpuart_init_postirq(struct serial_port *port)
+> +{
+> +    struct imx_lpuart *uart = port->uart;
+> +    uint32_t temp;
+> +
+> +    uart->irqaction.handler = imx_lpuart_interrupt;
+> +    uart->irqaction.name = "imx_lpuart";
+> +    uart->irqaction.dev_id = port;
+> +
+> +    if ( setup_irq(uart->irq, 0, &uart->irqaction) != 0 )
+> +    {
+> +        dprintk(XENLOG_ERR, "Failed to allocate imx_lpuart IRQ %d\n",
+> +                uart->irq);
+> +        return;
+> +    }
+> +
+> +    /* Enable interrupts */
+> +    temp = imx_lpuart_read(uart, UARTCTRL);
+> +    temp |= (UARTCTRL_RIE | UARTCTRL_TIE);
+> +    temp |= UARTCTRL_ILIE;
+> +    imx_lpuart_write(uart, UARTCTRL, temp);
+> +}
+> +
+> +static void imx_lpuart_suspend(struct serial_port *port)
+> +{
+> +    BUG();
+> +}
+> +
+> +static void imx_lpuart_resume(struct serial_port *port)
+> +{
+> +    BUG();
+> +}
+> +
+> +static int imx_lpuart_tx_ready(struct serial_port *port)
+> +{
+> +    struct imx_lpuart *uart = port->uart;
+> +
+> +    return imx_lpuart_read(uart, UARTSTAT) & UARTSTAT_TC;
+> +}
+> +
+> +static void imx_lpuart_putc(struct serial_port *port, char c)
+> +{
+> +    struct imx_lpuart *uart = port->uart;
+> +
+> +    while ( !(imx_lpuart_read(uart, UARTSTAT) & UARTSTAT_TDRE) )
+> +        cpu_relax();
+> +
+> +    imx_lpuart_write(uart, UARTDATA, c);
+> +}
+> +
+> +static int imx_lpuart_getc(struct serial_port *port, char *pc)
+> +{
+> +    struct imx_lpuart *uart = port->uart;
+> +    int ch;
+> +
+> +    while ( !(imx_lpuart_read(uart, UARTSTAT) & UARTSTAT_RDRF) )
+> +	    return 0;
+> +
+> +    ch = imx_lpuart_read(uart, UARTDATA);
+> +    *pc = ch & 0xff;
+> +
+> +    if ( imx_lpuart_read(uart, UARTSTAT) &  UARTSTAT_OR )
+> +        imx_lpuart_write(uart, UARTSTAT, UARTSTAT_OR);
+> +
+> +    return 1;
+> +}
+> +
+> +static int __init imx_lpuart_irq(struct serial_port *port)
+> +{
+> +    struct imx_lpuart *uart = port->uart;
+> +
+> +    return ((uart->irq > 0) ? uart->irq : -1);
+> +}
+> +
+> +static const struct vuart_info *imx_lpuart_vuart_info(struct serial_port *port)
+> +{
+> +    struct imx_lpuart *uart = port->uart;
+> +
+> +    return &uart->vuart;
+> +}
+> +
+> +static void imx_lpuart_start_tx(struct serial_port *port)
+> +{
+> +    struct imx_lpuart *uart = port->uart;
+> +    uint32_t temp;
+> +
+> +    temp = imx_lpuart_read(uart, UARTSTAT);
+> +    /* Wait until empty */
+> +    while ( !(temp & UARTSTAT_TDRE) )
+> +	    cpu_relax();
 
-No, currently there is no protection against dom0 doing malicious
-operations. Dom0 can poweroff the entire system.
+It looks like this is looping over a stale variable?
 
-If we are certain that only dom0 (and not other domains) can use
-XENMAPSPACE_gmfn_foreign to access shared memory owned by DOMID_SHARED
-then we are good. Looking at the code, and also considering that we have
-agreed to move to DOMID_IO, get_pg_owner can already handle DOMID_IO.
 
-Next is the xsm_map_gmfn_foreign(XSM_TARGET, d, od) check, which would
-fail unless the asking domain is privileged over the target domain.
-xsm_map_gmfn_foreign would fail for all domains except dom0.
-
-So I think we are OK. I don't think we need to do anything else.
+> +    temp = imx_lpuart_read(uart, UARTCTRL);
+> +    imx_lpuart_write(uart, UARTCTRL, (temp | UARTCTRL_TIE));
+> +}
+> +
+> +static void imx_lpuart_stop_tx(struct serial_port *port)
+> +{
+> +    struct imx_lpuart *uart = port->uart;
+> +    uint32_t temp;
+> +
+> +    temp = imx_lpuart_read(uart, UARTCTRL);
+> +    temp &= ~(UARTCTRL_TIE | UARTCTRL_TCIE);
+> +    imx_lpuart_write(uart, UARTCTRL, temp);
+> +}
+> +
+> +static struct uart_driver __read_mostly imx_lpuart_driver = {
+> +    .init_preirq = imx_lpuart_init_preirq,
+> +    .init_postirq = imx_lpuart_init_postirq,
+> +    .endboot = NULL,
+> +    .suspend = imx_lpuart_suspend,
+> +    .resume = imx_lpuart_resume,
+> +    .tx_ready = imx_lpuart_tx_ready,
+> +    .putc = imx_lpuart_putc,
+> +    .getc = imx_lpuart_getc,
+> +    .irq = imx_lpuart_irq,
+> +    .start_tx = imx_lpuart_start_tx,
+> +    .stop_tx = imx_lpuart_stop_tx,
+> +    .vuart_info = imx_lpuart_vuart_info,
+> +};
+> +
+> +static int __init imx_lpuart_init(struct dt_device_node *dev,
+> +                                  const void *data)
+> +{
+> +    const char *config = data;
+> +    struct imx_lpuart *uart;
+> +    int res;
+> +    u64 addr, size;
+> +
+> +    if ( strcmp(config, "") )
+> +        printk("WARNING: UART configuration is not supported\n");
+> +
+> +    uart = &imx8_com;
+> +
+> +    uart->baud = 115200;
+> +    uart->data_bits = 8;
+> +    uart->parity = 0;
+> +    uart->stop_bits = 1;
+> +
+> +    res = dt_device_get_address(dev, 0, &addr, &size);
+> +    if ( res )
+> +    {
+> +        printk("imx8-lpuart: Unable to retrieve the base"
+> +               " address of the UART\n");
+> +        return res;
+> +    }
+> +
+> +    res = platform_get_irq(dev, 0);
+> +    if ( res < 0 )
+> +    {
+> +        printk("imx8-lpuart: Unable to retrieve the IRQ\n");
+> +        return -EINVAL;
+> +    }
+> +    uart->irq = res;
+> +
+> +    uart->regs = ioremap_nocache(addr, size);
+> +    if ( !uart->regs )
+> +    {
+> +        printk("imx8-lpuart: Unable to map the UART memory\n");
+> +        return -ENOMEM;
+> +    }
+> +
+> +    uart->vuart.base_addr = addr;
+> +    uart->vuart.size = size;
+> +    uart->vuart.data_off = UARTDATA;
+> +    /* tmp from uboot */
+> +    uart->vuart.status_off = UARTSTAT;
+> +    uart->vuart.status = UARTSTAT_TDRE;
+> +
+> +    /* Register with generic serial driver */
+> +    serial_register_uart(SERHND_DTUART, &imx_lpuart_driver, uart);
+> +
+> +    dt_device_set_used_by(dev, DOMID_XEN);
+> +
+> +    return 0;
+> +}
+> +
+> +static const struct dt_device_match imx_lpuart_dt_compat[] __initconst =
+> +{
+> +    DT_MATCH_COMPATIBLE("fsl,imx8qm-lpuart"),
+> +    { /* sentinel */ },
+> +};
+> +
+> +DT_DEVICE_START(imx_lpuart, "i.MX LPUART", DEVICE_SERIAL)
+> +    .dt_match = imx_lpuart_dt_compat,
+> +    .init = imx_lpuart_init,
+> +DT_DEVICE_END
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> -- 
+> 2.35.1
+> 
 
