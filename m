@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEF0D5031E8
-	for <lists+xen-devel@lfdr.de>; Sat, 16 Apr 2022 01:43:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.305971.521126 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBF1D5031ED
+	for <lists+xen-devel@lfdr.de>; Sat, 16 Apr 2022 01:45:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.305977.521137 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nfVaM-0007oh-3k; Fri, 15 Apr 2022 23:42:42 +0000
+	id 1nfVdI-0008VA-Km; Fri, 15 Apr 2022 23:45:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 305971.521126; Fri, 15 Apr 2022 23:42:42 +0000
+Received: by outflank-mailman (output) from mailman id 305977.521137; Fri, 15 Apr 2022 23:45:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nfVaM-0007mz-0R; Fri, 15 Apr 2022 23:42:42 +0000
-Received: by outflank-mailman (input) for mailman id 305971;
- Fri, 15 Apr 2022 23:42:40 +0000
+	id 1nfVdI-0008Sc-Hn; Fri, 15 Apr 2022 23:45:44 +0000
+Received: by outflank-mailman (input) for mailman id 305977;
+ Fri, 15 Apr 2022 23:45:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JP5O=UZ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nfVaK-0007mt-Ho
- for xen-devel@lists.xenproject.org; Fri, 15 Apr 2022 23:42:40 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ <SRS0=6WtN=UZ=gmail.com=julien.grall@srs-se1.protection.inumbo.net>)
+ id 1nfVdH-0008SU-Gk
+ for xen-devel@lists.xenproject.org; Fri, 15 Apr 2022 23:45:43 +0000
+Received: from mail-il1-x12b.google.com (mail-il1-x12b.google.com
+ [2607:f8b0:4864:20::12b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bbdc95b0-bd15-11ec-8fbe-03012f2f19d4;
- Sat, 16 Apr 2022 01:42:38 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 0CFD3B82FAE;
- Fri, 15 Apr 2022 23:42:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24EFAC385A4;
- Fri, 15 Apr 2022 23:42:35 +0000 (UTC)
+ id 28c8ccb0-bd16-11ec-8fbe-03012f2f19d4;
+ Sat, 16 Apr 2022 01:45:42 +0200 (CEST)
+Received: by mail-il1-x12b.google.com with SMTP id r11so5587085ila.1
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Apr 2022 16:45:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,411 +39,393 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bbdc95b0-bd15-11ec-8fbe-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1650066156;
-	bh=Ov+uoU9Mc5w1Tn66KpXzUke9yX7nZixhdesKNbF7kCs=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=LQ9x8WKH7aujfYxbJUYU+3Rq3dJNPtnYYhCddTsFUjmZkvbKpDWVsHlwI9ti1tgw5
-	 0+wRL/rYkSPZI7a3bcGPysbWRaLygsZzEDG22EGx94vkPLnoem1umMMzguBxomQ0OM
-	 C2uPAhmWrSYqCl1IOpbn0dwO1iKt0eW/TEqug14YsBFl8sI+Q4zkPIm1h462kkwUiY
-	 dAo+xLul5RDculs2BENK2fGkdGWnWfq2dWQPyQxoAhFPUk2UT0Z6mR5mmB8Wl76vge
-	 aBth8ukmlFWboZ89rRZ2jnlUx3LUhvxSaW9xSM3cXlTW1s/L5cGd1Xc1ba2tVCRH6Z
-	 6sQUaclcd8qvQ==
-Date: Fri, 15 Apr 2022 16:42:34 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Wei Liu <wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Michal Orzel <michal.orzel@arm.com>
-Subject: Re: [PATCH v2] xen/build: Add cppcheck and cppcheck-html make
- rules
-In-Reply-To: <74b35aab0706fc977a3c5c3dfa20b52fda6f4698.1649855186.git.bertrand.marquis@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2204151637350.915916@ubuntu-linux-20-04-desktop>
-References: <74b35aab0706fc977a3c5c3dfa20b52fda6f4698.1649855186.git.bertrand.marquis@arm.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 28c8ccb0-bd16-11ec-8fbe-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=Whatm5yIxNGgA/0xJCvQkgGDKdJIiTfGm5E24y+lywE=;
+        b=qjhN6EmDK8JYzzB0h95JndTPrKZWIZ34kSvOJ3ZYAwS+AE+Jkr8kTkGlnBrrXm9Adg
+         Xoa+BS40pMly5WaWhJB3gI4+VZdqo2Vqm+WgE0ztl7pNdRaY0XyQXNpW1DwY7zaGFSn7
+         lBe+TjGYXFkBKo4UHF/xBx4N+lMgjpR++/Hnwd2i5nCnE9GofIdq9IoaIJ+OpBuSRaAV
+         D0aDt30cTxlhYWWUPYI4GFwYPRZa/qIr6dWsC8GOT33DrZzjGw97aTd78ezuxud54Xo6
+         URGWpXtbdaf+PXaKDdxSicUFMO5qEl9o7FTVfg+1z20mILOWTzFizs+z+XV76vuMzOmj
+         IQYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=Whatm5yIxNGgA/0xJCvQkgGDKdJIiTfGm5E24y+lywE=;
+        b=ZD6ACaUB1EifN0C/85ODIaAeg8KrchVQRrpiQLvg4witM/4KEIvPqurPmBL94C5lYg
+         Mo+Umsv9fqvepU/+1d+CQV+mV8Hv/FcLebwAo6oVDSe3MHXAiMJwVAqGPDJAgAgPv6vt
+         oOD8afJH8E8r3iysHS7XOEv9iaTxhHAwli9tdW0cZ6kdUwcUTu4uKaXkwBSDdJIfV7Q/
+         JEfHSrP18UPlOBs45sKgYXE0aSE0oiwtXSm+0IC3lSl0BNDmT1OjuK+hIq4boxL/ZFMm
+         OYY7Ti2POko8ekFQnkK+Qs254hEiB9Kfp6oHCK85yt0HHR7vuRxK1XSmHJXcT3fvQtrz
+         SWYw==
+X-Gm-Message-State: AOAM530sAQMBFA9xVEDSrnDKXCUOghzKMs86J1SA98Tlw3T2shp2hOyv
+	LSZ9MNDHr48rVZNT8+s4dX2ySRxZ4oCqoiwVXI4=
+X-Google-Smtp-Source: ABdhPJy8GAnfvKOABU1JAIHlWVNQOx834WVOABoUoFjyHkXBLQb8+J2Wx28YfV0e0Tqi+2f8Sh/BX7IDAWRMQJXIhtI=
+X-Received: by 2002:a05:6e02:12ce:b0:2ca:3c80:3abc with SMTP id
+ i14-20020a056e0212ce00b002ca3c803abcmr461394ilm.47.1650066340766; Fri, 15 Apr
+ 2022 16:45:40 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <20220311061123.1883189-1-Penny.Zheng@arm.com> <20220311061123.1883189-3-Penny.Zheng@arm.com>
+ <eefa9cf2-a04c-ba8d-74cb-0d2aaa35badb@suse.com> <alpine.DEB.2.22.394.2203181443440.2910984@ubuntu-linux-20-04-desktop>
+ <30a6ef6f-d37c-b66c-d5af-be2208766057@suse.com> <alpine.DEB.2.22.394.2203211256370.2910984@ubuntu-linux-20-04-desktop>
+ <f8627956-8b01-6a5d-d69a-d2da16d74726@xen.org> <DU2PR08MB7325F469140EFE83F2F8F91DF7EE9@DU2PR08MB7325.eurprd08.prod.outlook.com>
+ <alpine.DEB.2.22.394.2204151506520.915916@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2204151506520.915916@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien.grall@gmail.com>
+Date: Fri, 15 Apr 2022 23:45:29 +0000
+Message-ID: <CAF3u54AC1QRrGgPWDYjeb5xyuXhpF5GsHh5WFPxr=9XCKe1fCg@mail.gmail.com>
+Subject: Re: [PATCH v1 02/13] xen/arm: introduce a special domain DOMID_SHARED
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+	Julien Grall <julien@xen.org>, Penny Zheng <penzhe01@a011292.shanghai.arm.com>, 
+	Penny Zheng <Penny.Zheng@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	Wei Chen <Wei.Chen@arm.com>, Wei Liu <wl@xen.org>, nd <nd@arm.com>, 
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Type: multipart/alternative; boundary="00000000000018e86605dcba0279"
 
-On Wed, 13 Apr 2022, Bertrand Marquis wrote:
-> cppcheck can be used to check Xen code quality.
-> 
-> To create a report do "make cppcheck" on a built tree adding any options
-> you added during the process you used to build xen (like CROSS_COMPILE
-> or XEN_TARGET_ARCH). This will generate an xml report xen-cppcheck.xml.
-> 
-> To create a html report do "make cppcheck-html" in the same way and a
-> full report to be seen in a browser will be generated in
-> cppcheck-htmlreport/index.html.
-> 
-> For better results it is recommended to build your own cppcheck from the
-> latest sources that you can find at [1].
-> Development and result analysis has been done with cppcheck 2.7.
-> 
-> The Makefile rule is searching for all C files which have been compiled
-> (ie which have a generated .o file) and is running cppcheck on all of
-> them using the current configuration of xen so only the code actually
-> compiled is checked.
-> 
-> A new tool is introduced to merge all cppcheck reports into one global
-> report including all findings and removing duplicates.
-> 
-> Some extra variables can be used to customize the report:
-> - CPPCHECK can be used to give the full path to the cppcheck binary to
-> use (default is to use the one from the standard path).
-> - CPPCHECK_HTMLREPORT can be used to give the full path to
-> cppcheck-htmlreport (default is to use the one from the standard path).
-> 
-> This has been tested on several arm configurations (x86 should work but
-> has not been tested).
-> 
-> [1] https://cppcheck.sourceforge.io/
-> 
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
+--00000000000018e86605dcba0279
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This is better, thanks! I don't have a lot of comments as it looks
-pretty OK to me already. Only one comment on the python script.
+Hi,
 
+On Fri, 15 Apr 2022 at 22:19, Stefano Stabellini <sstabellini@kernel.org>
+wrote:
 
-> ---
-> Changes in v2:
-> - catch parsing errors during merge and tell the user to update cppcheck
-> - fix alignments in Makefile
-> - use srctree and objtree instead of BASEDIR
-> - remove SCTLR invalid change
-> - add a check of cppcheck version and mandate version 2.7 or greater
-> - rework the merge script to make it faster and display progress
-> ---
->  .gitignore                           |  3 +
->  xen/Makefile                         | 84 +++++++++++++++++++++++++++-
->  xen/arch/arm/include/asm/processor.h |  2 +
->  xen/include/xen/config.h             |  4 ++
->  xen/include/xen/kconfig.h            |  5 ++
->  xen/tools/merge_cppcheck_reports.py  | 83 +++++++++++++++++++++++++++
->  6 files changed, 179 insertions(+), 2 deletions(-)
->  create mode 100755 xen/tools/merge_cppcheck_reports.py
-> 
-> diff --git a/.gitignore b/.gitignore
-> index d425be4bd9..0d2d60b8f1 100644
-> --- a/.gitignore
-> +++ b/.gitignore
-> @@ -7,6 +7,7 @@
->  *.o
->  *.d
->  *.d2
-> +*.c.cppcheck
->  *.opic
->  *.a
->  *.so
-> @@ -296,6 +297,7 @@ xen/.banner
->  xen/.config
->  xen/.config.old
->  xen/.xen.elf32
-> +xen/xen-cppcheck.xml
->  xen/System.map
->  xen/arch/x86/boot/mkelf32
->  xen/arch/x86/boot/cmdline.S
-> @@ -316,6 +318,7 @@ xen/arch/*/efi/runtime.c
->  xen/arch/*/include/asm/asm-offsets.h
->  xen/common/config_data.S
->  xen/common/config.gz
-> +xen/cppcheck-htmlreport
->  xen/include/headers*.chk
->  xen/include/compat/*
->  xen/include/config/
-> diff --git a/xen/Makefile b/xen/Makefile
-> index ebc7854c08..734f9f2b4f 100644
-> --- a/xen/Makefile
-> +++ b/xen/Makefile
-> @@ -335,7 +335,7 @@ export CFLAGS_UBSAN
->  
->  endif # need-config
->  
-> -main-targets := build install uninstall clean distclean MAP
-> +main-targets := build install uninstall clean distclean MAP cppcheck cppcheck-html
->  .PHONY: $(main-targets)
->  ifneq ($(XEN_TARGET_ARCH),x86_32)
->  $(main-targets): %: _% ;
-> @@ -423,15 +423,17 @@ _clean:
->  	$(Q)$(MAKE) $(clean)=tools/kconfig
->  	find . \( -name "*.o" -o -name ".*.d" -o -name ".*.d2" \
->  		-o -name ".*.o.tmp" -o -name "*~" -o -name "core" \
-> -		-o -name '*.lex.c' -o -name '*.tab.[ch]' \
-> +		-o -name '*.lex.c' -o -name '*.tab.[ch]' -o -name '*.c.cppcheck' \
->  		-o -name "*.gcno" -o -name ".*.cmd" -o -name "lib.a" \) -exec rm -f {} \;
->  	rm -f include/asm $(TARGET) $(TARGET).gz $(TARGET).efi $(TARGET).efi.map $(TARGET)-syms $(TARGET)-syms.map
->  	rm -f asm-offsets.s arch/*/include/asm/asm-offsets.h
->  	rm -f .banner .allconfig.tmp include/xen/compile.h
-> +	rm -f xen-cppcheck.xml
->  
->  .PHONY: _distclean
->  _distclean: clean
->  	rm -f tags TAGS cscope.files cscope.in.out cscope.out cscope.po.out GTAGS GPATH GRTAGS GSYMS .config
-> +	rm -rf $(CPPCHECK_HTMLREPORT_OUTDIR)
->  
->  $(TARGET).gz: $(TARGET)
->  	gzip -n -f -9 < $< > $@.new
-> @@ -505,6 +507,84 @@ cloc:
->  	    done; \
->  	done | cloc --list-file=-
->  
-> +# What cppcheck command to use.
-> +# To get proper results, it is recommended to build cppcheck manually from the
-> +# latest source and use CPPCHECK to give the full path to the built version.
-> +CPPCHECK ?= cppcheck
-> +
-> +# What cppcheck-htmlreport to use.
-> +# If you give the full path to a self compiled cppcheck, this should be set
-> +# to the full path to cppcheck-html in the htmlreport directory of cppcheck.
-> +# On recent distribution, this is available in the standard path.
-> +CPPCHECK_HTMLREPORT ?= cppcheck-htmlreport
-> +
-> +# By default we generate the report in cppcheck-htmlreport directory in the
-> +# build directory. This can be changed by giving a directory in this variable.
-> +CPPCHECK_HTMLREPORT_OUTDIR ?= cppcheck-htmlreport
-> +
-> +# Compile flags to pass to cppcheck:
-> +# - include directories and defines Xen Makefile is passing (from CFLAGS)
-> +# - include config.h as this is passed directly to the compiler.
-> +# - define CPPCHECK as we use to disable or enable some specific part of the
-> +#   code to solve some cppcheck issues.
-> +# - explicitely enable some cppcheck checks as we do not want to use "all"
-> +#   which includes unusedFunction which gives wrong positives as we check file
-> +#   per file.
-> +#
-> +# Compiler defines are in compiler-def.h which is included in config.h
-> +#
-> +CPPCHECKFLAGS := -DCPPCHECK --max-ctu-depth=10 \
-> +                 --enable=style,information,missingInclude \
-> +                 --include=$(srctree)/include/xen/config.h \
-> +                 -I $(srctree)/xsm/flask/include \
-> +                 -I $(srctree)/include/xen/libfdt \
-> +                 $(filter -D% -I%,$(CFLAGS))
-> +
-> +# We need to find all C files (as we are not checking assembly files) so
-> +# we find all generated .o files which have a .c corresponding file.
-> +CPPCHECKFILES := $(wildcard $(patsubst $(objtree)/%.o,$(srctree)/%.c, \
-> +                 $(filter-out $(objtree)/tools/%, \
-> +                 $(shell find $(objtree) -name "*.o"))))
-> +
-> +quiet_cmd_cppcheck_xml = CPPCHECK $(patsubst $(srctree)/%,%,$<)
-> +cmd_cppcheck_xml = $(CPPCHECK) -v -q --xml $(CPPCHECKFLAGS) \
-> +                   --output-file=$@ $<
-> +
-> +quiet_cmd_merge_cppcheck_reports = CPPCHECK-MERGE $@
-> +cmd_merge_cppcheck_reports = $(srctree)/tools/merge_cppcheck_reports.py $^ $@
-> +
-> +quiet_cmd_cppcheck_html = CPPCHECK-HTML $<
-> +cmd_cppcheck_html = $(CPPCHECK_HTMLREPORT) --file=$< --source-dir=$(srctree) \
-> +                    --report-dir=$(CPPCHECK_HTMLREPORT_OUTDIR) --title=Xen
-> +
-> +PHONY += _cppcheck _cppcheck-html cppcheck-version
-> +
-> +_cppcheck-html: xen-cppcheck.xml
-> +	$(call if_changed,cppcheck_html)
-> +
-> +_cppcheck: xen-cppcheck.xml
-> +
-> +xen-cppcheck.xml: $(patsubst $(srctree)/%.c,$(objtree)/%.c.cppcheck,$(CPPCHECKFILES))
-> +ifeq ($(CPPCHECKFILES),)
-> +	$(error Please build Xen before running cppcheck)
-> +endif
-> +	$(call if_changed,merge_cppcheck_reports)
-> +
-> +$(objtree)/%.c.cppcheck: $(srctree)/%.c $(objtree)/include/generated/autoconf.h $(objtree)/include/generated/compiler-def.h | cppcheck-version
-> +	$(call if_changed,cppcheck_xml)
-> +
-> +cppcheck-version:
-> +ifeq ($(shell which $(CPPCHECK)),)
-> +	$(error Cannot find cppcheck executable: $(CPPCHECK))
-> +endif
-> +ifeq ($(shell $(CPPCHECK) --version | awk '{print ($$2 < 2.7)}'),1)
-> +	$(error Please upgrade your cppcheck to version 2.7 or greater)
-> +endif
-> +
-> +# Put this in generated headers this way it is cleaned by include/Makefile
-> +$(objtree)/include/generated/compiler-def.h:
-> +	$(Q)$(CC) -dM -E -o $@ - < /dev/null
-> +
->  endif #config-build
->  
->  PHONY += FORCE
-> diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
-> index 852b5f3c24..ef37cfa16f 100644
-> --- a/xen/arch/arm/include/asm/processor.h
-> +++ b/xen/arch/arm/include/asm/processor.h
-> @@ -219,9 +219,11 @@
->                           SCTLR_Axx_ELx_A    | SCTLR_Axx_ELx_C   |\
->                           SCTLR_Axx_ELx_WXN  | SCTLR_Axx_ELx_EE)
->  
-> +#ifndef CPPCHECK
->  #if (SCTLR_EL2_SET ^ SCTLR_EL2_CLEAR) != 0xffffffffffffffffUL
->  #error "Inconsistent SCTLR_EL2 set/clear bits"
->  #endif
-> +#endif
->  
->  #endif
->  
-> diff --git a/xen/include/xen/config.h b/xen/include/xen/config.h
-> index 85c6f59be9..d888b2314d 100644
-> --- a/xen/include/xen/config.h
-> +++ b/xen/include/xen/config.h
-> @@ -7,6 +7,10 @@
->  #ifndef __XEN_CONFIG_H__
->  #define __XEN_CONFIG_H__
->  
-> +#ifdef CPPCHECK
-> +#include <generated/compiler-def.h>
-> +#endif
-> +
->  #include <xen/kconfig.h>
->  
->  #ifndef __ASSEMBLY__
-> diff --git a/xen/include/xen/kconfig.h b/xen/include/xen/kconfig.h
-> index 4d58c5bb3c..a717b0819c 100644
-> --- a/xen/include/xen/kconfig.h
-> +++ b/xen/include/xen/kconfig.h
-> @@ -8,6 +8,10 @@
->   * these only work with boolean option.
->   */
->  
-> +/* cppcheck is failing to parse the macro so use a dummy one */
-> +#ifdef CPPCHECK
-> +#define IS_ENABLED(option) option
-> +#else
->  /*
->   * Getting something that works in C and CPP for an arg that may or may
->   * not be defined is tricky.  Here, if we have "#define CONFIG_BOOGER 1"
-> @@ -27,5 +31,6 @@
->   * otherwise.
->   */
->  #define IS_ENABLED(option) config_enabled(option)
-> +#endif
->  
->  #endif /* __XEN_KCONFIG_H */
-> diff --git a/xen/tools/merge_cppcheck_reports.py b/xen/tools/merge_cppcheck_reports.py
-> new file mode 100755
-> index 0000000000..eabf558768
-> --- /dev/null
-> +++ b/xen/tools/merge_cppcheck_reports.py
-> @@ -0,0 +1,83 @@
-> +#!/usr/bin/env python
-> +
-> +"""
-> +This script acts as a tool to merge XML files created by cppcheck.
-> +Usage:
-> +    merge_cppcheck_reports.py [FILES] [OUTPUT]
-> +
-> +    FILES  - list of XML files with extension .cppcheck
-> +    OUTPUT - file to store results (with .xml extension).
-> +             If not specified, the script will print results to stdout.
-> +"""
-> +
-> +import sys
-> +from xml.etree import ElementTree
-> +
-> +def elements_equal(el1, el2):
-> +    if type(el1) != type(el2): return False
-> +
-> +    el1_location = str(el1.find('location').attrib)
-> +    el2_location = str(el2.find('location').attrib)
-
-I managed to repro another stacktrace:
-
-  CPPCHECK-MERGE xen-cppcheck.xml
- 123 / 191Traceback (most recent call last):
-  File "./tools/merge_cppcheck_reports.py", line 83, in <module>
-    run()
-  File "./tools/merge_cppcheck_reports.py", line 72, in run
-    result = merge(files)
-  File "./tools/merge_cppcheck_reports.py", line 53, in merge
-    if not contain_element(xml_error_elem, curr_elem_list):
-  File "./tools/merge_cppcheck_reports.py", line 28, in contain_element
-    if elements_equal(new, elem):
-  File "./tools/merge_cppcheck_reports.py", line 19, in elements_equal
-    el1_location = str(el1.find('location').attrib)
-AttributeError: 'NoneType' object has no attribute 'attrib'
-make: *** [Makefile:685: xen-cppcheck.xml] Error 1
-
-It must be a natural talent :-)
-
-Should we have a try/except also here as well?
-
-FYI I added:
-
-    if el1.find('location') is None: return False
-    if el2.find('location') is None: return False
-
-And that solved the issue for me
+> On Fri, 15 Apr 2022, Penny Zheng wrote:
+> > > Hi Stefano,
+> > >
+> > > On 21/03/2022 20:03, Stefano Stabellini wrote:
+> > > > On Mon, 21 Mar 2022, Jan Beulich wrote:
+> > > >> On 18.03.2022 22:50, Stefano Stabellini wrote:
+> > > >>> On Fri, 18 Mar 2022, Jan Beulich wrote:
+> > > >>>> On 11.03.2022 07:11, Penny Zheng wrote:
+> > > >>>>> In case to own statically shared pages when owner domain is not
+> > > >>>>> explicitly defined, this commits propose a special domain
+> > > >>>>> DOMID_SHARED, and we assign it 0x7FF5, as one of the system
+> domains.
+> > > >>>>>
+> > > >>>>> Statically shared memory reuses the same way of initialization
+> > > >>>>> with static memory, hence this commits proposes a new Kconfig
+> > > >>>>> CONFIG_STATIC_SHM to wrap related codes, and this option depend=
+s
+> > > on static memory(CONFIG_STATIC_MEMORY).
+> > > >>>>>
+> > > >>>>> We intends to do shared domain creation after setup_virt_paging
+> so
+> > > >>>>> shared domain could successfully do p2m initialization.
+> > > >>>>
+> > > >>>> There's nothing said here, in the earlier patch, or in the cover
+> > > >>>> letter about the security aspects of this. There is a reason we
+> > > >>>> haven't been allowing arbitrary, un-supervised sharing of memory
+> > > >>>> between domains. It wants clarifying why e.g. grants aren't an
+> > > >>>> option to achieve what you need, and how you mean to establish
+> > > >>>> which domains are / aren't permitted to access any individual pa=
+ge
+> > > owned by this domain.
+> > > >>>
+> > > >>>
+> > > >>> I'll let Penny write a full reply but I'll chime in to try to hel=
+p
+> > > >>> with the explanation.
+> > > >>>
+> > > >>> This is not arbitrary un-supervised sharing of memory between
+> > > >>> domains, which indeed is concerning.
+> > > >>>
+> > > >>> This is statically-configured, supervised by the system
+> > > >>> configurator, sharing of memory between domains.
+> > > >>>
+> > > >>> And in fact safety (which is just a different aspect of security)
+> is
+> > > >>> one of the primary goals for this work.
+> > > >>>
+> > > >>> In safety-critical environments, it is not considered safe to
+> > > >>> dynamically change important configurations at runtime. Everythin=
+g
+> > > >>> should be statically defined and statically verified.
+> > > >>>
+> > > >>> In this case, if the system configuration knows a priori that the=
+re
+> > > >>> are only 2 VM and they need to communication over shared memory, =
+it
+> > > >>> is safer to pre-configure the shared memory at build time rather
+> > > >>> than let the VMs attempt to share memory at runtime. It is faster
+> too.
+> > > >>>
+> > > >>> The only way to trigger this static shared memory configuration
+> > > >>> should be via device tree, which is at the same level as the XSM
+> > > >>> rules themselves.
+> > > >>>
+> > > >>> Hopefully I made things clearer and not murkier :-)
+> > > >>
+> > > >> It adds some helpful background, yes, but at the same time it
+> doesn't
+> > > >> address the security concern at all: How are access permissions
+> > > >> managed when the owning domain is a special one? I haven't spotted
+> > > >> any recording of the domains which are actually permitted to map /
+> > > >> access the pages in questions. (But of course I also only looked a=
+t
+> > > >> non-Arm-specific code. I'd expect such code not to live in arch-
+> > > >> specific files.)
+> > > >
+> > > > All this static memory sharing is statically done at __init time
+> only.
+> > > > It should not be possible to trigger any further memory sharing at
+> > > > runtime (if there is, that would be a bug).
+> > >
+> > > Looking at the code, get_pg_owner() will be able to handle
+> DOMID_SHARED.
+> > > So anyone that is permitted to access DOMID_SHARED will be able to ma=
+p
+> any
+> > > memory region at runtime.
+> > >
+> > > > There are no new interfaces for the guest to map this memory becaus=
+e
+> > > > it is already "pre-mapped".
+> > >
+> > > It can via XENMAPSPACE_gmfn_foreign (assuming proper permission).
+> > >
+> >
+> > Correct me if I'm wrong:
+> > The existing XENMAPSPACE_gmfn_foreign only allows privileged Dom0 to ma=
+p
+> > memory pages from one foreign DomU to itself. So It can happen that Dom=
+0
+> is
+> > using XENMAPSPACE_gmfn_foreign to (maliciously?) access shared memory
+> owned
+> > by DOMID_SHARED, and for now only Dom0 could.
+>
+> No, currently there is no protection against dom0 doing malicious
+> operations. Dom0 can poweroff the entire system.
 
 
-> +    if el1_location != el2_location: return False
-> +
-> +    return True
-> +
-> +def contain_element(new, lst):
-> +    for elem in lst:
-> +        if elements_equal(new, elem):
-> +            return True
-> +    return False
-> +
-> +def merge(files):
-> +    try:
-> +        result_xml_root = ElementTree.parse(files[0]).getroot()
-> +    except ParseError:
-> +        print("Xml parsing error in %s\n" % (files[0]))
-> +        print("Please upgrade your cppcheck to version 2.7 or greater")
-> +        sys.exit(1)
-> +    insert_point = result_xml_root.findall("errors")[0]
-> +    curr = 1
-> +    total = len(files)
-> +    numelem = len(insert_point)
-> +    for xml_file in files[1:]:
-> +        try:
-> +            xml_root = ElementTree.parse(xml_file).getroot()
-> +        except ParseError:
-> +            print("Xml parsing error in %s\n" % (xml_file))
-> +            print("Please upgrade your cppcheck to version 2.7 or greater")
-> +            sys.exit(1)
-> +        curr_elem_list = list(insert_point)
-> +        new_elem_list = list(xml_root.findall("errors")[0])
-> +        for xml_error_elem in new_elem_list:
-> +            if not contain_element(xml_error_elem, curr_elem_list):
-> +                insert_point.insert(1,xml_error_elem)
-> +                numelem = numelem + 1
-> +        curr = curr + 1
-> +        sys.stdout.write('\r')
-> +        sys.stdout.write(" %d / %d" % (curr,total))
-> +        sys.stdout.flush()
-> +
-> +    sys.stdout.write('\r\n')
-> +    print("Done: %d elements" % (numelem))
-> +    return result_xml_root
-> +
-> +def run():
-> +    files = []
-> +    output = None
-> +    for i in sys.argv[1:]:
-> +        output = i if '.xml' in i else None
-> +        files.append(i) if '.cppcheck' in i else None
-> +
-> +    result = merge(files)
-> +
-> +    if result is None:
-> +        return
-> +
-> +    if output is not None:
-> +        ElementTree.ElementTree(result).write(output)
-> +    else:
-> +        print(ElementTree.tostring(result).decode('utf-8'))
-> +
-> +if __name__ == '__main__':
-> +    run()
-> -- 
-> 2.25.1
-> 
+This is the classic argument=E2=80=A6 Yes, on a default setup, dom0 is full=
+y
+trusted today. However there are way to reduce the trust via XSM.
+
+For new interfaces we should also try to avoid  considering dom0 as fully
+trusted whenever it is possible. This is one of the example where I think
+this should be done. The more if we use DOMID_IO as we may add more than
+shared pages there=E2=80=A6
+
+
+>
+> If we are certain that only dom0 (and not other domains) can use
+> XENMAPSPACE_gmfn_foreign to access shared memory owned by DOMID_SHARED
+> then we are good. Looking at the code, and also considering that we have
+> agreed to move to DOMID_IO, get_pg_owner can already handle DOMID_IO.
+
+
+AFAIK, dom0 cannot map DOMID_IO page for now because get_page_from_gfn
+would not work. This would change with this approach.
+
+
+>
+> Next is the xsm_map_gmfn_foreign(XSM_TARGET, d, od) check, which would
+> fail unless the asking domain is privileged over the target domain.
+> xsm_map_gmfn_foreign would fail for all domains except dom0.
+
+
+This depends your XSM policy. In this case, think we need to prevent
+runtime mapping via the hypercall interface. We can relax it afterwards if
+we have use cases for it.
+
+
+>
+> So I think we are OK. I don't think we need to do anything else.
+
+
+
+Cheers,
+--=20
+Julien Grall
+
+--00000000000018e86605dcba0279
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Hi,</div><div><br><div class=3D"gmail_quote"><div dir=3D"=
+ltr" class=3D"gmail_attr">On Fri, 15 Apr 2022 at 22:19, Stefano Stabellini =
+&lt;<a href=3D"mailto:sstabellini@kernel.org">sstabellini@kernel.org</a>&gt=
+; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
+ 0px 0.8ex;border-left-width:1px;border-left-style:solid;padding-left:1ex;b=
+order-left-color:rgb(204,204,204)">On Fri, 15 Apr 2022, Penny Zheng wrote:<=
+br>
+&gt; &gt; Hi Stefano,<br>
+&gt; &gt; <br>
+&gt; &gt; On 21/03/2022 20:03, Stefano Stabellini wrote:<br>
+&gt; &gt; &gt; On Mon, 21 Mar 2022, Jan Beulich wrote:<br>
+&gt; &gt; &gt;&gt; On 18.03.2022 22:50, Stefano Stabellini wrote:<br>
+&gt; &gt; &gt;&gt;&gt; On Fri, 18 Mar 2022, Jan Beulich wrote:<br>
+&gt; &gt; &gt;&gt;&gt;&gt; On 11.03.2022 07:11, Penny Zheng wrote:<br>
+&gt; &gt; &gt;&gt;&gt;&gt;&gt; In case to own statically shared pages when =
+owner domain is not<br>
+&gt; &gt; &gt;&gt;&gt;&gt;&gt; explicitly defined, this commits propose a s=
+pecial domain<br>
+&gt; &gt; &gt;&gt;&gt;&gt;&gt; DOMID_SHARED, and we assign it 0x7FF5, as on=
+e of the system domains.<br>
+&gt; &gt; &gt;&gt;&gt;&gt;&gt;<br>
+&gt; &gt; &gt;&gt;&gt;&gt;&gt; Statically shared memory reuses the same way=
+ of initialization<br>
+&gt; &gt; &gt;&gt;&gt;&gt;&gt; with static memory, hence this commits propo=
+ses a new Kconfig<br>
+&gt; &gt; &gt;&gt;&gt;&gt;&gt; CONFIG_STATIC_SHM to wrap related codes, and=
+ this option depends<br>
+&gt; &gt; on static memory(CONFIG_STATIC_MEMORY).<br>
+&gt; &gt; &gt;&gt;&gt;&gt;&gt;<br>
+&gt; &gt; &gt;&gt;&gt;&gt;&gt; We intends to do shared domain creation afte=
+r setup_virt_paging so<br>
+&gt; &gt; &gt;&gt;&gt;&gt;&gt; shared domain could successfully do p2m init=
+ialization.<br>
+&gt; &gt; &gt;&gt;&gt;&gt;<br>
+&gt; &gt; &gt;&gt;&gt;&gt; There&#39;s nothing said here, in the earlier pa=
+tch, or in the cover<br>
+&gt; &gt; &gt;&gt;&gt;&gt; letter about the security aspects of this. There=
+ is a reason we<br>
+&gt; &gt; &gt;&gt;&gt;&gt; haven&#39;t been allowing arbitrary, un-supervis=
+ed sharing of memory<br>
+&gt; &gt; &gt;&gt;&gt;&gt; between domains. It wants clarifying why e.g. gr=
+ants aren&#39;t an<br>
+&gt; &gt; &gt;&gt;&gt;&gt; option to achieve what you need, and how you mea=
+n to establish<br>
+&gt; &gt; &gt;&gt;&gt;&gt; which domains are / aren&#39;t permitted to acce=
+ss any individual page<br>
+&gt; &gt; owned by this domain.<br>
+&gt; &gt; &gt;&gt;&gt;<br>
+&gt; &gt; &gt;&gt;&gt;<br>
+&gt; &gt; &gt;&gt;&gt; I&#39;ll let Penny write a full reply but I&#39;ll c=
+hime in to try to help<br>
+&gt; &gt; &gt;&gt;&gt; with the explanation.<br>
+&gt; &gt; &gt;&gt;&gt;<br>
+&gt; &gt; &gt;&gt;&gt; This is not arbitrary un-supervised sharing of memor=
+y between<br>
+&gt; &gt; &gt;&gt;&gt; domains, which indeed is concerning.<br>
+&gt; &gt; &gt;&gt;&gt;<br>
+&gt; &gt; &gt;&gt;&gt; This is statically-configured, supervised by the sys=
+tem<br>
+&gt; &gt; &gt;&gt;&gt; configurator, sharing of memory between domains.<br>
+&gt; &gt; &gt;&gt;&gt;<br>
+&gt; &gt; &gt;&gt;&gt; And in fact safety (which is just a different aspect=
+ of security) is<br>
+&gt; &gt; &gt;&gt;&gt; one of the primary goals for this work.<br>
+&gt; &gt; &gt;&gt;&gt;<br>
+&gt; &gt; &gt;&gt;&gt; In safety-critical environments, it is not considere=
+d safe to<br>
+&gt; &gt; &gt;&gt;&gt; dynamically change important configurations at runti=
+me. Everything<br>
+&gt; &gt; &gt;&gt;&gt; should be statically defined and statically verified=
+.<br>
+&gt; &gt; &gt;&gt;&gt;<br>
+&gt; &gt; &gt;&gt;&gt; In this case, if the system configuration knows a pr=
+iori that there<br>
+&gt; &gt; &gt;&gt;&gt; are only 2 VM and they need to communication over sh=
+ared memory, it<br>
+&gt; &gt; &gt;&gt;&gt; is safer to pre-configure the shared memory at build=
+ time rather<br>
+&gt; &gt; &gt;&gt;&gt; than let the VMs attempt to share memory at runtime.=
+ It is faster too.<br>
+&gt; &gt; &gt;&gt;&gt;<br>
+&gt; &gt; &gt;&gt;&gt; The only way to trigger this static shared memory co=
+nfiguration<br>
+&gt; &gt; &gt;&gt;&gt; should be via device tree, which is at the same leve=
+l as the XSM<br>
+&gt; &gt; &gt;&gt;&gt; rules themselves.<br>
+&gt; &gt; &gt;&gt;&gt;<br>
+&gt; &gt; &gt;&gt;&gt; Hopefully I made things clearer and not murkier :-)<=
+br>
+&gt; &gt; &gt;&gt;<br>
+&gt; &gt; &gt;&gt; It adds some helpful background, yes, but at the same ti=
+me it doesn&#39;t<br>
+&gt; &gt; &gt;&gt; address the security concern at all: How are access perm=
+issions<br>
+&gt; &gt; &gt;&gt; managed when the owning domain is a special one? I haven=
+&#39;t spotted<br>
+&gt; &gt; &gt;&gt; any recording of the domains which are actually permitte=
+d to map /<br>
+&gt; &gt; &gt;&gt; access the pages in questions. (But of course I also onl=
+y looked at<br>
+&gt; &gt; &gt;&gt; non-Arm-specific code. I&#39;d expect such code not to l=
+ive in arch-<br>
+&gt; &gt; &gt;&gt; specific files.)<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; All this static memory sharing is statically done at __init =
+time only.<br>
+&gt; &gt; &gt; It should not be possible to trigger any further memory shar=
+ing at<br>
+&gt; &gt; &gt; runtime (if there is, that would be a bug).<br>
+&gt; &gt; <br>
+&gt; &gt; Looking at the code, get_pg_owner() will be able to handle DOMID_=
+SHARED.<br>
+&gt; &gt; So anyone that is permitted to access DOMID_SHARED will be able t=
+o map any<br>
+&gt; &gt; memory region at runtime.<br>
+&gt; &gt; <br>
+&gt; &gt; &gt; There are no new interfaces for the guest to map this memory=
+ because<br>
+&gt; &gt; &gt; it is already &quot;pre-mapped&quot;.<br>
+&gt; &gt; <br>
+&gt; &gt; It can via XENMAPSPACE_gmfn_foreign (assuming proper permission).=
+<br>
+&gt; &gt; <br>
+&gt; <br>
+&gt; Correct me if I&#39;m wrong:<br>
+&gt; The existing XENMAPSPACE_gmfn_foreign only allows privileged Dom0 to m=
+ap<br>
+&gt; memory pages from one foreign DomU to itself. So It can happen that Do=
+m0 is<br>
+&gt; using XENMAPSPACE_gmfn_foreign to (maliciously?) access shared memory =
+owned<br>
+&gt; by DOMID_SHARED, and for now only Dom0 could.<br>
+<br>
+No, currently there is no protection against dom0 doing malicious<br>
+operations. Dom0 can poweroff the entire system.</blockquote><div dir=3D"au=
+to"><br></div><div dir=3D"auto">This is the classic argument=E2=80=A6 Yes, =
+on a default setup, dom0 is fully trusted today. However there are way to r=
+educe the trust via XSM.</div><div dir=3D"auto"><br></div><div dir=3D"auto"=
+>For new interfaces we should also try to avoid =C2=A0considering dom0 as f=
+ully trusted whenever it is possible. This is one of the example where I th=
+ink this should be done. The more if we use DOMID_IO as we may add more tha=
+n shared pages there=E2=80=A6</div><div dir=3D"auto"><br></div><blockquote =
+class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1=
+px;border-left-style:solid;padding-left:1ex;border-left-color:rgb(204,204,2=
+04)" dir=3D"auto"><br>
+<br>
+If we are certain that only dom0 (and not other domains) can use<br>
+XENMAPSPACE_gmfn_foreign to access shared memory owned by DOMID_SHARED<br>
+then we are good. Looking at the code, and also considering that we have<br=
+>
+agreed to move to DOMID_IO, get_pg_owner can already handle DOMID_IO.</bloc=
+kquote><div dir=3D"auto"><br></div><div dir=3D"auto"><span style=3D"border-=
+color:rgb(0,0,0);color:rgb(0,0,0)">AFAIK, dom0 cannot map DOMID_IO page for=
+ now because get_page_from_gfn would not work. This would change with this =
+approach.</span><br></div><div dir=3D"auto"><br></div><blockquote class=3D"=
+gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border=
+-left-style:solid;padding-left:1ex;border-left-color:rgb(204,204,204)" dir=
+=3D"auto"></blockquote><blockquote class=3D"gmail_quote" style=3D"margin:0p=
+x 0px 0px 0.8ex;border-left-width:1px;border-left-style:solid;padding-left:=
+1ex;border-left-color:rgb(204,204,204)" dir=3D"auto"><br>
+<br>
+Next is the xsm_map_gmfn_foreign(XSM_TARGET, d, od) check, which would<br>
+fail unless the asking domain is privileged over the target domain.<br>
+xsm_map_gmfn_foreign would fail for all domains except dom0.</blockquote><d=
+iv dir=3D"auto"><br></div><div dir=3D"auto">This depends your XSM policy. I=
+n this case, think we need to prevent runtime mapping via the hypercall int=
+erface. We can relax it afterwards if we have use cases for it.<br></div><d=
+iv dir=3D"auto"><br></div><blockquote class=3D"gmail_quote" style=3D"margin=
+:0px 0px 0px 0.8ex;border-left-width:1px;border-left-style:solid;padding-le=
+ft:1ex;border-left-color:rgb(204,204,204)" dir=3D"auto"><br>
+<br>
+So I think we are OK. I don&#39;t think we need to do anything else.</block=
+quote><div dir=3D"auto"><br></div><div dir=3D"auto"><br></div><div dir=3D"a=
+uto">Cheers,</div></div></div>-- <br><div dir=3D"ltr" class=3D"gmail_signat=
+ure" data-smartmail=3D"gmail_signature">Julien Grall</div>
+
+--00000000000018e86605dcba0279--
 
