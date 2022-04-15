@@ -2,49 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 589EE502382
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Apr 2022 07:10:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.305350.520426 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90614502405
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Apr 2022 07:36:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.305437.520437 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nfEDU-0006no-6s; Fri, 15 Apr 2022 05:09:56 +0000
+	id 1nfEd2-0001yr-Am; Fri, 15 Apr 2022 05:36:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 305350.520426; Fri, 15 Apr 2022 05:09:56 +0000
+Received: by outflank-mailman (output) from mailman id 305437.520437; Fri, 15 Apr 2022 05:36:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nfEDU-0006ld-3y; Fri, 15 Apr 2022 05:09:56 +0000
-Received: by outflank-mailman (input) for mailman id 305350;
- Fri, 15 Apr 2022 05:09:54 +0000
+	id 1nfEd2-0001x0-7V; Fri, 15 Apr 2022 05:36:20 +0000
+Received: by outflank-mailman (input) for mailman id 305437;
+ Fri, 15 Apr 2022 05:36:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0QNy=UZ=opensource.wdc.com=prvs=0972008b0=damien.lemoal@srs-se1.protection.inumbo.net>)
- id 1nfEDS-0006lW-S8
- for xen-devel@lists.xenproject.org; Fri, 15 Apr 2022 05:09:54 +0000
-Received: from esa6.hgst.iphmx.com (esa6.hgst.iphmx.com [216.71.154.45])
+ <SRS0=Bg9y=UZ=nvidia.com=chaitanyak@srs-se1.protection.inumbo.net>)
+ id 1nfEcz-0001wu-OT
+ for xen-devel@lists.xenproject.org; Fri, 15 Apr 2022 05:36:17 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2061a.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::61a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 46bbfed0-bc7a-11ec-8fbe-03012f2f19d4;
- Fri, 15 Apr 2022 07:09:51 +0200 (CEST)
-Received: from uls-op-cesaip01.wdc.com (HELO uls-op-cesaep01.wdc.com)
- ([199.255.45.14])
- by ob1.hgst.iphmx.com with ESMTP; 15 Apr 2022 13:09:50 +0800
-Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
- by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 14 Apr 2022 21:41:01 -0700
-Received: from usg-ed-osssrv.wdc.com ([10.3.10.180])
- by uls-op-cesaip02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 14 Apr 2022 22:09:50 -0700
-Received: from usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1])
- by usg-ed-osssrv.wdc.com (Postfix) with ESMTP id 4KfksT1jjKz1SVp2
- for <xen-devel@lists.xenproject.org>; Thu, 14 Apr 2022 22:09:49 -0700 (PDT)
-Received: from usg-ed-osssrv.wdc.com ([127.0.0.1])
- by usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1]) (amavisd-new,
- port 10026)
- with ESMTP id 6zELggWG5jd9 for <xen-devel@lists.xenproject.org>;
- Thu, 14 Apr 2022 22:09:48 -0700 (PDT)
-Received: from [10.225.163.9] (unknown [10.225.163.9])
- by usg-ed-osssrv.wdc.com (Postfix) with ESMTPSA id 4KfksM3c9Fz1Rvlx;
- Thu, 14 Apr 2022 22:09:43 -0700 (PDT)
+ id f722399e-bc7d-11ec-8fbe-03012f2f19d4;
+ Fri, 15 Apr 2022 07:36:15 +0200 (CEST)
+Received: from MW2PR12MB4667.namprd12.prod.outlook.com (2603:10b6:302:12::28)
+ by CY4PR12MB1815.namprd12.prod.outlook.com (2603:10b6:903:122::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Fri, 15 Apr
+ 2022 05:36:12 +0000
+Received: from MW2PR12MB4667.namprd12.prod.outlook.com
+ ([fe80::a90b:9df2:370c:e76b]) by MW2PR12MB4667.namprd12.prod.outlook.com
+ ([fe80::a90b:9df2:370c:e76b%3]) with mapi id 15.20.5144.030; Fri, 15 Apr 2022
+ 05:36:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,104 +47,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46bbfed0-bc7a-11ec-8fbe-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
-  t=1649999392; x=1681535392;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=wC6/PVYH+J9es8aT7sK5ZaGwsGnDQHOFu7y4PW6r0NI=;
-  b=K2XZiA01CH8m6rHS0Bde2s+ZW1bXpFwZqfU+BqH5yks1hA7r0Rphkp+b
-   glrMSU+iFhgjpEBrsGq5QXjaSJCjToXB/EIg/A2K0R6UydQXVTgUecQHx
-   2Yt+39Y310Oxav9rvr1jlfRMi/AhfUCV5OejO8UZHUV/q/REuedRke8DC
-   TIrTHnxwuGfe14LgPAr9E0LUbnEinKujtqKcHHUGRE96fNJkECeu9A0hS
-   dXji0yQ0bexUFATaaCLLWNt1n7+yBN2l50cT0HH1OPWu8Q8NP4LgQgvL5
-   GEsiNM5zIA4kmSHrsZHx9XAnYB/jx2vvGJgdobNLnLOaVhSIdyCotZmPr
-   A==;
-X-IronPort-AV: E=Sophos;i="5.90,261,1643644800"; 
-   d="scan'208";a="198866636"
-IronPort-SDR: hBovH/mIEnhPrmnNhlTbaFYy8pz3ohM1g/F95gCJawDkwTkjQ6d+X3ELKc1MBq8aNaOoM1YPG5
- ukA6G8hAi8RJ11xcPYPkUoUWjjwLl/Tm2g7naU/HdsTGgoCDh6l3PM+Gz6ncnK2vGah4UE7Yz/
- i5UCzdCMl/s8dbjWq29MSc2ZM7cxOUVG6ywRNN9lTyaIptkWfY+BUMqTi+cuZbMfFeg8VRG1xh
- GxfFda/+hKSjQ5+VvwH3BFq4BIFkOGN0FJALBGC7apj7hKrtwejoar8DxkiV4XOU1DdTuIvuUx
- BqiyqpAQwrL+tcdl0NzcR2R+
-IronPort-SDR: bps6QUVXgZkdrbGTYIIWoVFCL2b0NA+nkiYCHjzvqxxEQtsKowrRSfXwbIdsXFT9t0KutRSR9A
- MoXMGHcvTqxiWw7Mdk8WAkVEruzTxr6zr04BZVQNL5F2P5ysCm3X6WdB4H5ujGb2WcOeoG6wbD
- UjBM1JD7+qheb+ozCDWW8S6YfETox5WrmHONQXlX1mMi0O6fMN1OCQHeN+gZXK8CQiFl/IwJ9U
- QjIdJryOQzX0Vcln2j59Yc6SFk3+Hp2ED1PhXfMPKc2/RApVFRC+XAnTfBe85TGK9A2aOrn03g
- v/8=
-WDCIronportException: Internal
-Authentication-Results: usg-ed-osssrv.wdc.com (amavisd-new); dkim=pass
-	reason="pass (just generated, assumed good)"
-	header.d=opensource.wdc.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=
-	opensource.wdc.com; h=content-transfer-encoding:content-type
-	:in-reply-to:organization:from:references:to:content-language
-	:subject:user-agent:mime-version:date:message-id; s=dkim; t=
-	1649999388; x=1652591389; bh=wC6/PVYH+J9es8aT7sK5ZaGwsGnDQHOFu7y
-	4PW6r0NI=; b=D8kdC3rz3pjqnugRL+G3XHXL6Ng78iZSZCza4fEMQpTN/xdgY6D
-	ndgbPRv8Ii6RTniwYP01qFwFHzH91r1LoAWx6xGwWEN+Qsp3Ex2YpjoRKlcblFjc
-	7yjQF4oBeK9egOucgCIrr2m+tKTIlJA0mcKIvKIgWCVnz5iEJtEs0vxeju2wZT96
-	jtBkpdSzig+EY3uiGMCOqAfDYf4ob5UMdfn63Y/7o6floZGBngeQCZ8K+n+vY3d5
-	lYsSP/0Lz/G5amM7P4+yygELabSZDZHGZG/YfdQpCLMrO4FBxFoQbF9pdD3HvN17
-	o1OWdE4/X82Vq8Fyie48I/oIcM5G/NLyIZA==
-X-Virus-Scanned: amavisd-new at usg-ed-osssrv.wdc.com
-Message-ID: <62ebc311-e5ef-cea5-5236-0c83d1a3eb64@opensource.wdc.com>
-Date: Fri, 15 Apr 2022 14:09:42 +0900
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH 10/27] mm: use bdev_is_zoned in claim_swapfile
-Content-Language: en-US
+X-Inumbo-ID: f722399e-bc7d-11ec-8fbe-03012f2f19d4
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WWif4DDX+SDI4boNRQQJAfomnKYarbf5KgueLDXVi62Jn8qiem/iyYZVVIwzZBAY2FO/hUbE0/k8am+DV9NzDmK/62jv7EbQQ2xHJgZ3podJRvVcsfcthIacamMjh0+2Bys833/pVttFX6HMGCHft90NGIZC2OhBpUvOaKbEfsYIP5SuB9SFmvjX/HkDIKzPwcPJOra6bQHsHIvQYdrmzC4JcOkPp2n9L9Kzd3KW7KMgR0+4F83EsX+F5/pqcemkBoGnAJ8G4IYx8XmjDLyL/0QpisOV/dNNER9VtKUobx1HbGsLt6kX0QeeVZZ/l71OogHk3KKxynVBjLNz+dN4cA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4IuTuVb/KyS1ZV0aqxRI/Yu1yD+ABTgelallVeHsTxk=;
+ b=mzxXlASfNGcmJR0mr+mPSsFKifSuchQIwkCtoqenqILPlPwfVsfyJoWvV2vj3RoJPtSRpPkt9K83Ahukg5kI2JoN/Z9/8nz4/nDUQk0ZEKta6UWDAQgvMmbobzSBoamWw8jXjAwtVH/D3Uwv5jjjQNbLRI+nALtZxB0tIzvDIJ7Sx4iP+SD9GyKVI/tLMSy3gphyizEH17iVU+/oXXTAraPpBUOKqzboZDTvTbrp+3YcOcXVg0CVR2lmkVmRsXOCuXcMhwVkQgPndF7agaCW2nQRrDSmp7Sqv9tNd1qqxKW5XIEA3+6UqeV/8kYLZ70SgjJzqvpuOL5U8zGdf8fFHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4IuTuVb/KyS1ZV0aqxRI/Yu1yD+ABTgelallVeHsTxk=;
+ b=lx/vsdq1wuVjGXFb0RtlS8aNQVUdAwD32nu7CMFt+qyOZp4fU3BYd3nAfXUFYKskrRJfQL7Sgji53ElZm5sqH6S/Ro6ASYp2RNr5+WHyhQPl3V6ohDw/8K2T39LgGqYhL4BcILkZlIF3ghKn0878TKS0ZcvZmL9PLTjfMTSIQNzECGhofyqMeQ+XUOAPN0Q3qU8PzNiUwWiOS3ftFL8yvZ1G2R/FHpEDy1mrydwcAu2LEF+6QmWcTz3dW09SMVJheytf97BROBR4O2mgsLrGBQYZ8LvNMcZhgPtxqrDaz2MjJwXa5Np6BaGNWj9+2NWfTymrAIM8L/TicDPywpv7Gg==
+From: Chaitanya Kulkarni <chaitanyak@nvidia.com>
 To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
-Cc: dm-devel@redhat.com, linux-xfs@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-um@lists.infradead.org,
- linux-block@vger.kernel.org, drbd-dev@lists.linbit.com,
- nbd@other.debian.org, ceph-devel@vger.kernel.org,
- virtualization@lists.linux-foundation.org, xen-devel@lists.xenproject.org,
- linux-bcache@vger.kernel.org, linux-raid@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-nvme@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
- linux-btrfs@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, cluster-devel@redhat.com,
- jfs-discussion@lists.sourceforge.net, linux-nilfs@vger.kernel.org,
- ntfs3@lists.linux.dev, ocfs2-devel@oss.oracle.com, linux-mm@kvack.org
+CC: "dm-devel@redhat.com" <dm-devel@redhat.com>, "linux-xfs@vger.kernel.org"
+	<linux-xfs@vger.kernel.org>, "linux-fsdevel@vger.kernel.org"
+	<linux-fsdevel@vger.kernel.org>, "linux-um@lists.infradead.org"
+	<linux-um@lists.infradead.org>, "linux-block@vger.kernel.org"
+	<linux-block@vger.kernel.org>, "drbd-dev@lists.linbit.com"
+	<drbd-dev@lists.linbit.com>, "nbd@other.debian.org" <nbd@other.debian.org>,
+	"ceph-devel@vger.kernel.org" <ceph-devel@vger.kernel.org>,
+	"virtualization@lists.linux-foundation.org"
+	<virtualization@lists.linux-foundation.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, "linux-bcache@vger.kernel.org"
+	<linux-bcache@vger.kernel.org>, "linux-raid@vger.kernel.org"
+	<linux-raid@vger.kernel.org>, "linux-mmc@vger.kernel.org"
+	<linux-mmc@vger.kernel.org>, "linux-mtd@lists.infradead.org"
+	<linux-mtd@lists.infradead.org>, "linux-nvme@lists.infradead.org"
+	<linux-nvme@lists.infradead.org>, "linux-s390@vger.kernel.org"
+	<linux-s390@vger.kernel.org>, "linux-scsi@vger.kernel.org"
+	<linux-scsi@vger.kernel.org>, "target-devel@vger.kernel.org"
+	<target-devel@vger.kernel.org>, "linux-btrfs@vger.kernel.org"
+	<linux-btrfs@vger.kernel.org>, "linux-ext4@vger.kernel.org"
+	<linux-ext4@vger.kernel.org>, "linux-f2fs-devel@lists.sourceforge.net"
+	<linux-f2fs-devel@lists.sourceforge.net>, "cluster-devel@redhat.com"
+	<cluster-devel@redhat.com>, "jfs-discussion@lists.sourceforge.net"
+	<jfs-discussion@lists.sourceforge.net>, "linux-nilfs@vger.kernel.org"
+	<linux-nilfs@vger.kernel.org>, "ntfs3@lists.linux.dev"
+	<ntfs3@lists.linux.dev>, "ocfs2-devel@oss.oracle.com"
+	<ocfs2-devel@oss.oracle.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>
+Subject: Re: [PATCH 01/27] target: remove an incorrect unmap zeroes data
+ deduction
+Thread-Topic: [PATCH 01/27] target: remove an incorrect unmap zeroes data
+ deduction
+Thread-Index: AQHYUITCWfO5Vbexo02RhnP7B3Qt7KzwdGUA
+Date: Fri, 15 Apr 2022 05:36:12 +0000
+Message-ID: <673afa25-cf3f-616c-6bcd-16de35b307b2@nvidia.com>
 References: <20220415045258.199825-1-hch@lst.de>
- <20220415045258.199825-11-hch@lst.de>
-From: Damien Le Moal <damien.lemoal@opensource.wdc.com>
-Organization: Western Digital Research
-In-Reply-To: <20220415045258.199825-11-hch@lst.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ <20220415045258.199825-2-hch@lst.de>
+In-Reply-To: <20220415045258.199825-2-hch@lst.de>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 0c41c8b1-f98c-4a0c-d430-08da1ea1da48
+x-ms-traffictypediagnostic: CY4PR12MB1815:EE_
+x-microsoft-antispam-prvs:
+ <CY4PR12MB1815025F04E67817416EF431A3EE9@CY4PR12MB1815.namprd12.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ FFcKzlLusYcihPuQmtr3t8KbNF6ZULdsUk3VDGoPU5Bzoim7x014V7OQAcQDACuimx2k4yREtr5B6uvJ2a8+1Uhd2xpAsmFn/qLBWU+QmZXIapLZyFQRTQOeeiEfFoms7bv0O8TA2h1Sa8MwWLeGYXuS1/E3RvLIoTNRVuO9UzRcZWyZWSQFxTMOL12Qns3v9NVdUfPovTVZiFDfTwJgyfqWPItknrB6PQlFJeMVHgxGslTmq350gxs5qs+xG+OVxS/DQedOy3ltIFpHUiPwk72NY7m7PE0ZlBBrkJb3u2+zh2ymtgCOaG+bowFhrlWJOiQ1OwDOMlmF5ns3rKS8XvTN/YJYaWqL8TEOp2RpLN5OL+mrCAx8hNrBZ0paAaO92k0nRjvEM6m4d0Euaf1ZzgMt2pH+HMEHp2QtyXP9V5w9mNVIo/cpWEyM9aGG7CEQ6NufsCVtLrmceiZK+BBSOVVx6Kuriw3HemolNu69pRP3r+/ON7gJqNR9OqkQgD2pVbeubVClHb9mztUeZpd652FKmn3k9GUpqg5Fe9lm5bEDvx0Aoq1f8yqjfX3ghiHmqp6YVLYwCamze5SKJVglv1TzAO9lFIT8BZ8sXV5+npwVYd84V645TVbI7wxZVK4gtOuLWMNwXfLbt49QpuuJyb/uGDLz+jrZrlKAeP6Fj4tVN/dOdqRK/YGL4BDamm/r2o2eVfWnzC0AYh4B4aDJjdm8z4b0LqHcyk5IYJaMM56QV7Z2E1G1LDpAAKpMl5MZM530+NFxKIwbYkKX2GXdiQ==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW2PR12MB4667.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(71200400001)(76116006)(6486002)(54906003)(110136005)(66476007)(36756003)(66946007)(38100700002)(31696002)(316002)(64756008)(66446008)(122000001)(8676002)(83380400001)(4326008)(66556008)(86362001)(7416002)(91956017)(7406005)(5660300002)(8936002)(2906002)(53546011)(6506007)(186003)(31686004)(2616005)(38070700005)(508600001)(4744005)(6512007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?VW9NMHpPcWJ5Mm9hcGpGT1lSZXc4SlQ0Y1FhTUpRNUYrZjArajhyN1lGNUk3?=
+ =?utf-8?B?SHM3OU5IZVNYNktNNHdzUzBGNnJjb3RVRnhzR3czakQrdWxtYlAwNTNOcUk2?=
+ =?utf-8?B?c3Q1YVpZK1FoUjZ5andsZnpRbmFZUUNhb2gwek1MQkFWNld1ZFloQWRldzRw?=
+ =?utf-8?B?T082RjhBTVluRDNORENwQW5lTHFOUmlNNHFhbm1QWXJySi8ydER1dFZYS0FT?=
+ =?utf-8?B?YzJla20zODFTQzh0cytmNGU2eEpLTVp1YXlTYzZKUzFjSjFuYjErYWRMTHJD?=
+ =?utf-8?B?cUpRa2tWaG9zYkN2QUI0dWppcnlXS29mWDd2ZUVPNjlLdmUwM0V6cUxlK2x1?=
+ =?utf-8?B?ajZwRlJEWi9QQ0YvQXR6MUtRTXVoRzFMK3grcmdLSTk4WWZFVXZDbEdYZkZH?=
+ =?utf-8?B?YmZuTHpuNEdCeXczMjlza1ZHS1NveU1tSVR5MkhwUUREbTRRMXdVT0FWWlFv?=
+ =?utf-8?B?V29DSDdlUXZRdGZObHNMOVk1d2puWkhOWFFpY0FBUHVZTzJkNU5Wd01xL05o?=
+ =?utf-8?B?SlN3a2pURnV4ZnZWRVRmVUcvU2hrK3h5ZnE2aFN2V3lRMnBJODlLaTFzWGh1?=
+ =?utf-8?B?cUNCWGppN2hUWVRKTy9ManRxOGdtSFRxclFPSFh6aVh6ZnVKRURJQm9VVm9l?=
+ =?utf-8?B?VnJtRWYrYkFUOTBoTmZEWXFGSHIzcVdyWk84NEZvVUNxTGdYbEllbEF5Nlpj?=
+ =?utf-8?B?S2pONlQ2RnFIcE4xZDdpQkFtZmt0dUdEaWhKUWVvKzY5YmRYOXlrb3B5ZGhJ?=
+ =?utf-8?B?VVpJSkZ2bWd3OXdubDdYZ0I3K25sVU4yOWQwMXFYS0ZzMjJONWtCaFpGYmRV?=
+ =?utf-8?B?MThGc0Z1NVI3U2FvakFEcHplWVRqK3R4cXFLbyttR3ZtQW5zQk5wZndsc3FY?=
+ =?utf-8?B?WE9PdUpwL0w4WjdMSURBNExMV1U5NUY4SjRUS0dwTXQ5TlBOT3RIUUVrTm1l?=
+ =?utf-8?B?eC94djVmVHRIc1hBRTcvcUoreGlQMFpHNUVTbkR4UVRCTDQ4OFZ0Nm80L2Yy?=
+ =?utf-8?B?WnRYREczdnpzRkJiK1hnQmg0cTFXUzk0L2o4dFppY0gyMElscDVtL2dNZTdu?=
+ =?utf-8?B?QkUwSFNuU1VBMXhLNXNTTW82WVF0dmtZcm1BYm1iSjc4TFl2OU1sRkxTN3VM?=
+ =?utf-8?B?alVrL1ZZOUF0Mm05alNiNjhKYVNZZW15T1hwTkVKWXZVcTJSUDllcFFaY29T?=
+ =?utf-8?B?YkppVUFRU09lWTZWeTV4RUVDelJRbnpLbzBzbWl3NzVsenJNNGVSeDZVbE1m?=
+ =?utf-8?B?N2o2MGdpNTlQOWNEazFWajFNQTVvUjlZaS9BbUZoMFJWL2JCR0pIbzJFandM?=
+ =?utf-8?B?eG1WdkdKamY1ZlJwZlp2aFplbm9DeGpsY3dudWE3OUhXSm1rQ2pUcy9YcmV0?=
+ =?utf-8?B?dzVUVlZNYkp3d2FtanhWcmZocHlLRW5BZ1BTMU1yTDVaWVFPb0pCL3Z6T2JD?=
+ =?utf-8?B?eEx5ZE5nNVNpQ016TGI2TkYvV3VPNlBNMFFndmJ1OXI5REQ3ZE9DNVN0T1R5?=
+ =?utf-8?B?cDl5WjdJNWpyaXV4cEFyUVpNTkZ5RU9hZC8rNnNVQWsyeWkvaU8vSkhOSTlQ?=
+ =?utf-8?B?ajlnZDd5NHhlbUFWbm9WZ01lUGxDTDY3dTFLc3hob2locXpxWVBLYVpNNEhB?=
+ =?utf-8?B?MExOaXBCU2xOeGxRMkdnU2s1ZU5vVlFQREpaRHJKVHh6M3dCdGozTUR5WTFB?=
+ =?utf-8?B?UUxoSTlNM2tneVkwODlVSWNQVGpOMmpURStJVmVxYmxTUTloSjVaWUZydTlW?=
+ =?utf-8?B?L0lsYS9TeVJHVExDdXpMa2tHOG5HZzJmNmxVYXMvZzlVakd1eTYveVdraC9N?=
+ =?utf-8?B?UU9rSTl4VzI0OEJMUDRQS3VrY0VUSGNlbk1wcnA2VVNoc3RxNmkwSCt6WWk0?=
+ =?utf-8?B?dEwrbUhnTzUvaG12YVp6bzRrMmJQWStmQ3oyTzNUYmlqbjU3dkdPZnlDWEh4?=
+ =?utf-8?B?Z05maEErSG1uSzBLNTM1dEZCTmVUVVJNVUVxalVhRFFtTEdGUUdyS3ZvcXI4?=
+ =?utf-8?B?OEs1VXNtWTRTd01uTzVVYXpLaU1JcU5ETTB4ZXpnZitEMDkzVTRqOXdPVjlm?=
+ =?utf-8?B?YVZlTS9pWHVJV0ZzR1ZONzVrMFVlWHhOa1hvc21YSGFCZDRxSVcxeWVXSmdB?=
+ =?utf-8?B?YkRyNHpEMEREdUhXWkh2Vk5pUmFoaXMrSXpqVGlYVzljMWcvZHRObnpDRjJo?=
+ =?utf-8?B?cDd3YVdKMWZlNWtGYWVleFBGOW8xME9QTTJ2VzBzWGNCT013enJHOUh2dE83?=
+ =?utf-8?B?WDBWWjlaUjRXU2h6TExEL1djWDdFVW1kSm14UmhLQ0VwNW1mWWNlNmd2Y0h0?=
+ =?utf-8?B?d1lPQ1k5Z09rYkZ2QjNBMC9TSk0zaUExcTE2TExpdGM3Wm4vSE1oUXM5Z1dn?=
+ =?utf-8?Q?3cEYgCOzwmgBAk9I=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <E802A778DDA3DB47923030D024586109@namprd12.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MW2PR12MB4667.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0c41c8b1-f98c-4a0c-d430-08da1ea1da48
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Apr 2022 05:36:12.6026
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: y2FweSrSmTAGEteeg0PCeGV7la14HH5hz8rms25Vojja8JCsoAbp7ZNFYuPk0ZPEHv+6sDcSZkAYz2to/Dl6Vg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1815
 
-On 4/15/22 13:52, Christoph Hellwig wrote:
-> Use the bdev based helper instead of poking into the queue.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->  mm/swapfile.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/mm/swapfile.c b/mm/swapfile.c
-> index 63c61f8b26118..4c7537162af5e 100644
-> --- a/mm/swapfile.c
-> +++ b/mm/swapfile.c
-> @@ -2761,7 +2761,7 @@ static int claim_swapfile(struct swap_info_struct *p, struct inode *inode)
->  		 * write only restriction.  Hence zoned block devices are not
->  		 * suitable for swapping.  Disallow them here.
->  		 */
-> -		if (blk_queue_is_zoned(p->bdev->bd_disk->queue))
-> +		if (bdev_is_zoned(p->bdev))
->  			return -EINVAL;
->  		p->flags |= SWP_BLKDEV;
->  	} else if (S_ISREG(inode->i_mode)) {
-
-Looks good.
-
-Reviewed-by: Damien Le Moal <damien.lemoal@opensource.wdc.com>
-
--- 
-Damien Le Moal
-Western Digital Research
+T24gNC8xNC8yMiAyMTo1MiwgQ2hyaXN0b3BoIEhlbGx3aWcgd3JvdGU6DQo+IEZvciBibG9jayBk
+ZXZpY2VzLCB0aGUgU0NTSSB0YXJnZXQgZHJpdmVycyBpbXBsZW1lbnRzIFVOTUFQIGFzIGNhbGxz
+IHRvDQo+IGJsa2Rldl9pc3N1ZV9kaXNjYXJkLCB3aGljaCBkb2VzIG5vdCBndWFyYW50ZWUgemVy
+b2luZyBqdXN0IGJlY2F1c2UNCj4gV3JpdGUgWmVyb2VzIGlzIHN1cHBvcnRlZC4NCj4gDQo+IE5v
+dGUgdGhhdCB0aGlzIGRvZXMgbm90IGFmZmVjdCB0aGUgZmlsZSBiYWNrZWQgcGF0aCB3aGljaCB1
+c2VzDQo+IGZhbGxvY2F0ZSB0byBwdW5jaCBob2xlcy4NCj4gDQo+IEZpeGVzOiAyMjM3NDk4ZjBi
+NWMgKCJ0YXJnZXQvaWJsb2NrOiBDb252ZXJ0IFdSSVRFX1NBTUUgdG8gYmxrZGV2X2lzc3VlX3pl
+cm9vdXQiKQ0KPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGxzdC5kZT4N
+Cj4gUmV2aWV3ZWQtYnk6IE1hcnRpbiBLLiBQZXRlcnNlbiA8bWFydGluLnBldGVyc2VuQG9yYWNs
+ZS5jb20+DQoNCk5vdCBhIGdvb2QgYXNzdW1wdGlvbiB0byBoYXZlIGZvciBzdXJlLg0KDQpMb29r
+cyBnb29kLg0KDQpSZXZpZXdlZC1ieTogQ2hhaXRhbnlhIEt1bGthcm5pIDxrY2hAbnZpZGlhLmNv
+bT4NCg0KLWNrDQoNCg0K
 
