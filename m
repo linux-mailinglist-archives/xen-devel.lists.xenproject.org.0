@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB0C7503208
-	for <lists+xen-devel@lfdr.de>; Sat, 16 Apr 2022 02:29:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.306013.521203 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDE23503209
+	for <lists+xen-devel@lfdr.de>; Sat, 16 Apr 2022 02:30:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.306021.521215 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nfWJZ-00080R-Ji; Sat, 16 Apr 2022 00:29:25 +0000
+	id 1nfWKi-0000tL-VZ; Sat, 16 Apr 2022 00:30:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 306013.521203; Sat, 16 Apr 2022 00:29:25 +0000
+Received: by outflank-mailman (output) from mailman id 306021.521215; Sat, 16 Apr 2022 00:30:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nfWJZ-0007yE-GM; Sat, 16 Apr 2022 00:29:25 +0000
-Received: by outflank-mailman (input) for mailman id 306013;
- Sat, 16 Apr 2022 00:29:23 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nfWJX-0007y4-TX; Sat, 16 Apr 2022 00:29:23 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nfWJX-0007ez-RF; Sat, 16 Apr 2022 00:29:23 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nfWJX-0005OI-ER; Sat, 16 Apr 2022 00:29:23 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nfWJX-0005sB-Dz; Sat, 16 Apr 2022 00:29:23 +0000
+	id 1nfWKi-0000qR-SV; Sat, 16 Apr 2022 00:30:36 +0000
+Received: by outflank-mailman (input) for mailman id 306021;
+ Sat, 16 Apr 2022 00:30:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ijIa=U2=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nfWKh-0000qJ-HF
+ for xen-devel@lists.xenproject.org; Sat, 16 Apr 2022 00:30:35 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6d537b71-bd1c-11ec-a405-831a346695d4;
+ Sat, 16 Apr 2022 02:30:34 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D2D2E622CE;
+ Sat, 16 Apr 2022 00:30:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E029EC385A5;
+ Sat, 16 Apr 2022 00:30:30 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,159 +43,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=7iejVxuIpM38hfESg2HP/Vm6/VcHx6BujSbDbbH0rTo=; b=DwNMwd6Jzb+QDDJeHujYID28Xu
-	MxXVNx+IZ5mAJ8s5AJaNNV6RtZLsv2YZS1r8xpAmXRhnV9ly/K1gvYF01gJpuzyV0gjyQK5bnr3mZ
-	FLnEzsODOEEgOgzyOOycM/Ow0eiZ97siu/ZdKnsa6PeIElha1+TQ/VS423AE9z0iw5Ww=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169440-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 6d537b71-bd1c-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1650069032;
+	bh=gQSFkzWaSCzU6UI9kfwlgCZeTrqeUZGpegqf+xzbLAQ=;
+	h=From:To:Cc:Subject:Date:From;
+	b=mK4bZmXVRMVSWKWTH9TVzcmpV3DnUZkbRpvjz/DD1T5ZhThWoNd9U4H+7uNIdVfJL
+	 INCK0P8w24MupU6S4o6rd8p8V9WrGLwDR0Dj/Y1EBCtyPALbRi0PRtMtjIvGjzoSE5
+	 Af+REMEn7gGqdACUEpoqRnfM1zaKsRfoNlIftOmN8LzZTeG/GtFFliec/nLvK+TmsZ
+	 fO1XYmboB8vsYUfaKDLCUZv9zULTPj7wY+YGbxnqNtnwXpNcZOv7oXKofSjNUjrWVJ
+	 /HfMju5Ot8B0JfMq554EeAxRdXPhd6G788cbgzCAyyt4XGu9+Z21QZ7oTnUUjNouzp
+	 DFwB07UstNwnA==
+From: Stefano Stabellini <sstabellini@kernel.org>
+To: robh+dt@kernel.org,
+	frowand.list@gmail.com
+Cc: sstabellini@kernel.org,
+	devicetree@vger.kernel.org,
+	julien@xen.org,
+	xen-devel@lists.xenproject.org,
+	Stefano Stabellini <stefano.stabellini@xilinx.com>
+Subject: [PATCH v2] of: of_property_read_string return -ENODATA when !length
+Date: Fri, 15 Apr 2022 17:30:28 -0700
+Message-Id: <20220416003028.1315268-1-sstabellini@kernel.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Subject: [ovmf test] 169440: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=9bf7291d636ebd816b8f81edcf366dac926f9f44
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 16 Apr 2022 00:29:23 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 169440 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169440/
+From: Stefano Stabellini <stefano.stabellini@xilinx.com>
 
-Regressions :-(
+When the length of the string is zero of_property_read_string should
+return -ENODATA according to the description of the function.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+However, of_property_read_string doesn't check prop->length. If
+prop->length is zero, return -ENODATA.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+Without this patch the following command in u-boot:
 
-version targeted for testing:
- ovmf                 9bf7291d636ebd816b8f81edcf366dac926f9f44
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+fdt set /chosen/node property-name
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   46 days
-Failing since        168258  2022-03-01 01:55:31 Z   45 days  424 attempts
-Testing same since   169414  2022-04-15 04:11:47 Z    0 days   22 attempts
+results in of_property_read_string returning -EILSEQ when attempting to
+read property-name. With this patch, it returns -ENODATA as expected.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
+Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+---
+Changes in v2:
+- use prop instead pp
+- drop value check
+- update function header documentation
+---
+ drivers/of/property.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+diff --git a/drivers/of/property.c b/drivers/of/property.c
+index 8e90071de6ed..84903dad96a4 100644
+--- a/drivers/of/property.c
++++ b/drivers/of/property.c
+@@ -431,6 +431,9 @@ EXPORT_SYMBOL_GPL(of_property_read_variable_u64_array);
+  * property does not have a value, and -EILSEQ if the string is not
+  * null-terminated within the length of the property data.
+  *
++ * Note that the empty string "" has length of 1, thus -ENODATA cannot
++ * be interpreted as an empty string.
++ *
+  * The out_string pointer is modified only if a valid string can be decoded.
+  */
+ int of_property_read_string(const struct device_node *np, const char *propname,
+@@ -439,7 +442,7 @@ int of_property_read_string(const struct device_node *np, const char *propname,
+ 	const struct property *prop = of_find_property(np, propname, NULL);
+ 	if (!prop)
+ 		return -EINVAL;
+-	if (!prop->value)
++	if (!prop->length)
+ 		return -ENODATA;
+ 	if (strnlen(prop->value, prop->length) >= prop->length)
+ 		return -EILSEQ;
+-- 
+2.25.1
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 5135 lines long.)
 
