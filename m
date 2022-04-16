@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 733B05032C8
-	for <lists+xen-devel@lfdr.de>; Sat, 16 Apr 2022 06:51:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.306079.521269 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A24D503459
+	for <lists+xen-devel@lfdr.de>; Sat, 16 Apr 2022 07:51:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.306112.521280 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nfaNp-0001nW-Jy; Sat, 16 Apr 2022 04:50:05 +0000
+	id 1nfbKZ-0008Uv-79; Sat, 16 Apr 2022 05:50:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 306079.521269; Sat, 16 Apr 2022 04:50:05 +0000
+Received: by outflank-mailman (output) from mailman id 306112.521280; Sat, 16 Apr 2022 05:50:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nfaNp-0001jx-FI; Sat, 16 Apr 2022 04:50:05 +0000
-Received: by outflank-mailman (input) for mailman id 306079;
- Sat, 16 Apr 2022 04:50:04 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nfaNo-0001ZB-Bv; Sat, 16 Apr 2022 04:50:04 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nfaNo-00025O-8o; Sat, 16 Apr 2022 04:50:04 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nfaNn-0007te-S2; Sat, 16 Apr 2022 04:50:03 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nfaNn-0000lW-RY; Sat, 16 Apr 2022 04:50:03 +0000
+	id 1nfbKZ-0008SJ-4I; Sat, 16 Apr 2022 05:50:47 +0000
+Received: by outflank-mailman (input) for mailman id 306112;
+ Sat, 16 Apr 2022 05:50:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=APt2=U2=gmail.com=cheyenne.wills@srs-se1.protection.inumbo.net>)
+ id 1nfbKX-0008SD-BU
+ for xen-devel@lists.xen.org; Sat, 16 Apr 2022 05:50:45 +0000
+Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
+ [2607:f8b0:4864:20::1129])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2726de28-bd49-11ec-a405-831a346695d4;
+ Sat, 16 Apr 2022 07:50:44 +0200 (CEST)
+Received: by mail-yw1-x1129.google.com with SMTP id
+ 00721157ae682-2ec04a2ebadso99020107b3.12
+ for <xen-devel@lists.xen.org>; Fri, 15 Apr 2022 22:50:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,159 +40,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=m/8OV9uyARQcPVglBhmJ66ArpymXrV/BePkY8eQ2SyE=; b=TjHmHWsqbY9jBVsCpOPDKmVTAA
-	iFoz1v0wpiqEHhlN0p6O6+7nXa3vKPAx10wknithbWHxXn+CVzikYLyXaXTGeK0jAnr+YPf7xZZdM
-	aXgvdpGnqBarw9B+Q1ZU8oG6NV4DnGuitEkByXe+tlCu/okaP2tIhneRZGgh0jDDsbBc=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169446-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 2726de28-bd49-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=1UIFF5U/Ka4zr1pIlbdRJ1zFRVaVz1C9GcXIRGvn7qw=;
+        b=L41egicTDgm7U2qK/btcKbQcn1Dmli0MwNufDUaAt9jUYHlhs47WWouQ+sbaH+Pcan
+         gDYUPriQCv68EZW5210tYIJ+WBsmpQKBWSAbeBB/u0cUUc4NWPLGYl4Bst5buGLoBUpm
+         MBqO6hG8M7/us9Qx+InP9KrdY2BvlAdlYob6q87qfVBiG8lr5d08OjhQfxFjrp5V/Ggh
+         yraoV/UDLs4r1/VGnQAUT9ovCCJ4pyYT9nAhmcoV9PCYnKEkbBQovkw/LLiNbFogZ/pS
+         RKBZ4D7+YylWdVghSSZdkSbTMJwlXuFLfECVlLBI9FdSA74MdhmlOMNltfuJCo6HNtcj
+         g67w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=1UIFF5U/Ka4zr1pIlbdRJ1zFRVaVz1C9GcXIRGvn7qw=;
+        b=WiYblyblReclE5fQGy5G39P0hQ0NTWzfuqoGQz348zxQj6Zg2r3IDbFtATc9MUq3fv
+         lv86pVvFdMY7/CFHk3IfocwW6RCUESDxVYTB5R/tw/s+XHAgxtZN/wCWeuF5Bfr52cjv
+         ZeNbCkYtLf428BnyXXHrIGIzXn8d9wnECAhOy7GqMAisFsRvQ2Xv3BLG+FSGgDjUj2FX
+         2OJF75z5yU08id78B6m8Da9Aqjkk/SfKA3U1dBdVCpxyZNEpLmK5JwJ9weDKrBxEBiSH
+         QUrSdMjbLPwfHCYP0uRGuu2E6MjrlZvvFYYEzFHbR8x1C3WY+SgGt48VQWMdVCQxyeXX
+         Stzw==
+X-Gm-Message-State: AOAM533RoU5cy2KPgzxVMXxAAh3P0QG6n5Jr7yRes9Yxzkf57miQEfKq
+	53J62yCxIPzSU/pY/NAAUhwzVKqAKZKxjFS2lIdqWWi5EO8=
+X-Google-Smtp-Source: ABdhPJwt58nP7W7gPl3OFZjvGV5M+jDkoP2s3ykLuet2YEbWGJsFCQJxjlieCHI0r91xn22xaYiTEfAxu6mC1oJHK2U=
+X-Received: by 2002:a81:2551:0:b0:2ef:2d02:8979 with SMTP id
+ l78-20020a812551000000b002ef2d028979mr1967836ywl.352.1650088242250; Fri, 15
+ Apr 2022 22:50:42 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [ovmf test] 169446: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=91a03f78ba0b75bc4ed2c4b756cbe57c685d9c72
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 16 Apr 2022 04:50:03 +0000
+From: Cheyenne Wills <cheyenne.wills@gmail.com>
+Date: Fri, 15 Apr 2022 23:50:31 -0600
+Message-ID: <CAHpsFVfYE0TfCEON1fuNsoxT54TgwAy9EJTM5utQEjtNMEd3NQ@mail.gmail.com>
+Subject: [BUG] RIP panic when using gdbsx and CONFIG_GDBSX is not set
+To: xen-devel@lists.xen.org
+Content-Type: text/plain; charset="UTF-8"
 
-flight 169446 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169446/
+I have a reproducible Xen hypervisor crash (tried 4.15 and 4.16) when
+using gdbsx to perform debugging on a guest.
 
-Regressions :-(
+steps to reproduce:
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+xen host system built without CONFIG_GDBSX configured
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+start a linux guest
+attach gdbsx to the guest (e.g. gdbsx -a {domid} 64 9999
 
-version targeted for testing:
- ovmf                 91a03f78ba0b75bc4ed2c4b756cbe57c685d9c72
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+on a remote system, set up a debugging session for the linux kernel on the guest
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   46 days
-Failing since        168258  2022-03-01 01:55:31 Z   46 days  428 attempts
-Testing same since   169441  2022-04-16 00:41:39 Z    0 days    4 attempts
+(in linux source tree that matches the guest)
+gdb vmlinux
+target remote {remotexen}:9999
+lx-symbol
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
+At this point the xen system will have crashed with a RIP panic
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+Rebuilding the xen hypervisor with CONFIG_GDBSX fixes the panic.
 
+-----
+I'm using a gentoo system for the host DOM0 system and used the gentoo
+xen/xen-tools ebuild packages.  I've tried the:
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+xen-4.15.2-r2.ebuild and xen-4.16.0-r5.ebuild
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+I was able to resolve the problem by stepping through their ebuild
+steps and performing a manual "make menuconfig" to enable CONFIG_GDBSX
+right before the compile step.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 5290 lines long.)
+---- capture from xen serial console ----
+-----
+(XEN) ----[ Xen-4.16.0  x86_64  debug=n  Not tainted ]----
+(XEN) CPU:    6
+(XEN) RIP:    e008:[<ffff82d040269984>] iommu_do_domctl+0x4/0x30
+(XEN) RFLAGS: 0000000000010202   CONTEXT: hypervisor (d0v0)
+(XEN) rax: 00000000000003e8   rbx: ffff830856277ef8   rcx: ffff830856277fff
+(XEN) rdx: 0000560164cad1e0   rsi: 0000000000000000   rdi: ffff830856277db0
+(XEN) rbp: 0000560164cad1e0   rsp: ffff830856277c90   r8:  0000000000000001
+(XEN) r9:  0000000000000001   r10: 0000000000000000   r11: 0000000000000000
+(XEN) r12: ffff830856277db0   r13: 0000000000000000   r14: ffff83085624f000
+(XEN) r15: 0000000000000000   cr0: 0000000080050033   cr4: 0000000000372660
+(XEN) cr3: 00000004e64e4000   cr2: 0000000000000144
+(XEN) fsb: 00007f02cdbbb740   gsb: ffff888173a00000   gss: 0000000000000000
+(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: e010   cs: e008
+(XEN) Xen code around <ffff82d040269984> (iommu_do_domctl+0x4/0x30):
+(XEN)  00 0f 1f 00 f3 0f 1e fa <f6> 86 44 01 00 00 20 74 0b 0f ae e8 e9 ab 1b 00
+(XEN) Xen stack trace from rsp=ffff830856277c90:
+(XEN)    ffff82d04035cd5f 0000000000000000 ffffffff8109e860 ffff830856277ef8
+(XEN)    ffffffff0c926d00 0000000000000000 aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
+(XEN)    aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa
+(XEN)    aaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa ffff82d040580120 ffff8308562834b0
+(XEN)    ffff82d040461d00 0000000000000000 ffff830856277e68 0000560164cad1e0
+(XEN)    0000560164cad1e0 ffff830856277db0 0000000000000000 ffff82d040239e46
+(XEN)    ffffc90040ebbb0c 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 00000000c0000102 0000000000000000
+(XEN)    ffffc90040ebbaa8 00000000c0000102 0000000d00000000 ffffffff8109e860
+(XEN)    00000014000003e8 0000000000000001 0000000000000000 ffffffff82a15ec0
+(XEN)    00005601656f06c0 0000000000000004 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 ffff830856277ef8 ffff82d040238ff0
+(XEN)    0000560164cad1e0 0000000000000000 0000000000000000 ffff83085623c000
+(XEN)    ffff82d0402f8c59 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 ffffffffffffffff 0000000000000000 0000000000000000
+(XEN)    ffff830856277ef8 ffff82d0402f5161 ffff83085623c000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    ffff82d040366288 0000000000000000 ffff88811703ad00 00007ffcb2259d60
+(XEN) Xen call trace:
+(XEN)    [<ffff82d040269984>] R iommu_do_domctl+0x4/0x30
+(XEN)    [<ffff82d04035cd5f>] S arch_do_domctl+0x7f/0x2330
+(XEN)    [<ffff82d040239e46>] S do_domctl+0xe56/0x1930
+(XEN)    [<ffff82d040238ff0>] S do_domctl+0/0x1930
+(XEN)    [<ffff82d0402f8c59>] S pv_hypercall+0x99/0x110
+(XEN)    [<ffff82d0402f5161>] S arch/x86/pv/domain.c#_toggle_guest_pt+0x11/0x90
+(XEN)    [<ffff82d040366288>] S lstar_enter+0x128/0x130
+(XEN)
+(XEN) Pagetable walk from 0000000000000144:
+(XEN)  L4[0x000] = 0000000000000000 ffffffffffffffff
+(XEN)
+(XEN) ****************************************
+(XEN) Panic on CPU 6:
+(XEN) FATAL PAGE FAULT
+(XEN) [error_code=0000]
+(XEN) Faulting linear address: 0000000000000144
+(XEN) ****************************************
+(XEN)
 
