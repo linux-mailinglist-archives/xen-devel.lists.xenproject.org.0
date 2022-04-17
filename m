@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3AFA5048FA
-	for <lists+xen-devel@lfdr.de>; Sun, 17 Apr 2022 20:40:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.306699.521853 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 897E75048FC
+	for <lists+xen-devel@lfdr.de>; Sun, 17 Apr 2022 20:43:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.306706.521864 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ng9oB-0007nm-7O; Sun, 17 Apr 2022 18:39:39 +0000
+	id 1ng9ri-0000so-QL; Sun, 17 Apr 2022 18:43:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 306699.521853; Sun, 17 Apr 2022 18:39:39 +0000
+Received: by outflank-mailman (output) from mailman id 306706.521864; Sun, 17 Apr 2022 18:43:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ng9oB-0007lG-3J; Sun, 17 Apr 2022 18:39:39 +0000
-Received: by outflank-mailman (input) for mailman id 306699;
- Sun, 17 Apr 2022 18:39:38 +0000
+	id 1ng9ri-0000qc-MC; Sun, 17 Apr 2022 18:43:18 +0000
+Received: by outflank-mailman (input) for mailman id 306706;
+ Sun, 17 Apr 2022 18:43:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=V3EG=U3=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1ng9oA-0007lA-E9
- for xen-devel@lists.xenproject.org; Sun, 17 Apr 2022 18:39:38 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
+ id 1ng9rh-0000qW-Od
+ for xen-devel@lists.xenproject.org; Sun, 17 Apr 2022 18:43:17 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bba85544-be7d-11ec-a405-831a346695d4;
- Sun, 17 Apr 2022 20:39:37 +0200 (CEST)
-Received: by mail-lf1-x136.google.com with SMTP id d6so3653957lfv.9
- for <xen-devel@lists.xenproject.org>; Sun, 17 Apr 2022 11:39:37 -0700 (PDT)
+ id 3e968736-be7e-11ec-a405-831a346695d4;
+ Sun, 17 Apr 2022 20:43:16 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id v13so8644510ljg.10
+ for <xen-devel@lists.xenproject.org>; Sun, 17 Apr 2022 11:43:16 -0700 (PDT)
 Received: from [192.168.1.7] ([212.22.223.21])
  by smtp.gmail.com with ESMTPSA id
- p41-20020a05651213a900b00443e2c39fc4sm1003889lfa.111.2022.04.17.11.39.35
+ n2-20020a19d602000000b0046d150c112dsm999811lfg.234.2022.04.17.11.43.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 17 Apr 2022 11:39:36 -0700 (PDT)
+ Sun, 17 Apr 2022 11:43:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,76 +44,204 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bba85544-be7d-11ec-a405-831a346695d4
+X-Inumbo-ID: 3e968736-be7e-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=I4fx1hE4/XanHvXXT61GagAtRkg7k3tgW0Yywww1X/E=;
-        b=FEccoRnaF+wbNXngW5iZweCAocsqLhshHwThOJF6lZswLZbeUUkZJlHXWlqwYvu2zh
-         M6ncNqOqhSdo8d0h6tcZAH0cscsrN4GQj3wKFmXZIgr/YNtoQylktDQ6T0NwCPLzx+Zb
-         UCfa6UQWqEocDxiT9sS+j8rhj4cHHVfZvRYiWLJCoJe0c2v1mxt3yQN9NmWmE1QZIxFe
-         HDyRfhqmjvoIy/MN7AlJQUMyMyC/9X+OV+dSXqpZEXPkl+1+OyY6nzO2neMzYhanmAlz
-         3VNJtEcmSmxMjyWNhi+jpm8saHRv/Xv8IYnE8HiDOYMOW1pGVbcazbvNURWkmjqemdcL
-         4IbA==
+        bh=Kk9BppkAb1GLyoA2hlXyi8RoR58LZ27BwBibVf+whww=;
+        b=qt5JWOZ1VfiLDVLEejVPGDYo3ZcP+JCb/V3FdDnmfvP9WmAWjdDok5wpZUVuADRg24
+         fS/HUufwFDewQAGNUruGZUWRsayZYLyRWsbPnthPGLeban+cJ+sfdiZr4+6hZ8K+H/fq
+         HaF7YfEMxlTsydFQ6VJEyHmcvpcepTm1ox5hOSvpTaf/VW/vMkACJQmHuCofbf7EQTSb
+         YTUlrx3yCnHQ24kUxwwOj6znDjmn1Kb8i1QrzF3m8VAufNmIQbIx425Kl9LZDPjOxIng
+         6E+6kHI9MbvnSm9HzKn1MfSr582N/2iNs5Zcd/9Lj9zQYqMx4tFf915Bgcyb2FYMkAvD
+         DvrA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-transfer-encoding
          :content-language;
-        bh=I4fx1hE4/XanHvXXT61GagAtRkg7k3tgW0Yywww1X/E=;
-        b=RI74sUAMHtrjpVQAwT2WzG8ma+yxpjSKP/vhCP7yAKMGDfUg/tx8upm5xhtYU1EOky
-         TJCRoXOUEeWA0gnJv0IMyMcdUxUZn+X8ZPthANeeYfz0yTbcHKnpPSasngewrg6aa3uf
-         UqM1qoihHXCVRu18EtqmkO/tAPpA1TwaMmaW6IljMyFIRPE03jraMmL3vtWoS/RBboJr
-         Th1RqoAZlWugpqyZb7oBwJ2bb+rgkvdAnjRi2w080mF49dqBmUAiDNcKeRM6WtvsVpb4
-         bv/r8Qp2BJYVZyc+mA481VRYZgl933HWCqcFFWPGCHNQVaLRhcv9JSfiFJKFE34VMUSu
-         J1Gg==
-X-Gm-Message-State: AOAM530E/Fpj1Ehp3cGsP4x1/DRB0s9EsiaVhciPLi2lux8/iVf5363M
-	Qu8L4lpd2MiYPgcwVCuKawE=
-X-Google-Smtp-Source: ABdhPJzA+VxQFkx8HmF0tiTX8iqmLNuHvigncHHa0RSibVSg5k0iQLaeVAuqP3PChRgmomWCGz3WGw==
-X-Received: by 2002:ac2:5296:0:b0:46d:da1:773e with SMTP id q22-20020ac25296000000b0046d0da1773emr5704173lfm.197.1650220776577;
-        Sun, 17 Apr 2022 11:39:36 -0700 (PDT)
-Subject: Re: [RFC PATCH 4/6] virtio: Various updates to xen-virtio DMA ops
- layer
-To: Christoph Hellwig <hch@infradead.org>
+        bh=Kk9BppkAb1GLyoA2hlXyi8RoR58LZ27BwBibVf+whww=;
+        b=EIrrpazc+z1FuubTcF1knauvZ9A+7LEDXIks0woUCRg+0iiUccG/ZawyMyC1iHQamu
+         k3mXJGSJpoYyk8KKanxwXEN9IaMbUOt8UUFYnksB12dvu52C8nW4pEx660JUYbxy4I+a
+         dbqKdhsMoASk1jCvB04tP/NTt31Pl+ccefcVq3Duia1/H/nB8ce39Ph6PTvYvNFocWOd
+         /B3vJgWweKWuoZFwhAusoPpOtbwUDOdDqNptLUA7TBFriZY33gkRpUdcRLaj7y5xNjCP
+         jlGA+riVKSgfrrllUJiycNlKO4Ko2NFqIIkLtHjel4bbkFKdAyqTUXUnX/hevbzdtkoQ
+         msMg==
+X-Gm-Message-State: AOAM531lCXZ39ib+x/C4ULuhHsxZt492t6NU+91PkynnXNB83KNStYPO
+	1xoXM3pOXy5jSQEpTb9zMf0=
+X-Google-Smtp-Source: ABdhPJwUkJUNtAb7kvGmdnAfzY9PQvgtza8+x07uV7miQaHaGsm/DshtCFE9C62GtukahGs1aCKfTw==
+X-Received: by 2002:a05:651c:19a5:b0:24c:87dd:d60d with SMTP id bx37-20020a05651c19a500b0024c87ddd60dmr5119546ljb.344.1650220996419;
+        Sun, 17 Apr 2022 11:43:16 -0700 (PDT)
+Subject: Re: [RFC PATCH 5/6] arm/xen: Introduce xen_setup_dma_ops()
+To: Stefano Stabellini <sstabellini@kernel.org>
 Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org,
  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
  Russell King <linux@armlinux.org.uk>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
- <jgross@suse.com>, Julien Grall <julien@xen.org>,
+ <jgross@suse.com>, Logan Gunthorpe <logang@deltatee.com>,
+ David Hildenbrand <david@redhat.com>,
+ Martin Oliveira <martin.oliveira@eideticom.com>,
+ Kees Cook <keescook@chromium.org>,
+ Jean-Philippe Brucker <jean-philippe@linaro.org>,
+ Julien Grall <julien@xen.org>, Christoph Hellwig <hch@infradead.org>,
  "Michael S. Tsirkin" <mst@redhat.com>
 References: <1649963973-22879-1-git-send-email-olekstysh@gmail.com>
- <1649963973-22879-5-git-send-email-olekstysh@gmail.com>
- <YlpcqOUK59yExXlq@infradead.org>
+ <1649963973-22879-6-git-send-email-olekstysh@gmail.com>
+ <alpine.DEB.2.22.394.2204151303340.915916@ubuntu-linux-20-04-desktop>
 From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <a8ef5394-3eb8-cd2a-f61d-a38277407eed@gmail.com>
-Date: Sun, 17 Apr 2022 21:39:35 +0300
+Message-ID: <53d13d03-b387-bf01-20fb-8d11a964b370@gmail.com>
+Date: Sun, 17 Apr 2022 21:43:14 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <YlpcqOUK59yExXlq@infradead.org>
+In-Reply-To: <alpine.DEB.2.22.394.2204151303340.915916@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Content-Language: en-US
 
 
-On 16.04.22 09:05, Christoph Hellwig wrote:
+On 16.04.22 01:02, Stefano Stabellini wrote:
 
-Hello Christoph
+Hello Stefano
 
-> On Thu, Apr 14, 2022 at 10:19:31PM +0300, Oleksandr Tyshchenko wrote:
+> On Thu, 14 Apr 2022, Oleksandr Tyshchenko wrote:
 >> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> Various updates is a big indicator that the patch should be split
-> further.  Please do one change at a time, and fold updates to the
-> previous patches in the series into those patches instead of fixing
-> them up later.
+>>
+>> This patch introduces new helper and places it in new header.
+>> The helper's purpose is to assign any Xen specific DMA ops in
+>> a single place. For now, we deal with xen-swiotlb DMA ops only.
+>> The subsequent patch will add xen-virtio DMA ops case.
+>>
+>> Also re-use the xen_swiotlb_detect() check on Arm32.
+> Thanks for the patch, this is good to have in any case. I would move it
+> to the beginning of the series.
 
 
-Sure, next (non-RFC) version will do things properly.
+ok, will move
 
 
+>
+>
+>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>> ---
+>>   arch/arm/include/asm/xen/xen-ops.h   |  1 +
+>>   arch/arm/mm/dma-mapping.c            |  5 ++---
+>>   arch/arm64/include/asm/xen/xen-ops.h |  1 +
+>>   arch/arm64/mm/dma-mapping.c          |  5 ++---
+>>   include/xen/arm/xen-ops.h            | 13 +++++++++++++
+>>   5 files changed, 19 insertions(+), 6 deletions(-)
+>>   create mode 100644 arch/arm/include/asm/xen/xen-ops.h
+>>   create mode 100644 arch/arm64/include/asm/xen/xen-ops.h
+>>   create mode 100644 include/xen/arm/xen-ops.h
+>>
+>> diff --git a/arch/arm/include/asm/xen/xen-ops.h b/arch/arm/include/asm/xen/xen-ops.h
+>> new file mode 100644
+>> index 00000000..8d2fa24
+>> --- /dev/null
+>> +++ b/arch/arm/include/asm/xen/xen-ops.h
+>> @@ -0,0 +1 @@
+>> +#include <xen/arm/xen-ops.h>
+>> diff --git a/arch/arm/mm/dma-mapping.c b/arch/arm/mm/dma-mapping.c
+>> index 82ffac6..a1bf9dd 100644
+>> --- a/arch/arm/mm/dma-mapping.c
+>> +++ b/arch/arm/mm/dma-mapping.c
+>> @@ -33,7 +33,7 @@
+>>   #include <asm/dma-iommu.h>
+>>   #include <asm/mach/map.h>
+>>   #include <asm/system_info.h>
+>> -#include <xen/swiotlb-xen.h>
+>> +#include <asm/xen/xen-ops.h>
+>>   
+>>   #include "dma.h"
+>>   #include "mm.h"
+>> @@ -2288,8 +2288,7 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,
+>>   	set_dma_ops(dev, dma_ops);
+>>   
+>>   #ifdef CONFIG_XEN
+>> -	if (xen_initial_domain())
+>> -		dev->dma_ops = &xen_swiotlb_dma_ops;
+>> +	xen_setup_dma_ops(dev);
+>>   #endif
+> You can take this opportunity to also remove the #ifdef, by providing an
+> empty stub implemention of xen_setup_dma_ops for the !CONFIG_XEN case.
+
+
+agree, will do
+
+
+>
+>
+>>   	dev->archdata.dma_ops_setup = true;
+>>   }
+>> diff --git a/arch/arm64/include/asm/xen/xen-ops.h b/arch/arm64/include/asm/xen/xen-ops.h
+>> new file mode 100644
+>> index 00000000..8d2fa24
+>> --- /dev/null
+>> +++ b/arch/arm64/include/asm/xen/xen-ops.h
+>> @@ -0,0 +1 @@
+>> +#include <xen/arm/xen-ops.h>
+>> diff --git a/arch/arm64/mm/dma-mapping.c b/arch/arm64/mm/dma-mapping.c
+>> index 6719f9e..831e673 100644
+>> --- a/arch/arm64/mm/dma-mapping.c
+>> +++ b/arch/arm64/mm/dma-mapping.c
+>> @@ -9,9 +9,9 @@
+>>   #include <linux/dma-map-ops.h>
+>>   #include <linux/dma-iommu.h>
+>>   #include <xen/xen.h>
+>> -#include <xen/swiotlb-xen.h>
+>>   
+>>   #include <asm/cacheflush.h>
+>> +#include <asm/xen/xen-ops.h>
+>>   
+>>   void arch_sync_dma_for_device(phys_addr_t paddr, size_t size,
+>>   		enum dma_data_direction dir)
+>> @@ -53,7 +53,6 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,
+>>   		iommu_setup_dma_ops(dev, dma_base, dma_base + size - 1);
+>>   
+>>   #ifdef CONFIG_XEN
+>> -	if (xen_swiotlb_detect())
+>> -		dev->dma_ops = &xen_swiotlb_dma_ops;
+>> +	xen_setup_dma_ops(dev);
+>>   #endif
+> same here
+
+ok
+
+
+>
+>
+>>   }
+>> diff --git a/include/xen/arm/xen-ops.h b/include/xen/arm/xen-ops.h
+>> new file mode 100644
+>> index 00000000..621da05
+>> --- /dev/null
+>> +++ b/include/xen/arm/xen-ops.h
+>> @@ -0,0 +1,13 @@
+>> +/* SPDX-License-Identifier: GPL-2.0 */
+>> +#ifndef _ASM_ARM_XEN_OPS_H
+>> +#define _ASM_ARM_XEN_OPS_H
+>> +
+>> +#include <xen/swiotlb-xen.h>
+>> +
+>> +static inline void xen_setup_dma_ops(struct device *dev)
+>> +{
+>> +	if (xen_swiotlb_detect())
+>> +		dev->dma_ops = &xen_swiotlb_dma_ops;
+>> +}
+>> +
+>> +#endif /* _ASM_ARM_XEN_OPS_H */
+>> -- 
+>> 2.7.4
+>>
+>>
+>> _______________________________________________
+>> linux-arm-kernel mailing list
+>> linux-arm-kernel@lists.infradead.org
+>> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
+>>
 -- 
 Regards,
 
