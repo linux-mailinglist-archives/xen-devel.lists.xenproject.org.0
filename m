@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47DA9505FD8
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Apr 2022 00:40:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.307646.522866 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BDF7506010
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Apr 2022 01:04:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.307655.522876 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nga1y-0007wA-Vr; Mon, 18 Apr 2022 22:39:38 +0000
+	id 1ngaPg-00033y-37; Mon, 18 Apr 2022 23:04:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 307646.522866; Mon, 18 Apr 2022 22:39:38 +0000
+Received: by outflank-mailman (output) from mailman id 307655.522876; Mon, 18 Apr 2022 23:04:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nga1y-0007se-SJ; Mon, 18 Apr 2022 22:39:38 +0000
-Received: by outflank-mailman (input) for mailman id 307646;
- Mon, 18 Apr 2022 22:39:37 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nga1x-0007sU-Gv; Mon, 18 Apr 2022 22:39:37 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nga1x-00082n-FV; Mon, 18 Apr 2022 22:39:37 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nga1x-0007E8-4A; Mon, 18 Apr 2022 22:39:37 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nga1x-0004Fw-3e; Mon, 18 Apr 2022 22:39:37 +0000
+	id 1ngaPf-00031N-VT; Mon, 18 Apr 2022 23:04:07 +0000
+Received: by outflank-mailman (input) for mailman id 307655;
+ Mon, 18 Apr 2022 23:04:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qGAa=U4=gmail.com=julien.grall.oss@srs-se1.protection.inumbo.net>)
+ id 1ngaPe-00031H-O5
+ for xen-devel@lists.xenproject.org; Mon, 18 Apr 2022 23:04:06 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d83d44a2-bf6b-11ec-a405-831a346695d4;
+ Tue, 19 Apr 2022 01:04:05 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id m14so20179952wrb.6
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Apr 2022 16:04:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,159 +39,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=ofCELDKV3vrGxTi+zWf/ucjAoYs0OK4S3ZHiCCtsBPo=; b=NxryiRtugmGt/kEB4XYRdoIDYi
-	GvfHuznJOkPhN3R5pMUhEBSWaifChlv3tqyhK1M+5KxgLOQp8ve8pa39Vg6iOTeZ3ayNyI7k2BWeR
-	mFKS+q6SyeJ4VI8dA9z+yL2QgEIGkfXki+Gn1cB/4kRaCMVvLdfPjU4+M6NW29SDBnNA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169523-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: d83d44a2-bf6b-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=eOg9LZC2IjRjuND7dpeRT2K91j6txG9Sx44bcjjryEw=;
+        b=JZnvG/91J5N4Vj4TOnNWS5OAKc2gHrpGNw0Rtp1nbIMex+2wpnPz6Bh/juHxXedzft
+         u+mtdor7hICvROmS8lhIhj8DwSyW9WrHSJlgIBMJajJQwOE2YmX1tBo8N6KK4qCPh+iO
+         wVYMKqD2qC0m4FrxcSf/oXghzQ/ig7u5z7DpszcpUKRxsgXWVHznBtVk/sG/ioi0ovWd
+         Ao+WnRBnxFuO+AsSBA/fSI4SeKlksvfPpJ5Gu/4yaZJEM+wLQUujRSahhd10VzyvzaDU
+         KFlqPw6gEqCmmUiLvZrdEpRtLzQCPSJsgHDr3VBVGexlRZ7UuwkEqt4/avaPGemkTkSW
+         4YfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=eOg9LZC2IjRjuND7dpeRT2K91j6txG9Sx44bcjjryEw=;
+        b=fyCGJjy0bGuVM+x+aw4BglZRhzx19esXGkWx0Yg4m+XWQAffze7fTQZpnS53kfQBwN
+         9yLyEGrG3aTXtsFvaxeS/6t/SgfrNymCw+Cupz9M9AY0ygX7jMhpL7vRmS9QeVlans/A
+         vveIYVE+CkLecnPPY92rkegJ5yDwXur8nxEOedeiznLKXWK5zoowO/p4IFZUhFWT2Ezc
+         3tad4d1v5hNvq66eL6ZMJitY4PUxvk6qRWFBzQZfG04LYoCUeMZtu6BulwYGI0wQVLso
+         6ga35wEQB2H5t0/v0yYItSHY/uTfCS/uUvwZHDLItgJ9qO/ZApVjq5Z8v7dw2iu7kfaq
+         oO5A==
+X-Gm-Message-State: AOAM531xOMQEg7R9TsaC1gLJNQ987cg2UDLnFq+pZ0+puN7H/zl7mWA3
+	Kq5nazpLw6s8kTDuWOUyPVv7fue+ukEBsYBKFB8=
+X-Google-Smtp-Source: ABdhPJzFu/hDOhyUh6ftWEfSYIcMxDQRwz4rxChpKaXL9oMbO2Pui8JLqjJiZeI+OhAlELQ0zP5ovbdYHQaqTtxDRXA=
+X-Received: by 2002:adf:dd8a:0:b0:207:9e5f:fd0a with SMTP id
+ x10-20020adfdd8a000000b002079e5ffd0amr9280174wrl.94.1650323044809; Mon, 18
+ Apr 2022 16:04:04 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [ovmf test] 169523: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=91a03f78ba0b75bc4ed2c4b756cbe57c685d9c72
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 18 Apr 2022 22:39:37 +0000
+References: <1649442065-8332-1-git-send-email-olekstysh@gmail.com>
+ <1649442065-8332-3-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.22.394.2204181417370.915916@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2204181417370.915916@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien.grall.oss@gmail.com>
+Date: Mon, 18 Apr 2022 23:03:52 +0000
+Message-ID: <CAJ=z9a30ADk98EP5nsS+w9QY-8exQeOLYrVQTSsJUsfwUcfFhA@mail.gmail.com>
+Subject: Re: [PATCH V7 2/2] libxl: Introduce basic virtio-mmio support on Arm
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel <xen-devel@lists.xenproject.org>, 
+	Julien Grall <julien.grall@arm.com>, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	Jiamei Xie <Jiamei.Xie@arm.com>, Henry Wang <Henry.Wang@arm.com>, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Content-Type: multipart/alternative; boundary="000000000000d9bdf805dcf5c65a"
 
-flight 169523 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169523/
+--000000000000d9bdf805dcf5c65a
+Content-Type: text/plain; charset="UTF-8"
 
-Regressions :-(
+Hi,
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+Sorry for the formatting issues.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+On Mon, 18 Apr 2022, 21:41 Stefano Stabellini, <sstabellini@kernel.org>
+wrote:
 
-version targeted for testing:
- ovmf                 91a03f78ba0b75bc4ed2c4b756cbe57c685d9c72
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   49 days
-Failing since        168258  2022-03-01 01:55:31 Z   48 days  492 attempts
-Testing same since   169441  2022-04-16 00:41:39 Z    2 days   68 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+> > +static uint64_t virtio_mmio_base;
+> > +static uint32_t virtio_mmio_irq;
+>
+> No need for these two variables to be global in this file, they could be
+> local variables in libxl__arch_domain_prepare_config.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+It is more than "no need". Libxl can be used by a daemon to handle multiple
+domains. So we can't use static variable to keep track of local information.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Cheers,
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+--000000000000d9bdf805dcf5c65a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+<div dir=3D"auto"><div>Hi,</div><div dir=3D"auto"><br></div><div dir=3D"aut=
+o">Sorry for the formatting issues.<br><br><div class=3D"gmail_quote" dir=
+=3D"auto"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, 18 Apr 2022, 21:41 =
+Stefano Stabellini, &lt;<a href=3D"mailto:sstabellini@kernel.org">sstabelli=
+ni@kernel.org</a>&gt; wrote:</div></div></div><div dir=3D"auto"><div class=
+=3D"gmail_quote" dir=3D"auto"><blockquote class=3D"gmail_quote" style=3D"ma=
+rgin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+&gt; +static uint64_t virtio_mmio_base;<br>
+&gt; +static uint32_t virtio_mmio_irq;<br>
+<br>
+No need for these two variables to be global in this file, they could be<br=
+>
+local variables in libxl__arch_domain_prepare_config.</blockquote></div></d=
+iv><div dir=3D"auto"><br></div><div dir=3D"auto">It is more than &quot;no n=
+eed&quot;. Libxl can be used by a daemon to handle multiple domains. So we =
+can&#39;t use static variable to keep track of local information.</div><div=
+ dir=3D"auto"><br></div><div dir=3D"auto">Cheers,</div><div dir=3D"auto"><b=
+r></div></div>
 
-
-Not pushing.
-
-(No revision log; it would be 5290 lines long.)
+--000000000000d9bdf805dcf5c65a--
 
