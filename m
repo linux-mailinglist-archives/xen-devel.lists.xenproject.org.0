@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0922504E66
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Apr 2022 11:30:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.307117.522413 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6935E504ECD
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Apr 2022 12:22:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.306957.522447 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngNhu-0007Aq-GU; Mon, 18 Apr 2022 09:30:06 +0000
+	id 1ngOVy-0005fa-R7; Mon, 18 Apr 2022 10:21:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 307117.522413; Mon, 18 Apr 2022 09:30:06 +0000
+Received: by outflank-mailman (output) from mailman id 306957.522447; Mon, 18 Apr 2022 10:21:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngNhu-00079q-C7; Mon, 18 Apr 2022 09:30:06 +0000
-Received: by outflank-mailman (input) for mailman id 307117;
- Mon, 18 Apr 2022 09:30:04 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ngNhs-00070f-L4; Mon, 18 Apr 2022 09:30:04 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ngNhs-0001zB-Gr; Mon, 18 Apr 2022 09:30:04 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ngNhs-0006uN-5D; Mon, 18 Apr 2022 09:30:04 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ngNhs-0006y9-4k; Mon, 18 Apr 2022 09:30:04 +0000
+	id 1ngOVy-0005cN-NK; Mon, 18 Apr 2022 10:21:50 +0000
+Received: by outflank-mailman (input) for mailman id 306957;
+ Mon, 18 Apr 2022 06:19:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9uw9=U4=gmail.com=eng.alaamohamedsoliman.am@srs-se1.protection.inumbo.net>)
+ id 1ngKjU-0000EQ-CW
+ for xen-devel@lists.xenproject.org; Mon, 18 Apr 2022 06:19:32 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 821ff2cc-bedf-11ec-a405-831a346695d4;
+ Mon, 18 Apr 2022 08:19:31 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ m15-20020a7bca4f000000b0038fdc1394b1so7689823wml.2
+ for <xen-devel@lists.xenproject.org>; Sun, 17 Apr 2022 23:19:31 -0700 (PDT)
+Received: from alaa-emad ([197.57.90.163]) by smtp.gmail.com with ESMTPSA id
+ q16-20020a1ce910000000b0038eabd31749sm13992199wmc.32.2022.04.17.23.19.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 17 Apr 2022 23:19:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,159 +44,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=dGGfHbl2qlIrfj7F/rSzZrcLmHgHcfL4HcrDrVshfRA=; b=oRGZkLA6TQa8msqDvOyHkORFhv
-	lxcSdoM66VUuJM+IOIgMTr8kL2m2vzbAiKZ7vrb975UbAdyL6QxXtxNPthn/KWfhmdHr33t2T5E6G
-	S5f+gC+aHPESJsknVTaiBZ9ajbWH2dCxA+I5V7+YeyjqDTaYafnyLb+KN+MVk3VtG//s=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169506-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 821ff2cc-bedf-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=TpWXWlsIiwFWqITQBBmHqt+ptX9YU3vyMz2FKFbBljI=;
+        b=KVf+4C/PtpEfuB/Nxd/EYlIv9rV9YIYR3O2bMQguZFWKge/IUlTq8vQWAZQe8oiaVp
+         tSbS/pFY1PvpYzcU3FT9E8BRiWtfFu5LHlsOjEmoAi7ACi+Iy1ESCvvP4miqPbcT8X8j
+         fFiFpDshwNnmiXZ11QLg/k9C528xaqqbPLvtDAIxe/C2/xIV1DalMdAup68C2N13YvlV
+         +Euy8Huqd/3jlzskYYaJTeN7QjGP7T0lPwSx0WQmyKkF0TicIgSgJVnDmChDfq/cmVJu
+         wBFN3wCYNC2QFtJ8ZvakpGXI6GS2j/tdOF/sDc/nVPvMpu2Xh1aU376/LhlyUkX967ky
+         Psrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=TpWXWlsIiwFWqITQBBmHqt+ptX9YU3vyMz2FKFbBljI=;
+        b=nQOamLNyOA7+UquH6h26jFU3EaxFH+qFlKYY8UstLNYgqen7ZDm47z7yvccx1jsAN6
+         lCQM5B/Exg6iwMyQAMXPtLuFxv5HWkolYTgRmzdL/ueJ3cuIWwGeu7DlxkR3Zfu5Kzhy
+         IA/C7KkZSVQbJGEihPmtHfldFY669RqfXcTf/na3Ho2Ybm4emTD1SeBZaU3wLNnCFOch
+         GS0pnVJ2fh0PX/7yJU9rSRaOXhRO7aX0rDi9vtrroXXghNmJxskgxeA/pQOC8xg18nko
+         0IVk6UY+H2cxG6m3vou7WxD4jCGV9WI/0sknQUlenyJheoBelt1xnrVKmNY8batZyyeY
+         VSqQ==
+X-Gm-Message-State: AOAM532a3zddnfM2YjogP0lWL4CrtkeTHx4cYOaf9/yw3qQy87AsfdFU
+	4D81iNAcnIiCdRfr/2mHVpU=
+X-Google-Smtp-Source: ABdhPJyZ1HNParLvvy4rzpznCl7QS81uDSoiwV8fB4OIS0XVE5dQ8FZK+15fz5DY06IYoRqXJpCRHw==
+X-Received: by 2002:a05:600c:4f87:b0:392:9236:3c73 with SMTP id n7-20020a05600c4f8700b0039292363c73mr5367903wmq.158.1650262770786;
+        Sun, 17 Apr 2022 23:19:30 -0700 (PDT)
+From: Alaa Mohamed <eng.alaamohamedsoliman.am@gmail.com>
+To: outreachy@lists.linux.dev
+Cc: boris.ostrovsky@oracle.com,
+	jgross@suse.com,
+	sstabellini@kernel.org,
+	xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org,
+	ira.weiny@intel.com,
+	eng.alaamohamedsoliman.am@gmail.com
+Subject: [PATCH] xen: gntalloc.c:  Convert kmap() to kmap_local_page()
+Date: Mon, 18 Apr 2022 08:19:27 +0200
+Message-Id: <20220418061927.6833-1-eng.alaamohamedsoliman.am@gmail.com>
+X-Mailer: git-send-email 2.35.2
 MIME-Version: 1.0
-Subject: [ovmf test] 169506: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=91a03f78ba0b75bc4ed2c4b756cbe57c685d9c72
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 18 Apr 2022 09:30:04 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 169506 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169506/
+The use of kmap() is being deprecated in favor of kmap_local_page()
+where it is feasible.
 
-Regressions :-(
+With kmap_local_page(), the mapping is per thread, CPU local and not
+globally visible. Therefore __del_gref() is a function
+where the use of kmap_local_page() in place of kmap() is correctly
+suited.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+Signed-off-by: Alaa Mohamed <eng.alaamohamedsoliman.am@gmail.com>
+---
+ drivers/xen/gntalloc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+diff --git a/drivers/xen/gntalloc.c b/drivers/xen/gntalloc.c
+index 4849f94372a4..55acb32842a3 100644
+--- a/drivers/xen/gntalloc.c
++++ b/drivers/xen/gntalloc.c
+@@ -178,9 +178,9 @@ static void __del_gref(struct gntalloc_gref *gref)
+ 	unsigned long addr;
+ 
+ 	if (gref->notify.flags & UNMAP_NOTIFY_CLEAR_BYTE) {
+-		uint8_t *tmp = kmap(gref->page);
++		uint8_t *tmp = kmap_local_page(gref->page);
+ 		tmp[gref->notify.pgoff] = 0;
+-		kunmap(gref->page);
++		kunmap_local(tmp);
+ 	}
+ 	if (gref->notify.flags & UNMAP_NOTIFY_SEND_EVENT) {
+ 		notify_remote_via_evtchn(gref->notify.event);
+-- 
+2.35.2
 
-version targeted for testing:
- ovmf                 91a03f78ba0b75bc4ed2c4b756cbe57c685d9c72
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   48 days
-Failing since        168258  2022-03-01 01:55:31 Z   48 days  476 attempts
-Testing same since   169441  2022-04-16 00:41:39 Z    2 days   52 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 5290 lines long.)
 
