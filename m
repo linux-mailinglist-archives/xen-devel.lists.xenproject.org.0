@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC0EB505F79
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Apr 2022 23:47:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.307641.522854 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47DA9505FD8
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Apr 2022 00:40:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.307646.522866 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngZD9-0002Qy-Dn; Mon, 18 Apr 2022 21:47:07 +0000
+	id 1nga1y-0007wA-Vr; Mon, 18 Apr 2022 22:39:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 307641.522854; Mon, 18 Apr 2022 21:47:07 +0000
+Received: by outflank-mailman (output) from mailman id 307646.522866; Mon, 18 Apr 2022 22:39:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngZD9-0002Oe-Af; Mon, 18 Apr 2022 21:47:07 +0000
-Received: by outflank-mailman (input) for mailman id 307641;
- Mon, 18 Apr 2022 21:47:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hjWk=U4=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1ngZD7-0002OY-KR
- for xen-devel@lists.xenproject.org; Mon, 18 Apr 2022 21:47:05 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 160b7632-bf61-11ec-8fbe-03012f2f19d4;
- Mon, 18 Apr 2022 23:47:04 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id CC07BB810BC;
- Mon, 18 Apr 2022 21:47:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBE40C385A1;
- Mon, 18 Apr 2022 21:47:01 +0000 (UTC)
+	id 1nga1y-0007se-SJ; Mon, 18 Apr 2022 22:39:38 +0000
+Received: by outflank-mailman (input) for mailman id 307646;
+ Mon, 18 Apr 2022 22:39:37 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nga1x-0007sU-Gv; Mon, 18 Apr 2022 22:39:37 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nga1x-00082n-FV; Mon, 18 Apr 2022 22:39:37 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nga1x-0007E8-4A; Mon, 18 Apr 2022 22:39:37 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nga1x-0004Fw-3e; Mon, 18 Apr 2022 22:39:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,115 +42,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 160b7632-bf61-11ec-8fbe-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1650318422;
-	bh=7+Xds58jFRdKBOXoypL1eP8EJZkvYKIUOpOuQi6rZvg=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=YKBQhGGOeTNfMtz/n5lnSGdyRpDFLBv5ba2OUPC6PirkMk3Il5J8DfBD+OAj1KCx1
-	 JW1AafAZ1vP/R4LeFluFJ4ROKf2qa1JsEaUjm/BIsLEgpe9mH0uKQNgShzC1I5vPz+
-	 9sGiMyhVsPrPloIl8ED8yb2l8ZBDvOKI7hvxh9p3yVXerhvAKCWZb+L4kI3AZavl/W
-	 TrarhS+JUv2wH2U2U5eIsJtducrj2K3z8LJJMiyxXiR/ToWgXyF5+P/XS3FuK6zlQO
-	 c6WyKcNaZei3qbzssTHlHpQNrK0lY9cj96XkR0Krpzh3FHTdBzTaVH2ch6bJavcGNN
-	 h214WSbFlwBfQ==
-Date: Mon, 18 Apr 2022 14:47:01 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-cc: xen-devel@lists.xenproject.org, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Wei Liu <wl@xen.org>, 
-    Anthony PERARD <anthony.perard@citrix.com>, 
-    Juergen Gross <jgross@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, 
-    Henry Wang <Henry.Wang@arm.com>, Kaly Xin <Kaly.Xin@arm.com>, 
-    Jiamei Xie <Jiamei.Xie@arm.com>, 
-    =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
-Subject: Re: [RFC PATCH] libxl/arm: Insert "xen,dev-domid" property to
- virtio-mmio device node
-In-Reply-To: <1649964960-24864-1-git-send-email-olekstysh@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2204181445300.915916@ubuntu-linux-20-04-desktop>
-References: <1649964960-24864-1-git-send-email-olekstysh@gmail.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ofCELDKV3vrGxTi+zWf/ucjAoYs0OK4S3ZHiCCtsBPo=; b=NxryiRtugmGt/kEB4XYRdoIDYi
+	GvfHuznJOkPhN3R5pMUhEBSWaifChlv3tqyhK1M+5KxgLOQp8ve8pa39Vg6iOTeZ3ayNyI7k2BWeR
+	mFKS+q6SyeJ4VI8dA9z+yL2QgEIGkfXki+Gn1cB/4kRaCMVvLdfPjU4+M6NW29SDBnNA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-169523-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-785202687-1650318422=:915916"
+Subject: [ovmf test] 169523: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=91a03f78ba0b75bc4ed2c4b756cbe57c685d9c72
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 18 Apr 2022 22:39:37 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 169523 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169523/
 
---8323329-785202687-1650318422=:915916
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Regressions :-(
 
-On Thu, 14 Apr 2022, Oleksandr Tyshchenko wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> 
-> This is needed for grant table based DMA ops layer (CONFIG_XEN_VIRTIO)
-> at the guest side to retrieve the ID of Xen domain where the corresponding
-> backend resides (it is used as an argument to the grant table APIs).
-> 
-> This is a part of restricted memory access under Xen feature.
-> 
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
-I think this looks good overall. Instead of mentioning details of the
-Linux implementation, we should mention the device tree binding instead,
-including a link to it. The device tree binding is the relevant spec in
-this case.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 91a03f78ba0b75bc4ed2c4b756cbe57c685d9c72
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   49 days
+Failing since        168258  2022-03-01 01:55:31 Z   48 days  492 attempts
+Testing same since   169441  2022-04-16 00:41:39 Z    2 days   68 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
-> ---
-> !!! This patch is based on non upstreamed yet “Virtio support for toolstack
-> on Arm” series which is on review now:
-> https://lore.kernel.org/xen-devel/1649442065-8332-1-git-send-email-olekstysh@gmail.com/
-> 
-> All details are at:
-> https://lore.kernel.org/xen-devel/1649963973-22879-1-git-send-email-olekstysh@gmail.com/
-> ---
->  tools/libs/light/libxl_arm.c | 14 ++++++++++++--
->  1 file changed, 12 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-> index 8132a47..d9b26fc 100644
-> --- a/tools/libs/light/libxl_arm.c
-> +++ b/tools/libs/light/libxl_arm.c
-> @@ -875,7 +875,8 @@ static int make_vpci_node(libxl__gc *gc, void *fdt,
->  
->  
->  static int make_virtio_mmio_node(libxl__gc *gc, void *fdt,
-> -                                 uint64_t base, uint32_t irq)
-> +                                 uint64_t base, uint32_t irq,
-> +                                 uint32_t backend_domid)
->  {
->      int res;
->      gic_interrupt intr;
-> @@ -900,6 +901,14 @@ static int make_virtio_mmio_node(libxl__gc *gc, void *fdt,
->      res = fdt_property(fdt, "dma-coherent", NULL, 0);
->      if (res) return res;
->  
-> +    if (backend_domid != LIBXL_TOOLSTACK_DOMID) {
-> +        uint32_t domid[1];
-> +
-> +        domid[0] = cpu_to_fdt32(backend_domid);
-> +        res = fdt_property(fdt, "xen,dev-domid", domid, sizeof(domid));
-> +        if (res) return res;
-> +    }
-> +
->      res = fdt_end_node(fdt);
->      if (res) return res;
->  
-> @@ -1218,7 +1227,8 @@ next_resize:
->              libxl_device_disk *disk = &d_config->disks[i];
->  
->              if (disk->protocol == LIBXL_DISK_PROTOCOL_VIRTIO_MMIO)
-> -                FDT( make_virtio_mmio_node(gc, fdt, disk->base, disk->irq) );
-> +                FDT( make_virtio_mmio_node(gc, fdt, disk->base, disk->irq,
-> +                                           disk->backend_domid) );
->          }
->  
->          if (pfdt)
-> -- 
-> 2.7.4
-> 
---8323329-785202687-1650318422=:915916--
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 5290 lines long.)
 
