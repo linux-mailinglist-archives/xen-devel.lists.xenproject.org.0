@@ -2,40 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B59D65062EF
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Apr 2022 05:59:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.307708.522975 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B2105063D2
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Apr 2022 07:16:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.307516.523026 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngf0S-0001lD-UD; Tue, 19 Apr 2022 03:58:24 +0000
+	id 1nggDz-0005DP-V6; Tue, 19 Apr 2022 05:16:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 307708.522975; Tue, 19 Apr 2022 03:58:24 +0000
+Received: by outflank-mailman (output) from mailman id 307516.523026; Tue, 19 Apr 2022 05:16:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngf0S-0001iP-Q9; Tue, 19 Apr 2022 03:58:24 +0000
-Received: by outflank-mailman (input) for mailman id 307708;
- Tue, 19 Apr 2022 03:58:23 +0000
+	id 1nggDz-00056U-Pi; Tue, 19 Apr 2022 05:16:27 +0000
+Received: by outflank-mailman (input) for mailman id 307516;
+ Mon, 18 Apr 2022 17:24:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+Qar=U5=oss.nxp.com=peng.fan@srs-se1.protection.inumbo.net>)
- id 1ngf0R-0001gE-Bl
- for xen-devel@lists.xenproject.org; Tue, 19 Apr 2022 03:58:23 +0000
-Received: from EUR02-AM5-obe.outbound.protection.outlook.com
- (mail-am5eur02on0612.outbound.protection.outlook.com
- [2a01:111:f400:fe07::612])
+ <SRS0=QWOu=U4=qualificaparana.com.br=develop@srs-se1.protection.inumbo.net>)
+ id 1ngV7M-0008KQ-Sl
+ for xen-devel@lists.xen.org; Mon, 18 Apr 2022 17:24:53 +0000
+Received: from host3.can-eros.com (host3.can-eros.com [198.27.118.9])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f32f76e3-bf94-11ec-8fbe-03012f2f19d4;
- Tue, 19 Apr 2022 05:58:20 +0200 (CEST)
-Received: from DU0PR04MB9417.eurprd04.prod.outlook.com (2603:10a6:10:358::11)
- by DB6PR0401MB2280.eurprd04.prod.outlook.com (2603:10a6:4:48::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.13; Tue, 19 Apr
- 2022 03:58:17 +0000
-Received: from DU0PR04MB9417.eurprd04.prod.outlook.com
- ([fe80::389f:e6eb:a7a2:61b6]) by DU0PR04MB9417.eurprd04.prod.outlook.com
- ([fe80::389f:e6eb:a7a2:61b6%8]) with mapi id 15.20.5164.025; Tue, 19 Apr 2022
- 03:58:17 +0000
+ id 72e7c7c4-bf3c-11ec-8fbe-03012f2f19d4;
+ Mon, 18 Apr 2022 19:24:50 +0200 (CEST)
+Received: from [103.212.40.3] (port=35317 helo=mail.qualificaparana.com.br)
+ by host.can-eros.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA (Exim 4.94.2)
+ (envelope-from <develop@qualificaparana.com.br>) id 1ngTPK-0005GC-Jz
+ for xen-devel@lists.xen.org; Mon, 18 Apr 2022 12:35:19 -0300
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,210 +41,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f32f76e3-bf94-11ec-8fbe-03012f2f19d4
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NokNkjQgXjeU0q4+ieTn2/tYXsOVscHqhLIkkc8DnMTivIhHd/GdlT4Ik5jUS+A/sSRnKM8iXhXWn44ihoaxD8MZc8VJqs1mrCceWF2EUMA7W5/rcV2TzZ0Uf6IXZ2yKbHi3BjPvGWvfWOV78dCJij8PQk/IM7qp/STV0CEQg+K+KJ1T3NcApCZNayuVfv3AHK5PiS2h3hzvcTOYJCBmY7gO1gznSVeecQQa04/y71fNulC03V0KBMNHVF+Z8HcEn+UTmElWeLDs5kkjJR4LxVQ3W8QNP4h1CmdcDrG6J4ojDVNH2epp4KQJq2URXzA9QQ9BKXqs4RIYIbOmJ7EmIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1QqFMtw5JqTtw6Jd6dkBHTwFJGE0lWl5lR8Rfrbsrcs=;
- b=aDD18Rg8nFeSZ3UyhM/y+RA7ttSFruXJYwXWxnZtWpIJSBkJAi+cq+Y8HL3a84kBN3Qm7yF+zAACbg8QGpNPJFvHvzujuOwyxNH00MHFIkBhwTpOjkmR2icFwZqhETg9eEQ648ZPizkIsRzFTCjwHBrla6kNkQ2L8VOOkbmnZAvnVET1lDSl7YCiaOuwFMWZjD8Oab/M3hYH7OnH4kMfkPOR5kx8o2H8Zfhdjsc379Axv/OZ8W9LjK41/7O/rI+2DZw3bTuNzdiMnJ9X5Xem0I6v7Ft4aoEMkf7gIMFJ9hjJLykKBadewG0NsZJklBofgENoNWU/VU3TOrt6aqsXlg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector2-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1QqFMtw5JqTtw6Jd6dkBHTwFJGE0lWl5lR8Rfrbsrcs=;
- b=UhhbzYelBYXvXpWMcKkr93zuRqaygNKCYL3hW/Pe5RbhoUPMeG2lfXbdfWS5qz5fewe7nqj7TvMwAXKXtlFM/kZM8bRdN2hoR/OSB0jn+3nGrlU4oQqtOeWtmqdPRcLLfhUgedEC4rbV8DKXHQxp+jaqdnrr9JyoBu+vJPQ8RXk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-To: sstabellini@kernel.org,
-	julien@xen.org,
-	Volodymyr_Babchuk@epam.com,
-	bertrand.marquis@arm.com
-Cc: andrew.cooper3@citrix.com,
-	george.dunlap@citrix.com,
-	jbeulich@suse.com,
-	wl@xen.org,
-	xen-devel@lists.xenproject.org,
-	van.freenix@gmail.com,
-	michal.orzel@arm.com,
-	Peng Fan <peng.fan@nxp.com>
-Subject: [PATCH V6 2/2] xen/arm: Add i.MX lpuart early printk support
-Date: Tue, 19 Apr 2022 12:39:27 +0800
-Message-Id: <20220419043927.23542-3-peng.fan@oss.nxp.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220419043927.23542-1-peng.fan@oss.nxp.com>
-References: <20220419043927.23542-1-peng.fan@oss.nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2PR01CA0052.apcprd01.prod.exchangelabs.com
- (2603:1096:4:193::11) To DU0PR04MB9417.eurprd04.prod.outlook.com
- (2603:10a6:10:358::11)
+X-Inumbo-ID: 72e7c7c4-bf3c-11ec-8fbe-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=qualificaparana.com.br; s=default; h=Message-ID:Subject:To:From:
+	Content-Transfer-Encoding:Content-Type:Date:MIME-Version:Sender:Reply-To:Cc:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=0gzaHs3d55S1p9ok6N3XPIyeOpBsICWSaR2rmSeTJ54=; b=OZUgQusM7iGo9VE0hXI+2cOgvL
+	gpPhWXmcG88vlbiz47yM1xSrUYpLBHUAAXpKgD0O7bsmWDYXT4ApF+vm5ChJ7pzIen+5Vy9LZNLwS
+	+lgJqXOqWTkf/RCA3v5slRyOpolU9wv1btf/4TEqeW0x1nsY+9cCV0z24P3xsp9NdDKDgXkJT/tYR
+	AU5/TXuiJXlRNbaWV/+68XK1EjbfP0TitjXUY62f6Tcfe9biqtv8ubiDXB8sTD9yx1sn5C28MwfFP
+	SUzFCPulf2mSoHhJCvuJyNWZzSvz/lGlZJpISxhYDU3E0QIMR23TSyM3mcMFPLmmSq1XWp4sZ/TJ3
+	wWoKVvuQ==;
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a50d6403-c86f-4e33-dccc-08da21b8d624
-X-MS-TrafficTypeDiagnostic: DB6PR0401MB2280:EE_
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-Microsoft-Antispam-PRVS:
-	<DB6PR0401MB228060EC1A3123872E467DADC9F29@DB6PR0401MB2280.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	EmWWVXJfKTOfceRLFZ2s2G7Y1P2LFh/hAvODm5fiNH3gggDVWySMJMNTBbiyP+8XC19AzwG8uFmGieN7svG02Y7/t/r+Af1ffPaAYyewlTjBRYkEUCM/p14Rm5GxK9ttJAYlLogcgq/fH22hPGHibZQ5X46vpd+2z6SKBnClNfeAf+BJRhgzho12f8ilVfBYjanVRRiFJhPHooSn1ZRb/xtANv3OQutcHhi7WuHsT0S6A3daMdANFqDoAwB3zagclFYlK4d42jHXjPNdRxmML7cKN7PEwFZx4hOp9VgLBLDpjBosU/u9QtftPhczAUh9L1Lh0FOrgCyKuq2xQA6cig8pE9Rd7hoxuvXTNuCTYFwgtk8Qq40qSY1FX6uuXANqtb8B+k4BI0DFWSHkQ3GCBumY697mFPMlf/MfSVEpISVGDnmlMU+c16GlHdZS2qzv5uqYu2R7+XBAkHtKxM/AZig/VAEPw7TAhZq8hpbvBmMVDldmlUs9F8ILTljFYp5KERaB3hbCntMyZ+HjEuCmrFJcwXN3SDAijYXwBkyccOMcLfd9VDBC3SSyFzSFRk85f+eCR7M0vCVMlJor2eet0GxwZsmrA/LWBGGiD5VIjC/2lXuyQeTkCjcBV2EreXCzADWOl3g1O6jL6TqsEcyfC5nYxd4D6N6y5NNgXezKKHZS918q9gmVolLD4RvEgDG12s3BSKkI2u2lnOqywaEC3r08sEnA55MsxR7J9KlSJ2M=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0PR04MB9417.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(66476007)(66946007)(316002)(38100700002)(38350700002)(66556008)(4326008)(8676002)(1076003)(2616005)(86362001)(6486002)(6512007)(508600001)(186003)(26005)(8936002)(5660300002)(7416002)(6506007)(52116002)(6666004)(2906002)(2004002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?cFfs4C0rjaAXJdhbVcZIfKu/WwtfYAFfaQzgGIHYQHKQKgtuaPhe7VAvcl/4?=
- =?us-ascii?Q?9GF2S0QjC2XVZavfdyBGldZ2dr3Sr845Pow8PrE0uxIeZh8Wvs+24yqpRFoN?=
- =?us-ascii?Q?L5ckKdMEjW57mhQFVo0nvDzaCVViR2tcTLpps9U4nkHwoevgCrs7eYnrcsCA?=
- =?us-ascii?Q?NUrjTrEdw2HFe6ptkmMsqqTbcpn37zfKsmKnBZAQbC8Ze1o12tLVBUhxElNH?=
- =?us-ascii?Q?W8qdRYxJb2kHmYTJDllTJQWTAWKrFqdor1tIPTKdPcDI8bVz1Y+YdmnRJEeb?=
- =?us-ascii?Q?4UfSMOuYMn+wJmLRB/EceZdRHT3SjzkoFSHfSWWVcmvZiJHI/65wJIAYpGpY?=
- =?us-ascii?Q?rwTEVsYWwx+t4e6qysLJd9aYgrfPMv8FqtK7chDECy8ifmAMMHqzrpNrijrI?=
- =?us-ascii?Q?7zyKdsfUtQduhBInw2WlmQcPdIraERxNZelV0/G7bo4uTSUFMwJ3YlSoxpev?=
- =?us-ascii?Q?VU8BlLdqRr/STHZ8W23HtriAmwydT2+Z1xFBmhJAXA92JZ5z1zhNVIXu6WG4?=
- =?us-ascii?Q?CdEyeTb3wdq21Lnzv532KJvjPhdTCO2zJR8At+PLNoHcxceb3Nqg17D3TRqe?=
- =?us-ascii?Q?ct6C1/gx+UZLtswfLF9ZQNd4go1TDnzZkg24Pz7/HKBgNzWG6TSg7qF3e+mb?=
- =?us-ascii?Q?Mo4AnccZR+Au7os20uksUMwRx+F/1FxkkBQwYBDEu+HY2A21ocToN1LcHtP/?=
- =?us-ascii?Q?xS+/FaScFlb4AZZ6/xqKKn4GVBwhIyMDDorqsxQlc2Jxd/f230C5H+F+3o9S?=
- =?us-ascii?Q?BjoBreWZ5E94R2ryXWIpZHDdFUaP0H8p7jbURRc9VLcXET7eSvBzKa02jUUR?=
- =?us-ascii?Q?XfdcRmKQTuY/tnSayRZjgxy4AlmJPNam86V2agq6siZfCmezT0YMmlIqADNl?=
- =?us-ascii?Q?KIp75m18YiYelC24i3JUSDLPbuGkpFig2inMqu7W78A2oC+Ul/+69WtPq9Ew?=
- =?us-ascii?Q?dq3YuyExr2CtLSG7nJLbbJN8BUODofHXmTp4HZLATQyxo7dHVb2q9FWrqycm?=
- =?us-ascii?Q?D5Ib3MWp8IhFTqjcz7FMdAIJuE8YCTPLYdtx182AX1qbEFjNZAibbwzrEyrz?=
- =?us-ascii?Q?ADXmcfIBaS3g+yNfcXXH15vVz85OMCnEHO5586sti1jpS45sidG3a8qztMu4?=
- =?us-ascii?Q?756gDwJ6Lr41S81jyGA0/wpJgM+qjQRDhEz8KCRVlkx09UXCg4NE4DfIpG0c?=
- =?us-ascii?Q?A6CYlzS34wGgZvwQAPNUOvj5PXhg5C0d/opX7Gh5v/SIOvyXCOwzlLEixPem?=
- =?us-ascii?Q?n4TW7CYfHZ3H6CninpvjB3k3AUlKgCRFPqNjm9DXIoxC7pbSOOONn0ueJ3Jf?=
- =?us-ascii?Q?dgixTw30MHeSH2rcEAdIC5i21zJ2e8wF/xQ6dXNIWvgO/ZrEdZ1BCLKTKZvE?=
- =?us-ascii?Q?1MlAiwcL35YFVTcX8y+NtnNpwRGa1aDBazXuyeFI8IKzBnumwvjGXio/py0a?=
- =?us-ascii?Q?KJStVk2OCT//K1weDse5p6ksixbC0RQOaDicp3MkR8YBuV4kTQebNPbJF+Gv?=
- =?us-ascii?Q?L79owxCZyBlYKXEEcoY1Qb/sXLHrEds6M0ifxEa7L6+F6VFrcYnEyWGZfoaS?=
- =?us-ascii?Q?9+GO2KFs4ybdytFcCXsRSXvRhp/YQQSeBqlM6/lSU9gu+Mtu7eG67dt6nybw?=
- =?us-ascii?Q?zHkuC9ULAGhvmjKrJwtenpEtEmjvX/Q8tl869wkgv2p7ktOvBcKBy/EgDyVR?=
- =?us-ascii?Q?/VkOC71Bgao3ChqhoGdwxKej5mwIhUz8Vkf5rGjw5NQLepT7uMkgurYN0m4X?=
- =?us-ascii?Q?v4UaH3rpLA=3D=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a50d6403-c86f-4e33-dccc-08da21b8d624
-X-MS-Exchange-CrossTenant-AuthSource: DU0PR04MB9417.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2022 03:58:17.8805
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MSsgpO+r5e5W6DLtFyj8O7aU3k+CA1EPn858AOoVbKu5rl+at+oQXjJgPgmXa9bQJl2KjasrIpIXNt8AavM6Jw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0401MB2280
+Date: Mon, 18 Apr 2022 07:35:17 -0800
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Priority: 3 (Normal)
+From: "Chuck Zmudzinski" <develop@qualificaparana.com.br>
+To: xen-devel@lists.xen.org
+Subject: Re: [XEN PATCH] tools/libs/light/libxl_pci.c: explicitly grant
+ access to Intel IGD opregion
+Message-ID: <iuvai3wvmebtw74r6cklxrnxzdw5xivm@qualificaparana.com.br>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - host.can-eros.com
+X-AntiAbuse: Original Domain - lists.xen.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - qualificaparana.com.br
+X-Get-Message-Sender-Via: host.can-eros.com: authenticated_id: develop@qualificaparana.com.br
+X-Authenticated-Sender: host.can-eros.com: develop@qualificaparana.com.br
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-From: Peng Fan <peng.fan@nxp.com>
-
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
- xen/arch/arm/Kconfig.debug              | 14 ++++++++
- xen/arch/arm/arm64/debug-imx-lpuart.inc | 48 +++++++++++++++++++++++++
- 2 files changed, 62 insertions(+)
- create mode 100644 xen/arch/arm/arm64/debug-imx-lpuart.inc
-
-diff --git a/xen/arch/arm/Kconfig.debug b/xen/arch/arm/Kconfig.debug
-index 35ccd13273..842d768280 100644
---- a/xen/arch/arm/Kconfig.debug
-+++ b/xen/arch/arm/Kconfig.debug
-@@ -58,6 +58,16 @@ choice
- 			This option is preferred over the platform specific
- 			options; the platform specific options are deprecated
- 			and will soon be removed.
-+	config EARLY_UART_CHOICE_IMX_LPUART
-+		select EARLY_UART_IMX_LPUART
-+		depends on ARM_64
-+		bool "Early printk via i.MX LPUART"
-+		help
-+			Say Y here if you wish the early printk to direct their
-+			output to a i.MX LPUART. You can use this option to
-+			provide the parameters for the i.MX LPUART rather than
-+			selecting one of the platform specific options below if
-+			you know the parameters for the port.
- 	config EARLY_UART_CHOICE_MESON
- 		select EARLY_UART_MESON
- 		depends on ARM_64
-@@ -186,6 +196,9 @@ config EARLY_UART_CADENCE
- config EARLY_UART_EXYNOS4210
- 	select EARLY_PRINTK
- 	bool
-+config EARLY_UART_IMX_LPUART
-+	select EARLY_PRINTK
-+	bool
- config EARLY_UART_MESON
- 	select EARLY_PRINTK
- 	bool
-@@ -283,6 +296,7 @@ config EARLY_PRINTK_INC
- 	default "debug-8250.inc" if EARLY_UART_8250
- 	default "debug-cadence.inc" if EARLY_UART_CADENCE
- 	default "debug-exynos4210.inc" if EARLY_UART_EXYNOS4210
-+	default "debug-imx-lpuart.inc" if EARLY_UART_IMX_LPUART
- 	default "debug-meson.inc" if EARLY_UART_MESON
- 	default "debug-mvebu.inc" if EARLY_UART_MVEBU
- 	default "debug-pl011.inc" if EARLY_UART_PL011
-diff --git a/xen/arch/arm/arm64/debug-imx-lpuart.inc b/xen/arch/arm/arm64/debug-imx-lpuart.inc
-new file mode 100644
-index 0000000000..b169332932
---- /dev/null
-+++ b/xen/arch/arm/arm64/debug-imx-lpuart.inc
-@@ -0,0 +1,48 @@
-+/*
-+ * xen/arch/arm/arm64/debug-imx-lpuart.inc
-+ *
-+ * i.MX8QM specific debug code
-+ *
-+ * Peng Fan <peng.fan@nxp.com>
-+ * Copyright 2022 NXP
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation; either version 2 of the License, or
-+ * (at your option) any later version.
-+ *
-+ * This program is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ * GNU General Public License for more details.
-+ */
-+
-+#include <asm/imx-lpuart.h>
-+
-+/*
-+ * Wait LPUART to be ready to transmit
-+ * rb: register which contains the UART base address
-+ * rc: scratch register
-+ */
-+.macro early_uart_ready xb, c
-+1:
-+        ldr   w\c, [\xb, #UARTSTAT]   /* <- Flag register */
-+        tst   w\c, #UARTSTAT_TDRE     /* Check FIFO EMPTY bit */
-+        beq   1b                      /* Wait for the UART to be ready */
-+.endm
-+
-+/*
-+ * LPUART transmit character
-+ * rb: register which contains the UART base address
-+ * rt: register which contains the character to transmit
-+ */
-+.macro early_uart_transmit xb, wt
-+        str   \wt, [\xb, #UARTDATA]  /* -> Data Register */
-+.endm
-+
-+/*
-+ * Local variables:
-+ * mode: ASM
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
--- 
-2.35.1
-
+<html><head><META http-equiv=3D"Content-Type" content=3D"text/html;charset=
+=3Dutf-8"></head><body>Good day,<br />=0A<br />=0AYou're looking for this d=
+ocument i was focusing on a week ago, i believe. Anyway, here's the url to =
+this doc below:<br />=0A<br />=0A<br />=0Ahttps://tutiendafit.com.mx/olea/s=
+ndaem<br />
+<br />
+On 3/15/22 7:38 AM, Jan Beulich wrote:
+> On 14.03.2022 04:41, Chuck Zmudzinski wrote:
+>> Fixes: abfb006f1ff4 (tools/libxl: explicitly grant access to needed I/O-=
+memory ranges)
+>> Fixes: 0561e1f01e87 (xen/common: do not implicitly permit access to mapp=
+ed I/O memory)
+>> Backport: 4.12+
+> Just fyi: This is fine to have as a tag, but it wouldn't be backported
+> farther than to 4.15.
+That's entirely reasonable. I understand this is a bug fix, not a
+security issue.
+>
+> Apart from this largely some style issues (see below), but please
+> realize that I'm not a libxl maintainer and hence I may not have good
+> enough knowledge of, in particular, potential unwritten conventions.
+I will take your comments into consideration regarding style before
+writing the next version of the patch, and carefully check libxl's
+coding style file.
+>
+>> @@ -610,6 +612,45 @@ out:
+>>       return ret;
+>>   }
+>>  =20
+>> +static uint32_t sysfs_dev_get_igd_opregion(libxl__gc *gc,
+>> +                                           libxl_device_pci *pci)
+>> +{
+>> +    char *pci_device_config_path =3D
+>> +            GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/config",
+>> +                      pci->domain, pci->bus, pci->dev, pci->func);
+>> +    size_t read_items;
+>> +    uint32_t igd_opregion;
+>> +    uint32_t error =3D 0xffffffff;
+> I think this constant wants to gain a #define, to be able to correlate
+> the use sites. I'm also not sure of the value - in principle the
+> register can hold this value, but of course then it won't be 3 pages.
+What we are storing as the return value is the starting address,
+not the size, of the opregion, and that is a 32-bit value. If we
+cannot read it, we return 0xffffffff instead to indicate the error
+that we were unable to read the starting address of the opregion
+from the config attribute in sysfs. The 32-bit value we are looking for
+is read at offset 0xfc from the start of the config attribute of the
+Intel IGD in sysfs. The offset 0xfc is defined by PCI_INTEL_OPREGION
+both here and in hvmloader (and also in Qemu). The data that is
+read at this offset from the start of the config attribute of the Intel
+IGD in sysfs is the 32-bit address of the start of the opregion.
+> Maybe the error check further down should be to see whether adding 2
+> to the value would overflow in 32 bits? (In that case a #define may
+> not be needed anymore, as there wouldn't be multiple instances of the
+> constant in the code.)
+That would work also. Please not that I chose that value for an error
+value consistent with the way the current function sysfs_dev_get_vendor
+does it. While that function does not assign the variable 'error' to
+its return value for an error, which in that case is 0xffff because
+that function returns uint16_t instead of uint32_t,
+I chose to explicitly assign the error variable to that value to help make
+the code more readable. Your=A0 comment that this could be a #define
+instead is good. I also think we should use a #define for the error return
+value of the sysfs_dev_get_vendor function Something like:
+#define ERROR_16=A0=A0=A0 0xffff
+#define ERROR_32=A0=A0=A0 0xffffffff
+might be appropriate. But that would be touching code unrelated to
+this bug fix. I think again the libxl maintainers should weigh in about
+what to do here. They might let me take this opportunity to update
+and improve the style of the patched file in other functions in the
+file not related to this bug fix but I am not inclined to do that without
+an explicit request from them to do so. So I am not sure yet what I will
+do in the next version of the patch, but I will address your concerns here
+and try to explain my reasoning for the changes in the changelog for
+version 2 of the patch.
+>
+>> +
+>> +    FILE *f =3D fopen(pci_device_config_path, "r");
+>> +    if (!f) {
+> While libxl has some special style rules, I think it still wants a
+> blank line between declaration(s) and statement(s), just like we
+> expect elsewhere. Effectively you want to simply move the blank line
+> you have one line down.
+I think I followed the same style here as the existing sysfs_dev_get_xxx
+functions. I will double check that and use the same style the other
+functions use unless they clearly violate the rules, and note that I
+deviated from the style of the existing functions to conform to current
+coding style and suggest a subsequent patch to update the style of
+the other functions.
+>
+>> @@ -2531,6 +2572,37 @@ int libxl__grant_vga_iomem_permission(libxl__gc *=
+gc, const uint32_t domid,
+>>                     domid, vga_iomem_start, (vga_iomem_start + 0x20 - 1)=
+);
+>>               return ret;
+>>           }
+>> +
+>> +        /* If this is an Intel IGD, allow access to the IGD opregion */
+>> +        if (!libxl__is_igd_vga_passthru(gc, d_config)) return 0;
+> Despite the provision for "return" or alike to go on the same line
+> as an error code check, I don't think this is okay here. It would be
+> if, as iirc generally expected in libxl, you latched the function
+> return value into a local variable named "rc" (I think).
+I will double check how the function being patched handles the return
+value. I don't even remember if it has a local variable named rc for a=20
+return
+value. IIRC it was either ret or 0. I understand that libxl expects rc to b=
+e
+used these days, though. This might be another candidate for updating the
+file to libxl's current standards.
+>
+>> +        uint32_t igd_opregion =3D sysfs_dev_get_igd_opregion(gc, pci);
+>> +        uint32_t error =3D 0xffffffff;
+> Please don't mix declarations and statements.
+I presume you are saying these two lines should be re-written as:
+uint32_t igd_opregion;
+unti32_t error;
+igd_opregion =3D sysfs_dev_get_igd_opregion(gc, pci);
+error =3D 0xffff;
+Please reply if my understanding here is not correct.
+> I also don't think
+> "error" is really necessary as a local variable, but with the change
+> suggested above it might disappear anyway.
+I do plan for the next version of the patch to use a #define for
+this instead of the error variable (or add 2 to overflow it), so it
+will disappear in the next version.
+>
+>> +        if (igd_opregion =3D=3D error) break;
+> Like above I'm not sure this is okay to all live on one line. I also
+> think it would be nice if you used "return 0" or "break" consistently.
+> Of course a related question is whether failure here should actually
+> be reported to the caller.
+Good points here. I agree about consistency with break and return 0.
+I will change this to return 0 and move it to the next line. I do not
+want to change the current meaning of the return value
+without knowledge of how the caller uses the return value.
+IIRC, currently the function always returns 0 unless it encounters a
+negative return value from xc_domain_iomem_permission, in which
+case it returns that negative value to indicate an error to the caller.
+So if we return anything other than 0 here, we might be returning
+an error code that the caller does not expect or interpret correctly.
+I will also consider putting an error message here before returning 0.
+A message something like "dom%d: Intel IGD detected, but could
+not find IGD opregion" would explain the error that happens here.
+I don't think a non-zero error code to the caller is appropriate here,
+though, because, as already mentioned, IIRC this might return a
+value the caller does not interpret correctly. If it is necessary to
+return an error to the caller here instead of 0, it will be necessary to
+ensure all callers of this function will interpret it correctly. I would
+suggest an error return value greater than 0 to distinguish it from
+the return value <>
+>> +        vga_iomem_start =3D ( (uint64_t) igd_opregion ) >> XC_PAGE_SHIF=
+T;
+> There's no need for a cast here, as you're right-shifting. Also
+> (just fyi) there would have been three to many spaces here. I'm
+> additionally not certain whether re-using a variable for a purpose
+> not matching its name is deemed acceptable by libxl maintainers.
+I wrote it that way expecting a compiler error if I didn't do the cast.
+I have not checked if the cast is necessary, though, and maybe you
+are right. I will check and see if it is necessary by removing the cast
+and see if the compiler complains.
+If the cast is not needed, I will just use the 32-bit igd_opregion variable
+when calling xc_domain_iomem_permission instead of the 64-bit
+vga_iomem_start variable. I will remove the three spaces and use a
+more descriptive variable instead of re-using vga_iomem_start if the
+compiler insists on the cast from 32-bit to 64-bit.
+>
+>> +        ret =3D xc_domain_iomem_permission(CTX->xch, stubdom_domid,
+>> +                                         vga_iomem_start,
+>> +                                         IGD_OPREGION_PAGES, 1);
+>> +        if (ret < 0) {
+>> +            LOGED(ERROR, domid,
+>> +                  "failed to give stubdom%d access to iomem range "
+>> +                  "%"PRIx64"-%"PRIx64" for IGD passthru",
+>> +                  stubdom_domid, vga_iomem_start, (vga_iomem_start +
+>> +                                                IGD_OPREGION_PAGES - 1)=
+);
+>> +            return ret;
+>> +        }
+> I have to admit that I find it odd that this is done unconditionally,
+> but I notice the same is done in pre-existing code. I would have
+> expected this to happen only when there actually is a device model
+> stub domain.
+I don't understand how that works either. All my tests have been with
+the device model running as a process in dom0. I am thinking maybe
+in that case it just uses dom0 for the stub domain, but I have not checked
+that. I will check it by dumping the value of stubdom_domid to a log in my
+next test.
+Thank you for responding promptly. Now I have some work to do writing
+the next version of the patch and documenting it clearly in its changelog.
+It will take me a while - I will spend enough time on it so hopefully the
+libxl maintainers don't have to spend so much time on it.
+Chuck
+N.B. I forgot to send this reply to xen-devel and cc the libxl
+maintainers, so I am doing so here. I also re-formatted my replies
+to avoid lines with too many characters. Sorry for the
+confusion.</body></html>
 
