@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79328505E06
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Apr 2022 20:44:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.307537.522678 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 919B1505E40
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Apr 2022 21:11:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.307542.522689 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngWM7-0000UY-RJ; Mon, 18 Apr 2022 18:44:11 +0000
+	id 1ngWmG-0003ti-0c; Mon, 18 Apr 2022 19:11:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 307537.522678; Mon, 18 Apr 2022 18:44:11 +0000
+Received: by outflank-mailman (output) from mailman id 307542.522689; Mon, 18 Apr 2022 19:11:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngWM7-0000SU-Nb; Mon, 18 Apr 2022 18:44:11 +0000
-Received: by outflank-mailman (input) for mailman id 307537;
- Mon, 18 Apr 2022 18:44:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ngWmF-0003qz-Sm; Mon, 18 Apr 2022 19:11:11 +0000
+Received: by outflank-mailman (input) for mailman id 307542;
+ Mon, 18 Apr 2022 19:11:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WNlM=U4=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
- id 1ngWM6-0000SO-1n
- for xen-devel@lists.xenproject.org; Mon, 18 Apr 2022 18:44:10 +0000
-Received: from MTA-07-4.privateemail.com (mta-07-4.privateemail.com
- [68.65.122.27]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 86b137a5-bf47-11ec-8fbe-03012f2f19d4;
- Mon, 18 Apr 2022 20:44:09 +0200 (CEST)
-Received: from mta-07.privateemail.com (localhost [127.0.0.1])
- by mta-07.privateemail.com (Postfix) with ESMTP id E62AB18000A7
- for <xen-devel@lists.xenproject.org>; Mon, 18 Apr 2022 14:44:05 -0400 (EDT)
-Received: from mail-ot1-f53.google.com (unknown [10.20.151.140])
- by mta-07.privateemail.com (Postfix) with ESMTPA id C148418000AC
- for <xen-devel@lists.xenproject.org>; Mon, 18 Apr 2022 14:44:05 -0400 (EDT)
-Received: by mail-ot1-f53.google.com with SMTP id
- e15-20020a9d63cf000000b006054e65aaecso1810556otl.0
- for <xen-devel@lists.xenproject.org>; Mon, 18 Apr 2022 11:44:05 -0700 (PDT)
+ <SRS0=hjWk=U4=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1ngWmD-0003qt-Fb
+ for xen-devel@lists.xenproject.org; Mon, 18 Apr 2022 19:11:09 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 49ba0603-bf4b-11ec-a405-831a346695d4;
+ Mon, 18 Apr 2022 21:11:03 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C1F2160C33;
+ Mon, 18 Apr 2022 19:11:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A80A8C385A7;
+ Mon, 18 Apr 2022 19:11:00 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +43,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 86b137a5-bf47-11ec-8fbe-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=tklengyel.com;
-	s=default; t=1650307445;
-	bh=7vUzavakaGaO6E0zlDOAogK+8n1PQfQHDvi1VXpo9lA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=Flj2Coj75hUbQWIQNaqp7EXCKFL/qJWuN7eJGExmUfcVF9qapRHeuipFSu9nqAM8O
-	 UXCeaAxsZKxNfUsyJuHgHxKMyBO2ei1VxrV7U8RRGOSSBvH63A7TkOXGz4V1lf1CHZ
-	 vKs4RxXQjwYwttmCez9blAS0OsWDcg+oE8u1Z8qvrpMOfDos0+J1Nb5xHmscs4G05m
-	 ssQisdjjyUdnb1qtQITP5QDs6o+EcE9lRKlcmcCvccqbhWVJ7L57saihzNAtdEFe/K
-	 NWAorVEMXkZSCBNbEH3DqEutbc0OoM0qbHv+A6UvKCtDuZ4Plhaozhab2sBg4Vq9lE
-	 eF0pTDToi0eDg==
-X-Gm-Message-State: AOAM530Jz6bTPQK+Wton04/UQUS2RlAqhipbg3y97v2aMJwWiQDlL0+j
-	SxPZpc7/h/bECNHyoCO+9QxH1meuXwy/Ezcue04=
-X-Google-Smtp-Source: ABdhPJzsXMPBn9ZscHy6NSd943UAnP7Q0xuJUJG3Md84R3HOOC0ZsI99DMCq7OIZg7WmnCYgDMp3vs0ljI2yu52CQ+Y=
-X-Received: by 2002:a9d:4e8d:0:b0:605:4f04:4863 with SMTP id
- v13-20020a9d4e8d000000b006054f044863mr1385531otk.204.1650307445122; Mon, 18
- Apr 2022 11:44:05 -0700 (PDT)
+X-Inumbo-ID: 49ba0603-bf4b-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1650309061;
+	bh=FqMrB3LTVheJzBcEVjR9TRPvl3+5WxICePYJ9H+WYRE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=iaOMCyRQAZv6m5n78HaBURxK4NMMAN9CI4xs+oSzDJbyFRw0xw+JmtcXEZiLYs6f6
+	 sWQZINgA/mWWsVjHbXZpZgKYQBG/nbrRkzD9Ng31J6SrfwKPZnCBJ4uvKKloxPuIYU
+	 gmBsGOVzZg3RriB3VWqZ9plK2DvIAG+cH3w10+YrNfgRh2sngFmSSehrUFTciYqu7T
+	 zT5w8FDN0R3R3txesKnzG9aufRHfEwzLWhFmgeulNNrs5UcXMXLPapHGO/BNvf2NOf
+	 jC57LqnXClajT8Mqetp1AltnOuq2ME4B5BFkhuLGN6A/2//wMDcXj42G2e90kh+jIQ
+	 zqiUjbXtEVKYw==
+Date: Mon, 18 Apr 2022 12:11:00 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Oleksandr <olekstysh@gmail.com>
+cc: Christoph Hellwig <hch@infradead.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
+    linux-arm-kernel@lists.infradead.org, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+    Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>, 
+    "Michael S. Tsirkin" <mst@redhat.com>
+Subject: Re: [RFC PATCH 6/6] arm/xen: Assign xen-virtio DMA ops for virtio
+ devices in Xen guests
+In-Reply-To: <f879622e-5656-deb1-1930-f0cd180a4ab1@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2204181202080.915916@ubuntu-linux-20-04-desktop>
+References: <1649963973-22879-1-git-send-email-olekstysh@gmail.com> <1649963973-22879-7-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.22.394.2204151305050.915916@ubuntu-linux-20-04-desktop> <YlpdBHKT1bYzZe2e@infradead.org>
+ <f879622e-5656-deb1-1930-f0cd180a4ab1@gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-References: <e57797cbc2c0706c03363cc7fa1b3e234921fee5.1648214955.git.tamas.lengyel@intel.com>
-In-Reply-To: <e57797cbc2c0706c03363cc7fa1b3e234921fee5.1648214955.git.tamas.lengyel@intel.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Mon, 18 Apr 2022 14:43:28 -0400
-X-Gmail-Original-Message-ID: <CABfawhk-oCAoz-99LOaOYKD-N1FvRnFvM9_AUCgsPEF16F=VCA@mail.gmail.com>
-Message-ID: <CABfawhk-oCAoz-99LOaOYKD-N1FvRnFvM9_AUCgsPEF16F=VCA@mail.gmail.com>
-Subject: Re: [PATCH v5] x86/vmx: add hvm functions to get/set non-register state
-To: Tamas K Lengyel <tamas.lengyel@intel.com>
-Cc: xen-devel@lists.xenproject.org, Jun Nakajima <jun.nakajima@intel.com>, 
-	Kevin Tian <kevin.tian@intel.com>, Jan Beulich <jbeulich@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Virus-Scanned: ClamAV using ClamSMTP
+Content-Type: text/plain; charset=US-ASCII
 
-On Fri, Mar 25, 2022 at 9:34 AM Tamas K Lengyel <tamas.lengyel@intel.com> wrote:
->
-> During VM forking and resetting a failed vmentry has been observed due
-> to the guest non-register state going out-of-sync with the guest register
-> state. For example, a VM fork reset right after a STI instruction can trigger
-> the failed entry. This is due to the guest non-register state not being saved
-> from the parent VM, thus the reset operation only copies the register state.
->
-> Fix this by adding a new pair of hvm functions to get/set the guest
-> non-register state so that the overall vCPU state remains in sync.
->
-> Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
-> ---
-> v5: Switch to internal-only hvm funcs instead of adding to hvm_hw_cpu
+On Mon, 18 Apr 2022, Oleksandr wrote:
+> On 16.04.22 09:07, Christoph Hellwig wrote:
+> 
+> Hello Christoph
+> 
+> > On Fri, Apr 15, 2022 at 03:02:45PM -0700, Stefano Stabellini wrote:
+> > > This makes sense overall. Considering that the swiotlb-xen case and the
+> > > virtio case are mutually exclusive, I would write it like this:
+> > Curious question:  Why can't the same grant scheme also be used for
+> > non-virtio devices?  I really hate having virtio hooks in the arch
+> > dma code.  Why can't Xen just say in DT/ACPI that grants can be used
+> > for a given device?
 
-Patch ping.
+[...]
+
+> This patch series tries to make things work with "virtio" devices in Xen
+> system without introducing any modifications to code under drivers/virtio.
+
+
+Actually, I think Christoph has a point.
+
+There is nothing inherently virtio specific in this patch series or in
+the "xen,dev-domid" device tree binding. Assuming a given device is
+emulated by a Xen backend, it could be used with grants as well.
+
+For instance, we could provide an emulated e1000 NIC with a
+"xen,dev-domid" property in device tree. Linux could use grants with it
+and the backend could map the grants. It would work the same way as
+virtio-net/block/etc. Passthrough devices wouldn't have the
+"xen,dev-domid" property, so no problems.
+
+So I think we could easily generalize this work and expand it to any
+device. We just need to hook on the "xen,dev-domid" device tree
+property.
+
+I think it is just a matter of:
+- remove the "virtio,mmio" check from xen_is_virtio_device
+- rename xen_is_virtio_device to something more generic, like
+  xen_is_grants_device
+- rename xen_virtio_setup_dma_ops to something more generic, like
+  xen_grants_setup_dma_ops
+
+And that's pretty much it.
 
