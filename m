@@ -2,77 +2,77 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 889C0504E3B
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Apr 2022 11:09:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.307064.522370 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44C9C504E41
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Apr 2022 11:12:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.307084.522381 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngNO5-0000yh-NV; Mon, 18 Apr 2022 09:09:37 +0000
+	id 1ngNQG-0003Zg-6O; Mon, 18 Apr 2022 09:11:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 307064.522370; Mon, 18 Apr 2022 09:09:37 +0000
+Received: by outflank-mailman (output) from mailman id 307084.522381; Mon, 18 Apr 2022 09:11:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngNO5-0000ut-I8; Mon, 18 Apr 2022 09:09:37 +0000
-Received: by outflank-mailman (input) for mailman id 307064;
- Mon, 18 Apr 2022 09:09:35 +0000
+	id 1ngNQF-0003XX-Uw; Mon, 18 Apr 2022 09:11:51 +0000
+Received: by outflank-mailman (input) for mailman id 307084;
+ Mon, 18 Apr 2022 09:11:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Mice=U4=arm.com=Wei.Chen@srs-se1.protection.inumbo.net>)
- id 1ngNO3-0006ub-Ko
- for xen-devel@lists.xenproject.org; Mon, 18 Apr 2022 09:09:35 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on0624.outbound.protection.outlook.com
- [2a01:111:f400:fe0c::624])
+ id 1ngNO4-0006ub-SW
+ for xen-devel@lists.xenproject.org; Mon, 18 Apr 2022 09:09:36 +0000
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ (mail-am5eur02on062b.outbound.protection.outlook.com
+ [2a01:111:f400:fe07::62b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4394dd6e-bef7-11ec-8fbe-03012f2f19d4;
- Mon, 18 Apr 2022 11:09:34 +0200 (CEST)
-Received: from DB6PR07CA0081.eurprd07.prod.outlook.com (2603:10a6:6:2b::19) by
- VI1PR08MB3104.eurprd08.prod.outlook.com (2603:10a6:803:42::17) with
+ id 44786735-bef7-11ec-8fbe-03012f2f19d4;
+ Mon, 18 Apr 2022 11:09:36 +0200 (CEST)
+Received: from DB6PR07CA0086.eurprd07.prod.outlook.com (2603:10a6:6:2b::24) by
+ DB8PR08MB4057.eurprd08.prod.outlook.com (2603:10a6:10:a5::24) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5164.18; Mon, 18 Apr 2022 09:09:30 +0000
-Received: from DB5EUR03FT034.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:6:2b:cafe::e6) by DB6PR07CA0081.outlook.office365.com
- (2603:10a6:6:2b::19) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.5164.18; Mon, 18 Apr 2022 09:09:32 +0000
+Received: from DB5EUR03FT062.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:6:2b:cafe::75) by DB6PR07CA0086.outlook.office365.com
+ (2603:10a6:6:2b::24) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.12 via Frontend
- Transport; Mon, 18 Apr 2022 09:09:30 +0000
+ Transport; Mon, 18 Apr 2022 09:09:32 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT034.mail.protection.outlook.com (10.152.20.87) with
+ DB5EUR03FT062.mail.protection.outlook.com (10.152.20.197) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5164.19 via Frontend Transport; Mon, 18 Apr 2022 09:09:30 +0000
-Received: ("Tessian outbound 62985e3c34b6:v118");
- Mon, 18 Apr 2022 09:09:30 +0000
-Received: from 4f42fa70571b.1
+ 15.20.5164.19 via Frontend Transport; Mon, 18 Apr 2022 09:09:32 +0000
+Received: ("Tessian outbound 9511859e950a:v118");
+ Mon, 18 Apr 2022 09:09:32 +0000
+Received: from 473d338c93a5.1
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- FF6153FE-11D1-415C-91D8-C9DFCB1B1FCB.1; 
- Mon, 18 Apr 2022 09:09:23 +0000
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 4f42fa70571b.1
+ 1E534BB9-E16A-47EF-9784-088848B356DE.1; 
+ Mon, 18 Apr 2022 09:09:25 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 473d338c93a5.1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Mon, 18 Apr 2022 09:09:23 +0000
-Received: from AM6PR0502CA0070.eurprd05.prod.outlook.com
- (2603:10a6:20b:56::47) by DB6PR0801MB2069.eurprd08.prod.outlook.com
- (2603:10a6:4:7a::8) with Microsoft SMTP Server (version=TLS1_2,
+ Mon, 18 Apr 2022 09:09:25 +0000
+Received: from AM6P192CA0024.EURP192.PROD.OUTLOOK.COM (2603:10a6:209:83::37)
+ by AM6PR08MB4659.eurprd08.prod.outlook.com (2603:10a6:20b:ca::16) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.20; Mon, 18 Apr
- 2022 09:09:21 +0000
-Received: from VE1EUR03FT013.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:56:cafe::a2) by AM6PR0502CA0070.outlook.office365.com
- (2603:10a6:20b:56::47) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.20 via Frontend
- Transport; Mon, 18 Apr 2022 09:09:21 +0000
+ 2022 09:09:24 +0000
+Received: from VE1EUR03FT043.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:209:83:cafe::96) by AM6P192CA0024.outlook.office365.com
+ (2603:10a6:209:83::37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.18 via Frontend
+ Transport; Mon, 18 Apr 2022 09:09:24 +0000
 Received: from nebula.arm.com (40.67.248.234) by
- VE1EUR03FT013.mail.protection.outlook.com (10.152.19.37) with Microsoft SMTP
+ VE1EUR03FT043.mail.protection.outlook.com (10.152.19.122) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5164.19 via Frontend Transport; Mon, 18 Apr 2022 09:09:20 +0000
+ 15.20.5164.19 via Frontend Transport; Mon, 18 Apr 2022 09:09:23 +0000
 Received: from AZ-NEU-EX04.Arm.com (10.251.24.32) by AZ-NEU-EX04.Arm.com
  (10.251.24.32) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.27; Mon, 18 Apr
- 2022 09:09:19 +0000
+ 2022 09:09:22 +0000
 Received: from ais-wip-ds.shanghai.arm.com (10.169.190.86) by mail.arm.com
  (10.251.24.32) with Microsoft SMTP Server id 15.1.2308.27 via Frontend
- Transport; Mon, 18 Apr 2022 09:09:16 +0000
+ Transport; Mon, 18 Apr 2022 09:09:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -84,12 +84,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4394dd6e-bef7-11ec-8fbe-03012f2f19d4
+X-Inumbo-ID: 44786735-bef7-11ec-8fbe-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bpBKGazT9JC8lRpfqSPdaFeJFZI9C70EVp+BKwYVSR4=;
- b=nQ+5MP228nSOFQBxbFNYpOZFA3FJTx0PYgo593b0kojgaovpgPA17f2LMDesqQcVu7P2KH+2vX7bmmuf2YWf1Wh5i3IXBUMHsIVsZd2PkH58gO/lLZX9c9YbxkJz2YLSCdoX99XD/lbP1/WBLIqY26op2sMeo2AreflHn2K8K3U=
+ bh=ryDzFvecatRrku+p3Uf242SapmXbat71UQcLw2AlN5k=;
+ b=kRdd1KkF/a9OIi8OvMKVCRWILg36qwTODXAZ+P03LTPM64hqkt+AOjC6p1NqCTr3jSrxHsiFlodHVRWWY6RfQcZIUsNZ41R1ZS4PqfJ+VOkNhfYHBzlzcQXCP2bisOiczHGnjF7qMvppGpFOx4nO+N97F7nUAJQAw7zbzLOm3sw=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; dkim=pass (signature was verified)
  header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
@@ -97,15 +97,15 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.35.35.123 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: 23b4a5fef05d5e3e
+X-CR-MTA-CID: 7c151209e6bdb9ca
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Qu7vEESF5z6unrsZANbJVxjyuDCWIgW25s1Mt3F2+KC1PHbovU8aR3tTrc5Mtk3UXvNUCuBRMOGG5Xhmw07eIz43xr07gFXhJOim8QL8DXk5uRgwFY5AQI7IyU6J2LngytOAVJ2ExZMyUx7B3FBuu76z7lJgaKLObukZc7K0F/zhsBsYv6FvQdv5ghyCPTT422k3LLw3nqYzuXvU7kMliUozoY2PsJjfbqCYUk8z7bfh3FW9fQ++GacZNp5hB0wr3dpDc1x/DO/BWjzRmym56Xef6FDBfAa+YYWszDnCcp9y2RWS1aiom+uMzNLR/eRug4t1C3XeffbjRpmOQpllOQ==
+ b=NvbN3UGXKosLyTwzRN1T4ZaXMq65MMCC2iQhb8bXVEC3wO+tLkFLtfhHTQcaOqaerAU2lSoPFOVixllZ60q7MqHUIKlx9w2+CfbrUcMKFZ0u+yRWTvjdiHRV/r9HlUnUhQ2gbW1qgDfamW4bGnUmNsIIC83nLU/TRfvOTd0hDRqUKHZK31H8LeZRMVg6clokV0GnSNzA2EhtezM3zZ8KJOCMylbL/Kv1Dn5djTTuzvYIE3HkvxJgvOf1DRj9+XiE9BrfZdPiDjwP8iQzTFK+GMoM/OPll9+iaF/ri/ti/R4Nn36is5tM9Yximlh9IjVNPTAbqT42FfMVvHlc6/5UvQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bpBKGazT9JC8lRpfqSPdaFeJFZI9C70EVp+BKwYVSR4=;
- b=h7X7y4Kf66cd7DEbFbDHCIoGUCNfCWo/Rc+unLWy1mtErL4ZfjsNEgxS9df9KkY0tiE88qPel80sMrjD2wu01AWjzfCLH7kZWQi+65Too7aYHDU7JgS+5CpxfndSMAwmKD8UH7WOuHZO+sRKvoPhqThB15ZhzSrZY0OgD3hfabgd9phCkBNUEUOp9ZAW4VmFG62+8i/qNwO1CyzdhvpuaYYZOOfpHO0zlXvvDBlJOnV3cM27qWr4gI6PlnhSnzj64DoI9r4umG7k6kWf+hueQJR2RYPSS2iyDuILRGuk2DTaNxBa609CPntQxO01zPhJ031aLSDpx/W/1OasHGQ96Q==
+ bh=ryDzFvecatRrku+p3Uf242SapmXbat71UQcLw2AlN5k=;
+ b=h85gJgsW7lC3C9jfpluPe8RVDCVyZnAfnyMH0xqnV9qfRRsqL28ymsSPsenYXwScE0BQsQS2kK/Z1p3yXqcNQCD7iyrDqh9NiG1HeZXJBMxv7D0IZHxR9oVnsC0VonNX5Ps9nF6vjZFNP34IeNZDBXKJ0TacoejsBdjZrK5HbDfu7KwQTpiRsrYeRXolHl4ayqFAWvkg42rywDoPQqUr0vR58YNsS+RM3k/KgMkQ9I+YDM1/NRT7wBUgQcljTf65XZ62QOiiYbcaT4K+eBHlTioOswT7zf82YlZYLrLj8HGyibsgLeU+EPUUyaYjNDhMrvZcp2E/8YiYdoBtALKGIg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  40.67.248.234) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
@@ -113,8 +113,8 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bpBKGazT9JC8lRpfqSPdaFeJFZI9C70EVp+BKwYVSR4=;
- b=nQ+5MP228nSOFQBxbFNYpOZFA3FJTx0PYgo593b0kojgaovpgPA17f2LMDesqQcVu7P2KH+2vX7bmmuf2YWf1Wh5i3IXBUMHsIVsZd2PkH58gO/lLZX9c9YbxkJz2YLSCdoX99XD/lbP1/WBLIqY26op2sMeo2AreflHn2K8K3U=
+ bh=ryDzFvecatRrku+p3Uf242SapmXbat71UQcLw2AlN5k=;
+ b=kRdd1KkF/a9OIi8OvMKVCRWILg36qwTODXAZ+P03LTPM64hqkt+AOjC6p1NqCTr3jSrxHsiFlodHVRWWY6RfQcZIUsNZ41R1ZS4PqfJ+VOkNhfYHBzlzcQXCP2bisOiczHGnjF7qMvppGpFOx4nO+N97F7nUAJQAw7zbzLOm3sw=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 40.67.248.234)
  smtp.mailfrom=arm.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=arm.com;
@@ -123,14 +123,12 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  client-ip=40.67.248.234; helo=nebula.arm.com;
 From: Wei Chen <wei.chen@arm.com>
 To: <--to=xen-devel@lists.xenproject.org>, <xen-devel@lists.xenproject.org>
-CC: <nd@arm.com>, Wei Chen <wei.chen@arm.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 07/10] xen: decouple NUMA from ACPI in Kconfig
-Date: Mon, 18 Apr 2022 17:07:32 +0800
-Message-ID: <20220418090735.3940393-8-wei.chen@arm.com>
+CC: <nd@arm.com>, Wei Chen <wei.chen@arm.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v2 08/10] xen/arm: use !CONFIG_NUMA to keep fake NUMA API
+Date: Mon, 18 Apr 2022 17:07:33 +0800
+Message-ID: <20220418090735.3940393-9-wei.chen@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220418090735.3940393-1-wei.chen@arm.com>
 References: <20220418090735.3940393-1-wei.chen@arm.com>
@@ -138,134 +136,79 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 1
-X-MS-Office365-Filtering-Correlation-Id: d5855dca-c0cc-4346-8026-08da211b2575
+X-MS-Office365-Filtering-Correlation-Id: c15145fe-f9b9-416e-b35f-08da211b26a7
 X-MS-TrafficTypeDiagnostic:
-	DB6PR0801MB2069:EE_|DB5EUR03FT034:EE_|VI1PR08MB3104:EE_
+	AM6PR08MB4659:EE_|DB5EUR03FT062:EE_|DB8PR08MB4057:EE_
 X-Microsoft-Antispam-PRVS:
-	<VI1PR08MB3104D8DBDBA8996CEE297A679EF39@VI1PR08MB3104.eurprd08.prod.outlook.com>
+	<DB8PR08MB40577EA08132D81E73D3215B9EF39@DB8PR08MB4057.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 NoDisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- gluoZOpqTErfSkjpXG4bjpicgNlQUvAqQOyKwXx3178Z3G0Jhc7aZIzRjfMFHJiu08QuhKOcuJMlwHARcohT4lRylZPuGrXpW47A27Ncje+i6jGRNoE+ET9E9OUqmRgZOO1HRjmQwiJ/lz7Tb+eHPZUkq+YSud70fCPAoNVwMsFyjjnaKzzJ7KbrffK2FCrbNPylIunh//406cVjt5tpAQiCvmOChu5myOUngysvTcIhlxcu6qLZ+CTzzvLbt1OQFpPwwqjqzqLuEeNv492l1Hzs+DcaYcsS1I7yMwfzK0Dw04NKicU3reeLlw5TY6e1B6bbyHF+6WiScyyfsmNX4mozWEAn/TxjSt/hrguxFeZfGT5Bd5ApCjufToUazFS4j1/LvOr9uSukd6fx4EbM6z1O+Iz99ib26FJYz8qIKGYg/CW55CC0uVIFgbU2wVZZzgT9HCNVgrl7oNXRQgYASJsu0lDO/zHPmjN+DqxTepxL67T4TqVkNUVDsfvQpnKDVWneXtL5y0Ohga7F7tSCEuIriVLWvqGqWlsWNjNpWD21v/mn2urnSuNU0MRyLaUKWYuqbmLgZ3eUPVHDMb+gLgWdefDb5n/yp60XyN3HafArG0XC03WgviaVHEXG3HNsrr1Gsp03XxB+BecUJ6tTnb7228w6pCcLsHYTeXiYXd7nVx+5YWe30GvEvXyPvg3N
+ 0Bbpp2Dc7JF+jbPJeJ3ESNoo3UbR9EXyjBpRvm/02e1f3d/LwKlxHQ28Pv9EN7n/4DDnCESngLqeKQ5oBIwuwyaBmuwWn1IrD5ZjZ26oXocI9czMSavjthQPxnsLSgtJv3EOjKjDeo4Ab8td0UqrBN2uKyVxOfeLn90WxW46bcWVJWvvsvuBqrkuIbcLv+cBpHynhJ3WarDYPL1cI4ulFAeZ1qOTTNCMpBSN5iXL++Cl1I+4uhNUUYD2L2ShsDbacJwOtBRjgxxGyJ6LeGaKenBHrIA1Gkr/ZWz8+ZBKF/eouqabM3eMF7WokiyWptio7R8rAvgGruDV0xAekVh/4Jaoh1X2YXYRLnsBstK5abr6TIzLk4eWBdeHOzIx4H6We96/wqQTsESFgMxZhAR+XduBqgi6gUDWZX1OXK3tMnU7h914+3e7Sp1MYBdJYAJsSIA3Ha1CD2N95JPexUbjPvFfhYsGvjbPrUlkz69m9w0UuEbxP2lR24biKMvhTvbqeI8HRMRkLyUt26jV1cbBODtpl9fR9+r3DDUR0rM5LPKUWQIUctviWJHUeze0s3t4LKNEek9X5D86mDlFJlW8cyXeoBUK4SktE6Zj9ma1W54GwC9/Nww0qTrvUYBa/khCtOaYSnd2lJeuXSGsLLIPWecFCjgBcjI7LVklCScqGD2qUErdzlD92rMFWYjzy/PPXlkzjVsjVMwXHzlWZq7ujg==
 X-Forefront-Antispam-Report-Untrusted:
- CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230001)(4636009)(46966006)(36840700001)(86362001)(83380400001)(5660300002)(110136005)(1076003)(7696005)(82310400005)(2906002)(508600001)(81166007)(356005)(36756003)(26005)(186003)(54906003)(47076005)(426003)(336012)(8936002)(2616005)(44832011)(6666004)(36860700001)(8676002)(4326008)(70206006)(316002)(70586007)(36900700001);DIR:OUT;SFP:1101;
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0801MB2069
+ CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(40460700003)(8936002)(336012)(426003)(86362001)(1076003)(4326008)(508600001)(83380400001)(47076005)(26005)(316002)(54906003)(110136005)(5660300002)(36756003)(6666004)(36860700001)(7696005)(82310400005)(8676002)(70586007)(70206006)(186003)(81166007)(2616005)(2906002)(44832011)(356005)(36900700001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB4659
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT034.eop-EUR03.prod.protection.outlook.com
+ DB5EUR03FT062.eop-EUR03.prod.protection.outlook.com
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	15f81b41-839c-4ea2-ef6a-08da211b1ffa
+	84fc2458-507d-4f9e-f124-08da211b21c3
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	+6IE9pkXIU+eAR2kSZmGkM49XZCJ17ZGJ/Qt8BSj/PvGOKvKIWywiq8+hqxwCYjBr5EDdt90E+Fst8TTDfow8bUheq0veEVwHnZ7SzS8T94clMB753Oo5Br/hO/8Y/zyT13GyW60a1mgRzBlRjk0fM9155vZ/y7Tx8HzdHQD/Gz0E8lEgoY//+4m12eTLcQcqCcH3x98a69oG1auXQPj3xUpppxJ/V9q46WlXUNB08NZGRuDR/YtuJuvR1c7gSe4AqB5ch95sCCEp2dLjQQYvAZt4Ct3LXubqju5NBzNeAJzVmFAb6VnWREzk0qLQt5/vIl0Mu9XHjr5JlA60mcLzXkS/hmR+YjDcWUfNDD7/igWHkNFfO2cYrdBeHX8QjhyVXBHZdOWtIlhoB1XkOKgAi279EVfdBYiDYRCByBCKl2FWTGmhI/TkS3SS9MXVstSK3Z8rVhrksYpM7KDQvJIqPlbd7yJt3KKCFSu88lhnvddSu7Pdns+l7V2vqQOYwaC8bboXtI0N5MrKcj6s4r7tfCp3ZfUfptQTGnrjJFL8f0a0EwGPfrJJ6tQRaknFcJRlwInq16VIVVyXrI2Ma9JzkmRCTj6sV5utz0UNm9W9E/VfWeiOQ2cFrYtXgspolvMJ6bGsvQLauHH0iDbfoY9Pg==
+	o3wAxv0Yx+4bc/e2GiE9lDFYuYcCW8sJef+RNUHm11bH0S8zU6wYjmg/LyaejnnpmO5WViPNLpHTsGNnha5/P+5tu0qH+NcLDvBZLA0VSto8ncCdzbdvixInz2gaGxTCVJwKH+8KiA/nSibzJ/ZtsTiPYXhR37wrsyEg9rihuOo4iJ20TNY5EVPvAYCmiTHE+qLAIvAzgWPQWjIFPK17JP55Zg2dajSHJwgekwZOHjnkjE6/VrxZrJxSly4+d4K7qN4PNqyF5c2gCs+iO9xBAK7O4osUyHtUgOs5KWRvSd4DNoVipf8p3/Do8uPpUFWvItEyBr22bFKn00ylYxn+qFgc/isb1wmbMIcVTMIaWodcOclu8Yrobef2kW/5kWFwU01yDPWcwdlQerIsx4GBKLkKX1qNPgg29VY903Bss5DR1QRD502atZUX9Ii5xDbRfz14q8Ye1wnlmFLQgdITg68xfS8tHzTX5jvel8ZOBDVD1spF6K+5rl1EdWty/D7TEPfo8DUHxGRWblP1huMh8XzxP3nBMxI0EpO5cp/p6C4h1iQKrY9Ii++smWoXMmbVqp+nTmfSCarkl8p4LxYpnZVwy/oD14iRFdyqVso02mOOCHJI74UgYBe6/qBNcqNe2IDYlZCL/pndkWM5/x347+TW1JkaZYXZIfFABNIwvDnUJ2tWeUqXjfwLft7HmXU3
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(36840700001)(46966006)(44832011)(36756003)(8936002)(5660300002)(2616005)(450100002)(316002)(54906003)(110136005)(7696005)(6666004)(508600001)(70586007)(70206006)(2906002)(1076003)(86362001)(186003)(107886003)(426003)(26005)(47076005)(336012)(36860700001)(82310400005)(8676002)(4326008)(81166007)(83380400001);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(36756003)(426003)(86362001)(4326008)(8676002)(2616005)(81166007)(450100002)(110136005)(70206006)(82310400005)(70586007)(508600001)(7696005)(40460700003)(107886003)(47076005)(2906002)(336012)(26005)(54906003)(316002)(6666004)(1076003)(44832011)(83380400001)(36860700001)(186003)(8936002)(5660300002);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Apr 2022 09:09:30.2637
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Apr 2022 09:09:32.2548
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5855dca-c0cc-4346-8026-08da211b2575
+X-MS-Exchange-CrossTenant-Network-Message-Id: c15145fe-f9b9-416e-b35f-08da211b26a7
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT034.eop-EUR03.prod.protection.outlook.com
+	DB5EUR03FT062.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB3104
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR08MB4057
 
-In current Xen code only implements x86 ACPI-based NUMA support.
-So in Xen Kconfig system, NUMA equals to ACPI_NUMA. x86 selects
-NUMA by default, and CONFIG_ACPI_NUMA is hardcode in config.h.
-
-In a follow-up patch, we will introduce support for NUMA using
-the device tree. That means we will have two NUMA implementations,
-so in this patch we decouple NUMA from ACPI based NUMA in Kconfig.
-Make NUMA as a common feature, that device tree based NUMA also
-can select it.
+We have introduced CONFIG_NUMA in a previous patch. And this
+option is enabled only on x86 at the current stage. In a follow
+up patch, we will enable this option for Arm. But we still
+want users to be able to disable the CONFIG_NUMA via Kconfig. In
+this case, keep the fake NUMA API, will make Arm code still
+able to work with NUMA aware memory allocation and scheduler.
 
 Signed-off-by: Wei Chen <wei.chen@arm.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
- xen/arch/x86/Kconfig              | 2 +-
- xen/arch/x86/include/asm/config.h | 1 -
- xen/common/Kconfig                | 3 +++
- xen/drivers/acpi/Kconfig          | 3 ++-
- xen/drivers/acpi/Makefile         | 2 +-
- 5 files changed, 7 insertions(+), 4 deletions(-)
+ xen/arch/arm/include/asm/numa.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index 06d6fbc864..1e31edc99f 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -6,6 +6,7 @@ config X86
- 	def_bool y
- 	select ACPI
- 	select ACPI_LEGACY_TABLES_LOOKUP
-+	select ACPI_NUMA
- 	select ALTERNATIVE_CALL
- 	select ARCH_SUPPORTS_INT128
- 	select CORE_PARKING
-@@ -26,7 +27,6 @@ config X86
- 	select HAS_UBSAN
- 	select HAS_VPCI if HVM
- 	select NEEDS_LIBELF
--	select NUMA
+diff --git a/xen/arch/arm/include/asm/numa.h b/xen/arch/arm/include/asm/numa.h
+index 268ba93a92..59cdf8e39e 100644
+--- a/xen/arch/arm/include/asm/numa.h
++++ b/xen/arch/arm/include/asm/numa.h
+@@ -5,6 +5,8 @@
  
- config ARCH_DEFCONFIG
- 	string
-diff --git a/xen/arch/x86/include/asm/config.h b/xen/arch/x86/include/asm/config.h
-index de20642524..07bcd15831 100644
---- a/xen/arch/x86/include/asm/config.h
-+++ b/xen/arch/x86/include/asm/config.h
-@@ -31,7 +31,6 @@
- /* Intel P4 currently has largest cache line (L2 line size is 128 bytes). */
- #define CONFIG_X86_L1_CACHE_SHIFT 7
+ typedef u8 nodeid_t;
  
--#define CONFIG_ACPI_NUMA 1
- #define CONFIG_ACPI_SRAT 1
- #define CONFIG_ACPI_CSTATE 1
- 
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index d921c74d61..d65add3fc6 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -70,6 +70,9 @@ config MEM_ACCESS
- config NEEDS_LIBELF
- 	bool
- 
-+config NUMA
-+	bool
++#ifndef CONFIG_NUMA
 +
- config STATIC_MEMORY
- 	bool "Static Allocation Support (UNSUPPORTED)" if UNSUPPORTED
- 	depends on ARM
-diff --git a/xen/drivers/acpi/Kconfig b/xen/drivers/acpi/Kconfig
-index b64d3731fb..e3f3d8f4b1 100644
---- a/xen/drivers/acpi/Kconfig
-+++ b/xen/drivers/acpi/Kconfig
-@@ -5,5 +5,6 @@ config ACPI
- config ACPI_LEGACY_TABLES_LOOKUP
- 	bool
+ /* Fake one node for now. See also node_online_map. */
+ #define cpu_to_node(cpu) 0
+ #define node_to_cpumask(node)   (cpu_online_map)
+@@ -24,6 +26,9 @@ extern mfn_t first_valid_mfn;
+ #define node_spanned_pages(nid) (max_page - mfn_x(first_valid_mfn))
+ #define node_start_pfn(nid) (mfn_x(first_valid_mfn))
+ #define __node_distance(a, b) (20)
++
++#endif
++
+ #define arch_have_default_dmazone() (false)
  
--config NUMA
-+config ACPI_NUMA
- 	bool
-+	select NUMA
-diff --git a/xen/drivers/acpi/Makefile b/xen/drivers/acpi/Makefile
-index 4f8e97228e..2fc5230253 100644
---- a/xen/drivers/acpi/Makefile
-+++ b/xen/drivers/acpi/Makefile
-@@ -3,7 +3,7 @@ obj-y += utilities/
- obj-$(CONFIG_X86) += apei/
- 
- obj-bin-y += tables.init.o
--obj-$(CONFIG_NUMA) += numa.o
-+obj-$(CONFIG_ACPI_NUMA) += numa.o
- obj-y += osl.o
- obj-$(CONFIG_HAS_CPUFREQ) += pmstat.o
- 
+ #endif /* __ARCH_ARM_NUMA_H */
 -- 
 2.25.1
 
