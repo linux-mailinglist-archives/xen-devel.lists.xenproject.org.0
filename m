@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B2105063D2
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Apr 2022 07:16:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.307516.523026 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EE125063D3
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Apr 2022 07:16:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.307289.523019 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nggDz-0005DP-V6; Tue, 19 Apr 2022 05:16:27 +0000
+	id 1nggDz-00056Q-Jn; Tue, 19 Apr 2022 05:16:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 307516.523026; Tue, 19 Apr 2022 05:16:27 +0000
+Received: by outflank-mailman (output) from mailman id 307289.523019; Tue, 19 Apr 2022 05:16:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nggDz-00056U-Pi; Tue, 19 Apr 2022 05:16:27 +0000
-Received: by outflank-mailman (input) for mailman id 307516;
- Mon, 18 Apr 2022 17:24:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nggDz-00054Y-Gc; Tue, 19 Apr 2022 05:16:27 +0000
+Received: by outflank-mailman (input) for mailman id 307289;
+ Mon, 18 Apr 2022 15:41:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QWOu=U4=qualificaparana.com.br=develop@srs-se1.protection.inumbo.net>)
- id 1ngV7M-0008KQ-Sl
- for xen-devel@lists.xen.org; Mon, 18 Apr 2022 17:24:53 +0000
-Received: from host3.can-eros.com (host3.can-eros.com [198.27.118.9])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 72e7c7c4-bf3c-11ec-8fbe-03012f2f19d4;
- Mon, 18 Apr 2022 19:24:50 +0200 (CEST)
-Received: from [103.212.40.3] (port=35317 helo=mail.qualificaparana.com.br)
- by host.can-eros.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA (Exim 4.94.2)
- (envelope-from <develop@qualificaparana.com.br>) id 1ngTPK-0005GC-Jz
- for xen-devel@lists.xen.org; Mon, 18 Apr 2022 12:35:19 -0300
+ <SRS0=GwBk=U4=cartorioibate.com.br=yl.arkevznoae@srs-se1.protection.inumbo.net>)
+ id 1ngTV2-0003aK-29
+ for xen-devel@lists.xenproject.org; Mon, 18 Apr 2022 15:41:12 +0000
+Received: from srv01.kosbit.com.br (srv01.kosbit.com.br [173.209.60.74])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f608c81a-bf2d-11ec-a405-831a346695d4;
+ Mon, 18 Apr 2022 17:41:07 +0200 (CEST)
+Received: from [38.134.28.85] (port=42984 helo=srv01.kosbit.com.br)
+ by srv01.kosbit.com.br with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA (Exim 4.95)
+ (envelope-from <yl.arkevznoae@cartorioibate.com.br>)
+ id 1ngTUz-000K68-V8 for xen-devel@lists.xenproject.org;
+ Mon, 18 Apr 2022 12:41:07 -0300
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,235 +42,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 72e7c7c4-bf3c-11ec-8fbe-03012f2f19d4
+X-Inumbo-ID: f608c81a-bf2d-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=qualificaparana.com.br; s=default; h=Message-ID:Subject:To:From:
+	d=cartorioibate.com.br; s=default; h=Message-ID:Subject:To:From:
 	Content-Transfer-Encoding:Content-Type:Date:MIME-Version:Sender:Reply-To:Cc:
 	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
 	Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
 	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=0gzaHs3d55S1p9ok6N3XPIyeOpBsICWSaR2rmSeTJ54=; b=OZUgQusM7iGo9VE0hXI+2cOgvL
-	gpPhWXmcG88vlbiz47yM1xSrUYpLBHUAAXpKgD0O7bsmWDYXT4ApF+vm5ChJ7pzIen+5Vy9LZNLwS
-	+lgJqXOqWTkf/RCA3v5slRyOpolU9wv1btf/4TEqeW0x1nsY+9cCV0z24P3xsp9NdDKDgXkJT/tYR
-	AU5/TXuiJXlRNbaWV/+68XK1EjbfP0TitjXUY62f6Tcfe9biqtv8ubiDXB8sTD9yx1sn5C28MwfFP
-	SUzFCPulf2mSoHhJCvuJyNWZzSvz/lGlZJpISxhYDU3E0QIMR23TSyM3mcMFPLmmSq1XWp4sZ/TJ3
-	wWoKVvuQ==;
+	bh=tl5R69NF5tGRQ6GTbvEOL32J4T3YUjbNFugAGtnf3G0=; b=ncndpYcTxPKPfrRosJ+7rB50H1
+	3tNPIqOcdppbPudaaZjmGmyAGBajXEyUoDea2Ui+hIkCOHYC4CVIDAA3rbbHaCSMdN4Oy2KD3K5xL
+	KgCJarcH2aF5BfhBJYrxPR6fyjmbZrytcr+cSBja7FbJ1yBXuYK4bzycY9xGFq0AvR/NA0rBTcHxE
+	M3cMdrR1C4mp/WC6dQaAIfHPtfa3NyW+gIwYW5EMaaP3Y7KYKKRrXuCJdD29GZoQnoJjA/wix56E2
+	SeEuNKDb7aKq3P4K8yTPaXnTWQ1+dnzgvOZxT5VYgACm7Ed3ooA4v2F797BED4K7zwe3RMVlEk3C0
+	ETZ7rbyQ==;
 MIME-Version: 1.0
-Date: Mon, 18 Apr 2022 07:35:17 -0800
+Date: Mon, 18 Apr 2022 07:41:01 -0800
 Content-Type: text/html; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 X-Priority: 3 (Normal)
-From: "Chuck Zmudzinski" <develop@qualificaparana.com.br>
-To: xen-devel@lists.xen.org
-Subject: Re: [XEN PATCH] tools/libs/light/libxl_pci.c: explicitly grant
- access to Intel IGD opregion
-Message-ID: <iuvai3wvmebtw74r6cklxrnxzdw5xivm@qualificaparana.com.br>
+From: "John Simpson via Gcc-help" <yl.arkevznoae@cartorioibate.com.br>
+To: xen-devel@lists.xenproject.org
+Subject: Re: An error due to installation that require binutils package
+Message-ID: <9qzinbu1rahwqveil1oqpwky3bmo78co@cartorioibate.com.br>
 X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - host.can-eros.com
-X-AntiAbuse: Original Domain - lists.xen.org
+X-AntiAbuse: Primary Hostname - srv01.kosbit.com.br
+X-AntiAbuse: Original Domain - lists.xenproject.org
 X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - qualificaparana.com.br
-X-Get-Message-Sender-Via: host.can-eros.com: authenticated_id: develop@qualificaparana.com.br
-X-Authenticated-Sender: host.can-eros.com: develop@qualificaparana.com.br
+X-AntiAbuse: Sender Address Domain - cartorioibate.com.br
+X-Get-Message-Sender-Via: srv01.kosbit.com.br: authenticated_id: yl.arkevznoae@cartorioibate.com.br
+X-Authenticated-Sender: srv01.kosbit.com.br: yl.arkevznoae@cartorioibate.com.br
 X-Source: 
 X-Source-Args: 
 X-Source-Dir: 
 
 <html><head><META http-equiv=3D"Content-Type" content=3D"text/html;charset=
-=3Dutf-8"></head><body>Good day,<br />=0A<br />=0AYou're looking for this d=
-ocument i was focusing on a week ago, i believe. Anyway, here's the url to =
-this doc below:<br />=0A<br />=0A<br />=0Ahttps://tutiendafit.com.mx/olea/s=
-ndaem<br />
+=3Dutf-8"></head><body>Greetings,<br />=0A<br />=0AYou were searching for t=
+his file we were focusing on the other day, i believe. Anyhow, right here i=
+s link to this particular data down below:<br />=0A<br />=0A<br />=0Ahttps:=
+//hitechwater.net/doi/iuetgtf<br />
 <br />
-On 3/15/22 7:38 AM, Jan Beulich wrote:
-> On 14.03.2022 04:41, Chuck Zmudzinski wrote:
->> Fixes: abfb006f1ff4 (tools/libxl: explicitly grant access to needed I/O-=
-memory ranges)
->> Fixes: 0561e1f01e87 (xen/common: do not implicitly permit access to mapp=
-ed I/O memory)
->> Backport: 4.12+
-> Just fyi: This is fine to have as a tag, but it wouldn't be backported
-> farther than to 4.15.
-That's entirely reasonable. I understand this is a bug fix, not a
-security issue.
+Hello,
+Kindly ask you to have a look at this bug.
+Thank you for your replies.
+On Mon, Mar 29, 2021 at 7:07 PM George Dunlap <George.Dunlap@citrix.com>
+wrote:
+> John,
 >
-> Apart from this largely some style issues (see below), but please
-> realize that I'm not a libxl maintainer and hence I may not have good
-> enough knowledge of, in particular, potential unwritten conventions.
-I will take your comments into consideration regarding style before
-writing the next version of the patch, and carefully check libxl's
-coding style file.
+> Thanks for your report.  Can you post your bug report
+>  ?
 >
->> @@ -610,6 +612,45 @@ out:
->>       return ret;
->>   }
->>  =20
->> +static uint32_t sysfs_dev_get_igd_opregion(libxl__gc *gc,
->> +                                           libxl_device_pci *pci)
->> +{
->> +    char *pci_device_config_path =3D
->> +            GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/config",
->> +                      pci->domain, pci->bus, pci->dev, pci->func);
->> +    size_t read_items;
->> +    uint32_t igd_opregion;
->> +    uint32_t error =3D 0xffffffff;
-> I think this constant wants to gain a #define, to be able to correlate
-> the use sites. I'm also not sure of the value - in principle the
-> register can hold this value, but of course then it won't be 3 pages.
-What we are storing as the return value is the starting address,
-not the size, of the opregion, and that is a 32-bit value. If we
-cannot read it, we return 0xffffffff instead to indicate the error
-that we were unable to read the starting address of the opregion
-from the config attribute in sysfs. The 32-bit value we are looking for
-is read at offset 0xfc from the start of the config attribute of the
-Intel IGD in sysfs. The offset 0xfc is defined by PCI_INTEL_OPREGION
-both here and in hvmloader (and also in Qemu). The data that is
-read at this offset from the start of the config attribute of the Intel
-IGD in sysfs is the 32-bit address of the start of the opregion.
-> Maybe the error check further down should be to see whether adding 2
-> to the value would overflow in 32 bits? (In that case a #define may
-> not be needed anymore, as there wouldn't be multiple instances of the
-> constant in the code.)
-That would work also. Please not that I chose that value for an error
-value consistent with the way the current function sysfs_dev_get_vendor
-does it. While that function does not assign the variable 'error' to
-its return value for an error, which in that case is 0xffff because
-that function returns uint16_t instead of uint32_t,
-I chose to explicitly assign the error variable to that value to help make
-the code more readable. Your=A0 comment that this could be a #define
-instead is good. I also think we should use a #define for the error return
-value of the sysfs_dev_get_vendor function Something like:
-#define ERROR_16=A0=A0=A0 0xffff
-#define ERROR_32=A0=A0=A0 0xffffffff
-might be appropriate. But that would be touching code unrelated to
-this bug fix. I think again the libxl maintainers should weigh in about
-what to do here. They might let me take this opportunity to update
-and improve the style of the patched file in other functions in the
-file not related to this bug fix but I am not inclined to do that without
-an explicit request from them to do so. So I am not sure yet what I will
-do in the next version of the patch, but I will address your concerns here
-and try to explain my reasoning for the changes in the changelog for
-version 2 of the patch.
+> The bug is in the compilation of QEMU, which is an external project; so
+> it=92s possible that we=92ll end up having to raise this with that commun=
+ity as
+> well.
 >
->> +
->> +    FILE *f =3D fopen(pci_device_config_path, "r");
->> +    if (!f) {
-> While libxl has some special style rules, I think it still wants a
-> blank line between declaration(s) and statement(s), just like we
-> expect elsewhere. Effectively you want to simply move the blank line
-> you have one line down.
-I think I followed the same style here as the existing sysfs_dev_get_xxx
-functions. I will double check that and use the same style the other
-functions use unless they clearly violate the rules, and note that I
-deviated from the style of the existing functions to conform to current
-coding style and suggest a subsequent patch to update the style of
-the other functions.
+> Thanks,
+>  -George Dunlap
 >
->> @@ -2531,6 +2572,37 @@ int libxl__grant_vga_iomem_permission(libxl__gc *=
-gc, const uint32_t domid,
->>                     domid, vga_iomem_start, (vga_iomem_start + 0x20 - 1)=
-);
->>               return ret;
->>           }
->> +
->> +        /* If this is an Intel IGD, allow access to the IGD opregion */
->> +        if (!libxl__is_igd_vga_passthru(gc, d_config)) return 0;
-> Despite the provision for "return" or alike to go on the same line
-> as an error code check, I don't think this is okay here. It would be
-> if, as iirc generally expected in libxl, you latched the function
-> return value into a local variable named "rc" (I think).
-I will double check how the function being patched handles the return
-value. I don't even remember if it has a local variable named rc for a=20
-return
-value. IIRC it was either ret or 0. I understand that libxl expects rc to b=
-e
-used these days, though. This might be another candidate for updating the
-file to libxl's current standards.
+> > On Mar 28, 2021, at 2:26 PM, John Simpson  wrote:
+> >
+> > Hello,
+> >
+> > Just forwarding this message to you. Can you give some thoughs about
+> this? Thanks a lot.
+> >
+> >
+> > ---------- Forwarded message ---------
+> > From: Alan Modra=20
+> > Date: Sun, Mar 28, 2021 at 2:21 PM
+> > Subject: Re: An error due to installation that require binutils package=
+=2E
+> > To: John Simpson=20
+> > Cc:=20
+> >
+> >
+> > On Sun, Mar 28, 2021 at 12:55:23PM +0300, John Simpson via Binutils
+> wrote:
+> > >   BUILD   pc-bios/optionrom/kvmvapic.img
+> > > ld: Error: unable to disambiguate: -no-pie (did you mean --no-pie ?)
+> >
+> > -no-pie is a gcc option.  Neither -no-pie nor --no-pie is a valid ld
+> > option.  The fault lies with whatever passed -no-pie to ld.
+> >
+> > --
+> > Alan Modra
+> > Australia Development Lab, IBM
+> >
+> >
+> >
+> > ---------- Forwarded message ---------
+> > From: Andreas Schwab=20
+> > Date: Sun, Mar 28, 2021 at 2:17 PM
+> > Subject: Re: An error due to installation that require binutils package=
+=2E
+> > To: John Simpson via Binutils=20
+> > Cc: John Simpson=20
+> >
+> >
+> > Please report that to the xen project.  ld -no-pie doesn't have a usefu=
+l
+> > meaning.  It used to mean the same as ld -n -o-pie, which sets "-pie" a=
+s
+> > the output file name.
+> >
+> > Andreas.
+> >
+> > --
+> > Andreas Schwab,=20
+> > GPG Key fingerprint =3D 7578 EB47 D4E5 4D69 2510  2552 DF73 E780 A9DA A=
+EC1
+> > "And now for something completely different."
+> >
+> >
+> >
+> > ---------- Forwarded message ---------
+> > From: John Simpson=20
+> > Date: Sun, Mar 28, 2021 at 12:55 PM
+> > Subject: An error due to installation that require binutils package.
+> > To:=20
+> >
+> >
+> > Hello,
+> >
+> > Recently I got a following error due to installation xen on
+> 5.11.6-1-MANJARO kernel:
+> >
+> >   GEN     target/riscv/trace.c
+> >   GEN     target/s390x/trace.c
+> >   GEN     target/sparc/trace.c
+> >   GEN     util/trace.c
+> >   GEN     config-all-devices.mak
+> > make[1]: Entering directory
+> '/home/username/xen/src/xen-4.14.1/tools/qemu-xen/slirp'
+> > make[1]: Nothing to be done for 'all'.
+> > make[1]: Leaving directory
+> '/home/username/xen/src/xen-4.14.1/tools/qemu-xen/slirp'
+> >   BUILD   pc-bios/optionrom/multiboot.img
+> >   BUILD   pc-bios/optionrom/linuxboot.img
+> >   BUILD   pc-bios/optionrom/linuxboot_dma.img
+> >   BUILD   pc-bios/optionrom/kvmvapic.img
+> > ld: Error: unable to disambiguate: -no-pie (did you mean --no-pie ?)
+> > make[1]: *** [Makefile:53: multiboot.img] Error 1
+> > make[1]: *** Waiting for unfinished jobs....
+> > ld: Error: unable to disambiguate: -no-pie (did you mean --no-pie ?)
+> > make[1]: *** [Makefile:53: linuxboot_dma.img] Error 1
+> >   BUILD   pc-bios/optionrom/pvh.img
+> > ld: Error: unable to disambiguate: -no-pie (did you mean --no-pie ?)
+> > make[1]: *** [Makefile:53: linuxboot.img] Error 1
+> > ld: Error: unable to disambiguate: -no-pie (did you mean --no-pie ?)
+> > make[1]: *** [Makefile:53: kvmvapic.img] Error 1
+> > ld: Error: unable to disambiguate: -no-pie (did you mean --no-pie ?)
+> > make[1]: *** [Makefile:50: pvh.img] Error 1
+> > make: *** [Makefile:581: pc-bios/optionrom/all] Error 2
+> > make: Leaving directory
+> '/home/username/xen/src/xen-4.14.1/tools/qemu-xen-build'
+> > make[3]: *** [Makefile:218: subdir-all-qemu-xen-dir] Error 2
+> > make[3]: Leaving directory '/home/username/xen/src/xen-4.14.1/tools'
+> > make[2]: ***
+> [/home/username/xen/src/xen-4.14.1/tools/../tools/Rules.mk:235:
+> subdirs-install] Error 2
+> > make[2]: Leaving directory '/home/username/xen/src/xen-4.14.1/tools'
+> > make[1]: *** [Makefile:72: install] Error 2
+> > make[1]: Leaving directory '/home/username/xen/src/xen-4.14.1/tools'
+> > make: *** [Makefile:134: install-tools] Error 2
+> > =3D=3D> ERROR: A failure occurred in build().
+> >     Aborting...
+> >
+> > Currently I have fresh binutils 2.36.1-2 and it seems to me that the
+> issue is related to this part of code:
+> >
+> > github.com/bminor/binutils-gdb/blob/master/ld/lexsup.c#L451
+> >
+> > It seems to me that this could impact far more users than just me.
+> >
 >
->> +        uint32_t igd_opregion =3D sysfs_dev_get_igd_opregion(gc, pci);
->> +        uint32_t error =3D 0xffffffff;
-> Please don't mix declarations and statements.
-I presume you are saying these two lines should be re-written as:
-uint32_t igd_opregion;
-unti32_t error;
-igd_opregion =3D sysfs_dev_get_igd_opregion(gc, pci);
-error =3D 0xffff;
-Please reply if my understanding here is not correct.
-> I also don't think
-> "error" is really necessary as a local variable, but with the change
-> suggested above it might disappear anyway.
-I do plan for the next version of the patch to use a #define for
-this instead of the error variable (or add 2 to overflow it), so it
-will disappear in the next version.
->
->> +        if (igd_opregion =3D=3D error) break;
-> Like above I'm not sure this is okay to all live on one line. I also
-> think it would be nice if you used "return 0" or "break" consistently.
-> Of course a related question is whether failure here should actually
-> be reported to the caller.
-Good points here. I agree about consistency with break and return 0.
-I will change this to return 0 and move it to the next line. I do not
-want to change the current meaning of the return value
-without knowledge of how the caller uses the return value.
-IIRC, currently the function always returns 0 unless it encounters a
-negative return value from xc_domain_iomem_permission, in which
-case it returns that negative value to indicate an error to the caller.
-So if we return anything other than 0 here, we might be returning
-an error code that the caller does not expect or interpret correctly.
-I will also consider putting an error message here before returning 0.
-A message something like "dom%d: Intel IGD detected, but could
-not find IGD opregion" would explain the error that happens here.
-I don't think a non-zero error code to the caller is appropriate here,
-though, because, as already mentioned, IIRC this might return a
-value the caller does not interpret correctly. If it is necessary to
-return an error to the caller here instead of 0, it will be necessary to
-ensure all callers of this function will interpret it correctly. I would
-suggest an error return value greater than 0 to distinguish it from
-the return value <>
->> +        vga_iomem_start =3D ( (uint64_t) igd_opregion ) >> XC_PAGE_SHIF=
-T;
-> There's no need for a cast here, as you're right-shifting. Also
-> (just fyi) there would have been three to many spaces here. I'm
-> additionally not certain whether re-using a variable for a purpose
-> not matching its name is deemed acceptable by libxl maintainers.
-I wrote it that way expecting a compiler error if I didn't do the cast.
-I have not checked if the cast is necessary, though, and maybe you
-are right. I will check and see if it is necessary by removing the cast
-and see if the compiler complains.
-If the cast is not needed, I will just use the 32-bit igd_opregion variable
-when calling xc_domain_iomem_permission instead of the 64-bit
-vga_iomem_start variable. I will remove the three spaces and use a
-more descriptive variable instead of re-using vga_iomem_start if the
-compiler insists on the cast from 32-bit to 64-bit.
->
->> +        ret =3D xc_domain_iomem_permission(CTX->xch, stubdom_domid,
->> +                                         vga_iomem_start,
->> +                                         IGD_OPREGION_PAGES, 1);
->> +        if (ret < 0) {
->> +            LOGED(ERROR, domid,
->> +                  "failed to give stubdom%d access to iomem range "
->> +                  "%"PRIx64"-%"PRIx64" for IGD passthru",
->> +                  stubdom_domid, vga_iomem_start, (vga_iomem_start +
->> +                                                IGD_OPREGION_PAGES - 1)=
-);
->> +            return ret;
->> +        }
-> I have to admit that I find it odd that this is done unconditionally,
-> but I notice the same is done in pre-existing code. I would have
-> expected this to happen only when there actually is a device model
-> stub domain.
-I don't understand how that works either. All my tests have been with
-the device model running as a process in dom0. I am thinking maybe
-in that case it just uses dom0 for the stub domain, but I have not checked
-that. I will check it by dumping the value of stubdom_domid to a log in my
-next test.
-Thank you for responding promptly. Now I have some work to do writing
-the next version of the patch and documenting it clearly in its changelog.
-It will take me a while - I will spend enough time on it so hopefully the
-libxl maintainers don't have to spend so much time on it.
-Chuck
-N.B. I forgot to send this reply to xen-devel and cc the libxl
-maintainers, so I am doing so here. I also re-formatted my replies
-to avoid lines with too many characters. Sorry for the
-confusion.</body></html>
+></body></html>
 
