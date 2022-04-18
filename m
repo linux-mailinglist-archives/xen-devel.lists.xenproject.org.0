@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF85F505E41
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Apr 2022 21:11:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.307544.522710 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87D2A505E50
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Apr 2022 21:16:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.307558.522722 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngWmP-0004UN-LE; Mon, 18 Apr 2022 19:11:21 +0000
+	id 1ngWqX-0005oa-6J; Mon, 18 Apr 2022 19:15:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 307544.522710; Mon, 18 Apr 2022 19:11:21 +0000
+Received: by outflank-mailman (output) from mailman id 307558.522722; Mon, 18 Apr 2022 19:15:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngWmP-0004S5-Hp; Mon, 18 Apr 2022 19:11:21 +0000
-Received: by outflank-mailman (input) for mailman id 307544;
- Mon, 18 Apr 2022 19:11:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hjWk=U4=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1ngWmO-00046X-5K
- for xen-devel@lists.xenproject.org; Mon, 18 Apr 2022 19:11:20 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 52f220bb-bf4b-11ec-8fbe-03012f2f19d4;
- Mon, 18 Apr 2022 21:11:18 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 615D760C3E;
- Mon, 18 Apr 2022 19:11:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BDD1C385AA;
- Mon, 18 Apr 2022 19:11:16 +0000 (UTC)
+	id 1ngWqX-0005lw-2P; Mon, 18 Apr 2022 19:15:37 +0000
+Received: by outflank-mailman (input) for mailman id 307558;
+ Mon, 18 Apr 2022 19:15:35 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ngWqV-0005lm-LI; Mon, 18 Apr 2022 19:15:35 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ngWqV-0004NP-JY; Mon, 18 Apr 2022 19:15:35 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ngWqV-0002oV-3z; Mon, 18 Apr 2022 19:15:35 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ngWqV-0000G7-3X; Mon, 18 Apr 2022 19:15:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,170 +42,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 52f220bb-bf4b-11ec-8fbe-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1650309076;
-	bh=VegG9uE/cYW7iPEYsyywdBTiJppdUCAamOZypgp6yWg=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=dWKEoF6YDrqYBpKYvfAng6jhBLKMVcug1HKoz5+2L0SANk3CzFv06Gx4efZ7rQqom
-	 yoiB7TEUpR+DC0KRPMlEbkVOWEGrzBIlgQH0Xss/9Gwk94ImpPFBKRJj3w1Sege4SV
-	 l+SgzGOEzsHq9rUvnxfXSy58byJaX/PqgojrhXUXN+CniUyCzytq3UITOtzuB8qhYN
-	 uMJZP4NCtqRtorHPsjEjvxneczklbQvDrIG3Qpq+IeLtSzZqwCF8s6eb12AR9pvR0o
-	 C+X8FSqXeLzv22uwmwyy0S8kuDPOrc7QWkZkWTCOZVYN6hcOUHxkAr/TjiXDOpFQ9o
-	 DFmewThitLLsg==
-Date: Mon, 18 Apr 2022 12:11:16 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksandr <olekstysh@gmail.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
-    linux-arm-kernel@lists.infradead.org, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    Russell King <linux@armlinux.org.uk>, 
-    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-    Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>, 
-    "Michael S. Tsirkin" <mst@redhat.com>, 
-    Christoph Hellwig <hch@infradead.org>
-Subject: Re: [RFC PATCH 4/6] virtio: Various updates to xen-virtio DMA ops
- layer
-In-Reply-To: <84f5264c-6b98-6d56-b7ca-61c19dc502ca@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2204181156280.915916@ubuntu-linux-20-04-desktop>
-References: <1649963973-22879-1-git-send-email-olekstysh@gmail.com> <1649963973-22879-5-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.22.394.2204151302350.915916@ubuntu-linux-20-04-desktop> <84f5264c-6b98-6d56-b7ca-61c19dc502ca@gmail.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=AfTQq1qdIf3z1gBCZWlnPJ9h4naFZBStF182VTrR0Pg=; b=6Xcnx4pA96WyvabD7IEL28+STn
+	jNwmKKmbi0UYk9D2TXfORIwJ6ShsjvZ65PvTh9/i+LV6059zE0+6DxAsIkYXuV75MASRBYPim46FX
+	wH2v+9pt23eGw+os5THVq5tRjHzkq236UXcb/nrWZzAFp14zY4M+51wNURT/sdTSyqbs=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-169519-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1608932710-1650308427=:915916"
-Content-ID: <alpine.DEB.2.22.394.2204181201160.915916@ubuntu-linux-20-04-desktop>
+Subject: [ovmf test] 169519: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=91a03f78ba0b75bc4ed2c4b756cbe57c685d9c72
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 18 Apr 2022 19:15:35 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 169519 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169519/
 
---8323329-1608932710-1650308427=:915916
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2204181201161.915916@ubuntu-linux-20-04-desktop>
+Regressions :-(
 
-On Sun, 17 Apr 2022, Oleksandr wrote:
-> On 16.04.22 01:02, Stefano Stabellini wrote:
-> > On Thu, 14 Apr 2022, Oleksandr Tyshchenko wrote:
-> > > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > > 
-> > > In the context of current patch do the following:
-> > > 1. Update code to support virtio-mmio devices
-> > > 2. Introduce struct xen_virtio_data and account passed virtio devices
-> > >     (using list) as we need to store some per-device data
-> > > 3. Add multi-page support for xen_virtio_dma_map(unmap)_page callbacks
-> > > 4. Harden code against malicious backend
-> > > 5. Change to use alloc_pages_exact() instead of __get_free_pages()
-> > > 6. Introduce locking scheme to protect mappings (I am not 100% sure
-> > >     whether per-device lock is really needed)
-> > > 7. Handle virtio device's DMA mask
-> > > 8. Retrieve the ID of backend domain from DT for virtio-mmio device
-> > >     instead of hardcoding it.
-> > > 
-> > > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > > ---
-> > >   arch/arm/xen/enlighten.c |  11 +++
-> > >   drivers/xen/Kconfig      |   2 +-
-> > >   drivers/xen/xen-virtio.c | 200
-> > > ++++++++++++++++++++++++++++++++++++++++++-----
-> > >   include/xen/xen-ops.h    |   5 ++
-> > >   4 files changed, 196 insertions(+), 22 deletions(-)
-> > > 
-> > > diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
-> > > index ec5b082..870d92f 100644
-> > > --- a/arch/arm/xen/enlighten.c
-> > > +++ b/arch/arm/xen/enlighten.c
-> > > @@ -409,6 +409,17 @@ int __init arch_xen_unpopulated_init(struct resource
-> > > **res)
-> > >   }
-> > >   #endif
-> > >   +#ifdef CONFIG_ARCH_HAS_RESTRICTED_VIRTIO_MEMORY_ACCESS
-> > > +int arch_has_restricted_virtio_memory_access(void)
-> > > +{
-> > > +	if (IS_ENABLED(CONFIG_XEN_HVM_VIRTIO_GRANT) && xen_hvm_domain())
-> > > +		return 1;
-> > Instead of xen_hvm_domain(), you can just use xen_domain(). Also there
-> > is no need for the #ifdef
-> > CONFIG_ARCH_HAS_RESTRICTED_VIRTIO_MEMORY_ACCESS, given that:
-> > 
-> > CONFIG_XEN_HVM_VIRTIO_GRANT depends on XEN_VIRTIO which selects
-> > ARCH_HAS_RESTRICTED_VIRTIO_MEMORY_ACCESS
-> 
-> 
-> Yes, but please see my comments in commit #2 regarding
-> CONFIG_XEN_HVM_VIRTIO_GRANT option and
-> arch_has_restricted_virtio_memory_access() on Arm.
-> 
-> I propose to have the following on Arm:
-> 
-> int arch_has_restricted_virtio_memory_access(void)
-> {
->      return xen_has_restricted_virtio_memory_access();
-> }
-> 
-> 
-> where common xen.h contain a helper to be used by both Arm and x86:
-> 
-> static inline int xen_has_restricted_virtio_memory_access(void)
-> {
->      if (IS_ENABLED(CONFIG_XEN_VIRTIO) && (xen_pv_domain() ||
-> xen_hvm_domain()))
->          return 1;
-> 
->      return 0;
-> }
-> 
-> 
-> But I would be happy with what you propose as well.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
-As I wrote in the previous reply, I also prefer to share the code
-between x86 and ARM, and I think it could look like:
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-int arch_has_restricted_virtio_memory_access(void)
-{
-     return xen_has_restricted_virtio_memory_access();
-}
-[...]
-static inline int xen_has_restricted_virtio_memory_access(void)
-{
-     return (IS_ENABLED(CONFIG_XEN_VIRTIO) && xen_domain());
-}
+version targeted for testing:
+ ovmf                 91a03f78ba0b75bc4ed2c4b756cbe57c685d9c72
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-But let's check with Juergen and Boris.
+Last test of basis   168254  2022-02-28 10:41:46 Z   49 days
+Failing since        168258  2022-03-01 01:55:31 Z   48 days  488 attempts
+Testing same since   169441  2022-04-16 00:41:39 Z    2 days   64 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
-> > > +	return 0;
-> > > +}
-> > > +EXPORT_SYMBOL_GPL(arch_has_restricted_virtio_memory_access);
-> > > +#endif
-> > > +
-> > >   static void __init xen_dt_guest_init(void)
-> > >   {
-> > >   	struct device_node *xen_node;
-> > > diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
-> > > index fc61f7a..56afe6a 100644
-> > > --- a/drivers/xen/Kconfig
-> > > +++ b/drivers/xen/Kconfig
-> > > @@ -347,7 +347,7 @@ config XEN_VIRTIO
-> > >     config XEN_HVM_VIRTIO_GRANT
-> > >   	bool "Require virtio for fully virtualized guests to use grant
-> > > mappings"
-> > > -	depends on XEN_VIRTIO && X86_64
-> > > +	depends on XEN_VIRTIO && (X86_64 || ARM || ARM64)
-> > you can remove the architectural dependencies
-> 
-> 
-> According to the conversation in commit #2 we are considering just a single
-> XEN_VIRTIO option, but it is going to has the
-> same architectural dependencies: (X86_64 || ARM || ARM64)
-> 
-> By removing the architectural dependencies here, we will leave also X86_32
-> covered (neither XEN_HVM_VIRTIO_GRANT nor XEN_PV_VIRTIO covered it). I don't
-> know whether it is ok or not.
-> 
-> Shall I remove dependencies anyway?
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-No, good point. I don't know about X86_32. This is another detail where
-Juergen or Boris should comment.
---8323329-1608932710-1650308427=:915916--
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 5290 lines long.)
 
