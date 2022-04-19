@@ -2,65 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32DF5507658
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Apr 2022 19:16:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.308417.524168 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB3EE50768C
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Apr 2022 19:31:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.308424.524179 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngrSs-0007cB-9G; Tue, 19 Apr 2022 17:16:34 +0000
+	id 1ngrh9-0001gJ-Jv; Tue, 19 Apr 2022 17:31:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 308417.524168; Tue, 19 Apr 2022 17:16:34 +0000
+Received: by outflank-mailman (output) from mailman id 308424.524179; Tue, 19 Apr 2022 17:31:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngrSs-0007aI-5B; Tue, 19 Apr 2022 17:16:34 +0000
-Received: by outflank-mailman (input) for mailman id 308417;
- Tue, 19 Apr 2022 17:16:32 +0000
+	id 1ngrh9-0001d5-G8; Tue, 19 Apr 2022 17:31:19 +0000
+Received: by outflank-mailman (input) for mailman id 308424;
+ Tue, 19 Apr 2022 17:31:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mE7q=U5=arm.com=Rahul.Singh@srs-se1.protection.inumbo.net>)
- id 1ngrSq-00071I-Cp
- for xen-devel@lists.xenproject.org; Tue, 19 Apr 2022 17:16:32 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on0615.outbound.protection.outlook.com
- [2a01:111:f400:fe0d::615])
+ <SRS0=WtTZ=U5=gmail.com=julien.grall.oss@srs-se1.protection.inumbo.net>)
+ id 1ngrh7-0001cz-TR
+ for xen-devel@lists.xenproject.org; Tue, 19 Apr 2022 17:31:18 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 73c62a21-c004-11ec-a405-831a346695d4;
- Tue, 19 Apr 2022 19:16:30 +0200 (CEST)
-Received: from DU2P251CA0028.EURP251.PROD.OUTLOOK.COM (2603:10a6:10:230::32)
- by DB8PR08MB5292.eurprd08.prod.outlook.com (2603:10a6:10:a6::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.13; Tue, 19 Apr
- 2022 17:16:26 +0000
-Received: from DB5EUR03FT032.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:230:cafe::5d) by DU2P251CA0028.outlook.office365.com
- (2603:10a6:10:230::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.13 via Frontend
- Transport; Tue, 19 Apr 2022 17:16:26 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT032.mail.protection.outlook.com (10.152.20.162) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5164.19 via Frontend Transport; Tue, 19 Apr 2022 17:16:26 +0000
-Received: ("Tessian outbound ab7864ef57f2:v118");
- Tue, 19 Apr 2022 17:16:26 +0000
-Received: from 199cbda7e914.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 347864DC-4C5D-422D-92C0-253F77777B7C.1; 
- Tue, 19 Apr 2022 17:16:15 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 199cbda7e914.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Tue, 19 Apr 2022 17:16:15 +0000
-Received: from DB6PR0801MB2022.eurprd08.prod.outlook.com (2603:10a6:4:76::15)
- by AM5PR0802MB2499.eurprd08.prod.outlook.com (2603:10a6:203:a1::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.13; Tue, 19 Apr
- 2022 17:16:13 +0000
-Received: from DB6PR0801MB2022.eurprd08.prod.outlook.com
- ([fe80::556f:106a:aa3:42f6]) by DB6PR0801MB2022.eurprd08.prod.outlook.com
- ([fe80::556f:106a:aa3:42f6%3]) with mapi id 15.20.5164.025; Tue, 19 Apr 2022
- 17:16:13 +0000
+ id 841a9c5a-c006-11ec-a405-831a346695d4;
+ Tue, 19 Apr 2022 19:31:16 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ o20-20020a05600c511400b0038ebbbb2ad8so1995809wms.0
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Apr 2022 10:31:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,282 +40,460 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73c62a21-c004-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XgBLaVZfZ3OyeXxYBvIGjlWj29KWJyZKTKiIU+VO6JE=;
- b=llaF3P0BWSeqqvVlupuIzUvvnuXILUyG3D3MOTeG4HXFyhqqA72NCMu3ubAxjM/gHNtQHR2SvCK6tK+OMjRNIKp/qw/Vpgfj+L1r8lhh+g2C1c3paFwPCe5GPL96ttO2CuMoTXK//KMryZJGMq3FVRSqNbVHukYuKW9HtBhB9Sg=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 6f841434df4a7b64
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZI2JicU/Kw78PS42z2wDnyYJNg1ITlSCWS0z9uCocr0T8rBcAmtRKk82PNulQEKCyf5loVUrJlLnowkUgbVsVgrL5mvHegbHs36JvxeDk5W/Mpf0RfkTG2iki+JpkWR+O7jpPwiozc+qr2SZzla/8SJrNva/vPDmXCkL5G/ySV1yILw1cPyKXj902Fe1jxl9Nb0GzR3QaGhZeDb2u4xAf9DkcqiuX/TaJrU9szNeatsjET6Zvz8zXXrjkcb5u7pddYG+UMOexEOL2rlJQo8XYMOmMH7Bl+RZ/7+dYw1qAIc+3IuST+i4syj87bYj0RNH2t7iXfANx147ggLDh2UgjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XgBLaVZfZ3OyeXxYBvIGjlWj29KWJyZKTKiIU+VO6JE=;
- b=kFiyTCjanf0BGOs9kR4ohlD20rrPNvoQxDXsHtwm76azpDmf9X11rNgRDMCQGrDi5E2s9V/BmvLn1O2UEHN7MRZ0K/QISp4GGrh7m8Gcy3VThBQGC7tLnkogjhSdnKeoG+qBnN/DZywQZyjC9i7fgQE58WKhA5LgsYnYQQmo23oSNvk3jJ2iaaNBVGQH0vIS9xbRGkMqgoGgj4k6+HsZl7T5MX+ALdZYppP4UmChY6wnoT9BgmQ70mHg4BbP/094MbDVPDhA+K2+jf9zKqyhhl2HLOXMmtBIzhyGZmjHxy2WzszglMZYf0HhtSpr8w0ZOBzgqAIaKu9c4NhqLN+FIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XgBLaVZfZ3OyeXxYBvIGjlWj29KWJyZKTKiIU+VO6JE=;
- b=llaF3P0BWSeqqvVlupuIzUvvnuXILUyG3D3MOTeG4HXFyhqqA72NCMu3ubAxjM/gHNtQHR2SvCK6tK+OMjRNIKp/qw/Vpgfj+L1r8lhh+g2C1c3paFwPCe5GPL96ttO2CuMoTXK//KMryZJGMq3FVRSqNbVHukYuKW9HtBhB9Sg=
-From: Rahul Singh <Rahul.Singh@arm.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: Bertrand Marquis <Bertrand.Marquis@arm.com>, xen-devel
-	<xen-devel@lists.xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] xen/evtchn: Add design for static event channel signaling
- for domUs..
-Thread-Topic: [PATCH] xen/evtchn: Add design for static event channel
- signaling for domUs..
-Thread-Index: AQHYPsy9MfyfmFhecEGJuSNYyusIgKzm3KwAgAAMjACAA7tUgIAEF8cAgAjoaQA=
-Date: Tue, 19 Apr 2022 17:16:13 +0000
-Message-ID: <076C6D09-C0DA-41BD-84CA-AD595B5AF0A2@arm.com>
-References:
- <4836304496e6fbbea41348ed8cc9fcf6b0f3e893.1648049827.git.rahul.singh@arm.com>
- <alpine.DEB.2.22.394.2204081649370.3066615@ubuntu-linux-20-04-desktop>
- <alpine.DEB.2.22.394.2204081837410.3066615@ubuntu-linux-20-04-desktop>
- <D24074F6-E6CF-440A-9E9B-A10783C273D7@arm.com>
- <alpine.DEB.2.22.394.2204131657200.3066615@ubuntu-linux-20-04-desktop>
-In-Reply-To:
- <alpine.DEB.2.22.394.2204131657200.3066615@ubuntu-linux-20-04-desktop>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-MS-Office365-Filtering-Correlation-Id: cc238e1a-0435-44f3-49f9-08da22285603
-x-ms-traffictypediagnostic:
-	AM5PR0802MB2499:EE_|DB5EUR03FT032:EE_|DB8PR08MB5292:EE_
-X-Microsoft-Antispam-PRVS:
-	<DB8PR08MB5292239CF7C5E342913AE27DFCF29@DB8PR08MB5292.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- oRBW7W3e5x/smorS+bNP9Kwe0dz2HQw6CI/eNwViNfzzsHlqfqQxDPPTC9r6eRNQQFrr9TwB4+KObp45NWUHvK6SXDA8GusbGiXPMBld0NfV0F7c3HROo5dILsAh03llGd2n60Qw9TUjNtTVQdC2HkvxI0l3OKCtfS9uLuU1ieuBPoRTakLSPxSeZFZg9Kl0T7L6V4LB92gpINK+z3n6Vl+++ZDHkxtDVmjWgW9EOxXHeiwkRNMPcXPttB6ndqDF5mvQ0zjVCY/dn2E7jLBxh0d4/xAON2qcU5lxNf4I+zCQDeceDfXmVnWwVCD1xY2A3bN7/57ljwYsKIHyLC8E385VxEOG9AyNHasi620PcF9uqF5IzlEaG7xY0JIG+hhO7saLxgc9p74c+ugCyuvnm/6n+5IoVU8HUVHFvOTdxXUVMLOjWloA8g5uqeP+F/qbxGzHSQq5OcN3aHyjTif7E77Ojx0puF0iNOXN8wuyCv4qMBkcBR31LQhIBpyfjaNRCQNudbkj41h13rE8KyWzSBuL5YPQnQb+/Hk7zqs7ZCPmLHsMsPgk8tOFZ+rA43QjYHicwYTz+mLYz2z+xzyWPg1Dqh65Xr1fsTtmSjwH81G+zjShTf7jACYAzsfS8htvhd5yEqO40t2og5YCGjkBm/yOzPg579KsXOTOQ/wNuwrrDSQ5f1jihJR/HPzU77LOx0tA8qTV5Imn2OCfSoBNXAyr7zWD2myul4GW0rk2LCkEJB6AhoeCXqjK2Z1jQ4VjEJ10cA/3C4hzsGQ99hCg7ssc1sIHHI1lUrMnE4IAvWwDTP9PMbPsZI3cKGM0KShzy6Do3yAPLY6ryahFH0NTNQ==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB6PR0801MB2022.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(83380400001)(76116006)(66946007)(66556008)(4326008)(91956017)(66446008)(66476007)(64756008)(8676002)(6486002)(966005)(26005)(6512007)(71200400001)(508600001)(6506007)(53546011)(316002)(2616005)(186003)(6916009)(54906003)(2906002)(36756003)(33656002)(86362001)(8936002)(5660300002)(122000001)(38100700002)(38070700005)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <742A4116076DA54A87BC7166E2D6933E@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 841a9c5a-c006-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=/v2X/IWEkNMqAvV2DAnl/r/uJBQ8nv5MJNPp35CwEWM=;
+        b=qQjGfz56IlbFmugfznWhmGFVY+fxLRGYudPpTqx6hBxAz2mBQ29ZftiZkZWov05EFZ
+         mDn/0IbHyzRX+i8xdSrPD49Tc4cRIW2BhBUsHTvfoiPXIhvcwF4Af9L8CbYPTSXBy4kL
+         mTfEhJRnPXJXi0HwSUX1ha0xWgkGaENGSGPdUUAiI8IGcgKQwWysCejMKJ6OAKg7qaHv
+         /eJSYwnl0wXUCzzPqjeKI47rHOM1ugcO8si9ILMR8G9MK1SA7OoeqcM+jUsA7fYSlJii
+         ywVcdZtDsR+fskv0Nn/3dODSyylxBM+f/TzDGmX3NqYEvoJCYgsbx/cjZfk8+VeM/7sE
+         ifRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=/v2X/IWEkNMqAvV2DAnl/r/uJBQ8nv5MJNPp35CwEWM=;
+        b=x5iHnKUnu9G3mSAt6gjSgzkJGupW0It8JkBwVc0ZsZwhvjR33rzSX8zk1WlC1W5HMS
+         2TWu+5F5BC4yVsUONXMJkZZay+gCog3s7JtTr2y3BAIqENabS2y4eo+MTCJjf3/T6MJe
+         JOgMfXttL5XiM+i8eHvdcm+A1WyAfENnqr5gYD1oxEfbizgkOzgHayzMvOv/PhGLSH+R
+         VyG7FGJ0rfSz0dATWlx0+qCYSfieFqs5TRZhd7D2XAUZPZPp4V68S0n7NjbvLHa7/cYM
+         mICF5nVIRdn98qLEOkiV6ieYdfmnyh4i2u336OMMfkV0/yfpCy3vSpgsIjaZU2tvUVaA
+         bF0A==
+X-Gm-Message-State: AOAM530eaW9sHXgHlBvMGbGKJwULcyQsyZmn1FWK2+lJ/p48GUJizRw9
+	vIlYwk0Jp57Tz8zUxSDC2dcfC+2ecTeDkd9g7v0JoIuS
+X-Google-Smtp-Source: ABdhPJxb7HOiHFivsd8jVuyhThpUPGqrWYOy/SgM5YR3tmOh2GAwN36rH4mZSyHh/RQ9jZslvSSPYSQo0yjbLxyh0nU=
+X-Received: by 2002:a1c:ed01:0:b0:38b:5a39:220c with SMTP id
+ l1-20020a1ced01000000b0038b5a39220cmr20738700wmh.167.1650389475639; Tue, 19
+ Apr 2022 10:31:15 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM5PR0802MB2499
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT032.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	4aedbfbe-c50e-4de8-786d-08da22284e5e
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	urTPMHDf+xHLBVCpX9TlfjTuKAcututXoF52zAk4n3gFf7KQP/+0+xTT4MpJWRlNWSl947gZH63x4RHJPx21fRj2fxvapj7WMwy+7Tb2bbpfuKyvFMSPoTfj7b7aT8he1nAagLdmuJpuW94RBeojYP3e22Qqiv7Su4YtPUTOQoSg/cMiY4YoL6AOxs80lgVYHFyzeIKXq/Qyo9uPfHXe25NcKvo6JVjE9Qu31RPyNjht6aLOYNBXjxt2if2eQH7rppv15AyVgBIqXD+pLqc4n6EPWcpKrxl5nKt743eIdC3gw7tK9eaE+8bkq0zieeJDxLCSjpu/qiKOc76ewZhvGiB/qdos8YAhXfEQlRMfeYj9x1MPJ63oVZ3+dZSHR/MNcupngwSphRvcex8rvQmnd/DIK5KYQ8uQ8SWVQrI36WbFxljkpKQ0bOxsoZSx98ZPNhE3te60EAQ4ffNH/S+0Yz9l7tQ+aPH3E98mcLaKUCqDUJxjeEjEu+nTjwQKfYpyc798rEfsO+HtjcJrgLVd5Y945evnlLPUXqy+cnypSZe8j2r1f6cXXPBitrwrdAzL9mYuhrYunAJp/CzlY9AVTUTqs7S8lYlX1jLBvPs1RzIt+2BOX0Tkm36J9Q5/TJ+SVsigViiET6txtYkeObF19Heh5aymzd3H6GmrbNU/a9etUoX+ox3zLIoSGSKRj7uB4JdSXbvxuSbMokeW+defpw+r7J04P8NvJZqjRhCKJYl71QC0Md1Y4UJUx9OBfbMpI2jpqgoVPlyGa7bfrlIKUA==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(83380400001)(54906003)(26005)(47076005)(336012)(186003)(40460700003)(82310400005)(86362001)(2616005)(5660300002)(36756003)(4326008)(8676002)(6862004)(966005)(498600001)(8936002)(6486002)(70206006)(6506007)(81166007)(6512007)(33656002)(2906002)(356005)(53546011)(70586007)(36860700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2022 17:16:26.3282
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc238e1a-0435-44f3-49f9-08da22285603
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT032.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR08MB5292
+References: <20220419154126.GA1518@DESKTOP-NK4TH6S.localdomain>
+ <CAJ=z9a37_y3B4aAfiK5C-bHJYyWqCo0+g+jB6cdDCmOzLuXLJw@mail.gmail.com>
+ <925421bc-680b-df61-5a75-681d752c4820@gmail.com> <b8a0feed-1dde-3b36-646e-1e5413de8395@gmail.com>
+In-Reply-To: <b8a0feed-1dde-3b36-646e-1e5413de8395@gmail.com>
+From: Julien Grall <julien.grall.oss@gmail.com>
+Date: Tue, 19 Apr 2022 17:31:03 +0000
+Message-ID: <CAJ=z9a2n0bWEk-7cpOj2q_4fUqetjkQdkgBGYKoQeGeDJ8MxTQ@mail.gmail.com>
+Subject: Re: [PATCH] xen/arm: silence ambiguous integer casting warning error
+To: Paran Lee <p4ranlee@gmail.com>
+Cc: Austin Kim <austindh.kim@gmail.com>, xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/alternative; boundary="0000000000006fc46305dd053e72"
 
-Hello Stefano,
+--0000000000006fc46305dd053e72
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> On 14 Apr 2022, at 2:14 am, Stefano Stabellini <sstabellini@kernel.org> w=
-rote:
->=20
-> On Mon, 11 Apr 2022, Bertrand Marquis wrote:
->> What you mention here is actually combining 2 different solutions inside
->> Xen to build a custom communication solution.
->> My assumption here is that the user will actually create the device tree
->> nodes he wants to do that and we should not create guest node entries
->> as it would enforce some design.
->>=20
->> If everything can be statically defined for Xen then the user can also
->> statically define node entries inside his guest to make use of the event=
+Hi,
+
+On Tue, 19 Apr 2022, 17:09 Paran Lee, <p4ranlee@gmail.com> wrote:
+
+> Debugging with GDB from head.S with QEMU runtime was very convenient for
+> analysis(linux). so I have trying it in Xen. As I built it.
+>
+
+I don't understand how this is related to adding extra cflags. Can you
+clarify it?
+
+
+> Wouldn't it be helpful if I fixed the code little by little?
+
+
+I am all to make Xen more robust. However, you are now implicitly casting a
+signed int to unsigned int. I am not convinced this is a good move.
+
+I think it would be better to fix the other side of the equation or
+properly modify the function return.
+
+Cheers,
+
+
+> 2022-04-20 =EC=98=A4=EC=A0=84 1:31=EC=97=90 Paran Lee =EC=9D=B4(=EA=B0=80=
+) =EC=93=B4 =EA=B8=80:
+> > Hi, Julien Grall.
+> >
+> > Thank you for checking it out. I'm sorry I forgot to attach the make lo=
+g
+> > as well.
+> >
+> > My build configuration (include CFLGAS)
+> >
+> > export ARCH=3Darm64
+> > export XEN_TARGET_ARCH=3Darm64
+> > export $(dpkg-architecture -aarm64);
+> > export CROSS_COMPILE=3Daarch64-linux-gnu-
+> > export CFLAGS=3D"-g -Wall -Wextra -Wno-unused-parameter"
+> >
+> > And i did     make dist-xen
+> >
+> > my arm64 compiler information are here.
+> > gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.1)
+> >
+> > ~/xen$ aarch64-linux-gnu-gcc -v
+> > Using built-in specs.
+> > COLLECT_GCC=3Daarch64-linux-gnu-gcc
+> > COLLECT_LTO_WRAPPER=3D/usr/lib/gcc-cross/aarch64-linux-gnu/9/lto-wrappe=
+r
+> > Target: aarch64-linux-gnu
+> > Configured with: ../src/configure -v --with-pkgversion=3D'Ubuntu
+> > 9.4.0-1ubuntu1~20.04.1'
+> > --with-bugurl=3Dfile:///usr/share/doc/gcc-9/README.Bugs
+> > --enable-languages=3Dc,ada,c++,go,d,fortran,objc,obj-c++,gm2 --prefix=
+=3D/usr
+> > --with-gcc-major-version-only --program-suffix=3D-9 --enable-shared
+> > --enable-linker-build-id --libexecdir=3D/usr/lib
+> > --without-included-gettext --enable-threads=3Dposix --libdir=3D/usr/lib
+> > --enable-nls --with-sysroot=3D/ --enable-clocale=3Dgnu
+> > --enable-libstdcxx-debug --enable-libstdcxx-time=3Dyes
+> > --with-default-libstdcxx-abi=3Dnew --enable-gnu-unique-object
+> > --disable-libquadmath --disable-libquadmath-support --enable-plugin
+> > --enable-default-pie --with-system-zlib --without-target-system-zlib
+> > --enable-libpth-m2 --enable-multiarch --enable-fix-cortex-a53-843419
+> > --disable-werror --enable-checking=3Drelease --build=3Dx86_64-linux-gnu
+> > --host=3Dx86_64-linux-gnu --target=3Daarch64-linux-gnu
+> > --program-prefix=3Daarch64-linux-gnu-
+> > --includedir=3D/usr/aarch64-linux-gnu/include
+> > Thread model: posix
+> > gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.1)
+> >
+> > In arch/arm/gic-v3.c files.
+> >
+> > arch/arm/gic-v3.c: In function =E2=80=98gicv3_compute_target_list=E2=80=
+=99:
+> > arch/arm/gic-v3.c:926:17: error: comparison of integer expressions of
+> > different signedness: =E2=80=98int=E2=80=99 and =E2=80=98unsigned int=
+=E2=80=99 [-Werror=3Dsign-compare]
+> >   926 |     while ( cpu < nr_cpu_ids )
+> >       |                 ^
+> > arch/arm/gic-v3.c:936:18: error: comparison of integer expressions of
+> > different signedness: =E2=80=98int=E2=80=99 and =E2=80=98unsigned int=
+=E2=80=99 [-Werror=3Dsign-compare]
+> >   936 |         if ( cpu =3D=3D nr_cpu_ids )
+> >       |                  ^~                           ^
+> >
+> > In arch/arm/setup.c files.
+> >
+> > arch/arm/setup.c: In function =E2=80=98start_xen=E2=80=99:
+> > ./include/xen/cpumask.h:374:13: error: comparison of integer expression=
 s
->> and the shared memories.
->>=20
->> For example one might need more than one event to build a communication
->> system, or more than one shared memory or could build something
->> communicating with multiple guest thus requiring even more events and
->> shared memories.
->=20
-> Hi Bertrand, Rahul,
->=20
-> If the guests are allowed some level of dynamic discovery, this feature
-> is not needed. They can discover the shared memory location from the
-> domU device tree, then proceed to allocate evtchns as needed and tell
-> the other end the evtchn numbers over shared memory. I already have an
-> example of it here:
->=20
-> https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/2251030537/Xen+Shar=
-ed+Memory+and+Interrupts+Between+VMs
->=20
-> What if the guest doesn't support device tree at runtime, like baremetal
-> or Zephyr? The shared memory address can be hardcoded or generated from
-> device tree at build time. That's no problem. Then, the event channels
-> can still be allocated at runtime and passed to the other end over
-> shared memory. That's what the example on the wikipage does.
->=20
->=20
-> When are static event channels actually useful? When the application
-> cannot allocate the event channels at runtime at all. The reason for the
-> restriction could be related to safety (no dynamic allocations at
-> runtime) or convenience (everything else is fully static, why should the
-> event channel numbers be dynamic?)
->=20
-> Given the above, I can see why there is no need to describe the static
-> event channel info in the domU device tree: static event channels are
-> only useful in fully static configurations, and in those configurations
-> the domU device tree dynamically generated by Xen is not needed. I can
-> see where you are coming from.
->=20
->=20
-> The workflow that we have been trying to enable with the System Device
-> Tree effort (System Device Tree is similar to a normal Device Tree plus
-> the xen,domains nodes) is the following:
->=20
-> S-DT ---[lopper]---> Linux DT
->                L--> Zephyr DT ---[Zephyr build]---> Zephyr .h files
->=20
-> S-DT contains all the needed information for both the regular Linux DT
-> generation and also the Zephyr/RTOS/baremetal header files generation,
-> that happens at build time.
->=20
-> S-DT is not the same as the Xen device tree, but so far it has been
-> conceptually and practically similar. I always imagine that the bindings
-> we have in Xen we'll also have corresponding bindings in System Device
-> Tree.
->=20
-> For this workflow to work S-DT needs all the info so that both Linux DT
-> and Zephyr DT and Zephyr .h files can be generated.
->=20
-> Does this proposal contain enough information so that Zephyr .h files
-> could be statically generated with the event channel numbers and static
-> shared memory regions addresses?
->=20
-> I am not sure. Maybe not?
->=20
->=20
-> It is possible that the shared memory usage is so application specific
-> that there is no point in even talking about it. But I think that
-> introducing a simple bundle of both event channels and shared memory
-> would help a lot.
->=20
-> Something like the following in the Xen device tree would be enough to
-> specify an arbitrary number of event channels connected with the same
-> domains sharing the memory region.
->=20
-> It looks like that if we did the below, we would carry a lot more useful
-> information compared to the original proposal alone. We could add a
-> similar xen,notificaiton property to the domU reserved-memory region in
-> device tree generated by Xen for consistency, so that everything
-> available to the domU is described fully in device tree.
->=20
->=20
->    domU1 {
->        compatible =3D "xen,domain";
->=20
->        /* one sub-node per local event channel */
->        ec1: evtchn@1 {
->            compatible =3D "xen,evtchn-v1";
->            /* local-evtchn link-to-foreign-evtchn */
->            xen,evtchn =3D <0x1 &ec3>
->        };
->        ec2: evtchn@2 {
->            compatible =3D "xen,evtchn-v1";
->            xen,evtchn =3D <0x2 &ec4>
->        };
->        /*
->         * shared memory region between DomU1 and DomU2.
->         */
->        domU1-shared-mem@50000000 {
->            compatible =3D "xen,domain-shared-memory-v1";
->            xen,shm-id =3D <0x1>;
->            xen,shared-mem =3D <0x50000000 0x20000000 0x60000000>;
->            /* this is new */
->            xen,notification =3D <&ec1 &ec2>;
->        }
->    };
->=20
->    domU2 {
->        compatible =3D "xen,domain";
->=20
->        /* one sub-node per local event channel */
->        ec3: evtchn@3 {
->            compatible =3D "xen,evtchn-v1";
->            /* local-evtchn link-to-foreign-evtchn */
->            xen,evtchn =3D <0x3 &ec1>
->        };
->        ec4: evtchn@4 {
->            compatible =3D "xen,evtchn-v1";
->            xen,evtchn =3D <0x4 &ec2>
->        };
->        /*
->         * shared memory region between domU1 and domU2.
->         */
->        domU2-shared-mem@50000000 {
->            compatible =3D "xen,domain-shared-memory-v1";
->            xen,shm-id =3D <0x1>;
->            xen,shared-mem =3D <0x50000000 0x20000000 0x70000000>;
->            /* this is new */
->            xen,notification =3D <&ec3 &ec4>;
->        }
->    };
->=20
->=20
->=20
-> The good thing about this is that:
->=20
-> - it is very flexible
-> - nothing to do in this series, except switching to the
->  one-subnode-per-evtchn model, which we called 2) in the previous email
-> - there were good reasons to use the one-subnode-per-evtchn model anyway
-> - the xen,notification property can be added later without issues, after =
-Penny's series
->=20
-> There are a couple of ways to implement the xen,notification property
-> but we don't need to discuss them now.
->=20
->=20
-> Short Summary
-> ------------
-> I think it is fine to only introduce the Xen device tree binding for
-> static event channels without domU binding, but I prefer if we switched
-> to using proposal 2) "one subnode per event channel".
+> > of different signedness: =E2=80=98int=E2=80=99 and =E2=80=98unsigned in=
+t=E2=80=99 [-Werror=3Dsign-compare]
+> >   374 |       (cpu) < nr_cpu_ids;  \
+> >       |             ^
+> > ./include/xen/cpumask.h:459:36: note: in expansion of macro
+> =E2=80=98for_each_cpu=E2=80=99
+> >   459 | #define for_each_present_cpu(cpu)  for_each_cpu(cpu,
+> > &cpu_present_map)
+> >       |                                    ^~~~~~~~~~~~
+> > arch/arm/setup.c:989:5: note: in expansion of macro
+> =E2=80=98for_each_present_cpu=E2=80=99
+> >   989 |     for_each_present_cpu ( i )
+> >       |     ^~~~~~~~~~~~~~~~~~~~             ^
+> >
+> > Thank you!
+> >
+> > 2022-04-20 =EC=98=A4=EC=A0=84 12:50=EC=97=90 Julien Grall =EC=9D=B4(=EA=
+=B0=80) =EC=93=B4 =EA=B8=80:
+> >> Hi,
+> >>
+> >> On Tue, 19 Apr 2022, 15:41 Paran Lee, <p4ranlee@gmail.com> wrote:
+> >>
+> >>> GCC with "-g -Wall -Wextra" option throws warning message as below:
+> >>
+> >>
+> >> Which version of the compiler? Also you specify the exact cflags, did
+> you
+> >> tweak Xen?
+> >>
+> >>
+> >>> error: comparison of integer expressions of different signedness:
+> >>>  =E2=80=98int=E2=80=99 and =E2=80=98unsigned int=E2=80=99 [-Werror=3D=
+sign-compare]
+> >>>
+> >>
+> >> GCC should give you a line/file. Can you provide it?
+> >>
+> >> Cheers,
+> >>
+> >>
+> >>> Silence the warning by correcting the integer type.
+> >>>
+> >>> Signed-off-by: Paran Lee <p4ranlee@gmail.com>
+> >>> ---
+> >>>  xen/arch/arm/gic-v3.c | 5 +++--
+> >>>  xen/arch/arm/setup.c  | 2 +-
+> >>>  2 files changed, 4 insertions(+), 3 deletions(-)
+> >>>
+> >>> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+> >>> index 3c472ed768..81ac25f528 100644
+> >>> --- a/xen/arch/arm/gic-v3.c
+> >>> +++ b/xen/arch/arm/gic-v3.c
+> >>> @@ -916,7 +916,8 @@ static void gicv3_hyp_disable(void)
+> >>>      isb();
+> >>>  }
+> >>>
+> >>> -static u16 gicv3_compute_target_list(int *base_cpu, const struct
+> cpumask
+> >>> *mask,
+> >>> +static u16 gicv3_compute_target_list(unsigned int *base_cpu,
+> >>> +                                     const struct cpumask *mask,
+> >>>                                       uint64_t cluster_id)
+> >>>  {
+> >>>      int cpu =3D *base_cpu;
+> >>> @@ -953,7 +954,7 @@ out:
+> >>>
+> >>>  static void gicv3_send_sgi_list(enum gic_sgi sgi, const cpumask_t
+> >>> *cpumask)
+> >>>  {
+> >>> -    int cpu =3D 0;
+> >>> +    unsigned int cpu =3D 0;
+> >>>      uint64_t val;
+> >>>
+> >>>      for_each_cpu(cpu, cpumask)
+> >>> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+> >>> index d5d0792ed4..5ab2aaecaf 100644
+> >>> --- a/xen/arch/arm/setup.c
+> >>> +++ b/xen/arch/arm/setup.c
+> >>> @@ -862,7 +862,7 @@ void __init start_xen(unsigned long
+> boot_phys_offset,
+> >>>                        unsigned long fdt_paddr)
+> >>>  {
+> >>>      size_t fdt_size;
+> >>> -    int cpus, i;
+> >>> +    unsigned int cpus, i;
+> >>>      const char *cmdline;
+> >>>      struct bootmodule *xen_bootmodule;
+> >>>      struct domain *d;
+> >>> --
+> >>> 2.25.1
+> >>>
+> >>>
+> >>
+>
 
-Thanks for detailed explanation.I just did the basic implementation of the =
-2) proposal and
-it looks simple and not very complex as I thought earlier.Therefore I am ok=
- to switch to proposal 2).
+--0000000000006fc46305dd053e72
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-If everyone is ok with the 2) proposal I will send the v2 of design doc aft=
-er fixing all the comments.
+<div dir=3D"auto"><div>Hi,<br><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Tue, 19 Apr 2022, 17:09 Paran Lee, &lt;<a href=
+=3D"mailto:p4ranlee@gmail.com">p4ranlee@gmail.com</a>&gt; wrote:<br></div><=
+blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px=
+ #ccc solid;padding-left:1ex">Debugging with GDB from head.S with QEMU runt=
+ime was very convenient for<br>
+analysis(linux). so I have trying it in Xen. As I built it.<br></blockquote=
+></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">I don&#39;t unde=
+rstand how this is related to adding extra cflags. Can you clarify it?</div=
+><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><=
+blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px=
+ #ccc solid;padding-left:1ex">
+<br>
+Wouldn&#39;t it be helpful if I fixed the code little by little?</blockquot=
+e></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">I am all to mak=
+e Xen more robust. However, you are now implicitly casting a signed int to =
+unsigned int. I am not convinced this is a good move.</div><div dir=3D"auto=
+"><br></div><div dir=3D"auto">I think it would be better to fix the other s=
+ide of the equation or properly modify the function return.</div><div dir=
+=3D"auto"><br></div><div dir=3D"auto">Cheers,</div><div dir=3D"auto"><br></=
+div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmail=
+_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:=
+1ex">
+<br>
+2022-04-20 =EC=98=A4=EC=A0=84 1:31=EC=97=90 Paran Lee =EC=9D=B4(=EA=B0=80) =
+=EC=93=B4 =EA=B8=80:<br>
+&gt; Hi, Julien Grall.<br>
+&gt; <br>
+&gt; Thank you for checking it out. I&#39;m sorry I forgot to attach the ma=
+ke log<br>
+&gt; as well.<br>
+&gt; <br>
+&gt; My build configuration (include CFLGAS)<br>
+&gt; <br>
+&gt; export ARCH=3Darm64<br>
+&gt; export XEN_TARGET_ARCH=3Darm64<br>
+&gt; export $(dpkg-architecture -aarm64);<br>
+&gt; export CROSS_COMPILE=3Daarch64-linux-gnu-<br>
+&gt; export CFLAGS=3D&quot;-g -Wall -Wextra -Wno-unused-parameter&quot;<br>
+&gt; <br>
+&gt; And i did=C2=A0 =C2=A0 =C2=A0make dist-xen<br>
+&gt; <br>
+&gt; my arm64 compiler information are here.<br>
+&gt; gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.1)<br>
+&gt; <br>
+&gt; ~/xen$ aarch64-linux-gnu-gcc -v<br>
+&gt; Using built-in specs.<br>
+&gt; COLLECT_GCC=3Daarch64-linux-gnu-gcc<br>
+&gt; COLLECT_LTO_WRAPPER=3D/usr/lib/gcc-cross/aarch64-linux-gnu/9/lto-wrapp=
+er<br>
+&gt; Target: aarch64-linux-gnu<br>
+&gt; Configured with: ../src/configure -v --with-pkgversion=3D&#39;Ubuntu<b=
+r>
+&gt; 9.4.0-1ubuntu1~20.04.1&#39;<br>
+&gt; --with-bugurl=3Dfile:///usr/share/doc/gcc-9/README.Bugs<br>
+&gt; --enable-languages=3Dc,ada,c++,go,d,fortran,objc,obj-c++,gm2 --prefix=
+=3D/usr<br>
+&gt; --with-gcc-major-version-only --program-suffix=3D-9 --enable-shared<br=
+>
+&gt; --enable-linker-build-id --libexecdir=3D/usr/lib<br>
+&gt; --without-included-gettext --enable-threads=3Dposix --libdir=3D/usr/li=
+b<br>
+&gt; --enable-nls --with-sysroot=3D/ --enable-clocale=3Dgnu<br>
+&gt; --enable-libstdcxx-debug --enable-libstdcxx-time=3Dyes<br>
+&gt; --with-default-libstdcxx-abi=3Dnew --enable-gnu-unique-object<br>
+&gt; --disable-libquadmath --disable-libquadmath-support --enable-plugin<br=
+>
+&gt; --enable-default-pie --with-system-zlib --without-target-system-zlib<b=
+r>
+&gt; --enable-libpth-m2 --enable-multiarch --enable-fix-cortex-a53-843419<b=
+r>
+&gt; --disable-werror --enable-checking=3Drelease --build=3Dx86_64-linux-gn=
+u<br>
+&gt; --host=3Dx86_64-linux-gnu --target=3Daarch64-linux-gnu<br>
+&gt; --program-prefix=3Daarch64-linux-gnu-<br>
+&gt; --includedir=3D/usr/aarch64-linux-gnu/include<br>
+&gt; Thread model: posix<br>
+&gt; gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.1)<br>
+&gt; <br>
+&gt; In arch/arm/gic-v3.c files.<br>
+&gt; <br>
+&gt; arch/arm/gic-v3.c: In function =E2=80=98gicv3_compute_target_list=E2=
+=80=99:<br>
+&gt; arch/arm/gic-v3.c:926:17: error: comparison of integer expressions of<=
+br>
+&gt; different signedness: =E2=80=98int=E2=80=99 and =E2=80=98unsigned int=
+=E2=80=99 [-Werror=3Dsign-compare]<br>
+&gt;=C2=A0 =C2=A0926 |=C2=A0 =C2=A0 =C2=A0while ( cpu &lt; nr_cpu_ids )<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0^<br>
+&gt; arch/arm/gic-v3.c:936:18: error: comparison of integer expressions of<=
+br>
+&gt; different signedness: =E2=80=98int=E2=80=99 and =E2=80=98unsigned int=
+=E2=80=99 [-Werror=3Dsign-compare]<br>
+&gt;=C2=A0 =C2=A0936 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if ( cpu =3D=3D nr_=
+cpu_ids )<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 ^~=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^<br>
+&gt; <br>
+&gt; In arch/arm/setup.c files.<br>
+&gt; <br>
+&gt; arch/arm/setup.c: In function =E2=80=98start_xen=E2=80=99:<br>
+&gt; ./include/xen/cpumask.h:374:13: error: comparison of integer expressio=
+ns<br>
+&gt; of different signedness: =E2=80=98int=E2=80=99 and =E2=80=98unsigned i=
+nt=E2=80=99 [-Werror=3Dsign-compare]<br>
+&gt;=C2=A0 =C2=A0374 |=C2=A0 =C2=A0 =C2=A0 =C2=A0(cpu) &lt; nr_cpu_ids;=C2=
+=A0 \<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0^<br>
+&gt; ./include/xen/cpumask.h:459:36: note: in expansion of macro =E2=80=98f=
+or_each_cpu=E2=80=99<br>
+&gt;=C2=A0 =C2=A0459 | #define for_each_present_cpu(cpu)=C2=A0 for_each_cpu=
+(cpu,<br>
+&gt; &amp;cpu_present_map)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 ^~~~~~~~~~~~<br>
+&gt; arch/arm/setup.c:989:5: note: in expansion of macro =E2=80=98for_each_=
+present_cpu=E2=80=99<br>
+&gt;=C2=A0 =C2=A0989 |=C2=A0 =C2=A0 =C2=A0for_each_present_cpu ( i )<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0^~~~~~~~~~~~~~~~~~~~=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^<br>
+&gt; <br>
+&gt; Thank you!<br>
+&gt; <br>
+&gt; 2022-04-20 =EC=98=A4=EC=A0=84 12:50=EC=97=90 Julien Grall =EC=9D=B4(=
+=EA=B0=80) =EC=93=B4 =EA=B8=80:<br>
+&gt;&gt; Hi,<br>
+&gt;&gt;<br>
+&gt;&gt; On Tue, 19 Apr 2022, 15:41 Paran Lee, &lt;<a href=3D"mailto:p4ranl=
+ee@gmail.com" target=3D"_blank" rel=3D"noreferrer">p4ranlee@gmail.com</a>&g=
+t; wrote:<br>
+&gt;&gt;<br>
+&gt;&gt;&gt; GCC with &quot;-g -Wall -Wextra&quot; option throws warning me=
+ssage as below:<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; Which version of the compiler? Also you specify the exact cflags, =
+did you<br>
+&gt;&gt; tweak Xen?<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt;&gt; error: comparison of integer expressions of different signedne=
+ss:<br>
+&gt;&gt;&gt;=C2=A0 =E2=80=98int=E2=80=99 and =E2=80=98unsigned int=E2=80=99=
+ [-Werror=3Dsign-compare]<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; GCC should give you a line/file. Can you provide it?<br>
+&gt;&gt;<br>
+&gt;&gt; Cheers,<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt;&gt; Silence the warning by correcting the integer type.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Signed-off-by: Paran Lee &lt;<a href=3D"mailto:p4ranlee@gmail.=
+com" target=3D"_blank" rel=3D"noreferrer">p4ranlee@gmail.com</a>&gt;<br>
+&gt;&gt;&gt; ---<br>
+&gt;&gt;&gt;=C2=A0 xen/arch/arm/gic-v3.c | 5 +++--<br>
+&gt;&gt;&gt;=C2=A0 xen/arch/arm/setup.c=C2=A0 | 2 +-<br>
+&gt;&gt;&gt;=C2=A0 2 files changed, 4 insertions(+), 3 deletions(-)<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c<br>
+&gt;&gt;&gt; index 3c472ed768..81ac25f528 100644<br>
+&gt;&gt;&gt; --- a/xen/arch/arm/gic-v3.c<br>
+&gt;&gt;&gt; +++ b/xen/arch/arm/gic-v3.c<br>
+&gt;&gt;&gt; @@ -916,7 +916,8 @@ static void gicv3_hyp_disable(void)<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 isb();<br>
+&gt;&gt;&gt;=C2=A0 }<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; -static u16 gicv3_compute_target_list(int *base_cpu, const str=
+uct cpumask<br>
+&gt;&gt;&gt; *mask,<br>
+&gt;&gt;&gt; +static u16 gicv3_compute_target_list(unsigned int *base_cpu,<=
+br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0co=
+nst struct cpumask *mask,<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0uint64_t cluster_id)<br>
+&gt;&gt;&gt;=C2=A0 {<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 int cpu =3D *base_cpu;<br>
+&gt;&gt;&gt; @@ -953,7 +954,7 @@ out:<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 static void gicv3_send_sgi_list(enum gic_sgi sgi, const =
+cpumask_t<br>
+&gt;&gt;&gt; *cpumask)<br>
+&gt;&gt;&gt;=C2=A0 {<br>
+&gt;&gt;&gt; -=C2=A0 =C2=A0 int cpu =3D 0;<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 unsigned int cpu =3D 0;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 uint64_t val;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 for_each_cpu(cpu, cpumask)<br>
+&gt;&gt;&gt; diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c<br>
+&gt;&gt;&gt; index d5d0792ed4..5ab2aaecaf 100644<br>
+&gt;&gt;&gt; --- a/xen/arch/arm/setup.c<br>
+&gt;&gt;&gt; +++ b/xen/arch/arm/setup.c<br>
+&gt;&gt;&gt; @@ -862,7 +862,7 @@ void __init start_xen(unsigned long boot_p=
+hys_offset,<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 unsigned long fdt_paddr)<br>
+&gt;&gt;&gt;=C2=A0 {<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 size_t fdt_size;<br>
+&gt;&gt;&gt; -=C2=A0 =C2=A0 int cpus, i;<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 unsigned int cpus, i;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 const char *cmdline;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 struct bootmodule *xen_bootmodule;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 struct domain *d;<br>
+&gt;&gt;&gt; --<br>
+&gt;&gt;&gt; 2.25.1<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;<br>
+</blockquote></div></div></div>
 
-Regards,
-Rahul
-
+--0000000000006fc46305dd053e72--
 
