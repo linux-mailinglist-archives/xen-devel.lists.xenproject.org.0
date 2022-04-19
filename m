@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9425507143
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Apr 2022 17:03:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.308247.523907 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A0805071DE
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Apr 2022 17:33:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.308255.523917 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngpO6-00051v-87; Tue, 19 Apr 2022 15:03:30 +0000
+	id 1ngpqY-0000FR-Hq; Tue, 19 Apr 2022 15:32:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 308247.523907; Tue, 19 Apr 2022 15:03:30 +0000
+Received: by outflank-mailman (output) from mailman id 308255.523917; Tue, 19 Apr 2022 15:32:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngpO6-0004zD-4o; Tue, 19 Apr 2022 15:03:30 +0000
-Received: by outflank-mailman (input) for mailman id 308247;
- Tue, 19 Apr 2022 15:03:28 +0000
+	id 1ngpqY-0000DF-Ev; Tue, 19 Apr 2022 15:32:54 +0000
+Received: by outflank-mailman (input) for mailman id 308255;
+ Tue, 19 Apr 2022 15:32:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nWVz=U5=gmail.com=d.vrabel.98@srs-se1.protection.inumbo.net>)
- id 1ngpO4-0004z7-AU
- for xen-devel@lists.xenproject.org; Tue, 19 Apr 2022 15:03:28 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dddc03be-bff1-11ec-8fbf-03012f2f19d4;
- Tue, 19 Apr 2022 17:03:27 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id b19so22809394wrh.11
- for <xen-devel@lists.xenproject.org>; Tue, 19 Apr 2022 08:03:27 -0700 (PDT)
-Received: from pear.davidvrabel.org.uk (pear.davidvrabel.org.uk.
- [82.70.146.41]) by smtp.googlemail.com with ESMTPSA id
- b5-20020adfd1c5000000b0020a7954a974sm12215010wrd.34.2022.04.19.08.03.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Apr 2022 08:03:26 -0700 (PDT)
+ <SRS0=lfI/=U5=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1ngpqW-0000D6-LE
+ for xen-devel@lists.xenproject.org; Tue, 19 Apr 2022 15:32:52 +0000
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f809e7c7-bff5-11ec-8fbf-03012f2f19d4;
+ Tue, 19 Apr 2022 17:32:50 +0200 (CEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id C79395C00F7;
+ Tue, 19 Apr 2022 11:32:48 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Tue, 19 Apr 2022 11:32:48 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 19 Apr 2022 11:32:47 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,89 +42,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: dddc03be-bff1-11ec-8fbf-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=sender:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=5ClOMvzXUkEMDZ0b8UX4E1pNgQWl3nMR7i1rQInvtkA=;
-        b=l4Vm7kfYuqYnkN+yNN1YEBG+gVk2Z2v5+UD+QlI2xxQYbg04DbKA8rG/wA3Zf1V7Dl
-         HP0At6uk4b3bKNgA0k2yZHrxUMSKWi+Ms8Wh9e+C6Dq6N1kB0ZNgAX/AVvyrpaXPfoHD
-         WAlwHZhJb1wKy4b3WZjSob2GNfYvey6V014O/pWjFB82aue+oTVQC4xE7zPmrn03I0HB
-         XmC+VrrCAHCWi2RvOWDaacq37aiW0se6nh5HXpt0+uTtyodg2GAB+O7D6RMAqfHe2QfP
-         hfC2J7CHnTItmHk6wsx0pbWEySVDB2Gp+QD4QVloYsR3W6EXiJv2xtc0JS8NDDULR2bZ
-         Wfcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
-         :mime-version:content-transfer-encoding;
-        bh=5ClOMvzXUkEMDZ0b8UX4E1pNgQWl3nMR7i1rQInvtkA=;
-        b=Y86LvhmuSnT4kV4sqMso8HuLcYl6m87x+9eqQlVbeBQYzDpgCzMqHjK6Rodm9LtOH+
-         uMbIQCj1JZItfvDWOBgIgGUOW2tRJ/x7JrDp5CvcZj3mBMTcTp50XBlSWbE0E5BXtWZm
-         PuZKHIRQzLCPv3Igu6FuFEesEDlfPNwx+MECSOgGdnXHDwv9aByN0QF3eQc7fe3iqadW
-         OFlkKt67UTazUkeWRgNJ05+fGc5DcU54fbCmAZ/UUikd9xcXDIIGU+4mIKEy3uZSYD7e
-         ru+hieaqzuE/oU2SHioGvglmmK46VOtjKi/d5opNoMDi3jnv9CU7Jmm83bQDNsCHF1if
-         u61g==
-X-Gm-Message-State: AOAM530kGmo88Jcm9Cm8uWc7Gsz0+pF0KuP/v5DHXvhxKtNKvnEtrl/7
-	1z+fjOCRaozrdzYGP/mQsoQhoTq3iotouw==
-X-Google-Smtp-Source: ABdhPJxKiy/MO4DHrk2AtR3HqnzpF0BXjLoj/y89IrNGazTUrbnRVgCpjbztsfjfDcxs9EzcDpVbVA==
-X-Received: by 2002:adf:ba8f:0:b0:1e9:4afb:179b with SMTP id p15-20020adfba8f000000b001e94afb179bmr12257122wrg.57.1650380606754;
-        Tue, 19 Apr 2022 08:03:26 -0700 (PDT)
-Sender: David Vrabel <d.vrabel.98@gmail.com>
-From: David Vrabel <dvrabel@cantab.net>
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+X-Inumbo-ID: f809e7c7-bff5-11ec-8fbf-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm1; t=1650382368; x=1650468768; bh=of63eWPuDEYsw
+	D9VFk/UpPjX4fxK7mSjw3zQWtJ8FuE=; b=Dd4VW1xnuqewU17gKmsMq/Ja106ec
+	2Iyqb2PHieTicO1fT5qCXG76dQi/i21T7BqBaYjVu0ZrsnX12T8lxOISax321xaA
+	Y1horh3HBwY7aGdRMzBxmFni13qHctznzClsjZrBABnthmayOz7DEfM8gNO+Uc1a
+	n+j1VAthw5bdS8hsZoYKNqmzmEKoUoSezSf2z0uBJtPTfvQcxSUtHSIC/gqpxZQK
+	6Wumq9LtUzCiy2GG+3VDDprG6tjT3+jWB2RMXZY3LhI52ALno9KeYCT6zQurxJ6S
+	mBPy4CTgF4Yg/T80q2RaK7B4yVPVXeQ4kdnGDTKtYu1Mx/Peghfw/AMKQ==
+X-ME-Sender: <xms:INZeYhRKMvuNi0lJHJJwOmSHi9ENG6MAeGkWcXrsqa98loL4otTzjQ>
+    <xme:INZeYqyeXQ0fz99E2UHIjNGquaRn3xBoU8MNJ3h7yamKD-DrNbzvPYoCKT3Yb_Vkt
+    LVzLpr0M7khSEA>
+X-ME-Received: <xmr:INZeYm1vWzNpKK6rLQqMEWoHliV57RZomkkYQf2YuNyqyTD95L1Od5Q0kTFd>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrvddtfedgkeelucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvffukfggtggusehgtderredttddvnecuhfhrohhmpeffvghmihcuofgr
+    rhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgshhlrg
+    gsrdgtohhmqeenucggtffrrghtthgvrhhnpedujefgjeeggeelhfevkeeltdekvdeuhfet
+    iefffefhkeehhfevhefhkefgudegkeenucevlhhushhtvghrufhiiigvpedtnecurfgrrh
+    grmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhlrggs
+    rdgtohhm
+X-ME-Proxy: <xmx:INZeYpDLaYfsAKbDsKupWUqaYJVKE8TpvOesJJdSK922lMSRbNw_lg>
+    <xmx:INZeYqjQ8nl-ejkmU_bivxcJ2a2dEmxpiESK0yybf-qt-61YfPGrnA>
+    <xmx:INZeYtpjoJ-gzcMTwO1EIChvgQVrQE3K2RHu9tlNEZVmJ1D83z_uxw>
+    <xmx:INZeYugrXHgIh8vu9U0X-OMs_9k35VXGO0KKqKg7bs2FVW-Ht6srPA>
+Date: Tue, 19 Apr 2022 11:32:23 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	David Vrabel <dvrabel@amazon.co.uk>
-Subject: [PATCH v1] x86/mm: avoid inadvertently degrading a TLB flush to local only
-Date: Tue, 19 Apr 2022 16:03:20 +0100
-Message-Id: <20220419150320.64783-1-dvrabel@cantab.net>
-X-Mailer: git-send-email 2.30.2
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>
+Subject: [PATCH v3 0/4] EFI System Resource Table support
+Message-ID: <Yl7WHv6+M+eJwQep@itl-email>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="2wCPjxNWfxWFtXWq"
+Content-Disposition: inline
 
-From: David Vrabel <dvrabel@amazon.co.uk>
 
-If the direct map is incorrectly modified with interrupts disabled,
-the required TLB flushes are degraded to flushing the local CPU only.
+--2wCPjxNWfxWFtXWq
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 19 Apr 2022 11:32:23 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>
+Subject: [PATCH v3 0/4] EFI System Resource Table support
 
-This could lead to very hard to diagnose problems as different CPUs will
-end up with different views of memory. Although, no such issues have yet
-been identified.
+This adds support for the EFI System Resource Table.  This involves
+reserving the table in Xen and adding a new hypercall so that dom0 can
+access it.
 
-Change the check in the flush_area() macro to look at system_state
-instead. This defers the switch from local to all later in the boot
-(see xen/arch/x86/setup.c:__start_xen()). This is fine because
-additional PCPUs are not brought up until after the system state is
-SYS_STATE_smp_boot.
+Changes since v2:
 
-Signed-off-by: David Vrabel <dvrabel@amazon.co.uk>
----
- xen/arch/x86/mm.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+- Use the esrt_desc global variable instead of passing it as a function
+  parameter
+- Add an overflow check for the ESRT size
+- Create a new memory region for the ESRT to avoid wasting memory
+- Add hypercall to retrieve the ESRT
+- Add file local variables used during development
+- Remove extra consts
+- Follow the EFI naming convention in struct definitions
+- Move struct definitions to header file
+- Fix inverted logic in overflow check
+- Remove BUILD_BUG_ON()s
+- Avoid overriding attribute of memory descriptor containing ESRT
 
-diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index c271e383b5..72dbce43b1 100644
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -5071,11 +5071,10 @@ l1_pgentry_t *virt_to_xen_l1e(unsigned long v)
- #define lNf_to_l1f(f) (((f) & _PAGE_PRESENT) ? ((f) & ~_PAGE_PSE) : (f))
- 
- /*
-- * map_pages_to_xen() can be called with interrupts disabled during
-- * early bootstrap. In this case it is safe to use flush_area_local()
-- * and avoid locking because only the local CPU is online.
-+ * map_pages_to_xen() can be called early in boot before any other
-+ * CPUs are online. Use flush_area_local() in this case.
-  */
--#define flush_area(v,f) (!local_irq_is_enabled() ?              \
-+#define flush_area(v,f) (system_state < SYS_STATE_smp_boot ?    \
-                          flush_area_local((const void *)v, f) : \
-                          flush_area_all((const void *)v, f))
- 
--- 
-2.30.2
+Changes since v1:
 
+- Remove the esrt_status enum
+- Use EFI types
+- Fix style nits
+- Remove an unused overflow check
+
+
+Demi Marie Obenour (4):
+  Grab the EFI System Resource Table and check it
+  Add a dedicated memory region for the ESRT
+  Add a new hypercall to get the ESRT
+  Add emacs file-local variables
+
+ xen/arch/arm/efi/efi-boot.h     |  1 +
+ xen/arch/x86/efi/efi-boot.h     | 67 +++++++++++++++++++++++++--------
+ xen/arch/x86/include/asm/e820.h |  2 +-
+ xen/common/efi/boot.c           | 65 ++++++++++++++++++++++++++++++--
+ xen/common/efi/efi.h            | 20 ++++++++++
+ xen/common/efi/runtime.c        | 27 ++++++++++++-
+ xen/include/efi/efiapi.h        |  3 ++
+ xen/include/public/platform.h   |  7 ++++
+ 8 files changed, 172 insertions(+), 20 deletions(-)
+
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+
+--2wCPjxNWfxWFtXWq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmJe1h0ACgkQsoi1X/+c
+IsEr7hAAsAjtZsbGL5/mSvGSJn/rrTqwuq5tKN4wpxNVe7Z14rFnsb9NLrMa2Qz5
+qDcNe3njClHYJjSArpOvU6gsfXODs8EVONYGO90iUC4ounue1v+UiLvq/kP0inaM
+j2f49a6gPNDO+OU35BdT1zzkhQVoA+yN2izisMp0KMFK+g+TWvsOtg/l1UhLT6Fo
+w/rIosqWomIOF81ORPXS5qQUyIOYJchQDtIOheDpZ5KHxi23UFmjkNNogauRJAUa
+GYa3hN8C05TCLN0QH3uKViI2h2UD3p5HZ0ha7mP1rRSZ/N2s4lyFx+GDjB0cRcfk
+BQ4BeIe56BW6SJt5B9oNOiJh4BWarm99GBSNK6u3ADFmovV5v7PA4fdhRSqgeAHm
+S/xpeiyj8bhv6+8XcMYZSxfs7jW+yjMnmIrT7aQ1gTAdv1N6lPMqQVBXdVnrpi1D
+JIAIHSC/ihAYHtuNBO9qXLoljsHyjmP9OITC3bnVNBFPwbaggjQTbEB5ePoozUL4
+aTskS5a0w4rmUY2+4sUp9IdmIMJ/2QA3K7EZAWAkTCSyqwf7HtpAjTxRIG4Jx/EA
+Hi0Gfqs9gnnd+KyK+EvPBiBcZvmskZxyz4Q9BpqCoiQWuyfH75gZyzmtSz5rPinp
+xuUR62Gv8aTBzes1dkcbEuF0G6CJQ2ZkWFQT2IrJ0anNF9XaSP0=
+=+x46
+-----END PGP SIGNATURE-----
+
+--2wCPjxNWfxWFtXWq--
 
