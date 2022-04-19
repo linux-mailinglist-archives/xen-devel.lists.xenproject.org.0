@@ -2,46 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 547F2506BAE
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Apr 2022 14:04:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.308064.523565 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EECB506BB4
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Apr 2022 14:06:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.308072.523588 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngmar-0000WI-9t; Tue, 19 Apr 2022 12:04:29 +0000
+	id 1ngmcg-0001hU-WD; Tue, 19 Apr 2022 12:06:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 308064.523565; Tue, 19 Apr 2022 12:04:29 +0000
+Received: by outflank-mailman (output) from mailman id 308072.523588; Tue, 19 Apr 2022 12:06:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngmar-0000US-6s; Tue, 19 Apr 2022 12:04:29 +0000
-Received: by outflank-mailman (input) for mailman id 308064;
- Tue, 19 Apr 2022 12:04:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=n3km=U5=dingwall.me.uk=james@srs-se1.protection.inumbo.net>)
- id 1ngmap-0000UM-O8
- for xen-devel@lists.xenproject.org; Tue, 19 Apr 2022 12:04:27 +0000
-Received: from smarthost01c.sbp.mail.zen.net.uk
- (smarthost01c.sbp.mail.zen.net.uk [212.23.1.5])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d9f18a4a-bfd8-11ec-a405-831a346695d4;
- Tue, 19 Apr 2022 14:04:23 +0200 (CEST)
-Received: from [217.155.64.189] (helo=mail0.xen.dingwall.me.uk)
- by smarthost01c.sbp.mail.zen.net.uk with esmtpsa
- (TLS1.0:ECDHE_RSA_AES_256_CBC_SHA1:256) (Exim 4.90_1)
- (envelope-from <james@dingwall.me.uk>)
- id 1ngmai-0002GT-VS; Tue, 19 Apr 2022 12:04:21 +0000
-Received: from localhost (localhost [IPv6:::1])
- by mail0.xen.dingwall.me.uk (Postfix) with ESMTP id 4E30A3736E9;
- Tue, 19 Apr 2022 13:04:20 +0100 (BST)
-Received: from mail0.xen.dingwall.me.uk ([IPv6:::1])
- by localhost (mail0.xen.dingwall.me.uk [IPv6:::1]) (amavisd-new, port 10024)
- with ESMTP id kOPXFhE8aXnS; Tue, 19 Apr 2022 13:04:20 +0100 (BST)
-Received: from behemoth.dingwall.me.uk (behemoth.dingwall.me.uk [192.168.1.5])
- by dingwall.me.uk (Postfix) with ESMTP id 13E3E3736E4;
- Tue, 19 Apr 2022 13:04:20 +0100 (BST)
-Received: by behemoth.dingwall.me.uk (Postfix, from userid 1000)
- id D91B2441D96; Tue, 19 Apr 2022 13:04:18 +0100 (BST)
+	id 1ngmcg-0001fC-Qd; Tue, 19 Apr 2022 12:06:22 +0000
+Received: by outflank-mailman (input) for mailman id 308072;
+ Tue, 19 Apr 2022 12:06:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Io9b=U5=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1ngmce-0001er-VB
+ for xen-devel@lists.xenproject.org; Tue, 19 Apr 2022 12:06:20 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 192e3b26-bfd9-11ec-8fbe-03012f2f19d4;
+ Tue, 19 Apr 2022 14:06:09 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6434D210F1;
+ Tue, 19 Apr 2022 12:06:19 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1EB38132E7;
+ Tue, 19 Apr 2022 12:06:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id dE/7BbulXmKyXwAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 19 Apr 2022 12:06:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,128 +51,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d9f18a4a-bfd8-11ec-a405-831a346695d4
-X-Virus-Scanned: Debian amavisd-new at dingwall.me.uk
-Date: Tue, 19 Apr 2022 13:04:18 +0100
-From: James Dingwall <james-xen@dingwall.me.uk>
-To: xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@citrix.com>, pdurrant@amazon.com
-Subject: Re: [PATCH] fix invalid frontend path for set_mtu
-Message-ID: <20220419120418.GA232637@dingwall.me.uk>
-References: <20220301093513.GA3187840@dingwall.me.uk>
- <YlV4lXZHz52xPBzt@perard.uk.xensource.com>
+X-Inumbo-ID: 192e3b26-bfd9-11ec-8fbe-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1650369979; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=17cvwrP1W/YrOePsFyFZ04xlKrMaEQxDlJS+zIqc9pc=;
+	b=dvkfmdPPA2uAscpybZVMbycuKZHRII/zIQnfMZqacuqyBg1HOEDMTRApvl8F9jNVen09YF
+	fruRdZL9HI75u8x+sBPWt1aYHQxEKDOod2/9D4C/WfnrVyVlXbVUQWGUEfBqE2DW6asJvI
+	rFmnWmWiohFBi6W3zDYnSpBJi8HxtRk=
+Message-ID: <e1e11062-f528-ea06-cb94-fd4dadf2c5aa@suse.com>
+Date: Tue, 19 Apr 2022 14:06:18 +0200
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="Qxx1br4bt0+wmkIi"
-Content-Disposition: inline
-In-Reply-To: <YlV4lXZHz52xPBzt@perard.uk.xensource.com>
-X-Originating-smarthost01c-IP: [217.155.64.189]
-Feedback-ID: 217.155.64.189
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Subject: Re: [PATCH v2 06/25] x86/xen: Add ANNOTATE_ENDBR to startup_xen()
+Content-Language: en-US
+To: Peter Zijlstra <peterz@infradead.org>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>
+Cc: Josh Poimboeuf <jpoimboe@redhat.com>, "x86@kernel.org" <x86@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Miroslav Benes <mbenes@suse.cz>, Boris Ostrovsky
+ <boris.ostrovsky@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <cover.1650300597.git.jpoimboe@redhat.com>
+ <a87bd48b06d11ec4b98122a429e71e489b4e48c3.1650300597.git.jpoimboe@redhat.com>
+ <b94cbac6-0a4d-8e4a-ec58-bbd46e385d45@citrix.com>
+ <20220419115737.GU2731@worktop.programming.kicks-ass.net>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <20220419115737.GU2731@worktop.programming.kicks-ass.net>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------2IeIEE5xYPveCwBVs3J5n4B3"
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------2IeIEE5xYPveCwBVs3J5n4B3
+Content-Type: multipart/mixed; boundary="------------GryZTSvTkZhEETy5NZDwJoeo";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>
+Cc: Josh Poimboeuf <jpoimboe@redhat.com>, "x86@kernel.org" <x86@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Miroslav Benes <mbenes@suse.cz>, Boris Ostrovsky
+ <boris.ostrovsky@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Message-ID: <e1e11062-f528-ea06-cb94-fd4dadf2c5aa@suse.com>
+Subject: Re: [PATCH v2 06/25] x86/xen: Add ANNOTATE_ENDBR to startup_xen()
+References: <cover.1650300597.git.jpoimboe@redhat.com>
+ <a87bd48b06d11ec4b98122a429e71e489b4e48c3.1650300597.git.jpoimboe@redhat.com>
+ <b94cbac6-0a4d-8e4a-ec58-bbd46e385d45@citrix.com>
+ <20220419115737.GU2731@worktop.programming.kicks-ass.net>
+In-Reply-To: <20220419115737.GU2731@worktop.programming.kicks-ass.net>
 
---Qxx1br4bt0+wmkIi
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--------------GryZTSvTkZhEETy5NZDwJoeo
+Content-Type: multipart/mixed; boundary="------------jz6euTCJTtrrKm2dUKP9mACi"
 
-Hi Anthony,
+--------------jz6euTCJTtrrKm2dUKP9mACi
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-On Tue, Apr 12, 2022 at 02:03:17PM +0100, Anthony PERARD wrote:
-> Hi James,
-> 
-> On Tue, Mar 01, 2022 at 09:35:13AM +0000, James Dingwall wrote:
-> > The set_mtu() function of xen-network-common.sh currently has this code:
-> > 
-> >         if [ ${type_if} = vif ]
-> >         then
-> >             local dev_=${dev#vif}
-> >             local domid=${dev_%.*}
-> >             local devid=${dev_#*.}
-> > 
-> >             local FRONTEND_PATH="/local/domain/$domid/device/vif/$devid"
-> > 
-> >             xenstore_write "$FRONTEND_PATH/mtu" ${mtu}
-> >         fi
-> > 
-> > This works fine if the device has its default name but if the xen config
-> > defines the vifname parameter the FRONTEND_PATH is incorrectly constructed.
-> > Learn the frontend path by reading the appropriate value from the backend.
-> 
-> The patch looks fine, thanks. It is only missing a line
-> "Signed-off-by: your_name <your_email>" at the end of the description.
-> The meaning of this line is described in the file CONTRIBUTING, section
-> "Developer's Certificate of Origin".
-> 
+T24gMTkuMDQuMjIgMTM6NTcsIFBldGVyIFppamxzdHJhIHdyb3RlOg0KPiBPbiBUdWUsIEFw
+ciAxOSwgMjAyMiBhdCAxMTo0MjoxMkFNICswMDAwLCBBbmRyZXcgQ29vcGVyIHdyb3RlOg0K
+Pj4gT24gMTgvMDQvMjAyMiAxNzo1MCwgSm9zaCBQb2ltYm9ldWYgd3JvdGU6DQo+Pj4gVGhl
+IHN0YXJ0dXBfeGVuKCkga2VybmVsIGVudHJ5IHBvaW50IGlzIHJlZmVyZW5jZWQgYnkgdGhl
+ICIubm90ZS5YZW4iDQo+Pj4gc2VjdGlvbiwgYnV0IGlzIHByZXN1bWFibHkgbm90IGluZGly
+ZWN0LWJyYW5jaGVkIHRvLg0KPj4NCj4+IEl0J3MgdGhlIHJlYWwgZW50cnlwb2ludCBvZiB0
+aGUgVk0uwqAgSXQncyAiZ290IHRvIiBieSBzZXR0aW5nICVyaXANCj4+IGR1cmluZyB2Y3B1
+IHNldHVwLg0KPj4NCj4+IFdlIGNvdWxkIGluIHByaW5jaXBsZSBzdXBwb3J0IHN0YXJ0aW5n
+IGEgUFYgVk0gd2l0aCBDRVQgYWN0aXZlLCBidXQgdGhhdA0KPj4gc291bmRzIGxpa2UgYW4g
+ZW5vcm1vdXMgcXVhbnRpdHkgb2YgZWZmb3J0IGZvciB2ZXJ5IGxpdHRsZSBnYWluLsKgIENF
+VA0KPj4gZm9yIFhlbiBQViByZXF1aXJlcyBwYXJhdmlydCBhbnl3YXkgKGJlY2F1c2UgdGhl
+IGtlcm5lbCBydW5zIGluIENQTCE9MCkNCj4+IHNvIGRlY2lzaW9ucyBsaWtlIHRoaXMgY2Fu
+IHdhaXQgdW50aWwgc29tZW9uZSBmZWVscyBsaWtlIGRvaW5nIHRoZSB3b3JrLg0KPj4NCj4+
+PiAgICBBZGQgQU5OT1RBVEVfRU5EQlINCj4+PiB0byBzaWxlbmNlIGZ1dHVyZSBvYmp0b29s
+IHdhcm5pbmdzLg0KPj4+DQo+Pj4gQ2M6IEJvcmlzIE9zdHJvdnNreSA8Ym9yaXMub3N0cm92
+c2t5QG9yYWNsZS5jb20+DQo+Pj4gQ2M6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNv
+bT4NCj4+PiBDYzogU3RlZmFubyBTdGFiZWxsaW5pIDxzc3RhYmVsbGluaUBrZXJuZWwub3Jn
+Pg0KPj4+IENjOiB4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcNCj4+PiBTaWduZWQt
+b2ZmLWJ5OiBKb3NoIFBvaW1ib2V1ZiA8anBvaW1ib2VAcmVkaGF0LmNvbT4NCj4+DQo+PiBG
+V0lXLCBSZXZpZXdlZC1ieTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4
+LmNvbT4sIHByZWZlcmFibHkNCj4+IHdpdGggdGhlIGNvbW1pdCBtZXNzYWdlIHR3ZWFrZWQg
+dG8gcmVtb3ZlIHRoZSB1bmNlcnRhaW50eS4NCj4gDQo+IFNvbWV0aGluZyBsaWtlIHNvIHRo
+ZW4/DQo+IA0KPiAtLS0NCj4gU3ViamVjdDogeDg2L3hlbjogQWRkIEFOTk9UQVRFX0VOREJS
+IHRvIHN0YXJ0dXBfeGVuKCkNCj4gRnJvbTogSm9zaCBQb2ltYm9ldWYgPGpwb2ltYm9lQHJl
+ZGhhdC5jb20+DQo+IERhdGU6IE1vbiwgMTggQXByIDIwMjIgMDk6NTA6MjUgLTA3MDANCj4g
+DQo+IEZyb206IEpvc2ggUG9pbWJvZXVmIDxqcG9pbWJvZUByZWRoYXQuY29tPg0KPiANCj4g
+VGhlIHN0YXJ0dXBfeGVuKCkga2VybmVsIGVudHJ5IHBvaW50IGlzIHJlZmVyZW5jZWQgYnkg
+dGhlICIubm90ZS5YZW4iDQo+IHNlY3Rpb24sIGFuZCBpcyB0aGUgcmVhbCBlbnRyeSBwb2lu
+dCBvZiB0aGUgVk0uIEl0ICp3aWxsKiBiZQ0KPiBpbmRpcmVjdGx5IGJyYW5jaGVkIHRvLCAq
+aG93ZXZlciogY3VycmVudGx5IFhlbiBkb2Vzbid0IHN1cHBvcnQgUFYgVk0NCj4gd2l0aCBD
+RVQgYWN0aXZlLg0KDQpIbW0sIFhlbiB3aWxsIGFsd2F5cyB1c2UgSVJFVCB0byBhY3RpdmF0
+ZSB0aGUgZ3Vlc3QuDQoNCg0KSnVlcmdlbg0K
+--------------jz6euTCJTtrrKm2dUKP9mACi
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your feedback.  I've updated the patch as suggested.  I've also
-incorporated two other changes, one is a simple style change for consistency,
-the other is to change a the test for a valid mtu from > 0 to >= 68.  I can
-resubmit the original patch if either of these are a problem.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Thanks,
-James
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
+oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
+kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
+1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
+BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
+N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
+PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
+FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
+UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
+vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
++6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
+qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
+tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
+Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
+CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
+RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
+8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
+BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
+SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
+nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
+AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
+Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
+hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
+w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
+VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
+OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
+/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
+c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
+F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
+k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
+wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
+5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
+TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
+N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
+AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
+0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
+Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
+we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
+v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
+Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
+534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
+b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
+yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
+suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
---Qxx1br4bt0+wmkIi
-Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment;
-	filename="xen-network-common-frontend.patch"
+--------------jz6euTCJTtrrKm2dUKP9mACi--
 
-commit 03ad5670f8a7402e30b288a55d088e87685cd1a1
-Author: James Dingwall <james@dingwall.me.uk>
-Date:   Tue Apr 19 12:45:31 2022 +0100
+--------------GryZTSvTkZhEETy5NZDwJoeo--
 
-    The set_mtu() function of xen-network-common.sh currently has this code:
-    
-            if [ ${type_if} = vif ]
-            then
-                local dev_=${dev#vif}
-                local domid=${dev_%.*}
-                local devid=${dev_#*.}
-    
-                local FRONTEND_PATH="/local/domain/$domid/device/vif/$devid"
-    
-                xenstore_write "$FRONTEND_PATH/mtu" ${mtu}
-            fi
-    
-    This works fine if the device has its default name but if the xen config
-    defines the vifname parameter the FRONTEND_PATH is incorrectly constructed.
-    Learn the frontend path by reading the appropriate value from the backend.
-    
-    Also change use of `...` to $(...) for a consistent style in the script
-    and adjust the valid check from `mtu > 0` to `mtu >= 68` per RFC 791.
-    
-    Signed-off-by: James Dingwall <james@dingwall.me.uk>
+--------------2IeIEE5xYPveCwBVs3J5n4B3
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-diff --git a/tools/hotplug/Linux/xen-network-common.sh b/tools/hotplug/Linux/xen-network-common.sh
-index 42fa704e8d..9a382c39f4 100644
---- a/tools/hotplug/Linux/xen-network-common.sh
-+++ b/tools/hotplug/Linux/xen-network-common.sh
-@@ -171,24 +171,20 @@ set_mtu () {
-     local mtu=$(xenstore_read_default "$XENBUS_PATH/mtu" "")
-     if [ -z "$mtu" ]
-     then
--        mtu="`ip link show dev ${bridge}| awk '/mtu/ { print $5 }'`"
-+        mtu="$(ip link show dev ${bridge}| awk '/mtu/ { print $5 }')"
-         if [ -n "$mtu" ]
-         then
-             log debug "$bridge MTU is $mtu"
-         fi
-     fi
--    if [ -n "$mtu" ] && [ "$mtu" -gt 0 ]
-+    if [ -n "$mtu" ] && [ "$mtu" -ge 68 ]
-     then
-         log debug "setting $dev MTU to $mtu"
-         ip link set dev ${dev} mtu ${mtu} || :
- 
-         if [ ${type_if} = vif ]
-         then
--            local dev_=${dev#vif}
--            local domid=${dev_%.*}
--            local devid=${dev_#*.}
--
--            local FRONTEND_PATH="/local/domain/$domid/device/vif/$devid"
-+            local FRONTEND_PATH="$(xenstore_read "$XENBUS_PATH/frontend")"
- 
-             xenstore_write "$FRONTEND_PATH/mtu" ${mtu}
-         fi
+-----BEGIN PGP SIGNATURE-----
 
---Qxx1br4bt0+wmkIi--
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmJepboFAwAAAAAACgkQsN6d1ii/Ey8T
+oQf9EKmmEZaYjIYHk88yOKwhNPMeFNvXCN0ouhp+PLvjb3g1bSYo1nQyyWFaOEMiMhJAiAlzW7/y
+sr8DkBa+LqzwCQjWux6RxMP5Cmi4BSehiPr1Gf/6mGGPt1zX6sC5DrWQbzPUgYvfiMU5YsU6thx1
+YSdPGp81IV/S4vmLStF2xb+k5TN8hK4ndNAJrOzlglL+OoN8ni9I1403SUngp0EqM212ljzpWKAF
+oXTSO8HvDxpdce5yKh5tmXlmuq1ncij1DasrN8ZXtCc2SjfkzelXPMru/JyVy/H7osydMmL9ZZ7x
+moRE+glctru1pRnCRKR9g6UpuAW2dAFwAWri1XLOEw==
+=aF2B
+-----END PGP SIGNATURE-----
+
+--------------2IeIEE5xYPveCwBVs3J5n4B3--
 
