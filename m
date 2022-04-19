@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58E43507620
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Apr 2022 19:10:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.308401.524127 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE052507622
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Apr 2022 19:11:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.308407.524145 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngrMU-0004mB-RJ; Tue, 19 Apr 2022 17:09:58 +0000
+	id 1ngrNm-00069M-8i; Tue, 19 Apr 2022 17:11:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 308401.524127; Tue, 19 Apr 2022 17:09:58 +0000
+Received: by outflank-mailman (output) from mailman id 308407.524145; Tue, 19 Apr 2022 17:11:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngrMU-0004kL-Nz; Tue, 19 Apr 2022 17:09:58 +0000
-Received: by outflank-mailman (input) for mailman id 308401;
- Tue, 19 Apr 2022 17:09:56 +0000
+	id 1ngrNm-00068D-4O; Tue, 19 Apr 2022 17:11:18 +0000
+Received: by outflank-mailman (input) for mailman id 308407;
+ Tue, 19 Apr 2022 17:11:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hN/8=U5=gmail.com=p4ranlee@srs-se1.protection.inumbo.net>)
- id 1ngrMS-0004jw-P9
- for xen-devel@lists.xenproject.org; Tue, 19 Apr 2022 17:09:56 +0000
-Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
- [2607:f8b0:4864:20::62d])
+ <SRS0=Tr1R=U5=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1ngrNl-00067p-Fn
+ for xen-devel@lists.xenproject.org; Tue, 19 Apr 2022 17:11:17 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 885da80b-c003-11ec-a405-831a346695d4;
- Tue, 19 Apr 2022 19:09:55 +0200 (CEST)
-Received: by mail-pl1-x62d.google.com with SMTP id c23so16424786plo.0
- for <xen-devel@lists.xenproject.org>; Tue, 19 Apr 2022 10:09:55 -0700 (PDT)
-Received: from [192.168.0.18] ([118.33.58.98])
+ id b9106021-c003-11ec-a405-831a346695d4;
+ Tue, 19 Apr 2022 19:11:16 +0200 (CEST)
+Received: by mail-lj1-x231.google.com with SMTP id o16so21347744ljp.3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Apr 2022 10:11:16 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
  by smtp.gmail.com with ESMTPSA id
- p1-20020a17090a0e4100b001ce188720e5sm16340158pja.53.2022.04.19.10.09.52
+ s10-20020a19ad4a000000b0044826a25a2esm1559012lfd.292.2022.04.19.10.11.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Apr 2022 10:09:53 -0700 (PDT)
+ Tue, 19 Apr 2022 10:11:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,198 +44,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 885da80b-c003-11ec-a405-831a346695d4
+X-Inumbo-ID: b9106021-c003-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:from:to:references
-         :cc:in-reply-to:content-transfer-encoding;
-        bh=DCzhmz/4cQQnX73E5Ilu9RqLgmLe/yGX4F7Eamu7Pjo=;
-        b=eEQ0N8O3pMdkTqVMlAUkrzUmoibgDg/s9IPKbkpu5a/IYGRJuKIPEoiKGykUz4ZjKd
-         y4oOzwXmBUWmeRpvhSPk6N06Qp+l3nS9ER3QYWBQeneNpTb0hQk79B5z1/bQR9FJ/SdE
-         8JRWN7Yy2r3TMw68BbeB9r2JAIKv/voHGFoMm6JCux/svs2OjANRnVW7ng4IkRKhMZ2G
-         LxjsupZn4C1kHcIcRvjNdgGVO/3OOGqg2kCdRPGUNAzJMTQwG5xO26sfK4JGDsxmbtKC
-         wfMFaSUPPEGToLMZGTEVps7nQa8S/7FwMX/yG0KVrsD/VuZnvHHOPdTDXZLTeflS79uH
-         EfKw==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=rxPYmQa0Egn1mqp1mSydb9Om/nZ3dlYXqwZ9ZJ/h6io=;
+        b=dyWdHQ6Lc1rlJ6pELKH/xYiaKPOXoQ/YcCodyE8U8e8bJBI77zlMVC+Ki6HcNSpIeZ
+         hJhP6IRzUA4XCB0CBu49/DWNC2kDBRY6Pb2V4fXowbHziawlTEuj1pobxjq4/74XRzHZ
+         P04N+J4pxJESMwwUZ/O2VvJMUiPQiB31BKyfGR5KU7rbwgKt2kpcI8QRn/jUpuEzNlQZ
+         BF26p8IN65HWr/A4mTBhF0ZoyuOAyjgP2gt0p0gmutZfrzGiFS/zwsWUARmd/Tsv9Yab
+         gn1QKQyQzIc/sGsGr4aW/kVp0yTL+K/d22SwqK1Urv8YmJlhqe2Ogkij7yMTxIpxpxDV
+         wp1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :from:to:references:cc:in-reply-to:content-transfer-encoding;
-        bh=DCzhmz/4cQQnX73E5Ilu9RqLgmLe/yGX4F7Eamu7Pjo=;
-        b=zIbM14kopLs4udmkTwBCet/WQW8qEEFUm8nwzu7uMpzl/g0gC/OYm+iARrwUvZj1Rg
-         gVkkXi1IOX/Jyjkmk11Ytu020oAZICGHGRXucm8QB7xoHbPSH867fW+DBYDOvVxOgh6p
-         7Medsy7OtQjyl7F8CuxO/M86wUFcodKrr9r1eI0njEtGK0az2OZirfzC3QBhDQYOTumK
-         yNTV25iMmL3j/BX6+5Kf53h6WnE0T8n8E5ZVuAkhpfGryMpFS0DSu3Cx1aVk/WF/Yd83
-         do++QYDjSyPXtsAplezdzTpuTocp7JqgPRDKOTA+OEZkw51k1UcFhFanTvZruAr9oXbk
-         0XeA==
-X-Gm-Message-State: AOAM5329Mizf7H9TPFImMHgiP2nWIlU3rePzyjQLSO46yhB9mMD/uSGI
-	LFSxukUxfuMGhsg/X4RLBP451vR4p8Syiu7x
-X-Google-Smtp-Source: ABdhPJwmqT0urknfrmRMpr0tvSlbOUnqB0juHtH9Hl7WVLML8Jh7x5hgfX+TRtHY+32FdFC1g9qtDQ==
-X-Received: by 2002:a17:903:2c7:b0:158:2f26:6016 with SMTP id s7-20020a17090302c700b001582f266016mr16849919plk.154.1650388193945;
-        Tue, 19 Apr 2022 10:09:53 -0700 (PDT)
-Message-ID: <b8a0feed-1dde-3b36-646e-1e5413de8395@gmail.com>
-Date: Wed, 20 Apr 2022 02:09:50 +0900
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=rxPYmQa0Egn1mqp1mSydb9Om/nZ3dlYXqwZ9ZJ/h6io=;
+        b=RC7Ap+HJqCo5G/mgBlp3Xujk0yj6WMb4dMNOcKUKG81xojg0kTRqpW3Qcv529KdTxJ
+         X066Uvt0wy8KUZWlifLK1m6hfFboeg3dCNsP378P1tNCdbkOyBQ7EEUvmXAs0Zh+fjQY
+         vqINgtzgdH1BDe1Dv5gl+sAeo3/zombYqkd3Iq8kS7zZ7B0S1Xdv6ucP6s+8SlcnP4k5
+         CAXihGrvQDySIz/JD1W1kago2EHg1eLylZPt49t+79hoGIg34wFTAI7/X4KDkV7sJnJt
+         qKB6qFZMCDtptWQBL7iNEoXcnW790+O0K4jIzaBadMHnhg2/tX/dAY6+xgadQu/Je/W6
+         qwpA==
+X-Gm-Message-State: AOAM531SpZcvaymMgKNkHd+nNCb526ujymZoVmEr4aeS07LOlA67TEjQ
+	9dkHSr79P1j698A+fYknPDc=
+X-Google-Smtp-Source: ABdhPJwgqbLh/VuZRiEY2WTuxX7nyZVaNDxdTGSqSrhHfcljZTAensAc3R99HsPQkc5LdCgC/gCgEw==
+X-Received: by 2002:a2e:9c43:0:b0:24b:469:2bb6 with SMTP id t3-20020a2e9c43000000b0024b04692bb6mr11327140ljj.248.1650388274392;
+        Tue, 19 Apr 2022 10:11:14 -0700 (PDT)
+Subject: Re: [RFC PATCH 6/6] arm/xen: Assign xen-virtio DMA ops for virtio
+ devices in Xen guests
+To: Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Julien Grall <julien@xen.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>
+References: <1649963973-22879-1-git-send-email-olekstysh@gmail.com>
+ <1649963973-22879-7-git-send-email-olekstysh@gmail.com>
+ <alpine.DEB.2.22.394.2204151305050.915916@ubuntu-linux-20-04-desktop>
+ <YlpdBHKT1bYzZe2e@infradead.org>
+ <f879622e-5656-deb1-1930-f0cd180a4ab1@gmail.com>
+ <alpine.DEB.2.22.394.2204181202080.915916@ubuntu-linux-20-04-desktop>
+ <6a04cc34-fbb3-44d8-c1a4-03bda5b3deb1@gmail.com>
+ <b68163be-ad43-7773-22ff-e83191886626@suse.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <5afb9e61-4164-9cc9-278a-911fc21f4f6c@gmail.com>
+Date: Tue, 19 Apr 2022 20:11:12 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH] xen/arm: silence ambiguous integer casting warning error
-From: Paran Lee <p4ranlee@gmail.com>
-To: Julien Grall <julien.grall.oss@gmail.com>
-References: <20220419154126.GA1518@DESKTOP-NK4TH6S.localdomain>
- <CAJ=z9a37_y3B4aAfiK5C-bHJYyWqCo0+g+jB6cdDCmOzLuXLJw@mail.gmail.com>
- <925421bc-680b-df61-5a75-681d752c4820@gmail.com>
-Cc: Austin Kim <austindh.kim@gmail.com>, xen-devel@lists.xenproject.org
-In-Reply-To: <925421bc-680b-df61-5a75-681d752c4820@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <b68163be-ad43-7773-22ff-e83191886626@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-Debugging with GDB from head.S with QEMU runtime was very convenient for
-analysis(linux). so I have trying it in Xen. As I built it.
 
-Wouldn't it be helpful if I fixed the code little by little?
+Hello Stefano, Juergen
 
-2022-04-20 오전 1:31에 Paran Lee 이(가) 쓴 글:
-> Hi, Julien Grall.
-> 
-> Thank you for checking it out. I'm sorry I forgot to attach the make log
-> as well.
-> 
-> My build configuration (include CFLGAS)
-> 
-> export ARCH=arm64
-> export XEN_TARGET_ARCH=arm64
-> export $(dpkg-architecture -aarm64);
-> export CROSS_COMPILE=aarch64-linux-gnu-
-> export CFLAGS="-g -Wall -Wextra -Wno-unused-parameter"
-> 
-> And i did     make dist-xen
-> 
-> my arm64 compiler information are here.
-> gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.1)
-> 
-> ~/xen$ aarch64-linux-gnu-gcc -v
-> Using built-in specs.
-> COLLECT_GCC=aarch64-linux-gnu-gcc
-> COLLECT_LTO_WRAPPER=/usr/lib/gcc-cross/aarch64-linux-gnu/9/lto-wrapper
-> Target: aarch64-linux-gnu
-> Configured with: ../src/configure -v --with-pkgversion='Ubuntu
-> 9.4.0-1ubuntu1~20.04.1'
-> --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs
-> --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++,gm2 --prefix=/usr
-> --with-gcc-major-version-only --program-suffix=-9 --enable-shared
-> --enable-linker-build-id --libexecdir=/usr/lib
-> --without-included-gettext --enable-threads=posix --libdir=/usr/lib
-> --enable-nls --with-sysroot=/ --enable-clocale=gnu
-> --enable-libstdcxx-debug --enable-libstdcxx-time=yes
-> --with-default-libstdcxx-abi=new --enable-gnu-unique-object
-> --disable-libquadmath --disable-libquadmath-support --enable-plugin
-> --enable-default-pie --with-system-zlib --without-target-system-zlib
-> --enable-libpth-m2 --enable-multiarch --enable-fix-cortex-a53-843419
-> --disable-werror --enable-checking=release --build=x86_64-linux-gnu
-> --host=x86_64-linux-gnu --target=aarch64-linux-gnu
-> --program-prefix=aarch64-linux-gnu-
-> --includedir=/usr/aarch64-linux-gnu/include
-> Thread model: posix
-> gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.1)
-> 
-> In arch/arm/gic-v3.c files.
-> 
-> arch/arm/gic-v3.c: In function ‘gicv3_compute_target_list’:
-> arch/arm/gic-v3.c:926:17: error: comparison of integer expressions of
-> different signedness: ‘int’ and ‘unsigned int’ [-Werror=sign-compare]
->   926 |     while ( cpu < nr_cpu_ids )
->       |                 ^
-> arch/arm/gic-v3.c:936:18: error: comparison of integer expressions of
-> different signedness: ‘int’ and ‘unsigned int’ [-Werror=sign-compare]
->   936 |         if ( cpu == nr_cpu_ids )
->       |                  ^~                           ^
-> 
-> In arch/arm/setup.c files.
-> 
-> arch/arm/setup.c: In function ‘start_xen’:
-> ./include/xen/cpumask.h:374:13: error: comparison of integer expressions
-> of different signedness: ‘int’ and ‘unsigned int’ [-Werror=sign-compare]
->   374 |       (cpu) < nr_cpu_ids;  \
->       |             ^
-> ./include/xen/cpumask.h:459:36: note: in expansion of macro ‘for_each_cpu’
->   459 | #define for_each_present_cpu(cpu)  for_each_cpu(cpu,
-> &cpu_present_map)
->       |                                    ^~~~~~~~~~~~
-> arch/arm/setup.c:989:5: note: in expansion of macro ‘for_each_present_cpu’
->   989 |     for_each_present_cpu ( i )
->       |     ^~~~~~~~~~~~~~~~~~~~             ^
-> 
-> Thank you!
-> 
-> 2022-04-20 오전 12:50에 Julien Grall 이(가) 쓴 글:
->> Hi,
+
+On 19.04.22 17:48, Juergen Gross wrote:
+> On 19.04.22 14:17, Oleksandr wrote:
 >>
->> On Tue, 19 Apr 2022, 15:41 Paran Lee, <p4ranlee@gmail.com> wrote:
->>
->>> GCC with "-g -Wall -Wextra" option throws warning message as below:
+>> Hello Stefano, Juergen
 >>
 >>
->> Which version of the compiler? Also you specify the exact cflags, did you
->> tweak Xen?
->>
->>
->>> error: comparison of integer expressions of different signedness:
->>>  ‘int’ and ‘unsigned int’ [-Werror=sign-compare]
+>> On 18.04.22 22:11, Stefano Stabellini wrote:
+>>> On Mon, 18 Apr 2022, Oleksandr wrote:
+>>>> On 16.04.22 09:07, Christoph Hellwig wrote:
+>>>>
+>>>> Hello Christoph
+>>>>
+>>>>> On Fri, Apr 15, 2022 at 03:02:45PM -0700, Stefano Stabellini wrote:
+>>>>>> This makes sense overall. Considering that the swiotlb-xen case 
+>>>>>> and the
+>>>>>> virtio case are mutually exclusive, I would write it like this:
+>>>>> Curious question:  Why can't the same grant scheme also be used for
+>>>>> non-virtio devices?  I really hate having virtio hooks in the arch
+>>>>> dma code.  Why can't Xen just say in DT/ACPI that grants can be used
+>>>>> for a given device?
+>>> [...]
 >>>
+>>>> This patch series tries to make things work with "virtio" devices 
+>>>> in Xen
+>>>> system without introducing any modifications to code under 
+>>>> drivers/virtio.
+>>>
+>>> Actually, I think Christoph has a point.
+>>>
+>>> There is nothing inherently virtio specific in this patch series or in
+>>> the "xen,dev-domid" device tree binding.
 >>
->> GCC should give you a line/file. Can you provide it?
 >>
->> Cheers,
+>> Although the main intention of this series was to enable using virtio 
+>> devices in Xen guests, I agree that nothing in new DMA ops layer 
+>> (xen-virtio.c) is virtio specific (at least at the moment). Regarding 
+>> the whole patch series I am not quite sure, as it uses 
+>> arch_has_restricted_virtio_memory_access(). >
+>>>   Assuming a given device is
+>>> emulated by a Xen backend, it could be used with grants as well.
+>>>
+>>> For instance, we could provide an emulated e1000 NIC with a
+>>> "xen,dev-domid" property in device tree. Linux could use grants with it
+>>> and the backend could map the grants. It would work the same way as
+>>> virtio-net/block/etc. Passthrough devices wouldn't have the
+>>> "xen,dev-domid" property, so no problems.
+>>>
+>>> So I think we could easily generalize this work and expand it to any
+>>> device. We just need to hook on the "xen,dev-domid" device tree
+>>> property.
+>>>
+>>> I think it is just a matter of:
+>>> - remove the "virtio,mmio" check from xen_is_virtio_device
+>>> - rename xen_is_virtio_device to something more generic, like
+>>>    xen_is_grants_device
+>
+> xen_is_grants_dma_device, please. Normal Xen PV devices are covered by
+> grants, too, and I'd like to avoid the confusion arising from this.
+
+
+yes, this definitely makes sense as we need to distinguish
+
+
+>
+>
+>>> - rename xen_virtio_setup_dma_ops to something more generic, like
+>>>    xen_grants_setup_dma_ops
+>>>
+>>> And that's pretty much it.
+>>
+>> + likely renaming everything in that patch series not to mention 
+>> virtio (mostly related to xen-virtio.c internals).
 >>
 >>
->>> Silence the warning by correcting the integer type.
->>>
->>> Signed-off-by: Paran Lee <p4ranlee@gmail.com>
->>> ---
->>>  xen/arch/arm/gic-v3.c | 5 +++--
->>>  xen/arch/arm/setup.c  | 2 +-
->>>  2 files changed, 4 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
->>> index 3c472ed768..81ac25f528 100644
->>> --- a/xen/arch/arm/gic-v3.c
->>> +++ b/xen/arch/arm/gic-v3.c
->>> @@ -916,7 +916,8 @@ static void gicv3_hyp_disable(void)
->>>      isb();
->>>  }
->>>
->>> -static u16 gicv3_compute_target_list(int *base_cpu, const struct cpumask
->>> *mask,
->>> +static u16 gicv3_compute_target_list(unsigned int *base_cpu,
->>> +                                     const struct cpumask *mask,
->>>                                       uint64_t cluster_id)
->>>  {
->>>      int cpu = *base_cpu;
->>> @@ -953,7 +954,7 @@ out:
->>>
->>>  static void gicv3_send_sgi_list(enum gic_sgi sgi, const cpumask_t
->>> *cpumask)
->>>  {
->>> -    int cpu = 0;
->>> +    unsigned int cpu = 0;
->>>      uint64_t val;
->>>
->>>      for_each_cpu(cpu, cpumask)
->>> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
->>> index d5d0792ed4..5ab2aaecaf 100644
->>> --- a/xen/arch/arm/setup.c
->>> +++ b/xen/arch/arm/setup.c
->>> @@ -862,7 +862,7 @@ void __init start_xen(unsigned long boot_phys_offset,
->>>                        unsigned long fdt_paddr)
->>>  {
->>>      size_t fdt_size;
->>> -    int cpus, i;
->>> +    unsigned int cpus, i;
->>>      const char *cmdline;
->>>      struct bootmodule *xen_bootmodule;
->>>      struct domain *d;
->>> --
->>> 2.25.1
->>>
->>>
+>> Stefano, thank you for clarifying Christoph's point.
 >>
+>> Well, I am not against going this direction. Could we please make a 
+>> decision on this? @Juergen, what is your opinion?
+>
+> Yes, why not.
+
+
+ok, thank you for confirming.
+
+
+>
+>
+> Maybe rename xen-virtio.c to grant-dma.c?
+
+
+Personally I don't mind.
+
+
+>
+> I'd keep the XEN_VIRTIO related config option, as this will be the 
+> normal use
+> case. grant-dma.c should be covered by a new hidden config option 
+> XEN_GRANT_DMA
+> selected by XEN_VIRTIO.
+
+
+I got it, ok
+
+
+>
+>
+> CONFIG_XEN_VIRTIO should still guard 
+> xen_has_restricted_virtio_memory_access().
+
+
+ok
+
+
+So a few questions to clarify:
+
+1. What is the best place to keep "xen,dev-domid" binding's description 
+now? I think that proposed in current series place 
+(Documentation/devicetree/bindings/virtio/) is not good fit now.
+
+2. I assume the logic in the current patch will remain the same, I mean 
+we will still assign Xen grant DMA ops from xen_setup_dma_ops() here?
+
+
+>
+>
+>
+> Juergen
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
