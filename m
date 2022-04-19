@@ -2,39 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3BC9506D5C
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Apr 2022 15:20:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.308137.523697 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5D77506EFD
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Apr 2022 15:53:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.308148.523723 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngnla-0007gB-Pt; Tue, 19 Apr 2022 13:19:38 +0000
+	id 1ngoHt-00042y-9r; Tue, 19 Apr 2022 13:53:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 308137.523697; Tue, 19 Apr 2022 13:19:38 +0000
+Received: by outflank-mailman (output) from mailman id 308148.523723; Tue, 19 Apr 2022 13:53:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngnla-0007da-Mx; Tue, 19 Apr 2022 13:19:38 +0000
-Received: by outflank-mailman (input) for mailman id 308137;
- Tue, 19 Apr 2022 13:19:36 +0000
+	id 1ngoHt-0003vt-3p; Tue, 19 Apr 2022 13:53:01 +0000
+Received: by outflank-mailman (input) for mailman id 308148;
+ Tue, 19 Apr 2022 13:53:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MQ6T=U5=gmail.com=robherring2@srs-se1.protection.inumbo.net>)
- id 1ngnlY-0007dU-Tm
- for xen-devel@lists.xenproject.org; Tue, 19 Apr 2022 13:19:36 +0000
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com
- [209.85.210.53]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5ad5e2d4-bfe3-11ec-a405-831a346695d4;
- Tue, 19 Apr 2022 15:19:35 +0200 (CEST)
-Received: by mail-ot1-f53.google.com with SMTP id
- c11-20020a9d684b000000b00603307cef05so8353759oto.3
- for <xen-devel@lists.xenproject.org>; Tue, 19 Apr 2022 06:19:35 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-144-107.dyn.grandenetworks.net.
- [66.90.144.107]) by smtp.gmail.com with ESMTPSA id
- o64-20020acad743000000b002ef3b249b9esm5002838oig.58.2022.04.19.06.19.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Apr 2022 06:19:33 -0700 (PDT)
-Received: (nullmailer pid 2323034 invoked by uid 1000);
- Tue, 19 Apr 2022 13:19:32 -0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Io9b=U5=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1ngoHr-0003n8-W7
+ for xen-devel@lists.xenproject.org; Tue, 19 Apr 2022 13:52:59 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 04db1180-bfe8-11ec-a405-831a346695d4;
+ Tue, 19 Apr 2022 15:52:58 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5D08421115;
+ Tue, 19 Apr 2022 13:52:57 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DB791132E7;
+ Tue, 19 Apr 2022 13:52:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id iSgbNLi+XmL/EgAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 19 Apr 2022 13:52:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,62 +51,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ad5e2d4-bfe3-11ec-a405-831a346695d4
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=hYORCeWbeix4J5CxHYndk8/zWspzxFUk4CcUI2nGMhg=;
-        b=abj5N4EnP0wOp+NqFxi9fDdBNpIUr1fjwVia3NUiRXUJqkT/kIJy6ouoejcGqtcKXB
-         HIFgKP9V5jpMEbuUE34v8OS8n+BhdSSin10GaPiQPpQ5SXgAoZNFr7tZqZXSbZj17BlD
-         hISu3pE++t11VUXkM1j+dvHFE2M9U0QcrScUTIJbzqJV0uVSIYrcrb1+LffmSHtHINV2
-         vx6aRf8YkyT9KLTqvajRwpm3xiuD2dBqmxd//qnbc8MEDEmGZ1oUd3da+bVplxjOqkaU
-         zOo4yEDUkmvhyaUiPt7ZPtBBY3M0RNjdy7HwqWJw+68eJiV7td2HlL704S+T6uFArmBK
-         nfKw==
-X-Gm-Message-State: AOAM532TkRDi0f3KCpUqMUTdbk/tFqh7Zaafj9jSnJajc6cLadCoTvyj
-	18mJB5L1Zt/C0wWveT9Lww==
-X-Google-Smtp-Source: ABdhPJz95PNkSHrePsY47MQUDBbqQF6249VaMMsqV2Yk41XDjy6ZzbVnMxC2DSC071gfjYWvuQ90cA==
-X-Received: by 2002:a9d:12a9:0:b0:603:d1cc:68eb with SMTP id g38-20020a9d12a9000000b00603d1cc68ebmr5741572otg.326.1650374373912;
-        Tue, 19 Apr 2022 06:19:33 -0700 (PDT)
-Date: Tue, 19 Apr 2022 08:19:32 -0500
-From: Rob Herring <robh@kernel.org>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: devicetree@vger.kernel.org, xen-devel@lists.xenproject.org, Stefano Stabellini <stefano.stabellini@xilinx.com>, robh+dt@kernel.org, julien@xen.org, frowand.list@gmail.com
-Subject: Re: [PATCH v2] of: of_property_read_string return -ENODATA when
- !length
-Message-ID: <Yl625EnFl0/MChux@robh.at.kernel.org>
-References: <20220416003028.1315268-1-sstabellini@kernel.org>
+X-Inumbo-ID: 04db1180-bfe8-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1650376377; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=Ll2L1V6q8NZn8/JqOsU4pqS0bFns/4R0D70JW/DGZeI=;
+	b=dhKl+/szZfTJVsMqem+E61stA8sIw0VfVk5k/DaHmDMKreCB3twkD4TutqoWXHEhpKVp/D
+	jzE+3CnPRFLrFIfhIbgfM7x69nG02rqZoObWo0ppXF0BYLa+SDzxHPRxulTPrNiG+jGFZ2
+	CBgZflMUT3u/sK1Ef9SmZturB5oZIDE=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	Elena Ufimtseva <elena.ufimtseva@oracle.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v3 0/3] xen: fix and cleanup domctl handling
+Date: Tue, 19 Apr 2022 15:52:51 +0200
+Message-Id: <20220419135254.21729-1-jgross@suse.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220416003028.1315268-1-sstabellini@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Fri, 15 Apr 2022 17:30:28 -0700, Stefano Stabellini wrote:
-> From: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> 
-> When the length of the string is zero of_property_read_string should
-> return -ENODATA according to the description of the function.
-> 
-> However, of_property_read_string doesn't check prop->length. If
-> prop->length is zero, return -ENODATA.
-> 
-> Without this patch the following command in u-boot:
-> 
-> fdt set /chosen/node property-name
-> 
-> results in of_property_read_string returning -EILSEQ when attempting to
-> read property-name. With this patch, it returns -ENODATA as expected.
-> 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> ---
-> Changes in v2:
-> - use prop instead pp
-> - drop value check
-> - update function header documentation
-> ---
->  drivers/of/property.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
+A fix of a hypervisor crash in domctl handling and some related cleanup.
 
-Applied, thanks!
+Juergen Gross (3):
+  xen: fix XEN_DOMCTL_gdbsx_guestmemio crash
+  xen: cleanup gdbsx_guest_mem_io() call
+  xen/iommu: cleanup iommu related domctl handling
+
+ xen/arch/arm/domctl.c               | 11 +----------
+ xen/arch/x86/debug.c                | 12 +++---------
+ xen/arch/x86/domctl.c               |  8 ++++----
+ xen/arch/x86/include/asm/debugger.h |  2 +-
+ xen/common/domctl.c                 |  8 +++++++-
+ 5 files changed, 16 insertions(+), 25 deletions(-)
+
+-- 
+2.34.1
+
 
