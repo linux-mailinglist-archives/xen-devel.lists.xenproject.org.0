@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 885C6507203
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Apr 2022 17:41:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.308291.523973 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07A78507209
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Apr 2022 17:42:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.308298.523984 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngpyE-0003xy-Jy; Tue, 19 Apr 2022 15:40:50 +0000
+	id 1ngpzC-0004mu-Vd; Tue, 19 Apr 2022 15:41:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 308291.523973; Tue, 19 Apr 2022 15:40:50 +0000
+Received: by outflank-mailman (output) from mailman id 308298.523984; Tue, 19 Apr 2022 15:41:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngpyE-0003uS-GM; Tue, 19 Apr 2022 15:40:50 +0000
-Received: by outflank-mailman (input) for mailman id 308291;
- Tue, 19 Apr 2022 15:40:49 +0000
+	id 1ngpzC-0004l0-Qt; Tue, 19 Apr 2022 15:41:50 +0000
+Received: by outflank-mailman (input) for mailman id 308298;
+ Tue, 19 Apr 2022 15:41:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lfI/=U5=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1ngpyD-0001X4-4Z
- for xen-devel@lists.xenproject.org; Tue, 19 Apr 2022 15:40:49 +0000
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 153e9ac8-bff7-11ec-8fbf-03012f2f19d4;
- Tue, 19 Apr 2022 17:40:48 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 731F15C017F;
- Tue, 19 Apr 2022 11:40:47 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Tue, 19 Apr 2022 11:40:47 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 19 Apr 2022 11:40:46 -0400 (EDT)
+ <SRS0=hN/8=U5=gmail.com=p4ranlee@srs-se1.protection.inumbo.net>)
+ id 1ngpyu-0001X4-JK
+ for xen-devel@lists.xenproject.org; Tue, 19 Apr 2022 15:41:32 +0000
+Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
+ [2607:f8b0:4864:20::102d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2f03aa31-bff7-11ec-8fbf-03012f2f19d4;
+ Tue, 19 Apr 2022 17:41:31 +0200 (CEST)
+Received: by mail-pj1-x102d.google.com with SMTP id
+ n33-20020a17090a5aa400b001d28f5ee3f9so2245766pji.4
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Apr 2022 08:41:31 -0700 (PDT)
+Received: from localhost ([118.33.58.98]) by smtp.gmail.com with ESMTPSA id
+ 96-20020a17090a09e900b001cb62ee05besm20097807pjo.55.2022.04.19.08.41.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 Apr 2022 08:41:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,223 +44,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 153e9ac8-bff7-11ec-8fbf-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:reply-to:sender
-	:subject:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm1; t=1650382847; x=1650469247; bh=3
-	arqv03JGEGVKFR5SMcDPvfcQfJd+3ZKaEx4TULio5U=; b=qKNxCblSJz6gsng7G
-	YoUR2s1K3Y2gRE0PZA7hmzMaeE0bqbiB1v0EvMyPWkqwRU3PQ8Zto7cL0hBiGuDb
-	i1QFmcMp3w9JWYla75ac+cWalloxZ7fVv1Cd4XmGGFehWIJGLCeClFrJfvfHZ54x
-	gkP6heZYzMBZTHl4W1pUHf59cB6YH62/BIJn8/uMiSe11NY9FlTi/UTFZIwj6qsT
-	rYiW54QsxfPDmBV0Q3QYNkTqIvgpGxmd9dS9vKgqxJR1m+iXV58B8eJPmLjGnqrr
-	rYu00HGEP7LRCPTNNUUaYJA+xcuL8posXX9o87r5u3E7U4Tw1nX79IqG2NSL531s
-	GGrRg==
-X-ME-Sender: <xms:_tdeYnstA60vZOalsoerbzGiOE2HSaoiYYvM_vweRfMOnnShNDjbIQ>
-    <xme:_tdeYof7kGSvZH2kRojNGTi7JbBBWnJfZE6mtxufHy6-iYqFdZAHxgq6TqfBYEsas
-    vavKQxhUj76HIU>
-X-ME-Received: <xmr:_tdeYqy6iv2NEhQY0cm-g89Oj1MbipDw6oVcWJpHOoK20QyP5-Uqwb2E8gIx>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrvddtfedgledvucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvffukfggtggujgesghdtreertddtvdenucfhrhhomhepffgvmhhiucfo
-    rghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhnghhslh
-    grsgdrtghomheqnecuggftrfgrthhtvghrnhepveefleduheekhfdtfffffedukeevtedu
-    leekfffgudfhtdduhfevueefueegtefhnecuvehluhhsthgvrhfuihiivgeptdenucfrrg
-    hrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgr
-    sgdrtghomh
-X-ME-Proxy: <xmx:_9deYmNvOxtqP_qBBhmnSnXDIIyZCDYoxbUF-gBRsIzZRpLy3v3yEg>
-    <xmx:_9deYn8j6cNRrFpNvipfT6VXVfKyuSTza3IL7_mJ8F3NjD-9qXd1hw>
-    <xmx:_9deYmXTIjx-jw5Ap7fl7LSFWMDSdupj71Z4LVXVHHI5OSBzNDhvgA>
-    <xmx:_9deYpKBP81Mr0fqgniwSTJrX_nzCCTdaIjL-Isc5LUSq4YhWFXe4A>
-Date: Tue, 19 Apr 2022 11:40:44 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v3 2/4] Add a dedicated memory region for the ESRT
-Message-ID: <Yl7X/dT39vvhZmho@itl-email>
+X-Inumbo-ID: 2f03aa31-bff7-11ec-8fbf-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=date:from:to:cc:subject:message-id:mime-version:content-disposition
+         :content-transfer-encoding;
+        bh=wkNciCU0DR7oGRSLBP7eFv/OfMFHpp+CXl9buHoOGYU=;
+        b=ZzIryjPvICslU/syA+9rw+BgGs7UB2r1IdRyW6WFOI/sZ34b1kBNg2LcqKnFtObgh+
+         VcT4zbjhXNSaOI/40J3EA0bMcxJ2Sanqpcgq/H8ZJRm5BJFec6+TonlAhXeIVF0NwgaN
+         u36qrP1veorVNnAil4e/tCGdm2DhX+SeVo9nk+UjMnVqF3HJMS3yfyU5hCkFzzyc3vE1
+         Qo0aAz8cuSCzorS1U2NiPmeMzr+gclsBjzNmjY5fbRPN9Y6MyXPML0zxVHWiTsnRJefj
+         mzKrlsYC2Oq1qaQpF3ECVjzLd7qega2OIa9GthiBXFgY6Z9motmeYcwRz8nh6JM25WEV
+         pGNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+         :content-disposition:content-transfer-encoding;
+        bh=wkNciCU0DR7oGRSLBP7eFv/OfMFHpp+CXl9buHoOGYU=;
+        b=fzO1UKnkP5ankKBj0riQYwXOehzIzT4zfw9ahIoj/6zVgn3ALbQtq47nQmST8WgNxR
+         KXMdV1vZsK4EN6cU8xZeTbHEqUjWtrpqnihBzKJlNpu8R7mDb6OYKDkMBBDaM0JzsXHQ
+         us9UdmtEnGVwa4hZG0ghur0tLAKMZmPEn2iQYctI7UI2q/DUVojARBFQW+g9bvk950HU
+         pVcvHn+xXcDN8kvfpqsGEYvIEqYTA5xxjifYVnmkvQDhjI0zZaC1VkORmV/0hNlT2lLw
+         mtsLhsqL5n2WYDZHEwKQr7MCvtNKFzqmLh3fOD/j/4uqDkwbNtYOShAcAs5BbkoxTYow
+         NEvg==
+X-Gm-Message-State: AOAM531KhPXe5Nf69AbWXK0XOH0uVKI9wONx4NMwxE2ILYkxBFM188dq
+	c3vpjydC4V8OzAFcl6/Ez50=
+X-Google-Smtp-Source: ABdhPJy7zpzuVn45q/UVu6GvXVrBV3Yd1937AHPs+ddYtAp2+/PQmex67JZPVoOo5UQEIuvABy/oqQ==
+X-Received: by 2002:a17:90b:38c4:b0:1d2:66cf:568f with SMTP id nn4-20020a17090b38c400b001d266cf568fmr17224404pjb.18.1650382890185;
+        Tue, 19 Apr 2022 08:41:30 -0700 (PDT)
+Date: Wed, 20 Apr 2022 00:41:26 +0900
+From: Paran Lee <p4ranlee@gmail.com>
+To: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: Austin Kim <austindh.kim@gmail.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: [PATCH] xen/arm: silence ambiguous integer casting warning error
+Message-ID: <20220419154126.GA1518@DESKTOP-NK4TH6S.localdomain>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="weNRqal4jiKrbyKp"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <Yl7WHv6+M+eJwQep@itl-email>
+Content-Transfer-Encoding: 8bit
 
+GCC with "-g -Wall -Wextra" option throws warning message as below:
 
---weNRqal4jiKrbyKp
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 19 Apr 2022 11:40:44 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v3 2/4] Add a dedicated memory region for the ESRT
+error: comparison of integer expressions of different signedness:
+ ‘int’ and ‘unsigned int’ [-Werror=sign-compare]
 
-This allows the ESRT to be marked as reserved without having to waste a
-potentially large amount of memory.  This patch assumes that Xen can
-handle memory regions that are not page-aligned.  If it cannot,
-additional code will need to be added to align the regions.
+Silence the warning by correcting the integer type.
+
+Signed-off-by: Paran Lee <p4ranlee@gmail.com>
 ---
- xen/arch/x86/efi/efi-boot.h     | 69 +++++++++++++++++++++++++--------
- xen/arch/x86/include/asm/e820.h |  2 +-
- 2 files changed, 54 insertions(+), 17 deletions(-)
+ xen/arch/arm/gic-v3.c | 5 +++--
+ xen/arch/arm/setup.c  | 2 +-
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
-index 75937c8a11..edf1fea3e0 100644
---- a/xen/arch/x86/efi/efi-boot.h
-+++ b/xen/arch/x86/efi/efi-boot.h
-@@ -165,13 +165,14 @@ static void __init efi_arch_process_memory_map(EFI_SY=
-STEM_TABLE *SystemTable,
-     {
-         EFI_MEMORY_DESCRIPTOR *desc =3D map + i;
-         u64 len =3D desc->NumberOfPages << EFI_PAGE_SHIFT;
-+        UINTN physical_start =3D desc->PhysicalStart;
-         u32 type;
-=20
-         switch ( desc->Type )
-         {
-         case EfiBootServicesCode:
-         case EfiBootServicesData:
--            if ( map_bs || desc =3D=3D (EFI_MEMORY_DESCRIPTOR *)esrt_desc )
-+            if ( map_bs )
-             {
-         default:
-                 type =3D E820_RESERVED;
-@@ -179,9 +180,9 @@ static void __init efi_arch_process_memory_map(EFI_SYST=
-EM_TABLE *SystemTable,
-             }
-             /* fall through */
-         case EfiConventionalMemory:
--            if ( !trampoline_phys && desc->PhysicalStart + len <=3D 0x1000=
-00 &&
--                 len >=3D cfg.size && desc->PhysicalStart + len > cfg.addr=
- )
--                cfg.addr =3D (desc->PhysicalStart + len - cfg.size) & PAGE=
-_MASK;
-+            if ( !trampoline_phys && physical_start + len <=3D 0x100000 &&
-+                 len >=3D cfg.size && physical_start + len > cfg.addr )
-+                cfg.addr =3D (physical_start + len - cfg.size) & PAGE_MASK;
-             /* fall through */
-         case EfiLoaderCode:
-         case EfiLoaderData:
-@@ -198,21 +199,57 @@ static void __init efi_arch_process_memory_map(EFI_SY=
-STEM_TABLE *SystemTable,
-             type =3D E820_NVS;
-             break;
-         }
--        if ( e820_raw.nr_map && type =3D=3D e->type &&
--             desc->PhysicalStart =3D=3D e->addr + e->size )
--            e->size +=3D len;
--        else if ( !len || e820_raw.nr_map >=3D ARRAY_SIZE(e820_raw.map) )
--            continue;
--        else
-+
-+#define ADD_ENTRY(len, type_, physical_start)                           \
-+        if ( len )                                                      \
-+        {                                                               \
-+            if ( e820_raw.nr_map && (type_) =3D=3D e->type &&             =
-  \
-+                 (physical_start) =3D=3D e->addr + e->size )              =
-  \
-+                e->size +=3D (len);                                       \
-+            else if ( e820_raw.nr_map < ARRAY_SIZE(e820_raw.map) )      \
-+                continue;                                               \
-+            else                                                        \
-+            {                                                           \
-+                ++e;                                                    \
-+                e->addr =3D (physical_start);                             \
-+                e->size =3D (len);                                        \
-+                e->type =3D (type_);                                      \
-+                ++e820_raw.nr_map;                                      \
-+            }                                                           \
-+        }                                                               \
-+        else                                                            \
-+            do {} while (0)
-+
-+        if ( desc =3D=3D (EFI_MEMORY_DESCRIPTOR *)esrt_desc )
-         {
--            ++e;
--            e->addr =3D desc->PhysicalStart;
--            e->size =3D len;
--            e->type =3D type;
--            ++e820_raw.nr_map;
-+            const ESRT *esrt_ptr;
-+            UINTN esrt_offset, esrt_len;
-+
-+            BUG_ON(physical_start > esrt);
-+            BUG_ON(len < sizeof(*esrt_ptr));
-+            esrt_offset =3D esrt - physical_start;
-+
-+            BUG_ON(len - sizeof(*esrt_ptr) < esrt_offset);
-+            esrt_ptr =3D (const ESRT *)esrt;
-+
-+            BUG_ON(esrt_ptr->Version !=3D 1);
-+            BUG_ON(esrt_ptr->Count < 1);
-+
-+            esrt_len =3D (esrt_ptr->Count + 1) * sizeof(*esrt_ptr);
-+
-+            BUG_ON( len - esrt_offset < esrt_len );
-+
-+            ADD_ENTRY(esrt_offset, type, physical_start);
-+
-+            ADD_ENTRY(esrt_len, E820_RESERVED, esrt);
-+
-+            physical_start =3D esrt + esrt_len;
-+            len -=3D esrt_offset + esrt_len;
-         }
--    }
-=20
-+        ADD_ENTRY(len, type, physical_start);
-+    }
-+#undef ADD_ENTRY
+diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+index 3c472ed768..81ac25f528 100644
+--- a/xen/arch/arm/gic-v3.c
++++ b/xen/arch/arm/gic-v3.c
+@@ -916,7 +916,8 @@ static void gicv3_hyp_disable(void)
+     isb();
  }
-=20
- static void *__init efi_arch_allocate_mmap_buffer(UINTN map_size)
-diff --git a/xen/arch/x86/include/asm/e820.h b/xen/arch/x86/include/asm/e82=
-0.h
-index 92f5efa4f5..98eca96425 100644
---- a/xen/arch/x86/include/asm/e820.h
-+++ b/xen/arch/x86/include/asm/e820.h
-@@ -16,7 +16,7 @@ struct __packed e820entry {
-     uint32_t type;
- };
-=20
--#define E820MAX	1024
-+#define E820MAX	1026
-=20
- struct e820map {
-     unsigned int nr_map;
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+ 
+-static u16 gicv3_compute_target_list(int *base_cpu, const struct cpumask *mask,
++static u16 gicv3_compute_target_list(unsigned int *base_cpu,
++                                     const struct cpumask *mask,
+                                      uint64_t cluster_id)
+ {
+     int cpu = *base_cpu;
+@@ -953,7 +954,7 @@ out:
+ 
+ static void gicv3_send_sgi_list(enum gic_sgi sgi, const cpumask_t *cpumask)
+ {
+-    int cpu = 0;
++    unsigned int cpu = 0;
+     uint64_t val;
+ 
+     for_each_cpu(cpu, cpumask)
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index d5d0792ed4..5ab2aaecaf 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -862,7 +862,7 @@ void __init start_xen(unsigned long boot_phys_offset,
+                       unsigned long fdt_paddr)
+ {
+     size_t fdt_size;
+-    int cpus, i;
++    unsigned int cpus, i;
+     const char *cmdline;
+     struct bootmodule *xen_bootmodule;
+     struct domain *d;
+-- 
+2.25.1
 
---weNRqal4jiKrbyKp
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmJe1/wACgkQsoi1X/+c
-IsHFtxAAp1e2QIOgX1bpt7qNcCU5Zsz899u1wSFeVNkiZXPfrfE8D4H8ORJZIl88
-27e0V68HVQkE4uaJ9XgX9/WVCmSOrCGcX3frrJCbUHS7AvVDkEoxR9En0txPGX7q
-rWuk3EpGrGdeaKYq2Ze6iQs4H7kPKmgi95fwyY/8pqw9gQAniHiJ3adSxBUafFfH
-Ez/7LesMXKHLRUTWAUQzKNwQnH6VVBYarKap3DQCZOz0i9C9gWGrEt4CK3ygWipx
-5b6lx+dOE5HbILaW5LbTFbdVZPaZ5dXPEDPJw5QPFK03AY8Q8L51O0f7M2K7Zue+
-KWojkSWYtACQsisU0UYHcrYdMEFP69GjHfhPev7cAuchrRV56RCiXs1Mt9U3+mI6
-htsW+Us0wIGyxElXfyEptPyQU/POeQ5KSaZjQ3DoBctCK7K3+8kBpFBQZ9jfQeER
-uOUpXb5dQ0kG3boBiGrfNJFvmWSAX+2PDXEa7uLr0ryfc9o6L9vdYGab9mA9DEiF
-VB6qmAQfnVpMkDRz4JWn3yYUJGBd0PDFv+Tpl/cmMvEuQj6s05P6m7PmPIGhilC7
-HwNfPkZ7FBpT3mFGFpaczuS4/AWNWlQk5RcpdcrKw8jCTlhrajqyFF6SM+5TWRGg
-JIxC7d2EvDVFKGxN+wbp6kksRPG+JGWEU4ECiqROELsAmoFPcFA=
-=LKhS
------END PGP SIGNATURE-----
-
---weNRqal4jiKrbyKp--
 
