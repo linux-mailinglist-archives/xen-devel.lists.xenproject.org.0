@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 265BB507F1D
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 04:53:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.308718.524524 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3326507EAA
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 04:06:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.308553.524361 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nh0Si-000151-2u; Wed, 20 Apr 2022 02:53:00 +0000
+	id 1ngzjV-00040P-Ox; Wed, 20 Apr 2022 02:06:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 308718.524524; Wed, 20 Apr 2022 02:53:00 +0000
+Received: by outflank-mailman (output) from mailman id 308553.524361; Wed, 20 Apr 2022 02:06:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nh0Sh-00012a-WB; Wed, 20 Apr 2022 02:52:59 +0000
-Received: by outflank-mailman (input) for mailman id 308718;
- Wed, 20 Apr 2022 02:52:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ngzjV-0003wt-Ll; Wed, 20 Apr 2022 02:06:17 +0000
+Received: by outflank-mailman (input) for mailman id 308553;
+ Wed, 20 Apr 2022 02:06:16 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=80Cj=U6=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1nh0Sg-00012Q-EA
- for xen-devel@lists.xenproject.org; Wed, 20 Apr 2022 02:52:58 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fb0a3102-c054-11ec-a405-831a346695d4;
- Wed, 20 Apr 2022 04:52:57 +0200 (CEST)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 23K2qlpN093140
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Tue, 19 Apr 2022 22:52:53 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.16.1/8.15.2/Submit) id 23K2ql8U093139;
- Tue, 19 Apr 2022 19:52:47 -0700 (PDT) (envelope-from ehem)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ngzjU-0003wj-4q; Wed, 20 Apr 2022 02:06:16 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ngzjU-0003fU-3o; Wed, 20 Apr 2022 02:06:16 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ngzjT-0003RB-LA; Wed, 20 Apr 2022 02:06:15 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ngzjT-0000S9-KO; Wed, 20 Apr 2022 02:06:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,136 +42,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb0a3102-c054-11ec-a405-831a346695d4
-Message-Id: <c145a7648025e9bbc2f47ab8bd5839c80c01933f.1650422518.git.ehem+xen@m5p.com>
-In-Reply-To: <cover.1650422517.git.ehem+xen@m5p.com>
-References: <cover.1650422517.git.ehem+xen@m5p.com>
-From: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: Wei Liu <wl@xen.org>
-Cc: Anthony PERARD <anthony.perard@citrix.com>
-Date: Tue, 19 Apr 2022 18:56:03 -0700
-Subject: [PATCH 1/2] tools/xl: Sort create command options
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=43BzIYDHLkWwsmKyYwd1uBkPoXaJD9y5ZuRDGwnDDpk=; b=Jt3g0dzT9gQONY6MoxvTn+/wvM
+	oIO5YBUyZKt+kotjRZ2WivaB8ROSkybAreeriiZtVZ0TJsXQg6OUh2JniR0OJdFlNtiLvyoPCUnzw
+	/5b38t3c6LU9+K196FWU7WD845QcshgpZ/xF9qTq5n5mtjrJljrEPII/CZeVTEYsrqCM=;
 To: xen-devel@lists.xenproject.org
-X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=3.4.5
-X-Spam-Checker-Version: SpamAssassin 3.4.5 (2021-03-20) on mattapan.m5p.com
+Message-ID: <osstest-169551-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 169551: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=76fda1def3d1baea3b01ae697687ff478d2d1b42
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 20 Apr 2022 02:06:15 +0000
 
-Hopefully simplify future changes by sorting options lists for
-`xl create`.
+flight 169551 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169551/
 
-Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>
----
- tools/xl/xl_cmdtable.c  | 10 +++++-----
- tools/xl/xl_vmcontrol.c | 40 ++++++++++++++++++++--------------------
- 2 files changed, 25 insertions(+), 25 deletions(-)
+Regressions :-(
 
-diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
-index 661323d488..f546beaceb 100644
---- a/tools/xl/xl_cmdtable.c
-+++ b/tools/xl/xl_cmdtable.c
-@@ -24,16 +24,16 @@ const struct cmd_spec cmd_table[] = {
-       &main_create, 1, 1,
-       "Create a domain from config file <filename>",
-       "<ConfigFile> [options] [vars]",
-+      "-c                      Connect to the console after the domain is created.\n"
-+      "-d                      Enable debug messages.\n"
-+      "-e                      Do not wait in the background for the death of the domain.\n"
-+      "-F                      Run in foreground until death of the domain.\n"
-       "-h                      Print this help.\n"
-       "-p                      Leave the domain paused after it is created.\n"
--      "-c                      Connect to the console after the domain is created.\n"
-       "-f FILE, --defconfig=FILE\n                     Use the given configuration file.\n"
--      "-q, --quiet             Quiet.\n"
-       "-n, --dryrun            Dry run - prints the resulting configuration\n"
-       "                         (deprecated in favour of global -N option).\n"
--      "-d                      Enable debug messages.\n"
--      "-F                      Run in foreground until death of the domain.\n"
--      "-e                      Do not wait in the background for the death of the domain.\n"
-+      "-q, --quiet             Quiet.\n"
-       "-V, --vncviewer         Connect to the VNC display after the domain is created.\n"
-       "-A, --vncviewer-autopass\n"
-       "                        Pass VNC password to viewer via stdin.\n"
-diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
-index 435155a033..2ec4140258 100644
---- a/tools/xl/xl_vmcontrol.c
-+++ b/tools/xl/xl_vmcontrol.c
-@@ -1169,13 +1169,13 @@ int main_create(int argc, char **argv)
-     int paused = 0, debug = 0, daemonize = 1, console_autoconnect = 0,
-         quiet = 0, monitor = 1, vnc = 0, vncautopass = 0, ignore_masks = 0;
-     int opt, rc;
--    static struct option opts[] = {
-+    static const struct option opts[] = {
-+        {"defconfig", 1, 0, 'f'},
-         {"dryrun", 0, 0, 'n'},
-+        {"ignore-global-affinity-masks", 0, 0, 'i'},
-         {"quiet", 0, 0, 'q'},
--        {"defconfig", 1, 0, 'f'},
-         {"vncviewer", 0, 0, 'V'},
-         {"vncviewer-autopass", 0, 0, 'A'},
--        {"ignore-global-affinity-masks", 0, 0, 'i'},
-         COMMON_LONG_OPTS
-     };
- 
-@@ -1186,12 +1186,15 @@ int main_create(int argc, char **argv)
-         argc--; argv++;
-     }
- 
--    SWITCH_FOREACH_OPT(opt, "Fnqf:pcdeVAi", opts, "create", 0) {
--    case 'f':
--        filename = optarg;
-+    SWITCH_FOREACH_OPT(opt, "Ffnq:AVcdeip", opts, "create", 0) {
-+    case 'A':
-+        vnc = vncautopass = 1;
-         break;
--    case 'p':
--        paused = 1;
-+    case 'F':
-+        daemonize = 0;
-+        break;
-+    case 'V':
-+        vnc = 1;
-         break;
-     case 'c':
-         console_autoconnect = 1;
-@@ -1199,28 +1202,25 @@ int main_create(int argc, char **argv)
-     case 'd':
-         debug = 1;
-         break;
--    case 'F':
--        daemonize = 0;
--        break;
-     case 'e':
-         daemonize = 0;
-         monitor = 0;
-         break;
-+    case 'f':
-+        filename = optarg;
-+        break;
-+    case 'i':
-+        ignore_masks = 1;
-+        break;
-     case 'n':
-         dryrun_only = 1;
-         break;
-+    case 'p':
-+        paused = 1;
-+        break;
-     case 'q':
-         quiet = 1;
-         break;
--    case 'V':
--        vnc = 1;
--        break;
--    case 'A':
--        vnc = vncautopass = 1;
--        break;
--    case 'i':
--        ignore_masks = 1;
--        break;
-     }
- 
-     memset(&dom_info, 0, sizeof(dom_info));
--- 
-2.30.2
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 76fda1def3d1baea3b01ae697687ff478d2d1b42
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   50 days
+Failing since        168258  2022-03-01 01:55:31 Z   50 days  512 attempts
+Testing same since   169527  2022-04-19 01:40:37 Z    1 days   17 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 5491 lines long.)
 
