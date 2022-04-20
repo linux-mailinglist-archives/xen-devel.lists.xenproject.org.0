@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A34A508DEF
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 19:03:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.309517.525832 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21601508F0C
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 20:08:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.309551.525876 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhDjj-000210-VE; Wed, 20 Apr 2022 17:03:27 +0000
+	id 1nhEk5-0002j2-M9; Wed, 20 Apr 2022 18:07:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 309517.525832; Wed, 20 Apr 2022 17:03:27 +0000
+Received: by outflank-mailman (output) from mailman id 309551.525876; Wed, 20 Apr 2022 18:07:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhDjj-0001yL-Ro; Wed, 20 Apr 2022 17:03:27 +0000
-Received: by outflank-mailman (input) for mailman id 309517;
- Wed, 20 Apr 2022 17:03:26 +0000
+	id 1nhEk5-0002gv-IG; Wed, 20 Apr 2022 18:07:53 +0000
+Received: by outflank-mailman (input) for mailman id 309551;
+ Wed, 20 Apr 2022 18:07:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CUyO=U6=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1nhDji-0001aR-PC
- for xen-devel@lists.xenproject.org; Wed, 20 Apr 2022 17:03:26 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ca307303-c0cb-11ec-a405-831a346695d4;
- Wed, 20 Apr 2022 19:03:25 +0200 (CEST)
-Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1650474160905460.02002794635507;
- Wed, 20 Apr 2022 10:02:40 -0700 (PDT)
+ <SRS0=oHj2=U6=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1nhEk3-0002gm-SJ
+ for xen-devel@lists.xenproject.org; Wed, 20 Apr 2022 18:07:51 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ca6305ce-c0d4-11ec-a405-831a346695d4;
+ Wed, 20 Apr 2022 20:07:50 +0200 (CEST)
+Received: by mail-lj1-x22e.google.com with SMTP id q14so2819718ljc.12
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Apr 2022 11:07:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,148 +39,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca307303-c0cb-11ec-a405-831a346695d4
-ARC-Seal: i=1; a=rsa-sha256; t=1650474163; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=CTxWLgCeuWnLv2VOCcXmi09a880v9ZBTFREtRMNRReO5Ru90scD+dp9jKce9+YVRuetMrRG0+e9q7mr+ehzCqdg1+HDOZk4fRp4fimRwl6I7iJIOvlbR+rbglj/vZrmGpE5Tkqy3AeYMxLBRdE98XROonvOhGNvoBbEjZb4VEeo=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1650474163; h=Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=TymRc8V7wVKkFF8i7BKHRUOSpUbifIpbb54+vNPswqA=; 
-	b=RzW18awQrx3YbGuvUIdfikJQfzRSHreOPJFzXcRy4HGLjio/TCmYPpIgdnbl3+zoVA9LBEswyI50xMqp0u/QYimSn+aNHt0oeF42+ILKp1QnL38sk71MhztuyciiD2/L5wA9G48/+yF39D+aaB6miSCMPSEEqVh4GuNKdjoe5lw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1650474163;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=TymRc8V7wVKkFF8i7BKHRUOSpUbifIpbb54+vNPswqA=;
-	b=h/P7V63m83DhKw/S5tRl3bFWX8Tps4+Zua/m7YoXu3ixN88k1Sa9NDZQ0rGRFsQR
-	Gd4l5QuEDcY1ItX9au60TvwQPoCa1I52RPDDXDyFaxQApp29zelfevOFmPE4jrDq37I
-	4FrZZo0x1s/sfO+fbl5Jy7dingqFRvzMFiLXDcjU=
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: xen-devel@lists.xenproject.org,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: scott.davis@starlab.io,
-	jandryuk@gmail.com,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH 2/2] flask: implement xsm_transtion_running
-Date: Wed, 20 Apr 2022 17:04:07 -0400
-Message-Id: <20220420210407.18060-3-dpsmith@apertussolutions.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20220420210407.18060-1-dpsmith@apertussolutions.com>
-References: <20220420210407.18060-1-dpsmith@apertussolutions.com>
+X-Inumbo-ID: ca6305ce-c0d4-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=ZefzNMP2xUCwCKtwQAeTzLb3uVrLkvJxMgprBH62UZ4=;
+        b=jLlgx2f/ZRVcIZm4xsCqE2Kjbklu4dCw34zc+5hFOBbtXsx33lV/Liy5yZhk/qVwpE
+         /jpdht04fxkdW6QOR7a9LAXNTA8DuIPmPqi8v7c0ASvRn6R6BtF0Rih8kbwUnnIYQC0g
+         JfcAMkmWz3AAfCOl4JcFwoc2+N7kpMg0SodyW+WpckqmLV2t9nyQ+wFwcUPlHj4/rzfS
+         FD5SKdRNTwMA3vcuHriNvqYoyuU5JLtmJnivY+1G/SmjyELFaaRrOEu+jxNTRpyCEdcV
+         AwvLmwz6ltUBhb39rHzuCvJUGluIsaQ3F4CWH9SHc1ituCugO+2qjMWqlW2nqrP3X5SR
+         g1ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=ZefzNMP2xUCwCKtwQAeTzLb3uVrLkvJxMgprBH62UZ4=;
+        b=qAf7TwSbYOtkmzXBc1dQLvjgfJ9sxKCjY8B1gBXZXXvgtOG5YPfdhuTGnYMEB3mCHB
+         5tk5zOLaagnc1/LNNGZYYNwDY7X/myk/74yQGfSfrScI7obPPworwfDt0A4b4jc4XYxN
+         FpEYs50jzbo2iRWeMybULtOLnorb/wJeD8NQmB/6eu6JSBsupauk93ocpW8GWXvbKGIS
+         Wbx51BMhK7jw7TL9JH9l8DWEpCZj5BKgqm2xYrSuQ4S+0Lu1lJsXgmEz1judPu/zWWA9
+         oG4J9eIrPyBN1q+MY0VkLQhKCfr/17SnV/dGl2guKCWRk7bzrWRB4slHU2uqFADgPo0A
+         X67Q==
+X-Gm-Message-State: AOAM533Qjh+yX0muICzjmh8ut+imoz+/MpiAXg9BkED+dByNXYL8fvFF
+	7GVdSm3Ued8A6m9KnrpQ+BF6XiCjGx7JFDGteKc=
+X-Google-Smtp-Source: ABdhPJy0T85tV9T7j+l9fg1Fnk2oUlxepKw/ZgiogRIXXxCjO3U7OZSZglYRrW6eyobfr+8O0huUZpAa3plF1Jd1EGY=
+X-Received: by 2002:a05:651c:1204:b0:24e:e127:f509 with SMTP id
+ i4-20020a05651c120400b0024ee127f509mr1482017lja.459.1650478069889; Wed, 20
+ Apr 2022 11:07:49 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+References: <20220420210407.18060-1-dpsmith@apertussolutions.com> <20220420210407.18060-3-dpsmith@apertussolutions.com>
+In-Reply-To: <20220420210407.18060-3-dpsmith@apertussolutions.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Wed, 20 Apr 2022 14:07:37 -0400
+Message-ID: <CAKf6xptTqsL9wcP2n=-NBd9UtrCh=+XxzJgK3tGYpqUXQEDUAA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] flask: implement xsm_transtion_running
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, Scott Davis <scott.davis@starlab.io>, 
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
 
-This commit implements full support for starting the idle domain privileged by
-introducing a new flask label xenboot_t which the idle domain is labeled with
-at creation.  It then provides the implementation for the XSM hook
-xsm_transition_running to relabel the idle domain to the existing xen_t flask
-label.
+On Wed, Apr 20, 2022 at 1:03 PM Daniel P. Smith
+<dpsmith@apertussolutions.com> wrote:
+>
+> This commit implements full support for starting the idle domain privileged by
+> introducing a new flask label xenboot_t which the idle domain is labeled with
+> at creation.  It then provides the implementation for the XSM hook
+> xsm_transition_running to relabel the idle domain to the existing xen_t flask
+> label.
+>
+> In the reference flask policy a new macro, xen_build_domain(target), is
+> introduced for creating policies for dom0less/hyperlaunch allowing the
+> hypervisor to create and assign the necessary resources for domain
+> construction.
+>
+> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+> ---
 
-In the reference flask policy a new macro, xen_build_domain(target), is
-introduced for creating policies for dom0less/hyperlaunch allowing the
-hypervisor to create and assign the necessary resources for domain
-construction.
+> @@ -188,6 +188,7 @@ static int cf_check flask_domain_alloc_security(struct domain *d)
+>
+>  static void cf_check flask_domain_runtime_security(void)
+>  {
+> +    struct domain_security_struct *dsec;
+>      struct domain *d = current->domain;
+>
+>      if ( d->domain_id != DOMID_IDLE )
+> @@ -198,6 +199,9 @@ static void cf_check flask_domain_runtime_security(void)
+>       * set to false for the consistency check(s) in the setup code.
+>       */
+>      d->is_privileged = false;
+> +
+> +    dsec = d->ssid;
+> +    dsec->sid = SECINITSID_XEN;
 
-Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
----
- tools/flask/policy/modules/xen.if      | 6 ++++++
- tools/flask/policy/modules/xen.te      | 1 +
- tools/flask/policy/policy/initial_sids | 1 +
- xen/xsm/flask/hooks.c                  | 6 +++++-
- xen/xsm/flask/policy/initial_sids      | 1 +
- 5 files changed, 14 insertions(+), 1 deletion(-)
+I think you also want
+   dsec->self_sid = dsec->sid;
+so self also changes to xen_t.
 
-diff --git a/tools/flask/policy/modules/xen.if b/tools/flask/policy/modules/xen.if
-index 5e2aa472b6..4ec676fff1 100644
---- a/tools/flask/policy/modules/xen.if
-+++ b/tools/flask/policy/modules/xen.if
-@@ -62,6 +62,12 @@ define(`create_domain_common', `
- 			setparam altp2mhvm altp2mhvm_op dm };
- ')
- 
-+# xen_build_domain(target)
-+#   Allow a domain to be created at boot by the hypervisor
-+define(`xen_build_domain', `
-+	allow xenboot_t $1_channel:event create;
-+')
-+
- # create_domain(priv, target)
- #   Allow a domain to be created directly
- define(`create_domain', `
-diff --git a/tools/flask/policy/modules/xen.te b/tools/flask/policy/modules/xen.te
-index 3dbf93d2b8..de98206fdd 100644
---- a/tools/flask/policy/modules/xen.te
-+++ b/tools/flask/policy/modules/xen.te
-@@ -24,6 +24,7 @@ attribute mls_priv;
- ################################################################################
- 
- # The hypervisor itself
-+type xenboot_t, xen_type, mls_priv;
- type xen_t, xen_type, mls_priv;
- 
- # Domain 0
-diff --git a/tools/flask/policy/policy/initial_sids b/tools/flask/policy/policy/initial_sids
-index 6b7b7eff21..ec729d3ba3 100644
---- a/tools/flask/policy/policy/initial_sids
-+++ b/tools/flask/policy/policy/initial_sids
-@@ -2,6 +2,7 @@
- # objects created before the policy is loaded or for objects that do not have a
- # label defined in some other manner.
- 
-+sid xenboot gen_context(system_u:system_r:xenboot_t,s0)
- sid xen gen_context(system_u:system_r:xen_t,s0)
- sid dom0 gen_context(system_u:system_r:dom0_t,s0)
- sid domxen gen_context(system_u:system_r:domxen_t,s0)
-diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
-index 51c896d9f7..7e840af6fc 100644
---- a/xen/xsm/flask/hooks.c
-+++ b/xen/xsm/flask/hooks.c
-@@ -168,7 +168,7 @@ static int cf_check flask_domain_alloc_security(struct domain *d)
-     switch ( d->domain_id )
-     {
-     case DOMID_IDLE:
--        dsec->sid = SECINITSID_XEN;
-+        dsec->sid = SECINITSID_XENBOOT;
-         break;
-     case DOMID_XEN:
-         dsec->sid = SECINITSID_DOMXEN;
-@@ -188,6 +188,7 @@ static int cf_check flask_domain_alloc_security(struct domain *d)
- 
- static void cf_check flask_domain_runtime_security(void)
- {
-+    struct domain_security_struct *dsec;
-     struct domain *d = current->domain;
- 
-     if ( d->domain_id != DOMID_IDLE )
-@@ -198,6 +199,9 @@ static void cf_check flask_domain_runtime_security(void)
-      * set to false for the consistency check(s) in the setup code.
-      */
-     d->is_privileged = false;
-+
-+    dsec = d->ssid;
-+    dsec->sid = SECINITSID_XEN;
- }
- 
- static void cf_check flask_domain_free_security(struct domain *d)
-diff --git a/xen/xsm/flask/policy/initial_sids b/xen/xsm/flask/policy/initial_sids
-index 7eca70d339..e8b55b8368 100644
---- a/xen/xsm/flask/policy/initial_sids
-+++ b/xen/xsm/flask/policy/initial_sids
-@@ -3,6 +3,7 @@
- #
- # Define initial security identifiers 
- #
-+sid xenboot
- sid xen
- sid dom0
- sid domio
--- 
-2.20.1
+Otherwise I think it looks good,
 
+I was wondering if you were going to require xenboot_t -> xen_t
+permissions, but manually setting the sid fields side-steps that.
+That seems nicer than requiring policy rules for the transition.
+
+Hmmm, cross referencing other flask code, often after assigning
+self_sid there is this call to potentially re-calculate it:
+    security_transition_sid(dsec->sid, dsec->sid, SECCLASS_DOMAIN,
+&dsec->self_sid);
+
+But it isn't used for system domains, so omitting it seems fine.
+
+Regards,
+Jason
 
