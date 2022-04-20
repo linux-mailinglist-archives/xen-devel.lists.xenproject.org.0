@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9EB8507D97
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 02:24:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.308501.524259 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E226507D99
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 02:25:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.308505.524270 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngy8J-00070j-DE; Wed, 20 Apr 2022 00:23:47 +0000
+	id 1ngy9x-0007bE-PC; Wed, 20 Apr 2022 00:25:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 308501.524259; Wed, 20 Apr 2022 00:23:47 +0000
+Received: by outflank-mailman (output) from mailman id 308505.524270; Wed, 20 Apr 2022 00:25:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngy8J-0006yq-9y; Wed, 20 Apr 2022 00:23:47 +0000
-Received: by outflank-mailman (input) for mailman id 308501;
- Wed, 20 Apr 2022 00:23:45 +0000
+	id 1ngy9x-0007Y0-M9; Wed, 20 Apr 2022 00:25:29 +0000
+Received: by outflank-mailman (input) for mailman id 308505;
+ Wed, 20 Apr 2022 00:25:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HBwa=U6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1ngy8H-0006yk-MV
- for xen-devel@lists.xenproject.org; Wed, 20 Apr 2022 00:23:45 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
+ id 1ngy9w-0007Xr-Cb
+ for xen-devel@lists.xenproject.org; Wed, 20 Apr 2022 00:25:28 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 223c8625-c040-11ec-8fbf-03012f2f19d4;
- Wed, 20 Apr 2022 02:23:43 +0200 (CEST)
+ id 5fa96b40-c040-11ec-8fbf-03012f2f19d4;
+ Wed, 20 Apr 2022 02:25:26 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4EB71B815A1;
- Wed, 20 Apr 2022 00:23:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E10DC385A7;
- Wed, 20 Apr 2022 00:23:40 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 3E09FCE1AC1;
+ Wed, 20 Apr 2022 00:25:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1940AC385A5;
+ Wed, 20 Apr 2022 00:25:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,174 +43,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 223c8625-c040-11ec-8fbf-03012f2f19d4
+X-Inumbo-ID: 5fa96b40-c040-11ec-8fbf-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1650414221;
-	bh=aTlM2Tp8RNtiGc5s4RUzm0VyJsCB1Pdx2yfO4cSCkdc=;
+	s=k20201202; t=1650414320;
+	bh=Iy+kAeZv1ZtQ8L2MtESntcdoy5vtuelI++Igl50uL4w=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=tfupncDT0EfvO8f++UYSaFQrKMOzuqvCcrXXHy3SpGd7juEWTG4XFNQJORuBF3upn
-	 GTMddd7Y5y2fFufNEFcH4j4BL4JI/aqzp8egM0yZ47KZYFjiOZw7p00G/hJP1N3ofB
-	 ZvQitQoiSPjasTUwbirwIx+uIDRhABEsNPZhHEBIqW/gmTP+Vh0feQTzvOL1ZLksdZ
-	 yaGBY+od6Nem/JBq4HAeRXOv2Oaz8Oj+JqvheIGVy8l8g2W8Mv4GPeBcoo/q8zGZZE
-	 Osdo5mtijkzRKUtdnWM2P5ZqCXh/Rinoi/0+gXegn9qAhe8G9M0c/xeT4IxPXPTwjx
-	 xr5CBnUsA3jvQ==
-Date: Tue, 19 Apr 2022 17:23:40 -0700 (PDT)
+	b=bOBJGvFtc/9tb3BpTwMLGlkDz9lHVOZrQVvyqmW2SKGeo/TYh85uPLdjkGqW+LaZU
+	 ayTVBYVwH+S/0/IMHtjIwlLQBR79ZcdVYisjdYc34qOgTxnIQPbCEApPZBz/coNeT9
+	 2JlQSv4fGfJNKX/XfrOACdDpa7H08aquDgHGtVcuZBMRWUqW5+x++wh8kWL22gFNi5
+	 5fHHOVXgsDt66clxT9jLJNv5E/O2qFsB67FqXCU9QA0KRu7vA8spMYndR6a17UzWK9
+	 RzdwbLovWnmCTuF/0KDzwiTp3VHFcDXx9NliXchNX17RojqIRZ7FHazgdTQn9TPHAe
+	 3Rm/hELufCFAQ==
+Date: Tue, 19 Apr 2022 17:25:20 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksandr <olekstysh@gmail.com>
-cc: Juergen Gross <jgross@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Christoph Hellwig <hch@infradead.org>, xen-devel@lists.xenproject.org, 
-    linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-    Julien Grall <julien@xen.org>, "Michael S. Tsirkin" <mst@redhat.com>
-Subject: Re: [RFC PATCH 6/6] arm/xen: Assign xen-virtio DMA ops for virtio
- devices in Xen guests
-In-Reply-To: <5afb9e61-4164-9cc9-278a-911fc21f4f6c@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2204191717020.915916@ubuntu-linux-20-04-desktop>
-References: <1649963973-22879-1-git-send-email-olekstysh@gmail.com> <1649963973-22879-7-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.22.394.2204151305050.915916@ubuntu-linux-20-04-desktop> <YlpdBHKT1bYzZe2e@infradead.org> <f879622e-5656-deb1-1930-f0cd180a4ab1@gmail.com>
- <alpine.DEB.2.22.394.2204181202080.915916@ubuntu-linux-20-04-desktop> <6a04cc34-fbb3-44d8-c1a4-03bda5b3deb1@gmail.com> <b68163be-ad43-7773-22ff-e83191886626@suse.com> <5afb9e61-4164-9cc9-278a-911fc21f4f6c@gmail.com>
+To: Rahul Singh <Rahul.Singh@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    xen-devel <xen-devel@lists.xenproject.org>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] xen/evtchn: Add design for static event channel signaling
+ for domUs..
+In-Reply-To: <076C6D09-C0DA-41BD-84CA-AD595B5AF0A2@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2204191725080.915916@ubuntu-linux-20-04-desktop>
+References: <4836304496e6fbbea41348ed8cc9fcf6b0f3e893.1648049827.git.rahul.singh@arm.com> <alpine.DEB.2.22.394.2204081649370.3066615@ubuntu-linux-20-04-desktop> <alpine.DEB.2.22.394.2204081837410.3066615@ubuntu-linux-20-04-desktop> <D24074F6-E6CF-440A-9E9B-A10783C273D7@arm.com>
+ <alpine.DEB.2.22.394.2204131657200.3066615@ubuntu-linux-20-04-desktop> <076C6D09-C0DA-41BD-84CA-AD595B5AF0A2@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-65868541-1650414142=:915916"
-Content-ID: <alpine.DEB.2.22.394.2204191723180.915916@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Tue, 19 Apr 2022, Rahul Singh wrote:
+> > On 14 Apr 2022, at 2:14 am, Stefano Stabellini <sstabellini@kernel.org> wrote:
+> > 
+> > On Mon, 11 Apr 2022, Bertrand Marquis wrote:
+> >> What you mention here is actually combining 2 different solutions inside
+> >> Xen to build a custom communication solution.
+> >> My assumption here is that the user will actually create the device tree
+> >> nodes he wants to do that and we should not create guest node entries
+> >> as it would enforce some design.
+> >> 
+> >> If everything can be statically defined for Xen then the user can also
+> >> statically define node entries inside his guest to make use of the events
+> >> and the shared memories.
+> >> 
+> >> For example one might need more than one event to build a communication
+> >> system, or more than one shared memory or could build something
+> >> communicating with multiple guest thus requiring even more events and
+> >> shared memories.
+> > 
+> > Hi Bertrand, Rahul,
+> > 
+> > If the guests are allowed some level of dynamic discovery, this feature
+> > is not needed. They can discover the shared memory location from the
+> > domU device tree, then proceed to allocate evtchns as needed and tell
+> > the other end the evtchn numbers over shared memory. I already have an
+> > example of it here:
+> > 
+> > https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/2251030537/Xen+Shared+Memory+and+Interrupts+Between+VMs
+> > 
+> > What if the guest doesn't support device tree at runtime, like baremetal
+> > or Zephyr? The shared memory address can be hardcoded or generated from
+> > device tree at build time. That's no problem. Then, the event channels
+> > can still be allocated at runtime and passed to the other end over
+> > shared memory. That's what the example on the wikipage does.
+> > 
+> > 
+> > When are static event channels actually useful? When the application
+> > cannot allocate the event channels at runtime at all. The reason for the
+> > restriction could be related to safety (no dynamic allocations at
+> > runtime) or convenience (everything else is fully static, why should the
+> > event channel numbers be dynamic?)
+> > 
+> > Given the above, I can see why there is no need to describe the static
+> > event channel info in the domU device tree: static event channels are
+> > only useful in fully static configurations, and in those configurations
+> > the domU device tree dynamically generated by Xen is not needed. I can
+> > see where you are coming from.
+> > 
+> > 
+> > The workflow that we have been trying to enable with the System Device
+> > Tree effort (System Device Tree is similar to a normal Device Tree plus
+> > the xen,domains nodes) is the following:
+> > 
+> > S-DT ---[lopper]---> Linux DT
+> >                L--> Zephyr DT ---[Zephyr build]---> Zephyr .h files
+> > 
+> > S-DT contains all the needed information for both the regular Linux DT
+> > generation and also the Zephyr/RTOS/baremetal header files generation,
+> > that happens at build time.
+> > 
+> > S-DT is not the same as the Xen device tree, but so far it has been
+> > conceptually and practically similar. I always imagine that the bindings
+> > we have in Xen we'll also have corresponding bindings in System Device
+> > Tree.
+> > 
+> > For this workflow to work S-DT needs all the info so that both Linux DT
+> > and Zephyr DT and Zephyr .h files can be generated.
+> > 
+> > Does this proposal contain enough information so that Zephyr .h files
+> > could be statically generated with the event channel numbers and static
+> > shared memory regions addresses?
+> > 
+> > I am not sure. Maybe not?
+> > 
+> > 
+> > It is possible that the shared memory usage is so application specific
+> > that there is no point in even talking about it. But I think that
+> > introducing a simple bundle of both event channels and shared memory
+> > would help a lot.
+> > 
+> > Something like the following in the Xen device tree would be enough to
+> > specify an arbitrary number of event channels connected with the same
+> > domains sharing the memory region.
+> > 
+> > It looks like that if we did the below, we would carry a lot more useful
+> > information compared to the original proposal alone. We could add a
+> > similar xen,notificaiton property to the domU reserved-memory region in
+> > device tree generated by Xen for consistency, so that everything
+> > available to the domU is described fully in device tree.
+> > 
+> > 
+> >    domU1 {
+> >        compatible = "xen,domain";
+> > 
+> >        /* one sub-node per local event channel */
+> >        ec1: evtchn@1 {
+> >            compatible = "xen,evtchn-v1";
+> >            /* local-evtchn link-to-foreign-evtchn */
+> >            xen,evtchn = <0x1 &ec3>
+> >        };
+> >        ec2: evtchn@2 {
+> >            compatible = "xen,evtchn-v1";
+> >            xen,evtchn = <0x2 &ec4>
+> >        };
+> >        /*
+> >         * shared memory region between DomU1 and DomU2.
+> >         */
+> >        domU1-shared-mem@50000000 {
+> >            compatible = "xen,domain-shared-memory-v1";
+> >            xen,shm-id = <0x1>;
+> >            xen,shared-mem = <0x50000000 0x20000000 0x60000000>;
+> >            /* this is new */
+> >            xen,notification = <&ec1 &ec2>;
+> >        }
+> >    };
+> > 
+> >    domU2 {
+> >        compatible = "xen,domain";
+> > 
+> >        /* one sub-node per local event channel */
+> >        ec3: evtchn@3 {
+> >            compatible = "xen,evtchn-v1";
+> >            /* local-evtchn link-to-foreign-evtchn */
+> >            xen,evtchn = <0x3 &ec1>
+> >        };
+> >        ec4: evtchn@4 {
+> >            compatible = "xen,evtchn-v1";
+> >            xen,evtchn = <0x4 &ec2>
+> >        };
+> >        /*
+> >         * shared memory region between domU1 and domU2.
+> >         */
+> >        domU2-shared-mem@50000000 {
+> >            compatible = "xen,domain-shared-memory-v1";
+> >            xen,shm-id = <0x1>;
+> >            xen,shared-mem = <0x50000000 0x20000000 0x70000000>;
+> >            /* this is new */
+> >            xen,notification = <&ec3 &ec4>;
+> >        }
+> >    };
+> > 
+> > 
+> > 
+> > The good thing about this is that:
+> > 
+> > - it is very flexible
+> > - nothing to do in this series, except switching to the
+> >  one-subnode-per-evtchn model, which we called 2) in the previous email
+> > - there were good reasons to use the one-subnode-per-evtchn model anyway
+> > - the xen,notification property can be added later without issues, after Penny's series
+> > 
+> > There are a couple of ways to implement the xen,notification property
+> > but we don't need to discuss them now.
+> > 
+> > 
+> > Short Summary
+> > ------------
+> > I think it is fine to only introduce the Xen device tree binding for
+> > static event channels without domU binding, but I prefer if we switched
+> > to using proposal 2) "one subnode per event channel".
+> 
+> Thanks for detailed explanation.I just did the basic implementation of the 2) proposal and
+> it looks simple and not very complex as I thought earlier.Therefore I am ok to switch to proposal 2).
+> 
+> If everyone is ok with the 2) proposal I will send the v2 of design doc after fixing all the comments.
 
---8323329-65868541-1650414142=:915916
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2204191723181.915916@ubuntu-linux-20-04-desktop>
-
-On Tue, 19 Apr 2022, Oleksandr wrote:
-> On 19.04.22 17:48, Juergen Gross wrote:
-> > On 19.04.22 14:17, Oleksandr wrote:
-> > > 
-> > > Hello Stefano, Juergen
-> > > 
-> > > 
-> > > On 18.04.22 22:11, Stefano Stabellini wrote:
-> > > > On Mon, 18 Apr 2022, Oleksandr wrote:
-> > > > > On 16.04.22 09:07, Christoph Hellwig wrote:
-> > > > > 
-> > > > > Hello Christoph
-> > > > > 
-> > > > > > On Fri, Apr 15, 2022 at 03:02:45PM -0700, Stefano Stabellini wrote:
-> > > > > > > This makes sense overall. Considering that the swiotlb-xen case
-> > > > > > > and the
-> > > > > > > virtio case are mutually exclusive, I would write it like this:
-> > > > > > Curious question:  Why can't the same grant scheme also be used for
-> > > > > > non-virtio devices?  I really hate having virtio hooks in the arch
-> > > > > > dma code.  Why can't Xen just say in DT/ACPI that grants can be used
-> > > > > > for a given device?
-> > > > [...]
-> > > > 
-> > > > > This patch series tries to make things work with "virtio" devices in
-> > > > > Xen
-> > > > > system without introducing any modifications to code under
-> > > > > drivers/virtio.
-> > > > 
-> > > > Actually, I think Christoph has a point.
-> > > > 
-> > > > There is nothing inherently virtio specific in this patch series or in
-> > > > the "xen,dev-domid" device tree binding.
-> > > 
-> > > 
-> > > Although the main intention of this series was to enable using virtio
-> > > devices in Xen guests, I agree that nothing in new DMA ops layer
-> > > (xen-virtio.c) is virtio specific (at least at the moment). Regarding the
-> > > whole patch series I am not quite sure, as it uses
-> > > arch_has_restricted_virtio_memory_access(). >
-> > > >   Assuming a given device is
-> > > > emulated by a Xen backend, it could be used with grants as well.
-> > > > 
-> > > > For instance, we could provide an emulated e1000 NIC with a
-> > > > "xen,dev-domid" property in device tree. Linux could use grants with it
-> > > > and the backend could map the grants. It would work the same way as
-> > > > virtio-net/block/etc. Passthrough devices wouldn't have the
-> > > > "xen,dev-domid" property, so no problems.
-> > > > 
-> > > > So I think we could easily generalize this work and expand it to any
-> > > > device. We just need to hook on the "xen,dev-domid" device tree
-> > > > property.
-> > > > 
-> > > > I think it is just a matter of:
-> > > > - remove the "virtio,mmio" check from xen_is_virtio_device
-> > > > - rename xen_is_virtio_device to something more generic, like
-> > > >    xen_is_grants_device
-> > 
-> > xen_is_grants_dma_device, please. Normal Xen PV devices are covered by
-> > grants, too, and I'd like to avoid the confusion arising from this.
-> 
-> 
-> yes, this definitely makes sense as we need to distinguish
-> 
-> 
-> > 
-> > 
-> > > > - rename xen_virtio_setup_dma_ops to something more generic, like
-> > > >    xen_grants_setup_dma_ops
-> > > > 
-> > > > And that's pretty much it.
-> > > 
-> > > + likely renaming everything in that patch series not to mention virtio
-> > > (mostly related to xen-virtio.c internals).
-> > > 
-> > > 
-> > > Stefano, thank you for clarifying Christoph's point.
-> > > 
-> > > Well, I am not against going this direction. Could we please make a
-> > > decision on this? @Juergen, what is your opinion?
-> > 
-> > Yes, why not.
-> 
-> 
-> ok, thank you for confirming.
-> 
-> 
-> > 
-> > 
-> > Maybe rename xen-virtio.c to grant-dma.c?
-> 
-> 
-> Personally I don't mind.
-> 
-> 
-> > 
-> > I'd keep the XEN_VIRTIO related config option, as this will be the normal
-> > use
-> > case. grant-dma.c should be covered by a new hidden config option
-> > XEN_GRANT_DMA
-> > selected by XEN_VIRTIO.
-> 
-> 
-> I got it, ok
-> 
-> 
-> > 
-> > 
-> > CONFIG_XEN_VIRTIO should still guard
-> > xen_has_restricted_virtio_memory_access().
-> 
-> 
-> ok
-> 
-> 
-> So a few questions to clarify:
-> 
-> 1. What is the best place to keep "xen,dev-domid" binding's description now? I
-> think that proposed in current series place
-> (Documentation/devicetree/bindings/virtio/) is not good fit now.
-
-I would probably add it to the existing
-Documentation/devicetree/bindings/arm/xen.txt.
-
-
-> 2. I assume the logic in the current patch will remain the same, I mean we
-> will still assign Xen grant DMA ops from xen_setup_dma_ops() here?
-
-Yes I think so
---8323329-65868541-1650414142=:915916--
+That's great, thank you Rahul!
 
