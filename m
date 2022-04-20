@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13CEB5080D1
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 08:01:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.308808.524623 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B90E5080D4
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 08:03:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.308815.524634 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nh3P3-0001Ku-1L; Wed, 20 Apr 2022 06:01:25 +0000
+	id 1nh3Qj-00025F-Dr; Wed, 20 Apr 2022 06:03:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 308808.524623; Wed, 20 Apr 2022 06:01:25 +0000
+Received: by outflank-mailman (output) from mailman id 308815.524634; Wed, 20 Apr 2022 06:03:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nh3P2-0001IW-UU; Wed, 20 Apr 2022 06:01:24 +0000
-Received: by outflank-mailman (input) for mailman id 308808;
- Wed, 20 Apr 2022 06:01:23 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nh3P1-0001IM-MG; Wed, 20 Apr 2022 06:01:23 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nh3P1-0008It-KV; Wed, 20 Apr 2022 06:01:23 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nh3P1-0006ZC-5b; Wed, 20 Apr 2022 06:01:23 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nh3P1-0003U0-5B; Wed, 20 Apr 2022 06:01:23 +0000
+	id 1nh3Qj-00022a-As; Wed, 20 Apr 2022 06:03:09 +0000
+Received: by outflank-mailman (input) for mailman id 308815;
+ Wed, 20 Apr 2022 06:03:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=nGXA=U6=inria.fr=julia.lawall@srs-se1.protection.inumbo.net>)
+ id 1nh3Qi-00022U-7L
+ for xen-devel@lists.xenproject.org; Wed, 20 Apr 2022 06:03:08 +0000
+Received: from mail2-relais-roc.national.inria.fr
+ (mail2-relais-roc.national.inria.fr [192.134.164.83])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8bbc5b4f-c06f-11ec-8fbf-03012f2f19d4;
+ Wed, 20 Apr 2022 08:03:06 +0200 (CEST)
+Received: from 203.107.68.85.rev.sfr.net (HELO hadrien) ([85.68.107.203])
+ by mail2-relais-roc.national.inria.fr with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Apr 2022 08:03:05 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,159 +40,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=1rND5zcB4mnnmX1Rl4vL8v3sfXz6nHw5MsDfSaT7+aE=; b=VajGZmRrQjM8aQzIHWb3K4gGqK
-	q6X8xMLUSbF4LZyfFYW0lt/TvLNyXtHGnHGcIhnKgL1DNrglRNTS8jpwytYrEcG8iz8Zj6PQlBw2U
-	RflAKMCFvfs1+zRevXhQNlf4QvU82B++ZZbc3B5OWFjrICnqG81Pm52MfPcZL2lvMkIs=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169556-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 8bbc5b4f-c06f-11ec-8fbf-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=inria.fr; s=dc;
+  h=date:from:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=AOOcnU+E44vIs+pheMoJXhmNTxpxQArBK8PCjZDPu1k=;
+  b=JeAqI8DLZD09zSdr45+0R8EO5Cgdby5+SpBtSnfHFkLwVpvLlmM/8hJ9
+   wfe3mkqS1RL5WtqKsk7VTWq8kMEy8kh2kMthaDBOjZovZNbHjvj+M86gZ
+   koeT8tRdLUdXrJXhjOnVGaG2G2dAAAAGX9BQtqO3MLoqF5FQ2TTUjsuDn
+   A=;
+Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="5.90,274,1643670000"; 
+   d="scan'208";a="32427415"
+Date: Wed, 20 Apr 2022 08:03:05 +0200 (CEST)
+From: Julia Lawall <julia.lawall@inria.fr>
+X-X-Sender: jll@hadrien
+To: Alaa Mohamed <eng.alaamohamedsoliman.am@gmail.com>
+cc: outreachy@lists.linux.dev, boris.ostrovsky@oracle.com, jgross@suse.com, 
+    sstabellini@kernel.org, xen-devel@lists.xenproject.org, 
+    linux-kernel@vger.kernel.org, ira.weiny@intel.com
+Subject: Re: [PATCH v2] xen:  Convert kmap() to kmap_local_page()
+In-Reply-To: <20220419234328.10346-1-eng.alaamohamedsoliman.am@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2204200759080.2937@hadrien>
+References: <20220419234328.10346-1-eng.alaamohamedsoliman.am@gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 169556: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=76fda1def3d1baea3b01ae697687ff478d2d1b42
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 20 Apr 2022 06:01:23 +0000
-
-flight 169556 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169556/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 76fda1def3d1baea3b01ae697687ff478d2d1b42
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   50 days
-Failing since        168258  2022-03-01 01:55:31 Z   50 days  515 attempts
-Testing same since   169527  2022-04-19 01:40:37 Z    1 days   20 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+Content-Type: text/plain; charset=US-ASCII
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On Wed, 20 Apr 2022, Alaa Mohamed wrote:
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> kmap() is being deprecated and these usages are all local to the thread
+> so there is no reason kmap_local_page() can't be used.
+>
+> Replace kmap() calls with kmap_local_page().
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+OK, so from a Coccinelle point of view, could we do
 
+@@
+expression e1,e2,x,f;
+@@
 
-Not pushing.
+e1 =
+- kmap
++ kmap_local_page
+    (e2)
+... when != x = e1 // not stored in any location and not passed to another function
+    when != f(...,e1,...)
+    when != x = e2
+    when != f(...,e2,...)
+-kunmap(e2)
++kunmap_local(e1)
 
-(No revision log; it would be 5491 lines long.)
+julia
+
+>
+> Signed-off-by: Alaa Mohamed <eng.alaamohamedsoliman.am@gmail.com>
+> ---
+> changes in V2:
+> 	-edit commit subject
+> 	-edit commit message
+> ---
+>  drivers/xen/gntalloc.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/xen/gntalloc.c b/drivers/xen/gntalloc.c
+> index 4849f94372a4..55acb32842a3 100644
+> --- a/drivers/xen/gntalloc.c
+> +++ b/drivers/xen/gntalloc.c
+> @@ -178,9 +178,9 @@ static void __del_gref(struct gntalloc_gref *gref)
+>  	unsigned long addr;
+>
+>  	if (gref->notify.flags & UNMAP_NOTIFY_CLEAR_BYTE) {
+> -		uint8_t *tmp = kmap(gref->page);
+> +		uint8_t *tmp = kmap_local_page(gref->page);
+>  		tmp[gref->notify.pgoff] = 0;
+> -		kunmap(gref->page);
+> +		kunmap_local(tmp);
+>  	}
+>  	if (gref->notify.flags & UNMAP_NOTIFY_SEND_EVENT) {
+>  		notify_remote_via_evtchn(gref->notify.event);
+> --
+> 2.35.2
+>
+>
+>
 
