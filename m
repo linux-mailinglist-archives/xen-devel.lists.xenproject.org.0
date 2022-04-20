@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63BC7508A72
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 16:13:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.309287.525420 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5FA4508A73
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 16:13:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.309289.525436 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhB5L-0002Hk-OJ; Wed, 20 Apr 2022 14:13:35 +0000
+	id 1nhB5M-0002ee-Ux; Wed, 20 Apr 2022 14:13:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 309287.525420; Wed, 20 Apr 2022 14:13:35 +0000
+Received: by outflank-mailman (output) from mailman id 309289.525436; Wed, 20 Apr 2022 14:13:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhB5L-000295-DB; Wed, 20 Apr 2022 14:13:35 +0000
-Received: by outflank-mailman (input) for mailman id 309287;
- Wed, 20 Apr 2022 14:13:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nhB5M-0002UH-K7; Wed, 20 Apr 2022 14:13:36 +0000
+Received: by outflank-mailman (input) for mailman id 309289;
+ Wed, 20 Apr 2022 14:13:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7E3+=U6=citrix.com=prvs=10247635a=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nhB5J-0001HR-7J
- for xen-devel@lists.xenproject.org; Wed, 20 Apr 2022 14:13:33 +0000
+ id 1nhB5K-0001HT-AK
+ for xen-devel@lists.xenproject.org; Wed, 20 Apr 2022 14:13:34 +0000
 Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0e00f121-c0b4-11ec-8fbf-03012f2f19d4;
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0e9d7115-c0b4-11ec-a405-831a346695d4;
  Wed, 20 Apr 2022 16:13:31 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -36,53 +36,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e00f121-c0b4-11ec-8fbf-03012f2f19d4
+X-Inumbo-ID: 0e9d7115-c0b4-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
   d=citrix.com; s=securemail; t=1650464011;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=ppo83czs3ZgYyCOMzHGediGbdWtmuqhueJbG2O/yc+o=;
-  b=MFSzwkfMhTTu6qlVZq8Q6u+GRglnVaCNO1eZnAk+6K+NiNC6754bx5rm
-   OZj8G0x2rP0tmzM/HbWfhu6TlGXPwgefBbHsdz/3VGj1lx3705SjoN5WB
-   GG5FCLRxHACx0RdeH/mdJ0u8RGVvM9VfwYsvMFRZi8iOz3cWiffCa6GUK
-   8=;
+  bh=ZZ4LFIyXhFA4quq56SEIYd7bIBzBk+g+i6q0EnuhZrs=;
+  b=OUigjGYv7JPs0u8TPgMHaQIFwxBINxWk/03gyY7LNJLGpXNqsCbVVwbN
+   cyb1QzdMyZfi73UGX9Hjq0l3F6SiTH0VSDnpFcW8g8LYBXYtSI2TlIMb5
+   Wn59qCpb3PdwUPzvAPMVu4CkVm9/cX6syKU/ul88W2K3AJgu66y20nwMu
+   k=;
 Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 5.1
-X-MesageID: 69517263
+X-MesageID: 69517262
 X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:njTUzKBu+KwjUBVW/yPjw5YqxClBgxIJ4kV8jS/XYbTApGtw0D0Ex
- msWXm6BM63bZDakLo8ibIuwp0kFsZXTzddjQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
- xA2M4GYRCwMZiaA4E/raNANlFEkvU2ybuOU5NXsZ2YgHWeIdA970Ug5w7Jj2tYx6TSEK1jlV
- e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
- I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPhI8
- 4lQp6eWcjtyN6LJh9wsUB5GMj5HaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
- 6ZCcXZUM07F17neLLGTE4GAguwKKsXxMZxZkXZn1TzDVt4tQIzZQrWM7thdtNs1rp4fQK+BP
- ZRCAdZpRDjqWTJSAlgcM68FgsaV32D5aQ94hmvA8MLb5ECMlVcsgdABKuH9WPaHWMFUlUawv
- X/d8iLyBRRyHMOb4SqI9DSrnOCntTP2XsceGaO18tZugUaP3SoDBRsOT1y5rPKlzEmkVLp3I
- Use8DtooLMy8EGuR9/VUBixoXrCtRkZM+e8CMVjtlvLkPCNpV/EWC5UFVatdeDKqucPfmA3x
- GSvpO+yDDNqr4WkSnWD16it+Gba1TcuEUcOYioNTA0g6tbloZ0ugh+ncuuPAJJZnfWuR2iun
- mniQDwWwuxK0JVVj/nTEUXv2WrEm3TfcuIiCuw7tEqB5xgxWoOqbpfABbPzvacZd9bxorVsU
- RE5dymiAAImUMnleM+lGrxl8FSVCxGtamO0vLKXN8N9nwlBAlb6FWyq3BlwJV1yLuEPciLzb
- UnYtGt5vcEOZCfyN/MoPNjhV6zGKJQM8/y8B5g4ifIUPPBMmPKvpnkyNSZ8IUix+KTTrU3PE
- cjCKpv9ZZrrIa9m0CC3V48gPUwDnUgDKZfobcmjlXyPiOPGDFbMEOttGAbfNYgRsfLbyDg5B
- v4CbqNmPT0ECL2gCsQWmKZORW03wY8TXMmo8J0GKrTeemKL2ggJUpfs/F/oQKQ994w9qwsC1
- irVtpNwoLYnuUD6FA==
-IronPort-HdrOrdr: A9a23:4o56TKxqiMif+cPvhn2VKrPwFr1zdoMgy1knxilNoRw8SK2lfq
- eV7YwmPH7P+U8ssR4b6LO90cW7Lk80sKQFhbX5Xo3SOjUO2lHYTr2KhLGKq1aLdkHDH6xmpM
- BdmsBFeabN5DNB7foSjjPXLz9Z+qjjzJyV
+IronPort-Data: A9a23:vjG0caOr2XIUO7/vrR2vl8FynXyQoLVcMsEvi/4bfWQNrUp2hGECz
+ mQdDT2AP/eOZTGnKY9yaI3g8UNQvJ/UzoNgTwto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
+ ynLQoCYdKjYdleF+lH1dOKJQUBUjclkfJKlYAL/En03FFcMpBsJ00o5wbZl2NYw2LBVPivW0
+ T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
+ 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Z8
+ e4RqI6LbzwVZaTDnfslYhpfDQBhBPgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
+ 7pCcmlLN03dwbLtqF64YrAEasALBc/nJo4A/FpnyinUF60OSpHfWaTao9Rf2V/cg+gQTKuHO
+ JBHM1KDajycPCIQFHQoJKkuhb3rvkPALT5Vgnas8P9fD2/7k1UqjemF3MDuUv6gSNhRn02Yj
+ nnb5Gm/CRYfXPSAzRKV/3TqgfXA9QvrVYRXGLCm+/pChFyI2ndVGBAQTUG8o/Sylgi5Qd03A
+ 0YT8CA/66Up9EimS9D7dxK9qX+A+BUbXrJt//YSsV/XjPCOukDAWzZCHmUphMEaWNEefAd2y
+ 02yuejVXjVgtaKteHGa6JaLlGbnUcQKFlMqaSgBRAoDxtDspoAvkx7CJupe/L6JYs7dQm+pn
+ W3TxMQqr/BK1JNQif3nlbzSq2j0zqUlWDLZ8ek+soiNygpiLLCoaIWzgbQwxaYRdd3JJrVtU
+ ZVtpiR/0AzsJczV/MBuaL9UdF1M2xpiGGeC6WOD57F7q1yQF4eLJOi8Gg1WKkZzKdojcjT0e
+ kLVsg45zMYNYSP2NfUrPN3rW5hCIU3c+TLND6G8gj1mOMYZSeN61Hs2OR74M57FzCDAbp3Ty
+ b/EKJ3xXB72+IxszSasRvd17FPY7ntW+I8nfriil07P+ePHPBa9EO5ZWHPTP7tRxP7V/23oH
+ yN3apLiJ+N3C7WuPEE6MOc7cDg3EJTMLcmv9ZcGJ7LZf1IO9aNII6a5/I7NsrdNx8x9/tokN
+ FnmMqOE4DITXUH6FDg=
+IronPort-HdrOrdr: A9a23:SYfyb6HUtKQryQkdpLqE0seALOsnbusQ8zAXP0AYc31om6uj5r
+ iTdZUgpGbJYVkqKRIdcLy7V5VoBEmskaKdgrNhW4tKPjOW2ldARbsKheCJrlHd8m/Fh4lgPM
+ 9bAtND4bbLbWSS4/yV3ODBKadE/OW6
 X-IronPort-AV: E=Sophos;i="5.90,275,1643691600"; 
-   d="scan'208";a="69517263"
+   d="scan'208";a="69517262"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Bobby Eshleman <bobby.eshleman@gmail.com>, Andrew Cooper
 	<andrew.cooper3@citrix.com>, Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
 	<wl@xen.org>
-Subject: [PATCH v5 1/6] x86/debugger: Remove debugger_trap_entry()
-Date: Wed, 20 Apr 2022 15:13:02 +0100
-Message-ID: <20220420141307.24153-2-andrew.cooper3@citrix.com>
+Subject: [PATCH v5 2/6] x86/gdbsx: Rename debug.c to gdbsx.c
+Date: Wed, 20 Apr 2022 15:13:03 +0100
+Message-ID: <20220420141307.24153-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20220420141307.24153-1-andrew.cooper3@citrix.com>
 References: <20220420141307.24153-1-andrew.cooper3@citrix.com>
@@ -92,20 +92,10 @@ Content-Transfer-Encoding: 8bit
 
 From: Bobby Eshleman <bobby.eshleman@gmail.com>
 
-debugger_trap_entry() is unrelated to the other contents of debugger.h.  It is
-a no-op for everything other than #DB/#BP, and for those it invokes guest
-debugging (CONFIG_GDBSX) not host debugging (CONFIG_CRASH_DEBUG).
+debug.c contains only dbg_rw_mem().  Rename it to gdbsx.c.
 
-Furthermore, the description of how to use debugger_trap_entry() is at best,
-stale.  It is not called from all exception paths, and because the developer
-is forced to modify Xen to perform debugging, editing debugger_trap_entry() is
-not the way one would efficiently go about diagnosing the problem.
-
-Simplify everything by expanding debugger_trap_entry() into its two non-empty
-locations, fixing bugs with their positioning (vs early exceptions and curr
-not being safe to deference) and for #DB, deferring the pause until the
-changes in %dr6 are saved to v->arch.dr6 so the debugger can actually see
-which condition triggered.
+Move gdbsx_guest_mem_io(), and the prior setup of iop->remain, from domctl.c
+to gdbsx.c, merging it with dbg_rw_mem().
 
 Signed-off-by: Bobby Eshleman <bobby.eshleman@gmail.com>
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
@@ -115,185 +105,166 @@ CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 
 v5:
- * Remove dead logic.  Move GDBSX changes into a later patch.
- * Rewrite commmit message.
----
- xen/arch/x86/include/asm/debugger.h | 42 ++-----------------------------------
- xen/arch/x86/traps.c                | 34 +++++++++++++-----------------
- 2 files changed, 16 insertions(+), 60 deletions(-)
+ * Consolidate hunks from multiple v4 patches
+ * Rewrite commit message
 
-diff --git a/xen/arch/x86/include/asm/debugger.h b/xen/arch/x86/include/asm/debugger.h
-index 221bcde13796..e83b346a21d1 100644
---- a/xen/arch/x86/include/asm/debugger.h
-+++ b/xen/arch/x86/include/asm/debugger.h
-@@ -5,19 +5,12 @@
-  * 
-  * Each debugger should define two functions here:
-  * 
-- * 1. debugger_trap_entry(): 
-- *  Called at start of any synchronous fault or trap, before any other work
-- *  is done. The idea is that if your debugger deliberately caused the trap
-- *  (e.g. to implement breakpoints or data watchpoints) then you can take
-- *  appropriate action and return a non-zero value to cause early exit from
-- *  the trap function.
-- * 
-- * 2. debugger_trap_fatal():
-+ * debugger_trap_fatal():
-  *  Called when Xen is about to give up and crash. Typically you will use this
-  *  hook to drop into a debug session. It can also be used to hook off
-  *  deliberately caused traps (which you then handle and return non-zero).
-  *
-- * 3. debugger_trap_immediate():
-+ * debugger_trap_immediate():
-  *  Called if we want to drop into a debugger now.  This is essentially the
-  *  same as debugger_trap_fatal, except that we use the current register state
-  *  rather than the state which was in effect when we took the trap.
-@@ -49,31 +42,6 @@ static inline bool debugger_trap_fatal(
- /* Int3 is a trivial way to gather cpu_user_regs context. */
- #define debugger_trap_immediate() __asm__ __volatile__ ( "int3" );
+The semantics are rather broken.  XEN_DOMCTL_gdbsx_guestmemio only sets
+copyback when there's nothing to copy back, and skips copying back in the
+-EFAULT case when the iop->remain field is relevant.  Furthermore, it can be
+asked to move up to 4GB in one go, with no continuability whatsoever.
+---
+ xen/arch/x86/Makefile               |  2 +-
+ xen/arch/x86/domctl.c               | 14 ++------------
+ xen/arch/x86/{debug.c => gdbsx.c}   | 23 ++++++++++-------------
+ xen/arch/x86/include/asm/debugger.h |  6 ------
+ xen/arch/x86/include/asm/gdbsx.h    | 13 +++++++++++++
+ 5 files changed, 26 insertions(+), 32 deletions(-)
+ rename xen/arch/x86/{debug.c => gdbsx.c} (89%)
+ create mode 100644 xen/arch/x86/include/asm/gdbsx.h
+
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index 717bcbcac7a0..177a2ff74272 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -22,7 +22,6 @@ obj-y += cpuid.o
+ obj-$(CONFIG_PV) += compat.o
+ obj-$(CONFIG_PV32) += x86_64/compat.o
+ obj-$(CONFIG_KEXEC) += crash.o
+-obj-$(CONFIG_GDBSX) += debug.o
+ obj-y += delay.o
+ obj-y += desc.o
+ obj-bin-y += dmi_scan.init.o
+@@ -34,6 +33,7 @@ obj-y += emul-i8254.o
+ obj-y += extable.o
+ obj-y += flushtlb.o
+ obj-$(CONFIG_CRASH_DEBUG) += gdbstub.o
++obj-$(CONFIG_GDBSX) += gdbsx.o
+ obj-y += hypercall.o
+ obj-y += i387.o
+ obj-y += i8259.o
+diff --git a/xen/arch/x86/domctl.c b/xen/arch/x86/domctl.c
+index a6aae500a30b..c20ab4352715 100644
+--- a/xen/arch/x86/domctl.c
++++ b/xen/arch/x86/domctl.c
+@@ -20,6 +20,8 @@
+ #include <xen/console.h>
+ #include <xen/iocap.h>
+ #include <xen/paging.h>
++
++#include <asm/gdbsx.h>
+ #include <asm/irq.h>
+ #include <asm/hvm/emulate.h>
+ #include <asm/hvm/hvm.h>
+@@ -33,20 +35,9 @@
+ #include <public/vm_event.h>
+ #include <asm/mem_sharing.h>
+ #include <asm/xstate.h>
+-#include <asm/debugger.h>
+ #include <asm/psr.h>
+ #include <asm/cpuid.h>
  
--static inline bool debugger_trap_entry(
--    unsigned int vector, struct cpu_user_regs *regs)
+-#ifdef CONFIG_GDBSX
+-static int gdbsx_guest_mem_io(struct domain *d, struct xen_domctl_gdbsx_memio *iop)
 -{
--    /*
--     * This function is called before any checks are made.  Amongst other
--     * things, be aware that during early boot, current is not a safe pointer
--     * to follow.
--     */
--    struct vcpu *v = current;
+-    iop->remain = dbg_rw_mem(iop->gva, guest_handle_from_ptr(iop->uva, void),
+-                             iop->len, d, iop->gwr, iop->pgd3val);
 -
--    if ( vector != TRAP_int3 && vector != TRAP_debug )
--        return false;
--
--    if ( guest_mode(regs) && guest_kernel_mode(v, regs) &&
--         v->domain->debugger_attached  )
--    {
--        if ( vector != TRAP_debug ) /* domain pause is good enough */
--            current->arch.gdbsx_vcpu_event = vector;
--        domain_pause_for_debugger();
--        return true;
--    }
--
--    return false;
+-    return iop->remain ? -EFAULT : 0;
 -}
+-#endif
 -
- #else
- 
- static inline bool debugger_trap_fatal(
-@@ -84,12 +52,6 @@ static inline bool debugger_trap_fatal(
- 
- #define debugger_trap_immediate() ((void)0)
- 
--static inline bool debugger_trap_entry(
--    unsigned int vector, struct cpu_user_regs *regs)
--{
--    return false;
--}
--
- #endif
+ static int update_domain_cpu_policy(struct domain *d,
+                                     xen_domctl_cpu_policy_t *xdpc)
+ {
+@@ -827,7 +818,6 @@ long arch_do_domctl(
  
  #ifdef CONFIG_GDBSX
-diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index 4c38f6c01539..84cd038dc38b 100644
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -946,9 +946,6 @@ void do_trap(struct cpu_user_regs *regs)
-     if ( regs->error_code & X86_XEC_EXT )
-         goto hardware_trap;
+     case XEN_DOMCTL_gdbsx_guestmemio:
+-        domctl->u.gdbsx_guest_memio.remain = domctl->u.gdbsx_guest_memio.len;
+         ret = gdbsx_guest_mem_io(d, &domctl->u.gdbsx_guest_memio);
+         if ( !ret )
+            copyback = true;
+diff --git a/xen/arch/x86/debug.c b/xen/arch/x86/gdbsx.c
+similarity index 89%
+rename from xen/arch/x86/debug.c
+rename to xen/arch/x86/gdbsx.c
+index 91034a852e5f..59eb31fc9a6a 100644
+--- a/xen/arch/x86/debug.c
++++ b/xen/arch/x86/gdbsx.c
+@@ -18,7 +18,7 @@
+ #include <xen/mm.h>
+ #include <xen/domain_page.h>
+ #include <xen/guest_access.h>
+-#include <asm/debugger.h>
++#include <asm/gdbsx.h>
+ #include <asm/p2m.h>
  
--    if ( debugger_trap_entry(trapnr, regs) )
--        return;
--
-     ASSERT(trapnr < 32);
- 
-     if ( guest_mode(regs) )
-@@ -1177,9 +1174,6 @@ void do_invalid_op(struct cpu_user_regs *regs)
-     int id = -1, lineno;
-     const struct virtual_region *region;
- 
--    if ( debugger_trap_entry(TRAP_invalid_op, regs) )
--        return;
--
-     if ( likely(guest_mode(regs)) )
-     {
-         if ( pv_emulate_invalid_op(regs) )
-@@ -1284,8 +1278,7 @@ void do_invalid_op(struct cpu_user_regs *regs)
- 
- void do_int3(struct cpu_user_regs *regs)
- {
--    if ( debugger_trap_entry(TRAP_int3, regs) )
--        return;
-+    struct vcpu *curr = current;
- 
-     if ( !guest_mode(regs) )
-     {
-@@ -1299,6 +1292,13 @@ void do_int3(struct cpu_user_regs *regs)
-         return;
-     }
- 
-+    if ( guest_kernel_mode(curr, regs) && curr->domain->debugger_attached )
-+    {
-+        curr->arch.gdbsx_vcpu_event = TRAP_int3;
-+        domain_pause_for_debugger();
-+        return;
-+    }
-+
-     pv_inject_hw_exception(TRAP_int3, X86_EVENT_NO_EC);
+ typedef unsigned long dbgva_t;
+@@ -150,21 +150,18 @@ static unsigned int dbg_rw_guest_mem(struct domain *dp, unsigned long addr,
+     return len;
  }
  
-@@ -1575,9 +1575,6 @@ void do_page_fault(struct cpu_user_regs *regs)
-     /* fixup_page_fault() might change regs->error_code, so cache it here. */
-     error_code = regs->error_code;
+-/*
+- * addr is guest addr
+- * buf is debugger buffer.
+- * if toaddr, then addr = buf (write to addr), else buf = addr (rd from guest)
+- * pgd3: value of init_mm.pgd[3] in guest. see above.
+- * Returns: number of bytes remaining to be copied.
+- */
+-unsigned int dbg_rw_mem(unsigned long gva, XEN_GUEST_HANDLE_PARAM(void) buf,
+-                        unsigned int len, struct domain *d, bool toaddr,
+-                        uint64_t pgd3)
++int gdbsx_guest_mem_io(struct domain *d, struct xen_domctl_gdbsx_memio *iop)
+ {
+     if ( d && !d->is_dying )
+-        len = dbg_rw_guest_mem(d, gva, buf, len, toaddr, pgd3);
++    {
++        iop->remain = dbg_rw_guest_mem(
++            d, iop->gva, guest_handle_from_ptr(iop->uva, void),
++            iop->len, iop->gwr, iop->pgd3val);
++    }
++    else
++        iop->remain = iop->len;
  
--    if ( debugger_trap_entry(TRAP_page_fault, regs) )
--        return;
--
-     perfc_incr(page_faults);
+-    return len;
++    return iop->remain ? -EFAULT : 0;
+ }
  
-     /* Any shadow stack access fault is a bug in Xen. */
-@@ -1676,9 +1673,6 @@ void do_general_protection(struct cpu_user_regs *regs)
-     struct vcpu *v = current;
+ /*
+diff --git a/xen/arch/x86/include/asm/debugger.h b/xen/arch/x86/include/asm/debugger.h
+index e83b346a21d1..c5585752cae7 100644
+--- a/xen/arch/x86/include/asm/debugger.h
++++ b/xen/arch/x86/include/asm/debugger.h
+@@ -54,10 +54,4 @@ static inline bool debugger_trap_fatal(
+ 
  #endif
  
--    if ( debugger_trap_entry(TRAP_gp_fault, regs) )
--        return;
+-#ifdef CONFIG_GDBSX
+-unsigned int dbg_rw_mem(unsigned long gva, XEN_GUEST_HANDLE_PARAM(void) buf,
+-                        unsigned int len, struct domain *d, bool toaddr,
+-                        uint64_t pgd3);
+-#endif
 -
-     if ( regs->error_code & X86_XEC_EXT )
-         goto hardware_gp;
- 
-@@ -1971,9 +1965,6 @@ void do_debug(struct cpu_user_regs *regs)
-     /* Stash dr6 as early as possible. */
-     dr6 = read_debugreg(6);
- 
--    if ( debugger_trap_entry(TRAP_debug, regs) )
--        return;
--
-     /*
-      * At the time of writing (March 2018), on the subject of %dr6:
-      *
-@@ -2082,6 +2073,12 @@ void do_debug(struct cpu_user_regs *regs)
-     v->arch.dr6 |= (dr6 & ~X86_DR6_DEFAULT);
-     v->arch.dr6 &= (dr6 | ~X86_DR6_DEFAULT);
- 
-+    if ( guest_kernel_mode(v, regs) && v->domain->debugger_attached )
-+    {
-+        domain_pause_for_debugger();
-+        return;
-+    }
+ #endif /* __X86_DEBUGGER_H__ */
+diff --git a/xen/arch/x86/include/asm/gdbsx.h b/xen/arch/x86/include/asm/gdbsx.h
+new file mode 100644
+index 000000000000..eee746fc01d0
+--- /dev/null
++++ b/xen/arch/x86/include/asm/gdbsx.h
+@@ -0,0 +1,13 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef __X86_GDBX_H__
++#define __X86_GDBX_H__
 +
-     pv_inject_hw_exception(TRAP_debug, X86_EVENT_NO_EC);
- }
- 
-@@ -2097,9 +2094,6 @@ void do_entry_CP(struct cpu_user_regs *regs)
-     const char *err = "??";
-     unsigned int ec = regs->error_code;
- 
--    if ( debugger_trap_entry(X86_EXC_CP, regs) )
--        return;
--
-     /* Decode ec if possible */
-     if ( ec < ARRAY_SIZE(errors) && errors[ec][0] )
-         err = errors[ec];
++#ifdef CONFIG_GDBSX
++
++struct domain;
++struct xen_domctl_gdbsx_memio;
++
++int gdbsx_guest_mem_io(struct domain *d, struct xen_domctl_gdbsx_memio *iop);
++
++#endif /* CONFIG_GDBSX */
++#endif /* __X86_GDBX_H__ */
 -- 
 2.11.0
 
