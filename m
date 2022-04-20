@@ -2,56 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97A79508FA9
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 20:45:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.309564.525906 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 788A8508FB9
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 20:47:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.309569.525916 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhFJs-0008JK-Vc; Wed, 20 Apr 2022 18:44:52 +0000
+	id 1nhFMV-0000UE-DP; Wed, 20 Apr 2022 18:47:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 309564.525906; Wed, 20 Apr 2022 18:44:52 +0000
+Received: by outflank-mailman (output) from mailman id 309569.525916; Wed, 20 Apr 2022 18:47:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhFJs-0008Gc-Ri; Wed, 20 Apr 2022 18:44:52 +0000
-Received: by outflank-mailman (input) for mailman id 309564;
- Wed, 20 Apr 2022 18:44:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nhFMV-0000RH-A6; Wed, 20 Apr 2022 18:47:35 +0000
+Received: by outflank-mailman (input) for mailman id 309569;
+ Wed, 20 Apr 2022 18:47:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tIrT=U6=oracle.com=boris.ostrovsky@srs-se1.protection.inumbo.net>)
- id 1nhFJr-0008GV-Ea
- for xen-devel@lists.xenproject.org; Wed, 20 Apr 2022 18:44:51 +0000
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f43eba40-c0d9-11ec-a405-831a346695d4;
- Wed, 20 Apr 2022 20:44:49 +0200 (CEST)
-Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 23KGHllo020622; 
- Wed, 20 Apr 2022 18:44:39 GMT
-Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com
- (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
- by mx0b-00069f02.pphosted.com with ESMTP id 3ffmd1a33f-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 20 Apr 2022 18:44:38 +0000
-Received: from pps.filterd
- (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
- by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.16.1.2/8.16.1.2)
- with SMTP id 23KIg9op038787; Wed, 20 Apr 2022 18:44:38 GMT
-Received: from nam12-mw2-obe.outbound.protection.outlook.com
- (mail-mw2nam12lp2047.outbound.protection.outlook.com [104.47.66.47])
- by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com with ESMTP id
- 3ffm87rwys-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 20 Apr 2022 18:44:37 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
- by BN6PR10MB1298.namprd10.prod.outlook.com (2603:10b6:404:43::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14; Wed, 20 Apr
- 2022 18:44:35 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::4455:2c02:503:a182]) by BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::4455:2c02:503:a182%8]) with mapi id 15.20.5186.014; Wed, 20 Apr 2022
- 18:44:35 +0000
+ <SRS0=tmf/=U6=gmail.com=rjwysocki@srs-se1.protection.inumbo.net>)
+ id 1nhFMT-0000RB-KH
+ for xen-devel@lists.xenproject.org; Wed, 20 Apr 2022 18:47:33 +0000
+Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com
+ [209.85.219.176]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 54db6a4a-c0da-11ec-8fbf-03012f2f19d4;
+ Wed, 20 Apr 2022 20:47:30 +0200 (CEST)
+Received: by mail-yb1-f176.google.com with SMTP id x39so4500208ybd.8
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Apr 2022 11:47:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,174 +38,1151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f43eba40-c0d9-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
- subject : to : cc : references : from : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2021-07-09;
- bh=mIgCx3qy+wGt5g+bKCz+mXdTduGa4CCdQN2W26eK25Q=;
- b=kyQspdQrYjw+ur7K2GQQEr4ntUlibCXrPnDG2UuXaHGL/ebDuuoNgAsdPtpY5jR4JkA4
- K5tb3AfEX8NrUYr0XkPkUUTq5xgyXDv/b/kGtRx2taW8m0Nqo0feTvuCePk1C4oZE3JJ
- IR5vW3PcS+D/Q1MkvD1neexV4yJU5/8A6Dti0IxKdCLEk2oF0uS4y4s1Qd6r3av8yU6P
- CewT2zzIrc4Fhgg9+vf3bVow6GqD1aR0xDrz6OqN/wZ/GwANhAecya4WbvsVbTRDfrb1
- 7PkqlmgO5tCpK0+bkhlQr/l+b6k5BGmQvxjWdN5LED5spY0nSSlqmtbJOoVfWsTntRx4 XQ== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=a+lasMn6Hf+orNcQ4FZjRThhQA8GP+2opoEvIAbh4gEX3E79iL7qEnGgEenNH4mc2VafaNn8KPbR8qZjyXYYYN28ypwXZRr4lfkaVurO7m/sSmIeQ6R7yaACn7LXAvo+2KIzKGGo6G4/4w7GwW4OX5tyB5vYFcin7jHkIm2LAkFqVu7OK3frUkoD8RoSf+3dcVx0epW7gfE9TYv6Enb7lFTY4W64Rjw4UaiCOrv6Yh0udO5H3sRQl8aalaCQ/HucnaGt78FWqUMBdrfH/pmPJctn0y4cElaowldoaAEWgs51NkN0mzPWkQ38FwRTEq9DdaN65Uz7NEGBQZOo+uYY2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mIgCx3qy+wGt5g+bKCz+mXdTduGa4CCdQN2W26eK25Q=;
- b=oXtOT8ju9HtXXNg+1j1HMHgm1d06Q//VtqwCT9wREK7HH3Qx58Tehj6KtVTtygk5GgqHpBM/ZNDck64vmRegjIAILXEtpmty3WohgsQ084RKaOIh0PN8CekFQ+5PVcbZGgG7LOliDJFoYZK5l5PHz/U51Dna6aZipYlUlMyXRF5veoNhZG5stqbKy7W6p7mLoe9154brMaFzlAgAYb9hgEBbspUkQY9iVeqhfcLKd0J+ZQOvhqIwcXySQS/rfwaOLbJ7/ZrM8YKTAwLMU8hzyfT4ySi1M7Pf+jR+58/0YcyumTfkTSr0buU8cM/0/mroPFvQBngOEZBlXFz8Ip7Cbw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mIgCx3qy+wGt5g+bKCz+mXdTduGa4CCdQN2W26eK25Q=;
- b=xc1eAQudVCsIrjvG6Ff/mgXo8DCmgpI5bxoSXiMvkA5MckBvZGOKk9lcN7MMqwYiD4Trp7moR6xh74sEHPuWr/LWaZcHUTrsk5vys9x53yZoYJP0KL6+5FM1Q5V+UNGHm4nlVvcskWfcopOggJc97XB24zPZdWfOOVnNMOEjuBM=
-Message-ID: <0d5ae87a-be43-ce7c-57b2-4567bb7e9f4d@oracle.com>
-Date: Wed, 20 Apr 2022 14:44:31 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.8.0
-Subject: Re: [PATCH 09/18] xen/xenbus: add xenbus_setup_ring() service
- function
-Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
-        linux-kernel@vger.kernel.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-References: <20220420150942.31235-1-jgross@suse.com>
- <20220420150942.31235-10-jgross@suse.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-In-Reply-To: <20220420150942.31235-10-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR05CA0165.namprd05.prod.outlook.com
- (2603:10b6:a03:339::20) To BLAPR10MB5009.namprd10.prod.outlook.com
- (2603:10b6:208:321::10)
+X-Inumbo-ID: 54db6a4a-c0da-11ec-8fbf-03012f2f19d4
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=dE5RadEMib60o9KVjQcUjy+eJ3gNL/iiBHhDxgP/GWk=;
+        b=t9blxEOmHQhDrFOiKxFqdLphbs40G+g+5I2gN0fSqL/+/Q4WZprtbQXDFDiJibLn+V
+         NMlyFDmii3bjieVLZwtfxfk3ite6B8wfa0qJGjt5FLrahqDQjFaqYBov02Vjvz3rbLAN
+         Xb+cSjzx+C9WkxW0DVOP8y5JlLkCWxYjS1XWA5MBm3KMOzm1VYAyyDHfer+R7j112hWn
+         346BhleePPgVwZo1XtwSOuuRxwqoXvIlgrwaKaDGvU0UvsIoosCtHZpE3iVBqF7wdYpB
+         YNOu+M8Tvj0VaZapaZhMm/v0wjzQQhnmpaCESXeLjs/HD05TQMrKFGpGpPjuGT+//W52
+         iQfQ==
+X-Gm-Message-State: AOAM5313P+lrUJYWb1M/hQHI8U/wkZjfoEgTdcppLVONTP0lhWOcZLH3
+	JtX1BcikUZ3gXBL1vIZOhCKU6dvMQUWWCpvUkzw=
+X-Google-Smtp-Source: ABdhPJy0l46FqKK3F6TPwNoLPQjTN9iZHgvIu9g3S+a+hhpuyVO+CbVALwAXm8q/rJbzWksFWeDjWWSShgdOVqSqVVo=
+X-Received: by 2002:a05:6902:187:b0:63d:9c95:edca with SMTP id
+ t7-20020a056902018700b0063d9c95edcamr20821310ybh.81.1650480449135; Wed, 20
+ Apr 2022 11:47:29 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: be03f60c-e93b-47ea-e95b-08da22fdd0fb
-X-MS-TrafficTypeDiagnostic: BN6PR10MB1298:EE_
-X-Microsoft-Antispam-PRVS: 
-	<BN6PR10MB12982BD7C83E4013F4DA04228AF59@BN6PR10MB1298.namprd10.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	6y/Y2txxb/33JdxPGJfgPzkbP3SkgPc07T5PShS48yL0LLAShAQwpWOUkOVUaAOEGlpufhMx2PWUHbzPib5v43WPf/TxzBhvfCj5aw7OllV6JfivBmRTpiHbkpQaQzl6WWAn782ldoDEQyY/uJSCu8D7CBiQdoCC0vq3rSWNalZGOxYrzoVe2bFbP5iqxWFypZrcIQ35MwYnwxYNLK7lXTCegGtzkxhCpLqxPHgbRzM7Fl+jYGPQZmVGNgQjd00Uk3P1wETkgKrvrrFNF5UMG283q9NNp3BIVH8VL4tmtXPZnOZyyeUqtEEyOXtyh3khpJmMZNlAXFj7A/1CDap0gIM+WohtZtd25eT6dM/HXT3Vnlop5LzIFcIuP7TkA654lDBmAmJmwjik8s9/Qq1mNJMmN+J0nM/h5PVum/sXw4VGE6hegDpv920cKDhXk1fOluEmDoOH/ouotTmLAORe2SBR8JdK2rXpBtWqPfZ7MR0ylAT/s+nlV9iPB/LQcd9Bmigcy2PzBkxqdGsjs9tjOmRwZ9nV168GFwFe8r0vJD7bihaNRmQjDHYCOWQD9+Do4WKfsXCdBNaVJ69sBklbXuAeuectyvzoYs6nD7m/WHwFDIScFYbmVESDmhoswg3SKAhqvXIagKfVbBzvAzVDFCajkYVPocsdydQGHO5awMzzfIN2sCjil9sJwWsSf1meNRoFggLSZGAlxOORqJAwg+RVaG/EDYqREXU98UtoSrFD0z2HsYbF3CerIBA+n+r1
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(6666004)(6512007)(2906002)(6506007)(31686004)(6486002)(36756003)(4326008)(86362001)(8936002)(8676002)(31696002)(508600001)(186003)(2616005)(53546011)(26005)(38100700002)(316002)(5660300002)(66946007)(44832011)(66556008)(66476007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?Ym12dVI2Y1hMMFhxK0lpYUp1Z3dLTGEwa3NNSUJ1ejAyeS9EVXRvcHVBTS9S?=
- =?utf-8?B?ZUJQRStZRHZiZmFPczc4Qml4dFZwbGRwdUlseUVkTlhmWlYzVmtvOFZlVkZx?=
- =?utf-8?B?enB6OVJ1Tng2Q05CU0VHa1VXS0FMQkhvQzJCUXFPQTZpcVRRTUd6cy9ZL0hr?=
- =?utf-8?B?UW5kT1JXZXp2WnU1a0MzcEd2R2JHcXkyTlBrTVd2NEFVY3QzNitXL3RSNUcz?=
- =?utf-8?B?b21Bbkpjd0phWWpLZFIwOTZFZGhJQy9aN2RPdStid3ZiNmdBWDcwKzZDUzgv?=
- =?utf-8?B?d2JCS2RHNUhsQlNoNG9nOEdnRGJnelZpYzdlNk83YnJiZ1FtaHpZVjNLWWZP?=
- =?utf-8?B?VGZ6TDlaVUQ4OGpvTmFRSGREUFQ2bU1KTktPUjluWDgwWnNSYVc3Uzc5aGlU?=
- =?utf-8?B?THpER29wY0pPbUtyNndxQzVYWUF4aWVMRDR5Q3F2TDVYMTlTOVorUVAvblNr?=
- =?utf-8?B?OWdpcjRFenpRMXZ1THJmcW1tVWF5VWh3SEgrR05PaTlPM3ZuU1pPd2RSaUxU?=
- =?utf-8?B?Rk9rclZsdzRtYU94QXpzZlhRcHJKUXJIRkVNejd3eWRBajVRenJKbEFtTmcx?=
- =?utf-8?B?enRmZ2VmN3c4cjJFMDg5TUp2YmZ2blZHa1NPa2ZoY3diWGUzcVEvM0dWYmxG?=
- =?utf-8?B?QSthR0habmliN1VtUTd6K0xRQmhabExEUmg4U3JHaGNCOE9URWlUb0lmNnhZ?=
- =?utf-8?B?M0FjTkJHakFDOFBUclNMcWw5ZFFJRUJaSzZxZUVaYml5bWNqVXg5NE56VExX?=
- =?utf-8?B?SFZXUWRMYWNwN3kza3dQRytiM1RTL3QyVDFKSUluWnJuaVFLNHBRTStWWklO?=
- =?utf-8?B?OXBsTjR1MDc2V0RYOVFsak5XQTZzWEJRd25zNlUxeExBaFFvaUVBdUx2OEcr?=
- =?utf-8?B?MWZYUTNpc3YwcUhlSlRFdE1QZXdyeHk4WXJQZWxpSWZEeERpc3NBNXlsMmxM?=
- =?utf-8?B?cUFWbnJYeTNGdWNGelBVUExRNlU1dzVDNlBTOG43cng1clQ0S0NDcXo5NFRn?=
- =?utf-8?B?NkVNd0Z6MkVhbnVNMVJWTElheFFSdVFBODQyTmVRRGNKWVk4ZkMyQW1UL0dM?=
- =?utf-8?B?TTZKa0pnaWIzOVZoRXZpUXhLWmxSZm9lbDYvOVVSaHNJWW9TbzdpTTYyaVNH?=
- =?utf-8?B?a2R4UFlJWFNDbDBvajl1VEV2NytEUEM5Z3o5ZWFFaDlhYVYvYnI2LzlnMG00?=
- =?utf-8?B?d2pndnJMbjYvSVlhQmZqTHFsc3FlMDV0QjBETE4wL3c0NXhwd3dQN2lqOEFD?=
- =?utf-8?B?Z3FoamVLa1ZuWEhNWHFDQWlySUY3QWU1NHoyS0FqUDZCWnJSbDVFdzIyWGtI?=
- =?utf-8?B?ZWxtWnlKZVF6cmtGZkE3YU9zd3I4MjZaRWNXZWl4TUxPQ0JZUDZoQzRxa3JH?=
- =?utf-8?B?U25RbSs0KzR3R2NqVS90QjhQV2xCc2xWNVh5aWh3V1RBNnZmR2lMNHphMWpT?=
- =?utf-8?B?R2VrRDF0S2lSdUNwdnZsNHBLTGdQUEdBcStDTVFMMHNxdGwvVEpVSU04TnMx?=
- =?utf-8?B?RkZTMzlhZjRoVUZMc0NrU0NxTHRFYXRwMFR6dlF0WW12NU9mcjdJMHhNa2dh?=
- =?utf-8?B?aDZqSGphQWd5NUFPeGxkVFgzSTVkRVJSdjk3b1ZxTWdrS1ZCMVgyRFIwcWJt?=
- =?utf-8?B?OHRLU1BYUjR3eTh4aUh1RWhkc2dGSkZOMmluenVZVWV3UUNxWUxMUEg1T2dY?=
- =?utf-8?B?R2hQMFZ6SUxyMlh4c1dUQldxS2htRWMzNk5jY3E1RnZ3YkNtSlM5YWxtZWJP?=
- =?utf-8?B?S2xENHNpMDVtRW1mOGxPakZVVGJ2Wlo2cExLcDZNWnVYSmk2N0RnaiszK0FE?=
- =?utf-8?B?aGlGU3VHRm10Y1p1WmMzd3VVZTZqSkJxaUVVWCswMkFpWEY5VmpoTnRuZGpO?=
- =?utf-8?B?ZjFudnZPMWw1ZFZHbWNGWVpoTkpYSDNOMnk4Vy8yRnNsbnR1OVBvbGt5V20y?=
- =?utf-8?B?ZlR4d0JMTXZTcHFWcUpNZWV3bUlKcjFPdUgwL01tbHhmVVVkdVdYWWc1dXFS?=
- =?utf-8?B?elNXTWc5VWd2MXBjczAvbi81dWd4ZEtjY3pWR1dqaWdZUjR5NDdvNFI2OGpO?=
- =?utf-8?B?L3d0QXkyZ2tqMHFXa1ptbFNmWFgzcTQ0UUZFS3FyY2JNUU1MdGxSME84dUc0?=
- =?utf-8?B?YXcxcnNnUERlWWNkSUpWYkhYWmdEc2NlMnlVRlJBay9UenNYcWFySU4wUVNB?=
- =?utf-8?B?dGo0TEdSYVpwUTRJY2F1UXdQNmZXY0RvR3V2N3NYSUcwQ1VjT2kvOXZvMTI3?=
- =?utf-8?B?Kytaa3lmK3lxS0RoT0Y2cTFicjNvSmdYeUkyZlVYZmpxeTNGUStxeURXZUpD?=
- =?utf-8?B?bHEyZjZJVUJuNGJURmkyTG9yZ3IyWlE2UC9LOC9HQWRFaEhwVVlzSjk4U0xz?=
- =?utf-8?Q?dBC1Y13ur6yx7u5w=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: be03f60c-e93b-47ea-e95b-08da22fdd0fb
-X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2022 18:44:35.6305
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8k4Tpv0aYB2mfDatVOe+KiHEkY3kqg4I/kOarKpMqjl66+ceUpiMHaDQuvfuHd/+me4Ygyh8mwLyaD1wBZiychxssPJvKff1902bleT8JBQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR10MB1298
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.486,18.0.858
- definitions=2022-04-20_05:2022-04-20,2022-04-20 signatures=0
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0 adultscore=0
- malwarescore=0 mlxlogscore=999 suspectscore=0 spamscore=0 bulkscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2202240000 definitions=main-2204200110
-X-Proofpoint-ORIG-GUID: Xq-Lrdf6vHn9cHvuS_ocp4uWE9Xzpwg9
-X-Proofpoint-GUID: Xq-Lrdf6vHn9cHvuS_ocp4uWE9Xzpwg9
+References: <20220411233832.391817-1-dmitry.osipenko@collabora.com>
+ <20220411233832.391817-5-dmitry.osipenko@collabora.com> <CAJZ5v0gnTSoeNP+QXwrZ45FQY4howVkJMuCjM=j+_-2BngJdQg@mail.gmail.com>
+ <990621e7-9f8a-8b4a-02ec-fd6c1e1f48ff@collabora.com>
+In-Reply-To: <990621e7-9f8a-8b4a-02ec-fd6c1e1f48ff@collabora.com>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Wed, 20 Apr 2022 20:47:17 +0200
+Message-ID: <CAJZ5v0jxXtwot0qpib4UG8Tz8Hd1dEbgo58tEdPFboU8xwKHNw@mail.gmail.com>
+Subject: Re: [PATCH v7 04/20] kernel: Add combined power-off+restart handler
+ call chain API
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Thierry Reding <thierry.reding@gmail.com>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Russell King <linux@armlinux.org.uk>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Greg Ungerer <gerg@linux-m68k.org>, 
+	Joshua Thompson <funaho@jurai.org>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+	Sebastian Reichel <sre@kernel.org>, Linus Walleij <linus.walleij@linaro.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Greentime Hu <green.hu@gmail.com>, 
+	Vincent Chen <deanbo422@gmail.com>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
+	Michael Ellerman <mpe@ellerman.id.au>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
+	Paul Mackerras <paulus@samba.org>, Paul Walmsley <paul.walmsley@sifive.com>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+	Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "the arch/x86 maintainers" <x86@kernel.org>, 
+	"H. Peter Anvin" <hpa@zytor.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Santosh Shilimkar <ssantosh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Pavel Machek <pavel@ucw.cz>, 
+	Lee Jones <lee.jones@linaro.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Guenter Roeck <linux@roeck-us.net>, Daniel Lezcano <daniel.lezcano@linaro.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Ulf Hansson <ulf.hansson@linaro.org>, 
+	=?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-csky@vger.kernel.org, 
+	linux-ia64@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+	"open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>, linux-parisc@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, Linux-sh list <linux-sh@vger.kernel.org>, 
+	xen-devel@lists.xenproject.org, 
+	ACPI Devel Maling List <linux-acpi@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>, 
+	linux-tegra <linux-tegra@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
+On Mon, Apr 18, 2022 at 3:44 AM Dmitry Osipenko
+<dmitry.osipenko@collabora.com> wrote:
+>
+> On 4/15/22 21:14, Rafael J. Wysocki wrote:
+> > Honestly, I would prefer this to be split so as to make it easier to
+> > review if nothing else.
+>
+> I'll try to split it in v8.
+>
+> > On Tue, Apr 12, 2022 at 1:39 AM Dmitry Osipenko
+> > <dmitry.osipenko@collabora.com> wrote:
+> >>
+> >> SoC platforms often have multiple ways of how to perform system's
+> >> power-off and restart operations. Meanwhile today's kernel is limited to
+> >> a single option. Add combined power-off+restart handler call chain API,
+> >> which is inspired by the restart API. The new API provides both power-off
+> >> and restart functionality.
+> >>
+> >> The old pm_power_off method will be kept around till all users are
+> >> converted to the new API.
+> >>
+> >> Current restart API will be replaced by the new unified API since
+> >> new API is its superset. The restart functionality of the sys-off handler
+> >> API is built upon the existing restart-notifier APIs.
+> >
+> > Which means that the existing notifier chains for system restart are
+> > used as they are without modifications.
+> >
+> > At least that's what follows from the code and it would be good to
+> > mention it here.
+>
+> Will improve the commit message.
+>
+> > Moreover, a new notifier chain is introduced for the power-off case
+> > and it appears to be the counterpart of the restart_handler_list
+> > chain, but then why is it blocking and not atomic like the latter?
+>
+> Good catch, it probably indeed should be atomic because shutting down
+> could run with a disabled interrupts. I'll invistigate this more for v8,
+> at least right now I don't recall any particular reason for using the
+> blocking notifier.
+>
+> >> In order to ease conversion to the new API, convenient helpers are added
+> >> for the common use-cases. They will reduce amount of boilerplate code and
+> >> remove global variables. These helpers preserve old behaviour for cases
+> >> where only one power-off handler is expected, this is what all existing
+> >> drivers want, and thus, they could be easily converted to the new API.
+> >> Users of the new API should explicitly enable power-off chaining by
+> >> setting corresponding flag of the power_handler structure.
+> >
+> > "the corresponding"
+>
+> Thanks
+>
+> >> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+> >> ---
+> >>  include/linux/reboot.h   | 229 ++++++++++++++-
+> >>  kernel/power/hibernate.c |   2 +-
+> >>  kernel/reboot.c          | 604 ++++++++++++++++++++++++++++++++++++++-
+> >>  3 files changed, 827 insertions(+), 8 deletions(-)
+> >>
+> >> diff --git a/include/linux/reboot.h b/include/linux/reboot.h
+> >> index a2429648d831..ba5e5dddcfcd 100644
+> >> --- a/include/linux/reboot.h
+> >> +++ b/include/linux/reboot.h
+> >> @@ -8,10 +8,35 @@
+> >>
+> >>  struct device;
+> >>
+> >> -#define SYS_DOWN       0x0001  /* Notify of system down */
+> >> -#define SYS_RESTART    SYS_DOWN
+> >> -#define SYS_HALT       0x0002  /* Notify of system halt */
+> >> -#define SYS_POWER_OFF  0x0003  /* Notify of system power off */
+> >> +enum reboot_prepare_mode {
+> >> +       SYS_DOWN = 1,           /* Notify of system down */
+> >> +       SYS_RESTART = SYS_DOWN,
+> >> +       SYS_HALT,               /* Notify of system halt */
+> >> +       SYS_POWER_OFF,          /* Notify of system power off */
+> >> +};
+> >> +
+> >> +/*
+> >> + * Standard restart priority levels. Intended to be set in the
+> >> + * sys_off_handler.restart_priority field.
+> >> + *
+> >> + * Use `RESTART_PRIO_ABC +- prio` style for additional levels.
+> >> + *
+> >> + * RESTART_PRIO_RESERVED:      Falls back to RESTART_PRIO_DEFAULT.
+> >> + *                             Drivers may leave priority initialized
+> >> + *                             to zero, to auto-set it to the default level.
+> >
+> > What is the "default level" here?
+>
+> "default level" = RESTART_PRIO_DEFAULT = 128
+>
+> I'll remove the second sentence about the "default level", for clarity.
+>
+> >> + *
+> >> + * RESTART_PRIO_LOW:           Use this for handler of last resort.
+> >> + *
+> >> + * RESTART_PRIO_DEFAULT:       Use this for default/generic handler.
+> >> + *
+> >> + * RESTART_PRIO_HIGH:          Use this if you have multiple handlers and
+> >> + *                             this handler has higher priority than the
+> >> + *                             default handler.
+> >> + */
+> >> +#define RESTART_PRIO_RESERVED          0
+> >> +#define RESTART_PRIO_LOW               8
+> >> +#define RESTART_PRIO_DEFAULT           128
+> >> +#define RESTART_PRIO_HIGH              192
+> >>
+> >>  enum reboot_mode {
+> >>         REBOOT_UNDEFINED = -1,
+> >> @@ -49,6 +74,201 @@ extern int register_restart_handler(struct notifier_block *);
+> >>  extern int unregister_restart_handler(struct notifier_block *);
+> >>  extern void do_kernel_restart(char *cmd);
+> >>
+> >> +/*
+> >> + * System power-off and restart API.
+> >> + */
+> >> +
+> >> +/*
+> >> + * Standard power-off priority levels. Intended to be set in the
+> >> + * sys_off_handler.power_off_priority field.
+> >> + *
+> >> + * Use `POWEROFF_PRIO_ABC +- prio` style for additional levels.
+> >
+> > What exactly does this mean?
+>
+> "POWEROFF_PRIO_DEFAULT+1 or POWEROFF_PRIO_DEFAULT-1" for example, I'll
+> improve it in v8.
 
-On 4/20/22 11:09 AM, Juergen Gross wrote:
->   
-> +/*
-> + * xenbus_setup_ring
-> + * @dev: xenbus device
-> + * @vaddr: pointer to starting virtual address of the ring
-> + * @nr_pages: number of pages to be granted
-> + * @grefs: grant reference array to be filled in
-> + *
-> + * Allocate physically contiguous pages for a shared ring buffer and grant it
-> + * to the peer of the given device. The ring buffer is initially filled with
-> + * zeroes. The virtual address of the ring is stored at @vaddr and the
-> + * grant references are stored in the @grefs array. In case of error @vaddr
-> + * will be set to NULL and @grefs will be filled with INVALID_GRANT_REF.
-> + */
-> +int xenbus_setup_ring(struct xenbus_device *dev, gfp_t gfp, void **vaddr,
-> +		      unsigned int nr_pages, grant_ref_t *grefs)
-> +{
-> +	unsigned long ring_size = nr_pages * XEN_PAGE_SIZE;
-> +	unsigned int i;
-> +	int ret;
-> +
-> +	*vaddr = alloc_pages_exact(ring_size, gfp | __GFP_ZERO);
-> +	if (!*vaddr) {
-> +		ret = -ENOMEM;
-> +		goto err;
-> +	}
-> +
-> +	ret = xenbus_grant_ring(dev, *vaddr, nr_pages, grefs);
-> +	if (ret)
-> +		goto err;
-> +
-> +	return 0;
-> +
-> + err:
-> +	if (*vaddr)
-> +		free_pages_exact(*vaddr, ring_size);
-> +	for (i = 0; i < nr_pages; i++)
-> +		grefs[i] = INVALID_GRANT_REF;
-> +	*vaddr = NULL;
-> +
-> +	return ret;
-> +}
+So the users of this interface are expected to set priorities relative
+to the "standard" levels.  That wasn't clear.
 
+> >> + *
+> >> + * POWEROFF_PRIO_RESERVED:     Falls back to POWEROFF_PRIO_DEFAULT.
+> >> + *                             Drivers may leave priority initialized
+> >> + *                             to zero, to auto-set it to the default level.
+> >> + *
+> >> + * POWEROFF_PRIO_PLATFORM:     Intended to be used by platform-level handler.
+> >> + *                             Has lowest priority since device drivers are
+> >> + *                             expected to take over platform handler which
+> >> + *                             doesn't allow further callback chaining.
+> >> + *
+> >> + * POWEROFF_PRIO_DEFAULT:      Use this for default/generic handler.
+> >> + *
+> >> + * POWEROFF_PRIO_FIRMWARE:     Use this if handler uses firmware call.
+> >> + *                             Has highest priority since firmware is expected
+> >> + *                             to know best how to power-off hardware properly.
+> >> + */
+> >> +#define POWEROFF_PRIO_RESERVED         0
+> >> +#define POWEROFF_PRIO_PLATFORM         1
+> >> +#define POWEROFF_PRIO_DEFAULT          128
+> >> +#define POWEROFF_PRIO_HIGH             192
+> >> +#define POWEROFF_PRIO_FIRMWARE         224
+> >> +
+> >> +enum poweroff_mode {
+> >> +       POWEROFF_NORMAL = 0,
+> >
+> > Why not just POWEROFF?
+>
+> This is a bit too generic name to me.
+>
+> I can rename it as MODE_POWEROFF and MODE_POWEROFF_PREPARE.
 
-We can create a wrapper around this function that will also call SHARED_RING_INIT() and FRONT_RING_INIT(). A bunch of drivers do that.
+In that case I would leave POWEROFF_PREPARE as is and rename the other
+one to POWEROFF_FINAL.  And maybe put them in the reverse order in the
+enum definition, because _PREPARE will be done before _FINAL.
 
+> >> +       POWEROFF_PREPARE,
+> >> +};
+> >> +
+> >> +/**
+> >> + * struct power_off_data - Power-off callback argument
+> >> + *
+> >> + * @cb_data: Callback data.
+> >> + */
+> >> +struct power_off_data {
+> >> +       void *cb_data;
+> >> +};
+> >> +
+> >> +/**
+> >> + * struct power_off_prep_data - Power-off preparation callback argument
+> >> + *
+> >> + * @cb_data: Callback data.
+> >> + */
+> >> +struct power_off_prep_data {
+> >> +       void *cb_data;
+> >> +};
+> >
+> > Why does this need to be a separate data type?
+>
+> To allow us extend the "struct power_off_prep_data" with more parameters
+> later on without a need to update each driver with the new arguments.
 
--boris
+I'm not really sure what you mean here.  Can you give an example?
 
+> >> +
+> >> +/**
+> >> + * struct restart_data - Restart callback argument
+> >> + *
+> >> + * @cb_data: Callback data.
+> >> + * @cmd: Restart command string.
+> >> + * @stop_chain: Further lower priority callbacks won't be executed if set to
+> >> + *             true. Can be changed within callback. Default is false.
+> >> + * @mode: Reboot mode ID.
+> >> + */
+> >> +struct restart_data {
+> >> +       void *cb_data;
+> >> +       const char *cmd;
+> >> +       bool stop_chain;
+> >> +       enum reboot_mode mode;
+> >> +};
+> >> +
+> >> +/**
+> >> + * struct reboot_prep_data - Reboot and shutdown preparation callback argument
+> >> + *
+> >> + * @cb_data: Callback data.
+> >> + * @cmd: Restart command string.
+> >> + * @stop_chain: Further lower priority callbacks won't be executed if set to
+> >> + *             true. Can be changed within callback. Default is false.
+> >> + * @mode: Preparation mode ID.
+> >> + */
+> >> +struct reboot_prep_data {
+> >> +       void *cb_data;
+> >> +       const char *cmd;
+> >> +       bool stop_chain;
+> >> +       enum reboot_prepare_mode mode;
+> >> +};
+> >
+> > There seem to be some duplicate data items between struct restart_data
+> > and struct reboot_prep_data, so what's the reason why they are
+> > separate?
+>
+> They indeed look similar, but have different purposes. We shouldn't use
+> reboot handler for restarting, hence why should we mix them?
+
+Well, I got confused by the naming.
+
+The "reboot prep" thing really should be a "system is going down"
+notification.  Since "sysoff" is already used in the names below, why
+not rename it to "sysoff_prepare"?
+
+> >> +struct sys_off_handler_private_data {
+> >> +       struct notifier_block power_off_nb;
+> >> +       struct notifier_block restart_nb;
+> >> +       struct notifier_block reboot_nb;
+> >
+> > So restart_nb is going to be added to restart_handler_list, eboot_nb
+> > will be added to reboot_notifier_list (which both exist already) and
+> > power_off_nb will be added to the new power_off_handler_list, right?
+> >
+> > Of course, this means that reboot_nb will be used in
+> > kernel_restart_prepare() and kernel_shutdown_prepare(), so the
+> > corresponding callback will be invoked in both the restart and
+> > power-off cases.
+> >
+> > It would be good to document that somehow.
+>
+> This is documented in the doc-comment to struct sys_off_handler later in
+> this patch. You actually found it below.
+
+IMO, it would be better to document it here, because that's where
+people will look first, as a rule.
+
+> >> +       void (*platform_power_off_cb)(void);
+> >> +       void (*simple_power_off_cb)(void *data);
+> >> +       void *simple_power_off_cb_data;
+> >
+> > Is there any particular reason to put these callbacks here and not
+> > directly into struct sys_off_handler?
+>
+> They are used internally by reboot.c and shouldn't be touched by the
+> kernel API users, so I wanted to factor out and protect all the private
+> data.
+
+But they come from these users anyway, don't they?
+
+> >> +       bool registered;
+> >> +};
+> >> +
+> >> +/**
+> >> + * struct sys_off_handler - System power-off and restart handler
+> >> + *
+> >> + * @cb_data: Pointer to user's data.
+> >> + *
+> >> + * @power_off_cb: Callback that powers off this machine. Inactive if NULL.
+> >> + *
+> >> + * @power_off_prepare_cb: Power-off preparation callback. All power-off
+> >> + * preparation callbacks are invoked after @reboot_prepare_cb and before
+> >> + * @power_off_cb. Inactive if NULL.
+> >> + *
+> >> + * @power_off_priority: Power-off callback priority, must be unique.
+> >> + * Zero value is reserved and auto-reassigned to POWEROFF_PRIO_DEFAULT.
+> >> + * Inactive if @power_off_cb is NULL.
+> >> + *
+> >> + * @power_off_chaining_allowed: Set to false if callback's execution should
+> >> + * stop when @power_off_cb fails to power off this machine. True if further
+> >> + * lower priority power-off callback should be executed. False is default
+> >> + * value.
+> >> + *
+> >> + * @restart_cb: Callback that reboots this machine. Inactive if NULL.
+> >> + *
+> >> + * @restart_priority: Restart callback priority, must be unique. Zero value
+> >> + * is reserved and auto-reassigned to RESTART_PRIO_DEFAULT. Inactive if
+> >> + * @restart_cb is NULL.
+> >> + *
+> >> + * @restart_chaining_disallowed: Set to true if callback's execution should
+> >> + * stop when @restart_cb fails to restart this machine. False if further
+> >> + * lower priority restart callback should be executed. False is default
+> >> + * value.
+> >> + *
+> >> + * @reboot_prepare_cb: Reboot/shutdown preparation callback. All reboot
+> >> + * preparation callbacks are invoked before @restart_cb or @power_off_cb,
+> >> + * depending on the mode. It's registered with register_reboot_notifier().
+> >> + * The point is to remove boilerplate code from drivers which use this
+> >> + * callback in conjunction with the restart/power-off callbacks.
+> >> + *
+> >> + * @reboot_priority: Reboot/shutdown preparation callback priority, doesn't
+> >> + * need to be unique. Zero is default value. Inactive if @reboot_prepare_cb
+> >> + * is NULL.
+> >
+> > It is unclear that the ->reboot_prepare_cb() callback is going to be
+> > used for both restart and power-off and reboot_priority is about the
+> > preparation phase only.
+> >
+> > And in the preparation phase the priority may not matter that much,
+> > because there are users who don't care about the ordering as long as
+> > their stuff is called at all.
+> >
+> > Honestly, I would change the naming here, because what it is is quite
+> > confusing at least to me.  Especially that "restart" and "reboot" seem
+> > to be used interchangeably in the comments.
+>
+> These are the legacy names and they are indeed very confusing. Do you
+> have suggestion for a better names?
+
+Well, as I said above, I would rename the "reboot" thing to
+"sysoff_prepare" covering all of the cases.  And then either "restart"
+or "poweroff" would be called after that, depending on the specific
+case.
+
+On a slightly related note, I started to wonder about the actual value
+provided by struct sys_off_handler.  Namely, the existing "reboot" and
+"restart" notifier chains will be used anyway and there are ways to
+use them directly.  Also, there will be ways to use the new "poweroff"
+chain directly, so struct sys_off_handler appears to be an extra
+complication and it is not particularly easier to use than a
+combination of "raw" notifiers.
+
+It looks to me that it might be sufficient to have a way to register a
+callback for "sysoff_prepare" (aka "reboot") and "restart" and a pair
+of callbacks for "poweroff", with a given priority with all of the
+necessary internals taken care of by the framework.
+
+> >> + *
+> >> + * @priv: Internal data. Shouldn't be touched.
+> >> + *
+> >> + * Describes power-off and restart handlers which are invoked by kernel
+> >> + * to power off or restart this machine. Supports prioritized chaining for
+> >> + * both restart and power-off handlers.
+> >> + *
+> >> + * Struct sys_off_handler can be static. Members of this structure must not be
+> >> + * altered while handler is registered.
+> >> + *
+> >> + * Fill the structure members and pass it to @register_sys_off_handler().
+> >> + */
+> >> +struct sys_off_handler {
+> >> +       void *cb_data;
+> >> +
+> >> +       void (*power_off_cb)(struct power_off_data *data);
+> >> +       void (*power_off_prepare_cb)(struct power_off_prep_data *data);
+> >> +       int power_off_priority;
+> >> +       bool power_off_chaining_allowed;
+> >> +
+> >> +       void (*restart_cb)(struct restart_data *data);
+> >> +       int restart_priority;
+> >> +       bool restart_chaining_disallowed;
+> >> +
+> >> +       void (*reboot_prepare_cb)(struct reboot_prep_data *data);
+> >> +       int reboot_priority;
+> >> +
+> >> +       const struct sys_off_handler_private_data priv;
+> >
+> > Why is it const?  Because of the callbacks in there?
+>
+> It's const to prevent changing/abusing of the internal data by kernel
+> API users. Those callbacks are private to kernel/reboot.c
+>
+> > Doesn't this mean that all struct sys_off_handler need to be static?
+>
+> The reboot.c is allowed to modify the private data, sys_off_handler can
+> be static and dynamic. There is no limitaion, I made the 'priv' member
+> constant only for the API users.
+
+Well, to me it is confusing and it doesn't really make the intention clear.
+
+Personally, I'd call it something like "internal_leave_alone" or similar.
+
+> >> +};
+> >> +
+> >> +int register_sys_off_handler(struct sys_off_handler *handler);
+> >> +int unregister_sys_off_handler(struct sys_off_handler *handler);
+> >> +
+> >> +int devm_register_sys_off_handler(struct device *dev,
+> >> +                                 struct sys_off_handler *handler);
+> >> +
+> >> +int devm_register_prioritized_power_off_handler(struct device *dev,
+> >> +                                               int priority,
+> >> +                                               void (*callback)(void *data),
+> >> +                                               void *cb_data);
+> >> +
+> >> +int devm_register_simple_power_off_handler(struct device *dev,
+> >> +                                          void (*callback)(void *data),
+> >> +                                          void *cb_data);
+> >> +
+> >> +int register_platform_power_off(void (*power_off)(void));
+> >> +int unregister_platform_power_off(void (*power_off)(void));
+> >> +
+> >> +int devm_register_prioritized_restart_handler(struct device *dev,
+> >> +                                             int priority,
+> >> +                                             void (*callback)(struct restart_data *data),
+> >> +                                             void *cb_data);
+> >> +
+> >> +int devm_register_simple_restart_handler(struct device *dev,
+> >> +                                        void (*callback)(struct restart_data *data),
+> >> +                                        void *cb_data);
+> >> +
+> >> +void do_kernel_power_off(void);
+> >> +
+> >>  /*
+> >>   * Architecture-specific implementations of sys_reboot commands.
+> >>   */
+> >> @@ -70,6 +290,7 @@ extern void kernel_restart_prepare(char *cmd);
+> >>  extern void kernel_restart(char *cmd);
+> >>  extern void kernel_halt(void);
+> >>  extern void kernel_power_off(void);
+> >> +extern bool kernel_can_power_off(void);
+> >>
+> >>  void ctrl_alt_del(void);
+> >>
+> >> diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
+> >> index 938d5c78b421..a9464b4a3209 100644
+> >> --- a/kernel/power/hibernate.c
+> >> +++ b/kernel/power/hibernate.c
+> >> @@ -665,7 +665,7 @@ static void power_down(void)
+> >>                 hibernation_platform_enter();
+> >>                 fallthrough;
+> >>         case HIBERNATION_SHUTDOWN:
+> >> -               if (pm_power_off)
+> >> +               if (kernel_can_power_off())
+> >>                         kernel_power_off();
+> >>                 break;
+> >>         }
+> >> diff --git a/kernel/reboot.c b/kernel/reboot.c
+> >> index acdae4e95061..e76e2570dcf5 100644
+> >> --- a/kernel/reboot.c
+> >> +++ b/kernel/reboot.c
+> >> @@ -296,6 +296,595 @@ void kernel_halt(void)
+> >>  }
+> >>  EXPORT_SYMBOL_GPL(kernel_halt);
+> >>
+> >> +/*
+> >> + *     Notifier list for kernel code which wants to be called
+> >> + *     to power off the system.
+> >> + */
+> >> +static BLOCKING_NOTIFIER_HEAD(power_off_handler_list);
+> >> +
+> >> +/*
+> >> + * Temporary stub that prevents linkage failure while we're in process
+> >> + * of removing all uses of legacy pm_power_off() around the kernel.
+> >
+> > Nit: inconsistent comment formatting.
+> >
+> >> + */
+> >> +void __weak (*pm_power_off)(void);
+> >> +
+> >> +static void dummy_pm_power_off(void)
+> >> +{
+> >> +       /* temporary stub until pm_power_off() is gone, see more below */
+> >> +}
+> >> +
+> >> +static struct notifier_block *pm_power_off_nb;
+> >> +
+> >> +/**
+> >> + *     register_power_off_handler - Register function to be called to power off
+> >> + *                                  the system
+> >> + *     @nb: Info about handler function to be called
+> >> + *     @nb->priority:  Handler priority. Handlers should follow the
+> >> + *                     following guidelines for setting priorities.
+> >> + *                     0:      Reserved
+> >> + *                     1:      Power-off handler of last resort,
+> >> + *                             with limited power-off capabilities
+> >> + *                     128:    Default power-off handler; use if no other
+> >> + *                             power-off handler is expected to be available,
+> >> + *                             and/or if power-off functionality is
+> >> + *                             sufficient to power-off the entire system
+> >> + *                     255:    Highest priority power-off handler, will
+> >> + *                             preempt all other power-off handlers
+> >> + *
+> >> + *     Registers a function with code to be called to power off the
+> >> + *     system.
+> >
+> > Because this is only used internally in this file, I'd say what it
+> > does directly, that is "Add a notifier to the power-off chain used for
+> > powering off the system".
+>
+> I'll improve it, thanks.
+>
+> >> + *
+> >> + *     Registered functions will be called as last step of the power-off
+> >> + *     sequence.
+> >> + *
+> >> + *     Registered functions are expected to power off the system immediately.
+> >> + *     If more than one function is registered, the power-off handler priority
+> >> + *     selects which function will be called first.
+> >> + *
+> >> + *     Power-off handlers are expected to be registered from non-architecture
+> >> + *     code, typically from drivers. A typical use case would be a system
+> >> + *     where power-off functionality is provided through a PMIC. Multiple
+> >> + *     power-off handlers may exist; for example, one power-off handler might
+> >> + *     turn off the entire system, while another only turns off part of
+> >> + *     system. In such cases, the power-off handler which only disables part
+> >> + *     of the hardware is expected to register with low priority to ensure
+> >> + *     that it only runs if no other means to power off the system is
+> >> + *     available.
+> >
+> > I would move the above 3 paragraphs to the description comment for
+> > power_off_handler_list.
+>
+> Noted
+>
+> >> + *
+> >> + *     Currently always returns zero, as blocking_notifier_chain_register()
+> >> + *     always returns zero.
+> >> + */
+> >> +static int register_power_off_handler(struct notifier_block *nb)
+> >> +{
+> >> +       int ret;
+> >> +
+> >> +       ret = blocking_notifier_chain_register_unique_prio(&power_off_handler_list, nb);
+> >> +       if (ret && ret != -EBUSY)
+> >> +               return ret;
+> >> +
+> >> +       if (!ret)
+> >> +               goto set_pm_power_off;
+> >> +
+> >> +       /*
+> >> +        * Handler must have unique priority. Otherwise call order is
+> >> +        * determined by registration order, which is unreliable.
+> >> +        *
+> >> +        * This requirement will become mandatory once all drivers
+> >> +        * will be converted to use new sys-off API.
+> >> +        */
+> >> +       pr_err("failed to register power-off handler using unique priority\n");
+> >> +
+> >> +       ret = blocking_notifier_chain_register(&power_off_handler_list, nb);
+> >> +       if (ret)
+> >> +               return ret;
+> >> +
+> >> +       /*
+> >> +        * Some drivers check whether pm_power_off was already installed.
+> >> +        * Install dummy callback using new API to preserve old behaviour
+> >> +        * for those drivers during period of transition to the new API.
+> >> +        */
+> >> +set_pm_power_off:
+> >> +       if (!pm_power_off) {
+> >> +               pm_power_off = dummy_pm_power_off;
+> >> +               pm_power_off_nb = nb;
+> >> +       }
+> >> +
+> >> +       return 0;
+> >> +}
+> >> +
+> >> +static int unregister_power_off_handler(struct notifier_block *nb)
+> >> +{
+> >> +       if (nb == pm_power_off_nb) {
+> >> +               if (pm_power_off == dummy_pm_power_off)
+> >> +                       pm_power_off = NULL;
+> >> +
+> >> +               pm_power_off_nb = NULL;
+> >> +       }
+> >> +
+> >> +       return blocking_notifier_chain_unregister(&power_off_handler_list, nb);
+> >> +}
+> >> +
+> >> +static void devm_unregister_power_off_handler(void *data)
+> >> +{
+> >> +       struct notifier_block *nb = data;
+> >> +
+> >> +       unregister_power_off_handler(nb);
+> >> +}
+> >> +
+> >> +static int devm_register_power_off_handler(struct device *dev,
+> >> +                                          struct notifier_block *nb)
+> >> +{
+> >> +       int err;
+> >> +
+> >> +       err = register_power_off_handler(nb);
+> >> +       if (err)
+> >> +               return err;
+> >> +
+> >> +       return devm_add_action_or_reset(dev, devm_unregister_power_off_handler,
+> >> +                                       nb);
+> >> +}
+> >> +
+> >> +static int sys_off_handler_power_off(struct notifier_block *nb,
+> >> +                                    unsigned long mode, void *unused)
+> >> +{
+> >> +       struct power_off_prep_data prep_data = {};
+> >> +       struct sys_off_handler_private_data *priv;
+> >> +       struct power_off_data data = {};
+> >> +       struct sys_off_handler *h;
+> >> +       int ret = NOTIFY_DONE;
+> >> +
+> >> +       priv = container_of(nb, struct sys_off_handler_private_data, power_off_nb);
+> >> +       h = container_of(priv, struct sys_off_handler, priv);
+> >> +       prep_data.cb_data = h->cb_data;
+> >> +       data.cb_data = h->cb_data;
+> >> +
+> >> +       switch (mode) {
+> >> +       case POWEROFF_NORMAL:
+> >> +               if (h->power_off_cb)
+> >> +                       h->power_off_cb(&data);
+> >> +
+> >> +               if (priv->simple_power_off_cb)
+> >> +                       priv->simple_power_off_cb(priv->simple_power_off_cb_data);
+> >> +
+> >> +               if (priv->platform_power_off_cb)
+> >> +                       priv->platform_power_off_cb();
+> >
+> > The invocation of the priv callbacks here confuses me quite a bit.
+> >
+> > Can you please at least add a comment explaining this?
+>
+> Sure
+>
+> >> +
+> >> +               if (!h->power_off_chaining_allowed)
+> >> +                       ret = NOTIFY_STOP;
+> >> +
+> >> +               break;
+> >> +
+> >> +       case POWEROFF_PREPARE:
+> >> +               if (h->power_off_prepare_cb)
+> >> +                       h->power_off_prepare_cb(&prep_data);
+> >> +
+> >> +               break;
+> >> +
+> >> +       default:
+> >> +               unreachable();
+> >> +       }
+> >> +
+> >> +       return ret;
+> >> +}
+> >> +
+> >> +static int sys_off_handler_restart(struct notifier_block *nb,
+> >> +                                  unsigned long mode, void *cmd)
+> >> +{
+> >> +       struct sys_off_handler_private_data *priv;
+> >> +       struct restart_data data = {};
+> >> +       struct sys_off_handler *h;
+> >> +
+> >> +       priv = container_of(nb, struct sys_off_handler_private_data, restart_nb);
+> >> +       h = container_of(priv, struct sys_off_handler, priv);
+> >> +
+> >> +       data.stop_chain = h->restart_chaining_disallowed;
+> >> +       data.cb_data = h->cb_data;
+> >> +       data.mode = mode;
+> >> +       data.cmd = cmd;
+> >> +
+> >> +       h->restart_cb(&data);
+> >
+> > Wouldn't it be a bit more straightforward to allow ->restart_cb() to
+> > return a value being either NOTIFY_STOP or NOTIFY_DONE?
+>
+> Vast majority of drivers don't use the 'stop_chain', hence it's
+> unnecessary boilerplate code for drivers. The code looks nicer without
+> the boilerplate "return NOTIFY_DONE", IMO.
+
+I don't really think that making the callback non-void would be a problem.
+
+> >> +       return data.stop_chain ? NOTIFY_STOP : NOTIFY_DONE;
+> >
+> > And I would prefer
+> >
+> > if (data.stop_chain)
+> >         return NOTIFY_STOP;
+> >
+> > return NOTIFY_DONE;
+>
+> Okay
+>
+> >> +}
+> >> +
+> >> +static int sys_off_handler_reboot(struct notifier_block *nb,
+> >> +                                 unsigned long mode, void *cmd)
+> >> +{
+> >> +       struct sys_off_handler_private_data *priv;
+> >> +       struct reboot_prep_data data = {};
+> >> +       struct sys_off_handler *h;
+> >> +
+> >> +       priv = container_of(nb, struct sys_off_handler_private_data, reboot_nb);
+> >> +       h = container_of(priv, struct sys_off_handler, priv);
+> >> +
+> >> +       data.cb_data = h->cb_data;
+> >> +       data.stop_chain = false;
+> >> +       data.mode = mode;
+> >> +       data.cmd = cmd;
+> >> +
+> >> +       h->reboot_prepare_cb(&data);
+> >> +
+> >> +       return data.stop_chain ? NOTIFY_STOP : NOTIFY_DONE;
+> >
+> > And analogously here.
+> >
+> >> +}
+> >> +
+> >> +static struct sys_off_handler_private_data *
+> >> +sys_off_handler_private_data(struct sys_off_handler *handler)
+> >> +{
+> >> +       return (struct sys_off_handler_private_data *)&handler->priv;
+> >
+> > Is the cast needed to avoid a warning about "const"?
+>
+> The private data is constant to prevent the API users from using it. For
+> internal use we need to cast out the "const". It's a compilation error
+> to change the constant members.
+
+Precisely.  And so it shouldn't be done in any way.
+
+> >> +}
+> >> +
+> >> +/**
+> >> + *     devm_register_sys_off_handler - Register system power-off/restart handler
+> >
+> > register_sys_off_handler
+>
+> Good catch!
+>
+> >> + *     @dev: Device that registers handler
+> >> + *     @handler: System-off handler
+> >> + *
+> >> + *     Registers handler that will be called as last step of the power-off
+> >> + *     and restart sequences.
+> >
+> > Not necessarily as the last step, because there may be other system
+> > power-off/restart handlers called after it.
+> >
+> > I would just say "at the end of the power-off and restart sequences".
+> >
+> > Moreover, it registers the "reboot_cb" part that is not called "at the
+> > end" even.
+> >
+> > Also, because this is the function that will be used by drivers etc to
+> > register handlers, I would give some more information on how the
+> > object registered by it is going to be used to the prospective users.
+>
+> I'll improve the description, thank you.
+>
+> >> + *
+> >> + *     Returns zero on success, or error code on failure.
+> >> + */
+> >> +int register_sys_off_handler(struct sys_off_handler *handler)
+> >> +{
+> >> +       struct sys_off_handler_private_data *priv;
+> >> +       int err, priority;
+> >> +
+> >> +       priv = sys_off_handler_private_data(handler);
+> >> +
+> >> +       /* sanity-check whether handler is registered twice */
+> >> +       if (priv->registered)
+> >> +               return -EBUSY;
+> >> +
+> >> +       if (handler->power_off_cb || handler->power_off_prepare_cb) {
+> >> +               if (handler->power_off_priority == POWEROFF_PRIO_RESERVED)
+> >> +                       priority = POWEROFF_PRIO_DEFAULT;
+> >
+> > I'm not sure that this helps.
+> >
+> > I mean, why can't the users of this new API pass POWEROFF_PRIO_DEFAULT
+> > directly if they want "default"?
+>
+> Users could pass POWEROFF_PRIO_DEFAULT, but it's a boilerplate code
+> which I wanted to avoid by reserving 0 for the alias to
+> POWEROFF_PRIO_DEFAULT=128.
+>
+> This removes a need from drivers to explicitly specify the default
+> priorities in the code, assuming that sys_off_handler is initialized to
+> zero.
+
+But the developers need to check whether or not they do the right
+thing anyway and so they will need to look at the code here to see
+whether or not it is OK to pass 0 and what happens then.  I'm not sure
+if I prefer this to the explicit "default".
+
+Or define POWEROFF_PRIO_DEFAULT as 0 and there will be nothing to worry about.
+
+> >> +               else
+> >> +                       priority = handler->power_off_priority;
+> >> +
+> >> +               priv->power_off_nb.notifier_call = sys_off_handler_power_off;
+> >> +               priv->power_off_nb.priority = priority;
+> >> +
+> >> +               err = register_power_off_handler(&priv->power_off_nb);
+> >> +               if (err)
+> >> +                       goto reset_sys_off_handler;
+> >> +       }
+> >> +
+> >> +       if (handler->restart_cb) {
+> >> +               if (handler->restart_priority == RESTART_PRIO_RESERVED)
+> >> +                       priority = RESTART_PRIO_DEFAULT;
+> >> +               else
+> >> +                       priority = handler->restart_priority;
+> >> +
+> >> +               priv->restart_nb.notifier_call = sys_off_handler_restart;
+> >> +               priv->restart_nb.priority = priority;
+> >> +
+> >> +               err = register_restart_handler(&priv->restart_nb);
+> >> +               if (err)
+> >> +                       goto unreg_power_off_handler;
+> >> +       }
+> >> +
+> >> +       if (handler->reboot_prepare_cb) {
+> >> +               priv->reboot_nb.notifier_call = sys_off_handler_reboot;
+> >> +               priv->reboot_nb.priority = handler->reboot_priority;
+> >> +
+> >> +               err = register_reboot_notifier(&priv->reboot_nb);
+> >> +               if (err)
+> >> +                       goto unreg_restart_handler;
+> >> +       }
+> >> +
+> >> +       priv->registered = true;
+> >> +
+> >> +       return 0;
+> >> +
+> >> +unreg_restart_handler:
+> >> +       if (handler->restart_cb)
+> >> +               unregister_restart_handler(&priv->restart_nb);
+> >> +
+> >> +unreg_power_off_handler:
+> >> +       if (handler->power_off_cb)
+> >> +               unregister_power_off_handler(&priv->power_off_nb);
+> >> +
+> >> +reset_sys_off_handler:
+> >> +       memset(priv, 0, sizeof(*priv));
+> >> +
+> >> +       return err;
+> >> +}
+> >> +EXPORT_SYMBOL(register_sys_off_handler);
+> >> +
+> >> +/**
+> >> + *     unregister_sys_off_handler - Unregister system power-off/restart handler
+> >> + *     @handler: System-off handler
+> >> + *
+> >> + *     Unregisters sys-off handler. Does nothing and returns zero if handler
+> >> + *     is NULL.
+> >> + *
+> >> + *     Returns zero on success, or error code on failure.
+> >> + */
+> >> +int unregister_sys_off_handler(struct sys_off_handler *handler)
+> >> +{
+> >> +       struct sys_off_handler_private_data *priv;
+> >> +
+> >> +       if (!handler)
+> >> +               return 0;
+> >> +
+> >> +       priv = sys_off_handler_private_data(handler);
+> >> +
+> >> +       /* sanity-check whether handler is unregistered twice */
+> >> +       if (!priv->registered)
+> >> +               return -EINVAL;
+> >> +
+> >> +       if (handler->reboot_prepare_cb)
+> >> +               unregister_reboot_notifier(&priv->reboot_nb);
+> >> +
+> >> +       if (handler->restart_cb)
+> >> +               unregister_restart_handler(&priv->restart_nb);
+> >> +
+> >> +       if (handler->power_off_cb)
+> >> +               unregister_power_off_handler(&priv->power_off_nb);
+> >> +
+> >> +       memset(priv, 0, sizeof(*priv));
+> >> +
+> >> +       return 0;
+> >> +}
+> >> +EXPORT_SYMBOL(unregister_sys_off_handler);
+> >> +
+> >> +static void devm_unregister_sys_off_handler(void *data)
+> >> +{
+> >> +       struct sys_off_handler *handler = data;
+> >> +
+> >> +       unregister_sys_off_handler(handler);
+> >> +}
+> >> +
+> >> +/**
+> >> + *     devm_register_sys_off_handler - Register system power-off/restart handler
+> >> + *     @dev: Device that registers handler
+> >> + *     @handler: System-off handler
+> >> + *
+> >> + *     Resource-managed variant of register_sys_off_handler().
+> >> + *
+> >> + *     Returns zero on success, or error code on failure.
+> >> + */
+> >> +int devm_register_sys_off_handler(struct device *dev,
+> >> +                                 struct sys_off_handler *handler)
+> >> +{
+> >> +       int err;
+> >> +
+> >> +       err = register_sys_off_handler(handler);
+> >> +       if (err)
+> >> +               return err;
+> >> +
+> >> +       return devm_add_action_or_reset(dev, devm_unregister_sys_off_handler,
+> >> +                                       handler);
+> >> +}
+> >> +EXPORT_SYMBOL(devm_register_sys_off_handler);
+> >> +
+> >> +/**
+> >> + *     devm_register_prioritized_power_off_handler - Register prioritized power-off callback
+> >> + *     @dev: Device that registers callback
+> >> + *     @priority: Callback's priority
+> >> + *     @callback: Callback function
+> >> + *     @cb_data: Callback's argument
+> >> + *
+> >> + *     Registers resource-managed power-off callback with a given priority.
+> >> + *     It will be called as last step of the power-off sequence. Callbacks
+> >> + *     chaining is disabled, i.e. further lower priority callbacks won't
+> >> + *     be executed if this @callback will fail to execute.
+> >> + *
+> >> + *     Returns zero on success, or error code on failure.
+> >
+> > What's the case in which this should be used instead of registering a
+> > full sys_off handler?
+>
+> There are a lot of drivers that just want to register power-off handler
+> with a non-default priority and don't need to stop the chain or do
+> anything else special. This is a convinient helper for them.
+>
+> Please note that the callback here takes only the cb_data for the
+> argument, while sys_off uses "struct power_off_data".
+>
+> Similar for the reset of the convinient helpers.
+
+So if there is a way to do this, why would anyone prefer to use the
+full sys_off handler at all?
+
+> ...
+> >> +/**
+> >> + *     register_platform_power_off - Register platform-level power-off callback
+> >> + *     @power_off: Power-off callback
+> >> + *
+> >> + *     Registers power-off callback that will be called as last step
+> >> + *     of the power-off sequence. This callback is expected to be invoked
+> >> + *     for the last resort. Further lower priority callbacks won't be
+> >> + *     executed if @power_off fails. Only one platform power-off callback
+> >> + *     is allowed to be registered at a time.
+> >> + *
+> >> + *     Returns zero on success, or error code on failure.
+> >
+> > What's the use case for this?
+>
+> There are dozens of trivial platform/board-specific power-off handlers
+> in the arch/ code. Those handlers don't take any arguments, hence it's a
+> convinient helper that transits them to the new API neatly.
+>
+> >> + */
+> >> +int register_platform_power_off(void (*power_off)(void))
+> >> +{
+> >> +       struct sys_off_handler_private_data *priv;
+> >> +       int ret = 0;
+> >> +
+> >> +       priv = sys_off_handler_private_data(&platform_power_off_handler);
+> >> +
+> >> +       spin_lock(&platform_power_off_lock);
+> >> +       if (priv->platform_power_off_cb)
+> >> +               ret = -EBUSY;
+> >> +       else
+> >> +               priv->platform_power_off_cb = power_off;
+> >
+> > Wasn't priv supposed to be const?
+>
+> It's const only for the external API users to prevent them from abusing
+> the internal data.
+
+So if this is not clear yet, I'm not going to let this go.
+
+> >> +       spin_unlock(&platform_power_off_lock);
+> >> +
+> >> +       if (ret)
+> >> +               return ret;
+> >> +
+> >> +       ret = register_power_off_handler(&priv->power_off_nb);
+> >> +       if (ret)
+> >> +               priv->platform_power_off_cb = NULL;
+> >> +
+> >> +       return ret;
+> >> +}
+> >> +EXPORT_SYMBOL_GPL(register_platform_power_off);
+> >> +
+> >> +/**
+> >> + *     unregister_platform_power_off - Unregister platform-level power-off callback
+> >> + *     @power_off: Power-off callback
+> >> + *
+> >> + *     Unregisters previously registered platform power-off callback.
+> >> + *
+> >> + *     Returns zero on success, or error code on failure.
+> >> + */
+> >> +int unregister_platform_power_off(void (*power_off)(void))
+> >> +{
+> >> +       struct sys_off_handler_private_data *priv;
+> >> +       int ret;
+> >> +
+> >> +       priv = sys_off_handler_private_data(&platform_power_off_handler);
+> >> +
+> >> +       if (priv->platform_power_off_cb != power_off)
+> >> +               return -EINVAL;
+> >> +
+> >> +       ret = unregister_power_off_handler(&priv->power_off_nb);
+> >> +       priv->platform_power_off_cb = NULL;
+> >> +
+> >> +       return ret;
+> >> +}
+> >> +EXPORT_SYMBOL_GPL(unregister_platform_power_off);
+> >> +
+> >> +/**
+> >> + *     do_kernel_power_off - Execute kernel power-off handler call chain
+> >> + *
+> >> + *     Calls functions registered with register_power_off_handler.
+> >> + *
+> >> + *     Expected to be called as last step of the power-off sequence.
+> >> + *
+> >> + *     Powers off the system immediately if a power-off handler function has
+> >> + *     been registered. Otherwise does nothing.
+> >> + */
+> >> +void do_kernel_power_off(void)
+> >> +{
+> >> +       /* legacy pm_power_off() is unchained and has highest priority */
+> >> +       if (pm_power_off && pm_power_off != dummy_pm_power_off)
+> >> +               return pm_power_off();
+> >> +
+> >> +       blocking_notifier_call_chain(&power_off_handler_list, POWEROFF_NORMAL,
+> >> +                                    NULL);
+> >> +}
+> >> +
+> >> +static void do_kernel_power_off_prepare(void)
+> >> +{
+> >> +       /* legacy pm_power_off_prepare() is unchained and has highest priority */
+> >> +       if (pm_power_off_prepare)
+> >> +               return pm_power_off_prepare();
+> >> +
+> >> +       blocking_notifier_call_chain(&power_off_handler_list, POWEROFF_PREPARE,
+> >> +                                    NULL);
+> >> +}
+> >> +
+> >>  /**
+> >>   *     kernel_power_off - power_off the system
+> >>   *
+> >> @@ -304,8 +893,7 @@ EXPORT_SYMBOL_GPL(kernel_halt);
+> >>  void kernel_power_off(void)
+> >>  {
+> >>         kernel_shutdown_prepare(SYSTEM_POWER_OFF);
+> >> -       if (pm_power_off_prepare)
+> >> -               pm_power_off_prepare();
+> >> +       do_kernel_power_off_prepare();
+> >>         migrate_to_reboot_cpu();
+> >>         syscore_shutdown();
+> >>         pr_emerg("Power down\n");
+> >> @@ -314,6 +902,16 @@ void kernel_power_off(void)
+> >>  }
+> >>  EXPORT_SYMBOL_GPL(kernel_power_off);
+> >>
+> >> +bool kernel_can_power_off(void)
+> >> +{
+> >> +       if (!pm_power_off &&
+> >> +           blocking_notifier_call_chain_is_empty(&power_off_handler_list))
+> >> +               return false;
+> >> +
+> >> +       return true;
+> >
+> > return pm_power_off ||
+> > blocking_notifier_call_chain_is_empty(&power_off_handler_list);
+>
+> Thank you for the thorough review!
+
+You're very welcome!
 
