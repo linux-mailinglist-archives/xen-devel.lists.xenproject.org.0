@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6425507DA9
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 02:35:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.308522.524292 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B556507DAF
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 02:40:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.308527.524303 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngyJ6-0001Q4-Vm; Wed, 20 Apr 2022 00:34:56 +0000
+	id 1ngyO6-0002jK-J9; Wed, 20 Apr 2022 00:40:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 308522.524292; Wed, 20 Apr 2022 00:34:56 +0000
+Received: by outflank-mailman (output) from mailman id 308527.524303; Wed, 20 Apr 2022 00:40:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngyJ6-0001O0-Sg; Wed, 20 Apr 2022 00:34:56 +0000
-Received: by outflank-mailman (input) for mailman id 308522;
- Wed, 20 Apr 2022 00:34:55 +0000
+	id 1ngyO6-0002i1-Fq; Wed, 20 Apr 2022 00:40:06 +0000
+Received: by outflank-mailman (input) for mailman id 308527;
+ Wed, 20 Apr 2022 00:40:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HBwa=U6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1ngyJ5-0001Nu-F9
- for xen-devel@lists.xenproject.org; Wed, 20 Apr 2022 00:34:55 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ id 1ngyO5-0002dl-FI
+ for xen-devel@lists.xenproject.org; Wed, 20 Apr 2022 00:40:05 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b258ad80-c041-11ec-a405-831a346695d4;
- Wed, 20 Apr 2022 02:34:54 +0200 (CEST)
+ id 6afdcca8-c042-11ec-a405-831a346695d4;
+ Wed, 20 Apr 2022 02:40:04 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 9BED1B811C7;
- Wed, 20 Apr 2022 00:34:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9548C385A7;
- Wed, 20 Apr 2022 00:34:51 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2B6DF6133F;
+ Wed, 20 Apr 2022 00:40:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0D76C385A7;
+ Wed, 20 Apr 2022 00:40:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,62 +43,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b258ad80-c041-11ec-a405-831a346695d4
+X-Inumbo-ID: 6afdcca8-c042-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1650414892;
-	bh=iRq8BXl9iMFT+K6WlY9Njhg/Dz0k3u7vlWsm6hS6vHs=;
+	s=k20201202; t=1650415202;
+	bh=K2FBWb/8nE/lrSgzAocZDyO2NmBIVVu0RX2Sv80eftE=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=D4Znh4nc2FtQ0RWdPtMVVElHDQanv0jzV6kykOdphWzAiYQudMwSJO+b1NW7PcRRl
-	 1/oLcM4fpyYqPdAiu+7hm6ZLfC4KbHcguzvGs3S04cfaGo8Osncc4WcE3XoDODTYQ8
-	 Y13Ev4aQ9/xFOeg/xHP4r4o8jFxpPvIbUmyvcjCom+SlEQGpxAurw3zTZH/Wokdpmo
-	 csDG9VcFZrhSFrbEg0+1QZGXmXN8nzTybCGr+DHaa3O0qs598FVuy9m3SrlqQjRuOZ
-	 PlHGrse8KPAozz8mQDAwqrXy2uq9G0Kp9Espp5zkhymvJiwjHTnKiY8egI7XQL3BR/
-	 4vUJvKLwpLXig==
-Date: Tue, 19 Apr 2022 17:34:51 -0700 (PDT)
+	b=ON4tfGIgtNrqxAAAoaI2XD3TCWE3jaAADV9GnNhEk68rY38NhpLmRvYjTDo/Y2H3k
+	 Wsy0dmK2LXspkv4+0w13Co8c5aTxD7em0joHaO6VQfYo8/7GRDKe2twpRcu5BN1vkk
+	 ZgRxLR5WM00eaHwoN5QrIuYYAYP8OzGcdNPJSHbCo0iXN/rPRZMwxhZPPbH+EOaSf6
+	 9YNqJKT9in5zv754tD+eV3lwDnO3c4/qpnnt5GiimPUvFfPPoA+AcZpsEoqaP1g7U1
+	 jV6cy4eJyY8O30H5pcZnp6cnAhMVxWuBc50JpcY1Xt5yrT+iKsmuAZItPS2qqvKwSx
+	 Eyn/1dpF6i1Yw==
+Date: Tue, 19 Apr 2022 17:40:01 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Michal Orzel <michal.orzel@arm.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH] xen/arm: Make use of DT_MATCH_TIMER in make_timer_node
-In-Reply-To: <c2030fd0-8aed-6a68-e275-77d22f972dfc@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2204191729120.915916@ubuntu-linux-20-04-desktop>
-References: <20220414095843.102305-1-michal.orzel@arm.com> <alpine.DEB.2.22.394.2204151609140.915916@ubuntu-linux-20-04-desktop> <c2030fd0-8aed-6a68-e275-77d22f972dfc@arm.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+cc: sstabellini@kernel.org, julien@xen.org, Volodymyr_Babchuk@epam.com, 
+    bertrand.marquis@arm.com, andrew.cooper3@citrix.com, 
+    george.dunlap@citrix.com, jbeulich@suse.com, wl@xen.org, 
+    xen-devel@lists.xenproject.org, van.freenix@gmail.com, 
+    michal.orzel@arm.com, Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH V6 0/2] xen/arm: add i.MX lpuart and i.MX8QM initial
+ support
+In-Reply-To: <20220419043927.23542-1-peng.fan@oss.nxp.com>
+Message-ID: <alpine.DEB.2.22.394.2204191739460.915916@ubuntu-linux-20-04-desktop>
+References: <20220419043927.23542-1-peng.fan@oss.nxp.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 19 Apr 2022, Michal Orzel wrote:
-> Hi Stefano,
+I committed both patches, thanks!
+
+On Tue, 19 Apr 2022, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
 > 
-> On 16.04.2022 01:10, Stefano Stabellini wrote:
-> > On Thu, 14 Apr 2022, Michal Orzel wrote:
-> >> DT_MATCH_TIMER stores the compatible timer ids and as such should be
-> >> used in all the places where we need to refer to them. make_timer_node
-> >> explicitly lists the same ids as the ones defined in DT_MATCH_TIMER so
-> >> make use of this macro instead.
-> >>
-> >> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
-> > 
-> > This is a good cleanup, thanks! time.h is not currently included by
-> > domain_build.c, I think we should add:
-> > 
-> > #include <asm/time.h>
-> > 
-> > to domain_build.c 
-> > 
-> asm/time.h is included by xen/time.h which is included by xen/irq.h.
-> That is why there is no build failure and the patch itself is correct.
+> V6:
+>  Fix a stale variable check per Stefano's comments.
 > 
-> Furthermore DT_MATCH_TIMER is already used in domain_build.c (handle_node)
-> together with other constructs like TIMER_PHYS_SECURE_PPI defined in asm/time.h.
-
-OK, fair point. We should disentangle the headers at some point but
-given that this patch is not making anything worse:
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-and committed
+> V5:
+>  Align code
+>  drop early_uart_init
+> 
+> V4:
+>  Wrong v3 version, some BIT definition are mixed in patch 1,2. 
+> 
+> V3:
+>  Addressed Michal's comments.
+>  Add Henry's T-b
+> 
+> V2:
+>  Per Julien's comments, fix coding style issue, drop unneeded code
+> 
+> Add i.MX lpuart driver and i.MX8QM platform support.
+>  - lpuart is the uart IP used in i.MX8QM/QXP/93.
+>  - Very basic i.MX8QM platform support.
+> 
+> Peng Fan (2):
+>   xen/arm: Add i.MX lpuart driver
+>   xen/arm: Add i.MX lpuart early printk support
+> 
+>  xen/arch/arm/Kconfig.debug              |  14 ++
+>  xen/arch/arm/arm64/debug-imx-lpuart.inc |  48 +++++
+>  xen/arch/arm/include/asm/imx-lpuart.h   |  64 ++++++
+>  xen/drivers/char/Kconfig                |   7 +
+>  xen/drivers/char/Makefile               |   1 +
+>  xen/drivers/char/imx-lpuart.c           | 275 ++++++++++++++++++++++++
+>  6 files changed, 409 insertions(+)
+>  create mode 100644 xen/arch/arm/arm64/debug-imx-lpuart.inc
+>  create mode 100644 xen/arch/arm/include/asm/imx-lpuart.h
+>  create mode 100644 xen/drivers/char/imx-lpuart.c
+> 
+> -- 
+> 2.35.1
+> 
 
