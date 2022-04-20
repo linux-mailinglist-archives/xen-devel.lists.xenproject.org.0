@@ -2,32 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E4AA508F80
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 20:32:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.309559.525895 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97A79508FA9
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 20:45:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.309564.525906 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhF7f-0006eJ-SN; Wed, 20 Apr 2022 18:32:15 +0000
+	id 1nhFJs-0008JK-Vc; Wed, 20 Apr 2022 18:44:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 309559.525895; Wed, 20 Apr 2022 18:32:15 +0000
+Received: by outflank-mailman (output) from mailman id 309564.525906; Wed, 20 Apr 2022 18:44:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhF7f-0006bL-OW; Wed, 20 Apr 2022 18:32:15 +0000
-Received: by outflank-mailman (input) for mailman id 309559;
- Wed, 20 Apr 2022 18:32:13 +0000
+	id 1nhFJs-0008Gc-Ri; Wed, 20 Apr 2022 18:44:52 +0000
+Received: by outflank-mailman (input) for mailman id 309564;
+ Wed, 20 Apr 2022 18:44:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oHj2=U6=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1nhF7W-0006aw-2N
- for xen-devel@lists.xenproject.org; Wed, 20 Apr 2022 18:32:13 +0000
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [2a00:1450:4864:20::22a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 29762ed7-c0d8-11ec-a405-831a346695d4;
- Wed, 20 Apr 2022 20:31:58 +0200 (CEST)
-Received: by mail-lj1-x22a.google.com with SMTP id o16so2927373ljp.3
- for <xen-devel@lists.xenproject.org>; Wed, 20 Apr 2022 11:31:58 -0700 (PDT)
+ <SRS0=tIrT=U6=oracle.com=boris.ostrovsky@srs-se1.protection.inumbo.net>)
+ id 1nhFJr-0008GV-Ea
+ for xen-devel@lists.xenproject.org; Wed, 20 Apr 2022 18:44:51 +0000
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f43eba40-c0d9-11ec-a405-831a346695d4;
+ Wed, 20 Apr 2022 20:44:49 +0200 (CEST)
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 23KGHllo020622; 
+ Wed, 20 Apr 2022 18:44:39 GMT
+Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3ffmd1a33f-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 20 Apr 2022 18:44:38 +0000
+Received: from pps.filterd
+ (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.16.1.2/8.16.1.2)
+ with SMTP id 23KIg9op038787; Wed, 20 Apr 2022 18:44:38 GMT
+Received: from nam12-mw2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12lp2047.outbound.protection.outlook.com [104.47.66.47])
+ by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com with ESMTP id
+ 3ffm87rwys-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 20 Apr 2022 18:44:37 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
+ by BN6PR10MB1298.namprd10.prod.outlook.com (2603:10b6:404:43::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14; Wed, 20 Apr
+ 2022 18:44:35 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::4455:2c02:503:a182]) by BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::4455:2c02:503:a182%8]) with mapi id 15.20.5186.014; Wed, 20 Apr 2022
+ 18:44:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,103 +63,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 29762ed7-c0d8-11ec-a405-831a346695d4
+X-Inumbo-ID: f43eba40-c0d9-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
+ subject : to : cc : references : from : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2021-07-09;
+ bh=mIgCx3qy+wGt5g+bKCz+mXdTduGa4CCdQN2W26eK25Q=;
+ b=kyQspdQrYjw+ur7K2GQQEr4ntUlibCXrPnDG2UuXaHGL/ebDuuoNgAsdPtpY5jR4JkA4
+ K5tb3AfEX8NrUYr0XkPkUUTq5xgyXDv/b/kGtRx2taW8m0Nqo0feTvuCePk1C4oZE3JJ
+ IR5vW3PcS+D/Q1MkvD1neexV4yJU5/8A6Dti0IxKdCLEk2oF0uS4y4s1Qd6r3av8yU6P
+ CewT2zzIrc4Fhgg9+vf3bVow6GqD1aR0xDrz6OqN/wZ/GwANhAecya4WbvsVbTRDfrb1
+ 7PkqlmgO5tCpK0+bkhlQr/l+b6k5BGmQvxjWdN5LED5spY0nSSlqmtbJOoVfWsTntRx4 XQ== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=a+lasMn6Hf+orNcQ4FZjRThhQA8GP+2opoEvIAbh4gEX3E79iL7qEnGgEenNH4mc2VafaNn8KPbR8qZjyXYYYN28ypwXZRr4lfkaVurO7m/sSmIeQ6R7yaACn7LXAvo+2KIzKGGo6G4/4w7GwW4OX5tyB5vYFcin7jHkIm2LAkFqVu7OK3frUkoD8RoSf+3dcVx0epW7gfE9TYv6Enb7lFTY4W64Rjw4UaiCOrv6Yh0udO5H3sRQl8aalaCQ/HucnaGt78FWqUMBdrfH/pmPJctn0y4cElaowldoaAEWgs51NkN0mzPWkQ38FwRTEq9DdaN65Uz7NEGBQZOo+uYY2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mIgCx3qy+wGt5g+bKCz+mXdTduGa4CCdQN2W26eK25Q=;
+ b=oXtOT8ju9HtXXNg+1j1HMHgm1d06Q//VtqwCT9wREK7HH3Qx58Tehj6KtVTtygk5GgqHpBM/ZNDck64vmRegjIAILXEtpmty3WohgsQ084RKaOIh0PN8CekFQ+5PVcbZGgG7LOliDJFoYZK5l5PHz/U51Dna6aZipYlUlMyXRF5veoNhZG5stqbKy7W6p7mLoe9154brMaFzlAgAYb9hgEBbspUkQY9iVeqhfcLKd0J+ZQOvhqIwcXySQS/rfwaOLbJ7/ZrM8YKTAwLMU8hzyfT4ySi1M7Pf+jR+58/0YcyumTfkTSr0buU8cM/0/mroPFvQBngOEZBlXFz8Ip7Cbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=+Uex363Ymu2/aIWQGUWWDZmYR1B14kPEYvn07kB6+6A=;
-        b=mMGet4nXFP8hqh7DiRVCLuRx/7WbKcCcie4WDB7JF/uhVM7ehVcoIe0fhkcJbUEDyE
-         bJ/WX4FZ/WlIegchNuGcMdv1YrssPw8vTfRnzFOfFBJtiN9Jag+adlbx5MYQKpl1bMHa
-         IiNTzcL6tfB0YJwDalzcLHD6pHynHm3WbJhBuViusWLDOGT5xoPcSRiTFxXC1aj7ZU9+
-         MAGh5Z+hUEHZdcFhjh5BJNUxWK92HwxG4X/LwhHARZFp6duizRt0eao2ES7T7N0Cfn9V
-         BW6hNgNzqwec43vUNc47pP7IUal1933Lf8UDIcjb1d2wCMgsZEc9VIqy+CJ4/IAkx0U+
-         q6rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=+Uex363Ymu2/aIWQGUWWDZmYR1B14kPEYvn07kB6+6A=;
-        b=PHflpTadiLncvkWIvVMvcNFIG7gCtgUxCngt9NmHxuvn/MPs72FbF4i2lRWqXdSVbC
-         vCQewWV1MCxcz9ItUfubqGvnnwqfsvg5Nn6RGLZWv7ZOJ/rcm9TNo7a3kZdLV4Vh1c6K
-         O5miFTJXgW/G4rzje7+Rvn62WFkJ60xrUIudlnQr+WUhIhUp5CLBcQ+3I462rvfDDisQ
-         /e3vCkSRn2xWar6J4kfyxYm/8gMMaaARYmWsPWTAgqpC4LMnYShSO8VtAuxBIJUGgGU2
-         zcuUrNK4264+YyReE91zTfsHwsSAxJNnJJL1YjkxgXYXMBlcOrBgxJ8eqGCGArjOQukd
-         FMsA==
-X-Gm-Message-State: AOAM533VckYvseWXbwv66bRxknVg97T0vi534zmLYn2COMLcLxtBcTx+
-	nGfdIbCEk6Zlvk9J5ioxSTHzBPUhjEKzy0IhJow=
-X-Google-Smtp-Source: ABdhPJwy514BkdjW/oFG+ptq7vneO01CI5rBVbXtREs+KElvaanyesVY8fpaRZVfuiSMSvZchNmyWs480oiaqZ8QNQw=
-X-Received: by 2002:a2e:9c02:0:b0:24d:bcbd:1c77 with SMTP id
- s2-20020a2e9c02000000b0024dbcbd1c77mr9570985lji.19.1650479517842; Wed, 20 Apr
- 2022 11:31:57 -0700 (PDT)
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mIgCx3qy+wGt5g+bKCz+mXdTduGa4CCdQN2W26eK25Q=;
+ b=xc1eAQudVCsIrjvG6Ff/mgXo8DCmgpI5bxoSXiMvkA5MckBvZGOKk9lcN7MMqwYiD4Trp7moR6xh74sEHPuWr/LWaZcHUTrsk5vys9x53yZoYJP0KL6+5FM1Q5V+UNGHm4nlVvcskWfcopOggJc97XB24zPZdWfOOVnNMOEjuBM=
+Message-ID: <0d5ae87a-be43-ce7c-57b2-4567bb7e9f4d@oracle.com>
+Date: Wed, 20 Apr 2022 14:44:31 -0400
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.8.0
+Subject: Re: [PATCH 09/18] xen/xenbus: add xenbus_setup_ring() service
+ function
+Content-Language: en-US
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+        linux-kernel@vger.kernel.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+References: <20220420150942.31235-1-jgross@suse.com>
+ <20220420150942.31235-10-jgross@suse.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+In-Reply-To: <20220420150942.31235-10-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR05CA0165.namprd05.prod.outlook.com
+ (2603:10b6:a03:339::20) To BLAPR10MB5009.namprd10.prod.outlook.com
+ (2603:10b6:208:321::10)
 MIME-Version: 1.0
-References: <20220420210407.18060-1-dpsmith@apertussolutions.com> <20220420210407.18060-2-dpsmith@apertussolutions.com>
-In-Reply-To: <20220420210407.18060-2-dpsmith@apertussolutions.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Wed, 20 Apr 2022 14:31:46 -0400
-Message-ID: <CAKf6xpsr_0m=tWMjVQsufxSJ52kz3QFzMJvVa0MEKLrtrVM9TQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] xsm: create idle domain privieged and demote after setup
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>, 
-	Scott Davis <scott.davis@starlab.io>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	George Dunlap <george.dunlap@citrix.com>, Dario Faggioli <dfaggioli@suse.com>, 
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: be03f60c-e93b-47ea-e95b-08da22fdd0fb
+X-MS-TrafficTypeDiagnostic: BN6PR10MB1298:EE_
+X-Microsoft-Antispam-PRVS: 
+	<BN6PR10MB12982BD7C83E4013F4DA04228AF59@BN6PR10MB1298.namprd10.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	6y/Y2txxb/33JdxPGJfgPzkbP3SkgPc07T5PShS48yL0LLAShAQwpWOUkOVUaAOEGlpufhMx2PWUHbzPib5v43WPf/TxzBhvfCj5aw7OllV6JfivBmRTpiHbkpQaQzl6WWAn782ldoDEQyY/uJSCu8D7CBiQdoCC0vq3rSWNalZGOxYrzoVe2bFbP5iqxWFypZrcIQ35MwYnwxYNLK7lXTCegGtzkxhCpLqxPHgbRzM7Fl+jYGPQZmVGNgQjd00Uk3P1wETkgKrvrrFNF5UMG283q9NNp3BIVH8VL4tmtXPZnOZyyeUqtEEyOXtyh3khpJmMZNlAXFj7A/1CDap0gIM+WohtZtd25eT6dM/HXT3Vnlop5LzIFcIuP7TkA654lDBmAmJmwjik8s9/Qq1mNJMmN+J0nM/h5PVum/sXw4VGE6hegDpv920cKDhXk1fOluEmDoOH/ouotTmLAORe2SBR8JdK2rXpBtWqPfZ7MR0ylAT/s+nlV9iPB/LQcd9Bmigcy2PzBkxqdGsjs9tjOmRwZ9nV168GFwFe8r0vJD7bihaNRmQjDHYCOWQD9+Do4WKfsXCdBNaVJ69sBklbXuAeuectyvzoYs6nD7m/WHwFDIScFYbmVESDmhoswg3SKAhqvXIagKfVbBzvAzVDFCajkYVPocsdydQGHO5awMzzfIN2sCjil9sJwWsSf1meNRoFggLSZGAlxOORqJAwg+RVaG/EDYqREXU98UtoSrFD0z2HsYbF3CerIBA+n+r1
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(6666004)(6512007)(2906002)(6506007)(31686004)(6486002)(36756003)(4326008)(86362001)(8936002)(8676002)(31696002)(508600001)(186003)(2616005)(53546011)(26005)(38100700002)(316002)(5660300002)(66946007)(44832011)(66556008)(66476007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?Ym12dVI2Y1hMMFhxK0lpYUp1Z3dLTGEwa3NNSUJ1ejAyeS9EVXRvcHVBTS9S?=
+ =?utf-8?B?ZUJQRStZRHZiZmFPczc4Qml4dFZwbGRwdUlseUVkTlhmWlYzVmtvOFZlVkZx?=
+ =?utf-8?B?enB6OVJ1Tng2Q05CU0VHa1VXS0FMQkhvQzJCUXFPQTZpcVRRTUd6cy9ZL0hr?=
+ =?utf-8?B?UW5kT1JXZXp2WnU1a0MzcEd2R2JHcXkyTlBrTVd2NEFVY3QzNitXL3RSNUcz?=
+ =?utf-8?B?b21Bbkpjd0phWWpLZFIwOTZFZGhJQy9aN2RPdStid3ZiNmdBWDcwKzZDUzgv?=
+ =?utf-8?B?d2JCS2RHNUhsQlNoNG9nOEdnRGJnelZpYzdlNk83YnJiZ1FtaHpZVjNLWWZP?=
+ =?utf-8?B?VGZ6TDlaVUQ4OGpvTmFRSGREUFQ2bU1KTktPUjluWDgwWnNSYVc3Uzc5aGlU?=
+ =?utf-8?B?THpER29wY0pPbUtyNndxQzVYWUF4aWVMRDR5Q3F2TDVYMTlTOVorUVAvblNr?=
+ =?utf-8?B?OWdpcjRFenpRMXZ1THJmcW1tVWF5VWh3SEgrR05PaTlPM3ZuU1pPd2RSaUxU?=
+ =?utf-8?B?Rk9rclZsdzRtYU94QXpzZlhRcHJKUXJIRkVNejd3eWRBajVRenJKbEFtTmcx?=
+ =?utf-8?B?enRmZ2VmN3c4cjJFMDg5TUp2YmZ2blZHa1NPa2ZoY3diWGUzcVEvM0dWYmxG?=
+ =?utf-8?B?QSthR0habmliN1VtUTd6K0xRQmhabExEUmg4U3JHaGNCOE9URWlUb0lmNnhZ?=
+ =?utf-8?B?M0FjTkJHakFDOFBUclNMcWw5ZFFJRUJaSzZxZUVaYml5bWNqVXg5NE56VExX?=
+ =?utf-8?B?SFZXUWRMYWNwN3kza3dQRytiM1RTL3QyVDFKSUluWnJuaVFLNHBRTStWWklO?=
+ =?utf-8?B?OXBsTjR1MDc2V0RYOVFsak5XQTZzWEJRd25zNlUxeExBaFFvaUVBdUx2OEcr?=
+ =?utf-8?B?MWZYUTNpc3YwcUhlSlRFdE1QZXdyeHk4WXJQZWxpSWZEeERpc3NBNXlsMmxM?=
+ =?utf-8?B?cUFWbnJYeTNGdWNGelBVUExRNlU1dzVDNlBTOG43cng1clQ0S0NDcXo5NFRn?=
+ =?utf-8?B?NkVNd0Z6MkVhbnVNMVJWTElheFFSdVFBODQyTmVRRGNKWVk4ZkMyQW1UL0dM?=
+ =?utf-8?B?TTZKa0pnaWIzOVZoRXZpUXhLWmxSZm9lbDYvOVVSaHNJWW9TbzdpTTYyaVNH?=
+ =?utf-8?B?a2R4UFlJWFNDbDBvajl1VEV2NytEUEM5Z3o5ZWFFaDlhYVYvYnI2LzlnMG00?=
+ =?utf-8?B?d2pndnJMbjYvSVlhQmZqTHFsc3FlMDV0QjBETE4wL3c0NXhwd3dQN2lqOEFD?=
+ =?utf-8?B?Z3FoamVLa1ZuWEhNWHFDQWlySUY3QWU1NHoyS0FqUDZCWnJSbDVFdzIyWGtI?=
+ =?utf-8?B?ZWxtWnlKZVF6cmtGZkE3YU9zd3I4MjZaRWNXZWl4TUxPQ0JZUDZoQzRxa3JH?=
+ =?utf-8?B?U25RbSs0KzR3R2NqVS90QjhQV2xCc2xWNVh5aWh3V1RBNnZmR2lMNHphMWpT?=
+ =?utf-8?B?R2VrRDF0S2lSdUNwdnZsNHBLTGdQUEdBcStDTVFMMHNxdGwvVEpVSU04TnMx?=
+ =?utf-8?B?RkZTMzlhZjRoVUZMc0NrU0NxTHRFYXRwMFR6dlF0WW12NU9mcjdJMHhNa2dh?=
+ =?utf-8?B?aDZqSGphQWd5NUFPeGxkVFgzSTVkRVJSdjk3b1ZxTWdrS1ZCMVgyRFIwcWJt?=
+ =?utf-8?B?OHRLU1BYUjR3eTh4aUh1RWhkc2dGSkZOMmluenVZVWV3UUNxWUxMUEg1T2dY?=
+ =?utf-8?B?R2hQMFZ6SUxyMlh4c1dUQldxS2htRWMzNk5jY3E1RnZ3YkNtSlM5YWxtZWJP?=
+ =?utf-8?B?S2xENHNpMDVtRW1mOGxPakZVVGJ2Wlo2cExLcDZNWnVYSmk2N0RnaiszK0FE?=
+ =?utf-8?B?aGlGU3VHRm10Y1p1WmMzd3VVZTZqSkJxaUVVWCswMkFpWEY5VmpoTnRuZGpO?=
+ =?utf-8?B?ZjFudnZPMWw1ZFZHbWNGWVpoTkpYSDNOMnk4Vy8yRnNsbnR1OVBvbGt5V20y?=
+ =?utf-8?B?ZlR4d0JMTXZTcHFWcUpNZWV3bUlKcjFPdUgwL01tbHhmVVVkdVdYWWc1dXFS?=
+ =?utf-8?B?elNXTWc5VWd2MXBjczAvbi81dWd4ZEtjY3pWR1dqaWdZUjR5NDdvNFI2OGpO?=
+ =?utf-8?B?L3d0QXkyZ2tqMHFXa1ptbFNmWFgzcTQ0UUZFS3FyY2JNUU1MdGxSME84dUc0?=
+ =?utf-8?B?YXcxcnNnUERlWWNkSUpWYkhYWmdEc2NlMnlVRlJBay9UenNYcWFySU4wUVNB?=
+ =?utf-8?B?dGo0TEdSYVpwUTRJY2F1UXdQNmZXY0RvR3V2N3NYSUcwQ1VjT2kvOXZvMTI3?=
+ =?utf-8?B?Kytaa3lmK3lxS0RoT0Y2cTFicjNvSmdYeUkyZlVYZmpxeTNGUStxeURXZUpD?=
+ =?utf-8?B?bHEyZjZJVUJuNGJURmkyTG9yZ3IyWlE2UC9LOC9HQWRFaEhwVVlzSjk4U0xz?=
+ =?utf-8?Q?dBC1Y13ur6yx7u5w=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: be03f60c-e93b-47ea-e95b-08da22fdd0fb
+X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2022 18:44:35.6305
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8k4Tpv0aYB2mfDatVOe+KiHEkY3kqg4I/kOarKpMqjl66+ceUpiMHaDQuvfuHd/+me4Ygyh8mwLyaD1wBZiychxssPJvKff1902bleT8JBQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR10MB1298
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.486,18.0.858
+ definitions=2022-04-20_05:2022-04-20,2022-04-20 signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0 adultscore=0
+ malwarescore=0 mlxlogscore=999 suspectscore=0 spamscore=0 bulkscore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2202240000 definitions=main-2204200110
+X-Proofpoint-ORIG-GUID: Xq-Lrdf6vHn9cHvuS_ocp4uWE9Xzpwg9
+X-Proofpoint-GUID: Xq-Lrdf6vHn9cHvuS_ocp4uWE9Xzpwg9
 
-On Wed, Apr 20, 2022 at 1:02 PM Daniel P. Smith
-<dpsmith@apertussolutions.com> wrote:
->
-> There are now instances where internal hypervisor logic needs to make resource
-> allocation calls that are protectd by XSM checks. The internal hypervisor logic
-> is represented a number of system domains which by designed are represented by
-> non-privileged struct domain instances. To enable these logic blocks to
-> function correctly but in a controlled manner, this commit changes the idle
-> domain to be created as a privileged domain under the default policy, which is
-> inherited by the SILO policy, and demoted before transitioning to running. A
-> new XSM hook, xsm_transition_running, is introduced to allow each XSM policy
-> type to demote the idle domain appropriately for that policy type.
->
-> For flask a stub is added to ensure that flask policy system will function
-> correctly with this patch until flask is extended with support for starting the
-> idle domain privileged and properly demoting it on the call to
-> xsm_transtion_running.
->
-> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-> ---
 
-> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> index 6f20e17892..72695dcb07 100644
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -621,6 +621,12 @@ static void noreturn init_done(void)
->      void *va;
->      unsigned long start, end;
->
-> +    xsm_transition_running();
+On 4/20/22 11:09 AM, Juergen Gross wrote:
+>   
+> +/*
+> + * xenbus_setup_ring
+> + * @dev: xenbus device
+> + * @vaddr: pointer to starting virtual address of the ring
+> + * @nr_pages: number of pages to be granted
+> + * @grefs: grant reference array to be filled in
+> + *
+> + * Allocate physically contiguous pages for a shared ring buffer and grant it
+> + * to the peer of the given device. The ring buffer is initially filled with
+> + * zeroes. The virtual address of the ring is stored at @vaddr and the
+> + * grant references are stored in the @grefs array. In case of error @vaddr
+> + * will be set to NULL and @grefs will be filled with INVALID_GRANT_REF.
+> + */
+> +int xenbus_setup_ring(struct xenbus_device *dev, gfp_t gfp, void **vaddr,
+> +		      unsigned int nr_pages, grant_ref_t *grefs)
+> +{
+> +	unsigned long ring_size = nr_pages * XEN_PAGE_SIZE;
+> +	unsigned int i;
+> +	int ret;
 > +
-> +    /* Ensure idle domain was not left privileged */
-> +    if ( current->domain->is_privileged )
-> +        panic("idle domain did not properly transition from setup privilege\n");
+> +	*vaddr = alloc_pages_exact(ring_size, gfp | __GFP_ZERO);
+> +	if (!*vaddr) {
+> +		ret = -ENOMEM;
+> +		goto err;
+> +	}
+> +
+> +	ret = xenbus_grant_ring(dev, *vaddr, nr_pages, grefs);
+> +	if (ret)
+> +		goto err;
+> +
+> +	return 0;
+> +
+> + err:
+> +	if (*vaddr)
+> +		free_pages_exact(*vaddr, ring_size);
+> +	for (i = 0; i < nr_pages; i++)
+> +		grefs[i] = INVALID_GRANT_REF;
+> +	*vaddr = NULL;
+> +
+> +	return ret;
+> +}
 
-Checking immediately after the XSM hook seems redundant, though I
-guess having a sanity check isn't harmful.
 
->  static void cf_check flask_domain_free_security(struct domain *d)
->  {
->      struct domain_security_struct *dsec = d->ssid;
-> @@ -1766,6 +1780,7 @@ static int cf_check flask_argo_send(
->  #endif
->
->  static const struct xsm_ops __initconst_cf_clobber flask_ops = {
-> +    .transition_running = flask_domain_runtime_security,
+We can create a wrapper around this function that will also call SHARED_RING_INIT() and FRONT_RING_INIT(). A bunch of drivers do that.
 
-I'd prefer flask_transition_running.  That way grep for the hook name
-also finds the flask implementation.
 
-Regards,
-Jason
+-boris
+
 
