@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21601508F0C
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 20:08:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.309551.525876 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E4AA508F80
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 20:32:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.309559.525895 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhEk5-0002j2-M9; Wed, 20 Apr 2022 18:07:53 +0000
+	id 1nhF7f-0006eJ-SN; Wed, 20 Apr 2022 18:32:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 309551.525876; Wed, 20 Apr 2022 18:07:53 +0000
+Received: by outflank-mailman (output) from mailman id 309559.525895; Wed, 20 Apr 2022 18:32:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhEk5-0002gv-IG; Wed, 20 Apr 2022 18:07:53 +0000
-Received: by outflank-mailman (input) for mailman id 309551;
- Wed, 20 Apr 2022 18:07:51 +0000
+	id 1nhF7f-0006bL-OW; Wed, 20 Apr 2022 18:32:15 +0000
+Received: by outflank-mailman (input) for mailman id 309559;
+ Wed, 20 Apr 2022 18:32:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=oHj2=U6=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1nhEk3-0002gm-SJ
- for xen-devel@lists.xenproject.org; Wed, 20 Apr 2022 18:07:51 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
+ id 1nhF7W-0006aw-2N
+ for xen-devel@lists.xenproject.org; Wed, 20 Apr 2022 18:32:13 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ca6305ce-c0d4-11ec-a405-831a346695d4;
- Wed, 20 Apr 2022 20:07:50 +0200 (CEST)
-Received: by mail-lj1-x22e.google.com with SMTP id q14so2819718ljc.12
- for <xen-devel@lists.xenproject.org>; Wed, 20 Apr 2022 11:07:50 -0700 (PDT)
+ id 29762ed7-c0d8-11ec-a405-831a346695d4;
+ Wed, 20 Apr 2022 20:31:58 +0200 (CEST)
+Received: by mail-lj1-x22a.google.com with SMTP id o16so2927373ljp.3
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Apr 2022 11:31:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,97 +39,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca6305ce-c0d4-11ec-a405-831a346695d4
+X-Inumbo-ID: 29762ed7-c0d8-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
          :cc;
-        bh=ZefzNMP2xUCwCKtwQAeTzLb3uVrLkvJxMgprBH62UZ4=;
-        b=jLlgx2f/ZRVcIZm4xsCqE2Kjbklu4dCw34zc+5hFOBbtXsx33lV/Liy5yZhk/qVwpE
-         /jpdht04fxkdW6QOR7a9LAXNTA8DuIPmPqi8v7c0ASvRn6R6BtF0Rih8kbwUnnIYQC0g
-         JfcAMkmWz3AAfCOl4JcFwoc2+N7kpMg0SodyW+WpckqmLV2t9nyQ+wFwcUPlHj4/rzfS
-         FD5SKdRNTwMA3vcuHriNvqYoyuU5JLtmJnivY+1G/SmjyELFaaRrOEu+jxNTRpyCEdcV
-         AwvLmwz6ltUBhb39rHzuCvJUGluIsaQ3F4CWH9SHc1ituCugO+2qjMWqlW2nqrP3X5SR
-         g1ug==
+        bh=+Uex363Ymu2/aIWQGUWWDZmYR1B14kPEYvn07kB6+6A=;
+        b=mMGet4nXFP8hqh7DiRVCLuRx/7WbKcCcie4WDB7JF/uhVM7ehVcoIe0fhkcJbUEDyE
+         bJ/WX4FZ/WlIegchNuGcMdv1YrssPw8vTfRnzFOfFBJtiN9Jag+adlbx5MYQKpl1bMHa
+         IiNTzcL6tfB0YJwDalzcLHD6pHynHm3WbJhBuViusWLDOGT5xoPcSRiTFxXC1aj7ZU9+
+         MAGh5Z+hUEHZdcFhjh5BJNUxWK92HwxG4X/LwhHARZFp6duizRt0eao2ES7T7N0Cfn9V
+         BW6hNgNzqwec43vUNc47pP7IUal1933Lf8UDIcjb1d2wCMgsZEc9VIqy+CJ4/IAkx0U+
+         q6rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc;
-        bh=ZefzNMP2xUCwCKtwQAeTzLb3uVrLkvJxMgprBH62UZ4=;
-        b=qAf7TwSbYOtkmzXBc1dQLvjgfJ9sxKCjY8B1gBXZXXvgtOG5YPfdhuTGnYMEB3mCHB
-         5tk5zOLaagnc1/LNNGZYYNwDY7X/myk/74yQGfSfrScI7obPPworwfDt0A4b4jc4XYxN
-         FpEYs50jzbo2iRWeMybULtOLnorb/wJeD8NQmB/6eu6JSBsupauk93ocpW8GWXvbKGIS
-         Wbx51BMhK7jw7TL9JH9l8DWEpCZj5BKgqm2xYrSuQ4S+0Lu1lJsXgmEz1judPu/zWWA9
-         oG4J9eIrPyBN1q+MY0VkLQhKCfr/17SnV/dGl2guKCWRk7bzrWRB4slHU2uqFADgPo0A
-         X67Q==
-X-Gm-Message-State: AOAM533Qjh+yX0muICzjmh8ut+imoz+/MpiAXg9BkED+dByNXYL8fvFF
-	7GVdSm3Ued8A6m9KnrpQ+BF6XiCjGx7JFDGteKc=
-X-Google-Smtp-Source: ABdhPJy0T85tV9T7j+l9fg1Fnk2oUlxepKw/ZgiogRIXXxCjO3U7OZSZglYRrW6eyobfr+8O0huUZpAa3plF1Jd1EGY=
-X-Received: by 2002:a05:651c:1204:b0:24e:e127:f509 with SMTP id
- i4-20020a05651c120400b0024ee127f509mr1482017lja.459.1650478069889; Wed, 20
- Apr 2022 11:07:49 -0700 (PDT)
+        bh=+Uex363Ymu2/aIWQGUWWDZmYR1B14kPEYvn07kB6+6A=;
+        b=PHflpTadiLncvkWIvVMvcNFIG7gCtgUxCngt9NmHxuvn/MPs72FbF4i2lRWqXdSVbC
+         vCQewWV1MCxcz9ItUfubqGvnnwqfsvg5Nn6RGLZWv7ZOJ/rcm9TNo7a3kZdLV4Vh1c6K
+         O5miFTJXgW/G4rzje7+Rvn62WFkJ60xrUIudlnQr+WUhIhUp5CLBcQ+3I462rvfDDisQ
+         /e3vCkSRn2xWar6J4kfyxYm/8gMMaaARYmWsPWTAgqpC4LMnYShSO8VtAuxBIJUGgGU2
+         zcuUrNK4264+YyReE91zTfsHwsSAxJNnJJL1YjkxgXYXMBlcOrBgxJ8eqGCGArjOQukd
+         FMsA==
+X-Gm-Message-State: AOAM533VckYvseWXbwv66bRxknVg97T0vi534zmLYn2COMLcLxtBcTx+
+	nGfdIbCEk6Zlvk9J5ioxSTHzBPUhjEKzy0IhJow=
+X-Google-Smtp-Source: ABdhPJwy514BkdjW/oFG+ptq7vneO01CI5rBVbXtREs+KElvaanyesVY8fpaRZVfuiSMSvZchNmyWs480oiaqZ8QNQw=
+X-Received: by 2002:a2e:9c02:0:b0:24d:bcbd:1c77 with SMTP id
+ s2-20020a2e9c02000000b0024dbcbd1c77mr9570985lji.19.1650479517842; Wed, 20 Apr
+ 2022 11:31:57 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220420210407.18060-1-dpsmith@apertussolutions.com> <20220420210407.18060-3-dpsmith@apertussolutions.com>
-In-Reply-To: <20220420210407.18060-3-dpsmith@apertussolutions.com>
+References: <20220420210407.18060-1-dpsmith@apertussolutions.com> <20220420210407.18060-2-dpsmith@apertussolutions.com>
+In-Reply-To: <20220420210407.18060-2-dpsmith@apertussolutions.com>
 From: Jason Andryuk <jandryuk@gmail.com>
-Date: Wed, 20 Apr 2022 14:07:37 -0400
-Message-ID: <CAKf6xptTqsL9wcP2n=-NBd9UtrCh=+XxzJgK3tGYpqUXQEDUAA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] flask: implement xsm_transtion_running
+Date: Wed, 20 Apr 2022 14:31:46 -0400
+Message-ID: <CAKf6xpsr_0m=tWMjVQsufxSJ52kz3QFzMJvVa0MEKLrtrVM9TQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] xsm: create idle domain privieged and demote after setup
 To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, Scott Davis <scott.davis@starlab.io>, 
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>, Wei Liu <wl@xen.org>, 
-	Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>, 
+	Scott Davis <scott.davis@starlab.io>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Dario Faggioli <dfaggioli@suse.com>, 
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>
 Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Apr 20, 2022 at 1:03 PM Daniel P. Smith
+On Wed, Apr 20, 2022 at 1:02 PM Daniel P. Smith
 <dpsmith@apertussolutions.com> wrote:
 >
-> This commit implements full support for starting the idle domain privileged by
-> introducing a new flask label xenboot_t which the idle domain is labeled with
-> at creation.  It then provides the implementation for the XSM hook
-> xsm_transition_running to relabel the idle domain to the existing xen_t flask
-> label.
+> There are now instances where internal hypervisor logic needs to make resource
+> allocation calls that are protectd by XSM checks. The internal hypervisor logic
+> is represented a number of system domains which by designed are represented by
+> non-privileged struct domain instances. To enable these logic blocks to
+> function correctly but in a controlled manner, this commit changes the idle
+> domain to be created as a privileged domain under the default policy, which is
+> inherited by the SILO policy, and demoted before transitioning to running. A
+> new XSM hook, xsm_transition_running, is introduced to allow each XSM policy
+> type to demote the idle domain appropriately for that policy type.
 >
-> In the reference flask policy a new macro, xen_build_domain(target), is
-> introduced for creating policies for dom0less/hyperlaunch allowing the
-> hypervisor to create and assign the necessary resources for domain
-> construction.
+> For flask a stub is added to ensure that flask policy system will function
+> correctly with this patch until flask is extended with support for starting the
+> idle domain privileged and properly demoting it on the call to
+> xsm_transtion_running.
 >
 > Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 > ---
 
-> @@ -188,6 +188,7 @@ static int cf_check flask_domain_alloc_security(struct domain *d)
+> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+> index 6f20e17892..72695dcb07 100644
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -621,6 +621,12 @@ static void noreturn init_done(void)
+>      void *va;
+>      unsigned long start, end;
 >
->  static void cf_check flask_domain_runtime_security(void)
->  {
-> +    struct domain_security_struct *dsec;
->      struct domain *d = current->domain;
->
->      if ( d->domain_id != DOMID_IDLE )
-> @@ -198,6 +199,9 @@ static void cf_check flask_domain_runtime_security(void)
->       * set to false for the consistency check(s) in the setup code.
->       */
->      d->is_privileged = false;
+> +    xsm_transition_running();
 > +
-> +    dsec = d->ssid;
-> +    dsec->sid = SECINITSID_XEN;
+> +    /* Ensure idle domain was not left privileged */
+> +    if ( current->domain->is_privileged )
+> +        panic("idle domain did not properly transition from setup privilege\n");
 
-I think you also want
-   dsec->self_sid = dsec->sid;
-so self also changes to xen_t.
+Checking immediately after the XSM hook seems redundant, though I
+guess having a sanity check isn't harmful.
 
-Otherwise I think it looks good,
+>  static void cf_check flask_domain_free_security(struct domain *d)
+>  {
+>      struct domain_security_struct *dsec = d->ssid;
+> @@ -1766,6 +1780,7 @@ static int cf_check flask_argo_send(
+>  #endif
+>
+>  static const struct xsm_ops __initconst_cf_clobber flask_ops = {
+> +    .transition_running = flask_domain_runtime_security,
 
-I was wondering if you were going to require xenboot_t -> xen_t
-permissions, but manually setting the sid fields side-steps that.
-That seems nicer than requiring policy rules for the transition.
-
-Hmmm, cross referencing other flask code, often after assigning
-self_sid there is this call to potentially re-calculate it:
-    security_transition_sid(dsec->sid, dsec->sid, SECCLASS_DOMAIN,
-&dsec->self_sid);
-
-But it isn't used for system domains, so omitting it seems fine.
+I'd prefer flask_transition_running.  That way grep for the hook name
+also finds the flask implementation.
 
 Regards,
 Jason
