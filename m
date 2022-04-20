@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10FC8508454
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 11:01:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.309028.525019 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E16B150847F
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 11:08:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.309034.525030 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nh6Ci-0007Hv-An; Wed, 20 Apr 2022 09:00:52 +0000
+	id 1nh6JN-0008F4-6M; Wed, 20 Apr 2022 09:07:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 309028.525019; Wed, 20 Apr 2022 09:00:52 +0000
+Received: by outflank-mailman (output) from mailman id 309034.525030; Wed, 20 Apr 2022 09:07:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nh6Ci-0007F6-6K; Wed, 20 Apr 2022 09:00:52 +0000
-Received: by outflank-mailman (input) for mailman id 309028;
- Wed, 20 Apr 2022 09:00:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nh6JN-0008CS-2j; Wed, 20 Apr 2022 09:07:45 +0000
+Received: by outflank-mailman (input) for mailman id 309034;
+ Wed, 20 Apr 2022 09:07:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+dnl=U6=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1nh6Cg-0007Ez-J1
- for xen-devel@lists.xenproject.org; Wed, 20 Apr 2022 09:00:50 +0000
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [2a00:1450:4864:20::236])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5fa1cc9d-c088-11ec-8fbf-03012f2f19d4;
- Wed, 20 Apr 2022 11:00:49 +0200 (CEST)
-Received: by mail-lj1-x236.google.com with SMTP id r18so1188223ljp.0
- for <xen-devel@lists.xenproject.org>; Wed, 20 Apr 2022 02:00:49 -0700 (PDT)
+ id 1nh6JM-0008CM-Db
+ for xen-devel@lists.xenproject.org; Wed, 20 Apr 2022 09:07:44 +0000
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [2a00:1450:4864:20::234])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5662f59f-c089-11ec-a405-831a346695d4;
+ Wed, 20 Apr 2022 11:07:43 +0200 (CEST)
+Received: by mail-lj1-x234.google.com with SMTP id q22so1147839ljh.10
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Apr 2022 02:07:43 -0700 (PDT)
 Received: from [192.168.1.7] ([212.22.223.21])
  by smtp.gmail.com with ESMTPSA id
- u26-20020ac25bda000000b0046d148d5297sm1758092lfn.184.2022.04.20.02.00.47
+ i6-20020a198c46000000b0044424910c94sm1769859lfj.113.2022.04.20.02.07.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Apr 2022 02:00:48 -0700 (PDT)
+ Wed, 20 Apr 2022 02:07:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,200 +44,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5fa1cc9d-c088-11ec-8fbf-03012f2f19d4
+X-Inumbo-ID: 5662f59f-c089-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=Mm9IQcuw8CPxlnkWpkD0I9Qiw/wRrYXHRKvtGwqprgE=;
-        b=ivPeTHCboPn/S32Q9aXG/tBBtObvdQeSvr/DgdMUDIhrTTfib7CWEy2WYHsLEr9EOf
-         0xK2WiO4YGqhyqhKwtPwAX/1kdQO55qX6J7g2fITpr1iYrtJ2JW3ou1h1hXtYdK2tU4B
-         +riA1kwnCAkNnb33yi92DSl4nbbNYGrJqztnB6M1royRBYqktgrJhvjnBXTdDeS07PPF
-         755BProbUFW+sTKxKArSRHQ+E6IrJxe7KcpYXlaMkdiIQOxUIbLCyVmaZNPRHUT6KiVJ
-         AsOc/Lh/YfcsaMeY1PS6r3TqGFJU/GQH7Oz9Q5Kdcn+fH1Z+OtKIVyEYmya04O5+3KDc
-         JLTQ==
+        bh=VXi3a4LAvsCbWNSOmsDTr1lU/ye1czT52j5wCJ6jh0k=;
+        b=mLpYNKvwsqkMj/9tqEWtjmDaTRCa4HcpozXSGctELTE3sR7hMg8trnf3KxBfebEcM/
+         c61BKLCbnL4g3NAu3hdyr5Lh6Pwu8m5Lf91doQ5z0yUMKWuHP+17WLuSRagVGRuX6pHG
+         ooFmSjBMSf2/2Tzg4Moxw4w1DhXlfsKDMu1pou63ZZwlNCuWTcMJLcwJ+z4C5Jzle5Q1
+         Sj1cLuvwIZ/IsXQA4mxDHqaTe+W6SKhCu14f8HVPElsJnWULkCOENfhNxpipx00zKiZI
+         jdmspV633O7L5xApNxojXTR7yN2h59a7nwq8RHtySwKlSz7seuCKYpZLjIAEb8BhCijN
+         Ng7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-transfer-encoding
          :content-language;
-        bh=Mm9IQcuw8CPxlnkWpkD0I9Qiw/wRrYXHRKvtGwqprgE=;
-        b=zm78QDLt6+mFLniXzSdySOf8NWQHw6Ypa6nbGLeAulAp4ZxiwAugjnrXhdd3WH8+SO
-         zT9kZs3TWUz4z+xH2zZUi38qsSrqnQfbZNrq1iXDDDRqEmIguPymlamtapNtFaTUkrfm
-         PdZLZjxcg+jcFtKOtwrg3/z6uvic8M1pbTy+lSSF/N5575+C65SPzhZfrmlSLqq9g7TM
-         ix90KopFHGz7ExdZ7cXdVjuL1fKubc9S7KQc4wCJ+6neW0zovx+Bz1g7Rj2TTF6ytcyM
-         9kDt7gGFi7sbuKv3lx0RIRFFZEHGGmdM6XEyXvd3sWrYob+Em2VJUPwRa9ID9NBq3N28
-         F6/w==
-X-Gm-Message-State: AOAM533ZEe19OzTq3ewq1VEahq3IPXHeiCML8c+7OnJCP0FDqF9NjCq5
-	e7T4ojCoK9oRdix0CpiptXM=
-X-Google-Smtp-Source: ABdhPJyQhZBI3AqCt87T7H2gP7s5E2mi3TolDMY1V1To6m/Pl28eDjChTAvh/qulD3kbDt9e/fVCoA==
-X-Received: by 2002:a2e:a552:0:b0:24d:c784:4b43 with SMTP id e18-20020a2ea552000000b0024dc7844b43mr4314706ljn.4.1650445248959;
-        Wed, 20 Apr 2022 02:00:48 -0700 (PDT)
-Subject: Re: [RFC PATCH 6/6] arm/xen: Assign xen-virtio DMA ops for virtio
- devices in Xen guests
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Juergen Gross <jgross@suse.com>
-Cc: Christoph Hellwig <hch@infradead.org>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Julien Grall <julien@xen.org>,
- "Michael S. Tsirkin" <mst@redhat.com>
-References: <1649963973-22879-1-git-send-email-olekstysh@gmail.com>
- <1649963973-22879-7-git-send-email-olekstysh@gmail.com>
- <alpine.DEB.2.22.394.2204151305050.915916@ubuntu-linux-20-04-desktop>
- <YlpdBHKT1bYzZe2e@infradead.org>
- <f879622e-5656-deb1-1930-f0cd180a4ab1@gmail.com>
- <alpine.DEB.2.22.394.2204181202080.915916@ubuntu-linux-20-04-desktop>
- <6a04cc34-fbb3-44d8-c1a4-03bda5b3deb1@gmail.com>
- <b68163be-ad43-7773-22ff-e83191886626@suse.com>
- <5afb9e61-4164-9cc9-278a-911fc21f4f6c@gmail.com>
- <alpine.DEB.2.22.394.2204191717020.915916@ubuntu-linux-20-04-desktop>
+        bh=VXi3a4LAvsCbWNSOmsDTr1lU/ye1czT52j5wCJ6jh0k=;
+        b=qABc31IxsOVFGmqt7MUu5+ExKAntumbGD3q23lT7tPCi7d5jtNotb7Mp6R34Vz/vmH
+         h8sORdrHnPDchS12TVzxktec4pbLp7WK/tMEtkyI35/Pr9F5FmNddWtGbMfgyoYVTTqe
+         0e2ugY7Zt7z8F1XnK+wnm+Jyo4Xfg0bJFnvP7FSC0Z7ahgeB5sw4uQltr9atjmHIWBB8
+         VzBh8s6tH+ZDvFE4JIaejDBbwkbdX3hDUs/DmLjInkn4ADLbHM4sjlHUj5244f5/TDTl
+         H8G2iDzWsvuxFMtHqMmqevkM1Z4fpWilI+7LCFok1Wrldo3uuoa4Pl75Vnbed8WNyAci
+         okFg==
+X-Gm-Message-State: AOAM532beMROkuDjtPSUhmUG7J6BNCcqcRKYwBxlzSSkdUtdjRbOGcPk
+	ooXQQFqrRP0TfYul3xD6P5I=
+X-Google-Smtp-Source: ABdhPJzXJZ/xW4yVeoivvUV+yOQs7loTQxajlY9+N7Kx5LKp8FfwFh63pX7EQY0tVlxQ9n3OawbYFQ==
+X-Received: by 2002:a05:651c:54c:b0:249:9d06:24ef with SMTP id q12-20020a05651c054c00b002499d0624efmr12464574ljp.331.1650445662989;
+        Wed, 20 Apr 2022 02:07:42 -0700 (PDT)
+Subject: Re: [PATCH V7 2/2] libxl: Introduce basic virtio-mmio support on Arm
+To: Henry Wang <Henry.Wang@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Julien Grall <Julien.Grall@arm.com>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Jiamei Xie <Jiamei.Xie@arm.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+References: <1649442065-8332-1-git-send-email-olekstysh@gmail.com>
+ <1649442065-8332-3-git-send-email-olekstysh@gmail.com>
+ <PA4PR08MB6253F275EE7374EA556A076B92F59@PA4PR08MB6253.eurprd08.prod.outlook.com>
 From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <7047c7a7-47a0-d446-3b99-94bd552ec90f@gmail.com>
-Date: Wed, 20 Apr 2022 12:00:47 +0300
+Message-ID: <bc5702e9-0476-b141-4039-6dafeadd6386@gmail.com>
+Date: Wed, 20 Apr 2022 12:07:41 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.22.394.2204191717020.915916@ubuntu-linux-20-04-desktop>
+In-Reply-To: <PA4PR08MB6253F275EE7374EA556A076B92F59@PA4PR08MB6253.eurprd08.prod.outlook.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 Content-Language: en-US
 
 
-Hello Stefano, Juergen
+On 20.04.22 08:20, Henry Wang wrote:
+> Hi Oleksandr,
+
+Hi Henry
 
 
-On 20.04.22 03:23, Stefano Stabellini wrote:
-> On Tue, 19 Apr 2022, Oleksandr wrote:
->> On 19.04.22 17:48, Juergen Gross wrote:
->>> On 19.04.22 14:17, Oleksandr wrote:
->>>> Hello Stefano, Juergen
->>>>
->>>>
->>>> On 18.04.22 22:11, Stefano Stabellini wrote:
->>>>> On Mon, 18 Apr 2022, Oleksandr wrote:
->>>>>> On 16.04.22 09:07, Christoph Hellwig wrote:
->>>>>>
->>>>>> Hello Christoph
->>>>>>
->>>>>>> On Fri, Apr 15, 2022 at 03:02:45PM -0700, Stefano Stabellini wrote:
->>>>>>>> This makes sense overall. Considering that the swiotlb-xen case
->>>>>>>> and the
->>>>>>>> virtio case are mutually exclusive, I would write it like this:
->>>>>>> Curious question:  Why can't the same grant scheme also be used for
->>>>>>> non-virtio devices?  I really hate having virtio hooks in the arch
->>>>>>> dma code.  Why can't Xen just say in DT/ACPI that grants can be used
->>>>>>> for a given device?
->>>>> [...]
->>>>>
->>>>>> This patch series tries to make things work with "virtio" devices in
->>>>>> Xen
->>>>>> system without introducing any modifications to code under
->>>>>> drivers/virtio.
->>>>> Actually, I think Christoph has a point.
->>>>>
->>>>> There is nothing inherently virtio specific in this patch series or in
->>>>> the "xen,dev-domid" device tree binding.
->>>>
->>>> Although the main intention of this series was to enable using virtio
->>>> devices in Xen guests, I agree that nothing in new DMA ops layer
->>>> (xen-virtio.c) is virtio specific (at least at the moment). Regarding the
->>>> whole patch series I am not quite sure, as it uses
->>>> arch_has_restricted_virtio_memory_access(). >
->>>>>    Assuming a given device is
->>>>> emulated by a Xen backend, it could be used with grants as well.
->>>>>
->>>>> For instance, we could provide an emulated e1000 NIC with a
->>>>> "xen,dev-domid" property in device tree. Linux could use grants with it
->>>>> and the backend could map the grants. It would work the same way as
->>>>> virtio-net/block/etc. Passthrough devices wouldn't have the
->>>>> "xen,dev-domid" property, so no problems.
->>>>>
->>>>> So I think we could easily generalize this work and expand it to any
->>>>> device. We just need to hook on the "xen,dev-domid" device tree
->>>>> property.
->>>>>
->>>>> I think it is just a matter of:
->>>>> - remove the "virtio,mmio" check from xen_is_virtio_device
->>>>> - rename xen_is_virtio_device to something more generic, like
->>>>>     xen_is_grants_device
->>> xen_is_grants_dma_device, please. Normal Xen PV devices are covered by
->>> grants, too, and I'd like to avoid the confusion arising from this.
->>
->> yes, this definitely makes sense as we need to distinguish
->>
->>
->>>
->>>>> - rename xen_virtio_setup_dma_ops to something more generic, like
->>>>>     xen_grants_setup_dma_ops
->>>>>
->>>>> And that's pretty much it.
->>>> + likely renaming everything in that patch series not to mention virtio
->>>> (mostly related to xen-virtio.c internals).
->>>>
->>>>
->>>> Stefano, thank you for clarifying Christoph's point.
->>>>
->>>> Well, I am not against going this direction. Could we please make a
->>>> decision on this? @Juergen, what is your opinion?
->>> Yes, why not.
->>
->> ok, thank you for confirming.
->>
->>
->>>
->>> Maybe rename xen-virtio.c to grant-dma.c?
->>
->> Personally I don't mind.
->>
->>
->>> I'd keep the XEN_VIRTIO related config option, as this will be the normal
->>> use
->>> case. grant-dma.c should be covered by a new hidden config option
->>> XEN_GRANT_DMA
->>> selected by XEN_VIRTIO.
->>
->> I got it, ok
->>
->>
->>>
->>> CONFIG_XEN_VIRTIO should still guard
->>> xen_has_restricted_virtio_memory_access().
->>
->> ok
->>
->>
->> So a few questions to clarify:
->>
->> 1. What is the best place to keep "xen,dev-domid" binding's description now? I
->> think that proposed in current series place
->> (Documentation/devicetree/bindings/virtio/) is not good fit now.
-> I would probably add it to the existing
-> Documentation/devicetree/bindings/arm/xen.txt.
 >
+>> -----Original Message-----
+>> From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+>> Subject: [PATCH V7 2/2] libxl: Introduce basic virtio-mmio support on Arm
+>>
+>> From: Julien Grall <julien.grall@arm.com>
+>>
+>> This patch introduces helpers to allocate Virtio MMIO params
+>> (IRQ and memory region) and create specific device node in
+>> the Guest device-tree with allocated params. In order to deal
+>> with multiple Virtio devices, reserve corresponding ranges.
+>> For now, we reserve 1MB for memory regions and 10 SPIs.
+>>
+>> As these helpers should be used for every Virtio device attached
+>> to the Guest, call them for Virtio disk(s).
+>>
+>> Please note, with statically allocated Virtio IRQs there is
+>> a risk of a clash with a physical IRQs of passthrough devices.
+>> For the first version, it's fine, but we should consider allocating
+>> the Virtio IRQs automatically. Thankfully, we know in advance which
+>> IRQs will be used for passthrough to be able to choose non-clashed
+>> ones.
+>>
+>> Signed-off-by: Julien Grall <julien.grall@arm.com>
+>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>> Tested-by: Jiamei Xie <Jiamei.xie@arm.com>
+>> Reviewed-by: Henry Wang <Henry.Wang@arm.com>
+>> ---
+>> @Jiamei, @Henry I decided to leave your T-b and R-b tags with the minor
+>> change I made, are you still happy with that?
+> Sorry for the late response, just checked the code and yes I am happy with
+> keeping my Reviewed-by. Thanks for your effort in rebasing the patch!
+
+
+Thank you for confirming! Note that I will have to drop tags for the 
+next version due to non-minor changes I am currently making to address 
+review comments.
+
+
 >
->> 2. I assume the logic in the current patch will remain the same, I mean we
->> will still assign Xen grant DMA ops from xen_setup_dma_ops() here?
-> Yes I think so
-
-
-Stefano, thank you for clarifying!
-
-
-Regarding new naming scheme...
-
-As there is an existing Kconfig option XEN_GRANT_DMA_ALLOC used for 
-different purpose, we need to clarify naming scheme here a bit to avoid 
-possible confusion.
-
-For example, I am happy with proposed by Juergen ...
-
-... Kconfig option: XEN_GRANT_DMA_OPS
-
-and
-
-... file: grant-dma-ops.c
-
+> Kind regards,
+> Henry
 
 -- 
 Regards,
