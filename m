@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECB6D507D44
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 01:44:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.308484.524238 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CDF8507D7B
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 02:13:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.308492.524248 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngxVQ-00019W-UW; Tue, 19 Apr 2022 23:43:36 +0000
+	id 1ngxyA-0005Pq-Dl; Wed, 20 Apr 2022 00:13:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 308484.524238; Tue, 19 Apr 2022 23:43:36 +0000
+Received: by outflank-mailman (output) from mailman id 308492.524248; Wed, 20 Apr 2022 00:13:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ngxVQ-00016J-R1; Tue, 19 Apr 2022 23:43:36 +0000
-Received: by outflank-mailman (input) for mailman id 308484;
- Tue, 19 Apr 2022 23:43:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ngxyA-0005Nd-Ay; Wed, 20 Apr 2022 00:13:18 +0000
+Received: by outflank-mailman (input) for mailman id 308492;
+ Wed, 20 Apr 2022 00:13:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RvD2=U5=gmail.com=eng.alaamohamedsoliman.am@srs-se1.protection.inumbo.net>)
- id 1ngxVP-00016D-B9
- for xen-devel@lists.xenproject.org; Tue, 19 Apr 2022 23:43:35 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 852d3d66-c03a-11ec-8fbf-03012f2f19d4;
- Wed, 20 Apr 2022 01:43:32 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id q3so23811775wrj.7
- for <xen-devel@lists.xenproject.org>; Tue, 19 Apr 2022 16:43:32 -0700 (PDT)
-Received: from alaa-emad ([102.41.109.205]) by smtp.gmail.com with ESMTPSA id
- x4-20020adfdd84000000b00207b60ed68esm13255849wrl.100.2022.04.19.16.43.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Apr 2022 16:43:31 -0700 (PDT)
+ <SRS0=HBwa=U6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1ngxy8-0005NX-Lm
+ for xen-devel@lists.xenproject.org; Wed, 20 Apr 2022 00:13:16 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ab5b812a-c03e-11ec-a405-831a346695d4;
+ Wed, 20 Apr 2022 02:13:14 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1B0E26130B;
+ Wed, 20 Apr 2022 00:13:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEFEFC385A7;
+ Wed, 20 Apr 2022 00:13:09 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,81 +43,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 852d3d66-c03a-11ec-8fbf-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=HKQLOdPaQ3Mw3cBSPXtTxWv22p46uaNKqi/2UnH+TaU=;
-        b=W+DL2plQDmeF6M+8AnbzgopnqINjz5xpZNqMbikOKgoHFPRR+2r5EWaHfQkEeeyh8Y
-         4x3B0Cqy4qQjSieeCV93kllUXHcH1UEDOyJ4H3wi3nGkncyyG69gMCxdhJrYyUgoMASs
-         byoRivqsbbPGEE5WgsXzZwjw4W9tp8cTrS2PGq8BAEhXE767YJOJn1HZSX0oG6fO7+gi
-         xLn3V8FkF2M8NwqWPNExwEjR/LxGIsYI7oaOyzgmVo32APXgz+OmYl1Y48HnpBXCupPQ
-         yXxgbu5sru6YT/MpEjkix0vIoBcBKYwhlN6gKA5aSrgKRu9UJZxn3uW2VAIeWPPrevdr
-         3hHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=HKQLOdPaQ3Mw3cBSPXtTxWv22p46uaNKqi/2UnH+TaU=;
-        b=d5CcPaOBbeKWhWdWpV2LD2ZqVKgD0e1bNjbd0nXIsLSmYYjjHtG767/x+iuAlYo06I
-         deAt+BIRdgS4MyB1Q0PkeKE+U6jhKBmY/ijYGBCoYVZdNasIkVknMae59bXwSU2nrhbE
-         4Y+4uleEdEDMUODQ74ZpqYRwpznudy1FGs0oimvagpzXLa3ygui5oE6fFGJyhCp616Ic
-         DLnZqF52wYQycOl/Ub9nARIDWuzto08SPLNrNC5AWOcXq8LcoqcQWcEBtSMBKcila6Rt
-         IvL5i9nJW6v5vJhbQycf4jMERZGqUHf0+yvTujOEcc4xlp4Pgj3r8+Jg7pyA9VEDkN4L
-         kMEQ==
-X-Gm-Message-State: AOAM532PCVkp6c1qxReOvGd/skMwLDnkqqtzFgeppwtda0jKillbOIG/
-	qZ2uW8PJHylkbPOYqQqFyqo=
-X-Google-Smtp-Source: ABdhPJwAIcFXMCqod1EDSxcxDLBq3kQdWuUNKRazc7JRrvo6vjc1W5NvWFPzXoUkm5DwO/gOBUTKUg==
-X-Received: by 2002:a5d:45ce:0:b0:207:9e7e:9a4b with SMTP id b14-20020a5d45ce000000b002079e7e9a4bmr13248177wrs.559.1650411811661;
-        Tue, 19 Apr 2022 16:43:31 -0700 (PDT)
-From: Alaa Mohamed <eng.alaamohamedsoliman.am@gmail.com>
-To: outreachy@lists.linux.dev
-Cc: boris.ostrovsky@oracle.com,
-	jgross@suse.com,
-	sstabellini@kernel.org,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org,
-	ira.weiny@intel.com,
-	eng.alaamohamedsoliman.am@gmail.com
-Subject: [PATCH v2] xen:  Convert kmap() to kmap_local_page()
-Date: Wed, 20 Apr 2022 01:43:28 +0200
-Message-Id: <20220419234328.10346-1-eng.alaamohamedsoliman.am@gmail.com>
-X-Mailer: git-send-email 2.35.2
+X-Inumbo-ID: ab5b812a-c03e-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1650413592;
+	bh=13XZdxnntjNGDo+tym68pISCyqOzumLbemYUC8PseRY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=jYIohIdv4SNyImYHqZh13OB3arIsnobjAq016ucb1NfnlcbUwEno8q78fwiGhoLOX
+	 kNnu8jvJxW7bRm413yfS2hH0CdK9RMFRzkNLv2X3zjQruFbeI7N8jVXdknS/bnMo8M
+	 z0BK7YSwlHMDu4FdunUIIwVY4AIMDCqrJJSDbkRuNo6Cyg42Uz+zQFXmdmE1gEoIKi
+	 BABiC5yJKjaEqlZbsp37aPXgy458LWP1cw1Y2FjvWHA1V0VXwKkdypUDw+dLYrFB71
+	 e2aCqSZzGYf5KyFkQkqzdi/dtGXKVm3TcI1fytVSQzVZZYYH79t2vb/YYSt088WnAX
+	 E3O3QbP/2qx7w==
+Date: Tue, 19 Apr 2022 17:13:09 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Oleksandr <olekstysh@gmail.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>, 
+    Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, 
+    Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Jiamei Xie <Jiamei.Xie@arm.com>, Henry Wang <Henry.Wang@arm.com>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: Re: [PATCH V7 2/2] libxl: Introduce basic virtio-mmio support on
+ Arm
+In-Reply-To: <6f2a970e-36b4-b2d4-a0ee-04f3ab31b985@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2204191712560.915916@ubuntu-linux-20-04-desktop>
+References: <1649442065-8332-1-git-send-email-olekstysh@gmail.com> <1649442065-8332-3-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.22.394.2204181417370.915916@ubuntu-linux-20-04-desktop> <6f2a970e-36b4-b2d4-a0ee-04f3ab31b985@gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="8323329-1890296696-1650413593=:915916"
 
-kmap() is being deprecated and these usages are all local to the thread
-so there is no reason kmap_local_page() can't be used.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Replace kmap() calls with kmap_local_page().
+--8323329-1890296696-1650413593=:915916
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-Signed-off-by: Alaa Mohamed <eng.alaamohamedsoliman.am@gmail.com>
----
-changes in V2:
-	-edit commit subject
-	-edit commit message
----
- drivers/xen/gntalloc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+On Tue, 19 Apr 2022, Oleksandr wrote:
+> On 19.04.22 00:41, Stefano Stabellini wrote:
+> Hello Stefano
+> 
+> > On Fri, 8 Apr 2022, Oleksandr Tyshchenko wrote:
+> > > From: Julien Grall <julien.grall@arm.com>
+> > > 
+> > > This patch introduces helpers to allocate Virtio MMIO params
+> > > (IRQ and memory region) and create specific device node in
+> > > the Guest device-tree with allocated params. In order to deal
+> > > with multiple Virtio devices, reserve corresponding ranges.
+> > > For now, we reserve 1MB for memory regions and 10 SPIs.
+> > > 
+> > > As these helpers should be used for every Virtio device attached
+> > > to the Guest, call them for Virtio disk(s).
+> > > 
+> > > Please note, with statically allocated Virtio IRQs there is
+> > > a risk of a clash with a physical IRQs of passthrough devices.
+> > > For the first version, it's fine, but we should consider allocating
+> > > the Virtio IRQs automatically. Thankfully, we know in advance which
+> > > IRQs will be used for passthrough to be able to choose non-clashed
+> > > ones.
+> > > 
+> > > Signed-off-by: Julien Grall <julien.grall@arm.com>
+> > > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> > > Tested-by: Jiamei Xie <Jiamei.xie@arm.com>
+> > > Reviewed-by: Henry Wang <Henry.Wang@arm.com>
+> > I realize that we are at v7 and I haven't reviewed this before, so I'll
+> > limit my comments. I'll clarify the ones that I think are more important
+> > from the one that are less important.
+> 
+> thank you
+> 
+> 
+> > 
+> > 
+> > > ---
+> > > @Jiamei, @Henry I decided to leave your T-b and R-b tags with the minor
+> > > change I made, are you still happy with that?
+> > > 
+> > > s/if (disk->virtio)/if (disk->protocol == LIBXL_DISK_PROTOCOL_VIRTIO_MMIO)
+> > > 
+> > > Please note, this is a split/cleanup/hardening of Julien's PoC:
+> > > "Add support for Guest IO forwarding to a device emulator"
+> > > 
+> > > Changes RFC -> V1:
+> > >     - was squashed with:
+> > >       "[RFC PATCH V1 09/12] libxl: Handle virtio-mmio irq in more correct
+> > > way"
+> > >       "[RFC PATCH V1 11/12] libxl: Insert "dma-coherent" property into
+> > > virtio-mmio device node"
+> > >       "[RFC PATCH V1 12/12] libxl: Fix duplicate memory node in DT"
+> > >     - move VirtIO MMIO #define-s to xen/include/public/arch-arm.h
+> > > 
+> > > Changes V1 -> V2:
+> > >     - update the author of a patch
+> > > 
+> > > Changes V2 -> V3:
+> > >     - no changes
+> > > 
+> > > Changes V3 -> V4:
+> > >     - no changes
+> > > 
+> > > Changes V4 -> V5:
+> > >     - split the changes, change the order of the patches
+> > >     - drop an extra "virtio" configuration option
+> > >     - update patch description
+> > >     - use CONTAINER_OF instead of own implementation
+> > >     - reserve ranges for Virtio MMIO params and put them
+> > >       in correct location
+> > >     - create helpers to allocate Virtio MMIO params, add
+> > >       corresponding sanity-сhecks
+> > >     - add comment why MMIO size 0x200 is chosen
+> > >     - update debug print
+> > >     - drop Wei's T-b
+> > > 
+> > > Changes V5 -> V6:
+> > >     - rebase on current staging
+> > > 
+> > > Changes V6 -> V7:
+> > >     - rebase on current staging
+> > >     - add T-b and R-b tags
+> > >     - update according to the recent changes to
+> > >       "libxl: Add support for Virtio disk configuration"
+> > > ---
+> > >   tools/libs/light/libxl_arm.c  | 131
+> > > +++++++++++++++++++++++++++++++++++++++++-
+> > >   xen/include/public/arch-arm.h |   7 +++
+> > >   2 files changed, 136 insertions(+), 2 deletions(-)
+> > > 
+> > > diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+> > > index eef1de0..8132a47 100644
+> > > --- a/tools/libs/light/libxl_arm.c
+> > > +++ b/tools/libs/light/libxl_arm.c
+> > > @@ -8,6 +8,56 @@
+> > >   #include <assert.h>
+> > >   #include <xen/device_tree_defs.h>
+> > >   +/*
+> > > + * There is no clear requirements for the total size of Virtio MMIO
+> > > region.
+> > > + * The size of control registers is 0x100 and device-specific
+> > > configuration
+> > > + * registers starts at the offset 0x100, however it's size depends on the
+> > > device
+> > > + * and the driver. Pick the biggest known size at the moment to cover
+> > > most
+> > > + * of the devices (also consider allowing the user to configure the size
+> > > via
+> > > + * config file for the one not conforming with the proposed value).
+> > > + */
+> > > +#define VIRTIO_MMIO_DEV_SIZE   xen_mk_ullong(0x200)
+> > Actually, I don't think we need to make this generic. We only support
+> > virtio-disk now and I think it is fine if this was called
+> > VIRTIO_DISK_MMIO_DEV_SIZE and the size was exactly the size needed by
+> > virtio-disk. When/if we support another virtio protocol we can add set
+> > the appropriate size of that one as well.
+> 
+> I would prefer if we keep this generic, although we are going to support
+> virtio-blk as the first virtio-mmio device, there is nothing disk specific in
+> that value. The same value (0x200) is used
+> by SW which also generates virtio-mmio device tree nodes like we do in Xen
+> libxl, I am speaking about kvmtool, Qemu here.
 
-diff --git a/drivers/xen/gntalloc.c b/drivers/xen/gntalloc.c
-index 4849f94372a4..55acb32842a3 100644
---- a/drivers/xen/gntalloc.c
-+++ b/drivers/xen/gntalloc.c
-@@ -178,9 +178,9 @@ static void __del_gref(struct gntalloc_gref *gref)
- 	unsigned long addr;
- 
- 	if (gref->notify.flags & UNMAP_NOTIFY_CLEAR_BYTE) {
--		uint8_t *tmp = kmap(gref->page);
-+		uint8_t *tmp = kmap_local_page(gref->page);
- 		tmp[gref->notify.pgoff] = 0;
--		kunmap(gref->page);
-+		kunmap_local(tmp);
- 	}
- 	if (gref->notify.flags & UNMAP_NOTIFY_SEND_EVENT) {
- 		notify_remote_via_evtchn(gref->notify.event);
--- 
-2.35.2
-
+OK
+--8323329-1890296696-1650413593=:915916--
 
