@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB677508C4F
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 17:38:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.309467.525744 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93CED508C9F
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Apr 2022 17:57:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.309473.525755 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhCPV-0003yx-Gy; Wed, 20 Apr 2022 15:38:29 +0000
+	id 1nhChr-0006mF-3d; Wed, 20 Apr 2022 15:57:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 309467.525744; Wed, 20 Apr 2022 15:38:29 +0000
+Received: by outflank-mailman (output) from mailman id 309473.525755; Wed, 20 Apr 2022 15:57:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhCPV-0003w3-D5; Wed, 20 Apr 2022 15:38:29 +0000
-Received: by outflank-mailman (input) for mailman id 309467;
- Wed, 20 Apr 2022 15:38:27 +0000
+	id 1nhChq-0006jD-W1; Wed, 20 Apr 2022 15:57:26 +0000
+Received: by outflank-mailman (input) for mailman id 309473;
+ Wed, 20 Apr 2022 15:57:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=aTZJ=U6=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nhCPT-0003vx-QM
- for xen-devel@lists.xenproject.org; Wed, 20 Apr 2022 15:38:27 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eb3a8993-c0bf-11ec-a405-831a346695d4;
- Wed, 20 Apr 2022 17:38:26 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5BBC81F380;
- Wed, 20 Apr 2022 15:38:26 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 30C2B13AD5;
- Wed, 20 Apr 2022 15:38:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id y7tpCvIoYGJqOQAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 20 Apr 2022 15:38:26 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=7E3+=U6=citrix.com=prvs=10247635a=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1nhCho-0006j7-RB
+ for xen-devel@lists.xenproject.org; Wed, 20 Apr 2022 15:57:24 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8f8fb64a-c0c2-11ec-a405-831a346695d4;
+ Wed, 20 Apr 2022 17:57:23 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,175 +36,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb3a8993-c0bf-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1650469106; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/pZusOKcqvv/exzu40WZnHGbpb5yQWBb4nm0puIF6fA=;
-	b=NBhagqJG1dSGTv5OC5kHZuaFOreInnt3W56D7YlYvqLPjl4eQemG2AjMJyhcpXyUIEpYzF
-	5NsRag2w5fAVWWihBMdmlb2m7m5MU0TQ9Icn3ZnFxCArwtGrm+ju1at9lbTa9qctKNbdON
-	pxTwJJk2y54ma/legkMZsa+nMksMBcA=
-Message-ID: <30e984cb-36e8-d28a-4a02-21e693eb647e@suse.com>
-Date: Wed, 20 Apr 2022 17:38:25 +0200
+X-Inumbo-ID: 8f8fb64a-c0c2-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1650470243;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=1s+jDJLjZkp14miwMVaWlVz5f1j3mQtfwGaoBi6XF1c=;
+  b=KfCy87xATwLUImt0jrfYZfdWCcFit/NE9tGPK+vrHaK7gAyoGPyFGOVT
+   peYG9K5IUyc3dkDvWZ3zC3rmQyTVNrEH7Mt7ZqkJG3w+Y73ZvlUDHoS7v
+   E0bpQoPaKb12y90KV8wYjgtRL5GtQHbAtqV3fqScOo38O4vkKthVLb8eu
+   s=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 68925659
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:q96m3qMk6iJcOwzvrR1El8FynXyQoLVcMsEvi/4bfWQNrUpz3z0Fy
+ 2ZLCjuOb/fZYmfyeYwibI3npkNQ75LRm4dgSgto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
+ ynLQoCYdKjYdleF+lH1dOKJQUBUjclkfJKlYAL/En03FFcMpBsJ00o5wbZl2NYw27BVPivW0
+ T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
+ 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Zk
+ txOtLyWdxcVAIrKmsEWcjBVTTBBBPgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
+ 7pCcmlLN03dwbLtqF64YrAEasALBc/nJo4A/FpnyinUF60OSpHfWaTao9Rf2V/cg+gQTaeEO
+ pREOFKDajzpTDJOY3Q+VakxkcO0g0jvQgF3uEya8P9fD2/7k1UqjemF3MDuUt6FX8JOhW6Du
+ 3nLuW/+B3kyFvaS1D6E+XKEnfLUkGXwX4d6PLe17OJwiVufgGkaEgQLVECTqOO8zEW5Xrp3F
+ UsQ/SY/qLkow2aiRNL9Qh6QrWaNu1gXXN84O/Yh9AiHx67Q4gCYLmsJVDhMbJohrsBebSwn0
+ BqFks3kARRrsaaJUjSN+7GMtzSwNCMJa2gYakcsTxYB4tTliJE+iFTIVNkLOLGxps34H3f32
+ T/ikcQlr+xN14hRjfz9pA2ZxWL3znTUcuIrzl/eXWOFyD1pWLCCYY6N4nny4KhRE7/MGzFto
+ 0M4s8SZ6ekPC7SEmyqMXPgBEdmV2hqVDNHPqQUxRsd8rlxB71bmJNkNu28meC+FJ+5eIVfUj
+ FnvVRS9DXO5FF+jdudJbo24EKzGJoCwRI2+Bpg4gjejC6WdlTNrHgkzPSZ8PEi3ySDAdJ3T3
+ r/BL66R4Y4yU/gP8dZPb751PUUX7i4/33jPYpvw0g6q17GTDFbMF+pdbAPUMr9mtvPYyOkwz
+ zq5H5Lbo/m4eLegChQ7DKZJdQxaRZTFLcyeRzNrmh6rfVM9RTBJ5w75yrI9YY1195m5Zc+Tl
+ kxRrnRwkQKl7VWecF3iQik6NNvHAMckxVpmbHNEALpd8yV6CWpZxPxHJ8VfkHhO3LEL8MOYu
+ NFcIpvbU6UTEGmfk9nfBLGkxLFfmN2QrVrmF0KYjPIXJfaMmyShFgfYQzbS
+IronPort-HdrOrdr: A9a23:BPNj3633t4d7XBeY8SRo5AqjBL4kLtp133Aq2lEZdPRUGvb3qy
+ nIpoV96faUskd0ZJhOo7C90cW7LU80lqQFhLX5X43SPzUO0VHAROoJgLcKqweQfREWndQ96U
+ 4PScdD4aXLfDpHsfo=
+X-IronPort-AV: E=Sophos;i="5.90,276,1643691600"; 
+   d="scan'208";a="68925659"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<George.Dunlap@eu.citrix.com>, Jan Beulich <JBeulich@suse.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
+	<julien@xen.org>, Juergen Gross <jgross@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>, Bertrand Marquis
+	<bertrand.marquis@arm.com>
+Subject: [PATCH RFC] x86: Fix XEN_DOMCTL_gdbsx_guestmemio crash
+Date: Wed, 20 Apr 2022 16:56:57 +0100
+Message-ID: <20220420155657.32506-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH v7 5/7] xen/cpupool: Don't allow removing cpu0 from
- cpupool0
-Content-Language: en-US
-To: Luca Fancellu <Luca.Fancellu@arm.com>,
- Xen developer discussion <xen-devel@lists.xenproject.org>
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- Dario Faggioli <dfaggioli@suse.com>, George Dunlap <george.dunlap@citrix.com>
-References: <20220411152101.17539-1-luca.fancellu@arm.com>
- <20220411152101.17539-6-luca.fancellu@arm.com>
- <214318DB-3359-4525-870F-0293EDDC32A6@arm.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <214318DB-3359-4525-870F-0293EDDC32A6@arm.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------LqDLEK2eEDkYYC3Fj0eyNnED"
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------LqDLEK2eEDkYYC3Fj0eyNnED
-Content-Type: multipart/mixed; boundary="------------Bh9g1TH3tJUfd28A0Vnm00Cf";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Luca Fancellu <Luca.Fancellu@arm.com>,
- Xen developer discussion <xen-devel@lists.xenproject.org>
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- Dario Faggioli <dfaggioli@suse.com>, George Dunlap <george.dunlap@citrix.com>
-Message-ID: <30e984cb-36e8-d28a-4a02-21e693eb647e@suse.com>
-Subject: Re: [PATCH v7 5/7] xen/cpupool: Don't allow removing cpu0 from
- cpupool0
-References: <20220411152101.17539-1-luca.fancellu@arm.com>
- <20220411152101.17539-6-luca.fancellu@arm.com>
- <214318DB-3359-4525-870F-0293EDDC32A6@arm.com>
-In-Reply-To: <214318DB-3359-4525-870F-0293EDDC32A6@arm.com>
+When CONFIG_GDBSX is compiled out, iommu_do_domctl() falls over a NULL
+pointer.  It isn't really correct for processing of XEN_DOMCTL_gdbsx_* to fall
+into the default case when compiled out.
 
---------------Bh9g1TH3tJUfd28A0Vnm00Cf
-Content-Type: multipart/mixed; boundary="------------mW3mwg9lG70kn5irFcmeWO93"
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: George Dunlap <George.Dunlap@eu.citrix.com>
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Wei Liu <wl@xen.org>
+CC: Julien Grall <julien@xen.org>
+CC: Juergen Gross <jgross@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>
 
---------------mW3mwg9lG70kn5irFcmeWO93
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+RFC, because this has implications across the codebase.  The tl;dr is that
+case FOO:'s shouldn't be compiled out; we still know what the subops are, even
+when the functionality is compiled out.
 
-T24gMjAuMDQuMjIgMTY6NTcsIEx1Y2EgRmFuY2VsbHUgd3JvdGU6DQo+IA0KPiANCj4+IE9u
-IDExIEFwciAyMDIyLCBhdCAxNjoyMCwgTHVjYSBGYW5jZWxsdSA8THVjYS5GYW5jZWxsdUBh
-cm0uY29tPiB3cm90ZToNCj4+DQo+PiBDcHUwIG11c3QgcmVtYWluIGluIGNwdXBvb2wwLCBv
-dGhlcndpc2Ugc29tZSBvcGVyYXRpb25zIGxpa2UgbW92aW5nIGNwdXMNCj4+IGJldHdlZW4g
-Y3B1cG9vbHMsIGNwdSBob3RwbHVnLCBkZXN0cm95aW5nIGNwdXBvb2xzLCBzaHV0ZG93biBv
-ZiB0aGUgaG9zdCwNCj4+IG1pZ2h0IG5vdCB3b3JrIGluIGEgc2FuZSB3YXkuDQo+Pg0KPj4g
-U2lnbmVkLW9mZi1ieTogTHVjYSBGYW5jZWxsdSA8bHVjYS5mYW5jZWxsdUBhcm0uY29tPg0K
-Pj4gLS0tDQo+PiBDaGFuZ2VzIGluIHY3Og0KPj4gLSBuZXcgcGF0Y2gNCj4+IC0tLQ0KPj4g
-eGVuL2NvbW1vbi9zY2hlZC9jcHVwb29sLmMgfCA4ICsrKysrKystDQo+PiAxIGZpbGUgY2hh
-bmdlZCwgNyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQo+Pg0KPj4gZGlmZiAtLWdp
-dCBhL3hlbi9jb21tb24vc2NoZWQvY3B1cG9vbC5jIGIveGVuL2NvbW1vbi9zY2hlZC9jcHVw
-b29sLmMNCj4+IGluZGV4IDg2YTE3NWY5OWNkNS4uMGE5M2JjYzYzMWJmIDEwMDY0NA0KPj4g
-LS0tIGEveGVuL2NvbW1vbi9zY2hlZC9jcHVwb29sLmMNCj4+ICsrKyBiL3hlbi9jb21tb24v
-c2NoZWQvY3B1cG9vbC5jDQo+PiBAQCAtNTcyLDYgKzU3Miw3IEBAIHN0YXRpYyBsb25nIGNm
-X2NoZWNrIGNwdXBvb2xfdW5hc3NpZ25fY3B1X2hlbHBlcih2b2lkICppbmZvKQ0KPj4gICAq
-IHBvc3NpYmxlIGZhaWx1cmVzOg0KPj4gICAqIC0gbGFzdCBjcHUgYW5kIHN0aWxsIGFjdGl2
-ZSBkb21haW5zIGluIGNwdXBvb2wNCj4+ICAgKiAtIGNwdSBqdXN0IGJlaW5nIHVucGx1Z2dl
-ZA0KPj4gKyAqIC0gQXR0ZW1wdCB0byByZW1vdmUgYm9vdCBjcHUgZnJvbSBjcHVwb29sMA0K
-Pj4gICAqLw0KPj4gc3RhdGljIGludCBjcHVwb29sX3VuYXNzaWduX2NwdShzdHJ1Y3QgY3B1
-cG9vbCAqYywgdW5zaWduZWQgaW50IGNwdSkNCj4+IHsNCj4+IEBAIC01ODIsNyArNTgzLDEy
-IEBAIHN0YXRpYyBpbnQgY3B1cG9vbF91bmFzc2lnbl9jcHUoc3RydWN0IGNwdXBvb2wgKmMs
-IHVuc2lnbmVkIGludCBjcHUpDQo+PiAgICAgIGRlYnVndHJhY2VfcHJpbnRrKCJjcHVwb29s
-X3VuYXNzaWduX2NwdShwb29sPSV1LGNwdT0lZClcbiIsDQo+PiAgICAgICAgICAgICAgICAg
-ICAgICAgIGMtPmNwdXBvb2xfaWQsIGNwdSk7DQo+Pg0KPj4gLSAgICBpZiAoICFjcHVfb25s
-aW5lKGNwdSkgKQ0KPj4gKyAgICAvKg0KPj4gKyAgICAgKiBDcHUwIG11c3QgcmVtYWluIGlu
-IGNwdXBvb2wwLCBvdGhlcndpc2Ugc29tZSBvcGVyYXRpb25zIGxpa2UgbW92aW5nIGNwdXMN
-Cj4+ICsgICAgICogYmV0d2VlbiBjcHVwb29scywgY3B1IGhvdHBsdWcsIGRlc3Ryb3lpbmcg
-Y3B1cG9vbHMsIHNodXRkb3duIG9mIHRoZSBob3N0LA0KPj4gKyAgICAgKiBtaWdodCBub3Qg
-d29yayBpbiBhIHNhbmUgd2F5Lg0KPj4gKyAgICAgKi8NCj4+ICsgICAgaWYgKCAoIWMtPmNw
-dXBvb2xfaWQgJiYgIWNwdSkgfHwgIWNwdV9vbmxpbmUoY3B1KSApDQo+PiAgICAgICAgICBy
-ZXR1cm4gLUVJTlZBTDsNCj4+DQo+PiAgICAgIG1hc3Rlcl9jcHUgPSBzY2hlZF9nZXRfcmVz
-b3VyY2VfY3B1KGNwdSk7DQo+PiAtLSANCj4+IDIuMTcuMQ0KPj4NCj4gDQo+IEhpLA0KPiAN
-Cj4gSeKAmW0gZ29pbmcgdG8gYWRkcmVzcyB0aGUgY29tbWVudCBvbiB0aGlzIHNlcmllIGJl
-Zm9yZSByZS1wdXNoaW5nIGl0LCBJIHNlZSB0aGVyZQ0KPiBhcmUgbm8gY29tbWVudHMgb24g
-dGhpcyBwYXRjaCwgc28gSeKAmW0gd29uZGVyaW5nLCB3aGVuIHlvdSBoYXZlIHRpbWUsIGlm
-IHlvdQ0KPiBjYW4gZ2l2ZSBtZSBzb21lIGZlZWRiYWNrIG9uIHRoaXMgb25lLg0KDQpTb3Jy
-eSwgSSBzZWVtIHRvIGhhdmUgbWlzc2VkIHRoaXMgb25lLg0KDQpSZXZpZXdlZC1ieTogSnVl
-cmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJnZW4NCg0K
---------------mW3mwg9lG70kn5irFcmeWO93
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+There are several ways to express this.  Alternatives would be:
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+    case XEN_DOMCTL_gdbsx_guestmemio:
+        if ( !IS_ENABLED(CONFIG_GDBSX) )
+        {
+            rc = -EOPNOTSUPP;
+            break;
+        }
+        ...;
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
-oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
-kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
-1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
-BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
-N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
-PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
-FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
-UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
-vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
-+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
-qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
-tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
-Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
-CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
-RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
-8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
-BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
-SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
-nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
-AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
-Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
-hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
-w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
-VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
-OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
-/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
-c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
-F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
-k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
-wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
-5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
-TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
-N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
-AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
-0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
-Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
-we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
-v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
-Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
-534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
-b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
-yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
-suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+but given my debugger series creating gdbsx.c, I was also considering:
 
---------------mW3mwg9lG70kn5irFcmeWO93--
+    case XEN_DOMCTL_gdbsx_guestmemio:
+    case XEN_DOMCTL_gdbsx_pausevcpu:
+    case XEN_DOMCTL_gdbsx_unpausevcpu:
+    case XEN_DOMCTL_gdbsx_domstatus:
+        rc = gdbsx_do_domctl(d, iop);
+        break;
 
---------------Bh9g1TH3tJUfd28A0Vnm00Cf--
+when I can rework the callers of domain_pause_for_debugger() slightly, at
+which point we can conditionally compile the gdbsx variables out struct
+domain/vcpu, which wouldn't be compatible with the first suggestion.
 
---------------LqDLEK2eEDkYYC3Fj0eyNnED
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Thoughts?
+---
+ xen/arch/x86/domctl.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/xen/arch/x86/domctl.c b/xen/arch/x86/domctl.c
+index a6aae500a30b..1faa5a49ff3c 100644
+--- a/xen/arch/x86/domctl.c
++++ b/xen/arch/x86/domctl.c
+@@ -890,7 +890,14 @@ long arch_do_domctl(
+         copyback = true;
+         break;
+     }
+-#endif
++#else /* CONFIG_GDBSX */
++    case XEN_DOMCTL_gdbsx_guestmemio:
++    case XEN_DOMCTL_gdbsx_pausevcpu:
++    case XEN_DOMCTL_gdbsx_unpausevcpu:
++    case XEN_DOMCTL_gdbsx_domstatus:
++        rc = -EOPNOTSUPP;
++        break;
++#endif /* CONFIG_GDBSX */
+ 
+     case XEN_DOMCTL_setvcpuextstate:
+     case XEN_DOMCTL_getvcpuextstate:
+-- 
+2.11.0
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmJgKPEFAwAAAAAACgkQsN6d1ii/Ey99
-uAf9Gvwv2J5YK90YvDDRpA9Alvl4RhXGXHrSJVZToB4qL6Tl1P15tF4CsyMsRC1JdJ8SfIMsqfJJ
-OBjRcXwgoCIiIRdBjqMLQ+8eEHXGl5WytZhNZ1yQiedmmxpp99Ak71AE+L8B5ku9O7xajtEjLA7o
-mTpGCrHPMwTH4D3F2cX0s1uAk0y1Lc95jguHb1GHa5xANBPVnVFK4XJfCsptNgAghsVgiWu/6+Na
-zO6/O+q89rV15LmuLlyXQioeSohTyuEvpXr0X/Km77//S9i++fyj7Y8oWXHoENTkS3Bt2vskFaO0
-4BVL/DYZctY2SGc1HmnLKGi+/tkghK9ZzzLziVgUeA==
-=BLZI
------END PGP SIGNATURE-----
-
---------------LqDLEK2eEDkYYC3Fj0eyNnED--
 
