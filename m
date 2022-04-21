@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04378509427
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Apr 2022 02:25:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.309707.526149 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44A8550942C
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Apr 2022 02:30:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.309714.526160 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhKdm-0008Ju-5O; Thu, 21 Apr 2022 00:25:46 +0000
+	id 1nhKiD-0001L5-N7; Thu, 21 Apr 2022 00:30:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 309707.526149; Thu, 21 Apr 2022 00:25:46 +0000
+Received: by outflank-mailman (output) from mailman id 309714.526160; Thu, 21 Apr 2022 00:30:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhKdm-0008Hl-1j; Thu, 21 Apr 2022 00:25:46 +0000
-Received: by outflank-mailman (input) for mailman id 309707;
- Thu, 21 Apr 2022 00:25:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nhKiD-0001Ig-JZ; Thu, 21 Apr 2022 00:30:21 +0000
+Received: by outflank-mailman (input) for mailman id 309714;
+ Thu, 21 Apr 2022 00:30:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=45zg=U7=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nhKdl-0008HX-DI
- for xen-devel@lists.xenproject.org; Thu, 21 Apr 2022 00:25:45 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 94723bef-c109-11ec-8fbf-03012f2f19d4;
- Thu, 21 Apr 2022 02:25:44 +0200 (CEST)
+ id 1nhKiC-0001Ia-Qw
+ for xen-devel@lists.xenproject.org; Thu, 21 Apr 2022 00:30:20 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 39429bf7-c10a-11ec-a405-831a346695d4;
+ Thu, 21 Apr 2022 02:30:19 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6CC0461B65;
- Thu, 21 Apr 2022 00:25:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D4D0C385A1;
- Thu, 21 Apr 2022 00:25:41 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 55219B82239;
+ Thu, 21 Apr 2022 00:30:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A137C385A0;
+ Thu, 21 Apr 2022 00:30:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,18 +43,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94723bef-c109-11ec-8fbf-03012f2f19d4
+X-Inumbo-ID: 39429bf7-c10a-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1650500741;
-	bh=F5z1Sq5i0vA2eHARyKF/bte/6EWjDK59RP6Y9XTCLHI=;
+	s=k20201202; t=1650501017;
+	bh=Yvmw5PHMhlY0F2tFAujdl+1NQEj9T2rDNEyfu7S1j+4=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=NUZlATHTgvt9jsYfKIL/fUeBncEPYaIQq9mneEBIkbvPog5rwjRtwOGkgK3xaLf8p
-	 4m+8EVjWBTFFQQ64rPKKei4w/rQpbtN3Lc9axdcq5W07aBHbcAFnDieWR3MX0pkZJl
-	 J9+SR1VAf+zL9UYlVY6Zv+95L1zAlaM0WeH4Y8m8ahjYaJuPwhJJQD2TVbKw9Botgy
-	 W13SYXll4SXdlzU0o7f+k01AAD5v2JGMzWxXHqQXr3JWEUnFYsuDAI4XTnUp13NdJU
-	 SGJHm157TGcLYgEMz/UKbF2W/607a35elbQXThqnrzk1PIa+GKl2fA1tnTN3pkfRV/
-	 iOM3rDtu1VpQQ==
-Date: Wed, 20 Apr 2022 17:25:41 -0700 (PDT)
+	b=RX6eUHm+8GXgQ7pWkMXbtP1RJ37VGYqLmtfyDhuNfM3RPVuAhKpuyEoiCJwALxkK6
+	 Bj+v+AoESa/4haDpoGB2G2z8gLfAIfpBecGPSXQuw96N4dmsMk3b4GUhtJLmgEbJ3M
+	 USLHFvnZw1swpHjJohWoA03SIZ9OiQRT1CCeP31ulak2I847yrs5w3bQ+ZLO+BFMWH
+	 Ml4Ks3SC7YeGpTsKjV1viMQO3sYBj7tZikq139/ej3o2T6KsN6pAp9+uOX4uhqYGkP
+	 V0KvM6ulHevER+WUO9lPGeod0yKIiZSLGP4W5DWqDDfTRCGtX2Egm9pG9jBgMPrjcV
+	 MXQ6TvIH3r82A==
+Date: Wed, 20 Apr 2022 17:30:17 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Wei Chen <wei.chen@arm.com>
@@ -63,100 +62,113 @@ cc: xen-devel@lists.xenproject.org, nd@arm.com,
     Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
     Bertrand Marquis <bertrand.marquis@arm.com>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v2 03/10] xen/arm: add CONFIG_ARM_EFI to stub EFI API
-In-Reply-To: <20220418090735.3940393-4-wei.chen@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2204201724430.915916@ubuntu-linux-20-04-desktop>
-References: <20220418090735.3940393-1-wei.chen@arm.com> <20220418090735.3940393-4-wei.chen@arm.com>
+Subject: Re: [PATCH v2 04/10] xen/arm: Keep memory nodes in device tree when
+ Xen boots from EFI
+In-Reply-To: <20220418090735.3940393-5-wei.chen@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2204201728560.915916@ubuntu-linux-20-04-desktop>
+References: <20220418090735.3940393-1-wei.chen@arm.com> <20220418090735.3940393-5-wei.chen@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Mon, 18 Apr 2022, Wei Chen wrote:
-> x86 is using compiler feature testing to decide EFI
-> build enable or not. When EFI build is disabled, x86
-> will use a efi/stub.c file to replace efi/runtime.c
-> for build objects. Following this idea, we introduce
-> a stub file for Arm, but use CONFIG_ARM_EFI to decide
-> EFI build enable or not.
+> In current code, when Xen is booting from EFI, it will delete
+> all memory nodes in device tree. This would work well in current
+> stage, because Xen can get memory map from EFI system table.
+> However, EFI system table cannot completely replace memory nodes
+> of device tree. EFI system table doesn't contain memory NUMA
+> information. Xen depends on ACPI SRAT or device tree memory nodes
+> to parse memory blocks' NUMA mapping. So in EFI + DTB boot, Xen
+> doesn't have any method to get numa-node-id for memory blocks any
+> more. This makes device tree based NUMA support become impossible
+> for Xen in EFI + DTB boot.
+> 
+> So in this patch, we will keep memory nodes in device tree for
+> NUMA code to parse memory numa-node-id later.
+> 
+> As a side effect, if we still parse boot memory information in
+> early_scan_node, bootmem.info will calculate memory ranges in
+> memory nodes twice. So we have to prevent early_scan_node to
+> parse memory nodes in EFI boot.
 > 
 > Signed-off-by: Wei Chen <wei.chen@arm.com>
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
 > ---
 > v1 -> v2:
-> 1. Use CONFIG_ARM_EFI to replace CONFIG_EFI
-> 2. Remove help text and make CONFIG_ARM_EFI invisible.
-> 3. Merge one following patch:
->    xen/arm: introduce a stub file for non-EFI architectures
-> 4. Use the common stub.c instead of creating new one.
+> 1. Move this patch from later to early of this series.
+> 2. Refine commit message.
 > ---
->  xen/arch/arm/Kconfig      | 5 +++++
->  xen/arch/arm/Makefile     | 2 +-
->  xen/arch/arm/efi/Makefile | 5 +++++
->  3 files changed, 11 insertions(+), 1 deletion(-)
+>  xen/arch/arm/bootfdt.c      |  8 +++++++-
+>  xen/arch/arm/efi/efi-boot.h | 25 -------------------------
+>  2 files changed, 7 insertions(+), 26 deletions(-)
 > 
-> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-> index ecfa6822e4..5f1b0121b0 100644
-> --- a/xen/arch/arm/Kconfig
-> +++ b/xen/arch/arm/Kconfig
-> @@ -6,6 +6,7 @@ config ARM_64
->  	def_bool y
->  	depends on !ARM_32
->  	select 64BIT
-> +	select ARM_EFI
->  	select HAS_FAST_MULTIPLY
+> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+> index e318ef9603..78e10c6ebc 100644
+> --- a/xen/arch/arm/bootfdt.c
+> +++ b/xen/arch/arm/bootfdt.c
+> @@ -11,6 +11,7 @@
+>  #include <xen/lib.h>
+>  #include <xen/kernel.h>
+>  #include <xen/init.h>
+> +#include <xen/efi.h>
+>  #include <xen/device_tree.h>
+>  #include <xen/libfdt/libfdt.h>
+>  #include <xen/sort.h>
+> @@ -370,7 +371,12 @@ static int __init early_scan_node(const void *fdt,
+>  {
+>      int rc = 0;
 >  
->  config ARM
-> @@ -33,6 +34,10 @@ config ACPI
->  	  Advanced Configuration and Power Interface (ACPI) support for Xen is
->  	  an alternative to device tree on ARM64.
+> -    if ( device_tree_node_matches(fdt, node, "memory") )
+> +    /*
+> +     * If Xen has been booted via UEFI, the memory banks are
+> +     * populated. So we should skip the parsing.
+> +     */
+> +    if ( !efi_enabled(EFI_BOOT) &&
+> +         device_tree_node_matches(fdt, node, "memory") )
+>          rc = process_memory_node(fdt, node, name, depth,
+>                                   address_cells, size_cells, &bootinfo.mem);
+>      else if ( depth == 1 && !dt_node_cmp(name, "reserved-memory") )
+> diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
+> index e452b687d8..59d93c24a1 100644
+> --- a/xen/arch/arm/efi/efi-boot.h
+> +++ b/xen/arch/arm/efi/efi-boot.h
+> @@ -231,33 +231,8 @@ EFI_STATUS __init fdt_add_uefi_nodes(EFI_SYSTEM_TABLE *sys_table,
+>      int status;
+>      u32 fdt_val32;
+>      u64 fdt_val64;
+> -    int prev;
+>      int num_rsv;
 >  
-> +config ARM_EFI
-> +	bool
-> +	depends on ARM_64
-
-As ARM_EFI is selected by ARM_64 and it cannot be enable via a menu (it
-is hidden) there is no need for the "depends" line here
-
-
->  config GICV3
->  	bool "GICv3 driver"
->  	depends on ARM_64 && !NEW_VGIC
-> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-> index 1d862351d1..bb7a6151c1 100644
-> --- a/xen/arch/arm/Makefile
-> +++ b/xen/arch/arm/Makefile
-> @@ -1,6 +1,5 @@
->  obj-$(CONFIG_ARM_32) += arm32/
->  obj-$(CONFIG_ARM_64) += arm64/
-> -obj-$(CONFIG_ARM_64) += efi/
->  obj-$(CONFIG_ACPI) += acpi/
->  obj-$(CONFIG_HAS_PCI) += pci/
->  ifneq ($(CONFIG_NO_PLAT),y)
-> @@ -20,6 +19,7 @@ obj-y += domain.o
->  obj-y += domain_build.init.o
->  obj-y += domctl.o
->  obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
-> +obj-y += efi/
->  obj-y += gic.o
->  obj-y += gic-v2.o
->  obj-$(CONFIG_GICV3) += gic-v3.o
-> diff --git a/xen/arch/arm/efi/Makefile b/xen/arch/arm/efi/Makefile
-> index 4313c39066..75ef180233 100644
-> --- a/xen/arch/arm/efi/Makefile
-> +++ b/xen/arch/arm/efi/Makefile
-> @@ -1,4 +1,9 @@
->  include $(srctree)/common/efi/efi-common.mk
->  
-> +ifeq ($(CONFIG_ARM_EFI),y)
->  obj-y += $(EFIOBJ-y)
->  obj-$(CONFIG_ACPI) +=  efi-dom0.init.o
-> +else
-> +EFIOBJ-y += stub.o
-> +obj-y += stub.o
-
-The change to EFIOBJ-y is not needed here as EFIOBJ-y is not used.
-Only obj-y += stub.o should be enough
-
-> +endif
+> -    /*
+> -     * Delete any memory nodes present.  The EFI memory map is the only
+> -     * memory description provided to Xen.
+> -     */
+> -    prev = 0;
+> -    for (;;)
+> -    {
+> -        const char *type;
+> -        int len;
+> -
+> -        node = fdt_next_node(fdt, prev, NULL);
+> -        if ( node < 0 )
+> -            break;
+> -
+> -        type = fdt_getprop(fdt, node, "device_type", &len);
+> -        if ( type && strncmp(type, "memory", len) == 0 )
+> -        {
+> -            fdt_del_node(fdt, node);
+> -            continue;
+> -        }
+> -
+> -        prev = node;
+> -    }
+> -
+>     /*
+>      * Delete all memory reserve map entries. When booting via UEFI,
+>      * kernel will use the UEFI memory map to find reserved regions.
 > -- 
 > 2.25.1
 > 
