@@ -2,42 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AAFD50A379
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Apr 2022 16:57:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.310291.527044 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24FA250A3AB
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Apr 2022 17:08:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.310298.527054 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhYEv-0001fm-5R; Thu, 21 Apr 2022 14:57:01 +0000
+	id 1nhYP7-0003iE-8r; Thu, 21 Apr 2022 15:07:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 310291.527044; Thu, 21 Apr 2022 14:57:01 +0000
+Received: by outflank-mailman (output) from mailman id 310298.527054; Thu, 21 Apr 2022 15:07:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhYEv-0001dd-1c; Thu, 21 Apr 2022 14:57:01 +0000
-Received: by outflank-mailman (input) for mailman id 310291;
- Thu, 21 Apr 2022 14:56:59 +0000
+	id 1nhYP7-0003gO-5q; Thu, 21 Apr 2022 15:07:33 +0000
+Received: by outflank-mailman (input) for mailman id 310298;
+ Thu, 21 Apr 2022 15:07:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/1dP=U7=citrix.com=prvs=1038dedf8=roger.pau@srs-se1.protection.inumbo.net>)
- id 1nhYEt-0001dX-Du
- for xen-devel@lists.xenproject.org; Thu, 21 Apr 2022 14:56:59 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 46bcc082-c183-11ec-8fc2-03012f2f19d4;
- Thu, 21 Apr 2022 16:56:53 +0200 (CEST)
-Received: from mail-dm6nam12lp2176.outbound.protection.outlook.com (HELO
- NAM12-DM6-obe.outbound.protection.outlook.com) ([104.47.59.176])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 21 Apr 2022 10:56:53 -0400
-Received: from DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
- by BN6PR03MB3377.namprd03.prod.outlook.com (2603:10b6:405:3d::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.25; Thu, 21 Apr
- 2022 14:56:52 +0000
-Received: from DS7PR03MB5608.namprd03.prod.outlook.com
- ([fe80::5df3:95ce:4dfd:134e]) by DS7PR03MB5608.namprd03.prod.outlook.com
- ([fe80::5df3:95ce:4dfd:134e%4]) with mapi id 15.20.5186.015; Thu, 21 Apr 2022
- 14:56:52 +0000
+ <SRS0=ckMZ=U7=gmail.com=p4ranlee@srs-se1.protection.inumbo.net>)
+ id 1nhYP5-0003gE-2b
+ for xen-devel@lists.xenproject.org; Thu, 21 Apr 2022 15:07:31 +0000
+Received: from mail-pg1-x536.google.com (mail-pg1-x536.google.com
+ [2607:f8b0:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c01eb33f-c184-11ec-8fc2-03012f2f19d4;
+ Thu, 21 Apr 2022 17:07:25 +0200 (CEST)
+Received: by mail-pg1-x536.google.com with SMTP id t13so4874253pgn.8
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Apr 2022 08:07:29 -0700 (PDT)
+Received: from [192.168.0.18] ([118.33.58.98])
+ by smtp.gmail.com with ESMTPSA id
+ z5-20020a17090a398500b001cd4989ff42sm2863344pjb.9.2022.04.21.08.07.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 21 Apr 2022 08:07:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,272 +44,251 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46bcc082-c183-11ec-8fc2-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1650553017;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=WbsfcHuLZf+jTz+4M6GujZ7G+iq+9aFPnAdUHPTJzgw=;
-  b=UDkYdXwERoEABwM1pxANqpN1NyXjrOFJqepKgGie9pXaFjbPnWzUzPSj
-   M5H81lxIqzZ1bRzyBVcaWwMPgLXinSq+cbstTkbfuhpuqesK2/5ZmvUe2
-   iQ4S3Fi/Zz23+EkqGAT92i1dIIgngmtsrX36fntrdO/76J7Lz5OWAUDrC
-   Y=;
-X-IronPort-RemoteIP: 104.47.59.176
-X-IronPort-MID: 69639772
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:zOXOR63pul7P0X5m7/bD5ZJxkn2cJEfYwER7XKvMYLTBsI5bpzMHy
- TAdWWqCOfzZMTf9c9ogPYS1pkMFvpCGzNM2QANupC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
- Zh2hgzodZhsJpPkjk7xdOCn9xGQ7InQLlbGILes1htZGEk1EE/NtTo5w7Rj2tIy2IDja++wk
- YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
- 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
- /1iiqDgFER4Y5SRheM8XVp2AipGY5xvreqvzXiX6aR/zmXgWl61mbBCKR9zOocVvOFqHWtJ6
- PoUbigXaQyOjP63x7T9TfRwgsMkL4/gO4Z3VnNIlGmFS6p5B82SBfyVu7e03x9p7ixKNezZa
- McDLyJmcTzLYgFVO0dRA5U79AutrieuLWYJ9w3PzUYxy3ri6wZpyLH0C8XYWPiFV/tfxEuah
- W2TqgwVBTlfbrRz0wGt/mq3g+7TnQvyQI8ICKCj7flunUGSwWoIThYRUDOTsfS/z0KzRd9bA
- 0gV4TY167g/8lSxSdvwVAH+p2SL1jYiXN5XH/w/+Ru64KPe6AaEBUAJVjdELtchsaceWjgCx
- lKP2dTzClRHq7aSVW7b+r6KrCiaIjQcN2sLb2kFSmMt4dDlrJsikxHnQdNqEarzhdrwcRnr2
- CyDpiU6g7QVjOYI2r+98FSBhCijzrDLUwo06wP/Tm+jqARja+aNbYGy9ULS6/oGKY+DV0SAp
- 1ANgc3Y5+cLZbmPniGQROQGHJmy+u2IdjbbhDZHE5co+Dus/HqiVZtN+zw4L0BsWu4IdjPkb
- 1XakR9A759Uen2xZOl4ZJzZNigx5a3pFNCgWvWKaNNLO8J1bFXeo38oYlOM1WfwlkRqibs4J
- ZqQbcerCzAdFLhjyz21Aewa1NfH2xwD+I8afrijpzzP7FZUTCX9pWstWLdWUt0E0Q==
-IronPort-HdrOrdr: A9a23:S72yt6poxKMCjo6CiKG9lBcaV5rbeYIsimQD101hICG9Evb0qy
- nOpoV96faQslwssR4b9uxoVJPvfZqYz+8X3WBzB8bHYOCFgguVxehZhOOP/9SjIVydygc078
- xdmsNFebjN5DZB7PoT4GODYqodKNvsytHWuQ8JpU0dMz2DaMtbnnZE4h7wKDwReOHfb6BJbq
- Z14KB81kOdUEVSVOuXLF8fUdPOotXa/aiWHCLvV3YcmXGzZSrD0s+ALySl
-X-IronPort-AV: E=Sophos;i="5.90,279,1643691600"; 
-   d="scan'208";a="69639772"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fpYNDA8loocN6V9sXs9GFFoWleQq8ZLvF9nu3mHx+yxNPrK4VW/W9RJ2wveReIvwhxgl0oHUnnDf42LvfjxdOwbI1eawEDsQU6lbe+kxSrdqafQ/15t2kbFaBnsRNptDBgyUX2eRI4XxQ1ooSNTYl1cGlniOG+/T9tbwiwU3tKllARYyveupgVvmoMRJ3s7SHoTVb3VCFUOtOpnZNsN+ECjab5AV68iiNP1We9AeVpy0SETIP/AbVKyQmIOfuD/luU2ev4gecWZ6CNpMFW3h571+G6QWlQWAZGRd+lFovWH9AQNOdeNtn3eBzSllyNp7R+pRW7hFr5Pm4gkXy48jAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u1pxBJommfTjdXLPGqXVOjDmAqIo4pL05sOyBNfBBUA=;
- b=IjxFn5oTKgVIQTMAlwO7HQ3WPwpDHX7v74eFuAkWza3fwJAspiDEkdMegr1r0PAvTAL6Y8Ppp5WzwAiZ4joTWSaL3neQ66/TeapdoBdL7Brw0MploxLLc3tSYjVr/WOWMTRkFfqztETwaCqFujA+AolOmIF1lfYO2UFXxYx7f8Tn2dWiwW3z7nV+1EOxQOV83L72XJU8i+Fxi6e1Y07cju0aliNeoBuc9dLMm3KcZXNNhjMISfP9Lv7QLATisDEiLGRDWme22Q7v6CItxC+YCRlfvc8/JcqfLdUrIParBYhedog6Fwhno84VhPx+9L2MqubwaUVrlPO65sFdTYQlGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+X-Inumbo-ID: c01eb33f-c184-11ec-8fc2-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u1pxBJommfTjdXLPGqXVOjDmAqIo4pL05sOyBNfBBUA=;
- b=Gkzne/jdDoMflczI/9KePeFi1yKybYl/atwmuPPI7C+vjUkSmcqJCi1IjFafQmFj6qWhZ3eJDVQsDd1upy4622p3z0yVoJWQFJmCTByiKMx67KFbslinoSSDuaI+2mSRVK3ljQJ2/To+HwKzz48dZDvt0yMKYVWTqgbiKtGADE8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Thu, 21 Apr 2022 16:56:47 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: xen-devel@lists.xenproject.org,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Wei Liu <wl@xen.org>, scott.davis@starlab.io, jandryuk@gmail.com,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Dario Faggioli <dfaggioli@suse.com>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>
-Subject: Re: [PATCH v2 1/2] xsm: create idle domain privieged and demote
- after setup
-Message-ID: <YmFwr6G1xbpk1sQG@Air-de-Roger>
-References: <20220420222834.5478-1-dpsmith@apertussolutions.com>
- <20220420222834.5478-2-dpsmith@apertussolutions.com>
- <YmEpoDHpGP3xkAQ/@Air-de-Roger>
- <0b1b2f7b-dc81-af95-8591-4362ae0b85f9@apertussolutions.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <0b1b2f7b-dc81-af95-8591-4362ae0b85f9@apertussolutions.com>
-X-ClientProxiedBy: MRXP264CA0042.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:14::30) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:to:references:from
+         :cc:in-reply-to:content-transfer-encoding;
+        bh=GQYR9lJ8zjpdtOiTDeHXoBEngQpEucubUv0M42ZEpO8=;
+        b=CvuXxD8pi6iDcudogEmmKvmSj2wPUQbTCKwoWlqLIbByZVlCLQCJRXS6unJk55bmhz
+         VjPAHJlqMMkIIabry+rZFhePQhB0PCrYqZPSdYjpF0mDdJQVLHoI9S1HqYdEZ17YvneZ
+         E2VW4OpiQ/f2tSP1Gt9cjKEHQmFwDb4DnMDjZBkJgsmoTNx9VpeTJu7U5kNdFt50tWjl
+         5ubxLXE3Iz22/LBGsBMJ0zcHMJQL522cMF/ltYSHnUOXOqQC/YP1gCpa3X0pAbbX+P4b
+         E7q7eH3DB5vyXjW7Rktp5/m7BewZoTzpDouJCXAsL33Itb6OjY7SqhKT++HWYXDBpFXj
+         IZFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :to:references:from:cc:in-reply-to:content-transfer-encoding;
+        bh=GQYR9lJ8zjpdtOiTDeHXoBEngQpEucubUv0M42ZEpO8=;
+        b=nZOTKaNW7c1quf9or5bNb9w+/hpEiAkGSW0joVnWWJ/h7wvBAPYxvctX7ud1Hokuly
+         8+atcez9TzomL1oiMn+NBM/gbUqID0M34CJ5v1HNokpamnMO7b6nC9kp62wJTWL/UdPX
+         QCkk4WI9tBzVgEyTlsLFSYW+X7cf5KoZrMEth8E6Qy9YQLbn6UhJJft6dsJOVpdfjTjP
+         8dRkFU95uPM6Rk6yNWZFbz0DCARwTZjecZ9alOk/kW7ioM2WDVlxCpHCqqnO3YF1TMwn
+         vW7rzukFLV+XQxaaOPmHYaKp42QtzO6JWgIGIoAFwhBfSFIOJJMy33iGYEc9/PphaJOx
+         Eb3g==
+X-Gm-Message-State: AOAM531LFaicrNuMy+JFqor7k3c62R8n2nEgTAqrcMCEcsr2YS/wDEl/
+	+y4CkovtL+2ef57MWXgX6SzL02Nye5loAfci
+X-Google-Smtp-Source: ABdhPJwDykSzbtbD2/m7RMdY1NoTrNNdg3OrPer8QT3JFcSPxW6NlU8GFPivKk+NEay8R6W/8Rj70g==
+X-Received: by 2002:a63:d347:0:b0:39c:d7d5:77fc with SMTP id u7-20020a63d347000000b0039cd7d577fcmr24236705pgi.201.1650553647832;
+        Thu, 21 Apr 2022 08:07:27 -0700 (PDT)
+Message-ID: <81517f48-346a-4756-310c-070d5ffd5834@gmail.com>
+Date: Fri, 22 Apr 2022 00:07:26 +0900
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 053001dc-2912-4054-916d-08da23a72b4b
-X-MS-TrafficTypeDiagnostic: BN6PR03MB3377:EE_
-X-Microsoft-Antispam-PRVS:
-	<BN6PR03MB3377C86704BEB0AB6A5B3E058FF49@BN6PR03MB3377.namprd03.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	c6M9fQdOg8OOeLkOimTdxUre9qQ+c0g8Ww1rEwF8V7zttbUh7Ae8eZiENZya7bCwB5R1cPPIsckRRCk+pvtAAR7aeLPa+tp96ObhRrBEDxGVXa2F+19QqkyVXx198lErPAtPshxprg+Nj18iOQZl6XkiiLcZiLuaUVc8JiU9X93pgTaOypseonBEncXQxeLNIXZo+e891XXkOlt4xnaO3nVsHUdlXFwZlfp8DqMfJOgP3mZPgf445zMJkBBbKmHuK5RZduyvqehhVzAR1N5RXV8LeMdLGDo/F/Pnhz10TlDGf91FeQr0csaxzPEw9vs63II92///Z9gV4YV3BMq9rTyr1HmYNjr8kyEASFIj1YLLwQCk1qTOwS1XO5P3hMbrLVtTZWYOQBppRySKN3Y26pBH6XEfzTdi8lp0655hCR8EMf3CMun3pnFkB6KIXLbsJOfGFAW3e303kaDR76P+zgHshciFKLJlP92+UFmtBvXSHNOFbiMNGZubdNs9qGFryiB12SKaLrStNZ1R6ZuRiMn2NNKcpnxt9h8nZwskItMtiJSXQjHrlmd7iKUm4bIwgEhm0iQuHnJW1YNEOEWh76iLo4iL5rb7Of7zvZzS+7adGQ59OxPgEKxehqpiOUvMJGbR/ojhbOU3Zl2YWpyrjQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(7916004)(366004)(6506007)(508600001)(66556008)(6666004)(86362001)(186003)(66476007)(8936002)(316002)(7416002)(8676002)(66946007)(6916009)(54906003)(33716001)(5660300002)(38100700002)(85182001)(2906002)(53546011)(83380400001)(82960400001)(6486002)(4326008)(26005)(6512007)(9686003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cmFSd0FKbFhMU01XNm5FMFc3TVVEbTBLQjN5dlV1dU1CakptYUNWTVNaTlB0?=
- =?utf-8?B?T1NSTFRyOUNOS2pNd0tpZHhqMkhZUUZ0RXpaWWxjY05Bd3hkb0JVQWZwbnY5?=
- =?utf-8?B?Q09zbTI1cFg5anRQS3kvamtqblRDMnJ5M01jaUNIbkhVSFhtMXZVN1NlQ0Vs?=
- =?utf-8?B?NEo5ZzIwcmE4cFVsWnNjMVVZRlNKM1ZBamtQclpkMnNrajU2RG0rdCtTRDhq?=
- =?utf-8?B?Um1zaHlnMy9ZRndiLytxQ1FYTzBweWlMRUE1MFRUVmd6cWpJU1k2bEVtK01F?=
- =?utf-8?B?dG96VnhKTlpsU3FyNFdQdjkwdkRnNjBBZ1FrRDhnS1I0TW1sZHQwYVJzZVNX?=
- =?utf-8?B?OWdoL1VnTzdRRm5aUjZ2U3I1cXF1YytWa0RYY2xOMUFoQ1lacjZxdndkMGh6?=
- =?utf-8?B?bUlFSEdjUzhIZFQxN1k5UnNYbzl1M0FpWHFDdFlHMmFXY0FLYWwwT2tiSUtl?=
- =?utf-8?B?YVlyc3QvMThUSFZSQnJ5ZGRRMWRMQzdNV2N5ZW5TaVpCTS9LcGg2KzZwUTlH?=
- =?utf-8?B?WTFhRUEvdkVlQjh3VWpuUEhpbVNadFpyNngrVkxJbTRIQVVEMG50VnI0MVlH?=
- =?utf-8?B?UnRmaXVGMXc1ZitVS2d6dEhFTHdKZnhCZ21ZaWhuaG5lWmxJTnppSWJDRnVS?=
- =?utf-8?B?SXdrTGZhelI1anQwQjhtN2x6OTVyQUtkcVkzcm9pQ1lPc0ZFbFN3WWFrU2lJ?=
- =?utf-8?B?NHBtbC8wYVh5ekhrN0pkTEFMelI2b0ZEazBhaUFhKzdPSC9CQ3prS1R1MDZJ?=
- =?utf-8?B?b2tBMmpHMC9FV3Q5QUZSZ0hlRU44ZUNCWnBSL1ZEZEduSkV0b1QyU0JBZE9H?=
- =?utf-8?B?OHkvSjB6Y0xPSDRlSlJJWEFPL2ttemVqZVFHdmdLeEt3ZE9INmVPOEd5MkFR?=
- =?utf-8?B?OUdEWVRMQ2htTXpZYlpUcWMzN2ZzalJyaTNaaXlQZVhmNEF4Zi9VLzZVeEYv?=
- =?utf-8?B?eHpQVjhCZ2VKMkdHUmwwMTZMQ2FzclVVWi9rNGQ5UHlhbmdROVBIQlY4eGRE?=
- =?utf-8?B?QzYzQ2ZQR3JOa1Y2eVd2K0UwdjRjR3NUenNPYXBUMGZyam1aL291Vnpjbkw5?=
- =?utf-8?B?d1c1QkR1bXhZOUUzUkxtUEdqYjR6NmJNRzh1V1lOQU1ML0lyaTVoZjEyR0xC?=
- =?utf-8?B?dm42V3FYeFlZb010akM5a2UwZ3JmbUFlbVBDQVd0bUg2SnpQRU9XMGNGNDU0?=
- =?utf-8?B?OUFiZ2x4K1ZBc0ZmVXRwODlFWVpuZWJLSFlIRHhBZThrMkxadTI4eGVqNWZZ?=
- =?utf-8?B?VXZLQW8vbmJXbkd1K1ExK0xEODMxVW9aVU9kMVp1QTkyV2hiVDVFeExmZ25G?=
- =?utf-8?B?VUlIUFNZY1NmaDZzbU1TbVZqS0N0S1NnQ1pVcUI0UWFLbHYzNHBaRTZBalN3?=
- =?utf-8?B?ZCtnVWU2dm1xK3YxOEJmNDVpanVNTUx2RUgrdTdKZUlkdlNhR2pqRGZKQkgw?=
- =?utf-8?B?WlZLVnJ4Q0hNcmlOV0VvTVRROWdLV1pFVC9MQ2lOWUFlY0tSV0R3NFNYQWlI?=
- =?utf-8?B?QS9FYTZpcmRFNEozanVRZHNxUFRFYk1BUnpFdzMrYnZ2L01JcFV1QVZKVTlG?=
- =?utf-8?B?SDhYZ2Zyakt1ZDg2T3EvYUs0bnp6K2dnVFpYcWI0WVJLWFY3NUxTQlRWbnh6?=
- =?utf-8?B?bTAzL0lZdnRHOEFnUHQxS1V4akhkN1AzS2FaWktteHlLV0YybFByWVNsSWRq?=
- =?utf-8?B?M0ptYnJpMWgyTEJ0Y056WS9DamM4NE1BcHVUZWQ4UUxXdW5GYTVNOUVUM0x6?=
- =?utf-8?B?UzdlZTZhRjc3NVVDRktqM2FtcTN6bFJsNk9weFU3ay9FL1RCTXFiNW5KNmlv?=
- =?utf-8?B?WkVXSVFOemh5T3JWNGxod1FSQzZnUERmQUxUU1NaalpQYlluUU1zNkt3UWkr?=
- =?utf-8?B?Y3ZaU1EzS25adjR6dDZSc0I4aUhET1JGMUNBQnJ4YzBwRUZUUGUyZHg1cU4w?=
- =?utf-8?B?ZEN3UXpCZXJ1RjZNSlRtMVdYVEpoR2dMT1pTSnpjMjFBb3ZzNUFIMUtUcE92?=
- =?utf-8?B?aVRpUVNNM2J1M290b1pwVHhkczk0enFTOHIvc3d0enZnSG1lUFY5TmRNazZy?=
- =?utf-8?B?OGU1UWgySk4vRWNrNTA3KzFaUXZSWnA0aXVaQklJMHBYUVorTWRsSHZkYVpM?=
- =?utf-8?B?QlQva3FFSVRFUEtyaWEyWjFIMTJkWE9rWWxrR3daZGVQUzlMRWZvN0xWWFI4?=
- =?utf-8?B?b1ZZZWE2M2ZuUW1JUFZ5NCtaQ3pNaWVlU21YdEpjZHF4VTVMQkZUcHdnSDB2?=
- =?utf-8?B?K042YSt2bXZsSm9LaWNBK21kZmJoTG1yRHlhTjJOK1lrVEV6Q3hOdUs5aVNX?=
- =?utf-8?B?MnNHeWozTkkybk5aaGNWaS9PaThVbTlib21FemN3YTBtd1kyR3E4eFJPbHMx?=
- =?utf-8?Q?5mpIVxMDs3yf5rkw=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 053001dc-2912-4054-916d-08da23a72b4b
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2022 14:56:52.0635
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ts8vtrykXbMcxn2Ci/KvHxUbDXfTtN4kjnj4LiSpppCfHQbCSgRzJgRil4USuUb20JTEks839Mh2yXga557u2A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR03MB3377
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Subject: Re: [PATCH] xen/arm: silence ambiguous integer casting warning error
+To: Julien Grall <julien.grall.oss@gmail.com>
+References: <20220419154126.GA1518@DESKTOP-NK4TH6S.localdomain>
+ <CAJ=z9a37_y3B4aAfiK5C-bHJYyWqCo0+g+jB6cdDCmOzLuXLJw@mail.gmail.com>
+ <925421bc-680b-df61-5a75-681d752c4820@gmail.com>
+ <b8a0feed-1dde-3b36-646e-1e5413de8395@gmail.com>
+ <CAJ=z9a2n0bWEk-7cpOj2q_4fUqetjkQdkgBGYKoQeGeDJ8MxTQ@mail.gmail.com>
+From: Paran Lee <p4ranlee@gmail.com>
+Cc: Austin Kim <austindh.kim@gmail.com>, xen-devel@lists.xenproject.org
+In-Reply-To: <CAJ=z9a2n0bWEk-7cpOj2q_4fUqetjkQdkgBGYKoQeGeDJ8MxTQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Apr 21, 2022 at 10:14:18AM -0400, Daniel P. Smith wrote:
-> On 4/21/22 05:53, Roger Pau Monné wrote:
-> > On Wed, Apr 20, 2022 at 06:28:33PM -0400, Daniel P. Smith wrote:
-> >> There are now instances where internal hypervisor logic needs to make resource
-> >> allocation calls that are protectd by XSM checks. The internal hypervisor logic
-> >> is represented a number of system domains which by designed are represented by
-> >> non-privileged struct domain instances. To enable these logic blocks to
-> >> function correctly but in a controlled manner, this commit changes the idle
-> >> domain to be created as a privileged domain under the default policy, which is
-> >> inherited by the SILO policy, and demoted before transitioning to running. A
-> >> new XSM hook, xsm_transition_running, is introduced to allow each XSM policy
-> >> type to demote the idle domain appropriately for that policy type.
-> >>
-> >> For flask a stub is added to ensure that flask policy system will function
-> >> correctly with this patch until flask is extended with support for starting the
-> >> idle domain privileged and properly demoting it on the call to
-> >> xsm_transtion_running.
-> >>
-> >> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-> >> ---
-> >>  xen/arch/arm/setup.c    |  6 ++++++
-> >>  xen/arch/x86/setup.c    |  6 ++++++
-> >>  xen/common/sched/core.c |  7 ++++++-
-> >>  xen/include/xsm/dummy.h | 12 ++++++++++++
-> >>  xen/include/xsm/xsm.h   |  6 ++++++
-> >>  xen/xsm/dummy.c         |  1 +
-> >>  xen/xsm/flask/hooks.c   | 15 +++++++++++++++
-> >>  7 files changed, 52 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-> >> index d5d0792ed4..763835aeb5 100644
-> >> --- a/xen/arch/arm/setup.c
-> >> +++ b/xen/arch/arm/setup.c
-> >> @@ -1048,6 +1048,12 @@ void __init start_xen(unsigned long boot_phys_offset,
-> >>      /* Hide UART from DOM0 if we're using it */
-> >>      serial_endboot();
-> >>  
-> >> +    xsm_transition_running();
-> > 
-> > Could we put depriv or dipriviledge somewhere here? 'transition' seem to
-> > ambiguous IMO (but I'm not a native speaker).
-> > 
-> > xsm_{depriv,demote}_current();
+Hi, Julien Grall.
+
+Thank you! After thinking about it, I agree that the patch I suggested
+is not a good way to go.
+
+> I don't understand how this is related to adding extra cflags. Can you
+> clarify it?
+
+https://www.youtube.com/watch?v=RPgYinVQUgw
+
+I took a short video of debugging through qemu and gdb.
+I would like to try doing this with Xen in the same way.
+
+I'm sorry I couldn't explain the debugging process well in writing. It's
+not easy. :)
+
+If I could explain the above my video in one sentence,
+qemu booting arm64 kernel & gdb remote debugging with debug symbol
+information.
+
+BR,
+Paran Lee
+
+
+2022-04-20 오전 2:31에 Julien Grall 이(가) 쓴 글:
+> Hi,
 > 
-> Let me say this explanation is not to say no but to give context to the
-> concerns. Forms of deprive/demote were considered though when
-> considering the concept proposed was to change the security model where
-> the hypervisor/idle domain were now explicitly being give a new security
-> context, is_privileged and xenboot_t, under which setup is being run.
-> This new xsm hook is to provide a transition point for the XSM policies
-> to set what the running security context should be for the
-> hypervisor/idle domain. The name xsm_transition_running() clearly
-> denotes when/where this hook should be used, where as the name
-> xsm_depriv_current() is more generic and another developer may attempt
-> to use it in a manner it was not intended.
-
-Hm, I see. I (wrongly) originally understood it was related to making
-a transition in the running context, rather than the context being
-changed to the running state.
-
-Maybe xsm_{transition_,set_,}system_active() to better match the
-system_state?
-
-Albeit now that I understand it's purpose it doesn't feel so weird.
-
-> >> diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
-> >> index 19ab678181..22a619e260 100644
-> >> --- a/xen/common/sched/core.c
-> >> +++ b/xen/common/sched/core.c
-> >> @@ -3021,7 +3021,12 @@ void __init scheduler_init(void)
-> >>          sched_ratelimit_us = SCHED_DEFAULT_RATELIMIT_US;
-> >>      }
-> >>  
-> >> -    idle_domain = domain_create(DOMID_IDLE, NULL, 0);
-> >> +    /*
-> >> +     * idle dom is created privileged to ensure unrestricted access during
-> >> +     * setup and will be demoted by xsm_transition_running when setup is
-> >> +     * complete
-> >> +     */
-> >> +    idle_domain = domain_create(DOMID_IDLE, NULL, CDF_privileged);
-> >>      BUG_ON(IS_ERR(idle_domain));
-> >>      BUG_ON(nr_cpu_ids > ARRAY_SIZE(idle_vcpu));
-> >>      idle_domain->vcpu = idle_vcpu;
-> >> diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
-> >> index 58afc1d589..b33f0ec672 100644
-> >> --- a/xen/include/xsm/dummy.h
-> >> +++ b/xen/include/xsm/dummy.h
-> >> @@ -101,6 +101,18 @@ static always_inline int xsm_default_action(
-> >>      }
-> >>  }
-> >>  
-> >> +static XSM_INLINE void cf_check xsm_transition_running(void)
-> >> +{
-> >> +    struct domain *d = current->domain;
-> >> +
-> >> +    if ( d->domain_id != DOMID_IDLE )
-> >> +        panic("xsm_transition_running should only be called by idle domain\n");
-> > 
-> > Could you also add a check that d->is_privileged == true?
+> On Tue, 19 Apr 2022, 17:09 Paran Lee, <p4ranlee@gmail.com> wrote:
 > 
-> Are you thinking along the lines of,
+>> Debugging with GDB from head.S with QEMU runtime was very convenient for
+>> analysis(linux). so I have trying it in Xen. As I built it.
+>>
 > 
->     if ( (!d->is_privileged) || (d->domain_id != DOMID_IDLE)
->         panic("some message\n");
+> I don't understand how this is related to adding extra cflags. Can you
+> clarify it?
 > 
-> or is your concern more of,
 > 
->     if ( !d->is_privileged )
->         return;
+>> Wouldn't it be helpful if I fixed the code little by little?
 > 
-> In my mind the former is legitimate because execution should only arrive
-> here with current->domain being the idle domain and is_privileged set to
-> true.
-
-I was thinking about the former, maybe adding it as a separate
-condition so you can print a specific panic message, or joined with
-the other if the panic message can be adjusted to fit both conditions.
-
-Thanks, Roger.
+> 
+> I am all to make Xen more robust. However, you are now implicitly casting a
+> signed int to unsigned int. I am not convinced this is a good move.
+> 
+> I think it would be better to fix the other side of the equation or
+> properly modify the function return.
+> 
+> Cheers,
+> 
+> 
+>> 2022-04-20 오전 1:31에 Paran Lee 이(가) 쓴 글:
+>>> Hi, Julien Grall.
+>>>
+>>> Thank you for checking it out. I'm sorry I forgot to attach the make log
+>>> as well.
+>>>
+>>> My build configuration (include CFLGAS)
+>>>
+>>> export ARCH=arm64
+>>> export XEN_TARGET_ARCH=arm64
+>>> export $(dpkg-architecture -aarm64);
+>>> export CROSS_COMPILE=aarch64-linux-gnu-
+>>> export CFLAGS="-g -Wall -Wextra -Wno-unused-parameter"
+>>>
+>>> And i did     make dist-xen
+>>>
+>>> my arm64 compiler information are here.
+>>> gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.1)
+>>>
+>>> ~/xen$ aarch64-linux-gnu-gcc -v
+>>> Using built-in specs.
+>>> COLLECT_GCC=aarch64-linux-gnu-gcc
+>>> COLLECT_LTO_WRAPPER=/usr/lib/gcc-cross/aarch64-linux-gnu/9/lto-wrapper
+>>> Target: aarch64-linux-gnu
+>>> Configured with: ../src/configure -v --with-pkgversion='Ubuntu
+>>> 9.4.0-1ubuntu1~20.04.1'
+>>> --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs
+>>> --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++,gm2 --prefix=/usr
+>>> --with-gcc-major-version-only --program-suffix=-9 --enable-shared
+>>> --enable-linker-build-id --libexecdir=/usr/lib
+>>> --without-included-gettext --enable-threads=posix --libdir=/usr/lib
+>>> --enable-nls --with-sysroot=/ --enable-clocale=gnu
+>>> --enable-libstdcxx-debug --enable-libstdcxx-time=yes
+>>> --with-default-libstdcxx-abi=new --enable-gnu-unique-object
+>>> --disable-libquadmath --disable-libquadmath-support --enable-plugin
+>>> --enable-default-pie --with-system-zlib --without-target-system-zlib
+>>> --enable-libpth-m2 --enable-multiarch --enable-fix-cortex-a53-843419
+>>> --disable-werror --enable-checking=release --build=x86_64-linux-gnu
+>>> --host=x86_64-linux-gnu --target=aarch64-linux-gnu
+>>> --program-prefix=aarch64-linux-gnu-
+>>> --includedir=/usr/aarch64-linux-gnu/include
+>>> Thread model: posix
+>>> gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.1)
+>>>
+>>> In arch/arm/gic-v3.c files.
+>>>
+>>> arch/arm/gic-v3.c: In function ‘gicv3_compute_target_list’:
+>>> arch/arm/gic-v3.c:926:17: error: comparison of integer expressions of
+>>> different signedness: ‘int’ and ‘unsigned int’ [-Werror=sign-compare]
+>>>   926 |     while ( cpu < nr_cpu_ids )
+>>>       |                 ^
+>>> arch/arm/gic-v3.c:936:18: error: comparison of integer expressions of
+>>> different signedness: ‘int’ and ‘unsigned int’ [-Werror=sign-compare]
+>>>   936 |         if ( cpu == nr_cpu_ids )
+>>>       |                  ^~                           ^
+>>>
+>>> In arch/arm/setup.c files.
+>>>
+>>> arch/arm/setup.c: In function ‘start_xen’:
+>>> ./include/xen/cpumask.h:374:13: error: comparison of integer expressions
+>>> of different signedness: ‘int’ and ‘unsigned int’ [-Werror=sign-compare]
+>>>   374 |       (cpu) < nr_cpu_ids;  \
+>>>       |             ^
+>>> ./include/xen/cpumask.h:459:36: note: in expansion of macro
+>> ‘for_each_cpu’
+>>>   459 | #define for_each_present_cpu(cpu)  for_each_cpu(cpu,
+>>> &cpu_present_map)
+>>>       |                                    ^~~~~~~~~~~~
+>>> arch/arm/setup.c:989:5: note: in expansion of macro
+>> ‘for_each_present_cpu’
+>>>   989 |     for_each_present_cpu ( i )
+>>>       |     ^~~~~~~~~~~~~~~~~~~~             ^
+>>>
+>>> Thank you!
+>>>
+>>> 2022-04-20 오전 12:50에 Julien Grall 이(가) 쓴 글:
+>>>> Hi,
+>>>>
+>>>> On Tue, 19 Apr 2022, 15:41 Paran Lee, <p4ranlee@gmail.com> wrote:
+>>>>
+>>>>> GCC with "-g -Wall -Wextra" option throws warning message as below:
+>>>>
+>>>>
+>>>> Which version of the compiler? Also you specify the exact cflags, did
+>> you
+>>>> tweak Xen?
+>>>>
+>>>>
+>>>>> error: comparison of integer expressions of different signedness:
+>>>>>  ‘int’ and ‘unsigned int’ [-Werror=sign-compare]
+>>>>>
+>>>>
+>>>> GCC should give you a line/file. Can you provide it?
+>>>>
+>>>> Cheers,
+>>>>
+>>>>
+>>>>> Silence the warning by correcting the integer type.
+>>>>>
+>>>>> Signed-off-by: Paran Lee <p4ranlee@gmail.com>
+>>>>> ---
+>>>>>  xen/arch/arm/gic-v3.c | 5 +++--
+>>>>>  xen/arch/arm/setup.c  | 2 +-
+>>>>>  2 files changed, 4 insertions(+), 3 deletions(-)
+>>>>>
+>>>>> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+>>>>> index 3c472ed768..81ac25f528 100644
+>>>>> --- a/xen/arch/arm/gic-v3.c
+>>>>> +++ b/xen/arch/arm/gic-v3.c
+>>>>> @@ -916,7 +916,8 @@ static void gicv3_hyp_disable(void)
+>>>>>      isb();
+>>>>>  }
+>>>>>
+>>>>> -static u16 gicv3_compute_target_list(int *base_cpu, const struct
+>> cpumask
+>>>>> *mask,
+>>>>> +static u16 gicv3_compute_target_list(unsigned int *base_cpu,
+>>>>> +                                     const struct cpumask *mask,
+>>>>>                                       uint64_t cluster_id)
+>>>>>  {
+>>>>>      int cpu = *base_cpu;
+>>>>> @@ -953,7 +954,7 @@ out:
+>>>>>
+>>>>>  static void gicv3_send_sgi_list(enum gic_sgi sgi, const cpumask_t
+>>>>> *cpumask)
+>>>>>  {
+>>>>> -    int cpu = 0;
+>>>>> +    unsigned int cpu = 0;
+>>>>>      uint64_t val;
+>>>>>
+>>>>>      for_each_cpu(cpu, cpumask)
+>>>>> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+>>>>> index d5d0792ed4..5ab2aaecaf 100644
+>>>>> --- a/xen/arch/arm/setup.c
+>>>>> +++ b/xen/arch/arm/setup.c
+>>>>> @@ -862,7 +862,7 @@ void __init start_xen(unsigned long
+>> boot_phys_offset,
+>>>>>                        unsigned long fdt_paddr)
+>>>>>  {
+>>>>>      size_t fdt_size;
+>>>>> -    int cpus, i;
+>>>>> +    unsigned int cpus, i;
+>>>>>      const char *cmdline;
+>>>>>      struct bootmodule *xen_bootmodule;
+>>>>>      struct domain *d;
+>>>>> --
+>>>>> 2.25.1
+>>>>>
+>>>>>
+>>>>
+>>
+> 
 
