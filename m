@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44A8550942C
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Apr 2022 02:30:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.309714.526160 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30C77509432
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Apr 2022 02:38:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.309719.526170 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhKiD-0001L5-N7; Thu, 21 Apr 2022 00:30:21 +0000
+	id 1nhKov-0002HO-Dj; Thu, 21 Apr 2022 00:37:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 309714.526160; Thu, 21 Apr 2022 00:30:21 +0000
+Received: by outflank-mailman (output) from mailman id 309719.526170; Thu, 21 Apr 2022 00:37:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhKiD-0001Ig-JZ; Thu, 21 Apr 2022 00:30:21 +0000
-Received: by outflank-mailman (input) for mailman id 309714;
- Thu, 21 Apr 2022 00:30:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nhKov-0002F5-AP; Thu, 21 Apr 2022 00:37:17 +0000
+Received: by outflank-mailman (input) for mailman id 309719;
+ Thu, 21 Apr 2022 00:37:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=45zg=U7=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nhKiC-0001Ia-Qw
- for xen-devel@lists.xenproject.org; Thu, 21 Apr 2022 00:30:20 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 39429bf7-c10a-11ec-a405-831a346695d4;
- Thu, 21 Apr 2022 02:30:19 +0200 (CEST)
+ id 1nhKou-0002Ez-7E
+ for xen-devel@lists.xenproject.org; Thu, 21 Apr 2022 00:37:16 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2fba6094-c10b-11ec-8fbf-03012f2f19d4;
+ Thu, 21 Apr 2022 02:37:13 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 55219B82239;
- Thu, 21 Apr 2022 00:30:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A137C385A0;
- Thu, 21 Apr 2022 00:30:17 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 7EE4361B94;
+ Thu, 21 Apr 2022 00:37:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49D9EC385A0;
+ Thu, 21 Apr 2022 00:37:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,132 +43,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 39429bf7-c10a-11ec-a405-831a346695d4
+X-Inumbo-ID: 2fba6094-c10b-11ec-8fbf-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1650501017;
-	bh=Yvmw5PHMhlY0F2tFAujdl+1NQEj9T2rDNEyfu7S1j+4=;
+	s=k20201202; t=1650501431;
+	bh=CoWODmOl9M5wMVTRWAcJI6GU0GPuMAlTEzkQj6mW1NI=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=RX6eUHm+8GXgQ7pWkMXbtP1RJ37VGYqLmtfyDhuNfM3RPVuAhKpuyEoiCJwALxkK6
-	 Bj+v+AoESa/4haDpoGB2G2z8gLfAIfpBecGPSXQuw96N4dmsMk3b4GUhtJLmgEbJ3M
-	 USLHFvnZw1swpHjJohWoA03SIZ9OiQRT1CCeP31ulak2I847yrs5w3bQ+ZLO+BFMWH
-	 Ml4Ks3SC7YeGpTsKjV1viMQO3sYBj7tZikq139/ej3o2T6KsN6pAp9+uOX4uhqYGkP
-	 V0KvM6ulHevER+WUO9lPGeod0yKIiZSLGP4W5DWqDDfTRCGtX2Egm9pG9jBgMPrjcV
-	 MXQ6TvIH3r82A==
-Date: Wed, 20 Apr 2022 17:30:17 -0700 (PDT)
+	b=EVMN0c6LyZo1wyHTjN0XvZDBPYNKlG9UuFGRwmS2Xo0+5mYQmtS6C0iIqfjQbQOwm
+	 fAPX/3CaK8jVjxBSSvlc5Mp81ksorPNB/iiWJOOiZWqCpTIHZ/ePB+Ui4R26vWFEwb
+	 6I0vreTf3Ojwh9XPzrmKiQYqrjGDM9ZjfgYftG+tG5NwAyLHqUBF4XXtaVh2FyEhDZ
+	 bNnuunrksbjX4s8kbbtgBcVzXBV9sVmBZS4p2ZYI01ywoc6WLrzK5uDmoqU1WY6Qk9
+	 nFE0sgc4fXO6cf4lZCqVTic1C1OJzkshli3JJy6lMXwply8Yg3NZr10XYYP2phzMF/
+	 A/sZmdEjuI8Ow==
+Date: Wed, 20 Apr 2022 17:37:11 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Wei Chen <wei.chen@arm.com>
 cc: xen-devel@lists.xenproject.org, nd@arm.com, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v2 04/10] xen/arm: Keep memory nodes in device tree when
- Xen boots from EFI
-In-Reply-To: <20220418090735.3940393-5-wei.chen@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2204201728560.915916@ubuntu-linux-20-04-desktop>
-References: <20220418090735.3940393-1-wei.chen@arm.com> <20220418090735.3940393-5-wei.chen@arm.com>
+    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, 
+    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 05/10] xen/x86: Use ASSERT instead of VIRTUAL_BUG_ON
+ for phys_to_nid
+In-Reply-To: <20220418090735.3940393-6-wei.chen@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2204201736030.915916@ubuntu-linux-20-04-desktop>
+References: <20220418090735.3940393-1-wei.chen@arm.com> <20220418090735.3940393-6-wei.chen@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Mon, 18 Apr 2022, Wei Chen wrote:
-> In current code, when Xen is booting from EFI, it will delete
-> all memory nodes in device tree. This would work well in current
-> stage, because Xen can get memory map from EFI system table.
-> However, EFI system table cannot completely replace memory nodes
-> of device tree. EFI system table doesn't contain memory NUMA
-> information. Xen depends on ACPI SRAT or device tree memory nodes
-> to parse memory blocks' NUMA mapping. So in EFI + DTB boot, Xen
-> doesn't have any method to get numa-node-id for memory blocks any
-> more. This makes device tree based NUMA support become impossible
-> for Xen in EFI + DTB boot.
+> VIRTUAL_BUG_ON is an empty macro used in phys_to_nid. This
+> results in two lines of error-checking code in phys_to_nid
+> that is not actually working and causing two compilation
+> errors:
+> 1. error: "MAX_NUMNODES" undeclared (first use in this function).
+>    This is because in the common header file, "MAX_NUMNODES" is
+>    defined after the common header file includes the ARCH header
+>    file, where phys_to_nid has attempted to use "MAX_NUMNODES".
+>    This error was resolved when we moved the definition of
+>    "MAX_NUMNODES" to x86 ARCH header file. And we reserve the
+>    "MAX_NUMNODES" definition in common header file through a
+>    conditional compilation for some architectures that don't
+>    need to define "MAX_NUMNODES" in their ARCH header files.
+> 2. error: wrong type argument to unary exclamation mark.
+>    This is because, the error-checking code contains !node_data[nid].
+>    But node_data is a data structure variable, it's not a pointer.
 > 
-> So in this patch, we will keep memory nodes in device tree for
-> NUMA code to parse memory numa-node-id later.
+> So, in this patch, we use ASSERT instead of VIRTUAL_BUG_ON to
+> enable the two lines of error-checking code. And fix the left
+> compilation errors by replacing !node_data[nid] to
+> !node_data[nid].node_spanned_pages.
 > 
-> As a side effect, if we still parse boot memory information in
-> early_scan_node, bootmem.info will calculate memory ranges in
-> memory nodes twice. So we have to prevent early_scan_node to
-> parse memory nodes in EFI boot.
-> 
+> Because when node_spanned_pages is 0, this node has no memory,
+> numa_scan_node will print warning message for such kind of nodes:
+> "Firmware Bug or mis-configured hardware?".
+>
 > Signed-off-by: Wei Chen <wei.chen@arm.com>
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+This patch looks OK to me but the x86 changes would benefit from a
+review from one of the x86 maintainers
 
 
 > ---
 > v1 -> v2:
-> 1. Move this patch from later to early of this series.
-> 2. Refine commit message.
+> 1. Use ASSERT to replace VIRTUAL_BUG_ON in phys_to_nid.
+> 2. Adjust the conditional express for ASSERT.
+> 3. Move MAX_NUMNODES from xen/numa.h to asm/numa.h for x86.
+> 4. Use conditional macro to gate MAX_NUMNODES for other architectures.
 > ---
->  xen/arch/arm/bootfdt.c      |  8 +++++++-
->  xen/arch/arm/efi/efi-boot.h | 25 -------------------------
->  2 files changed, 7 insertions(+), 26 deletions(-)
+>  xen/arch/x86/include/asm/numa.h | 6 +++---
+>  xen/include/xen/numa.h          | 2 ++
+>  2 files changed, 5 insertions(+), 3 deletions(-)
 > 
-> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
-> index e318ef9603..78e10c6ebc 100644
-> --- a/xen/arch/arm/bootfdt.c
-> +++ b/xen/arch/arm/bootfdt.c
-> @@ -11,6 +11,7 @@
->  #include <xen/lib.h>
->  #include <xen/kernel.h>
->  #include <xen/init.h>
-> +#include <xen/efi.h>
->  #include <xen/device_tree.h>
->  #include <xen/libfdt/libfdt.h>
->  #include <xen/sort.h>
-> @@ -370,7 +371,12 @@ static int __init early_scan_node(const void *fdt,
->  {
->      int rc = 0;
+> diff --git a/xen/arch/x86/include/asm/numa.h b/xen/arch/x86/include/asm/numa.h
+> index bada2c0bb9..1f268ce77d 100644
+> --- a/xen/arch/x86/include/asm/numa.h
+> +++ b/xen/arch/x86/include/asm/numa.h
+> @@ -4,6 +4,7 @@
+>  #include <xen/cpumask.h>
 >  
-> -    if ( device_tree_node_matches(fdt, node, "memory") )
-> +    /*
-> +     * If Xen has been booted via UEFI, the memory banks are
-> +     * populated. So we should skip the parsing.
-> +     */
-> +    if ( !efi_enabled(EFI_BOOT) &&
-> +         device_tree_node_matches(fdt, node, "memory") )
->          rc = process_memory_node(fdt, node, name, depth,
->                                   address_cells, size_cells, &bootinfo.mem);
->      else if ( depth == 1 && !dt_node_cmp(name, "reserved-memory") )
-> diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-> index e452b687d8..59d93c24a1 100644
-> --- a/xen/arch/arm/efi/efi-boot.h
-> +++ b/xen/arch/arm/efi/efi-boot.h
-> @@ -231,33 +231,8 @@ EFI_STATUS __init fdt_add_uefi_nodes(EFI_SYSTEM_TABLE *sys_table,
->      int status;
->      u32 fdt_val32;
->      u64 fdt_val64;
-> -    int prev;
->      int num_rsv;
+>  #define NODES_SHIFT 6
+> +#define MAX_NUMNODES    (1 << NODES_SHIFT)
 >  
-> -    /*
-> -     * Delete any memory nodes present.  The EFI memory map is the only
-> -     * memory description provided to Xen.
-> -     */
-> -    prev = 0;
-> -    for (;;)
-> -    {
-> -        const char *type;
-> -        int len;
-> -
-> -        node = fdt_next_node(fdt, prev, NULL);
-> -        if ( node < 0 )
-> -            break;
-> -
-> -        type = fdt_getprop(fdt, node, "device_type", &len);
-> -        if ( type && strncmp(type, "memory", len) == 0 )
-> -        {
-> -            fdt_del_node(fdt, node);
-> -            continue;
-> -        }
-> -
-> -        prev = node;
-> -    }
-> -
->     /*
->      * Delete all memory reserve map entries. When booting via UEFI,
->      * kernel will use the UEFI memory map to find reserved regions.
+>  typedef u8 nodeid_t;
+>  
+> @@ -26,7 +27,6 @@ extern int compute_hash_shift(struct node *nodes, int numnodes,
+>  extern nodeid_t pxm_to_node(unsigned int pxm);
+>  
+>  #define ZONE_ALIGN (1UL << (MAX_ORDER+PAGE_SHIFT))
+> -#define VIRTUAL_BUG_ON(x) 
+>  
+>  extern void numa_add_cpu(int cpu);
+>  extern void numa_init_array(void);
+> @@ -62,9 +62,9 @@ extern struct node_data node_data[];
+>  static inline __attribute__((pure)) nodeid_t phys_to_nid(paddr_t addr)
+>  { 
+>  	nodeid_t nid;
+> -	VIRTUAL_BUG_ON((paddr_to_pdx(addr) >> memnode_shift) >= memnodemapsize);
+> +	ASSERT((paddr_to_pdx(addr) >> memnode_shift) < memnodemapsize);
+>  	nid = memnodemap[paddr_to_pdx(addr) >> memnode_shift]; 
+> -	VIRTUAL_BUG_ON(nid >= MAX_NUMNODES || !node_data[nid]); 
+> +	ASSERT(nid < MAX_NUMNODES && node_data[nid].node_spanned_pages);
+>  	return nid; 
+>  } 
+>  
+> diff --git a/xen/include/xen/numa.h b/xen/include/xen/numa.h
+> index 7aef1a88dc..91b25c5617 100644
+> --- a/xen/include/xen/numa.h
+> +++ b/xen/include/xen/numa.h
+> @@ -10,7 +10,9 @@
+>  #define NUMA_NO_NODE     0xFF
+>  #define NUMA_NO_DISTANCE 0xFF
+>  
+> +#ifndef MAX_NUMNODES
+>  #define MAX_NUMNODES    (1 << NODES_SHIFT)
+> +#endif
+>  
+>  #define vcpu_to_node(v) (cpu_to_node((v)->processor))
+>  
 > -- 
 > 2.25.1
 > 
