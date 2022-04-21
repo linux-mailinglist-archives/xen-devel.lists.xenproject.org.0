@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 817F850A431
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Apr 2022 17:29:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.310329.527110 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EADA950A4EE
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Apr 2022 18:01:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.310335.527120 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhYkN-0000sS-89; Thu, 21 Apr 2022 15:29:31 +0000
+	id 1nhZF1-0006Oz-MK; Thu, 21 Apr 2022 16:01:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 310329.527110; Thu, 21 Apr 2022 15:29:31 +0000
+Received: by outflank-mailman (output) from mailman id 310335.527120; Thu, 21 Apr 2022 16:01:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhYkN-0000qV-4t; Thu, 21 Apr 2022 15:29:31 +0000
-Received: by outflank-mailman (input) for mailman id 310329;
- Thu, 21 Apr 2022 15:29:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Sn/J=U7=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nhYkL-0000qP-WC
- for xen-devel@lists.xenproject.org; Thu, 21 Apr 2022 15:29:30 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d573b020-c187-11ec-a405-831a346695d4;
- Thu, 21 Apr 2022 17:29:29 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8B7D71F388;
- Thu, 21 Apr 2022 15:29:28 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5468A13446;
- Thu, 21 Apr 2022 15:29:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id LBK5Elh4YWJyZAAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 21 Apr 2022 15:29:28 +0000
+	id 1nhZF1-0006Lt-Ix; Thu, 21 Apr 2022 16:01:11 +0000
+Received: by outflank-mailman (input) for mailman id 310335;
+ Thu, 21 Apr 2022 16:01:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=O5Hx=U7=citrix.com=prvs=10361b9f4=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1nhZF0-0006Ln-3i
+ for xen-devel@lists.xenproject.org; Thu, 21 Apr 2022 16:01:10 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3d5ef55f-c18c-11ec-8fc2-03012f2f19d4;
+ Thu, 21 Apr 2022 18:01:02 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,177 +36,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d573b020-c187-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1650554968; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h3T6oVdIEiAoOknXMJQlzGlmDQWgAHO2WwHFfzVsC2E=;
-	b=AC/ZydHm/km1YL9h4guPQXh8abUCS2NHWmcApokIFGKvYAEuqWAK7J3zK9EzsEDxjv8YoB
-	zLtmjfoV7igAOIMoR5MazGk7By6G65HQeZAI5Fq3gMEmCU5pDPht5+tyP/gVRy90qlkppD
-	WFiExHABJWkpdZbeA7sKqqhICNanNvY=
-Message-ID: <15c89971-aefb-e71c-3798-c2e3820601f8@suse.com>
-Date: Thu, 21 Apr 2022 17:29:27 +0200
+X-Inumbo-ID: 3d5ef55f-c18c-11ec-8fc2-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1650556867;
+  h=from:to:cc:subject:date:message-id:mime-version;
+  bh=1OJz8RvTJ8Itq+VTruUHMHkolaIHndfDoMVGIZQTtrY=;
+  b=S4TNRHtx6raypI2AeOLQGchgMoNya8T6VkGr9RNiMLj883T/Kd58oNiu
+   cI6zylI3GIiSxlvbX+vHldOi55sHE4exH2zxi+jODiKpJNzjX4WVFpNTn
+   K2JbKLIzpLmkn48kzh+z9AsIgeZMOkTAnqe+efgaPC9jCUTZgvzAt5twT
+   g=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 69648190
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:ZqZC/6knXQadjsawSDO8FLXo5gzpJkRdPkR7XQ2eYbSJt1+Wr1Gzt
+ xIcC27Tb6rfMGSheot0aY+wpBsE7MTXyd9iGwdoqX82RSMWpZLJC+rCIxarNUt+DCFioGGLT
+ Sk6QoOdRCzhZiaE/n9BCpC48T8kk/vgqoPUUIYoAAgoLeNfYHpn2EoLd9IR2NYy24DlWVrV4
+ 7senuWEULOb828sWo4rw/rrRCNH5JwebxtB4zTSzdgS1LPvvyF94KA3fMldHFOhKmVgJcaoR
+ v6r8V2M1jixEyHBqD+Suu2TnkUiGtY+NOUV45Zcc/DKbhNq/kTe3kunXRa1hIg+ZzihxrhMJ
+ NtxWZOYbA07HfOShrwmUBQHHCB+F7MX17rqGC3q2SCT5xWun3rExvxvCAc9PJEC+/YxCmZLn
+ RAaAGlTNFbZ3bvwme/lDLk37iggBJCD0Ic3k3ds1zzGS90hRojOWf7i7t5ExjYgwMtJGJ4yY
+ uJHOGQzPE2RO3WjPH8PU8gwnsuRiULRaiNBqxWSoPUP+3XMmVkZPL/Fb4OOJ43iqd9utmSyq
+ 3/C/m/5KgoHL9HZwj2Amlq8i+mKkS7lVYY6ELyj6uUskFCV3nYUChAdSR28u/bRt6Klc4sBc
+ QpOoHNo9PVsshzwJjXgY/GmiFuOrD1CBcQIKO43tw6MyoDKsimcK1FRG1atd+canMMxQDUr0
+ HqAkNXoGSFjvdWpdJ6NyluHhWjsYHZIdAfucQdBFFJYuIe7/OnfmzqVFr5e/LiJYsoZ8N0a6
+ xSDt2AAiroalqbnPI3rrAmc01pASnUkJzPZBzk7vEr4tmuVh6b/PuREDGQ3Ct4acu6koqGp5
+ iRspiRnxLlm4WuxvCKMWv4RO7qi+uyINjbR6XY2QcR5q2z3pyH8J9AMiN2bGKuPGp9VEdMOS
+ BWN0T69GbcJZCf6BUOJS97Z5zsWIVjISo2+C6G8gitmaZltbg6XlByClmbLt10BZHMEyPllU
+ b/CKJ7EJS9DVcxPkWrnL89AgORD7n1vmgvuqWXTkk3PPUy2PyXOF9/o8TKmM4gE0U9ziFiLo
+ 4sHa5vWmn2ykoTWO0HqzGLaFnhSRVBTOHw8g5A/mjKrSua+JFwcNg==
+IronPort-HdrOrdr: A9a23:jWGYc69MPnmL2bhlSgduk+DQI+orL9Y04lQ7vn2YSXRuE/Bw9v
+ re+sjzuiWE6wr5NEtOpTniAtjmfZq/z+8W3WB5B97LN2OK1FdARLsSibcKqAeBJ8SRzIBgPN
+ 9bAs1DNOE=
+X-IronPort-AV: E=Sophos;i="5.90,279,1643691600"; 
+   d="scan'208";a="69648190"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH] xen/build: Fix MAP rule when called in isolation
+Date: Thu, 21 Apr 2022 17:00:39 +0100
+Message-ID: <20220421160039.24564-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH 4/4] xen/scsifront: harden driver against malicious
- backend
-Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- "James E.J. Bottomley" <jejb@linux.ibm.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>
-References: <20220420092503.11123-1-jgross@suse.com>
- <20220420092503.11123-5-jgross@suse.com>
- <00c1cd38-5164-edfa-6c47-606803629dcf@oracle.com>
- <9d8c453b-7147-d80c-3d4f-666a3b530929@suse.com>
-In-Reply-To: <9d8c453b-7147-d80c-3d4f-666a3b530929@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------lrbiipHtViPigkxsk5QxRda5"
+Content-Type: text/plain
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------lrbiipHtViPigkxsk5QxRda5
-Content-Type: multipart/mixed; boundary="------------dNyHNIA0JsXSFk76jcObWza7";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- "James E.J. Bottomley" <jejb@linux.ibm.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>
-Message-ID: <15c89971-aefb-e71c-3798-c2e3820601f8@suse.com>
-Subject: Re: [PATCH 4/4] xen/scsifront: harden driver against malicious
- backend
-References: <20220420092503.11123-1-jgross@suse.com>
- <20220420092503.11123-5-jgross@suse.com>
- <00c1cd38-5164-edfa-6c47-606803629dcf@oracle.com>
- <9d8c453b-7147-d80c-3d4f-666a3b530929@suse.com>
-In-Reply-To: <9d8c453b-7147-d80c-3d4f-666a3b530929@suse.com>
+Now that `make MAP` might rebuild $(TARGET), it needs removing from
+no-dot-config-targets.
 
---------------dNyHNIA0JsXSFk76jcObWza7
-Content-Type: multipart/mixed; boundary="------------JopTs9tb0nos5y7CFuy9ALV3"
+Otherwise the build eventually fails with:
 
---------------JopTs9tb0nos5y7CFuy9ALV3
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+    CPP     arch/x86/asm-macros.i
+  arch/x86/asm-macros.c:1:10: fatal error: asm/asm-defns.h: No such file or
+  directory
+      1 | #include <asm/asm-defns.h>
+        |          ^~~~~~~~~~~~~~~~~
 
-T24gMjEuMDQuMjIgMTI6MTMsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+IE9uIDIwLjA0LjIy
-IDE4OjEzLCBCb3JpcyBPc3Ryb3Zza3kgd3JvdGU6DQo+PiBKdXN0IGEgY291cGxlIG9mIG5p
-dHMuDQo+Pg0KPj4NCj4+IE9uIDQvMjAvMjIgNToyNSBBTSwgSnVlcmdlbiBHcm9zcyB3cm90
-ZToNCj4+PiAtc3RhdGljIGludCBzY3NpZnJvbnRfcmluZ19kcmFpbihzdHJ1Y3QgdnNjc2lm
-cm50X2luZm8gKmluZm8pDQo+Pj4gK3N0YXRpYyBpbnQgc2NzaWZyb250X3JpbmdfZHJhaW4o
-c3RydWN0IHZzY3NpZnJudF9pbmZvICppbmZvLA0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgdW5zaWduZWQgaW50ICplb2lmbGFnKQ0KPj4+IMKgIHsNCj4+PiAtwqDC
-oMKgIHN0cnVjdCB2c2NzaWlmX3Jlc3BvbnNlICpyaW5nX3JzcDsNCj4+PiArwqDCoMKgIHN0
-cnVjdCB2c2NzaWlmX3Jlc3BvbnNlIHJpbmdfcnNwOw0KPj4+IMKgwqDCoMKgwqAgUklOR19J
-RFggaSwgcnA7DQo+Pj4gwqDCoMKgwqDCoCBpbnQgbW9yZV90b19kbyA9IDA7DQo+Pj4gLcKg
-wqDCoCBycCA9IGluZm8tPnJpbmcuc3JpbmctPnJzcF9wcm9kOw0KPj4+IC3CoMKgwqAgcm1i
-KCk7wqDCoMKgIC8qIG9yZGVyaW5nIHJlcXVpcmVkIHJlc3BlY3RpdmUgdG8gZG9tMCAqLw0K
-Pj4+ICvCoMKgwqAgcnAgPSBSRUFEX09OQ0UoaW5mby0+cmluZy5zcmluZy0+cnNwX3Byb2Qp
-Ow0KPj4+ICvCoMKgwqAgdmlydF9ybWIoKTvCoMKgwqAgLyogb3JkZXJpbmcgcmVxdWlyZWQg
-cmVzcGVjdGl2ZSB0byBiYWNrZW5kICovDQo+Pj4gK8KgwqDCoCBpZiAoUklOR19SRVNQT05T
-RV9QUk9EX09WRVJGTE9XKCZpbmZvLT5yaW5nLCBycCkpIHsNCj4+PiArwqDCoMKgwqDCoMKg
-wqAgc2NzaWZyb250X3NldF9lcnJvcihpbmZvLCAiaWxsZWdhbCBudW1iZXIgb2YgcmVzcG9u
-c2VzIik7DQo+Pg0KPj4NCj4+IEluIG5ldCBhbmQgYmxvY2sgZHJpdmVycyB3ZSByZXBvcnQg
-bnVtYmVyIG9mIHN1Y2ggcmVzcG9uc2VzLiAoQnV0IG5vdCBpbiB1c2IpDQo+IEknbSBub3Qg
-c3VyZSB0aGUgc3BlY2lmaWMgdmFsdWUgaXMgb2YgYW55IGludGVyZXN0Lg0KPiANCj4+PiAr
-wqDCoMKgwqDCoMKgwqAgcmV0dXJuIDA7DQo+Pj4gK8KgwqDCoCB9DQo+Pj4gwqDCoMKgwqDC
-oCBmb3IgKGkgPSBpbmZvLT5yaW5nLnJzcF9jb25zOyBpICE9IHJwOyBpKyspIHsNCj4+PiAt
-wqDCoMKgwqDCoMKgwqAgcmluZ19yc3AgPSBSSU5HX0dFVF9SRVNQT05TRSgmaW5mby0+cmlu
-ZywgaSk7DQo+Pj4gLcKgwqDCoMKgwqDCoMKgIHNjc2lmcm9udF9kb19yZXNwb25zZShpbmZv
-LCByaW5nX3JzcCk7DQo+Pj4gK8KgwqDCoMKgwqDCoMKgIFJJTkdfQ09QWV9SRVNQT05TRSgm
-aW5mby0+cmluZywgaSwgJnJpbmdfcnNwKTsNCj4+PiArwqDCoMKgwqDCoMKgwqAgc2NzaWZy
-b250X2RvX3Jlc3BvbnNlKGluZm8sICZyaW5nX3JzcCk7DQo+Pj4gK8KgwqDCoMKgwqDCoMKg
-IGlmIChpbmZvLT5ob3N0X2FjdGl2ZSA9PSBTVEFURV9FUlJPUikNCj4+PiArwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCByZXR1cm4gMDsNCj4+PiArwqDCoMKgwqDCoMKgwqAgKmVvaWZsYWcg
-PSAwOw0KPj4NCj4+DQo+PiAqZW9pZmxhZ3MgJj0gflhFTl9FT0lfRkxBR19TUFVSSU9VUzsg
-Pw0KPiANCj4gWWVzLCBwcm9iYWJseSBiZXR0ZXIuDQo+IA0KPj4gV2UgYWxzbyB1c2UgZW9p
-X2ZsYWdzIG5hbWUgaW4gb3RoZXIgaW5zdGFuY2VzIGluIHRoaXMgZmlsZS4NCj4gDQo+IEkn
-bGwgdW5pZnkgdGhlIG5hbWUuDQoNCk9oLCBlb2lfZmxhZ3MgaXMgdXNlZCBpbiB0aGUgYmFj
-a2VuZCBkcml2ZXIuIFNvIG5vdGhpbmcgdG8gdW5pZnkuDQoNCg0KSnVlcmdlbg0K
---------------JopTs9tb0nos5y7CFuy9ALV3
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Fixes: e1e72198213b ("xen/build: Fix dependency for the MAP rule")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Anthony PERARD <anthony.perard@citrix.com>
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Backporting notes.  The original, e1e72198213b, wants backporting as far as we
+can go.  This patch is only relevant from 6c122d3984a5e onwards, so 4.14,
+which is why my main developing/testing on 4.13 didn't spot it.
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+no-dot-config-targets seems like a very easy way to create breakage...
+---
+ xen/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---------------JopTs9tb0nos5y7CFuy9ALV3--
+diff --git a/xen/Makefile b/xen/Makefile
+index 3a4e3bdd0f95..ec34524ed21d 100644
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -215,7 +215,7 @@ export XEN_ROOT := $(abs_srctree)/..
+ clean-targets := %clean
+ no-dot-config-targets := $(clean-targets) \
+                          uninstall debug cloc \
+-                         cscope TAGS tags MAP gtags \
++                         cscope TAGS tags gtags \
+                          xenversion
+ 
+ config-build    := n
+-- 
+2.11.0
 
---------------dNyHNIA0JsXSFk76jcObWza7--
-
---------------lrbiipHtViPigkxsk5QxRda5
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmJheFcFAwAAAAAACgkQsN6d1ii/Ey/T
-jAf+PLx0YSgtXWb/kP9ZZG/6r1QHcj88BZwf8qFrjRFvlKsjF1KOxvZCn2AMroAqiv8RtgjeDjbv
-z/7Ub9WUrQSezMH4Iznz+ppWGsnha88EAyNXlzE4mmn2GT/IfVgyHoM9NcrCb3cJK1+mXlSQ0VNj
-Ti0/rkX6cNXcWwd1fRs9uTJq/rwlXVJn8l8gZ8EBY6LTVVEA5Scj9YczFGT6tkYFFsA1iZcmCcjC
-yDTI4tecM2nSUMcoiYh5L2hQ5Uup0AQ1UORotJP/VKpmSLURcPIIFrN66hgOqDe0WZOXZcMFKuuw
-So+lAQ/L7yK1vvBmSLNHfu/smOtXpyVOB3SFL9gVrQ==
-=urCh
------END PGP SIGNATURE-----
-
---------------lrbiipHtViPigkxsk5QxRda5--
 
