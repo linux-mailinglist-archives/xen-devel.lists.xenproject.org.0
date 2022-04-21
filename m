@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA230509DD4
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Apr 2022 12:40:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.310013.526588 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 045F4509DDC
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Apr 2022 12:43:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.310018.526600 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhUEN-0008Cf-IK; Thu, 21 Apr 2022 10:40:11 +0000
+	id 1nhUHm-0000fY-34; Thu, 21 Apr 2022 10:43:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 310013.526588; Thu, 21 Apr 2022 10:40:11 +0000
+Received: by outflank-mailman (output) from mailman id 310018.526600; Thu, 21 Apr 2022 10:43:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhUEN-00089p-FE; Thu, 21 Apr 2022 10:40:11 +0000
-Received: by outflank-mailman (input) for mailman id 310013;
- Thu, 21 Apr 2022 10:40:10 +0000
+	id 1nhUHl-0000cs-Vh; Thu, 21 Apr 2022 10:43:41 +0000
+Received: by outflank-mailman (input) for mailman id 310018;
+ Thu, 21 Apr 2022 10:43:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lloE=U7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nhUEM-00089j-9U
- for xen-devel@lists.xenproject.org; Thu, 21 Apr 2022 10:40:10 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=5++L=U7=gmail.com=d.vrabel.98@srs-se1.protection.inumbo.net>)
+ id 1nhUHk-0000cm-O8
+ for xen-devel@lists.xenproject.org; Thu, 21 Apr 2022 10:43:40 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6a4c62e2-c15f-11ec-a405-831a346695d4;
- Thu, 21 Apr 2022 12:40:09 +0200 (CEST)
-Received: from EUR03-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur03lp2054.outbound.protection.outlook.com [104.47.9.54]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-23-ESgn8edSMpiQh-sI6cFV9A-1; Thu, 21 Apr 2022 12:40:06 +0200
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
- by DU2PR04MB8789.eurprd04.prod.outlook.com (2603:10a6:10:2e0::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14; Thu, 21 Apr
- 2022 10:40:04 +0000
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::5cb0:5195:4203:7c2f]) by DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::5cb0:5195:4203:7c2f%7]) with mapi id 15.20.5186.015; Thu, 21 Apr 2022
- 10:40:04 +0000
+ id e7b82409-c15f-11ec-a405-831a346695d4;
+ Thu, 21 Apr 2022 12:43:39 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id b19so6045312wrh.11
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Apr 2022 03:43:39 -0700 (PDT)
+Received: from banana.davidvrabel.org.uk (banana.davidvrabel.org.uk.
+ [82.70.146.42]) by smtp.googlemail.com with ESMTPSA id
+ r3-20020a1c2b03000000b00392a3e6280bsm1790450wmr.8.2022.04.21.03.43.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 Apr 2022 03:43:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,154 +43,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a4c62e2-c15f-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1650537609;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=ZPRI9TBpt7NqvcTDTjDO9kvTzuTJer701WOTHuYIYd4=;
-	b=CL2YUmew2hko9etCuBtuDNmBrjlUX+/WZ/+8w4OkTuKNbLnsoPOtifepxvG4KeQO0Ub5rc
-	5YXUeMLjIINRXJA0NFxPNaXm3SzPxf1QW9Lb2Y5acvNyTB941By1nVXUUmXrpuVgW0dEes
-	HphcZdAcLAtoy7gipPUI7RiIUAR7CFw=
-X-MC-Unique: ESgn8edSMpiQh-sI6cFV9A-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fxqgaOJVIqKd7gvt/mc2X9GbxGYWnp+4pv2nOeh/fgqJqFlENhdQ2QTr6UqQXE88cVmiqZBNFVNM25qVc2raA2nrYVEX976TTGyhP8ZIHWNx7AOcN1VxVPxxb1XqEHrI5uOZws5QY3NIhKl1qRrydPpo4LjzzPDhAunAIwM/kVJTDn2/EDm/D+rEB4EiWfT5U++iEi7eE9go/7WgvN633dnP0s3kJ/5icgM93N0f0Q2O2P7NsAL4mbHwk0Ioahe/Z+Ig4Bh4iPi58PgzfIY0umI1MZFvrEqaSLeGjaUXJFbkYQhFaUvabYmvqT1atUI+9nvUvzY0mWx0huIPUZaBWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZPRI9TBpt7NqvcTDTjDO9kvTzuTJer701WOTHuYIYd4=;
- b=TRSbRNAKEexT0U3RHsj4llRA0vpDM79rMERKmqQB2l7G2Gdw7Vpa9Zx+fzr+fw+cFtxYZwcTvF9/mJRKQ78CiU3jeV7iYkLqLDtkYJko2jQ1SSDaGmapApMyY68VUYt+04V3Ozo/A2vqBct/6E8iaP831xjMoIoKdrctl5a3pQVPg/7i1jBMZU6MQXcdKqqG9Xe7EZEX/fb3A9hpb7kI8Z2jrAwVBctEFh84wSWCFRIpr9qQdNO2VAhpHlLHTYSViFMeHuPcqN+8oM4V1j8Wuikjil2dBCz26xE/N4H5eBOtX3gfOp+1cU9n/a+GXR2l1N/4T2s2YHu2y4JcEoh6uA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <971a1a9a-ab4a-38cd-2c20-534846b440f6@suse.com>
-Date: Thu, 21 Apr 2022 12:40:03 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/build: make linking work again with ld incapable of
- generating build ID
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS8PR04CA0121.eurprd04.prod.outlook.com
- (2603:10a6:20b:127::6) To DU2PR04MB8616.eurprd04.prod.outlook.com
- (2603:10a6:10:2db::16)
+X-Inumbo-ID: e7b82409-c15f-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=sender:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=wMoTPeB7BTLpWOQfhuwiocjrzUK1wUCWzqs0ZSxBB7E=;
+        b=Y3bn8wqcPwYxKKdf4DG25sqqv7W6UVZIiFzt5hVnYhTBvsbvE0kbVmkYEQH2rmdVgJ
+         uBdik4pOaEo+lYU/2ev+OOh640tLaOSu62BcHJsx7wRp1PYgiN9T1STRIiKmEktOx5qD
+         u2v6+XbYuDruSCSPlyrqR28tUZy1Y70aJf4Gilll/5j/NKrUNjlok4FyYm2IItoAlJVY
+         y2lzjtoRE0ZWO4KaTHIdGNMFlaiEWge8F7HvZg75pid7yo+68bakUl7O/JM5ou1AnD5M
+         nbTBfvDPzPzIqEUmtm9RbmVaB4iYNADocy6gtlHEgrByCD77SgwSR2X3vkYoUrUhkBOs
+         Lf+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+         :mime-version:content-transfer-encoding;
+        bh=wMoTPeB7BTLpWOQfhuwiocjrzUK1wUCWzqs0ZSxBB7E=;
+        b=iBDzb5zH2ZAsLTfs2wCpd+czbR1hCbJGAh8DYgpDVoNIjD+pSI+v0kxYyAet14Xpn9
+         rfqLiVuwcAgkrW5q47aTdA3PnVZtKhUE62X760OX5SYgz2dRXYxkWQs3vVRtweJ2q5sH
+         rB6jVDYB/eqMDllmEaroD1Uxk6HW2uZ79qudTxaFXxPybHVAGPR75r++hM2WFZY3lxDl
+         eu3qIGCg0X5z64ljLBdxtYgP6gf/Xuz4N90asC0qizJFBfrtGryP6cxkNw8t4dweoN/8
+         1QbiZGseRmX30qIdfaxpxoSZTA06FflkrWejWpJm40Q3Buv5amLhQaV1gRivoLVB8pDh
+         B3cw==
+X-Gm-Message-State: AOAM531dsK/u+riWAFW9HXWAww7Hq4LRWqmFnZhLihfbFlup27u4ebM6
+	znoHK0r4jGkj/oeDNBZpGv7KgajwtPEYeA==
+X-Google-Smtp-Source: ABdhPJzglbNJLubVHZR+/nGmnbV/4mNnNj9ygNPA++nq5bkeqHoeq24mWFgc21kiLFTFfrejjWVxYg==
+X-Received: by 2002:a5d:48cc:0:b0:206:d17:10aa with SMTP id p12-20020a5d48cc000000b002060d1710aamr19188725wrs.460.1650537819156;
+        Thu, 21 Apr 2022 03:43:39 -0700 (PDT)
+Sender: David Vrabel <d.vrabel.98@gmail.com>
+From: David Vrabel <dvrabel@cantab.net>
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	David Vrabel <dvrabel@amazon.co.uk>
+Subject: [PATCH v2] page_alloc: assert IRQs are enabled in heap alloc/free
+Date: Thu, 21 Apr 2022 11:43:05 +0100
+Message-Id: <20220421104305.878204-1-dvrabel@cantab.net>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ed2ee7c5-be7f-4eb1-7bf0-08da23834bd8
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8789:EE_
-X-Microsoft-Antispam-PRVS:
-	<DU2PR04MB878905FD533844A216E255F9B3F49@DU2PR04MB8789.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	FLES9CT8AK7JAOHnSrVdHebjlAMoqE34wyXVvCQgDd7dzgUNSatmUL8cbhr6at6okBOxLE2vBTkOCRBgcMLgbSU7zERBi16Zq3Or65vAvmsJLZVS+0BHuLknjcQvZfBb/Y3HIDR8mqi33vpfnVmklJNO/gqXzJZWxn17rsYgfasAT6yneIaXG90qjSC65w7N5PU9y/qAOyXF6Tln8M4VVwOFRcN1j+lbr+WZEEHlwGRtdSyMU3fMENf1jb7+vXMJM7M9eXmGcglOe4Uhyuu41Bm/M63BCL2UAzzKyI4REOlEhA7osiPoEINZHI1SSjN1AiOx/deA6GNyU7SMm6AYMrkP//DS4ME6GbFat9CrQC/PRFHpTnoQpZpwl8OREz36k66Fcl1xTmsWzOw59DJPKgiv2DlsFMl+DA9sjSYm0UkjZOuy9H9QaBthpri+PBefQLAclSkL8yK6aporAxWuMCB18urrXCrZeU3poIAQtFt0TLBgyV7dp37jerwQmof3ETSvE1aNDYAWUlc3N+iRbhoks/WQdJE2FQ9sc8hIPhWqQznwrQXNSPMvyXnzabqNTAJYXJFlqLD7/ZivZDRRwcJ5Rhbhmnt2z8I2d7CQOd7E/zQbZ7ag2AYqBVrTH27dthddHIJjPGFixTLYrcPthye6O4MGx/HA+MLZtwP8Wyp79AjDcjjLqBDHdO27Y/DQD3tFilcxgurSxWEMdRDLclsuU9OWTAmBr3ywlEjdUhhJbxxY/YTHXCln3h+2L3au
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(6506007)(4326008)(508600001)(31686004)(38100700002)(8676002)(66946007)(5660300002)(186003)(26005)(2616005)(36756003)(316002)(8936002)(66476007)(6486002)(2906002)(31696002)(86362001)(66556008)(6916009)(6512007)(54906003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dEdCTEJxT0o2STRzQzFUU2lzY2d5cGFtVVp0ZVdidWhTcUZZUHpHN0hLKzFt?=
- =?utf-8?B?TmxBYk51K3FiQ3VzMUl4cHUwa2M3OG1xNVJmTmZSRFdEU1lmQmNtNXE2MXpS?=
- =?utf-8?B?ZnBMS3BmK1c4aTlPZlhyOW9FRmhtNlJmZzJTRDdWNy9xZWZkaW5KUFBQTnda?=
- =?utf-8?B?ejNqZm83N0Vya09MU0NVNkw0RXlablFKbDJwMXEvNkVkNDBnb0NMOWwrcWQ1?=
- =?utf-8?B?eFVvOUt5aGNHL0FBb2RuNDQrMGlJZCtwMnczZEVWSzVXZ2MwVHNTVjR5b3Zq?=
- =?utf-8?B?c0tialFYOC9jWjhjdkxjeExmTlR5a3JTSkc2RnFsckZ2WFdWdWJXNmVYYmty?=
- =?utf-8?B?eGJWWWd0czBwdU9TaWFBd1JNSFlCS3ZxekNNU1NiYVpGSUNuRmJiczlqWlAr?=
- =?utf-8?B?MG1Kb1d5bXh3NGFMQW85Wk9taklvenQvS1lDaFBrQlpHNmpUbnRwZWhXS3Br?=
- =?utf-8?B?dFdXZi9wSFNxWjN3bUpGRVQyc1M5WGdMUnMzelZmWUV4MzhVaTJDcGV4L3BY?=
- =?utf-8?B?SEp3angxYjJMZWtqdytxaWVQdlllNXhNTVE5OE9vVDBMRmd3R1IvR0xCTHI2?=
- =?utf-8?B?SHVWNHVmM0xhc2xGc1kwYVNjVy9KVU9KWk1hVDdRUEF0SG5seEtobkVXeHBV?=
- =?utf-8?B?dDVvd0s1aUs0NFJCRU1URUZwMERxMU5pK3Z0bVlZVHVJeU9JaGtQTGhFWlpl?=
- =?utf-8?B?Vkdpejd0RmN1NzNzZGFGU0JGR1BGbjVxV3hjU1RtMDlCYTBKNW5xeW9wdDV4?=
- =?utf-8?B?YWppMlJiRFZCdFl3VW13TFBkcUZtbFM2TENzU0thMkdGMjBjUi9Ld0F6NG01?=
- =?utf-8?B?ZnJIQWNnZE1vKzhaTEloODdOK0w2U1Y5aGtvSWU4d1NSTUtSTC9rQ2dVTlNp?=
- =?utf-8?B?OXhCRlhDK21lOERGZnFvZmhBVnVtUm5zOHZqYlVtaS9vaEc4bEZyY01qQm5S?=
- =?utf-8?B?S3NNcU9LLzRTVlpsUTBtZi9uVUczWWxUKzJ2bW1YaDJQRDBQRXYybW9FRXhU?=
- =?utf-8?B?eGxvajVQWk1KYmZ3VjdnQkhGMDVNVDdNZVhnc3BsRzZtYklxckdCUWEwdnhh?=
- =?utf-8?B?eGM0U2JtdDR6YXFkSzFPcWFqTU9laUxwcS9tN3JKT1lrSzR3NHV1UXc2eSts?=
- =?utf-8?B?YlNNc2puS000TisydXc3YkZLM2IzRUpZMjVVK1JGY0UwVldXTUE5UEFFNVJV?=
- =?utf-8?B?Rkg0a2djKzNGekFRWng3a0JSZXFzSlQ3RzRDN1NxUXEvclVIaEd2YzhTVW1D?=
- =?utf-8?B?dFF4d3loLzRIQndkcDdjME90UjRjTytDOWFLN2xZYkx2Wk1wb0Z4Zk95SmUx?=
- =?utf-8?B?U3h0dkpQRGxmQVhUZ1RpK3o5aHZHbUxTbHhIRU4vMTFJR05TTlJma2YyT05y?=
- =?utf-8?B?b1NPLzVFbkt3bFBUL0FwaGdNRHJrTDQ3R1VoSDVLb3QxRXdwbDQ0b0FSd1Iv?=
- =?utf-8?B?SEUrNDFDUUU4Ri83cXRnMHU2Q1hXd3hmSS9hZWhrQTF1eXlDQUdaWi9QUDM5?=
- =?utf-8?B?MVFwa05DaU1WdDVoOTdKZzUrMDFWeVFmVWFFOHR0UVVvNE05MGp0RGVmcmVO?=
- =?utf-8?B?ZEVVQ1Nab1g0c3h5d3I1NUY3K1gzbHpDM3FsSTYrVkplVVpGeXFFd1pDZDBi?=
- =?utf-8?B?M3BCNzVML1VnTDZKSklhTmVpb1NUclJDRklpc05ic0JoWDZvTXFhUmVEc29W?=
- =?utf-8?B?b2ZDZThyWElSVGlocENjalkzVmZUU0lEdEgyczdQOXRIaEt3a3NhaHgyOWNG?=
- =?utf-8?B?emVvaDBIRjJqWmJJc3JSbkFJWGd4eVFabHdZNm00SzJCVndOYk1pZ3hKZWxY?=
- =?utf-8?B?WDdXY3g2aG5wYjZmVVNNY3RWaDhGWmpaV1VGV3RFSjdXa0pFL0h1SndFV1Uy?=
- =?utf-8?B?MCtBdVdGblhWMmEvYm5RYW5IcmxGbjBGaVgvT2RLWnFyR21MOGFOd0paUFpt?=
- =?utf-8?B?cVVaWVA0d0RvSTlMSmNWOHhmZVdEZldaRTlpbW9tb1FLMG9nVE1IMDhRUndG?=
- =?utf-8?B?QzlWblpBZFZHMktTNFNjUGJxcmFVZmZrTDVIblBoM2NKRFVYZ280K3VBb2V3?=
- =?utf-8?B?MklqZDVYZm5HL3V1Vk9RZ08wSFRwb3RXYnl1bS9LWHNJVU5NZDVyc2tWdG44?=
- =?utf-8?B?MDJNWElQUzNWdTZWSWtXQ0JXYVBRMk1oUXZwL3BMRW0xVW1ubXFUeU1lZW91?=
- =?utf-8?B?OEw5TVdDaU5UNytDU1krRllFQ0FUSGZNK3dVVGI0Z3Q4Y0swSnk2VU1acTlC?=
- =?utf-8?B?WkMwS3pRV2pUUGIxbTB6QUdtM1BJODFRRHNSV1R5Ynp4WEhSU2FpSHdrWWJp?=
- =?utf-8?B?ZXZ3NnZUMCtFK2RBQ3RlaTlwUDRTK29Vd0xHQU5WRWxhWlZrc0pJUT09?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed2ee7c5-be7f-4eb1-7bf0-08da23834bd8
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2022 10:40:04.8544
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: x5HliHGpybZi9K/rViXoIqQSJ5L/Ud/XqFhN+pqMb4cXgprJCuBomJXbfhEWF8aOSF0tGhGMybT5nSSA+DFfMQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8789
+Content-Transfer-Encoding: 8bit
 
-The retaining of .note.* in a PT_NOTE segment requires a matching
-program header to be present in the first place. Drop the respective
-conditional and adjust mkelf32 to deal with (ignore) the potentially
-present but empty extra segment (but have the new code be generic by
-dropping any excess trailing entirely empty segments).
+From: David Vrabel <dvrabel@amazon.co.uk>
 
-Fixes: dedb0aa42c6d ("x86/build: use --orphan-handling linker option if available")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Heap pages can only be safely allocated and freed with interuupts
+enabled as they may require a TLB flush which will send IPIs.
 
---- a/xen/arch/x86/boot/mkelf32.c
-+++ b/xen/arch/x86/boot/mkelf32.c
-@@ -320,6 +320,19 @@ int main(int argc, char **argv)
-                 (int)in64_ehdr.e_phentsize, (int)sizeof(in64_phdr));
-         return 1;
-     }
+Normally spinlock debugging would catch calls from the incorrect
+context, but not from stop_machine_run() action functions as these are
+called with spin lock debugging disabled.
+
+Enhance the assertions in alloc_xenheap_pages() and
+alloc_domheap_pages() to check interrupts are enabled. For consistency
+the same asserts are used when freeing heap pages.
+
+As an exception, during early boot when only 1 PCPU is online,
+allocations are permitted with interrupts disabled. This required
+setting the SYS_STATE_smp_boot system state on arm, to match x86.
+
+Signed-off-by: David Vrabel <dvrabel@amazon.co.uk>
+---
+Changes in v2:
+- Set SYS_STATE_smp_boot on arm.
+---
+ xen/arch/arm/setup.c    |  2 ++
+ xen/common/page_alloc.c | 24 ++++++++++++++++--------
+ 2 files changed, 18 insertions(+), 8 deletions(-)
+
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index d5d0792ed4..44d45f1449 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -984,6 +984,8 @@ void __init start_xen(unsigned long boot_phys_offset,
+ 
+     console_init_postirq();
+ 
++    system_state = SYS_STATE_smp_boot
 +
-+    /* Ignore entirely empty trailing program headers. */
-+    while ( in64_ehdr.e_phnum > num_phdrs )
-+    {
-+        (void)lseek(infd,
-+                    in64_ehdr.e_phoff + in64_ehdr.e_phnum * sizeof(in64_phdr),
-+                    SEEK_SET);
-+        do_read(infd, &in64_phdr, sizeof(in64_phdr));
-+        endianadjust_phdr64(&in64_phdr);
-+        if ( in64_phdr.p_memsz )
-+            break;
-+        --in64_ehdr.e_phnum;
-+    }
-     if ( in64_ehdr.e_phnum != num_phdrs )
-     {
-         fprintf(stderr, "Expect precisly %d program header; found %d.\n",
---- a/xen/arch/x86/xen.lds.S
-+++ b/xen/arch/x86/xen.lds.S
-@@ -40,9 +40,7 @@ OUTPUT_ARCH(i386:x86-64)
- PHDRS
+     do_presmp_initcalls();
+ 
+     for_each_present_cpu ( i )
+diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+index 319029140f..e1ce38df13 100644
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -162,6 +162,14 @@
+ static char __initdata opt_badpage[100] = "";
+ string_param("badpage", opt_badpage);
+ 
++/*
++ * Heap allocations may need TLB flushes which require IRQs to be
++ * enabled (except during early boot when only 1 PCPU is online).
++ */
++#define ASSERT_ALLOC_CONTEXT()                                          \
++    ASSERT(!in_irq() && (local_irq_is_enabled()                         \
++                         || system_state < SYS_STATE_smp_boot))
++
+ /*
+  * no-bootscrub -> Free pages are not zeroed during boot.
+  */
+@@ -2160,7 +2168,7 @@ void *alloc_xenheap_pages(unsigned int order, unsigned int memflags)
  {
-   text PT_LOAD ;
--#if defined(BUILD_ID) || defined(CONFIG_PVH_GUEST)
-   note PT_NOTE ;
--#endif
- }
- #define PHDR(x) :x
- #else
+     struct page_info *pg;
+ 
+-    ASSERT(!in_irq());
++    ASSERT_ALLOC_CONTEXT();
+ 
+     pg = alloc_heap_pages(MEMZONE_XEN, MEMZONE_XEN,
+                           order, memflags | MEMF_no_scrub, NULL);
+@@ -2173,7 +2181,7 @@ void *alloc_xenheap_pages(unsigned int order, unsigned int memflags)
+ 
+ void free_xenheap_pages(void *v, unsigned int order)
+ {
+-    ASSERT(!in_irq());
++    ASSERT_ALLOC_CONTEXT();
+ 
+     if ( v == NULL )
+         return;
+@@ -2202,7 +2210,7 @@ void *alloc_xenheap_pages(unsigned int order, unsigned int memflags)
+     struct page_info *pg;
+     unsigned int i;
+ 
+-    ASSERT(!in_irq());
++    ASSERT_ALLOC_CONTEXT();
+ 
+     if ( xenheap_bits && (memflags >> _MEMF_bits) > xenheap_bits )
+         memflags &= ~MEMF_bits(~0U);
+@@ -2224,7 +2232,7 @@ void free_xenheap_pages(void *v, unsigned int order)
+     struct page_info *pg;
+     unsigned int i;
+ 
+-    ASSERT(!in_irq());
++    ASSERT_ALLOC_CONTEXT();
+ 
+     if ( v == NULL )
+         return;
+@@ -2249,7 +2257,7 @@ void init_domheap_pages(paddr_t ps, paddr_t pe)
+ {
+     mfn_t smfn, emfn;
+ 
+-    ASSERT(!in_irq());
++    ASSERT_ALLOC_CONTEXT();
+ 
+     smfn = maddr_to_mfn(round_pgup(ps));
+     emfn = maddr_to_mfn(round_pgdown(pe));
+@@ -2369,7 +2377,7 @@ struct page_info *alloc_domheap_pages(
+     unsigned int bits = memflags >> _MEMF_bits, zone_hi = NR_ZONES - 1;
+     unsigned int dma_zone;
+ 
+-    ASSERT(!in_irq());
++    ASSERT_ALLOC_CONTEXT();
+ 
+     bits = domain_clamp_alloc_bitsize(memflags & MEMF_no_owner ? NULL : d,
+                                       bits ? : (BITS_PER_LONG+PAGE_SHIFT));
+@@ -2419,7 +2427,7 @@ void free_domheap_pages(struct page_info *pg, unsigned int order)
+     unsigned int i;
+     bool drop_dom_ref;
+ 
+-    ASSERT(!in_irq());
++    ASSERT_ALLOC_CONTEXT();
+ 
+     if ( unlikely(is_xen_heap_page(pg)) )
+     {
+@@ -2738,7 +2746,7 @@ int __init acquire_domstatic_pages(struct domain *d, mfn_t smfn,
+ {
+     struct page_info *pg;
+ 
+-    ASSERT(!in_irq());
++    ASSERT_ALLOC_CONTEXT();
+ 
+     pg = acquire_staticmem_pages(smfn, nr_mfns, memflags);
+     if ( !pg )
+-- 
+2.30.2
 
 
