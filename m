@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D5D450BBC2
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Apr 2022 17:37:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.311053.528048 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 724F950BBC4
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Apr 2022 17:37:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.311058.528059 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhvKR-0008RR-Ak; Fri, 22 Apr 2022 15:36:15 +0000
+	id 1nhvLl-0000dK-PI; Fri, 22 Apr 2022 15:37:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 311053.528048; Fri, 22 Apr 2022 15:36:15 +0000
+Received: by outflank-mailman (output) from mailman id 311058.528059; Fri, 22 Apr 2022 15:37:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhvKR-0008PW-6U; Fri, 22 Apr 2022 15:36:15 +0000
-Received: by outflank-mailman (input) for mailman id 311053;
- Fri, 22 Apr 2022 15:36:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9oV9=VA=gmail.com=d.vrabel.98@srs-se1.protection.inumbo.net>)
- id 1nhvKP-0008PQ-PS
- for xen-devel@lists.xenproject.org; Fri, 22 Apr 2022 15:36:13 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id efcbd4da-c251-11ec-a405-831a346695d4;
- Fri, 22 Apr 2022 17:36:11 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id h25so5569121wrc.13
- for <xen-devel@lists.xenproject.org>; Fri, 22 Apr 2022 08:36:11 -0700 (PDT)
-Received: from banana.davidvrabel.org.uk (banana.davidvrabel.org.uk.
- [82.70.146.42]) by smtp.googlemail.com with ESMTPSA id
- m21-20020a05600c3b1500b003928f20b7besm1829096wms.42.2022.04.22.08.36.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Apr 2022 08:36:10 -0700 (PDT)
+	id 1nhvLl-0000aL-M2; Fri, 22 Apr 2022 15:37:37 +0000
+Received: by outflank-mailman (input) for mailman id 311058;
+ Fri, 22 Apr 2022 15:37:35 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nhvLj-0000a4-O4; Fri, 22 Apr 2022 15:37:35 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nhvLj-0004Ny-ME; Fri, 22 Apr 2022 15:37:35 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nhvLj-0003ED-Ey; Fri, 22 Apr 2022 15:37:35 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nhvLj-0001Td-EZ; Fri, 22 Apr 2022 15:37:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,170 +41,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: efcbd4da-c251-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=sender:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=FHYrzSvh6xDWNNAItKaBBuh/jI95qz9hOrlWNTaNwg0=;
-        b=MRqaI3YjIVqk4qTKuNsJwDtZ34tiQNTkbdDDZJXccGvWclxDCJmzV0/eKWGtXDUVku
-         slpCBYJr6NaD2UIFecon65GJT95LHTBx95VgqntwHWkttOWxbz5rSqDPzVNc51EJUo3L
-         07UTbRCyJYc5hoBrz9N5IV7PjbSlu4tU2W5G+mMsEFWMITYTIngrFK60ueolqHGwYtYO
-         ZbT6gfzf++Y6higrXp3GpVn7LiBZqzhgxT5+riYdb4loRd07ZDlW637siZdG/PFfHwwB
-         C1/zOIgMnL7sl0wptHUePVEuImz11Ac5mVIFoxFgPuYB5X1zd40jL0lV0NXohLCmSIWv
-         PF2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
-         :mime-version:content-transfer-encoding;
-        bh=FHYrzSvh6xDWNNAItKaBBuh/jI95qz9hOrlWNTaNwg0=;
-        b=2vBnuX5Tm2A7v06Q823NPQ+FKr5uNV2r5PJ0puQBjHKxhIwhKeUNzIWfeoraRxZCo6
-         ydZrFVWWfIYvgCv4iAvY1Pi5ydvOi7ZMncRri/vv7g1EwjsBfdlUPNV6OnZ7n6A6CO29
-         Hl64nvyH9EtaNIbe9bVisvZtoWa7IwmZ2+sIGJ4hhBzYqv2SUyw2RPaM/Haxux1e6JaT
-         0+75WOxxRvzc8F/b/4Ps/xpjWD8wZgWFsahW/7CkcQdiujFUGjxpyiV9wgB78fzr1l53
-         D/RKH2hDiegwH7Xt6PFwgbMBYIaa5efhii8PRJEvvZ9CXjL/3raQRJa8JKl4KPCeUblA
-         mbqw==
-X-Gm-Message-State: AOAM530zxfKZtPRbkk2FRhRuL4UY5oZjMHtXhSa8us2H7lM5ocqUeBEl
-	e03TdqqBmm/RJ/OUcKSN9UyDtWN7xmuFFNqq
-X-Google-Smtp-Source: ABdhPJyR6RwA1Ot8vLJYrOt6/ft0LIUL9nRnFY2FQfgrwndD84Woc/irIbYYI44b4ZOq2SjkGG2UkQ==
-X-Received: by 2002:adf:e60a:0:b0:20a:c402:6810 with SMTP id p10-20020adfe60a000000b0020ac4026810mr4380911wrm.45.1650641770811;
-        Fri, 22 Apr 2022 08:36:10 -0700 (PDT)
-Sender: David Vrabel <d.vrabel.98@gmail.com>
-From: David Vrabel <dvrabel@cantab.net>
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=NOaB++AzjJWeO7fD/1laopMdD6cz4ite9mWnjepycXU=; b=ET669CHR/gviJAaLsGxmEQflma
+	Q8lzOTli5EbE+Ihe8OCnbnZCs8IcvVKwzv1YpkxIxI2dDZdGnybgKx52XT0XEzcPhB5OPkyo4JJ2r
+	lc8eE9ZUnkLXFiKPCccs/C3dLp4km2zbN4K0drhgaWud07i493O5KfMsdawudqGgjC78=;
 To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	David Vrabel <dvrabel@amazon.co.uk>
-Subject: [PATCH v3] page_alloc: assert IRQs are enabled in heap alloc/free
-Date: Fri, 22 Apr 2022 16:36:01 +0100
-Message-Id: <20220422153601.967318-1-dvrabel@cantab.net>
-X-Mailer: git-send-email 2.30.2
-MIME-Version: 1.0
+Message-ID: <osstest-169625-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 169625: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=f4dfec6ca1ef4354307b8ca8005affe17fc64360
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 22 Apr 2022 15:37:35 +0000
 
-From: David Vrabel <dvrabel@amazon.co.uk>
+flight 169625 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169625/
 
-Heap pages can only be safely allocated and freed with interuupts
-enabled as they may require a TLB flush which will send IPIs.
+Regressions :-(
 
-Normally spinlock debugging would catch calls from the incorrect
-context, but not from stop_machine_run() action functions as these are
-called with spin lock debugging disabled.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
-Enhance the assertions in alloc_xenheap_pages() and
-alloc_domheap_pages() to check interrupts are enabled. For consistency
-the same asserts are used when freeing heap pages.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-As an exception, when only 1 PCPU is online, allocations are permitted
-with interrupts disabled as any TLB flushes would be local only. This
-is necessary during early boot.
+version targeted for testing:
+ ovmf                 f4dfec6ca1ef4354307b8ca8005affe17fc64360
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-Signed-off-by: David Vrabel <dvrabel@amazon.co.uk>
----
-Changes in v3:
-- Use num_online_cpus() in assert.
+Last test of basis   168254  2022-02-28 10:41:46 Z   53 days
+Failing since        168258  2022-03-01 01:55:31 Z   52 days  556 attempts
+Testing same since   169625  2022-04-22 14:11:03 Z    0 days    1 attempts
 
-Changes in v2:
-- Set SYS_STATE_smp_boot on arm.
----
- xen/common/page_alloc.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
 
-diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index 319029140f..516ffa2a97 100644
---- a/xen/common/page_alloc.c
-+++ b/xen/common/page_alloc.c
-@@ -162,6 +162,13 @@
- static char __initdata opt_badpage[100] = "";
- string_param("badpage", opt_badpage);
- 
-+/*
-+ * Heap allocations may need TLB flushes which require IRQs to be
-+ * enabled (except during early boot when only 1 PCPU is online).
-+ */
-+#define ASSERT_ALLOC_CONTEXT() \
-+    ASSERT(!in_irq() && (local_irq_is_enabled() || num_online_cpus() == 1))
-+
- /*
-  * no-bootscrub -> Free pages are not zeroed during boot.
-  */
-@@ -2160,7 +2167,7 @@ void *alloc_xenheap_pages(unsigned int order, unsigned int memflags)
- {
-     struct page_info *pg;
- 
--    ASSERT(!in_irq());
-+    ASSERT_ALLOC_CONTEXT();
- 
-     pg = alloc_heap_pages(MEMZONE_XEN, MEMZONE_XEN,
-                           order, memflags | MEMF_no_scrub, NULL);
-@@ -2173,7 +2180,7 @@ void *alloc_xenheap_pages(unsigned int order, unsigned int memflags)
- 
- void free_xenheap_pages(void *v, unsigned int order)
- {
--    ASSERT(!in_irq());
-+    ASSERT_ALLOC_CONTEXT();
- 
-     if ( v == NULL )
-         return;
-@@ -2202,7 +2209,7 @@ void *alloc_xenheap_pages(unsigned int order, unsigned int memflags)
-     struct page_info *pg;
-     unsigned int i;
- 
--    ASSERT(!in_irq());
-+    ASSERT_ALLOC_CONTEXT();
- 
-     if ( xenheap_bits && (memflags >> _MEMF_bits) > xenheap_bits )
-         memflags &= ~MEMF_bits(~0U);
-@@ -2224,7 +2231,7 @@ void free_xenheap_pages(void *v, unsigned int order)
-     struct page_info *pg;
-     unsigned int i;
- 
--    ASSERT(!in_irq());
-+    ASSERT_ALLOC_CONTEXT();
- 
-     if ( v == NULL )
-         return;
-@@ -2249,7 +2256,7 @@ void init_domheap_pages(paddr_t ps, paddr_t pe)
- {
-     mfn_t smfn, emfn;
- 
--    ASSERT(!in_irq());
-+    ASSERT_ALLOC_CONTEXT();
- 
-     smfn = maddr_to_mfn(round_pgup(ps));
-     emfn = maddr_to_mfn(round_pgdown(pe));
-@@ -2369,7 +2376,7 @@ struct page_info *alloc_domheap_pages(
-     unsigned int bits = memflags >> _MEMF_bits, zone_hi = NR_ZONES - 1;
-     unsigned int dma_zone;
- 
--    ASSERT(!in_irq());
-+    ASSERT_ALLOC_CONTEXT();
- 
-     bits = domain_clamp_alloc_bitsize(memflags & MEMF_no_owner ? NULL : d,
-                                       bits ? : (BITS_PER_LONG+PAGE_SHIFT));
-@@ -2419,7 +2426,7 @@ void free_domheap_pages(struct page_info *pg, unsigned int order)
-     unsigned int i;
-     bool drop_dom_ref;
- 
--    ASSERT(!in_irq());
-+    ASSERT_ALLOC_CONTEXT();
- 
-     if ( unlikely(is_xen_heap_page(pg)) )
-     {
-@@ -2738,7 +2745,7 @@ int __init acquire_domstatic_pages(struct domain *d, mfn_t smfn,
- {
-     struct page_info *pg;
- 
--    ASSERT(!in_irq());
-+    ASSERT_ALLOC_CONTEXT();
- 
-     pg = acquire_staticmem_pages(smfn, nr_mfns, memflags);
-     if ( !pg )
--- 
-2.30.2
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 5655 lines long.)
 
