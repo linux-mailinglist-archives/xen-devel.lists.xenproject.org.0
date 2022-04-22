@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16C7850BDA6
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Apr 2022 18:54:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.311143.528223 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E057950BDBC
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Apr 2022 18:58:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.311150.528234 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhwXw-0002Pa-Fw; Fri, 22 Apr 2022 16:54:16 +0000
+	id 1nhwbJ-000339-17; Fri, 22 Apr 2022 16:57:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 311143.528223; Fri, 22 Apr 2022 16:54:16 +0000
+Received: by outflank-mailman (output) from mailman id 311150.528234; Fri, 22 Apr 2022 16:57:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhwXw-0002Mm-CY; Fri, 22 Apr 2022 16:54:16 +0000
-Received: by outflank-mailman (input) for mailman id 311143;
- Fri, 22 Apr 2022 16:54:15 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nhwXu-0002MU-Uu; Fri, 22 Apr 2022 16:54:14 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nhwXu-0006Gy-UA; Fri, 22 Apr 2022 16:54:14 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nhwXu-0006zx-J1; Fri, 22 Apr 2022 16:54:14 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nhwXu-0008QG-Ia; Fri, 22 Apr 2022 16:54:14 +0000
+	id 1nhwbI-00030A-UA; Fri, 22 Apr 2022 16:57:44 +0000
+Received: by outflank-mailman (input) for mailman id 311150;
+ Fri, 22 Apr 2022 16:57:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=utlT=VA=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1nhwbH-000304-SY
+ for xen-devel@lists.xenproject.org; Fri, 22 Apr 2022 16:57:43 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5355c0ee-c25d-11ec-8fc2-03012f2f19d4;
+ Fri, 22 Apr 2022 18:57:42 +0200 (CEST)
+Received: by mail-lf1-x12e.google.com with SMTP id x33so15334909lfu.1
+ for <xen-devel@lists.xenproject.org>; Fri, 22 Apr 2022 09:57:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,161 +39,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=iJhP9DscZO+z1X8t6JXsIVUCokhUqWKnAWgEwCbnhgI=; b=I1QDmB1u7ZVKSj5MLYBTLLkKpE
-	CdZgx19UdbI/OhE+aea0dzLtB3uzbwUr8O1f1TuA0eSiS0xBAE6bPjgsy2St7e9I1HHvzmWfDtyfF
-	ZAqR6FH0n7hruOnR/TWryvIPsXYWjaCxe+dfD/hfTf3ZVFRiVxtN2z0Alb9gzwQKLMrk=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169626-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 5355c0ee-c25d-11ec-8fc2-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=rfdHOxkpzIyt1O/sX3V/T6aR7Ux9FcCSbdpHX3js2OU=;
+        b=WAYfJQLjb3sTDCqrFB0VW4kqmwqn97Yeu5kzjRnCm+2Gv2qKu6syDVAr2V72gwrewj
+         hPCu4oTnx0PU2kXbeIiDfaJsv90wFU/H2OH8cQM7IZQvKnPugkS4yvB5Q/VYBkCsUVQo
+         CQ8Uzp6aIh219QlQXFqXZRArwFn/s7O421TQ2suIAKnFlhA2E1yz9MZEOQ4kmk0wuktT
+         CkWdYsnRjJxCTieIFKIdj97cok4hKG2B+8xT+GRPoEW+/+jMfjL1NSDZOLqCvAWWPaDf
+         JKRAX/b8W5eeTOec/XEU2IPph8EGuq5Foazy+EP6uUnZjH84TL0ZMqwFT+UMyF/psnYI
+         Nn/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=rfdHOxkpzIyt1O/sX3V/T6aR7Ux9FcCSbdpHX3js2OU=;
+        b=UDp/AXR4OXNpfeQWgiVi69IoSKnnuzO5gz5pF/GPM4fubAv/JGTGjWce+Q8W9tTiDu
+         Gb3SfxhIDo90f1dmJ6jmPx/SiG2QIhbnytFsXwNP+0UbmqYppeNh0BztF5047+AOEigV
+         CH0w12Sv3yv8RhaKbS6Q48xWe3HSs+ZuJPHn/KGYcpqyNPjCE3r6U091x+gz/hbCZrsX
+         5l0gRDOF6YGGH8CnSR56PDqhSd0gVIa/Ac2/Rp01b95ugjyrL2Cm5jET4msujkYLm59t
+         yoYsDjaxBAvUzHrQH01/8rjcHI+D3exkadweJTUtjxnwaa/m+WYakkp2Pcm6A7r1e6oO
+         JGOA==
+X-Gm-Message-State: AOAM530U9cpq28Nds3HFDtszg+5RdePeu7w3/Vs8/sn4HRPjvAHJPFc2
+	ZZ0RgexO+ELW0kp7N4whkg7pU/9i9Kv8b8it0Y4=
+X-Google-Smtp-Source: ABdhPJyKUI8VrLLD4c5ypJBtzNyGAJneEOLHkcLQgVc49JQ5pnYxCLmoRHNxMLl8AbjiPXQPT+r4k6PaxWsvAVOWe5Q=
+X-Received: by 2002:a05:6512:e83:b0:46f:cc1c:a7b1 with SMTP id
+ bi3-20020a0565120e8300b0046fcc1ca7b1mr3751450lfb.388.1650646662315; Fri, 22
+ Apr 2022 09:57:42 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [ovmf test] 169626: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=ee582858c4f43c63a1566f0c1c0aa8ace0e4a79c
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 22 Apr 2022 16:54:14 +0000
+References: <20220422163458.30170-1-dpsmith@apertussolutions.com> <20220422163458.30170-2-dpsmith@apertussolutions.com>
+In-Reply-To: <20220422163458.30170-2-dpsmith@apertussolutions.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Fri, 22 Apr 2022 12:57:30 -0400
+Message-ID: <CAKf6xptd7BD4R818q9SpQryn2X_E0PH8LONrjifOw6VK3AikPg@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] xsm: create idle domain privileged and demote
+ after setup
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>, 
+	Scott Davis <scott.davis@starlab.io>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Dario Faggioli <dfaggioli@suse.com>, 
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Content-Type: text/plain; charset="UTF-8"
 
-flight 169626 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169626/
+On Fri, Apr 22, 2022 at 12:35 PM Daniel P. Smith
+<dpsmith@apertussolutions.com> wrote:
+>
+> There are now instances where internal hypervisor logic needs to make resource
+> allocation calls that are protected by XSM checks. The internal hypervisor logic
+> is represented a number of system domains which by designed are represented by
+> non-privileged struct domain instances. To enable these logic blocks to
+> function correctly but in a controlled manner, this commit changes the idle
+> domain to be created as a privileged domain under the default policy, which is
+> inherited by the SILO policy, and demoted before transitioning to running. A
+> new XSM hook, xsm_set_system_active, is introduced to allow each XSM policy
+> type to demote the idle domain appropriately for that policy type.
+>
+> For flask a stub is added to ensure that flask policy system will function
+> correctly with this patch until flask is extended with support for starting the
+> idle domain privileged and properly demoting it on the call to
+> xsm_set_system_active.
+>
+> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 ee582858c4f43c63a1566f0c1c0aa8ace0e4a79c
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   53 days
-Failing since        168258  2022-03-01 01:55:31 Z   52 days  557 attempts
-Testing same since   169626  2022-04-22 15:42:24 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 5675 lines long.)
+Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
 
