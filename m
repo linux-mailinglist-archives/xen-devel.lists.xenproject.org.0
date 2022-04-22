@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DE9B50B496
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Apr 2022 12:01:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.310796.527722 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7D6050B532
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Apr 2022 12:36:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.310805.527734 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhq6Y-00047H-UQ; Fri, 22 Apr 2022 10:01:34 +0000
+	id 1nhqdb-0000XK-LG; Fri, 22 Apr 2022 10:35:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 310796.527722; Fri, 22 Apr 2022 10:01:34 +0000
+Received: by outflank-mailman (output) from mailman id 310805.527734; Fri, 22 Apr 2022 10:35:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhq6Y-00044m-Qw; Fri, 22 Apr 2022 10:01:34 +0000
-Received: by outflank-mailman (input) for mailman id 310796;
- Fri, 22 Apr 2022 10:01:33 +0000
+	id 1nhqdb-0000UC-Gt; Fri, 22 Apr 2022 10:35:43 +0000
+Received: by outflank-mailman (input) for mailman id 310805;
+ Fri, 22 Apr 2022 10:35:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vZpq=VA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nhq6X-00044g-Jt
- for xen-devel@lists.xenproject.org; Fri, 22 Apr 2022 10:01:33 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hyV/=VA=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1nhqdZ-0000U6-MW
+ for xen-devel@lists.xenproject.org; Fri, 22 Apr 2022 10:35:42 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2fc634f6-c223-11ec-a405-831a346695d4;
- Fri, 22 Apr 2022 12:01:32 +0200 (CEST)
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05lp2174.outbound.protection.outlook.com [104.47.17.174]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-25-NV6oev0wMcKeiy0gO3zdcw-1; Fri, 22 Apr 2022 12:01:23 +0200
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
- by VE1PR04MB7437.eurprd04.prod.outlook.com (2603:10a6:800:1b3::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Fri, 22 Apr
- 2022 10:01:22 +0000
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::5cb0:5195:4203:7c2f]) by DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::5cb0:5195:4203:7c2f%7]) with mapi id 15.20.5186.015; Fri, 22 Apr 2022
- 10:01:22 +0000
+ id f3d62de4-c227-11ec-a405-831a346695d4;
+ Fri, 22 Apr 2022 12:35:39 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id y21so3008520edo.2
+ for <xen-devel@lists.xenproject.org>; Fri, 22 Apr 2022 03:35:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,172 +39,848 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2fc634f6-c223-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1650621692;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Dwkz+mBkDfhEysjc1Ie8B940Oys83KiklybeJs9lA7M=;
-	b=czsIUizmRpw95xSysBRwdLvKUyytve2qGtrLgRHC/0Ib3hV73v2+cQdne0KLBCyXe+RvAq
-	nSao0iUqLjjYKcSn5Drsi14L+kbMGXT31Eo1fmOnhre/pyeaegMEooFeURiQzqd/aMIg+f
-	uBjEd1Dm9BWUG1EyVx/j+j39A3H0oDI=
-X-MC-Unique: NV6oev0wMcKeiy0gO3zdcw-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S36AIGGe3yEM05OW1lGbXVy24kAVPGB1kvn3FqyWtUkUVuwT0uIqwbytodu7os1unk2s4fVHvWqaQNZm5Yj69GkIFbFWPCLx/Q6Cbp4RDhhh3JIC6JQ2SVUUhzytqNjEu0VRgyE4qstL4/3t4ug8J8k4n3ZgGw9nRoQKz/Qsb1o7VEhllIy+nE8oPWUTWl0Ae2TqbYwKZ0MLy7WrN+lWkKSV4Ukqq9uzVjTYkk0gbsEMWrEqOWUTQzwnO7VtB6+6Vf9ARc5SKkzFXr4heyKqULgNhbcrLYA6EeU4dpGvPCOdsfAeVFeX0Gy7DY0EKE1SOkzCGjMqlOPLUKqwPxsE9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aBVXcZ82YigjIcWpUdrI8BN27ZedpdUW5T6z9N8NJO4=;
- b=NjJDQufXLu20WCqBvDpisRsA6XMrSqb9P4gwWOoFhyh7CcZnCz2ZsxBWMlMQWeK7HzeK1K4qZOvq3OCbXY9F6VLzysConUfauXgV5bNfQuIKKeuSENhU0VZZYRwuMBya+CItWT0wp3IY5kulFkoDXFmMRh83B1g/KLqbQKBxkP822mhRRpVSBvQ9FROiYxzKt+be/v93PXlKJXDKiM91Fn0RWCZ3YjWefrxSePywZJ2q01A3G0sy0rkdddqJz8OG2/yg7oX/EoaTCVnIhbfi3z7ZwHU+8RvpYegMFOKzGK+wcRUGU6FBphhx5Gj2AR3ltB8B3IfEARzXo83Hu0jmvw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <8089c126-430f-1c30-68b7-562be0cf6fd6@suse.com>
-Date: Fri, 22 Apr 2022 12:01:21 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [PATCH v3 3/3] amd/msr: implement VIRT_SPEC_CTRL for HVM guests
- using legacy SSBD
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20220331092717.9023-1-roger.pau@citrix.com>
- <20220331092717.9023-4-roger.pau@citrix.com>
- <0bb48681-a78f-d32e-f989-822dd5e54b70@suse.com>
- <YmF2Zw13O6oaAT0k@Air-de-Roger>
- <b7e3ecbe-6c2e-94f9-58c6-ae49652e6a29@suse.com>
- <YmJ7qr6W7cFkwV6W@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YmJ7qr6W7cFkwV6W@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AS9PR06CA0327.eurprd06.prod.outlook.com
- (2603:10a6:20b:45b::22) To DU2PR04MB8616.eurprd04.prod.outlook.com
- (2603:10a6:10:2db::16)
+X-Inumbo-ID: f3d62de4-c227-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=EzG1s9kf1XU0FJ5iNx5OiHIWUYKz1mxwT2mDLJVLVCQ=;
+        b=mJq648sy/0rhD5M4vih/thTChIH6ujM5Zxu2D0xdYhogNN3iJdb2kTk27G0Gc8m7fo
+         f6/+zImrGQDprhn06yLjNwZ+KSoVCeNoYre+82LdWUheVBoFMyQSvso9pxzSP+eFhZky
+         Ssc6VNeGaGU1GfuXYtlPiJgsg24Th21j+pXjtoomro4XW8K+hUa+fIV6vPYBMeTHMYbz
+         a6MYN8T2VTmHr4776E+8BZgrm1MPHsWLGzTNrlbFF3IOkCq4pEQVIoMeGTYOo043EfUx
+         UkHMuKQ6/AqKODk5+OenaWII6ckaknD3+NEH2rxZm/XFitErEqsrWpa3vdVYXKgx9yUT
+         uL9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=EzG1s9kf1XU0FJ5iNx5OiHIWUYKz1mxwT2mDLJVLVCQ=;
+        b=BCfhKKTLbe25Q0a5FsO850d8TZdOCtmWlJyP8MeYbqdkizPjf5D8IoUWnOyFS9AmkL
+         D0EIGMB6/d/MLRHFrOygcQAAjDayaauGA7VFJHcAr4MaJoaJ6dUOXRUvUo72c+5VK5Kt
+         yt+fxWl/4sX1yFDULrPGSBzmlz1kXviTaZ4Rr5JSEr1LPqiIDSIVkBgMkqzgxKyN9BM7
+         aPwfLY7N1JHSJa3wVeS6vKzmegWvYKLpqsZjkuM0gUk2z5BBKcc/mY3m2d7t/F0Xgi3Q
+         6WZ1z9tARlHwBOixeUkP6skzPmh0X50mBGlZrVypdXsZWz9W58r5v4/pmw6PsHhh02Xm
+         Gsow==
+X-Gm-Message-State: AOAM532SS7Rk1zxP3/bvUgZTQsGC1+1DqJm9hlMblsu6Jd58Sdf/hNZV
+	kqvYcIRDoI9xEdinYxCMRC9uvMfGMmgVbcnKFTk=
+X-Google-Smtp-Source: ABdhPJygX1GqdCXNBfb90nG3KhUB9nMr8FATI73NaXLStLfYfMahx0rbepp3B+Nvi2vHy+y3N/VPF/OAvTPD6Ed/7tI=
+X-Received: by 2002:a05:6402:1707:b0:41d:9794:6421 with SMTP id
+ y7-20020a056402170700b0041d97946421mr4049610edu.212.1650623738832; Fri, 22
+ Apr 2022 03:35:38 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2ac5616a-72ea-4a61-465a-08da24470e05
-X-MS-TrafficTypeDiagnostic: VE1PR04MB7437:EE_
-X-Microsoft-Antispam-PRVS:
-	<VE1PR04MB74372DB24F3A880C72164717B3F79@VE1PR04MB7437.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	1lLtlQ0Su/05QCPyf3hAwXt1ISzSGBkHFjg3f4K4LZc6uuyBcDlrlkYvMrSlWAS+tQULVqL2mTj1roL+jw735V9z0rYUI63jPDr5kgC+Lu9UIZRVVkjqD+gyXKpXTKemRKQm77JJyo6GVD2/ZyWU/FsXQKm9FSsD2QI2DkTMOlMBEH71w/UWHl0XyTfKC0q578B3hJ3L9w3Wle1dmFHXVqO+I5/SQDWQ4BcrXSx4CQRb568qEVZr+ai3bp6o3FW8qqBmQVXPCjtzJdM/FUBjN0HRvSZI1jZ3cPR+LwIB6eVeO15ykCwYt8RoAVQDrOiK/K4Ktj1Efjx6IaUHpB6HricR7tbYKNGCqQbadHNQyl6vnwzwdR4ENPsAHajCiz+BaR9AjHyELTRTfRIqiYxRnA0M/ux9TCy4tCYpXDhcXXg9orxewmfpWd3zREZeDB5b6APkoJQ+1XQCFvmw5eM+4qbWD7B8WGh5amRrqNBIuUAUGMK8Qm0v4WWgUy9t31hVNKaqmgH29xdzIhVhiEWWQFU8Ecmjdb4MYFW1EoZ1ARPk8YTgc6m+vraF+iMTH34iGTM0MmJn+7LkWPaz3zxfSJRVT5HgKvlW4eBL1PQN/k1yOcdwkIg9aPVsgtg//1VA6sQXxGC6R/4Bodoq5WsD6ay0MuYfkgJ6q6Ujrx4Eo9/X+JuJiRR3GdSIQXqzez/ovYf7bn0/Mp/VWmaYIXZw/6pYn4oq2YswBbW84wPiPZ8Sm2YpDScdF9dtxLUbTOl7
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(66946007)(66556008)(83380400001)(2616005)(8936002)(66476007)(4326008)(54906003)(8676002)(86362001)(6916009)(2906002)(316002)(31696002)(53546011)(6506007)(38100700002)(5660300002)(6486002)(508600001)(6512007)(186003)(36756003)(26005)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Oi4WHz2Iza09xDL8ekbAbwi/0sSfSB3RjtLPWAgg7cZjL/Hmqbgu6qovFuXU?=
- =?us-ascii?Q?rMXY5iKMEmbHty0WrG6aEDDamzu4+CkHSEwMv1ATcGtTvTPczj3b4PfTDrwK?=
- =?us-ascii?Q?jIbAXfVUZt/1UkpcHJj8vSwFUy7wRotryB5dLAgs+3yi21EUEgOyJNSHv10F?=
- =?us-ascii?Q?EtaqAV0gk0XzhqGptt8eSFExl/lYcEM9d4KiMrO7COZ9HqADF6jNvP8YhPdl?=
- =?us-ascii?Q?Bdixvs5/5XrtlpmmqRC04ftTJA32Il7MdtjTjsKpQqCKjrtZp8C8SEx4N9NW?=
- =?us-ascii?Q?aChoUuTyXrp/YKg0A7ayrJW7REsdNUJcyB3TTDTbBT+no9OWaqWrM/Cpxn43?=
- =?us-ascii?Q?knG2uOvMcChna+M/ddFvTalRy4z5rBUjXQvKqL8jbyLB9AJYr4S9q5OKcGZs?=
- =?us-ascii?Q?092N7k5s+tkgzXuTnMfQ40KuypNKU6Z+QiIyYq6n6VAmIgfe5rN84T5CokPh?=
- =?us-ascii?Q?qN4fSFYYaYkOMpOhVDRFJecK0fE7hcmnuCcIrqIl3NdB2CW+Rj1GjoVWZBy+?=
- =?us-ascii?Q?Zpor2n1WoR3HLuHMhlLmJNRwbKTLkU4la+RP22ZwLtVZP1yZ9sBD0LwEvTqi?=
- =?us-ascii?Q?TpgDpp/Mztf7t318gyM2MNORW/rrbMZqdgA/1Jfi8LDYP8msUQDLiC+F9Ie0?=
- =?us-ascii?Q?//WM8+vXGxQF/iZKQow2JFSs2Kvog2qlB35zCZQZFTGHyj/iTeVbo+p1s7T5?=
- =?us-ascii?Q?G8gSKlLRfqXCSS/S4gVGGmlt5rxgDCc4hxtYSR9rs0hkwyUzgFA4SwBJFzAU?=
- =?us-ascii?Q?snquXn+at9rFXH/fde95jB1Hn0W28ZzfZZ7fwRyVfpsM55q31+7Xd1B/j2zG?=
- =?us-ascii?Q?X/mP/4lU3+rneS8uFisGKcyIAsJvrqt7ARQDvj2wjpZXuMiVn0N/PUYJr3ke?=
- =?us-ascii?Q?dDPz0CQY+TXLYb2P8sR/0AfiTngbMhMrishhDge11CZZgnEKC3BKNW1v1YAj?=
- =?us-ascii?Q?1zb1RWndr63p3pzuSIv4H1cgr1+3oODuY/da9IT8z8SgkhrMjMI+sKvTgRHo?=
- =?us-ascii?Q?r1pPDbj/yRbwLdsLeCgtYMs+lDkONT6oZ3WhZ81E+HvlIfPCAN/ewutnNxN9?=
- =?us-ascii?Q?fM1jMInSSY5TJqDQ9QWbehLBQe+nt4orAm5Vf+eHyWuY8DtqFhExTjKuN0US?=
- =?us-ascii?Q?ekxsefKKJX1q+FP67jxbPVhhzh5quQ8oQ6zOJmOELRhYiuy1Psgq5bsxUxzq?=
- =?us-ascii?Q?cScZP8KsADnWCJIpfM3VwyS5H0F8atqWJ+egROc/l4/U2jOG/owCTPnJw5kt?=
- =?us-ascii?Q?gxgQtCGhgjQQFYrrKc98z5n1FxePPjoikSlTIaLFlYpSYDTsishiceVcrvZX?=
- =?us-ascii?Q?i99sAchZXbAyl8GKIdukqaVQtcWKC973KxAsM9LmcVtUMeAP/oN0eoSuC+yW?=
- =?us-ascii?Q?GobwF2qsQa28BPM+97U5oOtvK6inqYOnYk2jaMjUtxJ78wCWl8FvZpimkASM?=
- =?us-ascii?Q?RBT3ulzV7pg6UTyPbtr6F36DZfD3xryjHDoMRWyJ7qQxqNoLeHaO+E3stbfq?=
- =?us-ascii?Q?uGIj3HPsH3yA/MkCcd8LcaRVmeHrTxwiRo0Vcdyw8Wths4Zdh/HWeUgDd/gc?=
- =?us-ascii?Q?eLTZ+Ko5VNgY7AE27J5eHnXSOHwD60+fxa3si3/YELNGMBFHM2ObyHMIdddN?=
- =?us-ascii?Q?GBQmaNq4OeV0pFp76iv0niMSK6e/J95b6ZxVW7OO4qBJUt1e8GBhTYZGEn/x?=
- =?us-ascii?Q?Y/r+raKisETUtYWK66A6h98Al7JFnKeRzITDiHu0XFH8Ud2bNn1R7stlRzVs?=
- =?us-ascii?Q?/gcSrhWMuQ=3D=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ac5616a-72ea-4a61-465a-08da24470e05
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2022 10:01:22.5506
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KNSNKoCjovvQUJ8qUrm83rbpfsqE1jw60Ii9RxTsqDFCa+OZGQVsMYkw+UbAswbtn83vs0Eum+nsUqP1s2K8vQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7437
+References: <1649442065-8332-1-git-send-email-olekstysh@gmail.com>
+ <1649442065-8332-3-git-send-email-olekstysh@gmail.com> <VI1PR08MB3056B18C179244F174F0952F92F79@VI1PR08MB3056.eurprd08.prod.outlook.com>
+In-Reply-To: <VI1PR08MB3056B18C179244F174F0952F92F79@VI1PR08MB3056.eurprd08.prod.outlook.com>
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Date: Fri, 22 Apr 2022 13:34:48 +0300
+Message-ID: <CAPD2p-mU-NN2xrC4DT7Nu3o17gq+SrcJO8JqehKA8e+d8Ad+RA@mail.gmail.com>
+Subject: Re: [PATCH V7 2/2] libxl: Introduce basic virtio-mmio support on Arm
+To: Jiamei Xie <Jiamei.Xie@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Julien Grall <Julien.Grall@arm.com>, 
+	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	Henry Wang <Henry.Wang@arm.com>, Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Content-Type: multipart/alternative; boundary="0000000000009c6c3c05dd3bc9a7"
 
-On 22.04.2022 11:55, Roger Pau Monn=C3=A9 wrote:
-> On Thu, Apr 21, 2022 at 05:27:18PM +0200, Jan Beulich wrote:
->> On 21.04.2022 17:21, Roger Pau Monn=C3=A9 wrote:
->>> On Thu, Apr 21, 2022 at 11:50:16AM +0200, Jan Beulich wrote:
->>>> On 31.03.2022 11:27, Roger Pau Monne wrote:
->>>>> Expose VIRT_SSBD to guests if the hardware supports setting SSBD in
->>>>> the LS_CFG MSR (a.k.a. non-architectural way). Different AMD CPU
->>>>> families use different bits in LS_CFG, so exposing VIRT_SPEC_CTRL.SSB=
-D
->>>>> allows for an unified way of exposing SSBD support to guests on AMD
->>>>> hardware that's compatible migration wise, regardless of what
->>>>> underlying mechanism is used to set SSBD.
->>>>>
->>>>> Note that on AMD Family 17h (Zen 1) the value of SSBD in LS_CFG is
->>>>> shared between threads on the same core, so there's extra logic in
->>>>> order to synchronize the value and have SSBD set as long as one of th=
-e
->>>>> threads in the core requires it to be set. Such logic also requires
->>>>> extra storage for each thread state, which is allocated at
->>>>> initialization time.
->>>>
->>>> So where exactly is the boundary? If I'm not mistaken Zen2 is also
->>>> Fam17 (and only Zen3 is Fam19), yet here and elsewhere you look to
->>>> take Zen1 =3D=3D Fam17.
->>>
->>> Right, but Zen2 already has AMD_SSBD (ie: SPEC_CTRL), so it's not
->>> using this logic.
->>>
->>> The AMD whitepaper is more clear about this: any Fam17h processor that
->>> is using the non-architectural MSRs to set SSBD and has more than 1
->>> logical processor for each logical core must synchronize the setting
->>> of SSBD.
->>>
->>> I think just dropping the mention of Zen 1 in the commit message
->>> should remove your concerns?
->>
->> Or keep it, but qualify it by saying that Zen2 isn't expected to take
->> this path because of having SSBD. But iirc SSBD was introduced to
->> Zen2 only by a ucode update, so such a description should not be wrong
->> wrt such not-up-to-date systems.
->=20
-> FTAOD I've worded this as:
->=20
-> "Note that on AMD Family 17h and Hygon Family 18h processors the value
-> of SSBD in LS_CFG is shared between threads on the same core, so
-> there's extra logic in order to synchronize the value and have SSBD
-> set as long as one of the threads in the core requires it to be set.
-> Such logic also requires extra storage for each thread state, which is
-> allocated at initialization time."
+--0000000000009c6c3c05dd3bc9a7
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thanks.
+On Fri, Apr 22, 2022 at 5:43 AM Jiamei Xie <Jiamei.Xie@arm.com> wrote:
 
-> Which I think is correct in all cases.  Iff Zen2 was to resort to
-> using the non-architectural way of setting SSBD (if that's even
-> possible) it should synchronize it between threads according to my
-> read of the AMD whitepaper.
->=20
-> I've also added handling for Hygon Fam18h, seeing as those also make
-> use of the non-architectural way of setting SSBD.
+> Hi Oleksandr,
+>
 
-Right, better be on the safe side.
+Hi Jiamei
 
-Jan
+[Sorry for the possible format issues]
 
+
+
+>
+>  I am happy to keep my T-b tag.  I have tested this latest patch series
+> and it works.
+
+
+Thank you for the testing and confirmation!
+
+
+
+>
+>
+> Regards,
+> Jiamei Xie
+>
+> > -----Original Message-----
+> > From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of
+> > Oleksandr Tyshchenko
+> > Sent: 2022=E5=B9=B44=E6=9C=889=E6=97=A5 2:21
+> > To: xen-devel@lists.xenproject.org
+> > Cc: Julien Grall <Julien.Grall@arm.com>; Wei Liu <wl@xen.org>; Anthony
+> > PERARD <anthony.perard@citrix.com>; Juergen Gross <jgross@suse.com>;
+> > Stefano Stabellini <sstabellini@kernel.org>; Julien Grall <
+> julien@xen.org>;
+> > Bertrand Marquis <Bertrand.Marquis@arm.com>; Volodymyr Babchuk
+> > <Volodymyr_Babchuk@epam.com>; Jiamei Xie <Jiamei.Xie@arm.com>;
+> > Henry Wang <Henry.Wang@arm.com>; Oleksandr Tyshchenko
+> > <oleksandr_tyshchenko@epam.com>
+> > Subject: [PATCH V7 2/2] libxl: Introduce basic virtio-mmio support on A=
+rm
+> >
+> > From: Julien Grall <julien.grall@arm.com>
+> >
+> > This patch introduces helpers to allocate Virtio MMIO params
+> > (IRQ and memory region) and create specific device node in
+> > the Guest device-tree with allocated params. In order to deal
+> > with multiple Virtio devices, reserve corresponding ranges.
+> > For now, we reserve 1MB for memory regions and 10 SPIs.
+> >
+> > As these helpers should be used for every Virtio device attached
+> > to the Guest, call them for Virtio disk(s).
+> >
+> > Please note, with statically allocated Virtio IRQs there is
+> > a risk of a clash with a physical IRQs of passthrough devices.
+> > For the first version, it's fine, but we should consider allocating
+> > the Virtio IRQs automatically. Thankfully, we know in advance which
+> > IRQs will be used for passthrough to be able to choose non-clashed
+> > ones.
+> >
+> > Signed-off-by: Julien Grall <julien.grall@arm.com>
+> > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> > Tested-by: Jiamei Xie <Jiamei.xie@arm.com>
+> > Reviewed-by: Henry Wang <Henry.Wang@arm.com>
+> > ---
+> > @Jiamei, @Henry I decided to leave your T-b and R-b tags with the minor
+> > change I made, are you still happy with that?
+> >
+> > s/if (disk->virtio)/if (disk->protocol =3D=3D
+> LIBXL_DISK_PROTOCOL_VIRTIO_MMIO)
+> >
+> > Please note, this is a split/cleanup/hardening of Julien's PoC:
+> > "Add support for Guest IO forwarding to a device emulator"
+> >
+> > Changes RFC -> V1:
+> >    - was squashed with:
+> >      "[RFC PATCH V1 09/12] libxl: Handle virtio-mmio irq in more correc=
+t
+> way"
+> >      "[RFC PATCH V1 11/12] libxl: Insert "dma-coherent" property into
+> virtio-
+> > mmio device node"
+> >      "[RFC PATCH V1 12/12] libxl: Fix duplicate memory node in DT"
+> >    - move VirtIO MMIO #define-s to xen/include/public/arch-arm.h
+> >
+> > Changes V1 -> V2:
+> >    - update the author of a patch
+> >
+> > Changes V2 -> V3:
+> >    - no changes
+> >
+> > Changes V3 -> V4:
+> >    - no changes
+> >
+> > Changes V4 -> V5:
+> >    - split the changes, change the order of the patches
+> >    - drop an extra "virtio" configuration option
+> >    - update patch description
+> >    - use CONTAINER_OF instead of own implementation
+> >    - reserve ranges for Virtio MMIO params and put them
+> >      in correct location
+> >    - create helpers to allocate Virtio MMIO params, add
+> >      corresponding sanity-=D1=81hecks
+> >    - add comment why MMIO size 0x200 is chosen
+> >    - update debug print
+> >    - drop Wei's T-b
+> >
+> > Changes V5 -> V6:
+> >    - rebase on current staging
+> >
+> > Changes V6 -> V7:
+> >    - rebase on current staging
+> >    - add T-b and R-b tags
+> >    - update according to the recent changes to
+> >      "libxl: Add support for Virtio disk configuration"
+> > ---
+> >  tools/libs/light/libxl_arm.c  | 131
+> > +++++++++++++++++++++++++++++++++++++++++-
+> >  xen/include/public/arch-arm.h |   7 +++
+> >  2 files changed, 136 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.=
+c
+> > index eef1de0..8132a47 100644
+> > --- a/tools/libs/light/libxl_arm.c
+> > +++ b/tools/libs/light/libxl_arm.c
+> > @@ -8,6 +8,56 @@
+> >  #include <assert.h>
+> >  #include <xen/device_tree_defs.h>
+> >
+> > +/*
+> > + * There is no clear requirements for the total size of Virtio MMIO
+> region.
+> > + * The size of control registers is 0x100 and device-specific
+> configuration
+> > + * registers starts at the offset 0x100, however it's size depends on
+> the
+> > device
+> > + * and the driver. Pick the biggest known size at the moment to cover
+> most
+> > + * of the devices (also consider allowing the user to configure the
+> size via
+> > + * config file for the one not conforming with the proposed value).
+> > + */
+> > +#define VIRTIO_MMIO_DEV_SIZE   xen_mk_ullong(0x200)
+> > +
+> > +static uint64_t virtio_mmio_base;
+> > +static uint32_t virtio_mmio_irq;
+> > +
+> > +static void init_virtio_mmio_params(void)
+> > +{
+> > +    virtio_mmio_base =3D GUEST_VIRTIO_MMIO_BASE;
+> > +    virtio_mmio_irq =3D GUEST_VIRTIO_MMIO_SPI_FIRST;
+> > +}
+> > +
+> > +static uint64_t alloc_virtio_mmio_base(libxl__gc *gc)
+> > +{
+> > +    uint64_t base =3D virtio_mmio_base;
+> > +
+> > +    /* Make sure we have enough reserved resources */
+> > +    if ((virtio_mmio_base + VIRTIO_MMIO_DEV_SIZE >
+> > +        GUEST_VIRTIO_MMIO_BASE + GUEST_VIRTIO_MMIO_SIZE)) {
+> > +        LOG(ERROR, "Ran out of reserved range for Virtio MMIO BASE
+> > 0x%"PRIx64"\n",
+> > +            virtio_mmio_base);
+> > +        return 0;
+> > +    }
+> > +    virtio_mmio_base +=3D VIRTIO_MMIO_DEV_SIZE;
+> > +
+> > +    return base;
+> > +}
+> > +
+> > +static uint32_t alloc_virtio_mmio_irq(libxl__gc *gc)
+> > +{
+> > +    uint32_t irq =3D virtio_mmio_irq;
+> > +
+> > +    /* Make sure we have enough reserved resources */
+> > +    if (virtio_mmio_irq > GUEST_VIRTIO_MMIO_SPI_LAST) {
+> > +        LOG(ERROR, "Ran out of reserved range for Virtio MMIO IRQ %u\n=
+",
+> > +            virtio_mmio_irq);
+> > +        return 0;
+> > +    }
+> > +    virtio_mmio_irq++;
+> > +
+> > +    return irq;
+> > +}
+> > +
+> >  static const char *gicv_to_string(libxl_gic_version gic_version)
+> >  {
+> >      switch (gic_version) {
+> > @@ -26,8 +76,8 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+> >  {
+> >      uint32_t nr_spis =3D 0;
+> >      unsigned int i;
+> > -    uint32_t vuart_irq;
+> > -    bool vuart_enabled =3D false;
+> > +    uint32_t vuart_irq, virtio_irq =3D 0;
+> > +    bool vuart_enabled =3D false, virtio_enabled =3D false;
+> >
+> >      /*
+> >       * If pl011 vuart is enabled then increment the nr_spis to allow
+> allocation
+> > @@ -39,6 +89,35 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+> >          vuart_enabled =3D true;
+> >      }
+> >
+> > +    /*
+> > +     * Virtio MMIO params are non-unique across the whole system and
+> > must be
+> > +     * initialized for every new guest.
+> > +     */
+> > +    init_virtio_mmio_params();
+> > +    for (i =3D 0; i < d_config->num_disks; i++) {
+> > +        libxl_device_disk *disk =3D &d_config->disks[i];
+> > +
+> > +        if (disk->protocol =3D=3D LIBXL_DISK_PROTOCOL_VIRTIO_MMIO) {
+> > +            disk->base =3D alloc_virtio_mmio_base(gc);
+> > +            if (!disk->base)
+> > +                return ERROR_FAIL;
+> > +
+> > +            disk->irq =3D alloc_virtio_mmio_irq(gc);
+> > +            if (!disk->irq)
+> > +                return ERROR_FAIL;
+> > +
+> > +            if (virtio_irq < disk->irq)
+> > +                virtio_irq =3D disk->irq;
+> > +            virtio_enabled =3D true;
+> > +
+> > +            LOG(DEBUG, "Allocate Virtio MMIO params for Vdev %s: IRQ %=
+u
+> > BASE 0x%"PRIx64,
+> > +                disk->vdev, disk->irq, disk->base);
+> > +        }
+> > +    }
+> > +
+> > +    if (virtio_enabled)
+> > +        nr_spis +=3D (virtio_irq - 32) + 1;
+> > +
+> >      for (i =3D 0; i < d_config->b_info.num_irqs; i++) {
+> >          uint32_t irq =3D d_config->b_info.irqs[i];
+> >          uint32_t spi;
+> > @@ -58,6 +137,13 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc=
+,
+> >              return ERROR_FAIL;
+> >          }
+> >
+> > +        /* The same check as for vpl011 */
+> > +        if (virtio_enabled &&
+> > +           (irq >=3D GUEST_VIRTIO_MMIO_SPI_FIRST && irq <=3D virtio_ir=
+q)) {
+> > +            LOG(ERROR, "Physical IRQ %u conflicting with Virtio MMIO I=
+RQ
+> > range\n", irq);
+> > +            return ERROR_FAIL;
+> > +        }
+> > +
+> >          if (irq < 32)
+> >              continue;
+> >
+> > @@ -787,6 +873,39 @@ static int make_vpci_node(libxl__gc *gc, void *fdt=
+,
+> >      return 0;
+> >  }
+> >
+> > +
+> > +static int make_virtio_mmio_node(libxl__gc *gc, void *fdt,
+> > +                                 uint64_t base, uint32_t irq)
+> > +{
+> > +    int res;
+> > +    gic_interrupt intr;
+> > +    /* Placeholder for virtio@ + a 64-bit number + \0 */
+> > +    char buf[24];
+> > +
+> > +    snprintf(buf, sizeof(buf), "virtio@%"PRIx64, base);
+> > +    res =3D fdt_begin_node(fdt, buf);
+> > +    if (res) return res;
+> > +
+> > +    res =3D fdt_property_compat(gc, fdt, 1, "virtio,mmio");
+> > +    if (res) return res;
+> > +
+> > +    res =3D fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS,
+> > GUEST_ROOT_SIZE_CELLS,
+> > +                            1, base, VIRTIO_MMIO_DEV_SIZE);
+> > +    if (res) return res;
+> > +
+> > +    set_interrupt(intr, irq, 0xf, DT_IRQ_TYPE_EDGE_RISING);
+> > +    res =3D fdt_property_interrupts(gc, fdt, &intr, 1);
+> > +    if (res) return res;
+> > +
+> > +    res =3D fdt_property(fdt, "dma-coherent", NULL, 0);
+> > +    if (res) return res;
+> > +
+> > +    res =3D fdt_end_node(fdt);
+> > +    if (res) return res;
+> > +
+> > +    return 0;
+> > +}
+> > +
+> >  static const struct arch_info *get_arch_info(libxl__gc *gc,
+> >                                               const struct xc_dom_image
+> *dom)
+> >  {
+> > @@ -988,6 +1107,7 @@ static int libxl__prepare_dtb(libxl__gc *gc,
+> > libxl_domain_config *d_config,
+> >      size_t fdt_size =3D 0;
+> >      int pfdt_size =3D 0;
+> >      libxl_domain_build_info *const info =3D &d_config->b_info;
+> > +    unsigned int i;
+> >
+> >      const libxl_version_info *vers;
+> >      const struct arch_info *ainfo;
+> > @@ -1094,6 +1214,13 @@ next_resize:
+> >          if (d_config->num_pcidevs)
+> >              FDT( make_vpci_node(gc, fdt, ainfo, dom) );
+> >
+> > +        for (i =3D 0; i < d_config->num_disks; i++) {
+> > +            libxl_device_disk *disk =3D &d_config->disks[i];
+> > +
+> > +            if (disk->protocol =3D=3D LIBXL_DISK_PROTOCOL_VIRTIO_MMIO)
+> > +                FDT( make_virtio_mmio_node(gc, fdt, disk->base,
+> disk->irq) );
+> > +        }
+> > +
+> >          if (pfdt)
+> >              FDT( copy_partial_fdt(gc, fdt, pfdt) );
+> >
+> > diff --git a/xen/include/public/arch-arm.h
+> b/xen/include/public/arch-arm.h
+> > index ab05fe1..c8b6058 100644
+> > --- a/xen/include/public/arch-arm.h
+> > +++ b/xen/include/public/arch-arm.h
+> > @@ -407,6 +407,10 @@ typedef uint64_t xen_callback_t;
+> >
+> >  /* Physical Address Space */
+> >
+> > +/* Virtio MMIO mappings */
+> > +#define GUEST_VIRTIO_MMIO_BASE   xen_mk_ullong(0x02000000)
+> > +#define GUEST_VIRTIO_MMIO_SIZE   xen_mk_ullong(0x00100000)
+> > +
+> >  /*
+> >   * vGIC mappings: Only one set of mapping is used by the guest.
+> >   * Therefore they can overlap.
+> > @@ -493,6 +497,9 @@ typedef uint64_t xen_callback_t;
+> >
+> >  #define GUEST_VPL011_SPI        32
+> >
+> > +#define GUEST_VIRTIO_MMIO_SPI_FIRST   33
+> > +#define GUEST_VIRTIO_MMIO_SPI_LAST    43
+> > +
+> >  /* PSCI functions */
+> >  #define PSCI_cpu_suspend 0
+> >  #define PSCI_cpu_off     1
+> > --
+> > 2.7.4
+> >
+>
+>
+
+--=20
+Regards,
+
+Oleksandr Tyshchenko
+
+--0000000000009c6c3c05dd3bc9a7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Fri, Apr 22, 2022 at 5:43 AM Jiame=
+i Xie &lt;<a href=3D"mailto:Jiamei.Xie@arm.com">Jiamei.Xie@arm.com</a>&gt; =
+wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
+px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi Oleksa=
+ndr,<br></blockquote><div><br></div><div>Hi=C2=A0Jiamei</div><div><br></div=
+><div>[Sorry for the possible format issues]</div><div><br></div><div>=C2=
+=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
+x;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+=C2=A0I am happy to keep my T-b tag.=C2=A0 I have tested this latest patch =
+series and it works.</blockquote><div><br></div><div>Thank you for the test=
+ing and confirmation!</div><div><br></div><div>=C2=A0</div><blockquote clas=
+s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid r=
+gb(204,204,204);padding-left:1ex"> <br>
+<br>
+Regards,<br>
+Jiamei Xie<br>
+<br>
+&gt; -----Original Message-----<br>
+&gt; From: Xen-devel &lt;<a href=3D"mailto:xen-devel-bounces@lists.xenproje=
+ct.org" target=3D"_blank">xen-devel-bounces@lists.xenproject.org</a>&gt; On=
+ Behalf Of<br>
+&gt; Oleksandr Tyshchenko<br>
+&gt; Sent: 2022=E5=B9=B44=E6=9C=889=E6=97=A5 2:21<br>
+&gt; To: <a href=3D"mailto:xen-devel@lists.xenproject.org" target=3D"_blank=
+">xen-devel@lists.xenproject.org</a><br>
+&gt; Cc: Julien Grall &lt;<a href=3D"mailto:Julien.Grall@arm.com" target=3D=
+"_blank">Julien.Grall@arm.com</a>&gt;; Wei Liu &lt;<a href=3D"mailto:wl@xen=
+.org" target=3D"_blank">wl@xen.org</a>&gt;; Anthony<br>
+&gt; PERARD &lt;<a href=3D"mailto:anthony.perard@citrix.com" target=3D"_bla=
+nk">anthony.perard@citrix.com</a>&gt;; Juergen Gross &lt;<a href=3D"mailto:=
+jgross@suse.com" target=3D"_blank">jgross@suse.com</a>&gt;;<br>
+&gt; Stefano Stabellini &lt;<a href=3D"mailto:sstabellini@kernel.org" targe=
+t=3D"_blank">sstabellini@kernel.org</a>&gt;; Julien Grall &lt;<a href=3D"ma=
+ilto:julien@xen.org" target=3D"_blank">julien@xen.org</a>&gt;;<br>
+&gt; Bertrand Marquis &lt;<a href=3D"mailto:Bertrand.Marquis@arm.com" targe=
+t=3D"_blank">Bertrand.Marquis@arm.com</a>&gt;; Volodymyr Babchuk<br>
+&gt; &lt;<a href=3D"mailto:Volodymyr_Babchuk@epam.com" target=3D"_blank">Vo=
+lodymyr_Babchuk@epam.com</a>&gt;; Jiamei Xie &lt;<a href=3D"mailto:Jiamei.X=
+ie@arm.com" target=3D"_blank">Jiamei.Xie@arm.com</a>&gt;;<br>
+&gt; Henry Wang &lt;<a href=3D"mailto:Henry.Wang@arm.com" target=3D"_blank"=
+>Henry.Wang@arm.com</a>&gt;; Oleksandr Tyshchenko<br>
+&gt; &lt;<a href=3D"mailto:oleksandr_tyshchenko@epam.com" target=3D"_blank"=
+>oleksandr_tyshchenko@epam.com</a>&gt;<br>
+&gt; Subject: [PATCH V7 2/2] libxl: Introduce basic virtio-mmio support on =
+Arm<br>
+&gt; <br>
+&gt; From: Julien Grall &lt;<a href=3D"mailto:julien.grall@arm.com" target=
+=3D"_blank">julien.grall@arm.com</a>&gt;<br>
+&gt; <br>
+&gt; This patch introduces helpers to allocate Virtio MMIO params<br>
+&gt; (IRQ and memory region) and create specific device node in<br>
+&gt; the Guest device-tree with allocated params. In order to deal<br>
+&gt; with multiple Virtio devices, reserve corresponding ranges.<br>
+&gt; For now, we reserve 1MB for memory regions and 10 SPIs.<br>
+&gt; <br>
+&gt; As these helpers should be used for every Virtio device attached<br>
+&gt; to the Guest, call them for Virtio disk(s).<br>
+&gt; <br>
+&gt; Please note, with statically allocated Virtio IRQs there is<br>
+&gt; a risk of a clash with a physical IRQs of passthrough devices.<br>
+&gt; For the first version, it&#39;s fine, but we should consider allocatin=
+g<br>
+&gt; the Virtio IRQs automatically. Thankfully, we know in advance which<br=
+>
+&gt; IRQs will be used for passthrough to be able to choose non-clashed<br>
+&gt; ones.<br>
+&gt; <br>
+&gt; Signed-off-by: Julien Grall &lt;<a href=3D"mailto:julien.grall@arm.com=
+" target=3D"_blank">julien.grall@arm.com</a>&gt;<br>
+&gt; Signed-off-by: Oleksandr Tyshchenko &lt;<a href=3D"mailto:oleksandr_ty=
+shchenko@epam.com" target=3D"_blank">oleksandr_tyshchenko@epam.com</a>&gt;<=
+br>
+&gt; Tested-by: Jiamei Xie &lt;<a href=3D"mailto:Jiamei.xie@arm.com" target=
+=3D"_blank">Jiamei.xie@arm.com</a>&gt;<br>
+&gt; Reviewed-by: Henry Wang &lt;<a href=3D"mailto:Henry.Wang@arm.com" targ=
+et=3D"_blank">Henry.Wang@arm.com</a>&gt;<br>
+&gt; ---<br>
+&gt; @Jiamei, @Henry I decided to leave your T-b and R-b tags with the mino=
+r<br>
+&gt; change I made, are you still happy with that?<br>
+&gt; <br>
+&gt; s/if (disk-&gt;virtio)/if (disk-&gt;protocol =3D=3D LIBXL_DISK_PROTOCO=
+L_VIRTIO_MMIO)<br>
+&gt; <br>
+&gt; Please note, this is a split/cleanup/hardening of Julien&#39;s PoC:<br=
+>
+&gt; &quot;Add support for Guest IO forwarding to a device emulator&quot;<b=
+r>
+&gt; <br>
+&gt; Changes RFC -&gt; V1:<br>
+&gt;=C2=A0 =C2=A0 - was squashed with:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &quot;[RFC PATCH V1 09/12] libxl: Handle virtio-mm=
+io irq in more correct way&quot;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &quot;[RFC PATCH V1 11/12] libxl: Insert &quot;dma=
+-coherent&quot; property into virtio-<br>
+&gt; mmio device node&quot;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &quot;[RFC PATCH V1 12/12] libxl: Fix duplicate me=
+mory node in DT&quot;<br>
+&gt;=C2=A0 =C2=A0 - move VirtIO MMIO #define-s to xen/include/public/arch-a=
+rm.h<br>
+&gt; <br>
+&gt; Changes V1 -&gt; V2:<br>
+&gt;=C2=A0 =C2=A0 - update the author of a patch<br>
+&gt; <br>
+&gt; Changes V2 -&gt; V3:<br>
+&gt;=C2=A0 =C2=A0 - no changes<br>
+&gt; <br>
+&gt; Changes V3 -&gt; V4:<br>
+&gt;=C2=A0 =C2=A0 - no changes<br>
+&gt; <br>
+&gt; Changes V4 -&gt; V5:<br>
+&gt;=C2=A0 =C2=A0 - split the changes, change the order of the patches<br>
+&gt;=C2=A0 =C2=A0 - drop an extra &quot;virtio&quot; configuration option<b=
+r>
+&gt;=C2=A0 =C2=A0 - update patch description<br>
+&gt;=C2=A0 =C2=A0 - use CONTAINER_OF instead of own implementation<br>
+&gt;=C2=A0 =C2=A0 - reserve ranges for Virtio MMIO params and put them<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 in correct location<br>
+&gt;=C2=A0 =C2=A0 - create helpers to allocate Virtio MMIO params, add<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 corresponding sanity-=D1=81hecks<br>
+&gt;=C2=A0 =C2=A0 - add comment why MMIO size 0x200 is chosen<br>
+&gt;=C2=A0 =C2=A0 - update debug print<br>
+&gt;=C2=A0 =C2=A0 - drop Wei&#39;s T-b<br>
+&gt; <br>
+&gt; Changes V5 -&gt; V6:<br>
+&gt;=C2=A0 =C2=A0 - rebase on current staging<br>
+&gt; <br>
+&gt; Changes V6 -&gt; V7:<br>
+&gt;=C2=A0 =C2=A0 - rebase on current staging<br>
+&gt;=C2=A0 =C2=A0 - add T-b and R-b tags<br>
+&gt;=C2=A0 =C2=A0 - update according to the recent changes to<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &quot;libxl: Add support for Virtio disk configura=
+tion&quot;<br>
+&gt; ---<br>
+&gt;=C2=A0 tools/libs/light/libxl_arm.c=C2=A0 | 131<br>
+&gt; +++++++++++++++++++++++++++++++++++++++++-<br>
+&gt;=C2=A0 xen/include/public/arch-arm.h |=C2=A0 =C2=A07 +++<br>
+&gt;=C2=A0 2 files changed, 136 insertions(+), 2 deletions(-)<br>
+&gt; <br>
+&gt; diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm=
+.c<br>
+&gt; index eef1de0..8132a47 100644<br>
+&gt; --- a/tools/libs/light/libxl_arm.c<br>
+&gt; +++ b/tools/libs/light/libxl_arm.c<br>
+&gt; @@ -8,6 +8,56 @@<br>
+&gt;=C2=A0 #include &lt;assert.h&gt;<br>
+&gt;=C2=A0 #include &lt;xen/device_tree_defs.h&gt;<br>
+&gt; <br>
+&gt; +/*<br>
+&gt; + * There is no clear requirements for the total size of Virtio MMIO r=
+egion.<br>
+&gt; + * The size of control registers is 0x100 and device-specific configu=
+ration<br>
+&gt; + * registers starts at the offset 0x100, however it&#39;s size depend=
+s on the<br>
+&gt; device<br>
+&gt; + * and the driver. Pick the biggest known size at the moment to cover=
+ most<br>
+&gt; + * of the devices (also consider allowing the user to configure the s=
+ize via<br>
+&gt; + * config file for the one not conforming with the proposed value).<b=
+r>
+&gt; + */<br>
+&gt; +#define VIRTIO_MMIO_DEV_SIZE=C2=A0 =C2=A0xen_mk_ullong(0x200)<br>
+&gt; +<br>
+&gt; +static uint64_t virtio_mmio_base;<br>
+&gt; +static uint32_t virtio_mmio_irq;<br>
+&gt; +<br>
+&gt; +static void init_virtio_mmio_params(void)<br>
+&gt; +{<br>
+&gt; +=C2=A0 =C2=A0 virtio_mmio_base =3D GUEST_VIRTIO_MMIO_BASE;<br>
+&gt; +=C2=A0 =C2=A0 virtio_mmio_irq =3D GUEST_VIRTIO_MMIO_SPI_FIRST;<br>
+&gt; +}<br>
+&gt; +<br>
+&gt; +static uint64_t alloc_virtio_mmio_base(libxl__gc *gc)<br>
+&gt; +{<br>
+&gt; +=C2=A0 =C2=A0 uint64_t base =3D virtio_mmio_base;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 /* Make sure we have enough reserved resources */<br>
+&gt; +=C2=A0 =C2=A0 if ((virtio_mmio_base + VIRTIO_MMIO_DEV_SIZE &gt;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 GUEST_VIRTIO_MMIO_BASE + GUEST_VIRTIO_MMI=
+O_SIZE)) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 LOG(ERROR, &quot;Ran out of reserved rang=
+e for Virtio MMIO BASE<br>
+&gt; 0x%&quot;PRIx64&quot;\n&quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 virtio_mmio_base);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 return 0;<br>
+&gt; +=C2=A0 =C2=A0 }<br>
+&gt; +=C2=A0 =C2=A0 virtio_mmio_base +=3D VIRTIO_MMIO_DEV_SIZE;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 return base;<br>
+&gt; +}<br>
+&gt; +<br>
+&gt; +static uint32_t alloc_virtio_mmio_irq(libxl__gc *gc)<br>
+&gt; +{<br>
+&gt; +=C2=A0 =C2=A0 uint32_t irq =3D virtio_mmio_irq;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 /* Make sure we have enough reserved resources */<br>
+&gt; +=C2=A0 =C2=A0 if (virtio_mmio_irq &gt; GUEST_VIRTIO_MMIO_SPI_LAST) {<=
+br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 LOG(ERROR, &quot;Ran out of reserved rang=
+e for Virtio MMIO IRQ %u\n&quot;,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 virtio_mmio_irq);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 return 0;<br>
+&gt; +=C2=A0 =C2=A0 }<br>
+&gt; +=C2=A0 =C2=A0 virtio_mmio_irq++;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 return irq;<br>
+&gt; +}<br>
+&gt; +<br>
+&gt;=C2=A0 static const char *gicv_to_string(libxl_gic_version gic_version)=
+<br>
+&gt;=C2=A0 {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 switch (gic_version) {<br>
+&gt; @@ -26,8 +76,8 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,=
+<br>
+&gt;=C2=A0 {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 uint32_t nr_spis =3D 0;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 unsigned int i;<br>
+&gt; -=C2=A0 =C2=A0 uint32_t vuart_irq;<br>
+&gt; -=C2=A0 =C2=A0 bool vuart_enabled =3D false;<br>
+&gt; +=C2=A0 =C2=A0 uint32_t vuart_irq, virtio_irq =3D 0;<br>
+&gt; +=C2=A0 =C2=A0 bool vuart_enabled =3D false, virtio_enabled =3D false;=
+<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 /*<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0* If pl011 vuart is enabled then increment t=
+he nr_spis to allow allocation<br>
+&gt; @@ -39,6 +89,35 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc=
+,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 vuart_enabled =3D true;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 }<br>
+&gt; <br>
+&gt; +=C2=A0 =C2=A0 /*<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0* Virtio MMIO params are non-unique across the wh=
+ole system and<br>
+&gt; must be<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0* initialized for every new guest.<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0*/<br>
+&gt; +=C2=A0 =C2=A0 init_virtio_mmio_params();<br>
+&gt; +=C2=A0 =C2=A0 for (i =3D 0; i &lt; d_config-&gt;num_disks; i++) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 libxl_device_disk *disk =3D &amp;d_config=
+-&gt;disks[i];<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (disk-&gt;protocol =3D=3D LIBXL_DISK_P=
+ROTOCOL_VIRTIO_MMIO) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 disk-&gt;base =3D alloc_vir=
+tio_mmio_base(gc);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!disk-&gt;base)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return ERROR_=
+FAIL;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 disk-&gt;irq =3D alloc_virt=
+io_mmio_irq(gc);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!disk-&gt;irq)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return ERROR_=
+FAIL;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (virtio_irq &lt; disk-&g=
+t;irq)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 virtio_irq =
+=3D disk-&gt;irq;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 virtio_enabled =3D true;<br=
+>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 LOG(DEBUG, &quot;Allocate V=
+irtio MMIO params for Vdev %s: IRQ %u<br>
+&gt; BASE 0x%&quot;PRIx64,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 disk-&gt;vdev=
+, disk-&gt;irq, disk-&gt;base);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+&gt; +=C2=A0 =C2=A0 }<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 if (virtio_enabled)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 nr_spis +=3D (virtio_irq - 32) + 1;<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 for (i =3D 0; i &lt; d_config-&gt;b_info.num_irqs;=
+ i++) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 uint32_t irq =3D d_config-&gt;b_info=
+.irqs[i];<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 uint32_t spi;<br>
+&gt; @@ -58,6 +137,13 @@ int libxl__arch_domain_prepare_config(libxl__gc *g=
+c,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return ERROR_FAIL;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+&gt; <br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* The same check as for vpl011 */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (virtio_enabled &amp;&amp;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(irq &gt;=3D GUEST_VIRTIO_MM=
+IO_SPI_FIRST &amp;&amp; irq &lt;=3D virtio_irq)) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 LOG(ERROR, &quot;Physical I=
+RQ %u conflicting with Virtio MMIO IRQ<br>
+&gt; range\n&quot;, irq);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return ERROR_FAIL;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (irq &lt; 32)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 continue;<br>
+&gt; <br>
+&gt; @@ -787,6 +873,39 @@ static int make_vpci_node(libxl__gc *gc, void *fd=
+t,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 return 0;<br>
+&gt;=C2=A0 }<br>
+&gt; <br>
+&gt; +<br>
+&gt; +static int make_virtio_mmio_node(libxl__gc *gc, void *fdt,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0uint64_t base, uint32_t ir=
+q)<br>
+&gt; +{<br>
+&gt; +=C2=A0 =C2=A0 int res;<br>
+&gt; +=C2=A0 =C2=A0 gic_interrupt intr;<br>
+&gt; +=C2=A0 =C2=A0 /* Placeholder for virtio@ + a 64-bit number + \0 */<br=
+>
+&gt; +=C2=A0 =C2=A0 char buf[24];<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 snprintf(buf, sizeof(buf), &quot;virtio@%&quot;PRIx64, =
+base);<br>
+&gt; +=C2=A0 =C2=A0 res =3D fdt_begin_node(fdt, buf);<br>
+&gt; +=C2=A0 =C2=A0 if (res) return res;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 res =3D fdt_property_compat(gc, fdt, 1, &quot;virtio,mm=
+io&quot;);<br>
+&gt; +=C2=A0 =C2=A0 if (res) return res;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 res =3D fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_C=
+ELLS,<br>
+&gt; GUEST_ROOT_SIZE_CELLS,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 1, base, VIRTIO_MMIO_DEV_SIZE);<br>
+&gt; +=C2=A0 =C2=A0 if (res) return res;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 set_interrupt(intr, irq, 0xf, DT_IRQ_TYPE_EDGE_RISING);=
+<br>
+&gt; +=C2=A0 =C2=A0 res =3D fdt_property_interrupts(gc, fdt, &amp;intr, 1);=
+<br>
+&gt; +=C2=A0 =C2=A0 if (res) return res;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 res =3D fdt_property(fdt, &quot;dma-coherent&quot;, NUL=
+L, 0);<br>
+&gt; +=C2=A0 =C2=A0 if (res) return res;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 res =3D fdt_end_node(fdt);<br>
+&gt; +=C2=A0 =C2=A0 if (res) return res;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 return 0;<br>
+&gt; +}<br>
+&gt; +<br>
+&gt;=C2=A0 static const struct arch_info *get_arch_info(libxl__gc *gc,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0const struct xc_dom_image *dom)<br>
+&gt;=C2=A0 {<br>
+&gt; @@ -988,6 +1107,7 @@ static int libxl__prepare_dtb(libxl__gc *gc,<br>
+&gt; libxl_domain_config *d_config,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 size_t fdt_size =3D 0;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 int pfdt_size =3D 0;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 libxl_domain_build_info *const info =3D &amp;d_con=
+fig-&gt;b_info;<br>
+&gt; +=C2=A0 =C2=A0 unsigned int i;<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 const libxl_version_info *vers;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 const struct arch_info *ainfo;<br>
+&gt; @@ -1094,6 +1214,13 @@ next_resize:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (d_config-&gt;num_pcidevs)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 FDT( make_vpci_node(gc=
+, fdt, ainfo, dom) );<br>
+&gt; <br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 for (i =3D 0; i &lt; d_config-&gt;num_dis=
+ks; i++) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 libxl_device_disk *disk =3D=
+ &amp;d_config-&gt;disks[i];<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (disk-&gt;protocol =3D=
+=3D LIBXL_DISK_PROTOCOL_VIRTIO_MMIO)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 FDT( make_vir=
+tio_mmio_node(gc, fdt, disk-&gt;base, disk-&gt;irq) );<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (pfdt)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 FDT( copy_partial_fdt(=
+gc, fdt, pfdt) );<br>
+&gt; <br>
+&gt; diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-a=
+rm.h<br>
+&gt; index ab05fe1..c8b6058 100644<br>
+&gt; --- a/xen/include/public/arch-arm.h<br>
+&gt; +++ b/xen/include/public/arch-arm.h<br>
+&gt; @@ -407,6 +407,10 @@ typedef uint64_t xen_callback_t;<br>
+&gt; <br>
+&gt;=C2=A0 /* Physical Address Space */<br>
+&gt; <br>
+&gt; +/* Virtio MMIO mappings */<br>
+&gt; +#define GUEST_VIRTIO_MMIO_BASE=C2=A0 =C2=A0xen_mk_ullong(0x02000000)<=
+br>
+&gt; +#define GUEST_VIRTIO_MMIO_SIZE=C2=A0 =C2=A0xen_mk_ullong(0x00100000)<=
+br>
+&gt; +<br>
+&gt;=C2=A0 /*<br>
+&gt;=C2=A0 =C2=A0* vGIC mappings: Only one set of mapping is used by the gu=
+est.<br>
+&gt;=C2=A0 =C2=A0* Therefore they can overlap.<br>
+&gt; @@ -493,6 +497,9 @@ typedef uint64_t xen_callback_t;<br>
+&gt; <br>
+&gt;=C2=A0 #define GUEST_VPL011_SPI=C2=A0 =C2=A0 =C2=A0 =C2=A0 32<br>
+&gt; <br>
+&gt; +#define GUEST_VIRTIO_MMIO_SPI_FIRST=C2=A0 =C2=A033<br>
+&gt; +#define GUEST_VIRTIO_MMIO_SPI_LAST=C2=A0 =C2=A0 43<br>
+&gt; +<br>
+&gt;=C2=A0 /* PSCI functions */<br>
+&gt;=C2=A0 #define PSCI_cpu_suspend 0<br>
+&gt;=C2=A0 #define PSCI_cpu_off=C2=A0 =C2=A0 =C2=A01<br>
+&gt; --<br>
+&gt; 2.7.4<br>
+&gt; <br>
+<br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+ class=3D"gmail_signature"><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div=
+ dir=3D"ltr"><span style=3D"background-color:rgb(255,255,255)"><font size=
+=3D"2"><span style=3D"color:rgb(51,51,51);font-family:Arial,sans-serif">Reg=
+ards,</span></font></span></div><div dir=3D"ltr"><br></div><div dir=3D"ltr"=
+><div><span style=3D"background-color:rgb(255,255,255)"><font size=3D"2">Ol=
+eksandr Tyshchenko</font></span></div></div></div></div></div></div></div><=
+/div>
+
+--0000000000009c6c3c05dd3bc9a7--
 
