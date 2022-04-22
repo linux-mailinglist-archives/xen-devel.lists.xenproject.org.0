@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F007B50C0F6
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Apr 2022 23:13:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.311250.528400 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0135250C265
+	for <lists+xen-devel@lfdr.de>; Sat, 23 Apr 2022 00:59:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.311268.528411 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ni0af-0006PB-9t; Fri, 22 Apr 2022 21:13:21 +0000
+	id 1ni2EN-0001ZY-Ra; Fri, 22 Apr 2022 22:58:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 311250.528400; Fri, 22 Apr 2022 21:13:21 +0000
+Received: by outflank-mailman (output) from mailman id 311268.528411; Fri, 22 Apr 2022 22:58:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ni0af-0006MQ-6Z; Fri, 22 Apr 2022 21:13:21 +0000
-Received: by outflank-mailman (input) for mailman id 311250;
- Fri, 22 Apr 2022 21:13:19 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1ni2EN-0001WS-Nt; Fri, 22 Apr 2022 22:58:27 +0000
+Received: by outflank-mailman (input) for mailman id 311268;
+ Fri, 22 Apr 2022 22:58:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ni0ad-0006MG-R5; Fri, 22 Apr 2022 21:13:19 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ni0ad-0002M7-Nh; Fri, 22 Apr 2022 21:13:19 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ni0ad-00074K-BK; Fri, 22 Apr 2022 21:13:19 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ni0ad-0000vb-Au; Fri, 22 Apr 2022 21:13:19 +0000
+ (envelope-from <SRS0=pzHF=VA=m5p.com=ehem@srs-se1.protection.inumbo.net>)
+ id 1ni2EM-0001WM-5z
+ for xen-devel@lists.xenproject.org; Fri, 22 Apr 2022 22:58:26 +0000
+Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b634173e-c28f-11ec-8fc2-03012f2f19d4;
+ Sat, 23 Apr 2022 00:58:24 +0200 (CEST)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 23MMw1bM013129
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Fri, 22 Apr 2022 18:58:06 -0400 (EDT) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.16.1/8.15.2/Submit) id 23MMw0jv013127;
+ Fri, 22 Apr 2022 15:58:00 -0700 (PDT) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,161 +43,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=XX2MGYiCkffjakdgfPPAnjj+vv0opGKb/kbnYHYLOeg=; b=Ah5mtc18EDFeVVLecwuyvluaGM
-	pdbEom+kGio0LiP/JuA0yXEekAt4EnEYKIrpNYGuvv+p10ecmn8x/Z1zg2UJ295nnoQPZlToNXMdA
-	hyOlxkzFEgvk5WyXkQTW/EbzaoDyMxzpxvGYPjZNKkUiGJF/UPlyHCS/hkyY0t/vWJMM=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169628-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: b634173e-c28f-11ec-8fc2-03012f2f19d4
+Date: Fri, 22 Apr 2022 15:58:00 -0700
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 5/5] tools/xl: Fix potential deallocation bug
+Message-ID: <YmMy+LaG1RqXMrlb@mattapan.m5p.com>
+References: <cover.1640590794.git.ehem+xen@m5p.com>
+ <2d1335a4056558d172d9aa3e59982eb761647418.1640590794.git.ehem+xen@m5p.com>
+ <YdWzswCszMN1IE20@perard>
 MIME-Version: 1.0
-Subject: [ovmf test] 169628: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=ee582858c4f43c63a1566f0c1c0aa8ace0e4a79c
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 22 Apr 2022 21:13:19 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <YdWzswCszMN1IE20@perard>
+X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
+	autolearn_force=no version=3.4.5
+X-Spam-Checker-Version: SpamAssassin 3.4.5 (2021-03-20) on mattapan.m5p.com
 
-flight 169628 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169628/
+Huh, never got around to replying to this.  Too many things going on, too
+many distractions...
 
-Regressions :-(
+On Wed, Jan 05, 2022 at 03:05:23PM +0000, Anthony PERARD wrote:
+> On Thu, Dec 10, 2020 at 03:09:06PM -0800, Elliott Mitchell wrote:
+> > There is potential for the info and info_free variable's purposes to
+> > diverge.  If info was overwritten with a distinct value, yet info_free
+> > still needed deallocation a bug would occur on this line.  Preemptively
+> > address this issue (making use of divergent info/info_free values is
+> > under consideration).
+> > 
+> > Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>
+> > ---
+> >  tools/xl/xl_info.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/tools/xl/xl_info.c b/tools/xl/xl_info.c
+> > index 3647468420..938f06f1a8 100644
+> > --- a/tools/xl/xl_info.c
+> > +++ b/tools/xl/xl_info.c
+> > @@ -579,7 +579,7 @@ int main_list(int argc, char **argv)
+> >                       info, nb_domain);
+> >  
+> >      if (info_free)
+> > -        libxl_dominfo_list_free(info, nb_domain);
+> > +        libxl_dominfo_list_free(info_free, nb_domain);
+> >  
+> >      libxl_dominfo_dispose(&info_buf);
+> >  
+> 
+> I don't think this is the right thing to do with this patch.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+I disagree with this statement.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+> libxl_dominfo_list_free() should use the same variable that is used by
+> libxl_list_domain(). What we want to free is the allocation made by
+> libxl_list_domain().
 
-version targeted for testing:
- ovmf                 ee582858c4f43c63a1566f0c1c0aa8ace0e4a79c
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+I agree with this statement.
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   53 days
-Failing since        168258  2022-03-01 01:55:31 Z   52 days  558 attempts
-Testing same since   169626  2022-04-22 15:42:24 Z    0 days    2 attempts
+> "info_free" in the function seems to be used as a boolean which tell
+> if "info" have been allocated or not. Actually, it probably say if
+> "info" is a list of "libxl_dominfo" or not.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
+That may be what the author was thinking when they wrote lines 579 & 580.
+Problem is info_free is a pointer to libxl_dominfo, *not* a boolean.
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+> So instead of just replacing "info" by "info_free" here, we should
+> instead store the result from libxl_list_domain() into a different
+> variable and free that, like it is done with "info_buf".
+> 
+> I hope that makes sense?
+
+What you're describing seems to be precisely what the patch does.
+Perhaps you got the roles of "info" and "info_free" reversed?
+
+This actually points to an issue on lines 548 & 553.  Instead of storing
+the return from libxl_list_domain() into "info" then copying to
+"info_free" both should be set at the same time.
+
+I had noticed this (and cringed), but didn't feel it was currently
+worthwhile to go after lines 548 & 553.  If you want this additional
+change to accept the patch, I'm up for that.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+-- 
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
 
 
-Not pushing.
-
-(No revision log; it would be 5675 lines long.)
 
