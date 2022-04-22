@@ -2,42 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5573750C012
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Apr 2022 21:02:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.311193.528290 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BB2A50C077
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Apr 2022 21:44:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.311203.528300 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhyXH-0003sm-4C; Fri, 22 Apr 2022 19:01:43 +0000
+	id 1nhzCF-0000tZ-1e; Fri, 22 Apr 2022 19:44:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 311193.528290; Fri, 22 Apr 2022 19:01:43 +0000
+Received: by outflank-mailman (output) from mailman id 311203.528300; Fri, 22 Apr 2022 19:44:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhyXH-0003qw-1B; Fri, 22 Apr 2022 19:01:43 +0000
-Received: by outflank-mailman (input) for mailman id 311193;
- Fri, 22 Apr 2022 19:01:41 +0000
+	id 1nhzCE-0000qy-UY; Fri, 22 Apr 2022 19:44:02 +0000
+Received: by outflank-mailman (input) for mailman id 311203;
+ Fri, 22 Apr 2022 19:44:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5+xj=VA=citrix.com=prvs=1042e1a12=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nhyXF-0003qq-A9
- for xen-devel@lists.xenproject.org; Fri, 22 Apr 2022 19:01:41 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a2fe9fd9-c26e-11ec-8fc2-03012f2f19d4;
- Fri, 22 Apr 2022 21:01:39 +0200 (CEST)
-Received: from mail-dm6nam08lp2045.outbound.protection.outlook.com (HELO
- NAM04-DM6-obe.outbound.protection.outlook.com) ([104.47.73.45])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 22 Apr 2022 15:01:36 -0400
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
- by BL0PR03MB4148.namprd03.prod.outlook.com (2603:10b6:208:65::28)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Fri, 22 Apr
- 2022 19:01:34 +0000
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::ac51:a410:14d4:de37]) by BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::ac51:a410:14d4:de37%6]) with mapi id 15.20.5186.014; Fri, 22 Apr 2022
- 19:01:34 +0000
+ <SRS0=JQBp=VA=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1nhzCD-0000qs-3W
+ for xen-devel@lists.xenproject.org; Fri, 22 Apr 2022 19:44:01 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8c375f41-c274-11ec-8fc2-03012f2f19d4;
+ Fri, 22 Apr 2022 21:43:58 +0200 (CEST)
+Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1650656632818594.2966413037028;
+ Fri, 22 Apr 2022 12:43:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,201 +40,994 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a2fe9fd9-c26e-11ec-8fc2-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1650654099;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=IlQGvV+muFMVKgvw9h8yPUKC3o/hjcUSdtxGSXtmxnU=;
-  b=Zc+NlsdDRTnbNmyMxqQldWka7PLBUGAglElLzIgMnQ1a2IMdWTS5fbSh
-   Qu7FJoYqXGt6U8wdkbG3wM6viaelbbHzwkl8UqRqz5Qm7hraby204T0sO
-   8Tcj9BoIYyTOw7L/cErzbaLnv7CpWBbuOnmcYxD6pVsrmDVJt2aD5Pj2c
-   o=;
-X-IronPort-RemoteIP: 104.47.73.45
-X-IronPort-MID: 70134481
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:0RVv3qi/uy/q1nWu3k5DnG4NX161lxEKZh0ujC45NGQN5FlHY01je
- htvD2iDO/eLNmSnedB1O4Sz8h8D6J7RmNYyQFA4/is2ESMb9cadCdqndUqhZCn6wu8v7a5EA
- 2fyTvGacajYm1eF/k/F3oDJ9CU6jefSLlbFILas1hpZHGeIcw98z0M78wIFqtQw24LhX1nX4
- YmaT/D3YzdJ5RYlagr41IrbwP9flKyaVOQw5wFWiVhj5TcyplFNZH4tDfjZw0jQG+G4KtWSV
- efbpIxVy0uCl/sb5nFJpZ6gGqECaua60QFjERO6UYD66vRJjnRaPqrWqJPwwKqY4tmEt4kZ9
- TlDiXC/YS0qAar3vqMQaThJCi1kZpVh3OTlMHfq5KR/z2WeG5ft69NHKRlqeKE9pKNwC2wI8
- uEEIjcQaBzFn/ix3L+wVuhrgIIkMdXvO4Qc/HpnyFk1D95/GcyFH/qMuoQegGpYasNmRJ4yY
- +IwbzZ1YQuGSBpIIloNU7o1nfuyh2m5eDpdwL6QjfVvujOPkFwouFTrGMXHR9yDRsZ6onazh
- k399WunWQoLGMPKnFJp9Vrp3IcjhxjTWogfCbm5/f5Cm0CIyyoYDxh+fUCgvfCzh0q6WtReA
- 08Z4Cwjqe417kPDZtvgWxy1plaUsxhaXMBfe8Uw5RuR0KPS70CcD3IdUz9aQNU8sYk9QjlC/
- mGOm9TlFDl+qoq/QHiW9qqXhT6qMC1TJmgHDQcbSSMV7t+lp5s85jrXR8tnOL64iJvyAz6Y6
- yCHqm0yiqseieYP1r6n5hbXjjS0vJ/LQwUpoALNUQqN7AxjY5W+T5e18lWd5vFFRLt1VXGEt
- XkA3sSbsuYHCMndkDTXGLlQWra0+/yCLTvQx0Z1GIUs/Cis/Hjlep1M5DZ5JwFiNcNslSLVX
- XI/cDh5vPd7VEZGp4ctC25tI6zGFZTdKOk=
-IronPort-HdrOrdr: A9a23:oDfttq1Brw1mLOuHzy6ddQqjBetxeYIsimQD101hICG9Lfb0qy
- n+pp4mPEHP4wr5AEtQ4uxpOMG7MBDhHQYc2/hcAV7QZnidhILOFvAs0WKC+UysJ8SazIJgPM
- hbAs9D4bHLbGSSyPyKmDVQcOxQjuVvkprY49s2pk0FJW4FV0gj1XYBNu/xKDwVeOAyP+tcKH
- Pq3Lsjm9PPQxQqR/X+IkNAc/nIptXNmp6jSwUBHQQb5A6Hii7twKLmEjCDty1uEw9n8PMHyy
- zoggb57qKsv7WQ0RnHzVLe6JxQhZ/I1sZDPsqRkcIYQw+cyTpAJb4RGYFqjgpF5N1H22xa1+
- UkZC1Qefib3kmhO11dZyGdgjUIngxes0MKgmXo/EcL6faJOA7STfAxxL6xOyGplXbJ9rtHod
- 129nPcuJxNARzamiPho9DOShFxj0Kx5WEviOgJkhVkIMMjgZJq3PoiFXluYd499ePBmfIaOf
- grCNuZ6OddcFucYXyctm5zwMa0VnB2GhudWEANtsGczjATxRlCvgEl7d1amm1F+IM2SpFC6e
- iBOqN0lKtWRstTaa5mHu8OTca+F2SISxPRN2CZJ0jhCcg8Sjnwgo+y5K9w6PCheZQOwpd3kJ
- PdUElAvWp3YE7qAd3m5uw9zvkMehTIYd3A8LAv23EigMyMeFPCC1zxdHk+1829vv4YHsrXH/
- 6uJZM+OY6XEVfT
-X-IronPort-AV: E=Sophos;i="5.90,282,1643691600"; 
-   d="scan'208";a="70134481"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KuSESmM8Lgu2cpqeF+iQZ/5S8ptM65FcHmHsc9EC9Wf84FUjiTgUpgi53n0lo0QVUeKulQ7TyF73udJa41ythmI9M7g3bQPewacyvehGlC8YTaL20Vgsu9nQWxGhgmRiJHQekjPX8GliTARe314D00sFfgo522DGRpD5kNcTwiKMgB0Vke49OkVQ+TInW2c/8CJbtPe228SkZY7zmr2sntX1VUecLLbCOhWEvANWxhlOpY82mBjFNP6UqxWSLB2OpWU+wlZXtmv8CtFh0Qemb80YLZ3hqjD0n0H/+LlptvakQjaepeLroG66ex9NJvcspdIt74YaS7AMcy7e3iLvsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IlQGvV+muFMVKgvw9h8yPUKC3o/hjcUSdtxGSXtmxnU=;
- b=WfIvIdBySTE3rr9uE0lyE2HfzKuwT0YDhZau2rxSGz9dy/B4p50I7hjeLnP1pRYq7owqImmiYQM+jo1tTbqQbEYcj/HzRZXs9j39Y3gkiGIDvvmf7tiOh2oVNIDeS82um46jl1m6WG5Hpl1HkpCPZXU3U8d147vn4djVu/PVDfOt+HG/4T2eQodxMG/EfQm7TPMVq8Aiht0aHbmeXKdv+MmQG1IdjMYTYFnBU3garHjkA3hxff+ozv+hrV1bOl+yZnGMfzUSGh1MfxiTPB2tP9H2/TCr+lPLGUWCuvos5RHZncJRhx6aGkk9QSuYyeDoaz4+VYitCI79JpRZ8GccfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IlQGvV+muFMVKgvw9h8yPUKC3o/hjcUSdtxGSXtmxnU=;
- b=bXJIClcRrQwHHND6JH3a+uzbC9TnGoSbKU8aPdmTOvHSqYJz1N55T1RcQu6c6Zw5LBIhVWJNl8wk98c/YMD5XwfosCm1R/7RYJWmmcNZak8FFMOiHOlt+mvNRd6bIXQHScDErFbVWQGnlo9sCih/f2qbG8RGNxGBVvKGsujtn/o=
-From: Andrew Cooper <Andrew.Cooper3@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>, George Dunlap
-	<George.Dunlap@citrix.com>, Wei Liu <wl@xen.org>, Roger Pau Monne
-	<roger.pau@citrix.com>, Paul Durrant <paul@xen.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Juergen
- Gross <jgross@suse.com>
-Subject: Re: [PATCH v4] xen/iommu: cleanup iommu related domctl handling
-Thread-Topic: [PATCH v4] xen/iommu: cleanup iommu related domctl handling
-Thread-Index:
- AQHYVHuOvzYJLKPprEuLadRqUVZq9az4UhqAgAAC1gCAAAFpgIACUHUAgADgBQCAAMb5gA==
-Date: Fri, 22 Apr 2022 19:01:33 +0000
-Message-ID: <a39c8975-b331-8d3b-a09d-688a91fa8fb1@citrix.com>
-References: <20220420055736.27901-1-jgross@suse.com>
- <927d3bbd-64db-15dc-9bec-270711b9c1a8@suse.com>
- <a2489d58-883e-01e7-1b7d-0413b4006fbe@suse.com>
- <74f6105d-d3a3-6508-3c6f-3aac53285c5f@suse.com>
- <7f55e68c-17ed-c682-9ba7-4835d8e1a79b@citrix.com>
- <a83fc8db-f8c0-5a17-a668-1a00cb1fdc2a@suse.com>
-In-Reply-To: <a83fc8db-f8c0-5a17-a668-1a00cb1fdc2a@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 713d76f1-d8a1-4a5c-d39c-08da249284dc
-x-ms-traffictypediagnostic: BL0PR03MB4148:EE_
-x-microsoft-antispam-prvs:
- <BL0PR03MB414845C9BC7DD8A1D5753206BAF79@BL0PR03MB4148.namprd03.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- FNrd9XI0TSAFMJCPWNC9lgKeIiJWLcdXynhvi7t/3oZ9DLkycJssiJdugIVslEx+/x6ktqbvKLH+QMoYS24D3YceaHr6ViulUWBlhNvdL4+uBPky9Tx5HDmjBuacfQNLWr1bCPpkE2m0arwIMVOUBniR0kbBp8jAaP9UWTtre9dHgSyagPo9RCTLXdiHsXILquEH/0eeHdg/8YMPUY1KYHSyRcusdi8BzU/6hLMfHzQE+/hY3sM1TwVEQmkywPpQxJ6LX3Uvm3W5lGzPAKYKDykhq2uxv3L9rpgO7BTNSWt+F8DuayhVO3giIbJGMmLQcnVTUHrBYgyMIyaGlBra2aUMqAM/mICBNxuWDOk1NrK13twOji7KGqHhIVWN5OP4kj6w+dQkE2UTenH2H9yZ69xpBpWDnhFT38liQ/SHMrOsrHRG/J/0HMZFZniO9eZ7vFCW+aHnA1Oe0S9ZLABJ++Vmh/PQH1Lh27WfxtBjpApRaL+wU5sLXVC1JRhYYUQsM1I+36cuD3VhlXl9PrAoPy2tdxObSll0V1TH0yDEHvVBfEeagN3SoPmJT4wX81QQfAu2u0i1ZDsAFDaF26XhP8vuahQ6yCQAdi1CZ/TKFbiGnnnDLdkIrlSSgJn59YSL3Ql6Y0H18V9KLq6nWtJQMeBlZie8SdOX6oTQx/ig8OcMTYbIpCSJy7dAQlJMfKT3MvaNB1YOp6L60tSIYiVUgH5kenluv9F58819xgwh5ndMhdt4XKQvbgfCRkgUYCTIDqOwo+sSlCoCtUR6RdurLQ==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(66556008)(66946007)(82960400001)(64756008)(8676002)(66476007)(8936002)(91956017)(5660300002)(66446008)(4326008)(38070700005)(38100700002)(122000001)(6486002)(71200400001)(508600001)(6506007)(31686004)(53546011)(6512007)(26005)(36756003)(76116006)(186003)(83380400001)(86362001)(31696002)(316002)(54906003)(2906002)(2616005)(6916009)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?emd0ckFpSVE1MGtPcEdxYU1UVUJPQmdtS1EvUnQvSVpoQk5iQlNZQVBVWUFq?=
- =?utf-8?B?QzliM3ZTZWpYVm9ZQTVpeDFPMjFUTmRNZCtKUzVrOEtWeHNOVm1ncXozcExo?=
- =?utf-8?B?UnFYTjNvakJsNWY4WjNDbEdyWXFOcGpYa0ZQeExqeVZvYWZ0YS9ybkdaK21n?=
- =?utf-8?B?eU5nQmxYMHZKRzhWczUxSUJ6dndFc3JwUHdxRm1QTURDSkJ0a1VuMG90aUhh?=
- =?utf-8?B?dUZjY3hKS3VTN3dtQS90cWVpbkxvWklxM0xld2dYaHJzWjdEL2x1akJnZkJm?=
- =?utf-8?B?TkRINUJ1aEc0azlQcVlJdDJKc1NtczhEY3FPem9BYjVJWWFITDlxVWs4dlpq?=
- =?utf-8?B?NUxGZXhJemVtQmt4aDRXWHZCeDRycnNmSGd3T1VyUTFhdFlTRkhwME1LWnRP?=
- =?utf-8?B?akRQY2lzYzVwSVAxR2NaTDFyZEpRYjF4WDQrbHdsMGtuWGNHelBmUzR3a09N?=
- =?utf-8?B?Q0FHRVJ5QVljMDUxeEdsMThXQm9TUXdFYllhV1hHWkFlWUJtYmQrVTNzeVEv?=
- =?utf-8?B?b05yaTBnK2IvN3JEV1FZeDVVRXZKLzR6bXBKT3RhczY0UGtUbXh1Z3VQUkhu?=
- =?utf-8?B?VThZeVB6eHFoRFJmN0d1cS9mQ29ralo4UlJCQks3aFljeWw2WHhwbGdTNnBs?=
- =?utf-8?B?L3dIZEZlOFRZNWFscW5pSUppc2pBMFJ1NVFud0NQS0EybkVzeDVEdU9QbHVs?=
- =?utf-8?B?QXBZSktOdVZlYVpWNENJeXVJYVkwVkN4eXhZVXFuakNDVFRadlgxMnNScUVy?=
- =?utf-8?B?cjR4UHdSU2lIQUV1V0o1czdvd2g1NmE4RU9UcGNqYnM0c1k2QURaU2xLQUFC?=
- =?utf-8?B?WE1heWwzNi80cUVmdDFueW1JbTNEeXVBTmQxbGcwSVh0WFlPa3hJVElIUVVm?=
- =?utf-8?B?VEY5YkhrNFJGR0ZHeThvT3NsdTFGTVlkZzRnRytzMU1tZHRBaTQ4a1RnaEYz?=
- =?utf-8?B?V1FiK1QvcUIyKzFYWlBPS2FUTkJjZWZpLzNCKzdteTdJZFNjTTRGaWluanBE?=
- =?utf-8?B?VzljWHN4QjBsUTY3clhGMk5yRlRIay9PYm5zRjh6ZGY0VmV4Q0JxRVBlOHdS?=
- =?utf-8?B?aXM4cXJSUnZPVjQ4Rjh0WnVOZitaQVAxUXhSWmdlRDVERnhSaGdNOVdaT2hv?=
- =?utf-8?B?NE1oSkV3NE5UZ05vMVVYcUFkZ1FlR3Y4NDBkN2VvK1orWkw0eG0ybFZjZDR2?=
- =?utf-8?B?SW8wRTExdnYzNjlkYlYvN0lYRHlzRGU0MFBTblZvaVROYnlVRFFCQ2w5czJJ?=
- =?utf-8?B?bmtuc2t2VHowa05HbUp1TDU4ckJCNHQrNE1rUklNQjVHZ2tXQ0t1akQ1Y2hU?=
- =?utf-8?B?czZRa1BMODQ0cmpDZmIrWmZZOERzR0xnOG41SHExWWRrUkZScDgrdE9TUUJm?=
- =?utf-8?B?eEFsaTU4aFFXV0lIbjVKTWhOZFhKVVNVVzl2OTA0OEM4ZU9raHd0bUxIOFJo?=
- =?utf-8?B?NFQ5QU9wLzA5SHBBVlA0bTlhZWd4ek9zSkJ2aFVXTzJ5NjlpK0tmZ2ljd0xI?=
- =?utf-8?B?Q0pENk54bCtLaW82VlRrVytjU2hZNUdDK2M3NDQzSHJvUzhoUWVnT3U0WkxT?=
- =?utf-8?B?MXlmQnR3V0ZTeGRiRDdQekc3R0JuQ3h4dVRETlFncEVPUk9ESEdLVXM1ZHZa?=
- =?utf-8?B?bVBiMXZmbW9GdE1Wbk4yTVdITzVFM1pEdnhRODllQlpieXlKaSsvdk05bjRI?=
- =?utf-8?B?cyttQzd6RmV0dnJEOStOR3h5WGhNTnJvVjJnV0s4TEM4NUpiYWxhaXN5ZWxp?=
- =?utf-8?B?bVhYb213STJrOXlDVi9YQUp1TkVXTTNveWlFTUNGUXQ5QS9MUGpTTE5ZTWla?=
- =?utf-8?B?cTZQZUxnbGtjVkRZZXl0c2Q4YVBwNjBOZmVmbkFXNUszdUp5Z2ZTYVQ0R2ZB?=
- =?utf-8?B?VjVsTWJvWVM3T1JEQlN5aTZzM1JFYXVWbEFSdlhqYkZXM1lWODVSdFNNb2xI?=
- =?utf-8?B?elBTMkMrcnJUOGdBSS9rVXNmZDRQemROSHJlRVc1THFHR2k3ZjIwMTV3Z3JJ?=
- =?utf-8?B?cHJWazBMaFZGVWpTSE9aS0VFempBVnMvRVphUTErMVFkc01VOHZ0aU50RWRZ?=
- =?utf-8?B?TTAzRXlOWllIRmVSOWNEajAya2Y2UGl1eGRYTjRzQmpXK1ZibVBYbXpzbTVR?=
- =?utf-8?B?VEx0ZWhvNFljUXFHTFdRNXVvc1VNYzJENnVDNFpSekxadDFQeUFNOGFYQ3lJ?=
- =?utf-8?B?WlhwZFFITXNZRk9kNlZNdWl6eGZrbFpOM3cza3lkQjc3Y0pURlM0akxORVBo?=
- =?utf-8?B?YnZXdjA0aG40NXNaU3lhZng4MzZwUlZpQjdwcTA0b1QwaFkxWDJsc21jQTFI?=
- =?utf-8?B?L3ZkOVJBcUZXYTNnaDMxRkMzRUJUcmllT0FTRm1qckZ1TWZraHdpdz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <21D9DDD78E1B3E4FAB1DA16FDA6B868A@namprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 8c375f41-c274-11ec-8fc2-03012f2f19d4
+ARC-Seal: i=1; a=rsa-sha256; t=1650656634; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=JRl+DMZtthZJ96hEuSHBTBYsIm2kTrfjWn95dAVKIGStX95lDe+c363VKK0nLfQAcfxpMYDuH5zUYEusikt1BFmt+T/A6ok067ZAjet+49TGAdp5M9vklf+SmWSeNbiYFimuThFbTrtmKzA8S5B7SvVrMwgrwvrU+3q3/vde+aw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1650656634; h=Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To; 
+	bh=gZoPE3ey9o58yT/dUqy4QzWLLVgIJXl38ETuW0qXh5U=; 
+	b=klLYoxZzdf1lTQAkq0ND+T4fkva5hjfmfwfKJJMWsC+DET0Aa+hHdqkaGKHuYc94sg7Ir8BtVOaCqYBZmcxaZl5IApNL61bg8AAyconHSyV4Sh+503QEu6C6poJ4G36ulmxLbZ1O1aYq/fBwBJ5jUmTgS5wAVyUuWHG0kW+lZyE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1650656634;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Transfer-Encoding:Reply-To;
+	bh=gZoPE3ey9o58yT/dUqy4QzWLLVgIJXl38ETuW0qXh5U=;
+	b=JmIqFSMKeCF0Obd2gt0O6Uw7de0Xc9xCtQdqeVuFJZ/8GOX5381Y6OytiO0xRdZE
+	7HI58fat5WyZWerYtg85/aYtJsOD29l3705VOLZcIpxuJGYbuQzuQDPwePM4b7AgJaY
+	qFpibTxxl7BEQf1lhY1dAJLV1sQjHQsiFk3J8QtM=
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+To: xen-devel@lists.xenproject.org,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: jandryuk@gmail.com,
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Subject: [PATCH] xsm/flask: code style formatting
+Date: Fri, 22 Apr 2022 15:43:44 -0400
+Message-Id: <20220422194344.9318-1-dpsmith@apertussolutions.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 713d76f1-d8a1-4a5c-d39c-08da249284dc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Apr 2022 19:01:33.8611
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 5hIlA88aiG5KWBwsjI5yu+PVOQNhz89rJUp/4ozhQZxdi3JRvqHuCiylgrIJoSUDfIBIqzB99f9n3vktuAHTEZmQYPiJN4FPxKNwitecS2c=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR03MB4148
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-T24gMjIvMDQvMjAyMiAwODowOSwgSmFuIEJldWxpY2ggd3JvdGU6DQo+IE9uIDIxLjA0LjIwMjIg
-MTk6NDcsIEFuZHJldyBDb29wZXIgd3JvdGU6DQo+PiBPbiAyMC8wNC8yMDIyIDA3OjI3LCBKYW4g
-QmV1bGljaCB3cm90ZToNCj4+PiBPbiAyMC4wNC4yMDIyIDA4OjIyLCBKdWVyZ2VuIEdyb3NzIHdy
-b3RlOg0KPj4+PiBPbiAyMC4wNC4yMiAwODoxMSwgSmFuIEJldWxpY2ggd3JvdGU6DQo+Pj4+PiBP
-biAyMC4wNC4yMDIyIDA3OjU3LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4+Pj4+IC0tLSBhL3hl
-bi9pbmNsdWRlL3hlbi9pb21tdS5oDQo+Pj4+Pj4gKysrIGIveGVuL2luY2x1ZGUveGVuL2lvbW11
-LmgNCj4+Pj4+PiBAQCAtMzQxLDggKzM0MSwxNyBAQCBzdHJ1Y3QgZG9tYWluX2lvbW11IHsNCj4+
-Pj4+PiAgIC8qIERvZXMgdGhlIElPTU1VIHBhZ2V0YWJsZSBuZWVkIHRvIGJlIGtlcHQgc3luY2hy
-b25pemVkIHdpdGggdGhlIFAyTSAqLw0KPj4+Pj4+ICAgI2lmZGVmIENPTkZJR19IQVNfUEFTU1RI
-Uk9VR0gNCj4+Pj4+PiAgICNkZWZpbmUgbmVlZF9pb21tdV9wdF9zeW5jKGQpICAgICAoZG9tX2lv
-bW11KGQpLT5uZWVkX3N5bmMpDQo+Pj4+Pj4gKw0KPj4+Pj4+ICtpbnQgaW9tbXVfZG9fZG9tY3Rs
-KHN0cnVjdCB4ZW5fZG9tY3RsICpkb21jdGwsIHN0cnVjdCBkb21haW4gKmQsDQo+Pj4+Pj4gKyAg
-ICAgICAgICAgICAgICAgICAgWEVOX0dVRVNUX0hBTkRMRV9QQVJBTSh4ZW5fZG9tY3RsX3QpIHVf
-ZG9tY3RsKTsNCj4+Pj4+PiAgICNlbHNlDQo+Pj4+Pj4gICAjZGVmaW5lIG5lZWRfaW9tbXVfcHRf
-c3luYyhkKSAgICAgKHsgKHZvaWQpKGQpOyBmYWxzZTsgfSkNCj4+Pj4+PiArDQo+Pj4+Pj4gK3N0
-YXRpYyBpbmxpbmUgaW50IGlvbW11X2RvX2RvbWN0bChzdHJ1Y3QgeGVuX2RvbWN0bCAqZG9tY3Rs
-LCBzdHJ1Y3QgZG9tYWluICpkLA0KPj4+Pj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgWEVOX0dVRVNUX0hBTkRMRV9QQVJBTSh4ZW5fZG9tY3RsX3QpIHVfZG9tY3RsKQ0KPj4+
-Pj4+ICt7DQo+Pj4+Pj4gKyAgICByZXR1cm4gLUVOT1NZUzsNCj4+Pj4+PiArfQ0KPj4+Pj4gQXMg
-c2FpZCBpbiByZXBseSB0byBBbmRyZXcgYXMgd2VsbCBhcyBpbiBhIG51bWJlciBvciBlYXJsaWVy
-IG9jY2FzaW9ucywNCj4+Pj4+IEkgZmlybWx5IHRoaW5rIHRoYXQgdGhpcyB3YW50cyB0byBiZSAt
-RU9QTk9UU1VQUCwgbm90IC1FTk9TWVMuIFZpZXdzDQo+Pj4+IEluIGxpYnhsIHRoZXJlIGlzIGFu
-IGV4cGxpY2l0IGNoZWNrIGZvciBFTk9TWVMgYmVpbmcgcmV0dXJuZWQgZm9yDQo+Pj4+IGFzc2ln
-bmluZy9kZWFzc2lnbmluZyBhIGRldmljZSwgc2FtZSBpbiB0aGUgeGMgcHl0aG9uIGJpbmRpbmdz
-Lg0KPj4+IFVyZ2guDQo+PiBIb25lc3RseSwgSSB3YXNuJ3QgcGFydGljdWxhcmx5IGhhcHB5IHdp
-dGggeW91ciBwdXNoIHRvIHN3YXAgRU5PU1lTIG91dA0KPj4gZm9yIEVPUE5PVFNVUFAuwqAgVGhp
-cyBzaG93cyBwbGFpbmx5IHdoeSBpdCdzIGEgYmFkIG1vdmUuDQo+Pg0KPj4gQW4gZW5kIHVzZXIg
-ZG9lc24ndCBnaXZlIHR3byBob290cyBhYm91dCB0aGUgZGlzdGluY3Rpb24gYmV0d2Vlbg0KPj4g
-aHlwZXJjYWxsIG5vdCBzdXBwb3J0ZWQgYW5kIHN1Ym9wcyBub3Qgc3VwcG9ydGVkOyB0aGV5IGNh
-cmUgYWJvdXQNCj4+IHdoZXRoZXIgWGVuIGNhbiBwZXJmb3JtIHRoZSByZXF1ZXN0ZWQgYWN0aW9u
-IG9yIG5vdC7CoCBFTk9TWVMgaXMgdGhlIG1vcmUNCj4+IGNvbW1vbiB3YXkgb2Ygc2lnbmFsbGlu
-ZyB0aGlzLCBhbmQgaGF2aW5nIG9ubHkgb25lIGVycm5vIHZhbHVlIHRvIGNoZWNrDQo+PiBpcyBi
-ZXR0ZXIgZm9yIGV2ZXJ5b25lIGludm9sdmVkLg0KPiBFbmQgdXNlcnMgYXJlIG9mIGxpdHRsZSBp
-bnRlcmVzdCBoZXJlLiBDb2RlIGxvb2tpbmcgZm9yIEVOT1NZUyBpcyB3aGF0DQo+IGlzIG9mIGlu
-dGVyZXN0LCB3aGVuIHRoZSBtZWFuaW5nIG9mIEVOT1NZUyBpcyBxdWl0ZSB3ZWxsIGRlZmluZWQg
-YXMNCj4gInN5c3RlbSBjYWxsIG5vdCBpbXBsZW1lbnRlZCINCg0KUE9TSVggc3BlY2lmaWVzIGl0
-IGFzICJGdW5jdGlvbmFsaXR5IG5vdCBzdXBwb3J0ZWQiIHdoaWNoIGlzIHdoeSBvdGhlcg0KY29t
-cGxpbWVudCBzeXN0ZW1zIHVzZSBpdCBmb3Igc21hbGxlciBncmFudWxhcml0eSB0aGFuIGEgc3lz
-dGVtIGNhbGwuDQoNCn5BbmRyZXcNCg==
+This is a quick code style cleanup patch for xsm/flask. The files flask_op.c
+and hooks.c are Xen specific, thus full code style rules were applied. The
+remaining files are from Linux and therefore only trailing whitespace was
+remove from those files.
+
+Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+---
+ xen/xsm/flask/avc.c            |  14 +--
+ xen/xsm/flask/flask_op.c       |  27 ++---
+ xen/xsm/flask/hooks.c          | 186 +++++++++++++++++----------------
+ xen/xsm/flask/include/avc.h    |   2 +-
+ xen/xsm/flask/ss/avtab.c       |  10 +-
+ xen/xsm/flask/ss/avtab.h       |   4 +-
+ xen/xsm/flask/ss/conditional.c |   4 +-
+ xen/xsm/flask/ss/context.h     |   4 +-
+ xen/xsm/flask/ss/mls.c         |   2 +-
+ xen/xsm/flask/ss/policydb.c    |   2 +-
+ xen/xsm/flask/ss/services.c    |   6 +-
+ xen/xsm/flask/ss/sidtab.c      |   6 +-
+ 12 files changed, 136 insertions(+), 131 deletions(-)
+
+diff --git a/xen/xsm/flask/avc.c b/xen/xsm/flask/avc.c
+index e20c165042..4a75ec97e2 100644
+--- a/xen/xsm/flask/avc.c
++++ b/xen/xsm/flask/avc.c
+@@ -13,9 +13,9 @@
+  *    it under the terms of the GNU General Public License version 2,
+  *      as published by the Free Software Foundation.
+  */
+- 
++
+ /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
+- 
++
+ #include <xen/lib.h>
+ #include <xen/xmalloc.h>
+ #include <xen/types.h>
+@@ -267,7 +267,7 @@ int avc_get_hash_stats(struct xen_flask_hash_stats *arg)
+     }
+ 
+     rcu_read_unlock(&avc_rcu_lock);
+-    
++
+     arg->entries = atomic_read(&avc_cache.active_nodes);
+     arg->buckets_used = slots_used;
+     arg->buckets_total = AVC_CACHE_SLOTS;
+@@ -336,7 +336,7 @@ static inline int avc_reclaim_node(void)
+         }
+         rcu_read_unlock(&avc_rcu_lock);
+         spin_unlock_irqrestore(lock, flags);
+-    }    
++    }
+  out:
+     return ecx;
+ }
+@@ -622,7 +622,7 @@ static int avc_update_node(u32 perms, u32 ssid, u32 tsid, u16 tclass,
+     struct hlist_head *head;
+     struct hlist_node *next;
+     spinlock_t *lock;
+-    
++
+     node = avc_alloc_node();
+     if ( !node )
+     {
+@@ -630,7 +630,7 @@ static int avc_update_node(u32 perms, u32 ssid, u32 tsid, u16 tclass,
+         goto out;
+     }
+ 
+-    hvalue = avc_hash(ssid, tsid, tclass);    
++    hvalue = avc_hash(ssid, tsid, tclass);
+ 
+     head = &avc_cache.slots[hvalue];
+     lock = &avc_cache.slots_lock[hvalue];
+@@ -695,7 +695,7 @@ int avc_ss_reset(u32 seqno)
+         rcu_read_unlock(&avc_rcu_lock);
+         spin_unlock_irqrestore(lock, flag);
+     }
+-    
++
+     avc_latest_notif_update(seqno, 0);
+     return rc;
+ }
+diff --git a/xen/xsm/flask/flask_op.c b/xen/xsm/flask/flask_op.c
+index 707be72a3b..eb16e289c3 100644
+--- a/xen/xsm/flask/flask_op.c
++++ b/xen/xsm/flask/flask_op.c
+@@ -75,15 +75,15 @@ static int __init cf_check parse_flask_param(const char *s)
+ }
+ custom_param("flask", parse_flask_param);
+ 
+-static int domain_has_security(struct domain *d, u32 perms)
++static int domain_has_security(struct domain *d, uint32_t perms)
+ {
+     struct domain_security_struct *dsec;
+-    
++
+     dsec = d->ssid;
+     if ( !dsec )
+         return -EACCES;
+-        
+-    return avc_has_perm(dsec->sid, SECINITSID_SECURITY, SECCLASS_SECURITY, 
++
++    return avc_has_perm(dsec->sid, SECINITSID_SECURITY, SECCLASS_SECURITY,
+                         perms, NULL);
+ }
+ 
+@@ -130,7 +130,7 @@ static int flask_security_access(struct xen_flask_access *arg)
+     arg->audit_allow = avd.auditallow;
+     arg->audit_deny = avd.auditdeny;
+     arg->seqno = avd.seqno;
+-                
++
+     return rv;
+ }
+ 
+@@ -196,7 +196,7 @@ static int flask_security_sid(struct xen_flask_sid_context *arg)
+ {
+     int rv;
+     char *context;
+-    u32 len;
++    uint32_t len;
+ 
+     rv = domain_has_security(current->domain, SECURITY__CHECK_CONTEXT);
+     if ( rv )
+@@ -223,7 +223,8 @@ static int flask_security_sid(struct xen_flask_sid_context *arg)
+ 
+ #ifndef COMPAT
+ 
+-static int flask_security_setavc_threshold(struct xen_flask_setavc_threshold *arg)
++static int flask_security_setavc_threshold(
++    struct xen_flask_setavc_threshold *arg)
+ {
+     int rv = 0;
+ 
+@@ -350,7 +351,7 @@ static int flask_security_get_bool(struct xen_flask_boolean *arg)
+         if ( nameout_len > arg->size )
+             rv = -ERANGE;
+         arg->size = nameout_len;
+- 
++
+         if ( !rv && _copy_to_guest(arg->name, nameout, nameout_len) )
+             rv = -EFAULT;
+         xfree(nameout);
+@@ -386,9 +387,9 @@ static int flask_security_make_bools(void)
+     int ret = 0;
+     int num;
+     int *values = NULL;
+-    
++
+     xfree(bool_pending_values);
+-    
++
+     ret = security_get_bools(&num, NULL, &values, NULL);
+     if ( ret != 0 )
+         goto out;
+@@ -474,8 +475,8 @@ static int flask_devicetree_label(struct xen_flask_devicetree_label *arg)
+ {
+     int rv;
+     char *buf;
+-    u32 sid = arg->sid;
+-    u32 perm = sid ? SECURITY__ADD_OCONTEXT : SECURITY__DEL_OCONTEXT;
++    uint32_t sid = arg->sid;
++    uint32_t perm = sid ? SECURITY__ADD_OCONTEXT : SECURITY__DEL_OCONTEXT;
+ 
+     rv = domain_has_security(current->domain, perm);
+     if ( rv )
+@@ -670,7 +671,7 @@ ret_t cf_check do_flask_op(XEN_GUEST_HANDLE_PARAM(void) u_flask_op)
+ 
+     case FLASK_MLS:
+         rv = flask_mls_enabled;
+-        break;    
++        break;
+ 
+     case FLASK_GETAVC_THRESHOLD:
+         rv = avc_cache_threshold;
+diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
+index 0bf63ffa84..e2ebbc7716 100644
+--- a/xen/xsm/flask/hooks.c
++++ b/xen/xsm/flask/hooks.c
+@@ -38,34 +38,34 @@
+ #include <conditional.h>
+ #include "private.h"
+ 
+-static u32 domain_sid(const struct domain *dom)
++static uint32_t domain_sid(const struct domain *dom)
+ {
+     struct domain_security_struct *dsec = dom->ssid;
+     return dsec->sid;
+ }
+ 
+-static u32 domain_target_sid(const struct domain *src,
+-                             const struct domain *dst)
++static uint32_t domain_target_sid(
++    const struct domain *src, const struct domain *dst)
+ {
+     struct domain_security_struct *ssec = src->ssid;
+     struct domain_security_struct *dsec = dst->ssid;
+-    if (src == dst)
++    if ( src == dst )
+         return ssec->self_sid;
+-    if (src->target == dst)
++    if ( src->target == dst )
+         return ssec->target_sid;
+     return dsec->sid;
+ }
+ 
+-static u32 evtchn_sid(const struct evtchn *chn)
++static uint32_t evtchn_sid(const struct evtchn *chn)
+ {
+     return chn->ssid.flask_sid;
+ }
+ 
+-static int domain_has_perm(const struct domain *dom1,
+-                           const struct domain *dom2,
+-                           u16 class, u32 perms)
++static int domain_has_perm(
++    const struct domain *dom1, const struct domain *dom2, uint16_t class,
++    uint32_t perms)
+ {
+-    u32 ssid, tsid;
++    uint32_t ssid, tsid;
+     struct avc_audit_data ad;
+     AVC_AUDIT_DATA_INIT(&ad, NONE);
+     ad.sdom = dom1;
+@@ -77,34 +77,35 @@ static int domain_has_perm(const struct domain *dom1,
+     return avc_has_perm(ssid, tsid, class, perms, &ad);
+ }
+ 
+-static int avc_current_has_perm(u32 tsid, u16 class, u32 perm,
+-                                struct avc_audit_data *ad)
++static int avc_current_has_perm(
++    uint32_t tsid, uint16_t class, uint32_t perm, struct avc_audit_data *ad)
+ {
+-    u32 csid = domain_sid(current->domain);
++    uint32_t csid = domain_sid(current->domain);
+     return avc_has_perm(csid, tsid, class, perm, ad);
+ }
+ 
+-static int current_has_perm(struct domain *d, u16 class, u32 perms)
++static int current_has_perm(struct domain *d, uint16_t class, uint32_t perms)
+ {
+     return domain_has_perm(current->domain, d, class, perms);
+ }
+ 
+-static int domain_has_evtchn(struct domain *d, struct evtchn *chn, u32 perms)
++static int domain_has_evtchn(
++    struct domain *d, struct evtchn *chn, uint32_t perms)
+ {
+-    u32 dsid = domain_sid(d);
+-    u32 esid = evtchn_sid(chn);
++    uint32_t dsid = domain_sid(d);
++    uint32_t esid = evtchn_sid(chn);
+ 
+     return avc_has_perm(dsid, esid, SECCLASS_EVENT, perms, NULL);
+ }
+ 
+-static int domain_has_xen(struct domain *d, u32 perms)
++static int domain_has_xen(struct domain *d, uint32_t perms)
+ {
+-    u32 dsid = domain_sid(d);
++    uint32_t dsid = domain_sid(d);
+ 
+     return avc_has_perm(dsid, SECINITSID_XEN, SECCLASS_XEN, perms, NULL);
+ }
+ 
+-static int get_irq_sid(int irq, u32 *sid, struct avc_audit_data *ad)
++static int get_irq_sid(int irq, uint32_t *sid, struct avc_audit_data *ad)
+ {
+     if ( irq >= nr_irqs || irq < 0 )
+         return -EINVAL;
+@@ -120,8 +121,8 @@ static int get_irq_sid(int irq, u32 *sid, struct avc_audit_data *ad)
+         struct irq_desc *desc = irq_to_desc(irq);
+         if ( desc->msi_desc && desc->msi_desc->dev ) {
+             struct pci_dev *dev = desc->msi_desc->dev;
+-            u32 sbdf = (dev->seg << 16) | (dev->bus << 8) | dev->devfn;
+-            if (ad) {
++            uint32_t sbdf = (dev->seg << 16) | (dev->bus << 8) | dev->devfn;
++            if ( ad ) {
+                 AVC_AUDIT_DATA_INIT(ad, DEV);
+                 ad->device = sbdf;
+             }
+@@ -130,7 +131,7 @@ static int get_irq_sid(int irq, u32 *sid, struct avc_audit_data *ad)
+     }
+ #endif
+ 
+-    if (ad) {
++    if ( ad ) {
+         AVC_AUDIT_DATA_INIT(ad, IRQ);
+         ad->irq = irq;
+     }
+@@ -200,7 +201,7 @@ static void cf_check flask_domain_free_security(struct domain *d)
+ static int cf_check flask_evtchn_unbound(
+     struct domain *d1, struct evtchn *chn, domid_t id2)
+ {
+-    u32 sid1, sid2, newsid;
++    uint32_t sid1, sid2, newsid;
+     int rc;
+     struct domain *d2;
+ 
+@@ -234,7 +235,7 @@ static int cf_check flask_evtchn_interdomain(
+     struct domain *d1, struct evtchn *chn1,
+     struct domain *d2, struct evtchn *chn2)
+ {
+-    u32 sid1, sid2, newsid, reverse_sid;
++    uint32_t sid1, sid2, newsid, reverse_sid;
+     int rc;
+     struct avc_audit_data ad;
+     AVC_AUDIT_DATA_INIT(&ad, NONE);
+@@ -336,9 +337,9 @@ static char *cf_check flask_show_security_evtchn(
+     struct domain *d, const struct evtchn *chn)
+ {
+     int irq;
+-    u32 sid = 0;
++    uint32_t sid = 0;
+     char *ctx;
+-    u32 ctx_len;
++    uint32_t ctx_len;
+ 
+     switch ( chn->state )
+     {
+@@ -354,7 +355,7 @@ static char *cf_check flask_show_security_evtchn(
+     }
+     if ( !sid )
+         return NULL;
+-    if (security_sid_to_context(sid, &ctx, &ctx_len))
++    if ( security_sid_to_context(sid, &ctx, &ctx_len) )
+         return NULL;
+     return ctx;
+ }
+@@ -367,7 +368,7 @@ static int cf_check flask_init_hardware_domain(struct domain *d)
+ static int cf_check flask_grant_mapref(
+     struct domain *d1, struct domain *d2, uint32_t flags)
+ {
+-    u32 perms = GRANT__MAP_READ;
++    uint32_t perms = GRANT__MAP_READ;
+ 
+     if ( !(flags & GNTMAP_readonly) )
+         perms |= GRANT__MAP_WRITE;
+@@ -445,7 +446,7 @@ static int cf_check flask_get_vnumainfo(struct domain *d)
+ 
+ static int cf_check flask_console_io(struct domain *d, int cmd)
+ {
+-    u32 perm;
++    uint32_t perm;
+ 
+     switch ( cmd )
+     {
+@@ -464,7 +465,7 @@ static int cf_check flask_console_io(struct domain *d, int cmd)
+ 
+ static int cf_check flask_profile(struct domain *d, int op)
+ {
+-    u32 perm;
++    uint32_t perm;
+ 
+     switch ( op )
+     {
+@@ -510,7 +511,7 @@ static void cf_check flask_security_domaininfo(
+     info->ssidref = domain_sid(d);
+ }
+ 
+-static int cf_check flask_domain_create(struct domain *d, u32 ssidref)
++static int cf_check flask_domain_create(struct domain *d, uint32_t ssidref)
+ {
+     int rc;
+     struct domain_security_struct *dsec = d->ssid;
+@@ -843,7 +844,7 @@ static int cf_check flask_sysctl(int cmd)
+ 
+ static int cf_check flask_readconsole(uint32_t clear)
+ {
+-    u32 perms = XEN__READCONSOLE;
++    uint32_t perms = XEN__READCONSOLE;
+ 
+     if ( clear )
+         perms |= XEN__CLEARCONSOLE;
+@@ -851,7 +852,7 @@ static int cf_check flask_readconsole(uint32_t clear)
+     return domain_has_xen(current->domain, perms);
+ }
+ 
+-static inline u32 resource_to_perm(uint8_t access)
++static inline uint32_t resource_to_perm(uint8_t access)
+ {
+     if ( access )
+         return RESOURCE__ADD;
+@@ -861,13 +862,13 @@ static inline u32 resource_to_perm(uint8_t access)
+ 
+ static char *cf_check flask_show_irq_sid(int irq)
+ {
+-    u32 sid, ctx_len;
++    uint32_t sid, ctx_len;
+     char *ctx;
+     int rc = get_irq_sid(irq, &sid, NULL);
+     if ( rc )
+         return NULL;
+ 
+-    if (security_sid_to_context(sid, &ctx, &ctx_len))
++    if ( security_sid_to_context(sid, &ctx, &ctx_len) )
+         return NULL;
+ 
+     return ctx;
+@@ -878,12 +879,13 @@ static int cf_check flask_map_domain_pirq(struct domain *d)
+     return current_has_perm(d, SECCLASS_RESOURCE, RESOURCE__ADD);
+ }
+ 
+-static int flask_map_domain_msi (struct domain *d, int irq, const void *data,
+-                                 u32 *sid, struct avc_audit_data *ad)
++static int flask_map_domain_msi (
++    struct domain *d, int irq, const void *data, uint32_t *sid,
++    struct avc_audit_data *ad)
+ {
+ #ifdef CONFIG_HAS_PCI_MSI
+     const struct msi_info *msi = data;
+-    u32 machine_bdf = (msi->seg << 16) | (msi->bus << 8) | msi->devfn;
++    uint32_t machine_bdf = (msi->seg << 16) | (msi->bus << 8) | msi->devfn;
+ 
+     AVC_AUDIT_DATA_INIT(ad, DEV);
+     ad->device = machine_bdf;
+@@ -894,7 +896,7 @@ static int flask_map_domain_msi (struct domain *d, int irq, const void *data,
+ #endif
+ }
+ 
+-static u32 flask_iommu_resource_use_perm(const struct domain *d)
++static uint32_t flask_iommu_resource_use_perm(const struct domain *d)
+ {
+     /* Obtain the permission level required for allowing a domain
+      * to use an assigned device.
+@@ -905,7 +907,7 @@ static u32 flask_iommu_resource_use_perm(const struct domain *d)
+      * less capable hardware (no IOMMU or IOMMU missing intremap capability)
+      * via other separate permissions.
+      */
+-    u32 perm = RESOURCE__USE_NOIOMMU;
++    uint32_t perm = RESOURCE__USE_NOIOMMU;
+ 
+     if ( is_iommu_enabled(d) )
+         perm = ( iommu_intremap ? RESOURCE__USE_IOMMU :
+@@ -913,18 +915,18 @@ static u32 flask_iommu_resource_use_perm(const struct domain *d)
+     return perm;
+ }
+ 
+-static int cf_check flask_map_domain_irq(struct domain *d, int irq, const void *data)
++static int cf_check flask_map_domain_irq(
++    struct domain *d, int irq, const void *data)
+ {
+-    u32 sid, dsid;
++    uint32_t sid, dsid;
+     int rc = -EPERM;
+     struct avc_audit_data ad;
+-    u32 dperm = flask_iommu_resource_use_perm(d);
++    uint32_t dperm = flask_iommu_resource_use_perm(d);
+ 
+-    if ( irq >= nr_static_irqs && data ) {
++    if ( irq >= nr_static_irqs && data )
+         rc = flask_map_domain_msi(d, irq, data, &sid, &ad);
+-    } else {
++    else
+         rc = get_irq_sid(irq, &sid, &ad);
+-    }
+ 
+     if ( rc )
+         return rc;
+@@ -944,12 +946,13 @@ static int cf_check flask_unmap_domain_pirq(struct domain *d)
+     return current_has_perm(d, SECCLASS_RESOURCE, RESOURCE__REMOVE);
+ }
+ 
+-static int flask_unmap_domain_msi (struct domain *d, int irq, const void *data,
+-                                   u32 *sid, struct avc_audit_data *ad)
++static int flask_unmap_domain_msi (
++    struct domain *d, int irq, const void *data, uint32_t *sid,
++    struct avc_audit_data *ad)
+ {
+ #ifdef CONFIG_HAS_PCI_MSI
+     const struct pci_dev *pdev = data;
+-    u32 machine_bdf = (pdev->seg << 16) | (pdev->bus << 8) | pdev->devfn;
++    uint32_t machine_bdf = (pdev->seg << 16) | (pdev->bus << 8) | pdev->devfn;
+ 
+     AVC_AUDIT_DATA_INIT(ad, DEV);
+     ad->device = machine_bdf;
+@@ -963,15 +966,15 @@ static int flask_unmap_domain_msi (struct domain *d, int irq, const void *data,
+ static int cf_check flask_unmap_domain_irq(
+     struct domain *d, int irq, const void *data)
+ {
+-    u32 sid;
++    uint32_t sid;
+     int rc = -EPERM;
+     struct avc_audit_data ad;
+ 
+-    if ( irq >= nr_static_irqs && data ) {
++    if ( irq >= nr_static_irqs && data )
+         rc = flask_unmap_domain_msi(d, irq, data, &sid, &ad);
+-    } else {
++    else
+         rc = get_irq_sid(irq, &sid, &ad);
+-    }
++
+     if ( rc )
+         return rc;
+ 
+@@ -982,11 +985,11 @@ static int cf_check flask_unmap_domain_irq(
+ static int cf_check flask_bind_pt_irq(
+     struct domain *d, struct xen_domctl_bind_pt_irq *bind)
+ {
+-    u32 dsid, rsid;
++    uint32_t dsid, rsid;
+     int rc = -EPERM;
+     int irq;
+     struct avc_audit_data ad;
+-    u32 dperm = flask_iommu_resource_use_perm(d);
++    uint32_t dperm = flask_iommu_resource_use_perm(d);
+ 
+     rc = current_has_perm(d, SECCLASS_RESOURCE, RESOURCE__ADD);
+     if ( rc )
+@@ -1020,14 +1023,14 @@ static int cf_check flask_irq_permission(
+ }
+ 
+ struct iomem_has_perm_data {
+-    u32 ssid;
+-    u32 dsid;
+-    u32 perm;
+-    u32 use_perm;
++    uint32_t ssid;
++    uint32_t dsid;
++    uint32_t perm;
++    uint32_t use_perm;
+ };
+ 
+ static int cf_check _iomem_has_perm(
+-    void *v, u32 sid, unsigned long start, unsigned long end)
++    void *v, uint32_t sid, unsigned long start, unsigned long end)
+ {
+     struct iomem_has_perm_data *data = v;
+     struct avc_audit_data ad;
+@@ -1077,10 +1080,10 @@ static int cf_check flask_pci_config_permission(
+     struct domain *d, uint32_t machine_bdf, uint16_t start, uint16_t end,
+     uint8_t access)
+ {
+-    u32 dsid, rsid;
++    uint32_t dsid, rsid;
+     int rc = -EPERM;
+     struct avc_audit_data ad;
+-    u32 perm;
++    uint32_t perm;
+ 
+     rc = security_device_sid(machine_bdf, &rsid);
+     if ( rc )
+@@ -1116,7 +1119,7 @@ static int flask_resource_use_core(void)
+ 
+ static int cf_check flask_resource_plug_pci(uint32_t machine_bdf)
+ {
+-    u32 rsid;
++    uint32_t rsid;
+     int rc = -EPERM;
+     struct avc_audit_data ad;
+ 
+@@ -1131,7 +1134,7 @@ static int cf_check flask_resource_plug_pci(uint32_t machine_bdf)
+ 
+ static int cf_check flask_resource_unplug_pci(uint32_t machine_bdf)
+ {
+-    u32 rsid;
++    uint32_t rsid;
+     int rc = -EPERM;
+     struct avc_audit_data ad;
+ 
+@@ -1146,7 +1149,7 @@ static int cf_check flask_resource_unplug_pci(uint32_t machine_bdf)
+ 
+ static int cf_check flask_resource_setup_pci(uint32_t machine_bdf)
+ {
+-    u32 rsid;
++    uint32_t rsid;
+     int rc = -EPERM;
+     struct avc_audit_data ad;
+ 
+@@ -1161,7 +1164,7 @@ static int cf_check flask_resource_setup_pci(uint32_t machine_bdf)
+ 
+ static int cf_check flask_resource_setup_gsi(int gsi)
+ {
+-    u32 rsid;
++    uint32_t rsid;
+     int rc = -EPERM;
+     struct avc_audit_data ad;
+ 
+@@ -1179,7 +1182,8 @@ static int cf_check flask_resource_setup_misc(void)
+ 
+ static inline int cf_check flask_page_offline(uint32_t cmd)
+ {
+-    switch (cmd) {
++    switch ( cmd )
++    {
+     case sysctl_page_offline:
+         return flask_resource_unplug_core();
+     case sysctl_page_online:
+@@ -1214,7 +1218,7 @@ static int cf_check flask_map_gmfn_foreign(struct domain *d, struct domain *t)
+ 
+ static int cf_check flask_hvm_param(struct domain *d, unsigned long op)
+ {
+-    u32 perm;
++    uint32_t perm;
+ 
+     switch ( op )
+     {
+@@ -1289,7 +1293,7 @@ static int cf_check flask_mem_sharing(struct domain *d)
+ #if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_PCI)
+ static int cf_check flask_get_device_group(uint32_t machine_bdf)
+ {
+-    u32 rsid;
++    uint32_t rsid;
+     int rc = -EPERM;
+ 
+     rc = security_device_sid(machine_bdf, &rsid);
+@@ -1301,7 +1305,7 @@ static int cf_check flask_get_device_group(uint32_t machine_bdf)
+ 
+ static int flask_test_assign_device(uint32_t machine_bdf)
+ {
+-    u32 rsid;
++    uint32_t rsid;
+     int rc = -EPERM;
+ 
+     rc = security_device_sid(machine_bdf, &rsid);
+@@ -1313,10 +1317,10 @@ static int flask_test_assign_device(uint32_t machine_bdf)
+ 
+ static int cf_check flask_assign_device(struct domain *d, uint32_t machine_bdf)
+ {
+-    u32 dsid, rsid;
++    uint32_t dsid, rsid;
+     int rc = -EPERM;
+     struct avc_audit_data ad;
+-    u32 dperm;
++    uint32_t dperm;
+ 
+     if ( !d )
+         return flask_test_assign_device(machine_bdf);
+@@ -1344,7 +1348,7 @@ static int cf_check flask_assign_device(struct domain *d, uint32_t machine_bdf)
+ static int cf_check flask_deassign_device(
+     struct domain *d, uint32_t machine_bdf)
+ {
+-    u32 rsid;
++    uint32_t rsid;
+     int rc = -EPERM;
+ 
+     rc = current_has_perm(d, SECCLASS_RESOURCE, RESOURCE__REMOVE);
+@@ -1362,7 +1366,7 @@ static int cf_check flask_deassign_device(
+ #if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE)
+ static int flask_test_assign_dtdevice(const char *dtpath)
+ {
+-    u32 rsid;
++    uint32_t rsid;
+     int rc = -EPERM;
+ 
+     rc = security_devicetree_sid(dtpath, &rsid);
+@@ -1375,10 +1379,10 @@ static int flask_test_assign_dtdevice(const char *dtpath)
+ 
+ static int cf_check flask_assign_dtdevice(struct domain *d, const char *dtpath)
+ {
+-    u32 dsid, rsid;
++    uint32_t dsid, rsid;
+     int rc = -EPERM;
+     struct avc_audit_data ad;
+-    u32 dperm;
++    uint32_t dperm;
+ 
+     if ( !d )
+         return flask_test_assign_dtdevice(dtpath);
+@@ -1406,7 +1410,7 @@ static int cf_check flask_assign_dtdevice(struct domain *d, const char *dtpath)
+ static int cf_check flask_deassign_dtdevice(
+     struct domain *d, const char *dtpath)
+ {
+-    u32 rsid;
++    uint32_t rsid;
+     int rc = -EPERM;
+ 
+     rc = current_has_perm(d, SECCLASS_RESOURCE, RESOURCE__REMOVE);
+@@ -1498,7 +1502,7 @@ static int cf_check flask_do_mca(void)
+ 
+ static int cf_check flask_shadow_control(struct domain *d, uint32_t op)
+ {
+-    u32 perm;
++    uint32_t perm;
+ 
+     switch ( op )
+     {
+@@ -1524,14 +1528,14 @@ static int cf_check flask_shadow_control(struct domain *d, uint32_t op)
+ }
+ 
+ struct ioport_has_perm_data {
+-    u32 ssid;
+-    u32 dsid;
+-    u32 perm;
+-    u32 use_perm;
++    uint32_t ssid;
++    uint32_t dsid;
++    uint32_t perm;
++    uint32_t use_perm;
+ };
+ 
+ static int cf_check _ioport_has_perm(
+-    void *v, u32 sid, unsigned long start, unsigned long end)
++    void *v, uint32_t sid, unsigned long start, unsigned long end)
+ {
+     struct ioport_has_perm_data *data = v;
+     struct avc_audit_data ad;
+@@ -1590,7 +1594,7 @@ static int cf_check flask_mem_sharing_op(
+ 
+ static int cf_check flask_apic(struct domain *d, int cmd)
+ {
+-    u32 perm;
++    uint32_t perm;
+ 
+     switch ( cmd )
+     {
+@@ -1622,7 +1626,7 @@ static int cf_check flask_mmu_update(
+     struct domain *d, struct domain *t, struct domain *f, uint32_t flags)
+ {
+     int rc = 0;
+-    u32 map_perms = 0;
++    uint32_t map_perms = 0;
+ 
+     if ( t && d != t )
+         rc = domain_has_perm(d, t, SECCLASS_MMU, MMU__REMOTE_REMAP);
+@@ -1649,7 +1653,7 @@ static int cf_check flask_mmuext_op(struct domain *d, struct domain *f)
+ static int cf_check flask_update_va_mapping(
+     struct domain *d, struct domain *f, l1_pgentry_t pte)
+ {
+-    u32 map_perms = MMU__MAP_READ;
++    uint32_t map_perms = MMU__MAP_READ;
+     if ( !(l1e_get_flags(pte) & _PAGE_PRESENT) )
+         return 0;
+     if ( l1e_get_flags(pte) & _PAGE_RW )
+@@ -1665,7 +1669,7 @@ static int cf_check flask_priv_mapping(struct domain *d, struct domain *t)
+ 
+ static int cf_check flask_pmu_op(struct domain *d, unsigned int op)
+ {
+-    u32 dsid = domain_sid(d);
++    uint32_t dsid = domain_sid(d);
+ 
+     switch ( op )
+     {
+@@ -1694,7 +1698,7 @@ static int cf_check flask_dm_op(struct domain *d)
+ 
+ static int cf_check flask_xen_version(uint32_t op)
+ {
+-    u32 dsid = domain_sid(current->domain);
++    uint32_t dsid = domain_sid(current->domain);
+ 
+     switch ( op )
+     {
+@@ -1902,8 +1906,8 @@ static const struct xsm_ops __initconst_cf_clobber flask_ops = {
+ #endif
+ };
+ 
+-const struct xsm_ops *__init flask_init(const void *policy_buffer,
+-                                        size_t policy_size)
++const struct xsm_ops *__init flask_init(
++    const void *policy_buffer, size_t policy_size)
+ {
+     int ret = -ENOENT;
+ 
+diff --git a/xen/xsm/flask/include/avc.h b/xen/xsm/flask/include/avc.h
+index c14bd07a2b..e29949f5a8 100644
+--- a/xen/xsm/flask/include/avc.h
++++ b/xen/xsm/flask/include/avc.h
+@@ -3,7 +3,7 @@
+  *
+  * Author : Stephen Smalley, <sds@epoch.ncsc.mil>
+  */
+- 
++
+ /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
+ 
+ #ifndef _FLASK_AVC_H_
+diff --git a/xen/xsm/flask/ss/avtab.c b/xen/xsm/flask/ss/avtab.c
+index 55c2b4d8a4..017f5183de 100644
+--- a/xen/xsm/flask/ss/avtab.c
++++ b/xen/xsm/flask/ss/avtab.c
+@@ -35,7 +35,7 @@ static inline int avtab_hash(struct avtab_key *keyp, u16 mask)
+ }
+ 
+ static struct avtab_node* avtab_insert_node(struct avtab *h, int hvalue,
+-    struct avtab_node * prev, struct avtab_node * cur, struct avtab_key *key, 
++    struct avtab_node * prev, struct avtab_node * cur, struct avtab_key *key,
+                                                     struct avtab_datum *datum)
+ {
+     struct avtab_node *newnode = xzalloc(struct avtab_node);
+@@ -59,7 +59,7 @@ static struct avtab_node* avtab_insert_node(struct avtab *h, int hvalue,
+     return newnode;
+ }
+ 
+-static int avtab_insert(struct avtab *h, struct avtab_key *key, 
++static int avtab_insert(struct avtab *h, struct avtab_key *key,
+                                                     struct avtab_datum *datum)
+ {
+     int hvalue;
+@@ -100,7 +100,7 @@ static int avtab_insert(struct avtab *h, struct avtab_key *key,
+  * key/specified mask into the table, as needed by the conditional avtab.
+  * It also returns a pointer to the node inserted.
+  */
+-struct avtab_node * avtab_insert_nonunique(struct avtab * h, 
++struct avtab_node * avtab_insert_nonunique(struct avtab * h,
+                             struct avtab_key * key, struct avtab_datum * datum)
+ {
+     int hvalue;
+@@ -110,7 +110,7 @@ struct avtab_node * avtab_insert_nonunique(struct avtab * h,
+     if ( !h || !h->htable )
+         return NULL;
+     hvalue = avtab_hash(key, h->mask);
+-    for ( prev = NULL, cur = h->htable[hvalue]; cur; 
++    for ( prev = NULL, cur = h->htable[hvalue]; cur;
+                                                 prev = cur, cur = cur->next )
+     {
+         if ( key->source_type == cur->key.source_type &&
+@@ -199,7 +199,7 @@ struct avtab_node* avtab_search_node(struct avtab *h, struct avtab_key *key)
+     return NULL;
+ }
+ 
+-struct avtab_node* avtab_search_node_next(struct avtab_node *node, 
++struct avtab_node* avtab_search_node_next(struct avtab_node *node,
+                                                                 int specified)
+ {
+     struct avtab_node *cur;
+diff --git a/xen/xsm/flask/ss/avtab.h b/xen/xsm/flask/ss/avtab.h
+index a2b50c222a..591604f927 100644
+--- a/xen/xsm/flask/ss/avtab.h
++++ b/xen/xsm/flask/ss/avtab.h
+@@ -74,12 +74,12 @@ int avtab_read_item(struct avtab *a, void *fp, struct policydb *pol,
+ 
+ int avtab_read(struct avtab *a, void *fp, struct policydb *pol);
+ 
+-struct avtab_node *avtab_insert_nonunique(struct avtab *h, 
++struct avtab_node *avtab_insert_nonunique(struct avtab *h,
+                             struct avtab_key *key, struct avtab_datum *datum);
+ 
+ struct avtab_node *avtab_search_node(struct avtab *h, struct avtab_key *key);
+ 
+-struct avtab_node *avtab_search_node_next(struct avtab_node *node, 
++struct avtab_node *avtab_search_node_next(struct avtab_node *node,
+                                                                 int specified);
+ 
+ #define MAX_AVTAB_HASH_BITS 13
+diff --git a/xen/xsm/flask/ss/conditional.c b/xen/xsm/flask/ss/conditional.c
+index b4b116666c..e74fc01746 100644
+--- a/xen/xsm/flask/ss/conditional.c
++++ b/xen/xsm/flask/ss/conditional.c
+@@ -452,7 +452,7 @@ static int cond_read_node(struct policydb *p, struct cond_node *node, void *fp)
+             goto err;
+         }
+ 
+-        if ( i == 0 ) 
++        if ( i == 0 )
+             node->expr = expr;
+         else
+             last->next = expr;
+@@ -513,7 +513,7 @@ err:
+ /* Determine whether additional permissions are granted by the conditional
+  * av table, and if so, add them to the result
+  */
+-void cond_compute_av(struct avtab *ctab, struct avtab_key *key, 
++void cond_compute_av(struct avtab *ctab, struct avtab_key *key,
+                                                         struct av_decision *avd)
+ {
+     struct avtab_node *node;
+diff --git a/xen/xsm/flask/ss/context.h b/xen/xsm/flask/ss/context.h
+index 302b3698a7..311edf8794 100644
+--- a/xen/xsm/flask/ss/context.h
++++ b/xen/xsm/flask/ss/context.h
+@@ -12,9 +12,9 @@
+  *
+  * Author : Stephen Smalley, <sds@epoch.ncsc.mil>
+  */
+- 
++
+ /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
+- 
++
+ #ifndef _SS_CONTEXT_H_
+ #define _SS_CONTEXT_H_
+ 
+diff --git a/xen/xsm/flask/ss/mls.c b/xen/xsm/flask/ss/mls.c
+index f2fa560810..a3255ae01a 100644
+--- a/xen/xsm/flask/ss/mls.c
++++ b/xen/xsm/flask/ss/mls.c
+@@ -70,7 +70,7 @@ int mls_compute_context_len(struct context * context)
+         }
+         if ( l == 0 )
+         {
+-            if ( mls_level_eq(&context->range.level[0], 
++            if ( mls_level_eq(&context->range.level[0],
+                               &context->range.level[1]) )
+                 break;
+             else
+diff --git a/xen/xsm/flask/ss/policydb.c b/xen/xsm/flask/ss/policydb.c
+index ff2103c63e..162470bbbd 100644
+--- a/xen/xsm/flask/ss/policydb.c
++++ b/xen/xsm/flask/ss/policydb.c
+@@ -339,7 +339,7 @@ static int cf_check sens_index(void *key, void *datum, void *datap)
+ 
+     if ( !levdatum->isalias )
+     {
+-        if ( !levdatum->level->sens || levdatum->level->sens > 
++        if ( !levdatum->level->sens || levdatum->level->sens >
+                                                         p->p_levels.nprim )
+             return -EINVAL;
+         p->p_sens_val_to_name[levdatum->level->sens - 1] = key;
+diff --git a/xen/xsm/flask/ss/services.c b/xen/xsm/flask/ss/services.c
+index 2f6d3d350d..dab07b5f60 100644
+--- a/xen/xsm/flask/ss/services.c
++++ b/xen/xsm/flask/ss/services.c
+@@ -99,7 +99,7 @@ static int context_struct_compute_av(struct context *scontext,
+  * constraint_expr_eval should pass in NULL for xcontext.
+  */
+ static int constraint_expr_eval(struct context *scontext,
+-                            struct context *tcontext, struct context *xcontext, 
++                            struct context *tcontext, struct context *xcontext,
+                                                 struct constraint_expr *cexpr)
+ {
+     u32 val1, val2;
+@@ -1073,7 +1073,7 @@ static int security_compute_sid(u32 ssid,
+                 /* Look for a role transition rule. */
+                 for ( roletr = policydb.role_tr; roletr; roletr = roletr->next )
+                 {
+-                    if ( roletr->role == scontext->role && 
++                    if ( roletr->role == scontext->role &&
+                                             roletr->type == tcontext->type )
+                     {
+                         /* Use the role transition rule. */
+@@ -1485,7 +1485,7 @@ int security_irq_sid(int pirq, u32 *out_sid)
+     POLICY_RDLOCK;
+ 
+     c = policydb.ocontexts[OCON_PIRQ];
+-    
++
+     while ( c )
+     {
+         if ( c->u.pirq == pirq )
+diff --git a/xen/xsm/flask/ss/sidtab.c b/xen/xsm/flask/ss/sidtab.c
+index cd1360cb4a..74babfac9c 100644
+--- a/xen/xsm/flask/ss/sidtab.c
++++ b/xen/xsm/flask/ss/sidtab.c
+@@ -3,9 +3,9 @@
+  *
+  * Author : Stephen Smalley, <sds@epoch.ncsc.mil>
+  */
+- 
++
+ /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
+- 
++
+ #include <xen/lib.h>
+ #include <xen/xmalloc.h>
+ #include <xen/errno.h>
+@@ -192,7 +192,7 @@ void sidtab_map_remove_on_error(struct sidtab *s,
+     return;
+ }
+ 
+-static inline u32 sidtab_search_context(struct sidtab *s, 
++static inline u32 sidtab_search_context(struct sidtab *s,
+                                                         struct context *context)
+ {
+     int i;
+-- 
+2.20.1
+
 
