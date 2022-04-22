@@ -2,65 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82BAE50B034
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Apr 2022 08:10:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.310695.527613 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E3E350B10A
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Apr 2022 09:05:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.310701.527624 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhmU0-0001Xh-D9; Fri, 22 Apr 2022 06:09:32 +0000
+	id 1nhnLe-0001G2-MF; Fri, 22 Apr 2022 07:04:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 310695.527613; Fri, 22 Apr 2022 06:09:32 +0000
+Received: by outflank-mailman (output) from mailman id 310701.527624; Fri, 22 Apr 2022 07:04:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhmU0-0001Ur-A5; Fri, 22 Apr 2022 06:09:32 +0000
-Received: by outflank-mailman (input) for mailman id 310695;
- Fri, 22 Apr 2022 06:09:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nhnLe-0001ED-J4; Fri, 22 Apr 2022 07:04:58 +0000
+Received: by outflank-mailman (input) for mailman id 310701;
+ Fri, 22 Apr 2022 07:04:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ZwqJ=VA=arm.com=Wei.Chen@srs-se1.protection.inumbo.net>)
- id 1nhmTy-0001Ul-N9
- for xen-devel@lists.xenproject.org; Fri, 22 Apr 2022 06:09:31 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on20621.outbound.protection.outlook.com
- [2a01:111:f400:7d00::621])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c35e3782-c202-11ec-8fc2-03012f2f19d4;
- Fri, 22 Apr 2022 08:09:26 +0200 (CEST)
-Received: from DB8PR06CA0052.eurprd06.prod.outlook.com (2603:10a6:10:120::26)
- by DU0PR08MB7787.eurprd08.prod.outlook.com (2603:10a6:10:3b8::14)
+ (envelope-from <SRS0=vZpq=VA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1nhnLd-0001E7-0r
+ for xen-devel@lists.xenproject.org; Fri, 22 Apr 2022 07:04:57 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 83892692-c20a-11ec-a405-831a346695d4;
+ Fri, 22 Apr 2022 09:04:55 +0200 (CEST)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05lp2110.outbound.protection.outlook.com [104.47.18.110]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-33-BlNjzlMIOiqa5TkW_rwQhw-1; Fri, 22 Apr 2022 09:04:54 +0200
+Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
+ by AM0PR04MB4323.eurprd04.prod.outlook.com (2603:10a6:208:58::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.20; Fri, 22 Apr
- 2022 06:09:23 +0000
-Received: from DB5EUR03FT025.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:120:cafe::d7) by DB8PR06CA0052.outlook.office365.com
- (2603:10a6:10:120::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.13 via Frontend
- Transport; Fri, 22 Apr 2022 06:09:23 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT025.mail.protection.outlook.com (10.152.20.104) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5186.14 via Frontend Transport; Fri, 22 Apr 2022 06:09:23 +0000
-Received: ("Tessian outbound 62985e3c34b6:v118");
- Fri, 22 Apr 2022 06:09:23 +0000
-Received: from cd95b13914ef.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 7B2F4CB4-8EA6-4887-ABC5-7EA95DBB1F78.1; 
- Fri, 22 Apr 2022 06:09:16 +0000
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id cd95b13914ef.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 22 Apr 2022 06:09:16 +0000
-Received: from PAXPR08MB7420.eurprd08.prod.outlook.com (2603:10a6:102:2b9::9)
- by DB6PR0802MB2551.eurprd08.prod.outlook.com (2603:10a6:4:9f::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.13; Fri, 22 Apr
- 2022 06:09:15 +0000
-Received: from PAXPR08MB7420.eurprd08.prod.outlook.com
- ([fe80::c9c3:bf08:ecb8:1feb]) by PAXPR08MB7420.eurprd08.prod.outlook.com
- ([fe80::c9c3:bf08:ecb8:1feb%8]) with mapi id 15.20.5164.025; Fri, 22 Apr 2022
- 06:09:14 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Fri, 22 Apr
+ 2022 07:04:52 +0000
+Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
+ ([fe80::5cb0:5195:4203:7c2f]) by DU2PR04MB8616.eurprd04.prod.outlook.com
+ ([fe80::5cb0:5195:4203:7c2f%7]) with mapi id 15.20.5186.015; Fri, 22 Apr 2022
+ 07:04:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,318 +51,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c35e3782-c202-11ec-8fc2-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gu8TCVTwwBYGYf7B9H9RVveLQMMJB0IZehu9UilohK0=;
- b=1GWo32YHQ4J+ZaYZ/OzS31qZnhtMrq4npSGgZ6ilhvVgsE+EhxAZ29tQ38mKIZa16nzVoaWk9BmIL6ahGhM9/FeSw9eFZtMjt3KMqnwvycwcDxCZoqnUEN5nWpSta5SAcOFBtsQIAwnYx0HGoZ8arJKyyi4LwcE0JC2IFt6UrnA=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 668e0e87570d323a
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: 83892692-c20a-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1650611095;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yax3tILkwXc8VPvBbFmXqqs5HeYzHB4zMFLmBxlChQQ=;
+	b=UXq4WLkDjkvEDQf+Vdto/MqkBZTvKMMJlL7GH+1njxj04C+TwA2/413TW+xAnkHTeYgbrT
+	0ZUjvFsNVC2fL1B6waim4N2Dy7L0kkFEFk1jwuSBYRBUFDOHnUNi49o6kqwagcuRyPM6ZG
+	B07b9S1l4JnM1SLNy8nPdELtQCklwW8=
+X-MC-Unique: BlNjzlMIOiqa5TkW_rwQhw-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cSZBl703RrcrfmuzgOSk1VYuWINjjWxEp0bk59yzB7npsmO4JPenpBE7do5GsIR/vrQtephJ4aE3t2jHKG0GPZ5YdCEdc/PPq0PwWcsO3Heo/O+eXk5zMJdKzJCcQe6SQ9qyzudmcDtl9OxLJobH3J9ue4s5Sc6ieWK8a9N4vEDs8JkA6NeUY4K6OoZgoBH+Fy2PYZK3R0aeKe3eq94qCPZepdiJd2ulfPIRmmEbdOnyfel3lPnk+pNhKq80ndEkoQJDpUvyT1TGYZGvE9aqxQlSHgqWPvmWoCkEgsYnW0oihbnSP78KGvlm+YUnlkq7bwIQxNJSwI9N5sfVby6b8A==
+ b=KUE3rls7LnoAAWDLC5pa/zhnUYNl8qKQcvIa9NCEj8mtKZ4h7E+g4WQ0+1uBmdbSs3PAJ7UrL94uieR/T0KvZ3MgVuvIOhGJJinebuLUV4R1wABpJPCOUORmVvUAV62cvGa2+7I+w+LEl0m2xyLMvgXszZiezDUVg48h5+zVVKaS6MGULHsqHcPFTFKOPdjxJrwNolWH4B2QEIefMU423VhgkUyx1Q/lpnFHKosoSco1OCFKA/asioyOUbw4eyByxstF1fKIwfL5oaYwjMgXbn7pFu4IonLckRx5fxDeBN73eFnct4mtcWMJO6jug+PFbeSlIchsDnVeWIIWlaQRiA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Gu8TCVTwwBYGYf7B9H9RVveLQMMJB0IZehu9UilohK0=;
- b=Nmx9Ka8UJIFbDa0AKg5FYQRZbUlwA/L7649KeC/kQIEA0IR1VgLAu7yFzzqfLiaVAJ+Iy1nN7JBHfGOb/DdCS2ProbGKACz4zh6cLNsQm2jFO/iHGlbNkNJ4oBhuTo63Mo0eGCKfuUGi1MQ79KLvvcpL4fdYS3hItdl4aNR3hbrjRbbpR6KnhtVNtSXacASRmdQsHZu10FEgVWM/RVsY53W3FD8L6434ENlvXudfzvYQh2HRdCcOlPYDW6C4hk8tX/EESw0rgJJH8i4EnHe4e2aHq2YUNpHD04No6LnHlWs+BjTD1vvx5Acl0w3OL3l/I5MpLBXRmQ9dSRvVwSTmdw==
+ bh=2hmD/s1ez1XCcUlh9effmB5B4jmOpv8hHy1p5xn2eW8=;
+ b=j9EfyFQ0mY2d5gb1gN5HTo92RxW+jVLcTRw/LrIYYbgCMxipiuwbKho/70vAMdaOhkqmluIcI6V1mY79858h54avOr9S09iF/cgGpSXkZTWlw53JMlZGSmwQvd6GrDE3EebWvVtILPJAs28fxMcOjjiTjSWvK89fZbvKTZdjEpfxhfPilLP9521B2fgCCmDdKfK+4lFFRSNGo33wCbQBiwXvdQRPvtJKe3Tu4kfjFBzvZINIVytc11eJqbbQLqw8DbUwamom8jVOdupBnPT6jAP00uVmCIWPFAdS9QzX57L51OfPIsyPU0Xn+TgWW8i+89MkOQ6Lq5L0ZEbmZDzdEw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gu8TCVTwwBYGYf7B9H9RVveLQMMJB0IZehu9UilohK0=;
- b=1GWo32YHQ4J+ZaYZ/OzS31qZnhtMrq4npSGgZ6ilhvVgsE+EhxAZ29tQ38mKIZa16nzVoaWk9BmIL6ahGhM9/FeSw9eFZtMjt3KMqnwvycwcDxCZoqnUEN5nWpSta5SAcOFBtsQIAwnYx0HGoZ8arJKyyi4LwcE0JC2IFt6UrnA=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Message-ID: <6cd916fc-4a10-0a1e-afa6-9e4e6f0ea999@arm.com>
-Date: Fri, 22 Apr 2022 14:09:05 +0800
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <335fcc84-ea0e-b250-11d7-a07e4bdeefeb@suse.com>
+Date: Fri, 22 Apr 2022 09:04:51 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.1
-Subject: Re: Proposal for Porting Xen to Armv8-R64 - DraftB
+Subject: Re: [PATCH] xen/build: Fix MAP rule when called in isolation
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "julien@xen.org" <julien@xen.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Penny Zheng <Penny.Zheng@arm.com>
-References: <PAXPR08MB742064F5F00A18E09DEF66B69E1A9@PAXPR08MB7420.eurprd08.prod.outlook.com>
- <alpine.DEB.2.22.394.2204141613340.915916@ubuntu-linux-20-04-desktop>
- <PAXPR08MB7420786607A15FA5027BF4579EF29@PAXPR08MB7420.eurprd08.prod.outlook.com>
- <alpine.DEB.2.22.394.2204191752390.915916@ubuntu-linux-20-04-desktop>
- <PAXPR08MB742058D3041BA2D97AA05F1D9EF59@PAXPR08MB7420.eurprd08.prod.outlook.com>
- <alpine.DEB.2.22.394.2204201403180.915916@ubuntu-linux-20-04-desktop>
-From: Wei Chen <Wei.Chen@arm.com>
-In-Reply-To: <alpine.DEB.2.22.394.2204201403180.915916@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI2PR01CA0048.apcprd01.prod.exchangelabs.com
- (2603:1096:4:193::17) To PAXPR08MB7420.eurprd08.prod.outlook.com
- (2603:10a6:102:2b9::9)
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>
+CC: Anthony Perard <anthony.perard@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20220421160039.24564-1-andrew.cooper3@citrix.com>
+ <b03098dd-7fd4-ed91-cc94-35fd24c46126@suse.com>
+ <e563c62a-622c-15dd-34f7-57997132649d@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <e563c62a-622c-15dd-34f7-57997132649d@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AM5PR1001CA0045.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:206:15::22) To DU2PR04MB8616.eurprd04.prod.outlook.com
+ (2603:10a6:10:2db::16)
 MIME-Version: 1.0
-X-MS-Office365-Filtering-Correlation-Id: 8567e62e-0714-40eb-dde6-08da2426a5a8
-X-MS-TrafficTypeDiagnostic:
-	DB6PR0802MB2551:EE_|DB5EUR03FT025:EE_|DU0PR08MB7787:EE_
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d80991f1-e574-4ab9-1570-08da242e65dc
+X-MS-TrafficTypeDiagnostic: AM0PR04MB4323:EE_
 X-Microsoft-Antispam-PRVS:
-	<DU0PR08MB7787AE136378169C8FE26BBA9EF79@DU0PR08MB7787.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-NoDisclaimer: true
+	<AM0PR04MB43235DF36B22C7D23E9AD237B3F79@AM0PR04MB4323.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- 6rQHwwJIWC3WMHyUDkVyp4x23kYDwYmLe5Uu1M7zhSFDjmJPMxtHFpKq19vTLN2WaAMm2JEDzA2NtAvL1ZlJ/NOUbr70jMptewIgRZVm9em+SUk+PYRBYnUP7RwlwdEj1BD6Uf94XOYEBeQ24NGmXXRkFhLJMhMj+2QBs3ZHaHCqbhRVy4KNga0AaufrHphhjEVCQ3hIdEYIpMRliYweQhB5s2eRToBOLctzv1KN6nlYWrTLAcpxprOi7zo47foydcKqnkbDsLAaoM+JzzzZS9XOhBjw+M7xorGuNhDyLSMN+3XC+PbEFevcoNoMhUkKoNg7aFIeaKRvebzVzLEdHg9k3F0RJ6+Egnclzzd6mJ4G5T4xAdyVk0Kv5PKG7W0C2Pe0DYOxqQ5F+O+bDzcD4EEx6ipkbzl+lzlZOau+DWsLBAPBTFVzaCxUjKND9dXw82Oux9G6VQkMhrqREN4k9a0fQchD9pFCnJ0i++cCVicljNOA21fdboVAA6Ldvbx6NVrn4Kr7Nlr0Dv0z2PE09VW3n9+MvXUX/OFUph8auGB+luHp7RuniNKGylIaW3vAkuNZN2Ydme0vrQNCi1LPj8inW5g+sDP3BYtL2oqZku8G2UPrLv2i2Zh3s1CimRksSiCKBErHUPeGSha74JTEYJEsbS6ixsc+HlSmJt7VVt3VPqIb1Foedy85GWqsX19LQ+w/EoLKEJ1aMlG8y+ijHolz0z0MhLcwKX1r8Ak+4CI=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB7420.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(8936002)(2906002)(6486002)(31696002)(66556008)(30864003)(86362001)(6506007)(8676002)(38100700002)(6916009)(83380400001)(316002)(6512007)(54906003)(66476007)(31686004)(6666004)(66946007)(4326008)(53546011)(5660300002)(186003)(26005)(508600001)(2616005)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0802MB2551
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT025.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	8b5ed803-963c-47bf-c946-08da2426a091
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	kSedImfGllEytYakeusATPWqwecKz0JERNcVdCdwsgCOBvgBM2k1jyW1JcQ7OCoszKhzoWpHCjAT+RIyn6t+WYHMgZwMXsdk87nH0f2ti/aXw34F1uOfG18hqioT4KNT4+r17xNso+8EXGkOLC8THARLYTW41SlusDGhOL4F8AlginqdNuuy7vFDngA6y1Hc7DQuUlU01rW0+3zd7m6Ieo/uFGIttHpsZOpXFP9vZJV8ePhlAPlk18hfJz402EMMB4ofW77EdhDwntBxqo0KGUY0MLDK9dKlgICN+uj4wxaAb7TaXh30al9gztIb+DAJD2p7LVPAkCFNPintyaNUmN7sTIHpZ6f3o5tcUZr863pc0u2sbHXNtrqnaOfdTTyGRQ86bqs19xK+gKTXAKq25cHmgdBt8CqS7J/N6GhouO5LQtHu2/4G8yAyt5Jk7/c8yU9IYegsCwCBAXoCdxr6o3cOV2lTcEA44P+tlEPvI0SYDK+7+bu0YwdYSsMldntPzCShcZzINYWfP5xtWet9IK6LMSDZp77RChPpj3l0vMWw8Wb4bY3kF9U6DsVdgf1Lr7RjVdvtFt3D8REMTPPUqXsWuTC66XvEHlJm6E6JFOGG+i6vwGxI9/KTmgYEu+0kMBqcer5pwLInoeVAkpw9VJygttVq31JZ0y3sLNhvmvDaC4xrGj0LthAmp8AF7k+iDPOxdLVAOBTj0lDBeccL1w==
+	p9znMFzoa0sLFHvLM0Stos7jhBFbj/mBP/0D5NybC9OUqbv15JwzLBNxe9dNt35E5LhA7uOFN97c7knWHoUzyeTClLe3Jl/NfFRlokhijISK+C1FYpbzIDxC1yDRSHuM5TB7SoUJFyCPe0phfO1Pzq9T447m3CfZfp14oQLtOQRoRuBUodLy1P6su8tATiiIGKN2KGlCvK4ITNf2+JnY6Q9Q5dmLoCMq+Bn/wHZPf2vqotkD/u0dwEKRVKDvwBREuQOWBf5S59Y/D+96i3DN9t3En7EYQojacrd17NFsXcde184zIr1EgDjyuwACANlFh47fyNW0452bfCNk0GWlYLVP4eAM9GSTfiwGFYSTUdpMp8gCMHJhuTMaNbHB7ZpDHUcRntMIGST1KPoPXAZQsNKuyl+JntnSUvmPGrY1RdRwTjJrMbGI9/rXvWPs/L0L62927hw7qtYBpJZHv6MeV4XKib6UEJvbfLlhdZNpNTTbio3uIUsMiF1Zp3t2r64Eai05EaYfZBNxwWrcXi2z38zEwUUpzXbQTyXZK0uD9WzkdtaY9RiVbKIVAAScAqXxFQfjmDlG7P9ReME+Rpzn3wGVAa7tyFOHrdCf49Ch8pCEMMvErIezivJHtgkEJLksEMagMmgokyqUxy5tW6V/dF+4nZ2A6B5CfzhZirpXz4Q+M/7yArKNRATX0zypH5/MEEj4suVst2ItRoqknq+hWeq3BiwBkH1uX/VfRba7CfBJljuXcERiwv56oM7l7Jf+
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(40460700003)(2616005)(36860700001)(336012)(70586007)(6506007)(2906002)(36756003)(6666004)(6862004)(6486002)(356005)(6512007)(53546011)(31686004)(186003)(26005)(47076005)(70206006)(508600001)(86362001)(31696002)(54906003)(30864003)(8676002)(82310400005)(5660300002)(4326008)(8936002)(316002)(81166007)(83380400001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2022 06:09:23.2926
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(8936002)(6486002)(53546011)(6512007)(26005)(38100700002)(6506007)(5660300002)(2906002)(83380400001)(508600001)(86362001)(2616005)(31696002)(186003)(31686004)(316002)(66476007)(54906003)(36756003)(66946007)(6916009)(66556008)(4326008)(8676002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?0gLiBl2EHLm5H+9LgoytnfcnG6JYCvLXL/dYtRk6oQzk8+73Ntp85vgEjSuE?=
+ =?us-ascii?Q?TVFdWMuzBUIxoL7GDBA70cyLbyn4GC8nG4xDIDFd6Bv1ErqVsYgndPXX8lIV?=
+ =?us-ascii?Q?J7J7hYNe1s03dg3LQHPUIEBgosB4yPhKNSUgvmZow9Oq+4FxFMrQP4aycmxF?=
+ =?us-ascii?Q?VW9RGaCuoZ0YHqKtkYOLaTE+XdQ0PUMPF/hyXug0ll1Nu1ojl8ZvsxqA50G0?=
+ =?us-ascii?Q?g9bT97nnRygOBO+n59fezHzCa6PdHDp+u9hafmu4u/W+or30K3To3ECcSOWV?=
+ =?us-ascii?Q?29iAwC6AHzoVGKNkNHW2l65AtHNAK5LTPi2a5r7AEZ0W0Z3xc5v6KcDO9Z/O?=
+ =?us-ascii?Q?OOsDKf+qKZG4MD7dQ+1te3ot48MVlruKjVwyUXQm6dHQTsdWAY6UVgMS30AB?=
+ =?us-ascii?Q?uzLC+csy9raBD4iipYTisrlOWsJqTb1PN+UBKyoSP+d8RbfPiztrgpwBzo6O?=
+ =?us-ascii?Q?uTwG0MSCL4j9LwexA8BsiP9QqZcrEVTffAU31nsIMna78yLEzT4wJmGlx0KV?=
+ =?us-ascii?Q?8A+Wam2yn3Rx6FjHNgNRfWvxVulhfZ/x2C6IvhpkPvUDdnlWntyRUSkHKZK5?=
+ =?us-ascii?Q?QDOIeusJJ44X/z7R+7PqoAfmn77Ih17l1DdoQRPF06uTM0VdMhuuVjgnjylo?=
+ =?us-ascii?Q?R5CN1JPBzArWx+uiz950N+Jgej2+pvEwAbzv5nYMVDEWvBL1o1A8G/XkxoSu?=
+ =?us-ascii?Q?E0e1QYJDYHnYXWouksSOXt4XMovvMoeEs9OE7Ff/NxfEyKsTb25Cjr1zOVF4?=
+ =?us-ascii?Q?KYBOSR4XQQVdyL4LiUaw99+65sAf3HACosEQPVWdUIWzx8djuzQsmlq57nk3?=
+ =?us-ascii?Q?v0k1scvSr8jImM9/B9LDooCrtCsE8/v0FoGB68C/wtl1SLznhA0bk+4E8gOw?=
+ =?us-ascii?Q?of3yF3Nd4QREvV44zu6FMopB4zX8EFWWY3ZWlb3Uf8CFqTnf86rqAQLUrijh?=
+ =?us-ascii?Q?7le5VKIqod7Zhj++oU3qHOSXdY46aj315URxZfd2zZu0pVmIlQsPpHM9jNI/?=
+ =?us-ascii?Q?7B2hTkoQ3BY/wdMipuTvQlSqApKoZXxAtktR/E7RCXogSc5hzPml3TkQYeZz?=
+ =?us-ascii?Q?12ENTohvBpRPZNm0/dfLw/qKm5lEnZPWp4rVs1eWcATxoRHKVOAX9DKCeiBf?=
+ =?us-ascii?Q?w6THywt9AoyNkyssU542sdSP/WPza4VIe7PDi9fgq5PcrcTGRwqNZGoT+ZnO?=
+ =?us-ascii?Q?K3ymQCaCdTd3emKvoUb9WPw11/xbmCuTkaG/HoacNaDoKn2PZZPUO7/13kQz?=
+ =?us-ascii?Q?v3lddTpmGrBphAk2TIN1XEmViLrR+zD9ONsWBMY/ly0vK6acsFSkG90eayww?=
+ =?us-ascii?Q?r4Ey3n3OVzQ52jbgOYpLNzy5yAW6QSbi6OAcDax7kQdCaopMMFOZ9cB4B3E5?=
+ =?us-ascii?Q?mULazxJ0SELuAf/6Qd0EpCAzQk62giIC1EVpotMg4aelbByft1Skw3qDkn1M?=
+ =?us-ascii?Q?yVrC1n+kIN2dGqwkCYVzHKBl1bbTQUY3t5n1T/CgCB1H/bCPM5ZCMshR9E7X?=
+ =?us-ascii?Q?d2EvJS1YJUPq6eNovo0/t8kfkd+z5cfaBVIBy2FUAqh5LUqweVdN1uvMgte/?=
+ =?us-ascii?Q?OzN6mRwI8SHB3El1OpiNegPwq1mC0itKEIt/KR4U3cxjW6SZyV3r9v39sJoA?=
+ =?us-ascii?Q?E0UwIhEmKyyB+7Gfh7fZj9p2bq4RqxipcuokwboOMF5r5/7bDB1JK8scUP3e?=
+ =?us-ascii?Q?H+T7W4C9hm/4ewr5c64wojTfRt/u9jC5UyLRDrhQMAPXtB/GLmAbC/ED8gO0?=
+ =?us-ascii?Q?F3W622zjwg=3D=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d80991f1-e574-4ab9-1570-08da242e65dc
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2022 07:04:52.3926
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8567e62e-0714-40eb-dde6-08da2426a5a8
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT025.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB7787
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wVq1OxrF0xqYI/M3qzSYwInAoAlkJy42rYYCJpdoDo9n3cMAP3XVoauBGHPTeeYPsF2QpArcTO6kzHu/1RCpeQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB4323
 
-Hi Stefano,
+On 21.04.2022 18:42, Andrew Cooper wrote:
+> On 21/04/2022 17:09, Jan Beulich wrote:
+>> On 21.04.2022 18:00, Andrew Cooper wrote:
+>>> Now that `make MAP` might rebuild $(TARGET), it needs removing from
+>>> no-dot-config-targets.
+>> Which raises the question whether the MAP target originally was
+>> meant to be used only on an already built tree, which would
+>> explain the missing dependency that you added in the earlier
+>> commit.
+>=20
+> I can't comment on the previous expectation, but the fact you couldn't
+> previously do `make -j4 build MAP` was simply broken.
+>=20
+> There are also several other breakages in Xen's build system which it
+> turns out is forcing all downstreams to bodge around in ways that range
+> from gross to dangerous, and which need fixing for everyone's benefit.=C2=
+=A0
+> (Emails will be appearing for those shortly)
 
-On 2022/4/21 5:08, Stefano Stabellini wrote:
-> On Wed, 20 Apr 2022, Wei Chen wrote:
->>> On Tue, 19 Apr 2022, Wei Chen wrote:
->>>>>> ### 3.2. Xen Event Channel Support
->>>>>>      In Current RFC patches we haven't enabled the event channel
->>> support.
->>>>>>      But I think it's good opportunity to do some discussion in
->>> advanced.
->>>>>>      On Armv8-R, all VMs are native direct-map, because there is no
->>>>> stage2
->>>>>>      MMU translation. Current event channel implementation depends on
->>>>> some
->>>>>>      shared pages between Xen and guest: `shared_info` and per-cpu
->>>>> `vcpu_info`.
->>>>>>
->>>>>>      For `shared_info`, in current implementation, Xen will allocate
->>> a
->>>>> page
->>>>>>      from heap for `shared_info` to store initial meta data. When
->>> guest
->>>>> is
->>>>>>      trying to setup `shared_info`, it will allocate a free gfn and
->>> use a
->>>>>>      hypercall to setup P2M mapping between gfn and `shared_info`.
->>>>>>
->>>>>>      For direct-mapping VM, this will break the direct-mapping
->>> concept.
->>>>>>      And on an MPU based system, like Armv8-R system, this operation
->>> will
->>>>>>      be very unfriendly. Xen need to pop `shared_info` page from Xen
->>> heap
->>>>>>      and insert it to VM P2M pages. If this page is in the middle of
->>>>>>      Xen heap, this means Xen need to split current heap and use
->>> extra
->>>>>>      MPU regions. Also for the P2M part, this page is unlikely to
->>> form
->>>>>>      a new continuous memory region with the existing p2m pages, and
->>> Xen
->>>>>>      is likely to need another additional MPU region to set it up,
->>> which
->>>>>>      is obviously a waste for limited MPU regions. And This kind of
->>>>> dynamic
->>>>>>      is quite hard to imagine on an MPU system.
->>>>>
->>>>> Yeah, it doesn't make any sense for MPU systems
->>>>>
->>>>>
->>>>>>      For `vcpu_info`, in current implementation, Xen will store
->>>>> `vcpu_info`
->>>>>>      meta data for all vCPUs in `shared_info`. When guest is trying
->>> to
->>>>> setup
->>>>>>      `vcpu_info`, it will allocate memory for `vcpu_info` from guest
->>> side.
->>>>>>      And then guest will use hypercall to copy meta data from
->>>>> `shared_info`
->>>>>>      to guest page. After that both Xen `vcpu_info` and guest
->>> `vcpu_info`
->>>>>>      are pointed to the same page that allocated by guest.
->>>>>>
->>>>>>      This implementation has serval benifits:
->>>>>>      1. There is no waste memory. No extra memory will be allocated
->>> from
->>>>> Xen heap.
->>>>>>      2. There is no P2M remap. This will not break the direct-mapping,
->>>>> and
->>>>>>         is MPU system friendly.
->>>>>>      So, on Armv8-R system, we can still keep current implementation
->>> for
->>>>>>      per-cpu `vcpu_info`.
->>>>>>
->>>>>>      So, our proposal is that, can we reuse current implementation
->>> idea
->>>>> of
->>>>>>      `vcpu_info` for `shared_info`? We still allocate one page for
->>>>>>      `d->shared_info` at domain construction for holding some initial
->>>>> meta-data,
->>>>>>      using alloc_domheap_pages instead of alloc_xenheap_pages and
->>>>>>      share_xen_page_with_guest. And when guest allocates a page for
->>>>>>      `shared_info` and use hypercall to setup it,  We copy the
->>> initial
->>>>> data from
->>>>>>      `d->shared_info` to it. And after copy we can update `d-
->>>>>> shared_info` to point
->>>>>>      to guest allocated 'shared_info' page. In this case, we don't
->>> have
->>>>> to think
->>>>>>      about the fragmentation of Xen heap and p2m and the extra MPU
->>>>> regions.
->>>>>
->>>>> Yes, I think that would work.
->>>>>
->>>>> Also I think it should be possible to get rid of the initial
->>>>> d->shared_info allocation in Xen, given that d->shared_info is for the
->>>>> benefit of the guest and the guest cannot access it until it makes the
->>>>> XENMAPSPACE_shared_info hypercall.
->>>>>
->>>>
->>>> While we're working on event channel PoC work on Xen Armv8-R, we found
->>>> another issue after we dropped d->shared_info allocation in Xen. Both
->>>> shared_info and vcpu_info are allocated from Guest in runtime. That
->>>> means the addresses of shared_info and vcpu_info are random. For MMU
->>>> system, this is OK, because Xen has a full view of system memory in
->>>> runtime. But for MPU system, the situation becomes a little tricky.
->>>> We have to setup extra MPU regions for remote domains' shared_info
->>>> and vcpu_info in event channel hypercall runtime. That's because
->>>> in current Xen hypercall concept, hypercall will not cause vCPU
->>>> context switch. When hypercall trap to EL2, it will keep vCPU's
->>>> P2M view. For MMU system, we have vttbr_el2 for vCPU P2M view and
->>>> ttbr_el2 for Xen view. So in EL2 Xen has full permissions to access
->>>> any memory it wants. But for MPU system, we only have one EL2 MPU.
->>>> Before entering guest, Xen will setup vCPU P2M view in EL2 MPU.
->>>> In this case, when system entry EL2 through hypercall, the EL2
->>>> MPU still keeps current vCPU P2M view and with Xen essential
->>>> memory (code, data, heap) access permissions. But current EL2 MPU
->>>> doesn't have the access permissions for EL2 to access other
->>>> domain's memory. For an event channel hypercall, if we want to
->>>> update the pending bitmap in remote domain's vcpu_info, it will
->>>> cause a dataabort in EL2. To solve this dataabort, we may have
->>>> two methods:
->>>> 1. Map remote domain's whole memory or pages for shared_info +
->>>>     vcpu_info in EL2 MPU temporarily for hypercall to update
->>>>     pending bits or other accesses.
->>>>
->>>>     This method doesn't need to do context switch for EL2 MPU,
->>>>     But this method has some disadvantages:
->>>>     1. We have to reserve MPU regions for hypercall.
->>>>     2. Different hypercall may have different reservation of
->>>>        MPU regions.
->>>>     3. We have to handle hypercall one by one for existed and
->>>>        new in future.
->>>>
->>>> 2. Switch to Xen's memory view in EL2 MPU when trap from EL1 to
->>>>     EL2. In this case, Xen will have full memory access permissions
->>>>     to update pending bits in EL2. This only changes the EL2 MPU
->>>>     context, does not need to do vCPU context switch. Because the
->>>>     trapped vCPU will be used in the full flow of hypercall. After
->>>>     the hypercall, before returning to EL2, the EL2 MPU will switch
->>>>     to scheduled vCPU' P2M view.
->>>>     This method needs to do EL2 MPU context switch, but:
->>>>     1. We don't need to reserve MPU regions for Xen's memory view.
->>>>        (Xen's memory view has been setup while initialization)
->>>>     2. We don't need to handle pages' mapping in hypercall level.
->>>>     3. Apply to other EL1 to EL2 traps, like dataabort, IRQ, etc.
->>>
->>>
->>> Both approach 1) and 2) are acceptable and in fact I think we'll
->>> probably have to do a combination of both.
->>>
->>> We don't need to do a full MPU context switch every time we enter Xen.
->>> We can be flexible. Only when Xen needs to access another guest memory,
->>> if the memory is not mappable using approach 1), Xen could do a full MPU
->>> context switch. Basically, try 1) first, if it is not possible, do 2).
->>>
->>> This also solves the problem of "other hypercalls". We can always do 2)
->>> if we cannot do 1).
->>>
->>> So do we need to do 1) at all? It really depends on performance data.
->>> Not all hypercalls are made equal. Some are very rare and it is fine if
->>> they are slow. Some hypercalls are actually on the hot path. The event
->>> channels hypercalls are on the hot path so they need to be fast. It
->>> makes sense to implement 1) just for event channels hypercalls if the
->>> MPU context switch is slow.
->>>
->>> Data would help a lot here to make a good decision. Specifically, how
->>> much more expensive is an EL2 MPU context switch compared to add/remove
->>> of an MPU region in nanosec or cpu cycles?
->>>
->>
->> We will do it when we get a proper platform.
->>
->>>
->>> The other aspect is how many extra MPU regions do we need for each guest
->>> to implement 1). Do we need one extra MPU region for each domU? If so, I
->>> don't think approach 1) if feasible unless we come up with a smart
->>> memory allocation scheme for shared_info and vcpu_info. For instance, if
->>> shared_info and vcpu_info of all guests were part of the Xen data or
->>> heap region, or 1 other special MPU region, then they could become
->>> immediately accessible without need for extra mappings when switching to
->>> EL2.
->>>
->>
->> Allocate shared_info and vcpu_info from Xen data or heap will cause memory
->> fragmentation. We have to split the Xen data or heap and populate the pages
->> for shared_info and vcpu_info, And insert them to Guest P2M. Because Armv8-R
->> MPU doesn't allow memory overlap, this will cause at least 2 extra MPU
->> regions usage. One page could not exist in Xen MPU region and Guest P2M
->> MPU region at the same time. And we definitely don't want to make the entire
->> Xen data and heap accessible to EL1. And this approach does not solve the
->> 100% direct mapping problem. A special MPU region might have the same issues.
->> Except we make this special MPU region can be accessed in EL1 and EL2 at
->> runtime (it's unsafe), and update hypercall to use pages from this special
->> region for shared_info and vcpu_info (every guest can see this region, so
->> it's still 1:1 mapping).
->>
->> For 1), the concern is caused by our current rough PoC, we used extra MPU
->> regions to map the whole memory of remote domain, whose may have serval
->> memory blocks in the worst case. We have thought it further, we can reduce
->> the map granularity to page. For example, Xen wants to update shared_info
->> or vcpu_info, Xen must know the address of it. So we can just map this
->> one page temporarily. So I think only reserve 1 MPU region for runtime
->> mapping is feasible on most platforms.
-> 
-> Actually I think that it would be great if we can do that. It looks like
-> the best way forward.
-> 
-> 
->> But the additional problem with this is that if the hypercall are
->> modifying multiple variables, Xen may need to do multiple mappings if
->> they are not on the same page (or a proper MPU region range).
-> 
-> There are not that many hypercalls that require Xen to map multiple
-> pages, and those might be OK if they are slow.
+Right - at least tests and cloc look to have a similar issue.
 
-Ok, I will update it in Draft-C.
+> The current debug target (just runs objdump -d) is similar to MAP,
+> except I don't find it a credible target to use and was planning to
+> delete it.
+
+Well, yes. I wasn't even aware of this mis-named goal.
+
+>>> Otherwise the build eventually fails with:
+>>>
+>>>     CPP     arch/x86/asm-macros.i
+>>>   arch/x86/asm-macros.c:1:10: fatal error: asm/asm-defns.h: No such fil=
+e or
+>>>   directory
+>>>       1 | #include <asm/asm-defns.h>
+>>>         |          ^~~~~~~~~~~~~~~~~
+>> Why would this be? asm/ isn't a symlink anymore, so should always
+>> exist. I would have expected an error about .config or
+>> autoconf.h not existing, ...
+>>
+>>> Fixes: e1e72198213b ("xen/build: Fix dependency for the MAP rule")
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> ---
+>>> CC: Jan Beulich <JBeulich@suse.com>
+>>> CC: Anthony PERARD <anthony.perard@citrix.com>
+>>>
+>>> Backporting notes.  The original, e1e72198213b, wants backporting as fa=
+r as we
+>>> can go.  This patch is only relevant from 6c122d3984a5e onwards, so 4.1=
+4,
+>>> which is why my main developing/testing on 4.13 didn't spot it.
+>> ... and the commit you reference seems to support that expectation.
+>=20
+> I haven't spent very long investigating exactly how it breaks.=C2=A0 I do=
+n't
+> think it's important, because the purpose of no-dot-config-targets is to
+> skip large swathes of the logic.
+
+I find it generally helpful to understand breakage when it looks odd how
+exactly things break, but anyway
+Acked-by: Jan Beulich <jbeulich@suse.com>
+
+Jan
+
 
