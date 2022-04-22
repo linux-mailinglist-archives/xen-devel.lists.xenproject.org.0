@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C831C50ACA2
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Apr 2022 02:04:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.310539.527437 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BC1150ACD5
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Apr 2022 02:37:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.310583.527481 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhglz-0006rV-L3; Fri, 22 Apr 2022 00:03:43 +0000
+	id 1nhhI8-0004WG-SG; Fri, 22 Apr 2022 00:36:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 310539.527437; Fri, 22 Apr 2022 00:03:43 +0000
+Received: by outflank-mailman (output) from mailman id 310583.527481; Fri, 22 Apr 2022 00:36:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhglz-0006oV-Ha; Fri, 22 Apr 2022 00:03:43 +0000
-Received: by outflank-mailman (input) for mailman id 310539;
- Fri, 22 Apr 2022 00:03:42 +0000
+	id 1nhhI8-0004UE-OW; Fri, 22 Apr 2022 00:36:56 +0000
+Received: by outflank-mailman (input) for mailman id 310583;
+ Fri, 22 Apr 2022 00:36:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=N0EE=VA=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nhgly-0006oP-1V
- for xen-devel@lists.xenproject.org; Fri, 22 Apr 2022 00:03:42 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1nhhI7-0004U8-5m
+ for xen-devel@lists.xenproject.org; Fri, 22 Apr 2022 00:36:55 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aa3b633a-c1cf-11ec-8fc2-03012f2f19d4;
- Fri, 22 Apr 2022 02:03:40 +0200 (CEST)
+ id 4e8b1515-c1d4-11ec-8fc2-03012f2f19d4;
+ Fri, 22 Apr 2022 02:36:53 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 94B6261EE7;
- Fri, 22 Apr 2022 00:03:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9943BC385A7;
- Fri, 22 Apr 2022 00:03:38 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 2FFF5B829CF;
+ Fri, 22 Apr 2022 00:36:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 623EDC385A5;
+ Fri, 22 Apr 2022 00:36:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,109 +43,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aa3b633a-c1cf-11ec-8fc2-03012f2f19d4
+X-Inumbo-ID: 4e8b1515-c1d4-11ec-8fc2-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1650585819;
-	bh=ROR6Gdgt9my5XqbGGDRFeSrSNlmuUJyzMdLwP1EFD2Q=;
+	s=k20201202; t=1650587812;
+	bh=q77UrqyhbHNMDbtjl23QSlBQJqBW2qP/oerjc/apOe0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=muY203xxbEkaAcASdbLhi5+ByB1SLuSvVb7EUi4Q/wOu09DBwQBs/gMzF68QJCBcV
-	 KElUnADL7TuQQaoPom8PjmAwNglYPfHdjwRZ5KZ5oHjVXinYLkgMlmkfgeonpXPOxb
-	 58CxzlU3nt9v6fQXyEtA6cpR21bnr4l4+dV6yEmQ1DUJfsT4hWmxpJqbfHKPbwNNNh
-	 iFXWqIhH93tj0tun0rf9HgCkwMt7WsO3D/9TWMOGqo1nwkMm6pKv7J4Z9JfsdvFsO5
-	 OZnlfFcB15OwgbuYaj+kXWqQUgrS/A1RybpkCUVj8jqe0th6MweJ2YRgYl1tqnLkTz
-	 VwTwJIyAatd6A==
-Date: Thu, 21 Apr 2022 17:03:37 -0700 (PDT)
+	b=O8K3b3ix/Aoq1gJHNVNPUCqoWFQCq5larOk4rtjfKjmMzsI3R228DrK0i5oZVxhnB
+	 xMu4yAbbvCnQMv+SNmGHPNiWBehcWGZ/7PwvzIHEWMmbyhRYfJGCfUQ7XMXhNptv3Y
+	 Ik1QPXzlX3MVQZhtndW7G0GzqkRrfZlnO6XIotP3waUhFWTeEYl8qJYnSZHK6RmPPJ
+	 63zDZGVx+kWkl9j3jmADIPqrSZPP04Yi0rHW2X8RyGjDPlsaD62ZmLE0Ep4nwKBQ1l
+	 N0qjuXKWN9v+PpLfp1PDZWXyOSYbQD1cpPaKDlB8HA14Fgmk0BLSPI2qbtB2xGsa73
+	 zy0oqZI4WmJSQ==
+Date: Thu, 21 Apr 2022 17:36:50 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Paran Lee <p4ranlee@gmail.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Austin Kim <austindh.kim@gmail.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] xen/arm: silence ambiguous integer casting warning
- error
-In-Reply-To: <20220419154126.GA1518@DESKTOP-NK4TH6S.localdomain>
-Message-ID: <alpine.DEB.2.22.394.2204211654380.915916@ubuntu-linux-20-04-desktop>
-References: <20220419154126.GA1518@DESKTOP-NK4TH6S.localdomain>
+To: Miaoqian Lin <linmq006@gmail.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Russell King <linux@armlinux.org.uk>, 
+    Shannon Zhao <shannon.zhao@linaro.org>, 
+    Catalin Marinas <catalin.marinas@arm.com>, 
+    Julien Grall <julien.grall@arm.com>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org, 
+    linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] arm/xen: Fix some refcount leaks
+In-Reply-To: <20220420014913.2586-1-linmq006@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2204211727060.915916@ubuntu-linux-20-04-desktop>
+References: <20220406021905.GA30436@8345e2a12d0c> <20220420014913.2586-1-linmq006@gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-547296852-1650585819=:915916"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-547296852-1650585819=:915916
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Wed, 20 Apr 2022, Paran Lee wrote:
-
-> GCC with "-g -Wall -Wextra" option throws warning message as below:
+On Wed, 20 Apr 2022, Miaoqian Lin wrote:
+> The of_find_compatible_node() function returns a node pointer with
+> refcount incremented, We should use of_node_put() on it when done
+> Add the missing of_node_put() to release the refcount.
 > 
-> error: comparison of integer expressions of different signedness:
->  ‘int’ and ‘unsigned int’ [-Werror=sign-compare]
-> 
-> Silence the warning by correcting the integer type.
-> 
-> Signed-off-by: Paran Lee <p4ranlee@gmail.com>
+> Fixes: 9b08aaa3199a ("ARM: XEN: Move xen_early_init() before efi_init()")
+> Fixes: b2371587fe0c ("arm/xen: Read extended regions from DT and init Xen resource")
+> Signed-off-by: Miaoqian Lin <linmq006@gmail.com>
 
-Thanks for the cleanup!
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+Juergen,  Boris,
+I applied the patch to for-linus-5.18
 
 
 > ---
->  xen/arch/arm/gic-v3.c | 5 +++--
->  xen/arch/arm/setup.c  | 2 +-
->  2 files changed, 4 insertions(+), 3 deletions(-)
+> changes in v2:
+> - call of_node_put in non-error path in xen_dt_guest_init
+> - fix same refcount leak error in arch_xen_unpopulated_init
+> ---
+>  arch/arm/xen/enlighten.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
 > 
-> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-> index 3c472ed768..81ac25f528 100644
-> --- a/xen/arch/arm/gic-v3.c
-> +++ b/xen/arch/arm/gic-v3.c
-> @@ -916,7 +916,8 @@ static void gicv3_hyp_disable(void)
->      isb();
+> diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
+> index ec5b082f3de6..07eb69f9e7df 100644
+> --- a/arch/arm/xen/enlighten.c
+> +++ b/arch/arm/xen/enlighten.c
+> @@ -337,12 +337,15 @@ int __init arch_xen_unpopulated_init(struct resource **res)
+>  
+>  	if (!nr_reg) {
+>  		pr_err("No extended regions are found\n");
+> +		of_node_put(np);
+>  		return -EINVAL;
+>  	}
+>  
+>  	regs = kcalloc(nr_reg, sizeof(*regs), GFP_KERNEL);
+> -	if (!regs)
+> +	if (!regs) {
+> +		of_node_put(np);
+>  		return -ENOMEM;
+> +	}
+>  
+>  	/*
+>  	 * Create resource from extended regions provided by the hypervisor to be
+> @@ -403,8 +406,8 @@ int __init arch_xen_unpopulated_init(struct resource **res)
+>  	*res = &xen_resource;
+>  
+>  err:
+> +	of_node_put(np);
+>  	kfree(regs);
+> -
+>  	return rc;
+>  }
+>  #endif
+> @@ -424,8 +427,10 @@ static void __init xen_dt_guest_init(void)
+>  
+>  	if (of_address_to_resource(xen_node, GRANT_TABLE_INDEX, &res)) {
+>  		pr_err("Xen grant table region is not found\n");
+> +		of_node_put(xen_node);
+>  		return;
+>  	}
+> +	of_node_put(xen_node);
+>  	xen_grant_frames = res.start;
 >  }
 >  
-> -static u16 gicv3_compute_target_list(int *base_cpu, const struct cpumask *mask,
-> +static u16 gicv3_compute_target_list(unsigned int *base_cpu,
-> +                                     const struct cpumask *mask,
->                                       uint64_t cluster_id)
->  {
->      int cpu = *base_cpu;
-
-I think we need to change cpu to unsigned int too to make it consistent
-
-
-> @@ -953,7 +954,7 @@ out:
->  
->  static void gicv3_send_sgi_list(enum gic_sgi sgi, const cpumask_t *cpumask)
->  {
-> -    int cpu = 0;
-> +    unsigned int cpu = 0;
->      uint64_t val;
->  
->      for_each_cpu(cpu, cpumask)
->
-> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-> index d5d0792ed4..5ab2aaecaf 100644
-> --- a/xen/arch/arm/setup.c
-> +++ b/xen/arch/arm/setup.c
-> @@ -862,7 +862,7 @@ void __init start_xen(unsigned long boot_phys_offset,
->                        unsigned long fdt_paddr)
->  {
->      size_t fdt_size;
-> -    int cpus, i;
-> +    unsigned int cpus, i;
->      const char *cmdline;
->      struct bootmodule *xen_bootmodule;
->      struct domain *d;
-
-I can see that we should change i to unsigned int.
-
-cpus could cause a comparison between signed and unsigned int here:
-
-  if ( (num_online_cpus() < cpus) && !cpu_online(i) )
-
-num_online_cpus returns an int
---8323329-547296852-1650585819=:915916--
+> -- 
+> 2.17.1
+> 
 
