@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8D2950B928
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Apr 2022 15:52:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.310947.527918 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35C0050B983
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Apr 2022 16:08:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.310956.527928 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhthc-0007PY-Rd; Fri, 22 Apr 2022 13:52:04 +0000
+	id 1nhtwN-0000tw-9k; Fri, 22 Apr 2022 14:07:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 310947.527918; Fri, 22 Apr 2022 13:52:04 +0000
+Received: by outflank-mailman (output) from mailman id 310956.527928; Fri, 22 Apr 2022 14:07:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nhthc-0007N8-N6; Fri, 22 Apr 2022 13:52:04 +0000
-Received: by outflank-mailman (input) for mailman id 310947;
- Fri, 22 Apr 2022 13:52:03 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nhthb-0007My-9Q; Fri, 22 Apr 2022 13:52:03 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nhthb-0002Uf-6c; Fri, 22 Apr 2022 13:52:03 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nhtha-000080-SN; Fri, 22 Apr 2022 13:52:02 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nhtha-0001KL-Rs; Fri, 22 Apr 2022 13:52:02 +0000
+	id 1nhtwN-0000rk-6V; Fri, 22 Apr 2022 14:07:19 +0000
+Received: by outflank-mailman (input) for mailman id 310956;
+ Fri, 22 Apr 2022 14:07:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=utlT=VA=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1nhtwM-0000re-DL
+ for xen-devel@lists.xenproject.org; Fri, 22 Apr 2022 14:07:18 +0000
+Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
+ [2607:f8b0:4864:20::72c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 83553c6b-c245-11ec-a405-831a346695d4;
+ Fri, 22 Apr 2022 16:07:16 +0200 (CEST)
+Received: by mail-qk1-x72c.google.com with SMTP id d19so5860620qko.3
+ for <xen-devel@lists.xenproject.org>; Fri, 22 Apr 2022 07:07:16 -0700 (PDT)
+Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:db3c:923d:3601:7358])
+ by smtp.gmail.com with ESMTPSA id
+ j12-20020a05622a038c00b002f340aeffb3sm1293345qtx.85.2022.04.22.07.07.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 22 Apr 2022 07:07:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,160 +44,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=90pPT4V7zlBnendgu6iooxpHZzAYrz9YTJ9gXQ7zei0=; b=Owuuzrc9E59DhimHKV6cc/2Knq
-	5Skce3vNvWx0+ffkkGDPemlVu5hGvpDnCT1PnnTA1lDQ1MC5Ys0l+/mKsWj680LeSXsA5WH/gwLqX
-	vMr5QA87fn7qEY6z9aw2KdS0eYYh0mSZHr7NMyimo/qLNhDbRXC5BwfMJAmcIIBgiWpA=;
+X-Inumbo-ID: 83553c6b-c245-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=7ukyyy4K3zXbgBey+POVSCJzrrGx3irsNB33+kkDTdA=;
+        b=D/dYZOEBKA8stz7w5ooNER6KE8Uy3BDwU7ov81twcLiHdmQAuzPnEJubwKDaeUcoOD
+         wxhS23UefG/7cq81ZH2BP/aDvGq8dNH7QyOsIq2XCEyCm8ntKpwlJkKIZKq23RQ1Muop
+         W5uXT5yVXVbfm1/n+eN+BGCiaNvHlrxN3xXmHDuPAJEyLuFzH1c973eP/uMfTSF5x23x
+         jRetuaN5MEf4AYSGM6NmNu1geoFUmPVM0SkaACwJiQ1sln1l/JeqQkVNW2Dlu+SWCo+f
+         sXKlgqEhkHhTHtn99U+My3JS3Ta7Fv/pNz0hQ9oIWwt5AXDnrGlxlRU1CpnHfPkwNlOf
+         vRhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=7ukyyy4K3zXbgBey+POVSCJzrrGx3irsNB33+kkDTdA=;
+        b=G+ittizks+PJ4eoqPB92Ypbp+oDBMfeTDz0J4j6GTz7H6cooN5AYQNwgcPjmG/ogBe
+         i0k+DjZnVQQI4iyYQ5lk141YtEmbV23RICULlQSLNh2k8tmAhbAcdpT6kma47X26QHIX
+         DeY0GyBfU7LMrHDAjPrggvw40Mzp8zT7yyS6UHX/BydRFAnVUfz+T7rPEdLzZi5/1MS2
+         xAjFQpmuqKgYsCXwG5kj1hEjoyDpI0dCx7S3fDq/wyBkm9ag4zDmNfrUMP1QVcuThzox
+         1oY19aaGKpiTI69Yz9n+o6WObxtIBXX8zxQp+zG3UDR/mz4GI2VC/hgs9Zw96AzBPVB2
+         PHLQ==
+X-Gm-Message-State: AOAM531d0JkRW7IuTYA5H0SgcgR9N4YgK9C+k+Ax2tUtGt8tgY3qVVMP
+	t/3fQ8QzPIFPeM/bLNE9mcjc8L26xBY=
+X-Google-Smtp-Source: ABdhPJyAYGJEW3WRcKwO0aiCwfg7lr3Gej4S/+o6tOvzGIZNdYMwFXOAgLCIJZs7mvwLaXVJY3eB7w==
+X-Received: by 2002:a05:620a:4486:b0:69f:1e21:5393 with SMTP id x6-20020a05620a448600b0069f1e215393mr1232835qkp.504.1650636434090;
+        Fri, 22 Apr 2022 07:07:14 -0700 (PDT)
+From: Jason Andryuk <jandryuk@gmail.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169623-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Jason Andryuk <jandryuk@gmail.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v2] libxl: Retry QMP PCI device_add
+Date: Fri, 22 Apr 2022 10:07:03 -0400
+Message-Id: <20220422140703.13614-1-jandryuk@gmail.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-Subject: [ovmf test] 169623: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=2306555bf9081ae9979405f96428738807e580d4
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 22 Apr 2022 13:52:02 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 169623 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169623/
+PCI device assignment to an HVM with stubdom is potentially racy.  First
+the PCI device is assigned to the stubdom via the PV PCI protocol.  Then
+QEMU is sent a QMP command to attach the PCI device to QEMU running
+within the stubdom.  However, the sysfs entries within the stubdom may
+not have appeared by the time QEMU receives the device_add command
+resulting in errors like:
 
-Regressions :-(
+libxl_qmp.c:1838:qmp_ev_parse_error_messages:Domain 10:Could not open '/sys/bus/pci/devices/0000:00:1f.3/config': No such file or directory
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+This patch retries the device assignment up to 10 times with a 1 second
+delay between.  That roughly matches the overall hotplug timeout for
+pci_add_timeout.  pci_add_timeout's initialization is moved to
+do_pci_add since retries call into pci_add_qmp_device_add again.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+The qmp_ev_parse_error_messages error is still printed since it happens
+at a lower level than the pci code controlling the retries.  With that,
+the "Retrying PCI add %d" message is also printed at ERROR level to
+clarify what is happening.
 
-version targeted for testing:
- ovmf                 2306555bf9081ae9979405f96428738807e580d4
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+---
+v2:
+Only retry when a stubdom is present.
+Move pci_add_timeout initialization.
+Use pas->aodev->ao directly.
+---
+ tools/libs/light/libxl_pci.c | 44 +++++++++++++++++++++++++++++++-----
+ 1 file changed, 38 insertions(+), 6 deletions(-)
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   53 days
-Failing since        168258  2022-03-01 01:55:31 Z   52 days  555 attempts
-Testing same since   169610  2022-04-22 04:01:05 Z    0 days    7 attempts
+diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
+index 4bbbfe9f16..96f88795b6 100644
+--- a/tools/libs/light/libxl_pci.c
++++ b/tools/libs/light/libxl_pci.c
+@@ -1109,8 +1109,10 @@ typedef struct pci_add_state {
+     libxl__xswait_state xswait;
+     libxl__ev_qmp qmp;
+     libxl__ev_time timeout;
++    libxl__ev_time timeout_retries;
+     libxl_device_pci pci;
+     libxl_domid pci_domid;
++    int retries;
+ } pci_add_state;
+ 
+ static void pci_add_qemu_trad_watch_state_cb(libxl__egc *egc,
+@@ -1118,6 +1120,8 @@ static void pci_add_qemu_trad_watch_state_cb(libxl__egc *egc,
+ static void pci_add_qmp_device_add(libxl__egc *, pci_add_state *);
+ static void pci_add_qmp_device_add_cb(libxl__egc *,
+     libxl__ev_qmp *, const libxl__json_object *, int rc);
++static void pci_add_qmp_device_add_retry(libxl__egc *egc, libxl__ev_time *ev,
++    const struct timeval *requested_abs, int rc);
+ static void pci_add_qmp_query_pci_cb(libxl__egc *,
+     libxl__ev_qmp *, const libxl__json_object *, int rc);
+ static void pci_add_timeout(libxl__egc *egc, libxl__ev_time *ev,
+@@ -1137,7 +1141,9 @@ static void do_pci_add(libxl__egc *egc,
+     libxl__xswait_init(&pas->xswait);
+     libxl__ev_qmp_init(&pas->qmp);
+     pas->pci_domid = domid;
++    pas->retries = 0;
+     libxl__ev_time_init(&pas->timeout);
++    libxl__ev_time_init(&pas->timeout_retries);
+ 
+     if (type == LIBXL_DOMAIN_TYPE_INVALID) {
+         rc = ERROR_FAIL;
+@@ -1157,6 +1163,11 @@ static void do_pci_add(libxl__egc *egc,
+                 if (rc) goto out;
+                 return;
+             case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
++                rc = libxl__ev_time_register_rel(ao, &pas->timeout,
++                                                 pci_add_timeout,
++                                                 LIBXL_QMP_CMD_TIMEOUT * 1000);
++                if (rc) goto out;
++
+                 pci_add_qmp_device_add(egc, pas); /* must be last */
+                 return;
+             default:
+@@ -1205,11 +1216,6 @@ static void pci_add_qmp_device_add(libxl__egc *egc, pci_add_state *pas)
+     libxl_device_pci *pci = &pas->pci;
+     libxl__ev_qmp *const qmp = &pas->qmp;
+ 
+-    rc = libxl__ev_time_register_rel(ao, &pas->timeout,
+-                                     pci_add_timeout,
+-                                     LIBXL_QMP_CMD_TIMEOUT * 1000);
+-    if (rc) goto out;
+-
+     libxl__qmp_param_add_string(gc, &args, "driver",
+                                 "xen-pci-passthrough");
+     QMP_PARAMETERS_SPRINTF(&args, "id", PCI_PT_QDEV_ID,
+@@ -1255,7 +1261,23 @@ static void pci_add_qmp_device_add_cb(libxl__egc *egc,
+     EGC_GC;
+     pci_add_state *pas = CONTAINER_OF(qmp, *pas, qmp);
+ 
+-    if (rc) goto out;
++    if (rc) {
++        /* Retry only applicable for HVM with stubdom. */
++        if (libxl_get_stubdom_id(CTX, qmp->domid) == 0)
++            goto out;
++
++        if (pas->retries++ < 10) {
++            LOGD(ERROR, qmp->domid, "Retrying PCI add %d", pas->retries);
++            rc = libxl__ev_time_register_rel(pas->aodev->ao,
++                                             &pas->timeout_retries,
++                                             pci_add_qmp_device_add_retry,
++                                             1000);
++            if (rc) goto out;
++            return; /* Wait for the timeout to then retry. */
++        } else {
++            goto out;
++        }
++    }
+ 
+     qmp->callback = pci_add_qmp_query_pci_cb;
+     rc = libxl__ev_qmp_send(egc, qmp, "query-pci", NULL);
+@@ -1266,6 +1288,15 @@ out:
+     pci_add_dm_done(egc, pas, rc); /* must be last */
+ }
+ 
++static void pci_add_qmp_device_add_retry(libxl__egc *egc, libxl__ev_time *ev,
++                                         const struct timeval *requested_abs,
++                                         int rc)
++{
++    pci_add_state *pas = CONTAINER_OF(ev, *pas, timeout_retries);
++
++    pci_add_qmp_device_add(egc, pas);
++}
++
+ static void pci_add_qmp_query_pci_cb(libxl__egc *egc,
+                                      libxl__ev_qmp *qmp,
+                                      const libxl__json_object *response,
+@@ -1507,6 +1538,7 @@ out_no_irq:
+         rc = 0;
+ out:
+     libxl__ev_time_deregister(gc, &pas->timeout);
++    libxl__ev_time_deregister(gc, &pas->timeout_retries);
+     pas->callback(egc, pas, rc);
+ }
+ 
+-- 
+2.35.1
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 5625 lines long.)
 
