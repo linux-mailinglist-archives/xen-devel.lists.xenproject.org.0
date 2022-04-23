@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D8D850CB3D
-	for <lists+xen-devel@lfdr.de>; Sat, 23 Apr 2022 16:36:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.311643.528905 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01D7C50CB49
+	for <lists+xen-devel@lfdr.de>; Sat, 23 Apr 2022 16:38:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.311654.528916 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1niGrP-0006CK-0d; Sat, 23 Apr 2022 14:35:43 +0000
+	id 1niGtc-00070Y-DU; Sat, 23 Apr 2022 14:38:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 311643.528905; Sat, 23 Apr 2022 14:35:42 +0000
+Received: by outflank-mailman (output) from mailman id 311654.528916; Sat, 23 Apr 2022 14:38:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1niGrO-0006AY-TZ; Sat, 23 Apr 2022 14:35:42 +0000
-Received: by outflank-mailman (input) for mailman id 311643;
- Sat, 23 Apr 2022 14:35:41 +0000
+	id 1niGtc-0006yK-A8; Sat, 23 Apr 2022 14:38:00 +0000
+Received: by outflank-mailman (input) for mailman id 311654;
+ Sat, 23 Apr 2022 14:37:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hJIN=VB=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1niGrN-0006AS-AR
- for xen-devel@lists.xenproject.org; Sat, 23 Apr 2022 14:35:41 +0000
+ id 1niGtb-0006xy-8P
+ for xen-devel@lists.xenproject.org; Sat, 23 Apr 2022 14:37:59 +0000
 Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
  [2a00:1450:4864:20::131])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a5c32397-c312-11ec-8fc2-03012f2f19d4;
- Sat, 23 Apr 2022 16:35:40 +0200 (CEST)
-Received: by mail-lf1-x131.google.com with SMTP id w19so18949089lfu.11
- for <xen-devel@lists.xenproject.org>; Sat, 23 Apr 2022 07:35:40 -0700 (PDT)
+ id f827e9a6-c312-11ec-8fc2-03012f2f19d4;
+ Sat, 23 Apr 2022 16:37:58 +0200 (CEST)
+Received: by mail-lf1-x131.google.com with SMTP id y32so18971325lfa.6
+ for <xen-devel@lists.xenproject.org>; Sat, 23 Apr 2022 07:37:58 -0700 (PDT)
 Received: from [192.168.1.7] ([212.22.223.21])
  by smtp.gmail.com with ESMTPSA id
- k10-20020a19560a000000b0046d1707fcbdsm640495lfb.215.2022.04.23.07.35.37
+ k11-20020a196f0b000000b00471c56b7a3dsm641075lfc.74.2022.04.23.07.37.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 23 Apr 2022 07:35:38 -0700 (PDT)
+ Sat, 23 Apr 2022 07:37:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,207 +44,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a5c32397-c312-11ec-8fc2-03012f2f19d4
+X-Inumbo-ID: f827e9a6-c312-11ec-8fc2-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=5Ob5FZ3XWHH7ndiX9e02UPLlc8ptKYdQZQQb2q10kFk=;
-        b=edcQjFzK13CxlrO3DRi39U1HLX1VBiZdMToLxtPriW5w54rke5iEMAjcSbz0qLKiU1
-         6Dg/+t7jlWN4zLOE4R7gc+Oiehyx44/fBegjF9CUPZTdazhsEq5kmlyBBIDrFcpJ2UXh
-         39lAPieblL9SemJymxB3+VitLdVV4ID+j2PN+nuGr61uKUGz8IVRPkA+fobqsdBAqXKq
-         ApWZOKdhVIcgtmhqGwlNCdGSukJgvhZDorgcmTlkv0mfPzZ/PfSWiA/hCgs5Wv2oL+vK
-         XJZN28Yak1op0o0AkGamHUIANzbptaiH+ktbXi6pl22teiG63KGXxIYyM50hdzwzZcwU
-         6EXw==
+        bh=9Q3pZjqL2YRbxMi3ZEZPC+BgttCsWqeK314Feyp4SQ4=;
+        b=O6lRTdmyP9SYSA3U8hfLl6p8PcytluSsbHwEFXxwQ+ubIxxSVZKbp9ABI4a104ybmE
+         4B0KpBf9zDgnV1i4oYkJNepeB9/rfyra7k5PI9DZqHke1VwN6482HV8XrLngsjtfpsFr
+         6bM8w36eLRa4VwfIxnHVhQfOZg/AaPvpoW8tB1wDHi0T7pELIli9N4UTO8TGcKuvFaKm
+         eOZaalv2Z8+00j28i8eI7dMT0V4YIeOFmc8x7xswIRAT1Q9HRGUBVnLTfkM6C5KtYtu2
+         I9VW/XbIJHjaJqcC0s3p2b54l8r+mGP1Bv8UyPsSSwS8lK/HSTCCWDhUQlDqrMwBzC0h
+         BFLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-transfer-encoding
          :content-language;
-        bh=5Ob5FZ3XWHH7ndiX9e02UPLlc8ptKYdQZQQb2q10kFk=;
-        b=nfsLed2CNQT4bW/7ImaZ9jJlMRtCiVF8IhpokrScogc+XWQ7wmyuoWJd8tqIJqG8vs
-         x9qXscoP0+Vv4Et4KNHl5BU95J1WLyRbzkAPzaEnf1cmDOnLAx0WR4EgiZ42qaXbyTAl
-         ozv36q7UADdAb4i/dbOcBpFDY3fOH0OjTcEZr6Y/7LDoVRe7RVWoXllHVGHVy5Nm/0bd
-         gnzoG7UBM9XomyOMW6cnjaqITTeGa5pbzSlHeHg1eBRklgoqR9P//VftvBrKuk5v80dX
-         +ag+BuQ9+DCLIVn/sVmPcTcUOJE00a8aobmHuc2PohCe/DQjlXK0cK/ED/GedI8Ib8I5
-         gywg==
-X-Gm-Message-State: AOAM531u4ZeJzFsp8ox7yYCBSg0Hjet+aKqntpC9dyI6ofnf7mp9QTP6
-	tBjp2bZaa5Df6UneYGabsek=
-X-Google-Smtp-Source: ABdhPJzuBm8Fq2ksLNZubEsggwEds0YNor4simf+758e/Wch36unqYhiwGrQiA/w92oNFg+B4tk+9w==
-X-Received: by 2002:a05:6512:2348:b0:471:92ac:3bfd with SMTP id p8-20020a056512234800b0047192ac3bfdmr6525788lfu.199.1650724539295;
-        Sat, 23 Apr 2022 07:35:39 -0700 (PDT)
-Subject: Re: [PATCH V1 1/6] arm/xen: Introduce xen_setup_dma_ops()
+        bh=9Q3pZjqL2YRbxMi3ZEZPC+BgttCsWqeK314Feyp4SQ4=;
+        b=BV5YHpq9TpzgMgYvklOwlqJyhoBfpzV89lzM+SCzaLlHSOOFaJ3HSMSV2osMXl+gAG
+         svYvsjUScQjFKWb3PYuxT+mwJisgKOTnWh1m9Lz1zlTPC4aIpmY47hlNed63wGA8R5F7
+         9Nr2fkiUFtadj6u67c6Sr1mw+6m/P09mDkKGEj8A8Bsf3ueW1czLlGy+rlWKbBpCIV36
+         T71G4evZOqFekquL7RBhRFhJwjneWkUK5v3njnkO8Ideak2NykWL8xuwNVpxdwKBzE2v
+         kp2CdgABHnWrwB9JTj4pRN70TeEYzSteweC8ltqy1Z8tKrIECgH9zychkXMEthcCm547
+         N/CQ==
+X-Gm-Message-State: AOAM533tZY7cspuSUH+OXs8xYfaEM0UNZMxrbz4xJhp2ooGo0po28uf9
+	8KJuS+ozPwmUrCXOEj224mU=
+X-Google-Smtp-Source: ABdhPJx8PYPHNf3hIYDk6xxcUZ5Cz4AjHRjZCng72eHk60GDl8rPACcXENIApaJQbCkMeAProiKKeA==
+X-Received: by 2002:a05:6512:150f:b0:45d:ccac:c43c with SMTP id bq15-20020a056512150f00b0045dccacc43cmr7231892lfb.604.1650724677772;
+        Sat, 23 Apr 2022 07:37:57 -0700 (PDT)
+Subject: Re: [PATCH V1 4/6] dt-bindings: Add xen, dev-domid property
+ description for xen-grant DMA ops
 To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
+Cc: xen-devel@lists.xenproject.org,
+ virtualization@lists.linux-foundation.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Russell King <linux@armlinux.org.uk>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
- <jgross@suse.com>, Logan Gunthorpe <logang@deltatee.com>,
- David Hildenbrand <david@redhat.com>,
- Martin Oliveira <martin.oliveira@eideticom.com>,
- Kees Cook <keescook@chromium.org>,
- Jean-Philippe Brucker <jean-philippe@linaro.org>,
- Julien Grall <julien@xen.org>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Jason Wang <jasowang@redhat.com>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Julien Grall <julien@xen.org>,
+ Juergen Gross <jgross@suse.com>, "Michael S. Tsirkin" <mst@redhat.com>,
  Christoph Hellwig <hch@infradead.org>
 References: <1650646263-22047-1-git-send-email-olekstysh@gmail.com>
- <1650646263-22047-2-git-send-email-olekstysh@gmail.com>
- <alpine.DEB.2.22.394.2204221509220.915916@ubuntu-linux-20-04-desktop>
+ <1650646263-22047-5-git-send-email-olekstysh@gmail.com>
+ <alpine.DEB.2.22.394.2204221527500.915916@ubuntu-linux-20-04-desktop>
 From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <a1112ea4-6eb9-f4ec-745d-e28c41fd1930@gmail.com>
-Date: Sat, 23 Apr 2022 17:35:37 +0300
+Message-ID: <638a5b09-ce9e-ab7e-0a5e-d81afe851cc1@gmail.com>
+Date: Sat, 23 Apr 2022 17:37:55 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.22.394.2204221509220.915916@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2204221527500.915916@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Content-Language: en-US
 
 
-On 23.04.22 01:59, Stefano Stabellini wrote:
-
+On 23.04.22 02:00, Stefano Stabellini wrote:
 
 Hello Stefano
-
 
 > On Fri, 22 Apr 2022, Oleksandr Tyshchenko wrote:
 >> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 >>
->> This patch introduces new helper and places it in new header.
->> The helper's purpose is to assign any Xen specific DMA ops in
->> a single place. For now, we deal with xen-swiotlb DMA ops only.
->> The one of the subsequent commits in current series will add
->> xen-grant DMA ops case.
+>> Introduce Xen specific binding for the virtualized device (e.g. virtio)
+>> to be used by Xen grant DMA-mapping layer in the subsequent commit.
 >>
->> Also re-use the xen_swiotlb_detect() check on Arm32.
+>> This binding indicates that Xen grant mappings scheme needs to be
+>> enabled for the device which DT node contains that property and specifies
+>> the ID of Xen domain where the corresponding backend resides. The ID
+>> (domid) is used as an argument to the grant mapping APIs.
+>>
+>> This is needed for the option to restrict memory access using Xen grant
+>> mappings to work which primary goal is to enable using virtio devices
+>> in Xen guests.
 >>
 >> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> Looks OK to me. Just a couple of grammar improvements below. Aside from
+> those, I have no further comments.
 
-
-Thanks!
-
-
-checkpatch.pl suggests adding missing SPDX-License-Identifier to 
-Arm/Arm64's xen-ops.h
-
-I will retain your R-b tag after making this change. Please let me know 
-if you think otherwise.
+thank you, I agree with proposed comments, will update
 
 
 
+>
+>
 >> ---
 >> Changes RFC -> V1:
->>     - update commit description
->>     - move commit to the beginning of the series
->>     - move #ifdef CONFIG_XEN from dma-mapping.c to xen-ops.h
+>>     - update commit subject/description and text in description
+>>     - move to devicetree/bindings/arm/
 >> ---
->>   arch/arm/include/asm/xen/xen-ops.h   |  1 +
->>   arch/arm/mm/dma-mapping.c            |  7 ++-----
->>   arch/arm64/include/asm/xen/xen-ops.h |  1 +
->>   arch/arm64/mm/dma-mapping.c          |  7 ++-----
->>   include/xen/arm/xen-ops.h            | 15 +++++++++++++++
->>   5 files changed, 21 insertions(+), 10 deletions(-)
->>   create mode 100644 arch/arm/include/asm/xen/xen-ops.h
->>   create mode 100644 arch/arm64/include/asm/xen/xen-ops.h
->>   create mode 100644 include/xen/arm/xen-ops.h
+>>   .../devicetree/bindings/arm/xen,dev-domid.yaml     | 37 ++++++++++++++++++++++
+>>   1 file changed, 37 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/arm/xen,dev-domid.yaml
 >>
->> diff --git a/arch/arm/include/asm/xen/xen-ops.h b/arch/arm/include/asm/xen/xen-ops.h
+>> diff --git a/Documentation/devicetree/bindings/arm/xen,dev-domid.yaml b/Documentation/devicetree/bindings/arm/xen,dev-domid.yaml
 >> new file mode 100644
->> index 00000000..8d2fa24
+>> index 00000000..ef0f747
 >> --- /dev/null
->> +++ b/arch/arm/include/asm/xen/xen-ops.h
->> @@ -0,0 +1 @@
->> +#include <xen/arm/xen-ops.h>
->> diff --git a/arch/arm/mm/dma-mapping.c b/arch/arm/mm/dma-mapping.c
->> index 82ffac6..059cce0 100644
->> --- a/arch/arm/mm/dma-mapping.c
->> +++ b/arch/arm/mm/dma-mapping.c
->> @@ -33,7 +33,7 @@
->>   #include <asm/dma-iommu.h>
->>   #include <asm/mach/map.h>
->>   #include <asm/system_info.h>
->> -#include <xen/swiotlb-xen.h>
->> +#include <asm/xen/xen-ops.h>
->>   
->>   #include "dma.h"
->>   #include "mm.h"
->> @@ -2287,10 +2287,7 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,
->>   
->>   	set_dma_ops(dev, dma_ops);
->>   
->> -#ifdef CONFIG_XEN
->> -	if (xen_initial_domain())
->> -		dev->dma_ops = &xen_swiotlb_dma_ops;
->> -#endif
->> +	xen_setup_dma_ops(dev);
->>   	dev->archdata.dma_ops_setup = true;
->>   }
->>   
->> diff --git a/arch/arm64/include/asm/xen/xen-ops.h b/arch/arm64/include/asm/xen/xen-ops.h
->> new file mode 100644
->> index 00000000..8d2fa24
->> --- /dev/null
->> +++ b/arch/arm64/include/asm/xen/xen-ops.h
->> @@ -0,0 +1 @@
->> +#include <xen/arm/xen-ops.h>
->> diff --git a/arch/arm64/mm/dma-mapping.c b/arch/arm64/mm/dma-mapping.c
->> index 6719f9e..6099c81 100644
->> --- a/arch/arm64/mm/dma-mapping.c
->> +++ b/arch/arm64/mm/dma-mapping.c
->> @@ -9,9 +9,9 @@
->>   #include <linux/dma-map-ops.h>
->>   #include <linux/dma-iommu.h>
->>   #include <xen/xen.h>
->> -#include <xen/swiotlb-xen.h>
->>   
->>   #include <asm/cacheflush.h>
->> +#include <asm/xen/xen-ops.h>
->>   
->>   void arch_sync_dma_for_device(phys_addr_t paddr, size_t size,
->>   		enum dma_data_direction dir)
->> @@ -52,8 +52,5 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,
->>   	if (iommu)
->>   		iommu_setup_dma_ops(dev, dma_base, dma_base + size - 1);
->>   
->> -#ifdef CONFIG_XEN
->> -	if (xen_swiotlb_detect())
->> -		dev->dma_ops = &xen_swiotlb_dma_ops;
->> -#endif
->> +	xen_setup_dma_ops(dev);
->>   }
->> diff --git a/include/xen/arm/xen-ops.h b/include/xen/arm/xen-ops.h
->> new file mode 100644
->> index 00000000..288deb1
->> --- /dev/null
->> +++ b/include/xen/arm/xen-ops.h
->> @@ -0,0 +1,15 @@
->> +/* SPDX-License-Identifier: GPL-2.0 */
->> +#ifndef _ASM_ARM_XEN_OPS_H
->> +#define _ASM_ARM_XEN_OPS_H
+>> +++ b/Documentation/devicetree/bindings/arm/xen,dev-domid.yaml
+>> @@ -0,0 +1,37 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only or BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/arm/xen,dev-domid.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 >> +
->> +#include <xen/swiotlb-xen.h>
+>> +title: Xen specific binding for the virtualized device (e.g. virtio)
+> NIT: Xen specific binding for virtualized devices (e.g. virtio)
+>
+>
+>> +maintainers:
+>> +  - Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 >> +
->> +static inline void xen_setup_dma_ops(struct device *dev)
->> +{
->> +#ifdef CONFIG_XEN
->> +	if (xen_swiotlb_detect())
->> +		dev->dma_ops = &xen_swiotlb_dma_ops;
->> +#endif
->> +}
+>> +select: true
 >> +
->> +#endif /* _ASM_ARM_XEN_OPS_H */
->> -- 
->> 2.7.4
->>
->>
->> _______________________________________________
->> linux-arm-kernel mailing list
->> linux-arm-kernel@lists.infradead.org
->> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
->>
+>> +description:
+>> +  This binding indicates that Xen grant mappings scheme needs to be enabled
+>> +  for that device and specifies the ID of Xen domain where the corresponding
+>> +  device (backend) resides. This is needed for the option to restrict memory
+>> +  access using Xen grant mappings to work.
+> NIT:
+>
+> This binding indicates that Xen grant mappings need to be enabled for
+> the device, and it specifies the ID of the domain where the
+> corresponding device (backend) resides. The property is required to
+> restrict memory access using Xen grant mappings.
+>
+>
+>> +properties:
+>> +  xen,dev-domid:
+>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>> +    description:
+>> +      The domid (domain ID) of the domain where the device (backend) is running.
+>> +
+>> +additionalProperties: true
+>> +
+>> +examples:
+>> +  - |
+>> +    virtio_block@3000 {
+>> +            compatible = "virtio,mmio";
+>> +            reg = <0x3000 0x100>;
+>> +            interrupts = <41>;
+>> +
+>> +            /* The device is located in Xen domain with ID 1 */
+>> +            xen,dev-domid = <1>;
+>> +    };
+
 -- 
 Regards,
 
