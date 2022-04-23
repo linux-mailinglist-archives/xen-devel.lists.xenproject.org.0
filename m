@@ -2,35 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8807150CD66
-	for <lists+xen-devel@lfdr.de>; Sat, 23 Apr 2022 22:34:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.311793.529048 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13F8450CD7A
+	for <lists+xen-devel@lfdr.de>; Sat, 23 Apr 2022 23:01:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.311803.529060 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1niMRk-0004Ln-2w; Sat, 23 Apr 2022 20:33:36 +0000
+	id 1niMrw-00081x-8G; Sat, 23 Apr 2022 21:00:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 311793.529048; Sat, 23 Apr 2022 20:33:36 +0000
+Received: by outflank-mailman (output) from mailman id 311803.529060; Sat, 23 Apr 2022 21:00:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1niMRj-0004Jd-V5; Sat, 23 Apr 2022 20:33:35 +0000
-Received: by outflank-mailman (input) for mailman id 311793;
- Sat, 23 Apr 2022 20:33:34 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1niMRi-0004JT-Oh; Sat, 23 Apr 2022 20:33:34 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1niMRi-0001qj-KW; Sat, 23 Apr 2022 20:33:34 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1niMRh-0001Ni-W0; Sat, 23 Apr 2022 20:33:34 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1niMRh-0007u8-VX; Sat, 23 Apr 2022 20:33:33 +0000
+	id 1niMrw-0007yP-3H; Sat, 23 Apr 2022 21:00:40 +0000
+Received: by outflank-mailman (input) for mailman id 311803;
+ Sat, 23 Apr 2022 21:00:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ukTE=VB=kernel.org=pr-tracker-bot@srs-se1.protection.inumbo.net>)
+ id 1niMru-0007yJ-5l
+ for xen-devel@lists.xenproject.org; Sat, 23 Apr 2022 21:00:38 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6bc9d863-c348-11ec-8fc2-03012f2f19d4;
+ Sat, 23 Apr 2022 23:00:36 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1B13460FF8;
+ Sat, 23 Apr 2022 21:00:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7DDE8C385A0;
+ Sat, 23 Apr 2022 21:00:34 +0000 (UTC)
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 6ABE9E8DBD4; Sat, 23 Apr 2022 21:00:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,161 +47,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=XTb42UCSi7c59R7cYG2SHwRjWLJO8qXWpfIvweQuXR4=; b=srMll29d/4vQr/QRtKjglKo7Tq
-	XUzSJori9ETgQG2zvXqd0a9CxSSCy0LxGsjPUPFmFSqxZPR9cMxumWzThmCifNclFVtTRTi6vEjoN
-	qsvWBKu/8Wq0CyOGDuQ2bmsh/npODhDAI8+C1yTpmHzCefuKJvR+F+7dzgJve/SsxrsQ=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169657-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [ovmf test] 169657: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=96e1d337e0109d970282de71181a5cc317876829
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 23 Apr 2022 20:33:33 +0000
+X-Inumbo-ID: 6bc9d863-c348-11ec-8fc2-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1650747634;
+	bh=RzYZ8CVv9KyE6w4BSTCQ7iFCqpRihYLBT92FFn5f1+Q=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
+	b=bww765jZMMB8Rgrvn+scGPWxo8/sLdHM76w7xAJMiiM8UJ5UUUj3x5aQa9w1rqmO1
+	 EppOZCNKyxvnIrteeEEEw/nuOPd5N2w0WiIDNJSJm8fWORljrehe1AzE/bktCsrjo0
+	 3lkZjwQXNDr07zVAlMV/ZolAFadDT65OFroefsXoz+IMoGWygT/AXPK95gyjCd1Wj3
+	 Eg6sxs5fn30nX+UMDAwzluRcgm+LuvXlMKibVSuwnJJJqHRtVytxkPWA4m31yZkDIH
+	 IP6DWT9AzGvkN9Mk595jWKXCSQGue0+6r75kxAcjXqREV9pegjVi92doi5UhrRa0Z9
+	 NJiQfKHDkaF/A==
+Subject: Re: [GIT PULL] xen: branch for v5.18-rc4
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20220423130806.15699-1-jgross@suse.com>
+References: <20220423130806.15699-1-jgross@suse.com>
+X-PR-Tracked-List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
+X-PR-Tracked-Message-Id: <20220423130806.15699-1-jgross@suse.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.18-rc4-tag
+X-PR-Tracked-Commit-Id: 533bec143a4c32f7b2014a159d0f5376226e5b4d
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: b51bd23c614bc5a8a905d258133246e78d611df1
+Message-Id: <165074763443.21099.15482523060926556291.pr-tracker-bot@kernel.org>
+Date: Sat, 23 Apr 2022 21:00:34 +0000
+To: Juergen Gross <jgross@suse.com>
+Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com
 
-flight 169657 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169657/
+The pull request you sent on Sat, 23 Apr 2022 15:08:06 +0200:
 
-Regressions :-(
+> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.18-rc4-tag
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/b51bd23c614bc5a8a905d258133246e78d611df1
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+Thank you!
 
-version targeted for testing:
- ovmf                 96e1d337e0109d970282de71181a5cc317876829
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   54 days
-Failing since        168258  2022-03-01 01:55:31 Z   53 days  579 attempts
-Testing same since   169631  2022-04-22 21:40:32 Z    0 days   21 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 5735 lines long.)
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
