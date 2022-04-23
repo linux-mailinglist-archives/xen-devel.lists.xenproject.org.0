@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 567CE50C7E4
-	for <lists+xen-devel@lfdr.de>; Sat, 23 Apr 2022 09:06:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.311440.528661 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D0DB50C811
+	for <lists+xen-devel@lfdr.de>; Sat, 23 Apr 2022 09:39:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.311446.528671 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ni9ph-0003CF-8H; Sat, 23 Apr 2022 07:05:29 +0000
+	id 1niAMR-0007Eh-Le; Sat, 23 Apr 2022 07:39:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 311440.528661; Sat, 23 Apr 2022 07:05:29 +0000
+Received: by outflank-mailman (output) from mailman id 311446.528671; Sat, 23 Apr 2022 07:39:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ni9ph-00039P-4Q; Sat, 23 Apr 2022 07:05:29 +0000
-Received: by outflank-mailman (input) for mailman id 311440;
- Sat, 23 Apr 2022 07:05:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1niAMR-0007CS-IV; Sat, 23 Apr 2022 07:39:19 +0000
+Received: by outflank-mailman (input) for mailman id 311446;
+ Sat, 23 Apr 2022 07:39:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hJIN=VB=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1ni9pf-00039I-T5
- for xen-devel@lists.xenproject.org; Sat, 23 Apr 2022 07:05:28 +0000
+ id 1niAMQ-0007CM-4c
+ for xen-devel@lists.xenproject.org; Sat, 23 Apr 2022 07:39:18 +0000
 Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
  [2a00:1450:4864:20::22a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bfad2ae3-c2d3-11ec-8fc2-03012f2f19d4;
- Sat, 23 Apr 2022 09:05:25 +0200 (CEST)
-Received: by mail-lj1-x22a.google.com with SMTP id bn33so12044893ljb.6
- for <xen-devel@lists.xenproject.org>; Sat, 23 Apr 2022 00:05:25 -0700 (PDT)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7a740ae7-c2d8-11ec-a405-831a346695d4;
+ Sat, 23 Apr 2022 09:39:16 +0200 (CEST)
+Received: by mail-lj1-x22a.google.com with SMTP id bn33so12094795ljb.6
+ for <xen-devel@lists.xenproject.org>; Sat, 23 Apr 2022 00:39:16 -0700 (PDT)
 Received: from [192.168.1.7] ([212.22.223.21])
  by smtp.gmail.com with ESMTPSA id
- d6-20020a056512320600b0047196449b7fsm507662lfe.92.2022.04.23.00.05.22
+ h28-20020a056512055c00b0046bb80943a9sm516890lfl.277.2022.04.23.00.39.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 23 Apr 2022 00:05:23 -0700 (PDT)
+ Sat, 23 Apr 2022 00:39:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,238 +44,243 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bfad2ae3-c2d3-11ec-8fc2-03012f2f19d4
+X-Inumbo-ID: 7a740ae7-c2d8-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language;
-        bh=/OlakjqnRmEAn/ytZGVcF22kYWzHUx0JWp7WuYws5xc=;
-        b=dG3Cqw8W+risw5HhgeGUsOV40IIJN9LsfZ/mAt53EHPXci8Nh+AS0Ukg7ugAniPlvf
-         2kMqWG/94faucQwjCFPGSlPgAniNw53bC+/Z2jpnNhuAfFOMslvUk8ffO+xJWC6elags
-         DzBBmQPsl2ZWmlUpiBBlF/kAFNvs75hTOMhy9PUF8hRWso+0p7sI8aZARWWvGdyHQMw0
-         cypec0klqiA/oNpDbS1oDR0knRoiDjcnaD2T5jJwo8w/NfJqc7VmUFOYOb4PF9TfGnUo
-         fX5HlQ1of/u1PYZ2DZwtWGBh26oESoG/Q5kRpeZnQCI1cefaGnb0XbPe80ZES01fcHCu
-         V0bQ==
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=9d2jHkf0EN2HagYieovcIbqUttEIC/mj0jQXYLAZ6UQ=;
+        b=B9A4YkHx8mQq27yYAvgepgUFPzWrdmPRAlWM1MLWFYw2v1qDMfOTfrzmdFBCMK6Nys
+         g/lTUnD2YLMGUmgAV3LNfR3OtzO3FcDdJH8X9vFHYqYuu2IUkr423T6P3UOol3shcl7K
+         jP/Rrv+Tvdd9S36ltzDpEdRQqcEoFoR461BlBczUtyqVIirICVXk6OxQKOkxSvq+6UxW
+         QhkYxNYJtCj7/jyaK5aAgeh1cY6c7EgWapTRc9S42jby7NlK+Qfd2krfmc3RyPXl+DG7
+         Llu5fK5YLSNiX8BRua5LjBIxroHoguOKoGn4qgNF0ApGvkgCNG+edWipHbKyLbGYAS1C
+         SyiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language;
-        bh=/OlakjqnRmEAn/ytZGVcF22kYWzHUx0JWp7WuYws5xc=;
-        b=gooRYXM07AYueoO2op4pKQDJXa4DBWOSZz+WrCnCZg5KD6zWYhh5n7VfUCbMsFxt6i
-         6vOVXZWyibgZgHwsIomlj/by1Sm040iqO2/4QNlnRVPHOnK7kXtxU5x0LdOuK+n0xXMF
-         719C4VrEIlJQpeProMMj7AkeGJTcjl5qzH9KruVca4T6zGxCi1JOrPk2UlX2zCxPkr3b
-         5cqeI0RLj5d3yj/eCqiHkqjSHpC+7Z/OecSGZhfKIBOhMJAnznReqnxIsCDCb9Uew7/F
-         918Zj56lZDkXECA8CGrvA6cbRlcQ45dkJvYpz1B+II3ml31WCWJcOmy22ew+985KZH+r
-         G49A==
-X-Gm-Message-State: AOAM530Ss9qJ06fLLWnzDb0EQSfG2deKNdUiEDVhdABW4nBTVu6ZRGeW
-	l0Bc79lYPC29a2AoT+qdUgE=
-X-Google-Smtp-Source: ABdhPJzYqUou0JMTdEbgFu+n32xCOhNS5ykDoZom+OkX0kkYiAJxNaDtFp7tRuvODxqjyVzBcqPIcg==
-X-Received: by 2002:a2e:9345:0:b0:24b:451:7ce1 with SMTP id m5-20020a2e9345000000b0024b04517ce1mr4877723ljh.258.1650697524590;
-        Sat, 23 Apr 2022 00:05:24 -0700 (PDT)
-Subject: Re: [PATCH V1 3/6] xen/virtio: Add option to restrict memory access
- under Xen
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Juergen Gross <jgross@suse.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Julien Grall <julien@xen.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Christoph Hellwig <hch@infradead.org>
-References: <1650646263-22047-1-git-send-email-olekstysh@gmail.com>
- <1650646263-22047-4-git-send-email-olekstysh@gmail.com>
- <alpine.DEB.2.22.394.2204221526221.915916@ubuntu-linux-20-04-desktop>
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=9d2jHkf0EN2HagYieovcIbqUttEIC/mj0jQXYLAZ6UQ=;
+        b=UxRhYk5Jdncj5/zsPhMnM73IMzD7Sr0H7woEhldmuobBAudUtrTIU86uxRc5bUs8m2
+         fqWAdYu8a/w++cNPodlV3JSv7MmLZrTbFrF8pNRSzfpQUrKMmqgA8ZavzlAHetGz9Rdt
+         4llhDk2s/tqea4mhgDzBW42BXH3fvqz68vvAGoFGXaPgqejUh2wgs4CFktD0vrnq1KQs
+         FyUaUqFknEAIrAxQhNmmUYW47e8v4yjin9XwY+ytU2IN+hlHcZ9jqcO2ZMFDZBFSsxOT
+         HEL5kx4A2iIfbhu+CRFp0sNpBJEvPyWUshQNQawPTjYuZpobI69wXNl34uNPXZqBmVk9
+         srmA==
+X-Gm-Message-State: AOAM5339Z6mHQOrh8AW3cZZcEOrAskhkofVRZNF5VOxlcSluPmUibmw7
+	d08rHDexzyOcmLV+1L/cuAc=
+X-Google-Smtp-Source: ABdhPJygB9RLBSU8PFYUwCCetVqQyNvgZEF57+ZvQHfv6vx0bX0AX2/bSZlplak8TbZYH8qi0zESog==
+X-Received: by 2002:a05:651c:1548:b0:24d:d7ac:d8dd with SMTP id y8-20020a05651c154800b0024dd7acd8ddmr4982193ljp.521.1650699555901;
+        Sat, 23 Apr 2022 00:39:15 -0700 (PDT)
+Subject: Re: [PATCH V7 1/2] libxl: Add support for Virtio disk configuration
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook
+ <rosbrookn@gmail.com>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+References: <1649442065-8332-1-git-send-email-olekstysh@gmail.com>
+ <1649442065-8332-2-git-send-email-olekstysh@gmail.com>
+ <YmJ4NLuvA63Irow+@Air-de-Roger>
 From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <3de2852b-0a94-fd1d-2eb6-fd818f33fc88@gmail.com>
-Date: Sat, 23 Apr 2022 10:05:22 +0300
+Message-ID: <24112cfc-0446-d81e-85f1-ebf9da0afe14@gmail.com>
+Date: Sat, 23 Apr 2022 10:39:14 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.22.394.2204221526221.915916@ubuntu-linux-20-04-desktop>
-Content-Type: multipart/mixed;
- boundary="------------1C2D46C789FB115F1F5DE02D"
+In-Reply-To: <YmJ4NLuvA63Irow+@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
 
-This is a multi-part message in MIME format.
---------------1C2D46C789FB115F1F5DE02D
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+
+On 22.04.22 12:41, Roger Pau Monné wrote:
 
 
-On 23.04.22 02:00, Stefano Stabellini wrote:
+Hello Roger
 
-Hello Stefano
-
-
-> On Fri, 22 Apr 2022, Oleksandr Tyshchenko wrote:
->> From: Juergen Gross <jgross@suse.com>
+> On Fri, Apr 08, 2022 at 09:21:04PM +0300, Oleksandr Tyshchenko wrote:
+>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 >>
->> Introduce Xen grant DMA-mapping layer which contains special DMA-mapping
->> routines for providing grant references as DMA addresses to be used by
->> frontends (e.g. virtio) in Xen guests.
+>> This patch adds basic support for configuring and assisting virtio-mmio
+>> based virtio-disk backend (emualator) which is intended to run out of
+>> Qemu and could be run in any domain.
+>> Although the Virtio block device is quite different from traditional
+>> Xen PV block device (vbd) from the toolstack's point of view:
+>>   - as the frontend is virtio-blk which is not a Xenbus driver, nothing
+>>     written to Xenstore are fetched by the frontend (the vdev is not
+>>     passed to the frontend)
+>>   - the ring-ref/event-channel are not used for the backend<->frontend
+>>     communication, the proposed IPC for Virtio is IOREQ/DM
+>> it is still a "block device" and ought to be integrated in existing
+>> "disk" handling. So, re-use (and adapt) "disk" parsing/configuration
+>> logic to deal with Virtio devices as well.
 >>
->> In order to support virtio in Xen guests add a config option XEN_VIRTIO
->> enabling the user to specify whether in all Xen guests virtio should
->> be able to access memory via Xen grant mappings only on the host side.
+>> For the immediate purpose and an ability to extend that support for
+>> other use-cases in future (Qemu, virtio-pci, etc) perform the following
+>> actions:
+>> - Add new disk backend type (LIBXL_DISK_BACKEND_OTHER) and reflect
+>>    that in the configuration
+>> - Introduce new disk protocol field to libxl_device_disk struct
+>>    (with LIBXL_DISK_PROTOCOL_XEN and LIBXL_DISK_PROTOCOL_VIRTIO_MMIO
+>>    types) and reflect that in the configuration (new "protocol" option
+>>    with "xen" protocol being default value)
+>> - Add new device kind (LIBXL__DEVICE_KIND_VIRTIO_DISK) as current
+>>    one (LIBXL__DEVICE_KIND_VBD) doesn't fit into Virtio disk model
 >>
->> As this also requires providing arch_has_restricted_virtio_memory_access
->> implementation, switch from a pure stub to a real function on Arm
->> and combine with existing implementation for the SEV guests on x86.
+>> An example of domain configuration for Virtio disk:
+>> disk = [ 'phy:/dev/mmcblk0p3, xvda1, backendtype=other, protocol=virtio-mmio']
 >>
->> Add the needed functionality by providing a special set of DMA ops
->> handling the needed grant operations for the I/O pages.
+>> Nothing has changed for default Xen disk configuration.
 >>
->> Signed-off-by: Juergen Gross <jgross@suse.com>
+>> Please note, this patch is not enough for virtio-disk to work
+>> on Xen (Arm), as for every Virtio device (including disk) we need
+>> to allocate Virtio MMIO params (IRQ and memory region) and pass
+>> them to the backend, also update Guest device-tree. The subsequent
+>> patch will add these missing bits. For the current patch,
+>> the default "irq" and "base" are just written to the Xenstore.
+>> This is not an ideal splitting, but this way we avoid breaking
+>> the bisectability.
+>>
 >> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> There are a couple of minor things that checkpatch.pl reports,
+>> ---
+>> Changes RFC -> V1:
+>>     - no changes
+>>
+>> Changes V1 -> V2:
+>>     - rebase according to the new location of libxl_virtio_disk.c
+>>
+>> Changes V2 -> V3:
+>>     - no changes
+>>
+>> Changes V3 -> V4:
+>>     - rebase according to the new argument for DEFINE_DEVICE_TYPE_STRUCT
+>>
+>> Changes V4 -> V5:
+>>     - split the changes, change the order of the patches
+>>     - update patch description
+>>     - don't introduce new "vdisk" configuration option with own parsing logic,
+>>       re-use Xen PV block "disk" parsing/configuration logic for the virtio-disk
+>>     - introduce "virtio" flag and document it's usage
+>>     - add LIBXL_HAVE_DEVICE_DISK_VIRTIO
+>>     - update libxlu_disk_l.[ch]
+>>     - drop num_disks variable/MAX_VIRTIO_DISKS
+>>     - drop Wei's T-b
+>>
+>> Changes V5 -> V6:
+>>     - rebase on current staging
+>>     - use "%"PRIu64 instead of %lu for disk->base in device_disk_add()
+>>     - update *.gen.go files
+>>
+>> Changes V6 -> V7:
+>>     - rebase on current staging
+>>     - update *.gen.go files and libxlu_disk_l.[ch] files
+>>     - update patch description
+>>     - rework significantly to support more flexible configuration
+>>       and have more generic basic implementation for being able to extend
+>>       that for other use-cases (virtio-pci, qemu, etc).
+>> ---
+>>   docs/man/xl-disk-configuration.5.pod.in   |  37 +-
+>>   tools/golang/xenlight/helpers.gen.go      |   6 +
+>>   tools/golang/xenlight/types.gen.go        |  11 +
+>>   tools/include/libxl.h                     |   6 +
+>>   tools/libs/light/libxl_device.c           |  57 +-
+>>   tools/libs/light/libxl_disk.c             | 111 +++-
+>>   tools/libs/light/libxl_internal.h         |   1 +
+>>   tools/libs/light/libxl_types.idl          |  10 +
+>>   tools/libs/light/libxl_types_internal.idl |   1 +
+>>   tools/libs/light/libxl_utils.c            |   2 +
+>>   tools/libs/util/libxlu_disk_l.c           | 952 +++++++++++++++---------------
+>>   tools/libs/util/libxlu_disk_l.h           |   2 +-
+>>   tools/libs/util/libxlu_disk_l.l           |   9 +
+>>   tools/xl/xl_block.c                       |  11 +
+>>   14 files changed, 736 insertions(+), 480 deletions(-)
+>>
+>> diff --git a/docs/man/xl-disk-configuration.5.pod.in b/docs/man/xl-disk-configuration.5.pod.in
+>> index 71d0e86..36c851f 100644
+>> --- a/docs/man/xl-disk-configuration.5.pod.in
+>> +++ b/docs/man/xl-disk-configuration.5.pod.in
+>> @@ -232,7 +232,7 @@ Specifies the backend implementation to use
+>>   
+>>   =item Supported values
+>>   
+>> -phy, qdisk
+>> +phy, qdisk, other
+>>   
+>>   =item Mandatory
+>>   
+>> @@ -244,11 +244,13 @@ Automatically determine which backend to use.
+>>   
+>>   =back
+>>   
+>> -This does not affect the guest's view of the device.  It controls
+>> -which software implementation of the Xen backend driver is used.
+>> +It controls which software implementation of the backend driver is used.
+>> +Depending on the "protocol" option this may affect the guest's view
+>> +of the device.
+>>   
+>>   Not all backend drivers support all combinations of other options.
+>> -For example, "phy" does not support formats other than "raw".
+>> +For example, "phy" and "other" do not support formats other than "raw" and
+>> +"other" does not support protocols other than "virtio-mmio".
+>>   Normally this option should not be specified, in which case libxl will
+>>   automatically determine the most suitable backend.
+>>   
+>> @@ -344,8 +346,35 @@ can be used to disable "hole punching" for file based backends which
+>>   were intentionally created non-sparse to avoid fragmentation of the
+>>   file.
+>>   
+>> +=item B<protocol>=I<PROTOCOL>
+>> +
+>> +=over 4
+>> +
+>> +=item Description
+>> +
+>> +Specifies the communication protocol to use for the chosen "backendtype" option
+>> +
+>> +=item Supported values
+>> +
+>> +xen, virtio-mmio
+>  From a user PoV, I think it would be better to just select xen or
+> virtio here, but not the underlying configuration mechanism used to
+> expose the devices to the guest.
 
-Thank you for pointing this out, my fault.
+I got your point.
 
 
->   but aside
-> from those the patch looks fine to me.
 
-good
-
-
-The attached diff to be squashed for the new version. One thing remains:
-
-checkpatch.pl says regarding drivers/xen/grant-dma-ops.c:
-
-WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
-#151:
-new file mode 100644
+>
+> We would likely need to add a different option to select mmio or pci
+> then, but that should be set by default based on architecture/guest
+> type.  For example on x86 it should default to pci, while on Arm I
+> guess it will depend on whether the guest has PCI or not?
+>
+> In any case, I think we should offer an option that's selecting
+> between xen or virtio protocol, and the way to expose the
+> configuration of the device shouldn't need to be explicitly selected
+> by the user.
 
 
-Which, I assume, this is not an issue as new file falls under XEN 
-HYPERVISOR INTERFACE maintainership?
+ok, for now I will use "xen and virtio" values for the "protocol" 
+option, then internally toolstack will assume that "virtio" really means 
+"virtio-mmio".
 
-scripts/get_maintainer.pl -f drivers/xen/grant-dma-ops.c
-Boris Ostrovsky <boris.ostrovsky@oracle.com> (supporter:XEN HYPERVISOR 
-INTERFACE)
-Juergen Gross <jgross@suse.com> (supporter:XEN HYPERVISOR INTERFACE)
-Stefano Stabellini <sstabellini@kernel.org> (reviewer:XEN HYPERVISOR 
-INTERFACE)
-xen-devel@lists.xenproject.org (moderated list:XEN HYPERVISOR INTERFACE)
-linux-kernel@vger.kernel.org (open list)
+When there is a need to expand that support to "virtio-pci", we will see 
+how to deal with it from the configuration PoV, probably like you 
+suggested above by adding another option (e.g. "transport") with default 
+values based on the architecture/guest type.
 
-[snip]
+
+>
+> Thanks, Roger.
 
 -- 
 Regards,
 
 Oleksandr Tyshchenko
 
-
---------------1C2D46C789FB115F1F5DE02D
-Content-Type: text/x-patch; charset=UTF-8;
- name="0001-fixup.patch"
-Content-Transfer-Encoding: 8bit
-Content-Disposition: attachment;
- filename="0001-fixup.patch"
-
-From 8d36fc5a3604a69848c300a42f1a78f8ace41829 Mon Sep 17 00:00:00 2001
-From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Date: Sat, 23 Apr 2022 09:23:04 +0300
-Subject: [PATCH] fixup
-
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
----
- drivers/xen/Kconfig         |  2 ++
- drivers/xen/grant-dma-ops.c | 21 ++++++++++++---------
- 2 files changed, 14 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
-index b95581f..1727337 100644
---- a/drivers/xen/Kconfig
-+++ b/drivers/xen/Kconfig
-@@ -350,4 +350,6 @@ config XEN_VIRTIO
- 	  guest type this will require special support on the backend side
- 	  (qemu or kernel, depending on the virtio device types used).
- 
-+	  If in doubt, say n.
-+
- endmenu
-diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
-index 70d5d77..b9d93d7 100644
---- a/drivers/xen/grant-dma-ops.c
-+++ b/drivers/xen/grant-dma-ops.c
-@@ -139,7 +139,7 @@ static struct page *xen_grant_dma_alloc_pages(struct device *dev, size_t size,
- 					      enum dma_data_direction dir,
- 					      gfp_t gfp)
- {
--	WARN_ONCE(1, "xen_grant_dma_alloc_pages size %zu\n", size);
-+	WARN_ONCE(1, "%s: size %zu\n", __func__, size);
- 	return NULL;
- }
- 
-@@ -147,7 +147,7 @@ static void xen_grant_dma_free_pages(struct device *dev, size_t size,
- 				     struct page *vaddr, dma_addr_t dma_handle,
- 				     enum dma_data_direction dir)
- {
--	WARN_ONCE(1, "xen_grant_dma_free_pages size %zu\n", size);
-+	WARN_ONCE(1, "%s: size %zu\n", __func__, size);
- }
- 
- static dma_addr_t xen_grant_dma_map_page(struct device *dev, struct page *page,
-@@ -160,7 +160,8 @@ static dma_addr_t xen_grant_dma_map_page(struct device *dev, struct page *page,
- 	grant_ref_t grant;
- 	dma_addr_t dma_handle;
- 
--	BUG_ON(dir == DMA_NONE);
-+	if (WARN_ON(dir == DMA_NONE))
-+		return DMA_MAPPING_ERROR;
- 
- 	data = find_xen_grant_dma_data(dev);
- 	if (!data)
-@@ -190,7 +191,8 @@ static void xen_grant_dma_unmap_page(struct device *dev, dma_addr_t dma_handle,
- 	unsigned int i, n_pages = PFN_UP(size);
- 	grant_ref_t grant;
- 
--	BUG_ON(dir == DMA_NONE);
-+	if (WARN_ON(dir == DMA_NONE))
-+		return;
- 
- 	data = find_xen_grant_dma_data(dev);
- 	if (!data)
-@@ -219,7 +221,8 @@ static void xen_grant_dma_unmap_sg(struct device *dev, struct scatterlist *sg,
- 	struct scatterlist *s;
- 	unsigned int i;
- 
--	BUG_ON(dir == DMA_NONE);
-+	if (WARN_ON(dir == DMA_NONE))
-+		return;
- 
- 	for_each_sg(sg, s, nents, i)
- 		xen_grant_dma_unmap_page(dev, s->dma_address, sg_dma_len(s), dir,
-@@ -233,7 +236,8 @@ static int xen_grant_dma_map_sg(struct device *dev, struct scatterlist *sg,
- 	struct scatterlist *s;
- 	unsigned int i;
- 
--	BUG_ON(dir == DMA_NONE);
-+	if (WARN_ON(dir == DMA_NONE))
-+		return -EINVAL;
- 
- 	for_each_sg(sg, s, nents, i) {
- 		s->dma_address = xen_grant_dma_map_page(dev, sg_page(s), s->offset,
-@@ -303,10 +307,9 @@ void xen_grant_setup_dma_ops(struct device *dev)
- 	}
- 
- 	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
--	if (!data) {
--		dev_err(dev, "Сannot allocate Xen grant DMA data\n");
-+	if (!data)
- 		goto err;
--	}
-+
- 	data->dev_domid = dev_domid;
- 	data->dev = dev;
- 
--- 
-2.7.4
-
-
---------------1C2D46C789FB115F1F5DE02D--
 
