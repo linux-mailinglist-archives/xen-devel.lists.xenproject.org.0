@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FB4850CBB4
-	for <lists+xen-devel@lfdr.de>; Sat, 23 Apr 2022 17:23:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.311678.528938 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA94350CBC0
+	for <lists+xen-devel@lfdr.de>; Sat, 23 Apr 2022 17:25:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.311684.528948 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1niHbZ-0005Kb-9n; Sat, 23 Apr 2022 15:23:25 +0000
+	id 1niHdh-0005uq-MQ; Sat, 23 Apr 2022 15:25:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 311678.528938; Sat, 23 Apr 2022 15:23:25 +0000
+Received: by outflank-mailman (output) from mailman id 311684.528948; Sat, 23 Apr 2022 15:25:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1niHbZ-0005Ij-6f; Sat, 23 Apr 2022 15:23:25 +0000
-Received: by outflank-mailman (input) for mailman id 311678;
- Sat, 23 Apr 2022 15:23:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1niHdh-0005s5-JM; Sat, 23 Apr 2022 15:25:37 +0000
+Received: by outflank-mailman (input) for mailman id 311684;
+ Sat, 23 Apr 2022 15:25:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hJIN=VB=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1niHbX-0005Id-3y
- for xen-devel@lists.xenproject.org; Sat, 23 Apr 2022 15:23:23 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4f9de374-c319-11ec-8fc2-03012f2f19d4;
- Sat, 23 Apr 2022 17:23:22 +0200 (CEST)
-Received: by mail-lj1-x22f.google.com with SMTP id bj36so12872341ljb.13
- for <xen-devel@lists.xenproject.org>; Sat, 23 Apr 2022 08:23:22 -0700 (PDT)
+ id 1niHdg-0005rz-8V
+ for xen-devel@lists.xenproject.org; Sat, 23 Apr 2022 15:25:36 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9e9705de-c319-11ec-a405-831a346695d4;
+ Sat, 23 Apr 2022 17:25:35 +0200 (CEST)
+Received: by mail-lf1-x135.google.com with SMTP id t25so19097311lfg.7
+ for <xen-devel@lists.xenproject.org>; Sat, 23 Apr 2022 08:25:34 -0700 (PDT)
 Received: from [192.168.1.7] ([212.22.223.21])
  by smtp.gmail.com with ESMTPSA id
- x22-20020a19e016000000b00471f7e4f09asm252577lfg.112.2022.04.23.08.23.20
+ w23-20020a197b17000000b0046d1729e7d9sm651824lfc.294.2022.04.23.08.25.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 23 Apr 2022 08:23:21 -0700 (PDT)
+ Sat, 23 Apr 2022 08:25:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,178 +44,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f9de374-c319-11ec-8fc2-03012f2f19d4
+X-Inumbo-ID: 9e9705de-c319-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=IrpG+O4O8YGPLjnEW6ym2q9Ak0YBISr2l1Uzmevi7UU=;
-        b=IQIfElwQ6vipgSII8m7fw6jPT7ARLMUo+GYVfI8Knl2qwcFVEEhcFvD8Om4SSjKAx2
-         rhHWD/FD4idPYpw6gGmafqjLSO6s5PnKgRub3B+6obIRWzQnvSBJtyJQi3yrabfM/3YH
-         nyMF8uDK1IRSsUIm9AaGjRtkUTA84vsuNJIwUvyB4GNP5y1x7sQZT+c8y4qqZ/6mHAet
-         nubs7NGVFobqf7TGI1y4TrUGgxgSag+RI8iLIe9SEJTQyV0518eyYpKVLK3gEmGFlfzs
-         i97+MmHFuoXsYprc+xZO4DAi1h+VcMtO3Ecc7KkUECH8yT0sSemR7hzD5vvLn3BlyJFZ
-         JNuQ==
+        bh=uPFaFyXz+EDuxvlVGUNcApp1IgYD33kJxyk7ho7JgsI=;
+        b=qAX7YMz/JVxRQSD3fqnQXDX9zVCZWMtAGJZf1JQG6BC5yFq+jBJs0Bmw87DF2eoCmq
+         eB2jJ/jLcplC0r+dgKvQHASQCXlpPx9qQUvjOIRwmext+2BEI0HSQFsH+wCaKaT+dSrx
+         pM78v3UdfvFh6ZqEaYYirFC4NVvxB3UYNKeyJAuxTPBGueHYmNO1YXcqFHfXfqC5kFeK
+         XCKNDjDTj1YGjwgrnHyOM3osVRjWrQAzoW4HO1CVCAsEzUy/NId/1IIJ6vn2OTwihsxL
+         HbGqWv2cHnxee5QlZ8keGC34Wlv1JJF3pXORff0x5PdSPBVpKxUSGjq/0Pa0qxEffFfF
+         oZZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-transfer-encoding
          :content-language;
-        bh=IrpG+O4O8YGPLjnEW6ym2q9Ak0YBISr2l1Uzmevi7UU=;
-        b=uJvrf0N6PFjm7NIpGA6ndGOV42akXGRGx9oF4cQi7ZDKR7qqvN0AxxXUisZTUsTuJM
-         as/q3nHDoDpquoix6CQSgBJy5BuUoGVeNm8sp1sx/Ir98b3EOZVzprUkRf6zB2ykLn9z
-         OuFgc0M6nNDYB8fQPFGxyL4A+3xdgrEyYTE3otc3di/x3GPNki9nwvY/CDjsswM3PfQI
-         4F4jLkGaSqRvHaCnTmtT35d+PRUdFpWBcDL9RgG/pXq08RLuEvJnhUFFWRhsQXB8z0om
-         xeS/A7HNereBb+X9Ybt4uVxP61buytj/APvN7Z5Ip4mO+jQD5adYqdcLmYW3b/2aGTIN
-         2BsA==
-X-Gm-Message-State: AOAM5328IYiMPqYfrZ6nKSN3MuGSbuRRCF9YIEvlLpmf7gbGyZ4IhSwD
-	9IPzBdzsELpQYIRJrMt/i7Q=
-X-Google-Smtp-Source: ABdhPJzDEm0kTMzLCkWHC07bFgwWAdrQLhfM8wiRtUiko+APIl1auVipAlGP2engdswsIY79u6w4jg==
-X-Received: by 2002:a2e:b537:0:b0:24f:9dc:28a6 with SMTP id z23-20020a2eb537000000b0024f09dc28a6mr637763ljm.509.1650727401488;
-        Sat, 23 Apr 2022 08:23:21 -0700 (PDT)
-Subject: Re: [PATCH V1 5/6] xen/grant-dma-ops: Retrieve the ID of backend's
- domain for DT devices
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
+        bh=uPFaFyXz+EDuxvlVGUNcApp1IgYD33kJxyk7ho7JgsI=;
+        b=QZoY+9fTtVki2BSwCt7hIztxUEHaegFQcZCjeppvK88tdEi2RQb1dugbj+we6MsIO8
+         ypG7PDE5GHFAIK4wBJr/jIbVddBYHDQ/JelcjxjPPjhZ/eUs/32xsGW20OW1Dt+UmEgI
+         am6wb2zIKHmSpqwBUDz8al44UAH/+FPxESC6DhzsfK18j/7CSShDB2JjH/W3DHDdO1OS
+         7hIrkNS7PU9SG23f5lqLv+rXyjEaCkvHoDMS5B9tMk2dgZcfgIrhyQgaNZfC/PIe8xqJ
+         /LJX8k+sGnveZlL1SQrqYgWlxnkb7XzvB3YTsSxtfeid1BMr4zwX1dlcL/MUEJtSxfds
+         NqKA==
+X-Gm-Message-State: AOAM531snxMAcFMxVP/L/wWsaXjqkJc76P+TbTshZuBAJB/Bl88am0JU
+	g11wyUdeLTkaAGj5V/MnwMs=
+X-Google-Smtp-Source: ABdhPJwZNl8ZX/SsU1gM9f+mVYW4LB3X8j+kRC6d+voW45tPtkkQcLAFY9FBtTyQGpxCpCgIZRyrOQ==
+X-Received: by 2002:a19:dc0f:0:b0:439:702c:d83b with SMTP id t15-20020a19dc0f000000b00439702cd83bmr6906996lfg.192.1650727534046;
+        Sat, 23 Apr 2022 08:25:34 -0700 (PDT)
+Subject: Re: [PATCH V1 3/6] xen/virtio: Add option to restrict memory access
+ under Xen
+To: Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski
+ <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Julien Grall <julien@xen.org>,
  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
- <jgross@suse.com>, Julien Grall <julien@xen.org>,
  "Michael S. Tsirkin" <mst@redhat.com>, Christoph Hellwig <hch@infradead.org>
 References: <1650646263-22047-1-git-send-email-olekstysh@gmail.com>
- <1650646263-22047-6-git-send-email-olekstysh@gmail.com>
- <alpine.DEB.2.22.394.2204221534080.915916@ubuntu-linux-20-04-desktop>
+ <1650646263-22047-4-git-send-email-olekstysh@gmail.com>
+ <alpine.DEB.2.22.394.2204221526221.915916@ubuntu-linux-20-04-desktop>
+ <3de2852b-0a94-fd1d-2eb6-fd818f33fc88@gmail.com>
+ <8acfaa93-50ce-8dd9-49c6-cc328bb37569@suse.com>
 From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <6ac03d9f-a678-60e9-ca6e-fcbe1aee51d3@gmail.com>
-Date: Sat, 23 Apr 2022 18:23:19 +0300
+Message-ID: <cfeec3e9-8a04-b2ae-56bf-153e4ff2d9c7@gmail.com>
+Date: Sat, 23 Apr 2022 18:25:30 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.22.394.2204221534080.915916@ubuntu-linux-20-04-desktop>
+In-Reply-To: <8acfaa93-50ce-8dd9-49c6-cc328bb37569@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
 
 
-On 23.04.22 02:00, Stefano Stabellini wrote:
+On 23.04.22 12:10, Juergen Gross wrote:
 
-Hello Stefano
+Hello Juergen
 
-> On Fri, 22 Apr 2022, Oleksandr Tyshchenko wrote:
->> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> On 23.04.22 09:05, Oleksandr wrote:
 >>
->> Use the presence of recently introduced "xen,dev-domid" property
->> in the device node as a clear indicator of enabling Xen grant
->> mappings scheme for that device and read the ID of Xen domain where
->> the corresponding backend resides. The ID (domid) is used as
->> an argument to the Xen grant mapping APIs.
+>> On 23.04.22 02:00, Stefano Stabellini wrote:
 >>
->> Also introduce xen_is_grant_dma_device() to check whether xen-grant
->> DMA ops need to be set for a passed device.
+>> Hello Stefano
 >>
->> Remove the hardcoded domid 0 in xen_grant_setup_dma_ops().
 >>
->> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->> ---
->> Changes RFC -> V1:
->>     - new patch, split required changes from commit:
->>      "[PATCH 4/6] virtio: Various updates to xen-virtio DMA ops layer"
->>     - update checks in xen_virtio_setup_dma_ops() to only support
->>       DT devices for now
->>     - remove the "virtio,mmio" check from xen_is_virtio_device()
->>     - remane everything according to the new naming scheme:
->>       s/virtio/grant_dma
->> ---
->>   drivers/xen/grant-dma-ops.c | 25 ++++++++++++++++++-------
->>   include/xen/xen-ops.h       |  5 +++++
->>   2 files changed, 23 insertions(+), 7 deletions(-)
+>>> On Fri, 22 Apr 2022, Oleksandr Tyshchenko wrote:
+>>>> From: Juergen Gross <jgross@suse.com>
+>>>>
+>>>> Introduce Xen grant DMA-mapping layer which contains special 
+>>>> DMA-mapping
+>>>> routines for providing grant references as DMA addresses to be used by
+>>>> frontends (e.g. virtio) in Xen guests.
+>>>>
+>>>> In order to support virtio in Xen guests add a config option 
+>>>> XEN_VIRTIO
+>>>> enabling the user to specify whether in all Xen guests virtio should
+>>>> be able to access memory via Xen grant mappings only on the host side.
+>>>>
+>>>> As this also requires providing 
+>>>> arch_has_restricted_virtio_memory_access
+>>>> implementation, switch from a pure stub to a real function on Arm
+>>>> and combine with existing implementation for the SEV guests on x86.
+>>>>
+>>>> Add the needed functionality by providing a special set of DMA ops
+>>>> handling the needed grant operations for the I/O pages.
+>>>>
+>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>> There are a couple of minor things that checkpatch.pl reports,
 >>
->> diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
->> index 0e69aa8..70d5d77 100644
->> --- a/drivers/xen/grant-dma-ops.c
->> +++ b/drivers/xen/grant-dma-ops.c
->> @@ -66,11 +66,6 @@ static struct xen_grant_dma_data *find_xen_grant_dma_data(struct device *dev)
->>    * Such a DMA address is formed by using the grant reference as a frame
->>    * number and setting the highest address bit (this bit is for the backend
->>    * to be able to distinguish it from e.g. a mmio address).
->> - *
->> - * Note that for now we hard wire dom0 to be the backend domain. In order
->> - * to support any domain as backend we'd need to add a way to communicate
->> - * the domid of this backend, e.g. via Xenstore, via the PCI-device's
->> - * config space or DT/ACPI.
->>    */
->>   static void *xen_grant_dma_alloc(struct device *dev, size_t size,
->>   				 dma_addr_t *dma_handle, gfp_t gfp,
->> @@ -277,6 +272,16 @@ static const struct dma_map_ops xen_grant_dma_ops = {
->>   	.dma_supported = xen_grant_dma_supported,
->>   };
->>   
->> +bool xen_is_grant_dma_device(struct device *dev)
->> +{
->> +	/* XXX Handle only DT devices for now */
->> +	if (!dev->of_node)
->> +		return false;
->> +
->> +	return of_property_read_bool(dev->of_node, "xen,dev-domid");
->> +}
->> +EXPORT_SYMBOL_GPL(xen_is_grant_dma_device);
->> +
->>   void xen_grant_setup_dma_ops(struct device *dev)
->>   {
->>   	struct xen_grant_dma_data *data;
->> @@ -288,8 +293,14 @@ void xen_grant_setup_dma_ops(struct device *dev)
->>   		return;
->>   	}
->>   
->> -	/* XXX The dom0 is hardcoded as the backend domain for now */
->> -	dev_domid = 0;
->> +	/* XXX ACPI and PCI devices unsupported for now */
->> +	if (dev_is_pci(dev) || !dev->of_node)
->> +		goto err;
-> I think we can remove the "dev_is_pci" check, right?
+>> Thank you for pointing this out, my fault.
+>>
+>>
+>>>   but aside
+>>> from those the patch looks fine to me.
+>>
+>> good
+>>
+>>
+>> The attached diff to be squashed for the new version. One thing remains:
+>>
+>> checkpatch.pl says regarding drivers/xen/grant-dma-ops.c:
+>>
+>> WARNING: added, moved or deleted file(s), does MAINTAINERS need 
+>> updating?
+>> #151:
+>> new file mode 100644
+>>
+>>
+>> Which, I assume, this is not an issue as new file falls under XEN 
+>> HYPERVISOR INTERFACE maintainership?
+>
+> Yes.
 
-I think, yes (at least for now). I will remove the inclusion of #include 
-<linux/pci.h> as well.
+
+ok, thank you for the confirmation.
 
 
 >
 >
->> +	if (of_property_read_u32(dev->of_node, "xen,dev-domid", &dev_domid)) {
->> +		dev_err(dev, "xen,dev-domid property is not present\n");
->> +		goto err;
->> +	}
->>   
->>   	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
->>   	if (!data) {
->> diff --git a/include/xen/xen-ops.h b/include/xen/xen-ops.h
->> index 4f9fad5..62be9dc 100644
->> --- a/include/xen/xen-ops.h
->> +++ b/include/xen/xen-ops.h
->> @@ -223,10 +223,15 @@ static inline void xen_preemptible_hcall_end(void) { }
->>   
->>   #ifdef CONFIG_XEN_GRANT_DMA_OPS
->>   void xen_grant_setup_dma_ops(struct device *dev);
->> +bool xen_is_grant_dma_device(struct device *dev);
->>   #else
->>   static inline void xen_grant_setup_dma_ops(struct device *dev)
->>   {
->>   }
->> +static inline bool xen_is_grant_dma_device(struct device *dev)
->> +{
->> +	return false;
->> +}
->>   #endif /* CONFIG_XEN_GRANT_DMA_OPS */
->>   
->>   #endif /* INCLUDE_XEN_OPS_H */
->> -- 
->> 2.7.4
->>
->>
->> _______________________________________________
->> linux-arm-kernel mailing list
->> linux-arm-kernel@lists.infradead.org
->> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
->>
+> Juergen
+
 -- 
 Regards,
 
