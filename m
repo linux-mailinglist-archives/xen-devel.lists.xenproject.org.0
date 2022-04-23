@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED97D50CD36
-	for <lists+xen-devel@lfdr.de>; Sat, 23 Apr 2022 21:36:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.311778.529026 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5142550CD35
+	for <lists+xen-devel@lfdr.de>; Sat, 23 Apr 2022 21:36:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.311781.529038 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1niLXD-0004xp-GW; Sat, 23 Apr 2022 19:35:11 +0000
+	id 1niLY7-0005UN-Ry; Sat, 23 Apr 2022 19:36:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 311778.529026; Sat, 23 Apr 2022 19:35:11 +0000
+Received: by outflank-mailman (output) from mailman id 311781.529038; Sat, 23 Apr 2022 19:36:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1niLXD-0004v0-DW; Sat, 23 Apr 2022 19:35:11 +0000
-Received: by outflank-mailman (input) for mailman id 311778;
- Sat, 23 Apr 2022 19:35:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HFCZ=VB=gmail.com=p4ranlee@srs-se1.protection.inumbo.net>)
- id 1niLXB-0004uu-Ek
- for xen-devel@lists.xenproject.org; Sat, 23 Apr 2022 19:35:09 +0000
-Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
- [2607:f8b0:4864:20::429])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7a98b2bd-c33c-11ec-a405-831a346695d4;
- Sat, 23 Apr 2022 21:35:07 +0200 (CEST)
-Received: by mail-pf1-x429.google.com with SMTP id y14so10352870pfe.10
- for <xen-devel@lists.xenproject.org>; Sat, 23 Apr 2022 12:35:07 -0700 (PDT)
-Received: from localhost ([118.33.58.98]) by smtp.gmail.com with ESMTPSA id
- j9-20020aa78009000000b004fde2dd78b0sm6182154pfi.109.2022.04.23.12.35.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 23 Apr 2022 12:35:05 -0700 (PDT)
+	id 1niLY7-0005Qo-OB; Sat, 23 Apr 2022 19:36:07 +0000
+Received: by outflank-mailman (input) for mailman id 311781;
+ Sat, 23 Apr 2022 19:36:07 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1niLY7-0005Qe-35; Sat, 23 Apr 2022 19:36:07 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1niLY7-0000mF-0O; Sat, 23 Apr 2022 19:36:07 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1niLY6-0007pS-LW; Sat, 23 Apr 2022 19:36:06 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1niLY6-0003Kw-L1; Sat, 23 Apr 2022 19:36:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,241 +42,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a98b2bd-c33c-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:mime-version:content-disposition;
-        bh=4tavhL6msLPCorzynuJXgSiaV6UCD46MhySnJI+bSiQ=;
-        b=JelAi7F7QJ49IeyAJRnO2kSRA9utw+F4WEa0i3BeAghEIrPa6SjKV2Swjj3YmZJJ5Q
-         g4v2FTsnCrjMb4o/rCpmsdSWPqXom+rYbt92b454r8fi10TfEAgLEoim0FPc3vq3enJA
-         NHpttCcnI0cAZqTbsV/5QJ7u2mtD+7TeFKuJTnLoX9iOAzbDpu6rIDzdAyFadWBqD6jG
-         8UGECs/dLgQ/h2OSDdQveYEbPWsTk0VpxwBXpPFWjGKx3ZHr1RJ1UMDz7iktCdhEf6W5
-         1ShUAwkux3FY2Aqcrjwv9XZkJ0dasLEXkklB8giEN/N5XOSamYyrlKPU5F24OA+T4tlH
-         CgPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
-         :content-disposition;
-        bh=4tavhL6msLPCorzynuJXgSiaV6UCD46MhySnJI+bSiQ=;
-        b=7q1Wgdwq+2WHnjsHD3KSSXrRKYik6PPtbtJn/HndCIIq+eXXMDT7fDU9GSE7/Lx9Dx
-         GjcICGBMzz5w6AS6S6C7m9I8Uq6JwvV9d4lg17+3e/MyTRA96Tgj0MPAzWlXQjhychK0
-         EuVQgbUE3gbfFZyS5PtVeQGTbPMNkeRz+NdkKa2A1piet88fUa+eV+BzQCYix2AyQzRL
-         +dq7AUvcASLT9wBoCGlVyf/mfmorHeeZinIBU0bPDXhIzHGOzLFldvhpk3gDsu+BtqW/
-         xFho9Xr2gjWFEKlZEfhaWtbQpYO3GqF2DN69DwWNFyymEr9Yvqg/JQ99bWprP+H1OATm
-         Qhsw==
-X-Gm-Message-State: AOAM5337MUbyZsaL4Lg0VtT7m8tJ155qvgQfsxJ5VRS+ZMgWCBD2JWwk
-	vCCVamtltvB5keVnmnR7gAs=
-X-Google-Smtp-Source: ABdhPJybvX+zPdayg19N6R8s+Di+UkzQJTh8X3RzJZetxAmyu65neNTb3E+e5UArpdKwgzbcT3I2iQ==
-X-Received: by 2002:a63:8941:0:b0:3aa:b55c:729b with SMTP id v62-20020a638941000000b003aab55c729bmr8618019pgd.285.1650742505694;
-        Sat, 23 Apr 2022 12:35:05 -0700 (PDT)
-Date: Sun, 24 Apr 2022 04:35:01 +0900
-From: Paran Lee <p4ranlee@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>
-Cc: Austin Kim <austindh.kim@gmail.com>, xen-devel@lists.xenproject.org
-Subject: [PATCH] xen/mm: page_alloc fix duplicated order shift operation in
- the loop
-Message-ID: <20220423193501.GA10077@DESKTOP-NK4TH6S.localdomain>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=G4dWi/hTDX68HPwgMR47cKzl/BtEqiiuutHkggW6ddE=; b=1DnslT4m7n3Dk8yvKNGhgiuSw5
+	jK/vd3jm03HE2AcQG7vbDdD+xzU8P8wF5gziEwv0erAqMobcpFzbNcMbt9erLtPbQPmOaMXAJndjA
+	4S39o1aIA7V3QRAreDPgZAfGRxvlcim5MTefsQx9DO/KKKxPA6ZV8V1ZwqpEDH/3/Aiw=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-169656-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Subject: [ovmf test] 169656: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=96e1d337e0109d970282de71181a5cc317876829
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 23 Apr 2022 19:36:06 +0000
 
-It doesn't seem necessary to do that
-duplicate calculation of order shift 2^@order in the loop.
+flight 169656 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169656/
 
-In addition, I fixed type of total_avail_pages from long
-to unsigned long. because when total_avail_pages static variable
-substitute in functions of page alloc local variable,
-type of local variables is unsigned long.
+Regressions :-(
 
-Signed-off-by: Paran Lee <p4ranlee@gmail.com>
----
- xen/common/page_alloc.c | 51 ++++++++++++++++++++++-------------------
- 1 file changed, 27 insertions(+), 24 deletions(-)
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
-diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index 319029140f..9a955ce84e 100644
---- a/xen/common/page_alloc.c
-+++ b/xen/common/page_alloc.c
-@@ -456,7 +456,7 @@ static heap_by_zone_and_order_t *_heap[MAX_NUMNODES];
- static unsigned long node_need_scrub[MAX_NUMNODES];
- 
- static unsigned long *avail[MAX_NUMNODES];
--static long total_avail_pages;
-+static unsigned long total_avail_pages;
- 
- static DEFINE_SPINLOCK(heap_lock);
- static long outstanding_claims; /* total outstanding claims by all domains */
-@@ -922,8 +922,9 @@ static struct page_info *alloc_heap_pages(
-     struct domain *d)
- {
-     nodeid_t node;
--    unsigned int i, buddy_order, zone, first_dirty;
--    unsigned long request = 1UL << order;
-+    unsigned int buddy_order, zone, first_dirty;
-+    unsigned int buddy_request;
-+    unsigned long i, request = 1UL << order;
-     struct page_info *pg;
-     bool need_tlbflush = false;
-     uint32_t tlbflush_timestamp = 0;
-@@ -975,16 +976,17 @@ static struct page_info *alloc_heap_pages(
-     while ( buddy_order != order )
-     {
-         buddy_order--;
-+        buddy_request = 1U << buddy_order;
-         page_list_add_scrub(pg, node, zone, buddy_order,
--                            (1U << buddy_order) > first_dirty ?
-+                            buddy_request > first_dirty ?
-                             first_dirty : INVALID_DIRTY_IDX);
--        pg += 1U << buddy_order;
-+        pg += buddy_request;
- 
-         if ( first_dirty != INVALID_DIRTY_IDX )
-         {
-             /* Adjust first_dirty */
--            if ( first_dirty >= 1U << buddy_order )
--                first_dirty -= 1U << buddy_order;
-+            if ( first_dirty >= buddy_request )
-+                first_dirty -= buddy_request;
-             else
-                 first_dirty = 0; /* We've moved past original first_dirty */
-         }
-@@ -1000,13 +1002,13 @@ static struct page_info *alloc_heap_pages(
-     if ( d != NULL )
-         d->last_alloc_node = node;
- 
--    for ( i = 0; i < (1 << order); i++ )
-+    for ( i = 0; i < request; i++ )
-     {
-         /* Reference count must continuously be zero for free pages. */
-         if ( (pg[i].count_info & ~PGC_need_scrub) != PGC_state_free )
-         {
-             printk(XENLOG_ERR
--                   "pg[%u] MFN %"PRI_mfn" c=%#lx o=%u v=%#lx t=%#x\n",
-+                   "pg[%lu] MFN %"PRI_mfn" c=%#lx o=%u v=%#lx t=%#x\n",
-                    i, mfn_x(page_to_mfn(pg + i)),
-                    pg[i].count_info, pg[i].v.free.order,
-                    pg[i].u.free.val, pg[i].tlbflush_timestamp);
-@@ -1034,7 +1036,7 @@ static struct page_info *alloc_heap_pages(
-     if ( first_dirty != INVALID_DIRTY_IDX ||
-          (scrub_debug && !(memflags & MEMF_no_scrub)) )
-     {
--        for ( i = 0; i < (1U << order); i++ )
-+        for ( i = 0; i < request; i++ )
-         {
-             if ( test_and_clear_bit(_PGC_need_scrub, &pg[i].count_info) )
-             {
-@@ -1063,7 +1065,7 @@ static struct page_info *alloc_heap_pages(
-      * can control its own visibility of/through the cache.
-      */
-     mfn = page_to_mfn(pg);
--    for ( i = 0; i < (1U << order); i++ )
-+    for ( i = 0; i < request; i++ )
-         flush_page_to_ram(mfn_x(mfn) + i, !(memflags & MEMF_no_icache_flush));
- 
-     return pg;
-@@ -1437,15 +1439,16 @@ static void free_heap_pages(
- {
-     unsigned long mask;
-     mfn_t mfn = page_to_mfn(pg);
--    unsigned int i, node = phys_to_nid(mfn_to_maddr(mfn));
-+    unsigned int node = phys_to_nid(mfn_to_maddr(mfn));
-     unsigned int zone = page_to_zone(pg);
-+    unsigned long i, request = 1UL << order;
-     bool pg_offlined = false;
- 
-     ASSERT(order <= MAX_ORDER);
- 
-     spin_lock(&heap_lock);
- 
--    for ( i = 0; i < (1 << order); i++ )
-+    for ( i = 0; i < request; i++ )
-     {
-         if ( mark_page_free(&pg[i], mfn_add(mfn, i)) )
-             pg_offlined = true;
-@@ -1457,11 +1460,11 @@ static void free_heap_pages(
-         }
-     }
- 
--    avail[node][zone] += 1 << order;
--    total_avail_pages += 1 << order;
-+    avail[node][zone] += request;
-+    total_avail_pages += request;
-     if ( need_scrub )
-     {
--        node_need_scrub[node] += 1 << order;
-+        node_need_scrub[node] += request;
-         pg->u.free.first_dirty = 0;
-     }
-     else
-@@ -1490,7 +1493,7 @@ static void free_heap_pages(
-             /* Update predecessor's first_dirty if necessary. */
-             if ( predecessor->u.free.first_dirty == INVALID_DIRTY_IDX &&
-                  pg->u.free.first_dirty != INVALID_DIRTY_IDX )
--                predecessor->u.free.first_dirty = (1U << order) +
-+                predecessor->u.free.first_dirty = mask +
-                                                   pg->u.free.first_dirty;
- 
-             pg = predecessor;
-@@ -1511,7 +1514,7 @@ static void free_heap_pages(
-             /* Update pg's first_dirty if necessary. */
-             if ( pg->u.free.first_dirty == INVALID_DIRTY_IDX &&
-                  successor->u.free.first_dirty != INVALID_DIRTY_IDX )
--                pg->u.free.first_dirty = (1U << order) +
-+                pg->u.free.first_dirty = mask +
-                                          successor->u.free.first_dirty;
- 
-             page_list_del(successor, &heap(node, zone, order));
-@@ -2416,7 +2419,7 @@ struct page_info *alloc_domheap_pages(
- void free_domheap_pages(struct page_info *pg, unsigned int order)
- {
-     struct domain *d = page_get_owner(pg);
--    unsigned int i;
-+    unsigned long i, request = 1UL << order;
-     bool drop_dom_ref;
- 
-     ASSERT(!in_irq());
-@@ -2426,10 +2429,10 @@ void free_domheap_pages(struct page_info *pg, unsigned int order)
-         /* NB. May recursively lock from relinquish_memory(). */
-         spin_lock_recursive(&d->page_alloc_lock);
- 
--        for ( i = 0; i < (1 << order); i++ )
-+        for ( i = 0; i < request; i++ )
-             arch_free_heap_page(d, &pg[i]);
- 
--        d->xenheap_pages -= 1 << order;
-+        d->xenheap_pages -= request;
-         drop_dom_ref = (d->xenheap_pages == 0);
- 
-         spin_unlock_recursive(&d->page_alloc_lock);
-@@ -2443,12 +2446,12 @@ void free_domheap_pages(struct page_info *pg, unsigned int order)
-             /* NB. May recursively lock from relinquish_memory(). */
-             spin_lock_recursive(&d->page_alloc_lock);
- 
--            for ( i = 0; i < (1 << order); i++ )
-+            for ( i = 0; i < request; i++ )
-             {
-                 if ( pg[i].u.inuse.type_info & PGT_count_mask )
-                 {
-                     printk(XENLOG_ERR
--                           "pg[%u] MFN %"PRI_mfn" c=%#lx o=%u v=%#lx t=%#x\n",
-+                           "pg[%lu] MFN %"PRI_mfn" c=%#lx o=%u v=%#lx t=%#x\n",
-                            i, mfn_x(page_to_mfn(pg + i)),
-                            pg[i].count_info, pg[i].v.free.order,
-                            pg[i].u.free.val, pg[i].tlbflush_timestamp);
-@@ -2462,7 +2465,7 @@ void free_domheap_pages(struct page_info *pg, unsigned int order)
-                 }
-             }
- 
--            drop_dom_ref = !domain_adjust_tot_pages(d, -(1 << order));
-+            drop_dom_ref = !domain_adjust_tot_pages(d, -request);
- 
-             spin_unlock_recursive(&d->page_alloc_lock);
- 
--- 
-2.25.1
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
+version targeted for testing:
+ ovmf                 96e1d337e0109d970282de71181a5cc317876829
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   54 days
+Failing since        168258  2022-03-01 01:55:31 Z   53 days  578 attempts
+Testing same since   169631  2022-04-22 21:40:32 Z    0 days   20 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 5735 lines long.)
 
