@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B39E650D2A8
-	for <lists+xen-devel@lfdr.de>; Sun, 24 Apr 2022 17:12:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.312137.529323 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36DC750D2F5
+	for <lists+xen-devel@lfdr.de>; Sun, 24 Apr 2022 17:47:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.312151.529334 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nidu7-0007al-9V; Sun, 24 Apr 2022 15:12:03 +0000
+	id 1nieRF-0002vD-S7; Sun, 24 Apr 2022 15:46:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 312137.529323; Sun, 24 Apr 2022 15:12:03 +0000
+Received: by outflank-mailman (output) from mailman id 312151.529334; Sun, 24 Apr 2022 15:46:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nidu7-0007Xv-6F; Sun, 24 Apr 2022 15:12:03 +0000
-Received: by outflank-mailman (input) for mailman id 312137;
- Sun, 24 Apr 2022 15:12:01 +0000
+	id 1nieRF-0002t4-P2; Sun, 24 Apr 2022 15:46:17 +0000
+Received: by outflank-mailman (input) for mailman id 312151;
+ Sun, 24 Apr 2022 15:46:17 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nidu5-0007Xl-HR; Sun, 24 Apr 2022 15:12:01 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1nieRF-0002sy-3z
+ for xen-devel@lists.xenproject.org; Sun, 24 Apr 2022 15:46:17 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nidu5-0004KE-9J; Sun, 24 Apr 2022 15:12:01 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nidu4-0004x2-Su; Sun, 24 Apr 2022 15:12:00 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nidu4-0006lb-SQ; Sun, 24 Apr 2022 15:12:00 +0000
+ (envelope-from <julien@xen.org>)
+ id 1nieRC-0004vr-5Z; Sun, 24 Apr 2022 15:46:14 +0000
+Received: from home.octic.net ([81.187.162.82] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nieRB-0002SI-Vz; Sun, 24 Apr 2022 15:46:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,161 +39,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=ZZ7W0RiuX1kHkwOuj2HDJ0sj2cqfx95UG7hCpykk6G8=; b=4/rQsXtSLiUBAfT/yPfKzfmw0e
-	bMzRjPMKWtTpaiAuPDKPE8aDbZEDTIdSqNA5jmuzz50wNqG36KWP7F2C3CDZC+6d3jOPvZ1WnVEM+
-	4V198zA8uFrGP2UY++fYqbdF3b4fHGKVPE8t3RUMT+WZdVClbp1lIB5r0Nquan3Iw1gk=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169681-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
+	From:References:Cc:To:MIME-Version:Date:Message-ID;
+	bh=YdywgbeFh9usAAic3yJ/a3BdO5PaskS+FhaLbPIad5I=; b=6IEkDn7QSR/3Len5p0Lqe2Le9d
+	rXM6tYI/pnQw8KY8WyeWKgS84aEGoT0w88Da/20citgVY6AHFSZKDmk9pE2VOx9ZMI4TAwoDgZ379
+	ZeiFwwOURiE0t6koFpbbqyhdgewzDmi2mMZRHiOhD9dynsvB2TaGPeeNqEpc/oSJZMFQ=;
+Message-ID: <ea06f2ac-4ac1-4a6f-bda6-e775a7e68699@xen.org>
+Date: Sun, 24 Apr 2022 16:46:12 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 169681: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=96e1d337e0109d970282de71181a5cc317876829
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 24 Apr 2022 15:12:00 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.8.0
+To: Paran Lee <p4ranlee@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: Austin Kim <austindh.kim@gmail.com>, xen-devel@lists.xenproject.org
+References: <20220422185251.GA7124@DESKTOP-NK4TH6S.localdomain>
+From: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH] xen/arm: fdt fix duplicated ternary operator, shift
+ operations
+In-Reply-To: <20220422185251.GA7124@DESKTOP-NK4TH6S.localdomain>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 169681 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169681/
+Hi,
 
-Regressions :-(
+On 22/04/2022 19:52, Paran Lee wrote:
+> It doesn't seem necessary to do duplicate ternary operation and calculation
+> of order shift using fdt32_to_cpu macro.
+> 
+> Signed-off-by: Paran Lee <p4ranlee@gmail.com>
+> ---
+>   xen/arch/arm/bootfdt.c  | 12 ++++++++++--
+>   xen/common/libfdt/fdt.c | 10 +++++-----
+>   2 files changed, 15 insertions(+), 7 deletions(-)
+> 
+> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+> index e318ef9603..e5b885a7f2 100644
+> --- a/xen/arch/arm/bootfdt.c
+> +++ b/xen/arch/arm/bootfdt.c
+> @@ -159,8 +159,16 @@ int __init device_tree_for_each_node(const void *fdt, int node,
+>               continue;
+>           }
+>   
+> -        as = depth > 0 ? address_cells[depth-1] : DT_ROOT_NODE_ADDR_CELLS_DEFAULT;
+> -        ss = depth > 0 ? size_cells[depth-1] : DT_ROOT_NODE_SIZE_CELLS_DEFAULT;
+> +        if ( depth > 0 )
+> +        {
+> +            as = address_cells[depth-1];
+> +            ss = size_cells[depth-1];
+> +        }
+> +        else
+> +        {
+> +            as = DT_ROOT_NODE_ADDR_CELLS_DEFAULT;
+> +            ss = DT_ROOT_NODE_SIZE_CELLS_DEFAULT;
+> +        }
+IHMO the original code is easier to read. That said, in the two cases, I 
+think this is a bit pointless to check if the depth is > 0 at every 
+iteration because it will mostly be only always true but for one node.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+So I would go with the following code (not tested):
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+index e318ef960386..a382e10065f9 100644
+--- a/xen/arch/arm/bootfdt.c
++++ b/xen/arch/arm/bootfdt.c
+@@ -144,10 +144,13 @@ int __init device_tree_for_each_node(const void 
+*fdt, int node,
+       */
+      int depth = 0;
+      const int first_node = node;
+-    u32 address_cells[DEVICE_TREE_MAX_DEPTH];
+-    u32 size_cells[DEVICE_TREE_MAX_DEPTH];
++    u32 address_cells[DEVICE_TREE_MAX_DEPTH + 1];
++    u32 size_cells[DEVICE_TREE_MAX_DEPTH + 1];
+      int ret;
 
-version targeted for testing:
- ovmf                 96e1d337e0109d970282de71181a5cc317876829
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
++    address_cells[0] = DT_ROOT_NODE_ADDR_CELLS_DEFAULT;
++    size_cells[0] = DT_ROOT_NOT_SIZE_CELLS_DEFAULT;
++
+      do {
+          const char *name = fdt_get_name(fdt, node, NULL);
+          u32 as, ss;
+@@ -159,13 +162,13 @@ int __init device_tree_for_each_node(const void 
+*fdt, int node,
+              continue;
+          }
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   55 days
-Failing since        168258  2022-03-01 01:55:31 Z   54 days  598 attempts
-Testing same since   169631  2022-04-22 21:40:32 Z    1 days   40 attempts
+-        as = depth > 0 ? address_cells[depth-1] : 
+DT_ROOT_NODE_ADDR_CELLS_DEFAULT;
+-        ss = depth > 0 ? size_cells[depth-1] : 
+DT_ROOT_NODE_SIZE_CELLS_DEFAULT;
++        as = address_cells[depth];
++        ss = size_cells[depth];
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
+-        address_cells[depth] = device_tree_get_u32(fdt, node,
++        address_cells[depth + 1] = device_tree_get_u32(fdt, node,
+                                                     "#address-cells", as);
+-        size_cells[depth] = device_tree_get_u32(fdt, node,
+-                                                "#size-cells", ss);
++        size_cells[depth + 1] = device_tree_get_u32(fdt, node,
++                                                    "#size-cells", ss);
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+          /* skip the first node */
+          if ( node != first_node )
 
+Any thoughts?
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+>   
+>           address_cells[depth] = device_tree_get_u32(fdt, node,
+>                                                      "#address-cells", as);
+> diff --git a/xen/common/libfdt/fdt.c b/xen/common/libfdt/fdt.c
+> index 9fe7cf4b74..a507169d29 100644
+> --- a/xen/common/libfdt/fdt.c
+> +++ b/xen/common/libfdt/fdt.c
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+fdt.c is an (old) verbatim copy from DTC (see [1]). I would rather 
+prefer to keep this directory as a verbatim copy because it makes easier 
+to sync with the upstream version.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+In fact, there are a patch on xen-devel ([1]) to re-sync. So any of your 
+changes would be lost. Therefore, please send this change to the DTC 
+mailing list. We will pick it up on the next re-sync.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Cheers,
 
+[1] https://github.com/dgibson/dtc
+[2] 
+https://lore.kernel.org/xen-devel/1636702040-116895-1-git-send-email-fnu.vikram@xilinx.com/
 
-Not pushing.
-
-(No revision log; it would be 5735 lines long.)
+-- 
+Julien Grall
 
