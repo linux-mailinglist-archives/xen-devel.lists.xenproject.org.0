@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F84950D388
-	for <lists+xen-devel@lfdr.de>; Sun, 24 Apr 2022 18:35:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.312188.529389 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0492B50D3B7
+	for <lists+xen-devel@lfdr.de>; Sun, 24 Apr 2022 18:54:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.312194.529400 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nifC6-0003Cd-KK; Sun, 24 Apr 2022 16:34:42 +0000
+	id 1nifUP-0005sP-4M; Sun, 24 Apr 2022 16:53:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 312188.529389; Sun, 24 Apr 2022 16:34:42 +0000
+Received: by outflank-mailman (output) from mailman id 312194.529400; Sun, 24 Apr 2022 16:53:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nifC6-00039x-H3; Sun, 24 Apr 2022 16:34:42 +0000
-Received: by outflank-mailman (input) for mailman id 312188;
- Sun, 24 Apr 2022 16:34:41 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nifC5-00039r-MR
- for xen-devel@lists.xenproject.org; Sun, 24 Apr 2022 16:34:41 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nifC5-0006Iu-7D; Sun, 24 Apr 2022 16:34:41 +0000
-Received: from home.octic.net ([81.187.162.82] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nifC5-0005KG-1l; Sun, 24 Apr 2022 16:34:41 +0000
+	id 1nifUP-0005pc-0A; Sun, 24 Apr 2022 16:53:37 +0000
+Received: by outflank-mailman (input) for mailman id 312194;
+ Sun, 24 Apr 2022 16:53:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Ret3=VC=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1nifUN-0005pW-9D
+ for xen-devel@lists.xenproject.org; Sun, 24 Apr 2022 16:53:35 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 134f8f6d-c3ef-11ec-8fc2-03012f2f19d4;
+ Sun, 24 Apr 2022 18:53:33 +0200 (CEST)
+Received: by mail-lf1-x12c.google.com with SMTP id z18so5291503lfu.9
+ for <xen-devel@lists.xenproject.org>; Sun, 24 Apr 2022 09:53:33 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id
+ f18-20020a193812000000b00471f8573c96sm649350lfa.241.2022.04.24.09.53.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 24 Apr 2022 09:53:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,186 +44,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=vNm9+PyVSLS5gX8C8VhKLW5scel3z5mGkUEUfPXaQ/8=; b=jpc/fTU5AlfueZPxiZ+EyDrqHT
-	oaLyJpFc0T+RrzqHLHPaEr142CQUQwSeMyiWMQbzdxAVDqVVLga9Mol/N2ILdIoy7ua1uJBYXxYHc
-	9cb7kL5Ewd2rfOos+PCFwZ5JpR/jCWx1f8tX6egsoF3PbnI+TO4so3VLNE9GroouVIsE=;
-Message-ID: <95926460-c332-8ad7-9430-c628705b21d5@xen.org>
-Date: Sun, 24 Apr 2022 17:34:39 +0100
+X-Inumbo-ID: 134f8f6d-c3ef-11ec-8fc2-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=jglWAKRkI0cPF7sxIMVbMR7zt7h0C3kJ96kO8VwqGDI=;
+        b=GYowuHqr7FB76QyplNtwwt3lky81k7Ou35ecYplCgAko4aBaXhy/MXAyl2x4Cu/MW6
+         A4pRF0w0ewJckI7S8ELGwOHTFDh7jbReEQ26VnrDMV4qu3juRSwbpBdXChSHPNYzJmNd
+         EHpOi7Mjq2QTjAF+XObk/nyy30OuCFJhSKdBQ+Y8I1flgab/G8K3uMsZzQcobPMA9HKV
+         1kEJq9DMHRJL81nG7xqc1Ivq+c1M0Okte8Uf5RWCZA2JcJ3d4RyX0YkMLopKdkYqryTY
+         TAmhz+4UYcJcT+l9p8zKrD1SrCQXsuNIOFI0RDhK9P6wTsNSdnQFTWRDH+NAyQ9FHB/3
+         E/1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=jglWAKRkI0cPF7sxIMVbMR7zt7h0C3kJ96kO8VwqGDI=;
+        b=KkxlWLdZCNPPPrq44RnaMaThWaqkD54LBlEGB9MyvomrfBV0elml7DI57BFZSHZHH0
+         khVItp6Ajfppumhpbqg1lSsOkBGVLxzL9yPxn5oLSA6+WttVt6t5PcYBuvyZSop0OfzM
+         qockPqA6O9ISpD3vSbg6S5iBWOkCHmzuXTl+JFV09SpQrnw5GC4JPWFnq367uVpNtqrU
+         EYzKi9q0ltdopIFS/FOVJjcFmlAYMFwwvWWVQdnJ6CCGY9WSeW45UBMvuMlq2Og7VIoA
+         ApyfRyF+lWXNLVEFKIDWJ1Q4PcTZrNNXlzMEnX7C1755LoTaxxyle4+BYnTpZ7GvOQZI
+         7gPA==
+X-Gm-Message-State: AOAM530M1nktUXNB9GThehuvjdZnmhYTTcAc91t2eEVn8iHeBD+/xxBH
+	KCzbtXszI8/XxszS4JfuZME=
+X-Google-Smtp-Source: ABdhPJwFreSpU5cEMVZzTUFm4eZzNyKMvOqf9D+S7BUgoISlXctBt6KVfUUcLTPNUQsOQOiq0aeg4w==
+X-Received: by 2002:a05:6512:ac9:b0:470:e6d0:1bd8 with SMTP id n9-20020a0565120ac900b00470e6d01bd8mr10000761lfu.614.1650819212650;
+        Sun, 24 Apr 2022 09:53:32 -0700 (PDT)
+Subject: Re: [PATCH V1 3/6] xen/virtio: Add option to restrict memory access
+ under Xen
+To: Christoph Hellwig <hch@infradead.org>
+Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Juergen Gross <jgross@suse.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>
+References: <1650646263-22047-1-git-send-email-olekstysh@gmail.com>
+ <1650646263-22047-4-git-send-email-olekstysh@gmail.com>
+ <YmQsFb36UEH9BUnN@infradead.org>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <6c5042fe-dafc-eb4f-c1fa-03b0faf252de@gmail.com>
+Date: Sun, 24 Apr 2022 19:53:30 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.8.0
-To: Paran Lee <p4ranlee@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: austindh.kim@gmail.com, xen-devel@lists.xenproject.org
-References: <20220419154619.GA3136@DESKTOP-NK4TH6S.localdomain>
-From: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH] xen/device_tree: silence ambiguous integer casting
- warning error
-In-Reply-To: <20220419154619.GA3136@DESKTOP-NK4TH6S.localdomain>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <YmQsFb36UEH9BUnN@infradead.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-Hi,
 
-On 19/04/2022 16:46, Paran Lee wrote:
-> GCC with "-g -Wall -Wextra" option throws warning message as below:
+On 23.04.22 19:40, Christoph Hellwig wrote:
 
-s/warning/error/
 
-> 
-> error: comparison of integer expressions of different signedness:
->   ‘int’ and ‘unsigned int’ [-Werror=sign-compare]
+Hello Christoph
 
-Can you post the full log?
+> Please split this into one patch that creates grant-dma-ops, and another
+> that sets up the virtio restricted access helpers.
 
-> 
-> Silence the warning by correcting the integer type.
 
-IIRC most of the code you touch below is from Linux and had very limited 
-changes afterwards. So while I agree the changes are good, AFAIK they 
-are not (latent?) bugs and we don't build by default with -Wextra.
+Sounds reasonable, will do:
 
-Therefore, I would prefer if they are upstreamed to Linux first and then 
-backported to Xen.
+1. grant-dma-ops.c with config XEN_GRANT_DMA_OPS
 
-> 
-> Signed-off-by: Paran Lee <p4ranlee@gmail.com>
-> ---
->   xen/common/device_tree.c | 31 +++++++++++++++----------------
->   1 file changed, 15 insertions(+), 16 deletions(-)
-> 
-> diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
-> index 4aae281e89..402e465c7a 100644
-> --- a/xen/common/device_tree.c
-> +++ b/xen/common/device_tree.c
-> @@ -79,7 +79,7 @@ struct dt_bus
->       const char *addresses;
->       bool_t (*match)(const struct dt_device_node *node);
->       void (*count_cells)(const struct dt_device_node *child,
-> -                        int *addrc, int *sizec);
-> +                        unsigned int *addrc, unsigned int *sizec);
->       u64 (*map)(__be32 *addr, const __be32 *range, int na, int ns, int pna);
->       int (*translate)(__be32 *addr, u64 offset, int na);
->       unsigned int (*get_flags)(const __be32 *addr);
-> @@ -569,7 +569,7 @@ static bool_t dt_bus_default_match(const struct dt_device_node *node)
->   }
->   
->   static void dt_bus_default_count_cells(const struct dt_device_node *dev,
-> -                                int *addrc, int *sizec)
-> +                                       unsigned int *addrc, unsigned int *sizec)
->   {
->       if ( addrc )
->           *addrc = dt_n_addr_cells(dev);
+2. arch_has_restricted_virtio_memory_access() with config XEN_VIRTIO
 
-Technically, the prototype of dt_n_addr_cells() is "int ... (". So now 
-you are casting an "int" to an "unsigned int". AFAICT, dt_n_addr_cells() 
-will never return a negative value. So we should propage the "unsigned int".
 
-> @@ -649,7 +649,7 @@ static bool_t dt_bus_pci_match(const struct dt_device_node *np)
->   }
->   
->   static void dt_bus_pci_count_cells(const struct dt_device_node *np,
-> -				   int *addrc, int *sizec)
-> +				   unsigned int *addrc, unsigned int *sizec)
->   {
->       if (addrc)
->           *addrc = 3;
-> @@ -737,7 +737,7 @@ static const struct dt_bus dt_busses[] =
->   
->   static const struct dt_bus *dt_match_bus(const struct dt_device_node *np)
->   {
-> -    int i;
-> +    long unsigned int i;
+>
+>> +
+>> +#ifdef CONFIG_ARCH_HAS_RESTRICTED_VIRTIO_MEMORY_ACCESS
+>> +int arch_has_restricted_virtio_memory_access(void)
+>> +{
+>> +	return (xen_has_restricted_virtio_memory_access() ||
+>> +			cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT));
+>> +}
+> So instead of hardcoding Xen here, this seems like a candidate for
+> another cc_platform_has flag.
 
-This should be size_t.
 
->   
->       for ( i = 0; i < ARRAY_SIZE(dt_busses); i++ )
->           if ( !dt_busses[i].match || dt_busses[i].match(np) )
-> @@ -754,7 +754,8 @@ static const __be32 *dt_get_address(const struct dt_device_node *dev,
->       u32 psize;
->       const struct dt_device_node *parent;
->       const struct dt_bus *bus;
-> -    int onesize, i, na, ns;
-> +    unsigned int i;
-> +    unsigned int onesize, na, ns; >
->       /* Get parent & match bus type */
->       parent = dt_get_parent(dev);
-> @@ -797,8 +798,7 @@ static int dt_translate_one(const struct dt_device_node *parent,
->                               int pna, const char *rprop)
->   {
->       const __be32 *ranges;
-> -    unsigned int rlen;
-> -    int rone;
-> +    unsigned int rlen, rone;
->       u64 offset = DT_BAD_ADDR;
->   
->       ranges = dt_get_property(parent, rprop, &rlen);
-> @@ -857,7 +857,7 @@ static u64 __dt_translate_address(const struct dt_device_node *dev,
->       const struct dt_device_node *parent = NULL;
->       const struct dt_bus *bus, *pbus;
->       __be32 addr[DT_MAX_ADDR_CELLS];
-> -    int na, ns, pna, pns;
-> +    unsigned int na, ns, pna, pns;
->       u64 result = DT_BAD_ADDR;
->   
->       dt_dprintk("DT: ** translation for device %s **\n", dev->full_name);
-> @@ -966,8 +966,7 @@ int dt_for_each_range(const struct dt_device_node *dev,
->       const struct dt_bus *bus, *pbus;
->       const __be32 *ranges;
->       __be32 addr[DT_MAX_ADDR_CELLS];
-> -    unsigned int rlen;
-> -    int na, ns, pna, pns, rone;
-> +    unsigned int rlen, na, ns, pna, pns, rone;
->   
->       bus = dt_match_bus(dev);
->       if ( !bus )
-> @@ -1134,7 +1133,7 @@ unsigned int dt_number_of_address(const struct dt_device_node *dev)
->       u32 psize;
->       const struct dt_device_node *parent;
->       const struct dt_bus *bus;
-> -    int onesize, na, ns;
-> +    unsigned int onesize, na, ns;
->   
->       /* Get parent & match bus type */
->       parent = dt_get_parent(dev);
-> @@ -1169,8 +1168,8 @@ int dt_for_each_irq_map(const struct dt_device_node *dev,
->       const struct dt_device_node *ipar, *tnode, *old = NULL;
->       const __be32 *tmp, *imap;
->       u32 intsize = 1, addrsize, pintsize = 0, paddrsize = 0;
-> -    u32 imaplen;
-> -    int i, ret;
-> +    u32 i, imaplen;
-> +    int ret;
->   
->       struct dt_raw_irq dt_raw_irq;
->       struct dt_irq dt_irq;
-> @@ -1354,8 +1353,8 @@ static int dt_irq_map_raw(const struct dt_device_node *parent,
->       const struct dt_device_node *ipar, *tnode, *old = NULL, *newpar = NULL;
->       const __be32 *tmp, *imap, *imask;
->       u32 intsize = 1, addrsize, newintsize = 0, newaddrsize = 0;
-> -    u32 imaplen;
-> -    int match, i;
-> +    u32 i, imaplen;
-> +    int match;
->   
->       dt_dprintk("dt_irq_map_raw: par=%s,intspec=[0x%08x 0x%08x...],ointsize=%d\n",
->                  parent->full_name, be32_to_cpup(intspec),
-> @@ -1737,7 +1736,7 @@ static int __dt_parse_phandle_with_args(const struct dt_device_node *np,
->   
->               if ( out_args )
->               {
-> -                int i;
-> +                u32 i;
->   
->                   WARN_ON(count > MAX_PHANDLE_ARGS);
->                   if (count > MAX_PHANDLE_ARGS)
+I have a limited knowledge of x86 and Xen on x86.
 
-Cheers,
+Would the Xen specific bits fit into Confidential Computing Platform 
+checks? I will let Juergen/Boris comment on this.
+
+
+>
+>> +config XEN_VIRTIO
+>> +	bool "Xen virtio support"
+>> +	default n
+> n is the default default, so no need to specify it.
+
+ok, will drop
+
+
+>
+>> +// SPDX-License-Identifier: GPL-2.0-only
+>> +/******************************************************************************
+> The all * line is not the usual kernel style, I'd suggest to drop it.
+
+ok, will drop
+
+
+>
+>> +static struct page *xen_grant_dma_alloc_pages(struct device *dev, size_t size,
+>> +					      dma_addr_t *dma_handle,
+>> +					      enum dma_data_direction dir,
+>> +					      gfp_t gfp)
+>> +{
+>> +	WARN_ONCE(1, "xen_grant_dma_alloc_pages size %zu\n", size);
+>> +	return NULL;
+>> +}
+>> +
+>> +static void xen_grant_dma_free_pages(struct device *dev, size_t size,
+>> +				     struct page *vaddr, dma_addr_t dma_handle,
+>> +				     enum dma_data_direction dir)
+>> +{
+>> +	WARN_ONCE(1, "xen_grant_dma_free_pages size %zu\n", size);
+>> +}
+> Please just wire this up to the same implementation as .alloc and .free.
+
+I got it, will implement
+
+
+>
+>> +	spin_lock(&xen_grant_dma_lock);
+>> +	list_add(&data->list, &xen_grant_dma_devices);
+>> +	spin_unlock(&xen_grant_dma_lock);
+> Hmm, having to do this device lookup for every DMA operation is going
+> to suck. It might make sense to add a private field (e.g. as a union
+> with the iommu field) in struct device instead.
+
+
+I was thinking about it, but decided to not alter common struct device 
+for adding Xen specific field, but haven't managed to think of a better 
+idea than just using that brute lookup ...
+
+
+>
+> But if not you probably want to switch to a more efficient data
+> structure like the xarray at least.
+
+... I think, this is good point, thank you. I have no idea how faster it 
+is going to be, but the resulting code looks simple (if of course I 
+correctly understood the usage of xarray)
+
+
+diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
+index a512c0a..7ecc0b0 100644
+--- a/drivers/xen/grant-dma-ops.c
++++ b/drivers/xen/grant-dma-ops.c
+@@ -11,6 +11,7 @@
+  #include <linux/dma-map-ops.h>
+  #include <linux/of.h>
+  #include <linux/pfn.h>
++#include <linux/xarray.h>
+  #include <xen/xen.h>
+  #include <xen/grant_table.h>
+
+@@ -19,12 +20,9 @@ struct xen_grant_dma_data {
+         domid_t dev_domid;
+         /* Is device behaving sane? */
+         bool broken;
+-       struct device *dev;
+-       struct list_head list;
+  };
+
+-static LIST_HEAD(xen_grant_dma_devices);
+-static DEFINE_SPINLOCK(xen_grant_dma_lock);
++static DEFINE_XARRAY(xen_grant_dma_devices);
+
+  #define XEN_GRANT_DMA_ADDR_OFF (1ULL << 63)
+
+@@ -40,21 +38,13 @@ static inline grant_ref_t dma_to_grant(dma_addr_t dma)
+
+  static struct xen_grant_dma_data *find_xen_grant_dma_data(struct 
+device *dev)
+  {
+-       struct xen_grant_dma_data *data = NULL;
+-       bool found = false;
+-
+-       spin_lock(&xen_grant_dma_lock);
+-
+-       list_for_each_entry(data, &xen_grant_dma_devices, list) {
+-               if (data->dev == dev) {
+-                       found = true;
+-                       break;
+-               }
+-       }
++       struct xen_grant_dma_data *data;
+
+-       spin_unlock(&xen_grant_dma_lock);
++       xa_lock(&xen_grant_dma_devices);
++       data = xa_load(&xen_grant_dma_devices, (unsigned long)dev);
++       xa_unlock(&xen_grant_dma_devices);
+
+-       return found ? data : NULL;
++       return data;
+  }
+
+  /*
+@@ -310,11 +300,12 @@ void xen_grant_setup_dma_ops(struct device *dev)
+                 goto err;
+
+         data->dev_domid = dev_domid;
+-       data->dev = dev;
+
+-       spin_lock(&xen_grant_dma_lock);
+-       list_add(&data->list, &xen_grant_dma_devices);
+-       spin_unlock(&xen_grant_dma_lock);
++       if (xa_err(xa_store(&xen_grant_dma_devices, (unsigned long)dev, 
+data,
++                       GFP_KERNEL))) {
++               dev_err(dev, "Cannot store Xen grant DMA data\n");
++               goto err;
++       }
+
+         dev->dma_ops = &xen_grant_dma_ops;
+
+
+>
+>> +EXPORT_SYMBOL_GPL(xen_grant_setup_dma_ops);
+> I don't think this has any modular users, or did I miss something?
+
+No, you didn't. Will drop here and in the next patch for 
+xen_is_grant_dma_device() as well.
+
 
 -- 
-Julien Grall
+Regards,
+
+Oleksandr Tyshchenko
+
 
