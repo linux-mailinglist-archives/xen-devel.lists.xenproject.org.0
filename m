@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27A6D50E171
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 15:20:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.312926.530336 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB21A50E19B
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 15:27:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.312937.530346 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1niydA-0007tv-1q; Mon, 25 Apr 2022 13:19:56 +0000
+	id 1niykF-00018k-UM; Mon, 25 Apr 2022 13:27:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 312926.530336; Mon, 25 Apr 2022 13:19:56 +0000
+Received: by outflank-mailman (output) from mailman id 312937.530346; Mon, 25 Apr 2022 13:27:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1niyd9-0007r9-Tt; Mon, 25 Apr 2022 13:19:55 +0000
-Received: by outflank-mailman (input) for mailman id 312926;
- Mon, 25 Apr 2022 13:19:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=OfhB=VD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1niyd8-0007r3-DO
- for xen-devel@lists.xenproject.org; Mon, 25 Apr 2022 13:19:54 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 640c6a02-c49a-11ec-a405-831a346695d4;
- Mon, 25 Apr 2022 15:19:53 +0200 (CEST)
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur01lp2058.outbound.protection.outlook.com [104.47.0.58]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-25-6TxNJtmjPrWEM34FaYPfDg-1; Mon, 25 Apr 2022 15:19:50 +0200
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
- by AM7PR04MB7063.eurprd04.prod.outlook.com (2603:10a6:20b:11e::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.21; Mon, 25 Apr
- 2022 13:19:48 +0000
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::5cb0:5195:4203:7c2f]) by DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::5cb0:5195:4203:7c2f%9]) with mapi id 15.20.5186.021; Mon, 25 Apr 2022
- 13:19:48 +0000
+	id 1niykF-000160-R0; Mon, 25 Apr 2022 13:27:15 +0000
+Received: by outflank-mailman (input) for mailman id 312937;
+ Mon, 25 Apr 2022 13:27:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rnYW=VD=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
+ id 1niykE-00015u-9G
+ for xen-devel@lists.xenproject.org; Mon, 25 Apr 2022 13:27:14 +0000
+Received: from MTA-11-3.privateemail.com (mta-11-3.privateemail.com
+ [198.54.122.105]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 69a4205a-c49b-11ec-8fc2-03012f2f19d4;
+ Mon, 25 Apr 2022 15:27:12 +0200 (CEST)
+Received: from mta-11.privateemail.com (localhost [127.0.0.1])
+ by mta-11.privateemail.com (Postfix) with ESMTP id ACC9418000B0
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Apr 2022 09:27:10 -0400 (EDT)
+Received: from mail-oa1-f50.google.com (unknown [10.20.151.162])
+ by mta-11.privateemail.com (Postfix) with ESMTPA id 8407518000A9
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Apr 2022 09:27:10 -0400 (EDT)
+Received: by mail-oa1-f50.google.com with SMTP id
+ 586e51a60fabf-e2fa360f6dso16021407fac.2
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Apr 2022 06:27:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,156 +45,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 640c6a02-c49a-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1650892792;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=m/0kzGoXwbe14WooJd/Nl+yIoDBYkoe4bMHCbvRqz98=;
-	b=IPeHTCp9ydzqOKzUnEQfBqRDofWVae0kYvVQL8EI+MMobI4LuQNaFrS4K9SYYpZBJlyyEU
-	cvv6G05z6Nf3Eg/ckp46zKznkkxfKlcii4PyB1YxaMugks9wVXcj22Iis9LUsQ7goJKNkh
-	lc32TSxGfd7xUMy04NSu4xzByT52vZ4=
-X-MC-Unique: 6TxNJtmjPrWEM34FaYPfDg-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q2Ys+a10r68eQk2aTZX8phs9kMQ9ys6H5uwwJ9sQ+FIXJAunTtc0/7PsmjxEWiub3RVhRAy0K6O22SbeB20GWlAIIv4ew0TMdqJ5cYKhuVDS19W5NMLa+ndxivuTBAnoti9RHhzpbE7yKYohdCeNaMQeW9eyGJs6/SDWvJ028XKJmlT70BHPJggjI0SP/mspg83+jUYYcK4r6rLpGXwtmauxw1aDIdOH1HQj5VxbR3sG9Epba2DxobAl8vCwwpiZvvyuXaFxRKQgvwfwk2e+ZAVsyFbBXNwypAO5oluR6FLgYav26t39pjKfrq9LakrKy6aUGAESCGxSVnX63EduvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kQ1uj6j8FX4J98NPRSUhT/TpPhE1EbUt2Bdu9IlpLpA=;
- b=gUqA03pkAruaRbu82m+4+E9Pvkx4I93112O/002Y0PuPiRr+bMvHK4S8bA06AtCKEOdsQFw+8hV5/gOx2IHgJG7dMg1LjkMnIN8hglrwASrUkbmHTmRx/bYfyocNxPqxjlDk5QvfS901wTKHtVncpaqyxLHBJmMt51Z09TRJAdVNn4vQ5EruifuHwbhuLU+V+ef6yKMwDTAhiljzaXL7yhz03f52/YmH6aj2bHXWGLvnxXyYWskArQAAPYzlfSxW+tPFu9J9VwHtzv3lFQ5sR3b0vSHzealDv21DeWKUhBXJF09Uv6OftUltIXm9f988RVjfOzNwe22bddkCp6eryQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <039010e6-523f-851d-a432-d7f1a2fe5eca@suse.com>
-Date: Mon, 25 Apr 2022 15:19:46 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [PATCH v2] x86+libxl: correct p2m (shadow) memory pool size
- calculation
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Anthony Perard <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>
-References: <368e2d54-09f2-2081-349e-571bfeab13af@suse.com>
- <YmabFt952DO29pIA@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YmabFt952DO29pIA@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM6PR0202CA0039.eurprd02.prod.outlook.com
- (2603:10a6:20b:3a::16) To DU2PR04MB8616.eurprd04.prod.outlook.com
- (2603:10a6:10:2db::16)
+X-Inumbo-ID: 69a4205a-c49b-11ec-8fc2-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=tklengyel.com;
+	s=default; t=1650893230;
+	bh=COUANqa1yBnBucvA/LYW4WhQdaCqOvWHeqJEt+d7qKs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=CU0BVdTTVCGRKaJgAkONsRrVlwLA7TZxTTcBwnrSh9RZ6x0s6YQHzLZkdmF/jAYq5
+	 slS7RVbLmTQa26hLCtwYsT9jy4NSgsTp0CGE3SwBkKJgx4QxqAedd+yJNXu2Meguo1
+	 4b+XzGoaG8BbZcmuADABh8CI2PmDxrQdiPbacObkUxjj5qMFJh9/c75Xge78/D6GHH
+	 EGISf7dYeqM8x5irSmWTm+qDyZoeLvGz3ldW6O7L0VXrocwpesyeXOV99F3p5ccfCz
+	 AXWc0ohqXANvDqZORRSmAMnQ/sNN65lAJcy7yofBg9+CEA53Va9mLqoy2vet08SGyt
+	 u68rccyvZGyPQ==
+X-Gm-Message-State: AOAM532DegkldgxJcDM1Nj9rTU8F4So5GMysAduk2Jt7sAJxoct9ZOgq
+	pL50egccioeLWgxPk1OiG4D3aIylj6jyOLZEeHQ=
+X-Google-Smtp-Source: ABdhPJzwcPIL4b0ha9sXZ/VNuRAW/u5l/KqKvAf9MMW06qxRWpKN7QGhU4ZwpbJ/RJPgyvY8uOAPIILW6jUvNAYi5/E=
+X-Received: by 2002:a05:6870:b295:b0:e9:1c84:3671 with SMTP id
+ c21-20020a056870b29500b000e91c843671mr3789029oao.128.1650893229643; Mon, 25
+ Apr 2022 06:27:09 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 71cb6087-5d0c-4147-3782-08da26be45ad
-X-MS-TrafficTypeDiagnostic: AM7PR04MB7063:EE_
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-Microsoft-Antispam-PRVS:
-	<AM7PR04MB70633749B1C9AFE539372F0FB3F89@AM7PR04MB7063.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	TDtW5cbzj1vOOISC69F1Fg6MHmXKv3e4ekmDLTX2B3qua3ND3zMT7wgoEQEH2YOwB4W5CRIv4Q006HynKabTPiG6hnSbQ6L2mIvnNinPt2MVIr9ka4bUekQLqV6A+1mhpuXQS6pKHYBB1pJKJMtfmJpa6MmD/xKdP3oLhsPZdXso01PyBCqj1AnfLq4nI8pydeVXMgUFFSOXdhMlqnvLx20OGCSayYZxi/igkCUUxHIja3te5ojimgma/3bRZlWT2aTUKaJzw009SzVvfLJMGN6DDxTQ1S/1FgSYi0HJP3dBUQ5aOKhgMd6OVNNdeUW/+yNYT0onWt1w5pXtfwhAf3r7QRHa/Nu/fWuNyrFc8ff5zDsc44WNe/+qAQPnFdND/+ya6hoACU+E29rk+nQLerkZj5yslwqdtQWRCQQO2L6oYI2Gv+3TPyOwBZqDSWBu81YOJrVzwgldyXMw6rmZY44WEAEVaHvp8v+zjloc3indA5EpVkjwWtTs1gRX4ieGN9kuYnenTaOxtFuOpNwrT1H1bM3+Z+iyicQY1pbm+ef6NnlyeDluauny/p9tW24pOZS+3nSVa3/6y+HoIvFI2relV1/h5NHpfOmfoI1bohkctoIvyLW6EKMvxMSqSkig8KsaTuQvvtKlD/n04gFOUFbvVawaQcHiu3N8GbB/M9LSsMEzadR0Oe8/sUAx3D6YVaKmHw3p7/JUXJ5LHGD6zOVDuPtIDJlHg+rd7fGhJRU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(83380400001)(26005)(508600001)(31696002)(66476007)(6512007)(54906003)(6506007)(66946007)(66556008)(8676002)(4326008)(86362001)(38100700002)(53546011)(316002)(6916009)(5660300002)(6486002)(36756003)(107886003)(186003)(2616005)(8936002)(2906002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?FkWRwA5o6Wbm6vjRZJRmicYu0D7uzsUvOASZ7JZt9hExuAcCRAs48gEwAsiU?=
- =?us-ascii?Q?tp+BWfNtyDbgf1Rv14jWGV6+WcUO2dSV9KTRUTbSLFDvj/pR2gOzq7sKxbgd?=
- =?us-ascii?Q?M3jvaSmHaIIRs48ih9kX2SHzT2c5SpyfjzSVliT7xACWHVV20o/3JpsYdwRD?=
- =?us-ascii?Q?x0wG22ZKojz6lVPi24od1tYB7q5aIeN4LALtW9EZZM5A5fcJfv4FLnn9OUai?=
- =?us-ascii?Q?BXjzGW/MNpVOIIoyKeR9TdZechUmoAQXlWx1cmAQQLPeEw3ObTEInZO6wKg3?=
- =?us-ascii?Q?xZr7DHxxAZ2mmgOvA8l9zLJV5NvYzhWTTkniyk2c1YQNeBpDX47uUq2TgmQl?=
- =?us-ascii?Q?pI5EYPJJR3xy17lUx/jKLpyfre1ndkpgNuCwgn2YO5JnbDKywOqAfYFuNqrB?=
- =?us-ascii?Q?6Pfk6ha85BlvtVp8dYcI23NnjVtqppFRc/PL5dFeQTlmiRfhWd0fkbBtntSN?=
- =?us-ascii?Q?S28y8F+UFUI55jxH1CZIkzAldduIboujLdkkQZbh1JZB4Xv2Ix3HnpthGGl4?=
- =?us-ascii?Q?Y1lMI0kLJecmhQ68EVbl1jUPdBPe5WCRgIqFqId7I8nEUkAfE43xfUzpvdHd?=
- =?us-ascii?Q?U8woh0GaykewMzlP9l59LvqdsHx9P/MJK822sYEZ6kCUIw3E8b1VINjNjdql?=
- =?us-ascii?Q?efxnnJDrhuSOvbmXwJ2zhjbHW/t45l2ZvEQGI2zxYXiYtyfQpB05jkWElhV9?=
- =?us-ascii?Q?RErpssVUdkYgR9ydR4s3LENB/GagRJiwaIjw3Xh62BjnNqO9VbvnYJbwIL6D?=
- =?us-ascii?Q?qwQT7JfOtB3Y7JRTAyWztFnwDzSMY8wNTKKNlvzXo+x7kJ9zAEjUhZwem6TQ?=
- =?us-ascii?Q?seHCqzJxqrn+Qw8J1Zc9V/7Xj0fOgEQ1OtCCqqXvby/S3pha6aD+QUlMtP6g?=
- =?us-ascii?Q?EreaqTCKZh5KJKa7AKewx1N9EP8AqdihcD04+AWNNBqKhvfm8z4xYC6oZ7wl?=
- =?us-ascii?Q?j51R4G9zq/fnNWLXhJ5FB8pna9Qo9F0Wet58LSiZyWOVhJHay5M3URz2kdcW?=
- =?us-ascii?Q?Y6yZ2Q3oGyQLDof9t96XI/1Nf5Xix+cJZ7y+Vqd70buXRmIJn8L02GIaSnQF?=
- =?us-ascii?Q?zbdsSsTKg56jYg9CHQQL82X97IiG2i0kSV+l14NjECxc59L67Nrz5Rq0uNGS?=
- =?us-ascii?Q?6jFZVUf2Cyg5s8Z1thBe9IcgEW1lMYRGqtvNcVByh9FEe8C5LN2UbzlnHOId?=
- =?us-ascii?Q?4trkCWxQo4b2EPv94lTRB/PL3gHBhU476FDijnFQkObaIeU4gAuSSm/0Eiai?=
- =?us-ascii?Q?ozvWoGfQtOjqkqQGsK7fGVIdqKASJQrik8EV9PrioBl/vsYxdoQas70j14oW?=
- =?us-ascii?Q?9gszQAyIShOB66oi97kfRdy8O0YeiOsh8pUJ//LdEUWKfOov5H3gOFJxfnOy?=
- =?us-ascii?Q?e6R+OaAbqDlzru9DksSmRjtqQLv8IvI9yj+VxXLMHieUcD+YucaNoqi2Qjg9?=
- =?us-ascii?Q?dghJA+rwo0x8uGDu/SLezeSGnCse6BkdYFng3srig7CdcD8umTNCL4S7tott?=
- =?us-ascii?Q?ViXYkM1x+AEaYcnBWyeFGW7+qR3L2IzCei/E2ksqDcWcIOuEi0r8syg4yete?=
- =?us-ascii?Q?R6/jX9kX3CNRUTkMOF08XfqI6Fdy3RdoxxOg/U7sm4E2mGKZ3BtXZhAKY6v7?=
- =?us-ascii?Q?y7L0LSAU2SLhkDOhc22FsNomXxFJOeRd+9JBVUTK0OaPepGPIrXZQUPs23SB?=
- =?us-ascii?Q?IM+S5u3y/KaxYSMQp2Uu6I+HNZYYwFLc99YB1cms/M7q8M0+SW5TpHmV6G20?=
- =?us-ascii?Q?JWplGM0KFg=3D=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 71cb6087-5d0c-4147-3782-08da26be45ad
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2022 13:19:48.4404
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: P4yq62uMGnHd8NvZyC0VGlbO28EfqHpaJJ7akHUXL7QE+ngbe06hChQaNjW/BhOpsrTCq6oX32rv1xaRPjj7tg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7063
+References: <bc13e07cdb651afc2c8a97dde1be9c2158160307.1649857162.git.tamas.lengyel@intel.com>
+ <CABfawhki8YVxycv_zdDqDuOYvBdobdskXnjjdjiF7UND3784cg@mail.gmail.com>
+ <310ab91a-60bd-f4fa-aeee-28aab43aabbe@suse.com> <CABfawhmzz5OwYr93EO7UAnb1X+vBoi3u=YVW6HMV5KpH_iEGeg@mail.gmail.com>
+ <CAFLBxZaT1jRo8_KBKOFMdwvM0q=LAoUSxuHNkgOrFA00a9vVdA@mail.gmail.com>
+In-Reply-To: <CAFLBxZaT1jRo8_KBKOFMdwvM0q=LAoUSxuHNkgOrFA00a9vVdA@mail.gmail.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Mon, 25 Apr 2022 09:26:33 -0400
+X-Gmail-Original-Message-ID: <CABfawhkNU0z5_+QRHQny-ZkyWPSyRTgaM3Z9W5gA90a3qY3qFw@mail.gmail.com>
+Message-ID: <CABfawhkNU0z5_+QRHQny-ZkyWPSyRTgaM3Z9W5gA90a3qY3qFw@mail.gmail.com>
+Subject: Re: [PATCH v4 1/2] x86/mem_sharing: make fork_reset more configurable
+To: George Dunlap <dunlapg@umich.edu>
+Cc: Jan Beulich <jbeulich@suse.com>, Tamas K Lengyel <tamas.lengyel@intel.com>, 
+	Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>, 
+	Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-On 25.04.2022 14:59, Roger Pau Monn=C3=A9 wrote:
-> On Mon, Apr 25, 2022 at 10:49:34AM +0200, Jan Beulich wrote:
->>  char *libxl_domid_to_name(libxl_ctx *ctx, uint32_t domid)
->> --- a/xen/arch/x86/dom0_build.c
->> +++ b/xen/arch/x86/dom0_build.c
->> @@ -317,9 +317,12 @@ unsigned long __init dom0_paging_pages(c
->>      /* Copied from: libxl_get_required_shadow_memory() */
->=20
-> Could you also update the comment, maybe better would be:
->=20
-> /* Keep in sync with libxl__get_required_paging_memory(). */
+On Mon, Apr 25, 2022 at 8:53 AM George Dunlap <dunlapg@umich.edu> wrote:
+>
+>
+>
+> On Mon, Apr 25, 2022 at 12:29 PM Tamas K Lengyel <tamas@tklengyel.com> wr=
+ote:
+>>
+>>
+>>
+>> On Mon, Apr 25, 2022, 3:49 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>>
+>>> On 22.04.2022 16:07, Tamas K Lengyel wrote:
+>>> > On Wed, Apr 13, 2022 at 9:43 AM Tamas K Lengyel <tamas.lengyel@intel.=
+com> wrote:
+>>> >>
+>>> >> Allow specify distinct parts of the fork VM to be reset. This is use=
+ful when a
+>>> >> fuzzing operation involves mapping in only a handful of pages that a=
+re known
+>>> >> ahead of time. Throwing these pages away just to be re-copied immedi=
+ately is
+>>> >> expensive, thus allowing to specify partial resets can speed things =
+up.
+>>> >>
+>>> >> Also allow resetting to be initiated from vm_event responses as an
+>>> >> optimization.
+>>> >>
+>>> >> Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+>>> >
+>>> > Patch ping. Could I get a Reviewed-by if there are no objections?
+>>>
+>>> Hmm, this is a little difficult. I'd be willing to give an ack, but tha=
+t's
+>>> meaningless for most of the code here. Besides a stylistic issue I did
+>>> point out which I'm not happy with, I'm afraid I'm not good enough at
+>>> mem-sharing and forking. Therefore I wouldn't want to offer an R-b.
+>>> Considering the VM event interaction, maybe the BitDefender guys could
+>>> take a stab?
+>>>
+>>> Of course you'd then still need a tool stack side ack.
+>>
+>>
+>> So my take is that noone cares about mem_sharing, which is fine, its an =
+obscure experiment subsystem.
+>
+>
+> My take is slightly different; it's more that the project is large enough=
+ that it's difficult to se where the needs are.  If Roger or Andy or I or W=
+ei or anyone see a thread with you & Jan going back and forth, it's natural=
+ for us to assume that you & Jan have it in hand, and there's no need for u=
+s to read through the thread.  Jan dislikes asking specific people for a re=
+view, but many of the rest of us have sort of gotten in the habit of doing =
+so, as a way to solve the "visibility" issue.  The only other way I can thi=
+nk of to solve the problem is to have a robot try to assign tasks to people=
+ -- a method that has received skepticism, and would also require a non-neg=
+ligible amount of tooling to be written.
 
-Oh, of course.
+What's the point of the MAINTAINER's file and being automatically CC-d
+if you then still separately have to ping the same people by name?
+It's fine not to give an a-b/r-b if you still see discussion on some
+parts of the patch, but like on this one, where the tools changes are
+trivial - why would you wait? To be frank I long consider the
+tools-side part of Xen unmaintained with only the most trivial stuff
+ever having a chance to make it in. VM forking has effectively 0
+toolstack side support in-tree because I never got any feedback from
+tools maintainers after sending the patches in for months. I would
+consider the toolstack side stuff in this patch for example trivial,
+but again, no tools maintainers ever look at it so I was actually
+considering dropping it from the patch completely since I really only
+need the vm_event interface. Again, that would be dropping an
+otherwise potentially useful interface purely due to the dysfunction
+of the project's maintenance.
 
->>      unsigned long memkb =3D nr_pages * (PAGE_SIZE / 1024);
->> =20
->> -    memkb =3D 4 * (256 * d->max_vcpus + 2 * (memkb / 1024));
->> +    memkb =3D 4 * (256 * d->max_vcpus +
->> +                 (paging_mode_enabled(d) +
->> +                  (opt_dom0_shadow || opt_pv_l1tf_hwdom)) *
->=20
-> opt_pv_l1tf_hwdom is only relevant for PV guests, so maybe it would be
-> best to use:
->=20
-> paging_mode_enabled(d) ? 1 + opt_dom0_shadow
->                        : 0 + (opt_dom0_shadow || opt_pv_l1tf_hwdom)
->=20
-> Or something similar.
+>
+>>
+>> But the only path I see as maintainer to get anything in-tree is if I ha=
+nd the task of writing the patch to a coworker who then sends it in so that=
+ I can ack it. This is clearly disfunctional and is to the detriment of the=
+ project overall. We need to get some rules in place to avoid situations li=
+ke this that clearly lead to no development and no improvement and a huge i=
+ncentive to forgot about upstreaming. With no substantive objections but no=
+ acks a maintainer should be able to get changes in-tree. That's part of wh=
+at I would consider maintaining a codebase to be!
+>
+>
+> Another possibility would be to ask your colleague actually do a Reviewed=
+-by.  The first time or two they might not be "of suitable stature in the c=
+ommunity", but I don't think it should take long to establish such a statur=
+e, if they were doing the review in earnest.
 
-Originally I was thinking that people simply shouldn't use the option
-when Dom0 isn't PV. But meanwhile I've figured that late-hwdom may be
-PV even if domain 0 is PVH. So yes.
+Sure, but clearly still more effort then it should be just to work
+around the system.
 
->  Maybe placing this inside the sum will make the
-> expression too complex, so we could use a separate is_shadow boolean
-> to signal whether the domain will use shadow pagetables?
+>
+> I do agree that it seems like in this situation, the bar seems too high f=
+or you to get your own code checked in.  I'd be open to the argument that w=
+e should change the text of the check-in policy in MAINTAINERS to allow mai=
+ntainer modifications with only an Acked-by.
 
-I think
+Happy to hear! I think such a change would reduce the overhead on
+reviewing patches like this that clearly have no effect on anything
+else.
 
-    memkb =3D 4 * (256 * d->max_vcpus +
-                 (is_pv_domain(d) ? opt_dom0_shadow || opt_pv_l1tf_hwdom
-                                  : 1 + opt_dom0_shadow) *
-                 (memkb / 1024));
+>
+>>
+>> Anyway, to be realistic I don't expect that option to materialize so I'm=
+ very close to just stop all contributions to the project. It's dishartenin=
+g.
+>
+>
+>
+> I can understand why you'd be disheartened if you thought you just couldn=
+'t get any code checked in even as maintainer.  However, there are lots of =
+escalation paths open to you: you could email the community manager (me); y=
+ou could make a wider appeal on IRC for reviewers; you could raise the gene=
+ral issue at the community call; you could send a patch proposing changes t=
+o the check-in procedure described in MAINTAINERS.
 
-is still okay-ish. Note that I've switched to is_pv_domain() to be
-independent of the point in time when shadow mode would be enabled
-for a PV Dom0.
+Fair point. But when your main job is not working on Xen and you have
+a couple weeks in-between other stuff to try to get some improvements
+in, it's not really viable to have to go reform the whole project.
+That's just the reality. If we can reduce the bar on getting code
+upstream in situations like this then I would be happy to continue
+working on the project but otherwise I don't see how this is worth
+anyone's time.
 
-Jan
-
+Tamas
 
