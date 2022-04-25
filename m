@@ -2,42 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98A6950E14A
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 15:13:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.312919.530324 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27A6D50E171
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 15:20:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.312926.530336 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1niyVv-0007Ek-8p; Mon, 25 Apr 2022 13:12:27 +0000
+	id 1niydA-0007tv-1q; Mon, 25 Apr 2022 13:19:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 312919.530324; Mon, 25 Apr 2022 13:12:27 +0000
+Received: by outflank-mailman (output) from mailman id 312926.530336; Mon, 25 Apr 2022 13:19:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1niyVv-0007CT-5x; Mon, 25 Apr 2022 13:12:27 +0000
-Received: by outflank-mailman (input) for mailman id 312919;
- Mon, 25 Apr 2022 13:12:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2itc=VD=citrix.com=prvs=107928106=roger.pau@srs-se1.protection.inumbo.net>)
- id 1niyVu-0007CN-64
- for xen-devel@lists.xenproject.org; Mon, 25 Apr 2022 13:12:26 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 574c65a6-c499-11ec-8fc2-03012f2f19d4;
- Mon, 25 Apr 2022 15:12:22 +0200 (CEST)
-Received: from mail-dm6nam11lp2168.outbound.protection.outlook.com (HELO
- NAM11-DM6-obe.outbound.protection.outlook.com) ([104.47.57.168])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 25 Apr 2022 09:12:20 -0400
-Received: from DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
- by DM5PR03MB2492.namprd03.prod.outlook.com (2603:10b6:3:79::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Mon, 25 Apr
- 2022 13:12:18 +0000
-Received: from DS7PR03MB5608.namprd03.prod.outlook.com
- ([fe80::5df3:95ce:4dfd:134e]) by DS7PR03MB5608.namprd03.prod.outlook.com
- ([fe80::5df3:95ce:4dfd:134e%4]) with mapi id 15.20.5186.021; Mon, 25 Apr 2022
- 13:12:18 +0000
+	id 1niyd9-0007r9-Tt; Mon, 25 Apr 2022 13:19:55 +0000
+Received: by outflank-mailman (input) for mailman id 312926;
+ Mon, 25 Apr 2022 13:19:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=OfhB=VD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1niyd8-0007r3-DO
+ for xen-devel@lists.xenproject.org; Mon, 25 Apr 2022 13:19:54 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 640c6a02-c49a-11ec-a405-831a346695d4;
+ Mon, 25 Apr 2022 15:19:53 +0200 (CEST)
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01lp2058.outbound.protection.outlook.com [104.47.0.58]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-25-6TxNJtmjPrWEM34FaYPfDg-1; Mon, 25 Apr 2022 15:19:50 +0200
+Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
+ by AM7PR04MB7063.eurprd04.prod.outlook.com (2603:10a6:20b:11e::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.21; Mon, 25 Apr
+ 2022 13:19:48 +0000
+Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
+ ([fe80::5cb0:5195:4203:7c2f]) by DU2PR04MB8616.eurprd04.prod.outlook.com
+ ([fe80::5cb0:5195:4203:7c2f%9]) with mapi id 15.20.5186.021; Mon, 25 Apr 2022
+ 13:19:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,352 +51,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 574c65a6-c499-11ec-8fc2-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1650892342;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=hVRPEx0RduZMFDeuGFqZ54FcyypAa690gIEqpLf767E=;
-  b=Yu+kQ5QMIGnlFydJMa+OFxiaSXpWM5e/jBKpmKUinfpnaKpmQKxHRLSL
-   Ed3wIf0qe5ycOkMPUhblu0evDhJvnClSSexCDvw6c+YnYHvtDaWZ/mKkg
-   jRn6su2mRJwqIE4n4jv+I41SvejHnhegEcCH70VLLXeHGhTEySkjGHeh8
-   c=;
-X-IronPort-RemoteIP: 104.47.57.168
-X-IronPort-MID: 69735420
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:potb0aloWj31QiMoFYvHV3bo5gwSJ0RdPkR7XQ2eYbSJt1+Wr1Gzt
- xJKDTzXOP3ZNGL9Lt9xbNjn8EIGvJbXytVnSQtrpXpkEiMWpZLJC+rCIxarNUt+DCFioGGLT
- Sk6QoOdRCzhZiaE/n9BCpC48T8kk/vgqoPUUIYoAAgoLeNfYHpn2EoLd9IR2NYy24DlWV7V4
- LsenuWEULOb828sWo4rw/rrRCNH5JwebxtB4zTSzdgS1LPvvyF94KA3fMldHFOhKmVgJcaoR
- v6r8V2M1jixEyHBqD+Suu2TnkUiGtY+NOUV45Zcc/DKbhNq/kTe3kunXRa1hIg+ZzihxrhMJ
- NtxWZOYFTw7YabzgskkcxRTPRpifqkWxa35GC3q2SCT5xWun3rE5dxLVRhzEahGv+F9DCdJ6
- OASLy0LYlabneWqzbmnS+5qwMM+MM3sO4BZsXZlpd3bJa9+HdafHOOXupkBgmdYasNmRJ4yY
- +IDbjVidlLYagBnMVYLEpMu2uyvgxETdhUG+Q3O+PZtuwA/yiRK+rTtaIHtJuCsXMN6zmy8+
- 0za8lbmV0Ry2Nu3jGDtHmiXrujLkCDgRJMJFJW38/drhBuYwWl7IA0bUx63rOe0jma6WslDM
- AoE9yw2t68w+Ue3CN7nUHWQp3qJvQUVXdZKJPEr8wGGyqfS4AGxC3ANS3hKb9lOnNAybSwn0
- BmOhdyBLSZoq7ePTnWe8J+bqDqzPW4eKmpqTS0LVwwe+PH4vZo+yBnIS75LC7Wph9f4HTXxx
- TGiryUkgbgXy8kR2M2T/03Dgj+qjojESEgy/Aq/dlyi6gR1dYu0fbuC4FLQ7etDBIuBR1zHt
- 38B8+CU4foSF5iLmGqISf8UAbCyz/+fNXvXhlsHInU63zGk+nrmcYUO5jh7fR5tKpxdJ2+vZ
- 1LPswRM4pMVJGGtcaJ8f4O2DYIt0LTkEtPmEPvTa7Kif6RMSeNOxwk2DWb44ownuBJEfX0XU
- XtDTfuRMA==
-IronPort-HdrOrdr: A9a23:3Ekc36xBWa6mKkGo81guKrPxvuskLtp133Aq2lEZdPULSKGlfp
- GV9sjziyWetN9wYh4dcB67Scy9qFfnhOZICO4qTMyftWjdyRKVxeRZgbcKrAeBJ8STzJ8/6U
- 4kSdkFNDSSNykEsS+Z2njeLz9I+rDunsGVbKXlvhFQpGlRGt1dBmxCe2Km+yNNNWt77c1TLu
- vg2iMLnUvoRV0nKuCAQlUVVenKoNPG0LrgfB49HhYirC2Dlymh5rLWGwWRmk52aUIF/Z4StU
- z+1yDp7KSqtP+2jjfaym/o9pxT3P/s0MFKCsCggtUcbh/slgGrToJ8XKDqhkF8nMifrHIR1P
- XcqRYpOMp+r1vXY2GOuBPonzLt1T4/gkWSvWOwsD/Gm4jUVTg6A81OicZyaR3C8Xctu9l6ze
- Ziw3+Zn4A/N2KOoA3No/zzEz16nEu9pnQv1cQJiWZEbIcYYLhN6aQC4UJuFosaFi6S0vFqLA
- BXNrCc2B9qSyLbU5iA1VMfg+BEH05DUytue3Jy9PB8iFNt7TJEJ0hx/r1rop5PzuN5d3B+3Z
- W0Dk1ZrsAxciYoV9MMOA4ge7rBNoWfe2O7DIqtSW6XZ50vCjbql6PdxokTyaWDRKEopaFC6q
- gpFmko/1IPRw==
-X-IronPort-AV: E=Sophos;i="5.90,288,1643691600"; 
-   d="scan'208";a="69735420"
+X-Inumbo-ID: 640c6a02-c49a-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1650892792;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=m/0kzGoXwbe14WooJd/Nl+yIoDBYkoe4bMHCbvRqz98=;
+	b=IPeHTCp9ydzqOKzUnEQfBqRDofWVae0kYvVQL8EI+MMobI4LuQNaFrS4K9SYYpZBJlyyEU
+	cvv6G05z6Nf3Eg/ckp46zKznkkxfKlcii4PyB1YxaMugks9wVXcj22Iis9LUsQ7goJKNkh
+	lc32TSxGfd7xUMy04NSu4xzByT52vZ4=
+X-MC-Unique: 6TxNJtmjPrWEM34FaYPfDg-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nQbkHNoYnIf9F9k8IkRTO7HxNT8FuoNqCv19+AzJX8faYis1uEUU/yv8d83kjTUIE8svvEQrsk7HkSTopn5zWL1R9lEZGwbbWkBtgRxwDK8TrnHkNhASfzesbWTh4McQqJUy21fsnHcSm1pR2PltSbdaLiMAxidmUl2VFlNDV+fMiZl7NIHx9X24lFQm5fYJycokwm/D8TSY4bbl3C9/ONXq5qcUC2yAD8/yafYGuPPC+W2QXgASXFH1/8UH3x0fMo3D6XyaOGRukezeR7EP5vJVrNLbn1Yni+UL5McvbRdV2LKYtLX0/z6lywtey7OL7xX0o7Gycf0qjO9bVD1E3g==
+ b=Q2Ys+a10r68eQk2aTZX8phs9kMQ9ys6H5uwwJ9sQ+FIXJAunTtc0/7PsmjxEWiub3RVhRAy0K6O22SbeB20GWlAIIv4ew0TMdqJ5cYKhuVDS19W5NMLa+ndxivuTBAnoti9RHhzpbE7yKYohdCeNaMQeW9eyGJs6/SDWvJ028XKJmlT70BHPJggjI0SP/mspg83+jUYYcK4r6rLpGXwtmauxw1aDIdOH1HQj5VxbR3sG9Epba2DxobAl8vCwwpiZvvyuXaFxRKQgvwfwk2e+ZAVsyFbBXNwypAO5oluR6FLgYav26t39pjKfrq9LakrKy6aUGAESCGxSVnX63EduvA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ueiUv3ANFHhKZifcnbhcc6x3asJ/gBDKdLEmM6uG4D0=;
- b=SR9mRJbeLu26wFKYPxzB9kAWWLzYjiijYHw6/RceZuItd0eKIZI1TOeNdzKE+A6jGx03bfdUat7/iIc2MC6RLA2z7ElCtLJfr7WA1kvwmUCraMNiWrv4O0Xo27GshXJGCBDgIaN8GFU7WW5/gsf7XNU5dR3bQ+EWWxBOE37vmQZzeyzoWhqywTIn1BzYH1J+ceIfr3Luad7h9q86kBZ5Vim0DYass7kjYwDf078G65zLT6Qtd/Rk3UtpyoEtRA5L+pXbBroOcrHC1KneNdbS4R6PY5Gslvr9cPF6S6RHS57rubrW6uRHkz5ic6Vs6T5O+tACY1lG1STyapp2B7hUuQ==
+ bh=kQ1uj6j8FX4J98NPRSUhT/TpPhE1EbUt2Bdu9IlpLpA=;
+ b=gUqA03pkAruaRbu82m+4+E9Pvkx4I93112O/002Y0PuPiRr+bMvHK4S8bA06AtCKEOdsQFw+8hV5/gOx2IHgJG7dMg1LjkMnIN8hglrwASrUkbmHTmRx/bYfyocNxPqxjlDk5QvfS901wTKHtVncpaqyxLHBJmMt51Z09TRJAdVNn4vQ5EruifuHwbhuLU+V+ef6yKMwDTAhiljzaXL7yhz03f52/YmH6aj2bHXWGLvnxXyYWskArQAAPYzlfSxW+tPFu9J9VwHtzv3lFQ5sR3b0vSHzealDv21DeWKUhBXJF09Uv6OftUltIXm9f988RVjfOzNwe22bddkCp6eryQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ueiUv3ANFHhKZifcnbhcc6x3asJ/gBDKdLEmM6uG4D0=;
- b=vw+ITYkVDIe14Mjufr3i5BRCTxIdC5deHL56+oLjaFGP0881fBXs3KmTh+M58nXhtxeLcWIuzAdCx3VGtE9+T/3g0/EuJ5P+hd6zd6x7uH9ZKB+QSqF6YFNfY5j33TFsJV4h+zNFNA2UAs4udalfUyRUiVtTLBsy8pgBlsNpTjA=
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Mon, 25 Apr 2022 15:12:13 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Oleksandr <olekstysh@gmail.com>
-Cc: xen-devel@lists.xenproject.org,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Nick Rosbrook <rosbrookn@gmail.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: [PATCH V7 1/2] libxl: Add support for Virtio disk configuration
-Message-ID: <YmaeLc2iwxUPUAvF@Air-de-Roger>
-References: <1649442065-8332-1-git-send-email-olekstysh@gmail.com>
- <1649442065-8332-2-git-send-email-olekstysh@gmail.com>
- <YmJ4NLuvA63Irow+@Air-de-Roger>
- <24112cfc-0446-d81e-85f1-ebf9da0afe14@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <24112cfc-0446-d81e-85f1-ebf9da0afe14@gmail.com>
-X-ClientProxiedBy: LO2P265CA0107.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:c::23) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <039010e6-523f-851d-a432-d7f1a2fe5eca@suse.com>
+Date: Mon, 25 Apr 2022 15:19:46 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Subject: Re: [PATCH v2] x86+libxl: correct p2m (shadow) memory pool size
+ calculation
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>
+References: <368e2d54-09f2-2081-349e-571bfeab13af@suse.com>
+ <YmabFt952DO29pIA@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <YmabFt952DO29pIA@Air-de-Roger>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AM6PR0202CA0039.eurprd02.prod.outlook.com
+ (2603:10a6:20b:3a::16) To DU2PR04MB8616.eurprd04.prod.outlook.com
+ (2603:10a6:10:2db::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2fef7663-b10f-46b9-1778-08da26bd395e
-X-MS-TrafficTypeDiagnostic: DM5PR03MB2492:EE_
+X-MS-Office365-Filtering-Correlation-Id: 71cb6087-5d0c-4147-3782-08da26be45ad
+X-MS-TrafficTypeDiagnostic: AM7PR04MB7063:EE_
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
 X-Microsoft-Antispam-PRVS:
-	<DM5PR03MB24926A543BB4A674EB74C9EC8FF89@DM5PR03MB2492.namprd03.prod.outlook.com>
+	<AM7PR04MB70633749B1C9AFE539372F0FB3F89@AM7PR04MB7063.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	j82/i0KHHJrk21CX/1hn8yLlq5qpYCYIUmxT5r0k4h5pmFuv0OHFLYKagxmQdnumFEyPQ44d7kgOziUcC7UXW9eFvpmCv4C5qcYSsHPh2jVzLfofotwXl4zmE0XqPDLivly164B/ZKWpRXoEa/3rFbWjQh6/gBJalQF8LqtDstJFsLi7i+ut8YHT+2RrQtwS2GoRqwq8pV1ADLB55zf+dBKVv8LBBbR3/Ycy6XsRo5TnTNdW6LEHTIB/Jf5CotXBggx2wW5MSN9tBdM9b6CbdYVGwQkYXb0uPakbcHkJa5KWsXi5zALTez6+ZhgZlLr03Qyfa53j2/7TTkysNSu6yrYGac1Kvp+Ur7cvspjvdEIV+8rg9gIBwKCYFE/OygIcwnnEdoFfhmSKKHi6dnzIlVqU0eJ9vpQWah2Ojp3b4stOXYCQoOgTssaOtUsE39ysNHOjmXzjkWzDRNarpmAJ1vpa8P39C9ZspGQKbzQbpsLwxBTnMpHi/BYTXTOcKeQRO+Xys4cwmtJko4XPsSJuHGFkoEl8osGcuj+JPLQb3nyfox1CbcTejqP+Tyk6QA9ikgbpqPAFeyeE0ks4pTZ2G3hBAGsjeopbXbp0e98DbVHj16hTpPsuWINcI9ZXukdbRmjnE+DNT7ZhKEMnB08H6Q==
+	TDtW5cbzj1vOOISC69F1Fg6MHmXKv3e4ekmDLTX2B3qua3ND3zMT7wgoEQEH2YOwB4W5CRIv4Q006HynKabTPiG6hnSbQ6L2mIvnNinPt2MVIr9ka4bUekQLqV6A+1mhpuXQS6pKHYBB1pJKJMtfmJpa6MmD/xKdP3oLhsPZdXso01PyBCqj1AnfLq4nI8pydeVXMgUFFSOXdhMlqnvLx20OGCSayYZxi/igkCUUxHIja3te5ojimgma/3bRZlWT2aTUKaJzw009SzVvfLJMGN6DDxTQ1S/1FgSYi0HJP3dBUQ5aOKhgMd6OVNNdeUW/+yNYT0onWt1w5pXtfwhAf3r7QRHa/Nu/fWuNyrFc8ff5zDsc44WNe/+qAQPnFdND/+ya6hoACU+E29rk+nQLerkZj5yslwqdtQWRCQQO2L6oYI2Gv+3TPyOwBZqDSWBu81YOJrVzwgldyXMw6rmZY44WEAEVaHvp8v+zjloc3indA5EpVkjwWtTs1gRX4ieGN9kuYnenTaOxtFuOpNwrT1H1bM3+Z+iyicQY1pbm+ef6NnlyeDluauny/p9tW24pOZS+3nSVa3/6y+HoIvFI2relV1/h5NHpfOmfoI1bohkctoIvyLW6EKMvxMSqSkig8KsaTuQvvtKlD/n04gFOUFbvVawaQcHiu3N8GbB/M9LSsMEzadR0Oe8/sUAx3D6YVaKmHw3p7/JUXJ5LHGD6zOVDuPtIDJlHg+rd7fGhJRU=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(53546011)(186003)(83380400001)(2906002)(9686003)(6512007)(6666004)(6506007)(6916009)(316002)(54906003)(85182001)(86362001)(6486002)(508600001)(5660300002)(26005)(4326008)(66556008)(8676002)(8936002)(38100700002)(66946007)(66476007)(7416002)(82960400001)(33716001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(83380400001)(26005)(508600001)(31696002)(66476007)(6512007)(54906003)(6506007)(66946007)(66556008)(8676002)(4326008)(86362001)(38100700002)(53546011)(316002)(6916009)(5660300002)(6486002)(36756003)(107886003)(186003)(2616005)(8936002)(2906002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?emdCU3JCM2MzcUJoVGIvMG00VTZhYk9NRHdhbXQxRVZaR0ZBVFV1Vkd4ZE8r?=
- =?utf-8?B?Qnd0LzBGY2l0aVZXVkJyREZzNlEvejF3RE9lNll4WmJGMlZkMk03QmxJU0Jx?=
- =?utf-8?B?Um9hODVSaXA1MlFtdUxUTzRNc3JqTVFQcjVtSlBLdDJvQThrWGcwSzBLRXJy?=
- =?utf-8?B?Z1Z6MzVIa0k2cmRIQ3paZ080V251QkJNYVcwaHdtN0JWSFZ1Sk1zeVZsNVZG?=
- =?utf-8?B?ajBkV1RRZGQxR2g5VVZ4OEhCZTQybkkxdmdMNkZSOUFOTys0UEJOSlhBRkRC?=
- =?utf-8?B?OTJFREpaOGk2MUtjb3IrU0VuZU9JRC96bkpIY0ZxRmxsNVlHbHdPRFRLdHh4?=
- =?utf-8?B?ZnA5YjBNNVUrYWJLTCtHNC9odEJyV2dCVkFmQXJDZEdpM3A0Z3k5cXVXSjcy?=
- =?utf-8?B?cHZ1bWgwblBiaWErNWFQbWpxbWtTL25zcXpNRVI4enNIVGJZTU1rMW9ma1Av?=
- =?utf-8?B?aVBGMGx5MTQzblI5VVcwTVp3VmpMelAwMmlQcDd3eUk3bmozQzlzekU0bzdK?=
- =?utf-8?B?V29EKzN6T1BzNGRDaFBCR2tHQmNGdVVNbjkwbmhBVUZnZS82Y01ONFUwVWQ3?=
- =?utf-8?B?SnJoM2JNS0ttUTJsRS84K3VRbERRbE9ILzVVRG53c2RhUkF6MS8wZ3pWWS9M?=
- =?utf-8?B?R0FWWGMrbWJ3dUtYS1VRcVd3SmhYZjJqemxMQ0lkTUc0ZXVpZGJDbndYeStN?=
- =?utf-8?B?bUtLS016bUV2S0ZjekdTWjByZlBHejVsdE1rS2F0Q3BwR3BuaEZtQzhTSlhY?=
- =?utf-8?B?N2VCeXdJOWluOGNYamNHaElHYzNWd242YzVqUDI1TklFa1h0WGgrVWZhTjha?=
- =?utf-8?B?aW52cEw3eVNFOTdteFpDa2ZJS1NLZkY3Q3NpRU8xWGFma3R1ZFZxUDhGQ2J2?=
- =?utf-8?B?OXloNWhXNCt6Nno4Mkt4TFdLeWdlMjJMVmVSbUF3SUcrdnk3UVFHdVdhSjZP?=
- =?utf-8?B?V2tHREs2OFBjc3lYckczeGVreUFsSWo1aVI2SkJ3NG9ZVFFDYXNXZi8yR2dw?=
- =?utf-8?B?OVZsTm1jZk0zTDZEWXRiUitjSXlwdzFSdzBiNGU0WmVLNzRVamZQeE1NRDRv?=
- =?utf-8?B?SXk2eUd4clNmR05WYVpIR3NJeTZCSEQ1Rlh3M0gwWHY4UXd3RWhhajRzRGFN?=
- =?utf-8?B?QVhuODdyT3Z4TzlRMG4rQzZFNFpTdHVtZWxYdUwyR2VJa2w3MXZsdFZCaTdL?=
- =?utf-8?B?NVJyMVp5MVlIeDA0ejVIMUdVRThrd1FvWkpESVlzdWZtV0cxMUNDWjM4Y1BD?=
- =?utf-8?B?cCt6NG05WkhIbnlCWWwzODY4eEZwbjNCT1Ivc1pRSEFXTWUrOXY2ZlhMZ1Y5?=
- =?utf-8?B?bW5TRzhERDdoZXdrcGFNZ1B6R2hXd2UySUQzRE9IeWpiWWtVSFBlNWJXNml2?=
- =?utf-8?B?VUUwRkw5WUhnbmoxRjdSc1hHb1hXQVF5aWVtUy9wY005WmM0bm1tdEFmNW5X?=
- =?utf-8?B?blB1cVpBVVlsQ090V3FDOTdkdUJJOTI4aVVkY1pOSEJwdFJ4bnJLT1lnTkNm?=
- =?utf-8?B?aFBrRmljb3VveFJLOFR0SDJxZHo2emxwOHlQdTNoQ1YzVVB6anVRVTU1VkZv?=
- =?utf-8?B?RlRrRnZ1MjFTYmhaYlhSa3EwWDVvNGdSc0pNTCtTSGMwUEZkYTdoUnpPWEZZ?=
- =?utf-8?B?T0dWY2ZoOHQyZjkwakt2RFBOL2NjWS9STFRreDVSRFY3bGNvQWdwZkdERVhU?=
- =?utf-8?B?dERmZXlpMHZLN1lvNnhRTEo1OVprTHNsZzMvb0R3UVhYVVU3N0FsRENDc0N6?=
- =?utf-8?B?d1YwVUc1WHljQnhGbTVqTVBTaG9FNzZ3dGs3dVlVQlYvK0RlNitHR2hWODdH?=
- =?utf-8?B?cTJrdVIyLzJsT3hTckZ5eXVsUytUK2YrT21yU2hpemhmMUtaRHNpbXNaU2Q4?=
- =?utf-8?B?UWlTMXp2VVBrQ282N0ZhV24vMVF2Qk84RFV6WkdEMG9Mc0Y4SmU3UEZCQ3NC?=
- =?utf-8?B?aTNXeW54Y3ZzYmxRWXRkK043cGcyRTFZUDQ1VTJ5TWRuQXQrR3FKU0lHeGVK?=
- =?utf-8?B?VWdORUJvV2xkdkx1S2VuL1dSWDJiVXp6SWRWQkhKbGtiRWlNeW9pWjZJU0NP?=
- =?utf-8?B?MVVQWG9rNnduN01ldkZTd1F1d1BnbTZCSitvZm9TOWV2TlFWOXRFUzhSd1Bk?=
- =?utf-8?B?TzlRaytSNlhYOUdaZmZXTTI3NHREaTVRaXJoVjlFUXhET3VJcjdxSUtUMWJ1?=
- =?utf-8?B?b2EzWXhZVWZ3UDhIK0l5RDJlR0JHZXAwNWw4N3R3RjJxRTJHV2Q2dXlYSmEz?=
- =?utf-8?B?Wi9VVTU2ajN0cG1ndVJVNGFucFhMcUc4bDNNVWkvMkkyanB1dHNKK0hiZXBx?=
- =?utf-8?B?K1NNVHdGaDFwbHphaHRsc0JvWEZxQ284SlphWkF4UmtEL1ZaNEVpZTdtNTJX?=
- =?utf-8?Q?Rwy4dFY1I7wAnamI=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2fef7663-b10f-46b9-1778-08da26bd395e
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+	=?us-ascii?Q?FkWRwA5o6Wbm6vjRZJRmicYu0D7uzsUvOASZ7JZt9hExuAcCRAs48gEwAsiU?=
+ =?us-ascii?Q?tp+BWfNtyDbgf1Rv14jWGV6+WcUO2dSV9KTRUTbSLFDvj/pR2gOzq7sKxbgd?=
+ =?us-ascii?Q?M3jvaSmHaIIRs48ih9kX2SHzT2c5SpyfjzSVliT7xACWHVV20o/3JpsYdwRD?=
+ =?us-ascii?Q?x0wG22ZKojz6lVPi24od1tYB7q5aIeN4LALtW9EZZM5A5fcJfv4FLnn9OUai?=
+ =?us-ascii?Q?BXjzGW/MNpVOIIoyKeR9TdZechUmoAQXlWx1cmAQQLPeEw3ObTEInZO6wKg3?=
+ =?us-ascii?Q?xZr7DHxxAZ2mmgOvA8l9zLJV5NvYzhWTTkniyk2c1YQNeBpDX47uUq2TgmQl?=
+ =?us-ascii?Q?pI5EYPJJR3xy17lUx/jKLpyfre1ndkpgNuCwgn2YO5JnbDKywOqAfYFuNqrB?=
+ =?us-ascii?Q?6Pfk6ha85BlvtVp8dYcI23NnjVtqppFRc/PL5dFeQTlmiRfhWd0fkbBtntSN?=
+ =?us-ascii?Q?S28y8F+UFUI55jxH1CZIkzAldduIboujLdkkQZbh1JZB4Xv2Ix3HnpthGGl4?=
+ =?us-ascii?Q?Y1lMI0kLJecmhQ68EVbl1jUPdBPe5WCRgIqFqId7I8nEUkAfE43xfUzpvdHd?=
+ =?us-ascii?Q?U8woh0GaykewMzlP9l59LvqdsHx9P/MJK822sYEZ6kCUIw3E8b1VINjNjdql?=
+ =?us-ascii?Q?efxnnJDrhuSOvbmXwJ2zhjbHW/t45l2ZvEQGI2zxYXiYtyfQpB05jkWElhV9?=
+ =?us-ascii?Q?RErpssVUdkYgR9ydR4s3LENB/GagRJiwaIjw3Xh62BjnNqO9VbvnYJbwIL6D?=
+ =?us-ascii?Q?qwQT7JfOtB3Y7JRTAyWztFnwDzSMY8wNTKKNlvzXo+x7kJ9zAEjUhZwem6TQ?=
+ =?us-ascii?Q?seHCqzJxqrn+Qw8J1Zc9V/7Xj0fOgEQ1OtCCqqXvby/S3pha6aD+QUlMtP6g?=
+ =?us-ascii?Q?EreaqTCKZh5KJKa7AKewx1N9EP8AqdihcD04+AWNNBqKhvfm8z4xYC6oZ7wl?=
+ =?us-ascii?Q?j51R4G9zq/fnNWLXhJ5FB8pna9Qo9F0Wet58LSiZyWOVhJHay5M3URz2kdcW?=
+ =?us-ascii?Q?Y6yZ2Q3oGyQLDof9t96XI/1Nf5Xix+cJZ7y+Vqd70buXRmIJn8L02GIaSnQF?=
+ =?us-ascii?Q?zbdsSsTKg56jYg9CHQQL82X97IiG2i0kSV+l14NjECxc59L67Nrz5Rq0uNGS?=
+ =?us-ascii?Q?6jFZVUf2Cyg5s8Z1thBe9IcgEW1lMYRGqtvNcVByh9FEe8C5LN2UbzlnHOId?=
+ =?us-ascii?Q?4trkCWxQo4b2EPv94lTRB/PL3gHBhU476FDijnFQkObaIeU4gAuSSm/0Eiai?=
+ =?us-ascii?Q?ozvWoGfQtOjqkqQGsK7fGVIdqKASJQrik8EV9PrioBl/vsYxdoQas70j14oW?=
+ =?us-ascii?Q?9gszQAyIShOB66oi97kfRdy8O0YeiOsh8pUJ//LdEUWKfOov5H3gOFJxfnOy?=
+ =?us-ascii?Q?e6R+OaAbqDlzru9DksSmRjtqQLv8IvI9yj+VxXLMHieUcD+YucaNoqi2Qjg9?=
+ =?us-ascii?Q?dghJA+rwo0x8uGDu/SLezeSGnCse6BkdYFng3srig7CdcD8umTNCL4S7tott?=
+ =?us-ascii?Q?ViXYkM1x+AEaYcnBWyeFGW7+qR3L2IzCei/E2ksqDcWcIOuEi0r8syg4yete?=
+ =?us-ascii?Q?R6/jX9kX3CNRUTkMOF08XfqI6Fdy3RdoxxOg/U7sm4E2mGKZ3BtXZhAKY6v7?=
+ =?us-ascii?Q?y7L0LSAU2SLhkDOhc22FsNomXxFJOeRd+9JBVUTK0OaPepGPIrXZQUPs23SB?=
+ =?us-ascii?Q?IM+S5u3y/KaxYSMQp2Uu6I+HNZYYwFLc99YB1cms/M7q8M0+SW5TpHmV6G20?=
+ =?us-ascii?Q?JWplGM0KFg=3D=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71cb6087-5d0c-4147-3782-08da26be45ad
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2022 13:12:18.3094
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2022 13:19:48.4404
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oQsvnLpUg9AM0ljlCmgJyKBiaxZzmLzPnRrPPOzr8OsvinCai/Z2aQtTN8wo7JiRHUaRSUI6MhJbWtRSksxb5w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB2492
+X-MS-Exchange-CrossTenant-UserPrincipalName: P4yq62uMGnHd8NvZyC0VGlbO28EfqHpaJJ7akHUXL7QE+ngbe06hChQaNjW/BhOpsrTCq6oX32rv1xaRPjj7tg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7063
 
-On Sat, Apr 23, 2022 at 10:39:14AM +0300, Oleksandr wrote:
-> 
-> On 22.04.22 12:41, Roger Pau Monné wrote:
-> 
-> 
-> Hello Roger
-> 
-> > On Fri, Apr 08, 2022 at 09:21:04PM +0300, Oleksandr Tyshchenko wrote:
-> > > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > > 
-> > > This patch adds basic support for configuring and assisting virtio-mmio
-> > > based virtio-disk backend (emualator) which is intended to run out of
-> > > Qemu and could be run in any domain.
-> > > Although the Virtio block device is quite different from traditional
-> > > Xen PV block device (vbd) from the toolstack's point of view:
-> > >   - as the frontend is virtio-blk which is not a Xenbus driver, nothing
-> > >     written to Xenstore are fetched by the frontend (the vdev is not
-> > >     passed to the frontend)
-> > >   - the ring-ref/event-channel are not used for the backend<->frontend
-> > >     communication, the proposed IPC for Virtio is IOREQ/DM
-> > > it is still a "block device" and ought to be integrated in existing
-> > > "disk" handling. So, re-use (and adapt) "disk" parsing/configuration
-> > > logic to deal with Virtio devices as well.
-> > > 
-> > > For the immediate purpose and an ability to extend that support for
-> > > other use-cases in future (Qemu, virtio-pci, etc) perform the following
-> > > actions:
-> > > - Add new disk backend type (LIBXL_DISK_BACKEND_OTHER) and reflect
-> > >    that in the configuration
-> > > - Introduce new disk protocol field to libxl_device_disk struct
-> > >    (with LIBXL_DISK_PROTOCOL_XEN and LIBXL_DISK_PROTOCOL_VIRTIO_MMIO
-> > >    types) and reflect that in the configuration (new "protocol" option
-> > >    with "xen" protocol being default value)
-> > > - Add new device kind (LIBXL__DEVICE_KIND_VIRTIO_DISK) as current
-> > >    one (LIBXL__DEVICE_KIND_VBD) doesn't fit into Virtio disk model
-> > > 
-> > > An example of domain configuration for Virtio disk:
-> > > disk = [ 'phy:/dev/mmcblk0p3, xvda1, backendtype=other, protocol=virtio-mmio']
-> > > 
-> > > Nothing has changed for default Xen disk configuration.
-> > > 
-> > > Please note, this patch is not enough for virtio-disk to work
-> > > on Xen (Arm), as for every Virtio device (including disk) we need
-> > > to allocate Virtio MMIO params (IRQ and memory region) and pass
-> > > them to the backend, also update Guest device-tree. The subsequent
-> > > patch will add these missing bits. For the current patch,
-> > > the default "irq" and "base" are just written to the Xenstore.
-> > > This is not an ideal splitting, but this way we avoid breaking
-> > > the bisectability.
-> > > 
-> > > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > > ---
-> > > Changes RFC -> V1:
-> > >     - no changes
-> > > 
-> > > Changes V1 -> V2:
-> > >     - rebase according to the new location of libxl_virtio_disk.c
-> > > 
-> > > Changes V2 -> V3:
-> > >     - no changes
-> > > 
-> > > Changes V3 -> V4:
-> > >     - rebase according to the new argument for DEFINE_DEVICE_TYPE_STRUCT
-> > > 
-> > > Changes V4 -> V5:
-> > >     - split the changes, change the order of the patches
-> > >     - update patch description
-> > >     - don't introduce new "vdisk" configuration option with own parsing logic,
-> > >       re-use Xen PV block "disk" parsing/configuration logic for the virtio-disk
-> > >     - introduce "virtio" flag and document it's usage
-> > >     - add LIBXL_HAVE_DEVICE_DISK_VIRTIO
-> > >     - update libxlu_disk_l.[ch]
-> > >     - drop num_disks variable/MAX_VIRTIO_DISKS
-> > >     - drop Wei's T-b
-> > > 
-> > > Changes V5 -> V6:
-> > >     - rebase on current staging
-> > >     - use "%"PRIu64 instead of %lu for disk->base in device_disk_add()
-> > >     - update *.gen.go files
-> > > 
-> > > Changes V6 -> V7:
-> > >     - rebase on current staging
-> > >     - update *.gen.go files and libxlu_disk_l.[ch] files
-> > >     - update patch description
-> > >     - rework significantly to support more flexible configuration
-> > >       and have more generic basic implementation for being able to extend
-> > >       that for other use-cases (virtio-pci, qemu, etc).
-> > > ---
-> > >   docs/man/xl-disk-configuration.5.pod.in   |  37 +-
-> > >   tools/golang/xenlight/helpers.gen.go      |   6 +
-> > >   tools/golang/xenlight/types.gen.go        |  11 +
-> > >   tools/include/libxl.h                     |   6 +
-> > >   tools/libs/light/libxl_device.c           |  57 +-
-> > >   tools/libs/light/libxl_disk.c             | 111 +++-
-> > >   tools/libs/light/libxl_internal.h         |   1 +
-> > >   tools/libs/light/libxl_types.idl          |  10 +
-> > >   tools/libs/light/libxl_types_internal.idl |   1 +
-> > >   tools/libs/light/libxl_utils.c            |   2 +
-> > >   tools/libs/util/libxlu_disk_l.c           | 952 +++++++++++++++---------------
-> > >   tools/libs/util/libxlu_disk_l.h           |   2 +-
-> > >   tools/libs/util/libxlu_disk_l.l           |   9 +
-> > >   tools/xl/xl_block.c                       |  11 +
-> > >   14 files changed, 736 insertions(+), 480 deletions(-)
-> > > 
-> > > diff --git a/docs/man/xl-disk-configuration.5.pod.in b/docs/man/xl-disk-configuration.5.pod.in
-> > > index 71d0e86..36c851f 100644
-> > > --- a/docs/man/xl-disk-configuration.5.pod.in
-> > > +++ b/docs/man/xl-disk-configuration.5.pod.in
-> > > @@ -232,7 +232,7 @@ Specifies the backend implementation to use
-> > >   =item Supported values
-> > > -phy, qdisk
-> > > +phy, qdisk, other
-> > >   =item Mandatory
-> > > @@ -244,11 +244,13 @@ Automatically determine which backend to use.
-> > >   =back
-> > > -This does not affect the guest's view of the device.  It controls
-> > > -which software implementation of the Xen backend driver is used.
-> > > +It controls which software implementation of the backend driver is used.
-> > > +Depending on the "protocol" option this may affect the guest's view
-> > > +of the device.
-> > >   Not all backend drivers support all combinations of other options.
-> > > -For example, "phy" does not support formats other than "raw".
-> > > +For example, "phy" and "other" do not support formats other than "raw" and
-> > > +"other" does not support protocols other than "virtio-mmio".
-> > >   Normally this option should not be specified, in which case libxl will
-> > >   automatically determine the most suitable backend.
-> > > @@ -344,8 +346,35 @@ can be used to disable "hole punching" for file based backends which
-> > >   were intentionally created non-sparse to avoid fragmentation of the
-> > >   file.
-> > > +=item B<protocol>=I<PROTOCOL>
-> > > +
-> > > +=over 4
-> > > +
-> > > +=item Description
-> > > +
-> > > +Specifies the communication protocol to use for the chosen "backendtype" option
-> > > +
-> > > +=item Supported values
-> > > +
-> > > +xen, virtio-mmio
-> >  From a user PoV, I think it would be better to just select xen or
-> > virtio here, but not the underlying configuration mechanism used to
-> > expose the devices to the guest.
-> 
-> I got your point.
-> 
-> 
-> 
-> > 
-> > We would likely need to add a different option to select mmio or pci
-> > then, but that should be set by default based on architecture/guest
-> > type.  For example on x86 it should default to pci, while on Arm I
-> > guess it will depend on whether the guest has PCI or not?
-> > 
-> > In any case, I think we should offer an option that's selecting
-> > between xen or virtio protocol, and the way to expose the
-> > configuration of the device shouldn't need to be explicitly selected
-> > by the user.
-> 
-> 
-> ok, for now I will use "xen and virtio" values for the "protocol" option,
-> then internally toolstack will assume that "virtio" really means
-> "virtio-mmio".
-> 
-> When there is a need to expand that support to "virtio-pci", we will see how
-> to deal with it from the configuration PoV, probably like you suggested
-> above by adding another option (e.g. "transport") with default values based
-> on the architecture/guest type.
+On 25.04.2022 14:59, Roger Pau Monn=C3=A9 wrote:
+> On Mon, Apr 25, 2022 at 10:49:34AM +0200, Jan Beulich wrote:
+>>  char *libxl_domid_to_name(libxl_ctx *ctx, uint32_t domid)
+>> --- a/xen/arch/x86/dom0_build.c
+>> +++ b/xen/arch/x86/dom0_build.c
+>> @@ -317,9 +317,12 @@ unsigned long __init dom0_paging_pages(c
+>>      /* Copied from: libxl_get_required_shadow_memory() */
+>=20
+> Could you also update the comment, maybe better would be:
+>=20
+> /* Keep in sync with libxl__get_required_paging_memory(). */
 
-I think this likely also wants to be a separate field in libxl_device_disk,
-which could be left empty and libxl will attempt to set a default.
-For example have the following in libxl_types.idl:
+Oh, of course.
 
-libxl_device_protocol = Enumeration("device_protocol", [
-    (0, "UNKNOWN"),
-    (1, "XEN"),
-    (2, "VIRTIO"),
-    ])
+>>      unsigned long memkb =3D nr_pages * (PAGE_SIZE / 1024);
+>> =20
+>> -    memkb =3D 4 * (256 * d->max_vcpus + 2 * (memkb / 1024));
+>> +    memkb =3D 4 * (256 * d->max_vcpus +
+>> +                 (paging_mode_enabled(d) +
+>> +                  (opt_dom0_shadow || opt_pv_l1tf_hwdom)) *
+>=20
+> opt_pv_l1tf_hwdom is only relevant for PV guests, so maybe it would be
+> best to use:
+>=20
+> paging_mode_enabled(d) ? 1 + opt_dom0_shadow
+>                        : 0 + (opt_dom0_shadow || opt_pv_l1tf_hwdom)
+>=20
+> Or something similar.
 
-libxl_device_configuration = Enumeration("device_configuration", [
-    (0, "UNKNOWN"),
-    (1, "XENBUS"),
-    (2, "MMIO"),
-    ])
+Originally I was thinking that people simply shouldn't use the option
+when Dom0 isn't PV. But meanwhile I've figured that late-hwdom may be
+PV even if domain 0 is PVH. So yes.
 
-libxl_device_disk = Struct("device_disk", [
-    ("protocol", libxl_device_protocol),
-    ("configuration", libxl_device_configuration),
-    ])
+>  Maybe placing this inside the sum will make the
+> expression too complex, so we could use a separate is_shadow boolean
+> to signal whether the domain will use shadow pagetables?
 
-I don't like libxl_device_configuration much, I think is too generic,
-but I can't think of anything better.  Maybe others can provide better
-names.
+I think
 
-Thanks, Roger.
+    memkb =3D 4 * (256 * d->max_vcpus +
+                 (is_pv_domain(d) ? opt_dom0_shadow || opt_pv_l1tf_hwdom
+                                  : 1 + opt_dom0_shadow) *
+                 (memkb / 1024));
+
+is still okay-ish. Note that I've switched to is_pv_domain() to be
+independent of the point in time when shadow mode would be enabled
+for a PV Dom0.
+
+Jan
+
 
