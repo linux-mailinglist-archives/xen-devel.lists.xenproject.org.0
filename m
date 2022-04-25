@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A443150E6CE
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 19:19:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.313180.530654 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3538A50E6FE
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 19:22:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.313187.530665 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nj2Mi-0000DL-UP; Mon, 25 Apr 2022 17:19:12 +0000
+	id 1nj2QC-0001pb-IG; Mon, 25 Apr 2022 17:22:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 313180.530654; Mon, 25 Apr 2022 17:19:12 +0000
+Received: by outflank-mailman (output) from mailman id 313187.530665; Mon, 25 Apr 2022 17:22:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nj2Mi-00009b-RC; Mon, 25 Apr 2022 17:19:12 +0000
-Received: by outflank-mailman (input) for mailman id 313180;
- Mon, 25 Apr 2022 17:19:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=t3J5=VD=phptrix.de=einsle@srs-se1.protection.inumbo.net>)
- id 1nj2Mh-00009Q-Of
- for xen-devel@lists.xenproject.org; Mon, 25 Apr 2022 17:19:11 +0000
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.73])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d1c97b61-c4bb-11ec-a405-831a346695d4;
- Mon, 25 Apr 2022 19:19:10 +0200 (CEST)
-Received: from mail.phptrix.de ([93.233.17.36]) by mrelayeu.kundenserver.de
- (mreue109 [212.227.15.183]) with ESMTPSA (Nemesis) id
- 1MBltK-1nbMrh1wx2-00C8jO for <xen-devel@lists.xenproject.org>; Mon, 25 Apr
- 2022 19:19:09 +0200
-Received: (qmail 15505 invoked by uid 210); 25 Apr 2022 19:19:08 +0200
-Received: from rhombus.phptrix.de (HELO ?192.168.139.169?)
- (einsle@192.168.139.169)
- by portfish.phptrix.de with ESMTPA; 25 Apr 2022 19:19:08 +0200
+	id 1nj2QC-0001mE-EN; Mon, 25 Apr 2022 17:22:48 +0000
+Received: by outflank-mailman (input) for mailman id 313187;
+ Mon, 25 Apr 2022 17:22:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=sCC+=VD=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1nj2QA-0001m7-NJ
+ for xen-devel@lists.xenproject.org; Mon, 25 Apr 2022 17:22:46 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5160dcd0-c4bc-11ec-8fc2-03012f2f19d4;
+ Mon, 25 Apr 2022 19:22:45 +0200 (CEST)
+Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1650907358533423.51309031262167;
+ Mon, 25 Apr 2022 10:22:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,106 +40,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d1c97b61-c4bb-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=phptrix.de;
-	s=default; h=Message-ID:Date:MIME-Version:User-Agent:To:
-	Content-Language:From:Subject:Content-Type:
-	Content-Transfer-Encoding; bh=4UfAQPyV98urAiFS1w8+89YVdLw=; b=IY
-	wRLAUKn/mBEHWMbayerC6COgY3Br8WcaqLWHSbREFLKwvwXClw9tdfPX9XyxstDj
-	C2cme8c5Ky33mn63dMCyLHI5CWz/4RQ94LPp8rwQvqQj0KrZlKCZlgaaDkWViLwH
-	NnkkUyHG2915YnT2wjrQyHG5tFft2pMCuEIweVseA=
-DomainKey-Signature: a=rsa-sha1; q=dns; c=simple;
-  s=default; d=phptrix.de;
-  b=Zln6VEjByRAM4gG7yMHcBy/2est7Q2jfwBFgu6xMGOBxJrjkr3SDSSPgKpKhdmtWGPRogV55Y/hoBhvXrX3X9ODzs1p9NXDdClYES2H0V+OSQRneZpF8xbqtD0tLolK6CrOt2iYE6oHUx682EJ4o2WuwObykc0TE/u8xAERpLcA=;
-X-Qmail-Scanner-Diagnostics: from rhombus.phptrix.de (einsle@rhombus.phptrix.de) by portfish (envelope-from <einsle@phptrix.de>, uid 201) with qmail-scanner-2.11st 
- (clamdscan: 0.100.1/26337. spamassassin: 3.4.1. perlscan: 2.11st.  
- Clear:RC:1(192.168.139.169):. 
- Processed in 0.021636 secs); 25 Apr 2022 17:19:08 -0000
-Message-ID: <18bd542a-a649-c78b-b575-c62b4d533e44@phptrix.de>
-Date: Mon, 25 Apr 2022 19:19:08 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:100.0) Gecko/20100101
- Thunderbird/100.0
+X-Inumbo-ID: 5160dcd0-c4bc-11ec-8fc2-03012f2f19d4
+ARC-Seal: i=1; a=rsa-sha256; t=1650907362; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=ESfvTbpA7jL2dBIsUgFquA4az2OLW0ndJHK12tWRVo9W2qaETbyVKENcDbZAZ3RR8m/61cBQAQN7u8vuPX/xaS1TPIy2xkJAFit6yBspZwbZmtkczpxAONpE4Lxbs9PkjnF32lLqxKXB+8R79VJ6HF3b7J5Xe0zRZ5IRBcxV/b0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1650907362; h=Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To; 
+	bh=jb7DIZpJG+PpAxtH2k2IxIIsQBdNEM3UGi2u20z+AQk=; 
+	b=IbLR76Jb7CgrZHul9DN0ibscjXinJU+VZyebmoMahK0O0V7mIpjahbl4rLTBinzziRbX5Oxkmw44rmvGX9CgirJPujcCINyeuB0CP0L3jgPwLmMe8dD3kHmSqT3DS+E9uyDIMFlQ8tSUfxTZsJ59P1nR5xkb2M3XJU/4xeLZteI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1650907362;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Transfer-Encoding:Reply-To;
+	bh=jb7DIZpJG+PpAxtH2k2IxIIsQBdNEM3UGi2u20z+AQk=;
+	b=GpRypCL/1JIRBNFFROpBVuse5JNiHQjkZeARLYeaLBnj42Cv6/FcM1ODiQxEMSde
+	kfBC3nkgtzbaPJHWrmmpoBFJdA05fn6+v+GBgaRJJhDYT1VaxDBD/NhxDPMUZdQErDn
+	EbODTBsJUiokJk+qS1lldq0enHg0EFihOGgXZpkI=
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 To: xen-devel@lists.xenproject.org
-Content-Language: de-DE
-From: Steffen Einsle <einsle@phptrix.de>
-Subject: DomU Windows Server Essentials crashes with xen 4.16 but works with
- xen 4.14
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	scott.davis@starlab.io,
+	jandryuk@gmail.com
+Subject: [PATCH v4 0/2] Adds starting the idle domain privileged
+Date: Mon, 25 Apr 2022 13:22:29 -0400
+Message-Id: <20220425172231.27401-1-dpsmith@apertussolutions.com>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Provags-ID: V03:K1:EPwCpCi73g/zq/68nNA0dEnyalW0bj1HKsh9WuwGSXtq6pbrGus
- UCJNtV2pulSvtUwekM+i1hhHToT5hFQCPlrWnK+8s9LxhV3u5jSYrOhwUm+sPgVT7ozriLn
- Pl11MRXeUmDcqIPPpdZwH2IbRgLbbmuCEGGhH0vPd5tXQV65kAAckj2let5HCdQ6BiBZww9
- v4tzEDn0LgGmp9mFVdLAA==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:GpPV7pM/Vzk=:/bSCkh3z/Wk/2FcNorMQXr
- jdaVEcpuPm6G/MWPLPimhKzYn7kJcy6fUKfM/aJWIiuX2dgeibDsvmRqQytBVDPiTA7RuXUc+
- VKx5rb5vFe/skhFJgAGelaVa0kvhM4EFZBPYq+auIWmegNVup0K3frnYp6nxYHkhXF6r6/u4n
- 9kQYM2lD7V+CF6C2Ms3aPny0pAEpFCOX8BpnTQJr5JxIPMxknv0k6KRxqj61vrI2yoBIoX4dF
- TprEjZ5NziH/Sia38SOBWYdDMjdCv015VkoMh+i68/qs7oQjUvwTgd5DIuiqJXnLbSzgkDppE
- 84HLzO4GlWtKhfqjqtmZ4yg0skM81lXa8WhR3vrmxF9yuw1gK5VvXqtFp/QKuqvruhhdjvq7T
- KI7YfsHW1PCrFeTIIIf94qfHrpdPimSXFbrlhGzzf8ze+OSLc1iWi9RdhLMWB4iBPcf1XOh9y
- G7/MAKiacSpKF+HeB+Is8Sa+g6oVaMPKQDTDil3YGxUSJ6bMUj/4NjrsS7uwjFf+8rYIhp7YJ
- FnFw6dqBQszvu4gxVj/oGLA8w1SQyJ7ly1zKjueTlhh5E1azNEJJTFovc2U6mNprM9xJIdMlJ
- zEQaEo/uZUbsHDlyZWvXvNkH6HdkVvWZySHshUiMvoK+GeDQvPskqxE5KxklauseUfRUKPL/j
- MaOsl6SqL3BQ4+HGnXHVtlSgK1bRIcikI3w7I25LTvvp637IX2NH8K7oN3HR3/s3IFBw=
+X-ZohoMailClient: External
 
-Hello Everyone,
+This series makes it so that the idle domain is started privileged under the
+default policy, which the SILO policy inherits, and under the flask policy. It
+then introduces a new one-way XSM hook, xsm_transition_running, that is hooked
+by an XSM policy to transition the idle domain to its running privilege level.
 
-I have some xen servers I recently tried to update from xen 4.14 to xen 4.16
+Changes in v4:
+- reworded patch 1 commit messaged
+- fixed whitespace to coding style
+- fixed comment to coding style
 
-Everything worked without problem, except for the Windows Server 
-Essentials DomUs.
+Changes in v3:
+- renamed *_transition_running() to *_set_system_active()
+- changed the XSM hook set_system_active() from void to int return
+- added ASSERT check for the expected privilege level each XSM policy expected
+- replaced a check against is_privileged in each arch with checking the return
+  value from the call to xsm_set_system_active()
 
-With xen 4.16 those domains crashed (reproducable) during boot - 
-KMODE_EXCEPTION_NOT_HANDLED.
+Changes in v2:
+- renamed flask_domain_runtime_security() to flask_transition_running()
+- added the missed assignment of self_sid
 
-I tried to install a new DomU Windows Server 2019 Essentials - this VM 
-crashed at the first reboot
-(still in the installation routine) with the same error. No PV-drivers 
-installed yet.
+Daniel P. Smith (2):
+  xsm: create idle domain privileged and demote after setup
+  flask: implement xsm_set_system_active
 
-I switched back to xen 4.14 and all VMs booted ok without problem.
-
-All other VMs (Linux-PV, Windows-HVM (2008r2, 2012r2, 2016, 2019, 2022)  
-show no problems, only
-the Windows Server Essentials crashes with xen 4.16.
-
-The system is a gentoo kernel 5.17.3, qemu-6.2.0-r4, xen-4.16.0-r5, 
-xen-tools-4.16.0-r1
-
-My working configuration is gentoo kernel 5.17.3, qemu-5.2.0-r2, 
-xen-4.14.3-r2, xen-tools-4.14.3
-
-My DomU config file looks like this
-
-name = 'DC-Server'
-type = 'hvm'
-memory = '8192'
-vcpus = '6'
-vif = [ 'mac=00:16:3E:ab:cd:50,bridge=br0' ]
-disk = [ '/dev/vg1/ServerSys,raw,hda,rw',
-               '/dev/vg1/ServerData,raw,hdb,rw' ]
-viridian = 'all'
-localtime = '1'
-vnc = '1'
-keymap = 'de'
-vnclisten = '0.0.0.0:10,websocket'
-usb = '1'
-usbdevice = 'tablet'
-on_crash  = 'restart'
-boot = 'c'
-xen_platform_pci = '1'
-max_grant_frames = 128
-
-I tried disabling viridian but this made no change.
-
-Is this a known problem?
-
+ tools/flask/policy/modules/xen.if      |  6 ++++++
+ tools/flask/policy/modules/xen.te      |  1 +
+ tools/flask/policy/policy/initial_sids |  1 +
+ xen/arch/arm/setup.c                   |  3 +++
+ xen/arch/x86/setup.c                   |  3 +++
+ xen/common/sched/core.c                |  7 ++++++-
+ xen/include/xsm/dummy.h                | 17 +++++++++++++++
+ xen/include/xsm/xsm.h                  |  6 ++++++
+ xen/xsm/dummy.c                        |  1 +
+ xen/xsm/flask/hooks.c                  | 29 +++++++++++++++++++++++++-
+ xen/xsm/flask/policy/initial_sids      |  1 +
+ 11 files changed, 73 insertions(+), 2 deletions(-)
 
 -- 
-
-Steffen
-
+2.20.1
 
 
