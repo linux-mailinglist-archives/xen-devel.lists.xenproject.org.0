@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A67F450DB4E
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 10:37:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.312525.529810 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4A0050DB56
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 10:38:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.312533.529821 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1niuDX-0000Ul-Tz; Mon, 25 Apr 2022 08:37:11 +0000
+	id 1niuEV-0001Cc-Bc; Mon, 25 Apr 2022 08:38:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 312525.529810; Mon, 25 Apr 2022 08:37:11 +0000
+Received: by outflank-mailman (output) from mailman id 312533.529821; Mon, 25 Apr 2022 08:38:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1niuDX-0000Rn-QD; Mon, 25 Apr 2022 08:37:11 +0000
-Received: by outflank-mailman (input) for mailman id 312525;
- Mon, 25 Apr 2022 08:37:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1niuEV-0001Al-8L; Mon, 25 Apr 2022 08:38:11 +0000
+Received: by outflank-mailman (input) for mailman id 312533;
+ Mon, 25 Apr 2022 08:38:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=OfhB=VD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1niuDW-0008Oy-HA
- for xen-devel@lists.xenproject.org; Mon, 25 Apr 2022 08:37:10 +0000
+ id 1niuET-0001AU-P5
+ for xen-devel@lists.xenproject.org; Mon, 25 Apr 2022 08:38:09 +0000
 Received: from de-smtp-delivery-102.mimecast.com
  (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e51cd92e-c472-11ec-8fc2-03012f2f19d4;
- Mon, 25 Apr 2022 10:37:09 +0200 (CEST)
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01lp2055.outbound.protection.outlook.com [104.47.1.55]) by
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0877dcb2-c473-11ec-a405-831a346695d4;
+ Mon, 25 Apr 2022 10:38:08 +0200 (CEST)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05lp2112.outbound.protection.outlook.com [104.47.18.112]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-4-lhSQmLnTMdCSD3zsMAdqNw-1; Mon, 25 Apr 2022 10:37:07 +0200
+ de-mta-24-9euADwJEMM6-oNQMvwzxDA-1; Mon, 25 Apr 2022 10:38:07 +0200
 Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
- by AM6PR0402MB3831.eurprd04.prod.outlook.com (2603:10a6:209:19::25)
+ by VE1PR04MB7424.eurprd04.prod.outlook.com (2603:10a6:800:1a7::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.21; Mon, 25 Apr
- 2022 08:37:06 +0000
+ 2022 08:38:05 +0000
 Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
  ([fe80::5cb0:5195:4203:7c2f]) by DU2PR04MB8616.eurprd04.prod.outlook.com
  ([fe80::5cb0:5195:4203:7c2f%9]) with mapi id 15.20.5186.021; Mon, 25 Apr 2022
- 08:37:06 +0000
+ 08:38:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,301 +51,294 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e51cd92e-c472-11ec-8fc2-03012f2f19d4
+X-Inumbo-ID: 0877dcb2-c473-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1650875829;
+	t=1650875888;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=3svnu4oijNxO7SygTj1nIXI23Kv+KFJWpuZLxXqiiHk=;
-	b=I3hoD7Yv80OcqzwbG1oXA6nUgQ+8Lpyt27WC50E/gad9mke2KnP3k+o5fiGiDuz/HnTuix
-	r8BZPBU6ZYidpq5NuuRuM1P1UfxC1Vsu2TOm8LasJGNAmAH+dXY+EbuDQtgaXuuASupGY9
-	SKs2NMpvZgX9tA7tIwyyRKw5sYCGsSM=
-X-MC-Unique: lhSQmLnTMdCSD3zsMAdqNw-1
+	bh=HbAbSHg5ZYzDcoXEhcNJap9YC68omZXSPDO+MrCQoo4=;
+	b=a0B/FBbG54bSiF2MRSXM3YVxNwvPbqQGkN3pnGcbCJBq1nhn7r+BIz+F5iQzn65SE1Q0/e
+	H1/hYbutfq4ZtLvhqhiGCLLGBffD7R+Xwbdc+lWMRU1PK/xOgnSC5Rwhxd9ETwzGDG9pbP
+	KSlXvchJxU6jUaFp9BKoPZ3ve9JBf7k=
+X-MC-Unique: 9euADwJEMM6-oNQMvwzxDA-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Yvn6mRihD2sGvl+cQB3Q+DdgpxcOpwwUhlSBU/VWrlEGXHaKwZUPLG/wX7+CtLGFnv8YUj5LQ4LVHbQB7ZmZWR20mq+BCthfC7v2r4DTBp0DgAMfNruIkxHWR2R1vBg5AbJWEr/AHcalqARlSo/KLUCd04w5Z/04RHZjosiIL8AvyhWGJgS2ogmsGFoEs1UfiyIpDOiiguAD6RDBecGq/DCUO2udZNpaB7bi81cJvAbOwNDqma/QcfYYu0cAXDsLwxgp2UOIK+3IK72wXwcax9Q7tfjTJL7PmSoML5Z5Z7S2mw5eXbvHSFWm5+LeOTPSK30jKxfsYIDa/ZGqXdsmEw==
+ b=Cbewgt8CsIo6ZPR2bkZk0GWOw4kfOiWCRFBP4svCdR4igDdcQVjgYG+wjq+diuMhe7MwFGLIBrUcsmWpU9tBRpZAptQFKot4Bb9hm67wY9J3hF2KoK9a61t5I8Qxkhr1HmPIyIGAxHvIKQ6PLk90c54pajs5FjN/Uk2uDMOXgFFn3T9UUu6v+DqM8g9k1tKe+KVo1glkWihZN4B9UAwHjQzFcWj6n8r6ADNBG0G5pYVFRBURHrcRH504ArFQNzKs1njPZFsOnZe61pcG0H9Ftbk9T70yi31sVZn/xF9KafAaqiMWt1GZJwS2HcYuo2D/+Rp+XCnwmVMuJ04qCos3EQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pJ/rcnHk48J2486MfEcTZdg7UhutmuOyywKelNyvVqw=;
- b=ZDHOkMHf20ORZOnUx7Q7vZHa8U2C2MtjwHwpd10T//5EiSFNauZMHLVqKeWNgjedTDWqjSw4EFlAGzv+SWlgqF0vWLAItJWYwJLDQzpmbRGZjQAYWQDlGqBc5wR8+AHUCwPg6OwZoz+ur6uMWpQGgUQd1ZqxJk3Ak/hMetYn0psdvYD6MLEsrE7sTHxCpJ45fAZbZDTyfQ83Z4h3WWbvxFHiAPFF+BFocsR6+bgNTZ0hmbjGosxJRZafv+SorTNcZVT6ZliUlFMJcopMuMq6IX2tXO3V5V4WevRXkJ/KuW5ZOyvBGlKVxOPhAOJ/PtO4xwJQPOW+i0/ZbmGfxB/AUw==
+ bh=HbAbSHg5ZYzDcoXEhcNJap9YC68omZXSPDO+MrCQoo4=;
+ b=AN4i23UufRgtexkGF58cmoZB5BQCTd9TvdJZGMZ++1x9LlMGs4+Y5WQJeXEeaDwVH/MhlCadrVN2Do1O92yprebqNhzq+Z4k+tSbkgjOR/h/0tP3d6FHxodxKlsaEyNaKrztmHa95GkJN3EjGVzy8F8U8Pd1kSvd5lD+GMhzaW2PFHiK4l7wISDnFkviQHGR07LObjoILRBks7/lr/0R0VJQPIQY6lOYwhi3Jb+t3Q+D6MCn0PJbdm/G/8CYlppXamvTM0u+Yfkh1kil+Ftyjm7GHMwDlq797nIiWg7j38poklIaYIvG85p+j0ZjF8D/6SD84h/qjSpijN67xMbTNQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <f5a0dffd-ec55-3b99-0eba-418d96dc4151@suse.com>
-Date: Mon, 25 Apr 2022 10:37:06 +0200
+Message-ID: <5866e22e-9f31-84ab-1df9-db84aa802944@suse.com>
+Date: Mon, 25 Apr 2022 10:38:06 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.1
-Subject: [PATCH v4 09/21] AMD/IOMMU: return old PTE from
- {set,clear}_iommu_pte_present()
+Subject: [PATCH v4 10/21] AMD/IOMMU: allow use of superpage mappings
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 References: <b92e294e-7277-d977-bb96-7c28d60000c6@suse.com>
 In-Reply-To: <b92e294e-7277-d977-bb96-7c28d60000c6@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AS9PR06CA0066.eurprd06.prod.outlook.com
- (2603:10a6:20b:464::11) To DU2PR04MB8616.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM7PR04CA0014.eurprd04.prod.outlook.com
+ (2603:10a6:20b:110::24) To DU2PR04MB8616.eurprd04.prod.outlook.com
  (2603:10a6:10:2db::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c68f9848-db3b-4065-c36a-08da2696c75e
-X-MS-TrafficTypeDiagnostic: AM6PR0402MB3831:EE_
+X-MS-Office365-Filtering-Correlation-Id: d56cf4ea-ca11-43f8-2c34-08da2696eab8
+X-MS-TrafficTypeDiagnostic: VE1PR04MB7424:EE_
 X-Microsoft-Antispam-PRVS:
-	<AM6PR0402MB3831F2A8E5599EB1953F1F5FB3F89@AM6PR0402MB3831.eurprd04.prod.outlook.com>
+	<VE1PR04MB7424F897A880C91B8AAF9ADBB3F89@VE1PR04MB7424.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	rrXWuFSVB2Ikn/Fsk7GLk4OKZXbfgWj1niR1mP5y1gIUMISAVCEYcv/lk3pypisCCKnogU4NK9uWRU3+oQptvYiHzVaGrlFCb8ByOHUDXsbnsSRkvUpk9+3KG2v7rstvqG2ZBtJR1z38h6zpZYgpsseogWjYhKQEJGm4g4YdUeISJ2yialnS/dNi4vC+weSYwDE66adtFiubACGeB/WBLZaJkONAJo9HB6j2jnZ/Q+n4RVGTFbRGeG88vhxYSNV6f31na/pf6L79wSsj8adX747IKf2Uf6MgTLBopD3lPPlFKeeq2ZqBsnka5eaXH6SgtSTttP5UpwodC9D2Sl2jdGxHtg/jUOXtgnzQ93YXC49rGW62c4Fn8FVCPNhEGhf2FGb6fXq6FAV19z812evuebkr9sbTsLDHRYP5q5s2cyTO5tGEnbNcHcbcgWNj9z++xG0Xh50i27hm6bhUQ6cOsyzkEx9t2UhrbqDgKdY2qsckTzU1qquW7KnZW0OjbHzRj/MRRoOx9l/zTCVl6fBT9c8QOSVSg8U5uDpi9teZKOjZ0cfsStH64l7n3Wjj3WIs/qxFFP9YNjNvJHUCKsjtedWOSjn4NiO+DygoI7EkdkJ4Cs/OIVPC2IA0G3dhh2iCFJmG/SSZodbr1KXiOkCqJ9BEtKSbPGvj5tcI6CVB8tGDLvdM5xlOdB+T2HiRevxHsx3oyswl/zyiB8XyMIrBOjvTSnmrtN1hhsZzA1TPf7g=
+	Fiut1mesAS/t0AksbdJlXJ0SSZtzAwn9hT8AUwtxdev03uSMZxhxzu544oz/pHolxu61r4ScHKBO58niWtBcUOyfcYlZoIdrmH4gp/K1AnGWzD/trDZ6R0pzyJAEplhsEmhP/AeCX9xXZx3zbVwtbeWp272bb++7PluO1r/PCN0dzd+AcA7t4AALCHMn51Gv/nzFHwENKzZckfcyCKEQCRs9aOtrheoPrhNwt1BNmyb1CzwVUxu1ZV+tpjM3IerRSiqxcwnNg8+MJwIz8o80hT8/+M/42k2nYPC6w9lhR/7zhuB8zLHtaCEwMj917GRSMvJ7ngENqDexO2m23rTiw2F5KAf9QsBux0iHdu8t3qBj2iYmWkp170uZ+xxuAJAJ0blH0Todp7arLN+id+/rX9RS1TnmAM6V250ppHyIkdOWcuN5wEgFMaZMMdDQaGFS3MsgU/EjcH4PSoYQUpRTqYLJG2oIjIhfk7M8v2H9A0Cjw3kAiSXATAIIBP27tD//B4F231tL0GCmqmNEIRUfsJaueQLqYbfp/O7G2rH87dXlUoRqQtRqabohRdqs+sHJiGkmF5L8arT6Az7yrhvyscdL3vPNFClId3LId96AaDREy4QIElkl8tIlY4e66wMyufL0juLFzAQl5T8yyXhXh7fldTEK1xACnQ8u0Jd01s+e/fOgLJIlfBPEUHhzbIUiAgI43kolJQWVgascJDehitvQRlAcku0zxqqS5ZcH2Rk=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(66946007)(2906002)(66556008)(4326008)(8676002)(38100700002)(5660300002)(508600001)(6486002)(6916009)(8936002)(54906003)(2616005)(31686004)(66476007)(36756003)(316002)(186003)(31696002)(86362001)(6506007)(26005)(83380400001)(6512007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(54906003)(31696002)(86362001)(66946007)(83380400001)(66556008)(8676002)(66476007)(38100700002)(2906002)(6916009)(186003)(316002)(2616005)(4326008)(8936002)(31686004)(36756003)(6506007)(508600001)(6486002)(6512007)(26005)(5660300002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?QpvxNlTRvthqlsTNAmRgcSHHtY4mT9GM2edATTJifFfNonCovqNEbXKSoCyZ?=
- =?us-ascii?Q?my8WlED5BReGQJZ9G7+gyviF3P+kl/UWdbzB6KUf5WWtR8K3TbWQyZODU9u5?=
- =?us-ascii?Q?rTGV7N7S+nA+ft/lNUo1QnVQ8/K2nAbWLBvV/CAOBeLFrJuVrtc0qUvLCfKj?=
- =?us-ascii?Q?KTg09YSMrG8O4CrA/IxCSvPwBDQu9yojAUGAw11g0n0EQzBj4kv0XOp04H+2?=
- =?us-ascii?Q?XZpHdWD3tUKu7s40UvKJ2/2GkuLQMJc7QEWuFpAnj/gvB5kzPifHDcXdLzPk?=
- =?us-ascii?Q?ZtrY6oiY6oIdEDwGOrJ+RXS69sZvvm36hNJDZWnobQHKsn70fOLULtIH3cR6?=
- =?us-ascii?Q?02jalycUIQDWBA9yoYqzbkrVPwLTwdLWiu1g8s3m0B6gvNqTxX3WQt+zSaVX?=
- =?us-ascii?Q?uCIS9swqEte0aLiivmzlmObBiEPiBcYBNarDvkVxvfOhzfY66h9My4pBY9D7?=
- =?us-ascii?Q?SGtW1NAUEFbDaWfKskt3Fou5FYdYIySB2PWOpAVEKLmACUoC8sHb69QbQ7Cf?=
- =?us-ascii?Q?+gQ4fZnT8bRxYkhtWeW2altabXEhrCyZcq96r0thEMc1xNJUtirvmkptO03B?=
- =?us-ascii?Q?QiOzW7dBcqpJ0Y2JBJsD7orfhWs+qrwNupd1VwbH6BsDJ571LB17vUNKQswC?=
- =?us-ascii?Q?eYSejZLlvLoi95LNM8poCcz5wWEHw+9e7xtaSZOAYbdiKBn/PDqQUIBKN6ZI?=
- =?us-ascii?Q?XYfqA55e/yjeukTG8B242ZNiqMr+CX+18v6IDqypQ5DYqMmfAWfoebU3SZuG?=
- =?us-ascii?Q?fT15NGBDe/JB6dM6yZfnVY3nRczQhGWIMsaSTcfLIDVaaU9e1t4iwfiasS6X?=
- =?us-ascii?Q?oGVmtakpHr9SH4GQsEPaFHCafh3lUS69aAVKwBhVQmjuxSSYDqh/ZwRpXY/Y?=
- =?us-ascii?Q?aDm2OmGmzUQWTm0MZ87a/updLbDssW8daip+ifzwJ8qWqoe/JHNK7SurQFVh?=
- =?us-ascii?Q?GKwLDYNQZiNHwIbAj8tlilfZItoYB1TKqxP1FUMQ6p7RiOcabGNGUEH/DjXj?=
- =?us-ascii?Q?JPsvdLu0l7pgWRTRscRM85BrWst1nsZdOkLs2mF60HHyFWcpJaXXGgTBc/e6?=
- =?us-ascii?Q?UEoU9160ef0p36xLsKw0FBi5D4PQuGCOQr7OFNBVCN/y79p16SCmskB5HYqG?=
- =?us-ascii?Q?unqWQ/203B5uU93yxqxp5TPta+uKwlyKhWEtHGbcJC3a9MkE3/zVpAnwdOC+?=
- =?us-ascii?Q?OY1KHFWmY65qxv+3scL68DuF+EiqHGf03HGNjhVHaMITMDiXnfwu7nKvZ1u4?=
- =?us-ascii?Q?fU1dWhoekDfD2rXEJkamHdFpx+OyPwGj0znp5fPZY4k2y04n4boj5hIxlxcr?=
- =?us-ascii?Q?dNbzHcMOt1YhpyU0antAXc1LHEj/3h7Ho+08q0w908TwlkJPaeiXqW9YD9wF?=
- =?us-ascii?Q?nUbUc0+ikJAOpI0575iHcY/NtbQPfyIa+0IG47bwSaZKj3L6W8ZlZdIV/Osf?=
- =?us-ascii?Q?xIYVM7L//KEvHPHuXD1rX8trWLxv38YdrzmSfVXwpHhUwNNPZ5jkCiHyOCS/?=
- =?us-ascii?Q?mG4s+WrugfTQzqtKgeFQyC5QlGvBX3wyPe9hyVlVes7vv/+w7iOuhvLP8DuL?=
- =?us-ascii?Q?2OPQM/XVL+Z79bDqy5mPpE+jaennyE+Hbl73v98NIS6g7QvNcgpwoqqD0DGF?=
- =?us-ascii?Q?xHyyMnLHxJmEmaThw/DXOmZS+EvLivUwReyjeMMKUyJRh0VCnhFbsGnBFYd6?=
- =?us-ascii?Q?k/ZaabDqyQ/gXXOgjZSmdAyQmjtwZ0GPkHJ8k34TD70BALR08S4QvVbwE9ad?=
- =?us-ascii?Q?mOLPXXvfEQ=3D=3D?=
+	=?utf-8?B?MS9PWnlPR244U0RtTHBhVmFjS2o1M28xZ1FsMW5DMXRGYm9mVjljbW4yeVdF?=
+ =?utf-8?B?anVySUZnZDkxdXNObTJGbXg3NkdEeTdsUEJZSW5pTTFqb0JOQXp6MjFlRWkv?=
+ =?utf-8?B?WUpROEUvU3ExcVdTU3A5Sm1KNzBCS0Y1c3BKMXdxOXFyWmRad254OGdwcEx3?=
+ =?utf-8?B?RTRLR0xqQlhPdisrVnZ1eHllamhIMy85b1RBU1h0OGFIWDFIZ0FTMDFlZkRB?=
+ =?utf-8?B?anBPNmk3ZzE3cGtERFBBTGZaVVcveTZTU0I3QTZtckRReEJWYmN1ZUtnUkVM?=
+ =?utf-8?B?SEhDY2xWREZTNkdmcGNMaGg1UW1xZW1OaXpEMW1ONkZ6Q05IMTdDZGU0WlZt?=
+ =?utf-8?B?Znk0aEkvQmxqMDkxY0Z3UGErUHREYTQwMldDOGJkQjdoSjlYdTJlS0JZZGpJ?=
+ =?utf-8?B?N3h4QkV1WTk5UTBwcDJEdXFZbjBPVjFVbW5RRWliUTVuVTFwcG5HNHNOSjBk?=
+ =?utf-8?B?T3RCMXU5Rjc3QjZLQkVHTVo0QUZRMTBldThrNkRqNytySnVPc0tmbjlONUp1?=
+ =?utf-8?B?OXhaMy9rbVFwRUhSWGNHcHE1emdiWVpBNmJzRkcyejByeHFlVHVhU1RxQTNk?=
+ =?utf-8?B?eWZ3VFpUNExvb2FxWDF3OE9iYkUzOVFnZU8zRlJoNnVYK2N6MHo3dGVMQlR3?=
+ =?utf-8?B?OTFpV2puOTdacXdFSlZtZGJNVTJMaVU5YXRlV2YrSjhxeW5CYzV3dnlrMWFS?=
+ =?utf-8?B?L3N2YnRvZjYzUGpUa3phTWJpb3ZQRmE0cGtQR0tVWDliTXZhdm1PRDhtNGdh?=
+ =?utf-8?B?d2JjcUdWNm9qbnJ4QkQ4Z0doN2JhaXJzd3A2RnFLdXI0bmxadXBHdTd6Yzdk?=
+ =?utf-8?B?YXBMcW9qeWlQSVZMTnUrc2ZMZlhIM1J4eldnSmVqSFd1enlzdk9YUWprR1d4?=
+ =?utf-8?B?SGlDVTNZK2QwM0dKZnJoQ29OdWtPd3gzUXdBNnZNanM2MWN1SmdOZ2MwaWRt?=
+ =?utf-8?B?WmFkN1dDTmJxdWdxaXZ3aGd1R2d1U3RlRDUvS2NXMWU2T3RrL0VTZEdaQzk4?=
+ =?utf-8?B?RXp5WTYxTlpMNkpGbFdRYlN5dDg0UVdTQ04wdFRhemVBSjg1WlhHU0M1a2l5?=
+ =?utf-8?B?MnRrMTBKZitQYmZwWDhUNTRHZmIyTTNLVVNmYm4zRFZ6Sm9ibXloK2hpOVZ0?=
+ =?utf-8?B?UXZQY0tyODk5dC80SEVjSmVjNjg1MzZNUUZiY05DSzlvdDFaYVRrRE5aTmlm?=
+ =?utf-8?B?VEJDdDA1RFZxcW1FM3ZLcUVjLzJYQlNxT3d4dHltOHhiV2kvNUtOL0hvbzI1?=
+ =?utf-8?B?UEp1WStSTFFhN011L2k2V3l1ZmJUWEhuNmNCcVNrbUYvUDNDNllsbGhLM1Bw?=
+ =?utf-8?B?UFkxSGtiaW93OWYvdHNWV1pZZ0pob29WNDRlM0ZicVA2NmpmL3lCRnB1Rngr?=
+ =?utf-8?B?TmdOWWNmcUJET1JRd0UyeEg3U1F4MjFlOUNma0p4STNWZk9EODI5T1lCSlVC?=
+ =?utf-8?B?V1N1R1JaUzBzNi9TVXlzVzRPSmpYcU4vQ0kvaVp6eU0zd0JHTUJ4Nlk5Z0dR?=
+ =?utf-8?B?YWR4cEp2dTl4SWh2Wi9HekJwRndyUXhQWWlOZDdnTjVZbkNjQTc0ZmxvNkxI?=
+ =?utf-8?B?c0lqeTJWR3NkYVdOR2ViK004SkwvY2VJSmV6WVZXdnZab00yaXRra1Z4amg5?=
+ =?utf-8?B?WUJLYmg1eVV5NFpNNkoxczFoNHRhMjlTUWRSZ282ZU50MUIwbTRIMmpCM0ZD?=
+ =?utf-8?B?MXJOdHlVTy96cU5hSGxHTFA1ZDJBM2JhR1JDSi9wYUcxOUExSDBlWlJ4Y1Fw?=
+ =?utf-8?B?TXFoSUJCNU9ySGpCbENQb1VVTjhHODl5UUlKOVVxbFNPUkQrcXAyRU84eUVv?=
+ =?utf-8?B?eHZRTEdWS3lPT1dGMG13dG5yQzRrWlhSa09ZSWd0ejlPY3BMRUJjOGRLUkFw?=
+ =?utf-8?B?MHJleFM3RGxsd0tVK2d5cHo5cFUvTHJzMU8vTzVpRU5JWlQzbEJtV1FBVXFE?=
+ =?utf-8?B?bG5vK0g4aTJXclEyd1JJZXBpd0hYMkJvYXFteHhWODJvdjlrbW5mY2ZFd01C?=
+ =?utf-8?B?b1hQQ2pWR0xpM3BUOTNvTnc0SjNncjZKR2VUWWdXUk1VQnlKMzFlaUxwakpN?=
+ =?utf-8?B?SUFpazdzMGJZaGZ2cDdXc2xpdTAzY29SL1ZGSWdVdXJJdTJVQjNwRTZlRmxW?=
+ =?utf-8?B?TFJicHBOc09CZmlyM29kZ0kzM24wdUhlUlpJcDZYZW1nSHVKYTRPajFGWjd0?=
+ =?utf-8?B?THdwWFFhSTZvcWgrRjFaalVxdHJvOG50Mm9jZlkzRVljSlVObEJZV2hTQ3p4?=
+ =?utf-8?B?UTlEbldSaWhPYi9JaGhUU1dYRzZpVXRSVVdqenJ5RnhLK3o5azhLcnpqSTFJ?=
+ =?utf-8?B?L2xsYXZFV05MNVZtTXdxZ2Q3Sy8reWFDN0RVWW9NNjNUOVFXNHJNQT09?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c68f9848-db3b-4065-c36a-08da2696c75e
+X-MS-Exchange-CrossTenant-Network-Message-Id: d56cf4ea-ca11-43f8-2c34-08da2696eab8
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2022 08:37:05.9422
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2022 08:38:05.2328
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5CzsvGC8W8vgJ6L7eXJO0CYSkYGJba6X/LQkt0x7tisP8jA6ws0qXwLvwWs+aF0HZbysfW7juSezZdanjJxR3w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR0402MB3831
+X-MS-Exchange-CrossTenant-UserPrincipalName: KSo6xq+YQlGLdbM93qG9dyJ3VhSsbd5Vboxi0sDqpRnf0RaaO16IK9bKlB8dD6nUEeR6imRzjEUM5GRcJaA+rw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7424
 
-In order to free intermediate page tables when replacing smaller
-mappings by a single larger one callers will need to know the full PTE.
-Flush indicators can be derived from this in the callers (and outside
-the locked regions). First split set_iommu_pte_present() from
-set_iommu_ptes_present(): Only the former needs to return the old PTE,
-while the latter (like also set_iommu_pde_present()) doesn't even need
-to return flush indicators. Then change return types/values and callers
-accordingly.
-
-Note that for subsequent changes returning merely a boolean (old.pr) is
-not going to be sufficient; the next_level field will also be required.
+No separate feature flags exist which would control availability of
+these; the only restriction is HATS (establishing the maximum number of
+page table levels in general), and even that has a lower bound of 4.
+Thus we can unconditionally announce 2M, 1G, and 512G mappings. (Via
+non-default page sizes the implementation in principle permits arbitrary
+size mappings, but these require multiple identical leaf PTEs to be
+written, which isn't all that different from having to write multiple
+consecutive PTEs with increasing frame numbers. IMO that's therefore
+beneficial only on hardware where suitable TLBs exist; I'm unaware of
+such hardware.)
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 ---
-v4: Re-base over changes earlier in the series.
+I'm not fully sure about allowing 512G mappings: The scheduling-for-
+freeing of intermediate page tables would take quite a while when
+replacing a tree of 4k mappings by a single 512G one. Yet then again
+there's no present code path via which 512G chunks of memory could be
+allocated (and hence mapped) anyway, so this would only benefit huge
+systems where 512 1G mappings could be re-coalesced (once suitable code
+is in place) into a single L4 entry. And re-coalescing wouldn't result
+in scheduling-for-freeing of full trees of lower level pagetables.
+---
+v4: Change type of queue_free_pt()'s 1st parameter. Re-base.
+v3: Rename queue_free_pt()'s last parameter. Replace "level > 1" checks
+    where possible.
 
 --- a/xen/drivers/passthrough/amd/iommu_map.c
 +++ b/xen/drivers/passthrough/amd/iommu_map.c
-@@ -31,30 +31,28 @@ static unsigned int pfn_to_pde_idx(unsig
-     return idx;
+@@ -32,12 +32,13 @@ static unsigned int pfn_to_pde_idx(unsig
  }
-=20
--static unsigned int clear_iommu_pte_present(unsigned long l1_mfn,
--                                            unsigned long dfn)
-+static union amd_iommu_pte clear_iommu_pte_present(unsigned long l1_mfn,
-+                                                   unsigned long dfn)
+ 
+ static union amd_iommu_pte clear_iommu_pte_present(unsigned long l1_mfn,
+-                                                   unsigned long dfn)
++                                                   unsigned long dfn,
++                                                   unsigned int level)
  {
--    union amd_iommu_pte *table, *pte;
--    unsigned int flush_flags;
-+    union amd_iommu_pte *table, *pte, old;
-=20
-     table =3D map_domain_page(_mfn(l1_mfn));
-     pte =3D &table[pfn_to_pde_idx(dfn, 1)];
-+    old =3D *pte;
-=20
--    flush_flags =3D pte->pr ? IOMMU_FLUSHF_modified : 0;
+     union amd_iommu_pte *table, *pte, old;
+ 
+     table = map_domain_page(_mfn(l1_mfn));
+-    pte = &table[pfn_to_pde_idx(dfn, 1)];
++    pte = &table[pfn_to_pde_idx(dfn, level)];
+     old = *pte;
+ 
      write_atomic(&pte->raw, 0);
-=20
-     unmap_domain_page(table);
-=20
--    return flush_flags;
-+    return old;
+@@ -351,11 +352,32 @@ static int iommu_pde_from_dfn(struct dom
+     return 0;
  }
-=20
--static unsigned int set_iommu_pde_present(union amd_iommu_pte *pte,
--                                          unsigned long next_mfn,
--                                          unsigned int next_level, bool iw=
-,
--                                          bool ir)
-+static void set_iommu_pde_present(union amd_iommu_pte *pte,
-+                                  unsigned long next_mfn,
-+                                  unsigned int next_level,
-+                                  bool iw, bool ir)
- {
--    union amd_iommu_pte new =3D {}, old;
--    unsigned int flush_flags =3D IOMMU_FLUSHF_added;
-+    union amd_iommu_pte new =3D {};
-=20
-     /*
-      * FC bit should be enabled in PTE, this helps to solve potential
-@@ -68,29 +66,42 @@ static unsigned int set_iommu_pde_presen
-     new.next_level =3D next_level;
-     new.pr =3D true;
-=20
--    old.raw =3D read_atomic(&pte->raw);
--    old.ign0 =3D 0;
--    old.ign1 =3D 0;
--    old.ign2 =3D 0;
-+    write_atomic(&pte->raw, new.raw);
-+}
-=20
--    if ( old.pr && old.raw !=3D new.raw )
--        flush_flags |=3D IOMMU_FLUSHF_modified;
-+static union amd_iommu_pte set_iommu_pte_present(unsigned long pt_mfn,
-+                                                 unsigned long dfn,
-+                                                 unsigned long next_mfn,
-+                                                 unsigned int level,
-+                                                 bool iw, bool ir)
+ 
++static void queue_free_pt(struct domain_iommu *hd, mfn_t mfn, unsigned int level)
 +{
-+    union amd_iommu_pte *table, *pde, old;
-=20
--    write_atomic(&pte->raw, new.raw);
-+    table =3D map_domain_page(_mfn(pt_mfn));
-+    pde =3D &table[pfn_to_pde_idx(dfn, level)];
++    if ( level > 1 )
++    {
++        union amd_iommu_pte *pt = map_domain_page(mfn);
++        unsigned int i;
 +
-+    old =3D *pde;
-+    if ( !old.pr || old.next_level ||
-+         old.mfn !=3D next_mfn ||
-+         old.iw !=3D iw || old.ir !=3D ir )
-+        set_iommu_pde_present(pde, next_mfn, 0, iw, ir);
-+    else
-+        old.pr =3D false; /* signal "no change" to the caller */
-=20
--    return flush_flags;
-+    unmap_domain_page(table);
++        for ( i = 0; i < PTE_PER_TABLE_SIZE; ++i )
++            if ( pt[i].pr && pt[i].next_level )
++            {
++                ASSERT(pt[i].next_level < level);
++                queue_free_pt(hd, _mfn(pt[i].mfn), pt[i].next_level);
++            }
 +
-+    return old;
- }
-=20
--static unsigned int set_iommu_ptes_present(unsigned long pt_mfn,
--                                           unsigned long dfn,
--                                           unsigned long next_mfn,
--                                           unsigned int nr_ptes,
--                                           unsigned int pde_level,
--                                           bool iw, bool ir)
-+static void set_iommu_ptes_present(unsigned long pt_mfn,
-+                                   unsigned long dfn,
-+                                   unsigned long next_mfn,
-+                                   unsigned int nr_ptes,
-+                                   unsigned int pde_level,
-+                                   bool iw, bool ir)
++        unmap_domain_page(pt);
++    }
++
++    iommu_queue_free_pgtable(hd, mfn_to_page(mfn));
++}
++
+ int cf_check amd_iommu_map_page(
+     struct domain *d, dfn_t dfn, mfn_t mfn, unsigned int flags,
+     unsigned int *flush_flags)
  {
-     union amd_iommu_pte *table, *pde;
-     unsigned long page_sz =3D 1UL << (PTE_PER_TABLE_SHIFT * (pde_level - 1=
-));
--    unsigned int flush_flags =3D 0;
-=20
-     table =3D map_domain_page(_mfn(pt_mfn));
-     pde =3D &table[pfn_to_pde_idx(dfn, pde_level)];
-@@ -98,20 +109,18 @@ static unsigned int set_iommu_ptes_prese
-     if ( (void *)(pde + nr_ptes) > (void *)table + PAGE_SIZE )
-     {
-         ASSERT_UNREACHABLE();
--        return 0;
-+        return;
-     }
-=20
-     while ( nr_ptes-- )
-     {
--        flush_flags |=3D set_iommu_pde_present(pde, next_mfn, 0, iw, ir);
-+        set_iommu_pde_present(pde, next_mfn, 0, iw, ir);
-=20
-         ++pde;
-         next_mfn +=3D page_sz;
-     }
-=20
-     unmap_domain_page(table);
--
--    return flush_flags;
- }
-=20
- /*
-@@ -349,6 +358,7 @@ int cf_check amd_iommu_map_page(
-     struct domain_iommu *hd =3D dom_iommu(d);
+     struct domain_iommu *hd = dom_iommu(d);
++    unsigned int level = (IOMMUF_order(flags) / PTE_PER_TABLE_SHIFT) + 1;
      int rc;
-     unsigned long pt_mfn =3D 0;
-+    union amd_iommu_pte old;
-=20
-     spin_lock(&hd->arch.mapping_lock);
-=20
-@@ -385,12 +395,16 @@ int cf_check amd_iommu_map_page(
+     unsigned long pt_mfn = 0;
+     union amd_iommu_pte old;
+@@ -384,7 +406,7 @@ int cf_check amd_iommu_map_page(
+         return rc;
      }
-=20
-     /* Install 4k mapping */
--    *flush_flags |=3D set_iommu_ptes_present(pt_mfn, dfn_x(dfn), mfn_x(mfn=
-),
--                                           1, 1, (flags & IOMMUF_writable)=
-,
--                                           (flags & IOMMUF_readable));
-+    old =3D set_iommu_pte_present(pt_mfn, dfn_x(dfn), mfn_x(mfn), 1,
-+                                (flags & IOMMUF_writable),
-+                                (flags & IOMMUF_readable));
-=20
-     spin_unlock(&hd->arch.mapping_lock);
-=20
-+    *flush_flags |=3D IOMMU_FLUSHF_added;
-+    if ( old.pr )
-+        *flush_flags |=3D IOMMU_FLUSHF_modified;
+ 
+-    if ( iommu_pde_from_dfn(d, dfn_x(dfn), 1, &pt_mfn, flush_flags, true) ||
++    if ( iommu_pde_from_dfn(d, dfn_x(dfn), level, &pt_mfn, flush_flags, true) ||
+          !pt_mfn )
+     {
+         spin_unlock(&hd->arch.mapping_lock);
+@@ -394,8 +416,8 @@ int cf_check amd_iommu_map_page(
+         return -EFAULT;
+     }
+ 
+-    /* Install 4k mapping */
+-    old = set_iommu_pte_present(pt_mfn, dfn_x(dfn), mfn_x(mfn), 1,
++    /* Install mapping */
++    old = set_iommu_pte_present(pt_mfn, dfn_x(dfn), mfn_x(mfn), level,
+                                 (flags & IOMMUF_writable),
+                                 (flags & IOMMUF_readable));
+ 
+@@ -403,8 +425,13 @@ int cf_check amd_iommu_map_page(
+ 
+     *flush_flags |= IOMMU_FLUSHF_added;
+     if ( old.pr )
++    {
+         *flush_flags |= IOMMU_FLUSHF_modified;
+ 
++        if ( IOMMUF_order(flags) && old.next_level )
++            queue_free_pt(hd, _mfn(old.mfn), old.next_level);
++    }
 +
      return 0;
  }
-=20
-@@ -399,6 +413,7 @@ int cf_check amd_iommu_unmap_page(
+ 
+@@ -413,6 +440,7 @@ int cf_check amd_iommu_unmap_page(
  {
-     unsigned long pt_mfn =3D 0;
-     struct domain_iommu *hd =3D dom_iommu(d);
-+    union amd_iommu_pte old =3D {};
-=20
+     unsigned long pt_mfn = 0;
+     struct domain_iommu *hd = dom_iommu(d);
++    unsigned int level = (order / PTE_PER_TABLE_SHIFT) + 1;
+     union amd_iommu_pte old = {};
+ 
      spin_lock(&hd->arch.mapping_lock);
-=20
-@@ -420,11 +435,14 @@ int cf_check amd_iommu_unmap_page(
+@@ -423,7 +451,7 @@ int cf_check amd_iommu_unmap_page(
+         return 0;
+     }
+ 
+-    if ( iommu_pde_from_dfn(d, dfn_x(dfn), 1, &pt_mfn, flush_flags, false) )
++    if ( iommu_pde_from_dfn(d, dfn_x(dfn), level, &pt_mfn, flush_flags, false) )
+     {
+         spin_unlock(&hd->arch.mapping_lock);
+         AMD_IOMMU_ERROR("invalid IO pagetable entry dfn = %"PRI_dfn"\n",
+@@ -435,14 +463,19 @@ int cf_check amd_iommu_unmap_page(
      if ( pt_mfn )
      {
          /* Mark PTE as 'page not present'. */
--        *flush_flags |=3D clear_iommu_pte_present(pt_mfn, dfn_x(dfn));
-+        old =3D clear_iommu_pte_present(pt_mfn, dfn_x(dfn));
+-        old = clear_iommu_pte_present(pt_mfn, dfn_x(dfn));
++        old = clear_iommu_pte_present(pt_mfn, dfn_x(dfn), level);
      }
-=20
+ 
      spin_unlock(&hd->arch.mapping_lock);
-=20
-+    if ( old.pr )
-+        *flush_flags |=3D IOMMU_FLUSHF_modified;
+ 
+     if ( old.pr )
++    {
+         *flush_flags |= IOMMU_FLUSHF_modified;
+ 
++        if ( order && old.next_level )
++            queue_free_pt(hd, _mfn(old.mfn), old.next_level);
++    }
 +
      return 0;
  }
-=20
+ 
+--- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
++++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
+@@ -747,7 +747,7 @@ static void cf_check amd_dump_page_table
+ }
+ 
+ static const struct iommu_ops __initconst_cf_clobber _iommu_ops = {
+-    .page_sizes = PAGE_SIZE_4K,
++    .page_sizes = PAGE_SIZE_4K | PAGE_SIZE_2M | PAGE_SIZE_1G | PAGE_SIZE_512G,
+     .init = amd_iommu_domain_init,
+     .hwdom_init = amd_iommu_hwdom_init,
+     .quarantine_init = amd_iommu_quarantine_init,
+--- a/xen/include/xen/page-defs.h
++++ b/xen/include/xen/page-defs.h
+@@ -21,4 +21,19 @@
+ #define PAGE_MASK_64K               PAGE_MASK_GRAN(64K)
+ #define PAGE_ALIGN_64K(addr)        PAGE_ALIGN_GRAN(64K, addr)
+ 
++#define PAGE_SHIFT_2M               21
++#define PAGE_SIZE_2M                PAGE_SIZE_GRAN(2M)
++#define PAGE_MASK_2M                PAGE_MASK_GRAN(2M)
++#define PAGE_ALIGN_2M(addr)         PAGE_ALIGN_GRAN(2M, addr)
++
++#define PAGE_SHIFT_1G               30
++#define PAGE_SIZE_1G                PAGE_SIZE_GRAN(1G)
++#define PAGE_MASK_1G                PAGE_MASK_GRAN(1G)
++#define PAGE_ALIGN_1G(addr)         PAGE_ALIGN_GRAN(1G, addr)
++
++#define PAGE_SHIFT_512G             39
++#define PAGE_SIZE_512G              PAGE_SIZE_GRAN(512G)
++#define PAGE_MASK_512G              PAGE_MASK_GRAN(512G)
++#define PAGE_ALIGN_512G(addr)       PAGE_ALIGN_GRAN(512G, addr)
++
+ #endif /* __XEN_PAGE_DEFS_H__ */
 
 
