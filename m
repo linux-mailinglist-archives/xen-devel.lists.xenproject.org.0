@@ -2,46 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76A6650DE62
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 13:02:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.312764.530122 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E524850DE70
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 13:04:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.312770.530134 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1niwTS-0007jP-Md; Mon, 25 Apr 2022 11:01:46 +0000
+	id 1niwWO-0008U2-62; Mon, 25 Apr 2022 11:04:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 312764.530122; Mon, 25 Apr 2022 11:01:46 +0000
+Received: by outflank-mailman (output) from mailman id 312770.530134; Mon, 25 Apr 2022 11:04:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1niwTS-0007go-Jb; Mon, 25 Apr 2022 11:01:46 +0000
-Received: by outflank-mailman (input) for mailman id 312764;
- Mon, 25 Apr 2022 11:01:45 +0000
+	id 1niwWO-0008RR-2G; Mon, 25 Apr 2022 11:04:48 +0000
+Received: by outflank-mailman (input) for mailman id 312770;
+ Mon, 25 Apr 2022 11:04:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=V551=VD=marvell.com=nareshb@srs-se1.protection.inumbo.net>)
- id 1niwTQ-0007gi-H2
- for xen-devel@lists.xenproject.org; Mon, 25 Apr 2022 11:01:45 +0000
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com
- [67.231.156.173]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 16837521-c487-11ec-a405-831a346695d4;
- Mon, 25 Apr 2022 13:01:42 +0200 (CEST)
-Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
- by mx0b-0016f401.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 23ONPmwb028740;
- Mon, 25 Apr 2022 04:01:39 -0700
-Received: from nam12-dm6-obe.outbound.protection.outlook.com
- (mail-dm6nam12lp2168.outbound.protection.outlook.com [104.47.59.168])
- by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 3fmgymd9tp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 25 Apr 2022 04:01:39 -0700
-Received: from DM6PR18MB3193.namprd18.prod.outlook.com (2603:10b6:5:1c4::10)
- by CH0PR18MB4211.namprd18.prod.outlook.com (2603:10b6:610:be::23) with
- Microsoft SMTP Server (version=TLS1_2,
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=OfhB=VD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1niwWM-0008RH-OI
+ for xen-devel@lists.xenproject.org; Mon, 25 Apr 2022 11:04:46 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 83f78bfa-c487-11ec-a405-831a346695d4;
+ Mon, 25 Apr 2022 13:04:45 +0200 (CEST)
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04lp2057.outbound.protection.outlook.com [104.47.13.57]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-6-asRGIZ0pMSGpyw3vOiQZyQ-1; Mon, 25 Apr 2022 13:04:41 +0200
+Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
+ by AM0PR04MB4034.eurprd04.prod.outlook.com (2603:10a6:208:63::22)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.21; Mon, 25 Apr
- 2022 11:01:37 +0000
-Received: from DM6PR18MB3193.namprd18.prod.outlook.com
- ([fe80::854b:68f2:3ff1:e61c]) by DM6PR18MB3193.namprd18.prod.outlook.com
- ([fe80::854b:68f2:3ff1:e61c%6]) with mapi id 15.20.5186.020; Mon, 25 Apr 2022
- 11:01:37 +0000
+ 2022 11:04:39 +0000
+Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
+ ([fe80::5cb0:5195:4203:7c2f]) by DU2PR04MB8616.eurprd04.prod.outlook.com
+ ([fe80::5cb0:5195:4203:7c2f%9]) with mapi id 15.20.5186.021; Mon, 25 Apr 2022
+ 11:04:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,174 +51,228 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16837521-c487-11ec-a405-831a346695d4
+X-Inumbo-ID: 83f78bfa-c487-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1650884685;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=D8LqPUEqPTc5d5HzZHn/6C/8BcpKRavIT4XXO9jbtj4=;
+	b=lWBdtO23DkYiqpg0uQgQ0N4PaA3CfdvHHQK9A65jLyTl0UEQbzt89edFKMsR1TOVAxTmmj
+	eZmt0luG+yI6M2tbYV5hSgLVn+lnQ82mF37kZC2oUl3lWd49Ty2DbhpSmlddGTSUfUtlJ4
+	tDrC0tt7RDbkk0r2FFmZqDgZLuqetmM=
+X-MC-Unique: asRGIZ0pMSGpyw3vOiQZyQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZAf0mLHle1qrOmPX/juPLNzwLeaOYoRjoR1I6l056agEx51IaFW7R3TosSUsFGBQEXwGLyhp/Q30SOOP+tMrN6rzI3hG+hz8dZli4ET+ITD1n2p7UtT0hOmS1tFK8QKR062fmWD1E0qlYUmL7ynYzBoDu8nfiEKhad3QtL8z+kS0pCCdIawmpQBByvpkbygS+uvU6SlbDZukUMTAdNN1tJY6zaqFcfPNjrIfmAOn06wB2h3LR1cPxGDN5VlqnXDxsT5kNJ9kgHWhzWf6AoYF46pZcCLOGzy1hUh2zRr2F/YBISacNyWc1janJvAPrWRJFRyAvkmR4yzSwpASztpskg==
+ b=PZMP1F0C9KG46MI1Ol5lIrNA/sRRdRhHWVgmI78pUYcNeu8zfBg89OCH833vhRs+cMMn68UdanuvMajycZLD8vvGz5SRdHA9kWuX5Xq8A/AA36TNn97PpR5aSqvSrTWQsA3tPr8awetZHr70oUwC4JeDirgiHqKCktvD6uvS+OrAfOZeGgKMHUr9+sW4cUQRNSHzCtrdpvhChkm7SC3I6k9Ya7d8nFPxGVo2If6QLI4oTzXGWoS+Ve27H/scCHMa4GZpFZaOia/h6rTMhev9qbAMPugDkQg9jGwWym62WAzdjKllHxPIvsrMnM2Ibkf+4cJFBt7LM3T3Fy+Rvbbe4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vMrGmSzcMKOyH3oAW9hQTtRmv7evMx7ZBE6+j+OOV6Q=;
- b=W8qXz2t48tIuoSsU5Pmv8zi2L7xQ+tWSmbXatoyTR7ZUiELW2h9Fone9fn7LvTxGhN35SZnzt43RSVJ+jBuWJuST1MKYXLexYaetpe5FwNYsfAN6iEuk9P/9zjvu8onhd7LUjfr6pHrCeihr812kS8FhXREsFeU091ZeKybcdovOJyOeff/VrDpuNKJL525ScjSUrFcWpDy+jpb2XvsOEj6r9c3/L3q4mKuNBzuURtTFQ6J0EODeeUU5q4L6V4kgl/h68FerfN0KjQtfK57aWGbsqxRMMyJ8WX4sQpWbpcWebTL8fVu4b7AIe7dd/1+ZaF7gVPTi0ibwwLubJT51uw==
+ bh=D8LqPUEqPTc5d5HzZHn/6C/8BcpKRavIT4XXO9jbtj4=;
+ b=EDMr+bLHOG0bu1eTFH3ELTMj6N6Mm12B2yr6xvNFw1RlSyHjNQ3cqyb5VLMh/cIYthA9SWuWS7M/x0Cy74+x/7ec65ittqQVClxylVBtoVbhd4EZzdouRO34l+A41jTxUifEGWYHYDllHG6ll/eOUDLa6Z8jxgXbiJCIC1ioli/EP32NWw/kfQLfamu+a5JGHbOoXZGhgXp+3IbVLbxz7BDhFFUQd+t3SW013O2duHiVyHKoEWMlACkJLUekwXogU/mknZJI0vUmQ/BD1O3rVXB2Ei7+J2lij6mvczL+tmsTXuZI2oBfqn5CpCvYwHTsz53P0R/Z2cLcRvLcKYR8Xw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=marvell.com; dmarc=pass action=none header.from=marvell.com;
- dkim=pass header.d=marvell.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=marvell.onmicrosoft.com; s=selector1-marvell-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vMrGmSzcMKOyH3oAW9hQTtRmv7evMx7ZBE6+j+OOV6Q=;
- b=ViEGlBxiyELzBIxogQxHtOAgA5dzvhyX1YtxA+9YZNmQau2hWttL3w1Q7KqHlIM5quTFWvgQzbtkY888F5J/HWleZVtBm//sF1TotOxyjv1NPIdymFeTdL/yHZ13JBSAOAkntdqj7ZIwycHlEayF00k/di/FVVUgaB9b65gcDxI=
-From: Naresh Bhat <nareshb@marvell.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [EXT] Re: DOMU: Virtual Function FLR in PCI passthrough is
- crashing
-Thread-Topic: [EXT] Re: DOMU: Virtual Function FLR in PCI passthrough is
- crashing
-Thread-Index: AQHYVLOBoc8zYi1khUW56WNBox6p/Kz4xa6AgAe2FfE=
-Date: Mon, 25 Apr 2022 11:01:37 +0000
-Message-ID: 
- <DM6PR18MB3193E803521B24BB2BBD331AB9F89@DM6PR18MB3193.namprd18.prod.outlook.com>
-References: 
- <DM6PR18MB3193BA01B3A6FE2A4A9EAE5CB9F59@DM6PR18MB3193.namprd18.prod.outlook.com>
- <7d1d06ce-6bbb-b4c6-5b59-32ac37e41c4a@suse.com>
-In-Reply-To: <7d1d06ce-6bbb-b4c6-5b59-32ac37e41c4a@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-suggested_attachment_session_id: 9f1f0a53-5fa2-a218-d889-a5bb3569783d
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 2d5b27c8-05cf-4ed5-5941-08da26aaf84f
-x-ms-traffictypediagnostic: CH0PR18MB4211:EE_
-x-microsoft-antispam-prvs: 
- <CH0PR18MB4211843DAE06616B6925F13CB9F89@CH0PR18MB4211.namprd18.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- lr81oV78svLpt8/sI7b2ZLR2BLNRaSSw2zWaWJRWE4uj1EByVokKU7Mp8a0cCLZoU0a6sqt+1qopk4xwFVW8Nln5mSpGe2O+JFgstWThXjkb4wYlY9oxnOEfEZmDqGRrEoK2XQvQoGf7Ou99NWZk+HR54SAVVP+BUfJ7NTEIHHMRv8nViog+Tzk353au0eg1beOH8+OZc0sslj7xDDy2uvwwW4TkIyus07ebEbY09ipNabhwbG0k9s/hdDUaNeYtD8sSm/998kgKVIC13CG3eZZ4j7nH+uAEeQqwLiWLxL2IkCPTgmaWnTwYcF3UYXqEPzHJJufGlJAHhhg/gA16ySeM7n6Aypkq+l0+VvDBjwLfIjq07pOPtodxbuNZ9vK5A19HPm93o7zqXbHy6oJTUMkCsfnpPJIkX4KTJijUJzYRgTbXL+POOUfw6qNKH+MLgtIlWcZzCcDamMqe/dQyPrBMxaKXI2SfBqNWAHe8Gj3uU660a0hzufS6kVTXy95t+iYHXdIwICc9i6EyZKW9lBt4yAStbD7eLshNimcA2wqTZH+I7aJEcWZuGN+Zc3q1hOKSqw6L14k9SvEW7SEeowYEwBQC7h7VdWD57q+Vt4mrE+J7Xyk70i5h4RPcg2f3FDyhNxMSUzVwt3MlVrlcDR9/ZpvlXHXerZaWNezGLeaFxUWRtMklYmIue4p+ndEgZg8kt23mfvLv1SBnbXnJVQ==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR18MB3193.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(38070700005)(86362001)(508600001)(66556008)(8676002)(26005)(66476007)(64756008)(33656002)(66446008)(4326008)(316002)(38100700002)(9686003)(55016003)(71200400001)(6916009)(91956017)(76116006)(66946007)(122000001)(53546011)(5660300002)(7696005)(6506007)(52536014)(8936002)(83380400001)(186003)(2906002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?iso-8859-1?Q?t0zyuROJbXrspJ9wBBBgCYBsawRg8UuFJZXNssVpEM57dhRIoiiC/oABkO?=
- =?iso-8859-1?Q?MF7V5DHbx7Nl4qseHcuFEqKLxt20VyqH8fAnPldqXjByNVYS2Ov8YvHcnY?=
- =?iso-8859-1?Q?gZmJxGRG1fCSM4TesER17xnlevqlm+4rcJjkXtVf7lXKYvn/J3K6KaRNFN?=
- =?iso-8859-1?Q?8CxNC1PQOHNaoBbeAtoULUK2XFHYeWwyt816vwJXbuqiO4GnBWAHv5UvNq?=
- =?iso-8859-1?Q?EZ1bVYL+x+vht/1TuQwSCqh4nQepft+lgkASlfx8M7rjDQNkNt9z+JT3l9?=
- =?iso-8859-1?Q?sIvFp+YHSnnBqcQJgxuR9rcNJi6DdyBbcFJEVhTspGpADvYRBgd18u+uOf?=
- =?iso-8859-1?Q?E/ZkYffMJijpwE1CHe/6bV89+AfsZ6/pJEqhBr80pzwsELpyqwdgakaWOr?=
- =?iso-8859-1?Q?N3DvWFhmFLc3RA05P3sPeZNIfxgR980ohVTdPKHSHnY84a2LymKNm5ckP1?=
- =?iso-8859-1?Q?ZNQguACU+VSRswRIgOmxUCutzkCSDaFQm623UjQX8VZ3O4rE+/Exd8E3UK?=
- =?iso-8859-1?Q?mptcjT1gGK0GnbNfJgMdzm8W1Nj5Cm0GrfwPyjLgs8CsP5fusxJmJXQ6wR?=
- =?iso-8859-1?Q?+KI1j1zSlaD804dour7mOZHiSd+FcmpuSyiVv/IwuZIPClurzpnPzL/bN7?=
- =?iso-8859-1?Q?sJ+ETsZQS70xpSNdB6jfyDyu4JK8i5V7qx5P8+LOb7AJ3Ukx7UmOmu7SuH?=
- =?iso-8859-1?Q?AWrc9zbviOedYRzmQUS8DKfMPTy5XF13Bo6a0YKnfXsy9q+lFeRqA8fWXD?=
- =?iso-8859-1?Q?Tbubw0qsOiEXatpJ6fl1GGw0ddYIhhIWsIqnqZn6OUVL/clm0eCROt/xDP?=
- =?iso-8859-1?Q?zBKJ3nQuHRPL/5EIjj9slp1nE/g0S9+IjPQGnXnsjo2729TdfRFQgX6Y8r?=
- =?iso-8859-1?Q?mEvBiToaW5+H5OaqMxI7wtINU2NLzSmYqX5kSwB0nBjaZtwYbABAeNwMl1?=
- =?iso-8859-1?Q?qjj7dqopylavDEhUosQ5KZ9QIkx1RC21irbw1ZBETfdCXznTbUc9yLvz8X?=
- =?iso-8859-1?Q?MHtuUvmDWiFQ3obl1iYniNWqBLhrh58IEml9TPBQt45Ckl9LThYm2a7NZd?=
- =?iso-8859-1?Q?Lqnb1X9ZjvVyfnSLcMOdGFjSeAWHWXkgBTTWnEo48V7x18LexMN1MGTXOS?=
- =?iso-8859-1?Q?z7F1k5ah9oZ7okhYge/vXifvRNrFouD6U3D1xZrRpLQVJwzqItPrGLG1pA?=
- =?iso-8859-1?Q?ItLhLB68zss5h3CQ9mVX3ZHO6RgxBVUhQswEdkv2lxLxPpk43YSFu2Uylh?=
- =?iso-8859-1?Q?4YsxUs7rhrhgTKwVQDmLkTCbkb79Jp+/RBCsmP/6YhL4FYPO2gt35LrdfT?=
- =?iso-8859-1?Q?/XSfoxmXuNwpIE3eYBPMTq75hnn06KgrE8ZEd7XidIuN5uZdEWCt/BkgB9?=
- =?iso-8859-1?Q?WBmgYNEqS+yAoXRjO0xjfc9/zoFsFb3ibpItKKxWLQITDZNAwFM9yJ40Pq?=
- =?iso-8859-1?Q?IVVpqVruX21WP55hZ2IGQD+c+QYdyrjNblXusU3V5vlHHgjTgi+rQQ5HdW?=
- =?iso-8859-1?Q?Zngy5GbAlAVqrDjJq8mjemiLPXqJHGb/07K/MB/2EFFAbrAGZtrlLECIIV?=
- =?iso-8859-1?Q?1I8m3HqblDrUgIVsqXA1cnQLUlf2w71hA8juEOSqXwS+7J7ecvhGPeEFBD?=
- =?iso-8859-1?Q?pTbiwKWWvF8cDc2ln7z7kTzOpcHWykt3gLFQgtXeHJ8eFJcYqliE9VLR8u?=
- =?iso-8859-1?Q?O46/gUoAuK2HatAV/CHA4avI3MRZC678nepFNYfnMzBkhzPeQi1b9iguG0?=
- =?iso-8859-1?Q?v7fsN2zhdfVeeZvZO+B20gop/wfljeI8w1lzEKOvxMcomB?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <169f4023-db5f-45ab-b310-2bacb7683ac7@suse.com>
+Date: Mon, 25 Apr 2022 13:04:36 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Subject: Re: [PATCH v2] x86: Fix XEN_DOMCTL_gdbsx_guestmemio crash
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Julien Grall <julien@xen.org>, Juergen Gross <jgross@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20220425100642.14383-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20220425100642.14383-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM5PR0601CA0077.eurprd06.prod.outlook.com
+ (2603:10a6:206::42) To DU2PR04MB8616.eurprd04.prod.outlook.com
+ (2603:10a6:10:2db::16)
 MIME-Version: 1.0
-X-OriginatorOrg: marvell.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f339e71b-76f1-4e42-30f7-08da26ab646c
+X-MS-TrafficTypeDiagnostic: AM0PR04MB4034:EE_
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-Microsoft-Antispam-PRVS:
+	<AM0PR04MB40344A4598149F53BE1CA82EB3F89@AM0PR04MB4034.eurprd04.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	SaDgXrQC+KSLliRmGFokW6ZrPubTETByNCL8KgpNhIJN2jW5EZESe0v23DunJnMsYCs5YzwOPAbVEDhvER3l2JTP80giWhLpTqVhAW45Nb73uTd/dYqyka2SDNPQYzVNkGrKH2l0+Fw0uH1NuQxBJwYRxe/CGIxO/AXynoo6151Xv3FH/mOhJ4jagwW3+YcNU+7FGRXecYIgoQEQ+YBgDBDralD8CahNVg8amMR9A5GGYdrLeWH0r8Xb8/Vrrd+Rth1zz92tqgHsHIdWXJi/2zQUTPcDbl4VKl0h/vsXPWJ4w5Mq153HaQa+mbDktxzW0PhkpK98d6mzrrO4h6JkFjCZqmX5wycsWm1X2p9VU758+EaN/i73YriJjfufDCCBaQzdaReaV0zaOHEfl5qW4Rm81tXST8cjycanbiTp4VDkUoegK8WYiQ57tJzCGzBgl05peYoLMylpg/5ChKJWBbJhRwArv81x1PQGI10P8e7am7e9JjDsLPxPWBzGP58ds5W7uZs+Olq9p9Rd7ocDdAvIsSBsIauHzwB69dfgfsafvo8KHcd7PJ1C/rlU9tffqhr1AYNunNSjU5f21RUREbpugbLXonKBDDelW+hBJDIjJTTCWFLHeLl6kYX+gxVdqR8bZNSJl2cTb11jaYqa7jjkDdeKapoS0Y5f29B6wEyjR9ND47T+2y1eEA+3V842RugyKhxiwhz5EkszxENBRDOfHcZib2KmROmnSruKw6g=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(86362001)(83380400001)(6666004)(6506007)(6512007)(31686004)(26005)(2616005)(31696002)(186003)(8936002)(66476007)(4326008)(66556008)(8676002)(2906002)(5660300002)(53546011)(38100700002)(36756003)(66946007)(6486002)(508600001)(6916009)(316002)(54906003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Q0VxYlpVN05pVVJ0Z1VoRWI0MEJiMjNiaUk0RURZeEV2V05OSllua0tLRGk0?=
+ =?utf-8?B?cE5hZ3VJN05iNzl1aXRlYmhndWtqcjlROGZtTTU3S2s3WFpNMkxwamhvdUtQ?=
+ =?utf-8?B?cXVSSW5EUHFDRERZZW1kNFhaWjVIZ2JKclkreGIzTVRUa0hBb3h1dTN2TmFl?=
+ =?utf-8?B?ZlpRQlRpajN3bVZhUXpBRCt3MFowWVIxR01vYU43UnFQQmZBVmIwUzFFM3J4?=
+ =?utf-8?B?TXliZWR3aElaa1Nab0J2eDBBM2F6aHJSc1QvUUc2aytNYmFBUm5TNkFFVyts?=
+ =?utf-8?B?cjU4cjUyMVBIVWVXMmJuVWRlRjdUcUI0b2hmS3lxQUtVK3Y0U0VBL09YWnVw?=
+ =?utf-8?B?OUJEOTVaS3lFbEkwY3U2K3dqV0h4RzhOT0ptMXJkbjgxaURNcFduQnl5bEUz?=
+ =?utf-8?B?MFJGZkFJSlpFQ2JFbDlnSmZvV1B0eHJqeGVJbmp6VzlieERYa2o5RkdhRWR5?=
+ =?utf-8?B?SFBhd3NSUFp4SjdZN3ZIcWJsaHc0MTVxbTBPVzI4bFJyZ0pBT3pxcms0bTA1?=
+ =?utf-8?B?Z1VhdnVuVkh1bTVKbjAvL2IrZEZWdE9LYTI4STl0WE5wZnZ2M0xLbnpCMUw2?=
+ =?utf-8?B?ZDlkNEh0WmVNc2FWSlNLdTNNUFVFN1h0TUMvNnNXa0NaVUFjdlQ1SDdBS25G?=
+ =?utf-8?B?QWN1eEJNUjVrbHVJL1NWV0FYZmRBRW1vMHBSNUMzSmU4eEFIM3hjcGpDVDly?=
+ =?utf-8?B?UlBxaFAwL0M4MVVueUhNMVNyM2h5UFl6YW4wbVI4Z29XbGd1aWZlbU5kSHNn?=
+ =?utf-8?B?WUx2Yll2dmNGYWMyWk10WnZMYVdXOE1pWTlRVkZULzdXUTdrQnBPSGtVL2FY?=
+ =?utf-8?B?MGdkU2RPVXlNd2NQZDkrZENWOXFBVGNIR2VBa2ttM3N0aVdXOGUwcy9oTCtU?=
+ =?utf-8?B?SXRWWnhPc1BWQnYvdHVkdUwrZ3d6MGwvWE9ERjVOV3hUSFpsUEJrVkhKVzZm?=
+ =?utf-8?B?cmlZbFNHekJwSlNUQjJKOGNQeDVoQi8wQVY1SUJscVZxSkZwMXpmSjBmMTFC?=
+ =?utf-8?B?cDVKVTlKSGtxQlFWLzVKZ3p6S3B6QUExdk9Zb0M0NVQ2VlRSRzRVNWtQSE1J?=
+ =?utf-8?B?SUd6MHlBOC9Ibzh0ZmhEbHd3em9BM0Jwam5PWWxqVitVd2x5TGxZZlNIYVdD?=
+ =?utf-8?B?MnJWbGh4TW1ld0NrUy9zV0xDUHRhbUJqR2pVcHNmbWs3SjhGc0gxZHY1T2ts?=
+ =?utf-8?B?S2tXTndyQkZkQU1NSXlzMjdpeVNwN0RZWUR4TVpNVllnRys5N2ZnK045aTUv?=
+ =?utf-8?B?STBNQ3ZubWMwUmxmQ0ZZSFVQY2crdFZjY2tjVjJxOWRDZzZWMmhORWJ1VTZm?=
+ =?utf-8?B?TkhVVjhhUmNMUU9RUjRxRUdUc3RUN1liWCt1OE5vOEo2b1o4cEd6b3J2RGZm?=
+ =?utf-8?B?cFBoT3pTQUVoVGI0L0dsa3ozR29naTVsNmdjTkQxVEtCczc0QUlqS3l2MDMz?=
+ =?utf-8?B?akdCcEhjZlQrSDRBcm9ZSTEwSFdFS2ZzUlNzV0NtNlkvTWhxazZ0eHdGMFJY?=
+ =?utf-8?B?d3lWWjNWMWNzOGxwdEYxVE9zQUFCK2VVY1dnNk43RlJYa3Z6ZDg2YUtZWjd0?=
+ =?utf-8?B?N3FNOEJDQ0ZOQjJiMmhwY3hkTlY3azk4a0ZLOTMwajB0b1cyR2VsQlZienFh?=
+ =?utf-8?B?eTh6UFRGV1RHOGpLY2ZjZGhmaFBCU0NzRTVxV25GWUtKcWFxZVpBZ21pNjl4?=
+ =?utf-8?B?VWE0SmhKd2lIMHB2UFU1SXB2eU1NVTA5RTVibXN4bW5PdXJkb3B5VkJoRGhO?=
+ =?utf-8?B?RHkzT25hcm5KdmF6UDd4bUxyTENsMStzQTVucWluNFplZXl1TGhTcVRXSDI5?=
+ =?utf-8?B?RGpsL1ZqNytUOEVDWjRzRTVtODQ0U0xHTlhNOHc2ZWk4Q1lrYXN4WXZseTZR?=
+ =?utf-8?B?Q0lkbVFOZDB2WU9JTlJ5WitKOFREUmxBUFhDbzlWTXIrVnJuUTl4NFNlZWR3?=
+ =?utf-8?B?MWpUTEFFajlqcTdLZUp3Q3o3Lzl0Z25iNzFBaFdQc3Jld210U3U2SHllNHl3?=
+ =?utf-8?B?YWFGZmFnSmVqU0RVUzNObW9lMDg2NzUyQXNteEx1VXM3bTN4SWdxQ0hvK0Yr?=
+ =?utf-8?B?ZXJjS1JxU25HMlF2SDBRNjRWMnB3b3NVNTZKOTlUZjB6YksyTWZyR0E2ZTFv?=
+ =?utf-8?B?QWF4S1hmc05MU2FENGlWZzhFZVNwb2c5VHZNYzBhb09jd2hlOFRDMExOZXJP?=
+ =?utf-8?B?Nkhad004dmo1VERxbnYyaE1ieHI2QXI5NnR3TGt2eTM2b3llS3NSZlYrQVNk?=
+ =?utf-8?B?bXhCcVVZcTJveFpHM2VRbExUK3RQenlKaWFkUW9IY1lLQkhqUW5TTjZvZVQ1?=
+ =?utf-8?B?dDQzZkFOQ1FNM3NCclkvUXA5d2V2SnhKV29VS2Rscm1jS1BJeDZhZz09?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f339e71b-76f1-4e42-30f7-08da26ab646c
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR18MB3193.namprd18.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d5b27c8-05cf-4ed5-5941-08da26aaf84f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Apr 2022 11:01:37.8123
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2022 11:04:39.3671
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 70e1fb47-1155-421d-87fc-2e58f638b6e0
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: p56d/JH9emLqK6PbwILeNeJD2jWpXApbFP5cbzYKjoFzFJ5KHJgGdzkUrbsLad2CJ9ltfvmIchCm2XaDn9jOmg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR18MB4211
-X-Proofpoint-GUID: R7TDdGAU7cpvdIIsOIBA-jSBEL5xCGg-
-X-Proofpoint-ORIG-GUID: R7TDdGAU7cpvdIIsOIBA-jSBEL5xCGg-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
- definitions=2022-04-25_07,2022-04-25_01,2022-02-23_01
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WsPmB9rFG3uAZTOsW/xxIPneFZzizN0Bax4Ye3fXM0wNfg7vocOnXlcU8KijcZWulLhTJI0iE2R/KFlCrJq8vQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB4034
 
-Hi Jan Beulich, =0A=
-=0A=
-Thank you very much. Please see my inline comments below.=0A=
-=0A=
-From: Jan Beulich <jbeulich@suse.com>=0A=
-Sent: 20 April 2022 18:37=0A=
-To: Naresh Bhat <nareshb@marvell.com>=0A=
-Cc: julien@xen.org <julien@xen.org>; sstabellini@kernel.org <sstabellini@ke=
-rnel.org>; xen-devel@lists.xenproject.org <xen-devel@lists.xenproject.org>=
-=0A=
-Subject: [EXT] Re: DOMU: Virtual Function FLR in PCI passthrough is crashin=
-g =0A=
-=A0=0A=
-External Email=0A=
-=0A=
-----------------------------------------------------------------------=0A=
-On 20.04.2022 14:48, Naresh Bhat wrote:=0A=
-> I have the following setup and try to test the Function Level Reset featu=
-re.=A0 Any suggestions or pointers will be very much helpful.=0A=
-> =0A=
-> DOM0=0A=
-> Distribution: Ubuntu-20.04.3 (kernel 5.8.0-43)=0A=
-> Xen version : 4.11.4-pre=0A=
-> =0A=
-> DOMU=0A=
-> Distribution: Ubuntu-18.04.6 LTS (kernel 5.8.0)=0A=
-> PCIe device with SRIOV support, VF (Virtual Function) interface connected=
- to DOMU via PCI pass-through=0A=
-> =0A=
-> Issue on DOMU: =0A=
-> 1. Enable MSIX on DOMU (We have used the following kernel APIs pci_enable=
-_msix_range, pci_alloc_irq_vectors)=0A=
-> 2. Execute FLR (Function Level Reset) via sysfs interface on the PCIe pas=
-sthrough device in DOMU=0A=
->=A0=A0=A0 # echo "1" > /sys/bus/pci/devices/<ID>/reset=0A=
-> =0A=
-> The following crash observed =0A=
-> =0A=
-> [ 4126.391455] BUG: unable to handle page fault for address: ffffc9004002=
-9000=0A=
-> [ 4126.391489] #PF: supervisor write access in kernel mode=0A=
-> [ 4126.391503] #PF: error_code(0x0003) - permissions violation=0A=
-> [ 4126.391516] PGD 94980067 P4D 94980067 PUD 16a155067 PMD 16a156067 PTE =
-80100000a000c075=0A=
-> [ 4126.391537] Oops: 0003 [#1] SMP NOPTI=0A=
-> [ 4126.391550] CPU: 0 PID: 971 Comm: bash Tainted: G=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0 OE=A0=A0=A0=A0 5.8.0 #1=0A=
-> [ 4126.391570] RIP: e030:__pci_write_msi_msg+0x59/0x150=0A=
-> [ 4126.391580] Code: 8b 50 d8 85 d2 75 31 83 78 fc 03 74 2b f6 47 54 01 7=
-4 6e f6 47 55 02 75 1f 0f b7 47 56 c1 e0 04 48 98 48 03 47 60 74 10 8b 16 <=
-89> 10 8b 56 04 89 50 04 8b 56 08 89 50 08 48 8b 03 49 89 44 24 20=0A=
-> [ 4126.391606] RSP: e02b:ffffc90040407cc0 EFLAGS: 00010286=0A=
-=0A=
-The RSP related selector value suggests you're talking about a PV DomU.=0A=
-Such a DomU cannot write the MSI-X table directly, yet at a guess (from=0A=
-the PTE displayed) that's what the insn does where the crash occurred. I=0A=
-would guess you've hit yet another place in the kernel where proper PV=0A=
-abstraction is missing. You may want to check with newer kernels.=0A=
-=0A=
-[Naresh]: We have tested with latest kernel i.e. 5.17.0 kernel, issue persi=
-sts.=0A=
-=0A=
-As to FLR - I guess this operation as a whole needs passing through=0A=
-pcifront to pciback, such that the operation can be carried out safely=0A=
-(e.g. to save and restore active MSIs, which is what I infer is being=0A=
-attempted here, as per the stack trace).=0A=
-=0A=
-[Naresh]: Any idea when the support will be added to Xen ?=0A=
-=0A=
-Jan=0A=
+On 25.04.2022 12:06, Andrew Cooper wrote:
+> @@ -178,6 +179,71 @@ void domain_pause_for_debugger(void)
+>          send_global_virq(VIRQ_DEBUGGER);
+>  }
+>  
+> +long gdbsx_domctl(struct domain *d, struct xen_domctl *domctl, bool *copyback)
+
+Is there anything that requires "long" (and not just "int") here and ...
+
+> +{
+> +    struct vcpu *v;
+> +    long ret = 0;
+
+... here?
+
+> +    switch ( domctl->cmd )
+> +    {
+> +    case XEN_DOMCTL_gdbsx_guestmemio:
+> +        ret = gdbsx_guest_mem_io(d, &domctl->u.gdbsx_guest_memio);
+> +        if ( !ret )
+> +            *copyback = true;
+> +        break;
+> +
+> +    case XEN_DOMCTL_gdbsx_pausevcpu:
+> +        ret = -EBUSY;
+> +        if ( !d->controller_pause_count )
+> +            break;
+> +        ret = -EINVAL;
+> +        if ( (v = domain_vcpu(d, domctl->u.gdbsx_pauseunp_vcpu.vcpu)) == NULL )
+> +            break;
+> +        ret = vcpu_pause_by_systemcontroller(v);
+> +        break;
+> +
+> +    case XEN_DOMCTL_gdbsx_unpausevcpu:
+> +        ret = -EBUSY;
+> +        if ( !d->controller_pause_count )
+> +            break;
+> +        ret = -EINVAL;
+> +        if ( (v = domain_vcpu(d, domctl->u.gdbsx_pauseunp_vcpu.vcpu)) == NULL )
+> +            break;
+> +        ret = vcpu_unpause_by_systemcontroller(v);
+> +        if ( ret == -EINVAL )
+> +            printk(XENLOG_G_WARNING
+> +                   "WARN: %pd attempting to unpause %pv which is not paused\n",
+> +                   current->domain, v);
+> +        break;
+> +
+> +    case XEN_DOMCTL_gdbsx_domstatus:
+> +        domctl->u.gdbsx_domstatus.vcpu_id = -1;
+> +        domctl->u.gdbsx_domstatus.paused = d->controller_pause_count > 0;
+> +        if ( domctl->u.gdbsx_domstatus.paused )
+> +        {
+> +            for_each_vcpu ( d, v )
+> +            {
+> +                if ( v->arch.gdbsx_vcpu_event )
+> +                {
+> +                    domctl->u.gdbsx_domstatus.vcpu_id = v->vcpu_id;
+> +                    domctl->u.gdbsx_domstatus.vcpu_ev =
+> +                        v->arch.gdbsx_vcpu_event;
+> +                    v->arch.gdbsx_vcpu_event = 0;
+> +                    break;
+> +                }
+> +            }
+> +        }
+> +        *copyback = true;
+> +        break;
+> +
+> +    default:
+> +        ASSERT_UNREACHABLE();
+> +        ret = -ENOSYS;
+> +    }
+
+Just as a remark: It's never really clear to me whether we actually want
+to permit omitting "break" in cases like this one. It always feels
+slightly risky towards someone subsequently adding another case label
+below here without adding the suddenly necessary "break". While for
+sentinel code like this doing so may be okay, it would seem to me that
+we might be better off not allowing omission of "break" anywhere.
+
+> --- a/xen/arch/x86/include/asm/gdbsx.h
+> +++ b/xen/arch/x86/include/asm/gdbsx.h
+> @@ -2,18 +2,27 @@
+>  #ifndef __X86_GDBX_H__
+>  #define __X86_GDBX_H__
+>  
+> -#ifdef CONFIG_GDBSX
+> +#include <xen/stdbool.h>
+>  
+>  struct domain;
+> -struct xen_domctl_gdbsx_memio;
+> +struct xen_domctl;
+>  
+> -int gdbsx_guest_mem_io(struct domain *d, struct xen_domctl_gdbsx_memio *iop);
+> +#ifdef CONFIG_GDBSX
+>  
+>  void domain_pause_for_debugger(void);
+>  
+> +long gdbsx_domctl(struct domain *d, struct xen_domctl *domctl, bool *copyback);
+> +
+>  #else
+>  
+> +#include <xen/errno.h>
+> +
+>  static inline void domain_pause_for_debugger(void) {}
+>  
+> +long gdbsx_domctl(struct domain *d, struct xen_domctl *domctl, bool *copyback)
+
+static inline?
+
+Jan
+
 
