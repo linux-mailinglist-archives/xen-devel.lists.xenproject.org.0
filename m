@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2CBB50E482
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 17:35:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.313102.530570 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 350E550E49C
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 17:41:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.313130.530598 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nj0jw-0001Tm-Gd; Mon, 25 Apr 2022 15:35:04 +0000
+	id 1nj0pa-0003mE-Ho; Mon, 25 Apr 2022 15:40:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 313102.530570; Mon, 25 Apr 2022 15:35:04 +0000
+Received: by outflank-mailman (output) from mailman id 313130.530598; Mon, 25 Apr 2022 15:40:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nj0jw-0001QY-Cy; Mon, 25 Apr 2022 15:35:04 +0000
-Received: by outflank-mailman (input) for mailman id 313102;
- Mon, 25 Apr 2022 15:35:03 +0000
+	id 1nj0pa-0003jf-ES; Mon, 25 Apr 2022 15:40:54 +0000
+Received: by outflank-mailman (input) for mailman id 313130;
+ Mon, 25 Apr 2022 15:40:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qlrd=VD=inria.fr=julia.lawall@srs-se1.protection.inumbo.net>)
- id 1nj0jv-0001QS-4o
- for xen-devel@lists.xenproject.org; Mon, 25 Apr 2022 15:35:03 +0000
-Received: from mail3-relais-sop.national.inria.fr
- (mail3-relais-sop.national.inria.fr [192.134.164.104])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4501050a-c4ad-11ec-a405-831a346695d4;
- Mon, 25 Apr 2022 17:35:01 +0200 (CEST)
-Received: from ip-214.net-89-2-7.rev.numericable.fr (HELO hadrien)
- ([89.2.7.214]) by mail3-relais-sop.national.inria.fr with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Apr 2022 17:35:00 +0200
+ <SRS0=rnYW=VD=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
+ id 1nj0pY-0003iJ-FD
+ for xen-devel@lists.xenproject.org; Mon, 25 Apr 2022 15:40:52 +0000
+Received: from MTA-05-3.privateemail.com (mta-05-3.privateemail.com
+ [68.65.122.15]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 14b860ca-c4ae-11ec-a405-831a346695d4;
+ Mon, 25 Apr 2022 17:40:50 +0200 (CEST)
+Received: from mta-05.privateemail.com (localhost [127.0.0.1])
+ by mta-05.privateemail.com (Postfix) with ESMTP id A5B96180009E
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Apr 2022 11:40:48 -0400 (EDT)
+Received: from mail-oi1-f172.google.com (unknown [10.20.151.149])
+ by mta-05.privateemail.com (Postfix) with ESMTPA id 7F4D918000A5
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Apr 2022 11:40:48 -0400 (EDT)
+Received: by mail-oi1-f172.google.com with SMTP id a10so17506440oif.9
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Apr 2022 08:40:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,251 +44,388 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4501050a-c4ad-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=inria.fr; s=dc;
-  h=date:from:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=2BAVYOzHyLn6mrUTsnozcnawOl0hxdkWwXi8fyQF4Ik=;
-  b=LbaA6wKuIm3B3fXzADjns8BtJVZsRwYNKdhnolZfvhz3lF127+ipZpoM
-   yr+P61xyB7QYhdNgJOGf6TzE9Q8/eU5hniKcHFWqNiI3av3jnsb6sTpEv
-   miliijm9jLUO0TLCtzgB/hGEwEr1YdVJdkTbpsPBj5C/hSVtM25LMyVFg
-   4=;
-Authentication-Results: mail3-relais-sop.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
-X-IronPort-AV: E=Sophos;i="5.90,288,1643670000"; 
-   d="scan'208";a="12375271"
-Date: Mon, 25 Apr 2022 17:34:59 +0200 (CEST)
-From: Julia Lawall <julia.lawall@inria.fr>
-X-X-Sender: jll@hadrien
-To: Ira Weiny <ira.weiny@intel.com>
-cc: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>, 
-    Julia Lawall <julia.lawall@inria.fr>, 
-    Alaa Mohamed <eng.alaamohamedsoliman.am@gmail.com>, 
-    outreachy@lists.linux.dev, boris.ostrovsky@oracle.com, jgross@suse.com, 
-    sstabellini@kernel.org, xen-devel@lists.xenproject.org, 
-    linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] xen:  Convert kmap() to kmap_local_page()
-In-Reply-To: <Yma9zvvuZGyAeRBG@iweiny-desk3>
-Message-ID: <alpine.DEB.2.22.394.2204251733420.2718@hadrien>
-References: <20220419234328.10346-1-eng.alaamohamedsoliman.am@gmail.com> <3990312.6PsWsQAL7t@leap> <alpine.DEB.2.22.394.2204201556330.2937@hadrien> <2538961.9Mp67QZiUf@leap> <Yma9zvvuZGyAeRBG@iweiny-desk3>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 14b860ca-c4ae-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=tklengyel.com;
+	s=default; t=1650901248;
+	bh=wogc9opKNvjdbZ9ltiRKfMo3505ImiITi0CQ4uaa0F4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=N+HfI2cejrFFWu0eqPGVtcYygfvlF9wWb9gYcoqkPjGA9uhU8qYF+aMBCgyoR778k
+	 /KjM8099Yt4WsxfKcriP1XUGYUt4QL9BHwdWmgpSKkMYtPunpahj8hRsi7xYJsDoSh
+	 T0/qtBR52wUGSTQGNMJ/0tgxmMmNJZpFbJUvgOKnDRVT3hl8w95W7JFCtsJg9uixFt
+	 Ia90tggWNbq316TCIq1KKUJjVa8N65Sx7Fmtp2DmaAsiDGgqesOrWBXCeG3z4bBMgb
+	 cN+rl4MbOZkLEwwZSI+Ao/z36V279Iv9o9AZ4EngD804vwqh9upNd1dTXitVXZB2bT
+	 RCgLmAZyufCFw==
+X-Gm-Message-State: AOAM5335vGNn/S6LULk3FFOqzJUqUP5jr1NVV26M5U28IFHOpjeE8eIb
+	6hbg2SRyRkHqPrvxu0ewpoLe5kzaJ8gE8Rg4QOA=
+X-Google-Smtp-Source: ABdhPJwPJ823EFBYHbCA+c2iWCDp2WOSVdxRklONsMUh/vtgTjL3xh5rCa8mjvxwI8fwYUCxmZMvcSa/nx7KCjSYgKk=
+X-Received: by 2002:a05:6808:302b:b0:2f9:eeef:f03 with SMTP id
+ ay43-20020a056808302b00b002f9eeef0f03mr13087651oib.128.1650901247627; Mon, 25
+ Apr 2022 08:40:47 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1172987651-1650900900=:2718"
+References: <bc13e07cdb651afc2c8a97dde1be9c2158160307.1649857162.git.tamas.lengyel@intel.com>
+ <4b456c15829c11914b698654937c28e313d2d522.1649857162.git.tamas.lengyel@intel.com>
+ <YmazAdHL4LWOdDDv@Air-de-Roger>
+In-Reply-To: <YmazAdHL4LWOdDDv@Air-de-Roger>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Mon, 25 Apr 2022 11:40:11 -0400
+X-Gmail-Original-Message-ID: <CABfawh=Z1_88p14ivkqrBAUKbfw39f-frXN9uNsdVt9BDp+4bA@mail.gmail.com>
+Message-ID: <CABfawh=Z1_88p14ivkqrBAUKbfw39f-frXN9uNsdVt9BDp+4bA@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] x86/monitor: Add new monitor event to catch all vmexits
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Tamas K Lengyel <tamas.lengyel@intel.com>, xen-devel@lists.xenproject.org, 
+	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Alexandru Isaila <aisaila@bitdefender.com>, 
+	Petre Pircalabu <ppircalabu@bitdefender.com>, Jun Nakajima <jun.nakajima@intel.com>, 
+	Kevin Tian <kevin.tian@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1172987651-1650900900=:2718
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8BIT
-
-
-
-On Mon, 25 Apr 2022, Ira Weiny wrote:
-
-> On Wed, Apr 20, 2022 at 04:07:36PM +0200, Fabio M. De Francesco wrote:
-> > On mercoledì 20 aprile 2022 15:57:14 CEST Julia Lawall wrote:
-> > >
-> > > On Wed, 20 Apr 2022, Fabio M. De Francesco wrote:
-> > >
-> > > > On mercoledì 20 aprile 2022 15:40:10 CEST Julia Lawall wrote:
-> > > > >
-> > > > > On Wed, 20 Apr 2022, Fabio M. De Francesco wrote:
-> > > > >
-> > > > > > On mercoledì 20 aprile 2022 08:03:05 CEST Julia Lawall wrote:
-> > > > > > >
-> > > > > > > On Wed, 20 Apr 2022, Alaa Mohamed wrote:
-> > > > > > >
-> > > > > > > > kmap() is being deprecated and these usages are all local to
-> > the
-> > > > thread
-> > > > > > > > so there is no reason kmap_local_page() can't be used.
-> > > > > > > >
-> > > > > > > > Replace kmap() calls with kmap_local_page().
-> > > > > > >
-> > > > > > > OK, so from a Coccinelle point of view, could we do
-> > > > > > >
-> > > > > > > @@
-> > > > > > > expression e1,e2,x,f;
-> > > > > > > @@
-> > > > > > >
-> > > > > > > e1 =
-> > > > > > > - kmap
-> > > > > > > + kmap_local_page
-> > > > > > >     (e2)
-> > > > > > > ... when != x = e1 // not stored in any location and not passed
-> > to
-> > > > > > another function
-> > > > > > >     when != f(...,e1,...)
-> > > > > > >     when != x = e2
-> > > > > > >     when != f(...,e2,...)
-> > > > > > > -kunmap(e2)
-> > > > > > > +kunmap_local(e1)
-> > > > > > >
-> > > > > > > julia
-> > > > > > >
-> > > > > >
-> > > > > > I've never spent sufficient time to understand properly the syntax
-> > and
-> > > > > > semantics of expressions of Coccinelle. However, thanks Julia, this
-> > > > code
-> > > > > > looks good and can be very helpful.
-> > > > > >
-> > > > > > Only a minor objection... it doesn't tell when 'e2' has been
-> > allocated
-> > > > > > within the same function where the kmap() call is.
-> > > > > >
-> > > > > > In the particular case that I cite above, I'd prefer to remove the
-> > > > > > allocation of the page (say with alloc_page()) and convert kmap() /
-> > > > kunmap()
-> > > > > > to use kmalloc() / kfree().
-> > > > > >
-> > > > > > Fox example, this is done in the following patch:
-> > > > > >
-> > > > > > commit 633b0616cfe0 ("x86/sgx: Remove unnecessary kmap() from
-> > > > > > sgx_ioc_enclave_init()") from Ira Weiny.
-> > > > > >
-> > > > > > Can Coccinelle catch also those special cases where a page that is
-> > > > passed
-> > > > > > to kmap() is allocated within that same function (vs. being passed
-> > as
-> > > > > > argument to this function) and, if so, propose a replacement with
-> > > > > > kmalloc()?
-> > > > >
-> > > > > It looks complex in this case, because the allocation is in another
-> > > > > function, and it is passed to another function.
-> > > >
-> > > > This is not the special case I was talking about. In this case your
-> > code
-> > > > for Coccinelle tells the right proposal and it is exactly what Alaa did
-> > in
-> > > > her patch (which is good!).
-> > > >
-> > > > I'm talking about other special cases like the one I pointed to with
-> > the
-> > > > link I provided. I'm sorry if my bad English made you think that Alaa's
-> > > > patch was one of those cases where the page is allocated within the
-> > same
-> > > > function where kmap() is.
-> > > >
-> > > > I hope that now I've been clearer :)
-> > >
-> > > Ah, sorry for the misunderstanding.  If you have an example, I can take a
-> > > look and propose something for this special case.
-> > >
-> > > julia
+On Mon, Apr 25, 2022 at 10:41 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.com=
+> wrote:
+>
+> On Wed, Apr 13, 2022 at 09:41:52AM -0400, Tamas K Lengyel wrote:
+> > Add monitor event that hooks the vmexit handler allowing for both sync =
+and
+> > async monitoring of events. With async monitoring an event is placed on=
+ the
+> > monitor ring for each exit and the rest of the vmexit handler resumes n=
+ormally.
+> > If there are additional monitor events configured those will also place=
+ their
+> > respective events on the monitor ring.
 > >
-> > Yes, I have the example that you are asking for. It's that commit
-> > 633b0616cfe0 from Ira Weiny.
+> > With the sync version an event is placed on the monitor ring but the ha=
+ndler
+> > does not get resumed, thus the sync version is only useful when the VM =
+is not
+> > expected to resume normally after the vmexit. Our use-case is primarily=
+ with
+> > the sync version with VM forks where the fork gets reset after sync vme=
+xit
+> > event, thus the rest of the vmexit handler can be safely skipped. This =
+is
+> > very useful when we want to avoid Xen crashing the VM under any circums=
+tance,
+> > for example during fuzzing. Collecting all vmexit information regardles=
+s of
+> > the root cause makes it easier to reason about the state of the VM on t=
+he
+> > monitor side, hence we opt to receive all events, even for external int=
+errupt
+> > and NMI exits and let the monitor agent decide how to proceed.
 > >
-> > Let me copy and paste it here for your convenience...
+> > Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+> > ---
+> > v4: Minor tweaks and more verbose patch description.
 > >
-> > diff --git a/arch/x86/kernel/cpu/sgx/ioctl.c b/arch/x86/kernel/cpu/sgx/
-> > ioctl.c
-> > index 90a5caf76939..2e10367ea66c 100644
-> > --- a/arch/x86/kernel/cpu/sgx/ioctl.c
-> > +++ b/arch/x86/kernel/cpu/sgx/ioctl.c
-> > @@ -604,7 +604,6 @@ static long sgx_ioc_enclave_init(struct sgx_encl *encl,
-> > void __user *arg)
-> >  {
-> >         struct sgx_sigstruct *sigstruct;
-> >         struct sgx_enclave_init init_arg;
-> > -       struct page *initp_page;
-> >         void *token;
-> >         int ret;
+> > Note: making the sync version resume-friendly is specifically out-of-sc=
+ope as
+> > it would require significant rearrangement of the vmexit handler. As th=
+is
+> > feature is not required for our use-case we opt for the version that mi=
+nimizes
+> > impact on the existing code.
+> > ---
+> >  tools/include/xenctrl.h                |  2 ++
+> >  tools/libs/ctrl/xc_monitor.c           | 15 +++++++++++++++
+> >  xen/arch/x86/hvm/monitor.c             | 18 ++++++++++++++++++
+> >  xen/arch/x86/hvm/vmx/vmx.c             | 12 ++++++++++++
+> >  xen/arch/x86/include/asm/domain.h      |  2 ++
+> >  xen/arch/x86/include/asm/hvm/monitor.h |  2 ++
+> >  xen/arch/x86/include/asm/monitor.h     |  3 ++-
+> >  xen/arch/x86/monitor.c                 | 14 ++++++++++++++
+> >  xen/include/public/domctl.h            |  6 ++++++
+> >  xen/include/public/vm_event.h          |  8 ++++++++
+> >  10 files changed, 81 insertions(+), 1 deletion(-)
 > >
-> > @@ -615,11 +614,15 @@ static long sgx_ioc_enclave_init(struct sgx_encl
-> > *encl, void __user *arg)
-> >         if (copy_from_user(&init_arg, arg, sizeof(init_arg)))
-> >                 return -EFAULT;
-> >
-> > -       initp_page = alloc_page(GFP_KERNEL);
-> > -       if (!initp_page)
-> > +       /*
-> > +        * 'sigstruct' must be on a page boundary and 'token' on a 512 byte
-> > +        * boundary.  kmalloc() will give this alignment when allocating
-> > +        * PAGE_SIZE bytes.
-> > +        */
-> > +       sigstruct = kmalloc(PAGE_SIZE, GFP_KERNEL);
-> > +       if (!sigstruct)
-> >                 return -ENOMEM;
-> >
-> > -       sigstruct = kmap(initp_page);
-> >         token = (void *)((unsigned long)sigstruct + PAGE_SIZE / 2);
-> >         memset(token, 0, SGX_LAUNCH_TOKEN_SIZE);
-> >
-> > @@ -645,8 +648,7 @@ static long sgx_ioc_enclave_init(struct sgx_encl *encl,
-> > void __user *arg)
-> >         ret = sgx_encl_init(encl, sigstruct, token);
-> >
-> >  out:
-> > -       kunmap(initp_page);
-> > -       __free_page(initp_page);
-> > +       kfree(sigstruct);
-> >         return ret;
+> > diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
+> > index 1b089a2c02..159eaac050 100644
+> > --- a/tools/include/xenctrl.h
+> > +++ b/tools/include/xenctrl.h
+> > @@ -2096,6 +2096,8 @@ int xc_monitor_privileged_call(xc_interface *xch,=
+ uint32_t domain_id,
+> >                                 bool enable);
+> >  int xc_monitor_emul_unimplemented(xc_interface *xch, uint32_t domain_i=
+d,
+> >                                    bool enable);
+> > +int xc_monitor_vmexit(xc_interface *xch, uint32_t domain_id, bool enab=
+le,
+> > +                      bool sync);
+> >  /**
+> >   * This function enables / disables emulation for each REP for a
+> >   * REP-compatible instruction.
+> > diff --git a/tools/libs/ctrl/xc_monitor.c b/tools/libs/ctrl/xc_monitor.=
+c
+> > index 4ac823e775..c5fa62ff30 100644
+> > --- a/tools/libs/ctrl/xc_monitor.c
+> > +++ b/tools/libs/ctrl/xc_monitor.c
+> > @@ -246,6 +246,21 @@ int xc_monitor_emul_unimplemented(xc_interface *xc=
+h, uint32_t domain_id,
+> >      return do_domctl(xch, &domctl);
 > >  }
 > >
-> > I think that Coccinelle might understand that "initp_page" is allocated in
-> > the same function where later it is kmap()'ed. But I'm not able to write a
-> > Coccinelle check to find out these kinds of special cases. In these cases
-> > the correct solution is not to use kmap_local_page(). Instead delete the
-> > alloc_page() and use kmalloc().
+> > +int xc_monitor_vmexit(xc_interface *xch, uint32_t domain_id, bool enab=
+le,
+> > +                      bool sync)
+> > +{
+> > +    DECLARE_DOMCTL;
+> > +
+> > +    domctl.cmd =3D XEN_DOMCTL_monitor_op;
+> > +    domctl.domain =3D domain_id;
+> > +    domctl.u.monitor_op.op =3D enable ? XEN_DOMCTL_MONITOR_OP_ENABLE
+> > +                                    : XEN_DOMCTL_MONITOR_OP_DISABLE;
+> > +    domctl.u.monitor_op.event =3D XEN_DOMCTL_MONITOR_EVENT_VMEXIT;
+> > +    domctl.u.monitor_op.u.vmexit.sync =3D sync;
+> > +
+> > +    return do_domctl(xch, &domctl);
+> > +}
+> > +
+> >  /*
+> >   * Local variables:
+> >   * mode: C
+> > diff --git a/xen/arch/x86/hvm/monitor.c b/xen/arch/x86/hvm/monitor.c
+> > index b44a1e1dfe..64a38e8fa7 100644
+> > --- a/xen/arch/x86/hvm/monitor.c
+> > +++ b/xen/arch/x86/hvm/monitor.c
+> > @@ -328,6 +328,24 @@ bool hvm_monitor_check_p2m(unsigned long gla, gfn_=
+t gfn, uint32_t pfec,
+> >      return monitor_traps(curr, true, &req) >=3D 0;
+> >  }
 > >
+> > +int hvm_monitor_vmexit(unsigned long exit_reason,
+> > +                       unsigned long exit_qualification)
 >
-> Sorry about missing this thread last week...
->
-> I've lost the Coccinelle scripts I wrote before but the ones which helped were
-> documented in patches I submitted when Coccinelle was used.
->
-> I think Coccinelle can help a lot.  And probably a lot more than I know since
-> I'm not an expert in the language either.
->
-> However, In addition to the example Fabio shows above here are a few other
-> things to look out for when writing Coccinelle scripts.
->
-> 1) The addition of mem*_page() functions means sometimes the entire kmap/kunmap
->    can be removed.  Check out the Coccinelle script for that.[1]
->
-> 2) kunmap_local() has ordering rules which often requires some manual
->    review.[2]
->
-> 3) kmap/kunmap is often wrapped in other subsystem helper functions.  I was not
->    sure how to deal with that in Coccinelle.  Julia is this easy in
->    Coccinelle?[3]
+> Should this maybe live in vmx code or have 'vmx' in the name
+> somewhere, so that if an svm counterpart is added this doesn't need to
+> be renamed?
 
+I don't follow. Why would this need to be renamed? I would presume the
+same function would be used on both if it comes to that, perhaps with
+a unified input structure if the two are not compatible as-is. In any
+case, there is no vm_event/monitor support for AMD at all (not just
+for this particular event type) and no plans on adding it any time
+soon so IMHO we should cross that bridge when and if that becomes
+necessary.
 
-Thanks for the pointers.
+>
+> > +{
+> > +    struct vcpu *curr =3D current;
+> > +    struct arch_domain *ad =3D &curr->domain->arch;
+> > +    vm_event_request_t req =3D {};
+> > +
+> > +    ASSERT(ad->monitor.vmexit_enabled);
+> > +
+> > +    req.reason =3D VM_EVENT_REASON_VMEXIT;
+> > +    req.u.vmexit.reason =3D exit_reason;
+> > +    req.u.vmexit.qualification =3D exit_qualification;
+>
+> You could set those fields at definition.
 
-[3] would depend on how much risk you are willing to take.  The arguments
-are the same, except for the array index, for example.  But one may prefer
-to be sure that nothing complex happens between the two calls.
+Sure, but this is the established style throughout the file.
 
-julia
+> > +
+> > +    set_npt_base(curr, &req);
+> > +
+> > +    return monitor_traps(curr, ad->monitor.vmexit_sync, &req);
+> > +}
+> > +
+> >  /*
+> >   * Local variables:
+> >   * mode: C
+> > diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+> > index c075370f64..2794db46f9 100644
+> > --- a/xen/arch/x86/hvm/vmx/vmx.c
+> > +++ b/xen/arch/x86/hvm/vmx/vmx.c
+> > @@ -4008,6 +4008,18 @@ void vmx_vmexit_handler(struct cpu_user_regs *re=
+gs)
+> >          }
+> >      }
+> >
+> > +    if ( unlikely(currd->arch.monitor.vmexit_enabled) )
+> > +    {
+> > +        int rc;
+> > +
+> > +        __vmread(EXIT_QUALIFICATION, &exit_qualification);
+> > +        rc =3D hvm_monitor_vmexit(exit_reason, exit_qualification);
+> > +        if ( rc < 0 )
+> > +            goto exit_and_crash;
+> > +        if ( rc )
+> > +            return;
+> > +    }
+>
+> Just for my understanding, is there any reason to not do this before
+> updating the altp2m?  AFAICT the update of the active EPTP won't
+> affect the call to hvm_monitor_vmexit.
+
+The currently active altp2m information is included in the vm_event
+that will be sent out, so it is good to have the correct info for it.
+I don't currently plan on using altp2m with this particular even type
+but we should make sure it doesn't send out stale info in case someone
+wants to use it differently. Certainly no point in sending the event
+before it as the exit condition in the altp2m update blob is really
+just dead code and can't actually be reached.
 
 >
->
-> Ira
->
->
-> [1]
-> https://lore.kernel.org/lkml/20210205232304.1670522-3-ira.weiny@intel.com/
-> https://lore.kernel.org/lkml/20210205232304.1670522-5-ira.weiny@intel.com/
->
-> [2]
-> https://lore.kernel.org/lkml/20210217024826.3466046-3-ira.weiny@intel.com/
-> https://lore.kernel.org/lkml/20210217024826.3466046-4-ira.weiny@intel.com/
->
-> [3]
-> https://lore.kernel.org/lkml/20210217024826.3466046-5-ira.weiny@intel.com/
->
+> > +
+> >      /* XXX: This looks ugly, but we need a mechanism to ensure
+> >       * any pending vmresume has really happened
+> >       */
+> > diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/a=
+sm/domain.h
+> > index e62e109598..855db352c0 100644
+> > --- a/xen/arch/x86/include/asm/domain.h
+> > +++ b/xen/arch/x86/include/asm/domain.h
+> > @@ -430,6 +430,8 @@ struct arch_domain
+> >           */
+> >          unsigned int inguest_pagefault_disabled                       =
+     : 1;
+> >          unsigned int control_register_values                          =
+     : 1;
+> > +        unsigned int vmexit_enabled                                   =
+     : 1;
+> > +        unsigned int vmexit_sync                                      =
+     : 1;
+> >          struct monitor_msr_bitmap *msr_bitmap;
+> >          uint64_t write_ctrlreg_mask[4];
+> >      } monitor;
+> > diff --git a/xen/arch/x86/include/asm/hvm/monitor.h b/xen/arch/x86/incl=
+ude/asm/hvm/monitor.h
+> > index a75cd8545c..639f6dfa37 100644
+> > --- a/xen/arch/x86/include/asm/hvm/monitor.h
+> > +++ b/xen/arch/x86/include/asm/hvm/monitor.h
+> > @@ -51,6 +51,8 @@ bool hvm_monitor_emul_unimplemented(void);
 > >
-> > Thanks,
+> >  bool hvm_monitor_check_p2m(unsigned long gla, gfn_t gfn, uint32_t pfec=
+,
+> >                             uint16_t kind);
+> > +int hvm_monitor_vmexit(unsigned long exit_reason,
+> > +                       unsigned long exit_qualification);
 > >
-> > Fabio
+> >  #endif /* __ASM_X86_HVM_MONITOR_H__ */
 > >
+> > diff --git a/xen/arch/x86/include/asm/monitor.h b/xen/arch/x86/include/=
+asm/monitor.h
+> > index 01c6d63bb9..d8d54c5f23 100644
+> > --- a/xen/arch/x86/include/asm/monitor.h
+> > +++ b/xen/arch/x86/include/asm/monitor.h
+> > @@ -89,7 +89,8 @@ static inline uint32_t arch_monitor_get_capabilities(=
+struct domain *d)
+> >                      (1U << XEN_DOMCTL_MONITOR_EVENT_DEBUG_EXCEPTION) |
+> >                      (1U << XEN_DOMCTL_MONITOR_EVENT_WRITE_CTRLREG) |
+> >                      (1U << XEN_DOMCTL_MONITOR_EVENT_EMUL_UNIMPLEMENTED=
+) |
+> > -                    (1U << XEN_DOMCTL_MONITOR_EVENT_INGUEST_PAGEFAULT)=
+);
+> > +                    (1U << XEN_DOMCTL_MONITOR_EVENT_INGUEST_PAGEFAULT)=
+ |
+> > +                    (1U << XEN_DOMCTL_MONITOR_EVENT_VMEXIT));
 > >
+> >      if ( hvm_is_singlestep_supported() )
+> >          capabilities |=3D (1U << XEN_DOMCTL_MONITOR_EVENT_SINGLESTEP);
+> > diff --git a/xen/arch/x86/monitor.c b/xen/arch/x86/monitor.c
+> > index 3079726a8b..30ca71432c 100644
+> > --- a/xen/arch/x86/monitor.c
+> > +++ b/xen/arch/x86/monitor.c
+> > @@ -332,6 +332,20 @@ int arch_monitor_domctl_event(struct domain *d,
+> >          break;
+> >      }
 > >
+> > +    case XEN_DOMCTL_MONITOR_EVENT_VMEXIT:
+> > +    {
+> > +        bool old_status =3D ad->monitor.vmexit_enabled;
+> > +
+> > +        if ( unlikely(old_status =3D=3D requested_status) )
+> > +            return -EEXIST;
 >
+> What about if the requested status is the same as the current one, but
+> vmexit sync is not?
+
+You need to clear the currently registered event first, then register
+the new one.
+
+> IOW, I'm not sure this check is helpful, and you could likely avoid
+> the old_status local variable.
+
+It is helpful on the callee side. Usually the callee needs to keep
+track of the state of what events are enabled so that it can clean up
+after itself and if it ever runs into trying to set the event to
+something it's already set to then that indicates its state being
+out-of-sync.
+
 >
---8323329-1172987651-1650900900=:2718--
+> > +
+> > +        domain_pause(d);
+> > +        ad->monitor.vmexit_enabled =3D requested_status;
+> > +        ad->monitor.vmexit_sync =3D mop->u.vmexit.sync;
+> > +        domain_unpause(d);
+> > +        break;
+> > +    }
+> > +
+> >      default:
+> >          /*
+> >           * Should not be reached unless arch_monitor_get_capabilities(=
+) is
+> > diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+> > index b85e6170b0..4803ed7afc 100644
+> > --- a/xen/include/public/domctl.h
+> > +++ b/xen/include/public/domctl.h
+> > @@ -1057,6 +1057,7 @@ struct xen_domctl_psr_cmt_op {
+> >  #define XEN_DOMCTL_MONITOR_EVENT_EMUL_UNIMPLEMENTED    10
+> >  /* Enabled by default */
+> >  #define XEN_DOMCTL_MONITOR_EVENT_INGUEST_PAGEFAULT     11
+> > +#define XEN_DOMCTL_MONITOR_EVENT_VMEXIT                12
+> >
+> >  struct xen_domctl_monitor_op {
+> >      uint32_t op; /* XEN_DOMCTL_MONITOR_OP_* */
+> > @@ -1107,6 +1108,11 @@ struct xen_domctl_monitor_op {
+> >              /* Pause vCPU until response */
+> >              uint8_t sync;
+> >          } debug_exception;
+> > +
+> > +        struct {
+> > +            /* Send event and don't process vmexit */
+> > +            uint8_t sync;
+> > +        } vmexit;
+> >      } u;
+> >  };
+> >
+> > diff --git a/xen/include/public/vm_event.h b/xen/include/public/vm_even=
+t.h
+> > index 81c2ee28cc..07f106f811 100644
+> > --- a/xen/include/public/vm_event.h
+> > +++ b/xen/include/public/vm_event.h
+> > @@ -175,6 +175,8 @@
+> >  #define VM_EVENT_REASON_DESCRIPTOR_ACCESS       13
+> >  /* Current instruction is not implemented by the emulator */
+> >  #define VM_EVENT_REASON_EMUL_UNIMPLEMENTED      14
+> > +/* VMEXIT */
+> > +#define VM_EVENT_REASON_VMEXIT                  15
+> >
+> >  /* Supported values for the vm_event_write_ctrlreg index. */
+> >  #define VM_EVENT_X86_CR0    0
+> > @@ -394,6 +396,11 @@ struct vm_event_emul_insn_data {
+> >      uint8_t data[16]; /* Has to be completely filled */
+> >  };
+> >
+> > +struct vm_event_vmexit {
+> > +    uint64_t reason;
+> > +    uint64_t qualification;
+> > +};
+>
+> You are exposing an Intel specific interface publicly here.  Might be
+> worth adding a note, and/or adding 'intel' or 'vmx' in the structure
+> name: vm_event_vmx_exit, so that a vm_event_svm_exit could also be
+> added in the future.
+
+All vm_event monitor events are for vmx only right now. We can
+certainly do that abstraction if and when someone decides to add svm
+support, the ABI is versioned and no structure here is set in stone.
+No guarantees are even implied for the structures to remain the same
+in any way between one version of the ABI to the next. So with that I
+don't see the need for complicating the structures at this time.
+
+Tamas
 
