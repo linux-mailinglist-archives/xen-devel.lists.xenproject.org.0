@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C536450E753
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 19:30:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.313205.530697 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA60950E796
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 19:57:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.313219.530710 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nj2Wh-0003ci-N8; Mon, 25 Apr 2022 17:29:31 +0000
+	id 1nj2wl-0007XX-1r; Mon, 25 Apr 2022 17:56:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 313205.530697; Mon, 25 Apr 2022 17:29:31 +0000
+Received: by outflank-mailman (output) from mailman id 313219.530710; Mon, 25 Apr 2022 17:56:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nj2Wh-0003aa-KE; Mon, 25 Apr 2022 17:29:31 +0000
-Received: by outflank-mailman (input) for mailman id 313205;
- Mon, 25 Apr 2022 17:29:30 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nj2Wg-0003aQ-9d; Mon, 25 Apr 2022 17:29:30 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nj2Wg-0000N7-7i; Mon, 25 Apr 2022 17:29:30 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nj2Wf-0005Nh-Qv; Mon, 25 Apr 2022 17:29:29 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nj2Wf-0003ql-QT; Mon, 25 Apr 2022 17:29:29 +0000
+	id 1nj2wk-0007U2-UT; Mon, 25 Apr 2022 17:56:26 +0000
+Received: by outflank-mailman (input) for mailman id 313219;
+ Mon, 25 Apr 2022 17:56:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Eo9G=VD=citrix.com=prvs=107e1699f=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1nj2wj-0007Tw-Dk
+ for xen-devel@lists.xenproject.org; Mon, 25 Apr 2022 17:56:25 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 03d89e87-c4c1-11ec-a405-831a346695d4;
+ Mon, 25 Apr 2022 19:56:23 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,161 +36,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=E3djtlTvvTrskcZVruSilDpHaGDQCvkQ/Mn9xyEEVCo=; b=RsJMlVOt3JAlfQaSCFYaRBohRV
-	YFhPvjBFEahH41fP5gziisOQ0pkQHQRragIRotcqnV+obrC8219oTHDRKRchq3Q+no8/8VfLP53yk
-	+dGOiTv3iqWdS8H4tVwsT1g21/nrPqAxnWdlLSj9z5xdDJGL+SAxLzY0N+PVEPvsRFMg=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169712-mainreport@xen.org>
+X-Inumbo-ID: 03d89e87-c4c1-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1650909383;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=/tKAjkkYSMDllU9JnQF69uN0fUng2lAXH77fLoP809k=;
+  b=bUSmQQ2BV6fsem5C1CANsQTWge1UeXHKJzsSeqUNwjj6TfhoTpD/LXO7
+   e+wsCCVH4o8PpNop51FON/MaxspcQs1cKR52rh4qJV6mCfUkr9s4rb7lf
+   lzOfbHvE1pmAkFFUBr2RK4AEB8fgyj1Ll4SETnAjus25YY6TN7QJDLyT1
+   A=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 70288496
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:JkWh/KlXmhG5at+vrnXN1Zjo5gz9JkRdPkR7XQ2eYbSJt1+Wr1Gzt
+ xIYCjzUaPyMazegKt91PI2+9U5T68ODzNBrSVA/pXhhRiMWpZLJC+rCIxarNUt+DCFioGGLT
+ Sk6QoOdRCzhZiaE/n9BCpC48T8kk/vgqoPUUIYoAAgoLeNfYHpn2EoLd9IR2NYy24DlWV7V4
+ 7senuWEULOb828sWo4rw/rrRCNH5JwebxtB4zTSzdgS1LPvvyF94KA3fMldHFOhKmVgJcaoR
+ v6r8V2M1jixEyHBqD+Suu2TnkUiGtY+NOUV45Zcc/DKbhNq/kTe3kunXRa1hIg+ZzihxrhMJ
+ NtxWZOYeAoEbrfBqOchQxhRGCJDOvFkouPAGC3q2SCT5xWun3rExvxvCAc9PJEC+/YxCmZLn
+ RAaAGlTNFbZ3bvwme/lDLk37iggBJCD0Ic3k3ds1zzGS90hRojOWf7i7t5ExjYgwMtJGJ4yY
+ uJGMWA/PEiRPXWjPH89J6o6n+Slm0D/YmMb+RWYiIMw4DX6mVkZPL/Fb4OOJ43iqd9utlmcj
+ nLL+SL+GB5yHP61xCeB83msrvTShi69U4UXfJWo+/gvjFCNy2g7DBwNSUD9sfS/klS5Wd9UN
+ woT4CVGkEQp3BX1FJ+nBUT++SPa+E5HMzZNLwEkwDCA5/rO7jaaOngFRzVCVdt6lpVqQgV/g
+ zdlgOjVLTBotbSUT1eU+bGVsS6+NEApEIMSWcMXZVBbuoe++enfmjqKF48+S/Dt0rUZDBmqm
+ 1i3QD4Ca6L/ZCLh/4Gy5hj5jj2lvfAlpSZlt1yMDgpJAu6UDbNJhrBEC3CGt56sz67DFzFtW
+ UTofODEsYgz4WmlznDlfQn0NOjBCwy5GDPdm0VzOJIq6i6g/XWuFagJvmwmexowapxVJGW3C
+ KM2he+3zMUKVJdNRfUpC79d9uxwlfSwfTgbfq28giVyjmhZK1bcoXAGib+41GHxikk8+ZzTy
+ r/AGftA+U0yUPw9pBLvHr91+eZylkgWmDOCLbimnk/P+efPOxaopUItbQLmghYRt/jf/m04M
+ r93aqO39vmoeLCgMnSPrd5PfDjn7xETXPjLliCeTcbbSiIOJY3rI6W5LW8JE2C9o5loqw==
+IronPort-HdrOrdr: A9a23:Tvv1Fq8kiWOlDCp+ntNuk+DUI+orL9Y04lQ7vn2YSXRuHPBw8P
+ re+8jztCWE7Ar5N0tBpTntAsW9qBDnhPtICOsqTNSftWDd0QPCRuxfBOPZslvd8kbFl9K1u5
+ 0OT0EHMqyTMWRH
+X-IronPort-AV: E=Sophos;i="5.90,289,1643691600"; 
+   d="scan'208";a="70288496"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/nospec: Fix evaluate_nospec() code generation under Clang
+Date: Mon, 25 Apr 2022 18:56:03 +0100
+Message-ID: <20220425175603.21086-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [ovmf test] 169712: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=483d3bb716bfd1a90fde165a761067c50c482d4e
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 25 Apr 2022 17:29:29 +0000
 
-flight 169712 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169712/
+It turns out that evaluate_nospec() code generation is not safe under Clang.
+Given:
 
-Regressions :-(
+  void eval_nospec_test(int x)
+  {
+      if ( evaluate_nospec(x) )
+          asm volatile ("nop #true" ::: "memory");
+      else
+          asm volatile ("nop #false" ::: "memory");
+  }
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+Clang emits:
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+  <eval_nospec_test>:
+         0f ae e8                lfence
+         85 ff                   test   %edi,%edi
+         74 02                   je     <eval_nospec_test+0x9>
+         90                      nop
+         c3                      ret
+         90                      nop
+         c3                      ret
 
-version targeted for testing:
- ovmf                 483d3bb716bfd1a90fde165a761067c50c482d4e
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+which is not safe because the lfence has been hoisted above the conditional
+jump.  Clang concludes that both barrier_nospec_true()'s have identical side
+effects and can safely be merged.
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   56 days
-Failing since        168258  2022-03-01 01:55:31 Z   55 days  625 attempts
-Testing same since   169701  2022-04-25 09:42:57 Z    0 days   12 attempts
+Clang can be persuaded that the side effects are different if there are
+different comments in the asm blocks.  This is fragile, but no more fragile
+that other aspects of this construct.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
+Introduce barrier_nospec_false() with a separate internal comment to prevent
+Clang merging it with barrier_nospec_true() despite the otherwise-identical
+content.  The generated code now becomes:
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+  <eval_nospec_test>:
+         85 ff                   test   %edi,%edi
+         74 05                   je     <eval_nospec_test+0x9>
+         0f ae e8                lfence
+         90                      nop
+         c3                      ret
+         0f ae e8                lfence
+         90                      nop
+         c3                      ret
 
+which has the correct number of lfence's, and in the correct place.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+---
+ xen/arch/x86/include/asm/nospec.h | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+diff --git a/xen/arch/x86/include/asm/nospec.h b/xen/arch/x86/include/asm/nospec.h
+index 5312ae4c6f31..7150e76b87fb 100644
+--- a/xen/arch/x86/include/asm/nospec.h
++++ b/xen/arch/x86/include/asm/nospec.h
+@@ -10,15 +10,26 @@
+ static always_inline bool barrier_nospec_true(void)
+ {
+ #ifdef CONFIG_SPECULATIVE_HARDEN_BRANCH
+-    alternative("lfence", "", X86_FEATURE_SC_NO_BRANCH_HARDEN);
++    alternative("lfence #nospec-true", "", X86_FEATURE_SC_NO_BRANCH_HARDEN);
+ #endif
+     return true;
+ }
+ 
++static always_inline bool barrier_nospec_false(void)
++{
++#ifdef CONFIG_SPECULATIVE_HARDEN_BRANCH
++    alternative("lfence #nospec-false", "", X86_FEATURE_SC_NO_BRANCH_HARDEN);
++#endif
++    return false;
++}
++
+ /* Allow to protect evaluation of conditionals with respect to speculation */
+ static always_inline bool evaluate_nospec(bool condition)
+ {
+-    return condition ? barrier_nospec_true() : !barrier_nospec_true();
++    if ( condition )
++        return barrier_nospec_true();
++    else
++        return barrier_nospec_false();
+ }
+ 
+ /* Allow to block speculative execution in generic code */
+-- 
+2.11.0
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 5750 lines long.)
 
