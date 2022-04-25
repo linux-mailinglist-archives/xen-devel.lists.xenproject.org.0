@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FC0050DEC8
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 13:29:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.312791.530167 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E44250DEC9
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 13:30:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.312795.530177 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1niwuQ-0003wD-OF; Mon, 25 Apr 2022 11:29:38 +0000
+	id 1niwul-0004T3-2X; Mon, 25 Apr 2022 11:29:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 312791.530167; Mon, 25 Apr 2022 11:29:38 +0000
+Received: by outflank-mailman (output) from mailman id 312795.530177; Mon, 25 Apr 2022 11:29:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1niwuQ-0003t1-KH; Mon, 25 Apr 2022 11:29:38 +0000
-Received: by outflank-mailman (input) for mailman id 312791;
- Mon, 25 Apr 2022 11:29:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rnYW=VD=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
- id 1niwuO-0003OZ-OY
- for xen-devel@lists.xenproject.org; Mon, 25 Apr 2022 11:29:37 +0000
-Received: from MTA-12-4.privateemail.com (mta-12-4.privateemail.com
- [198.54.127.107]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fb4b5eba-c48a-11ec-a405-831a346695d4;
- Mon, 25 Apr 2022 13:29:35 +0200 (CEST)
-Received: from mta-12.privateemail.com (localhost [127.0.0.1])
- by mta-12.privateemail.com (Postfix) with ESMTP id 9F71118000A1
- for <xen-devel@lists.xenproject.org>; Mon, 25 Apr 2022 07:29:33 -0400 (EDT)
-Received: from mail-oa1-f47.google.com (unknown [10.20.151.148])
- by mta-12.privateemail.com (Postfix) with ESMTPA id 7AA3B18000A0
- for <xen-devel@lists.xenproject.org>; Mon, 25 Apr 2022 07:29:33 -0400 (EDT)
-Received: by mail-oa1-f47.google.com with SMTP id
- 586e51a60fabf-e2fa360f6dso15690897fac.2
- for <xen-devel@lists.xenproject.org>; Mon, 25 Apr 2022 04:29:33 -0700 (PDT)
+	id 1niwuk-0004QF-VI; Mon, 25 Apr 2022 11:29:58 +0000
+Received: by outflank-mailman (input) for mailman id 312795;
+ Mon, 25 Apr 2022 11:29:57 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1niwuj-0004O2-5y; Mon, 25 Apr 2022 11:29:57 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1niwuj-0001qn-4G; Mon, 25 Apr 2022 11:29:57 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1niwui-00062M-RT; Mon, 25 Apr 2022 11:29:56 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1niwui-0002Wh-Qx; Mon, 25 Apr 2022 11:29:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,152 +42,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb4b5eba-c48a-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=tklengyel.com;
-	s=default; t=1650886173;
-	bh=qTrCE0w8HVT5Sz7/fTjv5/g16z097wyRfqCLqQjtz6Q=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=Kz/6pD9fyllXoYGtavf0arfn883BDPiwA/SonzcYJR2ybEy5ivU6FLkWwVquWTS3a
-	 To43km/XNy5AF9bGTbbLDm/Ubm9IAp7h8rMe/e52sBe2a942JKjP/P3eQmpdOMim2Y
-	 NIGpsOullqCF9lipLkRqanAjWIiVHmKfJNLLTfPKHmWa3yvPxBZwUuDSWsHjulBfHb
-	 fTS5XF1nPBgiOaecBwgvkg5MX07SjHjNebh9KEAa9Izfw/qU5IX+q2x1Y42aXG/INC
-	 HY/1jLaESUG7SCjtFJuZmb29c0ZoIwrQzTURQ+3m39wvGWeAJ+5VGu4dL2i5TGEDZU
-	 3TqbfzgJC3Xxg==
-X-Gm-Message-State: AOAM532HUHHcmZJIkAT2LmmezG2bGJPtsTk4pHeFxNMmnbC0hsQEfWBI
-	TEiz0azYuGaVFVc6IJTL9/QFwnD/naj+B/+lqQg=
-X-Google-Smtp-Source: ABdhPJyqEF35es+v6uBjajAmIvzfbEGoFGFP3mQ47R7S5bW875krCP3FsqpSd7nGRTyQ5RgJV2B8O/81AbgNy60PfzQ=
-X-Received: by 2002:a05:6870:b295:b0:e9:1c84:3671 with SMTP id
- c21-20020a056870b29500b000e91c843671mr3533748oao.128.1650886172812; Mon, 25
- Apr 2022 04:29:32 -0700 (PDT)
-MIME-Version: 1.0
-References: <bc13e07cdb651afc2c8a97dde1be9c2158160307.1649857162.git.tamas.lengyel@intel.com>
- <CABfawhki8YVxycv_zdDqDuOYvBdobdskXnjjdjiF7UND3784cg@mail.gmail.com> <310ab91a-60bd-f4fa-aeee-28aab43aabbe@suse.com>
-In-Reply-To: <310ab91a-60bd-f4fa-aeee-28aab43aabbe@suse.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Mon, 25 Apr 2022 07:29:21 -0400
-X-Gmail-Original-Message-ID: <CABfawhmzz5OwYr93EO7UAnb1X+vBoi3u=YVW6HMV5KpH_iEGeg@mail.gmail.com>
-Message-ID: <CABfawhmzz5OwYr93EO7UAnb1X+vBoi3u=YVW6HMV5KpH_iEGeg@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] x86/mem_sharing: make fork_reset more configurable
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Tamas K Lengyel <tamas.lengyel@intel.com>, Alexandru Isaila <aisaila@bitdefender.com>, 
-	Petre Pircalabu <ppircalabu@bitdefender.com>, Xen-devel <xen-devel@lists.xenproject.org>, 
-	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: multipart/alternative; boundary="000000000000e531a505dd78e3fe"
-X-Virus-Scanned: ClamAV using ClamSMTP
-
---000000000000e531a505dd78e3fe
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=sSxbKQ+WxeC2D1nxB45KgSkMXvFkgPyBS8NMtq8oVaw=; b=HwyUac/8BBNPoOqhJxCBedZzqN
+	VyaWxIrO2T9sZkCo73akC3WPyUCJkIFnpWrjEyBItOgow8jcKogxv8T9bXPmF78ZGKkKRGzYWaG1K
+	hCXAb3USeLqZ9ZbgcU91gqxplSmcXjwXzv4Xrd7ax7AkXP+jMpnXPx2SyLCMDCTciQAw=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-169703-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 169703: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=483d3bb716bfd1a90fde165a761067c50c482d4e
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 25 Apr 2022 11:29:56 +0000
 
-On Mon, Apr 25, 2022, 3:49 AM Jan Beulich <jbeulich@suse.com> wrote:
+flight 169703 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169703/
 
-> On 22.04.2022 16:07, Tamas K Lengyel wrote:
-> > On Wed, Apr 13, 2022 at 9:43 AM Tamas K Lengyel <tamas.lengyel@intel.com>
-> wrote:
-> >>
-> >> Allow specify distinct parts of the fork VM to be reset. This is useful
-> when a
-> >> fuzzing operation involves mapping in only a handful of pages that are
-> known
-> >> ahead of time. Throwing these pages away just to be re-copied
-> immediately is
-> >> expensive, thus allowing to specify partial resets can speed things up.
-> >>
-> >> Also allow resetting to be initiated from vm_event responses as an
-> >> optimization.
-> >>
-> >> Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
-> >
-> > Patch ping. Could I get a Reviewed-by if there are no objections?
->
-> Hmm, this is a little difficult. I'd be willing to give an ack, but that's
-> meaningless for most of the code here. Besides a stylistic issue I did
-> point out which I'm not happy with, I'm afraid I'm not good enough at
-> mem-sharing and forking. Therefore I wouldn't want to offer an R-b.
-> Considering the VM event interaction, maybe the BitDefender guys could
-> take a stab?
->
-> Of course you'd then still need a tool stack side ack.
->
+Regressions :-(
 
-So my take is that noone cares about mem_sharing, which is fine, its an
-obscure experiment subsystem. But the only path I see as maintainer to get
-anything in-tree is if I hand the task of writing the patch to a coworker
-who then sends it in so that I can ack it. This is clearly disfunctional
-and is to the detriment of the project overall. We need to get some rules
-in place to avoid situations like this that clearly lead to no development
-and no improvement and a huge incentive to forgot about upstreaming. With
-no substantive objections but no acks a maintainer should be able to get
-changes in-tree. That's part of what I would consider maintaining a
-codebase to be!
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
-Anyway, to be realistic I don't expect that option to materialize so I'm
-very close to just stop all contributions to the project. It's dishartening.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-Tamas
+version targeted for testing:
+ ovmf                 483d3bb716bfd1a90fde165a761067c50c482d4e
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
---000000000000e531a505dd78e3fe
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Last test of basis   168254  2022-02-28 10:41:46 Z   56 days
+Failing since        168258  2022-03-01 01:55:31 Z   55 days  616 attempts
+Testing same since   169701  2022-04-25 09:42:57 Z    0 days    3 attempts
 
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
-class=3D"gmail_attr">On Mon, Apr 25, 2022, 3:49 AM Jan Beulich &lt;<a href=
-=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; wrote:<br></div><bl=
-ockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #=
-ccc solid;padding-left:1ex">On 22.04.2022 16:07, Tamas K Lengyel wrote:<br>
-&gt; On Wed, Apr 13, 2022 at 9:43 AM Tamas K Lengyel &lt;<a href=3D"mailto:=
-tamas.lengyel@intel.com" target=3D"_blank" rel=3D"noreferrer">tamas.lengyel=
-@intel.com</a>&gt; wrote:<br>
-&gt;&gt;<br>
-&gt;&gt; Allow specify distinct parts of the fork VM to be reset. This is u=
-seful when a<br>
-&gt;&gt; fuzzing operation involves mapping in only a handful of pages that=
- are known<br>
-&gt;&gt; ahead of time. Throwing these pages away just to be re-copied imme=
-diately is<br>
-&gt;&gt; expensive, thus allowing to specify partial resets can speed thing=
-s up.<br>
-&gt;&gt;<br>
-&gt;&gt; Also allow resetting to be initiated from vm_event responses as an=
-<br>
-&gt;&gt; optimization.<br>
-&gt;&gt;<br>
-&gt;&gt; Signed-off-by: Tamas K Lengyel &lt;<a href=3D"mailto:tamas.lengyel=
-@intel.com" target=3D"_blank" rel=3D"noreferrer">tamas.lengyel@intel.com</a=
->&gt;<br>
-&gt; <br>
-&gt; Patch ping. Could I get a Reviewed-by if there are no objections?<br>
-<br>
-Hmm, this is a little difficult. I&#39;d be willing to give an ack, but tha=
-t&#39;s<br>
-meaningless for most of the code here. Besides a stylistic issue I did<br>
-point out which I&#39;m not happy with, I&#39;m afraid I&#39;m not good eno=
-ugh at<br>
-mem-sharing and forking. Therefore I wouldn&#39;t want to offer an R-b.<br>
-Considering the VM event interaction, maybe the BitDefender guys could<br>
-take a stab?<br>
-<br>
-Of course you&#39;d then still need a tool stack side ack.<br></blockquote>=
-</div></div><div dir=3D"auto"><br></div><div dir=3D"auto">So my take is tha=
-t noone cares about mem_sharing, which is fine, its an obscure experiment s=
-ubsystem. But the only path I see as maintainer to get anything in-tree is =
-if I hand the task of writing the patch to a coworker who then sends it in =
-so that I can ack it. This is clearly disfunctional and is to the detriment=
- of the project overall. We need to get some rules in place to avoid situat=
-ions like this that clearly lead to no development and no improvement and a=
- huge incentive to forgot about upstreaming. With no substantive objections=
- but no acks a maintainer should be able to get changes in-tree. That&#39;s=
- part of what I would consider maintaining a codebase to be!</div><div dir=
-=3D"auto"><br></div><div dir=3D"auto">Anyway, to be realistic I don&#39;t e=
-xpect that option to materialize so I&#39;m very close to just stop all con=
-tributions to the project. It&#39;s dishartening.</div><div dir=3D"auto"><b=
-r></div><div dir=3D"auto">Tamas</div><div dir=3D"auto"><br></div><div dir=
-=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquot=
-e class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc sol=
-id;padding-left:1ex">
-</blockquote></div></div></div>
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
 
---000000000000e531a505dd78e3fe--
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 5750 lines long.)
 
