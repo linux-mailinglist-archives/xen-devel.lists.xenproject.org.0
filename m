@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDF2350DF9D
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 14:00:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.312827.530210 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B6E050DF9E
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 14:03:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.312836.530222 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nixNh-0001Bq-4K; Mon, 25 Apr 2022 11:59:53 +0000
+	id 1nixQk-0002q9-Ot; Mon, 25 Apr 2022 12:03:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 312827.530210; Mon, 25 Apr 2022 11:59:53 +0000
+Received: by outflank-mailman (output) from mailman id 312836.530222; Mon, 25 Apr 2022 12:03:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nixNh-00019z-1G; Mon, 25 Apr 2022 11:59:53 +0000
-Received: by outflank-mailman (input) for mailman id 312827;
- Mon, 25 Apr 2022 11:59:51 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nixNf-00019o-38; Mon, 25 Apr 2022 11:59:51 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nixNe-0002Mi-IT; Mon, 25 Apr 2022 11:59:50 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nixNe-0006gV-9i; Mon, 25 Apr 2022 11:59:50 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nixNe-0001Ov-9C; Mon, 25 Apr 2022 11:59:50 +0000
+	id 1nixQk-0002nB-L8; Mon, 25 Apr 2022 12:03:02 +0000
+Received: by outflank-mailman (input) for mailman id 312836;
+ Mon, 25 Apr 2022 12:03:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uj5J=VD=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1nixQi-0002n5-OT
+ for xen-devel@lists.xenproject.org; Mon, 25 Apr 2022 12:03:00 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a0b66981-c48f-11ec-8fc2-03012f2f19d4;
+ Mon, 25 Apr 2022 14:02:49 +0200 (CEST)
+Received: by mail-lj1-x22c.google.com with SMTP id q14so17502641ljc.12
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Apr 2022 05:02:54 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id
+ g15-20020a19e04f000000b004720d33b1easm198984lfj.72.2022.04.25.05.02.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 25 Apr 2022 05:02:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,161 +44,230 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=lNiArwqgaj6muXgWnPWVZ60vpgfahKaRci1itlfogF4=; b=ZGaJbZ/BnWmOfGWLWxRcyieWqO
-	nZegbACrLpVgTaouEBh6VTXfEd3yJ8e4oSIRKedOuUhYbJ99twtxfqZDG8EsQgklXWmXjBOo3s09E
-	wH+MsfNW+k2X91hMmQkeGRj2TPlVR1zSGu4lchrKHHOkqPmQ+FqniIhm4FlM4JgbL4KU=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169704-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: a0b66981-c48f-11ec-8fc2-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=Z2QfP3nBSkXabdhdfaB6eqqdio2/U/RhPvB3lPD+Pao=;
+        b=lpYDpGtxrOQn5xrajUhJXwbUXhyOxOjdyRzr7m44dbrz+0NPBwe/T+YmCwnySSzN75
+         ozEBrTQXeq+PnhUTQuum3IpBoXy4R3v3xTqqJB5DMhLLX42mDe6GG92eDN/i4Z/mzYzq
+         xka1M+inBE39A6+dpvucVBJiXgHa4bxBzqecI6IUkNDw9qHHVRxN7jyqRsE0o4Bv5jFl
+         KzIyDD+y6I6L89FJ2qM0+/704SmsZsiP3avlvjJEud5YimNIBEKk8SDv2xs/JL+5vPks
+         svFZkCse1lOk21sdzupq2B1wAVzbvRkSe/hl5nQT6xyddjFsUaqep0tFUE5XJtYLBl2W
+         AwtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=Z2QfP3nBSkXabdhdfaB6eqqdio2/U/RhPvB3lPD+Pao=;
+        b=ww7MPlc8HgaZ3sj4yBigJmDDHwS7lRpwdtxfIlyAeFfg3PVn73qc2olwDG29DE+lMg
+         jpIDqNO80Osjb66b6LN5dRkxzt/u8NytRzAiPZQDkLbSWs+N2r9HvF+NLC4uqNm0mfr5
+         9zVk0vLSxlCwhSReMEVIQKMNx8EPhOqxkvciL6tfhRW3dix4bjd0kNWbqIZt2WuL28HY
+         DjDqGDhIdd3pyBASgsts5gvo5Jrt+99Bqc5337GoITNcLc4Sdjw8nmnyxtRd1t3VqU5i
+         /0jSksZLd0JcL9Zm3CxEt9hZHgw2fCSIpXJP/E+6lTugn6nPfDAPfwGl6K9pZq96ngUD
+         9EAw==
+X-Gm-Message-State: AOAM5310781uQb7Evghx3lzn0TIRWaQLzcYR6O82Bc/W4GHWWddJ7bNB
+	4HinT2PVxBKBVhuOmKOlc7o=
+X-Google-Smtp-Source: ABdhPJz5gsb9QP2Eu88op0SWGichMTrVkYvbSrxtwObXi7vV5qYjfvKgwGLugVvN4IWtrowVnT6x5g==
+X-Received: by 2002:a05:651c:12c1:b0:249:7e8c:d5fc with SMTP id 1-20020a05651c12c100b002497e8cd5fcmr10668804lje.33.1650888173691;
+        Mon, 25 Apr 2022 05:02:53 -0700 (PDT)
+Subject: Re: [PATCH V7 1/2] libxl: Add support for Virtio disk configuration
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook
+ <rosbrookn@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>
+References: <1649442065-8332-1-git-send-email-olekstysh@gmail.com>
+ <1649442065-8332-2-git-send-email-olekstysh@gmail.com>
+ <6864c64b-246d-7ca4-371a-61d4953a781d@suse.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <e6858f79-2cc2-2bfc-07db-8c46aa1dd81f@gmail.com>
+Date: Mon, 25 Apr 2022 15:02:51 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Subject: [ovmf test] 169704: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=483d3bb716bfd1a90fde165a761067c50c482d4e
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 25 Apr 2022 11:59:50 +0000
-
-flight 169704 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169704/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 483d3bb716bfd1a90fde165a761067c50c482d4e
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   56 days
-Failing since        168258  2022-03-01 01:55:31 Z   55 days  617 attempts
-Testing same since   169701  2022-04-25 09:42:57 Z    0 days    4 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+In-Reply-To: <6864c64b-246d-7ca4-371a-61d4953a781d@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+On 25.04.22 10:43, Juergen Gross wrote:
 
 
-Not pushing.
+Hello Juergen
 
-(No revision log; it would be 5750 lines long.)
+
+Thank you for the feedback.
+
+> On 08.04.22 20:21, Oleksandr Tyshchenko wrote:
+>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>
+>> This patch adds basic support for configuring and assisting virtio-mmio
+>> based virtio-disk backend (emualator) which is intended to run out of
+>> Qemu and could be run in any domain.
+>> Although the Virtio block device is quite different from traditional
+>> Xen PV block device (vbd) from the toolstack's point of view:
+>>   - as the frontend is virtio-blk which is not a Xenbus driver, nothing
+>>     written to Xenstore are fetched by the frontend (the vdev is not
+>>     passed to the frontend)
+>
+> I thought about the future support on x86.
+>
+> There we don't have a device tree (and I don't want to introduce it),
+> so the only ways to specify the backend domain id would be to:
+>
+> - add some information to ACPI tables
+> - use boot parameters
+> - use Xenstore
+
+I understand that, and agree
+
+
+> Thinking further of hotplugging virtio devices, Xenstore seems to be the
+> only real suitable alternative. Using virtio mechanisms doesn't seem
+> appropriate, as such information should be retrieved in "platform
+> specific" ways (see e.g. specifying an "endpoint" in the virtio IOMMU
+> device [1], [2]). I think the Xenstore information for that purpose
+> could be rather minimal and it should be device-type agnostic. Having
+> just a directory with endpoints and associated backend domids would
+> probably be enough (not needed in this series, of course).
+
+Just to make it clear, we are speaking about the possible ways to 
+communicate backend domid for another series [1], so about the x86's 
+alternative of device-tree bindings "xen,dev-domid" [2].
+I was thinking we could avoid using Xenstore at the guest side for that 
+purpose, but I didn't think about hotplug...
+I assume, all Xenstore bits wouldn't go the outside Xen grant 
+DMA-mapping layer (grant-dma-ops.c)?
+
+
+>
+> This doesn't preclude the device tree variant you are using, as this
+> would be required for dom0less systems anyway.
+
+good
+
+
+>
+> OTOH I'd like you to modify the commit message to make it more clear
+> that in future frontend data might be written to Xenstore in order to
+> support other use cases.
+
+ok, will do
+
+
+>
+>>   - the ring-ref/event-channel are not used for the backend<->frontend
+>>     communication, the proposed IPC for Virtio is IOREQ/DM
+>> it is still a "block device" and ought to be integrated in existing
+>> "disk" handling. So, re-use (and adapt) "disk" parsing/configuration
+>> logic to deal with Virtio devices as well.
+>>
+>> For the immediate purpose and an ability to extend that support for
+>> other use-cases in future (Qemu, virtio-pci, etc) perform the following
+>> actions:
+>> - Add new disk backend type (LIBXL_DISK_BACKEND_OTHER) and reflect
+>>    that in the configuration
+>> - Introduce new disk protocol field to libxl_device_disk struct
+>>    (with LIBXL_DISK_PROTOCOL_XEN and LIBXL_DISK_PROTOCOL_VIRTIO_MMIO
+>>    types) and reflect that in the configuration (new "protocol" option
+>>    with "xen" protocol being default value)
+>
+> And with the hotplug option in mind I start to feel unueasy with naming
+> the new Xenstore node "protocol", as the frontend disk nodes for "normal"
+> disks already have a "protocol" entry specifying 64- or 32-bit protocol.
+
+
+I noticed the "protocol" node at the frontend side for traditional Xen 
+PV block device which handles yet another purpose, but I didn't think 
+much about it
+since the new "protocol" node in only for the backend's use. If we start 
+thinking of frontend's Xenstore nodes, then yes, will clash...
+
+>
+>
+> Maybe we should really name it "transport" instead?
+
+... For me the "transport" name is associated with virtio transports: 
+mmio, pci, ccw. But, I would be ok with that name. Another possible name 
+could be "specification".
+
+
+>
+>
+>> - Add new device kind (LIBXL__DEVICE_KIND_VIRTIO_DISK) as current
+>>    one (LIBXL__DEVICE_KIND_VBD) doesn't fit into Virtio disk model
+>>
+>> An example of domain configuration for Virtio disk:
+>> disk = [ 'phy:/dev/mmcblk0p3, xvda1, backendtype=other, 
+>> protocol=virtio-mmio']
+>
+> With Roger's feedback this would then be "transport=virtio", the "mmio"
+> part should then be something like "adapter=mmio" (in contrast to
+> "adapter=pci"), and "adapter" only needed in case of a device tree and
+> PCI being available.
+
+ok, will rename. Can we add "adapter" (or whenever the name would be) 
+option later, when there is a real need? For now, I mean within the 
+current series which adds only virtio-mmio bits on Arm, we can assume 
+that "transport=virtio" implies using virtio-mmio.
+
+BTW, if we named the main option "specification", the secondary option 
+"transport" would good fit from my PoV.
+For example:
+disk = [ 'phy:/dev/mmcblk0p3, xvda1, backendtype=other, 
+specification=virtio, transport=mmio']
+
+But, I am perfectly fine with "transport/adapter".
+
+
+>
+>>
+>> Nothing has changed for default Xen disk configuration.
+>>
+>> Please note, this patch is not enough for virtio-disk to work
+>> on Xen (Arm), as for every Virtio device (including disk) we need
+>> to allocate Virtio MMIO params (IRQ and memory region) and pass
+>> them to the backend, also update Guest device-tree. The subsequent
+>> patch will add these missing bits. For the current patch,
+>> the default "irq" and "base" are just written to the Xenstore.
+>> This is not an ideal splitting, but this way we avoid breaking
+>> the bisectability.
+>>
+>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>
+> I'm fine with the overall approach and couldn't spot any real issues
+> in the code.
+
+
+Thank you.
+
+
+[1] 
+https://lore.kernel.org/xen-devel/1650646263-22047-1-git-send-email-olekstysh@gmail.com/
+[2] 
+https://lore.kernel.org/xen-devel/1650646263-22047-5-git-send-email-olekstysh@gmail.com/
+https://lore.kernel.org/xen-devel/1649964960-24864-1-git-send-email-olekstysh@gmail.com/
+
+
+>
+>
+>
+> Juergen
+>
+> [1]: 
+> https://github.com/oasis-tcs/virtio-spec/blob/master/virtio-iommu.tex
+> [2]: https://medium.com/@michael2012zhao_67085/virtio-iommu-789369049443
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
