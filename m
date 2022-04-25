@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FECE50DB81
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 10:45:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.312600.529931 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D016650DBA1
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 10:50:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.312607.529942 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1niuLK-0008Di-U6; Mon, 25 Apr 2022 08:45:14 +0000
+	id 1niuPf-0000WI-F5; Mon, 25 Apr 2022 08:49:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 312600.529931; Mon, 25 Apr 2022 08:45:14 +0000
+Received: by outflank-mailman (output) from mailman id 312607.529942; Mon, 25 Apr 2022 08:49:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1niuLK-0008BX-Qt; Mon, 25 Apr 2022 08:45:14 +0000
-Received: by outflank-mailman (input) for mailman id 312600;
- Mon, 25 Apr 2022 08:45:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1niuPf-0000Tn-BR; Mon, 25 Apr 2022 08:49:43 +0000
+Received: by outflank-mailman (input) for mailman id 312607;
+ Mon, 25 Apr 2022 08:49:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=OfhB=VD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1niuLJ-0007xd-DJ
- for xen-devel@lists.xenproject.org; Mon, 25 Apr 2022 08:45:13 +0000
+ id 1niuPd-0000Th-OC
+ for xen-devel@lists.xenproject.org; Mon, 25 Apr 2022 08:49:41 +0000
 Received: from de-smtp-delivery-102.mimecast.com
  (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 04f4af2b-c474-11ec-8fc2-03012f2f19d4;
- Mon, 25 Apr 2022 10:45:12 +0200 (CEST)
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04lp2057.outbound.protection.outlook.com [104.47.12.57]) by
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a4ceb4c1-c474-11ec-a405-831a346695d4;
+ Mon, 25 Apr 2022 10:49:40 +0200 (CEST)
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04lp2055.outbound.protection.outlook.com [104.47.13.55]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-30-883xrxsdMsqnka3G6lzhlA-1; Mon, 25 Apr 2022 10:45:11 +0200
+ de-mta-4-q9CrLb4vPLGPfUr5BBNyIQ-2; Mon, 25 Apr 2022 10:49:39 +0200
 Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
- by AM6PR0402MB3589.eurprd04.prod.outlook.com (2603:10a6:209:3::22)
+ by VI1PR0401MB2254.eurprd04.prod.outlook.com (2603:10a6:800:28::23)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.21; Mon, 25 Apr
- 2022 08:45:09 +0000
+ 2022 08:49:34 +0000
 Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
  ([fe80::5cb0:5195:4203:7c2f]) by DU2PR04MB8616.eurprd04.prod.outlook.com
  ([fe80::5cb0:5195:4203:7c2f%9]) with mapi id 15.20.5186.021; Mon, 25 Apr 2022
- 08:45:09 +0000
+ 08:49:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,277 +51,231 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04f4af2b-c474-11ec-8fc2-03012f2f19d4
+X-Inumbo-ID: a4ceb4c1-c474-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1650876312;
+	t=1650876580;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jXroAWCzWdcYKf4JkOt1e3tm2yhGlKfIfFmJbhMkY+A=;
-	b=kr7KnmwIPS0SFGtkzRGxOcuaquHDQMxy0Lrudl11hcm1TcEjrmkizs8kXqIRGIHSTPJqhf
-	8V4g1WhjsU1gx1tiHB5psTZX9/meI+KkktqWQifKM5PWTX5hsTbt/PnscP/MDj3yBQF3jT
-	FlCyG0Y5RJ5bDFy500i5oxW+nCRGKXg=
-X-MC-Unique: 883xrxsdMsqnka3G6lzhlA-1
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=chFDKHBsC5izimoPwLLKxQUCJ/4iaPH++rRNrnlfBkA=;
+	b=IBFrcdsVLtgP314ygb5clewl3Z9tEQhYOmaixuhnix43LFwxhsyd3OJTujKuFrLrYGklsA
+	PlukhmrYH00WHBHZUXops1wWKjOTaVIFhQlEiKG5Lq1KnWfDz3Tnm4AOcc0BM+114kDVNI
+	yDTr9Q9X+TMNoytm00Qh9Nyx93pB4bU=
+X-MC-Unique: q9CrLb4vPLGPfUr5BBNyIQ-2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HInOMlI4Bg+9oFbVpgietINA1BzkEzKrxHWbmndiaqi9B2OYq9MmpV9uHvIn5vMOiZ/s4hFehxZ/hKgpgilB2YXr85ajz9FaL5dHYcbti/5Mtwhe2jv0HObKRK1kkasPcqcu9NmZgM/PSBb3y6NdeDNDkMK5Olu02U/iCX4W+XzOsstZvCyDtHdGIJSAU2SgRdvrXXusN+zqLW/5SLvjX55+bFVdiukUqeEonmFAAA8wiS3onyomkvSWqwBAKrrB0O3svKrdUS1llNOoAQUJNC/iO2cDHBT89XPjxp3AqaulG1uMnr+2pCsVvCy7W0tGbm/Ons5m0Pbx8lMSiVK3cw==
+ b=KXnyC8+xqObSXjfAQLg+rllX4qZdTM+WjhnNZodE0ngGBrMaMHEr2wQbHft8gNOwllYTzxRlrCmXQbTWIrBkQRaKNCtfYtUX6F4mIsjapgpbWw0mPt5xtC7vFWK8oPTDBxdhjouefTXv2aIGRQKKqGgA6KJTsJjKQNR4GKhfL590Bsz/mqdKW5MDoPzZlmKYYcvjYKifAJunLVLvKMv0GHL1RW6+IaTFul5dohpwcffJHIYVH+x0/M06dQQjXqHTsQgpWGow74lG4a7Vymvfvh1qT890uCwKqXCJG3+/iVripwytO+E6tlWOAFmBFrtwA1SRCi300OKk5dqi5zbJjg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jXroAWCzWdcYKf4JkOt1e3tm2yhGlKfIfFmJbhMkY+A=;
- b=UJmktIb5WKgJhWQl2o7vw3K/tgnDvU/9G/Rm3SnqXQCiSIRtaNcuYU11TtrmNCoWACN7o8F+QOl5FpEE5nKqDa8hJks1V6n01PiUuxx+rcDoG0TX6GxakFG3DcWrMykV84mArem5Nb0MOrl/1qk00ttzwdD0Cwf8vtecea7VLpxGsYZs98EULABok0++/L5TW7dP85vexLSJVFdKu4vjr/bMrHo+05soCwwLlwceVzyOAHuXdDunsv0gS8HPoXx6wXkOv8IKtoPK4x8NZJrZM8YU7g3VTyd5ETVqDUVniiTrqeAoBBwme9WbmOm83IiTIWT4mses2pRL+JkDF2xu4g==
+ bh=chFDKHBsC5izimoPwLLKxQUCJ/4iaPH++rRNrnlfBkA=;
+ b=Nzl+CQg5lhgXm7MNpFLSadkRK/iy3mh1aPeg1raluAxOS+qhyDuC65amkxeKCjXq5QYcKr1InAwT2en6bM/e7lP/yu0C/33lXGW2vtKYXFCtVHvY+dX24YboD1eWhWG9pBsoVYns3FkwGts9olJjV26IcWl1F5Kr/mKcDSSWjhcJMRZxLeAE7F5+T4CC+tOFXwMMxjQ/kzLjLGNQ20O8/c31jixqA+M7ycwr5WY9ugqdjVbMh2zKahCoekR5+SkYDDL2gJmFa1TvIXI3BNcnCsUHTUb12TFn6RbOLKJEGnVVePt0A4YxwlujW93Y7JZZiLt5P7WogofRIfqyPoujhw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <4a24a85e-267f-9de5-4009-b32b9ab8aa0d@suse.com>
-Date: Mon, 25 Apr 2022 10:45:10 +0200
+Message-ID: <368e2d54-09f2-2081-349e-571bfeab13af@suse.com>
+Date: Mon, 25 Apr 2022 10:49:34 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.1
-Subject: [PATCH v4 21/21] VT-d: fold dma_pte_clear_one() into its only caller
-Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v2] x86+libxl: correct p2m (shadow) memory pool size
+ calculation
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Kevin Tian <kevin.tian@intel.com>
-References: <b92e294e-7277-d977-bb96-7c28d60000c6@suse.com>
-In-Reply-To: <b92e294e-7277-d977-bb96-7c28d60000c6@suse.com>
+ Anthony Perard <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>
+Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6P194CA0064.EURP194.PROD.OUTLOOK.COM
- (2603:10a6:209:84::41) To DU2PR04MB8616.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS9PR04CA0087.eurprd04.prod.outlook.com
+ (2603:10a6:20b:50e::9) To DU2PR04MB8616.eurprd04.prod.outlook.com
  (2603:10a6:10:2db::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: abf36fe3-1522-4f9d-a676-08da2697e768
-X-MS-TrafficTypeDiagnostic: AM6PR0402MB3589:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5867052d-78a8-4c79-ff84-08da26988557
+X-MS-TrafficTypeDiagnostic: VI1PR0401MB2254:EE_
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
 X-Microsoft-Antispam-PRVS:
-	<AM6PR0402MB3589F6FEEE54DBF4E0084686B3F89@AM6PR0402MB3589.eurprd04.prod.outlook.com>
+	<VI1PR0401MB22547F0D5A22D80BED7DACBAB3F89@VI1PR0401MB2254.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	yPzY50RVEYMGVEFRJHYq9HhHq4nVfj0OeqWX5vARnB16yOCSpV6ggN25iBkI8FrV8bzRAVbeYign74vdpzDp3lcVf1VIS4tY7c+uBQmKp89oy89E8guMr0AXZ5rEwLax1L6ACdVA2uTeHOU3x15ZhGyeVRtO7DhYMXIVFeNf/vus7iUbsQSxXMOzkAwFTMMag5qdriUpRG5riTzS6F/1KE0ZV6E3mRFDrAGG6wxtjQ/KEkNwCycV/ncYcivEyFv/7mEsgC0mD6hWQNV9fTd6ZU0UHQGArnxgO4NIQiY8g37w7WoTX/JDe7ozL0gGHzb0tx9JaB5+Tf8t/JYqqjsVVdbseFFpFCUHXCekUR6DgyOfC5rwsl0F9gj/ifzLEjEntzilbNQAUhSoBDhzTDXEdHbxfNPT1eyOefJliQshLxEFCkQYIxcCKq1rVroKCJsHgLsLfJW4A2xx19bElrlD5L4Xb0WZ4ebJ3u3YanwhZq03B5ZUetM7Pq1su/12/hJbzYkOD/X2+RCJJ0WCeaEBzCVTacOVTwsxkZJWU18ZhA0hvxHrOQgmHA5Dqwc75/8NvE1OWIYLP6r9omoJ7MqDwpThlp1RCHIZbH1J5pQCHawW05iiGVAm++R0g7GUqQPxJsUJrwSP/15z3i05Qi18TE+NO/+yRh3Kd0wpURWpO7ARYt58F6PBz8HH8WeX8j0ZldUwc1IQ0YtpYM5IS+MJwAtVHh+pf+zoIPnDIFytukQ=
+	iv4cMiK6boozBaPtvN/7PfCXLWEWa9/p617pC6o65i+JsKCOOGm1KxrCjv0EMgoYdbgt81Vq6RyddNLRNxP0l6bmSifOOqIJkvBnox4aVRqq0njSqhE5+LJJvJjpCL67497O1UQblPY/miwI461Xx3KytUWkQUyYLeaci7GvP1750fT7hQENDkiOFw0lMb7a5ohuQAml8LIp8vqy6rtbtqdaJ5QiNbWPOKlNIAHKdLK0SM+JCpNtihfA6evL76Uwlh4NWi9g6IfwLQ2iQYMWnyICjm9+wCl/usRu7kbIDW948f9oDVXtB8L8/pf6H4TFnScNbQ4bTElZqm8GXo3N8cgo3pk6IDBLNb4h2qBF3mGiBwl/APbfcHi0yRc1VMTKd/qrqWJAsNFKdXlz3yo0u9phQwO4UYulSFbNXYYksMCGZuO7CGKQitDEM1/wlyK0bZ8VBLlHS3QLt+hyA5/xKwY0RvzHgZa5q7PSqwVNNFAdcdBhBuPUGA4y7wTNCZjHGzF+FrH0YAxTQnE06Wat5LUyZJEICJPNGh8i+3OEm4Ij4bTIgzTGfIvi0pR2Uk3Gs4W6bqe5h492bTe3xeLAgx0j6w8hw9SgCVcxe4mtqaQz8NpyW7W9Agmd4SLq7gLr79qRmKVoIPhBgsnHDom/QpYuSixV/PlyqtnpoKhFZasKUCz3yj7KpYayXr5SBbF7OhDWo0k7OmwxgsLQjtlIHKVaC1wVHITrRrxjwrjx3Uo=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(86362001)(54906003)(6486002)(5660300002)(508600001)(8936002)(2906002)(31686004)(83380400001)(2616005)(186003)(8676002)(4326008)(66946007)(66476007)(66556008)(26005)(6512007)(6506007)(6666004)(316002)(6916009)(31696002)(38100700002)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(66556008)(508600001)(186003)(6486002)(66476007)(8676002)(4326008)(6506007)(6916009)(2906002)(107886003)(66946007)(86362001)(26005)(8936002)(38100700002)(54906003)(6512007)(5660300002)(31696002)(36756003)(2616005)(31686004)(316002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZGt4ZlgvSEU4Mjc3NlZ6TVliT284eXEzWUdBU1RyZUJULys3di9sZE5seEFF?=
- =?utf-8?B?UllnZUgzYWEweTVGd2hQTlVPSVBSMjZzSWRWM0x0ZSt5UUhBajRIWjlVLzl6?=
- =?utf-8?B?YlRiaUt5NkM4bDQrWEJoN3JxVkdENHJOd25pZ3NlMG1rWXNQNyt1Ym5QcVdx?=
- =?utf-8?B?Ty9BZVdlNGowanRtd3hnZm9laGUwVTd2dXN6bjErNEpGNzFyWmdlUVRBdGRr?=
- =?utf-8?B?SmFJd0dNTm8rN01YNkFYcWViUUZYamY0WldDaW9jWlhMV1hBUVAyY0hORWZN?=
- =?utf-8?B?Vnd1amRPYUdMb3hldlZBWGVuV0pVTkVaeVZsUFNCSFUwVForaGp5SkZXN3Yx?=
- =?utf-8?B?czRJZU0vVnlMMU9MSmdmZHVzOXZPR2hicVp0alRWQVBuUWluZUtxSHlkMmg0?=
- =?utf-8?B?UTJWQThNc1NGelBtdDRGMndON3BYcHErSmNrbEhabmRMZGlKMnljMGRRMlQ5?=
- =?utf-8?B?Rk0wUlRMemZxVklmUVhlOVFFZW42N2VVZ1dQZkN5UFZiRXFKc29SRUhUK0ha?=
- =?utf-8?B?NUdNMytTWHRHRzZIS0Z2QTRRa1VTNFZGdThGSDZ1eUZEdXZnWDNTSG9qVlBl?=
- =?utf-8?B?THZtMm9UMnR0VzEvMW1udjdIZDVnbURKQXMvOUdSRHRjWDZocUppT0MrSmlm?=
- =?utf-8?B?S2EyLzh4bGlFOEk1RlR2anoxSjRncGNDV2RPcmd2MjJEbVByY3liRENPejlp?=
- =?utf-8?B?cTJGdlVUbHVpam81OHkyQ2g5YmZLeEZKQkJuZjFObWJGMHhLN21vMkl1Z3dN?=
- =?utf-8?B?WVczYWtSWEdZMHZnMG5lbm5qcHFocXY0UUFuaDh5Y1dlVFJuWGZMWlVNWU5F?=
- =?utf-8?B?RnAwSXVBZVEwaXViZ0ZOZWg4MTF3dmVBaVNoSDdtT0U1bXlFM0d6V2NadG96?=
- =?utf-8?B?S3c5RWI1SiswOFpJUVNnZWJWd0ZJK3pIR0QxKzNxa2NyT2xHVE1QUURpMVlD?=
- =?utf-8?B?VFREMko1OHJNWk1QbDhjZjd4VmorZVh2NGhQNnRERjB5T0FxcTE0bHhlRWkv?=
- =?utf-8?B?WkQ5aG9RZytmekZBcGk3M3ZrOENKSXZXaitnRmJhMHNXUVpyUERhMXJSVHNh?=
- =?utf-8?B?K1NpYlZOcUVWdHJlak5nYkttbEw1VVJBZVV3WmlQL1VzUmtHT0kvbDhManVz?=
- =?utf-8?B?dU9qcW4wS1hqWGgzeHFWTUt2UndTQS9uTHRubE1vaHRpSlpGclRBc1ptQ1RN?=
- =?utf-8?B?eEVaaGhueUl6bHV5ZXJnbllPU29lSmMycHVicGllV2RKWi9TYTR2ZjErVnNm?=
- =?utf-8?B?bk85VWVydzFBUk5LaHpIUGp3SXN1bWVKMkpiZXNkS3dnRVNLRXBRdHk2ZGJZ?=
- =?utf-8?B?K2tUNi92QUZ1SFRGYy9ZNzdxTTYvZEVaMktxNW4vZGNZUmFSVndScWIvUWNj?=
- =?utf-8?B?Z0JZREI4eGpmOHlBZE1pc01XTVBpSGdyUm5BdmtIY3VIVURiR0gxMGE2ZmxO?=
- =?utf-8?B?QjBlYTdxYksyMXBuc0FBb3BtdHF2UW1KZkpKVDlkQUwvUkorR2wzRjhsR0FX?=
- =?utf-8?B?Z05iT2JkTHVaemtrdVRDNjJrdU9LaGVzVHRtVHJLMWxRbEVjNEE0Q0lZMlIx?=
- =?utf-8?B?OTZZRnlIc0JlSERmMWlTWGNMd1lxRlQyNTJndVpWS00vcXZIRU9vY0dNRjl1?=
- =?utf-8?B?MUMzYlhnWkVZSVNBbkUramkxYWVGSkVpdG5CanQ2REdLUXdvSVBPREdJZ0pH?=
- =?utf-8?B?K1lLd2NBSDB2L0Fic1YwZGgwQXNCRk8xdThmT3pqSHJ5aTduc0VJZWNzUjJM?=
- =?utf-8?B?LzEvM0VxSmdsZTB1c1BObHdmV1dsU1R1UkI2ZDI3dUJvQ2RZRmI2c3JJU0J4?=
- =?utf-8?B?M3dIbTcrRDNnUUJ3cE51ZVlSR0pVbUtBTE05bHlrTjRPNWhnQno5WFNpOTJt?=
- =?utf-8?B?dHBxRmF3Ynd1ZUswWUIrWXdxY0hxSGFNNUZlb1dyODRmUW8za1k4ZkFUcTBR?=
- =?utf-8?B?TG1ESFBWZGFhRlIyMk43cFN6OGd4RW54TnVVRmpzdFFmamw0R1AxWlYxZEpX?=
- =?utf-8?B?UGhReXFqeC9WZHVYZlNZS3IyZERzSnpnMUhKN2FJRjc4UTNNbXZYV1AxV3hR?=
- =?utf-8?B?UmRPL3ZQVmdxZDBIMTNBYXJ6U1U0bGREcDE5U1orQkN6UnRORWFveXNBb3ow?=
- =?utf-8?B?SEwzWGdtQVI3WkdXemYwMmlka3QxcGY1TWxDb05WaDBjUy9TMUFSTS9XQVly?=
- =?utf-8?B?c3JpYTZQU2ovTGJac2ZZc0cxUXdNQXJMd3YvSzZBRzRXSW5NU0pEZjhoSHJo?=
- =?utf-8?B?clRUdjhnQjZuUzRaYlFQMFl4UXNQWUdjT3hDNXUxYjdjbkMwTHVuTFFUdW55?=
- =?utf-8?B?cnJjbGZ6UzBTUkw0dE5aQS9yMjlSakVzT3pJV29hY1Z2ZTRDM1d0QT09?=
+	=?utf-8?B?SFN5cENEUFd4RGZqbkxRUERFZWxaZ05PdnhyOFRIRUMydnVESzVuVHkxT0ly?=
+ =?utf-8?B?TkFnT0FYVlBVNThGMDJjb1g5Yk10aHRxc21oUG1IM2hxQkxlZHZnUzlVamc4?=
+ =?utf-8?B?a2oyWWI0UFZCRFIzbEdQbDVMR2RDamRhNE9QVlhuS1FaRFZXQy9zK2xDWjFF?=
+ =?utf-8?B?N2MxLzBxTDJXcE5ka0FveEVkdDZSL1ZHK1JzQ2hQT1Z1M3lYTUxXNWpGMzdX?=
+ =?utf-8?B?SE5rVWVraTJ4NXN0M05kdWd2RXN1blVaeHFqZ0dnblpoRGJ5T2hrVGQ1Wncx?=
+ =?utf-8?B?SE04bE41UWNaQXBBVFM3ZVZlSGdLcWt5aWJDOHozKzgrQjl6b2lNWXlaU3c2?=
+ =?utf-8?B?WlVUUndhYVAyeFNKTUlPdDlDSmpxYzJ4SVAwelV5b2NiSHh3bi9vL2NmTkxB?=
+ =?utf-8?B?OVQ3aHJScE9EUVNpTCs3WHRKbTluQlZHYi9tYXRCc0UxR3c5dWFMNUlacTJm?=
+ =?utf-8?B?UmZ1NE92SldycEZLbHJ4SExhd2paa3FiZk85RUd0eXZCWjlWcWpXUTYzWW9o?=
+ =?utf-8?B?T3pCOTZ1QUNiSzlnRGRMaDRKOExaMGRIc2VBM0NUejZFckhNV3VQMHRMOXht?=
+ =?utf-8?B?bEFGK2NLZE9uaGJVRjJHM0tYelFLL3VTbEM4azdsVkI2N2FybFU1OVBaU2xW?=
+ =?utf-8?B?WTUraVFrTHZCTWpIM1hvSG5Cb0RDWDcvT1NIMDM1YUpuREVpMldzUHN0cyty?=
+ =?utf-8?B?NjNMV0h1c1p3MTZYY0FnQTdtTkFIMzFMZWRteWFwVkdHTDY0dCtxT252TzN5?=
+ =?utf-8?B?WUlhMzZrTWdONjBHL0JadVo4SExpS3A3MUl1WVdkbEtOS3J1aEN5Mm9KMzJI?=
+ =?utf-8?B?bVZkZkpjS0xGRU5ncUp5SnVPQUtQRmx4bGh5VnJhR0R5N0dGTlVCZHVUZkt1?=
+ =?utf-8?B?akpmNllUd21rRElYT1g5ZUtadWZoTS9hWGd6UnUvbnVTeUxqelhtbWU0WWpt?=
+ =?utf-8?B?eUs5dnJTNG1mYzF2Y29YK1g3TVpoWFc4VmNFTElJRTcyM3BGYVF1YnhDeWlm?=
+ =?utf-8?B?VVdSeWI1UHNBM3BhQUFpZGVzb1lYbnNYdzFqcVhaVGRmdk80OGJ3Y3pSUG11?=
+ =?utf-8?B?bXpDZVcvUzJTY2swRisyNmRNVWx3UVl5azJzeGVDVU8wZjAvMUpoV1E4MDlr?=
+ =?utf-8?B?bzllVXlLL3czYnNIZkRLS0UwbDdnTnRuTDE4N094QVhnd0ZUVzl2dTFMdzFp?=
+ =?utf-8?B?TG5QSE13dnV2eG1jUkFvK2NtQjBFU0pZVGlVd1hGaXlYSGNFbEFHeWxSOHMz?=
+ =?utf-8?B?Q1ozZUpWRXN2dW9UOExmbW01TmlGdktGWEdwUmJUUmphcklBZDlVQ1pralJQ?=
+ =?utf-8?B?cTkrWEJuTm02c0M4RE1MajdpMjVnNkFsNnV1UzhNSko0UldhbVIwTlJaemdz?=
+ =?utf-8?B?S0NZUTllMEJFeUlBaHhaQllmUk1jWVVXMmljc3RvajQ5TUQ3bHo4VW9RelBK?=
+ =?utf-8?B?MWFEUVVlQzhUc1VPNXZNQnBDN3lDOUNtbHhSMGxUZWZvaDlxZXp0d2JuZEpI?=
+ =?utf-8?B?VHEyaTFiaGZYaVJybHUyZE9MbHFZeEtaVVE3QUJJZE5MRG9vY1JkNkhzbk9i?=
+ =?utf-8?B?bGZzN3hkWTVhSHVPUU1HWHd2ZU9Vb0ZidDFYVkUrdFQ1VFpNQ3FBSG5WUC9N?=
+ =?utf-8?B?cWpiNlR4WjFJUEJnZW5kSnpEMThDZkg0NUhGQ2s4MFB1TGpEVUFFa0t6OTBM?=
+ =?utf-8?B?UmM0emRHZmkzRWxHTi9LV3pqbUQ5Zm55NDlqMDFPSElaaHAxWGhKYmxGakov?=
+ =?utf-8?B?OHRka2Z5T3NlbWIxNU5rSFJzYkREVHpDaWlIN0ZreVlvQ1pBclhoR2haTmtl?=
+ =?utf-8?B?NmNIR1pEVHg0blRRakQ4Q0E4SkpnYkFLN05yVFZkZHdad1FTbmR2U1lDcENP?=
+ =?utf-8?B?cHFkclRNK1pFeG1vUDVRZ0F1REo5VWtvQTdvejY0OUpnQ0VZZzdKWWx4ZXJH?=
+ =?utf-8?B?VGpwOEdRaTVueTZHaDdoTDBCVWNRQ3c0TEVvWnIybENWWHJsdi9kdForUUdL?=
+ =?utf-8?B?QUlCcStqMmNZRi9IZ2NJMk5RNDBhR0VSaHJpek1TQUJQckxBcW1HY2I2R0lD?=
+ =?utf-8?B?VExBZTNKOEFkS0FBU09RTDY1VUM2SGdZekh6UFdaTzN5VjM3ZHIrYThEa0M2?=
+ =?utf-8?B?NU8wYStEbVcweHlGUEZMOERlMGNpTU9YZm5lQ2oxWVRrVlVWYkpFS0x4cHFQ?=
+ =?utf-8?B?em54MGdoZ2Z0NlczZHIzN2drRzZwa1FraWVuNWRrUFFNNzRRTklMblpuNEN0?=
+ =?utf-8?B?VzJUYjJSSHkwbU5VQWE3anZsSUlHbk5OMTA3Q21CWWRFenRIdnN4NjJFbCtO?=
+ =?utf-8?B?YVFGUzNTS0c2cjlUWUhEc2NLK1BlenduWnltREJ4YUw3Z1dKaW5lQT09?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: abf36fe3-1522-4f9d-a676-08da2697e768
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5867052d-78a8-4c79-ff84-08da26988557
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2022 08:45:09.1596
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2022 08:49:34.1148
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WTxGIlSfltNLOmE5j3Ebd+5bNFOtLGcC3NzX3aoayucvjIQmLH6Rw/FcV2ERoBJekHWtd19Yw2TBvDOyCxM1/w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR0402MB3589
+X-MS-Exchange-CrossTenant-UserPrincipalName: zGbaCPizxzDZ0HEp1BKjm5QzQljYq/gwrPCjq8NG2pZ9KG0A44SOz2Ng8VYO0szfx9sh20G7gIISGPDRqdw7zA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2254
 
-This way intel_iommu_unmap_page() ends up quite a bit more similar to
-intel_iommu_map_page().
+The reference "to shadow the resident processes" is applicable to
+domains (potentially) running in shadow mode only. Adjust the
+calculations accordingly. This, however, requires further parameters.
+Since the original function is deprecated anyway, and since it can't be
+changed (for being part of a stable ABI), introduce a new (internal
+only) function, with the deprecated one simply becoming a wrapper.
 
-No functional change intended.
+In dom0_paging_pages() also take the opportunity and stop open-coding
+DIV_ROUND_UP().
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v4: New.
+v2: Introduce libxl__get_required_paging_memory().
 
---- a/xen/drivers/passthrough/vtd/iommu.c
-+++ b/xen/drivers/passthrough/vtd/iommu.c
-@@ -806,75 +806,6 @@ static void queue_free_pt(struct domain_
-     iommu_queue_free_pgtable(hd, mfn_to_page(mfn));
+--- a/tools/libs/light/libxl_create.c
++++ b/tools/libs/light/libxl_create.c
+@@ -1017,7 +1017,7 @@ static bool ok_to_default_memkb_in_creat
+      * The result is that the behaviour with old callers is the same
+      * as in 4.13: no additional memory is allocated for shadow and
+      * iommu (unless the caller set shadow_memkb, eg from a call to
+-     * libxl_get_required_shadow_memory).
++     * libxl__get_required_paging_memory).
+      */
+     return !CTX->libxl_domain_need_memory_0x041200_called ||
+             CTX->libxl_domain_need_memory_called;
+@@ -1027,6 +1027,24 @@ static bool ok_to_default_memkb_in_creat
+      */
  }
  
--/* clear one page's page table */
--static int dma_pte_clear_one(struct domain *domain, daddr_t addr,
--                             unsigned int order,
--                             unsigned int *flush_flags)
--{
--    struct domain_iommu *hd = dom_iommu(domain);
--    struct dma_pte *page = NULL, *pte = NULL, old;
--    u64 pg_maddr;
--    unsigned int level = (order / LEVEL_STRIDE) + 1;
--
--    spin_lock(&hd->arch.mapping_lock);
--    /* get target level pte */
--    pg_maddr = addr_to_dma_page_maddr(domain, addr, level, flush_flags, false);
--    if ( pg_maddr < PAGE_SIZE )
--    {
--        spin_unlock(&hd->arch.mapping_lock);
--        return pg_maddr ? -ENOMEM : 0;
--    }
--
--    page = (struct dma_pte *)map_vtd_domain_page(pg_maddr);
--    pte = &page[address_level_offset(addr, level)];
--
--    if ( !dma_pte_present(*pte) )
--    {
--        spin_unlock(&hd->arch.mapping_lock);
--        unmap_vtd_domain_page(page);
--        return 0;
--    }
--
--    old = *pte;
--    dma_clear_pte(*pte);
--    iommu_sync_cache(pte, sizeof(*pte));
--
--    while ( pt_update_contig_markers(&page->val,
--                                     address_level_offset(addr, level),
--                                     level, PTE_kind_null) &&
--            ++level < min_pt_levels )
--    {
--        struct page_info *pg = maddr_to_page(pg_maddr);
--
--        unmap_vtd_domain_page(page);
--
--        pg_maddr = addr_to_dma_page_maddr(domain, addr, level, flush_flags,
--                                          false);
--        BUG_ON(pg_maddr < PAGE_SIZE);
--
--        page = map_vtd_domain_page(pg_maddr);
--        pte = &page[address_level_offset(addr, level)];
--        dma_clear_pte(*pte);
--        iommu_sync_cache(pte, sizeof(*pte));
--
--        *flush_flags |= IOMMU_FLUSHF_all;
--        iommu_queue_free_pgtable(hd, pg);
--        perfc_incr(iommu_pt_coalesces);
--    }
--
--    spin_unlock(&hd->arch.mapping_lock);
--
--    unmap_vtd_domain_page(page);
--
--    *flush_flags |= IOMMU_FLUSHF_modified;
--
--    if ( order && !dma_pte_superpage(old) )
--        queue_free_pt(hd, maddr_to_mfn(dma_pte_addr(old)),
--                      order / LEVEL_STRIDE);
--
--    return 0;
--}
--
- static int iommu_set_root_entry(struct vtd_iommu *iommu)
- {
-     u32 sts;
-@@ -2261,6 +2192,12 @@ static int __must_check cf_check intel_i
- static int __must_check cf_check intel_iommu_unmap_page(
-     struct domain *d, dfn_t dfn, unsigned int order, unsigned int *flush_flags)
- {
-+    struct domain_iommu *hd = dom_iommu(d);
-+    daddr_t addr = dfn_to_daddr(dfn);
-+    struct dma_pte *page = NULL, *pte = NULL, old;
-+    uint64_t pg_maddr;
-+    unsigned int level = (order / LEVEL_STRIDE) + 1;
++unsigned long libxl__get_required_paging_memory(unsigned long maxmem_kb,
++                                                unsigned int smp_cpus,
++                                                libxl_domain_type type,
++                                                bool hap)
++{
++    /*
++     * 256 pages (1MB) per vcpu,
++     * plus 1 page per MiB of RAM for the P2M map (for non-PV guests),
++     * plus 1 page per MiB of RAM to shadow the resident processes (for shadow
++     * mode guests).
++     * This is higher than the minimum that Xen would allocate if no value
++     * were given (but the Xen minimum is for safety, not performance).
++     */
++    return 4 * (256 * smp_cpus +
++                ((type != LIBXL_DOMAIN_TYPE_PV) + !hap) *
++                (maxmem_kb / 1024));
++}
 +
-     /* Do nothing if VT-d shares EPT page table */
-     if ( iommu_use_hap_pt(d) )
-         return 0;
-@@ -2269,7 +2206,62 @@ static int __must_check cf_check intel_i
-     if ( iommu_hwdom_passthrough && is_hardware_domain(d) )
-         return 0;
+ static unsigned long libxl__get_required_iommu_memory(unsigned long maxmem_kb)
+ {
+     unsigned long iommu_pages = 0, mem_pages = maxmem_kb / 4;
+@@ -1194,10 +1212,16 @@ int libxl__domain_config_setdefault(libx
+     }
  
--    return dma_pte_clear_one(d, dfn_to_daddr(dfn), order, flush_flags);
-+    spin_lock(&hd->arch.mapping_lock);
-+    /* get target level pte */
-+    pg_maddr = addr_to_dma_page_maddr(d, addr, level, flush_flags, false);
-+    if ( pg_maddr < PAGE_SIZE )
-+    {
-+        spin_unlock(&hd->arch.mapping_lock);
-+        return pg_maddr ? -ENOMEM : 0;
+     if (d_config->b_info.shadow_memkb == LIBXL_MEMKB_DEFAULT
+-        && ok_to_default_memkb_in_create(gc))
++        && ok_to_default_memkb_in_create(gc)) {
++        bool hap = d_config->c_info.type != LIBXL_DOMAIN_TYPE_PV &&
++                   libxl_defbool_val(d_config->c_info.hap);
++
+         d_config->b_info.shadow_memkb =
+-            libxl_get_required_shadow_memory(d_config->b_info.max_memkb,
+-                                             d_config->b_info.max_vcpus);
++            libxl__get_required_paging_memory(d_config->b_info.max_memkb,
++                                              d_config->b_info.max_vcpus,
++                                              d_config->c_info.type,
++                                              hap);
 +    }
+ 
+     /* No IOMMU reservation is needed if passthrough mode is not 'sync_pt' */
+     if (d_config->b_info.iommu_memkb == LIBXL_MEMKB_DEFAULT
+--- a/tools/libs/light/libxl_internal.h
++++ b/tools/libs/light/libxl_internal.h
+@@ -1569,6 +1569,11 @@ _hidden int libxl__domain_need_memory_ca
+                                       libxl_domain_build_info *b_info,
+                                       uint64_t *need_memkb);
+ 
++_hidden unsigned long libxl__get_required_paging_memory(unsigned long maxmem_kb,
++                                                        unsigned int smp_cpus,
++                                                        libxl_domain_type type,
++                                                        bool hap);
 +
-+    page = map_vtd_domain_page(pg_maddr);
-+    pte = &page[address_level_offset(addr, level)];
-+
-+    if ( !dma_pte_present(*pte) )
-+    {
-+        spin_unlock(&hd->arch.mapping_lock);
-+        unmap_vtd_domain_page(page);
-+        return 0;
-+    }
-+
-+    old = *pte;
-+    dma_clear_pte(*pte);
-+    iommu_sync_cache(pte, sizeof(*pte));
-+
-+    while ( pt_update_contig_markers(&page->val,
-+                                     address_level_offset(addr, level),
-+                                     level, PTE_kind_null) &&
-+            ++level < min_pt_levels )
-+    {
-+        struct page_info *pg = maddr_to_page(pg_maddr);
-+
-+        unmap_vtd_domain_page(page);
-+
-+        pg_maddr = addr_to_dma_page_maddr(d, addr, level, flush_flags, false);
-+        BUG_ON(pg_maddr < PAGE_SIZE);
-+
-+        page = map_vtd_domain_page(pg_maddr);
-+        pte = &page[address_level_offset(addr, level)];
-+        dma_clear_pte(*pte);
-+        iommu_sync_cache(pte, sizeof(*pte));
-+
-+        *flush_flags |= IOMMU_FLUSHF_all;
-+        iommu_queue_free_pgtable(hd, pg);
-+        perfc_incr(iommu_pt_coalesces);
-+    }
-+
-+    spin_unlock(&hd->arch.mapping_lock);
-+
-+    unmap_vtd_domain_page(page);
-+
-+    *flush_flags |= IOMMU_FLUSHF_modified;
-+
-+    if ( order && !dma_pte_superpage(old) )
-+        queue_free_pt(hd, maddr_to_mfn(dma_pte_addr(old)),
-+                      order / LEVEL_STRIDE);
-+
-+    return 0;
+ _hidden const char *libxl__device_nic_devname(libxl__gc *gc,
+                                               uint32_t domid,
+                                               uint32_t devid,
+--- a/tools/libs/light/libxl_utils.c
++++ b/tools/libs/light/libxl_utils.c
+@@ -38,13 +38,8 @@ char *libxl_basename(const char *name)
+ 
+ unsigned long libxl_get_required_shadow_memory(unsigned long maxmem_kb, unsigned int smp_cpus)
+ {
+-    /* 256 pages (1MB) per vcpu,
+-       plus 1 page per MiB of RAM for the P2M map,
+-       plus 1 page per MiB of RAM to shadow the resident processes.
+-       This is higher than the minimum that Xen would allocate if no value
+-       were given (but the Xen minimum is for safety, not performance).
+-     */
+-    return 4 * (256 * smp_cpus + 2 * (maxmem_kb / 1024));
++    return libxl__get_required_paging_memory(maxmem_kb, smp_cpus,
++                                             LIBXL_DOMAIN_TYPE_INVALID, false);
  }
  
- static int cf_check intel_iommu_lookup_page(
+ char *libxl_domid_to_name(libxl_ctx *ctx, uint32_t domid)
+--- a/xen/arch/x86/dom0_build.c
++++ b/xen/arch/x86/dom0_build.c
+@@ -317,9 +317,12 @@ unsigned long __init dom0_paging_pages(c
+     /* Copied from: libxl_get_required_shadow_memory() */
+     unsigned long memkb = nr_pages * (PAGE_SIZE / 1024);
+ 
+-    memkb = 4 * (256 * d->max_vcpus + 2 * (memkb / 1024));
++    memkb = 4 * (256 * d->max_vcpus +
++                 (paging_mode_enabled(d) +
++                  (opt_dom0_shadow || opt_pv_l1tf_hwdom)) *
++                 (memkb / 1024));
+ 
+-    return ((memkb + 1023) / 1024) << (20 - PAGE_SHIFT);
++    return DIV_ROUND_UP(memkb, 1024) << (20 - PAGE_SHIFT);
+ }
+ 
+ 
 
 
