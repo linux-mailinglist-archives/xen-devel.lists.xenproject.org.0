@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3538A50E6FE
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 19:22:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.313187.530665 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AE4950E6FF
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Apr 2022 19:23:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.313188.530675 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nj2QC-0001pb-IG; Mon, 25 Apr 2022 17:22:48 +0000
+	id 1nj2QH-00026S-Pv; Mon, 25 Apr 2022 17:22:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 313187.530665; Mon, 25 Apr 2022 17:22:48 +0000
+Received: by outflank-mailman (output) from mailman id 313188.530675; Mon, 25 Apr 2022 17:22:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nj2QC-0001mE-EN; Mon, 25 Apr 2022 17:22:48 +0000
-Received: by outflank-mailman (input) for mailman id 313187;
- Mon, 25 Apr 2022 17:22:46 +0000
+	id 1nj2QH-000240-Ml; Mon, 25 Apr 2022 17:22:53 +0000
+Received: by outflank-mailman (input) for mailman id 313188;
+ Mon, 25 Apr 2022 17:22:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sCC+=VD=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1nj2QA-0001m7-NJ
- for xen-devel@lists.xenproject.org; Mon, 25 Apr 2022 17:22:46 +0000
+ id 1nj2QF-0001m7-Hk
+ for xen-devel@lists.xenproject.org; Mon, 25 Apr 2022 17:22:51 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
  [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5160dcd0-c4bc-11ec-8fc2-03012f2f19d4;
- Mon, 25 Apr 2022 19:22:45 +0200 (CEST)
+ id 547a57f6-c4bc-11ec-8fc2-03012f2f19d4;
+ Mon, 25 Apr 2022 19:22:50 +0200 (CEST)
 Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
  [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1650907358533423.51309031262167;
- Mon, 25 Apr 2022 10:22:38 -0700 (PDT)
+ with SMTPS id 165090736101574.01795310864475;
+ Mon, 25 Apr 2022 10:22:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,76 +40,229 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5160dcd0-c4bc-11ec-8fc2-03012f2f19d4
-ARC-Seal: i=1; a=rsa-sha256; t=1650907362; cv=none; 
+X-Inumbo-ID: 547a57f6-c4bc-11ec-8fc2-03012f2f19d4
+ARC-Seal: i=1; a=rsa-sha256; t=1650907364; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=ESfvTbpA7jL2dBIsUgFquA4az2OLW0ndJHK12tWRVo9W2qaETbyVKENcDbZAZ3RR8m/61cBQAQN7u8vuPX/xaS1TPIy2xkJAFit6yBspZwbZmtkczpxAONpE4Lxbs9PkjnF32lLqxKXB+8R79VJ6HF3b7J5Xe0zRZ5IRBcxV/b0=
+	b=Ax7o3r8U6B4PFgzUw5bx5r5LBu41GigSNecUltuuR8dSVKqxbPPtGcByzXoFgDjdADU7QKgB1uZXGmjVUff6lm7NXHWOL9n0sjS2mM6pb823DSF7vTfb/O6zGQ3rz6uISOYXYcmKI4ggGXkHITATaLgqXss6mHvF93u3Bx3ELOs=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1650907362; h=Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To; 
-	bh=jb7DIZpJG+PpAxtH2k2IxIIsQBdNEM3UGi2u20z+AQk=; 
-	b=IbLR76Jb7CgrZHul9DN0ibscjXinJU+VZyebmoMahK0O0V7mIpjahbl4rLTBinzziRbX5Oxkmw44rmvGX9CgirJPujcCINyeuB0CP0L3jgPwLmMe8dD3kHmSqT3DS+E9uyDIMFlQ8tSUfxTZsJ59P1nR5xkb2M3XJU/4xeLZteI=
+	t=1650907364; h=Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=oWUECp0uPTpkjJDOsexyWnv+2pg/Sqhs5LeSRzZUWDE=; 
+	b=EUv11YhBQ0tOe10FRarzQEXENGkwHC6k4Hr+uvouLRTLMaVYAkzXXB5pKl+j07RfbEsFStv0pjQrAd5dxtEFgOpnM9OpFMMME3uPG1+F5mUxjtfmCY7scXme17aR6qDkoH8MUMJbMjKKiBG9K0liFnWhZ8xtszbRJr2Bcwt0PjE=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1650907362;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1650907364;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=jb7DIZpJG+PpAxtH2k2IxIIsQBdNEM3UGi2u20z+AQk=;
-	b=GpRypCL/1JIRBNFFROpBVuse5JNiHQjkZeARLYeaLBnj42Cv6/FcM1ODiQxEMSde
-	kfBC3nkgtzbaPJHWrmmpoBFJdA05fn6+v+GBgaRJJhDYT1VaxDBD/NhxDPMUZdQErDn
-	EbODTBsJUiokJk+qS1lldq0enHg0EFihOGgXZpkI=
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
+	bh=oWUECp0uPTpkjJDOsexyWnv+2pg/Sqhs5LeSRzZUWDE=;
+	b=q7+Vq5H27jfV2rMgnQ1pGolKGQKsX1cUXzzyM5cwDvejg7q1HW84xnh2x5VncO3K
+	aPXYPMuv0zooJEuuyopcldSPizgpKZwRFLqYo+36n1w1rP8417RHaWnQtO+czrWk7zF
+	KOe2jjbkIOJRJjiSNjyRZAgZYkpevehOAOBPc3qE=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: xen-devel@lists.xenproject.org
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	scott.davis@starlab.io,
-	jandryuk@gmail.com
-Subject: [PATCH v4 0/2] Adds starting the idle domain privileged
-Date: Mon, 25 Apr 2022 13:22:29 -0400
-Message-Id: <20220425172231.27401-1-dpsmith@apertussolutions.com>
+To: xen-devel@lists.xenproject.org,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Wei Liu <wl@xen.org>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: scott.davis@starlab.io,
+	jandryuk@gmail.com,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Dario Faggioli <dfaggioli@suse.com>,
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Subject: [PATCH v4 1/2] xsm: create idle domain privileged and demote after setup
+Date: Mon, 25 Apr 2022 13:22:30 -0400
+Message-Id: <20220425172231.27401-2-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20220425172231.27401-1-dpsmith@apertussolutions.com>
+References: <20220425172231.27401-1-dpsmith@apertussolutions.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-This series makes it so that the idle domain is started privileged under the
-default policy, which the SILO policy inherits, and under the flask policy. It
-then introduces a new one-way XSM hook, xsm_transition_running, that is hooked
-by an XSM policy to transition the idle domain to its running privilege level.
+There are new capabilities, dom0less and hyperlaunch, that introduce internal
+hypervisor logic which needs to make resource allocation calls that are
+protected by XSM access checks. This creates an issue as a subset of the
+hypervisor code is executed under a system domain, the idle domain, that is
+represented by a per-CPU non-privileged struct domain. To enable these new
+capabilities to function correctly but in a controlled manner, this commit
+changes the idle system domain to be created as a privileged domain under the
+default policy and demoted before transitioning to running. A new XSM hook,
+xsm_set_system_active(), is introduced to allow each XSM policy type to demote
+the idle domain appropriately for that policy type. In the case of SILO, it
+inherits the default policy's hook for xsm_set_system_active().
 
-Changes in v4:
-- reworded patch 1 commit messaged
-- fixed whitespace to coding style
-- fixed comment to coding style
+For flask a stub is added to ensure that flask policy system will function
+correctly with this patch until flask is extended with support for starting the
+idle domain privileged and properly demoting it on the call to
+xsm_set_system_active().
 
-Changes in v3:
-- renamed *_transition_running() to *_set_system_active()
-- changed the XSM hook set_system_active() from void to int return
-- added ASSERT check for the expected privilege level each XSM policy expected
-- replaced a check against is_privileged in each arch with checking the return
-  value from the call to xsm_set_system_active()
+Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
+---
+ xen/arch/arm/setup.c    |  3 +++
+ xen/arch/x86/setup.c    |  3 +++
+ xen/common/sched/core.c |  7 ++++++-
+ xen/include/xsm/dummy.h | 17 +++++++++++++++++
+ xen/include/xsm/xsm.h   |  6 ++++++
+ xen/xsm/dummy.c         |  1 +
+ xen/xsm/flask/hooks.c   | 21 +++++++++++++++++++++
+ 7 files changed, 57 insertions(+), 1 deletion(-)
 
-Changes in v2:
-- renamed flask_domain_runtime_security() to flask_transition_running()
-- added the missed assignment of self_sid
-
-Daniel P. Smith (2):
-  xsm: create idle domain privileged and demote after setup
-  flask: implement xsm_set_system_active
-
- tools/flask/policy/modules/xen.if      |  6 ++++++
- tools/flask/policy/modules/xen.te      |  1 +
- tools/flask/policy/policy/initial_sids |  1 +
- xen/arch/arm/setup.c                   |  3 +++
- xen/arch/x86/setup.c                   |  3 +++
- xen/common/sched/core.c                |  7 ++++++-
- xen/include/xsm/dummy.h                | 17 +++++++++++++++
- xen/include/xsm/xsm.h                  |  6 ++++++
- xen/xsm/dummy.c                        |  1 +
- xen/xsm/flask/hooks.c                  | 29 +++++++++++++++++++++++++-
- xen/xsm/flask/policy/initial_sids      |  1 +
- 11 files changed, 73 insertions(+), 2 deletions(-)
-
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index d5d0792ed4..dc0bdef6b7 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -1048,6 +1048,9 @@ void __init start_xen(unsigned long boot_phys_offset,
+     /* Hide UART from DOM0 if we're using it */
+     serial_endboot();
+ 
++    if ( xsm_set_system_active() != 0 )
++        panic("xsm: unable to set hypervisor to SYSTEM_ACTIVE privilege\n");
++
+     system_state = SYS_STATE_active;
+ 
+     for_each_domain( d )
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index 6f20e17892..e7a0ac9183 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -621,6 +621,9 @@ static void noreturn init_done(void)
+     void *va;
+     unsigned long start, end;
+ 
++    if ( xsm_set_system_active() != 0 )
++        panic("xsm: unable to set hypervisor to SYSTEM_ACTIVE privilege\n");
++
+     system_state = SYS_STATE_active;
+ 
+     domain_unpause_by_systemcontroller(dom0);
+diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+index 19ab678181..7b1c03a0e1 100644
+--- a/xen/common/sched/core.c
++++ b/xen/common/sched/core.c
+@@ -3021,7 +3021,12 @@ void __init scheduler_init(void)
+         sched_ratelimit_us = SCHED_DEFAULT_RATELIMIT_US;
+     }
+ 
+-    idle_domain = domain_create(DOMID_IDLE, NULL, 0);
++    /*
++     * The idle dom is created privileged to ensure unrestricted access during
++     * setup and will be demoted by xsm_set_system_active() when setup is
++     * complete.
++     */
++    idle_domain = domain_create(DOMID_IDLE, NULL, CDF_privileged);
+     BUG_ON(IS_ERR(idle_domain));
+     BUG_ON(nr_cpu_ids > ARRAY_SIZE(idle_vcpu));
+     idle_domain->vcpu = idle_vcpu;
+diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
+index 58afc1d589..3291fb5396 100644
+--- a/xen/include/xsm/dummy.h
++++ b/xen/include/xsm/dummy.h
+@@ -101,6 +101,23 @@ static always_inline int xsm_default_action(
+     }
+ }
+ 
++static XSM_INLINE int cf_check xsm_set_system_active(void)
++{
++    struct domain *d = current->domain;
++
++    ASSERT(d->is_privileged);
++
++    if ( d->domain_id != DOMID_IDLE )
++    {
++        printk("xsm_set_system_active: should only be called by idle domain\n");
++        return -EPERM;
++    }
++
++    d->is_privileged = false;
++
++    return 0;
++}
++
+ static XSM_INLINE void cf_check xsm_security_domaininfo(
+     struct domain *d, struct xen_domctl_getdomaininfo *info)
+ {
+diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
+index 3e2b7fe3db..8dad03fd3d 100644
+--- a/xen/include/xsm/xsm.h
++++ b/xen/include/xsm/xsm.h
+@@ -52,6 +52,7 @@ typedef enum xsm_default xsm_default_t;
+  * !!! WARNING !!!
+  */
+ struct xsm_ops {
++    int (*set_system_active)(void);
+     void (*security_domaininfo)(struct domain *d,
+                                 struct xen_domctl_getdomaininfo *info);
+     int (*domain_create)(struct domain *d, uint32_t ssidref);
+@@ -208,6 +209,11 @@ extern struct xsm_ops xsm_ops;
+ 
+ #ifndef XSM_NO_WRAPPERS
+ 
++static inline int xsm_set_system_active(void)
++{
++    return alternative_call(xsm_ops.set_system_active);
++}
++
+ static inline void xsm_security_domaininfo(
+     struct domain *d, struct xen_domctl_getdomaininfo *info)
+ {
+diff --git a/xen/xsm/dummy.c b/xen/xsm/dummy.c
+index 8c044ef615..e6ffa948f7 100644
+--- a/xen/xsm/dummy.c
++++ b/xen/xsm/dummy.c
+@@ -14,6 +14,7 @@
+ #include <xsm/dummy.h>
+ 
+ static const struct xsm_ops __initconst_cf_clobber dummy_ops = {
++    .set_system_active             = xsm_set_system_active,
+     .security_domaininfo           = xsm_security_domaininfo,
+     .domain_create                 = xsm_domain_create,
+     .getdomaininfo                 = xsm_getdomaininfo,
+diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
+index 0bf63ffa84..8a62de2fd6 100644
+--- a/xen/xsm/flask/hooks.c
++++ b/xen/xsm/flask/hooks.c
+@@ -186,6 +186,26 @@ static int cf_check flask_domain_alloc_security(struct domain *d)
+     return 0;
+ }
+ 
++static int cf_check flask_set_system_active(void)
++{
++    struct domain *d = current->domain;
++
++    if ( d->domain_id != DOMID_IDLE )
++    {
++        printk("xsm_set_system_active should only be called by idle domain\n");
++        return -EPERM;
++    }
++
++    /*
++     * While is_privileged has no significant meaning under flask, set to false
++     * as there are times in hypervisor code privilege checks check this
++     * directly instead of going through XSM.
++     */
++    d->is_privileged = false;
++
++    return 0;
++}
++
+ static void cf_check flask_domain_free_security(struct domain *d)
+ {
+     struct domain_security_struct *dsec = d->ssid;
+@@ -1766,6 +1786,7 @@ static int cf_check flask_argo_send(
+ #endif
+ 
+ static const struct xsm_ops __initconst_cf_clobber flask_ops = {
++    .set_system_active = flask_set_system_active,
+     .security_domaininfo = flask_security_domaininfo,
+     .domain_create = flask_domain_create,
+     .getdomaininfo = flask_getdomaininfo,
 -- 
 2.20.1
 
