@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 243FF510945
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Apr 2022 21:43:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.314127.532060 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F66D51094D
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Apr 2022 21:51:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.314135.532076 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njR68-0008QM-VA; Tue, 26 Apr 2022 19:43:44 +0000
+	id 1njRDS-0001Wv-PP; Tue, 26 Apr 2022 19:51:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 314127.532060; Tue, 26 Apr 2022 19:43:44 +0000
+Received: by outflank-mailman (output) from mailman id 314135.532076; Tue, 26 Apr 2022 19:51:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njR68-0008OE-SC; Tue, 26 Apr 2022 19:43:44 +0000
-Received: by outflank-mailman (input) for mailman id 314127;
- Tue, 26 Apr 2022 19:43:43 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1njR67-0008O6-1j
- for xen-devel@lists.xenproject.org; Tue, 26 Apr 2022 19:43:43 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1njR64-0003yL-K3; Tue, 26 Apr 2022 19:43:40 +0000
-Received: from home.octic.net ([81.187.162.82] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1njR64-0006u2-Ee; Tue, 26 Apr 2022 19:43:40 +0000
+	id 1njRDS-0001U6-MV; Tue, 26 Apr 2022 19:51:18 +0000
+Received: by outflank-mailman (input) for mailman id 314135;
+ Tue, 26 Apr 2022 19:51:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ckxI=VE=gmail.com=p4ranlee@srs-se1.protection.inumbo.net>)
+ id 1njRDR-0001Ty-VQ
+ for xen-devel@lists.xenproject.org; Tue, 26 Apr 2022 19:51:18 +0000
+Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
+ [2607:f8b0:4864:20::52a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3bc0209c-c59a-11ec-8fc2-03012f2f19d4;
+ Tue, 26 Apr 2022 21:51:17 +0200 (CEST)
+Received: by mail-pg1-x52a.google.com with SMTP id bg9so16896906pgb.9
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Apr 2022 12:51:16 -0700 (PDT)
+Received: from [192.168.0.18] ([118.33.58.98])
+ by smtp.gmail.com with ESMTPSA id
+ y16-20020a63b510000000b00398d8b19bbfsm13720448pge.23.2022.04.26.12.51.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 26 Apr 2022 12:51:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,65 +44,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=Br5U3gJizTxRRDgynqD5Dfbji+NcUWjzCSSQUqnlHbs=; b=cmQfSfIkl1RemHeYo51D+ObHFI
-	cRKk0t6tqY9dfryTxmiLVZGshQIlLKzaTY1Pw+s5IDRt9cTl/WYaWcd0O0Cx2kDVsjt1efEuuKrsY
-	seNvE9To7JTO/NqMSlX0Gj1B3rjyFdyhsUIPA8/61yTDEdvSSwE4duhsP6NJGZ33eLJM=;
-Message-ID: <0028b769-ff2b-cadd-d85c-ec7885304b73@xen.org>
-Date: Tue, 26 Apr 2022 20:43:38 +0100
+X-Inumbo-ID: 3bc0209c-c59a-11ec-8fc2-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:to:references:cc
+         :from:in-reply-to:content-transfer-encoding;
+        bh=fU0UOb7Z4Jp4qPhNb2hjMnu4rnkA/7cO1b1V5zl7bE0=;
+        b=i8lUw+XadwiyCJwS2QOtYSjK8igaaGd0k6XljQc4RrDTHDGM8VIV+cV4DjlGJouMDY
+         WvmJLQIv4wJKpYS0q+U5nvh5Dsww0fNnJQtnNAbRxY8mdYJSItro7mzMPcRqG7+cMlNY
+         bCb5SX3FzS/VNEAEqlyuqZhJHPa8IzoI0NKhtDGY+pjP13PAhKtL8Qy8hJyTa29Z9DoH
+         PgVUHegZGeZA+y/iiujyffi0W7M2QrR1K5PkwDuRyghuK6xCfi/gfqiYnjroe+Vh420A
+         ipYT2tE2pu9npouqaC5l38fyEiVBjYatWFpik4G5oLnBvmhTz0+B0T5ruNqltdbMuylZ
+         7zBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :to:references:cc:from:in-reply-to:content-transfer-encoding;
+        bh=fU0UOb7Z4Jp4qPhNb2hjMnu4rnkA/7cO1b1V5zl7bE0=;
+        b=BmcinyEzDjE5G4mpY0FadAIClD43mm8PyaOxrHstk3p/TA/7L9tRl4yc1Kx7JdQLwQ
+         gkOnIAtgP8ShVN6iXjn5wGpra+YcozbUcBkdKS4vTBVvzOM4lCPoi8CXuQlgWjLlg+ue
+         0Z6yvWb9yu2OYHeQaG0Jfhj3qnperqrBd7PvEQ7y7B3rhEAq59yilaRw0DtvXg1Hxc2D
+         9Mzt7G8FSlY7Lm46V1exfCE7jDIQP1tRQfBukUmhI+7nAup9Ql9E1yYqnVJVzgYEM/zT
+         +rD5UKrgs1aRzH4XHxkIceO7R7SjW5QyqXNrUBI0zyXTKr1jWmViEw7GuvmOcOupXyWz
+         D8ww==
+X-Gm-Message-State: AOAM530JU5i35OfSi5DzCzOVLzSOiLvm/PYS0mWfJ1P2NQHssLcvjv2Z
+	Jto2cU54UhkcaqTB2wzDNR2+/i3tL5JuTgpM
+X-Google-Smtp-Source: ABdhPJxUkew1k0H1MehvqYcLrXPgZ7SDsjP/PbmlHXvTS+Q69bkmtrbwgemDAi8mwEkGfnXq436MIA==
+X-Received: by 2002:a63:6ac9:0:b0:3bc:321e:6d56 with SMTP id f192-20020a636ac9000000b003bc321e6d56mr684654pgc.490.1651002675319;
+        Tue, 26 Apr 2022 12:51:15 -0700 (PDT)
+Message-ID: <cc689445-20b3-7648-e447-ac0b2a61d0ea@gmail.com>
+Date: Wed, 27 Apr 2022 04:51:11 +0900
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.8.0
-To: Paran Lee <p4ranlee@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: austindh.kim@gmail.com, xen-devel@lists.xenproject.org
-References: <20220426154904.GA11482@DESKTOP-NK4TH6S.localdomain>
-From: Julien Grall <julien@xen.org>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
 Subject: Re: [PATCH v2] xen/arm: p2m_set_entry reuse mask variables
-In-Reply-To: <20220426154904.GA11482@DESKTOP-NK4TH6S.localdomain>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Julien Grall <julien@xen.org>
+References: <20220426154904.GA11482@DESKTOP-NK4TH6S.localdomain>
+ <0028b769-ff2b-cadd-d85c-ec7885304b73@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, austindh.kim@gmail.com,
+ xen-devel@lists.xenproject.org
+From: Paran Lee <p4ranlee@gmail.com>
+In-Reply-To: <0028b769-ff2b-cadd-d85c-ec7885304b73@xen.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi,
+Thansk!
 
-On 26/04/2022 16:49, Paran Lee wrote:
-> Reuse mask variables on order shift duplicated calculation.
-> 
-> Signed-off-by: Paran Lee <p4ranlee@gmail.com>
-> ---
->   xen/arch/arm/p2m.c | 7 ++++---
->   1 file changed, 4 insertions(+), 3 deletions(-)
+> It is common to add a changelog after "---". This helps the reviewer to
+> know what changed in your patch.
 
-It is common to add a changelog after "---". This helps the reviewer to 
-know what changed in your patch.
+I think this experience will be very helpful for the next more
+meaningful patch.
 
-> 
-> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-> index 1d1059f7d2..cdb3b56aa1 100644
-> --- a/xen/arch/arm/p2m.c
-> +++ b/xen/arch/arm/p2m.c
-> @@ -1118,11 +1118,12 @@ int p2m_set_entry(struct p2m_domain *p2m,
->           if ( rc )
->               break;
->   
-> -        sgfn = gfn_add(sgfn, (1 << order));
-> +        mask = 1UL << order;
+>
+> "1UL << order" refers to the number of pages and not a mask. So I don't
+> think re-using the local variable 'mask' is a good idea because the code
+> is a lot more confusing.
 
-"1UL << order" refers to the number of pages and not a mask. So I don't 
-think re-using the local variable 'mask' is a good idea because the code 
-is a lot more confusing.
+I agree too.
 
-Instead, I think your other patch is the way to go with a small tweak to 
-use 1UL (which BTW should be mentioned in the commit message).
+> Instead, I think your other patch is the way to go with a small tweak to
+> use 1UL (which BTW should be mentioned in the commit message).
+>
+> Either Stefano or I can deal with the change on commit.
 
-Either Stefano or I can deal with the change on commit.
+Thank you so much for your detailed patch review.
 
-Cheers,
-
--- 
-Julien Grall
+BR
+Paran Lee
 
