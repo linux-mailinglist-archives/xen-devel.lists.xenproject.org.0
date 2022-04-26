@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F038B50F1F3
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Apr 2022 09:13:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.313472.531012 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C79050F21A
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Apr 2022 09:19:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.313481.531023 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njFNl-0004OW-B4; Tue, 26 Apr 2022 07:13:09 +0000
+	id 1njFTS-00055n-4i; Tue, 26 Apr 2022 07:19:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 313472.531012; Tue, 26 Apr 2022 07:13:09 +0000
+Received: by outflank-mailman (output) from mailman id 313481.531023; Tue, 26 Apr 2022 07:19:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njFNl-0004Lo-7C; Tue, 26 Apr 2022 07:13:09 +0000
-Received: by outflank-mailman (input) for mailman id 313472;
- Tue, 26 Apr 2022 07:13:07 +0000
+	id 1njFTS-00053n-1W; Tue, 26 Apr 2022 07:19:02 +0000
+Received: by outflank-mailman (input) for mailman id 313481;
+ Tue, 26 Apr 2022 07:19:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cQU5=VE=citrix.com=prvs=10866150f=roger.pau@srs-se1.protection.inumbo.net>)
- id 1njFNj-0004Li-Oq
- for xen-devel@lists.xenproject.org; Tue, 26 Apr 2022 07:13:07 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 508fa306-c530-11ec-a405-831a346695d4;
- Tue, 26 Apr 2022 09:13:06 +0200 (CEST)
-Received: from mail-bn8nam11lp2171.outbound.protection.outlook.com (HELO
- NAM11-BN8-obe.outbound.protection.outlook.com) ([104.47.58.171])
+ id 1njFTQ-00053h-Vq
+ for xen-devel@lists.xenproject.org; Tue, 26 Apr 2022 07:19:01 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 23359098-c531-11ec-a405-831a346695d4;
+ Tue, 26 Apr 2022 09:18:59 +0200 (CEST)
+Received: from mail-bn8nam11lp2173.outbound.protection.outlook.com (HELO
+ NAM11-BN8-obe.outbound.protection.outlook.com) ([104.47.58.173])
  by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 26 Apr 2022 03:13:02 -0400
+ 26 Apr 2022 03:18:56 -0400
 Received: from DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
- by DS7PR03MB5447.namprd03.prod.outlook.com (2603:10b6:5:2c7::12) with
+ by DM6PR03MB4601.namprd03.prod.outlook.com (2603:10b6:5:185::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.13; Tue, 26 Apr
- 2022 07:12:58 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Tue, 26 Apr
+ 2022 07:18:54 +0000
 Received: from DS7PR03MB5608.namprd03.prod.outlook.com
  ([fe80::5df3:95ce:4dfd:134e]) by DS7PR03MB5608.namprd03.prod.outlook.com
  ([fe80::5df3:95ce:4dfd:134e%4]) with mapi id 15.20.5186.021; Tue, 26 Apr 2022
- 07:12:58 +0000
+ 07:18:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,256 +49,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 508fa306-c530-11ec-a405-831a346695d4
+X-Inumbo-ID: 23359098-c531-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1650957185;
+  d=citrix.com; s=securemail; t=1650957539;
   h=date:from:to:cc:subject:message-id:references:
    content-transfer-encoding:in-reply-to:mime-version;
-  bh=PgQeWTlh78mDe08LpMccbH2oq7ntRqKFwtKSvEB0Tzo=;
-  b=IjEqSTDJHb+sW2EM667f7+OAkftFkFM9FQH+XUQc36HH8OoYfCQUYrGF
-   Rvz3Zm160+R8OnZsH177Si0mkbZ++eBdtDa4l+PexJPoSz3GlGDBRQl+b
-   c49uiRP+5T5Yi1pqvCTRRzUn+0MhzKCB88UWzpysO4oKNQyym/QqK2yeb
-   o=;
-X-IronPort-RemoteIP: 104.47.58.171
-X-IronPort-MID: 69320991
+  bh=ZaBPHFEhsIEy5z7h3TQK5CZLvSHf/Jsh4a8FdEdKN9E=;
+  b=fRLab8rdwSf2QWH4b14q+1zwFPnLNmpwZ7yBskRX8+y6sOexWntagG5v
+   JEU1bqWsTsJZunOSrQbCUqkJaW3cwKq/2L4na6TWO0qd0S7g7u/4wpdof
+   gDtVixTq3kHJwPQa7o2ghaqlVDbhi365Jw1gnDiEO1FUFFvneIhvFDPVC
+   8=;
+X-IronPort-RemoteIP: 104.47.58.173
+X-IronPort-MID: 69943304
 X-IronPort-Reputation: None
 X-IronPort-Listener: OutboundMail
 X-IronPort-SenderGroup: RELAY_O365
 X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:Yd0JtK3ZwINvDms0X/bD5ZJxkn2cJEfYwER7XKvMYLTBsI5bpzxVz
- 2caWmuFPa6CZGX3edlwadjlp08BvZGGz9I2HQU5pC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
- Zh2hgzodZhsJpPkjk7xdOCn9xGQ7InQLlbGILes1htZGEk1EE/NtTo5w7Rj2tIy34Dga++wk
- YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
- 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
- /1vj4SvcxgGGZSTifoAWSgJKBAnAqNJreqvzXiX6aR/zmXgWl61mrBEKhFzOocVvOFqHWtJ6
- PoUbigXaQyOjP63x7T9TfRwgsMkL4/gO4Z3VnNIlGmFS6p5B82TBfyVvLe03x9p7ixKNezZa
- McDLyJmcTzLYgFVO0dRA5U79AutrieuKGcA+QPMzUYxyzjD/AtQ2pLECtHuW4aBVO8Isx22h
- kuTqgwVBTlfbrRz0wGt/mq3g+7TnQvyQI8ICKCj7flunUGSwWoIThYRUDOTsfS/z0KzRd9bA
- 0gV4TY167g/8lSxSdvwVAH+p2SL1jYiXN5XH/w/+Ru64KPe6AaEBUAJVjdELtchsaceWjgCx
- lKP2dTzClRHq7aSVW7b+r6KrCiaIjQcN2sLb2kFSmMt4dDlrJsikxHnQdNqEarzhdrwcRnr2
- CyDpiU6g7QVjOYI2r+98FSBhCijzrDLUwo06wP/Tm+jqARja+aNbYGy9ULS6/oGKY+DV0SAp
- 1ANgc3Y5+cLZbmPniGQROQGHJmy+u2IdjbbhDZHE5co+Dus/HqiVZtN+zw4L0BsWu4IdjPkb
- 1XakR9A759Uen2xZOl4ZJzZNigx5a3pFNCgXPaEaNNLO8F1bFXeo3goYlOM1WfwlkRqibs4J
- ZqQbcerCzAdFLhjyz21Aewa1NfH2xwD+I8afrijpzzP7FZUTCf9pWstWLdWUt0E0Q==
-IronPort-HdrOrdr: A9a23:RiSeT69N2rh/UECPIttuk+FKdb1zdoMgy1knxilNoENuH/Bwxv
- rFoB1E73TJYVYqN03IV+rwXZVoZUmsjaKdhrNhRotKPTOWwVdASbsP0WKM+V3d8kHFh41gPO
- JbAtJD4b7LfCdHZKTBkW6F+r8bqbHokZxAx92uqUuFJTsaF52IhD0JbjpzfHcGJjWvUvECZe
- ehD4d81nOdUEVSSv7+KmgOXuDFqdGOvJX6YSQeDxpizAWVlzun5JPzDhDdh34lInhy6IZn1V
- KAvx3y562lvf3+4hjA11XL55ATvNf60NNMCOGFl8BQADTxjQSDYphnRtS5zXgIidDqzGxvvM
- jHoh8mMcg2w3TNflutqR+o4AXk2CZG0Q6X9XaoxV/Y5eDpTjMzDMRMwahDdAHC1kYmtNZglI
- pWwmOwrfNsfFz9tRW4w+KNewBhl0Kyr3Znu/UUlWZjXYwXb6IUhZAD/XlSDIwLEEvBmcwa+d
- FVfYDhDcttABOnhyizhBgt/DXsZAV/Iv6+eDlNhiTPuAIm3kyQzCMjtbkidzk7hdcAoqJ/lp
- X525RT5c9zp/AtHNJA7cc6MLyK4z/2MGTx2Fz7GyWVKIg3f1TwlrXQ3JIZoMmXRb1g9upBpH
- 2GaiITiVIP
+IronPort-Data: A9a23:KBqmCaKUZKR/06OgFE+RpZQlxSXFcZb7ZxGr2PjKsXjdYENS02ZSm
+ GcbDWzXaKvYNDbzetEjbY/lo0wAvJHTnNRmS1BlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
+ q3yv/GZdJhcokf0/0vrav67xZVF/fngqoDUUYYoAQgsA148IMsdoUg7wbRh3tQ22YHR7z6l4
+ rseneWOYDdJ5BYsWo4kw/rrRMRH5amaVJsw5zTSVNgT1LPsvyB94KE3fMldG0DQUIhMdtNWc
+ s6YpF2PEsE1yD92Yj+tuu6TnkTn2dc+NyDW4pZdc/DKbhSvOkXee0v0XRYRQR4/ttmHozx+4
+ PBRrbWOQw13BbSSw8M4QTlHHQBBEKITrdcrIVDn2SCS52vvViK1ht9IXAQxN4Be/ftrC2ZT8
+ /BeMCoKch2Im+OxxvS8V/VogcMgasLsOevzuFk5lW2fUalgHMCFGvqRjTNb9G5YasRmB/HRa
+ tBfcTNyRB/BfwdOKhEcD5dWcOKA2CiuL2YD8A79SawfpGjL5w0s4OTXMuXnX9jaVfpOoVScu
+ TeTl4j+KlRAXDCF8hKV/3TpiuLRkCfTXIMJCKb+5vNsmEeUxGEYFFsRT1TTiduTh1O6WtlfA
+ 1cJ4Sdopq83nGS0SvHtUhv+p2SL1iPwQPJVGuw+rQuLmqzd5l/AAnBeF2EaLts7qMUxWDomk
+ EeTmM/kDiBut7vTTm+B8rCTrnW5Pi19wXI+WBLohDAtu7HLyLzfRDqWJjq/OMZZVuHIJAw=
+IronPort-HdrOrdr: A9a23:/kifKq4PjsxZfLjBwwPXwVqBI+orL9Y04lQ7vn2ZFiY5TiXIra
+ qTdaogviMc6Ax/ZJjvo6HkBEClewKlyXcT2/hrAV7CZniehILMFu1fBOTZowEIdxeOldK1kJ
+ 0QCZSWa+eAcmSS7/yKhzVQeuxIqLfnzEnrv5a5854Ed3AXV0gK1XYcNu/0KDwVeOEQbqBJaa
+ Z0q/A37gaISDAyVICWF3MFV+/Mq5nik4/nWwcPA1oC5BOVhT2lxbbmG1zAty1uGA9n8PMHyy
+ zoggb57qKsv7WSzQLd7Xba69BzlMH6wtVOKcSQgow+KynqiCyveIN9Mofy9AwdkaWK0hIHgd
+ PMqxAvM4Ba7G7QRHi8pV/X1wzpwF8Vmgvf4G7dpUGmjd3yRTo8BcYEr5leaAHl500pu8w5+L
+ 5X3kqC3qAnQi/orWDY3ZzlRhtqnk27rT4JiugIlUFSVoMYdft4sZEfxkVIC50NdRiKpLzPKN
+ MeTf002cwmMW9zNxvizypSKZ2XLzkO9y69MwY/Upf/6UkVoJh7p3FosfD30E1wsa7VcKM0lt
+ gsAp4Y6o2mcfVmHZ6VJN1xNvdfWVa9Ny4lDgqpUCfaPZBCHU7xgLjKx5hwzN2WWfUzvekPcd
+ L6IRlliVI=
 X-IronPort-AV: E=Sophos;i="5.90,290,1643691600"; 
-   d="scan'208";a="69320991"
+   d="scan'208";a="69943304"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WW6ZmzaZQzWPfcSTHoorTjjH4Yu98jl/t2Rs/WjTgh5f63Cvt6TLTnD5HNynwH/zJ9DirV5ruTe88M9gY0H62pzu0llFRhcjx495c4J6FlNEH7gJ9ulsXIUag5fiKy4BSx1NXdPE8hvY4C34+XQZmcDzheRLKmLOaK/tYL3RFROh0TuifZSSoM98yeJxPQl0nUWS181YyJ8e4u4CYe0AuZ+Q4ec2+RebAk29UNNlpq4w/M0go0gbt0znMoXNK7V3L011Bm24K8yGRSKXd2FrhM3+4BbtePd+McnZRq87lFS4IcT7IvTbBCGSDhJ2YYG3eHjHVqV5A/a4UyTkuquRsA==
+ b=ar+Nelhxf1YXlIeqkjTmja1CoxuTHljBPQFGlersq13MsCLEpcnbvj3OId+qhQ1PPmKIZ5neDg8FsmRW0gwo7brFzUkVXzkv/ZSou/pmLkxV9sBgDlXMdEUJ7zShzUttosDjHOzPQ1NJfCFpQ0Uk0rUmRKDH4pmmPqVVjkqxKz7O32NkO6zxAyq3WYCo97MEvIu4fDbqBm3A8dONP0AJGwWpsMbeGTmNvU0WxwfCuAetO11KGaBgMfanCthfTSoqzThcWMz9NCSz+GsTA+7nB2NuMZrOc30/N3EWabbMOt5rC5PWr72nPf+vjzZPw9wlxkydOGdLSpveZrWVay0ZJQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mnAj+ibkU6zymtcm59DbtnqdExUD9SINdw3zagV1Wfc=;
- b=NiaAisvznkeBuWfCkhjiSTOlunf+P7vtnuhaX4JM/xEyLL9hK52ME929f9uZwTec8QXY+0UFTRVBJEKGSl4PyRQMCTfuqY6fx6FDFcCW2DecqbUdTojJZ68Szjmkz8pw/tgb/IA61o3h8SXRq3OXVJsfBeyu2RQNfuqE5Lfr/tAekcK979bpn00IavnxbOB32plsevvdomVoJCuQr7QYj3PGIOlJ3L4V2lq9NgmGfHQAfy1/HdlS7iCC7+t5FB2pU4LW/NncEYE54dHpxCnGFY10gd5sLQJqY2HQqXYqgOit6V+tyxYfOxTExQ8kLs1RdUqdxAIS8C6B+g3jMP/plQ==
+ bh=2VA7SvFpQMmBLN71emlYqmPV1v/s2k3j7xy4Z5BhQiY=;
+ b=JC0GIdcZk/lpgh3XKHECTeptf9hVF5UMaKAr5gl0fYUT8M/CvWnsv+0bWjTvmonCzFLjdJeU/VLANrap8uG2ZNj7U0JEJSW7wgWdTTigkXwStCDHnJRP3nLh64hwTwdaQSE6L0ybxV6e5AXZEPcDu2nQCDWwSDfHNASeJ3Y8xvYYAMVIX6+rrdXRdoe0fnvrZes2XMlEeHlAzkdlh7kQG4gtQso0YFnHzYrYRJ2GnVr6zk7BeB3LQ2IYUHZeCOma8fgzaK3TM1lKIu09aAW439rrMdIXdtYvVcP7U4XmUw7O9sqF6IRSyv7HOC6AConsM878SmjNznWbwM7cneG9hw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mnAj+ibkU6zymtcm59DbtnqdExUD9SINdw3zagV1Wfc=;
- b=HoRlk0LbxDCsN+cXMkpLcN3y2TbiTLLlDXRgWMowXPGyPwAwL3cuYBZeb+kg0Gh87CoVOUaty18UGYHT+0OZ9iTNt0QB4az1+ottnngFcQ4Va+eZqKjgDo8ngcubL381xYZelbpLERosvHVTy3+2QuQ31cuUcjzyY7nZec9jFLw=
+ bh=2VA7SvFpQMmBLN71emlYqmPV1v/s2k3j7xy4Z5BhQiY=;
+ b=jDfjIXQ3DuvlA1TI/lX1ZGsaCLFVdjft6bMo8X1JMumYTMcpMhqjJvvsVcZSB0o3gV2uEFQGfwPgLZdJQ2iWGzDugl84yhTHco0ATucmwH8t4hnfWfpLDDH91MAByuIAyIBlzwgwoWaRAPlWtbU/QoXVGqZgriyLIdAQmrI5JCc=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Tue, 26 Apr 2022 09:12:53 +0200
+Date: Tue, 26 Apr 2022 09:18:48 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: xen-devel@lists.xenproject.org,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Wei Liu <wl@xen.org>, scott.davis@starlab.io, jandryuk@gmail.com,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Dario Faggioli <dfaggioli@suse.com>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>
-Subject: Re: [PATCH v3 1/2] xsm: create idle domain privileged and demote
- after setup
-Message-ID: <YmebdccTfa7wKc9U@Air-de-Roger>
-References: <20220422163458.30170-1-dpsmith@apertussolutions.com>
- <20220422163458.30170-2-dpsmith@apertussolutions.com>
- <YmZtiJ5Jf1CNOpeZ@Air-de-Roger>
- <25e701d4-62ae-278d-b165-2201459c7cee@apertussolutions.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <JBeulich@suse.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] x86/nospec: Fix evaluate_nospec() code generation under
+ Clang
+Message-ID: <Ymec2P8YnyYA2XUO@Air-de-Roger>
+References: <20220425175603.21086-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <25e701d4-62ae-278d-b165-2201459c7cee@apertussolutions.com>
-X-ClientProxiedBy: MR2P264CA0074.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:32::14) To DS7PR03MB5608.namprd03.prod.outlook.com
+In-Reply-To: <20220425175603.21086-1-andrew.cooper3@citrix.com>
+X-ClientProxiedBy: MRXP264CA0017.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:15::29) To DS7PR03MB5608.namprd03.prod.outlook.com
  (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0a05ced1-b7c5-4ac7-8bfc-08da27543115
-X-MS-TrafficTypeDiagnostic: DS7PR03MB5447:EE_
+X-MS-Office365-Filtering-Correlation-Id: 189398b8-848f-4b8d-d6b5-08da27550522
+X-MS-TrafficTypeDiagnostic: DM6PR03MB4601:EE_
 X-Microsoft-Antispam-PRVS:
-	<DS7PR03MB5447D1EC7465DF09B187707F8FFB9@DS7PR03MB5447.namprd03.prod.outlook.com>
+	<DM6PR03MB460170F266DD2A5415D6B5208FFB9@DM6PR03MB4601.namprd03.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	M1Rz4U5W3ym/XIxD0pX7LaCA3EuCuO3xNFxGmfHDcg0qqPUUl0rzslTONp6FfX+d+NcuTd+1wT6FWZF6B8a82zcE6hU+wOK0CkAUZv4D5J2yHAtaHhp5CwcD+Z+Wt0jrYuFgra+j/OhCjJTqO3imeVkZ5bHD9YZSTjpXDTFmM9A7K0s5fjMgGkVLPMOY/Qq9UZvYivCsK+nclbIDhO9gtYy5Wijb5kHYPIzYtJhbZ/J5QT6/bTj0EE28IRXw2fDzncDXFY38jYGnfGaSVHdHp3j3DdbUCX2GfyJLDezIm8PyI+zxzP9SshDen81X8noglYFUyrGI2ACxJvgUYCVC+0Ln4Gz14G/UomaY67GR2aQnXdaMJpUpGg0+ameYwPTNVsVkDpChf40A/vSYt555JWZR80hrN5iOhNDuJdSEtWvOiJUpRlAlYwvWf+R08+KlMOOLfROm865ekJPwIpQ8PNu3l+ooHk4HM9LlQRazBm+xlMXhPkI/wKulaTFgGi4q0xjyrMvdERgis4QkQ8ekByvNsCDDyc+ZEKqn06/CtCu8nFMM66YEadiZxhRueXjIStE2QBrWaJNgvDceAq0VHKBBfGP94/tbw6h8LvGmeqZIM9J+3LgiCn9XWTreSgkF8Wt7QxsDAutXChKEBzFtwQ==
+	0As7rgvYtkCmf1oyFNjJSL+hKa1jwt0ghgeDH13ysVHxruM+f7f+Q1izVzYEVjicN3Yutvicrzay3u092g3m6mB31rIhLiGcAHoKgiCSKgUI90d8ksOnAqs/enta4BQ/x5S7zao50GrWvZCtYoGWnmzkVIUnHfSlfOKk0eMcdZSFHcTmS8asrkk14GkPpl04FdGWDoIAoprfHWdgKKIqNrMoAiIEEeNBotZ6Fg33U+8XDBXnlM1/yN8oqcUtZj1hBFunRt/YiF1PeJQKFbd+NkFlk+fKUqgyYeoEmuIuSCVhOLXpoYHexaxmnZol9f8uz572UhNK8qVk6zkwuS19WUisvJV+tZF5U06GtA8/noZk3VqJ5kCkoI9XS5tnmMU33qrs3OcKR1gf66wDeGpvj2HgK6RlunFjUUR7RSHRatDFmfo90RHsiY7Pc7NiDTqtHl2T82H/nzoZsatdahUVacsn+tmuO91ZryqNRwe80Lt3bUvwTTxYRtVuSNymo5lPU9PQ1x8Pfa8nEYEsScIKk201OsPu1qx7Z7xDUs7d9fAqJGf96CQVgqrjUXyU4Kjzji3jeuKvWTRK07GNIIaBbF6oIFLCFZy15z6KYvnWEAAkbm9aOsmx8dNDJth/c9EGeV91MjT8J0DA7SS7cKpGKw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(53546011)(26005)(186003)(54906003)(6916009)(6512007)(9686003)(6506007)(33716001)(85182001)(508600001)(6486002)(5660300002)(38100700002)(86362001)(7416002)(2906002)(316002)(6666004)(82960400001)(83380400001)(8676002)(4326008)(8936002)(66556008)(66946007)(66476007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(7916004)(366004)(316002)(4326008)(6666004)(6862004)(6486002)(508600001)(8676002)(66556008)(66476007)(86362001)(82960400001)(54906003)(6636002)(66946007)(38100700002)(6506007)(5660300002)(2906002)(85182001)(83380400001)(9686003)(6512007)(26005)(186003)(8936002)(33716001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZU1MRko0UnNiMnZRZGU3TUs2a2p5aHlSTmxtVjAwTGhFVEdmd3NrbVM5K3F1?=
- =?utf-8?B?RWlYeXV6cWxyY04rT1pER0JlOHJDYUhLWnRlWUx3dmxFblc3dmozYjRkOFNl?=
- =?utf-8?B?UHhUV0xSL2MvaGlYZ1lkSmNJZmkvczBCcVcwUDJROVJPQ0RwZnl3b2MxUEkz?=
- =?utf-8?B?a0Rjbi9aNjZkWmxnSW9ub0lWRFUyc2VIbyt1eXdIUXh6Smc5T2I5dWxyYXNT?=
- =?utf-8?B?eDN1SmtYVzNqSENsRkMzR29MejZlNkl6QVpoN3BQRll6SDlybTdoUDBuZnJB?=
- =?utf-8?B?NGdldXdtdi8wbkxOQnZsNEoyQ3FmMWhyTThUSzVTUkRzUThlRXA0V2lyODBw?=
- =?utf-8?B?NGRVYnQ4K2VVYS9OR3JGTzNtT0VSTTZHYW5sMTZnaXEwc21GTkV3ZmpJeGM2?=
- =?utf-8?B?VEQvbm5JaUdCdmVZUVZyaHpxdzZ1U2ZuWlpncEIzMVRJN0VPbGV0SHFZc0k0?=
- =?utf-8?B?UHZveit0M2ZXdUIyR2IzU2RpVTBXV3FjaU4vNWhodmo5cXZkR1pManhjZDZF?=
- =?utf-8?B?Y044WTVDUm1EOXBBR1JkTDRFc1ZkUDJWRGorcXllYTBVYVlmYTdUaWEwWGd0?=
- =?utf-8?B?OVEvOUZlcG9wN2Jqblh2TXlXUDhSNExzZFBqM05HdzVyYnNXYUdtTmVVdUUv?=
- =?utf-8?B?Ynl2bmU0YzB2d0d5QnFHOEJRa0pwSE5GempubEs2U3VhZ3BYR1RZUnJTSzJ2?=
- =?utf-8?B?V0E5bUJNTk9mVmlqRWtGS1FMbmZ2bUtFUCtDUXM0MkxiNlVHTWs5dTBNaVUy?=
- =?utf-8?B?WjZSVlVraHVFUzB2MFVKREtYSnM4M0p1Q1R4SEFka200TlprS3Q2YnF5OEVS?=
- =?utf-8?B?dzZXSVJoSytxNkhYcXhrTXYzdW95Uk4wTzNQSHlLdkJwc2pGMkhKM1UzOVVE?=
- =?utf-8?B?eU9yRk8rbXovbjZUZkFYRGVVbW90K1Z0dUUyV2Fta29LaFpldmxNNmFVSG8v?=
- =?utf-8?B?SWJUWVNYUm5XdmhKUVkzclBNSlNVeHhraDdnUU9BblorT1BGdGRVbVl5YnBK?=
- =?utf-8?B?Tjc2RXN5djlwYVNsWHVFenpRMkVZbXJkMGlFdE9YWnlMRmVRYThKY0g4bWcr?=
- =?utf-8?B?b29WdjZIQ3E3OHhIcXo3UU15VDdJTi9ZTnFpNyt1cnp4ejBKTmh5Rk1QNmF0?=
- =?utf-8?B?VkRKcCsxSW40c3BqYzl2RTFPczlHOVBNbGgydEJuUWxLb3YxaHhoV1M3WlJ6?=
- =?utf-8?B?eitBMS9mdzFjcEo3Z2gwVFRleU9pWFVpcTRkR3pwRWYrUTZDdW9BZ2tnUUZr?=
- =?utf-8?B?eURqNTd2NGpxVmhSNlBkeGw0Sk0zR2tuWGJhMW1RdHNocTBMcEovNjZoUExs?=
- =?utf-8?B?WUgvTENsdnEvbmtuWlBQZlNTNGl2c2ZQM0s2YjJrWXBxQVowOUhvZjI4WDd5?=
- =?utf-8?B?TDRxT0x5LzNKVTZSNFlKUW14d21DZXRrdytKZmpQbGUxWm9XS01OcGFZWGdW?=
- =?utf-8?B?SXRXZjBqbkhOQ2NNNGdwSUd3Mk1kWU5HdkVUdENhY3o0WU9JWi94Ni91WUZs?=
- =?utf-8?B?QjBFTzQyYjhrcWxRLzhmYmZSTDZpcXg4NW5qTG1RSy8rdlVMSUxNVzExN3B6?=
- =?utf-8?B?bXIvREt5SDBuaXVRNDh6L1QzbHZGK0pjdUdQWjZ4VG43SHUxYjhBb2VScksv?=
- =?utf-8?B?WCtKOE9NQXgwUGZXS0RVS3dzZ054T0VTWFRLNmpqbGZSbnQwMGF4VkFtM2dW?=
- =?utf-8?B?TUtZTXhSejRPVzA2Z21VOFJWUGJsSVZsMFFqRXJhdjExOEFLVHg4Mm54YmxP?=
- =?utf-8?B?QVpjb0thcUhMOU1ncUJzVUs4TmlEODFIUUJnZ1pkZ3NKSkN3UmVEN1FpZnRI?=
- =?utf-8?B?Q0ZJNWFFYzN6Y2NiWFkvSDd4S1ZoK1UwUEsyRVFSZTkrTVlUN0pCR3FXREhw?=
- =?utf-8?B?UXRNMlFtekFvdk5zcndOYStGYWwxZjREVFRpY00rU1RFL2NBTkxXaklpdFJn?=
- =?utf-8?B?TVFocXFlNUJ2Y0V0aG85NXVaZTk1WGlDUEhqV3RrSjBMUWRBazNLNGZxTE5V?=
- =?utf-8?B?SzF5SW1BRTA0Qzk1dTY5Snl2MjIzZDdtaTFLcTRhcHlpcUxLWHp2MDVWRVcv?=
- =?utf-8?B?Y0NmNTRNT1JPZnJVRHhkMStETkl2OGQ5UDJkN3RHRFBtbkhoSUlXNXdWOHlL?=
- =?utf-8?B?eGJMczczVXNWL2ZPYjFvazFuMy9CUjQwcVB2Z2psK0ZBbitXR2YzaVRLZ2RB?=
- =?utf-8?B?RkxjOXlKeFVsRmNHM2VnWjBFRjBBWm1kZmdoZ1FwNjdLaytjVE1zcG9PbVYx?=
- =?utf-8?B?YlVYK2dnekx1dlBWSE1QNVhudFVZTVVnYXpXTmg1aUdvdnd0aFdZd042SHFy?=
- =?utf-8?B?RHhmMWxVWjZMMjlyWXVEaGtLOGR4dlBtZDB4cGFHb092dVNVSXBkRWdwL2RW?=
- =?utf-8?Q?EFO/cYdwUed17WH8=3D?=
+	=?utf-8?B?dXFIbzJkVEVFdm1PWXZmV21hdlhnNU11Zng2U1R3b0kzSkJ5azNUWHRWclRJ?=
+ =?utf-8?B?YjdiVkVhdVJ2am1BQ28ybGVYNk42bWtFSzNlMnFaNFVFdm16V3VCQ2ZNZzdJ?=
+ =?utf-8?B?YWZIZloyN3JHTkJRUFpNcmtwWVdjaW91U2dMQytJSVhhY3NuY3NyYmFiMVBH?=
+ =?utf-8?B?TlBZTFJuZXB0RnlDeWhlZzBiMVhtTHNseUhwL0VLNUxHQUZFbzBvd09ob1lO?=
+ =?utf-8?B?cmovM2dOL01aRVBIYm9yc1ZYQklnVm1LWGx0MHBjWWJMM0Q0TC9aM1pUNkt2?=
+ =?utf-8?B?U1UwRWhhbjQrZDI5ZTdnSlVlek9SNVNESmJURUF3L2MxdW5WY2pVR3dDNWla?=
+ =?utf-8?B?b0ZGZXQxMXRUWkJ1aURIeWNNQUtBbEhqL3hwQk1paUgrYm9YQWtHR1NKNUJs?=
+ =?utf-8?B?RlJ1OHVEL014bVNOWXNIT1dhdUsrS3Voc0ZKODhRRzVKQXRXOWVtbitYQUIx?=
+ =?utf-8?B?WENtdmpOQ1JWOURveTBQTUZQUmk0bG9kL3VWZXQ2bFhLWXpUdUpDQTZZNEV1?=
+ =?utf-8?B?Vk82dGYrRDZPMFV6ZmprdVE3blJ1QWhQZ2lTc0hzR1FtMG5seXFwK1I1bk40?=
+ =?utf-8?B?eGlia0d2NWtLSEtsK3RuWDBxckY0TVBwWnZjenpvZFQ1WkpOMjh3UjNNbFlT?=
+ =?utf-8?B?RjV4RzNZS1pmb3VLTWNqYkJZcmdjU0d0THdFMnh4M0FXN3RmamNqN2hnU0ha?=
+ =?utf-8?B?bUhBaHVwcDNicEtZd3FYUEpFVytsYldlcGErVzFIczFiMzV1dVRFQ3FGNE9m?=
+ =?utf-8?B?VXhIc1VkUGhXSHlrZDdhTkxuUUJrVWhkVnVRTkZqSi9FUFlyaGJuaGx3eFo3?=
+ =?utf-8?B?YnIxeFVzeFBmMDkxN3BnclpabkVHNmI5SG5nVVViMmFuLzlickh4RjVOQjE3?=
+ =?utf-8?B?ejc1WWtnQlZDbjhqbVV4QkswUjYyS2FqYlV2NThoK3A2UUIxUWh0R2k3cm8w?=
+ =?utf-8?B?RExubC9oYkw1enBjL2RORnZTd3BaUXk2WWN1eDY5djdNSEtVcjEvQnF3Zlov?=
+ =?utf-8?B?cUpjeElPYm1OZ3Z0QmZySWYvdWtkLzhuOUJQSnNabWxzSTR3ZVB2dnpDckRN?=
+ =?utf-8?B?TDV6cXhJM2hhZjd4NW5HRUdZMW4wcmYvTUU5dTFJRUZ3b3Z2SXkySnUxWFlB?=
+ =?utf-8?B?UnludGxYTGFVR204ejJLckVUZTZpTjFqc250YkxmaDhIRTZ1anFGSS9senF6?=
+ =?utf-8?B?aWpzK285Z1FqeHlkbnVoemNHUEoxdFI0alhzR20zSEtLUHR4V2ZiWU82MjlW?=
+ =?utf-8?B?WFZyYmhrRVhBbm1WK1hVdURaWWM0WVNBVTZ5ek1iNkN6OHpOcDM3Rm90T1A3?=
+ =?utf-8?B?VUE3R0F4NVhsYVRGM2V6c1dYRGdkVzVFZWZGbEZsRkZ2SG9WdkZicVJDWEw4?=
+ =?utf-8?B?UEwxSUlKM0VsYTRqVzNBdXc3U25waGdnc3RqQW5TYlJvWkFUV2tPVUNHbTI4?=
+ =?utf-8?B?VEl3Y2hFTThqeFFOdzRjcCt4QlBsNHRYYTRtR3A0azF1MlRSS0RSeG5xb2t1?=
+ =?utf-8?B?NDZ6RjM0c1ZBUFhrWGpTSEJWWE1Ya3V5N1BUSzc0TFZKcVU3OVB3K3hCeGdK?=
+ =?utf-8?B?Z1pOMmdWRStDOEltOXJHNlA3YVNibmJyS25CSjZROHFEM2hDVyt4ZVlkWkNa?=
+ =?utf-8?B?WGFEZS9MNlBSL2NXeE5rMjZBeTVWSGRrcFJPY1FPaE93RTFDUHlVdHhkK1dF?=
+ =?utf-8?B?MWFKUnVNMFhNeFdSUTlydGFwZjNpbm14K2ttelQxcGhBTFh3clBwS01XRXhT?=
+ =?utf-8?B?eitQL2g4ckhHWWhqai9hVFI5Uk5JSmJDbFJ1ZGNqQXF3NDBiZzk1RGhmVzRS?=
+ =?utf-8?B?dDdLOWtER2tPWkZFZ3U2M1M4dWkrM2JtZTVrck5YR1VhMjFQV1hiK2pwMkxq?=
+ =?utf-8?B?UGJnU1NkVGR2VmtPSWRxbFZJc3c2eHNTOGltN29jdWVnSEErZm1keThuN3dq?=
+ =?utf-8?B?cW01TUhSRzdLbTEzU3lyaHEyVmJjUDM5RllrTzZGWmlRa1luN09SY0g5VDdB?=
+ =?utf-8?B?cHpnVmwydlJsZlM1MWxxaloyd2JlMWdGcUF6QktTWHVvNk5SNk5FK3g2STY4?=
+ =?utf-8?B?WDRFcUwrakNQT0xSc1dYclZHTWRXWVkzRWhNOTJTcWpXS2dsRFdXSFRwSzZH?=
+ =?utf-8?B?dnRzN3g0a21LNXBZOHZIMit0WmloUHpRTTRibXRqMDVpV0k1OHU0S083aThN?=
+ =?utf-8?B?bENHemJFTzdnRjJtbUZwSzFXWC9KZzloTEw0TjExQjJBYVFEOXlxeUNNemxJ?=
+ =?utf-8?B?RG9MeXBieVMzeXMrblY1NUprMC9UV2xLWjNnTG9IYllQaGxRQWZOdisxamJi?=
+ =?utf-8?B?b0RRcTdjQ0JyNk13cVQ3ZkZUM2pzY3c4UW4wa3g4L1FQK0hpNGhUZEpLVysx?=
+ =?utf-8?Q?0tsUeLVoevwO3RpE=3D?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0a05ced1-b7c5-4ac7-8bfc-08da27543115
+X-MS-Exchange-CrossTenant-Network-Message-Id: 189398b8-848f-4b8d-d6b5-08da27550522
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2022 07:12:58.1984
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2022 07:18:54.0562
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SsaYWfSZbO6Tb8obsdsHnZledTekxdYoZLaPrTLuKhetINGOVPpWF/v5YAz6lyfRB5pTUhB/9e/lMX/F7v+8uQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5447
+X-MS-Exchange-CrossTenant-UserPrincipalName: jdApY045z5LGE/3dI81fitPAJbzJ/qH7uQLPd5gSXvjFB0fFAun3XreR7EwPKYCEKhdhGw49G2/lDZTgAQX0Lw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4601
 
-On Mon, Apr 25, 2022 at 12:39:17PM -0400, Daniel P. Smith wrote:
-> On 4/25/22 05:44, Roger Pau Monné wrote:
-> > On Fri, Apr 22, 2022 at 12:34:57PM -0400, Daniel P. Smith wrote:
-> >> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-> >> index d5d0792ed4..e71fa3f860 100644
-> >> --- a/xen/arch/arm/setup.c
-> >> +++ b/xen/arch/arm/setup.c
-> >> @@ -1048,6 +1048,9 @@ void __init start_xen(unsigned long boot_phys_offset,
-> >>      /* Hide UART from DOM0 if we're using it */
-> >>      serial_endboot();
-> >>  
-> >> +    if ( xsm_set_system_active() != 0)
-> >> +        panic("xsm: unable to set hypervisor to SYSTEM_ACTIVE privilege\n");
-> >> +
-> >>      system_state = SYS_STATE_active;
-> >>  
-> >>      for_each_domain( d )
-> >> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> >> index 6f20e17892..a3ce288ef9 100644
-> >> --- a/xen/arch/x86/setup.c
-> >> +++ b/xen/arch/x86/setup.c
-> >> @@ -621,6 +621,9 @@ static void noreturn init_done(void)
-> >>      void *va;
-> >>      unsigned long start, end;
-> >>  
-> >> +    if ( xsm_set_system_active() != 0)
-> >            ^ extra space.
-> > 
-> > Since the function returns an error code you might as well add it to
-> > the panic message, or else just make the function return bool instead.
-> > 
-> > Or just make the function void and panic in the handler itself (like
-> > in previous versions), as I don't think it's sensible to continue
-> > normal execution if xsm_set_system_active fails.
+On Mon, Apr 25, 2022 at 06:56:03PM +0100, Andrew Cooper wrote:
+> It turns out that evaluate_nospec() code generation is not safe under Clang.
+> Given:
 > 
-> After reflecting on it, I believe that was not the correct action. The
-> policy should handle setting/checking all access control state and fail
-> with an error of why and then allow the hypervisor logic decided what to
-> do with that failure. For the policies that are present today, yes it is
-> an immediate panic. Ultimately this will future proof the interface
-> should a future policy type be introduced with a more varied result that
-> could allow the hypervisor to continue to boot, for instance to a
-> limited and/or debug state.
-
-That's all fine, but if you return an error code, please print it as
-part of the panic message.  The more information we can add in case of
-panic, the better.
-
-> >> diff --git a/xen/xsm/dummy.c b/xen/xsm/dummy.c
-> >> index 8c044ef615..e6ffa948f7 100644
-> >> --- a/xen/xsm/dummy.c
-> >> +++ b/xen/xsm/dummy.c
-> >> @@ -14,6 +14,7 @@
-> >>  #include <xsm/dummy.h>
-> >>  
-> >>  static const struct xsm_ops __initconst_cf_clobber dummy_ops = {
-> >> +    .set_system_active             = xsm_set_system_active,
-> >>      .security_domaininfo           = xsm_security_domaininfo,
-> >>      .domain_create                 = xsm_domain_create,
-> >>      .getdomaininfo                 = xsm_getdomaininfo,
-> >> diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
-> >> index 0bf63ffa84..8a62de2fd6 100644
-> >> --- a/xen/xsm/flask/hooks.c
-> >> +++ b/xen/xsm/flask/hooks.c
-> >> @@ -186,6 +186,26 @@ static int cf_check flask_domain_alloc_security(struct domain *d)
-> >>      return 0;
-> >>  }
-> >>  
-> >> +static int cf_check flask_set_system_active(void)
-> >> +{
-> >> +    struct domain *d = current->domain;
-> > 
-> > Nit: you should also add the assert for d->is_privileged, I don't see
-> > a reason for the xsm and flask functions to differ in that regard.
+>   void eval_nospec_test(int x)
+>   {
+>       if ( evaluate_nospec(x) )
+>           asm volatile ("nop #true" ::: "memory");
+>       else
+>           asm volatile ("nop #false" ::: "memory");
+>   }
 > 
-> This goes back to an issued I have raised before, is_privileged really
-> encompasses two properties of a domain. Whether the domain is filling
-> the special control domain role versus what accesses the domain has
-> based on the context under which is_control_domain() is called. For
-> instance the function init_domain_msr_policy() uses is_control_domain()
-> not to make an access control decision but configure behavior. Under
-> flask is_privileged no longer reflects the accesses a domain with it set
-> will have, thus whether it is cleared when flask is enabled is
-> irrelevant as far as flask is concerned. For the ASSERT, what matters is
-> that the label was set to xenboot_t on construction and that it was not
-> changed before reaching this point. Or in a short form, when under the
-> default policy the expected state is concerned with is_privilege while
-> for flask it is only the SID.
+> Clang emits:
+> 
+>   <eval_nospec_test>:
+>          0f ae e8                lfence
+>          85 ff                   test   %edi,%edi
+>          74 02                   je     <eval_nospec_test+0x9>
+>          90                      nop
+>          c3                      ret
+>          90                      nop
+>          c3                      ret
+> 
+> which is not safe because the lfence has been hoisted above the conditional
+> jump.  Clang concludes that both barrier_nospec_true()'s have identical side
+> effects and can safely be merged.
+> 
+> Clang can be persuaded that the side effects are different if there are
+> different comments in the asm blocks.  This is fragile, but no more fragile
+> that other aspects of this construct.
+> 
+> Introduce barrier_nospec_false() with a separate internal comment to prevent
+> Clang merging it with barrier_nospec_true() despite the otherwise-identical
+> content.  The generated code now becomes:
+> 
+>   <eval_nospec_test>:
+>          85 ff                   test   %edi,%edi
+>          74 05                   je     <eval_nospec_test+0x9>
+>          0f ae e8                lfence
+>          90                      nop
+>          c3                      ret
+>          0f ae e8                lfence
+>          90                      nop
+>          c3                      ret
+> 
+> which has the correct number of lfence's, and in the correct place.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-I certainly don't care that much, but you do set d->is_privileged =
-false in flask_set_system_active, hence it would seem logic to expect
-d->is_privileged == true also?
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-If not for anything else, just to assert that the function is not
-called twice.
+Like Jan I wonder what the clang devs think of this solution.  Is
+there any test in clang to assert that comments won't be stripped from
+asm blocks before optimization?
+
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Wei Liu <wl@xen.org>
+> ---
+>  xen/arch/x86/include/asm/nospec.h | 15 +++++++++++++--
+>  1 file changed, 13 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/arch/x86/include/asm/nospec.h b/xen/arch/x86/include/asm/nospec.h
+> index 5312ae4c6f31..7150e76b87fb 100644
+> --- a/xen/arch/x86/include/asm/nospec.h
+> +++ b/xen/arch/x86/include/asm/nospec.h
+> @@ -10,15 +10,26 @@
+>  static always_inline bool barrier_nospec_true(void)
+>  {
+>  #ifdef CONFIG_SPECULATIVE_HARDEN_BRANCH
+> -    alternative("lfence", "", X86_FEATURE_SC_NO_BRANCH_HARDEN);
+> +    alternative("lfence #nospec-true", "", X86_FEATURE_SC_NO_BRANCH_HARDEN);
+>  #endif
+>      return true;
+>  }
+>  
+> +static always_inline bool barrier_nospec_false(void)
+> +{
+> +#ifdef CONFIG_SPECULATIVE_HARDEN_BRANCH
+> +    alternative("lfence #nospec-false", "", X86_FEATURE_SC_NO_BRANCH_HARDEN);
+> +#endif
+> +    return false;
+> +}
+> +
+>  /* Allow to protect evaluation of conditionals with respect to speculation */
+>  static always_inline bool evaluate_nospec(bool condition)
+>  {
+> -    return condition ? barrier_nospec_true() : !barrier_nospec_true();
+> +    if ( condition )
+> +        return barrier_nospec_true();
+> +    else
+> +        return barrier_nospec_false();
+>  }
+
+Is the switch from using a ternary operator also a requirement for
+clang not optimizing this? (I would assume not, but better ask)
 
 Thanks, Roger.
 
