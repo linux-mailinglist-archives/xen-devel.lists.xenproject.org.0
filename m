@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A50D35101F2
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Apr 2022 17:31:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.314020.531882 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2370051020D
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Apr 2022 17:38:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.314027.531892 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njNAG-0002W9-BZ; Tue, 26 Apr 2022 15:31:44 +0000
+	id 1njNGI-0003Et-VQ; Tue, 26 Apr 2022 15:37:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 314020.531882; Tue, 26 Apr 2022 15:31:44 +0000
+Received: by outflank-mailman (output) from mailman id 314027.531892; Tue, 26 Apr 2022 15:37:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njNAG-0002UJ-8F; Tue, 26 Apr 2022 15:31:44 +0000
-Received: by outflank-mailman (input) for mailman id 314020;
- Tue, 26 Apr 2022 15:31:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YDip=VE=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1njNAE-0002U9-Eb
- for xen-devel@lists.xenproject.org; Tue, 26 Apr 2022 15:31:42 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f861761c-c575-11ec-8fc2-03012f2f19d4;
- Tue, 26 Apr 2022 17:31:41 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id CB0121F388;
- Tue, 26 Apr 2022 15:31:40 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B303813AD5;
- Tue, 26 Apr 2022 15:31:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id u5RYKlwQaGJ7aAAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 26 Apr 2022 15:31:40 +0000
+	id 1njNGI-0003CF-SU; Tue, 26 Apr 2022 15:37:58 +0000
+Received: by outflank-mailman (input) for mailman id 314027;
+ Tue, 26 Apr 2022 15:37:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ckxI=VE=gmail.com=p4ranlee@srs-se1.protection.inumbo.net>)
+ id 1njNGH-0003C7-91
+ for xen-devel@lists.xenproject.org; Tue, 26 Apr 2022 15:37:57 +0000
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
+ [2607:f8b0:4864:20::633])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d722a0ef-c576-11ec-a405-831a346695d4;
+ Tue, 26 Apr 2022 17:37:56 +0200 (CEST)
+Received: by mail-pl1-x633.google.com with SMTP id u7so15227021plg.13
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Apr 2022 08:37:56 -0700 (PDT)
+Received: from [192.168.0.18] ([118.33.58.98])
+ by smtp.gmail.com with ESMTPSA id
+ a187-20020a6366c4000000b003ab9d95794esm1746674pgc.16.2022.04.26.08.37.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 26 Apr 2022 08:37:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,150 +44,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f861761c-c575-11ec-8fc2-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1650987100; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=04SFVKgCeYCKWYZR9XGSPFG9GG/Fo/laSe4hlrKtfJo=;
-	b=eq3SuacIsh4FoEIo8jf5SrdKs+WZCJ+OwETCV8MmNXyHaa1wpm/yWZcXXGM7CmsNYIs2kC
-	6NX/Le4f5R893LOlb6MX6JIERQ3vsOamkIyKiVrQLIu+MAxPzWrH8SGfZX23CRUWs8N5XC
-	EsAL0EiKIBda6sEf3E3++pKpBzItxOc=
-Message-ID: <7041654b-1fe2-b3a3-fb87-7a4d4d3dad8f@suse.com>
-Date: Tue, 26 Apr 2022 17:31:40 +0200
+X-Inumbo-ID: d722a0ef-c576-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:to:references:from
+         :cc:in-reply-to:content-transfer-encoding;
+        bh=IebQ5LigAN+2AhkZSSlulrmlCDIY0obAkVvfez4z1qI=;
+        b=MV4go5IgBXg3ZAZr56JI9xUZkkKa+g5qPYEhj4/Oadap/rPtW7RSpGG6ZQlMogBpW/
+         Jxa1CtOgljbF89WJRxbZJQ0s2JK4tO+kVryUu5ryyNe08nwkR/LDFuZwoaXYr7UIWyzH
+         CANzRAfIDtmtZI0lWEG2a5uzyMsXFCyzGn6c+nbd2qZMzN8Svb6feNJvXHhb9JCNJo32
+         xiaE9n86c296FEyHCF8CboZzQzS3wxCCRIrYgNDiG+a1tbs/gt+NNXE+2cML3lKMHm/z
+         CqzpNWHfjgxa5x5TjssbRMvsnu7LHuL5DzrvhWJqLGBzp3nqNP8qb9cNpdaxRTMJcGUL
+         Sclw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :to:references:from:cc:in-reply-to:content-transfer-encoding;
+        bh=IebQ5LigAN+2AhkZSSlulrmlCDIY0obAkVvfez4z1qI=;
+        b=yLpblui4IRJ6XPcYMpqokqjg6tROPn68MFjstLXgZIRVbIuNalIGOXiBeKAlNpIFRP
+         +zIRV/8NOBtrz5o4nT+KjASFNbbQiUSOc6oNcbc/9R3IkqWqaAX/Z1xyULPDnngpbIdc
+         +nBiy5Z2LVGXzaAO6M8+pHv9j8vWTGnSkSdS2GVmZxtI313U5I2ot1nN5vcbQi37DRvq
+         wopwgUbwhZpD+qg+VOCpB67hE+XOz1ZvKFBA5ZFYRx2bxtdhDMzggMKC8rKNuhZnz8WT
+         8a29cK5IHvHT1ke7CF+xDEQNvJ9MkUWXHCwmBrzl5Ou4ezTEaCFsJX6FhdJbDAOIy9T+
+         WERg==
+X-Gm-Message-State: AOAM533+GnOZKYDJ91QdX0unSbVuqYhfRpqBGGPz2xMrp/2km8U6noc0
+	CV+2S9XyTqkOAOaPHn1Wgus=
+X-Google-Smtp-Source: ABdhPJw4FKqwhsBZUQggWtx7osrAP35i5qIddJJpY4OP9TdJBplRv+ivJ4mhvzDYfG7mfyJ+h5H96A==
+X-Received: by 2002:a17:902:b606:b0:158:f7d1:c085 with SMTP id b6-20020a170902b60600b00158f7d1c085mr23769167pls.12.1650987474107;
+        Tue, 26 Apr 2022 08:37:54 -0700 (PDT)
+Message-ID: <086069c4-406b-ac33-7c44-8433980026fc@gmail.com>
+Date: Wed, 27 Apr 2022 00:37:50 +0900
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org
-References: <20220426090810.28616-1-jgross@suse.com>
- <2942e8ed-e839-c3d7-69af-25f926d11da0@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH] xen/public: add new macro to ring.h
-In-Reply-To: <2942e8ed-e839-c3d7-69af-25f926d11da0@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------XF6tThLcAogi91YjYKBF4DVS"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Subject: Re: [PATCH] xen/arm: p2m_set_entry duplicate calculation.
+To: Julien Grall <julien@xen.org>
+References: <20220421151755.GA4718@DESKTOP-NK4TH6S.localdomain>
+ <a160a77a-1cb2-c7cb-7d93-7334772620fe@xen.org>
+From: Paran Lee <p4ranlee@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Austin Kim <austindh.kim@gmail.com>, xen-devel@lists.xenproject.org
+In-Reply-To: <a160a77a-1cb2-c7cb-7d93-7334772620fe@xen.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------XF6tThLcAogi91YjYKBF4DVS
-Content-Type: multipart/mixed; boundary="------------0QzTqAK0jY90Wh0WhmSXuagA";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org
-Message-ID: <7041654b-1fe2-b3a3-fb87-7a4d4d3dad8f@suse.com>
-Subject: Re: [PATCH] xen/public: add new macro to ring.h
-References: <20220426090810.28616-1-jgross@suse.com>
- <2942e8ed-e839-c3d7-69af-25f926d11da0@suse.com>
-In-Reply-To: <2942e8ed-e839-c3d7-69af-25f926d11da0@suse.com>
+Hello, Julien Grall.
 
---------------0QzTqAK0jY90Wh0WhmSXuagA
-Content-Type: multipart/mixed; boundary="------------uaiJ0CzkVQXnu79mW1S0SoqO"
+Thanks you, I agreed! It made me think once more about what my patch
+could improve.
+patches I sent have been reviewed in various ways. It was a good
+opportunity to analyze my patch from various perspectives. :)
 
---------------uaiJ0CzkVQXnu79mW1S0SoqO
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+I checked objdump in -O2 optimization(default) of Xen Makefile to make
+sure CSE (Common subexpression elimination) works well on the latest
+arm64 cross compiler on x86_64 from  Arm GNU Toolchain.
 
-T24gMjYuMDQuMjIgMTE6NDMsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAyNi4wNC4yMDIy
-IDExOjA4LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gLS0tIGEveGVuL2luY2x1ZGUvcHVi
-bGljL2lvL3JpbmcuaA0KPj4gKysrIGIveGVuL2luY2x1ZGUvcHVibGljL2lvL3JpbmcuaA0K
-Pj4gQEAgLTE4NCw2ICsxODQsMTEgQEAgdHlwZWRlZiBzdHJ1Y3QgX19uYW1lIyNfYmFja19y
-aW5nIF9fbmFtZSMjX2JhY2tfcmluZ190DQo+PiAgIA0KPj4gICAjZGVmaW5lIEZST05UX1JJ
-TkdfSU5JVChfciwgX3MsIF9fc2l6ZSkgRlJPTlRfUklOR19BVFRBQ0goX3IsIF9zLCAwLCBf
-X3NpemUpDQo+PiAgIA0KPj4gKyNkZWZpbmUgWEVOX0ZST05UX1JJTkdfSU5JVChfciwgX3Ms
-IF9fc2l6ZSkgZG8geyAgICAgICAgICAgICAgICAgICAgICAgIFwNCj4+ICsgICAgU0hBUkVE
-X1JJTkdfSU5JVChfcyk7ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBcDQo+PiArICAgIEZST05UX1JJTkdfSU5JVChfciwgX3MsIF9fc2l6ZSk7ICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KPj4gK30gd2hpbGUgKDApDQo+
-IA0KPiBJIHRoaW5rIGl0IHdvdWxkIGJlIGdvb2QgZm9yIHRoZSBjb21tZW50IGFyb3VuZCBs
-aW5lIDEwMCB0byBhbHNvDQo+IGhhdmUgYSByZWZlcmVuY2UgdG8gdGhpcy4NCg0KT2theS4N
-Cg0KPiBBcyB0byBzdHlsZTogQ291bGQgSSB0YWxrIHlvdSBpbnRvIG5vdCBmdXJ0aGVyIHBy
-b2xpZmVyYXRpbmcgdGhlDQo+IGluYXBwcm9wcmlhdGUgdXNlIG9mIHVuZGVyc2NvcmUtcHJl
-Zml4ZWQgbmFtZXMgYXMgbWFjcm8gcGFyYW1ldGVycz8NCj4gRXZlbiBtb3JlIHNvIG9uZSB3
-aXRoIGEgZG91YmxlIHVuZGVyc2NvcmU/DQoNCk9rYXkuDQoNCj4gQXMgdG8gZnVuY3Rpb25h
-bGl0eTogSSB0YWtlIGl0IHRoYXQgaXQgaXMgbm90IHZpZXdlZCBhcyBhbiBpc3N1ZQ0KPiB0
-aGF0IG1hbnkgb2YgdGhlIG1hY3JvcyBoZXJlIGV2YWx1YXRlIHRoZWlyIGFyZ3VtZW50cyBt
-dWx0aXBsZQ0KPiB0aW1lcz8NCg0KSSBkb24ndCB0aGluayB0aGlzIGlzIHByb2JsZW1hdGlj
-Lg0KDQoNCkp1ZXJnZW4NCg==
---------------uaiJ0CzkVQXnu79mW1S0SoqO
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+$
+~/gcc-arm-10.3-2021.07-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-gcc
+-v
+...
+A-profile Architecture 10.3-2021.07 (arm-10.29)'
+Thread model: posix
+Supported LTO compression algorithms: zlib
+gcc version 10.3.1 20210621 (GNU Toolchain for the A-profile
+Architecture 10.3-2021.07 (arm-10.29)
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+I compared the before and after my patches. This time, without adding a
+"pages" variable, I proceeded to use the local variable mask with order
+operation.
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+I was able to confirm that it does one less operation.
 
---------------uaiJ0CzkVQXnu79mW1S0SoqO--
+(1) before clean up
 
---------------0QzTqAK0jY90Wh0WhmSXuagA--
+0000000000001bb4 <p2m_set_entry>:
+    while ( nr )
+    1bb4:       b40005e2        cbz     x2, 1c70 <p2m_set_entry+0xbc>
+{
+    ...
+        if ( rc )
+    1c1c:       350002e0        cbnz    w0, 1c78 <p2m_set_entry+0xc4>
+        sgfn = gfn_add(sgfn, (1 << order));
+    1c20:       1ad32373        lsl     w19, w27, w19   // <<< CES works
+    1c24:       93407e73        sxtw    x19, w19        // <<< well!
+    return _gfn(gfn_x(gfn) + i);
+    1c28:       8b1302d6        add     x22, x22, x19
+    return _mfn(mfn_x(mfn) + i);
+    1c2c:       8b130281        add     x1, x20, x19
+    1c30:       b100069f        cmn     x20, #0x1
+    1c34:       9a941034        csel    x20, x1, x20, ne  // ne = any
+    while ( nr )
+    1c38:       eb1302b5        subs    x21, x21, x19
+    1c3c:       540001e0        b.eq    1c78 <p2m_set_entry+0xc4>  // b.none
 
---------------XF6tThLcAogi91YjYKBF4DVS
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+(2) Using again mask variable. mask = 1UL << order
+code show me   sxtw    x19, w19    operation disappeared.
 
------BEGIN PGP SIGNATURE-----
+0000000000001bb4 <p2m_set_entry>:
+    while ( nr )
+    1bb4:       b40005c2        cbz     x2, 1c6c <p2m_set_entry+0xb8>
+{
+    ...
+        if ( rc )
+    1c1c:       350002c0        cbnz    w0, 1c74 <p2m_set_entry+0xc0>
+        mask = 1UL << order;
+    1c20:       9ad32373        lsl     x19, x27, x19   // <<< only lsl
+    return _gfn(gfn_x(gfn) + i);
+    1c24:       8b1302d6        add     x22, x22, x19
+    return _mfn(mfn_x(mfn) + i);
+    1c28:       8b130281        add     x1, x20, x19
+    1c2c:       b100069f        cmn     x20, #0x1
+    1c30:       9a941034        csel    x20, x1, x20, ne  // ne = any
+    while ( nr )
+    1c34:       eb1302b5        subs    x21, x21, x19
+    1c38:       540001e0        b.eq    1c74 <p2m_set_entry+0xc0>  // b.none
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmJoEFwFAwAAAAAACgkQsN6d1ii/Ey9B
-SAf/Urz7t5V+WagqRW5kN0EGk2TWRo53CnEQSxgc2FVk41YJY0gRxn5SiULF+6ueiRMkxXd7+tc3
-3ykyPoiz6pHCHSowOt8ynxtzJ6G/k4sVaBwckoOujIaXzN3Uhbqo0lX9n+J2BMtm6MJ2mi9kW9un
-XPGE51zr2Nf86Xz7iDgRkBqF4zKmD1fYjftY7j8OqFy1EfOigLXKfqIwo9KQw9WLOS/0LNmL5mhP
-UDEPrYZFtoAYY2LocLyqdZglhR2KMgOQu7xx3BO7t77GzE2nasV4Y7Qdn/x65lgNUvbbNp+04p48
-J8ZWa+ZZ0ZxIKv58/VdFACAS9Dqeav/TD9wpxOiygg==
-=nll9
------END PGP SIGNATURE-----
+I'll send you a follow-up patch I've been working on.
 
---------------XF6tThLcAogi91YjYKBF4DVS--
+BR
+Paran Lee
+
+2022-04-25 오전 1:17에 Julien Grall 이(가) 쓴 글:
+> Hi,
+> 
+> On 21/04/2022 16:17, Paran Lee wrote:
+>> It doesn't seem necessary to do that calculation of order shift again.
+> 
+> I think we need to weight that against increasing the number of local
+> variables that do pretty much the same.
+> 
+> This is pretty much done to a matter of taste here. IMHO, the original
+> version is better but I see Stefano reviewed it so I will not argue
+> against it.
+> 
+> That said, given you already sent a few patches, can you explain why you
+> are doing this? Is this optimization purpose? Is it clean-up?
+> 
+>>
+>> Signed-off-by: Paran Lee <p4ranlee@gmail.com>
+>> ---
+>>   xen/arch/arm/p2m.c | 9 +++++----
+>>   1 file changed, 5 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+>> index 1d1059f7d2..533afc830a 100644
+>> --- a/xen/arch/arm/p2m.c
+>> +++ b/xen/arch/arm/p2m.c
+>> @@ -1092,7 +1092,7 @@ int p2m_set_entry(struct p2m_domain *p2m,
+>>       while ( nr )
+>>       {
+>>           unsigned long mask;
+>> -        unsigned long order;
+>> +        unsigned long order, pages;
+>>             /*
+>>            * Don't take into account the MFN when removing mapping (i.e
+>> @@ -1118,11 +1118,12 @@ int p2m_set_entry(struct p2m_domain *p2m,
+>>           if ( rc )
+>>               break;
+>>   -        sgfn = gfn_add(sgfn, (1 << order));
+>> +        pages = 1 << order;
+> 
+> Please take the opportunity to switch to 1UL.
+> 
+>> +        sgfn = gfn_add(sgfn, pages);
+>>           if ( !mfn_eq(smfn, INVALID_MFN) )
+>> -           smfn = mfn_add(smfn, (1 << order));
+>> +           smfn = mfn_add(smfn, pages);
+>>   -        nr -= (1 << order);
+>> +        nr -= pages;
+>>       }
+>>         return rc;
+> 
+> Cheers,
+> 
 
