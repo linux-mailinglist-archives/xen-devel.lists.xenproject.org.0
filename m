@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 011EF5104D3
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Apr 2022 19:03:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.314074.531970 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 020C8510564
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Apr 2022 19:28:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.314080.531981 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njOaS-0006sj-On; Tue, 26 Apr 2022 17:02:52 +0000
+	id 1njOy7-0000qY-LG; Tue, 26 Apr 2022 17:27:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 314074.531970; Tue, 26 Apr 2022 17:02:52 +0000
+Received: by outflank-mailman (output) from mailman id 314080.531981; Tue, 26 Apr 2022 17:27:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njOaS-0006qt-Lj; Tue, 26 Apr 2022 17:02:52 +0000
-Received: by outflank-mailman (input) for mailman id 314074;
- Tue, 26 Apr 2022 17:02:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Qz8a=VE=gmail.com=raphning@srs-se1.protection.inumbo.net>)
- id 1njOaR-0006qk-Cg
- for xen-devel@lists.xenproject.org; Tue, 26 Apr 2022 17:02:51 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b43beedf-c582-11ec-8fc2-03012f2f19d4;
- Tue, 26 Apr 2022 19:02:50 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id s21so11654983wrb.8
- for <xen-devel@lists.xenproject.org>; Tue, 26 Apr 2022 10:02:50 -0700 (PDT)
-Received: from [192.168.15.219] (54-240-197-232.amazon.com. [54.240.197.232])
- by smtp.gmail.com with ESMTPSA id
- z6-20020a1c4c06000000b00392b49c7ad4sm11609653wmf.3.2022.04.26.10.02.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Apr 2022 10:02:49 -0700 (PDT)
+	id 1njOy7-0000oN-Hv; Tue, 26 Apr 2022 17:27:19 +0000
+Received: by outflank-mailman (input) for mailman id 314080;
+ Tue, 26 Apr 2022 17:27:17 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1njOy5-0000oD-NY; Tue, 26 Apr 2022 17:27:17 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1njOy5-0001U6-Lq; Tue, 26 Apr 2022 17:27:17 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1njOy5-0002pt-Ae; Tue, 26 Apr 2022 17:27:17 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1njOy5-0003GD-AC; Tue, 26 Apr 2022 17:27:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,65 +42,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b43beedf-c582-11ec-8fc2-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:to:cc:from:subject
-         :content-transfer-encoding;
-        bh=QgGA29WYYss0uXnrZthmQcUKUJ5ool5DKmGzaQtvt7E=;
-        b=AYtMUeMpCbkxR6IZ25vCX9hRC6af9ygPQno9E7h1YG7LA5JzHwQ3EHSdP2QGJX/UqV
-         u7CY6ntoATzwnoyCPdimbQjKGOcTpVCCnLCqwSwcS2QEh/CsYxBum4Qd03diD5hnUU2X
-         H/4QAsyrBKPZ2OQB/Izd3/BIUE5fNACljiTH4TxqxO8BWRPecF5o+a+Wuw3z+fKVndJY
-         0g320z52SUK7qZT3pYY5IE1jkKMrVF2uHdSAl17TmBmlJ+f3TAk72Arz0JtLoij5aPdI
-         d7ct+zd6a9QcI5zaDK3TE16fYQRKUCK7ZXZPgGvlCQF90hbE4BmVj8KQR6DRuQHIN8ST
-         0YNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:to:cc
-         :from:subject:content-transfer-encoding;
-        bh=QgGA29WYYss0uXnrZthmQcUKUJ5ool5DKmGzaQtvt7E=;
-        b=cJvc6LMaagIhJO8VG3INX0q8hI67pqCwPYjwrAi6BNIKf60FG08xa8wy3i5QkQ1piy
-         AHRh9aEGvBDre8E3Hn8mMUikz42GVYL+T3/+cuA2A9IsVTK43foUmKDwy7cuV16d1GQo
-         aQESKIJqJ5Z9mxGI4IRO2xilvKgB83oHPH+NY3xdXJWNSeTDw3LwuvEByA3WzOgoJ5SU
-         xkt0Pc8RwWY+F/m2fet5s2v0Nk8M1hK3OvCD3hndH820sGuKNJUKDGeGuOzqSHF0hgPi
-         K7rGwbT77/OWqdjRmhwKbq/7tw50HSl4c0TN712bY9HwT0M15JhbSscEOcq2QThtUZxU
-         Blug==
-X-Gm-Message-State: AOAM533hCK2GFuzWiEXx2OeOaD+A2yCf+7PH7fX8A9moCmUvBMS9LtUv
-	2coQVllesIfCKkh0rMa/mr8Ql8vnZ/wCqQ==
-X-Google-Smtp-Source: ABdhPJx/FrZSa50T8fmwAMPz4mUtT5p7EdOg4Ki77fof+NAxQL5w1AiyEBK7qqQv+u3dQ1VcLWZKbQ==
-X-Received: by 2002:a05:6000:1a44:b0:20a:ccde:c139 with SMTP id t4-20020a0560001a4400b0020accdec139mr16390537wry.320.1650992569536;
-        Tue, 26 Apr 2022 10:02:49 -0700 (PDT)
-Message-ID: <eb024e77-17f4-cc89-f621-a9d5b879c184@gmail.com>
-Date: Tue, 26 Apr 2022 18:02:47 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=GeXjQSIWVG1cgQjBBdl64plbl91SG9caYmlbXZQJ+kg=; b=Gc2c0no5NCPmHPfY82jMZGZmnz
+	mT3v/3mZizmeV0bdLH3CTVT5ByVtwpa+pAyfS0ebOLoN0QKv9UIKOcJ7JcCX6P2sUwAkWaOZh9lLP
+	4m3DtWM+JRtBczWJq6syws82LDhax9BPI+ZaEVn7aZ+KgtOmYWJeJyZmzelVcczsxvSQ=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-169746-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.8.0
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>
-From: Raphael Ning <raphning@gmail.com>
-Subject: [cxenstored] Potential bug in special watch event firing
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 169746: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=916f90baa547b3ebef8fa87c530e2f0c8e35e1e3
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 26 Apr 2022 17:27:17 +0000
 
-While reading C xenstored code, I noticed that it may send special events like @releaseDomain to (privileged) clients that only watch the root node (/). That's probably not the intended behaviour.
+flight 169746 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169746/
 
-For example, when firing @releaseDomain, fire_watches() is called with exact == false:
+Regressions :-(
 
-https://github.com/xen-project/xen/blob/2419a159fb943c24a6f2439604b9fdb1478fcd08/tools/xenstore/xenstored_domain.c#L234
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
-As a result, it will check whether @releaseDomain is a child of the path being watched:
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-https://github.com/xen-project/xen/blob/2419a159fb943c24a6f2439604b9fdb1478fcd08/tools/xenstore/xenstored_watch.c#L195
+version targeted for testing:
+ ovmf                 916f90baa547b3ebef8fa87c530e2f0c8e35e1e3
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-And when the parent path is /, is_child() unconditionally returns true:
+Last test of basis   168254  2022-02-28 10:41:46 Z   57 days
+Failing since        168258  2022-03-01 01:55:31 Z   56 days  646 attempts
+Testing same since   169718  2022-04-25 21:41:52 Z    0 days   18 attempts
 
-https://github.com/xen-project/xen/blob/2419a159fb943c24a6f2439604b9fdb1478fcd08/tools/xenstore/xenstored_watch.c#L66
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
 
-The xenstore documentation is not clear about whether @<wspecial> should be considered children of /. But I find it counterintuitive that clients may be notified about a special event without explicitly subscribing to it. Is it a bug?
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
-Thanks,
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Raphael
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 5828 lines long.)
 
