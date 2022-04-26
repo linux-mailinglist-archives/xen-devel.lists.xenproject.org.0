@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D39CF50FA55
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Apr 2022 12:24:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.313699.531394 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3676950FA59
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Apr 2022 12:25:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.313705.531405 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njIMR-0008EG-9g; Tue, 26 Apr 2022 10:23:59 +0000
+	id 1njINK-0000QT-JN; Tue, 26 Apr 2022 10:24:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 313699.531394; Tue, 26 Apr 2022 10:23:59 +0000
+Received: by outflank-mailman (output) from mailman id 313705.531405; Tue, 26 Apr 2022 10:24:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njIMR-0008C1-68; Tue, 26 Apr 2022 10:23:59 +0000
-Received: by outflank-mailman (input) for mailman id 313699;
- Tue, 26 Apr 2022 10:23:57 +0000
+	id 1njINK-0000Oa-GA; Tue, 26 Apr 2022 10:24:54 +0000
+Received: by outflank-mailman (input) for mailman id 313705;
+ Tue, 26 Apr 2022 10:24:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=urB8=VE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1njIMP-0006S6-C6
- for xen-devel@lists.xenproject.org; Tue, 26 Apr 2022 10:23:57 +0000
+ id 1njINJ-0000OM-9R
+ for xen-devel@lists.xenproject.org; Tue, 26 Apr 2022 10:24:53 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fa69d5e6-c54a-11ec-a405-831a346695d4;
- Tue, 26 Apr 2022 12:23:56 +0200 (CEST)
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur02lp2055.outbound.protection.outlook.com [104.47.6.55]) by
+ id 1bb3dfa3-c54b-11ec-a405-831a346695d4;
+ Tue, 26 Apr 2022 12:24:52 +0200 (CEST)
+Received: from EUR03-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur03lp2055.outbound.protection.outlook.com [104.47.9.55]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-31-05FTq-RQNNW-XRPLGOZsDA-2; Tue, 26 Apr 2022 12:23:54 +0200
+ de-mta-18-1QHNAdYYNG6iJ4FVQXsp7Q-2; Tue, 26 Apr 2022 12:24:50 +0200
 Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
  by AM6PR04MB4245.eurprd04.prod.outlook.com (2603:10a6:209:4f::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.21; Tue, 26 Apr
- 2022 10:23:51 +0000
+ 2022 10:24:47 +0000
 Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
  ([fe80::5cb0:5195:4203:7c2f]) by DU2PR04MB8616.eurprd04.prod.outlook.com
  ([fe80::5cb0:5195:4203:7c2f%9]) with mapi id 15.20.5186.021; Tue, 26 Apr 2022
- 10:23:51 +0000
+ 10:24:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,301 +51,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fa69d5e6-c54a-11ec-a405-831a346695d4
+X-Inumbo-ID: 1bb3dfa3-c54b-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1650968636;
+	t=1650968691;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7XE0MZ5Q/V0/alHvDtFRmInLwfamZyLpxplt2pkODz8=;
-	b=P0MJVeAB6UEjCsi/r6Zlz39ExjXLUzY3kMOcCk+zPodraQb/llf4r59p5IZHFRDAXFrjZZ
-	ByDrrHZ6lTjjO7V8V30UBoBxpOJX4vcJ2DMk1z94yMmdgcCbsLGS05phvXDFFAPCblwl7C
-	CillbuAGf8NO6ifT3jtQxLwUVB8emIA=
-X-MC-Unique: 05FTq-RQNNW-XRPLGOZsDA-2
+	bh=hFvLQFBwZFZ943lsxU2fJYaMKf9GbC+9+84gYPaYpQU=;
+	b=B8oenL1GHZZ1IRScLfbi/hpPVXwtIX/wpmNWpPGbEQ9VOm4yKtqFZrgGUkii1L/G5P2fog
+	cwfe+xgCCfrwPKW0LZEgxqcM/eqFTGbCfH5t7jx+W+eNgRUeJP24ymNvSQRQltB/sntEod
+	sDBVscdGsOFK/DO852pCMh9fjdGM47o=
+X-MC-Unique: 1QHNAdYYNG6iJ4FVQXsp7Q-2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O57Qh6FhRQ0Xc8/yaMe26SYHIOBBRcV2A2QXeyX2OtPC2q6IPpiysUXiPnFcyFzK9ZK3NdyvU9LAD5qRTxE45NOAdPmhJUzo8t4ziMBciMqjiDAk5K8l3dwjNx9CISK0WKlEN0xWM+bns4vNnhkiHHfX9eLcSub2wj0cpgfKfJcD2pdu5Ujx+/q/GTw8RMNRCCRPHFBk8Wg5cHPjaxz7Xw/2jsdb/hR9wtuQQzTOBHqyhSc6MgwWt8Yhn/EKqfIJKolxlRFKy8bZdF3epQ23qNO7C4JYXBtJLVaVct+BhMjmo8UXtpePgRp2g8rfhPPVqH7OADWwN6RY6pWWVyN9dw==
+ b=EJMZb0YFQg6Vgc3dr0BrFVZO2A3Ertnoj0WIucML22+TaT11MvOL5v7QM9D0Ts5wJy3KrhAlfziIKk5UIUNEjqzQYhhpvNb3D5UYs1tIyxM/joTcao2L4gJCm/uMr6NPtbnlfTgnfjxSN9wQveKvCuBfxykbfCWi1gbTuaDn38uaCxr9Fn50TOCMP/0uQNy6uROVnUnrk+lA1ur1ns6KO8phOB+3ftdvAJE9PpNyhB/gB4pmI2sqHhnOzBagM01NTvAgAMwU7XIGO3LqXWu6IShqEm42CHjj1r2T02VcbYwH993a6kqoavJBLvbj+tPBhY1A+wXhN46+e+Qe8vYmFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7XE0MZ5Q/V0/alHvDtFRmInLwfamZyLpxplt2pkODz8=;
- b=FV7IjQn4DEXPLLcYFUqPyaSY5ExVF2ELKJzKoGyAL3xY9IYC61MWgcXt6WQRmICs2p/ZsRKhjqqz3IZIX64objIj9H+hU3nARo2ZrvD04Jzkr+cp3UMJXolKUcEq4THV6GppxfSpVYgvRt0Jz1tEB1unfcAuDkXUThboyQRNayLyvWCa2/VoczsJkBqifxzehKAPNnIjf+ehKle0U863YZRie42XwmPlf12HwFB9p5uOmYiKgMUEEyFOwLYun0Y3MD04Kkrd+H4Tr6T63gAcq7KNFRgvMIIHjUe9EQrkQl9qvZA2jcO1ZpaGGEtEQCVcKaHLBs2B16YfgGkBiP3rQA==
+ bh=3OGFK6t8lL7gQvWrJvHU3Kqh9Nzt0xlpqwNOIjr8wDA=;
+ b=Oo6mlrmHOaj738rt5GqDGWjfTcaNdVAhl6sMXmzbPxctPETg0SLMwOmNNUSoc91OFQEYSSCcYU0+P/zh/YMKh3OXsHqSmgIuTpmxb6koLDcPE2dyR0Mum/Xn2N5WCJKW6LhA18A61hH90WEi3O3RIwheyzGS5VyQBoyGbbK9L62dJX4zRVyBC2TJ7+DFhgMpIdwCBLPIx5hfKfZleRuKPMsY3g0F4Xsa0L03G+VkrI803ZovA4Y4ox/z393VUK6emoQ0Wkg+pdzQx6IBDi3PtLYBAbKiapXHzCI2XAzOTPHOswBE+e3V1xxLLF4b9Q5mxdb4IQ2TH8QqRajjqBXRkQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <1744d775-4446-69b4-152f-c81d36e4996c@suse.com>
-Date: Tue, 26 Apr 2022 12:23:49 +0200
+Message-ID: <1b24d2b5-14ff-6e4f-6fa5-d91d75e315a4@suse.com>
+Date: Tue, 26 Apr 2022 12:24:46 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.1
-Subject: [PATCH v3 4/8] libxenguest: restrict PV guest size
+Subject: [PATCH v3 5/8] libxenguest: deal with log-dirty op stats overflow
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  Juergen Gross <jgross@suse.com>, George Dunlap <george.dunlap@citrix.com>,
  Anthony Perard <anthony.perard@citrix.com>
 References: <a0f019c5-4089-e19c-6041-044d6e93d80b@suse.com>
 In-Reply-To: <a0f019c5-4089-e19c-6041-044d6e93d80b@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6P193CA0064.EURP193.PROD.OUTLOOK.COM
- (2603:10a6:209:8e::41) To DU2PR04MB8616.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AS8P250CA0002.EURP250.PROD.OUTLOOK.COM
+ (2603:10a6:20b:330::7) To DU2PR04MB8616.eurprd04.prod.outlook.com
  (2603:10a6:10:2db::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 635dfd18-0c15-4153-b886-08da276edb94
+X-MS-Office365-Filtering-Correlation-Id: b10f9922-ef7d-45e7-9214-08da276efd38
 X-MS-TrafficTypeDiagnostic: AM6PR04MB4245:EE_
 X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
 X-Microsoft-Antispam-PRVS:
-	<AM6PR04MB4245772E936C7E496A993AB2B3FB9@AM6PR04MB4245.eurprd04.prod.outlook.com>
+	<AM6PR04MB42454F87500EE5696AD2BEB1B3FB9@AM6PR04MB4245.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	DjYboPnQ/p/2Zsazk6LIrJywIyRlsHPxOTqzm7vuLH9yYmk1Hum3hbf/znFQH6c7N+frPkUQ3w3AyKHs01lUFLY0l+HrXqy4QGDdMgj06eW2ij0H7A1MSH7oBpHd1XbYVDoqgyV/4DxhS+WKofJwBjkOoGPoozLvqL1vwa0MHDEnCLCXFSqjpgRLwQk0Kl7w3N71xxl2QzqsFLnF6qh+9IT3hvcEzzw8x5noMBUTnOALNKkEIaW3sx5sPE1A4R65TeuGnXhTjmW8Rzjv6MU+1yEUbDb9Zp3WFWcrtT8TyiwkztcjBki4cD0gzpMMGfI8Q52+BiQUCMz8FtLcgYLOCm2gdmX2gjWvpjrFboR95j1mrMPRBFHZcBhxw4Y6fpdeRxARCdttidEXmgjSFaKiVvsD7n7gOI43cfrW9dUB1B79bWvijqhcID5L6Pcs0g7ZDV3Z8Lg+HNPbY/vPi+DE3vIfgfDLXmOor8XjvhcGaM/LIJT4TMdNn/xuoXb+GDhJ9x9LGlqIptGZ7T6BVdY2ptLV3ZoGOBifsfvfRG144BDy3t4SJJRXlBGymYj/ILUUPmzFmz279WuhgqaRky6z81XK11N1p1MjXI4NbGr9WMRXPLG4jDLeJMhfIJOKEtGy3pmkvWBBcqUlWpNyTU6/SfxtR7RJfY78ikiTFm3YrD/FCeQHoKzBTT6zuFVBHfcyu4363Qme6p0yUlg6p5q0Hd/g0s09Cq1614jy7rYxGYU=
+	n9X5T8hx4jB60E3PWHnxpf1XsKPUTIChMdEwHdRsZBJyTOnMKS5dOi8bJ+lq22Zw3TjrL4oMNagIje2ISBNi59yIdhRtK/FxdSMGlsQq/sTW1/2x7/Kt3cRcLA2eBM52lmwWuOBF4c5yP0uXuC3XSRHZD7rvQVW75aRHcgldhbmb7RrHCG5NYyJNRtz1tTSNKwMEzLKtvBMRDbGOEcfUGjEDKNtb7QuXkzaDPwFYk3cpK/WQhPvIx+iYQw2NEG2pO/BZPnTaDFt5Uf1k2VXNIsVsIQRaumGpImAxlGtMz/m5OXIazTFqEegHcrv1H9mLoNb6ZBcQxv34mrp7igOW+6gMy9ZamPrp/Caalo4k8Yc4NlD9UPD8bQ8ZJIZAGseVLAn1jTYln45iUyYZz5RvcCraz/45MR+/PvEVGS0PNTvIb5h0vzrQpvXrxvFBEHWKYQ0tnoTE2vqraKzLCyfP3mMTJkmJLJBKrcbsk7zxKhyafOXMBJhwKb+D7SsMP8pTyADasbuhPDhYtoZbrZySosHK0qLIZHLFlD1PWNTIf1Z/wM5+bjV/znPHOLqnD9VZEG0SxmbWU8KV2ww/wVIZLen39hKBAlkNs9MQfchhGC0bDe88mKjy9CWlLh9UQTMF00kxpk6KgwPVJZS5TJJ9uF3pekoO4lUnm3b4Of7dy1u1lNsSg3oAMCsIwiqsaeizUy2BT+Y1oGWHnmnkn/+BZrSlswTtk4vnruG+FhGU270BfVhif6D2Ndo8rdm9GssY9ajnNfb+8GqrCtu6UAE4gQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(2616005)(31696002)(508600001)(6506007)(6512007)(6916009)(86362001)(186003)(36756003)(31686004)(8936002)(4326008)(38100700002)(2906002)(5660300002)(66556008)(66476007)(66946007)(26005)(316002)(54906003)(6486002)(83380400001)(8676002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(66574015)(2616005)(31696002)(508600001)(6506007)(6512007)(6916009)(86362001)(186003)(36756003)(31686004)(8936002)(4326008)(38100700002)(2906002)(5660300002)(66556008)(66476007)(66946007)(26005)(316002)(54906003)(6486002)(83380400001)(8676002)(14143004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bk1sbkdvcHQybXpnenN2ejR5YS81VDY1SkIwSmdxT0VDRy9ZdElVVEJrMDhk?=
- =?utf-8?B?VFF6S2tZdTIrWlJhc2xNKzJjWkZWTUFiU3o1bWNNM1dTTk0vVmtYdXZsQU9Y?=
- =?utf-8?B?V2NWaXBsMEFCMDVUSkp3OE5ZV2pIOVY0MzdTKzltSFFMZy9xbHU4Vjl2V1RS?=
- =?utf-8?B?aE9lWVp6cDJDbFZnTXJtemliL09MMGpOMWZkWXF3THN2SGZTcnFjN2tTc25r?=
- =?utf-8?B?N0lWc0FITVZSVHpDL29QbWI1ekNJNWpDQ3ZaY0svQzhQT2lmN3FrVGhEMld1?=
- =?utf-8?B?dFlCM21qc0tXaUhnaG0ybTdQZE9TWGtqM2RicUFXelVpNWU4d2t6RU12WVJN?=
- =?utf-8?B?ZThXa0hSWW5HLzdIWXFFdkxXbzBXRXNLalp2NE9FN3N3QTkvR1lBdTAwVWcw?=
- =?utf-8?B?OWxRSFVqVjhvejJhaGFDT1puQzA5alJZSmpNdzZPVDl0VHUrL2NuckNxZEZH?=
- =?utf-8?B?ZHhvN25iNzcyS0NIWnBlWmFVejA1elVvbDJyZ2tGMk9EcUE3Qmx2UnJncXcz?=
- =?utf-8?B?YloxSWhPdXU4ZUlWZ3UrTzFTMnZKcXp3YVIzMG1rai8weGgrRzkrR0xwRStp?=
- =?utf-8?B?WmljbFpWREoxTzF1UzVlVC90VUl3RTN4QWRvYzl5VWZsVk5NcTZFZTVPS2cy?=
- =?utf-8?B?OFFUZysvdDNKa2hzcnkrL1ppVklyMGkvQTEwSTFsVzBGelJ2cExjUEN5eGRw?=
- =?utf-8?B?emo1ZEsxYmJ2M3o2SG1aWFRTOFhXOUN3RnkyRC9Bd1dmdlVaSmk2V2dBUmVW?=
- =?utf-8?B?aWx3OTNtOStoY0VETU5nS2JVd0xPcHNMV2JwSDM3bXFIajV3NXcyTlNJcURS?=
- =?utf-8?B?QWhNRGVaQUpkSXd4TEVLdVo5WW5UNzRhQTlqZWE1VnRnaWFTcTNvTmFCdHF1?=
- =?utf-8?B?TVFEUDRadGR1clVERW84dzh3cGErd3JFN2d5M2JwaWhCeEZwZlFsSEtwTWdt?=
- =?utf-8?B?bTAybDN6Rk44VTVwQlJzR2xKbWttK043eDJJamY1dCs1clBjUEtYdjE1ZEE1?=
- =?utf-8?B?QzlxL1dWVmlEc2pOR29BZGRIUmFsclVIajMreEt4NklSMDltNlRBK0VISHpD?=
- =?utf-8?B?RXUwMkJ1MC9melVvTm1rQnFpeVVDdGFNRmtIRWh0SkVpSW1YbVZrR2FSZU1y?=
- =?utf-8?B?bUY2b25FdnZIOUZsRm1nRDEvb0NqVlN0Y0pKTzFTUDBkUzBIUVhwZFJmTWxM?=
- =?utf-8?B?eDhLdnA5dFJkZEV4QUNVZ01HdWRjbFlUQUQyS2k1SGVQc2NSa2g4M3ViU1gy?=
- =?utf-8?B?MTdiOUJWa2l0UXVVUHJybHBMQkxQS09kanNkakU1ZDk1UEV2KzhGWWZPN2xP?=
- =?utf-8?B?T2tpM3k0SUlIUHExTGw5bVZGM1cwMjRVdmp6TW96Mk1oUmZVRXA1eUlLWnhO?=
- =?utf-8?B?Y1lSMitoendHRG9VWHFpYmJZeWhPbCthVEZhL096eHFyeFpDa0pGZy9kai90?=
- =?utf-8?B?dnBzeFV6WlAzdzcxSU4wMVVjVHN3TS9IcHZsdUszYmd2cHVNTEx2eEdubkQ3?=
- =?utf-8?B?YU9wZElDbWV5eUxkVmY2OWtkNTMyOUtYS2VpZGRTUlJaYTNIN081a3g1bmww?=
- =?utf-8?B?TVRPWXk5YW50a1EwWUYwcGpVZHQ0NDhjeFJadE9yOTJNTFNEdDMwMXJ3ZWk5?=
- =?utf-8?B?dGdmY2NjamJBV0Njd244SEk2enhnQm9IR2dBUVh6YXV2T1V2RXFIRjAyUmt3?=
- =?utf-8?B?Ym5LakE1cXp2T2c4OXhNdTlpQ2x0NnFBNFBFSUpRYU1TdlNKVEptZ0p0bEFz?=
- =?utf-8?B?ajdnSEU5S0M3YkNLeFJKYlBMblQwZ2p4bGNHalBNTWk1L1VqN0lqZjR1dHdV?=
- =?utf-8?B?YVlKWTJLZmxEd3FUcXJhK09oRDdmUllPSVlPZ3R5cXplOXNhOVN1SUdlWnZt?=
- =?utf-8?B?M3RDMG1ldFNNcjRhYm5oSDhPOThyZ29GY0dteFVvc0ttOGprVndwdXBQL3lM?=
- =?utf-8?B?OSs1eVN4NmF3Mi9BaWRkbWRMenhzanl2REp5RzNEcGFEVytOMlZiaW8rVjRG?=
- =?utf-8?B?WEROdEhHSjlaUTdYY2JxemEyWWtUaVYwQkJydnRJaFAvR2c5OVptRmpGUWJD?=
- =?utf-8?B?TDNCRHhBd0JlRDlTMHNpNTJYL2c5VzNvYnpLeXZXZG1WZklQYmJsZDdIc0FL?=
- =?utf-8?B?aDJVZWwxdVl4dUhEc2ZWa1dwd1J5dTdqNG1kb29VS3JDZ1hzeklnZ2FPYmEw?=
- =?utf-8?B?akwrc2c4cW5NL0hwZGFYVTdiL2lTMEVJYUtINUlBckgzT3Y4cUtmeHE3bmVQ?=
- =?utf-8?B?TS9oaDdYaEtCRU5jeHdFZFBCSDR4VmI4bERpQlZnL2hJUFBrOHNGSTRqZnJZ?=
- =?utf-8?B?dmR1NnYyQmxSNVFBN2cxQ2lzYVNLbHJwWFlZM1NFeWRRMzh3MTd1Zz09?=
+	=?us-ascii?Q?c89B0axlDoAn2GDpXRrBO8yToGYF7KXCSXzo9CmM7XclDj5bj5jgZXzd9X4F?=
+ =?us-ascii?Q?ahOM9AfN/Ov6MjbzghE09iLMDR5bryTh4fF4kHC1ERTj70DsGWEXLyoyheCI?=
+ =?us-ascii?Q?cS/D/Cul57xToipyg/TupECtsRjS6Xu+qYJN0pQFv6RZqARx6mWsesJmW26U?=
+ =?us-ascii?Q?g9uTqOt5w/cnw5ud0v4VnWPT+/eGbJyCK6MX8xv4PDHGjpD5f7Or0FTFI2mh?=
+ =?us-ascii?Q?MsXpLtq7FM+Gc9NL3J3+t65Sd7pAyp1cI3JpLDQxMXAbs3Y0zom3ieQqS2uQ?=
+ =?us-ascii?Q?VVRWOszxQKX5jEM6JVpx1ScdKsKvjk8+pftayP6xOwAk2VZA/fOfHTq4XO7f?=
+ =?us-ascii?Q?f820dUMn7iz96FUnaN7uFa7khbhbL3bJ4VcMmXL4W1CtdlxgJegTfLKewr8w?=
+ =?us-ascii?Q?Jizg8TAJU1esAfgOtsS9uhbN9LvGMl1QPObT3UpuxcbhyROlaBw31y0c0gSu?=
+ =?us-ascii?Q?ZDDrrUjd4JinhETzu2n5v+/Lj8hq4n9QcyJBomdX/nZf2FGIvZ+y6HsD4mmc?=
+ =?us-ascii?Q?TZyEuTmor4Cld8CNzKImM1+qBEw/1Gj/Bj1drt1V5AFNNyl3FviYDcTp8aOP?=
+ =?us-ascii?Q?yM7XVJL0iWLD21sehKZd9evihcqi388zTwE4Z2X9TnWXkIrpK6p43z1iqUCO?=
+ =?us-ascii?Q?MN5Ca5MNONsWzwHA31H7ER3zsk4DgTkSK5QUPHa0z09FGXMRbpaAgPeE/LdT?=
+ =?us-ascii?Q?arOTQdqFs8zmfJJCBs53GaY3J5u0t55ALYKLSSDuMeYuYKgkm/mu/1RgZA/O?=
+ =?us-ascii?Q?SSJ/gqVH1sd4m7fAGSYFpsz+2yorpB0JdP5xV8QcKohxuJLNoMy6fOgcUuPE?=
+ =?us-ascii?Q?rQEbfXgDeZOrDxBBtSHi304sGLI8yJ+mltoF8s7JKQuKgw8FB5O1Zz+0Z5fh?=
+ =?us-ascii?Q?+C7sM/r/CoyiUBWpCCxIm+9MRv3xoaBuFZtIMG1ndK2AXTB10hPmas2Qqv8q?=
+ =?us-ascii?Q?jUeiTnN3cbsIJuHcO7NnbwS3r3pwBi8cUOxAbsPoUbOFH7fsOspwQmAX8Wbr?=
+ =?us-ascii?Q?tqkOGIqh5tpBvXZ+zShlEBCgpUo1/OzjndQXtefnmBXeneBPFmsLa7O/juSX?=
+ =?us-ascii?Q?xaLc/I8QRGv9KkyYCmFTCCSS6EXpz0Qks7GuyQk4TNeq6jU2eZUyv5aSiRIv?=
+ =?us-ascii?Q?CjBPyjqJluWFiIFa7o/nE1FSDMqsblrU0zIhaZv/eClRQhHrYcTyPu/x0Wfo?=
+ =?us-ascii?Q?/zlWnOxGqxLa75lhn/2FKVvQ5EU63no17TMGtLonaLmRWVO0G1Ob7+na3Mxo?=
+ =?us-ascii?Q?AeZSmLAkIZRkDstPwt23wONYlSnP04OLuzac434ZuYZxQ5tbWiQ6BL1uhxpA?=
+ =?us-ascii?Q?03partCZlgsfQLJIopQijDNjkRUnyjW3HR8q2rcSl25TdymGIDORYX7t31hb?=
+ =?us-ascii?Q?z5oqZrG4EJ3WT5SwhUgjzK8YBzVeKbI7x2PC5qN3+gs89gAodHGtp8ae9JVX?=
+ =?us-ascii?Q?cPUpnt2wYXnCq8hwlhnSX+/qmPWvAJCLf4PMvsTozyz+ncgIpbQ0st6qJ0t4?=
+ =?us-ascii?Q?e3ksSAY6Js6ez2skiEHyaBT9rTLxSFhisogbZv9Eh6guEBjDIm5UTfxMYYQL?=
+ =?us-ascii?Q?ZKjQQJuf2Y4WS9CgkuSMsLj4QQCujn1FgRSP8Q1nFxn1DPrWP419dkgbKvvj?=
+ =?us-ascii?Q?YSbPmgtz+KUmrhmdk1UVQou4MZVNOBci3tpCvsqsVOvFmCWc7P+S1s/78oc/?=
+ =?us-ascii?Q?POjZMfAas8UQcjF3yNxdfSH77MzGY729OB2HJamJmvs/4405/T7q8M1fwUYG?=
+ =?us-ascii?Q?C9xFt3Ywig=3D=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 635dfd18-0c15-4153-b886-08da276edb94
+X-MS-Exchange-CrossTenant-Network-Message-Id: b10f9922-ef7d-45e7-9214-08da276efd38
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2022 10:23:51.1282
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2022 10:24:47.7387
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tlmkGKa4+uwA2DbbFUXoZap0+sx7AubJo80rVCAlQk0SrCi9WrspeGs4jTAckoYAISmG12e6sSUXAgf+/9aYWA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: VNFZxoShOn2H5jv/F0NglxLAcX4RnlxBbhVkdkTMDnCmjlmVvB6+w7FqPat3sMubNKwGHPfZ5CTLMPb/DN069A==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR04MB4245
 
-The P2M, the use of PFNs, and hence the maximum valid PFN are purely
-software constructs in PV. In principle a guest is free to use arbitrary
-PFNs. However, at least page table normalization requires that PFN space
-be, like MFN space, limited to the architectural 40 bits (52 address
-bits). And of course a 32-bit tool stack places further constraints.
+In send_memory_live() the precise value the dirty_count struct field
+gets initialized to doesn't matter much (apart from the triggering of
+the log message in send_dirty_pages(), see below), but it is important
+that it not be zero on the first iteration (or else send_dirty_pages()
+won't get called at all). Saturate the initializer value at the maximum
+value the field can hold.
 
-Bounding the values also makes sure that various subsequent calculations
-won't truncate values and then continue with inconsistencies (see e.g.
-fl_entries vs ctx->x86.pv.p2m_frames in map_p2m_tree()).
+While there also initialize struct precopy_stats' respective field to a
+more sane value: We don't really know how many dirty pages there are at
+that point.
 
-While there correct an adjacent error message with wrong way round
-wording in restore code and another slightly malformed and misleading
-(off by one) one in core dumping code.
+In suspend_and_send_dirty() and verify_frames() the local variables
+don't need initializing at all, as they're only an output from the
+hypercall which gets invoked first thing.
+
+In send_checkpoint_dirty_pfn_list() the local variable can be dropped
+altogether: It's optional to xc_logdirty_control() and not used anywhere
+else.
+
+Note that in case the clipping actually takes effect, the "Bitmap
+contained more entries than expected..." log message will trigger. This
+being just an informational message, I don't think this is overly
+concerning.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v2: Integrate into series.
----
-In case the save/restore changes don't make it obvious enough: It
-escapes me why struct xc_sr_rec_x86_pv_p2m_frames has p2m_pfns[] with
-uint64_t element type but {start,end}_pfn both as uint32_t. Imo all
-three can sensibly only ever be of the same type.
+TBD: To address Andrew's objection, J=C3=BCrgen suggests to widen struct
+     xen_domctl_shadow_op_stats'es fields; yet within this same series
+     we had settled on there not being a need (17e91570c5a4).
 
---- a/tools/include/xen-tools/libs.h
-+++ b/tools/include/xen-tools/libs.h
-@@ -13,6 +13,10 @@
- #define ARRAY_SIZE(a) (sizeof(a) / sizeof(*a))
- #endif
- 
-+#ifndef sizeof_field
-+#define sizeof_field(type, field) sizeof(((type *)0)->field)
-+#endif
-+
- #ifndef MAX
- #define MAX(x, y) ((x) > (y) ? (x) : (y))
- #endif
---- a/tools/libs/guest/xg_core_x86.c
-+++ b/tools/libs/guest/xg_core_x86.c
-@@ -59,6 +59,43 @@ xc_core_arch_memory_map_get(xc_interface
-     if ( xc_domain_nr_gpfns(xch, info->domid, &p2m_size) < 0 )
-         return -1;
- 
-+    if ( !p2m_size )
-+    {
-+        ERROR("Cannot map a guest without P2M");
-+        errno = ENODATA;
-+        return -1;
-+    }
-+
-+    if ( !info->hvm )
-+    {
-+        unsigned int guest_width;
-+
-+        if ( xc_domain_get_guest_width(xch, info->domid, &guest_width) != 0 )
-+        {
-+            PERROR("Cannot get address size for PV guest");
-+            return -1;
-+        }
-+
-+        if ( p2m_size == (guest_width > 4 ? ~0UL : ~0U) )
-+        {
-+            ERROR("Cannot map a PV guest with invalid P2M");
-+            errno = ENODATA;
-+            return -1;
-+        }
-+    }
-+
-+#ifndef __i386__
-+    if ( (p2m_size - 1) >> 40 )
-+#else
-+    /* Very large domains (> 1TB) will exhaust virtual address space. */
-+    if ( (p2m_size - 1) >> 28 )
-+#endif
-+    {
-+        ERROR("Cannot map a guest with P2M size %#lx", p2m_size);
-+        errno = EOPNOTSUPP;
-+        return -1;
-+    }
-+
-     map = malloc(sizeof(*map));
-     if ( map == NULL )
+--- a/tools/libs/guest/xg_sr_restore.c
++++ b/tools/libs/guest/xg_sr_restore.c
+@@ -427,7 +427,6 @@ static int send_checkpoint_dirty_pfn_lis
+     unsigned long i;
+     uint64_t *pfns =3D NULL;
+     struct iovec *iov =3D NULL;
+-    xc_shadow_op_stats_t stats =3D { 0, ctx->restore.p2m_size };
+     struct xc_sr_record rec =3D {
+         .type =3D REC_TYPE_CHECKPOINT_DIRTY_PFN_LIST,
+     };
+@@ -437,7 +436,7 @@ static int send_checkpoint_dirty_pfn_lis
+     if ( xc_logdirty_control(
+              xch, ctx->domid, XEN_DOMCTL_SHADOW_OP_CLEAN,
+              HYPERCALL_BUFFER(dirty_bitmap), ctx->restore.p2m_size,
+-             0, &stats) !=3D ctx->restore.p2m_size )
++             0, NULL) !=3D ctx->restore.p2m_size )
      {
-@@ -333,10 +370,30 @@ xc_core_arch_map_p2m_rw(xc_interface *xc
- 
-     if ( dinfo->p2m_size < info->nr_pages  )
-     {
--        ERROR("p2m_size < nr_pages -1 (%lx < %lx", dinfo->p2m_size, info->nr_pages - 1);
-+        ERROR("p2m_size < nr_pages (%lx < %lx)", dinfo->p2m_size, info->nr_pages);
-         goto out;
-     }
- 
-+    if ( !info->hvm && dinfo->p2m_size == (dinfo->guest_width > 4 ? ~0UL : ~0U) )
-+    {
-+        ERROR("Cannot r/%c-map a PV guest with invalid P2M", rw ? 'w' : 'o');
-+        errno = ENODATA;
-+        return -1;
-+    }
-+
-+#ifndef __i386__
-+    if ( (dinfo->p2m_size - 1) >> 40 )
-+#else
-+    /* Very large domains (> 1TB) will exhaust virtual address space. */
-+    if ( (dinfo->p2m_size - 1) >> 28 )
-+#endif
-+    {
-+        ERROR("Cannot r/%c-map a guest with P2M size %#lx",
-+              rw ? 'w' : 'o', dinfo->p2m_size);
-+        errno = EOPNOTSUPP;
-+        return -1;
-+    }
-+
-     p2m_cr3 = GET_FIELD(live_shinfo, arch.p2m_cr3, dinfo->guest_width);
- 
-     p2m_frame_list = p2m_cr3 ? xc_core_arch_map_p2m_list_rw(xch, dinfo, dom, live_shinfo, p2m_cr3)
---- a/tools/libs/guest/xg_sr_restore_x86_pv.c
-+++ b/tools/libs/guest/xg_sr_restore_x86_pv.c
-@@ -709,10 +709,23 @@ static int handle_x86_pv_p2m_frames(stru
-         return -1;
-     }
- 
-+#ifdef __i386__
-+    /* Very large domains (> 1TB) will exhaust virtual address space. */
-+    if ( data->end_pfn >> 28 )
-+#elif 0 /* sizeof(data->end_pfn) > 4 */
-+    if ( data->end_pfn >> (ctx->x86.pv.width > 4 ? 40 : 32) )
-+#else
-+    if ( 0 )
-+#endif
-+    {
-+        ERROR("End pfn in stream (%#x) too large", data->end_pfn);
-+        return -1;
-+    }
-+
-     if ( data->start_pfn > data->end_pfn )
-     {
--        ERROR("End pfn in stream (%#x) exceeds Start (%#x)",
--              data->end_pfn, data->start_pfn);
-+        ERROR("Start pfn in stream (%#x) exceeds End (%#x)",
-+              data->start_pfn, data->end_pfn);
-         return -1;
-     }
- 
---- a/tools/libs/guest/xg_sr_save_x86_pv.c
-+++ b/tools/libs/guest/xg_sr_save_x86_pv.c
-@@ -464,11 +464,40 @@ static int map_p2m_list(struct xc_sr_con
-  */
- static int map_p2m(struct xc_sr_context *ctx)
+         PERROR("Failed to retrieve logdirty bitmap");
+         goto err;
+--- a/tools/libs/guest/xg_sr_save.c
++++ b/tools/libs/guest/xg_sr_save.c
+@@ -495,7 +495,9 @@ static int simple_precopy_policy(struct
+ static int send_memory_live(struct xc_sr_context *ctx)
  {
-+    xc_interface *xch = ctx->xch;
-     uint64_t p2m_cr3;
-+    uint64_t max_pfn = GET_FIELD(ctx->x86.pv.shinfo, arch.max_pfn,
-+                                 ctx->x86.pv.width);
-+
-+    if ( !max_pfn )
-+    {
-+        ERROR("Cannot save a guest without P2M");
-+        errno = ENODATA;
-+        return -1;
-+    }
-+
-+    if ( max_pfn-- == (ctx->x86.pv.width > 4 ? ~0UL : ~0U) )
-+    {
-+        ERROR("Cannot save a guest with invalid P2M");
-+        errno = ENODATA;
-+        return -1;
-+    }
-+
-+#ifndef __i386__
-+    if ( max_pfn >> (sizeof_field(struct xc_sr_rec_x86_pv_p2m_frames,
-+                                  end_pfn) > 4 ? 40 : 32) )
-+#else
-+    /* Very large domains (> 1TB) will exhaust virtual address space. */
-+    if ( max_pfn >> 28 )
-+#endif
-+    {
-+        ERROR("Cannot save a guest with maximum PFN %#"PRIx64, max_pfn);
-+        errno = EOPNOTSUPP;
-+        return -1;
-+    }
- 
-     ctx->x86.pv.p2m_generation = ~0ULL;
--    ctx->x86.pv.max_pfn = GET_FIELD(ctx->x86.pv.shinfo, arch.max_pfn,
--                                    ctx->x86.pv.width) - 1;
-+    ctx->x86.pv.max_pfn = max_pfn;
-     p2m_cr3 = GET_FIELD(ctx->x86.pv.shinfo, arch.p2m_cr3, ctx->x86.pv.width);
- 
-     return p2m_cr3 ? map_p2m_list(ctx, p2m_cr3) : map_p2m_tree(ctx);
+     xc_interface *xch =3D ctx->xch;
+-    xc_shadow_op_stats_t stats =3D { 0, ctx->save.p2m_size };
++    xc_shadow_op_stats_t stats =3D {
++        .dirty_count =3D MIN(ctx->save.p2m_size, (typeof(stats.dirty_count=
+))~0)
++    };
+     char *progress_str =3D NULL;
+     unsigned int x =3D 0;
+     int rc;
+@@ -511,7 +513,7 @@ static int send_memory_live(struct xc_sr
+         goto out;
+=20
+     ctx->save.stats =3D (struct precopy_stats){
+-        .dirty_count =3D ctx->save.p2m_size,
++        .dirty_count =3D -1,
+     };
+     policy_stats =3D &ctx->save.stats;
+=20
+@@ -633,7 +635,7 @@ static int colo_merge_secondary_dirty_bi
+ static int suspend_and_send_dirty(struct xc_sr_context *ctx)
+ {
+     xc_interface *xch =3D ctx->xch;
+-    xc_shadow_op_stats_t stats =3D { 0, ctx->save.p2m_size };
++    xc_shadow_op_stats_t stats;
+     char *progress_str =3D NULL;
+     int rc;
+     DECLARE_HYPERCALL_BUFFER_SHADOW(unsigned long, dirty_bitmap,
+@@ -694,7 +696,7 @@ static int suspend_and_send_dirty(struct
+ static int verify_frames(struct xc_sr_context *ctx)
+ {
+     xc_interface *xch =3D ctx->xch;
+-    xc_shadow_op_stats_t stats =3D { 0, ctx->save.p2m_size };
++    xc_shadow_op_stats_t stats;
+     int rc;
+     struct xc_sr_record rec =3D { .type =3D REC_TYPE_VERIFY };
+=20
 
 
