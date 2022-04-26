@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 281D050F71C
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Apr 2022 11:37:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.313612.531241 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BAF850F71E
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Apr 2022 11:39:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.313619.531251 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njHci-0003qL-NG; Tue, 26 Apr 2022 09:36:44 +0000
+	id 1njHei-0004V2-7u; Tue, 26 Apr 2022 09:38:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 313612.531241; Tue, 26 Apr 2022 09:36:44 +0000
+Received: by outflank-mailman (output) from mailman id 313619.531251; Tue, 26 Apr 2022 09:38:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njHci-0003o5-Ij; Tue, 26 Apr 2022 09:36:44 +0000
-Received: by outflank-mailman (input) for mailman id 313612;
- Tue, 26 Apr 2022 09:36:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1njHei-0004Sw-4b; Tue, 26 Apr 2022 09:38:48 +0000
+Received: by outflank-mailman (input) for mailman id 313619;
+ Tue, 26 Apr 2022 09:38:46 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YDip=VE=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1njHch-0003nj-Fc
- for xen-devel@lists.xenproject.org; Tue, 26 Apr 2022 09:36:43 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 612a2529-c544-11ec-a405-831a346695d4;
- Tue, 26 Apr 2022 11:36:42 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C2CDB1F388;
- Tue, 26 Apr 2022 09:36:41 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3F80D13223;
- Tue, 26 Apr 2022 09:36:41 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id mQLCDSm9Z2IYOwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 26 Apr 2022 09:36:41 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1njHeg-0004Sm-Is; Tue, 26 Apr 2022 09:38:46 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1njHeg-0000tP-HD; Tue, 26 Apr 2022 09:38:46 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1njHeg-0000pi-7x; Tue, 26 Apr 2022 09:38:46 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1njHeg-00010d-7R; Tue, 26 Apr 2022 09:38:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,198 +42,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 612a2529-c544-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1650965801; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EUQK0UrRdBk8Q2sGZ93kmWFjUqFp5PWkpPtI0Lm2aRY=;
-	b=gvWd353VWSRyhGWYpimQX7SXcbn7XsHgb6+XaL3pkb6m2iMa5Q/slz24DEoqEXuAmpQ2yL
-	itCgfBRlISGkb0HGvoUHJa+5xwQ4mVJpI1la2KXF1qGAVGJGpMZaLq/KOqDDXoFngrjLHC
-	BX6DvnP0D5iUv9fqmoCoExsoLxMcP1I=
-Message-ID: <cbd4cd8a-0271-5a53-4688-59d6cc6ee3db@suse.com>
-Date: Tue, 26 Apr 2022 11:36:40 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=UyH+YGqE+KszI4Jiylf5TMiYxGwNCjYrzHNezHtYYxI=; b=eYV71V3vjkp5F3jvj5Ln2Nl+WA
+	RLuIqPvHCKchdXBlbiGLaB4/6rg2cV2r5sHc5I0TpEPcBvnA3VkzZQ0zTayTfbRrwqBBzF+wd6K0h
+	5QHGDOMS27WTaTc1PoL+ebYNbw+Za6o/fUim0zNJXFcmz3dbwRQb+94bQpARjiUR5yjo=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-169730-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Content-Language: en-US
-To: Borislav Petkov <bp@alien8.de>
-Cc: Oleksandr <olekstysh@gmail.com>, Christoph Hellwig <hch@infradead.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- x86@kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski
- <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Julien Grall <julien@xen.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Tom Lendacky <thomas.lendacky@amd.com>
-References: <1650646263-22047-1-git-send-email-olekstysh@gmail.com>
- <1650646263-22047-4-git-send-email-olekstysh@gmail.com>
- <YmQsFb36UEH9BUnN@infradead.org>
- <6c5042fe-dafc-eb4f-c1fa-03b0faf252de@gmail.com>
- <abc5d23d-3d38-d198-4646-e886df2e83d4@suse.com>
- <YmZUpua3hkCPdbfx@infradead.org>
- <147f68f6-7d67-1884-bd14-5040639b3396@suse.com>
- <67c7460a-3001-35a6-8e5b-f367270b257a@gmail.com> <YmcR5bfaYh1z7VUq@zn.tnic>
- <7d89848a-3a1c-415d-957a-564ffdd3712d@suse.com> <YmewJaxWS1KGVkTf@zn.tnic>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH V1 3/6] xen/virtio: Add option to restrict memory access
- under Xen
-In-Reply-To: <YmewJaxWS1KGVkTf@zn.tnic>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------MEdTqrYFN27Y5WG0EBQDaTQK"
+Subject: [ovmf test] 169730: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=916f90baa547b3ebef8fa87c530e2f0c8e35e1e3
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 26 Apr 2022 09:38:46 +0000
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------MEdTqrYFN27Y5WG0EBQDaTQK
-Content-Type: multipart/mixed; boundary="------------0rFmA268sw5cKzSrXO9Tr00V";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Oleksandr <olekstysh@gmail.com>, Christoph Hellwig <hch@infradead.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- x86@kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski
- <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Julien Grall <julien@xen.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Tom Lendacky <thomas.lendacky@amd.com>
-Message-ID: <cbd4cd8a-0271-5a53-4688-59d6cc6ee3db@suse.com>
-Subject: Re: [PATCH V1 3/6] xen/virtio: Add option to restrict memory access
- under Xen
-References: <1650646263-22047-1-git-send-email-olekstysh@gmail.com>
- <1650646263-22047-4-git-send-email-olekstysh@gmail.com>
- <YmQsFb36UEH9BUnN@infradead.org>
- <6c5042fe-dafc-eb4f-c1fa-03b0faf252de@gmail.com>
- <abc5d23d-3d38-d198-4646-e886df2e83d4@suse.com>
- <YmZUpua3hkCPdbfx@infradead.org>
- <147f68f6-7d67-1884-bd14-5040639b3396@suse.com>
- <67c7460a-3001-35a6-8e5b-f367270b257a@gmail.com> <YmcR5bfaYh1z7VUq@zn.tnic>
- <7d89848a-3a1c-415d-957a-564ffdd3712d@suse.com> <YmewJaxWS1KGVkTf@zn.tnic>
-In-Reply-To: <YmewJaxWS1KGVkTf@zn.tnic>
+flight 169730 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169730/
 
---------------0rFmA268sw5cKzSrXO9Tr00V
-Content-Type: multipart/mixed; boundary="------------xZCHaritzSJ0S00pyzbCiDcg"
+Regressions :-(
 
---------------xZCHaritzSJ0S00pyzbCiDcg
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
-T24gMjYuMDQuMjIgMTA6NDEsIEJvcmlzbGF2IFBldGtvdiB3cm90ZToNCj4gT24gVHVlLCBB
-cHIgMjYsIDIwMjIgYXQgMDc6MTY6MTZBTSArMDIwMCwgSnVlcmdlbiBHcm9zcyB3cm90ZToN
-Cj4+IENocmlzdG9waCBzdWdnZXN0ZWQgKHJhdGhlciBmaXJtbHkpIHRoaXMgd291bGQgYmUg
-dGhlIHdheSB0byBnby4NCj4gDQo+IFllYWgsIEkgc2F3IGl0IGJ1dCBJIGRvbid0IHRoaW5r
-IGl0IGlzIHRoZSByaWdodCB3YXkgdG8gZ28uDQo+IA0KPiBXaGF0IGhhcHBlbnMgdGhlIG5l
-eHQgdGltZSBhIGd1ZXN0IG5lZWRzIHRvIHF1ZXJ5IHRoZSBwbGF0Zm9ybQ0KPiB1bmRlcm5l
-YXRoPyBNaXN1c2UgdGhlc2UgaW50ZXJmYWNlcyBhZ2Fpbj8NCj4gDQo+IEJlY2F1c2UgcGVv
-cGxlIHdpbGwgc2VlIHRoZSBYZW4gdXNlIGFuZCBzYXksIGhleSwgbG9vaywgSSB3aWxsIHVz
-ZSB0aGlzDQo+IGZvciBteSBmdW5reSBIViB0b28uDQo+IA0KPiBFdmVuIHdvcnNlOiB3aGF0
-IGhhcHBlbnMgaWYgWGVuIGRlY2lkZXMgdG8gaW1wbGVtZW50IFNFVi9URFg/IFRoZW4NCj4g
-eW91J3JlIGluIGZvciBhIHdvcmxkIG9mIGZ1bi4NCg0KQXMgdGhlIHN1Z2dlc3Rpb24gd2Fz
-IHRvIGFkZCBhbm90aGVyIGZsYWcgdGhpcyB3b3VsZG4ndCBiZSBhIHByb2JsZW0gSU1PLg0K
-DQpCdXQgSSBhZ3JlZSB0aGF0IGNvY28gbWlnaHQgYmUgbm90IHRoZSBiZXN0IHdheSB0byBn
-byAoYXMgSSB3cm90ZSBhbHJlYWR5KS4NCg0KPiANCj4gTm93LCBpZiB3ZSB3YW50IHRvICpl
-eHRlbmQqIHRoZSBpbnRlcmZhY2VzIHRvIGhhdmUgc29tZXRoaW5nIGFzIGdlbmVyaWMNCj4g
-YXMsIHNheSwgcGxhdGZvcm1faGFzKCkgYW5kIHRoYXQgc2hvdWxkIGJlIHRoZSB3YXkgZm9y
-IGdlbmVyaWMga2VybmVsDQo+IGNvZGUgcnVubmluZyBpbiB0aGUgZ3Vlc3QgdG8gcXVlcnkg
-dGhlIHBsYXRmb3JtIGNhcGFiaWxpdGllcywgdGhlbiBzdXJlLA0KPiBieSBhbGwgbWVhbnMu
-DQoNCkkgYWdyZWUuDQoNCj4gDQo+PiBUaGlzIGlzIG5lZWRlZCBvbiBndWVzdCBzaWRlIGF0
-IGEgcmF0aGVyIGh5cGVydmlzb3IgaW5kZXBlbmRlbnQgcGxhY2UuDQo+Pg0KPj4gU28gYSBj
-YXBhYmlsaXR5IG9mIHNvbWUgc29ydCBzZWVtcyBhcHByb3ByaWF0ZS4NCj4+DQo+PiBBbm90
-aGVyIHN1Z2dlc3Rpb24gb2YgbWluZSB3YXMgdG8gaGF2ZSBhIGNhbGxiYWNrIChvciBmbGFn
-KSBpbg0KPj4gc3RydWN0IHg4Nl9oeXBlcl9ydW50aW1lIGZvciB0aGF0IHB1cnBvc2UuDQo+
-IA0KPiBUaGlzIGJlY29tZXMgYW4gaXNzdWUgaWYgdGhlIEhWIGlzIG5vdCB4ODYgLSB0aGVu
-IHlvdSBuZWVkIGEgZGlmZmVyZW50DQo+IG1ldGhvZCBvZiBxdWVyeWluZyBpdCwgd2hpY2gg
-dGhlbiB1bmRlcm5lYXRoIHdpbGwgY2FsbCB0aGUgYXJjaC1zcGVjaWZpYw0KPiBpbnRlcmZh
-Y2UuDQo+IA0KPiBJIGRvbid0IGtub3cgaG93IG11Y2ggb2YgcXVlcnlpbmcgZ3Vlc3RzIG5l
-ZWQgdG8gZG8gYW5kIGhvdyB0aGV5J3ZlIGJlZW4NCj4gZG9pbmcgdGhhdCBzbyBmYXIuIERl
-cGVuZGluZyBvbiB0aGUgcmVxdWlyZW1lbnRzLCB3ZSBwcm9iYWJseSBzaG91bGQNCj4gdGhp
-bmsgYWJvdXQgYSBjbGVhbiBkZXNpZ24gZnJvbSB0aGUgZ2V0LWdvIGluc3RlYWQgb2YgaG9t
-ZWdyb3duIHRoaW5ncy4NCg0KWWVzLg0KDQpwbGF0Zm9ybV9oYXMoKSBkb2Vzbid0IHNlZW0g
-dG9vIGJhZCBJTU8uDQoNCkkgd2lsbCB3cml0ZSBhIHBhdGNoIGZvciBzdGFydGluZyB0aGUg
-ZGlzY3Vzc2lvbi4NCg0KDQpKdWVyZ2VuDQo=
---------------xZCHaritzSJ0S00pyzbCiDcg
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+version targeted for testing:
+ ovmf                 916f90baa547b3ebef8fa87c530e2f0c8e35e1e3
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Last test of basis   168254  2022-02-28 10:41:46 Z   56 days
+Failing since        168258  2022-03-01 01:55:31 Z   56 days  636 attempts
+Testing same since   169718  2022-04-25 21:41:52 Z    0 days    8 attempts
 
---------------xZCHaritzSJ0S00pyzbCiDcg--
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
 
---------------0rFmA268sw5cKzSrXO9Tr00V--
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
---------------MEdTqrYFN27Y5WG0EBQDaTQK
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
 
------BEGIN PGP SIGNATURE-----
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmJnvSgFAwAAAAAACgkQsN6d1ii/Ey/H
-Awf+OWyEuHlu+jo4GkGrpUTd1hChqcn6K5a+V6S7bfOqp0oHIurgszQN9Siz56jgGXrIaHEGsPIh
-sc2hEa46FXLZsBUOHbaxma8m0C+nGLw3WPMa2JJBumk2kI6mP2hkZlpgmdVH1Md8+W4J4gA4eV80
-lAp/xRqVyuppUbr+BEgxTVlPw0utV/wxP9ZUnvSMFlWEBI83Y3TFZBGyfo0ADIuFYPRkCCs7qRhC
-EIHe5sVASG18BlfRy+qmdX9rainyhwK9CESLO3dpFOocsa/gD8VHknmxOssKBpt4b7P8SDQateeL
-AmZK/5+s+hS4VLvtwWQysUA8Wgf4tksIB83pXwzvJQ==
-=UGmD
------END PGP SIGNATURE-----
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
---------------MEdTqrYFN27Y5WG0EBQDaTQK--
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 5828 lines long.)
 
