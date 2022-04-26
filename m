@@ -2,36 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 118D350FD3C
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Apr 2022 14:39:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.313870.531648 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65DD150FD61
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Apr 2022 14:42:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.313880.531658 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njKT5-0000L7-QQ; Tue, 26 Apr 2022 12:38:59 +0000
+	id 1njKWL-0001jm-AA; Tue, 26 Apr 2022 12:42:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 313870.531648; Tue, 26 Apr 2022 12:38:59 +0000
+Received: by outflank-mailman (output) from mailman id 313880.531658; Tue, 26 Apr 2022 12:42:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njKT5-0000IB-MG; Tue, 26 Apr 2022 12:38:59 +0000
-Received: by outflank-mailman (input) for mailman id 313870;
- Tue, 26 Apr 2022 12:38:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1njKWL-0001gg-6m; Tue, 26 Apr 2022 12:42:21 +0000
+Received: by outflank-mailman (input) for mailman id 313880;
+ Tue, 26 Apr 2022 12:42:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vuZH=VE=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
- id 1njKT4-0000I5-EQ
- for xen-devel@lists.xenproject.org; Tue, 26 Apr 2022 12:38:58 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id d6d4e53e-c55d-11ec-8fc2-03012f2f19d4;
- Tue, 26 Apr 2022 14:38:57 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7939823A;
- Tue, 26 Apr 2022 05:38:56 -0700 (PDT)
-Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
- [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 282903F774;
- Tue, 26 Apr 2022 05:38:55 -0700 (PDT)
+ <SRS0=kigu=VE=arm.com=Rahul.Singh@srs-se1.protection.inumbo.net>)
+ id 1njKWJ-0001ga-Qy
+ for xen-devel@lists.xenproject.org; Tue, 26 Apr 2022 12:42:19 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04on062a.outbound.protection.outlook.com
+ [2a01:111:f400:fe0e::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4e4bc882-c55e-11ec-a405-831a346695d4;
+ Tue, 26 Apr 2022 14:42:17 +0200 (CEST)
+Received: from AM6PR02CA0025.eurprd02.prod.outlook.com (2603:10a6:20b:6e::38)
+ by AM0PR08MB3793.eurprd08.prod.outlook.com (2603:10a6:208:fc::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.13; Tue, 26 Apr
+ 2022 12:42:15 +0000
+Received: from VE1EUR03FT024.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:6e:cafe::fd) by AM6PR02CA0025.outlook.office365.com
+ (2603:10a6:20b:6e::38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.21 via Frontend
+ Transport; Tue, 26 Apr 2022 12:42:15 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT024.mail.protection.outlook.com (10.152.18.87) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5186.14 via Frontend Transport; Tue, 26 Apr 2022 12:42:14 +0000
+Received: ("Tessian outbound ac9bb5dd84f6:v118");
+ Tue, 26 Apr 2022 12:42:14 +0000
+Received: from e55cec08fd35.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 3BBE8150-544A-4F7F-8436-8981F38CC46D.1; 
+ Tue, 26 Apr 2022 12:42:07 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id e55cec08fd35.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 26 Apr 2022 12:42:07 +0000
+Received: from AM5PR0801MB2020.eurprd08.prod.outlook.com
+ (2603:10a6:203:4c::14) by DB8PR08MB3930.eurprd08.prod.outlook.com
+ (2603:10a6:10:a7::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14; Tue, 26 Apr
+ 2022 12:42:06 +0000
+Received: from AM5PR0801MB2020.eurprd08.prod.outlook.com
+ ([fe80::9464:cc9:b4b4:bf8]) by AM5PR0801MB2020.eurprd08.prod.outlook.com
+ ([fe80::9464:cc9:b4b4:bf8%4]) with mapi id 15.20.5186.021; Tue, 26 Apr 2022
+ 12:42:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,371 +72,472 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6d4e53e-c55d-11ec-8fc2-03012f2f19d4
-From: Bertrand Marquis <bertrand.marquis@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Michal Orzel <michal.orzel@arm.com>
-Subject: [PATCH v3] xen/build: Add cppcheck and cppcheck-html make rules
-Date: Tue, 26 Apr 2022 13:38:41 +0100
-Message-Id: <8a8ffce11591efb284c93214b77534fa4e4134b2.1650976647.git.bertrand.marquis@arm.com>
-X-Mailer: git-send-email 2.25.1
+X-Inumbo-ID: 4e4bc882-c55e-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MyKzq2UAvrhg15ra8M0T/BGn8DgqfBBRNVgrD6r3Vso=;
+ b=0rpaxsfxgs2ttgQzPHGK1WS17SrlSoR2M/9ocvNArEVePCd7rTB668o0WxtwiUTnlybs3GsJQetKGk8HbzRHZHpqLBefOVlQwfJhp2uQgW6TXXL+3v9fJPG7QcbIUyaGTlKldTO15QYTIxdTw2bEbo0i4/duIEdbp1nNEbFn+rc=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 63f394be43e7bd14
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ixc8sclWishHAAEIioee+9Q3p1q9SiWXyv63Yg8xtsioAc0y37BBhoZu66lgyPOkXePWrkT/KI2hPdZLCJzFqazT+4d8SsMyCZHuCnoWRehyUMClxdLFq1Ip24p46yp414ZxJbVnVXcxNUXyRLDFRCEVvcwsLvZ6H8QUoGxvwptX1+Alf9ZfuON1bO2ltJmobsJSIPUy3TF9xKc27FAXFVy9ZUgXhWZLpKOmJ6rlHTN77ATq5P3nQEMYFHRe/IFq2GizyPgErPS38V3MlDUtxfXp7aEkeOlPUb8P7Bh7IZlIicGYGi9GcZCm6iouCUy5b7kOacXMxdlSJC2XFo/Q1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MyKzq2UAvrhg15ra8M0T/BGn8DgqfBBRNVgrD6r3Vso=;
+ b=eauBuKNn/RPhcdm7M7vxoT1XbajmPl2oGyxPwdwt3ENr3srQbK2GpMAsxO9HOynEgv+hgi1JYaBKOad1w+xn2BCHtox7bBmk6mMLDQpsE3ru50WdmhsXHkxmSaHRMAC9h1DjsOvgzYWPc816y4lRJwz3JRMTTuB5ecVn40FMeuSrmvAptT+pdFiyol2hcDBNIDsEcp9EoAs1IQgwYrNY0Li8ouwcEctdiwRcTHcPEpbPopLPLllRx3UDk40yse9rOfeH7hq3lCzEdhHxCIIqbbL/WjLoVhxCnC/nwqHpfb3jOHjj6ZL4XvOEO9Eg9GeXdn+UGaCywcr2UC90tI/c0A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MyKzq2UAvrhg15ra8M0T/BGn8DgqfBBRNVgrD6r3Vso=;
+ b=0rpaxsfxgs2ttgQzPHGK1WS17SrlSoR2M/9ocvNArEVePCd7rTB668o0WxtwiUTnlybs3GsJQetKGk8HbzRHZHpqLBefOVlQwfJhp2uQgW6TXXL+3v9fJPG7QcbIUyaGTlKldTO15QYTIxdTw2bEbo0i4/duIEdbp1nNEbFn+rc=
+From: Rahul Singh <Rahul.Singh@arm.com>
+To: Christoph Hellwig <hch@lst.de>
+CC: Stefano Stabellini <sstabellini@kernel.org>, "jgross@suse.com"
+	<jgross@suse.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "iommu@lists.linux-foundation.org"
+	<iommu@lists.linux-foundation.org>
+Subject: Re: [PATCH] swiotlb-xen: fix DMA_ATTR_NO_KERNEL_MAPPING on arm
+Thread-Topic: [PATCH] swiotlb-xen: fix DMA_ATTR_NO_KERNEL_MAPPING on arm
+Thread-Index: AQHYVzWiSClsigwCc0OWmoGO41dp7a0CJ6aA
+Date: Tue, 26 Apr 2022 12:42:06 +0000
+Message-ID: <7124886B-04C8-483E-8062-870D94157DBB@arm.com>
+References: <20220423171422.1831676-1-hch@lst.de>
+In-Reply-To: <20220423171422.1831676-1-hch@lst.de>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-MS-Office365-Filtering-Correlation-Id: cda83697-9ce4-486a-5efc-08da278230fe
+x-ms-traffictypediagnostic:
+	DB8PR08MB3930:EE_|VE1EUR03FT024:EE_|AM0PR08MB3793:EE_
+X-Microsoft-Antispam-PRVS:
+	<AM0PR08MB379304D46867CCBF6D0D024EFCFB9@AM0PR08MB3793.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ ofLPT9J5cyDLt1cL18Ae36BiKjcBJ2ww2cxxovInqRWl7I+JanViCGOWzxjQcXvx7yJwyPMVZSQUe18RZ7mdsD6nBoUlI/Qcr/uG1AWLuhmjuJvy6J8x4NwnMFsSdhdW3gtpQw3ayDevrI/+dqIQT4cFYdcrH2u9pHzg3SEtP1idBv3equJTF1xIVFcuAplIjlsKflaQrkMGiKntpal9d630EZxkbbmxQVRNRqqFJ+zCbmDIP4vjqjOAjIIJ2l2dKZt/MtQl4ZF1Sr2ONqCk+axme82jiI6yuGUnj4g9hbH9ypu8OX7YSXfM6ttpxe4tY0U7uEhbseuHZFBYDE+IEWN6vdzCUryNThypbizhenNVrnZZxQUWX5qy0XH4O7EU1apB8UhXSBblYpQ4DtQ3zqdUIEafl1F2HHF7fBwbb1/vW2L8G69jK3ozWJtgNPIWghSzI9iFj7CSfNK2fJLqd36fXcJZJyVE4UOCRhRFJmGo4WkqoTR8l6amVKOPGQNCxc9MX+hJbuA4tC8JRKfoAysVQlNAJbacs7bZkS4gfHuYK4DmiUh7xLY2zwL3UPpN+v2ZslwbJ9yRiKLcR/PBjj/AvGVQDDZL5GNGg68OsVb7UReIJH4VdkZ3QXd1pT47yWpXYD6C2wGkmVqHrEjQ7bCls74acDdEDBNXxP2YHpzbp7bMszW+S9JXhgIeTG0MShvmUC2QXhO4CnKrVBmkwqBK436iEM1bN6d2pr56UCcJnBJDFqleBwjHkoOFzZFw
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM5PR0801MB2020.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(76116006)(66946007)(64756008)(8936002)(8676002)(91956017)(66476007)(66446008)(66556008)(4326008)(33656002)(508600001)(83380400001)(6486002)(6506007)(122000001)(53546011)(86362001)(2906002)(6512007)(2616005)(5660300002)(26005)(38100700002)(54906003)(30864003)(71200400001)(186003)(6916009)(36756003)(316002)(38070700005)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <1EF09590D70D2343B591E27DD3C8395A@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR08MB3930
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ VE1EUR03FT024.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	2c177aac-e643-4337-9833-08da27822bd2
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	yt4Tr2YX8iMPYiaG9ataKEefCXxKd1pAMWmFuQZLHABNrWChWU+bDdlc7ScP5DPaZHEoLWSO6i6CucrjfmVclTTfxBevk2GSlZ01uyKaWHG1dgUwll6x6OiPhBl/VI1h7uameeNyHvxyNhZRpZ3mpN8d1bvLkIlQHmCl8n6rZ/0PasrabwCQNhyjXLb3DX1Z9nBYme4oXgsohaQ8Ryr8YyzhgvbVcKzTyrfcYYr2ms1MFgPa2po5GpBLzGalJwIiNpCWhJhp3GCtgjuwL1q9gqfrYj2OIr8mFjO563rmhouN+1feX6GhttyKfzH53cZb0BihZ3aqRzL+AXVk2xI8f3ZhJ720/TUAwpkTwaiq20WyvBAl2bLG4P3Wjz3Uufesz76btFIPADxGV33OslJRCJyenoRBifxY4c9eynQAf1Jljq3whLi9IC5oTkVrBubXO8qmjGVc7U+cpIE8m7PV3pQwyMgGiL+TyDO38CqI3Sa42FiSQ2Rc4mAurPCW9XetabsE5hRaPychm3zUocsnsDTkj0tKrRA6T4DJlb0zS+MMP/uxHDE3hiL/v3LorNOY+evaLDhnRipBKAGYw+3mHfpfKVsCjqu5+5wBIWIOB/eAm3SVuuPtTPegsrtryc5VtHCRCTjdLSWblB8g3A+YK42SRgeNZgJL2DiNhIkfycih7DKqy2WAEtEgITF7jiid
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(81166007)(82310400005)(2906002)(70206006)(70586007)(508600001)(356005)(30864003)(316002)(40460700003)(8676002)(4326008)(47076005)(6862004)(5660300002)(8936002)(6506007)(86362001)(53546011)(36860700001)(6486002)(107886003)(33656002)(6512007)(186003)(26005)(36756003)(83380400001)(336012)(2616005)(54906003);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2022 12:42:14.6148
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cda83697-9ce4-486a-5efc-08da278230fe
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	VE1EUR03FT024.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB3793
 
-cppcheck can be used to check Xen code quality.
+Hi Christoph,
 
-To create a report do "make cppcheck" on a built tree adding any options
-you added during the process you used to build xen (like CROSS_COMPILE
-or XEN_TARGET_ARCH). This will generate an xml report xen-cppcheck.xml.
+> On 23 Apr 2022, at 6:14 pm, Christoph Hellwig <hch@lst.de> wrote:
+>=20
+> swiotlb-xen uses very different ways to allocate coherent memory on x86
+> vs arm.  On the former it allocates memory from the page allocator, while
+> on the later it reuses the dma-direct allocator the handles the
+> complexities of non-coherent DMA on arm platforms.
+>=20
+> Unfortunately the complexities of trying to deal with the two cases in
+> the swiotlb-xen.c code lead to a bug in the handling of
+> DMA_ATTR_NO_KERNEL_MAPPING on arm.  With the DMA_ATTR_NO_KERNEL_MAPPING
+> flag the coherent memory allocator does not actually allocate coherent
+> memory, but just a DMA handle for some memory that is DMA addressable
+> by the device, but which does not have to have a kernel mapping.  Thus
+> dereferencing the return value will lead to kernel crashed and memory
+> corruption.
+>=20
+> Fix this by using the dma-direct allocator directly for arm, which works
+> perfectly fine because on arm swiotlb-xen is only used when the domain is
+> 1:1 mapped, and then simplifying the remaining code to only cater for the
+> x86 case with DMA coherent device.
+>=20
+> Reported-by: Rahul Singh <Rahul.Singh@arm.com>
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
-To create a html report do "make cppcheck-html" in the same way and a
-full report to be seen in a browser will be generated in
-cppcheck-htmlreport/index.html.
+Reviewed-by: Rahul Singh <rahul.singh@arm.com>
+Tested-by: Rahul Singh <rahul.singh@arm.com>
 
-For better results it is recommended to build your own cppcheck from the
-latest sources that you can find at [1].
-Development and result analysis has been done with cppcheck 2.7.
-
-The Makefile rule is searching for all C files which have been compiled
-(ie which have a generated .o file) and is running cppcheck on all of
-them using the current configuration of xen so only the code actually
-compiled is checked.
-
-A new tool is introduced to merge all cppcheck reports into one global
-report including all findings and removing duplicates.
-
-Some extra variables can be used to customize the report:
-- CPPCHECK can be used to give the full path to the cppcheck binary to
-use (default is to use the one from the standard path).
-- CPPCHECK_HTMLREPORT can be used to give the full path to
-cppcheck-htmlreport (default is to use the one from the standard path).
-
-This has been tested on several arm configurations (x86 should work but
-has not been tested).
-
-[1] https://cppcheck.sourceforge.io/
-
-Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-Signed-off-by: Michal Orzel <michal.orzel@arm.com>
----
-Changes in v3:
-- add more checks in merge script and catch all possible exception from
-the xml parser (suggested by Stefano)
-Changes in v2:
-- catch parsing errors during merge and tell the user to update cppcheck
-- fix alignments in Makefile
-- use srctree and objtree instead of BASEDIR
-- remove SCTLR invalid change
-- add a check of cppcheck version and mandate version 2.7 or greater
-- rework a bit the merge script to make it faster and display progress
----
- .gitignore                           |  3 +
- xen/Makefile                         | 84 ++++++++++++++++++++++++++-
- xen/arch/arm/include/asm/processor.h |  2 +
- xen/include/xen/config.h             |  4 ++
- xen/include/xen/kconfig.h            |  5 ++
- xen/tools/merge_cppcheck_reports.py  | 86 ++++++++++++++++++++++++++++
- 6 files changed, 182 insertions(+), 2 deletions(-)
- create mode 100755 xen/tools/merge_cppcheck_reports.py
-
-diff --git a/.gitignore b/.gitignore
-index c6d2c4b4f1..18ef56a780 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -7,6 +7,7 @@
- *.o
- *.d
- *.d2
-+*.c.cppcheck
- *.opic
- *.a
- *.so
-@@ -296,6 +297,7 @@ xen/.banner
- xen/.config
- xen/.config.old
- xen/.xen.elf32
-+xen/xen-cppcheck.xml
- xen/System.map
- xen/arch/x86/boot/mkelf32
- xen/arch/x86/boot/cmdline.S
-@@ -316,6 +318,7 @@ xen/arch/*/efi/runtime.c
- xen/arch/*/include/asm/asm-offsets.h
- xen/common/config_data.S
- xen/common/config.gz
-+xen/cppcheck-htmlreport
- xen/include/headers*.chk
- xen/include/compat/*
- xen/include/config/
-diff --git a/xen/Makefile b/xen/Makefile
-index ec34524ed2..255360440e 100644
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -449,7 +449,7 @@ endif # need-config
- 
- __all: build
- 
--main-targets := build install uninstall clean distclean MAP
-+main-targets := build install uninstall clean distclean MAP cppcheck cppcheck-html
- .PHONY: $(main-targets)
- ifneq ($(XEN_TARGET_ARCH),x86_32)
- $(main-targets): %: _% ;
-@@ -537,15 +537,17 @@ _clean:
- 	$(Q)$(MAKE) $(clean)=tools/kconfig
- 	find . \( -name "*.o" -o -name ".*.d" -o -name ".*.d2" \
- 		-o -name ".*.o.tmp" -o -name "*~" -o -name "core" \
--		-o -name '*.lex.c' -o -name '*.tab.[ch]' \
-+		-o -name '*.lex.c' -o -name '*.tab.[ch]' -o -name '*.c.cppcheck' \
- 		-o -name "*.gcno" -o -name ".*.cmd" -o -name "lib.a" \) -exec rm -f {} \;
- 	rm -f include/asm $(TARGET) $(TARGET).gz $(TARGET).efi $(TARGET).efi.map $(TARGET)-syms $(TARGET)-syms.map
- 	rm -f asm-offsets.s arch/*/include/asm/asm-offsets.h
- 	rm -f .banner .allconfig.tmp include/xen/compile.h
-+	rm -f xen-cppcheck.xml
- 
- .PHONY: _distclean
- _distclean: clean
- 	rm -f tags TAGS cscope.files cscope.in.out cscope.out cscope.po.out GTAGS GPATH GRTAGS GSYMS .config source
-+	rm -rf $(CPPCHECK_HTMLREPORT_OUTDIR)
- 
- $(TARGET).gz: $(TARGET)
- 	gzip -n -f -9 < $< > $@.new
-@@ -619,6 +621,84 @@ cloc:
- 	    done; \
- 	done | cloc --list-file=-
- 
-+# What cppcheck command to use.
-+# To get proper results, it is recommended to build cppcheck manually from the
-+# latest source and use CPPCHECK to give the full path to the built version.
-+CPPCHECK ?= cppcheck
-+
-+# What cppcheck-htmlreport to use.
-+# If you give the full path to a self compiled cppcheck, this should be set
-+# to the full path to cppcheck-html in the htmlreport directory of cppcheck.
-+# On recent distribution, this is available in the standard path.
-+CPPCHECK_HTMLREPORT ?= cppcheck-htmlreport
-+
-+# By default we generate the report in cppcheck-htmlreport directory in the
-+# build directory. This can be changed by giving a directory in this variable.
-+CPPCHECK_HTMLREPORT_OUTDIR ?= cppcheck-htmlreport
-+
-+# Compile flags to pass to cppcheck:
-+# - include directories and defines Xen Makefile is passing (from CFLAGS)
-+# - include config.h as this is passed directly to the compiler.
-+# - define CPPCHECK as we use to disable or enable some specific part of the
-+#   code to solve some cppcheck issues.
-+# - explicitely enable some cppcheck checks as we do not want to use "all"
-+#   which includes unusedFunction which gives wrong positives as we check file
-+#   per file.
-+#
-+# Compiler defines are in compiler-def.h which is included in config.h
-+#
-+CPPCHECKFLAGS := -DCPPCHECK --max-ctu-depth=10 \
-+                 --enable=style,information,missingInclude \
-+                 --include=$(srctree)/include/xen/config.h \
-+                 -I $(srctree)/xsm/flask/include \
-+                 -I $(srctree)/include/xen/libfdt \
-+                 $(filter -D% -I%,$(CFLAGS))
-+
-+# We need to find all C files (as we are not checking assembly files) so
-+# we find all generated .o files which have a .c corresponding file.
-+CPPCHECKFILES := $(wildcard $(patsubst $(objtree)/%.o,$(srctree)/%.c, \
-+                 $(filter-out $(objtree)/tools/%, \
-+                 $(shell find $(objtree) -name "*.o"))))
-+
-+quiet_cmd_cppcheck_xml = CPPCHECK $(patsubst $(srctree)/%,%,$<)
-+cmd_cppcheck_xml = $(CPPCHECK) -v -q --xml $(CPPCHECKFLAGS) \
-+                   --output-file=$@ $<
-+
-+quiet_cmd_merge_cppcheck_reports = CPPCHECK-MERGE $@
-+cmd_merge_cppcheck_reports = $(srctree)/tools/merge_cppcheck_reports.py $^ $@
-+
-+quiet_cmd_cppcheck_html = CPPCHECK-HTML $<
-+cmd_cppcheck_html = $(CPPCHECK_HTMLREPORT) --file=$< --source-dir=$(srctree) \
-+                    --report-dir=$(CPPCHECK_HTMLREPORT_OUTDIR) --title=Xen
-+
-+PHONY += _cppcheck _cppcheck-html cppcheck-version
-+
-+_cppcheck-html: xen-cppcheck.xml
-+	$(call if_changed,cppcheck_html)
-+
-+_cppcheck: xen-cppcheck.xml
-+
-+xen-cppcheck.xml: $(patsubst $(srctree)/%.c,$(objtree)/%.c.cppcheck,$(CPPCHECKFILES))
-+ifeq ($(CPPCHECKFILES),)
-+	$(error Please build Xen before running cppcheck)
-+endif
-+	$(call if_changed,merge_cppcheck_reports)
-+
-+$(objtree)/%.c.cppcheck: $(srctree)/%.c $(objtree)/include/generated/autoconf.h $(objtree)/include/generated/compiler-def.h | cppcheck-version
-+	$(call if_changed,cppcheck_xml)
-+
-+cppcheck-version:
-+ifeq ($(shell which $(CPPCHECK)),)
-+	$(error Cannot find cppcheck executable: $(CPPCHECK))
-+endif
-+ifeq ($(shell $(CPPCHECK) --version | awk '{print ($$2 < 2.7)}'),1)
-+	$(error Please upgrade your cppcheck to version 2.7 or greater)
-+endif
-+
-+# Put this in generated headers this way it is cleaned by include/Makefile
-+$(objtree)/include/generated/compiler-def.h:
-+	$(Q)$(CC) -dM -E -o $@ - < /dev/null
-+
- endif #config-build
- endif # need-sub-make
- 
-diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
-index 852b5f3c24..ef37cfa16f 100644
---- a/xen/arch/arm/include/asm/processor.h
-+++ b/xen/arch/arm/include/asm/processor.h
-@@ -219,9 +219,11 @@
-                          SCTLR_Axx_ELx_A    | SCTLR_Axx_ELx_C   |\
-                          SCTLR_Axx_ELx_WXN  | SCTLR_Axx_ELx_EE)
- 
-+#ifndef CPPCHECK
- #if (SCTLR_EL2_SET ^ SCTLR_EL2_CLEAR) != 0xffffffffffffffffUL
- #error "Inconsistent SCTLR_EL2 set/clear bits"
- #endif
-+#endif
- 
- #endif
- 
-diff --git a/xen/include/xen/config.h b/xen/include/xen/config.h
-index 85c6f59be9..d888b2314d 100644
---- a/xen/include/xen/config.h
-+++ b/xen/include/xen/config.h
-@@ -7,6 +7,10 @@
- #ifndef __XEN_CONFIG_H__
- #define __XEN_CONFIG_H__
- 
-+#ifdef CPPCHECK
-+#include <generated/compiler-def.h>
-+#endif
-+
- #include <xen/kconfig.h>
- 
- #ifndef __ASSEMBLY__
-diff --git a/xen/include/xen/kconfig.h b/xen/include/xen/kconfig.h
-index 4d58c5bb3c..a717b0819c 100644
---- a/xen/include/xen/kconfig.h
-+++ b/xen/include/xen/kconfig.h
-@@ -8,6 +8,10 @@
-  * these only work with boolean option.
-  */
- 
-+/* cppcheck is failing to parse the macro so use a dummy one */
-+#ifdef CPPCHECK
-+#define IS_ENABLED(option) option
-+#else
- /*
-  * Getting something that works in C and CPP for an arg that may or may
-  * not be defined is tricky.  Here, if we have "#define CONFIG_BOOGER 1"
-@@ -27,5 +31,6 @@
-  * otherwise.
-  */
- #define IS_ENABLED(option) config_enabled(option)
-+#endif
- 
- #endif /* __XEN_KCONFIG_H */
-diff --git a/xen/tools/merge_cppcheck_reports.py b/xen/tools/merge_cppcheck_reports.py
-new file mode 100755
-index 0000000000..1c1b63ba56
---- /dev/null
-+++ b/xen/tools/merge_cppcheck_reports.py
-@@ -0,0 +1,86 @@
-+#!/usr/bin/env python
-+
-+"""
-+This script acts as a tool to merge XML files created by cppcheck.
-+Usage:
-+    merge_cppcheck_reports.py [FILES] [OUTPUT]
-+
-+    FILES  - list of XML files with extension .cppcheck
-+    OUTPUT - file to store results (with .xml extension).
-+             If not specified, the script will print results to stdout.
-+"""
-+
-+import sys
-+from xml.etree import ElementTree
-+
-+def elements_equal(el1, el2):
-+    if type(el1) != type(el2): return False
-+
-+    if el1.find('location') is None: return False
-+    if el2.find('location') is None: return False
-+
-+    el1_location = str(el1.find('location').attrib)
-+    el2_location = str(el2.find('location').attrib)
-+
-+    if el1_location != el2_location: return False
-+
-+    return True
-+
-+def contain_element(new, lst):
-+    for elem in lst:
-+        if elements_equal(new, elem):
-+            return True
-+    return False
-+
-+def merge(files):
-+    try:
-+        result_xml_root = ElementTree.parse(files[0]).getroot()
-+    except:
-+        print("Xml parsing error in %s\n" % (files[0]))
-+        print("Please upgrade your cppcheck to version 2.7 or greater")
-+        sys.exit(1)
-+    insert_point = result_xml_root.findall("errors")[0]
-+    curr = 1
-+    total = len(files)
-+    numelem = len(insert_point)
-+    for xml_file in files[1:]:
-+        try:
-+            xml_root = ElementTree.parse(xml_file).getroot()
-+        except:
-+            print("Xml parsing error in %s\n" % (xml_file))
-+            print("Please upgrade your cppcheck to version 2.7 or greater")
-+            sys.exit(1)
-+        curr_elem_list = list(insert_point)
-+        new_elem_list = list(xml_root.findall("errors")[0])
-+        for xml_error_elem in new_elem_list:
-+            if not contain_element(xml_error_elem, curr_elem_list):
-+                insert_point.insert(1,xml_error_elem)
-+                numelem = numelem + 1
-+        curr = curr + 1
-+        sys.stdout.write('\r')
-+        sys.stdout.write(" %d / %d" % (curr,total))
-+        sys.stdout.flush()
-+
-+    sys.stdout.write('\r\n')
-+    print("Done: %d elements" % (numelem))
-+    return result_xml_root
-+
-+def run():
-+    files = []
-+    output = None
-+    for i in sys.argv[1:]:
-+        output = i if '.xml' in i else None
-+        files.append(i) if '.cppcheck' in i else None
-+
-+    result = merge(files)
-+
-+    if result is None:
-+        return
-+
-+    if output is not None:
-+        ElementTree.ElementTree(result).write(output)
-+    else:
-+        print(ElementTree.tostring(result).decode('utf-8'))
-+
-+if __name__ == '__main__':
-+    run()
--- 
-2.25.1
+Regards,
+Rahul
+> ---
+> arch/arm/include/asm/xen/page-coherent.h   |   2 -
+> arch/arm/xen/mm.c                          |  17 ----
+> arch/arm64/include/asm/xen/page-coherent.h |   2 -
+> arch/x86/include/asm/xen/page-coherent.h   |  24 -----
+> arch/x86/include/asm/xen/swiotlb-xen.h     |   5 +
+> drivers/xen/swiotlb-xen.c                  | 106 ++++++++-------------
+> include/xen/arm/page-coherent.h            |  20 ----
+> include/xen/xen-ops.h                      |   7 --
+> 8 files changed, 45 insertions(+), 138 deletions(-)
+> delete mode 100644 arch/arm/include/asm/xen/page-coherent.h
+> delete mode 100644 arch/arm64/include/asm/xen/page-coherent.h
+> delete mode 100644 arch/x86/include/asm/xen/page-coherent.h
+> delete mode 100644 include/xen/arm/page-coherent.h
+>=20
+> diff --git a/arch/arm/include/asm/xen/page-coherent.h b/arch/arm/include/=
+asm/xen/page-coherent.h
+> deleted file mode 100644
+> index 27e984977402b..0000000000000
+> --- a/arch/arm/include/asm/xen/page-coherent.h
+> +++ /dev/null
+> @@ -1,2 +0,0 @@
+> -/* SPDX-License-Identifier: GPL-2.0 */
+> -#include <xen/arm/page-coherent.h>
+> diff --git a/arch/arm/xen/mm.c b/arch/arm/xen/mm.c
+> index a7e54a087b802..6e603e5fdebb1 100644
+> --- a/arch/arm/xen/mm.c
+> +++ b/arch/arm/xen/mm.c
+> @@ -118,23 +118,6 @@ bool xen_arch_need_swiotlb(struct device *dev,
+> 		!dev_is_dma_coherent(dev));
+> }
+>=20
+> -int xen_create_contiguous_region(phys_addr_t pstart, unsigned int order,
+> -				 unsigned int address_bits,
+> -				 dma_addr_t *dma_handle)
+> -{
+> -	if (!xen_initial_domain())
+> -		return -EINVAL;
+> -
+> -	/* we assume that dom0 is mapped 1:1 for now */
+> -	*dma_handle =3D pstart;
+> -	return 0;
+> -}
+> -
+> -void xen_destroy_contiguous_region(phys_addr_t pstart, unsigned int orde=
+r)
+> -{
+> -	return;
+> -}
+> -
+> static int __init xen_mm_init(void)
+> {
+> 	struct gnttab_cache_flush cflush;
+> diff --git a/arch/arm64/include/asm/xen/page-coherent.h b/arch/arm64/incl=
+ude/asm/xen/page-coherent.h
+> deleted file mode 100644
+> index 27e984977402b..0000000000000
+> --- a/arch/arm64/include/asm/xen/page-coherent.h
+> +++ /dev/null
+> @@ -1,2 +0,0 @@
+> -/* SPDX-License-Identifier: GPL-2.0 */
+> -#include <xen/arm/page-coherent.h>
+> diff --git a/arch/x86/include/asm/xen/page-coherent.h b/arch/x86/include/=
+asm/xen/page-coherent.h
+> deleted file mode 100644
+> index 63cd41b2e17ac..0000000000000
+> --- a/arch/x86/include/asm/xen/page-coherent.h
+> +++ /dev/null
+> @@ -1,24 +0,0 @@
+> -/* SPDX-License-Identifier: GPL-2.0 */
+> -#ifndef _ASM_X86_XEN_PAGE_COHERENT_H
+> -#define _ASM_X86_XEN_PAGE_COHERENT_H
+> -
+> -#include <asm/page.h>
+> -#include <linux/dma-mapping.h>
+> -
+> -static inline void *xen_alloc_coherent_pages(struct device *hwdev, size_=
+t size,
+> -		dma_addr_t *dma_handle, gfp_t flags,
+> -		unsigned long attrs)
+> -{
+> -	void *vstart =3D (void*)__get_free_pages(flags, get_order(size));
+> -	*dma_handle =3D virt_to_phys(vstart);
+> -	return vstart;
+> -}
+> -
+> -static inline void xen_free_coherent_pages(struct device *hwdev, size_t =
+size,
+> -		void *cpu_addr, dma_addr_t dma_handle,
+> -		unsigned long attrs)
+> -{
+> -	free_pages((unsigned long) cpu_addr, get_order(size));
+> -}
+> -
+> -#endif /* _ASM_X86_XEN_PAGE_COHERENT_H */
+> diff --git a/arch/x86/include/asm/xen/swiotlb-xen.h b/arch/x86/include/as=
+m/xen/swiotlb-xen.h
+> index 66b4ddde77430..558821387808e 100644
+> --- a/arch/x86/include/asm/xen/swiotlb-xen.h
+> +++ b/arch/x86/include/asm/xen/swiotlb-xen.h
+> @@ -10,4 +10,9 @@ extern int pci_xen_swiotlb_init_late(void);
+> static inline int pci_xen_swiotlb_init_late(void) { return -ENXIO; }
+> #endif
+>=20
+> +int xen_create_contiguous_region(phys_addr_t pstart, unsigned int order,
+> +				unsigned int address_bits,
+> +				dma_addr_t *dma_handle);
+> +void xen_destroy_contiguous_region(phys_addr_t pstart, unsigned int orde=
+r);
+> +
+> #endif /* _ASM_X86_SWIOTLB_XEN_H */
+> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
+> index 47aebd98f52f5..557edb9c54879 100644
+> --- a/drivers/xen/swiotlb-xen.c
+> +++ b/drivers/xen/swiotlb-xen.c
+> @@ -36,7 +36,6 @@
+> #include <xen/hvc-console.h>
+>=20
+> #include <asm/dma-mapping.h>
+> -#include <asm/xen/page-coherent.h>
+>=20
+> #include <trace/events/swiotlb.h>
+> #define MAX_DMA_BITS 32
+> @@ -104,6 +103,7 @@ static int is_xen_swiotlb_buffer(struct device *dev, =
+dma_addr_t dma_addr)
+> 	return 0;
+> }
+>=20
+> +#ifdef CONFIG_X86
+> static int xen_swiotlb_fixup(void *buf, unsigned long nslabs)
+> {
+> 	int rc;
+> @@ -129,6 +129,12 @@ static int xen_swiotlb_fixup(void *buf, unsigned lon=
+g nslabs)
+> 	} while (i < nslabs);
+> 	return 0;
+> }
+> +#else
+> +static int xen_swiotlb_fixup(void *buf, unsigned long nslabs)
+> +{
+> +	return 0;
+> +}
+> +#endif
+>=20
+> enum xen_swiotlb_err {
+> 	XEN_SWIOTLB_UNKNOWN =3D 0,
+> @@ -256,97 +262,60 @@ void __init xen_swiotlb_init_early(void)
+> 		panic("Cannot allocate SWIOTLB buffer");
+> 	swiotlb_set_max_segment(PAGE_SIZE);
+> }
+> -#endif /* CONFIG_X86 */
+>=20
+> static void *
+> -xen_swiotlb_alloc_coherent(struct device *hwdev, size_t size,
+> -			   dma_addr_t *dma_handle, gfp_t flags,
+> -			   unsigned long attrs)
+> +xen_swiotlb_alloc_coherent(struct device *dev, size_t size,
+> +		dma_addr_t *dma_handle, gfp_t flags, unsigned long attrs)
+> {
+> -	void *ret;
+> +	u64 dma_mask =3D dev->coherent_dma_mask;
+> 	int order =3D get_order(size);
+> -	u64 dma_mask =3D DMA_BIT_MASK(32);
+> 	phys_addr_t phys;
+> -	dma_addr_t dev_addr;
+> -
+> -	/*
+> -	* Ignore region specifiers - the kernel's ideas of
+> -	* pseudo-phys memory layout has nothing to do with the
+> -	* machine physical layout.  We can't allocate highmem
+> -	* because we can't return a pointer to it.
+> -	*/
+> -	flags &=3D ~(__GFP_DMA | __GFP_HIGHMEM);
+> +	void *ret;
+>=20
+> -	/* Convert the size to actually allocated. */
+> +	/* Align the allocation to the Xen page size */
+> 	size =3D 1UL << (order + XEN_PAGE_SHIFT);
+>=20
+> -	/* On ARM this function returns an ioremap'ped virtual address for
+> -	 * which virt_to_phys doesn't return the corresponding physical
+> -	 * address. In fact on ARM virt_to_phys only works for kernel direct
+> -	 * mapped RAM memory. Also see comment below.
+> -	 */
+> -	ret =3D xen_alloc_coherent_pages(hwdev, size, dma_handle, flags, attrs)=
+;
+> -
+> +	ret =3D (void *)__get_free_pages(flags, get_order(size));
+> 	if (!ret)
+> 		return ret;
+> -
+> -	if (hwdev && hwdev->coherent_dma_mask)
+> -		dma_mask =3D hwdev->coherent_dma_mask;
+> -
+> -	/* At this point dma_handle is the dma address, next we are
+> -	 * going to set it to the machine address.
+> -	 * Do not use virt_to_phys(ret) because on ARM it doesn't correspond
+> -	 * to *dma_handle. */
+> -	phys =3D dma_to_phys(hwdev, *dma_handle);
+> -	dev_addr =3D xen_phys_to_dma(hwdev, phys);
+> -	if (((dev_addr + size - 1 <=3D dma_mask)) &&
+> -	    !range_straddles_page_boundary(phys, size))
+> -		*dma_handle =3D dev_addr;
+> -	else {
+> -		if (xen_create_contiguous_region(phys, order,
+> -						 fls64(dma_mask), dma_handle) !=3D 0) {
+> -			xen_free_coherent_pages(hwdev, size, ret, (dma_addr_t)phys, attrs);
+> -			return NULL;
+> -		}
+> -		*dma_handle =3D phys_to_dma(hwdev, *dma_handle);
+> +	phys =3D virt_to_phys(ret);
+> +
+> +	*dma_handle =3D xen_phys_to_dma(dev, phys);
+> +	if (*dma_handle + size - 1 > dma_mask ||
+> +	    range_straddles_page_boundary(phys, size)) {
+> +		if (xen_create_contiguous_region(phys, order, fls64(dma_mask),
+> +				dma_handle) !=3D 0)
+> +			goto out_free_pages;
+> 		SetPageXenRemapped(virt_to_page(ret));
+> 	}
+> +
+> 	memset(ret, 0, size);
+> 	return ret;
+> +
+> +out_free_pages:
+> +	free_pages((unsigned long)ret, get_order(size));
+> +	return NULL;
+> }
+>=20
+> static void
+> -xen_swiotlb_free_coherent(struct device *hwdev, size_t size, void *vaddr=
+,
+> -			  dma_addr_t dev_addr, unsigned long attrs)
+> +xen_swiotlb_free_coherent(struct device *dev, size_t size, void *vaddr,
+> +		dma_addr_t dma_handle, unsigned long attrs)
+> {
+> +	phys_addr_t phys =3D virt_to_phys(vaddr);
+> 	int order =3D get_order(size);
+> -	phys_addr_t phys;
+> -	u64 dma_mask =3D DMA_BIT_MASK(32);
+> -	struct page *page;
+> -
+> -	if (hwdev && hwdev->coherent_dma_mask)
+> -		dma_mask =3D hwdev->coherent_dma_mask;
+> -
+> -	/* do not use virt_to_phys because on ARM it doesn't return you the
+> -	 * physical address */
+> -	phys =3D xen_dma_to_phys(hwdev, dev_addr);
+>=20
+> 	/* Convert the size to actually allocated. */
+> 	size =3D 1UL << (order + XEN_PAGE_SHIFT);
+>=20
+> -	if (is_vmalloc_addr(vaddr))
+> -		page =3D vmalloc_to_page(vaddr);
+> -	else
+> -		page =3D virt_to_page(vaddr);
+> +	if (WARN_ON_ONCE(dma_handle + size - 1 > dev->coherent_dma_mask) ||
+> +	    WARN_ON_ONCE(range_straddles_page_boundary(phys, size)))
+> +	    	return;
+>=20
+> -	if (!WARN_ON((dev_addr + size - 1 > dma_mask) ||
+> -		     range_straddles_page_boundary(phys, size)) &&
+> -	    TestClearPageXenRemapped(page))
+> +	if (TestClearPageXenRemapped(virt_to_page(vaddr)))
+> 		xen_destroy_contiguous_region(phys, order);
+> -
+> -	xen_free_coherent_pages(hwdev, size, vaddr, phys_to_dma(hwdev, phys),
+> -				attrs);
+> +	free_pages((unsigned long)vaddr, get_order(size));
+> }
+> +#endif /* CONFIG_X86 */
+>=20
+> /*
+>  * Map a single buffer of the indicated size for DMA in streaming mode.  =
+The
+> @@ -549,8 +518,13 @@ xen_swiotlb_dma_supported(struct device *hwdev, u64 =
+mask)
+> }
+>=20
+> const struct dma_map_ops xen_swiotlb_dma_ops =3D {
+> +#ifdef CONFIG_X86
+> 	.alloc =3D xen_swiotlb_alloc_coherent,
+> 	.free =3D xen_swiotlb_free_coherent,
+> +#else
+> +	.alloc =3D dma_direct_alloc,
+> +	.free =3D dma_direct_free,
+> +#endif
+> 	.sync_single_for_cpu =3D xen_swiotlb_sync_single_for_cpu,
+> 	.sync_single_for_device =3D xen_swiotlb_sync_single_for_device,
+> 	.sync_sg_for_cpu =3D xen_swiotlb_sync_sg_for_cpu,
+> diff --git a/include/xen/arm/page-coherent.h b/include/xen/arm/page-coher=
+ent.h
+> deleted file mode 100644
+> index b9cc11e887ed5..0000000000000
+> --- a/include/xen/arm/page-coherent.h
+> +++ /dev/null
+> @@ -1,20 +0,0 @@
+> -/* SPDX-License-Identifier: GPL-2.0 */
+> -#ifndef _XEN_ARM_PAGE_COHERENT_H
+> -#define _XEN_ARM_PAGE_COHERENT_H
+> -
+> -#include <linux/dma-mapping.h>
+> -#include <asm/page.h>
+> -
+> -static inline void *xen_alloc_coherent_pages(struct device *hwdev, size_=
+t size,
+> -		dma_addr_t *dma_handle, gfp_t flags, unsigned long attrs)
+> -{
+> -	return dma_direct_alloc(hwdev, size, dma_handle, flags, attrs);
+> -}
+> -
+> -static inline void xen_free_coherent_pages(struct device *hwdev, size_t =
+size,
+> -		void *cpu_addr, dma_addr_t dma_handle, unsigned long attrs)
+> -{
+> -	dma_direct_free(hwdev, size, cpu_addr, dma_handle, attrs);
+> -}
+> -
+> -#endif /* _XEN_ARM_PAGE_COHERENT_H */
+> diff --git a/include/xen/xen-ops.h b/include/xen/xen-ops.h
+> index a3584a357f353..c7c1b46ff4cd4 100644
+> --- a/include/xen/xen-ops.h
+> +++ b/include/xen/xen-ops.h
+> @@ -42,13 +42,6 @@ int xen_setup_shutdown_event(void);
+>=20
+> extern unsigned long *xen_contiguous_bitmap;
+>=20
+> -#if defined(CONFIG_XEN_PV) || defined(CONFIG_ARM) || defined(CONFIG_ARM6=
+4)
+> -int xen_create_contiguous_region(phys_addr_t pstart, unsigned int order,
+> -				unsigned int address_bits,
+> -				dma_addr_t *dma_handle);
+> -void xen_destroy_contiguous_region(phys_addr_t pstart, unsigned int orde=
+r);
+> -#endif
+> -
+> #if defined(CONFIG_XEN_PV)
+> int xen_remap_pfn(struct vm_area_struct *vma, unsigned long addr,
+> 		  xen_pfn_t *pfn, int nr, int *err_ptr, pgprot_t prot,
+> --=20
+> 2.30.2
+>=20
 
 
