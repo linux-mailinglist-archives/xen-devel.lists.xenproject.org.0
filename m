@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8D7D50FA42
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Apr 2022 12:23:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.313695.531384 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D39CF50FA55
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Apr 2022 12:24:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.313699.531394 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njILx-0007b7-SI; Tue, 26 Apr 2022 10:23:29 +0000
+	id 1njIMR-0008EG-9g; Tue, 26 Apr 2022 10:23:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 313695.531384; Tue, 26 Apr 2022 10:23:29 +0000
+Received: by outflank-mailman (output) from mailman id 313699.531394; Tue, 26 Apr 2022 10:23:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njILx-0007Z9-OU; Tue, 26 Apr 2022 10:23:29 +0000
-Received: by outflank-mailman (input) for mailman id 313695;
- Tue, 26 Apr 2022 10:23:28 +0000
+	id 1njIMR-0008C1-68; Tue, 26 Apr 2022 10:23:59 +0000
+Received: by outflank-mailman (input) for mailman id 313699;
+ Tue, 26 Apr 2022 10:23:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=urB8=VE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1njILw-0006S6-F0
- for xen-devel@lists.xenproject.org; Tue, 26 Apr 2022 10:23:28 +0000
+ id 1njIMP-0006S6-C6
+ for xen-devel@lists.xenproject.org; Tue, 26 Apr 2022 10:23:57 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e952a98c-c54a-11ec-a405-831a346695d4;
- Tue, 26 Apr 2022 12:23:27 +0200 (CEST)
-Received: from EUR03-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur03lp2054.outbound.protection.outlook.com [104.47.9.54]) by
+ id fa69d5e6-c54a-11ec-a405-831a346695d4;
+ Tue, 26 Apr 2022 12:23:56 +0200 (CEST)
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur02lp2055.outbound.protection.outlook.com [104.47.6.55]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-4-ipV6PnBsNTyxy3yjjMQcPw-1; Tue, 26 Apr 2022 12:23:24 +0200
+ de-mta-31-05FTq-RQNNW-XRPLGOZsDA-2; Tue, 26 Apr 2022 12:23:54 +0200
 Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
- by AM7PR04MB7157.eurprd04.prod.outlook.com (2603:10a6:20b:118::20)
+ by AM6PR04MB4245.eurprd04.prod.outlook.com (2603:10a6:209:4f::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.21; Tue, 26 Apr
- 2022 10:23:23 +0000
+ 2022 10:23:51 +0000
 Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
  ([fe80::5cb0:5195:4203:7c2f]) by DU2PR04MB8616.eurprd04.prod.outlook.com
  ([fe80::5cb0:5195:4203:7c2f%9]) with mapi id 15.20.5186.021; Tue, 26 Apr 2022
- 10:23:22 +0000
+ 10:23:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,36 +51,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e952a98c-c54a-11ec-a405-831a346695d4
+X-Inumbo-ID: fa69d5e6-c54a-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1650968607;
+	t=1650968636;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Poou7+ywHc4+47fsnUn586v0ma66GxF2Bm5uaMw2apo=;
-	b=TqtgYcwvRS73UvUcPWSnbV36c/aHhPnGFPgV0BifDy7twyWu4K2hdcfPQ3CyUWtFr5Qo7+
-	5LJioFxhF5NC9IbiJG/1ey7CYIsCvmLlEEUzNTM31bAkNbQKz33a/DvhxEvHUoAJzgnsUS
-	VvlYoNivBO5Rc65PFt4Nd7rVl2riz/E=
-X-MC-Unique: ipV6PnBsNTyxy3yjjMQcPw-1
+	bh=7XE0MZ5Q/V0/alHvDtFRmInLwfamZyLpxplt2pkODz8=;
+	b=P0MJVeAB6UEjCsi/r6Zlz39ExjXLUzY3kMOcCk+zPodraQb/llf4r59p5IZHFRDAXFrjZZ
+	ByDrrHZ6lTjjO7V8V30UBoBxpOJX4vcJ2DMk1z94yMmdgcCbsLGS05phvXDFFAPCblwl7C
+	CillbuAGf8NO6ifT3jtQxLwUVB8emIA=
+X-MC-Unique: 05FTq-RQNNW-XRPLGOZsDA-2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Lqkb4fOqLW6z91GNCzD+oIYyhISDu9h7dgaadXi5FqpuISqLwzNqFwwqxVc3qRPNZ7t7qknWslMCnvHqxZVdwfWUJTowN/0BATaBFnUFDrUqUufgHLJdBH6RumldcDERrMPfnFbkOBXnzRGow9RyKv0OYDvoiMfE1vih/6JhSgX16WicLpFZAXGgSJUlAHfJHVwAUqhjXlhZs6eAhbirTuqf3HMapKBlO3V3JRyN7L52yTIJq1aRXeTkQOJhp5ES8Q9AaGr2lnXlt9KI9IBb9Bc2lqMzLhHmuIkY821WbQMpCIzvJA1fPuZhxoL3jTvWSDAlHCL0hA9R7nrUBZW4Pw==
+ b=O57Qh6FhRQ0Xc8/yaMe26SYHIOBBRcV2A2QXeyX2OtPC2q6IPpiysUXiPnFcyFzK9ZK3NdyvU9LAD5qRTxE45NOAdPmhJUzo8t4ziMBciMqjiDAk5K8l3dwjNx9CISK0WKlEN0xWM+bns4vNnhkiHHfX9eLcSub2wj0cpgfKfJcD2pdu5Ujx+/q/GTw8RMNRCCRPHFBk8Wg5cHPjaxz7Xw/2jsdb/hR9wtuQQzTOBHqyhSc6MgwWt8Yhn/EKqfIJKolxlRFKy8bZdF3epQ23qNO7C4JYXBtJLVaVct+BhMjmo8UXtpePgRp2g8rfhPPVqH7OADWwN6RY6pWWVyN9dw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Poou7+ywHc4+47fsnUn586v0ma66GxF2Bm5uaMw2apo=;
- b=OafK9F/udmJjYocg0DJ1QQvIMYy+x4Y00+tCEMUII2OvuZKqLgqFZnqX7PyDyz4cEaO2Fs1XoWvK3n9zReJAlrSDzljO+jycBH1FB+ZkWvD8SB+G82KpnQHL7WnyoGRO0zNcMMVb3T1bfaNM610vY6r42+cSbUfF52qChtVKz5gc/ynBi7OrKUIqX8ivH8yqa3Ue+KEmbvVRmNtGd83/qt4aFn/riSNHkbAQhZrlhcjZU2WvVKS8Zame27hlS8yxSocBPrP6vfgzvzibPg9VkHWlsXKqSxzt96OFsab9Obc+uCabCj9uWk4nkdMZWNy4RfrrOM5+8nl/ETADR0F+Kw==
+ bh=7XE0MZ5Q/V0/alHvDtFRmInLwfamZyLpxplt2pkODz8=;
+ b=FV7IjQn4DEXPLLcYFUqPyaSY5ExVF2ELKJzKoGyAL3xY9IYC61MWgcXt6WQRmICs2p/ZsRKhjqqz3IZIX64objIj9H+hU3nARo2ZrvD04Jzkr+cp3UMJXolKUcEq4THV6GppxfSpVYgvRt0Jz1tEB1unfcAuDkXUThboyQRNayLyvWCa2/VoczsJkBqifxzehKAPNnIjf+ehKle0U863YZRie42XwmPlf12HwFB9p5uOmYiKgMUEEyFOwLYun0Y3MD04Kkrd+H4Tr6T63gAcq7KNFRgvMIIHjUe9EQrkQl9qvZA2jcO1ZpaGGEtEQCVcKaHLBs2B16YfgGkBiP3rQA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <53a64a0c-6286-01e5-7eab-1de1543a9241@suse.com>
-Date: Tue, 26 Apr 2022 12:23:21 +0200
+Message-ID: <1744d775-4446-69b4-152f-c81d36e4996c@suse.com>
+Date: Tue, 26 Apr 2022 12:23:49 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.1
-Subject: [PATCH v3 3/8] libxenguest: guard against overflow from too large p2m
- when checkpointing
+Subject: [PATCH v3 4/8] libxenguest: restrict PV guest size
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -91,154 +90,262 @@ References: <a0f019c5-4089-e19c-6041-044d6e93d80b@suse.com>
 In-Reply-To: <a0f019c5-4089-e19c-6041-044d6e93d80b@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6P191CA0030.EURP191.PROD.OUTLOOK.COM
- (2603:10a6:209:8b::43) To DU2PR04MB8616.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM6P193CA0064.EURP193.PROD.OUTLOOK.COM
+ (2603:10a6:209:8e::41) To DU2PR04MB8616.eurprd04.prod.outlook.com
  (2603:10a6:10:2db::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e8779b6c-4163-424f-eeae-08da276ecac7
-X-MS-TrafficTypeDiagnostic: AM7PR04MB7157:EE_
+X-MS-Office365-Filtering-Correlation-Id: 635dfd18-0c15-4153-b886-08da276edb94
+X-MS-TrafficTypeDiagnostic: AM6PR04MB4245:EE_
 X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
 X-Microsoft-Antispam-PRVS:
-	<AM7PR04MB715742A966EDE938FCDDA2EAB3FB9@AM7PR04MB7157.eurprd04.prod.outlook.com>
+	<AM6PR04MB4245772E936C7E496A993AB2B3FB9@AM6PR04MB4245.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	2iDo67v2IT0AFej4WUcufwEnd1j90FvqjDMtwKPsfiN4WWbk11eEpVZI8DW4OrlnVmd0xP/4oyOhba0xc1iE1dIMJbvEigeRHmDE22LDS16lc+iZUUMujzUV1M5S654mLWWVq/790AVVKFwv9DxVUr+Cbu7l7961Im8wx1h83hkrVCGXxkYB+hZKZ1XRlMnF7oJm0NEk82p+CcRqFcer68GJWvH7bTHjYRAJBvL6MfTtfHxcX9nxEUAf7091q+zLKktsX/MYxFutsvc7ZmGiu+lA/Le0JaKKmK+aL6IBwOUAtXEruOeBRgdujplzmN21YUWtmzJSFqT8/KcDj+qK5/G9LYBuuj8VodxMNelYFERIF/Ri6qZlsmde7vLM2isUaZ+htdbNqEtiUhIoUVEdLhnlHDsvE9NpcU7E6WDquv3aQD2hZKfnS7N+DmnbtPG5QjkWK5Bw5bL57GMG/hRDv1oqK7nnU44u+7vQ6byeBbZZbu8xpaevgHmVJ3IP7wSQWW4yV3fiZrP9CGb4HLSItM2ugtwOcFInHbtpYK3/U84tLcLaT8A6yjhTdZPAjuwobPctvJQOqSCdoiADky9HPlJGclcCHb8WGThJ2rdNh820BrhyorZFIlXMr6xxjROreaBsblI++RmzU+uoNa4lYGl6DTZXHsooopInG6u0vuzFsUq0jXfCF8lAzcoqBv2DzWZ1BMIRxEObKyTCQPwaut/GrRybbc/GTluEDjQQpoVFor86JjXyzo6NUYU6WL/M
+	DjYboPnQ/p/2Zsazk6LIrJywIyRlsHPxOTqzm7vuLH9yYmk1Hum3hbf/znFQH6c7N+frPkUQ3w3AyKHs01lUFLY0l+HrXqy4QGDdMgj06eW2ij0H7A1MSH7oBpHd1XbYVDoqgyV/4DxhS+WKofJwBjkOoGPoozLvqL1vwa0MHDEnCLCXFSqjpgRLwQk0Kl7w3N71xxl2QzqsFLnF6qh+9IT3hvcEzzw8x5noMBUTnOALNKkEIaW3sx5sPE1A4R65TeuGnXhTjmW8Rzjv6MU+1yEUbDb9Zp3WFWcrtT8TyiwkztcjBki4cD0gzpMMGfI8Q52+BiQUCMz8FtLcgYLOCm2gdmX2gjWvpjrFboR95j1mrMPRBFHZcBhxw4Y6fpdeRxARCdttidEXmgjSFaKiVvsD7n7gOI43cfrW9dUB1B79bWvijqhcID5L6Pcs0g7ZDV3Z8Lg+HNPbY/vPi+DE3vIfgfDLXmOor8XjvhcGaM/LIJT4TMdNn/xuoXb+GDhJ9x9LGlqIptGZ7T6BVdY2ptLV3ZoGOBifsfvfRG144BDy3t4SJJRXlBGymYj/ILUUPmzFmz279WuhgqaRky6z81XK11N1p1MjXI4NbGr9WMRXPLG4jDLeJMhfIJOKEtGy3pmkvWBBcqUlWpNyTU6/SfxtR7RJfY78ikiTFm3YrD/FCeQHoKzBTT6zuFVBHfcyu4363Qme6p0yUlg6p5q0Hd/g0s09Cq1614jy7rYxGYU=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(2906002)(66946007)(508600001)(316002)(6916009)(8676002)(4326008)(31686004)(5660300002)(8936002)(38100700002)(6506007)(86362001)(31696002)(66476007)(66556008)(6486002)(6512007)(186003)(26005)(36756003)(83380400001)(2616005)(54906003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(2616005)(31696002)(508600001)(6506007)(6512007)(6916009)(86362001)(186003)(36756003)(31686004)(8936002)(4326008)(38100700002)(2906002)(5660300002)(66556008)(66476007)(66946007)(26005)(316002)(54906003)(6486002)(83380400001)(8676002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Z1BFcXA5ZFVJZ3pOaVZtdzd6VXdIQVUzeFhuUkJHdEttMGVkRGp2OE9kOHQw?=
- =?utf-8?B?N3FWN0RseWlDWUMrMW1ONjFZeE96TGx4MkJ0TklsZ0V1bWZPS2p6d2ZlQ3hK?=
- =?utf-8?B?cGtxVVl3M1NpRHFSV0FoME5DNW8wWEZhTDhYUU5YQjFBSTJVQ052QUhzdkVT?=
- =?utf-8?B?eVFJYmlNTHVDc3BNVDF2Z2Y1bDhpMXJ3SXJFOVdJSmxER0dkVmFoTmpiQ1FE?=
- =?utf-8?B?SGRUZXppQmUxSGRJbzBoMjRBeG9WRnRFdTVudkY0akxMRHF1NGxYMStlWjFR?=
- =?utf-8?B?dE1XeDQ2SEEyeHptcmlLUDhwMTlFZVIrZE1rV0VGYUx6WTRvMy9NRDBXNnp4?=
- =?utf-8?B?MnN5TnlLUjU3SEZDZE9NTzRpbVdSdjh0QXJaNm5EeGtObWVsb28wczlSbld4?=
- =?utf-8?B?NmZzMy9QdDNhV2MzTzAyZTgxOGpkaERDcVlDQWQ4a2crZ3k0R1AyVDZZYVpU?=
- =?utf-8?B?TkYrV1pYejJXUjlvVTdDU1JwL0l6Nk9IU2RTQmg2ZXFPNlJ4MGdNK2NUK2Rm?=
- =?utf-8?B?eVZlY3ZwSzUvOVdOa2prTnBoYTRKSC81WlpKd1NJblA2QTIzK3BJU0lMV0xP?=
- =?utf-8?B?TDQyWkQ4MmNVazE3WEhkSU1CcGFlVUl3L0tzOFJoV0dnMFhPbTQxcC9LK25W?=
- =?utf-8?B?cXJCTXpucmNkQzJZRTVqWlJaUDYydkVnenUvTVhuVWpRWU9FRzUzaStRb3Ju?=
- =?utf-8?B?ZlVFNGkxTXJSNlZrZkZnUG15OFZUei9ER2FJaVFWZDN5Y2JpRWFscWsweURE?=
- =?utf-8?B?c2d1KzFrbTdWV0ZNZWFlMXR2OUVTUTZGYURpblE3bkhLK0dLM0trQ0kyTGw2?=
- =?utf-8?B?OGVwTkdJRTBSWHJLK3hmSVV1am9xY2V2N045R3lSR2orNVU5d1pLaGN6U3ZS?=
- =?utf-8?B?LzFKczRyWDZmaWF2Nkc0WkVubmJXcExFNWhLVkM5MlBldkVGblhLRS9HbEVq?=
- =?utf-8?B?akhHVDQxVEJHeW1lRERxWCs4U2JMMk8vdEcvWDEwZ1FBNUJva0RqZDJaeE5m?=
- =?utf-8?B?NGRwUDZkQ0I2ZzFOWVRpVnlnVkVmdmVyUUJBSGpNbjJlWHR4REE1Yi84WFh6?=
- =?utf-8?B?SE1SVVk2N0xFZDN5Sm9ITFZNNVpibmZ3eW96UnhLTGpYUzFSWDhWb3JSOEpY?=
- =?utf-8?B?RUtUMEt5eXhGOXRzOExUOUZES0E3Uzl1aEdraGV5SVZaRGN2d3lZSmQ4UVNL?=
- =?utf-8?B?NWVpNlZZRGxxUHdmZnZYMVJ1V1F1Nlowb1VqNDFsOWNOcUVlSlE4a0hKUWl2?=
- =?utf-8?B?dXgxQ1A1d042U2ducUN3NUtEVnptbE9senVDZzczUlkzT05WN1RtQ1JCeU1N?=
- =?utf-8?B?MS93blgzNmNiT1VHZE15ZHczaDIrVDViOVcvM1A1VGFYRDJ2Mm1mSzFuMzd5?=
- =?utf-8?B?c3V5WDdGdXAyMmdON1VtdFBNSmhwUkhqaW1RaC9VenM5TlBmVHhpb0ZaSTN4?=
- =?utf-8?B?RTRaTGRpSGpscVRNWjVmbC90VXFPVWZUWXhiaUJYVUcvOXJTb1M5eGtDNFFW?=
- =?utf-8?B?c1EzMUorRFpEWGZmcmNGb1VmRWltbU5TeUdmNmp6L3E3UXpvNVN1YXRlL09W?=
- =?utf-8?B?MmVLQkJIMU0weE8zcWZiUWtVbWN6MjJZYnE0SGFiVmRwbXh3bWJkZk9OT25M?=
- =?utf-8?B?amt4UmJTZ3pDOFZqd0NvMUtVVHRLOGVnTVVISDNTdGlPb0ZMWFBkK1NNenZw?=
- =?utf-8?B?VVJMcXkvUnNZWXJzbUdJTkpFQWR0Wjk0bU1UdjJqbjhHaTFwWG5vZi9OSHho?=
- =?utf-8?B?eGdvTjg0QWFCQzl2eE9LZmxnSi9RV3dSY01RNVVUS2E2dFpzcVlNYytYU2RW?=
- =?utf-8?B?ZmhxZU9FQ1hzWi9OVVpQUkhzaWY2K1JtLzhJaDZ4Wk5VVTh1aVBSd01aTTJD?=
- =?utf-8?B?Wis2cW5Qc3FhUEVaa3BQc0pESVRYb3lpVHhnd1VxTlNtZXhTZEorS1M0RVFt?=
- =?utf-8?B?Yi9SVDRCSTEzWll0YjJidkNvaWdPL3JkVVRSMlplUFBQYTBoYzI2Rjd2M1RX?=
- =?utf-8?B?WWdIMWFjOWp5TmNDTXVzNGFGVjFqS2lkbmhPbjQwMVhRTG5IVU1ydmFUb1hB?=
- =?utf-8?B?K0dGTEU2dERTZXdudGJDTU1CS1FYQloyUEhiUlRtVFIzaXYxdlhTYWdrQkVD?=
- =?utf-8?B?dkw3TDB6Mm5sZmFvcHNtc0h4S2FwQnZ1U05mWGk2NW9mUDZuQmd6MWJ2Ujkv?=
- =?utf-8?B?VEpEaHBNZ2ZGZWh2S1hyQTJsM05YaHlQSDY4cUJyaGJ3MHpubExLdHBUNmxx?=
- =?utf-8?B?Uk5DeWN0akZJSFpucWxCbSt1MHlJejFRbmJRK01Fc2tVWmlPMVhjNkFxOEl2?=
- =?utf-8?B?dGZQb2crZG1yTis1QjlnZEZOOFB0bTRnRDVmanR4UjBPY25hbGUwQT09?=
+	=?utf-8?B?bk1sbkdvcHQybXpnenN2ejR5YS81VDY1SkIwSmdxT0VDRy9ZdElVVEJrMDhk?=
+ =?utf-8?B?VFF6S2tZdTIrWlJhc2xNKzJjWkZWTUFiU3o1bWNNM1dTTk0vVmtYdXZsQU9Y?=
+ =?utf-8?B?V2NWaXBsMEFCMDVUSkp3OE5ZV2pIOVY0MzdTKzltSFFMZy9xbHU4Vjl2V1RS?=
+ =?utf-8?B?aE9lWVp6cDJDbFZnTXJtemliL09MMGpOMWZkWXF3THN2SGZTcnFjN2tTc25r?=
+ =?utf-8?B?N0lWc0FITVZSVHpDL29QbWI1ekNJNWpDQ3ZaY0svQzhQT2lmN3FrVGhEMld1?=
+ =?utf-8?B?dFlCM21qc0tXaUhnaG0ybTdQZE9TWGtqM2RicUFXelVpNWU4d2t6RU12WVJN?=
+ =?utf-8?B?ZThXa0hSWW5HLzdIWXFFdkxXbzBXRXNLalp2NE9FN3N3QTkvR1lBdTAwVWcw?=
+ =?utf-8?B?OWxRSFVqVjhvejJhaGFDT1puQzA5alJZSmpNdzZPVDl0VHUrL2NuckNxZEZH?=
+ =?utf-8?B?ZHhvN25iNzcyS0NIWnBlWmFVejA1elVvbDJyZ2tGMk9EcUE3Qmx2UnJncXcz?=
+ =?utf-8?B?YloxSWhPdXU4ZUlWZ3UrTzFTMnZKcXp3YVIzMG1rai8weGgrRzkrR0xwRStp?=
+ =?utf-8?B?WmljbFpWREoxTzF1UzVlVC90VUl3RTN4QWRvYzl5VWZsVk5NcTZFZTVPS2cy?=
+ =?utf-8?B?OFFUZysvdDNKa2hzcnkrL1ppVklyMGkvQTEwSTFsVzBGelJ2cExjUEN5eGRw?=
+ =?utf-8?B?emo1ZEsxYmJ2M3o2SG1aWFRTOFhXOUN3RnkyRC9Bd1dmdlVaSmk2V2dBUmVW?=
+ =?utf-8?B?aWx3OTNtOStoY0VETU5nS2JVd0xPcHNMV2JwSDM3bXFIajV3NXcyTlNJcURS?=
+ =?utf-8?B?QWhNRGVaQUpkSXd4TEVLdVo5WW5UNzRhQTlqZWE1VnRnaWFTcTNvTmFCdHF1?=
+ =?utf-8?B?TVFEUDRadGR1clVERW84dzh3cGErd3JFN2d5M2JwaWhCeEZwZlFsSEtwTWdt?=
+ =?utf-8?B?bTAybDN6Rk44VTVwQlJzR2xKbWttK043eDJJamY1dCs1clBjUEtYdjE1ZEE1?=
+ =?utf-8?B?QzlxL1dWVmlEc2pOR29BZGRIUmFsclVIajMreEt4NklSMDltNlRBK0VISHpD?=
+ =?utf-8?B?RXUwMkJ1MC9melVvTm1rQnFpeVVDdGFNRmtIRWh0SkVpSW1YbVZrR2FSZU1y?=
+ =?utf-8?B?bUY2b25FdnZIOUZsRm1nRDEvb0NqVlN0Y0pKTzFTUDBkUzBIUVhwZFJmTWxM?=
+ =?utf-8?B?eDhLdnA5dFJkZEV4QUNVZ01HdWRjbFlUQUQyS2k1SGVQc2NSa2g4M3ViU1gy?=
+ =?utf-8?B?MTdiOUJWa2l0UXVVUHJybHBMQkxQS09kanNkakU1ZDk1UEV2KzhGWWZPN2xP?=
+ =?utf-8?B?T2tpM3k0SUlIUHExTGw5bVZGM1cwMjRVdmp6TW96Mk1oUmZVRXA1eUlLWnhO?=
+ =?utf-8?B?Y1lSMitoendHRG9VWHFpYmJZeWhPbCthVEZhL096eHFyeFpDa0pGZy9kai90?=
+ =?utf-8?B?dnBzeFV6WlAzdzcxSU4wMVVjVHN3TS9IcHZsdUszYmd2cHVNTEx2eEdubkQ3?=
+ =?utf-8?B?YU9wZElDbWV5eUxkVmY2OWtkNTMyOUtYS2VpZGRTUlJaYTNIN081a3g1bmww?=
+ =?utf-8?B?TVRPWXk5YW50a1EwWUYwcGpVZHQ0NDhjeFJadE9yOTJNTFNEdDMwMXJ3ZWk5?=
+ =?utf-8?B?dGdmY2NjamJBV0Njd244SEk2enhnQm9IR2dBUVh6YXV2T1V2RXFIRjAyUmt3?=
+ =?utf-8?B?Ym5LakE1cXp2T2c4OXhNdTlpQ2x0NnFBNFBFSUpRYU1TdlNKVEptZ0p0bEFz?=
+ =?utf-8?B?ajdnSEU5S0M3YkNLeFJKYlBMblQwZ2p4bGNHalBNTWk1L1VqN0lqZjR1dHdV?=
+ =?utf-8?B?YVlKWTJLZmxEd3FUcXJhK09oRDdmUllPSVlPZ3R5cXplOXNhOVN1SUdlWnZt?=
+ =?utf-8?B?M3RDMG1ldFNNcjRhYm5oSDhPOThyZ29GY0dteFVvc0ttOGprVndwdXBQL3lM?=
+ =?utf-8?B?OSs1eVN4NmF3Mi9BaWRkbWRMenhzanl2REp5RzNEcGFEVytOMlZiaW8rVjRG?=
+ =?utf-8?B?WEROdEhHSjlaUTdYY2JxemEyWWtUaVYwQkJydnRJaFAvR2c5OVptRmpGUWJD?=
+ =?utf-8?B?TDNCRHhBd0JlRDlTMHNpNTJYL2c5VzNvYnpLeXZXZG1WZklQYmJsZDdIc0FL?=
+ =?utf-8?B?aDJVZWwxdVl4dUhEc2ZWa1dwd1J5dTdqNG1kb29VS3JDZ1hzeklnZ2FPYmEw?=
+ =?utf-8?B?akwrc2c4cW5NL0hwZGFYVTdiL2lTMEVJYUtINUlBckgzT3Y4cUtmeHE3bmVQ?=
+ =?utf-8?B?TS9oaDdYaEtCRU5jeHdFZFBCSDR4VmI4bERpQlZnL2hJUFBrOHNGSTRqZnJZ?=
+ =?utf-8?B?dmR1NnYyQmxSNVFBN2cxQ2lzYVNLbHJwWFlZM1NFeWRRMzh3MTd1Zz09?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8779b6c-4163-424f-eeae-08da276ecac7
+X-MS-Exchange-CrossTenant-Network-Message-Id: 635dfd18-0c15-4153-b886-08da276edb94
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2022 10:23:22.9270
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2022 10:23:51.1282
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YFzjwZRNhgVTL184s5Lrk72Zyjz+NI+Ea3fjUTe+UATCcnmHkyUQr9AKcTLuNdxUhjArOeLBjqvzv9XtS5E4Ew==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7157
+X-MS-Exchange-CrossTenant-UserPrincipalName: tlmkGKa4+uwA2DbbFUXoZap0+sx7AubJo80rVCAlQk0SrCi9WrspeGs4jTAckoYAISmG12e6sSUXAgf+/9aYWA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR04MB4245
 
-struct xc_sr_record's length field has just 32 bits. Fill it early and
-check that the calculated value hasn't overflowed. Additionally check
-for counter overflow early - there's no point even trying to allocate
-any memory in such an event.
+The P2M, the use of PFNs, and hence the maximum valid PFN are purely
+software constructs in PV. In principle a guest is free to use arbitrary
+PFNs. However, at least page table normalization requires that PFN space
+be, like MFN space, limited to the architectural 40 bits (52 address
+bits). And of course a 32-bit tool stack places further constraints.
 
-While there also limit an induction variable's type to unsigned long:
-There's no gain from it being uint64_t.
+Bounding the values also makes sure that various subsequent calculations
+won't truncate values and then continue with inconsistencies (see e.g.
+fl_entries vs ctx->x86.pv.p2m_frames in map_p2m_tree()).
+
+While there correct an adjacent error message with wrong way round
+wording in restore code and another slightly malformed and misleading
+(off by one) one in core dumping code.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-Of course looping over test_bit() is pretty inefficient, but given that
-I have no idea how to test this code I wanted to restrict changes to
-what can sensibly be seen as no worse than before from just looking at
-the changes.
+v2: Integrate into series.
+---
+In case the save/restore changes don't make it obvious enough: It
+escapes me why struct xc_sr_rec_x86_pv_p2m_frames has p2m_pfns[] with
+uint64_t element type but {start,end}_pfn both as uint32_t. Imo all
+three can sensibly only ever be of the same type.
 
---- a/tools/libs/guest/xg_sr_restore.c
-+++ b/tools/libs/guest/xg_sr_restore.c
-@@ -424,7 +424,8 @@ static int send_checkpoint_dirty_pfn_lis
-     xc_interface *xch = ctx->xch;
-     int rc = -1;
-     unsigned int count, written;
--    uint64_t i, *pfns = NULL;
-+    unsigned long i;
-+    uint64_t *pfns = NULL;
-     struct iovec *iov = NULL;
-     xc_shadow_op_stats_t stats = { 0, ctx->restore.p2m_size };
-     struct xc_sr_record rec = {
-@@ -444,16 +445,28 @@ static int send_checkpoint_dirty_pfn_lis
+--- a/tools/include/xen-tools/libs.h
++++ b/tools/include/xen-tools/libs.h
+@@ -13,6 +13,10 @@
+ #define ARRAY_SIZE(a) (sizeof(a) / sizeof(*a))
+ #endif
  
-     for ( i = 0, count = 0; i < ctx->restore.p2m_size; i++ )
-     {
--        if ( test_bit(i, dirty_bitmap) )
--            count++;
-+        if ( test_bit(i, dirty_bitmap) && !++count )
-+            break;
-     }
++#ifndef sizeof_field
++#define sizeof_field(type, field) sizeof(((type *)0)->field)
++#endif
++
+ #ifndef MAX
+ #define MAX(x, y) ((x) > (y) ? (x) : (y))
+ #endif
+--- a/tools/libs/guest/xg_core_x86.c
++++ b/tools/libs/guest/xg_core_x86.c
+@@ -59,6 +59,43 @@ xc_core_arch_memory_map_get(xc_interface
+     if ( xc_domain_nr_gpfns(xch, info->domid, &p2m_size) < 0 )
+         return -1;
  
-+    if ( i < ctx->restore.p2m_size )
++    if ( !p2m_size )
 +    {
-+        ERROR("Too many dirty pfns");
-+        goto err;
++        ERROR("Cannot map a guest without P2M");
++        errno = ENODATA;
++        return -1;
 +    }
 +
-+    rec.length = count * sizeof(*pfns);
-+    if ( rec.length / sizeof(*pfns) != count )
++    if ( !info->hvm )
 +    {
-+        ERROR("Too many (%u) dirty pfns", count);
-+        goto err;
++        unsigned int guest_width;
++
++        if ( xc_domain_get_guest_width(xch, info->domid, &guest_width) != 0 )
++        {
++            PERROR("Cannot get address size for PV guest");
++            return -1;
++        }
++
++        if ( p2m_size == (guest_width > 4 ? ~0UL : ~0U) )
++        {
++            ERROR("Cannot map a PV guest with invalid P2M");
++            errno = ENODATA;
++            return -1;
++        }
++    }
++
++#ifndef __i386__
++    if ( (p2m_size - 1) >> 40 )
++#else
++    /* Very large domains (> 1TB) will exhaust virtual address space. */
++    if ( (p2m_size - 1) >> 28 )
++#endif
++    {
++        ERROR("Cannot map a guest with P2M size %#lx", p2m_size);
++        errno = EOPNOTSUPP;
++        return -1;
++    }
++
+     map = malloc(sizeof(*map));
+     if ( map == NULL )
+     {
+@@ -333,10 +370,30 @@ xc_core_arch_map_p2m_rw(xc_interface *xc
+ 
+     if ( dinfo->p2m_size < info->nr_pages  )
+     {
+-        ERROR("p2m_size < nr_pages -1 (%lx < %lx", dinfo->p2m_size, info->nr_pages - 1);
++        ERROR("p2m_size < nr_pages (%lx < %lx)", dinfo->p2m_size, info->nr_pages);
+         goto out;
+     }
+ 
++    if ( !info->hvm && dinfo->p2m_size == (dinfo->guest_width > 4 ? ~0UL : ~0U) )
++    {
++        ERROR("Cannot r/%c-map a PV guest with invalid P2M", rw ? 'w' : 'o');
++        errno = ENODATA;
++        return -1;
++    }
++
++#ifndef __i386__
++    if ( (dinfo->p2m_size - 1) >> 40 )
++#else
++    /* Very large domains (> 1TB) will exhaust virtual address space. */
++    if ( (dinfo->p2m_size - 1) >> 28 )
++#endif
++    {
++        ERROR("Cannot r/%c-map a guest with P2M size %#lx",
++              rw ? 'w' : 'o', dinfo->p2m_size);
++        errno = EOPNOTSUPP;
++        return -1;
++    }
++
+     p2m_cr3 = GET_FIELD(live_shinfo, arch.p2m_cr3, dinfo->guest_width);
+ 
+     p2m_frame_list = p2m_cr3 ? xc_core_arch_map_p2m_list_rw(xch, dinfo, dom, live_shinfo, p2m_cr3)
+--- a/tools/libs/guest/xg_sr_restore_x86_pv.c
++++ b/tools/libs/guest/xg_sr_restore_x86_pv.c
+@@ -709,10 +709,23 @@ static int handle_x86_pv_p2m_frames(stru
+         return -1;
+     }
+ 
++#ifdef __i386__
++    /* Very large domains (> 1TB) will exhaust virtual address space. */
++    if ( data->end_pfn >> 28 )
++#elif 0 /* sizeof(data->end_pfn) > 4 */
++    if ( data->end_pfn >> (ctx->x86.pv.width > 4 ? 40 : 32) )
++#else
++    if ( 0 )
++#endif
++    {
++        ERROR("End pfn in stream (%#x) too large", data->end_pfn);
++        return -1;
++    }
++
+     if ( data->start_pfn > data->end_pfn )
+     {
+-        ERROR("End pfn in stream (%#x) exceeds Start (%#x)",
+-              data->end_pfn, data->start_pfn);
++        ERROR("Start pfn in stream (%#x) exceeds End (%#x)",
++              data->start_pfn, data->end_pfn);
+         return -1;
+     }
+ 
+--- a/tools/libs/guest/xg_sr_save_x86_pv.c
++++ b/tools/libs/guest/xg_sr_save_x86_pv.c
+@@ -464,11 +464,40 @@ static int map_p2m_list(struct xc_sr_con
+  */
+ static int map_p2m(struct xc_sr_context *ctx)
+ {
++    xc_interface *xch = ctx->xch;
+     uint64_t p2m_cr3;
++    uint64_t max_pfn = GET_FIELD(ctx->x86.pv.shinfo, arch.max_pfn,
++                                 ctx->x86.pv.width);
++
++    if ( !max_pfn )
++    {
++        ERROR("Cannot save a guest without P2M");
++        errno = ENODATA;
++        return -1;
++    }
++
++    if ( max_pfn-- == (ctx->x86.pv.width > 4 ? ~0UL : ~0U) )
++    {
++        ERROR("Cannot save a guest with invalid P2M");
++        errno = ENODATA;
++        return -1;
++    }
++
++#ifndef __i386__
++    if ( max_pfn >> (sizeof_field(struct xc_sr_rec_x86_pv_p2m_frames,
++                                  end_pfn) > 4 ? 40 : 32) )
++#else
++    /* Very large domains (> 1TB) will exhaust virtual address space. */
++    if ( max_pfn >> 28 )
++#endif
++    {
++        ERROR("Cannot save a guest with maximum PFN %#"PRIx64, max_pfn);
++        errno = EOPNOTSUPP;
++        return -1;
 +    }
  
--    pfns = malloc(count * sizeof(*pfns));
-+    pfns = malloc(rec.length);
-     if ( !pfns )
-     {
--        ERROR("Unable to allocate %zu bytes of memory for dirty pfn list",
--              count * sizeof(*pfns));
-+        ERROR("Unable to allocate %u bytes of memory for dirty pfn list",
-+              rec.length);
-         goto err;
-     }
+     ctx->x86.pv.p2m_generation = ~0ULL;
+-    ctx->x86.pv.max_pfn = GET_FIELD(ctx->x86.pv.shinfo, arch.max_pfn,
+-                                    ctx->x86.pv.width) - 1;
++    ctx->x86.pv.max_pfn = max_pfn;
+     p2m_cr3 = GET_FIELD(ctx->x86.pv.shinfo, arch.p2m_cr3, ctx->x86.pv.width);
  
-@@ -479,8 +492,6 @@ static int send_checkpoint_dirty_pfn_lis
-         goto err;
-     }
- 
--    rec.length = count * sizeof(*pfns);
--
-     iov[0].iov_base = &rec.type;
-     iov[0].iov_len = sizeof(rec.type);
- 
-@@ -488,7 +499,7 @@ static int send_checkpoint_dirty_pfn_lis
-     iov[1].iov_len = sizeof(rec.length);
- 
-     iov[2].iov_base = pfns;
--    iov[2].iov_len = count * sizeof(*pfns);
-+    iov[2].iov_len = rec.length;
- 
-     if ( writev_exact(ctx->restore.send_back_fd, iov, 3) )
-     {
+     return p2m_cr3 ? map_p2m_list(ctx, p2m_cr3) : map_p2m_tree(ctx);
 
 
