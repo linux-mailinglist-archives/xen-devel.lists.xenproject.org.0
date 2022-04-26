@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A355350FD06
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Apr 2022 14:30:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.313861.531637 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 118D350FD3C
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Apr 2022 14:39:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.313870.531648 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njKKn-0007ze-Qt; Tue, 26 Apr 2022 12:30:25 +0000
+	id 1njKT5-0000L7-QQ; Tue, 26 Apr 2022 12:38:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 313861.531637; Tue, 26 Apr 2022 12:30:25 +0000
+Received: by outflank-mailman (output) from mailman id 313870.531648; Tue, 26 Apr 2022 12:38:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njKKn-0007xe-Me; Tue, 26 Apr 2022 12:30:25 +0000
-Received: by outflank-mailman (input) for mailman id 313861;
- Tue, 26 Apr 2022 12:30:25 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1njKKn-0007xU-3C; Tue, 26 Apr 2022 12:30:25 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1njKKm-00046g-Ud; Tue, 26 Apr 2022 12:30:24 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1njKKm-0004k2-J5; Tue, 26 Apr 2022 12:30:24 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1njKKm-00054F-Ia; Tue, 26 Apr 2022 12:30:24 +0000
+	id 1njKT5-0000IB-MG; Tue, 26 Apr 2022 12:38:59 +0000
+Received: by outflank-mailman (input) for mailman id 313870;
+ Tue, 26 Apr 2022 12:38:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vuZH=VE=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
+ id 1njKT4-0000I5-EQ
+ for xen-devel@lists.xenproject.org; Tue, 26 Apr 2022 12:38:58 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id d6d4e53e-c55d-11ec-8fc2-03012f2f19d4;
+ Tue, 26 Apr 2022 14:38:57 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7939823A;
+ Tue, 26 Apr 2022 05:38:56 -0700 (PDT)
+Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
+ [10.1.199.62])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 282903F774;
+ Tue, 26 Apr 2022 05:38:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,161 +43,371 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=rHzZIcLH13s00kwnX/TBoHLvpwoEev8/EWcwCFvqV4s=; b=UC7ekLb93AyozueGEagOuSTLhC
-	wSSqtNb4M4INqED/d9H/jr4m4BjLNM3+d/JW5h3+2txGThkN00Qcb/amuKPIRgmr+vtl4HhVQ2Ew+
-	f2rGrjH6P8dBVZ5Y6HiQv+Hi0R2Q/HqBaszRhgyBZiuLcoyf8PkLYJNsfUMcQiQOZRp0=;
+X-Inumbo-ID: d6d4e53e-c55d-11ec-8fc2-03012f2f19d4
+From: Bertrand Marquis <bertrand.marquis@arm.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169734-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Michal Orzel <michal.orzel@arm.com>
+Subject: [PATCH v3] xen/build: Add cppcheck and cppcheck-html make rules
+Date: Tue, 26 Apr 2022 13:38:41 +0100
+Message-Id: <8a8ffce11591efb284c93214b77534fa4e4134b2.1650976647.git.bertrand.marquis@arm.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Subject: [ovmf test] 169734: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=916f90baa547b3ebef8fa87c530e2f0c8e35e1e3
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 26 Apr 2022 12:30:24 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 169734 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169734/
+cppcheck can be used to check Xen code quality.
 
-Regressions :-(
+To create a report do "make cppcheck" on a built tree adding any options
+you added during the process you used to build xen (like CROSS_COMPILE
+or XEN_TARGET_ARCH). This will generate an xml report xen-cppcheck.xml.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+To create a html report do "make cppcheck-html" in the same way and a
+full report to be seen in a browser will be generated in
+cppcheck-htmlreport/index.html.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+For better results it is recommended to build your own cppcheck from the
+latest sources that you can find at [1].
+Development and result analysis has been done with cppcheck 2.7.
 
-version targeted for testing:
- ovmf                 916f90baa547b3ebef8fa87c530e2f0c8e35e1e3
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+The Makefile rule is searching for all C files which have been compiled
+(ie which have a generated .o file) and is running cppcheck on all of
+them using the current configuration of xen so only the code actually
+compiled is checked.
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   57 days
-Failing since        168258  2022-03-01 01:55:31 Z   56 days  640 attempts
-Testing same since   169718  2022-04-25 21:41:52 Z    0 days   12 attempts
+A new tool is introduced to merge all cppcheck reports into one global
+report including all findings and removing duplicates.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
+Some extra variables can be used to customize the report:
+- CPPCHECK can be used to give the full path to the cppcheck binary to
+use (default is to use the one from the standard path).
+- CPPCHECK_HTMLREPORT can be used to give the full path to
+cppcheck-htmlreport (default is to use the one from the standard path).
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+This has been tested on several arm configurations (x86 should work but
+has not been tested).
 
+[1] https://cppcheck.sourceforge.io/
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+Signed-off-by: Michal Orzel <michal.orzel@arm.com>
+---
+Changes in v3:
+- add more checks in merge script and catch all possible exception from
+the xml parser (suggested by Stefano)
+Changes in v2:
+- catch parsing errors during merge and tell the user to update cppcheck
+- fix alignments in Makefile
+- use srctree and objtree instead of BASEDIR
+- remove SCTLR invalid change
+- add a check of cppcheck version and mandate version 2.7 or greater
+- rework a bit the merge script to make it faster and display progress
+---
+ .gitignore                           |  3 +
+ xen/Makefile                         | 84 ++++++++++++++++++++++++++-
+ xen/arch/arm/include/asm/processor.h |  2 +
+ xen/include/xen/config.h             |  4 ++
+ xen/include/xen/kconfig.h            |  5 ++
+ xen/tools/merge_cppcheck_reports.py  | 86 ++++++++++++++++++++++++++++
+ 6 files changed, 182 insertions(+), 2 deletions(-)
+ create mode 100755 xen/tools/merge_cppcheck_reports.py
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+diff --git a/.gitignore b/.gitignore
+index c6d2c4b4f1..18ef56a780 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -7,6 +7,7 @@
+ *.o
+ *.d
+ *.d2
++*.c.cppcheck
+ *.opic
+ *.a
+ *.so
+@@ -296,6 +297,7 @@ xen/.banner
+ xen/.config
+ xen/.config.old
+ xen/.xen.elf32
++xen/xen-cppcheck.xml
+ xen/System.map
+ xen/arch/x86/boot/mkelf32
+ xen/arch/x86/boot/cmdline.S
+@@ -316,6 +318,7 @@ xen/arch/*/efi/runtime.c
+ xen/arch/*/include/asm/asm-offsets.h
+ xen/common/config_data.S
+ xen/common/config.gz
++xen/cppcheck-htmlreport
+ xen/include/headers*.chk
+ xen/include/compat/*
+ xen/include/config/
+diff --git a/xen/Makefile b/xen/Makefile
+index ec34524ed2..255360440e 100644
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -449,7 +449,7 @@ endif # need-config
+ 
+ __all: build
+ 
+-main-targets := build install uninstall clean distclean MAP
++main-targets := build install uninstall clean distclean MAP cppcheck cppcheck-html
+ .PHONY: $(main-targets)
+ ifneq ($(XEN_TARGET_ARCH),x86_32)
+ $(main-targets): %: _% ;
+@@ -537,15 +537,17 @@ _clean:
+ 	$(Q)$(MAKE) $(clean)=tools/kconfig
+ 	find . \( -name "*.o" -o -name ".*.d" -o -name ".*.d2" \
+ 		-o -name ".*.o.tmp" -o -name "*~" -o -name "core" \
+-		-o -name '*.lex.c' -o -name '*.tab.[ch]' \
++		-o -name '*.lex.c' -o -name '*.tab.[ch]' -o -name '*.c.cppcheck' \
+ 		-o -name "*.gcno" -o -name ".*.cmd" -o -name "lib.a" \) -exec rm -f {} \;
+ 	rm -f include/asm $(TARGET) $(TARGET).gz $(TARGET).efi $(TARGET).efi.map $(TARGET)-syms $(TARGET)-syms.map
+ 	rm -f asm-offsets.s arch/*/include/asm/asm-offsets.h
+ 	rm -f .banner .allconfig.tmp include/xen/compile.h
++	rm -f xen-cppcheck.xml
+ 
+ .PHONY: _distclean
+ _distclean: clean
+ 	rm -f tags TAGS cscope.files cscope.in.out cscope.out cscope.po.out GTAGS GPATH GRTAGS GSYMS .config source
++	rm -rf $(CPPCHECK_HTMLREPORT_OUTDIR)
+ 
+ $(TARGET).gz: $(TARGET)
+ 	gzip -n -f -9 < $< > $@.new
+@@ -619,6 +621,84 @@ cloc:
+ 	    done; \
+ 	done | cloc --list-file=-
+ 
++# What cppcheck command to use.
++# To get proper results, it is recommended to build cppcheck manually from the
++# latest source and use CPPCHECK to give the full path to the built version.
++CPPCHECK ?= cppcheck
++
++# What cppcheck-htmlreport to use.
++# If you give the full path to a self compiled cppcheck, this should be set
++# to the full path to cppcheck-html in the htmlreport directory of cppcheck.
++# On recent distribution, this is available in the standard path.
++CPPCHECK_HTMLREPORT ?= cppcheck-htmlreport
++
++# By default we generate the report in cppcheck-htmlreport directory in the
++# build directory. This can be changed by giving a directory in this variable.
++CPPCHECK_HTMLREPORT_OUTDIR ?= cppcheck-htmlreport
++
++# Compile flags to pass to cppcheck:
++# - include directories and defines Xen Makefile is passing (from CFLAGS)
++# - include config.h as this is passed directly to the compiler.
++# - define CPPCHECK as we use to disable or enable some specific part of the
++#   code to solve some cppcheck issues.
++# - explicitely enable some cppcheck checks as we do not want to use "all"
++#   which includes unusedFunction which gives wrong positives as we check file
++#   per file.
++#
++# Compiler defines are in compiler-def.h which is included in config.h
++#
++CPPCHECKFLAGS := -DCPPCHECK --max-ctu-depth=10 \
++                 --enable=style,information,missingInclude \
++                 --include=$(srctree)/include/xen/config.h \
++                 -I $(srctree)/xsm/flask/include \
++                 -I $(srctree)/include/xen/libfdt \
++                 $(filter -D% -I%,$(CFLAGS))
++
++# We need to find all C files (as we are not checking assembly files) so
++# we find all generated .o files which have a .c corresponding file.
++CPPCHECKFILES := $(wildcard $(patsubst $(objtree)/%.o,$(srctree)/%.c, \
++                 $(filter-out $(objtree)/tools/%, \
++                 $(shell find $(objtree) -name "*.o"))))
++
++quiet_cmd_cppcheck_xml = CPPCHECK $(patsubst $(srctree)/%,%,$<)
++cmd_cppcheck_xml = $(CPPCHECK) -v -q --xml $(CPPCHECKFLAGS) \
++                   --output-file=$@ $<
++
++quiet_cmd_merge_cppcheck_reports = CPPCHECK-MERGE $@
++cmd_merge_cppcheck_reports = $(srctree)/tools/merge_cppcheck_reports.py $^ $@
++
++quiet_cmd_cppcheck_html = CPPCHECK-HTML $<
++cmd_cppcheck_html = $(CPPCHECK_HTMLREPORT) --file=$< --source-dir=$(srctree) \
++                    --report-dir=$(CPPCHECK_HTMLREPORT_OUTDIR) --title=Xen
++
++PHONY += _cppcheck _cppcheck-html cppcheck-version
++
++_cppcheck-html: xen-cppcheck.xml
++	$(call if_changed,cppcheck_html)
++
++_cppcheck: xen-cppcheck.xml
++
++xen-cppcheck.xml: $(patsubst $(srctree)/%.c,$(objtree)/%.c.cppcheck,$(CPPCHECKFILES))
++ifeq ($(CPPCHECKFILES),)
++	$(error Please build Xen before running cppcheck)
++endif
++	$(call if_changed,merge_cppcheck_reports)
++
++$(objtree)/%.c.cppcheck: $(srctree)/%.c $(objtree)/include/generated/autoconf.h $(objtree)/include/generated/compiler-def.h | cppcheck-version
++	$(call if_changed,cppcheck_xml)
++
++cppcheck-version:
++ifeq ($(shell which $(CPPCHECK)),)
++	$(error Cannot find cppcheck executable: $(CPPCHECK))
++endif
++ifeq ($(shell $(CPPCHECK) --version | awk '{print ($$2 < 2.7)}'),1)
++	$(error Please upgrade your cppcheck to version 2.7 or greater)
++endif
++
++# Put this in generated headers this way it is cleaned by include/Makefile
++$(objtree)/include/generated/compiler-def.h:
++	$(Q)$(CC) -dM -E -o $@ - < /dev/null
++
+ endif #config-build
+ endif # need-sub-make
+ 
+diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
+index 852b5f3c24..ef37cfa16f 100644
+--- a/xen/arch/arm/include/asm/processor.h
++++ b/xen/arch/arm/include/asm/processor.h
+@@ -219,9 +219,11 @@
+                          SCTLR_Axx_ELx_A    | SCTLR_Axx_ELx_C   |\
+                          SCTLR_Axx_ELx_WXN  | SCTLR_Axx_ELx_EE)
+ 
++#ifndef CPPCHECK
+ #if (SCTLR_EL2_SET ^ SCTLR_EL2_CLEAR) != 0xffffffffffffffffUL
+ #error "Inconsistent SCTLR_EL2 set/clear bits"
+ #endif
++#endif
+ 
+ #endif
+ 
+diff --git a/xen/include/xen/config.h b/xen/include/xen/config.h
+index 85c6f59be9..d888b2314d 100644
+--- a/xen/include/xen/config.h
++++ b/xen/include/xen/config.h
+@@ -7,6 +7,10 @@
+ #ifndef __XEN_CONFIG_H__
+ #define __XEN_CONFIG_H__
+ 
++#ifdef CPPCHECK
++#include <generated/compiler-def.h>
++#endif
++
+ #include <xen/kconfig.h>
+ 
+ #ifndef __ASSEMBLY__
+diff --git a/xen/include/xen/kconfig.h b/xen/include/xen/kconfig.h
+index 4d58c5bb3c..a717b0819c 100644
+--- a/xen/include/xen/kconfig.h
++++ b/xen/include/xen/kconfig.h
+@@ -8,6 +8,10 @@
+  * these only work with boolean option.
+  */
+ 
++/* cppcheck is failing to parse the macro so use a dummy one */
++#ifdef CPPCHECK
++#define IS_ENABLED(option) option
++#else
+ /*
+  * Getting something that works in C and CPP for an arg that may or may
+  * not be defined is tricky.  Here, if we have "#define CONFIG_BOOGER 1"
+@@ -27,5 +31,6 @@
+  * otherwise.
+  */
+ #define IS_ENABLED(option) config_enabled(option)
++#endif
+ 
+ #endif /* __XEN_KCONFIG_H */
+diff --git a/xen/tools/merge_cppcheck_reports.py b/xen/tools/merge_cppcheck_reports.py
+new file mode 100755
+index 0000000000..1c1b63ba56
+--- /dev/null
++++ b/xen/tools/merge_cppcheck_reports.py
+@@ -0,0 +1,86 @@
++#!/usr/bin/env python
++
++"""
++This script acts as a tool to merge XML files created by cppcheck.
++Usage:
++    merge_cppcheck_reports.py [FILES] [OUTPUT]
++
++    FILES  - list of XML files with extension .cppcheck
++    OUTPUT - file to store results (with .xml extension).
++             If not specified, the script will print results to stdout.
++"""
++
++import sys
++from xml.etree import ElementTree
++
++def elements_equal(el1, el2):
++    if type(el1) != type(el2): return False
++
++    if el1.find('location') is None: return False
++    if el2.find('location') is None: return False
++
++    el1_location = str(el1.find('location').attrib)
++    el2_location = str(el2.find('location').attrib)
++
++    if el1_location != el2_location: return False
++
++    return True
++
++def contain_element(new, lst):
++    for elem in lst:
++        if elements_equal(new, elem):
++            return True
++    return False
++
++def merge(files):
++    try:
++        result_xml_root = ElementTree.parse(files[0]).getroot()
++    except:
++        print("Xml parsing error in %s\n" % (files[0]))
++        print("Please upgrade your cppcheck to version 2.7 or greater")
++        sys.exit(1)
++    insert_point = result_xml_root.findall("errors")[0]
++    curr = 1
++    total = len(files)
++    numelem = len(insert_point)
++    for xml_file in files[1:]:
++        try:
++            xml_root = ElementTree.parse(xml_file).getroot()
++        except:
++            print("Xml parsing error in %s\n" % (xml_file))
++            print("Please upgrade your cppcheck to version 2.7 or greater")
++            sys.exit(1)
++        curr_elem_list = list(insert_point)
++        new_elem_list = list(xml_root.findall("errors")[0])
++        for xml_error_elem in new_elem_list:
++            if not contain_element(xml_error_elem, curr_elem_list):
++                insert_point.insert(1,xml_error_elem)
++                numelem = numelem + 1
++        curr = curr + 1
++        sys.stdout.write('\r')
++        sys.stdout.write(" %d / %d" % (curr,total))
++        sys.stdout.flush()
++
++    sys.stdout.write('\r\n')
++    print("Done: %d elements" % (numelem))
++    return result_xml_root
++
++def run():
++    files = []
++    output = None
++    for i in sys.argv[1:]:
++        output = i if '.xml' in i else None
++        files.append(i) if '.cppcheck' in i else None
++
++    result = merge(files)
++
++    if result is None:
++        return
++
++    if output is not None:
++        ElementTree.ElementTree(result).write(output)
++    else:
++        print(ElementTree.tostring(result).decode('utf-8'))
++
++if __name__ == '__main__':
++    run()
+-- 
+2.25.1
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 5828 lines long.)
 
