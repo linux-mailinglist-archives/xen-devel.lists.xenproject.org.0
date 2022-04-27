@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7AAC511532
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 12:56:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.314894.533168 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B012511533
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 12:57:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.314899.533179 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njfKt-00061X-U7; Wed, 27 Apr 2022 10:55:55 +0000
+	id 1njfMK-0006af-AH; Wed, 27 Apr 2022 10:57:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 314894.533168; Wed, 27 Apr 2022 10:55:55 +0000
+Received: by outflank-mailman (output) from mailman id 314899.533179; Wed, 27 Apr 2022 10:57:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njfKt-0005yq-Qo; Wed, 27 Apr 2022 10:55:55 +0000
-Received: by outflank-mailman (input) for mailman id 314894;
- Wed, 27 Apr 2022 10:55:54 +0000
+	id 1njfMK-0006Yq-5z; Wed, 27 Apr 2022 10:57:24 +0000
+Received: by outflank-mailman (input) for mailman id 314899;
+ Wed, 27 Apr 2022 10:57:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PTsb=VF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1njfKs-0005yh-Lo
- for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 10:55:54 +0000
+ id 1njfMI-0005yh-PX
+ for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 10:57:22 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9b4252d8-c618-11ec-8fc2-03012f2f19d4;
- Wed, 27 Apr 2022 12:55:53 +0200 (CEST)
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05lp2172.outbound.protection.outlook.com [104.47.17.172]) by
+ id d029cfa0-c618-11ec-8fc2-03012f2f19d4;
+ Wed, 27 Apr 2022 12:57:21 +0200 (CEST)
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com
+ (mail-am5eur03lp2054.outbound.protection.outlook.com [104.47.8.54]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-26-fxsvVFLNMsWTI_i7R87Xtw-1; Wed, 27 Apr 2022 12:55:50 +0200
+ de-mta-13-rO4iQjY-PHWxUV11zXxh5A-2; Wed, 27 Apr 2022 12:57:20 +0200
 Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
- by AM6PR04MB6613.eurprd04.prod.outlook.com (2603:10a6:20b:f4::23)
- with Microsoft SMTP Server (version=TLS1_2,
+ by DBBPR04MB6185.eurprd04.prod.outlook.com (2603:10a6:10:c9::23) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.21; Wed, 27 Apr
- 2022 10:55:47 +0000
+ 2022 10:57:18 +0000
 Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
  ([fe80::5cb0:5195:4203:7c2f]) by DU2PR04MB8616.eurprd04.prod.outlook.com
  ([fe80::5cb0:5195:4203:7c2f%8]) with mapi id 15.20.5206.013; Wed, 27 Apr 2022
- 10:55:47 +0000
+ 10:57:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,123 +51,237 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b4252d8-c618-11ec-8fc2-03012f2f19d4
+X-Inumbo-ID: d029cfa0-c618-11ec-8fc2-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1651056952;
+	t=1651057041;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding;
-	bh=skwrGfE8+Sl7mGdnYdHqvyOb61t/CInea/7lOr5rcj4=;
-	b=dxD+uqxQ2nsVOh90udvghmf22l++MXymhKrWOfSU4zSZhqTgNbYi7QXcblUxR+wFQr8jV8
-	k8KgYNjTOcbxakIW66DBSjJfUm60Ie5K9iqlf0zohmLDnZgkMH3z+pPt1z/bf1vzgf0hZb
-	X0spHod+RC6i1GyKabAzLZBMUrhkqcA=
-X-MC-Unique: fxsvVFLNMsWTI_i7R87Xtw-1
+	bh=yLsc49pkrpA56zUyBj4602Mqp4cWTKF+G8J0s3Z4fRg=;
+	b=n7LlQBLqBx0iwnV+icIpILtplnc/NK5ST/fuVBc3Hzt4toHEPy568Dg83BfJNAu+sGqiVa
+	EO4/iHETS/OZ+cF874iJcDOZZMKnSssThsmYzAxMwm3lbBG5BNyAHhi1FLyF6PwubP4HWQ
+	dcUq0VDRf2A76Rkf4VKuolHKqaSAWn4=
+X-MC-Unique: rO4iQjY-PHWxUV11zXxh5A-2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eg++lbbF1ENAZ0g9R5j0Iyg+Kh+mitm0d0gaLy6yjnF29LXfj2WukO5aSxlpFy0GdiC/Fi2lPdpKF6LJm+FK9AaWeihZlRzUgKai/XcNZ2/DyPathh9lDJAhURy/tOu5D+QKTq7WOziFbB15WlPBEGrL0j0d6s7TyOKpI/R/IFGBWueZLMIYMHo5ZsKLg7d/x5srB5Wscp5OUNwtf9ypTJ7wLrznH6fduRxa7mOkmatMdGVvEsN00AWmxV3Ke1bERZtx2g8tU7pKNKTOx57nv3h2f8dk89C8fJxzMKEhWAJPgBqtMkkP1fx2BKLSMFnOnYwb/rHQEYTJuYb7S3jt4A==
+ b=cDwhmVTvsJh79p3LJPi+I2/HnbILotQW4DB7i+l03roi6lhmIezfy5VMdZ2ixKsXI+My6X8xOZ4Zc36Rj5ual+bwlJWvjQicieaRJlZ7oHuI5wHXAY2axHU2Wh2cAC5AkCMDtx1Gqt3xSOMPHfAHZnOnlpivqIpKlC+pXOwLHuQUYlHcSy0XGidaIpSD61PokjQwlIIyD/HSLXNBU98A1QqeckieR22XUfKVvOztMdYnk1m65mjoZkr1qpESsE1m5oyVbDGkkzwvgezIHrAha2lSgBlVHT5sIZNmleQ4x8NpoyUrpCck+eWYYtaE89fbc4wdn7tVJdAiTjWi9NIOFA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=skwrGfE8+Sl7mGdnYdHqvyOb61t/CInea/7lOr5rcj4=;
- b=A8UeITQpkS+VbklQSWYmxBstamVZpn7qtuqkB+KRM4vrCVgO67H+7QfSn7vtFCmNE/bYeihKlZuYc9TDnS3vJLRnb+mhmVr/PyeoKc2jr5HtT4Cs0dw7oZg9ByuqxzHcMyGa3vU5zRba3uOO2cWj8mdnhMSbmvaHvKQeMu6StiZKBrUHMewtRFA7HkiIbQpQyDt4K1Mu3LfoPlxIOFW3vC1tqma09nlWe4cGt59IuCur0/YoCLLJHgyMnEpXz66jY99iwAGmRUfDCetOwMwC7jxQWDqH8SNLYFC+gAxyMcn86JSyp6myeUfeA/TmiiB/InjVe0NC9ZtLCyzFfab+1Q==
+ bh=yLsc49pkrpA56zUyBj4602Mqp4cWTKF+G8J0s3Z4fRg=;
+ b=IIxGXsqPv+mufyWXk3Y3Ok080Ujlz2mF5WAvGEL2LEKE+N+0TObSJpMU+OP5RHd/ph6LzJ+uZXNUf86Yvx3/RNqDrkdfMJipt0dpYXbSUi2jcnJ2LvQhHCb9ELz6MAhamtzWlC+ZwTTJTHqNMsGt50X4pF9ecbHIxqC7xCWa0KgiH0eTcD9odhnXMYug5GxcC64blfI1sSg60jdGjCIh/RFoCXGUalkzux/11nreFqkbC+3HauWGRRV67pFSKr7z5ezEUuBmDD6a8O64Cyi5c5YE+DmCP3fRt78LDWLGaWjPbpK0Dzpdz/1KPWWWJoAWLjLHc4YZGEHviRhQqnf+Sg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <58aad4ba-af15-0189-5336-698aadfcf905@suse.com>
-Date: Wed, 27 Apr 2022 12:55:45 +0200
+Message-ID: <81ba388c-66ff-e191-0098-2f88a004105c@suse.com>
+Date: Wed, 27 Apr 2022 12:57:17 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.1
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] bump default SeaBIOS version to 1.16.0
+Subject: [PATCH v3] x86+libxl: correct p2m (shadow) memory pool size
+ calculation
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Anthony Perard <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>
+Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6P192CA0077.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:209:8d::18) To DU2PR04MB8616.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM6PR05CA0027.eurprd05.prod.outlook.com
+ (2603:10a6:20b:2e::40) To DU2PR04MB8616.eurprd04.prod.outlook.com
  (2603:10a6:10:2db::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e565a385-1949-458d-27ea-08da283c7bef
-X-MS-TrafficTypeDiagnostic: AM6PR04MB6613:EE_
+X-MS-Office365-Filtering-Correlation-Id: c62aca91-2660-42d5-f177-08da283cb267
+X-MS-TrafficTypeDiagnostic: DBBPR04MB6185:EE_
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
 X-Microsoft-Antispam-PRVS:
-	<AM6PR04MB66134908E91EEBC8EE42C23CB3FA9@AM6PR04MB6613.eurprd04.prod.outlook.com>
+	<DBBPR04MB6185C19CA820052E1ED85A08B3FA9@DBBPR04MB6185.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	FfyewvEex8FmStUyfLnAuJzTTaM4eiZgSKo/oT+zgtF6Qj+QRbprWBM1OErJ7K6rUU1G1oILJPkEZVxsvVpJ8ciEDYrfEQp+ZdY1D0Lj/MsxTitRsroMhJ6gAwEihr85mYolD2XYSsq1M2PQPPvOGr/3PiOCJPW45k+5iv1Wg2aDM7kOArDKhf2KYtCkFyUxtr7AJbtOeDQE1BK/iUGVmUwo6r7o9/4tD1pMLxqCpjQip6vJ74xNZ58uQuxStSQhTwfIOhHzlzmqzXFV2WKxJ1nJImu4pQfylGtTOvCajER04PislsfGnfX8I/DcL3spaYlabP2cURE0jdruUEE/dZpOg+hHREy6VVGuCtHfB3cKZ0KzUpE1DAV2GjhsTdIwMcjYedakosRnRhJNg7TL+WkoDPThywNbp8rHQ6HwCqr15GsuRjYSyVaJQOUvT5GaEQlshpIrmtg7dK16j4dENn0C2IIijROWGyZWPP6xHXG+dxVzqIRGeg0mBODtR5ZMbennL9ioLbckjdy87/k+9qXi7GrGapboKUDAggHFhICfEOPfnrBNAD59WT7cZPwv0Cte1RWuiT8c6Wz/SGidSO060/hbQjOP4AXk4I+RAVI31Nv6BoT9GCR1qEwAJcYtIV/j4rf+Fj9dhw4fweXgqZ+U830WE3kya1xQRyxtrwXbCMOSIbw21Dvm0BUBXbuIHlWgid3Jm51M/mi3cqcg9DMdah84U9CRQv8tNp+AeCG52dL/1+T09SEmmSiF3I/N
+	RbDpOik6dQOOQaiCLo846KbmMKV/HHziwgCWB+fD8TaawyQ3V+YrWu2Amtqjfnb2NRgWSEmVvmRrp6fOYlKeSUJv3gOcuKKaOWzFhgliykQ9+T6UGZXIZqlv9kGSxFZBtx5nfi/dsqY35SNo+/dFZfpJfp4K/VyVTwKNkEIO+fJN8hzScHTGj43+Rw2Hg6VvJH9dx/cFm8sUHxG7CwLLAqDv23JWYo2T2awX/B4mJSQarZp2YUlkQ4DOTrp3h21EKxRmkHcnbPIaXXJZftC5kcxEeqQxjqpzV5iYFhEMEZDyIYykXaBbyyKUorn0zFr4cDblpJNTRiU0UQLgJd46JUAQPSmVo8sHwPtSO7wY9JW68uN1VXGkcJb6wfj97gKbz3gdyC0u6Zm4FwFmVkA9+bsNoLTzi1ZzOJvN084xSegZcpj60+XeXoLDu9aU3se4huKCpyyN+4H/6Q+E7lWP5uc69WmrL/Di8pEMpTgMz6h6QgjjASIK45ZAtddR6WEcBqgYlS9yEM8xRE/HEmfWdW59HZ/q4WsrbWyHxBEzVbDr7c/YpfmWaW49gw4E9egVIbQokD2XjsDkOmu7roous6JLIeN8fKPxEpD1kytnoAJoqyFZS1NGqbWlC3ctXtlznW/HZvwzwohfR3qCRziGsbmF6wcA5eBu6QRHpMVxQyI7gQXUJQabia+uCf3AaOAVnpETNo+sbbeiEld4vWb20m12FFyaVTbk0XtMVuyUOo9nEuta112jtTWXRDBRvcD/
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(26005)(6512007)(6506007)(86362001)(31686004)(2616005)(186003)(31696002)(4744005)(8936002)(4326008)(66476007)(66556008)(8676002)(2906002)(5660300002)(38100700002)(66946007)(36756003)(6486002)(508600001)(316002)(6916009)(54906003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(8936002)(36756003)(6506007)(31686004)(4326008)(6512007)(5660300002)(26005)(508600001)(6486002)(54906003)(66556008)(8676002)(66476007)(83380400001)(66946007)(31696002)(86362001)(316002)(2616005)(6916009)(186003)(107886003)(2906002)(38100700002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NjhCYkFBTURGRVk1WFBIS3o4OCs1SWNWRTFVWllKQjluOWhvOFpTTXZ2NG1B?=
- =?utf-8?B?NlJZTCszMm1vMWYzVDZCZkNSRnk4VjJUNktNdFE0N0pTdnFBYjNSOXo3cGVC?=
- =?utf-8?B?Wkw0azNQOUNFOW05V1NIMGpNQU9jVDYyVUt6YzFCSkNVQXgxQjZiQ3F2dWZy?=
- =?utf-8?B?eVBwL29qaEtyQk4zVjJiRE1ESkhsRWhsY0RNVnpKR1RnM1pRUnM1MHk5UXB2?=
- =?utf-8?B?bmMvbTQxRi9mQVRKL2Qvb25yQkc2SlZoK2NKNkpjaTQzTk00cVZLN1hHQ2xH?=
- =?utf-8?B?ZGlBQ2RoSlJVb1F6VmI4V3hWQlZXMm53cDdZakVOaTZxUkVHNzNpamlNUnRn?=
- =?utf-8?B?VEYyNElOQXg3T2tYMTg4Mk9tTE1laE5VZElJSzdUYnB5SjE1aDlJMEs2eXVX?=
- =?utf-8?B?aTlHS0JjeDZDY1V2NTgvVXVpbnkvSXl3bUZpWm04cndLSzRhSEw0Z3U2aGpP?=
- =?utf-8?B?aWJCTVA5dWZUUWtOVGRSVjdMMi96bWZuQkkyU3lNZ1A2elk0T2RReUtLOWZr?=
- =?utf-8?B?dGlTMllWeFFqWE02OW9xUUlSRkhxWUNPb0lFdTV6ZHRRalZkTTFPVmVvWEk5?=
- =?utf-8?B?V3R3YUpFOUE1ZWJKVkJDc2pqMEdFVStub0JpcWtuWlpnb3QyMG5IZkVSTTJH?=
- =?utf-8?B?M3JXQWhnVklsZXFwMkh5UHZlbVJZblpidXFrM2RVcGtVbW9OMkJvTXZGUHZp?=
- =?utf-8?B?cld3S09EVXFiTjNmZ3dNRWNBQWJDSUc3SG81dUpsVER1QUJiK2xKMmVheFhz?=
- =?utf-8?B?NVByckhGTm5JVXR4L2NsbHNTK2Z4eTVTWlljSW9ESVp6eFM2dklaVWdyUWRi?=
- =?utf-8?B?blJsSGdrSGNGd1BSNjRqZERPaVRQQTRXdE1NTmYxRE90NWl3ek42UUo4YjJE?=
- =?utf-8?B?ZXFEQTJROFVJRDJZTkx2cE10UHo5K3FhSXZXdng4M291YnYvdEdNN1h3UDBI?=
- =?utf-8?B?S0pIN1pZbGUvU29taEhYZ1dKVjBac0VLbTByMkJsbEdFR0p5WEtJeW40NkdB?=
- =?utf-8?B?ZEE5VEZRVmI0aHpzZ0RyUUNialVvSFVLaFJtaGJpRFRMaVkwb3RYb2ZOT0Yv?=
- =?utf-8?B?Z1lUSzJTNnFubUIwa2YrSkpEVERnY0F4anFSR3JJbHRLbDlLb204ZjRia2Vw?=
- =?utf-8?B?dW04bTBVYUV3S2hmV01kK3RlU3phMEVBOHdoTmQyNGoxSi9DNTgvVGtDSUU4?=
- =?utf-8?B?L1pRZ0J5QlJNcE1xQnBoRUdDSVRORjNweE94U21tdDFISXhPUFJIRnNXZzNU?=
- =?utf-8?B?U2tZL1hLNmFyMUVRSXBjWU5SSnNWK0JkanVpQ2tVTHh5bkdqU0xkL3lIUnhQ?=
- =?utf-8?B?Ylpla0FQQ1ZqK0laVmNYT1hlMTV0b1RQaElZbVRaMXluSGRCYXJyZEorUWt6?=
- =?utf-8?B?bmlpR0wwS2Y2UXk4aUI1NVVLbXJBUjh2WE1xZVhHUXFVS1QvemZ5Qy9QZlBu?=
- =?utf-8?B?V053WWFpYlBlNHFsRlFabWdQSGNqMitjeGhRMHk1WmNnTDNBc2Y3N2FyNVU0?=
- =?utf-8?B?R3hCMS9oQXVTZjd2Qm9rZVM3aUFpdTkwMGRIYTRLM1c2dUJFbEpyL2x2Yk5U?=
- =?utf-8?B?Y3l3cTg1UG8xaUs0Q0lRVmsrWDBGOVpyUXprd2FHRkNGaU8vMkNNakdjaU5W?=
- =?utf-8?B?Q0xwYldwbm0yMWtpTHJubFhob3VFSUtVUFNpd3lQQUhONUhCQTljalVKL2dt?=
- =?utf-8?B?VTAxZG9FUFFwVjBGNWtqVVUvSnFnc0pSeWlCSVRtdHN1aVZmRHpMa0k0WG10?=
- =?utf-8?B?c3ZqSTZ6VVpDSkkrMGVnTEdqSXRLdnp5bWhhWVBJREZGV2RjbGJCSTg3ZzM3?=
- =?utf-8?B?d2Nhb3VuRURBK3hRL2d3UWlBN2ZDa2ZpZ2pka3ZBOXNXeldRaU5icURFOEgw?=
- =?utf-8?B?TDY4Z2RNU2ZON0RKZ2h6QU5HZ09WblkzVzAvNVJoQ3hHc0MzN3lHOWdTQXRD?=
- =?utf-8?B?azFGSU8vaEZHRklFS3Q1ZFUvSDVLQ0R2UnNxQStNWkZTUzRPY2U1VGlhQVNl?=
- =?utf-8?B?aFdzL1NoeW54UkFFa1drMHVrM0dKUHlTWkswOXgwcEFoOHhoNlRRL3BLUDc1?=
- =?utf-8?B?dGxmMzgxU0VqaFhlek5UdHZ1YTBpZ3ptNTd3L2VFQmEycm9FTjFkQU5Hc3hJ?=
- =?utf-8?B?WUNFdFlUZk9SOVhZUVRIRU0yZ1J3YjRWOTZieTZqSk1uY3NpVkswVHBGTWtD?=
- =?utf-8?B?TUlzQjFMVFJKaTdaRXYxdnpOOUFaQkpCT21mVnQ0dHB4Z1RrMVhWZCtrNEdh?=
- =?utf-8?B?ZGhnNmpRamE1NDI5ZDRhSHFLcG1xbkZBMXpISjZZVVowSzRvMGcvVytjTzlo?=
- =?utf-8?B?eXduUXlqZVVhY2htS1RVSElNSVA5Wk9IaFYyTkpRczJsV0RxczZPZz09?=
+	=?utf-8?B?K1crSmtKZG91YThjQkZTR0xOV2NGenlOYVhTMVlpNjJNTFRzdnBVcEYwemRN?=
+ =?utf-8?B?UXVSZGxCYUJjbzdMcEpFZ1kyQTlDK3ArYWpXSlJINmNNZ2IvMkNrZzNYbWgr?=
+ =?utf-8?B?Z0t3QTBRQUc0VXBwTFBsSUFvWTFyYm5CTS9OWFVDcEo1T1NqclVvMkNKMHp6?=
+ =?utf-8?B?eCsrYVZVK1RnRlFFWkM3eW1qZi92eGdKem1wUTArbi85NXA3bU5XT29YeDZs?=
+ =?utf-8?B?SGxDelpvUHdtQkJoTlY1WTJjVEE4ajQ2ZWRMNGVEL25scnlPbWhKM0cyNWFz?=
+ =?utf-8?B?QjlOWndGWjA1RXJITklWQ0dwbnhBVU9wRjlRNElreVBxc2ZCb05aeWgzSHIv?=
+ =?utf-8?B?N0NLR3krSUhjUExoU3Z4VDV6Sk9hNmtxZVZnKzZ3MExHU296UFkrbGRYb2pl?=
+ =?utf-8?B?aG9jakF4anBjenNDLzc5WVVpZXB2RENwbUFYZHJDL2FIclJuMkRIWGpCVHpN?=
+ =?utf-8?B?QTVNYlR0QnBlR2lRc0Q4N001dDB2bG54U3lRUlF1cHBocTZKOTNScGVhSFRo?=
+ =?utf-8?B?Tjc1V0xCN1kxQVoxYzY5Q2J4NmI1NHlGZGlaSlNDdHlzU1FlSEN3Q2RaTXpu?=
+ =?utf-8?B?eVBWS1puQUkycUxhcHpNc3c3dndXbEljL2pxUEoyRDNsS2ZCRlJlTnJucXlH?=
+ =?utf-8?B?SUVCSVU4Tmd2Z0FVOFFKbkQzekoyRGpxem5tdTdyL2lTb1M0b3Y1V0JlemRt?=
+ =?utf-8?B?Zk9oUVlrMjh5VEdsVnF2NGlJWmljdGJuTWY0QTI1QWJXY2QyYzNLbkEybmZn?=
+ =?utf-8?B?Vndpc2xua2JhbDM3Ukl5Q1d0a1ZYSWxvUU12Ym05dXY0VmFJM285OTVvN2tF?=
+ =?utf-8?B?MWNDMmk4YlloREZ4dkR5N2FoUFpwUERWei9uYThhMHY3UU5NV0FIZXNJd0tD?=
+ =?utf-8?B?WmZSTWdsUmJuUmd1VkptUjRVVkhGTExjelUxU2FQaDBNU1R3MGV3VGZoMjcy?=
+ =?utf-8?B?NzhQOW9CQko0dU5TZUVHWlNUNW5ySlZ2cGxUN28zRWNUU2t4bzJQOEhyVThL?=
+ =?utf-8?B?bnE5ZHpFTkdkSUZjQWFLUUgxZlpsRDBNbHp1UHRxL05rWlhkZlJXaVphWnl3?=
+ =?utf-8?B?YkZYTjZ6d3c1Y3FaRXFPMjBLT0J6Z21ML2FmTDFhVVZuZHFMWGlaRGd3RXFh?=
+ =?utf-8?B?ajMyQTJJUFpRN2tZa0hyQld2Z3RMR3lEeUFWZTlZdHZDWk5rTXQ5S21abVF3?=
+ =?utf-8?B?Q3I5b2JZVG94Z2J5VGRqZUw3V05SdXZjQW9COHFXeUJMTUNYSGxPL1RMSFg0?=
+ =?utf-8?B?RW1kNFZIaVU3RVFKVHU3cnpmUEdlY2REK1BlTXltMjVPeTVBSUxDdEdMSU1U?=
+ =?utf-8?B?ZGtDdU9Ja2RpeDVkdjRpOVhyeXgrbTNvS2hDYW9mTkhoSzl6YkI1N0ZUMDRk?=
+ =?utf-8?B?c3A4NEVPcTlzcS9rbm01aTgzSXlYSFEyYmhhOUdQZ2s3a2RsWGowZkdyOXI0?=
+ =?utf-8?B?dkk2UDhrVlE0eXUwUFg3U1g1elhGWE1kM0RmZi9jZkZpcW5DVVk4aDFLQ2t0?=
+ =?utf-8?B?NFhSaXhMUEVITHhBRVU3ZTV5SUd0aEpvbllQQ0ZYdEo5VjhSQ3c3Q21jcFVP?=
+ =?utf-8?B?M2ZBL1ZDWUJiTlZ3ZWNsOVpRSHdwMVBKalRCUDJDQnUyNmRoOHFKV0E0eVdC?=
+ =?utf-8?B?bGJNQVV5VTkwK0NQS1lNK0kxRWwxdlgyakV4OWNqSFRBWS8rcysxVHkvK3Jz?=
+ =?utf-8?B?ZytJbWxDMWRqbnZrNUc1SVFzZlNXTlEzNnNLQklId0JjRndhSFBEK0p1VzNZ?=
+ =?utf-8?B?cWdDSUxuOUZFS0xkUWJwNnFoQUlMVDNreXpMM1A2V0Fta1JvYmQ5RTdMU2FI?=
+ =?utf-8?B?VkVreGxXL21uWEhGRXpwT3h2WW9WK042VWN2WHFITitVVXpLVUViUjg3T2lm?=
+ =?utf-8?B?OUxRbEN2eXNxMjZramRaaVgrNHBiZHNSakpMbFI2akVEN3pRbG81Y0lYeFRW?=
+ =?utf-8?B?QXY0V05ldWJsamU2c2NtbGEzOWZtUVBlRGxXYkVtalNxRXcvRjYvVWVyNDBX?=
+ =?utf-8?B?TzhvVmVOKytER21vMnFUYkVKZXVTSy9nL01kT0lOdzltOHdDT0NBTWttOGR6?=
+ =?utf-8?B?V2FScnd5Z2lVbkVQQXF6NmlJaDBLTkxRZGhGZFZOdEkyeUY5eUJ0ajRWVzBT?=
+ =?utf-8?B?YXhrNms0TU1tYmMySmpEQVg4ZzV4eWVvN3M2RVZzRmJEbGoxelBGMzdJcHg0?=
+ =?utf-8?B?RWZIS1VVN1BWVGgwNEUzL0h4L1AyTnFOYmdEWFUyV29tRWlrN2hmWkg4N3Uz?=
+ =?utf-8?B?S2pTcGdPdEtaRExtL2hsbWVmcUh3aWgrM2h5aHNyYWZsVU80VlZzV2NIeU1C?=
+ =?utf-8?B?Yk1RNm9rRmdLb052d0pQd1M5YS9LcCtOdkVlZ2dvY3RkMGtiUHhaQT09?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e565a385-1949-458d-27ea-08da283c7bef
+X-MS-Exchange-CrossTenant-Network-Message-Id: c62aca91-2660-42d5-f177-08da283cb267
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2022 10:55:47.0797
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2022 10:57:18.3901
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 53KssKYXgIEa6DcY8RQsjXxkr2878WbO0VprWkir70f81tPj/Q2kYMFIf8qot3RTxh7rTGL5TsanLk/4tzbYng==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR04MB6613
+X-MS-Exchange-CrossTenant-UserPrincipalName: MZwGBkSBPtoBz83ubd3jPJRtCzILdamRIcyQgonByYbG624bZDnCVFpTC1g4GVIP7R1BhEFRMzpFfplC56xeyQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB6185
+
+The reference "to shadow the resident processes" is applicable to
+domains (potentially) running in shadow mode only. Adjust the
+calculations accordingly. This, however, requires further parameters.
+Since the original function is deprecated anyway, and since it can't be
+changed (for being part of a stable ABI), introduce a new (internal
+only) function, with the deprecated one simply becoming a wrapper.
+
+In dom0_paging_pages() also take the opportunity and stop open-coding
+DIV_ROUND_UP().
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+v3: Refine expression in dom0_paging_pages(). Update comment there as
+    well.
+v2: Introduce libxl__get_required_paging_memory().
 
---- a/Config.mk
-+++ b/Config.mk
-@@ -232,7 +232,7 @@ OVMF_UPSTREAM_REVISION ?= 7b4a99be8a39c1
- QEMU_UPSTREAM_REVISION ?= master
- MINIOS_UPSTREAM_REVISION ?= 83ff43bff4bdd6879539fcb2b3d6ba5e61a64135
+--- a/tools/libs/light/libxl_create.c
++++ b/tools/libs/light/libxl_create.c
+@@ -1017,7 +1017,7 @@ static bool ok_to_default_memkb_in_creat
+      * The result is that the behaviour with old callers is the same
+      * as in 4.13: no additional memory is allocated for shadow and
+      * iommu (unless the caller set shadow_memkb, eg from a call to
+-     * libxl_get_required_shadow_memory).
++     * libxl__get_required_paging_memory).
+      */
+     return !CTX->libxl_domain_need_memory_0x041200_called ||
+             CTX->libxl_domain_need_memory_called;
+@@ -1027,6 +1027,24 @@ static bool ok_to_default_memkb_in_creat
+      */
+ }
  
--SEABIOS_UPSTREAM_REVISION ?= rel-1.15.0
-+SEABIOS_UPSTREAM_REVISION ?= rel-1.16.0
++unsigned long libxl__get_required_paging_memory(unsigned long maxmem_kb,
++                                                unsigned int smp_cpus,
++                                                libxl_domain_type type,
++                                                bool hap)
++{
++    /*
++     * 256 pages (1MB) per vcpu,
++     * plus 1 page per MiB of RAM for the P2M map (for non-PV guests),
++     * plus 1 page per MiB of RAM to shadow the resident processes (for shadow
++     * mode guests).
++     * This is higher than the minimum that Xen would allocate if no value
++     * were given (but the Xen minimum is for safety, not performance).
++     */
++    return 4 * (256 * smp_cpus +
++                ((type != LIBXL_DOMAIN_TYPE_PV) + !hap) *
++                (maxmem_kb / 1024));
++}
++
+ static unsigned long libxl__get_required_iommu_memory(unsigned long maxmem_kb)
+ {
+     unsigned long iommu_pages = 0, mem_pages = maxmem_kb / 4;
+@@ -1194,10 +1212,16 @@ int libxl__domain_config_setdefault(libx
+     }
  
- ETHERBOOT_NICS ?= rtl8139 8086100e
+     if (d_config->b_info.shadow_memkb == LIBXL_MEMKB_DEFAULT
+-        && ok_to_default_memkb_in_create(gc))
++        && ok_to_default_memkb_in_create(gc)) {
++        bool hap = d_config->c_info.type != LIBXL_DOMAIN_TYPE_PV &&
++                   libxl_defbool_val(d_config->c_info.hap);
++
+         d_config->b_info.shadow_memkb =
+-            libxl_get_required_shadow_memory(d_config->b_info.max_memkb,
+-                                             d_config->b_info.max_vcpus);
++            libxl__get_required_paging_memory(d_config->b_info.max_memkb,
++                                              d_config->b_info.max_vcpus,
++                                              d_config->c_info.type,
++                                              hap);
++    }
+ 
+     /* No IOMMU reservation is needed if passthrough mode is not 'sync_pt' */
+     if (d_config->b_info.iommu_memkb == LIBXL_MEMKB_DEFAULT
+--- a/tools/libs/light/libxl_internal.h
++++ b/tools/libs/light/libxl_internal.h
+@@ -1569,6 +1569,11 @@ _hidden int libxl__domain_need_memory_ca
+                                       libxl_domain_build_info *b_info,
+                                       uint64_t *need_memkb);
+ 
++_hidden unsigned long libxl__get_required_paging_memory(unsigned long maxmem_kb,
++                                                        unsigned int smp_cpus,
++                                                        libxl_domain_type type,
++                                                        bool hap);
++
+ _hidden const char *libxl__device_nic_devname(libxl__gc *gc,
+                                               uint32_t domid,
+                                               uint32_t devid,
+--- a/tools/libs/light/libxl_utils.c
++++ b/tools/libs/light/libxl_utils.c
+@@ -38,13 +38,8 @@ char *libxl_basename(const char *name)
+ 
+ unsigned long libxl_get_required_shadow_memory(unsigned long maxmem_kb, unsigned int smp_cpus)
+ {
+-    /* 256 pages (1MB) per vcpu,
+-       plus 1 page per MiB of RAM for the P2M map,
+-       plus 1 page per MiB of RAM to shadow the resident processes.
+-       This is higher than the minimum that Xen would allocate if no value
+-       were given (but the Xen minimum is for safety, not performance).
+-     */
+-    return 4 * (256 * smp_cpus + 2 * (maxmem_kb / 1024));
++    return libxl__get_required_paging_memory(maxmem_kb, smp_cpus,
++                                             LIBXL_DOMAIN_TYPE_INVALID, false);
+ }
+ 
+ char *libxl_domid_to_name(libxl_ctx *ctx, uint32_t domid)
+--- a/xen/arch/x86/dom0_build.c
++++ b/xen/arch/x86/dom0_build.c
+@@ -314,12 +314,15 @@ unsigned int __initdata dom0_memflags =
+ unsigned long __init dom0_paging_pages(const struct domain *d,
+                                        unsigned long nr_pages)
+ {
+-    /* Copied from: libxl_get_required_shadow_memory() */
++    /* Keep in sync with libxl__get_required_paging_memory(). */
+     unsigned long memkb = nr_pages * (PAGE_SIZE / 1024);
+ 
+-    memkb = 4 * (256 * d->max_vcpus + 2 * (memkb / 1024));
++    memkb = 4 * (256 * d->max_vcpus +
++                 (is_pv_domain(d) ? opt_dom0_shadow || opt_pv_l1tf_hwdom
++                                  : 1 + opt_dom0_shadow) *
++                 (memkb / 1024));
+ 
+-    return ((memkb + 1023) / 1024) << (20 - PAGE_SHIFT);
++    return DIV_ROUND_UP(memkb, 1024) << (20 - PAGE_SHIFT);
+ }
+ 
  
 
 
