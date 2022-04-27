@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7329C51136B
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 10:20:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.314513.532593 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD414511370
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 10:23:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.314519.532604 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njcu9-0003ea-DO; Wed, 27 Apr 2022 08:20:09 +0000
+	id 1njcxY-0004Hr-TP; Wed, 27 Apr 2022 08:23:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 314513.532593; Wed, 27 Apr 2022 08:20:09 +0000
+Received: by outflank-mailman (output) from mailman id 314519.532604; Wed, 27 Apr 2022 08:23:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njcu9-0003cb-9i; Wed, 27 Apr 2022 08:20:09 +0000
-Received: by outflank-mailman (input) for mailman id 314513;
- Wed, 27 Apr 2022 08:20:07 +0000
+	id 1njcxY-0004G2-Ps; Wed, 27 Apr 2022 08:23:40 +0000
+Received: by outflank-mailman (input) for mailman id 314519;
+ Wed, 27 Apr 2022 08:23:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cYrv=VF=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1njcu7-0003YD-Qi
- for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 08:20:07 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=PTsb=VF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1njcxX-0004Fw-Ro
+ for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 08:23:39 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d86bf5eb-c602-11ec-a405-831a346695d4;
- Wed, 27 Apr 2022 10:20:06 +0200 (CEST)
-Received: by mail-lf1-x12b.google.com with SMTP id x33so1832092lfu.1
- for <xen-devel@lists.xenproject.org>; Wed, 27 Apr 2022 01:20:06 -0700 (PDT)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id
- l21-20020a194955000000b00471f0aea31fsm1730534lfj.39.2022.04.27.01.20.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Apr 2022 01:20:05 -0700 (PDT)
+ id 56be714d-c603-11ec-a405-831a346695d4;
+ Wed, 27 Apr 2022 10:23:38 +0200 (CEST)
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04lp2059.outbound.protection.outlook.com [104.47.13.59]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-19-9ig4BNOlM_i6x3xx6bEYuQ-1; Wed, 27 Apr 2022 10:23:36 +0200
+Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
+ by AS8PR04MB7816.eurprd04.prod.outlook.com (2603:10a6:20b:2a3::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.21; Wed, 27 Apr
+ 2022 08:23:34 +0000
+Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
+ ([fe80::5cb0:5195:4203:7c2f]) by DU2PR04MB8616.eurprd04.prod.outlook.com
+ ([fe80::5cb0:5195:4203:7c2f%8]) with mapi id 15.20.5206.013; Wed, 27 Apr 2022
+ 08:23:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,280 +51,201 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d86bf5eb-c602-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=dhf1reZJOa45GC0I46wPwCpg+/0wqt7dtK9ioMi1z3s=;
-        b=NGx49lM7BRPmlL8qfpvveyxCVdNoxG7Apvew4FdejhMmqSEj4pmpZhTC5h/PAV7INZ
-         nPk3MRuwrHuLn1J+7Yxchs81i7gSWnQCSIeWEA5C5HEQIJRVK+yUKDbCwoMoMmeJq06D
-         R1pjHA4IhvKaBzolr7/Z6xgKFPQ3APEZUsylqYPjCBMhggWGVdMb5lXBRQzHp3XM0yu9
-         wOMX6cIUvl4Kxy3t7ug0lUkQiYcXkv63JVxYBREdmvJS2AAbLX0jCyU9h2WKPRI0asqG
-         efOsYwpWAREj2BLBuDeN29NBLdrzXX8HFO8S9qFU9niv9bysNc0s0fE0IZMjxsIHEIpw
-         Uzrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=dhf1reZJOa45GC0I46wPwCpg+/0wqt7dtK9ioMi1z3s=;
-        b=SbcRwJqjtKFVjaa0aKsiRF2KtAqtjfUbatEpto2x7VkTXRDopd0cKCUM7C7z36T5e2
-         QsSpNacTvcsNa1tD2u18gCfnAtrZ0vEFz2cb4a2qBs0PeKuY2NmtVbkqyQ31tMcYFMfH
-         LENfx2eHAeqNMEP1xwvz8yfIxnzkHUbm80aeNdkKY8MrfJ6/49McLs1IumjzDY6RUvMv
-         b9Mn5s67eD0Y05nJj30tNk3hD8ZCNllhf9KAC8oOCiTqUzjwYiPNkOgfYj5KAIk27WKf
-         +EBX4lYtefrIS7V7D9KA2tqY+IGwpB1JvKBmDKSqBwiNsv+BO5sL3TJ3zWwRGbr1WTEY
-         C/Eg==
-X-Gm-Message-State: AOAM533LxLfqwpxyVHr1ZgrpC6fARQmEpXasGoGY8U4DzC7Kohu3vL34
-	CNpevn/KsPTFcKJPMW0KEQM=
-X-Google-Smtp-Source: ABdhPJzOYbX5/ai8O4gWVRe2se2gUadbxtiXn6Xt7xDuWkEhH2CdERQFgltLDZHF+SGz1qkrO3yk8A==
-X-Received: by 2002:a05:6512:12c3:b0:471:9d1d:3f46 with SMTP id p3-20020a05651212c300b004719d1d3f46mr19332172lfg.155.1651047605857;
-        Wed, 27 Apr 2022 01:20:05 -0700 (PDT)
-Subject: Re: [PATCH V7 1/2] libxl: Add support for Virtio disk configuration
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook
- <rosbrookn@gmail.com>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-References: <1649442065-8332-1-git-send-email-olekstysh@gmail.com>
- <1649442065-8332-2-git-send-email-olekstysh@gmail.com>
- <YmJ4NLuvA63Irow+@Air-de-Roger>
- <24112cfc-0446-d81e-85f1-ebf9da0afe14@gmail.com>
- <YmaeLc2iwxUPUAvF@Air-de-Roger>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <57bfc576-48d5-9121-a32e-fa00be64d6a9@gmail.com>
-Date: Wed, 27 Apr 2022 11:20:04 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <YmaeLc2iwxUPUAvF@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 56be714d-c603-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1651047818;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IL3Fx0qFFzIpeqVv/DoVmusloahGUNLdrxYU5jQBYJs=;
+	b=NWkM2sUHRFciuatMXqDASbdV5oL0omGag8QZ1LwZqzeWj8vp9UDQVosvFelAS6hXuR7sSW
+	Xpg/hXHudQQz9xRED3kRcIl//MK89VGEuq3OmybmQKalo/8Iia1Qic4Dyru83ze/YpgFAF
+	A2Vjnh6pGQrKMAjDE+/bTipsnStzh7Q=
+X-MC-Unique: 9ig4BNOlM_i6x3xx6bEYuQ-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gfTBvPc6IuMk6yye55zpD4kBWoBpTUDellm/Ivj8Ab6+MRkzMOoCUZI/fSF4d8ayCTDPg9ZmDBeuRsYvgKzcpaahtNwey3GnM/WV4Ei9k0fvU8o7aJU9Gm6+8FMhjdHq/yrYuvemx/T/+F4AsSPhZIF1W6IH+Paywkakj0EKhHY9tBLJb31xb5g846skxm/9J59BBCs9DOSmlcTRu9BZFpEvBwdCfmVQ08u975fPuHLP++pLrn6UHiJh4X+mWh+C7bI/8jY6DS5UuZGxrI+hUqw048wix5Pagxh8B61StsfV8HTJSCtsGQlMG3QIJrRRR9rLp6anAQj/y1VeJcv7Uw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IL3Fx0qFFzIpeqVv/DoVmusloahGUNLdrxYU5jQBYJs=;
+ b=bPGf/cJ8PwgmSKOsYOEJfnYaSnqFnBHIk8z+VE3FFuUI2XxdaMfwVkRcVIc4fV2nMDO78skgvGz7gNwsMp+fg53ProqXJSBnb3M4CYAuuY3YTFHSpqyYdksEotpdCfSD/6WiQ5Z8xDhSaXDX6twyK3ewaShFG12HzG2FPajayPauCIikAI3OFasmppUkgYViS6mKpro+pKEMGMfYBdapfdo3l7KeOFPOQSYth+cuPoRGM3tCOKe/iMXbcMZIjJeaQINz6vPaCofbdRYPcJXBzbrhiyqMa6jvcM2GJy2Kigjj3AteBajYxVw7Oo/Qm7++0hRbJja4VKBCOYHnkywKEg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <5ccd53e7-d651-434a-ad05-72cdf468127e@suse.com>
+Date: Wed, 27 Apr 2022 10:23:32 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Subject: Re: [PATCH v3 1/4] Grab the EFI System Resource Table and check it
 Content-Language: en-US
+To: Demi Marie Obenour <demi@invisiblethingslab.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <Yl7WHv6+M+eJwQep@itl-email> <Yl7X3mAJhR5ENSpl@itl-email>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <Yl7X3mAJhR5ENSpl@itl-email>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS9PR06CA0389.eurprd06.prod.outlook.com
+ (2603:10a6:20b:460::7) To DU2PR04MB8616.eurprd04.prod.outlook.com
+ (2603:10a6:10:2db::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ae190da5-d835-4be3-4555-08da28273840
+X-MS-TrafficTypeDiagnostic: AS8PR04MB7816:EE_
+X-Microsoft-Antispam-PRVS:
+	<AS8PR04MB78164564216D3856A98D3E77B3FA9@AS8PR04MB7816.eurprd04.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	vppckT2/dfQ8r/Mr4KdGSgwRKZ+ZolFWHf4az52VBl1a6sZVr6pslYjHBzU2D5MGFWuzEkND6mXik8ECgpUXY/SaEmW6YYBmOXA7S5Vie5HMIJPXy5EHcsTcALDwr+BX3tjvlvNoL/oUmrShuQt2wj0dApnIu/zhQRP1LIuIag5j7bECfZpRpOJhgrQkzs8cpdbjyeIFgwyWcMQCkZgDK/0fil+HaTe4CsE02lUa2X5dqb34RHswagjZJxMbqZmp2M1j4eSp5H7xSxEhnuZm/bca056rJEKx2Eo6OhUD7a4A8JcoWPbWgbFsuN1qy7OQf3d0XBebGXXJklQAidYVejxmR+IT3uB7MMOonJzxJX54uPTWFaqug6NDs6SILJwpvWvPHh05SWRQrKvxSeTImlKBVJ+fyjuURtKc1t4Kc7hL4F8J7azTWzvCEuYyv9M+h/z4qN+JRM5aJPNG7tRtgeCDEOHvx0/wgaIFJclUl8931Nk0syWHcPYGVMdB+sGh4lfH2XZU1i6ZMKWJGEXY6xS6QvsYeJV0pdulwGENfANeTpkalqy4lAZJ8/fxeNEqaLo3R+Ff5sY2yXrdIzBPJCNWjABG3R/phqUaLkren8Ej6UGe2YtCf/y36NxjlLspr2nEIzq2KEwjR6sFL42pHaiH69JFsRbWG/nXFqgya3y0SS0YdBMjctbdvvj4wkeTJEzq31uLcFkuKar9B9uacipBotxqXO352kxPIWFEOwo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(6512007)(6506007)(54906003)(66476007)(31696002)(2906002)(38100700002)(31686004)(4326008)(316002)(66556008)(86362001)(53546011)(6916009)(8676002)(66946007)(6486002)(83380400001)(26005)(186003)(508600001)(36756003)(2616005)(8936002)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TzhDVlhzL3BXY0pzTW1FbXhkazJxN0txNE9NVHlsVUYxcnYzRk5RYnRKcm8v?=
+ =?utf-8?B?TzNZWWFYRkxRK0RYYXZsaHNMM3NYVTFtbmFKczRyYXJDS1E5R3ZiQlBZSlkv?=
+ =?utf-8?B?NUtteU9SQXFCSW5aWm1BLzNPcU9FMVBSaXVsb3JsNjI4b3B5UTFkWGMyME43?=
+ =?utf-8?B?UitDUTcxUkdXYWl4Z29tN1huVGRDUG43RUN5cktEeEJMYndNYlFVa1FYUFMx?=
+ =?utf-8?B?SkpVK09IRUNqblNnRGYyMDlWY3l4RjRkN3lINEtGMWI1dncxT3pHalZYVXQv?=
+ =?utf-8?B?S21GeFI4OHA4bm84RlU4aUFGdmN3dElpMDN5TVZHQi8zbkd2c2E1VUxndzZP?=
+ =?utf-8?B?TWNhRzB5WTZ5eFd0SGxScWlNNDJhcENUODR1aVhnVkJLVTNZdHpySWtvckJt?=
+ =?utf-8?B?SWxaTjRHVUZHS1BkTEgxbEN3dVRkOHlrcWV6aW01Z1QwZ25TWlF3dXFYZWtM?=
+ =?utf-8?B?RWpYbGJRbWV1RzBJNDdrRTUyNVNDYzZaWEUxcUdTT3lESXF3bTdwUFk1dWxT?=
+ =?utf-8?B?U2ZXcTdhWnNUK29DZG9aUUMwZFk3bTdHQUF3akJNdk1lb0FCOW5LbkxySjYx?=
+ =?utf-8?B?RDVRNFhxVGVJbUNBOWk2UXpyR1g5WFRGWmZoMDJ2UjFtcmxtbm16NWozc3Rl?=
+ =?utf-8?B?YkR6d0ltUStBRTFNeEhnY1VOVzFwT21BUHRiWkF4ci96OVY1NnMzY1N6aHJa?=
+ =?utf-8?B?aDkxY0IrbFhJWVRJOEJya20yTHhIR2pHOFZmSEhjLzRwOU9rdEtNeE92MXZN?=
+ =?utf-8?B?LzBZUWVPYXo3NFo3YkZYYVorTFprRGFleTc4eDNGT1B1R0p0UmJOeVoxc0ND?=
+ =?utf-8?B?OTdPZ2VCTTdZZUc3Nk1tRW9KQTdtN3FQWDd6VVpueVhWa0dNdTBKQks0R2da?=
+ =?utf-8?B?Wi9tb3VwczhXbDlqTEZvKzRZRlhPTXJNQjRwdzRNQmRKWlhZemcvak1KbzNT?=
+ =?utf-8?B?ZkhSS0NTeVJMdDlpNlN0dzViYTlPNWFpcStibnV5SllZZW1UbjV3VTVLRzFB?=
+ =?utf-8?B?SUZmckdqZEFsaVJrVFZ0dkRhM1p3b0hJRWkvd1VrWnNmdENWK0k0dG84RlBX?=
+ =?utf-8?B?eDZ6aGkzdUZsRVFlWldYdEtKcDN5d2F1TVh6R0JUd1N6MnhHTXRVZVpDVHlE?=
+ =?utf-8?B?WlFvYVNiR3VBMXJnemo2eHZONUc2UFA2MEZHYy9YZm0vcFBDTVRzN1FzZmNC?=
+ =?utf-8?B?cDI4TUY1eDMvY2lJSnhxMFZXSER1bnZ1U3NQSW1ZellyVUl2cS9Pc3JRVFRU?=
+ =?utf-8?B?ZjZHVXl1YU1wRFpIREpHcTkvbHo4d1l2Y2xHTmtaRzFVVzFKblZOazZON1lR?=
+ =?utf-8?B?bTlUMFZCM1dKaVp5MEpYSGxZM0RSQ042a2VnNFJoRkRpWWMzTUsxQ1NKbHBw?=
+ =?utf-8?B?NFhSVVBPTWxOcTloaDZvUWdsZ1RPQTVTZGw2NGJoSTE3SmFzSWQ3MitGTUtZ?=
+ =?utf-8?B?cHNmZCtHbVU1alJxcmV5RWFBUlFqdnFGaVU0blhvczBqOWhRdlVxcTU3STdz?=
+ =?utf-8?B?YTQ5MjE1MklHQ2hCbnBOeGRSbVZVOEY2RVNVM3h6anFaQkQzcEcxUmRkY21s?=
+ =?utf-8?B?UExSQ21PdHJCcnMyaVNzY2pYU1RKY1hrRXM0cndERktSeWFDQ0k2SDkxNS81?=
+ =?utf-8?B?RCtFdTU3ZkRFYUNsMXNiTGxGSWVHT21aaFpjVkVzTkZ2UThiRnZFZ0lEeDZ1?=
+ =?utf-8?B?MzhiM0dCTzIvRWY3REd6UDM5bWtOVzZtS3N6MitUL1BCY2VVZ2J3WEk2Lyth?=
+ =?utf-8?B?dG9WeWsxbjRIK3QwaGlPeTNKSm85NldZTHR3TDJaSEdwbVk4YUlwNDNBcDdn?=
+ =?utf-8?B?THFFYjI1bW83Vk9nNktvTUY1Y0U4UEhpNU15WWxTTHcxOTFKNWV0VnpJWXF3?=
+ =?utf-8?B?MERvYU1EVjdrelk1dTJyUVdCUWk3ZHJ3Sy9SS2wrM21TMnBUbXBWY20zRDF4?=
+ =?utf-8?B?VDJ1T3FTdWI3UXczWFhqMWI4Q2pkOGQzT0xUK0dNbnQ5YnVpcUdtZnd2M1dn?=
+ =?utf-8?B?cDdYdXVKQmhzWEVONDAwSjd1T2phdDNNMVZwMlJ6bjlwSHVVak94VHVmWHJL?=
+ =?utf-8?B?eFFjeHU3dlV2MzBIMXg5K3FRclRsdWZOUGNSSGNOV3FocXNENlRUSXZXVkFn?=
+ =?utf-8?B?WUdhMXV6YUhDS3pEUXIvMjNQUkZBeXl6MEdhM0dqVEFEckRyc3BsUlM0VGNY?=
+ =?utf-8?B?aFJjb0tSMExoNTI2WVpXS1UwUmVNN0dLaFJFb3RmOWpmeTJDazBXT3hLV2RI?=
+ =?utf-8?B?SVEvZzU1Y3VSa0o0V2FnK0dVdHQ3WGZWcVBzSU1mMFRxK0dXaUNFM3k3K3ps?=
+ =?utf-8?B?alczdUN5TThBUEdEQ0h2T1o5RTBrbVgxUVVhYlpiQUpqdEZqTi9Sdz09?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae190da5-d835-4be3-4555-08da28273840
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Apr 2022 08:23:34.0180
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: a3B2zkbhMeXvjizAj8aHUNUWPtSiya16wdTkvA5c8YDm3hgAagWCs7YXXmDRzSmJJxo++yBjgT7wfaPZRDVOGw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7816
 
+On 19.04.2022 17:40, Demi Marie Obenour wrote:
+> --- a/xen/arch/x86/efi/efi-boot.h
+> +++ b/xen/arch/x86/efi/efi-boot.h
+> @@ -171,7 +171,7 @@ static void __init efi_arch_process_memory_map(EFI_SYSTEM_TABLE *SystemTable,
+>          {
+>          case EfiBootServicesCode:
+>          case EfiBootServicesData:
+> -            if ( map_bs )
+> +            if ( map_bs || desc == (EFI_MEMORY_DESCRIPTOR *)esrt_desc )
 
-On 25.04.22 16:12, Roger Pau Monné wrote:
+No need for the cast afaics, even more so that it casts away const-ness.
 
+> --- a/xen/common/efi/boot.c
+> +++ b/xen/common/efi/boot.c
+> @@ -567,6 +567,38 @@ static int __init efi_check_dt_boot(const EFI_LOADED_IMAGE *loaded_image)
+>  }
+>  #endif
+>  
+> +static UINTN __initdata esrt = EFI_INVALID_TABLE_ADDR;
+> +
+> +static bool __init is_esrt_valid(
+> +    const EFI_MEMORY_DESCRIPTOR *const desc)
 
-Hello Roger
+As indicated elsewhere before, while we want to have const on pointed-to
+types whenever possible, the 2nd const here is unusual in our code base
+and hence would imo better be omitted.
 
+> @@ -1056,19 +1091,19 @@ static void __init efi_exit_boot(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *Syste
+>      EFI_STATUS status;
+>      UINTN info_size = 0, map_key;
+>      bool retry;
+> -#ifdef CONFIG_EFI_SET_VIRTUAL_ADDRESS_MAP
+>      unsigned int i;
+> -#endif
+>  
+>      efi_bs->GetMemoryMap(&info_size, NULL, &map_key,
+>                           &efi_mdesc_size, &mdesc_ver);
+> -    info_size += 8 * efi_mdesc_size;
+> +    info_size += 8 * (efi_mdesc_size + 1);
 
-> On Sat, Apr 23, 2022 at 10:39:14AM +0300, Oleksandr wrote:
->> On 22.04.22 12:41, Roger Pau Monné wrote:
->>
->>
->> Hello Roger
->>
->>> On Fri, Apr 08, 2022 at 09:21:04PM +0300, Oleksandr Tyshchenko wrote:
->>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>>>
->>>> This patch adds basic support for configuring and assisting virtio-mmio
->>>> based virtio-disk backend (emualator) which is intended to run out of
->>>> Qemu and could be run in any domain.
->>>> Although the Virtio block device is quite different from traditional
->>>> Xen PV block device (vbd) from the toolstack's point of view:
->>>>    - as the frontend is virtio-blk which is not a Xenbus driver, nothing
->>>>      written to Xenstore are fetched by the frontend (the vdev is not
->>>>      passed to the frontend)
->>>>    - the ring-ref/event-channel are not used for the backend<->frontend
->>>>      communication, the proposed IPC for Virtio is IOREQ/DM
->>>> it is still a "block device" and ought to be integrated in existing
->>>> "disk" handling. So, re-use (and adapt) "disk" parsing/configuration
->>>> logic to deal with Virtio devices as well.
->>>>
->>>> For the immediate purpose and an ability to extend that support for
->>>> other use-cases in future (Qemu, virtio-pci, etc) perform the following
->>>> actions:
->>>> - Add new disk backend type (LIBXL_DISK_BACKEND_OTHER) and reflect
->>>>     that in the configuration
->>>> - Introduce new disk protocol field to libxl_device_disk struct
->>>>     (with LIBXL_DISK_PROTOCOL_XEN and LIBXL_DISK_PROTOCOL_VIRTIO_MMIO
->>>>     types) and reflect that in the configuration (new "protocol" option
->>>>     with "xen" protocol being default value)
->>>> - Add new device kind (LIBXL__DEVICE_KIND_VIRTIO_DISK) as current
->>>>     one (LIBXL__DEVICE_KIND_VBD) doesn't fit into Virtio disk model
->>>>
->>>> An example of domain configuration for Virtio disk:
->>>> disk = [ 'phy:/dev/mmcblk0p3, xvda1, backendtype=other, protocol=virtio-mmio']
->>>>
->>>> Nothing has changed for default Xen disk configuration.
->>>>
->>>> Please note, this patch is not enough for virtio-disk to work
->>>> on Xen (Arm), as for every Virtio device (including disk) we need
->>>> to allocate Virtio MMIO params (IRQ and memory region) and pass
->>>> them to the backend, also update Guest device-tree. The subsequent
->>>> patch will add these missing bits. For the current patch,
->>>> the default "irq" and "base" are just written to the Xenstore.
->>>> This is not an ideal splitting, but this way we avoid breaking
->>>> the bisectability.
->>>>
->>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>>> ---
->>>> Changes RFC -> V1:
->>>>      - no changes
->>>>
->>>> Changes V1 -> V2:
->>>>      - rebase according to the new location of libxl_virtio_disk.c
->>>>
->>>> Changes V2 -> V3:
->>>>      - no changes
->>>>
->>>> Changes V3 -> V4:
->>>>      - rebase according to the new argument for DEFINE_DEVICE_TYPE_STRUCT
->>>>
->>>> Changes V4 -> V5:
->>>>      - split the changes, change the order of the patches
->>>>      - update patch description
->>>>      - don't introduce new "vdisk" configuration option with own parsing logic,
->>>>        re-use Xen PV block "disk" parsing/configuration logic for the virtio-disk
->>>>      - introduce "virtio" flag and document it's usage
->>>>      - add LIBXL_HAVE_DEVICE_DISK_VIRTIO
->>>>      - update libxlu_disk_l.[ch]
->>>>      - drop num_disks variable/MAX_VIRTIO_DISKS
->>>>      - drop Wei's T-b
->>>>
->>>> Changes V5 -> V6:
->>>>      - rebase on current staging
->>>>      - use "%"PRIu64 instead of %lu for disk->base in device_disk_add()
->>>>      - update *.gen.go files
->>>>
->>>> Changes V6 -> V7:
->>>>      - rebase on current staging
->>>>      - update *.gen.go files and libxlu_disk_l.[ch] files
->>>>      - update patch description
->>>>      - rework significantly to support more flexible configuration
->>>>        and have more generic basic implementation for being able to extend
->>>>        that for other use-cases (virtio-pci, qemu, etc).
->>>> ---
->>>>    docs/man/xl-disk-configuration.5.pod.in   |  37 +-
->>>>    tools/golang/xenlight/helpers.gen.go      |   6 +
->>>>    tools/golang/xenlight/types.gen.go        |  11 +
->>>>    tools/include/libxl.h                     |   6 +
->>>>    tools/libs/light/libxl_device.c           |  57 +-
->>>>    tools/libs/light/libxl_disk.c             | 111 +++-
->>>>    tools/libs/light/libxl_internal.h         |   1 +
->>>>    tools/libs/light/libxl_types.idl          |  10 +
->>>>    tools/libs/light/libxl_types_internal.idl |   1 +
->>>>    tools/libs/light/libxl_utils.c            |   2 +
->>>>    tools/libs/util/libxlu_disk_l.c           | 952 +++++++++++++++---------------
->>>>    tools/libs/util/libxlu_disk_l.h           |   2 +-
->>>>    tools/libs/util/libxlu_disk_l.l           |   9 +
->>>>    tools/xl/xl_block.c                       |  11 +
->>>>    14 files changed, 736 insertions(+), 480 deletions(-)
->>>>
->>>> diff --git a/docs/man/xl-disk-configuration.5.pod.in b/docs/man/xl-disk-configuration.5.pod.in
->>>> index 71d0e86..36c851f 100644
->>>> --- a/docs/man/xl-disk-configuration.5.pod.in
->>>> +++ b/docs/man/xl-disk-configuration.5.pod.in
->>>> @@ -232,7 +232,7 @@ Specifies the backend implementation to use
->>>>    =item Supported values
->>>> -phy, qdisk
->>>> +phy, qdisk, other
->>>>    =item Mandatory
->>>> @@ -244,11 +244,13 @@ Automatically determine which backend to use.
->>>>    =back
->>>> -This does not affect the guest's view of the device.  It controls
->>>> -which software implementation of the Xen backend driver is used.
->>>> +It controls which software implementation of the backend driver is used.
->>>> +Depending on the "protocol" option this may affect the guest's view
->>>> +of the device.
->>>>    Not all backend drivers support all combinations of other options.
->>>> -For example, "phy" does not support formats other than "raw".
->>>> +For example, "phy" and "other" do not support formats other than "raw" and
->>>> +"other" does not support protocols other than "virtio-mmio".
->>>>    Normally this option should not be specified, in which case libxl will
->>>>    automatically determine the most suitable backend.
->>>> @@ -344,8 +346,35 @@ can be used to disable "hole punching" for file based backends which
->>>>    were intentionally created non-sparse to avoid fragmentation of the
->>>>    file.
->>>> +=item B<protocol>=I<PROTOCOL>
->>>> +
->>>> +=over 4
->>>> +
->>>> +=item Description
->>>> +
->>>> +Specifies the communication protocol to use for the chosen "backendtype" option
->>>> +
->>>> +=item Supported values
->>>> +
->>>> +xen, virtio-mmio
->>>   From a user PoV, I think it would be better to just select xen or
->>> virtio here, but not the underlying configuration mechanism used to
->>> expose the devices to the guest.
->> I got your point.
->>
->>
->>
->>> We would likely need to add a different option to select mmio or pci
->>> then, but that should be set by default based on architecture/guest
->>> type.  For example on x86 it should default to pci, while on Arm I
->>> guess it will depend on whether the guest has PCI or not?
->>>
->>> In any case, I think we should offer an option that's selecting
->>> between xen or virtio protocol, and the way to expose the
->>> configuration of the device shouldn't need to be explicitly selected
->>> by the user.
->>
->> ok, for now I will use "xen and virtio" values for the "protocol" option,
->> then internally toolstack will assume that "virtio" really means
->> "virtio-mmio".
->>
->> When there is a need to expand that support to "virtio-pci", we will see how
->> to deal with it from the configuration PoV, probably like you suggested
->> above by adding another option (e.g. "transport") with default values based
->> on the architecture/guest type.
-> I think this likely also wants to be a separate field in libxl_device_disk,
-> which could be left empty and libxl will attempt to set a default.
-> For example have the following in libxl_types.idl:
->
-> libxl_device_protocol = Enumeration("device_protocol", [
->      (0, "UNKNOWN"),
->      (1, "XEN"),
->      (2, "VIRTIO"),
->      ])
->
-> libxl_device_configuration = Enumeration("device_configuration", [
->      (0, "UNKNOWN"),
->      (1, "XENBUS"),
->      (2, "MMIO"),
->      ])
->
-> libxl_device_disk = Struct("device_disk", [
->      ("protocol", libxl_device_protocol),
->      ("configuration", libxl_device_configuration),
->      ])
->
-> I don't like libxl_device_configuration much, I think is too generic,
-> but I can't think of anything better.  Maybe others can provide better
-> names.
+What is this needed for? Does this perhaps belong into a later patch?
 
+> --- a/xen/common/efi/efi.h
+> +++ b/xen/common/efi/efi.h
+> @@ -10,6 +10,23 @@
+>  #include <xen/spinlock.h>
+>  #include <asm/page.h>
+>  
+> +typedef struct _ESRT_ENTRY {
+> +    EFI_GUID FwClass;
+> +    UINT32 FwType;
+> +    UINT32 FwVersion;
+> +    UINT32 FwLowestSupportedVersion;
+> +    UINT32 FwCapsuleFlags;
+> +    UINT32 FwLastAttemptVersion;
+> +    UINT32 FwLastAttemptStatus;
+> +} ESRT_ENTRY;
+> +
+> +typedef struct _ESRT {
+> +    UINT32 Count;
+> +    UINT32 Max;
+> +    UINT64 Version;
+> +    ESRT_ENTRY Entries[];
+> +} ESRT;
 
-Here [1] we had a discussion regarding user configuration options. 
-"protocol" cannot be used as it will lead to the confusion (at least 
-with Xen PV block device which already has "protocol" frontend's entry 
-in Xenstore).
+The names in the spec, which (as said before) we're trying to follow along
+with the gnu-efi package, where we would generally be taking things from,
+are EFI_SYSTEM_RESOURCE_ENTRY and EFI_SYSTEM_RESOURCE_TABLE. The field
+names of the former also don't all start with "Fw". The field names of the
+latter are still quite far off of what the spec says.
 
-Preliminary, we had agreed on the following names:
-1. specification: xen or virtio
-2. transport: mmio or pci
+Also, why did you move this here? There's no need to expose things in a
+header which are used by a single CU.
 
-Please tell me, are you OK with them?
+> @@ -269,7 +270,7 @@ int efi_get_info(uint32_t idx, union xenpf_efi_info *info)
+>      case XEN_FW_EFI_MEM_INFO:
+>          for ( i = 0; i < efi_memmap_size; i += efi_mdesc_size )
+>          {
+> -            EFI_MEMORY_DESCRIPTOR *desc = efi_memmap + i;
+> +            const EFI_MEMORY_DESCRIPTOR *desc = efi_memmap + i;
 
+While I don't mind this change, it also looks unrelated. Perhaps again
+needed by (and then supposed to be in) a later patch?
 
-[1] 
-https://lore.kernel.org/xen-devel/e657458d-d33e-a340-d9fe-152ec97eefec@suse.com/
-
-
->
-> Thanks, Roger.
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
+Jan
 
 
