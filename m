@@ -2,45 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3D48511837
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 15:21:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.315029.533352 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51CE651183D
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 15:23:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.315039.533364 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njhbP-0003tn-2G; Wed, 27 Apr 2022 13:21:07 +0000
+	id 1njhd6-0004UD-DE; Wed, 27 Apr 2022 13:22:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 315029.533352; Wed, 27 Apr 2022 13:21:07 +0000
+Received: by outflank-mailman (output) from mailman id 315039.533364; Wed, 27 Apr 2022 13:22:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njhbO-0003rM-Va; Wed, 27 Apr 2022 13:21:06 +0000
-Received: by outflank-mailman (input) for mailman id 315029;
- Wed, 27 Apr 2022 13:21:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XDBb=VF=dingwall.me.uk=james-xen@srs-se1.protection.inumbo.net>)
- id 1njhbN-0003rG-Kb
- for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 13:21:05 +0000
-Received: from smarthost01a.ixn.mail.zen.net.uk
- (smarthost01a.ixn.mail.zen.net.uk [212.23.1.20])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id df779714-c62c-11ec-8fc2-03012f2f19d4;
- Wed, 27 Apr 2022 15:20:57 +0200 (CEST)
-Received: from [217.155.64.189] (helo=mail0.xen.dingwall.me.uk)
- by smarthost01a.ixn.mail.zen.net.uk with esmtpsa
- (TLS1.0:ECDHE_RSA_AES_256_CBC_SHA1:256) (Exim 4.90_1)
- (envelope-from <james-xen@dingwall.me.uk>)
- id 1njhbG-0002DE-FM; Wed, 27 Apr 2022 13:20:58 +0000
-Received: from localhost (localhost [IPv6:::1])
- by mail0.xen.dingwall.me.uk (Postfix) with ESMTP id 2823F38D83F;
- Wed, 27 Apr 2022 14:20:58 +0100 (BST)
-Received: from mail0.xen.dingwall.me.uk ([IPv6:::1])
- by localhost (mail0.xen.dingwall.me.uk [IPv6:::1]) (amavisd-new, port 10024)
- with ESMTP id ChNz8o_Pf73n; Wed, 27 Apr 2022 14:20:57 +0100 (BST)
-Received: from webmail.private.dingwall.me.uk (apache0.xen.dingwall.me.uk
- [IPv6:2a02:8010:698e:302::c0a8:123])
- by mail0.xen.dingwall.me.uk (Postfix) with ESMTPSA id C8E0E38D83A;
- Wed, 27 Apr 2022 14:20:57 +0100 (BST)
+	id 1njhd6-0004SL-AB; Wed, 27 Apr 2022 13:22:52 +0000
+Received: by outflank-mailman (input) for mailman id 315039;
+ Wed, 27 Apr 2022 13:22:51 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1njhd4-0004SC-Us
+ for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 13:22:50 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1njhd4-0006Pg-2N; Wed, 27 Apr 2022 13:22:50 +0000
+Received: from 54-240-197-224.amazon.com ([54.240.197.224]
+ helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1njhd3-000602-PT; Wed, 27 Apr 2022 13:22:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,92 +40,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df779714-c62c-11ec-8fc2-03012f2f19d4
-X-Virus-Scanned: Debian amavisd-new at dingwall.me.uk
-MIME-Version: 1.0
-Content-Type: multipart/mixed;
- boundary="=_d67c980548a7c71900f7f58f949ecdb6"
-Content-Transfer-Encoding: 7bit
-Date: Wed, 27 Apr 2022 14:20:53 +0100
-From: James Dingwall <james-xen@dingwall.me.uk>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+	Subject:Cc:To:From; bh=R4xkNqTwt0kcG0EheB+qkncHGbovRkUehNDbKlxc9f4=; b=QvBSMV
+	u6pzFR7c2wnI1OwTdRH44wU+NECi20YqydUqceXzGWtzRQrj7M0GZ86LBBkh76L2RiIW/Eq5BPZnE
+	PGdz/SrJ13T6EPTRqir+Sb//ZcTDqLhm24tdoFtRs68V2UZiDAZCOp+8aaP2bTzQEE5lLaPHlfhu4
+	ZUN2AHNe7wY=;
+From: Julien Grall <julien@xen.org>
 To: xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@citrix.com>, pdurrant@amazon.com
-Subject: Re: [PATCH] fix invalid frontend path for set_mtu
-In-Reply-To: <YmkKGVa1NeKBQV9M@perard.uk.xensource.com>
-References: <20220301093513.GA3187840@dingwall.me.uk>
- <YlV4lXZHz52xPBzt@perard.uk.xensource.com>
- <20220419120418.GA232637@dingwall.me.uk>
- <YmkKGVa1NeKBQV9M@perard.uk.xensource.com>
-Message-ID: <19d42d2f0981f0187508612011b847af@dingwall.me.uk>
-X-Sender: james-xen@dingwall.me.uk
-X-Originating-smarthost01a-IP: [217.155.64.189]
-Feedback-ID: 217.155.64.189
+Cc: bertrand.marquis@arm.com,
+	Julien Grall <jgrall@amazon.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] SUPPORT.MD: Correct the amount of physical memory supported for Arm
+Date: Wed, 27 Apr 2022 14:22:46 +0100
+Message-Id: <20220427132246.52715-1-julien@xen.org>
+X-Mailer: git-send-email 2.32.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
---=_d67c980548a7c71900f7f58f949ecdb6
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+From: Julien Grall <jgrall@amazon.com>
 
-On 2022-04-27 10:17, Anthony PERARD wrote:
-> On Tue, Apr 19, 2022 at 01:04:18PM +0100, James Dingwall wrote:
->> Thank you for your feedback.  I've updated the patch as suggested.  
->> I've also
->> incorporated two other changes, one is a simple style change for 
->> consistency,
->> the other is to change a the test for a valid mtu from > 0 to >= 68.  
->> I can
->> resubmit the original patch if either of these are a problem.
-> 
-> The style change is fine, but I'd rather have the change to the
-> mtu check in a different patch.
-> 
-> Otherwise, the patch looks better, thanks.
+As part of XSA-385, SUPPORT.MD gained a statement regarding the amount
+of physical memory supported.
 
-Here is a revised version of the patch that removes the mtu change.
+However, booting Xen on a Arm platform with that amount of memory would
+result to a breakage because the frametable area is too small.
 
-Thanks,
-James
---=_d67c980548a7c71900f7f58f949ecdb6
-Content-Transfer-Encoding: base64
-Content-Type: text/x-diff;
- name=set-mtu-frontend-path.diff
-Content-Disposition: attachment;
- filename=set-mtu-frontend-path.diff;
- size=1928
+The wiki [1] (as of April 2022) claims we were able to support up to
+5 TiB on Arm64 and 16 GiB. However, this is not the case because
+the struct page_info has always been bigger than expected (56 bytes
+for 64-bit and 32-bytes for 32-bit).
 
-Y29tbWl0IGY2ZWM5MjcxNzUyMmU3NGI0Y2MzYWE0MTYwYjhhZDY4ODRlMGI1MGMKQXV0aG9yOiBK
-YW1lcyBEaW5nd2FsbCA8amFtZXNAZGluZ3dhbGwubWUudWs+CkRhdGU6ICAgVHVlIEFwciAxOSAx
-Mjo0NTozMSAyMDIyICswMTAwCgogICAgVGhlIHNldF9tdHUoKSBmdW5jdGlvbiBvZiB4ZW4tbmV0
-d29yay1jb21tb24uc2ggY3VycmVudGx5IGhhcyB0aGlzIGNvZGU6CiAgICAKICAgICAgICAgICAg
-aWYgWyAke3R5cGVfaWZ9ID0gdmlmIF0KICAgICAgICAgICAgdGhlbgogICAgICAgICAgICAgICAg
-bG9jYWwgZGV2Xz0ke2RldiN2aWZ9CiAgICAgICAgICAgICAgICBsb2NhbCBkb21pZD0ke2Rldl8l
-Lip9CiAgICAgICAgICAgICAgICBsb2NhbCBkZXZpZD0ke2Rldl8jKi59CiAgICAKICAgICAgICAg
-ICAgICAgIGxvY2FsIEZST05URU5EX1BBVEg9Ii9sb2NhbC9kb21haW4vJGRvbWlkL2RldmljZS92
-aWYvJGRldmlkIgogICAgCiAgICAgICAgICAgICAgICB4ZW5zdG9yZV93cml0ZSAiJEZST05URU5E
-X1BBVEgvbXR1IiAke210dX0KICAgICAgICAgICAgZmkKICAgIAogICAgVGhpcyB3b3JrcyBmaW5l
-IGlmIHRoZSBkZXZpY2UgaGFzIGl0cyBkZWZhdWx0IG5hbWUgYnV0IGlmIHRoZSB4ZW4gY29uZmln
-CiAgICBkZWZpbmVzIHRoZSB2aWZuYW1lIHBhcmFtZXRlciB0aGUgRlJPTlRFTkRfUEFUSCBpcyBp
-bmNvcnJlY3RseSBjb25zdHJ1Y3RlZC4KICAgIExlYXJuIHRoZSBmcm9udGVuZCBwYXRoIGJ5IHJl
-YWRpbmcgdGhlIGFwcHJvcHJpYXRlIHZhbHVlIGZyb20gdGhlIGJhY2tlbmQuCiAgICAKICAgIEFs
-c28gY2hhbmdlIHVzZSBvZiBgLi4uYCB0byAkKC4uLikgZm9yIGEgY29uc2lzdGVudCBzdHlsZSBp
-biB0aGUgc2NyaXB0LgogICAgCiAgICBTaWduZWQtb2ZmLWJ5OiBKYW1lcyBEaW5nd2FsbCA8amFt
-ZXNAZGluZ3dhbGwubWUudWs+CgpkaWZmIC0tZ2l0IGEvdG9vbHMvaG90cGx1Zy9MaW51eC94ZW4t
-bmV0d29yay1jb21tb24uc2ggYi90b29scy9ob3RwbHVnL0xpbnV4L3hlbi1uZXR3b3JrLWNvbW1v
-bi5zaAppbmRleCA0MmZhNzA0ZThkLi43YTYzMzA4YTllIDEwMDY0NAotLS0gYS90b29scy9ob3Rw
-bHVnL0xpbnV4L3hlbi1uZXR3b3JrLWNvbW1vbi5zaAorKysgYi90b29scy9ob3RwbHVnL0xpbnV4
-L3hlbi1uZXR3b3JrLWNvbW1vbi5zaApAQCAtMTcxLDcgKzE3MSw3IEBAIHNldF9tdHUgKCkgewog
-ICAgIGxvY2FsIG10dT0kKHhlbnN0b3JlX3JlYWRfZGVmYXVsdCAiJFhFTkJVU19QQVRIL210dSIg
-IiIpCiAgICAgaWYgWyAteiAiJG10dSIgXQogICAgIHRoZW4KLSAgICAgICAgbXR1PSJgaXAgbGlu
-ayBzaG93IGRldiAke2JyaWRnZX18IGF3ayAnL210dS8geyBwcmludCAkNSB9J2AiCisgICAgICAg
-IG10dT0iJChpcCBsaW5rIHNob3cgZGV2ICR7YnJpZGdlfXwgYXdrICcvbXR1LyB7IHByaW50ICQ1
-IH0nKSIKICAgICAgICAgaWYgWyAtbiAiJG10dSIgXQogICAgICAgICB0aGVuCiAgICAgICAgICAg
-ICBsb2cgZGVidWcgIiRicmlkZ2UgTVRVIGlzICRtdHUiCkBAIC0xODQsMTEgKzE4NCw3IEBAIHNl
-dF9tdHUgKCkgewogCiAgICAgICAgIGlmIFsgJHt0eXBlX2lmfSA9IHZpZiBdCiAgICAgICAgIHRo
-ZW4KLSAgICAgICAgICAgIGxvY2FsIGRldl89JHtkZXYjdmlmfQotICAgICAgICAgICAgbG9jYWwg
-ZG9taWQ9JHtkZXZfJS4qfQotICAgICAgICAgICAgbG9jYWwgZGV2aWQ9JHtkZXZfIyoufQotCi0g
-ICAgICAgICAgICBsb2NhbCBGUk9OVEVORF9QQVRIPSIvbG9jYWwvZG9tYWluLyRkb21pZC9kZXZp
-Y2UvdmlmLyRkZXZpZCIKKyAgICAgICAgICAgIGxvY2FsIEZST05URU5EX1BBVEg9IiQoeGVuc3Rv
-cmVfcmVhZCAiJFhFTkJVU19QQVRIL2Zyb250ZW5kIikiCiAKICAgICAgICAgICAgIHhlbnN0b3Jl
-X3dyaXRlICIkRlJPTlRFTkRfUEFUSC9tdHUiICR7bXR1fQogICAgICAgICBmaQo=
---=_d67c980548a7c71900f7f58f949ecdb6--
+I don't have any HW with such amount of memory. So rather than
+modifying the code, take the opportunity to use the limit that should
+work on Arm (2 TiB for 64-bit and 12 GiB for 32-bit).
+
+Signed-off-by: Julien Grall <jgrall@amazon.com>
+---
+ SUPPORT.md | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/SUPPORT.md b/SUPPORT.md
+index 088dda9561c1..1e3c69a07615 100644
+--- a/SUPPORT.md
++++ b/SUPPORT.md
+@@ -50,9 +50,10 @@ For the Cortex A57 r0p0 - r1p1, see Errata 832075.
+ 
+ ### Physical Memory
+ 
+-    Status: Supported up to 8 TiB
+-
+-Hosts with more memory are supported, but not security supported.
++    Status, x86: Supported up to 8 TiB. Hosts with more memory are
++                 supported but not security support.
++    Status, Arm32: Supported up to 12 GiB
++    Status, Arm64: Supported up to 2 TiB
+ 
+ ### Physical Memory Hotplug
+ 
+-- 
+2.32.0
+
 
