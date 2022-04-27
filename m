@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01E7F511BF2
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 17:38:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.315178.533598 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA917511BFE
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 17:41:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.315184.533610 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njjjo-0003nZ-Kk; Wed, 27 Apr 2022 15:37:56 +0000
+	id 1njjnE-0005Aq-3S; Wed, 27 Apr 2022 15:41:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 315178.533598; Wed, 27 Apr 2022 15:37:56 +0000
+Received: by outflank-mailman (output) from mailman id 315184.533610; Wed, 27 Apr 2022 15:41:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njjjo-0003kS-Hj; Wed, 27 Apr 2022 15:37:56 +0000
-Received: by outflank-mailman (input) for mailman id 315178;
- Wed, 27 Apr 2022 15:37:54 +0000
+	id 1njjnD-00058G-Vl; Wed, 27 Apr 2022 15:41:27 +0000
+Received: by outflank-mailman (input) for mailman id 315184;
+ Wed, 27 Apr 2022 15:41:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uVAb=VF=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
- id 1njjjm-0003kM-Kw
- for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 15:37:54 +0000
-Received: from MTA-07-4.privateemail.com (mta-07-4.privateemail.com
- [68.65.122.27]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ff5796f8-c63f-11ec-8fc2-03012f2f19d4;
- Wed, 27 Apr 2022 17:37:52 +0200 (CEST)
-Received: from mta-07.privateemail.com (localhost [127.0.0.1])
- by mta-07.privateemail.com (Postfix) with ESMTP id D572B18000AF
- for <xen-devel@lists.xenproject.org>; Wed, 27 Apr 2022 11:37:50 -0400 (EDT)
-Received: from mail-oi1-f180.google.com (unknown [10.20.151.189])
- by mta-07.privateemail.com (Postfix) with ESMTPA id B07D218000A3
- for <xen-devel@lists.xenproject.org>; Wed, 27 Apr 2022 11:37:50 -0400 (EDT)
-Received: by mail-oi1-f180.google.com with SMTP id 12so2330852oix.12
- for <xen-devel@lists.xenproject.org>; Wed, 27 Apr 2022 08:37:50 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=96F5=VF=kernel.org=kuba@srs-se1.protection.inumbo.net>)
+ id 1njjnC-00058A-38
+ for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 15:41:26 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7db785fe-c640-11ec-8fc2-03012f2f19d4;
+ Wed, 27 Apr 2022 17:41:24 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0B961617B7;
+ Wed, 27 Apr 2022 15:41:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C186C385AD;
+ Wed, 27 Apr 2022 15:41:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,100 +43,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff5796f8-c63f-11ec-8fc2-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=tklengyel.com;
-	s=default; t=1651073870;
-	bh=nFw4jYsyAisqJLzlqA1IidWP4jHuOs/pyKgg5MZ7yhs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=JnHv/C/f/4koIQPLZ5uItrE1bg69zGg+9Nn89sB+LAL5056Wr07JcbV0Ao2eMMx9n
-	 jueqlS2XA6MWZ7wqMIkdHjWMWIVRm4dIKm5bstbnmAm/HHGJmurOzJ5ofJaGjitiw9
-	 MP4bTpRkJrsifgPtU6ToEzQucaEVsYWH/5niQDC5lXyCVKo0uqh6DMOm4IU20dsrVw
-	 vlrp5QaxBl10TKW2Wzo3/q4SN7nL4snKOW2H4qzbIOxs61J+qV42SYl37vjC8iqEow
-	 NUh5AnYfPtkbDv1aAQoyRIIAbzKQpIQv4XCMaXFEMP3a18OfSfCUVs5HoNbBYEqJut
-	 rjxxXeaNY+bTA==
-X-Gm-Message-State: AOAM530WA5cXSgq4U885yOf+X4OK6AA9M04/bQdJjRWeAI1B/pAWl/FY
-	HmwaEOIEkwmluaGkSLmv5lB9yYDiTvjPOZgjdzI=
-X-Google-Smtp-Source: ABdhPJxUHao9BLknQexAiIWtBtQzBWGn6svvl2JdDCVCUzT5qup2yemsRDiE83WQAC2Um00KBi7ZNf2vzygQvNkethw=
-X-Received: by 2002:a05:6808:130e:b0:325:813d:a3f4 with SMTP id
- y14-20020a056808130e00b00325813da3f4mr1349743oiv.9.1651073870123; Wed, 27 Apr
- 2022 08:37:50 -0700 (PDT)
+X-Inumbo-ID: 7db785fe-c640-11ec-8fc2-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1651074082;
+	bh=rE+qwrcYq1YEDwagHt9bw0Dmvq2A/QwK2cQtgGYtZKA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=t+rRpvTelqAmnOxdhSnJBNQ97HYVO1XodTEWwDfdhbxiVpvUs+NWkAu00L0KAWCjP
+	 PcSQuS0lYSCwzFvNFQabbm9RTHxWFPt7HKSNJfJlwDdMEE8CRTiKRdFFSq1BcqRW5F
+	 Mld1jCYk7HsQSNZXkm00T4qPUjKnsHAcRqBYRN6thrfPCsmggIfeRUpFL78tLsBd/n
+	 RleASA3ke4E/qVXBqnOgH8c5zlPm8j0hYYNrt1nynlzoZRhN4Ol44vbGoMFmIhQXOL
+	 36VdePnn7Vku9k2R4p7RdwiICc+qF+FVqkxEWAfz3MvAstn5GaB2tKbZOvn7vvx3G/
+	 f8GLg0Qwv5hhA==
+From: Jakub Kicinski <kuba@kernel.org>
+To: davem@davemloft.net,
+	pabeni@redhat.com
+Cc: netdev@vger.kernel.org,
+	Jakub Kicinski <kuba@kernel.org>,
+	ulli.kroll@googlemail.com,
+	linus.walleij@linaro.org,
+	mlindner@marvell.com,
+	stephen@networkplumber.org,
+	nbd@nbd.name,
+	john@phrozen.org,
+	sean.wang@mediatek.com,
+	Mark-MC.Lee@mediatek.com,
+	matthias.bgg@gmail.com,
+	grygorii.strashko@ti.com,
+	wei.liu@kernel.org,
+	paul@xen.org,
+	prabhakar.mahadev-lad.rj@bp.renesas.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-omap@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH net-next 01/14] eth: remove copies of the NAPI_POLL_WEIGHT define
+Date: Wed, 27 Apr 2022 08:40:58 -0700
+Message-Id: <20220427154111.529975-2-kuba@kernel.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20220427154111.529975-1-kuba@kernel.org>
+References: <20220427154111.529975-1-kuba@kernel.org>
 MIME-Version: 1.0
-References: <e57797cbc2c0706c03363cc7fa1b3e234921fee5.1648214955.git.tamas.lengyel@intel.com>
- <BN9PR11MB527638D2BE6087C1A4D796D48CFA9@BN9PR11MB5276.namprd11.prod.outlook.com>
- <d6c2b3b5-6eb4-e094-fc9f-5214f8c12df0@suse.com>
-In-Reply-To: <d6c2b3b5-6eb4-e094-fc9f-5214f8c12df0@suse.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Wed, 27 Apr 2022 11:37:14 -0400
-X-Gmail-Original-Message-ID: <CABfawhnkf8_yFak9SdQJsLT6aXT64oS_yFkF9pAkbiU7TsQ5zQ@mail.gmail.com>
-Message-ID: <CABfawhnkf8_yFak9SdQJsLT6aXT64oS_yFkF9pAkbiU7TsQ5zQ@mail.gmail.com>
-Subject: Re: [PATCH v5] x86/vmx: add hvm functions to get/set non-register state
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "Lengyel, Tamas" <tamas.lengyel@intel.com>, "Nakajima, Jun" <jun.nakajima@intel.com>, 
-	"Cooper, Andrew" <andrew.cooper3@citrix.com>, =?UTF-8?Q?Pau_Monn=C3=A9=2C_Roger?= <roger.pau@citrix.com>, 
-	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Tian, Kevin" <kevin.tian@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Virus-Scanned: ClamAV using ClamSMTP
+Content-Transfer-Encoding: 8bit
 
-On Wed, Apr 27, 2022 at 3:07 AM Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 27.04.2022 05:46, Tian, Kevin wrote:
-> >> From: Lengyel, Tamas <tamas.lengyel@intel.com>
-> >> Sent: Friday, March 25, 2022 9:33 PM
-> >>
-> >> During VM forking and resetting a failed vmentry has been observed due
-> >> to the guest non-register state going out-of-sync with the guest register
-> >> state. For example, a VM fork reset right after a STI instruction can trigger
-> >> the failed entry. This is due to the guest non-register state not being saved
-> >> from the parent VM, thus the reset operation only copies the register state.
-> >>
-> >> Fix this by adding a new pair of hvm functions to get/set the guest
-> >> non-register state so that the overall vCPU state remains in sync.
-> >>
-> >> Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
-> >
-> > Reviewed-by: Kevin Tian <kevin.tian@intel.com>
->
-> Acked-by: Jan Beulich <jbeulich@suse.com>
-> with ...
->
-> >> @@ -863,6 +892,17 @@ static inline void hvm_set_reg(struct vcpu *v,
-> >> unsigned int reg, uint64_t val)
-> >>      ASSERT_UNREACHABLE();
-> >>  }
-> >>
-> >> +static inline void hvm_get_nonreg_state(struct vcpu *v,
-> >> +                                        struct hvm_vcpu_nonreg_state *nrs)
-> >> +{
-> >> +    ASSERT_UNREACHABLE();
-> >> +}
-> >> +static inline void hvm_set_nonreg_state(struct vcpu *v,
-> >> +                                        struct hvm_vcpu_nonreg_state *nrs)
-> >> +{
-> >> +    ASSERT_UNREACHABLE();
-> >> +}
->
-> ... these unnecessary stubs dropped (they should be introduced only
-> once actually needed, i.e. when a caller appears in a file which is
-> also built when !CONFIG_HVM), and ...
->
-> >> --- a/xen/arch/x86/mm/mem_sharing.c
-> >> +++ b/xen/arch/x86/mm/mem_sharing.c
-> >> @@ -1643,6 +1643,13 @@ static int bring_up_vcpus(struct domain *cd,
-> >> struct domain *d)
-> >>      return 0;
-> >>  }
-> >>
-> >> +static void copy_vcpu_nonreg_state(struct vcpu *d_vcpu, struct vcpu
-> >> *cd_vcpu)
-> >> +{
-> >> +    struct hvm_vcpu_nonreg_state nrs = {};
-> >> +    hvm_get_nonreg_state(d_vcpu, &nrs);
->
-> ... this missing blank line inserted between these two lines. I'll
-> make both adjustments while committing.
+Defining local versions of NAPI_POLL_WEIGHT with the same
+values in the drivers just makes refactoring harder.
 
-Thanks, both changes are fine from my side.
+Drop the special defines in a bunch of drivers where the
+removal is relatively simple so grouping into one patch
+does not impact reviewability.
 
-Tamas
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+---
+CC: ulli.kroll@googlemail.com
+CC: linus.walleij@linaro.org
+CC: mlindner@marvell.com
+CC: stephen@networkplumber.org
+CC: nbd@nbd.name
+CC: john@phrozen.org
+CC: sean.wang@mediatek.com
+CC: Mark-MC.Lee@mediatek.com
+CC: matthias.bgg@gmail.com
+CC: grygorii.strashko@ti.com
+CC: wei.liu@kernel.org
+CC: paul@xen.org
+CC: prabhakar.mahadev-lad.rj@bp.renesas.com
+CC: linux-arm-kernel@lists.infradead.org
+CC: linux-mediatek@lists.infradead.org
+CC: linux-omap@vger.kernel.org
+CC: xen-devel@lists.xenproject.org
+---
+ drivers/net/ethernet/cortina/gemini.c         | 4 +---
+ drivers/net/ethernet/marvell/skge.c           | 3 +--
+ drivers/net/ethernet/marvell/sky2.c           | 3 +--
+ drivers/net/ethernet/mediatek/mtk_star_emac.c | 3 +--
+ drivers/net/ethernet/ti/davinci_emac.c        | 3 +--
+ drivers/net/ethernet/ti/netcp_core.c          | 5 ++---
+ drivers/net/xen-netback/interface.c           | 3 +--
+ 7 files changed, 8 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/net/ethernet/cortina/gemini.c b/drivers/net/ethernet/cortina/gemini.c
+index 8014eb33937c..9e6de2f968fa 100644
+--- a/drivers/net/ethernet/cortina/gemini.c
++++ b/drivers/net/ethernet/cortina/gemini.c
+@@ -68,7 +68,6 @@ MODULE_PARM_DESC(debug, "Debug level (0=none,...,16=all)");
+ #define DEFAULT_GMAC_RXQ_ORDER		9
+ #define DEFAULT_GMAC_TXQ_ORDER		8
+ #define DEFAULT_RX_BUF_ORDER		11
+-#define DEFAULT_NAPI_WEIGHT		64
+ #define TX_MAX_FRAGS			16
+ #define TX_QUEUE_NUM			1	/* max: 6 */
+ #define RX_MAX_ALLOC_ORDER		2
+@@ -2472,8 +2471,7 @@ static int gemini_ethernet_port_probe(struct platform_device *pdev)
+ 	netdev->max_mtu = 10236 - VLAN_ETH_HLEN;
+ 
+ 	port->freeq_refill = 0;
+-	netif_napi_add(netdev, &port->napi, gmac_napi_poll,
+-		       DEFAULT_NAPI_WEIGHT);
++	netif_napi_add(netdev, &port->napi, gmac_napi_poll, NAPI_POLL_WEIGHT);
+ 
+ 	ret = of_get_mac_address(np, mac);
+ 	if (!ret) {
+diff --git a/drivers/net/ethernet/marvell/skge.c b/drivers/net/ethernet/marvell/skge.c
+index cf03c67fbf40..c1e985416c0e 100644
+--- a/drivers/net/ethernet/marvell/skge.c
++++ b/drivers/net/ethernet/marvell/skge.c
+@@ -50,7 +50,6 @@
+ #define PHY_RETRIES	        1000
+ #define ETH_JUMBO_MTU		9000
+ #define TX_WATCHDOG		(5 * HZ)
+-#define NAPI_WEIGHT		64
+ #define BLINK_MS		250
+ #define LINK_HZ			HZ
+ 
+@@ -3833,7 +3832,7 @@ static struct net_device *skge_devinit(struct skge_hw *hw, int port,
+ 		dev->features |= NETIF_F_HIGHDMA;
+ 
+ 	skge = netdev_priv(dev);
+-	netif_napi_add(dev, &skge->napi, skge_poll, NAPI_WEIGHT);
++	netif_napi_add(dev, &skge->napi, skge_poll, NAPI_POLL_WEIGHT);
+ 	skge->netdev = dev;
+ 	skge->hw = hw;
+ 	skge->msg_enable = netif_msg_init(debug, default_msg);
+diff --git a/drivers/net/ethernet/marvell/sky2.c b/drivers/net/ethernet/marvell/sky2.c
+index ea16b1dd6a98..a1e907c85217 100644
+--- a/drivers/net/ethernet/marvell/sky2.c
++++ b/drivers/net/ethernet/marvell/sky2.c
+@@ -63,7 +63,6 @@
+ #define TX_DEF_PENDING		63
+ 
+ #define TX_WATCHDOG		(5 * HZ)
+-#define NAPI_WEIGHT		64
+ #define PHY_RETRIES		1000
+ 
+ #define SKY2_EEPROM_MAGIC	0x9955aabb
+@@ -4938,7 +4937,7 @@ static int sky2_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 		}
+ 	}
+ 
+-	netif_napi_add(dev, &hw->napi, sky2_poll, NAPI_WEIGHT);
++	netif_napi_add(dev, &hw->napi, sky2_poll, NAPI_POLL_WEIGHT);
+ 
+ 	err = register_netdev(dev);
+ 	if (err) {
+diff --git a/drivers/net/ethernet/mediatek/mtk_star_emac.c b/drivers/net/ethernet/mediatek/mtk_star_emac.c
+index 4cd0747edaff..95839fd84dab 100644
+--- a/drivers/net/ethernet/mediatek/mtk_star_emac.c
++++ b/drivers/net/ethernet/mediatek/mtk_star_emac.c
+@@ -30,7 +30,6 @@
+ #define MTK_STAR_WAIT_TIMEOUT			300
+ #define MTK_STAR_MAX_FRAME_SIZE			1514
+ #define MTK_STAR_SKB_ALIGNMENT			16
+-#define MTK_STAR_NAPI_WEIGHT			64
+ #define MTK_STAR_HASHTABLE_MC_LIMIT		256
+ #define MTK_STAR_HASHTABLE_SIZE_MAX		512
+ 
+@@ -1551,7 +1550,7 @@ static int mtk_star_probe(struct platform_device *pdev)
+ 	ndev->netdev_ops = &mtk_star_netdev_ops;
+ 	ndev->ethtool_ops = &mtk_star_ethtool_ops;
+ 
+-	netif_napi_add(ndev, &priv->napi, mtk_star_poll, MTK_STAR_NAPI_WEIGHT);
++	netif_napi_add(ndev, &priv->napi, mtk_star_poll, NAPI_POLL_WEIGHT);
+ 
+ 	return devm_register_netdev(dev, ndev);
+ }
+diff --git a/drivers/net/ethernet/ti/davinci_emac.c b/drivers/net/ethernet/ti/davinci_emac.c
+index 9d1e98db308b..2a3e4e842fa5 100644
+--- a/drivers/net/ethernet/ti/davinci_emac.c
++++ b/drivers/net/ethernet/ti/davinci_emac.c
+@@ -113,7 +113,6 @@ static const char emac_version_string[] = "TI DaVinci EMAC Linux v6.1";
+ #define EMAC_DEF_RX_NUM_DESC		(128)
+ #define EMAC_DEF_MAX_TX_CH		(1) /* Max TX channels configured */
+ #define EMAC_DEF_MAX_RX_CH		(1) /* Max RX channels configured */
+-#define EMAC_POLL_WEIGHT		(64) /* Default NAPI poll weight */
+ 
+ /* Buffer descriptor parameters */
+ #define EMAC_DEF_TX_MAX_SERVICE		(32) /* TX max service BD's */
+@@ -1949,7 +1948,7 @@ static int davinci_emac_probe(struct platform_device *pdev)
+ 
+ 	ndev->netdev_ops = &emac_netdev_ops;
+ 	ndev->ethtool_ops = &ethtool_ops;
+-	netif_napi_add(ndev, &priv->napi, emac_poll, EMAC_POLL_WEIGHT);
++	netif_napi_add(ndev, &priv->napi, emac_poll, NAPI_POLL_WEIGHT);
+ 
+ 	pm_runtime_enable(&pdev->dev);
+ 	rc = pm_runtime_resume_and_get(&pdev->dev);
+diff --git a/drivers/net/ethernet/ti/netcp_core.c b/drivers/net/ethernet/ti/netcp_core.c
+index 16507bff652a..21b0e961eab5 100644
+--- a/drivers/net/ethernet/ti/netcp_core.c
++++ b/drivers/net/ethernet/ti/netcp_core.c
+@@ -24,7 +24,6 @@
+ #include "netcp.h"
+ 
+ #define NETCP_SOP_OFFSET	(NET_IP_ALIGN + NET_SKB_PAD)
+-#define NETCP_NAPI_WEIGHT	64
+ #define NETCP_TX_TIMEOUT	(5 * HZ)
+ #define NETCP_PACKET_SIZE	(ETH_FRAME_LEN + ETH_FCS_LEN)
+ #define NETCP_MIN_PACKET_SIZE	ETH_ZLEN
+@@ -2096,8 +2095,8 @@ static int netcp_create_interface(struct netcp_device *netcp_device,
+ 	}
+ 
+ 	/* NAPI register */
+-	netif_napi_add(ndev, &netcp->rx_napi, netcp_rx_poll, NETCP_NAPI_WEIGHT);
+-	netif_tx_napi_add(ndev, &netcp->tx_napi, netcp_tx_poll, NETCP_NAPI_WEIGHT);
++	netif_napi_add(ndev, &netcp->rx_napi, netcp_rx_poll, NAPI_POLL_WEIGHT);
++	netif_tx_napi_add(ndev, &netcp->tx_napi, netcp_tx_poll, NAPI_POLL_WEIGHT);
+ 
+ 	/* Register the network device */
+ 	ndev->dev_id		= 0;
+diff --git a/drivers/net/xen-netback/interface.c b/drivers/net/xen-netback/interface.c
+index fe8e21ad8ed9..8e035374a370 100644
+--- a/drivers/net/xen-netback/interface.c
++++ b/drivers/net/xen-netback/interface.c
+@@ -42,7 +42,6 @@
+ #include <xen/balloon.h>
+ 
+ #define XENVIF_QUEUE_LENGTH 32
+-#define XENVIF_NAPI_WEIGHT  64
+ 
+ /* Number of bytes allowed on the internal guest Rx queue. */
+ #define XENVIF_RX_QUEUE_BYTES (XEN_NETIF_RX_RING_SIZE/2 * PAGE_SIZE)
+@@ -739,7 +738,7 @@ int xenvif_connect_data(struct xenvif_queue *queue,
+ 	atomic_set(&queue->inflight_packets, 0);
+ 
+ 	netif_napi_add(queue->vif->dev, &queue->napi, xenvif_poll,
+-			XENVIF_NAPI_WEIGHT);
++			NAPI_POLL_WEIGHT);
+ 
+ 	queue->stalled = true;
+ 
+-- 
+2.34.1
+
 
