@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86C8D511457
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 11:41:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.314662.532834 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18412511459
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 11:43:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.314670.532849 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njeAe-0006m4-J9; Wed, 27 Apr 2022 09:41:16 +0000
+	id 1njeCw-0007Oo-0K; Wed, 27 Apr 2022 09:43:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 314662.532834; Wed, 27 Apr 2022 09:41:16 +0000
+Received: by outflank-mailman (output) from mailman id 314670.532849; Wed, 27 Apr 2022 09:43:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njeAe-0006kF-G6; Wed, 27 Apr 2022 09:41:16 +0000
-Received: by outflank-mailman (input) for mailman id 314662;
- Wed, 27 Apr 2022 09:41:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XTkK=VF=gmail.com=raphning@srs-se1.protection.inumbo.net>)
- id 1njeAd-0006k0-7E
- for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 09:41:15 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2d6e079e-c60e-11ec-8fc2-03012f2f19d4;
- Wed, 27 Apr 2022 11:41:14 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id x18so1718865wrc.0
- for <xen-devel@lists.xenproject.org>; Wed, 27 Apr 2022 02:41:14 -0700 (PDT)
-Received: from [10.7.236.33] (54-240-197-224.amazon.com. [54.240.197.224])
- by smtp.gmail.com with ESMTPSA id
- p125-20020a1c2983000000b0038e5ca446bcsm1191730wmp.5.2022.04.27.02.41.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Apr 2022 02:41:12 -0700 (PDT)
+	id 1njeCv-0007Mo-TO; Wed, 27 Apr 2022 09:43:37 +0000
+Received: by outflank-mailman (input) for mailman id 314670;
+ Wed, 27 Apr 2022 09:43:35 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1njeCt-0007Mi-KR
+ for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 09:43:35 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1njeCt-0002Gb-0i; Wed, 27 Apr 2022 09:43:35 +0000
+Received: from [54.239.6.186] (helo=[192.168.24.58])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1njeCs-0000do-R0; Wed, 27 Apr 2022 09:43:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,61 +39,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d6e079e-c60e-11ec-8fc2-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:to:cc:references
-         :from:in-reply-to:content-transfer-encoding;
-        bh=e7D4L2zo/iScrOJGIxSEH4U+pJJP3ttdUouBNECk0Lo=;
-        b=FNKTrzCsXUIXMkkxusaBodeKzZqcmZ/E7YQwJ4AYQMEQQQSePnkdE3tY+NI8bL3v/H
-         hyCGrxU/mLWFfh857MFzQUceLsBKguJvFwv4MfiDO5dxfSgUpssbpRODEPwKd/CpUVDJ
-         UGhQydEkQxcKimaqszf6lt3j7K2qN5Od6k5qeymcZmWN21jxvhDGSQ+tjHw3dZbJk0ki
-         hcnduSmNuxQdcMbbLgTAYZziXbrOrSXX+Mkc4LzJRRw+tt4aljj2T4g6MChJNGCRMo8u
-         Vh2GbYgFXaeJGVwD8+giTN8yC8QwEzw1aQaVUbOvkfMNSLPsQM0hykAuXWg+hMnoQ8Nj
-         dOqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :to:cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=e7D4L2zo/iScrOJGIxSEH4U+pJJP3ttdUouBNECk0Lo=;
-        b=5y0BhjcFEjf7ULddHKWF4yWZ6uBTQj2pqXS9Dz5WGbYdT/5qYlPcYDy/mmrrTCR5+E
-         FtqnrPBpiB5tHIU1blqQV0pPqldJmINUqqG+wfU3OzQzKIGuPm3D/+hKBxguPWueSclv
-         1tBz5NI44xVZE9dTBlde1bdPtIMVqqd7ofwFAG2WLiKADn04LWQeM4NJoQDd2zB7FsFH
-         y0XsBGaIpa7uHb9sXEZ9tLaBMhzcEm6hfnZBtfiQ5iQ8Ead1iIVXGIKATOlkekg5JoKf
-         jY6HIXTEAaW5TLkeuRgXlPsfZgF6OXs9ZnXkDAYNbHyLgK4/VYg32JwrN6Bo72xLE0WC
-         42qA==
-X-Gm-Message-State: AOAM530jZ91IlgrtWOVGm/2BTsDqa47Nzkjcehyu/5nL0hlZXOrNrbpO
-	KiDYtMK3ISOjVm+hwRfzl+M=
-X-Google-Smtp-Source: ABdhPJwx5CjEeRRMUXX2U0g05MwOiB8wp6r5svuIZveDRqXg4jEOaQ63WFamQAA5Kzrcz3wU6pfEEg==
-X-Received: by 2002:a05:6000:49:b0:20a:da03:951f with SMTP id k9-20020a056000004900b0020ada03951fmr11779927wrx.519.1651052473187;
-        Wed, 27 Apr 2022 02:41:13 -0700 (PDT)
-Message-ID: <18c1113e-cba2-1f99-324e-d146a3ff5cdd@gmail.com>
-Date: Wed, 27 Apr 2022 10:41:11 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=Fo45BY6CEq22mHXoDnz15YgIr+nzRGiHzVUkPEClkuI=; b=Jasqfe18audLp/RJ+LahMYwt0Z
+	PJEDWDLG6k6NwMhFKdBqy1Y6kortIdwa/ledlACpnSm0UpYXBtrZZ4Qw3EoDLxHZXVI1NBezPmFSm
+	P23ihxoXFkx85L2hqDbqam8F8I56W4iQj8xSLNM+6SmUy/agdnQ+TNJcUg9Wt4qu9uvw=;
+Message-ID: <d1fcbb5b-5373-ea1b-1894-50a9b065c604@xen.org>
+Date: Wed, 27 Apr 2022 10:43:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.8.0
-Subject: Re: [cxenstored] Potential bug in special watch event firing
-To: Juergen Gross <jgross@suse.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <julien@xen.org>
-References: <eb024e77-17f4-cc89-f621-a9d5b879c184@gmail.com>
- <13c29d5b-a9e4-9690-7988-767caf0c44b5@suse.com>
-From: Raphael Ning <raphning@gmail.com>
-In-Reply-To: <13c29d5b-a9e4-9690-7988-767caf0c44b5@suse.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v3 3/6] xen: add field "flags" to cover all internal
+ CDF_XXX
+To: Penny Zheng <Penny.Zheng@arm.com>, xen-devel@lists.xenproject.org
+Cc: wei.chen@arm.com, henry.wang@arm.com,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>
+References: <20220427092743.925563-1-Penny.Zheng@arm.com>
+ <20220427092743.925563-4-Penny.Zheng@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20220427092743.925563-4-Penny.Zheng@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Juergen,
+Hi,
 
-On 27/04/2022 08:30, Juergen Gross wrote:
-> [...]
->> The xenstore documentation is not clear about whether @<wspecial> should be considered children of /. But I find it counterintuitive that clients may be notified about a special event without explicitly subscribing to it. Is it a bug?
->
-> I agree this is a bug.
+On 27/04/2022 10:27, Penny Zheng wrote:
+> With more and more CDF_xxx internal flags in and to save the space, this
+> commit introduces a new field "flags" in struct domain to store CDF_*
+> internal flags directly.
+> 
+> Another new CDF_xxx will be introduced in the next patch.
+> 
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 
+Acked-by: Julien Grall <jgrall@amazon.com>
 
-Thanks for confirming that. I can send a patch to fix it, but it probably won't happen until later next week. If anyone else can get it done sooner, please feel free to do so.
+Cheers,
 
-Raphael
-
+-- 
+Julien Grall
 
