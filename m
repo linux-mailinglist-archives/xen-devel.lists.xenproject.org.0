@@ -2,36 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC07151222C
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 21:09:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.315409.533949 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F534512315
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 21:48:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.315421.533966 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njn1r-00083I-64; Wed, 27 Apr 2022 19:08:47 +0000
+	id 1njncw-0003kh-3j; Wed, 27 Apr 2022 19:47:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 315409.533949; Wed, 27 Apr 2022 19:08:47 +0000
+Received: by outflank-mailman (output) from mailman id 315421.533966; Wed, 27 Apr 2022 19:47:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njn1r-00080T-2K; Wed, 27 Apr 2022 19:08:47 +0000
-Received: by outflank-mailman (input) for mailman id 315409;
- Wed, 27 Apr 2022 19:08:45 +0000
+	id 1njncw-0003hZ-0O; Wed, 27 Apr 2022 19:47:06 +0000
+Received: by outflank-mailman (input) for mailman id 315421;
+ Wed, 27 Apr 2022 19:47:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sNsI=VF=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1njn1o-00080N-Sj
- for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 19:08:45 +0000
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 73d8d129-c65d-11ec-a405-831a346695d4;
- Wed, 27 Apr 2022 21:08:43 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 9C70C5C0232;
- Wed, 27 Apr 2022 15:08:41 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Wed, 27 Apr 2022 15:08:41 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 27 Apr 2022 15:08:40 -0400 (EDT)
+ <SRS0=7Mu5=VF=redhat.com=hdegoede@srs-se1.protection.inumbo.net>)
+ id 1njncu-0003hT-3s
+ for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 19:47:04 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cd44a602-c662-11ec-a405-831a346695d4;
+ Wed, 27 Apr 2022 21:47:00 +0200 (CEST)
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
+ [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-338-Q6qWz4bLP3axjlHEjGUQIg-1; Wed, 27 Apr 2022 15:46:57 -0400
+Received: by mail-ej1-f71.google.com with SMTP id
+ sh14-20020a1709076e8e00b006f3b7adb9ffso1707869ejc.16
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Apr 2022 12:46:57 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:c1e:bf00:d69d:5353:dba5:ee81?
+ (2001-1c00-0c1e-bf00-d69d-5353-dba5-ee81.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c1e:bf00:d69d:5353:dba5:ee81])
+ by smtp.gmail.com with ESMTPSA id
+ g16-20020a170906521000b006d58773e992sm7332748ejm.188.2022.04.27.12.46.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 27 Apr 2022 12:46:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,126 +51,468 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73d8d129-c65d-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1651086521; x=
-	1651172921; bh=fsebkSD5sPqk3pdhzdwrcbmGClEPrZ02djtT55h4Sbw=; b=b
-	iI3XI8gLOa7mCyy8bgGGjXrD/11XxGfHfOhUziPBEf70ZxDo6x6WmEUK+d3zz3Zj
-	K9AySLDAODlc3Rm9yNV95nw6HFdA9LcBmhDQ+3GpvLeXS01nUfANo9wAfQqCarRF
-	QkDFge/InPYJD0Yz1dCRwWyQ5LN2nOw9dqWImgZc0LF1Uvu+Z7BpjbcTbdixBsz+
-	bzLn7CE4n5Lm3/DZ1cGP6AVH0YuVaYa4IWQB407BWaqTwmdkd/VmOQQb+0nLxhWn
-	sWCI9BDCMt7vspH7LeQ2NrAAvAU8T/JHOlofH+pyqBvWw49goRcsDfCTBkHlhRq4
-	oeuv1lfD5HVUognwgdIDg==
-X-ME-Sender: <xms:uZRpYqsVFFulJNK6G8Ez4dJlRr-UJebHboicJigjO-P3P-OaJBBotA>
-    <xme:uZRpYvf3nl6lSQ6ApV78PeTMuxQ-26qa4nY0sZ_hQRKotJaXdAbSzNuaYHVLY24h5
-    6sUi_1J8NygouY>
-X-ME-Received: <xmr:uZRpYlzWi90X54F822fYN4Uvdhy0qqoSwv1WK2Ee_dgSHvhZGMUxTgnKDOsw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudehgddufeduucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtroertddtvdenucfhrhhomhepffgvmhhi
-    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
-    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepiefgudefjedujeelvddtgfegueei
-    hfeugfdtgfevkedtkefgledvtddvvdekheeknecuvehluhhsthgvrhfuihiivgeptdenuc
-    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
-    lhgrsgdrtghomh
-X-ME-Proxy: <xmx:uZRpYlNZ1KBZm0B_vNoelfqRfsJH7t1Mr2R14FLCNTD_qKVL5MzyCQ>
-    <xmx:uZRpYq9ectGKHB5hWwJvSW-UIpOcNUvtQk7O-Hrr0SRZNRgaDpD1Ig>
-    <xmx:uZRpYtUm_nozezwuZWV9wn4rzkskzLNyIAEgbvegY-PHc2TjZ5W1sw>
-    <xmx:uZRpYhn69_wYZDn9r_b4Jc15tYDogca2lYnAFKm-xVev-zUugP3VzQ>
-Date: Wed, 27 Apr 2022 15:08:36 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 3/4] Add a new hypercall to get the ESRT
-Message-ID: <YmmUtiBkhEYvXHUB@itl-email>
-References: <Yl7aC2a+TtOaFtqZ@itl-email>
- <3591eec7-1299-8783-26ad-ffe27bb9fdcd@suse.com>
+X-Inumbo-ID: cd44a602-c662-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1651088819;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v3OklSdyVLYyhlHQbDyM2Zei+HHJAielq60YtiKYkDc=;
+	b=S655zj8L0osE31qdxiodeQrvMGpdcwvLSzV8elxnzQnRfJbSqLwG7hzKsHt7ki+UkFu1g6
+	kg6/fqsIJ8fvg+jukimQ0B6TTM01VfYoGHDaZhESQGO9d21wvFZwRhLjtnl/FdDOkXTmOW
+	XPEOhhJkIOIqaQ0aJZQFDSYY6/c5I9g=
+X-MC-Unique: Q6qWz4bLP3axjlHEjGUQIg-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=v3OklSdyVLYyhlHQbDyM2Zei+HHJAielq60YtiKYkDc=;
+        b=KrjkkSTe6QdDgIHk2W5YTDV6BXuN30Y1BeQeX0GkZQQlnFYsSQjbwKB3SFVueicYFO
+         rHc6lTOj7OaODLkuq+6ST0kpVVWImwk7A8Q/qD/PkfU/Y/CSJ2FNjh/0XBE7Dis2444j
+         eRBO+3D+s/yS89CGhMnkbqzidcjRxFpCev4Ks9h5AVoOmtMKWkHzkn6lmMe10YBk8kHy
+         GwqME1SxXjm6LH6pfiMtjAT0PKS9nnQQAEIMkreLkC2GBS29w/8SluZBhFb/3YOCX0Aw
+         otvFXCVCJUzPZ5GSJS105ovjIlJAvsLxSEr2THv69sUVc5sYXRFUPLlfw0oaW58UBiXI
+         sHMg==
+X-Gm-Message-State: AOAM5328V33nVIwKEfAkjE8FUThiE2mZy4zuyK3JuWBL/gs/dOFcc5yj
+	ASS/D21YG8LjGaZilG2DWKb0cdtI5ejSYFJFmQKy21WXfUoPV5pYNoiQ4hT4SFZRlLsjLsEVrDL
+	oD05DCxjlUI2ihSMPESZSmhmj9AM=
+X-Received: by 2002:a17:907:6da5:b0:6f3:c4b1:378b with SMTP id sb37-20020a1709076da500b006f3c4b1378bmr4979668ejc.307.1651088816606;
+        Wed, 27 Apr 2022 12:46:56 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJymvr44AuMeVFSaW3C3BvlE0J5N9rDfBjLEZEqGt/VOJXE6CZNNVtdPgdZBiYcPPiYwnEi6UQ==
+X-Received: by 2002:a17:907:6da5:b0:6f3:c4b1:378b with SMTP id sb37-20020a1709076da500b006f3c4b1378bmr4979648ejc.307.1651088816319;
+        Wed, 27 Apr 2022 12:46:56 -0700 (PDT)
+Message-ID: <a531d7e3-9481-3047-d7a0-c350e0596d53@redhat.com>
+Date: Wed, 27 Apr 2022 21:46:55 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="28Yvb+XBgtt99NWg"
-Content-Disposition: inline
-In-Reply-To: <3591eec7-1299-8783-26ad-ffe27bb9fdcd@suse.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Subject: Re: [PATCH] platform/x86/dell: add buffer allocation/free functions
+ for SMI calls
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Dell.Client.Kernel@dell.com
+Cc: Stuart Hayes <stuart.w.hayes@gmail.com>, Mark Gross
+ <markgross@kernel.org>, stable@vger.kernel.org
+References: <20220318150950.16843-1-jgross@suse.com>
+From: Hans de Goede <hdegoede@redhat.com>
+In-Reply-To: <20220318150950.16843-1-jgross@suse.com>
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=hdegoede@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+Hi,
+
+On 3/18/22 16:09, Juergen Gross wrote:
+> The dcdbas driver is used to call SMI handlers for both, dcdbas and
+> dell-smbios-smm. Both drivers allocate a buffer for communicating
+> with the SMI handler. The physical buffer address is then passed to
+> the called SMI handler via %ebx.
+> 
+> Unfortunately this doesn't work when running in Xen dom0, as the
+> physical address obtained via virt_to_phys() is only a guest physical
+> address, and not a machine physical address as needed by SMI.
+> 
+> The problem in dcdbas is easy to correct, as dcdbas is using
+> dma_alloc_coherent() for allocating the buffer, and the machine
+> physical address is available via the DMA address returned in the DMA
+> handle.
+> 
+> In order to avoid duplicating the buffer allocation code in
+> dell-smbios-smm, add a generic buffer allocation function to dcdbas
+> and use it for both drivers. This is especially fine regarding driver
+> dependencies, as dell-smbios-smm is already calling dcdbas to generate
+> the SMI request.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+
+Thank you for your patch, I've applied this patch to my review-hans 
+branch:
+https://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86.git/log/?h=review-hans
+
+Note it will show up in my review-hans branch once I've pushed my
+local branch there, which might take a while.
+
+Once I've run some tests on this branch the patches there will be
+added to the platform-drivers-x86/for-next branch and eventually
+will be included in the pdx86 pull-request to Linus for the next
+merge-window.
+
+Regards,
+
+Hans
 
 
---28Yvb+XBgtt99NWg
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 27 Apr 2022 15:08:36 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 3/4] Add a new hypercall to get the ESRT
 
-On Wed, Apr 27, 2022 at 10:56:34AM +0200, Jan Beulich wrote:
-> On 19.04.2022 17:49, Demi Marie Obenour wrote:
-> > This hypercall can be used to get the ESRT from the hypervisor.  It
-> > returning successfully also indicates that Xen has reserved the ESRT and
-> > it can safely be parsed by dom0.
->=20
-> I'm not convinced of the need, and I view such an addition as inconsistent
-> with the original intentions. The pointer comes from the config table,
-> which Dom0 already has access to. All a Dom0 kernel may need to know in
-> addition is whether the range was properly reserved. This could be achiev=
-ed
-> by splitting the EFI memory map entry in patch 2, instead of only splitti=
-ng
-> the E820 derivation, as then XEN_FW_EFI_MEM_INFO can be used to find out
-> the range's type. Another way to find out would be for Dom0 to attempt to
-> map this area as MMIO, after first checking that no part of the range is =
-in
-> its own memory allocation. This 2nd approach may, however, not really be
-> suitable for PVH Dom0, I think.
+> ---
+>  drivers/platform/x86/dell/dcdbas.c          | 127 +++++++++++---------
+>  drivers/platform/x86/dell/dcdbas.h          |   9 ++
+>  drivers/platform/x86/dell/dell-smbios-smm.c |  14 ++-
+>  3 files changed, 87 insertions(+), 63 deletions(-)
+> 
+> diff --git a/drivers/platform/x86/dell/dcdbas.c b/drivers/platform/x86/dell/dcdbas.c
+> index 5e63d6225048..02bcac619018 100644
+> --- a/drivers/platform/x86/dell/dcdbas.c
+> +++ b/drivers/platform/x86/dell/dcdbas.c
+> @@ -40,13 +40,10 @@
+>  
+>  static struct platform_device *dcdbas_pdev;
+>  
+> -static u8 *smi_data_buf;
+> -static dma_addr_t smi_data_buf_handle;
+> -static unsigned long smi_data_buf_size;
+>  static unsigned long max_smi_data_buf_size = MAX_SMI_DATA_BUF_SIZE;
+> -static u32 smi_data_buf_phys_addr;
+>  static DEFINE_MUTEX(smi_data_lock);
+>  static u8 *bios_buffer;
+> +static struct smi_buffer smi_buf;
+>  
+>  static unsigned int host_control_action;
+>  static unsigned int host_control_smi_type;
+> @@ -54,23 +51,49 @@ static unsigned int host_control_on_shutdown;
+>  
+>  static bool wsmt_enabled;
+>  
+> +int dcdbas_smi_alloc(struct smi_buffer *smi_buffer, unsigned long size)
+> +{
+> +	smi_buffer->virt = dma_alloc_coherent(&dcdbas_pdev->dev, size,
+> +					      &smi_buffer->dma, GFP_KERNEL);
+> +	if (!smi_buffer->virt) {
+> +		dev_dbg(&dcdbas_pdev->dev,
+> +			"%s: failed to allocate memory size %lu\n",
+> +			__func__, size);
+> +		return -ENOMEM;
+> +	}
+> +	smi_buffer->size = size;
+> +
+> +	dev_dbg(&dcdbas_pdev->dev, "%s: phys: %x size: %lu\n",
+> +		__func__, (u32)smi_buffer->dma, smi_buffer->size);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(dcdbas_smi_alloc);
+> +
+> +void dcdbas_smi_free(struct smi_buffer *smi_buffer)
+> +{
+> +	if (!smi_buffer->virt)
+> +		return;
+> +
+> +	dev_dbg(&dcdbas_pdev->dev, "%s: phys: %x size: %lu\n",
+> +		__func__, (u32)smi_buffer->dma, smi_buffer->size);
+> +	dma_free_coherent(&dcdbas_pdev->dev, smi_buffer->size,
+> +			  smi_buffer->virt, smi_buffer->dma);
+> +	smi_buffer->virt = NULL;
+> +	smi_buffer->dma = 0;
+> +	smi_buffer->size = 0;
+> +}
+> +EXPORT_SYMBOL_GPL(dcdbas_smi_free);
+> +
+>  /**
+>   * smi_data_buf_free: free SMI data buffer
+>   */
+>  static void smi_data_buf_free(void)
+>  {
+> -	if (!smi_data_buf || wsmt_enabled)
+> +	if (!smi_buf.virt || wsmt_enabled)
+>  		return;
+>  
+> -	dev_dbg(&dcdbas_pdev->dev, "%s: phys: %x size: %lu\n",
+> -		__func__, smi_data_buf_phys_addr, smi_data_buf_size);
+> -
+> -	dma_free_coherent(&dcdbas_pdev->dev, smi_data_buf_size, smi_data_buf,
+> -			  smi_data_buf_handle);
+> -	smi_data_buf = NULL;
+> -	smi_data_buf_handle = 0;
+> -	smi_data_buf_phys_addr = 0;
+> -	smi_data_buf_size = 0;
+> +	dcdbas_smi_free(&smi_buf);
+>  }
+>  
+>  /**
+> @@ -78,39 +101,29 @@ static void smi_data_buf_free(void)
+>   */
+>  static int smi_data_buf_realloc(unsigned long size)
+>  {
+> -	void *buf;
+> -	dma_addr_t handle;
+> +	struct smi_buffer tmp;
+> +	int ret;
+>  
+> -	if (smi_data_buf_size >= size)
+> +	if (smi_buf.size >= size)
+>  		return 0;
+>  
+>  	if (size > max_smi_data_buf_size)
+>  		return -EINVAL;
+>  
+>  	/* new buffer is needed */
+> -	buf = dma_alloc_coherent(&dcdbas_pdev->dev, size, &handle, GFP_KERNEL);
+> -	if (!buf) {
+> -		dev_dbg(&dcdbas_pdev->dev,
+> -			"%s: failed to allocate memory size %lu\n",
+> -			__func__, size);
+> -		return -ENOMEM;
+> -	}
+> -	/* memory zeroed by dma_alloc_coherent */
+> +	ret = dcdbas_smi_alloc(&tmp, size);
+> +	if (ret)
+> +		return ret;
+>  
+> -	if (smi_data_buf)
+> -		memcpy(buf, smi_data_buf, smi_data_buf_size);
+> +	/* memory zeroed by dma_alloc_coherent */
+> +	if (smi_buf.virt)
+> +		memcpy(tmp.virt, smi_buf.virt, smi_buf.size);
+>  
+>  	/* free any existing buffer */
+>  	smi_data_buf_free();
+>  
+>  	/* set up new buffer for use */
+> -	smi_data_buf = buf;
+> -	smi_data_buf_handle = handle;
+> -	smi_data_buf_phys_addr = (u32) virt_to_phys(buf);
+> -	smi_data_buf_size = size;
+> -
+> -	dev_dbg(&dcdbas_pdev->dev, "%s: phys: %x size: %lu\n",
+> -		__func__, smi_data_buf_phys_addr, smi_data_buf_size);
+> +	smi_buf = tmp;
+>  
+>  	return 0;
+>  }
+> @@ -119,14 +132,14 @@ static ssize_t smi_data_buf_phys_addr_show(struct device *dev,
+>  					   struct device_attribute *attr,
+>  					   char *buf)
+>  {
+> -	return sprintf(buf, "%x\n", smi_data_buf_phys_addr);
+> +	return sprintf(buf, "%x\n", (u32)smi_buf.dma);
+>  }
+>  
+>  static ssize_t smi_data_buf_size_show(struct device *dev,
+>  				      struct device_attribute *attr,
+>  				      char *buf)
+>  {
+> -	return sprintf(buf, "%lu\n", smi_data_buf_size);
+> +	return sprintf(buf, "%lu\n", smi_buf.size);
+>  }
+>  
+>  static ssize_t smi_data_buf_size_store(struct device *dev,
+> @@ -155,8 +168,8 @@ static ssize_t smi_data_read(struct file *filp, struct kobject *kobj,
+>  	ssize_t ret;
+>  
+>  	mutex_lock(&smi_data_lock);
+> -	ret = memory_read_from_buffer(buf, count, &pos, smi_data_buf,
+> -					smi_data_buf_size);
+> +	ret = memory_read_from_buffer(buf, count, &pos, smi_buf.virt,
+> +					smi_buf.size);
+>  	mutex_unlock(&smi_data_lock);
+>  	return ret;
+>  }
+> @@ -176,7 +189,7 @@ static ssize_t smi_data_write(struct file *filp, struct kobject *kobj,
+>  	if (ret)
+>  		goto out;
+>  
+> -	memcpy(smi_data_buf + pos, buf, count);
+> +	memcpy(smi_buf.virt + pos, buf, count);
+>  	ret = count;
+>  out:
+>  	mutex_unlock(&smi_data_lock);
+> @@ -306,11 +319,11 @@ static ssize_t smi_request_store(struct device *dev,
+>  
+>  	mutex_lock(&smi_data_lock);
+>  
+> -	if (smi_data_buf_size < sizeof(struct smi_cmd)) {
+> +	if (smi_buf.size < sizeof(struct smi_cmd)) {
+>  		ret = -ENODEV;
+>  		goto out;
+>  	}
+> -	smi_cmd = (struct smi_cmd *)smi_data_buf;
+> +	smi_cmd = (struct smi_cmd *)smi_buf.virt;
+>  
+>  	switch (val) {
+>  	case 2:
+> @@ -326,20 +339,20 @@ static ssize_t smi_request_store(struct device *dev,
+>  		 * Provide physical address of command buffer field within
+>  		 * the struct smi_cmd to BIOS.
+>  		 *
+> -		 * Because the address that smi_cmd (smi_data_buf) points to
+> +		 * Because the address that smi_cmd (smi_buf.virt) points to
+>  		 * will be from memremap() of a non-memory address if WSMT
+>  		 * is present, we can't use virt_to_phys() on smi_cmd, so
+>  		 * we have to use the physical address that was saved when
+>  		 * the virtual address for smi_cmd was received.
+>  		 */
+> -		smi_cmd->ebx = smi_data_buf_phys_addr +
+> +		smi_cmd->ebx = (u32)smi_buf.dma +
+>  				offsetof(struct smi_cmd, command_buffer);
+>  		ret = dcdbas_smi_request(smi_cmd);
+>  		if (!ret)
+>  			ret = count;
+>  		break;
+>  	case 0:
+> -		memset(smi_data_buf, 0, smi_data_buf_size);
+> +		memset(smi_buf.virt, 0, smi_buf.size);
+>  		ret = count;
+>  		break;
+>  	default:
+> @@ -356,7 +369,7 @@ EXPORT_SYMBOL(dcdbas_smi_request);
+>  /**
+>   * host_control_smi: generate host control SMI
+>   *
+> - * Caller must set up the host control command in smi_data_buf.
+> + * Caller must set up the host control command in smi_buf.virt.
+>   */
+>  static int host_control_smi(void)
+>  {
+> @@ -367,14 +380,14 @@ static int host_control_smi(void)
+>  	s8 cmd_status;
+>  	u8 index;
+>  
+> -	apm_cmd = (struct apm_cmd *)smi_data_buf;
+> +	apm_cmd = (struct apm_cmd *)smi_buf.virt;
+>  	apm_cmd->status = ESM_STATUS_CMD_UNSUCCESSFUL;
+>  
+>  	switch (host_control_smi_type) {
+>  	case HC_SMITYPE_TYPE1:
+>  		spin_lock_irqsave(&rtc_lock, flags);
+>  		/* write SMI data buffer physical address */
+> -		data = (u8 *)&smi_data_buf_phys_addr;
+> +		data = (u8 *)&smi_buf.dma;
+>  		for (index = PE1300_CMOS_CMD_STRUCT_PTR;
+>  		     index < (PE1300_CMOS_CMD_STRUCT_PTR + 4);
+>  		     index++, data++) {
+> @@ -405,7 +418,7 @@ static int host_control_smi(void)
+>  	case HC_SMITYPE_TYPE3:
+>  		spin_lock_irqsave(&rtc_lock, flags);
+>  		/* write SMI data buffer physical address */
+> -		data = (u8 *)&smi_data_buf_phys_addr;
+> +		data = (u8 *)&smi_buf.dma;
+>  		for (index = PE1400_CMOS_CMD_STRUCT_PTR;
+>  		     index < (PE1400_CMOS_CMD_STRUCT_PTR + 4);
+>  		     index++, data++) {
+> @@ -450,7 +463,7 @@ static int host_control_smi(void)
+>   * This function is called by the driver after the system has
+>   * finished shutting down if the user application specified a
+>   * host control action to perform on shutdown.  It is safe to
+> - * use smi_data_buf at this point because the system has finished
+> + * use smi_buf.virt at this point because the system has finished
+>   * shutting down and no userspace apps are running.
+>   */
+>  static void dcdbas_host_control(void)
+> @@ -464,18 +477,18 @@ static void dcdbas_host_control(void)
+>  	action = host_control_action;
+>  	host_control_action = HC_ACTION_NONE;
+>  
+> -	if (!smi_data_buf) {
+> +	if (!smi_buf.virt) {
+>  		dev_dbg(&dcdbas_pdev->dev, "%s: no SMI buffer\n", __func__);
+>  		return;
+>  	}
+>  
+> -	if (smi_data_buf_size < sizeof(struct apm_cmd)) {
+> +	if (smi_buf.size < sizeof(struct apm_cmd)) {
+>  		dev_dbg(&dcdbas_pdev->dev, "%s: SMI buffer too small\n",
+>  			__func__);
+>  		return;
+>  	}
+>  
+> -	apm_cmd = (struct apm_cmd *)smi_data_buf;
+> +	apm_cmd = (struct apm_cmd *)smi_buf.virt;
+>  
+>  	/* power off takes precedence */
+>  	if (action & HC_ACTION_HOST_CONTROL_POWEROFF) {
+> @@ -583,11 +596,11 @@ static int dcdbas_check_wsmt(void)
+>  		return -ENOMEM;
+>  	}
+>  
+> -	/* First 8 bytes is for a semaphore, not part of the smi_data_buf */
+> -	smi_data_buf_phys_addr = bios_buf_paddr + 8;
+> -	smi_data_buf = bios_buffer + 8;
+> -	smi_data_buf_size = remap_size - 8;
+> -	max_smi_data_buf_size = smi_data_buf_size;
+> +	/* First 8 bytes is for a semaphore, not part of the smi_buf.virt */
+> +	smi_buf.dma = bios_buf_paddr + 8;
+> +	smi_buf.virt = bios_buffer + 8;
+> +	smi_buf.size = remap_size - 8;
+> +	max_smi_data_buf_size = smi_buf.size;
+>  	wsmt_enabled = true;
+>  	dev_info(&dcdbas_pdev->dev,
+>  		 "WSMT found, using firmware-provided SMI buffer.\n");
+> diff --git a/drivers/platform/x86/dell/dcdbas.h b/drivers/platform/x86/dell/dcdbas.h
+> index c3cca5433525..942a23ddded0 100644
+> --- a/drivers/platform/x86/dell/dcdbas.h
+> +++ b/drivers/platform/x86/dell/dcdbas.h
+> @@ -105,5 +105,14 @@ struct smm_eps_table {
+>  	u64 num_of_4k_pages;
+>  } __packed;
+>  
+> +struct smi_buffer {
+> +	u8 *virt;
+> +	unsigned long size;
+> +	dma_addr_t dma;
+> +};
+> +
+> +int dcdbas_smi_alloc(struct smi_buffer *smi_buffer, unsigned long size);
+> +void dcdbas_smi_free(struct smi_buffer *smi_buffer);
+> +
+>  #endif /* _DCDBAS_H_ */
+>  
+> diff --git a/drivers/platform/x86/dell/dell-smbios-smm.c b/drivers/platform/x86/dell/dell-smbios-smm.c
+> index 320c032418ac..4d375985c85f 100644
+> --- a/drivers/platform/x86/dell/dell-smbios-smm.c
+> +++ b/drivers/platform/x86/dell/dell-smbios-smm.c
+> @@ -20,6 +20,7 @@
+>  
+>  static int da_command_address;
+>  static int da_command_code;
+> +static struct smi_buffer smi_buf;
+>  static struct calling_interface_buffer *buffer;
+>  static struct platform_device *platform_device;
+>  static DEFINE_MUTEX(smm_mutex);
+> @@ -57,7 +58,7 @@ static int dell_smbios_smm_call(struct calling_interface_buffer *input)
+>  	command.magic = SMI_CMD_MAGIC;
+>  	command.command_address = da_command_address;
+>  	command.command_code = da_command_code;
+> -	command.ebx = virt_to_phys(buffer);
+> +	command.ebx = smi_buf.dma;
+>  	command.ecx = 0x42534931;
+>  
+>  	mutex_lock(&smm_mutex);
+> @@ -101,9 +102,10 @@ int init_dell_smbios_smm(void)
+>  	 * Allocate buffer below 4GB for SMI data--only 32-bit physical addr
+>  	 * is passed to SMI handler.
+>  	 */
+> -	buffer = (void *)__get_free_page(GFP_KERNEL | GFP_DMA32);
+> -	if (!buffer)
+> -		return -ENOMEM;
+> +	ret = dcdbas_smi_alloc(&smi_buf, PAGE_SIZE);
+> +	if (ret)
+> +		return ret;
+> +	buffer = (void *)smi_buf.virt;
+>  
+>  	dmi_walk(find_cmd_address, NULL);
+>  
+> @@ -138,7 +140,7 @@ int init_dell_smbios_smm(void)
+>  
+>  fail_wsmt:
+>  fail_platform_device_alloc:
+> -	free_page((unsigned long)buffer);
+> +	dcdbas_smi_free(&smi_buf);
+>  	return ret;
+>  }
+>  
+> @@ -147,6 +149,6 @@ void exit_dell_smbios_smm(void)
+>  	if (platform_device) {
+>  		dell_smbios_unregister_device(&platform_device->dev);
+>  		platform_device_unregister(platform_device);
+> -		free_page((unsigned long)buffer);
+> +		dcdbas_smi_free(&smi_buf);
+>  	}
+>  }
 
-On further thought, I think the hypercall approach is actually better
-than reserving the ESRT.  I really do not want XEN_FW_EFI_MEM_INFO to
-return anything other than the actual firmware-provided memory
-information, and the current approach seems to require more and more
-special-casing of the ESRT, not to mention potentially wasting memory
-and splitting a potentially large memory region into two smaller ones.
-By copying the entire ESRT into memory owned by Xen, the logic becomes
-significantly simpler on both the Xen and dom0 sides.
-
-Is using ebmalloc() to allocate a copy of the ESRT a reasonable option?
-Is it possible that the ESRT is so large that this causes boot to fail?
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
-
---28Yvb+XBgtt99NWg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmJplLYACgkQsoi1X/+c
-IsELRxAAiVq6ooCV4gTIqbiLlR5u2ESbwEYr4Zay7q6UkOJnosEMo97FGHHsjycp
-MUMN3xPna+UXzf36EAz64CKlC9RVahhEIShnB7Dp2yQmBRvqURyD9VqrC2oSZq8M
-2De7syyjEfINXRXBxR7TxSpljB0HKL5/OekmQ7t3Yz1KKF423PgG4nheepGgVjVd
-DkNmKxPO1Ndi7myw3/O3S9JW+8hPbUCr0XswZOCyIZngN7RXTZ8GhcriYF8Ip2zT
-GuhJg6BvNcZszScXwWj3X5Dnrj8B6/PrGinhPvs/oK3Il0MfHu+PcNsICo6o1B0Q
-piRQ5Iql+ISSHlSse0rUlSAsc/YXP+jxVUBPZ44ZuuQFXIGiCedZ0k2UrWejWBGs
-sYWwlCEXxr2q216RaNJfICZ9SeStb1PeWo0pCZouS3iC4KCVB0LzLOfTmbdNpzSi
-PsXhZTC6f4gyjE+nSICLwtaEJl8Un8CUL49Nd6iJWMDsdOEqDKC01QgHU3Ica3Em
-7c7hSE3/Nl3CfNL6yZyJsL97MzdmL0SYie3AsinhqfUIF7Jys9KKjtS/9ceu4DaP
-Q/qa9JzJXZnIE2IxqvRAutJAIPLrwhmT5zTP8IFj2xEsqrzcX6z3lwVEBd5dDl1K
-cLrX9ThWo7IHKIi4wNCyL9wJB+qIFDBjOD1owavuCuzYK5yM+5o=
-=HSAP
------END PGP SIGNATURE-----
-
---28Yvb+XBgtt99NWg--
 
