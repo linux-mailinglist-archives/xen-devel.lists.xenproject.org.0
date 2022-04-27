@@ -2,35 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F241D511683
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 13:58:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.314949.533250 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8ADD45116CC
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 14:34:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.314968.533264 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njgJF-0007Bv-AA; Wed, 27 Apr 2022 11:58:17 +0000
+	id 1njgrI-00036N-DM; Wed, 27 Apr 2022 12:33:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 314949.533250; Wed, 27 Apr 2022 11:58:17 +0000
+Received: by outflank-mailman (output) from mailman id 314968.533264; Wed, 27 Apr 2022 12:33:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njgJF-0007A0-6o; Wed, 27 Apr 2022 11:58:17 +0000
-Received: by outflank-mailman (input) for mailman id 314949;
- Wed, 27 Apr 2022 11:58:15 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1njgrI-000344-AM; Wed, 27 Apr 2022 12:33:28 +0000
+Received: by outflank-mailman (input) for mailman id 314968;
+ Wed, 27 Apr 2022 12:33:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1njgJD-00079q-83; Wed, 27 Apr 2022 11:58:15 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1njgJD-0004t7-5Y; Wed, 27 Apr 2022 11:58:15 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1njgJC-0001Kv-PJ; Wed, 27 Apr 2022 11:58:14 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1njgJC-0006Er-Os; Wed, 27 Apr 2022 11:58:14 +0000
+ (envelope-from <SRS0=nU4i=VF=redhat.com=thuth@srs-se1.protection.inumbo.net>)
+ id 1njgrH-00033y-4C
+ for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 12:33:27 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3b3ffa49-c626-11ec-a405-831a346695d4;
+ Wed, 27 Apr 2022 14:33:26 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-371-pUyrpyLNMPWNyG7PDLHo0Q-1; Wed, 27 Apr 2022 08:33:20 -0400
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6B808803D4E;
+ Wed, 27 Apr 2022 12:33:19 +0000 (UTC)
+Received: from thuth.com (dhcp-192-232.str.redhat.com [10.33.192.232])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 4CE5A5742F4;
+ Wed, 27 Apr 2022 12:33:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +50,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Ad/TlVQ9VAgCJtjBDE2I4hyR/nMjC5Q7tGHHB2O/iQs=; b=Fl0/wqWEiygNdV+w/TQ/o9isGB
-	umtuOO6z2d7ZCp9UVNTbpGeqvVqnDK6z4MRVpnnSnkKFqLhfkrUg3mhEOkgeFT0jo5SvGisgjTSgW
-	/gX4/9ZXJ/9uwBPWSdcrPS1/WvXJfl/EpFP5faI/CT51ZZMei0r+kAeGjk3qUOl5Ocmc=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169773-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 3b3ffa49-c626-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1651062804;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Qet0lokKOWtqzVKSO0FqVbZx/S8u2uKt2DstxZ7gIoo=;
+	b=Yg8PmfxUVhjy+9RhBwDWjmzpdqmfZGHKlYMixnUlPDpogbqMayP0+fjOgZ5mwjOE8Gj2C7
+	Y/UTqWAbyaS4lJIDhOE7DZ0x9so8mvylTINtpDYJ0oViSznRklfCvBP/tGPFTLnRTPV2ak
+	orUzqvf+CO7GFAyVoJ0xHH4zIff1NXg=
+X-MC-Unique: pUyrpyLNMPWNyG7PDLHo0Q-1
+From: Thomas Huth <thuth@redhat.com>
+To: qemu-devel@nongnu.org,
+	Paolo Bonzini <pbonzini@redhat.com>
+Cc: kraxel@redhat.com,
+	qemu-trivial@nongnu.org,
+	xen-devel@lists.xenproject.org,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>
+Subject: [PATCH] softmmu/vl: Fence 'xenfb' if Xen support is not compiled in
+Date: Wed, 27 Apr 2022 14:33:16 +0200
+Message-Id: <20220427123316.329312-1-thuth@redhat.com>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 169773: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=163071b1800304c962756789b4ef0ddb978059ba
-X-Osstest-Versions-That:
-    xen=3f5d61466345ed2213de2d7e391b6cd6d4b86015
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 27 Apr 2022 11:58:14 +0000
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 
-flight 169773 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169773/
+The 'xenfb' parameter for the '-vga' command line option is currently
+always enabled unconditionally (since the xenfb is not a proper QOM
+device that could be tested via its class name). That means it also
+shows up if Xen is not enabled at all, e.g. like this:
 
-Failures :-/ but no regressions.
+ $ ./qemu-system-sparc -vga help
+ none                 no graphic card
+ xenfb                Xen paravirtualized framebuffer
+ tcx                  TCX framebuffer (default)
+ cg3                  CG3 framebuffer
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+Let's avoid this situation by fencing the parameter with the
+CONFIG_XEN_BACKEND switch.
 
-version targeted for testing:
- xen                  163071b1800304c962756789b4ef0ddb978059ba
-baseline version:
- xen                  3f5d61466345ed2213de2d7e391b6cd6d4b86015
+Signed-off-by: Thomas Huth <thuth@redhat.com>
+---
+ softmmu/vl.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Last test of basis   169748  2022-04-26 17:00:24 Z    0 days
-Testing same since   169773  2022-04-27 08:01:54 Z    0 days    1 attempts
+diff --git a/softmmu/vl.c b/softmmu/vl.c
+index 06a0e342fe..e26421b815 100644
+--- a/softmmu/vl.c
++++ b/softmmu/vl.c
+@@ -934,10 +934,12 @@ static const VGAInterfaceInfo vga_interfaces[VGA_TYPE_MAX] = {
+         .name = "CG3 framebuffer",
+         .class_names = { "cgthree" },
+     },
++#ifdef CONFIG_XEN_BACKEND
+     [VGA_XENFB] = {
+         .opt_name = "xenfb",
+         .name = "Xen paravirtualized framebuffer",
+     },
++#endif
+ };
+ 
+ static bool vga_interface_available(VGAInterfaceType t)
+-- 
+2.27.0
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Jason Andryuk <jandryuk@gmail.com>
-  Tamas K Lengyel <tamas.lengyel@intel.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   3f5d614663..163071b180  163071b1800304c962756789b4ef0ddb978059ba -> smoke
 
