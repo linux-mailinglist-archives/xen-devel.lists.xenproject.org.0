@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA0525126BB
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 01:02:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.315574.534251 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C31D35126B8
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 01:02:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.315576.534265 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njqgI-00074H-HB; Wed, 27 Apr 2022 23:02:46 +0000
+	id 1njqgK-0007TY-1A; Wed, 27 Apr 2022 23:02:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 315574.534251; Wed, 27 Apr 2022 23:02:46 +0000
+Received: by outflank-mailman (output) from mailman id 315576.534265; Wed, 27 Apr 2022 23:02:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njqgH-0006sg-Tn; Wed, 27 Apr 2022 23:02:45 +0000
-Received: by outflank-mailman (input) for mailman id 315574;
- Wed, 27 Apr 2022 22:52:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1njqgJ-00074J-2K; Wed, 27 Apr 2022 23:02:47 +0000
+Received: by outflank-mailman (input) for mailman id 315576;
+ Wed, 27 Apr 2022 22:52:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mIOA=VF=igalia.com=gpiccoli@srs-se1.protection.inumbo.net>)
- id 1njqW2-0003ne-Pw
- for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 22:52:10 +0000
+ id 1njqWG-0003q5-N1
+ for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 22:52:24 +0000
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ab1fdeb7-c67c-11ec-a405-831a346695d4;
- Thu, 28 Apr 2022 00:52:09 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b37aaf20-c67c-11ec-8fc3-03012f2f19d4;
+ Thu, 28 Apr 2022 00:52:23 +0200 (CEST)
 Received: from [179.113.53.197] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1njqVm-00026W-Rl; Thu, 28 Apr 2022 00:51:55 +0200
+ id 1njqW1-000289-9r; Thu, 28 Apr 2022 00:52:10 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,19 +40,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab1fdeb7-c67c-11ec-a405-831a346695d4
+X-Inumbo-ID: b37aaf20-c67c-11ec-8fc3-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
-	In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+	s=20170329; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+	Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
 	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
 	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
 	List-Post:List-Owner:List-Archive;
-	bh=/cdg0sKCsuwzrOmixxbC1Q4JQ/fbIS+o0nd/6r3SqdQ=; b=Ms53zbjgbkvE/VbvvERWDhiSlK
-	xnfSZ26duHs4sJGmX9AjyiOpVrZ24qlvncFPTQgx0Ak1/K+qg/q6M3lNqtXBQSywskWJGGXxxZsyH
-	0ZCt9ADqjTi/3V+XCpSLOfo1kVbAL88rsa3CWloXQYrPcKcjm0fr5wkBOKZGIirx4MPHlXEq/lSP6
-	Wauj7ki9eqiIN/DWOEVCrOIQ5CDDEHA0P4AiVRkbPc3MLQuGkkZQLCDxyedC8rV+CPmlMqMLZGK7O
-	pj27Q1YpHqsziDeg78TsiM6RPMIm39rOPoY53108P/vAvRYTx1t1bv7hv+1+u3acH1fsI00wIEzlf
-	mvZOITKg==;
+	bh=seVlMlqj/OOgqWCw1tUxCfRyMjTeYr5Z28M++b51Xf4=; b=ZaOL9ZgN+EGmQho6+KGFZHTRbn
+	OaOWIMR4M4pabKtnueiNn0ccKPcDo3HPhyU+dXv5cnfPUStBzfPFVl+jQM59vF4ZhACUpuR43IYXQ
+	ZxDFWoPV6MSwPwBTAmhnCK48+3Rd3s3YxmPfJVkzBknJImEbRwxzoUg95gTvTUorv8vMDdjprmUy3
+	YkS66FLAwKwDNOu8o7q4f4XVv/vUJe4PGzk68gQ9Mx3uMtXXVmK27/P4rcS4LEEam3214m5o7ahcQ
+	5LKqcAxUSITnoTva0XbxnJK2lHjf45/V+xGb9BJP25J23hUhWNHPX2AXkANv1NANWHSZgkACdPcYF
+	QXixtySQ==;
 From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
 To: akpm@linux-foundation.org,
 	bhe@redhat.com,
@@ -113,194 +113,66 @@ Cc: linux-kernel@vger.kernel.org,
 	vgoyal@redhat.com,
 	vkuznets@redhat.com,
 	will@kernel.org,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	Hari Bathini <hbathini@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Paul Mackerras <paulus@samba.org>
-Subject: [PATCH 08/30] powerpc/setup: Refactor/untangle panic notifiers
-Date: Wed, 27 Apr 2022 19:49:02 -0300
-Message-Id: <20220427224924.592546-9-gpiccoli@igalia.com>
+	Leo Yan <leo.yan@linaro.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Mike Leach <mike.leach@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>
+Subject: [PATCH 09/30] coresight: cpu-debug: Replace mutex with mutex_trylock on panic notifier
+Date: Wed, 27 Apr 2022 19:49:03 -0300
+Message-Id: <20220427224924.592546-10-gpiccoli@igalia.com>
 X-Mailer: git-send-email 2.36.0
 In-Reply-To: <20220427224924.592546-1-gpiccoli@igalia.com>
 References: <20220427224924.592546-1-gpiccoli@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The panic notifiers infrastructure is a bit limited in the scope of
-the callbacks - basically every kind of functionality is dropped
-in a list that runs in the same point during the kernel panic path.
-This is not really on par with the complexities and particularities
-of architecture / hypervisors' needs, and a refactor is ongoing.
+The panic notifier infrastructure executes registered callbacks when
+a panic event happens - such callbacks are executed in atomic context,
+with interrupts and preemption disabled in the running CPU and all other
+CPUs disabled. That said, mutexes in such context are not a good idea.
 
-As part of this refactor, it was observed that powerpc has 2 notifiers,
-with mixed goals: one is just a KASLR offset dumper, whereas the other
-aims to hard-disable IRQs (necessary on panic path), warn firmware of
-the panic event (fadump) and run low-level platform-specific machinery
-that might stop kernel execution and never come back.
+This patch replaces a regular mutex with a mutex_trylock safer approach;
+given the nature of the mutex used in the driver, it should be pretty
+uncommon being unable to acquire such mutex in the panic path, hence
+no functional change should be observed (and if it is, that would be
+likely a deadlock with the regular mutex).
 
-Clearly, the 2nd notifier has opposed goals: disable IRQs / fadump
-should run earlier while low-level platform actions should
-run late since it might not even return. Hence, this patch decouples
-the notifiers splitting them in three:
-
-- First one is responsible for hard-disable IRQs and fadump,
-should run early;
-
-- The kernel KASLR offset dumper is really an informative notifier,
-harmless and may run at any moment in the panic path;
-
-- The last notifier should run last, since it aims to perform
-low-level actions for specific platforms, and might never return.
-It is also only registered for 2 platforms, pseries and ps3.
-
-The patch better documents the notifiers and clears the code too,
-also removing a useless header.
-
-Currently no functionality change should be observed, but after
-the planned panic refactor we should expect more panic reliability
-with this patch.
-
-Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Cc: Hari Bathini <hbathini@linux.ibm.com>
-Cc: Michael Ellerman <mpe@ellerman.id.au>
-Cc: Nicholas Piggin <npiggin@gmail.com>
-Cc: Paul Mackerras <paulus@samba.org>
+Fixes: 2227b7c74634 ("coresight: add support for CPU debug module")
+Cc: Leo Yan <leo.yan@linaro.org>
+Cc: Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Mike Leach <mike.leach@linaro.org>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>
 Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
 ---
+ drivers/hwtracing/coresight/coresight-cpu-debug.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-We'd like to thanks specially the MiniCloud infrastructure [0] maintainers,
-that allow us to test PowerPC code in a very complete, functional and FREE
-environment (there's no need even for adding a credit card, like many "free"
-clouds require ¬¬ ).
-
-[0] https://openpower.ic.unicamp.br/minicloud
-
- arch/powerpc/kernel/setup-common.c | 74 ++++++++++++++++++++++--------
- 1 file changed, 54 insertions(+), 20 deletions(-)
-
-diff --git a/arch/powerpc/kernel/setup-common.c b/arch/powerpc/kernel/setup-common.c
-index 518ae5aa9410..52f96b209a96 100644
---- a/arch/powerpc/kernel/setup-common.c
-+++ b/arch/powerpc/kernel/setup-common.c
-@@ -23,7 +23,6 @@
- #include <linux/console.h>
- #include <linux/screen_info.h>
- #include <linux/root_dev.h>
--#include <linux/notifier.h>
- #include <linux/cpu.h>
- #include <linux/unistd.h>
- #include <linux/serial.h>
-@@ -680,8 +679,25 @@ int check_legacy_ioport(unsigned long base_port)
- }
- EXPORT_SYMBOL(check_legacy_ioport);
+diff --git a/drivers/hwtracing/coresight/coresight-cpu-debug.c b/drivers/hwtracing/coresight/coresight-cpu-debug.c
+index 8845ec4b4402..1874df7c6a73 100644
+--- a/drivers/hwtracing/coresight/coresight-cpu-debug.c
++++ b/drivers/hwtracing/coresight/coresight-cpu-debug.c
+@@ -380,9 +380,10 @@ static int debug_notifier_call(struct notifier_block *self,
+ 	int cpu;
+ 	struct debug_drvdata *drvdata;
  
--static int ppc_panic_event(struct notifier_block *this,
--                             unsigned long event, void *ptr)
-+/*
-+ * Panic notifiers setup
-+ *
-+ * We have 3 notifiers for powerpc, each one from a different "nature":
-+ *
-+ * - ppc_panic_fadump_handler() is a hypervisor notifier, which hard-disables
-+ *   IRQs and deal with the Firmware-Assisted dump, when it is configured;
-+ *   should run early in the panic path.
-+ *
-+ * - dump_kernel_offset() is an informative notifier, just showing the KASLR
-+ *   offset if we have RANDOMIZE_BASE set.
-+ *
-+ * - ppc_panic_platform_handler() is a low-level handler that's registered
-+ *   only if the platform wishes to perform final actions in the panic path,
-+ *   hence it should run late and might not even return. Currently, only
-+ *   pseries and ps3 platforms register callbacks.
-+ */
-+static int ppc_panic_fadump_handler(struct notifier_block *this,
-+				    unsigned long event, void *ptr)
- {
- 	/*
- 	 * panic does a local_irq_disable, but we really
-@@ -691,45 +707,63 @@ static int ppc_panic_event(struct notifier_block *this,
+-	mutex_lock(&debug_lock);
++	/* Bail out if we can't acquire the mutex or the functionality is off */
++	if (!mutex_trylock(&debug_lock))
++		return NOTIFY_DONE;
  
- 	/*
- 	 * If firmware-assisted dump has been registered then trigger
--	 * firmware-assisted dump and let firmware handle everything else.
-+	 * its callback and let the firmware handles everything else.
- 	 */
- 	crash_fadump(NULL, ptr);
--	if (ppc_md.panic)
--		ppc_md.panic(ptr);  /* May not return */
-+
- 	return NOTIFY_DONE;
- }
+-	/* Bail out if the functionality is disabled */
+ 	if (!debug_enable)
+ 		goto skip_dump;
  
--static struct notifier_block ppc_panic_block = {
--	.notifier_call = ppc_panic_event,
--	.priority = INT_MIN /* may not return; must be done last */
--};
--
--/*
-- * Dump out kernel offset information on panic.
-- */
- static int dump_kernel_offset(struct notifier_block *self, unsigned long v,
- 			      void *p)
- {
- 	pr_emerg("Kernel Offset: 0x%lx from 0x%lx\n",
- 		 kaslr_offset(), KERNELBASE);
+@@ -401,7 +402,7 @@ static int debug_notifier_call(struct notifier_block *self,
  
+ skip_dump:
+ 	mutex_unlock(&debug_lock);
 -	return 0;
 +	return NOTIFY_DONE;
  }
  
-+static int ppc_panic_platform_handler(struct notifier_block *this,
-+				      unsigned long event, void *ptr)
-+{
-+	/*
-+	 * This handler is only registered if we have a panic callback
-+	 * on ppc_md, hence NULL check is not needed.
-+	 * Also, it may not return, so it runs really late on panic path.
-+	 */
-+	ppc_md.panic(ptr);
-+
-+	return NOTIFY_DONE;
-+}
-+
-+static struct notifier_block ppc_fadump_block = {
-+	.notifier_call = ppc_panic_fadump_handler,
-+	.priority = INT_MAX, /* run early, to notify the firmware ASAP */
-+};
-+
- static struct notifier_block kernel_offset_notifier = {
--	.notifier_call = dump_kernel_offset
-+	.notifier_call = dump_kernel_offset,
-+};
-+
-+static struct notifier_block ppc_panic_block = {
-+	.notifier_call = ppc_panic_platform_handler,
-+	.priority = INT_MIN, /* may not return; must be done last */
- };
- 
- void __init setup_panic(void)
- {
-+	/* Hard-disables IRQs + deal with FW-assisted dump (fadump) */
-+	atomic_notifier_chain_register(&panic_notifier_list,
-+				       &ppc_fadump_block);
-+
- 	if (IS_ENABLED(CONFIG_RANDOMIZE_BASE) && kaslr_offset() > 0)
- 		atomic_notifier_chain_register(&panic_notifier_list,
- 					       &kernel_offset_notifier);
- 
--	/* PPC64 always does a hard irq disable in its panic handler */
--	if (!IS_ENABLED(CONFIG_PPC64) && !ppc_md.panic)
--		return;
--	atomic_notifier_chain_register(&panic_notifier_list, &ppc_panic_block);
-+	/* Low-level platform-specific routines that should run on panic */
-+	if (ppc_md.panic)
-+		atomic_notifier_chain_register(&panic_notifier_list,
-+					       &ppc_panic_block);
- }
- 
- #ifdef CONFIG_CHECK_CACHE_COHERENCY
+ static struct notifier_block debug_notifier = {
 -- 
 2.36.0
 
