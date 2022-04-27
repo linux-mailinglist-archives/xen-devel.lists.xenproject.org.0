@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCCFD51254B
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 00:32:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.315527.534091 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA57551254C
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 00:32:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.315528.534102 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njqCh-0008QS-Pr; Wed, 27 Apr 2022 22:32:11 +0000
+	id 1njqCm-0000MH-1h; Wed, 27 Apr 2022 22:32:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 315527.534091; Wed, 27 Apr 2022 22:32:11 +0000
+Received: by outflank-mailman (output) from mailman id 315528.534102; Wed, 27 Apr 2022 22:32:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njqCh-0008OT-MD; Wed, 27 Apr 2022 22:32:11 +0000
-Received: by outflank-mailman (input) for mailman id 315527;
- Wed, 27 Apr 2022 22:32:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=83Ve=VF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1njqCg-0008KC-6J
- for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 22:32:10 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dff0fb50-c679-11ec-8fc3-03012f2f19d4;
- Thu, 28 Apr 2022 00:32:09 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id EF1AAB8294B;
- Wed, 27 Apr 2022 22:32:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28CC7C385A9;
- Wed, 27 Apr 2022 22:32:07 +0000 (UTC)
+	id 1njqCl-0000Jw-UO; Wed, 27 Apr 2022 22:32:15 +0000
+Received: by outflank-mailman (input) for mailman id 315528;
+ Wed, 27 Apr 2022 22:32:13 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1njqCj-0000IB-Q9; Wed, 27 Apr 2022 22:32:13 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1njqCj-0008G9-PM; Wed, 27 Apr 2022 22:32:13 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1njqCj-0007qn-J7; Wed, 27 Apr 2022 22:32:13 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1njqCj-00086w-Ih; Wed, 27 Apr 2022 22:32:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,83 +42,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dff0fb50-c679-11ec-8fc3-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1651098727;
-	bh=T7AIimEtBLbKGzAQJkMGx/guL8LGImB+9SfmyD7tXUs=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=DwmphQrdLJg9YUl7yMi2k1JibSTYQhs4uwEO3Ej5SJLShx6ZcoEWXaUcY9gQMP4dR
-	 GXKQHnBWNp85+jhOdn9N5FafcNzcRE2sGL6NwJk3ChXna7+/LkRI4pqhxgTAlHP/wq
-	 Z491AJZ8aPi0iJnju3sn96lvy8vwBL6iB5ZOAn0b9O02VL2OYiH+HZr0wJRQPsNSMJ
-	 8jR/4Ym0STm5aL5A2TM0NKGkb2HMoeLgV14tm0D7vcdJMkk12ktxHntmf7+ssZqwJ8
-	 V1oFvWDG974R0KpHbJBDDFvEtHP4FPhSw74vi41uXlXMg+46LrJnv7qoiI2MHKUYkG
-	 APBnpuky72D+Q==
-Date: Wed, 27 Apr 2022 15:32:06 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Penny Zheng <Penny.Zheng@arm.com>
-cc: Julien Grall <julien@xen.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Wei Chen <Wei.Chen@arm.com>, Henry Wang <Henry.Wang@arm.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Wei Liu <wl@xen.org>
-Subject: RE: [PATCH v3 5/6] xen/arm: unpopulate memory when domain is
- static
-In-Reply-To: <DU2PR08MB73250C2576634910269805CFF7FA9@DU2PR08MB7325.eurprd08.prod.outlook.com>
-Message-ID: <alpine.DEB.2.22.394.2204271531410.915916@ubuntu-linux-20-04-desktop>
-References: <20220427092743.925563-1-Penny.Zheng@arm.com> <20220427092743.925563-6-Penny.Zheng@arm.com> <95b1d82e-92fa-7468-d3aa-038f0de937d9@xen.org> <DU2PR08MB73250D118F81DF1FF2C89DAFF7FA9@DU2PR08MB7325.eurprd08.prod.outlook.com> <433f9e2a-9da7-662f-04b5-0379eca7496f@xen.org>
- <DU2PR08MB73250C2576634910269805CFF7FA9@DU2PR08MB7325.eurprd08.prod.outlook.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=xTEgNr4hVExDjEKnaFXpddBCdhXjHc1XVk53rqdvPIc=; b=o69JkGHsAVMPG+lKTA68oh92Sa
+	N6UhcrF4y1Tb5OxwoZVdEB95Emhe7puvLAPJucdMAf3+WBeLTFQUT1azX/9RBWkImwMLDE6LbVPxQ
+	6vCfGKOkSNr4SN3YwEnqpHkiRTu25Mc7PC2F3HqzOQhLZCDKzdRW5OFr1lHZSxs9fmos=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-169797-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 169797: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=916f90baa547b3ebef8fa87c530e2f0c8e35e1e3
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 27 Apr 2022 22:32:13 +0000
 
-On Wed, 27 Apr 2022, Penny Zheng wrote:
-> > Hi Penny,
-> > 
-> > On 27/04/2022 11:19, Penny Zheng wrote:
-> > >>> +/*
-> > >>> + * Put free pages on the resv page list after having taken them
-> > >>> + * off the "normal" page list, when pages from static memory  */
-> > >>> +#ifdef CONFIG_STATIC_MEMORY
-> > >>> +#define arch_free_heap_page(d, pg) ({                   \
-> > >>> +    page_list_del(pg, page_to_list(d, pg));             \
-> > >>> +    if ( (pg)->count_info & PGC_reserved )              \
-> > >>> +        page_list_add_tail(pg, &(d)->resv_page_list);   \
-> > >>> +})
-> > >>> +#endif
-> > >>
-> > >> I am a bit puzzled how this is meant to work.
-> > >>
-> > >> Looking at the code, arch_free_heap_page() will be called from
-> > >> free_domheap_pages(). If I am not mistaken, reserved pages are not
-> > >> considered as xen heap pages, so we would go in the else which will
-> > >> end up to call free_heap_pages().
-> > >>
-> > >> free_heap_pages() will end up to add the page in the heap allocator
-> > >> and corrupt the d->resv_page_list because there are only one link list.
-> > >>
-> > >> What did I miss?
-> > >>
-> > >
-> > > In my first commit "do not free reserved memory into heap", I've
-> > > changed the behavior for reserved pages in free_heap_pages()
-> > > +    if ( pg->count_info & PGC_reserved )that
-> > > +        /* Reserved page shall not go back to the heap. */
-> > > +        return free_staticmem_pages(pg, 1UL << order, need_scrub);
-> > > +
-> > 
-> > Hmmm... somehow this e-mail is neither in my inbox nor in the archives on
-> > lore.kernel.org.
-> > 
-> 
-> Oh.... I just got email from tessian that they held my first commit, and needed my
-> confirmation to send. So sorry about that!!!
-> 
-> I'll re-send my first commit ASAP.
+flight 169797 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169797/
 
-Just FYI I still cannot see the first patch anywhere in my inbox
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 916f90baa547b3ebef8fa87c530e2f0c8e35e1e3
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   58 days
+Failing since        168258  2022-03-01 01:55:31 Z   57 days  668 attempts
+Testing same since   169718  2022-04-25 21:41:52 Z    2 days   40 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 5828 lines long.)
 
