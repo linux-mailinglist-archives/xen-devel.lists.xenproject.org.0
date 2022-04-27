@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18412511459
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 11:43:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.314670.532849 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1BD3511472
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 11:50:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.314679.532859 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njeCw-0007Oo-0K; Wed, 27 Apr 2022 09:43:38 +0000
+	id 1njeJ2-00088V-SZ; Wed, 27 Apr 2022 09:49:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 314670.532849; Wed, 27 Apr 2022 09:43:37 +0000
+Received: by outflank-mailman (output) from mailman id 314679.532859; Wed, 27 Apr 2022 09:49:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njeCv-0007Mo-TO; Wed, 27 Apr 2022 09:43:37 +0000
-Received: by outflank-mailman (input) for mailman id 314670;
- Wed, 27 Apr 2022 09:43:35 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1njeCt-0007Mi-KR
- for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 09:43:35 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1njeCt-0002Gb-0i; Wed, 27 Apr 2022 09:43:35 +0000
-Received: from [54.239.6.186] (helo=[192.168.24.58])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1njeCs-0000do-R0; Wed, 27 Apr 2022 09:43:34 +0000
+	id 1njeJ2-000868-PC; Wed, 27 Apr 2022 09:49:56 +0000
+Received: by outflank-mailman (input) for mailman id 314679;
+ Wed, 27 Apr 2022 09:49:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=XTRx=VF=arm.com=michal.orzel@srs-se1.protection.inumbo.net>)
+ id 1njeJ1-00085x-6a
+ for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 09:49:55 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 6317100a-c60f-11ec-a405-831a346695d4;
+ Wed, 27 Apr 2022 11:49:53 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A693A1480;
+ Wed, 27 Apr 2022 02:49:52 -0700 (PDT)
+Received: from e129167.arm.com (unknown [10.57.13.174])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0037A3F774;
+ Wed, 27 Apr 2022 02:49:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,49 +42,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Fo45BY6CEq22mHXoDnz15YgIr+nzRGiHzVUkPEClkuI=; b=Jasqfe18audLp/RJ+LahMYwt0Z
-	PJEDWDLG6k6NwMhFKdBqy1Y6kortIdwa/ledlACpnSm0UpYXBtrZZ4Qw3EoDLxHZXVI1NBezPmFSm
-	P23ihxoXFkx85L2hqDbqam8F8I56W4iQj8xSLNM+6SmUy/agdnQ+TNJcUg9Wt4qu9uvw=;
-Message-ID: <d1fcbb5b-5373-ea1b-1894-50a9b065c604@xen.org>
-Date: Wed, 27 Apr 2022 10:43:32 +0100
+X-Inumbo-ID: 6317100a-c60f-11ec-a405-831a346695d4
+From: Michal Orzel <michal.orzel@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Dario Faggioli <dfaggioli@suse.com>
+Subject: [PATCH 0/8] xen: Remove unused-but-set variables
+Date: Wed, 27 Apr 2022 11:49:33 +0200
+Message-Id: <20220427094941.291554-1-michal.orzel@arm.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.8.0
-Subject: Re: [PATCH v3 3/6] xen: add field "flags" to cover all internal
- CDF_XXX
-To: Penny Zheng <Penny.Zheng@arm.com>, xen-devel@lists.xenproject.org
-Cc: wei.chen@arm.com, henry.wang@arm.com,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>
-References: <20220427092743.925563-1-Penny.Zheng@arm.com>
- <20220427092743.925563-4-Penny.Zheng@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20220427092743.925563-4-Penny.Zheng@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Fix all the gcc findings related to unused-but-set variables when performing
+Xen compilation using target allyesconfig on arm32 and arm64. This is done by
+temporarily removing flag -Wno-unused-but-set-variable set in Config.mk.
 
-On 27/04/2022 10:27, Penny Zheng wrote:
-> With more and more CDF_xxx internal flags in and to save the space, this
-> commit introduces a new field "flags" in struct domain to store CDF_*
-> internal flags directly.
-> 
-> Another new CDF_xxx will be introduced in the next patch.
-> 
-> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+This series acts as a prerequisite to get rid of this flag one day.
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+Michal Orzel (8):
+  xen/arm: bootfdt.c: Remove unused-but-set variable
+  efi/boot.c: Remove unused-but-set variable
+  gnttab: Remove unused-but-set variable
+  xen/arm: smmu.c: Remove unused-but-set variable
+  xen/sched: Remove unused-but-set variable
+  platforms/xgene: Make use of dt_device_get_address return value
+  platforms/omap: Remove unused-but-set variable
+  drivers/exynos4210: Remove unused-but-set variable
 
-Cheers,
+ xen/arch/arm/bootfdt.c               |  3 ---
+ xen/arch/arm/platforms/omap5.c       |  3 +--
+ xen/arch/arm/platforms/xgene-storm.c |  2 +-
+ xen/common/efi/boot.c                |  4 ++--
+ xen/common/grant_table.c             |  6 ++----
+ xen/common/sched/core.c              |  3 +--
+ xen/drivers/char/exynos4210-uart.c   | 10 ++++++----
+ xen/drivers/passthrough/arm/smmu.c   |  3 +--
+ 8 files changed, 14 insertions(+), 20 deletions(-)
 
 -- 
-Julien Grall
+2.25.1
+
 
