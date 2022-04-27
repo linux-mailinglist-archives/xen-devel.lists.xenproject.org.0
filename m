@@ -2,32 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6EDE51184A
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 15:26:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.315045.533374 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09A73511862
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 15:32:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.315051.533385 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njhfx-00056H-Qu; Wed, 27 Apr 2022 13:25:49 +0000
+	id 1njhm4-0006bW-HW; Wed, 27 Apr 2022 13:32:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 315045.533374; Wed, 27 Apr 2022 13:25:49 +0000
+Received: by outflank-mailman (output) from mailman id 315051.533385; Wed, 27 Apr 2022 13:32:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njhfx-00054Q-Nu; Wed, 27 Apr 2022 13:25:49 +0000
-Received: by outflank-mailman (input) for mailman id 315045;
- Wed, 27 Apr 2022 13:25:47 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1njhm4-0006YI-Dg; Wed, 27 Apr 2022 13:32:08 +0000
+Received: by outflank-mailman (input) for mailman id 315051;
+ Wed, 27 Apr 2022 13:32:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1njhfv-00054K-PV
- for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 13:25:47 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1njhft-0006Tj-Fi; Wed, 27 Apr 2022 13:25:45 +0000
-Received: from [54.239.6.186] (helo=[192.168.24.58])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1njhft-00068R-9h; Wed, 27 Apr 2022 13:25:45 +0000
+ (envelope-from <SRS0=nU4i=VF=redhat.com=thuth@srs-se1.protection.inumbo.net>)
+ id 1njhm2-0006Y8-5h
+ for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 13:32:06 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6a5fd090-c62e-11ec-8fc2-03012f2f19d4;
+ Wed, 27 Apr 2022 15:32:00 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-148-nK8wegdCPM-TDGnzXO5hFQ-1; Wed, 27 Apr 2022 09:31:59 -0400
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B59E9804184;
+ Wed, 27 Apr 2022 13:31:58 +0000 (UTC)
+Received: from thuth.com (dhcp-192-232.str.redhat.com [10.33.192.232])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id B24C257AF7C;
+ Wed, 27 Apr 2022 13:31:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,75 +50,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
-	bh=nMXH8l8MNnMvfSortO4ZHoY4ODmQBreP7ovBtrDD79I=; b=a+HIWdTJmeJOal/EIC9C1Za8lV
-	m9sfMLTl6Zyp313LgPgbKSnX8WXJKpLVcTtYknp5ej+dZaYazSGuAXbZLV3EMhbIurd3R1PetCy1l
-	2qjAQh2xLZeInXnA+0Yz5J+ZxsgAg9yBYW1EibIDZA0pNYaZVqBbHzgHMjluWEsMiGEc=;
-Message-ID: <27f0e94c-b935-f898-5316-0f25d72785b2@xen.org>
-Date: Wed, 27 Apr 2022 14:25:43 +0100
+X-Inumbo-ID: 6a5fd090-c62e-11ec-8fc2-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1651066322;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=zYhgACUWQgq9l8pXl+6GzDv56SU2M/vIYGGXa0gaxtU=;
+	b=fAnRZqzF7JoZgHHt0AvemjreflGrWGOcEkYe0hM2PplP2vLxvhhcvD4hC9/GdM5Bm/ncg3
+	trHTGQLqXne9SnGww8rIGd9at9T8Z3jxSq8BIVrBLYS3upwwnYcAgBvgqw2IRMZ7wWvLqa
+	omcGNp4SqgWCR00dLQXfO2R6kq4fp1w=
+X-MC-Unique: nK8wegdCPM-TDGnzXO5hFQ-1
+From: Thomas Huth <thuth@redhat.com>
+To: qemu-devel@nongnu.org,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	qemu-trivial@nongnu.org,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH] qemu-options: Limit the -xen options to x86 and arm
+Date: Wed, 27 Apr 2022 15:31:56 +0200
+Message-Id: <20220427133156.344418-1-thuth@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.8.0
-Subject: Re: [PATCH] SUPPORT.md: extend security support for hosts to 12 TiB
- of memory
-From: Julien Grall <julien@xen.org>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <4c49e4cf-9d86-e630-a1bb-37afdf091c99@suse.com>
- <6ec0e3d9-374c-1caa-9889-f091dcf894e3@xen.org>
- <44883899-a696-31e1-c134-019de999d796@suse.com>
- <26ca3b75-6bd2-008f-b393-45ba11f3d0ac@xen.org>
-In-Reply-To: <26ca3b75-6bd2-008f-b393-45ba11f3d0ac@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 
-Hi,
+The Xen hypervisor is only available on x86 and arm - thus let's
+limit the related options to these targets.
 
-On 06/04/2022 16:23, Julien Grall wrote:
-> On 06/04/2022 16:22, Jan Beulich wrote:
->> On 06.04.2022 17:15, Julien Grall wrote:
->>> On 06/04/2022 15:44, Jan Beulich wrote:
->>>> c49ee0329ff3 ("SUPPORT.md: limit security support for hosts with very
->>>> much memory"), as a result of XSA-385, restricted security support to
->>>> 8 TiB of host memory. Extend this to 12 TiB, putting in place a guest
->>>> restriction to 8 TiB in exchange.
->>>
->>> And this is even without CONFIG_BIGMEM?
->>
->> Yes. BIGMEM only matters when memory extends past the 16 TiB boundary
->> (i.e. when frame numbers with ore than 32 significant bits appear).
-> 
-> Thanks for the confirmation!
-> 
->>
->>>> --- a/SUPPORT.md
->>>> +++ b/SUPPORT.md
->>>> @@ -50,7 +50,7 @@ For the Cortex A57 r0p0 - r1p1, see Erra
->>>>    ### Physical Memory
->>>> -    Status: Supported up to 8 TiB
->>>> +    Status: Supported up to 12 TiB
->>>
->>> I am afraid this limit is going to be too high for Arm. Even the
->>> previous one was technically incorrect. From [1], it should be:
->>>     - 5TB for arm64
->>>     - 16GB for arm32
->>
->> May I ask that you submit a patch correcting this, and I'll rebase
->> on top of that? I can't really fit such an adjustment under the
->> umbrella of the title and purpose of this change.
-> 
-> Sure. I will submit one soon.
+Signed-off-by: Thomas Huth <thuth@redhat.com>
+---
+ qemu-options.hx | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-I have submitted a patch: 
-https://lore.kernel.org/xen-devel/20220427132246.52715-1-julien@xen.org/T/#u
-
-Cheers,
-
+diff --git a/qemu-options.hx b/qemu-options.hx
+index 1764eebfaf..cc3a39d21a 100644
+--- a/qemu-options.hx
++++ b/qemu-options.hx
+@@ -4184,16 +4184,17 @@ SRST
+ ERST
+ 
+ DEF("xen-domid", HAS_ARG, QEMU_OPTION_xen_domid,
+-    "-xen-domid id   specify xen guest domain id\n", QEMU_ARCH_ALL)
++    "-xen-domid id   specify xen guest domain id\n",
++    QEMU_ARCH_ARM | QEMU_ARCH_I386)
+ DEF("xen-attach", 0, QEMU_OPTION_xen_attach,
+     "-xen-attach     attach to existing xen domain\n"
+     "                libxl will use this when starting QEMU\n",
+-    QEMU_ARCH_ALL)
++    QEMU_ARCH_ARM | QEMU_ARCH_I386)
+ DEF("xen-domid-restrict", 0, QEMU_OPTION_xen_domid_restrict,
+     "-xen-domid-restrict     restrict set of available xen operations\n"
+     "                        to specified domain id. (Does not affect\n"
+     "                        xenpv machine type).\n",
+-    QEMU_ARCH_ALL)
++    QEMU_ARCH_ARM | QEMU_ARCH_I386)
+ SRST
+ ``-xen-domid id``
+     Specify xen guest domain id (XEN only).
 -- 
-Julien Grall
+2.27.0
+
 
