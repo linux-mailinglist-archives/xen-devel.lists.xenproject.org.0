@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3702B511473
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 11:50:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.314690.532946 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF565511475
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 11:53:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.314758.532958 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njeJG-0002n9-Te; Wed, 27 Apr 2022 09:50:10 +0000
+	id 1njeMB-0005pM-Da; Wed, 27 Apr 2022 09:53:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 314690.532946; Wed, 27 Apr 2022 09:50:10 +0000
+Received: by outflank-mailman (output) from mailman id 314758.532958; Wed, 27 Apr 2022 09:53:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njeJG-0002jB-Jh; Wed, 27 Apr 2022 09:50:10 +0000
-Received: by outflank-mailman (input) for mailman id 314690;
- Wed, 27 Apr 2022 09:50:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XTRx=VF=arm.com=michal.orzel@srs-se1.protection.inumbo.net>)
- id 1njeJE-00085x-P7
- for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 09:50:08 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 6bd0b73f-c60f-11ec-a405-831a346695d4;
- Wed, 27 Apr 2022 11:50:08 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6924C14BF;
- Wed, 27 Apr 2022 02:50:07 -0700 (PDT)
-Received: from e129167.arm.com (unknown [10.57.13.174])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D14C63F774;
- Wed, 27 Apr 2022 02:50:05 -0700 (PDT)
+	id 1njeMB-0005nW-Ab; Wed, 27 Apr 2022 09:53:11 +0000
+Received: by outflank-mailman (input) for mailman id 314758;
+ Wed, 27 Apr 2022 09:53:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1njeMA-0005nM-Ha
+ for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 09:53:10 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1njeM9-0002WG-Vx; Wed, 27 Apr 2022 09:53:09 +0000
+Received: from [54.239.6.186] (helo=[192.168.24.58])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1njeM9-0001CS-PR; Wed, 27 Apr 2022 09:53:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,64 +39,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6bd0b73f-c60f-11ec-a405-831a346695d4
-From: Michal Orzel <michal.orzel@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH 8/8] drivers/exynos4210: Remove unused-but-set variable
-Date: Wed, 27 Apr 2022 11:49:41 +0200
-Message-Id: <20220427094941.291554-9-michal.orzel@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220427094941.291554-1-michal.orzel@arm.com>
-References: <20220427094941.291554-1-michal.orzel@arm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=4AFEn0CHrznKpx8Ja/X3cAyPwuX2ZoOxVjBpcS7EBFE=; b=Z3ZIOv+q07dwvxhd2PhGFjpKUf
+	rfs0hSqfrf1oyPZA6fnF8p5AXsHioZDTagW+LyKgsHE0bsHDosm8YKdJgZJXZljlN0NVK6TEQD9uv
+	U+4eYS17PLTrUmk/tgQSX2TmeQNRwREcOv487q5qEjDScwDDPmJgLv4B9eT20dPdeSe4=;
+Message-ID: <a4746106-771d-aec7-20c0-82650ee62f61@xen.org>
+Date: Wed, 27 Apr 2022 10:53:06 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.8.0
+Subject: Re: [PATCH v3 4/6] xen/arm: introduce CDF_staticmem
+To: Penny Zheng <Penny.Zheng@arm.com>, xen-devel@lists.xenproject.org
+Cc: wei.chen@arm.com, henry.wang@arm.com,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>
+References: <20220427092743.925563-1-Penny.Zheng@arm.com>
+ <20220427092743.925563-5-Penny.Zheng@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20220427092743.925563-5-Penny.Zheng@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Function exynos4210_uart_init_preirq defines and sets a variable
-divisor but does not make use of it. Remove the definition and comment
-out the assignment as this function already has some TODOs.
+Hi Penny,
 
-Signed-off-by: Michal Orzel <michal.orzel@arm.com>
----
-Commenting out a code is a bad practise as well as using TODOs.
-However the only alternative would be to get rid of divisor variable
-and TODO comments. I'm open for solutions.
----
- xen/drivers/char/exynos4210-uart.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+On 27/04/2022 10:27, Penny Zheng wrote:
+> In order to have an easy and quick way to find out whether this domain memory
+> is statically configured, this commit introduces a new flag CDF_staticmem and a
+> new helper is_domain_using_staticmem() to tell.
+> 
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-diff --git a/xen/drivers/char/exynos4210-uart.c b/xen/drivers/char/exynos4210-uart.c
-index fa7dbc0391..43aaf02e18 100644
---- a/xen/drivers/char/exynos4210-uart.c
-+++ b/xen/drivers/char/exynos4210-uart.c
-@@ -101,7 +101,6 @@ static void exynos4210_uart_interrupt(int irq, void *data, struct cpu_user_regs
- static void __init exynos4210_uart_init_preirq(struct serial_port *port)
- {
-     struct exynos4210_uart *uart = port->uart;
--    unsigned int divisor;
-     uint32_t ulcon;
- 
-     /* reset, TX/RX disables */
-@@ -113,9 +112,12 @@ static void __init exynos4210_uart_init_preirq(struct serial_port *port)
-     /* Line control and baud-rate generator. */
-     if ( uart->baud != BAUD_AUTO )
-     {
--        /* Baud rate specified: program it into the divisor latch. */
--        divisor = ((uart->clock_hz) / (uart->baud)) - 1;
--        /* FIXME: will use a hacked divisor, assuming the src clock and bauds */
-+        /*
-+         * TODO: should be updated
-+         * Baud rate specified: program it into the divisor latch.
-+         * divisor = ((uart->clock_hz) / (uart->baud)) - 1;
-+         * FIXME: will use a hacked divisor, assuming the src clock and bauds.
-+         */
-         exynos4210_write(uart, UFRACVAL, 53);
-         exynos4210_write(uart, UBRDIV, 4);
-     }
+The reviewed-by tags should be after signed-off-by tags.
+
+Cheers,
+
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> ---
+> v3 changes:
+> - change name from "is_domain_static()" to "is_domain_using_staticmem"
+> ---
+> v2 changes:
+> - change name from "is_domain_on_static_allocation" to "is_domain_static()"
+> ---
+>   xen/arch/arm/domain_build.c       | 5 ++++-
+>   xen/arch/arm/include/asm/domain.h | 2 ++
+>   xen/include/xen/domain.h          | 2 ++
+>   3 files changed, 8 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 1472ca4972..6830a282a0 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -3190,9 +3190,12 @@ void __init create_domUs(void)
+>           if ( !dt_device_is_compatible(node, "xen,domain") )
+>               continue;
+>   
+> +        if ( dt_find_property(node, "xen,static-mem", NULL) )
+> +            flags |= CDF_staticmem;
+> +
+>           if ( dt_property_read_bool(node, "direct-map") )
+>           {
+> -            if ( !IS_ENABLED(CONFIG_STATIC_MEMORY) || !dt_find_property(node, "xen,static-mem", NULL) )
+> +            if ( !IS_ENABLED(CONFIG_STATIC_MEMORY) || !(flags & CDF_staticmem) )
+>                   panic("direct-map is not valid for domain %s without static allocation.\n",
+>                         dt_node_name(node));
+>   
+> diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
+> index fe7a029ebf..110c672589 100644
+> --- a/xen/arch/arm/include/asm/domain.h
+> +++ b/xen/arch/arm/include/asm/domain.h
+> @@ -31,6 +31,8 @@ enum domain_type {
+>   
+>   #define is_domain_direct_mapped(d) ((d)->cdf & CDF_directmap)
+>   
+> +#define is_domain_using_staticmem(d) ((d)->cdf & CDF_staticmem)
+> +
+>   /*
+>    * Is the domain using the host memory layout?
+>    *
+> diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
+> index 1c3c88a14d..35dc7143a4 100644
+> --- a/xen/include/xen/domain.h
+> +++ b/xen/include/xen/domain.h
+> @@ -34,6 +34,8 @@ void arch_get_domain_info(const struct domain *d,
+>   #ifdef CONFIG_ARM
+>   /* Should domain memory be directly mapped? */
+>   #define CDF_directmap            (1U << 1)
+> +/* Is domain memory on static allocation? */
+> +#define CDF_staticmem            (1U << 2)
+>   #endif
+>   
+>   /*
+
 -- 
-2.25.1
-
+Julien Grall
 
