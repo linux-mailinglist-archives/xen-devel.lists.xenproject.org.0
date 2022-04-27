@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41C015126C5
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F3445126C4
 	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 01:03:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.315586.534318 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.315588.534328 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njqgU-000169-TY; Wed, 27 Apr 2022 23:02:58 +0000
+	id 1njqgX-0001mJ-SS; Wed, 27 Apr 2022 23:03:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 315586.534318; Wed, 27 Apr 2022 23:02:58 +0000
+Received: by outflank-mailman (output) from mailman id 315588.534328; Wed, 27 Apr 2022 23:03:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njqgS-0000Yc-TI; Wed, 27 Apr 2022 23:02:56 +0000
-Received: by outflank-mailman (input) for mailman id 315586;
- Wed, 27 Apr 2022 22:53:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1njqgV-00012x-PL; Wed, 27 Apr 2022 23:02:59 +0000
+Received: by outflank-mailman (input) for mailman id 315588;
+ Wed, 27 Apr 2022 22:53:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mIOA=VF=igalia.com=gpiccoli@srs-se1.protection.inumbo.net>)
- id 1njqXS-0003q5-2S
- for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 22:53:38 +0000
+ id 1njqXg-0003vS-Rg
+ for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 22:53:52 +0000
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id df5f574c-c67c-11ec-8fc3-03012f2f19d4;
- Thu, 28 Apr 2022 00:53:37 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e7ffcc3f-c67c-11ec-a405-831a346695d4;
+ Thu, 28 Apr 2022 00:53:51 +0200 (CEST)
 Received: from [179.113.53.197] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1njqXD-0002EK-E5; Thu, 28 Apr 2022 00:53:24 +0200
+ id 1njqXT-0002FK-Kn; Thu, 28 Apr 2022 00:53:40 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,19 +40,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df5f574c-c67c-11ec-8fc3-03012f2f19d4
+X-Inumbo-ID: e7ffcc3f-c67c-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
 	s=20170329; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
 	Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
 	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
 	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
 	List-Post:List-Owner:List-Archive;
-	bh=mOzFWStqo1l1SFAwioSEW9cov+DtDc5WSMbZaYL5OFk=; b=jORyziNh7Mp7CJnb2ldBvIVUYT
-	miqK/KwxTCDE0PrnGOVoO5V4xtjW+TEXZOKHxzyxZAzEuCslLE//gxMpeQbei+ydr8zg3pnWZUWxE
-	L40pn68w+NUbAHLuqvLt2UI0hgcbpQZODu83KlzMI8qRKWoyX30oYob/b9pQLrf+6HFREi99ePbwb
-	zW4TblodvYrIgJCYkkWUlwk3Cl/V3uSBOUWLD/GIZmkaB62kyu6wuslAaH0LxO2Qqyrw8rvwJQSXp
-	vohmbyikfHUVSRBgOx4Bv9HUeJbAvmB/X4rw1kDURxjWp8eCgUztnLBZm1GN+7lilt+TPvGD7Gymp
-	FQwd7uqA==;
+	bh=LH6oQ+KUrT2+UZ27jtgU/PGKhQQ202wn79cJAeqj5IE=; b=N1tY0S0aaQeR9NcKuaJbTqnNXy
+	9pcqa1SEZnYDO5/TLstJB48aWkEQ4PDoBYIETAyDlKfJL300Z2BuvN4dT08YXOJQkKQRfd88YbBla
+	BhKcNiLHKco0hFkhYWPs6DIH4v+5YaEldHsDLnnpsbsgJuChEIxNDXB5/EzphACOoX7xqZH0abztl
+	vLKxKzrcWguRmMXDmvcU5nsznWqZJ1nSmpm/gOBpgQqBxhdFVL/WA1XIODSmEAnbcKKqL8Xui+5p0
+	wYd62C0elRAkgaFmQPZ2Uk5W3nR2kjl80X0bqLIyvZBOzCHJbiVCOEqqyvgKj3yUn8TPr60YsbPp0
+	Lml85pLA==;
 From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
 To: akpm@linux-foundation.org,
 	bhe@redhat.com,
@@ -112,56 +112,90 @@ Cc: linux-kernel@vger.kernel.org,
 	tglx@linutronix.de,
 	vgoyal@redhat.com,
 	vkuznets@redhat.com,
-	will@kernel.org
-Subject: [PATCH 14/30] panic: Properly identify the panic event to the notifiers' callbacks
-Date: Wed, 27 Apr 2022 19:49:08 -0300
-Message-Id: <20220427224924.592546-15-gpiccoli@igalia.com>
+	will@kernel.org,
+	Brian Norris <computersforpeace@gmail.com>,
+	Florian Fainelli <f.fainelli@gmail.com>
+Subject: [PATCH 15/30] bus: brcmstb_gisb: Clean-up panic/die notifiers
+Date: Wed, 27 Apr 2022 19:49:09 -0300
+Message-Id: <20220427224924.592546-16-gpiccoli@igalia.com>
 X-Mailer: git-send-email 2.36.0
 In-Reply-To: <20220427224924.592546-1-gpiccoli@igalia.com>
 References: <20220427224924.592546-1-gpiccoli@igalia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The notifiers infrastructure provides a way to pass an "id" to the
-callbacks to determine what kind of event happened, i.e., what is
-the reason behind they getting called.
+This patch improves the panic/die notifiers in this driver by
+making use of a passed "id" instead of comparing pointer
+address; also, it removes an useless prototype declaration
+and unnecessary header inclusion.
 
-The panic notifier currently pass 0, but this is soon to be
-used in a multi-targeted notifier, so let's pass a meaningful
-"id" over there.
+This is part of a panic notifiers refactor - this notifier in
+the future will be moved to a new list, that encompass the
+information notifiers only.
 
+Fixes: 9eb60880d9a9 ("bus: brcmstb_gisb: add notifier handling")
+Cc: Brian Norris <computersforpeace@gmail.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>
 Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
 ---
- include/linux/panic_notifier.h | 5 +++++
- kernel/panic.c                 | 2 +-
- 2 files changed, 6 insertions(+), 1 deletion(-)
+ drivers/bus/brcmstb_gisb.c | 26 +++++++++++---------------
+ 1 file changed, 11 insertions(+), 15 deletions(-)
 
-diff --git a/include/linux/panic_notifier.h b/include/linux/panic_notifier.h
-index 41e32483d7a7..07dced83a783 100644
---- a/include/linux/panic_notifier.h
-+++ b/include/linux/panic_notifier.h
-@@ -9,4 +9,9 @@ extern struct atomic_notifier_head panic_notifier_list;
+diff --git a/drivers/bus/brcmstb_gisb.c b/drivers/bus/brcmstb_gisb.c
+index 183d5cc37d42..1ea7b015e225 100644
+--- a/drivers/bus/brcmstb_gisb.c
++++ b/drivers/bus/brcmstb_gisb.c
+@@ -19,7 +19,6 @@
+ #include <linux/pm.h>
+ #include <linux/kernel.h>
+ #include <linux/kdebug.h>
+-#include <linux/notifier.h>
  
- extern bool crash_kexec_post_notifiers;
+ #ifdef CONFIG_MIPS
+ #include <asm/traps.h>
+@@ -347,25 +346,14 @@ static irqreturn_t brcmstb_gisb_bp_handler(int irq, void *dev_id)
+ /*
+  * Dump out gisb errors on die or panic.
+  */
+-static int dump_gisb_error(struct notifier_block *self, unsigned long v,
+-			   void *p);
+-
+-static struct notifier_block gisb_die_notifier = {
+-	.notifier_call = dump_gisb_error,
+-};
+-
+-static struct notifier_block gisb_panic_notifier = {
+-	.notifier_call = dump_gisb_error,
+-};
+-
+ static int dump_gisb_error(struct notifier_block *self, unsigned long v,
+ 			   void *p)
+ {
+ 	struct brcmstb_gisb_arb_device *gdev;
+-	const char *reason = "panic";
++	const char *reason = "die";
  
-+enum panic_notifier_val {
-+	PANIC_UNUSED,
-+	PANIC_NOTIFIER = 0xDEAD,
+-	if (self == &gisb_die_notifier)
+-		reason = "die";
++	if (v == PANIC_NOTIFIER)
++		reason = "panic";
+ 
+ 	/* iterate over each GISB arb registered handlers */
+ 	list_for_each_entry(gdev, &brcmstb_gisb_arb_device_list, next)
+@@ -374,6 +362,14 @@ static int dump_gisb_error(struct notifier_block *self, unsigned long v,
+ 	return NOTIFY_DONE;
+ }
+ 
++static struct notifier_block gisb_die_notifier = {
++	.notifier_call = dump_gisb_error,
 +};
 +
- #endif	/* _LINUX_PANIC_NOTIFIERS_H */
-diff --git a/kernel/panic.c b/kernel/panic.c
-index eb4dfb932c85..523bc9ccd0e9 100644
---- a/kernel/panic.c
-+++ b/kernel/panic.c
-@@ -287,7 +287,7 @@ void panic(const char *fmt, ...)
- 	 * Run any panic handlers, including those that might need to
- 	 * add information to the kmsg dump output.
- 	 */
--	atomic_notifier_call_chain(&panic_notifier_list, 0, buf);
-+	atomic_notifier_call_chain(&panic_notifier_list, PANIC_NOTIFIER, buf);
- 
- 	panic_print_sys_info(false);
++static struct notifier_block gisb_panic_notifier = {
++	.notifier_call = dump_gisb_error,
++};
++
+ static DEVICE_ATTR(gisb_arb_timeout, S_IWUSR | S_IRUGO,
+ 		gisb_arb_get_timeout, gisb_arb_set_timeout);
  
 -- 
 2.36.0
