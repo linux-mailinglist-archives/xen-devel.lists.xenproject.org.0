@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6ECEF511BE7
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 17:32:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.315171.533584 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0FF7511C0C
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 17:51:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.315212.533653 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njjeO-00035t-Uv; Wed, 27 Apr 2022 15:32:20 +0000
+	id 1njjwz-0008SE-Vq; Wed, 27 Apr 2022 15:51:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 315171.533584; Wed, 27 Apr 2022 15:32:20 +0000
+Received: by outflank-mailman (output) from mailman id 315212.533653; Wed, 27 Apr 2022 15:51:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njjeO-000344-RV; Wed, 27 Apr 2022 15:32:20 +0000
-Received: by outflank-mailman (input) for mailman id 315171;
- Wed, 27 Apr 2022 15:32:20 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1njjeO-00033y-7f
- for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 15:32:20 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1njjeN-0000LV-Sd; Wed, 27 Apr 2022 15:32:19 +0000
-Received: from [54.239.6.186] (helo=[192.168.24.58])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1njjeN-0005sk-M0; Wed, 27 Apr 2022 15:32:19 +0000
+	id 1njjwz-0008QN-SL; Wed, 27 Apr 2022 15:51:33 +0000
+Received: by outflank-mailman (input) for mailman id 315212;
+ Wed, 27 Apr 2022 15:51:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CTGo=VF=intel.com=tamas.lengyel@srs-se1.protection.inumbo.net>)
+ id 1njjwy-0007rz-8f
+ for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 15:51:32 +0000
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e6585bbd-c641-11ec-a405-831a346695d4;
+ Wed, 27 Apr 2022 17:51:30 +0200 (CEST)
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Apr 2022 08:34:30 -0700
+Received: from esimonso-mobl1.amr.corp.intel.com (HELO ubuntu.localdomain)
+ ([10.212.23.42])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Apr 2022 08:34:28 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,103 +43,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=037fCIaP1ub+eMYyOgxD8HkSmOOPv0L7+e7AyyzdqXQ=; b=ze9phzY/3fhJiDyqUBOQQKumP1
-	PIQZ8j8BySNFWCtfDUJJUnUpmQmEGm69hbYCfKxfHSdXkIdXSrfl04azPgYEjt+vCkOmrPjwjnIuT
-	nZGcHA1p1J5134+tPtbptQwwb/wKe04n9GKtDDRgPagHGzMLGMbJCXRDpPB/VzG30e/o=;
-Message-ID: <572aee32-a533-6124-4a0b-546085da3cff@xen.org>
-Date: Wed, 27 Apr 2022 16:32:17 +0100
+X-Inumbo-ID: e6585bbd-c641-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1651074690; x=1682610690;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=yu2lLCKrz9AND+oxXtfzZGp0tENLJ9h0P9FY5DkWhk4=;
+  b=UOReKctzzFZ6jQLsHR1wFShRZnKkonFOha6THqaX2ZJK80Oogcfxt0Kv
+   aA52qehMmpuPi1R5XgMyX7Exghra/G+b1tt5mulix4tkowPXbNEHPYLMZ
+   utZNRmQNpslMiuaqF2m2DLe29H7hFRfmTTdiClbO2o9lqRO67hpPB4RBg
+   Ho3ksn8WUFGxp9RLmtULeQw/9LFMAD8rZXTRqqJJrjyDr1ztWn6Car0FX
+   JPnnoJaTvqnUywC9IxedbOQXhOmEPa1m4xmb/uRcxprTTvwvdCFYvVr36
+   bsdoADOTcNrm7s78ykcygwVWXxgyZXhy1R30ZIWyKkeP+14+dvL9d15ib
+   g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10330"; a="328915505"
+X-IronPort-AV: E=Sophos;i="5.90,293,1643702400"; 
+   d="scan'208";a="328915505"
+X-IronPort-AV: E=Sophos;i="5.90,293,1643702400"; 
+   d="scan'208";a="680854404"
+From: Tamas K Lengyel <tamas.lengyel@intel.com>
+To: xen-devel@lists.xenproject.org
+Cc: Tamas K Lengyel <tamas.lengyel@intel.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>
+Subject: [PATCH 1/3] x86/mem_sharing: make fork_reset more configurable
+Date: Wed, 27 Apr 2022 11:34:18 -0400
+Message-Id: <7f03387eebf9de474f404ef661f80133e3725365.1651073086.git.tamas.lengyel@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.8.1
-Subject: Re: [PATCH v12] xen/arm64: io: Handle data abort due to cache
- maintenance instructions
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>,
- xen-devel@lists.xenproject.org, stefanos@xilinx.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com,
- Ayan Kumar Halder <ayankuma@xilinx.com>
-References: <20220324133705.37882-1-ayankuma@xilinx.com>
- <2a287b59-9ff2-6bd0-fa42-d95333fc1554@xen.org>
- <alpine.DEB.2.22.394.2204181402070.915916@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2204181402070.915916@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Alow specify distinct parts of the fork VM to be reset. This is useful when a
+fuzzing operation involves mapping in only a handful of pages that are known
+ahead of time. Throwing these pages away just to be re-copied immediately is
+expensive, thus allowing to specify partial resets can speed things up.
 
-On 18/04/2022 22:02, Stefano Stabellini wrote:
-> On Fri, 1 Apr 2022, Julien Grall wrote:
->> On 24/03/2022 13:37, Ayan Kumar Halder wrote:
->>>        /*
->>>         * At this point, we know that the instruction is either valid or has
->>> been
->>>         * decoded successfully. Thus, Xen should be allowed to execute the
->>> diff --git a/xen/arch/arm/ioreq.c b/xen/arch/arm/ioreq.c
->>> index 54167aebcb..87a6240f2a 100644
->>> --- a/xen/arch/arm/ioreq.c
->>> +++ b/xen/arch/arm/ioreq.c
->>> @@ -47,7 +47,7 @@ enum io_state try_fwd_ioserv(struct cpu_user_regs *regs,
->>>                                 struct vcpu *v, mmio_info_t *info)
->>>    {
->>>        struct vcpu_io *vio = &v->io;
->>> -    struct instr_details instr = info->dabt_instr;
->>> +    const struct instr_details instr = info->dabt_instr;
->>>        struct hsr_dabt dabt = info->dabt;
->>>        ioreq_t p = {
->>>            .type = IOREQ_TYPE_COPY,
->>> @@ -62,7 +62,6 @@ enum io_state try_fwd_ioserv(struct cpu_user_regs *regs,
->>>             * memory access. So for now, we can safely always set to 0.
->>>             */
->>>            .df = 0,
->>> -        .data = get_user_reg(regs, info->dabt.reg),
->>>            .state = STATE_IOREQ_READY,
->>>        };
->>>        struct ioreq_server *s = NULL;
->>> @@ -74,12 +73,23 @@ enum io_state try_fwd_ioserv(struct cpu_user_regs *regs,
->>>            return IO_ABORT;
->>>        }
->>>    +    if ( instr.state == INSTR_CACHE )
->>> +        p.size = dcache_line_bytes;
->> I think it would be best to only set the p.size when instr.state !=
->> INSTR_CACHE in the else here.
->>
->> I can do that on commit. I will also give a chance to Stefano to reply.
-> 
-> The patch looks OK to me, please go ahead and make the change on
-> commit.
+Also allow resetting to be initiated from vm_event responses as an
+optiomization.
 
-I have commited with my reviewed-by tag after folding the following diff:
+Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com
+---
+v5: split toolstack part to separate patch and use ASSERT_UNREACHABLE
+v4: No change
+v3: Rebase on simpler approach after dropping empty_p2m feature
+v2: address review comments and add more sanity checking
+---
+ xen/arch/x86/include/asm/mem_sharing.h |  9 +++++++++
+ xen/arch/x86/mm/mem_sharing.c          | 24 +++++++++++++++++++-----
+ xen/common/vm_event.c                  | 18 ++++++++++++++++++
+ xen/include/public/memory.h            |  4 +++-
+ xen/include/public/vm_event.h          |  8 ++++++++
+ 5 files changed, 57 insertions(+), 6 deletions(-)
 
-For the record, I folded this diff:
-
-diff --git a/xen/arch/arm/ioreq.c b/xen/arch/arm/ioreq.c
-index 87a6240f2aa9..bdd536e873e5 100644
---- a/xen/arch/arm/ioreq.c
-+++ b/xen/arch/arm/ioreq.c
-@@ -52,7 +52,6 @@ enum io_state try_fwd_ioserv(struct cpu_user_regs *regs,
-      ioreq_t p = {
-          .type = IOREQ_TYPE_COPY,
-          .addr = info->gpa,
--        .size = 1 << info->dabt.size,
-          .count = 1,
-          .dir = !info->dabt.write,
-          /*
-@@ -75,6 +74,8 @@ enum io_state try_fwd_ioserv(struct cpu_user_regs *regs,
-
-      if ( instr.state == INSTR_CACHE )
-          p.size = dcache_line_bytes;
-+    else
-+        p.size = 1U << info->dabt.size;
-
-      s = ioreq_server_select(v->domain, &p);
-      if ( !s )
-
-Cheers,
-
+diff --git a/xen/arch/x86/include/asm/mem_sharing.h b/xen/arch/x86/include/asm/mem_sharing.h
+index cf7a12f4d2..2c00069bc9 100644
+--- a/xen/arch/x86/include/asm/mem_sharing.h
++++ b/xen/arch/x86/include/asm/mem_sharing.h
+@@ -85,6 +85,9 @@ static inline bool mem_sharing_is_fork(const struct domain *d)
+ int mem_sharing_fork_page(struct domain *d, gfn_t gfn,
+                           bool unsharing);
+ 
++int mem_sharing_fork_reset(struct domain *d, bool reset_state,
++                           bool reset_memory);
++
+ /*
+  * If called by a foreign domain, possible errors are
+  *   -EBUSY -> ring full
+@@ -148,6 +151,12 @@ static inline int mem_sharing_fork_page(struct domain *d, gfn_t gfn, bool lock)
+     return -EOPNOTSUPP;
+ }
+ 
++static inline int mem_sharing_fork_reset(struct domain *d, bool reset_state,
++                                         bool reset_memory)
++{
++    return -EOPNOTSUPP;
++}
++
+ #endif
+ 
+ #endif /* __MEM_SHARING_H__ */
+diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
+index a5c16b4429..1e1fb27c1a 100644
+--- a/xen/arch/x86/mm/mem_sharing.c
++++ b/xen/arch/x86/mm/mem_sharing.c
+@@ -1881,15 +1881,21 @@ static int fork(struct domain *cd, struct domain *d)
+  * footprints the hypercall continuation should be implemented (or if this
+  * feature needs to be become "stable").
+  */
+-static int mem_sharing_fork_reset(struct domain *d)
++int mem_sharing_fork_reset(struct domain *d, bool reset_state,
++                           bool reset_memory)
+ {
+-    int rc;
++    int rc = 0;
+     struct domain *pd = d->parent;
+     struct p2m_domain *p2m = p2m_get_hostp2m(d);
+     struct page_info *page, *tmp;
+ 
++    ASSERT(reset_state || reset_memory);
++
+     domain_pause(d);
+ 
++    if ( !reset_memory )
++        goto state;
++
+     /* need recursive lock because we will free pages */
+     spin_lock_recursive(&d->page_alloc_lock);
+     page_list_for_each_safe(page, tmp, &d->page_list)
+@@ -1922,7 +1928,9 @@ static int mem_sharing_fork_reset(struct domain *d)
+     }
+     spin_unlock_recursive(&d->page_alloc_lock);
+ 
+-    rc = copy_settings(d, pd);
++ state:
++    if ( reset_state )
++        rc = copy_settings(d, pd);
+ 
+     domain_unpause(d);
+ 
+@@ -2229,15 +2237,21 @@ int mem_sharing_memop(XEN_GUEST_HANDLE_PARAM(xen_mem_sharing_op_t) arg)
+ 
+     case XENMEM_sharing_op_fork_reset:
+     {
++        bool reset_state = mso.u.fork.flags & XENMEM_FORK_RESET_STATE;
++        bool reset_memory = mso.u.fork.flags & XENMEM_FORK_RESET_MEMORY;
++
+         rc = -EINVAL;
+-        if ( mso.u.fork.pad || mso.u.fork.flags )
++        if ( mso.u.fork.pad || (!reset_state && !reset_memory) )
++            goto out;
++        if ( mso.u.fork.flags &
++             ~(XENMEM_FORK_RESET_STATE | XENMEM_FORK_RESET_MEMORY) )
+             goto out;
+ 
+         rc = -ENOSYS;
+         if ( !d->parent )
+             goto out;
+ 
+-        rc = mem_sharing_fork_reset(d);
++        rc = mem_sharing_fork_reset(d, reset_state, reset_memory);
+         break;
+     }
+ 
+diff --git a/xen/common/vm_event.c b/xen/common/vm_event.c
+index 84cf52636b..cc7d8bf565 100644
+--- a/xen/common/vm_event.c
++++ b/xen/common/vm_event.c
+@@ -28,6 +28,11 @@
+ #include <asm/p2m.h>
+ #include <asm/monitor.h>
+ #include <asm/vm_event.h>
++
++#ifdef CONFIG_MEM_SHARING
++#include <asm/mem_sharing.h>
++#endif
++
+ #include <xsm/xsm.h>
+ #include <public/hvm/params.h>
+ 
+@@ -394,6 +399,19 @@ static int vm_event_resume(struct domain *d, struct vm_event_domain *ved)
+             if ( rsp.reason == VM_EVENT_REASON_MEM_PAGING )
+                 p2m_mem_paging_resume(d, &rsp);
+ #endif
++#ifdef CONFIG_MEM_SHARING
++            if ( mem_sharing_is_fork(d) )
++            {
++                bool reset_state = rsp.flags & VM_EVENT_FLAG_RESET_FORK_STATE;
++                bool reset_mem = rsp.flags & VM_EVENT_FLAG_RESET_FORK_MEMORY;
++
++                if ( (reset_state || reset_mem) &&
++                    mem_sharing_fork_reset(d, reset_state, reset_mem) )
++                {
++                    ASSERT_UNREACHABLE();
++                }
++            }
++#endif
+ 
+             /*
+              * Check emulation flags in the arch-specific handler only, as it
+diff --git a/xen/include/public/memory.h b/xen/include/public/memory.h
+index a1a0f0233a..f8d26fb77d 100644
+--- a/xen/include/public/memory.h
++++ b/xen/include/public/memory.h
+@@ -541,12 +541,14 @@ struct xen_mem_sharing_op {
+                 uint32_t gref;     /* IN: gref to debug         */
+             } u;
+         } debug;
+-        struct mem_sharing_op_fork {      /* OP_FORK */
++        struct mem_sharing_op_fork {      /* OP_FORK{,_RESET} */
+             domid_t parent_domain;        /* IN: parent's domain id */
+ /* Only makes sense for short-lived forks */
+ #define XENMEM_FORK_WITH_IOMMU_ALLOWED (1u << 0)
+ /* Only makes sense for short-lived forks */
+ #define XENMEM_FORK_BLOCK_INTERRUPTS   (1u << 1)
++#define XENMEM_FORK_RESET_STATE        (1u << 2)
++#define XENMEM_FORK_RESET_MEMORY       (1u << 3)
+             uint16_t flags;               /* IN: optional settings */
+             uint32_t pad;                 /* Must be set to 0 */
+         } fork;
+diff --git a/xen/include/public/vm_event.h b/xen/include/public/vm_event.h
+index bb003d21d0..1673bb8703 100644
+--- a/xen/include/public/vm_event.h
++++ b/xen/include/public/vm_event.h
+@@ -127,6 +127,14 @@
+  * Reset the vmtrace buffer (if vmtrace is enabled)
+  */
+ #define VM_EVENT_FLAG_RESET_VMTRACE      (1 << 13)
++/*
++ * Reset the VM state (if VM is fork)
++ */
++#define VM_EVENT_FLAG_RESET_FORK_STATE   (1 << 14)
++/*
++ * Remove unshared entries from physmap (if VM is fork)
++ */
++#define VM_EVENT_FLAG_RESET_FORK_MEMORY  (1 << 15)
+ 
+ /*
+  * Reasons for the vm event request
 -- 
-Julien Grall
+2.34.1
+
 
