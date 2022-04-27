@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3C6F5126B4
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 01:02:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.315572.534242 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA0525126BB
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 01:02:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.315574.534251 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njqgH-0006t1-MQ; Wed, 27 Apr 2022 23:02:45 +0000
+	id 1njqgI-00074H-HB; Wed, 27 Apr 2022 23:02:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 315572.534242; Wed, 27 Apr 2022 23:02:45 +0000
+Received: by outflank-mailman (output) from mailman id 315574.534251; Wed, 27 Apr 2022 23:02:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njqgH-0006fM-2c; Wed, 27 Apr 2022 23:02:45 +0000
-Received: by outflank-mailman (input) for mailman id 315572;
- Wed, 27 Apr 2022 22:51:54 +0000
+	id 1njqgH-0006sg-Tn; Wed, 27 Apr 2022 23:02:45 +0000
+Received: by outflank-mailman (input) for mailman id 315574;
+ Wed, 27 Apr 2022 22:52:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mIOA=VF=igalia.com=gpiccoli@srs-se1.protection.inumbo.net>)
- id 1njqVm-0003ne-Lg
- for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 22:51:54 +0000
+ id 1njqW2-0003ne-Pw
+ for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 22:52:10 +0000
 Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a18ffc0f-c67c-11ec-a405-831a346695d4;
- Thu, 28 Apr 2022 00:51:53 +0200 (CEST)
+ id ab1fdeb7-c67c-11ec-a405-831a346695d4;
+ Thu, 28 Apr 2022 00:52:09 +0200 (CEST)
 Received: from [179.113.53.197] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1njqVW-000250-IT; Thu, 28 Apr 2022 00:51:39 +0200
+ id 1njqVm-00026W-Rl; Thu, 28 Apr 2022 00:51:55 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,19 +40,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a18ffc0f-c67c-11ec-a405-831a346695d4
+X-Inumbo-ID: ab1fdeb7-c67c-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
-	Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+	In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
 	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
 	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
 	List-Post:List-Owner:List-Archive;
-	bh=sBnzQEgOETevrWvoFDe4UXYaoyJvnokumNTnFd8nYd4=; b=C3WoMDzHemUiz3TJonrj4OLB2r
-	FSxQF+F2lHHptNuVBTghKMJZClefE6Imxei6ehl090Dy2iIiwWYXrKfz8k6+wORL9DMg3LEbLg3HV
-	Yy5IDocQKz78CwwV1x1BjunLLiApngptGwnQE+MM0c5kIHbxgr5QD1BtqzYPoELgJZUScA99Ow0T5
-	DgoMAXPJxcpvr2MM73b5S2P6pfeIYXcyYWBlbiqaBO38Mb9qP/Auq8X4+iMlX3NAoRdIHY9DVHKc8
-	OvjiTLZuxC2PHt1XEzIKelV5l8TbSCfHnuQVB2KdJOLt6lDAQzFhqrTn+CsXTsATCFcE2SPeUMfAC
-	eC7wzCXg==;
+	bh=/cdg0sKCsuwzrOmixxbC1Q4JQ/fbIS+o0nd/6r3SqdQ=; b=Ms53zbjgbkvE/VbvvERWDhiSlK
+	xnfSZ26duHs4sJGmX9AjyiOpVrZ24qlvncFPTQgx0Ak1/K+qg/q6M3lNqtXBQSywskWJGGXxxZsyH
+	0ZCt9ADqjTi/3V+XCpSLOfo1kVbAL88rsa3CWloXQYrPcKcjm0fr5wkBOKZGIirx4MPHlXEq/lSP6
+	Wauj7ki9eqiIN/DWOEVCrOIQ5CDDEHA0P4AiVRkbPc3MLQuGkkZQLCDxyedC8rV+CPmlMqMLZGK7O
+	pj27Q1YpHqsziDeg78TsiM6RPMIm39rOPoY53108P/vAvRYTx1t1bv7hv+1+u3acH1fsI00wIEzlf
+	mvZOITKg==;
 From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
 To: akpm@linux-foundation.org,
 	bhe@redhat.com,
@@ -113,76 +113,194 @@ Cc: linux-kernel@vger.kernel.org,
 	vgoyal@redhat.com,
 	vkuznets@redhat.com,
 	will@kernel.org,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Subject: [PATCH 07/30] mips: ip22: Reword PANICED to PANICKED and remove useless header
-Date: Wed, 27 Apr 2022 19:49:01 -0300
-Message-Id: <20220427224924.592546-8-gpiccoli@igalia.com>
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+	Hari Bathini <hbathini@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Paul Mackerras <paulus@samba.org>
+Subject: [PATCH 08/30] powerpc/setup: Refactor/untangle panic notifiers
+Date: Wed, 27 Apr 2022 19:49:02 -0300
+Message-Id: <20220427224924.592546-9-gpiccoli@igalia.com>
 X-Mailer: git-send-email 2.36.0
 In-Reply-To: <20220427224924.592546-1-gpiccoli@igalia.com>
 References: <20220427224924.592546-1-gpiccoli@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Many other place in the kernel prefer the latter, so let's keep
-it consistent in MIPS code as well. Also, removes a useless header.
+The panic notifiers infrastructure is a bit limited in the scope of
+the callbacks - basically every kind of functionality is dropped
+in a list that runs in the same point during the kernel panic path.
+This is not really on par with the complexities and particularities
+of architecture / hypervisors' needs, and a refactor is ongoing.
 
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+As part of this refactor, it was observed that powerpc has 2 notifiers,
+with mixed goals: one is just a KASLR offset dumper, whereas the other
+aims to hard-disable IRQs (necessary on panic path), warn firmware of
+the panic event (fadump) and run low-level platform-specific machinery
+that might stop kernel execution and never come back.
+
+Clearly, the 2nd notifier has opposed goals: disable IRQs / fadump
+should run earlier while low-level platform actions should
+run late since it might not even return. Hence, this patch decouples
+the notifiers splitting them in three:
+
+- First one is responsible for hard-disable IRQs and fadump,
+should run early;
+
+- The kernel KASLR offset dumper is really an informative notifier,
+harmless and may run at any moment in the panic path;
+
+- The last notifier should run last, since it aims to perform
+low-level actions for specific platforms, and might never return.
+It is also only registered for 2 platforms, pseries and ps3.
+
+The patch better documents the notifiers and clears the code too,
+also removing a useless header.
+
+Currently no functionality change should be observed, but after
+the planned panic refactor we should expect more panic reliability
+with this patch.
+
+Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: Hari Bathini <hbathini@linux.ibm.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>
+Cc: Nicholas Piggin <npiggin@gmail.com>
+Cc: Paul Mackerras <paulus@samba.org>
 Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
 ---
- arch/mips/sgi-ip22/ip22-reset.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
 
-diff --git a/arch/mips/sgi-ip22/ip22-reset.c b/arch/mips/sgi-ip22/ip22-reset.c
-index 9028dbbb45dd..8f0861c58080 100644
---- a/arch/mips/sgi-ip22/ip22-reset.c
-+++ b/arch/mips/sgi-ip22/ip22-reset.c
-@@ -11,7 +11,6 @@
- #include <linux/interrupt.h>
- #include <linux/kernel.h>
- #include <linux/sched/signal.h>
+We'd like to thanks specially the MiniCloud infrastructure [0] maintainers,
+that allow us to test PowerPC code in a very complete, functional and FREE
+environment (there's no need even for adding a credit card, like many "free"
+clouds require ¬¬ ).
+
+[0] https://openpower.ic.unicamp.br/minicloud
+
+ arch/powerpc/kernel/setup-common.c | 74 ++++++++++++++++++++++--------
+ 1 file changed, 54 insertions(+), 20 deletions(-)
+
+diff --git a/arch/powerpc/kernel/setup-common.c b/arch/powerpc/kernel/setup-common.c
+index 518ae5aa9410..52f96b209a96 100644
+--- a/arch/powerpc/kernel/setup-common.c
++++ b/arch/powerpc/kernel/setup-common.c
+@@ -23,7 +23,6 @@
+ #include <linux/console.h>
+ #include <linux/screen_info.h>
+ #include <linux/root_dev.h>
 -#include <linux/notifier.h>
- #include <linux/panic_notifier.h>
- #include <linux/pm.h>
- #include <linux/timer.h>
-@@ -41,7 +40,7 @@
- static struct timer_list power_timer, blink_timer, debounce_timer;
- static unsigned long blink_timer_timeout;
+ #include <linux/cpu.h>
+ #include <linux/unistd.h>
+ #include <linux/serial.h>
+@@ -680,8 +679,25 @@ int check_legacy_ioport(unsigned long base_port)
+ }
+ EXPORT_SYMBOL(check_legacy_ioport);
  
--#define MACHINE_PANICED		1
-+#define MACHINE_PANICKED		1
- #define MACHINE_SHUTTING_DOWN	2
- 
- static int machine_state;
-@@ -112,7 +111,7 @@ static void debounce(struct timer_list *unused)
- 		return;
- 	}
- 
--	if (machine_state & MACHINE_PANICED)
-+	if (machine_state & MACHINE_PANICKED)
- 		sgimc->cpuctrl0 |= SGIMC_CCTRL0_SYSINIT;
- 
- 	enable_irq(SGI_PANEL_IRQ);
-@@ -120,7 +119,7 @@ static void debounce(struct timer_list *unused)
- 
- static inline void power_button(void)
+-static int ppc_panic_event(struct notifier_block *this,
+-                             unsigned long event, void *ptr)
++/*
++ * Panic notifiers setup
++ *
++ * We have 3 notifiers for powerpc, each one from a different "nature":
++ *
++ * - ppc_panic_fadump_handler() is a hypervisor notifier, which hard-disables
++ *   IRQs and deal with the Firmware-Assisted dump, when it is configured;
++ *   should run early in the panic path.
++ *
++ * - dump_kernel_offset() is an informative notifier, just showing the KASLR
++ *   offset if we have RANDOMIZE_BASE set.
++ *
++ * - ppc_panic_platform_handler() is a low-level handler that's registered
++ *   only if the platform wishes to perform final actions in the panic path,
++ *   hence it should run late and might not even return. Currently, only
++ *   pseries and ps3 platforms register callbacks.
++ */
++static int ppc_panic_fadump_handler(struct notifier_block *this,
++				    unsigned long event, void *ptr)
  {
--	if (machine_state & MACHINE_PANICED)
-+	if (machine_state & MACHINE_PANICKED)
- 		return;
+ 	/*
+ 	 * panic does a local_irq_disable, but we really
+@@ -691,45 +707,63 @@ static int ppc_panic_event(struct notifier_block *this,
  
- 	if ((machine_state & MACHINE_SHUTTING_DOWN) ||
-@@ -167,9 +166,9 @@ static irqreturn_t panel_int(int irq, void *dev_id)
- static int panic_event(struct notifier_block *this, unsigned long event,
- 		      void *ptr)
+ 	/*
+ 	 * If firmware-assisted dump has been registered then trigger
+-	 * firmware-assisted dump and let firmware handle everything else.
++	 * its callback and let the firmware handles everything else.
+ 	 */
+ 	crash_fadump(NULL, ptr);
+-	if (ppc_md.panic)
+-		ppc_md.panic(ptr);  /* May not return */
++
+ 	return NOTIFY_DONE;
+ }
+ 
+-static struct notifier_block ppc_panic_block = {
+-	.notifier_call = ppc_panic_event,
+-	.priority = INT_MIN /* may not return; must be done last */
+-};
+-
+-/*
+- * Dump out kernel offset information on panic.
+- */
+ static int dump_kernel_offset(struct notifier_block *self, unsigned long v,
+ 			      void *p)
  {
--	if (machine_state & MACHINE_PANICED)
-+	if (machine_state & MACHINE_PANICKED)
- 		return NOTIFY_DONE;
--	machine_state |= MACHINE_PANICED;
-+	machine_state |= MACHINE_PANICKED;
+ 	pr_emerg("Kernel Offset: 0x%lx from 0x%lx\n",
+ 		 kaslr_offset(), KERNELBASE);
  
- 	blink_timer_timeout = PANIC_FREQ;
- 	blink_timeout(&blink_timer);
+-	return 0;
++	return NOTIFY_DONE;
+ }
+ 
++static int ppc_panic_platform_handler(struct notifier_block *this,
++				      unsigned long event, void *ptr)
++{
++	/*
++	 * This handler is only registered if we have a panic callback
++	 * on ppc_md, hence NULL check is not needed.
++	 * Also, it may not return, so it runs really late on panic path.
++	 */
++	ppc_md.panic(ptr);
++
++	return NOTIFY_DONE;
++}
++
++static struct notifier_block ppc_fadump_block = {
++	.notifier_call = ppc_panic_fadump_handler,
++	.priority = INT_MAX, /* run early, to notify the firmware ASAP */
++};
++
+ static struct notifier_block kernel_offset_notifier = {
+-	.notifier_call = dump_kernel_offset
++	.notifier_call = dump_kernel_offset,
++};
++
++static struct notifier_block ppc_panic_block = {
++	.notifier_call = ppc_panic_platform_handler,
++	.priority = INT_MIN, /* may not return; must be done last */
+ };
+ 
+ void __init setup_panic(void)
+ {
++	/* Hard-disables IRQs + deal with FW-assisted dump (fadump) */
++	atomic_notifier_chain_register(&panic_notifier_list,
++				       &ppc_fadump_block);
++
+ 	if (IS_ENABLED(CONFIG_RANDOMIZE_BASE) && kaslr_offset() > 0)
+ 		atomic_notifier_chain_register(&panic_notifier_list,
+ 					       &kernel_offset_notifier);
+ 
+-	/* PPC64 always does a hard irq disable in its panic handler */
+-	if (!IS_ENABLED(CONFIG_PPC64) && !ppc_md.panic)
+-		return;
+-	atomic_notifier_chain_register(&panic_notifier_list, &ppc_panic_block);
++	/* Low-level platform-specific routines that should run on panic */
++	if (ppc_md.panic)
++		atomic_notifier_chain_register(&panic_notifier_list,
++					       &ppc_panic_block);
+ }
+ 
+ #ifdef CONFIG_CHECK_CACHE_COHERENCY
 -- 
 2.36.0
 
