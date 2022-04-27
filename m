@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBA715126D4
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 01:03:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.315618.534490 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A2595126B6
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 01:02:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.315620.534164 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njqh2-0001F1-PK; Wed, 27 Apr 2022 23:03:32 +0000
+	id 1njqfk-00052P-U8; Wed, 27 Apr 2022 23:02:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 315618.534490; Wed, 27 Apr 2022 23:03:32 +0000
+Received: by outflank-mailman (output) from mailman id 315620.534164; Wed, 27 Apr 2022 23:02:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njqh0-0000X1-Lw; Wed, 27 Apr 2022 23:03:30 +0000
-Received: by outflank-mailman (input) for mailman id 315618;
- Wed, 27 Apr 2022 22:58:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1njqfk-000501-RE; Wed, 27 Apr 2022 23:02:12 +0000
+Received: by outflank-mailman (input) for mailman id 315620;
+ Wed, 27 Apr 2022 23:02:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mIOA=VF=igalia.com=gpiccoli@srs-se1.protection.inumbo.net>)
- id 1njqcc-00048k-L0
- for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 22:58:58 +0000
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9e790fe4-c67d-11ec-8fc3-03012f2f19d4;
- Thu, 28 Apr 2022 00:58:58 +0200 (CEST)
-Received: from [179.113.53.197] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1njqcO-0002Xa-TN; Thu, 28 Apr 2022 00:58:45 +0200
+ <SRS0=83Ve=VF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1njqfj-0004zv-7c
+ for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 23:02:11 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 10168384-c67e-11ec-a405-831a346695d4;
+ Thu, 28 Apr 2022 01:02:09 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8045C61EB1;
+ Wed, 27 Apr 2022 23:02:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E312C385B3;
+ Wed, 27 Apr 2022 23:02:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,124 +44,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e790fe4-c67d-11ec-8fc3-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
-	Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=hhYlsUbOeU+dOwRnxPZPUYbOytvtm3s9TOl//oHNJDA=; b=d0jf6vbMLbNOzh0eGG9B6/Px+6
-	qkEUtrYepm4ucy/4pLos0iQRqgjXbtzxxFn26kSmjojOKmseLi3xGvVq3y13qqT30NTY0kTvl6DKc
-	b6KKl04amU0+oieZ13497T1EMR69awT+qjyjGwR4D5aTKq4vZpRUj+GzWZO2UZDfeYATrEMziknBs
-	TEMzSmzx206U+K28hnKwrx3+IjpI8ZztfEqS39tmb441zpVb+KuDwyZTgdwShziC74jYqn49bnQHG
-	y/bSqJ0agKp8q0sRXPRW98dnPCHObluazUbKWH8Sqc1S7wQ8dewAG//hvPY5MrIv8zVHDor3/GUxI
-	SaUMFP1g==;
-From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-To: akpm@linux-foundation.org,
-	bhe@redhat.com,
-	pmladek@suse.com,
-	kexec@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org,
-	bcm-kernel-feedback-list@broadcom.com,
-	coresight@lists.linaro.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-edac@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	linux-leds@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	linux-parisc@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	linux-xtensa@linux-xtensa.org,
-	netdev@vger.kernel.org,
-	openipmi-developer@lists.sourceforge.net,
-	rcu@vger.kernel.org,
-	sparclinux@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	x86@kernel.org,
-	kernel-dev@igalia.com,
-	gpiccoli@igalia.com,
-	kernel@gpiccoli.net,
-	halves@canonical.com,
-	fabiomirmar@gmail.com,
-	alejandro.j.jimenez@oracle.com,
-	andriy.shevchenko@linux.intel.com,
-	arnd@arndb.de,
-	bp@alien8.de,
-	corbet@lwn.net,
-	d.hatayama@jp.fujitsu.com,
-	dave.hansen@linux.intel.com,
-	dyoung@redhat.com,
-	feng.tang@intel.com,
-	gregkh@linuxfoundation.org,
-	mikelley@microsoft.com,
-	hidehiro.kawai.ez@hitachi.com,
-	jgross@suse.com,
-	john.ogness@linutronix.de,
-	keescook@chromium.org,
-	luto@kernel.org,
-	mhiramat@kernel.org,
-	mingo@redhat.com,
-	paulmck@kernel.org,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	senozhatsky@chromium.org,
-	stern@rowland.harvard.edu,
-	tglx@linutronix.de,
-	vgoyal@redhat.com,
-	vkuznets@redhat.com,
-	will@kernel.org,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Richard Weinberger <richard@nod.at>
-Subject: [PATCH 30/30] um: Avoid duplicate call to kmsg_dump()
-Date: Wed, 27 Apr 2022 19:49:24 -0300
-Message-Id: <20220427224924.592546-31-gpiccoli@igalia.com>
-X-Mailer: git-send-email 2.36.0
-In-Reply-To: <20220427224924.592546-1-gpiccoli@igalia.com>
-References: <20220427224924.592546-1-gpiccoli@igalia.com>
+X-Inumbo-ID: 10168384-c67e-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1651100526;
+	bh=2B0I6UKvUahmLNSo7IJecEPRSchsOYXKzGhpm2fjGfA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=iWBvdqT4Qbwoh8GS0FE0U+3z8IjbOdIrIB+iUg8neoPXQ/0gONGe+OhYJN+vMexTB
+	 IAsa7lGrQ8KxXbqwxi8iA2tMb6cYDi3NyE374HAKBYxHXe9IxD9TV0gkAQmM8ZS9Z4
+	 lxzOaUjoeoLvll8SKdhSqH6dFWAk1HZk6ibxPsW9oZl5Rr9TlylM39adOi91tW4kzM
+	 h8FOt9hL48grw2OKXn2Wy2XjaChLVMLrcTsG8KbOFyzbUvxPZ42N4IJ3tvyS8P6Uff
+	 OKbNTDYsY5ErNtrUxecTB/IVX3DJGW48T5wbtnk/ZZsaGMH+uBF3JMB87oScH9eKRO
+	 lFFGSWaT4p9PA==
+Date: Wed, 27 Apr 2022 16:02:05 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: osstest service owner <osstest-admin@xenproject.org>, 
+    xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
+    David Vrabel <dvrabel@amazon.co.uk>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: Re: [xen-unstable-smoke test] 169781: regressions - FAIL
+In-Reply-To: <d1d3d81e-fe1d-fc1c-11b3-781263d8ba84@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2204271556110.915916@ubuntu-linux-20-04-desktop>
+References: <osstest-169781-mainreport@xen.org> <d1d3d81e-fe1d-fc1c-11b3-781263d8ba84@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-Currently the panic notifier panic_exit() calls kmsg_dump() and
-some console flushing routines - this makes sense since such
-panic notifier exits UserMode Linux and never returns.
+On Wed, 27 Apr 2022, Julien Grall wrote:
+> On 27/04/2022 17:38, osstest service owner wrote:
+> > flight 169781 xen-unstable-smoke real [real]
+> > flight 169785 xen-unstable-smoke real-retest [real]
+> > http://logs.test-lab.xenproject.org/osstest/logs/169781/
+> > http://logs.test-lab.xenproject.org/osstest/logs/169785/
+> > 
+> > Regressions :-(
+> > 
+> > Tests which did not succeed and are blocking,
+> > including tests which could not be run:
+> >   test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs.
+> > 169773
+> 
+> Well, I was overly optimistic :(. This now breaks in the ITS code:
+> 
+> Apr 27 13:23:14.324831 (XEN) Xen call trace:
+> Apr 27 13:23:14.324855 (XEN)    [<000000000022a678>]
+> alloc_xenheap_pages+0x178/0x194 (PC)
+> Apr 27 13:23:14.336856 (XEN)    [<000000000022a670>]
+> alloc_xenheap_pages+0x170/0x194 (LR)
+> Apr 27 13:23:14.336886 (XEN)    [<0000000000237770>] _xmalloc+0x144/0x294
+> Apr 27 13:23:14.348773 (XEN)    [<00000000002378d4>] _xzalloc+0x14/0x30
+> Apr 27 13:23:14.348808 (XEN)    [<000000000027b4e4>]
+> gicv3_lpi_init_rdist+0x54/0x324
+> Apr 27 13:23:14.348835 (XEN)    [<0000000000279898>]
+> arch/arm/gic-v3.c#gicv3_cpu_init+0x128/0x46c
+> Apr 27 13:23:14.360799 (XEN)    [<0000000000279bfc>]
+> arch/arm/gic-v3.c#gicv3_secondary_cpu_init+0x20/0x50
+> Apr 27 13:23:14.372796 (XEN)    [<0000000000277054>]
+> gic_init_secondary_cpu+0x18/0x30
+> Apr 27 13:23:14.372829 (XEN)    [<0000000000284518>]
+> start_secondary+0x1a8/0x234
+> Apr 27 13:23:14.372856 (XEN)    [<0000010722aa4200>] 0000010722aa4200
+> Apr 27 13:23:14.384793 (XEN)
+> Apr 27 13:23:14.384823 (XEN)
+> Apr 27 13:23:14.384845 (XEN) ****************************************
+> Apr 27 13:23:14.384869 (XEN) Panic on CPU 2:
+> Apr 27 13:23:14.384891 (XEN) Assertion '!in_irq() && (local_irq_is_enabled()
+> || num_online_cpus() <= 1)' failed at common/page_alloc.c:2212
+> Apr 27 13:23:14.396805 (XEN) ****************************************
+> 
+> The GICv3 LPI code contains a few calls to xmalloc() that will be done while
+> initializing the GIC CPU interface. I don't think we can delay the
+> initialization of the LPI part past local_irq_enable(). So I think we will
+> need to allocate the memory when preparing the CPU.
+> 
+> Any thoughts?
 
-Happens that after a panic refactor, kmsg_dump() is now always
-called *before* the pre_reboot list of panic notifiers, in which
-panic_exit() belongs, leading to a double call situation.
 
-This patch changes that by removing such call from the panic
-notifier, but leaving the console flushing calls since the
-pre_reboot list still runs before console flushing on panic().
+As a general principle I think the ASSERT is a good idea, and it should
+make the code better and safer. I would not change the code to make the
+ASSERT go away if not to improve the code.
 
-Cc: Anton Ivanov <anton.ivanov@cambridgegreys.com>
-Cc: Johannes Berg <johannes@sipsolutions.net>
-Cc: Richard Weinberger <richard@nod.at>
-Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
----
- arch/um/kernel/um_arch.c | 1 -
- 1 file changed, 1 deletion(-)
+In this case, gicv3_lpi_init_rdist and gicv3_lpi_allocate_pendtable
+should be __init functions although they are not marked as __init at the
+moment.
 
-diff --git a/arch/um/kernel/um_arch.c b/arch/um/kernel/um_arch.c
-index fc6e443299da..651310e3e86f 100644
---- a/arch/um/kernel/um_arch.c
-+++ b/arch/um/kernel/um_arch.c
-@@ -241,7 +241,6 @@ static void __init uml_postsetup(void)
- static int panic_exit(struct notifier_block *self, unsigned long unused1,
- 		      void *unused2)
- {
--	kmsg_dump(KMSG_DUMP_PANIC);
- 	bust_spinlocks(1);
- 	bust_spinlocks(0);
- 	uml_exitcode = 1;
--- 
-2.36.0
+It seems to me that it is acceptable to allocate memory with interrupt
+disabled during __init. I cannot see any drawbacks with it. I think we
+should change the ASSERT to only trigger after __init: system_state ==
+SYS_STATE_active.
 
+What do you think?
 
