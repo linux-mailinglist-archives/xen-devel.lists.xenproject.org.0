@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3697510D4D
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 02:39:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.314255.532230 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E84F510D70
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 02:52:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.314262.532241 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njVhS-0001Se-V8; Wed, 27 Apr 2022 00:38:34 +0000
+	id 1njVuL-0003nZ-9T; Wed, 27 Apr 2022 00:51:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 314255.532230; Wed, 27 Apr 2022 00:38:34 +0000
+Received: by outflank-mailman (output) from mailman id 314262.532241; Wed, 27 Apr 2022 00:51:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njVhS-0001Pz-RS; Wed, 27 Apr 2022 00:38:34 +0000
-Received: by outflank-mailman (input) for mailman id 314255;
- Wed, 27 Apr 2022 00:38:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=83Ve=VF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1njVhS-0001Pt-3B
- for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 00:38:34 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5cae34aa-c5c2-11ec-8fc2-03012f2f19d4;
- Wed, 27 Apr 2022 02:38:32 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6926A61A71;
- Wed, 27 Apr 2022 00:38:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57BA8C385A4;
- Wed, 27 Apr 2022 00:38:29 +0000 (UTC)
+	id 1njVuL-0003km-62; Wed, 27 Apr 2022 00:51:53 +0000
+Received: by outflank-mailman (input) for mailman id 314262;
+ Wed, 27 Apr 2022 00:51:52 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1njVuK-0003kc-75; Wed, 27 Apr 2022 00:51:52 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1njVuK-0001cQ-1I; Wed, 27 Apr 2022 00:51:52 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1njVuJ-000289-Og; Wed, 27 Apr 2022 00:51:51 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1njVuJ-0004ay-OA; Wed, 27 Apr 2022 00:51:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,402 +42,280 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5cae34aa-c5c2-11ec-8fc2-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1651019909;
-	bh=Dbm/WTOJGlznwBy/NNY7zd7knuH35fdhKZhJ4BJatG8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Cxen2MNArQ1ZpLg+VDBNQ+0KK+SUmpjcB8it0Bx8BwEb/ZxOFOpL4yTAtd1sVOm4j
-	 AMsZpAc22oVyPv5nJgr/Aw11XXr1RppnaN0k4M9bkXQFe5IAdCYWzmAmNfkHpcBdlg
-	 Renf9tphxJ+MAOm1Ly+wRWZH1rV1UFAhCV5PGZwe27IeLnrO4yPP/GHqeJ9AbTrNgu
-	 2N597OL4liwDm7sN0XLDLOrptlF8RbAC0ZmlABUgDaFCmudBgIrmRK2Ri4aIRoQ1gR
-	 IM1OlE5uoflsD0EHCUYm7sdtHeaU3T14dKmdJzPwrg9qJyLUPmLES3P/I6hp3lKF2B
-	 9UhuNv/2YQelg==
-Date: Tue, 26 Apr 2022 17:38:28 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Wei Liu <wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Michal Orzel <michal.orzel@arm.com>
-Subject: Re: [PATCH v3] xen/build: Add cppcheck and cppcheck-html make
- rules
-In-Reply-To: <8a8ffce11591efb284c93214b77534fa4e4134b2.1650976647.git.bertrand.marquis@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2204261716370.915916@ubuntu-linux-20-04-desktop>
-References: <8a8ffce11591efb284c93214b77534fa4e4134b2.1650976647.git.bertrand.marquis@arm.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=6zAfma9MrX7PMcFHIr61+1tjqOBkpOtkapQwoZxoaJ8=; b=X0VAQC1HuCGpP9rEmp2UkFjuxl
+	S+kM1ZJqUN2cTFYP5S7BjeOdiTYyj0Oz16Q5ebRx30H7RNoTePsdyUH/AxL0bTkyIyHMyfGZbbehz
+	Uv8g1BH4OZ+wWNfcNYQgj2eego+bL3uXZWOo31+wprpaifVePN92P6QT6BYeawxHfl4g=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-169749-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [qemu-mainline test] 169749: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    qemu-mainline:test-amd64-amd64-xl-shadow:guest-localmigrate/x10:fail:heisenbug
+    qemu-mainline:test-amd64-amd64-xl-rtds:guest-localmigrate/x10:fail:allowable
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=80a172de5592b5c33aa6bc30da6f16c4ad1ae390
+X-Osstest-Versions-That:
+    qemuu=a1755db71e34df016ffc10aa0727360aae2c6036
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 27 Apr 2022 00:51:51 +0000
 
-On Tue, 26 Apr 2022, Bertrand Marquis wrote:
-> cppcheck can be used to check Xen code quality.
-> 
-> To create a report do "make cppcheck" on a built tree adding any options
-> you added during the process you used to build xen (like CROSS_COMPILE
-> or XEN_TARGET_ARCH). This will generate an xml report xen-cppcheck.xml.
-> 
-> To create a html report do "make cppcheck-html" in the same way and a
-> full report to be seen in a browser will be generated in
-> cppcheck-htmlreport/index.html.
-> 
-> For better results it is recommended to build your own cppcheck from the
-> latest sources that you can find at [1].
-> Development and result analysis has been done with cppcheck 2.7.
-> 
-> The Makefile rule is searching for all C files which have been compiled
-> (ie which have a generated .o file) and is running cppcheck on all of
-> them using the current configuration of xen so only the code actually
-> compiled is checked.
-> 
-> A new tool is introduced to merge all cppcheck reports into one global
-> report including all findings and removing duplicates.
-> 
-> Some extra variables can be used to customize the report:
-> - CPPCHECK can be used to give the full path to the cppcheck binary to
-> use (default is to use the one from the standard path).
-> - CPPCHECK_HTMLREPORT can be used to give the full path to
-> cppcheck-htmlreport (default is to use the one from the standard path).
-> 
-> This has been tested on several arm configurations (x86 should work but
-> has not been tested).
-> 
-> [1] https://cppcheck.sourceforge.io/
-> 
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
+flight 169749 qemu-mainline real [real]
+flight 169760 qemu-mainline real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169749/
+http://logs.test-lab.xenproject.org/osstest/logs/169760/
 
-I tested the patch and it works fine for me.
+Failures :-/ but no regressions.
 
-Tested-by: Stefano Stabellini <sstabellini@kernel.org>
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-xl-shadow 20 guest-localmigrate/x10 fail pass in 169760-retest
 
-In regard to the review, merge_cppcheck_reports.py looks OK now. It
-handles all the exceptions and errors properly. I don't have any
-comments on the Makefile changes, they look OK.
+Regressions which are regarded as allowable (not blocking):
+ test-amd64-amd64-xl-rtds     20 guest-localmigrate/x10   fail REGR. vs. 169725
 
-For the headers (processor.h, config.h, kconfig.h), it is not ideal to
-have #ifdef CPPCHECK but given that they are the only changes needed to
-be able to do a full cppcheck scan of the Xen source, I'd say that it is
-a small price worth paying.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 169725
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 169725
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 169725
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 169725
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 169725
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 169725
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 169725
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 169725
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-So overall:
+version targeted for testing:
+ qemuu                80a172de5592b5c33aa6bc30da6f16c4ad1ae390
+baseline version:
+ qemuu                a1755db71e34df016ffc10aa0727360aae2c6036
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Last test of basis   169725  2022-04-26 02:47:03 Z    0 days
+Testing same since   169749  2022-04-26 17:07:01 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Eugenio Pérez <eperezma@redhat.com>
+  Jason Wang <jasowang@redhat.com>
+  Laurent Vivier <laurent@vivier.eu>
+  Richard Henderson <richard.henderson@linaro.org>
+  Stefan Weil <sw@weilnetz.de>
+  Thomas Huth <thuth@redhat.com>
+  Yuval Shaia <yuval.shaia.ml@gmail.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     fail    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   fail    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
 
 
-> ---
-> Changes in v3:
-> - add more checks in merge script and catch all possible exception from
-> the xml parser (suggested by Stefano)
-> Changes in v2:
-> - catch parsing errors during merge and tell the user to update cppcheck
-> - fix alignments in Makefile
-> - use srctree and objtree instead of BASEDIR
-> - remove SCTLR invalid change
-> - add a check of cppcheck version and mandate version 2.7 or greater
-> - rework a bit the merge script to make it faster and display progress
-> ---
->  .gitignore                           |  3 +
->  xen/Makefile                         | 84 ++++++++++++++++++++++++++-
->  xen/arch/arm/include/asm/processor.h |  2 +
->  xen/include/xen/config.h             |  4 ++
->  xen/include/xen/kconfig.h            |  5 ++
->  xen/tools/merge_cppcheck_reports.py  | 86 ++++++++++++++++++++++++++++
->  6 files changed, 182 insertions(+), 2 deletions(-)
->  create mode 100755 xen/tools/merge_cppcheck_reports.py
-> 
-> diff --git a/.gitignore b/.gitignore
-> index c6d2c4b4f1..18ef56a780 100644
-> --- a/.gitignore
-> +++ b/.gitignore
-> @@ -7,6 +7,7 @@
->  *.o
->  *.d
->  *.d2
-> +*.c.cppcheck
->  *.opic
->  *.a
->  *.so
-> @@ -296,6 +297,7 @@ xen/.banner
->  xen/.config
->  xen/.config.old
->  xen/.xen.elf32
-> +xen/xen-cppcheck.xml
->  xen/System.map
->  xen/arch/x86/boot/mkelf32
->  xen/arch/x86/boot/cmdline.S
-> @@ -316,6 +318,7 @@ xen/arch/*/efi/runtime.c
->  xen/arch/*/include/asm/asm-offsets.h
->  xen/common/config_data.S
->  xen/common/config.gz
-> +xen/cppcheck-htmlreport
->  xen/include/headers*.chk
->  xen/include/compat/*
->  xen/include/config/
-> diff --git a/xen/Makefile b/xen/Makefile
-> index ec34524ed2..255360440e 100644
-> --- a/xen/Makefile
-> +++ b/xen/Makefile
-> @@ -449,7 +449,7 @@ endif # need-config
->  
->  __all: build
->  
-> -main-targets := build install uninstall clean distclean MAP
-> +main-targets := build install uninstall clean distclean MAP cppcheck cppcheck-html
->  .PHONY: $(main-targets)
->  ifneq ($(XEN_TARGET_ARCH),x86_32)
->  $(main-targets): %: _% ;
-> @@ -537,15 +537,17 @@ _clean:
->  	$(Q)$(MAKE) $(clean)=tools/kconfig
->  	find . \( -name "*.o" -o -name ".*.d" -o -name ".*.d2" \
->  		-o -name ".*.o.tmp" -o -name "*~" -o -name "core" \
-> -		-o -name '*.lex.c' -o -name '*.tab.[ch]' \
-> +		-o -name '*.lex.c' -o -name '*.tab.[ch]' -o -name '*.c.cppcheck' \
->  		-o -name "*.gcno" -o -name ".*.cmd" -o -name "lib.a" \) -exec rm -f {} \;
->  	rm -f include/asm $(TARGET) $(TARGET).gz $(TARGET).efi $(TARGET).efi.map $(TARGET)-syms $(TARGET)-syms.map
->  	rm -f asm-offsets.s arch/*/include/asm/asm-offsets.h
->  	rm -f .banner .allconfig.tmp include/xen/compile.h
-> +	rm -f xen-cppcheck.xml
->  
->  .PHONY: _distclean
->  _distclean: clean
->  	rm -f tags TAGS cscope.files cscope.in.out cscope.out cscope.po.out GTAGS GPATH GRTAGS GSYMS .config source
-> +	rm -rf $(CPPCHECK_HTMLREPORT_OUTDIR)
->  
->  $(TARGET).gz: $(TARGET)
->  	gzip -n -f -9 < $< > $@.new
-> @@ -619,6 +621,84 @@ cloc:
->  	    done; \
->  	done | cloc --list-file=-
->  
-> +# What cppcheck command to use.
-> +# To get proper results, it is recommended to build cppcheck manually from the
-> +# latest source and use CPPCHECK to give the full path to the built version.
-> +CPPCHECK ?= cppcheck
-> +
-> +# What cppcheck-htmlreport to use.
-> +# If you give the full path to a self compiled cppcheck, this should be set
-> +# to the full path to cppcheck-html in the htmlreport directory of cppcheck.
-> +# On recent distribution, this is available in the standard path.
-> +CPPCHECK_HTMLREPORT ?= cppcheck-htmlreport
-> +
-> +# By default we generate the report in cppcheck-htmlreport directory in the
-> +# build directory. This can be changed by giving a directory in this variable.
-> +CPPCHECK_HTMLREPORT_OUTDIR ?= cppcheck-htmlreport
-> +
-> +# Compile flags to pass to cppcheck:
-> +# - include directories and defines Xen Makefile is passing (from CFLAGS)
-> +# - include config.h as this is passed directly to the compiler.
-> +# - define CPPCHECK as we use to disable or enable some specific part of the
-> +#   code to solve some cppcheck issues.
-> +# - explicitely enable some cppcheck checks as we do not want to use "all"
-> +#   which includes unusedFunction which gives wrong positives as we check file
-> +#   per file.
-> +#
-> +# Compiler defines are in compiler-def.h which is included in config.h
-> +#
-> +CPPCHECKFLAGS := -DCPPCHECK --max-ctu-depth=10 \
-> +                 --enable=style,information,missingInclude \
-> +                 --include=$(srctree)/include/xen/config.h \
-> +                 -I $(srctree)/xsm/flask/include \
-> +                 -I $(srctree)/include/xen/libfdt \
-> +                 $(filter -D% -I%,$(CFLAGS))
-> +
-> +# We need to find all C files (as we are not checking assembly files) so
-> +# we find all generated .o files which have a .c corresponding file.
-> +CPPCHECKFILES := $(wildcard $(patsubst $(objtree)/%.o,$(srctree)/%.c, \
-> +                 $(filter-out $(objtree)/tools/%, \
-> +                 $(shell find $(objtree) -name "*.o"))))
-> +
-> +quiet_cmd_cppcheck_xml = CPPCHECK $(patsubst $(srctree)/%,%,$<)
-> +cmd_cppcheck_xml = $(CPPCHECK) -v -q --xml $(CPPCHECKFLAGS) \
-> +                   --output-file=$@ $<
-> +
-> +quiet_cmd_merge_cppcheck_reports = CPPCHECK-MERGE $@
-> +cmd_merge_cppcheck_reports = $(srctree)/tools/merge_cppcheck_reports.py $^ $@
-> +
-> +quiet_cmd_cppcheck_html = CPPCHECK-HTML $<
-> +cmd_cppcheck_html = $(CPPCHECK_HTMLREPORT) --file=$< --source-dir=$(srctree) \
-> +                    --report-dir=$(CPPCHECK_HTMLREPORT_OUTDIR) --title=Xen
-> +
-> +PHONY += _cppcheck _cppcheck-html cppcheck-version
-> +
-> +_cppcheck-html: xen-cppcheck.xml
-> +	$(call if_changed,cppcheck_html)
-> +
-> +_cppcheck: xen-cppcheck.xml
-> +
-> +xen-cppcheck.xml: $(patsubst $(srctree)/%.c,$(objtree)/%.c.cppcheck,$(CPPCHECKFILES))
-> +ifeq ($(CPPCHECKFILES),)
-> +	$(error Please build Xen before running cppcheck)
-> +endif
-> +	$(call if_changed,merge_cppcheck_reports)
-> +
-> +$(objtree)/%.c.cppcheck: $(srctree)/%.c $(objtree)/include/generated/autoconf.h $(objtree)/include/generated/compiler-def.h | cppcheck-version
-> +	$(call if_changed,cppcheck_xml)
-> +
-> +cppcheck-version:
-> +ifeq ($(shell which $(CPPCHECK)),)
-> +	$(error Cannot find cppcheck executable: $(CPPCHECK))
-> +endif
-> +ifeq ($(shell $(CPPCHECK) --version | awk '{print ($$2 < 2.7)}'),1)
-> +	$(error Please upgrade your cppcheck to version 2.7 or greater)
-> +endif
-> +
-> +# Put this in generated headers this way it is cleaned by include/Makefile
-> +$(objtree)/include/generated/compiler-def.h:
-> +	$(Q)$(CC) -dM -E -o $@ - < /dev/null
-> +
->  endif #config-build
->  endif # need-sub-make
->  
-> diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
-> index 852b5f3c24..ef37cfa16f 100644
-> --- a/xen/arch/arm/include/asm/processor.h
-> +++ b/xen/arch/arm/include/asm/processor.h
-> @@ -219,9 +219,11 @@
->                           SCTLR_Axx_ELx_A    | SCTLR_Axx_ELx_C   |\
->                           SCTLR_Axx_ELx_WXN  | SCTLR_Axx_ELx_EE)
->  
-> +#ifndef CPPCHECK
->  #if (SCTLR_EL2_SET ^ SCTLR_EL2_CLEAR) != 0xffffffffffffffffUL
->  #error "Inconsistent SCTLR_EL2 set/clear bits"
->  #endif
-> +#endif
->  
->  #endif
->  
-> diff --git a/xen/include/xen/config.h b/xen/include/xen/config.h
-> index 85c6f59be9..d888b2314d 100644
-> --- a/xen/include/xen/config.h
-> +++ b/xen/include/xen/config.h
-> @@ -7,6 +7,10 @@
->  #ifndef __XEN_CONFIG_H__
->  #define __XEN_CONFIG_H__
->  
-> +#ifdef CPPCHECK
-> +#include <generated/compiler-def.h>
-> +#endif
-> +
->  #include <xen/kconfig.h>
->  
->  #ifndef __ASSEMBLY__
-> diff --git a/xen/include/xen/kconfig.h b/xen/include/xen/kconfig.h
-> index 4d58c5bb3c..a717b0819c 100644
-> --- a/xen/include/xen/kconfig.h
-> +++ b/xen/include/xen/kconfig.h
-> @@ -8,6 +8,10 @@
->   * these only work with boolean option.
->   */
->  
-> +/* cppcheck is failing to parse the macro so use a dummy one */
-> +#ifdef CPPCHECK
-> +#define IS_ENABLED(option) option
-> +#else
->  /*
->   * Getting something that works in C and CPP for an arg that may or may
->   * not be defined is tricky.  Here, if we have "#define CONFIG_BOOGER 1"
-> @@ -27,5 +31,6 @@
->   * otherwise.
->   */
->  #define IS_ENABLED(option) config_enabled(option)
-> +#endif
->  
->  #endif /* __XEN_KCONFIG_H */
-> diff --git a/xen/tools/merge_cppcheck_reports.py b/xen/tools/merge_cppcheck_reports.py
-> new file mode 100755
-> index 0000000000..1c1b63ba56
-> --- /dev/null
-> +++ b/xen/tools/merge_cppcheck_reports.py
-> @@ -0,0 +1,86 @@
-> +#!/usr/bin/env python
-> +
-> +"""
-> +This script acts as a tool to merge XML files created by cppcheck.
-> +Usage:
-> +    merge_cppcheck_reports.py [FILES] [OUTPUT]
-> +
-> +    FILES  - list of XML files with extension .cppcheck
-> +    OUTPUT - file to store results (with .xml extension).
-> +             If not specified, the script will print results to stdout.
-> +"""
-> +
-> +import sys
-> +from xml.etree import ElementTree
-> +
-> +def elements_equal(el1, el2):
-> +    if type(el1) != type(el2): return False
-> +
-> +    if el1.find('location') is None: return False
-> +    if el2.find('location') is None: return False
-> +
-> +    el1_location = str(el1.find('location').attrib)
-> +    el2_location = str(el2.find('location').attrib)
-> +
-> +    if el1_location != el2_location: return False
-> +
-> +    return True
-> +
-> +def contain_element(new, lst):
-> +    for elem in lst:
-> +        if elements_equal(new, elem):
-> +            return True
-> +    return False
-> +
-> +def merge(files):
-> +    try:
-> +        result_xml_root = ElementTree.parse(files[0]).getroot()
-> +    except:
-> +        print("Xml parsing error in %s\n" % (files[0]))
-> +        print("Please upgrade your cppcheck to version 2.7 or greater")
-> +        sys.exit(1)
-> +    insert_point = result_xml_root.findall("errors")[0]
-> +    curr = 1
-> +    total = len(files)
-> +    numelem = len(insert_point)
-> +    for xml_file in files[1:]:
-> +        try:
-> +            xml_root = ElementTree.parse(xml_file).getroot()
-> +        except:
-> +            print("Xml parsing error in %s\n" % (xml_file))
-> +            print("Please upgrade your cppcheck to version 2.7 or greater")
-> +            sys.exit(1)
-> +        curr_elem_list = list(insert_point)
-> +        new_elem_list = list(xml_root.findall("errors")[0])
-> +        for xml_error_elem in new_elem_list:
-> +            if not contain_element(xml_error_elem, curr_elem_list):
-> +                insert_point.insert(1,xml_error_elem)
-> +                numelem = numelem + 1
-> +        curr = curr + 1
-> +        sys.stdout.write('\r')
-> +        sys.stdout.write(" %d / %d" % (curr,total))
-> +        sys.stdout.flush()
-> +
-> +    sys.stdout.write('\r\n')
-> +    print("Done: %d elements" % (numelem))
-> +    return result_xml_root
-> +
-> +def run():
-> +    files = []
-> +    output = None
-> +    for i in sys.argv[1:]:
-> +        output = i if '.xml' in i else None
-> +        files.append(i) if '.cppcheck' in i else None
-> +
-> +    result = merge(files)
-> +
-> +    if result is None:
-> +        return
-> +
-> +    if output is not None:
-> +        ElementTree.ElementTree(result).write(output)
-> +    else:
-> +        print(ElementTree.tostring(result).decode('utf-8'))
-> +
-> +if __name__ == '__main__':
-> +    run()
-> -- 
-> 2.25.1
-> 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/qemu-xen.git
+   a1755db71e..80a172de55  80a172de5592b5c33aa6bc30da6f16c4ad1ae390 -> upstream-tested
 
