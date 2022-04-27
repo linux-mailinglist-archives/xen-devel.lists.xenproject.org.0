@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF868511C4A
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 18:14:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.315263.533730 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93749511C4E
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Apr 2022 18:16:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.315273.533741 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njkJK-0006d9-LM; Wed, 27 Apr 2022 16:14:38 +0000
+	id 1njkKk-0007Ge-0k; Wed, 27 Apr 2022 16:16:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 315263.533730; Wed, 27 Apr 2022 16:14:38 +0000
+Received: by outflank-mailman (output) from mailman id 315273.533741; Wed, 27 Apr 2022 16:16:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njkJK-0006ad-IP; Wed, 27 Apr 2022 16:14:38 +0000
-Received: by outflank-mailman (input) for mailman id 315263;
- Wed, 27 Apr 2022 16:14:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1njkKj-0007EO-Te; Wed, 27 Apr 2022 16:16:05 +0000
+Received: by outflank-mailman (input) for mailman id 315273;
+ Wed, 27 Apr 2022 16:16:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sRcl=VF=arm.com=rahul.singh@srs-se1.protection.inumbo.net>)
- id 1njkJJ-0006aX-Fi
- for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 16:14:37 +0000
+ id 1njkKi-0007EC-9I
+ for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 16:16:04 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 20da3222-c645-11ec-8fc2-03012f2f19d4;
- Wed, 27 Apr 2022 18:14:35 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 556acb42-c645-11ec-a405-831a346695d4;
+ Wed, 27 Apr 2022 18:16:03 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C28E6ED1;
- Wed, 27 Apr 2022 09:14:34 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 827F8ED1;
+ Wed, 27 Apr 2022 09:16:02 -0700 (PDT)
 Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
  [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DC8B63F5A1;
- Wed, 27 Apr 2022 09:14:33 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9DBD83F5A1;
+ Wed, 27 Apr 2022 09:16:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 20da3222-c645-11ec-8fc2-03012f2f19d4
+X-Inumbo-ID: 556acb42-c645-11ec-a405-831a346695d4
 From: Rahul Singh <rahul.singh@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: bertrand.marquis@arm.com,
@@ -51,42 +51,39 @@ Cc: bertrand.marquis@arm.com,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH] arm/its: enable LPIs before mapping the collection table
-Date: Wed, 27 Apr 2022 17:14:25 +0100
-Message-Id: <7762e8e35be1f99f2a7ca81aa8cf8fc502030e7b.1651075773.git.rahul.singh@arm.com>
+Subject: [PATCH] xen/arm: smmuv1: remove iommu group when deassign a device
+Date: Wed, 27 Apr 2022 17:15:51 +0100
+Message-Id: <a19f7238f428deb610df643944f60e1e79e273cf.1651075797.git.rahul.singh@arm.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-MAPC_LPI_OFF ITS command error can be reported to software if LPIs are
-not enabled before mapping the collection table using MAPC command.
+When a device is deassigned from the domain it is required to remove the
+iommu group.
 
-Enable the LPIs using GICR_CTLR.EnableLPIs before mapping the collection
-table.
+If we don't remove the group, the next time when we assign
+a device, SME and S2CR will not be setup correctly for the device
+because of that SMMU fault will be observed.
 
 Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 ---
- xen/arch/arm/gic-v3.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ xen/drivers/passthrough/arm/smmu.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-index 3c472ed768..8fb0014b16 100644
---- a/xen/arch/arm/gic-v3.c
-+++ b/xen/arch/arm/gic-v3.c
-@@ -812,11 +812,11 @@ static int gicv3_cpu_init(void)
-     /* If the host has any ITSes, enable LPIs now. */
-     if ( gicv3_its_host_has_its() )
-     {
-+        if ( !gicv3_enable_lpis() )
-+            return -EBUSY;
-         ret = gicv3_its_setup_collection(smp_processor_id());
-         if ( ret )
-             return ret;
--        if ( !gicv3_enable_lpis() )
--            return -EBUSY;
-     }
+diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
+index 5cacb2dd99..9a31c332d0 100644
+--- a/xen/drivers/passthrough/arm/smmu.c
++++ b/xen/drivers/passthrough/arm/smmu.c
+@@ -1690,6 +1690,8 @@ static void arm_smmu_detach_dev(struct iommu_domain *domain, struct device *dev)
+ 	if (cfg)
+ 		arm_smmu_master_free_smes(cfg);
  
-     /* Set priority on PPI and SGI interrupts */
++	iommu_group_put(dev_iommu_group(dev));
++	dev_iommu_group(dev) = NULL;
+ }
+ 
+ #if 0 /*
 -- 
 2.25.1
 
