@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22D49512812
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 02:29:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.315887.534572 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE53051284B
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 02:48:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.315895.534582 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njs22-0001eF-1b; Thu, 28 Apr 2022 00:29:18 +0000
+	id 1njsJy-00043I-Mc; Thu, 28 Apr 2022 00:47:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 315887.534572; Thu, 28 Apr 2022 00:29:18 +0000
+Received: by outflank-mailman (output) from mailman id 315895.534582; Thu, 28 Apr 2022 00:47:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njs21-0001bY-UQ; Thu, 28 Apr 2022 00:29:17 +0000
-Received: by outflank-mailman (input) for mailman id 315887;
- Thu, 28 Apr 2022 00:29:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1njsJy-00040v-Je; Thu, 28 Apr 2022 00:47:50 +0000
+Received: by outflank-mailman (input) for mailman id 315895;
+ Thu, 28 Apr 2022 00:47:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SQtA=VG=infradead.org=rdunlap@srs-se1.protection.inumbo.net>)
- id 1njs1z-0001bS-VW
- for xen-devel@lists.xenproject.org; Thu, 28 Apr 2022 00:29:17 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3a603863-c68a-11ec-8fc3-03012f2f19d4;
- Thu, 28 Apr 2022 02:29:13 +0200 (CEST)
-Received: from [2601:1c0:6280:3f0::aa0b]
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1njs1D-00B2Sy-UA; Thu, 28 Apr 2022 00:28:28 +0000
+ <SRS0=NTp2=VG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1njsJx-00040p-Av
+ for xen-devel@lists.xenproject.org; Thu, 28 Apr 2022 00:47:49 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d2c5253e-c68c-11ec-a405-831a346695d4;
+ Thu, 28 Apr 2022 02:47:48 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D344561F17;
+ Thu, 28 Apr 2022 00:47:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACA0CC385A9;
+ Thu, 28 Apr 2022 00:47:45 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,68 +43,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a603863-c68a-11ec-8fc3-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description;
-	bh=oTHdXx/bNqvs0tUKZg1jX0QKDhKts3seYpf9QVBefoo=; b=GN1/nse5iki/WFV8HZE7gnZx8M
-	eJUoKq0F73m9M9r3NgIBqsY0+vw93A0bLY3hZk7W2z6ntNRxf9y3czUAh8lb6xtyiL6iRkCGoMbr3
-	13t311Tat608CEGCcNXVW95sxa2A683FvRnnoYsLI49dqQLiYKn/y05pL/vMxI0Bf3XOAu94o11W+
-	nn9qk8zdTyrvuFjTnWtZ6o7af2OgOBH9Lb3syZMjRdfGkSipXa4zeUfKnDbho+LORacM3SyNN4LMV
-	DjLIUchKFzC9+E73n2pj1o853yXO/ZfWMQcrLme864qTb5ygY07AwvTErV57FcFGuv7kOYC61ZuBl
-	QQvKsP1Q==;
-Message-ID: <4fe85e9c-4e96-e9d5-9fd8-f062bafcda4f@infradead.org>
-Date: Wed, 27 Apr 2022 17:28:11 -0700
+X-Inumbo-ID: d2c5253e-c68c-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1651106866;
+	bh=3+gJ4Ng4DtJIAMyvKT20XOPQNDT7Tze15FEwFqKjeog=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=dPFlWjkVJEZRA5gheen+n/ly97LwLx+GLO+H32yOrf9n3YFWZYe1yFJ+0S17ZZyiL
+	 bf2peYekMwHeOt1sB8W36YKAUG3lC59meD4Fflf72e5n+WOcjMvLZrfN8qkYhNf0l2
+	 JH3Z27WUSSaAv9DetBQ33V80rkpMALrowSUWgehoPVYbbqW94mjFc9XoSe3AVOcuxE
+	 p6YihAIEeYJ1i1oHLuXGml0d/EuxOfX9qQLzHPCtWqtgkvbIgf8XqSGr5GdqCnkvcB
+	 EPPIvFTTOyzt7BjG6wordqK7G47YzKuCA8OUgtk4dmilwK1hXt1kf9oOMVIRGaGKE2
+	 kriCN4ZhiYmVg==
+Date: Wed, 27 Apr 2022 17:47:45 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien.grall.oss@gmail.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    osstest service owner <osstest-admin@xenproject.org>, 
+    xen-devel <xen-devel@lists.xenproject.org>, 
+    Jan Beulich <jbeulich@suse.com>, David Vrabel <dvrabel@amazon.co.uk>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: Re: [xen-unstable-smoke test] 169781: regressions - FAIL
+In-Reply-To: <CAJ=z9a1bu=3sX0rvWy+T-ey4363DMUEJvzkSqkQkTnvOQtT0=A@mail.gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2204271622520.915916@ubuntu-linux-20-04-desktop>
+References: <osstest-169781-mainreport@xen.org> <d1d3d81e-fe1d-fc1c-11b3-781263d8ba84@xen.org> <alpine.DEB.2.22.394.2204271556110.915916@ubuntu-linux-20-04-desktop> <CAJ=z9a1bu=3sX0rvWy+T-ey4363DMUEJvzkSqkQkTnvOQtT0=A@mail.gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [PATCH 24/30] panic: Refactor the panic path
-Content-Language: en-US
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>, akpm@linux-foundation.org,
- bhe@redhat.com, pmladek@suse.com, kexec@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org, bcm-kernel-feedback-list@broadcom.com,
- coresight@lists.linaro.org, linuxppc-dev@lists.ozlabs.org,
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-edac@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-mips@vger.kernel.org,
- linux-parisc@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-um@lists.infradead.org,
- linux-xtensa@linux-xtensa.org, netdev@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net, rcu@vger.kernel.org,
- sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org,
- kernel-dev@igalia.com, kernel@gpiccoli.net, halves@canonical.com,
- fabiomirmar@gmail.com, alejandro.j.jimenez@oracle.com,
- andriy.shevchenko@linux.intel.com, arnd@arndb.de, bp@alien8.de,
- corbet@lwn.net, d.hatayama@jp.fujitsu.com, dave.hansen@linux.intel.com,
- dyoung@redhat.com, feng.tang@intel.com, gregkh@linuxfoundation.org,
- mikelley@microsoft.com, hidehiro.kawai.ez@hitachi.com, jgross@suse.com,
- john.ogness@linutronix.de, keescook@chromium.org, luto@kernel.org,
- mhiramat@kernel.org, mingo@redhat.com, paulmck@kernel.org,
- peterz@infradead.org, rostedt@goodmis.org, senozhatsky@chromium.org,
- stern@rowland.harvard.edu, tglx@linutronix.de, vgoyal@redhat.com,
- vkuznets@redhat.com, will@kernel.org
-References: <20220427224924.592546-1-gpiccoli@igalia.com>
- <20220427224924.592546-25-gpiccoli@igalia.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20220427224924.592546-25-gpiccoli@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
+
+On Thu, 28 Apr 2022, Julien Grall wrote:
+> Hi Stefano,
+> 
+> On Thu, 28 Apr 2022, 00:02 Stefano Stabellini, <sstabellini@kernel.org> wrote
+>       It seems to me that it is acceptable to allocate memory with interrupt
+>       disabled during __init. I cannot see any drawbacks with it. I think we
+>       should change the ASSERT to only trigger after __init: system_state ==
+>       SYS_STATE_active.
+> 
+>       What do you think?
+> 
+> 
+> This would solve the immediate problem but not the long term one (i.e cpu hotplug).
+> 
+> So I think it would be better to properly fix it right away.
+
+Yeah, you are right about cpu hotplug. I think both statements are true:
+
+- it is true that this is supposed to work with cpu hotplug and these
+  functions might be directly affected by cpu hotplug (by a CPU coming
+  online later on)
+
+- it is also true that it might not make sense to ASSERT at __init time
+  if IRQs are disabled. There might be other places, not affected by cpu
+  hotplug, where we do memory allocation at __init time with IRQ
+  disabled. It might still be a good idea to add the system_state ==
+  SYS_STATE_active check in the ASSERT, not to solve this specific
+  problem but to avoid other issues.
 
 
+In regard to gicv3_lpi_allocate_pendtable, I haven't thought about the
+implications of cpu hotplug for LPIs and GICv3 before. Do you envision
+that in a CPU hotplug scenario gicv3_lpi_init_rdist would be called when
+the extra CPU comes online?
 
-On 4/27/22 15:49, Guilherme G. Piccoli wrote:
-> +	crash_kexec_post_notifiers
-> +			This was DEPRECATED - users should always prefer the
-
-			This is DEPRECATED - users should always prefer the
-
-> +			parameter "panic_notifiers_level" - check its entry
-> +			in this documentation for details on how it works.
-> +			Setting this parameter is exactly the same as setting
-> +			"panic_notifiers_level=4".
-
--- 
-~Randy
+Today gicv3_lpi_init_rdist is called based on the number of
+rdist_regions without checking if the CPU is online or offline (I think ?)
 
