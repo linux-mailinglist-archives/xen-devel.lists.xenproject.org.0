@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC2B151321C
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 13:07:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.316446.535369 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8A58513254
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 13:20:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.316454.535379 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nk1zJ-0000po-5t; Thu, 28 Apr 2022 11:07:09 +0000
+	id 1nk2Bi-0002Lf-AS; Thu, 28 Apr 2022 11:19:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 316446.535369; Thu, 28 Apr 2022 11:07:09 +0000
+Received: by outflank-mailman (output) from mailman id 316454.535379; Thu, 28 Apr 2022 11:19:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nk1zJ-0000oM-20; Thu, 28 Apr 2022 11:07:09 +0000
-Received: by outflank-mailman (input) for mailman id 316446;
- Thu, 28 Apr 2022 11:07:07 +0000
+	id 1nk2Bi-0002Ip-7e; Thu, 28 Apr 2022 11:19:58 +0000
+Received: by outflank-mailman (input) for mailman id 316454;
+ Thu, 28 Apr 2022 11:19:57 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nk1zH-0000oC-Lp; Thu, 28 Apr 2022 11:07:07 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1nk2Bh-0002Ij-Ad
+ for xen-devel@lists.xenproject.org; Thu, 28 Apr 2022 11:19:57 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nk1zH-0004Xc-JK; Thu, 28 Apr 2022 11:07:07 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nk1zH-0005ip-Cr; Thu, 28 Apr 2022 11:07:07 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nk1zH-0006qD-CR; Thu, 28 Apr 2022 11:07:07 +0000
+ (envelope-from <julien@xen.org>)
+ id 1nk2Be-0004lg-IS; Thu, 28 Apr 2022 11:19:54 +0000
+Received: from [54.239.6.184] (helo=[192.168.2.126])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nk2Be-0005zu-B1; Thu, 28 Apr 2022 11:19:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,161 +39,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=YHO0XmuYrg2jkd+jSYTn9BJ3PXLI5EglcI5LHhGVApk=; b=KQUQCpitrC1YKKHFCUrjFT3Yr3
-	WGgK2QYbyDxQ1x1KbGe9XpAenVq5DdqqccMqRZ4kgx7+DzgJ1/l1abdm4Nvf2JYQ8oKS97w+ji62X
-	z1u/pKpzDKMoXmlD96P4ty+K5gWZh+IQlX6HaJn/FA1XQn2+hvJwTJT0sCfViYFCR9dI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169810-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=Ir5WfQaotsNJRraYYm7+8sJwxZ8rQOOCK6X29GsDf3I=; b=6sUo4Ye+6KRDAGf3akO0OSkHfL
+	h398fLGX6eI77F6IqydH0X+jqOHQeyq82cf2gNmfU35Ugu2H2IUU0A4nH3u0+NfinYthbydfv7WwD
+	brf8F3dufN9WDL0qP3uY0yHUPYbt0PWKusIqM6m1stY4eaKlKwmX5E5+q/DIkqVScV5k=;
+Message-ID: <ac0a0bf0-81a8-63c7-6a62-377672e24069@xen.org>
+Date: Thu, 28 Apr 2022 12:19:51 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 169810: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=916f90baa547b3ebef8fa87c530e2f0c8e35e1e3
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 28 Apr 2022 11:07:07 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.8.1
+Subject: Re: [xen-unstable-smoke test] 169781: regressions - FAIL
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien.grall.oss@gmail.com>
+Cc: osstest service owner <osstest-admin@xenproject.org>,
+ xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>,
+ David Vrabel <dvrabel@amazon.co.uk>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+References: <osstest-169781-mainreport@xen.org>
+ <d1d3d81e-fe1d-fc1c-11b3-781263d8ba84@xen.org>
+ <alpine.DEB.2.22.394.2204271556110.915916@ubuntu-linux-20-04-desktop>
+ <CAJ=z9a1bu=3sX0rvWy+T-ey4363DMUEJvzkSqkQkTnvOQtT0=A@mail.gmail.com>
+ <alpine.DEB.2.22.394.2204271622520.915916@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2204271622520.915916@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 169810 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169810/
+Hi Stefano,
 
-Regressions :-(
+On 28/04/2022 01:47, Stefano Stabellini wrote:
+> On Thu, 28 Apr 2022, Julien Grall wrote:
+>> Hi Stefano,
+>>
+>> On Thu, 28 Apr 2022, 00:02 Stefano Stabellini, <sstabellini@kernel.org> wrote
+>>        It seems to me that it is acceptable to allocate memory with interrupt
+>>        disabled during __init. I cannot see any drawbacks with it. I think we
+>>        should change the ASSERT to only trigger after __init: system_state ==
+>>        SYS_STATE_active.
+>>
+>>        What do you think?
+>>
+>>
+>> This would solve the immediate problem but not the long term one (i.e cpu hotplug).
+>>
+>> So I think it would be better to properly fix it right away.
+> 
+> Yeah, you are right about cpu hotplug. I think both statements are true:
+> 
+> - it is true that this is supposed to work with cpu hotplug and these
+>    functions might be directly affected by cpu hotplug (by a CPU coming
+>    online later on)
+> 
+> - it is also true that it might not make sense to ASSERT at __init time
+>    if IRQs are disabled. There might be other places, not affected by cpu
+>    hotplug, where we do memory allocation at __init time with IRQ
+>    disabled. It might still be a good idea to add the system_state ==
+>    SYS_STATE_active check in the ASSERT, not to solve this specific
+>    problem but to avoid other issues.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+AFAIU, it is not safe on x86 to do TLB flush with interrupts disabled 
+*and* multiple CPUs running. So we can't generically relax the check.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+Looking at the OSSTest results, both Arm32 and Arm64 without GICv3 ITS 
+tests have passed. So it seems unnecessary to me to preemptively relax 
+the check just for Arm.
 
-version targeted for testing:
- ovmf                 916f90baa547b3ebef8fa87c530e2f0c8e35e1e3
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+> 
+> 
+> In regard to gicv3_lpi_allocate_pendtable, I haven't thought about the
+> implications of cpu hotplug for LPIs and GICv3 before. Do you envision
+> that in a CPU hotplug scenario gicv3_lpi_init_rdist would be called when
+> the extra CPU comes online?
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   59 days
-Failing since        168258  2022-03-01 01:55:31 Z   58 days  675 attempts
-Testing same since   169718  2022-04-25 21:41:52 Z    2 days   47 attempts
+It is already called per-CPU. See gicv3_secondary_cpu_init() -> 
+gicv3_cpu_init() -> gicv3_populate_rdist().
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
+> 
+> Today gicv3_lpi_init_rdist is called based on the number of
+> rdist_regions without checking if the CPU is online or offline (I think ?)
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+The re-distributors are not banked and therefore accessible by everyone. 
+However, in Xen case, each pCPU will only touch its own re-distributor 
+(well aside TYPER to figure out the ID).
+
+The loop in gicv3_populate_rdist() will walk throught all the
+re-distributor to find which one corresponds to the current pCPU. Once 
+we found it, we will call gicv3_lpi_init_rdist() to fully initialize the 
+re-distributor.
+
+I don't think we want to populate the memory for each re-distributor in 
+advance.
+
+Cheers,
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 5828 lines long.)
+-- 
+Julien Grall
 
