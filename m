@@ -2,37 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74A6D513D6B
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 23:24:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.316772.535813 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B705E513DA4
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 23:30:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.316778.535824 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkBbz-0002Lh-5U; Thu, 28 Apr 2022 21:23:43 +0000
+	id 1nkBiS-0003ki-TB; Thu, 28 Apr 2022 21:30:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 316772.535813; Thu, 28 Apr 2022 21:23:43 +0000
+Received: by outflank-mailman (output) from mailman id 316778.535824; Thu, 28 Apr 2022 21:30:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkBbz-0002Io-2T; Thu, 28 Apr 2022 21:23:43 +0000
-Received: by outflank-mailman (input) for mailman id 316772;
- Thu, 28 Apr 2022 21:23:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=b9z+=VG=kernel.org=kuba@srs-se1.protection.inumbo.net>)
- id 1nkBbx-0002Ii-AS
- for xen-devel@lists.xenproject.org; Thu, 28 Apr 2022 21:23:41 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 779aabb6-c739-11ec-a405-831a346695d4;
- Thu, 28 Apr 2022 23:23:39 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0A2B561F02;
- Thu, 28 Apr 2022 21:23:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC2C6C385AF;
- Thu, 28 Apr 2022 21:23:34 +0000 (UTC)
+	id 1nkBiS-0003hv-Q4; Thu, 28 Apr 2022 21:30:24 +0000
+Received: by outflank-mailman (input) for mailman id 316778;
+ Thu, 28 Apr 2022 21:30:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=noDR=VG=oracle.com=boris.ostrovsky@srs-se1.protection.inumbo.net>)
+ id 1nkBiQ-0003hU-N0
+ for xen-devel@lists.xenproject.org; Thu, 28 Apr 2022 21:30:23 +0000
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 67395c57-c73a-11ec-8fc3-03012f2f19d4;
+ Thu, 28 Apr 2022 23:30:20 +0200 (CEST)
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 23SJjjNs015405;
+ Thu, 28 Apr 2022 21:30:16 GMT
+Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3fmb9aw6yv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 28 Apr 2022 21:30:15 +0000
+Received: from pps.filterd
+ (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.16.1.2/8.16.1.2)
+ with SMTP id 23SLFCpP012117; Thu, 28 Apr 2022 21:30:14 GMT
+Received: from nam11-co1-obe.outbound.protection.outlook.com
+ (mail-co1nam11lp2176.outbound.protection.outlook.com [104.47.56.176])
+ by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com with ESMTP id
+ 3fm7w7a5su-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 28 Apr 2022 21:30:14 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
+ by DS7PR10MB5182.namprd10.prod.outlook.com (2603:10b6:5:38f::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.15; Thu, 28 Apr
+ 2022 21:30:12 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::4455:2c02:503:a182]) by BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::4455:2c02:503:a182%8]) with mapi id 15.20.5186.023; Thu, 28 Apr 2022
+ 21:30:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,236 +63,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 779aabb6-c739-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1651181016;
-	bh=rE+qwrcYq1YEDwagHt9bw0Dmvq2A/QwK2cQtgGYtZKA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=no38TJlgb9U2gYSmWW3vbaA67LL/vJLFz33ioGRUtsTQaNukvebyzJoIbnzNysdva
-	 KeVy11OYbLms0RZ3OCVWmC+xIzqOfn4cjMDm4pXEPUwGkf5Vh/bq6EPFVjSZNRi8Gv
-	 K0WQ0lU2C5coSTjh5mQUdihnE//IYsjUA9LCDzrZFBxUJp2TzIWq64l/nWeuA3hX63
-	 ypdEVKeHmETEcBZWCrCA0t0YyCZK0T00ECwMMAFGHOBmb2U//n3oKsH9UQUKdcXHS8
-	 YHwwOB9lDtjTbcbbhd9xkPV/5sO9bBltmTYBA0FJ6W+7hZe90XuCDtJphHHUX3s+mY
-	 OpuwIG7FYctqA==
-From: Jakub Kicinski <kuba@kernel.org>
-To: davem@davemloft.net,
-	pabeni@redhat.com
-Cc: edumazet@google.com,
-	netdev@vger.kernel.org,
-	Jakub Kicinski <kuba@kernel.org>,
-	ulli.kroll@googlemail.com,
-	linus.walleij@linaro.org,
-	mlindner@marvell.com,
-	stephen@networkplumber.org,
-	nbd@nbd.name,
-	john@phrozen.org,
-	sean.wang@mediatek.com,
-	Mark-MC.Lee@mediatek.com,
-	matthias.bgg@gmail.com,
-	grygorii.strashko@ti.com,
-	wei.liu@kernel.org,
-	paul@xen.org,
-	prabhakar.mahadev-lad.rj@bp.renesas.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	linux-omap@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH net-next v2 01/15] eth: remove copies of the NAPI_POLL_WEIGHT define
-Date: Thu, 28 Apr 2022 14:23:09 -0700
-Message-Id: <20220428212323.104417-2-kuba@kernel.org>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220428212323.104417-1-kuba@kernel.org>
-References: <20220428212323.104417-1-kuba@kernel.org>
+X-Inumbo-ID: 67395c57-c73a-11ec-8fc3-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
+ subject : to : cc : references : from : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2021-07-09;
+ bh=wR1muW8sQEWzfVvqyniF2laqh35oLxdZteeYDYHZRW4=;
+ b=LNMzmDwNivdInQtq5bzJKyQLGC/mgYnOoFOXoOJ51rqxqhMUFUHGirgP9RYO3KGEUuC6
+ fM4lpnxuLGjgB5UIp+DQoe/xuBNJ77cOOAzsp0nrrFL6PtuwZh4nQIuMPzQC5Pmz1QRk
+ YbnZUYRTlkxoBu8gRqFvAu+B+OCKssvKby6TlWcLAvtSi2OIrtZ8mhP2sa9g0MnHMPk9
+ IHwfjOi9XR6jcGuHiOv2cDVoV8g8yokvdhUnUQXJbKbQzdnWjy4QNWbi9ZwDor0f7RA1
+ rC3L8NDZeIkQ0wRAAkLxJx7ExCcb0kuZxipC14eaJh+UZN6i1TG+umHPFF98edqBThn3 2w== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=K0vTOd7meOALC6F9TUO1WChJSUs0R2RyMVHNtZA1bY0ySTgjODzeS7MYKuoVRy+SeZ+fuQfds/m+baLoPt3koXHJf6+fW2HH/vBaTyJrlft5qyJld237LCAxI7krsjflovUlD9QQxl1Aavwq4LCKN+iV0vrn1/1SWhdS0EBI5vi5OfTLJznqJTdBNxcJyf24/ROLMQbj8TUmtRv6KrRWybU4XxxnV1IsheXuhHdjQLYQbVU7ihF3sXSbd1S4unfINC0wk8dmcvMx7f7i5/FrxR+qAPBe2AmrTLY6cARIxE1RUztvqYgV9QtHS5FTZe41xvdM6VUJkZH7OxXK7yZiXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wR1muW8sQEWzfVvqyniF2laqh35oLxdZteeYDYHZRW4=;
+ b=SrsvsQCMNHdrK0S1qoYhhmH/KlmFYzbkT4BUplZk6p9J2g9VznKFm1VLfe95I7BPZR/hqH3hT39ngtp2oIxvprtVZIzD+h/6FEk1UX8/nnBOqpczpxQ9O3pS/hw32vfA7RNsApScXMaWch+YFFWiHQysL8bmQ2FZohnKdP3wFucjAUblio1bej9qSdPXW1sasQ3YR54Xj0kXrV/tvLa8EIczq5zDFSrQilvCjUaW34NTUyjv36XOBfF4GFSFYDTSnxWOiUGn793n/OlVidI62NnlU9rXKwBABcr0T3GsilOdKUClmkbrz81heYwD/K0WzDAgLVWf9+zXno2nCsb/LQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wR1muW8sQEWzfVvqyniF2laqh35oLxdZteeYDYHZRW4=;
+ b=lsOowuyuDxmLSVI3mW0tSm5QoY7yQ5b4vTQn6T03HdSO6PNJbfs/bH5jklCsFr5hI9od0epraGNZ8gWYyVr9bw/6nVjfJtzbQz8OICB1MVOEF5PEWuTXvP/HMoy/lJwpmXEj/PMF2qVH2C5VgwimXg8ZPQn3XHg2dYS83pFFIHE=
+Message-ID: <309bea05-2247-d451-3548-c824333a83f9@oracle.com>
+Date: Thu, 28 Apr 2022 17:30:09 -0400
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.8.1
+Subject: Re: x86/PV: (lack of) MTRR exposure
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>,
+        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+        =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+        Juergen Gross <jgross@suse.com>,
+        Stefano Stabellini <sstabellini@kernel.org>
+References: <b3f07165-67f0-3d50-e249-2618a2dc862c@suse.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+In-Reply-To: <b3f07165-67f0-3d50-e249-2618a2dc862c@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MN2PR08CA0028.namprd08.prod.outlook.com
+ (2603:10b6:208:239::33) To BLAPR10MB5009.namprd10.prod.outlook.com
+ (2603:10b6:208:321::10)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 5e3fe2c9-db6d-4356-ec75-08da295e46e1
+X-MS-TrafficTypeDiagnostic: DS7PR10MB5182:EE_
+X-Microsoft-Antispam-PRVS: 
+	<DS7PR10MB5182634CFC25F64E126F9F4E8AFD9@DS7PR10MB5182.namprd10.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	jvxYozBL6OawxmFqY5HIN+rbVz3Ip2omv8rlDSSDFnAoan8k04eehxr1aFiDK/08jD0OSgY1opcpuQRnWAhWXWDtQNkCJITERwlcaxlscNLEzquinqbq3YJ7Ueb5u4wTB2hv6FykhkU54mmycX3H2s7l//J1K5QuESZd2BhY9STVx7mpHcUib5QKX0Qa+8FdjJZxub4vPJzCLHnJgs9/2T5TGOXXJVFZRTojRID7xnurLRt9M2E5odaDIAmjs6HWdmgjHFFA6wfnCHiWfF8zA6WPVnZ6WrpTh/eYPsKTabK5HVC5RSR5ZlXDCbgaMv1JWNP27u3RSQ/HFN0GXY5CtpqlS+QchNZlV/mp1bGKX9679TC7viQhd/tctnqQrCJ97LkKfIW0pHXpZkByog0VtNZ9xJZw84fs044DEtj2fJpN30MyP5nJh11RUlfRaPxwlT0GYpemZY8VNW3+EaNwye2Vw5I0dJtLcp21qsz9dIU9/AKC+7JIbOapFPONw7koipRnudHfRh5E0Li8234L5Hr1kgVpV924Ksxv22HS24c8JTrk83yN9FEb3y43xSTts4uis6vtTxBsGLLsk9ZrJ+go5ktXU54Z7bYnPVOIvRQJ3H4onAj5iuwN21CBbvsAKYcIo/i3FX5UG+vru7ngMCykQTzrVx1R+v2W3I/3j8Txtby8HTO2LdF2RzxkuZ/KsC++SXjaeDygVN5U2H2yaFY5T/y9hE1Feh34z3NCBkJk+VyRwZdkOAI0hYafyJvzbysQzyAfTvorr3iPV3BD/MDsDzvqU/1r6rdQeh8jI1Zp5lx873zf7RDxK70N+r8ebMBJt2S1lxAOGfVApdq79w==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(53546011)(6486002)(6506007)(2616005)(44832011)(8936002)(5660300002)(36756003)(31686004)(83380400001)(186003)(86362001)(26005)(31696002)(38100700002)(6512007)(6666004)(966005)(8676002)(508600001)(66556008)(66946007)(66476007)(2906002)(4326008)(316002)(110136005)(54906003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?Zk5EZ1JhN2JjbzRVUGJIKzF3TGNOblYrUVRsSklKR2UzNGpkNHlETENLSDJV?=
+ =?utf-8?B?azNQejZiNnZFekRIOXFnQzdWbFg1L3loSjljVllZQ256bW0walJpcWFnNkFk?=
+ =?utf-8?B?UnBPNG1OajNTcHVTVGtXY3BMTUpacy9XOUF2Y2I3YVZEbXVkY2I3eXk5bkZV?=
+ =?utf-8?B?NVlib01RQXZsWnpyanF1czBVRFdCNjU3NVVDS0hjem1CZzB6Nk9oUG9JQ05i?=
+ =?utf-8?B?NjJJREs2eDZUcng1SUUvMktzVDNLdXo1cTZYcTB0Z0pOVUZMSDYrVmRkZ3py?=
+ =?utf-8?B?L2FRQ2F0VG4yZHV5aHdFM2pENW9zYk1HbVVUM3d3UzFFWFdXZWN6cGx5eER3?=
+ =?utf-8?B?OThWL3ZoT1RZbU43RTFwTnpZdkVTSTh5UEtUWW1OcjJEZUx5WE1SSFJ1bHFI?=
+ =?utf-8?B?M0NvM3ZBZ3ZYc1J3U1FGSVZiN1E3c3dpbnROSmFub0x3Y2ZaT2wzamY3U044?=
+ =?utf-8?B?NUliZDdMZ3JVNWNIR09uUktrRDM1SHk4VGV0Y0J0eGdNNCtkZ2xhU1EyWE5y?=
+ =?utf-8?B?VFIrMy9hZCs4LzFnRGQwcVpJUGlqdUk4WmQwNGFlZ1huNmpzbml6b3BudWdy?=
+ =?utf-8?B?M1h5U3NpTFBQQk5xTElkMThaRVYwK1pqWjl4Y2JyM0ZFaDB1V2FBNzZEUjlY?=
+ =?utf-8?B?MUZmRTlQS29aVHV2VWpVeTFxeGVBMXBqS1FPMUk3SnlBMW1YV1pTTkU2bnU1?=
+ =?utf-8?B?SnBvamx4TXRJY1JRcnNQOFZJQzdZVUNmUTErZ1p0dm1UVnZHU3pPS2hscEls?=
+ =?utf-8?B?U3NtdHFwUlhsd2o5SnZKdEZsRFV3KzRFdzNlMm5SYm1PTGZHczVsQWJ0cVAv?=
+ =?utf-8?B?dDlKUE9vN2Q4VzdybnJuSDgxcVdVU2I2QkpvZ1ZYaE5KZVo2ZDVkOFp0akg4?=
+ =?utf-8?B?akwrTm81cFNIL0hNVGdHMEJsZE5kclNxMFRiTmxlQVYydzFrSHZZRFRPaEY2?=
+ =?utf-8?B?N0ZJUmxsUG4waDJIekxuWi9leG82RGl0K0J0TEd6dHlvZ3JBMHlqbU5SNnR1?=
+ =?utf-8?B?cHExQ0JwSUtqUGdUcmhlZE5DNllWckRXemdJQkhISmRnTW9iUUt3WkhxM2Na?=
+ =?utf-8?B?aGlDYVFkdmpyY2lUclJwNkpqN2lKbW5yS3I4VmF5RkszcjFGYmMyTXFhNDR5?=
+ =?utf-8?B?VXFEdDFuQ2h4Q01tNjBFajkrUlVVWXhSelowOWEzY2ZqOHZRRklpanh5alNX?=
+ =?utf-8?B?N2xwZ2t3MkFHdmNzN3phbzNKcTVGRnB2UEVrTnphMHR4ZzljRUc5WTJpN2J3?=
+ =?utf-8?B?ZGN4TXhDQ3VKa3VPQnBzZmt4MEQ4R3ZrYWc2WlpFdC9GSG5WdlgyTHN0SG9s?=
+ =?utf-8?B?bHlQSTVtV2RpdC83YTgvV25sRWFnZ2dGU202QS9jMzZLZS90bUR6bzR3VXdT?=
+ =?utf-8?B?Wno4eFFaTnBZNTdCOExYcnNsMnhJUzMrbm1McVlOMk95SU9kZ2w2T0NoTkJh?=
+ =?utf-8?B?aEt5amNDaEVDMmk5SElGcDVJL0hBYWlSWVQxajgxYXJaYytQWkJsanpnVisx?=
+ =?utf-8?B?OHFnWXRzdGtXM3ZsY1hrY0RDTDlQRzUvV1JOZ2RjankzQkFoTnJ5aktLNXlY?=
+ =?utf-8?B?cy9tVmV6enpRMGdOeU5lWW5kcTE5ZXVTSDV2RE51TTBSRHJFWUpxYk8wWWdR?=
+ =?utf-8?B?U0JXUHNFLzFwMnE1cTFadVkyZTVMTytxNzM1RCtCUS9rT0VmTG5YQ0FHN0Q3?=
+ =?utf-8?B?WEpVczJ2RGJucDJzSUxqZFBKeGJwdGU3bFRqczlDTU84OGtGKy9JakpWdjNQ?=
+ =?utf-8?B?c1ZwbDZQV0M4dEQ1QzhiQlNjenpOSVUxUWhKQjliT0hhOVQxRTZuR0FsMjVq?=
+ =?utf-8?B?TEN1RFdNQ1prR0REQnV4RGxmWitLaVNSWlZaM2dhbXpMNzJDTi9oR0dHbUpS?=
+ =?utf-8?B?UFE4aktOTUwvaXJnMFhUTTFXTkhRRTVZazdBekJEN01zRU5MKzMzQi81TFFq?=
+ =?utf-8?B?ME1Kb3AvSDVYcVlMbjJDWnFiLzBOWnFBRzBvU21HaDZNYkVYNWExdFo4TytK?=
+ =?utf-8?B?eXNGYkU0NG40QkFLQ3ZUN01kM09LUGE2VlpzUTVSZnAwY2JMcHEzdm9TWWhR?=
+ =?utf-8?B?Ujh1MHY1ZG9vd3AvbEgxV2lzbzNmMHNJUFVFaTJhWE9HS0hFUGdIN2FGVXZB?=
+ =?utf-8?B?Q280RDJZTFdrdU5LNjdaUkJCSEJjbzJEVnE2bytBWktIZnZGeHdEbmVjcWxo?=
+ =?utf-8?B?b3pub0lvbjBFRWlRMVJFSlpSbHVUajlTQVd6TERoZGNkd0RNNC9YWGloN21Q?=
+ =?utf-8?B?NFdQdElCWE0zdEY2VjhqZWNTQ3RrQVpsUlRJYXpHUkliNjJhNXlqdzJEU1o1?=
+ =?utf-8?B?R2t6MFppVk1iZ1N1WnFhZGJXRzdPMVNHTXZGbmFUSWVVNnBCd01MZ21WdE5o?=
+ =?utf-8?Q?A/ujgNWXVNCvw4Dk=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e3fe2c9-db6d-4356-ec75-08da295e46e1
+X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2022 21:30:12.0315
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: csqvwkSIVawYjmlXEfaSe7e7jYvqTtgTjrLhsuSOBdO5bv5HE4LTKUDW6J66TBLLtbWBlhnXwG4+C3hYpyo9AY+sM8UHAE+MxZJj0x6n5/c=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR10MB5182
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.486,18.0.858
+ definitions=2022-04-28_04:2022-04-28,2022-04-28 signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0 spamscore=0 adultscore=0
+ mlxscore=0 bulkscore=0 suspectscore=0 malwarescore=0 mlxlogscore=999
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2202240000
+ definitions=main-2204280126
+X-Proofpoint-ORIG-GUID: vcPi40YZTQFp2_4FffQjvFCbarquqMSj
+X-Proofpoint-GUID: vcPi40YZTQFp2_4FffQjvFCbarquqMSj
 
-Defining local versions of NAPI_POLL_WEIGHT with the same
-values in the drivers just makes refactoring harder.
 
-Drop the special defines in a bunch of drivers where the
-removal is relatively simple so grouping into one patch
-does not impact reviewability.
+On 4/28/22 11:53 AM, Jan Beulich wrote:
+> Hello,
+>
+> in the course of analyzing the i915 driver causing boot to fail in
+> Linux 5.18 I found that Linux, for all the years, has been running
+> in PV mode as if PAT was (mostly) disabled. This is a result of
+> them tying PAT initialization to MTRR initialization, while we
+> offer PAT but not MTRR in CPUID output. This was different before
+> our moving to CPU featuresets, and as such one could view this
+> behavior as a regression from that change.
+>
+> The first question here is whether not exposing MTRR as a feature
+> was really intended, in particular also for PV Dom0. The XenoLinux
+> kernel and its forward ports did make use of XENPF_*_memtype to
+> deal with MTRRs. That's functionality which (maybe for a good
+> reason) never made it into the pvops kernel. Note that PVH Dom0
+> does have access to the original settings, as the host values are
+> used as initial state there.
 
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
----
-CC: ulli.kroll@googlemail.com
-CC: linus.walleij@linaro.org
-CC: mlindner@marvell.com
-CC: stephen@networkplumber.org
-CC: nbd@nbd.name
-CC: john@phrozen.org
-CC: sean.wang@mediatek.com
-CC: Mark-MC.Lee@mediatek.com
-CC: matthias.bgg@gmail.com
-CC: grygorii.strashko@ti.com
-CC: wei.liu@kernel.org
-CC: paul@xen.org
-CC: prabhakar.mahadev-lad.rj@bp.renesas.com
-CC: linux-arm-kernel@lists.infradead.org
-CC: linux-mediatek@lists.infradead.org
-CC: linux-omap@vger.kernel.org
-CC: xen-devel@lists.xenproject.org
----
- drivers/net/ethernet/cortina/gemini.c         | 4 +---
- drivers/net/ethernet/marvell/skge.c           | 3 +--
- drivers/net/ethernet/marvell/sky2.c           | 3 +--
- drivers/net/ethernet/mediatek/mtk_star_emac.c | 3 +--
- drivers/net/ethernet/ti/davinci_emac.c        | 3 +--
- drivers/net/ethernet/ti/netcp_core.c          | 5 ++---
- drivers/net/xen-netback/interface.c           | 3 +--
- 7 files changed, 8 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/net/ethernet/cortina/gemini.c b/drivers/net/ethernet/cortina/gemini.c
-index 8014eb33937c..9e6de2f968fa 100644
---- a/drivers/net/ethernet/cortina/gemini.c
-+++ b/drivers/net/ethernet/cortina/gemini.c
-@@ -68,7 +68,6 @@ MODULE_PARM_DESC(debug, "Debug level (0=none,...,16=all)");
- #define DEFAULT_GMAC_RXQ_ORDER		9
- #define DEFAULT_GMAC_TXQ_ORDER		8
- #define DEFAULT_RX_BUF_ORDER		11
--#define DEFAULT_NAPI_WEIGHT		64
- #define TX_MAX_FRAGS			16
- #define TX_QUEUE_NUM			1	/* max: 6 */
- #define RX_MAX_ALLOC_ORDER		2
-@@ -2472,8 +2471,7 @@ static int gemini_ethernet_port_probe(struct platform_device *pdev)
- 	netdev->max_mtu = 10236 - VLAN_ETH_HLEN;
- 
- 	port->freeq_refill = 0;
--	netif_napi_add(netdev, &port->napi, gmac_napi_poll,
--		       DEFAULT_NAPI_WEIGHT);
-+	netif_napi_add(netdev, &port->napi, gmac_napi_poll, NAPI_POLL_WEIGHT);
- 
- 	ret = of_get_mac_address(np, mac);
- 	if (!ret) {
-diff --git a/drivers/net/ethernet/marvell/skge.c b/drivers/net/ethernet/marvell/skge.c
-index cf03c67fbf40..c1e985416c0e 100644
---- a/drivers/net/ethernet/marvell/skge.c
-+++ b/drivers/net/ethernet/marvell/skge.c
-@@ -50,7 +50,6 @@
- #define PHY_RETRIES	        1000
- #define ETH_JUMBO_MTU		9000
- #define TX_WATCHDOG		(5 * HZ)
--#define NAPI_WEIGHT		64
- #define BLINK_MS		250
- #define LINK_HZ			HZ
- 
-@@ -3833,7 +3832,7 @@ static struct net_device *skge_devinit(struct skge_hw *hw, int port,
- 		dev->features |= NETIF_F_HIGHDMA;
- 
- 	skge = netdev_priv(dev);
--	netif_napi_add(dev, &skge->napi, skge_poll, NAPI_WEIGHT);
-+	netif_napi_add(dev, &skge->napi, skge_poll, NAPI_POLL_WEIGHT);
- 	skge->netdev = dev;
- 	skge->hw = hw;
- 	skge->msg_enable = netif_msg_init(debug, default_msg);
-diff --git a/drivers/net/ethernet/marvell/sky2.c b/drivers/net/ethernet/marvell/sky2.c
-index ea16b1dd6a98..a1e907c85217 100644
---- a/drivers/net/ethernet/marvell/sky2.c
-+++ b/drivers/net/ethernet/marvell/sky2.c
-@@ -63,7 +63,6 @@
- #define TX_DEF_PENDING		63
- 
- #define TX_WATCHDOG		(5 * HZ)
--#define NAPI_WEIGHT		64
- #define PHY_RETRIES		1000
- 
- #define SKY2_EEPROM_MAGIC	0x9955aabb
-@@ -4938,7 +4937,7 @@ static int sky2_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 		}
- 	}
- 
--	netif_napi_add(dev, &hw->napi, sky2_poll, NAPI_WEIGHT);
-+	netif_napi_add(dev, &hw->napi, sky2_poll, NAPI_POLL_WEIGHT);
- 
- 	err = register_netdev(dev);
- 	if (err) {
-diff --git a/drivers/net/ethernet/mediatek/mtk_star_emac.c b/drivers/net/ethernet/mediatek/mtk_star_emac.c
-index 4cd0747edaff..95839fd84dab 100644
---- a/drivers/net/ethernet/mediatek/mtk_star_emac.c
-+++ b/drivers/net/ethernet/mediatek/mtk_star_emac.c
-@@ -30,7 +30,6 @@
- #define MTK_STAR_WAIT_TIMEOUT			300
- #define MTK_STAR_MAX_FRAME_SIZE			1514
- #define MTK_STAR_SKB_ALIGNMENT			16
--#define MTK_STAR_NAPI_WEIGHT			64
- #define MTK_STAR_HASHTABLE_MC_LIMIT		256
- #define MTK_STAR_HASHTABLE_SIZE_MAX		512
- 
-@@ -1551,7 +1550,7 @@ static int mtk_star_probe(struct platform_device *pdev)
- 	ndev->netdev_ops = &mtk_star_netdev_ops;
- 	ndev->ethtool_ops = &mtk_star_ethtool_ops;
- 
--	netif_napi_add(ndev, &priv->napi, mtk_star_poll, MTK_STAR_NAPI_WEIGHT);
-+	netif_napi_add(ndev, &priv->napi, mtk_star_poll, NAPI_POLL_WEIGHT);
- 
- 	return devm_register_netdev(dev, ndev);
- }
-diff --git a/drivers/net/ethernet/ti/davinci_emac.c b/drivers/net/ethernet/ti/davinci_emac.c
-index 9d1e98db308b..2a3e4e842fa5 100644
---- a/drivers/net/ethernet/ti/davinci_emac.c
-+++ b/drivers/net/ethernet/ti/davinci_emac.c
-@@ -113,7 +113,6 @@ static const char emac_version_string[] = "TI DaVinci EMAC Linux v6.1";
- #define EMAC_DEF_RX_NUM_DESC		(128)
- #define EMAC_DEF_MAX_TX_CH		(1) /* Max TX channels configured */
- #define EMAC_DEF_MAX_RX_CH		(1) /* Max RX channels configured */
--#define EMAC_POLL_WEIGHT		(64) /* Default NAPI poll weight */
- 
- /* Buffer descriptor parameters */
- #define EMAC_DEF_TX_MAX_SERVICE		(32) /* TX max service BD's */
-@@ -1949,7 +1948,7 @@ static int davinci_emac_probe(struct platform_device *pdev)
- 
- 	ndev->netdev_ops = &emac_netdev_ops;
- 	ndev->ethtool_ops = &ethtool_ops;
--	netif_napi_add(ndev, &priv->napi, emac_poll, EMAC_POLL_WEIGHT);
-+	netif_napi_add(ndev, &priv->napi, emac_poll, NAPI_POLL_WEIGHT);
- 
- 	pm_runtime_enable(&pdev->dev);
- 	rc = pm_runtime_resume_and_get(&pdev->dev);
-diff --git a/drivers/net/ethernet/ti/netcp_core.c b/drivers/net/ethernet/ti/netcp_core.c
-index 16507bff652a..21b0e961eab5 100644
---- a/drivers/net/ethernet/ti/netcp_core.c
-+++ b/drivers/net/ethernet/ti/netcp_core.c
-@@ -24,7 +24,6 @@
- #include "netcp.h"
- 
- #define NETCP_SOP_OFFSET	(NET_IP_ALIGN + NET_SKB_PAD)
--#define NETCP_NAPI_WEIGHT	64
- #define NETCP_TX_TIMEOUT	(5 * HZ)
- #define NETCP_PACKET_SIZE	(ETH_FRAME_LEN + ETH_FCS_LEN)
- #define NETCP_MIN_PACKET_SIZE	ETH_ZLEN
-@@ -2096,8 +2095,8 @@ static int netcp_create_interface(struct netcp_device *netcp_device,
- 	}
- 
- 	/* NAPI register */
--	netif_napi_add(ndev, &netcp->rx_napi, netcp_rx_poll, NETCP_NAPI_WEIGHT);
--	netif_tx_napi_add(ndev, &netcp->tx_napi, netcp_tx_poll, NETCP_NAPI_WEIGHT);
-+	netif_napi_add(ndev, &netcp->rx_napi, netcp_rx_poll, NAPI_POLL_WEIGHT);
-+	netif_tx_napi_add(ndev, &netcp->tx_napi, netcp_tx_poll, NAPI_POLL_WEIGHT);
- 
- 	/* Register the network device */
- 	ndev->dev_id		= 0;
-diff --git a/drivers/net/xen-netback/interface.c b/drivers/net/xen-netback/interface.c
-index fe8e21ad8ed9..8e035374a370 100644
---- a/drivers/net/xen-netback/interface.c
-+++ b/drivers/net/xen-netback/interface.c
-@@ -42,7 +42,6 @@
- #include <xen/balloon.h>
- 
- #define XENVIF_QUEUE_LENGTH 32
--#define XENVIF_NAPI_WEIGHT  64
- 
- /* Number of bytes allowed on the internal guest Rx queue. */
- #define XENVIF_RX_QUEUE_BYTES (XEN_NETIF_RX_RING_SIZE/2 * PAGE_SIZE)
-@@ -739,7 +738,7 @@ int xenvif_connect_data(struct xenvif_queue *queue,
- 	atomic_set(&queue->inflight_packets, 0);
- 
- 	netif_napi_add(queue->vif->dev, &queue->napi, xenvif_poll,
--			XENVIF_NAPI_WEIGHT);
-+			NAPI_POLL_WEIGHT);
- 
- 	queue->stalled = true;
- 
--- 
-2.34.1
+Initially MTRR was supposed to be supported but it was shot down by x86 maintainers who strongly suggested to use PAT.
 
+
+https://lists.xen.org/archives/html/xen-devel/2010-09/msg01634.html
+
+
+-boris
+
+
+>
+> The next question would be how we could go about improving the
+> situation. For the particular issue in 5.18 I've found a relatively
+> simple solution [1] (which also looks to help graphics performance
+> on other systems, according to my initial observations with using
+> the change), albeit its simplicity likely means it either is wrong
+> in some way, or might not be liked for looking hacky and/or abusive.
+> We can't, for example, simply turn on the MTRR bit in CPUID, as that
+> would implicitly lead to the kernel trying to write the PAT MSR (if,
+> see below, it didn't itself zap the bit). We also can't simply
+> ignore PAT MSR writes, as the kernel won't check whether writes
+> actually took effect. (All of that did work on top of old Xen
+> apparently only because xen_init_capabilities() itself also forces
+> the MTRR feature to off.)
+>
+> Jan
+>
+> [1] https://lists.xen.org/archives/html/xen-devel/2022-04/msg02392.html
+>
 
