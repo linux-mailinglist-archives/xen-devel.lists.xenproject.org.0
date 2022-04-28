@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8B65512E88
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 10:33:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.316241.535145 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E94BD512ED5
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 10:44:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.316293.535166 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njzaQ-00006p-Jb; Thu, 28 Apr 2022 08:33:18 +0000
+	id 1njzkm-0002Mj-Sw; Thu, 28 Apr 2022 08:44:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 316241.535145; Thu, 28 Apr 2022 08:33:18 +0000
+Received: by outflank-mailman (output) from mailman id 316293.535166; Thu, 28 Apr 2022 08:44:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njzaQ-0008Vt-FZ; Thu, 28 Apr 2022 08:33:18 +0000
-Received: by outflank-mailman (input) for mailman id 316241;
- Thu, 28 Apr 2022 08:33:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1njzkm-0002KO-Pt; Thu, 28 Apr 2022 08:44:00 +0000
+Received: by outflank-mailman (input) for mailman id 316293;
+ Thu, 28 Apr 2022 08:43:58 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=KUQd=VG=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1njzVH-0005SL-Bm
- for xen-devel@lists.xenproject.org; Thu, 28 Apr 2022 08:27:59 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 18eaf877-c6cd-11ec-a405-831a346695d4;
- Thu, 28 Apr 2022 10:27:53 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id EF2F21F88E;
- Thu, 28 Apr 2022 08:27:52 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C01E513491;
- Thu, 28 Apr 2022 08:27:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id mIuaLQhQamIBLgAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 28 Apr 2022 08:27:52 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1njzkk-0002KE-MS; Thu, 28 Apr 2022 08:43:58 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1njzkk-0001yl-LN; Thu, 28 Apr 2022 08:43:58 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1njzkk-0001vf-EL; Thu, 28 Apr 2022 08:43:58 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1njzkk-0001tt-Dw; Thu, 28 Apr 2022 08:43:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,148 +42,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18eaf877-c6cd-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1651134472; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DySE+lWBPx7VwNEF3X1lwYDq+4S10O0jUUqyaBArCE0=;
-	b=nbgsI2l8XvMPHhwykxKcjmjFm5ic18dsQ4iNKTc8cOED/bFxCbEf3NTRN8JBCmnMBKGyQ2
-	qXLhAX68u5bD4eceSKKH1djjOsiFninHCccZsIkSwMsZEy1jxCtv8Ps2onc8BrAtqKGNng
-	Yy+egfDuGQZXpsqZG2QPjJvI84+Pz7Q=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 19/19] xen/xenbus: eliminate xenbus_grant_ring()
-Date: Thu, 28 Apr 2022 10:27:43 +0200
-Message-Id: <20220428082743.16593-20-jgross@suse.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220428082743.16593-1-jgross@suse.com>
-References: <20220428082743.16593-1-jgross@suse.com>
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=qgQYSBBBZsvesDZW+MhzvcqOK9McsAcyWI7Iru0QeRE=; b=PfBjucicLjj/A2ytzBUCg4fTkh
+	ePraQ+bN5CTgUU+PeMBOSdEu0qrgERMB4xRv4jWQKyyZimUWvJai4KGkpWrL/DKB8D0R/fa8BPFeE
+	B0othv7dtTAe0G1TsDT7l0UijK3WyK5p5qhWWRj5W+bzxRbOj/uqg8SjGSkI+wAuGG+c=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-169806-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 169806: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=916f90baa547b3ebef8fa87c530e2f0c8e35e1e3
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 28 Apr 2022 08:43:58 +0000
 
-There is no external user of xenbus_grant_ring() left, so merge it into
-the only caller xenbus_setup_ring().
+flight 169806 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169806/
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- make error message more precise (Andrew Cooper)
----
- drivers/xen/xenbus/xenbus_client.c | 65 +++++++++---------------------
- include/xen/xenbus.h               |  2 -
- 2 files changed, 19 insertions(+), 48 deletions(-)
+Regressions :-(
 
-diff --git a/drivers/xen/xenbus/xenbus_client.c b/drivers/xen/xenbus/xenbus_client.c
-index 1a2e0d94ccd1..d6fdd2d209d3 100644
---- a/drivers/xen/xenbus/xenbus_client.c
-+++ b/drivers/xen/xenbus/xenbus_client.c
-@@ -363,50 +363,6 @@ static void xenbus_switch_fatal(struct xenbus_device *dev, int depth, int err,
- 		__xenbus_switch_state(dev, XenbusStateClosing, 1);
- }
- 
--/**
-- * xenbus_grant_ring
-- * @dev: xenbus device
-- * @vaddr: starting virtual address of the ring
-- * @nr_pages: number of pages to be granted
-- * @grefs: grant reference array to be filled in
-- *
-- * Grant access to the given @vaddr to the peer of the given device.
-- * Then fill in @grefs with grant references.  Return 0 on success, or
-- * -errno on error.  On error, the device will switch to
-- * XenbusStateClosing, and the error will be saved in the store.
-- */
--int xenbus_grant_ring(struct xenbus_device *dev, void *vaddr,
--		      unsigned int nr_pages, grant_ref_t *grefs)
--{
--	int err;
--	unsigned int i;
--	grant_ref_t gref_head;
--
--	err = gnttab_alloc_grant_references(nr_pages, &gref_head);
--	if (err) {
--		xenbus_dev_fatal(dev, err, "granting access to ring page");
--		return err;
--	}
--
--	for (i = 0; i < nr_pages; i++) {
--		unsigned long gfn;
--
--		if (is_vmalloc_addr(vaddr))
--			gfn = pfn_to_gfn(vmalloc_to_pfn(vaddr));
--		else
--			gfn = virt_to_gfn(vaddr);
--
--		grefs[i] = gnttab_claim_grant_reference(&gref_head);
--		gnttab_grant_foreign_access_ref(grefs[i], dev->otherend_id,
--						gfn, 0);
--
--		vaddr = vaddr + XEN_PAGE_SIZE;
--	}
--
--	return 0;
--}
--EXPORT_SYMBOL_GPL(xenbus_grant_ring);
--
- /*
-  * xenbus_setup_ring
-  * @dev: xenbus device
-@@ -424,6 +380,7 @@ int xenbus_setup_ring(struct xenbus_device *dev, gfp_t gfp, void **vaddr,
- 		      unsigned int nr_pages, grant_ref_t *grefs)
- {
- 	unsigned long ring_size = nr_pages * XEN_PAGE_SIZE;
-+	grant_ref_t gref_head;
- 	unsigned int i;
- 	int ret;
- 
-@@ -433,9 +390,25 @@ int xenbus_setup_ring(struct xenbus_device *dev, gfp_t gfp, void **vaddr,
- 		goto err;
- 	}
- 
--	ret = xenbus_grant_ring(dev, *vaddr, nr_pages, grefs);
--	if (ret)
-+	ret = gnttab_alloc_grant_references(nr_pages, &gref_head);
-+	if (ret) {
-+		xenbus_dev_fatal(dev, ret, "granting access to %u ring pages",
-+				 nr_pages);
- 		goto err;
-+	}
-+
-+	for (i = 0; i < nr_pages; i++) {
-+		unsigned long gfn;
-+
-+		if (is_vmalloc_addr(*vaddr))
-+			gfn = pfn_to_gfn(vmalloc_to_pfn(vaddr[i]));
-+		else
-+			gfn = virt_to_gfn(vaddr[i]);
-+
-+		grefs[i] = gnttab_claim_grant_reference(&gref_head);
-+		gnttab_grant_foreign_access_ref(grefs[i], dev->otherend_id,
-+						gfn, 0);
-+	}
- 
- 	return 0;
- 
-diff --git a/include/xen/xenbus.h b/include/xen/xenbus.h
-index b533b4adc835..eaa932b99d8a 100644
---- a/include/xen/xenbus.h
-+++ b/include/xen/xenbus.h
-@@ -224,8 +224,6 @@ int xenbus_watch_pathfmt(struct xenbus_device *dev, struct xenbus_watch *watch,
- 			 const char *pathfmt, ...);
- 
- int xenbus_switch_state(struct xenbus_device *dev, enum xenbus_state new_state);
--int xenbus_grant_ring(struct xenbus_device *dev, void *vaddr,
--		      unsigned int nr_pages, grant_ref_t *grefs);
- int xenbus_setup_ring(struct xenbus_device *dev, gfp_t gfp, void **vaddr,
- 		      unsigned int nr_pages, grant_ref_t *grefs);
- void xenbus_teardown_ring(void **vaddr, unsigned int nr_pages,
--- 
-2.34.1
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 916f90baa547b3ebef8fa87c530e2f0c8e35e1e3
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   58 days
+Failing since        168258  2022-03-01 01:55:31 Z   58 days  673 attempts
+Testing same since   169718  2022-04-25 21:41:52 Z    2 days   45 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 5828 lines long.)
 
