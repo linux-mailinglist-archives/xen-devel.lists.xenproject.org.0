@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34D60512E64
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 10:28:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.316177.535018 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF837512E5A
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 10:28:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.316176.535006 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njzVF-00078m-Of; Thu, 28 Apr 2022 08:27:57 +0000
+	id 1njzVE-0006qY-HZ; Thu, 28 Apr 2022 08:27:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 316177.535018; Thu, 28 Apr 2022 08:27:57 +0000
+Received: by outflank-mailman (output) from mailman id 316176.535006; Thu, 28 Apr 2022 08:27:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njzVF-0006q5-2v; Thu, 28 Apr 2022 08:27:57 +0000
-Received: by outflank-mailman (input) for mailman id 316177;
- Thu, 28 Apr 2022 08:27:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1njzVE-0006eF-2e; Thu, 28 Apr 2022 08:27:56 +0000
+Received: by outflank-mailman (input) for mailman id 316176;
+ Thu, 28 Apr 2022 08:27:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=KUQd=VG=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1njzVB-0005SL-AT
- for xen-devel@lists.xenproject.org; Thu, 28 Apr 2022 08:27:53 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1708cee3-c6cd-11ec-a405-831a346695d4;
+ id 1njzVA-0005SM-EB
+ for xen-devel@lists.xenproject.org; Thu, 28 Apr 2022 08:27:52 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 172293ae-c6cd-11ec-8fc3-03012f2f19d4;
  Thu, 28 Apr 2022 10:27:50 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B78F51F88A;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id EE17421874;
  Thu, 28 Apr 2022 08:27:49 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8A17913491;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BFF4713491;
  Thu, 28 Apr 2022 08:27:49 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id CFi8HwVQamIBLgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id mGl2LQVQamIBLgAAMHmgww
  (envelope-from <jgross@suse.com>); Thu, 28 Apr 2022 08:27:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -51,25 +51,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1708cee3-c6cd-11ec-a405-831a346695d4
+X-Inumbo-ID: 172293ae-c6cd-11ec-8fc3-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1651134469; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=SPIngja7rfH6/X0ahWtYB7L7nX8NRl4zj/+cjR7xZr0=;
-	b=b7TnDrRcZ8z68LrDQfaX1DqYfORj8ovWaBSLWfmePTyAcTrj7ib5gCErS/v1IQdBeh1X3M
-	Qu5cD8Fe5euQgJsZU3TUwzQz/XM70bZA++EtW65/fPX/tHI910GU8H0Dh8g3F4RlQWAky9
-	CV2BiAzCmMq6L8R2HrQyYiQ9FoU5Y7A=
+	bh=27ryrQ9/V3A+L0L1cMkzg+znNHks8+NEi42Ak1eCxTQ=;
+	b=OuTXoWvhfYYiK6CpG+Xj3URKFgDVAutPiSkezySiwcZy5fZN/9LUWyECUUdJYzu/QyFtIK
+	IlWEbdsvMavVm0S7cE2dMet6r3Ofm33wYWqZxXMaKMQ+q2ofTy2NzLxMYjglo8jdcdMQIn
+	Gfl9iKNb3w0tnJ62vhff94o8tpqp+WM=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org,
 	linux-kernel@vger.kernel.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 07/19] xen/dmabuf: switch gntdev-dmabuf to use INVALID_GRANT_REF
-Date: Thu, 28 Apr 2022 10:27:31 +0200
-Message-Id: <20220428082743.16593-8-jgross@suse.com>
+Subject: [PATCH v2 08/19] xen/shbuf: switch xen-front-pgdir-shbuf to use INVALID_GRANT_REF
+Date: Thu, 28 Apr 2022 10:27:32 +0200
+Message-Id: <20220428082743.16593-9-jgross@suse.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220428082743.16593-1-jgross@suse.com>
 References: <20220428082743.16593-1-jgross@suse.com>
@@ -81,47 +81,65 @@ the common one.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- drivers/xen/gntdev-dmabuf.c | 13 ++-----------
- 1 file changed, 2 insertions(+), 11 deletions(-)
+ drivers/xen/xen-front-pgdir-shbuf.c | 17 ++++-------------
+ 1 file changed, 4 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
-index d5bfd7b867fc..91073b4e4a20 100644
---- a/drivers/xen/gntdev-dmabuf.c
-+++ b/drivers/xen/gntdev-dmabuf.c
-@@ -24,15 +24,6 @@
+diff --git a/drivers/xen/xen-front-pgdir-shbuf.c b/drivers/xen/xen-front-pgdir-shbuf.c
+index a959dee21134..fa2921d4fbfc 100644
+--- a/drivers/xen/xen-front-pgdir-shbuf.c
++++ b/drivers/xen/xen-front-pgdir-shbuf.c
+@@ -21,15 +21,6 @@
  
- MODULE_IMPORT_NS(DMA_BUF);
+ #include <xen/xen-front-pgdir-shbuf.h>
  
 -#ifndef GRANT_INVALID_REF
 -/*
-- * Note on usage of grant reference 0 as invalid grant reference:
-- * grant reference 0 is valid, but never exposed to a driver,
+- * FIXME: usage of grant reference 0 as invalid grant reference:
+- * grant reference 0 is valid, but never exposed to a PV driver,
 - * because of the fact it is already in use/reserved by the PV console.
 - */
 -#define GRANT_INVALID_REF	0
 -#endif
 -
- struct gntdev_dmabuf {
- 	struct gntdev_dmabuf_priv *priv;
- 	struct dma_buf *dmabuf;
-@@ -532,7 +523,7 @@ static void dmabuf_imp_end_foreign_access(u32 *refs, int count)
- 	int i;
+ /**
+  * This structure represents the structure of a shared page
+  * that contains grant references to the pages of the shared
+@@ -83,7 +74,7 @@ grant_ref_t
+ xen_front_pgdir_shbuf_get_dir_start(struct xen_front_pgdir_shbuf *buf)
+ {
+ 	if (!buf->grefs)
+-		return GRANT_INVALID_REF;
++		return INVALID_GRANT_REF;
  
- 	for (i = 0; i < count; i++)
--		if (refs[i] != GRANT_INVALID_REF)
-+		if (refs[i] != INVALID_GRANT_REF)
- 			gnttab_end_foreign_access(refs[i], 0UL);
+ 	return buf->grefs[0];
+ }
+@@ -142,7 +133,7 @@ void xen_front_pgdir_shbuf_free(struct xen_front_pgdir_shbuf *buf)
+ 		int i;
+ 
+ 		for (i = 0; i < buf->num_grefs; i++)
+-			if (buf->grefs[i] != GRANT_INVALID_REF)
++			if (buf->grefs[i] != INVALID_GRANT_REF)
+ 				gnttab_end_foreign_access(buf->grefs[i], 0UL);
+ 	}
+ 	kfree(buf->grefs);
+@@ -355,7 +346,7 @@ static void backend_fill_page_dir(struct xen_front_pgdir_shbuf *buf)
+ 	}
+ 	/* Last page must say there is no more pages. */
+ 	page_dir = (struct xen_page_directory *)ptr;
+-	page_dir->gref_dir_next_page = GRANT_INVALID_REF;
++	page_dir->gref_dir_next_page = INVALID_GRANT_REF;
  }
  
-@@ -567,7 +558,7 @@ static struct gntdev_dmabuf *dmabuf_imp_alloc_storage(int count)
- 	gntdev_dmabuf->nr_pages = count;
+ /**
+@@ -384,7 +375,7 @@ static void guest_fill_page_dir(struct xen_front_pgdir_shbuf *buf)
  
- 	for (i = 0; i < count; i++)
--		gntdev_dmabuf->u.imp.refs[i] = GRANT_INVALID_REF;
-+		gntdev_dmabuf->u.imp.refs[i] = INVALID_GRANT_REF;
- 
- 	return gntdev_dmabuf;
- 
+ 		if (grefs_left <= XEN_NUM_GREFS_PER_PAGE) {
+ 			to_copy = grefs_left;
+-			page_dir->gref_dir_next_page = GRANT_INVALID_REF;
++			page_dir->gref_dir_next_page = INVALID_GRANT_REF;
+ 		} else {
+ 			to_copy = XEN_NUM_GREFS_PER_PAGE;
+ 			page_dir->gref_dir_next_page = buf->grefs[i + 1];
 -- 
 2.34.1
 
