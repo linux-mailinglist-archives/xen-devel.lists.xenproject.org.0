@@ -2,39 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6BCD5127C8
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 01:50:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.315860.534539 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13D935127E9
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 02:04:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.315867.534550 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njrQ1-00046t-0Y; Wed, 27 Apr 2022 23:50:01 +0000
+	id 1njrcp-00074O-LU; Thu, 28 Apr 2022 00:03:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 315860.534539; Wed, 27 Apr 2022 23:50:00 +0000
+Received: by outflank-mailman (output) from mailman id 315867.534550; Thu, 28 Apr 2022 00:03:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njrQ0-00044A-T5; Wed, 27 Apr 2022 23:50:00 +0000
-Received: by outflank-mailman (input) for mailman id 315860;
- Wed, 27 Apr 2022 23:50:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GCuR=VF=paulmck-ThinkPad-P17-Gen-1.home=paulmck@kernel.org>)
- id 1njrQ0-000444-1U
- for xen-devel@lists.xenproject.org; Wed, 27 Apr 2022 23:50:00 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id be12a680-c684-11ec-a405-831a346695d4;
- Thu, 28 Apr 2022 01:49:57 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DB40461EF7;
- Wed, 27 Apr 2022 23:49:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16778C385A9;
- Wed, 27 Apr 2022 23:49:55 +0000 (UTC)
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
- id AA5975C0B07; Wed, 27 Apr 2022 16:49:54 -0700 (PDT)
+	id 1njrcp-00071N-IC; Thu, 28 Apr 2022 00:03:15 +0000
+Received: by outflank-mailman (input) for mailman id 315867;
+ Thu, 28 Apr 2022 00:03:13 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1njrcn-00071D-FS; Thu, 28 Apr 2022 00:03:13 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1njrcn-0002Bv-AS; Thu, 28 Apr 2022 00:03:13 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1njrcm-0001rU-R8; Thu, 28 Apr 2022 00:03:12 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1njrcm-0000tK-Qg; Thu, 28 Apr 2022 00:03:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,346 +42,264 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be12a680-c684-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1651103395;
-	bh=fUZjHYw9wwKZPDJTueMs+O0QpaDcmLmJGnfVK2U9fDA=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To:From;
-	b=Je1aB/fze7iTbiS9iJu+ljdypRVlpSNOY2ApvQuQXPIJMcX561LCqFU5KD8NuzITn
-	 axVegyGDng/no5zGX+N0XJaBX3eCl1u+MBfsPPSUCnAku/LeQQoNnLn0h3GPux3yBk
-	 VOvYDvtIfUvjSSlCqhYbS9JVxA2AV5YZM/HgUioKVWSI+XcWSCErb9jz9UvrxK1pys
-	 vStoYHEo4wQDcrF+2d88fEDoby5J66HLtUmYbV1qTrDo2OoFmaqWJaLLn5LoRnwbLY
-	 cyOzSoD9WN0tR37CmdZFeQgXzlz5t3Jm6TM/uEaGXtF/lFjZIjpGv2bt25uLPFk53d
-	 hyeP1plId9baA==
-Date: Wed, 27 Apr 2022 16:49:54 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: akpm@linux-foundation.org, bhe@redhat.com, pmladek@suse.com,
-	kexec@lists.infradead.org, linux-kernel@vger.kernel.org,
-	bcm-kernel-feedback-list@broadcom.com, coresight@lists.linaro.org,
-	linuxppc-dev@lists.ozlabs.org, linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
-	linux-hyperv@vger.kernel.org, linux-leds@vger.kernel.org,
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-	linux-s390@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-um@lists.infradead.org, linux-xtensa@linux-xtensa.org,
-	netdev@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
-	rcu@vger.kernel.org, sparclinux@vger.kernel.org,
-	xen-devel@lists.xenproject.org, x86@kernel.org,
-	kernel-dev@igalia.com, kernel@gpiccoli.net, halves@canonical.com,
-	fabiomirmar@gmail.com, alejandro.j.jimenez@oracle.com,
-	andriy.shevchenko@linux.intel.com, arnd@arndb.de, bp@alien8.de,
-	corbet@lwn.net, d.hatayama@jp.fujitsu.com,
-	dave.hansen@linux.intel.com, dyoung@redhat.com, feng.tang@intel.com,
-	gregkh@linuxfoundation.org, mikelley@microsoft.com,
-	hidehiro.kawai.ez@hitachi.com, jgross@suse.com,
-	john.ogness@linutronix.de, keescook@chromium.org, luto@kernel.org,
-	mhiramat@kernel.org, mingo@redhat.com, peterz@infradead.org,
-	rostedt@goodmis.org, senozhatsky@chromium.org,
-	stern@rowland.harvard.edu, tglx@linutronix.de, vgoyal@redhat.com,
-	vkuznets@redhat.com, will@kernel.org,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Hari Bathini <hbathini@linux.ibm.com>,
-	Joel Fernandes <joel@joelfernandes.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Leo Yan <leo.yan@linaro.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Mike Leach <mike.leach@linaro.org>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Neeraj Upadhyay <quic_neeraju@quicinc.com>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Paul Mackerras <paulus@samba.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Subject: Re: [PATCH 20/30] panic: Add the panic informational notifier list
-Message-ID: <20220427234954.GA3204792@paulmck-ThinkPad-P17-Gen-1>
-Reply-To: paulmck@kernel.org
-References: <20220427224924.592546-1-gpiccoli@igalia.com>
- <20220427224924.592546-21-gpiccoli@igalia.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=xglYBCxYeAdf3bUr2k67UiL71H28XHRpz1cnQmhWLg8=; b=g4JKDhKi6xVmneTYcPza7LO4a7
+	bYvNnB2mIf43tOM3EV9SWRMh07gl3jsKbnSAJkc8HoWxz9xEUD0ruHt7KGLBEn1x16yjhu6QZxeom
+	qsvqZyzQSkUTBLL1rEmyN70DMf74/R1H5xH/M1hqS0r0XotmNYkY0t+WLwdo/iY0I+JI=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-169779-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220427224924.592546-21-gpiccoli@igalia.com>
+Subject: [qemu-mainline test] 169779: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=34723f59371f3fd02ea59b94674314b875504426
+X-Osstest-Versions-That:
+    qemuu=a72d9008092e39c2c37e47a91bae4e170d0f1b33
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 28 Apr 2022 00:03:12 +0000
 
-On Wed, Apr 27, 2022 at 07:49:14PM -0300, Guilherme G. Piccoli wrote:
-> The goal of this new panic notifier is to allow its users to
-> register callbacks to run earlier in the panic path than they
-> currently do. This aims at informational mechanisms, like dumping
-> kernel offsets and showing device error data (in case it's simple
-> registers reading, for example) as well as mechanisms to disable
-> log flooding (like hung_task detector / RCU warnings) and the
-> tracing dump_on_oops (when enabled).
-> 
-> Any (non-invasive) information that should be provided before
-> kmsg_dump() as well as log flooding preventing code should fit
-> here, as long it offers relatively low risk for kdump.
-> 
-> For now, the patch is almost a no-op, although it changes a bit
-> the ordering in which some panic notifiers are executed - specially
-> affected by this are the notifiers responsible for disabling the
-> hung_task detector / RCU warnings, which now run first. In a
-> subsequent patch, the panic path will be refactored, then the
-> panic informational notifiers will effectively run earlier,
-> before ksmg_dump() (and usually before kdump as well).
-> 
-> We also defer documenting it all properly in the subsequent
-> refactor patch. Finally, while at it, we removed some useless
-> header inclusions too.
-> 
-> Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: Florian Fainelli <f.fainelli@gmail.com>
-> Cc: Frederic Weisbecker <frederic@kernel.org>
-> Cc: "H. Peter Anvin" <hpa@zytor.com>
-> Cc: Hari Bathini <hbathini@linux.ibm.com>
-> Cc: Joel Fernandes <joel@joelfernandes.org>
-> Cc: Jonathan Hunter <jonathanh@nvidia.com>
-> Cc: Josh Triplett <josh@joshtriplett.org>
-> Cc: Lai Jiangshan <jiangshanlai@gmail.com>
-> Cc: Leo Yan <leo.yan@linaro.org>
-> Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> Cc: Mathieu Poirier <mathieu.poirier@linaro.org>
-> Cc: Michael Ellerman <mpe@ellerman.id.au>
-> Cc: Mike Leach <mike.leach@linaro.org>
-> Cc: Mikko Perttunen <mperttunen@nvidia.com>
-> Cc: Neeraj Upadhyay <quic_neeraju@quicinc.com>
-> Cc: Nicholas Piggin <npiggin@gmail.com>
-> Cc: Paul Mackerras <paulus@samba.org>
-> Cc: Suzuki K Poulose <suzuki.poulose@arm.com>
-> Cc: Thierry Reding <thierry.reding@gmail.com>
-> Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-> Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
+flight 169779 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169779/
 
-From an RCU perspective:
+Failures :-/ but no regressions.
 
-Acked-by: Paul E. McKenney <paulmck@kernel.org>
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 169762
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 169762
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 169762
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 169762
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 169762
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 169762
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 169762
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 169762
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-> ---
->  arch/arm64/kernel/setup.c                         | 2 +-
->  arch/mips/kernel/relocate.c                       | 2 +-
->  arch/powerpc/kernel/setup-common.c                | 2 +-
->  arch/x86/kernel/setup.c                           | 2 +-
->  drivers/bus/brcmstb_gisb.c                        | 2 +-
->  drivers/hwtracing/coresight/coresight-cpu-debug.c | 4 ++--
->  drivers/soc/tegra/ari-tegra186.c                  | 3 ++-
->  include/linux/panic_notifier.h                    | 1 +
->  kernel/hung_task.c                                | 3 ++-
->  kernel/panic.c                                    | 4 ++++
->  kernel/rcu/tree.c                                 | 1 -
->  kernel/rcu/tree_stall.h                           | 3 ++-
->  kernel/trace/trace.c                              | 2 +-
->  13 files changed, 19 insertions(+), 12 deletions(-)
-> 
-> diff --git a/arch/arm64/kernel/setup.c b/arch/arm64/kernel/setup.c
-> index 3505789cf4bd..ac2c7e8c9c6a 100644
-> --- a/arch/arm64/kernel/setup.c
-> +++ b/arch/arm64/kernel/setup.c
-> @@ -444,7 +444,7 @@ static struct notifier_block arm64_panic_block = {
->  
->  static int __init register_arm64_panic_block(void)
->  {
-> -	atomic_notifier_chain_register(&panic_notifier_list,
-> +	atomic_notifier_chain_register(&panic_info_list,
->  				       &arm64_panic_block);
->  	return 0;
->  }
-> diff --git a/arch/mips/kernel/relocate.c b/arch/mips/kernel/relocate.c
-> index 56b51de2dc51..650811f2436a 100644
-> --- a/arch/mips/kernel/relocate.c
-> +++ b/arch/mips/kernel/relocate.c
-> @@ -459,7 +459,7 @@ static struct notifier_block kernel_location_notifier = {
->  
->  static int __init register_kernel_offset_dumper(void)
->  {
-> -	atomic_notifier_chain_register(&panic_notifier_list,
-> +	atomic_notifier_chain_register(&panic_info_list,
->  				       &kernel_location_notifier);
->  	return 0;
->  }
-> diff --git a/arch/powerpc/kernel/setup-common.c b/arch/powerpc/kernel/setup-common.c
-> index 1468c3937bf4..d04b8bf8dbc7 100644
-> --- a/arch/powerpc/kernel/setup-common.c
-> +++ b/arch/powerpc/kernel/setup-common.c
-> @@ -757,7 +757,7 @@ void __init setup_panic(void)
->  				       &ppc_fadump_block);
->  
->  	if (IS_ENABLED(CONFIG_RANDOMIZE_BASE) && kaslr_offset() > 0)
-> -		atomic_notifier_chain_register(&panic_notifier_list,
-> +		atomic_notifier_chain_register(&panic_info_list,
->  					       &kernel_offset_notifier);
->  
->  	/* Low-level platform-specific routines that should run on panic */
-> diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-> index c95b9ac5a457..599b25346964 100644
-> --- a/arch/x86/kernel/setup.c
-> +++ b/arch/x86/kernel/setup.c
-> @@ -1266,7 +1266,7 @@ static struct notifier_block kernel_offset_notifier = {
->  
->  static int __init register_kernel_offset_dumper(void)
->  {
-> -	atomic_notifier_chain_register(&panic_notifier_list,
-> +	atomic_notifier_chain_register(&panic_info_list,
->  					&kernel_offset_notifier);
->  	return 0;
->  }
-> diff --git a/drivers/bus/brcmstb_gisb.c b/drivers/bus/brcmstb_gisb.c
-> index 1ea7b015e225..c64e087fba7a 100644
-> --- a/drivers/bus/brcmstb_gisb.c
-> +++ b/drivers/bus/brcmstb_gisb.c
-> @@ -486,7 +486,7 @@ static int __init brcmstb_gisb_arb_probe(struct platform_device *pdev)
->  
->  	if (list_is_singular(&brcmstb_gisb_arb_device_list)) {
->  		register_die_notifier(&gisb_die_notifier);
-> -		atomic_notifier_chain_register(&panic_notifier_list,
-> +		atomic_notifier_chain_register(&panic_info_list,
->  					       &gisb_panic_notifier);
->  	}
->  
-> diff --git a/drivers/hwtracing/coresight/coresight-cpu-debug.c b/drivers/hwtracing/coresight/coresight-cpu-debug.c
-> index 1874df7c6a73..7b1012454525 100644
-> --- a/drivers/hwtracing/coresight/coresight-cpu-debug.c
-> +++ b/drivers/hwtracing/coresight/coresight-cpu-debug.c
-> @@ -535,7 +535,7 @@ static int debug_func_init(void)
->  			    &debug_func_knob_fops);
->  
->  	/* Register function to be called for panic */
-> -	ret = atomic_notifier_chain_register(&panic_notifier_list,
-> +	ret = atomic_notifier_chain_register(&panic_info_list,
->  					     &debug_notifier);
->  	if (ret) {
->  		pr_err("%s: unable to register notifier: %d\n",
-> @@ -552,7 +552,7 @@ static int debug_func_init(void)
->  
->  static void debug_func_exit(void)
->  {
-> -	atomic_notifier_chain_unregister(&panic_notifier_list,
-> +	atomic_notifier_chain_unregister(&panic_info_list,
->  					 &debug_notifier);
->  	debugfs_remove_recursive(debug_debugfs_dir);
->  }
-> diff --git a/drivers/soc/tegra/ari-tegra186.c b/drivers/soc/tegra/ari-tegra186.c
-> index 02577853ec49..4ef05ebed739 100644
-> --- a/drivers/soc/tegra/ari-tegra186.c
-> +++ b/drivers/soc/tegra/ari-tegra186.c
-> @@ -73,7 +73,8 @@ static struct notifier_block tegra186_ari_panic_nb = {
->  static int __init tegra186_ari_init(void)
->  {
->  	if (of_machine_is_compatible("nvidia,tegra186"))
-> -		atomic_notifier_chain_register(&panic_notifier_list, &tegra186_ari_panic_nb);
-> +		atomic_notifier_chain_register(&panic_info_list,
-> +					       &tegra186_ari_panic_nb);
->  
->  	return 0;
->  }
-> diff --git a/include/linux/panic_notifier.h b/include/linux/panic_notifier.h
-> index 0bb9dc0dea04..7364a346bcb0 100644
-> --- a/include/linux/panic_notifier.h
-> +++ b/include/linux/panic_notifier.h
-> @@ -7,6 +7,7 @@
->  
->  extern struct atomic_notifier_head panic_notifier_list;
->  extern struct atomic_notifier_head panic_hypervisor_list;
-> +extern struct atomic_notifier_head panic_info_list;
->  
->  extern bool crash_kexec_post_notifiers;
->  
-> diff --git a/kernel/hung_task.c b/kernel/hung_task.c
-> index 52501e5f7655..1b2d7111d5ac 100644
-> --- a/kernel/hung_task.c
-> +++ b/kernel/hung_task.c
-> @@ -85,6 +85,7 @@ hung_task_panic(struct notifier_block *this, unsigned long event, void *ptr)
->  
->  static struct notifier_block panic_block = {
->  	.notifier_call = hung_task_panic,
-> +	.priority = INT_MAX, /* run early to prevent potential log flood */
->  };
->  
->  static void check_hung_task(struct task_struct *t, unsigned long timeout)
-> @@ -378,7 +379,7 @@ static int watchdog(void *dummy)
->  
->  static int __init hung_task_init(void)
->  {
-> -	atomic_notifier_chain_register(&panic_notifier_list, &panic_block);
-> +	atomic_notifier_chain_register(&panic_info_list, &panic_block);
->  
->  	/* Disable hung task detector on suspend */
->  	pm_notifier(hungtask_pm_notify, 0);
-> diff --git a/kernel/panic.c b/kernel/panic.c
-> index ef76f3f9c44d..73ca1bc44e30 100644
-> --- a/kernel/panic.c
-> +++ b/kernel/panic.c
-> @@ -76,6 +76,9 @@ EXPORT_SYMBOL(panic_notifier_list);
->  ATOMIC_NOTIFIER_HEAD(panic_hypervisor_list);
->  EXPORT_SYMBOL(panic_hypervisor_list);
->  
-> +ATOMIC_NOTIFIER_HEAD(panic_info_list);
-> +EXPORT_SYMBOL(panic_info_list);
-> +
->  static long no_blink(int state)
->  {
->  	return 0;
-> @@ -291,6 +294,7 @@ void panic(const char *fmt, ...)
->  	 * add information to the kmsg dump output.
->  	 */
->  	atomic_notifier_call_chain(&panic_hypervisor_list, PANIC_NOTIFIER, buf);
-> +	atomic_notifier_call_chain(&panic_info_list, PANIC_NOTIFIER, buf);
->  	atomic_notifier_call_chain(&panic_notifier_list, PANIC_NOTIFIER, buf);
->  
->  	panic_print_sys_info(false);
-> diff --git a/kernel/rcu/tree.c b/kernel/rcu/tree.c
-> index a4b8189455d5..d5a2674ae81c 100644
-> --- a/kernel/rcu/tree.c
-> +++ b/kernel/rcu/tree.c
-> @@ -35,7 +35,6 @@
->  #include <linux/panic.h>
->  #include <linux/panic_notifier.h>
->  #include <linux/percpu.h>
-> -#include <linux/notifier.h>
->  #include <linux/cpu.h>
->  #include <linux/mutex.h>
->  #include <linux/time.h>
-> diff --git a/kernel/rcu/tree_stall.h b/kernel/rcu/tree_stall.h
-> index 0c5d8516516a..d8a5840aad5d 100644
-> --- a/kernel/rcu/tree_stall.h
-> +++ b/kernel/rcu/tree_stall.h
-> @@ -97,11 +97,12 @@ static int rcu_panic(struct notifier_block *this, unsigned long ev, void *ptr)
->  
->  static struct notifier_block rcu_panic_block = {
->  	.notifier_call = rcu_panic,
-> +	.priority = INT_MAX, /* run early to prevent potential log flood */
->  };
->  
->  static int __init check_cpu_stall_init(void)
->  {
-> -	atomic_notifier_chain_register(&panic_notifier_list, &rcu_panic_block);
-> +	atomic_notifier_chain_register(&panic_info_list, &rcu_panic_block);
->  	return 0;
->  }
->  early_initcall(check_cpu_stall_init);
-> diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-> index c1d8a3622ccc..7d02f7a66bb1 100644
-> --- a/kernel/trace/trace.c
-> +++ b/kernel/trace/trace.c
-> @@ -10138,7 +10138,7 @@ __init static int tracer_alloc_buffers(void)
->  	/* All seems OK, enable tracing */
->  	tracing_disabled = 0;
->  
-> -	atomic_notifier_chain_register(&panic_notifier_list,
-> +	atomic_notifier_chain_register(&panic_info_list,
->  				       &trace_panic_notifier);
->  
->  	register_die_notifier(&trace_die_notifier);
-> -- 
-> 2.36.0
-> 
+version targeted for testing:
+ qemuu                34723f59371f3fd02ea59b94674314b875504426
+baseline version:
+ qemuu                a72d9008092e39c2c37e47a91bae4e170d0f1b33
+
+Last test of basis   169762  2022-04-27 01:08:27 Z    0 days
+Testing same since   169779  2022-04-27 10:34:36 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Richard Henderson <richard.henderson@linaro.org>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/qemu-xen.git
+   a72d900809..34723f5937  34723f59371f3fd02ea59b94674314b875504426 -> upstream-tested
 
