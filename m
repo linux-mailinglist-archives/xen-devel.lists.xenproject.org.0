@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3FB051332C
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 13:59:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.316476.535412 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0117B513416
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 14:46:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.316502.535427 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nk2nN-0007ja-1F; Thu, 28 Apr 2022 11:58:53 +0000
+	id 1nk3Wd-0004cn-T9; Thu, 28 Apr 2022 12:45:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 316476.535412; Thu, 28 Apr 2022 11:58:53 +0000
+Received: by outflank-mailman (output) from mailman id 316502.535427; Thu, 28 Apr 2022 12:45:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nk2nM-0007gu-Te; Thu, 28 Apr 2022 11:58:52 +0000
-Received: by outflank-mailman (input) for mailman id 316476;
- Thu, 28 Apr 2022 11:58:52 +0000
+	id 1nk3Wd-0004aa-PV; Thu, 28 Apr 2022 12:45:39 +0000
+Received: by outflank-mailman (input) for mailman id 316502;
+ Thu, 28 Apr 2022 12:45:38 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1nk2nM-0007gk-54; Thu, 28 Apr 2022 11:58:52 +0000
+ id 1nk3Wc-0004aQ-47; Thu, 28 Apr 2022 12:45:38 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1nk2nM-0005R6-0T; Thu, 28 Apr 2022 11:58:52 +0000
+ id 1nk3Wc-0006EH-10; Thu, 28 Apr 2022 12:45:38 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1nk2nL-0000RV-9v; Thu, 28 Apr 2022 11:58:51 +0000
+ id 1nk3Wb-0002EZ-FQ; Thu, 28 Apr 2022 12:45:37 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nk2nL-00042e-9T; Thu, 28 Apr 2022 11:58:51 +0000
+ id 1nk3Wb-0004hn-Ev; Thu, 28 Apr 2022 12:45:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,15 +45,15 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=4XB0HdrKiVMAfiK6w2X/uOjF1gMeA3hE2gANEdJz2P4=; b=X1Ol7a1lQGRLRw3tdcMJqAzWgN
-	3xxDvkmlq8epz3ktvIpHoQ2QMuQ3pKJfoCMhtbnDaTNcjR95P894V3a3mQhsl5z2+x+xBxZobUxWO
-	JynfIQvFWXI47OFkv6UuN+xQlVaDqHGA45j61JFVVg4JP7vnA4ekSz9crwe2rGV1b4+c=;
+	bh=8VDUWomdlveeCKW5GNfN33iiZaVYDvp2Ke0G1sm/9TQ=; b=B02DxKcPxC8JjdqV75vW2H3lNd
+	OZ7Ck0V8lmHxWBnIWEKjkb++OY0AgF7Y2yO0wWKeowER914z42wOAStsg56gvRoTLESuNa8Dj39AU
+	ebIuB9Shcx6RGR+c3YiXdu1NpPbFRz53y4YEIm5dHWd7s1ZODiZlJIlsJYlkbg3iKAso=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169811-mainreport@xen.org>
+Message-ID: <osstest-169812-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [ovmf test] 169811: regressions - FAIL
+Subject: [ovmf test] 169812: regressions - FAIL
 X-Osstest-Failures:
     ovmf:build-amd64-xsm:xen-build:fail:regression
     ovmf:build-amd64:xen-build:fail:regression
@@ -68,10 +68,10 @@ X-Osstest-Versions-This:
 X-Osstest-Versions-That:
     ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 28 Apr 2022 11:58:51 +0000
+Date: Thu, 28 Apr 2022 12:45:37 +0000
 
-flight 169811 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169811/
+flight 169812 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169812/
 
 Regressions :-(
 
@@ -94,8 +94,8 @@ baseline version:
  ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
 Last test of basis   168254  2022-02-28 10:41:46 Z   59 days
-Failing since        168258  2022-03-01 01:55:31 Z   58 days  676 attempts
-Testing same since   169718  2022-04-25 21:41:52 Z    2 days   48 attempts
+Failing since        168258  2022-03-01 01:55:31 Z   58 days  677 attempts
+Testing same since   169718  2022-04-25 21:41:52 Z    2 days   49 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
