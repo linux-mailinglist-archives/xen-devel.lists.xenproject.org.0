@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0563513EBF
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 00:54:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.316821.535897 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2F77513F11
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 01:29:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.316832.535908 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkD1e-0006ww-Al; Thu, 28 Apr 2022 22:54:18 +0000
+	id 1nkDYo-0002v4-32; Thu, 28 Apr 2022 23:28:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 316821.535897; Thu, 28 Apr 2022 22:54:18 +0000
+Received: by outflank-mailman (output) from mailman id 316832.535908; Thu, 28 Apr 2022 23:28:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkD1e-0006v6-7O; Thu, 28 Apr 2022 22:54:18 +0000
-Received: by outflank-mailman (input) for mailman id 316821;
- Thu, 28 Apr 2022 22:54:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Zsa2=VG=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1nkD1c-0006uh-El
- for xen-devel@lists.xenproject.org; Thu, 28 Apr 2022 22:54:16 +0000
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1f6e2f49-c746-11ec-8fc3-03012f2f19d4;
- Fri, 29 Apr 2022 00:54:14 +0200 (CEST)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 181053200990;
- Thu, 28 Apr 2022 18:54:11 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Thu, 28 Apr 2022 18:54:11 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 28 Apr 2022 18:54:09 -0400 (EDT)
+	id 1nkDYn-0002sz-W1; Thu, 28 Apr 2022 23:28:33 +0000
+Received: by outflank-mailman (input) for mailman id 316832;
+ Thu, 28 Apr 2022 23:28:33 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nkDYn-0002sp-2H; Thu, 28 Apr 2022 23:28:33 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nkDYm-0001N3-UA; Thu, 28 Apr 2022 23:28:32 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nkDYm-0005Q4-Kx; Thu, 28 Apr 2022 23:28:32 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nkDYm-0002j1-KX; Thu, 28 Apr 2022 23:28:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,168 +42,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f6e2f49-c746-11ec-8fc3-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1651186450; x=
-	1651272850; bh=9l1HAiN7ppV23U31n5tXhB2CzREcaX0xYpVhVkV94Lc=; b=h
-	OfJWukQtTrbcnysv8lTje2tKyfYEk1gXTDA/QZnSZPY4yWrV/OnkfwQ2r3zcXys5
-	MDzdBmLCCdODBADYA5aS1E0LQwS1d9VtI5fO1fTmtJc0ADbv9mRaA71Js7PPj7zF
-	/cQB15LxpdyGrEjQnvl55KAOxXSo0JVNt6Fr1Uh3seuTxT1ztW6zquhoDEjusLkm
-	aFSw1ybho0r0/8jjh1qiHxkfmkJVXNwZX/x4Z2LVjpp2NRkoveRVdUryRnbEVYQk
-	PHeQzm5osgj4t4hB+VuTx/HsVvQ5uhb5UsIHzCIZ5hexlz69ngBqB35LqCcivm8m
-	nEMH7mrjmYr9DpOHItWHw==
-X-ME-Sender: <xms:EhtrYobJmNiqPfUVM1ctTfnb-NboFc08d5fS3PH-tEELN6jwhFSbNQ>
-    <xme:EhtrYjZOmsFvEoKwzJ2MQyZDli6JPWHyFan-oW7_3Biu-aOx9SX6mYWFPVs-kxcGj
-    ibcgr2vsM_8E9A>
-X-ME-Received: <xmr:EhtrYi8pIPa7lGTv-uCwyiZiBaSb9yr9qi5Mj8kAn0X2nkPShA8fSJF6-qPW>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudekgddufecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeffvghmihcu
-    ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
-    hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpedvjeetgeekhfetudfhgfetffegfffg
-    uddvgffhffeifeeikeektdehgeetheffleenucevlhhushhtvghrufhiiigvpedtnecurf
-    grrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhl
-    rggsrdgtohhm
-X-ME-Proxy: <xmx:EhtrYiov6a5R1QGNYfX-md8YUUyw8ZeYedGltlI9ULvq0_GJRpMGvA>
-    <xmx:EhtrYjqVpBzf8mKfjdikSbziXEg7JUckz4ZnKhDoAd_s_DFY2TXOlA>
-    <xmx:EhtrYgRChG6_AQ2ixra5XhVPP0PWoMCtTUJ7uGgUhTDu93e595BkrQ>
-    <xmx:EhtrYkCYu2t0ZATakRMQC5crcYgqJlM5nb4LUHsmUob6dHd7Q7_MbQ>
-Date: Thu, 28 Apr 2022 18:54:03 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: Re: [PATCH v3 3/4] Add a new hypercall to get the ESRT
-Message-ID: <YmsbD9ktQqB4U33o@itl-email>
-References: <Yl7aC2a+TtOaFtqZ@itl-email>
- <3591eec7-1299-8783-26ad-ffe27bb9fdcd@suse.com>
- <YmmUtiBkhEYvXHUB@itl-email>
- <901c11d6-92f0-89b9-8500-4947bbdcd504@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Kyzesor+bI+cb3LtDFt24o/BbmStlsUtHJDx0lMcg4g=; b=y3TQetOIjpCo1ai+hK2TaRCzOm
+	ihooodAXUOrCOW2+nuiNG7LbOu/bF9pO1WeNA0VErAeqkjJdyZ8EecJtQH8z+KeOsIE5wnS3Bu204
+	tsxyNlnHj+GYDJT4ayZNg+EaLm31zuISXMyjw7V4Mtj2aO0q6kKfoc4N25bQCnULPQWk=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-169837-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="d8nYrWvw8D75UqvP"
-Content-Disposition: inline
-In-Reply-To: <901c11d6-92f0-89b9-8500-4947bbdcd504@suse.com>
+Subject: [ovmf test] 169837: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=d372ab585a2cdc5348af5f701c56c631235fe698
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 28 Apr 2022 23:28:32 +0000
+
+flight 169837 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169837/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 d372ab585a2cdc5348af5f701c56c631235fe698
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   59 days
+Failing since        168258  2022-03-01 01:55:31 Z   58 days  685 attempts
+Testing same since   169816  2022-04-28 14:41:38 Z    0 days    6 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jake Garver <jake@nvidia.com>
+  Jake Garver via groups.io <jake=nvidia.com@groups.io>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
---d8nYrWvw8D75UqvP
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 Apr 2022 18:54:03 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: Re: [PATCH v3 3/4] Add a new hypercall to get the ESRT
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On Thu, Apr 28, 2022 at 08:47:49AM +0200, Jan Beulich wrote:
-> On 27.04.2022 21:08, Demi Marie Obenour wrote:
-> > On Wed, Apr 27, 2022 at 10:56:34AM +0200, Jan Beulich wrote:
-> >> On 19.04.2022 17:49, Demi Marie Obenour wrote:
-> >>> This hypercall can be used to get the ESRT from the hypervisor.  It
-> >>> returning successfully also indicates that Xen has reserved the ESRT =
-and
-> >>> it can safely be parsed by dom0.
-> >>
-> >> I'm not convinced of the need, and I view such an addition as inconsis=
-tent
-> >> with the original intentions. The pointer comes from the config table,
-> >> which Dom0 already has access to. All a Dom0 kernel may need to know in
-> >> addition is whether the range was properly reserved. This could be ach=
-ieved
-> >> by splitting the EFI memory map entry in patch 2, instead of only spli=
-tting
-> >> the E820 derivation, as then XEN_FW_EFI_MEM_INFO can be used to find o=
-ut
-> >> the range's type. Another way to find out would be for Dom0 to attempt=
- to
-> >> map this area as MMIO, after first checking that no part of the range =
-is in
-> >> its own memory allocation. This 2nd approach may, however, not really =
-be
-> >> suitable for PVH Dom0, I think.
-> >=20
-> > On further thought, I think the hypercall approach is actually better
-> > than reserving the ESRT.  I really do not want XEN_FW_EFI_MEM_INFO to
-> > return anything other than the actual firmware-provided memory
-> > information, and the current approach seems to require more and more
-> > special-casing of the ESRT, not to mention potentially wasting memory
-> > and splitting a potentially large memory region into two smaller ones.
-> > By copying the entire ESRT into memory owned by Xen, the logic becomes
-> > significantly simpler on both the Xen and dom0 sides.
->=20
-> I actually did consider the option of making a private copy when you did
-> send the initial version of this, but I'm not convinced this simplifies
-> things from a kernel perspective: They'd now need to discover the table
-> by some entirely different means. In Linux at least such divergence
-> "just for Xen" hasn't been liked in the past.
->=20
-> There's also the question of how to propagate the information across
-> kexec. But I guess that question exists even outside of Xen, with the
-> area living in memory which the OS is expected to recycle.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Indeed it does.  A simple rule might be, =E2=80=9COnly trust the ESRT if it=
- is
-in memory of type EfiRuntimeServicesData.=E2=80=9D  That is easy to achieve=
- by
-monkeypatching the config table as you suggested below.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-I *am* worried that the config table might be mapped read-only on some
-systems, in which case the overwrite would cause a fatal page fault.  Is
-there a way for Xen to check for this?  It could also be undefined
-behavior to modify it.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-> > Is using ebmalloc() to allocate a copy of the ESRT a reasonable option?
->=20
-> I'd suggest to try hard to avoid ebmalloc(). It ought to be possible to
-> make the copy before ExitBootServices(), via normal EFI allocation. If
-> replacing a pointer in the config table was okay(ish), this could even
-> be utilized to overcome the kexec problem.
 
-What type should I use for the allocation?  EfiLoaderData looks like the
-most consistent choice, but I am not sure if memory so allocated remains
-valid when Xen hands off to the OS, so EfiRuntimeServicesData might be a
-better choice.  To avoid memory leaks from repeated kexec(), this could
-be made conditional on the ESRT not being in memory of type
-EfiRuntimeServicesData to begin with.
+Not pushing.
 
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
-
---d8nYrWvw8D75UqvP
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmJrGxAACgkQsoi1X/+c
-IsE/rxAAnZ5LGXqdmgaE2of9KvKMKieXq3b6bGj8gVNow63OyPhSN5W3KwI+9OoH
-Cf+vuW3f88CK18PkIqfjAuhsvdEgj7iXVCv3tvcQSZcjvFj6ALnMMoe7RUMzUhse
-8g+F3cZqBVRDNQ3dkQVRIbtQn/LMyv1N1QyahQ4rJJmlQKsMF+az8M2cUSL59rU7
-FJntKbYq9edyWNhwcDn2Iw7PZsyMKXiqRt5huXVi7wdJGskFJsRVs5il2JSVzsGA
-FvNGZqBBb/o5V3PAz/w2yBJQXodEZdgHORsUbHk9EqzZSpuzT2Lt7T07RVwn5+SW
-rx9P4tcgtqUGu63zVvmd+N+JvSTp4BGKbl+3U/0vmZlJyqgFB5qLWHAZVotO5jo9
-Wp45glY9WWvvvWOcRd98sk8PeWSU/kPCJpsWoQzHkYk8IBKk7PGYgwdu0wYD09x/
-Vl0/S0AULJuYQf/nGTR4s6sa00TeFB0ZNa2jnZasNllXf8utGDu7qGfVh0JhyXln
-oecXPMLQHNq/xPOsCr2g6Sm/w01KN6bOp6zLejhH8xUrIhe1bgAk2B/jSw520X2x
-pdAO9KE6XqzDI4KSMBwoVpYgsggVWx08JzSo5UBU8Ign8tN/oBipYMxdM22FTqus
-tnakVeRYXKL/DoVhU0/cz1JLgmHz0xV1UU/d6nZXs7ntnEsjCuc=
-=7V/z
------END PGP SIGNATURE-----
-
---d8nYrWvw8D75UqvP--
+(No revision log; it would be 5844 lines long.)
 
