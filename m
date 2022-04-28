@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E9905129E0
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 05:12:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.315940.534638 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 239F4512ACD
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 07:11:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.315901.534678 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njua3-0002I4-BJ; Thu, 28 Apr 2022 03:12:35 +0000
+	id 1njwQm-00076D-Nj; Thu, 28 Apr 2022 05:11:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 315940.534638; Thu, 28 Apr 2022 03:12:35 +0000
+Received: by outflank-mailman (output) from mailman id 315901.534678; Thu, 28 Apr 2022 05:11:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njua3-0002Fo-6t; Thu, 28 Apr 2022 03:12:35 +0000
-Received: by outflank-mailman (input) for mailman id 315940;
- Thu, 28 Apr 2022 03:12:33 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1njua1-0002Fe-Dn; Thu, 28 Apr 2022 03:12:33 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1njua1-0003bO-CF; Thu, 28 Apr 2022 03:12:33 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1njua0-0003yC-Sz; Thu, 28 Apr 2022 03:12:32 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1njua0-0001hR-SW; Thu, 28 Apr 2022 03:12:32 +0000
+	id 1njwQm-00073y-JT; Thu, 28 Apr 2022 05:11:08 +0000
+Received: by outflank-mailman (input) for mailman id 315901;
+ Thu, 28 Apr 2022 01:01:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hYj/=VG=huawei.com=nixiaoming@srs-se1.protection.inumbo.net>)
+ id 1njsX4-0003u5-O3
+ for xen-devel@lists.xenproject.org; Thu, 28 Apr 2022 01:01:22 +0000
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com [45.249.212.188])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b60787b7-c68e-11ec-8fc3-03012f2f19d4;
+ Thu, 28 Apr 2022 03:01:20 +0200 (CEST)
+Received: from canpemm500006.china.huawei.com (unknown [172.30.72.57])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4Kpcgf1MZfzGpMl;
+ Thu, 28 Apr 2022 08:58:38 +0800 (CST)
+Received: from [10.67.110.83] (10.67.110.83) by canpemm500006.china.huawei.com
+ (7.192.105.130) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.24; Thu, 28 Apr
+ 2022 09:01:14 +0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,161 +43,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=ZatzB/UVoRk5R1+LwZCnk53PanojFJj9G2sUiTvePoo=; b=z+0JjVMNLhygqCQqulEQWL7J5v
-	e/DLQh67CUc7FUlFdB/l4d5x+oqbrOHXHUEwHygLkqgmVdyN0mIlFZxCPtviShMlX5Ez+jr2drYqB
-	iOwdRh7zX5DHfb9nA53oys0tBMKoOZOrJlsR/7m2irXZC7LJRq5GAn0FgguPsQOLz1M8=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169803-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: b60787b7-c68e-11ec-8fc3-03012f2f19d4
+Subject: Re: [PATCH 18/30] notifier: Show function names on notifier routines
+ if DEBUG_NOTIFIERS is set
+To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>, <akpm@linux-foundation.org>,
+	<bhe@redhat.com>, <pmladek@suse.com>, <kexec@lists.infradead.org>
+CC: <linux-kernel@vger.kernel.org>, <bcm-kernel-feedback-list@broadcom.com>,
+	<coresight@lists.linaro.org>, <linuxppc-dev@lists.ozlabs.org>,
+	<linux-alpha@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-edac@vger.kernel.org>, <linux-hyperv@vger.kernel.org>,
+	<linux-leds@vger.kernel.org>, <linux-mips@vger.kernel.org>,
+	<linux-parisc@vger.kernel.org>, <linux-pm@vger.kernel.org>,
+	<linux-remoteproc@vger.kernel.org>, <linux-s390@vger.kernel.org>,
+	<linux-tegra@vger.kernel.org>, <linux-um@lists.infradead.org>,
+	<linux-xtensa@linux-xtensa.org>, <netdev@vger.kernel.org>,
+	<openipmi-developer@lists.sourceforge.net>, <rcu@vger.kernel.org>,
+	<sparclinux@vger.kernel.org>, <xen-devel@lists.xenproject.org>,
+	<x86@kernel.org>, <kernel-dev@igalia.com>, <kernel@gpiccoli.net>,
+	<halves@canonical.com>, <fabiomirmar@gmail.com>,
+	<alejandro.j.jimenez@oracle.com>, <andriy.shevchenko@linux.intel.com>,
+	<arnd@arndb.de>, <bp@alien8.de>, <corbet@lwn.net>,
+	<d.hatayama@jp.fujitsu.com>, <dave.hansen@linux.intel.com>,
+	<dyoung@redhat.com>, <feng.tang@intel.com>, <gregkh@linuxfoundation.org>,
+	<mikelley@microsoft.com>, <hidehiro.kawai.ez@hitachi.com>, <jgross@suse.com>,
+	<john.ogness@linutronix.de>, <keescook@chromium.org>, <luto@kernel.org>,
+	<mhiramat@kernel.org>, <mingo@redhat.com>, <paulmck@kernel.org>,
+	<peterz@infradead.org>, <rostedt@goodmis.org>, <senozhatsky@chromium.org>,
+	<stern@rowland.harvard.edu>, <tglx@linutronix.de>, <vgoyal@redhat.com>,
+	<vkuznets@redhat.com>, <will@kernel.org>, Arjan van de Ven
+	<arjan@linux.intel.com>, Cong Wang <xiyou.wangcong@gmail.com>, Sebastian
+ Andrzej Siewior <bigeasy@linutronix.de>, Valentin Schneider
+	<valentin.schneider@arm.com>
+References: <20220427224924.592546-1-gpiccoli@igalia.com>
+ <20220427224924.592546-19-gpiccoli@igalia.com>
+From: Xiaoming Ni <nixiaoming@huawei.com>
+Message-ID: <9f44aae6-ec00-7ede-ec19-6e67ceb74510@huawei.com>
+Date: Thu, 28 Apr 2022 09:01:13 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.0.1
 MIME-Version: 1.0
-Subject: [ovmf test] 169803: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=916f90baa547b3ebef8fa87c530e2f0c8e35e1e3
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 28 Apr 2022 03:12:32 +0000
+In-Reply-To: <20220427224924.592546-19-gpiccoli@igalia.com>
+Content-Type: text/plain; charset="gbk"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.67.110.83]
+X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
+ canpemm500006.china.huawei.com (7.192.105.130)
+X-CFilter-Loop: Reflected
 
-flight 169803 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169803/
+On 2022/4/28 6:49, Guilherme G. Piccoli wrote:
+> Currently we have a debug infrastructure in the notifiers file, but
+> it's very simple/limited. This patch extends it by:
+> 
+> (a) Showing all registered/unregistered notifiers' callback names;
+> 
+> (b) Adding a dynamic debug tuning to allow showing called notifiers'
+> function names. Notice that this should be guarded as a tunable since
+> it can flood the kernel log buffer.
+> 
+> Cc: Arjan van de Ven <arjan@linux.intel.com>
+> Cc: Cong Wang <xiyou.wangcong@gmail.com>
+> Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> Cc: Valentin Schneider <valentin.schneider@arm.com>
+> Cc: Xiaoming Ni <nixiaoming@huawei.com>
+> Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
+> ---
+> 
+> We have some design decisions that worth discussing here:
+> 
+> (a) First of call, using C99 helps a lot to write clear and concise code, but
+> due to commit 4d94f910e79a ("Kbuild: use -Wdeclaration-after-statement") we
+> have a warning if mixing variable declarations with code. For this patch though,
+> doing that makes the code way clear, so decision was to add the debug code
+> inside brackets whenever this warning pops up. We can change that, but that'll
+> cause more ifdefs in the same function.
+> 
+> (b) In the symbol lookup helper function, we modify the parameter passed but
+> even more, we return it as well! This is unusual and seems unnecessary, but was
+> the strategy taken to allow embedding such function in the pr_debug() call.
+> 
+> Not doing that would likely requiring 3 symbol_name variables to avoid
+> concurrency (registering notifier A while calling notifier B) - we rely in
+> local variables as a serialization mechanism.
+> 
+> We're open for suggestions in case this design is not appropriate;
+> thanks in advance!
+> 
+>   kernel/notifier.c | 48 +++++++++++++++++++++++++++++++++++++++++++++--
+>   1 file changed, 46 insertions(+), 2 deletions(-)
+> 
+> diff --git a/kernel/notifier.c b/kernel/notifier.c
+> index ba005ebf4730..21032ebcde57 100644
+> --- a/kernel/notifier.c
+> +++ b/kernel/notifier.c
+> @@ -7,6 +7,22 @@
+>   #include <linux/vmalloc.h>
+>   #include <linux/reboot.h>
+>   
+> +#ifdef CONFIG_DEBUG_NOTIFIERS
+> +#include <linux/kallsyms.h>
+> +
+> +/*
+> + *	Helper to get symbol names in case DEBUG_NOTIFIERS is set.
+> + *	Return the modified parameter is a strategy used to achieve
+> + *	the pr_debug() functionality - with this, function is only
+> + *	executed if the dynamic debug tuning is effectively set.
+> + */
+> +static inline char *notifier_name(struct notifier_block *nb, char *sym_name)
+> +{
+> +	lookup_symbol_name((unsigned long)(nb->notifier_call), sym_name);
+> +	return sym_name;
+> +}
+> +#endif
+> +
+>   /*
+>    *	Notifier list for kernel code which wants to be called
+>    *	at shutdown. This is used to stop any idling DMA operations
+> @@ -34,20 +50,41 @@ static int notifier_chain_register(struct notifier_block **nl,
+>   	}
+>   	n->next = *nl;
+>   	rcu_assign_pointer(*nl, n);
+> +
+> +#ifdef CONFIG_DEBUG_NOTIFIERS
+> +	{
+> +		char sym_name[KSYM_NAME_LEN];
+> +
+> +		pr_info("notifiers: registered %s()\n",
+> +			notifier_name(n, sym_name));
+> +	}
 
-Regressions :-(
+Duplicate Code.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+Is it better to use __func__ and %pS?
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 916f90baa547b3ebef8fa87c530e2f0c8e35e1e3
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   58 days
-Failing since        168258  2022-03-01 01:55:31 Z   58 days  671 attempts
-Testing same since   169718  2022-04-25 21:41:52 Z    2 days   43 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+pr_info("%s: %pS\n", __func__, n->notifier_call);
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> +#endif
+>   	return 0;
+>   }
+>   
+>   static int notifier_chain_unregister(struct notifier_block **nl,
+>   		struct notifier_block *n)
+>   {
+> +	int ret = -ENOENT;
+> +
+>   	while ((*nl) != NULL) {
+>   		if ((*nl) == n) {
+>   			rcu_assign_pointer(*nl, n->next);
+> -			return 0;
+> +			ret = 0;
+> +			break;
+>   		}
+>   		nl = &((*nl)->next);
+>   	}
+> -	return -ENOENT;
+> +
+> +#ifdef CONFIG_DEBUG_NOTIFIERS
+> +	if (!ret) {
+> +		char sym_name[KSYM_NAME_LEN];
+> +
+> +		pr_info("notifiers: unregistered %s()\n",
+> +			notifier_name(n, sym_name));
+> +	}
+Duplicate Code.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Is it better to use __func__ and %pS?
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+pr_info("%s: %pS\n", __func__, n->notifier_call);
+> +#endif
+> +	return ret;
+>   }
+>   
+>   /**
+> @@ -80,6 +117,13 @@ static int notifier_call_chain(struct notifier_block **nl,
+>   			nb = next_nb;
+>   			continue;
+>   		}
+> +
+Is the "#ifdef" missing here?
+> +		{
+> +			char sym_name[KSYM_NAME_LEN];
+> +
+> +			pr_debug("notifiers: calling %s()\n",
+> +				 notifier_name(nb, sym_name));
+Duplicate Code.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Is it better to use __func__ and %pS?
 
+pr_info("%s: %pS\n", __func__, n->notifier_call);
+> +		}
+>   #endif
+>   		ret = nb->notifier_call(nb, val, v);
+>   
+> 
 
-Not pushing.
-
-(No revision log; it would be 5828 lines long.)
+Thanks
+Xiaoming Ni
 
