@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B85C512EDA
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 10:46:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.316300.535178 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4C76512F0E
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Apr 2022 10:52:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.316307.535189 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njzmg-0002z8-A4; Thu, 28 Apr 2022 08:45:58 +0000
+	id 1njztD-0004R6-W9; Thu, 28 Apr 2022 08:52:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 316300.535178; Thu, 28 Apr 2022 08:45:58 +0000
+Received: by outflank-mailman (output) from mailman id 316307.535189; Thu, 28 Apr 2022 08:52:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1njzmg-0002wH-72; Thu, 28 Apr 2022 08:45:58 +0000
-Received: by outflank-mailman (input) for mailman id 316300;
- Thu, 28 Apr 2022 08:45:57 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1njzmf-0002w8-DH
- for xen-devel@lists.xenproject.org; Thu, 28 Apr 2022 08:45:57 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1njzma-00021E-ED; Thu, 28 Apr 2022 08:45:52 +0000
-Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.193])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1njzma-0003xM-8L; Thu, 28 Apr 2022 08:45:52 +0000
+	id 1njztD-0004OP-T5; Thu, 28 Apr 2022 08:52:43 +0000
+Received: by outflank-mailman (input) for mailman id 316307;
+ Thu, 28 Apr 2022 08:52:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8clo=VG=citrix.com=prvs=110d23c25=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1njztC-0004OE-CE
+ for xen-devel@lists.xenproject.org; Thu, 28 Apr 2022 08:52:42 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8e6673b8-c6d0-11ec-a405-831a346695d4;
+ Thu, 28 Apr 2022 10:52:40 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,92 +36,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=GXGhOK+VQl3Tt8oqlgKDatLfuMeF2J9O0UEPz1BqcJ4=; b=oAxKbEu+S49nOpBG9/xl6IU+dF
-	PTJObihaSYnqyFcgH+fUVdxl6slcA5o9aacK+Xg4RHlLg9v4Lbpz+dXY+lwlhyws5Im9YWZpXWNEQ
-	O8VYklDIIv1euryvtMY+A+g6GJQVIQir+Bz0SitFVPulzukjIXpv19LAGI7zQkZykSZ8=;
-Message-ID: <7a82f8ff-d696-9bc2-97b9-7965953cf8ea@xen.org>
-Date: Thu, 28 Apr 2022 09:45:49 +0100
+X-Inumbo-ID: 8e6673b8-c6d0-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1651135960;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=nlPhO5icSZyJwWgX0nfuCh5jsNzQNmMCZFNmur7hhFk=;
+  b=Ibz0tmbqo89k9cUqFI0XElW158FChZPYMLnFccXWBHi4VGdwAyZQY+Xf
+   mIiTsFAVIxBCT9EJi5xNSnD1ZytOAzjTqKGqz84ri2gC4FySEyThOgRof
+   dvIeK+ZKZGDywHAjoAa+feLb3Sm/cEBbfWZkCV2Wsj+Wn2va1JSOfpS4/
+   0=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 70117525
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:8uvxQK6T5EyVYIyuZe1CvQxRtETHchMFZxGqfqrLsTDasY5as4F+v
+ jccWT+FPvqMNDShKN9xaY+xpE8EuJPXm9BmSwE++ClgHi5G8cbLO4+Ufxz6V8+wwmwvb67FA
+ +E2MISowBUcFyeEzvuVGuG96yE6j8lkf5KkYAL+EnkZqTRMFWFw0XqPp8Zj2tQy2YTjU1vU0
+ T/Pi5a31GGNimYc3l08s8pvmDs31BglkGpF1rCWTakjUG72zxH5PrpGTU2CByKQrr1vNvy7X
+ 47+IISRpQs1yfuP5uSNyd4XemVSKlLb0JPnZnB+A8BOiTAazsA+PzpS2FPxpi67hh3Q9+2dx
+ umhurSOWwwvI5fN2940UiV1QhB/IpVL5ebudC3XXcy7lyUqclPpyvRqSko3IZcZ6qB8BmQmG
+ f4wcW5XKErZ3qTvnez9GrIEascLdaEHOKs2vH16wC6fJvEhWZ3ZGI3B5MNC3Sd2jcdLdRrbT
+ 5VBMGMwMU6dC/FJElEFObUMsfn4vSLyQRNWslDN/7YPyHeGmWSd15CyaYGIK7RmX/59gUKwt
+ m/AuWPjDXkyFvaS1D6E+XKEnfLUkGXwX4d6PK218LtmjUOewkQXCQYKTh2rrP+hkEm8VtlDb
+ UsO9UITQbMarRLxCIOnBlvh/SDC7kV0t8ds//MS1hOGzLfu4kWjL2k4Y29wacMeudJvbGl/v
+ rOWpO/BCTtqubyTbHuS8LaIsD+/URQowX8+iTwsFlVcvYS6yG0npleWF4s4Tvbp5jHgMWuoq
+ w1muhTSkFn6YSQj86ygtW7KjDu3znQiZl5kv16HNo5JA+4QWWJEW2BKwQWDhRqjBNzAJrVkg
+ JTjs5LDhN3i9bnXyESwrBwlRdlFHcqtPjzGmkJIFJI87Tmr8HPLVdkOvWgnfB0wa51eIGKBj
+ KrvVeV5vc470JyCN/IfXm5MI55ykfiI+SrNC5g4keaikrAuLVTarUmClGab3nz3kVhErE3ME
+ czzTCpYNl5DUf4P5GPvH481iOZ7rghjlTK7bc2qlHyPjOvBDEN5vJ9YaTNimMhit/jayOgUm
+ v4CX/a3J+J3DbOuP3GLodJCRb3IRFBiba3LRwVsXrbrCmJb9KsJUZc9HZtJl1RZoplo
+IronPort-HdrOrdr: A9a23:r2nDD6DAJ7BUN2XlHelW55DYdb4zR+YMi2TDt3oddfWaSKylfq
+ GV7ZAmPHrP4gr5N0tOpTntAse9qBDnhPtICOsqTNSftWDd0QPFEGgL1+DfKlbbak/DH4BmtJ
+ uJc8JFeaDN5VoRt7eH3OFveexQv+Vu88qT9JnjJ28Gd3AMV0n5hT0JcTpyFCdNNW97LKt8Lr
+ WwzOxdqQGtfHwGB/7LfEXsD4D41qT2fIuNW29/OyIa
+X-IronPort-AV: E=Sophos;i="5.90,295,1643691600"; 
+   d="scan'208";a="70117525"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/cet: Support cet=<bool> on the command line
+Date: Thu, 28 Apr 2022 09:52:09 +0100
+Message-ID: <20220428085209.15327-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.8.1
-Subject: Re: [xen-unstable-smoke test] 169781: regressions - FAIL
-To: Jan Beulich <jbeulich@suse.com>,
- osstest service owner <osstest-admin@xenproject.org>
-Cc: David Vrabel <dvrabel@amazon.co.uk>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
-References: <osstest-169781-mainreport@xen.org>
- <d1d3d81e-fe1d-fc1c-11b3-781263d8ba84@xen.org>
- <34c7f008-a530-db45-cfb9-63b26944f03b@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <34c7f008-a530-db45-cfb9-63b26944f03b@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Jan,
+... as a shorthand for setting both suboptions at once.
 
-On 28/04/2022 08:45, Jan Beulich wrote:
-> On 27.04.2022 19:10, Julien Grall wrote:
->> Hi,
->>
->> On 27/04/2022 17:38, osstest service owner wrote:
->>> flight 169781 xen-unstable-smoke real [real]
->>> flight 169785 xen-unstable-smoke real-retest [real]
->>> http://logs.test-lab.xenproject.org/osstest/logs/169781/
->>> http://logs.test-lab.xenproject.org/osstest/logs/169785/
->>>
->>> Regressions :-(
->>>
->>> Tests which did not succeed and are blocking,
->>> including tests which could not be run:
->>>    test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 169773
->>
->> Well, I was overly optimistic :(. This now breaks in the ITS code:
->>
->> Apr 27 13:23:14.324831 (XEN) Xen call trace:
->> Apr 27 13:23:14.324855 (XEN)    [<000000000022a678>]
->> alloc_xenheap_pages+0x178/0x194 (PC)
->> Apr 27 13:23:14.336856 (XEN)    [<000000000022a670>]
->> alloc_xenheap_pages+0x170/0x194 (LR)
->> Apr 27 13:23:14.336886 (XEN)    [<0000000000237770>] _xmalloc+0x144/0x294
->> Apr 27 13:23:14.348773 (XEN)    [<00000000002378d4>] _xzalloc+0x14/0x30
->> Apr 27 13:23:14.348808 (XEN)    [<000000000027b4e4>]
->> gicv3_lpi_init_rdist+0x54/0x324
->> Apr 27 13:23:14.348835 (XEN)    [<0000000000279898>]
->> arch/arm/gic-v3.c#gicv3_cpu_init+0x128/0x46c
->> Apr 27 13:23:14.360799 (XEN)    [<0000000000279bfc>]
->> arch/arm/gic-v3.c#gicv3_secondary_cpu_init+0x20/0x50
->> Apr 27 13:23:14.372796 (XEN)    [<0000000000277054>]
->> gic_init_secondary_cpu+0x18/0x30
->> Apr 27 13:23:14.372829 (XEN)    [<0000000000284518>]
->> start_secondary+0x1a8/0x234
->> Apr 27 13:23:14.372856 (XEN)    [<0000010722aa4200>] 0000010722aa4200
->> Apr 27 13:23:14.384793 (XEN)
->> Apr 27 13:23:14.384823 (XEN)
->> Apr 27 13:23:14.384845 (XEN) ****************************************
->> Apr 27 13:23:14.384869 (XEN) Panic on CPU 2:
->> Apr 27 13:23:14.384891 (XEN) Assertion '!in_irq() &&
->> (local_irq_is_enabled() || num_online_cpus() <= 1)' failed at
->> common/page_alloc.c:2212
->> Apr 27 13:23:14.396805 (XEN) ****************************************
->>
->> The GICv3 LPI code contains a few calls to xmalloc() that will be done
->> while initializing the GIC CPU interface. I don't think we can delay the
->> initialization of the LPI part past local_irq_enable(). So I think we
->> will need to allocate the memory when preparing the CPU.
-> 
-> Do you have an explanation why the next flight (169800) passed?
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
 
-The flight 169800 ran on laxtonX (Softiron) which doesn't have a GICv3 ITS.
+I think this wants backporting.  cet=0 is "so obviously" the way to turn off
+both that I tried using it to debug a problem.  It's absence was an oversight
+of the original CET logic.
+---
+ docs/misc/xen-command-line.pandoc |  4 +++-
+ xen/arch/x86/setup.c              | 15 ++++++++++++++-
+ 2 files changed, 17 insertions(+), 2 deletions(-)
 
-I thought OSSTest would try to run the next flight on the same HW to 
-check heisenbug, but maybe this doesn't happen for the smoke test?
-
-Cheers,
-
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index 1dc7e1ca0706..1720cb216824 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -271,7 +271,7 @@ enough. Setting this to a high value may cause boot failure, particularly if
+ the NMI watchdog is also enabled.
+ 
+ ### cet
+-    = List of [ shstk=<bool>, ibt=<bool> ]
++    = List of [ <bool>, shstk=<bool>, ibt=<bool> ]
+ 
+     Applicability: x86
+ 
+@@ -283,6 +283,8 @@ CET is incompatible with 32bit PV guests.  If any CET sub-options are active,
+ they will override the `pv=32` boolean to `false`.  Backwards compatibility
+ can be maintained with the pv-shim mechanism.
+ 
++*   An unqualified boolean is shorthand for setting all suboptions at once.
++
+ *   The `shstk=` boolean controls whether Xen uses Shadow Stacks for its own
+     protection.
+ 
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index 53a73010e029..090abfd71754 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -117,7 +117,20 @@ static int __init cf_check parse_cet(const char *s)
+         if ( !ss )
+             ss = strchr(s, '\0');
+ 
+-        if ( (val = parse_boolean("shstk", s, ss)) >= 0 )
++        if ( (val = parse_bool(s, ss)) >= 0 )
++        {
++#ifdef CONFIG_XEN_SHSTK
++            opt_xen_shstk = val;
++#else
++            no_config_param("XEN_SHSTK", "cet", s, ss);
++#endif
++#ifdef CONFIG_XEN_IBT
++            opt_xen_ibt = val;
++#else
++            no_config_param("XEN_IBT", "cet", s, ss);
++#endif
++        }
++        else if ( (val = parse_boolean("shstk", s, ss)) >= 0 )
+         {
+ #ifdef CONFIG_XEN_SHSTK
+             opt_xen_shstk = val;
 -- 
-Julien Grall
+2.11.0
+
 
