@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40A65515355
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 20:06:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.317606.537016 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78F2251535B
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 20:07:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.317614.537026 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkUzz-0001By-SV; Fri, 29 Apr 2022 18:05:47 +0000
+	id 1nkV1N-0001mc-7W; Fri, 29 Apr 2022 18:07:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 317606.537016; Fri, 29 Apr 2022 18:05:47 +0000
+Received: by outflank-mailman (output) from mailman id 317614.537026; Fri, 29 Apr 2022 18:07:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkUzz-0001A9-PK; Fri, 29 Apr 2022 18:05:47 +0000
-Received: by outflank-mailman (input) for mailman id 317606;
- Fri, 29 Apr 2022 18:05:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nkV1N-0001kC-4O; Fri, 29 Apr 2022 18:07:13 +0000
+Received: by outflank-mailman (input) for mailman id 317614;
+ Fri, 29 Apr 2022 18:07:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BV3H=VH=igalia.com=gpiccoli@srs-se1.protection.inumbo.net>)
- id 1nkUzy-0001A3-CZ
- for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 18:05:46 +0000
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fca0ee22-c7e6-11ec-8fc4-03012f2f19d4;
- Fri, 29 Apr 2022 20:05:44 +0200 (CEST)
-Received: from [179.113.53.197] (helo=[192.168.1.60])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1nkUzF-0006RF-Du; Fri, 29 Apr 2022 20:05:01 +0200
+ <SRS0=R1X1=VH=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1nkV1L-0001k4-Cn
+ for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 18:07:11 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 30263f15-c7e7-11ec-a405-831a346695d4;
+ Fri, 29 Apr 2022 20:07:10 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id x33so15454621lfu.1
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Apr 2022 11:07:10 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id
+ r16-20020a2eb890000000b0024f3d1daf00sm332318ljp.136.2022.04.29.11.07.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 29 Apr 2022 11:07:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,161 +44,232 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fca0ee22-c7e6-11ec-8fc4-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=CfgJSltNTETfm69VgWZeJ1xxMOJuVJJeVDaV1//hOM4=; b=slyIgXmeUq77MnrSUr5lBtJx9z
-	m86cp15BT6gKICc3jCqWbY2B0tpa99u5bAed7DYYXL/rMf6XHJRMLSIrTGUcJCHpVtGl/+APLcmrh
-	RXQpa9HZXWVydxhVU95+hp+ZiaA0uHFZXPx5zEc5qg8trUY5PT1GKrapnos8zeTpFOAoQJEAx9vvn
-	efpqnWK3jhpJIbXy7DD12LOMiGnr6GupNgQCAiVUmjcrI2J6NMnifvEjcuVQUbIlOFxyQL8HlLyj5
-	ydadfwYuZkTNnyuPFseli5ffoVSkxD0MS5bvuilrJblEdywU2jKWaFEjPPnVXRJf3ScYrp3fr3KhT
-	ij4JQKSA==;
-Message-ID: <0147d038-571b-0802-c210-ccd4d52cd5dd@igalia.com>
-Date: Fri, 29 Apr 2022 15:04:22 -0300
+X-Inumbo-ID: 30263f15-c7e7-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=2Bod++nC0Kk+aQssi3umh6aHjPXr2Qr5aaJpsWFhO1I=;
+        b=GXQX2nKZwVNheR4CvTVkfcyO6lHX51/Xa8Z3jo9Rs+MwSdf6Ja6EizxFGdQ5akg63G
+         1XXwO5x34IveFMiIjnaMD9MRrfMwMALEKJamNTYMJYNnLayjMcmUot1IzOcySEwN7Ays
+         C4M3QABL5Xvd6h7CRVxGzkaSRLjWgFFt9Psnr0AuqA/A83Lav0T4GrxnLdbC+u9lsDWf
+         Xp5kQVhSXloD4OG5usw9qu8JQrJvOJn0wsCPgSxJsQkmWqFRUSx261TtS3OZflHr2vQW
+         sFTlklvrhzlBkP5YqeKFFF0NSwZWRxDz9/gH4Qr7iGKE5haIG2FgokKaQVVNw2OlHMJX
+         tqDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=2Bod++nC0Kk+aQssi3umh6aHjPXr2Qr5aaJpsWFhO1I=;
+        b=xyK2Wq7TTuRccO1M1areFs9rCdh8GiGgQYXmHr48EI7qQ6T6hnqRDfvQZyPEsLJdws
+         G0YpjJptyV9tYtCmXETvg69DOIQOW4gMCJHAxdaOk1nrxgg5z+p4DMH0t+w8fTh8FVk+
+         gvs+/ZQcpf/OtmGon+XvmEEn5x9aWQEh8JLKna99ui1P/Xg7WCqUNEDn9rINHTi6qcfz
+         vxfQmSIUvhJk1LxPyy8H6cKDPR+YDsvy0QxN9vZFuO6GeeESyZ3TquatCqR3AqSPPlLT
+         ZdkoT6LSUSttv2k3oKJfokly4xSxwmV4e/SrGNiu6nSQs/YD/J8rJOhnzL0PgT9skZ+M
+         vHow==
+X-Gm-Message-State: AOAM532xfPCvKDTsUR8QpxLlc3SWOaaaTywdgZBChPcQzaHbZYykh4zo
+	NNLqLZrTRiSTXkhSKyidiw8=
+X-Google-Smtp-Source: ABdhPJwxdZIYiQZIv5z+o6u5Pjt2obFs9wpBIYt6fLDmJl64mXj5FdMnWGjm935gx8cthCrX5x5YQg==
+X-Received: by 2002:a19:ca06:0:b0:472:3b31:1ade with SMTP id a6-20020a19ca06000000b004723b311ademr314003lfg.162.1651255629583;
+        Fri, 29 Apr 2022 11:07:09 -0700 (PDT)
+Subject: Re: [PATCH v2 18/19] xen/sndfront: use xenbus_setup_ring() and
+ xenbus_teardown_ring()
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org
+Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org
+References: <20220428082743.16593-1-jgross@suse.com>
+ <20220428082743.16593-19-jgross@suse.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <91b8b63c-46f0-326e-4092-5bb6c8f681db@gmail.com>
+Date: Fri, 29 Apr 2022 21:07:08 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH 19/30] panic: Add the panic hypervisor notifier list
+In-Reply-To: <20220428082743.16593-19-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-To: "Michael Kelley (LINUX)" <mikelley@microsoft.com>,
- "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
- "bhe@redhat.com" <bhe@redhat.com>, "pmladek@suse.com" <pmladek@suse.com>,
- "kexec@lists.infradead.org" <kexec@lists.infradead.org>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "bcm-kernel-feedback-list@broadcom.com"
- <bcm-kernel-feedback-list@broadcom.com>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
- "linux-alpha@vger.kernel.org" <linux-alpha@vger.kernel.org>,
- "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
- "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
- "linux-leds@vger.kernel.org" <linux-leds@vger.kernel.org>,
- "linux-mips@vger.kernel.org" <linux-mips@vger.kernel.org>,
- "linux-parisc@vger.kernel.org" <linux-parisc@vger.kernel.org>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
- "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
- "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- "linux-um@lists.infradead.org" <linux-um@lists.infradead.org>,
- "linux-xtensa@linux-xtensa.org" <linux-xtensa@linux-xtensa.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "openipmi-developer@lists.sourceforge.net"
- <openipmi-developer@lists.sourceforge.net>,
- "rcu@vger.kernel.org" <rcu@vger.kernel.org>,
- "sparclinux@vger.kernel.org" <sparclinux@vger.kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "x86@kernel.org" <x86@kernel.org>,
- "kernel-dev@igalia.com" <kernel-dev@igalia.com>,
- "kernel@gpiccoli.net" <kernel@gpiccoli.net>,
- "halves@canonical.com" <halves@canonical.com>,
- "fabiomirmar@gmail.com" <fabiomirmar@gmail.com>,
- "alejandro.j.jimenez@oracle.com" <alejandro.j.jimenez@oracle.com>,
- "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
- "arnd@arndb.de" <arnd@arndb.de>, "bp@alien8.de" <bp@alien8.de>,
- "corbet@lwn.net" <corbet@lwn.net>,
- "d.hatayama@jp.fujitsu.com" <d.hatayama@jp.fujitsu.com>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "dyoung@redhat.com" <dyoung@redhat.com>,
- "feng.tang@intel.com" <feng.tang@intel.com>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "hidehiro.kawai.ez@hitachi.com" <hidehiro.kawai.ez@hitachi.com>,
- "jgross@suse.com" <jgross@suse.com>,
- "john.ogness@linutronix.de" <john.ogness@linutronix.de>,
- "keescook@chromium.org" <keescook@chromium.org>,
- "luto@kernel.org" <luto@kernel.org>,
- "mhiramat@kernel.org" <mhiramat@kernel.org>,
- "mingo@redhat.com" <mingo@redhat.com>,
- "paulmck@kernel.org" <paulmck@kernel.org>,
- "peterz@infradead.org" <peterz@infradead.org>,
- "rostedt@goodmis.org" <rostedt@goodmis.org>,
- "senozhatsky@chromium.org" <senozhatsky@chromium.org>,
- "stern@rowland.harvard.edu" <stern@rowland.harvard.edu>,
- "tglx@linutronix.de" <tglx@linutronix.de>,
- "vgoyal@redhat.com" <vgoyal@redhat.com>, vkuznets <vkuznets@redhat.com>,
- "will@kernel.org" <will@kernel.org>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Andrea Parri <parri.andrea@gmail.com>, Ard Biesheuvel <ardb@kernel.org>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Brian Norris <computersforpeace@gmail.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- David Gow <davidgow@google.com>, "David S. Miller" <davem@davemloft.net>,
- Dexuan Cui <decui@microsoft.com>, Doug Berger <opendmb@gmail.com>,
- Evan Green <evgreen@chromium.org>, Florian Fainelli <f.fainelli@gmail.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Hari Bathini
- <hbathini@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
- Julius Werner <jwerner@chromium.org>, Justin Chen <justinpopo6@gmail.com>,
- KY Srinivasan <kys@microsoft.com>, Lee Jones <lee.jones@linaro.org>,
- Markus Mayer <mmayer@broadcom.com>, Michael Ellerman <mpe@ellerman.id.au>,
- Mihai Carabas <mihai.carabas@oracle.com>, Nicholas Piggin
- <npiggin@gmail.com>, Paul Mackerras <paulus@samba.org>,
- Pavel Machek <pavel@ucw.cz>, Scott Branden <scott.branden@broadcom.com>,
- Sebastian Reichel <sre@kernel.org>,
- Shile Zhang <shile.zhang@linux.alibaba.com>,
- Stephen Hemminger <sthemmin@microsoft.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Tianyu Lan <Tianyu.Lan@microsoft.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Wang ShaoBo <bobo.shaobowang@huawei.com>, Wei Liu <wei.liu@kernel.org>,
- zhenwei pi <pizhenwei@bytedance.com>
-References: <20220427224924.592546-1-gpiccoli@igalia.com>
- <20220427224924.592546-20-gpiccoli@igalia.com>
- <PH0PR21MB30256260CCF4CAB713BBB11ED7FC9@PH0PR21MB3025.namprd21.prod.outlook.com>
-From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-In-Reply-To: <PH0PR21MB30256260CCF4CAB713BBB11ED7FC9@PH0PR21MB3025.namprd21.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-On 29/04/2022 14:30, Michael Kelley (LINUX) wrote:
-> From: Guilherme G. Piccoli <gpiccoli@igalia.com> Sent: Wednesday, April 27, 2022 3:49 PM
->> [...]
->>
->> @@ -2843,7 +2843,7 @@ static void __exit vmbus_exit(void)
->>  	if (ms_hyperv.misc_features & HV_FEATURE_GUEST_CRASH_MSR_AVAILABLE) {
->>  		kmsg_dump_unregister(&hv_kmsg_dumper);
->>  		unregister_die_notifier(&hyperv_die_report_block);
->> -		atomic_notifier_chain_unregister(&panic_notifier_list,
->> +		atomic_notifier_chain_unregister(&panic_hypervisor_list,
->>  						&hyperv_panic_report_block);
->>  	}
->>
-> 
-> Using the hypervisor_list here produces a bit of a mismatch.  In many cases
-> this notifier will do nothing, and will defer to the kmsg_dump() mechanism
-> to notify the hypervisor about the panic.   Running the kmsg_dump()
-> mechanism is linked to the info_list, so I'm thinking the Hyper-V panic report
-> notifier should be on the info_list as well.  That way the reporting behavior
-> is triggered at the same point in the panic path regardless of which
-> reporting mechanism is used.
-> 
-
-Hi Michael, thanks for your feedback! I agree that your idea could work,
-but...there is one downside: imagine the kmsg_dump() approach is not set
-in some Hyper-V guest, then we would rely in the regular notification
-mechanism [hv_die_panic_notify_crash()], right?
-But...you want then to run this notifier in the informational list,
-which...won't execute *by default* before kdump if no kmsg_dump() is
-set. So, this logic is convoluted when you mix it with the default level
-concept + kdump.
-
-May I suggest something? If possible, take a run with this patch set +
-DEBUG_NOTIFIER=y, in *both* cases (with and without the kmsg_dump()
-set). I did that and they run almost at the same time...I've checked the
-notifiers called, it's like almost nothing runs in-between.
-
-I feel the panic notification mechanism does really fit with a
-hypervisor list, it's a good match with the nature of the list, which
-aims at informing the panic notification to the hypervisor/FW.
-Of course we can modify it if you prefer...but please take into account
-the kdump case and how it complicates the logic.
-
-Let me know your considerations, in case you can experiment with the
-patch set as-is.
-Cheers,
 
 
-Guilherme
+On 28.04.22 11:27, Juergen Gross wrote:
+
+Hello Juergen, all
+
+> Simplify sndfront's ring creation and removal via xenbus_setup_ring()
+> and xenbus_teardown_ring().
+>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+
+I am not familiar with SOUND bits of this driver, but a little bit
+familiar with Xen bits this patch only touches and I have environment to
+test.
+
+Xen specific changes looks good to me. Also I didn't see any issues when 
+testing virtulized sound driver with current series except one I have 
+already pointed out in PATCH v2 08/19.
+
+
+root@salvator-x-h3-4x2g-xt-domu:~# dmesg | grep vsnd
+[    0.432181] Initialising Xen vsnd frontend driver
+
+
+root@salvator-x-h3-4x2g-xt-domu:~# aplay -l
+**** List of PLAYBACK Hardware Devices ****
+card 0: vsnd [], device 0: dev1 [Virtual card PCM]
+   Subdevices: 1/1
+   Subdevice #0: subdevice #0
+
+root@generic-armv8-xt-dom0:~# xenstore-ls -f | grep vsnd
+/local/domain/1/backend/vsnd = ""
+/local/domain/1/backend/vsnd/6 = ""
+/local/domain/1/backend/vsnd/6/0 = ""
+/local/domain/1/backend/vsnd/6/0/frontend = "/local/domain/6/device/vsnd/0"
+/local/domain/1/backend/vsnd/6/0/frontend-id = "6"
+/local/domain/1/backend/vsnd/6/0/online = "1"
+/local/domain/1/backend/vsnd/6/0/state = "4"
+/local/domain/6/device/vsnd = ""
+/local/domain/6/device/vsnd/0 = ""
+/local/domain/6/device/vsnd/0/backend = "/local/domain/1/backend/vsnd/6/0"
+/local/domain/6/device/vsnd/0/backend-id = "1"
+/local/domain/6/device/vsnd/0/state = "4"
+/local/domain/6/device/vsnd/0/long-name = "Virtual sound card"
+/local/domain/6/device/vsnd/0/short-name = "VCard"
+/local/domain/6/device/vsnd/0/sample-rates = 
+"8000,11025,16000,22050,32000,44100,48000"
+/local/domain/6/device/vsnd/0/sample-formats = "s16_le"
+/local/domain/6/device/vsnd/0/buffer-size = "65536"
+/local/domain/6/device/vsnd/0/0 = ""
+/local/domain/6/device/vsnd/0/0/name = "dev1"
+/local/domain/6/device/vsnd/0/0/0 = ""
+/local/domain/6/device/vsnd/0/0/0/unique-id = "pulse"
+/local/domain/6/device/vsnd/0/0/0/type = "p"
+/local/domain/6/device/vsnd/0/0/0/ring-ref = "2070"
+/local/domain/6/device/vsnd/0/0/0/event-channel = "18"
+/local/domain/6/device/vsnd/0/0/0/evt-ring-ref = "2071"
+/local/domain/6/device/vsnd/0/0/0/evt-event-channel = "19"
+/libxl/6/device/vsnd = ""
+/libxl/6/device/vsnd/0 = ""
+/libxl/6/device/vsnd/0/frontend = "/local/domain/6/device/vsnd/0"
+/libxl/6/device/vsnd/0/backend = "/local/domain/1/backend/vsnd/6/0"
+/libxl/6/device/vsnd/0/frontend-id = "6"
+/libxl/6/device/vsnd/0/online = "1"
+/libxl/6/device/vsnd/0/state = "1"
+
+
+> ---
+>   sound/xen/xen_snd_front_evtchnl.c | 44 +++++++------------------------
+>   1 file changed, 10 insertions(+), 34 deletions(-)
+>
+> diff --git a/sound/xen/xen_snd_front_evtchnl.c b/sound/xen/xen_snd_front_evtchnl.c
+> index 3e21369c8216..26d1b3987887 100644
+> --- a/sound/xen/xen_snd_front_evtchnl.c
+> +++ b/sound/xen/xen_snd_front_evtchnl.c
+> @@ -143,12 +143,12 @@ void xen_snd_front_evtchnl_flush(struct xen_snd_front_evtchnl *channel)
+>   static void evtchnl_free(struct xen_snd_front_info *front_info,
+>   			 struct xen_snd_front_evtchnl *channel)
+>   {
+> -	unsigned long page = 0;
+> +	void *page = NULL;
+>   
+>   	if (channel->type == EVTCHNL_TYPE_REQ)
+> -		page = (unsigned long)channel->u.req.ring.sring;
+> +		page = channel->u.req.ring.sring;
+>   	else if (channel->type == EVTCHNL_TYPE_EVT)
+> -		page = (unsigned long)channel->u.evt.page;
+> +		page = channel->u.evt.page;
+>   
+>   	if (!page)
+>   		return;
+> @@ -167,10 +167,7 @@ static void evtchnl_free(struct xen_snd_front_info *front_info,
+>   		xenbus_free_evtchn(front_info->xb_dev, channel->port);
+>   
+>   	/* End access and free the page. */
+> -	if (channel->gref != INVALID_GRANT_REF)
+> -		gnttab_end_foreign_access(channel->gref, page);
+> -	else
+> -		free_page(page);
+> +	xenbus_teardown_ring(&page, 1, &channel->gref);
+>   
+>   	memset(channel, 0, sizeof(*channel));
+>   }
+> @@ -196,8 +193,7 @@ static int evtchnl_alloc(struct xen_snd_front_info *front_info, int index,
+>   			 enum xen_snd_front_evtchnl_type type)
+>   {
+>   	struct xenbus_device *xb_dev = front_info->xb_dev;
+> -	unsigned long page;
+> -	grant_ref_t gref;
+> +	void *page;
+>   	irq_handler_t handler;
+>   	char *handler_name = NULL;
+>   	int ret;
+> @@ -207,12 +203,9 @@ static int evtchnl_alloc(struct xen_snd_front_info *front_info, int index,
+>   	channel->index = index;
+>   	channel->front_info = front_info;
+>   	channel->state = EVTCHNL_STATE_DISCONNECTED;
+> -	channel->gref = INVALID_GRANT_REF;
+> -	page = get_zeroed_page(GFP_KERNEL);
+> -	if (!page) {
+> -		ret = -ENOMEM;
+> +	ret = xenbus_setup_ring(xb_dev, GFP_KERNEL, &page, 1, &channel->gref);
+> +	if (ret)
+>   		goto fail;
+> -	}
+>   
+>   	handler_name = kasprintf(GFP_KERNEL, "%s-%s", XENSND_DRIVER_NAME,
+>   				 type == EVTCHNL_TYPE_REQ ?
+> @@ -226,33 +219,18 @@ static int evtchnl_alloc(struct xen_snd_front_info *front_info, int index,
+>   	mutex_init(&channel->ring_io_lock);
+>   
+>   	if (type == EVTCHNL_TYPE_REQ) {
+> -		struct xen_sndif_sring *sring = (struct xen_sndif_sring *)page;
+> +		struct xen_sndif_sring *sring = page;
+>   
+>   		init_completion(&channel->u.req.completion);
+>   		mutex_init(&channel->u.req.req_io_lock);
+> -		SHARED_RING_INIT(sring);
+> -		FRONT_RING_INIT(&channel->u.req.ring, sring, XEN_PAGE_SIZE);
+> -
+> -		ret = xenbus_grant_ring(xb_dev, sring, 1, &gref);
+> -		if (ret < 0) {
+> -			channel->u.req.ring.sring = NULL;
+> -			goto fail;
+> -		}
+> +		XEN_FRONT_RING_INIT(&channel->u.req.ring, sring, XEN_PAGE_SIZE);
+>   
+>   		handler = evtchnl_interrupt_req;
+>   	} else {
+> -		ret = gnttab_grant_foreign_access(xb_dev->otherend_id,
+> -						  virt_to_gfn((void *)page), 0);
+> -		if (ret < 0)
+> -			goto fail;
+> -
+> -		channel->u.evt.page = (struct xensnd_event_page *)page;
+> -		gref = ret;
+> +		channel->u.evt.page = page;
+>   		handler = evtchnl_interrupt_evt;
+>   	}
+>   
+> -	channel->gref = gref;
+> -
+>   	ret = xenbus_alloc_evtchn(xb_dev, &channel->port);
+>   	if (ret < 0)
+>   		goto fail;
+> @@ -279,8 +257,6 @@ static int evtchnl_alloc(struct xen_snd_front_info *front_info, int index,
+>   	return 0;
+>   
+>   fail:
+> -	if (page)
+> -		free_page(page);
+>   	kfree(handler_name);
+>   	dev_err(&xb_dev->dev, "Failed to allocate ring: %d\n", ret);
+>   	return ret;
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
