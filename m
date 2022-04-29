@@ -2,42 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 678B05146CC
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 12:31:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.317175.536387 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A60BB5146D2
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 12:36:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.317183.536398 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkNtw-0002p9-MC; Fri, 29 Apr 2022 10:31:04 +0000
+	id 1nkNya-0003XJ-Bp; Fri, 29 Apr 2022 10:35:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 317175.536387; Fri, 29 Apr 2022 10:31:04 +0000
+Received: by outflank-mailman (output) from mailman id 317183.536398; Fri, 29 Apr 2022 10:35:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkNtw-0002mS-HO; Fri, 29 Apr 2022 10:31:04 +0000
-Received: by outflank-mailman (input) for mailman id 317175;
- Fri, 29 Apr 2022 10:31:03 +0000
+	id 1nkNya-0003V5-8C; Fri, 29 Apr 2022 10:35:52 +0000
+Received: by outflank-mailman (input) for mailman id 317183;
+ Fri, 29 Apr 2022 10:35:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IHQo=VH=citrix.com=prvs=11116ec15=roger.pau@srs-se1.protection.inumbo.net>)
- id 1nkNtv-0002mI-3L
- for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 10:31:03 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 758b9ed7-c7a7-11ec-a405-831a346695d4;
- Fri, 29 Apr 2022 12:31:00 +0200 (CEST)
-Received: from mail-dm6nam12lp2173.outbound.protection.outlook.com (HELO
- NAM12-DM6-obe.outbound.protection.outlook.com) ([104.47.59.173])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 29 Apr 2022 06:30:57 -0400
-Received: from DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
- by BY5PR03MB5202.namprd03.prod.outlook.com (2603:10b6:a03:220::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14; Fri, 29 Apr
- 2022 10:30:54 +0000
-Received: from DS7PR03MB5608.namprd03.prod.outlook.com
- ([fe80::5df3:95ce:4dfd:134e]) by DS7PR03MB5608.namprd03.prod.outlook.com
- ([fe80::5df3:95ce:4dfd:134e%4]) with mapi id 15.20.5186.026; Fri, 29 Apr 2022
- 10:30:54 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=iTs9=VH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1nkNyZ-0003Uc-0S
+ for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 10:35:51 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 22c40019-c7a8-11ec-a405-831a346695d4;
+ Fri, 29 Apr 2022 12:35:49 +0200 (CEST)
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur02lp2053.outbound.protection.outlook.com [104.47.6.53]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-25-rnbOR1yoO5KOP4YvR8VN1A-1; Fri, 29 Apr 2022 12:35:48 +0200
+Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
+ by AS8PR04MB7654.eurprd04.prod.outlook.com (2603:10a6:20b:290::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.13; Fri, 29 Apr
+ 2022 10:35:46 +0000
+Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
+ ([fe80::5cb0:5195:4203:7c2f]) by DU2PR04MB8616.eurprd04.prod.outlook.com
+ ([fe80::5cb0:5195:4203:7c2f%8]) with mapi id 15.20.5206.013; Fri, 29 Apr 2022
+ 10:35:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,261 +51,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 758b9ed7-c7a7-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1651228260;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=PgjE1s4K8ADDAB0sRXajJd/m9wMCDG44D/TvRHrN3lY=;
-  b=JXWSNQc66yjiNeGjOGtADfMlhrRqnYbmzmlfT4rwLa8iKjjTI5VV9b3e
-   Ebcv2ukbz/0rxbIITS+wIVizuGfoE4D8um2kndDiLtA4/48UHRCh2TpKa
-   cNScFA2ciCHpuBGaqAFM6ANS+jEyvnyp+KinOeS8s+euVR5O06Vv95ibW
-   4=;
-X-IronPort-RemoteIP: 104.47.59.173
-X-IronPort-MID: 70219840
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:ErFHU67Y4xAfzphC8KrZngxRtA3GchMFZxGqfqrLsTDasY5as4F+v
- mQfCD/Xb63fNjT3KI9/bYzn8k9XuJDWnYM3TAE4qy8yHi5G8cbLO4+Ufxz6V8+wwmwvb67FA
- +E2MISowBUcFyeEzvuVGuG96yE6j8lkf5KkYAL+EnkZqTRMFWFw0HqPp8Zj2tQy2YTjUlvX0
- T/Pi5a31GGNimYc3l08s8pvmDs31BglkGpF1rCWTakjUG72zxH5PrpGTU2CByKQrr1vNvy7X
- 47+IISRpQs1yfuP5uSNyd4XemVSKlLb0JPnZnB+A8BOiTAazsA+PzpS2FPxpi67hh3Q9+2dx
- umhurSMVAgJIfLRvtgwDT9JLgVbPoF/9YPYdC3XXcy7lyUqclPK6tA3VgQaGNNd/ex6R2ZT6
- fYfNTYBKAiZgP67y666Te8qgdk/KM7sP8UUvXQIITPxVK56B8ycBfibo4YHh1/chegXdRraT
- 9AeZjd1KgzJfjVEO0sNCYJ4l+Ct7pX6W2IA8gvE9fZvi4TV5Alv6IPzHPrxQPrQQpVXukPJ+
- j3v1l2sV3n2M/Tak1Jp6EmEgfTUgS7gRMcbGLi58NZ6jVuL3GsRBRYKE1yhrpGRmkO4Ht5SN
- UEQ0i4vtrQpslymSMHnWB+1q2LCuQQTM/JSHPc98xql0bfP7kCSAW1sZhxrZcEitcQ2bSc3z
- VLPlNTsbRRlt6eUUjSa7auOqi2pOjk9KnULbisJCwAC5rHeTJobixvOSpNvFfCzh9isQzXom
- WnV9245mqkZitMN2+Oj51fbjjmwp5/PCAko+gHQWWHj5QR8DGK4W7GVBZHgxa4oBO6kopOp5
- xDoR+D2ADgyMKyw
-IronPort-HdrOrdr: A9a23:k3Tw8KDK9LQt4cjlHej+sseALOsnbusQ8zAXPh9KJyC9I/b2qy
- nxppgmPEfP+UwssQIb6K290ci7MD7hHPtOgLX5Uo3SJTUPNgGTXflfBOfZsl/d8k7Fh6JgPM
- VbAtND4bTLZDAQ56ubkWqF+r0bsb26GdWT9IHjJgBWPGZXgs9bnmJEIzfeNnczaBhNBJI/Gp
- bZzNFAvSCcdXMeadn+LmUZXsDYzue7267OUFojPVoK+QOOhTSn5PrRCB6DxCoTVDtJ3PML7X
- XFqQrk/a+u2svLhCM0llWjrqi+quGRieerN/b8yPT97Q+czzpAUb4RG4FqegpF5N1Hpmxa1+
- Uk6C1QQ/ibo0mhAV1d5yGdnTUJFF0VmiffIZjyuwq7nSWxfkNFN+NRwY1eaRfX8EwmoZV117
- 9KxXuQs95NAQrHhzmV3amAa/hGrDvCnZMZq59ks5Wfa/ptVJZB6YgEuE9FGpYJGyz3rIghDe
- l1FcnZoPJba0mTYXzVtnRmhIXEZAV5Ij6WBkwZ/sCF2Tlfm350i0Me2cwEh38FsJYwUYNN6e
- jIOrlh0OkmdL5dUYttQOMaBcenAG3ERhzBdGqUPFT8DakCf3bAsYT+7rk57PyjPJYI0Jwxkp
- LcV04wjx97R2v+TcmVmJFb+BHER2uwGTzr18FF/pB8/qbxQbL6WBfzPGzGU/HQ1sn3LverK8
- pbYqgmcsMLBVGearp04w==
-X-IronPort-AV: E=Sophos;i="5.91,298,1647316800"; 
-   d="scan'208";a="70219840"
+X-Inumbo-ID: 22c40019-c7a8-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1651228549;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lPrOjayVsy3Kq2sWARRiRreSlaE+Mdnbbq6qDxzjrYU=;
+	b=ASNIcQN3/9Pdhe063P/AfJFTI1ADamSjg+4L67jI4ubZ59q8akX/aDruFtz+acQKbJg7ux
+	b+IHo1McOi4QCKNyrhtluoVlV7HLwS8cqoAlhB6Mka/Zo01VNWfOxbH/5LCas5fnRUpscm
+	Xc9IR7fqF/0pxuKGpIUqdB1rXDqkoFQ=
+X-MC-Unique: rnbOR1yoO5KOP4YvR8VN1A-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ocQSFPZjQCXIqcDto1YuPQ2IECsabOm3TjqvGPJL+ddCcvnzvpPVAsRJUk0PlwJJTYJTqa9GG9K2Z2k6hAApO2zxzizydcEduCj1QS9LgBpRAXVyY07uyUoJXM/eYKAwJIq2pTl0UFHVG8DGyYj8obPp+Cdq/WzilNSfjUNYHjZCMa6/jjgq2S+naXuHq1MmzoxZ2snoxv7ZtIVj1cqQ81KtwdYdxKIuAkvcCLIugrATkZeOY1Q5ohMh7oB75hUKtRbv42raOCjueHnXYE4JnWApEbGVvEIklqeBmRBmVp+wxR9lMlLXKtzgKA+OAaHMLAh+azcSvfk2LGPZ9EWxcg==
+ b=R99VKT0mbqOcr8NfS5Ey+VDQx1uMyFT8TzmCfesdkcmQYv/MZfeY7R8hLnAunZyYix9KuL2liyxo4P9c5uLJd2j/e1lBmbl7mQQX1g5mldqQq7ZGAVFkS7Q4DLS7cwOO0RF4R3+uBtyeCrTM1lkYRiatS/O2XSYPHWD3BAFSnO14H58KL09m4uDrUGp5H/jc/59/A0QR07UFuw0IGfPQPa9ASPtjkDIWbXSxttbSjFT3EoyZ9CVJRZ1UsF3XM16ASfkVK5Wx4nJSEbP9/jwZPKGQZdJA05ogXHZT3N2UtLlynjDoCtntwWDuE0DSk3pJWLJq8hydT9raObzRYR5y1A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=59j5mz3u8ZF0PqWfok6mKKzC3zhHwI576gux0R3uzmE=;
- b=QI1B9wihTjO4HNRmYznzyTshjEyFNEB3m+4df7MxDWfivTXIOZXfZAVxRuNK3sOyYH/jJAT5rRaC8taY8mPyPeI2cHze7fAURa7FoyAB73HikytvXIcBMQPeRHlKR1cTl+kBxHtnzO8cQ0FlME8aBbNH+sitzLdxUkM8udzHzcMG8TAwuAzFuRRvqIKrKxHp3ulRZ415pWOtvfzgrAYiFDkif7dI5WP2xLUejCpv6rP4sdPVO3Xdh/6JXE/C9wBVXcm+LnV8aUPARWrFgiYj4vIkkK5YSARwZQzryT9vLXfxGDGbK+4Jq3nUn4wcRER1r8HrNNXCaQ1MjfrSreWZCg==
+ bh=lPrOjayVsy3Kq2sWARRiRreSlaE+Mdnbbq6qDxzjrYU=;
+ b=iMWh/pBqBDvU3hcQZ1i/od9fSEJjFOHcOCMjLeZTq5+Ei4X+2H8m09TDuZWj1yKcmp9lcGQcsFl3sQ6IVYC8QdhI7SB576c+pGRyMZc4GT8sQXkOoph7EFcw+Tn3ZehvusDHJdirtpL3huvSUJhUZgntMA9BccJLkwL3HgGLM07rrnHuPkXdzwUoEZOaIZjFM0VfP0rDQdE7cOkrMN3XRKihW0YcOrrN5bXrnfkZIKye6RjwRFOTmNXZpBDA6olTJTiyXgSBA7prr1IDAiPQn7G3moVAZOUzbL7qbQX+DgiBz8PaqJHiGB0ZzssGD/SIRjIldhbecMMMnHdaOBlSEA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=59j5mz3u8ZF0PqWfok6mKKzC3zhHwI576gux0R3uzmE=;
- b=UEK+zURLFAFMUC8vnbrjhi8Fx+hYLCYcOf4SowZ9dhAOnsS1QFS2hXuNBJlIY2HHQXElfXSqtcWDkGdRIZxjNMfq6VU0kmo5fFCreRABuRNvtStbm/svLeFfvMg25Z5PsMLX8+gqmxfMf9l5+XpDq9l+Jl/NxmNNHtcO3a9FM4A=
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Fri, 29 Apr 2022 12:30:50 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: osstest service owner <osstest-admin@xenproject.org>
-Cc: xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Subject: Re: [xen-unstable test] 169819: regressions - FAIL
-Message-ID: <Ymu+WnVjTANHk+na@Air-de-Roger>
-References: <osstest-169819-mainreport@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <osstest-169819-mainreport@xen.org>
-X-ClientProxiedBy: LO4P123CA0347.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18d::10) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <5be2e13e-fe3b-2a53-d404-8df6a80a149e@suse.com>
+Date: Fri, 29 Apr 2022 12:35:45 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Subject: Re: [PATCH v4 2/3] amd/msr: allow passthrough of VIRT_SPEC_CTRL for
+ HVM guests
+Content-Language: en-US
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20220427104718.81342-1-roger.pau@citrix.com>
+ <20220427104718.81342-3-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20220427104718.81342-3-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM6PR04CA0054.eurprd04.prod.outlook.com
+ (2603:10a6:20b:f0::31) To DU2PR04MB8616.eurprd04.prod.outlook.com
+ (2603:10a6:10:2db::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 12a2ae01-0281-412c-6ea4-08da29cb572c
-X-MS-TrafficTypeDiagnostic: BY5PR03MB5202:EE_
-X-MS-Exchange-AtpMessageProperties: SA|SL
+X-MS-Office365-Filtering-Correlation-Id: 2059c40f-0d17-42f4-e788-08da29cc0509
+X-MS-TrafficTypeDiagnostic: AS8PR04MB7654:EE_
 X-Microsoft-Antispam-PRVS:
-	<BY5PR03MB520200750D0344EA1E547E8F8FFC9@BY5PR03MB5202.namprd03.prod.outlook.com>
+	<AS8PR04MB7654960D00BCA5425D0D8997B3FC9@AS8PR04MB7654.eurprd04.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	iwEm3ndKTlTk3XnoTf1BABuidrGLg9rwMyeJR6FnRWg26vYZr/DcqKCC8b8BHyXccvcLyoJAmUD/AoePsUw9sK5CKz8glovazd23xlH3LUic967BivjKcE16ZJ5D3IcfUOWIuUWKgkfFoXgomiSCy8O9e20UHSP6dnKcCxfOcKHZVTLYI6RGDJWxaODYT0hVm0AduU8bqOpioPwKHnKYR6nZBgRxbfGbUhaajFd58i6PSKADPaOC30YPSsurgHaR83Atp9UiWH0hPY1Uj3piZGo8gE/RQLo/6SfeqZAOklaJ4PIqgPUgqK1ulVBT2FFu1Z9P3XPlsQA9TlvgGhmnOUjM/qIx1Szcs5Msx6kj0eWaZVbwEts6ffiO2AeqAG+MKUWAlSd5doT6sMQlDWAU58ZHUcCJhVYs7WkT7ZJECkQsxLSmGVJBI4W4Okk4RAPHVsh9PxhHLpPcZHaqsqgGPMuwRfWSXKtmmq5jVu5wKPQtUzqLN1902NfB2/cNDmybTdjkjktzXxJrK0xBz6KuDBBqKtaPctQJxFpbanikVV99RgickrSVHK4jB5u03+zbnYwamFC8cLRkP+LLDPwgZkdKaFW4mXEOYvUJmSA7+NWbtNuhPUIn3lyRf+izJ8Q7drEuXp7gzWTQEb4ikdQr469yi2ShwJ1i6zIUhvBb+6aNNVuguxd0SuK8jgdtG5SGNT2jO0CQQ0xfLssMgLLtdm/z7j+YL/rLUSzmoiy7RfM1OY8/NqOWp/cyXpLwJx37zah0KXCh2yHOM4OgiQLpxA==
+	KOxAKxOI69EgGyTOTz60wF1Z21cN3sC0dbapXJmeRqThP6c5Lc2Z9lYg2aA1fwWQJRCVrPJW2jiPBbnnyWmMe2YrP/mwAHBuriMjxBy/usIJ2b/VbQ7s3S+CtQ3DfCjCg5gLCKJ7L21hfT5jCmKokunk2ropaJO9NC+ApMqdUiCb0AndRGJth5Qu5s0INykkqRGb05HyDrcexhwc1KbTHQurtzdTVrDL58pYByX0+spIYqoMRTCLrCgtHaO/jZlgOzQYrJCytg36lddkG1ZrNOIZtmaYP4eUuZBEQvp85rzUB+jQLbVxBW5iT6FFWSMuyFDCGaSM8jWNeALrqqwxkLnNRNd8Me4lWrm7LephrMyQRMx7nUZYMF8mV38vH1UxHj5et8DZJ9/EFGckt8ssJgOMekurgI9gkniehewMSY4EwTJFCWOTr+Rd1SY63rETKur+2rCW10tyi4irTrtZRxO1PnLPHr936RiG7+/uo5+6cW7lSJETfMue76a1pB6Gj/OkgukdLXNm13NggyleWcWzpA5jGlZKxhcuP5KmxpAhQGdofUFuIcxoJ6AxLaW4d9rGD5yavAdZm5ce3Q6o+kMmlUxbikdTXvbaYEDdtKJLCu3Fy5ITAg9hZccH5VlfjMMpM7+bE2vVvFtodmsikirWLC27g/udXIdnKzYG6CRx6xKga9RL7G2m52jwHhkkQ8d4GeD9julaee8T/wLM73IXrsqDabi16waEWD6WfyM=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(9686003)(54906003)(6512007)(6916009)(86362001)(966005)(316002)(83380400001)(508600001)(6486002)(6506007)(6666004)(26005)(33716001)(4326008)(66946007)(85182001)(66556008)(66476007)(38100700002)(8676002)(2906002)(82960400001)(5660300002)(186003)(8936002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(6512007)(508600001)(31686004)(6486002)(8936002)(53546011)(6506007)(316002)(5660300002)(36756003)(26005)(2906002)(31696002)(8676002)(4326008)(83380400001)(186003)(66946007)(66476007)(66556008)(2616005)(86362001)(38100700002)(6916009)(54906003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?akMxRE9UaWw5cHAzU0s3WFYwWkxGcmFxZ0dYWHozaUVyZEx5RERURnIwZ0VZ?=
- =?utf-8?B?VVIxWkVLOXRWNFQzVmdBMUo2SzJBaklLcmtrYTZnZlM1d0tRS3ZIb0syaWJh?=
- =?utf-8?B?OUlDbVZPcytwQi9JbVFaQ2VMd0gxV2NocDN4dUJyRW9OV1VZSmN2emtjaGNK?=
- =?utf-8?B?d1lGY3F0NU1aK0lnVEl6eHdxUTd3S1doRS91azlaSmhGbTlQc2p0dkdmQ1R2?=
- =?utf-8?B?UVpSdXV4aUl0VzhmdEFNZWUyTVNEK2FyTi9TWklkWjhpUVV1Wi9IZjZJQ3By?=
- =?utf-8?B?cVp5WHlsRllLTWRuaVdYUXV2dmJjOGVnWkhabmhqQWkrb1VCSFNpS2dFdktS?=
- =?utf-8?B?cHhoVE5Fa0I2blJVRGlCQW5pSkxvaEtDRURIME1PaDJnU1hmTG00SnRoVE8y?=
- =?utf-8?B?Mm5pZXF2KzFFZGc5MjA5NGxFYUhFTVdsL29idDlsME9UWWpENTJYY2NpcVlT?=
- =?utf-8?B?UkZRa256dHlEeGUwd09qdTU2RW9GS3ZkZWpiVi92c0xvVmhVR3hIcGg2V05S?=
- =?utf-8?B?T0FaY0VtZndRejh5K1ZuR0FFU0lVTjdTSXp6TEZuby9Semd5YnVNbzltbU15?=
- =?utf-8?B?KzNjbE1SSU1uOWsvazk2bFJqR1hUNDFHOHU0RGgrTlhnNjBINXUyU1ErMzZo?=
- =?utf-8?B?UlVvWjZUM2dkT29kUTAzWmlkd2ErN2VPdUplSXhWUklnRzhPSGZIMXVnT2V0?=
- =?utf-8?B?UEtkRkdHRk9LMmU3Smp3elVQQy83bXVSZjhmbHRkV2pHUDNsR0FXUHRnOUg2?=
- =?utf-8?B?V0ppWTA5MGJCMGdHRGRvWGd0RmxMMkQ0SXBaVXNIZi9kMXRteVN1TmsrcEpz?=
- =?utf-8?B?dDRtR3dvWVM5WTNEU0xKRlMyS0c2UGFuNVYvOHVwR1JxVUhrZkEvaGpoRVVX?=
- =?utf-8?B?OElpVVU5ZWE4SFB3WVlESUJ6THZuMlFrNnNnSVA5a1VhSjRUVXZYTUJKcEtD?=
- =?utf-8?B?ZEMwbG1IOFJtb1VZTEVuYlo3aFhEeVR4cit6NTZMT0FEUzJRNWlpUHVjU3RI?=
- =?utf-8?B?dHhoMEZvTnVOK3ZvS25xTWtkbVlxMFYvTEh3dEZVV0ZhemtmTWl0anFRM0Zz?=
- =?utf-8?B?RUxPZVJSdko0bTIwMzFVOC9jSXFhakVjRmNCMDdSSlZnelJUbkx3R1I5V1c4?=
- =?utf-8?B?V3h5dEF6OFMzNGJSOXBRVjcvVUh0UnVWK0hTemVUQzMvZXM1VzZoU3NBVXkr?=
- =?utf-8?B?YnVMZUE0cTcrRmUwTkd0cWdEU3IrQnNNWTVPREMvZFBhQUZIRTR5aU1nOWho?=
- =?utf-8?B?d0ZpeXJqdGFvMkYwQzVJU3ltUm1hVjUxRDBsckJlNmh5aEI2eHptYnVYZk5G?=
- =?utf-8?B?N2dUT1N5TEhmWHhDR0RncHB3Tm05SXZJb1NucU0wZ1R1bk5weGUwOEh3eU5o?=
- =?utf-8?B?Wi9pWGE2Rkx5MG1mOThEY1NHWmxNdTNQSkFXTWluZWhPL1VobVphVDRTQmcr?=
- =?utf-8?B?c3d6OG1Bd0VDc3cwcHEyVUtzVDNycFA5eVlDeHNIMzF0dlZncFZTM0VSTXNG?=
- =?utf-8?B?VkM0RkJOSHVXZ0hENnlWaG1hdjFIVnUvcndxaDk3RnpPMUZ5ODd3L3RhUEdK?=
- =?utf-8?B?UUpPYnExMWxlWDhyUFpnOVRLSG5qN3BFZUJEK2JsclZPUmhlc1RGZHJrVzV3?=
- =?utf-8?B?RVlBWVZQNDF3VjRkWTRGd0xIMG42S3N5Yk03QVgzd1g3ZG9pWERwOEQ1MVYv?=
- =?utf-8?B?WlpwOCtET3lXcTIzeTI4bVV2dlBvUzJWMGlqb0ZsVWJqa1FoT01rM0NmSXFh?=
- =?utf-8?B?emE5dVBvR3FLeFBZNkdhbTNJVUxFZ0g3R3h3aFBZSlRDUzAvM3I0dmZOQWc2?=
- =?utf-8?B?UWw4ODBaU2FtQUlOMHpYMGJweE9hQWQ0VW9HcmM0ZXZXdVBzQ0o1OE95RFd3?=
- =?utf-8?B?d24yODVVUFFyVTBWVi9IbzhjdEpRYlUrTmFiL2M3SjdDODJieUJmT3NBRUY5?=
- =?utf-8?B?L1V1WXJ6L0NiTlg2Y01kMWNjaDl2bEVjVEJQMDVBQ04vc0F0WS9iOHBYL21o?=
- =?utf-8?B?cjFtVXQwTitOd000MDEzT0cvRG1kaTVPS3N2b0NYeTk0R2toZUlucDBvemRV?=
- =?utf-8?B?RE5TU3dlL2pIUkJNYlFIbmhSOEdvZU5SQjVneVNlMkJxdmVyNngyOXViNmJF?=
- =?utf-8?B?dWhraFZ2bUxZem43YzAyVXhNRkFuSlZIeFJqSk5Lek9GQTJ1d0JIaHBWZVFj?=
- =?utf-8?B?dWFMRGVYd1J4S2pzbjdaY1VQbTRBZWRhempDVFZOaVk2c0VnZm82VXA1ZTNw?=
- =?utf-8?B?THFyWmlhWGxKWWN2Z2xBeStROGIrdDhVditKUHNQd2lGWEZxTWFlLzM3OStC?=
- =?utf-8?B?V0ozNnlNaHVTU3A0RWtkRjJWem9GU2Z5TmRCaUZpS3E0SUJhNE1iNENuazhw?=
- =?utf-8?Q?7OdV0RkCouqTzwGc=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 12a2ae01-0281-412c-6ea4-08da29cb572c
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+	=?utf-8?B?dUlQMkhLVlVMeDVNU2QzeUhNMlRDRDlsdGZ5RDU5M1d0WUxGbmQ5bFZBSDdP?=
+ =?utf-8?B?dnliSFh4MHFyUTdjYnhKL2Fwc0ppaGF0MFNPUDREa2NGdmtqbXI0NVN6ZzZq?=
+ =?utf-8?B?TFY5MnpoM2tSTHJTd1A1d29uR0ZaQTB2UHFjU0xOVXMrcHF1aTdzb2VWd05N?=
+ =?utf-8?B?R1ZnSVYrc1Y3WTBETklvdkZRcGlZenYxUm9WTVhHRHphKzJJNmVkYTdMbmJv?=
+ =?utf-8?B?T3RFZk9saHpIZWtBMFdJcVpGR3E4QjRBODFVM3NmMUEwTm1USHI1cC9OM2Q5?=
+ =?utf-8?B?dTZDZFltaUdVNTgweHBKSGNrZ0tESVpLQ2gzbFRpQ0w5bVMzeUVxWW5PcjFM?=
+ =?utf-8?B?T0hzcjdkcElzSHZ3Nlo5UWsxQXVNV2R6S3ZDV0cxS3dSYXZMbUpoVEhDNzZX?=
+ =?utf-8?B?TWh0Y21SWGNrZ0Jhakd2TVg3aDVldHQ5SExzU3Bqb1UzSVpDSEx4cklBZ08w?=
+ =?utf-8?B?Z1B4UnFWRWNRbko0NkI0VnQzanJ1QWlBYW5VZ0JMcDVJUlRXbWRtQmFBTEQz?=
+ =?utf-8?B?RElSM2dFVE5PRmg1YWhLTFRKNkVwOG9UN0x5WjZWdS9tL0M0Z3hTT0JCK1h2?=
+ =?utf-8?B?cUVmenBWd2NiUTNzUmx6SHdnRmtxRkFkMUl3STlUU2hrVlhXVElLMW5RdXF3?=
+ =?utf-8?B?TExOVzFFTzgrUnMwcm9yWnRaUHM1aEdmTHJ4WUMvMEdYVFN3bEVPWlVUZFpq?=
+ =?utf-8?B?VGxoUzhVdDJxN013Z2JMcDJxak85UFhqUUU1dHhuMkQxTzNWSXNWck9wUnZS?=
+ =?utf-8?B?ZEVza0tPbVZwYjYxQnpwdzlDalJ1VEVJM3QxQVdXU3dGZndRSmVzbGtNbEY1?=
+ =?utf-8?B?cUNOTTNhQmh3WFphTkRXUm9Od25PRy9YWnhpRGNJUndJTHk5dmFmdDlxZk45?=
+ =?utf-8?B?OHNsMWpmWFZPeHJyVU9OSHlYTGNUTU45aHJac3FGc2M0Q0J2SUU4a29PWFBL?=
+ =?utf-8?B?WjhOUFhDdWplTmlCZUYxeCtsNUZFTmd2TURZRHBENGJlMENHNk9XdkV4R0FI?=
+ =?utf-8?B?NnBhWmg5YUsyOG14MVREWVBYOEszUUxWWCtMTjJKZ29IWTZXc1kzR2dTWGwz?=
+ =?utf-8?B?NDJnUzZxVStMZE1QZ1dYbXdOb3I3RUlWU1dtNkJraDNza0Z6UHJLVlRmN2J4?=
+ =?utf-8?B?TjU1MThiZ29lSm5iTlN5dHdJSExIZWRnTFd4QS9zT3RoYmRNbkhKRWxmUWNo?=
+ =?utf-8?B?SEJKQTU3YmYxVWZzbUxFKzRnbWliTkpLeEk4SklDS1NGbThuL095c0lpeXRh?=
+ =?utf-8?B?K3lxaXJrMlgvWHNwUHpYZUhqUWlyYzRtQmRPK21vVFJNdWwzTkpUc2FPWXNr?=
+ =?utf-8?B?T2pBbTFJUjVhZXpWb1BuSE5vWFZEU0QvdW1TVHZIeGg3NEFXY2lORWYzRlJk?=
+ =?utf-8?B?WkFSNkZkYmI3d0ROS2llS2VBQjJLblk0OUtUTUpUaUZzN1JNcUJsZ1pLNjRQ?=
+ =?utf-8?B?ZzVrVi9YUWlaU3R1ZnhPMmlra2NyY3p5YVdxY2VIVXYwUVk2UmtBbWk5RFRG?=
+ =?utf-8?B?d3JmZ2UzTWxRZkNZSXpCRTluOHg4MDJvbm1HVHk5MVN2QWkyUkxVNUZlc2JW?=
+ =?utf-8?B?M09RdlgyWDVYb0dDVlZBYllaV2RkZ3hOR0pBRG1mRGlQUWFHNEw3REpSeVNq?=
+ =?utf-8?B?VEdtLy93ck5WcTVhSUVRVnpWK2ZwNUFBL2lnOTczbW5MVndzNkZkbmN4cnBF?=
+ =?utf-8?B?b1J4LzJTL2ZoOCtTUG1KbVhxYTZIRStZOVJDcEVaR0V6azlOaGsvTDlJOVJh?=
+ =?utf-8?B?OTI2Qm4xK21ScHlLRVZ4dTVzS1VwY0ZzTUZBNFByM25mOEFWVWg1a3BsOElr?=
+ =?utf-8?B?QXRxaUd0eTA3dnpjTmJ2QUVSWG9OM2pzL1VkajVtWHBjOWRROEs4MmN2RVhC?=
+ =?utf-8?B?NUpmRHQ3NW1hUGlzZ2RURU5JaXBiR1ozcDBrTjBmNDRUSGJxbUlJRnhUUHpD?=
+ =?utf-8?B?OEdFelNPREZ2aE9OS1pEVk1ndEx1UmZ2Tm1oSW0wbjQvMHRDQU00dStHM3Uy?=
+ =?utf-8?B?M2JZQXFUM1Q4VGFiWVZUT0hoN2tQZitxVXRQM1hqNCtoR2R3RzUwOG5RTHc4?=
+ =?utf-8?B?VU1KSGV0bnQ1WXhmTC9Oa0x0WEhhUjBqZ3JKbnE5eTVOenZLVCtvN0FSWk5l?=
+ =?utf-8?B?Qk9UODFkcmtMcEt3MU5EMG8wemlmRHZHcUkrM3h4UGIxMjdLb1pvZ1VQV2NK?=
+ =?utf-8?B?V0RJTEc0MGNrN0VaM1UwNXQ4VEZRL2hhVm5LSW5WdWV2Qm1kTG9RMU0rWlpM?=
+ =?utf-8?B?Y3MwSDN6Z0pZUkxiMnliUVpSYjI3ZHRpc3JJVzhRZ0E3R0NtODN6MlRKMTkv?=
+ =?utf-8?B?M1NBK3Vrc2VVamVKdkdlL01td0NoZitsdFlCYnhiekFtMjNPVWRFdz09?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2059c40f-0d17-42f4-e788-08da29cc0509
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2022 10:30:54.5224
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2022 10:35:46.2042
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nFdo1WXgPaUxUB/ODVQ1fr4w1McLY4XOngfe+YODoLV3phH2HLb0A4Rkby6IBqQ0YIUgxf2Y+U9EtLa/+PLBJw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5202
+X-MS-Exchange-CrossTenant-UserPrincipalName: EkATRrrpOx9RPtlkxFHBFzJyT5pEcbGauy0hBUfzFxa7gbrA71blGIf+QPLURx5s/Zp4nZsQ7VAxNpZOa6L5kw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7654
 
-On Fri, Apr 29, 2022 at 07:46:47AM +0000, osstest service owner wrote:
-> flight 169819 xen-unstable real [real]
-> flight 169843 xen-unstable real-retest [real]
-> http://logs.test-lab.xenproject.org/osstest/logs/169819/
-> http://logs.test-lab.xenproject.org/osstest/logs/169843/
-> 
-> Regressions :-(
-> 
-> Tests which did not succeed and are blocking,
-> including tests which could not be run:
->  test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 169775
->  test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 169775
->  test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 169775
->  test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 169775
->  test-arm64-arm64-xl-thunderx  8 xen-boot                 fail REGR. vs. 169775
->  test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 169775
-> 
-> Tests which are failing intermittently (not blocking):
->  test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail pass in 169843-retest
+On 27.04.2022 12:47, Roger Pau Monne wrote:
+> --- a/xen/arch/x86/cpuid.c
+> +++ b/xen/arch/x86/cpuid.c
+> @@ -541,6 +541,10 @@ static void __init calculate_hvm_max_policy(void)
+>           raw_cpuid_policy.basic.sep )
+>          __set_bit(X86_FEATURE_SEP, hvm_featureset);
+>  
+> +    if ( !boot_cpu_has(X86_FEATURE_VIRT_SC_MSR_HVM) )
+> +        /* Clear VIRT_SSBD if VIRT_SPEC_CTRL is not exposed to guests. */
+> +        __clear_bit(X86_FEATURE_VIRT_SSBD, hvm_featureset);
+> +
+>      /*
+>       * If Xen isn't virtualising MSR_SPEC_CTRL for HVM guests (functional
+>       * availability, or admin choice), hide the feature.
+> @@ -597,6 +601,13 @@ static void __init calculate_hvm_def_policy(void)
+>      guest_common_feature_adjustments(hvm_featureset);
+>      guest_common_default_feature_adjustments(hvm_featureset);
+>  
+> +    /*
+> +     * Only expose VIRT_SSBD if AMD_SSBD is not available, and thus
+> +     * VIRT_SC_MSR_HVM is set.
+> +     */
+> +    if ( boot_cpu_has(X86_FEATURE_VIRT_SC_MSR_HVM) )
+> +        __set_bit(X86_FEATURE_VIRT_SSBD, hvm_featureset);
 
-Looked into this one, and it's slightly concerning, guest seems to be
-stuck at installation:
+The earlier patch sets the bit in "max" when SC_MSR_HVM && AMD_SSBD.
+This patch doesn't set the bit in "max" at all (it only clears it in
+one case as per the earlier hunk), thus leading to "def" holding a
+set bit which supposedly cannot be set. Irrespective of the feature's
+'!' annotation I think we'd better not violate "max" >= "def".
 
-Select and install software  [  481.093857] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[  509.093865] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[  545.093820] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[  573.093809] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[  609.093855] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[  637.093836] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[  673.093957] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[  701.093854] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[  733.093805] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[  761.093817] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[  797.093898] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[  825.093863] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[  861.093865] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[  889.093945] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[  925.093974] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[  953.093925] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[  985.093832] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 1013.093855] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 1049.094031] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 1077.093860] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 1113.093938] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 1141.093803] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 1177.094051] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 1205.093805] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 1237.093955] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 1265.094004] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 1301.093835] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 1329.094039] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 1365.093883] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 1393.094167] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 1429.093857] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 1457.093900] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 1489.094026] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 1517.093997] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 1553.093996] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 1581.094064] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 1617.094076] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 1645.093882] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 1681.093896] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 1709.094022] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 1741.093870] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 1769.093854] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 1805.094017] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 1833.093837] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 1869.094043] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 1897.094101] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 1933.093879] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 1961.093933] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 1997.093952] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 2025.093925] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 2057.093895] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 2085.094172] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 2121.094018] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 2149.094021] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 2185.093931] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 2213.093864] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 2249.093951] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 2277.093899] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 2309.094054] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 2337.093956] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 2373.094111] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 2401.094132] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 2437.094064] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 2465.094003] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 2501.093959] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 2529.094050] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 2561.094027] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 2589.094061] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 2625.093999] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 2653.093956] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 2689.094024] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 2717.094093] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 2753.093913] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 2781.094095] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 2813.093959] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 2841.094117] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 2877.094041] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 2905.094009] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 2941.093893] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 2969.094085] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
-[ 3005.094061] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 3033.093917] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
-[ 3065.094060] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+Everything else in this patch looks good to me.
 
-debina1 is one of the boxes I've put into production recently.
+Jan
 
-Full logs at:
-
-http://logs.test-lab.xenproject.org/osstest/logs/169819/test-amd64-amd64-xl-qemut-debianhvm-i386-xsm/info.html
-
-Thanks, Roger.
 
