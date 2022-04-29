@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C69D6514F28
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 17:20:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.317454.536787 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F5B8514F78
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 17:29:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.317459.536797 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkSPb-0007JP-IU; Fri, 29 Apr 2022 15:20:03 +0000
+	id 1nkSXw-0008SW-7f; Fri, 29 Apr 2022 15:28:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 317454.536787; Fri, 29 Apr 2022 15:20:03 +0000
+Received: by outflank-mailman (output) from mailman id 317459.536797; Fri, 29 Apr 2022 15:28:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkSPb-0007G6-EP; Fri, 29 Apr 2022 15:20:03 +0000
-Received: by outflank-mailman (input) for mailman id 317454;
- Fri, 29 Apr 2022 15:20:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nkSXw-0008Pi-4M; Fri, 29 Apr 2022 15:28:40 +0000
+Received: by outflank-mailman (input) for mailman id 317459;
+ Fri, 29 Apr 2022 15:28:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BV3H=VH=igalia.com=gpiccoli@srs-se1.protection.inumbo.net>)
- id 1nkSPZ-0006x7-2i
- for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 15:20:02 +0000
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d4e51ca0-c7cf-11ec-8fc4-03012f2f19d4;
- Fri, 29 Apr 2022 17:19:59 +0200 (CEST)
-Received: from [179.113.53.197] (helo=[192.168.1.60])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1nkSOj-000BaQ-FP; Fri, 29 Apr 2022 17:19:09 +0200
+ <SRS0=R1X1=VH=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1nkSXu-0008Pc-FN
+ for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 15:28:38 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 09a87750-c7d1-11ec-a405-831a346695d4;
+ Fri, 29 Apr 2022 17:28:36 +0200 (CEST)
+Received: by mail-lj1-x236.google.com with SMTP id 4so10894013ljw.11
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Apr 2022 08:28:36 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id
+ a17-20020a05651c211100b0024f3d1daeffsm296467ljq.135.2022.04.29.08.28.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 29 Apr 2022 08:28:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,100 +44,225 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d4e51ca0-c7cf-11ec-8fc4-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=PkGMRtr7ZOpuAUYdkK5YcnBWQgNByIkM+TF/PhPSt00=; b=McsgIEmWszU/NtZ864aphbd05/
-	AA+Hs7uyIJtJtMr4867fKRnrcDZ/B0ve7meILjRDqPYrpj2SCcZq87R4becMzN/EmmpSkGxa2bXfq
-	pUhMsFJRA7hiMl/hulL8uwaQ3NgTviAzyrP9F3cuPytnlSXUcQgJY1SVDx/EfT4PyEI3blubrtgBl
-	Y/qFy6eJFuUH765RC4uiwWYgWdDuIIe2xttNarhTtSLeO0f5vFGPmxPe8sb1rSPH9MLQ8MhCgLKVk
-	8Yh9XWbluokYf/vW7/yQXLp3HdC2BoK3CBL6+DlGPNeddie6sMCK3FiVbeA/PpCZCA2PeX8k9qatt
-	P0Tqe4Tg==;
-Message-ID: <31248811-d3ed-63dd-e255-c3be07fb1434@igalia.com>
-Date: Fri, 29 Apr 2022 12:18:29 -0300
+X-Inumbo-ID: 09a87750-c7d1-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:from:to:cc:references:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=bhq9Edgd4TreDu6ZZX1wON0xSU1SZwVBqK/SEM+ml3E=;
+        b=B3xMcLPAdNIn9uq2hakHPIlS8jvWBspKPqlkNh7vmKOaxKyaL3MczjXBPc9hVIXgb1
+         SlB7eFrdt9btBjddlOdddK+/PmXIeU3GNfb8PNgtu+RtZWanbwMO8BJlHjIEMhfmyu/T
+         Yz9yA4QKZjJ0yuLILO6MXxuVhhMZC27HA09vKdW5kBBW03uApgo+MylQXsOBwVr/Av/O
+         WCZXKN5nHBdMVFcX7SWG+NB5ndonYXbRPW1G1aTeJNvNvL24WQsXVfK0szPmNTtarEjx
+         5cQ5QxyNDKEDTiWR9DzKsYLtudCV/5shn5aipbTP45CTmfARLAAmoL6iXuGUHzwn8TS+
+         6WeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=bhq9Edgd4TreDu6ZZX1wON0xSU1SZwVBqK/SEM+ml3E=;
+        b=bVCGcNrqiv2LEHlfvohHcMqBY3jXfAnnbw8/fvCQRiu9trgfvGzQqi41135e89LlvF
+         6MQxNGCNYbPlHuwxKC7Z1ZaACYmMoQ26r+/wwcT7uF7f3BDvwW31gEUD4m6LocRb9+Gj
+         +NMjB/RP5J+xHujcO/o3q+dOBzTwktiS+sHxS99As3AbXC2CzSrbUTXhdDnJThfz/V78
+         xweLygTP3q/gejNxLfpj5p5EuQgiEr5zpGTvWUglZn+x9ty2jEe+SMKDTb+Sg3vrfnK1
+         3+AIV5eukvHi1xZFU4ZIAP3LfUwahtDHAe51mA2NlfOdwzYsuPJ8ZshU4Kl1zcpdhO/C
+         dAsA==
+X-Gm-Message-State: AOAM532Fo2kcZ+aDzLlWUpO+wqbqsA+okTQd9+ENpPaaulrVZVxpZIr4
+	0ajX5ITKtPy+nkyhlly8yJU=
+X-Google-Smtp-Source: ABdhPJwohhuXeqggDcgYROZEOtgIKa51kUFPDtQnKaRDo5KPeapt3KOaEM3V1qCKDEH1jMSMEdtQUA==
+X-Received: by 2002:a2e:87cb:0:b0:24f:81c:8940 with SMTP id v11-20020a2e87cb000000b0024f081c8940mr20554318ljj.423.1651246116210;
+        Fri, 29 Apr 2022 08:28:36 -0700 (PDT)
+Subject: Re: [PATCH v2 08/19] xen/shbuf: switch xen-front-pgdir-shbuf to use
+ INVALID_GRANT_REF
+From: Oleksandr <olekstysh@gmail.com>
+To: Juergen Gross <jgross@suse.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20220428082743.16593-1-jgross@suse.com>
+ <20220428082743.16593-9-jgross@suse.com>
+ <CAPD2p-nisRgMOzy+w2jx5ULfZTyv4MqtG0wkV9jNn3wNg415sQ@mail.gmail.com>
+Message-ID: <b05fe983-8f9e-da3d-1bf0-e121ba969ae3@gmail.com>
+Date: Fri, 29 Apr 2022 18:28:34 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH 21/30] panic: Introduce the panic pre-reboot notifier list
+In-Reply-To: <CAPD2p-nisRgMOzy+w2jx5ULfZTyv4MqtG0wkV9jNn3wNg415sQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-To: minyard@acm.org, elder@ieee.org, Alex Elder <elder@kernel.org>,
- cminyard@mvista.com
-Cc: akpm@linux-foundation.org, bhe@redhat.com, pmladek@suse.com,
- kexec@lists.infradead.org, linux-kernel@vger.kernel.org,
- bcm-kernel-feedback-list@broadcom.com, linuxppc-dev@lists.ozlabs.org,
- linux-alpha@vger.kernel.org, linux-edac@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-leds@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-um@lists.infradead.org, linux-xtensa@linux-xtensa.org,
- netdev@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
- rcu@vger.kernel.org, sparclinux@vger.kernel.org,
- xen-devel@lists.xenproject.org, x86@kernel.org, kernel-dev@igalia.com,
- kernel@gpiccoli.net, halves@canonical.com, fabiomirmar@gmail.com,
- alejandro.j.jimenez@oracle.com, andriy.shevchenko@linux.intel.com,
- arnd@arndb.de, bp@alien8.de, corbet@lwn.net, d.hatayama@jp.fujitsu.com,
- dave.hansen@linux.intel.com, dyoung@redhat.com, feng.tang@intel.com,
- gregkh@linuxfoundation.org, mikelley@microsoft.com,
- hidehiro.kawai.ez@hitachi.com, jgross@suse.com, john.ogness@linutronix.de,
- keescook@chromium.org, luto@kernel.org, mhiramat@kernel.org,
- mingo@redhat.com, paulmck@kernel.org, peterz@infradead.org,
- rostedt@goodmis.org, senozhatsky@chromium.org, stern@rowland.harvard.edu,
- tglx@linutronix.de, vgoyal@redhat.com, vkuznets@redhat.com, will@kernel.org,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Chris Zankel
- <chris@zankel.net>, Christian Borntraeger <borntraeger@linux.ibm.com>,
- Dexuan Cui <decui@microsoft.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Heiko Carstens <hca@linux.ibm.com>,
- Helge Deller <deller@gmx.de>, Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- James Morse <james.morse@arm.com>, Johannes Berg
- <johannes@sipsolutions.net>, "K. Y. Srinivasan" <kys@microsoft.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Matt Turner <mattst88@gmail.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Max Filippov <jcmvbkbc@gmail.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Paul Mackerras <paulus@samba.org>,
- Pavel Machek <pavel@ucw.cz>, Richard Henderson <rth@twiddle.net>,
- Richard Weinberger <richard@nod.at>, Robert Richter <rric@kernel.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Stephen Hemminger <sthemmin@microsoft.com>,
- Sven Schnelle <svens@linux.ibm.com>, Tony Luck <tony.luck@intel.com>,
- Vasily Gorbik <gor@linux.ibm.com>, Wei Liu <wei.liu@kernel.org>
-References: <20220427224924.592546-1-gpiccoli@igalia.com>
- <20220427224924.592546-22-gpiccoli@igalia.com>
- <20220428162616.GE442787@minyard.net>
-From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-In-Reply-To: <20220428162616.GE442787@minyard.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-On 28/04/2022 13:26, Corey Minyard wrote:
-> [...]
-> 
-> For the IPMI portion:
-> 
-> Acked-by: Corey Minyard <cminyard@mvista.com>
-
-Thanks Alex and Corey for the ACKs!
-
-> 
-> Note that the IPMI panic_event() should always return, but it may take
-> some time, especially if the IPMI controller is no longer functional.
-> So the risk of a long delay is there and it makes sense to move it very
-> late.
-> 
-
-Thanks, I agree - the patch moves it to the (latest - 1) position, since
-some arch code might run as the latest and effectively stops the machine.
-Cheers,
 
 
-Guilherme
+Hello Juergen
+
+
+On 28.04.22 21:03, Oleksandr Tyshchenko wrote:
+>
+>
+> On Thu, Apr 28, 2022 at 11:28 AM Juergen Gross <jgross@suse.com 
+> <mailto:jgross@suse.com>> wrote:
+>
+> Hello Juergen
+>
+> [sorry for the possible format issue]
+>
+>     Instead of using a private macro for an invalid grant reference use
+>     the common one.
+>
+>     Signed-off-by: Juergen Gross <jgross@suse.com
+>     <mailto:jgross@suse.com>>
+>     ---
+>      drivers/xen/xen-front-pgdir-shbuf.c | 17 ++++-------------
+>      1 file changed, 4 insertions(+), 13 deletions(-)
+>
+>     diff --git a/drivers/xen/xen-front-pgdir-shbuf.c
+>     b/drivers/xen/xen-front-pgdir-shbuf.c
+>     index a959dee21134..fa2921d4fbfc 100644
+>     --- a/drivers/xen/xen-front-pgdir-shbuf.c
+>     +++ b/drivers/xen/xen-front-pgdir-shbuf.c
+>     @@ -21,15 +21,6 @@
+>
+>      #include <xen/xen-front-pgdir-shbuf.h>
+>
+>     -#ifndef GRANT_INVALID_REF
+>     -/*
+>     - * FIXME: usage of grant reference 0 as invalid grant reference:
+>     - * grant reference 0 is valid, but never exposed to a PV driver,
+>     - * because of the fact it is already in use/reserved by the PV
+>     console.
+>     - */
+>     -#define GRANT_INVALID_REF      0
+>     -#endif
+>     -
+>      /**
+>       * This structure represents the structure of a shared page
+>       * that contains grant references to the pages of the shared
+>     @@ -83,7 +74,7 @@ grant_ref_t
+>      xen_front_pgdir_shbuf_get_dir_start(struct xen_front_pgdir_shbuf
+>     *buf)
+>      {
+>             if (!buf->grefs)
+>     -               return GRANT_INVALID_REF;
+>     +               return INVALID_GRANT_REF;
+>
+>             return buf->grefs[0];
+>      }
+>     @@ -142,7 +133,7 @@ void xen_front_pgdir_shbuf_free(struct
+>     xen_front_pgdir_shbuf *buf)
+>                     int i;
+>
+>                     for (i = 0; i < buf->num_grefs; i++)
+>     -                       if (buf->grefs[i] != GRANT_INVALID_REF)
+>     +                       if (buf->grefs[i] != INVALID_GRANT_REF)
+>     gnttab_end_foreign_access(buf->grefs[i], 0UL);
+>             }
+>             kfree(buf->grefs);
+>     @@ -355,7 +346,7 @@ static void backend_fill_page_dir(struct
+>     xen_front_pgdir_shbuf *buf)
+>             }
+>             /* Last page must say there is no more pages. */
+>             page_dir = (struct xen_page_directory *)ptr;
+>     -       page_dir->gref_dir_next_page = GRANT_INVALID_REF;
+>     +       page_dir->gref_dir_next_page = INVALID_GRANT_REF;
+>      }
+>
+>      /**
+>     @@ -384,7 +375,7 @@ static void guest_fill_page_dir(struct
+>     xen_front_pgdir_shbuf *buf)
+>
+>                     if (grefs_left <= XEN_NUM_GREFS_PER_PAGE) {
+>                             to_copy = grefs_left;
+>     -                       page_dir->gref_dir_next_page =
+>     GRANT_INVALID_REF;
+>     +                       page_dir->gref_dir_next_page =
+>     INVALID_GRANT_REF;
+>
+>
+> I faced an issue with testing PV Sound with the current series.
+>
+> root@salvator-x-h3-4x2g-xt-domu:~# aplay /media/MoodyLoop.wav
+> Playing WAVE '/media/MoodyLoop.wav' : Signed 16 bit Little Endian, 
+> Rate 44100 Hz, Stereo
+> (XEN) common/grant_table.c:1053:d1v2 Bad ref 0xffffffff for d6
+>
+> Here we have an interesting situation. PV Sound frontend uses this 
+> xen-front-pgdir-shbuf framework. Technically, this patch changes 
+> page_dir->gref_dir_next_page (reference to the next page describing 
+> page directory) from 0 to 0xffffffff here.
+> #define INVALID_GRANT_REF  ((grant_ref_t)-1)
+>
+> But according to the protocol (sndif.h), "0" means that there are no 
+> more pages in the list and the user space backend expects only that 
+> value. So receiving 0xffffffff it assumes there are pages in the list 
+> and trying to process...
+> https://elixir.bootlin.com/linux/v5.18-rc4/source/include/xen/interface/io/sndif.h#L650
+>
+>
+> I think, the same is relevant to backend_fill_page_dir() as well.
+
+
+In addition to what I said yesterday:
+
+PV Display also uses this xen-front-pgdir-shbuf framework. It's protocol 
+(displif.h) also mentions the same as sndif.h if the context of 
+gref_dir_next_page:
+
+  * gref_dir_next_page - grant_ref_t, reference to the next page describing
+  *   page directory. Must be 0 if there are no more pages in the list.
+
+
+With that local change both PV devices work in my environment.
+
+diff --git a/drivers/xen/xen-front-pgdir-shbuf.c 
+b/drivers/xen/xen-front-pgdir-shbuf.c
+index fa2921d..ad4a88e 100644
+--- a/drivers/xen/xen-front-pgdir-shbuf.c
++++ b/drivers/xen/xen-front-pgdir-shbuf.c
+@@ -346,7 +346,7 @@ static void backend_fill_page_dir(struct 
+xen_front_pgdir_shbuf *buf)
+         }
+         /* Last page must say there is no more pages. */
+         page_dir = (struct xen_page_directory *)ptr;
+-       page_dir->gref_dir_next_page = INVALID_GRANT_REF;
++       page_dir->gref_dir_next_page = 0;
+  }
+
+  /**
+@@ -375,7 +375,7 @@ static void guest_fill_page_dir(struct 
+xen_front_pgdir_shbuf *buf)
+
+                 if (grefs_left <= XEN_NUM_GREFS_PER_PAGE) {
+                         to_copy = grefs_left;
+-                       page_dir->gref_dir_next_page = INVALID_GRANT_REF;
++                       page_dir->gref_dir_next_page = 0;
+                 } else {
+                         to_copy = XEN_NUM_GREFS_PER_PAGE;
+                         page_dir->gref_dir_next_page = buf->grefs[i + 1];
+(END)
+
+
+
+>
+>                     } else {
+>                             to_copy = XEN_NUM_GREFS_PER_PAGE;
+>                             page_dir->gref_dir_next_page =
+>     buf->grefs[i + 1];
+>     -- 
+>     2.34.1
+>
+>
+>
+>
+> -- 
+> Regards,
+>
+> Oleksandr Tyshchenko
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
