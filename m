@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 998DB514978
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 14:35:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.317268.536524 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A6665149FE
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 14:56:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.317276.536535 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkPq0-0004Ku-Ui; Fri, 29 Apr 2022 12:35:08 +0000
+	id 1nkQ9o-0006kT-Ow; Fri, 29 Apr 2022 12:55:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 317268.536524; Fri, 29 Apr 2022 12:35:08 +0000
+Received: by outflank-mailman (output) from mailman id 317276.536535; Fri, 29 Apr 2022 12:55:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkPq0-0004I4-RJ; Fri, 29 Apr 2022 12:35:08 +0000
-Received: by outflank-mailman (input) for mailman id 317268;
- Fri, 29 Apr 2022 12:35:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xZxz=VH=citrix.com=prvs=111f028e5=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nkPpz-0004Hy-1L
- for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 12:35:07 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cac05772-c7b8-11ec-a405-831a346695d4;
- Fri, 29 Apr 2022 14:35:05 +0200 (CEST)
+	id 1nkQ9o-0006iI-M2; Fri, 29 Apr 2022 12:55:36 +0000
+Received: by outflank-mailman (input) for mailman id 317276;
+ Fri, 29 Apr 2022 12:55:34 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nkQ9m-0006i8-Gt; Fri, 29 Apr 2022 12:55:34 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nkQ9m-00088O-F6; Fri, 29 Apr 2022 12:55:34 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nkQ9m-000107-3f; Fri, 29 Apr 2022 12:55:34 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nkQ9m-0000tT-3D; Fri, 29 Apr 2022 12:55:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,184 +42,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cac05772-c7b8-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1651235704;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=j7VY6uzq3Gf+9w6ZGEsdVEoRlQbbe7j2kbmZoluxX4Y=;
-  b=cMN0qAbSrHXjkNwGh43Yv1gbStIK5zDDMEpxckkFRqEt24a1Dc5VchaP
-   QPcgBKtxdNMjXaAp+OUYDjwFNQexF1eNb2P8ok7pMMRHadtPtDGZtSiMD
-   vlctAWXv2rIVQiszoX71yC8BLdALWTpRN1+Ae2XPab18smbukoxqsK0pQ
-   s=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 70108997
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:9D4fsqPaaxEhVbPvrR3Yl8FynXyQoLVcMsEvi/4bfWQNrUp2hTIPz
- mRLUT/UOveMZjSneIx+a9nip0kHvZ+BnYMyTwto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdleF+lH1dOKJQUBUjclkfJKlYAL/En03FFYMpBsJ00o5wbZl2N8w2rBVPivW0
- T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
- 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Z1
- d4UiceaETcTObDentgzDyRgGi9QBPgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
- 7pCcmlLN03dwbLtqF64YrAEasALJc/3PIQZqzd4wCvQF/oOSpHfWaTao9Rf2V/cg+gRRa+GN
- 5tINlKDajzcTAdVIG40Iq4hv9mMliP4eAVb8nWs8P9fD2/7k1UqjemF3MDuUsOObdVYmACfv
- G2u13T0BFQWOcKSzRKB82mwnanfkCXjQoUQGbaksPlwjzW7y2weDV4GWF2TpKShzEW5Xrpix
- 1c8o3R06/JorQryE4e7D0bQTGO4UgA0RtEJL7YQsDG3zbfG5Tq3WlU8RzBvUYlz3CMpfgAC2
- liMltLvIDVgtryJVH6QnoupQSOO1Ts9djFbO3JdJecRy5y6+dxo0EqTJjp2OPTt5uAZDw0c1
- NxjQMIWo7wIxfAG2Kyglbwsq2L9/8OZJuLZC+i+Y45E0u+bTNP9D2BLwQKChRqlEGp+ZgPc1
- EXoY+DEsIgz4WilzURhutklErCz/OqiOzbBm1NpFJRJ323zpif6JdoJuWokfRoB3iM4ldnBO
- R67VeR5vsI7AZdXRfUvP9LZ5zoCkMAM6ugJptiLN4ETM/CdhSeM/T10ZF744oweuBNErE3LA
- r/CKZzEJS9DUcxPlWPmL89Age5D7n1vngv7GMGkpylLJJLDPRZ5v59eawDQBg34hYvZyDjoH
- yF3apXalk0DALGvCsQVmKZKRW03wbEALcieg6RqmiSreGKKxElJ5yft/I4c
-IronPort-HdrOrdr: A9a23:zdOLRa2d47yVU/omrdJlFgqjBLIkLtp133Aq2lEZdPRUGvb3qy
- mLpoV+6faUskd1ZJhOo7290cW7LU80sKQFhrX5Xo3SPjUO2lHJEGgK1+KLqFfd8m/Fh41gPM
- 9bAs5D4bbLbGSS4/yU3DWF
-X-IronPort-AV: E=Sophos;i="5.91,185,1647316800"; 
-   d="scan'208";a="70108997"
-Date: Fri, 29 Apr 2022 13:34:40 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Elliott Mitchell <ehem+xen@m5p.com>
-CC: <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 2/2] tools/xl: Allow specifying JSON for domain
- configuration file format
-Message-ID: <YmvbYHbmfXYx47r2@perard.uk.xensource.com>
-References: <cover.1650422517.git.ehem+xen@m5p.com>
- <09213ac26738ee51401b454534c6b437766481b7.1650422518.git.ehem+xen@m5p.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=KkGw96VsZhjeL+3QWBJ/GkjQXvN3DiJ+1a64JdHvBHE=; b=xPKEuVyfmrr4yTo4L3w36WCHPc
+	hhAQbzTCulakYrV0TR1Vqy+H/ZAkuwZ5WUJNkckRV9eiTSyjB+YL+Bj6HDRbqEbhSvGsddmCiN5rq
+	2HZUekvxymzu1jN7RqVlMTMV//y735c4+df+DMgaRCFiCjkOn39Uu8ilUzrUEjpZWTLU=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-169866-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <09213ac26738ee51401b454534c6b437766481b7.1650422518.git.ehem+xen@m5p.com>
+Subject: [ovmf test] 169866: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=d372ab585a2cdc5348af5f701c56c631235fe698
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 29 Apr 2022 12:55:34 +0000
 
-On Tue, Apr 19, 2022 at 06:23:41PM -0700, Elliott Mitchell wrote:
-> JSON is currently used when saving domains to mass storage.  Being able
-> to use JSON as the normal input to `xl create` has potential to be
-> valuable.  Add the functionality.
+flight 169866 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169866/
 
-"potential", right, but it isn't hasn't been really tested. When
-implemented, I think the intend of the json format was for libxl to
-communicate with itself while migrating a guest (or save/restore). It
-would be nice to know if it actually can work.
+Regressions :-(
 
-> Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>
-> ---
-> diff --git a/tools/xl/xl.h b/tools/xl/xl.h
-> index c5c4bedbdd..a0c03f96df 100644
-> --- a/tools/xl/xl.h
-> +++ b/tools/xl/xl.h
-> @@ -49,6 +49,11 @@ struct domain_create {
->      int migrate_fd; /* -1 means none */
->      int send_back_fd; /* -1 means none */
->      char **migration_domname_r; /* from malloc */
-> +    enum {
-> +        FORMAT_DEFAULT,
-> +        FORMAT_JSON,
-> +        FORMAT_LEGACY,
-> +    } format;
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
-I think the name "format" here is too generic, we are in the struct
-"domain_create" and this new format field isn't intended to specify the
-format of the domain. I think "config_file_format" would be better, as
-it is only used for the format of the config_file.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-Also I don't think having "_DEFAULT" would be useful, we need to know
-what the format is intended to be before starting to parse the file, and
-I don't think changing the default is going to work. So for the enum, we
-could have "_LEGACY = 0".
+version targeted for testing:
+ ovmf                 d372ab585a2cdc5348af5f701c56c631235fe698
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-The prefix "FORMAT_" feels a bit generic, maybe "CONFIG_FORMAT_" would
-be better, or something else.
+Last test of basis   168254  2022-02-28 10:41:46 Z   60 days
+Failing since        168258  2022-03-01 01:55:31 Z   59 days  694 attempts
+Testing same since   169816  2022-04-28 14:41:38 Z    0 days   15 attempts
 
->  };
->  
->  int create_domain(struct domain_create *dom_info);
-> diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
-> index f546beaceb..04d579a596 100644
-> --- a/tools/xl/xl_cmdtable.c
-> +++ b/tools/xl/xl_cmdtable.c
-> @@ -31,6 +31,8 @@ const struct cmd_spec cmd_table[] = {
->        "-h                      Print this help.\n"
->        "-p                      Leave the domain paused after it is created.\n"
->        "-f FILE, --defconfig=FILE\n                     Use the given configuration file.\n"
-> +      "-j, --json              Interpret configuration file as JSON format\n"
-> +      "-J                      Use traditional configuration file format (current default)\n"
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jake Garver <jake@nvidia.com>
+  Jake Garver via groups.io <jake=nvidia.com@groups.io>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
 
-I don't think this new "-J" option would be useful, just the "-j" should be
-enough.
-
->        "-n, --dryrun            Dry run - prints the resulting configuration\n"
->        "                         (deprecated in favour of global -N option).\n"
->        "-q, --quiet             Quiet.\n"
-> diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
-> index 2ec4140258..41bd919d1d 100644
-> --- a/tools/xl/xl_vmcontrol.c
-> +++ b/tools/xl/xl_vmcontrol.c
-> @@ -789,7 +789,7 @@ int create_domain(struct domain_create *dom_info)
->                  extra_config);
->          }
->          config_source=config_file;
-> -        config_in_json = false;
-> +        config_in_json = dom_info.format == FORMAT_JSON ? true : false;
-
-This doesn't build, "dom_info" is a pointer.
-
-Also, "? true : false;" is weird in C.
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
->      } else {
->          if (!config_data) {
->              fprintf(stderr, "Config file not specified and"
-> @@ -1173,6 +1173,7 @@ int main_create(int argc, char **argv)
->          {"defconfig", 1, 0, 'f'},
->          {"dryrun", 0, 0, 'n'},
->          {"ignore-global-affinity-masks", 0, 0, 'i'},
-> +        {"json", 0, 0, 'j'},
->          {"quiet", 0, 0, 'q'},
->          {"vncviewer", 0, 0, 'V'},
->          {"vncviewer-autopass", 0, 0, 'A'},
-> @@ -1181,18 +1182,23 @@ int main_create(int argc, char **argv)
->  
->      dom_info.extra_config = NULL;
->  
-> +    dom_info.format = FORMAT_DEFAULT;
-> +
->      if (argv[1] && argv[1][0] != '-' && !strchr(argv[1], '=')) {
->          filename = argv[1];
->          argc--; argv++;
->      }
->  
-> -    SWITCH_FOREACH_OPT(opt, "Ffnq:AVcdeip", opts, "create", 0) {
-> +    SWITCH_FOREACH_OPT(opt, "FJfjnq:AVcdeip", opts, "create", 0) {
->      case 'A':
->          vnc = vncautopass = 1;
->          break;
->      case 'F':
->          daemonize = 0;
->          break;
-> +    case 'J':
-> +        dom_info.format = FORMAT_LEGACY;
-> +        break;
->      case 'V':
->          vnc = 1;
->          break;
-> @@ -1212,6 +1218,9 @@ int main_create(int argc, char **argv)
->      case 'i':
->          ignore_masks = 1;
->          break;
-> +    case 'j':
-> +        dom_info.format = FORMAT_JSON;
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-This setting is ignored, as "dom_info" is reset later.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> +        break;
->      case 'n':
->          dryrun_only = 1;
->          break;
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Thanks,
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
--- 
-Anthony PERARD
+
+Not pushing.
+
+(No revision log; it would be 5844 lines long.)
 
