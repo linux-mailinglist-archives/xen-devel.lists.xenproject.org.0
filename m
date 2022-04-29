@@ -2,29 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66192514E62
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 16:53:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.317438.536758 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A986A514EC0
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 17:11:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.317448.536776 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkRzS-0003mt-4X; Fri, 29 Apr 2022 14:53:02 +0000
+	id 1nkSGg-0006Gn-N3; Fri, 29 Apr 2022 15:10:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 317438.536758; Fri, 29 Apr 2022 14:53:02 +0000
+Received: by outflank-mailman (output) from mailman id 317448.536776; Fri, 29 Apr 2022 15:10:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkRzS-0003kn-1d; Fri, 29 Apr 2022 14:53:02 +0000
-Received: by outflank-mailman (input) for mailman id 317438;
- Fri, 29 Apr 2022 14:53:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nkSGg-0006Dz-J4; Fri, 29 Apr 2022 15:10:50 +0000
+Received: by outflank-mailman (input) for mailman id 317448;
+ Fri, 29 Apr 2022 15:10:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xZxz=VH=citrix.com=prvs=111f028e5=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nkRzR-0003ef-Cn
- for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 14:53:01 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0f1d796a-c7cc-11ec-a405-831a346695d4;
- Fri, 29 Apr 2022 16:52:59 +0200 (CEST)
+ <SRS0=R1X1=VH=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1nkSGf-0006Dt-B2
+ for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 15:10:49 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8ca95f61-c7ce-11ec-8fc4-03012f2f19d4;
+ Fri, 29 Apr 2022 17:10:48 +0200 (CEST)
+Received: by mail-lj1-x233.google.com with SMTP id y19so10889768ljd.4
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Apr 2022 08:10:47 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id
+ i14-20020a198c4e000000b0044a279d25d2sm258572lfj.244.2022.04.29.08.10.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 29 Apr 2022 08:10:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,84 +44,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f1d796a-c7cc-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1651243979;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=xdhjm0VfALfwk2tX/QcBYmgcVuJpDyaGyPZzlGF2914=;
-  b=OOYgpE/U5DzkeC0snv2GiwkANT0arR6dQD2KDKqfK+sL45ovSoDs0JrL
-   9ICsxHPU2CCA+JNAqqi0fXPJwYXPQr/mYkqgWfpfuLVxRqxvSgfhQsccU
-   KRVv8IgDuAUJ0LzwbFbIa7yOBSuY/g1HPWgRlSDYO1JImaTcp84JyxO1h
-   A=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 70241562
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:8zwqGKk/L3WB0K6BrZc1eJPo5gzzJkRdPkR7XQ2eYbSJt1+Wr1Gzt
- xJLC2zQb/7bamameYtxO9+zoxhXupPQzddnGgNk+H0xHiMWpZLJC+rCIxarNUt+DCFioGGLT
- Sk6QoOdRCzhZiaE/n9BCpC48T8kk/vgqoPUUIYoAAgoLeNfYHpn2EsLd9IR2NYy24DlWVLV4
- rsenuWEULOb828sWo4rw/rrRCNH5JwebxtB4zTSzdgS1LPvvyF94KA3fMldHFOhKmVgJcaoR
- v6r8V2M1jixEyHBqD+Suu2TnkUiGtY+NOUV45Zcc/DKbhNq/kTe3kunXRa1hIg+ZzihxrhMJ
- NtxWZOYVDkmJYTOg+8kfRxYIh10HKNv0q3gLi3q2SCT5xWun3rExvxvCAc9PJEC+/YxCmZLn
- RAaAGlTNFbZ3bvwme/lDLk37iggBJCD0Ic3s3d8zTbfHLA+TIrKWani7t5ExjYgwMtJGJ4yY
- uJGMWAzNUmeOXWjPH8GVc80of2XuUXnbiVitUOwvfcr2jLMmVkZPL/Fb4OOJ43iqd9utlmcj
- nLL+SL+GB5yHMySz3+J/2yhgsfLnDjnQ8QCGbug7PlojVaPgGsJB3U+V1ShpuKiolWjQN8ZI
- EsRkhfCtoBrqhbtFIOkGUTl/jjU5XbwRua8DcUn1g6W46jP6D+3A2g1cjRgZvUMpug5EGlCO
- kCyo/vlAjlmsbuwQH2b96uJoT7aBRX5PVPudgdfE1JbvoCLTJUby0uWE409SPLdYsjdQ2mY/
- tyckMQpa1z/Z+Yv3r7zw13IiinESnPhHl9svVW/so5IA2pEiG+Zi26AtACzARVodt/xory9U
- J8swZX20Qz2JcvR/BFhuc1UdF1T296LMSfHnXlkFIQ7+jKm9haLJN4NuWgmfh4waZxdJFcFh
- XM/XysItfe/21PwMMdKj3+ZUZx2ncAM6/y4PhwrUja+SscoL1LWlM2fTUWRw3rsgCARfVIXY
- v+mnTKXJS9CU8xPlWPuL89EiO9D7n1ulAv7GMGgpzz6gOX2WZJgYepcWLd4Rrtit/3sTcS82
- 4s3CvZmPD0CDr2jOnWHrd97wJJjBSFTOK0aYvd/LoarSjeK0kl6YxMN6dvNo7BYopk=
-IronPort-HdrOrdr: A9a23:ePJbm6DG9d3p07rlHems55DYdb4zR+YMi2TC1yhKJyC9Vvbo8/
- xG/c5rsCMc5wx9ZJhNo7y90ey7MBThHP1OkOss1NWZPDUO0VHAROoJ0WKh+UyCJ8SXzJ866U
- 4KSclD4bPLYmRHsQ==
-X-IronPort-AV: E=Sophos;i="5.91,185,1647316800"; 
-   d="scan'208";a="70241562"
-Date: Fri, 29 Apr 2022 15:52:44 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Juergen Gross <jgross@suse.com>
-CC: <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v2] tools/libs/light: update xenstore entry when setting
- max domain memory
-Message-ID: <Ymv7vAEuiG3/IO3C@perard.uk.xensource.com>
-References: <20220420080426.7036-1-jgross@suse.com>
+X-Inumbo-ID: 8ca95f61-c7ce-11ec-8fc4-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=pBiFdJVBK7XJGcpZMBcNpezNa6QIqErstaAn3kJpmDo=;
+        b=dZwSRZ2uUt8/WpZywemY6gH9zX1bSy62uuhUOu5pOWQT+dn18k2SDQQu6GJeCR1fmI
+         B9i/eUnvM463HnUn9gPQ4mIHvkU2iyDkHZb6gVT4C6czaSHmrvBGn8LgplqbU9XWyyGU
+         J4w9GZKmjIVcfqj51GhpnuXtNWhRwHVmfxq8rrhs2c+yKxtv/p5YTOUohXke7TESuHwl
+         ngFhgzPPHRJotN6GR9+KG4f0FM0F+tyMW9UsJtBUtKHgKcdM7uXUD7PlGvKOFStGFvkC
+         ZRhqVMfg6QSxwiqmYL54PQdkBEtWRtax0cv5wzeGjGXGRBFFqty9gQWjVObdZ5Jwma+l
+         W+wA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=pBiFdJVBK7XJGcpZMBcNpezNa6QIqErstaAn3kJpmDo=;
+        b=fVmAtgogCXBZtrGUTA3Uh76gguBh8+ucm9Yzj4jRvNmDfPke5ZfUvTTQ5+NZkiwgF6
+         XNY4pcEgRs85ebCrbh3mOZVYDx3OVWrhr6kltPfWCVjUBWKOVYprzA3zJzZAoaNomtgv
+         3TP4ZNUbVekAo56SQfgqB8ppbZNr8oSdIyVIFRiQ7vyqYBwCjJeUWCi293KZCt7julUf
+         weQPC1O7hmWqNd4rljJwa2FT3I01BVvT9HOXSmGrXmariwXcxy2OeEzTXryNmhV8qpWM
+         gdcIw+9OF8ZAhFYNRxkkmW2LqfUyj7Jmajm20B5DwVOjgiP93tGJNIENWSYDnTNtf5ng
+         U46g==
+X-Gm-Message-State: AOAM531+6BdLPT7KNPtEjJZ/3eV41/LXtXQAsEplWicREPPrW8RWqvEB
+	srYeeARDNpI+Nbrio6mtVlc=
+X-Google-Smtp-Source: ABdhPJwIjn/TgfjiVJ+PFQMmSwVNO9odm3G/qZjzSdU0Ck0X7LMwl8OoTfIdYYrpdzx9s+oxgWnlKg==
+X-Received: by 2002:a2e:9e8e:0:b0:24a:d2d4:4509 with SMTP id f14-20020a2e9e8e000000b0024ad2d44509mr24544459ljk.69.1651245047368;
+        Fri, 29 Apr 2022 08:10:47 -0700 (PDT)
+Subject: Re: [PATCH v2 19/19] xen/xenbus: eliminate xenbus_grant_ring()
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20220428082743.16593-1-jgross@suse.com>
+ <20220428082743.16593-20-jgross@suse.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <bf14e3e1-fc4d-1eee-1dfb-1ba3423f0b6f@gmail.com>
+Date: Fri, 29 Apr 2022 18:10:45 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20220420080426.7036-1-jgross@suse.com>
+In-Reply-To: <20220428082743.16593-20-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
-On Wed, Apr 20, 2022 at 10:04:26AM +0200, Juergen Gross wrote:
-> libxl_domain_setmaxmem() called during "xl mem-max" should update the
-> domain's memory/static-max Xenstore node, as otherwise "xl mem-set"
-> won't be able to set the memory size to the new maximum.
 
-Setting domain's memory higher than the original mem-max only works on
-PV and maybe PVH guest, right? Because on HVM, QEMU is told about
-maxmem when starting a guest, and allocates some stuff from this address
-(vga buffer, pci rom I think) so trying to give HVM guest more memory
-after the fact is probably not going to go smoothly.
+On 28.04.22 11:27, Juergen Gross wrote:
 
-> Adjust the related comments and documentation accordingly.
-> 
+
+Hello Juergen
+
+
+> There is no external user of xenbus_grant_ring() left, so merge it into
+> the only caller xenbus_setup_ring().
+>
 > Signed-off-by: Juergen Gross <jgross@suse.com>
 > ---
 > V2:
-> - adjust comments and docs (Anthony Perard)
+> - make error message more precise (Andrew Cooper)
+> ---
+>   drivers/xen/xenbus/xenbus_client.c | 65 +++++++++---------------------
+>   include/xen/xenbus.h               |  2 -
+>   2 files changed, 19 insertions(+), 48 deletions(-)
+>
+> diff --git a/drivers/xen/xenbus/xenbus_client.c b/drivers/xen/xenbus/xenbus_client.c
+> index 1a2e0d94ccd1..d6fdd2d209d3 100644
+> --- a/drivers/xen/xenbus/xenbus_client.c
+> +++ b/drivers/xen/xenbus/xenbus_client.c
+> @@ -363,50 +363,6 @@ static void xenbus_switch_fatal(struct xenbus_device *dev, int depth, int err,
+>   		__xenbus_switch_state(dev, XenbusStateClosing, 1);
+>   }
+>   
+> -/**
+> - * xenbus_grant_ring
+> - * @dev: xenbus device
+> - * @vaddr: starting virtual address of the ring
+> - * @nr_pages: number of pages to be granted
+> - * @grefs: grant reference array to be filled in
+> - *
+> - * Grant access to the given @vaddr to the peer of the given device.
+> - * Then fill in @grefs with grant references.  Return 0 on success, or
+> - * -errno on error.  On error, the device will switch to
+> - * XenbusStateClosing, and the error will be saved in the store.
+> - */
+> -int xenbus_grant_ring(struct xenbus_device *dev, void *vaddr,
+> -		      unsigned int nr_pages, grant_ref_t *grefs)
+> -{
+> -	int err;
+> -	unsigned int i;
+> -	grant_ref_t gref_head;
+> -
+> -	err = gnttab_alloc_grant_references(nr_pages, &gref_head);
+> -	if (err) {
+> -		xenbus_dev_fatal(dev, err, "granting access to ring page");
+> -		return err;
+> -	}
+> -
+> -	for (i = 0; i < nr_pages; i++) {
+> -		unsigned long gfn;
+> -
+> -		if (is_vmalloc_addr(vaddr))
+> -			gfn = pfn_to_gfn(vmalloc_to_pfn(vaddr));
+> -		else
+> -			gfn = virt_to_gfn(vaddr);
+> -
+> -		grefs[i] = gnttab_claim_grant_reference(&gref_head);
+> -		gnttab_grant_foreign_access_ref(grefs[i], dev->otherend_id,
+> -						gfn, 0);
+> -
+> -		vaddr = vaddr + XEN_PAGE_SIZE;
+> -	}
+> -
+> -	return 0;
+> -}
+> -EXPORT_SYMBOL_GPL(xenbus_grant_ring);
+> -
+>   /*
+>    * xenbus_setup_ring
+>    * @dev: xenbus device
+> @@ -424,6 +380,7 @@ int xenbus_setup_ring(struct xenbus_device *dev, gfp_t gfp, void **vaddr,
+>   		      unsigned int nr_pages, grant_ref_t *grefs)
+>   {
+>   	unsigned long ring_size = nr_pages * XEN_PAGE_SIZE;
+> +	grant_ref_t gref_head;
+>   	unsigned int i;
+>   	int ret;
+>   
+> @@ -433,9 +390,25 @@ int xenbus_setup_ring(struct xenbus_device *dev, gfp_t gfp, void **vaddr,
+>   		goto err;
+>   	}
+>   
+> -	ret = xenbus_grant_ring(dev, *vaddr, nr_pages, grefs);
+> -	if (ret)
+> +	ret = gnttab_alloc_grant_references(nr_pages, &gref_head);
+> +	if (ret) {
+> +		xenbus_dev_fatal(dev, ret, "granting access to %u ring pages",
+> +				 nr_pages);
+>   		goto err;
+> +	}
+> +
+> +	for (i = 0; i < nr_pages; i++) {
+> +		unsigned long gfn;
+> +
+> +		if (is_vmalloc_addr(*vaddr))
+> +			gfn = pfn_to_gfn(vmalloc_to_pfn(vaddr[i]));
+> +		else
+> +			gfn = virt_to_gfn(vaddr[i]);
+> +
+> +		grefs[i] = gnttab_claim_grant_reference(&gref_head);
 
-Maybe `man xl` should be updated as well. In the section about `xl
-mem-max`, there is:
-    "Note however that the initial maxmem value is still used as an
-    upper limit for xl mem-set.  Also note that calling xl mem-set will
-    reset this value."
+gnttab_claim_grant_reference() can return error if no free grant 
+reference remains.
 
-That wouldn't be true anymore with this patch.
+I understand this patch only moves the code, but probably it would be 
+better to add a missing check here (and likely rollback already 
+processed grants if any?).
 
-Thanks,
+
+
+> +		gnttab_grant_foreign_access_ref(grefs[i], dev->otherend_id,
+> +						gfn, 0);
+> +	}
+>   
+>   	return 0;
+>   
+> diff --git a/include/xen/xenbus.h b/include/xen/xenbus.h
+> index b533b4adc835..eaa932b99d8a 100644
+> --- a/include/xen/xenbus.h
+> +++ b/include/xen/xenbus.h
+> @@ -224,8 +224,6 @@ int xenbus_watch_pathfmt(struct xenbus_device *dev, struct xenbus_watch *watch,
+>   			 const char *pathfmt, ...);
+>   
+>   int xenbus_switch_state(struct xenbus_device *dev, enum xenbus_state new_state);
+> -int xenbus_grant_ring(struct xenbus_device *dev, void *vaddr,
+> -		      unsigned int nr_pages, grant_ref_t *grefs);
+>   int xenbus_setup_ring(struct xenbus_device *dev, gfp_t gfp, void **vaddr,
+>   		      unsigned int nr_pages, grant_ref_t *grefs);
+>   void xenbus_teardown_ring(void **vaddr, unsigned int nr_pages,
 
 -- 
-Anthony PERARD
+Regards,
+
+Oleksandr Tyshchenko
+
 
