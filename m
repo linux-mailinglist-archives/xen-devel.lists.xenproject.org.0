@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71F72515DF1
-	for <lists+xen-devel@lfdr.de>; Sat, 30 Apr 2022 16:01:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.318124.537770 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5928A515EB7
+	for <lists+xen-devel@lfdr.de>; Sat, 30 Apr 2022 17:36:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.317062.537792 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkndZ-00080P-Ql; Sat, 30 Apr 2022 13:59:53 +0000
+	id 1nkp8e-0001eC-JP; Sat, 30 Apr 2022 15:36:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 318124.537770; Sat, 30 Apr 2022 13:59:53 +0000
+Received: by outflank-mailman (output) from mailman id 317062.537792; Sat, 30 Apr 2022 15:36:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkndZ-0007xu-NF; Sat, 30 Apr 2022 13:59:53 +0000
-Received: by outflank-mailman (input) for mailman id 318124;
- Sat, 30 Apr 2022 13:59:52 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nkndY-0007xk-Fd; Sat, 30 Apr 2022 13:59:52 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nkndY-0001dX-Ds; Sat, 30 Apr 2022 13:59:52 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nkndY-00047a-5h; Sat, 30 Apr 2022 13:59:52 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nkndY-0001yn-5E; Sat, 30 Apr 2022 13:59:52 +0000
+	id 1nkp8e-0001cK-Fx; Sat, 30 Apr 2022 15:36:04 +0000
+Received: by outflank-mailman (input) for mailman id 317062;
+ Fri, 29 Apr 2022 09:22:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=47nD=VH=gmail.com=sergei.shtylyov@srs-se1.protection.inumbo.net>)
+ id 1nkMpv-00046R-D5
+ for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 09:22:51 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id eb504a23-c79d-11ec-8fc4-03012f2f19d4;
+ Fri, 29 Apr 2022 11:22:42 +0200 (CEST)
+Received: by mail-lf1-x12c.google.com with SMTP id bu29so13029540lfb.0
+ for <xen-devel@lists.xenproject.org>; Fri, 29 Apr 2022 02:22:49 -0700 (PDT)
+Received: from [192.168.1.103] ([178.176.73.25])
+ by smtp.gmail.com with ESMTPSA id
+ e1-20020a196741000000b0046bc4be1d60sm192072lfj.123.2022.04.29.02.22.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 29 Apr 2022 02:22:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,163 +44,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=CHA5RMkE+S4CLC+dRh/n85J16hykzdQDIqCtQy/dIHo=; b=bBgt+SLo/VNsHczJgYNKhlxsl+
-	Oda+PMVfgOKJFAWpt9j7f2+47jC2/t1Mb3dcThIV2uLbNr1dDeGOh9q35ZI+Wegp8fR13ufGpG5uq
-	xKQ7kJI4MghY9njiZvm8FEGicGZn58oJVfdj3kfwCbFF0ugkOW8BpcNlKfc/g5hn+Ux4=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169913-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: eb504a23-c79d-11ec-8fc4-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=bhPxd6svpKOboxST/6guS4MOSMze/71rIJIgOQA8rZo=;
+        b=CcHlI3Au6GCo1UVzpXVov/h1wYElTNB9KLySGMMq2ve/a+TtvK5YlNIE1buiqFG4Nl
+         u/yJNPitTZt8sIeOJjB65Ui/1u355v1A2H7rivfKbBLHtHs+twE1aeJijeY6w74gk/C9
+         beognAtlmiiMUVoRPY2P2xBjOD5kn8WzXajIeBHjp2IbcVFILkaLGvvcgQymLNFVLX7W
+         O2NCAewH21dEqhwgYIy8zCJ1hXEDN8sGRLk/bc4Oj4c5AC8PD4Xjq19cf3SOi69El8Xe
+         CE7Bw/RGpPKDZ+W4HqGQMjQxaF5kblB25nziyJo7yUSAzUuWVoHRSngnqULHAZHmFVOo
+         K43A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=bhPxd6svpKOboxST/6guS4MOSMze/71rIJIgOQA8rZo=;
+        b=gDO8tT3U8pHr8MiqWpiRkQfzQdKr/FR8DFvuGPq5QR/t6SAe44LiRhv+M7e3D5vhrj
+         IBPVqApijizeyyU6EALKPPSK0BgkTrAJGpUgBVhtQOzDsJzoLew05xf7/5MMFNWyO89X
+         62f8Bzd1LZHccYdczhUBhTixpPeoJScuO4fGgKcIcUgosgrhbQJjvmBBJcySBXBY47w2
+         7QY7Spig3dPjeyxOeiGSLEZ8lJSzs8ANsc+c/1LvnAaT88GiQ269m0B6eFSNAQPdwkcp
+         157Msy2TkdXUcZG6fyz9vr8FWDzoUyHMa+JOzLgbFQIOw6mWxWoS5vh4XIS3bn9SF/6g
+         D4WA==
+X-Gm-Message-State: AOAM532eYctRb4gXAUv8wa6Whuw7DoCWH+JJ+/arYyBOWrhhb3RBTRwe
+	2ix+ZMETdaUlyqNKwikcFDo=
+X-Google-Smtp-Source: ABdhPJzFja3bmADODH1fdpoqaNJXuuCGiOo+I2PKC036x77KFxdRqfAwbMVEMu8UhB/GID87ZxayFg==
+X-Received: by 2002:a05:6512:3ba0:b0:472:49f2:a752 with SMTP id g32-20020a0565123ba000b0047249f2a752mr1049387lfv.374.1651224168844;
+        Fri, 29 Apr 2022 02:22:48 -0700 (PDT)
+Subject: Re: [PATCH 17/30] tracing: Improve panic/die notifiers
+To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>, akpm@linux-foundation.org,
+ bhe@redhat.com, pmladek@suse.com, kexec@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org, bcm-kernel-feedback-list@broadcom.com,
+ coresight@lists.linaro.org, linuxppc-dev@lists.ozlabs.org,
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-edac@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-parisc@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-um@lists.infradead.org,
+ linux-xtensa@linux-xtensa.org, netdev@vger.kernel.org,
+ openipmi-developer@lists.sourceforge.net, rcu@vger.kernel.org,
+ sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org,
+ kernel-dev@igalia.com, kernel@gpiccoli.net, halves@canonical.com,
+ fabiomirmar@gmail.com, alejandro.j.jimenez@oracle.com,
+ andriy.shevchenko@linux.intel.com, arnd@arndb.de, bp@alien8.de,
+ corbet@lwn.net, d.hatayama@jp.fujitsu.com, dave.hansen@linux.intel.com,
+ dyoung@redhat.com, feng.tang@intel.com, gregkh@linuxfoundation.org,
+ mikelley@microsoft.com, hidehiro.kawai.ez@hitachi.com, jgross@suse.com,
+ john.ogness@linutronix.de, keescook@chromium.org, luto@kernel.org,
+ mhiramat@kernel.org, mingo@redhat.com, paulmck@kernel.org,
+ peterz@infradead.org, rostedt@goodmis.org, senozhatsky@chromium.org,
+ stern@rowland.harvard.edu, tglx@linutronix.de, vgoyal@redhat.com,
+ vkuznets@redhat.com, will@kernel.org
+References: <20220427224924.592546-1-gpiccoli@igalia.com>
+ <20220427224924.592546-18-gpiccoli@igalia.com>
+From: Sergei Shtylyov <sergei.shtylyov@gmail.com>
+Message-ID: <b8771b37-01f5-f50b-dbb3-9db4ee26e67e@gmail.com>
+Date: Fri, 29 Apr 2022 12:22:44 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-Subject: [ovmf test] 169913: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=cabd96ad03603a63a97e701fb30a03341ca0e2ec
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 30 Apr 2022 13:59:52 +0000
+In-Reply-To: <20220427224924.592546-18-gpiccoli@igalia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-flight 169913 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169913/
+Hello!
 
-Regressions :-(
+On 4/28/22 1:49 AM, Guilherme G. Piccoli wrote:
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+> Currently the tracing dump_on_oops feature is implemented
+> through separate notifiers, one for die/oops and the other
+> for panic. With the addition of panic notifier "id", this
+> patch makes use of such "id" to unify both functions.
+> 
+> It also comments the function and changes the priority of the
+> notifier blocks, in order they run early compared to other
+> notifiers, to prevent useless trace data (like the callback
+> names for the other notifiers). Finally, we also removed an
+> unnecessary header inclusion.
+> 
+> Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
+> ---
+>  kernel/trace/trace.c | 57 +++++++++++++++++++++++++-------------------
+>  1 file changed, 32 insertions(+), 25 deletions(-)
+> 
+> diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+> index f4de111fa18f..c1d8a3622ccc 100644
+> --- a/kernel/trace/trace.c
+> +++ b/kernel/trace/trace.c
+[...]
+> @@ -9767,38 +9766,46 @@ static __init int tracer_init_tracefs(void)
+>  
+>  fs_initcall(tracer_init_tracefs);
+>  
+> -static int trace_panic_handler(struct notifier_block *this,
+> -			       unsigned long event, void *unused)
+> +/*
+> + * The idea is to execute the following die/panic callback early, in order
+> + * to avoid showing irrelevant information in the trace (like other panic
+> + * notifier functions); we are the 2nd to run, after hung_task/rcu_stall
+> + * warnings get disabled (to prevent potential log flooding).
+> + */
+> +static int trace_die_panic_handler(struct notifier_block *self,
+> +				unsigned long ev, void *unused)
+>  {
+> -	if (ftrace_dump_on_oops)
+> +	int do_dump;
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+   bool?
 
-version targeted for testing:
- ovmf                 cabd96ad03603a63a97e701fb30a03341ca0e2ec
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+> +
+> +	if (!ftrace_dump_on_oops)
+> +		return NOTIFY_DONE;
+> +
+> +	switch (ev) {
+> +	case DIE_OOPS:
+> +		do_dump = 1;
+> +		break;
+> +	case PANIC_NOTIFIER:
+> +		do_dump = 1;
+> +		break;
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   61 days
-Failing since        168258  2022-03-01 01:55:31 Z   60 days  713 attempts
-Testing same since   169904  2022-04-30 08:10:33 Z    0 days    5 attempts
+   Why not:
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
+	case DIE_OOPS:
+	case PANIC_NOTIFIER:
+		do_dump = 1;
+		break;
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+> +	default:
+> +		do_dump = 0;
+> +		break;
+> +	}
+> +
+> +	if (do_dump)
+>  		ftrace_dump(ftrace_dump_on_oops);
+> -	return NOTIFY_OK;
+> +
+> +	return NOTIFY_DONE;
+>  }
+[...]
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 5855 lines long.)
+MBR, Sergey
 
