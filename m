@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A0F151515C
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 19:07:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.317556.536940 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC4A4515163
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 19:10:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.317567.536952 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkU58-0000Vc-Ra; Fri, 29 Apr 2022 17:07:02 +0000
+	id 1nkU8c-0001x3-FR; Fri, 29 Apr 2022 17:10:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 317556.536940; Fri, 29 Apr 2022 17:07:02 +0000
+Received: by outflank-mailman (output) from mailman id 317567.536952; Fri, 29 Apr 2022 17:10:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkU58-0000Tp-Oa; Fri, 29 Apr 2022 17:07:02 +0000
-Received: by outflank-mailman (input) for mailman id 317556;
- Fri, 29 Apr 2022 17:07:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=a2mH=VH=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1nkU56-0000Tj-PM
- for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 17:07:00 +0000
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c53f0d3a-c7de-11ec-a405-831a346695d4;
- Fri, 29 Apr 2022 19:06:58 +0200 (CEST)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 6916F5C01AA;
- Fri, 29 Apr 2022 13:06:54 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Fri, 29 Apr 2022 13:06:54 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 29 Apr 2022 13:06:53 -0400 (EDT)
+	id 1nkU8c-0001uM-BR; Fri, 29 Apr 2022 17:10:38 +0000
+Received: by outflank-mailman (input) for mailman id 317567;
+ Fri, 29 Apr 2022 17:10:36 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nkU8a-0001tt-I5; Fri, 29 Apr 2022 17:10:36 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nkU8a-0004td-FZ; Fri, 29 Apr 2022 17:10:36 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nkU8a-0002rK-4t; Fri, 29 Apr 2022 17:10:36 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nkU8a-00008s-4P; Fri, 29 Apr 2022 17:10:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,219 +42,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c53f0d3a-c7de-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1651252014; x=
-	1651338414; bh=hoPTvo6B+AouZhrb2AIwb48FaEgvVx1kJ0prQGY283w=; b=N
-	nRGLfFiXKKL5KSTX32rl+ZivpSRu3shaAwkqXvoOEZBKxDNyDwLAL+wI1i09v+YM
-	pq5vdMUqe/RgIdr83BLFLo+MdqdZ5ZJ4bFHRJO1rpkbKqZNI1MCOFpL/iYIndxpa
-	iPyWWCNEyCuNaGtNbffepaoZpV8QEqQmdbXF2VAhdSd8FT1DHviseDNL83jnqRgH
-	pP16bkagfhrb4ghdTCWhOE6rFzmgvMBHkBg2TqzpEfAZ4e0OZz2nQf+XpDowjZWo
-	neq9nteVUEb6EPyMwjuHxmMGYbO+gtJARtLI40tV0M0Q15BNv2flrF2ldS9fmuJk
-	pdSdb5WdS1/VC/4rvFkbQ==
-X-ME-Sender: <xms:LRtsYsj9D5xtmOmo1LW5PLMjXy0oTcXoeplxuVD6UkJsqzPOXLQepw>
-    <xme:LRtsYlDaJn3AG_YBszi7OMsN0w53asTNUGH-udz62z44r63b-OUVwGCD1pYiOv0Ch
-    FNa_layXQwsDWo>
-X-ME-Received: <xmr:LRtsYkEsz8qCg9VW5xcBSgoRgyotuzYApUD4kFiZJCzsaJuNbKBx_EcKun6J>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrudelgddutdejucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepffgvmhhi
-    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
-    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepvdejteegkefhteduhffgteffgeff
-    gfduvdfghfffieefieekkedtheegteehffelnecuvehluhhsthgvrhfuihiivgeptdenuc
-    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
-    lhgrsgdrtghomh
-X-ME-Proxy: <xmx:LRtsYtSpx-rB6nXM_v9RzxxM9hAJjhDQL5F1O9s1LwCh2-M2ZF0SUQ>
-    <xmx:LRtsYpyLS_23q5--j25k1Ne85HpiNOPoXwigg4anJ0_FJImEggfSiw>
-    <xmx:LRtsYr41TzVzzEOnM_8Ev01bgcF1u6RKxvHoKRKCn7ILwzlJzEvkRA>
-    <xmx:LhtsYsoyK6oR6sgdCi1NYbLD3cv8YwEOd2c8Gl3f2zQCW4GvkJ6aBQ>
-Date: Fri, 29 Apr 2022 13:06:42 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: Re: [PATCH v3 3/4] Add a new hypercall to get the ESRT
-Message-ID: <YmwbKwJh1Fft2F1H@itl-email>
-References: <Yl7aC2a+TtOaFtqZ@itl-email>
- <3591eec7-1299-8783-26ad-ffe27bb9fdcd@suse.com>
- <YmmUtiBkhEYvXHUB@itl-email>
- <901c11d6-92f0-89b9-8500-4947bbdcd504@suse.com>
- <YmsbD9ktQqB4U33o@itl-email>
- <c9a57c65-05f4-b566-10cb-92ce9ffe9e0d@suse.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Cuhxi4/sgGauzhkg"
-Content-Disposition: inline
-In-Reply-To: <c9a57c65-05f4-b566-10cb-92ce9ffe9e0d@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=I05VGxE7Wzk+9HGMCMUFxBZ2jonm0V0MJWRcgJWQBbo=; b=uLkBfyZ+9x6nRbBU5RstdsIFeF
+	mIf9nYpQWKgppS3MVxU3R9A+uzfLLm1WmZPZbnw1pNTaKvFQ9RDbsn4T/NHbfMvUH9Isy+mYslWwW
+	xL4G0SiepnlwLqcODjKmYFDBeotXzEQxrU+Je1PJEWQQJg4Cw46aEnQb3pk568aWswyU=;
+To: xen-devel@lists.xenproject.org
+Subject: [xen-unstable bisection] complete test-arm64-arm64-libvirt-raw
+Message-Id: <E1nkU8a-00008s-4P@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 29 Apr 2022 17:10:36 +0000
+
+branch xen-unstable
+xenbranch xen-unstable
+job test-arm64-arm64-libvirt-raw
+testid xen-boot
+
+Tree: libvirt git://xenbits.xen.org/libvirt.git
+Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  fa6dc0879ffd3dffffaea2837953c7a8761a9ba0
+  Bug not present: fbd2445558beff90eb9607308f0845b18a7a2b5a
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/169871/
 
 
---Cuhxi4/sgGauzhkg
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 Apr 2022 13:06:42 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: Re: [PATCH v3 3/4] Add a new hypercall to get the ESRT
+  commit fa6dc0879ffd3dffffaea2837953c7a8761a9ba0
+  Author: David Vrabel <dvrabel@amazon.co.uk>
+  Date:   Tue Apr 26 10:33:01 2022 +0200
+  
+      page_alloc: assert IRQs are enabled in heap alloc/free
+      
+      Heap pages can only be safely allocated and freed with interrupts
+      enabled as they may require a TLB flush which may send IPIs (on x86).
+      
+      Normally spinlock debugging would catch calls from the incorrect
+      context, but not from stop_machine_run() action functions as these are
+      called with spin lock debugging disabled.
+      
+      Enhance the assertions in alloc_xenheap_pages() and
+      alloc_domheap_pages() to check interrupts are enabled. For consistency
+      the same asserts are used when freeing heap pages.
+      
+      As an exception, when only 1 PCPU is online, allocations are permitted
+      with interrupts disabled as any TLB flushes would be local only. This
+      is necessary during early boot.
+      
+      Signed-off-by: David Vrabel <dvrabel@amazon.co.uk>
+      Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-On Fri, Apr 29, 2022 at 10:40:42AM +0200, Jan Beulich wrote:
-> On 29.04.2022 00:54, Demi Marie Obenour wrote:
-> > On Thu, Apr 28, 2022 at 08:47:49AM +0200, Jan Beulich wrote:
-> >> On 27.04.2022 21:08, Demi Marie Obenour wrote:
-> >>> On Wed, Apr 27, 2022 at 10:56:34AM +0200, Jan Beulich wrote:
-> >>>> On 19.04.2022 17:49, Demi Marie Obenour wrote:
-> >>>>> This hypercall can be used to get the ESRT from the hypervisor.  It
-> >>>>> returning successfully also indicates that Xen has reserved the ESR=
-T and
-> >>>>> it can safely be parsed by dom0.
-> >>>>
-> >>>> I'm not convinced of the need, and I view such an addition as incons=
-istent
-> >>>> with the original intentions. The pointer comes from the config tabl=
-e,
-> >>>> which Dom0 already has access to. All a Dom0 kernel may need to know=
- in
-> >>>> addition is whether the range was properly reserved. This could be a=
-chieved
-> >>>> by splitting the EFI memory map entry in patch 2, instead of only sp=
-litting
-> >>>> the E820 derivation, as then XEN_FW_EFI_MEM_INFO can be used to find=
- out
-> >>>> the range's type. Another way to find out would be for Dom0 to attem=
-pt to
-> >>>> map this area as MMIO, after first checking that no part of the rang=
-e is in
-> >>>> its own memory allocation. This 2nd approach may, however, not reall=
-y be
-> >>>> suitable for PVH Dom0, I think.
-> >>>
-> >>> On further thought, I think the hypercall approach is actually better
-> >>> than reserving the ESRT.  I really do not want XEN_FW_EFI_MEM_INFO to
-> >>> return anything other than the actual firmware-provided memory
-> >>> information, and the current approach seems to require more and more
-> >>> special-casing of the ESRT, not to mention potentially wasting memory
-> >>> and splitting a potentially large memory region into two smaller ones.
-> >>> By copying the entire ESRT into memory owned by Xen, the logic becomes
-> >>> significantly simpler on both the Xen and dom0 sides.
-> >>
-> >> I actually did consider the option of making a private copy when you d=
-id
-> >> send the initial version of this, but I'm not convinced this simplifies
-> >> things from a kernel perspective: They'd now need to discover the table
-> >> by some entirely different means. In Linux at least such divergence
-> >> "just for Xen" hasn't been liked in the past.
-> >>
-> >> There's also the question of how to propagate the information across
-> >> kexec. But I guess that question exists even outside of Xen, with the
-> >> area living in memory which the OS is expected to recycle.
-> >=20
-> > Indeed it does.  A simple rule might be, =E2=80=9COnly trust the ESRT i=
-f it is
-> > in memory of type EfiRuntimeServicesData.=E2=80=9D  That is easy to ach=
-ieve by
-> > monkeypatching the config table as you suggested below.
-> >=20
-> > I *am* worried that the config table might be mapped read-only on some
-> > systems, in which case the overwrite would cause a fatal page fault.  Is
-> > there a way for Xen to check for this?
->=20
-> While in boot mode, aiui page tables aren't supposed to be enforcing
-> access restrictions. Recall that on other architectures EFI even runs
-> with paging disabled; this simply is not possible for x86-64.
 
-Yikes!  No wonder firmware has nonexistent exploit mitigations.  They
-really ought to start porting UEFI to Rust, with ASLR, NX, stack
-canaries, a hardened allocator, and support for de-priviliged services
-that run in user mode.
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable/test-arm64-arm64-libvirt-raw.xen-boot.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
 
-That reminds me: Can Xen itself run from ROM?  Xen is being ported to
-POWER for use in Qubes OS, and one approach under consideration is to
-have Xen and a mini-dom0 be part of the firmware.  Personally, I really
-like this approach, as it makes untrusted storage domains much simpler.
-If this should be a separate email thread, let me know.
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable/test-arm64-arm64-libvirt-raw.xen-boot --summary-out=tmp/169871.bisection-summary --basis-template=169775 --blessings=real,real-bisect,real-retry xen-unstable test-arm64-arm64-libvirt-raw xen-boot
+Searching for failure / basis pass:
+ 169819 fail [host=rochester0] / 169775 [host=rochester1] 169756 [host=laxton1] 169723 [host=laxton1] 169694 [host=rochester1] 169666 ok.
+Failure / basis pass flights: 169819 / 169666
+Tree: libvirt git://xenbits.xen.org/libvirt.git
+Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 da28439ba55b8a571032b3358af567cff749f612
+Basis pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 2419a159fb943c24a6f2439604b9fdb1478fcd08
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/libvirt.git#2c846fa6bcc11929c9fb857a22430fb9945654ad-2c846fa6bcc11929c9fb857a22430fb9945654ad https://gitlab.com/keycodemap/keycodemapdb.git#27acf0ef828bf719b2053ba398b195829413dbdd-27acf0ef828bf719b2053ba398b195829413dbdd git://xenbits.xen.org/linux-pvops.git#f0f0e602f7c9781699ecda9be763eac0b03d54f0-f0f0e602f7c9781699ecda9be763eac0b03d54f0 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0\
+ dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/qemu-xen.git#a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42-a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 git://xenbits.xen.org/xen.git#2419a159fb943c24a6f2439604b9fdb1478fcd08-da28439ba55b8a571032b3358af567cff749f612
+Loaded 5001 nodes in revision graph
+Searching for test results:
+ 169635 [host=laxton1]
+ 169666 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 2419a159fb943c24a6f2439604b9fdb1478fcd08
+ 169694 [host=rochester1]
+ 169723 [host=laxton1]
+ 169756 [host=laxton1]
+ 169775 [host=rochester1]
+ 169798 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 53b705d02cec03861044e673536586bd1b2443bd
+ 169823 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 2419a159fb943c24a6f2439604b9fdb1478fcd08
+ 169829 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 53b705d02cec03861044e673536586bd1b2443bd
+ 169834 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 3f5d61466345ed2213de2d7e391b6cd6d4b86015
+ 169819 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 da28439ba55b8a571032b3358af567cff749f612
+ 169838 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 163071b1800304c962756789b4ef0ddb978059ba
+ 169844 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 da28439ba55b8a571032b3358af567cff749f612
+ 169852 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 fbd2445558beff90eb9607308f0845b18a7a2b5a
+ 169860 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 fa6dc0879ffd3dffffaea2837953c7a8761a9ba0
+ 169863 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 fbd2445558beff90eb9607308f0845b18a7a2b5a
+ 169867 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 fa6dc0879ffd3dffffaea2837953c7a8761a9ba0
+ 169870 pass 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 fbd2445558beff90eb9607308f0845b18a7a2b5a
+ 169871 fail 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 fa6dc0879ffd3dffffaea2837953c7a8761a9ba0
+Searching for interesting versions
+ Result found: flight 169666 (pass), for basis pass
+ For basis failure, parent search stopping at 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 fbd2445558beff90eb9607308f0845b18a7a2b5a, results HASH(0x5597e5c33e70) HASH(0x5597e5c38da8) HASH(0x5597e5c3e968) For basis failure, parent search stopping at 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd f0f0e602f\
+ 7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 163071b1800304c962756789b4ef0ddb978059ba, results HASH(0x5597e5c2b6a8) For basis failure, parent search stopping at 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 3f5d61466345ed2213de2d7e391b6cd6d4b86015, results HASH(0x5597e5c3\
+ 56f8) For basis failure, parent search stopping at 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 2419a159fb943c24a6f2439604b9fdb1478fcd08, results HASH(0x5597e5c2b9a8) HASH(0x5597e5c2d0b0) Result found: flight 169798 (fail), for basis failure (at ancestor ~57)
+ Repro found: flight 169823 (pass), for basis pass
+ Repro found: flight 169844 (fail), for basis failure
+ 0 revisions at 2c846fa6bcc11929c9fb857a22430fb9945654ad 27acf0ef828bf719b2053ba398b195829413dbdd f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 fbd2445558beff90eb9607308f0845b18a7a2b5a
+No revisions left to test, checking graph state.
+ Result found: flight 169852 (pass), for last pass
+ Result found: flight 169860 (fail), for first failure
+ Repro found: flight 169863 (pass), for last pass
+ Repro found: flight 169867 (fail), for first failure
+ Repro found: flight 169870 (pass), for last pass
+ Repro found: flight 169871 (fail), for first failure
 
-> So
-> portable firmware shouldn't map anything r/o. In principle the pointer
-> could still be in ROM; I consider this unlikely, but we could check
-> for that (just like we could do a page table walk to figure out
-> whether a r/o mapping would prevent us from updating the field).
+*** Found and reproduced problem changeset ***
 
-Is there a utility function that could be used for this?
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  fa6dc0879ffd3dffffaea2837953c7a8761a9ba0
+  Bug not present: fbd2445558beff90eb9607308f0845b18a7a2b5a
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/169871/
 
-> >  It could also be undefined behavior to modify it.
->=20
-> That's the bigger worry I have.
 
-Turns out that it is *not* undefined behavior, so long as
-ExitBootServices() has not been called.  This is becaues EFI drivers
-will modify the config table, so firmware cannot assume it to be
-read-only.
+  commit fa6dc0879ffd3dffffaea2837953c7a8761a9ba0
+  Author: David Vrabel <dvrabel@amazon.co.uk>
+  Date:   Tue Apr 26 10:33:01 2022 +0200
+  
+      page_alloc: assert IRQs are enabled in heap alloc/free
+      
+      Heap pages can only be safely allocated and freed with interrupts
+      enabled as they may require a TLB flush which may send IPIs (on x86).
+      
+      Normally spinlock debugging would catch calls from the incorrect
+      context, but not from stop_machine_run() action functions as these are
+      called with spin lock debugging disabled.
+      
+      Enhance the assertions in alloc_xenheap_pages() and
+      alloc_domheap_pages() to check interrupts are enabled. For consistency
+      the same asserts are used when freeing heap pages.
+      
+      As an exception, when only 1 PCPU is online, allocations are permitted
+      with interrupts disabled as any TLB flushes would be local only. This
+      is necessary during early boot.
+      
+      Signed-off-by: David Vrabel <dvrabel@amazon.co.uk>
+      Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> >>> Is using ebmalloc() to allocate a copy of the ESRT a reasonable optio=
-n?
-> >>
-> >> I'd suggest to try hard to avoid ebmalloc(). It ought to be possible to
-> >> make the copy before ExitBootServices(), via normal EFI allocation. If
-> >> replacing a pointer in the config table was okay(ish), this could even
-> >> be utilized to overcome the kexec problem.
-> >=20
-> > What type should I use for the allocation?  EfiLoaderData looks like the
-> > most consistent choice, but I am not sure if memory so allocated remains
-> > valid when Xen hands off to the OS, so EfiRuntimeServicesData might be a
-> > better choice.
->=20
-> It definitely is. We do recycle EfiLoaderData ourselves.
+Revision graph left in /home/logs/results/bisect/xen-unstable/test-arm64-arm64-libvirt-raw.xen-boot.{dot,ps,png,html,svg}.
+----------------------------------------
+169871: tolerable FAIL
 
-I wonder why the ESRT was not in EfiRuntimeServicesData to begin with.
+flight 169871 xen-unstable real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169871/
 
-> >  To avoid memory leaks from repeated kexec(), this could
-> > be made conditional on the ESRT not being in memory of type
-> > EfiRuntimeServicesData to begin with.
->=20
-> Of course - there's no point relocating the blob when it already is
-> immune to recycling.
+Failures :-/ but no regressions.
 
-Yup.  Is it reasonable for dom0 to check that the ESRT is in
-EfiRuntimeServicesData when under Xen?
+Tests which did not succeed,
+including tests which could not be run:
+ test-arm64-arm64-libvirt-raw  8 xen-boot                fail baseline untested
 
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
 
---Cuhxi4/sgGauzhkg
-Content-Type: application/pgp-signature; name="signature.asc"
+jobs:
+ build-arm64-libvirt                                          pass    
+ test-arm64-arm64-libvirt-raw                                 fail    
 
------BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmJsGysACgkQsoi1X/+c
-IsHpiQ/9GcBfC/ZkYxkylp/rUR3BTDUMY8rF79DbBwa99MbZIkL2ztsRdSzq4hlc
-jWsFsxNc06iBXoTDc/kTR82/LwYlJ8S6NtpV4nA13Ied60UqSk/TNa0LKe3r/F5j
-BFgqIGHz4cdJ+ypE8WErONX/PniIFKEoctQzcOdxu8hL30fGNTWpIpl0RoxCeC14
-hJVtlfNcSYUxSTs7innKFbY01osBWTzOa8F2N9EN95aGznSyahAbNWeCKF83NPto
-XDlhVlYSMwMkgC9piYj92uMs/XZEL8A9g2ttGNqqXFK8UGM+Jz/7pnkii3y+8XlL
-PI8O8zwAE7eyVaUqyu1GrjlQi3NKXsXMHQMwWmor2b5IENhVU2cVrPdWTpqmbTwX
-JX/7TvPHg6jT++i8jakfmk2G2IIuw9cFZOihQIVQDJXXYqXDDWgvat6xSSt9qZXz
-OeaQ0YtbxRFlgoU4qzUDAkohofUW0KpJcETJgtP8Yi3q5R6KJZ9vzez5sJFDZq08
-obA+AWRQKQoEq0vRjZ8aOvewrSRH6vNm6KXS+gBSz7p5Yf7fR1CPrx21Hu5Xurx2
-YzcMoeSs7WXzpo37+YVD5yDRXPYeWx/mGYdaAYQeJgBf+9oqx5yGbHVb/IBntUAQ
-bKKOu8eyOQ3J0gvvBbJQy8/byiyKlzM8iXaxMywQmxjzLnIpl7U=
-=m+lH
------END PGP SIGNATURE-----
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
---Cuhxi4/sgGauzhkg--
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
 
