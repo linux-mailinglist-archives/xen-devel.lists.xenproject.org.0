@@ -2,44 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02AC851478C
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 12:52:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.317202.536431 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88B86514791
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 12:53:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.317207.536442 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkOEX-00076g-Dp; Fri, 29 Apr 2022 10:52:21 +0000
+	id 1nkOFO-0007e1-OV; Fri, 29 Apr 2022 10:53:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 317202.536431; Fri, 29 Apr 2022 10:52:21 +0000
+Received: by outflank-mailman (output) from mailman id 317207.536442; Fri, 29 Apr 2022 10:53:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkOEX-00073z-AD; Fri, 29 Apr 2022 10:52:21 +0000
-Received: by outflank-mailman (input) for mailman id 317202;
- Fri, 29 Apr 2022 10:52:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nkOFO-0007bN-Jr; Fri, 29 Apr 2022 10:53:14 +0000
+Received: by outflank-mailman (input) for mailman id 317207;
+ Fri, 29 Apr 2022 10:53:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7mBs=VH=suse.com=dfaggioli@srs-se1.protection.inumbo.net>)
- id 1nkOEV-00073t-Vs
- for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 10:52:20 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 701e2f59-c7aa-11ec-a405-831a346695d4;
- Fri, 29 Apr 2022 12:52:18 +0200 (CEST)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2107.outbound.protection.outlook.com [104.47.17.107]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-7-JBLqOkFDPHe_OhB-Dr5bFg-1; Fri, 29 Apr 2022 12:52:16 +0200
-Received: from DU2PR04MB9067.eurprd04.prod.outlook.com (2603:10a6:10:2f2::10)
- by PA4PR04MB8032.eurprd04.prod.outlook.com (2603:10a6:102:ba::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.21; Fri, 29 Apr
- 2022 10:52:14 +0000
-Received: from DU2PR04MB9067.eurprd04.prod.outlook.com
- ([fe80::249d:2d32:4f2a:f748]) by DU2PR04MB9067.eurprd04.prod.outlook.com
- ([fe80::249d:2d32:4f2a:f748%8]) with mapi id 15.20.5186.021; Fri, 29 Apr 2022
- 10:52:14 +0000
+ <SRS0=IHQo=VH=citrix.com=prvs=11116ec15=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1nkOFM-0007Ts-Ic
+ for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 10:53:12 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8d8a7dbc-c7aa-11ec-8fc4-03012f2f19d4;
+ Fri, 29 Apr 2022 12:53:09 +0200 (CEST)
+Received: from mail-co1nam11lp2176.outbound.protection.outlook.com (HELO
+ NAM11-CO1-obe.outbound.protection.outlook.com) ([104.47.56.176])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 29 Apr 2022 06:53:07 -0400
+Received: from DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
+ by BYAPR03MB3830.namprd03.prod.outlook.com (2603:10b6:a03:68::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.17; Fri, 29 Apr
+ 2022 10:53:05 +0000
+Received: from DS7PR03MB5608.namprd03.prod.outlook.com
+ ([fe80::5df3:95ce:4dfd:134e]) by DS7PR03MB5608.namprd03.prod.outlook.com
+ ([fe80::5df3:95ce:4dfd:134e%4]) with mapi id 15.20.5186.026; Fri, 29 Apr 2022
+ 10:53:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,376 +49,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 701e2f59-c7aa-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1651229538;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EJ7dwpD3/yQ/oMxzERgbv1XefYeW7lPcwO5gGHqHWK8=;
-	b=ArRPkJUsRAZqJgm5qx+PHaMeMGt41htCUle977QD8M/l/VapWcMnmAhHYwIia+lfdmYV94
-	w1lPV7QGBPpnqTgo1BZXWurpBLSEG7nMi+6hEewz4oayI1x/hnKNrbMssZQLyQwbjodqjr
-	lwxk4zUJ3jzzpo0EAzkWWcp0whnUi7Y=
-X-MC-Unique: JBLqOkFDPHe_OhB-Dr5bFg-1
+X-Inumbo-ID: 8d8a7dbc-c7aa-11ec-8fc4-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1651229590;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=rn8HoirgIUtMGhmXEOM+O02eDFwQQ6tUdewazmDcdEo=;
+  b=WennZqCx5fI5uUt3Qi6pofGyCRjEjvrHekmC0j7f/N30cnmNacfQxbxz
+   HTB36yM/YFgslvhfBWsZV6eEaDEuSPR45Ftay6dQSBxEIXwoRkHp3DLWh
+   P9tfZ5l033F2kK+7mpE6cPUi4t3usMKD5FIAf+Suv3/MUyOAqY6PxdizK
+   A=;
+X-IronPort-RemoteIP: 104.47.56.176
+X-IronPort-MID: 72685141
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:INWSv68zl8IdTOUtTNclDrUDl3+TJUtcMsCJ2f8bNWPcYEJGY0x3m
+ DYdDGzQM62PNzTzeI8ga9zl9E4DuZ/Xy9ZjGgM5qy48E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
+ +1EN7Es+ehtFie0Si+Fa+Sn9T8mvU2xbuKU5NTsY0idfic5DnZ44f5fs7Rh2NQw3YLoW1nlV
+ e7a+KUzBnf0g1aYDUpMg06zgEsHUCPa4W5wUvQWPJinjXeG/5UnJMt3yZKZdhMUdrJ8DO+iL
+ 9sv+Znilo/vE7XBPfv++lrzWhVirrc/pmFigFIOM0SpqkAqSiDfTs/XnRfTAKtao2zhojx/9
+ DlCnaa9VAp5P7XNofwieit4FCshHohl04aSdBBTseTLp6HHW13F5qw3SWoRZMgf8OsxBnxS/
+ /sFLjxLdgqEm++93LO8TK9rm9gnK87oeogYvxmMzxmAVapgHc+FHvuMvIAGtNszrpkm8fL2f
+ c0WZCApdB3dSxZOJk0WGNQ1m+LAanzXLGcG+A/M+fNfD2776F0v26e3bsfpc4bSAv18r2Kdl
+ 2Dl4DGsav0dHJnFodafyVqujOLSmSLwWKoJCaa1sPVthTW71mEVTREbS1a/if24kVKlHcJSL
+ VQO/SgjprR081akJvH/UAe/u2WspQMHVpxbFOhSwAuK0KvPpQGCGnIDUCVCefQhrsY9QTFs3
+ ViM9+4FHhRqubyRDHmar7GdqGrrPTBPdDBcIygZUQEC/t/v5pkpiQ7CRcpiF6jzicDpHTb3w
+ HaBqy1Wa6gvsPPnHp6TpTjv6w9AbLCQJuLpzm07hl6Y0z4=
+IronPort-HdrOrdr: A9a23:aCKcEKAqONs8r8TlHeglsceALOsnbusQ8zAXPh9KJCC9I/bzqy
+ nxpp8mPH/P5wr5lktQ/OxoHJPwOU80kqQFmrX5XI3SJTUO3VHFEGgM1+vfKlHbak7DH6tmpN
+ 1dmstFeaLN5DpB/KHHCWCDer5PoeVvsprY49s2p00dMT2CAJsQizuRZDzrcHGfE2J9dOcE/d
+ enl4J6jgvlXU5SQtWwB3EDUeSGj9rXlKj+aRpDIxI88gGBgR6h9ba/SnGjr10jegIK5Y1n3X
+ nOkgT/6Knmm/anyiXE32uWy5hNgtPuxvZKGcTJoMkILTfHjBquee1aKva/lQFwhNvqxEchkd
+ HKrRtlF8Nv60nJdmXwmhfp0xmI6kdY15dPoWXo8kfLkIjcfnYXGsBBjYVWfl/y8Ew7puxx16
+ pNwiawq4dXJQmoplWy2/H4EzVR0makq3srluAey1ZFV5EFVbNXpYsDuGtIDZY7Gj7g4oxPKp
+ ggMCjl3ocXTbqmVQGbgoE2q+bcHEjbXy32DnTqg/blkgS/xxtCvg4lLM92pAZ1yHtycegB2w
+ 3+CNUYqFh/dL5pUUtDPpZwfSKWMB26ffueChPaHbzYfJt3SU7lmtrQ3Igfwt2MVdgh8KYS8a
+ 6xJW+w81RCNn7TNQ==
+X-IronPort-AV: E=Sophos;i="5.91,298,1647316800"; 
+   d="scan'208";a="72685141"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O25d6xmlJpDCQyrLLhWn+2NHC70wNqoTC8TE9tgUVF/3iqYxf2ehFbsdqzFFIdoEQV0ceewsLl5YaimV72bsi1DIicdueHkq46b8GjHuvyFOQg0JV6GpKHLMHlUJhIEhbU+AJLFJy93F3CF6ueCs55Wc9FXhzgz7783WHdUUcNGfXDm64n7auHGLeawYyBixVwRSWkDLuzY1autuP69byD7xo9uA54oBZp4LB4cLb54Bmjx4NEY2PpjYSFRP7MI9LBT5ESJC6Dlt7Vd6wBjsc+pVboaFvhD99kl4pA8ywwb7Pf2uab5O+mliKgfzKpWRiZTZ2WHpvVpryv/6Ry/rTg==
+ b=fqgyWQpg0jp4pmSi5wPaznPxjBa8ORa0TjOdM8yocDozNZLt886c5afBYT9gLtdyUWi7miwbwwiFOSnkB94PLHnPLIWpVncER7GZOKl4nOBxZBhaCyPSjTmwFFSpMkKAldpd1RCP/hzhb17iF7C2nkgTMpufQ8hFWXKXHUqszNTK8zw7qm7cRlt/bAsYxX5Lm4YRC77VmY2SXD/bEsmDnMvg5MyExbwpe0tf0qTPubiy1e6UVdQ1ooYimzgd8XNZaxLl85WoD0b56BomRYQbViVDxNp4OKCPVmpXIPxDkr9AtHEhnySLG19tHPaZjdduPk2MoiQ5edans4iZwI8x0Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EJ7dwpD3/yQ/oMxzERgbv1XefYeW7lPcwO5gGHqHWK8=;
- b=TgWydtpD2PDMyk4Z/m24l54/2dU/m7fBA8a6xKyyF14QCkWzsLfHHs0FXc2aNkD3wX3JzpMlVjw3TUvJaR2Pr4w0w3LR/Yfk1WCZ4hFpCyMvqVpWXj0oRBhnX/xkUHb5SAjv2Z9NR55E9nr5UuTPh+IaJwsjarkn8j/n6tpxJ4T6AA86EIk/HXPASPh1YcMRDFLBi92RYUou66w8NsCXr3uMvvPGTcJ4jHICp5DAomAWfmmA3LRwE3iiha6yosf+TQqS6wiDKZFPtshgnNq5wcnKiXaw0TOEvmbZk2A6CdK4G73SZARTykczuIyvmX/VGfTt6oqJnqf5Pl3lVLeFtg==
+ bh=aDds1ie+iWLIsDLC6wx3t+BDr0rs9GWxIhLkxGO0BiE=;
+ b=hhChodlEkQr3bRt3pER7HZic4JGCt1F0tbOEY3ZE+ZHuNjQOb3T2/EZoheXcpuXXPoZ2VOVASDPnzvXfm/U/JIKsuZlyT/fl6ZBLmQJx8KcQKVzmFVXI3pWTsytL1IGHtMVgQGM/TQ69iODfqa7qR9VJC2MAWc+k3C3VGdGHblgIdcKc42e5tqAqsxqXZzVj+8KqF9V5HAqIyM8DFLg1N3R2VIuC2j2lpkyTxwoR5GK/AwYKPcfaUahf1qwi99ImCtpkuQ+D/vCU073RyaCN8YWNNWOW5h5R78jNn7Daa9Vp4Ax+2AJDmgKnIq/o0DA1THq/rNzxzoAR99LVtgCbZg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Jan Beulich <JBeulich@suse.com>
-CC: "roger.pau@citrix.com" <roger.pau@citrix.com>, "ohering@suse.de"
-	<ohering@suse.de>, "george.dunlap@citrix.com" <george.dunlap@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] x86: make "dom0_nodes=" work with credit2
-Thread-Topic: [PATCH] x86: make "dom0_nodes=" work with credit2
-Thread-Index:
- AQHYSoM0M4Zi9SzqTkOjTOtQV+PP7azl4C2AgAAVUwCABn7lAIAABpgAgAEqhACAGTPWgA==
-Date: Fri, 29 Apr 2022 10:52:14 +0000
-Message-ID: <fd07c28fad352a476544258f2ac4d652062b2701.camel@suse.com>
-References: <1617b87a-640f-d235-701d-df2c57314b73@suse.com>
-	 <2d56bb1015a263b6d1b196050d088b84c320b808.camel@suse.com>
-	 <b41009b4-fea4-826f-f36f-7dd9f4edd1bb@suse.com>
-	 <30ac2ce8cca7217775eaa704aab45a62deb1272e.camel@suse.com>
-	 <e061a647cd77a36834e2085a96a07caa785c5066.camel@suse.com>
-	 <35599105-b441-96cf-7537-ccf9dfac0934@suse.com>
-In-Reply-To: <35599105-b441-96cf-7537-ccf9dfac0934@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.44.1 (by Flathub.org)) 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: cf87798d-a086-49f2-b6f2-08da29ce5225
-x-ms-traffictypediagnostic: PA4PR04MB8032:EE_
-x-microsoft-antispam-prvs:
- <PA4PR04MB80323E5A596D65943CCDD400C5FC9@PA4PR04MB8032.eurprd04.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- oRemdF/KbmHIFXyjCv78gVTvErWds81p/xNFsA2bgvHiJ+pbStZCqkmgjwEkVRfOZnb7JkQ1uehcljpoZGDb4/t381XWy1EeZ7kA5FUZNJelLkYSCHmowx3+2V9Ji+klcpv+s+OMJGGCFo5soLpbSjbpMLQFdr12rk/yxDjGLv+qNnsPlMqq02J3bjppZfH5YkEet02iMrCRecVNNbv18ni/QBIdaIMwkti+hyFxjkWkxDoQdmFRTh9KwJ1XJd2Ik2dzKf1/mwrjOa3ECH1h3zqUv8jGG/VzlmJoxtuFeeR50i8hcAS0K9ZF0bzebTmiQsgt+PjDsqB5ZT3u9XO1sCUJaYTxJwaFL+bxPHnRT3iKhuoabjbIGOKMnrRC616eN1Zt6lGirVBjGB6m80WU3ZzflVvpNZinAc3dJxhX/PoJh1QRNQZoagWHtqMB8eLuKXD8nanCU+uFdc4hsTk3eu9kg3zhW4gwDgRP6Lt2ZdxVtB/6N4zEW8EU1UxhhiaKDAu2Xv7fSiMfLO8k817QYiEISCZVfq+193rAeNengzeilOsBzbnOUamXOAYI6KSXECExRg5CVEp7R2zBmno9tXzZlFA4k/aW67N8EMacs+uuHZkK8VGE46532kMAJgWGUDcaDFrdG7IqedCDIkRI5rHadYXrh14tp/YT2kAaoSHSghw6t5Nf6EGtOfMzxqjneQKLBaZpcQkgLEGr4uqbuiee8NdevzQ4o9crvkEMvu+69kvDAxp3+R4ArTgL7zks9OPOspnjLjRIvN5O0ELepCToYz+LmLJirUhq2z3UgT4aWTT/eJUxVMBpCNIBCFWm0bvtbUUAKp45USVNSzU/TQ==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB9067.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(66946007)(8676002)(6862004)(508600001)(36756003)(316002)(64756008)(99936003)(8936002)(91956017)(54906003)(76116006)(37006003)(6636002)(186003)(38100700002)(38070700005)(86362001)(66446008)(4326008)(66476007)(66556008)(2616005)(71200400001)(6512007)(2906002)(966005)(122000001)(6486002)(83380400001)(26005)(53546011)(6506007)(5660300002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?VXF6cHF1Z3NUaUR2RlJKblZDTGVoTXlTcE01Zit6QWlIVWZ1NWI2dDRHWUp4?=
- =?utf-8?B?U1lHTm5NVWxXdndsZi9UVXZXbEYyaTZhbWI0L1FMZEo3TTRDVlFiOVRKck5u?=
- =?utf-8?B?ZWtsUWpZZUNpNFZXc1hHQ3BuVzF6WXpDdnB3ZDhNT0VLdTVLOUh0RmdOWDFK?=
- =?utf-8?B?RXFjWWtpSk1qdWQ5WDJCN0tBRmxFRXlEL1NwRUVPb1pOekMwRGt0akdpUVJk?=
- =?utf-8?B?MXRvRGZxQ0Vac21XRGViK0d3UVBNTkp2N09zSEltMmFCbUZhQ1ZKL3VyODR5?=
- =?utf-8?B?K0xRQVloQ1UxVnY0UWw1MHdUWkVKYjllZW9PU2tYYWpsNmZGVUZlY3FCeTJl?=
- =?utf-8?B?UVo3S2lsVTJaNVFlNm5rYnpyT3hsdFdBckVSQ1NkK096Sk45aDlCNTlrZXJH?=
- =?utf-8?B?TkcvdStBVllzS1QydnpmR1lSeE5pQUtmc1NjMmhLdmhscWRiaFVyc0FyYjFC?=
- =?utf-8?B?QWZvZGZ5dmhEL1FNcGFtZzZsY3lYcm9vNE5XenloTFBYUDBzY1h1WDFXZmFD?=
- =?utf-8?B?dmFBUzFrTU1wSjVIUUROM1hUTEJ1SzFyK3ErQTNuL3czeGVUeEhJdnE5VnFV?=
- =?utf-8?B?Z3BoL29xdnRwS3ZNaXY4ZlpEVWJ1MUpEZnVRVDF5T2M1ZmlmZ0RtVk5XcjFE?=
- =?utf-8?B?TktHUTRyUTd6NHFudGgva1JkZ0VRVHh5SElrMlFvd1pDbWVPZyt4ZE1ZS29C?=
- =?utf-8?B?OUhYWGhEQW51Snd1MnN0a3dhZnZIZ3RsbnhKU0hkTnlGTlZCWHE3S1B5VVdz?=
- =?utf-8?B?RTlhZTZSMXduS2d3b2Uzc2d0UWlqVE1pTVF5a2RSWnVKNkJMdElueXRZWGhN?=
- =?utf-8?B?bGp6ZVRuOWt2UmYvbVVHSlkySnZFbUJ3M2FHSFBoL2pOUkhmeTRtUmdNaFpn?=
- =?utf-8?B?RFZBNnhWMFV5alhkY1pJRGd1MTU1S2Zva1JWQi9KbjU0N3J5RG1RclVVUllR?=
- =?utf-8?B?UWpjYzJCT3BxcUhWKzQ5SmI3S0xERVBsQTdDK0RGU3ZpYkhlOW93dncyUTR4?=
- =?utf-8?B?YWF0dWhvSUZzWFVuSlcvaU9nNm1rQXkwdEdURGhZRmJTWER4R2hDRk5mSnh0?=
- =?utf-8?B?RFdiQW52WUpXNVdRRGJOYXZERnl2UmJqTUR3cTR4c2o2MVprOFJQb0QvVUFO?=
- =?utf-8?B?UlU3S3F0Q0dFeDNHejF6MGN5bHU0Smtmak5NS2FEbUhuTHNnQStPeFQ0azRq?=
- =?utf-8?B?cnIvOE5BcWhKdHR3Y2lTTWd3cjR0Q212WWN4NjdTQWE1QkJSRkVsUUxNSzYr?=
- =?utf-8?B?YXBHRng2TDBBRDhLcGdVVkNxc0xJRTdacWR0VGZ5Um91dDVwZGFmVUd5Q3JK?=
- =?utf-8?B?YXdiWW1kZGdaYmNOLzhjRGZoR3ZtZm0rcXdxR21LcXArWHVCaEtlSmdodmhl?=
- =?utf-8?B?SWx1V3hSc0ZoV0hkWGtienkyclFvTzQ3UmtOT0FodjBWQW9iVFZjYUtXeHZo?=
- =?utf-8?B?TmpuYUo3dnJxSlIvdkViakgrOHc3Zy9FSDFPc25GZlZyWkdMSHFjQ3FsYTZq?=
- =?utf-8?B?Y0ZCSVhtNWZCQWF4dklkYnAzWXhvTmNwKzJ1QmR3TWRjeDljREZlMmQ1WmND?=
- =?utf-8?B?c0pmNW1XMk91c3RibTE2SDJTRmNobXVrNWVXYjg2c2w5WE92bmZoK2w2WUlJ?=
- =?utf-8?B?WkM2R3FGNFRNZlBHd3JqNXR5TkNKNE9vRHlpdjdoZGhQT0VyUnNYNTZWUTJi?=
- =?utf-8?B?NWo5cFNsSzVhQkVrOEMwS2pJK3FINVJ4MkpjazlYYnR3dkUwUzE5RHlFT2hD?=
- =?utf-8?B?TEdJVHNRN2JQNXIwVnpQZEF3R2gyZEpUdmlVZS9TemtyRU5uQ1hBWUhmd3R0?=
- =?utf-8?B?ZEpSV2xIb1pSeWdsaVgxVlBXOWdrT0ZmbnpUclNWVDdDRjQ2bTROM1c1aUd2?=
- =?utf-8?B?K3Q5SVRXNE9wd3IxdVJLQllMMnRqNnVsOU43WWFmd2thZ0xNNG9Dc0U5SmtH?=
- =?utf-8?B?VGpWalo5b3l6bk1yMGdSK1ZVajlFOEZRNW05cjR2U0R6bTZ4WSs5cU4wdkRt?=
- =?utf-8?B?QmtNcjRvTnZaS2RnUEx1b1RvbGx5b01ySVJkT1BFUmcrdWo1aUp1cmxkNUQ0?=
- =?utf-8?B?cXdUd0hJTGUwcnNnQTI1d1lPb09taWl0ZWFFVHlzRktiejF3cWIxOWVUakQr?=
- =?utf-8?B?NUE0ZEJVbjVZUWRucEZDaUdRUWp3VFRJak1KK2F1eDFmTGNHTTE5blg5byti?=
- =?utf-8?B?SktEYVdKcG95Yi96QUt4KzlQY2tFMnlVbi9rWlFNdjAzODlWZHptZDdkVUdE?=
- =?utf-8?B?MHllR1ZuUEhYSkhnc1kzSFdBSjhCSHlnajg1OHM2MnNveVdDSEpuaHRzdHA3?=
- =?utf-8?B?Zkpwa2psNGowWm5yOW5QY3lJRHgzYzRaM2lrSGFmWFExK3h5L2xuUT09?=
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-D7RItezdWtSVYneCKvpg"
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aDds1ie+iWLIsDLC6wx3t+BDr0rs9GWxIhLkxGO0BiE=;
+ b=t/yZet6lMCrr40uMe83uLOZ18kHxwT4zze9mDpuhqwASy3Og+Cft800ZxNeDRscmmlRePcjeMS3T5qVXwyhsP8u7i8Oxs4UAQckGiTbBSNGvNz8hliM8tccVLqVrKWngWoaCuHTuJilWnttZzGE8POAMJe0gJluOgQ6KUOq/gLA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Fri, 29 Apr 2022 12:53:00 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Subject: Re: x86/PV: (lack of) MTRR exposure
+Message-ID: <YmvDjI4hmmhZ90fi@Air-de-Roger>
+References: <b3f07165-67f0-3d50-e249-2618a2dc862c@suse.com>
+ <YmubOeYPqW5mBNy4@Air-de-Roger>
+ <2a229df5-c341-9ff0-ae5c-cc0d848d7cea@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2a229df5-c341-9ff0-ae5c-cc0d848d7cea@suse.com>
+X-ClientProxiedBy: LO4P265CA0011.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ad::19) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-X-OriginatorOrg: suse.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 6be91ef1-1e40-46f9-7175-08da29ce70ae
+X-MS-TrafficTypeDiagnostic: BYAPR03MB3830:EE_
+X-MS-Exchange-AtpMessageProperties: SA|SL
+X-Microsoft-Antispam-PRVS:
+	<BYAPR03MB38303958BDE3EAC808A5CE7D8FFC9@BYAPR03MB3830.namprd03.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	AipcQYtc/qHVyTWUy2Mbmtm3glM30fUmavztfdN0Oa+Ay3vArUktNMougfCHF9VKGfWEvUuMn4KGvIXE71QL95+jMKM4MB1S3AiNtumRdSWgrJiyE+yHaItQpeihVpk/leNECIwnkQwJaGSjInK254SqhnRW2JXA6rH6PQnr7dpjKRK/oZXAgWxBauR7VCsHZkQkCv0OMOQNKZyut7uxhOwFVASM9qDrqOaqCCm+E8sqqbfvIjTN3s8HR9jdh9I3CdGTiVh579dHYvxj1ZkJbUjjs57WMYWkZCDxx4jBOSuCAMF91qbOBWvCxDtvRvkh9gt9ohOg2hxHWM5/PVe8HKYw6eMz2p97/z10jFZslw9liDxJixia4pJ/hlZ/jXWeuvZktiy5BG/+9Xr+IdNucDAPo5c7NA7XijlWouKSm3paUnoOo4MUiNoh7rHa/7DNZVN/51ZbrpALiQ0HFmWHRSmCKitOBfEbPAAbwHoZ63NQ5jk489z+Rmg4QWXbF6b8LRzeNr8H3ruj/UtlPpAVLC9Xnl0XELY2juXOWi8B8Y/sHKQJJcUnABYqHUXZS3NNJSpmL0Mz0H9vPaLGZicwinBj952gkaEOeLJKfyXY4yuKx12MRc1Oz8oVBXqAWpMlxMh0VMgADCi8pKFzQaXqhA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(4326008)(66476007)(2906002)(66946007)(66556008)(5660300002)(85182001)(8936002)(83380400001)(316002)(53546011)(186003)(508600001)(26005)(6506007)(6512007)(6666004)(9686003)(8676002)(6486002)(6916009)(54906003)(82960400001)(86362001)(38100700002)(33716001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TzZndXkwWjdUdVkvWWNUUWZna0pVS0QydXowVy9rRXFabmV4RTMrcndyc3Zw?=
+ =?utf-8?B?ZUFlalNyYnpLV3c4NGw5TG9Jd09mQTR0WnI2ck5IZW1nUXBUUlNyRlpTclFM?=
+ =?utf-8?B?cWwrTlVoTHhuakcvQXF1K0J1eUZER2JmRTZkdnNDUXVoQnZ3QUhkMzk3Wjk2?=
+ =?utf-8?B?OW5DMytUTHJid3hUWE96NWpaMm44czhUQ0hjLzFvQkJWcm1DUElEWFJQQXV0?=
+ =?utf-8?B?RHlrTDJNUk1xMlgyQU9DK2lDSEFBRlI0OEFvd2FQM0pkNVA0UVBtbFNLa2dk?=
+ =?utf-8?B?WWtBRGpOdEhNamR6azh2NTRRT3lSaHIvWHg5aHF5MmMwMm4rUGJGMHYxZDF0?=
+ =?utf-8?B?dElFdWg1d0pGMWErMlFHcUdhNEkwa1JzanFUQm1mUmdsbCtmaWpCczVJaDVD?=
+ =?utf-8?B?cFBpZW1naEZ6cU83eWdxYUpuVzlHV01HbUJBU3NHSnB1N201ZTV0Y2hySnZv?=
+ =?utf-8?B?TEZ1YVBMNVM5Q0xpZGFtcHhsUVh0UTRUQmsrU2hpOGN6TVNCQ1R5dzNEOHgr?=
+ =?utf-8?B?bzljZGY5c1RiNTNtMG9VYW5WV2RLQ09WM0svQ0dLc3Brd0ZYQVVRWWtDWG1k?=
+ =?utf-8?B?Vy9pNEFxamt4a2EwelFKZ2R5M3Q0eWRIUkpOUzN2dWR3MEhBWGtNNkZJbU11?=
+ =?utf-8?B?MmJmbmZDaFFsYmoyUWppVEEzK1dRQWpIZno4VHZLaDNUcitGYWw1RWsycEJt?=
+ =?utf-8?B?REhHdEhDbWE2bXN1aFBvRHJTRkk4RUUrSVoxRmdPZlpCY1VJcUhKSm1qN1Bs?=
+ =?utf-8?B?QlM2cG5PZUx4YmVpbS9jWW9mcEtpM09TYWNpYXorUEx1OG1VcVBEeUJlRDRR?=
+ =?utf-8?B?WnA0WCtwLy9lL3NwTTMyTERIS05ETkwzOGNBcEpQa1creWtXb2dhdTNwbEcx?=
+ =?utf-8?B?WE9uMDB2NGVSOE1SSmFQaENMVk01eEg1bENIMm9YN3lDNnBlOXB2SnYxRVU1?=
+ =?utf-8?B?eFNXYzRVMDhDbUZDUnVJYXYxbU95c0p5K0FucGk0bFRzVGRCZ0F4eUNhK2ho?=
+ =?utf-8?B?SHJ0Sjc5SGZ4TUo5YlJyTEhiYlpMMitxOGswZ3JPU0tUZmpYcnZCTUYrL3k1?=
+ =?utf-8?B?SDRjUG1GWHdCclNwcW9mZkhKRCtmclltbk5xQlE4bHY4OTF2QnlDTjZUTGhN?=
+ =?utf-8?B?ZVBYNGFDTGh4REtHc1g4MTlpUE1sWmp1NWhCNk0yU3gzOEgrZTg3RTlkczdl?=
+ =?utf-8?B?RnEvZFB4YTdxMjVBUVdiTUpSUHJmcGFudklnbzRhZUcxektaa1lmRjB1ZGgy?=
+ =?utf-8?B?QlhaMjVyQk5IeXZKbFY3dmt3Z0ZnMW5XR2lZK0ZLWjBVTUU4c3FuK1ozYVMx?=
+ =?utf-8?B?RzBDeUZVSzZhVSt0Yk5CelYwQmxscWNCMXNKelh0blpZai9MRGVLSGlmbEhq?=
+ =?utf-8?B?NmlGUkdQeFFuVG9hQ1BGMmVlbkFrYzVjbVFyWlRqU0hUYTJVakNjcXl4RXdp?=
+ =?utf-8?B?aGRxRlZrTUVra0NPaTFWRDh3Wk1EZ1UxUUpGbVRUNlZHZnJMVFBCZThtdHAx?=
+ =?utf-8?B?Z3RxeENsdmVnU3ZVN2tFdUJZU29peGVXVjNheTlDQmg1THRITVNjd2lwMDd2?=
+ =?utf-8?B?RU93enFZUkVsUWZnbnZldm1pdzVBSnQ5VUFxWXkxc0F5clVla2VaanJ6VGNH?=
+ =?utf-8?B?S0ZWSXEyelVKYUpEcHRKYm1BV1RGTjZxclZHV01lQnJNZFZNM1drK3VEdzB1?=
+ =?utf-8?B?aXJTQVpuanhoOC9lZTl0Nk1KRk9sYkxQakdvMVJqU1graWp3VkhGYUZDb3dJ?=
+ =?utf-8?B?N29VbHc4MDVzeUhESWNWbU5hU25tdU5BNHJSVkYxdXkyTXNDbU9pVDRKMGNY?=
+ =?utf-8?B?WHpEWFV3elg5OU5BcmtDUUpiSjBDb2V4dHUzQmhiaW0yYzRmbjdEdjJDVXlQ?=
+ =?utf-8?B?VEFrSGEySE1kdDVUbG5rTHRXbmVHaXc0V3hUeEZXbjV2c0hiNTl2ejhUK05W?=
+ =?utf-8?B?WThkcE1zUGQ1T3ZDNytOU2VXOWhVdzVVc2RNblQraEdpbWFNeTYwZ3ZSblQ0?=
+ =?utf-8?B?K0p2WHBSOXNFemlPVDlwNzRKa2hHeTBBdTRjQkFMVFdqbDdnM3kxTUpTQ29S?=
+ =?utf-8?B?UGs0RTZaM1hRZnk5QUEyKzlIUUJPQ3RaNGQ4SW1xdnN5WVVVZGN2b0xuUVY1?=
+ =?utf-8?B?SGJaTGc0c01nb1lEQlZVMkU0Q1p5L3g2a1o1THh2eEc2S3R5RVlLU0J5cytD?=
+ =?utf-8?B?ZHZPNk5MTzJUY3JJVWhBdXk5QWZsMHBOdnA3cW9RaEZzY2RCUkZNcjZZS0ps?=
+ =?utf-8?B?TFNOL0VEN0xkbkRjVUxXaDFNNFMrUjV4VkJSZFk0ckQwYy9lM1M0TkZmOU1h?=
+ =?utf-8?B?bUVSeHVCeTY4dFlzeVRwVFREWE5xSnZVc3d0c0luQzB4UFJsN05tRDBSS3BN?=
+ =?utf-8?Q?pyAfX+a1XoF/+kZg=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6be91ef1-1e40-46f9-7175-08da29ce70ae
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB9067.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf87798d-a086-49f2-b6f2-08da29ce5225
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Apr 2022 10:52:14.3926
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2022 10:53:05.8234
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 2klgh05FdoBT55TaYzJdA4ELHOXDBp1H0UoAL/5men1iz9SM7kypb8w1Wk3BDe2hKntONTsbSo79Qovrgdx2PQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB8032
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iW5NT7O6sn6P7rv3axfJy1uKm/8fHwZuJyaNAlwUo90WXS4JWaT9k5IAYrxcKkMhfOD9cdSlEQxX5DZ2MS04gQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB3830
 
---=-D7RItezdWtSVYneCKvpg
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Fri, Apr 29, 2022 at 12:00:21PM +0200, Jan Beulich wrote:
+> On 29.04.2022 10:00, Roger Pau Monné wrote:
+> > On Thu, Apr 28, 2022 at 05:53:17PM +0200, Jan Beulich wrote:
+> >> Hello,
+> >>
+> >> in the course of analyzing the i915 driver causing boot to fail in
+> >> Linux 5.18 I found that Linux, for all the years, has been running
+> >> in PV mode as if PAT was (mostly) disabled. This is a result of
+> >> them tying PAT initialization to MTRR initialization, while we
+> >> offer PAT but not MTRR in CPUID output. This was different before
+> >> our moving to CPU featuresets, and as such one could view this
+> >> behavior as a regression from that change.
+> >>
+> >> The first question here is whether not exposing MTRR as a feature
+> >> was really intended, in particular also for PV Dom0. The XenoLinux
+> >> kernel and its forward ports did make use of XENPF_*_memtype to
+> >> deal with MTRRs. That's functionality which (maybe for a good
+> >> reason) never made it into the pvops kernel. Note that PVH Dom0
+> >> does have access to the original settings, as the host values are
+> >> used as initial state there.
+> >>
+> >> The next question would be how we could go about improving the
+> >> situation. For the particular issue in 5.18 I've found a relatively
+> >> simple solution [1] (which also looks to help graphics performance
+> >> on other systems, according to my initial observations with using
+> >> the change), albeit its simplicity likely means it either is wrong
+> >> in some way, or might not be liked for looking hacky and/or abusive.
+> > 
+> > I wonder whether the patch needs to be limited to the CPUID Hypervisor
+> > bit being present.  If the PAT MSR is readable and returns a value !=
+> > 0 then PAT should be available?
+> 
+> I simply didn't want to be too "aggressive". There may be reasons why
+> they want things to be the way they are on native. All I really care
+> about is that things are broken on PV Xen; as such I wouldn't even
+> mind tightening the check to xen_pv_domain(). But first I need
+> feedback from the maintainers there anyway.
 
-On Wed, 2022-04-13 at 12:00 +0200, Jan Beulich wrote:
-> On 12.04.2022 18:11, Dario Faggioli wrote:
-> > --- a/xen/common/sched/core.c
-> > +++ b/xen/common/sched/core.c
-> > @@ -572,11 +572,41 @@ int sched_init_vcpu(struct vcpu *v)
-> > =C2=A0=C2=A0=C2=A0=C2=A0 }
-> > =C2=A0
-> > =C2=A0=C2=A0=C2=A0=C2=A0 /*
-> > -=C2=A0=C2=A0=C2=A0=C2=A0 * Initialize affinity settings. The idler, an=
-d potentially
-> > -=C2=A0=C2=A0=C2=A0=C2=A0 * domain-0 VCPUs, are pinned onto their respe=
-ctive physical
-> > CPUs.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * Initialize affinity settings. By doing this=
- before the unit
-> > is
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * inserted in the scheduler runqueues (by the=
- call to
-> > sched_insert_unit(),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * at the end of the function, we are sure tha=
-t it will be put
-> > on an
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * appropriate CPU.
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > -=C2=A0=C2=A0=C2=A0 if ( is_idle_domain(d) || (is_hardware_domain(d) &&
-> > opt_dom0_vcpus_pin) )
-> > +=C2=A0=C2=A0=C2=A0 if ( pv_shim && v->vcpu_id =3D=3D 0 )
->=20
-> I don't think you can handle the shim case first, as then you'd also
-> have
-> its CPU0 idle vCPU take this path. The difference _may_ only be
-> cosmetic,
-> but I think it would be odd for CPU0's idle vCPU to have a soft
-> affinity
-> of just CPU0, while all others use cpumask_all.
->=20
-Ok, yes, I didn't think to that. I'll reshuffle the if-s order.
+Right, I did also consider suggesting to limit this to PV at first,
+but I was unsure why native wouldn't also want such behavior.  Maybe
+there's no hardware that has PAT but not MTRR, and hence this was
+never considered.
 
->=20
-> > +=C2=A0=C2=A0=C2=A0 {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * The idler, and pote=
-ntially domain-0 VCPUs, are pinned
-> > onto their
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * respective physical=
- CPUs.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sched_set_affinity(uni=
-t, cpumask_of(processor),
-> > &cpumask_all);
-> > +=C2=A0=C2=A0=C2=A0 }
-> > +=C2=A0=C2=A0=C2=A0 else if ( is_hardware_domain(d) )
->=20
-> ... here I wonder: Shouldn't this be limited to Dom0 (for the
-> purposes here
-> !=3D hwdom)? Any special affinity for a late hwdom ought to be
-> specified by
-> the logic creating that domain imo, not by command line options
-> concerning
-> Dom0 only.
->=20
-I think this makes sense. I'll add a patch for changing it.
+> > I guess we should instead check that the current PAT value matches
+> > what Linux expects, before declaring PAT enabled?
+> 
+> I don't think such a check is needed, the code ...
+> 
+> > Note there's already a comment in init_cache_modes that refers to Xen
+> > in the check for PAT CPUID bit.
+> 
+> ... in __init_cache_modes() already does it the other way around:
+> Adapt behavior to what is found in PAT.
+> 
+> >  We might want to expand that comment
+> > (or add one to the new check you are adding).
+> 
+> I don't see what further information you would want to put there.
 
-> I also have a more general question here: sched.h says "Bitmask of
-> CPUs
-> on which this VCPU may run" for hard affinity and "Bitmask of CPUs on
-> which this VCPU prefers to run" for soft affinity. Additionally
-> there's
-> soft_aff_effective. Does it make sense in the first place for one to
-> be
-> a proper subset of the of the other in _both_ directions?=C2=A0
->
-I'm not sure I'm 100% getting what you're asking. In particular, I'm
-not sure what you mean with "for one to be a propper subset of the
-other in both directions"?
+It would depend on how the check ends up looking I think.  If the
+enabling is limited to also having the Hypervisor CPUID bit set then
+the comment should likely mention why setting it on native is not
+safe.
 
-Anyway, soft and hard affinity are under the complete control of the
-user (I guess we can say that they're policy), so we tend to accept
-pretty much everything that comes from the user.
+Anyway, let's see what maintainers think.
 
-That is, the user can set an hard affinity to 1-6 and a soft affinity
-of (a) 2-3, (b) 0-2, (c) 7-12, etc.
+The other option would be to set some kind of hooks for Xen PV to be
+able to report PAT as enabled (maybe a Xen PV implementation of
+mtrr_ops?), but that seems like over-engineering it.  My main concern
+with setting pat_bp_enabled to true is whether in the future such
+setting could be used to gate PAT MSR writes.  It's already like this
+for APs (in pat_init() -> pat_ap_init()), but we avoid that path
+because we don't report MTRR support AFAICT.
 
-Case (a), i.e., soft is a strict subset of hard, is the one that makes
-the most sense, of course. With this configuration, the vCPU(s) can run
-on CPUs 1, 2, 3, 4, 5 and 6, but the scheduler will prefer to run it
-(them) on 2 and/or 3.
-
-Case (b), i.e., no strict subset, but there's some overlap, also means
-that soft-affinity is going to be considered and have an effect. In
-fact, vCPU(s) will prefer to run on CPUs 1 and/or 2, but of course it
-(they) will never run on CPU 0. Of course, the user can, at a later
-point in time, change the hard affinity so that it includes CPU 0, and
-we'll be back to the strict-subset case. So that's way we want to keep
-0 in the mast, even if it causes soft to not be a strict subset of
-hard.
-
-In case (c), soft affinity is totally useless. However, again, the user
-can later change hard to include some or all CPUs 7-12, so we keep it.
-We do, however, print a warning. And we also use the soft_aff_effective
-flag to avoid going through the soft-affinity balancing step in the
-scheduler code. This is, in fact, why we also check whether hard is not
-a strict subset of soft. As, if it is, there's no need to do anything
-about soft, as honoring hard will automatically take care of that as
-well.
-
-> Is that mainly
-> to have a way to record preferences even when all preferred CPUs are
-> offline, to be able to go back to the preferences once CPUs come back
-> online?
->=20
-That's another example/use case, yes. We want to record the user's
-preference, whatever the status of the system (and of other aspects of
-the configuration) is.
-
-But I'm not really sure I've answered... Have I?
-
-> Then a follow-on question is: Why do you use cpumask_all for soft
-> affinity in the first of the two calls above? Is this to cover for
-> the
-> case where all CPUs in dom0_cpus would go offline?
->=20
-Mmm... what else should I be using? If dom0_nodes is in "strict" mode,
-we want to control hard affinity only. So we set soft to the default,
-which is "all". During operations, since hard is a subset of "all",
-soft-affinity will be just ignored.
-
-So I'm using "all" because soft-affinity is just "all", unless someone
-sets it differently.
-
-But I am again not sure that I fully understood and properly addressed
-your question. :-(
-
-
-> > +=C2=A0=C2=A0=C2=A0 }
-> > =C2=A0=C2=A0=C2=A0=C2=A0 else
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sched_set_affinity(uni=
-t, &cpumask_all, &cpumask_all);
->=20
-> Hmm, you leave this alone. Wouldn't it be better to further
-> generalize
-> things, in case domain affinity was set already? I was referring to
-> the mask calculated by sched_select_initial_cpu() also in this
-> regard.
-> And when I did suggest to re-use the result, I did mean this
-> literally.
->=20
-Technically, I think we can do that. Although, it's probably cumbersome
-to do, without adding at least one cpumask on the stack, or reshuffle
-the locking between sched_select_initial_cpu() and sched_init_vcpu(),
-in a way that I (personally) don't find particularly pretty.
-
-Also, I don't think we gain much from doing that, as we probably still
-need to have some special casing of dom0, for handling dom0_vcpus_pin.
-
-And again, soft and hard affinity should be set to what the user wants
-and asks for. And if, for instance, he/she passes
-dom0_nodes=3D"1,strict", soft-affinity should just be all. If, e.g., we
-set both hard and soft affinity to the CPUs of node 1, and if later
-hard affinity is manually changed to "all", soft affinity will remain
-to node 1, even if it was never asked for it to be that way, and the
-user will need to change that explicitly as well. (Of course, it's not
-particularly clever to boot with dom0_nodes=3D"1,strict" and then change
-dom0's vCPUs' hard affinity to node 0... but the user is free to do
-that.)
-
-> > --- a/xen/common/sched/credit2.c
-> > +++ b/xen/common/sched/credit2.c
-> > @@ -749,10 +749,12 @@ static int get_fallback_cpu(struct
-> > csched2_unit *svc)
-> > =C2=A0
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * This is cases =
-2 or 4 (depending on bs): v->processor
-> > isn't there
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * any longer, check i=
-f we at least can stay in our
-> > current runq.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * any longer, check i=
-f we at least can stay in our
-> > current runq,
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * if we have any (e.g., we =
-don't yet, if we get here when
-> > a unit
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * is inserted for the very =
-first time).
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( likely(cpumask_interse=
-cts(cpumask_scratch_cpu(cpu),
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 &svc->rqd->active)) )
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( likely(svc->rqd &&
-> > cpumask_intersects(cpumask_scratch_cpu(cpu),
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 &svc->rqd-
-> > >active)) )
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 cpumask_and(cpumask_scratch_cpu(cpu),
-> > cpumask_scratch_cpu(cpu),
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- &svc->rqd->active);
->=20
-> This change is not covered by anything in the description, and I
-> wonder why
-> you're making the code adjustment. If svc->rqd was NULL, wouldn't Xen
-> have
-> crashed prior to the adjustment? I can't spot how it being NULL here
-> could
-> be the effect of any of the other changes you're making.
->=20
-It was crashing on me, with the above changes applied, but it's not any
-longer. It's certainly something that, whether it's related or not,
-should be addressed in its own patch, so I'll get rid of it and keep
-looking.
-
-Thanks and Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
---=-D7RItezdWtSVYneCKvpg
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmJrw10ACgkQFkJ4iaW4
-c+48aBAAi/uUqg/uL1InvU+g0/Gz3SHq+KVpoEH06n8cFi0k9bfS1tPjk7wLliJv
-EfVOcaihflM+mE+qGAPvkAJK5C2T0fJ8yLLxF4PMIghdtTh90wIGk9bU08ZUrr4S
-at/mHiEVi2j4C62AER+XLcPbXuseL/wpFIlx0MGoXxUAIT8STycEwPyMB4+n5JpL
-mXbUCrf1RXy8CYSIM1WlpFSWRME8xgIoXdWQ7ZNqi2xL8jJtfrWmXJxZtpNyQb6S
-JyO8XkSKPeVEeNDqL8f96XYUAn1N6OjQ8urjk7xxtngzQ1qnNP7p89M06L8sO4eE
-uuYJ8XJpLNUDoQeqFc9SUdf0t+GpQbSFSVYSfoP6CIC3KmAJseHy3whn1JHJK0B4
-dJ+N2g/HLZojv0s0ACYbN28KNS+xvkuHCpJkFXb8K+40zooSI3eH/NKoEEvTUsNV
-Dr3IoI26NvPKMWqZBYZ6+tro6rJoRNiRsYemZBNZ/AFDrQzpeKO5rgLm8LEvPKka
-nq3733/UqmJTwZTnb+Mop/xThihLi+RLJsegn5NjFRTCLrfyEuMCEMtG+gAxvzAk
-RX+rVe+fuvrczZnoZRxHanUWsB6YhNciSlXQraQQ8ZlmVq87fG6M7rhXVVPg820h
-8+poiXlH8x0lH3HHQ2PhB4NBoScGhhGVkxXzEvKQYMswbqNt+IA=
-=04yJ
------END PGP SIGNATURE-----
-
---=-D7RItezdWtSVYneCKvpg--
-
+Thanks, Roger.
 
