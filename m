@@ -2,37 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDFE6515073
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 18:10:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.317499.536852 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 425FD51507D
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 18:11:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.317504.536863 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkTC4-0007tp-Kw; Fri, 29 Apr 2022 16:10:08 +0000
+	id 1nkTDX-00006L-VQ; Fri, 29 Apr 2022 16:11:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 317499.536852; Fri, 29 Apr 2022 16:10:08 +0000
+Received: by outflank-mailman (output) from mailman id 317504.536863; Fri, 29 Apr 2022 16:11:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkTC4-0007qK-H9; Fri, 29 Apr 2022 16:10:08 +0000
-Received: by outflank-mailman (input) for mailman id 317499;
- Fri, 29 Apr 2022 16:10:07 +0000
+	id 1nkTDX-0008Vt-S2; Fri, 29 Apr 2022 16:11:39 +0000
+Received: by outflank-mailman (input) for mailman id 317504;
+ Fri, 29 Apr 2022 16:11:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=R1X1=VH=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1nkTC2-0007qE-UX
- for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 16:10:06 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d505ab50-c7d6-11ec-8fc4-03012f2f19d4;
- Fri, 29 Apr 2022 18:10:05 +0200 (CEST)
-Received: by mail-lf1-x12e.google.com with SMTP id j4so14867084lfh.8
- for <xen-devel@lists.xenproject.org>; Fri, 29 Apr 2022 09:10:05 -0700 (PDT)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id
- p5-20020a19f105000000b0047221ec7b81sm270471lfh.58.2022.04.29.09.10.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 29 Apr 2022 09:10:04 -0700 (PDT)
+ <SRS0=IHQo=VH=citrix.com=prvs=11116ec15=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1nkTDV-0008Vk-Tp
+ for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 16:11:38 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 09f8cb76-c7d7-11ec-8fc4-03012f2f19d4;
+ Fri, 29 Apr 2022 18:11:35 +0200 (CEST)
+Received: from mail-bn8nam11lp2173.outbound.protection.outlook.com (HELO
+ NAM11-BN8-obe.outbound.protection.outlook.com) ([104.47.58.173])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 29 Apr 2022 12:11:32 -0400
+Received: from DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
+ by DM8PR03MB6229.namprd03.prod.outlook.com (2603:10b6:8:24::6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5186.14; Fri, 29 Apr 2022 16:11:30 +0000
+Received: from DS7PR03MB5608.namprd03.prod.outlook.com
+ ([fe80::5df3:95ce:4dfd:134e]) by DS7PR03MB5608.namprd03.prod.outlook.com
+ ([fe80::5df3:95ce:4dfd:134e%4]) with mapi id 15.20.5186.026; Fri, 29 Apr 2022
+ 16:11:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,294 +48,236 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d505ab50-c7d6-11ec-8fc4-03012f2f19d4
+X-Inumbo-ID: 09f8cb76-c7d7-11ec-8fc4-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1651248695;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=pnmiXEdkPy+j/yyXERPZ2YcxcYtBea7dAQcsZ3jmo1M=;
+  b=cUbrrb8/7dxjFurPS4K7YRuXcT3ruNLN6icfLP/HKuAEWbKuNJmUhJUp
+   Ayg5ZftKzyQ6np4y/MNMB2cr505TQgNUwilO/t/FQQZTf4XT+AmF/zk6u
+   l5dBrlfJ/tnErfnOrEO5CsLFDLwUgdQrhD2WhvWIggDHpiersZSptadHg
+   g=;
+X-IronPort-RemoteIP: 104.47.58.173
+X-IronPort-MID: 69646308
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:/NDqUarAfB83wlPnXTQV0fLprDxeBmJsZBIvgKrLsJaIsI4StFCzt
+ garIBnXM/feNzb1LYt0boy29kwD65TTydAwTgRkriA3QSwT8ZuZCYyVIHmrMnLJJKUvbq7GA
+ +byyDXkBJppJpMJjk71atANlVEliefQAOCU5NfsYkidfyc9IMsaoU8lyrdRbrJA24DjWVvR4
+ 4Kq+KUzBXf+s9JKGjNMg068gEsHUMTa4Fv0aXRnOJinFHeH/5UkJMp3yZOZdhMUcaENdgKOf
+ M7RzanRw4/s10xF5uVJMFrMWhZirrb6ZWBig5fNMkSoqkAqSicais7XOBeAAKv+Zvrgc91Zk
+ b1wWZKMpQgBIL/PgKMgfEdjLyxPF78Y8+DKemGlmJnGp6HGWyOEL/RGKmgTZNRd0MAnRGZE+
+ LofNSwHaQ2Fi6Su2rWnR+Jwh8Mlas72IIcYvXImxjbcZRokacmbH+OWupkFjHFp2Zsm8fX2P
+ qL1bRJ1axvNeVtXM0o/A5Mihua4wHL4dlW0rXrL9PRrvTOLnGSd1pCzM8PcIMOpXvxKl2Gdv
+ UTd5Um+GVIFYYn3JT2ttyjEavX0tTP2XsceGaO18tZugUaP3SoDBRsOT1y5rPKlzEmkVLp3K
+ UYZ5y4vpqga71GwQ5/2WBjQiGGAlg4RXZxXCeJS1e2W4q/d4gLcDG5USDdEMYUirJVvGmds0
+ UKVldT0AzApqKeSVX+W6raTq3W1JDQRKmgBIyQDSGPp/uXenW36tTqXJv4LLUJ/poed9e3Yq
+ 9xSkBUDug==
+IronPort-HdrOrdr: A9a23:D06Iyq9VVmzpgm402Z1uk+FRdb1zdoMgy1knxilNoENuH/Bwxv
+ rFoB1E73TJYVYqN03IV+rwXZVoZUmsjaKdhrNhRotKPTOWwVdASbsP0WKM+V3d8kHFh41gPO
+ JbAtJD4b7LfCdHZKTBkW6F+r8bqbHokZxAx92uqUuFJTsaF52IhD0JbjpzfHcGJjWvUvECZe
+ ehD4d81nKdUEVSSv7+KmgOXuDFqdGOvJX6YSQeDxpizAWVlzun5JPzDhDdh34lInly6IZn1V
+ KAvx3y562lvf3+4hjA11XL55ATvNf60NNMCOGFl8BQADTxjQSDYphnRtS5zXsIidDqzGxvvM
+ jHoh8mMcg2w3TNflutqR+o4AXk2CZG0Q6U9bc16UGT0vDRdXYfMY5slIhZehzW5w4Lp9dnyp
+ 9G2Gqfqt5+EQ7AtD6V3amHazha0m6P5VYym+8aiHJSFaEEbqVKkIAZ9ERJVL8dASPB7pw9Gu
+ UGNrCS2B9vSyLbU5nlhBgt/DT1NU5DXCtuA3Jy9vB96gIm3UyQlCAjtYkidnRpzuNId3AL3Z
+ WBDk1SrsA+ciYnV9MCOA4/e7rGNoXse2O7DIvAGyWvKEk4U0i92aLf0fES2NyAXqAu4d8bpK
+ nhOWkowFLaPXieRPGz4A==
+X-IronPort-AV: E=Sophos;i="5.91,185,1647316800"; 
+   d="scan'208";a="69646308"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XcECdsA++g/oSAh3At5bVxQPm0R03chN5+XLr9I/g0m1CHZL1wnSHhmV/dXMIulallWWmXfuZSH20Phw7B9PNfDF/2VwzyRijQ7//KrG7p7QhDI7BFe5/ty/k0BStfRULu3aQB7d+/jypeonGeaMqAvCve7L9zmVj+V/ApZ7nxqUsgIytVIcoE43eurnRR62QrOJmzbG1YX6AFHx8JPW0C+lX1nEjBMWNKcNJ1zmaBIZ9sopKt9vFrhZraO8bj9YF64IKrWRQ+EJ8EaPydOfpmSEAw1EU2t5y1qU6g3S0yoNEwOSRd6cfN5PK/JJqcIBiP44Z+Yx+REoiVfPF46Z3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2t1EP7t4LaXUWLbcjhMeSu/sj0eW1jRKE9liAsTWpIs=;
+ b=DYMina32b7Gc7s3Tps36QBgaDfkjtsDT7AMZbGf5JSZeNyB8RZVQc8OiuIs64sd4TvkDRcqk2NI5prNp4zU6G4imDTv3kUdpM9dKjxxf+GiqPmh+MSFrKpKHn3RjkdxrjMQTp3Zcnt1C9zv6DOr+NZbqMOR6vrLFu3RwJs4k6pASzm+bWb6IdgqzB/2gN6hAp8rJ5iWu3OgFEHWAiYfLPqYHAjrbLNN5JpgZytGvcGMZxmaqItLpNEuREhbNcXhPmttrcpNcrfosO8vvUw36JHD+xI9Awitdgl4xYJmq/mXvdrxHdzE6tqbFkUopq5o6O5TjWyEkUW/CrDXkE+GL7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=Nf28pFd42ZVnx38GcwQNtFtPrZ2oJjcyAQfdnNyRvpE=;
-        b=fBOD+RUJw6jb8ujbNpt4X/z3b2lEiqyBtNhbQTqnLKV1Hv5LELIt/O35QYauUOa+Y8
-         yjFoGTDq8hBuP8gTnS3hLaW+iByildqbsRJmTmNUEMKI6svBxrL6Xo98iTYMLxpzAbRR
-         Xg1C68nUJ8nnjOXdGtG0OUYB34rhartiXferve+7X6gHKPV0CIFqOYsHhYfBDVETmUhE
-         oKvvMVMR50gSfnhWJ4ZwkoETODH4mZZT0UzDCmvZlr+aPiOr4RKevfeCBMLQUCynZWoJ
-         8PjmTa1dOuBCry/6nPI9bTul5qfWzt4i5mwMIItO+yQYOIiMybZab1dkEAfMYLfVwYAX
-         qLOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=Nf28pFd42ZVnx38GcwQNtFtPrZ2oJjcyAQfdnNyRvpE=;
-        b=KP5DbJhgCO2HJ4ZP4PzUjTlPs/8IYhDgB0N0mQNmfMpjYjm5iu7HFPG4ESaF6ldc2r
-         cbzxuwl18DHzwuEsauvpY6e/BzufFRkJiPLzkzX5h+BhYeN1mFOlTbKrVRhHFxKNJXmI
-         FPYY6PioUQAUmBclb60vTfVVHbPbByWdmq7CTCbOVN7zr3WqIpf/1My2+lo1Red+1jJ2
-         CD7iR/HBMQNinBYS+5JLANYpy5/yw/CCRGTlv72bWqMaXMaG3RSx+euEjAK/pUHRADbn
-         ahyb69nWNamBvdCUKLPUAtubnLvb6hvoNZV+Z79iiR1p+6f0n6WhfY1BfbPLuqKbviWQ
-         P+vg==
-X-Gm-Message-State: AOAM531cNc167WxeeZlUtdCoLAYRkbGcINH8lKjvXTS+DPXwQoW9IVV4
-	5tohI3olylCHNzy46vsvRIM=
-X-Google-Smtp-Source: ABdhPJwllqzcKcjS+nPZ+FQBW2m6FasElP+Juc0817U3hQVDb/GqYyG8BJA/OSRRz6v/XNeQxQk7Ag==
-X-Received: by 2002:a05:6512:1504:b0:44b:36e:b50d with SMTP id bq4-20020a056512150400b0044b036eb50dmr28105186lfb.558.1651248604731;
-        Fri, 29 Apr 2022 09:10:04 -0700 (PDT)
-Subject: Re: [PATCH v2 14/19] xen/drmfront: use xenbus_setup_ring() and
- xenbus_teardown_ring()
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-References: <20220428082743.16593-1-jgross@suse.com>
- <20220428082743.16593-15-jgross@suse.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <e2e1f5c0-e78e-fa1e-bdee-54b5aeaba957@gmail.com>
-Date: Fri, 29 Apr 2022 19:10:03 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20220428082743.16593-15-jgross@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2t1EP7t4LaXUWLbcjhMeSu/sj0eW1jRKE9liAsTWpIs=;
+ b=L5DQfTdVGbVYB4f9SbAgjtRyotQjFE+uy4ktZwGbnUqrrmDy0da7CjEhFwKUqbZT+re31SSJymbyaC/8mZAekRCh8/FMzB4QG71UY/NTIZG2HsuSUdgkc/epOz2gn+wIMFTEFvh5m4YHTfI8DkamV3o4FAgiuXX+BX2zcbKIRF0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Fri, 29 Apr 2022 18:11:25 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v4 3/3] amd/msr: implement VIRT_SPEC_CTRL for HVM guests
+ using legacy SSBD
+Message-ID: <YmwOLRUz/mgjOBt6@Air-de-Roger>
+References: <20220427104718.81342-1-roger.pau@citrix.com>
+ <20220427104718.81342-4-roger.pau@citrix.com>
+ <38f0e56e-f72f-698f-c4c3-5973ec9e46a3@suse.com>
+ <YmwJFqcfOX8oFcyI@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+In-Reply-To: <YmwJFqcfOX8oFcyI@Air-de-Roger>
+X-ClientProxiedBy: LO2P265CA0465.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a2::21) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 11760ffd-541e-4a79-666e-08da29faebaa
+X-MS-TrafficTypeDiagnostic: DM8PR03MB6229:EE_
+X-MS-Exchange-AtpMessageProperties: SA|SL
+X-Microsoft-Antispam-PRVS:
+	<DM8PR03MB6229EC80D1A708F1B6AB319F8FFC9@DM8PR03MB6229.namprd03.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	jn4M/V2zfv4072o2ZDdj3gXzuQSzpnzkAWWEyJijQZlsn+0rNcuMzXzFVlhTXLVxKqPUpAl1rvRcB/Hel0VrNc98ykthTVaFyKanrUXXDOnbWCB043OrlgRHDjVv+iIu48MATkgXbD3p93czD9rfavgsB/YbDDDmaMEc5uHVIVc4YOOvCtH1zOLg/YtEXXx91pSUbLqDeuBrk5iBHvtt+WjKhtIE2FVQcbSjkqAoA8KvRgJ4+Nchrd9wFiMcjElEL6ZeT5dw6AyvLCrPG9ZwF+uxTB7ySSZkvIqhtnH5tQeFtK4t53m/9+Co4kusyRtkrkbV8KdZwnG5wQ8/FUdFw0Zzzt1h0nnn6KMaG6Tz3DsKIOspnW16sr8P/XtLSXGbkOpx8WlKZsIpL1112fwnYQnrNqoKeg4b4tSogNJLyDNtXtIAIp05UCHt2M3ne/QyCBIFyquGk2pALtS+KSrrOObl/G2zBI6KOA+Qmv1QWUvXrvRVFnjGfHx1TeBxNOA5zyG0IjvcRCNtmkgni1tvDiob3umlPIO89XvwOw6sul3Vm0btD+4CDxspMe/3ocgPdKdog7apgmdzqjEHGyFc8y2pqe9nv27gm1U5Cy79FKb962QwddnaCSmGZ2nqvc5Lp1FKW+ZqJ8zRZLsQvcjkGA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(7916004)(366004)(508600001)(2906002)(4326008)(83380400001)(316002)(54906003)(8936002)(6916009)(8676002)(6486002)(5660300002)(66556008)(66946007)(66476007)(85182001)(26005)(6506007)(6512007)(9686003)(186003)(6666004)(86362001)(38100700002)(33716001)(82960400001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U0Uyb044Q1c4cHhZUURpc2NRR2tNSVNadTRCZ1hjVG92QXp1S2FXbXJJZThn?=
+ =?utf-8?B?cysybU0yeUxmRTRXRCtENml5VHdlQ2NnVk5MZk1CdkcxWUJmTmpNUElZSHJL?=
+ =?utf-8?B?cmozZU55Yk5ZYTM2V3o3ckpOZERGUFB0QjEva25iSWpQWjl1akcrQzMyQlQ5?=
+ =?utf-8?B?QVV3UmlIR0VSNVhKdDV1L3pmdTlhRjJBWkMwc1FPK09KTkR2Q2x4dDFKL25I?=
+ =?utf-8?B?VnlNTENYZFRRd3ppMmt4SjJCamNJYnExYngzdlZjRjZ0NW9uY1NnYnZWMXVQ?=
+ =?utf-8?B?TERrb2JxV3pqOUZJTXBXNjFOM1B6dXgxSWNIYXRGUzJVYWFLbEl0MEpobE1K?=
+ =?utf-8?B?ODZFanpUUGpneGVpcTl2bThrOU94cGVwaVM5SHdLeThuci9pOVBiSG5sY0hr?=
+ =?utf-8?B?ZUJtb2x6bkIvYjR3eS9kSWhFazhGM2ZZVWNnekd2eGNOWHdKeUFRUHlOaEo5?=
+ =?utf-8?B?eVV3KzVrTVV0eUhXVHFYTXRoMXd2QXRWbUNEcXlxbFczNU1wZk8zb2ZkY25N?=
+ =?utf-8?B?bExhL1RvMTNzQWRwMmpzS3l4TmlmazhjdG53emVNUVl5RlFyT2U5aDJaOG1x?=
+ =?utf-8?B?RUJLd2tUaFJzSFJoSlo2UHJqbWxmenFIUWRtZGRUenhZcVhQc0Fsejk5OHJq?=
+ =?utf-8?B?WGQ2SDJGMEwzaW83dXdYamg4THFHUEJXOWFpYzRPRk51anY3RnJ5WUdYMll4?=
+ =?utf-8?B?aFBaY3gwSldHTTF4eTR5MjZINUhkS2cyRzQ5TUJMUXZUSjhxYld4RVlyNXpF?=
+ =?utf-8?B?MnB5ay9tREhmbkRQSmhkZEJaQlEyYWQ2OHlQdXJBTnJlVnFEWUdyS0lCRkJi?=
+ =?utf-8?B?blpieDY1MDhxS1hOLzA2RFcycmVrY2h4cTc5UUlDVHVjenVST0lZZjB0eTBj?=
+ =?utf-8?B?MGNFL3ZwWGgvbkRzc3N6M0xhQnhkZ0xuWGNsS1pFYmxDT1JMTENrVTNtU1pX?=
+ =?utf-8?B?aWYvalJlTzVsMFZ1Ukl0NFd5L3M5SnN4RDRWOVE1OEx2S2ttZmoxWjhhanFV?=
+ =?utf-8?B?YlRWVWY0TW8rZjJmOXZpRDJ5V0R5ZE1LbmJJdUFqanRpc3NWM2JSYWpGSGI5?=
+ =?utf-8?B?dnpiVHdxL0d3MFdOdFBSRTFxK0s2emVPdlQ5SGl5S1MrN2tzM0x2RmdnTHNt?=
+ =?utf-8?B?U0JFZ1RxV20yNWdKZWVPZ2Q1U0FmckhQdnI4WmVMdkpPTzhGa3Q4S1pFNGpY?=
+ =?utf-8?B?MEVEbnBmWDMxd1VOcnk5T0RIUm1kemVIck9tWCtmeDRReXZ6QWQ2dmtrMXd4?=
+ =?utf-8?B?cUlzWlNDZU9ibnVxZzlmUDF4QTNYSVQrUVVDeFNFZi9ZTmV3YkhlNjBrWnp6?=
+ =?utf-8?B?WUlldm9mMHNuZGs2RVFPT0E0TlB0WDJoWnllSUVmSDRycGIwTkZkUi9icUVT?=
+ =?utf-8?B?TitFVVBodXZFZjdWRHhTTHJLQXhFRWRqZXk0ZS9oQlc3a01EakVNL0EwOGE3?=
+ =?utf-8?B?Sy9QaC85ZEE3eGlGWW9iVTFWSUY2cHMrSDNvNEFDZTRFd3M2RFEzbHU1UlV2?=
+ =?utf-8?B?VkJBeEFwQjZnYmdhV1cwbmVvQlRPWWtkc0JLVExMS21vVGxUVUpEclVzU20v?=
+ =?utf-8?B?NXEyUmZkeVhVWVI4WnBybUE2STVjTXJIR1NLU2RVeWpEd3d6VWxDaXFKRENs?=
+ =?utf-8?B?N2wwRXFJLzFuT3BObUdXWXdGcWhTTEFyWmwwQnRCMXIrQUtRQ2FGb2dSVmJ1?=
+ =?utf-8?B?NHpQM2s5RXZnb3FxZEw2WitvZGNyQnkxMmZzenQrc3QzNDBVbGZhRzV5NDQ1?=
+ =?utf-8?B?MFNGUnJOT3puK2lTd2JZTVNDN213NC9PS1FXcDhNM3p1NE4zSG9KNS9rTVJj?=
+ =?utf-8?B?V0xIdm1YRHJLdWVZZ0laQlovS0FGOHJXanBjS21mZkovekJWQW44MzcwQWIx?=
+ =?utf-8?B?RkU0L3FWL0pOMEZBVlNzMFZHQnY1dVkrbVh5UFFNWTQ3bFJlYVV6T0cvM1dN?=
+ =?utf-8?B?R2F1d1pIbnZBcnZhTlN5dXQxS1lxTkhHSGZENlB1ajVwQkJ5endRNFMzUkJz?=
+ =?utf-8?B?Q09ibVV3WG1EUzVndnovNFpXWGUxQkVXSlhFenNyVnRaa2NnczFwcHh0V0Vq?=
+ =?utf-8?B?eG13T1R4YXhiRGkxMGkrQmJHUEJRZmJjYmNueDFQbSt4STV1RDdpUXZVbno5?=
+ =?utf-8?B?b05JVTkxYXVmSzdjaWFhak5FbGxlVFlwVTV3MS9pWE4yT0R6aUxsZ2E0K3hq?=
+ =?utf-8?B?VlpJZzRWamxuUXAwcjhUazBhbEY0emMyNnRRT0JYMDhNb0tJbWdQZlA4akVK?=
+ =?utf-8?B?RlgxVjRrNlQ5RFpCUDJVenltMzZlNjN2YlFGNzVRK3pLbXNrWnRmSlF6WWFK?=
+ =?utf-8?B?eWVNZWxMRjRXY3FXdEh1R2k0eG1JTENjRWsxT3MyWEpaUXYxVDRVUml2Umx6?=
+ =?utf-8?Q?RWtZ6UFE2YCIxPq4=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 11760ffd-541e-4a79-666e-08da29faebaa
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2022 16:11:30.0284
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tqinjmRj/OexvRkjXNKhl5SfrWuVfwS6NMIdBrIeRjAYb5GHNsfrUgWufsJy5LdLp2gtTUz4HeEhMH5SUpV4Ow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR03MB6229
 
+On Fri, Apr 29, 2022 at 05:49:42PM +0200, Roger Pau Monné wrote:
+> On Fri, Apr 29, 2022 at 12:59:58PM +0200, Jan Beulich wrote:
+> > On 27.04.2022 12:47, Roger Pau Monne wrote:> Changes since v3:>  - Align ssbd per-core struct to a cache line.>  - Open code a simple spinlock to avoid playing tricks with the lock>    detector.>  - s/ssbd_core/ssbd_ls_cfg/.>  - Fix log message wording.>  - Fix define name and remove comment.>  - Also handle Hygon processors (Fam18h).>  - Add changelog entry.
+> > What is this last line about?
+> 
+> Hm, seems like I forgot to do a patch refresh... So new version will
+> have an entry about adding VIRT_SSBD support to HVM guests. Sorry for
+> spoiling the surprise.
+> 
+> > > +bool __init amd_setup_legacy_ssbd(void)
+> > > +{
+> > > +	unsigned int i;
+> > > +
+> > > +	if ((boot_cpu_data.x86 != 0x17 && boot_cpu_data.x86 != 0x18) ||
+> > > +	    boot_cpu_data.x86_num_siblings <= 1)
+> > > +		return true;
+> > > +
+> > > +	/*
+> > > +	 * One could be forgiven for thinking that c->x86_max_cores is the
+> > > +	 * correct value to use here.
+> > > +	 *
+> > > +	 * However, that value is derived from the current configuration, and
+> > > +	 * c->cpu_core_id is sparse on all but the top end CPUs.  Derive
+> > > +	 * max_cpus from ApicIdCoreIdSize which will cover any sparseness.
+> > > +	 */
+> > > +	if (boot_cpu_data.extended_cpuid_level >= 0x80000008) {
+> > > +		ssbd_max_cores = 1u << MASK_EXTR(cpuid_ecx(0x80000008), 0xf000);
+> > > +		ssbd_max_cores /= boot_cpu_data.x86_num_siblings;
+> > > +	}
+> > > +	if (!ssbd_max_cores)
+> > > +		return false;
+> > > +
+> > > +	ssbd_ls_cfg = xzalloc_array(struct ssbd_ls_cfg,
+> > > +	                            ssbd_max_cores * AMD_FAM17H_MAX_SOCKETS);
+> > > +	if (!ssbd_ls_cfg)
+> > > +		return false;
+> > > +
+> > > +	for (i = 0; i < ssbd_max_cores * AMD_FAM17H_MAX_SOCKETS; i++)
+> > > +		/* Record initial state, also applies to any hotplug CPU. */
+> > > +		if (opt_ssbd)
+> > > +			ssbd_ls_cfg[i].count = boot_cpu_data.x86_num_siblings;
+> > 
+> > Perhaps flip if() and for()?
+> 
+> Indeed, thanks.
+> 
+> > > +void amd_set_legacy_ssbd(bool enable)
+> > > +{
+> > > +	const struct cpuinfo_x86 *c = &current_cpu_data;
+> > > +	struct ssbd_ls_cfg *status;
+> > > +
+> > > +	if (c->x86 != 0x17 || c->x86_num_siblings <= 1) {
+> > > +		BUG_ON(!set_legacy_ssbd(c, enable));
+> > > +		return;
+> > > +	}
+> > > +
+> > > +	BUG_ON(c->phys_proc_id >= AMD_FAM17H_MAX_SOCKETS);
+> > > +	BUG_ON(c->cpu_core_id >= ssbd_max_cores);
+> > > +	status = &ssbd_ls_cfg[c->phys_proc_id * ssbd_max_cores +
+> > > +	                      c->cpu_core_id];
+> > > +
+> > > +	/*
+> > > +	 * Open code a very simple spinlock: this function is used with GIF==0
+> > > +	 * and different IF values, so would trigger the checklock detector.
+> > > +	 * Instead of trying to workaround the detector, use a very simple lock
+> > > +	 * implementation: it's better to reduce the amount of code executed
+> > > +	 * with GIF==0.
+> > > +	 */
+> > > +	while ( test_and_set_bool(status->locked) )
+> > > +	    cpu_relax();
+> > > +	status->count += enable ? 1 : -1;
+> > > +	ASSERT(status->count <= c->x86_num_siblings);
+> > > +	if (enable ? status->count == 1 : !status->count)
+> > > +		BUG_ON(!set_legacy_ssbd(c, enable));
+> > 
+> > What are the effects of ASSERT() or BUG_ON() triggering in a GIF=0
+> > region?
+> 
+> So AFAICT the BUG itself works, the usage of a crash kernel however
+> won't work as it's booted with GIF==0.
+> 
+> Maybe we need to issue an stgi as part of BUG_FRAME if required?
+> (maybe that's too naive...)
 
-On 28.04.22 11:27, Juergen Gross wrote:
+Well, better in panic() or kexec_crash() likely.
 
-Hello Juergen, all
-
-> Simplify drmfront's ring creation and removal via xenbus_setup_ring()
-> and xenbus_teardown_ring().
->
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-
-
-I am not familiar with DRM bits of this driver, but a little bit 
-familiar with Xen bits this patch only touches and I have environment to 
-test.
-
-Xen specific changes looks good to me. Also I didn't see any specific to 
-this series issues when testing virtulized display driver except one I 
-have already pointed out in PATCH v2 08/19.
-
-root@salvator-x-h3-4x2g-xt-domu:~# dmesg | grep drm
-[    0.158190] [drm] Registering XEN PV vdispl
-[    0.159620] [drm] Connector device/vdispl/0/0: resolution 1920x1080
-[    0.159888] [drm] Have 1 connector(s)
-[    0.289069] [drm] Creating Xen PV DRM Display Unit
-[    0.289873] [drm] Initialized xendrm-du 1.0.0 20180221 for vdispl-0 
-on minor 0
-[    0.289918] [drm] Initialized xendrm-du 1.0.0 20180221 on minor 0
-
-
-root@generic-armv8-xt-dom0:~# xenstore-ls -f | grep vdispl
-/local/domain/1/backend/vdispl = ""
-/local/domain/1/backend/vdispl/2 = ""
-/local/domain/1/backend/vdispl/2/0 = ""
-/local/domain/1/backend/vdispl/2/0/frontend = 
-"/local/domain/2/device/vdispl/0"
-/local/domain/1/backend/vdispl/2/0/frontend-id = "2"
-/local/domain/1/backend/vdispl/2/0/online = "1"
-/local/domain/1/backend/vdispl/2/0/state = "4"
-/local/domain/2/device/vdispl = ""
-/local/domain/2/device/vdispl/0 = ""
-/local/domain/2/device/vdispl/0/backend = 
-"/local/domain/1/backend/vdispl/2/0"
-/local/domain/2/device/vdispl/0/backend-id = "1"
-/local/domain/2/device/vdispl/0/state = "4"
-/local/domain/2/device/vdispl/0/be-alloc = "0"
-/local/domain/2/device/vdispl/0/0 = ""
-/local/domain/2/device/vdispl/0/0/resolution = "1920x1080"
-/local/domain/2/device/vdispl/0/0/unique-id = "HDMI-A-1"
-/local/domain/2/device/vdispl/0/0/req-ring-ref = "8"
-/local/domain/2/device/vdispl/0/0/req-event-channel = "7"
-/local/domain/2/device/vdispl/0/0/evt-ring-ref = "9"
-/local/domain/2/device/vdispl/0/0/evt-event-channel = "8"
-/libxl/2/device/vdispl = ""
-/libxl/2/device/vdispl/0 = ""
-/libxl/2/device/vdispl/0/frontend = "/local/domain/2/device/vdispl/0"
-/libxl/2/device/vdispl/0/backend = "/local/domain/1/backend/vdispl/2/0"
-/libxl/2/device/vdispl/0/frontend-id = "2"
-/libxl/2/device/vdispl/0/online = "1"
-/libxl/2/device/vdispl/0/state = "1"
-
-
-It worth mentioning I noticed one issue, but I believe it is not related 
-to your series.
-
-root@salvator-x-h3-4x2g-xt-domu:~# modetest -M xendrm-du -s 31:1920x1080
-[   62.431887] ------------[ cut here ]------------
-[   62.431940] WARNING: CPU: 0 PID: 244 at 
-drivers/gpu/drm/drm_gem.c:1055 drm_gem_mmap_obj+0x16c/0x180
-[   62.432000] Modules linked in:
-[   62.432025] CPU: 0 PID: 244 Comm: modetest Tainted: G W         
-5.18.0-rc4-yocto-standard-00096-g936342d8fae2 #1
-[   62.432067] Hardware name: XENVM-4.17 (DT)
-[   62.432089] pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS 
-BTYPE=--)
-[   62.432126] pc : drm_gem_mmap_obj+0x16c/0x180
-[   62.432153] lr : drm_gem_mmap_obj+0x78/0x180
-[   62.432178] sp : ffff800009da3bb0
-[   62.432196] x29: ffff800009da3bb0 x28: 0000000000000008 x27: 
-ffff0001c3a56780
-[   62.432237] x26: ffff0001c3a56f00 x25: 00000000000007e9 x24: 
-ffff0001c23dec00
-[   62.432279] x23: ffff0001c0c98000 x22: ffff0001c2162b80 x21: 
-0000000000000000
-[   62.432320] x20: ffff0001c3a56780 x19: ffff0001c23dea00 x18: 
-0000000000000001
-[   62.432355] x17: 0000000000000000 x16: 0000000000000000 x15: 
-000000000003603c
-[   62.432394] x14: 0000000000000000 x13: 0000000000000000 x12: 
-0000000000000000
-[   62.432430] x11: 0000000000100000 x10: 0000ffff88071000 x9 : 
-ffff0001c0f17e70
-[   62.432470] x8 : ffff8001f65ce000 x7 : 0000000000000001 x6 : 
-ffff0001c388a000
-[   62.432505] x5 : ffff800009da3a10 x4 : 0000000000000090 x3 : 
-0000000010046400
-[   62.432539] x2 : 00000000000007e9 x1 : 9b0023a536f4f400 x0 : 
-00000000100000fb
-[   62.432579] Call trace:
-[   62.432593]  drm_gem_mmap_obj+0x16c/0x180
-[   62.432617]  drm_gem_mmap+0x128/0x228
-[   62.432641]  mmap_region+0x384/0x5a0
-[   62.432667]  do_mmap+0x354/0x4f0
-[   62.432687]  vm_mmap_pgoff+0xdc/0x108
-[   62.432710]  ksys_mmap_pgoff+0x1b8/0x208
-[   62.432734]  __arm64_sys_mmap+0x30/0x48
-[   62.432760]  invoke_syscall+0x44/0x108
-[   62.432783]  el0_svc_common.constprop.0+0xcc/0xf0
-[   62.432811]  do_el0_svc+0x24/0x88
-[   62.432831]  el0_svc+0x2c/0x88
-[   62.432855]  el0t_64_sync_handler+0xb0/0xb8
-[   62.432875]  el0t_64_sync+0x18c/0x190
-[   62.432898] ---[ end trace 0000000000000000 ]---
-setting mode 1920x1080-60.00Hz@XR24 on connectors 31, crtc 34
-
-
-Although we see that WARNING, the application still works. Looking into 
-the code, I assume that problem is that frontend doesn't set the 
-VM_DONTEXPAND flag in mmap callback.
-
-This diff fixes an issue in my environment:
-
-index 5a5bf4e..e31554d 100644
---- a/drivers/gpu/drm/xen/xen_drm_front_gem.c
-+++ b/drivers/gpu/drm/xen/xen_drm_front_gem.c
-@@ -71,7 +71,7 @@ static int xen_drm_front_gem_object_mmap(struct 
-drm_gem_object *gem_obj,
-          * the whole buffer.
-          */
-         vma->vm_flags &= ~VM_PFNMAP;
--       vma->vm_flags |= VM_MIXEDMAP;
-+       vma->vm_flags |= VM_MIXEDMAP | VM_DONTEXPAND;
-         vma->vm_pgoff = 0;
-
-         /*
-
-
-I am not 100% sure whether it is a proper fix, so I would kindly ask DRM 
-folks to confirm. I will be able to send a formal patch then.
-
-
-> ---
->   drivers/gpu/drm/xen/xen_drm_front_evtchnl.c | 43 ++++++---------------
->   1 file changed, 11 insertions(+), 32 deletions(-)
->
-> diff --git a/drivers/gpu/drm/xen/xen_drm_front_evtchnl.c b/drivers/gpu/drm/xen/xen_drm_front_evtchnl.c
-> index 4006568b9e32..e52afd792346 100644
-> --- a/drivers/gpu/drm/xen/xen_drm_front_evtchnl.c
-> +++ b/drivers/gpu/drm/xen/xen_drm_front_evtchnl.c
-> @@ -123,12 +123,12 @@ static irqreturn_t evtchnl_interrupt_evt(int irq, void *dev_id)
->   static void evtchnl_free(struct xen_drm_front_info *front_info,
->   			 struct xen_drm_front_evtchnl *evtchnl)
->   {
-> -	unsigned long page = 0;
-> +	void *page = NULL;
->   
->   	if (evtchnl->type == EVTCHNL_TYPE_REQ)
-> -		page = (unsigned long)evtchnl->u.req.ring.sring;
-> +		page = evtchnl->u.req.ring.sring;
->   	else if (evtchnl->type == EVTCHNL_TYPE_EVT)
-> -		page = (unsigned long)evtchnl->u.evt.page;
-> +		page = evtchnl->u.evt.page;
->   	if (!page)
->   		return;
->   
-> @@ -147,8 +147,7 @@ static void evtchnl_free(struct xen_drm_front_info *front_info,
->   		xenbus_free_evtchn(front_info->xb_dev, evtchnl->port);
->   
->   	/* end access and free the page */
-> -	if (evtchnl->gref != INVALID_GRANT_REF)
-> -		gnttab_end_foreign_access(evtchnl->gref, page);
-> +	xenbus_teardown_ring(&page, 1, &evtchnl->gref);
->   
->   	memset(evtchnl, 0, sizeof(*evtchnl));
->   }
-> @@ -158,8 +157,7 @@ static int evtchnl_alloc(struct xen_drm_front_info *front_info, int index,
->   			 enum xen_drm_front_evtchnl_type type)
->   {
->   	struct xenbus_device *xb_dev = front_info->xb_dev;
-> -	unsigned long page;
-> -	grant_ref_t gref;
-> +	void *page;
->   	irq_handler_t handler;
->   	int ret;
->   
-> @@ -168,44 +166,25 @@ static int evtchnl_alloc(struct xen_drm_front_info *front_info, int index,
->   	evtchnl->index = index;
->   	evtchnl->front_info = front_info;
->   	evtchnl->state = EVTCHNL_STATE_DISCONNECTED;
-> -	evtchnl->gref = INVALID_GRANT_REF;
->   
-> -	page = get_zeroed_page(GFP_NOIO | __GFP_HIGH);
-> -	if (!page) {
-> -		ret = -ENOMEM;
-> +	ret = xenbus_setup_ring(xb_dev, GFP_NOIO | __GFP_HIGH, &page,
-> +				1, &evtchnl->gref);
-> +	if (ret)
->   		goto fail;
-> -	}
->   
->   	if (type == EVTCHNL_TYPE_REQ) {
->   		struct xen_displif_sring *sring;
->   
->   		init_completion(&evtchnl->u.req.completion);
->   		mutex_init(&evtchnl->u.req.req_io_lock);
-> -		sring = (struct xen_displif_sring *)page;
-> -		SHARED_RING_INIT(sring);
-> -		FRONT_RING_INIT(&evtchnl->u.req.ring, sring, XEN_PAGE_SIZE);
-> -
-> -		ret = xenbus_grant_ring(xb_dev, sring, 1, &gref);
-> -		if (ret < 0) {
-> -			evtchnl->u.req.ring.sring = NULL;
-> -			free_page(page);
-> -			goto fail;
-> -		}
-> +		sring = page;
-> +		XEN_FRONT_RING_INIT(&evtchnl->u.req.ring, sring, XEN_PAGE_SIZE);
->   
->   		handler = evtchnl_interrupt_ctrl;
->   	} else {
-> -		ret = gnttab_grant_foreign_access(xb_dev->otherend_id,
-> -						  virt_to_gfn((void *)page), 0);
-> -		if (ret < 0) {
-> -			free_page(page);
-> -			goto fail;
-> -		}
-> -
-> -		evtchnl->u.evt.page = (struct xendispl_event_page *)page;
-> -		gref = ret;
-> +		evtchnl->u.evt.page = page;
->   		handler = evtchnl_interrupt_evt;
->   	}
-> -	evtchnl->gref = gref;
->   
->   	ret = xenbus_alloc_evtchn(xb_dev, &evtchnl->port);
->   	if (ret < 0)
-
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
+Roger.
 
