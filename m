@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 264CE5155E0
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 22:39:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.317694.537143 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E275151562E
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 22:57:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.317701.537153 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkXOe-0004Xw-GY; Fri, 29 Apr 2022 20:39:24 +0000
+	id 1nkXg7-0006xy-2o; Fri, 29 Apr 2022 20:57:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 317694.537143; Fri, 29 Apr 2022 20:39:24 +0000
+Received: by outflank-mailman (output) from mailman id 317701.537153; Fri, 29 Apr 2022 20:57:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkXOe-0004W6-CV; Fri, 29 Apr 2022 20:39:24 +0000
-Received: by outflank-mailman (input) for mailman id 317694;
- Fri, 29 Apr 2022 20:39:23 +0000
+	id 1nkXg6-0006w6-WB; Fri, 29 Apr 2022 20:57:26 +0000
+Received: by outflank-mailman (input) for mailman id 317701;
+ Fri, 29 Apr 2022 20:57:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BV3H=VH=igalia.com=gpiccoli@srs-se1.protection.inumbo.net>)
- id 1nkXOa-0004W0-AR
- for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 20:39:23 +0000
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ <SRS0=FlFr=VH=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nkXg4-0006w0-PK
+ for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 20:57:24 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7048cb39-c7fc-11ec-8fc4-03012f2f19d4;
- Fri, 29 Apr 2022 22:39:17 +0200 (CEST)
-Received: from [179.113.53.197] (helo=[192.168.1.60])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1nkXNs-000CEn-5h; Fri, 29 Apr 2022 22:38:36 +0200
+ id f7a3d077-c7fe-11ec-8fc4-03012f2f19d4;
+ Fri, 29 Apr 2022 22:57:23 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id A2511B837C2;
+ Fri, 29 Apr 2022 20:57:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D33EC385A7;
+ Fri, 29 Apr 2022 20:57:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,204 +43,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7048cb39-c7fc-11ec-8fc4-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=9LhFYA+MjEc96AcZxxeEKFjkU9Lk82GaxnYYVWnVk68=; b=XwGE93aX+1E0t3pByj3j/O+5Ga
-	K3u/NbvWUIPTGWXFFUF5/S8bghnnop1aApPsPGKNCX+XA1bvvH3EQ0PcLpFJhLHgKjy3gTmHDpRZx
-	xpeiw9TV1dPXB2YSqRvo3agu2ikjDsTWOdpgS/WgDbAttd/ff7K6VJQNlrO38xJTdLOWq3LaiPpb7
-	BCxPsp9BBfFRjEJDD6TJuu/Y8uUcnXFJiNLt6QIOyD0DFBtRwQdBNCscMgnx+i0qVThLJVg3KcgFz
-	9afxev7tVqQLuY2Z0izXtjt9I1wawTaSR9Ugp7AvNWX4ugYt89qxijRM6XzCj5d2MXRHOn6SprLRr
-	LWTDMVqw==;
-Message-ID: <50178dfb-8e94-f35f-09c3-22fe197550ef@igalia.com>
-Date: Fri, 29 Apr 2022 17:38:08 -0300
+X-Inumbo-ID: f7a3d077-c7fe-11ec-8fc4-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1651265841;
+	bh=PLq+6PDPp1BOsHws04vd9QA2FOt1CAQN/nNG1+129tM=;
+	h=Date:From:To:cc:Subject:From;
+	b=XOY/I975F0X0B/7jqfKnmPVe3eE0vk/+7B2oDI9+5TTO39sYy5LLf7qXOYuKvWiCG
+	 Ai7eje6yDWHZ0BRwr/NhZv2twJISRHlbaCC5lHabN3FxI75ioBl0XRU41p4SMuiu6w
+	 B6x52mlIz0z90oFxla0DC9UPMBRN2gezF1MAQYHAVrZ42zcggnbry9qXfwn22Nn/QD
+	 hbPygArg7R62k15WBnz68EFeSNgU6UADRMk9fmspbVAieBen5sq7MKyfmWKqvWaMGB
+	 2XChT1onzQWW2l00OzeVdMyyS6o1pdmMOZeFLAxyqZb9ehmTSYNIr+rHc5jVWEMrU0
+	 GTiKjLF/E3WCQ==
+Date: Fri, 29 Apr 2022 13:57:20 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: xen-devel@lists.xenproject.org
+cc: sstabellini@kernel.org, jgross@suse.com, Bertrand.Marquis@arm.com, 
+    julien@xen.org, Volodymyr_Babchuk@epam.com
+Subject: [PATCH v5 0/7] dom0less PV drivers
+Message-ID: <alpine.DEB.2.22.394.2204291354050.1947187@ubuntu-linux-20-04-desktop>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH 24/30] panic: Refactor the panic path
-Content-Language: en-US
-To: "Michael Kelley (LINUX)" <mikelley@microsoft.com>,
- "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
- "bhe@redhat.com" <bhe@redhat.com>, "pmladek@suse.com" <pmladek@suse.com>,
- "kexec@lists.infradead.org" <kexec@lists.infradead.org>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "bcm-kernel-feedback-list@broadcom.com"
- <bcm-kernel-feedback-list@broadcom.com>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
- "linux-alpha@vger.kernel.org" <linux-alpha@vger.kernel.org>,
- "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
- "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
- "linux-leds@vger.kernel.org" <linux-leds@vger.kernel.org>,
- "linux-mips@vger.kernel.org" <linux-mips@vger.kernel.org>,
- "linux-parisc@vger.kernel.org" <linux-parisc@vger.kernel.org>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
- "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
- "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- "linux-um@lists.infradead.org" <linux-um@lists.infradead.org>,
- "linux-xtensa@linux-xtensa.org" <linux-xtensa@linux-xtensa.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "openipmi-developer@lists.sourceforge.net"
- <openipmi-developer@lists.sourceforge.net>,
- "rcu@vger.kernel.org" <rcu@vger.kernel.org>,
- "sparclinux@vger.kernel.org" <sparclinux@vger.kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "x86@kernel.org" <x86@kernel.org>,
- "kernel-dev@igalia.com" <kernel-dev@igalia.com>,
- "kernel@gpiccoli.net" <kernel@gpiccoli.net>,
- "halves@canonical.com" <halves@canonical.com>,
- "fabiomirmar@gmail.com" <fabiomirmar@gmail.com>,
- "alejandro.j.jimenez@oracle.com" <alejandro.j.jimenez@oracle.com>,
- "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
- "arnd@arndb.de" <arnd@arndb.de>, "bp@alien8.de" <bp@alien8.de>,
- "corbet@lwn.net" <corbet@lwn.net>,
- "d.hatayama@jp.fujitsu.com" <d.hatayama@jp.fujitsu.com>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "dyoung@redhat.com" <dyoung@redhat.com>,
- "feng.tang@intel.com" <feng.tang@intel.com>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "hidehiro.kawai.ez@hitachi.com" <hidehiro.kawai.ez@hitachi.com>,
- "jgross@suse.com" <jgross@suse.com>,
- "john.ogness@linutronix.de" <john.ogness@linutronix.de>,
- "keescook@chromium.org" <keescook@chromium.org>,
- "luto@kernel.org" <luto@kernel.org>,
- "mhiramat@kernel.org" <mhiramat@kernel.org>,
- "mingo@redhat.com" <mingo@redhat.com>,
- "paulmck@kernel.org" <paulmck@kernel.org>,
- "peterz@infradead.org" <peterz@infradead.org>,
- "rostedt@goodmis.org" <rostedt@goodmis.org>,
- "senozhatsky@chromium.org" <senozhatsky@chromium.org>,
- "stern@rowland.harvard.edu" <stern@rowland.harvard.edu>,
- "tglx@linutronix.de" <tglx@linutronix.de>,
- "vgoyal@redhat.com" <vgoyal@redhat.com>, vkuznets <vkuznets@redhat.com>,
- "will@kernel.org" <will@kernel.org>
-References: <20220427224924.592546-1-gpiccoli@igalia.com>
- <20220427224924.592546-25-gpiccoli@igalia.com>
- <PH0PR21MB30252C55EB4F97F3D78021BDD7FC9@PH0PR21MB3025.namprd21.prod.outlook.com>
-From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-In-Reply-To: <PH0PR21MB30252C55EB4F97F3D78021BDD7FC9@PH0PR21MB3025.namprd21.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 29/04/2022 14:53, Michael Kelley (LINUX) wrote:
-> From: Guilherme G. Piccoli <gpiccoli@igalia.com> Sent: Wednesday, April 27, 2022 3:49 PM
->> [...]
->> +	panic_notifiers_level=
->> +			[KNL] Set the panic notifiers execution order.
->> +			Format: <unsigned int>
->> +			We currently have 4 lists of panic notifiers; based
->> +			on the functionality and risk (for panic success) the
->> +			callbacks are added in a given list. The lists are:
->> +			- hypervisor/FW notification list (low risk);
->> +			- informational list (low/medium risk);
->> +			- pre_reboot list (higher risk);
->> +			- post_reboot list (only run late in panic and after
->> +			kdump, not configurable for now).
->> +			This parameter defines the ordering of the first 3
->> +			lists with regards to kdump; the levels determine
->> +			which set of notifiers execute before kdump. The
->> +			accepted levels are:
->> +			0: kdump is the first thing to run, NO list is
->> +			executed before kdump.
->> +			1: only the hypervisor list is executed before kdump.
->> +			2 (default level): the hypervisor list and (*if*
->> +			there's any kmsg_dumper defined) the informational
->> +			list are executed before kdump.
->> +			3: both the hypervisor and the informational lists
->> +			(always) execute before kdump.
-> 
-> I'm not clear on why level 2 exists.  What is the scenario where
-> execution of the info list before kdump should be conditional on the
-> existence of a kmsg_dumper?   Maybe the scenario is described
-> somewhere in the patch set and I just missed it.
-> 
+Hi all,
 
-Hi Michael, thanks for your review/consideration. So, this idea started
-kind of some time ago. It all started with a need of exposing more
-information on kernel log *before* kdump and *before* pstore -
-specifically, we're talking about panic_print. But this cause some
-reactions, Baoquan was very concerned with that [0]. Soon after, I've
-proposed a panic notifiers filter (orthogonal) approach, to which Petr
-suggested instead doing a major refactor [1] - it finally is alive in
-the form of this series.
+Currently dom0less guests cannot use PV drivers because they don't have
+access to xenstore. Also, the hypervisor node in device tree is missing
+so they don't detect that they are running on Xen (thus, they don't try
+to enable PV interfaces.)
 
-The theory behind the level 2 is to allow a scenario of kdump with the
-minimum amount of notifiers - what is the point in printing more
-information if the user doesn't care, since it's going to kdump? Now, if
-there is a kmsg dumper, it means that there is likely some interest in
-collecting information, and that might as well be required before the
-potential kdump (which is my case, hence the proposal on [0]).
+This patch series enables dom0less guests (on ARM) to use PV drivers.
 
-Instead of forcing one of the two behaviors (level 1 or level 3), we
-have a middle-term/compromise: if there's interest in collecting such
-data (in the form of a kmsg dumper), we then execute the informational
-notifiers before kdump. If not, why to increase (even slightly) the risk
-for kdump?
+Instead of initializing xenstore immediately at boot, dom0less guests
+get access to xenstore later. They delay the initialization until they
+receive a notification via the xenstore event channel (which is
+available at boot.)
 
-I'm OK in removing the level 2 if people prefer, but I don't feel it's a
-burden, quite opposite - seems a good way to accommodate the somewhat
-antagonistic ideas (jump to kdump ASAP vs collecting more info in the
-panicked kernel log).
+An example workflow is as follows:
+- all domains start in parallel, dom0less guests are immediately running
+- when dom0 is up and running, the init-dom0less application is called
+- dom0less guests receive the notification and initialize xenstore
+- now xl network-attach/disk-attach works as expected for dom0less domUs
 
-[0] https://lore.kernel.org/lkml/20220126052246.GC2086@MiWiFi-R3L-srv/
+The patch series introduces a new dom0less device tree option
+"xen,enhanced" (in the Xen device tree) to specify whether PV interfaces
+should be enabled/disabled for the dom0less guest.
 
-[1] https://lore.kernel.org/lkml/YfPxvzSzDLjO5ldp@alley/
+This patch series is based on Daniel P. Smith's "Adds starting the idle
+domain privileged".
 
+A important change in v5 is the usage of
+XS_CONNECTION_STATE_RECONNECTING to signal that the xenstore interface
+is not ready.
 
->[...]
->> +	 * Based on the level configured (smaller than 4), we clear the
->> +	 * proper bits in "panic_notifiers_bits". Notice that this bitfield
->> +	 * is initialized with all notifiers set.
->> +	 */
->> +	switch (panic_notifiers_level) {
->> +	case 3:
->> +		clear_bit(PN_PRE_REBOOT_BIT, &panic_notifiers_bits);
->> +		break;
->> +	case 2:
->> +		clear_bit(PN_PRE_REBOOT_BIT, &panic_notifiers_bits);
->> +
->> +		if (!kmsg_has_dumpers())
->> +			clear_bit(PN_INFO_BIT, &panic_notifiers_bits);
->> +		break;
->> +	case 1:
->> +		clear_bit(PN_PRE_REBOOT_BIT, &panic_notifiers_bits);
->> +		clear_bit(PN_INFO_BIT, &panic_notifiers_bits);
->> +		break;
->> +	case 0:
->> +		clear_bit(PN_PRE_REBOOT_BIT, &panic_notifiers_bits);
->> +		clear_bit(PN_INFO_BIT, &panic_notifiers_bits);
->> +		clear_bit(PN_HYPERVISOR_BIT, &panic_notifiers_bits);
->> +		break;
->> +	}
-> 
-> I think the above switch statement could be done as follows:
-> 
-> if (panic_notifiers_level <= 3)
-> 	clear_bit(PN_PRE_REBOOT_BIT, &panic_notifiers_bits);
-> if (panic_notifiers_level <= 2)
-> 	if (!kmsg_has_dumpers())
-> 		clear_bit(PN_INFO_BIT, &panic_notifiers_bits);
-> if (panic_notifiers_level <=1)
-> 	clear_bit(PN_INFO_BIT, &panic_notifiers_bits);
-> if (panic_notifiers_level == 0)
-> 	clear_bit(PN_HYPERVISOR_BIT, &panic_notifiers_bits);
-> 
-> That's about half the lines of code.  It's somewhat a matter of style,
-> so treat this as just a suggestion to consider.  I just end up looking
-> for a better solution when I see the same line of code repeated
-> 3 or 4 times!
-> 
-
-It's a good idea - I liked your code. The switch seems more
-natural/explicit for me, even duplicating some lines, but in case more
-people prefer your way, I can definitely change the code - thanks for
-the suggestion.
 Cheers,
 
+Stefano
 
-Guilherme
+Luca Miccio (3):
+      xen/arm: configure dom0less domain for enabling xenstore after boot
+      xenstored: send an evtchn notification on introduce_domain
+      tools: add example application to initialize dom0less PV drivers
+
+Stefano Stabellini (4):
+      xen/dt: of_property_read_string return -ENODATA when !length
+      xen/arm: implement domU extended regions
+      xen: introduce xen,enhanced dom0less property
+      docs: document dom0less + PV drivers
+
+ docs/features/dom0less.pandoc         |  43 ++++-
+ docs/misc/arm/device-tree/booting.txt |  18 ++
+ tools/helpers/Makefile                |  13 ++
+ tools/helpers/init-dom0less.c         | 341 ++++++++++++++++++++++++++++++++++
+ tools/xenstore/xenstored_domain.c     |   4 +
+ xen/arch/arm/domain_build.c           | 100 +++++++++-
+ xen/arch/arm/include/asm/kernel.h     |   3 +
+ xen/common/device_tree.c              |   2 +-
+ xen/common/event_channel.c            |   2 +-
+ xen/include/xen/device_tree.h         |   3 +
+ xen/include/xen/event.h               |   3 +
+ 11 files changed, 519 insertions(+), 13 deletions(-)
+ create mode 100644 tools/helpers/init-dom0less.c
 
