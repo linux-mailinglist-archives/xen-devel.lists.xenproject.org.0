@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C42B51558A
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 22:27:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.317686.537132 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 264CE5155E0
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 22:39:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.317694.537143 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkXC9-00033x-99; Fri, 29 Apr 2022 20:26:29 +0000
+	id 1nkXOe-0004Xw-GY; Fri, 29 Apr 2022 20:39:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 317686.537132; Fri, 29 Apr 2022 20:26:29 +0000
+Received: by outflank-mailman (output) from mailman id 317694.537143; Fri, 29 Apr 2022 20:39:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkXC9-00031f-5x; Fri, 29 Apr 2022 20:26:29 +0000
-Received: by outflank-mailman (input) for mailman id 317686;
- Fri, 29 Apr 2022 20:26:28 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nkXC8-00031V-93; Fri, 29 Apr 2022 20:26:28 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nkXC8-00005C-41; Fri, 29 Apr 2022 20:26:28 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nkXC7-0008TS-Sz; Fri, 29 Apr 2022 20:26:27 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nkXC7-0004PZ-SY; Fri, 29 Apr 2022 20:26:27 +0000
+	id 1nkXOe-0004W6-CV; Fri, 29 Apr 2022 20:39:24 +0000
+Received: by outflank-mailman (input) for mailman id 317694;
+ Fri, 29 Apr 2022 20:39:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BV3H=VH=igalia.com=gpiccoli@srs-se1.protection.inumbo.net>)
+ id 1nkXOa-0004W0-AR
+ for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 20:39:23 +0000
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7048cb39-c7fc-11ec-8fc4-03012f2f19d4;
+ Fri, 29 Apr 2022 22:39:17 +0200 (CEST)
+Received: from [179.113.53.197] (helo=[192.168.1.60])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1nkXNs-000CEn-5h; Fri, 29 Apr 2022 22:38:36 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,163 +40,204 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=9UDXE/dzMc83/ReWgZqhTk6ON+oCrbpmUBXMB3eRksU=; b=Y7b+86fVz8ROXsm3P356L5zKkk
-	OmXOya7Cx8Wvp2ydjo0R+g6K+Hu8/dyWl6iNwo3+HwYJ/UAqb2i4iviBRpJRlkeolkyD9qoEQ/zxI
-	NuM8Hz0e4lSjZoVK1XNLUqTmbjvGoHK3YmAKRiXm/ksWZ/REZJTgTeR/baw+0Jh+7vJ8=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169880-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 7048cb39-c7fc-11ec-8fc4-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=9LhFYA+MjEc96AcZxxeEKFjkU9Lk82GaxnYYVWnVk68=; b=XwGE93aX+1E0t3pByj3j/O+5Ga
+	K3u/NbvWUIPTGWXFFUF5/S8bghnnop1aApPsPGKNCX+XA1bvvH3EQ0PcLpFJhLHgKjy3gTmHDpRZx
+	xpeiw9TV1dPXB2YSqRvo3agu2ikjDsTWOdpgS/WgDbAttd/ff7K6VJQNlrO38xJTdLOWq3LaiPpb7
+	BCxPsp9BBfFRjEJDD6TJuu/Y8uUcnXFJiNLt6QIOyD0DFBtRwQdBNCscMgnx+i0qVThLJVg3KcgFz
+	9afxev7tVqQLuY2Z0izXtjt9I1wawTaSR9Ugp7AvNWX4ugYt89qxijRM6XzCj5d2MXRHOn6SprLRr
+	LWTDMVqw==;
+Message-ID: <50178dfb-8e94-f35f-09c3-22fe197550ef@igalia.com>
+Date: Fri, 29 Apr 2022 17:38:08 -0300
 MIME-Version: 1.0
-Subject: [ovmf test] 169880: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=d372ab585a2cdc5348af5f701c56c631235fe698
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 29 Apr 2022 20:26:27 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Subject: Re: [PATCH 24/30] panic: Refactor the panic path
+Content-Language: en-US
+To: "Michael Kelley (LINUX)" <mikelley@microsoft.com>,
+ "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
+ "bhe@redhat.com" <bhe@redhat.com>, "pmladek@suse.com" <pmladek@suse.com>,
+ "kexec@lists.infradead.org" <kexec@lists.infradead.org>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "bcm-kernel-feedback-list@broadcom.com"
+ <bcm-kernel-feedback-list@broadcom.com>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+ "linux-alpha@vger.kernel.org" <linux-alpha@vger.kernel.org>,
+ "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-leds@vger.kernel.org" <linux-leds@vger.kernel.org>,
+ "linux-mips@vger.kernel.org" <linux-mips@vger.kernel.org>,
+ "linux-parisc@vger.kernel.org" <linux-parisc@vger.kernel.org>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
+ "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ "linux-um@lists.infradead.org" <linux-um@lists.infradead.org>,
+ "linux-xtensa@linux-xtensa.org" <linux-xtensa@linux-xtensa.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "openipmi-developer@lists.sourceforge.net"
+ <openipmi-developer@lists.sourceforge.net>,
+ "rcu@vger.kernel.org" <rcu@vger.kernel.org>,
+ "sparclinux@vger.kernel.org" <sparclinux@vger.kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "x86@kernel.org" <x86@kernel.org>,
+ "kernel-dev@igalia.com" <kernel-dev@igalia.com>,
+ "kernel@gpiccoli.net" <kernel@gpiccoli.net>,
+ "halves@canonical.com" <halves@canonical.com>,
+ "fabiomirmar@gmail.com" <fabiomirmar@gmail.com>,
+ "alejandro.j.jimenez@oracle.com" <alejandro.j.jimenez@oracle.com>,
+ "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+ "arnd@arndb.de" <arnd@arndb.de>, "bp@alien8.de" <bp@alien8.de>,
+ "corbet@lwn.net" <corbet@lwn.net>,
+ "d.hatayama@jp.fujitsu.com" <d.hatayama@jp.fujitsu.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "dyoung@redhat.com" <dyoung@redhat.com>,
+ "feng.tang@intel.com" <feng.tang@intel.com>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "hidehiro.kawai.ez@hitachi.com" <hidehiro.kawai.ez@hitachi.com>,
+ "jgross@suse.com" <jgross@suse.com>,
+ "john.ogness@linutronix.de" <john.ogness@linutronix.de>,
+ "keescook@chromium.org" <keescook@chromium.org>,
+ "luto@kernel.org" <luto@kernel.org>,
+ "mhiramat@kernel.org" <mhiramat@kernel.org>,
+ "mingo@redhat.com" <mingo@redhat.com>,
+ "paulmck@kernel.org" <paulmck@kernel.org>,
+ "peterz@infradead.org" <peterz@infradead.org>,
+ "rostedt@goodmis.org" <rostedt@goodmis.org>,
+ "senozhatsky@chromium.org" <senozhatsky@chromium.org>,
+ "stern@rowland.harvard.edu" <stern@rowland.harvard.edu>,
+ "tglx@linutronix.de" <tglx@linutronix.de>,
+ "vgoyal@redhat.com" <vgoyal@redhat.com>, vkuznets <vkuznets@redhat.com>,
+ "will@kernel.org" <will@kernel.org>
+References: <20220427224924.592546-1-gpiccoli@igalia.com>
+ <20220427224924.592546-25-gpiccoli@igalia.com>
+ <PH0PR21MB30252C55EB4F97F3D78021BDD7FC9@PH0PR21MB3025.namprd21.prod.outlook.com>
+From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+In-Reply-To: <PH0PR21MB30252C55EB4F97F3D78021BDD7FC9@PH0PR21MB3025.namprd21.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-flight 169880 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169880/
+On 29/04/2022 14:53, Michael Kelley (LINUX) wrote:
+> From: Guilherme G. Piccoli <gpiccoli@igalia.com> Sent: Wednesday, April 27, 2022 3:49 PM
+>> [...]
+>> +	panic_notifiers_level=
+>> +			[KNL] Set the panic notifiers execution order.
+>> +			Format: <unsigned int>
+>> +			We currently have 4 lists of panic notifiers; based
+>> +			on the functionality and risk (for panic success) the
+>> +			callbacks are added in a given list. The lists are:
+>> +			- hypervisor/FW notification list (low risk);
+>> +			- informational list (low/medium risk);
+>> +			- pre_reboot list (higher risk);
+>> +			- post_reboot list (only run late in panic and after
+>> +			kdump, not configurable for now).
+>> +			This parameter defines the ordering of the first 3
+>> +			lists with regards to kdump; the levels determine
+>> +			which set of notifiers execute before kdump. The
+>> +			accepted levels are:
+>> +			0: kdump is the first thing to run, NO list is
+>> +			executed before kdump.
+>> +			1: only the hypervisor list is executed before kdump.
+>> +			2 (default level): the hypervisor list and (*if*
+>> +			there's any kmsg_dumper defined) the informational
+>> +			list are executed before kdump.
+>> +			3: both the hypervisor and the informational lists
+>> +			(always) execute before kdump.
+> 
+> I'm not clear on why level 2 exists.  What is the scenario where
+> execution of the info list before kdump should be conditional on the
+> existence of a kmsg_dumper?   Maybe the scenario is described
+> somewhere in the patch set and I just missed it.
+> 
 
-Regressions :-(
+Hi Michael, thanks for your review/consideration. So, this idea started
+kind of some time ago. It all started with a need of exposing more
+information on kernel log *before* kdump and *before* pstore -
+specifically, we're talking about panic_print. But this cause some
+reactions, Baoquan was very concerned with that [0]. Soon after, I've
+proposed a panic notifiers filter (orthogonal) approach, to which Petr
+suggested instead doing a major refactor [1] - it finally is alive in
+the form of this series.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+The theory behind the level 2 is to allow a scenario of kdump with the
+minimum amount of notifiers - what is the point in printing more
+information if the user doesn't care, since it's going to kdump? Now, if
+there is a kmsg dumper, it means that there is likely some interest in
+collecting information, and that might as well be required before the
+potential kdump (which is my case, hence the proposal on [0]).
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+Instead of forcing one of the two behaviors (level 1 or level 3), we
+have a middle-term/compromise: if there's interest in collecting such
+data (in the form of a kmsg dumper), we then execute the informational
+notifiers before kdump. If not, why to increase (even slightly) the risk
+for kdump?
 
-version targeted for testing:
- ovmf                 d372ab585a2cdc5348af5f701c56c631235fe698
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+I'm OK in removing the level 2 if people prefer, but I don't feel it's a
+burden, quite opposite - seems a good way to accommodate the somewhat
+antagonistic ideas (jump to kdump ASAP vs collecting more info in the
+panicked kernel log).
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   60 days
-Failing since        168258  2022-03-01 01:55:31 Z   59 days  701 attempts
-Testing same since   169816  2022-04-28 14:41:38 Z    1 days   22 attempts
+[0] https://lore.kernel.org/lkml/20220126052246.GC2086@MiWiFi-R3L-srv/
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+[1] https://lore.kernel.org/lkml/YfPxvzSzDLjO5ldp@alley/
 
 
-Not pushing.
+>[...]
+>> +	 * Based on the level configured (smaller than 4), we clear the
+>> +	 * proper bits in "panic_notifiers_bits". Notice that this bitfield
+>> +	 * is initialized with all notifiers set.
+>> +	 */
+>> +	switch (panic_notifiers_level) {
+>> +	case 3:
+>> +		clear_bit(PN_PRE_REBOOT_BIT, &panic_notifiers_bits);
+>> +		break;
+>> +	case 2:
+>> +		clear_bit(PN_PRE_REBOOT_BIT, &panic_notifiers_bits);
+>> +
+>> +		if (!kmsg_has_dumpers())
+>> +			clear_bit(PN_INFO_BIT, &panic_notifiers_bits);
+>> +		break;
+>> +	case 1:
+>> +		clear_bit(PN_PRE_REBOOT_BIT, &panic_notifiers_bits);
+>> +		clear_bit(PN_INFO_BIT, &panic_notifiers_bits);
+>> +		break;
+>> +	case 0:
+>> +		clear_bit(PN_PRE_REBOOT_BIT, &panic_notifiers_bits);
+>> +		clear_bit(PN_INFO_BIT, &panic_notifiers_bits);
+>> +		clear_bit(PN_HYPERVISOR_BIT, &panic_notifiers_bits);
+>> +		break;
+>> +	}
+> 
+> I think the above switch statement could be done as follows:
+> 
+> if (panic_notifiers_level <= 3)
+> 	clear_bit(PN_PRE_REBOOT_BIT, &panic_notifiers_bits);
+> if (panic_notifiers_level <= 2)
+> 	if (!kmsg_has_dumpers())
+> 		clear_bit(PN_INFO_BIT, &panic_notifiers_bits);
+> if (panic_notifiers_level <=1)
+> 	clear_bit(PN_INFO_BIT, &panic_notifiers_bits);
+> if (panic_notifiers_level == 0)
+> 	clear_bit(PN_HYPERVISOR_BIT, &panic_notifiers_bits);
+> 
+> That's about half the lines of code.  It's somewhat a matter of style,
+> so treat this as just a suggestion to consider.  I just end up looking
+> for a better solution when I see the same line of code repeated
+> 3 or 4 times!
+> 
 
-(No revision log; it would be 5844 lines long.)
+It's a good idea - I liked your code. The switch seems more
+natural/explicit for me, even duplicating some lines, but in case more
+people prefer your way, I can definitely change the code - thanks for
+the suggestion.
+Cheers,
+
+
+Guilherme
 
