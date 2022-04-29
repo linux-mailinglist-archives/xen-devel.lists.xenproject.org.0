@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C0F851490C
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 14:19:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.317262.536514 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 998DB514978
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 14:35:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.317268.536524 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkPao-00021D-L4; Fri, 29 Apr 2022 12:19:26 +0000
+	id 1nkPq0-0004Ku-Ui; Fri, 29 Apr 2022 12:35:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 317262.536514; Fri, 29 Apr 2022 12:19:26 +0000
+Received: by outflank-mailman (output) from mailman id 317268.536524; Fri, 29 Apr 2022 12:35:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkPao-0001yF-HE; Fri, 29 Apr 2022 12:19:26 +0000
-Received: by outflank-mailman (input) for mailman id 317262;
- Fri, 29 Apr 2022 12:19:25 +0000
+	id 1nkPq0-0004I4-RJ; Fri, 29 Apr 2022 12:35:08 +0000
+Received: by outflank-mailman (input) for mailman id 317268;
+ Fri, 29 Apr 2022 12:35:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iTs9=VH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nkPan-0001y7-0j
- for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 12:19:25 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9ae26ff5-c7b6-11ec-a405-831a346695d4;
- Fri, 29 Apr 2022 14:19:24 +0200 (CEST)
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04lp2054.outbound.protection.outlook.com [104.47.14.54]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-3-QtCnAODaNzyERZOU-Cw8sQ-1; Fri, 29 Apr 2022 14:19:15 +0200
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
- by VE1PR04MB7408.eurprd04.prod.outlook.com (2603:10a6:800:1b3::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.14; Fri, 29 Apr
- 2022 12:19:14 +0000
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::5cb0:5195:4203:7c2f]) by DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::5cb0:5195:4203:7c2f%8]) with mapi id 15.20.5206.013; Fri, 29 Apr 2022
- 12:19:14 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xZxz=VH=citrix.com=prvs=111f028e5=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1nkPpz-0004Hy-1L
+ for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 12:35:07 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cac05772-c7b8-11ec-a405-831a346695d4;
+ Fri, 29 Apr 2022 14:35:05 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,157 +36,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ae26ff5-c7b6-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1651234763;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+tGRg8avUf/UV8NaH7tx6SmJT/3Uy0XEx4P6G94YfJI=;
-	b=gWNLZVHI48KYwZwxHHvJRC/8f3HeX/3qrCaw9aNFEPyt7HB7PRJx6H7+1F7E/VmSygkibT
-	8wevD9zxgj+skHoWEIDg9xyUHUuLStvmbSDpxq6xKvUEvqfk5ugVewN+b+MSZkVOHQWMbo
-	ISgOo+aFQzoErPCb9u9D8CVClfqNvdU=
-X-MC-Unique: QtCnAODaNzyERZOU-Cw8sQ-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gHfZ+Kpsbx7sVs0Hs0GWsOPMe18TNmbQf7jI5n42hMHVrzc18KQvoluQ0kbrmixjwx5glC43o78LTzx5OyN9vw9TSZg1rzoH4+u0F9i+fPnz66LAYwhDlFAOTNmZ6mudHLVHwZOGFBiMFJzWgXU1+xmI1/+meZ4lXO5rZ9gwqe9CxTOhDPxCm4yGPUhSKi+6Ygm7KmZWaNdIEMjTUVPJ/0RlBo4m4/417eY+0hDCVDmknmEAmHdp2zv4VexhuyPzlivY4lgtkQD7d/5UBZOHXl/NkrMbRbJafgKDFd1Iw7U24brUGGqYScN5LQ+1YFT9wHmDdWg97maT+SrxIJFJ4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CMJl31QMUmWvI3ZVEWFpCoZWm8sYiGkGGdC+ZWzrNog=;
- b=YJpveBf6UHkLhgJbwSa/DV/ve4B1AFlAx82ghcldKKTi+cXJjaIiGlllDinPCRG5bP46CcQdoG2gyRFODjc8BqYZZ7bF6oe69JovNH43BXaArHZESyEQuh3droL1iW3qM7WG3dvGYKCRmv4CcYWQdWEKZEseOVMHugKCAUObQZ4a7lllrBbcPLqaXLt1A4t6X9dcGaNppN72zbNythnV6ImIS0sklJ/2D/FvN64GaUqAWRtuIuJp8I+8ReE+x/+GPiDShjb6X/1WuzZHkh3rikpaj8i2+GxPY++7DjMUJkQXhRpu2vunZ4e3Jxh80pcLNrBjvRBih6z3XBtmz7Jhow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <d42cb692-a749-5d6b-4a37-fb03898c499f@suse.com>
-Date: Fri, 29 Apr 2022 14:19:13 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [PATCH] x86/cet: Support cet=<bool> on the command line
-Content-Language: en-US
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20220428085209.15327-1-andrew.cooper3@citrix.com>
- <d23258dc-3837-ebe4-26b1-75b0f32477e9@suse.com>
- <26f1d8e3-597d-31a7-00bc-f17efeeb3e55@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <26f1d8e3-597d-31a7-00bc-f17efeeb3e55@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AS8PR04CA0050.eurprd04.prod.outlook.com
- (2603:10a6:20b:312::25) To DU2PR04MB8616.eurprd04.prod.outlook.com
- (2603:10a6:10:2db::16)
+X-Inumbo-ID: cac05772-c7b8-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1651235704;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=j7VY6uzq3Gf+9w6ZGEsdVEoRlQbbe7j2kbmZoluxX4Y=;
+  b=cMN0qAbSrHXjkNwGh43Yv1gbStIK5zDDMEpxckkFRqEt24a1Dc5VchaP
+   QPcgBKtxdNMjXaAp+OUYDjwFNQexF1eNb2P8ok7pMMRHadtPtDGZtSiMD
+   vlctAWXv2rIVQiszoX71yC8BLdALWTpRN1+Ae2XPab18smbukoxqsK0pQ
+   s=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 70108997
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:9D4fsqPaaxEhVbPvrR3Yl8FynXyQoLVcMsEvi/4bfWQNrUp2hTIPz
+ mRLUT/UOveMZjSneIx+a9nip0kHvZ+BnYMyTwto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
+ ynLQoCYdKjYdleF+lH1dOKJQUBUjclkfJKlYAL/En03FFYMpBsJ00o5wbZl2N8w2rBVPivW0
+ T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
+ 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Z1
+ d4UiceaETcTObDentgzDyRgGi9QBPgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
+ 7pCcmlLN03dwbLtqF64YrAEasALJc/3PIQZqzd4wCvQF/oOSpHfWaTao9Rf2V/cg+gRRa+GN
+ 5tINlKDajzcTAdVIG40Iq4hv9mMliP4eAVb8nWs8P9fD2/7k1UqjemF3MDuUsOObdVYmACfv
+ G2u13T0BFQWOcKSzRKB82mwnanfkCXjQoUQGbaksPlwjzW7y2weDV4GWF2TpKShzEW5Xrpix
+ 1c8o3R06/JorQryE4e7D0bQTGO4UgA0RtEJL7YQsDG3zbfG5Tq3WlU8RzBvUYlz3CMpfgAC2
+ liMltLvIDVgtryJVH6QnoupQSOO1Ts9djFbO3JdJecRy5y6+dxo0EqTJjp2OPTt5uAZDw0c1
+ NxjQMIWo7wIxfAG2Kyglbwsq2L9/8OZJuLZC+i+Y45E0u+bTNP9D2BLwQKChRqlEGp+ZgPc1
+ EXoY+DEsIgz4WilzURhutklErCz/OqiOzbBm1NpFJRJ323zpif6JdoJuWokfRoB3iM4ldnBO
+ R67VeR5vsI7AZdXRfUvP9LZ5zoCkMAM6ugJptiLN4ETM/CdhSeM/T10ZF744oweuBNErE3LA
+ r/CKZzEJS9DUcxPlWPmL89Age5D7n1vngv7GMGkpylLJJLDPRZ5v59eawDQBg34hYvZyDjoH
+ yF3apXalk0DALGvCsQVmKZKRW03wbEALcieg6RqmiSreGKKxElJ5yft/I4c
+IronPort-HdrOrdr: A9a23:zdOLRa2d47yVU/omrdJlFgqjBLIkLtp133Aq2lEZdPRUGvb3qy
+ mLpoV+6faUskd1ZJhOo7290cW7LU80sKQFhrX5Xo3SPjUO2lHJEGgK1+KLqFfd8m/Fh41gPM
+ 9bAs5D4bbLbGSS4/yU3DWF
+X-IronPort-AV: E=Sophos;i="5.91,185,1647316800"; 
+   d="scan'208";a="70108997"
+Date: Fri, 29 Apr 2022 13:34:40 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Elliott Mitchell <ehem+xen@m5p.com>
+CC: <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 2/2] tools/xl: Allow specifying JSON for domain
+ configuration file format
+Message-ID: <YmvbYHbmfXYx47r2@perard.uk.xensource.com>
+References: <cover.1650422517.git.ehem+xen@m5p.com>
+ <09213ac26738ee51401b454534c6b437766481b7.1650422518.git.ehem+xen@m5p.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fe09d26a-1b95-425b-4f67-08da29da794e
-X-MS-TrafficTypeDiagnostic: VE1PR04MB7408:EE_
-X-Microsoft-Antispam-PRVS:
-	<VE1PR04MB7408FD60CCC737EAE6A7181BB3FC9@VE1PR04MB7408.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	6UG0xg7BBX/49Apv7BLsJJMpa+zogfRwfMqsECIGIfVkPUx0hdTPnSl1lb0XxYrzjxv9zKoh9fbHi8VcKS1Q0hVaNyZZRrCOKuAx1/ELyX+Wv9vozr96WPDIfWP2fTJkilLmqibe4fsofb5W6Cc/FoTIYQlbENmZQ5+woCCMScO/geFqhJcuJ8FIrJcs2hCP1hKMDBumTS0AOOvO0ZRq7l3p0anOg/fJLoDq/sccCFmThrxNdA5LR9JitsaS+FR2u3yLDH7HAvWsnbmDfbL/x90gql2Wz1kE82LUgdSpQaFimlFtdCbw4q2Mbbkvmi4HKoDsgT5RXja1Q8Wwxu4NMJVHTjXbsHB3FOGuigmodoeFNDlCqY+VkKzKRgGdJB/hsVu42kT9C2ILBBrR6XhBIQKCRZaB8mzNh3QgRkhSq03Zj9A1dAKmd/tbWuJR3P3MKgc4zjmzMs0qyI06IpOS7rK7q+18iPcXxWmGmd2zkDzFTpIIQxn60ptP9Qm+3ruUfDRunDgzWYn63TIZ7Z3EhlpFtjEb3EsS56DSmh4G4y4lsTfYUtpJBWBKp5n8EyNVoBBPTx5wU0y/AX2ZUgwnEGGN9slylwzYdCHYJhtPLBT05MpGb9eeQvs6sZIt2X9eD5h9jGgw1jx0/Q4azexWzuAF3Vd3ERR7fFi2En3BcxqnENij0kTfgFgHe3LSJ+zQOBH8ARhBxB3pnWXNqnsT4Akm3Qj49WZJ7sUAQHrjJOZj0cSVQ+x2r3gf4NKPXgKY
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(86362001)(26005)(316002)(31686004)(6512007)(2616005)(6486002)(5660300002)(508600001)(4326008)(54906003)(6916009)(38100700002)(8936002)(6506007)(36756003)(53546011)(186003)(31696002)(83380400001)(66476007)(8676002)(66946007)(66556008)(2906002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?GWCYG1LRknJ5dmWIwdU9mA4jxW9bSJkzqVLdKNiy5dfhe62IWX9HkX1KxZo7?=
- =?us-ascii?Q?bbDUNlJ/4AkpZVfSzMkclVcOzkVCrStv0kPH+IcavfHEsGHD6GanBnICZvzf?=
- =?us-ascii?Q?EPUFxvJiQgMj5LToo/YjA8bdqNKM4xZusdFKc33pmfE2FUGCVDo4HnL1vtaM?=
- =?us-ascii?Q?dFKk0Acv4sTnZTJ773r8grm66dZ3cnfwELwrY/BRIt0kLP88pOC4VXpJ16S0?=
- =?us-ascii?Q?J8Mln0EL/g4JI3fzD68BCS6Wwc+aZWkGl/r8ykkzEWGYZhsnObtNFI3x53Fx?=
- =?us-ascii?Q?0Ebl0TYyi3FkU3CqI/l89HVRNulXzELBYBFO/TXxcz+1smuO9jGqzLIIIYRn?=
- =?us-ascii?Q?yFhCAtsE6DOEqFYo5u9JHz05pKVStjoI2B3Yvr7KzRt5Alxvq8QfINOqHDDx?=
- =?us-ascii?Q?8fLWrZShAX30CRQK+UQyh7TkYl0chaoQIQ46W0VfPUB3tqMst/mqdMGnUabD?=
- =?us-ascii?Q?LQUKluILFdtj4/02ef04LjqDNPYk2u5S5Tjf1Cm29ID6pDqcvDPt4w+9dATN?=
- =?us-ascii?Q?WJixKyiyqJxVfMSWRlJ+J6TcBE3QMrycA4oiGZa5D9ERl1HsbENDBXW2mLy6?=
- =?us-ascii?Q?jw14JUwlFC6W3PSKo0OLjZJDiqM57XIVshl8ZQeGnW5tC+6Yin8vOb3qWzlg?=
- =?us-ascii?Q?x9Pv4a8hy/LIZWzpA72MhyIhpwba5btl1qOoJo60xDrc+gQjCT9z8im8qXKu?=
- =?us-ascii?Q?+aOWvYnzLaD1sdUt6kWA9+ggSxTeUyr7i00kUjZSCxjxsrKmGAg+b6WehAp1?=
- =?us-ascii?Q?4jzlNB1p+qIKj0ujO43FYlS8RpObIJJ8OQD6KUfFfCyO+Fqn7OsRGI93HZtA?=
- =?us-ascii?Q?EpBvmyX08T2oxYURMKLf0wc+MDSQ+7w23NQtMQUzHsGWkGL2ROXPnYkYOVAN?=
- =?us-ascii?Q?5EH86k9sfFfdu/YYblf+cPmrPT8O/n5gaYtncsj2mLqP3HcuxjxU7pZ6xMt6?=
- =?us-ascii?Q?VTIVK3LibPVTwLN0a3BWgYR9VPIPda1C4rcmurwctLKyDiFDrquoPX5ub0eM?=
- =?us-ascii?Q?ExPHH08nD1rrKBFTpu7/XU0BNqseHKgU+PVdxP1Ap50dG/EnsrtAj+gbtvIB?=
- =?us-ascii?Q?RhrJTTOG8s/RpaI0cwD0+icba5ySsZL706faPay+NxnpzK4rf19LpTKl7RzF?=
- =?us-ascii?Q?0PdjFPezTUXnV2+1s7yjVYUKew82+iCRNCeS6iEKDPZbSO+FK+4M9GOs15io?=
- =?us-ascii?Q?SlSOQtYEXAdubNE4oqK9+198jsEBgyj2cFyPdYMUFmC3K+Tn+LUzV7OV8L4l?=
- =?us-ascii?Q?hPWdLiOOCS9CUlGnno88aUwuJAdWKl4qr4iVbFi1gmPTTYA2Ty7y+6KOtXyM?=
- =?us-ascii?Q?ykzyjVs79OFYjbEKTCl7DAHyklZlK83Tm7EwBwPXbLcBLVEc5j2JIIR5GHaF?=
- =?us-ascii?Q?xaCjnrI9RxIvpDPfCTJ6bo90oFQasIPPOVbRFeC1wEMmj79Zj6iRemcZJ2wX?=
- =?us-ascii?Q?T9K6hqDB2xp25jLcGMcQIXBB9JclUwVbUxYosG7dlkimbT54YqcFvrfVbkwu?=
- =?us-ascii?Q?XFYML5Cu6oUJkCd4ReqSI3SVtEz7oH9eycuH7eV6K4JoQeLvo7UKsm8v7ufQ?=
- =?us-ascii?Q?qhXmW8ARv/bSFJpUg9qF5jkh2pKhY4u7NupR9vH3VSUsvb9JdE8n3ZlcjrZY?=
- =?us-ascii?Q?po7/1fbJoEvpF0aUWNnYJT8VT3abHmWC3vBoOoC8aSl5jDHprVQVKaI35owj?=
- =?us-ascii?Q?huINtuTnUl9HPyT4h6FyFcCo5RJXqaEHKNaYVW+eD/0+X6LSrCcMFrg8+0W9?=
- =?us-ascii?Q?bE34ebEhAQ=3D=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe09d26a-1b95-425b-4f67-08da29da794e
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2022 12:19:14.1912
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LJwm34636XlCYgoDkXArQ9RgtG9FtBBNH9N+xLDEhGt3RV5qH1WGsLjf6QyGF607B3gjalkuITBWyIWGrbSquQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7408
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <09213ac26738ee51401b454534c6b437766481b7.1650422518.git.ehem+xen@m5p.com>
 
-On 29.04.2022 12:13, Andrew Cooper wrote:
-> On 28/04/2022 11:13, Jan Beulich wrote:
->>> --- a/xen/arch/x86/setup.c
->>> +++ b/xen/arch/x86/setup.c
->>> @@ -117,7 +117,20 @@ static int __init cf_check parse_cet(const char *s=
-)
->>>          if ( !ss )
->>>              ss =3D strchr(s, '\0');
->>> =20
->>> -        if ( (val =3D parse_boolean("shstk", s, ss)) >=3D 0 )
->>> +        if ( (val =3D parse_bool(s, ss)) >=3D 0 )
->>> +        {
->>> +#ifdef CONFIG_XEN_SHSTK
->>> +            opt_xen_shstk =3D val;
->>> +#else
->>> +            no_config_param("XEN_SHSTK", "cet", s, ss);
->>> +#endif
->>> +#ifdef CONFIG_XEN_IBT
->>> +            opt_xen_ibt =3D val;
->>> +#else
->>> +            no_config_param("XEN_IBT", "cet", s, ss);
->>> +#endif
->> There shouldn't be two invocations of no_config_param() here; imo if
->> either CONFIG_* is defined, use of the option shouldn't produce any
->> warning at all.
->=20
-> It's this, or:
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( (val =3D parse_bool(s, ss=
-)) >=3D 0 )
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 {
-> #if !defined(CONFIG_XEN_SHSTK) && !defined(CONFIG_XEN_IBT)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 no_con=
-fig_param("XEN_{SHSTK,IBT}", "cet", s, ss);
-> #endif
-> #ifdef CONFIG_XEN_SHSTK
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 opt_xe=
-n_shstk =3D val;
-> #endif
-> #ifdef CONFIG_XEN_IBT
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 opt_xe=
-n_ibt =3D val;
-> #endif
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->=20
-> I'm not terribly fussed.
+On Tue, Apr 19, 2022 at 06:23:41PM -0700, Elliott Mitchell wrote:
+> JSON is currently used when saving domains to mass storage.  Being able
+> to use JSON as the normal input to `xl create` has potential to be
+> valuable.  Add the functionality.
 
-I'd prefer the alternative variant; hopefully Roger doesn't strongly
-prefer the other one. And then
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+"potential", right, but it isn't hasn't been really tested. When
+implemented, I think the intend of the json format was for libxl to
+communicate with itself while migrating a guest (or save/restore). It
+would be nice to know if it actually can work.
 
-Jan
+> Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>
+> ---
+> diff --git a/tools/xl/xl.h b/tools/xl/xl.h
+> index c5c4bedbdd..a0c03f96df 100644
+> --- a/tools/xl/xl.h
+> +++ b/tools/xl/xl.h
+> @@ -49,6 +49,11 @@ struct domain_create {
+>      int migrate_fd; /* -1 means none */
+>      int send_back_fd; /* -1 means none */
+>      char **migration_domname_r; /* from malloc */
+> +    enum {
+> +        FORMAT_DEFAULT,
+> +        FORMAT_JSON,
+> +        FORMAT_LEGACY,
+> +    } format;
 
+I think the name "format" here is too generic, we are in the struct
+"domain_create" and this new format field isn't intended to specify the
+format of the domain. I think "config_file_format" would be better, as
+it is only used for the format of the config_file.
+
+Also I don't think having "_DEFAULT" would be useful, we need to know
+what the format is intended to be before starting to parse the file, and
+I don't think changing the default is going to work. So for the enum, we
+could have "_LEGACY = 0".
+
+The prefix "FORMAT_" feels a bit generic, maybe "CONFIG_FORMAT_" would
+be better, or something else.
+
+>  };
+>  
+>  int create_domain(struct domain_create *dom_info);
+> diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
+> index f546beaceb..04d579a596 100644
+> --- a/tools/xl/xl_cmdtable.c
+> +++ b/tools/xl/xl_cmdtable.c
+> @@ -31,6 +31,8 @@ const struct cmd_spec cmd_table[] = {
+>        "-h                      Print this help.\n"
+>        "-p                      Leave the domain paused after it is created.\n"
+>        "-f FILE, --defconfig=FILE\n                     Use the given configuration file.\n"
+> +      "-j, --json              Interpret configuration file as JSON format\n"
+> +      "-J                      Use traditional configuration file format (current default)\n"
+
+I don't think this new "-J" option would be useful, just the "-j" should be
+enough.
+
+>        "-n, --dryrun            Dry run - prints the resulting configuration\n"
+>        "                         (deprecated in favour of global -N option).\n"
+>        "-q, --quiet             Quiet.\n"
+> diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
+> index 2ec4140258..41bd919d1d 100644
+> --- a/tools/xl/xl_vmcontrol.c
+> +++ b/tools/xl/xl_vmcontrol.c
+> @@ -789,7 +789,7 @@ int create_domain(struct domain_create *dom_info)
+>                  extra_config);
+>          }
+>          config_source=config_file;
+> -        config_in_json = false;
+> +        config_in_json = dom_info.format == FORMAT_JSON ? true : false;
+
+This doesn't build, "dom_info" is a pointer.
+
+Also, "? true : false;" is weird in C.
+
+
+>      } else {
+>          if (!config_data) {
+>              fprintf(stderr, "Config file not specified and"
+> @@ -1173,6 +1173,7 @@ int main_create(int argc, char **argv)
+>          {"defconfig", 1, 0, 'f'},
+>          {"dryrun", 0, 0, 'n'},
+>          {"ignore-global-affinity-masks", 0, 0, 'i'},
+> +        {"json", 0, 0, 'j'},
+>          {"quiet", 0, 0, 'q'},
+>          {"vncviewer", 0, 0, 'V'},
+>          {"vncviewer-autopass", 0, 0, 'A'},
+> @@ -1181,18 +1182,23 @@ int main_create(int argc, char **argv)
+>  
+>      dom_info.extra_config = NULL;
+>  
+> +    dom_info.format = FORMAT_DEFAULT;
+> +
+>      if (argv[1] && argv[1][0] != '-' && !strchr(argv[1], '=')) {
+>          filename = argv[1];
+>          argc--; argv++;
+>      }
+>  
+> -    SWITCH_FOREACH_OPT(opt, "Ffnq:AVcdeip", opts, "create", 0) {
+> +    SWITCH_FOREACH_OPT(opt, "FJfjnq:AVcdeip", opts, "create", 0) {
+>      case 'A':
+>          vnc = vncautopass = 1;
+>          break;
+>      case 'F':
+>          daemonize = 0;
+>          break;
+> +    case 'J':
+> +        dom_info.format = FORMAT_LEGACY;
+> +        break;
+>      case 'V':
+>          vnc = 1;
+>          break;
+> @@ -1212,6 +1218,9 @@ int main_create(int argc, char **argv)
+>      case 'i':
+>          ignore_masks = 1;
+>          break;
+> +    case 'j':
+> +        dom_info.format = FORMAT_JSON;
+
+This setting is ignored, as "dom_info" is reset later.
+
+> +        break;
+>      case 'n':
+>          dryrun_only = 1;
+>          break;
+
+Thanks,
+
+-- 
+Anthony PERARD
 
