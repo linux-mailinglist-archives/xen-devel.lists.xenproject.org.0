@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19AFF515633
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 22:57:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.317708.537217 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72B8051563C
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 22:59:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.317729.537242 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkXgN-0008Ts-Ho; Fri, 29 Apr 2022 20:57:43 +0000
+	id 1nkXiJ-00035u-RU; Fri, 29 Apr 2022 20:59:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 317708.537217; Fri, 29 Apr 2022 20:57:43 +0000
+Received: by outflank-mailman (output) from mailman id 317729.537242; Fri, 29 Apr 2022 20:59:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkXgN-0008FH-AB; Fri, 29 Apr 2022 20:57:43 +0000
-Received: by outflank-mailman (input) for mailman id 317708;
- Fri, 29 Apr 2022 20:57:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FlFr=VH=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nkXgK-0007P4-Sv
- for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 20:57:40 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 00b7edbe-c7ff-11ec-a405-831a346695d4;
- Fri, 29 Apr 2022 22:57:39 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DCFE2621EF;
- Fri, 29 Apr 2022 20:57:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66E02C385A4;
- Fri, 29 Apr 2022 20:57:37 +0000 (UTC)
+	id 1nkXiJ-000334-ND; Fri, 29 Apr 2022 20:59:43 +0000
+Received: by outflank-mailman (input) for mailman id 317729;
+ Fri, 29 Apr 2022 20:59:41 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nkXiH-00032u-UC; Fri, 29 Apr 2022 20:59:41 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nkXiH-0000g7-SW; Fri, 29 Apr 2022 20:59:41 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nkXiH-0000od-I0; Fri, 29 Apr 2022 20:59:41 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nkXiH-0005Zd-HY; Fri, 29 Apr 2022 20:59:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,105 +42,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00b7edbe-c7ff-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1651265857;
-	bh=SyJ8d/AZr5XFzu3v/AGdBw4+YWs6wkcRBAD8+aGiIR8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cFwoZ1jZoKmm0fIaLPrBdtVpQwmMmWQuOMdhpElQ86ZHxbI24kfpM2w8tfWDMsEDU
-	 6RX0FiuvfZ2cG+CbZpXwL1gZ+9GVFj+OnZnDMSrfvJ2iKEyimlXmlwrCsdZXtFZhzk
-	 nL4ixopKip//3f+DvViNCdLEIumFn8pGVZskMeMyjhmTXmuZj626QBtug9B5xn+Zax
-	 GBkq/K6uaiAGXY1A/Inc9TwQB5GL1c5DxgGTRi7ZuoTgbQk05I5BXA8twZagiuQhmL
-	 6++0+3rQyWkkTNSobTdT+jkokKUYCFrOiifVEyZQFZUUUMYQjY2IpusJUhe6Fw2BHT
-	 wxR5rj8UQul7g==
-From: Stefano Stabellini <sstabellini@kernel.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=p/NwGLJzHj0bp84AeC5XNA5/U0/nzB0Ze1qDeBjJklA=; b=AdWBylM9WYu968tHbNHgqbUnl3
+	uT34h9hZBxbCoj3HvsxN9GlwWcTTvHOykMiwJAW3/LDojgEpUNGqv4SNNn8G2cYk1XDB647FBeBrq
+	ynk++Tikzek7OUIBIxXWKbFJbPQ9kpoFOTxiq3sJ6aPnDukKVbTVCmqvAi9HkdDsyk/Q=;
 To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	jgross@suse.com,
-	Bertrand.Marquis@arm.com,
-	julien@xen.org,
-	Volodymyr_Babchuk@epam.com,
-	Stefano Stabellini <stefano.stabellini@xilinx.com>
-Subject: [PATCH v5 7/7] docs: document dom0less + PV drivers
-Date: Fri, 29 Apr 2022 13:57:32 -0700
-Message-Id: <20220429205732.2030094-7-sstabellini@kernel.org>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <alpine.DEB.2.22.394.2204291354050.1947187@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2204291354050.1947187@ubuntu-linux-20-04-desktop>
-MIME-Version: 1.0
+Message-ID: <osstest-169882-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 169882: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=d372ab585a2cdc5348af5f701c56c631235fe698
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 29 Apr 2022 20:59:41 +0000
 
-From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+flight 169882 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169882/
 
-Document how to use the feature and how the implementation works.
+Regressions :-(
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
----
- docs/features/dom0less.pandoc | 43 ++++++++++++++++++++++++++++++++---
- 1 file changed, 40 insertions(+), 3 deletions(-)
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
-diff --git a/docs/features/dom0less.pandoc b/docs/features/dom0less.pandoc
-index c9edb529e1..725afa0558 100644
---- a/docs/features/dom0less.pandoc
-+++ b/docs/features/dom0less.pandoc
-@@ -90,6 +90,46 @@ Otherwise, they may be unusable in Xen (for instance if they are compressed).
- 
- See docs/misc/arm/device-tree/booting.txt for more information.
- 
-+PV Drivers
-+----------
-+
-+It is possible to use PV drivers with dom0less guests with some
-+restrictions:
-+
-+- dom0less domUs that want to use PV drivers support should have the
-+  "xen,enhanced" property set under their device tree nodes (see
-+  docs/misc/arm/device-tree/booting.txt)
-+- a dom0 must be present (or another domain with enough privileges to
-+  run the toolstack)
-+- after dom0 is booted, the utility "init-dom0less" must be run
-+- do not run "init-dom0less" while creating other guests with xl
-+
-+After the execution of init-dom0less, it is possible to use "xl" to
-+hotplug PV drivers to dom0less guests. E.g. xl network-attach domU.
-+
-+The implementation works as follows:
-+- Xen allocates the xenstore event channel for each dom0less domU that
-+  has the "xen,enhanced" property, and sets HVM_PARAM_STORE_EVTCHN
-+- Xen does *not* allocate the xenstore page and sets HVM_PARAM_STORE_PFN
-+  to ~0ULL (invalid)
-+- Dom0less domU kernels check that HVM_PARAM_STORE_PFN is set to invalid
-+    - Old kernels will continue without xenstore support (Note: some old
-+      buggy kernels might crash because they don't check the validity of
-+      HVM_PARAM_STORE_PFN before using it! Disable "xen,enhanced" in
-+      those cases)
-+    - New kernels will wait for a notification on the xenstore event
-+      channel (HVM_PARAM_STORE_EVTCHN) before continuing with the
-+      initialization
-+- Once dom0 is booted, init-dom0less is executed:
-+    - it allocates the xenstore shared page and sets HVM_PARAM_STORE_PFN
-+    - it calls xs_introduce_domain
-+- Xenstored notices the new domain, initializes interfaces as usual, and
-+  sends an event channel notification to the domain using the xenstore
-+  event channel (HVM_PARAM_STORE_EVTCHN)
-+- The Linux domU kernel receives the event channel notification, checks
-+  HVM_PARAM_STORE_PFN again and continue with the initialization
-+
-+
- Limitations
- -----------
- 
-@@ -107,9 +147,6 @@ limitations:
-   information, the GIC version exposed to the domains started by Xen at
-   boot is the same as the native GIC version.
- 
--- No PV drivers. There is no support for PV devices at the moment. All
--  devices need to be statically assigned to guests.
--
- - Pinning vCPUs of domains started by Xen at boot can be
-   done from the control domain, using `xl vcpu-pin` as usual. It is not
-   currently possible to configure vCPU pinning without a control domain.
--- 
-2.25.1
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
+version targeted for testing:
+ ovmf                 d372ab585a2cdc5348af5f701c56c631235fe698
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   60 days
+Failing since        168258  2022-03-01 01:55:31 Z   59 days  702 attempts
+Testing same since   169816  2022-04-28 14:41:38 Z    1 days   23 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jake Garver <jake@nvidia.com>
+  Jake Garver via groups.io <jake=nvidia.com@groups.io>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 5844 lines long.)
 
