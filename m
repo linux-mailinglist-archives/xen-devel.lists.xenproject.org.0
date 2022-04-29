@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F6F7514662
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 12:13:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.317167.536375 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 678B05146CC
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 12:31:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.317175.536387 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkNcc-0000Oh-2x; Fri, 29 Apr 2022 10:13:10 +0000
+	id 1nkNtw-0002p9-MC; Fri, 29 Apr 2022 10:31:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 317167.536375; Fri, 29 Apr 2022 10:13:10 +0000
+Received: by outflank-mailman (output) from mailman id 317175.536387; Fri, 29 Apr 2022 10:31:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkNcb-0000Lz-W7; Fri, 29 Apr 2022 10:13:09 +0000
-Received: by outflank-mailman (input) for mailman id 317167;
- Fri, 29 Apr 2022 10:13:08 +0000
+	id 1nkNtw-0002mS-HO; Fri, 29 Apr 2022 10:31:04 +0000
+Received: by outflank-mailman (input) for mailman id 317175;
+ Fri, 29 Apr 2022 10:31:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=H4Mb=VH=citrix.com=prvs=111705440=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nkNca-0000Lr-0I
- for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 10:13:08 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f5b102ae-c7a4-11ec-a405-831a346695d4;
- Fri, 29 Apr 2022 12:13:06 +0200 (CEST)
-Received: from mail-mw2nam10lp2103.outbound.protection.outlook.com (HELO
- NAM10-MW2-obe.outbound.protection.outlook.com) ([104.47.55.103])
+ <SRS0=IHQo=VH=citrix.com=prvs=11116ec15=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1nkNtv-0002mI-3L
+ for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 10:31:03 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 758b9ed7-c7a7-11ec-a405-831a346695d4;
+ Fri, 29 Apr 2022 12:31:00 +0200 (CEST)
+Received: from mail-dm6nam12lp2173.outbound.protection.outlook.com (HELO
+ NAM12-DM6-obe.outbound.protection.outlook.com) ([104.47.59.173])
  by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 29 Apr 2022 06:13:03 -0400
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
- by BL0PR03MB4289.namprd03.prod.outlook.com (2603:10b6:208:6c::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.12; Fri, 29 Apr
- 2022 10:13:00 +0000
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::ac51:a410:14d4:de37]) by BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::ac51:a410:14d4:de37%6]) with mapi id 15.20.5186.026; Fri, 29 Apr 2022
- 10:13:00 +0000
+ 29 Apr 2022 06:30:57 -0400
+Received: from DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
+ by BY5PR03MB5202.namprd03.prod.outlook.com (2603:10b6:a03:220::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5186.14; Fri, 29 Apr
+ 2022 10:30:54 +0000
+Received: from DS7PR03MB5608.namprd03.prod.outlook.com
+ ([fe80::5df3:95ce:4dfd:134e]) by DS7PR03MB5608.namprd03.prod.outlook.com
+ ([fe80::5df3:95ce:4dfd:134e%4]) with mapi id 15.20.5186.026; Fri, 29 Apr 2022
+ 10:30:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,174 +49,261 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5b102ae-c7a4-11ec-a405-831a346695d4
+X-Inumbo-ID: 758b9ed7-c7a7-11ec-a405-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1651227186;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=DGh/0byfFRU8xIAivoRv58VSMlQk9CbyKKjdEbA8ltc=;
-  b=B96CEZ8IUCyKcbG4zff+rdsjVJ0pt51/pLe/05kV9IMGOXAiSeOaseaK
-   nclaMbkRQvtZQnfbRaNaKkIvNS1Cni28WLku4k3TUS4kvfBEteh+Wk1jf
-   yf3c94TUMWWapdWRu6qaiiOVWjMSKbSutmsKpoaXuXKhwNJKdx+r3OWwz
-   Q=;
-X-IronPort-RemoteIP: 104.47.55.103
-X-IronPort-MID: 70240393
+  d=citrix.com; s=securemail; t=1651228260;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=PgjE1s4K8ADDAB0sRXajJd/m9wMCDG44D/TvRHrN3lY=;
+  b=JXWSNQc66yjiNeGjOGtADfMlhrRqnYbmzmlfT4rwLa8iKjjTI5VV9b3e
+   Ebcv2ukbz/0rxbIITS+wIVizuGfoE4D8um2kndDiLtA4/48UHRCh2TpKa
+   cNScFA2ciCHpuBGaqAFM6ANS+jEyvnyp+KinOeS8s+euVR5O06Vv95ibW
+   4=;
+X-IronPort-RemoteIP: 104.47.59.173
+X-IronPort-MID: 70219840
 X-IronPort-Reputation: None
 X-IronPort-Listener: OutboundMail
 X-IronPort-SenderGroup: RELAY_O365
 X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:orY6U6nWKtKGDgtcPaeijSbo5gzyJ0RdPkR7XQ2eYbSJt1+Wr1Gzt
- xIfWWiGO/fZMTT0L490a42/ox5Q6JbXz4dgHldl+Xw0QiMWpZLJC+rCIxarNUt+DCFioGGLT
- Sk6QoOdRCzhZiaE/n9BCpC48T8kk/vgqoPUUIYoAAgoLeNfYHpn2EsLd9IR2NYy24DlWVLV4
- 7senuWEULOb828sWo4rw/rrRCNH5JwebxtB4zTSzdgS1LPvvyF94KA3fMldHFOhKmVgJcaoR
- v6r8V2M1jixEyHBqD+Suu2TnkUiGtY+NOUV45Zcc/DKbhNq/kTe3kunXRa1hIg+ZzihxrhMJ
- NtxWZOYURlyL5zspOchYwBYIzhEYYBFybqXGC3q2SCT5xWun3rE5dxLVRlzGLJCv+F9DCdJ6
- OASLy0LYlabneWqzbmnS+5qwMM+MM3sO4BZsXZlpd3bJa9+HdafHOOXuJkBhGxYasNmRJ4yY
- +IwbzZ1YQuGSBpIIloNU7o1nfuyh2m5eDpdwL6QjfVvuTSLl10quFTrGNmLauKEZYYPokWnh
- jKZ+ETlKTocZOXKnFJp9Vrp3IcjhxjTWogfCbm5/f5Cm0CIyyoYDxh+fUS/iem0jAi5Qd03A
- 1wZ/G8ioLY/8GSvT8LhRFuorXicpBkeVtFMVeog52mwJrH85g+YAi0BUWRHYdl/7MsuH2Vyj
- RmOgs/jAiFpvPuNU3WB+7yIrDS0fy8IMWsFYixCRgwAizX+nLwOYtv0Zo4LOMaIYhfdQ1kcH
- xjiQPACuogu
-IronPort-HdrOrdr: A9a23:lWGCEqHlWSrLp8XfpLqFuJLXdLJyesId70hD6qkvc3Fom52j/f
- xGws5x6fatskdrZJkh8erwW5Vp2RvnhNFICPoqTM2ftW7dySWVxeBZnMffKljbdxEWmdQtsp
- uIH5IeNDS0NykDsS+Y2nj4Lz9D+qjgzEnAv463oBlQpENRGthdBmxCe2Sm+zhNNW177O0CZf
- +hD6R8xwaISDAyVICWF3MFV+/Mq5ngj5T9eyMLABYh9U2nkS6owKSSKWna4j4uFxd0hZsy+2
- nMlAL0oo+5teug9xPa32jPq7xLhdrazMdZDsDksLlWFtyssHfsWG1SYczEgNkHmpDo1L/sqq
- iUn/4UBbU215oWRBDsnfKi4Xi67N9k0Q6e9bbRuwqenSW+fkN7NyMJv/MmTvOSgXBQw+1Uwe
- ZF2XmUuIFQCg6FlCPh58LQXxUvjUasp2E++NRjxEC3fLFuIYO5l7ZvtH+90a1waR7S+cQiCq
- 1jHcvc7PFZfReTaG3YpHBmxJipUm4oFhmLT0AesojNugIm0UxR3g8d3ogSj30A/JUyR91N4P
- nFKL1hkPVLQtUNZaxwCe8dSY+8C3DLQxjLLGWOSG6XXp0vKjbIsdr68b817OaldNgBy4Yzgo
- 3IVBdCuWs7ayvVeLuzNNEhyGG+fIx8Z0Wb9ihz3ekIhlSnfsubDcSqciFcr+Kw5/MCH8bcR/
- G/fJpLHv6LFxqbJbp0
+IronPort-Data: A9a23:ErFHU67Y4xAfzphC8KrZngxRtA3GchMFZxGqfqrLsTDasY5as4F+v
+ mQfCD/Xb63fNjT3KI9/bYzn8k9XuJDWnYM3TAE4qy8yHi5G8cbLO4+Ufxz6V8+wwmwvb67FA
+ +E2MISowBUcFyeEzvuVGuG96yE6j8lkf5KkYAL+EnkZqTRMFWFw0HqPp8Zj2tQy2YTjUlvX0
+ T/Pi5a31GGNimYc3l08s8pvmDs31BglkGpF1rCWTakjUG72zxH5PrpGTU2CByKQrr1vNvy7X
+ 47+IISRpQs1yfuP5uSNyd4XemVSKlLb0JPnZnB+A8BOiTAazsA+PzpS2FPxpi67hh3Q9+2dx
+ umhurSMVAgJIfLRvtgwDT9JLgVbPoF/9YPYdC3XXcy7lyUqclPK6tA3VgQaGNNd/ex6R2ZT6
+ fYfNTYBKAiZgP67y666Te8qgdk/KM7sP8UUvXQIITPxVK56B8ycBfibo4YHh1/chegXdRraT
+ 9AeZjd1KgzJfjVEO0sNCYJ4l+Ct7pX6W2IA8gvE9fZvi4TV5Alv6IPzHPrxQPrQQpVXukPJ+
+ j3v1l2sV3n2M/Tak1Jp6EmEgfTUgS7gRMcbGLi58NZ6jVuL3GsRBRYKE1yhrpGRmkO4Ht5SN
+ UEQ0i4vtrQpslymSMHnWB+1q2LCuQQTM/JSHPc98xql0bfP7kCSAW1sZhxrZcEitcQ2bSc3z
+ VLPlNTsbRRlt6eUUjSa7auOqi2pOjk9KnULbisJCwAC5rHeTJobixvOSpNvFfCzh9isQzXom
+ WnV9245mqkZitMN2+Oj51fbjjmwp5/PCAko+gHQWWHj5QR8DGK4W7GVBZHgxa4oBO6kopOp5
+ xDoR+D2ADgyMKyw
+IronPort-HdrOrdr: A9a23:k3Tw8KDK9LQt4cjlHej+sseALOsnbusQ8zAXPh9KJyC9I/b2qy
+ nxppgmPEfP+UwssQIb6K290ci7MD7hHPtOgLX5Uo3SJTUPNgGTXflfBOfZsl/d8k7Fh6JgPM
+ VbAtND4bTLZDAQ56ubkWqF+r0bsb26GdWT9IHjJgBWPGZXgs9bnmJEIzfeNnczaBhNBJI/Gp
+ bZzNFAvSCcdXMeadn+LmUZXsDYzue7267OUFojPVoK+QOOhTSn5PrRCB6DxCoTVDtJ3PML7X
+ XFqQrk/a+u2svLhCM0llWjrqi+quGRieerN/b8yPT97Q+czzpAUb4RG4FqegpF5N1Hpmxa1+
+ Uk6C1QQ/ibo0mhAV1d5yGdnTUJFF0VmiffIZjyuwq7nSWxfkNFN+NRwY1eaRfX8EwmoZV117
+ 9KxXuQs95NAQrHhzmV3amAa/hGrDvCnZMZq59ks5Wfa/ptVJZB6YgEuE9FGpYJGyz3rIghDe
+ l1FcnZoPJba0mTYXzVtnRmhIXEZAV5Ij6WBkwZ/sCF2Tlfm350i0Me2cwEh38FsJYwUYNN6e
+ jIOrlh0OkmdL5dUYttQOMaBcenAG3ERhzBdGqUPFT8DakCf3bAsYT+7rk57PyjPJYI0Jwxkp
+ LcV04wjx97R2v+TcmVmJFb+BHER2uwGTzr18FF/pB8/qbxQbL6WBfzPGzGU/HQ1sn3LverK8
+ pbYqgmcsMLBVGearp04w==
 X-IronPort-AV: E=Sophos;i="5.91,298,1647316800"; 
-   d="scan'208";a="70240393"
+   d="scan'208";a="70219840"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TpbhQn83+6ZaWx2h7X5cLGGRcxpSFXjbyNfGrFGLPA3uSwsMwk4i7inlJOYJduzxbpFg23fDdeEPshwmwI8kz/+iHNAo0fuzCRlgt8TqLBx5DlCuIzsqjCMrcv6b4/BGCXcgdxG8FAf5BhEyv5cKho6p3xWgGEE4tSMML860wGHzR05n4j044xcP5Qz5ZvtFCJ1VB2HR+e9+PbI534WIT4OMigGNZSQ0NkYakk7hxo+5dwCu4R9Amuv1M6pfCAELEWZdtdtaxbugcDWRfm9ueOOSgFYg+6Qs47fGnsKNqMu6hxUHKmkvz066Vlpyj40NbWzNEq5yDPdF8/48oM+1+g==
+ b=ocQSFPZjQCXIqcDto1YuPQ2IECsabOm3TjqvGPJL+ddCcvnzvpPVAsRJUk0PlwJJTYJTqa9GG9K2Z2k6hAApO2zxzizydcEduCj1QS9LgBpRAXVyY07uyUoJXM/eYKAwJIq2pTl0UFHVG8DGyYj8obPp+Cdq/WzilNSfjUNYHjZCMa6/jjgq2S+naXuHq1MmzoxZ2snoxv7ZtIVj1cqQ81KtwdYdxKIuAkvcCLIugrATkZeOY1Q5ohMh7oB75hUKtRbv42raOCjueHnXYE4JnWApEbGVvEIklqeBmRBmVp+wxR9lMlLXKtzgKA+OAaHMLAh+azcSvfk2LGPZ9EWxcg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DGh/0byfFRU8xIAivoRv58VSMlQk9CbyKKjdEbA8ltc=;
- b=Rej+ccy/s+xkhwNoi2LlHlmzXGy3FIFKLSXcKKV83zk8JcY8OfwYEgd+4FA3S+/eXVtWahtL23bMcIkfOeRbK1sGPOcTLFRApk3lp8d4o8HhsnQ/NLuunEEytIo9kGg0y8Bbl6p298l6SCG50J3Cx6lsszivDgdx2bbTW2N+kjYFm+FuYno6O3BDcjxeHFIHpQfU7nWulAbX6fGbJgbzX2tWe52CGoTtyBAv3TC9cAXeQU3qW5aVnd9d1IgayO7i2ZhYVlrDWcTad16PD+ugeytT8Pzpjbzrpo6FtKMLVrAQe3HQz4wu7lqEe78Gx5QAvMPCFq0X6LXuITMC5hkFdg==
+ bh=59j5mz3u8ZF0PqWfok6mKKzC3zhHwI576gux0R3uzmE=;
+ b=QI1B9wihTjO4HNRmYznzyTshjEyFNEB3m+4df7MxDWfivTXIOZXfZAVxRuNK3sOyYH/jJAT5rRaC8taY8mPyPeI2cHze7fAURa7FoyAB73HikytvXIcBMQPeRHlKR1cTl+kBxHtnzO8cQ0FlME8aBbNH+sitzLdxUkM8udzHzcMG8TAwuAzFuRRvqIKrKxHp3ulRZ415pWOtvfzgrAYiFDkif7dI5WP2xLUejCpv6rP4sdPVO3Xdh/6JXE/C9wBVXcm+LnV8aUPARWrFgiYj4vIkkK5YSARwZQzryT9vLXfxGDGbK+4Jq3nUn4wcRER1r8HrNNXCaQ1MjfrSreWZCg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DGh/0byfFRU8xIAivoRv58VSMlQk9CbyKKjdEbA8ltc=;
- b=gznAyn9zSzP7kPTZl82UGK7xRleXJ6AyHhi4txg+kSFS/BV6NPI3nqwXTQzQ17j75UAI0j2SHel0iiWq46yjQ0GzE1yePKH76Ij7pSCptqCtNBGvdAb8d1cdW0/yiJIbCt65GyNdOXlmcZYTGN9kQFgzsrW8mxHbBb7n+8UHSn0=
-From: Andrew Cooper <Andrew.Cooper3@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Xen-devel
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] x86/cet: Support cet=<bool> on the command line
-Thread-Topic: [PATCH] x86/cet: Support cet=<bool> on the command line
-Thread-Index: AQHYWt1N9h0ywB7VLke90Ph7I2J/jK0FG36AgAGSMAA=
-Date: Fri, 29 Apr 2022 10:13:00 +0000
-Message-ID: <26f1d8e3-597d-31a7-00bc-f17efeeb3e55@citrix.com>
-References: <20220428085209.15327-1-andrew.cooper3@citrix.com>
- <d23258dc-3837-ebe4-26b1-75b0f32477e9@suse.com>
-In-Reply-To: <d23258dc-3837-ebe4-26b1-75b0f32477e9@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-authentication-results: dkim=none (message not signed)
+ bh=59j5mz3u8ZF0PqWfok6mKKzC3zhHwI576gux0R3uzmE=;
+ b=UEK+zURLFAFMUC8vnbrjhi8Fx+hYLCYcOf4SowZ9dhAOnsS1QFS2hXuNBJlIY2HHQXElfXSqtcWDkGdRIZxjNMfq6VU0kmo5fFCreRABuRNvtStbm/svLeFfvMg25Z5PsMLX8+gqmxfMf9l5+XpDq9l+Jl/NxmNNHtcO3a9FM4A=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 94c3b591-e933-41f5-67ed-08da29c8d70f
-x-ms-traffictypediagnostic: BL0PR03MB4289:EE_
-x-ms-exchange-atpmessageproperties: SA|SL
-x-microsoft-antispam-prvs:
- <BL0PR03MB428902A25259850F9F9CBE03BAFC9@BL0PR03MB4289.namprd03.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- o0tcrBpNWDG1Bxps95s9CyWc+RNvtgqRYLYJpE/Y39gWcMVhvdJmkSL83J47IgnYp90atNAvi5ilAfN1eqge+I0Uv5fG23llR7AY5fYFV5GO2kq9v2azVTFPDE6sVA+5nszY7F9tS9w9ctFnRBjzgrrIG2DhelUB/cVGK+8EkHo3ZmrSKYD6PPOSxuMG+5HuEWMT1AXP8aaapA9NxqDHHlAKaCAvQ1EuvaoGInrpy4kgQ8N/tRxVhfh9hYGPPW9xbaOgWFLu/z6wVn4tuE3vT2YECGHhfiVBDRdTWRBYwrZgKfWMIug+eVHFgZNblkLIqR2RQfmQ5/tZOIzckwC3s1mqj/54QFHSaZEfsQokHdmYGHV6pf9s9IYQBexc71O+tSrfZMqi5CwwIpFVblWanREuKQkBKFF9CGRNVMXceQ6vfAXOnlCQYME+Z7pXx4yTTK4tfQcJbXEtr+gkV+9CS8mTPgrTBaoUeqP30oguPJUUkVfdyQVu6mCeBx97MrNxJ7pv7q+ZOdA7coSy11LATW5p1pnugCuO7tCYmIOThxpmMQYrULAxZOVjDqDRP6Vj3+Lg6j5C8e/JA7aHQEra4S4Upitq764kW6DRglMMVyDNP6/d6aJP7AvOO+R6gCToVfxptnCKnu8v7EpUBJJsdkFpoGzAOz/ROqQnAUsHOZebDbeJ/UzzBvrF6NSNYIdGzSgECsC80quROyEthvbv+u/EpHkECflVnNfI2Qq1WfPmg7XP32VVk1/8R8qxCmKoOz8q7R0vL2bkkCMue/+x3A==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(36756003)(71200400001)(31686004)(508600001)(2906002)(8676002)(6506007)(66556008)(66476007)(64756008)(66946007)(66446008)(8936002)(76116006)(54906003)(6916009)(4326008)(38070700005)(2616005)(82960400001)(86362001)(38100700002)(316002)(186003)(31696002)(53546011)(83380400001)(5660300002)(6486002)(26005)(6512007)(122000001)(91956017)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?MGFzc0hBNVdOZXhaZjFDSUtpaUtsbk13Y1o2QXdPdVp4K2xsbll0Myt2eURr?=
- =?utf-8?B?Skxpek5RbXp0VVdKVHR0RTQxME1EbVdQMzllak83MnB3WVRzZW41NnE0aGl3?=
- =?utf-8?B?b1p6M1BSa2dhejVUaHlMNWZMQ3krYXRrREM1bWxneHZJSXRZaFZRbFFQaW1q?=
- =?utf-8?B?VzZGZ3EvMnA5TDNIVGdPb0cwS255dXhnMlZiT3h6VzNrWEU3UlB0YXVuODNL?=
- =?utf-8?B?RldDbE9UdFJpN2RKSTlUYUR1SEtkdzNXSmEzL3c4Q1dXS01pbU51a2ZYZmtp?=
- =?utf-8?B?K1hXbmZBT0hFY0Njejdrc25abkJrcnBDeHh5RjBUcFJ0MWN0M21NVGEyYzdj?=
- =?utf-8?B?K1V4U1hnL2N4UTVxRERxUVJ2ZUtyazRwNjlqUzk1RW5lMUNFWXd0V05ZQWpN?=
- =?utf-8?B?Sis0Yzh3WUNEajNDWDRWM0F4UENkMXdRZFptZENRdTdZTzRFNmh4QklVTVFo?=
- =?utf-8?B?V1VKWjJvQklLVGVndEN0Zlo2RWhtV0xNQ2JHR2pvTnp1OVNiZnFheUcyWjZi?=
- =?utf-8?B?MHR1NU5CSThINFRHMm05YkkrcGEveXZWZXZZTHBmbSsyb2JPTFhQOFovaUh0?=
- =?utf-8?B?NmFjZmNIckdrRkdrK0pEcjJlejBNV0tVTERsbWdnelFDdEJRNE9ReVJXUUVr?=
- =?utf-8?B?YVNOWlVISG5rQ1VyZElBNUltOWdueVNIVVdieUdpUkwzU1JXTkxNdk9Fdmpl?=
- =?utf-8?B?aTc5UXNpamFLRjkwQWxlMm4rRG5TQkZ1ZTduWTlEUXAwQXZRYS9oaWUrUGdq?=
- =?utf-8?B?ZGxxMTROcWlyd2dPU1RWVHdjUW5vSmJJNW1qb0xQd0tPOUFjdTR6ZS9wK28w?=
- =?utf-8?B?L0xadnhiRGMwek80SldHelN3a1dZQTJjdHVKS1A3SzU4aHZsdmU5R2tsWXE4?=
- =?utf-8?B?ZnhrY2EvT05YdE1YWmYzSHBDVThxaFc2S0Qycy96VFBCRCtPSXp3enN2V1gr?=
- =?utf-8?B?L00xeUVad2dFTlBUTVhoZ3M2bW1xMlg3T1o3c21HekNMVSsxanArbmRNaEI2?=
- =?utf-8?B?MDUrREtQdkZ4M0xDaW8xZFVlNUVzcHpFMjhrSGZDM3RBWW54elRJbVVBNWpl?=
- =?utf-8?B?T01pTDNraFcvakoyWnpJZ3hVQUdTVG9iUnBUMjB5NFZtODQxeFh4WmJGREhS?=
- =?utf-8?B?TzlSWjRwVVVCQ1pMaTFHV2xZNm9HaVcrRGhmV1l1b2tyUzZxRGtMcVFGanJv?=
- =?utf-8?B?dzV1eGlWQ2ZFRW0wQ3JHNG5oMnh3SmRyVDkyeWNTYlhidU9kN0hiOHJVRThr?=
- =?utf-8?B?ZTIraVhSYmp6R0RwVEJ0TjVSYVFmdDVBaldzSitHSnRLMHNNSXZQbGc3TENt?=
- =?utf-8?B?Q2Z6RHFnUnpMTkdSQldnSmdiMXJlcU9vcjNvbFZHMWJpZVJoRUFYclNIKytW?=
- =?utf-8?B?bXdpQURPU3YyTGt5VHkvbHphN0g0SkY3dkZ2T3dmeGFMK05ScTBkNjlkNnFU?=
- =?utf-8?B?V290Wnk5ZXRldEJLdFF5S3NDUEVnaWdhYXVnWmdweHJGU1F6TVBWN2Y5bURo?=
- =?utf-8?B?YlFTblZxTjZoMGdzTlIzek8wYk0wWEtwYjF1YmdPUk1OWWg1SkhzMWJ6dFpq?=
- =?utf-8?B?a1R4QUlJZjBBczZKMExZZVZibmdKVTR4OGVrN2NCRGtXT3o3eDFSb2hXVnlN?=
- =?utf-8?B?Y0dTV3o4UDB1RTJEcVhWelNtVTBtZnFCUi8yYUFCcmx6ZXhzNHJ0MFR6cVlu?=
- =?utf-8?B?M1ZIN0VER0ZWQWFQSEpQNjJGWkI4ZERnUHppNzVQN3ZhSCtKd3NXY0hBM0Uy?=
- =?utf-8?B?Z3FoWGhVMnlUeXhUVEgzWlhVWmQvcGV3d2k2Z1ZsVlAwOGpUL0ZmRFYrODZW?=
- =?utf-8?B?Zkp4eUNsZXhsbWhzYVUyTyt3QzVDa2hXcW45eDgxQXJBSmNpWjJUb2VyRGxa?=
- =?utf-8?B?YWhLbSt4ajE3K2tpbUthRHFjT1MrbTdiOFVhek5pVVNhME9OZzVCbFdGMzBB?=
- =?utf-8?B?aGRsNUdWcEtRU2twMkVzQlZhWGlZQytFS2N1S0Zoc0txM1B6ekh0NmVXc2xo?=
- =?utf-8?B?RGdrczdham5pMlhaZldYUEY4YzhDRktQWk90Vlpuc2l5eU5Kc0dlTmZCUG9n?=
- =?utf-8?B?VGJkNkJLa3l6TnNZRXlVZDd4NVhCakphYWd3Y3Z0Wkg4dXhTWHVURFl6RXg1?=
- =?utf-8?B?TS9vSXNVZ3VoVTNoUXJlZm1aZXN3UDdHVlNQT0pnLzBhbzhMTmJ1YWQ0aUY0?=
- =?utf-8?B?Z3pBMnNmZS8reFBvdjlTZ2k5L25mNXgxTW1QZXVUMlRrdVlGcTZreGJZODE3?=
- =?utf-8?B?ajlvdlNzOHJGLzY2ckg3TExST2F1aXQ2bituRVNpNytqem93RnFNQlpHWFlK?=
- =?utf-8?B?Yk5xNnNCTTlMTHZFUWRHVDV6WkEwdVlKV21hbFZ1SXU3a21IaXRHZz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <F4AAAA6C00B7CB488CA38F0E4CE541C9@namprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+Date: Fri, 29 Apr 2022 12:30:50 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: osstest service owner <osstest-admin@xenproject.org>
+Cc: xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Subject: Re: [xen-unstable test] 169819: regressions - FAIL
+Message-ID: <Ymu+WnVjTANHk+na@Air-de-Roger>
+References: <osstest-169819-mainreport@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <osstest-169819-mainreport@xen.org>
+X-ClientProxiedBy: LO4P123CA0347.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18d::10) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 12a2ae01-0281-412c-6ea4-08da29cb572c
+X-MS-TrafficTypeDiagnostic: BY5PR03MB5202:EE_
+X-MS-Exchange-AtpMessageProperties: SA|SL
+X-Microsoft-Antispam-PRVS:
+	<BY5PR03MB520200750D0344EA1E547E8F8FFC9@BY5PR03MB5202.namprd03.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	iwEm3ndKTlTk3XnoTf1BABuidrGLg9rwMyeJR6FnRWg26vYZr/DcqKCC8b8BHyXccvcLyoJAmUD/AoePsUw9sK5CKz8glovazd23xlH3LUic967BivjKcE16ZJ5D3IcfUOWIuUWKgkfFoXgomiSCy8O9e20UHSP6dnKcCxfOcKHZVTLYI6RGDJWxaODYT0hVm0AduU8bqOpioPwKHnKYR6nZBgRxbfGbUhaajFd58i6PSKADPaOC30YPSsurgHaR83Atp9UiWH0hPY1Uj3piZGo8gE/RQLo/6SfeqZAOklaJ4PIqgPUgqK1ulVBT2FFu1Z9P3XPlsQA9TlvgGhmnOUjM/qIx1Szcs5Msx6kj0eWaZVbwEts6ffiO2AeqAG+MKUWAlSd5doT6sMQlDWAU58ZHUcCJhVYs7WkT7ZJECkQsxLSmGVJBI4W4Okk4RAPHVsh9PxhHLpPcZHaqsqgGPMuwRfWSXKtmmq5jVu5wKPQtUzqLN1902NfB2/cNDmybTdjkjktzXxJrK0xBz6KuDBBqKtaPctQJxFpbanikVV99RgickrSVHK4jB5u03+zbnYwamFC8cLRkP+LLDPwgZkdKaFW4mXEOYvUJmSA7+NWbtNuhPUIn3lyRf+izJ8Q7drEuXp7gzWTQEb4ikdQr469yi2ShwJ1i6zIUhvBb+6aNNVuguxd0SuK8jgdtG5SGNT2jO0CQQ0xfLssMgLLtdm/z7j+YL/rLUSzmoiy7RfM1OY8/NqOWp/cyXpLwJx37zah0KXCh2yHOM4OgiQLpxA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(9686003)(54906003)(6512007)(6916009)(86362001)(966005)(316002)(83380400001)(508600001)(6486002)(6506007)(6666004)(26005)(33716001)(4326008)(66946007)(85182001)(66556008)(66476007)(38100700002)(8676002)(2906002)(82960400001)(5660300002)(186003)(8936002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?akMxRE9UaWw5cHAzU0s3WFYwWkxGcmFxZ0dYWHozaUVyZEx5RERURnIwZ0VZ?=
+ =?utf-8?B?VVIxWkVLOXRWNFQzVmdBMUo2SzJBaklLcmtrYTZnZlM1d0tRS3ZIb0syaWJh?=
+ =?utf-8?B?OUlDbVZPcytwQi9JbVFaQ2VMd0gxV2NocDN4dUJyRW9OV1VZSmN2emtjaGNK?=
+ =?utf-8?B?d1lGY3F0NU1aK0lnVEl6eHdxUTd3S1doRS91azlaSmhGbTlQc2p0dkdmQ1R2?=
+ =?utf-8?B?UVpSdXV4aUl0VzhmdEFNZWUyTVNEK2FyTi9TWklkWjhpUVV1Wi9IZjZJQ3By?=
+ =?utf-8?B?cVp5WHlsRllLTWRuaVdYUXV2dmJjOGVnWkhabmhqQWkrb1VCSFNpS2dFdktS?=
+ =?utf-8?B?cHhoVE5Fa0I2blJVRGlCQW5pSkxvaEtDRURIME1PaDJnU1hmTG00SnRoVE8y?=
+ =?utf-8?B?Mm5pZXF2KzFFZGc5MjA5NGxFYUhFTVdsL29idDlsME9UWWpENTJYY2NpcVlT?=
+ =?utf-8?B?UkZRa256dHlEeGUwd09qdTU2RW9GS3ZkZWpiVi92c0xvVmhVR3hIcGg2V05S?=
+ =?utf-8?B?T0FaY0VtZndRejh5K1ZuR0FFU0lVTjdTSXp6TEZuby9Semd5YnVNbzltbU15?=
+ =?utf-8?B?KzNjbE1SSU1uOWsvazk2bFJqR1hUNDFHOHU0RGgrTlhnNjBINXUyU1ErMzZo?=
+ =?utf-8?B?UlVvWjZUM2dkT29kUTAzWmlkd2ErN2VPdUplSXhWUklnRzhPSGZIMXVnT2V0?=
+ =?utf-8?B?UEtkRkdHRk9LMmU3Smp3elVQQy83bXVSZjhmbHRkV2pHUDNsR0FXUHRnOUg2?=
+ =?utf-8?B?V0ppWTA5MGJCMGdHRGRvWGd0RmxMMkQ0SXBaVXNIZi9kMXRteVN1TmsrcEpz?=
+ =?utf-8?B?dDRtR3dvWVM5WTNEU0xKRlMyS0c2UGFuNVYvOHVwR1JxVUhrZkEvaGpoRVVX?=
+ =?utf-8?B?OElpVVU5ZWE4SFB3WVlESUJ6THZuMlFrNnNnSVA5a1VhSjRUVXZYTUJKcEtD?=
+ =?utf-8?B?ZEMwbG1IOFJtb1VZTEVuYlo3aFhEeVR4cit6NTZMT0FEUzJRNWlpUHVjU3RI?=
+ =?utf-8?B?dHhoMEZvTnVOK3ZvS25xTWtkbVlxMFYvTEh3dEZVV0ZhemtmTWl0anFRM0Zz?=
+ =?utf-8?B?RUxPZVJSdko0bTIwMzFVOC9jSXFhakVjRmNCMDdSSlZnelJUbkx3R1I5V1c4?=
+ =?utf-8?B?V3h5dEF6OFMzNGJSOXBRVjcvVUh0UnVWK0hTemVUQzMvZXM1VzZoU3NBVXkr?=
+ =?utf-8?B?YnVMZUE0cTcrRmUwTkd0cWdEU3IrQnNNWTVPREMvZFBhQUZIRTR5aU1nOWho?=
+ =?utf-8?B?d0ZpeXJqdGFvMkYwQzVJU3ltUm1hVjUxRDBsckJlNmh5aEI2eHptYnVYZk5G?=
+ =?utf-8?B?N2dUT1N5TEhmWHhDR0RncHB3Tm05SXZJb1NucU0wZ1R1bk5weGUwOEh3eU5o?=
+ =?utf-8?B?Wi9pWGE2Rkx5MG1mOThEY1NHWmxNdTNQSkFXTWluZWhPL1VobVphVDRTQmcr?=
+ =?utf-8?B?c3d6OG1Bd0VDc3cwcHEyVUtzVDNycFA5eVlDeHNIMzF0dlZncFZTM0VSTXNG?=
+ =?utf-8?B?VkM0RkJOSHVXZ0hENnlWaG1hdjFIVnUvcndxaDk3RnpPMUZ5ODd3L3RhUEdK?=
+ =?utf-8?B?UUpPYnExMWxlWDhyUFpnOVRLSG5qN3BFZUJEK2JsclZPUmhlc1RGZHJrVzV3?=
+ =?utf-8?B?RVlBWVZQNDF3VjRkWTRGd0xIMG42S3N5Yk03QVgzd1g3ZG9pWERwOEQ1MVYv?=
+ =?utf-8?B?WlpwOCtET3lXcTIzeTI4bVV2dlBvUzJWMGlqb0ZsVWJqa1FoT01rM0NmSXFh?=
+ =?utf-8?B?emE5dVBvR3FLeFBZNkdhbTNJVUxFZ0g3R3h3aFBZSlRDUzAvM3I0dmZOQWc2?=
+ =?utf-8?B?UWw4ODBaU2FtQUlOMHpYMGJweE9hQWQ0VW9HcmM0ZXZXdVBzQ0o1OE95RFd3?=
+ =?utf-8?B?d24yODVVUFFyVTBWVi9IbzhjdEpRYlUrTmFiL2M3SjdDODJieUJmT3NBRUY5?=
+ =?utf-8?B?L1V1WXJ6L0NiTlg2Y01kMWNjaDl2bEVjVEJQMDVBQ04vc0F0WS9iOHBYL21o?=
+ =?utf-8?B?cjFtVXQwTitOd000MDEzT0cvRG1kaTVPS3N2b0NYeTk0R2toZUlucDBvemRV?=
+ =?utf-8?B?RE5TU3dlL2pIUkJNYlFIbmhSOEdvZU5SQjVneVNlMkJxdmVyNngyOXViNmJF?=
+ =?utf-8?B?dWhraFZ2bUxZem43YzAyVXhNRkFuSlZIeFJqSk5Lek9GQTJ1d0JIaHBWZVFj?=
+ =?utf-8?B?dWFMRGVYd1J4S2pzbjdaY1VQbTRBZWRhempDVFZOaVk2c0VnZm82VXA1ZTNw?=
+ =?utf-8?B?THFyWmlhWGxKWWN2Z2xBeStROGIrdDhVditKUHNQd2lGWEZxTWFlLzM3OStC?=
+ =?utf-8?B?V0ozNnlNaHVTU3A0RWtkRjJWem9GU2Z5TmRCaUZpS3E0SUJhNE1iNENuazhw?=
+ =?utf-8?Q?7OdV0RkCouqTzwGc=3D?=
 X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 12a2ae01-0281-412c-6ea4-08da29cb572c
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 94c3b591-e933-41f5-67ed-08da29c8d70f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Apr 2022 10:13:00.4343
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2022 10:30:54.5224
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: DmG3hwSpA0HXH/IH0ZUmCmq5R/NkQwcN0CbO7DnI6FfxIa8HUQfrUtECJ7crT9jk0ooEtdT1rqJiNvVbB8+A/nzar+em2rqCFyHNigN+EAs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR03MB4289
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nFdo1WXgPaUxUB/ODVQ1fr4w1McLY4XOngfe+YODoLV3phH2HLb0A4Rkby6IBqQ0YIUgxf2Y+U9EtLa/+PLBJw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5202
 
-T24gMjgvMDQvMjAyMiAxMToxMywgSmFuIEJldWxpY2ggd3JvdGU6DQo+PiAtLS0gYS94ZW4vYXJj
-aC94ODYvc2V0dXAuYw0KPj4gKysrIGIveGVuL2FyY2gveDg2L3NldHVwLmMNCj4+IEBAIC0xMTcs
-NyArMTE3LDIwIEBAIHN0YXRpYyBpbnQgX19pbml0IGNmX2NoZWNrIHBhcnNlX2NldChjb25zdCBj
-aGFyICpzKQ0KPj4gICAgICAgICAgaWYgKCAhc3MgKQ0KPj4gICAgICAgICAgICAgIHNzID0gc3Ry
-Y2hyKHMsICdcMCcpOw0KPj4gIA0KPj4gLSAgICAgICAgaWYgKCAodmFsID0gcGFyc2VfYm9vbGVh
-bigic2hzdGsiLCBzLCBzcykpID49IDAgKQ0KPj4gKyAgICAgICAgaWYgKCAodmFsID0gcGFyc2Vf
-Ym9vbChzLCBzcykpID49IDAgKQ0KPj4gKyAgICAgICAgew0KPj4gKyNpZmRlZiBDT05GSUdfWEVO
-X1NIU1RLDQo+PiArICAgICAgICAgICAgb3B0X3hlbl9zaHN0ayA9IHZhbDsNCj4+ICsjZWxzZQ0K
-Pj4gKyAgICAgICAgICAgIG5vX2NvbmZpZ19wYXJhbSgiWEVOX1NIU1RLIiwgImNldCIsIHMsIHNz
-KTsNCj4+ICsjZW5kaWYNCj4+ICsjaWZkZWYgQ09ORklHX1hFTl9JQlQNCj4+ICsgICAgICAgICAg
-ICBvcHRfeGVuX2lidCA9IHZhbDsNCj4+ICsjZWxzZQ0KPj4gKyAgICAgICAgICAgIG5vX2NvbmZp
-Z19wYXJhbSgiWEVOX0lCVCIsICJjZXQiLCBzLCBzcyk7DQo+PiArI2VuZGlmDQo+IFRoZXJlIHNo
-b3VsZG4ndCBiZSB0d28gaW52b2NhdGlvbnMgb2Ygbm9fY29uZmlnX3BhcmFtKCkgaGVyZTsgaW1v
-IGlmDQo+IGVpdGhlciBDT05GSUdfKiBpcyBkZWZpbmVkLCB1c2Ugb2YgdGhlIG9wdGlvbiBzaG91
-bGRuJ3QgcHJvZHVjZSBhbnkNCj4gd2FybmluZyBhdCBhbGwuDQoNCkl0J3MgdGhpcywgb3I6DQoN
-CsKgwqDCoMKgwqDCoMKgIGlmICggKHZhbCA9IHBhcnNlX2Jvb2wocywgc3MpKSA+PSAwICkNCsKg
-wqDCoMKgwqDCoMKgIHsNCiNpZiAhZGVmaW5lZChDT05GSUdfWEVOX1NIU1RLKSAmJiAhZGVmaW5l
-ZChDT05GSUdfWEVOX0lCVCkNCsKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbm9fY29uZmlnX3BhcmFt
-KCJYRU5fe1NIU1RLLElCVH0iLCAiY2V0Iiwgcywgc3MpOw0KI2VuZGlmDQojaWZkZWYgQ09ORklH
-X1hFTl9TSFNUSw0KwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBvcHRfeGVuX3Noc3RrID0gdmFsOw0K
-I2VuZGlmDQojaWZkZWYgQ09ORklHX1hFTl9JQlQNCsKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgb3B0
-X3hlbl9pYnQgPSB2YWw7DQojZW5kaWYNCsKgwqDCoMKgwqDCoMKgIH0NCg0KSSdtIG5vdCB0ZXJy
-aWJseSBmdXNzZWQuDQoNCn5BbmRyZXcNCg==
+On Fri, Apr 29, 2022 at 07:46:47AM +0000, osstest service owner wrote:
+> flight 169819 xen-unstable real [real]
+> flight 169843 xen-unstable real-retest [real]
+> http://logs.test-lab.xenproject.org/osstest/logs/169819/
+> http://logs.test-lab.xenproject.org/osstest/logs/169843/
+> 
+> Regressions :-(
+> 
+> Tests which did not succeed and are blocking,
+> including tests which could not be run:
+>  test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 169775
+>  test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 169775
+>  test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 169775
+>  test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 169775
+>  test-arm64-arm64-xl-thunderx  8 xen-boot                 fail REGR. vs. 169775
+>  test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 169775
+> 
+> Tests which are failing intermittently (not blocking):
+>  test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail pass in 169843-retest
+
+Looked into this one, and it's slightly concerning, guest seems to be
+stuck at installation:
+
+Select and install software  [  481.093857] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[  509.093865] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[  545.093820] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[  573.093809] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[  609.093855] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[  637.093836] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[  673.093957] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[  701.093854] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[  733.093805] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[  761.093817] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[  797.093898] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[  825.093863] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[  861.093865] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[  889.093945] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[  925.093974] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[  953.093925] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[  985.093832] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 1013.093855] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 1049.094031] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 1077.093860] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 1113.093938] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 1141.093803] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 1177.094051] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 1205.093805] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 1237.093955] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 1265.094004] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 1301.093835] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 1329.094039] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 1365.093883] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 1393.094167] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 1429.093857] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 1457.093900] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 1489.094026] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 1517.093997] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 1553.093996] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 1581.094064] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 1617.094076] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 1645.093882] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 1681.093896] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 1709.094022] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 1741.093870] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 1769.093854] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 1805.094017] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 1833.093837] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 1869.094043] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 1897.094101] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 1933.093879] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 1961.093933] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 1997.093952] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 2025.093925] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 2057.093895] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 2085.094172] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 2121.094018] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 2149.094021] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 2185.093931] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 2213.093864] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 2249.093951] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 2277.093899] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 2309.094054] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 2337.093956] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 2373.094111] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 2401.094132] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 2437.094064] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 2465.094003] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 2501.093959] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 2529.094050] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 2561.094027] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 2589.094061] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 2625.093999] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 2653.093956] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 2689.094024] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 2717.094093] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 2753.093913] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 2781.094095] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 2813.093959] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 2841.094117] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 2877.094041] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 2905.094009] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 2941.093893] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 2969.094085] watchdog: BUG: soft lockup - CPU#1 stuck for 23s! [ksoftirqd/1:17]
+[ 3005.094061] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 3033.093917] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+[ 3065.094060] watchdog: BUG: soft lockup - CPU#1 stuck for 22s! [ksoftirqd/1:17]
+
+debina1 is one of the boxes I've put into production recently.
+
+Full logs at:
+
+http://logs.test-lab.xenproject.org/osstest/logs/169819/test-amd64-amd64-xl-qemut-debianhvm-i386-xsm/info.html
+
+Thanks, Roger.
 
