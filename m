@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 443B85156EA
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 23:31:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.317771.537274 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E89FA5156FF
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Apr 2022 23:39:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.317781.537291 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkYCD-00008C-SS; Fri, 29 Apr 2022 21:30:37 +0000
+	id 1nkYKm-0000tc-RY; Fri, 29 Apr 2022 21:39:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 317771.537274; Fri, 29 Apr 2022 21:30:37 +0000
+Received: by outflank-mailman (output) from mailman id 317781.537291; Fri, 29 Apr 2022 21:39:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkYCD-00005k-PC; Fri, 29 Apr 2022 21:30:37 +0000
-Received: by outflank-mailman (input) for mailman id 317771;
- Fri, 29 Apr 2022 21:30:36 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nkYCB-00005Z-Un; Fri, 29 Apr 2022 21:30:35 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nkYCB-0001GM-T0; Fri, 29 Apr 2022 21:30:35 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nkYCB-0001Yy-I8; Fri, 29 Apr 2022 21:30:35 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nkYCB-00065z-Hj; Fri, 29 Apr 2022 21:30:35 +0000
+	id 1nkYKm-0000qv-OM; Fri, 29 Apr 2022 21:39:28 +0000
+Received: by outflank-mailman (input) for mailman id 317781;
+ Fri, 29 Apr 2022 21:39:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BV3H=VH=igalia.com=gpiccoli@srs-se1.protection.inumbo.net>)
+ id 1nkYKi-0000qp-Fc
+ for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 21:39:27 +0000
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d4fd1e6e-c804-11ec-8fc4-03012f2f19d4;
+ Fri, 29 Apr 2022 23:39:22 +0200 (CEST)
+Received: from [179.113.53.197] (helo=[192.168.1.60])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1nkYK9-0001bD-CM; Fri, 29 Apr 2022 23:38:49 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,163 +40,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=hs+PNTUsSV8CWkZX1ro04MHYAQwFHjPKKHLclKiH4NA=; b=HC9GcjqOawxAcEwOABvWuYKaiq
-	nVcO2HJb6ys+wzkbpwG4gLl+y1wZoI6FoIaQck4wkyFcUr6VcZscHSZ3lb/tBVwjJl9QO2oNSlpjr
-	VXvKL/PsRVYgW2MrZ4rZhXDvsukMWrq5tEkbJEQ9wyPOk2UtmCqsZzzYyX+sQG6q49w4=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169883-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: d4fd1e6e-c804-11ec-8fc4-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=zaZR6AionffdB1xNnJGX+2SLzxIRGHxmDTzkdAsF8Lw=; b=f2se15ohqCxFdZ9Cbwp90MFGzT
+	jTOap9gxEPPT4aTyNt5E3ZHiiiT+V3lzyiVXivZvxSS+ElUToKTRjGns0j7W5gu+rUZwjHaY5hGeN
+	otkXyAwqu6HD3avUoXVIxjGs+UlKUlBOe/StJroDKFugT/kZL7npThsCdsHpDWufEk+wh4fOOIDQw
+	l7OyKb0Jm89RaQG7TSk5bTRs2tlRpACA1IvBqK2eiZLAu6g1+MyYc/cQwPm5SUuYLGV0bPXJdES3s
+	lnyV4bPi3phdA0er49wiR1R3K1IMQcdtRi5k8Pou9s9nypOSId//IHiPuzLjmzkdZNlZyJjIhfVzV
+	toxHByUQ==;
+Message-ID: <71d829c4-b280-7d6e-647d-79a1baf9408b@igalia.com>
+Date: Fri, 29 Apr 2022 18:38:19 -0300
 MIME-Version: 1.0
-Subject: [ovmf test] 169883: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=d372ab585a2cdc5348af5f701c56c631235fe698
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 29 Apr 2022 21:30:35 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Subject: Re: [PATCH 02/30] ARM: kexec: Disable IRQs/FIQs also on crash CPUs
+ shutdown path
+Content-Language: en-US
+To: Marc Zyngier <maz@kernel.org>,
+ "Michael Kelley (LINUX)" <mikelley@microsoft.com>
+Cc: akpm@linux-foundation.org, bhe@redhat.com, pmladek@suse.com,
+ kexec@lists.infradead.org, linux-kernel@vger.kernel.org,
+ bcm-kernel-feedback-list@broadcom.com, linuxppc-dev@lists.ozlabs.org,
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-edac@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-parisc@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-um@lists.infradead.org,
+ linux-xtensa@linux-xtensa.org, netdev@vger.kernel.org,
+ openipmi-developer@lists.sourceforge.net, rcu@vger.kernel.org,
+ sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org,
+ kernel-dev@igalia.com, kernel@gpiccoli.net, halves@canonical.com,
+ fabiomirmar@gmail.com, alejandro.j.jimenez@oracle.com,
+ andriy.shevchenko@linux.intel.com, arnd@arndb.de, bp@alien8.de,
+ corbet@lwn.net, d.hatayama@jp.fujitsu.com, dave.hansen@linux.intel.com,
+ dyoung@redhat.com, feng.tang@intel.com, gregkh@linuxfoundation.org,
+ hidehiro.kawai.ez@hitachi.com, jgross@suse.com, john.ogness@linutronix.de,
+ keescook@chromium.org, luto@kernel.org, mhiramat@kernel.org,
+ mingo@redhat.com, paulmck@kernel.org, peterz@infradead.org,
+ rostedt@goodmis.org, senozhatsky@chromium.org, stern@rowland.harvard.edu,
+ tglx@linutronix.de, vgoyal@redhat.com, vkuznets@redhat.com, will@kernel.org,
+ Russell King <linux@armlinux.org.uk>
+References: <20220427224924.592546-1-gpiccoli@igalia.com>
+ <20220427224924.592546-3-gpiccoli@igalia.com> <87mtg392fm.wl-maz@kernel.org>
+From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+In-Reply-To: <87mtg392fm.wl-maz@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-flight 169883 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169883/
+Thanks Marc and Michael for the review/discussion.
 
-Regressions :-(
+On 29/04/2022 15:20, Marc Zyngier wrote:
+> [...]
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+> My expectations would be that, since we're getting here using an IPI,
+> interrupts are already masked. So what reenabled them the first place?
+> 
+> Thanks,
+> 
+> 	M.
+> 
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+Marc, I did some investigation in the code (and tried/failed in the ARM
+documentation as well heh), but this is still not 100% clear for me.
 
-version targeted for testing:
- ovmf                 d372ab585a2cdc5348af5f701c56c631235fe698
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+You're saying IPI calls disable IRQs/FIQs by default in the the target
+CPUs? Where does it happen? I'm a bit confused if this a processor
+mechanism, or it's in code.
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   60 days
-Failing since        168258  2022-03-01 01:55:31 Z   59 days  703 attempts
-Testing same since   169816  2022-04-28 14:41:38 Z    1 days   24 attempts
+Looking the smp_send_stop() in arch/arm/, it does IPI the CPUs, with the
+flag IPI_CPU_STOP, eventually calling ipi_cpu_stop(), and the latter
+does disable IRQ/FIQ in code - that's where I stole my code from.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
+But crash_smp_send_stop() is different, it seems to IPI the other CPUs
+with the flag IPI_CALL_FUNC, which leads to calling
+generic_smp_call_function_interrupt() - does it disable interrupts/FIQs
+as well? I couldn't find it.
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+Appreciate your clarifications about that, thanks again.
+Cheers,
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 5844 lines long.)
+Guilherme
 
