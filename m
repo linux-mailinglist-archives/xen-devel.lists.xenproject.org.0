@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18910515867
-	for <lists+xen-devel@lfdr.de>; Sat, 30 Apr 2022 00:30:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.317844.537368 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB281515889
+	for <lists+xen-devel@lfdr.de>; Sat, 30 Apr 2022 00:37:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.317852.537380 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkZ7W-0001L9-H7; Fri, 29 Apr 2022 22:29:50 +0000
+	id 1nkZDm-0002nC-85; Fri, 29 Apr 2022 22:36:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 317844.537368; Fri, 29 Apr 2022 22:29:50 +0000
+Received: by outflank-mailman (output) from mailman id 317852.537380; Fri, 29 Apr 2022 22:36:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkZ7W-0001Ik-Dw; Fri, 29 Apr 2022 22:29:50 +0000
-Received: by outflank-mailman (input) for mailman id 317844;
- Fri, 29 Apr 2022 22:29:49 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nkZ7V-0001Ia-Dy; Fri, 29 Apr 2022 22:29:49 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nkZ7V-0002JQ-Ae; Fri, 29 Apr 2022 22:29:49 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nkZ7U-00030W-Vr; Fri, 29 Apr 2022 22:29:49 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nkZ7U-00089C-VR; Fri, 29 Apr 2022 22:29:48 +0000
+	id 1nkZDm-0002k9-4e; Fri, 29 Apr 2022 22:36:18 +0000
+Received: by outflank-mailman (input) for mailman id 317852;
+ Fri, 29 Apr 2022 22:36:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BV3H=VH=igalia.com=gpiccoli@srs-se1.protection.inumbo.net>)
+ id 1nkZDi-0002k3-Fa
+ for xen-devel@lists.xenproject.org; Fri, 29 Apr 2022 22:36:17 +0000
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c461767e-c80c-11ec-a405-831a346695d4;
+ Sat, 30 Apr 2022 00:36:11 +0200 (CEST)
+Received: from [179.113.53.197] (helo=[192.168.1.60])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1nkZD8-0003TG-7D; Sat, 30 Apr 2022 00:35:38 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,163 +40,232 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=sWFUFfw2nOUxpRCqNa3IHqB8ZnBhIWaGGIrZhwsuiHQ=; b=c9uvRE3bqZFoBO5NfvZIoZd2Lo
-	qBrhSMoPyFpVR9AywY5yPL3cN2NpOy5Yeo5fmyoMvZ1qQ4NsbwgXgxC3MuCNHD0hTJaxmELSH2wG6
-	BpFb2P3UdmxW6vMZiWLqZvyRs4x1lytbLiArUKuog1MXeFHbM79M3zMc3nH+4ICckw4o=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169885-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: c461767e-c80c-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=KYNDBRYGzikXjzeP27ZJ4t/kgY9V1S1pNOCPI8BnGe8=; b=JT0K6BBCWKsaQymCLnJQaj/kvq
+	7Y1QKfar8fCW1mBanEmBmavL+D5scKDYAiv+Of/1HRFoX5MBCl5YZC28TmWOdUUkF79M5XuV0xuXA
+	v1gbxygEk8ExNgZKIAJmst62yXS49qdhdclQ0HpxXcHSkInmueEoQ8sxt8GK1dgkp3lrFANactIr6
+	owme4UXa4bPRXwJl27nOJHEpmMOv8h6kOal3gO6YkUDEDSWCgod9VcuYizHGTaTCXAhQFrHVOF1Fo
+	gyvc6I1Xl1Nz4QEoDGGy6DcOx8hQdBZ3SL8vuhOA2s2+e+h8l4Dvo0+AMgZTV5lbKle4rwJcb9Bd/
+	P9qftm1A==;
+Message-ID: <2787b476-6366-1c83-db80-0393da417497@igalia.com>
+Date: Fri, 29 Apr 2022 19:35:09 -0300
 MIME-Version: 1.0
-Subject: [ovmf test] 169885: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=d372ab585a2cdc5348af5f701c56c631235fe698
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 29 Apr 2022 22:29:48 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Subject: Re: [PATCH 16/30] drivers/hv/vmbus, video/hyperv_fb: Untangle and
+ refactor Hyper-V panic notifiers
+Content-Language: en-US
+To: "Michael Kelley (LINUX)" <mikelley@microsoft.com>,
+ "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
+ "bhe@redhat.com" <bhe@redhat.com>, "pmladek@suse.com" <pmladek@suse.com>,
+ "kexec@lists.infradead.org" <kexec@lists.infradead.org>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "bcm-kernel-feedback-list@broadcom.com"
+ <bcm-kernel-feedback-list@broadcom.com>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+ "linux-alpha@vger.kernel.org" <linux-alpha@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-leds@vger.kernel.org" <linux-leds@vger.kernel.org>,
+ "linux-mips@vger.kernel.org" <linux-mips@vger.kernel.org>,
+ "linux-parisc@vger.kernel.org" <linux-parisc@vger.kernel.org>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
+ "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ "linux-um@lists.infradead.org" <linux-um@lists.infradead.org>,
+ "linux-xtensa@linux-xtensa.org" <linux-xtensa@linux-xtensa.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "openipmi-developer@lists.sourceforge.net"
+ <openipmi-developer@lists.sourceforge.net>,
+ "rcu@vger.kernel.org" <rcu@vger.kernel.org>,
+ "sparclinux@vger.kernel.org" <sparclinux@vger.kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "x86@kernel.org" <x86@kernel.org>,
+ "kernel-dev@igalia.com" <kernel-dev@igalia.com>,
+ "kernel@gpiccoli.net" <kernel@gpiccoli.net>,
+ "halves@canonical.com" <halves@canonical.com>,
+ "fabiomirmar@gmail.com" <fabiomirmar@gmail.com>,
+ "alejandro.j.jimenez@oracle.com" <alejandro.j.jimenez@oracle.com>,
+ "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+ "arnd@arndb.de" <arnd@arndb.de>, "bp@alien8.de" <bp@alien8.de>,
+ "corbet@lwn.net" <corbet@lwn.net>,
+ "d.hatayama@jp.fujitsu.com" <d.hatayama@jp.fujitsu.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "dyoung@redhat.com" <dyoung@redhat.com>,
+ "feng.tang@intel.com" <feng.tang@intel.com>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "hidehiro.kawai.ez@hitachi.com" <hidehiro.kawai.ez@hitachi.com>,
+ "jgross@suse.com" <jgross@suse.com>,
+ "john.ogness@linutronix.de" <john.ogness@linutronix.de>,
+ "keescook@chromium.org" <keescook@chromium.org>,
+ "luto@kernel.org" <luto@kernel.org>,
+ "mhiramat@kernel.org" <mhiramat@kernel.org>,
+ "mingo@redhat.com" <mingo@redhat.com>,
+ "paulmck@kernel.org" <paulmck@kernel.org>,
+ "peterz@infradead.org" <peterz@infradead.org>,
+ "rostedt@goodmis.org" <rostedt@goodmis.org>,
+ "senozhatsky@chromium.org" <senozhatsky@chromium.org>,
+ "stern@rowland.harvard.edu" <stern@rowland.harvard.edu>,
+ "tglx@linutronix.de" <tglx@linutronix.de>,
+ "vgoyal@redhat.com" <vgoyal@redhat.com>, vkuznets <vkuznets@redhat.com>,
+ "will@kernel.org" <will@kernel.org>, Andrea Parri <parri.andrea@gmail.com>,
+ Dexuan Cui <decui@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
+ KY Srinivasan <kys@microsoft.com>, Stephen Hemminger
+ <sthemmin@microsoft.com>, Tianyu Lan <Tianyu.Lan@microsoft.com>,
+ Wei Liu <wei.liu@kernel.org>
+References: <20220427224924.592546-1-gpiccoli@igalia.com>
+ <20220427224924.592546-17-gpiccoli@igalia.com>
+ <PH0PR21MB30250C9246FFF36AFB1DFDECD7FC9@PH0PR21MB3025.namprd21.prod.outlook.com>
+From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+In-Reply-To: <PH0PR21MB30250C9246FFF36AFB1DFDECD7FC9@PH0PR21MB3025.namprd21.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-flight 169885 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169885/
+Hi Michael, first of all thanks for the great review, much appreciated.
+Some comments inline below:
 
-Regressions :-(
+On 29/04/2022 14:16, Michael Kelley (LINUX) wrote:
+> [...]
+>> hypervisor I/O completion), so we postpone that to run late. But more
+>> relevant: this *same* vmbus unloading happens in the crash_shutdown()
+>> handler, so if kdump is set, we can safely skip this panic notifier and
+>> defer such clean-up to the kexec crash handler.
+> 
+> While the last sentence is true for Hyper-V on x86/x64, it's not true for
+> Hyper-V on ARM64.  x86/x64 has the 'machine_ops' data structure
+> with the ability to provide a custom crash_shutdown() function, which
+> Hyper-V does in the form of hv_machine_crash_shutdown().  But ARM64
+> has no mechanism to provide such a custom function that will eventually
+> do the needed vmbus_initiate_unload() before running kdump.
+> 
+> I'm not immediately sure what the best solution is for ARM64.  At this
+> point, I'm just pointing out the problem and will think about the tradeoffs
+> for various possible solutions.  Please do the same yourself. :-)
+> 
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+Oh, you're totally right! I just assumed ARM64 would the the same, my
+bad. Just to propose some alternatives, so you/others can also discuss
+here and we can reach a consensus about the trade-offs:
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+(a) We could forget about this change, and always do the clean-up here,
+not relying in machine_crash_shutdown().
+Pro: really simple, behaves the same as it is doing currently.
+Con: less elegant/concise, doesn't allow arm64 customization.
 
-version targeted for testing:
- ovmf                 d372ab585a2cdc5348af5f701c56c631235fe698
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+(b) Add a way to allow ARM64 customization of shutdown crash handler.
+Pro: matches x86, more customizable, improves arm64 arch code.
+Con: A tad more complex.
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   60 days
-Failing since        168258  2022-03-01 01:55:31 Z   59 days  704 attempts
-Testing same since   169816  2022-04-28 14:41:38 Z    1 days   25 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+Also, a question that came-up: if ARM64 has no way of calling special
+crash shutdown handler, how can you execute hv_stimer_cleanup() and
+hv_synic_disable_regs() there? Or are they not required in ARM64?
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+>>
+>> (c) There is also a Hyper-V framebuffer panic notifier, which relies in
+>> doing a vmbus operation that demands a valid connection. So, we must
+>> order this notifier with the panic notifier from vmbus_drv.c, in order to
+>> guarantee that the framebuffer code executes before the vmbus connection
+>> is unloaded.
+> 
+> Patch 21 of this set puts the Hyper-V FB panic notifier on the pre_reboot
+> notifier list, which means it won't execute before the VMbus connection
+> unload in the case of kdump.   This notifier is making sure that Hyper-V
+> is notified about the last updates made to the frame buffer before the
+> panic, so maybe it needs to be put on the hypervisor notifier list.  It
+> sends a message to Hyper-V over its existing VMbus channel, but it
+> does not wait for a reply.  It does, however, obtain a spin lock on the
+> ring buffer used to communicate with Hyper-V.   Unless someone has
+> a better suggestion, I'm inclined to take the risk of blocking on that
+> spin lock.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+The logic behind that was: when kdump is set, we'd skip the vmbus
+disconnect on notifiers, deferring that to crash_shutdown(), logic this
+one refuted in the above discussion on ARM64 (one more Pro argument to
+the idea of refactoring aarch64 code to allow a custom crash shutdown
+handler heh). But you're right, for the default level 2, we skip the
+pre_reboot notifiers on kdump, effectively skipping this notifier.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Some ideas of what we can do here:
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+I) we could change the framebuffer notifier to rely on trylocks, instead
+of risking a lockup scenario, and with that, we can execute it before
+the vmbus disconnect in the hypervisor list;
+
+II) we ignore the hypervisor notifier in case of kdump _by default_, and
+if the users don't want that, they can always set the panic notifier
+level to 4 and run all notifiers prior to kdump; would that be terrible
+you think? Kdump users might don't care about the framebuffer...
+
+III) we go with approach (b) above and refactor arm64 code to allow the
+custom crash handler on kdump time, then [with point (I) above] the
+logic proposed in this series is still valid - seems more and more the
+most correct/complete solution.
+
+In any case, I guess we should avoid workarounds if possible and do the
+things the best way we can, to encompass all (or almost all) the
+possible scenarios and don't force things on users (like enforcing panic
+notifier level 4 for Hyper-V or something like this...)
+
+More feedback from you / Hyper-V folks is pretty welcome about this.
 
 
-Not pushing.
+> 
+>> [...]
+> The "Fixes:" tags imply that these changes should be backported to older
+> longterm kernel versions, which I don't think is the case.  There is a
+> dependency on Patch 14 of your series where PANIC_NOTIFIER is
+> introduced.
+> 
 
-(No revision log; it would be 5844 lines long.)
+Oh, this was more related with archeology of the kernel. When I'm
+investigating stuff, I really want to understand why code was added and
+that usually require some time git blaming stuff, so having that pronto
+in the commit message is a bonus.
+
+But of course we don't need to use the Fixes tag for that, easy to only
+mention it in the text. A secondary benefit by using this tag is to
+indicate this is a _real fix_ to some code, and not an improvement, but
+as you say, I agree we shouldn't backport it to previous releases having
+or not the Fixes tag (AFAIK it's not mandatory to backport stuff with
+Fixes tag).
+
+
+>> [...]
+>> + * intrincated is the relation of this notifier with Hyper-V framebuffer
+> 
+> s/intrincated/intricate/
+
+Thanks, fixed in V2!
+
+
+>
+>> [...]
+>> +static int hv_panic_vmbus_unload(struct notifier_block *nb, unsigned long val,
+>>  			      void *args)
+>> +{
+>> +	if (!kexec_crash_loaded())
+> 
+> I'm not clear on the purpose of this condition.  I think it means
+> we will skip the vmbus_initiate_unload() if a panic occurs in the
+> kdump kernel.  Is there a reason a panic in the kdump kernel
+> should be treated differently?  Or am I misunderstanding?
+
+This is really related with the point discussed in the top of this
+response - I assumed both ARM64/x86_64 would behave the same and
+disconnect the vmbus through the custom crash handler when kdump is set,
+so worth skipping it here in the notifier. But that's not true for ARM64
+as you pointed, so this guard against kexec is really part of the
+decision/discussion on what to do with ARM64 heh
+
+Cheers!
 
