@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 612AA515AE3
-	for <lists+xen-devel@lfdr.de>; Sat, 30 Apr 2022 08:49:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.317998.537547 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2839D515AE5
+	for <lists+xen-devel@lfdr.de>; Sat, 30 Apr 2022 08:55:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.318008.537562 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkgv6-0003Bn-KW; Sat, 30 Apr 2022 06:49:32 +0000
+	id 1nkh0L-0004iy-FP; Sat, 30 Apr 2022 06:54:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 317998.537547; Sat, 30 Apr 2022 06:49:32 +0000
+Received: by outflank-mailman (output) from mailman id 318008.537562; Sat, 30 Apr 2022 06:54:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nkgv6-0003A0-He; Sat, 30 Apr 2022 06:49:32 +0000
-Received: by outflank-mailman (input) for mailman id 317998;
- Sat, 30 Apr 2022 06:49:31 +0000
+	id 1nkh0L-0004g6-C7; Sat, 30 Apr 2022 06:54:57 +0000
+Received: by outflank-mailman (input) for mailman id 318008;
+ Sat, 30 Apr 2022 06:54:55 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1nkgv5-00039m-BR; Sat, 30 Apr 2022 06:49:31 +0000
+ id 1nkh0J-0004fw-I7; Sat, 30 Apr 2022 06:54:55 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1nkgv5-0001v4-9h; Sat, 30 Apr 2022 06:49:31 +0000
+ id 1nkh0J-00020P-HD; Sat, 30 Apr 2022 06:54:55 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1nkgv4-0004sD-US; Sat, 30 Apr 2022 06:49:30 +0000
+ id 1nkh0J-0005De-40; Sat, 30 Apr 2022 06:54:55 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nkgv4-00042V-U2; Sat, 30 Apr 2022 06:49:30 +0000
+ id 1nkh0J-00075E-3a; Sat, 30 Apr 2022 06:54:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,161 +43,143 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=4lq2+Zgncz/UlLx0it4HEvClD7O0eUgi2w8yoCefifE=; b=GDh/DK5YI1fMgRaAY8CIa9mmA9
-	EN9uYbnwBfFl0BzzxwGAUZM1omsm+uWspUoxWBVvMoZguOyuTZB/z6g+fSLm3jJElHZO9hJAn5cyT
-	JsWuG/+AxeLXVRfRJZdJu25xXu65Qr+fdKhuXX2veBIOphMzHgPaVICsS2+foW7PYQYE=;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Ugx8feWghyjl1nW/nVwoWSS9khofIAM71NZhaModTes=; b=lEn6gRP9a7bgxAAu74z9HPPcO6
+	/siuoUF73+FnCB/WEbXFYH9XgRV2vn6/3UkJja2BQ0LdZ5EooUsQONMzdC/gw68umzhroJvEv//cc
+	Pzjpt00eWpaVGSQ2jUPo6JDZ7EIrk2r8bPgNNLQyEO0jscjPHazT1+AaE5sNgtywYkhA=;
 To: xen-devel@lists.xenproject.org
-Subject: [xen-unstable bisection] complete test-arm64-arm64-xl-credit1
-Message-Id: <E1nkgv4-00042V-U2@osstest.test-lab.xenproject.org>
+Message-ID: <osstest-169894-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 169894: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=d372ab585a2cdc5348af5f701c56c631235fe698
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 30 Apr 2022 06:49:30 +0000
+Date: Sat, 30 Apr 2022 06:54:55 +0000
 
-branch xen-unstable
-xenbranch xen-unstable
-job test-arm64-arm64-xl-credit1
-testid xen-boot
+flight 169894 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/169894/
 
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
+Regressions :-(
 
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  fa6dc0879ffd3dffffaea2837953c7a8761a9ba0
-  Bug not present: fbd2445558beff90eb9607308f0845b18a7a2b5a
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/169899/
-
-
-  commit fa6dc0879ffd3dffffaea2837953c7a8761a9ba0
-  Author: David Vrabel <dvrabel@amazon.co.uk>
-  Date:   Tue Apr 26 10:33:01 2022 +0200
-  
-      page_alloc: assert IRQs are enabled in heap alloc/free
-      
-      Heap pages can only be safely allocated and freed with interrupts
-      enabled as they may require a TLB flush which may send IPIs (on x86).
-      
-      Normally spinlock debugging would catch calls from the incorrect
-      context, but not from stop_machine_run() action functions as these are
-      called with spin lock debugging disabled.
-      
-      Enhance the assertions in alloc_xenheap_pages() and
-      alloc_domheap_pages() to check interrupts are enabled. For consistency
-      the same asserts are used when freeing heap pages.
-      
-      As an exception, when only 1 PCPU is online, allocations are permitted
-      with interrupts disabled as any TLB flushes would be local only. This
-      is necessary during early boot.
-      
-      Signed-off-by: David Vrabel <dvrabel@amazon.co.uk>
-      Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable/test-arm64-arm64-xl-credit1.xen-boot.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable/test-arm64-arm64-xl-credit1.xen-boot --summary-out=tmp/169899.bisection-summary --basis-template=169775 --blessings=real,real-bisect,real-retry xen-unstable test-arm64-arm64-xl-credit1 xen-boot
-Searching for failure / basis pass:
- 169859 fail [host=rochester1] / 169775 [host=laxton1] 169756 [host=laxton1] 169723 ok.
-Failure / basis pass flights: 169859 / 169723
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 d711a8e5279d830d2e4f0f55246ed0c6e4a6bbed
-Basis pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 2419a159fb943c24a6f2439604b9fdb1478fcd08
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#f0f0e602f7c9781699ecda9be763eac0b03d54f0-f0f0e602f7c9781699ecda9be763eac0b03d54f0 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/qemu-xen.git#a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42-a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 git://xenbits.xen.org/xen.git#2419a159fb943c24a6f2439604b9fdb1478fcd08-d711a8e\
- 5279d830d2e4f0f55246ed0c6e4a6bbed
-Loaded 5001 nodes in revision graph
-Searching for test results:
- 169635 [host=laxton1]
- 169666 [host=rochester0]
- 169694 [host=laxton1]
- 169723 pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 2419a159fb943c24a6f2439604b9fdb1478fcd08
- 169756 [host=laxton1]
- 169775 [host=laxton1]
- 169798 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 53b705d02cec03861044e673536586bd1b2443bd
- 169819 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 da28439ba55b8a571032b3358af567cff749f612
- 169895 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 fa6dc0879ffd3dffffaea2837953c7a8761a9ba0
- 169859 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 d711a8e5279d830d2e4f0f55246ed0c6e4a6bbed
- 169875 pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 2419a159fb943c24a6f2439604b9fdb1478fcd08
- 169877 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 d711a8e5279d830d2e4f0f55246ed0c6e4a6bbed
- 169881 pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 3f5d61466345ed2213de2d7e391b6cd6d4b86015
- 169884 pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 163071b1800304c962756789b4ef0ddb978059ba
- 169890 pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 fbd2445558beff90eb9607308f0845b18a7a2b5a
- 169891 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 fa6dc0879ffd3dffffaea2837953c7a8761a9ba0
- 169893 pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 fbd2445558beff90eb9607308f0845b18a7a2b5a
- 169896 pass f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 fbd2445558beff90eb9607308f0845b18a7a2b5a
- 169899 fail f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 fa6dc0879ffd3dffffaea2837953c7a8761a9ba0
-Searching for interesting versions
- Result found: flight 169723 (pass), for basis pass
- For basis failure, parent search stopping at f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 fbd2445558beff90eb9607308f0845b18a7a2b5a, results HASH(0x55dded89b268) HASH(0x55dded916f00) HASH(0x55dded917e00) For basis failure, parent search stopping at f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 163071b1800304c962756789b4ef0ddb978059ba, results \
- HASH(0x55dded8b03b0) For basis failure, parent search stopping at f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 3f5d61466345ed2213de2d7e391b6cd6d4b86015, results HASH(0x55dded8a4058) For basis failure, parent search stopping at f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 2419a159fb943c24a6f2439604b9fdb1478fcd08, results HASH(0x55dded89be90) H\
- ASH(0x55dded8ad420) Result found: flight 169798 (fail), for basis failure (at ancestor ~64)
- Repro found: flight 169875 (pass), for basis pass
- Repro found: flight 169877 (fail), for basis failure
- 0 revisions at f0f0e602f7c9781699ecda9be763eac0b03d54f0 c530a75c1e6a472b0eb9558310b518f0dfcd8860 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 fbd2445558beff90eb9607308f0845b18a7a2b5a
-No revisions left to test, checking graph state.
- Result found: flight 169890 (pass), for last pass
- Result found: flight 169891 (fail), for first failure
- Repro found: flight 169893 (pass), for last pass
- Repro found: flight 169895 (fail), for first failure
- Repro found: flight 169896 (pass), for last pass
- Repro found: flight 169899 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  fa6dc0879ffd3dffffaea2837953c7a8761a9ba0
-  Bug not present: fbd2445558beff90eb9607308f0845b18a7a2b5a
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/169899/
-
-
-  commit fa6dc0879ffd3dffffaea2837953c7a8761a9ba0
-  Author: David Vrabel <dvrabel@amazon.co.uk>
-  Date:   Tue Apr 26 10:33:01 2022 +0200
-  
-      page_alloc: assert IRQs are enabled in heap alloc/free
-      
-      Heap pages can only be safely allocated and freed with interrupts
-      enabled as they may require a TLB flush which may send IPIs (on x86).
-      
-      Normally spinlock debugging would catch calls from the incorrect
-      context, but not from stop_machine_run() action functions as these are
-      called with spin lock debugging disabled.
-      
-      Enhance the assertions in alloc_xenheap_pages() and
-      alloc_domheap_pages() to check interrupts are enabled. For consistency
-      the same asserts are used when freeing heap pages.
-      
-      As an exception, when only 1 PCPU is online, allocations are permitted
-      with interrupts disabled as any TLB flushes would be local only. This
-      is necessary during early boot.
-      
-      Signed-off-by: David Vrabel <dvrabel@amazon.co.uk>
-      Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Revision graph left in /home/logs/results/bisect/xen-unstable/test-arm64-arm64-xl-credit1.xen-boot.{dot,ps,png,html,svg}.
-----------------------------------------
-169899: tolerable ALL FAIL
-
-flight 169899 xen-unstable real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169899/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
+Tests which did not succeed and are blocking,
 including tests which could not be run:
- test-arm64-arm64-xl-credit1   8 xen-boot                fail baseline untested
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
 
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 d372ab585a2cdc5348af5f701c56c631235fe698
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   60 days
+Failing since        168258  2022-03-01 01:55:31 Z   60 days  707 attempts
+Testing same since   169816  2022-04-28 14:41:38 Z    1 days   28 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jake Garver <jake@nvidia.com>
+  Jake Garver via groups.io <jake=nvidia.com@groups.io>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
 
 jobs:
- test-arm64-arm64-xl-credit1                                  fail    
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
 ------------------------------------------------------------
@@ -215,4 +197,8 @@ Explanation of these reports, and of osstest in general, is at
 Test harness code can be found at
     http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
+
+Not pushing.
+
+(No revision log; it would be 5844 lines long.)
 
