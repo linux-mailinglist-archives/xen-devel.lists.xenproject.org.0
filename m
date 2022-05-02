@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD4EE5170CE
-	for <lists+xen-devel@lfdr.de>; Mon,  2 May 2022 15:43:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.318885.538854 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D45A95170EE
+	for <lists+xen-devel@lfdr.de>; Mon,  2 May 2022 15:50:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.318891.538866 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nlWKS-00016Y-4I; Mon, 02 May 2022 13:43:08 +0000
+	id 1nlWRe-0002W4-St; Mon, 02 May 2022 13:50:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 318885.538854; Mon, 02 May 2022 13:43:08 +0000
+Received: by outflank-mailman (output) from mailman id 318891.538866; Mon, 02 May 2022 13:50:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nlWKS-00013M-1H; Mon, 02 May 2022 13:43:08 +0000
-Received: by outflank-mailman (input) for mailman id 318885;
- Mon, 02 May 2022 13:43:07 +0000
+	id 1nlWRe-0002TR-Pt; Mon, 02 May 2022 13:50:34 +0000
+Received: by outflank-mailman (input) for mailman id 318891;
+ Mon, 02 May 2022 13:50:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ohg0=VK=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1nlWKR-00013G-0S
- for xen-devel@lists.xenproject.org; Mon, 02 May 2022 13:43:07 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cbae447b-ca1d-11ec-a405-831a346695d4;
- Mon, 02 May 2022 15:43:06 +0200 (CEST)
-Received: by mail-lf1-x134.google.com with SMTP id p12so25354866lfs.5
- for <xen-devel@lists.xenproject.org>; Mon, 02 May 2022 06:43:06 -0700 (PDT)
+ <SRS0=9N+v=VK=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1nlWRd-0002TL-8V
+ for xen-devel@lists.xenproject.org; Mon, 02 May 2022 13:50:33 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d46dc5a3-ca1e-11ec-a405-831a346695d4;
+ Mon, 02 May 2022 15:50:32 +0200 (CEST)
+Received: from [10.10.1.138] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1651499398571676.9915501839537;
+ Mon, 2 May 2022 06:49:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,70 +40,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cbae447b-ca1d-11ec-a405-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=1w0rsc5UcgM9aQ0WNcQ2pVdP625Ey+eZbK2+xDUD+so=;
-        b=fDKhLXQDqFQ6xzMIw+Ao4mn6CeNvt/ejr+rl374eLHfSkOvlHiXcSJIR8wG/76TUTC
-         InmtWsObvrBRo+Szrfcvp+QmDgSvUl5AxmVh/Wlr24pACtnsiqQgpDVaGWEFv/N2tJmm
-         K+vxO1PXKxiN3XHRuJH6NsoSUiB6K54K8ixUelxktOaKNv4LyyspyvXSdNKpJ6WCW86d
-         O4QGHTHgOc3pIgMdbR3sj/rvM8OgnEnjnJfwAyIb/Ijp2qdIJkAxm+MmV/ZjOCDdpfru
-         siYzwPlx5kyiehN2zUORTOr1jM/YS0mleiC1PbWMVucL9jVrj4YuN4VJkY1QcgT7M/dd
-         Qy9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=1w0rsc5UcgM9aQ0WNcQ2pVdP625Ey+eZbK2+xDUD+so=;
-        b=VXhkBQZs83zShxkfGa2tqNOsA41kk2tGeTZ4iNsTwlHXtTh3bbC1t7TgfZqRWychzQ
-         FqaWX5qBfMgnW7oiIMzY2UdzpRVomGZYu2A8uFMoKhd73m9YLYfrU2C4d9gRGlC99zTY
-         hCbWi2rq0IjnMVw0fO1Su90mxm7uz5o5T0njfKv6rbuWJe5FVkCOFLbPL2vb1ghWoYSU
-         Oj8yBs/DAavW1K5BbcEt12QlomdsDxam6BhHlX/8ql/3oN1JaxggUw/QAztQsH+LyWq1
-         FKVt1Yvwx7qBiJxD05YDaRbprQxsfCAznvsiIY0f/WFsz5WLmjAdoBA0RAanxJYBtOdI
-         8PgQ==
-X-Gm-Message-State: AOAM53197XEwQxUwieTSnFoX/336hs/Cy+wQTVGRl4uWMya02wlXbwA1
-	wGvKxoBMbQOWyphj2Vno772g8M82Q58igLKGQlo=
-X-Google-Smtp-Source: ABdhPJxP/kSSgXQisj6BsRqGiXDGbQxxWoPRhLMRrl9rbsulRSkkaBSUC7J601FoBOHrAUZSfRjfJNCu2YGk7cOIQ8M=
-X-Received: by 2002:a05:6512:11cc:b0:44a:5770:7425 with SMTP id
- h12-20020a05651211cc00b0044a57707425mr8458291lfr.406.1651498985737; Mon, 02
- May 2022 06:43:05 -0700 (PDT)
+X-Inumbo-ID: d46dc5a3-ca1e-11ec-a405-831a346695d4
+ARC-Seal: i=1; a=rsa-sha256; t=1651499428; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=evAPQ1x2QSOfPjULaRAFqTpp4AOoENhwkanCqkn2R9PM0PQk6AZObNO9d76XHjIrbvk+3mzWN3qg0pkIkGX9Mb6NQZEqEmFzMuf/52kF3N5zywIQY4p4um5WwChoNMOlRmn8ZvRQgUY4poQubz/DCqtcmQKd65KLfL4fvqYtgbo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1651499428; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=Dy+1SB52SPq1m3cdZQ9ztW+oAbas77ImY5sN9i+wbFQ=; 
+	b=kBTJZ2ujZcU4Z9mRLQqAeBk5EAmRKVYjLuuCtZ8RlF+6EaQTUvk4Ye//Px6UfiSnG+K7QGLpJ9QY6ftY/HOH8OenFbf2dSkc2t4Nw9aBWPZWNKdaOEXVXxV17NouEa9FciSNEvGi/oKYFRU4OZGrHPBWU4ltpP9QzcZCnb1V24s=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1651499428;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=Dy+1SB52SPq1m3cdZQ9ztW+oAbas77ImY5sN9i+wbFQ=;
+	b=QIhFv/XMB3Rf+LE6jQUK6i4uI2NTyH41XbKB45UwokNAWMd26NcSHG9yypKv81wW
+	uojYHVt4l2UV8TgpWWpMClAynHGsCSjbGR1Z2HM/7EnLKzs16m2LBmw4E3p7lcUupma
+	VH9aPmnECtxzxpQ5/Yu+og8nT6Z3xkLleBTnIjBE=
+Message-ID: <7db6b050-7ace-406f-550b-d407c57cfa59@apertussolutions.com>
+Date: Mon, 2 May 2022 09:49:02 -0400
 MIME-Version: 1.0
-References: <20220502133027.920-1-dpsmith@apertussolutions.com> <20220502133027.920-2-dpsmith@apertussolutions.com>
-In-Reply-To: <20220502133027.920-2-dpsmith@apertussolutions.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Mon, 2 May 2022 09:42:54 -0400
-Message-ID: <CAKf6xptU7VxGzaHe=jVc0O2fbZfQi1Rmf0hDsJzOB-9k7=4W-Q@mail.gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
 Subject: Re: [PATCH v5 1/2] xsm: create idle domain privileged and demote
  after setup
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>, 
-	Scott Davis <scott.davis@starlab.io>, christopher.clark@starlab.io, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Jan Beulich <jbeulich@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	George Dunlap <george.dunlap@citrix.com>, Dario Faggioli <dfaggioli@suse.com>, 
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>
-Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>,
+ Scott Davis <scott.davis@starlab.io>, christopher.clark@starlab.io,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Jan Beulich
+ <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Dario Faggioli
+ <dfaggioli@suse.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>
+References: <20220502133027.920-1-dpsmith@apertussolutions.com>
+ <20220502133027.920-2-dpsmith@apertussolutions.com>
+ <CAKf6xptU7VxGzaHe=jVc0O2fbZfQi1Rmf0hDsJzOB-9k7=4W-Q@mail.gmail.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <CAKf6xptU7VxGzaHe=jVc0O2fbZfQi1Rmf0hDsJzOB-9k7=4W-Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On Mon, May 2, 2022 at 9:31 AM Daniel P. Smith
-<dpsmith@apertussolutions.com> wrote:
-> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-> index d5d0792ed4..b9057222d6 100644
-> --- a/xen/arch/arm/setup.c
-> +++ b/xen/arch/arm/setup.c
-> @@ -1048,6 +1048,10 @@ void __init start_xen(unsigned long boot_phys_offset,
->      /* Hide UART from DOM0 if we're using it */
->      serial_endboot();
->
-> +    if ( (rc = xsm_set_system_active()) != 0 )
-> +        panic("xsm(err=%d): "
-> +              "unable to set hypervisor to SYSTEM_ACTIVE privilege\n", err);
+On 5/2/22 09:42, Jason Andryuk wrote:
+> On Mon, May 2, 2022 at 9:31 AM Daniel P. Smith
+> <dpsmith@apertussolutions.com> wrote:
+>> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+>> index d5d0792ed4..b9057222d6 100644
+>> --- a/xen/arch/arm/setup.c
+>> +++ b/xen/arch/arm/setup.c
+>> @@ -1048,6 +1048,10 @@ void __init start_xen(unsigned long boot_phys_offset,
+>>      /* Hide UART from DOM0 if we're using it */
+>>      serial_endboot();
+>>
+>> +    if ( (rc = xsm_set_system_active()) != 0 )
+>> +        panic("xsm(err=%d): "
+>> +              "unable to set hypervisor to SYSTEM_ACTIVE privilege\n", err);
+> 
+> You want to print rc in this message.
 
-You want to print rc in this message.
+Thanks, but now I want to figure out how that compiled.
 
-Regards,
-Jason
+v/r,
+dps
 
