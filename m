@@ -2,33 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B074A517058
-	for <lists+xen-devel@lfdr.de>; Mon,  2 May 2022 15:31:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.318867.538833 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F0CA51705B
+	for <lists+xen-devel@lfdr.de>; Mon,  2 May 2022 15:31:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.318870.538844 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nlW98-00071B-KQ; Mon, 02 May 2022 13:31:26 +0000
+	id 1nlW9Q-0007WD-Vs; Mon, 02 May 2022 13:31:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 318867.538833; Mon, 02 May 2022 13:31:26 +0000
+Received: by outflank-mailman (output) from mailman id 318870.538844; Mon, 02 May 2022 13:31:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nlW98-0006yc-HD; Mon, 02 May 2022 13:31:26 +0000
-Received: by outflank-mailman (input) for mailman id 318867;
- Mon, 02 May 2022 13:31:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9N+v=VK=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1nlW96-0005cw-Iq
- for xen-devel@lists.xenproject.org; Mon, 02 May 2022 13:31:24 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1c3d68ff-ca1c-11ec-8fc4-03012f2f19d4;
- Mon, 02 May 2022 15:31:03 +0200 (CEST)
-Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 16514982461731.2977082991415045;
- Mon, 2 May 2022 06:30:46 -0700 (PDT)
+	id 1nlW9Q-0007T1-Qu; Mon, 02 May 2022 13:31:44 +0000
+Received: by outflank-mailman (input) for mailman id 318870;
+ Mon, 02 May 2022 13:31:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Z+C6=VK=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1nlW9P-0005HD-2y
+ for xen-devel@lists.xenproject.org; Mon, 02 May 2022 13:31:43 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 33eae68b-ca1c-11ec-a405-831a346695d4;
+ Mon, 02 May 2022 15:31:42 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D657B210EE;
+ Mon,  2 May 2022 13:31:41 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A32F6133E5;
+ Mon,  2 May 2022 13:31:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id Nrh3Jj3db2KQGAAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 02 May 2022 13:31:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,153 +51,258 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c3d68ff-ca1c-11ec-8fc4-03012f2f19d4
-ARC-Seal: i=1; a=rsa-sha256; t=1651498246; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=XYyluWAWk4ZcGjNZS93FXUQpZDcFdnWXW+SkqJ9NviJB5/gfqV5UX/uMkGh4h8hFtwJdu3quM9JoW03+3ZZsZvvVqsS+360glZwuBt3c9p8VxOMHmX17/oawN1i8ad4CXNfS7XTa5Tsi45lNoYFELXFF35OEZuF2/oiDKBikE70=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1651498246; h=Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=ZbfrC0msVBpnGXM3HwSg5QOB6cUwWUSvu8aYMxskpQY=; 
-	b=PY4CZrx7LZs3aXAUdpifPUKz6nLiV++YIgRS1fKRxF/V0IgIYNU8fhyMWBGDGI0fn3RNouEQ/xHn6AXQXgxjI4s7NlsC/HqU/EVlRobe47tEt14cDdiDMOioHwiKtTNnrL6THhASyvMB8PU13se94Lv76whPo+pOeUzEkr8QKYQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1651498246;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=ZbfrC0msVBpnGXM3HwSg5QOB6cUwWUSvu8aYMxskpQY=;
-	b=W9US/JzZQMO0Xg6ORq9ycIG05LC+9yQZXTuJCItvw86hm8okUPp7T/aD9IzUAjC2
-	lIWh9tw265Xm+bURIs7UrfHcqYgPphEcQMiD7JWNJpS1r1GSvGW2v9+gJ6Riz8Cz5lY
-	iEbRSTgLkebaSxU/OFlQ54fgOmmilVOGvXUkOpIo=
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: xen-devel@lists.xenproject.org,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: scott.davis@starlab.io,
-	jandryuk@gmail.com,
-	christopher.clark@starlab.io,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v5 2/2] flask: implement xsm_set_system_active
-Date: Mon,  2 May 2022 09:30:27 -0400
-Message-Id: <20220502133027.920-3-dpsmith@apertussolutions.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20220502133027.920-1-dpsmith@apertussolutions.com>
-References: <20220502133027.920-1-dpsmith@apertussolutions.com>
+X-Inumbo-ID: 33eae68b-ca1c-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1651498301; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lIstHClwMp6kkDDvi8Ipikr4fnPgWUhfAKVg57KkngY=;
+	b=U3eJn1OirQP6iZzOQ4Hq2Fz1cvq5JVjK86nEarr8+H/eoBxl7dXi0f9axXEznmH8ToG5gT
+	160JkVEGTv7L8H0aFIplzk6F4UmUJY41ZST0Hg9dWJzGbXNq0CWyw3IcXkVIBZJaV94Hv+
+	lXlNV8F//8ZoOdMHQVvcujKCnerDDl0=
+Message-ID: <f209285a-6fcc-27af-b8ff-7e517e9eb250@suse.com>
+Date: Mon, 2 May 2022 15:31:41 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Subject: Re: [PATCH v2 08/19] xen/shbuf: switch xen-front-pgdir-shbuf to use
+ INVALID_GRANT_REF
+Content-Language: en-US
+To: Oleksandr <olekstysh@gmail.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20220428082743.16593-1-jgross@suse.com>
+ <20220428082743.16593-9-jgross@suse.com>
+ <CAPD2p-nisRgMOzy+w2jx5ULfZTyv4MqtG0wkV9jNn3wNg415sQ@mail.gmail.com>
+ <b05fe983-8f9e-da3d-1bf0-e121ba969ae3@gmail.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <b05fe983-8f9e-da3d-1bf0-e121ba969ae3@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------yarkfAZB0fK3Olo9lMNtQLAG"
 
-This commit implements full support for starting the idle domain privileged by
-introducing a new flask label xenboot_t which the idle domain is labeled with
-at creation.  It then provides the implementation for the XSM hook
-xsm_set_system_active to relabel the idle domain to the existing xen_t flask
-label.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------yarkfAZB0fK3Olo9lMNtQLAG
+Content-Type: multipart/mixed; boundary="------------ui4wYIwPULmvH8aTJTfRFH60";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Oleksandr <olekstysh@gmail.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Message-ID: <f209285a-6fcc-27af-b8ff-7e517e9eb250@suse.com>
+Subject: Re: [PATCH v2 08/19] xen/shbuf: switch xen-front-pgdir-shbuf to use
+ INVALID_GRANT_REF
+References: <20220428082743.16593-1-jgross@suse.com>
+ <20220428082743.16593-9-jgross@suse.com>
+ <CAPD2p-nisRgMOzy+w2jx5ULfZTyv4MqtG0wkV9jNn3wNg415sQ@mail.gmail.com>
+ <b05fe983-8f9e-da3d-1bf0-e121ba969ae3@gmail.com>
+In-Reply-To: <b05fe983-8f9e-da3d-1bf0-e121ba969ae3@gmail.com>
 
-In the reference flask policy a new macro, xen_build_domain(target), is
-introduced for creating policies for dom0less/hyperlaunch allowing the
-hypervisor to create and assign the necessary resources for domain
-construction.
+--------------ui4wYIwPULmvH8aTJTfRFH60
+Content-Type: multipart/mixed; boundary="------------izIJvk0vw0NGS6eDqlUuEfT9"
 
-Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
----
- tools/flask/policy/modules/xen.if      | 6 ++++++
- tools/flask/policy/modules/xen.te      | 1 +
- tools/flask/policy/policy/initial_sids | 1 +
- xen/xsm/flask/hooks.c                  | 8 +++++++-
- xen/xsm/flask/policy/initial_sids      | 1 +
- 5 files changed, 16 insertions(+), 1 deletion(-)
+--------------izIJvk0vw0NGS6eDqlUuEfT9
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-diff --git a/tools/flask/policy/modules/xen.if b/tools/flask/policy/modules/xen.if
-index 5e2aa472b6..4ec676fff1 100644
---- a/tools/flask/policy/modules/xen.if
-+++ b/tools/flask/policy/modules/xen.if
-@@ -62,6 +62,12 @@ define(`create_domain_common', `
- 			setparam altp2mhvm altp2mhvm_op dm };
- ')
- 
-+# xen_build_domain(target)
-+#   Allow a domain to be created at boot by the hypervisor
-+define(`xen_build_domain', `
-+	allow xenboot_t $1_channel:event create;
-+')
-+
- # create_domain(priv, target)
- #   Allow a domain to be created directly
- define(`create_domain', `
-diff --git a/tools/flask/policy/modules/xen.te b/tools/flask/policy/modules/xen.te
-index 3dbf93d2b8..de98206fdd 100644
---- a/tools/flask/policy/modules/xen.te
-+++ b/tools/flask/policy/modules/xen.te
-@@ -24,6 +24,7 @@ attribute mls_priv;
- ################################################################################
- 
- # The hypervisor itself
-+type xenboot_t, xen_type, mls_priv;
- type xen_t, xen_type, mls_priv;
- 
- # Domain 0
-diff --git a/tools/flask/policy/policy/initial_sids b/tools/flask/policy/policy/initial_sids
-index 6b7b7eff21..ec729d3ba3 100644
---- a/tools/flask/policy/policy/initial_sids
-+++ b/tools/flask/policy/policy/initial_sids
-@@ -2,6 +2,7 @@
- # objects created before the policy is loaded or for objects that do not have a
- # label defined in some other manner.
- 
-+sid xenboot gen_context(system_u:system_r:xenboot_t,s0)
- sid xen gen_context(system_u:system_r:xen_t,s0)
- sid dom0 gen_context(system_u:system_r:dom0_t,s0)
- sid domxen gen_context(system_u:system_r:domxen_t,s0)
-diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
-index 0bd4e8a4bd..3e5d084276 100644
---- a/xen/xsm/flask/hooks.c
-+++ b/xen/xsm/flask/hooks.c
-@@ -168,7 +168,7 @@ static int cf_check flask_domain_alloc_security(struct domain *d)
-     switch ( d->domain_id )
-     {
-     case DOMID_IDLE:
--        dsec->sid = SECINITSID_XEN;
-+        dsec->sid = SECINITSID_XENBOOT;
-         break;
-     case DOMID_XEN:
-         dsec->sid = SECINITSID_DOMXEN;
-@@ -188,14 +188,20 @@ static int cf_check flask_domain_alloc_security(struct domain *d)
- 
- static int cf_check flask_set_system_active(void)
- {
-+    struct domain_security_struct *dsec;
-     struct domain *d = current->domain;
- 
-+    dsec = d->ssid;
-+    ASSERT(dsec->sid == SECINITSID_XENBOOT);
-+
-     if ( d->domain_id != DOMID_IDLE )
-     {
-         printk("xsm_set_system_active should only be called by idle domain\n");
-         return -EPERM;
-     }
- 
-+    dsec->self_sid = dsec->sid = SECINITSID_XEN;
-+
-     return 0;
- }
- 
-diff --git a/xen/xsm/flask/policy/initial_sids b/xen/xsm/flask/policy/initial_sids
-index 7eca70d339..e8b55b8368 100644
---- a/xen/xsm/flask/policy/initial_sids
-+++ b/xen/xsm/flask/policy/initial_sids
-@@ -3,6 +3,7 @@
- #
- # Define initial security identifiers 
- #
-+sid xenboot
- sid xen
- sid dom0
- sid domio
--- 
-2.20.1
+T24gMjkuMDQuMjIgMTc6MjgsIE9sZWtzYW5kciB3cm90ZToNCj4gDQo+IEhlbGxvIEp1ZXJn
+ZW4NCj4gDQo+IA0KPiBPbiAyOC4wNC4yMiAyMTowMywgT2xla3NhbmRyIFR5c2hjaGVua28g
+d3JvdGU6DQo+Pg0KPj4NCj4+IE9uIFRodSwgQXByIDI4LCAyMDIyIGF0IDExOjI4IEFNIEp1
+ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbSANCj4+IDxtYWlsdG86amdyb3NzQHN1c2Uu
+Y29tPj4gd3JvdGU6DQo+Pg0KPj4gSGVsbG/CoEp1ZXJnZW4NCj4+DQo+PiBbc29ycnkgZm9y
+IHRoZSBwb3NzaWJsZSBmb3JtYXQgaXNzdWVdDQo+Pg0KPj4gwqDCoMKgIEluc3RlYWQgb2Yg
+dXNpbmcgYSBwcml2YXRlIG1hY3JvIGZvciBhbiBpbnZhbGlkIGdyYW50IHJlZmVyZW5jZSB1
+c2UNCj4+IMKgwqDCoCB0aGUgY29tbW9uIG9uZS4NCj4+DQo+PiDCoMKgwqAgU2lnbmVkLW9m
+Zi1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tDQo+PiDCoMKgwqAgPG1haWx0
+bzpqZ3Jvc3NAc3VzZS5jb20+Pg0KPj4gwqDCoMKgIC0tLQ0KPj4gwqDCoMKgIMKgZHJpdmVy
+cy94ZW4veGVuLWZyb250LXBnZGlyLXNoYnVmLmMgfCAxNyArKysrLS0tLS0tLS0tLS0tLQ0K
+Pj4gwqDCoMKgIMKgMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRp
+b25zKC0pDQo+Pg0KPj4gwqDCoMKgIGRpZmYgLS1naXQgYS9kcml2ZXJzL3hlbi94ZW4tZnJv
+bnQtcGdkaXItc2hidWYuYw0KPj4gwqDCoMKgIGIvZHJpdmVycy94ZW4veGVuLWZyb250LXBn
+ZGlyLXNoYnVmLmMNCj4+IMKgwqDCoCBpbmRleCBhOTU5ZGVlMjExMzQuLmZhMjkyMWQ0ZmJm
+YyAxMDA2NDQNCj4+IMKgwqDCoCAtLS0gYS9kcml2ZXJzL3hlbi94ZW4tZnJvbnQtcGdkaXIt
+c2hidWYuYw0KPj4gwqDCoMKgICsrKyBiL2RyaXZlcnMveGVuL3hlbi1mcm9udC1wZ2Rpci1z
+aGJ1Zi5jDQo+PiDCoMKgwqAgQEAgLTIxLDE1ICsyMSw2IEBADQo+Pg0KPj4gwqDCoMKgIMKg
+I2luY2x1ZGUgPHhlbi94ZW4tZnJvbnQtcGdkaXItc2hidWYuaD4NCj4+DQo+PiDCoMKgwqAg
+LSNpZm5kZWYgR1JBTlRfSU5WQUxJRF9SRUYNCj4+IMKgwqDCoCAtLyoNCj4+IMKgwqDCoCAt
+ICogRklYTUU6IHVzYWdlIG9mIGdyYW50IHJlZmVyZW5jZSAwIGFzIGludmFsaWQgZ3JhbnQg
+cmVmZXJlbmNlOg0KPj4gwqDCoMKgIC0gKiBncmFudCByZWZlcmVuY2UgMCBpcyB2YWxpZCwg
+YnV0IG5ldmVyIGV4cG9zZWQgdG8gYSBQViBkcml2ZXIsDQo+PiDCoMKgwqAgLSAqIGJlY2F1
+c2Ugb2YgdGhlIGZhY3QgaXQgaXMgYWxyZWFkeSBpbiB1c2UvcmVzZXJ2ZWQgYnkgdGhlIFBW
+DQo+PiDCoMKgwqAgY29uc29sZS4NCj4+IMKgwqDCoCAtICovDQo+PiDCoMKgwqAgLSNkZWZp
+bmUgR1JBTlRfSU5WQUxJRF9SRUbCoCDCoCDCoCAwDQo+PiDCoMKgwqAgLSNlbmRpZg0KPj4g
+wqDCoMKgIC0NCj4+IMKgwqDCoCDCoC8qKg0KPj4gwqDCoMKgIMKgICogVGhpcyBzdHJ1Y3R1
+cmUgcmVwcmVzZW50cyB0aGUgc3RydWN0dXJlIG9mIGEgc2hhcmVkIHBhZ2UNCj4+IMKgwqDC
+oCDCoCAqIHRoYXQgY29udGFpbnMgZ3JhbnQgcmVmZXJlbmNlcyB0byB0aGUgcGFnZXMgb2Yg
+dGhlIHNoYXJlZA0KPj4gwqDCoMKgIEBAIC04Myw3ICs3NCw3IEBAIGdyYW50X3JlZl90DQo+
+PiDCoMKgwqAgwqB4ZW5fZnJvbnRfcGdkaXJfc2hidWZfZ2V0X2Rpcl9zdGFydChzdHJ1Y3Qg
+eGVuX2Zyb250X3BnZGlyX3NoYnVmDQo+PiDCoMKgwqAgKmJ1ZikNCj4+IMKgwqDCoCDCoHsN
+Cj4+IMKgwqDCoCDCoCDCoCDCoCDCoCBpZiAoIWJ1Zi0+Z3JlZnMpDQo+PiDCoMKgwqAgLcKg
+IMKgIMKgIMKgIMKgIMKgIMKgIMKgcmV0dXJuIEdSQU5UX0lOVkFMSURfUkVGOw0KPj4gwqDC
+oMKgICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHJldHVybiBJTlZBTElEX0dSQU5UX1JFRjsN
+Cj4+DQo+PiDCoMKgwqAgwqAgwqAgwqAgwqAgcmV0dXJuIGJ1Zi0+Z3JlZnNbMF07DQo+PiDC
+oMKgwqAgwqB9DQo+PiDCoMKgwqAgQEAgLTE0Miw3ICsxMzMsNyBAQCB2b2lkIHhlbl9mcm9u
+dF9wZ2Rpcl9zaGJ1Zl9mcmVlKHN0cnVjdA0KPj4gwqDCoMKgIHhlbl9mcm9udF9wZ2Rpcl9z
+aGJ1ZiAqYnVmKQ0KPj4gwqDCoMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIGludCBpOw0K
+Pj4NCj4+IMKgwqDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBmb3IgKGkgPSAwOyBpIDwg
+YnVmLT5udW1fZ3JlZnM7IGkrKykNCj4+IMKgwqDCoCAtwqAgwqAgwqAgwqAgwqAgwqAgwqAg
+wqAgwqAgwqAgwqAgwqBpZiAoYnVmLT5ncmVmc1tpXSAhPSBHUkFOVF9JTlZBTElEX1JFRikN
+Cj4+IMKgwqDCoCArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBpZiAoYnVm
+LT5ncmVmc1tpXSAhPSBJTlZBTElEX0dSQU5UX1JFRikNCj4+IMKgwqDCoCBnbnR0YWJfZW5k
+X2ZvcmVpZ25fYWNjZXNzKGJ1Zi0+Z3JlZnNbaV0sIDBVTCk7DQo+PiDCoMKgwqAgwqAgwqAg
+wqAgwqAgfQ0KPj4gwqDCoMKgIMKgIMKgIMKgIMKgIGtmcmVlKGJ1Zi0+Z3JlZnMpOw0KPj4g
+wqDCoMKgIEBAIC0zNTUsNyArMzQ2LDcgQEAgc3RhdGljIHZvaWQgYmFja2VuZF9maWxsX3Bh
+Z2VfZGlyKHN0cnVjdA0KPj4gwqDCoMKgIHhlbl9mcm9udF9wZ2Rpcl9zaGJ1ZiAqYnVmKQ0K
+Pj4gwqDCoMKgIMKgIMKgIMKgIMKgIH0NCj4+IMKgwqDCoCDCoCDCoCDCoCDCoCAvKiBMYXN0
+IHBhZ2UgbXVzdCBzYXkgdGhlcmUgaXMgbm8gbW9yZSBwYWdlcy4gKi8NCj4+IMKgwqDCoCDC
+oCDCoCDCoCDCoCBwYWdlX2RpciA9IChzdHJ1Y3QgeGVuX3BhZ2VfZGlyZWN0b3J5ICopcHRy
+Ow0KPj4gwqDCoMKgIC3CoCDCoCDCoCDCoHBhZ2VfZGlyLT5ncmVmX2Rpcl9uZXh0X3BhZ2Ug
+PSBHUkFOVF9JTlZBTElEX1JFRjsNCj4+IMKgwqDCoCArwqAgwqAgwqAgwqBwYWdlX2Rpci0+
+Z3JlZl9kaXJfbmV4dF9wYWdlID0gSU5WQUxJRF9HUkFOVF9SRUY7DQo+PiDCoMKgwqAgwqB9
+DQo+Pg0KPj4gwqDCoMKgIMKgLyoqDQo+PiDCoMKgwqAgQEAgLTM4NCw3ICszNzUsNyBAQCBz
+dGF0aWMgdm9pZCBndWVzdF9maWxsX3BhZ2VfZGlyKHN0cnVjdA0KPj4gwqDCoMKgIHhlbl9m
+cm9udF9wZ2Rpcl9zaGJ1ZiAqYnVmKQ0KPj4NCj4+IMKgwqDCoCDCoCDCoCDCoCDCoCDCoCDC
+oCDCoCDCoCBpZiAoZ3JlZnNfbGVmdCA8PSBYRU5fTlVNX0dSRUZTX1BFUl9QQUdFKSB7DQo+
+PiDCoMKgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgdG9fY29weSA9
+IGdyZWZzX2xlZnQ7DQo+PiDCoMKgwqAgLcKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgcGFnZV9kaXItPmdyZWZfZGlyX25leHRfcGFnZSA9DQo+PiDCoMKgwqAgR1JBTlRf
+SU5WQUxJRF9SRUY7DQo+PiDCoMKgwqAgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgcGFnZV9kaXItPmdyZWZfZGlyX25leHRfcGFnZSA9DQo+PiDCoMKgwqAgSU5WQUxJ
+RF9HUkFOVF9SRUY7DQo+Pg0KPj4NCj4+IEkgZmFjZWQgYW4gaXNzdWUgd2l0aCB0ZXN0aW5n
+IFBWIFNvdW5kIHdpdGggdGhlIGN1cnJlbnTCoHNlcmllcy4NCj4+DQo+PiByb290QHNhbHZh
+dG9yLXgtaDMtNHgyZy14dC1kb211On4jIGFwbGF5IC9tZWRpYS9Nb29keUxvb3Aud2F2DQo+
+PiBQbGF5aW5nIFdBVkUgJy9tZWRpYS9Nb29keUxvb3Aud2F2JyA6IFNpZ25lZCAxNiBiaXQg
+TGl0dGxlIEVuZGlhbiwgUmF0ZSA0NDEwMCANCj4+IEh6LCBTdGVyZW8NCj4+IChYRU4pIGNv
+bW1vbi9ncmFudF90YWJsZS5jOjEwNTM6ZDF2MiBCYWQgcmVmIDB4ZmZmZmZmZmYgZm9yIGQ2
+DQo+Pg0KPj4gSGVyZSB3ZSBoYXZlIGFuIGludGVyZXN0aW5nIHNpdHVhdGlvbi4gUFYgU291
+bmQgZnJvbnRlbmTCoHVzZXMgdGhpcyANCj4+IHhlbi1mcm9udC1wZ2Rpci1zaGJ1ZiBmcmFt
+ZXdvcmsuIFRlY2huaWNhbGx5LCB0aGlzIHBhdGNoIGNoYW5nZXMgDQo+PiBwYWdlX2Rpci0+
+Z3JlZl9kaXJfbmV4dF9wYWdlIChyZWZlcmVuY2UgdG8gdGhlIG5leHQgcGFnZSBkZXNjcmli
+aW5nIHBhZ2UgDQo+PiBkaXJlY3RvcnkpIGZyb20gMCB0b8KgMHhmZmZmZmZmZiBoZXJlLg0K
+Pj4gI2RlZmluZSBJTlZBTElEX0dSQU5UX1JFRsKgICgoZ3JhbnRfcmVmX3QpLTEpDQo+Pg0K
+Pj4gQnV0IGFjY29yZGluZyB0byB0aGUgcHJvdG9jb2wgKHNuZGlmLmgpLCAiMCIgbWVhbnMg
+dGhhdCB0aGVyZSBhcmUgbm8gbW9yZSANCj4+IHBhZ2VzIGluIHRoZSBsaXN0IGFuZCB0aGUg
+dXNlciBzcGFjZSBiYWNrZW5kIGV4cGVjdHMgb25seSB0aGF0IHZhbHVlLiBTbyANCj4+IHJl
+Y2VpdmluZ8KgMHhmZmZmZmZmZiBpdCBhc3N1bWVzIHRoZXJlIGFyZSBwYWdlcyBpbiB0aGUg
+bGlzdCBhbmQgdHJ5aW5nIHRvIA0KPj4gcHJvY2Vzcy4uLg0KPj4gaHR0cHM6Ly9lbGl4aXIu
+Ym9vdGxpbi5jb20vbGludXgvdjUuMTgtcmM0L3NvdXJjZS9pbmNsdWRlL3hlbi9pbnRlcmZh
+Y2UvaW8vc25kaWYuaCNMNjUwIA0KPj4NCj4+DQo+Pg0KPj4gSSB0aGluaywgdGhlwqBzYW1l
+IGlzIHJlbGV2YW50IHRvwqBiYWNrZW5kX2ZpbGxfcGFnZV9kaXIoKSBhcyB3ZWxsLg0KPiAN
+Cj4gDQo+IEluIGFkZGl0aW9uIHRvIHdoYXQgSSBzYWlkIHllc3RlcmRheToNCj4gDQo+IFBW
+IERpc3BsYXkgYWxzbyB1c2VzIHRoaXMgeGVuLWZyb250LXBnZGlyLXNoYnVmIGZyYW1ld29y
+ay4gSXQncyBwcm90b2NvbCANCj4gKGRpc3BsaWYuaCkgYWxzbyBtZW50aW9ucyB0aGUgc2Ft
+ZSBhcyBzbmRpZi5oIGlmIHRoZSBjb250ZXh0IG9mIGdyZWZfZGlyX25leHRfcGFnZToNCj4g
+DQo+ICDCoCogZ3JlZl9kaXJfbmV4dF9wYWdlIC0gZ3JhbnRfcmVmX3QsIHJlZmVyZW5jZSB0
+byB0aGUgbmV4dCBwYWdlIGRlc2NyaWJpbmcNCj4gIMKgKsKgwqAgcGFnZSBkaXJlY3Rvcnku
+IE11c3QgYmUgMCBpZiB0aGVyZSBhcmUgbm8gbW9yZSBwYWdlcyBpbiB0aGUgbGlzdC4NCj4g
+DQo+IA0KPiBXaXRoIHRoYXQgbG9jYWwgY2hhbmdlIGJvdGggUFYgZGV2aWNlcyB3b3JrIGlu
+IG15IGVudmlyb25tZW50Lg0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMveGVuL3hlbi1m
+cm9udC1wZ2Rpci1zaGJ1Zi5jIA0KPiBiL2RyaXZlcnMveGVuL3hlbi1mcm9udC1wZ2Rpci1z
+aGJ1Zi5jDQo+IGluZGV4IGZhMjkyMWQuLmFkNGE4OGUgMTAwNjQ0DQo+IC0tLSBhL2RyaXZl
+cnMveGVuL3hlbi1mcm9udC1wZ2Rpci1zaGJ1Zi5jDQo+ICsrKyBiL2RyaXZlcnMveGVuL3hl
+bi1mcm9udC1wZ2Rpci1zaGJ1Zi5jDQo+IEBAIC0zNDYsNyArMzQ2LDcgQEAgc3RhdGljIHZv
+aWQgYmFja2VuZF9maWxsX3BhZ2VfZGlyKHN0cnVjdCANCj4geGVuX2Zyb250X3BnZGlyX3No
+YnVmICpidWYpDQo+ICDCoMKgwqDCoMKgwqDCoCB9DQo+ICDCoMKgwqDCoMKgwqDCoCAvKiBM
+YXN0IHBhZ2UgbXVzdCBzYXkgdGhlcmUgaXMgbm8gbW9yZSBwYWdlcy4gKi8NCj4gIMKgwqDC
+oMKgwqDCoMKgIHBhZ2VfZGlyID0gKHN0cnVjdCB4ZW5fcGFnZV9kaXJlY3RvcnkgKilwdHI7
+DQo+IC3CoMKgwqDCoMKgwqAgcGFnZV9kaXItPmdyZWZfZGlyX25leHRfcGFnZSA9IElOVkFM
+SURfR1JBTlRfUkVGOw0KPiArwqDCoMKgwqDCoMKgIHBhZ2VfZGlyLT5ncmVmX2Rpcl9uZXh0
+X3BhZ2UgPSAwOw0KPiAgwqB9DQo+IA0KPiAgwqAvKioNCj4gQEAgLTM3NSw3ICszNzUsNyBA
+QCBzdGF0aWMgdm9pZCBndWVzdF9maWxsX3BhZ2VfZGlyKHN0cnVjdCB4ZW5fZnJvbnRfcGdk
+aXJfc2hidWYgDQo+ICpidWYpDQo+IA0KPiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIGlmIChncmVmc19sZWZ0IDw9IFhFTl9OVU1fR1JFRlNfUEVSX1BBR0UpIHsNCj4gIMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdG9fY29weSA9
+IGdyZWZzX2xlZnQ7DQo+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCBwYWdlX2Rpci0+Z3JlZl9kaXJfbmV4dF9wYWdlID0gSU5WQUxJRF9HUkFOVF9S
+RUY7DQo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBw
+YWdlX2Rpci0+Z3JlZl9kaXJfbmV4dF9wYWdlID0gMDsNCj4gIMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCB9IGVsc2Ugew0KPiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCB0b19jb3B5ID0gWEVOX05VTV9HUkVGU19QRVJfUEFHRTsN
+Cj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcGFn
+ZV9kaXItPmdyZWZfZGlyX25leHRfcGFnZSA9IGJ1Zi0+Z3JlZnNbaSArIDFdOw0KDQpJIHRo
+aW5rIEknbGwgaW50cm9kdWNlIGEgcHJvcGVyIGRlZmluZSBmb3IgdGhhdCBwdXJwb3NlLg0K
+DQoNCkp1ZXJnZW4NCg==
+--------------izIJvk0vw0NGS6eDqlUuEfT9
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------izIJvk0vw0NGS6eDqlUuEfT9--
+
+--------------ui4wYIwPULmvH8aTJTfRFH60--
+
+--------------yarkfAZB0fK3Olo9lMNtQLAG
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmJv3T0FAwAAAAAACgkQsN6d1ii/Ey8U
+8wf/QwdgjJ3EjOKZeIqsy/rjKDAVHxWaYwTtloONEZ1mZuj4wBE8KTrTRGk9SP63BWqfxXZxSEhf
+GyuVUuWzyiSSJ+fVczCUB2n+vd0ecYV2LbnoS4PQ0nmiDftfqNSeqxJ6ewOqw5My5GBPIHcPKCFv
+jx5fub+eRQChTtacB0IZ54RDMplQBeoxbHM55vOb/1J8nhSxS6P3Rev8teB6KNhTUY57fqqt8/NT
+ln4fBfvDAL7Mie51XHvecQrwJspBDU0bCVaTRDdnxhDXSk0LHz1pkyx/moqknYP8WsZh0+Ukb5QO
+hIqBusDuJTUzrXQAi2ClXgfrYJcghgatUy7F5eGyaw==
+=uYaa
+-----END PGP SIGNATURE-----
+
+--------------yarkfAZB0fK3Olo9lMNtQLAG--
 
