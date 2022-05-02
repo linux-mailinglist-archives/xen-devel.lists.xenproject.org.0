@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53D8C516DC8
-	for <lists+xen-devel@lfdr.de>; Mon,  2 May 2022 11:57:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.318755.538656 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD4D0516DE2
+	for <lists+xen-devel@lfdr.de>; Mon,  2 May 2022 12:07:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.318763.538668 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nlSo3-0000tg-0o; Mon, 02 May 2022 09:57:27 +0000
+	id 1nlSxk-0002Xz-VH; Mon, 02 May 2022 10:07:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 318755.538656; Mon, 02 May 2022 09:57:26 +0000
+Received: by outflank-mailman (output) from mailman id 318763.538668; Mon, 02 May 2022 10:07:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nlSo2-0000rp-Tr; Mon, 02 May 2022 09:57:26 +0000
-Received: by outflank-mailman (input) for mailman id 318755;
- Mon, 02 May 2022 09:57:25 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1nlSxk-0002VU-S4; Mon, 02 May 2022 10:07:28 +0000
+Received: by outflank-mailman (input) for mailman id 318763;
+ Mon, 02 May 2022 10:07:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nlSo1-0000rf-7g; Mon, 02 May 2022 09:57:25 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nlSo0-0006Ke-W5; Mon, 02 May 2022 09:57:24 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nlSo0-0002CI-Kd; Mon, 02 May 2022 09:57:24 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nlSo0-0007E6-KA; Mon, 02 May 2022 09:57:24 +0000
+ (envelope-from <SRS0=Z+C6=VK=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1nlSxi-0002VO-UX
+ for xen-devel@lists.xenproject.org; Mon, 02 May 2022 10:07:26 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id aa9638de-c9ff-11ec-a405-831a346695d4;
+ Mon, 02 May 2022 12:07:26 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6F2AC210E1;
+ Mon,  2 May 2022 10:07:25 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3AAC613491;
+ Mon,  2 May 2022 10:07:25 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id q2usDF2tb2IjOQAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 02 May 2022 10:07:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +51,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Yi8grIAth9quFT9C24OkhdtMoLWVZ3JahXZO3G/ENIo=; b=U0hS4/mBOxviWea8xZ2DE2v2Ul
-	yi81/Y2CzcDYLKB4A9lNJIevtKsLkb/buaDxJolXn+WmUzFK2w76MkVT96+3+4M839t9TXwKdaosp
-	cOFgN3l3xwD1PU9M4gumgt8E+fTKre5brOPQ4AUrE+C/F7gVR92iuJ4jZqk0PmVG80qg=;
+X-Inumbo-ID: aa9638de-c9ff-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1651486045; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=dSazRnUrhG2E0eGygBKI1IfushgTILxOn4bMfGXU/uA=;
+	b=DJ/JY3vLaoNFkN3FaHETJ+PESajiRM+DJEqB2p0nlJ9vuowwjnFm4+o6LFGQhv7Gp4hTVV
+	tCzANf5AlFaSHVgdpgf8VdNloGhRGWWgZ0XHIsORNmeNjmzkLQYCndaE5s12z+326Hmfss
+	yAYBS6NvdYjkhbimTTrbUMCdeuSQCDc=
+From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169982-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Juergen Gross <jgross@suse.com>,
+	Wei Liu <wl@xen.org>,
+	Julien Grall <julien@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Raphael Ning <raphning@amazon.com>
+Subject: [PATCH v2] tools/xenstore: don't let special watches be children of /
+Date: Mon,  2 May 2022 12:07:22 +0200
+Message-Id: <20220502100722.17250-1-jgross@suse.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 169982: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=702c9a800eb3ecd4b8595998d37a769d470c5bb0
-X-Osstest-Versions-That:
-    xen=fe234237b6fc8afc5d8265850169ceeb3d2f81fd
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 02 May 2022 09:57:24 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 169982 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169982/
+When firing special watches (e.g. "@releaseDomain"), they will be
+regarded to be valid children of the "/" node. So a domain having
+registered a watch for "/" and having the privilege to receive
+the special watches will receive those special watch events for the
+registered "/" watch.
 
-Failures :-/ but no regressions.
+Fix that by calling the related fire_watches() with the "exact"
+parameter set to true, causing a mismatch for the "/" node.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+Reported-by: Raphael Ning <raphning@amazon.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Reviewed-by: Raphael Ning <raphning@amazon.com>
+---
+V2:
+- use Rapahael's amazon mail address
+---
+ tools/xenstore/xenstored_domain.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-version targeted for testing:
- xen                  702c9a800eb3ecd4b8595998d37a769d470c5bb0
-baseline version:
- xen                  fe234237b6fc8afc5d8265850169ceeb3d2f81fd
+diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
+index ae065fcbee..80ba1d627b 100644
+--- a/tools/xenstore/xenstored_domain.c
++++ b/tools/xenstore/xenstored_domain.c
+@@ -231,7 +231,7 @@ static int destroy_domain(void *_domain)
+ 			unmap_interface(domain->interface);
+ 	}
+ 
+-	fire_watches(NULL, domain, "@releaseDomain", NULL, false, NULL);
++	fire_watches(NULL, domain, "@releaseDomain", NULL, true, NULL);
+ 
+ 	wrl_domain_destroy(domain);
+ 
+@@ -282,7 +282,7 @@ void check_domains(void)
+ 	}
+ 
+ 	if (notify)
+-		fire_watches(NULL, NULL, "@releaseDomain", NULL, false, NULL);
++		fire_watches(NULL, NULL, "@releaseDomain", NULL, true, NULL);
+ }
+ 
+ /* We scan all domains rather than use the information given here. */
+@@ -495,7 +495,7 @@ static struct domain *introduce_domain(const void *ctx,
+ 
+ 		if (!is_master_domain && !restore)
+ 			fire_watches(NULL, ctx, "@introduceDomain", NULL,
+-				     false, NULL);
++				     true, NULL);
+ 	} else {
+ 		/* Use XS_INTRODUCE for recreating the xenbus event-channel. */
+ 		if (domain->port)
+-- 
+2.34.1
 
-Last test of basis   169864  2022-04-29 10:00:27 Z    2 days
-Testing same since   169982  2022-05-02 07:01:45 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Elliott Mitchell <ehem+xen@m5p.com>
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   fe234237b6..702c9a800e  702c9a800eb3ecd4b8595998d37a769d470c5bb0 -> smoke
 
