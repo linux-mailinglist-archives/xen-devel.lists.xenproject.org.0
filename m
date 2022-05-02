@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53131516C18
-	for <lists+xen-devel@lfdr.de>; Mon,  2 May 2022 10:34:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.318716.538602 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6259516C66
+	for <lists+xen-devel@lfdr.de>; Mon,  2 May 2022 10:48:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.318724.538613 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nlRVH-0006xT-QB; Mon, 02 May 2022 08:33:59 +0000
+	id 1nlRiR-00007e-0j; Mon, 02 May 2022 08:47:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 318716.538602; Mon, 02 May 2022 08:33:59 +0000
+Received: by outflank-mailman (output) from mailman id 318724.538613; Mon, 02 May 2022 08:47:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nlRVH-0006vP-Md; Mon, 02 May 2022 08:33:59 +0000
-Received: by outflank-mailman (input) for mailman id 318716;
- Mon, 02 May 2022 08:33:59 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1nlRiQ-0008WL-TJ; Mon, 02 May 2022 08:47:34 +0000
+Received: by outflank-mailman (input) for mailman id 318724;
+ Mon, 02 May 2022 08:47:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nlRVH-0006vF-4I; Mon, 02 May 2022 08:33:59 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nlRVH-0004uE-1k; Mon, 02 May 2022 08:33:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nlRVG-00084f-MC; Mon, 02 May 2022 08:33:58 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nlRVG-0000hC-Lm; Mon, 02 May 2022 08:33:58 +0000
+ (envelope-from <SRS0=Z+C6=VK=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1nlRiP-0008WF-LS
+ for xen-devel@lists.xenproject.org; Mon, 02 May 2022 08:47:33 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 81483a6e-c9f4-11ec-a405-831a346695d4;
+ Mon, 02 May 2022 10:47:32 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id AE33E210EC;
+ Mon,  2 May 2022 08:47:31 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 89207133E5;
+ Mon,  2 May 2022 08:47:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id PO4iIKOab2JXFgAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 02 May 2022 08:47:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,163 +51,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=4pdLv7vK5b+xAXYC2KNnuSK5okY95iA8kiyqJ4ZjMKA=; b=hJTs5v8kDlfLMouGVdw95v/oui
-	0m5/bXpKyjD2qeSebRHbQwlDPMOhTTUGxCWgd+Rm8rE0eRlITPEoEZc+1iGYrVM2XZqugQlk9IfBL
-	udZGwHUBSu6+0dwVYwQZe6y6bDSilZUcXqRcZaDnEw6O29Jm4SpKfakvhA0Z5NTCsH9Q=;
+X-Inumbo-ID: 81483a6e-c9f4-11ec-a405-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1651481251; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=3YGp09FIL19SEfwLZBKJrZGe61G82XI/DK4ZCzyeUww=;
+	b=uHWnRqYyDeNiAhGeSvNuQVtBugZZEBF/T3GhiUaydYzG90eZypJtp4QeUXrx3dnsOVXce6
+	ScpkEKO/0DvyK13BT4zUog+/CXq5CgvfICC5RnnGpTj782kQwRvrh2dPFpC/3GxHRZy3fB
+	tp+lDkHG46df8exc7WKvu8y6jrY9GVM=
+From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-169983-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Juergen Gross <jgross@suse.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v3] tools/libs/light: update xenstore entry when setting max domain memory
+Date: Mon,  2 May 2022 10:47:29 +0200
+Message-Id: <20220502084729.13044-1-jgross@suse.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: [ovmf test] 169983: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=cabd96ad03603a63a97e701fb30a03341ca0e2ec
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 02 May 2022 08:33:58 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 169983 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/169983/
+libxl_domain_setmaxmem() called during "xl mem-max" should update the
+domain's memory/static-max Xenstore node, as otherwise "xl mem-set"
+won't be able to set the memory size to the new maximum.
 
-Regressions :-(
+Adjust the related comments and documentation accordingly.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+V2:
+- adjust comments and docs (Anthony Perard)
+V3:
+- really adjust the docs (Anthony Perard)
+---
+ docs/man/xl.1.pod.in         | 11 +++++------
+ tools/libs/light/libxl_mem.c | 12 ++++++++++--
+ 2 files changed, 15 insertions(+), 8 deletions(-)
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+diff --git a/docs/man/xl.1.pod.in b/docs/man/xl.1.pod.in
+index e2176bd696..101e14241d 100644
+--- a/docs/man/xl.1.pod.in
++++ b/docs/man/xl.1.pod.in
+@@ -442,15 +442,14 @@ allocate.
+ The default unit is kiB.  Add 't' for TiB, 'g' for GiB, 'm' for
+ MiB, 'k' for kiB, and 'b' for bytes (e.g., `2048m` for 2048 MiB).
+ 
+-NB that users normally shouldn't need this command; B<xl mem-set> will
+-set this as appropriate automatically.
+-
+ I<mem> can't be set lower than the current memory target for
+ I<domain-id>.  It is allowed to be higher than the configured maximum
+ memory size of the domain (B<maxmem> parameter in the domain's
+-configuration). Note however that the initial B<maxmem> value is still
+-used as an upper limit for B<xl mem-set>.  Also note that calling B<xl
+-mem-set> will reset this value.
++configuration).
++
++Setting the maximum memory size above the configured maximum memory size
++will require special guest support (memory hotplug) in order to be usable
++by the guest.
+ 
+ The domain will not receive any signal regarding the changed memory
+ limit.
+diff --git a/tools/libs/light/libxl_mem.c b/tools/libs/light/libxl_mem.c
+index c739d00f39..92ec09f4cf 100644
+--- a/tools/libs/light/libxl_mem.c
++++ b/tools/libs/light/libxl_mem.c
+@@ -20,8 +20,7 @@
+ /*
+  * Set the maximum memory size of the domain in the hypervisor. There is no
+  * change of the current memory size involved. The specified memory size can
+- * even be above the configured maxmem size of the domain, but the related
+- * Xenstore entry memory/static-max isn't modified!
++ * even be above the configured maxmem size of the domain.
+  */
+ int libxl_domain_setmaxmem(libxl_ctx *ctx, uint32_t domid, uint64_t max_memkb)
+ {
+@@ -82,6 +81,15 @@ int libxl_domain_setmaxmem(libxl_ctx *ctx, uint32_t domid, uint64_t max_memkb)
+         goto out;
+     }
+ 
++    rc = libxl__xs_printf(gc, XBT_NULL,
++                          GCSPRINTF("%s/memory/static-max", dompath),
++                          "%"PRIu64, max_memkb);
++    if (rc != 0) {
++        LOGED(ERROR, domid, "Couldn't set %s/memory/static-max, rc=%d\n",
++              dompath, rc);
++        goto out;
++    }
++
+     rc = 0;
+ out:
+     libxl_domain_config_dispose(&d_config);
+-- 
+2.34.1
 
-version targeted for testing:
- ovmf                 cabd96ad03603a63a97e701fb30a03341ca0e2ec
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   62 days
-Failing since        168258  2022-03-01 01:55:31 Z   62 days  755 attempts
-Testing same since   169904  2022-04-30 08:10:33 Z    2 days   47 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 5855 lines long.)
 
