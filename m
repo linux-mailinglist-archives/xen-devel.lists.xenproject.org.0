@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5757C517B06
-	for <lists+xen-devel@lfdr.de>; Tue,  3 May 2022 01:54:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.319102.539186 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BC53517B3F
+	for <lists+xen-devel@lfdr.de>; Tue,  3 May 2022 02:37:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.319115.539209 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nlfrV-0005XU-RR; Mon, 02 May 2022 23:53:53 +0000
+	id 1nlgWb-0002RO-V3; Tue, 03 May 2022 00:36:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 319102.539186; Mon, 02 May 2022 23:53:53 +0000
+Received: by outflank-mailman (output) from mailman id 319115.539209; Tue, 03 May 2022 00:36:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nlfrV-0005Ut-N9; Mon, 02 May 2022 23:53:53 +0000
-Received: by outflank-mailman (input) for mailman id 319102;
- Mon, 02 May 2022 23:53:52 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nlfrU-0005Uj-Ns; Mon, 02 May 2022 23:53:52 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nlfrU-0006I5-LO; Mon, 02 May 2022 23:53:52 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nlfrU-0007hk-Aa; Mon, 02 May 2022 23:53:52 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nlfrU-0001On-A9; Mon, 02 May 2022 23:53:52 +0000
+	id 1nlgWb-0002PZ-Rg; Tue, 03 May 2022 00:36:21 +0000
+Received: by outflank-mailman (input) for mailman id 319115;
+ Tue, 03 May 2022 00:36:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/j1Y=VL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nlgWa-0002PS-D9
+ for xen-devel@lists.xenproject.org; Tue, 03 May 2022 00:36:20 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0bdac6c5-ca79-11ec-8fc4-03012f2f19d4;
+ Tue, 03 May 2022 02:36:18 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 567D9B81AEB;
+ Tue,  3 May 2022 00:36:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C138DC385A4;
+ Tue,  3 May 2022 00:36:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,166 +43,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=F+CO15htAxbJOmWjWmdDfeiEhyaFUbOMiJc9qdr7Wvg=; b=BHODI3y5gye6sl73skYDT3sr/J
-	Gv9qCF2/sl5jk8tYWHzR2ETzMKC6yy3LiiMR1hG48pf181wqu1TtiC/RrxGrP2vyrQBwCryWOlNa2
-	gTEpM31ptpQGXa5tLt+gfyfJWOOn2E+HA05jbHR5sfQ0eDdMstBdTmqIef85AFOSa2Xg=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170006-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 0bdac6c5-ca79-11ec-8fc4-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1651538176;
+	bh=8ExZoNEzyhAcwZ0cSJzhH9XGdXeQ6MMfKD5tj7Bb4ZY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=KDX4xqpF35m7drFuTvjMYHfmX5RGer/dB18+lQSj7+OHJPy+up/yxha/A2A59WyHo
+	 8khOs/zS7iZzWdv2fHDmro/YNSBKhA5RKKAoX/dRku7ZuEepph1pzBpAieHo6phs+7
+	 5Z0bkiMfXSMaLDNwCabEIrWPiRArFFChm2w+xQ4wXggLr1KyMwcRAQ7oY08NBwv97j
+	 PgkTgXXRh5TSiMmxzpa+UHfPb+OxmGV5VJj3q4g8oLwMxvLIsBqriqxp7C6Q/31tLX
+	 83DhIhbzQFgbL6PadRAbxkX0qmgIit6ChW96uQPERspLjRPeeGXFIiJEuTz+tmYyn8
+	 4L27+lYDCizzw==
+Date: Mon, 2 May 2022 17:36:15 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, Luca Miccio <lucmiccio@gmail.com>, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>, jgross@suse.com
+Subject: Re: [LINUX PATCH v3] xen: add support for initializing xenstore
+ later as HVM domain
+In-Reply-To: <e9c87df2-3677-52a9-1a17-1314ee3d9950@oracle.com>
+Message-ID: <alpine.DEB.2.22.394.2205021728520.2819275@ubuntu-linux-20-04-desktop>
+References: <20220429211027.2034134-1-sstabellini@kernel.org> <e9c87df2-3677-52a9-1a17-1314ee3d9950@oracle.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 170006: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=4092f1d3977d290bf7fbcaa1ff55784c080f136f
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 02 May 2022 23:53:52 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 170006 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170006/
+On Fri, 29 Apr 2022, Boris Ostrovsky wrote:
+> On 4/29/22 5:10 PM, Stefano Stabellini wrote:
+> > From: Luca Miccio <lucmiccio@gmail.com>
+> > 
+> > When running as dom0less guest (HVM domain on ARM) the xenstore event
+> > channel is available at domain creation but the shared xenstore
+> > interface page only becomes available later on.
+> > 
+> > In that case, wait for a notification on the xenstore event channel,
+> > then complete the xenstore initialization later, when the shared page
+> > is actually available.
+> > 
+> > The xenstore page has few extra field. Add them to the shared struct.
+> > One of the field is "connection", when the connection is ready, it is
+> > zero. If the connection is not-zero, wait for a notification.
+> > 
+> > Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> > CC: jgross@suse.com
+> > CC: boris.ostrovsky@oracle.com
+> > ---
+> > Changes in v3:
+> > - check for the connection field, if it is not zero, wait for event
+> > 
+> > Changes in v2:
+> > - remove XENFEAT_xenstore_late_init
+> > ---
+> >   drivers/xen/xenbus/xenbus_probe.c  | 86 +++++++++++++++++++++++-------
+> >   include/xen/interface/io/xs_wire.h |  3 ++
+> >   2 files changed, 70 insertions(+), 19 deletions(-)
+> > 
+> > diff --git a/drivers/xen/xenbus/xenbus_probe.c
+> > b/drivers/xen/xenbus/xenbus_probe.c
+> > index fe360c33ce71..dc046d25789e 100644
+> > --- a/drivers/xen/xenbus/xenbus_probe.c
+> > +++ b/drivers/xen/xenbus/xenbus_probe.c
+> > @@ -65,6 +65,7 @@
+> >   #include "xenbus.h"
+> >     +static int xs_init_irq;
+> >   int xen_store_evtchn;
+> >   EXPORT_SYMBOL_GPL(xen_store_evtchn);
+> >   @@ -750,6 +751,17 @@ static void xenbus_probe(void)
+> >   {
+> >   	xenstored_ready = 1;
+> >   +	if (!xen_store_interface) {
+> > +		xen_store_interface = xen_remap(xen_store_gfn <<
+> > XEN_PAGE_SHIFT,
+> > +						XEN_PAGE_SIZE);
+> > +		/*
+> > +		 * Now it is safe to free the IRQ used for xenstore late
+> > +		 * initialization. No need to unbind: it is about to be
+> > +		 * bound again.
+> 
+> 
+> This assumes knowledge of bind/unbind internals. I think we should unbind.
 
-Regressions :-(
+I gave it a try and there is a problem with unbinding the IRQ here. If I
+do that, later when xb_init_comms calls bind_evtchn_to_irqhandler, the
+event channel doesn't fire anymore. I did some testing and debugging and
+as far as I can tell the issue is that if we call unbind_from_irqhandler
+here, we end up calling xen_evtchn_close. Then, when xb_init_comms calls
+bind_evtchn_to_irqhandler on the same evtchn, it is not enough to
+receive event notifications anymore because from Xen POV the evtchn is
+"closed".
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+If I comment out xen_evtchn_close() in __unbind_from_irq, then yes, I
+can call unbind_from_irqhandler here instead of free_irq and everything
+works.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+My suggestion is to keep the call to free_irq here (not
+unbind_from_irqhandler) and improve the in-code comment.
 
-version targeted for testing:
- ovmf                 4092f1d3977d290bf7fbcaa1ff55784c080f136f
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+ 
+> > +		 */
+> > +		free_irq(xs_init_irq, &xb_waitq);
+> > +	}
+> > +
+> 
+> 
+> 
+> > @@ -959,23 +988,42 @@ static int __init xenbus_init(void)
+> >   		 *
+> >   		 * Also recognize all bits set as an invalid value.
+> 
+> 
+> Is this comment still correct?
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   63 days
-Failing since        168258  2022-03-01 01:55:31 Z   62 days  768 attempts
-Testing same since   169999  2022-05-02 17:12:56 Z    0 days    6 attempts
+I can improve the comment
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Jiewen Yao <jiewen.yao@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Peter Grehan <grehan@freebsd.org>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 5871 lines long.)
+ 
+> >   		 */
+> > -		if (!v || !~v) {
+> > +		if (!v) {
+> >   			err = -ENOENT;
+> >   			goto out_error;
+> >   		}
+> > -		/* Avoid truncation on 32-bit. */
+> > +		if (v == ~0ULL) {
+> > +			wait = true;
+> > +		} else {
+> > +			/* Avoid truncation on 32-bit. */
 
