@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA31C51888C
+	by mail.lfdr.de (Postfix) with ESMTPS id CD88B51888D
 	for <lists+xen-devel@lfdr.de>; Tue,  3 May 2022 17:28:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.319723.540073 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.319727.540084 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nluRT-0002gG-C3; Tue, 03 May 2022 15:27:59 +0000
+	id 1nluRs-00037I-Lu; Tue, 03 May 2022 15:28:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 319723.540073; Tue, 03 May 2022 15:27:59 +0000
+Received: by outflank-mailman (output) from mailman id 319727.540084; Tue, 03 May 2022 15:28:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nluRT-0002dq-8c; Tue, 03 May 2022 15:27:59 +0000
-Received: by outflank-mailman (input) for mailman id 319723;
- Tue, 03 May 2022 15:27:57 +0000
+	id 1nluRs-00035P-HL; Tue, 03 May 2022 15:28:24 +0000
+Received: by outflank-mailman (input) for mailman id 319727;
+ Tue, 03 May 2022 15:28:22 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nluRR-0002de-Rh; Tue, 03 May 2022 15:27:57 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1nluRq-00031C-EY
+ for xen-devel@lists.xenproject.org; Tue, 03 May 2022 15:28:22 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nluRR-0005j2-KB; Tue, 03 May 2022 15:27:57 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nluRR-00058l-8J; Tue, 03 May 2022 15:27:57 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nluRR-0004P4-7r; Tue, 03 May 2022 15:27:57 +0000
+ (envelope-from <julien@xen.org>)
+ id 1nluRq-0005kL-3i; Tue, 03 May 2022 15:28:22 +0000
+Received: from [54.239.6.185] (helo=[192.168.2.157])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nluRp-00087q-UE; Tue, 03 May 2022 15:28:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,167 +39,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=j15q2opJOFUt1K8EnyEGYQ/ZlJyhWrLC0RgFQR8Kq8A=; b=XYzmelv+k7O+7N+264t0PzFKue
-	o3VjeNAZNvJt+WpaJNzXH1aXqoU+O8UN8vCghH3+BD43Bf5Z9Kn9nR7KF7EmtcFDTw9lDsQm5Fvet
-	vXM59CQ2jIH075pkAkUMT6akdXvwKGEF7l5bsIKYZ+eh3Zppwt2i4XllCB0aM+mgOUxI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170049-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=+5TDtsr3usX74j/+t36ZEF0usP4W/TKLWvT5jR6Z8BM=; b=Z4YSrxB5dckiyPSM2+n9UZadVX
+	vWNuUDQc1eHYNgrZzR7yTQvca+wWZjpMitA6iJOt+t3brRFj1Kt1MF5XJP6s6ok6Rmxxn/FeZGKL3
+	nDXD7oE+t6PyCUKWNo64eVu+r/ziMjnTIcWU+Lrj5BlrdpjwKE0U1R9uyoYjV9Skc22w=;
+Message-ID: <cfa06435-7054-d60b-1419-17b34a4d7fd9@xen.org>
+Date: Tue, 3 May 2022 16:28:19 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 170049: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=101f4c789221716585b972f2c2a22a85c078ef1d
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 03 May 2022 15:27:57 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.8.1
+Subject: Re: [PATCH] arm/acpi: don't expose the ACPI IORT SMMUv3 entry to dom0
+To: Rahul Singh <Rahul.Singh@arm.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <e11c57909782c60a6914d81e9c9893ff1712cc5b.1651075724.git.rahul.singh@arm.com>
+ <c3b83cd4-7633-7aee-ab40-9eff26a4f801@xen.org>
+ <780400E5-C22A-471E-BB19-C2F3B24112F1@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <780400E5-C22A-471E-BB19-C2F3B24112F1@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-flight 170049 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170049/
+On 29/04/2022 19:18, Rahul Singh wrote:
+> Hi Julien,
 
-Regressions :-(
+Hi Rahul,
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+>> On 27 Apr 2022, at 7:26 pm, Julien Grall <julien@xen.org> wrote:
+>>
+>> Hi Rahul,
+>>
+>> On 27/04/2022 17:12, Rahul Singh wrote:
+>>> Xen should control the SMMUv3 devices therefore, don't expose the
+>>> SMMUv3 devices to dom0. Deny iomem access to SMMUv3 address space for
+>>> dom0 and also make ACPI IORT SMMUv3 node type to 0xff.
+>>
+>> Looking at the IORT spec (ARM DEN 0049E), 255 (0xff) is marked as reserved. So I don't think we can "allocate" 0xff to mean invalid without updating the spec. Did you engage with whoever own the spec?
+> 
+> Yes I agree with you 0xff is reserved for future use. I didn’t find any other value to make node invalid.
+> Linux kernel is mostly using the node->type to process the SMMUv3 or other IORT node so I thought this is the only possible solution to hide SMMUv3 for dom0
+> If you have any other suggestion to hide the SMMUv3 node I am okay to use that.
+The other solution is to remove completely the SMMUv3 node from the 
+IORT. This would require more work as you would need to fully rewrite 
+the IORT.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+Hence why I suggested to speak with the spec owner (it seems to be Arm) 
+to reserve 0xff as "Invalid/Ignore".
 
-version targeted for testing:
- ovmf                 101f4c789221716585b972f2c2a22a85c078ef1d
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+>>> + smmu = (struct acpi_iort_smmu_v3 *)node->node_data;
+>>> + mfn = paddr_to_pfn(smmu->base_address);
+>>> + rc = iomem_deny_access(d, mfn, mfn + PFN_UP(SZ_128K));
+>>> + if ( rc )
+>>> + printk("iomem_deny_access failed for SMMUv3\n");
+>>> + node->type = 0xff;
+>>
+>> 'node' points to the Xen copy of the ACPI table. We should really not touch this copy. Instead, we should modify the version that will be used by dom0.
+> 
+> As of now IORT is untouched by Xen and mapped to dom0. I will create the IORT table for dom0 and modify the node SMMUv3 that will be used by dom0.
+>>
+>> Furthermore, if we go down the road to update node->type, we should 0 the node to avoid leaking the information to dom0.
+> 
+> I am not sure if we can zero the node, let me check and come back to you.
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   64 days
-Failing since        168258  2022-03-01 01:55:31 Z   63 days  782 attempts
-Testing same since   170038  2022-05-03 10:12:47 Z    0 days    6 attempts
+By writing node->type, you already invalidate the content because the 
+software cannot know how to interpret it. At which point, zeroing it 
+should make no difference for software parsing the table afterwards. 
+This may be a problem for software parsing before hand and keeping a 
+pointer to the entry. But then, this is yet another reason to no updated 
+the host IORT and create a copy for dom0.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Jiewen Yao <jiewen.yao@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Peter Grehan <grehan@freebsd.org>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
+Cheers,
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 5915 lines long.)
+-- 
+Julien Grall
 
