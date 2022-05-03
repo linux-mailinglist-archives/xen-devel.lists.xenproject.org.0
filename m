@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1190A518BE8
-	for <lists+xen-devel@lfdr.de>; Tue,  3 May 2022 20:07:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.319858.540292 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDA1C518BEC
+	for <lists+xen-devel@lfdr.de>; Tue,  3 May 2022 20:08:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.319866.540303 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nlwvh-0006RL-FT; Tue, 03 May 2022 18:07:21 +0000
+	id 1nlwwd-0006wA-P4; Tue, 03 May 2022 18:08:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 319858.540292; Tue, 03 May 2022 18:07:21 +0000
+Received: by outflank-mailman (output) from mailman id 319866.540303; Tue, 03 May 2022 18:08:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nlwvh-0006P5-CZ; Tue, 03 May 2022 18:07:21 +0000
-Received: by outflank-mailman (input) for mailman id 319858;
- Tue, 03 May 2022 18:07:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ivXl=VL=igalia.com=gpiccoli@srs-se1.protection.inumbo.net>)
- id 1nlwvg-0006Oz-6n
- for xen-devel@lists.xenproject.org; Tue, 03 May 2022 18:07:20 +0000
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id de906321-cb0b-11ec-a406-831a346695d4;
- Tue, 03 May 2022 20:07:19 +0200 (CEST)
-Received: from [179.113.53.197] (helo=[192.168.1.60])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1nlwvB-000AFb-By; Tue, 03 May 2022 20:06:49 +0200
+	id 1nlwwd-0006uJ-M1; Tue, 03 May 2022 18:08:19 +0000
+Received: by outflank-mailman (input) for mailman id 319866;
+ Tue, 03 May 2022 18:08:18 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1nlwwc-0006u9-33
+ for xen-devel@lists.xenproject.org; Tue, 03 May 2022 18:08:18 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nlwwb-0000f7-M6; Tue, 03 May 2022 18:08:17 +0000
+Received: from [54.239.6.185] (helo=[192.168.2.157])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nlwwb-0007Ge-GN; Tue, 03 May 2022 18:08:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,143 +39,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de906321-cb0b-11ec-a406-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=WYW7A1AoQOryf4HZjlafyZKPnHAKwmZXZQ0bWMyg1OM=; b=IJk7PjWXbuJYxjyJajFcqu+Mif
-	2fd51zOcNQRJjfhVuzSoQO9mBBwmDdVBHLRqON1BGirC1Vk8+AoSYO3LiHwD+UN1A9emX95LT9quF
-	x9JKLy4HImLNSn0mqdv7zEp5uPj6Lvn09d1aUkR/Hf14MsP+c2ZYwmIAyLwNg0VIkqGkELR5aYgVO
-	0xdNy0LqxmoLJzxFqk/oO1+b/WdJOIRWXo4fLVInmE2Yo6XsUwQPE4Yo6Y1hA1Cl8oTHfkCacBbdC
-	IAv1LZ4HQl0+X38MUmMlSpApf42pMuXeETEON4eFrPMp1+0PSjab3dBLEc1woBTNMiXT6t4Yfmen7
-	fHSrzQsQ==;
-Message-ID: <12b5a753-c0f1-9da5-f269-483384752837@igalia.com>
-Date: Tue, 3 May 2022 15:06:15 -0300
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=CT1uxsqTeygpt1GvGkEWE44P/bWQU55+s2GX7aH/zV0=; b=Y997Caa43h7WV8qeqBrHvrzUdj
+	tVsWK4cx5BAXPXPsBvxKtS0rm5ax1F35q5YZUenp3S50KwrWrLT4eBbDd7g4yt9XeN5gRMNMRePh8
+	Gj+QgnwM11iMb7lUgUQ1q3QxTkYBiggXVnuonflGmELnKHFJMHrtzXrc27jOIAteXziw=;
+Message-ID: <a05b426c-1800-a365-5b02-f82f0a391306@xen.org>
+Date: Tue, 3 May 2022 19:08:15 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH 24/30] panic: Refactor the panic path
-Content-Language: en-US
-To: "Michael Kelley (LINUX)" <mikelley@microsoft.com>,
- "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
- "bhe@redhat.com" <bhe@redhat.com>, "pmladek@suse.com" <pmladek@suse.com>,
- "kexec@lists.infradead.org" <kexec@lists.infradead.org>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "bcm-kernel-feedback-list@broadcom.com"
- <bcm-kernel-feedback-list@broadcom.com>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
- "linux-alpha@vger.kernel.org" <linux-alpha@vger.kernel.org>,
- "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
- "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
- "linux-leds@vger.kernel.org" <linux-leds@vger.kernel.org>,
- "linux-mips@vger.kernel.org" <linux-mips@vger.kernel.org>,
- "linux-parisc@vger.kernel.org" <linux-parisc@vger.kernel.org>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
- "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
- "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- "linux-um@lists.infradead.org" <linux-um@lists.infradead.org>,
- "linux-xtensa@linux-xtensa.org" <linux-xtensa@linux-xtensa.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "openipmi-developer@lists.sourceforge.net"
- <openipmi-developer@lists.sourceforge.net>,
- "rcu@vger.kernel.org" <rcu@vger.kernel.org>,
- "sparclinux@vger.kernel.org" <sparclinux@vger.kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "x86@kernel.org" <x86@kernel.org>,
- "kernel-dev@igalia.com" <kernel-dev@igalia.com>,
- "kernel@gpiccoli.net" <kernel@gpiccoli.net>,
- "halves@canonical.com" <halves@canonical.com>,
- "fabiomirmar@gmail.com" <fabiomirmar@gmail.com>,
- "alejandro.j.jimenez@oracle.com" <alejandro.j.jimenez@oracle.com>,
- "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
- "arnd@arndb.de" <arnd@arndb.de>, "bp@alien8.de" <bp@alien8.de>,
- "corbet@lwn.net" <corbet@lwn.net>,
- "d.hatayama@jp.fujitsu.com" <d.hatayama@jp.fujitsu.com>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "dyoung@redhat.com" <dyoung@redhat.com>,
- "feng.tang@intel.com" <feng.tang@intel.com>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "hidehiro.kawai.ez@hitachi.com" <hidehiro.kawai.ez@hitachi.com>,
- "jgross@suse.com" <jgross@suse.com>,
- "john.ogness@linutronix.de" <john.ogness@linutronix.de>,
- "keescook@chromium.org" <keescook@chromium.org>,
- "luto@kernel.org" <luto@kernel.org>,
- "mhiramat@kernel.org" <mhiramat@kernel.org>,
- "mingo@redhat.com" <mingo@redhat.com>,
- "paulmck@kernel.org" <paulmck@kernel.org>,
- "peterz@infradead.org" <peterz@infradead.org>,
- "rostedt@goodmis.org" <rostedt@goodmis.org>,
- "senozhatsky@chromium.org" <senozhatsky@chromium.org>,
- "stern@rowland.harvard.edu" <stern@rowland.harvard.edu>,
- "tglx@linutronix.de" <tglx@linutronix.de>,
- "vgoyal@redhat.com" <vgoyal@redhat.com>, vkuznets <vkuznets@redhat.com>,
- "will@kernel.org" <will@kernel.org>
-References: <20220427224924.592546-1-gpiccoli@igalia.com>
- <20220427224924.592546-25-gpiccoli@igalia.com>
- <PH0PR21MB30252C55EB4F97F3D78021BDD7FC9@PH0PR21MB3025.namprd21.prod.outlook.com>
- <50178dfb-8e94-f35f-09c3-22fe197550ef@igalia.com>
- <PH0PR21MB302570C9407F80AAD09E209ED7C09@PH0PR21MB3025.namprd21.prod.outlook.com>
-From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-In-Reply-To: <PH0PR21MB302570C9407F80AAD09E209ED7C09@PH0PR21MB3025.namprd21.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.8.1
+Subject: Re: [PATCH 1/3] xen/arm: Sync sysregs and cpuinfo with Linux 5.18-rc3
+To: Bertrand Marquis <bertrand.marquis@arm.com>,
+ xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1651570561.git.bertrand.marquis@arm.com>
+ <832955382caa4ced744ec7894282592b62e8cf61.1651570561.git.bertrand.marquis@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <832955382caa4ced744ec7894282592b62e8cf61.1651570561.git.bertrand.marquis@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 03/05/2022 14:31, Michael Kelley (LINUX) wrote:
-> [...]
+Hi Bertrand,
+
+On 03/05/2022 10:38, Bertrand Marquis wrote:
+> Sync arm64 sysreg bit shift definitions with status of Linux kernel as
+> of 5.18-rc3 version (linux commit b2d229d4ddb1).
+> Sync ID registers sanitization with the status of Linux 5.18-rc3 and add
+> sanitization of ISAR2 registers.
+Please outline which specific commits you are actually backported. This 
+would help to know what changed, why and also keep track of the autorships.
+
+When possible, the changes should be separated to match each Linux 
+commit we backport.
+
+> Complete AA64ISAR2 and AA64MMFR1 with more fields.
+> While there add a comment for MMFR bitfields as for other registers in
+> the cpuinfo structure definition.
+
+AFAICT, this patch is doing 3 different things that are somewhat related:
+   - Sync cpufeature.c
+   - Update the headers with unused defines
+   - Complete the structure cpufeature.h
+
+All those changes seem to be independent, so I think they should be done 
+separately. This would help to keep the authorship right (your code vs 
+Linux code).
+
 > 
-> To me, it's a weak correlation between having a kmsg dumper, and
-> wanting or not wanting the info level output to come before kdump.
-> Hyper-V is one of only a few places that register a kmsg dumper, so most
-> Linux instances outside of Hyper-V guest (and PowerPC systems?) will have
-> the info level output after kdump.  It seems like anyone who cared strongly
-> about the info level output would set the panic_notifier_level to 1 or to 3
-> so that the result is more deterministic.  But that's just my opinion, and
-> it's probably an opinion that is not as well informed on the topic as some
-> others in the discussion. So keeping things as in your patch set is not a
-> show-stopper for me.
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+>   xen/arch/arm/arm64/cpufeature.c          | 18 +++++-
+>   xen/arch/arm/include/asm/arm64/sysregs.h | 76 ++++++++++++++++++++----
+>   xen/arch/arm/include/asm/cpufeature.h    | 14 ++++-
+>   3 files changed, 91 insertions(+), 17 deletions(-)
 > 
-> However, I would request a clarification in the documentation.   The
-> panic_notifier_level affects not only the hypervisor, informational,
-> and pre_reboot lists, but it also affects panic_print_sys_info() and
-> kmsg_dump().  Specifically, at level 1, panic_print_sys_info() and
-> kmsg_dump() will not be run before kdump.  At level 3, they will
-> always be run before kdump.  Your documentation above mentions
-> "informational lists" (plural), which I take to vaguely include
-> kmsg_dump() and panic_print_sys_info(), but being explicit about
-> the effect would be better.
-> 
-> Michael
+> diff --git a/xen/arch/arm/arm64/cpufeature.c b/xen/arch/arm/arm64/cpufeature.c
+> index 6e5d30dc7b..d9039d37b2 100644
+> --- a/xen/arch/arm/arm64/cpufeature.c
+> +++ b/xen/arch/arm/arm64/cpufeature.c
+> @@ -143,6 +143,16 @@ static const struct arm64_ftr_bits ftr_id_aa64isar1[] = {
+>   	ARM64_FTR_END,
+>   };
+>   
+> +static const struct arm64_ftr_bits ftr_id_aa64isar2[] = {
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_HIGHER_SAFE, ID_AA64ISAR2_CLEARBHB_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_PTR_AUTH),
+> +		       FTR_STRICT, FTR_EXACT, ID_AA64ISAR2_APA3_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_PTR_AUTH),
+So we are using CONFIG_ARM64_PTR_AUTH. But this is not defined in 
+Kconfig. I realize there are more in cpufeature.c (somehow I didn't spot 
+during preview), but I don't think this is right to define CONFIG_* 
+without an associated entry in Kconfig.
 
-Thanks again Michael, to express your points and concerns - great idea
-of documentation improvement here, I'll do that for V2, for sure.
+In one hand, I think it would be odd to add an entry in Kconfig because 
+Xen wouldn't properly work if selected. On the other hand, it is useful 
+if when we will implement pointer authentification.
 
-The idea of "defaulting" to skip the info list on kdump (if no
-kmsg_dump() is set) is again a mechanism that aims at accommodating all
-users and concerns of antagonistic goals, kdump vs notifier lists.
-
-Before this patch set, by default no notifier executed before kdump. So,
-the "pendulum"  was strongly on kdump side, and clearly this was a
-sub-optimal decision - proof of that is that both Hyper-V / PowerPC code
-forcibly set the "crash_kexec_post_notifiers". The goal here is to have
-a more lightweight list that by default runs before kdump, a secondary
-list that only runs before kdump if there's usage for that (either user
-sets that or kmsg_dumper set is considered a valid user), and the
-remaining notifiers run by default only after kdump, all of that very
-customizable through the levels idea.
-
-Now, one thing we could do to improve consistency for the hyper-v case:
-having a kmsg_dump_once() helper, and *for Hyper-V only*, call it on the
-hypervisor list, within the info notifier (that would be moved to
-hypervisor list, ofc).
-Let's wait for more feedback on that, just throwing some ideas in order
-we can have everyone happy with the end-result!
+So maybe we should just add the Kconfig entry with a comment explaning 
+why they are not selected. Any thoughts?
 
 Cheers,
 
-
-Guilherme
+-- 
+Julien Grall
 
