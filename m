@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E214F518A2F
-	for <lists+xen-devel@lfdr.de>; Tue,  3 May 2022 18:40:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.319792.540182 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ECF5518ABA
+	for <lists+xen-devel@lfdr.de>; Tue,  3 May 2022 19:10:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.319799.540194 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nlvYR-00088e-42; Tue, 03 May 2022 16:39:15 +0000
+	id 1nlw1q-0003Oo-Le; Tue, 03 May 2022 17:09:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 319792.540182; Tue, 03 May 2022 16:39:15 +0000
+Received: by outflank-mailman (output) from mailman id 319799.540194; Tue, 03 May 2022 17:09:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nlvYR-00086P-0m; Tue, 03 May 2022 16:39:15 +0000
-Received: by outflank-mailman (input) for mailman id 319792;
- Tue, 03 May 2022 16:39:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=bqWw=VL=kernel.dk=axboe@srs-se1.protection.inumbo.net>)
- id 1nlvYP-00086J-Ek
- for xen-devel@lists.xenproject.org; Tue, 03 May 2022 16:39:13 +0000
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
- [2607:f8b0:4864:20::102b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8f2f7875-caff-11ec-a406-831a346695d4;
- Tue, 03 May 2022 18:39:12 +0200 (CEST)
-Received: by mail-pj1-x102b.google.com with SMTP id
- cx11-20020a17090afd8b00b001d9fe5965b3so2754104pjb.3
- for <xen-devel@lists.xenproject.org>; Tue, 03 May 2022 09:39:11 -0700 (PDT)
-Received: from [127.0.1.1] ([8.34.116.185]) by smtp.gmail.com with ESMTPSA id
- m9-20020a17090a858900b001d9b7fa9562sm1559200pjn.28.2022.05.03.09.39.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 May 2022 09:39:09 -0700 (PDT)
+	id 1nlw1q-0003Mb-IN; Tue, 03 May 2022 17:09:38 +0000
+Received: by outflank-mailman (input) for mailman id 319799;
+ Tue, 03 May 2022 17:09:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=5nwV=VL=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1nlw1o-0003MV-S3
+ for xen-devel@lists.xenproject.org; Tue, 03 May 2022 17:09:36 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cebfe149-cb03-11ec-8fc4-03012f2f19d4;
+ Tue, 03 May 2022 19:09:35 +0200 (CEST)
+Received: by mail-lf1-x12e.google.com with SMTP id bu29so31457985lfb.0
+ for <xen-devel@lists.xenproject.org>; Tue, 03 May 2022 10:09:35 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id
+ f15-20020a19ae0f000000b0046ba69295e6sm991362lfc.1.2022.05.03.10.09.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 03 May 2022 10:09:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,96 +44,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f2f7875-caff-11ec-a406-831a346695d4
+X-Inumbo-ID: cebfe149-cb03-11ec-8fc4-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20210112.gappssmtp.com; s=20210112;
-        h=from:to:cc:in-reply-to:references:subject:message-id:date
-         :mime-version:content-transfer-encoding;
-        bh=s39mE0kiqCYA7ZYSMO88r6nrLoSeKkE/K4dp3BvGwGs=;
-        b=pGDpCf7sl1d7573gjTTpqwkm3SiLycRrYLR/Cpm0xghxjpDf3AYMtstNaQt6JhXwCj
-         hQ35tsdAS9xUuNcQ6bjTAIO4jrWGURYFn6WniUxLx9leI8Us/ZQXxmUsx5sXqR+3SMFs
-         NPtnD8cP+Vrfqw+JIy3zA370Pyvn+VSXvM3gc7wLfoXTetostms9mgjy7Euc3hVJAm4j
-         a9n45bGAUG8eOYOtc2pRDLYRKouGSmmTKZVBKYAG6yGnvzNVe7ulVhqBTMV0jNCtQJ1b
-         eh8fwFdSJCS0763Fc+Es4Igf8he/A1M8/7QNTfbxn1mM2JdiBuUfp0c3rzGlnMqDUeCY
-         VcJg==
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=zJs4+MMRWZw/5d9ErRntMPYDHkeYPubfbBu5PoJ/OL4=;
+        b=M8YnGgqOtzjrYDRuAmiWTIN0idz0aB1XK23Uw+aNk4CfbYy5aKVITKbBOMASf1yAua
+         BgpgVejpIWt8F6mYbpZ1fCm1sjp9iu2AjIo/0vd3sBkasOA0RrTEuUAJ6mQOWQqVeq/O
+         BqSxjkrx9WDaAFcutE4wvDiQqMrbSgdyiQ0TOVxxXqv5w8GeoXBgF7aZ+MxcSzk15Y8e
+         +1W9wBTeyxRmh+fB0IFa3uURqquKs04Bl4ddkmB4yTgcmom0ydsORiv+WE2n/M+E59Wk
+         su6MC/cBHQzbjTguGmt0qezOEvsqpcxwEsxAmk4LvxoqWGtGAocx94WxhC2Ls1TnRWy9
+         06JA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:in-reply-to:references:subject
-         :message-id:date:mime-version:content-transfer-encoding;
-        bh=s39mE0kiqCYA7ZYSMO88r6nrLoSeKkE/K4dp3BvGwGs=;
-        b=XSev3313wqZIYs4YJg1AMgqWhQQDdq0bhepoocHVr2ncnVnpB4nrH5bg5eetk7b28F
-         zuyNtF3ce/dJc3KPh2qLBSomu+3QcmwKMrY/NS/CoibvZGuHd7hEVvsWygs8MXxGejek
-         Rnb/Euy7xeU6wDm0FaAWyIIXsxv7g46zD99xuo/rbWS//4RThrrohvEhJI9Q9lmBIRvY
-         K5RmCPzNCdai3hjHqYl23EF9qmdJF6t5wJKQJncp6CMvFy5eisL4ceq11gR+WQxPp3sI
-         Y5cNxywX+5pwjHOTHUCTuJfx434zZy97ZMkI4i84YDz0Bar4dQZ+RmTOWZ2SzpbLV2NG
-         01zQ==
-X-Gm-Message-State: AOAM533+6sLpmkVOFjuz66QGHUHpe0unxHPPf6eqONi4wxVhSQdtblsL
-	UGtO8RD72JH3BSel2wM2I6vm1A==
-X-Google-Smtp-Source: ABdhPJynf+YKk08yAhS/p4BXstboFDeyZsD4FTBMM24xr+KLv+BRsvUdLzF1UAPk9hKAVzsu2Q8whQ==
-X-Received: by 2002:a17:90a:9901:b0:1cb:aa19:5eee with SMTP id b1-20020a17090a990100b001cbaa195eeemr5645991pjp.158.1651595950265;
-        Tue, 03 May 2022 09:39:10 -0700 (PDT)
-From: Jens Axboe <axboe@kernel.dk>
-To: Christoph Hellwig <hch@lst.de>
-Cc: mst@redhat.com, linux-s390@vger.kernel.org, sth@linux.ibm.com, martin.petersen@oracle.com, dm-devel@redhat.com, hoeppner@linux.ibm.com, linux-nvme@lists.infradead.org, richard@nod.at, josef@toxicpanda.com, virtualization@lists.linux-foundation.org, snitzer@kernel.org, roger.pau@citrix.com, linux-um@lists.infradead.org, linux-block@vger.kernel.org, song@kernel.org, nbd@other.debian.org, linux-raid@vger.kernel.org, johannes@sipsolutions.net, haris.iqbal@ionos.com, xen-devel@lists.xenproject.org, jasowang@redhat.com, jinpu.wang@ionos.com
-In-Reply-To: <20220418045314.360785-1-hch@lst.de>
-References: <20220418045314.360785-1-hch@lst.de>
-Subject: Re: fix and cleanup discard_alignment handling
-Message-Id: <165159594780.2557.1712299203175316151.b4-ty@kernel.dk>
-Date: Tue, 03 May 2022 10:39:07 -0600
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=zJs4+MMRWZw/5d9ErRntMPYDHkeYPubfbBu5PoJ/OL4=;
+        b=Iw1ilpernMvS86V92yRJxO5SE2aNF8QfLDC4/woc53W9x0xoDWknNzqt+jDVw4+RSq
+         AOkbYDY6+IZ8C1WcAV6BoYbmzIxTpmE5KqFbUnQ1fwu3s5BIWNA8Z3U5DVcecdHddjnA
+         R5NThQc058yIz67j7yx2KrjO9/JiIUQNqUXWx3f0RK/0VuCOWThI0aMhzioLik9M3LZU
+         smsmikqhmASsdA/W10V17QzKQnrJDtWnlMUzh+XQJVO8Zbeme9WkZkxRQdnM8D0AxCsJ
+         RMb+lnN9NfX4z5Nb9Cea+FIPs/hFGXzCwp/RwWvRfizoAZnBW2Fny3Zt3psUjiH3ihHk
+         ZtIQ==
+X-Gm-Message-State: AOAM530feIaWcZmUROggU9sJo0TwhyZr80FS82FkbNGnd8MzdRuMSEHn
+	D3NW6ZuprIJsV7braVtbV+4=
+X-Google-Smtp-Source: ABdhPJzv6H6M8/xo8EzW/O4pDdx28m5jcypFmJdLpM4hdPg4n724T8DEh4HH50LEA43Trj5o8JzjrQ==
+X-Received: by 2002:ac2:4add:0:b0:471:fc6d:a71d with SMTP id m29-20020ac24add000000b00471fc6da71dmr12040907lfp.350.1651597775052;
+        Tue, 03 May 2022 10:09:35 -0700 (PDT)
+Subject: Re: [PATCH V1 4/6] dt-bindings: Add xen,dev-domid property
+ description for xen-grant DMA ops
+To: Rob Herring <robh@kernel.org>
+Cc: xen-devel@lists.xenproject.org,
+ virtualization@lists.linux-foundation.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Jason Wang <jasowang@redhat.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Julien Grall <julien@xen.org>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Christoph Hellwig <hch@infradead.org>
+References: <1650646263-22047-1-git-send-email-olekstysh@gmail.com>
+ <1650646263-22047-5-git-send-email-olekstysh@gmail.com>
+ <YnBUUclJqkvKsV2o@robh.at.kernel.org>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <accbc6be-82c1-dfd2-586f-816141415d7c@gmail.com>
+Date: Tue, 3 May 2022 20:09:32 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <YnBUUclJqkvKsV2o@robh.at.kernel.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-On Mon, 18 Apr 2022 06:53:03 +0200, Christoph Hellwig wrote:
-> the somewhat confusing name of the discard_alignment queue limit, that
-> really is an offset for the discard granularity mislead a lot of driver
-> authors to set it to an incorrect value.  This series tries to fix up
-> all these cases.
-> 
-> Diffstat:
->  arch/um/drivers/ubd_kern.c         |    1 -
->  drivers/block/loop.c               |    1 -
->  drivers/block/nbd.c                |    3 ---
->  drivers/block/null_blk/main.c      |    1 -
->  drivers/block/rnbd/rnbd-srv-dev.h  |    2 +-
->  drivers/block/virtio_blk.c         |    7 ++++---
->  drivers/block/xen-blkback/xenbus.c |    4 ++--
->  drivers/md/dm-zoned-target.c       |    2 +-
->  drivers/md/raid5.c                 |    1 -
->  drivers/nvme/host/core.c           |    1 -
->  drivers/s390/block/dasd_fba.c      |    1 -
->  11 files changed, 8 insertions(+), 16 deletions(-)
-> 
-> [...]
 
-Applied, thanks!
+On 03.05.22 00:59, Rob Herring wrote:
 
-[01/11] ubd: don't set the discard_alignment queue limit
-        commit: 07c6e92a8478770a7302f7dde72f03a5465901bd
-[02/11] nbd: don't set the discard_alignment queue limit
-        commit: 4a04d517c56e0616c6f69afc226ee2691e543712
-[03/11] null_blk: don't set the discard_alignment queue limit
-        commit: fb749a87f4536d2fa86ea135ae4eff1072903438
-[04/11] virtio_blk: fix the discard_granularity and discard_alignment queue limits
-        commit: 62952cc5bccd89b76d710de1d0b43244af0f2903
-[05/11] dm-zoned: don't set the discard_alignment queue limit
-        commit: 44d583702f4429763c558624fac763650a1f05bf
-[06/11] raid5: don't set the discard_alignment queue limit
-        commit: 3d50d368c92ade2f98a3d0d28b842a57c35284e9
-[07/11] dasd: don't set the discard_alignment queue limit
-        commit: c3f765299632727fa5ea5a0acf118665227a4f1a
-[08/11] loop: remove a spurious clear of discard_alignment
-        commit: 4418bfd8fb9602d9cd8747c3ad52fdbaa02e2ffd
-[09/11] nvme: remove a spurious clear of discard_alignment
-        commit: 4e7f0ece41e1be8f876f320a0972a715daec0a50
-[10/11] rnbd-srv: use bdev_discard_alignment
-        commit: 18292faa89d2bff3bdd33ab9c065f45fb6710e47
-[11/11] xen-blkback: use bdev_discard_alignment
-        commit: c899b23533866910c90ef4386b501af50270d320
+Hello Rob
 
-Best regards,
+
+> On Fri, Apr 22, 2022 at 07:51:01PM +0300, Oleksandr Tyshchenko wrote:
+>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>
+>> Introduce Xen specific binding for the virtualized device (e.g. virtio)
+>> to be used by Xen grant DMA-mapping layer in the subsequent commit.
+>>
+>> This binding indicates that Xen grant mappings scheme needs to be
+>> enabled for the device which DT node contains that property and specifies
+>> the ID of Xen domain where the corresponding backend resides. The ID
+>> (domid) is used as an argument to the grant mapping APIs.
+>>
+>> This is needed for the option to restrict memory access using Xen grant
+>> mappings to work which primary goal is to enable using virtio devices
+>> in Xen guests.
+>>
+>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>> ---
+>> Changes RFC -> V1:
+>>     - update commit subject/description and text in description
+>>     - move to devicetree/bindings/arm/
+>> ---
+>>   .../devicetree/bindings/arm/xen,dev-domid.yaml     | 37 ++++++++++++++++++++++
+>>   1 file changed, 37 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/arm/xen,dev-domid.yaml
+>>
+>> diff --git a/Documentation/devicetree/bindings/arm/xen,dev-domid.yaml b/Documentation/devicetree/bindings/arm/xen,dev-domid.yaml
+>> new file mode 100644
+>> index 00000000..ef0f747
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/arm/xen,dev-domid.yaml
+>> @@ -0,0 +1,37 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only or BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/arm/xen,dev-domid.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Xen specific binding for the virtualized device (e.g. virtio)
+>> +
+>> +maintainers:
+>> +  - Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>> +
+>> +select: true
+> Do we really need to support this property everywhere?
+
+ From my understanding - yes.
+
+As, I think, any device node describing virtulized device in the guest 
+device tree can have this property.  Initially (in the RFC series) the 
+"solution to restrict memory access using Xen grant mappings" was 
+virtio-specific.
+
+Although the support of virtio is a primary target of this series, we 
+decided to generalize this work and expand it to any device [1]. So the 
+Xen grant mappings scheme (this property to be used for) can be 
+theoretically used for any device emulated by the Xen backend.
+
+
+>> +
+>> +description:
+>> +  This binding indicates that Xen grant mappings scheme needs to be enabled
+>> +  for that device and specifies the ID of Xen domain where the corresponding
+>> +  device (backend) resides. This is needed for the option to restrict memory
+>> +  access using Xen grant mappings to work.
+>> +
+>> +properties:
+>> +  xen,dev-domid:
+>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>> +    description:
+>> +      The domid (domain ID) of the domain where the device (backend) is running.
+>> +
+>> +additionalProperties: true
+>> +
+>> +examples:
+>> +  - |
+>> +    virtio_block@3000 {
+> virtio@3000
+
+ok, will change
+
+
+>
+>> +            compatible = "virtio,mmio";
+>> +            reg = <0x3000 0x100>;
+>> +            interrupts = <41>;
+>> +
+>> +            /* The device is located in Xen domain with ID 1 */
+>> +            xen,dev-domid = <1>;
+> This fails validation:
+>
+> Documentation/devicetree/bindings/arm/xen,dev-domid.example.dtb: virtio_block@3000: xen,dev-domid: [[1]] is not of type 'object'
+>          From schema: /home/rob/proj/git/linux-dt/Documentation/devicetree/bindings/virtio/mmio.yaml
+
+Thank you for pointing this out, my fault, I haven't "properly" checked 
+this before. I think, we need to remove "compatible = "virtio,mmio"; here
+
+
+diff --git a/Documentation/devicetree/bindings/arm/xen,dev-domid.yaml 
+b/Documentation/devicetree/bindings/arm/xen,dev-domid.yaml
+index 2daa8aa..d2f2140 100644
+--- a/Documentation/devicetree/bindings/arm/xen,dev-domid.yaml
++++ b/Documentation/devicetree/bindings/arm/xen,dev-domid.yaml
+@@ -28,7 +28,7 @@ additionalProperties: true
+  examples:
+    - |
+      virtio_block@3000 {
+-            compatible = "virtio,mmio";
++            /* ... */
+              reg = <0x3000 0x100>;
+              interrupts = <41>;
+
+
+
+>
+> The property has to be added to the virtio/mmio.yaml schema. If it is
+> not needed elsewhere, then *just* add the property there.
+
+As I described above, the property is not virtio specific and can be 
+used for any virtualized device for which Xen grant mappings scheme 
+needs to be enabled (xen-grant DMA-mapping layer).
+
+
+[1] 
+https://lore.kernel.org/xen-devel/alpine.DEB.2.22.394.2204181202080.915916@ubuntu-linux-20-04-desktop/
+
+
+>
+> Rob
+
 -- 
-Jens Axboe
+Regards,
 
+Oleksandr Tyshchenko
 
 
