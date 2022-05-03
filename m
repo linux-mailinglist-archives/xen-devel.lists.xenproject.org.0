@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AE1C518C90
-	for <lists+xen-devel@lfdr.de>; Tue,  3 May 2022 20:48:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.319889.540336 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A3A8518CBB
+	for <lists+xen-devel@lfdr.de>; Tue,  3 May 2022 20:59:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.319896.540348 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nlxYX-0004QT-9j; Tue, 03 May 2022 18:47:29 +0000
+	id 1nlxjU-0006M3-An; Tue, 03 May 2022 18:58:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 319889.540336; Tue, 03 May 2022 18:47:29 +0000
+Received: by outflank-mailman (output) from mailman id 319896.540348; Tue, 03 May 2022 18:58:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nlxYX-0004OI-6e; Tue, 03 May 2022 18:47:29 +0000
-Received: by outflank-mailman (input) for mailman id 319889;
- Tue, 03 May 2022 18:47:27 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nlxYV-0004OC-FT
- for xen-devel@lists.xenproject.org; Tue, 03 May 2022 18:47:27 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nlxYV-0001K8-4Z; Tue, 03 May 2022 18:47:27 +0000
-Received: from [54.239.6.185] (helo=[192.168.2.157])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nlxYU-0001NP-Ul; Tue, 03 May 2022 18:47:27 +0000
+	id 1nlxjU-0006Iq-74; Tue, 03 May 2022 18:58:48 +0000
+Received: by outflank-mailman (input) for mailman id 319896;
+ Tue, 03 May 2022 18:58:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ivXl=VL=igalia.com=gpiccoli@srs-se1.protection.inumbo.net>)
+ id 1nlxjR-0006Ik-9J
+ for xen-devel@lists.xenproject.org; Tue, 03 May 2022 18:58:46 +0000
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0c749958-cb13-11ec-8fc4-03012f2f19d4;
+ Tue, 03 May 2022 20:58:42 +0200 (CEST)
+Received: from [179.113.53.197] (helo=[192.168.1.60])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1nlxio-0001n9-LT; Tue, 03 May 2022 20:58:06 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,135 +40,204 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=b958ry/pJGqJfD/0IZgqnpcAa3lnCp8QNLjQ6xV5+II=; b=g5DBZ0gwFeE3IbH8H1yFfcQaM5
-	k/QL0C+i8eMtYYsi4ivXWlPuveOdI7Pu7XqCnlbIezvDlyjetJ6+vS6SDwFoAz0Z7Q/Pyrl9y9FkO
-	hGJHQUbpfCWFmPm6PiJR2qzq5dsj/c5GRLPUTvOjo+wYh6Dv+rorAS+c6GOSEzKfSNH4=;
-Message-ID: <6571ead7-ff94-acb5-1e55-53ae69944bf0@xen.org>
-Date: Tue, 3 May 2022 19:47:25 +0100
+X-Inumbo-ID: 0c749958-cb13-11ec-8fc4-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=Q8xZuwWHbM5RtbVLpI5p8QHhyHnoykAXVMFnszZxrdg=; b=TqkdHc+398urJjW6/hR3lSmD91
+	Fo7i3n3SNwuNElwVYi/w+KnbhS8+u2vWgV1cIJIjZ8jCkAcSLSvlso5lciPOVsZuwZ60o4GZ0Sqjx
+	22Y1fjpJoK/chqdm1vTsGuRJJqpC4q32E8Os80o8bAzvpNnZtKFYUr9IxCs7Y3+qiYY9v7R2c2HHE
+	u9NeehqoIhEiDWWb10yrMKqoHSbKirkdSM2MnGXbLFUWfXxGVmNdvtyoWTdWi0kALfB+UzyKpCQXc
+	XjY+PUaHj85B5+JbHxedajI8IojA4qagg32dYWLI8h4fZxyG6QPV3ENEKaWRgNkAk597bSNzvAt8G
+	d2ESiTmQ==;
+Message-ID: <92dee5a0-f04e-f352-1e22-f990818ca06a@igalia.com>
+Date: Tue, 3 May 2022 15:57:32 -0300
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.8.1
-Subject: Re: [PATCH 3/3] xen/arm: Add sb instruction support
-To: Bertrand Marquis <bertrand.marquis@arm.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1651570561.git.bertrand.marquis@arm.com>
- <24fd2364294345f103cb13bdab2ad0b706681071.1651570561.git.bertrand.marquis@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <24fd2364294345f103cb13bdab2ad0b706681071.1651570561.git.bertrand.marquis@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Subject: Re: [PATCH 16/30] drivers/hv/vmbus, video/hyperv_fb: Untangle and
+ refactor Hyper-V panic notifiers
+Content-Language: en-US
+To: "Michael Kelley (LINUX)" <mikelley@microsoft.com>,
+ "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
+ "bhe@redhat.com" <bhe@redhat.com>, "pmladek@suse.com" <pmladek@suse.com>,
+ "kexec@lists.infradead.org" <kexec@lists.infradead.org>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "bcm-kernel-feedback-list@broadcom.com"
+ <bcm-kernel-feedback-list@broadcom.com>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+ "linux-alpha@vger.kernel.org" <linux-alpha@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-leds@vger.kernel.org" <linux-leds@vger.kernel.org>,
+ "linux-mips@vger.kernel.org" <linux-mips@vger.kernel.org>,
+ "linux-parisc@vger.kernel.org" <linux-parisc@vger.kernel.org>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
+ "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ "linux-um@lists.infradead.org" <linux-um@lists.infradead.org>,
+ "linux-xtensa@linux-xtensa.org" <linux-xtensa@linux-xtensa.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "openipmi-developer@lists.sourceforge.net"
+ <openipmi-developer@lists.sourceforge.net>,
+ "rcu@vger.kernel.org" <rcu@vger.kernel.org>,
+ "sparclinux@vger.kernel.org" <sparclinux@vger.kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "x86@kernel.org" <x86@kernel.org>,
+ "kernel-dev@igalia.com" <kernel-dev@igalia.com>,
+ "kernel@gpiccoli.net" <kernel@gpiccoli.net>,
+ "halves@canonical.com" <halves@canonical.com>,
+ "fabiomirmar@gmail.com" <fabiomirmar@gmail.com>,
+ "alejandro.j.jimenez@oracle.com" <alejandro.j.jimenez@oracle.com>,
+ "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+ "arnd@arndb.de" <arnd@arndb.de>, "bp@alien8.de" <bp@alien8.de>,
+ "corbet@lwn.net" <corbet@lwn.net>,
+ "d.hatayama@jp.fujitsu.com" <d.hatayama@jp.fujitsu.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "dyoung@redhat.com" <dyoung@redhat.com>,
+ "feng.tang@intel.com" <feng.tang@intel.com>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "hidehiro.kawai.ez@hitachi.com" <hidehiro.kawai.ez@hitachi.com>,
+ "jgross@suse.com" <jgross@suse.com>,
+ "john.ogness@linutronix.de" <john.ogness@linutronix.de>,
+ "keescook@chromium.org" <keescook@chromium.org>,
+ "luto@kernel.org" <luto@kernel.org>,
+ "mhiramat@kernel.org" <mhiramat@kernel.org>,
+ "mingo@redhat.com" <mingo@redhat.com>,
+ "paulmck@kernel.org" <paulmck@kernel.org>,
+ "peterz@infradead.org" <peterz@infradead.org>,
+ "rostedt@goodmis.org" <rostedt@goodmis.org>,
+ "senozhatsky@chromium.org" <senozhatsky@chromium.org>,
+ "stern@rowland.harvard.edu" <stern@rowland.harvard.edu>,
+ "tglx@linutronix.de" <tglx@linutronix.de>,
+ "vgoyal@redhat.com" <vgoyal@redhat.com>, vkuznets <vkuznets@redhat.com>,
+ "will@kernel.org" <will@kernel.org>, Andrea Parri <parri.andrea@gmail.com>,
+ Dexuan Cui <decui@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
+ KY Srinivasan <kys@microsoft.com>, Stephen Hemminger
+ <sthemmin@microsoft.com>, Tianyu Lan <Tianyu.Lan@microsoft.com>,
+ Wei Liu <wei.liu@kernel.org>
+References: <20220427224924.592546-1-gpiccoli@igalia.com>
+ <20220427224924.592546-17-gpiccoli@igalia.com>
+ <PH0PR21MB30250C9246FFF36AFB1DFDECD7FC9@PH0PR21MB3025.namprd21.prod.outlook.com>
+ <2787b476-6366-1c83-db80-0393da417497@igalia.com>
+ <PH0PR21MB3025A46643EEDA6B14AC1ECED7C09@PH0PR21MB3025.namprd21.prod.outlook.com>
+From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+In-Reply-To: <PH0PR21MB3025A46643EEDA6B14AC1ECED7C09@PH0PR21MB3025.namprd21.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi Bertrand,
+On 03/05/2022 15:13, Michael Kelley (LINUX) wrote:
+> [...]
+>> (a) We could forget about this change, and always do the clean-up here,
+>> not relying in machine_crash_shutdown().
+>> Pro: really simple, behaves the same as it is doing currently.
+>> Con: less elegant/concise, doesn't allow arm64 customization.
+>>
+>> (b) Add a way to allow ARM64 customization of shutdown crash handler.
+>> Pro: matches x86, more customizable, improves arm64 arch code.
+>> Con: A tad more complex.
+>>
+>> Also, a question that came-up: if ARM64 has no way of calling special
+>> crash shutdown handler, how can you execute hv_stimer_cleanup() and
+>> hv_synic_disable_regs() there? Or are they not required in ARM64?
+>>
+> 
+> My suggestion is to do (a) for now.  I suspect (b) could be a more
+> extended discussion and I wouldn't want your patch set to get held
+> up on that discussion.  I don't know what the sense of the ARM64
+> maintainers would be toward (b).  They have tried to avoid picking
+> up code warts like have accumulated on the x86/x64 side over the
+> years, and I agree with that effort.  But as more and varied
+> hypervisors become available for ARM64, it seems like a framework
+> for supporting a custom shutdown handler may become necessary.
+> But that could take a little time.
+> 
+> You are right about hv_stimer_cleanup() and hv_synic_disable_regs().
+> We are not running these when a panic occurs on ARM64, and we
+> should be, though the risk is small.   We will pursue (b) and add
+> these additional cleanups as part of that.  But again, I would suggest
+> doing (a) for now, and we will switch back to your solution once
+> (b) is in place.
+> 
 
-On 03/05/2022 10:38, Bertrand Marquis wrote:
-> This patch is adding sb instruction support when it is supported by a
-> CPU on arm64.
-> To achieve this, the "sb" macro is moved to sub-arch macros.h so that we
-> can use sb instruction when available through alternative on arm64 and
-> keep the current behaviour on arm32.
+Thanks again Michael, I'll stick with (a) for now. I'll check with ARM64
+community about that, and I might even try to implement something in
+parallel (if you are not already working on that - lemme know please),
+so we don't get stuck here. As you said, I feel that this is more and
+more relevant as the number of panic/crash/kexec scenarios tend to
+increase in ARM64.
 
-SB is also supported on Arm32. So I would prefer to introduce the 
-encoding right now and avoid duplicating the .macro sb.
 
-> A new cpuerrata capability is introduced to enable the alternative
+>> [...]
+>> Some ideas of what we can do here:
+>>
+>> I) we could change the framebuffer notifier to rely on trylocks, instead
+>> of risking a lockup scenario, and with that, we can execute it before
+>> the vmbus disconnect in the hypervisor list;
+> 
+> I think we have to do this approach for now.
+> 
+>>
+>> II) we ignore the hypervisor notifier in case of kdump _by default_, and
+>> if the users don't want that, they can always set the panic notifier
+>> level to 4 and run all notifiers prior to kdump; would that be terrible
+>> you think? Kdump users might don't care about the framebuffer...
+>>
+>> III) we go with approach (b) above and refactor arm64 code to allow the
+>> custom crash handler on kdump time, then [with point (I) above] the
+>> logic proposed in this series is still valid - seems more and more the
+>> most correct/complete solution.
+> 
+> But even when/if we get approach (b) implemented, having the
+> framebuffer notifier on the pre_reboot list is still too late with the
+> default of panic_notifier_level = 2.  The kdump path will reset the
+> VMbus connection and then the framebuffer notifier won't work.
+> 
 
-'sb' is definitely not an erratum. Errata are for stuff that are meant 
-to be specific to one (or multiple) CPU and they are not part of the 
-architecture.
+OK, perfect! I'll work something along these lines in V2, allowing the
+FB notifier to always run in the hypervisor list before the vmbus unload
+mechanism.
 
-This is the first time we introduce a feature in Xen. So we need to add 
-a new array in cpufeature.c that will cover 'SB' for now. In future we 
-could add feature like pointer auth, LSE atomics...
 
-> code for sb when the support is detected using isa64 coprocessor
+>> [...]
+>>>> +static int hv_panic_vmbus_unload(struct notifier_block *nb, unsigned long val,
+>>>>  			      void *args)
+>>>> +{
+>>>> +	if (!kexec_crash_loaded())
+>>>
+>>> I'm not clear on the purpose of this condition.  I think it means
+>>> we will skip the vmbus_initiate_unload() if a panic occurs in the
+>>> kdump kernel.  Is there a reason a panic in the kdump kernel
+>>> should be treated differently?  Or am I misunderstanding?
+>>
+>> This is really related with the point discussed in the top of this
+>> response - I assumed both ARM64/x86_64 would behave the same and
+>> disconnect the vmbus through the custom crash handler when kdump is set,
+>> so worth skipping it here in the notifier. But that's not true for ARM64
+>> as you pointed, so this guard against kexec is really part of the
+>> decision/discussion on what to do with ARM64 heh
+> 
+> But note that vmbus_initiate_unload() already has a guard built-in.
+> If the intent of this test is just as a guard against running twice,
+> then it isn't needed.
 
-s/coprocessor/system/
+Since we're going to avoid relying in the custom crash_shutdown(), due
+to the lack of ARM64 support for now, this check will be removed in V2.
 
-> register.
-> The sb instruction is encoded using its hexadecimal value.
+Its purpose was to skip the notifier *proactively* in case kexec is set,
+given that...once kexec happens, the custom crash_shutdown() would run
+the same function (wrong assumption for ARM64, my bad).
 
-This is necessary to avoid recursive macro, right?
+Postponing that slightly would maybe gain us some time while the
+hypervisor finish its work, so we'd delay less in the vmbus unload path
+- that was the rationale behind this check.
 
-> diff --git a/xen/arch/arm/include/asm/arm64/macros.h b/xen/arch/arm/include/asm/arm64/macros.h
-> index 140e223b4c..e639cec400 100644
-> --- a/xen/arch/arm/include/asm/arm64/macros.h
-> +++ b/xen/arch/arm/include/asm/arm64/macros.h
-> @@ -1,6 +1,24 @@
->   #ifndef __ASM_ARM_ARM64_MACROS_H
->   #define __ASM_ARM_ARM64_MACROS_H
->   
-> +#include <asm/alternative.h>
-> +
-> +    /*
-> +     * Speculative barrier
-> +     */
-> +    .macro sb
-> +alternative_if_not ARM64_HAS_SB
-> +    dsb nsh
-> +    isb
-> +alternative_else
-> +/*
-> + * SB encoding as given in chapter C6.2.264 of ARM ARM (DDI 0487H.a).
-> + */
 
-NIT: Please align the comment with ".inst" below. I also don't think it 
-is necessary to mention the spec here. The instruction encoding is not 
-going to change.
-
-> +    .inst 0xd50330ff
-> +    nop
-
-Why do we need the NOP?
-
-> +alternative_endif
-> +    .endm
-> +
->       /*
->        * @dst: Result of get_cpu_info()
->        */
-> diff --git a/xen/arch/arm/include/asm/cpufeature.h b/xen/arch/arm/include/asm/cpufeature.h
-> index 4719de47f3..9370805900 100644
-> --- a/xen/arch/arm/include/asm/cpufeature.h
-> +++ b/xen/arch/arm/include/asm/cpufeature.h
-> @@ -67,8 +67,9 @@
->   #define ARM_WORKAROUND_BHB_LOOP_24 13
->   #define ARM_WORKAROUND_BHB_LOOP_32 14
->   #define ARM_WORKAROUND_BHB_SMCC_3 15
-> +#define ARM64_HAS_SB 16
->   
-> -#define ARM_NCAPS           16
-> +#define ARM_NCAPS           17
->   
->   #ifndef __ASSEMBLY__
->   
-> diff --git a/xen/arch/arm/include/asm/macros.h b/xen/arch/arm/include/asm/macros.h
-> index 1aa373760f..91ea3505e4 100644
-> --- a/xen/arch/arm/include/asm/macros.h
-> +++ b/xen/arch/arm/include/asm/macros.h
-> @@ -5,15 +5,6 @@
->   # error "This file should only be included in assembly file"
->   #endif
->   
-> -    /*
-> -     * Speculative barrier
-> -     * XXX: Add support for the 'sb' instruction
-> -     */
-> -    .macro sb
-> -    dsb nsh
-> -    isb
-> -    .endm
-> -
->   #if defined (CONFIG_ARM_32)
->   # include <asm/arm32/macros.h>
->   #elif defined(CONFIG_ARM_64)
-
-Cheers,
-
--- 
-Julien Grall
+Cheers!
 
