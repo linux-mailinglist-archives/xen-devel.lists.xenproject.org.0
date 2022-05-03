@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD88B51888D
-	for <lists+xen-devel@lfdr.de>; Tue,  3 May 2022 17:28:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.319727.540084 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 847875188D1
+	for <lists+xen-devel@lfdr.de>; Tue,  3 May 2022 17:39:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.319738.540096 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nluRs-00037I-Lu; Tue, 03 May 2022 15:28:24 +0000
+	id 1nlucH-00051b-Og; Tue, 03 May 2022 15:39:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 319727.540084; Tue, 03 May 2022 15:28:24 +0000
+Received: by outflank-mailman (output) from mailman id 319738.540096; Tue, 03 May 2022 15:39:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nluRs-00035P-HL; Tue, 03 May 2022 15:28:24 +0000
-Received: by outflank-mailman (input) for mailman id 319727;
- Tue, 03 May 2022 15:28:22 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1nlucH-0004y0-IS; Tue, 03 May 2022 15:39:09 +0000
+Received: by outflank-mailman (input) for mailman id 319738;
+ Tue, 03 May 2022 15:39:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nluRq-00031C-EY
- for xen-devel@lists.xenproject.org; Tue, 03 May 2022 15:28:22 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nluRq-0005kL-3i; Tue, 03 May 2022 15:28:22 +0000
-Received: from [54.239.6.185] (helo=[192.168.2.157])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nluRp-00087q-UE; Tue, 03 May 2022 15:28:22 +0000
+ (envelope-from <SRS0=2YGB=VL=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1nlucF-0004xu-MI
+ for xen-devel@lists.xenproject.org; Tue, 03 May 2022 15:39:07 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2a78e9d1-caf7-11ec-a406-831a346695d4;
+ Tue, 03 May 2022 17:39:06 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id BD1C4210E0;
+ Tue,  3 May 2022 15:39:05 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8535A13ABE;
+ Tue,  3 May 2022 15:39:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id xRmRHplMcWI5CgAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 03 May 2022 15:39:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,81 +51,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=+5TDtsr3usX74j/+t36ZEF0usP4W/TKLWvT5jR6Z8BM=; b=Z4YSrxB5dckiyPSM2+n9UZadVX
-	vWNuUDQc1eHYNgrZzR7yTQvca+wWZjpMitA6iJOt+t3brRFj1Kt1MF5XJP6s6ok6Rmxxn/FeZGKL3
-	nDXD7oE+t6PyCUKWNo64eVu+r/ziMjnTIcWU+Lrj5BlrdpjwKE0U1R9uyoYjV9Skc22w=;
-Message-ID: <cfa06435-7054-d60b-1419-17b34a4d7fd9@xen.org>
-Date: Tue, 3 May 2022 16:28:19 +0100
+X-Inumbo-ID: 2a78e9d1-caf7-11ec-a406-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1651592345; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WrpEMB1W7TnL5SQymLWsAPOL6/iFhNULQO1y1FsULXc=;
+	b=hGwb9ZZ9ghIo53lFXEIKH9OOYFOaoQZRjDIyZmkR4V6BZFXZqDe0ra6C67FABMb41iM7tD
+	aySUo9/xF1YfmSh3rwEljtz1eYqQ2UTDqPVGWFexKMaCrO3V2apRX3EUUa2fv0VsKBs6Uy
+	FuQOLcwgMu6S5v9ai/T3TxVfnWX0mfQ=
+Message-ID: <acecd35f-0cfd-e472-8d77-cf1c199abd66@suse.com>
+Date: Tue, 3 May 2022 17:39:05 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.8.1
-Subject: Re: [PATCH] arm/acpi: don't expose the ACPI IORT SMMUv3 entry to dom0
-To: Rahul Singh <Rahul.Singh@arm.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <e11c57909782c60a6914d81e9c9893ff1712cc5b.1651075724.git.rahul.singh@arm.com>
- <c3b83cd4-7633-7aee-ab40-9eff26a4f801@xen.org>
- <780400E5-C22A-471E-BB19-C2F3B24112F1@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <780400E5-C22A-471E-BB19-C2F3B24112F1@arm.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Subject: Re: x86/PV: (lack of) MTRR exposure
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+References: <b3f07165-67f0-3d50-e249-2618a2dc862c@suse.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <b3f07165-67f0-3d50-e249-2618a2dc862c@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------ltgwuO16jt05xd18LUOM1IlN"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------ltgwuO16jt05xd18LUOM1IlN
+Content-Type: multipart/mixed; boundary="------------BELGfTD8P7ZLtSJQtZPTd09M";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <acecd35f-0cfd-e472-8d77-cf1c199abd66@suse.com>
+Subject: Re: x86/PV: (lack of) MTRR exposure
+References: <b3f07165-67f0-3d50-e249-2618a2dc862c@suse.com>
+In-Reply-To: <b3f07165-67f0-3d50-e249-2618a2dc862c@suse.com>
+
+--------------BELGfTD8P7ZLtSJQtZPTd09M
+Content-Type: multipart/mixed; boundary="------------1x28XZSRFm0KjFy5Ax3404Vq"
+
+--------------1x28XZSRFm0KjFy5Ax3404Vq
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: base64
 
-On 29/04/2022 19:18, Rahul Singh wrote:
-> Hi Julien,
+T24gMjguMDQuMjIgMTc6NTMsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBIZWxsbywNCj4gDQo+
+IGluIHRoZSBjb3Vyc2Ugb2YgYW5hbHl6aW5nIHRoZSBpOTE1IGRyaXZlciBjYXVzaW5nIGJv
+b3QgdG8gZmFpbCBpbg0KPiBMaW51eCA1LjE4IEkgZm91bmQgdGhhdCBMaW51eCwgZm9yIGFs
+bCB0aGUgeWVhcnMsIGhhcyBiZWVuIHJ1bm5pbmcNCj4gaW4gUFYgbW9kZSBhcyBpZiBQQVQg
+d2FzIChtb3N0bHkpIGRpc2FibGVkLiBUaGlzIGlzIGEgcmVzdWx0IG9mDQo+IHRoZW0gdHlp
+bmcgUEFUIGluaXRpYWxpemF0aW9uIHRvIE1UUlIgaW5pdGlhbGl6YXRpb24sIHdoaWxlIHdl
+DQo+IG9mZmVyIFBBVCBidXQgbm90IE1UUlIgaW4gQ1BVSUQgb3V0cHV0LiBUaGlzIHdhcyBk
+aWZmZXJlbnQgYmVmb3JlDQo+IG91ciBtb3ZpbmcgdG8gQ1BVIGZlYXR1cmVzZXRzLCBhbmQg
+YXMgc3VjaCBvbmUgY291bGQgdmlldyB0aGlzDQo+IGJlaGF2aW9yIGFzIGEgcmVncmVzc2lv
+biBmcm9tIHRoYXQgY2hhbmdlLg0KPiANCj4gVGhlIGZpcnN0IHF1ZXN0aW9uIGhlcmUgaXMg
+d2hldGhlciBub3QgZXhwb3NpbmcgTVRSUiBhcyBhIGZlYXR1cmUNCj4gd2FzIHJlYWxseSBp
+bnRlbmRlZCwgaW4gcGFydGljdWxhciBhbHNvIGZvciBQViBEb20wLiBUaGUgWGVub0xpbnV4
+DQo+IGtlcm5lbCBhbmQgaXRzIGZvcndhcmQgcG9ydHMgZGlkIG1ha2UgdXNlIG9mIFhFTlBG
+XypfbWVtdHlwZSB0bw0KPiBkZWFsIHdpdGggTVRSUnMuIFRoYXQncyBmdW5jdGlvbmFsaXR5
+IHdoaWNoIChtYXliZSBmb3IgYSBnb29kDQo+IHJlYXNvbikgbmV2ZXIgbWFkZSBpdCBpbnRv
+IHRoZSBwdm9wcyBrZXJuZWwuIE5vdGUgdGhhdCBQVkggRG9tMA0KPiBkb2VzIGhhdmUgYWNj
+ZXNzIHRvIHRoZSBvcmlnaW5hbCBzZXR0aW5ncywgYXMgdGhlIGhvc3QgdmFsdWVzIGFyZQ0K
+PiB1c2VkIGFzIGluaXRpYWwgc3RhdGUgdGhlcmUuDQo+IA0KPiBUaGUgbmV4dCBxdWVzdGlv
+biB3b3VsZCBiZSBob3cgd2UgY291bGQgZ28gYWJvdXQgaW1wcm92aW5nIHRoZQ0KPiBzaXR1
+YXRpb24uIEZvciB0aGUgcGFydGljdWxhciBpc3N1ZSBpbiA1LjE4IEkndmUgZm91bmQgYSBy
+ZWxhdGl2ZWx5DQo+IHNpbXBsZSBzb2x1dGlvbiBbMV0gKHdoaWNoIGFsc28gbG9va3MgdG8g
+aGVscCBncmFwaGljcyBwZXJmb3JtYW5jZQ0KPiBvbiBvdGhlciBzeXN0ZW1zLCBhY2NvcmRp
+bmcgdG8gbXkgaW5pdGlhbCBvYnNlcnZhdGlvbnMgd2l0aCB1c2luZw0KPiB0aGUgY2hhbmdl
+KSwgYWxiZWl0IGl0cyBzaW1wbGljaXR5IGxpa2VseSBtZWFucyBpdCBlaXRoZXIgaXMgd3Jv
+bmcNCj4gaW4gc29tZSB3YXksIG9yIG1pZ2h0IG5vdCBiZSBsaWtlZCBmb3IgbG9va2luZyBo
+YWNreSBhbmQvb3IgYWJ1c2l2ZS4NCj4gV2UgY2FuJ3QsIGZvciBleGFtcGxlLCBzaW1wbHkg
+dHVybiBvbiB0aGUgTVRSUiBiaXQgaW4gQ1BVSUQsIGFzIHRoYXQNCj4gd291bGQgaW1wbGlj
+aXRseSBsZWFkIHRvIHRoZSBrZXJuZWwgdHJ5aW5nIHRvIHdyaXRlIHRoZSBQQVQgTVNSIChp
+ZiwNCj4gc2VlIGJlbG93LCBpdCBkaWRuJ3QgaXRzZWxmIHphcCB0aGUgYml0KS4gV2UgYWxz
+byBjYW4ndCBzaW1wbHkNCj4gaWdub3JlIFBBVCBNU1Igd3JpdGVzLCBhcyB0aGUga2VybmVs
+IHdvbid0IGNoZWNrIHdoZXRoZXIgd3JpdGVzDQo+IGFjdHVhbGx5IHRvb2sgZWZmZWN0LiAo
+QWxsIG9mIHRoYXQgZGlkIHdvcmsgb24gdG9wIG9mIG9sZCBYZW4NCj4gYXBwYXJlbnRseSBv
+bmx5IGJlY2F1c2UgeGVuX2luaXRfY2FwYWJpbGl0aWVzKCkgaXRzZWxmIGFsc28gZm9yY2Vz
+DQo+IHRoZSBNVFJSIGZlYXR1cmUgdG8gb2ZmLikNCg0KSSd2ZSBzZW50IGFuIGFsdGVybmF0
+aXZlIHBhdGNoIGFkZHJlc3NpbmcgdGhpcyBwcm9ibGVtOg0KDQpodHRwczovL2xvcmUua2Vy
+bmVsLm9yZy9sa21sLzIwMjIwNTAzMTMyMjA3LjE3MjM0LTMtamdyb3NzQHN1c2UuY29tL1Qv
+I3UNCg0KTGV0cyBzZWUgd2hldGhlciBpdCBpcyBhY2NlcHRlZC4NCg0KDQpKdWVyZ2VuDQo=
 
-Hi Rahul,
+--------------1x28XZSRFm0KjFy5Ax3404Vq
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
->> On 27 Apr 2022, at 7:26 pm, Julien Grall <julien@xen.org> wrote:
->>
->> Hi Rahul,
->>
->> On 27/04/2022 17:12, Rahul Singh wrote:
->>> Xen should control the SMMUv3 devices therefore, don't expose the
->>> SMMUv3 devices to dom0. Deny iomem access to SMMUv3 address space for
->>> dom0 and also make ACPI IORT SMMUv3 node type to 0xff.
->>
->> Looking at the IORT spec (ARM DEN 0049E), 255 (0xff) is marked as reserved. So I don't think we can "allocate" 0xff to mean invalid without updating the spec. Did you engage with whoever own the spec?
-> 
-> Yes I agree with you 0xff is reserved for future use. I didn’t find any other value to make node invalid.
-> Linux kernel is mostly using the node->type to process the SMMUv3 or other IORT node so I thought this is the only possible solution to hide SMMUv3 for dom0
-> If you have any other suggestion to hide the SMMUv3 node I am okay to use that.
-The other solution is to remove completely the SMMUv3 node from the 
-IORT. This would require more work as you would need to fully rewrite 
-the IORT.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Hence why I suggested to speak with the spec owner (it seems to be Arm) 
-to reserve 0xff as "Invalid/Ignore".
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
->>> + smmu = (struct acpi_iort_smmu_v3 *)node->node_data;
->>> + mfn = paddr_to_pfn(smmu->base_address);
->>> + rc = iomem_deny_access(d, mfn, mfn + PFN_UP(SZ_128K));
->>> + if ( rc )
->>> + printk("iomem_deny_access failed for SMMUv3\n");
->>> + node->type = 0xff;
->>
->> 'node' points to the Xen copy of the ACPI table. We should really not touch this copy. Instead, we should modify the version that will be used by dom0.
-> 
-> As of now IORT is untouched by Xen and mapped to dom0. I will create the IORT table for dom0 and modify the node SMMUv3 that will be used by dom0.
->>
->> Furthermore, if we go down the road to update node->type, we should 0 the node to avoid leaking the information to dom0.
-> 
-> I am not sure if we can zero the node, let me check and come back to you.
+--------------1x28XZSRFm0KjFy5Ax3404Vq--
 
-By writing node->type, you already invalidate the content because the 
-software cannot know how to interpret it. At which point, zeroing it 
-should make no difference for software parsing the table afterwards. 
-This may be a problem for software parsing before hand and keeping a 
-pointer to the entry. But then, this is yet another reason to no updated 
-the host IORT and create a copy for dom0.
+--------------BELGfTD8P7ZLtSJQtZPTd09M--
 
-Cheers,
+--------------ltgwuO16jt05xd18LUOM1IlN
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
--- 
-Julien Grall
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmJxTJkFAwAAAAAACgkQsN6d1ii/Ey9R
+/ggAjMENfXS2o/d5iKFeZ8vryHlFCYfToR+Ohy4iGIHBYlbb3CKhEDG7aiopbbF/mkWVaxNqf1Qw
+olvAvHL2XGbjYKyxlh/HsXBE74Bd6xFEBMcX5vQNfG1CqFNIb1OcuWjObKX/IXSrY+Fkbsjao+EC
++X2FNkwxG8BbB9elr4ZzI8hsBIMSvgDEwLiFj4GzEM/jn48zmIytg8kU7cXp0VXBq8P+W0/6668U
+U0oVJo170gy3Jy+6e+1xAu0rGHZebQOMFw3jU0MSo221HlBSSzprHEBLLy4cABTcFrtQdAPhA6Fj
+ajMFpsZWdl3+jTBIuLEw9An4j1kPJ4cx9VyQB+O8IQ==
+=/9IA
+-----END PGP SIGNATURE-----
+
+--------------ltgwuO16jt05xd18LUOM1IlN--
 
