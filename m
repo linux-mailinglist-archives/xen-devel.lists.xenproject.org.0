@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2FCC5196D0
-	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 07:16:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.320045.540749 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F28765196E1
+	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 07:17:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.320074.540907 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm7NK-0001Af-61; Wed, 04 May 2022 05:16:34 +0000
+	id 1nm7Ns-0000zZ-92; Wed, 04 May 2022 05:17:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 320045.540749; Wed, 04 May 2022 05:16:33 +0000
+Received: by outflank-mailman (output) from mailman id 320074.540907; Wed, 04 May 2022 05:17:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm7NI-0000ky-MR; Wed, 04 May 2022 05:16:32 +0000
-Received: by outflank-mailman (input) for mailman id 320045;
- Wed, 04 May 2022 01:51:49 +0000
+	id 1nm7Nq-0000Ts-VS; Wed, 04 May 2022 05:17:06 +0000
+Received: by outflank-mailman (input) for mailman id 320074;
+ Wed, 04 May 2022 01:57:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Rvwn=VM=chromium.org=keescook@srs-se1.protection.inumbo.net>)
- id 1nm47L-0007U4-Kl
- for xen-devel@lists.xenproject.org; Wed, 04 May 2022 01:47:51 +0000
-Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
- [2607:f8b0:4864:20::62b])
+ id 1nm4H0-0000DU-6r
+ for xen-devel@lists.xenproject.org; Wed, 04 May 2022 01:57:50 +0000
+Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
+ [2607:f8b0:4864:20::102b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3467b003-cb4c-11ec-8fc4-03012f2f19d4;
- Wed, 04 May 2022 03:47:50 +0200 (CEST)
-Received: by mail-pl1-x62b.google.com with SMTP id k1so167938pll.4
- for <xen-devel@lists.xenproject.org>; Tue, 03 May 2022 18:47:50 -0700 (PDT)
+ id 99334a0e-cb4d-11ec-8fc4-03012f2f19d4;
+ Wed, 04 May 2022 03:57:49 +0200 (CEST)
+Received: by mail-pj1-x102b.google.com with SMTP id
+ z5-20020a17090a468500b001d2bc2743c4so56873pjf.0
+ for <xen-devel@lists.xenproject.org>; Tue, 03 May 2022 18:57:49 -0700 (PDT)
 Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
  by smtp.gmail.com with ESMTPSA id
- e11-20020a62ee0b000000b0050dc762818bsm6935424pfi.101.2022.05.03.18.47.44
+ g25-20020a62e319000000b0050dc7628168sm6962145pfh.66.2022.05.03.18.57.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 May 2022 18:47:47 -0700 (PDT)
+ Tue, 03 May 2022 18:57:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,45 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3467b003-cb4c-11ec-8fc4-03012f2f19d4
+X-Inumbo-ID: 99334a0e-cb4d-11ec-8fc4-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=chromium.org; s=google;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=e+5qnKpu1VsQ22oucG43AL+WcjSiOIWtbY50R7ZcVWE=;
-        b=g9AcrkR+3RVkYkCjXueQwetC04MS+NoxVmpAB9VicL40p720LPQhGGdx5xmKktKIDM
-         zPigxQLAL6TBhbYLJe+5LnwPNyPpBp4uN8e2a1B/ZwWxWPLLj/iqfcDi30QcFjJ9kn/S
-         1QG2VSMrqeLVVCmXWD35ETUMI7QbOsGkL0vw4=
+        bh=/QgTacQ+A83oLfMgc7AcEsbfIOOMUUn/07ShQ/z1lc0=;
+        b=OEKPNTKscDvuMfuoT9d4JeIvnRRtddZvUR90FLHTaY6dqJ3WoEedmmXxG6udDH4ll2
+         hQ3xVWzIJux8F2/IVGnkOvoKvzigrtb6PN+WIk/nKNi6EuEO6/f9y41IdVZKJ50O2w0U
+         wl96xKQAPtHy1YFDiqJxnzLe5ZISnsn0F+m/k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=e+5qnKpu1VsQ22oucG43AL+WcjSiOIWtbY50R7ZcVWE=;
-        b=amjt22iF5IhpVxkEueHYdgaQxqKobSshIOpXHttbtJ7ET050O/dTYT30BUpihst8xg
-         8Ahj5M7rxiYI5/i6AZlkZBXLafLD+yCORuhoCU+l6XdxI7LnBvTxCGVugDnQ7TYvmZse
-         o8cqAG7N53+n7hnw2ygluCtloA2dJLhfRExAXYeOhZXnfU6OdDBrDx3aBBrjdUH17eRS
-         EL0m632h30SqQ6IkSdlCzZvdgpYEGnu414VuVYzrlaH4UIoOeER+Ikd4E6kw/NktKX7s
-         +Rlsp9+dMh/5SbxiriGa16QeGAVALKuuzQEy6aBRRhrxo5WgLigBDekC9QjASs9JrEsd
-         Nj2Q==
-X-Gm-Message-State: AOAM533aflmNj3HyQBMgxZynIpl1/kqmQGk10KJbOiq2K9ybmuG8jNfP
-	aaK9HlMoMPy4qhzzY9eYG7HkUQ==
-X-Google-Smtp-Source: ABdhPJxl7EiV8keIDc6EF0ePDWOyFM8DsnsLzOPF7upSDtXElO4KQwWeIT0ElEMEtCPMOLdFUp0h+w==
-X-Received: by 2002:a17:902:a5c4:b0:15d:4ca:90cf with SMTP id t4-20020a170902a5c400b0015d04ca90cfmr19318951plq.133.1651628869364;
-        Tue, 03 May 2022 18:47:49 -0700 (PDT)
+        bh=/QgTacQ+A83oLfMgc7AcEsbfIOOMUUn/07ShQ/z1lc0=;
+        b=DK9MKrt0Ly6WQG82i/hZNLbbnLobEDszZI01OOtxu7bFkCeN8iymCcFPrpAOSWk9Ly
+         QQQBj819LOh+YFOCDULdOp3p2e3T/ee5iL4Rrk3Mb0uHvDGT7qN5zz0UmzH5Niyjduyn
+         MoD/OYG7AcPhQyG+NBtbq+ES36oLKcHKyfQ/1dEEJ0FFyji6LfNYz83dyFp3Xen7iMiD
+         OFGAL+Hq5nCKSMmyYaHOKEDuSA8y4NhkpSzpwDJ7e4daFYZHJ82W4wdYzZNcoq1ksw4U
+         vJoCQTBmTPZwPlwlEFzD5lHUDoNoe0xwJQacvc9gS642+qv0K6w0S/ZmFf7QipnLOntr
+         2nLg==
+X-Gm-Message-State: AOAM532yjYRnKnxPImTJ5D1mZRDN06FG5hVe38Mw9JJUKymmGZ1oOS7n
+	3lsiJ6w9sj89ZdSH4esxcjMk8A==
+X-Google-Smtp-Source: ABdhPJz0Wz7uiw5Q84ZpgLomJ2sUNDZBw1NN/qBgJSmrLfPlt8IAi/IZc7UEAL8HYcl01ZzZ3TTw8Q==
+X-Received: by 2002:a17:902:e851:b0:15e:93ac:41db with SMTP id t17-20020a170902e85100b0015e93ac41dbmr17049558plg.26.1651629467986;
+        Tue, 03 May 2022 18:57:47 -0700 (PDT)
 From: Kees Cook <keescook@chromium.org>
 To: "Gustavo A . R . Silva" <gustavoars@kernel.org>
 Cc: Kees Cook <keescook@chromium.org>,
-	Chris Zankel <chris@zankel.net>,
-	Max Filippov <jcmvbkbc@gmail.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Frank Rowand <frowand.list@gmail.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	linux-xtensa@linux-xtensa.org,
-	devicetree@vger.kernel.org,
+	Felipe Balbi <balbi@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Eugeniu Rosca <erosca@de.adit-jv.com>,
+	John Keeping <john@metanate.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Udipto Goswami <quic_ugoswami@quicinc.com>,
+	Andrew Gabbasov <andrew_gabbasov@mentor.com>,
+	linux-usb@vger.kernel.org,
 	Alexei Starovoitov <ast@kernel.org>,
 	alsa-devel@alsa-project.org,
 	Al Viro <viro@zeniv.linux.org.uk>,
-	Andrew Gabbasov <andrew_gabbasov@mentor.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Andy Gross <agross@kernel.org>,
 	Andy Lavr <andy.lavr@gmail.com>,
@@ -95,6 +96,7 @@ Cc: Kees Cook <keescook@chromium.org>,
 	Christian Brauner <brauner@kernel.org>,
 	=?UTF-8?q?Christian=20G=C3=B6ttsche?= <cgzones@googlemail.com>,
 	Christian Lamparter <chunkeey@googlemail.com>,
+	Chris Zankel <chris@zankel.net>,
 	Cong Wang <cong.wang@bytedance.com>,
 	Daniel Axtens <dja@axtens.net>,
 	Daniel Vetter <daniel.vetter@ffwll.ch>,
@@ -103,17 +105,17 @@ Cc: Kees Cook <keescook@chromium.org>,
 	David Howells <dhowells@redhat.com>,
 	"David S. Miller" <davem@davemloft.net>,
 	Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
+	devicetree@vger.kernel.org,
 	Dexuan Cui <decui@microsoft.com>,
 	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
 	Eli Cohen <elic@nvidia.com>,
 	Eric Dumazet <edumazet@google.com>,
 	Eric Paris <eparis@parisplace.org>,
-	Eugeniu Rosca <erosca@de.adit-jv.com>,
-	Felipe Balbi <balbi@kernel.org>,
 	Francis Laniel <laniel_francis@privacyrequired.com>,
+	Frank Rowand <frowand.list@gmail.com>,
 	Franky Lin <franky.lin@broadcom.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Gregory Greenman <gregory.greenman@intel.com>,
+	Guenter Roeck <linux@roeck-us.net>,
 	Haiyang Zhang <haiyangz@microsoft.com>,
 	Hante Meuleman <hante.meuleman@broadcom.com>,
 	Herbert Xu <herbert@gondor.apana.org.au>,
@@ -124,11 +126,9 @@ Cc: Kees Cook <keescook@chromium.org>,
 	Jarkko Sakkinen <jarkko@kernel.org>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Jason Gunthorpe <jgg@ziepe.ca>,
-	Jens Axboe <axboe@kernel.dk>,
 	Johan Hedberg <johan.hedberg@gmail.com>,
 	Johannes Berg <johannes.berg@intel.com>,
 	Johannes Berg <johannes@sipsolutions.net>,
-	John Keeping <john@metanate.com>,
 	Juergen Gross <jgross@suse.com>,
 	Kalle Valo <kvalo@kernel.org>,
 	Keith Packard <keithp@keithp.com>,
@@ -151,8 +151,8 @@ Cc: Kees Cook <keescook@chromium.org>,
 	linux-rdma@vger.kernel.org,
 	linux-scsi@vger.kernel.org,
 	linux-security-module@vger.kernel.org,
-	linux-usb@vger.kernel.org,
 	linux-wireless@vger.kernel.org,
+	linux-xtensa@linux-xtensa.org,
 	llvm@lists.linux.dev,
 	Loic Poulain <loic.poulain@linaro.org>,
 	Louis Peens <louis.peens@corigine.com>,
@@ -162,6 +162,7 @@ Cc: Kees Cook <keescook@chromium.org>,
 	Marcel Holtmann <marcel@holtmann.org>,
 	Mark Brown <broonie@kernel.org>,
 	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Max Filippov <jcmvbkbc@gmail.com>,
 	Mimi Zohar <zohar@linux.ibm.com>,
 	Muchun Song <songmuchun@bytedance.com>,
 	Nathan Chancellor <nathan@kernel.org>,
@@ -171,6 +172,7 @@ Cc: Kees Cook <keescook@chromium.org>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Paul Moore <paul@paul-moore.com>,
 	Rich Felker <dalias@aerifal.cx>,
+	Rob Herring <robh+dt@kernel.org>,
 	Russell King <linux@armlinux.org.uk>,
 	selinux@vger.kernel.org,
 	"Serge E. Hallyn" <serge@hallyn.com>,
@@ -184,21 +186,20 @@ Cc: Kees Cook <keescook@chromium.org>,
 	Tadeusz Struk <tadeusz.struk@linaro.org>,
 	Takashi Iwai <tiwai@suse.com>,
 	Tom Rix <trix@redhat.com>,
-	Udipto Goswami <quic_ugoswami@quicinc.com>,
 	Vincenzo Frascino <vincenzo.frascino@arm.com>,
 	wcn36xx@lists.infradead.org,
 	Wei Liu <wei.liu@kernel.org>,
 	xen-devel@lists.xenproject.org,
 	Xiu Jianfeng <xiujianfeng@huawei.com>,
 	Yang Yingliang <yangyingliang@huawei.com>
-Subject: [PATCH 29/32] xtensa: Use mem_to_flex_dup() with struct property
-Date: Tue,  3 May 2022 18:44:38 -0700
-Message-Id: <20220504014440.3697851-30-keescook@chromium.org>
+Subject: [PATCH 30/32] usb: gadget: f_fs: Use mem_to_flex_dup() with struct ffs_buffer
+Date: Tue,  3 May 2022 18:44:39 -0700
+Message-Id: <20220504014440.3697851-31-keescook@chromium.org>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220504014440.3697851-1-keescook@chromium.org>
 References: <20220504014440.3697851-1-keescook@chromium.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2507; h=from:subject; bh=Sq6uxCkPHvMJ5JYb1gf1A6wcVxIwkSOLKZO2iCrXvzo=; b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBicdqHU+zS6KGRXLibFnc06yiYHvM6h9+r1i1/xDqh sS9tPM6JAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCYnHahwAKCRCJcvTf3G3AJio4D/ 9e7/PUFE5eJVA+iwP4RNPRrwfTbaso73y3UIDDhSBi7DWpVecGpxBZFhq8AZJnACJZ6+0txfLVZrgC Hf9yN6InooZL//+CTSXiiLI0odsJS5G7VPzg8jqFheAUvfc33Ayl7CE4IjUesDTHb8MJcD6pRcV301 BkdC9bu9R9O1wfXjDMG6LGijqVC44/VnATk0Fj2osA9aCT7hCW4+9Y2AhfOuja15+dIryUwqZtX2nq ec7DFRbWbwCMxIvSe2M9T/eENcPFBDRzyY24sIHLdTtdM3+mq1w0JC+v5z47HvtBxdp6Ab4AjGQ6AH +XYDv1NkFrQYotIcm5C43jbDrqJMKe7MsguTTl2SqeeyJm0j16c29CoaUYxAFDubw9ldqYXLp5WTjS purW5BkSiZew9UjQYOHstIZ3tkzqccDABlxOoJx6Jeg7kYmdQqE4PnV7je2MA/jAMh7Hm3WqyHFS4l uZ6AZ4qsuZ3GaLee5riE9Nh9OXqTK8uWuL7aIKJHegYL1BtPlvOB5J6yMZJ+U/rhYZD5ZxqQ0LXB2z BwWGEo9PhEtkSWKk2TiOybFLVH2xKxpJfcQV806Jj+7f6Kq059naUze9XagBDSL7sUoMR34BvbOeER oRxCHL5YzBGrQi45jMVYuRuMcPsrrlr2vvkyx+TWc4h0GZl7w6C6OGv59wRA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2095; h=from:subject; bh=LoG608ySlb2xL5QEVpZpmYP+iWI9TrvgD0EbU83Sc1E=; b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBicdqHiYfLCw3gedIJSUEv2AjZro9JsQDzVs6+PWv3 Jf25uuWJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCYnHahwAKCRCJcvTf3G3AJtOuD/ 44mR9b5DwvccUUG6HIlhBLAsn/BfAVzBmuRK+yPZ9MioNDOL4TpD4dZaBBpGG0hJon5radolumfj0P VNZW46qoLbHEBiSScw3XJnUUVFGSv9GbDDKBVRxmIWevrrYcSx9Ey7v8r/vqablkY0Kzx4Q+fL+nnh 4X55duw+qKqgzFtzT5kMl5IKcf/sFUgv1r2jts0fmdh4Bu2jfLlkfdmjQhJ4Af2db1+OF6UjtoOy5R 6BRYL6DkOEkVM3vSV8rlDM6yldlZogrtVEpiQUvbkDi2LerWROmCrkpPzwbukN6gYwmAh2v78g4BDT Asjg/ynqVVAPardAHgI8QUQbZeI1y2iXC5u4FfFaeEUSCVddHgdjugXVWOiP7s+phDof4Ke2yI+sBV QfV5yaD/w1jelv5AZidP9asc2fTSb8ASrFF+lKcuVilfbgIn9krQvLJqB8gjrr8OyJ8falxCUPu3i9 l/P190yQNXc+sUM1kJVb0JaQYSk6mxyyCv3suqH72zxRXkDKeNa7lGgBW+tH8Of1c6RUkdJZYUe0pH L7tc/j/ocIEHXPRHlkHrndofVZCRhIQ2XiFWxCEfSW4N1fXtuDO+O77rmlbdYwwwgsTLusPjWPXhon 642xzSjREIl8aWgxlvRZ5ty8QQFJP8TbxfkMEUHUpitb1yMsa0xo6z3WBFcA==
 X-Developer-Key: i=keescook@chromium.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
 
@@ -207,75 +208,58 @@ replace the open-coded a deserialization of bytes out of memory into a
 trailing flexible array by using a flex_array.h helper to perform the
 allocation, bounds checking, and copying.
 
-Cc: Chris Zankel <chris@zankel.net>
-Cc: Max Filippov <jcmvbkbc@gmail.com>
-Cc: Rob Herring <robh+dt@kernel.org>
-Cc: Frank Rowand <frowand.list@gmail.com>
-Cc: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-xtensa@linux-xtensa.org
-Cc: devicetree@vger.kernel.org
+Cc: Felipe Balbi <balbi@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Eugeniu Rosca <erosca@de.adit-jv.com>
+Cc: John Keeping <john@metanate.com>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Udipto Goswami <quic_ugoswami@quicinc.com>
+Cc: Andrew Gabbasov <andrew_gabbasov@mentor.com>
+Cc: linux-usb@vger.kernel.org
 Signed-off-by: Kees Cook <keescook@chromium.org>
 ---
- arch/xtensa/platforms/xtfpga/setup.c | 9 +++------
- include/linux/of.h                   | 3 ++-
- 2 files changed, 5 insertions(+), 7 deletions(-)
+ drivers/usb/gadget/function/f_fs.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
-diff --git a/arch/xtensa/platforms/xtfpga/setup.c b/arch/xtensa/platforms/xtfpga/setup.c
-index 538e6748e85a..31c1fa4ba4ec 100644
---- a/arch/xtensa/platforms/xtfpga/setup.c
-+++ b/arch/xtensa/platforms/xtfpga/setup.c
-@@ -102,7 +102,7 @@ CLK_OF_DECLARE(xtfpga_clk, "cdns,xtfpga-clock", xtfpga_clk_setup);
- #define MAC_LEN 6
- static void __init update_local_mac(struct device_node *node)
- {
--	struct property *newmac;
-+	struct property *newmac = NULL;
- 	const u8* macaddr;
- 	int prop_len;
- 
-@@ -110,19 +110,16 @@ static void __init update_local_mac(struct device_node *node)
- 	if (macaddr == NULL || prop_len != MAC_LEN)
- 		return;
- 
--	newmac = kzalloc(sizeof(*newmac) + MAC_LEN, GFP_KERNEL);
--	if (newmac == NULL)
-+	if (mem_to_flex_dup(&newmac, macaddr, MAC_LEN, GFP_KERNEL))
- 		return;
- 
--	newmac->value = newmac + 1;
--	newmac->length = MAC_LEN;
-+	newmac->value = newmac->contents;
- 	newmac->name = kstrdup("local-mac-address", GFP_KERNEL);
- 	if (newmac->name == NULL) {
- 		kfree(newmac);
- 		return;
- 	}
- 
--	memcpy(newmac->value, macaddr, MAC_LEN);
- 	((u8*)newmac->value)[5] = (*(u32*)DIP_SWITCHES_VADDR) & 0x3f;
- 	of_update_property(node, newmac);
- }
-diff --git a/include/linux/of.h b/include/linux/of.h
-index 17741eee0ca4..efb0f419fd1f 100644
---- a/include/linux/of.h
-+++ b/include/linux/of.h
-@@ -30,7 +30,7 @@ typedef u32 ihandle;
- 
- struct property {
- 	char	*name;
--	int	length;
-+	DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(int, length);
- 	void	*value;
- 	struct property *next;
- #if defined(CONFIG_OF_DYNAMIC) || defined(CONFIG_SPARC)
-@@ -42,6 +42,7 @@ struct property {
- #if defined(CONFIG_OF_KOBJ)
- 	struct bin_attribute attr;
- #endif
-+	DECLARE_FLEX_ARRAY_ELEMENTS(u8, contents);
+diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
+index 4585ee3a444a..bb0ff41dabd2 100644
+--- a/drivers/usb/gadget/function/f_fs.c
++++ b/drivers/usb/gadget/function/f_fs.c
+@@ -202,9 +202,9 @@ struct ffs_epfile {
  };
  
- #if defined(CONFIG_SPARC)
+ struct ffs_buffer {
+-	size_t length;
++	DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(size_t, length);
+ 	char *data;
+-	char storage[];
++	DECLARE_FLEX_ARRAY_ELEMENTS(char, storage);
+ };
+ 
+ /*  ffs_io_data structure ***************************************************/
+@@ -905,7 +905,7 @@ static ssize_t __ffs_epfile_read_data(struct ffs_epfile *epfile,
+ 				      void *data, int data_len,
+ 				      struct iov_iter *iter)
+ {
+-	struct ffs_buffer *buf;
++	struct ffs_buffer *buf = NULL;
+ 
+ 	ssize_t ret = copy_to_iter(data, data_len, iter);
+ 	if (data_len == ret)
+@@ -919,12 +919,9 @@ static ssize_t __ffs_epfile_read_data(struct ffs_epfile *epfile,
+ 		data_len, ret);
+ 
+ 	data_len -= ret;
+-	buf = kmalloc(struct_size(buf, storage, data_len), GFP_KERNEL);
+-	if (!buf)
++	if (mem_to_flex_dup(&buf, data + ret, data_len, GFP_KERNEL))
+ 		return -ENOMEM;
+-	buf->length = data_len;
+ 	buf->data = buf->storage;
+-	memcpy(buf->storage, data + ret, flex_array_size(buf, storage, data_len));
+ 
+ 	/*
+ 	 * At this point read_buffer is NULL or READ_BUFFER_DROP (if
 -- 
 2.32.0
 
