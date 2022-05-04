@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91C565196C4
-	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 07:16:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.320018.540617 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AE545196C6
+	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 07:16:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.320020.540633 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm7N4-0005vr-JB; Wed, 04 May 2022 05:16:18 +0000
+	id 1nm7N5-0006FI-R7; Wed, 04 May 2022 05:16:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 320018.540617; Wed, 04 May 2022 05:16:18 +0000
+Received: by outflank-mailman (output) from mailman id 320020.540633; Wed, 04 May 2022 05:16:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm7N4-0005og-Am; Wed, 04 May 2022 05:16:18 +0000
-Received: by outflank-mailman (input) for mailman id 320018;
- Wed, 04 May 2022 01:47:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nm7N5-00063L-9z; Wed, 04 May 2022 05:16:19 +0000
+Received: by outflank-mailman (input) for mailman id 320020;
+ Wed, 04 May 2022 01:47:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Rvwn=VM=chromium.org=keescook@srs-se1.protection.inumbo.net>)
- id 1nm478-0007U4-7A
- for xen-devel@lists.xenproject.org; Wed, 04 May 2022 01:47:38 +0000
-Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com
- [2607:f8b0:4864:20::42e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2c94b62b-cb4c-11ec-8fc4-03012f2f19d4;
- Wed, 04 May 2022 03:47:36 +0200 (CEST)
-Received: by mail-pf1-x42e.google.com with SMTP id a11so21695pff.1
- for <xen-devel@lists.xenproject.org>; Tue, 03 May 2022 18:47:36 -0700 (PDT)
+ id 1nm479-0007U1-9T
+ for xen-devel@lists.xenproject.org; Wed, 04 May 2022 01:47:39 +0000
+Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
+ [2607:f8b0:4864:20::529])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2ccb9786-cb4c-11ec-a406-831a346695d4;
+ Wed, 04 May 2022 03:47:38 +0200 (CEST)
+Received: by mail-pg1-x529.google.com with SMTP id 7so11490846pga.12
+ for <xen-devel@lists.xenproject.org>; Tue, 03 May 2022 18:47:38 -0700 (PDT)
 Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
  by smtp.gmail.com with ESMTPSA id
- r12-20020a170903020c00b0015e8d4eb27dsm438909plh.199.2022.05.03.18.47.33
+ y15-20020a62b50f000000b0050dc7628169sm6918076pfe.67.2022.05.03.18.47.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Tue, 03 May 2022 18:47:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -44,36 +44,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c94b62b-cb4c-11ec-8fc4-03012f2f19d4
+X-Inumbo-ID: 2ccb9786-cb4c-11ec-a406-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=chromium.org; s=google;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=50F1hUbWFLfT5ENWUNJYEA3u7uQsl+qxaqqCeMwZnyU=;
-        b=XJCNLp6T2hlq16vnGlmWmig5+GsVMxNRRvIbEOnN6HSW8yTRmnmgFn0bdfSDK1+nc+
-         /lIeg89b2qTVpmYFiDm9nYt9X28PYd7TpfNNYgxckwT1LfN0EOUF0w4hbizFZn5WO8zm
-         t78WDusU+YL8An+v944Dg9g9tejsxP74BYxPU=
+        bh=911JnfKaG9oxLMZbIRJVKqmgZoLrOSfR0+bBHDgrI5Q=;
+        b=XpaB8pfu8eVojSjAsTEUujhhPhU3ucUSWYxDz/8sQ6z59UWvf3i1yrd7kb6SWG2Tnt
+         HAfw08l7QKrj5Y9xBESf9NlJZEn9vrEgx5ueLfnIKaMH/WYs9aAiD55J+sDOumyzi4NC
+         ygqjXeva6u5ldSCOC93c/m2TPIGafNG0RRrsQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=50F1hUbWFLfT5ENWUNJYEA3u7uQsl+qxaqqCeMwZnyU=;
-        b=29zhVAAsOCm8qEcSFehjvdYZuHXNkxBcTpJoa9iLECxSBK4iopks0e9cQL3LtcyZ+Q
-         KwYaV0woMFy4ME8JRYR476h+JgjpP+Mi3FYb1U6VCdUdSttejiat1yL4lO/6JDiz78/O
-         MHKEflW7mr0Dc6EPwusrppnvHaGITTZTPcm+mY45L/ORoDUy9wPC4PesSNh17qGjIK4v
-         ZM2ntAcZ/wdr2lf7sgYwVbucxnJyR2gfOjvInJtQOLhvkm2n/S8CJXfw4HF5ZcLLwtCq
-         OxHGCTGXKO0lTSdk6mQRrJQz5BE6OfvixjD2snW3+NwZNZ93oVzCL4uIdnnsV1uQbypu
-         0Ulw==
-X-Gm-Message-State: AOAM5339Fu1kgph/nJDugmYJZnua/1AfeCIa8M4xVbPCFAYsV/On+qIE
-	mm4+KislOROppD0Kdy/plLE1GA==
-X-Google-Smtp-Source: ABdhPJx5lkCCHxBXyDGf524YVNuXMSDkRx2jqeSfgP68bF0unQnk9Z/wgy4uMEksLglsYmioBepIKA==
-X-Received: by 2002:a65:6d15:0:b0:382:4e6d:dd0d with SMTP id bf21-20020a656d15000000b003824e6ddd0dmr15813794pgb.333.1651628855971;
-        Tue, 03 May 2022 18:47:35 -0700 (PDT)
+        bh=911JnfKaG9oxLMZbIRJVKqmgZoLrOSfR0+bBHDgrI5Q=;
+        b=yEAwnET2SAJele/cuo9AYkZPd7fE9zwiPeSUdE8NrkCUkmcvvDajsRsH2eeChfk1sc
+         OS9iOnYZoSNKO44ZOEXNbktzXuHnfnAqZcMicMXX4aeycUOgg29g9oLf7mMQX5nxDGYV
+         cIRpHRD8YlbCybjdbE+C3/p9UXs7SIQkbVC9tjhDdf7b09bZJ1dUf3nORVagYGPK2i6o
+         uJwb2juQivfINw3+rjxi9t1beIK6AaQA5tqgIvT4Nsc1648CTnAY0S2AieUon4ShO5pG
+         SFsy5SGBrmu/fyPK706RbmDTW/rfS8Rjgi7X6DedEWNcvTcmzUHmhrFifDoDwDpS6rD0
+         H26Q==
+X-Gm-Message-State: AOAM530+crvAfdqoV7ka3hk6/JMR4Ws3cdR7kpdLRHnueE8zbXjgkkgD
+	MAET/F8yYTICpWWISvNBYJeIBQ==
+X-Google-Smtp-Source: ABdhPJydqfWS2cnvIBsBYcFhLEOpO1Tg+x0Mug13Ee8lcdS00R4Sd2JnpNFfM3uvQNoLZ5NloFdI/Q==
+X-Received: by 2002:a05:6a00:150d:b0:510:3a9c:3eed with SMTP id q13-20020a056a00150d00b005103a9c3eedmr1139816pfu.86.1651628856514;
+        Tue, 03 May 2022 18:47:36 -0700 (PDT)
 From: Kees Cook <keescook@chromium.org>
 To: "Gustavo A . R . Silva" <gustavoars@kernel.org>
 Cc: Kees Cook <keescook@chromium.org>,
-	David Gow <davidgow@google.com>,
-	kunit-dev@googlegroups.com,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Tom Rix <trix@redhat.com>,
+	linux-hardening@vger.kernel.org,
+	llvm@lists.linux.dev,
 	Alexei Starovoitov <ast@kernel.org>,
 	alsa-devel@alsa-project.org,
 	Al Viro <viro@zeniv.linux.org.uk>,
@@ -95,6 +98,7 @@ Cc: Kees Cook <keescook@chromium.org>,
 	Daniel Axtens <dja@axtens.net>,
 	Daniel Vetter <daniel.vetter@ffwll.ch>,
 	Dan Williams <dan.j.williams@intel.com>,
+	David Gow <davidgow@google.com>,
 	David Howells <dhowells@redhat.com>,
 	"David S. Miller" <davem@davemloft.net>,
 	Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
@@ -131,6 +135,7 @@ Cc: Kees Cook <keescook@chromium.org>,
 	Kalle Valo <kvalo@kernel.org>,
 	Keith Packard <keithp@keithp.com>,
 	keyrings@vger.kernel.org,
+	kunit-dev@googlegroups.com,
 	Kuniyuki Iwashima <kuniyu@amazon.co.jp>,
 	"K. Y. Srinivasan" <kys@microsoft.com>,
 	Lars-Peter Clausen <lars@metafoo.de>,
@@ -142,7 +147,6 @@ Cc: Kees Cook <keescook@chromium.org>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-arm-msm@vger.kernel.org,
 	linux-bluetooth@vger.kernel.org,
-	linux-hardening@vger.kernel.org,
 	linux-hyperv@vger.kernel.org,
 	linux-integrity@vger.kernel.org,
 	linux-rdma@vger.kernel.org,
@@ -151,7 +155,6 @@ Cc: Kees Cook <keescook@chromium.org>,
 	linux-usb@vger.kernel.org,
 	linux-wireless@vger.kernel.org,
 	linux-xtensa@linux-xtensa.org,
-	llvm@lists.linux.dev,
 	Loic Poulain <loic.poulain@linaro.org>,
 	Louis Peens <louis.peens@corigine.com>,
 	Luca Coelho <luciano.coelho@intel.com>,
@@ -163,9 +166,7 @@ Cc: Kees Cook <keescook@chromium.org>,
 	Max Filippov <jcmvbkbc@gmail.com>,
 	Mimi Zohar <zohar@linux.ibm.com>,
 	Muchun Song <songmuchun@bytedance.com>,
-	Nathan Chancellor <nathan@kernel.org>,
 	netdev@vger.kernel.org,
-	Nick Desaulniers <ndesaulniers@google.com>,
 	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Paul Moore <paul@paul-moore.com>,
@@ -183,7 +184,6 @@ Cc: Kees Cook <keescook@chromium.org>,
 	Stephen Smalley <stephen.smalley.work@gmail.com>,
 	Tadeusz Struk <tadeusz.struk@linaro.org>,
 	Takashi Iwai <tiwai@suse.com>,
-	Tom Rix <trix@redhat.com>,
 	Udipto Goswami <quic_ugoswami@quicinc.com>,
 	Vincenzo Frascino <vincenzo.frascino@arm.com>,
 	wcn36xx@lists.infradead.org,
@@ -191,605 +191,212 @@ Cc: Kees Cook <keescook@chromium.org>,
 	xen-devel@lists.xenproject.org,
 	Xiu Jianfeng <xiujianfeng@huawei.com>,
 	Yang Yingliang <yangyingliang@huawei.com>
-Subject: [PATCH 03/32] flex_array: Add Kunit tests
-Date: Tue,  3 May 2022 18:44:12 -0700
-Message-Id: <20220504014440.3697851-4-keescook@chromium.org>
+Subject: [PATCH 04/32] fortify: Add run-time WARN for cross-field memcpy()
+Date: Tue,  3 May 2022 18:44:13 -0700
+Message-Id: <20220504014440.3697851-5-keescook@chromium.org>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220504014440.3697851-1-keescook@chromium.org>
 References: <20220504014440.3697851-1-keescook@chromium.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=19765; h=from:subject; bh=GG9nmr532r4pl7tVh2IFzW2uuFJ/hvJpUQj5i4N5B0I=; b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBicdqB7/551GkKwZcI+OcZghRu66mEP7FMOhfFmE5a 67h/Z0iJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCYnHagQAKCRCJcvTf3G3AJtfAEA CqSqFekHoLTEwm5Qyt0UbimHFpi/b/6zyOUB2KND396l+syWQ1mJIbLGjTios1NH/eIxHjGEKJ1syg U7L/zPIs4XJhvSt5mtK7HHfsD2jlgvLX3UL7IgUlEzTG1onpa1dDWN1UtoN81ahy1fct7CMGoD/1ll 3ngnIysZAbkbazroo7sUYB/JX8DX8bsjNn97JBfq+F0NovBSkT6UKeW29aHUk5FoZhWo+bijLKKQBA JrEW47fYiaZ04M3TcLGaKkKLllkiajq0N/9TLMbmHrUZphVEZCSiD9eikb/Kpr28WXz4NX00Fu4CGe kq7UO4JP9HeF1pCMUg3iVoEHddmrfhdENHsLrAQzNrTdnkG+Jt7b+DxWscqIxexQR8D0GFXA1TavBy c52biYoOXViqwEmvm12u6MNQYxMVN2/v5fbzbwkcdy4DlhOuLC0Wu4AmEcPHG6wFuSX5NdbPBBeIzQ 911ljxSY+UGfg0USsjIzhH6oqejgpYUmqqLAV0WoW7O8aSmtqBCOORogwfI680pWARJhsTuTVbZ5G4 KsZcDi9opJFLcoYlb9wuFYeQrydBbShjiVXqT/tU0kK4PWWlEc85sOiKq7Bd8cuiixIgJW5Zlc+4n+ 1sgKfTbiJo/zVmyCeEmrKxLCEoinmDvnxEdOeXRWpeTslL+4jMSgSaBMHUCw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7485; h=from:subject; bh=tR948KPQeb2PYDrDjEae6GxtJ84K9V5KxBtP7gPRR/0=; b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBicdqBJdrO+OL3bCOY6akLjwosSFqhKtDoTb/Zh8Fy uzSMohWJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCYnHagQAKCRCJcvTf3G3AJu6nD/ 4nHJdgb4XE8OHMjojOaPl9nULa44o03t//4waAm5Xj50QbDOyrBIKqeaRsc5tWg7tp/Z6v0nmG1RJ6 XSHy4AfPcewPHlkIjBTKQ1jbxZcS7qaEExIyWtMJtQ7GtiOD1AWiQbAW4KJ769iV/0me51Vamo+8Ip veorWN0jTQ+xDJ7fyb9mbxXsI7lvSOQUBdZzwAzPgJazmEXjwO8ozXnn0AaGKNv31py+LgyPwV3P64 KAQ04Gxp/rMnWduFhSm2pHXhcI6M++J1CvvtB/IPwWfRbr9CNUU4Jk3s04sG/XIIP/XCeyAn9u7lla 0QyhfHAuqHdIkCdiPXrp7mi2GKNlqOsemPZjnRNTm7F8RVQ7axjkLgPu/OdKyoIjcu4+Gxe1+1ddUe aX6mQB2mGmzNYtycr4ZILXoVPXUX2aUg4K+tE9BlmcAPTi2DTbr35TkFDaDVuBx1qu3sfaOS7h4cb8 ktu5OJHSekWrtF+UVSH3EdBatG6D2HeS6wxcx6SHUNtMwugLr34tjLkliqOflvnPJpRccxYFyzl9dZ qy69k3TaXevsfsMBn7XO5PIzGI74pL+vRzFTRl1RwbUS4WyKiQh9d4h/hZVD2tYMHxvgBj3q9keCdw H22GUCBSF28gbojQv8oqLHwc2cPU6T+4DFzfvbOlpZYHDcM7+2IPrnwnqyXQ==
 X-Developer-Key: i=keescook@chromium.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
 
-Add tests for the new flexible array structure helpers. These can be run
-with:
+Enable run-time checking of dynamic memcpy() and memmove() lengths,
+issuing a WARN when a write would exceed the size of the target struct
+member, when built with CONFIG_FORTIFY_SOURCE=y. This would have caught
+all of the memcpy()-based buffer overflows from 2018 through 2020,
+specifically covering all the cases where the destination buffer size
+is known at compile time.
 
-  make ARCH=um mrproper
-  ./tools/testing/kunit/kunit.py config
-  ./tools/testing/kunit/kunit.py run flex_array
+This change ONLY adds a run-time warning. As false positives are currently
+still expected, this will not block the overflow. The new warnings will
+look like this:
 
-Cc: David Gow <davidgow@google.com>
-Cc: kunit-dev@googlegroups.com
+  memcpy: detected field-spanning write (size N) of single field "var->dest" (size M)
+  WARNING: CPU: n PID: pppp at source/file/path.c:nr function+0xXX/0xXX [module]
+
+The false positives are most likely where intentional field-spanning
+writes are happening. These need to be addressed similarly to how the
+compile-time cases were addressed: add a struct_group(), split the
+memcpy(), use a flex_array.h helper, or some other refactoring.
+
+In order to make identifying/investigating instances of added runtime
+checks easier, each instance includes the destination variable name as a
+WARN argument, prefixed with 'field "'. Therefore, on any given build,
+it is trivial to inspect the artifacts to find instances. For example
+on an x86_64 defconfig build, there are 78 new run-time memcpy() bounds
+checks added:
+
+  $ for i in vmlinux $(find . -name '*.ko'); do \
+      strings "$i" | grep '^field "'; done | wc -l
+  78
+
+Currently, the common case where a destination buffer is known to be a
+dynamic size (i.e. has a trailing flexible array) does not generate a
+WARN. For example:
+
+    struct normal_flex_array {
+	void *a;
+	int b;
+	size_t array_size;
+	u32 c;
+	u8 flex_array[];
+    };
+
+    struct normal_flex_array *instance;
+    ...
+    /* These cases will be ignored for run-time bounds checking. */
+    memcpy(instance, src, len);
+    memcpy(instance->flex_array, src, len);
+
+This code pattern will need to be addressed separately, likely by
+migrating to one of the flex_array.h family of helpers.
+
+Note that one of the dynamic-sized destination cases is irritatingly
+unable to be detected by the compiler: when using memcpy() to target
+a composite struct member which contains a trailing flexible array
+struct. For example:
+
+    struct wrapper {
+	int foo;
+	char bar;
+	struct normal_flex_array embedded;
+    };
+
+    struct wrapper *instance;
+    ...
+    /* This will incorrectly WARN when len > sizeof(instance->embedded) */
+    memcpy(&instance->embedded, src, len);
+
+These cases end up appearing to the compiler to be sized as if the
+flexible array had 0 elements. :( For more details see:
+https://gcc.gnu.org/bugzilla/show_bug.cgi?id=101832
+https://godbolt.org/z/vW6x8vh4P
+
+Regardless, all cases of copying to/from flexible array structures
+should be migrated to using the new flex*()-family of helpers to gain
+their added safety checking, but priority will need to be given to the
+"composite flexible array structure destination" cases noted above.
+
+As mentioned, none of these bounds checks block any overflows
+currently. For users that have tested their workloads, do not encounter
+any warnings, and wish to make these checks stop any overflows, they
+can use a big hammer and set the sysctl panic_on_warn=1.
+
+Cc: Nathan Chancellor <nathan@kernel.org>
+Cc: Nick Desaulniers <ndesaulniers@google.com>
+Cc: Tom Rix <trix@redhat.com>
+Cc: linux-hardening@vger.kernel.org
+Cc: llvm@lists.linux.dev
 Signed-off-by: Kees Cook <keescook@chromium.org>
 ---
- lib/Kconfig.debug      |  12 +-
- lib/Makefile           |   1 +
- lib/flex_array_kunit.c | 523 +++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 531 insertions(+), 5 deletions(-)
- create mode 100644 lib/flex_array_kunit.c
+ include/linux/fortify-string.h | 70 ++++++++++++++++++++++++++++++++--
+ 1 file changed, 67 insertions(+), 3 deletions(-)
 
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 9077bb38bc93..8bae6b169c50 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -2551,11 +2551,6 @@ config OVERFLOW_KUNIT_TEST
- 	  Builds unit tests for the check_*_overflow(), size_*(), allocation, and
- 	  related functions.
+diff --git a/include/linux/fortify-string.h b/include/linux/fortify-string.h
+index 295637a66c46..9f65527fff40 100644
+--- a/include/linux/fortify-string.h
++++ b/include/linux/fortify-string.h
+@@ -3,6 +3,7 @@
+ #define _LINUX_FORTIFY_STRING_H_
  
--	  For more information on KUnit and unit tests in general please refer
--	  to the KUnit documentation in Documentation/dev-tools/kunit/.
--
--	  If unsure, say N.
--
- config STACKINIT_KUNIT_TEST
- 	tristate "Test level of stack variable initialization" if !KUNIT_ALL_TESTS
- 	depends on KUNIT
-@@ -2567,6 +2562,13 @@ config STACKINIT_KUNIT_TEST
- 	  CONFIG_GCC_PLUGIN_STRUCTLEAK, CONFIG_GCC_PLUGIN_STRUCTLEAK_BYREF,
- 	  or CONFIG_GCC_PLUGIN_STRUCTLEAK_BYREF_ALL.
+ #include <linux/const.h>
++#include <linux/bug.h>
  
-+config FLEX_ARRAY_KUNIT_TEST
-+	tristate "Test flex_*() family of helper functions at runtime" if !KUNIT_ALL_TESTS
-+	depends on KUNIT
-+	default KUNIT_ALL_TESTS
-+	help
-+	  Builds unit tests for flexible array copy helper functions.
+ #define __FORTIFY_INLINE extern __always_inline __gnu_inline __overloadable
+ #define __RENAME(x) __asm__(#x)
+@@ -303,7 +304,7 @@ __FORTIFY_INLINE void fortify_memset_chk(__kernel_size_t size,
+  * V = vulnerable to run-time overflow (will need refactoring to solve)
+  *
+  */
+-__FORTIFY_INLINE void fortify_memcpy_chk(__kernel_size_t size,
++__FORTIFY_INLINE bool fortify_memcpy_chk(__kernel_size_t size,
+ 					 const size_t p_size,
+ 					 const size_t q_size,
+ 					 const size_t p_size_field,
+@@ -352,16 +353,79 @@ __FORTIFY_INLINE void fortify_memcpy_chk(__kernel_size_t size,
+ 	if ((p_size != (size_t)(-1) && p_size < size) ||
+ 	    (q_size != (size_t)(-1) && q_size < size))
+ 		fortify_panic(func);
 +
- config TEST_UDELAY
- 	tristate "udelay test driver"
- 	help
-diff --git a/lib/Makefile b/lib/Makefile
-index 6b9ffc1bd1ee..9884318db330 100644
---- a/lib/Makefile
-+++ b/lib/Makefile
-@@ -366,6 +366,7 @@ obj-$(CONFIG_MEMCPY_KUNIT_TEST) += memcpy_kunit.o
- obj-$(CONFIG_OVERFLOW_KUNIT_TEST) += overflow_kunit.o
- CFLAGS_stackinit_kunit.o += $(call cc-disable-warning, switch-unreachable)
- obj-$(CONFIG_STACKINIT_KUNIT_TEST) += stackinit_kunit.o
-+obj-$(CONFIG_FLEX_ARRAY_KUNIT_TEST) += flex_array_kunit.o
++	/*
++	 * Warn when writing beyond destination field size.
++	 *
++	 * We must ignore p_size_field == 0 and -1 for existing
++	 * 0-element and flexible arrays, until they are all converted
++	 * to flexible arrays and use the flex()-family of helpers.
++	 *
++	 * The implementation of __builtin_object_size() behaves
++	 * like sizeof() when not directly referencing a flexible
++	 * array member, which means there will be many bounds checks
++	 * that will appear at run-time, without a way for them to be
++	 * detected at compile-time (as can be done when the destination
++	 * is specifically the flexible array member).
++	 * https://gcc.gnu.org/bugzilla/show_bug.cgi?id=101832
++	 */
++	if (p_size_field != 0 && p_size_field != (size_t)(-1) &&
++	    p_size != p_size_field && p_size_field < size)
++		return true;
++
++	return false;
+ }
  
- obj-$(CONFIG_GENERIC_LIB_DEVMEM_IS_ALLOWED) += devmem_is_allowed.o
+ #define __fortify_memcpy_chk(p, q, size, p_size, q_size,		\
+ 			     p_size_field, q_size_field, op) ({		\
+ 	size_t __fortify_size = (size_t)(size);				\
+-	fortify_memcpy_chk(__fortify_size, p_size, q_size,		\
+-			   p_size_field, q_size_field, #op);		\
++	WARN_ONCE(fortify_memcpy_chk(__fortify_size, p_size, q_size,	\
++				     p_size_field, q_size_field, #op),	\
++		  #op ": detected field-spanning write (size %zu) of single %s (size %zu)\n", \
++		  __fortify_size,					\
++		  "field \"" #p "\" at " __FILE__ ":" __stringify(__LINE__), \
++		  p_size_field);					\
+ 	__underlying_##op(p, q, __fortify_size);			\
+ })
  
-diff --git a/lib/flex_array_kunit.c b/lib/flex_array_kunit.c
-new file mode 100644
-index 000000000000..48bee88945b4
---- /dev/null
-+++ b/lib/flex_array_kunit.c
-@@ -0,0 +1,523 @@
-+// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * Test cases for flex_*() array manipulation helpers.
++ * Notes about compile-time buffer size detection:
++ *
++ * With these types...
++ *
++ *	struct middle {
++ *		u16 a;
++ *		u8 middle_buf[16];
++ *		int b;
++ *	};
++ *	struct end {
++ *		u16 a;
++ *		u8 end_buf[16];
++ *	};
++ *	struct flex {
++ *		int a;
++ *		u8 flex_buf[];
++ *	};
++ *
++ *	void func(TYPE *ptr) { ... }
++ *
++ * Cases where destination size cannot be currently detected:
++ * - the size of ptr's object (seemingly by design, gcc & clang fail):
++ *	__builtin_object_size(ptr, 1) == -1
++ * - the size of flexible arrays in ptr's obj (by design, dynamic size):
++ *      __builtin_object_size(ptr->flex_buf, 1) == -1
++ * - the size of ANY array at the end of ptr's obj (gcc and clang bug):
++ *	__builtin_object_size(ptr->end_buf, 1) == -1
++ *	https://gcc.gnu.org/bugzilla/show_bug.cgi?id=101836
++ *
++ * Cases where destination size is currently detected:
++ * - the size of non-array members within ptr's object:
++ *	__builtin_object_size(ptr->a, 1) == 2
++ * - the size of non-flexible-array in the middle of ptr's obj:
++ *	__builtin_object_size(ptr->middle_buf, 1) == 16
++ *
 + */
-+#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
 +
-+#include <kunit/test.h>
-+#include <linux/device.h>
-+#include <linux/init.h>
-+#include <linux/kernel.h>
-+#include <linux/flex_array.h>
-+
-+#define COMPARE_STRUCTS(STRUCT_A, STRUCT_B)	do {			\
-+	STRUCT_A *ptr_A;						\
-+	STRUCT_B *ptr_B;						\
-+	int rc;								\
-+	size_t size_A, size_B;						\
-+									\
-+	/* matching types for flex array elements and count */		\
-+	KUNIT_EXPECT_EQ(test, sizeof(*ptr_A), sizeof(*ptr_B));		\
-+	KUNIT_EXPECT_TRUE(test, __same_type(*ptr_A->data,		\
-+		*ptr_B->__flex_array_elements));			\
-+	KUNIT_EXPECT_TRUE(test, __same_type(ptr_A->datalen,		\
-+		ptr_B->__flex_array_elements_count));			\
-+	KUNIT_EXPECT_EQ(test, sizeof(*ptr_A->data),			\
-+			      sizeof(*ptr_B->__flex_array_elements));	\
-+	KUNIT_EXPECT_EQ(test, offsetof(typeof(*ptr_A), data),		\
-+			      offsetof(typeof(*ptr_B),			\
-+				       __flex_array_elements));		\
-+	KUNIT_EXPECT_EQ(test, offsetof(typeof(*ptr_A), datalen),	\
-+			      offsetof(typeof(*ptr_B),			\
-+				       __flex_array_elements_count));	\
-+									\
-+	/* struct_size() vs __fas_bytes() */				\
-+	size_A = struct_size(ptr_A, data, 13);				\
-+	rc = __fas_bytes(ptr_B, __flex_array_elements,			\
-+			 __flex_array_elements_count, 13, &size_B);	\
-+	KUNIT_EXPECT_EQ(test, rc, 0);					\
-+	KUNIT_EXPECT_EQ(test, size_A, size_B);				\
-+									\
-+	/* flex_array_size() vs __fas_elements_bytes() */		\
-+	size_A = flex_array_size(ptr_A, data, 13);			\
-+	rc = __fas_elements_bytes(ptr_B, __flex_array_elements,		\
-+			 __flex_array_elements_count, 13, &size_B);	\
-+	KUNIT_EXPECT_EQ(test, rc, 0);					\
-+	KUNIT_EXPECT_EQ(test, size_A, size_B);				\
-+									\
-+	KUNIT_EXPECT_EQ(test, sizeof(*ptr_A) + size_A,			\
-+			      offsetof(typeof(*ptr_A), data) +		\
-+			      (sizeof(*ptr_A->data) * 13));		\
-+	KUNIT_EXPECT_EQ(test, sizeof(*ptr_B) + size_B,			\
-+			      offsetof(typeof(*ptr_B),			\
-+				       __flex_array_elements) +		\
-+			      (sizeof(*ptr_B->__flex_array_elements) *	\
-+			       13));					\
-+} while (0)
-+
-+struct normal {
-+	size_t	datalen;
-+	u32	data[];
-+};
-+
-+struct decl_normal {
-+	DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(size_t, datalen);
-+	DECLARE_FLEX_ARRAY_ELEMENTS(u32, data);
-+};
-+
-+struct aligned {
-+	unsigned short	datalen;
-+	char		data[] __aligned(__alignof__(u64));
-+};
-+
-+struct decl_aligned {
-+	DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(unsigned short, datalen);
-+	DECLARE_FLEX_ARRAY_ELEMENTS(char, data) __aligned(__alignof__(u64));
-+};
-+
-+static void struct_test(struct kunit *test)
-+{
-+	COMPARE_STRUCTS(struct normal, struct decl_normal);
-+	COMPARE_STRUCTS(struct aligned, struct decl_aligned);
-+}
-+
-+/* Flexible array structure with internal padding. */
-+struct flex_cpy_obj {
-+	DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(u8, count);
-+	unsigned long empty;
-+	char induce_padding;
-+	/* padding ends up here */
-+	unsigned long after_padding;
-+	DECLARE_FLEX_ARRAY_ELEMENTS(u32, flex);
-+};
-+
-+/* Encapsulating flexible array structure. */
-+struct flex_dup_obj {
-+	unsigned long flags;
-+	int junk;
-+	struct flex_cpy_obj fas;
-+};
-+
-+/* Flexible array struct of only bytes. */
-+struct tiny_flex {
-+	DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(u8, count);
-+	DECLARE_FLEX_ARRAY_ELEMENTS(u8, byte_array);
-+};
-+
-+#define CHECK_COPY(ptr)		do {						\
-+	typeof(*(ptr)) *_cc_dst = (ptr);					\
-+	KUNIT_EXPECT_EQ(test, _cc_dst->induce_padding, 0);			\
-+	memcpy(&padding, &_cc_dst->induce_padding + sizeof(_cc_dst->induce_padding), \
-+	       sizeof(padding));						\
-+	/* Padding should be zero too. */					\
-+	KUNIT_EXPECT_EQ(test, padding, 0);					\
-+	KUNIT_EXPECT_EQ(test, src->count, _cc_dst->count);			\
-+	KUNIT_EXPECT_EQ(test, _cc_dst->count, TEST_TARGET);			\
-+	for (i = 0; i < _cc_dst->count - 1; i++) {				\
-+		/* 'A' is 0x41, and here repeated in a u32. */			\
-+		KUNIT_EXPECT_EQ(test, _cc_dst->flex[i], 0x41414141);		\
-+	}									\
-+	/* Last item should be different. */					\
-+	KUNIT_EXPECT_EQ(test, _cc_dst->flex[_cc_dst->count - 1], 0x14141414);	\
-+} while (0)
-+
-+/* Test copying from one flexible array struct into another. */
-+static void flex_cpy_test(struct kunit *test)
-+{
-+#define TEST_BOUNDS	13
-+#define TEST_TARGET	12
-+#define TEST_SMALL	10
-+	struct flex_cpy_obj *src, *dst;
-+	unsigned long padding;
-+	int i, rc;
-+
-+	/* Prepare open-coded source. */
-+	src = kzalloc(struct_size(src, flex, TEST_BOUNDS), GFP_KERNEL);
-+	src->count = TEST_BOUNDS;
-+	memset(src->flex, 'A', flex_array_size(src, flex, TEST_BOUNDS));
-+	src->flex[src->count - 2] = 0x14141414;
-+	src->flex[src->count - 1] = 0x24242424;
-+
-+	/* Prepare open-coded destination, alloc only. */
-+	dst = kzalloc(struct_size(src, flex, TEST_BOUNDS), GFP_KERNEL);
-+	/* Pre-fill with 0xFE marker. */
-+	memset(dst, 0xFE, struct_size(src, flex, TEST_BOUNDS));
-+	/* Pretend we're 1 element smaller. */
-+	dst->count = TEST_TARGET;
-+
-+	/* Pretend to match the target destination size. */
-+	src->count = TEST_TARGET;
-+
-+	rc = flex_cpy(dst, src);
-+	KUNIT_EXPECT_EQ(test, rc, 0);
-+	CHECK_COPY(dst);
-+	/* Item past last copied item is unchanged from initial memset. */
-+	KUNIT_EXPECT_EQ(test, dst->flex[dst->count], 0xFEFEFEFE);
-+
-+	/* Now trip overflow, and verify we didn't clobber beyond end. */
-+	src->count = TEST_BOUNDS;
-+	rc = flex_cpy(dst, src);
-+	KUNIT_EXPECT_EQ(test, rc, -E2BIG);
-+	/* Item past last copied item is unchanged from initial memset. */
-+	KUNIT_EXPECT_EQ(test, dst->flex[dst->count], 0xFEFEFEFE);
-+
-+	/* Reset destination contents. */
-+	memset(dst, 0xFD, struct_size(src, flex, TEST_BOUNDS));
-+	dst->count = TEST_TARGET;
-+
-+	/* Copy less than max. */
-+	src->count = TEST_SMALL;
-+	rc = flex_cpy(dst, src);
-+	KUNIT_EXPECT_EQ(test, rc, 0);
-+	/* Verify count was adjusted. */
-+	KUNIT_EXPECT_EQ(test, dst->count, TEST_SMALL);
-+	/* Verify element beyond src size was wiped. */
-+	KUNIT_EXPECT_EQ(test, dst->flex[TEST_SMALL], 0);
-+	/* Verify element beyond original dst size was untouched. */
-+	KUNIT_EXPECT_EQ(test, dst->flex[TEST_TARGET], 0xFDFDFDFD);
-+
-+	kfree(dst);
-+	kfree(src);
-+#undef TEST_BOUNDS
-+#undef TEST_TARGET
-+#undef TEST_SMALL
-+}
-+
-+static void flex_dup_test(struct kunit *test)
-+{
-+#define TEST_TARGET	12
-+	struct flex_cpy_obj *src, *dst = NULL, **null = NULL;
-+	struct flex_dup_obj *encap = NULL;
-+	unsigned long padding;
-+	int i, rc;
-+
-+	/* Prepare open-coded source. */
-+	src = kzalloc(struct_size(src, flex, TEST_TARGET), GFP_KERNEL);
-+	src->count = TEST_TARGET;
-+	memset(src->flex, 'A', flex_array_size(src, flex, TEST_TARGET));
-+	src->flex[src->count - 1] = 0x14141414;
-+
-+	/* Reject NULL @alloc. */
-+	rc = flex_dup(null, src, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, rc, -EINVAL);
-+
-+	/* Check good copy. */
-+	rc = flex_dup(&dst, src, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, rc, 0);
-+	KUNIT_ASSERT_TRUE(test, dst != NULL);
-+	CHECK_COPY(dst);
-+
-+	/* Reject non-NULL *@alloc. */
-+	rc = flex_dup(&dst, src, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, rc, -EINVAL);
-+
-+	kfree(dst);
-+
-+	/* Check good encap copy. */
-+	rc = __flex_dup(&encap, .fas, src, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, rc, 0);
-+	KUNIT_ASSERT_TRUE(test, dst != NULL);
-+	CHECK_COPY(&encap->fas);
-+	/* Check that items external to "fas" are zero. */
-+	KUNIT_EXPECT_EQ(test, encap->flags, 0);
-+	KUNIT_EXPECT_EQ(test, encap->junk, 0);
-+	kfree(encap);
-+#undef MAGIC_WORD
-+#undef TEST_TARGET
-+}
-+
-+static void mem_to_flex_test(struct kunit *test)
-+{
-+#define TEST_TARGET	9
-+#define TEST_MAX	U8_MAX
-+#define MAGIC_WORD	0x03030303
-+	u8 magic_byte = MAGIC_WORD & 0xff;
-+	struct flex_cpy_obj *dst;
-+	size_t big = (size_t)INT_MAX + 1;
-+	char small[] = "Hello";
-+	char *src;
-+	u32 src_len;
-+	int rc;
-+
-+	/* Open coded allocations, 1 larger than actually used. */
-+	src_len = flex_array_size(dst, flex, TEST_MAX + 1);
-+	src = kzalloc(src_len, GFP_KERNEL);
-+	dst = kzalloc(struct_size(dst, flex, TEST_MAX + 1), GFP_KERNEL);
-+	dst->count = TEST_TARGET;
-+
-+	/* Fill source. */
-+	memset(src, magic_byte, src_len);
-+
-+	/* Short copy is fine. */
-+	KUNIT_EXPECT_EQ(test, dst->flex[0], 0);
-+	KUNIT_EXPECT_EQ(test, dst->flex[1], 0);
-+	rc = mem_to_flex(dst, src, 1);
-+	KUNIT_EXPECT_EQ(test, rc, 0);
-+	KUNIT_EXPECT_EQ(test, dst->count, 1);
-+	KUNIT_EXPECT_EQ(test, dst->after_padding, 0);
-+	KUNIT_EXPECT_EQ(test, dst->flex[0], MAGIC_WORD);
-+	KUNIT_EXPECT_EQ(test, dst->flex[1], 0);
-+	dst->count = TEST_TARGET;
-+
-+	/* Reject negative elements count. */
-+	rc = mem_to_flex(dst, small, -1);
-+	KUNIT_EXPECT_EQ(test, rc, -E2BIG);
-+	/* Make sure dst is unchanged. */
-+	KUNIT_EXPECT_EQ(test, dst->flex[0], MAGIC_WORD);
-+	KUNIT_EXPECT_EQ(test, dst->flex[1], 0);
-+
-+	/* Reject compile-time read overflow. */
-+	rc = mem_to_flex(dst, small, 20);
-+	KUNIT_EXPECT_EQ(test, rc, -E2BIG);
-+	/* Make sure dst is unchanged. */
-+	KUNIT_EXPECT_EQ(test, dst->flex[0], MAGIC_WORD);
-+	KUNIT_EXPECT_EQ(test, dst->flex[1], 0);
-+
-+	/* Reject giant buffer source. */
-+	rc = mem_to_flex(dst, small, big);
-+	KUNIT_EXPECT_EQ(test, rc, -E2BIG);
-+	/* Make sure dst is unchanged. */
-+	KUNIT_EXPECT_EQ(test, dst->flex[0], MAGIC_WORD);
-+	KUNIT_EXPECT_EQ(test, dst->flex[1], 0);
-+
-+	/* Copy beyond storage size is rejected. */
-+	dst->count = TEST_MAX;
-+	KUNIT_EXPECT_EQ(test, dst->flex[TEST_MAX - 1], 0);
-+	KUNIT_EXPECT_EQ(test, dst->flex[TEST_MAX], 0);
-+	rc = mem_to_flex(dst, src, TEST_MAX + 1);
-+	KUNIT_EXPECT_EQ(test, rc, -E2BIG);
-+	/* Make sure dst is unchanged. */
-+	KUNIT_EXPECT_EQ(test, dst->flex[0], MAGIC_WORD);
-+	KUNIT_EXPECT_EQ(test, dst->flex[1], 0);
-+
-+	kfree(dst);
-+	kfree(src);
-+#undef MAGIC_WORD
-+#undef TEST_MAX
-+#undef TEST_TARGET
-+}
-+
-+static void mem_to_flex_dup_test(struct kunit *test)
-+{
-+#define ELEMENTS_COUNT	259
-+#define MAGIC_WORD	0xABABABAB
-+	u8 magic_byte = MAGIC_WORD & 0xff;
-+	struct flex_dup_obj *obj = NULL;
-+	struct tiny_flex *tiny = NULL, **null = NULL;
-+	size_t src_len, count, big = (size_t)INT_MAX + 1;
-+	char small[] = "Hello";
-+	u8 *src;
-+	int rc;
-+
-+	src_len = struct_size(tiny, byte_array, ELEMENTS_COUNT);
-+	src = kzalloc(src_len, GFP_KERNEL);
-+	KUNIT_ASSERT_TRUE(test, src != NULL);
-+	/* Fill with bytes. */
-+	memset(src, magic_byte, src_len);
-+	KUNIT_EXPECT_EQ(test, src[0], magic_byte);
-+	KUNIT_EXPECT_EQ(test, src[src_len / 2], magic_byte);
-+	KUNIT_EXPECT_EQ(test, src[src_len - 1], magic_byte);
-+
-+	/* Reject storage exceeding elements_count type. */
-+	count = ELEMENTS_COUNT;
-+	rc = mem_to_flex_dup(&tiny, src, count, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, rc, -E2BIG);
-+	KUNIT_EXPECT_TRUE(test, tiny == NULL);
-+
-+	/* Reject negative elements count. */
-+	rc = mem_to_flex_dup(&tiny, src, -1, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, rc, -E2BIG);
-+	KUNIT_EXPECT_TRUE(test, tiny == NULL);
-+
-+	/* Reject compile-time read overflow. */
-+	rc = mem_to_flex_dup(&tiny, small, 20, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, rc, -E2BIG);
-+	KUNIT_EXPECT_TRUE(test, tiny == NULL);
-+
-+	/* Reject giant buffer source. */
-+	rc = mem_to_flex_dup(&tiny, small, big, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, rc, -E2BIG);
-+	KUNIT_EXPECT_TRUE(test, tiny == NULL);
-+
-+	/* Reject NULL @alloc. */
-+	rc = mem_to_flex_dup(null, src, count, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, rc, -EINVAL);
-+
-+	/* Allow reasonable count.*/
-+	count = ELEMENTS_COUNT / 2;
-+	rc = mem_to_flex_dup(&tiny, src, count, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, rc, 0);
-+	KUNIT_ASSERT_TRUE(test, tiny != NULL);
-+	/* Spot check the copy happened. */
-+	KUNIT_EXPECT_EQ(test, tiny->count, count);
-+	KUNIT_EXPECT_EQ(test, tiny->byte_array[0], magic_byte);
-+	KUNIT_EXPECT_EQ(test, tiny->byte_array[count / 2], magic_byte);
-+	KUNIT_EXPECT_EQ(test, tiny->byte_array[count - 1], magic_byte);
-+
-+	/* Reject non-NULL *@alloc. */
-+	rc = mem_to_flex_dup(&tiny, src, count, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, rc, -EINVAL);
-+	kfree(tiny);
-+
-+	/* Works with encapsulation too. */
-+	count = ELEMENTS_COUNT / 10;
-+	rc = __mem_to_flex_dup(&obj, .fas, src, count, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, rc, 0);
-+	KUNIT_ASSERT_TRUE(test, obj != NULL);
-+	/* Spot check the copy happened. */
-+	KUNIT_EXPECT_EQ(test, obj->fas.count, count);
-+	KUNIT_EXPECT_EQ(test, obj->fas.after_padding, 0);
-+	KUNIT_EXPECT_EQ(test, obj->fas.flex[0], MAGIC_WORD);
-+	KUNIT_EXPECT_EQ(test, obj->fas.flex[count / 2], MAGIC_WORD);
-+	KUNIT_EXPECT_EQ(test, obj->fas.flex[count - 1], MAGIC_WORD);
-+	/* Check members before flexible array struct are zero. */
-+	KUNIT_EXPECT_EQ(test, obj->flags, 0);
-+	KUNIT_EXPECT_EQ(test, obj->junk, 0);
-+	kfree(obj);
-+#undef MAGIC_WORD
-+#undef ELEMENTS_COUNT
-+}
-+
-+static void flex_to_mem_test(struct kunit *test)
-+{
-+#define ELEMENTS_COUNT	200
-+#define MAGIC_WORD	0xF1F2F3F4
-+	struct flex_cpy_obj *src;
-+	typeof(*src->flex) *cast;
-+	size_t src_len = struct_size(src, flex, ELEMENTS_COUNT);
-+	size_t copy_len = flex_array_size(src, flex, ELEMENTS_COUNT);
-+	int i, rc;
-+	size_t bytes = 0;
-+	u8 too_small;
-+	u8 *dst;
-+
-+	/* Create a filled flexible array struct. */
-+	src = kzalloc(src_len, GFP_KERNEL);
-+	KUNIT_ASSERT_TRUE(test, src != NULL);
-+	src->count = ELEMENTS_COUNT;
-+	src->after_padding = 13;
-+	for (i = 0; i < ELEMENTS_COUNT; i++)
-+		src->flex[i] = MAGIC_WORD;
-+
-+	/* Over-allocate space to do past-src_len checking. */
-+	dst = kzalloc(src_len * 2, GFP_KERNEL);
-+	KUNIT_ASSERT_TRUE(test, dst != NULL);
-+	cast = (void *)dst;
-+
-+	/* Fail if dst is too small. */
-+	rc = flex_to_mem(dst, copy_len - 1, src, &bytes);
-+	KUNIT_EXPECT_EQ(test, rc, -E2BIG);
-+	/* Make sure nothing was copied. */
-+	KUNIT_EXPECT_EQ(test, bytes, 0);
-+	KUNIT_EXPECT_EQ(test, cast[0], 0);
-+
-+	/* Fail if type too small to hold size of copy. */
-+	KUNIT_EXPECT_GT(test, copy_len, type_max(typeof(too_small)));
-+	rc = flex_to_mem(dst, copy_len, src, &too_small);
-+	KUNIT_EXPECT_EQ(test, rc, -E2BIG);
-+	/* Make sure nothing was copied. */
-+	KUNIT_EXPECT_EQ(test, bytes, 0);
-+	KUNIT_EXPECT_EQ(test, cast[0], 0);
-+
-+	/* Check good copy. */
-+	rc = flex_to_mem(dst, copy_len, src, &bytes);
-+	KUNIT_EXPECT_EQ(test, rc, 0);
-+	KUNIT_EXPECT_EQ(test, bytes, copy_len);
-+	/* Spot check the copy */
-+	KUNIT_EXPECT_EQ(test, cast[0], MAGIC_WORD);
-+	KUNIT_EXPECT_EQ(test, cast[ELEMENTS_COUNT / 2], MAGIC_WORD);
-+	KUNIT_EXPECT_EQ(test, cast[ELEMENTS_COUNT - 1], MAGIC_WORD);
-+	/* Make sure nothing was written after last element. */
-+	KUNIT_EXPECT_EQ(test, cast[ELEMENTS_COUNT], 0);
-+
-+	kfree(dst);
-+	kfree(src);
-+#undef MAGIC_WORD
-+#undef ELEMENTS_COUNT
-+}
-+
-+static void flex_to_mem_dup_test(struct kunit *test)
-+{
-+#define ELEMENTS_COUNT	210
-+#define MAGIC_WORD	0xF0F1F2F3
-+	struct flex_dup_obj *obj, **null = NULL;
-+	struct flex_cpy_obj *src;
-+	typeof(*src->flex) *cast;
-+	size_t obj_len = struct_size(obj, fas.flex, ELEMENTS_COUNT);
-+	size_t src_len = struct_size(src, flex, ELEMENTS_COUNT);
-+	size_t copy_len = flex_array_size(src, flex, ELEMENTS_COUNT);
-+	int i, rc;
-+	size_t bytes = 0;
-+	u8 too_small = 0;
-+	u8 *dst = NULL;
-+
-+	/* Create a filled flexible array struct. */
-+	obj = kzalloc(obj_len, GFP_KERNEL);
-+	KUNIT_ASSERT_TRUE(test, obj != NULL);
-+	obj->fas.count = ELEMENTS_COUNT;
-+	obj->fas.after_padding = 13;
-+	for (i = 0; i < ELEMENTS_COUNT; i++)
-+		obj->fas.flex[i] = MAGIC_WORD;
-+	src = &obj->fas;
-+
-+	/* Fail if type too small to hold size of copy. */
-+	KUNIT_EXPECT_GT(test, src_len, type_max(typeof(too_small)));
-+	rc = flex_to_mem_dup(&dst, &too_small, src, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, rc, -E2BIG);
-+	KUNIT_EXPECT_TRUE(test, dst == NULL);
-+	KUNIT_EXPECT_EQ(test, too_small, 0);
-+
-+	/* Fail if @alloc_size is NULL. */
-+	KUNIT_EXPECT_TRUE(test, dst == NULL);
-+	rc = flex_to_mem_dup(&dst, dst, src, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, rc, -EINVAL);
-+	KUNIT_EXPECT_TRUE(test, dst == NULL);
-+
-+	/* Fail if @alloc is NULL. */
-+	rc = flex_to_mem_dup(null, &bytes, src, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, rc, -EINVAL);
-+	KUNIT_EXPECT_TRUE(test, dst == NULL);
-+	KUNIT_EXPECT_EQ(test, bytes, 0);
-+
-+	/* Check good copy. */
-+	rc = flex_to_mem_dup(&dst, &bytes, src, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, rc, 0);
-+	KUNIT_EXPECT_TRUE(test, dst != NULL);
-+	KUNIT_EXPECT_EQ(test, bytes, copy_len);
-+	cast = (void *)dst;
-+	/* Spot check the copy */
-+	KUNIT_EXPECT_EQ(test, cast[0], MAGIC_WORD);
-+	KUNIT_EXPECT_EQ(test, cast[ELEMENTS_COUNT / 2], MAGIC_WORD);
-+	KUNIT_EXPECT_EQ(test, cast[ELEMENTS_COUNT - 1], MAGIC_WORD);
-+
-+	/* Fail if *@alloc is non-NULL. */
-+	bytes = 0;
-+	rc = flex_to_mem_dup(&dst, &bytes, src, GFP_KERNEL);
-+	KUNIT_EXPECT_EQ(test, rc, -EINVAL);
-+	KUNIT_EXPECT_EQ(test, bytes, 0);
-+
-+	kfree(dst);
-+	kfree(obj);
-+#undef MAGIC_WORD
-+#undef ELEMENTS_COUNT
-+}
-+
-+static struct kunit_case flex_array_test_cases[] = {
-+	KUNIT_CASE(struct_test),
-+	KUNIT_CASE(flex_cpy_test),
-+	KUNIT_CASE(flex_dup_test),
-+	KUNIT_CASE(mem_to_flex_test),
-+	KUNIT_CASE(mem_to_flex_dup_test),
-+	KUNIT_CASE(flex_to_mem_test),
-+	KUNIT_CASE(flex_to_mem_dup_test),
-+	{}
-+};
-+
-+static struct kunit_suite flex_array_test_suite = {
-+	.name = "flex_array",
-+	.test_cases = flex_array_test_cases,
-+};
-+
-+kunit_test_suite(flex_array_test_suite);
-+
-+MODULE_LICENSE("GPL");
+ /*
+  * __builtin_object_size() must be captured here to avoid evaluating argument
+  * side-effects further into the macro layers.
 -- 
 2.32.0
 
