@@ -2,37 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 623A851AE73
-	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 21:55:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.320973.541967 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6ECE51AE98
+	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 21:59:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.320982.541979 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmL4n-00013F-WA; Wed, 04 May 2022 19:54:21 +0000
+	id 1nmLA1-0001iO-Rc; Wed, 04 May 2022 19:59:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 320973.541967; Wed, 04 May 2022 19:54:21 +0000
+Received: by outflank-mailman (output) from mailman id 320982.541979; Wed, 04 May 2022 19:59:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmL4n-00010z-S3; Wed, 04 May 2022 19:54:21 +0000
-Received: by outflank-mailman (input) for mailman id 320973;
- Wed, 04 May 2022 19:43:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nmLA1-0001fY-M3; Wed, 04 May 2022 19:59:45 +0000
+Received: by outflank-mailman (input) for mailman id 320982;
+ Wed, 04 May 2022 19:59:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Rvwn=VM=chromium.org=keescook@srs-se1.protection.inumbo.net>)
- id 1nmKuV-0008PY-6H
- for xen-devel@lists.xenproject.org; Wed, 04 May 2022 19:43:43 +0000
-Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com
- [2607:f8b0:4864:20::533])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7f432258-cbe2-11ec-a406-831a346695d4;
- Wed, 04 May 2022 21:43:41 +0200 (CEST)
-Received: by mail-pg1-x533.google.com with SMTP id i62so1958476pgd.6
- for <xen-devel@lists.xenproject.org>; Wed, 04 May 2022 12:43:40 -0700 (PDT)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
- by smtp.gmail.com with ESMTPSA id
- h15-20020a170902f70f00b0015e8d4eb1d0sm8730938plo.26.2022.05.04.12.43.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 May 2022 12:43:38 -0700 (PDT)
+ <SRS0=9CPX=VM=epam.com=prvs=71238bbcb9=volodymyr_babchuk@srs-se1.protection.inumbo.net>)
+ id 1nmLA0-0001fQ-84
+ for xen-devel@lists.xenproject.org; Wed, 04 May 2022 19:59:44 +0000
+Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
+ [148.163.133.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bbe39775-cbe4-11ec-8fc4-03012f2f19d4;
+ Wed, 04 May 2022 21:59:42 +0200 (CEST)
+Received: from pps.filterd (m0174677.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 244IDPwY011405;
+ Wed, 4 May 2022 19:59:25 GMT
+Received: from eur05-vi1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05lp2177.outbound.protection.outlook.com [104.47.17.177])
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3fuxjx88ma-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 04 May 2022 19:59:25 +0000
+Received: from AM0PR03MB3699.eurprd03.prod.outlook.com (52.134.85.31) by
+ VI1PR03MB3102.eurprd03.prod.outlook.com (10.165.190.23) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5206.24; Wed, 4 May 2022 19:59:22 +0000
+Received: from AM0PR03MB3699.eurprd03.prod.outlook.com
+ ([fe80::78c1:e5da:903e:66f8]) by AM0PR03MB3699.eurprd03.prod.outlook.com
+ ([fe80::78c1:e5da:903e:66f8%3]) with mapi id 15.20.5206.024; Wed, 4 May 2022
+ 19:59:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,304 +52,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f432258-cbe2-11ec-a406-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=RQ5+Z93YtWEK5xXREhrhRleXnskqFAblQsxgrgprxiY=;
-        b=PWTj7QFNwdFF2OE0C4xFUgoIvDGn2+dYizGm/ZxeTyJ+Iz/tyIN+jbKS/JUP74dMIB
-         W7u3atVP0GNPWpIF5TIzABeYYT/Et9n+I/Ppab3jaBr0jw2QDopw+U1E91lEzpAOCQFs
-         xQr1OFa2NKNeyWLt6H4cI0w0eWAyTF94chl/w=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=RQ5+Z93YtWEK5xXREhrhRleXnskqFAblQsxgrgprxiY=;
-        b=heVClJmXMgjV+pfdsDtJfhK8zTPBdPUFUWyo5NKdPskQP+TX9nWISglVfuCf8jrbvK
-         WIqJPmyTK31U9L42BWjkEvQJZ+OiZwrMasE+ePYXeCBTo7a80aa7MhGmEye2EqBveVzZ
-         j96Nkq9c8v0PhZE8Xy4cKM9+zQUJ8+4QSeSsUrR++3ls8iZvF1oNizNmC8UKiR4x7NCJ
-         9AnB/Hhp6uaEimLLvIDNOfR+Bg6f2bIj08DdpnfyoVNVCqro24E3eKOx9PVjiRaBAxHI
-         ReB1pZcBTHq2klZ9gWI2WvBDaT2S1oLeo413/fkIO7LducmpjCq1wKe6eVC2s935f3hh
-         YIrw==
-X-Gm-Message-State: AOAM533pKCwwpVVq+Uf1dzfWeO7bb3DzjnrdO71w/ilJgOFDPHebhOYn
-	rsvh0ypysJhzVuRcnaQgxaoHyQ==
-X-Google-Smtp-Source: ABdhPJxpGz3s4m+LKjicArp6DlDBRGF27gXeN2gLCVWGRMHmfRxOIpCp0rTzhf6HWYs/gZ1wrGnYMQ==
-X-Received: by 2002:a65:4848:0:b0:39c:c393:688c with SMTP id i8-20020a654848000000b0039cc393688cmr18715460pgs.376.1651693419340;
-        Wed, 04 May 2022 12:43:39 -0700 (PDT)
-Date: Wed, 4 May 2022 12:43:37 -0700
-From: Kees Cook <keescook@chromium.org>
-To: David Gow <davidgow@google.com>
-Cc: "Gustavo A . R . Silva" <gustavoars@kernel.org>,
-	KUnit Development <kunit-dev@googlegroups.com>,
-	Alexei Starovoitov <ast@kernel.org>, alsa-devel@alsa-project.org,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Andrew Gabbasov <andrew_gabbasov@mentor.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Andy Gross <agross@kernel.org>, Andy Lavr <andy.lavr@gmail.com>,
-	Arend van Spriel <aspriel@gmail.com>,
-	Baowen Zheng <baowen.zheng@corigine.com>,
-	Bjorn Andersson <bjorn.andersson@linaro.org>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Bradley Grove <linuxdrivers@attotech.com>,
-	brcm80211-dev-list.pdl@broadcom.com,
-	Christian Brauner <brauner@kernel.org>,
-	Christian =?iso-8859-1?Q?G=F6ttsche?= <cgzones@googlemail.com>,
-	Christian Lamparter <chunkeey@googlemail.com>,
-	Chris Zankel <chris@zankel.net>,
-	Cong Wang <cong.wang@bytedance.com>, Daniel Axtens <dja@axtens.net>,
-	Daniel Vetter <daniel.vetter@ffwll.ch>,
-	Dan Williams <dan.j.williams@intel.com>,
-	David Howells <dhowells@redhat.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
-	devicetree@vger.kernel.org, Dexuan Cui <decui@microsoft.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-	Eli Cohen <elic@nvidia.com>, Eric Dumazet <edumazet@google.com>,
-	Eric Paris <eparis@parisplace.org>,
-	Eugeniu Rosca <erosca@de.adit-jv.com>,
-	Felipe Balbi <balbi@kernel.org>,
-	Francis Laniel <laniel_francis@privacyrequired.com>,
-	Frank Rowand <frowand.list@gmail.com>,
-	Franky Lin <franky.lin@broadcom.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Gregory Greenman <gregory.greenman@intel.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Hante Meuleman <hante.meuleman@broadcom.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Hulk Robot <hulkci@huawei.com>, Jakub Kicinski <kuba@kernel.org>,
-	"James E.J. Bottomley" <jejb@linux.ibm.com>,
-	James Morris <jmorris@namei.org>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Jens Axboe <axboe@kernel.dk>,
-	Johan Hedberg <johan.hedberg@gmail.com>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	John Keeping <john@metanate.com>, Juergen Gross <jgross@suse.com>,
-	Kalle Valo <kvalo@kernel.org>, Keith Packard <keithp@keithp.com>,
-	keyrings@vger.kernel.org, Kuniyuki Iwashima <kuniyu@amazon.co.jp>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Lee Jones <lee.jones@linaro.org>, Leon Romanovsky <leon@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	linux1394-devel@lists.sourceforge.net,
-	linux-afs@lists.infradead.org,
-	Linux ARM <linux-arm-kernel@lists.infradead.org>,
-	linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
-	linux-hardening@vger.kernel.org, linux-hyperv@vger.kernel.org,
-	linux-integrity@vger.kernel.org, linux-rdma@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-security-module <linux-security-module@vger.kernel.org>,
-	linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org,
-	linux-xtensa@linux-xtensa.org, llvm@lists.linux.dev,
-	Loic Poulain <loic.poulain@linaro.org>,
-	Louis Peens <louis.peens@corigine.com>,
-	Luca Coelho <luciano.coelho@intel.com>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Mark Brown <broonie@kernel.org>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Max Filippov <jcmvbkbc@gmail.com>, Mimi Zohar <zohar@linux.ibm.com>,
-	Muchun Song <songmuchun@bytedance.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Networking <netdev@vger.kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Paolo Abeni <pabeni@redhat.com>, Paul Moore <paul@paul-moore.com>,
-	Rich Felker <dalias@aerifal.cx>, Rob Herring <robh+dt@kernel.org>,
-	Russell King <linux@armlinux.org.uk>, selinux@vger.kernel.org,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	SHA-cyfmac-dev-list@infineon.com,
-	Simon Horman <simon.horman@corigine.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Stefan Richter <stefanr@s5r6.in-berlin.de>,
-	Steffen Klassert <steffen.klassert@secunet.com>,
-	Stephen Hemminger <sthemmin@microsoft.com>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	Tadeusz Struk <tadeusz.struk@linaro.org>,
-	Takashi Iwai <tiwai@suse.com>, Tom Rix <trix@redhat.com>,
-	Udipto Goswami <quic_ugoswami@quicinc.com>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>,
-	wcn36xx@lists.infradead.org, Wei Liu <wei.liu@kernel.org>,
-	xen-devel@lists.xenproject.org,
-	Xiu Jianfeng <xiujianfeng@huawei.com>,
-	Yang Yingliang <yangyingliang@huawei.com>
-Subject: Re: [PATCH 03/32] flex_array: Add Kunit tests
-Message-ID: <202205041220.4BAF15F6B4@keescook>
-References: <20220504014440.3697851-1-keescook@chromium.org>
- <20220504014440.3697851-4-keescook@chromium.org>
- <CABVgOSn62JTxaX9BW8w8jRxOpf_vgxpW-s=amwo8PCotiZTjig@mail.gmail.com>
+X-Inumbo-ID: bbe39775-cbe4-11ec-8fc4-03012f2f19d4
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JAHXikLKCJY+8KhhwurLUSs/dKOnEpbM4dBGGMqa/hSs45g9gAnUtaUmwQufnFoNmF/Ue9TNTuybMNbNq+nFvK+wPub5aYrG5AAS/F9KlRMvbOtlyghKluAjldzongJYt5pE6cyTznfjXHkJtmArDR1y1/PLDnbSkRmo6P5Mo09ZC/SJMtw7nCGkjoZj4DaGDMnu5iSlsw83jvQHUjFhtR0K/yO49eLLRcZD6HjbJgyhU+s1GcztjqrNyU/lJUvHI4CfOw/+LKIofcTrbGBMjTJMO61rQ+Su9uNr0ucxc4pHh03IFpGiPvpPZI0wQWsDXfWaZ/IdWJKy6bjaU80OCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YGtCWR5lByVj/N6VFEw2T6DzI7VtEWTpfk8cjDXtedo=;
+ b=KyRZS616Lwc0Z5adJx8WSRLoSIUnQE8+fiVZ36gB37XuKpNSqj+Rxo6+j6tYvb7/ug0KoIH5aSu+AG8jVLja5ho/Wh3oUvNRZF5OedVsLxcmZ32qy1xzyE6y4hetSCAGx9o+oO2CSTbOFLSDLTq3dY1a5eCvQ5jeybMzg/uQzcT/gFSRL0k2LvVTHmuP3i6/7CfiqSWIjlBG13D4zC1juX2LA3ZW50gdn4zpLqQ00gedVt3+3X3FA6QLYJJzzQiuGjOGc2Z55iseRq/gSK8AwBk7cLCZpQvvmnsymKBIsKlBYM95gn85rvhnCjxdrhymyz9tzpXV0XlsY+xGIdQUhQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YGtCWR5lByVj/N6VFEw2T6DzI7VtEWTpfk8cjDXtedo=;
+ b=Le+r2uXSqakkzf7LCQOxsTgPTeckCt9YgrWmo18PMURhxX+S5+AeBonZVtDBXwz7s7hYdS7g6YCEzoLblMJan5beCRN4tmJzW1yKHstA2p+q4ntl8W9WWW5+zOCfWbMUnt515DKoGObPx08o1eo60FvGmIh2dgIz+gcK5rp3g49OW29p+ptMT1CgAtwRIC8n8FvU6JJLiWteBKbjScbF5Mry2dD1UcEWEw+U5x1BeAHUuH2sMG30ZZDjdkyrd3nQMEqeiLgEdJhtVPRifN48V+kYBBGMyh0EMhUBcUw2L/FT1Xaa3srPF1KRk0bcaiaifn1Kqk46VRZ+bMl8DTvciQ==
+From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: Jens Wiklander <jens.wiklander@linaro.org>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+        Stefano
+ Stabellini <sstabellini@kernel.org>,
+        Julien Grall <julien@xen.org>
+Subject: Re: [PATCH] optee: immediately free RPC buffers that are released by
+ OP-TEE
+Thread-Topic: [PATCH] optee: immediately free RPC buffers that are released by
+ OP-TEE
+Thread-Index: AQHYX3q1+cwfT5uujESolgz3RZy+760PI7EA
+Date: Wed, 4 May 2022 19:59:22 +0000
+Message-ID: <8735hpm5ly.fsf@epam.com>
+References: 
+ <287f81d7cec66b5ef1f8f3f61679b9593e2b81d4.1651643156.git.jens.wiklander@linaro.org>
+In-Reply-To: 
+ <287f81d7cec66b5ef1f8f3f61679b9593e2b81d4.1651643156.git.jens.wiklander@linaro.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: mu4e 1.6.5; emacs 27.2
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 3b341712-0cce-4ac7-d14b-08da2e089548
+x-ms-traffictypediagnostic: VI1PR03MB3102:EE_
+x-microsoft-antispam-prvs: 
+ <VI1PR03MB3102764843D2991B99FA6C40E6C39@VI1PR03MB3102.eurprd03.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ aEyS1YvdLcaEhWd3dzJTjg9RHw10ZDVk3+lNxRfnXkjybU7Ob2y8JEijdke7IO35OWI1BkA7NHAioV7SdCuV1rDCzwPNRyhQEDuZ4W4fTKU26KJZXVz9JKGb8BjjjU3Gemq4YveetprCfbpBWUeP/3eK0T+bvo3dMMbj/YIzKMBtT4y8i7d5T+9JPVamRaGdxx/PIBIfUex3lbq6QBMsFJHC01toHd6wM+PO9Zh9s9z8uQNem28y6MMusyk7B+MKSYaPY7oYRM93wxPjAHM9y82gjPaQVQXAxsnxxM6labvwTX0JgmsyQezROb6kit6u7VS/m+P4lGHETZNi0cJ+T3cKOGgt8K8vc2goeAXzBBZ1EWHXrfCIoGbwodRMBL54OyAVeM7n2S+eX8Vmk/GvgOBwEq75xdzTkthBwQPDLcjnlQvyl+oKRBqW/9btYoCJB4xXS9p6L2/EY4O0RwBo6+URo/jyk/c9Z2QQynJqYRw1vtMgzFBuxTmWUuPnaiRUQZPF3iQx6zs1cIJV8IkK/g+cYPTtCbNdGxdayPb3vCkg/4dOSeEuw/W41J2Y7NJekHA15747PCtpGDV0jLQkDNkDuZ91UqdoyzODv1cE52K3rLhlL3Fm9Kn0fCDntyILAVNdq6eC9wiOwdVGdlKg0hZ9BdGSaqWN0tIQmh78j8lubRjEkTQKHybGBcF3T1m9g0WJvnCV+1wquYYSdr/vVsxgYPT3ksZy5vZhEWll8do=
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB3699.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(26005)(186003)(71200400001)(6486002)(83380400001)(508600001)(6512007)(2616005)(55236004)(6506007)(86362001)(38070700005)(38100700002)(5660300002)(122000001)(36756003)(2906002)(66446008)(66556008)(54906003)(66946007)(91956017)(76116006)(66476007)(4326008)(64756008)(8676002)(6916009)(316002)(8936002)(14773001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?iso-8859-1?Q?xir0iemCa3r41Yj9cK8uwJDYAajOBzCHuxbGPQ+ULccuaejeXqtxgGv+qi?=
+ =?iso-8859-1?Q?FfqJimJ6Z/xRYIMJCcoptuJ2NYZ9tEw2xrQqLh6vXWR5t2CxndZmrVINcX?=
+ =?iso-8859-1?Q?q8coK6z3EkBSuIVfpvnVLRuQDAprlLwhRHnjUg5xjIHAjD4SNVkWQH/xCE?=
+ =?iso-8859-1?Q?37rxQkjP277XhBjgBV/+69O+D47DP5WQYM4PRTQbvqi3tuhCOM+qAoKj7j?=
+ =?iso-8859-1?Q?G6RKxA3ftfXn02gv5I2Fak0TP2AFjurDKRvqCf9ZT7KzISR3aAL0o/BZZY?=
+ =?iso-8859-1?Q?+WpACLHiTOMEjR4JrRsf/eKgGDYT7DG/Ufz0lQyqe1dPTTnkSBo+/l2nAV?=
+ =?iso-8859-1?Q?B3mYxcL2OLDDMNayHTKo8iBRPjwNwZMMzSutA6eH6I3wydrACFgz6tsBeM?=
+ =?iso-8859-1?Q?36m1Hv9d6nv//NRU9j2E9zXWYjN8dZRa+GwiO/YTOaBsete4mlEdLpMnV7?=
+ =?iso-8859-1?Q?bu0paSPCXRU44sNmA/ZLSsx5wR2U1/TXtGfayx9UiRPuQ+XVcVnV5xxaB7?=
+ =?iso-8859-1?Q?VheDKqkIFZBGkiGDVwO0TW9Uju9xsMVnj2VkPNwfEDo+8vO1+eeFQYkOpD?=
+ =?iso-8859-1?Q?A/U1IqpaPy5jgvPLJ0p/bWMkrl8dL2hwprWCDyxks3Bf7ReeY4VQ62oKhl?=
+ =?iso-8859-1?Q?JxpwZZlXW+xQLb4uVCh154qBpAHLTMBqZAyt7e2WIia3cWrSd82f0yM76j?=
+ =?iso-8859-1?Q?DcMJAZEbK99eT8Dmb7GY7UMBiIoWZPp952veJaxo9T5TkEpKoz4a+kpN0Q?=
+ =?iso-8859-1?Q?jvPsNWaNf6lF0NkKL2iZvsOAqi8MY4TcaNTE83a9MqAs6+uz8yUJF8cCLQ?=
+ =?iso-8859-1?Q?4sqzRNxu78Lmde1Agky8YcJ+xDJGTKaDeDnx6bQ5uNlJSt86r3zv2nr8sf?=
+ =?iso-8859-1?Q?FbWLDPAY6lI4MgE1ij0TmZ135y6izRiAuv7QLbgI1XLlVHyF2Gz8spE9Nc?=
+ =?iso-8859-1?Q?v40LaUX7zRDBtDo9iyJdGP2bUPMVN0WUHR5uQqkrC1ONkrRbUgdEmfe/Uq?=
+ =?iso-8859-1?Q?1mZ7iq+a0YZSg3MCWmdvbmB1RO/u6l6dnrseNQKD5xa8HjI9ioPy6cL3qK?=
+ =?iso-8859-1?Q?WJdyKzme607mvtYimfeg3zqOR28CvYq17RAQAOE/Frb9LFsc+6q1UFGZum?=
+ =?iso-8859-1?Q?FS6cDr3Ptrcgn51ZTaApMzAurBkC5rjqDAgIZYKryw+e/dzlCAR2tM/xfm?=
+ =?iso-8859-1?Q?j1SDkgLYIXm7asWidTRhfU9iyIxUFCBK+0t3b8Gtnnyq7SyKkooQ3vSFYZ?=
+ =?iso-8859-1?Q?gmvQ/vcnVUX4CuQM0DZu1Awl7PC1lDXU9sQ4WPK3oxsHhd64sWAsmO1P9j?=
+ =?iso-8859-1?Q?BbbmtHnY0+wmr7Ux8XXf3ybiybcp28IWRB1+9w8KcYOuRzHqfkaQ5TkW8d?=
+ =?iso-8859-1?Q?Vjz/VsabYnN61tjpN56jzga65rMq7Qk0matIADjMnJlezsEs6l/cPScIf0?=
+ =?iso-8859-1?Q?On74puo4MlDUmU+cHASmRe+UhE+ZaUFdJgL0FTfXlC8s33iyPHzAAW1A6x?=
+ =?iso-8859-1?Q?Uiz5wLz7jQinyi87Is+T7Iy1BVhQjXhahs/PfzZlQCGr28id19z1NIy3d5?=
+ =?iso-8859-1?Q?dlDKpEqok/JvOH80DUKnTxi+K1Pg2Hpc7T03o3qTZzg322qTKQOyEn7hB9?=
+ =?iso-8859-1?Q?cup3P9Keaza9NRLK6VNc0Kwv5I4J2IRshWH94/+ezZKsHL5tHoTg8YMoKA?=
+ =?iso-8859-1?Q?BAXlYgPWU8KDBDzA3AMoSdHx54sjOUoBAfqWla/3l6TMlxWooQpAY4K5WJ?=
+ =?iso-8859-1?Q?i6E3ngSfAOVljGhW5Zh4eF1f8OzuYp35UTrghKYtG9nCHObpcnmH71oinK?=
+ =?iso-8859-1?Q?A3aFM8WQ/qtjxmHEoN7JUd9jyMrwxH8=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CABVgOSn62JTxaX9BW8w8jRxOpf_vgxpW-s=amwo8PCotiZTjig@mail.gmail.com>
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB3699.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b341712-0cce-4ac7-d14b-08da2e089548
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 May 2022 19:59:22.5071
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Jk5Rz8GyJqzcFsXY0RSsdz9w1fE+aMdX1PDgTgSlT6pj5ivBKGNKu+4+Bxr7iqOSTuA7jNGAplzprgOxWLDMQ/BVIBCn78SK1i98uA2al5g=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR03MB3102
+X-Proofpoint-ORIG-GUID: 17zvTvYtmbeEZZIvXIAbjTcHEaDsYSlk
+X-Proofpoint-GUID: 17zvTvYtmbeEZZIvXIAbjTcHEaDsYSlk
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.858,Hydra:6.0.486,FMLib:17.11.64.514
+ definitions=2022-05-04_05,2022-05-04_02,2022-02-23_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 suspectscore=0
+ mlxlogscore=811 priorityscore=1501 spamscore=0 malwarescore=0 mlxscore=0
+ bulkscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0 phishscore=0
+ clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2202240000 definitions=main-2205040117
 
-On Wed, May 04, 2022 at 11:00:38AM +0800, David Gow wrote:
-> On Wed, May 4, 2022 at 9:47 AM Kees Cook <keescook@chromium.org> wrote:
-> >
-> > Add tests for the new flexible array structure helpers. These can be run
-> > with:
-> >
-> >   make ARCH=um mrproper
-> >   ./tools/testing/kunit/kunit.py config
-> 
-> Nit: it shouldn't be necessary to run kunit.py config separately:
-> kunit.py run will configure the kernel if necessary.
 
-Ah yes, I think you mentioned this before. I'll adjust the commit log.
+Hello Jens,
 
-> 
-> >   ./tools/testing/kunit/kunit.py run flex_array
-> >
-> > Cc: David Gow <davidgow@google.com>
-> > Cc: kunit-dev@googlegroups.com
-> > Signed-off-by: Kees Cook <keescook@chromium.org>
-> > ---
-> 
-> This looks pretty good to me: it certainly worked on the different
-> setups I tried (um, x86_64, x86_64+KASAN).
-> 
-> A few minor nitpicks inline, mostly around minor config-y things, or
-> things which weren't totally clear on my first read-through.
-> 
-> Hopefully one day, with the various stubbing features or something
-> similar, we'll be able to check against allocation failures in
-> flex_dup(), too, but otherwise nothing seems too obviously missing.
-> 
-> Reviewed-by: David Gow <davidgow@google.com>
+Jens Wiklander <jens.wiklander@linaro.org> writes:
 
-Great; thanks for the review and testing!
+> This commit fixes a case overlooked in [1].
+>
+> There are two kinds of shared memory buffers used by OP-TEE:
+> 1. Normal payload buffer
+> 2. Internal command structure buffers
+>
+> The internal command structure buffers are represented with a shadow
+> copy internally in Xen since this buffer can contain physical addresses
+> that may need to be translated between real physical address and guest
+> physical address without leaking information to the guest.
+>
+> [1] fixes the problem when releasing the normal payload buffers. The
+> internal command structure buffers must be released in the same way.
+> Failure to follow this order opens a window where the guest has freed
+> the shared memory but Xen is still tracking the buffer.
+>
+> During this window the guest may happen to recycle this particular
+> shared memory in some other thread and try to use it. Xen will block
+> this which will lead to spurious failures to register a new shared
+> memory block.
+>
+> Fix this by freeing the internal command structure buffers first before
+> informing the guest that the buffer can be freed.
+>
+> [1] 5b13eb1d978e ("optee: immediately free buffers that are released by O=
+P-TEE")
+>
+> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
 
-> 
-> -- David
-> 
-> >  lib/Kconfig.debug      |  12 +-
-> >  lib/Makefile           |   1 +
-> >  lib/flex_array_kunit.c | 523 +++++++++++++++++++++++++++++++++++++++++
-> >  3 files changed, 531 insertions(+), 5 deletions(-)
-> >  create mode 100644 lib/flex_array_kunit.c
-> >
-> > diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-> > index 9077bb38bc93..8bae6b169c50 100644
-> > --- a/lib/Kconfig.debug
-> > +++ b/lib/Kconfig.debug
-> > @@ -2551,11 +2551,6 @@ config OVERFLOW_KUNIT_TEST
-> >           Builds unit tests for the check_*_overflow(), size_*(), allocation, and
-> >           related functions.
-> >
-> > -         For more information on KUnit and unit tests in general please refer
-> > -         to the KUnit documentation in Documentation/dev-tools/kunit/.
-> > -
-> > -         If unsure, say N.
-> > -
-> 
-> Nit: while I'm not against removing some of this boilerplate, is it
-> better suited for a separate commit?
+Thank you for the fix:
 
-Make sense, yes. I'll drop this for now.
+Reviewed-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 
-> 
-> >  config STACKINIT_KUNIT_TEST
-> >         tristate "Test level of stack variable initialization" if !KUNIT_ALL_TESTS
-> >         depends on KUNIT
-> > @@ -2567,6 +2562,13 @@ config STACKINIT_KUNIT_TEST
-> >           CONFIG_GCC_PLUGIN_STRUCTLEAK, CONFIG_GCC_PLUGIN_STRUCTLEAK_BYREF,
-> >           or CONFIG_GCC_PLUGIN_STRUCTLEAK_BYREF_ALL.
-> >
-> > +config FLEX_ARRAY_KUNIT_TEST
-> > +       tristate "Test flex_*() family of helper functions at runtime" if !KUNIT_ALL_TESTS
-> > +       depends on KUNIT
-> > +       default KUNIT_ALL_TESTS
-> > +       help
-> > +         Builds unit tests for flexible array copy helper functions.
-> > +
-> 
-> Nit: checkpatch warns that the description here may be insufficient:
-> WARNING: please write a help paragraph that fully describes the config symbol
 
-Yeah, I don't know anything to put here that isn't just more
-boilerplate, so I'm choosing to ignore this for now. :)
-
-> > [...]
-> > +struct normal {
-> > +       size_t  datalen;
-> > +       u32     data[];
-> > +};
-> > +
-> > +struct decl_normal {
-> > +       DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(size_t, datalen);
-> > +       DECLARE_FLEX_ARRAY_ELEMENTS(u32, data);
-> > +};
-> > +
-> > +struct aligned {
-> > +       unsigned short  datalen;
-> > +       char            data[] __aligned(__alignof__(u64));
-> > +};
-> > +
-> > +struct decl_aligned {
-> > +       DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(unsigned short, datalen);
-> > +       DECLARE_FLEX_ARRAY_ELEMENTS(char, data) __aligned(__alignof__(u64));
-> > +};
-> > +
-> > +static void struct_test(struct kunit *test)
-> > +{
-> > +       COMPARE_STRUCTS(struct normal, struct decl_normal);
-> > +       COMPARE_STRUCTS(struct aligned, struct decl_aligned);
-> > +}
-> 
-> If I understand it, the purpose of this is to ensure that structs both
-> with and without the flexible array declaration have the same memory
-> layout?
-> 
-> If so, any chance of a comment briefly stating that's the purpose (or
-> renaming this test struct_layout_test())?
-
-Yeah, good idea; I'll improve the naming.
-
-> 
-> Also, would it make sense to do the same with the struct with internal
-> padding below?
-
-Heh, yes, good point! :)
-
-> [...]
-> > +#define CHECK_COPY(ptr)                do {                                            \
-> > +       typeof(*(ptr)) *_cc_dst = (ptr);                                        \
-> > +       KUNIT_EXPECT_EQ(test, _cc_dst->induce_padding, 0);                      \
-> > +       memcpy(&padding, &_cc_dst->induce_padding + sizeof(_cc_dst->induce_padding), \
-> > +              sizeof(padding));                                                \
-> > +       /* Padding should be zero too. */                                       \
-> > +       KUNIT_EXPECT_EQ(test, padding, 0);                                      \
-> > +       KUNIT_EXPECT_EQ(test, src->count, _cc_dst->count);                      \
-> > +       KUNIT_EXPECT_EQ(test, _cc_dst->count, TEST_TARGET);                     \
-> > +       for (i = 0; i < _cc_dst->count - 1; i++) {                              \
-> > +               /* 'A' is 0x41, and here repeated in a u32. */                  \
-> 
-> Would it be simpler to just note that the magic value is 0x41, rather
-> than have it be the character 'A'?
-
-Yeah, now fixed.
-
-> [...]
-> > +       CHECK_COPY(&encap->fas);
-> > +       /* Check that items external to "fas" are zero. */
-> > +       KUNIT_EXPECT_EQ(test, encap->flags, 0);
-> > +       KUNIT_EXPECT_EQ(test, encap->junk, 0);
-> > +       kfree(encap);
-> > +#undef MAGIC_WORD
-> 
-> MAGIC_WORD isn't defined (or used) for flux_dup_test? Is it worth
-> using it (or something similar) for the 'A' / 0x14141414 and the
-> CHECK_COPY() macro?
-
-Oops, yes. Fixed.
-
-Thanks again!
-
--Kees
-
--- 
-Kees Cook
+--=20
+Volodymyr Babchuk at EPAM=
 
