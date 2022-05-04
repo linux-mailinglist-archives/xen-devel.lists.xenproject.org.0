@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 422BA5199D5
-	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 10:32:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.320453.541188 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F23F15199F4
+	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 10:36:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.320460.541200 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmAQQ-0005hM-HU; Wed, 04 May 2022 08:31:58 +0000
+	id 1nmAV1-0006PD-7P; Wed, 04 May 2022 08:36:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 320453.541188; Wed, 04 May 2022 08:31:58 +0000
+Received: by outflank-mailman (output) from mailman id 320460.541200; Wed, 04 May 2022 08:36:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmAQQ-0005f4-EW; Wed, 04 May 2022 08:31:58 +0000
-Received: by outflank-mailman (input) for mailman id 320453;
- Wed, 04 May 2022 08:31:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nmAV1-0006NM-3v; Wed, 04 May 2022 08:36:43 +0000
+Received: by outflank-mailman (input) for mailman id 320460;
+ Wed, 04 May 2022 08:36:41 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=IBxS=VM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nmAQP-0005ey-EW
- for xen-devel@lists.xenproject.org; Wed, 04 May 2022 08:31:57 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a79f79f7-cb84-11ec-a406-831a346695d4;
- Wed, 04 May 2022 10:31:55 +0200 (CEST)
-Received: from EUR03-AM5-obe.outbound.protection.outlook.com
- (mail-am5eur03lp2053.outbound.protection.outlook.com [104.47.8.53]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-40-s03ChdGRMva8mRVmUNHg1Q-1; Wed, 04 May 2022 10:31:51 +0200
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
- by VI1PR04MB5437.eurprd04.prod.outlook.com (2603:10a6:803:d8::33)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.24; Wed, 4 May
- 2022 08:31:49 +0000
-Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::5cb0:5195:4203:7c2f]) by DU2PR04MB8616.eurprd04.prod.outlook.com
- ([fe80::5cb0:5195:4203:7c2f%8]) with mapi id 15.20.5206.013; Wed, 4 May 2022
- 08:31:49 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nmAUz-0006NC-CT; Wed, 04 May 2022 08:36:41 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nmAUz-0000Kt-8d; Wed, 04 May 2022 08:36:41 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nmAUy-00042J-SQ; Wed, 04 May 2022 08:36:40 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nmAUy-0001h6-S0; Wed, 04 May 2022 08:36:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,208 +42,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a79f79f7-cb84-11ec-a406-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1651653115;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uQfWNe1RxVIVhGw370YZzsDPbGmRCJ6APtQ7SkS5ucE=;
-	b=EH0WaOBy2ZeJmEfmnfoAOLt+H4z+qc066ZDmMBs9r+1GbQbeeP8WhtVYsld2TWyDpAEfqM
-	WIZ4Ybfc9jpdFfNwe6Kal36l0suJPMhBrSLBtKv7i+1Xe6k9uPpcy/K21ZsK0f/quxn0yY
-	VsiwMxDtgzZrjXNgoE+XyYNq3LAmHLo=
-X-MC-Unique: s03ChdGRMva8mRVmUNHg1Q-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=J/TcqT3FmKHLvjBoB2dTAf6qSEpSlXxnWt72lZgDZiAkI9tYIVrN/TMZ97c4y/V8yI78LutDPzRWxcmg1UJrgz9KA0VRaTkZFLFW0RNv83UrNA/oW59EGQRvDoy16Mdyh1VlRZeeijbPKMW3LAfX2jXocIGzzFWIaF8yrVWhgNdEUkP1Hjm7xtuQyASavG+hMlPcSml8DTlPrUWgZBEdWPF4WhzKdnRK679jX3rpCDgOy3LDFefGuhONH43yATAH2+3s0WMz83mvZRpn3j9U6HPs2J+1OK2Vht86oeQTX3STNcvMm7lTncPA3eB7iROCONua4/pv6WEC0CUv2l2ALQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uQfWNe1RxVIVhGw370YZzsDPbGmRCJ6APtQ7SkS5ucE=;
- b=O/MdNjN/vdEiSXOOv5aLaCtKv24zDcfASUE87VxaXEgPQKkbLQvP3Vv8mzBcP+UPSkGYiMSfawR2oP9hdRouktrHCaJjbMoFw7NLD301yyAi6491YzglTUj7Vs9f3UUu8Vu07gMAm6AAIroem+1EURPb63bd+afJDuf4ah/XP0KhZCJD0cCxBfIE9R87T5Or7YUVtAJeZZxxbYnWTRHqNQK0o87njqmybuWh3Tb1fe3fbY1WdOd3ue6N8NLs/39mRmVoR2tMRB3cra0mdkwohQlau0ZBp4Vq1bo/RLlVJkMkGNk4Ut2SqS+x26oFZATs8JPye6R+ii69xpG+p78r4w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <1d86d8ff-6878-5488-e8c4-cbe8a5e8f624@suse.com>
-Date: Wed, 4 May 2022 10:31:47 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [PATCH 2/2] x86/pat: add functions to query specific cache mode
- availability
-Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20220503132207.17234-1-jgross@suse.com>
- <20220503132207.17234-3-jgross@suse.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20220503132207.17234-3-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS9PR06CA0337.eurprd06.prod.outlook.com
- (2603:10a6:20b:466::13) To DU2PR04MB8616.eurprd04.prod.outlook.com
- (2603:10a6:10:2db::16)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=QCQoZS75TAvRkI/RraylTK0RYeIudk7JY4uvr3cIVLI=; b=xd6F9jur2WmynB2TMXQmTedJxP
+	5eSGWvQqN7nFttrgPfqXsGNOPj5GLH9ewsjuENI2vLuhGd2bIWqSBH8Rza0TjSOusNKjow5Gl3o/O
+	YeXvpL3Gh2PJnsgjrRwfvTFE1811sWe3/NTYqxSuFnmQ8vN/2GUdyaFZCmUtHdexz9LY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-170085-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d493a38e-8de6-4ab7-a9ef-08da2da8884e
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5437:EE_
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB54374EEAEC74ECEF0551AF04B3C39@VI1PR04MB5437.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	q6/goCuOXLBGJE4xI9cnuLVbnU7uK3VKQx8/d04qTCC62JOqpYdNPb+52+pWQBOipselsPPIjc+xHk/FKvsuqCEzcymZ9m5mCZ5tjnE+nxjG/GFxTwIs5RmVecjJy74TzT0+a9ZsBXuiQMucoojzlKroFvM763LWfrZoQD1bkk3V55kifqIEt8F/Ez5UvYKkadFazg0TljMkRV4MMtID+fnOAwbqjhri9AiypnbvyvHHqW/5KXuhCMl0q7aXw1w8WwvVH3DJUkigdMX0STl9Yy6vGIHGMQhHCK85Zvd0zHGt4FbBqiHOr4Pw6oCazKAuxJ0mgUGmH9+O5dC5O6zl9mD1b8glBlAdxwwiBYhO9ysgeB3mVsWjmf7F1zM2RxN52dzMMR0Ssa5gbC2sJSCprrRsqC2aAOGgS5Lf645VU6Eyl9dSKQquHsf4yaZxszFcFx+Hc6gXDLRnqx7EnE/gznOJlXKei1zgEuVbCJX+pAIG8dPy3UWGbEsnBQUzeqNcimVajwyG7cNuot7MZdHRgTuc1/EM50CaM8KV/5+Mo5RkDd2sB0dNnaRTQd3nd68psAeOmZomeshxRW/hN917cqGuJMszTLSm02VV/QH9Z2Yaxd3w3KvoJvc5j9YZcHiyD7L58SilxC+xXdLStKwVnR/yozUtjoKmRoYPNbVtUQpF1UiV/1uGGIhPp9DGtllbtUwyZU6DojpKMnoYrGZ8mcal9mG9WCCWsauOWFsRWfKfptPL6gK5PevhmFT9yxVg
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(5660300002)(7416002)(53546011)(6862004)(66556008)(66476007)(508600001)(4326008)(66946007)(8936002)(8676002)(31686004)(37006003)(54906003)(6506007)(316002)(38100700002)(2906002)(6486002)(6636002)(26005)(83380400001)(6512007)(2616005)(36756003)(86362001)(186003)(31696002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?c1Z6S2RLYmZscWpIYTV3SzlMZ0RDVTl1R3VKTlA3cEUvQ2pYQkJuS3k3SzBm?=
- =?utf-8?B?endydmJ2Zm5sRnNSbnhYL282dU5ZV200czdBVjJBcUJkY29vd1ZQSG5TMUE0?=
- =?utf-8?B?T3M2OWx5ZXpEREtrTEtqSkFhc0pyK1NNcktVZ0JLbTBqalI2enYvQSszNkNm?=
- =?utf-8?B?UzNwd00wM0xJQ0FQQXhhOFowZmljTXE4MjBaRTJ2WW1XV29NUTN4c3IwcWd6?=
- =?utf-8?B?MXJYdEFtZTN3UExRTHFzRnl5TUtIcnYvUjd3czYvejVvTFhRay9xK3I3QkM3?=
- =?utf-8?B?Q042WWlSc2toUUJNSmp0YTRpZ2NNVFdVc0tXQ0YyaFdSNkNLSHdpUzFDTVdC?=
- =?utf-8?B?RDdGZjA5TG1hK2JBRWd2NFBXVWJjc1dxVStBRDkwcVlnQzE2YzZvSVZvTTY4?=
- =?utf-8?B?QWFmYTdVbHM4UzBSenFiTjBQSnBJZFZyMW14WDdkMkdoUDFtS3JINFZWN3lP?=
- =?utf-8?B?ODhVc2ltLzlwaHhQTDRDa01LTzNPYUNtK3NFZG9TWEtMcjRRK0hkV1h0Tkhr?=
- =?utf-8?B?THN4NUYrM3EyYmt3RFRicExRRVRlQzNjR29zbC94VHRXZGFIaUlLZzBKb0lk?=
- =?utf-8?B?ZGw2akpJRFB2YlZsajd6M0pjM3ZSdmJtWkt6RExGMi9adjh5SHNIU3NkbkNG?=
- =?utf-8?B?c09SZ3g0ZGdwdEI0YlRHbG9hNnJhM1VveHpvVjFXT05YSFJWc1BhZkNCaUFV?=
- =?utf-8?B?TUNtc3dTS2FBMkU0OEtHdnVGbHdIRTBVOWpoeVN6QjEvZlgwSzhJTnp6NEdk?=
- =?utf-8?B?T3k0bVh0aW5TVzZ3OFVsZWt2VXIxejROQWo5cXpVVEQ4bU5tNHhPcDBOcmk5?=
- =?utf-8?B?ZlJKamJoUlpmb0psSEZmTmY2ekdhYzV0NG5qMmJwY3R6M0pnWUIwM0tGVVJl?=
- =?utf-8?B?RU5mYmROeXp1dnlXUVpCeGppWTcxQWpGYUdWd1dhczJQSllSNTR4ZlU1RmlN?=
- =?utf-8?B?Rjh0ZklkZTJXT0hNUUFPWXVZWDRJR1lBb2x2YWlKZUNZRTF6dkt1emlCcmcy?=
- =?utf-8?B?bmltenQyMXFTQ29rc09vZnRsdFRvWG11U1lWZDBoNU1RUVBBMC9BMmlhRWh0?=
- =?utf-8?B?M0lQU2k5b0U2RmF4bEx1Z3pxVGd0WnQwTmJ3OXFFbEdML0V2akQ4dUs0cW05?=
- =?utf-8?B?WWtGcXE0NGdCbjVtV3NUNHBEZG80ZlZUeFQ5dC9odXo2bmZ3K0ZobUhFeEN1?=
- =?utf-8?B?Vjl0cnVyL0xNRFVudTFWbkNUY2c0REUydVF0SS8wTFN5cXAwVGlMazRBUyt3?=
- =?utf-8?B?Z05lUDVxRU14dGZoZDJ3RG5sdmpLWUYremlWeFNNZ2IwRWtsRFlRREs0WmJD?=
- =?utf-8?B?a3NMSkM4elIxSjMzdlBpb3lBU3VmazVDc3pLQTU2SkZCaGhUYXEzWjYrdUFr?=
- =?utf-8?B?ei9yaUFpc0ErKzR3L0FGUERyVlNybzRrQ3RFNWpkVFdYSXhScjJxWURpZ3Jv?=
- =?utf-8?B?U1lxWC80azJpU1E3KzQ0L1BSazVCWDgrWlpTM01rMDV5R3Eyd3JBQmlTazVm?=
- =?utf-8?B?S3p6TzluYlhETTFRN1ZDU0JqcTc3L3NtYktNbW9jZmNFUDJPN3BtY1YxVkNW?=
- =?utf-8?B?Tkh5aW1yM1JaWGp4cUVLanFvMERhd1NHL2NhSHhTWmlJMzIwUCs3clBWUlRa?=
- =?utf-8?B?aEorUlNqbkZ1S3JCZ0xOc0haK0hPSitmRzhHTVpBQ3RlcE9wYU5UWnQ5Wkha?=
- =?utf-8?B?K05WRys3VzhRQUxHU1RTaVFzWkRPSElzSmZLOGlrYXVuWWtVNXExL1BVVks1?=
- =?utf-8?B?emZSdG1jUHlMeUFyeHBzUHlDcllHV3loMzJiS0tzOWZKbmRLVjZYNU5uUVkr?=
- =?utf-8?B?V2hTQ0c3T1loVzRGbFlJa3Z4L2ZlMWRnQVhpc1VrYmNkMm15Z08vYjYrREFy?=
- =?utf-8?B?cGU5U0lacTJlbElxSXM5K3JjSnQwdzk4Ri9HbGJDYTJlbmI3clI0Y3N4UVQr?=
- =?utf-8?B?MS9waUJpRTQ3ZVBWcWhqcld0UDJ2bmtlOGYvK2lEcmhzUEtIM091RzZzWHd6?=
- =?utf-8?B?a1BTNDZWemdNTU1jZnNDMzVncmgyU3l2MGRUN1YyM1Y1NGZNK2I1VkU5YkxI?=
- =?utf-8?B?c29DRWdYZXUwYmpTWlA3V0pqL081bHJlbGZDSXVGUDFlajZZL2VJSjNtcWY0?=
- =?utf-8?B?UHM3SDFPUHVCMlllcmdBMXFUMDlVTFc2dml6S2l4RmpZQVpzL3VoZE9lNHBO?=
- =?utf-8?B?RFRGNHF0YmJhclZSWUlISmdXQno5QmNpSWVNNUpzcWNNM3c3bHY3QVVhUlJj?=
- =?utf-8?B?WGhSeitqYTBiREJmWUFJaThMSkFIcVFBdzdqQ0lEWStEUmpKTVpVT0tobEIr?=
- =?utf-8?B?b1JHd1JiMktNVEhVdkJtRW9ZQjA3RklUeGdqUmpkWEJDZlpXTUxRUT09?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d493a38e-8de6-4ab7-a9ef-08da2da8884e
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2022 08:31:49.2208
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AhtRaIIfvZAc7TwDIZ0GnLdy5KNKjJI1rFZ3z2ZgAfSMQzvSpvcQBWpZmqGIssObKPMWhzvHPKsiXLbV90Ay3g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5437
+Subject: [ovmf test] 170085: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=101f4c789221716585b972f2c2a22a85c078ef1d
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 04 May 2022 08:36:40 +0000
 
-On 03.05.2022 15:22, Juergen Gross wrote:
-> Some drivers are using pat_enabled() in order to test availability of
-> special caching modes (WC and UC-). This will lead to false negatives
-> in case the system was booted e.g. with the "nopat" variant and the
-> BIOS did setup the PAT MSR supporting the queried mode, or if the
-> system is running as a Xen PV guest.
+flight 170085 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/170085/
 
-While, as per my earlier patch, I agree with the Xen PV case, I'm not
-convinced "nopat" is supposed to honor firmware-provided settings. In
-fact in my patch I did arrange for "nopat" to also take effect under
-Xen PV.
+Regressions :-(
 
-> Add test functions for those caching modes instead and use them at the
-> appropriate places.
-> 
-> For symmetry reasons export the already existing x86_has_pat_wp() for
-> modules, too.
-> 
-> Fixes: bdd8b6c98239 ("drm/i915: replace X86_FEATURE_PAT with pat_enabled()")
-> Fixes: ae749c7ab475 ("PCI: Add arch_can_pci_mmap_wc() macro")
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
 
-I think this wants a Reported-by as well.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-> --- a/arch/x86/include/asm/pci.h
-> +++ b/arch/x86/include/asm/pci.h
-> @@ -94,7 +94,7 @@ int pcibios_set_irq_routing(struct pci_dev *dev, int pin, int irq);
->  
->  
->  #define HAVE_PCI_MMAP
-> -#define arch_can_pci_mmap_wc()	pat_enabled()
-> +#define arch_can_pci_mmap_wc()	x86_has_pat_wc()
+version targeted for testing:
+ ovmf                 101f4c789221716585b972f2c2a22a85c078ef1d
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-Besides this and ...
+Last test of basis   168254  2022-02-28 10:41:46 Z   64 days
+Failing since        168258  2022-03-01 01:55:31 Z   64 days  795 attempts
+Testing same since   170038  2022-05-03 10:12:47 Z    0 days   19 attempts
 
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-> @@ -76,7 +76,7 @@ i915_gem_mmap_ioctl(struct drm_device *dev, void *data,
->  	if (args->flags & ~(I915_MMAP_WC))
->  		return -EINVAL;
->  
-> -	if (args->flags & I915_MMAP_WC && !pat_enabled())
-> +	if (args->flags & I915_MMAP_WC && !x86_has_pat_wc())
->  		return -ENODEV;
->  
->  	obj = i915_gem_object_lookup(file, args->handle);
-> @@ -757,7 +757,7 @@ i915_gem_dumb_mmap_offset(struct drm_file *file,
->  
->  	if (HAS_LMEM(to_i915(dev)))
->  		mmap_type = I915_MMAP_TYPE_FIXED;
-> -	else if (pat_enabled())
-> +	else if (x86_has_pat_wc())
->  		mmap_type = I915_MMAP_TYPE_WC;
->  	else if (!i915_ggtt_has_aperture(to_gt(i915)->ggtt))
->  		return -ENODEV;
-> @@ -813,7 +813,7 @@ i915_gem_mmap_offset_ioctl(struct drm_device *dev, void *data,
->  		break;
->  
->  	case I915_MMAP_OFFSET_WC:
-> -		if (!pat_enabled())
-> +		if (!x86_has_pat_wc())
->  			return -ENODEV;
->  		type = I915_MMAP_TYPE_WC;
->  		break;
-> @@ -823,7 +823,7 @@ i915_gem_mmap_offset_ioctl(struct drm_device *dev, void *data,
->  		break;
->  
->  	case I915_MMAP_OFFSET_UC:
-> -		if (!pat_enabled())
-> +		if (!x86_has_pat_uc_minus())
->  			return -ENODEV;
->  		type = I915_MMAP_TYPE_UC;
->  		break;
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jake Garver <jake@nvidia.com>
+  Jake Garver via groups.io <jake=nvidia.com@groups.io>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Jiewen Yao <jiewen.yao@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Peter Grehan <grehan@freebsd.org>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
 
-... these uses there are several more. You say nothing on why those want
-leaving unaltered. When preparing my earlier patch I did inspect them
-and came to the conclusion that these all would also better observe the
-adjusted behavior (or else I couldn't have left pat_enabled() as the only
-predicate). In fact, as said in the description of my earlier patch, in
-my debugging I did find the use in i915_gem_object_pin_map() to be the
-problematic one, which you leave alone.
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
-Jan
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 5915 lines long.)
 
