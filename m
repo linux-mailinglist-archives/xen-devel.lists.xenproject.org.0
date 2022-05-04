@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B61775196D1
-	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 07:16:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.320049.540768 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB0055196CA
+	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 07:16:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.320030.540682 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm7NP-0002G6-7T; Wed, 04 May 2022 05:16:39 +0000
+	id 1nm7NA-0007TQ-Ai; Wed, 04 May 2022 05:16:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 320049.540768; Wed, 04 May 2022 05:16:38 +0000
+Received: by outflank-mailman (output) from mailman id 320030.540682; Wed, 04 May 2022 05:16:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm7NN-0001dS-QD; Wed, 04 May 2022 05:16:37 +0000
-Received: by outflank-mailman (input) for mailman id 320049;
- Wed, 04 May 2022 01:52:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nm7N9-0007CI-NF; Wed, 04 May 2022 05:16:23 +0000
+Received: by outflank-mailman (input) for mailman id 320030;
+ Wed, 04 May 2022 01:47:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Rvwn=VM=chromium.org=keescook@srs-se1.protection.inumbo.net>)
- id 1nm4C5-0008Vg-UZ
- for xen-devel@lists.xenproject.org; Wed, 04 May 2022 01:52:45 +0000
-Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com
- [2607:f8b0:4864:20::532])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e3b25c7e-cb4c-11ec-a406-831a346695d4;
- Wed, 04 May 2022 03:52:44 +0200 (CEST)
-Received: by mail-pg1-x532.google.com with SMTP id 6so2144pgb.13
- for <xen-devel@lists.xenproject.org>; Tue, 03 May 2022 18:52:44 -0700 (PDT)
+ id 1nm47D-0007U4-DV
+ for xen-devel@lists.xenproject.org; Wed, 04 May 2022 01:47:43 +0000
+Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
+ [2607:f8b0:4864:20::42d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2f320c5b-cb4c-11ec-8fc4-03012f2f19d4;
+ Wed, 04 May 2022 03:47:42 +0200 (CEST)
+Received: by mail-pf1-x42d.google.com with SMTP id bo5so13454pfb.4
+ for <xen-devel@lists.xenproject.org>; Tue, 03 May 2022 18:47:42 -0700 (PDT)
 Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
  by smtp.gmail.com with ESMTPSA id
- m1-20020a637d41000000b003c14af5063esm13641114pgn.86.2022.05.03.18.52.42
+ f1-20020aa782c1000000b0051008603b66sm534694pfn.219.2022.05.03.18.47.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 May 2022 18:52:43 -0700 (PDT)
+ Tue, 03 May 2022 18:47:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,42 +44,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3b25c7e-cb4c-11ec-a406-831a346695d4
+X-Inumbo-ID: 2f320c5b-cb4c-11ec-8fc4-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=chromium.org; s=google;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=xT+5hQcq61BvthAgaoVmL+Iixyk9Kz6M9vS9nNgwYZE=;
-        b=foxymm92zvgmK0ETJD/OF52F7nwlYYgJQ8oVdho7r9BzWtgtuSGYfDYK5MhNshEOoZ
-         2wn0h0u9CPuexCbq87DKe80piTtxK5R6ZpJwSBGXRNF7rOHEPYzOtCIu9lKjSdiUbhe+
-         r2DkWtw3UKhrg5w4I5ukgiJdOnG5MzFcAx9yc=
+        bh=z9UACyPlKQMpsfBiUxRNSWJwLKyqQ0BVbIzFlqTVpEg=;
+        b=VrQ6dmSQ7VwQQlIfvwbiI2ql0BVm4J4y9LnkKFZwetWH13cFjtZDcQhXtoigM+PS1n
+         cWMsbR1tWdnyAFxVTIwv3Ub+HJcEvYJUmHiHKdd7Tvd9COj+RhcM0WyuPg5dj9PivY8a
+         z6yX6sb9Wvgoc2VwmZES4MbGCx8+oyfzVBgW4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=xT+5hQcq61BvthAgaoVmL+Iixyk9Kz6M9vS9nNgwYZE=;
-        b=Ej/NX4k2cHepcyQKn330sRS+z2I0Wc/VSQC5SnEh+juypLzcp92uOLgqKAbgpf9F7D
-         mcBizMiCM4JvC4HeDNS33ptC69evMiHB8NBhFC2FembNtViK816XAhM0XePKxAbEJ9b2
-         K56+wzHWs7aKoM3a82c3kQQ00MccC+fahmEb52Gki0ct4XJyHG2vAhOtsQRMbZcImanS
-         GiYhNDT4yDxDzNfsuSUW7U4rd1yOmQsVwbAr0rtFp1Ig3LEErE+rDv1WvTefC5TQKOa5
-         6CVs14ZPzs0D901QvOqD5hb0Vve+idStDrq/dlj9F/nPfTIr7k59gAAOLJdIUwu1byLw
-         Q/Ag==
-X-Gm-Message-State: AOAM5327+nQ0InZNKZ9fn0C4Ba5HEDVcVuUcs4bn/Q4GXSRlmiWGr3l1
-	YkNiRWRGXc0OR7VatZw7NfnflQ==
-X-Google-Smtp-Source: ABdhPJzg0KwFLixG8Pstl42rdZ/PTRxkyHAZczqCheTOMrqPGfLT6/zfzGOMo4pLCA8igqbxzHRxPA==
-X-Received: by 2002:a63:6fc4:0:b0:393:9567:16dc with SMTP id k187-20020a636fc4000000b00393956716dcmr15834959pgc.593.1651629163469;
-        Tue, 03 May 2022 18:52:43 -0700 (PDT)
+        bh=z9UACyPlKQMpsfBiUxRNSWJwLKyqQ0BVbIzFlqTVpEg=;
+        b=IQc73+5+jKk96efUyDTD3gTkunWq2894dqstlAop9DyrjkJ4koVNYprOBNR0o6iWuu
+         ttyyGE0DA7eMak94UfLE4RWoH2EInMETvnEm9CQiP8mITOj7tSOTokPouFsTm0dJ5aic
+         uVgd/mhCWncK6BGx6qHjZk85LWS2tAzBZB2t+hqidE6XwftyJctB9Cg3aNZZAA+BcrRU
+         S61l1ROJsbDsEkbKMJFqxO3Jk1XRKSnhJOV0h00+NrASp5dHo3XrTrx6Lx7YSpLiTBMR
+         MsJ/H/mxTfbjF74p4tY5y6gptI55UXogvT/pJh9I85Q5MPEH021JziWFfaF3IuMigrQ0
+         miog==
+X-Gm-Message-State: AOAM530KAJJYmW2vg+nEl2TmdKlMAvsMmqus0TtRuspcZhCxZvLRwnS5
+	wpLbBNbzBGmm0Wql+v6uIVszTQ==
+X-Google-Smtp-Source: ABdhPJwEApgoIF80IVfCqZ7Wc14eeSv0NeFMafCSFu13taEwh77M4/lfD99nmAtgnvxZOmH48ydyyA==
+X-Received: by 2002:a65:524b:0:b0:383:1b87:2d21 with SMTP id q11-20020a65524b000000b003831b872d21mr15967593pgp.482.1651628860634;
+        Tue, 03 May 2022 18:47:40 -0700 (PDT)
 From: Kees Cook <keescook@chromium.org>
 To: "Gustavo A . R . Silva" <gustavoars@kernel.org>
 Cc: Kees Cook <keescook@chromium.org>,
-	Luca Coelho <luciano.coelho@intel.com>,
+	Christian Lamparter <chunkeey@googlemail.com>,
 	Kalle Valo <kvalo@kernel.org>,
 	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Gregory Greenman <gregory.greenman@intel.com>,
-	Eric Dumazet <edumazet@google.com>,
 	linux-wireless@vger.kernel.org,
 	netdev@vger.kernel.org,
 	Alexei Starovoitov <ast@kernel.org>,
@@ -97,7 +95,6 @@ Cc: Kees Cook <keescook@chromium.org>,
 	brcm80211-dev-list.pdl@broadcom.com,
 	Christian Brauner <brauner@kernel.org>,
 	=?UTF-8?q?Christian=20G=C3=B6ttsche?= <cgzones@googlemail.com>,
-	Christian Lamparter <chunkeey@googlemail.com>,
 	Chris Zankel <chris@zankel.net>,
 	Cong Wang <cong.wang@bytedance.com>,
 	Daniel Axtens <dja@axtens.net>,
@@ -117,6 +114,7 @@ Cc: Kees Cook <keescook@chromium.org>,
 	Frank Rowand <frowand.list@gmail.com>,
 	Franky Lin <franky.lin@broadcom.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Gregory Greenman <gregory.greenman@intel.com>,
 	Guenter Roeck <linux@roeck-us.net>,
 	Haiyang Zhang <haiyangz@microsoft.com>,
 	Hante Meuleman <hante.meuleman@broadcom.com>,
@@ -130,6 +128,7 @@ Cc: Kees Cook <keescook@chromium.org>,
 	Jens Axboe <axboe@kernel.dk>,
 	Johan Hedberg <johan.hedberg@gmail.com>,
 	Johannes Berg <johannes.berg@intel.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
 	John Keeping <john@metanate.com>,
 	Juergen Gross <jgross@suse.com>,
 	Keith Packard <keithp@keithp.com>,
@@ -157,6 +156,7 @@ Cc: Kees Cook <keescook@chromium.org>,
 	llvm@lists.linux.dev,
 	Loic Poulain <loic.poulain@linaro.org>,
 	Louis Peens <louis.peens@corigine.com>,
+	Luca Coelho <luciano.coelho@intel.com>,
 	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
 	Marc Dionne <marc.dionne@auristor.com>,
 	Marcel Holtmann <marcel@holtmann.org>,
@@ -191,14 +191,14 @@ Cc: Kees Cook <keescook@chromium.org>,
 	xen-devel@lists.xenproject.org,
 	Xiu Jianfeng <xiujianfeng@huawei.com>,
 	Yang Yingliang <yangyingliang@huawei.com>
-Subject: [PATCH 08/32] iwlwifi: mvm: Use mem_to_flex_dup() with struct ieee80211_key_conf
-Date: Tue,  3 May 2022 18:44:17 -0700
-Message-Id: <20220504014440.3697851-9-keescook@chromium.org>
+Subject: [PATCH 09/32] p54: Use mem_to_flex_dup() with struct p54_cal_database
+Date: Tue,  3 May 2022 18:44:18 -0700
+Message-Id: <20220504014440.3697851-10-keescook@chromium.org>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220504014440.3697851-1-keescook@chromium.org>
 References: <20220504014440.3697851-1-keescook@chromium.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2437; h=from:subject; bh=kqrSs6qCwh+Lec2OX97eOmuBYGTxbYZO/oveyYvsSyU=; b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBicdqCYob8Le101GWyzNPT8SUQLcWbnMdLaBLnNMKi PFuQ5FWJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCYnHaggAKCRCJcvTf3G3AJrrrD/ 41pLe3vLmy1DT131k402AnWkbvKKTeLHCfdZOZOBG/caJXqmnpOxwil6RAxg5u6hN5hKr+gqoQg3jM PjxMAKOnj4UigmA4/hMbFkpe2UAFQce0nHR1yDX9KirGdKMvnAq1KmeZTOvAK12ubsFuw1otFOoOY9 il9bAkoOcb67DGRv3WnjeBeJAIZesPeob+hkdIGXBLwjDM9HsKNWnS0CO4faN9H2UB5yHtan5AE3fY ejNDT+faux7HktJ5LMXGuFK8hNTMT6DzsBUJMh/VqnJUQfz4J8NZnt1C2fhjm2UKTMJJXaSL2VTIls +E869VhJZmwXhnjNOoXxgs2ypZPdZn7bJMJt9MVXQCWOJ/r5Z4HL//NjQwlMsxa5eN/OtY6fhuJmQa Kt081e3mYWawz+yHoGLyrxfgEVcaxPetNNZbtFWAguSAm+2kDAVJoYtbd1P/PeFNxjV9iclz5KMbsR vfwg2FoAJ4/UE7uv/e9hwMg874lDgZBVxecyw2BfPg0CFqa9KiQ4QmpYRs8HaRBhJQv/jDtfxWqnVh RhanF8E/YIf8Mwjneo+/nQykVNYJP+mnin2t2PXGGQTtyZfdgc4mogRxpnvnUcDOoGAndvfOm8tHL7 lnC6lEffqiIvIoLzddv1Yrb2IU0R/a/tFtHusn7zJ+WlS695vP3r1pDWMDUg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2429; h=from:subject; bh=nMnYI58OZL/NYqqBGThX6X9At9N55AKclw2PdmxLkv8=; b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBicdqCpEYc7sUWDpluF0bUB90CkVbrB3/z8O0fymGg eduju0uJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCYnHaggAKCRCJcvTf3G3AJkJoEA CB3d+CRBr1VkScrlHfbIs1LkNyymQ0HwJgl7p4QyueseREG9Mt5326Iwc7RqKF+Rn+YzyWk8dFShzv z6gbI8PNrGAqBPz5BIqLg3dYYHVK5dPPYcYrISNYxFwyXlYH5CnwM8gllN72k9RJxbWzAxh0A+60N/ jviJWlHykiM1Zhxd/qazs6ZevTYO060Zif3DN8WCX/LuwNHp30u5sclQ55oDW3betiobkSC6Ov1eP6 Hi7uDPuaVPlM2ZtdStVUbJUtmb0ddMSgxtTLjFPmzu+/igOg0pwYTovc41hbeEbBnxlRHIoUJWYLEF 9HwXpVeVj29IIka07Wj1DhYds+eo/zSM1UgogveTLy1YqauYGa0HDWQq9oUmlyE1DVBtfNlwDKfQFw abW5WTkLqlaK1bDWZEM/2f5rXJ6Qb2wLF8985KU4MwKaSdM+Jib4Npl3mdvg3RTIqLUDL5C0EsnPZd jx7VWu4NuZxHBeVOpG042kcl9h6NgrzPV4i2lneNTdK9Mf4aIUBuhXuEi0RjjZPRX5KWBWDETa+SHA xIpk2sXTFarSyRcDwvPPRN7FWxxM5y5OPAGRGPRQhj9zCDB+Eh+NAEZe1GFUTZYOWu4PHtyiVVuH0q lf+bEbHqDfX8rt+XVzeUsKcH3bW7KZvEkMLgB/C70MIwPtiUdXvWDMDbvCRw==
 X-Developer-Key: i=keescook@chromium.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
 
@@ -207,67 +207,66 @@ replace the open-coded a deserialization of bytes out of memory into a
 trailing flexible array by using a flex_array.h helper to perform the
 allocation, bounds checking, and copying.
 
-Cc: Luca Coelho <luciano.coelho@intel.com>
+Cc: Christian Lamparter <chunkeey@googlemail.com>
 Cc: Kalle Valo <kvalo@kernel.org>
 Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@google.com>
 Cc: Jakub Kicinski <kuba@kernel.org>
 Cc: Paolo Abeni <pabeni@redhat.com>
-Cc: Johannes Berg <johannes@sipsolutions.net>
-Cc: Gregory Greenman <gregory.greenman@intel.com>
-Cc: Eric Dumazet <edumazet@google.com>
 Cc: linux-wireless@vger.kernel.org
 Cc: netdev@vger.kernel.org
 Signed-off-by: Kees Cook <keescook@chromium.org>
 ---
- drivers/net/wireless/intel/iwlwifi/mvm/sta.c | 8 ++------
- include/net/mac80211.h                       | 4 ++--
+ drivers/net/wireless/intersil/p54/eeprom.c | 8 ++------
+ drivers/net/wireless/intersil/p54/p54.h    | 4 ++--
  2 files changed, 4 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/sta.c b/drivers/net/wireless/intel/iwlwifi/mvm/sta.c
-index 406f0a50a5bf..23cade528dcf 100644
---- a/drivers/net/wireless/intel/iwlwifi/mvm/sta.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mvm/sta.c
-@@ -4108,7 +4108,7 @@ int iwl_mvm_add_pasn_sta(struct iwl_mvm *mvm, struct ieee80211_vif *vif,
- 	int ret;
- 	u16 queue;
- 	struct iwl_mvm_vif *mvmvif = iwl_mvm_vif_from_mac80211(vif);
--	struct ieee80211_key_conf *keyconf;
-+	struct ieee80211_key_conf *keyconf = NULL;
+diff --git a/drivers/net/wireless/intersil/p54/eeprom.c b/drivers/net/wireless/intersil/p54/eeprom.c
+index 5bd35c147e19..bd9b3ea327b9 100644
+--- a/drivers/net/wireless/intersil/p54/eeprom.c
++++ b/drivers/net/wireless/intersil/p54/eeprom.c
+@@ -702,7 +702,7 @@ static int p54_convert_output_limits(struct ieee80211_hw *dev,
+ static struct p54_cal_database *p54_convert_db(struct pda_custom_wrapper *src,
+ 					       size_t total_len)
+ {
+-	struct p54_cal_database *dst;
++	struct p54_cal_database *dst = NULL;
+ 	size_t payload_len, entries, entry_size, offset;
  
- 	ret = iwl_mvm_allocate_int_sta(mvm, sta, 0,
- 				       NL80211_IFTYPE_UNSPECIFIED,
-@@ -4122,15 +4122,11 @@ int iwl_mvm_add_pasn_sta(struct iwl_mvm *mvm, struct ieee80211_vif *vif,
- 	if (ret)
- 		goto out;
+ 	payload_len = le16_to_cpu(src->len);
+@@ -713,16 +713,12 @@ static struct p54_cal_database *p54_convert_db(struct pda_custom_wrapper *src,
+ 	     (payload_len + sizeof(*src) != total_len))
+ 		return NULL;
  
--	keyconf = kzalloc(sizeof(*keyconf) + key_len, GFP_KERNEL);
--	if (!keyconf) {
-+	if (mem_to_flex_dup(&keyconf, key, key_len, GFP_KERNEL)) {
- 		ret = -ENOBUFS;
- 		goto out;
- 	}
+-	dst = kmalloc(sizeof(*dst) + payload_len, GFP_KERNEL);
+-	if (!dst)
++	if (mem_to_flex_dup(&dst, src->data, payload_len, GFP_KERNEL))
+ 		return NULL;
+ 
+ 	dst->entries = entries;
+ 	dst->entry_size = entry_size;
+ 	dst->offset = offset;
+-	dst->len = payload_len;
 -
- 	keyconf->cipher = cipher;
--	memcpy(keyconf->key, key, key_len);
--	keyconf->keylen = key_len;
+-	memcpy(dst->data, src->data, payload_len);
+ 	return dst;
+ }
  
- 	ret = iwl_mvm_send_sta_key(mvm, sta->sta_id, keyconf, false,
- 				   0, NULL, 0, 0, true);
-diff --git a/include/net/mac80211.h b/include/net/mac80211.h
-index 75880fc70700..4abe52963a96 100644
---- a/include/net/mac80211.h
-+++ b/include/net/mac80211.h
-@@ -1890,8 +1890,8 @@ struct ieee80211_key_conf {
- 	u8 hw_key_idx;
- 	s8 keyidx;
- 	u16 flags;
--	u8 keylen;
--	u8 key[];
-+	DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(u8, keylen);
-+	DECLARE_FLEX_ARRAY_ELEMENTS(u8, key);
+diff --git a/drivers/net/wireless/intersil/p54/p54.h b/drivers/net/wireless/intersil/p54/p54.h
+index 3356ea708d81..22bbb6d28245 100644
+--- a/drivers/net/wireless/intersil/p54/p54.h
++++ b/drivers/net/wireless/intersil/p54/p54.h
+@@ -125,8 +125,8 @@ struct p54_cal_database {
+ 	size_t entries;
+ 	size_t entry_size;
+ 	size_t offset;
+-	size_t len;
+-	u8 data[];
++	DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(size_t, len);
++	DECLARE_FLEX_ARRAY_ELEMENTS(u8, data);
  };
  
- #define IEEE80211_MAX_PN_LEN	16
+ #define EEPROM_READBACK_LEN 0x3fc
 -- 
 2.32.0
 
