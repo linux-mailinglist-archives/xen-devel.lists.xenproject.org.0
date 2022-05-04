@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A543519785
-	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 08:41:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.320343.541028 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9006C51980A
+	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 09:23:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.320354.541038 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm8hS-0003jj-IG; Wed, 04 May 2022 06:41:26 +0000
+	id 1nm9LF-0008Bq-Gy; Wed, 04 May 2022 07:22:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 320343.541028; Wed, 04 May 2022 06:41:26 +0000
+Received: by outflank-mailman (output) from mailman id 320354.541038; Wed, 04 May 2022 07:22:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm8hS-0003gh-E8; Wed, 04 May 2022 06:41:26 +0000
-Received: by outflank-mailman (input) for mailman id 320343;
- Wed, 04 May 2022 06:41:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Uvlq=VM=arm.com=michal.orzel@srs-se1.protection.inumbo.net>)
- id 1nm8hQ-0003gb-PU
- for xen-devel@lists.xenproject.org; Wed, 04 May 2022 06:41:24 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 36124092-cb75-11ec-a406-831a346695d4;
- Wed, 04 May 2022 08:41:22 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B834F1042;
- Tue,  3 May 2022 23:41:21 -0700 (PDT)
-Received: from [10.57.2.7] (unknown [10.57.2.7])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8B6503FA49;
- Tue,  3 May 2022 23:41:20 -0700 (PDT)
+	id 1nm9LF-00089N-E1; Wed, 04 May 2022 07:22:33 +0000
+Received: by outflank-mailman (input) for mailman id 320354;
+ Wed, 04 May 2022 07:22:31 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nm9LD-00089D-Fb; Wed, 04 May 2022 07:22:31 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nm9LD-0006jm-BT; Wed, 04 May 2022 07:22:31 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nm9LC-0000Wh-Uo; Wed, 04 May 2022 07:22:31 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nm9LC-0001hf-UM; Wed, 04 May 2022 07:22:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,119 +42,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36124092-cb75-11ec-a406-831a346695d4
-Message-ID: <87eb6f25-c940-8aa2-bab3-dea9bcf1760b@arm.com>
-Date: Wed, 4 May 2022 08:41:14 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Subject: Re: [PATCH v2] xen/arm: gnttab: cast unused macro arguments to void
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20220428094625.382970-1-michal.orzel@arm.com>
- <074a5ae8-cade-3343-0c18-8122c85fecc3@xen.org>
-From: Michal Orzel <michal.orzel@arm.com>
-In-Reply-To: <074a5ae8-cade-3343-0c18-8122c85fecc3@xen.org>
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=+EUTOJ4tuU2l4XtMmBKwAhMV9CPldiFOQq8gE/Kc9Go=; b=solM9sD6zhwI4i8xkIRJMteh3E
+	wTU2QE4m9tPupjQyP3DXgJia5Bbn3dBZhbtf5BRQwaZ7iYhtglBSE0uuVXx5k6++AGy0V/Osl7PGs
+	5Gq5d3FlCb4YB+zVG7cYDI646ys2sG68LYcuiBt1g3NNmddm2yOxz0vAwB3ZlYdlxg3I=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-170079-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 170079: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=101f4c789221716585b972f2c2a22a85c078ef1d
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 04 May 2022 07:22:30 +0000
 
-Hi Julien,
+flight 170079 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/170079/
 
-On 03.05.2022 19:44, Julien Grall wrote:
-> Hi,
-> 
-> On 28/04/2022 10:46, Michal Orzel wrote:
->> Function unmap_common_complete (common/grant_table.c) defines and sets
->> a variable ld that is later on passed to a macro:
->> gnttab_host_mapping_get_page_type().
->> On Arm this macro does not make use of any arguments causing a compiler
->> to warn about unused-but-set variable (when -Wunused-but-set-variable
->> is enabled). Fix it by casting the arguments to void in macro's body.
->>
->> While there, take the opportunity to modify other macros in this file
->> that do not make use of all the arguments to prevent similar issues in
->> the future.
->>
->> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
->> ---
->> Changes since v1:
->> -standalone patch carved out from a series (other patches already merged)
->> -v1 was ([3/8] gnttab: Remove unused-but-set variable)
->> -modify macro on Arm instead of removing ld variable
->> ---
->>   xen/arch/arm/include/asm/grant_table.h | 13 ++++++++-----
->>   1 file changed, 8 insertions(+), 5 deletions(-)
->>
->> diff --git a/xen/arch/arm/include/asm/grant_table.h b/xen/arch/arm/include/asm/grant_table.h
->> index d31a4d6805..5bcd1ec528 100644
->> --- a/xen/arch/arm/include/asm/grant_table.h
->> +++ b/xen/arch/arm/include/asm/grant_table.h
->> @@ -31,10 +31,11 @@ static inline void gnttab_mark_dirty(struct domain *d, mfn_t mfn)
->>     int create_grant_host_mapping(unsigned long gpaddr, mfn_t mfn,
->>                                 unsigned int flags, unsigned int cache_flags);
->> -#define gnttab_host_mapping_get_page_type(ro, ld, rd) (0)
->> +#define gnttab_host_mapping_get_page_type(ro, ld, rd) \
->> +    ((void)(ro), (void)(ld), (void)(rd), 0)
-> 
-> I would switch to a static inline helper:
-> 
-> static inline bool
-> gnttab_host_mapping_get_page_type(bool ro, struct domain *ld,
->                       struct domian *rd)
-> {
->     return false;
-> }
-> 
-> Note the switch from 0 to false as the function is technically returning a boolean (see the x86 implementation).
-> 
->>   int replace_grant_host_mapping(unsigned long gpaddr, mfn_t mfn,
->>                                  unsigned long new_gpaddr, unsigned int flags);
->> -#define gnttab_release_host_mappings(domain) 1
->> +#define gnttab_release_host_mappings(domain) ((void)(domain), 1)
-> 
-> Same here.
-> 
-Ok, sounds right.
+Regressions :-(
 
->>     /*
->>    * The region used by Xen on the memory will never be mapped in DOM0
->> @@ -89,10 +90,12 @@ int replace_grant_host_mapping(unsigned long gpaddr, mfn_t mfn,
->>   })
->>     #define gnttab_shared_gfn(d, t, i)                                       \
->> -    (((i) >= nr_grant_frames(t)) ? INVALID_GFN : (t)->arch.shared_gfn[i])
->> +    ((void)(d),                                                          \
->> +     ((i) >= nr_grant_frames(t)) ? INVALID_GFN : (t)->arch.shared_gfn[i])
->>   -#define gnttab_status_gfn(d, t, i)                                       \
->> -    (((i) >= nr_status_frames(t)) ? INVALID_GFN : (t)->arch.status_gfn[i])
->> +#define gnttab_status_gfn(d, t, i)                                        \
->> +    ((void)(d),                                                           \
->> +     ((i) >= nr_status_frames(t)) ? INVALID_GFN : (t)->arch.status_gfn[i])
-> 
-> I share Jan's opinion here. If we want to evaluate d, then we should make sure t and i should be also evaluated once. However, IIRC, they can't be turned to static inline because the type of t (struct grant_table) is not fully defined yet.
-> 
-Then, we could do like this:
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
 
-#define gnttab_shared_gfn(d, t, i)                                       \
-    ({                                                                   \
-        const unsigned int _i = (i);                                     \
-        const struct grant_table *_t = (t);                              \
-        (void)(d);                                                       \
-        (_i >= nr_grant_frames(_t)) ? INVALID_GFN                        \
-                                    : _t->arch.shared_gfn[_i];           \
-    })
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-However, if we start modifying the macros to evaluate args only once, shouldn't we also take care of the following macros in this file?:
-gnttab_set_frame_gfn
-gnttab_init_arch
+version targeted for testing:
+ ovmf                 101f4c789221716585b972f2c2a22a85c078ef1d
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-I'm ok to do these changes but I'm afriad we are losing the origin of this patch as we are focusing on macros not related to the issue.
+Last test of basis   168254  2022-02-28 10:41:46 Z   64 days
+Failing since        168258  2022-03-01 01:55:31 Z   64 days  793 attempts
+Testing same since   170038  2022-05-03 10:12:47 Z    0 days   17 attempts
 
-> Cheers
-> 
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jake Garver <jake@nvidia.com>
+  Jake Garver via groups.io <jake=nvidia.com@groups.io>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Jiewen Yao <jiewen.yao@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Peter Grehan <grehan@freebsd.org>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
 
-Cheers,
-Michal
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 5915 lines long.)
 
