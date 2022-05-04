@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D404551A354
-	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 17:10:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.320810.541750 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 921E751A35A
+	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 17:12:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.320817.541762 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmGeL-0004TS-Nk; Wed, 04 May 2022 15:10:45 +0000
+	id 1nmGff-0005AY-37; Wed, 04 May 2022 15:12:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 320810.541750; Wed, 04 May 2022 15:10:45 +0000
+Received: by outflank-mailman (output) from mailman id 320817.541762; Wed, 04 May 2022 15:12:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmGeL-0004Qm-KC; Wed, 04 May 2022 15:10:45 +0000
-Received: by outflank-mailman (input) for mailman id 320810;
- Wed, 04 May 2022 15:08:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Rvwn=VM=chromium.org=keescook@srs-se1.protection.inumbo.net>)
- id 1nmGcA-0003bg-WC
- for xen-devel@lists.xenproject.org; Wed, 04 May 2022 15:08:31 +0000
-Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
- [2607:f8b0:4864:20::1030])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0dc8c419-cbbc-11ec-a406-831a346695d4;
- Wed, 04 May 2022 17:08:29 +0200 (CEST)
-Received: by mail-pj1-x1030.google.com with SMTP id e24so1489435pjt.2
- for <xen-devel@lists.xenproject.org>; Wed, 04 May 2022 08:08:29 -0700 (PDT)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
- by smtp.gmail.com with ESMTPSA id
- l9-20020a62be09000000b0050dc76281fesm8311194pff.216.2022.05.04.08.08.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 May 2022 08:08:27 -0700 (PDT)
+	id 1nmGfe-00057S-V9; Wed, 04 May 2022 15:12:06 +0000
+Received: by outflank-mailman (input) for mailman id 320817;
+ Wed, 04 May 2022 15:12:06 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nmGfe-00057G-66; Wed, 04 May 2022 15:12:06 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nmGfe-0007P0-4J; Wed, 04 May 2022 15:12:06 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nmGfd-0004dP-QO; Wed, 04 May 2022 15:12:05 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nmGfd-0003fB-Pw; Wed, 04 May 2022 15:12:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,240 +42,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0dc8c419-cbbc-11ec-a406-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=Qb+1GrJs8SRgE6Wq+GlmzxuejfTqdKZ3b89DzJavSQw=;
-        b=QW7CQXai9IiD71Wvf+o2VYxsrI+DMXmN1vsS0b5DV0rtrX+G8r3eGzQnrLgcSNLS6o
-         18VjexLmt9t17aqS0qc4jCF5CPslGIy/SB1vEauI+iOiw3aemKigwzjm7wU//Osg3Pbt
-         9wMF/4HUhAaX0invtmDD41DdrKFbACP1VK8u0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=Qb+1GrJs8SRgE6Wq+GlmzxuejfTqdKZ3b89DzJavSQw=;
-        b=XvfkywNj3hPCxapKjjwM40c8Xxsteuyr18doI0sCiVopQbPMJwrhv7B9gLsgi7kuOm
-         Er405qRRSZXaKzuW1eOkV+cHqv64dLxXBviYiwUBayLFbTH4eMqWFM4QaZQa8rqf1vMx
-         AOniQOEc5gSs8Q6NEmx7x2c7q6hKmDIjUS8f8yOHAvsRoTxakxpud9R4RWZG0vxMX7oN
-         5uSINehXYJteq7XEiEj7LiaXbIlViVPL3ij0IMmuisinhwTEW0CtqfXvGRldfniw9eWx
-         r3O/AcexBq7xEinQB1eklqyEc3dE3N23rtxrg5pWVSWd92GT3Z83iDjHXnjbl3Wb1yRP
-         r29w==
-X-Gm-Message-State: AOAM531OFwVDRAv449Pg2VeyEfslOkQfpvAVMoSxLWtcb8Jur7Ba4boh
-	iPXvYmomoRc27rYPfNxw6FOnzw==
-X-Google-Smtp-Source: ABdhPJwHiFEMEf0LT8rKs64uS9VK7WCOKMtRJ3EqkT4Zb3Dx1isF6RYPGWL4Kz+uhEu4FzOD4HUSMQ==
-X-Received: by 2002:a17:902:82c8:b0:15c:f7c7:ef9d with SMTP id u8-20020a17090282c800b0015cf7c7ef9dmr22125373plz.44.1651676908149;
-        Wed, 04 May 2022 08:08:28 -0700 (PDT)
-Date: Wed, 4 May 2022 08:08:26 -0700
-From: Kees Cook <keescook@chromium.org>
-To: Kalle Valo <kvalo@kernel.org>
-Cc: "Gustavo A . R . Silva" <gustavoars@kernel.org>,
-	Loic Poulain <loic.poulain@linaro.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	wcn36xx@lists.infradead.org, linux-wireless@vger.kernel.org,
-	netdev@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>,
-	alsa-devel@alsa-project.org, Al Viro <viro@zeniv.linux.org.uk>,
-	Andrew Gabbasov <andrew_gabbasov@mentor.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Andy Gross <agross@kernel.org>, Andy Lavr <andy.lavr@gmail.com>,
-	Arend van Spriel <aspriel@gmail.com>,
-	Baowen Zheng <baowen.zheng@corigine.com>,
-	Bjorn Andersson <bjorn.andersson@linaro.org>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Bradley Grove <linuxdrivers@attotech.com>,
-	brcm80211-dev-list.pdl@broadcom.com,
-	Christian Brauner <brauner@kernel.org>,
-	Christian =?iso-8859-1?Q?G=F6ttsche?= <cgzones@googlemail.com>,
-	Christian Lamparter <chunkeey@googlemail.com>,
-	Chris Zankel <chris@zankel.net>,
-	Cong Wang <cong.wang@bytedance.com>, Daniel Axtens <dja@axtens.net>,
-	Daniel Vetter <daniel.vetter@ffwll.ch>,
-	Dan Williams <dan.j.williams@intel.com>,
-	David Gow <davidgow@google.com>,
-	David Howells <dhowells@redhat.com>,
-	Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
-	devicetree@vger.kernel.org, Dexuan Cui <decui@microsoft.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-	Eli Cohen <elic@nvidia.com>, Eric Paris <eparis@parisplace.org>,
-	Eugeniu Rosca <erosca@de.adit-jv.com>,
-	Felipe Balbi <balbi@kernel.org>,
-	Francis Laniel <laniel_francis@privacyrequired.com>,
-	Frank Rowand <frowand.list@gmail.com>,
-	Franky Lin <franky.lin@broadcom.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Gregory Greenman <gregory.greenman@intel.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Hante Meuleman <hante.meuleman@broadcom.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Hulk Robot <hulkci@huawei.com>,
-	"James E.J. Bottomley" <jejb@linux.ibm.com>,
-	James Morris <jmorris@namei.org>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Jens Axboe <axboe@kernel.dk>,
-	Johan Hedberg <johan.hedberg@gmail.com>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	John Keeping <john@metanate.com>, Juergen Gross <jgross@suse.com>,
-	Keith Packard <keithp@keithp.com>, keyrings@vger.kernel.org,
-	kunit-dev@googlegroups.com, Kuniyuki Iwashima <kuniyu@amazon.co.jp>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Lee Jones <lee.jones@linaro.org>, Leon Romanovsky <leon@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	linux1394-devel@lists.sourceforge.net,
-	linux-afs@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
-	linux-hardening@vger.kernel.org, linux-hyperv@vger.kernel.org,
-	linux-integrity@vger.kernel.org, linux-rdma@vger.kernel.org,
-	linux-scsi@vger.kernel.org, linux-security-module@vger.kernel.org,
-	linux-usb@vger.kernel.org, linux-xtensa@linux-xtensa.org,
-	llvm@lists.linux.dev, Louis Peens <louis.peens@corigine.com>,
-	Luca Coelho <luciano.coelho@intel.com>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Mark Brown <broonie@kernel.org>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Max Filippov <jcmvbkbc@gmail.com>, Mimi Zohar <zohar@linux.ibm.com>,
-	Muchun Song <songmuchun@bytedance.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Paul Moore <paul@paul-moore.com>, Rich Felker <dalias@aerifal.cx>,
-	Rob Herring <robh+dt@kernel.org>,
-	Russell King <linux@armlinux.org.uk>, selinux@vger.kernel.org,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	SHA-cyfmac-dev-list@infineon.com,
-	Simon Horman <simon.horman@corigine.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Stefan Richter <stefanr@s5r6.in-berlin.de>,
-	Steffen Klassert <steffen.klassert@secunet.com>,
-	Stephen Hemminger <sthemmin@microsoft.com>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	Tadeusz Struk <tadeusz.struk@linaro.org>,
-	Takashi Iwai <tiwai@suse.com>, Tom Rix <trix@redhat.com>,
-	Udipto Goswami <quic_ugoswami@quicinc.com>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>,
-	Wei Liu <wei.liu@kernel.org>, xen-devel@lists.xenproject.org,
-	Xiu Jianfeng <xiujianfeng@huawei.com>,
-	Yang Yingliang <yangyingliang@huawei.com>
-Subject: Re: [PATCH 10/32] wcn36xx: Use mem_to_flex_dup() with struct
- wcn36xx_hal_ind_msg
-Message-ID: <202205040730.161645EC@keescook>
-References: <20220504014440.3697851-1-keescook@chromium.org>
- <20220504014440.3697851-11-keescook@chromium.org>
- <8735hpc0q1.fsf@kernel.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=8Yv1g7mM+/lqS/D8xmCVNgoGM/aTqgdfhDapo0jyivY=; b=YpjcX6+yIUDSr12JO5Haxn+6O2
+	su6MYUKyOLJb+gbnkpPmNUkDE/n//P76aIKgLyaaYm1iGk/hMVPt0Vj6qsSgiLxdClorFbWD25soq
+	gCXbzVZCEPDz6QgHnT8ZNaQg5eMW+2Y7vzEvUZXRToLd8+6t3mxVv9GPU2XOapTHVuOc=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-170106-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8735hpc0q1.fsf@kernel.org>
+Subject: [ovmf test] 170106: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=101f4c789221716585b972f2c2a22a85c078ef1d
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 04 May 2022 15:12:05 +0000
 
-On Wed, May 04, 2022 at 08:42:46AM +0300, Kalle Valo wrote:
-> Kees Cook <keescook@chromium.org> writes:
-> 
-> > As part of the work to perform bounds checking on all memcpy() uses,
-> > replace the open-coded a deserialization of bytes out of memory into a
-> > trailing flexible array by using a flex_array.h helper to perform the
-> > allocation, bounds checking, and copying.
-> >
-> > Cc: Loic Poulain <loic.poulain@linaro.org>
-> > Cc: Kalle Valo <kvalo@kernel.org>
-> > Cc: "David S. Miller" <davem@davemloft.net>
-> > Cc: Eric Dumazet <edumazet@google.com>
-> > Cc: Jakub Kicinski <kuba@kernel.org>
-> > Cc: Paolo Abeni <pabeni@redhat.com>
-> > Cc: wcn36xx@lists.infradead.org
-> > Cc: linux-wireless@vger.kernel.org
-> > Cc: netdev@vger.kernel.org
-> > Signed-off-by: Kees Cook <keescook@chromium.org>
-> 
-> [...]
-> 
-> > --- a/drivers/net/wireless/ath/wcn36xx/smd.h
-> > +++ b/drivers/net/wireless/ath/wcn36xx/smd.h
-> > @@ -46,8 +46,8 @@ struct wcn36xx_fw_msg_status_rsp {
-> >  
-> >  struct wcn36xx_hal_ind_msg {
-> >  	struct list_head list;
-> > -	size_t msg_len;
-> > -	u8 msg[];
-> > +	DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(size_t, msg_len);
-> > +	DECLARE_FLEX_ARRAY_ELEMENTS(u8, msg);
-> 
-> This affects readability quite a lot and tbh I don't like it. Isn't
-> there any simpler way to solve this?
+flight 170106 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/170106/
 
-Similar to how I plumbed member names into __mem_to_flex(), I could do
-the same for __mem_to_flex_dup(). That way if the struct member aliases
-(DECLARE_FLEX...)  aren't added, the longer form of the helper could
-be used. Instead of:
+Regressions :-(
 
-	if (mem_to_flex_dup(&msg_ind, buf, len, GFP_ATOMIC)) {
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
 
-it would be:
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-	if (__mem_to_flex_dup(&msg_ind, /* self */, msg,
-			      msg_len, buf, len, GFP_ATOMIC)) {
+version targeted for testing:
+ ovmf                 101f4c789221716585b972f2c2a22a85c078ef1d
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-This was how I'd written the helpers in an earlier version, but it
-seemed much cleaner to avoid repeating structure layout details at each
-call site.
+Last test of basis   168254  2022-02-28 10:41:46 Z   65 days
+Failing since        168258  2022-03-01 01:55:31 Z   64 days  802 attempts
+Testing same since   170038  2022-05-03 10:12:47 Z    1 days   26 attempts
 
-I couldn't find any other way to encode the needed information. It'd be
-wonderful if C would let us do:
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jake Garver <jake@nvidia.com>
+  Jake Garver via groups.io <jake=nvidia.com@groups.io>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Jiewen Yao <jiewen.yao@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Peter Grehan <grehan@freebsd.org>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
 
-	struct wcn36xx_hal_ind_msg {
-		struct list_head list;
-		size_t msg_len;
-		u8 msg[msg_len];
-	}
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
-And provide some kind of interrogation:
 
-	__builtin_flex_array_member(msg_ind) -> msg_ind->msg
-	__builtin_flex_array_count(msg_ind)  -> msg_ind->msg_len
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-My hope would be to actually use the member aliases to teach things like
--fsanitize=array-bounds about flexible arrays. If it encounters a
-structure with the aliases, it could add the instrumentation to do the
-bounds checking of things like:
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-	msg_ind->msg[42]; /* check that 42 is < msg_ind->msg_len */
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-I also wish I could find a way to make the proposed macros "forward
-portable" into proposed C syntax above, but this eluded me as well.
-For example:
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-	struct wcn36xx_hal_ind_msg {
-		size_t msg_len;
-		struct list_head list;
-		BOUNDED_FLEX_ARRAY(u8, msg, msg_len);
-	}
 
-	#ifdef CC_HAS_DYNAMIC_ARRAY_LEN
-	# define BOUNDED_FLEX_ARRAY(type, name, bounds)	type name[bounds]
-	#else
-	# define BOUNDED_FLEX_ARRAY(type, name, bounds)			\
-		magic_alias_of msg_len __flex_array_elements_count;	\
-		union {							\
-			type name[];					\
-			type __flex_array_elements[];			\
-		}
-	#endif
+Not pushing.
 
-But I couldn't sort out the "magic_alias_of" syntax that wouldn't force
-structures into having the count member immediately before the flex
-array, which would impose more limitations on where this could be
-used...
-
-Anyway, I'm open to ideas on how to improve this!
-
--Kees
-
--- 
-Kees Cook
+(No revision log; it would be 5915 lines long.)
 
