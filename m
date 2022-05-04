@@ -2,40 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E870C51A4FA
-	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 18:09:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.320896.541883 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0425B51A6A1
+	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 18:53:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.320922.541901 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmHYa-00080Z-Et; Wed, 04 May 2022 16:08:52 +0000
+	id 1nmIFX-0005JQ-2T; Wed, 04 May 2022 16:53:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 320896.541883; Wed, 04 May 2022 16:08:52 +0000
+Received: by outflank-mailman (output) from mailman id 320922.541901; Wed, 04 May 2022 16:53:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmHYa-0007xr-Bh; Wed, 04 May 2022 16:08:52 +0000
-Received: by outflank-mailman (input) for mailman id 320896;
- Wed, 04 May 2022 16:08:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7kdy=VM=aculab.com=david.laight@srs-se1.protection.inumbo.net>)
- id 1nmHYA-0007x6-1t
- for xen-devel@lists.xenproject.org; Wed, 04 May 2022 16:08:26 +0000
-Received: from eu-smtp-delivery-151.mimecast.com
- (eu-smtp-delivery-151.mimecast.com [185.58.85.151])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6d0d3f81-cbc4-11ec-8fc4-03012f2f19d4;
- Wed, 04 May 2022 18:08:24 +0200 (CEST)
-Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- uk-mta-304-ZFewZZfvOMewltUmmE4nqg-2; Wed, 04 May 2022 17:08:23 +0100
-Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) by
- AcuMS.aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) with Microsoft SMTP
- Server (TLS) id 15.0.1497.32; Wed, 4 May 2022 17:08:15 +0100
-Received: from AcuMS.Aculab.com ([fe80::994c:f5c2:35d6:9b65]) by
- AcuMS.aculab.com ([fe80::994c:f5c2:35d6:9b65%12]) with mapi id
- 15.00.1497.033; Wed, 4 May 2022 17:08:15 +0100
+	id 1nmIFW-0005GD-V3; Wed, 04 May 2022 16:53:14 +0000
+Received: by outflank-mailman (input) for mailman id 320922;
+ Wed, 04 May 2022 16:53:13 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nmIFV-0005G3-JO; Wed, 04 May 2022 16:53:13 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nmIFV-0001CR-DR; Wed, 04 May 2022 16:53:13 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nmIFV-0006pd-1y; Wed, 04 May 2022 16:53:13 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nmIFV-0007Xs-1V; Wed, 04 May 2022 16:53:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,155 +42,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d0d3f81-cbc4-11ec-8fc4-03012f2f19d4
-X-MC-Unique: ZFewZZfvOMewltUmmE4nqg-2
-From: David Laight <David.Laight@ACULAB.COM>
-To: 'Kees Cook' <keescook@chromium.org>, Johannes Berg
-	<johannes@sipsolutions.net>
-CC: "Gustavo A . R . Silva" <gustavoars@kernel.org>, Keith Packard
-	<keithp@keithp.com>, Francis Laniel <laniel_francis@privacyrequired.com>,
-	Daniel Axtens <dja@axtens.net>, Dan Williams <dan.j.williams@intel.com>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>, Guenter Roeck
-	<linux@roeck-us.net>, Daniel Vetter <daniel.vetter@ffwll.ch>, Tadeusz Struk
-	<tadeusz.struk@linaro.org>, Alexei Starovoitov <ast@kernel.org>,
-	"alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, Al Viro
-	<viro@zeniv.linux.org.uk>, Andrew Gabbasov <andrew_gabbasov@mentor.com>,
-	Andrew Morton <akpm@linux-foundation.org>, Andy Gross <agross@kernel.org>,
-	Andy Lavr <andy.lavr@gmail.com>, Arend van Spriel <aspriel@gmail.com>,
-	"Baowen Zheng" <baowen.zheng@corigine.com>, Bjorn Andersson
-	<bjorn.andersson@linaro.org>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Bradley Grove <linuxdrivers@attotech.com>,
-	"brcm80211-dev-list.pdl@broadcom.com" <brcm80211-dev-list.pdl@broadcom.com>,
-	Christian Brauner <brauner@kernel.org>, =?iso-8859-1?Q?Christian_G=F6ttsche?=
-	<cgzones@googlemail.com>, Christian Lamparter <chunkeey@googlemail.com>,
-	Chris Zankel <chris@zankel.net>, Cong Wang <cong.wang@bytedance.com>, "David
- Gow" <davidgow@google.com>, David Howells <dhowells@redhat.com>, "David S.
- Miller" <davem@davemloft.net>, Dennis Dalessandro
-	<dennis.dalessandro@cornelisnetworks.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, Dexuan Cui <decui@microsoft.com>, "Dmitry
- Kasatkin" <dmitry.kasatkin@gmail.com>, Eli Cohen <elic@nvidia.com>, "Eric
- Dumazet" <edumazet@google.com>, Eric Paris <eparis@parisplace.org>, "Eugeniu
- Rosca" <erosca@de.adit-jv.com>, Felipe Balbi <balbi@kernel.org>, Frank Rowand
-	<frowand.list@gmail.com>, Franky Lin <franky.lin@broadcom.com>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, Gregory Greenman
-	<gregory.greenman@intel.com>, Haiyang Zhang <haiyangz@microsoft.com>, "Hante
- Meuleman" <hante.meuleman@broadcom.com>, Herbert Xu
-	<herbert@gondor.apana.org.au>, Hulk Robot <hulkci@huawei.com>, Jakub Kicinski
-	<kuba@kernel.org>, "James E.J. Bottomley" <jejb@linux.ibm.com>, James Morris
-	<jmorris@namei.org>, Jarkko Sakkinen <jarkko@kernel.org>, Jaroslav Kysela
-	<perex@perex.cz>, Jason Gunthorpe <jgg@ziepe.ca>, Jens Axboe
-	<axboe@kernel.dk>, Johan Hedberg <johan.hedberg@gmail.com>, John Keeping
-	<john@metanate.com>, Juergen Gross <jgross@suse.com>, Kalle Valo
-	<kvalo@kernel.org>, "keyrings@vger.kernel.org" <keyrings@vger.kernel.org>,
-	"kunit-dev@googlegroups.com" <kunit-dev@googlegroups.com>, Kuniyuki Iwashima
-	<kuniyu@amazon.co.jp>, "K. Y. Srinivasan" <kys@microsoft.com>, "Lars-Peter
- Clausen" <lars@metafoo.de>, Lee Jones <lee.jones@linaro.org>, Leon Romanovsky
-	<leon@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-	"linux1394-devel@lists.sourceforge.net"
-	<linux1394-devel@lists.sourceforge.net>, "linux-afs@lists.infradead.org"
-	<linux-afs@lists.infradead.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-arm-msm@vger.kernel.org"
-	<linux-arm-msm@vger.kernel.org>, "linux-bluetooth@vger.kernel.org"
-	<linux-bluetooth@vger.kernel.org>, "linux-hardening@vger.kernel.org"
-	<linux-hardening@vger.kernel.org>, "linux-hyperv@vger.kernel.org"
-	<linux-hyperv@vger.kernel.org>, "linux-integrity@vger.kernel.org"
-	<linux-integrity@vger.kernel.org>, "linux-rdma@vger.kernel.org"
-	<linux-rdma@vger.kernel.org>, "linux-scsi@vger.kernel.org"
-	<linux-scsi@vger.kernel.org>, "linux-security-module@vger.kernel.org"
-	<linux-security-module@vger.kernel.org>, "linux-usb@vger.kernel.org"
-	<linux-usb@vger.kernel.org>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>, "linux-xtensa@linux-xtensa.org"
-	<linux-xtensa@linux-xtensa.org>, "llvm@lists.linux.dev"
-	<llvm@lists.linux.dev>, Loic Poulain <loic.poulain@linaro.org>, Louis Peens
-	<louis.peens@corigine.com>, Luca Coelho <luciano.coelho@intel.com>, "Luiz
- Augusto von Dentz" <luiz.dentz@gmail.com>, Marc Dionne
-	<marc.dionne@auristor.com>, Marcel Holtmann <marcel@holtmann.org>, Mark Brown
-	<broonie@kernel.org>, "Martin K. Petersen" <martin.petersen@oracle.com>, "Max
- Filippov" <jcmvbkbc@gmail.com>, Mimi Zohar <zohar@linux.ibm.com>, Muchun Song
-	<songmuchun@bytedance.com>, Nathan Chancellor <nathan@kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, Nick Desaulniers
-	<ndesaulniers@google.com>, =?iso-8859-1?Q?Nuno_S=E1?= <nuno.sa@analog.com>,
-	Paolo Abeni <pabeni@redhat.com>, Paul Moore <paul@paul-moore.com>, "Rich
- Felker" <dalias@aerifal.cx>, Rob Herring <robh+dt@kernel.org>, Russell King
-	<linux@armlinux.org.uk>, "selinux@vger.kernel.org" <selinux@vger.kernel.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>, "SHA-cyfmac-dev-list@infineon.com"
-	<SHA-cyfmac-dev-list@infineon.com>, Simon Horman <simon.horman@corigine.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Stefan Richter
-	<stefanr@s5r6.in-berlin.de>, Steffen Klassert <steffen.klassert@secunet.com>,
-	Stephen Hemminger <sthemmin@microsoft.com>, Stephen Smalley
-	<stephen.smalley.work@gmail.com>, Takashi Iwai <tiwai@suse.com>, Tom Rix
-	<trix@redhat.com>, Udipto Goswami <quic_ugoswami@quicinc.com>,
-	"wcn36xx@lists.infradead.org" <wcn36xx@lists.infradead.org>, Wei Liu
-	<wei.liu@kernel.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, Xiu Jianfeng <xiujianfeng@huawei.com>,
-	"Yang Yingliang" <yangyingliang@huawei.com>
-Subject: RE: [PATCH 02/32] Introduce flexible array struct memcpy() helpers
-Thread-Topic: [PATCH 02/32] Introduce flexible array struct memcpy() helpers
-Thread-Index: AQHYX80GRJFxZRupFEigWcMQWGiaSK0O4MfQ
-Date: Wed, 4 May 2022 16:08:15 +0000
-Message-ID: <bc2efc31d25e4f42a98f0a5d7a8ad88a@AcuMS.aculab.com>
-References: <20220504014440.3697851-1-keescook@chromium.org>
- <20220504014440.3697851-3-keescook@chromium.org>
- <d3b73d80f66325fdfaf2d1f00ea97ab3db03146a.camel@sipsolutions.net>
- <202205040819.DEA70BD@keescook>
-In-Reply-To: <202205040819.DEA70BD@keescook>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=UjcoZFVwMnH26AK51k16DOOom8OBd+TZo4ucHpA7xys=; b=rqrzAyOkgUjSsv0cRNRHtdN9bG
+	/e9rorsBBPK4hfJbBVpC4R66oROC2yNQEUGfXF08WuM6OmtbiKgUoM3atT8p/8bWsok20lDujF26s
+	s+UkzvRPwoIYSeTm81+kJhZF4b+FFu5qNfQ+5Ffs96yE7WUXbLvzF6DYHPPIGkXbssrs=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-170111-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=C51A453 smtp.mailfrom=david.laight@aculab.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Subject: [ovmf test] 170111: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=101f4c789221716585b972f2c2a22a85c078ef1d
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 04 May 2022 16:53:13 +0000
 
-From: Kees Cook
-> Sent: 04 May 2022 16:38
-...
-> > >     struct something *instance =3D NULL;
-> > >     int rc;
-> > >
-> > >     rc =3D mem_to_flex_dup(&instance, byte_array, count, GFP_KERNEL);
-> > >     if (rc)
-> > >         return rc;
-> >
-> > This seems rather awkward, having to set it to NULL, then checking rc
-> > (and possibly needing a separate variable for it), etc.
->=20
-> I think the errno return is completely required. I had an earlier version
-> of this that was much more like a drop-in replacement for memcpy that
-> would just truncate or panic, and when I had it all together, I could
-> just imagine hearing Linus telling me to start over because it was unsafe
-> (truncation may be just as bad as overflow) and disruptive ("never BUG"),
-> and that it should be recoverable. So, I rewrote it all to return a
-> __must_check errno.
->=20
-> Requiring instance to be NULL is debatable, but I feel pretty strongly
-> about it because it does handle a class of mistakes (resource leaks),
-> and it's not much of a burden to require a known-good starting state.
+flight 170111 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/170111/
 
-Why not make it look like malloc() since it seems to be malloc().
-That gives a much better calling convention.
-Passing pointers and integers by reference can generate horrid code.
-(Mostly because it stops the compiler keeping values in registers.)
+Regressions :-(
 
-If you want the type information inside the 'function'
-use a #define so that the use is:
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
 
-=09mem_to_flex_dup(instance, byte_array, count, GFP_KERNEL);
-=09if (!instance)
-=09=09return ...
-(or use ERR_PTR() etc).
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-=09David
+version targeted for testing:
+ ovmf                 101f4c789221716585b972f2c2a22a85c078ef1d
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
--
-Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1=
-PT, UK
-Registration No: 1397386 (Wales)
+Last test of basis   168254  2022-02-28 10:41:46 Z   65 days
+Failing since        168258  2022-03-01 01:55:31 Z   64 days  803 attempts
+Testing same since   170038  2022-05-03 10:12:47 Z    1 days   27 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jake Garver <jake@nvidia.com>
+  Jake Garver via groups.io <jake=nvidia.com@groups.io>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Jiewen Yao <jiewen.yao@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Peter Grehan <grehan@freebsd.org>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 5915 lines long.)
 
