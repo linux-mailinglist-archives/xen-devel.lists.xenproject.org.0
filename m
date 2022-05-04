@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D19C151999B
-	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 10:20:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.320447.541177 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 422BA5199D5
+	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 10:32:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.320453.541188 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmAF7-00045G-EF; Wed, 04 May 2022 08:20:17 +0000
+	id 1nmAQQ-0005hM-HU; Wed, 04 May 2022 08:31:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 320447.541177; Wed, 04 May 2022 08:20:17 +0000
+Received: by outflank-mailman (output) from mailman id 320453.541188; Wed, 04 May 2022 08:31:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmAF7-00043R-BE; Wed, 04 May 2022 08:20:17 +0000
-Received: by outflank-mailman (input) for mailman id 320447;
- Wed, 04 May 2022 08:20:15 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1nmAQQ-0005f4-EW; Wed, 04 May 2022 08:31:58 +0000
+Received: by outflank-mailman (input) for mailman id 320453;
+ Wed, 04 May 2022 08:31:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nmAF5-00043J-4o
- for xen-devel@lists.xenproject.org; Wed, 04 May 2022 08:20:15 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nmAF4-0008T8-0M; Wed, 04 May 2022 08:20:14 +0000
-Received: from [54.239.6.185] (helo=[192.168.21.29])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nmAF3-0001na-QO; Wed, 04 May 2022 08:20:13 +0000
+ (envelope-from <SRS0=IBxS=VM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1nmAQP-0005ey-EW
+ for xen-devel@lists.xenproject.org; Wed, 04 May 2022 08:31:57 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a79f79f7-cb84-11ec-a406-831a346695d4;
+ Wed, 04 May 2022 10:31:55 +0200 (CEST)
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com
+ (mail-am5eur03lp2053.outbound.protection.outlook.com [104.47.8.53]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-40-s03ChdGRMva8mRVmUNHg1Q-1; Wed, 04 May 2022 10:31:51 +0200
+Received: from DU2PR04MB8616.eurprd04.prod.outlook.com (2603:10a6:10:2db::16)
+ by VI1PR04MB5437.eurprd04.prod.outlook.com (2603:10a6:803:d8::33)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.24; Wed, 4 May
+ 2022 08:31:49 +0000
+Received: from DU2PR04MB8616.eurprd04.prod.outlook.com
+ ([fe80::5cb0:5195:4203:7c2f]) by DU2PR04MB8616.eurprd04.prod.outlook.com
+ ([fe80::5cb0:5195:4203:7c2f%8]) with mapi id 15.20.5206.013; Wed, 4 May 2022
+ 08:31:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,135 +51,208 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=L6RA+6rkBTFITMu+zROdOo2PKLgVUgaxMDHiTm/2MHM=; b=soR/bJenVtXASurPhm0IfIp1dX
-	YH2uHiV6D59X+QF8Jn7TcXsASVP73i8ae23sOBwsD+BiVtHMV6PS1bt88elUlxLFwoT0PpzvFhYL5
-	bdFMIuDg3qAQWzG9uGeYH6vzdQRj5ts+HriUvZZYeWmoDqJvcFPygMXX70Pt69L9t4s8=;
-Message-ID: <f1315848-fe9e-b365-bbf6-a596abc6e0de@xen.org>
-Date: Wed, 4 May 2022 09:20:12 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.8.1
-Subject: Re: [PATCH 1/3] xen/arm: Sync sysregs and cpuinfo with Linux 5.18-rc3
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1651570561.git.bertrand.marquis@arm.com>
- <832955382caa4ced744ec7894282592b62e8cf61.1651570561.git.bertrand.marquis@arm.com>
- <a05b426c-1800-a365-5b02-f82f0a391306@xen.org>
- <2E66F8B4-4DDA-47E2-B93C-E36FEB70F552@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <2E66F8B4-4DDA-47E2-B93C-E36FEB70F552@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-Inumbo-ID: a79f79f7-cb84-11ec-a406-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1651653115;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uQfWNe1RxVIVhGw370YZzsDPbGmRCJ6APtQ7SkS5ucE=;
+	b=EH0WaOBy2ZeJmEfmnfoAOLt+H4z+qc066ZDmMBs9r+1GbQbeeP8WhtVYsld2TWyDpAEfqM
+	WIZ4Ybfc9jpdFfNwe6Kal36l0suJPMhBrSLBtKv7i+1Xe6k9uPpcy/K21ZsK0f/quxn0yY
+	VsiwMxDtgzZrjXNgoE+XyYNq3LAmHLo=
+X-MC-Unique: s03ChdGRMva8mRVmUNHg1Q-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=J/TcqT3FmKHLvjBoB2dTAf6qSEpSlXxnWt72lZgDZiAkI9tYIVrN/TMZ97c4y/V8yI78LutDPzRWxcmg1UJrgz9KA0VRaTkZFLFW0RNv83UrNA/oW59EGQRvDoy16Mdyh1VlRZeeijbPKMW3LAfX2jXocIGzzFWIaF8yrVWhgNdEUkP1Hjm7xtuQyASavG+hMlPcSml8DTlPrUWgZBEdWPF4WhzKdnRK679jX3rpCDgOy3LDFefGuhONH43yATAH2+3s0WMz83mvZRpn3j9U6HPs2J+1OK2Vht86oeQTX3STNcvMm7lTncPA3eB7iROCONua4/pv6WEC0CUv2l2ALQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uQfWNe1RxVIVhGw370YZzsDPbGmRCJ6APtQ7SkS5ucE=;
+ b=O/MdNjN/vdEiSXOOv5aLaCtKv24zDcfASUE87VxaXEgPQKkbLQvP3Vv8mzBcP+UPSkGYiMSfawR2oP9hdRouktrHCaJjbMoFw7NLD301yyAi6491YzglTUj7Vs9f3UUu8Vu07gMAm6AAIroem+1EURPb63bd+afJDuf4ah/XP0KhZCJD0cCxBfIE9R87T5Or7YUVtAJeZZxxbYnWTRHqNQK0o87njqmybuWh3Tb1fe3fbY1WdOd3ue6N8NLs/39mRmVoR2tMRB3cra0mdkwohQlau0ZBp4Vq1bo/RLlVJkMkGNk4Ut2SqS+x26oFZATs8JPye6R+ii69xpG+p78r4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <1d86d8ff-6878-5488-e8c4-cbe8a5e8f624@suse.com>
+Date: Wed, 4 May 2022 10:31:47 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Subject: Re: [PATCH 2/2] x86/pat: add functions to query specific cache mode
+ availability
+Content-Language: en-US
+To: Juergen Gross <jgross@suse.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ xen-devel@lists.xenproject.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20220503132207.17234-1-jgross@suse.com>
+ <20220503132207.17234-3-jgross@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20220503132207.17234-3-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS9PR06CA0337.eurprd06.prod.outlook.com
+ (2603:10a6:20b:466::13) To DU2PR04MB8616.eurprd04.prod.outlook.com
+ (2603:10a6:10:2db::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d493a38e-8de6-4ab7-a9ef-08da2da8884e
+X-MS-TrafficTypeDiagnostic: VI1PR04MB5437:EE_
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB54374EEAEC74ECEF0551AF04B3C39@VI1PR04MB5437.eurprd04.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	q6/goCuOXLBGJE4xI9cnuLVbnU7uK3VKQx8/d04qTCC62JOqpYdNPb+52+pWQBOipselsPPIjc+xHk/FKvsuqCEzcymZ9m5mCZ5tjnE+nxjG/GFxTwIs5RmVecjJy74TzT0+a9ZsBXuiQMucoojzlKroFvM763LWfrZoQD1bkk3V55kifqIEt8F/Ez5UvYKkadFazg0TljMkRV4MMtID+fnOAwbqjhri9AiypnbvyvHHqW/5KXuhCMl0q7aXw1w8WwvVH3DJUkigdMX0STl9Yy6vGIHGMQhHCK85Zvd0zHGt4FbBqiHOr4Pw6oCazKAuxJ0mgUGmH9+O5dC5O6zl9mD1b8glBlAdxwwiBYhO9ysgeB3mVsWjmf7F1zM2RxN52dzMMR0Ssa5gbC2sJSCprrRsqC2aAOGgS5Lf645VU6Eyl9dSKQquHsf4yaZxszFcFx+Hc6gXDLRnqx7EnE/gznOJlXKei1zgEuVbCJX+pAIG8dPy3UWGbEsnBQUzeqNcimVajwyG7cNuot7MZdHRgTuc1/EM50CaM8KV/5+Mo5RkDd2sB0dNnaRTQd3nd68psAeOmZomeshxRW/hN917cqGuJMszTLSm02VV/QH9Z2Yaxd3w3KvoJvc5j9YZcHiyD7L58SilxC+xXdLStKwVnR/yozUtjoKmRoYPNbVtUQpF1UiV/1uGGIhPp9DGtllbtUwyZU6DojpKMnoYrGZ8mcal9mG9WCCWsauOWFsRWfKfptPL6gK5PevhmFT9yxVg
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8616.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(5660300002)(7416002)(53546011)(6862004)(66556008)(66476007)(508600001)(4326008)(66946007)(8936002)(8676002)(31686004)(37006003)(54906003)(6506007)(316002)(38100700002)(2906002)(6486002)(6636002)(26005)(83380400001)(6512007)(2616005)(36756003)(86362001)(186003)(31696002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?c1Z6S2RLYmZscWpIYTV3SzlMZ0RDVTl1R3VKTlA3cEUvQ2pYQkJuS3k3SzBm?=
+ =?utf-8?B?endydmJ2Zm5sRnNSbnhYL282dU5ZV200czdBVjJBcUJkY29vd1ZQSG5TMUE0?=
+ =?utf-8?B?T3M2OWx5ZXpEREtrTEtqSkFhc0pyK1NNcktVZ0JLbTBqalI2enYvQSszNkNm?=
+ =?utf-8?B?UzNwd00wM0xJQ0FQQXhhOFowZmljTXE4MjBaRTJ2WW1XV29NUTN4c3IwcWd6?=
+ =?utf-8?B?MXJYdEFtZTN3UExRTHFzRnl5TUtIcnYvUjd3czYvejVvTFhRay9xK3I3QkM3?=
+ =?utf-8?B?Q042WWlSc2toUUJNSmp0YTRpZ2NNVFdVc0tXQ0YyaFdSNkNLSHdpUzFDTVdC?=
+ =?utf-8?B?RDdGZjA5TG1hK2JBRWd2NFBXVWJjc1dxVStBRDkwcVlnQzE2YzZvSVZvTTY4?=
+ =?utf-8?B?QWFmYTdVbHM4UzBSenFiTjBQSnBJZFZyMW14WDdkMkdoUDFtS3JINFZWN3lP?=
+ =?utf-8?B?ODhVc2ltLzlwaHhQTDRDa01LTzNPYUNtK3NFZG9TWEtMcjRRK0hkV1h0Tkhr?=
+ =?utf-8?B?THN4NUYrM3EyYmt3RFRicExRRVRlQzNjR29zbC94VHRXZGFIaUlLZzBKb0lk?=
+ =?utf-8?B?ZGw2akpJRFB2YlZsajd6M0pjM3ZSdmJtWkt6RExGMi9adjh5SHNIU3NkbkNG?=
+ =?utf-8?B?c09SZ3g0ZGdwdEI0YlRHbG9hNnJhM1VveHpvVjFXT05YSFJWc1BhZkNCaUFV?=
+ =?utf-8?B?TUNtc3dTS2FBMkU0OEtHdnVGbHdIRTBVOWpoeVN6QjEvZlgwSzhJTnp6NEdk?=
+ =?utf-8?B?T3k0bVh0aW5TVzZ3OFVsZWt2VXIxejROQWo5cXpVVEQ4bU5tNHhPcDBOcmk5?=
+ =?utf-8?B?ZlJKamJoUlpmb0psSEZmTmY2ekdhYzV0NG5qMmJwY3R6M0pnWUIwM0tGVVJl?=
+ =?utf-8?B?RU5mYmROeXp1dnlXUVpCeGppWTcxQWpGYUdWd1dhczJQSllSNTR4ZlU1RmlN?=
+ =?utf-8?B?Rjh0ZklkZTJXT0hNUUFPWXVZWDRJR1lBb2x2YWlKZUNZRTF6dkt1emlCcmcy?=
+ =?utf-8?B?bmltenQyMXFTQ29rc09vZnRsdFRvWG11U1lWZDBoNU1RUVBBMC9BMmlhRWh0?=
+ =?utf-8?B?M0lQU2k5b0U2RmF4bEx1Z3pxVGd0WnQwTmJ3OXFFbEdML0V2akQ4dUs0cW05?=
+ =?utf-8?B?WWtGcXE0NGdCbjVtV3NUNHBEZG80ZlZUeFQ5dC9odXo2bmZ3K0ZobUhFeEN1?=
+ =?utf-8?B?Vjl0cnVyL0xNRFVudTFWbkNUY2c0REUydVF0SS8wTFN5cXAwVGlMazRBUyt3?=
+ =?utf-8?B?Z05lUDVxRU14dGZoZDJ3RG5sdmpLWUYremlWeFNNZ2IwRWtsRFlRREs0WmJD?=
+ =?utf-8?B?a3NMSkM4elIxSjMzdlBpb3lBU3VmazVDc3pLQTU2SkZCaGhUYXEzWjYrdUFr?=
+ =?utf-8?B?ei9yaUFpc0ErKzR3L0FGUERyVlNybzRrQ3RFNWpkVFdYSXhScjJxWURpZ3Jv?=
+ =?utf-8?B?U1lxWC80azJpU1E3KzQ0L1BSazVCWDgrWlpTM01rMDV5R3Eyd3JBQmlTazVm?=
+ =?utf-8?B?S3p6TzluYlhETTFRN1ZDU0JqcTc3L3NtYktNbW9jZmNFUDJPN3BtY1YxVkNW?=
+ =?utf-8?B?Tkh5aW1yM1JaWGp4cUVLanFvMERhd1NHL2NhSHhTWmlJMzIwUCs3clBWUlRa?=
+ =?utf-8?B?aEorUlNqbkZ1S3JCZ0xOc0haK0hPSitmRzhHTVpBQ3RlcE9wYU5UWnQ5Wkha?=
+ =?utf-8?B?K05WRys3VzhRQUxHU1RTaVFzWkRPSElzSmZLOGlrYXVuWWtVNXExL1BVVks1?=
+ =?utf-8?B?emZSdG1jUHlMeUFyeHBzUHlDcllHV3loMzJiS0tzOWZKbmRLVjZYNU5uUVkr?=
+ =?utf-8?B?V2hTQ0c3T1loVzRGbFlJa3Z4L2ZlMWRnQVhpc1VrYmNkMm15Z08vYjYrREFy?=
+ =?utf-8?B?cGU5U0lacTJlbElxSXM5K3JjSnQwdzk4Ri9HbGJDYTJlbmI3clI0Y3N4UVQr?=
+ =?utf-8?B?MS9waUJpRTQ3ZVBWcWhqcld0UDJ2bmtlOGYvK2lEcmhzUEtIM091RzZzWHd6?=
+ =?utf-8?B?a1BTNDZWemdNTU1jZnNDMzVncmgyU3l2MGRUN1YyM1Y1NGZNK2I1VkU5YkxI?=
+ =?utf-8?B?c29DRWdYZXUwYmpTWlA3V0pqL081bHJlbGZDSXVGUDFlajZZL2VJSjNtcWY0?=
+ =?utf-8?B?UHM3SDFPUHVCMlllcmdBMXFUMDlVTFc2dml6S2l4RmpZQVpzL3VoZE9lNHBO?=
+ =?utf-8?B?RFRGNHF0YmJhclZSWUlISmdXQno5QmNpSWVNNUpzcWNNM3c3bHY3QVVhUlJj?=
+ =?utf-8?B?WGhSeitqYTBiREJmWUFJaThMSkFIcVFBdzdqQ0lEWStEUmpKTVpVT0tobEIr?=
+ =?utf-8?B?b1JHd1JiMktNVEhVdkJtRW9ZQjA3RklUeGdqUmpkWEJDZlpXTUxRUT09?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d493a38e-8de6-4ab7-a9ef-08da2da8884e
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8616.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2022 08:31:49.2208
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AhtRaIIfvZAc7TwDIZ0GnLdy5KNKjJI1rFZ3z2ZgAfSMQzvSpvcQBWpZmqGIssObKPMWhzvHPKsiXLbV90Ay3g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5437
 
+On 03.05.2022 15:22, Juergen Gross wrote:
+> Some drivers are using pat_enabled() in order to test availability of
+> special caching modes (WC and UC-). This will lead to false negatives
+> in case the system was booted e.g. with the "nopat" variant and the
+> BIOS did setup the PAT MSR supporting the queried mode, or if the
+> system is running as a Xen PV guest.
 
+While, as per my earlier patch, I agree with the Xen PV case, I'm not
+convinced "nopat" is supposed to honor firmware-provided settings. In
+fact in my patch I did arrange for "nopat" to also take effect under
+Xen PV.
 
-On 04/05/2022 08:39, Bertrand Marquis wrote:
-> Hi Julien,
-Hi,
-
->> On 3 May 2022, at 19:08, Julien Grall <julien@xen.org> wrote:
->>
->> Hi Bertrand,
->>
->> On 03/05/2022 10:38, Bertrand Marquis wrote:
->>> Sync arm64 sysreg bit shift definitions with status of Linux kernel as
->>> of 5.18-rc3 version (linux commit b2d229d4ddb1).
->>> Sync ID registers sanitization with the status of Linux 5.18-rc3 and add
->>> sanitization of ISAR2 registers.
->> Please outline which specific commits you are actually backported. This would help to know what changed, why and also keep track of the autorships.
->>
->> When possible, the changes should be separated to match each Linux commit we backport.
+> Add test functions for those caching modes instead and use them at the
+> appropriate places.
 > 
-> As those are exactly identical to the linux tree, one can easily use git blame on the linux source tree to find those information if it is needed
-
-Well... that's possible at the cost of everyone going through Linux to 
-understand why the changes were made. This is not very scalable.
-
+> For symmetry reasons export the already existing x86_has_pat_wp() for
+> modules, too.
 > 
-> I checked a bit and this is not something that was required before (for example when the cpufeature was introduced).
+> Fixes: bdd8b6c98239 ("drm/i915: replace X86_FEATURE_PAT with pat_enabled()")
+> Fixes: ae749c7ab475 ("PCI: Add arch_can_pci_mmap_wc() macro")
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-If we import the full file, then we will generally don't log all the 
-commits. However, for smaller changes, we will always mention the commit 
-backported. There are several examples on the ML:
+I think this wants a Reported-by as well.
 
-  - 0435784cc75d ("xen/arm: smmuv1: Intelligent SMR allocation")
-  - 9c432b876bf5 ("x86/mwait-idle: add SPR support")
+> --- a/arch/x86/include/asm/pci.h
+> +++ b/arch/x86/include/asm/pci.h
+> @@ -94,7 +94,7 @@ int pcibios_set_irq_routing(struct pci_dev *dev, int pin, int irq);
+>  
+>  
+>  #define HAVE_PCI_MMAP
+> -#define arch_can_pci_mmap_wc()	pat_enabled()
+> +#define arch_can_pci_mmap_wc()	x86_has_pat_wc()
 
-We also recently introduced a tag "Origin:" to keep track of which 
-commit was backported. If you want to understand the rationale, you can 
-read this long thread:
+Besides this and ...
 
-https://lore.kernel.org/xen-devel/0ed245fa-58a7-a5f6-b82e-48f9ed0b6970@suse.com/
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+> @@ -76,7 +76,7 @@ i915_gem_mmap_ioctl(struct drm_device *dev, void *data,
+>  	if (args->flags & ~(I915_MMAP_WC))
+>  		return -EINVAL;
+>  
+> -	if (args->flags & I915_MMAP_WC && !pat_enabled())
+> +	if (args->flags & I915_MMAP_WC && !x86_has_pat_wc())
+>  		return -ENODEV;
+>  
+>  	obj = i915_gem_object_lookup(file, args->handle);
+> @@ -757,7 +757,7 @@ i915_gem_dumb_mmap_offset(struct drm_file *file,
+>  
+>  	if (HAS_LMEM(to_i915(dev)))
+>  		mmap_type = I915_MMAP_TYPE_FIXED;
+> -	else if (pat_enabled())
+> +	else if (x86_has_pat_wc())
+>  		mmap_type = I915_MMAP_TYPE_WC;
+>  	else if (!i915_ggtt_has_aperture(to_gt(i915)->ggtt))
+>  		return -ENODEV;
+> @@ -813,7 +813,7 @@ i915_gem_mmap_offset_ioctl(struct drm_device *dev, void *data,
+>  		break;
+>  
+>  	case I915_MMAP_OFFSET_WC:
+> -		if (!pat_enabled())
+> +		if (!x86_has_pat_wc())
+>  			return -ENODEV;
+>  		type = I915_MMAP_TYPE_WC;
+>  		break;
+> @@ -823,7 +823,7 @@ i915_gem_mmap_offset_ioctl(struct drm_device *dev, void *data,
+>  		break;
+>  
+>  	case I915_MMAP_OFFSET_UC:
+> -		if (!pat_enabled())
+> +		if (!x86_has_pat_uc_minus())
+>  			return -ENODEV;
+>  		type = I915_MMAP_TYPE_UC;
+>  		break;
 
-> 
->>
->>> Complete AA64ISAR2 and AA64MMFR1 with more fields.
->>> While there add a comment for MMFR bitfields as for other registers in
->>> the cpuinfo structure definition.
->>
->> AFAICT, this patch is doing 3 different things that are somewhat related:
->> - Sync cpufeature.c
->> - Update the headers with unused defines
->> - Complete the structure cpufeature.h
->>
->> All those changes seem to be independent, so I think they should be done separately. This would help to keep the authorship right (your code vs Linux code).
-> 
-> This and the previous request to split using linux commit will actually end up in 10 patches or more.
+... these uses there are several more. You say nothing on why those want
+leaving unaltered. When preparing my earlier patch I did inspect them
+and came to the conclusion that these all would also better observe the
+adjusted behavior (or else I couldn't have left pat_enabled() as the only
+predicate). In fact, as said in the description of my earlier patch, in
+my debugging I did find the use in i915_gem_object_pin_map() to be the
+problematic one, which you leave alone.
 
-I think we need to differentiate the two request. The previous request 
-is about logging which commits you backported. I would be open to have 
-all of them in one patch so long we account the authors/tags properly.
+Jan
 
-For this request, this is mostly about avoid to mix multiple things 
-together. Your commit message describes 3 distinct parts and therefore 
-they should be split.
-
->>> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
->>> ---
->>> xen/arch/arm/arm64/cpufeature.c | 18 +++++-
->>> xen/arch/arm/include/asm/arm64/sysregs.h | 76 ++++++++++++++++++++----
->>> xen/arch/arm/include/asm/cpufeature.h | 14 ++++-
->>> 3 files changed, 91 insertions(+), 17 deletions(-)
->>> diff --git a/xen/arch/arm/arm64/cpufeature.c b/xen/arch/arm/arm64/cpufeature.c
->>> index 6e5d30dc7b..d9039d37b2 100644
->>> --- a/xen/arch/arm/arm64/cpufeature.c
->>> +++ b/xen/arch/arm/arm64/cpufeature.c
->>> @@ -143,6 +143,16 @@ static const struct arm64_ftr_bits ftr_id_aa64isar1[] = {
->>> 	ARM64_FTR_END,
->>> };
->>> +static const struct arm64_ftr_bits ftr_id_aa64isar2[] = {
->>> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_HIGHER_SAFE, ID_AA64ISAR2_CLEARBHB_SHIFT, 4, 0),
->>> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_PTR_AUTH),
->>> +		 FTR_STRICT, FTR_EXACT, ID_AA64ISAR2_APA3_SHIFT, 4, 0),
->>> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_PTR_AUTH),
->> So we are using CONFIG_ARM64_PTR_AUTH. But this is not defined in Kconfig. I realize there are more in cpufeature.c (somehow I didn't spot during preview), but I don't think this is right to define CONFIG_* without an associated entry in Kconfig.
->>
->> In one hand, I think it would be odd to add an entry in Kconfig because Xen wouldn't properly work if selected. On the other hand, it is useful if when we will implement pointer authentification.
->>
->> So maybe we should just add the Kconfig entry with a comment explaning why they are not selected. Any thoughts?
-> 
-> This is really right and a very good catch.
-> 
-> I think it would make sense to introduce those in Kconfig in order to keep the code equivalent to Linux.
-> 
-> So I would suggest here to add hidden entries like this:
-> 
-> ARM64_PTR_AUTH
-> 	def_bool n
-> 	depends on ARM64
->          help
->            Pointer authentication support.
->            This feature is not supported by Xen.
-
-I am OK with that.
-
-Cheers,
-
--- 
-Julien Grall
 
