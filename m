@@ -2,65 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89144519814
-	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 09:26:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.320367.541060 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B807519835
+	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 09:30:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.320377.541078 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm9OT-0000ta-AR; Wed, 04 May 2022 07:25:53 +0000
+	id 1nm9Se-0002QC-4o; Wed, 04 May 2022 07:30:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 320367.541060; Wed, 04 May 2022 07:25:53 +0000
+Received: by outflank-mailman (output) from mailman id 320377.541078; Wed, 04 May 2022 07:30:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm9OT-0000rZ-70; Wed, 04 May 2022 07:25:53 +0000
-Received: by outflank-mailman (input) for mailman id 320367;
- Wed, 04 May 2022 07:25:52 +0000
+	id 1nm9Se-0002ON-1Z; Wed, 04 May 2022 07:30:12 +0000
+Received: by outflank-mailman (input) for mailman id 320377;
+ Wed, 04 May 2022 07:29:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tJLg=VM=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1nm9OS-0000pG-Bu
- for xen-devel@lists.xenproject.org; Wed, 04 May 2022 07:25:52 +0000
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur02on0603.outbound.protection.outlook.com
- [2a01:111:f400:fe06::603])
+ <SRS0=j+0t=VM=sipsolutions.net=johannes@srs-se1.protection.inumbo.net>)
+ id 1nm9Rt-0001cR-TK
+ for xen-devel@lists.xenproject.org; Wed, 04 May 2022 07:29:26 +0000
+Received: from sipsolutions.net (s3.sipsolutions.net [2a01:4f8:191:4433::2])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6d1b6af5-cb7b-11ec-a406-831a346695d4;
- Wed, 04 May 2022 09:25:51 +0200 (CEST)
-Received: from DB6PR07CA0165.eurprd07.prod.outlook.com (2603:10a6:6:43::19) by
- DB9PR08MB7177.eurprd08.prod.outlook.com (2603:10a6:10:2ca::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5206.24; Wed, 4 May 2022 07:25:50 +0000
-Received: from DBAEUR03FT058.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:6:43:cafe::6b) by DB6PR07CA0165.outlook.office365.com
- (2603:10a6:6:43::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.7 via Frontend
- Transport; Wed, 4 May 2022 07:25:49 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DBAEUR03FT058.mail.protection.outlook.com (100.127.142.120) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5227.15 via Frontend Transport; Wed, 4 May 2022 07:25:49 +0000
-Received: ("Tessian outbound 9511859e950a:v118");
- Wed, 04 May 2022 07:25:48 +0000
-Received: from 44a58f65f1c0.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 554B77AF-40FB-42D7-AED6-B7F156C36EDB.1; 
- Wed, 04 May 2022 07:25:42 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 44a58f65f1c0.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 04 May 2022 07:25:42 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
- by PAXPR08MB7185.eurprd08.prod.outlook.com (2603:10a6:102:207::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.13; Wed, 4 May
- 2022 07:25:40 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::4de:59d7:ae91:54a1]) by AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::4de:59d7:ae91:54a1%7]) with mapi id 15.20.5186.028; Wed, 4 May 2022
- 07:25:40 +0000
+ id eb90edf8-cb7b-11ec-a406-831a346695d4;
+ Wed, 04 May 2022 09:29:24 +0200 (CEST)
+Received: by sipsolutions.net with esmtpsa
+ (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+ (Exim 4.95) (envelope-from <johannes@sipsolutions.net>)
+ id 1nm9Oe-001wnb-ND; Wed, 04 May 2022 09:26:04 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,148 +40,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d1b6af5-cb7b-11ec-a406-831a346695d4
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=L8t9Ij4FFkYD6P9Dcior8pMbleREACfwbTyBRUnCMIYgZw5437zOenIR6nhKdTz+un69Ftf/MMmLh54vDDIWTn0K+pZ6LwYEsZFTD2wHZJRskrtgxlEQfMVR3CvKH1VgTyVhtJdRmsihByU8TY+j8Dj8DiA/a1PCmyh3jRkQQqvIJqlyltYDzC5iJT+MMh1ZJNtz+DghCiR6sWmaLUvez9PCsiPNkdwZoDFJ3kFri92R4HaVbCdmL3Ha27YRMHytx9yvHOTFSsKhE6ITDM2t6ZKdmsqprUI60Sghr1XcRi6di58e7ANRnxMP0MqMRpXVmJgzULXPIxQ4e2LkIPPBTg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4i6aKpT1Q9Wb0tSNFh84E7CqB5bX+55FNc8kTTdRO24=;
- b=SYpZsjCUtE4g7EkAQCHwpFgaZm5P4IlDoWSnHqSW/nSGGhkAoeHzsM9rWAgWjnpEx/ucHpUMmLDkhoLepHgAzihLhO3j5itjkQgXuXWbAOcoykZEiLRVgzLcsJJ6Gotf6HfLce8GohO6MRt8pPlRI2xZhHIpZaDhtIO0Xf1MDhE2TQ5hUncrzIMVLukhSKE4RNsWyBvPllWBctolHwfSVDEKzLFCa8cJGABf0mZ8Mk22akLCQAhm6KamIpGzzU8IhbqiT8nhsv4g3r2wWN1tBEAN3xvEZTguCURGqpPTHXAk1jYo/E1jUrKJo7iDyRfL/KFymxOuLhSpjJOpjTmsow==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
- oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4i6aKpT1Q9Wb0tSNFh84E7CqB5bX+55FNc8kTTdRO24=;
- b=uG1fFdWFLOhLmFQReDifOZjJFuRD6J10xX5oy8E7r3yeSYj/TLsu/UVv/J+aMZiOUY7NuE93nQqrQOakcEnLRy1GSNFOR4kn+qIuoom9xJpzPbHNwK82KTjYnyPI0FHO4Q6vCE0C45so2z1qN6XArBrrHWTmu0/KmfuKFaiVC5A=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 61fd4502fcc52b69
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TEW/1tsNcghplI60jU9gfIGi/4jjgrYhn4uukqz++RA9xWWjmZfXgDi5Z/Ia0ZdUcM5NVvA7BX2Hy1dUR2AmRqo5zMbrQHeNWaIq64LtxjXyKzVfyhTgQ/93SKPPvfuXAifwsMl7xdnlgUGDw1uiwSU2sBUexRjuwsqDqR7hycWDRenXadZPdrqqkpY452cCzA+qjUOz/VGQKhr41abECNw4aktVoqmcQdgo82gGm+KdR+sYREXEwVRdGmQZNkL8LzuicmoAgU/M8UvokBTxFwzbUQ3a1RTmYaAJ25HYfQoiD6PfPq7qb4zJONxRVLtLg0appZO9y/F5KEbyMEFHoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4i6aKpT1Q9Wb0tSNFh84E7CqB5bX+55FNc8kTTdRO24=;
- b=aZQ9JmIkXobb/xQefVbKVgcCbzhTr9QmdDqTTo4paHVnjp/8L4eYBhC6qfMPSwFgtozEYQ0tpZEBMnyky1gRpEImkq7CApYRg7hXv8+rGZW+1DoqN8DH0XmI8JdKS3ktmI6Z0UUnRt0mgoh5ydAOUJjiGbzEn8oiuDnoL3zwzY0UNbwjPK0usXdRktsYzuPXjed5RchfA/xnJs7CLvccNw1no+AOgEOciO7AVFO2uZFUWiiGEMsk9IXAGlwQaXppP2llQDUJEiKRuDLVZkJJqe2yq4DDH2FT9v5EpSxHca4t4xuSg6Una8uHmmbYiIzeM44jAf1NqnchrqtXgdzuqQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4i6aKpT1Q9Wb0tSNFh84E7CqB5bX+55FNc8kTTdRO24=;
- b=uG1fFdWFLOhLmFQReDifOZjJFuRD6J10xX5oy8E7r3yeSYj/TLsu/UVv/J+aMZiOUY7NuE93nQqrQOakcEnLRy1GSNFOR4kn+qIuoom9xJpzPbHNwK82KTjYnyPI0FHO4Q6vCE0C45so2z1qN6XArBrrHWTmu0/KmfuKFaiVC5A=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH 2/3] xen/arm: Advertise workaround 1 if we apply 3
-Thread-Topic: [PATCH 2/3] xen/arm: Advertise workaround 1 if we apply 3
-Thread-Index: AQHYXtGhCQ41RL6ZvkCIAGwqzunCAq0Ndo4AgADcHgA=
-Date: Wed, 4 May 2022 07:25:40 +0000
-Message-ID: <3700FF65-C9BD-44D6-87EA-7C2B4B2A8557@arm.com>
-References: <cover.1651570561.git.bertrand.marquis@arm.com>
- <8119538cce93516f1e78d37d578996a195686f89.1651570561.git.bertrand.marquis@arm.com>
- <becd3d5f-a5ac-a69d-40a3-b29a541773b3@xen.org>
-In-Reply-To: <becd3d5f-a5ac-a69d-40a3-b29a541773b3@xen.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3696.80.82.1.1)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-MS-Office365-Filtering-Correlation-Id: 88c2c7f4-c006-483f-1117-08da2d9f5007
-x-ms-traffictypediagnostic:
-	PAXPR08MB7185:EE_|DBAEUR03FT058:EE_|DB9PR08MB7177:EE_
-X-Microsoft-Antispam-PRVS:
-	<DB9PR08MB7177C3A88230F5FEAC825DDB9DC39@DB9PR08MB7177.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- xOC2SGmrcSnsQsFpifoa7ES8lp+SMb6jWjmk+cW9MzNJzb3KxWPJlpXlTITTm1FEkVoP8UnTNAPDjhUToiWAiZqpzkyP9gKHMZn4X8ZNLgFZCycxCpEtvEAyHdLTDp8KDgBTiamyQ/fDqCBz5K3YFEdXufkjsgC9hOw5XM3h7iW/Sbcqbq2hPPt13MxCvqvRntRViRMTqx1Cu2NA/jz5L6sd7Rx/gb1Iden32yKue15V5HsTuwdGUClJc6HddSQ2vSK6BpwKAzImYepd/DLMPybCRT6QFW1wyrTV9pYJDq0IWji78qMkv/o+4tgBH61QZPs/RsFbVN42RaSQTZCAXWzpfM8TrcuSpluTABvEl+oy/osGQWlK2sYlEua9mGL2bLl1Jb+cRo3Fhnz00yJqu1VUqB+laKiUag+NkW4uRFUpzlE6OfmrwgviqkENQ1BQjuMtmSvt6x0vLatIxwa87Yh4/WeGqnn3Iyt/l9bOPt/qucs8P18m3Bgy3Yl6/Q32yIYcRVN/Bw4moWjfKakkScmJcV1UuPDoz2yhvDd++BLskKfzpAEWjvD2UM5FqBt73A+EaVKSMU81FroMCfszf4E7ZlYnd7+8N9IemtLv/hoRIgDK+hnoiOZS512MlSaFr0i0uiIzBtkUkKl2MjBsPF7lcY7l0Uj+LyIaAQ5fRDgTetfnBDUBvXWo8DkwG6++yn2Um9eJ/zLHwQSCphlEqsexqx7VqT2eQ5ZgGUIm2tZhtn8zSTFS+QPMwhFRtlNr
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(5660300002)(8936002)(508600001)(54906003)(38100700002)(38070700005)(122000001)(4744005)(6916009)(316002)(33656002)(6486002)(71200400001)(26005)(4326008)(66946007)(8676002)(76116006)(6512007)(64756008)(66476007)(66556008)(91956017)(66446008)(2616005)(83380400001)(186003)(86362001)(6506007)(53546011)(2906002)(36756003)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <8C58BD131A035140A772D28783ACA66C@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: eb90edf8-cb7b-11ec-a406-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=Content-Transfer-Encoding:MIME-Version:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=ity6IPNC2WIGLGTiJizfPDCFcsI1FfOGUjdPuI/9x1Q=;
+	t=1651649364; x=1652858964; b=uLXceoXRzocE9rr9tSqSs3uwv2YN+Y2ols3vkwJs3Y80NTC
+	SHrykdTo0rjdIMKD1kdUgluxp0pOBzv4vqReeotEDsKew0IA0V4g7ZTRWNZZsRXFODX7TO0A9D7NY
+	IchhOKlEq5QBQFzOkV42FF1wCVIu3tXzAVjIhBKA0O87cF6n3RnAHUaXk+axAihNbPJMW5/YL5jQl
+	EJRchlELJXVJAfqiU9LX00czxRGevoxwrxbu1sLHbNWZfH6AsHgi+hmPFIthDXbadbXtBfWz+gCeu
+	ylNizrxU3D+4BhDE+2fuiAHq5Srn8Frknie+J+sc3cHV2I5EjxH4Ks1/gwZL9aJw==;
+Message-ID: <d3b73d80f66325fdfaf2d1f00ea97ab3db03146a.camel@sipsolutions.net>
+Subject: Re: [PATCH 02/32] Introduce flexible array struct memcpy() helpers
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Kees Cook <keescook@chromium.org>, "Gustavo A . R . Silva"
+	 <gustavoars@kernel.org>
+Cc: Keith Packard <keithp@keithp.com>, Francis Laniel
+ <laniel_francis@privacyrequired.com>, Daniel Axtens <dja@axtens.net>, Dan
+ Williams <dan.j.williams@intel.com>, Vincenzo Frascino
+ <vincenzo.frascino@arm.com>, Guenter Roeck <linux@roeck-us.net>, Daniel
+ Vetter <daniel.vetter@ffwll.ch>, Tadeusz Struk <tadeusz.struk@linaro.org>,
+ Alexei Starovoitov <ast@kernel.org>,  alsa-devel@alsa-project.org, Al Viro
+ <viro@zeniv.linux.org.uk>, Andrew Gabbasov <andrew_gabbasov@mentor.com>,
+ Andrew Morton <akpm@linux-foundation.org>,  Andy Gross <agross@kernel.org>,
+ Andy Lavr <andy.lavr@gmail.com>, Arend van Spriel <aspriel@gmail.com>, 
+ Baowen Zheng <baowen.zheng@corigine.com>, Bjorn Andersson
+ <bjorn.andersson@linaro.org>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Bradley Grove <linuxdrivers@attotech.com>, 
+ brcm80211-dev-list.pdl@broadcom.com, Christian Brauner
+ <brauner@kernel.org>,  Christian =?ISO-8859-1?Q?G=F6ttsche?=
+ <cgzones@googlemail.com>, Christian Lamparter <chunkeey@googlemail.com>, 
+ Chris Zankel <chris@zankel.net>, Cong Wang <cong.wang@bytedance.com>, David
+ Gow <davidgow@google.com>,  David Howells <dhowells@redhat.com>, "David S.
+ Miller" <davem@davemloft.net>, Dennis Dalessandro
+ <dennis.dalessandro@cornelisnetworks.com>, devicetree@vger.kernel.org, 
+ Dexuan Cui <decui@microsoft.com>, Dmitry Kasatkin
+ <dmitry.kasatkin@gmail.com>, Eli Cohen <elic@nvidia.com>,  Eric Dumazet
+ <edumazet@google.com>, Eric Paris <eparis@parisplace.org>, Eugeniu Rosca
+ <erosca@de.adit-jv.com>,  Felipe Balbi <balbi@kernel.org>, Frank Rowand
+ <frowand.list@gmail.com>, Franky Lin <franky.lin@broadcom.com>,  Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Gregory Greenman
+ <gregory.greenman@intel.com>, Haiyang Zhang <haiyangz@microsoft.com>, Hante
+ Meuleman <hante.meuleman@broadcom.com>,  Herbert Xu
+ <herbert@gondor.apana.org.au>, Hulk Robot <hulkci@huawei.com>, Jakub
+ Kicinski <kuba@kernel.org>,  "James E.J. Bottomley" <jejb@linux.ibm.com>,
+ James Morris <jmorris@namei.org>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Jason Gunthorpe <jgg@ziepe.ca>, Jens
+ Axboe <axboe@kernel.dk>, Johan Hedberg <johan.hedberg@gmail.com>, John
+ Keeping <john@metanate.com>, Juergen Gross <jgross@suse.com>, Kalle Valo
+ <kvalo@kernel.org>, keyrings@vger.kernel.org,  kunit-dev@googlegroups.com,
+ Kuniyuki Iwashima <kuniyu@amazon.co.jp>, "K. Y. Srinivasan"
+ <kys@microsoft.com>, Lars-Peter Clausen <lars@metafoo.de>, Lee Jones
+ <lee.jones@linaro.org>,  Leon Romanovsky <leon@kernel.org>, Liam Girdwood
+ <lgirdwood@gmail.com>,  linux1394-devel@lists.sourceforge.net,
+ linux-afs@lists.infradead.org,  linux-arm-kernel@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org,  linux-bluetooth@vger.kernel.org,
+ linux-hardening@vger.kernel.org,  linux-hyperv@vger.kernel.org,
+ linux-integrity@vger.kernel.org,  linux-rdma@vger.kernel.org,
+ linux-scsi@vger.kernel.org,  linux-security-module@vger.kernel.org,
+ linux-usb@vger.kernel.org,  linux-wireless@vger.kernel.org,
+ linux-xtensa@linux-xtensa.org,  llvm@lists.linux.dev, Loic Poulain
+ <loic.poulain@linaro.org>, Louis Peens <louis.peens@corigine.com>, Luca
+ Coelho <luciano.coelho@intel.com>, Luiz Augusto von Dentz
+ <luiz.dentz@gmail.com>, Marc Dionne <marc.dionne@auristor.com>, Marcel
+ Holtmann <marcel@holtmann.org>,  Mark Brown <broonie@kernel.org>, "Martin
+ K. Petersen" <martin.petersen@oracle.com>, Max Filippov
+ <jcmvbkbc@gmail.com>, Mimi Zohar <zohar@linux.ibm.com>, Muchun Song
+ <songmuchun@bytedance.com>, Nathan Chancellor <nathan@kernel.org>, 
+ netdev@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>, Nuno
+ =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Paolo Abeni
+ <pabeni@redhat.com>, Paul Moore <paul@paul-moore.com>, Rich Felker
+ <dalias@aerifal.cx>, Rob Herring <robh+dt@kernel.org>, Russell King
+ <linux@armlinux.org.uk>,  selinux@vger.kernel.org, "Serge E. Hallyn"
+ <serge@hallyn.com>,  SHA-cyfmac-dev-list@infineon.com, Simon Horman
+ <simon.horman@corigine.com>,  Stefano Stabellini <sstabellini@kernel.org>,
+ Stefan Richter <stefanr@s5r6.in-berlin.de>, Steffen Klassert
+ <steffen.klassert@secunet.com>, Stephen Hemminger <sthemmin@microsoft.com>,
+  Stephen Smalley <stephen.smalley.work@gmail.com>, Takashi Iwai
+ <tiwai@suse.com>, Tom Rix <trix@redhat.com>,  Udipto Goswami
+ <quic_ugoswami@quicinc.com>, wcn36xx@lists.infradead.org, Wei Liu
+ <wei.liu@kernel.org>,  xen-devel@lists.xenproject.org, Xiu Jianfeng
+ <xiujianfeng@huawei.com>, Yang Yingliang <yangyingliang@huawei.com>,
+ kvalo@kernel.org
+Date: Wed, 04 May 2022 09:25:56 +0200
+In-Reply-To: <20220504014440.3697851-3-keescook@chromium.org>
+References: <20220504014440.3697851-1-keescook@chromium.org>
+	 <20220504014440.3697851-3-keescook@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.42.4 (3.42.4-2.fc35) 
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB7185
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DBAEUR03FT058.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	be50143c-8ba4-410e-73fb-08da2d9f4aef
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	B78BJoJqSdYnDwaa2oB2pdlHkrsQNZNlEP4ukFFSftoaGgVR6CE0oxqXbe9Q0Abr/TAHumEDRwmNL+Xm2a+GNSIJZ+QUikXdhkiSjiu1nbl2uEzvffPV9xIzD7ci6weFLLhix5Z+rS/Q8ydRNTHui+0x23IFK37ySQgcrGVx6JCfTJsCWXXDxIR682fus6sY95vC8azxyyFcJO9KUfOtaSEKns32HtgK2CQvkGgCQX1NuORIXHRzRuo86B4dd6Fpups5pQ/xq6p2+pW99kvpUbLbAQhN5ML5Fgx+F/XeO8aX30jb1XvZOWIp5nCf2g0TrG740TSNkuKJIHk5Nfd1rAcb9lTQork7dTUbDJ/NfaJOWsp8RXsIv2YKfD28S7NOebd/GSyKhGquPDuIHN8RIc7zi3zSTe4D4nDFqKu3QepU2JBVKeos5KYMVlgKxTqSpxyqlUvNKIm2CrdorxgIAEx0gVdq2ANpis1U17v9OwnKkYwE5YheGG2uHTh/YIL6Qq6RaIyncjU/p8n+vzHxfmQZfta4d6Ki65LveHsTPnNGWIOxZvTtmDjiJYcBmJnxQfPFOxn/wWdhK6vpMrAuje+p49b4p0sVqTEAnCSYnIyQ4N1QJushzLXF88XfbCnywW6EAhvcYhcC7IrwmDQkq7C2Ufm8Hh1hE67V7WsE3Yhqnc0OU72rPOIp4s43239a
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(33656002)(47076005)(316002)(5660300002)(6486002)(36860700001)(86362001)(336012)(2906002)(8936002)(186003)(26005)(4744005)(6506007)(54906003)(508600001)(53546011)(6512007)(83380400001)(107886003)(82310400005)(356005)(2616005)(81166007)(4326008)(40460700003)(6862004)(36756003)(8676002)(70586007)(70206006);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2022 07:25:49.1880
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88c2c7f4-c006-483f-1117-08da2d9f5007
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DBAEUR03FT058.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB7177
+Content-Transfer-Encoding: 7bit
+X-malware-bazaar: not-scanned
 
-Hi Julien,
+On Tue, 2022-05-03 at 18:44 -0700, Kees Cook wrote:
+> 
+> For example, using the most complicated helper, mem_to_flex_dup():
+> 
+>     /* Flexible array struct with members identified. */
+>     struct something {
+>         int mode;
+>         DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(int, how_many);
+>         unsigned long flags;
+>         DECLARE_FLEX_ARRAY_ELEMENTS(u32, value);
 
-> On 3 May 2022, at 19:17, Julien Grall <julien@xen.org> wrote:
->=20
-> Hi Bertrand,
->=20
-> On 03/05/2022 10:38, Bertrand Marquis wrote:
->> SMCC_WORKAROUND_3 is handling both Spectre v2 and spectre BHB.
->> So when a guest is asking if we support workaround 1, tell yes if we
->> apply workaround 3 on exception entry as it handles it.
->> This will allow guests not supporting Spectre BHB but impacted by
->> spectre v2 to still handle it correctly.
->> The modified behaviour is coherent with what the Linux kernel does in
->> KVM for guests.
->> While there use ARM_SMCCC_SUCCESS instead of 0 for the return code value
->> for workaround detection to be coherent with Workaround 2 handling.
->> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
->=20
-> Acked-by: Julien Grall <jgrall@amazon.com>
+In many cases, the order of the elements doesn't really matter, so maybe
+it'd be nicer to be able to write it as something like
 
-Thanks
+DECLARE_FLEX_STRUCT(something,
+	int mode;
+	unsigned long flags;
+	,
+	int, how_many,
+	u32, value);
 
->=20
-> I think we should also consider for backport.
+perhaps? OK, that doesn't seem so nice either.
 
-Agree.
+Maybe
 
-Cheers
-Bertrand
+struct something {
+	int mode;
+	unsigned long flags;
+	FLEX_ARRAY(
+		int, how_many,
+		u32, value
+	);
+};
 
->=20
-> Cheers,
->=20
-> --=20
-> Julien Grall
+or so? The long and duplicated DECLARE_FLEX_ARRAY_ELEMENTS_COUNT and
+DECLARE_FLEX_ARRAY_ELEMENTS seems a bit tedious to me, at least in cases
+where the struct layout is not the most important thing (or it's already
+at the end anyway).
 
+
+>     struct something *instance = NULL;
+>     int rc;
+> 
+>     rc = mem_to_flex_dup(&instance, byte_array, count, GFP_KERNEL);
+>     if (rc)
+>         return rc;
+
+This seems rather awkward, having to set it to NULL, then checking rc
+(and possibly needing a separate variable for it), etc.
+
+But I can understand how you arrived at this:
+ - need to pass instance or &instance or such for typeof()
+   or offsetof() or such
+ - instance = mem_to_flex_dup(instance, ...)
+   looks too much like it would actually dup 'instance', rather than
+   'byte_array'
+ - if you pass &instance anyway, checking for NULL is simple and adds a
+   bit of safety
+
+but still, honestly, I don't like it. As APIs go, it feels a bit
+cumbersome and awkward to use, and you really need everyone to use this,
+and not say "uh what, I'll memcpy() instead".
+
+Maybe there should also be a realloc() version of it?
+
+
+> +/** __fas_bytes - Calculate potential size of flexible array structure
+
+I think you forgot "\n *" in many cases here after "/**".
+
+johannes
 
