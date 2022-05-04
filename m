@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5BE951970E
-	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 07:50:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.320330.540999 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DE58519770
+	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 08:35:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.320328.541017 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm7t4-0005MT-6F; Wed, 04 May 2022 05:49:22 +0000
+	id 1nm8ab-0002Iu-Ph; Wed, 04 May 2022 06:34:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 320330.540999; Wed, 04 May 2022 05:49:22 +0000
+Received: by outflank-mailman (output) from mailman id 320328.541017; Wed, 04 May 2022 06:34:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm7t4-0005KQ-3M; Wed, 04 May 2022 05:49:22 +0000
-Received: by outflank-mailman (input) for mailman id 320330;
- Wed, 04 May 2022 05:49:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=536T=VM=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1nm7t1-0005KK-Ul
- for xen-devel@lists.xenproject.org; Wed, 04 May 2022 05:49:20 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id efe7d668-cb6d-11ec-8fc4-03012f2f19d4;
- Wed, 04 May 2022 07:49:18 +0200 (CEST)
-Received: by mail-lf1-x12f.google.com with SMTP id x17so540720lfa.10
- for <xen-devel@lists.xenproject.org>; Tue, 03 May 2022 22:49:18 -0700 (PDT)
-Received: from jade.urgonet (h-79-136-84-253.A175.priv.bahnhof.se.
- [79.136.84.253]) by smtp.gmail.com with ESMTPSA id
- t7-20020ac24c07000000b0047255d210f7sm1116784lfq.38.2022.05.03.22.49.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 May 2022 22:49:16 -0700 (PDT)
+	id 1nm8ab-0002GG-Mb; Wed, 04 May 2022 06:34:21 +0000
+Received: by outflank-mailman (input) for mailman id 320328;
+ Wed, 04 May 2022 05:43:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=enS8=VM=kernel.org=kvalo@srs-se1.protection.inumbo.net>)
+ id 1nm7nD-0005FP-4y
+ for xen-devel@lists.xenproject.org; Wed, 04 May 2022 05:43:19 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 190212bb-cb6d-11ec-a406-831a346695d4;
+ Wed, 04 May 2022 07:43:17 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 93BAFB8223A;
+ Wed,  4 May 2022 05:43:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1EF2C385A5;
+ Wed,  4 May 2022 05:42:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,109 +43,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: efe7d668-cb6d-11ec-8fc4-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=hnuRMXxh5aQGAD1Jx6BN0KvTPVXOtPiamofA9IF2SH4=;
-        b=Lo85xaqPggn9ooAYY+cHhZ3i0SF/lO7zTZFn6zxJtV3orxZPMiasR4zs+B/CBT7c5f
-         y7kionomVlhujBfeARorySQBgbGKCoBF5mee7k7hgHIYvA+gwP1HJiZCkuZ7Ugfg9o/k
-         kLxl5vMOAUKzbrJivafe6dw+fcWm6b/8tMenIrbSKTbxgiccRi/OPW7ONb/bY6MJuDE7
-         FBfeD1VlJKmWLJy1OvvmPpDBKoda+JjRu2kfuApWiZh4HOy7rJqMAy3nT5Ns1/E5r2pt
-         uJq4ysd9XrpfLjq4pf6Tgs3Vo77bljtwyvrMVsFesGBjFUxvgHrW+FGE0S5kQTEhik2v
-         zWQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=hnuRMXxh5aQGAD1Jx6BN0KvTPVXOtPiamofA9IF2SH4=;
-        b=R9RuVb2EUuGPtlFAgRv2eTuD3ycXt7wbqzDVIp7XYvCA9P69r0MyicA8wVkbyNQ9CH
-         mT8L/FHUGPYqG10DcFDzvpgO7lhc2mzXeCeWojUvVfygSSjHaqPImNideYWcAaS0fSoR
-         dXnZyiW5PNzNEHJNa3X7zZAdR/wIJ248bWKa1lvwBazjFiaqzzcBeMKwq34wMpoy1UoP
-         AGEeNHZelJSQ4/BzT7sl4LMS+hFLpcTarpu4tJsus5HMvnrNgImhF5SIMQ7BNFlWyy7C
-         Fso91wL9BCzcnrjgNsh67ele8GIqI14TLc/+XaEOYEfF6c7Xg1Q156HYF6fV9QX/x+I0
-         JgEA==
-X-Gm-Message-State: AOAM533ligtReN8x78+7SdfdjAjdaYK/a+pLpdsILd4YiHSoiKkbDQUR
-	9N3HDZNHAivtfSwf/wuSzxw0S/ZtRUyVRw==
-X-Google-Smtp-Source: ABdhPJzfPaIq44pZy65eLPYJDGAlkEn8nDBePwG0XSIDFOBmAsrqAjHTt5Ke5wFv5ZvmAxl+Eg/IWw==
-X-Received: by 2002:a05:6512:128f:b0:473:a2ec:5df6 with SMTP id u15-20020a056512128f00b00473a2ec5df6mr5696351lfs.196.1651643357330;
-        Tue, 03 May 2022 22:49:17 -0700 (PDT)
-From: Jens Wiklander <jens.wiklander@linaro.org>
-To: xen-devel@lists.xenproject.org
-Cc: Jens Wiklander <jens.wiklander@linaro.org>,
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>
-Subject: [PATCH] optee: immediately free RPC buffers that are released by OP-TEE
-Date: Wed,  4 May 2022 07:49:12 +0200
-Message-Id: <287f81d7cec66b5ef1f8f3f61679b9593e2b81d4.1651643156.git.jens.wiklander@linaro.org>
-X-Mailer: git-send-email 2.31.1
+X-Inumbo-ID: 190212bb-cb6d-11ec-a406-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1651642995;
+	bh=JrTxy6eXsiDtGM/F/9OTUVdSC11/W1yM6qcTiJhEEWY=;
+	h=From:To:Cc:Subject:References:Date:In-Reply-To:From;
+	b=ptNmZdYs+o6KHSEb902G1QgyncrLgIYxwRjyZ9+W9VTxnFGJHKAdTcbe0JtEXzd4l
+	 aYwCxztA+GFA6BxNwpRJ+fwdrhYF+K4ZZZLdzPKi8lBBWFO/VNZwdIAlyDMFIxmOWz
+	 hAmvQ+5DrbHNQghYSGB1afStWvfnMlPcYreVpeGPzS9YPA/9Y4p/yFDlQcLqjzbi/7
+	 oTPIz0yt7M1rWvdVDxqtNaenj2/snIMXH2fVjjBqgI4xeMRFMaS+uomXQ38nO6fIxg
+	 l9QT60aMp2PNBolRmvUG9+MmaPk4GD+QjG/dwTaQmabfDmxvYb7M7hfSFb2fcWpc9I
+	 jV5YMv8gNlmpA==
+From: Kalle Valo <kvalo@kernel.org>
+To: Kees Cook <keescook@chromium.org>
+Cc: "Gustavo A . R . Silva" <gustavoars@kernel.org>,  Loic Poulain
+ <loic.poulain@linaro.org>,  "David S. Miller" <davem@davemloft.net>,  Eric
+ Dumazet <edumazet@google.com>,  Jakub Kicinski <kuba@kernel.org>,  Paolo
+ Abeni <pabeni@redhat.com>,  wcn36xx@lists.infradead.org,
+  linux-wireless@vger.kernel.org,  netdev@vger.kernel.org,  Alexei
+ Starovoitov <ast@kernel.org>,  alsa-devel@alsa-project.org,  Al Viro
+ <viro@zeniv.linux.org.uk>,  Andrew Gabbasov <andrew_gabbasov@mentor.com>,
+  Andrew Morton <akpm@linux-foundation.org>,  Andy Gross
+ <agross@kernel.org>,  Andy Lavr <andy.lavr@gmail.com>,  Arend van Spriel
+ <aspriel@gmail.com>,  Baowen Zheng <baowen.zheng@corigine.com>,  Bjorn
+ Andersson <bjorn.andersson@linaro.org>,  Boris Ostrovsky
+ <boris.ostrovsky@oracle.com>,  Bradley Grove <linuxdrivers@attotech.com>,
+  brcm80211-dev-list.pdl@broadcom.com,  Christian Brauner
+ <brauner@kernel.org>,  Christian =?utf-8?Q?G=C3=B6ttsche?=
+ <cgzones@googlemail.com>,
+  Christian Lamparter <chunkeey@googlemail.com>,  Chris Zankel
+ <chris@zankel.net>,  Cong Wang <cong.wang@bytedance.com>,  Daniel Axtens
+ <dja@axtens.net>,  Daniel Vetter <daniel.vetter@ffwll.ch>,  Dan Williams
+ <dan.j.williams@intel.com>,  David Gow <davidgow@google.com>,  David
+ Howells <dhowells@redhat.com>,  Dennis Dalessandro
+ <dennis.dalessandro@cornelisnetworks.com>,  devicetree@vger.kernel.org,
+  Dexuan Cui <decui@microsoft.com>,  Dmitry Kasatkin
+ <dmitry.kasatkin@gmail.com>,  Eli Cohen <elic@nvidia.com>,  Eric Paris
+ <eparis@parisplace.org>,  Eugeniu Rosca <erosca@de.adit-jv.com>,  Felipe
+ Balbi <balbi@kernel.org>,  Francis Laniel
+ <laniel_francis@privacyrequired.com>,  Frank Rowand
+ <frowand.list@gmail.com>,  Franky Lin <franky.lin@broadcom.com>,  Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>,  Gregory Greenman
+ <gregory.greenman@intel.com>,  Guenter Roeck <linux@roeck-us.net>,
+  Haiyang Zhang <haiyangz@microsoft.com>,  Hante Meuleman
+ <hante.meuleman@broadcom.com>,  Herbert Xu <herbert@gondor.apana.org.au>,
+  Hulk Robot <hulkci@huawei.com>,  "James E.J. Bottomley"
+ <jejb@linux.ibm.com>,  James Morris <jmorris@namei.org>,  Jarkko Sakkinen
+ <jarkko@kernel.org>,  Jaroslav Kysela <perex@perex.cz>,  Jason Gunthorpe
+ <jgg@ziepe.ca>,  Jens Axboe <axboe@kernel.dk>,  Johan Hedberg
+ <johan.hedberg@gmail.com>,  Johannes Berg <johannes.berg@intel.com>,
+  Johannes Berg <johannes@sipsolutions.net>,  John Keeping
+ <john@metanate.com>,  Juergen Gross <jgross@suse.com>,  Keith Packard
+ <keithp@keithp.com>,  keyrings@vger.kernel.org,
+  kunit-dev@googlegroups.com,  Kuniyuki Iwashima <kuniyu@amazon.co.jp>,
+  "K. Y. Srinivasan" <kys@microsoft.com>,  Lars-Peter Clausen
+ <lars@metafoo.de>,  Lee Jones <lee.jones@linaro.org>,  Leon Romanovsky
+ <leon@kernel.org>,  Liam Girdwood <lgirdwood@gmail.com>,
+  linux1394-devel@lists.sourceforge.net,  linux-afs@lists.infradead.org,
+  linux-arm-kernel@lists.infradead.org,  linux-arm-msm@vger.kernel.org,
+  linux-bluetooth@vger.kernel.org,  linux-hardening@vger.kernel.org,
+  linux-hyperv@vger.kernel.org,  linux-integrity@vger.kernel.org,
+  linux-rdma@vger.kernel.org,  linux-scsi@vger.kernel.org,
+  linux-security-module@vger.kernel.org,  linux-usb@vger.kernel.org,
+  linux-xtensa@linux-xtensa.org,  llvm@lists.linux.dev,  Louis Peens
+ <louis.peens@corigine.com>,  Luca Coelho <luciano.coelho@intel.com>,  Luiz
+ Augusto von Dentz <luiz.dentz@gmail.com>,  Marc Dionne
+ <marc.dionne@auristor.com>,  Marcel Holtmann <marcel@holtmann.org>,  Mark
+ Brown <broonie@kernel.org>,  "Martin K. Petersen"
+ <martin.petersen@oracle.com>,  Max Filippov <jcmvbkbc@gmail.com>,  Mimi
+ Zohar <zohar@linux.ibm.com>,  Muchun Song <songmuchun@bytedance.com>,
+  Nathan Chancellor <nathan@kernel.org>,  Nick Desaulniers
+ <ndesaulniers@google.com>,  Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>,
+  Paul Moore
+ <paul@paul-moore.com>,  Rich Felker <dalias@aerifal.cx>,  Rob Herring
+ <robh+dt@kernel.org>,  Russell King <linux@armlinux.org.uk>,
+  selinux@vger.kernel.org,  "Serge E. Hallyn" <serge@hallyn.com>,
+  SHA-cyfmac-dev-list@infineon.com,  Simon Horman
+ <simon.horman@corigine.com>,  Stefano Stabellini <sstabellini@kernel.org>,
+  Stefan Richter <stefanr@s5r6.in-berlin.de>,  Steffen Klassert
+ <steffen.klassert@secunet.com>,  Stephen Hemminger
+ <sthemmin@microsoft.com>,  Stephen Smalley
+ <stephen.smalley.work@gmail.com>,  Tadeusz Struk
+ <tadeusz.struk@linaro.org>,  Takashi Iwai <tiwai@suse.com>,  Tom Rix
+ <trix@redhat.com>,  Udipto Goswami <quic_ugoswami@quicinc.com>,  Vincenzo
+ Frascino <vincenzo.frascino@arm.com>,  Wei Liu <wei.liu@kernel.org>,
+  xen-devel@lists.xenproject.org,  Xiu Jianfeng <xiujianfeng@huawei.com>,
+  Yang Yingliang <yangyingliang@huawei.com>
+Subject: Re: [PATCH 10/32] wcn36xx: Use mem_to_flex_dup() with struct wcn36xx_hal_ind_msg
+References: <20220504014440.3697851-1-keescook@chromium.org>
+	<20220504014440.3697851-11-keescook@chromium.org>
+Date: Wed, 04 May 2022 08:42:46 +0300
+In-Reply-To: <20220504014440.3697851-11-keescook@chromium.org> (Kees Cook's
+	message of "Tue, 3 May 2022 18:44:19 -0700")
+Message-ID: <8735hpc0q1.fsf@kernel.org>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.1 (gnu/linux)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-This commit fixes a case overlooked in [1].
+Kees Cook <keescook@chromium.org> writes:
 
-There are two kinds of shared memory buffers used by OP-TEE:
-1. Normal payload buffer
-2. Internal command structure buffers
+> As part of the work to perform bounds checking on all memcpy() uses,
+> replace the open-coded a deserialization of bytes out of memory into a
+> trailing flexible array by using a flex_array.h helper to perform the
+> allocation, bounds checking, and copying.
+>
+> Cc: Loic Poulain <loic.poulain@linaro.org>
+> Cc: Kalle Valo <kvalo@kernel.org>
+> Cc: "David S. Miller" <davem@davemloft.net>
+> Cc: Eric Dumazet <edumazet@google.com>
+> Cc: Jakub Kicinski <kuba@kernel.org>
+> Cc: Paolo Abeni <pabeni@redhat.com>
+> Cc: wcn36xx@lists.infradead.org
+> Cc: linux-wireless@vger.kernel.org
+> Cc: netdev@vger.kernel.org
+> Signed-off-by: Kees Cook <keescook@chromium.org>
 
-The internal command structure buffers are represented with a shadow
-copy internally in Xen since this buffer can contain physical addresses
-that may need to be translated between real physical address and guest
-physical address without leaking information to the guest.
+[...]
 
-[1] fixes the problem when releasing the normal payload buffers. The
-internal command structure buffers must be released in the same way.
-Failure to follow this order opens a window where the guest has freed
-the shared memory but Xen is still tracking the buffer.
+> --- a/drivers/net/wireless/ath/wcn36xx/smd.h
+> +++ b/drivers/net/wireless/ath/wcn36xx/smd.h
+> @@ -46,8 +46,8 @@ struct wcn36xx_fw_msg_status_rsp {
+>  
+>  struct wcn36xx_hal_ind_msg {
+>  	struct list_head list;
+> -	size_t msg_len;
+> -	u8 msg[];
+> +	DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(size_t, msg_len);
+> +	DECLARE_FLEX_ARRAY_ELEMENTS(u8, msg);
 
-During this window the guest may happen to recycle this particular
-shared memory in some other thread and try to use it. Xen will block
-this which will lead to spurious failures to register a new shared
-memory block.
+This affects readability quite a lot and tbh I don't like it. Isn't
+there any simpler way to solve this?
 
-Fix this by freeing the internal command structure buffers first before
-informing the guest that the buffer can be freed.
-
-[1] 5b13eb1d978e ("optee: immediately free buffers that are released by OP-TEE")
-
-Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
----
- xen/arch/arm/tee/optee.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
-
-diff --git a/xen/arch/arm/tee/optee.c b/xen/arch/arm/tee/optee.c
-index 8a39fe33b0ef..539a862fd185 100644
---- a/xen/arch/arm/tee/optee.c
-+++ b/xen/arch/arm/tee/optee.c
-@@ -1149,6 +1149,11 @@ static int handle_rpc_return(struct optee_domain *ctx,
-             call->rpc_data_cookie = 0;
-         }
-         unmap_domain_page(shm_rpc->xen_arg);
-+    } else if ( call->rpc_op == OPTEE_SMC_RPC_FUNC_FREE ) {
-+        uint64_t cookie = regpair_to_uint64(get_user_reg(regs, 1),
-+                                            get_user_reg(regs, 2));
-+
-+        free_shm_rpc(ctx, cookie);
-     }
- 
-     return ret;
-@@ -1598,13 +1603,6 @@ static void handle_rpc(struct optee_domain *ctx, struct cpu_user_regs *regs)
-     case OPTEE_SMC_RPC_FUNC_ALLOC:
-         handle_rpc_func_alloc(ctx, regs, call);
-         return;
--    case OPTEE_SMC_RPC_FUNC_FREE:
--    {
--        uint64_t cookie = regpair_to_uint64(call->rpc_params[0],
--                                            call->rpc_params[1]);
--        free_shm_rpc(ctx, cookie);
--        break;
--    }
-     case OPTEE_SMC_RPC_FUNC_FOREIGN_INTR:
-         break;
-     case OPTEE_SMC_RPC_FUNC_CMD:
 -- 
-2.31.1
+https://patchwork.kernel.org/project/linux-wireless/list/
 
+https://wireless.wiki.kernel.org/en/developers/documentation/submittingpatches
 
