@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1F465196DF
-	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 07:17:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.320073.540900 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BBA85196DD
+	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 07:17:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.320067.540875 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm7Nq-0000Wp-Ag; Wed, 04 May 2022 05:17:06 +0000
+	id 1nm7Nl-0007mb-QX; Wed, 04 May 2022 05:17:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 320073.540900; Wed, 04 May 2022 05:17:05 +0000
+Received: by outflank-mailman (output) from mailman id 320067.540875; Wed, 04 May 2022 05:17:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm7No-0008Mf-Tb; Wed, 04 May 2022 05:17:04 +0000
-Received: by outflank-mailman (input) for mailman id 320073;
- Wed, 04 May 2022 01:57:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nm7Nk-0007K0-DH; Wed, 04 May 2022 05:17:00 +0000
+Received: by outflank-mailman (input) for mailman id 320067;
+ Wed, 04 May 2022 01:57:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Rvwn=VM=chromium.org=keescook@srs-se1.protection.inumbo.net>)
- id 1nm4H0-0000D6-4v
- for xen-devel@lists.xenproject.org; Wed, 04 May 2022 01:57:50 +0000
-Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
- [2607:f8b0:4864:20::102e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 986eb06b-cb4d-11ec-a406-831a346695d4;
- Wed, 04 May 2022 03:57:48 +0200 (CEST)
-Received: by mail-pj1-x102e.google.com with SMTP id
- cu23-20020a17090afa9700b001d98d8e53b7so3028087pjb.0
- for <xen-devel@lists.xenproject.org>; Tue, 03 May 2022 18:57:48 -0700 (PDT)
+ id 1nm4Gy-0000DU-Id
+ for xen-devel@lists.xenproject.org; Wed, 04 May 2022 01:57:48 +0000
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
+ [2607:f8b0:4864:20::633])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 98157bd0-cb4d-11ec-8fc4-03012f2f19d4;
+ Wed, 04 May 2022 03:57:47 +0200 (CEST)
+Received: by mail-pl1-x633.google.com with SMTP id d15so185970plh.2
+ for <xen-devel@lists.xenproject.org>; Tue, 03 May 2022 18:57:47 -0700 (PDT)
 Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
  by smtp.gmail.com with ESMTPSA id
- h3-20020a17090a2ec300b001cd4989ff50sm2000264pjs.23.2022.05.03.18.57.45
+ c136-20020a63358e000000b003c14af5063bsm13937195pga.83.2022.05.03.18.57.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 May 2022 18:57:46 -0700 (PDT)
+ Tue, 03 May 2022 18:57:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,38 +44,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 986eb06b-cb4d-11ec-a406-831a346695d4
+X-Inumbo-ID: 98157bd0-cb4d-11ec-8fc4-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=chromium.org; s=google;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=Lxy/SBBLbAnketd1perUQv/dnI2mQxvvkPs8DufKeQc=;
-        b=i0Oww6FXAlmLjZL2Xo7+cZyQbZSuVhJcrUz8A4NqwsB3mnE9GxrQbFM3pG+OqIOvr/
-         bRoZsADS+tsQKhBZ6qjjGQ8wPq6NgM7w5LLDy+9US9EqrP5Wl9gOulV8iAxG2VM68w2h
-         ys5/rKlySYl9/8SCzquZGEIldbBkfJX1v+C7U=
+        bh=rmxrp/UxOFb8piH92Vxf3rNJk8bX2cfzoG0Wa8qHsPs=;
+        b=M/yQls1bpyaiOjU76efK5Yp3KeWPaKFU4zmgVp0hnDPVEvcbG0Yr2VZsk9GtUI6EW2
+         P3x8PrWJUASQzTlrmV7uEWLEbManT0y+Zg+pt3XuYEBjyOBd/MkDra9+mVvndIuuMdNV
+         ADaMqJRFecvzQ2p2BbgcShyTVJWmeZm5rse6o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=Lxy/SBBLbAnketd1perUQv/dnI2mQxvvkPs8DufKeQc=;
-        b=EdVd9xBsBghjWCO/6BEus3D5/GlqaJufiu6wXcOo8Ccquewd8q54Rj1veXpQOkts0l
-         OjmUYkKbRJEce0HFhgKmzs/BA16KuDn6DZo4fvUB0F/YS1KAkaLnTPqD+XzhhlJRWRSb
-         3zJ0Z1QqG/dpVwGfTcYJzmOU5evz1uTs5f28wjPQkrDp2Bv8MjRu7ckq41xtVy6mPDnc
-         ARthPSifuN7OHlVTGXBC0ML0F4x9DjAQUfDAmLz8Z21EGb3SMdaYPGj+voNDzWPs/5wl
-         wWtLjtfNso4oW4DXBSL21tboFHKE6DL3RKg2mZPsZUOnWnmj2naKTuM7GN/5F3fhUZBs
-         TFjA==
-X-Gm-Message-State: AOAM530EFvac6KvlJ+5uV7Zd1iRGA0fM5zhrWclEclH8ehb7nYvtZPwI
-	UwkL6SuzVLgKUt+WscSyENj7zQ==
-X-Google-Smtp-Source: ABdhPJwkCJiyloqnUC98ULA8VGwgD2gCblOMTFYJlDNNyWPyHvD0nLQtaW1YAKVPNQXc+1bJk4N22Q==
-X-Received: by 2002:a17:903:2281:b0:15e:95f7:37d1 with SMTP id b1-20020a170903228100b0015e95f737d1mr16432450plh.18.1651629466697;
+        bh=rmxrp/UxOFb8piH92Vxf3rNJk8bX2cfzoG0Wa8qHsPs=;
+        b=ERZBBA4T2e+lSiNt3oxi11fhKzxhUgQPUS2jxCKUlfMe/u+bWQ6YIM4pGsT8/gZ9B2
+         W9kqLAdkZ4V6oCMXpzrhzgnNbaY5+Hokvep1bo3jcrCNtTUFcFss/ichGWA6cbg4/jNt
+         ufZikIfgtJ0N3zghfrJdIGCuwbzWqAoTbUsnzOCAUwcnU4QNE1PuNWbP5ZceEEJetlHG
+         g48rT0logPfN4iRsiFx8xk1LUErM8d9+d06OvbOMPw2m1gBfHj19OPKg0kYKw6sL7jIz
+         bEvK/TtadS9ROyW+apylnQCDxko/NQgssjjS240Pz+btlOkQJkeFMn3fOo6KIISQ+x/h
+         3T0g==
+X-Gm-Message-State: AOAM532UbviZdt7vWZsvRKeeCy8hvv7d0WErfSP7TquIcwUa4ptJ+xFH
+	JP4JhhtjcuIlqS80TtN0PQOw/w==
+X-Google-Smtp-Source: ABdhPJzsaAMZFIEH9aJDz9g66+jgdQsHq+yoVh8YzAJHoTu87D8ChQb63hX2VO7VJEySpHJexGyYWQ==
+X-Received: by 2002:a17:903:2350:b0:15e:93de:763a with SMTP id c16-20020a170903235000b0015e93de763amr16789834plh.117.1651629466084;
         Tue, 03 May 2022 18:57:46 -0700 (PDT)
 From: Kees Cook <keescook@chromium.org>
 To: "Gustavo A . R . Silva" <gustavoars@kernel.org>
 Cc: Kees Cook <keescook@chromium.org>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org,
+	Bradley Grove <linuxdrivers@attotech.com>,
+	"James E.J. Bottomley" <jejb@linux.ibm.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	linux-scsi@vger.kernel.org,
 	Alexei Starovoitov <ast@kernel.org>,
 	alsa-devel@alsa-project.org,
 	Al Viro <viro@zeniv.linux.org.uk>,
@@ -87,7 +86,7 @@ Cc: Kees Cook <keescook@chromium.org>,
 	Arend van Spriel <aspriel@gmail.com>,
 	Baowen Zheng <baowen.zheng@corigine.com>,
 	Bjorn Andersson <bjorn.andersson@linaro.org>,
-	Bradley Grove <linuxdrivers@attotech.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
 	brcm80211-dev-list.pdl@broadcom.com,
 	Christian Brauner <brauner@kernel.org>,
 	=?UTF-8?q?Christian=20G=C3=B6ttsche?= <cgzones@googlemail.com>,
@@ -120,7 +119,6 @@ Cc: Kees Cook <keescook@chromium.org>,
 	Herbert Xu <herbert@gondor.apana.org.au>,
 	Hulk Robot <hulkci@huawei.com>,
 	Jakub Kicinski <kuba@kernel.org>,
-	"James E.J. Bottomley" <jejb@linux.ibm.com>,
 	James Morris <jmorris@namei.org>,
 	Jarkko Sakkinen <jarkko@kernel.org>,
 	Jaroslav Kysela <perex@perex.cz>,
@@ -130,6 +128,7 @@ Cc: Kees Cook <keescook@chromium.org>,
 	Johannes Berg <johannes.berg@intel.com>,
 	Johannes Berg <johannes@sipsolutions.net>,
 	John Keeping <john@metanate.com>,
+	Juergen Gross <jgross@suse.com>,
 	Kalle Valo <kvalo@kernel.org>,
 	Keith Packard <keithp@keithp.com>,
 	keyrings@vger.kernel.org,
@@ -149,7 +148,6 @@ Cc: Kees Cook <keescook@chromium.org>,
 	linux-hyperv@vger.kernel.org,
 	linux-integrity@vger.kernel.org,
 	linux-rdma@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
 	linux-security-module@vger.kernel.org,
 	linux-usb@vger.kernel.org,
 	linux-wireless@vger.kernel.org,
@@ -162,7 +160,6 @@ Cc: Kees Cook <keescook@chromium.org>,
 	Marc Dionne <marc.dionne@auristor.com>,
 	Marcel Holtmann <marcel@holtmann.org>,
 	Mark Brown <broonie@kernel.org>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
 	Max Filippov <jcmvbkbc@gmail.com>,
 	Mimi Zohar <zohar@linux.ibm.com>,
 	Muchun Song <songmuchun@bytedance.com>,
@@ -179,6 +176,7 @@ Cc: Kees Cook <keescook@chromium.org>,
 	"Serge E. Hallyn" <serge@hallyn.com>,
 	SHA-cyfmac-dev-list@infineon.com,
 	Simon Horman <simon.horman@corigine.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
 	Stefan Richter <stefanr@s5r6.in-berlin.de>,
 	Steffen Klassert <steffen.klassert@secunet.com>,
 	Stephen Hemminger <sthemmin@microsoft.com>,
@@ -190,72 +188,71 @@ Cc: Kees Cook <keescook@chromium.org>,
 	Vincenzo Frascino <vincenzo.frascino@arm.com>,
 	wcn36xx@lists.infradead.org,
 	Wei Liu <wei.liu@kernel.org>,
+	xen-devel@lists.xenproject.org,
 	Xiu Jianfeng <xiujianfeng@huawei.com>,
 	Yang Yingliang <yangyingliang@huawei.com>
-Subject: [PATCH 31/32] xenbus: Use mem_to_flex_dup() with struct read_buffer
-Date: Tue,  3 May 2022 18:44:40 -0700
-Message-Id: <20220504014440.3697851-32-keescook@chromium.org>
+Subject: [PATCH 32/32] esas2r: Use __mem_to_flex() with struct atto_ioctl
+Date: Tue,  3 May 2022 18:44:41 -0700
+Message-Id: <20220504014440.3697851-33-keescook@chromium.org>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220504014440.3697851-1-keescook@chromium.org>
 References: <20220504014440.3697851-1-keescook@chromium.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1723; h=from:subject; bh=Af40/wtrXz82sQZ3gkXc9sqO1MKE/dCxzKzVkZCyPBE=; b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBicdqH+KXwBf+62Kz/ptxhFXwkt9WosiEBHko2iuOB 0fcNum2JAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCYnHahwAKCRCJcvTf3G3AJvLPD/ 9BhjziZJhS9xD2GsjrelNYz/xp7Z6XtKNgFRofwy/p+e4IFCpDHMNYQmpP3WVjlkD9FyouGOGLk+Sf 0i6cJgn02GGl9DKJH1kqxbUikzY6c8wzuc6v3W7+teBaTIZXxJ4Bg0xxroKqmZVZTUvN34ouMFIb2p ++rnq2J7531VZeebMPx+6kezaUVTaUGe1VFKBUuccT4/6mp2R8HqzWVgmSai8ZyNi4Z0nnObREm+rJ u1d6VjniOCRmOGgG7QCuuF+cUE4d+Isa6moThhkOv0m//DMJYGT/djpuk6W+kWlcJs+nrsoX1AByJu zD1O0Fk/hh4ooTDaA3lQmWtVq+gJIaYvCBILFRlDcGFC0oo/EM3wXTGcFGjgMgTNiEXK62PdLF9dZf kRieucxaOIdVPYz+BN9o4ps+oSWfIYaQYOYAOwTAA01RA6l3cElUd3dfgBE1lOqQNUDIkcTD8rOm+l 8JdhxGwQaeetRebI0mGQru7qvbnW4s+raN3cR8JtJ36LlEBzqobHNRhVRK3K2dZQhOPhKgr3OWpCOE anL307TAv51pZ7CNDf9iEaZPdoVXALMDtkTpnwemX7C4Lc94fH0b/AmlH5YOCpb8DGFa9BJnGzvzbc FPmLrSOPa5hu9l1uVEcpEaQHDzIfRLtxISX0mmsQ1VLswRk+mwBJcKd8a+7w==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1840; h=from:subject; bh=wclXkCNzL8tWkFiLRsyBirHZGs1pS2ud8xMfF2Bbgys=; b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBicdqIM8CXiBVoq1vvnq9rbFmtFRUsN4irOoYa4gS1 0IJEQ2KJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCYnHaiAAKCRCJcvTf3G3AJgOdD/ sEBkA9QLnBKc64IqIq4YxEg4VNWAmPZGOznytqC/Owjod/71puJ/xtUz+R2WjO80ATXotNqfvtWe/d 9/yCjwl54Xp//OjYlRlQVLKBx2Q11FBqi4MBsooAiVirzGDDTHxmU1iuq6Wz2ZIdZlghDO60VBIerY f7y/tG7dD7LIfF4hLq69yeIQaG4gx8rz9gY1ntSTDKIZg+3A+cCuG7GHCLE4hzM9XcCNdcjNHkLLzM U6m0NaS7W7NFnR0mxnwloGXZVChfb884A/O/wC2lhgRNoxndIkrhF+x2NIhSvpQQmje9R235snuAfX mTZgHUaiYXSuSt8YrUbWAYgqP95oux1CHcGbFo6OSfvzri3R22Sizw6iJPckU4HcHFbxLD7v2eEMVp 3ECGtyv2+WAG63yJy/2YJm4mTGZKQM9ZC/lL6nR/U6EYIjrevoE7kTnSKMDTU+PS27rxgE+Rh1Hg9K ipwZmZh4bV/Xed50s1aJAocNChxua0lDl5jjP3QaZBpQGTlt8ls0YY8i1DswPFLAiSj88j/CGJOPOK +82q4/Et8Wn6QjhXmaRuef6bFcOHFRRdfpp1PZEOD91CPvnpq0Q9e/WXiAbsnkg/diZHdL5A9LVD0O L6xVqhkIsupraaLBcdxfoyPChtyfc0T1x/f55UeM/J7IkMaJAzAUEKGWn+Gg==
 X-Developer-Key: i=keescook@chromium.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
 
 As part of the work to perform bounds checking on all memcpy() uses,
 replace the open-coded a deserialization of bytes out of memory into a
 trailing flexible array by using a flex_array.h helper to perform the
-allocation, bounds checking, and copying.
+allocation, bounds checking, and copying. This requires adding the
+flexible array explicitly.
 
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: Juergen Gross <jgross@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org
+Cc: Bradley Grove <linuxdrivers@attotech.com>
+Cc: "James E.J. Bottomley" <jejb@linux.ibm.com>
+Cc: "Martin K. Petersen" <martin.petersen@oracle.com>
+Cc: linux-scsi@vger.kernel.org
 Signed-off-by: Kees Cook <keescook@chromium.org>
 ---
- drivers/xen/xenbus/xenbus_dev_frontend.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+ drivers/scsi/esas2r/atioctl.h      |  1 +
+ drivers/scsi/esas2r/esas2r_ioctl.c | 11 +++++++----
+ 2 files changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/xen/xenbus/xenbus_dev_frontend.c b/drivers/xen/xenbus/xenbus_dev_frontend.c
-index 597af455a522..4267aaef33fb 100644
---- a/drivers/xen/xenbus/xenbus_dev_frontend.c
-+++ b/drivers/xen/xenbus/xenbus_dev_frontend.c
-@@ -81,8 +81,8 @@ struct xenbus_transaction_holder {
- struct read_buffer {
- 	struct list_head list;
- 	unsigned int cons;
--	unsigned int len;
--	char msg[];
-+	DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(unsigned int, len);
-+	DECLARE_FLEX_ARRAY_ELEMENTS(char, msg);
+diff --git a/drivers/scsi/esas2r/atioctl.h b/drivers/scsi/esas2r/atioctl.h
+index ff2ad9b38575..dd3437412ffc 100644
+--- a/drivers/scsi/esas2r/atioctl.h
++++ b/drivers/scsi/esas2r/atioctl.h
+@@ -831,6 +831,7 @@ struct __packed atto_hba_trace {
+ 	u32 total_length;
+ 	u32 trace_mask;
+ 	u8 reserved2[48];
++	u8 contents[];
  };
  
- struct xenbus_file_priv {
-@@ -188,21 +188,17 @@ static ssize_t xenbus_file_read(struct file *filp,
-  */
- static int queue_reply(struct list_head *queue, const void *data, size_t len)
- {
--	struct read_buffer *rb;
-+	struct read_buffer *rb = NULL;
+ #define ATTO_FUNC_SCSI_PASS_THRU     0x04
+diff --git a/drivers/scsi/esas2r/esas2r_ioctl.c b/drivers/scsi/esas2r/esas2r_ioctl.c
+index 08f4e43c7d9e..9310b54b1575 100644
+--- a/drivers/scsi/esas2r/esas2r_ioctl.c
++++ b/drivers/scsi/esas2r/esas2r_ioctl.c
+@@ -947,11 +947,14 @@ static int hba_ioctl_callback(struct esas2r_adapter *a,
+ 					break;
+ 				}
  
- 	if (len == 0)
- 		return 0;
- 	if (len > XENSTORE_PAYLOAD_MAX)
- 		return -EINVAL;
+-				memcpy(trc + 1,
+-				       a->fw_coredump_buff + offset,
+-				       len);
++				if (__mem_to_flex(hi, data.trace.contents,
++						  data_length,
++						  a->fw_coredump_buff + offset,
++						  len)) {
++					hi->status = ATTO_STS_INV_FUNC;
++					break;
++				}
  
--	rb = kmalloc(sizeof(*rb) + len, GFP_KERNEL);
--	if (rb == NULL)
-+	if (mem_to_flex_dup(&rb, data, len, GFP_KERNEL))
- 		return -ENOMEM;
- 
- 	rb->cons = 0;
--	rb->len = len;
--
--	memcpy(rb->msg, data, len);
- 
- 	list_add_tail(&rb->list, queue);
- 	return 0;
+-				hi->data_length = len;
+ 			} else if (trc->trace_func == ATTO_TRC_TF_RESET) {
+ 				memset(a->fw_coredump_buff, 0,
+ 				       ESAS2R_FWCOREDUMP_SZ);
 -- 
 2.32.0
 
