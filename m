@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4496E5196E4
-	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 07:17:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.320097.540982 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD7835196E3
+	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 07:17:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.320099.540938 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm7OB-0005hI-M4; Wed, 04 May 2022 05:17:27 +0000
+	id 1nm7Ny-0002dQ-GR; Wed, 04 May 2022 05:17:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 320097.540982; Wed, 04 May 2022 05:17:27 +0000
+Received: by outflank-mailman (output) from mailman id 320099.540938; Wed, 04 May 2022 05:17:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm7OA-0005JO-JS; Wed, 04 May 2022 05:17:26 +0000
-Received: by outflank-mailman (input) for mailman id 320097;
- Wed, 04 May 2022 03:22:10 +0000
+	id 1nm7Nx-000231-Gf; Wed, 04 May 2022 05:17:13 +0000
+Received: by outflank-mailman (input) for mailman id 320099;
+ Wed, 04 May 2022 03:37:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ozbP=VM=kernel.org=gustavoars@srs-se1.protection.inumbo.net>)
- id 1nm5ac-0000p6-IW
- for xen-devel@lists.xenproject.org; Wed, 04 May 2022 03:22:10 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ <SRS0=Rvwn=VM=chromium.org=keescook@srs-se1.protection.inumbo.net>)
+ id 1nm5pc-0001mD-35
+ for xen-devel@lists.xenproject.org; Wed, 04 May 2022 03:37:40 +0000
+Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
+ [2607:f8b0:4864:20::634])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 615b0ec5-cb59-11ec-a406-831a346695d4;
- Wed, 04 May 2022 05:22:09 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 18892B8232A;
- Wed,  4 May 2022 03:22:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A314DC385A4;
- Wed,  4 May 2022 03:21:57 +0000 (UTC)
+ id 8afb1b8f-cb5b-11ec-a406-831a346695d4;
+ Wed, 04 May 2022 05:37:38 +0200 (CEST)
+Received: by mail-pl1-x634.google.com with SMTP id k1so329150pll.4
+ for <xen-devel@lists.xenproject.org>; Tue, 03 May 2022 20:37:38 -0700 (PDT)
+Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
+ by smtp.gmail.com with ESMTPSA id
+ k23-20020a170902ba9700b0015e8d4eb1fesm7117388pls.72.2022.05.03.20.37.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 May 2022 20:37:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,20 +44,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 615b0ec5-cb59-11ec-a406-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1651634526;
-	bh=CbH7e4NC57tInXkJXSsd/52EmX/XddNYerXxPthi51M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DIwdXVh+VV/zYYIjKLXr4Szv2+RVCJso7Yrna+VEBVSMJIQebRGfEQocYWQ9qhBs9
-	 dQhrwZuigtil9oBZ0XW5HelOufcdZFi1O1bEAbcRZ9J3x10G9yhO9l+C09ZtlmyZZw
-	 GpucC3kt0l5cbMUvCa/VeS02litV5lRqA8iw3KlM+jhY2mY8KWgoCBOGbAq/+BTRhA
-	 S5YyOElAtqNxHS/8Wxq/re4LfIWS6fv/NGLYVJZNcc3jPTL6Uv6dSAbPCH8oAPDBUW
-	 0SnkgLUJaaLFnOfHJVoL8Ba5zNeTdXKoSb3ecp2gjmvxidB+mHtoYDlFTsxQh+zp9M
-	 5qO0Pg46G3n2A==
-Date: Tue, 3 May 2022 22:31:05 -0500
-From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-To: Kees Cook <keescook@chromium.org>
+X-Inumbo-ID: 8afb1b8f-cb5b-11ec-a406-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=lsBVjxx2frcPFNjY4/BLqdzh7cys7mpO3LyMH5LAbSE=;
+        b=e/seADFb6dKCy5O35I2lb3QkGM1U1AG+HWJjIUEuWUaLYiQ/bRCqVwsL3BCOvWYEuK
+         9qpY1aU7RmqPGGBT5JUv2H6Jc6siGFaT+PVsx+FN+n4iHis5NM0gOyiK9HY2IIWzLhh4
+         mk3V/alwvU0/DDln8pB7kZALicerW3KUceFLU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=lsBVjxx2frcPFNjY4/BLqdzh7cys7mpO3LyMH5LAbSE=;
+        b=UQoKhUhj8O9oTA6ogw3q2AFB5K5XaCYhdY7KmHXn6oABR2dfhGCQXHu+0HkTJOGlve
+         ikD94cSP3XeW4VQdYBrERrTLhKE8UuclDL2jzTQ+E056RH2lP6JzEUQW7Aa5GFRbIxUn
+         1VR2WHfA9UsUk91IH2C7U9FQWeF4qbr/Nm3M27InbdbIryJwIR050pDpTXXukcS0S9gZ
+         RSA/3vO+QxJXS9WlzNiYRLMbi+aq5dm+iORZlZjp2oT9AG2vZwsJZ4bZu24/rJ7Q3i9D
+         t36RElxqfCM8tW3sMLXTbTmWKBTHSaaGRGZQg6Qvk99HvFYzR8Q5m85BPqWjXL92TNFS
+         lCSg==
+X-Gm-Message-State: AOAM530lXVJZduSvP97LsRa0WdvZeCriAIGQ5T7ZIQvhkNd0br+Wfv/I
+	6OgveiKnHeXATwvgsWLv1ysujg==
+X-Google-Smtp-Source: ABdhPJw42Y4zw7XGLJ0qL8m2iK8R/sg3Y/yQJpglfujQWmDGz21UKIQOVg7Md/ZATtyrGT1c7jNF4A==
+X-Received: by 2002:a17:90b:1b44:b0:1dc:315f:4510 with SMTP id nv4-20020a17090b1b4400b001dc315f4510mr8282445pjb.28.1651635456924;
+        Tue, 03 May 2022 20:37:36 -0700 (PDT)
+Date: Tue, 3 May 2022 20:37:35 -0700
+From: Kees Cook <keescook@chromium.org>
+To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
 Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
 	"David S. Miller" <davem@davemloft.net>,
 	Jakub Kicinski <kuba@kernel.org>, Rich Felker <dalias@aerifal.cx>,
@@ -155,98 +170,96 @@ Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
 	Yang Yingliang <yangyingliang@huawei.com>
 Subject: Re: [PATCH 01/32] netlink: Avoid memcpy() across flexible array
  boundary
-Message-ID: <20220504033105.GA13667@embeddedor>
+Message-ID: <202205032027.B2A9FB4AA@keescook>
 References: <20220504014440.3697851-1-keescook@chromium.org>
  <20220504014440.3697851-2-keescook@chromium.org>
+ <20220504033105.GA13667@embeddedor>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220504014440.3697851-2-keescook@chromium.org>
+In-Reply-To: <20220504033105.GA13667@embeddedor>
 
-On Tue, May 03, 2022 at 06:44:10PM -0700, Kees Cook wrote:
-> In preparation for run-time memcpy() bounds checking, split the nlmsg
-> copying for error messages (which crosses a previous unspecified flexible
-> array boundary) in half. Avoids the future run-time warning:
+On Tue, May 03, 2022 at 10:31:05PM -0500, Gustavo A. R. Silva wrote:
+> On Tue, May 03, 2022 at 06:44:10PM -0700, Kees Cook wrote:
+> [...]
+> > diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
+> > index 1b5a9c2e1c29..09346aee1022 100644
+> > --- a/net/netlink/af_netlink.c
+> > +++ b/net/netlink/af_netlink.c
+> > @@ -2445,7 +2445,10 @@ void netlink_ack(struct sk_buff *in_skb, struct nlmsghdr *nlh, int err,
+> >  			  NLMSG_ERROR, payload, flags);
+> >  	errmsg = nlmsg_data(rep);
+> >  	errmsg->error = err;
+> > -	memcpy(&errmsg->msg, nlh, payload > sizeof(*errmsg) ? nlh->nlmsg_len : sizeof(*nlh));
+> > +	errmsg->msg = *nlh;
+> > +	if (payload > sizeof(*errmsg))
+> > +		memcpy(errmsg->msg.nlmsg_payload, nlh->nlmsg_payload,
+> > +		       nlh->nlmsg_len - sizeof(*nlh));
 > 
-> memcpy: detected field-spanning write (size 32) of single field "&errmsg->msg" (size 16)
+> They have nlmsg_len()[1] for the length of the payload without the header:
 > 
-> Creates an explicit flexible array at the end of nlmsghdr for the payload,
-> named "nlmsg_payload". There is no impact on UAPI; the sizeof(struct
-> nlmsghdr) does not change, but now the compiler can better reason about
-> where things are being copied.
-> 
-> Fixed-by: Rasmus Villemoes <linux@rasmusvillemoes.dk>
-> Link: https://lore.kernel.org/lkml/d7251d92-150b-5346-6237-52afc154bb00@rasmusvillemoes.dk
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Cc: Rich Felker <dalias@aerifal.cx>
-> Cc: Eric Dumazet <edumazet@google.com>
-> Cc: netdev@vger.kernel.org
-> Signed-off-by: Kees Cook <keescook@chromium.org>
-> ---
->  include/uapi/linux/netlink.h | 1 +
->  net/netlink/af_netlink.c     | 5 ++++-
->  2 files changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/include/uapi/linux/netlink.h b/include/uapi/linux/netlink.h
-> index 855dffb4c1c3..47f9342d51bc 100644
-> --- a/include/uapi/linux/netlink.h
-> +++ b/include/uapi/linux/netlink.h
-> @@ -47,6 +47,7 @@ struct nlmsghdr {
->  	__u16		nlmsg_flags;	/* Additional flags */
->  	__u32		nlmsg_seq;	/* Sequence number */
->  	__u32		nlmsg_pid;	/* Sending process port ID */
-> +	__u8		nlmsg_payload[];/* Contents of message */
->  };
->  
->  /* Flags values */
-> diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
-> index 1b5a9c2e1c29..09346aee1022 100644
-> --- a/net/netlink/af_netlink.c
-> +++ b/net/netlink/af_netlink.c
-> @@ -2445,7 +2445,10 @@ void netlink_ack(struct sk_buff *in_skb, struct nlmsghdr *nlh, int err,
->  			  NLMSG_ERROR, payload, flags);
->  	errmsg = nlmsg_data(rep);
->  	errmsg->error = err;
-> -	memcpy(&errmsg->msg, nlh, payload > sizeof(*errmsg) ? nlh->nlmsg_len : sizeof(*nlh));
-> +	errmsg->msg = *nlh;
-> +	if (payload > sizeof(*errmsg))
-> +		memcpy(errmsg->msg.nlmsg_payload, nlh->nlmsg_payload,
-> +		       nlh->nlmsg_len - sizeof(*nlh));
+> /**
+>  * nlmsg_len - length of message payload
+>  * @nlh: netlink message header
+>  */
+> static inline int nlmsg_len(const struct nlmsghdr *nlh)
+> {
+> 	return nlh->nlmsg_len - NLMSG_HDRLEN;
+> }
 
-They have nlmsg_len()[1] for the length of the payload without the header:
+Oh, hm, yeah, that would be much cleaner. The relationship between
+"payload" and nlmsg_len is confusing in here. :)
 
-/**
- * nlmsg_len - length of message payload
- * @nlh: netlink message header
- */
+So, this should be simpler:
+
+-	memcpy(&errmsg->msg, nlh, payload > sizeof(*errmsg) ? nlh->nlmsg_len : sizeof(*nlh));
++	errmsg->msg = *nlh;
++	memcpy(errmsg->msg.nlmsg_payload, nlh->nlmsg_payload, nlmsg_len(nlh));
+
+It's actually this case that triggered my investigation in __bos(1)'s
+misbehavior around sub-structs, since this case wasn't getting silenced:
+https://gcc.gnu.org/bugzilla/show_bug.cgi?id=101832
+
+It still feels like it should be possible to get this right without
+splitting the memcpy, though. Hmpf.
+
+> (would that function use some sanitization, though? what if nlmsg_len is
+> somehow manipulated to be less than NLMSG_HDRLEN?...)
+
+Maybe something like:
+
 static inline int nlmsg_len(const struct nlmsghdr *nlh)
 {
+	if (WARN_ON(nlh->nlmsg_len < NLMSG_HDRLEN))
+		return 0;
 	return nlh->nlmsg_len - NLMSG_HDRLEN;
 }
 
-(would that function use some sanitization, though? what if nlmsg_len is
-somehow manipulated to be less than NLMSG_HDRLEN?...)
+> Also, it seems there is at least one more instance of this same issue:
+> 
+> diff --git a/net/netfilter/ipset/ip_set_core.c b/net/netfilter/ipset/ip_set_core.c
+> index 16ae92054baa..d06184b94af5 100644
+> --- a/net/netfilter/ipset/ip_set_core.c
+> +++ b/net/netfilter/ipset/ip_set_core.c
+> @@ -1723,7 +1723,8 @@ call_ad(struct net *net, struct sock *ctnl, struct sk_buff *skb,
+>                                   nlh->nlmsg_seq, NLMSG_ERROR, payload, 0);
+>                 errmsg = nlmsg_data(rep);
+>                 errmsg->error = ret;
+> -               memcpy(&errmsg->msg, nlh, nlh->nlmsg_len);
+> +               errmsg->msg = *nlh;
+> +               memcpy(errmsg->msg.nlmsg_payload, nlh->nlmsg_payload, nlmsg_len(nlh));
 
-Also, it seems there is at least one more instance of this same issue:
+Ah, yes, nice catch!
 
-diff --git a/net/netfilter/ipset/ip_set_core.c b/net/netfilter/ipset/ip_set_core.c
-index 16ae92054baa..d06184b94af5 100644
---- a/net/netfilter/ipset/ip_set_core.c
-+++ b/net/netfilter/ipset/ip_set_core.c
-@@ -1723,7 +1723,8 @@ call_ad(struct net *net, struct sock *ctnl, struct sk_buff *skb,
-                                  nlh->nlmsg_seq, NLMSG_ERROR, payload, 0);
-                errmsg = nlmsg_data(rep);
-                errmsg->error = ret;
--               memcpy(&errmsg->msg, nlh, nlh->nlmsg_len);
-+               errmsg->msg = *nlh;
-+               memcpy(errmsg->msg.nlmsg_payload, nlh->nlmsg_payload, nlmsg_len(nlh));
-                cmdattr = (void *)&errmsg->msg + min_len;
+>                 cmdattr = (void *)&errmsg->msg + min_len;
+> 
+>                 ret = nla_parse(cda, IPSET_ATTR_CMD_MAX, cmdattr,
+> 
+> --
+> Gustavo
+> 
+> [1] https://elixir.bootlin.com/linux/v5.18-rc5/source/include/net/netlink.h#L577
 
-                ret = nla_parse(cda, IPSET_ATTR_CMD_MAX, cmdattr,
-
---
-Gustavo
-
-[1] https://elixir.bootlin.com/linux/v5.18-rc5/source/include/net/netlink.h#L577
+-- 
+Kees Cook
 
