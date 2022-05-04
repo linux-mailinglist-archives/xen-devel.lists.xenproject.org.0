@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DBD55196C3
-	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 07:16:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.320023.540638 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B61775196D1
+	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 07:16:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.320049.540768 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm7N6-0006NH-7v; Wed, 04 May 2022 05:16:20 +0000
+	id 1nm7NP-0002G6-7T; Wed, 04 May 2022 05:16:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 320023.540638; Wed, 04 May 2022 05:16:20 +0000
+Received: by outflank-mailman (output) from mailman id 320049.540768; Wed, 04 May 2022 05:16:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm7N5-0006Ec-RV; Wed, 04 May 2022 05:16:19 +0000
-Received: by outflank-mailman (input) for mailman id 320023;
- Wed, 04 May 2022 01:47:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nm7NN-0001dS-QD; Wed, 04 May 2022 05:16:37 +0000
+Received: by outflank-mailman (input) for mailman id 320049;
+ Wed, 04 May 2022 01:52:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Rvwn=VM=chromium.org=keescook@srs-se1.protection.inumbo.net>)
- id 1nm47A-0007U4-Al
- for xen-devel@lists.xenproject.org; Wed, 04 May 2022 01:47:40 +0000
-Received: from mail-pj1-x102b.google.com (mail-pj1-x102b.google.com
- [2607:f8b0:4864:20::102b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2d8ca463-cb4c-11ec-8fc4-03012f2f19d4;
- Wed, 04 May 2022 03:47:39 +0200 (CEST)
-Received: by mail-pj1-x102b.google.com with SMTP id
- qe3-20020a17090b4f8300b001dc24e4da73so2750449pjb.1
- for <xen-devel@lists.xenproject.org>; Tue, 03 May 2022 18:47:39 -0700 (PDT)
+ id 1nm4C5-0008Vg-UZ
+ for xen-devel@lists.xenproject.org; Wed, 04 May 2022 01:52:45 +0000
+Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com
+ [2607:f8b0:4864:20::532])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e3b25c7e-cb4c-11ec-a406-831a346695d4;
+ Wed, 04 May 2022 03:52:44 +0200 (CEST)
+Received: by mail-pg1-x532.google.com with SMTP id 6so2144pgb.13
+ for <xen-devel@lists.xenproject.org>; Tue, 03 May 2022 18:52:44 -0700 (PDT)
 Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
  by smtp.gmail.com with ESMTPSA id
- ij16-20020a170902ab5000b0015e8d4eb200sm7024989plb.74.2022.05.03.18.47.36
+ m1-20020a637d41000000b003c14af5063esm13641114pgn.86.2022.05.03.18.52.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 May 2022 18:47:37 -0700 (PDT)
+ Tue, 03 May 2022 18:52:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,40 +44,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d8ca463-cb4c-11ec-8fc4-03012f2f19d4
+X-Inumbo-ID: e3b25c7e-cb4c-11ec-a406-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=chromium.org; s=google;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=xU+lft0xYFj1fS1yuTZSbozxjgBGk0a+m2yFd6VoFH8=;
-        b=a+tRkUtoblEDLjvFId++UphGjoZEaQCYI3Vk83Wii7jOQPjtu5Lszr9szx/ri1HX51
-         wV1jt/Of6XxA4HH6Vf9VLVYuUYeTQ2uz41Vd4xndvpOP8cB9qurXZHACinwkcuuAVoNS
-         S4kXDV6k7pYw97SFuBD/SAZ91ynDl2QAdaG/0=
+        bh=xT+5hQcq61BvthAgaoVmL+Iixyk9Kz6M9vS9nNgwYZE=;
+        b=foxymm92zvgmK0ETJD/OF52F7nwlYYgJQ8oVdho7r9BzWtgtuSGYfDYK5MhNshEOoZ
+         2wn0h0u9CPuexCbq87DKe80piTtxK5R6ZpJwSBGXRNF7rOHEPYzOtCIu9lKjSdiUbhe+
+         r2DkWtw3UKhrg5w4I5ukgiJdOnG5MzFcAx9yc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=xU+lft0xYFj1fS1yuTZSbozxjgBGk0a+m2yFd6VoFH8=;
-        b=fktl6Yv3Nm3QkSrb7p49UsoedJnB+T1LtCoWrC5aMnua+A7CliP10R0kINaiOIdNJe
-         cDWYpgWPWJo6S1XkPix5ntPsEr+ewj30JFmd6Lt9MgS8Wm6TKT2i4h90YBqZGXaqU2e6
-         9CzzDAtzn+tqEKRFXSorQNvE0OUppCaqmnUkpVgxArrrBYXjja9qrXTRLrFTff36VW5c
-         H9LAeFS4x+Feygm3sFnSO7Aup5VmJ3wjCHwVC9a/VjeQC9puby9mmd90G+Y6HtY668xL
-         wW3C7gVp12nwF8LUZ0zAQxkKDpmMUSOPDz5gMW7nu1QB/U3B/SyrQ8T6RgzvwQd9w3CE
-         Z0uQ==
-X-Gm-Message-State: AOAM533h1rB0hsaftIEPXgWtL1YV2Xfo/fysjXDl/KZ1isfFvrR2LZ/3
-	BIjlTjV3W04WrA/aexlNOfx1Hg==
-X-Google-Smtp-Source: ABdhPJxAtBZ9EXzckbFxXEo5UZhmn/LsbzwXw7S3livWp9IXdIuEWTNc+6eQzBZkUiCIn0RCFgRUjw==
-X-Received: by 2002:a17:90a:8407:b0:1d9:ab62:bd3c with SMTP id j7-20020a17090a840700b001d9ab62bd3cmr7874329pjn.139.1651628857838;
-        Tue, 03 May 2022 18:47:37 -0700 (PDT)
+        bh=xT+5hQcq61BvthAgaoVmL+Iixyk9Kz6M9vS9nNgwYZE=;
+        b=Ej/NX4k2cHepcyQKn330sRS+z2I0Wc/VSQC5SnEh+juypLzcp92uOLgqKAbgpf9F7D
+         mcBizMiCM4JvC4HeDNS33ptC69evMiHB8NBhFC2FembNtViK816XAhM0XePKxAbEJ9b2
+         K56+wzHWs7aKoM3a82c3kQQ00MccC+fahmEb52Gki0ct4XJyHG2vAhOtsQRMbZcImanS
+         GiYhNDT4yDxDzNfsuSUW7U4rd1yOmQsVwbAr0rtFp1Ig3LEErE+rDv1WvTefC5TQKOa5
+         6CVs14ZPzs0D901QvOqD5hb0Vve+idStDrq/dlj9F/nPfTIr7k59gAAOLJdIUwu1byLw
+         Q/Ag==
+X-Gm-Message-State: AOAM5327+nQ0InZNKZ9fn0C4Ba5HEDVcVuUcs4bn/Q4GXSRlmiWGr3l1
+	YkNiRWRGXc0OR7VatZw7NfnflQ==
+X-Google-Smtp-Source: ABdhPJzg0KwFLixG8Pstl42rdZ/PTRxkyHAZczqCheTOMrqPGfLT6/zfzGOMo4pLCA8igqbxzHRxPA==
+X-Received: by 2002:a63:6fc4:0:b0:393:9567:16dc with SMTP id k187-20020a636fc4000000b00393956716dcmr15834959pgc.593.1651629163469;
+        Tue, 03 May 2022 18:52:43 -0700 (PDT)
 From: Kees Cook <keescook@chromium.org>
 To: "Gustavo A . R . Silva" <gustavoars@kernel.org>
 Cc: Kees Cook <keescook@chromium.org>,
-	Andy Lavr <andy.lavr@gmail.com>,
 	Luca Coelho <luciano.coelho@intel.com>,
 	Kalle Valo <kvalo@kernel.org>,
 	"David S. Miller" <davem@davemloft.net>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
 	Gregory Greenman <gregory.greenman@intel.com>,
 	Eric Dumazet <edumazet@google.com>,
 	linux-wireless@vger.kernel.org,
@@ -89,6 +88,7 @@ Cc: Kees Cook <keescook@chromium.org>,
 	Andrew Gabbasov <andrew_gabbasov@mentor.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Andy Gross <agross@kernel.org>,
+	Andy Lavr <andy.lavr@gmail.com>,
 	Arend van Spriel <aspriel@gmail.com>,
 	Baowen Zheng <baowen.zheng@corigine.com>,
 	Bjorn Andersson <bjorn.andersson@linaro.org>,
@@ -130,7 +130,6 @@ Cc: Kees Cook <keescook@chromium.org>,
 	Jens Axboe <axboe@kernel.dk>,
 	Johan Hedberg <johan.hedberg@gmail.com>,
 	Johannes Berg <johannes.berg@intel.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
 	John Keeping <john@metanate.com>,
 	Juergen Gross <jgross@suse.com>,
 	Keith Packard <keithp@keithp.com>,
@@ -192,14 +191,14 @@ Cc: Kees Cook <keescook@chromium.org>,
 	xen-devel@lists.xenproject.org,
 	Xiu Jianfeng <xiujianfeng@huawei.com>,
 	Yang Yingliang <yangyingliang@huawei.com>
-Subject: [PATCH 07/32] iwlwifi: calib: Use mem_to_flex_dup() with struct iwl_calib_result
-Date: Tue,  3 May 2022 18:44:16 -0700
-Message-Id: <20220504014440.3697851-8-keescook@chromium.org>
+Subject: [PATCH 08/32] iwlwifi: mvm: Use mem_to_flex_dup() with struct ieee80211_key_conf
+Date: Tue,  3 May 2022 18:44:17 -0700
+Message-Id: <20220504014440.3697851-9-keescook@chromium.org>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220504014440.3697851-1-keescook@chromium.org>
 References: <20220504014440.3697851-1-keescook@chromium.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2309; h=from:subject; bh=WpodBqq01jqwxM1KRcJO62uugaWovPAJ5k8Asd34efc=; b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBicdqCGKNTo/e4rYqRS6JHFIWEcMsPl6ZUWQBFBFL/ Wqla2nSJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCYnHaggAKCRCJcvTf3G3AJvqCD/ 9KMmQRVL3p5s+EO2ziT+OnA/bWRcfyVrpdD2apYiZrAvV6jv+ChcK5o9LNvgU6liqmGQvBK56XO3bQ qrNnEnu62KEpY0aEShwY6YNXdwdTLw3FEMK42jV6f34XbajiPo0MoQoS/x/QSbL1eIG6JO5d4TRjIe 0/Q48qkArPdlLvI5pKeSr1lsEVPndfc9NGHCI6nA2+bBonwbXOWfAC7HZPfrpPcmTgLfoKTkBLXai4 ePDPJtwC3/jzsxtTC7J9DHOmQvRPHeYKpPXefkrkgeOaZf2ToPQ3uG49rEHXnkAeJVNemhQ1DJPNcQ HudzUsakTefZTR7ato8r+9r+0+ie8aFfQEAagdWcpPFVR9EyXHXbSWIWZPdHaXSsvv+zcH2BVwp+lX PHt2bIY0X/x3Uouh1It3/uSZlg30A1qnqeXxqNsMc6p4qaHY4pJywV1EkrsZwZd1PdBaiWc6LsdWnm g/rpEfcleSaFr5QGOmd7i7ErfwdtNTNDj5n6eo7f/rD6qfq1dEAIa3IkdH7xRECGPpT/2qd+a747A7 vm2gjfh13/ghhPAbVTSZORt9oZN46upeJxwm83wHp0XHC4gVbEH+bjDqXYQAWbhNyUaOA8Ua7uIonu l7HgMXAQ7eoMMallt3TbHeAxvHxkwxcyt1LUHi517rK5CcCYO26DROhVZXYw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2437; h=from:subject; bh=kqrSs6qCwh+Lec2OX97eOmuBYGTxbYZO/oveyYvsSyU=; b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBicdqCYob8Le101GWyzNPT8SUQLcWbnMdLaBLnNMKi PFuQ5FWJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCYnHaggAKCRCJcvTf3G3AJrrrD/ 41pLe3vLmy1DT131k402AnWkbvKKTeLHCfdZOZOBG/caJXqmnpOxwil6RAxg5u6hN5hKr+gqoQg3jM PjxMAKOnj4UigmA4/hMbFkpe2UAFQce0nHR1yDX9KirGdKMvnAq1KmeZTOvAK12ubsFuw1otFOoOY9 il9bAkoOcb67DGRv3WnjeBeJAIZesPeob+hkdIGXBLwjDM9HsKNWnS0CO4faN9H2UB5yHtan5AE3fY ejNDT+faux7HktJ5LMXGuFK8hNTMT6DzsBUJMh/VqnJUQfz4J8NZnt1C2fhjm2UKTMJJXaSL2VTIls +E869VhJZmwXhnjNOoXxgs2ypZPdZn7bJMJt9MVXQCWOJ/r5Z4HL//NjQwlMsxa5eN/OtY6fhuJmQa Kt081e3mYWawz+yHoGLyrxfgEVcaxPetNNZbtFWAguSAm+2kDAVJoYtbd1P/PeFNxjV9iclz5KMbsR vfwg2FoAJ4/UE7uv/e9hwMg874lDgZBVxecyw2BfPg0CFqa9KiQ4QmpYRs8HaRBhJQv/jDtfxWqnVh RhanF8E/YIf8Mwjneo+/nQykVNYJP+mnin2t2PXGGQTtyZfdgc4mogRxpnvnUcDOoGAndvfOm8tHL7 lnC6lEffqiIvIoLzddv1Yrb2IU0R/a/tFtHusn7zJ+WlS695vP3r1pDWMDUg==
 X-Developer-Key: i=keescook@chromium.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
 
@@ -208,63 +207,67 @@ replace the open-coded a deserialization of bytes out of memory into a
 trailing flexible array by using a flex_array.h helper to perform the
 allocation, bounds checking, and copying.
 
-Avoids future false-positive warning when strict run-time memcpy()
-bounds checking is enabled:
-
-memcpy: detected field-spanning write (size 8) of single field "&res->hdr" (size 4)
-
-Adds an additional size check since the minimum isn't 0.
-
-Reported-by: Andy Lavr <andy.lavr@gmail.com>
 Cc: Luca Coelho <luciano.coelho@intel.com>
 Cc: Kalle Valo <kvalo@kernel.org>
 Cc: "David S. Miller" <davem@davemloft.net>
 Cc: Jakub Kicinski <kuba@kernel.org>
 Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>
 Cc: Gregory Greenman <gregory.greenman@intel.com>
 Cc: Eric Dumazet <edumazet@google.com>
 Cc: linux-wireless@vger.kernel.org
 Cc: netdev@vger.kernel.org
 Signed-off-by: Kees Cook <keescook@chromium.org>
 ---
- drivers/net/wireless/intel/iwlwifi/dvm/calib.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+ drivers/net/wireless/intel/iwlwifi/mvm/sta.c | 8 ++------
+ include/net/mac80211.h                       | 4 ++--
+ 2 files changed, 4 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/net/wireless/intel/iwlwifi/dvm/calib.c b/drivers/net/wireless/intel/iwlwifi/dvm/calib.c
-index ae1f0cf560e2..7480c19d7af0 100644
---- a/drivers/net/wireless/intel/iwlwifi/dvm/calib.c
-+++ b/drivers/net/wireless/intel/iwlwifi/dvm/calib.c
-@@ -18,8 +18,11 @@
- /* Opaque calibration results */
- struct iwl_calib_result {
- 	struct list_head list;
--	size_t cmd_len;
--	struct iwl_calib_cmd cmd;
-+	DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(size_t, cmd_len);
-+	union {
-+		struct iwl_calib_cmd cmd;
-+		DECLARE_FLEX_ARRAY_ELEMENTS(u8, data);
-+	};
- 	/* data follows */
+diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/sta.c b/drivers/net/wireless/intel/iwlwifi/mvm/sta.c
+index 406f0a50a5bf..23cade528dcf 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mvm/sta.c
++++ b/drivers/net/wireless/intel/iwlwifi/mvm/sta.c
+@@ -4108,7 +4108,7 @@ int iwl_mvm_add_pasn_sta(struct iwl_mvm *mvm, struct ieee80211_vif *vif,
+ 	int ret;
+ 	u16 queue;
+ 	struct iwl_mvm_vif *mvmvif = iwl_mvm_vif_from_mac80211(vif);
+-	struct ieee80211_key_conf *keyconf;
++	struct ieee80211_key_conf *keyconf = NULL;
+ 
+ 	ret = iwl_mvm_allocate_int_sta(mvm, sta, 0,
+ 				       NL80211_IFTYPE_UNSPECIFIED,
+@@ -4122,15 +4122,11 @@ int iwl_mvm_add_pasn_sta(struct iwl_mvm *mvm, struct ieee80211_vif *vif,
+ 	if (ret)
+ 		goto out;
+ 
+-	keyconf = kzalloc(sizeof(*keyconf) + key_len, GFP_KERNEL);
+-	if (!keyconf) {
++	if (mem_to_flex_dup(&keyconf, key, key_len, GFP_KERNEL)) {
+ 		ret = -ENOBUFS;
+ 		goto out;
+ 	}
+-
+ 	keyconf->cipher = cipher;
+-	memcpy(keyconf->key, key, key_len);
+-	keyconf->keylen = key_len;
+ 
+ 	ret = iwl_mvm_send_sta_key(mvm, sta->sta_id, keyconf, false,
+ 				   0, NULL, 0, 0, true);
+diff --git a/include/net/mac80211.h b/include/net/mac80211.h
+index 75880fc70700..4abe52963a96 100644
+--- a/include/net/mac80211.h
++++ b/include/net/mac80211.h
+@@ -1890,8 +1890,8 @@ struct ieee80211_key_conf {
+ 	u8 hw_key_idx;
+ 	s8 keyidx;
+ 	u16 flags;
+-	u8 keylen;
+-	u8 key[];
++	DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(u8, keylen);
++	DECLARE_FLEX_ARRAY_ELEMENTS(u8, key);
  };
  
-@@ -59,14 +62,10 @@ int iwl_send_calib_results(struct iwl_priv *priv)
- int iwl_calib_set(struct iwl_priv *priv,
- 		  const struct iwl_calib_cmd *cmd, int len)
- {
--	struct iwl_calib_result *res, *tmp;
-+	struct iwl_calib_result *res = NULL, *tmp;
- 
--	res = kmalloc(sizeof(*res) + len - sizeof(struct iwl_calib_hdr),
--		      GFP_ATOMIC);
--	if (!res)
-+	if (len < sizeof(*cmd) || mem_to_flex_dup(&res, cmd, len, GFP_ATOMIC))
- 		return -ENOMEM;
--	memcpy(&res->hdr, cmd, len);
--	res->cmd_len = len;
- 
- 	list_for_each_entry(tmp, &priv->calib_results, list) {
- 		if (tmp->cmd.hdr.op_code == res->cmd.hdr.op_code) {
+ #define IEEE80211_MAX_PN_LEN	16
 -- 
 2.32.0
 
