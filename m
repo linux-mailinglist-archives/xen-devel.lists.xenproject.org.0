@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5C155196DB
-	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 07:17:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.320065.540854 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BDF85196E2
+	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 07:17:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.320079.540933 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm7Nh-0006kL-Ft; Wed, 04 May 2022 05:16:57 +0000
+	id 1nm7Nx-00026u-K7; Wed, 04 May 2022 05:17:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 320065.540854; Wed, 04 May 2022 05:16:57 +0000
+Received: by outflank-mailman (output) from mailman id 320079.540933; Wed, 04 May 2022 05:17:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm7Ng-0006Fv-4o; Wed, 04 May 2022 05:16:56 +0000
-Received: by outflank-mailman (input) for mailman id 320065;
- Wed, 04 May 2022 01:57:47 +0000
+	id 1nm7Nv-0001aH-9j; Wed, 04 May 2022 05:17:11 +0000
+Received: by outflank-mailman (input) for mailman id 320079;
+ Wed, 04 May 2022 01:57:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Rvwn=VM=chromium.org=keescook@srs-se1.protection.inumbo.net>)
- id 1nm4Gx-0000D6-J8
- for xen-devel@lists.xenproject.org; Wed, 04 May 2022 01:57:47 +0000
-Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
- [2607:f8b0:4864:20::62c])
+ id 1nm4H2-0000D6-50
+ for xen-devel@lists.xenproject.org; Wed, 04 May 2022 01:57:52 +0000
+Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
+ [2607:f8b0:4864:20::42c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 97a8f23d-cb4d-11ec-a406-831a346695d4;
- Wed, 04 May 2022 03:57:46 +0200 (CEST)
-Received: by mail-pl1-x62c.google.com with SMTP id d15so185947plh.2
- for <xen-devel@lists.xenproject.org>; Tue, 03 May 2022 18:57:46 -0700 (PDT)
+ id 992860bc-cb4d-11ec-a406-831a346695d4;
+ Wed, 04 May 2022 03:57:49 +0200 (CEST)
+Received: by mail-pf1-x42c.google.com with SMTP id p12so50531pfn.0
+ for <xen-devel@lists.xenproject.org>; Tue, 03 May 2022 18:57:49 -0700 (PDT)
 Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
  by smtp.gmail.com with ESMTPSA id
- v5-20020a655c45000000b003c14af5060asm13495971pgr.34.2022.05.03.18.57.44
+ x21-20020a1709027c1500b0015e8d4eb202sm6984553pll.76.2022.05.03.18.57.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 May 2022 18:57:44 -0700 (PDT)
+ Tue, 03 May 2022 18:57:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,38 +44,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 97a8f23d-cb4d-11ec-a406-831a346695d4
+X-Inumbo-ID: 992860bc-cb4d-11ec-a406-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=chromium.org; s=google;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=gAffb2dB7AJw8ctZpf7uy/Kjt0ZfUPuqpFj+O/VUlMc=;
-        b=Hd3jrxU8+XlRdXnNJ6BuxLBWU0ZKLG70m7wHx4jqP+VfQJII0AB4HJY2PvK+TXUYom
-         id9ML06dSBRB1VVnBWjBz+2v5YDaqSJHQM5Ls3McxesxCE+qRmiHqxTVev9Mnq0iPJTj
-         hb0i3oZtBtCUvWZopE6bN0CU7y3IuWgie3Mk8=
+        bh=dWvrJlxp0hfwq/rpuMGCsTJMwzo7GNCIoJATWYPCVJE=;
+        b=OW0yn3aPFgkfwn8L35EyIBf488Ir3oPRdcuBBy8HPNsH5M0x5CXqSqshhOTKtpKq5L
+         QF/xhc9eykoWhvFmZW6nwgo8tyY5Hha7nsaQ+7vI7aAIrUuE+pM/MYF4FAAKrs9ERjRM
+         nEcriHnnehj4N7XQ40GlCVy2op0vzdnIn84H4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=gAffb2dB7AJw8ctZpf7uy/Kjt0ZfUPuqpFj+O/VUlMc=;
-        b=X0K0ptRApAPVcHgdPDOc9hxEelYN8w9131Mj1BmppLuH9tCEN29cvJh+Ku8YHNBTHZ
-         o49rjK8Edpf51YDLoqfJ8f+dLg6lcIqauKWNJWHymf5KMSVd9RvzLvlwfaHBkh57mtxE
-         7JpQCFybyDIMlJDMBGnXR56HTjc2Wrbpu4FIQIQhZou7ImHtAunupw3FrkyAOmY973jN
-         NwYmiprnimBxReFcDKcfcu7FVPfKXIt2mrMeEOlG/R14naUY6yWrmE+OwNB0NcoFpDxW
-         5HpZMaOfvVn5Vhg3raO2CFjiprJ2I+D7c1PmWvJjZpYNLiHsV8eqPFc3d1VMQEJ5ORlU
-         yGAg==
-X-Gm-Message-State: AOAM531WaEJTK/t8F17UgXJuB7P8UhV0agepg+Cmc80s/S7+Bcddj01O
-	Hp3wearHURwld1XZWZiFxShMdw==
-X-Google-Smtp-Source: ABdhPJz6qaS4+sld6IO764cErbo2AsXw9zqY/8zLJ1brIZKZBC0UJqtHfYq6e8mw4ednkAIXxJWdIQ==
-X-Received: by 2002:a17:90b:1c8f:b0:1b8:c6dc:ca61 with SMTP id oo15-20020a17090b1c8f00b001b8c6dcca61mr7862141pjb.13.1651629465413;
-        Tue, 03 May 2022 18:57:45 -0700 (PDT)
+        bh=dWvrJlxp0hfwq/rpuMGCsTJMwzo7GNCIoJATWYPCVJE=;
+        b=zo+fgNNId7BJTV9Wds/8rrfsBVUEOkqPOJPju1TF+kusEsGBWueUQbYGjQQV7xR8Sx
+         kRYda/oMQtq2HbXKByrLPRj1Fd37KaCXmwHwm8i5b94n9S3keKEN0yhaTMnweDF/Bl0F
+         GJA+U56vXcpeWXjFFilexf8ggKeVU7p/+cLu6mCdYQe1JakiknXGBovXTqlRsic/8dZ2
+         g+SGZDIZRe09nlEEEvzGdx07O5ZOz6PzaKFfRPNduVr9YTafIUPLY2JSGYoII0y0IzrW
+         SHoFV4lZ9HKFOB3AGIax6fY51py+7f6Ep8jbAsQ0emttEQiNHVfNQuvBMjuoyBC2+Zdd
+         njYg==
+X-Gm-Message-State: AOAM533mBQ5urbjJGTbs/j5JQt3y5oZilGRRbOZBx6DyRrVFZaxAgOnw
+	7Y7ENIag2fmCv11r49xwrvFsBQ==
+X-Google-Smtp-Source: ABdhPJwbC/L7nZs96BtZ9jeB/rQtyCDwXrBrp6VlWrbG6DOzItmYMRFYheK4g32qpwyIMeuySKD+FQ==
+X-Received: by 2002:a63:2b05:0:b0:3c2:3ed1:5fa9 with SMTP id r5-20020a632b05000000b003c23ed15fa9mr8717398pgr.220.1651629467921;
+        Tue, 03 May 2022 18:57:47 -0700 (PDT)
 From: Kees Cook <keescook@chromium.org>
 To: "Gustavo A . R . Silva" <gustavoars@kernel.org>
 Cc: Kees Cook <keescook@chromium.org>,
-	Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	linux-rdma@vger.kernel.org,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Stephen Hemminger <sthemmin@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	linux-hyperv@vger.kernel.org,
 	Alexei Starovoitov <ast@kernel.org>,
 	alsa-devel@alsa-project.org,
 	Al Viro <viro@zeniv.linux.org.uk>,
@@ -100,8 +102,8 @@ Cc: Kees Cook <keescook@chromium.org>,
 	David Gow <davidgow@google.com>,
 	David Howells <dhowells@redhat.com>,
 	"David S. Miller" <davem@davemloft.net>,
+	Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
 	devicetree@vger.kernel.org,
-	Dexuan Cui <decui@microsoft.com>,
 	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
 	Eli Cohen <elic@nvidia.com>,
 	Eric Dumazet <edumazet@google.com>,
@@ -114,7 +116,6 @@ Cc: Kees Cook <keescook@chromium.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Gregory Greenman <gregory.greenman@intel.com>,
 	Guenter Roeck <linux@roeck-us.net>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
 	Hante Meuleman <hante.meuleman@broadcom.com>,
 	Herbert Xu <herbert@gondor.apana.org.au>,
 	Hulk Robot <hulkci@huawei.com>,
@@ -123,6 +124,7 @@ Cc: Kees Cook <keescook@chromium.org>,
 	James Morris <jmorris@namei.org>,
 	Jarkko Sakkinen <jarkko@kernel.org>,
 	Jaroslav Kysela <perex@perex.cz>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
 	Jens Axboe <axboe@kernel.dk>,
 	Johan Hedberg <johan.hedberg@gmail.com>,
 	Johannes Berg <johannes.berg@intel.com>,
@@ -134,9 +136,9 @@ Cc: Kees Cook <keescook@chromium.org>,
 	keyrings@vger.kernel.org,
 	kunit-dev@googlegroups.com,
 	Kuniyuki Iwashima <kuniyu@amazon.co.jp>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
 	Lars-Peter Clausen <lars@metafoo.de>,
 	Lee Jones <lee.jones@linaro.org>,
+	Leon Romanovsky <leon@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>,
 	linux1394-devel@lists.sourceforge.net,
 	linux-afs@lists.infradead.org,
@@ -144,8 +146,8 @@ Cc: Kees Cook <keescook@chromium.org>,
 	linux-arm-msm@vger.kernel.org,
 	linux-bluetooth@vger.kernel.org,
 	linux-hardening@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
 	linux-integrity@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
 	linux-scsi@vger.kernel.org,
 	linux-security-module@vger.kernel.org,
 	linux-usb@vger.kernel.org,
@@ -179,7 +181,6 @@ Cc: Kees Cook <keescook@chromium.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Stefan Richter <stefanr@s5r6.in-berlin.de>,
 	Steffen Klassert <steffen.klassert@secunet.com>,
-	Stephen Hemminger <sthemmin@microsoft.com>,
 	Stephen Smalley <stephen.smalley.work@gmail.com>,
 	Tadeusz Struk <tadeusz.struk@linaro.org>,
 	Takashi Iwai <tiwai@suse.com>,
@@ -187,18 +188,17 @@ Cc: Kees Cook <keescook@chromium.org>,
 	Udipto Goswami <quic_ugoswami@quicinc.com>,
 	Vincenzo Frascino <vincenzo.frascino@arm.com>,
 	wcn36xx@lists.infradead.org,
-	Wei Liu <wei.liu@kernel.org>,
 	xen-devel@lists.xenproject.org,
 	Xiu Jianfeng <xiujianfeng@huawei.com>,
 	Yang Yingliang <yangyingliang@huawei.com>
-Subject: [PATCH 24/32] IB/hfi1: Use mem_to_flex_dup() for struct tid_rb_node
-Date: Tue,  3 May 2022 18:44:33 -0700
-Message-Id: <20220504014440.3697851-25-keescook@chromium.org>
+Subject: [PATCH 25/32] Drivers: hv: utils: Use mem_to_flex_dup() with struct cn_msg
+Date: Tue,  3 May 2022 18:44:34 -0700
+Message-Id: <20220504014440.3697851-26-keescook@chromium.org>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220504014440.3697851-1-keescook@chromium.org>
 References: <20220504014440.3697851-1-keescook@chromium.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2597; h=from:subject; bh=j5qqa5iL1lvOORaDlLtm9UR9x0OLEu0XOUmPN1O3Ohg=; b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBicdqGK+oIIr5PEnTJbsZIIE6wDFvul9czcGBuCOb4 OJUbtUyJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCYnHahgAKCRCJcvTf3G3AJlPpD/ 0VwfEZeptxhwXvC03S8kaKbVzD8jf4H7HBP2WwjQ4ovXcZoeEPoHk43gm5ko9ZHxsEuhVYfSsNabEv KwzfkX+Be0SZ1mudTtAQCrxBnFPmMKxMszwt9mMNZtm6E/XnP2w7B2+1rA358f0MYJXzvFe7/kn3VU 5iBgnGpNGOZgXOG+jBcjTyiKQiMSXDSUp0cIXvVQpsePyQMfJGh/eu5bFCRNrwstStCte4Ow73c4Va IaWYSGyLDy4kuX78W5f19yAQR3uD4X1ryr/AVwZV0/P/jnJmz5EmCKU1qFe2YNVe7kF2+3nxmDxawo cvJJ0SuVsX0ZNg8KDkjZEG/9wBeWjiXSyoD0G6pP/WshlZoegMuvye4fFyhyKmatyVqt3t8c7FD223 F60swFGSkgfSg6J4GMTvGe3/d8QAl3MTq2ZH18n8DlcYgMk+3J2vMunZUU58h8auD6hXcni1nXgoMb GZApmHHYK5s4Fqge2j1uqJVBjHZOX3fK3YaZhKtoTqm6FUuJw+H1P3nVYfkcXshsd8t27NuIM2hLa9 jZnMgeaYhLQAUUWWjOKVskE6/+GP5gz4+qjVUI/Alev5kHFOWsbWXBC5JGCSrGBZtpMfJqMcYVqTxZ tS3tgiujwVPsRJdYvH3X2NotOyhjEtEFR8egS3/g8M+hET9UITd8x/6NqLnw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2219; h=from:subject; bh=dgFYdMqTm4tBMA+d8KWXYde/YMvArhgtiTydpKgqF6s=; b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBicdqGpwfENVCD78xIrOKs07wFk+8+2VNIIqaIzTy/ MQg5zx6JAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCYnHahgAKCRCJcvTf3G3AJlkID/ 9xYgI2yUTmOqWGUHwjPg6PRpPwUj6yqPTnvHBjZmeB6GcMkb/J1qYZ0We4QMX2FKo8/RxUIZmkpsBI ghlT5pXLwU+EL9vLRAtiKFcmM6HmLrpDOA+H7c/+3yz3nLeExs5il9FvDhAWsAneG2E6lymkjrtZwB PmGHZ1SbLjt7dlHn9zzeTTcBLGvqVG+t1HbL1yM0qT9sxR33bwrS1/XY/VbQ9ZBwXv5G1ci/UQYTn+ IxWJQyTz1WY3n4gGJIy12AX3Gg0SC3bdx9m5pnqgXmSvY3uw+gAkf+Jq+ITd7t+YW8zrXaiMMGPmhC +dn4j7Pvv4hNJ6R/d9/lrj8cAs53cQUbwW3e/7yRsiZb37BKs643K8RW97bKNemjiBUk2NngqjWaOl FzxBm7iGLEjOq989XZeJNEB+MQLecqtGjX+/LxzzzpvAKeMi9bXDiSJAfPG2yxB7wzIUCmUUxW3kKq 5ITIvocBuuqbJzokzh+M+VX/4LsefOVBxhkljlxxgFvwnLhsXHSrMa9c7vd07TAikSiJ0Vi6xYDuv0 m4TiF4oEz1DuG0oiUI9BpM7VSTL+S8V/5GoKv/V+vcO7lhrDKhfS7G8kPKHplhyqNqe7RD2pCIVyOI ++T7/zqpV+vaRd4iu+z+vgmLDrCZcODKGwvjXW2ZeAEW8baladN7FbwkDLDA==
 X-Developer-Key: i=keescook@chromium.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
 
@@ -207,67 +207,61 @@ replace the open-coded a deserialization of bytes out of memory into a
 trailing flexible array by using a flex_array.h helper to perform the
 allocation, bounds checking, and copying.
 
-Cc: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Leon Romanovsky <leon@kernel.org>
-Cc: linux-rdma@vger.kernel.org
+Cc: "K. Y. Srinivasan" <kys@microsoft.com>
+Cc: Haiyang Zhang <haiyangz@microsoft.com>
+Cc: Stephen Hemminger <sthemmin@microsoft.com>
+Cc: Wei Liu <wei.liu@kernel.org>
+Cc: Dexuan Cui <decui@microsoft.com>
+Cc: linux-hyperv@vger.kernel.org
 Signed-off-by: Kees Cook <keescook@chromium.org>
 ---
- drivers/infiniband/hw/hfi1/user_exp_rcv.c | 7 ++-----
- drivers/infiniband/hw/hfi1/user_exp_rcv.h | 4 ++--
+ drivers/hv/hv_utils_transport.c | 7 ++-----
+ include/uapi/linux/connector.h  | 4 ++--
  2 files changed, 4 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/infiniband/hw/hfi1/user_exp_rcv.c b/drivers/infiniband/hw/hfi1/user_exp_rcv.c
-index 186d30291260..f14846662ac9 100644
---- a/drivers/infiniband/hw/hfi1/user_exp_rcv.c
-+++ b/drivers/infiniband/hw/hfi1/user_exp_rcv.c
-@@ -683,7 +683,7 @@ static int set_rcvarray_entry(struct hfi1_filedata *fd,
+diff --git a/drivers/hv/hv_utils_transport.c b/drivers/hv/hv_utils_transport.c
+index 832885198643..43b4f8893cc0 100644
+--- a/drivers/hv/hv_utils_transport.c
++++ b/drivers/hv/hv_utils_transport.c
+@@ -217,20 +217,17 @@ static void hvt_cn_callback(struct cn_msg *msg, struct netlink_skb_parms *nsp)
+ int hvutil_transport_send(struct hvutil_transport *hvt, void *msg, int len,
+ 			  void (*on_read_cb)(void))
  {
- 	int ret;
- 	struct hfi1_ctxtdata *uctxt = fd->uctxt;
--	struct tid_rb_node *node;
-+	struct tid_rb_node *node = NULL;
- 	struct hfi1_devdata *dd = uctxt->dd;
- 	dma_addr_t phys;
- 	struct page **pages = tbuf->pages + pageidx;
-@@ -692,8 +692,7 @@ static int set_rcvarray_entry(struct hfi1_filedata *fd,
- 	 * Allocate the node first so we can handle a potential
- 	 * failure before we've programmed anything.
- 	 */
--	node = kzalloc(struct_size(node, pages, npages), GFP_KERNEL);
--	if (!node)
-+	if (mem_to_flex_dup(&node, pages, npages, GFP_KERNEL))
- 		return -ENOMEM;
+-	struct cn_msg *cn_msg;
++	struct cn_msg *cn_msg = NULL;
+ 	int ret = 0;
  
- 	phys = dma_map_single(&dd->pcidev->dev, __va(page_to_phys(pages[0])),
-@@ -707,12 +706,10 @@ static int set_rcvarray_entry(struct hfi1_filedata *fd,
+ 	if (hvt->mode == HVUTIL_TRANSPORT_INIT ||
+ 	    hvt->mode == HVUTIL_TRANSPORT_DESTROY) {
+ 		return -EINVAL;
+ 	} else if (hvt->mode == HVUTIL_TRANSPORT_NETLINK) {
+-		cn_msg = kzalloc(sizeof(*cn_msg) + len, GFP_ATOMIC);
+-		if (!cn_msg)
++		if (mem_to_flex_dup(&cn_msg, msg, len, GFP_ATOMIC))
+ 			return -ENOMEM;
+ 		cn_msg->id.idx = hvt->cn_id.idx;
+ 		cn_msg->id.val = hvt->cn_id.val;
+-		cn_msg->len = len;
+-		memcpy(cn_msg->data, msg, len);
+ 		ret = cn_netlink_send(cn_msg, 0, 0, GFP_ATOMIC);
+ 		kfree(cn_msg);
+ 		/*
+diff --git a/include/uapi/linux/connector.h b/include/uapi/linux/connector.h
+index 3738936149a2..b85bbe753dae 100644
+--- a/include/uapi/linux/connector.h
++++ b/include/uapi/linux/connector.h
+@@ -73,9 +73,9 @@ struct cn_msg {
+ 	__u32 seq;
+ 	__u32 ack;
  
- 	node->fdata = fd;
- 	node->phys = page_to_phys(pages[0]);
--	node->npages = npages;
- 	node->rcventry = rcventry;
- 	node->dma_addr = phys;
- 	node->grp = grp;
- 	node->freed = false;
--	memcpy(node->pages, pages, flex_array_size(node, pages, npages));
- 
- 	if (fd->use_mn) {
- 		ret = mmu_interval_notifier_insert(
-diff --git a/drivers/infiniband/hw/hfi1/user_exp_rcv.h b/drivers/infiniband/hw/hfi1/user_exp_rcv.h
-index 8c53e416bf84..4be3446c4d25 100644
---- a/drivers/infiniband/hw/hfi1/user_exp_rcv.h
-+++ b/drivers/infiniband/hw/hfi1/user_exp_rcv.h
-@@ -32,8 +32,8 @@ struct tid_rb_node {
- 	u32 rcventry;
- 	dma_addr_t dma_addr;
- 	bool freed;
--	unsigned int npages;
--	struct page *pages[];
-+	DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(unsigned int, npages);
-+	DECLARE_FLEX_ARRAY_ELEMENTS(struct page *, pages);
+-	__u16 len;		/* Length of the following data */
++	__DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(__u16, len);
+ 	__u16 flags;
+-	__u8 data[0];
++	__DECLARE_FLEX_ARRAY_ELEMENTS(__u8, data);
  };
  
- static inline int num_user_pages(unsigned long addr,
+ #endif /* _UAPI__CONNECTOR_H */
 -- 
 2.32.0
 
