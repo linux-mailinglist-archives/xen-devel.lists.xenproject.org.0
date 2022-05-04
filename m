@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DE58519770
-	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 08:35:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.320328.541017 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A543519785
+	for <lists+xen-devel@lfdr.de>; Wed,  4 May 2022 08:41:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.320343.541028 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm8ab-0002Iu-Ph; Wed, 04 May 2022 06:34:21 +0000
+	id 1nm8hS-0003jj-IG; Wed, 04 May 2022 06:41:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 320328.541017; Wed, 04 May 2022 06:34:21 +0000
+Received: by outflank-mailman (output) from mailman id 320343.541028; Wed, 04 May 2022 06:41:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nm8ab-0002GG-Mb; Wed, 04 May 2022 06:34:21 +0000
-Received: by outflank-mailman (input) for mailman id 320328;
- Wed, 04 May 2022 05:43:19 +0000
+	id 1nm8hS-0003gh-E8; Wed, 04 May 2022 06:41:26 +0000
+Received: by outflank-mailman (input) for mailman id 320343;
+ Wed, 04 May 2022 06:41:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=enS8=VM=kernel.org=kvalo@srs-se1.protection.inumbo.net>)
- id 1nm7nD-0005FP-4y
- for xen-devel@lists.xenproject.org; Wed, 04 May 2022 05:43:19 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 190212bb-cb6d-11ec-a406-831a346695d4;
- Wed, 04 May 2022 07:43:17 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 93BAFB8223A;
- Wed,  4 May 2022 05:43:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1EF2C385A5;
- Wed,  4 May 2022 05:42:51 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Uvlq=VM=arm.com=michal.orzel@srs-se1.protection.inumbo.net>)
+ id 1nm8hQ-0003gb-PU
+ for xen-devel@lists.xenproject.org; Wed, 04 May 2022 06:41:24 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 36124092-cb75-11ec-a406-831a346695d4;
+ Wed, 04 May 2022 08:41:22 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B834F1042;
+ Tue,  3 May 2022 23:41:21 -0700 (PDT)
+Received: from [10.57.2.7] (unknown [10.57.2.7])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8B6503FA49;
+ Tue,  3 May 2022 23:41:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,139 +42,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 190212bb-cb6d-11ec-a406-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1651642995;
-	bh=JrTxy6eXsiDtGM/F/9OTUVdSC11/W1yM6qcTiJhEEWY=;
-	h=From:To:Cc:Subject:References:Date:In-Reply-To:From;
-	b=ptNmZdYs+o6KHSEb902G1QgyncrLgIYxwRjyZ9+W9VTxnFGJHKAdTcbe0JtEXzd4l
-	 aYwCxztA+GFA6BxNwpRJ+fwdrhYF+K4ZZZLdzPKi8lBBWFO/VNZwdIAlyDMFIxmOWz
-	 hAmvQ+5DrbHNQghYSGB1afStWvfnMlPcYreVpeGPzS9YPA/9Y4p/yFDlQcLqjzbi/7
-	 oTPIz0yt7M1rWvdVDxqtNaenj2/snIMXH2fVjjBqgI4xeMRFMaS+uomXQ38nO6fIxg
-	 l9QT60aMp2PNBolRmvUG9+MmaPk4GD+QjG/dwTaQmabfDmxvYb7M7hfSFb2fcWpc9I
-	 jV5YMv8gNlmpA==
-From: Kalle Valo <kvalo@kernel.org>
-To: Kees Cook <keescook@chromium.org>
-Cc: "Gustavo A . R . Silva" <gustavoars@kernel.org>,  Loic Poulain
- <loic.poulain@linaro.org>,  "David S. Miller" <davem@davemloft.net>,  Eric
- Dumazet <edumazet@google.com>,  Jakub Kicinski <kuba@kernel.org>,  Paolo
- Abeni <pabeni@redhat.com>,  wcn36xx@lists.infradead.org,
-  linux-wireless@vger.kernel.org,  netdev@vger.kernel.org,  Alexei
- Starovoitov <ast@kernel.org>,  alsa-devel@alsa-project.org,  Al Viro
- <viro@zeniv.linux.org.uk>,  Andrew Gabbasov <andrew_gabbasov@mentor.com>,
-  Andrew Morton <akpm@linux-foundation.org>,  Andy Gross
- <agross@kernel.org>,  Andy Lavr <andy.lavr@gmail.com>,  Arend van Spriel
- <aspriel@gmail.com>,  Baowen Zheng <baowen.zheng@corigine.com>,  Bjorn
- Andersson <bjorn.andersson@linaro.org>,  Boris Ostrovsky
- <boris.ostrovsky@oracle.com>,  Bradley Grove <linuxdrivers@attotech.com>,
-  brcm80211-dev-list.pdl@broadcom.com,  Christian Brauner
- <brauner@kernel.org>,  Christian =?utf-8?Q?G=C3=B6ttsche?=
- <cgzones@googlemail.com>,
-  Christian Lamparter <chunkeey@googlemail.com>,  Chris Zankel
- <chris@zankel.net>,  Cong Wang <cong.wang@bytedance.com>,  Daniel Axtens
- <dja@axtens.net>,  Daniel Vetter <daniel.vetter@ffwll.ch>,  Dan Williams
- <dan.j.williams@intel.com>,  David Gow <davidgow@google.com>,  David
- Howells <dhowells@redhat.com>,  Dennis Dalessandro
- <dennis.dalessandro@cornelisnetworks.com>,  devicetree@vger.kernel.org,
-  Dexuan Cui <decui@microsoft.com>,  Dmitry Kasatkin
- <dmitry.kasatkin@gmail.com>,  Eli Cohen <elic@nvidia.com>,  Eric Paris
- <eparis@parisplace.org>,  Eugeniu Rosca <erosca@de.adit-jv.com>,  Felipe
- Balbi <balbi@kernel.org>,  Francis Laniel
- <laniel_francis@privacyrequired.com>,  Frank Rowand
- <frowand.list@gmail.com>,  Franky Lin <franky.lin@broadcom.com>,  Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>,  Gregory Greenman
- <gregory.greenman@intel.com>,  Guenter Roeck <linux@roeck-us.net>,
-  Haiyang Zhang <haiyangz@microsoft.com>,  Hante Meuleman
- <hante.meuleman@broadcom.com>,  Herbert Xu <herbert@gondor.apana.org.au>,
-  Hulk Robot <hulkci@huawei.com>,  "James E.J. Bottomley"
- <jejb@linux.ibm.com>,  James Morris <jmorris@namei.org>,  Jarkko Sakkinen
- <jarkko@kernel.org>,  Jaroslav Kysela <perex@perex.cz>,  Jason Gunthorpe
- <jgg@ziepe.ca>,  Jens Axboe <axboe@kernel.dk>,  Johan Hedberg
- <johan.hedberg@gmail.com>,  Johannes Berg <johannes.berg@intel.com>,
-  Johannes Berg <johannes@sipsolutions.net>,  John Keeping
- <john@metanate.com>,  Juergen Gross <jgross@suse.com>,  Keith Packard
- <keithp@keithp.com>,  keyrings@vger.kernel.org,
-  kunit-dev@googlegroups.com,  Kuniyuki Iwashima <kuniyu@amazon.co.jp>,
-  "K. Y. Srinivasan" <kys@microsoft.com>,  Lars-Peter Clausen
- <lars@metafoo.de>,  Lee Jones <lee.jones@linaro.org>,  Leon Romanovsky
- <leon@kernel.org>,  Liam Girdwood <lgirdwood@gmail.com>,
-  linux1394-devel@lists.sourceforge.net,  linux-afs@lists.infradead.org,
-  linux-arm-kernel@lists.infradead.org,  linux-arm-msm@vger.kernel.org,
-  linux-bluetooth@vger.kernel.org,  linux-hardening@vger.kernel.org,
-  linux-hyperv@vger.kernel.org,  linux-integrity@vger.kernel.org,
-  linux-rdma@vger.kernel.org,  linux-scsi@vger.kernel.org,
-  linux-security-module@vger.kernel.org,  linux-usb@vger.kernel.org,
-  linux-xtensa@linux-xtensa.org,  llvm@lists.linux.dev,  Louis Peens
- <louis.peens@corigine.com>,  Luca Coelho <luciano.coelho@intel.com>,  Luiz
- Augusto von Dentz <luiz.dentz@gmail.com>,  Marc Dionne
- <marc.dionne@auristor.com>,  Marcel Holtmann <marcel@holtmann.org>,  Mark
- Brown <broonie@kernel.org>,  "Martin K. Petersen"
- <martin.petersen@oracle.com>,  Max Filippov <jcmvbkbc@gmail.com>,  Mimi
- Zohar <zohar@linux.ibm.com>,  Muchun Song <songmuchun@bytedance.com>,
-  Nathan Chancellor <nathan@kernel.org>,  Nick Desaulniers
- <ndesaulniers@google.com>,  Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>,
-  Paul Moore
- <paul@paul-moore.com>,  Rich Felker <dalias@aerifal.cx>,  Rob Herring
- <robh+dt@kernel.org>,  Russell King <linux@armlinux.org.uk>,
-  selinux@vger.kernel.org,  "Serge E. Hallyn" <serge@hallyn.com>,
-  SHA-cyfmac-dev-list@infineon.com,  Simon Horman
- <simon.horman@corigine.com>,  Stefano Stabellini <sstabellini@kernel.org>,
-  Stefan Richter <stefanr@s5r6.in-berlin.de>,  Steffen Klassert
- <steffen.klassert@secunet.com>,  Stephen Hemminger
- <sthemmin@microsoft.com>,  Stephen Smalley
- <stephen.smalley.work@gmail.com>,  Tadeusz Struk
- <tadeusz.struk@linaro.org>,  Takashi Iwai <tiwai@suse.com>,  Tom Rix
- <trix@redhat.com>,  Udipto Goswami <quic_ugoswami@quicinc.com>,  Vincenzo
- Frascino <vincenzo.frascino@arm.com>,  Wei Liu <wei.liu@kernel.org>,
-  xen-devel@lists.xenproject.org,  Xiu Jianfeng <xiujianfeng@huawei.com>,
-  Yang Yingliang <yangyingliang@huawei.com>
-Subject: Re: [PATCH 10/32] wcn36xx: Use mem_to_flex_dup() with struct wcn36xx_hal_ind_msg
-References: <20220504014440.3697851-1-keescook@chromium.org>
-	<20220504014440.3697851-11-keescook@chromium.org>
-Date: Wed, 04 May 2022 08:42:46 +0300
-In-Reply-To: <20220504014440.3697851-11-keescook@chromium.org> (Kees Cook's
-	message of "Tue, 3 May 2022 18:44:19 -0700")
-Message-ID: <8735hpc0q1.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.1 (gnu/linux)
+X-Inumbo-ID: 36124092-cb75-11ec-a406-831a346695d4
+Message-ID: <87eb6f25-c940-8aa2-bab3-dea9bcf1760b@arm.com>
+Date: Wed, 4 May 2022 08:41:14 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.7.0
+Subject: Re: [PATCH v2] xen/arm: gnttab: cast unused macro arguments to void
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20220428094625.382970-1-michal.orzel@arm.com>
+ <074a5ae8-cade-3343-0c18-8122c85fecc3@xen.org>
+From: Michal Orzel <michal.orzel@arm.com>
+In-Reply-To: <074a5ae8-cade-3343-0c18-8122c85fecc3@xen.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Kees Cook <keescook@chromium.org> writes:
+Hi Julien,
 
-> As part of the work to perform bounds checking on all memcpy() uses,
-> replace the open-coded a deserialization of bytes out of memory into a
-> trailing flexible array by using a flex_array.h helper to perform the
-> allocation, bounds checking, and copying.
->
-> Cc: Loic Poulain <loic.poulain@linaro.org>
-> Cc: Kalle Valo <kvalo@kernel.org>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Eric Dumazet <edumazet@google.com>
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Cc: Paolo Abeni <pabeni@redhat.com>
-> Cc: wcn36xx@lists.infradead.org
-> Cc: linux-wireless@vger.kernel.org
-> Cc: netdev@vger.kernel.org
-> Signed-off-by: Kees Cook <keescook@chromium.org>
+On 03.05.2022 19:44, Julien Grall wrote:
+> Hi,
+> 
+> On 28/04/2022 10:46, Michal Orzel wrote:
+>> Function unmap_common_complete (common/grant_table.c) defines and sets
+>> a variable ld that is later on passed to a macro:
+>> gnttab_host_mapping_get_page_type().
+>> On Arm this macro does not make use of any arguments causing a compiler
+>> to warn about unused-but-set variable (when -Wunused-but-set-variable
+>> is enabled). Fix it by casting the arguments to void in macro's body.
+>>
+>> While there, take the opportunity to modify other macros in this file
+>> that do not make use of all the arguments to prevent similar issues in
+>> the future.
+>>
+>> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
+>> ---
+>> Changes since v1:
+>> -standalone patch carved out from a series (other patches already merged)
+>> -v1 was ([3/8] gnttab: Remove unused-but-set variable)
+>> -modify macro on Arm instead of removing ld variable
+>> ---
+>>   xen/arch/arm/include/asm/grant_table.h | 13 ++++++++-----
+>>   1 file changed, 8 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/include/asm/grant_table.h b/xen/arch/arm/include/asm/grant_table.h
+>> index d31a4d6805..5bcd1ec528 100644
+>> --- a/xen/arch/arm/include/asm/grant_table.h
+>> +++ b/xen/arch/arm/include/asm/grant_table.h
+>> @@ -31,10 +31,11 @@ static inline void gnttab_mark_dirty(struct domain *d, mfn_t mfn)
+>>     int create_grant_host_mapping(unsigned long gpaddr, mfn_t mfn,
+>>                                 unsigned int flags, unsigned int cache_flags);
+>> -#define gnttab_host_mapping_get_page_type(ro, ld, rd) (0)
+>> +#define gnttab_host_mapping_get_page_type(ro, ld, rd) \
+>> +    ((void)(ro), (void)(ld), (void)(rd), 0)
+> 
+> I would switch to a static inline helper:
+> 
+> static inline bool
+> gnttab_host_mapping_get_page_type(bool ro, struct domain *ld,
+>                       struct domian *rd)
+> {
+>     return false;
+> }
+> 
+> Note the switch from 0 to false as the function is technically returning a boolean (see the x86 implementation).
+> 
+>>   int replace_grant_host_mapping(unsigned long gpaddr, mfn_t mfn,
+>>                                  unsigned long new_gpaddr, unsigned int flags);
+>> -#define gnttab_release_host_mappings(domain) 1
+>> +#define gnttab_release_host_mappings(domain) ((void)(domain), 1)
+> 
+> Same here.
+> 
+Ok, sounds right.
 
-[...]
+>>     /*
+>>    * The region used by Xen on the memory will never be mapped in DOM0
+>> @@ -89,10 +90,12 @@ int replace_grant_host_mapping(unsigned long gpaddr, mfn_t mfn,
+>>   })
+>>     #define gnttab_shared_gfn(d, t, i)                                       \
+>> -    (((i) >= nr_grant_frames(t)) ? INVALID_GFN : (t)->arch.shared_gfn[i])
+>> +    ((void)(d),                                                          \
+>> +     ((i) >= nr_grant_frames(t)) ? INVALID_GFN : (t)->arch.shared_gfn[i])
+>>   -#define gnttab_status_gfn(d, t, i)                                       \
+>> -    (((i) >= nr_status_frames(t)) ? INVALID_GFN : (t)->arch.status_gfn[i])
+>> +#define gnttab_status_gfn(d, t, i)                                        \
+>> +    ((void)(d),                                                           \
+>> +     ((i) >= nr_status_frames(t)) ? INVALID_GFN : (t)->arch.status_gfn[i])
+> 
+> I share Jan's opinion here. If we want to evaluate d, then we should make sure t and i should be also evaluated once. However, IIRC, they can't be turned to static inline because the type of t (struct grant_table) is not fully defined yet.
+> 
+Then, we could do like this:
 
-> --- a/drivers/net/wireless/ath/wcn36xx/smd.h
-> +++ b/drivers/net/wireless/ath/wcn36xx/smd.h
-> @@ -46,8 +46,8 @@ struct wcn36xx_fw_msg_status_rsp {
->  
->  struct wcn36xx_hal_ind_msg {
->  	struct list_head list;
-> -	size_t msg_len;
-> -	u8 msg[];
-> +	DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(size_t, msg_len);
-> +	DECLARE_FLEX_ARRAY_ELEMENTS(u8, msg);
+#define gnttab_shared_gfn(d, t, i)                                       \
+    ({                                                                   \
+        const unsigned int _i = (i);                                     \
+        const struct grant_table *_t = (t);                              \
+        (void)(d);                                                       \
+        (_i >= nr_grant_frames(_t)) ? INVALID_GFN                        \
+                                    : _t->arch.shared_gfn[_i];           \
+    })
 
-This affects readability quite a lot and tbh I don't like it. Isn't
-there any simpler way to solve this?
+However, if we start modifying the macros to evaluate args only once, shouldn't we also take care of the following macros in this file?:
+gnttab_set_frame_gfn
+gnttab_init_arch
 
--- 
-https://patchwork.kernel.org/project/linux-wireless/list/
+I'm ok to do these changes but I'm afriad we are losing the origin of this patch as we are focusing on macros not related to the issue.
 
-https://wireless.wiki.kernel.org/en/developers/documentation/submittingpatches
+> Cheers
+> 
+
+Cheers,
+Michal
 
