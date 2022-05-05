@@ -2,36 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A781F51B784
-	for <lists+xen-devel@lfdr.de>; Thu,  5 May 2022 07:39:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.321424.542422 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 178C351B79C
+	for <lists+xen-devel@lfdr.de>; Thu,  5 May 2022 07:52:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.321434.542433 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmUCd-0005rm-JR; Thu, 05 May 2022 05:39:03 +0000
+	id 1nmUPQ-000881-PE; Thu, 05 May 2022 05:52:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 321424.542422; Thu, 05 May 2022 05:39:03 +0000
+Received: by outflank-mailman (output) from mailman id 321434.542433; Thu, 05 May 2022 05:52:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmUCd-0005od-Fj; Thu, 05 May 2022 05:39:03 +0000
-Received: by outflank-mailman (input) for mailman id 321424;
- Thu, 05 May 2022 05:39:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nmUPQ-00084W-M6; Thu, 05 May 2022 05:52:16 +0000
+Received: by outflank-mailman (input) for mailman id 321434;
+ Thu, 05 May 2022 05:52:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Sy7t=VN=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1nmUCc-0005oX-9f
- for xen-devel@lists.xenproject.org; Thu, 05 May 2022 05:39:02 +0000
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a8c61143-cc35-11ec-a406-831a346695d4;
- Thu, 05 May 2022 07:38:59 +0200 (CEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 7D3F75C0086;
- Thu,  5 May 2022 01:38:57 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Thu, 05 May 2022 01:38:57 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 5 May 2022 01:38:56 -0400 (EDT)
+ <SRS0=HxCF=VN=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
+ id 1nmUPO-00084Q-LM
+ for xen-devel@lists.xenproject.org; Thu, 05 May 2022 05:52:14 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on20604.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::604])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8292974a-cc37-11ec-8fc4-03012f2f19d4;
+ Thu, 05 May 2022 07:52:13 +0200 (CEST)
+Received: from AM6P192CA0020.EURP192.PROD.OUTLOOK.COM (2603:10a6:209:83::33)
+ by AM6PR08MB3735.eurprd08.prod.outlook.com (2603:10a6:20b:81::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.27; Thu, 5 May
+ 2022 05:52:10 +0000
+Received: from VE1EUR03FT063.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:209:83:cafe::4) by AM6P192CA0020.outlook.office365.com
+ (2603:10a6:209:83::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.24 via Frontend
+ Transport; Thu, 5 May 2022 05:52:10 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT063.mail.protection.outlook.com (10.152.18.236) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5227.15 via Frontend Transport; Thu, 5 May 2022 05:52:09 +0000
+Received: ("Tessian outbound 2d401af10eb3:v118");
+ Thu, 05 May 2022 05:52:09 +0000
+Received: from 9072cbe7cc29.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 5F1CE75D-7CB7-469F-884C-5C286AEC0D00.1; 
+ Thu, 05 May 2022 05:51:59 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 9072cbe7cc29.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Thu, 05 May 2022 05:51:59 +0000
+Received: from DU2PR08MB7325.eurprd08.prod.outlook.com (2603:10a6:10:2e4::7)
+ by DBBPR08MB6025.eurprd08.prod.outlook.com (2603:10a6:10:203::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.24; Thu, 5 May
+ 2022 05:51:54 +0000
+Received: from DU2PR08MB7325.eurprd08.prod.outlook.com
+ ([fe80::a4bc:d09e:df69:27a9]) by DU2PR08MB7325.eurprd08.prod.outlook.com
+ ([fe80::a4bc:d09e:df69:27a9%3]) with mapi id 15.20.5206.024; Thu, 5 May 2022
+ 05:51:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,291 +72,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8c61143-cc35-11ec-a406-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1651729137; x=1651815537; bh=9ykJBArLSi+XT
-	l0RENKtkpARnv7uv852R79wjUcrN+k=; b=E8Wfv1tvn1otQ4SEXe+8rILStEskT
-	wXuM7un7WIIUD1LAoTK48c1FuQk6fNTL5WNw5t3gj+SBHSCdg+NsUffeQAkemd2m
-	jr9YTjq3XyzgCcFtfwoKQmfKJRiAj8i6sBT0Q4Cqh3Tf8g7shFo/9fq5fymRdtPX
-	QdAaXEqCldtfjmo8DiOWlld4EAT0SdWlwrSOE/tbiBqOcXXbOh92NxJ6cHP0Rt8s
-	3iHjsN0YcTF/j1AdoLTe+a6BUJntGC4OUutBzmAkI6R6auI8ZoyyC+PKyWvA2oea
-	ydIE8X+M2XCOrlfCI8fe5ZeLd0JrfjWfza4SNh4vYofQNkvy6PtKN6/iQ==
-X-ME-Sender: <xms:8WJzYqBvGZ05DV0Pgvj4euNSdnrGP8nQzY-Kst1B2THXPHVv3h706w>
-    <xme:8WJzYkhjlK3e03KyK_BdtdXTCEWQPi-JtIn_PPVQfnKOrSnWr4pbPeehMTlRT6pTx
-    5uZpsMMxHgXlhw>
-X-ME-Received: <xmr:8WJzYtlNIScb4xamj7R4uNIB7v_ytotO8ZdWkmQ8Ym3TYo65OKebx_eI1N4X>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfedtgdeliecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfggtggusehgtderredttdejnecuhfhrohhmpeffvghmihcuofgr
-    rhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgshhlrg
-    gsrdgtohhmqeenucggtffrrghtthgvrhhnpedukeetkeekkeekvdetgedtkeetffdthfdt
-    tdfgieffhfekhefhjefhveeggfeiheenucffohhmrghinhepkhgvrhhnvghlrdhorhhgne
-    cuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepuggvmhhi
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:8WJzYoyHDsxF1Ot48leXVrICQsyyPwMxFKobfKakTdzc4-uV6s8CKg>
-    <xmx:8WJzYvRCS4liWdSQN5VUc_gWf5kCvFwFzat_GyIIOvW4yCzHnt2h_g>
-    <xmx:8WJzYjZWCeXaHp_FOp9b-6E3K15iYFhpuHTFjFAxcVZ6Q0zfXhPu6A>
-    <xmx:8WJzYiO39golvQKzk-52OZ8bJXmLcb5OlT6ykvdnQ9I-9tN9Ohfw_Q>
-Date: Thu, 5 May 2022 01:38:52 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v4] Preserve the EFI System Resource Table for dom0
-Message-ID: <YnNi7iW2s5jsJIiA@itl-email>
+X-Inumbo-ID: 8292974a-cc37-11ec-8fc4-03012f2f19d4
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
+ b=SulS33LZtyKfpIrRkieYc6vMscbWcr/VlX6Rntamyuqd+htQ66GRXmYq1kOfICskc8I7oGW55Aphkn8IQkRgAojU2rgSzJ2/NemiDKGRcQa/hNTWw1/Q4cyfrimr1tAaF8AOgt7AzQr1bbg8+npppGbg2Ll98SzlvXyVNwxys3Rmxap+7SlYVl9P01CYmS43578NIjgrhOQsCnfchMx5vMtgvL804THu0VA+fIPMWTuF6On/olEqZR1lQKKSzNQhJTsGGthL0pjskspDSaq0/jreZ/PBHzR1Lm9xjJntR0K3/DRw6XL/p1jTaGGZN+cYxN5CbA8XuJ8tl3V6eya9Pg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YTk4w4kM8VASug7minekMuaUJ+KOdkYv7klB2qI+Y7Y=;
+ b=Cft3Lm2u1FaDg1g9RXFW+oRypfszYWxubrBRNeEobGP7ITManMGA/Sc7+l9SxPYTcFc6UH39wZPCOKzpEYzNN171+Y6EZuIQSkOf/ZVyyeMhkxS1X2gkwjci/2wJeEbY7j4o/Sw3xOdM9Yo2y3T0jrQ4Nz5NWGNudmpfAnLT1HhFro6BrzXgcW7GgimPdIPhPcRe/c+fRAVz/yPPIYBlIKnP0/l0Vih1R6ivXCwz087YNvID5s1hM/txZhvEPIYBnklyXXcBFJ4TzdgJEdq/p72QTxsEUwGB183lEMyXsGqtnkrdx+JFMqeIqjEDUFenV9JvOZNgaTzWa6GQkI1BfQ==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
+ oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YTk4w4kM8VASug7minekMuaUJ+KOdkYv7klB2qI+Y7Y=;
+ b=zDzxFLx1/IyipBWxS4MMx8Z4gFq6cwKC7hbFbohtGo3kxSeVLhw3ovbQ85FTTFGix4XTTxKinb6MneadOLaR9f46TLpXFcXBWkXRVTXKmT98a1LjLAjLvzQxwbBXGGREMsRrAd8GUqoJvFWTCkLLo9ecSFQqeNENB4iMqFI/ipQ=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JfPkMwizstMZwulyEDC9TmK4Oh7naJ89naLZBG9z2F+Y5+gCUJ6WS9NN1hcDe8HHa3vQF6cZMi9AeyFMvvdwjWL2tq7IBrJXzCehPSOqFUc+3x3S2kmvKdBd+hAEnEj5HgHduyL2an3Zzhr+bcg/fkjrCfCiIfnBHAq90k89kyEdRqHHYpKyMF+qN9Y4gQeH7Cyrep6YtjtHZjJkVD19GZicevOBc025hVLxvcHanF7QCZlLzA6yDGBQetOV5hAHdjd6vPoTczvU0juGsW0PATDqnMFCcde8A2gi9/rj1GLaQDIvfUV+eZAvGgPzY+2sizXkLTLW5iglcyNM97B/Qw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YTk4w4kM8VASug7minekMuaUJ+KOdkYv7klB2qI+Y7Y=;
+ b=k1yvBRgmw0A+F3pTxkKbA8eCqQ5Drt2YY/+Cidk3Q3qJ6lfbM5ma8Df5wOPyT0AJJdPN8NCWA69DmYqxQpJzufVS5zkpwqe7kjk71M/EmjOZ5/VupjPwf9ElsNmvOpiXSWUGnfgp7S16L73DqX3w6J57GKy+/A9xIVWXEMYKB3kPEp4jsneOOvbmQXKbPOZ7ya+KUw/5uFC3thVQGexaQYViaMlLoPXI/kZHAol2JN9i8TC/Ss7nxlWG+p98f1Dtw0KttI/VpQHn7Xi0Rm9I6p0V0aIC6eJLZ7YX6ztwBPeEQtp7ebuh5YVLXRS7tyN1GtY81qo+xdmScji53m7wNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YTk4w4kM8VASug7minekMuaUJ+KOdkYv7klB2qI+Y7Y=;
+ b=zDzxFLx1/IyipBWxS4MMx8Z4gFq6cwKC7hbFbohtGo3kxSeVLhw3ovbQ85FTTFGix4XTTxKinb6MneadOLaR9f46TLpXFcXBWkXRVTXKmT98a1LjLAjLvzQxwbBXGGREMsRrAd8GUqoJvFWTCkLLo9ecSFQqeNENB4iMqFI/ipQ=
+From: Penny Zheng <Penny.Zheng@arm.com>
+To: Jan Beulich <jbeulich@suse.com>, "julien@xen.org" <julien@xen.org>
+CC: Wei Chen <Wei.Chen@arm.com>, Henry Wang <Henry.Wang@arm.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+Subject: RE: [PATCH v3 2/6] xen: do not merge reserved pages in
+ free_heap_pages()
+Thread-Topic: [PATCH v3 2/6] xen: do not merge reserved pages in
+ free_heap_pages()
+Thread-Index: AQHYWhkw7aZ3ZAXjYkKl+baB+o3PAa0OwdUAgAENzPA=
+Date: Thu, 5 May 2022 05:51:54 +0000
+Message-ID:
+ <DU2PR08MB73250DCA20D835109C147004F7C29@DU2PR08MB7325.eurprd08.prod.outlook.com>
+References: <20220427092743.925563-1-Penny.Zheng@arm.com>
+ <20220427092743.925563-3-Penny.Zheng@arm.com>
+ <0ba5fb49-4cbf-916f-9d8e-4b64211fa87c@suse.com>
+In-Reply-To: <0ba5fb49-4cbf-916f-9d8e-4b64211fa87c@suse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ts-tracking-id: 8A4ED691C7B01A488901BD414A7CEB31.0
+x-checkrecipientchecked: true
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-MS-Office365-Filtering-Correlation-Id: 6b661b80-fc2b-42d1-b637-08da2e5b6518
+x-ms-traffictypediagnostic:
+	DBBPR08MB6025:EE_|VE1EUR03FT063:EE_|AM6PR08MB3735:EE_
+X-Microsoft-Antispam-PRVS:
+	<AM6PR08MB3735B742CF8F534CD0B2E5CAF7C29@AM6PR08MB3735.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ wdmoSHLN9E/dzJ0dJ7ivTKwsev5O25NmGRLTZ18eSNW8Op21I4A2vL9EZAGZmvzZKKsIM0ru/xc0LA6NTMEezoBl2T+wSbRM52p8tYnFYbxqwBvLKbnhIp9v1YNRb4yipetRaPwU8xeOHln9cT90LaM5Gpc8qyt2reIG7yjLP7JqThD1sSFiqEkPxgHMvfaqSZCvFOdMf0WsWUNyESTJZMim0ur1urYESCarvYguHf3w/MarX+Y6PkB+VAYisRs7IYk2n7OnmD9mmyb7AfNNSGtyB7UwQCQGhtiHTKNrHOyRprpqK+xvmdeXq55H54HnSxIuf3dCGzS8+qTjdLLa5aY42ooODmsUqGrWvbpJMPglRiiPaZwwZMMQ+oBD4ll5sVyHkzPT1HIb7Lqjb6fsQYycO3FOPnqoB79PqRzhzZl9sOpk3+fiAYLmqq5LVjd3LOKYFssgPIQvfjNwttqjEtF3STFdvdp95+gHxzgiIaAetx3/JxmXdFtzPTUpV5rjhFRQ4GuLcsUarQrK8xhEVy6DH0Nfx2NXFiWarCRS2SNY+8whemUeKfmQKsiZq9ISi2X27LW5hsvUPl7cBtYnP3tQMYh/tDznkXdF3vG5m2+oJy6NubY09Bs3Nx15v1nw697c7RUSpQ45jsYTSi5cio6NmWIOmo2LfgDFx3qoGM0DBHdDzzNOtRlSE+h1W5NQtYWThcPSXil51QyWm9eg+w==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR08MB7325.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(66946007)(2906002)(83380400001)(508600001)(66476007)(66446008)(66556008)(64756008)(8676002)(76116006)(4326008)(186003)(316002)(4744005)(5660300002)(6506007)(33656002)(7696005)(53546011)(122000001)(86362001)(71200400001)(38070700005)(52536014)(8936002)(9686003)(110136005)(54906003)(26005)(55016003)(38100700002);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="7tuAjtNtlO9wuDyC"
-Content-Disposition: inline
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB6025
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ VE1EUR03FT063.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	016806db-8b35-489d-d502-08da2e5b5c0a
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	guaZD59DSFcmTj/iixdAaCyJ8zwd3Kr60aVyLzXDyVCTqtT0W+akJUA200jfb+1qAkFiTJtSpYRBBD4sjvgz4dUa2UVFrYP8RYho5o+OpooPu8RK5aAmMxRJ51SiQqeoWnTZ+CbQYdU/n+iNPmCLHShrVkYphijCXCcwxkYJ9wkh4lWeBBgtLbNVOqBHgvv4jIHGBL3BKa3rRW1gjgnPzhARVp5eX0SlaI4DoRw6EegkYKfLsq9QvHMoqohKidveDhFJyvBPJ5a5ep1j0SpNl1/2ZTM0cNAuwBb0ShuNI1v6GV3lK6fZ+JMr1g0SxXHu2SWhZEecqPC0OROraz3hswMrMUQHFqoin3rsrRDIt4Uw+FFm5m1+UEVv284o3jWIozlaWG9TxuEU+W/joz9AGqAW3K1IGeTGZ4ABWO3qqSQHayHsFvwxthFQB/L9QXvIQHq7I2u/VAzdMM71OdW4rJ0bWpx4U6KzlsFlJMCFm/Ws2BhH72+d1He4Jvrf4NiunRjBu4IysgCUJj3UdmDooO2qvUfpGz3TaTAeEILl2srnsV7k3aV5f7tSh6I0F7PsUHkWgkHuTJasHBKJEXYB+58xfqmuW3ZFVWnmEbat0zCi9BgWxtMkgnXR032XOVQxZZK1/0K+yl3HIjlSD9wStPeq6GbWLjWMx8IUKj9jcMFgtZGQWTtyaUBXi6Odn/eL
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(86362001)(186003)(336012)(47076005)(55016003)(53546011)(26005)(6506007)(9686003)(82310400005)(7696005)(33656002)(83380400001)(40460700003)(36860700001)(70206006)(70586007)(81166007)(4326008)(8676002)(110136005)(316002)(508600001)(356005)(54906003)(2906002)(52536014)(5660300002)(8936002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2022 05:52:09.8116
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b661b80-fc2b-42d1-b637-08da2e5b6518
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	VE1EUR03FT063.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB3735
 
-
---7tuAjtNtlO9wuDyC
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 5 May 2022 01:38:52 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v4] Preserve the EFI System Resource Table for dom0
-
-The EFI System Resource Table (ESRT) is necessary for fwupd to identify
-firmware updates to install.  According to the UEFI specification =C2=A723.=
-4,
-the ESRT shall be stored in memory of type EfiBootServicesData.  However,
-memory of type EfiBootServicesData is considered general-purpose memory
-by Xen, so the ESRT needs to be moved somewhere where Xen will not
-overwrite it.  Copy the ESRT to memory of type EfiRuntimeServicesData,
-which Xen will not reuse.  dom0 can use the ESRT if (and only if) it is
-in memory of type EfiRuntimeServicesData.
-
-Earlier versions of this patch reserved the memory in which the ESRT was
-located.  This created awkward alignment problems, and required either
-splitting the E820 table or wasting memory.  It also would have required
-a new platform op for dom0 to use to indicate if the ESRT is reserved.
-By copying the ESRT into EfiRuntimeServicesData memory, the E820 table
-does not need to be modified, and dom0 can just check the type of the
-memory region containing the ESRT.  The copy is only done if the ESRT is
-not already in EfiRuntimeServicesData memory, avoiding memory leaks on
-repeated kexec.
-
-See https://lore.kernel.org/xen-devel/20200818184018.GN1679@mail-itl/T/
-for details.
-
-Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
----
- xen/common/efi/boot.c    | 68 ++++++++++++++++++++++++++++++++++++++--
- xen/common/efi/efi.h     | 17 ++++++++++
- xen/common/efi/runtime.c |  2 +-
- xen/include/efi/efiapi.h |  3 ++
- 4 files changed, 86 insertions(+), 4 deletions(-)
-
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index a25e1d29f1..4b22dc1bb7 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -567,6 +567,37 @@ static int __init efi_check_dt_boot(const EFI_LOADED_I=
-MAGE *loaded_image)
- }
- #endif
-=20
-+static UINTN __initdata esrt =3D EFI_INVALID_TABLE_ADDR;
-+
-+static bool __init is_esrt_valid(const EFI_MEMORY_DESCRIPTOR *desc)
-+{
-+    size_t available_len, len;
-+    const UINTN physical_start =3D desc->PhysicalStart;
-+    const ESRT *esrt_ptr;
-+
-+    len =3D desc->NumberOfPages << EFI_PAGE_SHIFT;
-+    if ( esrt =3D=3D EFI_INVALID_TABLE_ADDR )
-+        return false;
-+    if ( physical_start > esrt || esrt - physical_start >=3D len )
-+        return false;
-+    /*
-+     * The specification requires EfiBootServicesData, but accept
-+     * EfiRuntimeServicesData, which is a more logical choice.
-+     */
-+    if ( (desc->Type !=3D EfiRuntimeServicesData) &&
-+         (desc->Type !=3D EfiBootServicesData) )
-+        return false;
-+    available_len =3D len - (esrt - physical_start);
-+    if ( available_len < sizeof(*esrt_ptr) )
-+        return false;
-+    esrt_ptr =3D (const ESRT *)esrt;
-+    if ( esrt_ptr->Version !=3D 1 || !esrt_ptr->Count )
-+        return false;
-+    return esrt_ptr->Count <=3D
-+           (available_len - sizeof(*esrt_ptr)) /
-+           sizeof(esrt_ptr->Entries[0]);
-+}
-+
- /*
-  * Include architecture specific implementation here, which references the
-  * static globals defined above.
-@@ -845,6 +876,8 @@ static UINTN __init efi_find_gop_mode(EFI_GRAPHICS_OUTP=
-UT_PROTOCOL *gop,
-     return gop_mode;
- }
-=20
-+static EFI_GUID __initdata esrt_guid =3D ESRT_GUID;
-+
- static void __init efi_tables(void)
- {
-     unsigned int i;
-@@ -868,6 +901,8 @@ static void __init efi_tables(void)
-             efi.smbios =3D (unsigned long)efi_ct[i].VendorTable;
-         if ( match_guid(&smbios3_guid, &efi_ct[i].VendorGuid) )
-             efi.smbios3 =3D (unsigned long)efi_ct[i].VendorTable;
-+        if ( match_guid(&esrt_guid, &efi_ct[i].VendorGuid) )
-+            esrt =3D (UINTN)efi_ct[i].VendorTable;
-     }
-=20
- #ifndef CONFIG_ARM /* TODO - disabled until implemented on ARM */
-@@ -1056,13 +1091,11 @@ static void __init efi_exit_boot(EFI_HANDLE ImageHa=
-ndle, EFI_SYSTEM_TABLE *Syste
-     EFI_STATUS status;
-     UINTN info_size =3D 0, map_key;
-     bool retry;
--#ifdef CONFIG_EFI_SET_VIRTUAL_ADDRESS_MAP
-     unsigned int i;
--#endif
-=20
-     efi_bs->GetMemoryMap(&info_size, NULL, &map_key,
-                          &efi_mdesc_size, &mdesc_ver);
--    info_size +=3D 8 * efi_mdesc_size;
-+    info_size +=3D 8 * (efi_mdesc_size + 1);
-     efi_memmap =3D efi_arch_allocate_mmap_buffer(info_size);
-     if ( !efi_memmap )
-         blexit(L"Unable to allocate memory for EFI memory map");
-@@ -1077,6 +1110,35 @@ static void __init efi_exit_boot(EFI_HANDLE ImageHan=
-dle, EFI_SYSTEM_TABLE *Syste
-         if ( EFI_ERROR(status) )
-             PrintErrMesg(L"Cannot obtain memory map", status);
-=20
-+        for ( i =3D 0; i < efi_memmap_size; i +=3D efi_mdesc_size )
-+        {
-+            if ( !is_esrt_valid(efi_memmap + i) )
-+                continue;
-+            if ( ((EFI_MEMORY_DESCRIPTOR *)(efi_memmap + i))->Type !=3D
-+                 EfiRuntimeServicesData )
-+            {
-+                /* ESRT needs to be moved to memory of type EfiRuntimeServ=
-icesData
-+                 * so that the memory it is in will not be used for other =
-purposes */
-+                size_t esrt_size =3D offsetof(ESRT, Entries) +
-+                    ((ESRT *)esrt)->Count * sizeof(ESRT_ENTRY);
-+                void *new_esrt =3D NULL;
-+                status =3D efi_bs->AllocatePool(EfiRuntimeServicesData, es=
-rt_size, &new_esrt);
-+                if ( status !=3D EFI_SUCCESS )
-+                {
-+                    PrintErrMesg(L"Cannot allocate memory for ESRT", statu=
-s);
-+                    break;
-+                }
-+                memcpy(new_esrt, (void *)esrt, esrt_size);
-+                status =3D efi_bs->InstallConfigurationTable(&esrt_guid, n=
-ew_esrt);
-+                if ( status !=3D EFI_SUCCESS )
-+                {
-+                    PrintErrMesg(L"Cannot install new ESRT", status);
-+                    efi_bs->FreePool(new_esrt);
-+                }
-+            }
-+            break;
-+        }
-+
-         efi_arch_process_memory_map(SystemTable, efi_memmap, efi_memmap_si=
-ze,
-                                     efi_mdesc_size, mdesc_ver);
-=20
-diff --git a/xen/common/efi/efi.h b/xen/common/efi/efi.h
-index c9aa65d506..bf94dfcdf6 100644
---- a/xen/common/efi/efi.h
-+++ b/xen/common/efi/efi.h
-@@ -10,6 +10,23 @@
- #include <xen/spinlock.h>
- #include <asm/page.h>
-=20
-+typedef struct _ESRT_ENTRY {
-+    EFI_GUID FwClass;
-+    UINT32 FwType;
-+    UINT32 FwVersion;
-+    UINT32 FwLowestSupportedVersion;
-+    UINT32 FwCapsuleFlags;
-+    UINT32 FwLastAttemptVersion;
-+    UINT32 FwLastAttemptStatus;
-+} ESRT_ENTRY;
-+
-+typedef struct _ESRT {
-+    UINT32 Count;
-+    UINT32 Max;
-+    UINT64 Version;
-+    ESRT_ENTRY Entries[];
-+} ESRT;
-+
- struct efi_pci_rom {
-     const struct efi_pci_rom *next;
-     u16 vendor, devid, segment;
-diff --git a/xen/common/efi/runtime.c b/xen/common/efi/runtime.c
-index 13b0975866..64e9f04671 100644
---- a/xen/common/efi/runtime.c
-+++ b/xen/common/efi/runtime.c
-@@ -269,7 +269,7 @@ int efi_get_info(uint32_t idx, union xenpf_efi_info *in=
-fo)
-     case XEN_FW_EFI_MEM_INFO:
-         for ( i =3D 0; i < efi_memmap_size; i +=3D efi_mdesc_size )
-         {
--            EFI_MEMORY_DESCRIPTOR *desc =3D efi_memmap + i;
-+            const EFI_MEMORY_DESCRIPTOR *desc =3D efi_memmap + i;
-             u64 len =3D desc->NumberOfPages << EFI_PAGE_SHIFT;
-=20
-             if ( info->mem.addr >=3D desc->PhysicalStart &&
-diff --git a/xen/include/efi/efiapi.h b/xen/include/efi/efiapi.h
-index a616d1238a..42ef3e1c8c 100644
---- a/xen/include/efi/efiapi.h
-+++ b/xen/include/efi/efiapi.h
-@@ -882,6 +882,9 @@ typedef struct _EFI_BOOT_SERVICES {
- #define SAL_SYSTEM_TABLE_GUID    \
-     { 0xeb9d2d32, 0x2d88, 0x11d3, {0x9a, 0x16, 0x0, 0x90, 0x27, 0x3f, 0xc1=
-, 0x4d} }
-=20
-+#define ESRT_GUID    \
-+    { 0xb122a263, 0x3661, 0x4f68, {0x99, 0x29, 0x78, 0xf8, 0xb0, 0xd6, 0x2=
-1, 0x80} }
-+
-=20
- typedef struct _EFI_CONFIGURATION_TABLE {
-     EFI_GUID                VendorGuid;
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
-
---7tuAjtNtlO9wuDyC
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmJzYu4ACgkQsoi1X/+c
-IsGJ/w//bZq+40cFGG8L25uhNhJtVjUx0nryhGQF9TlV59w73UrTaZN7zNIhn6gi
-dkXz7hV52zeM2zS4by6dwto6H+8R8jte67tC2kejMUsd1vLwrumPh/ovTBxkgc9E
-FjnAktl+oy6J8D1A5Lwm+HpVeWnxvKbba5LT3w3zT/p/OTshe/vvI7fuRwbmco/R
-n++K5Mfz5XPO3lX0DhnhGuC63S0rdzEjTYhkvZE+kOOfLI48hSaZ9dhgfNEoJXWy
-WMIN4J4Y+TMAOZS2HHWeHFsPDyK8gxyEUJQ8/3peO4rPbf/ju2cFQm2yLXXk01/D
-DWBIx1d3/yRZllFqeDrcau05pA1Jumv/lbllgikfj97lTCQRuE9uXJ7K29OZMv+C
-TM07aiR+lD4f6r9De0OPFq+O0X9B1lpTUO5sr44Yedmk/Ve9IPpUMWpPk1aWFFsH
-Hsbt9Pdl7/8nRolisxLKjvRs1mkXQPY5KwvvMuMY8olXKc8lKcliFGVSiwBjlyb2
-MPsJoQ57Y5kodqNfyV8lSytF8AhNzfQ1oJt90mXq/Si8UpD+W9SqQ8FDvP6HcnmI
-rr7fDlU4RqG3R3PMsGSu/5DAtM6+kE2xVknBIyXhLQdU/PJ2A0A1Myt2jDybGoFm
-VG7AdbGKL0hjji6mDhz3os5NPOWFUN7DvJ1JuRzX5mv6pHFMLuU=
-=9i6E
------END PGP SIGNATURE-----
-
---7tuAjtNtlO9wuDyC--
+SGksIA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IEphbiBCZXVsaWNo
+IDxqYmV1bGljaEBzdXNlLmNvbT4NCj4gU2VudDogV2VkbmVzZGF5LCBNYXkgNCwgMjAyMiA5OjMw
+IFBNDQo+IFRvOiBQZW5ueSBaaGVuZyA8UGVubnkuWmhlbmdAYXJtLmNvbT4NCj4gQ2M6IFdlaSBD
+aGVuIDxXZWkuQ2hlbkBhcm0uY29tPjsgSGVucnkgV2FuZyA8SGVucnkuV2FuZ0Bhcm0uY29tPjsN
+Cj4gQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT47IEdlb3JnZSBEdW5s
+YXANCj4gPGdlb3JnZS5kdW5sYXBAY2l0cml4LmNvbT47IEp1bGllbiBHcmFsbCA8anVsaWVuQHhl
+bi5vcmc+OyBTdGVmYW5vDQo+IFN0YWJlbGxpbmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+OyBX
+ZWkgTGl1IDx3bEB4ZW4ub3JnPjsgeGVuLQ0KPiBkZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZw0K
+PiBTdWJqZWN0OiBSZTogW1BBVENIIHYzIDIvNl0geGVuOiBkbyBub3QgbWVyZ2UgcmVzZXJ2ZWQg
+cGFnZXMgaW4NCj4gZnJlZV9oZWFwX3BhZ2VzKCkNCj4gDQo+IE9uIDI3LjA0LjIwMjIgMTE6Mjcs
+IFBlbm55IFpoZW5nIHdyb3RlOg0KPiA+IFRoZXJlIGlzIGEgc2xpbSBjaGFuY2UgdGhhdCBmcmVl
+X2hlYXBfcGFnZXMoKSBtYXkgZGVjaWRlIHRvIG1lcmdlIGENCj4gPiBjaHVuayBmcm9tIHRoZSBz
+dGF0aWMgcmVnaW9uKFBHQ19yZXNlcnZlZCkgd2l0aCB0aGUgYWJvdXQtdG8tYmUtZnJlZQ0KPiBj
+aHVuay4NCj4gPg0KPiA+IFNvIGluIG9yZGVyIHRvIGF2b2lkIHRoZSBhYm92ZSBzY2VuYXJpbywg
+dGhpcyBjb21taXQgdXBkYXRlcw0KPiA+IGZyZWVfaGVhcF9wYWdlcygpIHRvIGNoZWNrIHdoZXRo
+ZXIgdGhlIHByZWRlY2Vzc29yIGFuZC9vciBzdWNjZXNzb3INCj4gPiBoYXMgUEdDX3Jlc2VydmVk
+IHNldCwgd2hlbiB0cnlpbmcgdG8gbWVyZ2UgdGhlIGFib3V0LXRvLWJlLWZyZWVkIGNodW5rDQo+
+ID4gd2l0aCB0aGUgcHJlZGVjZXNzb3IgYW5kL29yIHN1Y2Nlc3Nvci4NCj4gPg0KPiA+IFNpZ25l
+ZC1vZmYtYnk6IFBlbm55IFpoZW5nIDxwZW5ueS56aGVuZ0Bhcm0uY29tPg0KPiANCj4gUmV2aWV3
+ZWQtYnk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4NCj4gDQo+IEkgdGhpbmsgdGhp
+cyBhbHNvIHdhbnRzIGEgU3VnZ2VzdGVkLWJ5IG9yIFJlcG9ydGVkLWJ5IChpaXJjKSBKdWxpZW4/
+DQo+IA0KDQpTdXJlLCBJJ2xsIGRlZmluaXRlbHkgYWRkLWluIFN1Z2dlc3RlZC1ieTogSnVsaWVu
+IEdyYWxsIDxqZ3JhbGxAYW1hem9uLmNvbT4NCg0KPiBKYW4NCg0K
 
