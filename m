@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 023A951C420
-	for <lists+xen-devel@lfdr.de>; Thu,  5 May 2022 17:42:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.322265.543533 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F90D51C3B1
+	for <lists+xen-devel@lfdr.de>; Thu,  5 May 2022 17:17:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.322232.543478 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmdcf-0002V6-7x; Thu, 05 May 2022 15:42:33 +0000
+	id 1nmdEa-0005SD-2P; Thu, 05 May 2022 15:17:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 322265.543533; Thu, 05 May 2022 15:42:33 +0000
+Received: by outflank-mailman (output) from mailman id 322232.543478; Thu, 05 May 2022 15:17:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmdcf-0002S6-4g; Thu, 05 May 2022 15:42:33 +0000
-Received: by outflank-mailman (input) for mailman id 322265;
- Thu, 05 May 2022 15:41:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nmdEZ-0005QJ-VB; Thu, 05 May 2022 15:17:39 +0000
+Received: by outflank-mailman (input) for mailman id 322232;
+ Thu, 05 May 2022 15:17:39 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=QviM=VN=keithp.com=keithp@srs-se1.protection.inumbo.net>)
- id 1nmdc5-0001z2-FQ
- for xen-devel@lists.xenproject.org; Thu, 05 May 2022 15:41:57 +0000
-Received: from elaine.keithp.com (home.keithp.com [63.227.221.253])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e339b6c7-cc89-11ec-a406-831a346695d4;
- Thu, 05 May 2022 17:41:55 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by elaine.keithp.com (Postfix) with ESMTP id B02553F32465;
- Thu,  5 May 2022 08:16:14 -0700 (PDT)
-Received: from elaine.keithp.com ([127.0.0.1])
- by localhost (elaine.keithp.com [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id SEPHfPO_-W_I; Thu,  5 May 2022 08:16:14 -0700 (PDT)
-Received: from keithp.com (koto.keithp.com [192.168.11.2])
- by elaine.keithp.com (Postfix) with ESMTPSA id 18D4A3F32969;
- Thu,  5 May 2022 08:16:13 -0700 (PDT)
-Received: by keithp.com (Postfix, from userid 1000)
- id 4874D1E601B9; Thu,  5 May 2022 08:16:12 -0700 (PDT)
+ (envelope-from <julien@xen.org>) id 1nmdEZ-0005QD-5n
+ for xen-devel@lists.xenproject.org; Thu, 05 May 2022 15:17:39 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nmdEY-0000RV-OR; Thu, 05 May 2022 15:17:38 +0000
+Received: from 54-240-197-230.amazon.com ([54.240.197.230] helo=[10.7.236.17])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nmdEY-0004Je-IC; Thu, 05 May 2022 15:17:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,153 +39,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e339b6c7-cc89-11ec-a406-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=keithp.com; s=mail;
-	t=1651763774; bh=O3aXJOWYxVTqOu3VmcXxOiZZOhMrUjqY/t6cXMT24+E=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=M3zB+WUy+cYZq4HgtgtbfmLljWbRpIeJ5Zkg9r1D71YqvPlgOkiQ4tXheXCRGUa8+
-	 RMuby4CqFAMCoPUIrwdzYTZDTf78io+RFFo6OcdGBDUFDZRaGhZfKKcTtwdj7WCFy4
-	 6tn6om4NwF6owZoCYEHNTlN4dA5iODmOFbhrxNDmu4q/fHHXFfSRYzNqzWEthWHBp3
-	 hB3E0o3k1G8NwFJfKh9rQpVZYZLwPg6CF6he0rk/+KFPQLpotGYN+CgB1L7QQOYecl
-	 ymeV9rACfLcKoB95CZdy6K628IEeM8t07ROlSN+X9O0IbQydzX/BQ3xj9k+MYZwzPf
-	 UxJC+uQh0iuJw==
-X-Virus-Scanned: Debian amavisd-new at keithp.com
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=keithp.com; s=mail;
-	t=1651763773; bh=O3aXJOWYxVTqOu3VmcXxOiZZOhMrUjqY/t6cXMT24+E=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=krSTvH+KcMYcsYiJs+brgDawkHD6ep7gtAt/7ImbSH+PVnVS6n5TIWQoiUP+PjBfQ
-	 TTV9zZEzFSNSLzQmSsEIJT24ancVfic/4tw1+i19H4UqIv2Soci174vL3i+L8WgOn3
-	 3GAVx4Wwdu1vRPL7EVqx5qPLOOTreMDXIScBgNd+X5AcHfMZWw538tPrPoKpSSqHZH
-	 dCLZclbzdDsdQUL6m86l3cbny8WccVcefFqv7gslHwR8P3ZsfbW/X+4PLXD3hTeyro
-	 XMqcEagdrGN5NURX0L6R0oPpkf8LkkkUJo0DYZf6b68EQ+TuLV1TgvwIq/q3gwMiYO
-	 4YgvEK7vCGplw==
-From: Keith Packard <keithp@keithp.com>
-To: Johannes Berg <johannes@sipsolutions.net>, Kees Cook
- <keescook@chromium.org>
-Cc: "Gustavo A . R . Silva" <gustavoars@kernel.org>, Francis Laniel
- <laniel_francis@privacyrequired.com>, Daniel Axtens <dja@axtens.net>, Dan
- Williams <dan.j.williams@intel.com>, Vincenzo Frascino
- <vincenzo.frascino@arm.com>, Guenter Roeck <linux@roeck-us.net>, Daniel
- Vetter <daniel.vetter@ffwll.ch>, Tadeusz Struk <tadeusz.struk@linaro.org>,
- Alexei Starovoitov <ast@kernel.org>, alsa-devel@alsa-project.org, Al Viro
- <viro@zeniv.linux.org.uk>, Andrew
- Gabbasov <andrew_gabbasov@mentor.com>, Andrew Morton
- <akpm@linux-foundation.org>, Andy Gross <agross@kernel.org>, Andy Lavr
- <andy.lavr@gmail.com>, Arend van Spriel <aspriel@gmail.com>, Baowen Zheng
- <baowen.zheng@corigine.com>, Bjorn Andersson <bjorn.andersson@linaro.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Bradley Grove
- <linuxdrivers@attotech.com>, brcm80211-dev-list.pdl@broadcom.com,
- Christian
- Brauner <brauner@kernel.org>, Christian =?utf-8?Q?G=C3=B6ttsche?=
- <cgzones@googlemail.com>,
- Christian Lamparter <chunkeey@googlemail.com>, Chris Zankel
- <chris@zankel.net>, Cong Wang <cong.wang@bytedance.com>, David
- Gow <davidgow@google.com>, David Howells <dhowells@redhat.com>, "David S.
- Miller" <davem@davemloft.net>, Dennis Dalessandro
- <dennis.dalessandro@cornelisnetworks.com>, devicetree@vger.kernel.org,
- Dexuan Cui <decui@microsoft.com>, Dmitry Kasatkin
- <dmitry.kasatkin@gmail.com>, Eli Cohen <elic@nvidia.com>, Eric Dumazet
- <edumazet@google.com>, Eric Paris <eparis@parisplace.org>, Eugeniu Rosca
- <erosca@de.adit-jv.com>, Felipe Balbi <balbi@kernel.org>, Frank Rowand
- <frowand.list@gmail.com>, Franky Lin <franky.lin@broadcom.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Gregory Greenman
- <gregory.greenman@intel.com>, Haiyang Zhang <haiyangz@microsoft.com>,
- Hante
- Meuleman <hante.meuleman@broadcom.com>, Herbert Xu
- <herbert@gondor.apana.org.au>, Hulk Robot <hulkci@huawei.com>, Jakub
- Kicinski <kuba@kernel.org>, "James E.J. Bottomley" <jejb@linux.ibm.com>,
- James Morris <jmorris@namei.org>, Jarkko Sakkinen <jarkko@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Jason Gunthorpe <jgg@ziepe.ca>, Jens
- Axboe <axboe@kernel.dk>, Johan Hedberg <johan.hedberg@gmail.com>, John
- Keeping <john@metanate.com>, Juergen Gross <jgross@suse.com>, Kalle Valo
- <kvalo@kernel.org>, keyrings@vger.kernel.org, kunit-dev@googlegroups.com,
- Kuniyuki Iwashima <kuniyu@amazon.co.jp>, "K. Y. Srinivasan"
- <kys@microsoft.com>, Lars-Peter Clausen <lars@metafoo.de>, Lee Jones
- <lee.jones@linaro.org>, Leon Romanovsky <leon@kernel.org>, Liam Girdwood
- <lgirdwood@gmail.com>, linux1394-devel@lists.sourceforge.net,
- linux-afs@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- linux-hardening@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-integrity@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-security-module@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org,
- linux-xtensa@linux-xtensa.org, llvm@lists.linux.dev, Loic Poulain
- <loic.poulain@linaro.org>, Louis Peens <louis.peens@corigine.com>, Luca
- Coelho <luciano.coelho@intel.com>, Luiz Augusto von Dentz
- <luiz.dentz@gmail.com>, Marc Dionne <marc.dionne@auristor.com>, Marcel
- Holtmann <marcel@holtmann.org>, Mark Brown <broonie@kernel.org>, "Martin
- K. Petersen" <martin.petersen@oracle.com>, Max Filippov
- <jcmvbkbc@gmail.com>, Mimi Zohar <zohar@linux.ibm.com>, Muchun Song
- <songmuchun@bytedance.com>, Nathan Chancellor <nathan@kernel.org>,
- netdev@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>, Nuno
- =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>, Paolo Abeni <pabeni@redhat.com>,
- Paul Moore
- <paul@paul-moore.com>, Rich Felker <dalias@aerifal.cx>, Rob Herring
- <robh+dt@kernel.org>, Russell King <linux@armlinux.org.uk>,
- selinux@vger.kernel.org, "Serge E. Hallyn" <serge@hallyn.com>,
- SHA-cyfmac-dev-list@infineon.com, Simon Horman
- <simon.horman@corigine.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Stefan Richter <stefanr@s5r6.in-berlin.de>, Steffen Klassert
- <steffen.klassert@secunet.com>, Stephen Hemminger
- <sthemmin@microsoft.com>, Stephen Smalley
- <stephen.smalley.work@gmail.com>, Takashi Iwai <tiwai@suse.com>, Tom Rix
- <trix@redhat.com>, Udipto Goswami <quic_ugoswami@quicinc.com>,
- wcn36xx@lists.infradead.org, Wei Liu <wei.liu@kernel.org>,
- xen-devel@lists.xenproject.org, Xiu Jianfeng <xiujianfeng@huawei.com>,
- Yang Yingliang <yangyingliang@huawei.com>
-Subject: Re: [PATCH 02/32] Introduce flexible array struct memcpy() helpers
-In-Reply-To: <970a674df04271b5fd1971b495c6b11a996c20c2.camel@sipsolutions.net>
-References: <20220504014440.3697851-1-keescook@chromium.org>
- <20220504014440.3697851-3-keescook@chromium.org>
- <d3b73d80f66325fdfaf2d1f00ea97ab3db03146a.camel@sipsolutions.net>
- <202205040819.DEA70BD@keescook>
- <970a674df04271b5fd1971b495c6b11a996c20c2.camel@sipsolutions.net>
-Date: Thu, 05 May 2022 08:16:11 -0700
-Message-ID: <871qx8qabo.fsf@keithp.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
+	bh=6v2DTMBH4XCbyxhGQkUhr695b3nk/XV7CQWFDZeC45Y=; b=M9HMgu/CeE54Ozp1L2tD0ReMRs
+	DVXv+YWiwMcrgRTI/ddRaS73GWHUTCow9hzlkQ+ahFGDNc1vcPVZUgwupDqhHwLJo4AxNh8ryUyiB
+	vC5g8UJkhaNRG2FLmBOGPUMLkspmiKYTkeNcJ7A2xI1DTQg+5ULAoX+i05tNX0QVxCIc=;
+Message-ID: <282741cc-456d-2ef1-80a0-97c24ae4539c@xen.org>
+Date: Thu, 5 May 2022 16:17:36 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha256; protocol="application/pgp-signature"
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.8.1
+Subject: Re: [PATCH 3/3] xen/arm: Add sb instruction support
+From: Julien Grall <julien@xen.org>
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1651570561.git.bertrand.marquis@arm.com>
+ <24fd2364294345f103cb13bdab2ad0b706681071.1651570561.git.bertrand.marquis@arm.com>
+ <6571ead7-ff94-acb5-1e55-53ae69944bf0@xen.org>
+ <E67D129C-DCA4-479E-B8B8-4C7DF8CC92B9@arm.com>
+ <d8889ee4-7790-ab93-a5d1-708aa541dd1b@xen.org>
+In-Reply-To: <d8889ee4-7790-ab93-a5d1-708aa541dd1b@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---=-=-=
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-Johannes Berg <johannes@sipsolutions.net> writes:
+On 04/05/2022 09:06, Julien Grall wrote:
+> 
+> 
+> On 04/05/2022 08:24, Bertrand Marquis wrote:
+>> Hi Julien,
+> 
+> Hi Bertrand,
+> 
+>>
+>>> On 3 May 2022, at 19:47, Julien Grall <julien@xen.org> wrote:
+>>>> A new cpuerrata capability is introduced to enable the alternative
+>>>
+>>> 'sb' is definitely not an erratum. Errata are for stuff that are 
+>>> meant to be specific to one (or multiple) CPU and they are not part 
+>>> of the architecture.
+>>>
+>>> This is the first time we introduce a feature in Xen. So we need to 
+>>> add a new array in cpufeature.c that will cover 'SB' for now. In 
+>>> future we could add feature like pointer auth, LSE atomics...
+>>
+>> I am not quite sure why you would want to do that.
+>>
+>> Using the sb instruction is definitely something to do to solve 
+>> erratas, if a CPU is not impacted by those erratas, why would you want 
+>> to use this ?
+> 
+> I agree that SB is used to solve errata but the instruction itself is 
+> not a workaround (it may be part of it though). Instead, this is a more 
+> efficient way to prevent speculation and will replace dsb/isb.
+> 
+> Speculation is never going to disappear from processor. So, in the 
+> future, there might be valid reason for us to say "We don't want the 
+> processor to speculate". This would mean using SB.
+> 
+>>>> +    .inst 0xd50330ff
+>>>> +    nop
+>>>
+>>> Why do we need the NOP?
+>>
+>> Alternative requires both sides to have the same size hence the nop to 
+>> have 2 instructions as in the if.
+> 
+> A few years ago we backported a patch from Linux to automatically add 
+> nop. However, looking at the code, this would not handle this
 
-> Yeah, dunno, I guess I'm slightly more on the side of not requiring it,
-> since we don't do the same for kmalloc() etc. and probably really
-> wouldn't want to add kmalloc_s() that does it ;-)
+Hmmm... Going through my e-mail again. I realized my sentence has not 
+been finished. What I was meant to write that because the code is not 
+handling it, then adding the extra nop is fine.
 
-I suspect the number of bugs this catches will be small, but they'll be
-in places where the flow of control is complicated. What we want is to
-know that there's no "real" value already present. I'd love it if we
-could make the macro declare a new name (yeah, I know, mixing
-declarations and code).
+Cheers,
 
-Of course, we could also end up with people writing a wrapping macro
-that sets the variable to NULL before invoking the underlying macro...
-
-=2D-=20
-=2Dkeith
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEw4O3eCVWE9/bQJ2R2yIaaQAAABEFAmJz6jsACgkQ2yIaaQAA
-ABGQAg/+NFgE01jSUQAsZc8G2KY9qfifpQ5rzrWtedUNXoOhcAo33tvPHnED0AxP
-Q4MXv/X4TRCTOD/5aBjZeKgy9I9G2jYbZq9iYf5uaD9zIECpE5XyznDZzo15cWBE
-B+W7olq9dqiARf6CuwNpYCjB8zv2ubR42c+faTCJNM63owpN9xpGT/7OEbE0HoKg
-TawmusqNU2nOkT82kjh1iVoK0BbmPSATiKkCH9ZpUVQYOQvsyieFtAlQREms/pip
-ccnHssDAaV1dgAg2NlKDzU30XA3rIIsfX+v3Bh+CWoj77Az7IO8+/V+nmNm5GHyy
-bs8LUQY3Z7/otHyGVfjVN9eU6LcEvstr7tOPLWxF0h+YxJk12uKhUZnmt4NisYrL
-uOcx/MC4y6tx9+kdn1U5KoV+O/ekhW/N/WwYcE6YUYZeol3Ahpve77B7uzLbwyOj
-TMLF83DtVqGLwl1y5mdKUfdeUeYhVMYo+eaq0ChKHdYdKj9ra2BaL1oiTc3lKqVW
-FdHX7C9qLA4LsTzfuDiEQDOrnwMDXhvtQrysTOjlQLIcivarCfxIKQw0co8Vubug
-sceCDXCr5qY2cCr51YqbDSVqEXK5Dos7IGlIyIlZH0YCktIbgOGTEPZDcidplXy2
-LWWWFIK6Viz1AgjSRxRU24qmTbFCFLZdboKDuzsCHG8HDByLmNM=
-=BTwc
------END PGP SIGNATURE-----
---=-=-=--
+-- 
+Julien Grall
 
