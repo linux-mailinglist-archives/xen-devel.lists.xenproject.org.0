@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 242A651D865
-	for <lists+xen-devel@lfdr.de>; Fri,  6 May 2022 14:58:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.323112.544679 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB7DB51D877
+	for <lists+xen-devel@lfdr.de>; Fri,  6 May 2022 15:07:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.323119.544689 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmxXh-00062r-H9; Fri, 06 May 2022 12:58:45 +0000
+	id 1nmxfE-0007db-9D; Fri, 06 May 2022 13:06:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 323112.544679; Fri, 06 May 2022 12:58:45 +0000
+Received: by outflank-mailman (output) from mailman id 323119.544689; Fri, 06 May 2022 13:06:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmxXh-00060X-DQ; Fri, 06 May 2022 12:58:45 +0000
-Received: by outflank-mailman (input) for mailman id 323112;
- Fri, 06 May 2022 12:58:43 +0000
+	id 1nmxfE-0007bl-6B; Fri, 06 May 2022 13:06:32 +0000
+Received: by outflank-mailman (input) for mailman id 323119;
+ Fri, 06 May 2022 13:06:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zX8a=VO=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nmxXf-00060R-NY
- for xen-devel@lists.xenproject.org; Fri, 06 May 2022 12:58:43 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ id 1nmxfC-0007bf-NH
+ for xen-devel@lists.xenproject.org; Fri, 06 May 2022 13:06:30 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 41ad5f8c-cd3c-11ec-a406-831a346695d4;
- Fri, 06 May 2022 14:58:42 +0200 (CEST)
+ id 57ed45e1-cd3d-11ec-a406-831a346695d4;
+ Fri, 06 May 2022 15:06:29 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2D2DC21A74;
- Fri,  6 May 2022 12:58:42 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DF4071F913;
+ Fri,  6 May 2022 13:06:28 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C8F6F13AA2;
- Fri,  6 May 2022 12:58:41 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 74F2613AA2;
+ Fri,  6 May 2022 13:06:28 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id UIlBL4EbdWKERQAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 06 May 2022 12:58:41 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id WOkYG1QddWKfSQAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 06 May 2022 13:06:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,82 +51,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 41ad5f8c-cd3c-11ec-a406-831a346695d4
+X-Inumbo-ID: 57ed45e1-cd3d-11ec-a406-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1651841922; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1651842388; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=AIK5gDkSxMABdACCbZYluPBFGhfe0mpNG0zAK0prmZ8=;
-	b=IPuote7ktH4WQ3z4STjwe9xfyNEiot1BRYOhYJIUBLJyYJwfxLxb93HO+aDsVSxE/oGbIB
-	4a7CZHCWL1U7cJDXh8pHLGp70MO4tpoWLH9cORzXdUYy0jTzeMweNmbcPqee+Xs6Ko+myQ
-	SzhwkyD96F9sRtbug7x74HUPFLABlv8=
-Message-ID: <b8f183b0-9168-3848-a2d9-f3f5839e667e@suse.com>
-Date: Fri, 6 May 2022 14:58:41 +0200
+	bh=6a9ZGw0GY6RgYYmGitejl7H5z66xjohimuOWf1P2y4c=;
+	b=elpjT74/11ktSiW19gH3WTt0nNVRkPnxhL218+BdGSnO9jO7mtjjdPhGkU7bPWFQNFni52
+	6/fOzwoK1secXr127UYSKkwN7cBBEeec+FGNaZakF9WVVGuOywuliD6Q3j2YAkvheZIxT1
+	08eUS9ZFuEflDisbj8DnFIU6LiKqIWE=
+Message-ID: <7792f3f2-51ef-640f-136c-97df51113ee6@suse.com>
+Date: Fri, 6 May 2022 15:06:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.0
-Subject: Re: [PATCH v8 4/7] xen/cpupool: Create different cpupools at boot
- time
+Subject: Re: [PATCH v8 6/7] arm/dom0less: assign dom0less guests to cpupools
 Content-Language: en-US
 To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
 Cc: bertrand.marquis@arm.com, wei.chen@arm.com,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Dario Faggioli <dfaggioli@suse.com>
+ Wei Liu <wl@xen.org>, Dario Faggioli <dfaggioli@suse.com>
 References: <20220506120012.32326-1-luca.fancellu@arm.com>
- <20220506120012.32326-5-luca.fancellu@arm.com>
+ <20220506120012.32326-7-luca.fancellu@arm.com>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20220506120012.32326-5-luca.fancellu@arm.com>
+In-Reply-To: <20220506120012.32326-7-luca.fancellu@arm.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------u4WzxrSPY02h22m91YWuwaqp"
+ boundary="------------60G66dl5FzFFVRBRis0l7p2A"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------u4WzxrSPY02h22m91YWuwaqp
-Content-Type: multipart/mixed; boundary="------------WsFafX1VRqWSUJPv08TX00rt";
+--------------60G66dl5FzFFVRBRis0l7p2A
+Content-Type: multipart/mixed; boundary="------------0FAWCLdQUfBDrA0eLhIpvXZ7";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
 Cc: bertrand.marquis@arm.com, wei.chen@arm.com,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Dario Faggioli <dfaggioli@suse.com>
-Message-ID: <b8f183b0-9168-3848-a2d9-f3f5839e667e@suse.com>
-Subject: Re: [PATCH v8 4/7] xen/cpupool: Create different cpupools at boot
- time
+ Wei Liu <wl@xen.org>, Dario Faggioli <dfaggioli@suse.com>
+Message-ID: <7792f3f2-51ef-640f-136c-97df51113ee6@suse.com>
+Subject: Re: [PATCH v8 6/7] arm/dom0less: assign dom0less guests to cpupools
 References: <20220506120012.32326-1-luca.fancellu@arm.com>
- <20220506120012.32326-5-luca.fancellu@arm.com>
-In-Reply-To: <20220506120012.32326-5-luca.fancellu@arm.com>
+ <20220506120012.32326-7-luca.fancellu@arm.com>
+In-Reply-To: <20220506120012.32326-7-luca.fancellu@arm.com>
 
---------------WsFafX1VRqWSUJPv08TX00rt
-Content-Type: multipart/mixed; boundary="------------eMOXUorfrTiu2rWhSQJnK7Fs"
+--------------0FAWCLdQUfBDrA0eLhIpvXZ7
+Content-Type: multipart/mixed; boundary="------------yLkwVEA90wjCuHO03vSQQAP6"
 
---------------eMOXUorfrTiu2rWhSQJnK7Fs
+--------------yLkwVEA90wjCuHO03vSQQAP6
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMDYuMDUuMjIgMTQ6MDAsIEx1Y2EgRmFuY2VsbHUgd3JvdGU6DQo+IEludHJvZHVjZSBh
-IHdheSB0byBjcmVhdGUgZGlmZmVyZW50IGNwdXBvb2xzIGF0IGJvb3QgdGltZSwgdGhpcyBp
-cw0KPiBwYXJ0aWN1bGFybHkgdXNlZnVsIG9uIEFSTSBiaWcuTElUVExFIHN5c3RlbSB3aGVy
-ZSB0aGVyZSBtaWdodCBiZSB0aGUNCj4gbmVlZCB0byBoYXZlIGRpZmZlcmVudCBjcHVwb29s
-cyBmb3IgZWFjaCB0eXBlIG9mIGNvcmUsIGJ1dCBhbHNvDQo+IHN5c3RlbXMgdXNpbmcgTlVN
-QSBjYW4gaGF2ZSBkaWZmZXJlbnQgY3B1IHBvb2xzIGZvciBlYWNoIG5vZGUuDQo+IA0KPiBU
-aGUgZmVhdHVyZSBvbiBhcm0gcmVsaWVzIG9uIGEgc3BlY2lmaWNhdGlvbiBvZiB0aGUgY3B1
-cG9vbHMgZnJvbSB0aGUNCj4gZGV2aWNlIHRyZWUgdG8gYnVpbGQgcG9vbHMgYW5kIGFzc2ln
-biBjcHVzIHRvIHRoZW0uDQo+IA0KPiBBQ1BJIGlzIG5vdCBzdXBwb3J0ZWQgZm9yIHRoaXMg
-ZmVhdHVyZS4NCj4gDQo+IFdpdGggdGhpcyBwYXRjaCwgY3B1cG9vbDAgY2FuIG5vdyBoYXZl
-IGxlc3MgY3B1cyB0aGFuIHRoZSBudW1iZXIgb2YNCj4gb25saW5lIG9uZXMsIHNvIHVwZGF0
-ZSB0aGUgZGVmYXVsdCBjYXNlIGZvciBvcHRfZG9tMF9tYXhfdmNwdXMuDQo+IA0KPiBEb2N1
-bWVudGF0aW9uIGlzIGNyZWF0ZWQgdG8gZXhwbGFpbiB0aGUgZmVhdHVyZS4NCj4gDQo+IFNp
-Z25lZC1vZmYtYnk6IEx1Y2EgRmFuY2VsbHUgPGx1Y2EuZmFuY2VsbHVAYXJtLmNvbT4NCj4g
-UmV2aWV3ZWQtYnk6IFN0ZWZhbm8gU3RhYmVsbGluaSA8c3N0YWJlbGxpbmlAa2VybmVsLm9y
-Zz4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4gIyBu
-b24tYXJtIHBhcnRzDQoNCg0KSnVlcmdlbg0K
---------------eMOXUorfrTiu2rWhSQJnK7Fs
+T24gMDYuMDUuMjIgMTQ6MDAsIEx1Y2EgRmFuY2VsbHUgd3JvdGU6DQo+IEludHJvZHVjZSBk
+b21haW4tY3B1cG9vbCBwcm9wZXJ0eSBvZiBhIHhlbixkb21haW4gZGV2aWNlIHRyZWUgbm9k
+ZSwNCj4gdGhhdCBzcGVjaWZpZXMgdGhlIGNwdXBvb2wgZGV2aWNlIHRyZWUgaGFuZGxlIG9m
+IGEgeGVuLGNwdXBvb2wgbm9kZQ0KPiB0aGF0IGlkZW50aWZpZXMgYSBjcHVwb29sIGNyZWF0
+ZWQgYXQgYm9vdCB0aW1lIHdoZXJlIHRoZSBndWVzdCB3aWxsDQo+IGJlIGFzc2lnbmVkIG9u
+IGNyZWF0aW9uLg0KPiANCj4gQWRkIG1lbWJlciB0byB0aGUgeGVuX2RvbWN0bF9jcmVhdGVk
+b21haW4gcHVibGljIGludGVyZmFjZSBzbyB0aGUNCj4gWEVOX0RPTUNUTF9JTlRFUkZBQ0Vf
+VkVSU0lPTiB2ZXJzaW9uIGlzIGJ1bXBlZC4NCj4gDQo+IEFkZCBwdWJsaWMgZnVuY3Rpb24g
+dG8gcmV0cmlldmUgYSBwb29sIGlkIGZyb20gdGhlIGRldmljZSB0cmVlDQo+IGNwdXBvb2wg
+bm9kZS4NCj4gDQo+IFVwZGF0ZSBkb2N1bWVudGF0aW9uIGFib3V0IHRoZSBwcm9wZXJ0eS4N
+Cj4gDQo+IFNpZ25lZC1vZmYtYnk6IEx1Y2EgRmFuY2VsbHUgPGx1Y2EuZmFuY2VsbHVAYXJt
+LmNvbT4NCj4gUmV2aWV3ZWQtYnk6IFN0ZWZhbm8gU3RhYmVsbGluaSA8c3N0YWJlbGxpbmlA
+a2VybmVsLm9yZz4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNl
+LmNvbT4gIyBub24tYXJtIHBhcnRzDQoNCg0KSnVlcmdlbg0K
+--------------yLkwVEA90wjCuHO03vSQQAP6
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -184,25 +179,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------eMOXUorfrTiu2rWhSQJnK7Fs--
+--------------yLkwVEA90wjCuHO03vSQQAP6--
 
---------------WsFafX1VRqWSUJPv08TX00rt--
+--------------0FAWCLdQUfBDrA0eLhIpvXZ7--
 
---------------u4WzxrSPY02h22m91YWuwaqp
+--------------60G66dl5FzFFVRBRis0l7p2A
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmJ1G4EFAwAAAAAACgkQsN6d1ii/Ey95
-JwgAnxk9mU5Rerf2cY3oTfRO2uouUNSrmkcXSqje1bDZ05N5+/hs47pBptaPiiApHabSguU8LLdK
-z6reBjb+MrAy8FcHKHMFDaKWRSeXotmBrlHhH4ww2q+c7BLhHCmTiIPlOTvHd1xmZwy48FwprjgT
-FQB57nqH1WX0dX+GbM+7HW5Pe/H4X2U6MpRV1vmYR5Auvd0r/hPl/HZRZV5pP0XsDXI8TMkdzpS8
-c/d83clxL2Pw+oTHyF1fZ85O4iwgoIobehe3hvhLD4/UQRFYrB04dYE/D0SXr+ZXUPXIzlRi0njo
-Qb/iV759LK52eHX0QKy+g12nL8ilvQ2hZ6pNcLPUkw==
-=wo1l
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmJ1HVQFAwAAAAAACgkQsN6d1ii/Ey9I
++wf/YfbGp0xREQSj+DhZycOfMeWZFc6y0zj+Jjt2TOq/MV1KPNgEJOkvKAoQO4ZgArRtBA2OvKR2
+StrfrhRMdj0IEqu8GVs8NJjmh/XXksg5jL124xBMZ1003y3s0RUP15eeoXbA001YcyL8r6IH1lTW
+meOgru3cksTQ8agnfB0zhjmVH3/d//hDFKra0mxYE8OtzTyvoDb9MrHzuisu+/Hn2VUS3EMmfu0m
+fQ7gDCsIBuX2fgbDwVfg92/QsdnpELdYYta6tN4JyvotqV1PhD4cFxHS3jrgH+iLA842NuJGJ6yx
+/vhCRxMXALn+YJBvVUel6FbxGIDlmwY4VJSIAU4iKQ==
+=D6M4
 -----END PGP SIGNATURE-----
 
---------------u4WzxrSPY02h22m91YWuwaqp--
+--------------60G66dl5FzFFVRBRis0l7p2A--
 
