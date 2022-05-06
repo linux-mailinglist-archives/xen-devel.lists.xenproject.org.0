@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 518BD51D0EA
-	for <lists+xen-devel@lfdr.de>; Fri,  6 May 2022 07:53:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.322570.543941 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEA7651D0EC
+	for <lists+xen-devel@lfdr.de>; Fri,  6 May 2022 07:53:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.322571.543951 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmqsz-0001jG-6j; Fri, 06 May 2022 05:52:17 +0000
+	id 1nmqt5-000202-Fp; Fri, 06 May 2022 05:52:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 322570.543941; Fri, 06 May 2022 05:52:17 +0000
+Received: by outflank-mailman (output) from mailman id 322571.543951; Fri, 06 May 2022 05:52:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmqsz-0001gN-3b; Fri, 06 May 2022 05:52:17 +0000
-Received: by outflank-mailman (input) for mailman id 322570;
- Fri, 06 May 2022 05:52:15 +0000
+	id 1nmqt5-0001wT-Cs; Fri, 06 May 2022 05:52:23 +0000
+Received: by outflank-mailman (input) for mailman id 322571;
+ Fri, 06 May 2022 05:52:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CuCn=VO=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1nmqsx-0001gH-LU
- for xen-devel@lists.xenproject.org; Fri, 06 May 2022 05:52:15 +0000
+ id 1nmqt3-0001gH-Pw
+ for xen-devel@lists.xenproject.org; Fri, 06 May 2022 05:52:21 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id ad519e61-cd00-11ec-a406-831a346695d4;
- Fri, 06 May 2022 07:52:13 +0200 (CEST)
+ id b1c5d8ee-cd00-11ec-a406-831a346695d4;
+ Fri, 06 May 2022 07:52:21 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DA3761063;
- Thu,  5 May 2022 22:52:12 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 67A3814BF;
+ Thu,  5 May 2022 22:52:20 -0700 (PDT)
 Received: from a015966.shanghai.arm.com (a015966.shanghai.arm.com
  [10.169.190.24])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id ECC513FA27;
- Thu,  5 May 2022 22:52:08 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id E58803FA27;
+ Thu,  5 May 2022 22:52:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad519e61-cd00-11ec-a406-831a346695d4
+X-Inumbo-ID: b1c5d8ee-cd00-11ec-a406-831a346695d4
 From: Henry Wang <Henry.Wang@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Henry Wang <Henry.Wang@arm.com>,
@@ -56,16 +56,20 @@ Cc: Henry Wang <Henry.Wang@arm.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Wei Liu <wl@xen.org>,
 	Wei Chen <wei.chen@arm.com>,
-	Henry Wang <henry.wang@arm.com>
-Subject: [PATCH v2 0/2] Adjustment after introducing ASSERT_ALLOC_CONTEXT
-Date: Fri,  6 May 2022 13:51:59 +0800
-Message-Id: <20220506055201.999277-1-Henry.Wang@arm.com>
+	Henry Wang <henry.wang@arm.com>,
+	Wei Chen <Wei.Chen@arm.com>,
+	Julien Grall <jgrall@amazon.com>
+Subject: [PATCH v2 1/2] xen/arm: Defer request_irq on secondary CPUs after local_irq_enable
+Date: Fri,  6 May 2022 13:52:00 +0800
+Message-Id: <20220506055201.999277-2-Henry.Wang@arm.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220506055201.999277-1-Henry.Wang@arm.com>
+References: <20220506055201.999277-1-Henry.Wang@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 With the enhanced ASSERT_ALLOC_CONTEXT, calling request_irq before
-local_irq_enable on secondary cores on Arm will lead to
+local_irq_enable on secondary cores will lead to
 
 (XEN) Xen call trace:
 (XEN) [<000000000021d86c>] alloc_xenheap_pages+0x74/0x194 (PC)
@@ -86,23 +90,55 @@ num_online_cpus() <= 1)' failed at common/page_alloc.c:2212
 (XEN) ****************************************
 
 on systems without a big enough pool for xmalloc() to cater the
-requested size. To solve this issue, this series introduces two
-patches. The first one defers the calling of request_irq on
-secondary CPUs after local_irq_enable on Arm. The second one
-moves the definition of ASSERT_ALLOC_CONTEXT to header and uses
-the ASSERT_ALLOC_CONTEXT to replace the original assertion in
-xmalloc().
+requested size.
 
-Henry Wang (2):
-  xen/arm: Defer request_irq on secondary CPUs after local_irq_enable
-  xen/common: Use enhanced ASSERT_ALLOC_CONTEXT in xmalloc()
+Moving the call of request_irq() past local_irq_enable() on
+secondary cores will make sure the assertion condition in
+alloc_xenheap_pages(), i.e. !in_irq && local_irq_enabled() is
+satisfied. It is also safe because the timer and GIC maintenance
+interrupt will not be used until the CPU is fully online.
 
- xen/arch/arm/smpboot.c    | 12 +++++++++---
- xen/common/page_alloc.c   |  7 -------
- xen/common/xmalloc_tlsf.c |  2 +-
- xen/include/xen/irq.h     |  7 +++++++
- 4 files changed, 17 insertions(+), 11 deletions(-)
+Reported-by: Wei Chen <Wei.Chen@arm.com>
+Suggested-by: Julien Grall <jgrall@amazon.com>
+Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+---
+v1 -> v2:
+- Explain why the moving of code is safe in the commit message and
+add comments.
+---
+ xen/arch/arm/smpboot.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
+diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
+index 7bfd0a73a7..9bb32a301a 100644
+--- a/xen/arch/arm/smpboot.c
++++ b/xen/arch/arm/smpboot.c
+@@ -361,9 +361,6 @@ void start_secondary(void)
+ 
+     init_secondary_IRQ();
+ 
+-    init_maintenance_interrupt();
+-    init_timer_interrupt();
+-
+     set_current(idle_vcpu[cpuid]);
+ 
+     setup_cpu_sibling_map(cpuid);
+@@ -380,6 +377,15 @@ void start_secondary(void)
+     cpumask_set_cpu(cpuid, &cpu_online_map);
+ 
+     local_irq_enable();
++
++    /*
++     * Calling request_irq() after local_irq_enable() on secondary cores
++     * will make sure the assertion condition in alloc_xenheap_pages(),
++     * i.e. !in_irq && local_irq_enabled() is satisfied.
++     */
++    init_maintenance_interrupt();
++    init_timer_interrupt();
++
+     local_abort_enable();
+ 
+     check_local_cpu_errata();
 -- 
 2.25.1
 
