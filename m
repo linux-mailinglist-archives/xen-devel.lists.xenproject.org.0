@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C20351D239
-	for <lists+xen-devel@lfdr.de>; Fri,  6 May 2022 09:27:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.322678.544128 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36A3B51D265
+	for <lists+xen-devel@lfdr.de>; Fri,  6 May 2022 09:37:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.322727.544161 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmsMo-00032G-OZ; Fri, 06 May 2022 07:27:10 +0000
+	id 1nmsWV-0006N6-9e; Fri, 06 May 2022 07:37:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 322678.544128; Fri, 06 May 2022 07:27:10 +0000
+Received: by outflank-mailman (output) from mailman id 322727.544161; Fri, 06 May 2022 07:37:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmsMo-00030O-Kv; Fri, 06 May 2022 07:27:10 +0000
-Received: by outflank-mailman (input) for mailman id 322678;
- Fri, 06 May 2022 07:27:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nmsWV-0006KR-6d; Fri, 06 May 2022 07:37:11 +0000
+Received: by outflank-mailman (input) for mailman id 322727;
+ Fri, 06 May 2022 07:37:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5MfP=VO=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1nmsM4-00078X-Qy
- for xen-devel@lists.xenproject.org; Fri, 06 May 2022 07:26:24 +0000
+ <SRS0=BFy9=VO=arm.com=michal.orzel@srs-se1.protection.inumbo.net>)
+ id 1nmsMt-0007P7-DE
+ for xen-devel@lists.xenproject.org; Fri, 06 May 2022 07:27:15 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id d3333901-cd0d-11ec-a406-831a346695d4;
- Fri, 06 May 2022 09:26:20 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id f3789dcf-cd0d-11ec-8fc4-03012f2f19d4;
+ Fri, 06 May 2022 09:27:14 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 04C201063;
- Fri,  6 May 2022 00:26:20 -0700 (PDT)
-Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
- [10.169.190.94])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 765BD3FA27;
- Fri,  6 May 2022 00:26:17 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 159B61063;
+ Fri,  6 May 2022 00:27:14 -0700 (PDT)
+Received: from [10.57.2.250] (unknown [10.57.2.250])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A9C883FA27;
+ Fri,  6 May 2022 00:27:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,80 +42,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d3333901-cd0d-11ec-a406-831a346695d4
-From: Penny Zheng <Penny.Zheng@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: wei.chen@arm.com,
-	Penny Zheng <penny.zheng@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2 9/9] xen/arm: enable statically shared memory on Dom0
-Date: Fri,  6 May 2022 15:25:02 +0800
-Message-Id: <20220506072502.2177828-10-Penny.Zheng@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220506072502.2177828-1-Penny.Zheng@arm.com>
-References: <20220506072502.2177828-1-Penny.Zheng@arm.com>
+X-Inumbo-ID: f3789dcf-cd0d-11ec-8fc4-03012f2f19d4
+Message-ID: <1be8409a-d550-94d1-bf2e-d53ced5edd0c@arm.com>
+Date: Fri, 6 May 2022 09:27:04 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Subject: Re: [PATCH 1/2] xen/arm: gnttab: use static inlines for
+ gnttab_{release_}host_mapping*
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20220505103601.322110-1-michal.orzel@arm.com>
+ <20220505103601.322110-2-michal.orzel@arm.com>
+ <9e759dc2-42f7-01d4-3c3f-17ddfe85018d@suse.com>
+From: Michal Orzel <michal.orzel@arm.com>
+In-Reply-To: <9e759dc2-42f7-01d4-3c3f-17ddfe85018d@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Penny Zheng <penny.zheng@arm.com>
 
-To add statically shared memory nodes in Dom0, user shall put according
-static shared memory configuration under /chosen node.
 
-This commit adds shm-processing function process_shm in construct_dom0
-to enable statically shared memory on Dom0.
+On 05.05.2022 13:13, Jan Beulich wrote:
+> On 05.05.2022 12:36, Michal Orzel wrote:
+>> --- a/xen/arch/arm/include/asm/grant_table.h
+>> +++ b/xen/arch/arm/include/asm/grant_table.h
+>> @@ -29,12 +29,21 @@ static inline void gnttab_mark_dirty(struct domain *d, mfn_t mfn)
+>>  #endif
+>>  }
+>>  
+>> +static inline bool gnttab_host_mapping_get_page_type(bool ro, struct domain *ld,
+>> +                                                     struct domain *rd)
+>> +{
+>> +    return false;
+>> +}
+>> +
+>> +static inline bool gnttab_release_host_mappings(struct domain *d)
+>> +{
+>> +    return true;
+>> +}
+> 
+> Looking at x86 I think all three instances of struct domain * want to
+> be const struct domain *. Then
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Jan
+> 
+Thanks. I think we should mark all parameters as const meaning also const bool ro.
 
-Signed-off-by: Penny Zheng <penny.zheng@arm.com>
----
-v2 change:
-- no change
----
- xen/arch/arm/domain_build.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index f08606d2c0..9da0a0c88b 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -2628,6 +2628,11 @@ static int __init handle_node(struct domain *d, struct kernel_info *kinfo,
-             if ( res )
-                 return res;
-         }
-+
-+        res = make_resv_memory_node(d, kinfo->fdt, addrcells, sizecells,
-+                                    d->arch.shm_mem);
-+        if ( res )
-+            return res;
-     }
- 
-     res = fdt_end_node(kinfo->fdt);
-@@ -3639,6 +3644,9 @@ static int __init construct_dom0(struct domain *d)
- {
-     struct kernel_info kinfo = {};
-     int rc;
-+#ifdef CONFIG_STATIC_SHM
-+    const struct dt_device_node *chosen = dt_find_node_by_path("/chosen");
-+#endif
- 
-     /* Sanity! */
-     BUG_ON(d->domain_id != 0);
-@@ -3673,6 +3681,12 @@ static int __init construct_dom0(struct domain *d)
-     allocate_memory_11(d, &kinfo);
-     find_gnttab_region(d, &kinfo);
- 
-+#ifdef CONFIG_STATIC_SHM
-+    rc = process_shm(d, chosen);
-+    if ( rc < 0 )
-+        return rc;
-+#endif
-+
-     /* Map extra GIC MMIO, irqs and other hw stuffs to dom0. */
-     rc = gic_map_hwdom_extra_mappings(d);
-     if ( rc < 0 )
--- 
-2.25.1
-
+Cheers,
+Michal
 
