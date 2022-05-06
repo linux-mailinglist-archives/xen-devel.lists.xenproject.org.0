@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34DA551DBB3
-	for <lists+xen-devel@lfdr.de>; Fri,  6 May 2022 17:11:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.323326.544907 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A188651DC11
+	for <lists+xen-devel@lfdr.de>; Fri,  6 May 2022 17:29:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.323332.544917 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmzbR-00053x-OC; Fri, 06 May 2022 15:10:45 +0000
+	id 1nmzt8-0006nU-Av; Fri, 06 May 2022 15:29:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 323326.544907; Fri, 06 May 2022 15:10:45 +0000
+Received: by outflank-mailman (output) from mailman id 323332.544917; Fri, 06 May 2022 15:29:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmzbR-00051U-L3; Fri, 06 May 2022 15:10:45 +0000
-Received: by outflank-mailman (input) for mailman id 323326;
- Fri, 06 May 2022 15:10:44 +0000
+	id 1nmzt8-0006kh-7W; Fri, 06 May 2022 15:29:02 +0000
+Received: by outflank-mailman (input) for mailman id 323332;
+ Fri, 06 May 2022 15:29:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OlOn=VO=collabora.com=dmitry.osipenko@srs-se1.protection.inumbo.net>)
- id 1nmzbQ-00051O-BC
- for xen-devel@lists.xenproject.org; Fri, 06 May 2022 15:10:44 +0000
+ id 1nmzt6-0006kb-Kj
+ for xen-devel@lists.xenproject.org; Fri, 06 May 2022 15:29:00 +0000
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b1833c0d-cd4e-11ec-8fc4-03012f2f19d4;
- Fri, 06 May 2022 17:10:41 +0200 (CEST)
+ id 4016bbeb-cd51-11ec-8fc4-03012f2f19d4;
+ Fri, 06 May 2022 17:28:59 +0200 (CEST)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: dmitry.osipenko) with ESMTPSA id 3BE091F46A77
+ (Authenticated sender: dmitry.osipenko) with ESMTPSA id A73061F46AFF
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,19 +38,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1833c0d-cd4e-11ec-8fc4-03012f2f19d4
+X-Inumbo-ID: 4016bbeb-cd51-11ec-8fc4-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1651849840;
-	bh=W4lTpGoqRDp9jGpQmSeg75zdqgDSf5NBF1xaIYSJv90=;
+	s=mail; t=1651850936;
+	bh=36GvcdSB/pf30ZP9RtiH75vOy9s3MxY1/p1dsQRCX00=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=nzDQfSC0mATKPl7KMFojVZYi/BuoRw0OpfD54szXaDeylL+J+qQoXJUCJwPnICT/+
-	 I/8Sy9s84BogRpRojC6gImDJ92xHSdZ7FPiQMJZURPxR9roLC1xtjbIKIwiggwbDrJ
-	 UyaTMJ/2JU2bfO9WoTWZ2N7xEm7TpEz7ocN5RCxlOhvhrIBNeygJsGOPczykA2dH3Y
-	 ihMVuTbEr72h1fNuHXeA9KS5RWNyWO9XvwVu/QHvJStTZHleWev97ymTDjkKKIqCsB
-	 bhqNsJtDoTgZz1cxiqs29hp9q3R5MhFc8U2fUaOt4aKqtIuVwJRIWZP1u5mW0Ypayn
-	 BRUe8/CfvIiJQ==
-Message-ID: <3fc21eb5-218b-f783-a7ef-f805f13c66da@collabora.com>
-Date: Fri, 6 May 2022 18:10:33 +0300
+	b=j4PWvQ+KBo4etBUy0FbW/p7HgcgQKy32GPpN6vjoThFzS1+RGmcEmteL2lFd/bVBT
+	 AknDobZqw5O4tK0BEn0jni1jZ1Y8w81F2B2OWV3FF7FrvJT7Y7bQUJJnPaIFMtFHn0
+	 reKyy4wB8Xbrn+puiesHuayZefx8p/F1dSlMuhF2rKVyTgZW8aR+4U0aGftdyXJz/m
+	 3XXXthcoiK77QOv1j4fPfZKN7nj7ru6E9U9WMrpUGrEUEDI35YvC+Jqrddc9aKOX41
+	 7IjiAmfXml1CMKMBOqZ8jj6SNKFVNBjY8WGAT41UAfMzpF3zkqjQi1yQ9WbfUjIX3x
+	 36sMhgh0cdItw==
+Message-ID: <296e6f6f-e96d-2db1-77b9-288dc47d1b98@collabora.com>
+Date: Fri, 6 May 2022 18:28:49 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.0
@@ -108,19 +108,106 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 4/20/22 21:47, Rafael J. Wysocki wrote:
->>>> +       void (*platform_power_off_cb)(void);
->>>> +       void (*simple_power_off_cb)(void *data);
->>>> +       void *simple_power_off_cb_data;
->>> Is there any particular reason to put these callbacks here and not
->>> directly into struct sys_off_handler?
->> They are used internally by reboot.c and shouldn't be touched by the
->> kernel API users, so I wanted to factor out and protect all the private
->> data.
-> But they come from these users anyway, don't they?
-> 
+>>>> +       spin_unlock(&platform_power_off_lock);
+>>>> +
+>>>> +       if (ret)
+>>>> +               return ret;
+>>>> +
+>>>> +       ret = register_power_off_handler(&priv->power_off_nb);
+>>>> +       if (ret)
+>>>> +               priv->platform_power_off_cb = NULL;
+>>>> +
+>>>> +       return ret;
+>>>> +}
+>>>> +EXPORT_SYMBOL_GPL(register_platform_power_off);
+>>>> +
+>>>> +/**
+>>>> + *     unregister_platform_power_off - Unregister platform-level power-off callback
+>>>> + *     @power_off: Power-off callback
+>>>> + *
+>>>> + *     Unregisters previously registered platform power-off callback.
+>>>> + *
+>>>> + *     Returns zero on success, or error code on failure.
+>>>> + */
+>>>> +int unregister_platform_power_off(void (*power_off)(void))
+>>>> +{
+>>>> +       struct sys_off_handler_private_data *priv;
+>>>> +       int ret;
+>>>> +
+>>>> +       priv = sys_off_handler_private_data(&platform_power_off_handler);
+>>>> +
+>>>> +       if (priv->platform_power_off_cb != power_off)
+>>>> +               return -EINVAL;
+>>>> +
+>>>> +       ret = unregister_power_off_handler(&priv->power_off_nb);
+>>>> +       priv->platform_power_off_cb = NULL;
+>>>> +
+>>>> +       return ret;
+>>>> +}
+>>>> +EXPORT_SYMBOL_GPL(unregister_platform_power_off);
+>>>> +
+>>>> +/**
+>>>> + *     do_kernel_power_off - Execute kernel power-off handler call chain
+>>>> + *
+>>>> + *     Calls functions registered with register_power_off_handler.
+>>>> + *
+>>>> + *     Expected to be called as last step of the power-off sequence.
+>>>> + *
+>>>> + *     Powers off the system immediately if a power-off handler function has
+>>>> + *     been registered. Otherwise does nothing.
+>>>> + */
+>>>> +void do_kernel_power_off(void)
+>>>> +{
+>>>> +       /* legacy pm_power_off() is unchained and has highest priority */
+>>>> +       if (pm_power_off && pm_power_off != dummy_pm_power_off)
+>>>> +               return pm_power_off();
+>>>> +
+>>>> +       blocking_notifier_call_chain(&power_off_handler_list, POWEROFF_NORMAL,
+>>>> +                                    NULL);
+>>>> +}
+>>>> +
+>>>> +static void do_kernel_power_off_prepare(void)
+>>>> +{
+>>>> +       /* legacy pm_power_off_prepare() is unchained and has highest priority */
+>>>> +       if (pm_power_off_prepare)
+>>>> +               return pm_power_off_prepare();
+>>>> +
+>>>> +       blocking_notifier_call_chain(&power_off_handler_list, POWEROFF_PREPARE,
+>>>> +                                    NULL);
+>>>> +}
+>>>> +
+>>>>  /**
+>>>>   *     kernel_power_off - power_off the system
+>>>>   *
+>>>> @@ -304,8 +893,7 @@ EXPORT_SYMBOL_GPL(kernel_halt);
+>>>>  void kernel_power_off(void)
+>>>>  {
+>>>>         kernel_shutdown_prepare(SYSTEM_POWER_OFF);
+>>>> -       if (pm_power_off_prepare)
+>>>> -               pm_power_off_prepare();
+>>>> +       do_kernel_power_off_prepare();
+>>>>         migrate_to_reboot_cpu();
+>>>>         syscore_shutdown();
+>>>>         pr_emerg("Power down\n");
+>>>> @@ -314,6 +902,16 @@ void kernel_power_off(void)
+>>>>  }
+>>>>  EXPORT_SYMBOL_GPL(kernel_power_off);
+>>>>
+>>>> +bool kernel_can_power_off(void)
+>>>> +{
+>>>> +       if (!pm_power_off &&
+>>>> +           blocking_notifier_call_chain_is_empty(&power_off_handler_list))
+>>>> +               return false;
+>>>> +
+>>>> +       return true;
+>>> return pm_power_off ||
+>>> blocking_notifier_call_chain_is_empty(&power_off_handler_list);
+>> Thank you for the thorough review!
+> You're very welcome!
 
-Yes, the point is that these callback pointers are owned by the kernel
-core while callbacks are registered.
+Thanks again for taking a look at the patches. I don't have strong
+preferences about the names and etc, so I'll update it all in v8 like
+you suggested.
 
 -- 
 Best regards,
