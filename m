@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAC7151D0EB
-	for <lists+xen-devel@lfdr.de>; Fri,  6 May 2022 07:53:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.322572.543963 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 871A151D0F6
+	for <lists+xen-devel@lfdr.de>; Fri,  6 May 2022 08:01:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.322601.543974 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmqtB-0002JG-P7; Fri, 06 May 2022 05:52:29 +0000
+	id 1nmr1d-0004TC-IU; Fri, 06 May 2022 06:01:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 322572.543963; Fri, 06 May 2022 05:52:29 +0000
+Received: by outflank-mailman (output) from mailman id 322601.543974; Fri, 06 May 2022 06:01:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmqtB-0002Go-LB; Fri, 06 May 2022 05:52:29 +0000
-Received: by outflank-mailman (input) for mailman id 322572;
- Fri, 06 May 2022 05:52:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CuCn=VO=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1nmqtA-0001gH-8b
- for xen-devel@lists.xenproject.org; Fri, 06 May 2022 05:52:28 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id b5a16f76-cd00-11ec-a406-831a346695d4;
- Fri, 06 May 2022 07:52:27 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EBE191063;
- Thu,  5 May 2022 22:52:26 -0700 (PDT)
-Received: from a015966.shanghai.arm.com (a015966.shanghai.arm.com
- [10.169.190.24])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 7B7DD3FA27;
- Thu,  5 May 2022 22:52:22 -0700 (PDT)
+	id 1nmr1d-0004Qf-E9; Fri, 06 May 2022 06:01:13 +0000
+Received: by outflank-mailman (input) for mailman id 322601;
+ Fri, 06 May 2022 06:01:12 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nmr1c-0004QV-00; Fri, 06 May 2022 06:01:12 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nmr1b-0007KX-UM; Fri, 06 May 2022 06:01:11 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nmr1b-0007Ah-Jq; Fri, 06 May 2022 06:01:11 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nmr1b-0005Ei-JO; Fri, 06 May 2022 06:01:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,103 +42,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5a16f76-cd00-11ec-a406-831a346695d4
-From: Henry Wang <Henry.Wang@arm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=gsE+Q7AmCWA9VKfBahwJWhg6jj9CX/5qldHGm5XXzqo=; b=UE6v63vnsmo0TRHd8ulgld2xy2
+	JIMpFTwXkA99ferVDsdNta2R4QDr2Sy1gLxqT8G+imX5ATsmKXPnfNvAkeW8CAPEGblH/x53GfGp2
+	Jrg2zboMxKtecAZZXUdBdiKjR9tKOApPiheM/chpGg/eoexWYcuW3TATCluPxfD4ucGs=;
 To: xen-devel@lists.xenproject.org
-Cc: Henry Wang <Henry.Wang@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>,
-	Wei Chen <wei.chen@arm.com>,
-	Henry Wang <henry.wang@arm.com>,
-	Wei Chen <Wei.Chen@arm.com>,
-	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v2 2/2] xen/common: Use enhanced ASSERT_ALLOC_CONTEXT in xmalloc()
-Date: Fri,  6 May 2022 13:52:01 +0800
-Message-Id: <20220506055201.999277-3-Henry.Wang@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220506055201.999277-1-Henry.Wang@arm.com>
-References: <20220506055201.999277-1-Henry.Wang@arm.com>
-MIME-Version: 1.0
+Message-ID: <osstest-170171-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 170171: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=826527c9db11f34ca500033e131633f831da2ac2
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 06 May 2022 06:01:11 +0000
 
-xmalloc() will use a pool for allocation smaller than a page.
-The pool is extended only when there are no more space. At which
-point, alloc_xenheap_pages() is called to add more memory.
+flight 170171 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/170171/
 
-xmalloc() must be protected by ASSERT_ALLOC_CONTEXT. It should not
-rely on pool expanding to trigger the ASSERT_ALLOC_CONTEXT in
-alloc_xenheap_pages(). Hence, this commit moves the definition of
-ASSERT_ALLOC_CONTEXT to header and uses the ASSERT_ALLOC_CONTEXT
-to replace the original assertion in xmalloc().
+Regressions :-(
 
-Reported-by: Wei Chen <Wei.Chen@arm.com>
-Suggested-by: Julien Grall <jgrall@amazon.com>
-Signed-off-by: Henry Wang <Henry.Wang@arm.com>
----
-v1 -> v2:
-- No changes
----
- xen/common/page_alloc.c   | 7 -------
- xen/common/xmalloc_tlsf.c | 2 +-
- xen/include/xen/irq.h     | 7 +++++++
- 3 files changed, 8 insertions(+), 8 deletions(-)
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
 
-diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index e866e0d864..ea59cd1a4a 100644
---- a/xen/common/page_alloc.c
-+++ b/xen/common/page_alloc.c
-@@ -162,13 +162,6 @@
- static char __initdata opt_badpage[100] = "";
- string_param("badpage", opt_badpage);
- 
--/*
-- * Heap allocations may need TLB flushes which may require IRQs to be
-- * enabled (except when only 1 PCPU is online).
-- */
--#define ASSERT_ALLOC_CONTEXT() \
--    ASSERT(!in_irq() && (local_irq_is_enabled() || num_online_cpus() <= 1))
--
- /*
-  * no-bootscrub -> Free pages are not zeroed during boot.
-  */
-diff --git a/xen/common/xmalloc_tlsf.c b/xen/common/xmalloc_tlsf.c
-index d2ad909502..b8f838ae74 100644
---- a/xen/common/xmalloc_tlsf.c
-+++ b/xen/common/xmalloc_tlsf.c
-@@ -594,7 +594,7 @@ void *_xmalloc(unsigned long size, unsigned long align)
- {
-     void *p = NULL;
- 
--    ASSERT(!in_irq());
-+    ASSERT_ALLOC_CONTEXT();
- 
-     if ( !size )
-         return ZERO_BLOCK_PTR;
-diff --git a/xen/include/xen/irq.h b/xen/include/xen/irq.h
-index d8beadd16b..300625e56d 100644
---- a/xen/include/xen/irq.h
-+++ b/xen/include/xen/irq.h
-@@ -10,6 +10,13 @@
- #include <asm/hardirq.h>
- #include <public/event_channel.h>
- 
-+/*
-+ * Heap allocations may need TLB flushes which may require IRQs to be
-+ * enabled (except when only 1 PCPU is online).
-+ */
-+#define ASSERT_ALLOC_CONTEXT() \
-+    ASSERT(!in_irq() && (local_irq_is_enabled() || num_online_cpus() <= 1))
-+
- struct irqaction {
-     void (*handler)(int, void *, struct cpu_user_regs *);
-     const char *name;
--- 
-2.25.1
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
+version targeted for testing:
+ ovmf                 826527c9db11f34ca500033e131633f831da2ac2
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   66 days
+Failing since        168258  2022-03-01 01:55:31 Z   66 days  834 attempts
+Testing same since   170171  2022-05-06 05:41:36 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Christine <Yuwei.Chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  duntan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jake Garver <jake@nvidia.com>
+  Jake Garver via groups.io <jake=nvidia.com@groups.io>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Jiewen Yao <jiewen.yao@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Peter Grehan <grehan@freebsd.org>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Yuwei Chen <yuwei.chen@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 5967 lines long.)
 
