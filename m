@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82A8451DB12
-	for <lists+xen-devel@lfdr.de>; Fri,  6 May 2022 16:47:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.323320.544895 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34DA551DBB3
+	for <lists+xen-devel@lfdr.de>; Fri,  6 May 2022 17:11:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.323326.544907 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmzEc-0001bf-Tc; Fri, 06 May 2022 14:47:10 +0000
+	id 1nmzbR-00053x-OC; Fri, 06 May 2022 15:10:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 323320.544895; Fri, 06 May 2022 14:47:10 +0000
+Received: by outflank-mailman (output) from mailman id 323326.544907; Fri, 06 May 2022 15:10:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmzEc-0001Yo-QW; Fri, 06 May 2022 14:47:10 +0000
-Received: by outflank-mailman (input) for mailman id 323320;
- Fri, 06 May 2022 14:47:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nmzbR-00051U-L3; Fri, 06 May 2022 15:10:45 +0000
+Received: by outflank-mailman (input) for mailman id 323326;
+ Fri, 06 May 2022 15:10:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OlOn=VO=collabora.com=dmitry.osipenko@srs-se1.protection.inumbo.net>)
- id 1nmzEb-0001Yi-Am
- for xen-devel@lists.xenproject.org; Fri, 06 May 2022 14:47:09 +0000
+ id 1nmzbQ-00051O-BC
+ for xen-devel@lists.xenproject.org; Fri, 06 May 2022 15:10:44 +0000
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 670cd564-cd4b-11ec-a406-831a346695d4;
- Fri, 06 May 2022 16:47:08 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b1833c0d-cd4e-11ec-8fc4-03012f2f19d4;
+ Fri, 06 May 2022 17:10:41 +0200 (CEST)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: dmitry.osipenko) with ESMTPSA id C32391F468F5
+ (Authenticated sender: dmitry.osipenko) with ESMTPSA id 3BE091F46A77
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,19 +38,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 670cd564-cd4b-11ec-a406-831a346695d4
+X-Inumbo-ID: b1833c0d-cd4e-11ec-8fc4-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1651848427;
-	bh=utol468ApKu3UfEFy7x8r+aU8cRRwOmqk4bK/1Di3gM=;
+	s=mail; t=1651849840;
+	bh=W4lTpGoqRDp9jGpQmSeg75zdqgDSf5NBF1xaIYSJv90=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=jBE3ytwUGToW06KmZyXbQlLMQh11EfcrZ6bdwLxbmA9KbTMiYuuNn3kvbqh632rH2
-	 Jgx0CZHq1E9lNHGEsuRz21D8kAvAh8rFaR8jds1ArktyMwvqKLxX4GAkX19BTWUmPP
-	 b1quvNeRnJpwzsGfRULjPmqW94UBaLvY+SdyGZ2o/bAt8UYAzh00sKV0zWBnlAl37N
-	 VELNP3WacCdMrm2dk8Vabl3yhZXLesCAV/s6oeDX+kpR+1yBykPgcYSQODD7Vr7gKd
-	 V7A6zoiXfzrqEzkhyai26Ys6RbYpjgl9Ni5GI2/IasHsLcZOIHlsySI8JROUyGnbmg
-	 dahigOUrcy3KA==
-Message-ID: <f8075f97-4cc7-b802-97af-c0ef5a969624@collabora.com>
-Date: Fri, 6 May 2022 17:46:57 +0300
+	b=nzDQfSC0mATKPl7KMFojVZYi/BuoRw0OpfD54szXaDeylL+J+qQoXJUCJwPnICT/+
+	 I/8Sy9s84BogRpRojC6gImDJ92xHSdZ7FPiQMJZURPxR9roLC1xtjbIKIwiggwbDrJ
+	 UyaTMJ/2JU2bfO9WoTWZ2N7xEm7TpEz7ocN5RCxlOhvhrIBNeygJsGOPczykA2dH3Y
+	 ihMVuTbEr72h1fNuHXeA9KS5RWNyWO9XvwVu/QHvJStTZHleWev97ymTDjkKKIqCsB
+	 bhqNsJtDoTgZz1cxiqs29hp9q3R5MhFc8U2fUaOt4aKqtIuVwJRIWZP1u5mW0Ypayn
+	 BRUe8/CfvIiJQ==
+Message-ID: <3fc21eb5-218b-f783-a7ef-f805f13c66da@collabora.com>
+Date: Fri, 6 May 2022 18:10:33 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.0
@@ -108,37 +108,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 4/20/22 21:47, Rafael J. Wysocki wrote:
->>>> +/**
->>>> + *     devm_register_prioritized_power_off_handler - Register prioritized power-off callback
->>>> + *     @dev: Device that registers callback
->>>> + *     @priority: Callback's priority
->>>> + *     @callback: Callback function
->>>> + *     @cb_data: Callback's argument
->>>> + *
->>>> + *     Registers resource-managed power-off callback with a given priority.
->>>> + *     It will be called as last step of the power-off sequence. Callbacks
->>>> + *     chaining is disabled, i.e. further lower priority callbacks won't
->>>> + *     be executed if this @callback will fail to execute.
->>>> + *
->>>> + *     Returns zero on success, or error code on failure.
->>> What's the case in which this should be used instead of registering a
->>> full sys_off handler?
->> There are a lot of drivers that just want to register power-off handler
->> with a non-default priority and don't need to stop the chain or do
->> anything else special. This is a convinient helper for them.
->>
->> Please note that the callback here takes only the cb_data for the
->> argument, while sys_off uses "struct power_off_data".
->>
->> Similar for the reset of the convinient helpers.
-> So if there is a way to do this, why would anyone prefer to use the
-> full sys_off handler at all?
+>>>> +       void (*platform_power_off_cb)(void);
+>>>> +       void (*simple_power_off_cb)(void *data);
+>>>> +       void *simple_power_off_cb_data;
+>>> Is there any particular reason to put these callbacks here and not
+>>> directly into struct sys_off_handler?
+>> They are used internally by reboot.c and shouldn't be touched by the
+>> kernel API users, so I wanted to factor out and protect all the private
+>> data.
+> But they come from these users anyway, don't they?
+> 
 
-There are couple occurrences around kernel where there is no device
-available for the devm_ functions, like this for example [1].
-
-[1]
-https://gitlab.collabora.com/dmitry.osipenko/linux-kernel-rd/-/commit/184dfd3983e774d3cf9050dc5b4ec23a662a9551
+Yes, the point is that these callback pointers are owned by the kernel
+core while callbacks are registered.
 
 -- 
 Best regards,
