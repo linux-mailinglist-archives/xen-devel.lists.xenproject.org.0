@@ -2,56 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4153B51CDB6
-	for <lists+xen-devel@lfdr.de>; Fri,  6 May 2022 02:13:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.322445.543742 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3892E51CDD9
+	for <lists+xen-devel@lfdr.de>; Fri,  6 May 2022 02:35:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.322457.543764 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmlas-0002SV-Na; Fri, 06 May 2022 00:13:14 +0000
+	id 1nmlva-0004zh-M2; Fri, 06 May 2022 00:34:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 322445.543742; Fri, 06 May 2022 00:13:14 +0000
+Received: by outflank-mailman (output) from mailman id 322457.543764; Fri, 06 May 2022 00:34:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nmlas-0002Pq-Ja; Fri, 06 May 2022 00:13:14 +0000
-Received: by outflank-mailman (input) for mailman id 322445;
- Fri, 06 May 2022 00:13:12 +0000
+	id 1nmlva-0004x4-JR; Fri, 06 May 2022 00:34:38 +0000
+Received: by outflank-mailman (input) for mailman id 322457;
+ Fri, 06 May 2022 00:34:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=npyr=VO=oracle.com=boris.ostrovsky@srs-se1.protection.inumbo.net>)
- id 1nmlap-0002Pk-KI
- for xen-devel@lists.xenproject.org; Fri, 06 May 2022 00:13:12 +0000
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4e95e6bd-ccd1-11ec-8fc4-03012f2f19d4;
- Fri, 06 May 2022 02:13:09 +0200 (CEST)
-Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 245M2pK2003197;
- Fri, 6 May 2022 00:12:32 GMT
-Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com
- (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3frw0avevw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 06 May 2022 00:12:32 +0000
-Received: from pps.filterd
- (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
- by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.16.1.2/8.16.1.2)
- with SMTP id 2460BaWH035627; Fri, 6 May 2022 00:12:31 GMT
-Received: from nam10-bn7-obe.outbound.protection.outlook.com
- (mail-bn7nam10lp2109.outbound.protection.outlook.com [104.47.70.109])
- by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com with ESMTP id
- 3fs1a7p9kj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 06 May 2022 00:12:31 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
- by BN8PR10MB3153.namprd10.prod.outlook.com (2603:10b6:408:c1::29)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.25; Fri, 6 May
- 2022 00:12:29 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::125:f19d:8eaf:b8e4]) by BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::125:f19d:8eaf:b8e4%3]) with mapi id 15.20.5206.027; Fri, 6 May 2022
- 00:12:29 +0000
+ <SRS0=5BOl=VO=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1nmlvY-0004wy-VV
+ for xen-devel@lists.xenproject.org; Fri, 06 May 2022 00:34:37 +0000
+Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
+ [64.147.123.19]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4c142a3e-ccd4-11ec-8fc4-03012f2f19d4;
+ Fri, 06 May 2022 02:34:35 +0200 (CEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.west.internal (Postfix) with ESMTP id E3C2E32004ED;
+ Thu,  5 May 2022 20:34:30 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Thu, 05 May 2022 20:34:31 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 5 May 2022 20:34:29 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,161 +43,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4e95e6bd-ccd1-11ec-8fc4-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
- subject : to : cc : references : from : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2021-07-09;
- bh=SaCvlo62Y0mbNxGVaoty4LRK6rhNma/WwiRi++Rk5k4=;
- b=wU71IuQbkEJNQEecrYS3gDVvAT9i2gZsPuln39Jzh6tuAa9WYF93OWGEeK9+cKwLCa9J
- qu2pG3X61NAUF2UgvKwwXesnl3WkPd6fEFFwFZ5aDBUC3W7whKlg4ZM0TQ1q0mWDnCEy
- t3xIGPPraq7j+rqT+5/ipdRdlKIrD+9BWVc7ZC+ZpwJLzAuxw85YZidtNrqhwI7vgrLB
- 2uFE8MYFewtzVYIuzZ9WamhFshtaes/RlpWZoABvj5tF2MbSqxqEzuEmmyVcTzg8/tFt
- WJtFmfU7/hg1r2WP/eAGcdeMPQrePEsoHPwEt8ryNFbJc/KGnfih5K015tCHTG74OrL3 Fw== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Etj+rlCgq6lRjOBYJxSV4BvChtY2RFq2WOG3WKI4UC73EKB775eASAaySBLOprtvW8UbS6ZWiLhBKRCLb72QanMQSTn3L9tDzVlUcj6Yzt0wN1bcel1vwE13es/QsqmzOaPFdtzVR+lJxlLrTzCc9d/FmwYHk9tzLyViLZARZ2Xvfz7AKIglVgrrorMUwGckJNtoa2H1zPgQvsA/VtSZo0rOPfRwnrYSkYTSwxg3VQMSic8f6BuCe3fmIBro3/s+mPD7SqkDrJigfsLLfzwRj/ObsCWT8VCnP2wZ7lh0eCZvgD//WWIrM2gdm2+oXAmg3NxVA+yS7cRCusVO04ofSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SaCvlo62Y0mbNxGVaoty4LRK6rhNma/WwiRi++Rk5k4=;
- b=EwIaY3JWc7VjJebEq2AGG9QQuJdVNQowWLMQkpcNACYWZE+Ey4gpJDtGZaIzNAKNbjQ6rsnAEy1t3p8c5nFdWi8jkAdhb61UbUU/KhwLWlisxke9O0thWeCNuHeV0a2FTG/3i3tkRoQNreWRDF/73bHLiz0kkA2UAidOyt6K3aXVTOwps7us+atrUNeBN45nx2N6QDLytklxVR5BtGulazxOO4BpEzow6kmrW514t+UaUVPHoKk31XYCKicB+UfxIStv+30GjUeVMTBNwDGY10bp3W8iEuN1RipwWS85pvzoqJwLi0Wc5FE+zA6W/eBuEavg6KUh4mGZzyS6012r/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SaCvlo62Y0mbNxGVaoty4LRK6rhNma/WwiRi++Rk5k4=;
- b=Vzw1PNNqjKmr37LRPuhfltu0CUt3DgJefzvsZbAdiZQ/84MdTTyjDumowYlJ/pLidEvo1PCAUSLoLIWVTtZSTYUktf3528WUuifgZfxyquwxDYTJW427o1IMV/pJJ8hs4dUF1BAWjTUAFfKUg0i7rfPjsphv7D0nqsumeZUgbSU=
-Message-ID: <51a1761f-9852-d064-05fc-0a98a8304506@oracle.com>
-Date: Thu, 5 May 2022 20:12:20 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.8.1
-Subject: Re: [PATCH v3 00/21] xen: simplify frontend side ring setup
-Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
-        linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
-        netdev@vger.kernel.org, linux-scsi@vger.kernel.org,
-        linux-usb@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        linux-integrity@vger.kernel.org, linux-pci@vger.kernel.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-        =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
-        Jens Axboe <axboe@kernel.dk>, "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>,
-        "James E.J. Bottomley"
- <jejb@linux.ibm.com>,
-        "Martin K. Petersen" <martin.petersen@oracle.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
-        David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        alsa-devel@alsa-project.org, Peter Huewe <peterhuewe@gmx.de>,
-        Jarkko Sakkinen <jarkko@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
-        Bjorn Helgaas <bhelgaas@google.com>
-References: <20220505081640.17425-1-jgross@suse.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-In-Reply-To: <20220505081640.17425-1-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN7P222CA0024.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:124::20) To BLAPR10MB5009.namprd10.prod.outlook.com
- (2603:10b6:208:321::10)
+X-Inumbo-ID: 4c142a3e-ccd4-11ec-8fc4-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1651797270; x=
+	1651883670; bh=4fuzwXGW6jdzk5aPMIJm9U3GDfDnsy/WcfnqqxRJkLE=; b=n
+	scaNm3vHXqKB6RJv9Bg1zliCBfRE1RAuCUQFGM425nIbHlnMrrVMIIJzJnPNQAcZ
+	+aDY4IScmrDBhCEUx/iCWptFaaHE5pivFEmn0oIZwK/Sr/ljYNJ6YXY3CuNmxJOG
+	0Z1Tim8a5yiSlkhrLEiV02IExvnWLhMnzjG1kxHYABKyygmNu1BUUMWH7yZESZL1
+	hsW0S07jFVHqIpYy2N5WihpubvrocP7uIkpXB0QOQbWx8hqMNrLHB0Q++DZk6wme
+	kAVUo/ej784Y1ztxFDQlk2S4Dk9FonwAVFe26TRrzXv5jhH3YyMrGRZ6rb7dbl6q
+	jzDuvN5qyyXd7ni8vRK6Q==
+X-ME-Sender: <xms:Fm10YrBux3QWhZHa9iNbSRccyJMWPWPLiA6vkWAzOtQuxTx3IuyC8A>
+    <xme:Fm10YhhdktgvfRUGfg0JSUs5DFdQ6j1tdbSZ569t27VHfzPUAFNN1wHPc8UG30yuA
+    Rgo6ClMtVBe4N4>
+X-ME-Received: <xmr:Fm10YmmLdU8LArKbczkEPl4_HbJuw21nCVzQxnv6u9H-cdo1IxP7oQKaqf1s>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrfedvgdefiecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeffvghmihcu
+    ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
+    hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpedvjeetgeekhfetudfhgfetffegfffg
+    uddvgffhffeifeeikeektdehgeetheffleenucevlhhushhtvghrufhiiigvpedtnecurf
+    grrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhl
+    rggsrdgtohhm
+X-ME-Proxy: <xmx:Fm10Ytwd_EeA_8J9ivWDgueIkzYdGoJDXCMcZuCjssbUGz8Z6pWssw>
+    <xmx:Fm10YgQjQLSgI0ueuMZbF3jsmAxNlxmAdSZoeU5JFTTh3sQcjAwImA>
+    <xmx:Fm10YgYdW59iB9OuEwFiewKqOTiOXST0j0DZmaH2kbCmUUFGV08o7Q>
+    <xmx:Fm10YvMa7J4QbrsHL6fqbxD0ACkCx4s9pzY9vNcLajCiIVeiRUcCuA>
+Date: Thu, 5 May 2022 20:30:17 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Xen developer discussion <xen-devel@lists.xenproject.org>
+Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Proposal: use disk sequence numbers to avoid races in blkback
+Message-ID: <YnRtFBzfba0OYldx@itl-email>
+References: <Yf8h36wj5QWSWEud@itl-email>
+ <YgaNeZNSt26oCzbZ@itl-email>
+ <YkOgDihJCrtWriDq@itl-email>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 14e0a6ac-6d3e-4b08-5c4a-08da2ef51bc6
-X-MS-TrafficTypeDiagnostic: BN8PR10MB3153:EE_
-X-Microsoft-Antispam-PRVS: 
-	<BN8PR10MB31531B14D2A46A554B4EDB438AC59@BN8PR10MB3153.namprd10.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	xJSu4fd8iWYoSgOLgFOy6ufTMLJ/58x7jaLn/pdT3Fo1pRCKoqywCzViN82fgGcYo7lKu8zPv72fa+b2+CRu0v8ly5dvhf0yh7eavwdPE8YBSjKwb6P2ymriOaoSP/NS4ux/xHoudKgWvYDvLqL4yuaXnXmFkfuueOzq7h1wuDyWqYE+n1uR8pwXzw+Ni1hq7QGtCZY1cgJNlcQDteVfTz49CkOfU5ZoB49wtMGCLKZUC2m/lU9xY6cyyu4xw0RraBn21YyUfwvsJ/W7U47HiUMX3WcH9Uleo6CQ4clA5raPM5bu9IjrdKMitFFyTmtD6WWqwXiH4NBTHlswJrdnXtZZKmsPoUedzVbCkhSfAgzkmEAOscFMYrW8HspYk72RT7bdMk2iM6m9iGDGeKgtb7/xvy4hghQ/onwSiPDT6jHgklyg1eGcQL7KdLWuCP5zN0XsODGJ7p0VS3VIRGfKCWRdKNHzeidZXcfWiopKPiAH4BrSXnHBBIzYmUHl4TNMKOoeVB9Gj8GgPd+4Ikibt5/pU9uiBCVtAw3tMmWDrG6Notmb286qvvEKygLMAYn8w2YaGmNWCJ5MDGSTOBLAdzc2giBDGFdilN1ompRo4xroA6Msykrdg3+98dkq6MMcoPVOi97pni7isEdyi8YWIeG65v+PWzvOAx9PbJ9iiHeqscal+pWg1DnCjhgfQ5kdDZRyDL7DExJB/aGXqPAwcd1dsHuI+6ciPVXvccKA/Lwtvbzez1P+5YAIxvYKvR8SlF5+qB57OBu133XoAPFQJQ==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(83380400001)(31686004)(53546011)(6506007)(6512007)(2616005)(26005)(6666004)(508600001)(186003)(36756003)(6486002)(44832011)(4744005)(5660300002)(54906003)(7416002)(8936002)(86362001)(2906002)(31696002)(316002)(66476007)(66946007)(921005)(66556008)(8676002)(38100700002)(4326008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?bytxaFk4Q0FGZ3RvTFZZOExlOHpOc3dyUzNXKzNOWExOT1d3R0Z0UTN0OU1s?=
- =?utf-8?B?c1lpRTMyZVpPUHNpSFIxQVZOTjhnSmdGTWJCM0txMm9XSUlHUjJSNEtVVGhy?=
- =?utf-8?B?QnNRcVlIYzZOVHM1R0lFQTRaQm8wNnprSCtwWGtvTnVSRjJDemJ2RW1YcHNl?=
- =?utf-8?B?ZW9henBhbkN1NTlrZjRyUHJWNWRpSTZndnpZb3luQUFFTWlyMW1UNmRsUWdZ?=
- =?utf-8?B?dFVZbStXalhxNkFmSEZ1UDQyT3VOb21nUWRhZ1hKT09zNENYQkczYkZNUTFq?=
- =?utf-8?B?Rm1aQzRvOS9NejdDZU1hcDE3dGwzRFp2dytVVTNyZW5ob3gwTlRCZWkwblZa?=
- =?utf-8?B?N0dxRElvMnlUYXd1aGxzYVNEekVrQ0Ywa01ueXBwMk5HQjVmbUt1b3h6KzF3?=
- =?utf-8?B?K2tIL0V1ek1sWXpiY2c1NUhIM1BRQ1JPbDZwSzVnZDFjakF4TDJLdTFpV0hz?=
- =?utf-8?B?OUR1RnZ6QzJOa1NlKzRLdUlqblExMXNTYVhjM1hWZUN2R3NEcDZITkJKaXBa?=
- =?utf-8?B?aHczTXpuS2F2bG15TlJpdWgwQXl4WXhXYk90WkpISmZ1QmExRmM3dlZCUHRQ?=
- =?utf-8?B?U1prSXNBc2lONWQxN3V1elI3cW1yWGFzNDd4d3hQMmZvTktJa2R0VGxtMXo3?=
- =?utf-8?B?VDNESzVLQkhaeWZXL211ZHhCWWUxZkdFbVhBNUNSeXZSY0s3OVFmZng0UWZn?=
- =?utf-8?B?R1BnYlRBbGJkZWd5RUY0alFWZDk0Qy96QmdNZHdGYjRiaVRJdWh0K3lqRDJp?=
- =?utf-8?B?WWRBTStQeW9wOGZxU0VYTVEyYndhQ0MzUU5OYkFiekp0WTBucm9NMEI0MW9J?=
- =?utf-8?B?QVZwaDJEeElIL1ZVaDZFcXJ3eS9XTEdUV2REeHhJZXFBN1doUDBqZVUzQmU1?=
- =?utf-8?B?bjg4RlhKNnRNbEN2UERkL0Fsc0QxditCM3lvNmJoK2ZsaGUxSi83by9wTzNi?=
- =?utf-8?B?SFh4TmFZNkhjUUp3SSszY2Y3ZzBGOG9uamY1bkNPS2Z2Y1F4MXZXME0wak9K?=
- =?utf-8?B?Z3lvdjNiVVMwVmNkbXZYdW93WXZZZDRwYkMvV3BRWkdrODVmOWwyRXVib0Jt?=
- =?utf-8?B?Nm5rY1lkR21BT05QRTA4SE9POVk0VGZkdFIxZ0N3VjRpVWF6Q0x4a2ZyZkho?=
- =?utf-8?B?UDVibWI1d3N5SUVaS1RleCtNSmJRVE1zSnhaV0FIT0Rkb1gxendEOWRQK2ds?=
- =?utf-8?B?TUI4Rm0zS0JOTk9YeFBHUE9YMFdINGJJK2k4bWcyZnRFR3FyMGJRY1ppL3Ru?=
- =?utf-8?B?SVlrdTdnTnFtK1RsL1BEMTF4dGZPMDQybW4rSTdBY1JjeVdPd3VQK2RCc3Ix?=
- =?utf-8?B?ZzhEejQyeERpaitjOEJKZjVjdzVsUG5ac1I2OHRCOXFDVXFrV1VZVVdHcm5S?=
- =?utf-8?B?R2luVlJqUllRVGhwNFowK3lPd1BvNnorZHdrOE91RW9XQWxvWElDdTh1NXBQ?=
- =?utf-8?B?NjdaNC83QkRNbFFyWHhJQU5EM3hGOVZjVWEzek9TVE96TGZPQUtmeldrT0o3?=
- =?utf-8?B?cW9ZeUd0RnMvUDMrR3JLT2VLSjVodEpZc1V3d1dDRnpoL1JsbmJBbGtaTDMw?=
- =?utf-8?B?dXkvb0Z5ZGw2WmhiZUIwTFVJUEF3NnE1SXBKQkEyYkJsZXlZaEoyVFlEcDZY?=
- =?utf-8?B?TURXcEc5WmthUy9jTUlURGJEMExxaFoxUlVsOE9aTlh6LzdyVUxsSXpxbCtz?=
- =?utf-8?B?aXhFMnl2eWlMRzY2d3NMdXR5S21pby9DS1NPQnh0ZCtNTWdFb0x0WmZtcmFn?=
- =?utf-8?B?MUR4SUNhOUhacjErWVRQYnE0OHFoTnNYQW1DUy92OUZxWExpakRWSkVkYU5I?=
- =?utf-8?B?REMwSFZqQ2NzQ2dYdGNkK3Q2SkNSdzRLVEh4YklFZ0Vlb0xOVWNvbXdtWmhV?=
- =?utf-8?B?VUZWb3oxdGZtQzdHbS8rSndRKzBqYXk3MXRyVGtwR3JkUG4vMzdjcG1RS3Fy?=
- =?utf-8?B?V0JoM0xUb3FCbEFIVS9saWg4NVdyU3lVZmw4ZmlTdlhHcG55eXpkWnFmZFVT?=
- =?utf-8?B?NXVIYUhMeGpEby9jaGpDVzNXOGFBckREUWllTVRyZVR1T3EvQ2txN2V2WXZy?=
- =?utf-8?B?eDVSY2Q3TStMTmtueExsZ1NsT0FjV0cvNVArT1FPRDJINW5ETUJuUlBEZnRs?=
- =?utf-8?B?cDZsdWcwSzNUZ3B5TFgzTXB2SzNvRmwxVWwvNGF1SGxUL1FFcEZSaS8wRFB0?=
- =?utf-8?B?NzdzUUpKdG9IR2puWUVORkFFcWVNRUl4dUovMlNkYUVpbWg0cHBaMkdHZmFE?=
- =?utf-8?B?dDM3dUJuSFUxenJVaGRpR0dOb3VwbWVmSFQ0Vk9GUkNzdnp1SmZncXliKzhh?=
- =?utf-8?B?OUN5dVE0QVVqckVWcXJnanRxVEduckVnZTJnTUx2WFhnL3hjWEMxNWRYRHcw?=
- =?utf-8?Q?sdsvwoAp5hbzZW54=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 14e0a6ac-6d3e-4b08-5c4a-08da2ef51bc6
-X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2022 00:12:29.4977
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hYulAuZhXmK5BaUUYMzlV9HQeCTsYoFltdGk+LDG0YX9O3CRYmG/rGitCA3acrGEhNhjaRQ/jwbjgosZ9KigRlxLMXlok9CDeFxtmfhZRiU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR10MB3153
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.486,18.0.858
- definitions=2022-05-05_10:2022-05-05,2022-05-05 signatures=0
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 bulkscore=0 malwarescore=0
- spamscore=0 mlxlogscore=999 mlxscore=0 suspectscore=0 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2202240000
- definitions=main-2205050153
-X-Proofpoint-GUID: XWU0bMd3BhK7XLGpuB-x1jMxs1RfxYRX
-X-Proofpoint-ORIG-GUID: XWU0bMd3BhK7XLGpuB-x1jMxs1RfxYRX
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="sBH/PEPWRYXGqvzq"
+Content-Disposition: inline
+In-Reply-To: <YkOgDihJCrtWriDq@itl-email>
 
 
-On 5/5/22 4:16 AM, Juergen Gross wrote:
-> Many Xen PV frontends share similar code for setting up a ring page
-> (allocating and granting access for the backend) and for tearing it
-> down.
->
-> Create new service functions doing all needed steps in one go.
->
-> This requires all frontends to use a common value for an invalid
-> grant reference in order to make the functions idempotent.
->
-> Changes in V3:
-> - new patches 1 and 2, comments addressed
->
-> Changes in V2:
-> - new patch 9 and related changes in patches 10-18
+--sBH/PEPWRYXGqvzq
+Content-Type: text/plain; charset=utf-8; protected-headers=v1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 5 May 2022 20:30:17 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Xen developer discussion <xen-devel@lists.xenproject.org>
+Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Proposal: use disk sequence numbers to avoid races in blkback
 
+Proposal: Check disk sequence numbers in blkback
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 
-For the patches that I was explicitly copied on:
+Currently, adding block devices to a domain is racy.  libxl writes the
+major and minor number of the device to XenStore, but it does not keep
+the block device open until blkback has opened it.  This creates a race
+condition, as it is possible for the device to be destroyed and another
+device allocated with the same major and minor numbers.  Loop devices
+are the most obvious example, since /dev/loop0 can be reused again and
+again, but the same problem can also happen with device-mapper devices.
+If the major and minor numbers are reused before blkback has attached to
+the device, blkback will pass the wrong device to the domain, with
+obvious security consequences.
 
+Other programs on Linux have the same problem, and a solution was
+committed upstream in the form of disk sequence numbers.  A disk
+sequence number, or diskseq, is a 64-bit unsigned monotonically
+increasing counter.  The combination of a major and minor number and a
+disk sequence number uniquely identifies a block device for the entire
+uptime of the system.
 
-Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+I propose that blkback check for an unsigned 64-bit hexadecimal XenStore
+entry named =E2=80=9Cdiskseq=E2=80=9D.  If the entry exists, blkback checks=
+ that the
+number stored there matches the disk sequence number of the device.  If
+it does not exist, the check is skipped.  If reading the entry fails for
+any other reason, the entry is malformed, or if the sequence number is
+wrong, blkback refuses to export the device.
 
+The toolstack changes are more involved for two reasons:
+
+1. To ensure that loop devices are not leaked if the toolstack crashes,
+   they must be created with the delete-on-close flag set.  This
+   requires that the toolstack hold the device open until blkback has
+   acquired a handle to it.
+
+2. For block devices that are opened by path, the toolstack needs to
+   ensure that the device it has opened is actually the device it
+   intended to open.  This requires device-specific verification of the
+   open file descriptor.  This is not needed for regular files, as the
+   LOOP_CONFIGURE ioctl is called on an existing loop device and sets
+   its backing file.
+
+The first is fairly easy in C.  It can be accomplished by means of a
+XenStore watch on the =E2=80=9Cstatus=E2=80=9D entry.  Once that watch fire=
+s, blkback
+has opened the device, so the toolstack can safely close its file
+descriptor.
+
+The second is significantly more difficult.  It requires the block
+script to be aware of at least device-mapper devices and LVM2 logical
+volumes.  The general technique is common to all block devices: obtain
+the sequence number (via the BLKGETDISKSEQ() ioctl) and its major and
+minor numbers (via fstat()).  Then open /sys/dev/block/MAJOR:MINOR to
+get a directory file descriptor, and use openat(2) and read(2) to get
+various sysfs attributes.  Finally, read the diskseq sysfs attribute and
+check that it matches the sequence number from BLKGETDISKSEQ().
+Alternatively, one can use device-specific methods, such as
+device-mapper ioctls.
+
+Device-mapper devices can be detected via the =E2=80=98dm/name=E2=80=99 sys=
+fs attribute,
+which must match the name under =E2=80=98/dev/mapper/=E2=80=99.  If the nam=
+e is of the
+form =E2=80=98/dev/X/Y=E2=80=99, and the =E2=80=98dm/uuid=E2=80=99 attribut=
+e starts with the literal
+string =E2=80=9CLVM-=E2=80=9D, then the expected =E2=80=98dm/name=E2=80=99 =
+attribute should be found by
+doubling all =E2=80=98-=E2=80=99 characters in X and Y, and then joining X =
+and Y with
+another =E2=80=98-=E2=80=99.  This accounts for LVM2 logical volumes.  Alte=
+rnatively,
+one can use device-mapper ioctls to both check if a device is a
+device-mapper device, and to obtain its name and UUID.  I plan on going
+with the latter route.
+
+There are *many* other rules that might need to be followed, but these
+are the most important ones.  In particular, this is sufficient for
+device-mapper devices, which are by far the most important case for now.
+
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+
+--sBH/PEPWRYXGqvzq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmJ0bRMACgkQsoi1X/+c
+IsFN5xAAlusB3Q7DsZRqGMbud2GkOlcxHockfDCNpbmFNwSAF8fqpahqKm33dTq9
+v8veYst4jCKcEJqUiqU8rb8syGvBP6DW/PR162k/0uxtX4ox9+mxj7VtcZ/ReSQR
+tVN12gPHQzxhImXtTdg5vuw6qbAs4Ykch1kc+febuq4IzXzWhyI5e4DaEk8Wpmq2
+ZsX9RKY/dRN9rEt5WRd66B7v4cCItA2t9lMpus6QN4uRq0SnSRqutemjr/m9vTYj
+thGRYskXub8SshzNUjnkwe4fBpNjfY43FXLPhJn0qzwL+OEh3bTHqNVfrJ0VAiPM
+Ao8+3Oiy4ENef5dJhUaBuDR4fY2UweZyuZ0J14nJ3x/eLWndIQSNu9QM7K+jYFul
+jGkHVjm6GxzmHcwHonksr8Hh31HwZBpmC5G+O71aW/sV7c8AtOP5N6oJHAjR7mez
+QMaxZaIYF2ih2mtRgyfD9CK855IfssMHkspg3zkiYQiDkGiUd77qzpxVE3/Jn2VR
+ik/FxbO/4K4+gB58H/Pgo4Gwp/jml8Px5IHJ6C3PxUXQr+YRhhsNmiTEK3c8UHNr
+Io2peTvFAJqaNE6Y8sx4udlxMCvmZGorFtlrwAvULtfVn0aonM+DKMfElvN7vaDB
+NViuqGND+XU8Eg2P/an74AuV/vikLdijtWCXOHTFbJkLWoZKZvg=
+=zoaQ
+-----END PGP SIGNATURE-----
+
+--sBH/PEPWRYXGqvzq--
 
