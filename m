@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 219BD51E59F
-	for <lists+xen-devel@lfdr.de>; Sat,  7 May 2022 10:36:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.323634.545387 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD77251E5C8
+	for <lists+xen-devel@lfdr.de>; Sat,  7 May 2022 11:01:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.323642.545401 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nnFuz-0000wj-So; Sat, 07 May 2022 08:36:01 +0000
+	id 1nnGIw-0004DI-2X; Sat, 07 May 2022 09:00:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 323634.545387; Sat, 07 May 2022 08:36:01 +0000
+Received: by outflank-mailman (output) from mailman id 323642.545401; Sat, 07 May 2022 09:00:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nnFuz-0000uM-PP; Sat, 07 May 2022 08:36:01 +0000
-Received: by outflank-mailman (input) for mailman id 323634;
- Sat, 07 May 2022 08:36:00 +0000
+	id 1nnGIv-00049s-V1; Sat, 07 May 2022 09:00:45 +0000
+Received: by outflank-mailman (input) for mailman id 323642;
+ Sat, 07 May 2022 09:00:44 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nnFux-0000uC-US; Sat, 07 May 2022 08:35:59 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1nnGIt-00049m-Ve
+ for xen-devel@lists.xenproject.org; Sat, 07 May 2022 09:00:43 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nnFux-0002Ok-Iu; Sat, 07 May 2022 08:35:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nnFux-0007eW-Bd; Sat, 07 May 2022 08:35:59 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nnFux-00036m-BD; Sat, 07 May 2022 08:35:59 +0000
+ (envelope-from <julien@xen.org>)
+ id 1nnGIt-0002r6-LV; Sat, 07 May 2022 09:00:43 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nnGIt-0001GM-FQ; Sat, 07 May 2022 09:00:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,171 +39,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=d09t78GWQIWzSYjiV9jFEyyR2K1bUcDF1SzYTPqEJTA=; b=LDzNUFDpMKeW951PjiBJJ9bbQ4
-	A3G8vME+jweDqpDj4Fu0nOK817vNm98vlH2jSemBzBDlFl1J6hoD/1oxXAHAMRW5INAhvoCZRn+11
-	oIFKam7pwxjzXTRqs60LtruUQ6gG2mOA8ZLPzbTZ17CsSmMnFc5cPPGnrSLWwXT2+kuY=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170206-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
+	From:References:Cc:To:MIME-Version:Date:Message-ID;
+	bh=vH7ONMyoV7A8LBQjawjCukMjk6aiZB7UH/oyEHMDvbg=; b=J3QtpLfFrfMPoKkNT6Sy5zQ3D+
+	EVyCbGEdmUcLbQzDYx/TIQucJjDhUz/fCwOi4MPVGg6z7afhyb/5AcWMhaD2Jj6tM1P6rEBF8Lqvg
+	UDOTgsHVJUwciw0+/S9ZIG+ddABSmlYiZ3pl17OGdSA9Ib/IagqyyRLA1sUwqauSLT0o=;
+Message-ID: <442a17fb-b859-8067-417e-a1286dfcec80@xen.org>
+Date: Sat, 7 May 2022 10:00:41 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 170206: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=247a0fc65e5deea58a1486a0e506bc38fd9bed6b
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 07 May 2022 08:35:59 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.8.1
+To: Penny Zheng <Penny.Zheng@arm.com>, xen-devel@lists.xenproject.org
+Cc: wei.chen@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20220506072502.2177828-1-Penny.Zheng@arm.com>
+ <20220506072502.2177828-7-Penny.Zheng@arm.com>
+From: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH v2 6/9] xen/arm: add P2M type parameter in
+ guest_physmap_add_pages
+In-Reply-To: <20220506072502.2177828-7-Penny.Zheng@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 170206 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170206/
+Hi,
 
-Regressions :-(
+On 06/05/2022 08:24, Penny Zheng wrote:
+> In order to cover the scenario where users intend to set up guest
+> p2m foreign mapping with nr_pages, this commit adds a new P2M type
+> parameter in guest_physmap_add_pages.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+With this patch, guest_physmap_add_pages() and guest_physmap_add_page() 
+will behave differently. The former will be able to deal with any type 
+whilst the latter can only handle RAM type.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+I think we need to stay consistent with the name. Looking at the 
+existing helper, we already have one that should suit you (see 
+map_regions_p2mt()). So this patch looks unnecessary.
 
-version targeted for testing:
- ovmf                 247a0fc65e5deea58a1486a0e506bc38fd9bed6b
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+Cheers,
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   67 days
-Failing since        168258  2022-03-01 01:55:31 Z   67 days  853 attempts
-Testing same since   170178  2022-05-06 09:40:34 Z    0 days   15 attempts
+> 
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> ---
+> v2 change:
+> - no change
+> ---
+>   xen/arch/arm/domain_build.c    | 5 +++--
+>   xen/arch/arm/include/asm/p2m.h | 5 +++--
+>   2 files changed, 6 insertions(+), 4 deletions(-)
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index b3ba0c501d..089b9e99fc 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -507,7 +507,7 @@ static bool __init append_static_memory_to_bank(struct domain *d,
+>       else
+>           sgfn = gaddr_to_gfn(mfn_to_maddr(smfn));
+>   
+> -    res = guest_physmap_add_pages(d, sgfn, smfn, nr_pages);
+> +    res = guest_physmap_add_pages(d, sgfn, smfn, nr_pages, p2m_ram_rw);
+>       if ( res )
+>       {
+>           dprintk(XENLOG_ERR, "Failed to map pages to DOMU: %d", res);
+> @@ -850,7 +850,8 @@ static int __init allocate_shared_memory(struct domain *d,
+>       nr_pages = PFN_DOWN(psize);
+>       if ( d != dom_io )
+>       {
+> -        ret = guest_physmap_add_pages(d, gaddr_to_gfn(gbase), smfn, PFN_DOWN(psize));
+> +        ret = guest_physmap_add_pages(d, gaddr_to_gfn(gbase), smfn, nr_pages,
+> +                                      p2m_ram_rw);
+>           if ( ret )
+>           {
+>               printk(XENLOG_ERR
+> diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
+> index 8cce459b67..58590145b0 100644
+> --- a/xen/arch/arm/include/asm/p2m.h
+> +++ b/xen/arch/arm/include/asm/p2m.h
+> @@ -317,9 +317,10 @@ guest_physmap_add_page(struct domain *d, gfn_t gfn, mfn_t mfn,
+>   static inline int guest_physmap_add_pages(struct domain *d,
+>                                             gfn_t gfn,
+>                                             mfn_t mfn,
+> -                                          unsigned int nr_pages)
+> +                                          unsigned int nr_pages,
+> +                                          p2m_type_t t)
+>   {
+> -    return p2m_insert_mapping(d, gfn, nr_pages, mfn, p2m_ram_rw);
+> +    return p2m_insert_mapping(d, gfn, nr_pages, mfn, t);
+>   }
+>   
+>   mfn_t gfn_to_mfn(struct domain *d, gfn_t gfn);
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Christine <Yuwei.Chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  duntan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Jiewen Yao <jiewen.yao@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Peter Grehan <grehan@freebsd.org>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yu Pu <yu.pu@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Yuwei Chen <yuwei.chen@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 6086 lines long.)
+-- 
+Julien Grall
 
