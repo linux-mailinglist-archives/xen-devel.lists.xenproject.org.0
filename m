@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62C8451E929
-	for <lists+xen-devel@lfdr.de>; Sat,  7 May 2022 20:20:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.323758.545607 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05AA051E925
+	for <lists+xen-devel@lfdr.de>; Sat,  7 May 2022 20:20:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.323759.545620 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nnP1d-0007TO-9D; Sat, 07 May 2022 18:19:29 +0000
+	id 1nnP1f-0007va-HS; Sat, 07 May 2022 18:19:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 323758.545607; Sat, 07 May 2022 18:19:29 +0000
+Received: by outflank-mailman (output) from mailman id 323759.545620; Sat, 07 May 2022 18:19:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nnP1d-0007Kh-2d; Sat, 07 May 2022 18:19:29 +0000
-Received: by outflank-mailman (input) for mailman id 323758;
- Sat, 07 May 2022 18:19:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nnP1f-0007s4-Bv; Sat, 07 May 2022 18:19:31 +0000
+Received: by outflank-mailman (input) for mailman id 323759;
+ Sat, 07 May 2022 18:19:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Y6lb=VP=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1nnP1b-00079i-PL
- for xen-devel@lists.xenproject.org; Sat, 07 May 2022 18:19:27 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3a2ff787-ce32-11ec-8fc4-03012f2f19d4;
- Sat, 07 May 2022 20:19:26 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 125-20020a1c1983000000b003941f354c62so6139733wmz.0
- for <xen-devel@lists.xenproject.org>; Sat, 07 May 2022 11:19:26 -0700 (PDT)
+ id 1nnP1c-0006Tm-SQ
+ for xen-devel@lists.xenproject.org; Sat, 07 May 2022 18:19:28 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3b384a03-ce32-11ec-a406-831a346695d4;
+ Sat, 07 May 2022 20:19:28 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ k126-20020a1ca184000000b003943fd07180so6133137wme.3
+ for <xen-devel@lists.xenproject.org>; Sat, 07 May 2022 11:19:28 -0700 (PDT)
 Received: from otyshchenko.router ([212.22.223.21])
  by smtp.gmail.com with ESMTPSA id
- b10-20020a5d4d8a000000b0020c5253d8f3sm8198457wru.63.2022.05.07.11.19.23
+ b10-20020a5d4d8a000000b0020c5253d8f3sm8198457wru.63.2022.05.07.11.19.25
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sat, 07 May 2022 11:19:24 -0700 (PDT)
+ Sat, 07 May 2022 11:19:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,160 +45,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a2ff787-ce32-11ec-8fc4-03012f2f19d4
+X-Inumbo-ID: 3b384a03-ce32-11ec-a406-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references;
-        bh=7ptoks8wk67ER3ivOLNGqLnlrp2ieijG6XsCJH8U+xs=;
-        b=d0kYK2iQ+DUSxY8TIV5wRNyHPklomH/v8OiDA4avtHKXjmkp4Zp1juytfZVUe5R9jw
-         6iI1z703N161/p94YTEgZzBvV9tNZtwPoy1WZ99vf+cAGadEz6RqANGY9FVDwr2m9bcl
-         Vq7ONdNVKafzqy9lZM8s8n4nvRB9ora+yUZoAt2GW5V39j3rxHySpA1Bl9hCr6EfO8wr
-         wcE7f5iYJhMtLTBFXVXiEc4fKvgbgVfEgQsPHaAzdWDsIo3wWtkzNdw3r6VK/JIMDzna
-         jKGEcTMofqI63n2NHbaC2hXBtSEP29EI9mF7SGOUoo5t1apStnAP1DkfYc+vLXvc6o9J
-         31OQ==
+        bh=f9eTxQwBpqmyE5YQv8y/mSGc6BFKrmx/9RtbXRM94yk=;
+        b=q0QvHmJEV199SvJxS8MMwMhMnT/+xhVpVqbOLeHgkt06Xhs2dBC0jVTbeKOwr91pvR
+         ndKaasEP0xJG1RLgJyqL7ROM0gZzZQdJc/q0MNhHsXPKClgmJU88UwkBbKhnyLTjrxeH
+         akHWUnH51O7ewtusDhyChb/efNbilF+VAy0f52Ter98LqUPNVkvzci9eD41asZ+qZHI8
+         cxd6Fw0R6dR9XKl9hBhot2Ml9a+SI7h0b6qTcC3h1dkFbCIGTfD57A7X/PwLBhWUviLJ
+         RMrUlN4pHsO1OCXg4EHqgP/3qgV4jfWL/K1p0l8arjpAUs+e6MkOmajqxI/Xjre5TUMj
+         SXUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references;
-        bh=7ptoks8wk67ER3ivOLNGqLnlrp2ieijG6XsCJH8U+xs=;
-        b=qc4hcwkvrlIVkWPqgkZGhfV32e8c/kay79SVXhB3SZF+G+yk8CP+uaR7pAwNzRHIDK
-         Jm5WwBFUSSMPM/ojNbwQW7kShxwJI/qKW57IjgZ0pAn0l2EBGfGb+vk09bTZtlXdgOIE
-         W5qSXu6YYuM+7xsTtOusKTsMiDp3OKlGnxIydqt2zHaBYU0VJmWr7+H4nyuJ/H5xq7fZ
-         cbPUAdgEyL2Wx2vqsOjCoh7WcIb+7SrHhdoi+nJ/NGBZcsaHcRfP5eKu0n+yHcjUsOWT
-         icD9+Xz67EpDT9H5pY407EIPEbf3JDVDm7/UZpW3/MP2LNwQOnZSayGMY3wqAw3akBla
-         mtCA==
-X-Gm-Message-State: AOAM532D0WV+uDK4SbYssZ/6XhaDBM/k5NtLXzEVXqVxPKC6s8D1QxhI
-	eeWSVZXjYY55qD+i0HUqyxHHeR0m3tI=
-X-Google-Smtp-Source: ABdhPJzE5bIacIcwrc1M6w7qJQB9mFgFaaKn933CxgAcdM1oZCHeWaRYPU3HEcjcxuQeVC7j1yiIqw==
-X-Received: by 2002:a05:600c:3393:b0:394:160a:18aa with SMTP id o19-20020a05600c339300b00394160a18aamr15602115wmp.58.1651947565193;
-        Sat, 07 May 2022 11:19:25 -0700 (PDT)
+        bh=f9eTxQwBpqmyE5YQv8y/mSGc6BFKrmx/9RtbXRM94yk=;
+        b=LYgk0x+raOODGwiaT56Bckp+VpV5v1BOi1404LdMTQ/ChmyNXG42wSudv1HzGWKID3
+         la1nsWxioDaBF3M6MbGXVVe+mcmlDfKaJmwKbbRfxwXWDns1aVVnHArVnMG4IQVJ16cs
+         gE+cD371rgL7Kh5IrIHUdWmOsf9y2U/gICyCS+K0d5YqcsxZ4xovUHg/xWIB1KWTut+b
+         faqOzAhFP9sKNigRBTwqrq+VOfPnPVIApQgD5fUs22wVt1C0/YWghNMZiym7+XABdvtE
+         SH+XwUs8Fw1X1MTeMSEiTkVRjNjIhZqAu5jV8jm/kibShwLSQCgYXNwDy/yd6HG+SrXT
+         s1OQ==
+X-Gm-Message-State: AOAM532XRnqaesVbMTR1nMmglkUxpNn/OCIFE7FQXgVDuyB3rPKo6DZU
+	F0PoxK1ZfTwfR8EOgAJ8ys7lO7iQ/1s=
+X-Google-Smtp-Source: ABdhPJzhvjQBg6LQrWKFmAkWoYNYrT/dAdUxxfWwxE0Fo8ocoWuRQNu1extz5NXA4crK+Rzl3m2uBw==
+X-Received: by 2002:a05:600c:4f03:b0:394:6499:21c7 with SMTP id l3-20020a05600c4f0300b00394649921c7mr8976554wmq.103.1651947566943;
+        Sat, 07 May 2022 11:19:26 -0700 (PDT)
 From: Oleksandr Tyshchenko <olekstysh@gmail.com>
 To: xen-devel@lists.xenproject.org,
-	x86@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
+	virtualization@lists.linux-foundation.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Jason Wang <jasowang@redhat.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Julien Grall <julien@xen.org>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
-	Christoph Hellwig <hch@infradead.org>
-Subject: [PATCH V2 4/7] xen/virtio: Enable restricted memory access using Xen grant mappings
-Date: Sat,  7 May 2022 21:19:05 +0300
-Message-Id: <1651947548-4055-5-git-send-email-olekstysh@gmail.com>
+	Christoph Hellwig <hch@infradead.org>,
+	Jean-Philippe Brucker <jean-philippe@linaro.org>
+Subject: [PATCH V2 5/7] dt-bindings: Add xen,dev-domid property description for xen-grant DMA ops
+Date: Sat,  7 May 2022 21:19:06 +0300
+Message-Id: <1651947548-4055-6-git-send-email-olekstysh@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1651947548-4055-1-git-send-email-olekstysh@gmail.com>
 References: <1651947548-4055-1-git-send-email-olekstysh@gmail.com>
 
-From: Juergen Gross <jgross@suse.com>
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-In order to support virtio in Xen guests add a config option XEN_VIRTIO
-enabling the user to specify whether in all Xen guests virtio should
-be able to access memory via Xen grant mappings only on the host side.
+Introduce Xen specific binding for the virtualized device (e.g. virtio)
+to be used by Xen grant DMA-mapping layer in the subsequent commit.
 
-Also set PLATFORM_VIRTIO_RESTRICTED_MEM_ACCESS feature from the guest
-initialization code on Arm and x86 if CONFIG_XEN_VIRTIO is enabled.
+This binding indicates that Xen grant mappings scheme needs to be
+enabled for the device which DT node contains that property and specifies
+the ID of Xen domain where the corresponding backend resides. The ID
+(domid) is used as an argument to the grant mapping APIs.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
+This is needed for the option to restrict memory access using Xen grant
+mappings to work which primary goal is to enable using virtio devices
+in Xen guests.
+
 Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 ---
-Changes V1 -> V2:
-   - new patch, split required changes from commit:
-    "[PATCH V1 3/6] xen/virtio: Add option to restrict memory access under Xen"
-   - rework according to new platform_has() infrastructure
----
- arch/arm/xen/enlighten.c     |  2 ++
- arch/x86/xen/enlighten_hvm.c |  2 ++
- arch/x86/xen/enlighten_pv.c  |  2 ++
- drivers/xen/Kconfig          | 11 +++++++++++
- include/xen/xen.h            |  8 ++++++++
- 5 files changed, 25 insertions(+)
+Changes RFC -> V1:
+   - update commit subject/description and text in description
+   - move to devicetree/bindings/arm/
 
-diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
-index 07eb69f..1f9c3ba 100644
---- a/arch/arm/xen/enlighten.c
-+++ b/arch/arm/xen/enlighten.c
-@@ -443,6 +443,8 @@ static int __init xen_guest_init(void)
- 	if (!xen_domain())
- 		return 0;
- 
-+	xen_set_restricted_virtio_memory_access();
+Changes V1 -> V2:
+   - update text in description
+   - change the maintainer of the binding
+   - fix validation issue
+   - reference xen,dev-domid.yaml schema from virtio/mmio.yaml
+---
+ .../devicetree/bindings/arm/xen,dev-domid.yaml     | 37 ++++++++++++++++++++++
+ Documentation/devicetree/bindings/virtio/mmio.yaml |  7 ++++
+ 2 files changed, 44 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/arm/xen,dev-domid.yaml
+
+diff --git a/Documentation/devicetree/bindings/arm/xen,dev-domid.yaml b/Documentation/devicetree/bindings/arm/xen,dev-domid.yaml
+new file mode 100644
+index 00000000..750e89e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/arm/xen,dev-domid.yaml
+@@ -0,0 +1,37 @@
++# SPDX-License-Identifier: (GPL-2.0-only or BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/arm/xen,dev-domid.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- 	if (!acpi_disabled)
- 		xen_acpi_guest_init();
- 	else
-diff --git a/arch/x86/xen/enlighten_hvm.c b/arch/x86/xen/enlighten_hvm.c
-index 517a9d8..8b71b1d 100644
---- a/arch/x86/xen/enlighten_hvm.c
-+++ b/arch/x86/xen/enlighten_hvm.c
-@@ -195,6 +195,8 @@ static void __init xen_hvm_guest_init(void)
- 	if (xen_pv_domain())
- 		return;
- 
-+	xen_set_restricted_virtio_memory_access();
++title: Xen specific binding for virtualized devices (e.g. virtio)
 +
- 	init_hvm_pv_info();
- 
- 	reserve_shared_info();
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index 5038edb..fcd5d5d 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -109,6 +109,8 @@ static DEFINE_PER_CPU(struct tls_descs, shadow_tls_desc);
- 
- static void __init xen_pv_init_platform(void)
- {
-+	xen_set_restricted_virtio_memory_access();
++maintainers:
++  - Stefano Stabellini <sstabellini@kernel.org>
 +
- 	populate_extra_pte(fix_to_virt(FIX_PARAVIRT_BOOTMAP));
++select: true
++
++description:
++  This binding indicates that Xen grant mappings need to be enabled for
++  the device, and it specifies the ID of the domain where the corresponding
++  device (backend) resides. The property is required to restrict memory
++  access using Xen grant mappings.
++
++properties:
++  xen,dev-domid:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      The domid (domain ID) of the domain where the device (backend) is running.
++
++additionalProperties: true
++
++examples:
++  - |
++    virtio@3000 {
++            compatible = "virtio,mmio";
++            reg = <0x3000 0x100>;
++            interrupts = <41>;
++
++            /* The device is located in Xen domain with ID 1 */
++            xen,dev-domid = <1>;
++    };
+diff --git a/Documentation/devicetree/bindings/virtio/mmio.yaml b/Documentation/devicetree/bindings/virtio/mmio.yaml
+index 10c22b5..29a0932 100644
+--- a/Documentation/devicetree/bindings/virtio/mmio.yaml
++++ b/Documentation/devicetree/bindings/virtio/mmio.yaml
+@@ -13,6 +13,9 @@ description:
+   See https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=virtio for
+   more details.
  
- 	set_fixmap(FIX_PARAVIRT_BOOTMAP, xen_start_info->shared_info);
-diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
-index 313a9127..a7bd8ce 100644
---- a/drivers/xen/Kconfig
-+++ b/drivers/xen/Kconfig
-@@ -339,4 +339,15 @@ config XEN_GRANT_DMA_OPS
- 	bool
- 	select DMA_OPS
++allOf:
++  - $ref: /schemas/arm/xen,dev-domid.yaml#
++
+ properties:
+   compatible:
+     const: virtio,mmio
+@@ -33,6 +36,10 @@ properties:
+     description: Required for devices making accesses thru an IOMMU.
+     maxItems: 1
  
-+config XEN_VIRTIO
-+	bool "Xen virtio support"
-+	depends on VIRTIO
-+	select XEN_GRANT_DMA_OPS
-+	help
-+	  Enable virtio support for running as Xen guest. Depending on the
-+	  guest type this will require special support on the backend side
-+	  (qemu or kernel, depending on the virtio device types used).
++  xen,dev-domid:
++    description: Required when Xen grant mappings need to be enabled for device.
++    $ref: /schemas/types.yaml#/definitions/uint32
 +
-+	  If in doubt, say n.
-+
- endmenu
-diff --git a/include/xen/xen.h b/include/xen/xen.h
-index a99bab8..0780a81 100644
---- a/include/xen/xen.h
-+++ b/include/xen/xen.h
-@@ -52,6 +52,14 @@ bool xen_biovec_phys_mergeable(const struct bio_vec *vec1,
- extern u64 xen_saved_max_mem_size;
- #endif
- 
-+#include <linux/platform-feature.h>
-+
-+static inline void xen_set_restricted_virtio_memory_access(void)
-+{
-+	if (IS_ENABLED(CONFIG_XEN_VIRTIO) && xen_domain())
-+		platform_set(PLATFORM_VIRTIO_RESTRICTED_MEM_ACCESS);
-+}
-+
- #ifdef CONFIG_XEN_UNPOPULATED_ALLOC
- int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page **pages);
- void xen_free_unpopulated_pages(unsigned int nr_pages, struct page **pages);
+ required:
+   - compatible
+   - reg
 -- 
 2.7.4
 
