@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF44151FAEF
-	for <lists+xen-devel@lfdr.de>; Mon,  9 May 2022 13:08:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.324396.546416 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA77A51FB2A
+	for <lists+xen-devel@lfdr.de>; Mon,  9 May 2022 13:21:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.324402.546427 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1no1FX-0001fU-OX; Mon, 09 May 2022 11:08:23 +0000
+	id 1no1Rq-0003zi-TL; Mon, 09 May 2022 11:21:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 324396.546416; Mon, 09 May 2022 11:08:23 +0000
+Received: by outflank-mailman (output) from mailman id 324402.546427; Mon, 09 May 2022 11:21:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1no1FX-0001dK-LG; Mon, 09 May 2022 11:08:23 +0000
-Received: by outflank-mailman (input) for mailman id 324396;
- Mon, 09 May 2022 11:08:22 +0000
+	id 1no1Rq-0003xI-Pc; Mon, 09 May 2022 11:21:06 +0000
+Received: by outflank-mailman (input) for mailman id 324402;
+ Mon, 09 May 2022 11:21:05 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1no1FW-0001dE-73
- for xen-devel@lists.xenproject.org; Mon, 09 May 2022 11:08:22 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1no1Rp-0003x8-GE; Mon, 09 May 2022 11:21:05 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1no1FV-0003Q8-Sm; Mon, 09 May 2022 11:08:21 +0000
-Received: from [54.239.6.187] (helo=[192.168.22.23])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1no1FV-00062d-Mg; Mon, 09 May 2022 11:08:21 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1no1Rp-0003dx-Dp; Mon, 09 May 2022 11:21:05 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1no1Rp-0000j2-1b; Mon, 09 May 2022 11:21:05 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1no1Rp-0000jV-1B; Mon, 09 May 2022 11:21:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,161 +42,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=jUQCt3/EQTlW/N6YMxfHB2s6esNnhj05x2VWRTuu0jc=; b=R7UuBsLR76vAryHeGx0mU5fs96
-	bBdCmS8EJLJTRL/RS04aWEtvKovhJmP80fMiBy76zxR5zr8zDxOjf32Mc61l5kq+0TGSXZI6+AlGt
-	New4ScfXJkCJTdFDx3TW3lOuBhjRm3WEr4xERqOOLCeHUJUBapsmAQjbeJU4JwpbV/Dc=;
-Message-ID: <1a80d099-6fe4-377b-c3b1-a08c7d8f59cf@xen.org>
-Date: Mon, 9 May 2022 12:08:20 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.9.0
-Subject: Re: [PATCH 3/3] xen/arm: Add sb instruction support
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1651570561.git.bertrand.marquis@arm.com>
- <24fd2364294345f103cb13bdab2ad0b706681071.1651570561.git.bertrand.marquis@arm.com>
- <6571ead7-ff94-acb5-1e55-53ae69944bf0@xen.org>
- <E67D129C-DCA4-479E-B8B8-4C7DF8CC92B9@arm.com>
- <d8889ee4-7790-ab93-a5d1-708aa541dd1b@xen.org>
- <15DEAB6E-3130-49E8-87BD-AC82C08C7698@arm.com>
- <0ac6d6c0-4f34-ad1e-c473-2278dd7289c9@xen.org>
- <3E6AFDF4-A55B-4C7C-ADFB-A451C478661C@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <3E6AFDF4-A55B-4C7C-ADFB-A451C478661C@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=NO9rVkrg1VdL/GADTiuEikJvkzVflcJEiXpC61S3iLw=; b=4/Ad8dFd3f2YiyraWFcnyqh9VF
+	12NSg9gc2dSIS9A/s24d8Z4W0SpOLm/05txt5kx5DLs+buqFGKgnrNkPH8s88pNDpfLQIMQdZGL0A
+	sOIPZxxAFhrB475UNfDfPtY2BGgHq85bq9xkiA1eb01Awj0fe0yXWnpuTV04hybkSzNA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-170266-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 170266: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=29ae55a0b8194fef2e769f2882297aa601b4777a
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 09 May 2022 11:21:05 +0000
 
-Hi,
+flight 170266 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/170266/
 
-On 09/05/2022 11:49, Bertrand Marquis wrote:
->> On 9 May 2022, at 11:31, Julien Grall <julien@xen.org> wrote:
->> On 09/05/2022 11:08, Bertrand Marquis wrote:
->>>> On 4 May 2022, at 09:06, Julien Grall <julien@xen.org> wrote:
->>>>
->>>>
->>>>
->>>> On 04/05/2022 08:24, Bertrand Marquis wrote:
->>>>> Hi Julien,
->>>>
->>>> Hi Bertrand,
->>>>
->>>>>> On 3 May 2022, at 19:47, Julien Grall <julien@xen.org> wrote:
->>>>>>> A new cpuerrata capability is introduced to enable the alternative
->>>>>>
->>>>>> 'sb' is definitely not an erratum. Errata are for stuff that are meant to be specific to one (or multiple) CPU and they are not part of the architecture.
->>>>>>
->>>>>> This is the first time we introduce a feature in Xen. So we need to add a new array in cpufeature.c that will cover 'SB' for now. In future we could add feature like pointer auth, LSE atomics...
->>>>> I am not quite sure why you would want to do that.
->>>>> Using the sb instruction is definitely something to do to solve erratas, if a CPU is not impacted by those erratas, why would you want to use this ?
->>>>
->>>> I agree that SB is used to solve errata but the instruction itself is not a workaround (it may be part of it though). Instead, this is a more efficient way to prevent speculation and will replace dsb/isb.
->>>>
->>>> Speculation is never going to disappear from processor. So, in the future, there might be valid reason for us to say "We don't want the processor to speculate". This would mean using SB.
->>> If the need arise then we will check depending on that how we can support it but in the current status as there is no use case I don’t think we need that.
->>
->> It is not clear how I should read this answer... If you add SB in cpuerrata.c, then a user will start to see message like:
->>
->> "enabled workaround for Speculation Barrier".
->>
->> Which is completely bogus. Replacing "dsb; isb" with "sb" is mostly an optimization and none of the current use will end up to be architecturaly executed.
-> 
-> So ultimately something like this is what you are looking for ?
-> 
-> diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
-> index e744abe800..7c3e5141a6 100644
-> --- a/xen/arch/arm/cpuerrata.c
-> +++ b/xen/arch/arm/cpuerrata.c
-> @@ -681,9 +681,12 @@ static const struct arm_cpu_capabilities arm_errata[] = {
->           .capability = ARM64_WORKAROUND_AT_SPECULATE,
->           MIDR_ALL_VERSIONS(MIDR_CORTEX_A55),
->       },
-> +};
-> +
-> +static const struct arm_cpu_capabilities arm_features[] = {
->   #ifdef CONFIG_ARM_64
->       {
-> -        .desc = "Speculation barrier (SB)",
-> +        .desc = "Speculation barrier instruction (SB)",
->           .capability = ARM64_HAS_SB,
->           .matches = has_sb_instruction,
->       },
-> @@ -694,6 +697,7 @@ static const struct arm_cpu_capabilities arm_errata[] = {
->   void check_local_cpu_errata(void)
->   {
->       update_cpu_capabilities(arm_errata, "enabled workaround for");
-> +    update_cpu_capabilities(arm_features, "enabled support for");
->   }
-What I am looking for is two separate arrays: one for workaround and the 
-other for features. Something like (untested):
+Regressions :-(
 
-diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
-index a58965f7b9bf..54c10751dba8 100644
---- a/xen/arch/arm/cpufeature.c
-+++ b/xen/arch/arm/cpufeature.c
-@@ -70,6 +70,20 @@ void __init enable_cpu_capabilities(const struct 
-arm_cpu_capabilities *caps)
-      }
-  }
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
 
-+static const struct arm_cpu_capabilities arm_features[] = {
-+    /* XXX: Add SB */
-+    {},
-+};
-+
-+void check_local_cpu_features(void)
-+{
-+    update_cpu_capabilities(arm_features, "enabled support for");
-+}
-+
-+void __init enable_cpu_features(void)
-+{
-+    enable_cpu_capabilities(arm_features);
-+}
-+
-  /*
-   * Run through the enabled capabilities and enable() them on the 
-calling CPU.
-   * If enabling of any capability fails the error is returned. After 
-enabling a
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index d5d0792ed48a..c2cd442844df 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -951,6 +951,7 @@ void __init start_xen(unsigned long boot_phys_offset,
-       * (called from smp_init_cpus()).
-       */
-      check_local_cpu_errata();
-+    check_local_cpu_features();
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-      init_xen_time();
+version targeted for testing:
+ ovmf                 29ae55a0b8194fef2e769f2882297aa601b4777a
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-@@ -1021,6 +1022,7 @@ void __init start_xen(unsigned long boot_phys_offset,
-       */
-      apply_alternatives_all();
-      enable_errata_workarounds();
-+    enable_cpu_features();
+Last test of basis   168254  2022-02-28 10:41:46 Z   70 days
+Failing since        168258  2022-03-01 01:55:31 Z   69 days  891 attempts
+Testing same since   170259  2022-05-09 03:12:13 Z    0 days    4 attempts
 
-      /* Create initial domain 0. */
-      if ( !is_dom0less_mode() )
-diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
-index 7bfd0a73a7d2..d6b8c598df98 100644
---- a/xen/arch/arm/smpboot.c
-+++ b/xen/arch/arm/smpboot.c
-@@ -383,6 +383,7 @@ void start_secondary(void)
-      local_abort_enable();
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chao, Zhuoran <zhuoran.chao@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Christine <Yuwei.Chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  duntan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jake Garver <jake@nvidia.com>
+  Jake Garver via groups.io <jake=nvidia.com@groups.io>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Jiewen Yao <jiewen.yao@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Peter Grehan <grehan@freebsd.org>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yu Pu <yu.pu@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Yuwei Chen <yuwei.chen@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+  Zhuoran Chao <zhuoran.chao@intel.com>
 
-      check_local_cpu_errata();
-+    check_local_cpu_features();
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
-      printk(XENLOG_DEBUG "CPU %u booted.\n", smp_processor_id());
 
-Cheers,
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
--- 
-Julien Grall
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 6163 lines long.)
 
