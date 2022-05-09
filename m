@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E13AA52010B
-	for <lists+xen-devel@lfdr.de>; Mon,  9 May 2022 17:23:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.324643.546779 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BBB952013E
+	for <lists+xen-devel@lfdr.de>; Mon,  9 May 2022 17:35:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.324650.546790 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1no5DS-00052q-5L; Mon, 09 May 2022 15:22:30 +0000
+	id 1no5Pj-0006fZ-CN; Mon, 09 May 2022 15:35:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 324643.546779; Mon, 09 May 2022 15:22:30 +0000
+Received: by outflank-mailman (output) from mailman id 324650.546790; Mon, 09 May 2022 15:35:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1no5DS-000512-2B; Mon, 09 May 2022 15:22:30 +0000
-Received: by outflank-mailman (input) for mailman id 324643;
- Mon, 09 May 2022 15:16:33 +0000
+	id 1no5Pj-0006dQ-7w; Mon, 09 May 2022 15:35:11 +0000
+Received: by outflank-mailman (input) for mailman id 324650;
+ Mon, 09 May 2022 15:35:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vn8e=VR=fujitsu.com=d.hatayama@srs-se1.protection.inumbo.net>)
- id 1no57h-00044C-9I
- for xen-devel@lists.xenproject.org; Mon, 09 May 2022 15:16:33 +0000
-Received: from esa5.fujitsucc.c3s2.iphmx.com (esa5.fujitsucc.c3s2.iphmx.com
- [68.232.159.76]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ff4c7314-cfaa-11ec-8fc4-03012f2f19d4;
- Mon, 09 May 2022 17:16:28 +0200 (CEST)
-Received: from mail-os0jpn01lp2110.outbound.protection.outlook.com (HELO
- JPN01-OS0-obe.outbound.protection.outlook.com) ([104.47.23.110])
- by ob1.fujitsucc.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2022 00:16:12 +0900
-Received: from TYAPR01MB6507.jpnprd01.prod.outlook.com (2603:1096:400:a2::7)
- by TYCPR01MB7578.jpnprd01.prod.outlook.com (2603:1096:400:f3::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.18; Mon, 9 May
- 2022 15:16:09 +0000
-Received: from TYAPR01MB6507.jpnprd01.prod.outlook.com
- ([fe80::dd9:8ea4:f7a3:bba1]) by TYAPR01MB6507.jpnprd01.prod.outlook.com
- ([fe80::dd9:8ea4:f7a3:bba1%5]) with mapi id 15.20.5227.023; Mon, 9 May 2022
- 15:16:09 +0000
+ <SRS0=xCc2=VR=citrix.com=prvs=1217d4990=George.Dunlap@srs-se1.protection.inumbo.net>)
+ id 1no5Ph-0006dK-3m
+ for xen-devel@lists.xenproject.org; Mon, 09 May 2022 15:35:09 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9948effb-cfad-11ec-8fc4-03012f2f19d4;
+ Mon, 09 May 2022 17:35:07 +0200 (CEST)
+Received: from mail-dm6nam11lp2175.outbound.protection.outlook.com (HELO
+ NAM11-DM6-obe.outbound.protection.outlook.com) ([104.47.57.175])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 09 May 2022 11:35:03 -0400
+Received: from PH0PR03MB5669.namprd03.prod.outlook.com (2603:10b6:510:33::16)
+ by SA2PR03MB5820.namprd03.prod.outlook.com (2603:10b6:806:114::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.21; Mon, 9 May
+ 2022 15:35:01 +0000
+Received: from PH0PR03MB5669.namprd03.prod.outlook.com
+ ([fe80::6149:243e:e6cd:3082]) by PH0PR03MB5669.namprd03.prod.outlook.com
+ ([fe80::6149:243e:e6cd:3082%5]) with mapi id 15.20.5227.023; Mon, 9 May 2022
+ 15:35:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,258 +49,204 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff4c7314-cfaa-11ec-8fc4-03012f2f19d4
+X-Inumbo-ID: 9948effb-cfad-11ec-8fc4-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj1;
-  t=1652109388; x=1683645388;
+  d=citrix.com; s=securemail; t=1652110507;
   h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=xS2ZDM92CvkpLSnJq7Jznk26/ZMDw29ra/drEifi+4M=;
-  b=Zx3UKgDVWtxYwpPjPoDluawbvsFRKqPq+T5iYAQkwfALEx4o/268puXs
-   ot3fAo3xla+fpGjEPxcAzTecBGse+qqqb/MLDClw6VDTkfGxtagycSW30
-   IC+6Iw68bI92qkijkPN4hWT4uUh963JmP1vqY1XfT/van65QWuTUaCrd7
-   OUFnkQeFDOHhxq3AMah3SD8psSGMe+KOhGwLe4IPlXuABb9Jky92V7e2z
-   UUiaNaiK9FvqSKWZI9PX3ukgfRP+C2Gg/ecaSx6whDCNku6DokitSC+Ed
-   nxmlAS5/UeYe5Uf1LnnrJ8Fuj1RIQE9Phnuj+RIGMX3pyvYcRUj74rnV4
-   g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10342"; a="55509155"
-X-IronPort-AV: E=Sophos;i="5.91,211,1647270000"; 
-   d="scan'208";a="55509155"
+   in-reply-to:mime-version;
+  bh=jFUZginQskNjPnmtkncsklCnP5tc+S/vTS+tOD5YSHk=;
+  b=SkSvSCo45qDkEhIeUl8OMD+g0sny7PMcYgb4gWAzdA8NElMy7MDDi2KH
+   X7Uiv2x/Q9+xTEGJUWQRL2UYQM9KbsXL3xHDidbbpF7XTzKSQk6+txU38
+   LypD9n/d57wXh6yYnHoEAdTUc98+IQwlOKZqhLLTX+LI0UKXhvuxQ2lg6
+   k=;
+X-IronPort-RemoteIP: 104.47.57.175
+X-IronPort-MID: 71304678
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:FFM6qKD74z+ifxVW/z3jw5YqxClBgxIJ4kV8jC+esDiIYAhSlGxQk
+ DNbHCvTJK7JMVJBSKlzYNy08hgP68Pcx4MwTAVkq31mEyNE9prOCNiUJ0v9ZnPKcZCfRR8/t
+ ZoVYICbfJxkRC+A+03waee49XV3ha3RLlaQ5JYoHwgoLeMzYHtx2XqP4tIEv7OEoeRVIiuD6
+ Iz5/5XRZ1X9hGQpPzNKuq6P8Eplta6v528W5QVjaaEXsAfSmUdOAcNEL8ldDZdZrqq4vAKeb
+ 7yepF1s1jqBp3/BMvv8zvCjNBdirof6ZWBisFIPM0SZqkUE93VaPpoTbqJGMx8K02TRxrid9
+ f0W3XCOYVZxVkHzsLx1vylwS0mS6oUfpdcriVDm2SCi5xWun0nEmp2CP2lvVWEswc5lAHkmy
+ BAtAGtlgiZvJQ6B6OnTpuFE3qzPJSRwVW8VkikIITrxVZ7KTX1fKkljCBAxMDoY36hz8fjii
+ 8UxSAR2dVfjbCF0F0oTNs8Ckrm1gWjHbGgNwL6VjfJfD2n76iVUieGoHP+LP9uASINSg1qSo
+ X/A8yLhGBYGOdeDyD2DtHWxmuvImiC9U4UXfFG63qcy3BvPmSpOV1tPCgbTTfqR0yZSX/pwJ
+ ksO9SdogbU08EWzZtL8Qwe5sDiPuRt0t994TLRhsF3Tlfq8DwCxGWgEEABKYYYfnugLFQAr8
+ EaxgM33Gmk62FGSYTfHnluOlhuWJCMca0ELYyQJSQ8Yy9D5pcc4iRenZsZuFuu5g8P4HRn0w
+ iuWt24uirMLl8kJ2q6nu1fdjFqErJXTUhQ84AmRW2u/9x54f6asfYnu4l/ehd5fIYffRVmMu
+ lANgc3Y5+cLZbmPniGQROQGHJmy+u2IdjbbhDZHHYQl9jmr026ue8ZX+j4WDFxyLs8OdDvtY
+ UnSkQBc/pleOD2td6AfS521I9Qny+7nD9uNfs7Tat1Cc51gbjit9StlZVOT9231mU1qmqY6U
+ b+Xf8+jAncdDaVP1yetSqEW1rpD7iIx32TIXrjg0g+ql7GZYRaopawtNVKPaqU16f2CqQCMq
+ tJHbZLVllNYTfH0ZTTR/cgLN1cWIHMnBJfw7ctKauqEJQkgE2YkYxPM/Y4cl0Vet/w9vo/1E
+ ruVAye0FHKXaaX7FDi3
+IronPort-HdrOrdr: A9a23:kp/K06vH9+s0ZuDQHBR8whDb7skC2oMji2hC6mlwRA09TyXGra
+ 2TdaUgvyMc1gx7ZJh5o6H6BEGBKUmslqKdkrNhR4tKPTOW9VdASbsP0WKM+UyGJ8STzI9gPO
+ JbAtBD4b7LfBRHZKTBkW+F+r8bqbHpnpxAx92utkuFJjsaCZ2Imj0JbjpzZXcGITWua6BYKL
+ Osou584xawc3Ueacq2QlMfWfLYmtHNnJX6JTYbGh8O8mC1/H2VwY+/NyLd8gYVUjtJz7tn23
+ PCiRbF6qKqtOz+4gPA1lXU849dlLLau5p+7Y23+4gowwfX+0SVjbdaKvi/VfcO0aWSAWMR4Z
+ rxStEbToNOAj3qDyeISFDWqnTdOX4VmgPfIBmj8DTeSIXCNUwHItsEioRDfhTD7U08+Nl6za
+ JQxmqc84FaFBXagU3GlpD1v4EDrDvKnZMOq59ks5Vka/pWVFaRl/1swGpFVJMbWC7q4oEuF+
+ djSMna+fZNaFufK3TUpHNmztCgVmk6Wk7ueDlJhuWFlzxN2HxpxUoRw8IS2n8G6ZImUpFBo+
+ DJKL5hmr1CRtIfKah9GOACS82qDXGle2OGDEuCZVD8UK0XMXPErJD6pL0z+eGxYZQNiIA/nZ
+ zQOWkowlLau3ieffFm8Kc7giwlGl/NLAgF4vsulKRRq/n7WKfhNzGFRRQnj9agys9vd/HmZw
+ ==
+X-IronPort-AV: E=Sophos;i="5.91,211,1647316800"; 
+   d="asc'?scan'208";a="71304678"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KP0CFKYRNmTXTmwL9JG0oC4GQgkB/pl4TAXCxaquTQi2mpfikgwQYy0i8q2i6vPeVpaH2GuK7gBuR63t1JW1LUNFxAjNVersbC9h8TdiBjflezHpU53Q82lnXPLv4wirYyJRKEuA73ZQCrb57ZakIuUVwqcJ+JrPKcYeATrnxhN28xpHXiJO2rffSK1Jw5uxRkQfFPudZpwdXRfmJr8fD9Fp4hSxcYDf9d2dYPWTHymwX3/ZrvUs3NQQnno5t2u1Tkf53IqwaAxjVtkhkHSIHVvIL8BkcyVOYUH1NXbXYQQxKeT5PLbIV2LxAq3TnGTE4TncUGKkynpMGLIjrmygdQ==
+ b=U2CXBphqbPUDWF005CHglklJDzfviSIjePQBmDJIMIpZVm63MLTwLmVfCDFS6NrhATp83JWozn7iPG/nrS8qcpkkGOLTDuV5DSVyEPi6pq5aDe2xLhBEsdD4w1mdTALikkbBA8o49FgY/ofZEmmRzjZKUIi23EpOjnzSNSOAfS7tt1G6I+LRdDx/zK5c7vF7npd+T3fzYQ5najDOpVz3d859sYHLAeKKiZT+qlr2rqMQVocOPlRx3FLOgpjgdAJJ7eaDMlm/X8WfsSqMxkhFckBCN1F3jmWa8IDEeFNx3ipOISi7L2LHHnRxOAaETXyYih5Ysjpy8ejxdz9oDVna+A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MlXVxI2FnzGbvIu/CWm8gKBJ3ZWwolqRQs9xSfL0o60=;
- b=H+1Tk6iUFRaot1orKC1GRgl1SqDJXk5D2hXPcq48LhPh7gXvRwAju3ZJFbMzj6OjqSUOxrUqwP5QxUHlUtIwQf9Sbv11I8FuhMTDnHm9jTlJ8XnYR8eRZuGiGabL9xVnbfLrXmvTitKevsolEAyiCz8BKyZgayo7SIJbDtYciudVYTh5smc2WUV4/Xf5hw9rGx7ax2cfKXWimUANarDTZNV/KntgpM+JGW52DuY0ow3ik4XUuMIis57FWFq1Ij/VGkKE6W9VYUcyujJ6hW+y+zp3dDojEsR4nIytU/riRvA36esOaKgCTxTbJmvx932z0jUkCFfaf4RSuOsaN4+Itg==
+ bh=aQloM8hPI4fMtoJMVnArrw57I8qAMa/XGbQPEd9+IVk=;
+ b=Ef71g8suOYTUr4GGnXiadPDoWq7zW+bm1T0t+iQPauA0anAbv5C9SuBimnDUdAMXvlfj4nIJb+Wyanra4BZv7HfNjF7IVdJiRTsTiuBGKgr38ge9wAWlMiu1s6+61xx5danXgDNnN1WGvqxEK5txDCDG6po9/hTbKA2LWj91B9esmjQChYDmzYSO5KNjHSRW/Pxl0j2nPzl89xhqvGVlKv+mCfmi/4NPc9JVOmQPt5lO9BFKm28yqngggCiutTfTB6Wnig7dw7AJZE4bShgWWHwdO/qAxbYDW4Z2GR2ulOgPFMX/hTjn02hGOHJMGtGF46DjQ5tignOh0ef+3bpqEA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
- dkim=pass header.d=fujitsu.com; arc=none
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fujitsu.onmicrosoft.com; s=selector2-fujitsu-onmicrosoft-com;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MlXVxI2FnzGbvIu/CWm8gKBJ3ZWwolqRQs9xSfL0o60=;
- b=h3jSOTQ/49e3CdAkGQmnT0kRfsZxVeHwnmHFjQIrg5SEwgadX6SIM218KZ4TTXnCicgDCVAuNJ5K36tGTV1PjiR6VVO4vPyaEXnMWkJYWxSMBENMBLbvoa90+8Vm3enWQ2GtCp7sSMFxA1XVsdggp5hIBlPRt0gWqyL7U6Qy1YM=
-From: "d.hatayama@fujitsu.com" <d.hatayama@fujitsu.com>
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>, "akpm@linux-foundation.org"
-	<akpm@linux-foundation.org>, "bhe@redhat.com" <bhe@redhat.com>,
-	"pmladek@suse.com" <pmladek@suse.com>, "kexec@lists.infradead.org"
-	<kexec@lists.infradead.org>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"bcm-kernel-feedback-list@broadcom.com"
-	<bcm-kernel-feedback-list@broadcom.com>, "coresight@lists.linaro.org"
-	<coresight@lists.linaro.org>, "linuxppc-dev@lists.ozlabs.org"
-	<linuxppc-dev@lists.ozlabs.org>, "linux-alpha@vger.kernel.org"
-	<linux-alpha@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-edac@vger.kernel.org"
-	<linux-edac@vger.kernel.org>, "linux-hyperv@vger.kernel.org"
-	<linux-hyperv@vger.kernel.org>, "linux-leds@vger.kernel.org"
-	<linux-leds@vger.kernel.org>, "linux-mips@vger.kernel.org"
-	<linux-mips@vger.kernel.org>, "linux-parisc@vger.kernel.org"
-	<linux-parisc@vger.kernel.org>, "linux-pm@vger.kernel.org"
-	<linux-pm@vger.kernel.org>, "linux-remoteproc@vger.kernel.org"
-	<linux-remoteproc@vger.kernel.org>, "linux-s390@vger.kernel.org"
-	<linux-s390@vger.kernel.org>, "linux-tegra@vger.kernel.org"
-	<linux-tegra@vger.kernel.org>, "linux-um@lists.infradead.org"
-	<linux-um@lists.infradead.org>, "linux-xtensa@linux-xtensa.org"
-	<linux-xtensa@linux-xtensa.org>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "openipmi-developer@lists.sourceforge.net"
-	<openipmi-developer@lists.sourceforge.net>, "rcu@vger.kernel.org"
-	<rcu@vger.kernel.org>, "sparclinux@vger.kernel.org"
-	<sparclinux@vger.kernel.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, "x86@kernel.org" <x86@kernel.org>,
-	"kernel-dev@igalia.com" <kernel-dev@igalia.com>, "kernel@gpiccoli.net"
-	<kernel@gpiccoli.net>, "halves@canonical.com" <halves@canonical.com>,
-	"fabiomirmar@gmail.com" <fabiomirmar@gmail.com>,
-	"alejandro.j.jimenez@oracle.com" <alejandro.j.jimenez@oracle.com>,
-	"andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
-	"arnd@arndb.de" <arnd@arndb.de>, "bp@alien8.de" <bp@alien8.de>,
-	"corbet@lwn.net" <corbet@lwn.net>, "dave.hansen@linux.intel.com"
-	<dave.hansen@linux.intel.com>, "dyoung@redhat.com" <dyoung@redhat.com>,
-	"feng.tang@intel.com" <feng.tang@intel.com>, "gregkh@linuxfoundation.org"
-	<gregkh@linuxfoundation.org>, "mikelley@microsoft.com"
-	<mikelley@microsoft.com>, "hidehiro.kawai.ez@hitachi.com"
-	<hidehiro.kawai.ez@hitachi.com>, "jgross@suse.com" <jgross@suse.com>,
-	"john.ogness@linutronix.de" <john.ogness@linutronix.de>,
-	"keescook@chromium.org" <keescook@chromium.org>, "luto@kernel.org"
-	<luto@kernel.org>, "mhiramat@kernel.org" <mhiramat@kernel.org>,
-	"mingo@redhat.com" <mingo@redhat.com>, "paulmck@kernel.org"
-	<paulmck@kernel.org>, "peterz@infradead.org" <peterz@infradead.org>,
-	"rostedt@goodmis.org" <rostedt@goodmis.org>, "senozhatsky@chromium.org"
-	<senozhatsky@chromium.org>, "stern@rowland.harvard.edu"
-	<stern@rowland.harvard.edu>, "tglx@linutronix.de" <tglx@linutronix.de>,
-	"vgoyal@redhat.com" <vgoyal@redhat.com>, "vkuznets@redhat.com"
-	<vkuznets@redhat.com>, "will@kernel.org" <will@kernel.org>,
-	"d.hatayama@fujitsu.com" <d.hatayama@fujitsu.com>
-Subject: Re: [PATCH 24/30] panic: Refactor the panic path
-Thread-Topic: [PATCH 24/30] panic: Refactor the panic path
-Thread-Index: AQHYWooYRc5K2GmPwUyqsvUuWmK42q0WuNLD
-Date: Mon, 9 May 2022 15:16:08 +0000
-Message-ID:
- <TYAPR01MB6507D01F5694BC33628BB7DB95C69@TYAPR01MB6507.jpnprd01.prod.outlook.com>
-References: <20220427224924.592546-1-gpiccoli@igalia.com>
- <20220427224924.592546-25-gpiccoli@igalia.com>
-In-Reply-To: <20220427224924.592546-25-gpiccoli@igalia.com>
-Accept-Language: en-US, ja-JP
+ bh=aQloM8hPI4fMtoJMVnArrw57I8qAMa/XGbQPEd9+IVk=;
+ b=AR8NYfm7IAtEKgni7eXbxC2jta5PqgaFHYAfX6vU42abJxat0AJAMSjxivwrUYz0EHylmSq8B606r3k8ySSASW/lEcjJmRlU7CkX80heJv6T28KoTgFW4fYScME+QGU0aI4s6zLm0ovE8DpWa6TCPBoL78iNN9CCTwOdMNTUuHQ=
+From: George Dunlap <George.Dunlap@citrix.com>
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+CC: xen-devel <xen-devel@lists.xenproject.org>, "bertrand.marquis@arm.com"
+	<bertrand.marquis@arm.com>, "wei.chen@arm.com" <wei.chen@arm.com>, Andrew
+ Cooper <Andrew.Cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien
+ Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Dario Faggioli
+	<dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH v8 4/7] xen/cpupool: Create different cpupools at boot
+ time
+Thread-Topic: [PATCH v8 4/7] xen/cpupool: Create different cpupools at boot
+ time
+Thread-Index: AQHYYUDkkyUfpJQf80OfJO0ylO5+mq0WsiiA
+Date: Mon, 9 May 2022 15:35:00 +0000
+Message-ID: <71190A8E-EC33-4A72-97A2-CE9EC69EA0B8@citrix.com>
+References: <20220506120012.32326-1-luca.fancellu@arm.com>
+ <20220506120012.32326-5-luca.fancellu@arm.com>
+In-Reply-To: <20220506120012.32326-5-luca.fancellu@arm.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-MS-Has-Attach:
+X-MS-Has-Attach: yes
 X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Enabled=True;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_SiteId=a19f121d-81e1-4858-a9d8-736e267fd4c7;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_SetDate=2022-05-09T15:16:07.522Z;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Name=FUJITSU-RESTRICTED;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_ContentBits=0;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Method=Standard;
-suggested_attachment_session_id: 7401546d-aea9-ffcc-3451-b3d59ad5888b
+x-mailer: Apple Mail (2.3696.80.82.1.1)
 authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=fujitsu.com;
+ header.d=none;dmarc=none action=none header.from=citrix.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: cb59992a-950f-4d9b-bb1c-08da31ced84d
-x-ms-traffictypediagnostic: TYCPR01MB7578:EE_
+x-ms-office365-filtering-correlation-id: 81ff1508-a0d4-4c28-02c8-08da31d17af6
+x-ms-traffictypediagnostic: SA2PR03MB5820:EE_
 x-microsoft-antispam-prvs:
- <TYCPR01MB75785B3922D747397677C56195C69@TYCPR01MB7578.jpnprd01.prod.outlook.com>
+ <SA2PR03MB582061157CFA31F3EDDD0F3F99C69@SA2PR03MB5820.namprd03.prod.outlook.com>
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info:
- /EPiPQ1iE6MAZZ3/WceQFfMaYOr3hQFI/B3njzUVTDpd2qqrdleVcVSpf2FVTxNNtbalFncurAfPSJh1TGekcVWhzGdngBQ1+1y4fpWxXGD4YbqP27hsV7t4f7edAJIa9NqvJ6n7aibYfCzJx3iCrgiakRvsQh+iG5l9bKWYIK9lR7U4sye5Ffr14bJM2DpODKZvgppK8wyMgyMnjj9zz9lKGpjtILIclyn9Cfxq7iI638lUEA+mX4g4zSn1iKbKIJuWOJ3wgQ4jYqCBsSjpaxF1HlO5mWp7q0WJMtlCD0BjB0ch6tZlY4AQFxnYjeUGNuxeoCOm1YjAXRB9jem+BLs2lLj2CUbfNKym9+HxzC2Pv6xmsq0K3lYUsZZPcvE6+2d0lcxXWKVWm7YLPqOKlRiwnw4OI2vDsNJI4/8LrtAiqLYsnmqIlUTgnHPK7io6xN9jXchkeV3Q9sjEe4hhdahLh1dwAB8LYIGr617lu+R8whOHRJa4M5tWuF2EvZ62teL7MYNxzCHbmiACl3mgo5ShSQ0DDxRTasN1jxNptwPdxEF7mHZIjH/caTRYuN3gomF2nisqKzgGg4spIBbsN2pZXB2htS0vpAAc+pFjcEK/Tyjvjsahu/O5fdELQCKYR+Lwd1Bwj2cvdOJquN0ygm/3FOS0+8mAEr4IZfbABNALU/lSCwrulCmPjai/zOTT7PqtftdxjvSq3wSowSe8pQ==
+ NoAZVkkAER6PrhSI7gBg22MZFPAoAUh5hqaIwcEUH1By/890uQV2p1ydtiCXm70ls+8U64iRz2YAC5UkSXmUlwB2LC22k4cPUR1IsDMhqJUZv8uaEIjI0jPBGJxK5mudr1OKZRRg2sgttAbZJAm63dluvvBkAdNDzHBn9xgIrE0KDxEDFxHIe3NTAtLBEOGR/Um1bCsnJYk7IfQ766x+QIJq7E/Q2t7F9V/crH2Nyy23jcRJ7OF1710QTO8Mmcq0q7qGPfQmo+nfou+Uyujp0kev2SavqfUt2CRMmP7hYJCzca+w4SBvBK7sUJVLVwV2tZalcJhmx/UzzL4/TxL4oK22t2E2xzEuk3T8GJbexso1Uo14tyAHGCpjoVwF4946WjC6aWWASPL0NY9DTNG6vCSCyo18NLwdNWLOkVG8Iw0Pv66MMv06jVCjt+2wlyMnYRAH0sI70VUNDM27nnwFCaO+d5UnPNURHtK0oAnu8k0XQPfgS8MoP15wivAPO4/JOk0UgTVZm52ijSfbQH7Zps4dqUxcNL4XsNrf77IDHT7RfQrtqE04uU/LUIUbqegNNnFf8cKcTLE3CNUqbAkpQoTC50oIgZPzC+t/dqCgXXAlhQ7zDJ/bB3LFBFPpq8RK4iFZt0MxixBt3XN2gWqv5rYL3L/Kfuql9UjO5ukWZZZy4KV8HoIO8WgKlv1LRzQULgUIWvUNOPWXdJUpwmuiNY6HnPcl44KQ5vhfDZdd/lbBnQTtjob5CRMAPtg1CMEd
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYAPR01MB6507.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(38100700002)(5660300002)(52536014)(85182001)(86362001)(38070700005)(83380400001)(82960400001)(122000001)(508600001)(186003)(6506007)(7416002)(8936002)(2906002)(107886003)(55016003)(71200400001)(7366002)(26005)(110136005)(8676002)(4326008)(9686003)(54906003)(33656002)(64756008)(66446008)(66476007)(66556008)(66946007)(76116006)(316002)(7406005)(7696005);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR03MB5669.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(122000001)(33656002)(2616005)(38100700002)(82960400001)(86362001)(91956017)(26005)(5660300002)(36756003)(53546011)(38070700005)(83380400001)(6506007)(8936002)(7416002)(64756008)(66446008)(4744005)(508600001)(6512007)(66556008)(316002)(6486002)(66476007)(66946007)(76116006)(4326008)(54906003)(8676002)(99936003)(71200400001)(6916009)(186003)(2906002)(45980500001);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-2022-jp?B?Q2ZoaFpvc0xSMVIydW9vRDUvemw1eXFIbUlmTmRuc0dEdVEwZzdFcTlC?=
- =?iso-2022-jp?B?MnBtd2NvZ2tkTVRnYzZHdDRGSi85MXhRNGhoV2hSb2daYm1hTm94RXJx?=
- =?iso-2022-jp?B?THdsTjhIUDg4c21tTzdSYzZ0c2l3VTFtdTRmWTZyM3pMV1BZV1E4YnF5?=
- =?iso-2022-jp?B?KzNibHMwSGUrQ3RTK2tXemw5VEZQN1FaUXhONTRHSTBWU2FqSEJwLzRQ?=
- =?iso-2022-jp?B?N29OTmV1bkIrR1huOVN6L3hBaURRRm9Wb21vMXlwNjJiSnRzbFNBbDJS?=
- =?iso-2022-jp?B?Kzgrd1p5bXBESGdrakpDUFdIa1pyNTdRRFp6RnE0YWpEcG4zL1RtY2tk?=
- =?iso-2022-jp?B?amlvbUpJNTZOcTlkWVdsb2dFdk94OXdRbHM1WDF6Wkd2Zk5zb09rTlRD?=
- =?iso-2022-jp?B?M0YyOEVaaSt6dUdwTldNRU00am4relFSbm4wSVNuYktiMWszMTRGUU5k?=
- =?iso-2022-jp?B?bWJ3bWJqMVA3TE9kWENrdE5QQUp2aDZ6SjhaRFRQd2tQUVVQUXI5V3po?=
- =?iso-2022-jp?B?dGQzdGFTQkxXRy8yRW5RK2IwR3l5RHo1M1I0bmdYa1dhcS9NQ3luV013?=
- =?iso-2022-jp?B?TTlXYmgzSXl1ZnVVMGlOc3dMTTFFbXhkYzJldmZRL3NOZVVzU2RucDFU?=
- =?iso-2022-jp?B?TjNXengxZ3I5UFY3amdYeDN0ZDhlTnFpYkVpUXRLaTlNaGNKc2JsZGlz?=
- =?iso-2022-jp?B?S0tSQ2NKMkdqQzlud0hUSEJ5OXM2TkJnN3A3NG1TKzJCdG9NWWhPQ0pl?=
- =?iso-2022-jp?B?ZlRQSDBjdU1WWW5QOEdkbTlDYjF5YkhrVmMwcnNoMndIemRXZnRRNm1O?=
- =?iso-2022-jp?B?aW45cWFXVDZLSHRKVm9JVU5ROWJYNFV3aHlvNFFXTkVla013NTN1c3Zy?=
- =?iso-2022-jp?B?NTZsbEhFRE1BY1NQdnQreVU3dGlmMm1MN3ZYQUIzRTMrSG9CaC9rMm03?=
- =?iso-2022-jp?B?UHpJN0k2Nk0wWkcrZEJkZTJ1czZoK1JNZEY4VGdPWmEzQ1JJSDV1Q0xa?=
- =?iso-2022-jp?B?QzNveU5nWmIwc1IyR0dRcDZmb2VESHY0MWw0VjBvRnJRNG84WGpnbmRp?=
- =?iso-2022-jp?B?NWpwSUR2WXljdVA3OGpyNHZGcW10WjdFdUlFYWI5dlN1ZnhPZncrNGNw?=
- =?iso-2022-jp?B?NVhDNW1NbU1iQjZxRU1sQktJMjNrZ09rMWRmbWo0eWd1Y21Pd3FUcGlU?=
- =?iso-2022-jp?B?TzhWNmlTbUI5djY4eTRNSStjekdqcjc2QlRPSGp6bzY2LzdKRXkxOUVN?=
- =?iso-2022-jp?B?clJRRjhsbWFKT3F0TjY2cEJqMWl1aTdnOGZPOU8rN1d4VnIza2wxOHpw?=
- =?iso-2022-jp?B?YUJscjlYOTRjSVE0VXVqUUNiSHVYRE44QmRSUGV3WjJxT1JOSkxjeVVR?=
- =?iso-2022-jp?B?SDVDc1ZlL2VKb2xxUFAvR05SVC9oOVZVUVYrU1BTUlhLb0p2VEN6WG0x?=
- =?iso-2022-jp?B?dHcycEVHVmEzRmpjQldpWHd5dXdnTFBUbi9FQkd6NTg5VTJuMGJDQnZ2?=
- =?iso-2022-jp?B?NlBKb3hrQThvTkpoK2xPU1kwSUg1MDhvbVlHOWpIamR4OXJhQmxEdDBx?=
- =?iso-2022-jp?B?MEdFdXJXYkpCaGwrMmJBaUNaUnFVL2xKY2lpY0p6cHhpNFdTNG9MUVIv?=
- =?iso-2022-jp?B?Q0RMUTZJTmVKWEVmMDNrYnFOT3l2aUFzTmFxV09kQSs5eCthQXkwdmsw?=
- =?iso-2022-jp?B?SGRsSnkzK3c3V3N1V0FaYVFFMGFKTG5FUU8rTmFVT3N1ekx0cDBVbDlv?=
- =?iso-2022-jp?B?QXV3UTRCTlN1WGo2MWQwSVo4c2VGUnk0aVNNNFJzd3BNOVB2ZCtMWmxP?=
- =?iso-2022-jp?B?dGlzVjVNQnQ2b01aWXhRdXJtRGVJWGZsSXBJZ1VGMWlFR2NESjFTcVlw?=
- =?iso-2022-jp?B?M1JELzNUd013T1ByVGF1Ykh0Nm91MW5xai9ZUU5lRjFsdHdEQ0NtUnNR?=
- =?iso-2022-jp?B?L00xTkhpaithV1pYY1krR05zUTZYTFZPUk9RU0xtSkhhRmhpdFc4RGNX?=
- =?iso-2022-jp?B?eTFpMnd0QlloT0plSm9NdjBuakFweWUwRGtqUjVsNVovRkRob0c0TDQr?=
- =?iso-2022-jp?B?cW1PZ3FYRHBtc3Q2c1FwOFR1Lzk5czhMenVER01OZm9Xa2VwSjM4a1Vm?=
- =?iso-2022-jp?B?OUFBTFpRdTBiY3lqTXIvVHNhN2JWZHVra2dTTFhaTzRFSmh1c0taRERB?=
- =?iso-2022-jp?B?YTdqeGI3dWRDYTYzR1lYcTF1T3dHZ1RGWXYza1cvM0lxUGtldDhmUVZv?=
- =?iso-2022-jp?B?c1dJelE5d1hSV3hybS9VUVN4aEh0aTRPSDd3OElVZVdaSUlxY2wwd2lR?=
- =?iso-2022-jp?B?Slh6TFJjMXMrN25OaG9ibS9hQWZkYmNVb0RFZ1d0aFZLcU5lNUpzV1lX?=
- =?iso-2022-jp?B?YjBEZlRDZE1CeGMyaWRMa1dvT05rVW9RUG1WOUl4aHRkenoyTjFXaitY?=
- =?iso-2022-jp?B?YW1oQ001bUIyRFJYdUJTdzlKekt0WndWSEJpaXU5dzhkVEpOb3p4TzIr?=
- =?iso-2022-jp?B?MUdoTXV6ZVIycy9nblliVHY4clRkRTNlcVNwdWhhQWM4UlBFTDZBYmw0?=
- =?iso-2022-jp?B?ME5aQThQQT0=?=
-Content-Type: text/plain; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
+ =?us-ascii?Q?tNGmZOlgJrWXJa/Mum1jCYBSZH2yFcvblQlVC7GTKtI/Up8jDkM0yJdMr3q+?=
+ =?us-ascii?Q?5XnKu/vS3lhyanbIwrcNxiTUbZCxpwhia2H05fLQIcsKQH4jjsgd3ppYGNvw?=
+ =?us-ascii?Q?cnArZg2Q+cNc3YXIQ49HbUwt1g+MAuj8DjvqmDUskJGT9JkiAYzpdLBt8aMW?=
+ =?us-ascii?Q?gbedxaDKyy8ktssvZ++s+X5NNQ6zP6U3ucovJoP9ftExtpQeyWN9+SDicejv?=
+ =?us-ascii?Q?tG6fE4R8qpThRuOjVmAaHZ4chftQ6hArlHnSlUCyNIUpThGGBqtOP+czBgGb?=
+ =?us-ascii?Q?pc3Px6b5c4Ty3ItkCIR1XsMRm6H5G69Fd352rmPqglBxk3/Ix6PdMcTkqjVC?=
+ =?us-ascii?Q?SedvZJEPW2iOo+4KNunFz6p6tW19iKNV/Y41eXPrmcq6Cl+C6oWhreWsPxug?=
+ =?us-ascii?Q?UEW2HfA1+jJjPG4RXXmpokfqH12/L2og9vT8dhRGnvGR9VX0UtILZKNXTRlW?=
+ =?us-ascii?Q?mpvDKkiZYYTQR6mn2/o2gPd5WU8MmQUwvd1d0d24JzZkwAv6vDZ5B6LXYvaz?=
+ =?us-ascii?Q?rrK7VdHlxPyJ67AwF+cHFCnx4VRKoaAid1slkfQtpp7jjqsN+O0lISNFEXxW?=
+ =?us-ascii?Q?8zi9d5AXl+AZXx1FQXJ3FM6FevBB07C3QSyC5LDSAKYli6xID5colFQhdHPK?=
+ =?us-ascii?Q?p+ATCNvVbBu/JXtkzHZ+SS+2VKf9lrZnAE4tLU9eqUdaIt4vx4NtAKzOI4e3?=
+ =?us-ascii?Q?GpBqpci+FxZzX+KxKykFTBu6MG8O7bOJYG73ktC/YrSa4XhnTOSpxqqN12/B?=
+ =?us-ascii?Q?YEE/xMkFYUqiNMf3lnoJG6CkiKO6VMbtHUcMmH55YCGK4rE59c7UYNVGJgiT?=
+ =?us-ascii?Q?+8jTLqLxC8U6qVdWcS1OLfA4DKpbPEd4ctr13UqPzvQCa6Q0TCTI4usc8/rR?=
+ =?us-ascii?Q?LzGlFzHKmdJddihIcCrTVgAMHetBJBAatv09NQ0ftuG5zUUBfjAvlSUcG1IM?=
+ =?us-ascii?Q?f7zJopCLfoHjtQeVqyG3/kFlZHN4W75wxNmtLNXx4X4aIOQUKUOGSwSaCtst?=
+ =?us-ascii?Q?GVrv8nkCpDHsWNE/AP78YriwGO+GbtZgU0l56KVnpP6qKLHyxWhdt0SnnXlq?=
+ =?us-ascii?Q?ptPS4SEp+d7040dPUWkWMaRDmm8wl83TnRpeherQkc9hvZganJeJUYJ0jL+o?=
+ =?us-ascii?Q?PyZPlukBCSulU4Pwq5UI3GlnpZozGcOeHOZHo6TFgTGjdjSvymjIljCtyfVW?=
+ =?us-ascii?Q?SuRILhtESZjoPuN89SsyE5RezITZCwRdHb9S9dYbf/zWesc/EsPxo930cefM?=
+ =?us-ascii?Q?GXpDg+X3u+EeNjDTEG4MEYoTHocTXLGUYYqZZjh3rQSEPIXcOQftiBWsCwBe?=
+ =?us-ascii?Q?EKaSdHoRzuj4bXJtOC7WwX4oL+x5ay2uPKgZwqPY8pvZ4PVCpsE+Qqr14E9k?=
+ =?us-ascii?Q?6HaKhEKLWpJArbagIeAwVg1gGlGW4TSGXXm6CIGgt/3oZmDWrmjIX3/XWEyB?=
+ =?us-ascii?Q?csJzTRWWl5zBhcG29+k2l4CuqEars7voTelTmh6iflhpSa4YIxMgA11ncnpe?=
+ =?us-ascii?Q?bjTDElgWwiT/dKnF5YonHTtbOeQGjvIuA7tlPM37DlAg3KNRTIomnmmKO2XG?=
+ =?us-ascii?Q?2rVDNsOIAVrf8rigj8eDVJlAgyvwVDchiLFbpK+LTddOR6n0aiAn9b+rkP0h?=
+ =?us-ascii?Q?WYBtHjg4ec4Psbtgp0ynh+B9oWV3JO/6a9oKvbsRNdmK9VEbhEFFpdiZ/tNz?=
+ =?us-ascii?Q?CpeGr23OGIXvvky+E8ASAOtqkC0w35YBfijWIbW35VaWbffs4it9VDb9MUWW?=
+ =?us-ascii?Q?EVkCOrjTHEYcET2COoY9V88UmrOmOKU=3D?=
+Content-Type: multipart/signed;
+	boundary="Apple-Mail=_4E702316-1A38-4A59-99D3-F06F9063C5B1";
+	protocol="application/pgp-signature";
+	micalg=pgp-sha512
 MIME-Version: 1.0
-X-OriginatorOrg: fujitsu.com
+X-OriginatorOrg: citrix.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYAPR01MB6507.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cb59992a-950f-4d9b-bb1c-08da31ced84d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 May 2022 15:16:08.8030
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR03MB5669.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81ff1508-a0d4-4c28-02c8-08da31d17af6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 May 2022 15:35:00.6590
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: q5IRFdj2tV7IAxoGvUQ3KW79KqhlLrLxHCiqQH9LHk/aZve0Mz95uDPlSCWwe/uJV5hchYymXmHVnJXclB022HSy1r9hKQtbFufztomtIsU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB7578
+X-MS-Exchange-CrossTenant-userprincipalname: Yc7510TmwaOZ6F1sefqjbIbjQG6G+Uerb+CjIYwo3WDlq4v+/nLFRF4SobkvcK0rKQLoHyCgBdcqZx3DMzGh/E7CJ15eLrEhn197ZyVmENM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR03MB5820
 
-Sorry for the delayed response. Unfortunately, I had 10 days holidays=0A=
-until yesterday...=0A=
-=0A=
->  .../admin-guide/kernel-parameters.txt         |  42 ++-=0A=
->  include/linux/panic_notifier.h                |   1 +=0A=
->  kernel/kexec_core.c                           |   8 +-=0A=
->  kernel/panic.c                                | 292 +++++++++++++-----=
-=0A=
->  .../selftests/pstore/pstore_crash_test        |   5 +-=0A=
->  5 files changed, 252 insertions(+), 96 deletions(-)=0A=
-> =0A=
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentat=
-ion/admin-guide/kernel-parameters.txt=0A=
-> index 3f1cc5e317ed..8d3524060ce3 100644=0A=
-> --- a/Documentation/admin-guide/kernel-parameters.txt=0A=
-> +++ b/Documentation/admin-guide/kernel-parameters.txt=0A=
-...snip...=0A=
-> @@ -3784,6 +3791,33 @@=0A=
->                         timeout < 0: reboot immediately=0A=
->                         Format: <timeout>=0A=
-> =0A=
-> +       panic_notifiers_level=3D=0A=
-> +                       [KNL] Set the panic notifiers execution order.=0A=
-> +                       Format: <unsigned int>=0A=
-> +                       We currently have 4 lists of panic notifiers; bas=
-ed=0A=
-> +                       on the functionality and risk (for panic success)=
- the=0A=
-> +                       callbacks are added in a given list. The lists ar=
-e:=0A=
-> +                       - hypervisor/FW notification list (low risk);=0A=
-> +                       - informational list (low/medium risk);=0A=
-> +                       - pre_reboot list (higher risk);=0A=
-> +                       - post_reboot list (only run late in panic and af=
-ter=0A=
-> +                       kdump, not configurable for now).=0A=
-> +                       This parameter defines the ordering of the first =
-3=0A=
-> +                       lists with regards to kdump; the levels determine=
-=0A=
-> +                       which set of notifiers execute before kdump. The=
-=0A=
-> +                       accepted levels are:=0A=
-> +                       0: kdump is the first thing to run, NO list is=0A=
-> +                       executed before kdump.=0A=
-> +                       1: only the hypervisor list is executed before kd=
-ump.=0A=
-> +                       2 (default level): the hypervisor list and (*if*=
-=0A=
-=0A=
-Hmmm, why are you trying to change default setting?=0A=
-=0A=
-Based on the current design of kdump, it's natural to put what the=0A=
-handlers for these level 1 and level 2 handlers do in=0A=
-machine_crash_shutdown(), as these are necessary by default, right?=0A=
-=0A=
-Or have you already tried that and figured out it's difficult in some=0A=
-reason and reached the current design? If so, why is that difficult?=0A=
-Could you point to if there is already such discussion online?=0A=
-=0A=
-kdump is designed to perform as little things as possible before=0A=
-transferring the execution to the 2nd kernel in order to increase=0A=
-reliability. Just detour to panic() increases risks of kdump failure=0A=
-in the sense of increasing the executed codes in the abnormal=0A=
-situation, which is very the note in the explanation of=0A=
-crash_kexec_post_notifiers.=0A=
-=0A=
-Also, the current implementation of crash_kexec_post_notifiers uses=0A=
-the panic notifier, but this is not from the technical=0A=
-reason. Ideally, it should have been implemented in the context of=0A=
-crash_kexec() independently of panic().=0A=
-=0A=
-That is, it looks to me that, in addition to changing design of panic=0A=
-notifier, you are trying to integrate shutdown code of the crash kexec=0A=
-and the panic paths. If so, this is a big design change for kdump.=0A=
-I'm concerned about increase of reliability. I'd like you to discuss=0A=
-them carefully.=0A=
-=0A=
-Thanks.=0A=
-HATAYAMA, Daisuke=0A=
-=0A=
+--Apple-Mail=_4E702316-1A38-4A59-99D3-F06F9063C5B1
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+	charset=us-ascii
+
+
+
+> On May 6, 2022, at 1:00 PM, Luca Fancellu <Luca.Fancellu@arm.com> wrote:
+> 
+> Introduce a way to create different cpupools at boot time, this is
+> particularly useful on ARM big.LITTLE system where there might be the
+> need to have different cpupools for each type of core, but also
+> systems using NUMA can have different cpu pools for each node.
+> 
+> The feature on arm relies on a specification of the cpupools from the
+> device tree to build pools and assign cpus to them.
+> 
+> ACPI is not supported for this feature.
+> 
+> With this patch, cpupool0 can now have less cpus than the number of
+> online ones, so update the default case for opt_dom0_max_vcpus.
+> 
+> Documentation is created to explain the feature.
+> 
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+Changes to sched.h:
+
+Acked-by: George Dunlap <george.dunlap@citrix.com>
+
+
+--Apple-Mail=_4E702316-1A38-4A59-99D3-F06F9063C5B1
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename=signature.asc
+Content-Type: application/pgp-signature;
+	name=signature.asc
+Content-Description: Message signed with OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCgAdFiEEj3+7SZ4EDefWZFyCshXHp8eEG+0FAmJ5NJ8ACgkQshXHp8eE
+G+24YAf+L+4wYaAeh82FUYk7g2UnlV/xSWFU8i8FP8XLc+ogE5dSaVtskvnZ3J7E
+GHbQiaYIz8fjF1d3FuSDTTV3+I+nGIszaVEPmZLz21nM9OyEAhZmLxYT0ZF6ZQhu
+mPsLfVQYS0V0pju2tOjrvROAAFLIy5Ya9f04ROOrdQu70TiAIWy0AfEEgfShCjgU
+iMLpjqUNoPBgdlv4zRh+lmMohzfAWx6vY2lZUE2yVhwUQ5HReL1RavAfl+Ip3UW4
+IxKCwnYTPEZvKn9yCdzQPV4xr/U/b9Vt1srTNTZf/YublVVhoW3ZCsO6E8wZEFZH
+HUdZQu6+OBU3K3eLFs8XfMGk8jwnoA==
+=znIE
+-----END PGP SIGNATURE-----
+
+--Apple-Mail=_4E702316-1A38-4A59-99D3-F06F9063C5B1--
 
