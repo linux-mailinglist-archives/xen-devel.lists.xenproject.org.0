@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D5F55201B6
-	for <lists+xen-devel@lfdr.de>; Mon,  9 May 2022 17:53:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.324658.546800 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 262685201CA
+	for <lists+xen-devel@lfdr.de>; Mon,  9 May 2022 17:59:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.324664.546812 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1no5gw-0000r7-Tl; Mon, 09 May 2022 15:52:58 +0000
+	id 1no5mZ-0001WH-Iv; Mon, 09 May 2022 15:58:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 324658.546800; Mon, 09 May 2022 15:52:58 +0000
+Received: by outflank-mailman (output) from mailman id 324664.546812; Mon, 09 May 2022 15:58:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1no5gw-0000ov-Qy; Mon, 09 May 2022 15:52:58 +0000
-Received: by outflank-mailman (input) for mailman id 324658;
- Mon, 09 May 2022 15:52:58 +0000
+	id 1no5mZ-0001UT-FX; Mon, 09 May 2022 15:58:47 +0000
+Received: by outflank-mailman (input) for mailman id 324664;
+ Mon, 09 May 2022 15:58:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2Ebz=VR=google.com=seanjc@srs-se1.protection.inumbo.net>)
- id 1no5gw-0000op-1v
- for xen-devel@lists.xenproject.org; Mon, 09 May 2022 15:52:58 +0000
-Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
- [2607:f8b0:4864:20::634])
+ (envelope-from <SRS0=9ghU=VR=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1no5mY-0001UN-Jw
+ for xen-devel@lists.xenproject.org; Mon, 09 May 2022 15:58:46 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 173382ea-cfb0-11ec-8fc4-03012f2f19d4;
- Mon, 09 May 2022 17:52:56 +0200 (CEST)
-Received: by mail-pl1-x634.google.com with SMTP id q4so11356543plr.11
- for <xen-devel@lists.xenproject.org>; Mon, 09 May 2022 08:52:56 -0700 (PDT)
-Received: from google.com (157.214.185.35.bc.googleusercontent.com.
- [35.185.214.157]) by smtp.gmail.com with ESMTPSA id
- c2-20020aa79522000000b0050dc7628164sm8941672pfp.62.2022.05.09.08.52.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 May 2022 08:52:53 -0700 (PDT)
+ id e7e0062c-cfb0-11ec-8fc4-03012f2f19d4;
+ Mon, 09 May 2022 17:58:45 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id ECEB421C61;
+ Mon,  9 May 2022 15:58:44 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C3A3413AA5;
+ Mon,  9 May 2022 15:58:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id uKZbLjQ6eWLmKAAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 09 May 2022 15:58:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,486 +51,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 173382ea-cfb0-11ec-8fc4-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=CAxFYwx9au8ndjamrxPXEwi/2awSLBgQaCrWU0hhgV8=;
-        b=sFEfltNQCVk2gKdSF95eO+6o5Oi9iHPAu9XMn5y7AVrB1PpZKrmSauv2vxy2epRHmZ
-         NSr62ka7zLG3Gl54pw2fv1HHOqJzmWG+qcYMGudJBID58EtUah//Q/zwiMX8Beifo5Lh
-         iXK5FpZRJsooYlIrPkKyk6xy3QQYJz/0u49tSn3qe+yDBvjo3SSASrt46ZFrb6+hHFvW
-         H7/yN/ph8EWKTn0C9heTUB8cdpuCpaAeBHKYWIuDAIJkN6Hj0/oODbz/oRPz+ovRDe/T
-         g9WoeDulJNTK3wKvSf95Pd6PuXhjpO0IWRLXy6yWL9wRfFaZ8a0IDJZWtt84gKIK5eWZ
-         z7iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=CAxFYwx9au8ndjamrxPXEwi/2awSLBgQaCrWU0hhgV8=;
-        b=wMoU0nR63jQt8w0+IgB1mofzsO7NuiQz+UhPFWoEuBKEqpZhhph9Ra8MLz2wd14di0
-         Jozkog6C4cbIK2sudT7Jiaw0095a57EPkxK032MaZfcYCC0P063Wv/Ga7HV/65UhPM5N
-         /wNkA4AvKkPXmXjxGngIQfdsu7jXAfPTgqHYHF8QQBYFxdw+EgP5a5LLqKwiBzI8tFFb
-         q5LUD7d8VWewTJOwoLRMX902kgwvC/sPj/DeooA7MU1tthElKdWJcgHKZB1psx4LVRUz
-         pWwzKdIkSHtjtcOdhzLTfVquDS5Aihz3cNBy2TcKQ5UiR/7ZXy3Fef8Tg3vKnpyeNcph
-         mJfg==
-X-Gm-Message-State: AOAM533n+mWluqE4iZbGA1a5sVOBctLIUMVlX2sfGplvi3D07ew/EXoE
-	agpCrSGkoP4wKd3GjFVXa6nvXg==
-X-Google-Smtp-Source: ABdhPJysrIMHQqC/1OMD5SyWpentMn8Vwv24RP/WWPrWWVvg2aHHDob94JmsHZxC4PVEzZOqPXHCmA==
-X-Received: by 2002:a17:90b:1091:b0:1d8:b371:4b29 with SMTP id gj17-20020a17090b109100b001d8b3714b29mr26584916pjb.234.1652111574246;
-        Mon, 09 May 2022 08:52:54 -0700 (PDT)
-Date: Mon, 9 May 2022 15:52:49 +0000
-From: Sean Christopherson <seanjc@google.com>
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: akpm@linux-foundation.org, bhe@redhat.com, pmladek@suse.com,
-	kexec@lists.infradead.org, linux-kernel@vger.kernel.org,
-	bcm-kernel-feedback-list@broadcom.com, coresight@lists.linaro.org,
-	linuxppc-dev@lists.ozlabs.org, linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
-	linux-hyperv@vger.kernel.org, linux-leds@vger.kernel.org,
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-	linux-s390@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-um@lists.infradead.org, linux-xtensa@linux-xtensa.org,
-	netdev@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
-	rcu@vger.kernel.org, sparclinux@vger.kernel.org,
-	xen-devel@lists.xenproject.org, x86@kernel.org,
-	kernel-dev@igalia.com, kernel@gpiccoli.net, halves@canonical.com,
-	fabiomirmar@gmail.com, alejandro.j.jimenez@oracle.com,
-	andriy.shevchenko@linux.intel.com, arnd@arndb.de, bp@alien8.de,
-	corbet@lwn.net, d.hatayama@jp.fujitsu.com,
-	dave.hansen@linux.intel.com, dyoung@redhat.com, feng.tang@intel.com,
-	gregkh@linuxfoundation.org, mikelley@microsoft.com,
-	hidehiro.kawai.ez@hitachi.com, jgross@suse.com,
-	john.ogness@linutronix.de, keescook@chromium.org, luto@kernel.org,
-	mhiramat@kernel.org, mingo@redhat.com, paulmck@kernel.org,
-	peterz@infradead.org, rostedt@goodmis.org, senozhatsky@chromium.org,
-	stern@rowland.harvard.edu, tglx@linutronix.de, vgoyal@redhat.com,
-	vkuznets@redhat.com, will@kernel.org,
-	"David P . Reed" <dpreed@deepplum.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [PATCH 01/30] x86/crash,reboot: Avoid re-disabling VMX in all
- CPUs on crash/restart
-Message-ID: <Ynk40U/KA+hLBZRC@google.com>
-References: <20220427224924.592546-1-gpiccoli@igalia.com>
- <20220427224924.592546-2-gpiccoli@igalia.com>
+X-Inumbo-ID: e7e0062c-cfb0-11ec-8fc4-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1652111924; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type;
+	bh=P/OgPWCVZKUWEFp1J72cVhxUxrlEAJuWxOjMgjzT0+4=;
+	b=O7bwUGYwrb2u7m+SGtFmrX6h9gUY5vqr/Q8reRO9Yt8IWjfxBYGf7/MjhEthr7PL9wihar
+	bJgTMv+zCiZh0EF4Vpqsk1pPpWMYrCFFjyQ2FuTDZ3fB0xONB3TVUYopleXASv17f530zH
+	iv+nsDO1uDcgYNxknAIHkH0Wu4Cx5Ac=
+Message-ID: <1c5619ff-0872-8c0a-9dbd-9f419b9c957f@suse.com>
+Date: Mon, 9 May 2022 17:58:44 +0200
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="J4vquNhda08TmTtV"
-Content-Disposition: inline
-In-Reply-To: <20220427224924.592546-2-gpiccoli@igalia.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+From: Juergen Gross <jgross@suse.com>
+Subject: Attributing linux related patches on xen-devel
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------boP0QB8PHvLpQv71qaXBTatA"
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------boP0QB8PHvLpQv71qaXBTatA
+Content-Type: multipart/mixed; boundary="------------RZFWhIZHvLdkJ6qz3WVXs2O8";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Message-ID: <1c5619ff-0872-8c0a-9dbd-9f419b9c957f@suse.com>
+Subject: Attributing linux related patches on xen-devel
 
---J4vquNhda08TmTtV
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--------------RZFWhIZHvLdkJ6qz3WVXs2O8
+Content-Type: multipart/mixed; boundary="------------554QSrryLEfQyiYfCsPxRgYf"
 
-I find the shortlog to be very confusing, the bug has nothing to do with disabling
-VMX and I distinctly remember wrapping VMXOFF with exception fixup to prevent doom
-if VMX is already disabled :-).  The issue is really that nmi_shootdown_cpus() doesn't
-play nice with being called twice.
+--------------554QSrryLEfQyiYfCsPxRgYf
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-On Wed, Apr 27, 2022, Guilherme G. Piccoli wrote:
-> In the panic path we have a list of functions to be called, the panic
-> notifiers - such callbacks perform various actions in the machine's
-> last breath, and sometimes users want them to run before kdump. We
-> have the parameter "crash_kexec_post_notifiers" for that. When such
-> parameter is used, the function "crash_smp_send_stop()" is executed
-> to poweroff all secondary CPUs through the NMI-shootdown mechanism;
-> part of this process involves disabling virtualization features in
-> all CPUs (except the main one).
-> 
-> Now, in the emergency restart procedure we have also a way of
-> disabling VMX in all CPUs, using the same NMI-shootdown mechanism;
-> what happens though is that in case we already NMI-disabled all CPUs,
-> the emergency restart fails due to a second addition of the same items
-> in the NMI list, as per the following log output:
-> 
-> sysrq: Trigger a crash
-> Kernel panic - not syncing: sysrq triggered crash
-> [...]
-> Rebooting in 2 seconds..
-> list_add double add: new=<addr1>, prev=<addr2>, next=<addr1>.
-> ------------[ cut here ]------------
-> kernel BUG at lib/list_debug.c:29!
-> invalid opcode: 0000 [#1] PREEMPT SMP PTI
+T24gSVJDIHRoZSBxdWVzdGlvbiBjYW1lIHVwIHdoZXRoZXIgaXQgd291bGQgYmUgcG9zc2li
+bGUgdG8gaGF2ZSBhDQpzcGVjaWFsIG1hcmtlciBmb3IgTGludXggcGF0Y2hlcyBvbiB0aGUg
+eGVuLWRldmVsIE1MLg0KDQpJIHN1Z2dlc3RlZCB0byB1c2UgeGVuLWRldmVsK2xpbnV4QGxp
+c3RzLnhlbnByb2pleHQub3JnIGZvciB0aG9zZQ0KcGF0Y2hlcy4gV2l0aCBhIHBhdGNoIGZv
+ciB0aGUga2VybmVsJ3MgTUFJTlRBSU5FUlMgZmlsZSB0aGlzIHdvdWxkDQpiZSBxdWl0ZSBl
+YXN5IHRvIGFjaGlldmUuDQoNCkFueSB0aG91Z2h0cz8NCg0KDQpKdWVyZ2VuDQoNClAuUy46
+IHNpbWlsYXIgdGFnZ2luZyBjb3VsZCBiZSBwZXJmb3JtZWQgZm9yIHFlbXUgYW5kIE1pbmkt
+T1MNCiAgICAgICByZWxhdGVkIG1haWxzDQo=
+--------------554QSrryLEfQyiYfCsPxRgYf
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-Call stacks for the two callers would be very, very helpful.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-> In order to reproduce the problem, users just need to set the kernel
-> parameter "crash_kexec_post_notifiers" *without* kdump set in any
-> system with the VMX feature present.
-> 
-> Since there is no benefit in re-disabling VMX in all CPUs in case
-> it was already done, this patch prevents that by guarding the restart
-> routine against doubly issuing NMIs unnecessarily. Notice we still
-> need to disable VMX locally in the emergency restart.
-> 
-> Fixes: ed72736183c4 ("x86/reboot: Force all cpus to exit VMX root if VMX is supported)
-> Fixes: 0ee59413c967 ("x86/panic: replace smp_send_stop() with kdump friendly version in panic path")
-> Cc: David P. Reed <dpreed@deepplum.com>
-> Cc: Hidehiro Kawai <hidehiro.kawai.ez@hitachi.com>
-> Cc: Paolo Bonzini <pbonzini@redhat.com>
-> Cc: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
-> ---
->  arch/x86/include/asm/cpu.h |  1 +
->  arch/x86/kernel/crash.c    |  8 ++++----
->  arch/x86/kernel/reboot.c   | 14 ++++++++++++--
->  3 files changed, 17 insertions(+), 6 deletions(-)
-> 
-> diff --git a/arch/x86/include/asm/cpu.h b/arch/x86/include/asm/cpu.h
-> index 86e5e4e26fcb..b6a9062d387f 100644
-> --- a/arch/x86/include/asm/cpu.h
-> +++ b/arch/x86/include/asm/cpu.h
-> @@ -36,6 +36,7 @@ extern int _debug_hotplug_cpu(int cpu, int action);
->  #endif
->  #endif
->  
-> +extern bool crash_cpus_stopped;
->  int mwait_usable(const struct cpuinfo_x86 *);
->  
->  unsigned int x86_family(unsigned int sig);
-> diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
-> index e8326a8d1c5d..71dd1a990e8d 100644
-> --- a/arch/x86/kernel/crash.c
-> +++ b/arch/x86/kernel/crash.c
-> @@ -42,6 +42,8 @@
->  #include <asm/crash.h>
->  #include <asm/cmdline.h>
->  
-> +bool crash_cpus_stopped;
-> +
->  /* Used while preparing memory map entries for second kernel */
->  struct crash_memmap_data {
->  	struct boot_params *params;
-> @@ -108,9 +110,7 @@ void kdump_nmi_shootdown_cpus(void)
->  /* Override the weak function in kernel/panic.c */
->  void crash_smp_send_stop(void)
->  {
-> -	static int cpus_stopped;
-> -
-> -	if (cpus_stopped)
-> +	if (crash_cpus_stopped)
->  		return;
->  
->  	if (smp_ops.crash_stop_other_cpus)
-> @@ -118,7 +118,7 @@ void crash_smp_send_stop(void)
->  	else
->  		smp_send_stop();
->  
-> -	cpus_stopped = 1;
-> +	crash_cpus_stopped = true;
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-This feels like were just adding more duct tape to the mess.  nmi_shootdown() is
-still unsafe for more than one caller, and it takes a _lot_ of staring and searching
-to understand that crash_smp_send_stop() is invoked iff CONFIG_KEXEC_CORE=y, i.e.
-that it will call smp_ops.crash_stop_other_cpus() and not just smp_send_stop().
+--------------554QSrryLEfQyiYfCsPxRgYf--
 
-Rather than shared a flag between two relatively unrelated functions, what if we
-instead disabling virtualization in crash_nmi_callback() and then turn the reboot
-call into a nop if an NMI shootdown has already occurred?  That will also add a
-bit of documentation about multiple shootdowns not working.
+--------------RZFWhIZHvLdkJ6qz3WVXs2O8--
 
-And I believe there's also a lurking bug in native_machine_emergency_restart() that
-can be fixed with cleanup.  SVM can also block INIT and so should be disabled during
-an emergency reboot.
+--------------boP0QB8PHvLpQv71qaXBTatA
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-The attached patches are compile tested only.  If they seem sane, I'll post an
-official mini series.
+-----BEGIN PGP SIGNATURE-----
 
->  }
->  
->  #else
-> diff --git a/arch/x86/kernel/reboot.c b/arch/x86/kernel/reboot.c
-> index fa700b46588e..2fc42b8402ac 100644
-> --- a/arch/x86/kernel/reboot.c
-> +++ b/arch/x86/kernel/reboot.c
-> @@ -589,8 +589,18 @@ static void native_machine_emergency_restart(void)
->  	int orig_reboot_type = reboot_type;
->  	unsigned short mode;
->  
-> -	if (reboot_emergency)
-> -		emergency_vmx_disable_all();
-> +	/*
-> +	 * We can reach this point in the end of panic path, having
-> +	 * NMI-disabled all secondary CPUs. This process involves
-> +	 * disabling the CPU virtualization technologies, so if that
-> +	 * is the case, we only miss disabling the local CPU VMX...
-> +	 */
-> +	if (reboot_emergency) {
-> +		if (!crash_cpus_stopped)
-> +			emergency_vmx_disable_all();
-> +		else
-> +			cpu_emergency_vmxoff();
-> +	}
->  
->  	tboot_shutdown(TB_SHUTDOWN_REBOOT);
->  
-> -- 
-> 2.36.0
-> 
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmJ5OjQFAwAAAAAACgkQsN6d1ii/Ey8+
+BAf/RRZgAJIWhUxJlH1niYaIvuy/AkXwtPXIDTiRIaP++4uRwFiQ4M/L97gr3VmsdU1Jtiv3f2ZY
+D7hLUA5P5C1smwcigsBPMoyeyYKKGcBSRBSr0xe2KTp2pTeT4g5mwqwsElA8oIMFgGbHS6AmJoK0
+rSjRK06w2qDkHlrpiDPxy+PUQA6LPew4BnboDd6BQNCezlzAtN58pupgzPoxFo+/z+l4Zi2GHagJ
+n/yiK+kJDhCFXaxL25dpSihhlkibPVy8V4W09wNlMLdCSMUr6VfXoFCSfxxwW8GxuNXlg4pPfiYH
+hy3mxwusgH3BMtfvdDSsPsaT9Z+24Bdh/pZUDs83gA==
+=ymPn
+-----END PGP SIGNATURE-----
 
---J4vquNhda08TmTtV
-Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment;
-	filename="0001-x86-crash-Disable-virt-in-core-NMI-crash-handler-to-.patch"
-
-From 8a4573b7cf3a3e49b409ba3a504934de181c259d Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Mon, 9 May 2022 07:36:34 -0700
-Subject: [PATCH 1/2] x86/crash: Disable virt in core NMI crash handler to
- avoid double list_add
-
-Disable virtualization in crash_nmi_callback() and skip the requested NMI
-shootdown if a shootdown has already occurred, i.e. a callback has been
-registered.  The NMI crash shootdown path doesn't play nice with multiple
-invocations, e.g. attempting to register the NMI handler multiple times
-will trigger a double list_add() and hang the sytem (in addition to
-multiple other issues).  If "crash_kexec_post_notifiers" is specified on
-the kernel command line, panic() will invoke crash_smp_send_stop() and
-result in a second call to nmi_shootdown_cpus() during
-native_machine_emergency_restart().
-
-Invoke the callback _before_ disabling virtualization, as the current
-VMCS needs to be cleared before doing VMXOFF.  Note, this results in a
-subtle change in ordering between disabling virtualization and stopping
-Intel PT on the responding CPUs.  While VMX and Intel PT do interact,
-VMXOFF and writes to MSR_IA32_RTIT_CTL do not induce faults between one
-another, which is all that matters when panicking.
-
-WARN if nmi_shootdown_cpus() is called a second time with anything other
-than the reboot path's "nop" handler, as bailing means the requested
-isn't being invoked.  Punt true handling of multiple shootdown callbacks
-until there's an actual use case for doing so (beyond disabling
-virtualization).
-
-Extract the disabling logic to a common helper to deduplicate code, and
-to prepare for doing the shootdown in the emergency reboot path if SVM
-is supported.
-
-Note, prior to commit ed72736183c4 ("x86/reboot: Force all cpus to exit
-VMX root if VMX is supported), nmi_shootdown_cpus() was subtly protected
-against a second invocation by a cpu_vmx_enabled() check as the kdump
-handler would disable VMX if it ran first.
-
-Fixes: ed72736183c4 ("x86/reboot: Force all cpus to exit VMX root if VMX is supported)
-Cc: stable@vger.kernel.org
-Reported-by: Guilherme G. Piccoli <gpiccoli@igalia.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- arch/x86/include/asm/reboot.h |  1 +
- arch/x86/kernel/crash.c       | 16 +--------------
- arch/x86/kernel/reboot.c      | 38 ++++++++++++++++++++++++++++++++---
- 3 files changed, 37 insertions(+), 18 deletions(-)
-
-diff --git a/arch/x86/include/asm/reboot.h b/arch/x86/include/asm/reboot.h
-index 04c17be9b5fd..8f2da36435a6 100644
---- a/arch/x86/include/asm/reboot.h
-+++ b/arch/x86/include/asm/reboot.h
-@@ -25,6 +25,7 @@ void __noreturn machine_real_restart(unsigned int type);
- #define MRR_BIOS	0
- #define MRR_APM		1
- 
-+void cpu_crash_disable_virtualization(void);
- typedef void (*nmi_shootdown_cb)(int, struct pt_regs*);
- void nmi_panic_self_stop(struct pt_regs *regs);
- void nmi_shootdown_cpus(nmi_shootdown_cb callback);
-diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
-index e8326a8d1c5d..fe0cf83843ba 100644
---- a/arch/x86/kernel/crash.c
-+++ b/arch/x86/kernel/crash.c
-@@ -81,15 +81,6 @@ static void kdump_nmi_callback(int cpu, struct pt_regs *regs)
- 	 */
- 	cpu_crash_vmclear_loaded_vmcss();
- 
--	/* Disable VMX or SVM if needed.
--	 *
--	 * We need to disable virtualization on all CPUs.
--	 * Having VMX or SVM enabled on any CPU may break rebooting
--	 * after the kdump kernel has finished its task.
--	 */
--	cpu_emergency_vmxoff();
--	cpu_emergency_svm_disable();
--
- 	/*
- 	 * Disable Intel PT to stop its logging
- 	 */
-@@ -148,12 +139,7 @@ void native_machine_crash_shutdown(struct pt_regs *regs)
- 	 */
- 	cpu_crash_vmclear_loaded_vmcss();
- 
--	/* Booting kdump kernel with VMX or SVM enabled won't work,
--	 * because (among other limitations) we can't disable paging
--	 * with the virt flags.
--	 */
--	cpu_emergency_vmxoff();
--	cpu_emergency_svm_disable();
-+	cpu_crash_disable_virtualization();
- 
- 	/*
- 	 * Disable Intel PT to stop its logging
-diff --git a/arch/x86/kernel/reboot.c b/arch/x86/kernel/reboot.c
-index fa700b46588e..f9543a4e9b09 100644
---- a/arch/x86/kernel/reboot.c
-+++ b/arch/x86/kernel/reboot.c
-@@ -528,9 +528,9 @@ static inline void kb_wait(void)
- 	}
- }
- 
--static void vmxoff_nmi(int cpu, struct pt_regs *regs)
-+static void nmi_shootdown_nop(int cpu, struct pt_regs *regs)
- {
--	cpu_emergency_vmxoff();
-+	/* Nothing to do, the NMI shootdown handler disables virtualization. */
- }
- 
- /* Use NMIs as IPIs to tell all CPUs to disable virtualization */
-@@ -554,7 +554,7 @@ static void emergency_vmx_disable_all(void)
- 		__cpu_emergency_vmxoff();
- 
- 		/* Halt and exit VMX root operation on the other CPUs. */
--		nmi_shootdown_cpus(vmxoff_nmi);
-+		nmi_shootdown_cpus(nmi_shootdown_nop);
- 	}
- }
- 
-@@ -802,6 +802,18 @@ static nmi_shootdown_cb shootdown_callback;
- static atomic_t waiting_for_crash_ipi;
- static int crash_ipi_issued;
- 
-+void cpu_crash_disable_virtualization(void)
-+{
-+	/*
-+	 * Disable virtualization, i.e. VMX or SVM, so that INIT is recognized
-+	 * during reboot.  VMX blocks INIT if the CPU is post-VMXON, and SVM
-+	 * blocks INIT if GIF=0.  Note, CLGI #UDs if SVM isn't enabled, so it's
-+	 * easier to just disable SVM unconditionally.
-+	 */
-+	cpu_emergency_vmxoff();
-+	cpu_emergency_svm_disable();
-+}
-+
- static int crash_nmi_callback(unsigned int val, struct pt_regs *regs)
- {
- 	int cpu;
-@@ -819,6 +831,12 @@ static int crash_nmi_callback(unsigned int val, struct pt_regs *regs)
- 
- 	shootdown_callback(cpu, regs);
- 
-+	/*
-+	 * Prepare the CPU for reboot _after_ invoking the callback so that the
-+	 * callback can safely use virtualization instructions, e.g. VMCLEAR.
-+	 */
-+	cpu_crash_disable_virtualization();
-+
- 	atomic_dec(&waiting_for_crash_ipi);
- 	/* Assume hlt works */
- 	halt();
-@@ -840,6 +858,20 @@ void nmi_shootdown_cpus(nmi_shootdown_cb callback)
- 	unsigned long msecs;
- 	local_irq_disable();
- 
-+	/*
-+	 * Invoking multiple callbacks is not currently supported, registering
-+	 * the NMI handler twice will cause a list_add() double add BUG().
-+	 * The exception is the "nop" handler in the emergency reboot path,
-+	 * which can run after e.g. kdump's shootdown.  Do nothing if the crash
-+	 * handler has already run, i.e. has already prepared other CPUs, the
-+	 * reboot path doesn't have any work of its to do, it just needs to
-+	 * ensure all CPUs have prepared for reboot.
-+	 */
-+	if (shootdown_callback) {
-+		WARN_ON_ONCE(callback != nmi_shootdown_nop);
-+		return;
-+	}
-+
- 	/* Make a note of crashing cpu. Will be used in NMI callback. */
- 	crashing_cpu = safe_smp_processor_id();
- 
-
-base-commit: 2764011106d0436cb44702cfb0981339d68c3509
--- 
-2.36.0.512.ge40c2bad7a-goog
-
-
---J4vquNhda08TmTtV
-Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment;
-	filename="0002-x86-reboot-Disable-virtualization-in-an-emergency-if.patch"
-
-From ce4b8fb50962c00a9bb29663e96501e90d68bd8b Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Mon, 9 May 2022 08:28:14 -0700
-Subject: [PATCH 2/2] x86/reboot: Disable virtualization in an emergency if SVM
- is supported
-
-Disable SVM on all CPUs via NMI shootdown during an emergency reboot.
-Like VMX, SVM can block INIT and thus prevent bringing up other CPUs via
-INIT-SIPI-SIPI.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- arch/x86/kernel/reboot.c | 26 ++++++++++++++------------
- 1 file changed, 14 insertions(+), 12 deletions(-)
-
-diff --git a/arch/x86/kernel/reboot.c b/arch/x86/kernel/reboot.c
-index f9543a4e9b09..33c1f4883b27 100644
---- a/arch/x86/kernel/reboot.c
-+++ b/arch/x86/kernel/reboot.c
-@@ -533,27 +533,29 @@ static void nmi_shootdown_nop(int cpu, struct pt_regs *regs)
- 	/* Nothing to do, the NMI shootdown handler disables virtualization. */
- }
- 
--/* Use NMIs as IPIs to tell all CPUs to disable virtualization */
--static void emergency_vmx_disable_all(void)
-+static void emergency_reboot_disable_virtualization(void)
- {
- 	/* Just make sure we won't change CPUs while doing this */
- 	local_irq_disable();
- 
- 	/*
--	 * Disable VMX on all CPUs before rebooting, otherwise we risk hanging
--	 * the machine, because the CPU blocks INIT when it's in VMX root.
-+	 * Disable virtualization on all CPUs before rebooting to avoid hanging
-+	 * the system, as VMX and SVM block INIT when running in the host
- 	 *
- 	 * We can't take any locks and we may be on an inconsistent state, so
--	 * use NMIs as IPIs to tell the other CPUs to exit VMX root and halt.
-+	 * use NMIs as IPIs to tell the other CPUs to disable VMX/SVM and halt.
- 	 *
--	 * Do the NMI shootdown even if VMX if off on _this_ CPU, as that
--	 * doesn't prevent a different CPU from being in VMX root operation.
-+	 * Do the NMI shootdown even if virtualization is off on _this_ CPU, as
-+	 * other CPUs may have virtualization enabled.
- 	 */
--	if (cpu_has_vmx()) {
--		/* Safely force _this_ CPU out of VMX root operation. */
--		__cpu_emergency_vmxoff();
-+	if (cpu_has_vmx() || cpu_has_svm(NULL)) {
-+		/* Safely force _this_ CPU out of VMX/SVM operation. */
-+		if (cpu_has_vmx())
-+			__cpu_emergency_vmxoff();
-+		else
-+			cpu_emergency_svm_disable();
- 
--		/* Halt and exit VMX root operation on the other CPUs. */
-+		/* Disable VMX/SVM and halt on other CPUs. */
- 		nmi_shootdown_cpus(nmi_shootdown_nop);
- 	}
- }
-@@ -590,7 +592,7 @@ static void native_machine_emergency_restart(void)
- 	unsigned short mode;
- 
- 	if (reboot_emergency)
--		emergency_vmx_disable_all();
-+		emergency_reboot_disable_virtualization();
- 
- 	tboot_shutdown(TB_SHUTDOWN_REBOOT);
- 
--- 
-2.36.0.512.ge40c2bad7a-goog
-
-
---J4vquNhda08TmTtV--
+--------------boP0QB8PHvLpQv71qaXBTatA--
 
