@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65F2B520889
-	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 01:33:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.324886.547221 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1AEF52088A
+	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 01:33:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.324889.547232 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noCsc-0001Lb-8p; Mon, 09 May 2022 23:33:30 +0000
+	id 1noCsf-0001ob-0l; Mon, 09 May 2022 23:33:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 324886.547221; Mon, 09 May 2022 23:33:30 +0000
+Received: by outflank-mailman (output) from mailman id 324889.547232; Mon, 09 May 2022 23:33:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noCsc-0001Fe-2q; Mon, 09 May 2022 23:33:30 +0000
-Received: by outflank-mailman (input) for mailman id 324886;
- Mon, 09 May 2022 23:33:28 +0000
+	id 1noCse-0001js-QV; Mon, 09 May 2022 23:33:32 +0000
+Received: by outflank-mailman (input) for mailman id 324889;
+ Mon, 09 May 2022 23:33:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=s4mp=VR=collabora.com=dmitry.osipenko@srs-se1.protection.inumbo.net>)
- id 1noCsa-0007Pf-Fe
- for xen-devel@lists.xenproject.org; Mon, 09 May 2022 23:33:28 +0000
+ id 1noCsd-0007Pf-HY
+ for xen-devel@lists.xenproject.org; Mon, 09 May 2022 23:33:31 +0000
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6cf07609-cff0-11ec-8fc4-03012f2f19d4;
- Tue, 10 May 2022 01:33:27 +0200 (CEST)
+ id 6f3f321f-cff0-11ec-8fc4-03012f2f19d4;
+ Tue, 10 May 2022 01:33:30 +0200 (CEST)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: dmitry.osipenko) with ESMTPSA id EB6021F43062
+ (Authenticated sender: dmitry.osipenko) with ESMTPSA id DDF821F430B3
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,17 +38,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6cf07609-cff0-11ec-8fc4-03012f2f19d4
+X-Inumbo-ID: 6f3f321f-cff0-11ec-8fc4-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1652139206;
-	bh=ADq4GZWEPNK7q9JUz/PJH0s7RkDgF/Hn0bL9XYpd1xY=;
+	s=mail; t=1652139210;
+	bh=YK0F6fR8XWeV2rG0cbTxAWJjHbs9t/ROkX6NXAfeuRc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=KGyjgFeHS4c4whO9DLRPI4YnH/I1kcxhGjuZMUHWMXxrPTowBH3nsSioG+grbG2E8
-	 mnkheS9YppXiE1XFZmpN8+NhD/nzj2UXihmV79dBZXmBvvWVTCKWXHTP8bvClUAXj1
-	 4nlNgidw2ooBaq465rODMaKeABNVE6nkuJ7Q8Xm3bGYMUs6PLqgcdGYa5CtQU2PUK/
-	 Jza3RN8pd4IlpFmarCSW5s3ufDshdt5+jjA/5gruEo9hsKxIniPgqZA10L6lW8+LoM
-	 tuiD7AddByNEUUZsYAIaBWxhshHGAxlCDHWH4Mq16erEhm603eMlSqLobcqsLKpUet
-	 qm4lCWHEs4Jdw==
+	b=WX2wLAoFqw2NcqFA+1BgEi+pnSqQ/OT0ntArBclZh3rRdgYWFpNobAvm6ZwR47f5O
+	 UVB/nJt08DF0z35eem1y5e29iS6TGa3FlqumDo8Gztlg9RTEy3yXgoM/PdqWZ72qjH
+	 BBXHhpZMhXXq1gmyrAUnf9JuPFEL0VuxOWgpl0g7gErLQMCAr8EBR7mlBfM7b/CzpF
+	 rbbVZCAv5Su19JHE0dZAYAwszfCQR2CPfwc4wUkYqtr+WKd4w8pxs2RFEPFv5Qa681
+	 /mjY+RYiodQ7Rz1Y3p36rejWNrVlI8LiNaH4VL6v6O9rIPyvlE8v1d9uqae+R0n5sB
+	 mZdrZdLthuUpw==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
 	Jonathan Hunter <jonathanh@nvidia.com>,
@@ -110,41 +110,69 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-acpi@vger.kernel.org,
 	linux-pm@vger.kernel.org,
 	linux-tegra@vger.kernel.org
-Subject: [PATCH v8 06/27] kernel/reboot: Add stub for pm_power_off
-Date: Tue, 10 May 2022 02:32:14 +0300
-Message-Id: <20220509233235.995021-7-dmitry.osipenko@collabora.com>
+Subject: [PATCH v8 07/27] kernel/reboot: Add kernel_can_power_off()
+Date: Tue, 10 May 2022 02:32:15 +0300
+Message-Id: <20220509233235.995021-8-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220509233235.995021-1-dmitry.osipenko@collabora.com>
 References: <20220509233235.995021-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add weak stub for the global pm_power_off callback variable. This will
-allow us to remove pm_power_off definitions from arch/ code and transition
-to the new sys-off based API that will replace the global variable.
+Add kernel_can_power_off() helper that replaces open-coded checks of
+the global pm_power_off variable. This is a necessary step towards
+supporting chained power-off handlers.
 
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- kernel/reboot.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ include/linux/reboot.h |  1 +
+ kernel/reboot.c        | 14 +++++++++++++-
+ 2 files changed, 14 insertions(+), 1 deletion(-)
 
+diff --git a/include/linux/reboot.h b/include/linux/reboot.h
+index 6b951d68c0c7..c52f77ee4ddd 100644
+--- a/include/linux/reboot.h
++++ b/include/linux/reboot.h
+@@ -149,6 +149,7 @@ extern void kernel_restart_prepare(char *cmd);
+ extern void kernel_restart(char *cmd);
+ extern void kernel_halt(void);
+ extern void kernel_power_off(void);
++extern bool kernel_can_power_off(void);
+ 
+ void ctrl_alt_del(void);
+ 
 diff --git a/kernel/reboot.c b/kernel/reboot.c
-index 9afa99a32d62..eaede35f45e2 100644
+index eaede35f45e2..982e58c11ce8 100644
 --- a/kernel/reboot.c
 +++ b/kernel/reboot.c
-@@ -57,6 +57,12 @@ struct sys_off_handler {
- 	void *list;
- };
+@@ -523,6 +523,18 @@ void do_kernel_power_off(void)
+ 	atomic_notifier_call_chain(&power_off_handler_list, 0, NULL);
+ }
  
-+/*
-+ * Temporary stub that prevents linkage failure while we're in process
-+ * of removing all uses of legacy pm_power_off() around the kernel.
++/**
++ *	kernel_can_power_off - check whether system can be powered off
++ *
++ *	Returns true if power-off handler is registered and system can be
++ *	powered off, false otherwise.
 + */
-+void __weak (*pm_power_off)(void);
++bool kernel_can_power_off(void)
++{
++	return !atomic_notifier_call_chain_is_empty(&power_off_handler_list);
++}
++EXPORT_SYMBOL_GPL(kernel_can_power_off);
 +
- /*
-  * If set, this is used for preparing the system to power off.
-  */
+ /**
+  *	kernel_power_off - power_off the system
+  *
+@@ -581,7 +593,7 @@ SYSCALL_DEFINE4(reboot, int, magic1, int, magic2, unsigned int, cmd,
+ 	/* Instead of trying to make the power_off code look like
+ 	 * halt when pm_power_off is not set do it the easy way.
+ 	 */
+-	if ((cmd == LINUX_REBOOT_CMD_POWER_OFF) && !pm_power_off)
++	if ((cmd == LINUX_REBOOT_CMD_POWER_OFF) && !kernel_can_power_off())
+ 		cmd = LINUX_REBOOT_CMD_HALT;
+ 
+ 	mutex_lock(&system_transition_mutex);
 -- 
 2.35.1
 
