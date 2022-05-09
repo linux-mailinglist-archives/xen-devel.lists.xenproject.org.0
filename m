@@ -2,37 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11CA051F944
-	for <lists+xen-devel@lfdr.de>; Mon,  9 May 2022 12:02:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.324339.546328 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7910451F95E
+	for <lists+xen-devel@lfdr.de>; Mon,  9 May 2022 12:09:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.324345.546338 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1no0Ct-0007iF-Lg; Mon, 09 May 2022 10:01:35 +0000
+	id 1no0Jv-0008R0-Cx; Mon, 09 May 2022 10:08:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 324339.546328; Mon, 09 May 2022 10:01:35 +0000
+Received: by outflank-mailman (output) from mailman id 324345.546338; Mon, 09 May 2022 10:08:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1no0Ct-0007fG-If; Mon, 09 May 2022 10:01:35 +0000
-Received: by outflank-mailman (input) for mailman id 324339;
- Mon, 09 May 2022 10:01:35 +0000
+	id 1no0Jv-0008OY-AB; Mon, 09 May 2022 10:08:51 +0000
+Received: by outflank-mailman (input) for mailman id 324345;
+ Mon, 09 May 2022 10:08:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=MD9n=VR=gmail.com=shentey@srs-se1.protection.inumbo.net>)
- id 1no0Ct-0007fA-45
- for xen-devel@lists.xenproject.org; Mon, 09 May 2022 10:01:35 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=11oC=VR=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1no0Jt-0008OS-HP
+ for xen-devel@lists.xenproject.org; Mon, 09 May 2022 10:08:49 +0000
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur01on0631.outbound.protection.outlook.com
+ [2a01:111:f400:fe02::631])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 01900365-cf7f-11ec-a406-831a346695d4;
- Mon, 09 May 2022 12:01:33 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id w24so7880799edx.3
- for <xen-devel@lists.xenproject.org>; Mon, 09 May 2022 03:01:33 -0700 (PDT)
-Received: from [127.0.0.1] (dynamic-077-013-108-001.77.13.pool.telefonica.de.
- [77.13.108.1]) by smtp.gmail.com with ESMTPSA id
- a7-20020a170906274700b006f8c8e43a45sm2190376ejd.103.2022.05.09.03.01.32
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 09 May 2022 03:01:33 -0700 (PDT)
+ id 04bcc21b-cf80-11ec-a406-831a346695d4;
+ Mon, 09 May 2022 12:08:48 +0200 (CEST)
+Received: from AM6PR04CA0049.eurprd04.prod.outlook.com (2603:10a6:20b:f0::26)
+ by DB7PR08MB3244.eurprd08.prod.outlook.com (2603:10a6:5:17::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.23; Mon, 9 May
+ 2022 10:08:46 +0000
+Received: from VE1EUR03FT029.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:f0:cafe::8d) by AM6PR04CA0049.outlook.office365.com
+ (2603:10a6:20b:f0::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.23 via Frontend
+ Transport; Mon, 9 May 2022 10:08:46 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT029.mail.protection.outlook.com (10.152.18.107) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5227.15 via Frontend Transport; Mon, 9 May 2022 10:08:45 +0000
+Received: ("Tessian outbound 9613c00560a5:v118");
+ Mon, 09 May 2022 10:08:45 +0000
+Received: from dea0c9bfe622.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 0DFDE5AA-A4E0-44E8-BE26-EDF900733E6D.1; 
+ Mon, 09 May 2022 10:08:38 +0000
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id dea0c9bfe622.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Mon, 09 May 2022 10:08:38 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
+ by DB8PR08MB5498.eurprd08.prod.outlook.com (2603:10a6:10:11c::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.21; Mon, 9 May
+ 2022 10:08:36 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::4de:59d7:ae91:54a1]) by AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::4de:59d7:ae91:54a1%7]) with mapi id 15.20.5227.023; Mon, 9 May 2022
+ 10:08:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,249 +72,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 01900365-cf7f-11ec-a406-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=date:from:to:cc:subject:in-reply-to:references:message-id
-         :mime-version:content-transfer-encoding;
-        bh=ZqQErfe033WzHkqHcREjfuujLxdUhRLTfIeWA8F3QSc=;
-        b=HPWXpRZ++l5RkZjWDXctKK5FylWMfIv3rm+URBWIAWThmqJjRr/u/Hhv70CT8b+Sws
-         /sK31hBRwEhnjI/CJjCR0BynLWl+Phkvgo5QCEG0B1G7oy7o3rQUgqEM7Fkv1djhYKAP
-         O+WQAgbLCjGIC4YbRmaIQQKqiULdR7B2LdMx17E1UeRMzf2Y7ois2kmFzbGQEmcywQa8
-         FWeikIBym23eS1a+1B+vJcZedX1BklcdWA1maWduwYAnwVUuzHf7qJDPo0CQjS3GKvH2
-         pJn635MYIWmIlpoA/oxJbf/U7FF+cniP4agUBc9YAelhZWp1G51htOODBSTWlaN7t7Li
-         8Dmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:in-reply-to:references
-         :message-id:mime-version:content-transfer-encoding;
-        bh=ZqQErfe033WzHkqHcREjfuujLxdUhRLTfIeWA8F3QSc=;
-        b=WpK2yDSn6U1XuELjcGrA5ab2KLntnQtPjiPbBcD0BB/Ad96tT0oT/uUSLKBkEojf1g
-         9VSlFHZNRoqEuCb54hl4mLCJmBoCATakQZmu/m5kE5xXnqI/ZJDL7eOvKF1WvH0xzrki
-         FxQoaxEDle3Y8BWvxi0hBmdmZ4zM5d8nlmmFV0hDZ71tgBOBrGhoM2IozWQzk7ZyBGRt
-         kBPWLRdMbCXjWS966Gb3t0BKWsxVFgCrrYWjsQ+ttZLfNUlE1BDmlOOUHuvN4ClERV19
-         UPcY1cBhO3V7kQZco6nFiKMA+Tvh0tA+Ue6jfMCW51ZJUOdGVBJtRgzIiVe3+pqgxA1S
-         SCwQ==
-X-Gm-Message-State: AOAM531s3F3Q2qL5TFcFP/8EjkkaDdH+ShMD1eDTl8CVXrnwIFkzMiYI
-	ilRqskVj6uC5rPmHxZYHnTE=
-X-Google-Smtp-Source: ABdhPJz84zv7VmcS6ff/C+IzKqHG8uhClLj5BrvVbBtth3kgGsLcbb7tOqsakQ8+5hQ2I1SuYgDWFg==
-X-Received: by 2002:a50:ed16:0:b0:425:f420:e51a with SMTP id j22-20020a50ed16000000b00425f420e51amr16590673eds.23.1652090493268;
-        Mon, 09 May 2022 03:01:33 -0700 (PDT)
-Date: Mon, 09 May 2022 10:01:28 +0000
-From: Bernhard Beschow <shentey@gmail.com>
-To: paul@xen.org, "Durrant, Paul" <xadimgnik@gmail.com>, qemu-devel@nongnu.org
-CC: qemu-trivial@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Eduardo Habkost <eduardo@habkost.net>, John Snow <jsnow@redhat.com>,
- "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>,
- "open list:IDE" <qemu-block@nongnu.org>
-Subject: Re: [PATCH 3/3] include/hw/ide: Unexport pci_piix3_xen_ide_unplug()
-In-Reply-To: <724c6af0-277b-a6d1-b773-89e1b03e0c53@gmail.com>
-References: <20220508103432.14874-1-shentey@gmail.com> <20220508103432.14874-4-shentey@gmail.com> <724c6af0-277b-a6d1-b773-89e1b03e0c53@gmail.com>
-Message-ID: <51E7FF85-EF4C-408F-96A9-71DB622D11E7@gmail.com>
+X-Inumbo-ID: 04bcc21b-cf80-11ec-a406-831a346695d4
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
+ b=WrSKzBJTanAkqMLP45F3XWtKC+2oGaZ27lDjW1mYwIZQvf0N0vhoIvBkg3o7VXQ3VqYj7tXNkHvA1ja8UUPjtoHYwSBOCtjKOoNQ3MnQmtH4SE95/9BBiMYzg1EKSjN18SIr4UYoTEySD+VDJ1Leem0rSzYzBx5o6JBLR4W7rQDG6Siji24hkJW/GQzaai9GAOob2+LlV0BaqFdlTktIfFcysfKM6trDUxKVPmFSFloysaAUkOESWFoRpMbMoOX6fK3MYlLXuGvVykjJndlIq9oATJAwJSKtg5Cw1DV+02uxDBIRtVlS3xhlDSo2HNK+SmgHTh47hzJ78Z6h0rNfOA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NMD+1rX2smqdWe5glCzpCqzZ041JJCDEaklYaBOfhsM=;
+ b=UT8Dazjp8r5Y8PdtG/bgPb/4KHWugfD+4EHJmQg+GDUqZiyZdlno5wDaUXX3JO1NXjKL0/GODf6Ah0nX+qHg+tlfAx6mBHwViZWEhkusVoihvo2UYZAh7xDHFHd+7v31ABz4YEZaRtnEzi6sAaklrMEHBxL/Z7aLEv53ebsShkPKInK2l3gpq3iR/vMCnybJukegEaUAXu4GxdIzVXZjBCom5pu34d4fUaGyJXDr3Sl8XnFecya86RsGyJMDX9AloGp6NXR5zU8wsuPb4ysvy5wbxj1DQ+nSb3gezojV0WGQWDUBX5gb3yAz8xWbXOUt/Y287BRB2xF0eKXsenAPiQ==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
+ oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NMD+1rX2smqdWe5glCzpCqzZ041JJCDEaklYaBOfhsM=;
+ b=bda58VfYaAluWBzZ4rvzhDbHjJPvIOJROYE+pZUWTfFw5ty+Y9vI6XlhmfajJlXTYj0ZLwSSBNjwBiZNFD78UP9C8gsgq2Wt4hKLNQ0BZ3P54MQD5Wiw+sCpDbAwx1vMPOjKCDikVxI3OqOfsSD6nV9yPdgrcdQ1h9lKJ8dWCYE=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: ac1fe656c88eda96
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Z46g1YaqoAcsJtJYfsqPk/oFn90NPJxtJauA1iQH2YAwrtEcdyAZJnWRVaIdh3QwJz66I9I0kvIH3UqCf4QUfefCj/qTgLsrFDyuGsstDrzTxNYN0QjLY0N4JMPAyMVRCzp8TZRsB+HjaTrZqO9KFG1T0yaigo+Cvq1GWFNoZfnjf64ifgDIbbx5RUZDF52ODUq9SfB7QqjHH2YZJOv601cD7e9ZDmxnz3gI90Jr63zdicTFtunTjFjopEZj0lB1yEpAkjZg7tuBB2bN/09OOQBu6MzGgALSbLFEy2IwM56UCu0YZCql9ds4CbBwnlt/gAYFaZhQFiYpch9hpKbPHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NMD+1rX2smqdWe5glCzpCqzZ041JJCDEaklYaBOfhsM=;
+ b=EMms+gqD+nD9BM9RQruzJ+OBvANTHvkNamIlMgeoq6tF0BC8R/RIQpUMBk3X2OpWD4hzbB/v57oDTYsteuCDurBb9ZGEeWxLGxIXoHRvAlYFPscAeyYS3aMUDqev+70o5WHwbbG8xpU/GCHhMAjlRYtbdqUzkQA+RDjSwq6QxPX7clklkR0Yu+KKPlztztYNTT+8nTeufLs4W4WfpUzdX7aW+of6QUB2bamwFpX4AxH3HYUy1LaFnFv7Kt+n2mdDyMkUtoS31Jopmk9CxIk1xC5gruJE8CnwUr0QeH6g65CWQG+GfwP4+mLCqKMZeb0+CrMXkP1xdOa9L2AgnME+HA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NMD+1rX2smqdWe5glCzpCqzZ041JJCDEaklYaBOfhsM=;
+ b=bda58VfYaAluWBzZ4rvzhDbHjJPvIOJROYE+pZUWTfFw5ty+Y9vI6XlhmfajJlXTYj0ZLwSSBNjwBiZNFD78UP9C8gsgq2Wt4hKLNQ0BZ3P54MQD5Wiw+sCpDbAwx1vMPOjKCDikVxI3OqOfsSD6nV9yPdgrcdQ1h9lKJ8dWCYE=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Julien Grall <julien@xen.org>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH 3/3] xen/arm: Add sb instruction support
+Thread-Topic: [PATCH 3/3] xen/arm: Add sb instruction support
+Thread-Index: AQHYXtGbLw8lUArxPEOQFl634Avmjq0NftKAgADToQCAAAuUAIAH/dMA
+Date: Mon, 9 May 2022 10:08:36 +0000
+Message-ID: <15DEAB6E-3130-49E8-87BD-AC82C08C7698@arm.com>
+References: <cover.1651570561.git.bertrand.marquis@arm.com>
+ <24fd2364294345f103cb13bdab2ad0b706681071.1651570561.git.bertrand.marquis@arm.com>
+ <6571ead7-ff94-acb5-1e55-53ae69944bf0@xen.org>
+ <E67D129C-DCA4-479E-B8B8-4C7DF8CC92B9@arm.com>
+ <d8889ee4-7790-ab93-a5d1-708aa541dd1b@xen.org>
+In-Reply-To: <d8889ee4-7790-ab93-a5d1-708aa541dd1b@xen.org>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3696.80.82.1.1)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-MS-Office365-Filtering-Correlation-Id: 1992bf01-2ae1-4895-41bf-08da31a3e754
+x-ms-traffictypediagnostic:
+	DB8PR08MB5498:EE_|VE1EUR03FT029:EE_|DB7PR08MB3244:EE_
+X-Microsoft-Antispam-PRVS:
+	<DB7PR08MB3244BEB76D66F09A8EA4F5029DC69@DB7PR08MB3244.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ SZT/yyZ4e/K4nNghjsYsn2oQKtwaBmHKbs+ix0wmQQvoHT0laKD+38UaTI92oFH5h7bidacVJabi3YkkRvm33/PXwyqdrZTclagWo07+HgPz4t7Gvct1FqiuWoQLc5yHxBbSo/R52o0ugjD9eNVkdAdeCRpYWzt2drhjpUslZ+Qq28OvDCs+hrM4AZfRZ0zsxWrjsgsnAIheAZ5OwMWbK41l36xxq8fWZXjn2Sx4blKQPFVYDDhfSmmdpozlyV1DBFby4YzB7tJCtzPa8ixHQyypQ6n/go0sIkkZQQEmutOZoiWAtV22nHmv2mYvvUAs4lmeREAgFKTorxd5wy5CkJDT/KkdEhainVpgK5wBDVHhMBiXqUv+4XezksMf3ecqP7zIUEGSE2ISVXwbpKmd1Kr8Ex5HUboJkMM8j/qklZsDatIBUsecRPikO6ukv8+HKOW7cLjWisL1BeIH5wd2GQR8t94kVpWUeJfTUwk7nFOWEAEOCocJafYiJ614eQZ399gHKLC3fcrhgadFBS87sNCZ1zPWGvLE+yNoA0g8AwoMgid4N96royVtzD7qbBHvxckC/BpJbI2ECeGYqHYNgqEOJOf+foOrjp+XWZz8NpQg2Dq2rj6AmXuPtW6i+L+gVpsmT4eq9/uyxunmHZeodh2quizFygDH7jdfzhl7e/g3C6qmRj9Tub2odhvVxbJa1MLHsygF+7epu0bnErNXl9iK9Gzk6RhwaCehuaZc1bF71o44Uu7YjVKzco4pQCXH
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(71200400001)(508600001)(6512007)(26005)(6486002)(86362001)(186003)(2616005)(316002)(6506007)(2906002)(5660300002)(36756003)(122000001)(91956017)(66556008)(4326008)(66476007)(8676002)(64756008)(6916009)(54906003)(66446008)(76116006)(66946007)(38100700002)(38070700005)(8936002)(33656002)(53546011)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <9CB0CE77BE888F4E8A5F5806BCC5E0D5@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR08MB5498
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ VE1EUR03FT029.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	619f2a3e-e1b0-474b-f4bf-08da31a3e1db
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	4vRCyOrffJYaHpEN2svwxWyldV+9Y5oOZv10Go2ahcmYRE591/M77mS1WTcQcxvk6tD8/lyim8uXU9jDTqsfdtTqt4GOeo1qBM7jTf2ah9Ogr/bNXFC6DluYvKYqQPtyc+rYdswGDEQtWrfL3q637Ns/iqBT2ps7mJCefBBHAYReXTsrkETFD8MIQM0eU5SH9TQWh488JT4J2+06kD8AACEAlpim1mS9id8Zi6JYpBrbDvptXUj3cFxC1IniC30w2cxdjC168CGmZdKXjZpc7NKLpvAQ8QnHig9wDDNkjifrmjkyBFku1z3J3EDtMcq5WrpWRoHmABTXQiMf3NYBkW/LuiDqsTjYtV+vo2GZx0ALK5Bq9zG/At5sVn22IZgITNoxFMt3kRezOF2ZLqdShedN8xudfY7AnxYSSz7G2QQO/KZCQYBOCTHvPi7S94BA/8ClsQVwMTQJQVloAJ4gSr7rNlBC4CsErjZ85Er6oRNKzglWh8W02mhvo+0tUlpeR5sLRJ6xCljCBtnyRN1mPZ1Gt8oC0TSyVbybaX62mD4A67Ih8sG68HP2NPwFtLw7Nu44lmNbHzQVbHPb4jGP97dbWJHHSFKeMPr8hu2dpxO7F+x2zknUqYZi2c5vuoHlYpylgWsNWz0EMvCmnI7SLCAtd64URNHdNlldlWM1zpr6T2j8CXsFdWoxIy2fDzBw
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(81166007)(82310400005)(26005)(36756003)(2616005)(356005)(8936002)(53546011)(8676002)(70586007)(6862004)(4326008)(70206006)(54906003)(107886003)(47076005)(336012)(36860700001)(6486002)(6512007)(40460700003)(508600001)(33656002)(2906002)(5660300002)(6506007)(186003)(86362001)(316002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2022 10:08:45.5741
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1992bf01-2ae1-4895-41bf-08da31a3e754
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	VE1EUR03FT029.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB3244
 
-Am 9=2E Mai 2022 08:02:13 UTC schrieb "Durrant, Paul" <xadimgnik@gmail=2Eco=
-m>:
->On 08/05/2022 11:34, Bernhard Beschow wrote:
->> This function was declared in a generic and public header, implemented
->> in a device-specific source file but only used in xen_platform=2E Given=
- its
->> 'aux' parameter, this function is more xen-specific than piix-specific=
-=2E
->> Also, the hardcoded magic constants seem to be generic and related to
->> PCIIDEState and IDEBus rather than piix=2E
->>=20
->> Therefore, move this function to xen_platform, unexport it, and drop th=
-e
->> "piix3" in the function name as well=2E
->>=20
->> Signed-off-by: Bernhard Beschow <shentey@gmail=2Ecom>
->
->Reviewed-by: Paul Durrant <paul@xen=2Eorg>
->
->=2E=2E=2E with one suggestion=2E=2E=2E
->
->> ---
->>   hw/i386/xen/xen_platform=2Ec | 49 +++++++++++++++++++++++++++++++++++=
-++-
->>   hw/ide/piix=2Ec              | 46 -----------------------------------
->>   include/hw/ide=2Eh           |  3 ---
->>   3 files changed, 48 insertions(+), 50 deletions(-)
->>=20
->> diff --git a/hw/i386/xen/xen_platform=2Ec b/hw/i386/xen/xen_platform=2E=
-c
->> index 72028449ba=2E=2E124ffeae35 100644
->> --- a/hw/i386/xen/xen_platform=2Ec
->> +++ b/hw/i386/xen/xen_platform=2Ec
->> @@ -26,6 +26,7 @@
->>   #include "qemu/osdep=2Eh"
->>   #include "qapi/error=2Eh"
->>   #include "hw/ide=2Eh"
->> +#include "hw/ide/pci=2Eh"
->>   #include "hw/pci/pci=2Eh"
->>   #include "hw/xen/xen_common=2Eh"
->>   #include "migration/vmstate=2Eh"
->> @@ -134,6 +135,52 @@ static void pci_unplug_nics(PCIBus *bus)
->>       pci_for_each_device(bus, 0, unplug_nic, NULL);
->>   }
->>   +/*
->> + * The Xen HVM unplug protocol [1] specifies a mechanism to allow gues=
-ts to
->> + * request unplug of 'aux' disks (which is stated to mean all IDE disk=
-s,
->> + * except the primary master)=2E
->> + *
->> + * NOTE: The semantics of what happens if unplug of all disks and 'aux=
-' disks
->> + *       is simultaneously requested is not clear=2E The implementatio=
-n assumes
->> + *       that an 'all' request overrides an 'aux' request=2E
->> + *
->> + * [1] https://xenbits=2Exen=2Eorg/gitweb/?p=3Dxen=2Egit;a=3Dblob;f=3D=
-docs/misc/hvm-emulated-unplug=2Epandoc
->> + */
->> +static int pci_xen_ide_unplug(DeviceState *dev, bool aux)
->> +{
->> +    PCIIDEState *pci_ide;
->> +    int i;
->> +    IDEDevice *idedev;
->> +    IDEBus *idebus;
->> +    BlockBackend *blk;
->> +
->> +    pci_ide =3D PCI_IDE(dev);
->> +
->> +    for (i =3D aux ? 1 : 0; i < 4; i++) {
->> +        idebus =3D &pci_ide->bus[i / 2];
->> +        blk =3D idebus->ifs[i % 2]=2Eblk;
->> +
->> +        if (blk && idebus->ifs[i % 2]=2Edrive_kind !=3D IDE_CD) {
->> +            if (!(i % 2)) {
->> +                idedev =3D idebus->master;
->> +            } else {
->> +                idedev =3D idebus->slave;
->> +            }
->> +
->> +            blk_drain(blk);
->> +            blk_flush(blk);
->> +
->> +            blk_detach_dev(blk, DEVICE(idedev));
->> +            idebus->ifs[i % 2]=2Eblk =3D NULL;
->> +            idedev->conf=2Eblk =3D NULL;
->> +            monitor_remove_blk(blk);
->> +            blk_unref(blk);
->> +        }
->> +    }
->> +    qdev_reset_all(dev);
->> +    return 0;
->
->The return value is ignored so you may as well make this a static void fu=
-nction=2E
-
-Good catch! I'll prepare a v2=2E Meanwhile, I'm looking forward to comment=
-s on the other patches as well=2E
-
-Thanks,
-Bernhard
-
->  Paul
->
->> +}
->> +
->>   static void unplug_disks(PCIBus *b, PCIDevice *d, void *opaque)
->>   {
->>       uint32_t flags =3D *(uint32_t *)opaque;
->> @@ -147,7 +194,7 @@ static void unplug_disks(PCIBus *b, PCIDevice *d, v=
-oid *opaque)
->>         switch (pci_get_word(d->config + PCI_CLASS_DEVICE)) {
->>       case PCI_CLASS_STORAGE_IDE:
->> -        pci_piix3_xen_ide_unplug(DEVICE(d), aux);
->> +        pci_xen_ide_unplug(DEVICE(d), aux);
->>           break;
->>         case PCI_CLASS_STORAGE_SCSI:
->> diff --git a/hw/ide/piix=2Ec b/hw/ide/piix=2Ec
->> index bc1b37512a=2E=2E9a9b28078e 100644
->> --- a/hw/ide/piix=2Ec
->> +++ b/hw/ide/piix=2Ec
->> @@ -173,52 +173,6 @@ static void pci_piix_ide_realize(PCIDevice *dev, E=
-rror **errp)
->>       }
->>   }
->>   -/*
->> - * The Xen HVM unplug protocol [1] specifies a mechanism to allow gues=
-ts to
->> - * request unplug of 'aux' disks (which is stated to mean all IDE disk=
-s,
->> - * except the primary master)=2E
->> - *
->> - * NOTE: The semantics of what happens if unplug of all disks and 'aux=
-' disks
->> - *       is simultaneously requested is not clear=2E The implementatio=
-n assumes
->> - *       that an 'all' request overrides an 'aux' request=2E
->> - *
->> - * [1] https://xenbits=2Exen=2Eorg/gitweb/?p=3Dxen=2Egit;a=3Dblob;f=3D=
-docs/misc/hvm-emulated-unplug=2Epandoc
->> - */
->> -int pci_piix3_xen_ide_unplug(DeviceState *dev, bool aux)
->> -{
->> -    PCIIDEState *pci_ide;
->> -    int i;
->> -    IDEDevice *idedev;
->> -    IDEBus *idebus;
->> -    BlockBackend *blk;
->> -
->> -    pci_ide =3D PCI_IDE(dev);
->> -
->> -    for (i =3D aux ? 1 : 0; i < 4; i++) {
->> -        idebus =3D &pci_ide->bus[i / 2];
->> -        blk =3D idebus->ifs[i % 2]=2Eblk;
->> -
->> -        if (blk && idebus->ifs[i % 2]=2Edrive_kind !=3D IDE_CD) {
->> -            if (!(i % 2)) {
->> -                idedev =3D idebus->master;
->> -            } else {
->> -                idedev =3D idebus->slave;
->> -            }
->> -
->> -            blk_drain(blk);
->> -            blk_flush(blk);
->> -
->> -            blk_detach_dev(blk, DEVICE(idedev));
->> -            idebus->ifs[i % 2]=2Eblk =3D NULL;
->> -            idedev->conf=2Eblk =3D NULL;
->> -            monitor_remove_blk(blk);
->> -            blk_unref(blk);
->> -        }
->> -    }
->> -    qdev_reset_all(dev);
->> -    return 0;
->> -}
->> -
->>   static void pci_piix_ide_exitfn(PCIDevice *dev)
->>   {
->>       PCIIDEState *d =3D PCI_IDE(dev);
->> diff --git a/include/hw/ide=2Eh b/include/hw/ide=2Eh
->> index c5ce5da4f4=2E=2E60f1f4f714 100644
->> --- a/include/hw/ide=2Eh
->> +++ b/include/hw/ide=2Eh
->> @@ -8,9 +8,6 @@
->>   ISADevice *isa_ide_init(ISABus *bus, int iobase, int iobase2, int isa=
-irq,
->>                           DriveInfo *hd0, DriveInfo *hd1);
->>   -/* ide-pci=2Ec */
->> -int pci_piix3_xen_ide_unplug(DeviceState *dev, bool aux);
->> -
->>   /* ide-mmio=2Ec */
->>   void mmio_ide_init_drives(DeviceState *dev, DriveInfo *hd0, DriveInfo=
- *hd1);
-> =20
-
+SGkgSnVsaWVuLA0KDQo+IE9uIDQgTWF5IDIwMjIsIGF0IDA5OjA2LCBKdWxpZW4gR3JhbGwgPGp1
+bGllbkB4ZW4ub3JnPiB3cm90ZToNCj4gDQo+IA0KPiANCj4gT24gMDQvMDUvMjAyMiAwODoyNCwg
+QmVydHJhbmQgTWFycXVpcyB3cm90ZToNCj4+IEhpIEp1bGllbiwNCj4gDQo+IEhpIEJlcnRyYW5k
+LA0KPiANCj4+PiBPbiAzIE1heSAyMDIyLCBhdCAxOTo0NywgSnVsaWVuIEdyYWxsIDxqdWxpZW5A
+eGVuLm9yZz4gd3JvdGU6DQo+Pj4+IEEgbmV3IGNwdWVycmF0YSBjYXBhYmlsaXR5IGlzIGludHJv
+ZHVjZWQgdG8gZW5hYmxlIHRoZSBhbHRlcm5hdGl2ZQ0KPj4+IA0KPj4+ICdzYicgaXMgZGVmaW5p
+dGVseSBub3QgYW4gZXJyYXR1bS4gRXJyYXRhIGFyZSBmb3Igc3R1ZmYgdGhhdCBhcmUgbWVhbnQg
+dG8gYmUgc3BlY2lmaWMgdG8gb25lIChvciBtdWx0aXBsZSkgQ1BVIGFuZCB0aGV5IGFyZSBub3Qg
+cGFydCBvZiB0aGUgYXJjaGl0ZWN0dXJlLg0KPj4+IA0KPj4+IFRoaXMgaXMgdGhlIGZpcnN0IHRp
+bWUgd2UgaW50cm9kdWNlIGEgZmVhdHVyZSBpbiBYZW4uIFNvIHdlIG5lZWQgdG8gYWRkIGEgbmV3
+IGFycmF5IGluIGNwdWZlYXR1cmUuYyB0aGF0IHdpbGwgY292ZXIgJ1NCJyBmb3Igbm93LiBJbiBm
+dXR1cmUgd2UgY291bGQgYWRkIGZlYXR1cmUgbGlrZSBwb2ludGVyIGF1dGgsIExTRSBhdG9taWNz
+Li4uDQo+PiBJIGFtIG5vdCBxdWl0ZSBzdXJlIHdoeSB5b3Ugd291bGQgd2FudCB0byBkbyB0aGF0
+Lg0KPj4gVXNpbmcgdGhlIHNiIGluc3RydWN0aW9uIGlzIGRlZmluaXRlbHkgc29tZXRoaW5nIHRv
+IGRvIHRvIHNvbHZlIGVycmF0YXMsIGlmIGEgQ1BVIGlzIG5vdCBpbXBhY3RlZCBieSB0aG9zZSBl
+cnJhdGFzLCB3aHkgd291bGQgeW91IHdhbnQgdG8gdXNlIHRoaXMgPw0KPiANCj4gSSBhZ3JlZSB0
+aGF0IFNCIGlzIHVzZWQgdG8gc29sdmUgZXJyYXRhIGJ1dCB0aGUgaW5zdHJ1Y3Rpb24gaXRzZWxm
+IGlzIG5vdCBhIHdvcmthcm91bmQgKGl0IG1heSBiZSBwYXJ0IG9mIGl0IHRob3VnaCkuIEluc3Rl
+YWQsIHRoaXMgaXMgYSBtb3JlIGVmZmljaWVudCB3YXkgdG8gcHJldmVudCBzcGVjdWxhdGlvbiBh
+bmQgd2lsbCByZXBsYWNlIGRzYi9pc2IuDQo+IA0KPiBTcGVjdWxhdGlvbiBpcyBuZXZlciBnb2lu
+ZyB0byBkaXNhcHBlYXIgZnJvbSBwcm9jZXNzb3IuIFNvLCBpbiB0aGUgZnV0dXJlLCB0aGVyZSBt
+aWdodCBiZSB2YWxpZCByZWFzb24gZm9yIHVzIHRvIHNheSAiV2UgZG9uJ3Qgd2FudCB0aGUgcHJv
+Y2Vzc29yIHRvIHNwZWN1bGF0ZSIuIFRoaXMgd291bGQgbWVhbiB1c2luZyBTQi4NCg0KSWYgdGhl
+IG5lZWQgYXJpc2UgdGhlbiB3ZSB3aWxsIGNoZWNrIGRlcGVuZGluZyBvbiB0aGF0IGhvdyB3ZSBj
+YW4gc3VwcG9ydCBpdCBidXQgaW4gdGhlIGN1cnJlbnQgc3RhdHVzIGFzIHRoZXJlIGlzIG5vIHVz
+ZSBjYXNlIEkgZG9u4oCZdCB0aGluayB3ZSBuZWVkIHRoYXQuDQoNCkNoZWVycw0KQmVydHJhbmQN
+Cg0K
 
