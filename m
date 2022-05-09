@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00DAE52097C
-	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 01:42:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.324928.547338 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E07252097D
+	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 01:42:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.324946.547370 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noD0x-00089g-Sx; Mon, 09 May 2022 23:42:07 +0000
+	id 1noD18-0001Rh-Ah; Mon, 09 May 2022 23:42:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 324928.547338; Mon, 09 May 2022 23:42:07 +0000
+Received: by outflank-mailman (output) from mailman id 324946.547370; Mon, 09 May 2022 23:42:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noD0x-00085x-9J; Mon, 09 May 2022 23:42:07 +0000
-Received: by outflank-mailman (input) for mailman id 324928;
- Mon, 09 May 2022 23:42:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1noD18-0001Ly-3d; Mon, 09 May 2022 23:42:18 +0000
+Received: by outflank-mailman (input) for mailman id 324946;
+ Mon, 09 May 2022 23:42:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=s4mp=VR=collabora.com=dmitry.osipenko@srs-se1.protection.inumbo.net>)
- id 1noCtW-0007bw-9c
- for xen-devel@lists.xenproject.org; Mon, 09 May 2022 23:34:26 +0000
+ id 1noCta-0007Pf-Jf
+ for xen-devel@lists.xenproject.org; Mon, 09 May 2022 23:34:30 +0000
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8feaabfa-cff0-11ec-a406-831a346695d4;
- Tue, 10 May 2022 01:34:25 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9271a10d-cff0-11ec-8fc4-03012f2f19d4;
+ Tue, 10 May 2022 01:34:29 +0200 (CEST)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: dmitry.osipenko) with ESMTPSA id A135D1F44222
+ (Authenticated sender: dmitry.osipenko) with ESMTPSA id 8E5731F44225
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,17 +38,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8feaabfa-cff0-11ec-a406-831a346695d4
+X-Inumbo-ID: 9271a10d-cff0-11ec-8fc4-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1652139265;
-	bh=0HjIUgv+906XrAObDigD/ThUSuZMAL8DnPYgjzjpmC0=;
+	s=mail; t=1652139269;
+	bh=EWW47oALn1Py7rO4Rd4kvLdqb3xgTFAdsjGRYU8cAKA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=TWCiuLNt7/xJ8odTWc8GyA2loDND0GGWRmOLSDJZ3/1EOOM46MoO6kcL0XNk3HwPe
-	 FBPpCFoePNs4rPAAZRKP+rw/ZolMsMxYimmM4SWHpv67kFo+HnqMhIKFI3o9iJnuWS
-	 vNlcat+YAoNJG0U7fH5nF+xZr/J3ldOvzJraAO0ornmvSG33Iwh+7D/WO9KPdopL/I
-	 4fstIQm6rGU1cDpxZRjjzwcmAnN/r2ufy/hVwsd2Ga1ZdsJDzAOFQPmAS1qD2fVhxO
-	 UL54muri0ZQhU7rjF30W/z7G7m5ZKwocnvqA9RnpgcfN4zFZ8kzOBHH30lfBRBp5PE
-	 p0vvde97M8jrQ==
+	b=XdL/zWKlCfq+TjvuU5fks/wPZFNjeji7AfXoYAF4bTiiFsU+GbQDWY5508Nou7Rce
+	 WYBcyhfJDaUwS8cKmQ/6xhTDhEn7DgZ437y6IJmFfUHbyhUr2I0pUQT65Nc5H/sWQX
+	 4CQ3Oqfcv1qGbFpHVtnQr4Z3IC7yIc9gWPTXPgaxSTbFDl6YwL8B3phA9z7ZaOppvE
+	 f7qvUmb7kMaTIEa9YuMPH0XJi4FR1vaJB4JWphvOXWQxkyMm2uwk+0LT1pd1wpZb/e
+	 wcTKgqKz4FgaEUjSUJQHs+uwYiB91IQ/Go1i+BrOc9tM3Caq7CuU3nClpmaBT9NJXU
+	 qmHj9eFJTTNIg==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
 	Jonathan Hunter <jonathanh@nvidia.com>,
@@ -110,39 +110,70 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-acpi@vger.kernel.org,
 	linux-pm@vger.kernel.org,
 	linux-tegra@vger.kernel.org
-Subject: [PATCH v8 21/27] memory: emif: Use kernel_can_power_off()
-Date: Tue, 10 May 2022 02:32:29 +0300
-Message-Id: <20220509233235.995021-22-dmitry.osipenko@collabora.com>
+Subject: [PATCH v8 22/27] ACPI: power: Switch to sys-off handler API
+Date: Tue, 10 May 2022 02:32:30 +0300
+Message-Id: <20220509233235.995021-23-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220509233235.995021-1-dmitry.osipenko@collabora.com>
 References: <20220509233235.995021-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Replace legacy pm_power_off with kernel_can_power_off() helper that
-is aware about chained power-off handlers.
+Switch to sys-off API that replaces legacy pm_power_off callbacks,
+allowing us to remove global pm_* variables and support chaining of
+all restart and power-off modes consistently.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Reviewed-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/memory/emif.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/acpi/sleep.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/memory/emif.c b/drivers/memory/emif.c
-index 6c2a421b86e3..f305643209f0 100644
---- a/drivers/memory/emif.c
-+++ b/drivers/memory/emif.c
-@@ -630,7 +630,7 @@ static irqreturn_t emif_threaded_isr(int irq, void *dev_id)
- 		dev_emerg(emif->dev, "SDRAM temperature exceeds operating limit.. Needs shut down!!!\n");
+diff --git a/drivers/acpi/sleep.c b/drivers/acpi/sleep.c
+index c992e57b2c79..c3e3cee27f01 100644
+--- a/drivers/acpi/sleep.c
++++ b/drivers/acpi/sleep.c
+@@ -1023,20 +1023,22 @@ static void acpi_sleep_hibernate_setup(void)
+ static inline void acpi_sleep_hibernate_setup(void) {}
+ #endif /* !CONFIG_HIBERNATION */
  
- 		/* If we have Power OFF ability, use it, else try restarting */
--		if (pm_power_off) {
-+		if (kernel_can_power_off()) {
- 			kernel_power_off();
- 		} else {
- 			WARN(1, "FIXME: NO pm_power_off!!! trying restart\n");
+-static void acpi_power_off_prepare(void)
++static int acpi_power_off_prepare(struct sys_off_data *data)
+ {
+ 	/* Prepare to power off the system */
+ 	acpi_sleep_prepare(ACPI_STATE_S5);
+ 	acpi_disable_all_gpes();
+ 	acpi_os_wait_events_complete();
++	return NOTIFY_DONE;
+ }
+ 
+-static void acpi_power_off(void)
++static int acpi_power_off(struct sys_off_data *data)
+ {
+ 	/* acpi_sleep_prepare(ACPI_STATE_S5) should have already been called */
+ 	pr_debug("%s called\n", __func__);
+ 	local_irq_disable();
+ 	acpi_enter_sleep_state(ACPI_STATE_S5);
++	return NOTIFY_DONE;
+ }
+ 
+ int __init acpi_sleep_init(void)
+@@ -1055,8 +1057,14 @@ int __init acpi_sleep_init(void)
+ 
+ 	if (acpi_sleep_state_supported(ACPI_STATE_S5)) {
+ 		sleep_states[ACPI_STATE_S5] = 1;
+-		pm_power_off_prepare = acpi_power_off_prepare;
+-		pm_power_off = acpi_power_off;
++
++		register_sys_off_handler(SYS_OFF_MODE_POWER_OFF_PREPARE,
++					 SYS_OFF_PRIO_FIRMWARE,
++					 acpi_power_off_prepare, NULL);
++
++		register_sys_off_handler(SYS_OFF_MODE_POWER_OFF,
++					 SYS_OFF_PRIO_FIRMWARE,
++					 acpi_power_off, NULL);
+ 	} else {
+ 		acpi_no_s5 = true;
+ 	}
 -- 
 2.35.1
 
