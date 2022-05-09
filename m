@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65F0351F867
-	for <lists+xen-devel@lfdr.de>; Mon,  9 May 2022 11:51:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.324330.546317 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11CA051F944
+	for <lists+xen-devel@lfdr.de>; Mon,  9 May 2022 12:02:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.324339.546328 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1no02x-0005vN-Ij; Mon, 09 May 2022 09:51:19 +0000
+	id 1no0Ct-0007iF-Lg; Mon, 09 May 2022 10:01:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 324330.546317; Mon, 09 May 2022 09:51:19 +0000
+Received: by outflank-mailman (output) from mailman id 324339.546328; Mon, 09 May 2022 10:01:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1no02x-0005sb-EJ; Mon, 09 May 2022 09:51:19 +0000
-Received: by outflank-mailman (input) for mailman id 324330;
- Mon, 09 May 2022 09:51:18 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1no0Ct-0007fG-If; Mon, 09 May 2022 10:01:35 +0000
+Received: by outflank-mailman (input) for mailman id 324339;
+ Mon, 09 May 2022 10:01:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1no02w-0005sR-2Q; Mon, 09 May 2022 09:51:18 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1no02v-0001xs-Vw; Mon, 09 May 2022 09:51:18 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1no02v-0004no-J7; Mon, 09 May 2022 09:51:17 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1no02v-000069-Ig; Mon, 09 May 2022 09:51:17 +0000
+ (envelope-from <SRS0=MD9n=VR=gmail.com=shentey@srs-se1.protection.inumbo.net>)
+ id 1no0Ct-0007fA-45
+ for xen-devel@lists.xenproject.org; Mon, 09 May 2022 10:01:35 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 01900365-cf7f-11ec-a406-831a346695d4;
+ Mon, 09 May 2022 12:01:33 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id w24so7880799edx.3
+ for <xen-devel@lists.xenproject.org>; Mon, 09 May 2022 03:01:33 -0700 (PDT)
+Received: from [127.0.0.1] (dynamic-077-013-108-001.77.13.pool.telefonica.de.
+ [77.13.108.1]) by smtp.gmail.com with ESMTPSA id
+ a7-20020a170906274700b006f8c8e43a45sm2190376ejd.103.2022.05.09.03.01.32
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 09 May 2022 03:01:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,366 +44,249 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=oNmcYj+kL8Ny2FbJoVfkw0Lh9FhlGhipHCPatWb8LoQ=; b=6FIwyCz25a1XdONOHi7XXurWUy
-	WlJawTYpWcH93UKB2usHzEjn1wFagKmQMMn5BjbnN0bdKctQCHXfbiNvM2EjAOi2LU1ov7EK7jfJC
-	FyzsVQf5mkeXREgy/6DbxOhbgH58r8OqJa4CR/vGM+uCJLS/DniHfj1cp/8Obz+70Bc0=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170261-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 01900365-cf7f-11ec-a406-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=date:from:to:cc:subject:in-reply-to:references:message-id
+         :mime-version:content-transfer-encoding;
+        bh=ZqQErfe033WzHkqHcREjfuujLxdUhRLTfIeWA8F3QSc=;
+        b=HPWXpRZ++l5RkZjWDXctKK5FylWMfIv3rm+URBWIAWThmqJjRr/u/Hhv70CT8b+Sws
+         /sK31hBRwEhnjI/CJjCR0BynLWl+Phkvgo5QCEG0B1G7oy7o3rQUgqEM7Fkv1djhYKAP
+         O+WQAgbLCjGIC4YbRmaIQQKqiULdR7B2LdMx17E1UeRMzf2Y7ois2kmFzbGQEmcywQa8
+         FWeikIBym23eS1a+1B+vJcZedX1BklcdWA1maWduwYAnwVUuzHf7qJDPo0CQjS3GKvH2
+         pJn635MYIWmIlpoA/oxJbf/U7FF+cniP4agUBc9YAelhZWp1G51htOODBSTWlaN7t7Li
+         8Dmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:date:from:to:cc:subject:in-reply-to:references
+         :message-id:mime-version:content-transfer-encoding;
+        bh=ZqQErfe033WzHkqHcREjfuujLxdUhRLTfIeWA8F3QSc=;
+        b=WpK2yDSn6U1XuELjcGrA5ab2KLntnQtPjiPbBcD0BB/Ad96tT0oT/uUSLKBkEojf1g
+         9VSlFHZNRoqEuCb54hl4mLCJmBoCATakQZmu/m5kE5xXnqI/ZJDL7eOvKF1WvH0xzrki
+         FxQoaxEDle3Y8BWvxi0hBmdmZ4zM5d8nlmmFV0hDZ71tgBOBrGhoM2IozWQzk7ZyBGRt
+         kBPWLRdMbCXjWS966Gb3t0BKWsxVFgCrrYWjsQ+ttZLfNUlE1BDmlOOUHuvN4ClERV19
+         UPcY1cBhO3V7kQZco6nFiKMA+Tvh0tA+Ue6jfMCW51ZJUOdGVBJtRgzIiVe3+pqgxA1S
+         SCwQ==
+X-Gm-Message-State: AOAM531s3F3Q2qL5TFcFP/8EjkkaDdH+ShMD1eDTl8CVXrnwIFkzMiYI
+	ilRqskVj6uC5rPmHxZYHnTE=
+X-Google-Smtp-Source: ABdhPJz84zv7VmcS6ff/C+IzKqHG8uhClLj5BrvVbBtth3kgGsLcbb7tOqsakQ8+5hQ2I1SuYgDWFg==
+X-Received: by 2002:a50:ed16:0:b0:425:f420:e51a with SMTP id j22-20020a50ed16000000b00425f420e51amr16590673eds.23.1652090493268;
+        Mon, 09 May 2022 03:01:33 -0700 (PDT)
+Date: Mon, 09 May 2022 10:01:28 +0000
+From: Bernhard Beschow <shentey@gmail.com>
+To: paul@xen.org, "Durrant, Paul" <xadimgnik@gmail.com>, qemu-devel@nongnu.org
+CC: qemu-trivial@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Eduardo Habkost <eduardo@habkost.net>, John Snow <jsnow@redhat.com>,
+ "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>,
+ "open list:IDE" <qemu-block@nongnu.org>
+Subject: Re: [PATCH 3/3] include/hw/ide: Unexport pci_piix3_xen_ide_unplug()
+In-Reply-To: <724c6af0-277b-a6d1-b773-89e1b03e0c53@gmail.com>
+References: <20220508103432.14874-1-shentey@gmail.com> <20220508103432.14874-4-shentey@gmail.com> <724c6af0-277b-a6d1-b773-89e1b03e0c53@gmail.com>
+Message-ID: <51E7FF85-EF4C-408F-96A9-71DB622D11E7@gmail.com>
 MIME-Version: 1.0
-Subject: [libvirt test] 170261: regressions - FAIL
-X-Osstest-Failures:
-    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
-    libvirt:build-i386-libvirt:libvirt-build:fail:regression
-    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
-    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
-    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    libvirt=5890a320f893b7db63b15a55feebb0e314baf47b
-X-Osstest-Versions-That:
-    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 09 May 2022 09:51:17 +0000
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-flight 170261 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170261/
+Am 9=2E Mai 2022 08:02:13 UTC schrieb "Durrant, Paul" <xadimgnik@gmail=2Eco=
+m>:
+>On 08/05/2022 11:34, Bernhard Beschow wrote:
+>> This function was declared in a generic and public header, implemented
+>> in a device-specific source file but only used in xen_platform=2E Given=
+ its
+>> 'aux' parameter, this function is more xen-specific than piix-specific=
+=2E
+>> Also, the hardcoded magic constants seem to be generic and related to
+>> PCIIDEState and IDEBus rather than piix=2E
+>>=20
+>> Therefore, move this function to xen_platform, unexport it, and drop th=
+e
+>> "piix3" in the function name as well=2E
+>>=20
+>> Signed-off-by: Bernhard Beschow <shentey@gmail=2Ecom>
+>
+>Reviewed-by: Paul Durrant <paul@xen=2Eorg>
+>
+>=2E=2E=2E with one suggestion=2E=2E=2E
+>
+>> ---
+>>   hw/i386/xen/xen_platform=2Ec | 49 +++++++++++++++++++++++++++++++++++=
+++-
+>>   hw/ide/piix=2Ec              | 46 -----------------------------------
+>>   include/hw/ide=2Eh           |  3 ---
+>>   3 files changed, 48 insertions(+), 50 deletions(-)
+>>=20
+>> diff --git a/hw/i386/xen/xen_platform=2Ec b/hw/i386/xen/xen_platform=2E=
+c
+>> index 72028449ba=2E=2E124ffeae35 100644
+>> --- a/hw/i386/xen/xen_platform=2Ec
+>> +++ b/hw/i386/xen/xen_platform=2Ec
+>> @@ -26,6 +26,7 @@
+>>   #include "qemu/osdep=2Eh"
+>>   #include "qapi/error=2Eh"
+>>   #include "hw/ide=2Eh"
+>> +#include "hw/ide/pci=2Eh"
+>>   #include "hw/pci/pci=2Eh"
+>>   #include "hw/xen/xen_common=2Eh"
+>>   #include "migration/vmstate=2Eh"
+>> @@ -134,6 +135,52 @@ static void pci_unplug_nics(PCIBus *bus)
+>>       pci_for_each_device(bus, 0, unplug_nic, NULL);
+>>   }
+>>   +/*
+>> + * The Xen HVM unplug protocol [1] specifies a mechanism to allow gues=
+ts to
+>> + * request unplug of 'aux' disks (which is stated to mean all IDE disk=
+s,
+>> + * except the primary master)=2E
+>> + *
+>> + * NOTE: The semantics of what happens if unplug of all disks and 'aux=
+' disks
+>> + *       is simultaneously requested is not clear=2E The implementatio=
+n assumes
+>> + *       that an 'all' request overrides an 'aux' request=2E
+>> + *
+>> + * [1] https://xenbits=2Exen=2Eorg/gitweb/?p=3Dxen=2Egit;a=3Dblob;f=3D=
+docs/misc/hvm-emulated-unplug=2Epandoc
+>> + */
+>> +static int pci_xen_ide_unplug(DeviceState *dev, bool aux)
+>> +{
+>> +    PCIIDEState *pci_ide;
+>> +    int i;
+>> +    IDEDevice *idedev;
+>> +    IDEBus *idebus;
+>> +    BlockBackend *blk;
+>> +
+>> +    pci_ide =3D PCI_IDE(dev);
+>> +
+>> +    for (i =3D aux ? 1 : 0; i < 4; i++) {
+>> +        idebus =3D &pci_ide->bus[i / 2];
+>> +        blk =3D idebus->ifs[i % 2]=2Eblk;
+>> +
+>> +        if (blk && idebus->ifs[i % 2]=2Edrive_kind !=3D IDE_CD) {
+>> +            if (!(i % 2)) {
+>> +                idedev =3D idebus->master;
+>> +            } else {
+>> +                idedev =3D idebus->slave;
+>> +            }
+>> +
+>> +            blk_drain(blk);
+>> +            blk_flush(blk);
+>> +
+>> +            blk_detach_dev(blk, DEVICE(idedev));
+>> +            idebus->ifs[i % 2]=2Eblk =3D NULL;
+>> +            idedev->conf=2Eblk =3D NULL;
+>> +            monitor_remove_blk(blk);
+>> +            blk_unref(blk);
+>> +        }
+>> +    }
+>> +    qdev_reset_all(dev);
+>> +    return 0;
+>
+>The return value is ignored so you may as well make this a static void fu=
+nction=2E
 
-Regressions :-(
+Good catch! I'll prepare a v2=2E Meanwhile, I'm looking forward to comment=
+s on the other patches as well=2E
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+Thanks,
+Bernhard
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-raw   1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
+>  Paul
+>
+>> +}
+>> +
+>>   static void unplug_disks(PCIBus *b, PCIDevice *d, void *opaque)
+>>   {
+>>       uint32_t flags =3D *(uint32_t *)opaque;
+>> @@ -147,7 +194,7 @@ static void unplug_disks(PCIBus *b, PCIDevice *d, v=
+oid *opaque)
+>>         switch (pci_get_word(d->config + PCI_CLASS_DEVICE)) {
+>>       case PCI_CLASS_STORAGE_IDE:
+>> -        pci_piix3_xen_ide_unplug(DEVICE(d), aux);
+>> +        pci_xen_ide_unplug(DEVICE(d), aux);
+>>           break;
+>>         case PCI_CLASS_STORAGE_SCSI:
+>> diff --git a/hw/ide/piix=2Ec b/hw/ide/piix=2Ec
+>> index bc1b37512a=2E=2E9a9b28078e 100644
+>> --- a/hw/ide/piix=2Ec
+>> +++ b/hw/ide/piix=2Ec
+>> @@ -173,52 +173,6 @@ static void pci_piix_ide_realize(PCIDevice *dev, E=
+rror **errp)
+>>       }
+>>   }
+>>   -/*
+>> - * The Xen HVM unplug protocol [1] specifies a mechanism to allow gues=
+ts to
+>> - * request unplug of 'aux' disks (which is stated to mean all IDE disk=
+s,
+>> - * except the primary master)=2E
+>> - *
+>> - * NOTE: The semantics of what happens if unplug of all disks and 'aux=
+' disks
+>> - *       is simultaneously requested is not clear=2E The implementatio=
+n assumes
+>> - *       that an 'all' request overrides an 'aux' request=2E
+>> - *
+>> - * [1] https://xenbits=2Exen=2Eorg/gitweb/?p=3Dxen=2Egit;a=3Dblob;f=3D=
+docs/misc/hvm-emulated-unplug=2Epandoc
+>> - */
+>> -int pci_piix3_xen_ide_unplug(DeviceState *dev, bool aux)
+>> -{
+>> -    PCIIDEState *pci_ide;
+>> -    int i;
+>> -    IDEDevice *idedev;
+>> -    IDEBus *idebus;
+>> -    BlockBackend *blk;
+>> -
+>> -    pci_ide =3D PCI_IDE(dev);
+>> -
+>> -    for (i =3D aux ? 1 : 0; i < 4; i++) {
+>> -        idebus =3D &pci_ide->bus[i / 2];
+>> -        blk =3D idebus->ifs[i % 2]=2Eblk;
+>> -
+>> -        if (blk && idebus->ifs[i % 2]=2Edrive_kind !=3D IDE_CD) {
+>> -            if (!(i % 2)) {
+>> -                idedev =3D idebus->master;
+>> -            } else {
+>> -                idedev =3D idebus->slave;
+>> -            }
+>> -
+>> -            blk_drain(blk);
+>> -            blk_flush(blk);
+>> -
+>> -            blk_detach_dev(blk, DEVICE(idedev));
+>> -            idebus->ifs[i % 2]=2Eblk =3D NULL;
+>> -            idedev->conf=2Eblk =3D NULL;
+>> -            monitor_remove_blk(blk);
+>> -            blk_unref(blk);
+>> -        }
+>> -    }
+>> -    qdev_reset_all(dev);
+>> -    return 0;
+>> -}
+>> -
+>>   static void pci_piix_ide_exitfn(PCIDevice *dev)
+>>   {
+>>       PCIIDEState *d =3D PCI_IDE(dev);
+>> diff --git a/include/hw/ide=2Eh b/include/hw/ide=2Eh
+>> index c5ce5da4f4=2E=2E60f1f4f714 100644
+>> --- a/include/hw/ide=2Eh
+>> +++ b/include/hw/ide=2Eh
+>> @@ -8,9 +8,6 @@
+>>   ISADevice *isa_ide_init(ISABus *bus, int iobase, int iobase2, int isa=
+irq,
+>>                           DriveInfo *hd0, DriveInfo *hd1);
+>>   -/* ide-pci=2Ec */
+>> -int pci_piix3_xen_ide_unplug(DeviceState *dev, bool aux);
+>> -
+>>   /* ide-mmio=2Ec */
+>>   void mmio_ide_init_drives(DeviceState *dev, DriveInfo *hd0, DriveInfo=
+ *hd1);
+> =20
 
-version targeted for testing:
- libvirt              5890a320f893b7db63b15a55feebb0e314baf47b
-baseline version:
- libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
-
-Last test of basis   151777  2020-07-10 04:19:19 Z  668 days
-Failing since        151818  2020-07-11 04:18:52 Z  667 days  649 attempts
-Testing same since   170201  2022-05-07 04:20:26 Z    2 days    3 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-    Adolfo Jayme Barrientos <fitoschido@gmail.com>
-  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
-  Aleksei Zakharov <zaharov@selectel.ru>
-  Amneesh Singh <natto@weirdnatto.in>
-  Andika Triwidada <andika@gmail.com>
-  Andrea Bolognani <abologna@redhat.com>
-  Andrew Melnychenko <andrew@daynix.com>
-  Ani Sinha <ani@anisinha.ca>
-  Balázs Meskó <meskobalazs@mailbox.org>
-  Barrett Schonefeld <bschoney@utexas.edu>
-  Bastian Germann <bastiangermann@fishpost.de>
-  Bastien Orivel <bastien.orivel@diateam.net>
-  BiaoXiang Ye <yebiaoxiang@huawei.com>
-  Bihong Yu <yubihong@huawei.com>
-  Binfeng Wu <wubinfeng@huawei.com>
-  Bjoern Walk <bwalk@linux.ibm.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Brad Laue <brad@brad-x.com>
-  Brian Turek <brian.turek@gmail.com>
-  Bruno Haible <bruno@clisp.org>
-  Chris Mayo <aklhfex@gmail.com>
-  Christian Borntraeger <borntraeger@de.ibm.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Kirbach <christian.kirbach@gmail.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Christophe Fergeau <cfergeau@redhat.com>
-  Claudio Fontana <cfontana@suse.de>
-  Cole Robinson <crobinso@redhat.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Cédric Bosdonnat <cbosdonnat@suse.com>
-  Côme Borsoi <fedora@borsoi.fr>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel Letai <dani@letai.org.il>
-  Daniel P. Berrange <berrange@redhat.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Didik Supriadi <didiksupriadi41@gmail.com>
-  dinglimin <dinglimin@cmss.chinamobile.com>
-  Divya Garg <divya.garg@nutanix.com>
-  Dmitrii Shcherbakov <dmitrii.shcherbakov@canonical.com>
-  Dmytro Linkin <dlinkin@nvidia.com>
-  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
-  Emilio Herrera <ehespinosa57@gmail.com>
-  Eric Farman <farman@linux.ibm.com>
-  Erik Skultety <eskultet@redhat.com>
-  Fabian Affolter <mail@fabian-affolter.ch>
-  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
-  Fabiano Fidêncio <fabiano@fidencio.org>
-  Fangge Jin <fjin@redhat.com>
-  Farhan Ali <alifm@linux.ibm.com>
-  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
-  Franck Ridel <fridel@protonmail.com>
-  Gavi Teitz <gavi@nvidia.com>
-  gongwei <gongwei@smartx.com>
-  Guoyi Tu<tu.guoyi@h3c.com>
-  Göran Uddeborg <goeran@uddeborg.se>
-  Halil Pasic <pasic@linux.ibm.com>
-  Han Han <hhan@redhat.com>
-  Hao Wang <wanghao232@huawei.com>
-  Haonan Wang <hnwanga1@gmail.com>
-  Hela Basa <r45xveza@pm.me>
-  Helmut Grohne <helmut@subdivi.de>
-  Hiroki Narukawa <hnarukaw@yahoo-corp.jp>
-  Hyman Huang(黄勇) <huangy81@chinatelecom.cn>
-  Ian Wienand <iwienand@redhat.com>
-  Ioanna Alifieraki <ioanna-maria.alifieraki@canonical.com>
-  Ivan Teterevkov <ivan.teterevkov@nutanix.com>
-  Jakob Meng <jakobmeng@web.de>
-  Jamie Strandboge <jamie@canonical.com>
-  Jamie Strandboge <jamie@ubuntu.com>
-  Jan Kuparinen <copper_fin@hotmail.com>
-  jason lee <ppark5237@gmail.com>
-  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
-  Jia Zhou <zhou.jia2@zte.com.cn>
-  Jianan Gao <jgao@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jin Yan <jinyan12@huawei.com>
-  Jing Qi <jinqi@redhat.com>
-  Jinsheng Zhang <zhangjl02@inspur.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Joachim Falk <joachim.falk@gmx.de>
-  John Ferlan <jferlan@redhat.com>
-  John Levon <john.levon@nutanix.com>
-  John Levon <levon@movementarian.org>
-  Jonathan Watt <jwatt@jwatt.org>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Justin Gatzen <justin.gatzen@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kashyap Chamarthy <kchamart@redhat.com>
-  Kevin Locke <kevin@kevinlocke.name>
-  Kim InSoo <simmon@nplob.com>
-  Koichi Murase <myoga.murase@gmail.com>
-  Kristina Hanicova <khanicov@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lee Yarwood <lyarwood@redhat.com>
-  Lei Yang <yanglei209@huawei.com>
-  Lena Voytek <lena.voytek@canonical.com>
-  Liang Yan <lyan@digitalocean.com>
-  Liang Yan <lyan@digtalocean.com>
-  Liao Pingfang <liao.pingfang@zte.com.cn>
-  Lin Ma <lma@suse.com>
-  Lin Ma <lma@suse.de>
-  Lin Ma <morecache@gmail.com>
-  Liu Yiding <liuyd.fnst@fujitsu.com>
-  Lubomir Rintel <lkundrak@v3.sk>
-  Luke Yue <lukedyue@gmail.com>
-  Luyao Zhong <luyao.zhong@intel.com>
-  Marc Hartmayer <mhartmay@linux.ibm.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Markus Schade <markus.schade@hetzner.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Martin Pitt <mpitt@debian.org>
-  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
-  Matej Cepl <mcepl@cepl.eu>
-  Matt Coleman <matt@datto.com>
-  Matt Coleman <mcoleman@datto.com>
-  Mauro Matteo Cascella <mcascell@redhat.com>
-  Maxim Nestratov <mnestratov@virtuozzo.com>
-  Meina Li <meili@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Michał Smyk <fedora@smyk.it>
-  Milo Casagrande <milo@milo.name>
-  Moshe Levi <moshele@nvidia.com>
-  Moteen Shah <codeguy.moteen@gmail.com>
-  Moteen Shah <moteenshah.02@gmail.com>
-  Muha Aliss <muhaaliss@gmail.com>
-  Nathan <nathan95@live.it>
-  Neal Gompa <ngompa13@gmail.com>
-  Nick Chevsky <nchevsky@gmail.com>
-  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
-  Nickys Music Group <nickys.music.group@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nicolas Lécureuil <neoclust@mageia.org>
-  Nicolas Lécureuil <nicolas.lecureuil@siveo.net>
-  Nikolay Shirokovskiy <nikolay.shirokovskiy@openvz.org>
-  Nikolay Shirokovskiy <nshirokovskiy@openvz.org>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Niteesh Dubey <niteesh@linux.ibm.com>
-  Olaf Hering <olaf@aepfle.de>
-  Olesya Gerasimenko <gammaray@basealt.ru>
-  Or Ozeri <oro@il.ibm.com>
-  Orion Poplawski <orion@nwra.com>
-  Pany <geekpany@gmail.com>
-  Paolo Bonzini <pbonzini@redhat.com>
-  Patrick Magauran <patmagauran.j@gmail.com>
-  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Peng Liang <liangpeng10@huawei.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Pino Toscano <toscano.pino@tiscali.it>
-  Piotr Drąg <piotrdrag@gmail.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Praveen K Paladugu <prapal@linux.microsoft.com>
-  Richard W.M. Jones <rjones@redhat.com>
-  Ricky Tigg <ricky.tigg@gmail.com>
-  Robin Lee <cheeselee@fedoraproject.org>
-  Rohit Kumar <rohit.kumar3@nutanix.com>
-  Roman Bogorodskiy <bogorodskiy@gmail.com>
-  Roman Bolshakov <r.bolshakov@yadro.com>
-  Ryan Gahagan <rgahagan@cs.utexas.edu>
-  Ryan Schmidt <git@ryandesign.com>
-  Sam Hartman <hartmans@debian.org>
-  Scott Shambarger <scott-libvirt@shambarger.net>
-  Sebastian Mitterle <smitterl@redhat.com>
-  SeongHyun Jo <caelus9536@gmail.com>
-  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
-  Shaojun Yang <yangshaojun@phytium.com.cn>
-  shenjiatong <yshxxsjt715@gmail.com>
-  Shi Lei <shi_lei@massclouds.com>
-  simmon <simmon@nplob.com>
-  Simon Chopin <chopin.simon@gmail.com>
-  Simon Gaiser <simon@invisiblethingslab.com>
-  Simon Rowe <simon.rowe@nutanix.com>
-  Stefan Bader <stefan.bader@canonical.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Stefan Berger <stefanb@linux.vnet.ibm.com>
-  Stefan Hajnoczi <stefanha@gmail.com>
-  Stefan Hajnoczi <stefanha@redhat.com>
-  Szymon Scholz <szymonscholz@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-  Tom Wieczorek <tom@bibbu.net>
-  Tomáš Golembiovský <tgolembi@redhat.com>
-  Tomáš Janoušek <tomi@nomi.cz>
-  Tu Qiang <tu.qiang35@zte.com.cn>
-  Tuguoyi <tu.guoyi@h3c.com>
-  tuqiang <tu.qiang35@zte.com.cn>
-  Vasiliy Ulyanov <vulyanov@suse.de>
-  Victor Toso <victortoso@redhat.com>
-  Ville Skyttä <ville.skytta@iki.fi>
-  Vinayak Kale <vkale@nvidia.com>
-  Vineeth Pillai <viremana@linux.microsoft.com>
-  Wang Xin <wangxinxin.wang@huawei.com>
-  WangJian <wangjian161@huawei.com>
-  Weblate <noreply@weblate.org>
-  Wei Liu <liuwe@microsoft.com>
-  Wei Liu <wei.liu@kernel.org>
-  Wei-Chen Chen <weicche@microsoft.com>
-  William Douglas <william.douglas@intel.com>
-  Xu Chao <xu.chao6@zte.com.cn>
-  Yalei Li <274268859@qq.com>
-  Yalei Li <liyl43@chinatelecom.cn>
-  Yang Fei <yangfei85@huawei.com>
-  Yang Hang <yanghang44@huawei.com>
-  Yanqiu Zhang <yanqzhan@redhat.com>
-  Yaroslav Kargin <ykargin@virtuozzo.com>
-  Yasuhiko Kamata <belphegor@belbel.or.jp>
-  Yi Li <yili@winhong.com>
-  Yi Wang <wang.yi59@zte.com.cn>
-  Yuri Chornoivan <yurchor@ukr.net>
-  Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
-  zhangjl02 <zhangjl02@inspur.com>
-  zhanglei <zhanglei@smartx.com>
-  Zheng Chuan <zhengchuan@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhenyu Ye <yezhenyu2@huawei.com>
-  Zhenyu Zheng <zheng.zhenyu@outlook.com>
-  Zhenzhong Duan <zhenzhong.duan@intel.com>
-  Дамјан Георгиевски <gdamjan@gmail.com>
-  김인수 <simmon@nplob.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-qcow2                               blocked 
- test-arm64-arm64-libvirt-raw                                 blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-i386-libvirt-raw                                  blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 106819 lines long.)
 
