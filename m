@@ -2,42 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0992B51FDF0
-	for <lists+xen-devel@lfdr.de>; Mon,  9 May 2022 15:20:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.324537.546636 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5610951FE08
+	for <lists+xen-devel@lfdr.de>; Mon,  9 May 2022 15:23:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.324545.546647 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1no3Ij-0001ER-VA; Mon, 09 May 2022 13:19:49 +0000
+	id 1no3MH-0002jR-FF; Mon, 09 May 2022 13:23:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 324537.546636; Mon, 09 May 2022 13:19:49 +0000
+Received: by outflank-mailman (output) from mailman id 324545.546647; Mon, 09 May 2022 13:23:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1no3Ij-0001Bw-SG; Mon, 09 May 2022 13:19:49 +0000
-Received: by outflank-mailman (input) for mailman id 324537;
- Mon, 09 May 2022 13:19:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1no3MH-0002hd-Bc; Mon, 09 May 2022 13:23:29 +0000
+Received: by outflank-mailman (input) for mailman id 324545;
+ Mon, 09 May 2022 13:23:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Qz3g=VR=citrix.com=prvs=1216f8a52=roger.pau@srs-se1.protection.inumbo.net>)
- id 1no3Ii-0001Bm-Cf
- for xen-devel@lists.xenproject.org; Mon, 09 May 2022 13:19:48 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b143967b-cf9a-11ec-a406-831a346695d4;
- Mon, 09 May 2022 15:19:46 +0200 (CEST)
-Received: from mail-bn1nam07lp2041.outbound.protection.outlook.com (HELO
- NAM02-BN1-obe.outbound.protection.outlook.com) ([104.47.51.41])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 09 May 2022 09:19:42 -0400
-Received: from DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
- by SN6PR03MB3695.namprd03.prod.outlook.com (2603:10b6:805:4b::26) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.21; Mon, 9 May
- 2022 13:19:40 +0000
-Received: from DS7PR03MB5608.namprd03.prod.outlook.com
- ([fe80::5df3:95ce:4dfd:134e]) by DS7PR03MB5608.namprd03.prod.outlook.com
- ([fe80::5df3:95ce:4dfd:134e%5]) with mapi id 15.20.5227.023; Mon, 9 May 2022
- 13:19:40 +0000
+ <SRS0=q9uc=VR=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1no3MG-0002hX-1X
+ for xen-devel@lists.xenproject.org; Mon, 09 May 2022 13:23:28 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2ee86ba5-cf9b-11ec-8fc4-03012f2f19d4;
+ Mon, 09 May 2022 15:23:15 +0200 (CEST)
+Received: by mail-lf1-x134.google.com with SMTP id p26so10507767lfh.10
+ for <xen-devel@lists.xenproject.org>; Mon, 09 May 2022 06:23:27 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id
+ h5-20020a056512338500b0047255d2111csm1941442lfg.75.2022.05.09.06.23.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 09 May 2022 06:23:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,165 +44,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b143967b-cf9a-11ec-a406-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1652102386;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=tATOXAnbmdgsf2o/UzATsF1kogSU5808J3WZMNfRTUo=;
-  b=WP2hMdiQ9MAEe0Kgf2TuBs5eT80Eoo9Ltw1qslxfKppTdeioUyVRlh61
-   XNyw93fwFaCWcU2ATc/D0AH4LjcswkbRaYqgcgCYM+3sdqCXoHI/WtYYS
-   SoyEUE2fWyRTs46ammfflUbCRDga9IZAjbAdwnT+HiBEQKH+pK4bgj2pj
-   Q=;
-X-IronPort-RemoteIP: 104.47.51.41
-X-IronPort-MID: 70757991
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:4ayOBaAUBuSpkRVW/+Liw5YqxClBgxIJ4kV8jS/XYbTApDwl12cAy
- TZODDyHaazfY2Wkf4oia9yz8kkDvZPVn9NnQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
- xA2M4GYRCwMZiaA4E/raNANlFEkvU2ybuOU5NXsZ2YgHGeIdA970Ug5w7Nh09Yx6TSEK1jlV
- e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
- I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPhR0
- YRB7cfoTTsLP/fCybtCfiAFGBNHaPguFL/veRBTsOS15mieKT7G5awrC0s7e4oF5uxwHGdCs
- +QCLywAZQyCgOTwx6+nTu5rhYIoK8yD0IE34yk8i22GS6t/B8yaK0nJzYYwMDMYnMdBEOyYf
- 8MEQTFucA7Bc1tEPVJ/5JcWw7/32yauImQwRFS95rJ08yvzyxxN7bnkNtmSQ+zWfJRxpxPNz
- o7B1yGjav0AD/SPxDzA/n+yi+vnmSLgRJlUBLC+7uRtglCY2ioUEhJ+fXmRrOS9i0W+c8lCM
- EFS8S0rxYAt8GS7Q9+7WAe3yFafpQIVUddUF+w86SmOx7DS7gLfAXILJhZDddgnuckeVTEsk
- FiTkLvBOztrt7GETGOHwZ2dpziyJCs9IHcLYGkPSg5ty9Puup0phxTDCNNqCreoj8bdECv1h
- TuNqUADa647iMcK0+Cx+wnBijf0+ZzRFFZpv0PQQ36v6R5/aMi9fYu05FPH7PFGaoGEUl2Gu
- 3tCkM+bhAwTMayweOW2aL1lNNmUCzytbFUwXXYH80EdygmQ
-IronPort-HdrOrdr: A9a23:jeDaq6h05L0udvigLsJ+m+tpZnBQX0h13DAbv31ZSRFFG/FwyP
- rCoB1L73XJYWgqM03I+eruBEBPewK4yXdQ2/hoAV7EZnichILIFvAa0WKG+VHd8kLFltK1uZ
- 0QEJSWTeeAd2SS7vyKnzVQcexQp+VvmZrA7Ym+854ud3ANV0gJ1XYENu/xKDwTeOApP+taKH
- LKjfA32gZINE5nJ/iTNz0gZazuttfLnJXpbVovAAMm0hCHiXeN5KThGxaV8x8CW3cXqI1Sul
- Ttokjc3OGOovu7whjT2yv66IlXosLozp9mCNaXgsYYBz3wgkKDZZhnWZeFoDcpydvfoGoCoZ
- 3pmVMNLs5z43TeciWcpgbs4RDp1HIU53rr2Taj8A/eiP28YAh/J9tKhIpffBecwVEnpstA3K
- VC2H/cn4ZLDDvb9R6NqOTgZlVPrA6ZsHAimekcgzh0So0FcoJcqoQZ4Qd8DIoAJiTn84oqed
- MeQP003MwmMG9yUkqp/lWGmLeXLzcO91a9MwU/U/WuonZrdCsT9Tpb+CQd9k1wga7VBaM0ot
- gsCZ4Y5Y2mfvVmE56VO91xMfdfKla9Ni4kY1jiV2gOKsk8SgHwgq+yxokJz8eXX7FN5KcOuf
- 36ISFlXCgJCgjTNfE=
-X-IronPort-AV: E=Sophos;i="5.91,211,1647316800"; 
-   d="scan'208";a="70757991"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=e8tKRAU6NzclfOOrRYBcCChAHOkF8cHOvDwTUBcFweaF9ZBD+8KiTkLGB9z9GCJNlfV7HcYTO2tAmRrCI1JFxQfdLT3J4OgBGj9evJeGsRrpGiiJtjoiqkirvfDMia7+oBetaxYfUl1lOmaq+NzzrEnujs0zkURMrCwbY9GifX3QOyFZ6lBtGTGub8srOxZosZ5FohC0fqFnYU6c09uFQfNTqL3aYo0IawcKVSbH+y3PbVOJT9CFqG1c0tHEfIz1hXjGcs48eSvmhyyZE+4sQXB1NzYwYF1m2cJUpxFOBBQnLDeshANk7+LiXpHzSZG7hS9AOWdv8rSZLFKKiZU+uA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x3J9GGBre8qxJQVjdYz1Xg5oJYU2Mu3jLazozNoGKLI=;
- b=NRibSyhyljOjz4EHLgP9tNjQ1DeNRvMk66pzs4Ov9ioOCCI4DWGUmYqrYLatV3Z+oX1C1q16jFdx2stSw8CLblfLgCxij2UK9J/kZKWi1FvVqQQwrR7lwUem0RRfVL96fAu59F3h6IthG9o4SDUTTUNh8Mlf5sg9zHLtcGGxrKajC3zPxYucqToEwOlIsZ/DB2CEZf7i3GNlpqyEbiDwJDE7jckiDeOW/oyB7vVz6WlPL5CVMCbyga7qcZTE7qo9Vjd3H9INY8hrS2I4JGa4rzdnRBkm5hbI77euDg0GukO4g4xIbNaxRa3rmCcvaeVRRADC/I3b/f3yszGvrlFRvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+X-Inumbo-ID: 2ee86ba5-cf9b-11ec-8fc4-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x3J9GGBre8qxJQVjdYz1Xg5oJYU2Mu3jLazozNoGKLI=;
- b=a4lzXO/WWmXly4LEn50gRSrzad/gQOCX3d5Iq4GxrjxKM57TON4L6IckKQuR9zSyuA9e18SPWEDD3gJotzKL/C992C0KaKxbibtJzchqj8vfdDdfbISWbfwUYuv0/kHNAJLZwpG0dvtgZkTj0SmQfusXjOOMfsPntAelVsu6zbA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Mon, 9 May 2022 15:19:35 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Jan Beulich <JBeulich@suse.com>, Wei Liu <wl@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: [PATCH 2/3] x86/shadow: Don't use signed bitfield in
- sh_emulate_ctxt
-Message-ID: <YnkU53/Jm7i1Ic+z@Air-de-Roger>
-References: <20220509122409.14184-1-andrew.cooper3@citrix.com>
- <20220509122409.14184-3-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220509122409.14184-3-andrew.cooper3@citrix.com>
-X-ClientProxiedBy: LO4P123CA0062.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:153::13) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=1K2obVx3YG8QEPrenU4QI5guJQ8Phbo/6yP70JTaawU=;
+        b=ctuOdHCyg4DfJDMuVyrfXjafqsIBGrPq9u27BiBAquJftMSjYFJ55Dztcsr8bNMn0w
+         oeM//L+QbMc5cqR/YL4ZYXu9SspJYNvQLipuO/dxUV/COK7qJD4YPieEuwN+Da6gnICg
+         tiL5ifQOF61sLM7j5k+TfKf3keD2QE9+mfbjkcLau1uokLQ0TJXXWGRj10hWZc6mNTCY
+         ZiPlrCXkxh/d8AP+hVzj144bdbLZ6gunWEeo3XTOHdZMf+1T4Dk4fDvhUDM82hKq6q3x
+         a24gfPwl0eQuynyAnF+v9tUB7WbmPEsnBDi3opOHoOjQkJbqyH8fYmRySBDQ1lHi3t+I
+         lY6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=1K2obVx3YG8QEPrenU4QI5guJQ8Phbo/6yP70JTaawU=;
+        b=DUjh/Eb0Uqjrv1QWktIlfIv0P8WIdLR/aeEDWz2zLdlZ+8o+4v7aINZMzC9CmZgI+d
+         HE6Pu9PN/1lYvhxwbWwmAGMEAMDJfgFm9fH6q/ZcTT7MDs1DqLa+qN72V8csebMpfWli
+         AeIMeQ6wwPfctn8K31ex6VIYglG4gR7p2lAzrnMau2TO2rIm5JiNKSxxSYiXhQTFkhoY
+         GR5tU2Nzh2z6mZ3rk84XX1AShITT/DjellbMdFLt+L2cxNg97//9uzb3CmeazQdnksI2
+         ycr+2TCHLiwHg27dKp8EIGfv2tytfR/0KjyRvtSs6+GBC/YynjRl3byjo6yTRREP0Vkx
+         CsRg==
+X-Gm-Message-State: AOAM532UDEopi24ndeVqOLma6nfTU8OXfvQ2QKdMDXBEJKIR7bO84XK9
+	yGWkVP9TaGMuLvwzPkeMTgY=
+X-Google-Smtp-Source: ABdhPJy54uNV0a0Y5a5xZUhU6QHCMVecZmAJ2frVW6KAYppShjM44jXuH8rdrMemcTVYgMIiSG1E7g==
+X-Received: by 2002:ac2:4c49:0:b0:473:ca4f:9345 with SMTP id o9-20020ac24c49000000b00473ca4f9345mr12622420lfk.203.1652102606387;
+        Mon, 09 May 2022 06:23:26 -0700 (PDT)
+Subject: Re: [PATCH v3 00/21] xen: simplify frontend side ring setup
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
+ netdev@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-usb@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-integrity@vger.kernel.org, linux-pci@vger.kernel.org
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Jens Axboe <axboe@kernel.dk>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "James E.J. Bottomley"
+ <jejb@linux.ibm.com>, "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, Peter Huewe <peterhuewe@gmx.de>,
+ Jarkko Sakkinen <jarkko@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Bjorn Helgaas <bhelgaas@google.com>
+References: <20220505081640.17425-1-jgross@suse.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <409fb110-646a-2973-aff3-c97fdfb9bfbc@gmail.com>
+Date: Mon, 9 May 2022 16:23:24 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: febfcbb9-3032-411d-b7e9-08da31be92b5
-X-MS-TrafficTypeDiagnostic: SN6PR03MB3695:EE_
-X-Microsoft-Antispam-PRVS:
-	<SN6PR03MB36957131745A7E036D17710F8FC69@SN6PR03MB3695.namprd03.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	GO+kk21inPUXO4OyjiNwLmtuZFgBFbCdAxTkKUq6ynZw4RwKbiYgzeXWE1lJfLV1xwwq8XqatwbuMdwm1kAnxGyNzqoC8aKG4INI1RvQvExbQaURqyIo52Ya/sLdlHiADCtfxjPN9yUX3V9b4ZFUmbw+saRdIIM5WK6LoNRNmv5SAqy0shhd+HEGfcsSW24xJk/4hvxHrCiHN7fiYyjlrh125QGbSPpHO1Ag+s6y6b0GYt74rc8v3qXsT/h60hpN5QBRCv74VfNPzHi4lvvubUShG50Ute191dFe5oaHVhvBARTL78orzMQLbPSM8ZcHZYJgu0f6/GUL8asOcXFeQQt3V2FvxL/wahn+DLDSvSiyXQwHWHBtQubFc6JmBq0xEutBt2tsPqMdTfmkWpIiXVE9DCMl4nrDKNpzSrgZjWPBIgoMj+MP8AsldlrKbqF7V3StixVLUgGg9gSqzefMMt/W07yXKVnIamwT4ts4yc08jSsFHf9TtJMNizVV9IEIGJNojGRIlGUo2JilE7Ami4rdEqT3cvXF/Jp2VBG99zn1DC/NUaqVkF/t7s6hXKoMpKqvwcJQd9rG6xZMitWLkzTjCrSvKV8sZ/+xfmVKDPPPOz55ZwFYEeBIQGvErL57q/pXHPp20iECkHEoEm/FPA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(7916004)(366004)(6666004)(2906002)(82960400001)(38100700002)(8936002)(6486002)(4744005)(186003)(508600001)(85182001)(86362001)(9686003)(26005)(6506007)(5660300002)(66556008)(6512007)(66476007)(8676002)(6862004)(4326008)(66946007)(54906003)(6636002)(316002)(33716001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?K1RKZEZQblEzTEZ4eDhmSVh6aXRsbk0zNnp3UE1wUVJYdnByU3ZIU2VZZW5G?=
- =?utf-8?B?MXFDODBCNGFPSVZTZlBwUTA5RDdETWhJME9qbVY4Ulg0Zk1zaUp0am0xYTU0?=
- =?utf-8?B?K2JpdDdsTms5cm1UR2xKY0ZVU2MrdGRGVHpMZnB2ZFV3N2RIT1E2U3l0U1hx?=
- =?utf-8?B?SFdBT0NjL01Sd3N2aHFjek02YjlwL3QrS0xhdHBUZmc1RnZPakx6d2ZnNDVF?=
- =?utf-8?B?dk1wTkxWOHFaNUdYNTlXNk4xTmUzUWVYUTVHYzMzcTR3MHFhb2FSRjh6QmJs?=
- =?utf-8?B?NzB4eHRlN2M3aUMxNVRGVlVhMm83QlhRVGF2MzEvRkFaT2FoVk9MZ21mUExn?=
- =?utf-8?B?OG0vRDJocFpJZzYzU3VRRW5nYVh1QmYvemRISnlqRHg1VFlCYXZta1p1dEdm?=
- =?utf-8?B?YWFKWE9mc2c5dmdIQlNOTVNGSjRLRlM0Ulh6UzZhNnpxemtJcnNtcE9OLzE4?=
- =?utf-8?B?eE1VNWptSTBqTnhTejZPcGtKbSszekVrL3VUMUFBVUc0ak1FOG80bXNINkJy?=
- =?utf-8?B?ZHBxQUVralk5S0xldjNEKzJhcXdNMjZVdGhLTkgzZWhiblBBNVU2L1dKdGo0?=
- =?utf-8?B?eFhJY1RCQTBPZUJQSXVEdDdHdzgrOFd0YUg4WlVqVENmbmhQWXVtbXVwRlpP?=
- =?utf-8?B?NU4yUWd4NjJERFY4RDNtZ3JITC9GZDE2L2pTandFSzUzYUxMVnJHS0Z2VGlR?=
- =?utf-8?B?N2dUMXltTlVkQkszQk1BR0lOa1NyT2FwVnVqbUpvUXpNcVhuMU1LbUgrZUxs?=
- =?utf-8?B?M0J6cGFvLzZQMmlWcVh1RHpPMTdtTllGTktSdzNnczVCUis3bnhlSkJlU2M4?=
- =?utf-8?B?VU5XRlJEZGg2R3UxR21jcU10eUpWeXJYdytCMHI5WlNTaVNTb2tUeGREUlJH?=
- =?utf-8?B?ek9BazJjMk1IeDB2Qm83bHhwQ1ZRcWRya0dYZHFVVm1lSXNidEIrWjE2N3pG?=
- =?utf-8?B?QnFhd0pJYzJvSjVjRmNTaXZ0cU1Ga0dwc21UWnRjdnM5L0w3U1BFWFFMb1dY?=
- =?utf-8?B?T3k0aGxyRngwVkUxUCtJVzlxU1RPZlJxbmdTSjJMckVxS3luL21BVlMyUlRP?=
- =?utf-8?B?ZDlMYnNaQUNQaXFYNTVBRXlJNXpMZ1I4QS90QzN2T0FRZ0RPc2E3dWlYZTJu?=
- =?utf-8?B?NVRUN0g2ZnVua1J2SnYraG1qQThHQVZiSXFMeEFQVkR1eTd5Y0xnUkI1Ui9t?=
- =?utf-8?B?ZXJPNEUyU3hBanQwcXZKRkFlK3VVNkZDZ2k5bms3VG5pWWlVcmI0Umswa2ZS?=
- =?utf-8?B?NTJCWG14VGVkdkY4by9XMFYzOWM2TmdOcUpkbElXYnRoVDRxWUJMa1dGbG9y?=
- =?utf-8?B?eER2N1hoRGI1WWhKZ1BEM1VoSkI3bk9KVjF6U3NCYWZXb2NQT0E5RmFFRDlB?=
- =?utf-8?B?cVRaK2NrNWZGaHlqTVB6SllnVW04c1k5SjErMkoxM292U2R3ZHE3SE9aN01S?=
- =?utf-8?B?WXFWR0pEVlNFZ1E4RjlYSlJESllUMGNOd2RsSTN4Q0w4YitNUEpvMEY0TVdO?=
- =?utf-8?B?TFpteGEwYXhId3hPdzUrWXdETnBSWXNyYWZ1Y2h6KzFicjI3RkM1VXlONGxE?=
- =?utf-8?B?R1JPN0NiR2xJOXlpbVNwSU92WmJ4SmNWcWJ6eHpIdTFxWlVSNFFXTXo2VURT?=
- =?utf-8?B?cVczbVFHdzY2azZJc0NmNnFMc3ozNGxFTmg0emlnOSsvQzF0TWM0elVtT1RS?=
- =?utf-8?B?T09rdS81R0tFcUVERFFIME15ZUsvdjRDaldsQ054aEIwQk0vTWdpRzZGQTVP?=
- =?utf-8?B?ZjZxRzVSV0FUd2Y1T2JkdisrNkp6cS9wdGR1TEtSTmlGWjgrbnBYMjlxVmpU?=
- =?utf-8?B?REV4Mkw4UTR2NTFmY2xCdG9iQWw1dXJONkRCenBqdHYzOThkSXJJRm42Sjhn?=
- =?utf-8?B?K21McjAzUy9aWWVDcFJDVXlNenE0RGNTS0RQc0JPeXRidURBS3hqLyt0OW94?=
- =?utf-8?B?N1lvN01ieFV1c1gwRXRidnZVQVdKekUxQUZYQzZoNXBnb0FKWDFWekhEZnNF?=
- =?utf-8?B?cExDRksyNFpxQVZUaGRRaXZHSjNzcksvTFgvaERYL1hDWk81SFd2MFB3Y3ZX?=
- =?utf-8?B?ZnhWSVcrMGRyN1MzQm5LamlUMk1ydDE5dTlvZVpqK3pGcjRBTGNyK3FraG1s?=
- =?utf-8?B?TG9ReHQwYm80TGhsekRzZ1V2dGkwUHQvQXQyM2JkdXpybkRxZzJuZ1VoQUw4?=
- =?utf-8?B?U1A3Y0F4NHNxSlo3NWF1VXc2N0lkV3ltUXVaeFFOK3ZXUkZIc24rMXNXWEZN?=
- =?utf-8?B?Mk05dWVaaWFwVlh6L1RvVDEvbGhXTWNxY2hOd2NOUFRpWThMWDdUQXdBRGxG?=
- =?utf-8?B?KzdpQzZrcFM1Zmp5S2x4WlZvYUhOUUtqUkw1K2IzOFI2OXNoL2lRZkdSZlJO?=
- =?utf-8?Q?vtvDcCpyPZnR3PWE=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: febfcbb9-3032-411d-b7e9-08da31be92b5
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 May 2022 13:19:40.3151
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2UJ7hJ8OTTw/gO9O3FGm+GDW5hQsRs2vM10xvWPKHtvngb4e/UvH/fWS0wf11P1ucX/1abYmcWf9SN+rP7a37g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR03MB3695
+In-Reply-To: <20220505081640.17425-1-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
-On Mon, May 09, 2022 at 01:24:08PM +0100, Andrew Cooper wrote:
-> 'int' bitfields in particular have implementation defined behaviour under gcc
-> and can change signed-ness with -funsigned-bitfields.
-> 
-> There is no need for low_bit_was_clear to be a bitfield in the first place; it
-> is only used as a boolean.  Doing so even improves the code generation in
-> sh_emulate_map_dest() to avoid emitting a merge with structure padding.
-> 
-> Spotted by Eclair MISRA scanner.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+On 05.05.22 11:16, Juergen Gross wrote:
 
-Thanks.
+Hello Juergen.
+
+
+
+> Many Xen PV frontends share similar code for setting up a ring page
+> (allocating and granting access for the backend) and for tearing it
+> down.
+>
+> Create new service functions doing all needed steps in one go.
+>
+> This requires all frontends to use a common value for an invalid
+> grant reference in order to make the functions idempotent.
+>
+> Changes in V3:
+> - new patches 1 and 2, comments addressed
+>
+> Changes in V2:
+> - new patch 9 and related changes in patches 10-18
+>
+> Juergen Gross (21):
+>    xen: update grant_table.h
+>    xen/grant-table: never put a reserved grant on the free list
+>    xen/blkfront: switch blkfront to use INVALID_GRANT_REF
+>    xen/netfront: switch netfront to use INVALID_GRANT_REF
+>    xen/scsifront: remove unused GRANT_INVALID_REF definition
+>    xen/usb: switch xen-hcd to use INVALID_GRANT_REF
+>    xen/drm: switch xen_drm_front to use INVALID_GRANT_REF
+>    xen/sound: switch xen_snd_front to use INVALID_GRANT_REF
+>    xen/dmabuf: switch gntdev-dmabuf to use INVALID_GRANT_REF
+>    xen/shbuf: switch xen-front-pgdir-shbuf to use INVALID_GRANT_REF
+>    xen: update ring.h
+>    xen/xenbus: add xenbus_setup_ring() service function
+>    xen/blkfront: use xenbus_setup_ring() and xenbus_teardown_ring()
+>    xen/netfront: use xenbus_setup_ring() and xenbus_teardown_ring()
+>    xen/tpmfront: use xenbus_setup_ring() and xenbus_teardown_ring()
+>    xen/drmfront: use xenbus_setup_ring() and xenbus_teardown_ring()
+>    xen/pcifront: use xenbus_setup_ring() and xenbus_teardown_ring()
+>    xen/scsifront: use xenbus_setup_ring() and xenbus_teardown_ring()
+>    xen/usbfront: use xenbus_setup_ring() and xenbus_teardown_ring()
+>    xen/sndfront: use xenbus_setup_ring() and xenbus_teardown_ring()
+>    xen/xenbus: eliminate xenbus_grant_ring()
+
+
+For the patches that touch PV display (#07, #16), PV sound (#08, #20) 
+and shared buffer framework used by both frontends (#10):
+
+Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+
+
+Also I didn't see any issues with these frontends while testing on Arm64 
+based board.
+So, you can also add:
+
+[Arm64 only]
+Tested-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+
+
+Thanks!
+
+
+>
+>   drivers/block/xen-blkfront.c                |  57 +++----
+>   drivers/char/tpm/xen-tpmfront.c             |  18 +--
+>   drivers/gpu/drm/xen/xen_drm_front.h         |   9 --
+>   drivers/gpu/drm/xen/xen_drm_front_evtchnl.c |  43 ++----
+>   drivers/net/xen-netfront.c                  |  85 ++++-------
+>   drivers/pci/xen-pcifront.c                  |  19 +--
+>   drivers/scsi/xen-scsifront.c                |  31 +---
+>   drivers/usb/host/xen-hcd.c                  |  65 ++------
+>   drivers/xen/gntdev-dmabuf.c                 |  13 +-
+>   drivers/xen/grant-table.c                   |  12 +-
+>   drivers/xen/xen-front-pgdir-shbuf.c         |  18 +--
+>   drivers/xen/xenbus/xenbus_client.c          |  82 +++++++---
+>   include/xen/grant_table.h                   |   2 -
+>   include/xen/interface/grant_table.h         | 161 ++++++++++++--------
+>   include/xen/interface/io/ring.h             |  19 ++-
+>   include/xen/xenbus.h                        |   4 +-
+>   sound/xen/xen_snd_front_evtchnl.c           |  44 ++----
+>   sound/xen/xen_snd_front_evtchnl.h           |   9 --
+>   18 files changed, 287 insertions(+), 404 deletions(-)
+>
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
