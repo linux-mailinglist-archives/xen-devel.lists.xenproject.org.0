@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23CB5520978
-	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 01:42:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.324900.547280 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DF9B520974
+	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 01:42:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.324897.547267 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noD0g-0005vp-GS; Mon, 09 May 2022 23:41:50 +0000
+	id 1noD0f-0005d9-Dp; Mon, 09 May 2022 23:41:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 324900.547280; Mon, 09 May 2022 23:41:50 +0000
+Received: by outflank-mailman (output) from mailman id 324897.547267; Mon, 09 May 2022 23:41:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noD0g-0005hj-8o; Mon, 09 May 2022 23:41:50 +0000
-Received: by outflank-mailman (input) for mailman id 324900;
- Mon, 09 May 2022 23:41:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1noD0f-0005Ze-7g; Mon, 09 May 2022 23:41:49 +0000
+Received: by outflank-mailman (input) for mailman id 324897;
+ Mon, 09 May 2022 23:41:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=s4mp=VR=collabora.com=dmitry.osipenko@srs-se1.protection.inumbo.net>)
- id 1noCtK-0007bw-Ji
- for xen-devel@lists.xenproject.org; Mon, 09 May 2022 23:34:14 +0000
+ id 1noCtO-0007Pf-Ho
+ for xen-devel@lists.xenproject.org; Mon, 09 May 2022 23:34:18 +0000
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 88ece6ef-cff0-11ec-a406-831a346695d4;
- Tue, 10 May 2022 01:34:14 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8b427652-cff0-11ec-8fc4-03012f2f19d4;
+ Tue, 10 May 2022 01:34:17 +0200 (CEST)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: dmitry.osipenko) with ESMTPSA id E7D5B1F441FD
+ (Authenticated sender: dmitry.osipenko) with ESMTPSA id CD6681F44218
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,17 +38,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88ece6ef-cff0-11ec-a406-831a346695d4
+X-Inumbo-ID: 8b427652-cff0-11ec-8fc4-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1652139253;
-	bh=i0EpyUpthjBui1PGSfTlV0XdMEaBb9rmJl1vNRe/ntg=;
+	s=mail; t=1652139257;
+	bh=vRb4DtICDxJaROyEtMW3UwUdcH4tg+twL9gOXYS6wp8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cOsU2r2Eblivwj/4cs5M9vQ+EIm4O22kzOvkVpXBwVaGlQQqUaU+9c9J8h2kpjBSt
-	 GpXjMQQdLCoJJlIHF5IfMSLeGCyJvESoQPCKt3kCPQedCVqLaoeEopcTf+HEY5q1lO
-	 jJ/uDMUpGaMZkBso16PjrWo29hM7vhwjdcV20pn3IDz86wk5E9pcvm7DLWuJ5eN3xe
-	 Rv7XJipXyrsWHlwyWVQKKYth00nFChhonNPtOvFo1TEnjkAjXR2JiSFF1yvm2SKeAq
-	 YVHXAi1edwQHbtnVBglD/8RVeEInLaeMWxknedL6gsMlzSmRogo0SRclXVYd+laLv3
-	 s6F3Ihd0ore/g==
+	b=gt4u81G/LFxhoOEWGR2YMg+vhkXhorm0jgFd64YTZTuXmM+7vG7f3q4ZdaFuqYRJS
+	 tGUmDGjP5E8g3OsXjzvy7rc8/B4hk2wxUh254z6arCFJCq4Zn4nYnOEuMGAFxhhkwc
+	 FeFBnrORsJSOriC3iEOi3iWo3k8QOf23bj2Nt6IUYGS+Vok5FiMxP+66U31QsS8qsL
+	 mVpptTyKx3JXLvhtJiVMPU7cAlmSudorXN3MNL4LPBNQ56Fm1aY+u8x67N3P+KtJ22
+	 6BIPyxJsFkQfhUsOqyWUF/BWHTPKTs8seyIqQEcyu9CdhBsdEQuumAGveCtmifiXNx
+	 wIYCEzEJi6pLw==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
 	Jonathan Hunter <jonathanh@nvidia.com>,
@@ -110,9 +110,9 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-acpi@vger.kernel.org,
 	linux-pm@vger.kernel.org,
 	linux-tegra@vger.kernel.org
-Subject: [PATCH v8 18/27] x86: Use do_kernel_power_off()
-Date: Tue, 10 May 2022 02:32:26 +0300
-Message-Id: <20220509233235.995021-19-dmitry.osipenko@collabora.com>
+Subject: [PATCH v8 19/27] ia64: Use do_kernel_power_off()
+Date: Tue, 10 May 2022 02:32:27 +0300
+Message-Id: <20220509233235.995021-20-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220509233235.995021-1-dmitry.osipenko@collabora.com>
 References: <20220509233235.995021-1-dmitry.osipenko@collabora.com>
@@ -128,26 +128,31 @@ be converted to the new sys-off API.
 Reviewed-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- arch/x86/kernel/reboot.c | 4 ++--
+ arch/ia64/kernel/process.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/kernel/reboot.c b/arch/x86/kernel/reboot.c
-index fa700b46588e..c3636ea4aa71 100644
---- a/arch/x86/kernel/reboot.c
-+++ b/arch/x86/kernel/reboot.c
-@@ -739,10 +739,10 @@ static void native_machine_halt(void)
- 
- static void native_machine_power_off(void)
+diff --git a/arch/ia64/kernel/process.c b/arch/ia64/kernel/process.c
+index 167b1765bea1..416305e550e2 100644
+--- a/arch/ia64/kernel/process.c
++++ b/arch/ia64/kernel/process.c
+@@ -19,6 +19,7 @@
+ #include <linux/module.h>
+ #include <linux/notifier.h>
+ #include <linux/personality.h>
++#include <linux/reboot.h>
+ #include <linux/sched.h>
+ #include <linux/sched/debug.h>
+ #include <linux/sched/hotplug.h>
+@@ -602,8 +603,7 @@ machine_halt (void)
+ void
+ machine_power_off (void)
  {
--	if (pm_power_off) {
-+	if (kernel_can_power_off()) {
- 		if (!reboot_force)
- 			machine_shutdown();
+-	if (pm_power_off)
 -		pm_power_off();
-+		do_kernel_power_off();
- 	}
- 	/* A fallback in case there is no PM info available */
- 	tboot_shutdown(TB_SHUTDOWN_HALT);
++	do_kernel_power_off();
+ 	machine_halt();
+ }
+ 
 -- 
 2.35.1
 
