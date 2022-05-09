@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BE99520976
-	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 01:42:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.324903.547289 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91B70520983
+	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 01:42:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.324958.547437 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noD0h-000604-3I; Mon, 09 May 2022 23:41:51 +0000
+	id 1noD1M-0004U9-0W; Mon, 09 May 2022 23:42:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 324903.547289; Mon, 09 May 2022 23:41:50 +0000
+Received: by outflank-mailman (output) from mailman id 324958.547437; Mon, 09 May 2022 23:42:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noD0g-0005vz-LM; Mon, 09 May 2022 23:41:50 +0000
-Received: by outflank-mailman (input) for mailman id 324903;
- Mon, 09 May 2022 23:41:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1noD1L-0004Mh-82; Mon, 09 May 2022 23:42:31 +0000
+Received: by outflank-mailman (input) for mailman id 324958;
+ Mon, 09 May 2022 23:42:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=s4mp=VR=collabora.com=dmitry.osipenko@srs-se1.protection.inumbo.net>)
- id 1noCsv-0007bw-3B
- for xen-devel@lists.xenproject.org; Mon, 09 May 2022 23:33:49 +0000
+ id 1noCsx-0007Pf-82
+ for xen-devel@lists.xenproject.org; Mon, 09 May 2022 23:33:51 +0000
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 78984768-cff0-11ec-a406-831a346695d4;
- Tue, 10 May 2022 01:33:46 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7afd11ba-cff0-11ec-8fc4-03012f2f19d4;
+ Tue, 10 May 2022 01:33:50 +0200 (CEST)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: dmitry.osipenko) with ESMTPSA id 73E431F441D0
+ (Authenticated sender: dmitry.osipenko) with ESMTPSA id 6D3491F441D2
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,17 +38,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 78984768-cff0-11ec-a406-831a346695d4
+X-Inumbo-ID: 7afd11ba-cff0-11ec-8fc4-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1652139226;
-	bh=NosviWpVno2jyBA/nRbYSTQtEBj8GV4Z9PewSWM1PEE=;
+	s=mail; t=1652139230;
+	bh=qKcEaaqMIJ4u5Ci+7b2uBSMlhy7r7OU77hT8ObUoKho=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=AZGjg6ajBdqbT1rRkOpHVX0Fuw48bMRqsSdYq9OtGSbC/n4RUaCQK6bD1TfVppwXu
-	 A7CMRQ1sz+q7MHQphaKKP01aCStcy0QSDdJj6vPvNjv9pUTGAbqF3VBfFZMfHZLrUT
-	 4gIsmgu/2N3okauIgJNPFKpgzlwu1WqpdL2MvAV4GSqjXPbt4r9xFqMPheNolvDet2
-	 kMcoUipX5yr2TOyCk4QjYL0MBISYscS7bfG03xrjN4MwX8RPG34WsyJWFAxY/Npiwj
-	 8KVsTsWb21V2VhPTYdzbV4VLe2voj7X93srVxn9dA4Uv/y1s9ujK0+2rqIH75bp++P
-	 fqEdP4SIC3mNA==
+	b=YmHmlZT4yyO6cWM3Bz5JftChowVg/M2fXvwFMhRS4e+Wuq4sD1q3OkohJJlDsPPL2
+	 j5kr4/JUymIkLlQMnmeGWx/oL/gzhnBQuKsL8jB4iuv6hwrbHMcsw3LuhebKodzWFk
+	 rmnjBC0+wPIYX6c0ORsexWKd3U+jCsIpfbjSiclXE3M9LeCXBn+ESKjT58ePCxxTWV
+	 Zl82L0X/fkIGQBuqIcNG6Jl9nhzo3I5HfMrX4c7iNnVoa+PkQdE4O3elLjDQsPpn1Q
+	 MEclW34sJqJsqXbvF7sjn3ufyEIcH1MhP4YeSXnfNNyguaVxY5pj3bnr/70Q51dzF8
+	 7fEmC00bkHk/g==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
 	Jonathan Hunter <jonathanh@nvidia.com>,
@@ -110,9 +110,9 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-acpi@vger.kernel.org,
 	linux-pm@vger.kernel.org,
 	linux-tegra@vger.kernel.org
-Subject: [PATCH v8 11/27] riscv: Use do_kernel_power_off()
-Date: Tue, 10 May 2022 02:32:19 +0300
-Message-Id: <20220509233235.995021-12-dmitry.osipenko@collabora.com>
+Subject: [PATCH v8 12/27] arm64: Use do_kernel_power_off()
+Date: Tue, 10 May 2022 02:32:20 +0300
+Message-Id: <20220509233235.995021-13-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220509233235.995021-1-dmitry.osipenko@collabora.com>
 References: <20220509233235.995021-1-dmitry.osipenko@collabora.com>
@@ -125,38 +125,27 @@ that invokes chained power-off handlers. It also invokes legacy
 pm_power_off() for now, which will be removed once all drivers will
 be converted to the new sys-off API.
 
-Acked-by: Palmer Dabbelt <palmer@dabbelt.com>
+Acked-by: Catalin Marinas <catalin.marinas@arm.com>
 Reviewed-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- arch/riscv/kernel/reset.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+ arch/arm64/kernel/process.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/arch/riscv/kernel/reset.c b/arch/riscv/kernel/reset.c
-index 9c842c41684a..912288572226 100644
---- a/arch/riscv/kernel/reset.c
-+++ b/arch/riscv/kernel/reset.c
-@@ -23,16 +23,12 @@ void machine_restart(char *cmd)
- 
- void machine_halt(void)
+diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
+index 142a51256669..92bcc1768f0b 100644
+--- a/arch/arm64/kernel/process.c
++++ b/arch/arm64/kernel/process.c
+@@ -111,8 +111,7 @@ void machine_power_off(void)
  {
--	if (pm_power_off != NULL)
+ 	local_irq_disable();
+ 	smp_send_stop();
+-	if (pm_power_off)
 -		pm_power_off();
--	else
--		default_power_off();
 +	do_kernel_power_off();
-+	default_power_off();
  }
  
- void machine_power_off(void)
- {
--	if (pm_power_off != NULL)
--		pm_power_off();
--	else
--		default_power_off();
-+	do_kernel_power_off();
-+	default_power_off();
- }
+ /*
 -- 
 2.35.1
 
