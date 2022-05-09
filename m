@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B90555206C0
+	by mail.lfdr.de (Postfix) with ESMTPS id 33D615206BE
 	for <lists+xen-devel@lfdr.de>; Mon,  9 May 2022 23:39:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.324826.547100 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.324829.547112 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noB6G-0008SE-Hx; Mon, 09 May 2022 21:39:28 +0000
+	id 1noB6P-0000XF-0u; Mon, 09 May 2022 21:39:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 324826.547100; Mon, 09 May 2022 21:39:28 +0000
+Received: by outflank-mailman (output) from mailman id 324829.547112; Mon, 09 May 2022 21:39:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noB6G-0008Of-Cu; Mon, 09 May 2022 21:39:28 +0000
-Received: by outflank-mailman (input) for mailman id 324826;
- Mon, 09 May 2022 21:39:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1noB6O-0000U5-SR; Mon, 09 May 2022 21:39:36 +0000
+Received: by outflank-mailman (input) for mailman id 324829;
+ Mon, 09 May 2022 21:39:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=6vu7=VR=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1noB6E-0007ym-6G
- for xen-devel@lists.xenproject.org; Mon, 09 May 2022 21:39:26 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7e8f0386-cfe0-11ec-8fc4-03012f2f19d4;
- Mon, 09 May 2022 23:39:25 +0200 (CEST)
+ id 1noB6N-0007ij-5Y
+ for xen-devel@lists.xenproject.org; Mon, 09 May 2022 21:39:35 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 83f43437-cfe0-11ec-a406-831a346695d4;
+ Mon, 09 May 2022 23:39:34 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2C2F16173E;
- Mon,  9 May 2022 21:39:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D98FBC385BF;
- Mon,  9 May 2022 21:39:22 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id D6D3FB8199C;
+ Mon,  9 May 2022 21:39:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 048DBC385BF;
+ Mon,  9 May 2022 21:39:30 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,37 +44,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e8f0386-cfe0-11ec-8fc4-03012f2f19d4
+X-Inumbo-ID: 83f43437-cfe0-11ec-a406-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1652132363;
-	bh=bGVROk1yCVFbw1tN5TwGGaOX8G0Pd3s1D8n+lUcuavY=;
+	s=k20201202; t=1652132371;
+	bh=w64WFP+FS1qwSJLrrBULSTI0uZjKMayFTRWfozu9uWY=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=jIjU+8tpltcUUdOqWb8RQToebMMi7jlG6EnTVHQBvz5t4l//CxxmzayoSnWIXtjIq
-	 fy84fHDqbtXeMASASk++DG2/cUJ91hHqe+1Of9X3a0Eqm2Ev0LsG2q4HBN1O49pRh/
-	 joc0a+YLoJYyXOtV+WB+uOq6+Eg9WZ38FDg+fEdO7rWaYwefXDFa+7Z2682LO0g4He
-	 fqu6yjT37l+A8wnb4ZLJ51/OtFAAs5lLs25jPNFrue7rXsnPkmBkwix4cn5/5iwLu6
-	 rQglFPRi0M/Wk8iwB4xrNXNUkRTDsHz+TWohutLj7rphd2GX07IfzohFQHQSlMvjcM
-	 6uDxuOP7Y4MIQ==
-Date: Mon, 9 May 2022 14:39:22 -0700 (PDT)
+	b=gAGP0xXbaGOEmZFA7GOCOb7EDosDpfZvPezk79kmKm3UiwHBf638JxXgRhKRp1UyW
+	 QaU6dZQSHhE5zxRgkH9CvAl//cKb2nmmJrhVw8jezSaCzUIVlnu1jTgAF/d0byUFDp
+	 vXqkl0oMdf5/259HkFfAITGp5NyZf98LwoRiWxEJgeH3Fhh6YW9tS06MLDVYaqShip
+	 c/6yOX1XoQTH6geB1X7IG4QFq0qWHTdIQ7SPvIsR900+rggdPmvlSkvOKPx2Yp8Yta
+	 L+7Ya24X20Y695X34KBvaYmzpcQqK835jSoTGiN4TmxPPB/IbY2vDOR3m6Q9tIJIKD
+	 vjmxrqjRK4IFg==
+Date: Mon, 9 May 2022 14:39:31 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-cc: xen-devel@lists.xenproject.org, virtualization@lists.linux-foundation.org, 
-    devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
     linux-arm-kernel@lists.infradead.org, 
     Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    Jason Wang <jasowang@redhat.com>, Rob Herring <robh+dt@kernel.org>, 
-    Krzysztof Kozlowski <krzk+dt@kernel.org>, Julien Grall <julien@xen.org>, 
-    Juergen Gross <jgross@suse.com>, 
     Stefano Stabellini <sstabellini@kernel.org>, 
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+    Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>, 
     "Michael S. Tsirkin" <mst@redhat.com>, 
-    Christoph Hellwig <hch@infradead.org>, 
-    Jean-Philippe Brucker <jean-philippe@linaro.org>
-Subject: Re: [PATCH V2 5/7] dt-bindings: Add xen, dev-domid property description
- for xen-grant DMA ops
-In-Reply-To: <1651947548-4055-6-git-send-email-olekstysh@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2205091436390.43560@ubuntu-linux-20-04-desktop>
-References: <1651947548-4055-1-git-send-email-olekstysh@gmail.com> <1651947548-4055-6-git-send-email-olekstysh@gmail.com>
+    Christoph Hellwig <hch@infradead.org>
+Subject: Re: [PATCH V2 6/7] xen/grant-dma-ops: Retrieve the ID of backend's
+ domain for DT devices
+In-Reply-To: <1651947548-4055-7-git-send-email-olekstysh@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2205091438500.43560@ubuntu-linux-20-04-desktop>
+References: <1651947548-4055-1-git-send-email-olekstysh@gmail.com> <1651947548-4055-7-git-send-email-olekstysh@gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -81,112 +79,109 @@ Content-Type: text/plain; charset=US-ASCII
 On Sat, 7 May 2022, Oleksandr Tyshchenko wrote:
 > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > 
-> Introduce Xen specific binding for the virtualized device (e.g. virtio)
-> to be used by Xen grant DMA-mapping layer in the subsequent commit.
+> Use the presence of recently introduced "xen,dev-domid" property
+> in the device node as a clear indicator of enabling Xen grant
+> mappings scheme for that device and read the ID of Xen domain where
+> the corresponding backend resides. The ID (domid) is used as
+> an argument to the Xen grant mapping APIs.
 > 
-> This binding indicates that Xen grant mappings scheme needs to be
-> enabled for the device which DT node contains that property and specifies
-> the ID of Xen domain where the corresponding backend resides. The ID
-> (domid) is used as an argument to the grant mapping APIs.
+> Also introduce xen_is_grant_dma_device() to check whether xen-grant
+> DMA ops need to be set for a passed device.
 > 
-> This is needed for the option to restrict memory access using Xen grant
-> mappings to work which primary goal is to enable using virtio devices
-> in Xen guests.
+> Remove the hardcoded domid 0 in xen_grant_setup_dma_ops().
 > 
 > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-The binding is OK and the wording is OK too.
-
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-I am not an expert on the details of writing a good schema, I'll defer
-to Rob if he has any comments on that.
 
 
 > ---
 > Changes RFC -> V1:
->    - update commit subject/description and text in description
->    - move to devicetree/bindings/arm/
+>    - new patch, split required changes from commit:
+>     "[PATCH 4/6] virtio: Various updates to xen-virtio DMA ops layer"
+>    - update checks in xen_virtio_setup_dma_ops() to only support
+>      DT devices for now
+>    - remove the "virtio,mmio" check from xen_is_virtio_device()
+>    - remane everything according to the new naming scheme:
+>      s/virtio/grant_dma
 > 
 > Changes V1 -> V2:
->    - update text in description
->    - change the maintainer of the binding
->    - fix validation issue
->    - reference xen,dev-domid.yaml schema from virtio/mmio.yaml
+>    - remove dev_is_pci() check in xen_grant_setup_dma_ops()
+>    - remove EXPORT_SYMBOL_GPL(xen_is_grant_dma_device);
 > ---
->  .../devicetree/bindings/arm/xen,dev-domid.yaml     | 37 ++++++++++++++++++++++
->  Documentation/devicetree/bindings/virtio/mmio.yaml |  7 ++++
->  2 files changed, 44 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/arm/xen,dev-domid.yaml
+>  drivers/xen/grant-dma-ops.c | 24 +++++++++++++++++-------
+>  include/xen/xen-ops.h       |  5 +++++
+>  2 files changed, 22 insertions(+), 7 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/arm/xen,dev-domid.yaml b/Documentation/devicetree/bindings/arm/xen,dev-domid.yaml
-> new file mode 100644
-> index 00000000..750e89e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/arm/xen,dev-domid.yaml
-> @@ -0,0 +1,37 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only or BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/arm/xen,dev-domid.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Xen specific binding for virtualized devices (e.g. virtio)
-> +
-> +maintainers:
-> +  - Stefano Stabellini <sstabellini@kernel.org>
-> +
-> +select: true
-> +
-> +description:
-> +  This binding indicates that Xen grant mappings need to be enabled for
-> +  the device, and it specifies the ID of the domain where the corresponding
-> +  device (backend) resides. The property is required to restrict memory
-> +  access using Xen grant mappings.
-> +
-> +properties:
-> +  xen,dev-domid:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      The domid (domain ID) of the domain where the device (backend) is running.
-> +
-> +additionalProperties: true
-> +
-> +examples:
-> +  - |
-> +    virtio@3000 {
-> +            compatible = "virtio,mmio";
-> +            reg = <0x3000 0x100>;
-> +            interrupts = <41>;
-> +
-> +            /* The device is located in Xen domain with ID 1 */
-> +            xen,dev-domid = <1>;
-> +    };
-> diff --git a/Documentation/devicetree/bindings/virtio/mmio.yaml b/Documentation/devicetree/bindings/virtio/mmio.yaml
-> index 10c22b5..29a0932 100644
-> --- a/Documentation/devicetree/bindings/virtio/mmio.yaml
-> +++ b/Documentation/devicetree/bindings/virtio/mmio.yaml
-> @@ -13,6 +13,9 @@ description:
->    See https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=virtio for
->    more details.
+> diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
+> index 29ad7bf..8924178 100644
+> --- a/drivers/xen/grant-dma-ops.c
+> +++ b/drivers/xen/grant-dma-ops.c
+> @@ -55,11 +55,6 @@ static struct xen_grant_dma_data *find_xen_grant_dma_data(struct device *dev)
+>   * Such a DMA address is formed by using the grant reference as a frame
+>   * number and setting the highest address bit (this bit is for the backend
+>   * to be able to distinguish it from e.g. a mmio address).
+> - *
+> - * Note that for now we hard wire dom0 to be the backend domain. In order
+> - * to support any domain as backend we'd need to add a way to communicate
+> - * the domid of this backend, e.g. via Xenstore, via the PCI-device's
+> - * config space or DT/ACPI.
+>   */
+>  static void *xen_grant_dma_alloc(struct device *dev, size_t size,
+>  				 dma_addr_t *dma_handle, gfp_t gfp,
+> @@ -275,6 +270,15 @@ static const struct dma_map_ops xen_grant_dma_ops = {
+>  	.dma_supported = xen_grant_dma_supported,
+>  };
 >  
-> +allOf:
-> +  - $ref: /schemas/arm/xen,dev-domid.yaml#
+> +bool xen_is_grant_dma_device(struct device *dev)
+> +{
+> +	/* XXX Handle only DT devices for now */
+> +	if (!dev->of_node)
+> +		return false;
 > +
->  properties:
->    compatible:
->      const: virtio,mmio
-> @@ -33,6 +36,10 @@ properties:
->      description: Required for devices making accesses thru an IOMMU.
->      maxItems: 1
+> +	return of_property_read_bool(dev->of_node, "xen,dev-domid");
+> +}
+> +
+>  void xen_grant_setup_dma_ops(struct device *dev)
+>  {
+>  	struct xen_grant_dma_data *data;
+> @@ -286,8 +290,14 @@ void xen_grant_setup_dma_ops(struct device *dev)
+>  		return;
+>  	}
 >  
-> +  xen,dev-domid:
-> +    description: Required when Xen grant mappings need to be enabled for device.
-> +    $ref: /schemas/types.yaml#/definitions/uint32
+> -	/* XXX The dom0 is hardcoded as the backend domain for now */
+> -	dev_domid = 0;
+> +	/* XXX ACPI device unsupported for now */
+> +	if (!dev->of_node)
+> +		goto err;
 > +
->  required:
->    - compatible
->    - reg
+> +	if (of_property_read_u32(dev->of_node, "xen,dev-domid", &dev_domid)) {
+> +		dev_err(dev, "xen,dev-domid property is not present\n");
+> +		goto err;
+> +	}
+>  
+>  	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+>  	if (!data)
+> diff --git a/include/xen/xen-ops.h b/include/xen/xen-ops.h
+> index 4f9fad5..62be9dc 100644
+> --- a/include/xen/xen-ops.h
+> +++ b/include/xen/xen-ops.h
+> @@ -223,10 +223,15 @@ static inline void xen_preemptible_hcall_end(void) { }
+>  
+>  #ifdef CONFIG_XEN_GRANT_DMA_OPS
+>  void xen_grant_setup_dma_ops(struct device *dev);
+> +bool xen_is_grant_dma_device(struct device *dev);
+>  #else
+>  static inline void xen_grant_setup_dma_ops(struct device *dev)
+>  {
+>  }
+> +static inline bool xen_is_grant_dma_device(struct device *dev)
+> +{
+> +	return false;
+> +}
+>  #endif /* CONFIG_XEN_GRANT_DMA_OPS */
+>  
+>  #endif /* INCLUDE_XEN_OPS_H */
 > -- 
 > 2.7.4
 > 
