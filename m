@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B159520981
-	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 01:42:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.324951.547400 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23CB5520978
+	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 01:42:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.324900.547280 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noD1B-0002Np-VI; Mon, 09 May 2022 23:42:21 +0000
+	id 1noD0g-0005vp-GS; Mon, 09 May 2022 23:41:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 324951.547400; Mon, 09 May 2022 23:42:21 +0000
+Received: by outflank-mailman (output) from mailman id 324900.547280; Mon, 09 May 2022 23:41:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noD1B-0002CJ-DQ; Mon, 09 May 2022 23:42:21 +0000
-Received: by outflank-mailman (input) for mailman id 324951;
- Mon, 09 May 2022 23:42:18 +0000
+	id 1noD0g-0005hj-8o; Mon, 09 May 2022 23:41:50 +0000
+Received: by outflank-mailman (input) for mailman id 324900;
+ Mon, 09 May 2022 23:41:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=s4mp=VR=collabora.com=dmitry.osipenko@srs-se1.protection.inumbo.net>)
- id 1noCtG-0007bw-Pf
- for xen-devel@lists.xenproject.org; Mon, 09 May 2022 23:34:10 +0000
+ id 1noCtK-0007bw-Ji
+ for xen-devel@lists.xenproject.org; Mon, 09 May 2022 23:34:14 +0000
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 869aa623-cff0-11ec-a406-831a346695d4;
- Tue, 10 May 2022 01:34:10 +0200 (CEST)
+ id 88ece6ef-cff0-11ec-a406-831a346695d4;
+ Tue, 10 May 2022 01:34:14 +0200 (CEST)
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: dmitry.osipenko) with ESMTPSA id 0C7481F441F6
+ (Authenticated sender: dmitry.osipenko) with ESMTPSA id E7D5B1F441FD
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,17 +38,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 869aa623-cff0-11ec-a406-831a346695d4
+X-Inumbo-ID: 88ece6ef-cff0-11ec-a406-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1652139249;
-	bh=Py3C74Fq8ylx1e5iD4JoOoDZdx6Zp6SNSGp+S5YdLlo=;
+	s=mail; t=1652139253;
+	bh=i0EpyUpthjBui1PGSfTlV0XdMEaBb9rmJl1vNRe/ntg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=lNksTBbv27hDu8EEkAEQj5GgsoEmm7+0+sHXFCTDwyFiMFRucGT2C4NwrUODWnqgr
-	 ker012zTH+ctY/bp/DvwLFYX0BnRgZndrr/ZRjink8umONJEtYCTtZ06hu9J7zZfp+
-	 tPWTki3zd/xPgsYlgiwfh4bnzqB4jl+L8lmX11KCP90ezvUibrmiKuFylcYpZC9yxM
-	 3zLDLP7la9iYLOj7OJwr2On2lvE0/j+wGY2Uu+4im/JyIWDAWttXWW119bvaCzZOTH
-	 P4wdljiq4jUyZlUuMy51pkx0/V6VzS5/w46i2URtlgrHZ77oWiTkKDRAuW0/bxBj0C
-	 uupvU5EOk7DKg==
+	b=cOsU2r2Eblivwj/4cs5M9vQ+EIm4O22kzOvkVpXBwVaGlQQqUaU+9c9J8h2kpjBSt
+	 GpXjMQQdLCoJJlIHF5IfMSLeGCyJvESoQPCKt3kCPQedCVqLaoeEopcTf+HEY5q1lO
+	 jJ/uDMUpGaMZkBso16PjrWo29hM7vhwjdcV20pn3IDz86wk5E9pcvm7DLWuJ5eN3xe
+	 Rv7XJipXyrsWHlwyWVQKKYth00nFChhonNPtOvFo1TEnjkAjXR2JiSFF1yvm2SKeAq
+	 YVHXAi1edwQHbtnVBglD/8RVeEInLaeMWxknedL6gsMlzSmRogo0SRclXVYd+laLv3
+	 s6F3Ihd0ore/g==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
 	Jonathan Hunter <jonathanh@nvidia.com>,
@@ -110,9 +110,9 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-acpi@vger.kernel.org,
 	linux-pm@vger.kernel.org,
 	linux-tegra@vger.kernel.org
-Subject: [PATCH v8 17/27] sh: Use do_kernel_power_off()
-Date: Tue, 10 May 2022 02:32:25 +0300
-Message-Id: <20220509233235.995021-18-dmitry.osipenko@collabora.com>
+Subject: [PATCH v8 18/27] x86: Use do_kernel_power_off()
+Date: Tue, 10 May 2022 02:32:26 +0300
+Message-Id: <20220509233235.995021-19-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.35.1
 In-Reply-To: <20220509233235.995021-1-dmitry.osipenko@collabora.com>
 References: <20220509233235.995021-1-dmitry.osipenko@collabora.com>
@@ -128,23 +128,26 @@ be converted to the new sys-off API.
 Reviewed-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- arch/sh/kernel/reboot.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ arch/x86/kernel/reboot.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/sh/kernel/reboot.c b/arch/sh/kernel/reboot.c
-index 5c33f036418b..e8eeedc9b182 100644
---- a/arch/sh/kernel/reboot.c
-+++ b/arch/sh/kernel/reboot.c
-@@ -46,8 +46,7 @@ static void native_machine_shutdown(void)
+diff --git a/arch/x86/kernel/reboot.c b/arch/x86/kernel/reboot.c
+index fa700b46588e..c3636ea4aa71 100644
+--- a/arch/x86/kernel/reboot.c
++++ b/arch/x86/kernel/reboot.c
+@@ -739,10 +739,10 @@ static void native_machine_halt(void)
  
  static void native_machine_power_off(void)
  {
--	if (pm_power_off)
+-	if (pm_power_off) {
++	if (kernel_can_power_off()) {
+ 		if (!reboot_force)
+ 			machine_shutdown();
 -		pm_power_off();
-+	do_kernel_power_off();
- }
- 
- static void native_machine_halt(void)
++		do_kernel_power_off();
+ 	}
+ 	/* A fallback in case there is no PM info available */
+ 	tboot_shutdown(TB_SHUTDOWN_HALT);
 -- 
 2.35.1
 
