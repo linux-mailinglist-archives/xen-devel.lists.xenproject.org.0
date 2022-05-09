@@ -2,35 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C3E8520031
-	for <lists+xen-devel@lfdr.de>; Mon,  9 May 2022 16:46:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.324635.546768 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E13AA52010B
+	for <lists+xen-devel@lfdr.de>; Mon,  9 May 2022 17:23:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.324643.546779 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1no4dx-0000XQ-Db; Mon, 09 May 2022 14:45:49 +0000
+	id 1no5DS-00052q-5L; Mon, 09 May 2022 15:22:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 324635.546768; Mon, 09 May 2022 14:45:49 +0000
+Received: by outflank-mailman (output) from mailman id 324643.546779; Mon, 09 May 2022 15:22:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1no4dx-0000U0-9q; Mon, 09 May 2022 14:45:49 +0000
-Received: by outflank-mailman (input) for mailman id 324635;
- Mon, 09 May 2022 14:45:47 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1no4dv-0000Tq-OG; Mon, 09 May 2022 14:45:47 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1no4dv-0007LT-J7; Mon, 09 May 2022 14:45:47 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1no4dv-0006Gj-Av; Mon, 09 May 2022 14:45:47 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1no4dv-0004gM-AU; Mon, 09 May 2022 14:45:47 +0000
+	id 1no5DS-000512-2B; Mon, 09 May 2022 15:22:30 +0000
+Received: by outflank-mailman (input) for mailman id 324643;
+ Mon, 09 May 2022 15:16:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vn8e=VR=fujitsu.com=d.hatayama@srs-se1.protection.inumbo.net>)
+ id 1no57h-00044C-9I
+ for xen-devel@lists.xenproject.org; Mon, 09 May 2022 15:16:33 +0000
+Received: from esa5.fujitsucc.c3s2.iphmx.com (esa5.fujitsucc.c3s2.iphmx.com
+ [68.232.159.76]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ff4c7314-cfaa-11ec-8fc4-03012f2f19d4;
+ Mon, 09 May 2022 17:16:28 +0200 (CEST)
+Received: from mail-os0jpn01lp2110.outbound.protection.outlook.com (HELO
+ JPN01-OS0-obe.outbound.protection.outlook.com) ([104.47.23.110])
+ by ob1.fujitsucc.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 May 2022 00:16:12 +0900
+Received: from TYAPR01MB6507.jpnprd01.prod.outlook.com (2603:1096:400:a2::7)
+ by TYCPR01MB7578.jpnprd01.prod.outlook.com (2603:1096:400:f3::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.18; Mon, 9 May
+ 2022 15:16:09 +0000
+Received: from TYAPR01MB6507.jpnprd01.prod.outlook.com
+ ([fe80::dd9:8ea4:f7a3:bba1]) by TYAPR01MB6507.jpnprd01.prod.outlook.com
+ ([fe80::dd9:8ea4:f7a3:bba1%5]) with mapi id 15.20.5227.023; Mon, 9 May 2022
+ 15:16:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,174 +49,258 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=8hdZCwuIJ3woMNnmyB3TDjWlrhYOgFS+1lUh6LnIuxA=; b=pIk4ebNudVrBibR069EaltGUO7
-	v1qbekOZqEexeAAVms+UJ217AtgxFf4EHhVY1IlUeNKwcwvFXSUbm1PjnF6/9h2uLu9rqRtoMsWck
-	oxl3ugiFSwhmIYTEZqpmtK1KZ3bZZt3LIRWELMGMElfD/Bhp+zmPehq0+0XeyAGpfmfk=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170271-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: ff4c7314-cfaa-11ec-8fc4-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj1;
+  t=1652109388; x=1683645388;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=xS2ZDM92CvkpLSnJq7Jznk26/ZMDw29ra/drEifi+4M=;
+  b=Zx3UKgDVWtxYwpPjPoDluawbvsFRKqPq+T5iYAQkwfALEx4o/268puXs
+   ot3fAo3xla+fpGjEPxcAzTecBGse+qqqb/MLDClw6VDTkfGxtagycSW30
+   IC+6Iw68bI92qkijkPN4hWT4uUh963JmP1vqY1XfT/van65QWuTUaCrd7
+   OUFnkQeFDOHhxq3AMah3SD8psSGMe+KOhGwLe4IPlXuABb9Jky92V7e2z
+   UUiaNaiK9FvqSKWZI9PX3ukgfRP+C2Gg/ecaSx6whDCNku6DokitSC+Ed
+   nxmlAS5/UeYe5Uf1LnnrJ8Fuj1RIQE9Phnuj+RIGMX3pyvYcRUj74rnV4
+   g==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10342"; a="55509155"
+X-IronPort-AV: E=Sophos;i="5.91,211,1647270000"; 
+   d="scan'208";a="55509155"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KP0CFKYRNmTXTmwL9JG0oC4GQgkB/pl4TAXCxaquTQi2mpfikgwQYy0i8q2i6vPeVpaH2GuK7gBuR63t1JW1LUNFxAjNVersbC9h8TdiBjflezHpU53Q82lnXPLv4wirYyJRKEuA73ZQCrb57ZakIuUVwqcJ+JrPKcYeATrnxhN28xpHXiJO2rffSK1Jw5uxRkQfFPudZpwdXRfmJr8fD9Fp4hSxcYDf9d2dYPWTHymwX3/ZrvUs3NQQnno5t2u1Tkf53IqwaAxjVtkhkHSIHVvIL8BkcyVOYUH1NXbXYQQxKeT5PLbIV2LxAq3TnGTE4TncUGKkynpMGLIjrmygdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MlXVxI2FnzGbvIu/CWm8gKBJ3ZWwolqRQs9xSfL0o60=;
+ b=H+1Tk6iUFRaot1orKC1GRgl1SqDJXk5D2hXPcq48LhPh7gXvRwAju3ZJFbMzj6OjqSUOxrUqwP5QxUHlUtIwQf9Sbv11I8FuhMTDnHm9jTlJ8XnYR8eRZuGiGabL9xVnbfLrXmvTitKevsolEAyiCz8BKyZgayo7SIJbDtYciudVYTh5smc2WUV4/Xf5hw9rGx7ax2cfKXWimUANarDTZNV/KntgpM+JGW52DuY0ow3ik4XUuMIis57FWFq1Ij/VGkKE6W9VYUcyujJ6hW+y+zp3dDojEsR4nIytU/riRvA36esOaKgCTxTbJmvx932z0jUkCFfaf4RSuOsaN4+Itg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=fujitsu.com; dmarc=pass action=none header.from=fujitsu.com;
+ dkim=pass header.d=fujitsu.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fujitsu.onmicrosoft.com; s=selector2-fujitsu-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MlXVxI2FnzGbvIu/CWm8gKBJ3ZWwolqRQs9xSfL0o60=;
+ b=h3jSOTQ/49e3CdAkGQmnT0kRfsZxVeHwnmHFjQIrg5SEwgadX6SIM218KZ4TTXnCicgDCVAuNJ5K36tGTV1PjiR6VVO4vPyaEXnMWkJYWxSMBENMBLbvoa90+8Vm3enWQ2GtCp7sSMFxA1XVsdggp5hIBlPRt0gWqyL7U6Qy1YM=
+From: "d.hatayama@fujitsu.com" <d.hatayama@fujitsu.com>
+To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>, "akpm@linux-foundation.org"
+	<akpm@linux-foundation.org>, "bhe@redhat.com" <bhe@redhat.com>,
+	"pmladek@suse.com" <pmladek@suse.com>, "kexec@lists.infradead.org"
+	<kexec@lists.infradead.org>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"bcm-kernel-feedback-list@broadcom.com"
+	<bcm-kernel-feedback-list@broadcom.com>, "coresight@lists.linaro.org"
+	<coresight@lists.linaro.org>, "linuxppc-dev@lists.ozlabs.org"
+	<linuxppc-dev@lists.ozlabs.org>, "linux-alpha@vger.kernel.org"
+	<linux-alpha@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-edac@vger.kernel.org"
+	<linux-edac@vger.kernel.org>, "linux-hyperv@vger.kernel.org"
+	<linux-hyperv@vger.kernel.org>, "linux-leds@vger.kernel.org"
+	<linux-leds@vger.kernel.org>, "linux-mips@vger.kernel.org"
+	<linux-mips@vger.kernel.org>, "linux-parisc@vger.kernel.org"
+	<linux-parisc@vger.kernel.org>, "linux-pm@vger.kernel.org"
+	<linux-pm@vger.kernel.org>, "linux-remoteproc@vger.kernel.org"
+	<linux-remoteproc@vger.kernel.org>, "linux-s390@vger.kernel.org"
+	<linux-s390@vger.kernel.org>, "linux-tegra@vger.kernel.org"
+	<linux-tegra@vger.kernel.org>, "linux-um@lists.infradead.org"
+	<linux-um@lists.infradead.org>, "linux-xtensa@linux-xtensa.org"
+	<linux-xtensa@linux-xtensa.org>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "openipmi-developer@lists.sourceforge.net"
+	<openipmi-developer@lists.sourceforge.net>, "rcu@vger.kernel.org"
+	<rcu@vger.kernel.org>, "sparclinux@vger.kernel.org"
+	<sparclinux@vger.kernel.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, "x86@kernel.org" <x86@kernel.org>,
+	"kernel-dev@igalia.com" <kernel-dev@igalia.com>, "kernel@gpiccoli.net"
+	<kernel@gpiccoli.net>, "halves@canonical.com" <halves@canonical.com>,
+	"fabiomirmar@gmail.com" <fabiomirmar@gmail.com>,
+	"alejandro.j.jimenez@oracle.com" <alejandro.j.jimenez@oracle.com>,
+	"andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+	"arnd@arndb.de" <arnd@arndb.de>, "bp@alien8.de" <bp@alien8.de>,
+	"corbet@lwn.net" <corbet@lwn.net>, "dave.hansen@linux.intel.com"
+	<dave.hansen@linux.intel.com>, "dyoung@redhat.com" <dyoung@redhat.com>,
+	"feng.tang@intel.com" <feng.tang@intel.com>, "gregkh@linuxfoundation.org"
+	<gregkh@linuxfoundation.org>, "mikelley@microsoft.com"
+	<mikelley@microsoft.com>, "hidehiro.kawai.ez@hitachi.com"
+	<hidehiro.kawai.ez@hitachi.com>, "jgross@suse.com" <jgross@suse.com>,
+	"john.ogness@linutronix.de" <john.ogness@linutronix.de>,
+	"keescook@chromium.org" <keescook@chromium.org>, "luto@kernel.org"
+	<luto@kernel.org>, "mhiramat@kernel.org" <mhiramat@kernel.org>,
+	"mingo@redhat.com" <mingo@redhat.com>, "paulmck@kernel.org"
+	<paulmck@kernel.org>, "peterz@infradead.org" <peterz@infradead.org>,
+	"rostedt@goodmis.org" <rostedt@goodmis.org>, "senozhatsky@chromium.org"
+	<senozhatsky@chromium.org>, "stern@rowland.harvard.edu"
+	<stern@rowland.harvard.edu>, "tglx@linutronix.de" <tglx@linutronix.de>,
+	"vgoyal@redhat.com" <vgoyal@redhat.com>, "vkuznets@redhat.com"
+	<vkuznets@redhat.com>, "will@kernel.org" <will@kernel.org>,
+	"d.hatayama@fujitsu.com" <d.hatayama@fujitsu.com>
+Subject: Re: [PATCH 24/30] panic: Refactor the panic path
+Thread-Topic: [PATCH 24/30] panic: Refactor the panic path
+Thread-Index: AQHYWooYRc5K2GmPwUyqsvUuWmK42q0WuNLD
+Date: Mon, 9 May 2022 15:16:08 +0000
+Message-ID:
+ <TYAPR01MB6507D01F5694BC33628BB7DB95C69@TYAPR01MB6507.jpnprd01.prod.outlook.com>
+References: <20220427224924.592546-1-gpiccoli@igalia.com>
+ <20220427224924.592546-25-gpiccoli@igalia.com>
+In-Reply-To: <20220427224924.592546-25-gpiccoli@igalia.com>
+Accept-Language: en-US, ja-JP
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Enabled=True;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_SiteId=a19f121d-81e1-4858-a9d8-736e267fd4c7;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_SetDate=2022-05-09T15:16:07.522Z;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Name=FUJITSU-RESTRICTED;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_ContentBits=0;MSIP_Label_a7295cc1-d279-42ac-ab4d-3b0f4fece050_Method=Standard;
+suggested_attachment_session_id: 7401546d-aea9-ffcc-3451-b3d59ad5888b
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=fujitsu.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: cb59992a-950f-4d9b-bb1c-08da31ced84d
+x-ms-traffictypediagnostic: TYCPR01MB7578:EE_
+x-microsoft-antispam-prvs:
+ <TYCPR01MB75785B3922D747397677C56195C69@TYCPR01MB7578.jpnprd01.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ /EPiPQ1iE6MAZZ3/WceQFfMaYOr3hQFI/B3njzUVTDpd2qqrdleVcVSpf2FVTxNNtbalFncurAfPSJh1TGekcVWhzGdngBQ1+1y4fpWxXGD4YbqP27hsV7t4f7edAJIa9NqvJ6n7aibYfCzJx3iCrgiakRvsQh+iG5l9bKWYIK9lR7U4sye5Ffr14bJM2DpODKZvgppK8wyMgyMnjj9zz9lKGpjtILIclyn9Cfxq7iI638lUEA+mX4g4zSn1iKbKIJuWOJ3wgQ4jYqCBsSjpaxF1HlO5mWp7q0WJMtlCD0BjB0ch6tZlY4AQFxnYjeUGNuxeoCOm1YjAXRB9jem+BLs2lLj2CUbfNKym9+HxzC2Pv6xmsq0K3lYUsZZPcvE6+2d0lcxXWKVWm7YLPqOKlRiwnw4OI2vDsNJI4/8LrtAiqLYsnmqIlUTgnHPK7io6xN9jXchkeV3Q9sjEe4hhdahLh1dwAB8LYIGr617lu+R8whOHRJa4M5tWuF2EvZ62teL7MYNxzCHbmiACl3mgo5ShSQ0DDxRTasN1jxNptwPdxEF7mHZIjH/caTRYuN3gomF2nisqKzgGg4spIBbsN2pZXB2htS0vpAAc+pFjcEK/Tyjvjsahu/O5fdELQCKYR+Lwd1Bwj2cvdOJquN0ygm/3FOS0+8mAEr4IZfbABNALU/lSCwrulCmPjai/zOTT7PqtftdxjvSq3wSowSe8pQ==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYAPR01MB6507.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(38100700002)(5660300002)(52536014)(85182001)(86362001)(38070700005)(83380400001)(82960400001)(122000001)(508600001)(186003)(6506007)(7416002)(8936002)(2906002)(107886003)(55016003)(71200400001)(7366002)(26005)(110136005)(8676002)(4326008)(9686003)(54906003)(33656002)(64756008)(66446008)(66476007)(66556008)(66946007)(76116006)(316002)(7406005)(7696005);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-2022-jp?B?Q2ZoaFpvc0xSMVIydW9vRDUvemw1eXFIbUlmTmRuc0dEdVEwZzdFcTlC?=
+ =?iso-2022-jp?B?MnBtd2NvZ2tkTVRnYzZHdDRGSi85MXhRNGhoV2hSb2daYm1hTm94RXJx?=
+ =?iso-2022-jp?B?THdsTjhIUDg4c21tTzdSYzZ0c2l3VTFtdTRmWTZyM3pMV1BZV1E4YnF5?=
+ =?iso-2022-jp?B?KzNibHMwSGUrQ3RTK2tXemw5VEZQN1FaUXhONTRHSTBWU2FqSEJwLzRQ?=
+ =?iso-2022-jp?B?N29OTmV1bkIrR1huOVN6L3hBaURRRm9Wb21vMXlwNjJiSnRzbFNBbDJS?=
+ =?iso-2022-jp?B?Kzgrd1p5bXBESGdrakpDUFdIa1pyNTdRRFp6RnE0YWpEcG4zL1RtY2tk?=
+ =?iso-2022-jp?B?amlvbUpJNTZOcTlkWVdsb2dFdk94OXdRbHM1WDF6Wkd2Zk5zb09rTlRD?=
+ =?iso-2022-jp?B?M0YyOEVaaSt6dUdwTldNRU00am4relFSbm4wSVNuYktiMWszMTRGUU5k?=
+ =?iso-2022-jp?B?bWJ3bWJqMVA3TE9kWENrdE5QQUp2aDZ6SjhaRFRQd2tQUVVQUXI5V3po?=
+ =?iso-2022-jp?B?dGQzdGFTQkxXRy8yRW5RK2IwR3l5RHo1M1I0bmdYa1dhcS9NQ3luV013?=
+ =?iso-2022-jp?B?TTlXYmgzSXl1ZnVVMGlOc3dMTTFFbXhkYzJldmZRL3NOZVVzU2RucDFU?=
+ =?iso-2022-jp?B?TjNXengxZ3I5UFY3amdYeDN0ZDhlTnFpYkVpUXRLaTlNaGNKc2JsZGlz?=
+ =?iso-2022-jp?B?S0tSQ2NKMkdqQzlud0hUSEJ5OXM2TkJnN3A3NG1TKzJCdG9NWWhPQ0pl?=
+ =?iso-2022-jp?B?ZlRQSDBjdU1WWW5QOEdkbTlDYjF5YkhrVmMwcnNoMndIemRXZnRRNm1O?=
+ =?iso-2022-jp?B?aW45cWFXVDZLSHRKVm9JVU5ROWJYNFV3aHlvNFFXTkVla013NTN1c3Zy?=
+ =?iso-2022-jp?B?NTZsbEhFRE1BY1NQdnQreVU3dGlmMm1MN3ZYQUIzRTMrSG9CaC9rMm03?=
+ =?iso-2022-jp?B?UHpJN0k2Nk0wWkcrZEJkZTJ1czZoK1JNZEY4VGdPWmEzQ1JJSDV1Q0xa?=
+ =?iso-2022-jp?B?QzNveU5nWmIwc1IyR0dRcDZmb2VESHY0MWw0VjBvRnJRNG84WGpnbmRp?=
+ =?iso-2022-jp?B?NWpwSUR2WXljdVA3OGpyNHZGcW10WjdFdUlFYWI5dlN1ZnhPZncrNGNw?=
+ =?iso-2022-jp?B?NVhDNW1NbU1iQjZxRU1sQktJMjNrZ09rMWRmbWo0eWd1Y21Pd3FUcGlU?=
+ =?iso-2022-jp?B?TzhWNmlTbUI5djY4eTRNSStjekdqcjc2QlRPSGp6bzY2LzdKRXkxOUVN?=
+ =?iso-2022-jp?B?clJRRjhsbWFKT3F0TjY2cEJqMWl1aTdnOGZPOU8rN1d4VnIza2wxOHpw?=
+ =?iso-2022-jp?B?YUJscjlYOTRjSVE0VXVqUUNiSHVYRE44QmRSUGV3WjJxT1JOSkxjeVVR?=
+ =?iso-2022-jp?B?SDVDc1ZlL2VKb2xxUFAvR05SVC9oOVZVUVYrU1BTUlhLb0p2VEN6WG0x?=
+ =?iso-2022-jp?B?dHcycEVHVmEzRmpjQldpWHd5dXdnTFBUbi9FQkd6NTg5VTJuMGJDQnZ2?=
+ =?iso-2022-jp?B?NlBKb3hrQThvTkpoK2xPU1kwSUg1MDhvbVlHOWpIamR4OXJhQmxEdDBx?=
+ =?iso-2022-jp?B?MEdFdXJXYkpCaGwrMmJBaUNaUnFVL2xKY2lpY0p6cHhpNFdTNG9MUVIv?=
+ =?iso-2022-jp?B?Q0RMUTZJTmVKWEVmMDNrYnFOT3l2aUFzTmFxV09kQSs5eCthQXkwdmsw?=
+ =?iso-2022-jp?B?SGRsSnkzK3c3V3N1V0FaYVFFMGFKTG5FUU8rTmFVT3N1ekx0cDBVbDlv?=
+ =?iso-2022-jp?B?QXV3UTRCTlN1WGo2MWQwSVo4c2VGUnk0aVNNNFJzd3BNOVB2ZCtMWmxP?=
+ =?iso-2022-jp?B?dGlzVjVNQnQ2b01aWXhRdXJtRGVJWGZsSXBJZ1VGMWlFR2NESjFTcVlw?=
+ =?iso-2022-jp?B?M1JELzNUd013T1ByVGF1Ykh0Nm91MW5xai9ZUU5lRjFsdHdEQ0NtUnNR?=
+ =?iso-2022-jp?B?L00xTkhpaithV1pYY1krR05zUTZYTFZPUk9RU0xtSkhhRmhpdFc4RGNX?=
+ =?iso-2022-jp?B?eTFpMnd0QlloT0plSm9NdjBuakFweWUwRGtqUjVsNVovRkRob0c0TDQr?=
+ =?iso-2022-jp?B?cW1PZ3FYRHBtc3Q2c1FwOFR1Lzk5czhMenVER01OZm9Xa2VwSjM4a1Vm?=
+ =?iso-2022-jp?B?OUFBTFpRdTBiY3lqTXIvVHNhN2JWZHVra2dTTFhaTzRFSmh1c0taRERB?=
+ =?iso-2022-jp?B?YTdqeGI3dWRDYTYzR1lYcTF1T3dHZ1RGWXYza1cvM0lxUGtldDhmUVZv?=
+ =?iso-2022-jp?B?c1dJelE5d1hSV3hybS9VUVN4aEh0aTRPSDd3OElVZVdaSUlxY2wwd2lR?=
+ =?iso-2022-jp?B?Slh6TFJjMXMrN25OaG9ibS9hQWZkYmNVb0RFZ1d0aFZLcU5lNUpzV1lX?=
+ =?iso-2022-jp?B?YjBEZlRDZE1CeGMyaWRMa1dvT05rVW9RUG1WOUl4aHRkenoyTjFXaitY?=
+ =?iso-2022-jp?B?YW1oQ001bUIyRFJYdUJTdzlKekt0WndWSEJpaXU5dzhkVEpOb3p4TzIr?=
+ =?iso-2022-jp?B?MUdoTXV6ZVIycy9nblliVHY4clRkRTNlcVNwdWhhQWM4UlBFTDZBYmw0?=
+ =?iso-2022-jp?B?ME5aQThQQT0=?=
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Subject: [ovmf test] 170271: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=a658ed30e51f2b2024d7bf8d2aa8be2dfa0b02a2
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 09 May 2022 14:45:47 +0000
+X-OriginatorOrg: fujitsu.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYAPR01MB6507.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb59992a-950f-4d9b-bb1c-08da31ced84d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 May 2022 15:16:08.8030
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a19f121d-81e1-4858-a9d8-736e267fd4c7
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: q5IRFdj2tV7IAxoGvUQ3KW79KqhlLrLxHCiqQH9LHk/aZve0Mz95uDPlSCWwe/uJV5hchYymXmHVnJXclB022HSy1r9hKQtbFufztomtIsU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB7578
 
-flight 170271 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170271/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 a658ed30e51f2b2024d7bf8d2aa8be2dfa0b02a2
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   70 days
-Failing since        168258  2022-03-01 01:55:31 Z   69 days  896 attempts
-Testing same since   170267  2022-05-09 11:41:59 Z    0 days    5 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chao, Zhuoran <zhuoran.chao@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Christine <Yuwei.Chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  duntan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gua Guo <gua.guo@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Jiewen Yao <jiewen.yao@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Peter Grehan <grehan@freebsd.org>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yu Pu <yu.pu@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Yuwei Chen <yuwei.chen@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-  Zhuoran Chao <zhuoran.chao@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 6180 lines long.)
+Sorry for the delayed response. Unfortunately, I had 10 days holidays=0A=
+until yesterday...=0A=
+=0A=
+>  .../admin-guide/kernel-parameters.txt         |  42 ++-=0A=
+>  include/linux/panic_notifier.h                |   1 +=0A=
+>  kernel/kexec_core.c                           |   8 +-=0A=
+>  kernel/panic.c                                | 292 +++++++++++++-----=
+=0A=
+>  .../selftests/pstore/pstore_crash_test        |   5 +-=0A=
+>  5 files changed, 252 insertions(+), 96 deletions(-)=0A=
+> =0A=
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentat=
+ion/admin-guide/kernel-parameters.txt=0A=
+> index 3f1cc5e317ed..8d3524060ce3 100644=0A=
+> --- a/Documentation/admin-guide/kernel-parameters.txt=0A=
+> +++ b/Documentation/admin-guide/kernel-parameters.txt=0A=
+...snip...=0A=
+> @@ -3784,6 +3791,33 @@=0A=
+>                         timeout < 0: reboot immediately=0A=
+>                         Format: <timeout>=0A=
+> =0A=
+> +       panic_notifiers_level=3D=0A=
+> +                       [KNL] Set the panic notifiers execution order.=0A=
+> +                       Format: <unsigned int>=0A=
+> +                       We currently have 4 lists of panic notifiers; bas=
+ed=0A=
+> +                       on the functionality and risk (for panic success)=
+ the=0A=
+> +                       callbacks are added in a given list. The lists ar=
+e:=0A=
+> +                       - hypervisor/FW notification list (low risk);=0A=
+> +                       - informational list (low/medium risk);=0A=
+> +                       - pre_reboot list (higher risk);=0A=
+> +                       - post_reboot list (only run late in panic and af=
+ter=0A=
+> +                       kdump, not configurable for now).=0A=
+> +                       This parameter defines the ordering of the first =
+3=0A=
+> +                       lists with regards to kdump; the levels determine=
+=0A=
+> +                       which set of notifiers execute before kdump. The=
+=0A=
+> +                       accepted levels are:=0A=
+> +                       0: kdump is the first thing to run, NO list is=0A=
+> +                       executed before kdump.=0A=
+> +                       1: only the hypervisor list is executed before kd=
+ump.=0A=
+> +                       2 (default level): the hypervisor list and (*if*=
+=0A=
+=0A=
+Hmmm, why are you trying to change default setting?=0A=
+=0A=
+Based on the current design of kdump, it's natural to put what the=0A=
+handlers for these level 1 and level 2 handlers do in=0A=
+machine_crash_shutdown(), as these are necessary by default, right?=0A=
+=0A=
+Or have you already tried that and figured out it's difficult in some=0A=
+reason and reached the current design? If so, why is that difficult?=0A=
+Could you point to if there is already such discussion online?=0A=
+=0A=
+kdump is designed to perform as little things as possible before=0A=
+transferring the execution to the 2nd kernel in order to increase=0A=
+reliability. Just detour to panic() increases risks of kdump failure=0A=
+in the sense of increasing the executed codes in the abnormal=0A=
+situation, which is very the note in the explanation of=0A=
+crash_kexec_post_notifiers.=0A=
+=0A=
+Also, the current implementation of crash_kexec_post_notifiers uses=0A=
+the panic notifier, but this is not from the technical=0A=
+reason. Ideally, it should have been implemented in the context of=0A=
+crash_kexec() independently of panic().=0A=
+=0A=
+That is, it looks to me that, in addition to changing design of panic=0A=
+notifier, you are trying to integrate shutdown code of the crash kexec=0A=
+and the panic paths. If so, this is a big design change for kdump.=0A=
+I'm concerned about increase of reliability. I'd like you to discuss=0A=
+them carefully.=0A=
+=0A=
+Thanks.=0A=
+HATAYAMA, Daisuke=0A=
+=0A=
 
