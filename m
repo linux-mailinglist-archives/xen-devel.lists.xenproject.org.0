@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8356E5212C1
-	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 12:51:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.325386.547946 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E70E5212C2
+	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 12:51:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.325388.547955 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noNSL-0005FF-Hy; Tue, 10 May 2022 10:51:05 +0000
+	id 1noNSQ-0005Z8-RN; Tue, 10 May 2022 10:51:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 325386.547946; Tue, 10 May 2022 10:51:05 +0000
+Received: by outflank-mailman (output) from mailman id 325388.547955; Tue, 10 May 2022 10:51:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noNSL-0005Be-BQ; Tue, 10 May 2022 10:51:05 +0000
-Received: by outflank-mailman (input) for mailman id 325386;
- Tue, 10 May 2022 10:51:03 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1noNSQ-0005WP-NR; Tue, 10 May 2022 10:51:10 +0000
+Received: by outflank-mailman (input) for mailman id 325388;
+ Tue, 10 May 2022 10:51:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1noNSJ-0005B5-92
- for xen-devel@lists.xenproject.org; Tue, 10 May 2022 10:51:03 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1noNSJ-0003Vv-2F; Tue, 10 May 2022 10:51:03 +0000
-Received: from [54.239.6.189] (helo=[192.168.24.150])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1noNSI-0002ie-SH; Tue, 10 May 2022 10:51:03 +0000
+ (envelope-from <SRS0=VXvK=VS=srcf.net=amc96@srs-se1.protection.inumbo.net>)
+ id 1noNSP-0004tq-Mf
+ for xen-devel@lists.xenproject.org; Tue, 10 May 2022 10:51:09 +0000
+Received: from ppsw-31.csi.cam.ac.uk (ppsw-31.csi.cam.ac.uk [131.111.8.131])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 197c483c-d04f-11ec-8fc4-03012f2f19d4;
+ Tue, 10 May 2022 12:51:09 +0200 (CEST)
+Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:47090)
+ by ppsw-31.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.137]:25)
+ with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+ id 1noNSL-000SzX-Jf (Exim 4.95) (return-path <amc96@srcf.net>);
+ Tue, 10 May 2022 11:51:05 +0100
+Received: from [192.168.1.10] (host-92-26-109-251.as13285.net [92.26.109.251])
+ (Authenticated sender: amc96)
+ by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id D389A1FA59;
+ Tue, 10 May 2022 11:51:04 +0100 (BST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,99 +45,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=4fPIwetfaqg9PTZws7aNS+236Yx6R85O3VbUY8WxxfA=; b=kqQEUHVPnimSit+0SnuWp04JtY
-	e+YrGPHIE9OZrYhS4aayv8GMExtxLEsHOiKtYSXnOaR5lxQFr/rDpZW2BGkQNDbCzGPesdo0N71fz
-	qtKTVhUYhZS++MpVv5bEvdxnvjiDXECa6Q0DFV1dDQQFJ6OoA1hGeGeO7CXnqCSx24N8=;
-Message-ID: <76c9bed5-6643-4fa6-eaf5-c865f942193c@xen.org>
-Date: Tue, 10 May 2022 11:51:00 +0100
+X-Inumbo-ID: 197c483c-d04f-11ec-8fc4-03012f2f19d4
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
+Message-ID: <5d7a33e6-aae1-a6fe-8141-0ac27274aa53@srcf.net>
+Date: Tue, 10 May 2022 11:51:04 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.9.0
-Subject: Re: [PATCH v3 4/6] xen: Switch to byteswap
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Subject: Re: [PATCH v3 2/6] crypto/vmac: Simplify code with byteswap
+Content-Language: en-GB
 To: Lin Liu <lin.liu@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  Wei Liu <wl@xen.org>
 References: <cover.1652170719.git.lin.liu@citrix.com>
- <c9488a2fe15d59dc86712e70614c4dbe0794506b.1652170719.git.lin.liu@citrix.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <c9488a2fe15d59dc86712e70614c4dbe0794506b.1652170719.git.lin.liu@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <4bf9200cfbd798130d2ef68c9b0f5373f72a1b95.1652170719.git.lin.liu@citrix.com>
+From: Andrew Cooper <amc96@srcf.net>
+In-Reply-To: <4bf9200cfbd798130d2ef68c9b0f5373f72a1b95.1652170719.git.lin.liu@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi,
-
 On 10/05/2022 11:15, Lin Liu wrote:
-> Update to use byteswap to swap bytes.
-> 
-> No functional change.
-> 
-> Signed-off-by: Lin Liu <lin.liu@citrix.com>
-> ---
-> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> Cc: Julien Grall <julien@xen.org>
-> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-> Cc: George Dunlap <george.dunlap@citrix.com>
-> Cc: Jan Beulich <jbeulich@suse.com>
-> Cc: Wei Liu <wl@xen.org>
-> Changes in v3:
-> - Update xen/common/device_tree.c to use be32_to_cpu
-> - Keep const in type cast in unaligned.h
-> ---
->   xen/common/device_tree.c           | 44 +++++++++++++++---------------
->   xen/common/libelf/libelf-private.h |  6 ++--
->   xen/common/xz/private.h            |  2 +-
->   xen/include/xen/unaligned.h        | 24 ++++++++--------
->   4 files changed, 38 insertions(+), 38 deletions(-)
-> 
-> diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
-> index 4aae281e89..70d3be3be6 100644
-> --- a/xen/common/device_tree.c
-> +++ b/xen/common/device_tree.c
-> @@ -171,7 +171,7 @@ bool_t dt_property_read_u32(const struct dt_device_node *np,
->       if ( !val || len < sizeof(*out_value) )
->           return 0;
->   
-> -    *out_value = be32_to_cpup(val);
-> +    *out_value = be32_to_cpu(*val);
-
-This code has been taken from Linux and I would rather prefer to keep 
-the *cpup* helpers to avoid any changes when backporting.
-
-> diff --git a/xen/include/xen/unaligned.h b/xen/include/xen/unaligned.h
-> index 0a2b16d05d..16b2e6f5f0 100644
-> --- a/xen/include/xen/unaligned.h
-> +++ b/xen/include/xen/unaligned.h
-> @@ -20,62 +20,62 @@
->   
->   static inline uint16_t get_unaligned_be16(const void *p)
->   {
-> -	return be16_to_cpup(p);
-> +	return be16_to_cpu(*(const uint16_t *)p)
-
-I haven't checked the existing implementation of be16_to_cpup(). 
-However, this new approach would allow the compiler to use a single load 
-instruction to read the 16-bit value from memory. So this change may 
-break on platform where unaligned access is forbidden (such as arm32).
-
->   }
->   
->   static inline void put_unaligned_be16(uint16_t val, void *p)
->   {
-> -	*(__force __be16*)p = cpu_to_be16(val);
-> +	*(__be16 *)p = cpu_to_be16(val);
-
-Why did you drop the __force?
-
->   }
+> This file has its own implementation of swap bytes. Clean up
+> the code with xen/byteswap.h.
 >
+> No functional change.
+>
+> Signed-off-by: Lin Liu <lin.liu@citrix.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Cheers,
-
--- 
-Julien Grall
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
