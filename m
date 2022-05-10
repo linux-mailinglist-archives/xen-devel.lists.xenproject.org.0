@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 559EE520B2D
-	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 04:28:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.325102.547573 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3C54520B2E
+	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 04:28:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.325106.547585 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noFbk-0004gv-E5; Tue, 10 May 2022 02:28:16 +0000
+	id 1noFbn-0005Co-Pe; Tue, 10 May 2022 02:28:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 325102.547573; Tue, 10 May 2022 02:28:16 +0000
+Received: by outflank-mailman (output) from mailman id 325106.547585; Tue, 10 May 2022 02:28:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noFbk-0004dG-9j; Tue, 10 May 2022 02:28:16 +0000
-Received: by outflank-mailman (input) for mailman id 325102;
- Tue, 10 May 2022 02:28:15 +0000
+	id 1noFbn-00059x-LA; Tue, 10 May 2022 02:28:19 +0000
+Received: by outflank-mailman (input) for mailman id 325106;
+ Tue, 10 May 2022 02:28:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0KWj=VS=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1noFbi-0003Ap-U3
- for xen-devel@lists.xenproject.org; Tue, 10 May 2022 02:28:14 +0000
+ id 1noFbl-0003Ap-Uc
+ for xen-devel@lists.xenproject.org; Tue, 10 May 2022 02:28:17 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id d6ccfa6f-d008-11ec-a406-831a346695d4;
- Tue, 10 May 2022 04:28:12 +0200 (CEST)
+ id d96cd610-d008-11ec-a406-831a346695d4;
+ Tue, 10 May 2022 04:28:17 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D937B12FC;
- Mon,  9 May 2022 19:28:11 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 49FDB12FC;
+ Mon,  9 May 2022 19:28:16 -0700 (PDT)
 Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
  [10.169.190.94])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id EE5533F66F;
- Mon,  9 May 2022 19:28:07 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 5E0043F66F;
+ Mon,  9 May 2022 19:28:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6ccfa6f-d008-11ec-a406-831a346695d4
+X-Inumbo-ID: d96cd610-d008-11ec-a406-831a346695d4
 From: Penny Zheng <Penny.Zheng@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: wei.chen@arm.com,
@@ -57,80 +57,97 @@ Cc: wei.chen@arm.com,
 	Jan Beulich <jbeulich@suse.com>,
 	Wei Liu <wl@xen.org>,
 	Penny Zheng <penny.zheng@arm.com>
-Subject: [PATCH v4 4/6] xen/arm: introduce CDF_staticmem
-Date: Tue, 10 May 2022 10:27:31 +0800
-Message-Id: <20220510022733.2422581-5-Penny.Zheng@arm.com>
+Subject: [PATCH v4 5/6] xen/arm: unpopulate memory when domain is static
+Date: Tue, 10 May 2022 10:27:32 +0800
+Message-Id: <20220510022733.2422581-6-Penny.Zheng@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220510022733.2422581-1-Penny.Zheng@arm.com>
 References: <20220510022733.2422581-1-Penny.Zheng@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In order to have an easy and quick way to find out whether this domain memory
-is statically configured, this commit introduces a new flag CDF_staticmem and a
-new helper is_domain_using_staticmem() to tell.
+Today when a domain unpopulates the memory on runtime, they will always
+hand the memory back to the heap allocator. And it will be a problem if domain
+is static.
+
+Pages as guest RAM for static domain shall be reserved to only this domain
+and not be used for any other purposes, so they shall never go back to heap
+allocator.
+
+This commit puts reserved pages on the new list resv_page_list only after
+having taken them off the "normal" list, when the last ref dropped.
 
 Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
 v4 changes:
 - no changes
 ---
 v3 changes:
-- change name from "is_domain_static()" to "is_domain_using_staticmem"
+- have page_list_del() just once out of the if()
+- remove resv_pages counter
+- make arch_free_heap_page be an expression, not a compound statement.
 ---
 v2 changes:
-- change name from "is_domain_on_static_allocation" to "is_domain_static()"
+- put reserved pages on resv_page_list after having taken them off
+the "normal" list
 ---
- xen/arch/arm/domain_build.c       | 5 ++++-
- xen/arch/arm/include/asm/domain.h | 2 ++
- xen/include/xen/domain.h          | 2 ++
- 3 files changed, 8 insertions(+), 1 deletion(-)
+ xen/arch/arm/include/asm/mm.h | 12 ++++++++++++
+ xen/common/domain.c           |  4 ++++
+ xen/include/xen/sched.h       |  3 +++
+ 3 files changed, 19 insertions(+)
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 1472ca4972..6830a282a0 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -3190,9 +3190,12 @@ void __init create_domUs(void)
-         if ( !dt_device_is_compatible(node, "xen,domain") )
-             continue;
+diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
+index 424aaf2823..c6426c1705 100644
+--- a/xen/arch/arm/include/asm/mm.h
++++ b/xen/arch/arm/include/asm/mm.h
+@@ -358,6 +358,18 @@ void clear_and_clean_page(struct page_info *page);
  
-+        if ( dt_find_property(node, "xen,static-mem", NULL) )
-+            flags |= CDF_staticmem;
+ unsigned int arch_get_dma_bitsize(void);
+ 
++/*
++ * Put free pages on the resv page list after having taken them
++ * off the "normal" page list, when pages from static memory
++ */
++#ifdef CONFIG_STATIC_MEMORY
++#define arch_free_heap_page(d, pg) ({                   \
++    page_list_del(pg, page_to_list(d, pg));             \
++    if ( (pg)->count_info & PGC_reserved )              \
++        page_list_add_tail(pg, &(d)->resv_page_list);   \
++})
++#endif
 +
-         if ( dt_property_read_bool(node, "direct-map") )
-         {
--            if ( !IS_ENABLED(CONFIG_STATIC_MEMORY) || !dt_find_property(node, "xen,static-mem", NULL) )
-+            if ( !IS_ENABLED(CONFIG_STATIC_MEMORY) || !(flags & CDF_staticmem) )
-                 panic("direct-map is not valid for domain %s without static allocation.\n",
-                       dt_node_name(node));
- 
-diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
-index fe7a029ebf..110c672589 100644
---- a/xen/arch/arm/include/asm/domain.h
-+++ b/xen/arch/arm/include/asm/domain.h
-@@ -31,6 +31,8 @@ enum domain_type {
- 
- #define is_domain_direct_mapped(d) ((d)->cdf & CDF_directmap)
- 
-+#define is_domain_using_staticmem(d) ((d)->cdf & CDF_staticmem)
+ #endif /*  __ARCH_ARM_MM__ */
+ /*
+  * Local variables:
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 6373407047..13fe7cecff 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -604,6 +604,10 @@ struct domain *domain_create(domid_t domid,
+     INIT_PAGE_LIST_HEAD(&d->page_list);
+     INIT_PAGE_LIST_HEAD(&d->extra_page_list);
+     INIT_PAGE_LIST_HEAD(&d->xenpage_list);
++#ifdef CONFIG_STATIC_MEMORY
++    INIT_PAGE_LIST_HEAD(&d->resv_page_list);
++#endif
 +
- /*
-  * Is the domain using the host memory layout?
-  *
-diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
-index 1c3c88a14d..35dc7143a4 100644
---- a/xen/include/xen/domain.h
-+++ b/xen/include/xen/domain.h
-@@ -34,6 +34,8 @@ void arch_get_domain_info(const struct domain *d,
- #ifdef CONFIG_ARM
- /* Should domain memory be directly mapped? */
- #define CDF_directmap            (1U << 1)
-+/* Is domain memory on static allocation? */
-+#define CDF_staticmem            (1U << 2)
- #endif
  
- /*
+     spin_lock_init(&d->node_affinity_lock);
+     d->node_affinity = NODE_MASK_ALL;
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+index 49415a113a..368e5c1c53 100644
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -376,6 +376,9 @@ struct domain
+     struct page_list_head page_list;  /* linked list */
+     struct page_list_head extra_page_list; /* linked list (size extra_pages) */
+     struct page_list_head xenpage_list; /* linked list (size xenheap_pages) */
++#ifdef CONFIG_STATIC_MEMORY
++    struct page_list_head resv_page_list; /* linked list (size resv_pages) */
++#endif
+ 
+     /*
+      * This field should only be directly accessed by domain_adjust_tot_pages()
 -- 
 2.25.1
 
