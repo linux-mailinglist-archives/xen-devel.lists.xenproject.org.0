@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E9F4522071
-	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 17:59:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.325839.548608 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 392BA5220E1
+	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 18:16:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.325859.548621 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noSG3-00082n-RG; Tue, 10 May 2022 15:58:43 +0000
+	id 1noSX1-0003UV-EF; Tue, 10 May 2022 16:16:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 325839.548608; Tue, 10 May 2022 15:58:43 +0000
+Received: by outflank-mailman (output) from mailman id 325859.548621; Tue, 10 May 2022 16:16:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noSG3-00080G-No; Tue, 10 May 2022 15:58:43 +0000
-Received: by outflank-mailman (input) for mailman id 325839;
- Tue, 10 May 2022 15:58:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kgyf=VS=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1noSG1-0007kf-Jf
- for xen-devel@lists.xenproject.org; Tue, 10 May 2022 15:58:41 +0000
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0f516219-d07a-11ec-8fc4-03012f2f19d4;
- Tue, 10 May 2022 17:58:40 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 1E28E5C0048;
- Tue, 10 May 2022 11:58:40 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Tue, 10 May 2022 11:58:40 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 10 May 2022 11:58:38 -0400 (EDT)
+	id 1noSX1-0003R1-Ap; Tue, 10 May 2022 16:16:15 +0000
+Received: by outflank-mailman (input) for mailman id 325859;
+ Tue, 10 May 2022 16:16:13 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1noSWz-0003Qr-Od; Tue, 10 May 2022 16:16:13 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1noSWz-0001XR-LJ; Tue, 10 May 2022 16:16:13 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1noSWz-0004bU-2K; Tue, 10 May 2022 16:16:13 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1noSWz-0001mh-1t; Tue, 10 May 2022 16:16:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,168 +42,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f516219-d07a-11ec-8fc4-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1652198320; x=1652284720; bh=f2wikOacR1Pgp
-	cgiF7iAdbBxzhDpXOHQwXdF9nAGshc=; b=J78rH3A2uDDlFcLKejFwVNWwZflzw
-	e5AF2vvT/tLHTnTLTCwQ2Qoy+THzSyUlUz2NeULTdJlAmxKuiHP3BRHM79QyrHpC
-	TYVNBiM0fh2Eg2Ygd4shj6DuV2JMnchY5JSsPQfnzS7gqSwwNiwYk/Mq9rag8+fe
-	y/eMsKHBJybrRuUe62kQ8xrxoWq3Gv2Yq8bjeGXiISUDd/N89Ggf226Ix6F4TErJ
-	miv9MZAggRQoCn4SQr/kr2P1nzMB81CRFM4oDgSwpgoZhirtV3CVvXfGfBov6Gh1
-	/3PRLTNyv3Mv01kA1Ro+k3J1h4buoR5p60m1CmhaGqqHwSfP2XmfFqtjg==
-X-ME-Sender: <xms:sIt6Yqs-B19jP7Q_UjTWKmHRkVljRycIj3Wn4V_Q8Qo-JW5vp0252g>
-    <xme:sIt6Yvds_U8gI1o0-nzVxAKJ30mPVZGGIbKwKe9VcaCSk2gr-vrFseOhk9Ex2b8cu
-    h1mOFzewf-jxA>
-X-ME-Received: <xmr:sIt6Ylyn4VvXk7SEgG3-nl6LiuMPpGEvIITZkxSrV-vC7061ZtfnsUqct0dti2RYAbV0R8-pkoTM6TT3fSWUVOpWBUHT10RWct78_Wp3MoBDkfn_ehk>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrgedugdeltdcutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpefhvfevufffkffojghfgggtgfesthekredtredtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfeu
-    udehgfdvfeehhedujeehfeduveeugefhkefhheelgeevudetueeiudfggfffnecuvehluh
-    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:sIt6YlNWJDH-w0BVNuTXfNnAqh4qm-bRaBJS1g5HUYWL2MPJNfRPcA>
-    <xmx:sIt6Yq8Xz1wqPRI9vv3u_TAEVMXWJVAZyoywYaeai1E96mF_ZHlT6g>
-    <xmx:sIt6YtXrrqvC9FcGMTvWpzE8PiQQQhFGKY0rl8oLaG80T_91ifOnWA>
-    <xmx:sIt6Yhln1_HDpFmggEoo2Im-VxJpdu1Qbi0XFLfDTH7mfdefMRAVOQ>
-From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=v7vpL2BZDL8TrhhIWqN3PwVayZ6SXiTk3l1it/xOAyg=; b=Tt1lHtFBaPvyQGSJxnmO7anY0i
+	gYD/tGTSSflxIVu0ntu0WE2E3ghGBi0zrc6rqUuPTJdpystcz4eNQDyCBZt+2jSR/6W/Qw+Yvu6/d
+	QWIDi2ajZYUejx9akZuDX7fWa1nESF5BuWrdi0Swi2WlGhL/pZiemrZyuxMCvI75Th48=;
 To: xen-devel@lists.xenproject.org
-Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v3 2/2] ns16550: Add more device IDs for Intel LPSS UART
-Date: Tue, 10 May 2022 17:58:24 +0200
-Message-Id: <20220510155824.1779789-2-marmarek@invisiblethingslab.com>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20220510155824.1779789-1-marmarek@invisiblethingslab.com>
-References: <20220510155824.1779789-1-marmarek@invisiblethingslab.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Message-ID: <osstest-170301-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 170301: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=0e31124877cc8bc0140a03ad3196f0d58b2fd966
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 10 May 2022 16:16:13 +0000
 
-This is purely based on the spec:
-- Intel 500 Series PCH: 635218-006
-- Intel 600 Series PCH: 691222-001, 648364-003
+flight 170301 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/170301/
 
-This is tested only on TGL-LP added initially, but according to the
-spec, they should behave the same.
+Regressions :-(
 
-Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-Changes in v2:
- - new patch, adding more IDs to the patch that went in already
----
- xen/drivers/char/ns16550.c | 80 +++++++++++++++++++++++++++++++++++++-
- 1 file changed, 79 insertions(+), 1 deletion(-)
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
 
-diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-index b4434ad815e1..72283c106514 100644
---- a/xen/drivers/char/ns16550.c
-+++ b/xen/drivers/char/ns16550.c
-@@ -1077,12 +1077,90 @@ static const struct ns16550_config __initconst uart_config[] =
-         .dev_id = 0x0358,
-         .param = param_exar_xr17v358
-     },
--    /* Intel Corp. TGL-LP LPSS PCI */
-+    /* Intel Corp. TGL-LP LPSS PCI UART #0 */
-+    {
-+        .vendor_id = PCI_VENDOR_ID_INTEL,
-+        .dev_id = 0xa0a8,
-+        .param = param_intel_lpss
-+    },
-+    /* Intel Corp. TGL-LP LPSS PCI UART #1 */
-+    {
-+        .vendor_id = PCI_VENDOR_ID_INTEL,
-+        .dev_id = 0xa0a9,
-+        .param = param_intel_lpss
-+    },
-+    /* Intel Corp. TGL-LP LPSS PCI UART #2 */
-     {
-         .vendor_id = PCI_VENDOR_ID_INTEL,
-         .dev_id = 0xa0c7,
-         .param = param_intel_lpss
-     },
-+    /* Intel Corp. TGL-H LPSS PCI UART #0 */
-+    {
-+        .vendor_id = PCI_VENDOR_ID_INTEL,
-+        .dev_id = 0x43a8,
-+        .param = param_intel_lpss
-+    },
-+    /* Intel Corp. TGL-H LPSS PCI UART #1 */
-+    {
-+        .vendor_id = PCI_VENDOR_ID_INTEL,
-+        .dev_id = 0x43a9,
-+        .param = param_intel_lpss
-+    },
-+    /* Intel Corp. TGL-H LPSS PCI UART #2 */
-+    {
-+        .vendor_id = PCI_VENDOR_ID_INTEL,
-+        .dev_id = 0x43a7,
-+        .param = param_intel_lpss
-+    },
-+    /* Intel Corp. ADL-P LPSS PCI UART #0 */
-+    {
-+        .vendor_id = PCI_VENDOR_ID_INTEL,
-+        .dev_id = 0x51a8,
-+        .param = param_intel_lpss
-+    },
-+    /* Intel Corp. ADL-P LPSS PCI UART #1 */
-+    {
-+        .vendor_id = PCI_VENDOR_ID_INTEL,
-+        .dev_id = 0x51a9,
-+        .param = param_intel_lpss
-+    },
-+    /* Intel Corp. ADL-P LPSS PCI UART #2 */
-+    {
-+        .vendor_id = PCI_VENDOR_ID_INTEL,
-+        .dev_id = 0x51c7,
-+        .param = param_intel_lpss
-+    },
-+    /* Intel Corp. ADL-P LPSS PCI UART #3 */
-+    {
-+        .vendor_id = PCI_VENDOR_ID_INTEL,
-+        .dev_id = 0x51da,
-+        .param = param_intel_lpss
-+    },
-+    /* Intel Corp. ADL-S LPSS PCI UART #0 */
-+    {
-+        .vendor_id = PCI_VENDOR_ID_INTEL,
-+        .dev_id = 0x7aa8,
-+        .param = param_intel_lpss
-+    },
-+    /* Intel Corp. ADL-S LPSS PCI UART #1 */
-+    {
-+        .vendor_id = PCI_VENDOR_ID_INTEL,
-+        .dev_id = 0x7aa9,
-+        .param = param_intel_lpss
-+    },
-+    /* Intel Corp. ADL-S LPSS PCI UART #2 */
-+    {
-+        .vendor_id = PCI_VENDOR_ID_INTEL,
-+        .dev_id = 0x7afe,
-+        .param = param_intel_lpss
-+    },
-+    /* Intel Corp. ADL-S LPSS PCI UART #3 */
-+    {
-+        .vendor_id = PCI_VENDOR_ID_INTEL,
-+        .dev_id = 0x7adc,
-+        .param = param_intel_lpss
-+    },
- };
- 
- static int __init
--- 
-2.35.1
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
+version targeted for testing:
+ ovmf                 0e31124877cc8bc0140a03ad3196f0d58b2fd966
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   71 days
+Failing since        168258  2022-03-01 01:55:31 Z   70 days  916 attempts
+Testing same since   170272  2022-05-09 15:12:57 Z    1 days   20 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chao Li <lichao@loongson.cn>
+  Chao, Zhuoran <zhuoran.chao@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Christine <Yuwei.Chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  duntan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Gua Guo <gua.guo@intel.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jake Garver <jake@nvidia.com>
+  Jake Garver via groups.io <jake=nvidia.com@groups.io>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Jiewen Yao <jiewen.yao@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Peter Grehan <grehan@freebsd.org>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yu Pu <yu.pu@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Yuwei Chen <yuwei.chen@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+  Zhuoran Chao <zhuoran.chao@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 6200 lines long.)
 
