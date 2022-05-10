@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B7505220FA
-	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 18:18:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.325867.548630 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 994E6522103
+	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 18:18:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.325873.548642 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noSYm-000434-RD; Tue, 10 May 2022 16:18:04 +0000
+	id 1noSZW-0004d8-55; Tue, 10 May 2022 16:18:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 325867.548630; Tue, 10 May 2022 16:18:04 +0000
+Received: by outflank-mailman (output) from mailman id 325873.548642; Tue, 10 May 2022 16:18:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noSYm-00040h-Ng; Tue, 10 May 2022 16:18:04 +0000
-Received: by outflank-mailman (input) for mailman id 325867;
- Tue, 10 May 2022 16:18:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=F+UO=VS=igalia.com=gpiccoli@srs-se1.protection.inumbo.net>)
- id 1noSYj-00040P-EW
- for xen-devel@lists.xenproject.org; Tue, 10 May 2022 16:18:04 +0000
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c1a85d54-d07c-11ec-8fc4-03012f2f19d4;
- Tue, 10 May 2022 18:17:59 +0200 (CEST)
-Received: from [177.183.162.244] (helo=[192.168.0.5])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1noSY8-0008UD-Jz; Tue, 10 May 2022 18:17:24 +0200
+	id 1noSZW-0004aH-1j; Tue, 10 May 2022 16:18:50 +0000
+Received: by outflank-mailman (input) for mailman id 325873;
+ Tue, 10 May 2022 16:18:48 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1noSZU-0004a3-9M
+ for xen-devel@lists.xenproject.org; Tue, 10 May 2022 16:18:48 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1noSZT-0001ZM-Ig; Tue, 10 May 2022 16:18:47 +0000
+Received: from [54.239.6.189] (helo=[192.168.24.150])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1noSZT-0000gK-CC; Tue, 10 May 2022 16:18:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,108 +39,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1a85d54-d07c-11ec-8fc4-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=DG+kC/U+ySej5D6tfV4OCa8YH0d8ESpuNC4bFJt4RU8=; b=C2KkFYKUIxmXZpa9w2+Tc0j2Ea
-	RFFr76ch465vsOUiMZW1uqZNDnhRYy0QqpFeaougTFG9GOX2EvcKO8NnFtvJdvaTDSvmTGm5I6bLE
-	gx/SYLZAEuVfjx7NJeu1tB8cieKdzixVjql/phg2ZRqRsu9xZgqdP1nbzw6Nv7UUXN3Dua0weQYl6
-	+N3ACyNpHY020LPMtgokauBK3/rzBv0qIzP0VJEueNDPsJdk0Noe60ugWXyfyRTapgsSXBPVXAg4/
-	oobDhrEfQYteiYAwrodL1TGkVGLJREzPqDYfYYN3sh0JBT6vnlq6trf1vxZCJI19NPJiA+YiSFKJe
-	qkMs6K7A==;
-Message-ID: <244a412c-4589-28d1-bb77-d3648d4f0b12@igalia.com>
-Date: Tue, 10 May 2022 13:16:54 -0300
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=5hIBuWjHB89ohdv+iWOwRiZQUYeICQW1Fi3o0A9eY8g=; b=cdTP4QXoCa+r/HvkPRFizRNyb0
+	qHjynnoiGE8jYcbFtZv9gzDL6G7Sj1GpIu57YmTE0rx1L/jkd1hjnP62F/5ZdAJIF30XyXvGC1DtT
+	1bDIOzMY6ot2gsv/SBoKinY4CsOile9S8BZF4x4bD4YwyCeXNHkHOd7QeA0YOXq2liZQ=;
+Message-ID: <f6762960-3fae-91a4-758d-4b85f018be9e@xen.org>
+Date: Tue, 10 May 2022 17:18:44 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [PATCH 14/30] panic: Properly identify the panic event to the
- notifiers' callbacks
-Content-Language: en-US
-To: Petr Mladek <pmladek@suse.com>
-Cc: akpm@linux-foundation.org, bhe@redhat.com, kexec@lists.infradead.org,
- linux-kernel@vger.kernel.org, bcm-kernel-feedback-list@broadcom.com,
- linuxppc-dev@lists.ozlabs.org, linux-alpha@vger.kernel.org,
- linux-edac@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-mips@vger.kernel.org,
- linux-parisc@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-um@lists.infradead.org,
- linux-xtensa@linux-xtensa.org, netdev@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net, rcu@vger.kernel.org,
- sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org,
- kernel-dev@igalia.com, kernel@gpiccoli.net, halves@canonical.com,
- fabiomirmar@gmail.com, alejandro.j.jimenez@oracle.com,
- andriy.shevchenko@linux.intel.com, arnd@arndb.de, bp@alien8.de,
- corbet@lwn.net, d.hatayama@jp.fujitsu.com, dave.hansen@linux.intel.com,
- dyoung@redhat.com, feng.tang@intel.com, gregkh@linuxfoundation.org,
- mikelley@microsoft.com, hidehiro.kawai.ez@hitachi.com, jgross@suse.com,
- john.ogness@linutronix.de, keescook@chromium.org, luto@kernel.org,
- mhiramat@kernel.org, mingo@redhat.com, paulmck@kernel.org,
- peterz@infradead.org, rostedt@goodmis.org, senozhatsky@chromium.org,
- stern@rowland.harvard.edu, tglx@linutronix.de, vgoyal@redhat.com,
- vkuznets@redhat.com, will@kernel.org
-References: <20220427224924.592546-1-gpiccoli@igalia.com>
- <20220427224924.592546-15-gpiccoli@igalia.com> <YnqBsXBImU64PAOL@alley>
-From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-In-Reply-To: <YnqBsXBImU64PAOL@alley>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.9.0
+Subject: Re: [PATCH v3 1/6] xen: implement byteswap
+To: =?UTF-8?B?TGluIExpdSDvvIjliJjmnpfvvIk=?= <lin.liu@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>
+References: <cover.1652170719.git.lin.liu@citrix.com>
+ <2699787cd4ba1d71448bbcdf190d927e180e80b9.1652170719.git.lin.liu@citrix.com>
+ <11269227-ba07-b2b1-c2ef-ea6309980f67@xen.org>
+ <SJ0PR03MB540509C0FCD040A3680DE3799DC99@SJ0PR03MB5405.namprd03.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <SJ0PR03MB540509C0FCD040A3680DE3799DC99@SJ0PR03MB5405.namprd03.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 10/05/2022 12:16, Petr Mladek wrote:
-> [...]
-> Hmm, this looks like a hack. PANIC_UNUSED will never be used.
-> All notifiers will be always called with PANIC_NOTIFIER.
+
+
+On 10/05/2022 13:10, Lin Liu （刘林） wrote:
+> On 10/05/2022 11:15, Lin Liu wrote:
+>> swab() is massively over complicated and can be simplified by builtins.
 > 
-> The @val parameter is normally used when the same notifier_list
-> is used in different situations.
+> NIT: "by builtins" -> "by re-implementing using compiler builtins".
 > 
-> But you are going to use it when the same notifier is used
-> in more lists. This is normally distinguished by the @nh
-> (atomic_notifier_head) parameter.
+>> The compilers provide builtin function to swap bytes.
+>> * gcc:   https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgcc.gnu.org%2Fonlinedocs%2Fgcc%2FOther-Builtins.html&amp;data=05%7C01%7Clin.liu%40citrix.com%7Ce0b3d98d7f8d47b8fe8708da3275afcd%7C335836de42ef43a2b145348c2ee9ca5b%7C0%7C0%7C637877778294067911%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=HDTF1LDJcD2PLSCuM%2FjIz%2FWGf1CrYk0e%2FLox22%2FXnvQ%3D&amp;reserved=0
+>> * clang: https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fclang.llvm.org%2Fdocs%2FLanguageExtensions.html&amp;data=05%7C01%7Clin.liu%40citrix.com%7Ce0b3d98d7f8d47b8fe8708da3275afcd%7C335836de42ef43a2b145348c2ee9ca5b%7C0%7C0%7C637877778294067911%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=EvWcLMi2vtT9haQVo%2F9uXmjBh2zVLUzZAgU57i%2FFMNo%3D&amp;reserved=0
+>> This patch simplify swab() with builtins and fallback for old compilers.
+>>
+>> Signed-off-by: Lin Liu <lin.liu@citrix.com>
+>> ---
+>> Cc: Stefano Stabellini <sstabellini@kernel.org>
+>> Cc: Julien Grall <julien@xen.org>
+>> Cc: Bertrand Marquis <bertrand.marquis@arm.com>
+>> Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+>> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Cc: George Dunlap <george.dunlap@citrix.com>
+>> Cc: Jan Beulich <jbeulich@suse.com>
+>> Cc: Wei Liu <wl@xen.org>
+>> Cc: "Roger Pau Monné" <roger.pau@citrix.com>
+>> Changes in v3:
+>> - Check __has_builtin instead of GNUC version
+>>
+>> Changes in v2:
+>> - Add fallback for compilers without __builtin_bswap
+>> - Implement with plain C instead of macros
+>> ---
+>>    xen/arch/arm/include/asm/byteorder.h | 14 ++-----
+>>    xen/arch/x86/include/asm/byteorder.h | 34 ++---------------
+>>    xen/include/xen/byteorder.h          | 56 ++++++++++++++++++++++++++++
+>>    xen/include/xen/byteswap.h           | 44 ++++++++++++++++++++++
+>>    xen/include/xen/compiler.h           | 12 ++++++
+>>    5 files changed, 120 insertions(+), 40 deletions(-)
+>>    create mode 100644 xen/include/xen/byteorder.h
+>>    create mode 100644 xen/include/xen/byteswap.h
+>>
+>> diff --git a/xen/arch/arm/include/asm/byteorder.h b/xen/arch/arm/include/asm/byteorder.h
+>> index 9c712c4788..622eeaba07 100644
+>> --- a/xen/arch/arm/include/asm/byteorder.h
+>> +++ b/xen/arch/arm/include/asm/byteorder.h
+>> @@ -1,16 +1,10 @@
+>>    #ifndef __ASM_ARM_BYTEORDER_H__
+>>    #define __ASM_ARM_BYTEORDER_H__
+>>
+>> -#define __BYTEORDER_HAS_U64__
+>> +#ifndef __BYTE_ORDER__
+>> +   #define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__
+>> +#endif
+>>
+>> -#include <xen/byteorder/little_endian.h>
+>> +#include <xen/byteorder.h>
+>>
+>>    #endif /* __ASM_ARM_BYTEORDER_H__ */
+>> -/*
+>> - * Local variables:
+>> - * mode: C
+>> - * c-file-style: "BSD"
+>> - * c-basic-offset: 4
+>> - * indent-tabs-mode: nil
+>> - * End:
+>> - */
 > 
-> IMHO, it is a bad idea. First, it would confuse people because
-> it does not follow the original design of the parameters.
-> Second, the related code must be touched anyway when
-> the notifier is moved into another list so it does not
-> help much.
+>>> This change looks unrelated to this patch. Can you explain it?
 > 
-> Or do I miss anything, please?
-> 
-> Best Regards,
-> Petr
+> Do you mean following code block? Yes, it is unrelated, I removed it as I found some files does not include such field.
 
-Hi Petr, thanks for the review.
-
-I'm not strong attached to this patch, so we could drop it and refactor
-the code of next patches to use the @nh as identification - but
-personally, I feel this parameter could be used to identify the list
-that called such function, in other words, what is the event that
-triggered the callback. Some notifiers are even declared with this
-parameter called "ev", like the event that triggers the notifier.
-
-
-You mentioned 2 cases:
-
-(a) Same notifier_list used in different situations;
-
-(b) Same *notifier callback* used in different lists;
-
-Mine is case (b), right? Can you show me an example of case (a)? You can
-see in the following patches (or grep the kernel) that people are using
-this identification parameter to determine which kind of OOPS trigger
-the callback to condition the execution of the function to specific
-cases. IIUIC, this is more or less what I'm doing, but extending the
-idea for panic notifiers.
-
-Again, as a personal preference, it makes sense to me using id's VS
-comparing pointers to differentiate events/callers.
+So in general we try to avoid unrelated change within a same patch. In 
+this case, the emacs magic should be present in the files rather than 
+the other way around.
 
 Cheers,
 
-
-Guilherme
+-- 
+Julien Grall
 
