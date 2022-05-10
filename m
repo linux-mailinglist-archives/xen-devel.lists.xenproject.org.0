@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ADFF520D9F
-	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 08:07:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.325196.547706 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6630520DB2
+	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 08:20:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.325228.547717 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noJ25-0003Wb-Ve; Tue, 10 May 2022 06:07:41 +0000
+	id 1noJDw-0005OI-7M; Tue, 10 May 2022 06:19:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 325196.547706; Tue, 10 May 2022 06:07:41 +0000
+Received: by outflank-mailman (output) from mailman id 325228.547717; Tue, 10 May 2022 06:19:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noJ25-0003TM-SW; Tue, 10 May 2022 06:07:41 +0000
-Received: by outflank-mailman (input) for mailman id 325196;
- Tue, 10 May 2022 06:07:40 +0000
+	id 1noJDw-0005LM-4Q; Tue, 10 May 2022 06:19:56 +0000
+Received: by outflank-mailman (input) for mailman id 325228;
+ Tue, 10 May 2022 06:19:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+NA3=VS=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1noJ24-0003TA-3o
- for xen-devel@lists.xen.org; Tue, 10 May 2022 06:07:40 +0000
-Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
- [2607:f8b0:4864:20::1036])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=91Tp=VS=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1noJDu-0005LB-6R
+ for xen-devel@lists.xenproject.org; Tue, 10 May 2022 06:19:54 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7e557d2b-d027-11ec-a406-831a346695d4;
- Tue, 10 May 2022 08:07:39 +0200 (CEST)
-Received: by mail-pj1-x1036.google.com with SMTP id
- cx11-20020a17090afd8b00b001d9fe5965b3so1181120pjb.3
- for <xen-devel@lists.xen.org>; Mon, 09 May 2022 23:07:39 -0700 (PDT)
-Received: from localhost ([122.162.234.2]) by smtp.gmail.com with ESMTPSA id
- v68-20020a626147000000b0050dc762814asm9701843pfb.36.2022.05.09.23.07.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 May 2022 23:07:37 -0700 (PDT)
+ id 34022310-d029-11ec-a406-831a346695d4;
+ Tue, 10 May 2022 08:19:53 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 5CCF51FA35;
+ Tue, 10 May 2022 06:19:52 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3906613AC1;
+ Tue, 10 May 2022 06:19:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id OpAxCwgEemL5WQAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 10 May 2022 06:19:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,78 +51,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e557d2b-d027-11ec-a406-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:user-agent;
-        bh=Diw5Bh3G0TJTjkhyoZQxR6xkH7Og/Lu6z99GDbmvy04=;
-        b=MpNjXlUgWOtNvz6qvoE0hxclMe0DKfuZiD/e487Jbwo4RGtZPASb/jIp+oihmB6/xR
-         NPfyQGw7LjlFy5hr+N3GN9EbU0ppVNTE5X5ITEA0PGGr7j0mlpnsfq4SvQ+hbp7EJeYQ
-         lal9PBdpkPfrgaWroQSH6+yHNmJtmFV6P1OnAKaN5CSGlf/9Ay5CaOPOnm+sRgdmRupe
-         Ad526SwQg8dLz9TLy6luRocMPV3Gu/flx2z3v0yw8bPfb11DOY7qG9Vyj4JPJuG1vM3T
-         alxWIEXH4qdDR1Den4ytNIfAnqc96MFk7uk3W7dJH07AI2SUnKHqrM/+Z8XG+ES4xgrr
-         +HRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=Diw5Bh3G0TJTjkhyoZQxR6xkH7Og/Lu6z99GDbmvy04=;
-        b=VblUlYe4UwoSl1QsP5bOLuyisffAIeLbtsgFJvg5LeFFFTqLyzaYsDJgxqOKG5D4qr
-         UE3iqVBP14doO4bKfD2SKPmXbxjtotZmOV6SdbCthdGmMZsejMVrcgPmrH+h9kfC2JSQ
-         r2hFNeCB2Sg7x+gVk2L0gr//iZq8AK8sEKLMHPWLWd21+kENIC6LnzCiCUNbkSZVNWiD
-         BuztO1n5D06qCDippYPZTpn3UV270e04PVprigWQX9fA9wm3/7CYHxYojKCeT3+g22iM
-         1HUvdzlpm1b2x7An3CKzXWiC6oHKx/6aPZoEzTUO6/RZuBPzT6KAZLhdC6kpsXcEw/Xq
-         QVag==
-X-Gm-Message-State: AOAM5315gLvHgallWVrPe9LosPhLIO+x2kfDc5SXGzEwoX8ei7PSuPLo
-	sfzxXljS28DW00Nxmmv7EZcVnegRg11XSg==
-X-Google-Smtp-Source: ABdhPJwrIZZzL3t2mvNWJBPDziqpnvOys/Ln2P3htx1jXNbh07hDxY3rInmqmzJqTg8ZpXFrJ2Nkow==
-X-Received: by 2002:a17:902:da90:b0:15e:adc2:191d with SMTP id j16-20020a170902da9000b0015eadc2191dmr19157565plx.134.1652162857909;
-        Mon, 09 May 2022 23:07:37 -0700 (PDT)
-Date: Tue, 10 May 2022 11:37:35 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: xen-devel@lists.xen.org
-Cc: Vincent Guittot <vincent.guittot@linaro.org>,
-	stratos-dev@op-lists.linaro.org,
-	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Stefano Stabellini <stefano.stabellini@xilinx.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.com>,
-	Mike Holmes <mike.holmes@linaro.org>,
-	Oleksandr Tyshchenko <olekstysh@gmail.com>, Wei Liu <wl@xen.org>,
-	Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>
-Subject: Re: [PATCH V2 0/6] Virtio toolstack support for I2C and GPIO on Arm
-Message-ID: <20220510060735.aw5rzzj24su7cc7i@vireshk-i7>
-References: <cover.1652162646.git.viresh.kumar@linaro.org>
+X-Inumbo-ID: 34022310-d029-11ec-a406-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1652163592; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NJxgkt+9muhPnfdpekGe4J9H+bDH8Vrk2WszTx0k0QI=;
+	b=OThfI19W1LY6G7PLbWxoGywO3oi5m/ujjz52Es6h9OSKmnHDn5FxYymJBO5ON29B1wVmLx
+	pKM42HcA3ZdCsSb6AS55/PF0tIW83SWiT/vyhTedbWMT+JVmz391S/JOWC7LjsOy/IreMu
+	Bz1nyFRBxn/atNkSee1jkB5EJ/6M5Oc=
+Message-ID: <edfeb5d5-f8dc-b529-7260-d6655a53a5f4@suse.com>
+Date: Tue, 10 May 2022 08:19:51 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1652162646.git.viresh.kumar@linaro.org>
-User-Agent: NeoMutt/20180716-391-311a52
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Subject: Re: Attributing linux related patches on xen-devel
+Content-Language: en-US
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <1c5619ff-0872-8c0a-9dbd-9f419b9c957f@suse.com>
+ <alpine.DEB.2.22.394.2205091159480.43560@ubuntu-linux-20-04-desktop>
+ <15ec8f3b-7d04-9fa2-dd32-b834fb660a89@oracle.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <15ec8f3b-7d04-9fa2-dd32-b834fb660a89@oracle.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------tZgb9WAHBGfGRLFe7WVNugCV"
 
-On 10-05-22, 11:34, Viresh Kumar wrote:
-> Hello,
-> 
-> This patchset adds toolstack support for I2C and GPIO virtio devices. This is
-> inspired from the work done by Oleksandr for the Disk device [1].
-> 
-> The first two patches can be applied right away, while the last four need
-> Oleksandr's series [1] to be applied first.
-> 
-> This is developed as part of Linaro's Project Stratos, where we are working
-> towards Hypervisor agnostic Rust based backend [2].
-> 
-> I must accept that I am a beginner to Xen and developed this patchset based on
-> support for existing devices like Disk or Keyboard. There may be bits which I
-> missed or the one I added which aren't really required.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------tZgb9WAHBGfGRLFe7WVNugCV
+Content-Type: multipart/mixed; boundary="------------jKbKInT0rUtRQ8mRLOzWAQeI";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Message-ID: <edfeb5d5-f8dc-b529-7260-d6655a53a5f4@suse.com>
+Subject: Re: Attributing linux related patches on xen-devel
+References: <1c5619ff-0872-8c0a-9dbd-9f419b9c957f@suse.com>
+ <alpine.DEB.2.22.394.2205091159480.43560@ubuntu-linux-20-04-desktop>
+ <15ec8f3b-7d04-9fa2-dd32-b834fb660a89@oracle.com>
+In-Reply-To: <15ec8f3b-7d04-9fa2-dd32-b834fb660a89@oracle.com>
 
-Missed adding version history:
+--------------jKbKInT0rUtRQ8mRLOzWAQeI
+Content-Type: multipart/mixed; boundary="------------Ih2Hr9Z8Xk24Ttq0JJmFcIUE"
 
-V1->V2:
-- Patches 3/6 and 4/6 are new.
-- Patches 5/6 and 6/6 updated based on the above two patches.
-- Added link to the bindings for I2C and GPIO.
-- Rebased over latest master branch.
+--------------Ih2Hr9Z8Xk24Ttq0JJmFcIUE
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
--- 
-viresh
+T24gMDkuMDUuMjIgMjE6MzUsIEJvcmlzIE9zdHJvdnNreSB3cm90ZToNCj4gDQo+IE9uIDUv
+OS8yMiAzOjAxIFBNLCBTdGVmYW5vIFN0YWJlbGxpbmkgd3JvdGU6DQo+PiBPbiBNb24sIDkg
+TWF5IDIwMjIsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+Pj4gT24gSVJDIHRoZSBxdWVzdGlv
+biBjYW1lIHVwIHdoZXRoZXIgaXQgd291bGQgYmUgcG9zc2libGUgdG8gaGF2ZSBhDQo+Pj4g
+c3BlY2lhbCBtYXJrZXIgZm9yIExpbnV4IHBhdGNoZXMgb24gdGhlIHhlbi1kZXZlbCBNTC4N
+Cj4+Pg0KPj4+IEkgc3VnZ2VzdGVkIHRvIHVzZSB4ZW4tZGV2ZWwrbGludXhAbGlzdHMueGVu
+cHJvamV4dC5vcmcgZm9yIHRob3NlDQo+Pj4gcGF0Y2hlcy4gV2l0aCBhIHBhdGNoIGZvciB0
+aGUga2VybmVsJ3MgTUFJTlRBSU5FUlMgZmlsZSB0aGlzIHdvdWxkDQo+Pj4gYmUgcXVpdGUg
+ZWFzeSB0byBhY2hpZXZlLg0KPj4+DQo+Pj4gQW55IHRob3VnaHRzPw0KPj4gRmluZSBieSBt
+ZSwgYXMgbG9uZyBhcyB4ZW4tZGV2ZWwrbGludXhAbGlzdHMueGVucHJvamV4dC5vcmcgd29y
+a3MgOi0pDQo+Pg0KPj4gVGhlIGFsdGVybmF0aXZlIHdvdWxkIGJlIHRvIGNvbWUgdXAgd2l0
+aCBhIGRpZmZlcmVudCBzdWJqZWN0IHRhZyAoZS5nLg0KPj4gIlBBVENIIExJTlVYIikgYnV0
+IHRoYXQgZG9lc24ndCB3b3JrIGFzIGl0IGlzIG5vdCBzdXBwb3J0ZWQgYnkgdG9kYXkncw0K
+Pj4gTGludXggTUFJTlRBSU5FUlMgZmlsZS4NCj4+DQo+PiBTbyBJIHRoaW5rIHhlbi1kZXZl
+bCtsaW51eCBpcyBmaW5lLg0KPiANCj4gDQo+IA0KPiBJJ2QgcHJlZmVyICctJyBpbnN0ZWFk
+IG9mICcrJyBidXQgZWl0aGVyIHdheSBpcyBmaW5lLg0KDQpNeSBzdWdnZXN0aW9uIHdhcyBi
+YXNlZCBvbiBSRkMtNTIzMzoNCg0KaHR0cHM6Ly9kYXRhdHJhY2tlci5pZXRmLm9yZy9kb2Mv
+aHRtbC9yZmM1MjMzDQoNCg0KSnVlcmdlbg0K
+--------------Ih2Hr9Z8Xk24Ttq0JJmFcIUE
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------Ih2Hr9Z8Xk24Ttq0JJmFcIUE--
+
+--------------jKbKInT0rUtRQ8mRLOzWAQeI--
+
+--------------tZgb9WAHBGfGRLFe7WVNugCV
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmJ6BAcFAwAAAAAACgkQsN6d1ii/Ey95
+lwf/QRkMu0lkA6+O8VPhDwA2p3EDgSHk/5EbuD7P1/ASohor5WgqpCmhvwsG/CH1a2o1pHH0NvVs
+qYelGcQsUwcukfn09cNG/2GGiOuuja0lHKwc87jRZvZldES7WrXrK3RFnBkiyCKOF+s5usCgPzeL
+fTxQfBlBo/9CHrsdWr0GHboPq4JG0rvX486NpplfOtuEpwetgsKvlmQ+7Sp/N2jkCkqUweFQLP5D
+xGesDwF8wwg8pDpTrvWyNMHBH4RMpNMsxyU+zL6fWn7nsOCe07J1IrKVdE1g340aYqcUxGSxg4rh
+Vm3PFpP5WZIokNaHZRbB0HC5QMeTUlDSq0GLyaLJ4Q==
+=iVrZ
+-----END PGP SIGNATURE-----
+
+--------------tZgb9WAHBGfGRLFe7WVNugCV--
 
