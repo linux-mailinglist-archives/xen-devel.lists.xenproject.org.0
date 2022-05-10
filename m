@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC5FA520E27
-	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 08:52:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.325252.547750 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 022F4520E5F
+	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 09:31:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.325262.547762 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noJjE-0002rD-9B; Tue, 10 May 2022 06:52:16 +0000
+	id 1noKK2-0007Zi-9y; Tue, 10 May 2022 07:30:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 325252.547750; Tue, 10 May 2022 06:52:16 +0000
+Received: by outflank-mailman (output) from mailman id 325262.547762; Tue, 10 May 2022 07:30:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noJjE-0002o2-5h; Tue, 10 May 2022 06:52:16 +0000
-Received: by outflank-mailman (input) for mailman id 325252;
- Tue, 10 May 2022 06:52:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pA66=VS=arm.com=michal.orzel@srs-se1.protection.inumbo.net>)
- id 1noJjC-0002nw-FE
- for xen-devel@lists.xenproject.org; Tue, 10 May 2022 06:52:14 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id b2236eb0-d02d-11ec-8fc4-03012f2f19d4;
- Tue, 10 May 2022 08:52:02 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D0EE513D5;
- Mon,  9 May 2022 23:52:12 -0700 (PDT)
-Received: from [10.57.3.29] (unknown [10.57.3.29])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 118063F73D;
- Mon,  9 May 2022 23:52:10 -0700 (PDT)
+	id 1noKK2-0007Ww-4z; Tue, 10 May 2022 07:30:18 +0000
+Received: by outflank-mailman (input) for mailman id 325262;
+ Tue, 10 May 2022 07:30:16 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1noKK0-0007Wm-38; Tue, 10 May 2022 07:30:16 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1noKK0-0007qI-1N; Tue, 10 May 2022 07:30:16 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1noKJz-0001Jw-Lm; Tue, 10 May 2022 07:30:15 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1noKJz-0006nh-LN; Tue, 10 May 2022 07:30:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,71 +42,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2236eb0-d02d-11ec-8fc4-03012f2f19d4
-Message-ID: <bdf5ed51-0ec4-ca3f-897a-40cfbabcc4c2@arm.com>
-Date: Tue, 10 May 2022 08:52:04 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=BRFVuxgOS7b8LpUDw2zAYtw3M9wtguF2+NrqaI0OAZE=; b=H4A9OHfNn6Yr3mxZFglhWRiXyp
+	o0MltiOx5puXDxBEC96LmBm9uhSLBS8S2IT5yjmV11rMRaSvQ1f3uwDPvRPGjHRSkl86OIyK+a2qX
+	d7nPEZ+ymjG2PIRh8kC+iSFgqD0w6XYwxWgYOnVjQxFg9VYSM7h7lsWYdSZ1EqnXDfUY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-170289-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [PATCH v2 1/2] xen/arm: gnttab: use static inlines for
- gnttab_{release_}host_mapping*
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20220506094225.181815-1-michal.orzel@arm.com>
- <20220506094225.181815-2-michal.orzel@arm.com>
- <c7366893-c4fc-dd53-3b20-828e67cc5b91@suse.com>
-From: Michal Orzel <michal.orzel@arm.com>
-In-Reply-To: <c7366893-c4fc-dd53-3b20-828e67cc5b91@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 170289: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=0e31124877cc8bc0140a03ad3196f0d58b2fd966
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 10 May 2022 07:30:15 +0000
 
-Hi Jan,
+flight 170289 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/170289/
 
-On 06.05.2022 12:03, Jan Beulich wrote:
-> On 06.05.2022 11:42, Michal Orzel wrote:
->> Function unmap_common_complete (common/grant_table.c) defines and sets
->> a variable ld that is later on passed to a macro:
->> gnttab_host_mapping_get_page_type().
->> On Arm this macro does not make use of any arguments causing a compiler
->> to warn about unused-but-set variable (when -Wunused-but-set-variable
->> is enabled). Fix it by converting this macro to a static inline
->> helper and using the boolean return type.
->>
->> While there, also convert macro gnttab_release_host_mappings.
->>
->> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> 
-> This R-b applies only ...
-> 
->> --- a/xen/arch/arm/include/asm/grant_table.h
->> +++ b/xen/arch/arm/include/asm/grant_table.h
->> @@ -29,12 +29,22 @@ static inline void gnttab_mark_dirty(struct domain *d, mfn_t mfn)
->>  #endif
->>  }
->>  
->> +static inline bool gnttab_host_mapping_get_page_type(const bool ro,
-> 
-> ... with this const dropped again. As said elsewhere, while not
-> technically wrong we don't normally do so elsewhere, and this ends
-> up inconsistent with ...
-> 
->> +                                                     const struct domain *ld,
->> +                                                     const struct domain *rd)
-> 
-> ... there being just a single const here.
-> 
-> Jan
-> 
+Regressions :-(
 
-Do you have any remarks related to the second patch in this series?
-If yes, I will handle removal of const in the next version.
-If not, Julien said in v1 that this can be handled on commit.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
 
-Cheers,
-Michal
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 0e31124877cc8bc0140a03ad3196f0d58b2fd966
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   70 days
+Failing since        168258  2022-03-01 01:55:31 Z   70 days  907 attempts
+Testing same since   170272  2022-05-09 15:12:57 Z    0 days   11 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chao Li <lichao@loongson.cn>
+  Chao, Zhuoran <zhuoran.chao@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Christine <Yuwei.Chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  duntan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Gua Guo <gua.guo@intel.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jake Garver <jake@nvidia.com>
+  Jake Garver via groups.io <jake=nvidia.com@groups.io>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Jiewen Yao <jiewen.yao@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Peter Grehan <grehan@freebsd.org>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yu Pu <yu.pu@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Yuwei Chen <yuwei.chen@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+  Zhuoran Chao <zhuoran.chao@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 6200 lines long.)
 
