@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23DB75211F8
-	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 12:16:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.325336.547872 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B7705212C3
+	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 12:51:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.325385.547933 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noMuJ-0005Oh-MO; Tue, 10 May 2022 10:15:55 +0000
+	id 1noNSB-0004wm-2e; Tue, 10 May 2022 10:50:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 325336.547872; Tue, 10 May 2022 10:15:55 +0000
+Received: by outflank-mailman (output) from mailman id 325385.547933; Tue, 10 May 2022 10:50:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noMuJ-0005Iy-G8; Tue, 10 May 2022 10:15:55 +0000
-Received: by outflank-mailman (input) for mailman id 325336;
- Tue, 10 May 2022 10:15:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JkLT=VS=citrix.com=prvs=122513738=lin.liu@srs-se1.protection.inumbo.net>)
- id 1noMuI-000561-9M
- for xen-devel@lists.xenproject.org; Tue, 10 May 2022 10:15:54 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2c2a401e-d04a-11ec-a406-831a346695d4;
- Tue, 10 May 2022 12:15:53 +0200 (CEST)
+	id 1noNSA-0004tw-Vm; Tue, 10 May 2022 10:50:54 +0000
+Received: by outflank-mailman (input) for mailman id 325385;
+ Tue, 10 May 2022 10:50:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=VXvK=VS=srcf.net=amc96@srs-se1.protection.inumbo.net>)
+ id 1noNSA-0004tq-3x
+ for xen-devel@lists.xenproject.org; Tue, 10 May 2022 10:50:54 +0000
+Received: from ppsw-31.csi.cam.ac.uk (ppsw-31.csi.cam.ac.uk [131.111.8.131])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0ece334d-d04f-11ec-8fc4-03012f2f19d4;
+ Tue, 10 May 2022 12:50:51 +0200 (CEST)
+Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:47088)
+ by ppsw-31.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.137]:25)
+ with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+ id 1noNS0-000Sjz-K5 (Exim 4.95) (return-path <amc96@srcf.net>);
+ Tue, 10 May 2022 11:50:44 +0100
+Received: from [192.168.1.10] (host-92-26-109-251.as13285.net [92.26.109.251])
+ (Authenticated sender: amc96)
+ by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id DF8C51FA59;
+ Tue, 10 May 2022 11:50:43 +0100 (BST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,83 +45,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c2a401e-d04a-11ec-a406-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1652177753;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=vAwEG8ep7queso8cVxSz5fAnFQyJV9WnYmQA5HibJZQ=;
-  b=gqC1vIksuqG7vDX2TFXtryrua+qX9mYL2qQFyS9HhyZW1G8ZHx0KoOZE
-   4AjuGs8QsC+1Rfe8zDuFaBrU4UT5NEHWaqnKXPBGRqCp2snc/ZXQid5pD
-   HbCLJpJbKI8qLBLbFPFSg7FtRWOSOnHE4SuZDU1gVbezkO8nK6qGpzYcj
-   0=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 70954410
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:97wGWqkTf3tYqL35HcatMPHo5gzhJkRdPkR7XQ2eYbSJt1+Wr1Gzt
- xIdXDiAafaJMGLwLo8nad61oUIPvpWHyNRqHVNtqHpgQyMWpZLJC+rCIxarNUt+DCFioGGLT
- Sk6QoOdRCzhZiaE/n9BCpC48T8kk/vgqoPUUIYoAAgoLeNfYHpn2EsLd9IR2NYy24DkWlvV4
- 7senuWEULOb828sWo4rw/rrRCNH5JwebxtB4zTSzdgS1LPvvyF94KA3fMldHFOhKmVgJcaoR
- v6r8V2M1jixEyHBqD+Suu2TnkUiGtY+NOUV45Zcc/DKbhNq/kTe3kunXRa1hIg+ZzihxrhMJ
- NtxWZOYYhp1EKGQm/Ukb0d7HAclOZ1KpeHLCC3q2SCT5xWun3rExvxvCAc9PJEC+/YxCmZLn
- RAaAGlTNFbZ3bvwme/lDLk37iggBJCD0Ic3vnBmizXYEN4tQIzZQrWM7thdtNs1rp8WTKuCO
- 5NBAdZpRBDPRyxxCl4RNKkvsuiNgnX1IgF68XvA8MLb5ECMlVcsgdABKuH9eNOQQt5Otl2Fv
- W+A9GP8ajkFMPSPxDzD9Wij7sffkCW+VI8MGbmQ8v9xnEbV1mEVEAcRV1awvb++kEHWZj5EA
- xVKoGx09/F0rRH1CImmN/GlnJKaljUBB/RcT+4r0T3T6aXyuAKpCjVaQhcUPbTKq/QKbTAt0
- 1aImfbgCjpurKCZRBqhy1uEkd+hEXNLdDFfPEfoWSNAuoC++99r0nojW/45SMaIYsvJ9SYcK
- txghAw3nP0tgMECzM1XFniX0mv39vAlouPYjzg7v15JDCskPeZJhKTysDA3CMqsy67DFzG8U
- IAswZT20Qz3JcjleNaxaOsMBqq1wP2OLSfRh1Vid7F4qWn3oiT6ItAAvGkjTKuMDirjUWWyC
- HI/RCsLvMMDVJdURfEfj32N5zQCkvG7SIWNugH8ZdtSeJlhHDJrDwk1DXN8K1vFyRB2+YlmY
- M/zWZ/1UR4yVPU8pBLrFrh17FPe7n1nrY8lbcujn0rPPHv3TCP9dIrpx3PUML9jsPPf8FW9H
- hQ2H5Li9iizmdbWOkH/mbP/53hQRZTnLfgac/BqS9M=
-IronPort-HdrOrdr: A9a23:7Iquia4cpNTL9TfGrAPXwPDXdLJyesId70hD6qhwISY6TiX+rb
- HJoB17726NtN9/YhEdcLy7VJVoBEmskKKdgrNhWotKPjOW21dARbsKheCJrgEIWReOktK1vZ
- 0QCpSWY+eQMbEVt6nHCXGDYrQd/OU=
-X-IronPort-AV: E=Sophos;i="5.91,214,1647316800"; 
-   d="scan'208";a="70954410"
-From: Lin Liu <lin.liu@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Lin Liu <lin.liu@citrix.com>, Wei Liu <wl@xen.org>, Anthony PERARD
-	<anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>
-Subject: [PATCH v3 6/6] tools: Remove unnecessary header
-Date: Tue, 10 May 2022 06:15:24 -0400
-Message-ID: <e6e161b23ad9860972a9af2e7dfa61ce1f0cacda.1652170719.git.lin.liu@citrix.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <cover.1652170719.git.lin.liu@citrix.com>
-References: <cover.1652170719.git.lin.liu@citrix.com>
+X-Inumbo-ID: 0ece334d-d04f-11ec-8fc4-03012f2f19d4
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
+Message-ID: <f117f4c3-4c70-c0de-3933-84f436ce74f7@srcf.net>
+Date: Tue, 10 May 2022 11:50:43 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Content-Language: en-GB
+To: Lin Liu <lin.liu@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <cover.1652170719.git.lin.liu@citrix.com>
+ <2699787cd4ba1d71448bbcdf190d927e180e80b9.1652170719.git.lin.liu@citrix.com>
+From: Andrew Cooper <amc96@srcf.net>
+Subject: Re: [PATCH v3 1/6] xen: implement byteswap
+In-Reply-To: <2699787cd4ba1d71448bbcdf190d927e180e80b9.1652170719.git.lin.liu@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 
-xen/byteorder/little_endian.h is included but not used, Remove it.
+On 10/05/2022 11:15, Lin Liu wrote:
+> swab() is massively over complicated and can be simplified by builtins.
+> The compilers provide builtin function to swap bytes.
+> * gcc:   https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html
+> * clang: https://clang.llvm.org/docs/LanguageExtensions.html
+> This patch simplify swab() with builtins and fallback for old compilers.
 
-No functional change.
+Arguably, this patch introduces a new byteswapping infrastructure in
+terms of compiler builtins and bswapXX(), so the swab() infrastructure
+can be retired.
 
-Signed-off-by: Lin Liu <lin.liu@citrix.com>
----
-Cc: Wei Liu <wl@xen.org>
-Cc: Anthony PERARD <anthony.perard@citrix.com>
-Cc: Juergen Gross <jgross@suse.com>
----
- tools/libs/guest/xg_dom_decompress_unsafe_zstd.c | 1 -
- 1 file changed, 1 deletion(-)
+> diff --git a/xen/arch/arm/include/asm/byteorder.h b/xen/arch/arm/include/asm/byteorder.h
+> index 9c712c4788..622eeaba07 100644
+> --- a/xen/arch/arm/include/asm/byteorder.h
+> +++ b/xen/arch/arm/include/asm/byteorder.h
+> @@ -1,16 +1,10 @@
+>  #ifndef __ASM_ARM_BYTEORDER_H__
+>  #define __ASM_ARM_BYTEORDER_H__
+>  
+> -#define __BYTEORDER_HAS_U64__
+> +#ifndef __BYTE_ORDER__
+> +   #define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__
+> +#endif
 
-diff --git a/tools/libs/guest/xg_dom_decompress_unsafe_zstd.c b/tools/libs/guest/xg_dom_decompress_unsafe_zstd.c
-index 01eafaaaa6..47e071574d 100644
---- a/tools/libs/guest/xg_dom_decompress_unsafe_zstd.c
-+++ b/tools/libs/guest/xg_dom_decompress_unsafe_zstd.c
-@@ -31,7 +31,6 @@ typedef uint64_t __be64;
- 
- #define __BYTEORDER_HAS_U64__
- #define __TYPES_H__ /* xen/types.h guard */
--#include "../../xen/include/xen/byteorder/little_endian.h"
- #define __ASM_UNALIGNED_H__ /* asm/unaligned.h guard */
- #include "../../xen/include/xen/unaligned.h"
- #include "../../xen/include/xen/xxhash.h"
--- 
-2.27.0
+This won't actually do what you want on GCC 4.5 or older.  You also want
 
+#ifndef __ORDER_LITTLE_ENDIAN__
+# define __ORDER_LITTLE_ENDIAN__ 1234
+#endif
+
+#ifndef __ORDER_BIG_ENDIAN__
+# define __ORDER_BIG_ENDIAN__ 4321
+#endif
+
+in compiler.h to cope with older GCC.
+
+Otherwise, LGTM.  Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+I can fix this on commit if its the only issue issue.  Otherwise, please
+correct it when posting v4.
+
+~Andrew
 
