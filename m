@@ -2,42 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FF09521F94
-	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 17:46:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.325821.548575 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DA03521FE6
+	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 17:49:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.325827.548587 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noS49-0005PY-4e; Tue, 10 May 2022 15:46:25 +0000
+	id 1noS5z-00061V-Hk; Tue, 10 May 2022 15:48:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 325821.548575; Tue, 10 May 2022 15:46:25 +0000
+Received: by outflank-mailman (output) from mailman id 325827.548587; Tue, 10 May 2022 15:48:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noS49-0005N9-1W; Tue, 10 May 2022 15:46:25 +0000
-Received: by outflank-mailman (input) for mailman id 325821;
- Tue, 10 May 2022 15:46:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1noS5z-0005yf-EY; Tue, 10 May 2022 15:48:19 +0000
+Received: by outflank-mailman (input) for mailman id 325827;
+ Tue, 10 May 2022 15:48:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=To9D=VS=citrix.com=prvs=122921be6=roger.pau@srs-se1.protection.inumbo.net>)
- id 1noS47-0005N3-BE
- for xen-devel@lists.xenproject.org; Tue, 10 May 2022 15:46:23 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 55d8d60f-d078-11ec-a406-831a346695d4;
- Tue, 10 May 2022 17:46:21 +0200 (CEST)
-Received: from mail-mw2nam12lp2045.outbound.protection.outlook.com (HELO
- NAM12-MW2-obe.outbound.protection.outlook.com) ([104.47.66.45])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 10 May 2022 11:46:18 -0400
-Received: from DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
- by DM4PR03MB6999.namprd03.prod.outlook.com (2603:10b6:8:45::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.20; Tue, 10 May
- 2022 15:46:17 +0000
-Received: from DS7PR03MB5608.namprd03.prod.outlook.com
- ([fe80::5df3:95ce:4dfd:134e]) by DS7PR03MB5608.namprd03.prod.outlook.com
- ([fe80::5df3:95ce:4dfd:134e%5]) with mapi id 15.20.5227.023; Tue, 10 May 2022
- 15:46:16 +0000
+ <SRS0=kgyf=VS=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1noS5y-0005yJ-Ak
+ for xen-devel@lists.xenproject.org; Tue, 10 May 2022 15:48:18 +0000
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9ac52ef9-d078-11ec-8fc4-03012f2f19d4;
+ Tue, 10 May 2022 17:48:17 +0200 (CEST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id EF3C85C00EE;
+ Tue, 10 May 2022 11:48:14 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Tue, 10 May 2022 11:48:14 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 10 May 2022 11:48:13 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,202 +43,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 55d8d60f-d078-11ec-a406-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1652197581;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=mJUKc4eCFATDZw+aHSODAIcVRaZfKN9/cduWFGgo5+U=;
-  b=haWRCMk8YopoRYpC7jg+fRJiM+9zY+d7NcFj/BKCRWWXPmkyKDOM2/EE
-   caBsW1eehVfadh8i1Yef9Tut5Rx0uDUp9hjdaaJa8GRy3j2kpXkAR3UnJ
-   y8H5LZ0komuce6g5I2eNnjr6Mwa0D3nyHLBNM/vEIF8ZhG9KECw/CDYIa
-   4=;
-X-IronPort-RemoteIP: 104.47.66.45
-X-IronPort-MID: 71006968
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:aLM9rK8Xu+oBSKS5RkSkDrUDvH+TJUtcMsCJ2f8bNWPcYEJGY0x3y
- 2ZJC2qOM/bZZGSmLdskPY6y8h8G7JPUztEyTVBt/iA8E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
- +1EN7Es+ehtFie0Si+Fa+Sn9T8mvU2xbuKU5NTsY0idfic5DnZ44f5fs7Rh2NQw3IHhW1nlV
- e7a+KUzBnf0g1aYDUpMg06zgEsHUCPa4W5wUvQWPJinjXeG/5UnJMt3yZKZdhMUdrJ8DO+iL
- 9sv+Znilo/vE7XBPfv++lrzWhVirrc/pmFigFIOM0SpqkAqSiDfTs/XnRfTAKtao2zhojx/9
- DlCnZDgbBoRZ5eSo+YEaz5mLC4iYupWo4aSdBBTseTLp6HHW13F5qw0SWQJZ8gf8OsxBnxS/
- /sFLjxLdgqEm++93LO8TK9rm9gnK87oeogYvxmMzxmAVapgHc+FHfuMuYIwMDQY36iiGd7EY
- MUUc3x3ZQnoaBxTIFYHTpk5mY9Eg1GgKmUA9gPL9cLb5UCIwV0y2aX3bubqa+fRY+ResGCa+
- 2DZqjGR7hYycYb3JSC+2nelnOrGhy74cIMUCryj9/RujUGTx2ocExkfXx2wpvzRol6zXZdTJ
- lIZ/gIqrLMu7wq7Q9/lRRq6rXWY+BkGVLJ4Eec39QWMwar8+BuCCy4PSTspQN47sM47QxQ62
- 1nPmMnmbRR0q6GcQ3+Z8raSrBuxNDITIGtEYjULJSMa5/HzrYd1iQjAJuuPC4awh9zxXDTvm
- TaDqXFkg61J1ZJWkaKm4VrAnjSg4IDTSRI47RnWWWTj6R5lYImiZMqj7l2zAet8Ebt1h2Kp5
- BAs8/VyJshQZX1RvERhmNkwIYw=
-IronPort-HdrOrdr: A9a23:Ax9eu6MzGWo22cBcT1P155DYdb4zR+YMi2TDiHoddfUFSKalfp
- 6V98jztSWatN/eYgBEpTmlAtj5fZq6z+8P3WBxB8baYOCCggeVxe5ZjbcKrweQeBEWs9Qtr5
- uIEJIOd+EYb2IK6voSiTPQe7hA/DDEytHPuQ639QYQcegAUdAF0+4WMHf4LqUgLzM2eKbRWa
- Dsr/Zvln6FQzA6f867Dn4KU6zqoMDKrovvZVojCwQ84AeDoDu04PqieiLolSs2Yndq+/MP4G
- LFmwv26uGKtOy68AbV0yv2445NkNXs59NfDIini9QTKB/rlgG0Db4RE4GqjXQQmqWC+VwqmN
- 7Dr1MJONly0WrYeiWPrR7ky2DboUITwk6n7WXdrWrooMT/Sj5/IdFGn5hlfhzQ7FdllM1g0Y
- pQtljp+KZ/PFflpmDQ9tLIXxZlmg6funw5i9MeiHRZTM83dKJRl4oC50lYea1wUB4S0LpXUd
- WGMfuspMq/KTihHjPkVyhUsZGRt00Ib1m7qhNogL3W79BU9EoJunfwivZv20voz6hNOqWs19
- 60TJiAq4s+PvP+TZgNc9vpEvHHfFAkf3r3QRGvCGWiMp07EFTwjLOyyIkJxYiRCe41Jd0J6d
- 78bG8=
-X-IronPort-AV: E=Sophos;i="5.91,214,1647316800"; 
-   d="scan'208";a="71006968"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HhJfiUDyCWNMUQPWMwAkIndLqZT1FJzMYz9+5E9aT2tHQKmWUw9z4UHUY7S3qooCmkqPHNGyZ/jX9OMYFh+nvt0MYmXOZU+nuXPLP1tj5jz//YaCagHSfjmiLy4nIdzjvp0mT5UJR8rsYsR/vIjH31FVOD5b9rCkdZecNokNgRVX3MsM/TIF8kQGAdsPe1rXRNhi8cgKYqbARLadt6h4ED0bdMy+zjpFyX18VIwYB0iVEZKn23yOk0TOhajOmY2GVKsqUCkut5Aws0Fdv1ETWrY9QTG77i+ZmcE8THVYOdAz2NG3Xo4h8k4OS7SfOaQZc0ubg3gi4Yv9MePfTzCyBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yqdWI16gotw1b+24r2GL66eTxF9CTPtNeEtGucldqiY=;
- b=loSVK6mmm2B8MvF+obc7NGpz5+PTZdQPMByFrLxkKF/rQawDrEsuedYQ36KZfgtjZyqUg7lf37dWEpup65sQtE0yJMecfgYY/C14V3lyh9jhMAwFoJTNy4yvIN5LrByNWYE+wPcQm9xEeq/DkkqIk8VEHlsG/obJ3IRpSP0zwcNYbnCXFyATYWJkiTjtKP2QMdF0RyEgpXG6Ku9OqbIFZifZQ4Ui6bhmE1YtLmYTdXWIRHKBgSPTFcCnV0ajF0iYR6/LAvoLOd61P4By8PavT+QruJIW+n3pCHnCGigFdCvvkKl27lEiCAWpt7ixasBFzO0wNUqkEveesmLPzx5fbA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yqdWI16gotw1b+24r2GL66eTxF9CTPtNeEtGucldqiY=;
- b=iQPFreXw0v+HqWugBlifAN+9FxV+Rrnq8qLTtXom4cGJl8//45QgjVzlZKzNJo18Wgug23yVRhNfzh27z9N3GkVeQhkxzG68Im4qZC/h6MPIt02cBxNQFuuR9bPSRCTDyoiZ5BqH4ZEpR+3eMHSo/ZZhTdA/BdcBEH+bOCAs/AY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Tue, 10 May 2022 17:46:12 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+X-Inumbo-ID: 9ac52ef9-d078-11ec-8fc4-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1652197694; x=
+	1652284094; bh=lcJtNWW1XlCbNiro7UWx15PiLnn2igC5kde/c5Qe+bE=; b=c
+	xHp20Y/O6jN51F4dUWTZbfHybcqx6DLdrYDkzs9S9NgYKh31zEWTIrMJsLxbGysr
+	smY8KAO40ntMDPbPtcdhfpvKek/hexeksMrESpT3ugOUI2tNPFOfXCSs+bOupqy+
+	aK/XE+it8/HimntXNTVrUPzSsxBCJWpRIitNiJT/v+ECBNSgWxR9vwACg/4umAnp
+	oHTnIrF/8/G/2D9zwTrA4mCHK6kc0FsWkgDS0Kste0KHtpFKEDIUZBB3W5TE6X9H
+	E9wY8H6IZZIkettNNFw37QMWXkCrBh6gg0gtnzjUNFlh9aetthQmOFbi/QIGGhwB
+	NH7hkHhPhqscfKZJiWnhA==
+X-ME-Sender: <xms:Pol6YgqA6k7pC1ofbsFds7Pj4At4Af-nsUvV3vQ_Sab6rpyttU7yhw>
+    <xme:Pol6YmqcD0YGSlfBasuPrusSzlMZUqnlGXMwIBedFLYWzLhY-69spMNY-WKsxpXT6
+    cfdZuBX6YWNwQ>
+X-ME-Received: <xmr:Pol6YlMtRfAZDX-phzuDyMxEVkxi-WiHoeXBsBIHt0XZBlqIYcqfNpRDe2dVRsij6K_3uLgtCNhHcY990MzFkUnn6CNj2hYkxg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrgedugdekkecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudel
+    teefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhush
+    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
+    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:Pol6Yn5KlHv0fgGUt0fj2cmyYsosM1KysbsNKaGwLbfAwVz744jKFg>
+    <xmx:Pol6Yv6vfAWAHVfN6vuGhMGgtmA1R_VfpYCbNlhdw2cRAFgzjuyG_w>
+    <xmx:Pol6Yni_Q1_KtjJQW8jyuDzPg3IOuAlFkn8J9hNVHKIw4pa8_EF3DQ>
+    <xmx:Pol6YlQTEPmPn5CVssibmfwBjy8jQA7QGQVKkho7dzDwjPYhqrqw-Q>
+Date: Tue, 10 May 2022 17:48:10 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <Andrew.Cooper3@citrix.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
 	George Dunlap <George.Dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
 Subject: Re: [PATCH v2 1/2] ns16550: reject IRQ above nr_irqs_gsi
-Message-ID: <YnqIxGFrz9yWb5rV@Air-de-Roger>
+Message-ID: <YnqJOkuY0LuLAzEX@mail-itl>
 References: <20220510115546.1779279-1-marmarek@invisiblethingslab.com>
  <4ed4e4c3-6b71-8299-69f4-7910583fd9cb@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <4ed4e4c3-6b71-8299-69f4-7910583fd9cb@citrix.com>
-X-ClientProxiedBy: LNXP265CA0042.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:5c::30) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+ <YnqIxGFrz9yWb5rV@Air-de-Roger>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 40ca03f7-ffbc-484d-2a6a-08da329c384c
-X-MS-TrafficTypeDiagnostic: DM4PR03MB6999:EE_
-X-Microsoft-Antispam-PRVS:
-	<DM4PR03MB6999B8236E1AD5325FA93F9F8FC99@DM4PR03MB6999.namprd03.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	o9cWy9nsGFNlkCjt9q5ViN93LiNmtz5+bMOMhnXWqXksQH9KWkBhmzwBYW9oNpokOiho34a0zR7wbDHaYsIuVi+8KwlsOj6OYb6tEhBogU2YBqvgk/l3Q7DeL0ennZ4WV0x2S373t8gnVywyrXKkHjQc7eiy72VOjSGdJp1JgArSTkJgiNju+Xeo7fZZamcW5kPxc+/wrp2ya3AHPGSTNBNiKrQZ160/qL1G4azWQvzqY+hfLFRfqjcOfpj1nMk5ddkz6ODeYN9YA/VfkGJ12pssWhZGhSV30kxUy8aW+9IJgSUm3vLon5IGrpynXcnzz9VG+Rwo9Yys/z4vvdfn1p8m3v/GngazA63p9aX3+Ba6eWRepjNvLH0awT4Y7Hc4BsQqa98XMNQwpIjUjayECOxkWml0NSa/Vr0IMS8NruBnVZj7Zb5n07/xGLi8rZBbRsbVLFSlvFtUiKUC8wvQGlPihWAx9CCoA8x/zIpCCgPxIfWA1Euw3IgEXWOe6dwOWOGJpjgr72+ZXAauaq2stfoM2o8iLZz5mLG3wN8CwCMRxgPdR6e9//nKY7NfGuY3N3U/XsuSOILvxFehFDNBiD23MoiyCvpjb8Stg6k6K7KJFEtMGRWcXOXC1XMF1lCKt9Nxdr1LiIynbaIM20B0TA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(53546011)(83380400001)(316002)(9686003)(6506007)(26005)(6512007)(186003)(110136005)(6486002)(54906003)(508600001)(85182001)(8676002)(2906002)(5660300002)(86362001)(4326008)(8936002)(66946007)(66556008)(66476007)(6666004)(66574015)(38100700002)(33716001)(82960400001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cmtnNUp0SU55cUc5SUtzRExjNkN0ZUc1MG82eHhObnpHZTh5MnowWGZuMzVL?=
- =?utf-8?B?K1ZUV1MrS3h0SFVaUWJMR21mY0pCWnNzOS92bE1lNUI5SGR6ZCtVL3lHYlZN?=
- =?utf-8?B?OXlLeTV5NThhSDdsNmN1UG56QVpBcEw0SW56cDJTdEhaWmNwcEluSzZQWW5J?=
- =?utf-8?B?N2dGYnZnQVppT2VRSjRJaVVUcldPck5YUFNYRGgyVGc3Q2FxMFI0dWlmbFZk?=
- =?utf-8?B?Uk1TUE1weGZJR0R0YkEwWWxOTitXNnZzM2svT3VnTklSWWtzUm9PWXZvTG84?=
- =?utf-8?B?akthcXROK2Fjc0svSFQrZ0E0YWFqYTc3MVhUMkxNQzhkN1RnT2NjdmZPbmxr?=
- =?utf-8?B?Qms3QzQrMXdNbi92WHFPT05nT1NqbnVEaHE3akVIRDBXbTBicjRycHQvaUha?=
- =?utf-8?B?eEY0bllEZ1VIV3lZNkN1Vis4dlJCcWxqSTJkMlBabFdoUHZNSWZPYmtITVAr?=
- =?utf-8?B?OWhvbHVBdk4xMTZlYUpBdm1zZk5pL2pSaVZzYlhoeS85YkhTRmNHTEp4TUNa?=
- =?utf-8?B?clMxOWNyaEVhODZTeVBuaXRVME1DYUFmL0N4dzJxMWc2WHJnTmk0QWtsZ2hY?=
- =?utf-8?B?WkU3T3dEUlBxckUvL0lTMGt3UGxwc0drdFpYZzYrV3FQT1NuUTA3Y1dxWVZw?=
- =?utf-8?B?eldPNHhKY0p5MDZJUjBuOGt0MFJsVXFDS0IrUDI1OUVTek1vRTFEVnRucERI?=
- =?utf-8?B?MVdJTXo4R0tIdnYvZHRKVWxGMmVwc1c4UklTRU9PZlJCbkxXbGRua3F2bDlr?=
- =?utf-8?B?NmdvZ3JwcWFibWg4d2ljR3VXcjB5Q3RxRk1YZ0VNUmo0KzFVNDNYMmZMTVpt?=
- =?utf-8?B?bndsNGNub0E0VjBnMTRsNkdLbXI0TTY0TStZK200ZU90YlpqTG9mRzJUaXVO?=
- =?utf-8?B?L1I4d2FFMWpQRnVzNVF3NDRUZDZDWUFLUVVSK2J6QnkzTTVLSkpCdGxzc1ly?=
- =?utf-8?B?bnNDYk1RYjAvRjRsMjlHQjlyRTVIOXZlc1BXZEppNWtaS29McE4rekp5RXFx?=
- =?utf-8?B?NzlEM0NSWkI1aCtzOFJRcXpmUDRZR2F5d0FDb084OGVuZVozcVE2R0tURnND?=
- =?utf-8?B?enQvNjJOaXY0NW9JYm9vWm5uTmYzSG9VK3dRNGU0aFpIZFVIdEVGR09EVm14?=
- =?utf-8?B?ZVVWeTQ4Z2duYVZVMktRWFcvUE92MXMyd0RUVkxMbjVVck0rTDR4UEUrL1F0?=
- =?utf-8?B?Q0FTcTd1RlhsWkdJbDJBeFBUOGt3b3F3dUtjeFo4dDhTVDdHeTBpVWI0VDcx?=
- =?utf-8?B?R2E0OGZpNUtKenRxL0FFWGl1dHBvaWhMT3JMdkl4ano0VHVmRm1RNHhwNzlF?=
- =?utf-8?B?enlCU1VVbmFZc0pLVGdNa2JRT0xDOGNmLysrU0F3dUZScE5QZVhEQVJoSTA2?=
- =?utf-8?B?QlhnQSs1S0JYMXFnMmJIZFpYUnpYb2lITndQaVRBQWVMSUJLcEpmRWZFM2pI?=
- =?utf-8?B?d1RqeW1sRVlzNTl4RVM4NDJlRkJZYnBXOVBpNkE1OWpPYU80T09QLzNuMkx2?=
- =?utf-8?B?SzZMQ0xqRFAzVlV1VHpTRENYcXg5aWprV0VTblg3dVdUZVo4bWdIcXV0bHBW?=
- =?utf-8?B?blBqK3Ird1pjdDllU3FsZHpQVDFFcU81MW85SHpiZDlIclFRN2dXc3Vnb0Fl?=
- =?utf-8?B?Um01akx0ZW43eityOXFKRHNydlhlb1Y3YTdrenRHMEZFN2JkQm5iUWVaeG1m?=
- =?utf-8?B?UkhhY290Z0E5L3JubnBjWktGY2swcEZRTHJKY2Z0SDVRbytZNGFlR0VjQ043?=
- =?utf-8?B?STZjRG5heTIvVXAyMGU3YlhBcVVOc0tpQUJhNGN0dk9ZYVBEQ2hRdG1rOTRW?=
- =?utf-8?B?dGJGQ0h2ckw1N0dTSmw0WjNoUWFqaWdwTUVreDNXWjNkY25SOGMvSStuUUt5?=
- =?utf-8?B?WUdjMEY0YTlTTnk2NmNrZVFXZnRpbUZyMG5PNUdRYVVCVGxvR3pEMmx5bGQy?=
- =?utf-8?B?UmZIMHUrNHB4U09aY2MyWWJ2SXhlLzE3bmxXak05UWNSNFFYTzhlNzFEQ05V?=
- =?utf-8?B?R2VxSTZiazZkRWJnRnRYYWQ1MDQwUE01VlNTd3h4UFp6dFdtSUtXNysxL0Fm?=
- =?utf-8?B?Nnp0NjQ0Y0RuSStiY21kM0ZLYmo1OXZYbVhUZ1FpTDFyNEQxbnJ4TlYxbWhW?=
- =?utf-8?B?WnA0c3dmNkc1RTRMMG1tZHRyRVlrb2ZEbEJjQnBXc3JsSGxYU25jVHFDUmlQ?=
- =?utf-8?B?SDZaQWtIWHVBQU51RWUyN1BHVG5lZ0E2cVhhVklnVnFnOWZhektIcFYrZ0FN?=
- =?utf-8?B?MGZxQjFPK2dDY1AvRUxlVDFlWW1CVTBmMTBpTUFtQ1A0L1IrUEdCb05RUzRl?=
- =?utf-8?B?aUo2WEJ6WEk1anJnRmJHaHh1MDBvUFQzTVRMYy9GWVJxT0RxMzJ1aGNzRVJK?=
- =?utf-8?Q?N6s88EdCYPwzLWqY=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 40ca03f7-ffbc-484d-2a6a-08da329c384c
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 May 2022 15:46:16.8856
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: goQ7MwV9oCAcmqJjnakM4JHt6g4EvNAZ6oHRRRJ+3GDm+6+KJArmmwe5KcVwiz33h4VCEBJkTBi3EhrcIqMttw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR03MB6999
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="smSIamfy3bQvh3xu"
+Content-Disposition: inline
+In-Reply-To: <YnqIxGFrz9yWb5rV@Air-de-Roger>
 
-On Tue, May 10, 2022 at 02:30:41PM +0000, Andrew Cooper wrote:
-> On 10/05/2022 12:55, Marek Marczykowski-Górecki wrote:
-> > Intel LPSS has INTERRUPT_LINE set to 0xff by default, that can't
-> > possibly work. While a proper IRQ configuration may be useful,
-> > validating value retrieved from the hardware is still necessary. If it
-> > fails, use the device in poll mode, instead of crashing down the line
-> > (at smp_initr_init()). Currently it's
-> > x86-specific, as the surrounding code is guarded with CONFIG_X86 anyway.
-> >
-> > Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> 
-> This isn't invalid per say.  It explicitly means unknown/no connection
-> and is used in practice to mean "never generate line interrupts, even
-> when MSI is disabled".  It's part of PCI 3.0 if the internet is to be
-> believed, but ISTR is mandatory for SRIOV devices where the use of line
-> interrupts is prohibited by the spec.
-> 
-> Also, there are systems where nr_irq_gsi is greater than 0xff.
-> 
-> I'd recommend handling 0xff specially as "no legacy irq", and not
-> involving nr_irq_gsi at all.
 
-I've finally found the reference for it in (one) PCI specification.
-It's in the PCI Local Bus Specification Revision 3.0 (from 2004) as a
-footnote, so for the reference I'm going to paste it here:
+--smSIamfy3bQvh3xu
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 10 May 2022 17:48:10 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <Andrew.Cooper3@citrix.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	George Dunlap <George.Dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v2 1/2] ns16550: reject IRQ above nr_irqs_gsi
 
-Interrupt Line
+On Tue, May 10, 2022 at 05:46:12PM +0200, Roger Pau Monn=C3=A9 wrote:
+> On Tue, May 10, 2022 at 02:30:41PM +0000, Andrew Cooper wrote:
+> > On 10/05/2022 12:55, Marek Marczykowski-G=C3=B3recki wrote:
+> > > Intel LPSS has INTERRUPT_LINE set to 0xff by default, that can't
+> > > possibly work. While a proper IRQ configuration may be useful,
+> > > validating value retrieved from the hardware is still necessary. If it
+> > > fails, use the device in poll mode, instead of crashing down the line
+> > > (at smp_initr_init()). Currently it's
+> > > x86-specific, as the surrounding code is guarded with CONFIG_X86 anyw=
+ay.
+> > >
+> > > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethi=
+ngslab.com>
+> >=20
+> > This isn't invalid per say.=C2=A0 It explicitly means unknown/no connec=
+tion
+> > and is used in practice to mean "never generate line interrupts, even
+> > when MSI is disabled".=C2=A0 It's part of PCI 3.0 if the internet is to=
+ be
+> > believed, but ISTR is mandatory for SRIOV devices where the use of line
+> > interrupts is prohibited by the spec.
+> >=20
+> > Also, there are systems where nr_irq_gsi is greater than 0xff.
+> >=20
+> > I'd recommend handling 0xff specially as "no legacy irq", and not
+> > involving nr_irq_gsi at all.
+>=20
+> I've finally found the reference for it in (one) PCI specification.
+> It's in the PCI Local Bus Specification Revision 3.0 (from 2004) as a
+> footnote, so for the reference I'm going to paste it here:
+>=20
+> Interrupt Line
+>=20
+> The Interrupt Line register is an eight-bit register used to
+> communicate interrupt line routing information. The register is
+> read/write and must be implemented by any device (or device function)
+> that uses an interrupt pin. POST software will write the routing
+> information into this register as it initializes and configures the
+> system.  The value in this register tells which input of the system
+> interrupt controller(s) the device's interrupt pin is connected to.
+> The device itself does not use this value, rather it is used by device
+> drivers and operating systems. Device drivers and operating systems
+> can use this information to determine priority and vector information.
+> Values in this register are system architecture specific. [43]
+>=20
+> [...]
+>=20
+> [43] For x86 based PCs, the values in this register correspond to IRQ
+> numbers (0-15) of the standard dual 8259 configuration. The value 255
+> is defined as meaning "unknown" or "no connection" to the interrupt
+> controller. Values between 15 and 254 are reserved.
+>=20
+> That note however is completely missed on the newer PCI Express
+> specifications.
+>=20
+> Marek, can you please adjust the code as suggested by Andrew and add
+> the reference to the commit message?
 
-The Interrupt Line register is an eight-bit register used to
-communicate interrupt line routing information. The register is
-read/write and must be implemented by any device (or device function)
-that uses an interrupt pin. POST software will write the routing
-information into this register as it initializes and configures the
-system.  The value in this register tells which input of the system
-interrupt controller(s) the device's interrupt pin is connected to.
-The device itself does not use this value, rather it is used by device
-drivers and operating systems. Device drivers and operating systems
-can use this information to determine priority and vector information.
-Values in this register are system architecture specific. [43]
+Sure.
 
-[...]
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-[43] For x86 based PCs, the values in this register correspond to IRQ
-numbers (0-15) of the standard dual 8259 configuration. The value 255
-is defined as meaning "unknown" or "no connection" to the interrupt
-controller. Values between 15 and 254 are reserved.
+--smSIamfy3bQvh3xu
+Content-Type: application/pgp-signature; name="signature.asc"
 
-That note however is completely missed on the newer PCI Express
-specifications.
+-----BEGIN PGP SIGNATURE-----
 
-Marek, can you please adjust the code as suggested by Andrew and add
-the reference to the commit message?
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmJ6iToACgkQ24/THMrX
+1ywG1Af9EBuQCZ1VWgMk5NGASJuM6Azy7n6wdSlKrVoTzm+MXHkQ5ZuRSc8uAyuu
+ERE6q6w/0xgVkGOkNw58SUIYtQD2Fy9aFvrIdtw79E35CEDu+1kMMBzPgOzNnOsg
+NDE3RvYXsFuqx09x8pW8hSUXNSM+ZlXFz8lTd2Y8wc8jVBqcUWL5LrwTQgwj+hIQ
+0EM7cViuRmx5ShUQT9PTmQYlaHe4EJMl3Onqo2R1gaeJ0zo9+S5stZ5NyKQ4yriv
+VHQ+GyuvHEgL0TGn2AZf0WSxpBV6n2ZE0cUYZfvULpDOg+Onh+xHWyLiAa+Wwj/G
+ZxkbfR3h/JwFq0x68vLcK0RXrezA8A==
+=+dmy
+-----END PGP SIGNATURE-----
 
-Thanks, Roger.
+--smSIamfy3bQvh3xu--
 
