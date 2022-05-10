@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CB31521405
-	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 13:38:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.325501.548088 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74FC552142C
+	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 13:47:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.325508.548099 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noOCT-000179-Ll; Tue, 10 May 2022 11:38:45 +0000
+	id 1noOL1-0002pA-IQ; Tue, 10 May 2022 11:47:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 325501.548088; Tue, 10 May 2022 11:38:45 +0000
+Received: by outflank-mailman (output) from mailman id 325508.548099; Tue, 10 May 2022 11:47:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noOCT-00013y-Hk; Tue, 10 May 2022 11:38:45 +0000
-Received: by outflank-mailman (input) for mailman id 325501;
- Tue, 10 May 2022 11:38:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1noOL1-0002lz-FW; Tue, 10 May 2022 11:47:35 +0000
+Received: by outflank-mailman (input) for mailman id 325508;
+ Tue, 10 May 2022 11:47:34 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0hsl=VS=suse.com=pmladek@srs-se1.protection.inumbo.net>)
- id 1noOCR-00013s-Ot
- for xen-devel@lists.xenproject.org; Tue, 10 May 2022 11:38:43 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id be4b475b-d055-11ec-8fc4-03012f2f19d4;
- Tue, 10 May 2022 13:38:42 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id E799F21C06;
- Tue, 10 May 2022 11:38:41 +0000 (UTC)
-Received: from suse.cz (unknown [10.100.208.146])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id F0AB42C141;
- Tue, 10 May 2022 11:38:39 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1noOL0-0002lt-M9
+ for xen-devel@lists.xenproject.org; Tue, 10 May 2022 11:47:34 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1noOKz-0004XF-Eo; Tue, 10 May 2022 11:47:33 +0000
+Received: from [54.239.6.189] (helo=[192.168.24.150])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1noOKz-0006ev-8H; Tue, 10 May 2022 11:47:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,140 +39,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be4b475b-d055-11ec-8fc4-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1652182721; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QjxQbnD6WUcAB5XSGPbhgiXq5Z1nB8h07eo4ZkZ4QC8=;
-	b=ux1OKlKPpQAZrqb3VSx/+cdnKv+z0GMrb7Vrl4wT7av9mwtdsYHmGTFl15YLILBNoNipDu
-	zhzvyNUQ0tVf4I8bosAIddNvm3hk9CLYxTFt2W7RQIuTrmM1G9742/mw3JpxDF9W//N0xh
-	4YsR4kO61TX2TGUrgE/V7TAnZzSnJsg=
-Date: Tue, 10 May 2022 13:38:39 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: Evan Green <evgreen@chromium.org>,
-	Andrew Morton <akpm@linux-foundation.org>, bhe@redhat.com,
-	kexec@lists.infradead.org, LKML <linux-kernel@vger.kernel.org>,
-	bcm-kernel-feedback-list@broadcom.com,
-	linuxppc-dev@lists.ozlabs.org, linux-alpha@vger.kernel.org,
-	linux-edac@vger.kernel.org, linux-hyperv@vger.kernel.org,
-	linux-leds@vger.kernel.org, linux-mips@vger.kernel.org,
-	linux-parisc@vger.kernel.org, Linux PM <linux-pm@vger.kernel.org>,
-	linux-remoteproc@vger.kernel.org, linux-s390@vger.kernel.org,
-	linux-tegra@vger.kernel.org, linux-um@lists.infradead.org,
-	linux-xtensa@linux-xtensa.org, netdev@vger.kernel.org,
-	openipmi-developer@lists.sourceforge.net, rcu@vger.kernel.org,
-	sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
-	x86@kernel.org, kernel-dev@igalia.com, kernel@gpiccoli.net,
-	halves@canonical.com, fabiomirmar@gmail.com,
-	alejandro.j.jimenez@oracle.com,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Arnd Bergmann <arnd@arndb.de>, Borislav Petkov <bp@alien8.de>,
-	Jonathan Corbet <corbet@lwn.net>, d.hatayama@jp.fujitsu.com,
-	dave.hansen@linux.intel.com, dyoung@redhat.com, feng.tang@intel.com,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	mikelley@microsoft.com, hidehiro.kawai.ez@hitachi.com,
-	jgross@suse.com, john.ogness@linutronix.de,
-	Kees Cook <keescook@chromium.org>, luto@kernel.org,
-	mhiramat@kernel.org, mingo@redhat.com, paulmck@kernel.org,
-	peterz@infradead.org, rostedt@goodmis.org, senozhatsky@chromium.org,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Thomas Gleixner <tglx@linutronix.de>, vgoyal@redhat.com,
-	vkuznets@redhat.com, Will Deacon <will@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>, David Gow <davidgow@google.com>,
-	Julius Werner <jwerner@chromium.org>
-Subject: Re: [PATCH 04/30] firmware: google: Convert regular spinlock into
- trylock on panic path
-Message-ID: <YnpOv4hAPV4b+6v4@alley>
-References: <20220427224924.592546-1-gpiccoli@igalia.com>
- <20220427224924.592546-5-gpiccoli@igalia.com>
- <CAE=gft5Pq25L4KFoPWbftkPF-JN1ex2yws77mMJ4GQnn9W0L2g@mail.gmail.com>
- <adcf6d0e-c37c-6ede-479e-29959d03d8c0@igalia.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=PBCnjY1Xs7W8fg99x7eyE7kLdyVJN+nzlRK29bfjA08=; b=OmlEcytSMcbaUV7ibfUceGeY6q
+	O3bgi3VUV3gQSt4r1Mj+uIRaMTc+LlxYuQahHbCvsCilEiQtyMED3yK+BoB5qUkkAoXepd3SkTpT1
+	T7uAE5N+Ji7IKexv2gHeizm8e54ZR509NTBaGfFbY/J+DmkWMYYTaa8O+wS7Tl+lANLU=;
+Message-ID: <2f5b0e01-2214-6150-bef2-e4f92cebd6ef@xen.org>
+Date: Tue, 10 May 2022 12:47:30 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <adcf6d0e-c37c-6ede-479e-29959d03d8c0@igalia.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.9.0
+Subject: Re: [PATCH v3 4/6] xen: Switch to byteswap
+To: Andrew Cooper <amc96@srcf.net>, Lin Liu <lin.liu@citrix.com>,
+ xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>
+References: <cover.1652170719.git.lin.liu@citrix.com>
+ <c9488a2fe15d59dc86712e70614c4dbe0794506b.1652170719.git.lin.liu@citrix.com>
+ <76c9bed5-6643-4fa6-eaf5-c865f942193c@xen.org>
+ <00d82608-9430-6b20-26b5-207c62358179@srcf.net>
+ <3670ae1b-fac2-7665-b2a7-f3e414cd6c84@xen.org>
+ <e7fcd02f-5fef-13e5-9ae0-763913aadd0c@srcf.net>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <e7fcd02f-5fef-13e5-9ae0-763913aadd0c@srcf.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue 2022-05-03 16:12:09, Guilherme G. Piccoli wrote:
-> On 03/05/2022 15:03, Evan Green wrote:
-> > [...]
-> > gsmi_shutdown_reason() is a common function called in other scenarios
-> > as well, like reboot and thermal trip, where it may still make sense
-> > to wait to acquire a spinlock. Maybe we should add a parameter to
-> > gsmi_shutdown_reason() so that you can get your change on panic, but
-> > we don't convert other callbacks into try-fail scenarios causing us to
-> > miss logs.
-> > 
+Hi,
+
+On 10/05/2022 12:34, Andrew Cooper wrote:
+> On 10/05/2022 12:17, Julien Grall wrote:
+>>>
+>>>>
+>>>>> diff --git a/xen/include/xen/unaligned.h b/xen/include/xen/unaligned.h
+>>>>> index 0a2b16d05d..16b2e6f5f0 100644
+>>>>> --- a/xen/include/xen/unaligned.h
+>>>>> +++ b/xen/include/xen/unaligned.h
+>>>>> @@ -20,62 +20,62 @@
+>>>>>       static inline uint16_t get_unaligned_be16(const void *p)
+>>>>>     {
+>>>>> -    return be16_to_cpup(p);
+>>>>> +    return be16_to_cpu(*(const uint16_t *)p)
+>>>>
+>>>> I haven't checked the existing implementation of be16_to_cpup().
+>>>
+>>> It's a plain dereference, just like this.  AFAICT, it wasn't unaligned
+>>> safe before, either.
+>>
+>> Well, technically an architecture could provide an override for the
+>> copy. I agree that arm32 is already bogus but...
+>>
+>>>
+>>> It should be reasonably easy to fix in a followup patch.  Just memcpy()
+>>> to/from the void pointer to a stack variable of the appropriate type.
+>> ... I disagree that it should be fixed in a follow-up patch. It should
+>> be fixed now as this is where the badness is spread to any architecture.
 > 
-> Hi Evan, thanks for your feedback, much appreciated!
-> What I've done in other cases like this was to have a helper checking
-> the spinlock in the panic notifier - if we can acquire that, go ahead
-> but if not, bail out. For a proper example of an implementation, check
-> patch 13 of the series:
-> https://lore.kernel.org/lkml/20220427224924.592546-14-gpiccoli@igalia.com/ .
+> No.  That is an inappropriate request to make.
 > 
-> Do you agree with that, or prefer really a parameter in
-> gsmi_shutdown_reason() ? I'll follow your choice =)
+> Lin's patch does not alter the broken-ness of unaligned on arm32, and
+> does improve the aspect of the hypervisor that it pertains to.  It
+> therefore stands on its own merit.
+I am not sure sure why switching from *cpup* improves things... and as 
+usual you haven't answered to the clarification questions.
 
-I see two more alternative solutions:
+> 
+> Your choices are to either fix it yourself (after all, you are the
+> maintainer who cares about this unrelated bug), or you ask Lin kindly if
+> he has time to look into fixing the unrelated bug after this series is
+> complete.
 
-1st variant is a trick already used in console write() callbacks.
-They do trylock() when oops_in_progress is set. They remember
-the result to prevent double unlock when printing Oops messages and
-the system will try to continue working. For example:
+Or 3) keep *cpup* so there is only one place to fix it.
 
-pl011_console_write(struct console *co, const char *s, unsigned int count)
-{
-[...]
-	int locked = 1;
-[...]
-	if (uap->port.sysrq)
-		locked = 0;
-	else if (oops_in_progress)
-		locked = spin_trylock(&uap->port.lock);
-	else
-		spin_lock(&uap->port.lock);
+> 
+> It is not reasonable to say "this unrelated thing is broken, and you
+> need to fix it first to get your series in".  Requests like that are,
+> I'm sure, part of what Bertrand raised in the community call as
+> unnecessary fiction getting work submitted.
 
-[...]
+To be honest, you put the contributor in this situation. I would have 
+been perfectly happy if we keep *cpup* around as there would be only a 
+place to fix.
 
-	if (locked)
-		spin_unlock(&uap->port.lock);
-}
+With this approach, you are effectively going to increase the work later 
+one because now we would have to chase all the open-coded version of 
+*cpup* and check which one is not safe.
 
+Cheers,
 
-2nd variant is to check panic_cpu variable. It is used in printk.c.
-We might move the function to panic.h:
-
-static bool panic_in_progress(void)
-{
-	return unlikely(atomic_read(&panic_cpu) != PANIC_CPU_INVALID);
-}
-
-and then do:
-
-	if (panic_in_progress()) {
-		...
-
-
-> > Though thinking more about it, is this really a Good Change (TM)? The
-> > spinlock itself already disables interrupts, meaning the only case
-> > where this change makes a difference is if the panic happens from
-> > within the function that grabbed the spinlock (in which case the
-> > callback is also likely to panic), or in an NMI that panics within
-> > that window.
-
-As already mentioned in the other reply, panic() sometimes stops
-the other CPUs using NMI, for example, see kdump_nmi_shootdown_cpus().
-
-Another situation is when the CPU using the lock ends in some
-infinite loop because something went wrong. The system is in
-an unpredictable state during panic().
-
-I am not sure if this is possible with the code under gsmi_dev.lock
-but such things really happen during panic() in other subsystems.
-Using trylock in the panic() code path is a good practice.
-
-Best Regards,
-Petr
+-- 
+Julien Grall
 
