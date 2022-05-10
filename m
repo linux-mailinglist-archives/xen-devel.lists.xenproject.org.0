@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B7705212C3
-	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 12:51:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.325385.547933 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8356E5212C1
+	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 12:51:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.325386.547946 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noNSB-0004wm-2e; Tue, 10 May 2022 10:50:55 +0000
+	id 1noNSL-0005FF-Hy; Tue, 10 May 2022 10:51:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 325385.547933; Tue, 10 May 2022 10:50:55 +0000
+Received: by outflank-mailman (output) from mailman id 325386.547946; Tue, 10 May 2022 10:51:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noNSA-0004tw-Vm; Tue, 10 May 2022 10:50:54 +0000
-Received: by outflank-mailman (input) for mailman id 325385;
- Tue, 10 May 2022 10:50:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1noNSL-0005Be-BQ; Tue, 10 May 2022 10:51:05 +0000
+Received: by outflank-mailman (input) for mailman id 325386;
+ Tue, 10 May 2022 10:51:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VXvK=VS=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1noNSA-0004tq-3x
- for xen-devel@lists.xenproject.org; Tue, 10 May 2022 10:50:54 +0000
-Received: from ppsw-31.csi.cam.ac.uk (ppsw-31.csi.cam.ac.uk [131.111.8.131])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0ece334d-d04f-11ec-8fc4-03012f2f19d4;
- Tue, 10 May 2022 12:50:51 +0200 (CEST)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:47088)
- by ppsw-31.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.137]:25)
- with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1noNS0-000Sjz-K5 (Exim 4.95) (return-path <amc96@srcf.net>);
- Tue, 10 May 2022 11:50:44 +0100
-Received: from [192.168.1.10] (host-92-26-109-251.as13285.net [92.26.109.251])
- (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id DF8C51FA59;
- Tue, 10 May 2022 11:50:43 +0100 (BST)
+ (envelope-from <julien@xen.org>) id 1noNSJ-0005B5-92
+ for xen-devel@lists.xenproject.org; Tue, 10 May 2022 10:51:03 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1noNSJ-0003Vv-2F; Tue, 10 May 2022 10:51:03 +0000
+Received: from [54.239.6.189] (helo=[192.168.24.150])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1noNSI-0002ie-SH; Tue, 10 May 2022 10:51:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,70 +39,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ece334d-d04f-11ec-8fc4-03012f2f19d4
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <f117f4c3-4c70-c0de-3933-84f436ce74f7@srcf.net>
-Date: Tue, 10 May 2022 11:50:43 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=4fPIwetfaqg9PTZws7aNS+236Yx6R85O3VbUY8WxxfA=; b=kqQEUHVPnimSit+0SnuWp04JtY
+	e+YrGPHIE9OZrYhS4aayv8GMExtxLEsHOiKtYSXnOaR5lxQFr/rDpZW2BGkQNDbCzGPesdo0N71fz
+	qtKTVhUYhZS++MpVv5bEvdxnvjiDXECa6Q0DFV1dDQQFJ6OoA1hGeGeO7CXnqCSx24N8=;
+Message-ID: <76c9bed5-6643-4fa6-eaf5-c865f942193c@xen.org>
+Date: Tue, 10 May 2022 11:51:00 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Content-Language: en-GB
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.9.0
+Subject: Re: [PATCH v3 4/6] xen: Switch to byteswap
 To: Lin Liu <lin.liu@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+ Wei Liu <wl@xen.org>
 References: <cover.1652170719.git.lin.liu@citrix.com>
- <2699787cd4ba1d71448bbcdf190d927e180e80b9.1652170719.git.lin.liu@citrix.com>
-From: Andrew Cooper <amc96@srcf.net>
-Subject: Re: [PATCH v3 1/6] xen: implement byteswap
-In-Reply-To: <2699787cd4ba1d71448bbcdf190d927e180e80b9.1652170719.git.lin.liu@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ <c9488a2fe15d59dc86712e70614c4dbe0794506b.1652170719.git.lin.liu@citrix.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <c9488a2fe15d59dc86712e70614c4dbe0794506b.1652170719.git.lin.liu@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Hi,
 
 On 10/05/2022 11:15, Lin Liu wrote:
-> swab() is massively over complicated and can be simplified by builtins.
-> The compilers provide builtin function to swap bytes.
-> * gcc:   https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html
-> * clang: https://clang.llvm.org/docs/LanguageExtensions.html
-> This patch simplify swab() with builtins and fallback for old compilers.
+> Update to use byteswap to swap bytes.
+> 
+> No functional change.
+> 
+> Signed-off-by: Lin Liu <lin.liu@citrix.com>
+> ---
+> Cc: Stefano Stabellini <sstabellini@kernel.org>
+> Cc: Julien Grall <julien@xen.org>
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+> Cc: George Dunlap <george.dunlap@citrix.com>
+> Cc: Jan Beulich <jbeulich@suse.com>
+> Cc: Wei Liu <wl@xen.org>
+> Changes in v3:
+> - Update xen/common/device_tree.c to use be32_to_cpu
+> - Keep const in type cast in unaligned.h
+> ---
+>   xen/common/device_tree.c           | 44 +++++++++++++++---------------
+>   xen/common/libelf/libelf-private.h |  6 ++--
+>   xen/common/xz/private.h            |  2 +-
+>   xen/include/xen/unaligned.h        | 24 ++++++++--------
+>   4 files changed, 38 insertions(+), 38 deletions(-)
+> 
+> diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
+> index 4aae281e89..70d3be3be6 100644
+> --- a/xen/common/device_tree.c
+> +++ b/xen/common/device_tree.c
+> @@ -171,7 +171,7 @@ bool_t dt_property_read_u32(const struct dt_device_node *np,
+>       if ( !val || len < sizeof(*out_value) )
+>           return 0;
+>   
+> -    *out_value = be32_to_cpup(val);
+> +    *out_value = be32_to_cpu(*val);
 
-Arguably, this patch introduces a new byteswapping infrastructure in
-terms of compiler builtins and bswapXX(), so the swab() infrastructure
-can be retired.
+This code has been taken from Linux and I would rather prefer to keep 
+the *cpup* helpers to avoid any changes when backporting.
 
-> diff --git a/xen/arch/arm/include/asm/byteorder.h b/xen/arch/arm/include/asm/byteorder.h
-> index 9c712c4788..622eeaba07 100644
-> --- a/xen/arch/arm/include/asm/byteorder.h
-> +++ b/xen/arch/arm/include/asm/byteorder.h
-> @@ -1,16 +1,10 @@
->  #ifndef __ASM_ARM_BYTEORDER_H__
->  #define __ASM_ARM_BYTEORDER_H__
->  
-> -#define __BYTEORDER_HAS_U64__
-> +#ifndef __BYTE_ORDER__
-> +   #define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__
-> +#endif
+> diff --git a/xen/include/xen/unaligned.h b/xen/include/xen/unaligned.h
+> index 0a2b16d05d..16b2e6f5f0 100644
+> --- a/xen/include/xen/unaligned.h
+> +++ b/xen/include/xen/unaligned.h
+> @@ -20,62 +20,62 @@
+>   
+>   static inline uint16_t get_unaligned_be16(const void *p)
+>   {
+> -	return be16_to_cpup(p);
+> +	return be16_to_cpu(*(const uint16_t *)p)
 
-This won't actually do what you want on GCC 4.5 or older.  You also want
+I haven't checked the existing implementation of be16_to_cpup(). 
+However, this new approach would allow the compiler to use a single load 
+instruction to read the 16-bit value from memory. So this change may 
+break on platform where unaligned access is forbidden (such as arm32).
 
-#ifndef __ORDER_LITTLE_ENDIAN__
-# define __ORDER_LITTLE_ENDIAN__ 1234
-#endif
+>   }
+>   
+>   static inline void put_unaligned_be16(uint16_t val, void *p)
+>   {
+> -	*(__force __be16*)p = cpu_to_be16(val);
+> +	*(__be16 *)p = cpu_to_be16(val);
 
-#ifndef __ORDER_BIG_ENDIAN__
-# define __ORDER_BIG_ENDIAN__ 4321
-#endif
+Why did you drop the __force?
 
-in compiler.h to cope with older GCC.
+>   }
+>
 
-Otherwise, LGTM.  Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Cheers,
 
-I can fix this on commit if its the only issue issue.  Otherwise, please
-correct it when posting v4.
-
-~Andrew
+-- 
+Julien Grall
 
