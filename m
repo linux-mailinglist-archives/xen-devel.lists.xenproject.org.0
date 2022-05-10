@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDF5F521EA2
-	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 17:28:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.325794.548531 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 945D3521ED1
+	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 17:32:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.325800.548543 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noRn2-0000fs-Tm; Tue, 10 May 2022 15:28:44 +0000
+	id 1noRpy-0002NM-Ba; Tue, 10 May 2022 15:31:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 325794.548531; Tue, 10 May 2022 15:28:44 +0000
+Received: by outflank-mailman (output) from mailman id 325800.548543; Tue, 10 May 2022 15:31:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noRn2-0000dG-QV; Tue, 10 May 2022 15:28:44 +0000
-Received: by outflank-mailman (input) for mailman id 325794;
- Tue, 10 May 2022 15:28:44 +0000
+	id 1noRpy-0002KX-8a; Tue, 10 May 2022 15:31:46 +0000
+Received: by outflank-mailman (input) for mailman id 325800;
+ Tue, 10 May 2022 15:31:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0hsl=VS=suse.com=pmladek@srs-se1.protection.inumbo.net>)
- id 1noRn2-0000d6-42
- for xen-devel@lists.xenproject.org; Tue, 10 May 2022 15:28:44 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=bZuJ=VS=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1noRpw-0002KR-LR
+ for xen-devel@lists.xenproject.org; Tue, 10 May 2022 15:31:44 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e01460ca-d075-11ec-a406-831a346695d4;
- Tue, 10 May 2022 17:28:43 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id BDCE21F8C1;
- Tue, 10 May 2022 15:28:42 +0000 (UTC)
-Received: from suse.cz (unknown [10.100.208.146])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 913582C141;
- Tue, 10 May 2022 15:28:41 +0000 (UTC)
+ id 4bae2705-d076-11ec-a406-831a346695d4;
+ Tue, 10 May 2022 17:31:43 +0200 (CEST)
+Received: by mail-lf1-x12b.google.com with SMTP id d15so21481401lfk.5
+ for <xen-devel@lists.xenproject.org>; Tue, 10 May 2022 08:31:43 -0700 (PDT)
+Received: from otyshchenko.router ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id
+ o28-20020ac2495c000000b0047255d211b3sm1682490lfi.226.2022.05.10.08.31.40
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 10 May 2022 08:31:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,100 +44,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e01460ca-d075-11ec-a406-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1652196522; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=e4wukkdgHyYEEL082h2+8MXPywOa6STdjbSVdRIKUGE=;
-	b=rR4mS/+oT4jH07pNjBmARAg7zdRtaoeIif/UACNxEBTH30BjG7Bppc3qvkDfJRoCh4TawW
-	6luoRejPAMFZr+z9Kvz9iubCA5AxZw1bIiLsMXPqeMDKaF9ra8TkGI7FOIFKW72kOoldt+
-	xkdV40YW6dtF4zTHXKWuKX4kUttIYC0=
-Date: Tue, 10 May 2022 17:28:40 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: akpm@linux-foundation.org, bhe@redhat.com, kexec@lists.infradead.org,
-	linux-kernel@vger.kernel.org, bcm-kernel-feedback-list@broadcom.com,
-	coresight@lists.linaro.org, linuxppc-dev@lists.ozlabs.org,
-	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-edac@vger.kernel.org, linux-hyperv@vger.kernel.org,
-	linux-leds@vger.kernel.org, linux-mips@vger.kernel.org,
-	linux-parisc@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org, linux-s390@vger.kernel.org,
-	linux-tegra@vger.kernel.org, linux-um@lists.infradead.org,
-	linux-xtensa@linux-xtensa.org, netdev@vger.kernel.org,
-	openipmi-developer@lists.sourceforge.net, rcu@vger.kernel.org,
-	sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
-	x86@kernel.org, kernel-dev@igalia.com, kernel@gpiccoli.net,
-	halves@canonical.com, fabiomirmar@gmail.com,
-	alejandro.j.jimenez@oracle.com, andriy.shevchenko@linux.intel.com,
-	arnd@arndb.de, bp@alien8.de, corbet@lwn.net,
-	d.hatayama@jp.fujitsu.com, dave.hansen@linux.intel.com,
-	dyoung@redhat.com, feng.tang@intel.com, gregkh@linuxfoundation.org,
-	mikelley@microsoft.com, hidehiro.kawai.ez@hitachi.com,
-	jgross@suse.com, john.ogness@linutronix.de, keescook@chromium.org,
-	luto@kernel.org, mhiramat@kernel.org, mingo@redhat.com,
-	paulmck@kernel.org, peterz@infradead.org, rostedt@goodmis.org,
-	senozhatsky@chromium.org, stern@rowland.harvard.edu,
-	tglx@linutronix.de, vgoyal@redhat.com, vkuznets@redhat.com,
-	will@kernel.org, Brian Norris <computersforpeace@gmail.com>,
-	Florian Fainelli <f.fainelli@gmail.com>
-Subject: Re: [PATCH 15/30] bus: brcmstb_gisb: Clean-up panic/die notifiers
-Message-ID: <YnqEqDnMfUgC4dM6@alley>
-References: <20220427224924.592546-1-gpiccoli@igalia.com>
- <20220427224924.592546-16-gpiccoli@igalia.com>
+X-Inumbo-ID: 4bae2705-d076-11ec-a406-831a346695d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Iv0IL6AtnXgnr8MUvSke35+4yXUMx4F0Bkh2lEdPPQg=;
+        b=fBq38ROfDoJI7x6svPyWaTXK/LZQhypxQZTbZLK3CXuEpdZvQP1uOdcIqbe2CHRDWU
+         N8IzziYBzE21gymvbJl/xsXoQ0efYKio91eBS8dLwOtqO2AWsfhBFrhnZcJS2FuiyLnl
+         gETL6cLZe7VPbcqu8WwFGmm32Iq3GYFSeL7oBpeg1eq7ZxGVFNvNWCOdT1WfSq5XFSLy
+         K1qrLYW0l/YkGlIwwKeqjDp3A+fW+MNVQKEtMQ6ifTIT1ftw+vsSegmWrrd9RPOo+PMl
+         EpCYLXLjgUpkaA9yZWmcxqqYjVkss098efDmxAlyK/+xXold4ptrsGisgmxmqusKnsun
+         yCeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Iv0IL6AtnXgnr8MUvSke35+4yXUMx4F0Bkh2lEdPPQg=;
+        b=JZD/UCULi3cJKkXdo965rfh3ZkeKfmU8samkpLgSTTWmIL3rqaCDqnLL1Ag6gdhAlV
+         bCnarcsDkn4pOa2Wp4C9Zk+W8NlGcFZnMYPnBcrIFjOyp+r+wAzYAW3msi1TTjPC5ieO
+         IHmkmG7bvbSHyFtKjNj1MYnMxjQq36pU+REVxDZeJt+1n1wfzaQhSwiXh5x/36sj2/8X
+         y0yrBP8LPY2jw86Sit48J9/9AWfuOQ+t8qesbaNLOiETPyl16jqYF4SLal2rDUyaips8
+         U/brhycXDpLQn/EIBMoI5AJ/jLylbM6SPGSIe9ydrQ5ApysWr+toD8tp/sPhhA7rzoT8
+         i0rg==
+X-Gm-Message-State: AOAM531zQrXYvyyxbqFjsjhDvvsbLPFv+f4EzWfQTqpYD+jipq2KP02I
+	HETkfKNw2TYgPiuFHbcTctzlsyFLQxc=
+X-Google-Smtp-Source: ABdhPJxO2qsi9uz6Y+ru8QWBielkM7K/yltoMEAUq6k4ZKv+NjJfIZZ6agBVkLZJE6me5OBsHHcUAQ==
+X-Received: by 2002:ac2:4c42:0:b0:471:a8e2:198e with SMTP id o2-20020ac24c42000000b00471a8e2198emr16894400lfk.673.1652196702270;
+        Tue, 10 May 2022 08:31:42 -0700 (PDT)
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Wei Chen <Wei.Chen@arm.com>,
+	Henry Wang <Henry.Wang@arm.com>,
+	Kaly Xin <Kaly.Xin@arm.com>,
+	Jiamei Xie <Jiamei.Xie@arm.com>,
+	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
+Subject: [PATCH V1] libxl/arm: Insert "xen,dev-domid" property to virtio-mmio device node
+Date: Tue, 10 May 2022 18:31:16 +0300
+Message-Id: <1652196676-14745-1-git-send-email-olekstysh@gmail.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220427224924.592546-16-gpiccoli@igalia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed 2022-04-27 19:49:09, Guilherme G. Piccoli wrote:
-> This patch improves the panic/die notifiers in this driver by
-> making use of a passed "id" instead of comparing pointer
-> address; also, it removes an useless prototype declaration
-> and unnecessary header inclusion.
-> 
-> This is part of a panic notifiers refactor - this notifier in
-> the future will be moved to a new list, that encompass the
-> information notifiers only.
-> 
-> --- a/drivers/bus/brcmstb_gisb.c
-> +++ b/drivers/bus/brcmstb_gisb.c
-> @@ -347,25 +346,14 @@ static irqreturn_t brcmstb_gisb_bp_handler(int irq, void *dev_id)
->  /*
->   * Dump out gisb errors on die or panic.
->   */
-> -static int dump_gisb_error(struct notifier_block *self, unsigned long v,
-> -			   void *p);
-> -
-> -static struct notifier_block gisb_die_notifier = {
-> -	.notifier_call = dump_gisb_error,
-> -};
-> -
-> -static struct notifier_block gisb_panic_notifier = {
-> -	.notifier_call = dump_gisb_error,
-> -};
-> -
->  static int dump_gisb_error(struct notifier_block *self, unsigned long v,
->  			   void *p)
->  {
->  	struct brcmstb_gisb_arb_device *gdev;
-> -	const char *reason = "panic";
-> +	const char *reason = "die";
->  
-> -	if (self == &gisb_die_notifier)
-> -		reason = "die";
-> +	if (v == PANIC_NOTIFIER)
-> +		reason = "panic";
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-IMHO, the check of the @self parameter was the proper solution.
+Use specific binding for the virtio devices for which the restricted
+memory access using Xen grant mappings need to be enabled.
 
-"gisb_die_notifier" list uses @val from enum die_val.
-"gisb_panic_notifier" list uses @val from enum panic_notifier_val.
+Based on device-tree binding from Linux:
+Documentation/devicetree/bindings/arm/xen,dev-domid.yaml
 
-These are unrelated types. It might easily break when
-someone defines the same constant also in enum die_val.
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+---
+!!! This patch is based on non upstreamed yet “Virtio support for toolstack
+on Arm” V8 series which is on review now:
+https://lore.kernel.org/xen-devel/1651598763-12162-1-git-send-email-olekstysh@gmail.com/
 
-Best Regards,
-Petr
+New device-tree binding (commit #5) is a part of solution to restrict memory
+access under Xen using xen-grant DMA-mapping layer (which is also on review):
+https://lore.kernel.org/xen-devel/1651947548-4055-1-git-send-email-olekstysh@gmail.com/
+
+Changes RFC -> V1:
+   - update commit description
+   - rebase according to the recent changes to
+     "libxl: Introduce basic virtio-mmio support on Arm"
+---
+ tools/libs/light/libxl_arm.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+index 37403a2..27ff328 100644
+--- a/tools/libs/light/libxl_arm.c
++++ b/tools/libs/light/libxl_arm.c
+@@ -862,7 +862,8 @@ static int make_vpci_node(libxl__gc *gc, void *fdt,
+ 
+ 
+ static int make_virtio_mmio_node(libxl__gc *gc, void *fdt,
+-                                 uint64_t base, uint32_t irq)
++                                 uint64_t base, uint32_t irq,
++                                 uint32_t backend_domid)
+ {
+     int res;
+     gic_interrupt intr;
+@@ -887,6 +888,14 @@ static int make_virtio_mmio_node(libxl__gc *gc, void *fdt,
+     res = fdt_property(fdt, "dma-coherent", NULL, 0);
+     if (res) return res;
+ 
++    if (backend_domid != LIBXL_TOOLSTACK_DOMID) {
++        uint32_t domid[1];
++
++        domid[0] = cpu_to_fdt32(backend_domid);
++        res = fdt_property(fdt, "xen,dev-domid", domid, sizeof(domid));
++        if (res) return res;
++    }
++
+     res = fdt_end_node(fdt);
+     if (res) return res;
+ 
+@@ -1205,7 +1214,8 @@ next_resize:
+             libxl_device_disk *disk = &d_config->disks[i];
+ 
+             if (disk->specification == LIBXL_DISK_SPECIFICATION_VIRTIO)
+-                FDT( make_virtio_mmio_node(gc, fdt, disk->base, disk->irq) );
++                FDT( make_virtio_mmio_node(gc, fdt, disk->base, disk->irq,
++                                           disk->backend_domid) );
+         }
+ 
+         if (pfdt)
+-- 
+2.7.4
+
 
