@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 392BA5220E1
-	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 18:16:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.325859.548621 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B7505220FA
+	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 18:18:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.325867.548630 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noSX1-0003UV-EF; Tue, 10 May 2022 16:16:15 +0000
+	id 1noSYm-000434-RD; Tue, 10 May 2022 16:18:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 325859.548621; Tue, 10 May 2022 16:16:15 +0000
+Received: by outflank-mailman (output) from mailman id 325867.548630; Tue, 10 May 2022 16:18:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noSX1-0003R1-Ap; Tue, 10 May 2022 16:16:15 +0000
-Received: by outflank-mailman (input) for mailman id 325859;
- Tue, 10 May 2022 16:16:13 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1noSWz-0003Qr-Od; Tue, 10 May 2022 16:16:13 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1noSWz-0001XR-LJ; Tue, 10 May 2022 16:16:13 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1noSWz-0004bU-2K; Tue, 10 May 2022 16:16:13 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1noSWz-0001mh-1t; Tue, 10 May 2022 16:16:13 +0000
+	id 1noSYm-00040h-Ng; Tue, 10 May 2022 16:18:04 +0000
+Received: by outflank-mailman (input) for mailman id 325867;
+ Tue, 10 May 2022 16:18:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=F+UO=VS=igalia.com=gpiccoli@srs-se1.protection.inumbo.net>)
+ id 1noSYj-00040P-EW
+ for xen-devel@lists.xenproject.org; Tue, 10 May 2022 16:18:04 +0000
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c1a85d54-d07c-11ec-8fc4-03012f2f19d4;
+ Tue, 10 May 2022 18:17:59 +0200 (CEST)
+Received: from [177.183.162.244] (helo=[192.168.0.5])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1noSY8-0008UD-Jz; Tue, 10 May 2022 18:17:24 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,175 +40,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=v7vpL2BZDL8TrhhIWqN3PwVayZ6SXiTk3l1it/xOAyg=; b=Tt1lHtFBaPvyQGSJxnmO7anY0i
-	gYD/tGTSSflxIVu0ntu0WE2E3ghGBi0zrc6rqUuPTJdpystcz4eNQDyCBZt+2jSR/6W/Qw+Yvu6/d
-	QWIDi2ajZYUejx9akZuDX7fWa1nESF5BuWrdi0Swi2WlGhL/pZiemrZyuxMCvI75Th48=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170301-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: c1a85d54-d07c-11ec-8fc4-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=DG+kC/U+ySej5D6tfV4OCa8YH0d8ESpuNC4bFJt4RU8=; b=C2KkFYKUIxmXZpa9w2+Tc0j2Ea
+	RFFr76ch465vsOUiMZW1uqZNDnhRYy0QqpFeaougTFG9GOX2EvcKO8NnFtvJdvaTDSvmTGm5I6bLE
+	gx/SYLZAEuVfjx7NJeu1tB8cieKdzixVjql/phg2ZRqRsu9xZgqdP1nbzw6Nv7UUXN3Dua0weQYl6
+	+N3ACyNpHY020LPMtgokauBK3/rzBv0qIzP0VJEueNDPsJdk0Noe60ugWXyfyRTapgsSXBPVXAg4/
+	oobDhrEfQYteiYAwrodL1TGkVGLJREzPqDYfYYN3sh0JBT6vnlq6trf1vxZCJI19NPJiA+YiSFKJe
+	qkMs6K7A==;
+Message-ID: <244a412c-4589-28d1-bb77-d3648d4f0b12@igalia.com>
+Date: Tue, 10 May 2022 13:16:54 -0300
 MIME-Version: 1.0
-Subject: [ovmf test] 170301: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=0e31124877cc8bc0140a03ad3196f0d58b2fd966
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 10 May 2022 16:16:13 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.1
+Subject: Re: [PATCH 14/30] panic: Properly identify the panic event to the
+ notifiers' callbacks
+Content-Language: en-US
+To: Petr Mladek <pmladek@suse.com>
+Cc: akpm@linux-foundation.org, bhe@redhat.com, kexec@lists.infradead.org,
+ linux-kernel@vger.kernel.org, bcm-kernel-feedback-list@broadcom.com,
+ linuxppc-dev@lists.ozlabs.org, linux-alpha@vger.kernel.org,
+ linux-edac@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-parisc@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-um@lists.infradead.org,
+ linux-xtensa@linux-xtensa.org, netdev@vger.kernel.org,
+ openipmi-developer@lists.sourceforge.net, rcu@vger.kernel.org,
+ sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org,
+ kernel-dev@igalia.com, kernel@gpiccoli.net, halves@canonical.com,
+ fabiomirmar@gmail.com, alejandro.j.jimenez@oracle.com,
+ andriy.shevchenko@linux.intel.com, arnd@arndb.de, bp@alien8.de,
+ corbet@lwn.net, d.hatayama@jp.fujitsu.com, dave.hansen@linux.intel.com,
+ dyoung@redhat.com, feng.tang@intel.com, gregkh@linuxfoundation.org,
+ mikelley@microsoft.com, hidehiro.kawai.ez@hitachi.com, jgross@suse.com,
+ john.ogness@linutronix.de, keescook@chromium.org, luto@kernel.org,
+ mhiramat@kernel.org, mingo@redhat.com, paulmck@kernel.org,
+ peterz@infradead.org, rostedt@goodmis.org, senozhatsky@chromium.org,
+ stern@rowland.harvard.edu, tglx@linutronix.de, vgoyal@redhat.com,
+ vkuznets@redhat.com, will@kernel.org
+References: <20220427224924.592546-1-gpiccoli@igalia.com>
+ <20220427224924.592546-15-gpiccoli@igalia.com> <YnqBsXBImU64PAOL@alley>
+From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+In-Reply-To: <YnqBsXBImU64PAOL@alley>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-flight 170301 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170301/
+On 10/05/2022 12:16, Petr Mladek wrote:
+> [...]
+> Hmm, this looks like a hack. PANIC_UNUSED will never be used.
+> All notifiers will be always called with PANIC_NOTIFIER.
+> 
+> The @val parameter is normally used when the same notifier_list
+> is used in different situations.
+> 
+> But you are going to use it when the same notifier is used
+> in more lists. This is normally distinguished by the @nh
+> (atomic_notifier_head) parameter.
+> 
+> IMHO, it is a bad idea. First, it would confuse people because
+> it does not follow the original design of the parameters.
+> Second, the related code must be touched anyway when
+> the notifier is moved into another list so it does not
+> help much.
+> 
+> Or do I miss anything, please?
+> 
+> Best Regards,
+> Petr
 
-Regressions :-(
+Hi Petr, thanks for the review.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 0e31124877cc8bc0140a03ad3196f0d58b2fd966
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   71 days
-Failing since        168258  2022-03-01 01:55:31 Z   70 days  916 attempts
-Testing same since   170272  2022-05-09 15:12:57 Z    1 days   20 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chao Li <lichao@loongson.cn>
-  Chao, Zhuoran <zhuoran.chao@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Christine <Yuwei.Chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  duntan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gua Guo <gua.guo@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Jiewen Yao <jiewen.yao@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Peter Grehan <grehan@freebsd.org>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yu Pu <yu.pu@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Yuwei Chen <yuwei.chen@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-  Zhuoran Chao <zhuoran.chao@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+I'm not strong attached to this patch, so we could drop it and refactor
+the code of next patches to use the @nh as identification - but
+personally, I feel this parameter could be used to identify the list
+that called such function, in other words, what is the event that
+triggered the callback. Some notifiers are even declared with this
+parameter called "ev", like the event that triggers the notifier.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+You mentioned 2 cases:
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+(a) Same notifier_list used in different situations;
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+(b) Same *notifier callback* used in different lists;
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Mine is case (b), right? Can you show me an example of case (a)? You can
+see in the following patches (or grep the kernel) that people are using
+this identification parameter to determine which kind of OOPS trigger
+the callback to condition the execution of the function to specific
+cases. IIUIC, this is more or less what I'm doing, but extending the
+idea for panic notifiers.
+
+Again, as a personal preference, it makes sense to me using id's VS
+comparing pointers to differentiate events/callers.
+
+Cheers,
 
 
-Not pushing.
-
-(No revision log; it would be 6200 lines long.)
+Guilherme
 
