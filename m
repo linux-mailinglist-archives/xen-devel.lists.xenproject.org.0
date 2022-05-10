@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBDE4521B7C
-	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 16:12:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.325696.548374 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4ECE521B7F
+	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 16:12:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.325701.548384 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noQau-0000sb-DO; Tue, 10 May 2022 14:12:08 +0000
+	id 1noQbX-0001PW-MV; Tue, 10 May 2022 14:12:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 325696.548374; Tue, 10 May 2022 14:12:08 +0000
+Received: by outflank-mailman (output) from mailman id 325701.548384; Tue, 10 May 2022 14:12:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noQau-0000qd-9q; Tue, 10 May 2022 14:12:08 +0000
-Received: by outflank-mailman (input) for mailman id 325696;
- Tue, 10 May 2022 14:12:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=F+UO=VS=igalia.com=gpiccoli@srs-se1.protection.inumbo.net>)
- id 1noQap-0000qX-Tn
- for xen-devel@lists.xenproject.org; Tue, 10 May 2022 14:12:06 +0000
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 28a72f31-d06b-11ec-a406-831a346695d4;
- Tue, 10 May 2022 16:12:01 +0200 (CEST)
-Received: from [177.183.162.244] (helo=[192.168.0.5])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1noQa0-000AUZ-9j; Tue, 10 May 2022 16:11:12 +0200
+	id 1noQbX-0001Mk-Jb; Tue, 10 May 2022 14:12:47 +0000
+Received: by outflank-mailman (input) for mailman id 325701;
+ Tue, 10 May 2022 14:12:45 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1noQbV-0001LY-II
+ for xen-devel@lists.xenproject.org; Tue, 10 May 2022 14:12:45 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1noQbV-0007Cj-65; Tue, 10 May 2022 14:12:45 +0000
+Received: from [54.239.6.189] (helo=[192.168.24.150])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1noQbU-0000Sr-VU; Tue, 10 May 2022 14:12:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,93 +39,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 28a72f31-d06b-11ec-a406-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=vlPcmXA97Qhtkz3pBw6LdXf1X8P0UYvVzj4VthO5jgc=; b=e9qBavzt7iSXqotIL+kEfOWSDC
-	iVRppT3Hb/vZk3YrAi/b/1Sks4coJ4CDDP+7PsBf/3PYaPFt1gdo8rsOdKqYQ7smquEWj28eStWqL
-	CRF+oqCbuJG6ZM1a8GSMIH+b891MTAxbko/s3bV28TSILNPx0vJS6lKq9Hi1OrpvIOMJ2yAsDH+AE
-	5UZLLIZnAX0XkUOFElR9JGQkkK04aCtF/juYrAyo+JJs0W0WZech05pCgMVZEF/gDbG3lXHdR+nlg
-	gc7p3pNqQj2cprKtyF3OhhaP7dxC5PNGfWWqohU3giKekM5UQ60wlcwHLGqdoJfnT4tcYUBBcGgto
-	etn8qzNQ==;
-Message-ID: <58837e3d-0e2a-42ac-f198-9fe7be7aa823@igalia.com>
-Date: Tue, 10 May 2022 11:10:40 -0300
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=PF0BN+jzVmzYpLhdi5IOIUWNCs8skRYGLmpOpdJtS6M=; b=mER6+lrzvuWvE1nR1uW4qjPtdx
+	wE8g3CQ3zdem2yRoBLTLg1YgSQEdTSUkLfKW/vMUTy5Fmg5qWE6jdrrfDenldXxRwQ0wveHTxvH6p
+	pueXEg3mdL66t9e4pnwVrl4G/D+Z0PyqFW5h61+xywVydDMQ9x7NjWlKg3k/svz3FvHM=;
+Message-ID: <191159cc-f26d-f161-3f44-431507a6c270@xen.org>
+Date: Tue, 10 May 2022 15:12:42 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [PATCH 08/30] powerpc/setup: Refactor/untangle panic notifiers
-Content-Language: en-US
-To: Michael Ellerman <mpe@ellerman.id.au>,
- Hari Bathini <hbathini@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, bcm-kernel-feedback-list@broadcom.com,
- linuxppc-dev@lists.ozlabs.org, linux-alpha@vger.kernel.org,
- linux-edac@vger.kernel.org, linux-hyperv@vger.kernel.org, pmladek@suse.com,
- kexec@lists.infradead.org, bhe@redhat.com, linux-leds@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-um@lists.infradead.org, linux-xtensa@linux-xtensa.org,
- netdev@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
- rcu@vger.kernel.org, sparclinux@vger.kernel.org,
- xen-devel@lists.xenproject.org, x86@kernel.org, kernel-dev@igalia.com,
- kernel@gpiccoli.net, halves@canonical.com, fabiomirmar@gmail.com,
- alejandro.j.jimenez@oracle.com, andriy.shevchenko@linux.intel.com,
- arnd@arndb.de, bp@alien8.de, corbet@lwn.net, d.hatayama@jp.fujitsu.com,
- dave.hansen@linux.intel.com, dyoung@redhat.com, feng.tang@intel.com,
- gregkh@linuxfoundation.org, mikelley@microsoft.com,
- hidehiro.kawai.ez@hitachi.com, jgross@suse.com, john.ogness@linutronix.de,
- keescook@chromium.org, luto@kernel.org, mhiramat@kernel.org,
- mingo@redhat.com, paulmck@kernel.org, peterz@infradead.org,
- rostedt@goodmis.org, senozhatsky@chromium.org, stern@rowland.harvard.edu,
- tglx@linutronix.de, vgoyal@redhat.com, vkuznets@redhat.com, will@kernel.org,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Nicholas Piggin <npiggin@gmail.com>, Paul Mackerras <paulus@samba.org>,
- akpm@linux-foundation.org
-References: <20220427224924.592546-1-gpiccoli@igalia.com>
- <20220427224924.592546-9-gpiccoli@igalia.com>
- <3c34d8e2-6f84-933f-a4ed-338cd300d6b0@linux.ibm.com>
- <f9c3de3c-1709-a1aa-2ece-c9fbfd5e6d6a@igalia.com>
- <87fslh8pe3.fsf@mpe.ellerman.id.au>
-From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-In-Reply-To: <87fslh8pe3.fsf@mpe.ellerman.id.au>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.9.0
+Subject: Re: [PATCH v2] xen/arm: p2m don't fall over on FEAT_LPA enabled hw
+To: =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>
+Cc: xen-devel@lists.xenproject.org, stratos-dev@op-lists.linaro.org,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+References: <20220428103410.2723837-1-alex.bennee@linaro.org>
+ <64d47797-3789-694b-0eb5-08fc7527ff5b@xen.org> <8735hhtrfd.fsf@linaro.org>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <8735hhtrfd.fsf@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 10/05/2022 10:53, Michael Ellerman wrote:
-> "Guilherme G. Piccoli" <gpiccoli@igalia.com> writes:
->> On 05/05/2022 15:55, Hari Bathini wrote:
->>> [...] 
->>> The change looks good. I have tested it on an LPAR (ppc64).
->>>
->>> Reviewed-by: Hari Bathini <hbathini@linux.ibm.com>
->>>
+Hi Alex,
+
+On 10/05/2022 15:03, Alex Bennée wrote:
+> 
+> Julien Grall <julien@xen.org> writes:
+> 
+>> Hi Alex,
 >>
->> Hi Michael. do you think it's possible to add this one to powerpc/next
->> (or something like that), or do you prefer a V2 with his tag?
+>> On 28/04/2022 11:34, Alex Bennée wrote:
+>>> When we introduced FEAT_LPA to QEMU's -cpu max we discovered older
+>>> kernels had a bug where the physical address was copied directly from
+>>> ID_AA64MMFR0_EL1.PARange field. The early cpu_init code of Xen commits
+>>> the same error by blindly copying across the max supported range.
+>>> Unsurprisingly when the page tables aren't set up for these greater
+>>> ranges hilarity ensues and the hypervisor crashes fairly early on in
+>>> the boot-up sequence. This happens when we write to the control
+>>> register in enable_mmu().
+>>> Attempt to fix this the same way as the Linux kernel does by gating
+>>> PARange to the maximum the hypervisor can handle. I also had to fix up
+>>> code in p2m which panics when it sees an "invalid" entry in PARange.
+>>> Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
+>>> Cc: Richard Henderson <richard.henderson@linaro.org>
+>>> Cc: Stefano Stabellini <sstabellini@kernel.org>
+>>> Cc: Julien Grall <julien@xen.org>
+>>> Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+>>> Cc: Bertrand Marquis <bertrand.marquis@arm.com>
+>>
+>> Acked-by: Julien Grall <jgrall@amazon.com>
 > 
-> Ah sorry, I assumed it was going in as part of the whole series. I guess
-> I misread the cover letter.
-> 
-> So you want me to take this patch on its own via the powerpc tree?
-> 
-> cheers
+> Will you pick this up via your tree or do I need to do something else to
+> get it upstreamed? I guess it needs to go on master and last stable?
 
-Hi Michael, thanks for the prompt response!
+We only have one tree in Xen where committers (such as Stefano and I) 
+will commit patches regularly to staging. Osstest will then push to 
+master once the testing passed.
 
-You didn't misread, that was the plan heh
-But some maintainers start to take patches and merge in their trees, and
-in the end, it seems to make sense - almost half of this series are
-fixes or clean-ups, that are not really necessary to get merged altogether.
+I have done that now. Interestingly, git am wasn't able to apply this 
+patch. I had to do with:
 
-So, if you can take this one, I'd appreciate - it'll make V2 a bit
-smaller =)
+42sh> git am --show-current-patch=diff | patch -p1
+patching file xen/arch/arm/arm64/head.S
+Hunk #1 succeeded at 474 (offset 1 line).
+patching file xen/arch/arm/p2m.c
+Hunk #1 succeeded at 32 with fuzz 2.
+Hunk #2 succeeded at 2023 (offset -7 lines).
+Hunk #3 succeeded at 2031 (offset -7 lines).
+Hunk #4 succeeded at 2062 (offset -7 lines).
+
+Which branch did you use for sending the patch?
+
+Regarding stable, I will add the patch in my backport candidate list and 
+send a list to Stefano when we prepare the backports.
 
 Cheers,
 
-
-Guilherme
+-- 
+Julien Grall
 
