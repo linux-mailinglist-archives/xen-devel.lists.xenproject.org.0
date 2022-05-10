@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A68A5214FB
-	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 14:14:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.325579.548209 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72383521580
+	for <lists+xen-devel@lfdr.de>; Tue, 10 May 2022 14:33:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.325585.548220 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noOkw-0003lv-Lj; Tue, 10 May 2022 12:14:22 +0000
+	id 1noP2z-0006M3-9H; Tue, 10 May 2022 12:33:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 325579.548209; Tue, 10 May 2022 12:14:22 +0000
+Received: by outflank-mailman (output) from mailman id 325585.548220; Tue, 10 May 2022 12:33:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1noOkw-0003il-I4; Tue, 10 May 2022 12:14:22 +0000
-Received: by outflank-mailman (input) for mailman id 325579;
- Tue, 10 May 2022 12:14:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1noP2z-0006Iu-5s; Tue, 10 May 2022 12:33:01 +0000
+Received: by outflank-mailman (input) for mailman id 325585;
+ Tue, 10 May 2022 12:32:59 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0hsl=VS=suse.com=pmladek@srs-se1.protection.inumbo.net>)
- id 1noOkv-0003if-8Y
- for xen-devel@lists.xenproject.org; Tue, 10 May 2022 12:14:21 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b81388ee-d05a-11ec-a406-831a346695d4;
- Tue, 10 May 2022 14:14:19 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 671FF1F8B8;
- Tue, 10 May 2022 12:14:19 +0000 (UTC)
-Received: from suse.cz (unknown [10.100.208.146])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 552522C141;
- Tue, 10 May 2022 12:14:16 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1noP2x-0006Io-8z
+ for xen-devel@lists.xenproject.org; Tue, 10 May 2022 12:32:59 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1noP2w-0005NB-Qo; Tue, 10 May 2022 12:32:58 +0000
+Received: from [54.239.6.189] (helo=[192.168.24.150])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1noP2w-0001bJ-KE; Tue, 10 May 2022 12:32:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,86 +39,232 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b81388ee-d05a-11ec-a406-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1652184859; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z0qCXGbgchboCgbitrJZObbFnXC/YqP7fhEXmnIw2vY=;
-	b=OcxDFXmKKoVdDJUxSKREkD35h3cfh7L/UHzdGP/cbflejeipwrciY4AbOjnQu6DKNCs7aq
-	Tea2QFXBj209QcyaHp7BuefH2IIusivsxr3vlgfi6p9lZaMFpVOppWn8lIP/+rweBZrcrm
-	+Lwt8IUC7jK6VwI0ouYkElgPt01wPwE=
-Date: Tue, 10 May 2022 14:14:16 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: akpm@linux-foundation.org, bhe@redhat.com, kexec@lists.infradead.org,
-	linux-kernel@vger.kernel.org, bcm-kernel-feedback-list@broadcom.com,
-	coresight@lists.linaro.org, linuxppc-dev@lists.ozlabs.org,
-	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-edac@vger.kernel.org, linux-hyperv@vger.kernel.org,
-	linux-leds@vger.kernel.org, linux-mips@vger.kernel.org,
-	linux-parisc@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org, linux-s390@vger.kernel.org,
-	linux-tegra@vger.kernel.org, linux-um@lists.infradead.org,
-	linux-xtensa@linux-xtensa.org, netdev@vger.kernel.org,
-	openipmi-developer@lists.sourceforge.net, rcu@vger.kernel.org,
-	sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
-	x86@kernel.org, kernel-dev@igalia.com, kernel@gpiccoli.net,
-	halves@canonical.com, fabiomirmar@gmail.com,
-	alejandro.j.jimenez@oracle.com, andriy.shevchenko@linux.intel.com,
-	arnd@arndb.de, bp@alien8.de, corbet@lwn.net,
-	d.hatayama@jp.fujitsu.com, dave.hansen@linux.intel.com,
-	dyoung@redhat.com, feng.tang@intel.com, gregkh@linuxfoundation.org,
-	mikelley@microsoft.com, hidehiro.kawai.ez@hitachi.com,
-	jgross@suse.com, john.ogness@linutronix.de, keescook@chromium.org,
-	luto@kernel.org, mhiramat@kernel.org, mingo@redhat.com,
-	paulmck@kernel.org, peterz@infradead.org, rostedt@goodmis.org,
-	senozhatsky@chromium.org, stern@rowland.harvard.edu,
-	tglx@linutronix.de, vgoyal@redhat.com, vkuznets@redhat.com,
-	will@kernel.org, Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Mihai Carabas <mihai.carabas@oracle.com>,
-	Shile Zhang <shile.zhang@linux.alibaba.com>,
-	Wang ShaoBo <bobo.shaobowang@huawei.com>,
-	zhenwei pi <pizhenwei@bytedance.com>
-Subject: Re: [PATCH 05/30] misc/pvpanic: Convert regular spinlock into
- trylock on panic path
-Message-ID: <YnpXGOXicwdy1E6n@alley>
-References: <20220427224924.592546-1-gpiccoli@igalia.com>
- <20220427224924.592546-6-gpiccoli@igalia.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=7h7Yw7tNQ24qD99Cl5/gMsYGdW5f+JrvI7xCOVuYn8k=; b=L/vn6pIOURKWdXbOLcflQwvQCz
+	dSR+s8RsiAdaKBpnfJW+uvXwNgbqyOBdZJJqCo0ZbcVPoLx6+psf37AAMTqJgzJDJjQiXtAUfAgZm
+	s00Czo7swja3sQXczKJO6c71sA6k8m6s7BSX8gGErlps5NJqHqwfWM5xrNKfZ073Pqu0=;
+Message-ID: <cd402709-619f-7189-3d95-fea4ad6bf637@xen.org>
+Date: Tue, 10 May 2022 13:32:56 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220427224924.592546-6-gpiccoli@igalia.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.9.0
+Subject: Re: [PATCH v2] xen/evtchn: Add design for static event channel
+ signaling
+To: Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <10d83478f116c923271a6c2f7d413f6ec117598d.1651685393.git.rahul.singh@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <10d83478f116c923271a6c2f7d413f6ec117598d.1651685393.git.rahul.singh@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed 2022-04-27 19:48:59, Guilherme G. Piccoli wrote:
-> The pvpanic driver relies on panic notifiers to execute a callback
-> on panic event. Such function is executed in atomic context - the
-> panic function disables local IRQs, preemption and all other CPUs
-> that aren't running the panic code.
+Hi Rahul,
+
+On 04/05/2022 18:34, Rahul Singh wrote:
+> This patch introduces a new feature to support the signaling between
+> two domains in dom0less system.
 > 
-> With that said, it's dangerous to use regular spinlocks in such path,
-> as introduced by commit b3c0f8774668 ("misc/pvpanic: probe multiple instances").
-> This patch fixes that by replacing regular spinlocks with the trylock
-> safer approach.
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+> ---
+> v2 changes:
+> - switch to the one-subnode-per-evtchn under xen,domain" compatible node.
+> - Add more detail about event-channel
+> ---
+>   docs/designs/dom0less-evtchn.md | 126 ++++++++++++++++++++++++++++++++
 
-It seems that the lock is used just to manipulating a list. A super
-safe solution would be to use the rcu API: rcu_add_rcu() and
-list_del_rcu() under rcu_read_lock(). The spin lock will not be
-needed and the list will always be valid.
+Answering here to also keep the history. On IRC, Bertrand was asking 
+whether we merge design proposal.
 
-The advantage would be that it will always call members that
-were successfully added earlier. That said, I am not familiar
-with pvpanic and am not sure if it is worth it.
+We have merged proposal in the past (e.g. non-cooperative migration) and 
+I would be ready to do it again as it is easier to find them afterwards.
 
-> It also fixes an old comment (about a long gone framebuffer code) and
-> the notifier priority - we should execute hypervisor notifiers early,
-> deferring this way the panic action to the hypervisor, as expected by
-> the users that are setting up pvpanic.
+However, I wonder whether it would be better to turn this proposal to a 
+binding change in misc/arm/device-tree/. Any thoughts?
 
-This should be done in a separate patch. It changes the behavior.
-Also there might be a discussion whether it really should be
-the maximal priority.
+>   1 file changed, 126 insertions(+)
+>   create mode 100644 docs/designs/dom0less-evtchn.md
+> 
+> diff --git a/docs/designs/dom0less-evtchn.md b/docs/designs/dom0less-evtchn.md
+> new file mode 100644
+> index 0000000000..62ec8a4009
+> --- /dev/null
+> +++ b/docs/designs/dom0less-evtchn.md
+> @@ -0,0 +1,126 @@
+> +# Signaling support between two domUs on dom0less system
+> +
+> +## Current state: Draft version
+> +
+> +## Proposer(s): Rahul Singh, Bertrand Marquis
+> +
+> +## Problem Statement:
+> +
+> +Dom0less guests would benefit from a statically-defined memory sharing and
+> +signally system for communication. One that would be immediately available at
+> +boot without any need for dynamic configurations.
+> +
+> +In embedded a great variety of guest operating system kernels exist, many of
+> +which don't have support for xenstore, grant table, or other complex drivers.
 
-Best Regards,
-Petr
+I am not sure I would consider event channel FIFO a "trival" drivers :).
+
+> +Some of them are small kernel-space applications (often called "baremetal",
+> +not to be confused with the term "baremetal" used in the data center which
+> +means "without hypervisors") or RTOSes. Additionally, for safety reasons, users
+> +often need to be able to configure the full system statically so that it can
+> +be verified statically.
+> +
+> +Event channels are very simple and can be added even to baremetal applications.
+> +This proposal introduces a way to define them statically to make them suitable
+> +for dom0less embedded deployments.
+> +
+> +## Proposal:
+> +
+> +Event channels are the basic primitive provided by Xen for event notifications.
+> +An event channel is a logical connection between 2 domains (more specifically
+> +between dom1,port1, and dom2,port2). Each event has a pending and a masked bit.
+> +The pending bit indicates the event has been raised. The masked bit is used by
+> +the domain to prevent the delivery of that specific event. Xen only performs a
+> +0 → 1 transition on the pending bits and does not touch the mask bit. The
+
+NIT: I think → is not an ascii character. Can you use "->"?
+
+> +domain may toggle masked bits in the masked bit field and should clear the
+> +pending bit when an event has been processed
+> +
+> +Events are received by a domain via an interrupt from Xen to the domain,
+> +indicating when an event arrives (setting the bit). Further notifications are
+> +blocked until the bit is cleared again. Events are delivered asynchronously to
+> +a domain and are enqueued when the domain is not running.
+> +More information about FIFO based event channel can be found at:
+
+I think the explanation is fine for a design proposal. If you want to 
+use it as documentation, then I would suggest to clarify there are two 
+different ABI for event channel: FIFO and 2L.
+
+2L is the easiest one to implement and for embedded we may want to steer 
+the users towards it.
+
+> +https://xenbits.xen.org/people/dvrabel/event-channels-H.pdf
+
+It is quite unfortunate that this wasn't merged in docs/. Oh well, no 
+action for you here.
+
+> +
+> +The event channel communication will be established statically between two
+> +domains (dom0 and domU also) before unpausing the domains after domain creation.
+> +Event channel connection information between domains will be passed to XEN via
+
+NIT: above you are using "Xen". So s/XEN/Xen/ for consistency.
+
+> +the device tree node. The event channel will be created and established
+> +beforehand in XEN before the domain started. The domain doesn’t need to do any
+
+Same here.
+
+NIT: I think "beforehand" and "before" is redundant.
+
+> +operation to establish a connection. Domain only needs hypercall
+> +EVTCHNOP_send(local port) to send notifications to the remote guest.
+> +
+> +There is no need to describe the static event channel info in the domU device
+> +tree. Static event channels are only useful in fully static configurations,
+> +and in those configurations the domU device tree dynamically generated by Xen
+> +is not needed.
+> +
+> +Under the "xen,domain" compatible node, there need to be sub-nodes with
+> +compatible "xen,evtchn" that describe the event channel connection between two
+> +domains(dom0 and domU also).
+
+Below you provided an example between two domUs. Can you provide one 
+between dom0 and a domU?
+
+> +
+> +The event channel sub-node has the following properties:
+> +
+> +- compatible
+> +
+> +    "xen,evtchn"
+> +
+> +- xen,evtchn
+> +
+> +    The property is tuples of two numbers
+> +    (local-evtchn link-to-foreign-evtchn) where:
+> +
+> +    local-evtchn is an integer value that will be used to allocate local port
+> +    for a domain to send and receive event notifications to/from the remote
+> +    domain.
+Port 0 is reserved and both FIFO/2L have limit on the port numbers.
+
+I think we should let know the users about those limitations but I am 
+not sure whether the binding is the right place for that.
+
+> +
+> +    link-to-foreign-evtchn is a single phandle to a remote evtchn to which
+> +    local-evtchn will be connected.
+
+I would consider to relax the wording so a user can create an event 
+channel with the both end in the same domain.
+
+Implementation wise, it should make no difference as you still need to 
+lookup the domain.
+
+> +
+> +
+> +Example:
+> +
+> +    chosen {
+> +        ....
+> +
+> +        domU1: domU1 {
+> +            compatible = "xen,domain";
+> +
+> +            /* one sub-node per local event channel */
+> +            ec1: evtchn@1 {
+> +                compatible = "xen,evtchn-v1";
+> +                /* local-evtchn link-to-foreign-evtchn */
+> +                xen,evtchn = <0xa &ec3>;
+> +            };
+> +
+> +            ec2: evtchn@2 {
+> +                compatible = "xen,evtchn-v1";
+> +                xen,evtchn = <0xc &ec4>;
+> +            };
+> +            ....
+> +        };
+> +
+> +        domU2: domU2 {
+> +            compatible = "xen,domain";
+> +
+> +            /* one sub-node per local event channel */
+> +            ec3: evtchn@3 {
+> +                compatible = "xen,evtchn-v1";
+> +                /* local-evtchn link-to-foreign-evtchn */
+> +                xen,evtchn = <0xb &ec1>;
+> +            };
+> +
+> +            ec4: evtchn@4 {
+> +                compatible = "xen,evtchn-v1";
+> +                xen,evtchn = <0xd &ec2>;
+> +            };
+> +            ....
+> +        };
+> +    };
+> +
+> +In above example two event channel comunication will be established between
+> +domU1 and domU2.
+> +
+> +    domU1 (port 0xa) <-----------------> domU2 (port 0xb)
+> +    domU1 (port 0xc) <-----------------> domU2 (port 0xd)
+> +
+> +domU1 and domU2 can send the signal to remote domain via hypercall
+> +EVTCHNOP_send(.) on local port.
+
+Cheers,
+
+-- 
+Julien Grall
 
