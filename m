@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76447523CD2
-	for <lists+xen-devel@lfdr.de>; Wed, 11 May 2022 20:47:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.327185.549938 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44263523CE7
+	for <lists+xen-devel@lfdr.de>; Wed, 11 May 2022 20:52:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.327199.549955 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1norN4-0003Ew-6O; Wed, 11 May 2022 18:47:38 +0000
+	id 1norRh-0005EQ-OF; Wed, 11 May 2022 18:52:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 327185.549938; Wed, 11 May 2022 18:47:38 +0000
+Received: by outflank-mailman (output) from mailman id 327199.549955; Wed, 11 May 2022 18:52:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1norN4-00039P-1E; Wed, 11 May 2022 18:47:38 +0000
-Received: by outflank-mailman (input) for mailman id 327185;
- Wed, 11 May 2022 18:47:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mbwJ=VT=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1norN2-0002t5-DT
- for xen-devel@lists.xenproject.org; Wed, 11 May 2022 18:47:36 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d2ce5dda-d15a-11ec-8fc4-03012f2f19d4;
- Wed, 11 May 2022 20:47:35 +0200 (CEST)
-Received: by mail-lf1-x12a.google.com with SMTP id t25so5114135lfg.7
- for <xen-devel@lists.xenproject.org>; Wed, 11 May 2022 11:47:35 -0700 (PDT)
-Received: from otyshchenko.router ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id
- w12-20020a05651234cc00b0047255d21189sm396230lfr.184.2022.05.11.11.47.32
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 11 May 2022 11:47:33 -0700 (PDT)
+	id 1norRh-0005B8-KL; Wed, 11 May 2022 18:52:25 +0000
+Received: by outflank-mailman (input) for mailman id 327199;
+ Wed, 11 May 2022 18:52:24 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1norRg-0005B2-9j
+ for xen-devel@lists.xenproject.org; Wed, 11 May 2022 18:52:24 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1norRf-0005O7-4U; Wed, 11 May 2022 18:52:23 +0000
+Received: from [54.239.6.188] (helo=[192.168.11.111])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1norRe-0007Bn-U3; Wed, 11 May 2022 18:52:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,115 +39,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2ce5dda-d15a-11ec-8fc4-03012f2f19d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references;
-        bh=vctV/iLL9dxD/cFUite3RxHXN54TqR8bRkXbFjuYkMw=;
-        b=Yek1mTVmaEi46z3QQJsz2e1Ta4uvlY1Tm4ODXeMoxGsTACb85Z01IF5V6/+PQFDE0q
-         PQkeKb0w19D9rK18XngwqHdYlJ3bAraQi/ttv+ickXfwlgU8dcXLUZOvpLzewAQiifbL
-         08UiZFYKk5rpNunv0gW0buARJry3W0ogycyxx5FWK91fMF2q02T9KKHZfKj/oF3yhbH5
-         IOmYLcYFXriq67m3uvZVHy3NmjjH3NOG4UoZlf2dSdhOuwfc85LOoWOvVCEiqeGsDy/K
-         zE0FNTx2WFR42Yyx+HqRGxPAeJxL1HPgITebPFCIz+kt55i56G+gNlHnYeWsXqijcA0/
-         N83w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references;
-        bh=vctV/iLL9dxD/cFUite3RxHXN54TqR8bRkXbFjuYkMw=;
-        b=49prpnX2L54mstsrlAXWKjUJsJVrxQ52Pd1F/Z1fLOEqm4x0Dn8+d2Dg1/U8+uTNZA
-         0EjvjXNlgc5QvmQ/w1f83y62cBv3xzJj0CR8eZ4cJuTgNjFUS3HVgYb6Vc0XjBpywRup
-         RhrzdMr4CpVwicRkb3uAZoY7sbYsU+hmGNT3R61O2gMDjoh2kmJx5YDg+yi1DNWfHzpA
-         heFUx2zfEucP7TrLCAzC4lIlEQa3x0t0B/7qhaf1LiUsZ8IzzHnXwWZe4fmPMOiN+9cE
-         rmZKLaulNf6Mkn0IsLRzdusV2W/Sbo7qASGhRubAMjmI7ECQduKv5dFqc2fW1bqvY7v5
-         +d0A==
-X-Gm-Message-State: AOAM530BGY3PDpfNZdlIYZuCYSnbDKX2+rkxqQXSCIyx+jKaV60PV3II
-	59HlBW9qlt6bbxoQSxN577V8IB0uxsI=
-X-Google-Smtp-Source: ABdhPJwNtbxDzwFgJ57XcIMT8iqJWTz51fLWvllpe43kx41E3ujr9FO+aMOq+lloUt41DdnKh1toSg==
-X-Received: by 2002:ac2:44cd:0:b0:471:eff9:d698 with SMTP id d13-20020ac244cd000000b00471eff9d698mr21496835lfm.251.1652294854659;
-        Wed, 11 May 2022 11:47:34 -0700 (PDT)
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH V6 2/2] xen/arm: Harden the P2M code in p2m_remove_mapping()
-Date: Wed, 11 May 2022 21:47:25 +0300
-Message-Id: <1652294845-13980-2-git-send-email-olekstysh@gmail.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1652294845-13980-1-git-send-email-olekstysh@gmail.com>
-References: <1652294845-13980-1-git-send-email-olekstysh@gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=xDJc54aGWs6VPC/aAYJYP9EWKMv/TbUIb1SicvFfR1Q=; b=lzas2N7VAy0lYtgEk/VhsiGpRT
+	Witxyx+C1mxVxPyLtgwyQ2AHHNiDDbJwP+0k+J76qbQu+wpYDO9zOXGgKte5chwouvEa+PWu9evZf
+	pN3lcU+iTcXyRaK9rEk2mxZWSVzXRCa7bxJOl7aoYEyhFUdTQ0F0Vz4s2Y/U6+LFAbmU=;
+Message-ID: <f0eb9ccd-28d0-8709-faa5-88d67da4772c@xen.org>
+Date: Wed, 11 May 2022 19:52:20 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.9.0
+Subject: Re: [PATCH v6 4/7] xen/arm: configure dom0less domain for enabling
+ xenstore after boot
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+Cc: jgross@suse.com, Bertrand.Marquis@arm.com, Volodymyr_Babchuk@epam.com,
+ Luca Miccio <lucmiccio@gmail.com>,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>, jbeulich@suse.com
+References: <alpine.DEB.2.22.394.2205041715320.43560@ubuntu-linux-20-04-desktop>
+ <20220505001656.395419-4-sstabellini@kernel.org>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20220505001656.395419-4-sstabellini@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Hi Stefano,
 
-Borrow the x86's check from p2m_remove_page() which was added
-by the following commit: c65ea16dbcafbe4fe21693b18f8c2a3c5d14600e
-"x86/p2m: don't assert that the passed in MFN matches for a remove"
-and adjust it to the Arm code base.
+On 05/05/2022 01:16, Stefano Stabellini wrote:
+> From: Luca Miccio <lucmiccio@gmail.com>
+> 
+> Export evtchn_alloc_unbound and make it __must_check.
+> 
+> If "xen,enhanced" is enabled, then add to dom0less domains:
+> 
+> - the hypervisor node in device tree
+> - the xenstore event channel
+> 
+> The xenstore event channel is also used for the first notification to
+> let the guest know that xenstore has become available.
+> 
+> Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> CC: Julien Grall <julien@xen.org>
+> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+> CC: Bertrand Marquis <bertrand.marquis@arm.com>
+> CC: jbeulich@suse.com
+> 
+> ---
+> Changes in v5:
+> - merge with "xen: export evtchn_alloc_unbound"
+> - __must_check
+> 
+> Changes in v3:
+> - use evtchn_alloc_unbound
+> 
+> Changes in v2:
+> - set HVM_PARAM_STORE_PFN to ~0ULL at domain creation
+> - in alloc_xenstore_evtchn do not call _evtchn_alloc_unbound
+> 
+> xen: export evtchn_alloc_unbound
+> 
+> It will be used during dom0less domains construction.
+> 
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> ---
+>   xen/arch/arm/domain_build.c | 37 +++++++++++++++++++++++++++++++++++++
+>   xen/common/event_channel.c  |  2 +-
+>   xen/include/xen/event.h     |  3 +++
+>   3 files changed, 41 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 016f56a99f..bb430f2189 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -27,6 +27,7 @@
+>   #include <asm/setup.h>
+>   #include <asm/cpufeature.h>
+>   #include <asm/domain_build.h>
+> +#include <xen/event.h>
+>   
+>   #include <xen/irq.h>
+>   #include <xen/grant_table.h>
+> @@ -2810,6 +2811,8 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
+>       int ret;
+>   
+>       kinfo->phandle_gic = GUEST_PHANDLE_GIC;
+> +    kinfo->gnttab_start = GUEST_GNTTAB_BASE;
+> +    kinfo->gnttab_size = GUEST_GNTTAB_SIZE;
+>   
+>       addrcells = GUEST_ROOT_ADDRESS_CELLS;
+>       sizecells = GUEST_ROOT_SIZE_CELLS;
+> @@ -2884,6 +2887,13 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
+>               goto err;
+>       }
+>   
+> +    if ( kinfo->dom0less_enhanced )
+> +    {
+> +        ret = make_hypervisor_node(d, kinfo, addrcells, sizecells);
+> +        if ( ret )
+> +            goto err;
+> +    }
+> +
+>       ret = fdt_end_node(kinfo->fdt);
+>       if ( ret < 0 )
+>           goto err;
+> @@ -3150,6 +3160,25 @@ static int __init construct_domain(struct domain *d, struct kernel_info *kinfo)
+>       return 0;
+>   }
+>   
+> +static int __init alloc_xenstore_evtchn(struct domain *d)
+> +{
+> +    evtchn_alloc_unbound_t alloc;
+> +    int rc;
+> +
+> +    alloc.dom = d->domain_id;
+> +    alloc.remote_dom = hardware_domain->domain_id;
+> +    rc = evtchn_alloc_unbound(&alloc);
+> +    if ( rc )
+> +    {
+> +        printk("Failed allocating event channel for domain\n");
+> +        return rc;
+> +    }
+> +
+> +    d->arch.hvm.params[HVM_PARAM_STORE_EVTCHN] = alloc.port;
+> +
+> +    return 0;
+> +}
+> +
+>   static int __init construct_domU(struct domain *d,
+>                                    const struct dt_device_node *node)
+>   {
+> @@ -3214,6 +3243,14 @@ static int __init construct_domU(struct domain *d,
+>       if ( rc < 0 )
+>           return rc;
+>   
+> +    if ( kinfo.dom0less_enhanced )
+> +    {
+> +        rc = alloc_xenstore_evtchn(d);
+> +        if ( rc < 0 )
+> +            return rc;
+> +        d->arch.hvm.params[HVM_PARAM_STORE_PFN] = ~0ULL;
 
-Basically, this check is strictly needed for the xenheap pages only
-since there are several non-protected read accesses to our simplified
-xenheap based M2P approach on Arm (most calls to page_get_xenheap_gfn()
-are not protected by the P2M lock).
+This sounds a little bit odd that we set the value to ~0ULL with 
+dom0less_enhanced but keep it to 0 outside of dom0less.
 
-But, it will be a good opportunity to harden the P2M code for *every*
-RAM pages since it is possible to remove any GFN - MFN mapping
-currently on Arm (even with the wrong helpers). This can result in
-a few issues when mapping is overridden silently (in particular when
-building dom0).
+If there are any rationale for that, then I would suggest to add a 
+comment. (Can be done on commit).
 
-Suggested-by: Julien Grall <jgrall@amazon.com>
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
----
-You can find the corresponding discussion at:
-https://lore.kernel.org/xen-devel/82d8bfe0-cb46-d303-6a60-2324dd76a1f7@xen.org/
+For the common part:
 
-Changes V5 -> V6:
- - new patch
----
- xen/arch/arm/p2m.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+Acked-by: Julien Grall <jgrall@amazon.com> # common
 
-diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-index f87b48e..635e474 100644
---- a/xen/arch/arm/p2m.c
-+++ b/xen/arch/arm/p2m.c
-@@ -1311,11 +1311,32 @@ static inline int p2m_remove_mapping(struct domain *d,
-                                      mfn_t mfn)
- {
-     struct p2m_domain *p2m = p2m_get_hostp2m(d);
-+    unsigned long i;
-     int rc;
- 
-     p2m_write_lock(p2m);
-+    for ( i = 0; i < nr; )
-+    {
-+        unsigned int cur_order;
-+        p2m_type_t t;
-+        mfn_t mfn_return = p2m_get_entry(p2m, gfn_add(start_gfn, i), &t, NULL,
-+                                         &cur_order, NULL);
-+
-+        if ( p2m_is_any_ram(t) &&
-+             (!mfn_valid(mfn) || !mfn_eq(mfn_add(mfn, i), mfn_return)) )
-+        {
-+            rc = -EILSEQ;
-+            goto out;
-+        }
-+
-+        i += (1UL << cur_order) -
-+             ((gfn_x(start_gfn) + i) & ((1UL << cur_order) - 1));
-+    }
-+
-     rc = p2m_set_entry(p2m, start_gfn, nr, INVALID_MFN,
-                        p2m_invalid, p2m_access_rwx);
-+
-+out:
-     p2m_write_unlock(p2m);
- 
-     return rc;
+Cheers,
+
 -- 
-2.7.4
-
+Julien Grall
 
