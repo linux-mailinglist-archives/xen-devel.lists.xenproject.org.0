@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CFC6523E61
-	for <lists+xen-devel@lfdr.de>; Wed, 11 May 2022 22:05:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.327248.550019 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A7A7523E81
+	for <lists+xen-devel@lfdr.de>; Wed, 11 May 2022 22:11:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.327268.550043 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nosa5-0006pJ-NX; Wed, 11 May 2022 20:05:09 +0000
+	id 1nosgI-0000QP-PM; Wed, 11 May 2022 20:11:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 327248.550019; Wed, 11 May 2022 20:05:09 +0000
+Received: by outflank-mailman (output) from mailman id 327268.550043; Wed, 11 May 2022 20:11:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nosa5-0006mN-KZ; Wed, 11 May 2022 20:05:09 +0000
-Received: by outflank-mailman (input) for mailman id 327248;
- Wed, 11 May 2022 20:05:07 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nosa3-0006mB-NQ; Wed, 11 May 2022 20:05:07 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nosa3-0006iN-74; Wed, 11 May 2022 20:05:07 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nosa2-0002rA-T0; Wed, 11 May 2022 20:05:06 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nosa2-0003ag-SX; Wed, 11 May 2022 20:05:06 +0000
+	id 1nosgI-0000Mx-M4; Wed, 11 May 2022 20:11:34 +0000
+Received: by outflank-mailman (input) for mailman id 327268;
+ Wed, 11 May 2022 20:11:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=MfEy=VT=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nosb9-0006lp-RI
+ for xen-devel@lists.xenproject.org; Wed, 11 May 2022 20:06:15 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cee9d81e-d165-11ec-8fc4-03012f2f19d4;
+ Wed, 11 May 2022 22:06:14 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 01C8061A14;
+ Wed, 11 May 2022 20:06:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55959C340EE;
+ Wed, 11 May 2022 20:06:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,177 +43,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=p1cD1887gHjwRCMnIGWBkFxTeNXhpKcLUkFRAbaANlU=; b=XgngyAIFBvIT6CIHZ56kmqb+oX
-	17Ak4/QPMNLdu70dn9nNNZKc9yA9WgM2KnG/ec245T+7ZJhhJVWz8Vo2LSDu6EUmR4xU5pMGI00gi
-	awHANJOIfDvMx/3E8Ynfr0+70PRx5Mr8pkSnGoXHKBvjOLRAnhvhDGKl+PqDOHrEo3D8=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170335-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: cee9d81e-d165-11ec-8fc4-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1652299572;
+	bh=oeCZ0vTTOTH1KbY27j1I9n9AJlgXD9xSXE4rv86FJpY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=Ef6XfNTiqyQhJ6q02mxt7NwtbOVlgMMT30mxCxSyV4pgzHy4DddWm/ictGWuu4WtK
+	 xc4Lqu1+SQ8R7haPLzcwPhsQ6n5HVMDy1N5A//jgsS4UwDzK81IzgKFH8AHzxCm9aP
+	 rHFrqHO8u3UIjSw55ErjujYOlOBL1KcbQk34Pas2R0Ysg2P9ggDR+vs4yLxISIEhUj
+	 yVwGDBh2I2jONWQcoiELYoyOLhTt+BS5a3ri41WaLGmUVwKTsBXT0Ba3JoOhA2XZrY
+	 i3wXgNmQPGNmLw83TEMWYpEXr8hVg6pKP2cK5mh8AG378lG31GVyuUto01cyLsu23X
+	 pDeX40Bq7ojBw==
+Date: Wed, 11 May 2022 13:06:10 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    George Dunlap <George.Dunlap@citrix.com>
+Subject: Re: [PATCH 1/3] xen/arm: Sync sysregs and cpuinfo with Linux
+ 5.18-rc3
+In-Reply-To: <F60293D4-0A44-4365-939E-5C1A80D7A159@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2205111247030.43560@ubuntu-linux-20-04-desktop>
+References: <cover.1651570561.git.bertrand.marquis@arm.com> <832955382caa4ced744ec7894282592b62e8cf61.1651570561.git.bertrand.marquis@arm.com> <a05b426c-1800-a365-5b02-f82f0a391306@xen.org> <2E66F8B4-4DDA-47E2-B93C-E36FEB70F552@arm.com>
+ <f1315848-fe9e-b365-bbf6-a596abc6e0de@xen.org> <31F40037-3A43-4F94-8C03-D9F939DAF8C6@arm.com> <139b3f6c-ebb9-6ed2-f173-a7dbd3c94a95@xen.org> <alpine.DEB.2.22.394.2205091857230.43560@ubuntu-linux-20-04-desktop> <BCE017C4-53AA-4918-AEBD-D3CCEF0913F4@arm.com>
+ <19a140a9-f8a3-79d6-54fa-a873dab6ff42@xen.org> <F60293D4-0A44-4365-939E-5C1A80D7A159@arm.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 170335: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=deee7a100b2539d8a302c6d37344b507f8312faa
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 11 May 2022 20:05:06 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 170335 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170335/
+On Wed, 11 May 2022, Bertrand Marquis wrote:
+> > I understand the patch is already written, so I was OK if you simply list of the commits with the authors/tags for this time.
+> 
+> I would like to understand where this requirement is coming from.
+> 
+> @George: is there some kind of legal reason for something like that ?
 
-Regressions :-(
+I am not George but I'll answer the legal question. Our "legal" document
+is the DCO:
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+https://developercertificate.org/
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+This falls under case (b):
 
-version targeted for testing:
- ovmf                 deee7a100b2539d8a302c6d37344b507f8312faa
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+(b) The contribution is based upon previous work that, to the best
+    of my knowledge, is covered under an appropriate open source
+    license and I have the right under that license to submit that
+    work with modifications, whether created in whole or in part
+    by me, under the same open source license (unless I am
+    permitted to submit under a different license), as indicated
+    in the file; or
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   72 days
-Failing since        168258  2022-03-01 01:55:31 Z   71 days  943 attempts
-Testing same since   170321  2022-05-11 09:11:39 Z    0 days   14 attempts
+So from the legal point of view only your Signed-off-by line is
+required.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chao Li <lichao@loongson.cn>
-  Chao, Zhuoran <zhuoran.chao@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Christine <Yuwei.Chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  duntan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gua Guo <gua.guo@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Jiewen Yao <jiewen.yao@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Peter Grehan <grehan@freebsd.org>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Tom Lendacky <thomas.lendacky@amd.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yu Pu <yu.pu@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Yuwei Chen <yuwei.chen@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-  Zhuoran Chao <zhuoran.chao@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+I remember this well because I was confused about this a few years ago
+in another case of taking code from Linux.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> > If both Stefano and you agree to not keep the authorships, then I will
+> > not stand against it. However, I will not get involved in
+> > committing and adding my ack.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+I am fine either way. My only request is to mention the Linux commit-id
+that Bertrand used as a base and Bertrand has already done that.
 
 
-Not pushing.
+> I want first to clear up this process and understand why you are
+> requesting this to know how I should do anything like that in the
+> future.
 
-(No revision log; it would be 6459 lines long.)
+It looks like our process docs are not very good on this point and might
+benefit from a clarification. I hope you are volunteering :-)
+
+Origin is defined as "it specifies the source of the patch" but it
+doesn't say what actually is considered a "source".
+
+I suggest to distinguish between the case where commits are ported
+individually from the case where code is copied over (like when we
+introduced SMMUv3.) If commits are copied individually, I think we
+probably want an Origin tag for each of them and the source is the
+original commit-id. If the code is copied from Linux (like the SMMUv3
+case) then we probably only want to request a single Origin tag (or a
+new tag?) with the base Linux version (5.18-rc3) rather than the
+commit-id being backported. In that case the source would be the
+repository baseline.
+
+Cheers,
+
+Stefano
 
