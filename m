@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46565522D0E
-	for <lists+xen-devel@lfdr.de>; Wed, 11 May 2022 09:21:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.326529.549069 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F064522D7E
+	for <lists+xen-devel@lfdr.de>; Wed, 11 May 2022 09:39:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.326537.549081 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nogeb-0008QN-Tz; Wed, 11 May 2022 07:21:01 +0000
+	id 1nogvE-0001cG-Fr; Wed, 11 May 2022 07:38:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 326529.549069; Wed, 11 May 2022 07:21:01 +0000
+Received: by outflank-mailman (output) from mailman id 326537.549081; Wed, 11 May 2022 07:38:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nogeb-0008Nc-QM; Wed, 11 May 2022 07:21:01 +0000
-Received: by outflank-mailman (input) for mailman id 326529;
- Wed, 11 May 2022 07:20:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nogvE-0001ZN-Ci; Wed, 11 May 2022 07:38:12 +0000
+Received: by outflank-mailman (input) for mailman id 326537;
+ Wed, 11 May 2022 07:38:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Dmv0=VT=citrix.com=prvs=123c0883c=roger.pau@srs-se1.protection.inumbo.net>)
- id 1nogeZ-0008NG-Qi
- for xen-devel@lists.xenproject.org; Wed, 11 May 2022 07:20:59 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e6357489-d0fa-11ec-a406-831a346695d4;
- Wed, 11 May 2022 09:20:58 +0200 (CEST)
-Received: from mail-bn8nam11lp2172.outbound.protection.outlook.com (HELO
- NAM11-BN8-obe.outbound.protection.outlook.com) ([104.47.58.172])
+ id 1nogvB-0001ZE-Ja
+ for xen-devel@lists.xenproject.org; Wed, 11 May 2022 07:38:10 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4aaf9bb8-d0fd-11ec-8fc4-03012f2f19d4;
+ Wed, 11 May 2022 09:38:05 +0200 (CEST)
+Received: from mail-bn8nam12lp2169.outbound.protection.outlook.com (HELO
+ NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.169])
  by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 11 May 2022 03:20:55 -0400
+ 11 May 2022 03:38:02 -0400
 Received: from DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
- by BN7PR03MB3697.namprd03.prod.outlook.com (2603:10b6:406:ca::17) with
+ by CY4PR03MB3176.namprd03.prod.outlook.com (2603:10b6:910:59::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5227.21; Wed, 11 May
- 2022 07:20:53 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.24; Wed, 11 May
+ 2022 07:37:59 +0000
 Received: from DS7PR03MB5608.namprd03.prod.outlook.com
  ([fe80::5df3:95ce:4dfd:134e]) by DS7PR03MB5608.namprd03.prod.outlook.com
  ([fe80::5df3:95ce:4dfd:134e%5]) with mapi id 15.20.5227.023; Wed, 11 May 2022
- 07:20:53 +0000
+ 07:37:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,192 +49,301 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e6357489-d0fa-11ec-a406-831a346695d4
+X-Inumbo-ID: 4aaf9bb8-d0fd-11ec-8fc4-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1652253657;
+  d=citrix.com; s=securemail; t=1652254685;
   h=date:from:to:cc:subject:message-id:references:
    content-transfer-encoding:in-reply-to:mime-version;
-  bh=8d/2R/9suQnaDRrYEr/mkCYZ4GL6InhWzbNI4K2wvx0=;
-  b=F49oJAVMwI/v31oPRaRwnPmfF5ifNWYblc0KmZoSPinQdVrtctoZAgNY
-   ln0T8wCfOpVe1pIkzkgwDBlFvgBEDOoRcPwNNgovD1E/tEBnL0o0quIUW
-   bKhathO+awQsQbtNHn4qTvr1ZyXuUFSXnwZ7UnbfrRXOVU9g6qqS4NaZi
-   s=;
-X-IronPort-RemoteIP: 104.47.58.172
-X-IronPort-MID: 70433362
+  bh=0h9/SZozefDWWlzVuD+g2CNW7zGaj6DbUvEcRND6JGo=;
+  b=gTucyNYE1KV2CSh8FRYYTLY+Fqx2+L0BJkQVYNzNsrUdrE13jhi3cszy
+   /4hVrBuSxx8f60B7xHcJvMhng1APrq41xdKEiaxkc+SKk6hRsa9ik35CC
+   m1WukilQGq9U3TF14YWK4tV+EAk0Oc95MPaWial2usNTWQEg51YR6RIiu
+   o=;
+X-IronPort-RemoteIP: 104.47.55.169
+X-IronPort-MID: 71058832
 X-IronPort-Reputation: None
 X-IronPort-Listener: OutboundMail
 X-IronPort-SenderGroup: RELAY_O365
 X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:RKXmsa4hqGl/siJWpAmyvwxRtAfGchMFZxGqfqrLsTDasY5as4F+v
- mRKUTyFb/nbZjPzKNsjPI3j/B5TusTVnd5lSlZqrS9gHi5G8cbLO4+Ufxz6V8+wwmwvb67FA
- +E2MISowBUcFyeEzvuVGuG96yE6j8lkf5KkYAL+EnkZqTRMFWFw0HqPp8Zj2tQy2YXgWlvU0
- T/Pi5a31GGNimYc3l08s8pvmDs31BglkGpF1rCWTakjUG72zxH5PrpGTU2CByKQrr1vNvy7X
- 47+IISRpQs1yfuP5uSNyd4XemVSKlLb0JPnZnB+A8BOiTAazsA+PzpS2FPxpi67hh3Q9+2dx
- umhurSQZBsHJJ+Xxt8lQhxUMjpxOoFe3o/+dC3XXcy7lyUqclPK6tA3VQQcG91d/ex6R2ZT6
- fYfNTYBKAiZgP67y666Te8qgdk/KM7sP8UUvXQIITPxVK56B8ycBfiao4YHhl/chegXdRraT
- 9AeZjd1KgzJfjVEO0sNCYJ4l+Ct7pX6W2IA9AnO/vRti4TV5B5R4pbtbYfvQYCTa/RltXzIm
- nyXzV2sV3n2M/Tak1Jp6EmEg+bVmCrhVYE6Fbum9+Vrilme2mwSDhINUVKx5/K+jyaWS99Zb
- kAZ5Ccqhawz71CwCMnwWQWip3yJtQJaXMBfe8U44gyQzqvf4y6CG3MJCDVGbbQOttIyRDEs/
- k+EmZXuHzMHmKaOVXuX+7OQrDWzESsYN2kPYWkDVwRty8bniJE+iFTIVNkLLUKuptj8GDW1y
- TbaqiE73uwXlZRSiP/9+k3biTWxoJSPVhQy+gjcQmOi6EV+eZKhYIurr1Pc6J6sMbqkc7VIh
- 1Bc8+D20QzEJcjlePClKAnVIIyU2g==
-IronPort-HdrOrdr: A9a23:UiUNsql0S1VbWGaE3AhUJ7HW/0HpDfIH3DAbv31ZSRFFG/Fw9v
- re+cjzsCWf5Qr5N0tNpTntAsa9qArnhOdICOoqTNWftWvd2FdARbsKhbcKpQePJ8SUzJ8/6U
- 4PSclD4erLfDxHZJbBizVQy+xQu+VvKprY49s2Ek0dKj2Ct5sQlzuR1DzraHFLeA==
+IronPort-Data: A9a23:YDVnjahhomchQ0AL7X4SRGvOX161QBEKZh0ujC45NGQN5FlHY01je
+ htvUWHSPa2NZmX9etsibIXlpkoB68SEytM2HVRkq3w0Fn8b9cadCdqndUqhZCn6wu8v7a5EA
+ 2fyTvGacajYm1eF/k/F3oDJ9CU6jefSLlbFILas1hpZHGeIcw98z0M68wIFqtQw24LhXlrU4
+ YqaT/D3YzdJ5RYlagr41IrbwP9flKyaVOQw5wFWiVhj5TcyplFNZH4tDfjZw0jQG+G4KtWSV
+ efbpIxVy0uCl/sb5nFJpZ6gGqECaua60QFjERO6UYD66vRJjnRaPqrWqJPwwKqY4tmEt4kZ9
+ TlDiXC/YSR1N6qSmfYBaRJ7Hyt3LZBrxp/1PXfq5KR/z2WeG5ft69NHKRhseKc+qqNwC2wI8
+ uEEIjcQaBzFn/ix3L+wVuhrgIIkMdXvO4Qc/HpnyFk1D95/GcyFH/qMuIIehWlh7ixNNa+2i
+ 84xcz1gYQ6GexRSElwWFIg/jKGjgXyXnzhw9wvN+PpnuDK7IApZ/b/faoP/Z9K2YO523Ua1h
+ U/B53bCDURPXDCY4X/fmp62vcfDkCb6cIMUCryj9/RujUGTx2ocExkfXx2wpvzRol6zXZdTJ
+ lIZ/gIqrLMu7wq7Q9/lRRq6rXWY+BkGVLJ4FuQg7QiXx6n84gCHB3MFRDpMdNwnssAtQTUgk
+ FSOmrvBAidvt7KfTlqT7LqZpyi+fy8PIgc/iTQsSAIE55zpptE1hxeWFNJ7Svfr35vyBC36x
+ C2MoG4mnbIPgMUX1qK9u1fanzaroZuPRQkwjunKYl+YAspCTNbNT+SVBZLztJ6s8K7xooG9g
+ UU5
+IronPort-HdrOrdr: A9a23:qC8hha7tNgeyoa0yGwPXwVqBI+orL9Y04lQ7vn2ZFiY5TiXIra
+ qTdaogviMc6Ax/ZJjvo6HkBEClewKlyXcT2/hrAV7CZniehILMFu1fBOTZowEIdxeOldK1kJ
+ 0QCZSWa+eAcmSS7/yKhzVQeuxIqLfnzEnrv5a5854Ed3AXV0gK1XYcNu/0KDwVeOEQbqBJaa
+ Z0q/A37gaISDAyVICWF3MFV+/Mq5nik4/nWwcPA1oC5BOVhT2lxbbmG1zAty1uGA9n8PMHyy
+ zoggb57qKsv7WSzQLd7Xba69BzlMH6wtVOKcSQgow+KynqiCyveIN9Mofy9AwdkaWK0hIHgd
+ PMqxAvM4Ba7G7QRHi8pV/X1wzpwF8Vmgvf4G7dpUGmjd3yRTo8BcYEr5leaAHl500pu8w5+L
+ 5X3kqC3qAnQi/orWDY3ZzlRhtqnk27rT4JiugIlUFSVoMYdft4sZEfxkVIC50NdRiKpLzPKN
+ MeTf002cwmMW9zNxvizypSKZ2XLzkO9y69MwY/Upf/6UkVoJh7p3FosfD30E1wsa7VcKM0lt
+ gsAp4Y6o2mcfVmHZ6VJN1xNvdfWVa9Ny4lDgqpUCfaPZBCHU7xgLjKx5hwzN2WWfUzvekPcd
+ L6IRlliVI=
 X-IronPort-AV: E=Sophos;i="5.91,216,1647316800"; 
-   d="scan'208";a="70433362"
+   d="scan'208";a="71058832"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jbNE7DVXtAgvepCAuI8mtldRqA97OJmm9j1Mj0vDI52AMUVoDEVQ5jZJAfUPqFDDGZq+qyXsCc3X1/cC4Bo2JU5VVMyz5B/4uQ9CeBY7BKLbH3BAsOmvQkxaXMZXkNqRgr877mLeazWf01+n+DRLHyCNyOOBiAyl7qIGYlCozktfJvXqRUs1ILt/FjevCTbPjtokmQwbM42/8HBlgIgvAR4yoNrbQn9iKJNTsYcXXcOz3jvJNIDD7i4PSdpL8/UqIWYK8Ss7Lh4+u5M1Mfyi6Ogi9ColP2P6OyhxF5qgUy3Sbf9ujbuq0r/HLWU2llBqoczPCGKfHZL8Z91yGaEXkA==
+ b=J6DPeso0XoNlxxzTVcNZ4IRqPB4zpu+83Ws2+mlqup4wlZFWN5+15PZi9UVHiPshuN4qSnupd5qCmp59ksbFAf3nGWYpzJr0blir2jfhYCnZ8pVagLRTZT20Fh5fmhJb1EE5Wpbv+VvbuRuqtedoZ+MXdK6ux6ZEFBcBW5cnkQrU4W8kXc1W4DUa4pooYpUrZnsMqKtSD8BqUhlZKbkn7XTH5cG9Jpbh7ufaGpfDMCO3j4Dr4IN7m3rIl6x/sToDd90iNqS1D2mxhqtLSapySsy3hZ4BVOMJ4ff17kC8gKPNGUPgKDQ/+vT+tRt8pQJPJP/SfB3NAk5ffsWXtJOnGw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QLbuhTosCtGsPQ/F/FC3SZ51VKfKGgXi0M+Ud5rpGiE=;
- b=g+vu5iRU2ZODrpYuJLF9SiAOwY/rj5NumiXmsPlrGeNZCn+XqPVb8q698bzI/NnWmQUIoGWYdLOr5T3fqwtiOt5+L3QgiU/EEEJwiuUxi/yi5DjBGM3Hv67jvzTSh4Nda27E7+g/4WEaQhJiuh1ahN/IdRahrdtkicQzFkTwicPtpNqSkNwEpy81vem5RR1oSUJdLSVk/wJOvbAwmHo9t+EG59NYL+sPPZh/N4SLcuqIT+0GTVVLkXyQLV+zXuXsf7Nz0dK928ksJXPOQY1ssFyr8XjpdnwLy1a70VyWj/cBRJM3HzQCM3bDjVtXfSG++5du2arX4+uWQ3TzTdS/iw==
+ bh=mG3BJ2lOouiYMf/wKmYraYk0XNuInJnwvHltPzJZYhc=;
+ b=HomKU7ups08ugzIVEU3FYt4gMwBNqC/x64Q/gXCoU/RxB0g+nQbECzvq4Xfcccul3Mj3uNWk6VwWjYcCVRhmzc/ta0KBqoxoPJczRD7Y8Ba9BCSGJV39TZs0K8SvgtzLZA+3JxReGzxHN3HqWAiqG2tlwUTqw0wQcwP0Gf0QVNOokVKI9LvBcJlP6Ij/cL4GRYCOtyP2fxDu9/7IpV+cm855V5yu6UfpdIYjic/GH92+X+bTwb7bGbLpDvmmxQksSjEeO3nw76wCKzULWa4WQd7bM7c8NVuLCEH2Yr6wxlv82p9Q8FNP/uREDUpFLHje3+OkCtRkjfP4m2YHrP6cpA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QLbuhTosCtGsPQ/F/FC3SZ51VKfKGgXi0M+Ud5rpGiE=;
- b=dfvcGd+v/9QXk2+WQbeVjUPvDODvmCA0FXs+D9/PTmEbsGj41KQ+zUgSzXuMiMzHaCk/T0ejShotlLtuCcqL4rJfA9J+DbQcL5p4aP+ke5GHhQII8IaVERdrLvQkgz4wN0g6bsgSd3yo8ocws/GxZfdq6EqCl2HyhzYTqGm376Y=
+ bh=mG3BJ2lOouiYMf/wKmYraYk0XNuInJnwvHltPzJZYhc=;
+ b=tGVOVSCTq88WC9Yk5VtNALNXpr24AQ8gYJzDhDFe3Wa/ACN5im0VUgkeDFzerJYSzybKtXAjfLH+tlJvb/DC7JYfzZ4UuWTJT2+aZTeeLj5MSLFButPduF3h/MuvX8vYUwroAOBaSI3Q0YjFuy7q8M+5PVxfTJBNPaQUedxBISQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Wed, 11 May 2022 09:20:46 +0200
+Date: Wed, 11 May 2022 09:37:54 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v3 1/2] ns16550: reject IRQ above nr_irqs_gsi
-Message-ID: <YntjzqQl0CIeGzR4@Air-de-Roger>
-References: <20220510155824.1779789-1-marmarek@invisiblethingslab.com>
+To: Demi Marie Obenour <demi@invisiblethingslab.com>
+Cc: Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Mariusz Zaborski <oshogbo@freebsd.org>
+Subject: Re: Proposal: use disk sequence numbers to avoid races in blkback
+Message-ID: <Yntn0iyB7uAOkcxC@Air-de-Roger>
+References: <Yf8h36wj5QWSWEud@itl-email>
+ <YgaNeZNSt26oCzbZ@itl-email>
+ <YkOgDihJCrtWriDq@itl-email>
+ <YnRtFBzfba0OYldx@itl-email>
+ <YnpFLJwxBSqbshw/@Air-de-Roger>
+ <YnqRX2s87cd6jiJf@itl-email>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220510155824.1779789-1-marmarek@invisiblethingslab.com>
-X-ClientProxiedBy: LO4P123CA0468.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1aa::23) To DS7PR03MB5608.namprd03.prod.outlook.com
+In-Reply-To: <YnqRX2s87cd6jiJf@itl-email>
+X-ClientProxiedBy: LO2P265CA0001.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:62::13) To DS7PR03MB5608.namprd03.prod.outlook.com
  (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d4f98ab6-3f1d-4be1-5e2f-08da331ec771
-X-MS-TrafficTypeDiagnostic: BN7PR03MB3697:EE_
+X-MS-Office365-Filtering-Correlation-Id: aa0679f5-0644-4eea-eb85-08da33212bcc
+X-MS-TrafficTypeDiagnostic: CY4PR03MB3176:EE_
 X-Microsoft-Antispam-PRVS:
-	<BN7PR03MB3697193AA0714EA766EC5D088FC89@BN7PR03MB3697.namprd03.prod.outlook.com>
+	<CY4PR03MB3176C2884643EE251D916E598FC89@CY4PR03MB3176.namprd03.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	5gCP4X/UNdQsqlHTxoOMCqOLruASUL74rHGWyIoal314h7QqlS1B8eLCIPmh2WwHBn0bsDWEg/2Ed8Atg2FD2PBZTHFNPuUr22WsDvE76NcPusoHFKWHllP8TywPs465lVZT6gXMiD9c/+cgnk8uHqpQjnmQpJ5m1IDWXQ1QIt+Fca3I6zHQurXBtKUjmt0Pzc9gxfyYUBc7uNCw7w93oEiQjamUcRCE7CXogCT6jNsG9GDHMWa9EJDrCIRwlf9j/P9y5EyRdmn8/qc1d96pagr7fm39eIODeRYoemCp2nCbH4EvRu5giOtwmN7jt9sx2R+VCMuKI+8DAC/MPbKF0k6jvEKBqNuTlPwn7qS3cxAGJpls9jwhhv4YJi+axhCFlYOhmkJ+XzivYWc+0829oN+tMRYHGXgukK6uQvWWJNwRITNb+vd7C/UAM2Ec7jO+mHW8jSrjcLVm7Yydl7HdeJrZOLvTpouOt/NXnyogjwKcHvV06hnYpzKRQo/5pkPkIsR+dp/mZGlP3L1C/epgdBC4vWnph6KeQoviyS4+lZL17GOiASSM0QUmWgY6jjuoUzsMAk539dvbdyWn3qNV60tfFjicISNKoOH+RXKqPJh2Og61Yk4IX1PsVp90Ec+cLP4b1f18XLLtL9MRzCAd7g==
+	zVfSGN5FYQlV7gDmKmVdhWHMczoMJkmoTV10tAAx5cWNfeqrmeFNcyi0du8DU+rEw7CsbxOemS82UiB50xn23YfruHToJWcqv8+cKTjtzfJTPOhwVlcvWayfKDctvqgAeLGgCPQ6DMk0ys9mAE7Cg18bFhjly8luwp5YPEOM40vPVOsa5tURlxo4PQtZUx8obL7pY4V9WclXMFPiO4CqwnoE3bElyc2TdF9HAoKUBFQOj+83KT8Vh6Zjky6Px+nSDO+I7zWvQQKVtBja63zS36Uyx6QwWDSCwY1+sptmdRjhDpKbu+CSbBi8UEzZe7Itvz8LNQxM10u+PcrOQhJzGpY/vB40fxDTBdfntKe5PAMGKalXhzT91KWZz7hr8r4wumcyiL+pFj/9FD9nVWHIiDQRHZuvpk2ib8uxuykhWNv/rM9x5oXkosoxNqBfkMwGHls1Ma0FiyavA7FSpm5dwIOAjIPDdka6SJKzSoRgMtr4NmpJPKPgrrzqtVMkzFrfvrw2Nsekugn2hVxheQqDL+GIOeO9UbU7qJJJCNNfN/IkfsOzeqKV6aMCpWSO2bBHCXgzKVwHsw1/GXA2P1qXfSePc7adDOVo2rIul3RjXGfYzA6NlNocD3nlQUtxDlrDkj6SznYQ1j5aJJfsSahjgQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(6666004)(8936002)(82960400001)(83380400001)(85182001)(86362001)(9686003)(6512007)(26005)(316002)(508600001)(5660300002)(4326008)(38100700002)(66946007)(66556008)(66476007)(6916009)(2906002)(54906003)(8676002)(186003)(6506007)(33716001)(66574015)(6486002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(38100700002)(316002)(6486002)(508600001)(86362001)(2906002)(82960400001)(186003)(8936002)(33716001)(6666004)(66556008)(4326008)(66946007)(6512007)(9686003)(26005)(6506007)(8676002)(66476007)(83380400001)(5660300002)(85182001)(6916009)(54906003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SGJpYk1peVMyK0tlY2dqTXY4TCtLY0gvdjhuRFJKanpOTlZ2T3EyS1MzNFRl?=
- =?utf-8?B?R1pMaHlNSlJlNjZSc2pxVm9SajdRUTUvRVRsQUd4NHBCcXdPK2g3bUtON0ZQ?=
- =?utf-8?B?VTZVYnhJWktscEtFbVU3S1VHVWZHL3dZTmpZWGo4K1Bhc0tUOFN5U0R6ci9Y?=
- =?utf-8?B?S1BXY0ZwTlR3MGkxWkFhRmdpYjlyQ3RTNjFRcE5ucnRqVWViaVk4RzV3VUo5?=
- =?utf-8?B?WDl6L0lKODNPRnpOdnp2enZINWRYaWFOaUZSU0NxOHNFZXJGdjBqbGp5MkI3?=
- =?utf-8?B?T01Pb3E5dUJRcWtUdTNEQ3JPNSt6YThsNWpSbHl4ak1PaTlyY00yVmNNYWtz?=
- =?utf-8?B?RmFSVGFtRkQ5VDRwOTJYMnVWMU5Wak5TYmxGTDY5VXZkL3VFOU9Sa1FMZER6?=
- =?utf-8?B?YU44bElJOUZOdkdRclE3ZHpDQ3Ivd1F0QWtwRlpyM1lvUmcrQlMzVW5Wd1dO?=
- =?utf-8?B?d0NyUmo3Zm5GcGNiZ0R5eTBKZUR1cW01R1hGYTBTMElHZmIyK0hGb2NyL21Q?=
- =?utf-8?B?eU01MDFkWFBPeHVDWnhCY3JXOUtKazc4YXMzVnZ0bWhaaWRYckZuQUgwbGZw?=
- =?utf-8?B?blFjYjVEdEw3MC95RklmSmhWNVNUYU1lVU5kR2tuYy9od1I2Ty8waE9yZHFh?=
- =?utf-8?B?OEd5Vkl3cmdCTTN2OFcyRDNaa1ZFU1JkK1hMYkFpRzBKeDMzWlRrcXlrVkUy?=
- =?utf-8?B?dEh6R2hDMUVPSzN2Z09KdFpwc01SeGtHTEk2Uk4wYTZiU3J4cEVhdHpKTlpo?=
- =?utf-8?B?ZTd3V0RzMHp6Vkk1a1hBQS9veUk5WktaUnI3WUdYSER2dU9LZkF1Sm1ROUd0?=
- =?utf-8?B?cHovR1VXOUg4SWRKRlBMNWNtQkcyYy9Cd0N0Q01kUTNsL2dmbXBWOWtNMTYv?=
- =?utf-8?B?aHErZlRKRWN4dDFKMVluNjRHNGVYTHJNZE9jdVVzZVhqWG1uM0lzZ1h0aFA2?=
- =?utf-8?B?TWlIWmk4L1g4SEVCWXByTUNoeURabUIydFVsK0VsWnplWk5xNkhMNCtPaTBC?=
- =?utf-8?B?QVAvY1NzQzhoUXVKa0FPU1VzdURmdDlqMzV3ejJ2UjJIcitQMllzQno1dDZN?=
- =?utf-8?B?dGlCc2d0ZFpGSXhnR21yWUtGYmZwVVhGcFBCMzlpblFWc1Q4SEdrZG5GL0gz?=
- =?utf-8?B?NWdvelhMSUpUa3VHSWhNRThtK1l2M2VMRTYwb0lZYjVnMGczZzdUMDJtTGxi?=
- =?utf-8?B?amtKNm5taEVDQ1ltdTBNMGtVSGsrUjFvQWlid1RZbmpJcS9YM1FNYVF2TWsv?=
- =?utf-8?B?UDh5T3RuWXNSZEVHZDNXQ2h5WElmbUQzUllDOERsSU5PL3RKOFlyVzBKUElC?=
- =?utf-8?B?R1pwVTRzbE1ySml3RmtwMkw2blBJRkU1UTF6VnNJRXVxNFd1T0RpT3hxMEtZ?=
- =?utf-8?B?S3ZNNEVHS3pOQjd2anBrcnltQUFPMVpjb0ZGSjVaRnhBckNjZlFkNTFtWjdv?=
- =?utf-8?B?amRnS0d4dnVYRGJGSDZHTzBQMjd5TVB0c3UwMHBINkx1RzBvTFJyVkRRNzVE?=
- =?utf-8?B?eWpFV2lwanZ3REhwZjFPcW0vaHp2VFBVUk56VmdDOGNXVytCMm9PYU9RanA5?=
- =?utf-8?B?ZVZta0dnaHNYVFpVYXVSMEJFcUxXS2hlNnFJd2sxOHY4aHQ5TkxYeDh4aVRE?=
- =?utf-8?B?enBxZFkvMlN3VmpVeStPVDZqaGJVb1ZmL21iMzEyS3hJc0swazRzQkR0VWxh?=
- =?utf-8?B?Y3NOb2paNTUydHAzazF3eEh5TktTYjVMRDQ0dHkvUlJMemhPMkcyMVN1VWpj?=
- =?utf-8?B?ZTlzWWo3c1VKOFVYYW5jWmRNT2hTV2s4dHptdDlKWW12Y2ErQnpxQkIvdjcr?=
- =?utf-8?B?TkJ1TGxJWnhOWFhCamI4V0FpempaMEoxRlVlOUhGWXlhVUVnTkxzOGV3ZTZu?=
- =?utf-8?B?SUo0Sm5RK3ZXZmdCK21GeVNvOTdldTNEZFFsc2lMOHRmdURkMTArcHhKdyto?=
- =?utf-8?B?Nk83anVLRThoSlZEWHlUWExLVWxTcFZTL2xmblJIUVMxWnB1VjBWVTJVV0k1?=
- =?utf-8?B?WE00MU1vUGVML29XTk1pVCtFNWh6SndoTHlUM1ZBZEhIb01MZCtIVE1YY2lx?=
- =?utf-8?B?eHRnajFkRGFKTFNiTUo1Mi8rYkVrS3U5TnhmcnFBb21qcnFaMTNhczU4dnN5?=
- =?utf-8?B?dTNwdjJPQWczYXoreDYvdTgzVnVRWmdBdFN2dG1EeWNhRWpGNXNTVmdCM2JW?=
- =?utf-8?B?U1JjaXVSUFYvUGhEcWw2MlNVcFpPaFRoejJMZGRBbjg2ajNUZVBFYzFOSHFu?=
- =?utf-8?B?c0xlWWNWUzNSUWlCQ2g1dzNqclYvWU1RNkFPc2NUZktCODJtbkt0cnJhNTRs?=
- =?utf-8?B?dTBIZ3hOL29kY1NJeTRSZlVnOWtJSmlmUDRHbDBqV2FhRmlxT3dHQT09?=
+	=?utf-8?B?aVZKc1JxQUJHUEdtZUI1S1pZd01tK3dYTzFhVHhRL0tOeXlPcVdiZy9GVWUw?=
+ =?utf-8?B?Nllib25Ea1NGckRtZTFFYStIWExLMDIzWEpwbjdZanBJSGgydjNrMzNxa0lG?=
+ =?utf-8?B?YWVmbzExVUUwK010MGNRcmxVM3VxRTNmbGM3TmJWOUhEektiVFJVYmF3TVV4?=
+ =?utf-8?B?SWF1MUZsdi9pRm1tWmlkbWpOZzJiWHZkMENHdVBvVU9xR3o4YkM0OHlLUlBt?=
+ =?utf-8?B?blZDSm40WVdUNVBxN3lWWUU3bkJQQVZ0aWdYc09yV3dTR2piajMyUnBGZ21F?=
+ =?utf-8?B?ajI4cEJCV0g3QWNXNndCR3RRcUlyWVhtWnRzYk5SOTQxQklOdjZCQ1ZVcEM1?=
+ =?utf-8?B?TWMvWERDZmlLMkRndjZjeGZpcW1rcnZFbGcxT0VSb0FqdlRMaVprWFh6WVNM?=
+ =?utf-8?B?YXg1K3lsazAxMDllcmFhWllhTU8zVy9Pc1VnRUI0SG9EWEtZcFNWbyt0SWx6?=
+ =?utf-8?B?bm1ESDFPMmZWZEZQdmxVb3BuYUlmSEhOVlk0LzNNSzI4NFlnN0tDdHIrLzJH?=
+ =?utf-8?B?c0VLS3dQNVJLVU1JVXJBaXhWcWpkUVFRbEdMMVpXbU9CUzBsWTlUV2dRMTFR?=
+ =?utf-8?B?VFZXNVR0bnB1bDUzSXZtOVJiaDlzZVp1NVJoVU9NZzV1K2tKd3hJQ1pjYVpD?=
+ =?utf-8?B?MjJLL01obThVWWR6bXZFbmxLbVI1MDZkcnpsR1E2WmRPcndHRllPbklCdDhy?=
+ =?utf-8?B?RXBVdzllUWxhTHNzSWxadVdJRC96SXVmQ1RUQXpvQ1l1Lzg0dDd2R21LRmtl?=
+ =?utf-8?B?VzdIS21xK3hORDl3dTloUjAreXhEd1pjcVdENkJJbXkvOEh4eE1ESXVvWXB1?=
+ =?utf-8?B?ai8vUm9wZkl1cGVqU2hSVmY4SVJZMWJYVFBML3hWQW10aGk4dlZrN0w0TWVN?=
+ =?utf-8?B?SU9ZWVpjTG5aZjFNOGxUNFY1eVJEczRtMUpLdkJHd2pIa2tscFg0UUlZRFRL?=
+ =?utf-8?B?c0JnWVY3c01pdG5MTUpieFd4MHd2cENuaUtXckpEMDlsS2dpcXdSTDhOM1VP?=
+ =?utf-8?B?UnFoUnR5dytzR2g1MWtGSy9iWVZGd1hiVjhidFE0M3RMcEpYMUJjRHVST0Jy?=
+ =?utf-8?B?L0pTS2VzcU9DTnF1ODFHVkxKRkRmL0RzdWFhZWMzWTRuUWpDNU5Kdk44UUI3?=
+ =?utf-8?B?cUt1bU54eDBiVUF6QjkzbUtZNzdRdUlVMVN4Smhxc25pMkNRTzR5dVJQVWM0?=
+ =?utf-8?B?MFR6WmpZcmM1dElEamRiYlFHeXYvUk5FcW9TbE1ONzNqMThST0wyQXZLU0V2?=
+ =?utf-8?B?M2RYcDFSQXp5aS9hRTc1WUNXcG1GSVpQVlZYZk9iU0ptLzcyTW9NbWhJMk8r?=
+ =?utf-8?B?QUR6K2F1blRHaW9Lb3kxc2Q0SVdxSGpLdVRmeU4zM0JVZlp4Qk1aNjJsdEhV?=
+ =?utf-8?B?RFlHUzUvaHJMaFpEQTZBN1k0a3V5TkZGU1dkRW5WQXRiakJCeG0vOHM2Q3Ja?=
+ =?utf-8?B?YjZGSnBtMWFZVEVwSXlXNnYvVmp2UkVsRnYwbkQxWXR4OEppcXY2MmIwNDFl?=
+ =?utf-8?B?UERkWUJYRzRlc2FCY1dQM3lKRHprdGVFTmpVOSt6NUUzSGx6VXVPSzM5bjZL?=
+ =?utf-8?B?RWdremR0ZE5zcjFrbCtWbGd4RkMxZjc0cmVmTHU5YTZ0Z2grNlZnMksyZkJ0?=
+ =?utf-8?B?QkJyRU1wc0IzWXZtUE5rTCs1aW5ZUkJmaTk4Q0NyN281OWJvWTluTFNWS0lO?=
+ =?utf-8?B?cXduVGhGMDJXZXhoS1FKcnJhNmU3RGd5RzJwNUNCemRaZDAvWHFiZHFlc2M1?=
+ =?utf-8?B?MWNsMjVyKzIxb0M5ZlpCMUIvckJKa0tORDJ5R3c1WmtleE5ZRTFQbVRWS1Y1?=
+ =?utf-8?B?VXlSU1VVOGc5MTBJd0tZRE03QzZ3b0FMUEk1cjBFQkpMN25jMDlQREg3WXZ6?=
+ =?utf-8?B?Z25acDk3WDNkWmZOaFVielZEZ3lEZ0U1akpXSkpxdWlUNkNMSjdVUFhxbThZ?=
+ =?utf-8?B?b1NiRU5pU2RweWxEYjRQR09td2RFalRpK3doeUtzMHB2THZVRVhJNWpmNEsz?=
+ =?utf-8?B?TWNmeVErNFRhN2pUS0ZBNU1NWUw5bjF1KzdjSmhRdnJaOEh3KzRIdnF5RFVF?=
+ =?utf-8?B?cVRnTGtxQ0hQRWszaklqcFRzTUVlekxiVXUvbGFadkRwZzJ5VkIreFUxb1ZX?=
+ =?utf-8?B?OTNiai8vUU51T0YvVlA4NUlqakFRdk9HWlZzWFhEb1p1NVJNSVhmVXhVclo2?=
+ =?utf-8?B?czM5ZEpuWHBleC9pc2U4RlJrRjJKa3BEZnFnWWVkQkxnSzg1MlYrS2JaNFVW?=
+ =?utf-8?B?ZWRCQTNscFNKdG45Y0pFckpwb0ErWkRFRnlJaVBPRzhLbWd5YnRXZDRZbTVx?=
+ =?utf-8?B?QnBsUkxreTJYcUg5eUdYbW4vSlJ6T2hmakZwOGtqZFdkMmVJaUlQQ2RSR25l?=
+ =?utf-8?Q?SVVg4Pntr0uB/87M=3D?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d4f98ab6-3f1d-4be1-5e2f-08da331ec771
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa0679f5-0644-4eea-eb85-08da33212bcc
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2022 07:20:52.9945
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2022 07:37:59.0008
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EHMioWKK01TGQ0pgYIcIWMKOPrpP9mLg5Z6los0HFCKu4W+9tcrERsPunWMSbqYXXEHXaR2uqBdUBrR2CECwZg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR03MB3697
+X-MS-Exchange-CrossTenant-UserPrincipalName: bZy857xGMMhUBRvy4sQY+OxC17ErBiTPhtZb66mMBqOJX6DKaSbfsMtr9ItaYJLWYfavnYnoHbj0kQdqwLxKBA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR03MB3176
 
-Subject line needs to be updated :).
-
-On Tue, May 10, 2022 at 05:58:23PM +0200, Marek Marczykowski-Górecki wrote:
-> Intel LPSS has INTERRUPT_LINE set to 0xff by default, that is declared
-> by the PCI Local Bus Specification Revision 3.0 (from 2004) as
-> "unknown"/"no connection". Fallback to poll mode in this case.
+On Tue, May 10, 2022 at 12:22:51PM -0400, Demi Marie Obenour wrote:
+> On Tue, May 10, 2022 at 12:57:48PM +0200, Roger Pau Monné wrote:
+> > On Thu, May 05, 2022 at 08:30:17PM -0400, Demi Marie Obenour wrote:
+> > > Proposal: Check disk sequence numbers in blkback
+> > > ================================================
+> > > 
+> > > Currently, adding block devices to a domain is racy.  libxl writes the
+> > > major and minor number of the device to XenStore, but it does not keep
+> > > the block device open until blkback has opened it.  This creates a race
+> > > condition, as it is possible for the device to be destroyed and another
+> > > device allocated with the same major and minor numbers.  Loop devices
+> > > are the most obvious example, since /dev/loop0 can be reused again and
+> > > again, but the same problem can also happen with device-mapper devices.
+> > > If the major and minor numbers are reused before blkback has attached to
+> > > the device, blkback will pass the wrong device to the domain, with
+> > > obvious security consequences.
+> > > 
+> > > Other programs on Linux have the same problem, and a solution was
+> > > committed upstream in the form of disk sequence numbers.  A disk
+> > > sequence number, or diskseq, is a 64-bit unsigned monotonically
+> > > increasing counter.  The combination of a major and minor number and a
+> > > disk sequence number uniquely identifies a block device for the entire
+> > > uptime of the system.
+> > 
+> > Seems fine to me, this is just an extra check to make sure the block
+> > device opened by blkback is the one that user space intended.  I would
+> > see diskseq as a kind of checksum.
 > 
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> ---
-> Changes in v3:
->  - change back to checking 0xff explicitly
->  - adjust commit message, include spec reference
->  - change warning to match the above
-> Changes in v2:
->  - add log message
->  - extend commit message
->  - code style fix
-> ---
->  xen/drivers/char/ns16550.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
+> Ideally, diskseq would be the primary means of identifying a device, but
+> that isn’t an option without more substantial changes, sadly.
 > 
-> diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-> index fb75cee4a13a..b4434ad815e1 100644
-> --- a/xen/drivers/char/ns16550.c
-> +++ b/xen/drivers/char/ns16550.c
-> @@ -1238,6 +1238,15 @@ pci_uart_config(struct ns16550 *uart, bool_t skip_amt, unsigned int idx)
->                              pci_conf_read8(PCI_SBDF(0, b, d, f),
->                                             PCI_INTERRUPT_LINE) : 0;
->  
-> +                if ( uart->irq == 0xff )
-> +                {
-> +                    printk(XENLOG_WARNING
+> > > I propose that blkback check for an unsigned 64-bit hexadecimal XenStore
+> > > entry named “diskseq”.  If the entry exists, blkback checks that the
+> > > number stored there matches the disk sequence number of the device.  If
+> > > it does not exist, the check is skipped.  If reading the entry fails for
+> > > any other reason, the entry is malformed, or if the sequence number is
+> > > wrong, blkback refuses to export the device.
+> > > 
+> > > The toolstack changes are more involved for two reasons:
+> > > 
+> > > 1. To ensure that loop devices are not leaked if the toolstack crashes,
+> > >    they must be created with the delete-on-close flag set.  This
+> > >    requires that the toolstack hold the device open until blkback has
+> > >    acquired a handle to it.
+> > 
+> > Does this work with loop devices?  I would expect that you need to
+> > issue a losetup call to detach the device.
+> 
+> That is what the autoclear flag is for.  It will cause the device to be
+> destroyed by the kernel as soon as the last handle to it has been
+> closed.  This is why the toolstack needs to hold a file descriptor to
+> the device.
 
-XENLOG_INFO would be better, IMO this configuration is no reason to
-warn the user.
+What would happen if the backend closes the device (because the
+connection is torn down) and then try to open it again (because the
+guest has triggered a reconnection)?
 
-> +                           "ns16550: %02x:%02x.%u has no legacy IRQ %d, "
-> +                           "falling back to a poll mode\n",
+> > Even more, the loop device is created by the block script, but there's
+> > also a window between the block script execution and the toolstack
+> > knowing about the device, which could also allow for a leak?
+> 
+> For this to work, either the toolstack or block script will need to open
+> the file and perform loop(4) ioctls to assign the file descriptor to a
+> loop device.  This cannot be done by a shell script, so I plan on using
+> a C program to perform these tasks.  In Qubes OS, I expect this program
+> to replace the block script entirely, as performance is critical and
+> flexibility less so.  For upstream, I recommend having the block script
+> be a script that calls this C program.
 
-Could you use %pp and then pass the parameter using &PCI_SBDF(0, b, d,
-f)?
+block scripts can be plain binary executables, so I think it would be
+fine for libxl to just call the executable directly.
 
-Also we try to avoid splitting printk format strings, what about
-using:
+> > > 2. For block devices that are opened by path, the toolstack needs to
+> > >    ensure that the device it has opened is actually the device it
+> > >    intended to open.  This requires device-specific verification of the
+> > >    open file descriptor.  This is not needed for regular files, as the
+> > >    LOOP_CONFIGURE ioctl is called on an existing loop device and sets
+> > >    its backing file.
+> > > 
+> > > The first is fairly easy in C.  It can be accomplished by means of a
+> > > XenStore watch on the “status” entry.  Once that watch fires, blkback
+> > > has opened the device, so the toolstack can safely close its file
+> > > descriptor.
+> > 
+> > Does the toolstack really need to close the device?  What harm does it
+> > do to keep the handle open until the domain is destroyed?
+> 
+> This would cause no harm, but it also would not help either, so I do not
+> see any advantages to doing it.
 
-"ns16550: %02x:%02x.%u no legacy IRQ, using poll mode\n"
+Well, seems more complex because you need more synchronization between
+blkback and the toolstack in order to detect when blkback has opened
+the device.  If this is not strictly required I would rather avoid it:
+more complexity just leads to more errors.
 
-TBH, we don't print a similar message if INTERRUPT_{PIN,LINE} is 0
-(which also results in the console running in poll mode), so I wonder
-if we should extend the printing of the message also to ->irq == 0 for
-consistency.
+> > What about disk hotplug?  Which entity will keep the device opened in
+> > that case?  Is xl block-attach going to block until the device
+> > switches to the connected state?
+> 
+> Whichever program opens the file will need to do this.  
+
+This is not trivial to implement with xl, as `xl block-attach` is a
+short-lived command that just populates the xenstore entries for the
+to be attached device, runs the hotplug script and exits after that.
+I'm not sure we would want to change `xl block-attach` behavior to
+wait until the backend has opened the device.
+
+> This could be
+> the program that is using libxl or the block script that libxl invokes.
+> I am not familiar with xl block-attach as Qubes OS uses a custom wrapper
+> around libvirt.
+> 
+> > > The second is significantly more difficult.  It requires the block
+> > > script to be aware of at least device-mapper devices and LVM2 logical
+> > > volumes.  The general technique is common to all block devices: obtain
+> > > the sequence number (via the BLKGETDISKSEQ() ioctl) and its major and
+> > > minor numbers (via fstat()).  Then open /sys/dev/block/MAJOR:MINOR to
+> > > get a directory file descriptor, and use openat(2) and read(2) to get
+> > > various sysfs attributes.  Finally, read the diskseq sysfs attribute and
+> > > check that it matches the sequence number from BLKGETDISKSEQ().
+> > > Alternatively, one can use device-specific methods, such as
+> > > device-mapper ioctls.
+> > > 
+> > > Device-mapper devices can be detected via the ‘dm/name’ sysfs attribute,
+> > > which must match the name under ‘/dev/mapper/’.  If the name is of the
+> > > form ‘/dev/X/Y’, and the ‘dm/uuid’ attribute starts with the literal
+> > > string “LVM-”, then the expected ‘dm/name’ attribute should be found by
+> > > doubling all ‘-’ characters in X and Y, and then joining X and Y with
+> > > another ‘-’.  This accounts for LVM2 logical volumes.  Alternatively,
+> > > one can use device-mapper ioctls to both check if a device is a
+> > > device-mapper device, and to obtain its name and UUID.  I plan on going
+> > > with the latter route.
+> > 
+> > Likely a stupid remark, but needs obviously needs to be kept to Linux
+> > only.
+> 
+> Indeed so.  I have CC’d Mariusz Zaborski to check if FreeBSD needs any
+> similar changes.
+
+So you know Mariusz, small world I guess, I've been to quite some BSD
+conferences with him.  Hope you are doing fine Mariusz, long time no
+see due to the covid mess.
+
+FreeBSD blkback doesn't use loop devices because the kernel has an
+interface to read files (so blkback can open raw files directly), so
+I think this is all unneeded.
+
+My comment was mostly iff this is implemented it needs to be contained
+to Linux specific files (ie: libxl_linux.c).
 
 Thanks, Roger.
 
