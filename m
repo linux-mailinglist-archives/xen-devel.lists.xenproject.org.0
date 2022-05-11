@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F028523EE0
-	for <lists+xen-devel@lfdr.de>; Wed, 11 May 2022 22:25:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.327286.550064 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86708523EEA
+	for <lists+xen-devel@lfdr.de>; Wed, 11 May 2022 22:28:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.327296.550075 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nosst-0002aO-Cb; Wed, 11 May 2022 20:24:35 +0000
+	id 1noswJ-0003Bn-Ul; Wed, 11 May 2022 20:28:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 327286.550064; Wed, 11 May 2022 20:24:35 +0000
+Received: by outflank-mailman (output) from mailman id 327296.550075; Wed, 11 May 2022 20:28:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nosst-0002YD-9U; Wed, 11 May 2022 20:24:35 +0000
-Received: by outflank-mailman (input) for mailman id 327286;
- Wed, 11 May 2022 20:24:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1noswJ-00039c-Qn; Wed, 11 May 2022 20:28:07 +0000
+Received: by outflank-mailman (input) for mailman id 327296;
+ Wed, 11 May 2022 20:28:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SAT7=VT=igalia.com=gpiccoli@srs-se1.protection.inumbo.net>)
- id 1nossr-0002Y7-0w
- for xen-devel@lists.xenproject.org; Wed, 11 May 2022 20:24:33 +0000
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5d360711-d168-11ec-a406-831a346695d4;
- Wed, 11 May 2022 22:24:32 +0200 (CEST)
-Received: from [177.183.162.244] (helo=[192.168.0.5])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1noss0-000Aod-US; Wed, 11 May 2022 22:23:41 +0200
+ <SRS0=MfEy=VT=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1noswI-00039W-Vv
+ for xen-devel@lists.xenproject.org; Wed, 11 May 2022 20:28:06 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dcc7e116-d168-11ec-8fc4-03012f2f19d4;
+ Wed, 11 May 2022 22:28:06 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B9B3FB82622;
+ Wed, 11 May 2022 20:28:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72760C340EE;
+ Wed, 11 May 2022 20:28:02 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,92 +43,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d360711-d168-11ec-a406-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=LCKlEcL/+gLbho7zoJo89g9MDYx2GFkg8N7n1nlW+0g=; b=MQpyMZ3nMM+SlSF0Ic+7AggIHS
-	wWCWxLFJNdpcNC/qKw1wNJR3uSo8xMkfiJlq7d2aikSbZG9yuq1pfGOyawWDcFgWnRsla4fbF455Y
-	3RXCIUoMIO9o6uix81B+J++RZraHoxYIg5AFTEzg2KmNpXSrs7BEjvRicrp5TYhs6s3mYN27kkyAz
-	njPDxaRSeQ75fkZPzqisnL9xIuav4szhmycF8VItK7avDyCoEE8U/Zs7xTZO8x+jizmxi0qGskMhG
-	GsWdK7oyZ7kJDFhpPsgWAmAhF7aiE+T5aNpN2RQ5WYTzC7ql7jtRy3esjCfYNiJNCeB+2D6JHceeB
-	Ayva3vzg==;
-Message-ID: <4b003501-f5c3-cd66-d222-88d98c93e141@igalia.com>
-Date: Wed, 11 May 2022 17:22:22 -0300
+X-Inumbo-ID: dcc7e116-d168-11ec-8fc4-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1652300883;
+	bh=aqsoCvtdR+zz0dA1DNGarTzDOHpfs5A6XpKMT8xqPOM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=pMwK+ZNueI6AJjV7vbGATVbILl14UMy4p+hOg2BNOug+M6rvPrN8UL/yKJOIFKBOx
+	 7iFJ/u+2UqawSTsNNa3EK+yZjholM2lT9aiLcR4CDkWYdRf4y60KavdKEuPtLwxyl9
+	 uBmcugCkgu4GQ1qENN3t9bIFa+oGEXVlw+sKW6swGMIPUiW3Pv5EqOMKSnjMyl0rqi
+	 yAvxH/VvvXY0kptwTzwpHSQrBIM6vArAuow10lsvg8GbWdjq44dEvCgdI19/q3ZIu/
+	 i14PdKWE8+jUQ5/nximFi10JHmsflSZBmypI1k/bZkjZplWA2IYwLxqVuFXZdNGNqK
+	 ngpYy/Bie6jvg==
+Date: Wed, 11 May 2022 13:28:01 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Christoph Hellwig <hch@lst.de>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>, jgross@suse.com, 
+    xen-devel@lists.xenproject.org, linux-arm-kernel@lists.infradead.org, 
+    iommu@lists.linux-foundation.org, Rahul Singh <Rahul.Singh@arm.com>
+Subject: Re: [PATCH] swiotlb-xen: fix DMA_ATTR_NO_KERNEL_MAPPING on arm
+In-Reply-To: <20220511141328.GA31939@lst.de>
+Message-ID: <alpine.DEB.2.22.394.2205111327530.43560@ubuntu-linux-20-04-desktop>
+References: <20220423171422.1831676-1-hch@lst.de> <alpine.DEB.2.22.394.2204261605420.915916@ubuntu-linux-20-04-desktop> <20220428132737.GA13999@lst.de> <alpine.DEB.2.22.394.2204281449060.915916@ubuntu-linux-20-04-desktop> <27d39d5a-3b79-bdda-b7e4-f4477667919f@oracle.com>
+ <alpine.DEB.2.22.394.2204281548320.915916@ubuntu-linux-20-04-desktop> <41c2483c-ab54-41be-7815-9d4a98e0249e@oracle.com> <alpine.DEB.2.22.394.2204291615130.1947187@ubuntu-linux-20-04-desktop> <20220511141328.GA31939@lst.de>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-Subject: Re: [PATCH 11/30] um: Improve panic notifiers consistency and
- ordering
-Content-Language: en-US
-To: Petr Mladek <pmladek@suse.com>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- Richard Weinberger <richard@nod.at>
-Cc: akpm@linux-foundation.org, bhe@redhat.com, kexec@lists.infradead.org,
- linux-kernel@vger.kernel.org, bcm-kernel-feedback-list@broadcom.com,
- linuxppc-dev@lists.ozlabs.org, linux-alpha@vger.kernel.org,
- linux-edac@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-mips@vger.kernel.org,
- linux-parisc@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-um@lists.infradead.org,
- linux-xtensa@linux-xtensa.org, netdev@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net, rcu@vger.kernel.org,
- sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org, x86@kernel.org,
- kernel-dev@igalia.com, kernel@gpiccoli.net, halves@canonical.com,
- fabiomirmar@gmail.com, alejandro.j.jimenez@oracle.com,
- andriy.shevchenko@linux.intel.com, arnd@arndb.de, bp@alien8.de,
- corbet@lwn.net, d.hatayama@jp.fujitsu.com, dave.hansen@linux.intel.com,
- dyoung@redhat.com, feng.tang@intel.com, gregkh@linuxfoundation.org,
- mikelley@microsoft.com, hidehiro.kawai.ez@hitachi.com, jgross@suse.com,
- john.ogness@linutronix.de, keescook@chromium.org, luto@kernel.org,
- mhiramat@kernel.org, mingo@redhat.com, paulmck@kernel.org,
- peterz@infradead.org, rostedt@goodmis.org, senozhatsky@chromium.org,
- stern@rowland.harvard.edu, tglx@linutronix.de, vgoyal@redhat.com,
- vkuznets@redhat.com, will@kernel.org
-References: <20220427224924.592546-1-gpiccoli@igalia.com>
- <20220427224924.592546-12-gpiccoli@igalia.com> <Ynp2hRodh04K3pzK@alley>
-From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-In-Reply-To: <Ynp2hRodh04K3pzK@alley>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 10/05/2022 11:28, Petr Mladek wrote:
-> [...]
-> It is not clear to me why user mode linux should not care about
-> the other notifiers. It might be because I do not know much
-> about the user mode linux.
+On Wed, 11 May 2022, Christoph Hellwig wrote:
+> On Fri, Apr 29, 2022 at 04:15:38PM -0700, Stefano Stabellini wrote:
+> > Great! Christoph you can go ahead and pick it up in your tree if you are
+> > up for it.
 > 
-> Is the because they always create core dump or are never running
-> in a hypervisor or ...?
+> The patch is in the dma-mapping for-next brancch now:
 > 
-> AFAIK, the notifiers do many different things. For example, there
-> is a notifier that disables RCU watchdog, print some extra
-> information. Why none of them make sense here?
->
+> http://git.infradead.org/users/hch/dma-mapping.git/commitdiff/62cb1ca1654b57589c582efae2748159c74ee356
+> 
+> There were a few smaller merge conflicts with the swiotlb refactoring.
+> I think everything is fine, but please take another look if possible.
 
-Hi Petr, my understanding is that UML is a form of running Linux as a
-regular userspace process for testing purposes. With that said, as soon
-as we exit in the error path, less "pollution" would happen, so users
-can use GDB to debug the core dump for example.
-
-In later patches of this series (when we split the panic notifiers in 3
-lists) these UML notifiers run in the pre-reboot list, so they run after
-the informational notifiers for example (in the default level).
-But without the list split we cannot order properly, so my gut feeling
-is that makes sense to run them rather earlier than later in the panic
-process...
-
-Maybe Anton / Johannes / Richard could give their opinions - appreciate
-that, I'm not attached to the priority here, it's more about users'
-common usage of UML I can think of...
-
-Cheers,
-
-
-Guilherme
+Looks good to me
 
