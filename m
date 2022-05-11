@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44263523CE7
-	for <lists+xen-devel@lfdr.de>; Wed, 11 May 2022 20:52:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.327199.549955 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0933D523CFB
+	for <lists+xen-devel@lfdr.de>; Wed, 11 May 2022 21:01:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.327207.549964 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1norRh-0005EQ-OF; Wed, 11 May 2022 18:52:25 +0000
+	id 1nora0-0006l3-NJ; Wed, 11 May 2022 19:01:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 327199.549955; Wed, 11 May 2022 18:52:25 +0000
+Received: by outflank-mailman (output) from mailman id 327207.549964; Wed, 11 May 2022 19:01:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1norRh-0005B8-KL; Wed, 11 May 2022 18:52:25 +0000
-Received: by outflank-mailman (input) for mailman id 327199;
- Wed, 11 May 2022 18:52:24 +0000
+	id 1nora0-0006iQ-Jr; Wed, 11 May 2022 19:01:00 +0000
+Received: by outflank-mailman (input) for mailman id 327207;
+ Wed, 11 May 2022 19:00:59 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1norRg-0005B2-9j
- for xen-devel@lists.xenproject.org; Wed, 11 May 2022 18:52:24 +0000
+ (envelope-from <julien@xen.org>) id 1norZz-0006iK-IV
+ for xen-devel@lists.xenproject.org; Wed, 11 May 2022 19:00:59 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1norRf-0005O7-4U; Wed, 11 May 2022 18:52:23 +0000
+ id 1norZy-0005ZN-EA; Wed, 11 May 2022 19:00:58 +0000
 Received: from [54.239.6.188] (helo=[192.168.11.111])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1norRe-0007Bn-U3; Wed, 11 May 2022 18:52:23 +0000
+ id 1norZy-0007rj-7H; Wed, 11 May 2022 19:00:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,155 +42,113 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=xDJc54aGWs6VPC/aAYJYP9EWKMv/TbUIb1SicvFfR1Q=; b=lzas2N7VAy0lYtgEk/VhsiGpRT
-	Witxyx+C1mxVxPyLtgwyQ2AHHNiDDbJwP+0k+J76qbQu+wpYDO9zOXGgKte5chwouvEa+PWu9evZf
-	pN3lcU+iTcXyRaK9rEk2mxZWSVzXRCa7bxJOl7aoYEyhFUdTQ0F0Vz4s2Y/U6+LFAbmU=;
-Message-ID: <f0eb9ccd-28d0-8709-faa5-88d67da4772c@xen.org>
-Date: Wed, 11 May 2022 19:52:20 +0100
+	bh=FY8W0brpfN+Q1rQaT8fXTSGJxBRp3nDmMa2AIYvXzpY=; b=6v+EItmRIZ8azjcSyhRprTRB5x
+	nTUzcNgNbo4vAoSc49bMrwRsTtn670mBOexDdmpdAOfXIIrKq2O/PkwXPSxOZ6ongOYWhL0WZkDjE
+	CRhN2MxC3k+mNA+rU+mK7As+5qGx6loY4JdU9TaKsfwoB/4u/WZaYOCv1944Yb1bY3h8=;
+Message-ID: <0f4ef9bc-4089-6419-5373-13b0abdf5fd3@xen.org>
+Date: Wed, 11 May 2022 20:00:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.9.0
-Subject: Re: [PATCH v6 4/7] xen/arm: configure dom0less domain for enabling
- xenstore after boot
+Subject: Re: [PATCH v6 5/7] xenstored: send an evtchn notification on
+ introduce_domain
 To: Stefano Stabellini <sstabellini@kernel.org>,
  xen-devel@lists.xenproject.org
 Cc: jgross@suse.com, Bertrand.Marquis@arm.com, Volodymyr_Babchuk@epam.com,
  Luca Miccio <lucmiccio@gmail.com>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>, jbeulich@suse.com
+ Stefano Stabellini <stefano.stabellini@xilinx.com>,
+ anthony.perard@citrix.com, wl@xen.org
 References: <alpine.DEB.2.22.394.2205041715320.43560@ubuntu-linux-20-04-desktop>
- <20220505001656.395419-4-sstabellini@kernel.org>
+ <20220505001656.395419-5-sstabellini@kernel.org>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20220505001656.395419-4-sstabellini@kernel.org>
+In-Reply-To: <20220505001656.395419-5-sstabellini@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Stefano,
+Hi,
 
 On 05/05/2022 01:16, Stefano Stabellini wrote:
 > From: Luca Miccio <lucmiccio@gmail.com>
 > 
-> Export evtchn_alloc_unbound and make it __must_check.
+> When xs_introduce_domain is called, send out a notification on the
+> xenstore event channel so that any (dom0less) domain waiting for the
+> xenstore interface to be ready can continue with the initialization.
+> Before sending the notification, clear XENSTORE_RECONNECTING.
 > 
-> If "xen,enhanced" is enabled, then add to dom0less domains:
+> The extra notification is harmless for domains that don't require it.
 > 
-> - the hypervisor node in device tree
-> - the xenstore event channel
-> 
-> The xenstore event channel is also used for the first notification to
-> let the guest know that xenstore has become available.
+> In xs_wire.h update the commment on top of XENSTORE_RECONNECTING to
+> generalize its meaning to suit the dom0less use-case better.
 > 
 > Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
 > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> CC: Julien Grall <julien@xen.org>
-> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-> CC: Bertrand Marquis <bertrand.marquis@arm.com>
-> CC: jbeulich@suse.com
-> 
+> CC: jgross@suse.com
+> CC: anthony.perard@citrix.com
+> CC: wl@xen.org
 > ---
-> Changes in v5:
-> - merge with "xen: export evtchn_alloc_unbound"
-> - __must_check
+> If you have better suggestions for the wording in xs_wire.h please
+> suggest!
 > 
-> Changes in v3:
-> - use evtchn_alloc_unbound
+> 
+> Changes in v6:
+> - use XENSTORE_CONNECTED instead of 0x0
+> - update xs_wire.h
+> 
+> Changes in v5:
+> - reset XS_CONNECTION_STATE_RECONNECTING before notifying the domU
 > 
 > Changes in v2:
-> - set HVM_PARAM_STORE_PFN to ~0ULL at domain creation
-> - in alloc_xenstore_evtchn do not call _evtchn_alloc_unbound
-> 
-> xen: export evtchn_alloc_unbound
-> 
-> It will be used during dom0less domains construction.
-> 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> - drop the new late_init parameter
 > ---
->   xen/arch/arm/domain_build.c | 37 +++++++++++++++++++++++++++++++++++++
->   xen/common/event_channel.c  |  2 +-
->   xen/include/xen/event.h     |  3 +++
->   3 files changed, 41 insertions(+), 1 deletion(-)
+>   tools/xenstore/xenstored_domain.c | 4 ++++
+>   xen/include/public/io/xs_wire.h   | 2 +-
+
+I am not entirely sure this is the right place to mention it. But I 
+couldn't find a better one.
+
+The documentation (docs/misc/xenstore-misc.txt) states that the field is 
+valid when the server advertised ``Connection State``.
+
+Is there any guarantee the field will be 0 for any previous {C, 
+O}xenstored implementation? If not, then I think we need to set the 
+feature flag so Linux knows the field can be used.
+
+If yes, then the documentation should be relaxed so an OS knows it can 
+safely use the field without checking the feature flag.
+
+>   2 files changed, 5 insertions(+), 1 deletion(-)
 > 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 016f56a99f..bb430f2189 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -27,6 +27,7 @@
->   #include <asm/setup.h>
->   #include <asm/cpufeature.h>
->   #include <asm/domain_build.h>
-> +#include <xen/event.h>
+> diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
+> index ae065fcbee..6f34af225c 100644
+> --- a/tools/xenstore/xenstored_domain.c
+> +++ b/tools/xenstore/xenstored_domain.c
+> @@ -493,6 +493,10 @@ static struct domain *introduce_domain(const void *ctx,
+>   		/* Now domain belongs to its connection. */
+>   		talloc_steal(domain->conn, domain);
 >   
->   #include <xen/irq.h>
->   #include <xen/grant_table.h>
-> @@ -2810,6 +2811,8 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
->       int ret;
->   
->       kinfo->phandle_gic = GUEST_PHANDLE_GIC;
-> +    kinfo->gnttab_start = GUEST_GNTTAB_BASE;
-> +    kinfo->gnttab_size = GUEST_GNTTAB_SIZE;
->   
->       addrcells = GUEST_ROOT_ADDRESS_CELLS;
->       sizecells = GUEST_ROOT_SIZE_CELLS;
-> @@ -2884,6 +2887,13 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
->               goto err;
->       }
->   
-> +    if ( kinfo->dom0less_enhanced )
-> +    {
-> +        ret = make_hypervisor_node(d, kinfo, addrcells, sizecells);
-> +        if ( ret )
-> +            goto err;
-> +    }
+> +		/* Notify the domain that xenstore is available */
+> +		interface->connection = XENSTORE_CONNECTED;
+> +		xenevtchn_notify(xce_handle, domain->port);
 > +
->       ret = fdt_end_node(kinfo->fdt);
->       if ( ret < 0 )
->           goto err;
-> @@ -3150,6 +3160,25 @@ static int __init construct_domain(struct domain *d, struct kernel_info *kinfo)
->       return 0;
->   }
+>   		if (!is_master_domain && !restore)
+>   			fire_watches(NULL, ctx, "@introduceDomain", NULL,
+>   				     false, NULL);
+> diff --git a/xen/include/public/io/xs_wire.h b/xen/include/public/io/xs_wire.h
+> index 953a0050a3..c1ec7c73e3 100644
+> --- a/xen/include/public/io/xs_wire.h
+> +++ b/xen/include/public/io/xs_wire.h
+> @@ -141,7 +141,7 @@ struct xenstore_domain_interface {
 >   
-> +static int __init alloc_xenstore_evtchn(struct domain *d)
-> +{
-> +    evtchn_alloc_unbound_t alloc;
-> +    int rc;
-> +
-> +    alloc.dom = d->domain_id;
-> +    alloc.remote_dom = hardware_domain->domain_id;
-> +    rc = evtchn_alloc_unbound(&alloc);
-> +    if ( rc )
-> +    {
-> +        printk("Failed allocating event channel for domain\n");
-> +        return rc;
-> +    }
-> +
-> +    d->arch.hvm.params[HVM_PARAM_STORE_EVTCHN] = alloc.port;
-> +
-> +    return 0;
-> +}
-> +
->   static int __init construct_domU(struct domain *d,
->                                    const struct dt_device_node *node)
->   {
-> @@ -3214,6 +3243,14 @@ static int __init construct_domU(struct domain *d,
->       if ( rc < 0 )
->           return rc;
->   
-> +    if ( kinfo.dom0less_enhanced )
-> +    {
-> +        rc = alloc_xenstore_evtchn(d);
-> +        if ( rc < 0 )
-> +            return rc;
-> +        d->arch.hvm.params[HVM_PARAM_STORE_PFN] = ~0ULL;
+>   /* Valid values for the connection field */
+>   #define XENSTORE_CONNECTED 0 /* the steady-state */
+> -#define XENSTORE_RECONNECT 1 /* guest has initiated a reconnect */
+> +#define XENSTORE_RECONNECT 1 /* reconnect in progress */
 
-This sounds a little bit odd that we set the value to ~0ULL with 
-dom0less_enhanced but keep it to 0 outside of dom0less.
+The definition in the docs needs to be updated.
 
-If there are any rationale for that, then I would suggest to add a 
-comment. (Can be done on commit).
-
-For the common part:
-
-Acked-by: Julien Grall <jgrall@amazon.com> # common
+>   
+>   /* Valid values for the error field */
+>   #define XENSTORE_ERROR_NONE    0 /* No error */
 
 Cheers,
 
