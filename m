@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 689B0522E76
-	for <lists+xen-devel@lfdr.de>; Wed, 11 May 2022 10:33:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.326591.549147 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 849A2522E77
+	for <lists+xen-devel@lfdr.de>; Wed, 11 May 2022 10:34:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.326599.549158 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nohmG-0004X6-LU; Wed, 11 May 2022 08:33:00 +0000
+	id 1nohnk-00056a-0q; Wed, 11 May 2022 08:34:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 326591.549147; Wed, 11 May 2022 08:33:00 +0000
+Received: by outflank-mailman (output) from mailman id 326599.549158; Wed, 11 May 2022 08:34:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nohmG-0004US-I3; Wed, 11 May 2022 08:33:00 +0000
-Received: by outflank-mailman (input) for mailman id 326591;
- Wed, 11 May 2022 08:32:58 +0000
+	id 1nohnj-00054P-T7; Wed, 11 May 2022 08:34:31 +0000
+Received: by outflank-mailman (input) for mailman id 326599;
+ Wed, 11 May 2022 08:34:31 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nohmE-0004UI-AW; Wed, 11 May 2022 08:32:58 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1nohni-00054J-Vc
+ for xen-devel@lists.xenproject.org; Wed, 11 May 2022 08:34:30 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nohmE-00027J-7u; Wed, 11 May 2022 08:32:58 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nohmD-00048q-NT; Wed, 11 May 2022 08:32:57 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nohmD-0004aa-N2; Wed, 11 May 2022 08:32:57 +0000
+ (envelope-from <julien@xen.org>)
+ id 1nohni-00028O-OI; Wed, 11 May 2022 08:34:30 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.193])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nohni-00034p-Ij; Wed, 11 May 2022 08:34:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,175 +39,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=lwg33ilBDF9uP1tmNFTVJ2fadEP1Epk6UfNK57xk+0s=; b=eAEKhiqdaLClQL/FI/7+7nK2wA
-	eVmJ+yUc4QCcg7L5QL1gM0XgzOt/dWODS0VxnZ9NCDcjB+TSX7nIZrVZWN0Dw30hvWCoqMDGnBHmN
-	zQMKZNCwwHmA3VKmLzWpObxYCs9qnBSWFWlz4WZtK/XkCloXZ1dxc2RPi88CNuUzCBzU=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170319-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=xsFGJDTRelUy2YDMXuTA7EDuToFbqqWaQ7fvTGFMsjU=; b=mhC8Rt0SpsVYzQVkQYLThNJCf9
+	V83CNNM/5AgLLujn33xl5uD4mxBg8ig/ivX5flSY9DUSN62hhLqP5LMNNgpl00ccxQcXDC1Rv9/lt
+	jdVohaxGM8MmeJsMA9//tNsbV8M9wlexRv8gx+2h5WhayDe2nMw4KE1qlmculk8wGFIs=;
+Message-ID: <82e54293-926e-b7ee-7091-a85a9db8f6c5@xen.org>
+Date: Wed, 11 May 2022 09:34:28 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 170319: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=9dd964f5e5c5595a1acd5eb438fb088327db86fa
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 11 May 2022 08:32:57 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.9.0
+Subject: Re: [PATCH v3 4/6] xen: Switch to byteswap
+To: =?UTF-8?B?TGluIExpdSDvvIjliJjmnpfvvIk=?= <lin.liu@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>
+References: <cover.1652170719.git.lin.liu@citrix.com>
+ <c9488a2fe15d59dc86712e70614c4dbe0794506b.1652170719.git.lin.liu@citrix.com>
+ <76c9bed5-6643-4fa6-eaf5-c865f942193c@xen.org>
+ <SJ0PR03MB5405E449B19691A916EA3FE79DC89@SJ0PR03MB5405.namprd03.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <SJ0PR03MB5405E449B19691A916EA3FE79DC89@SJ0PR03MB5405.namprd03.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-flight 170319 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170319/
+Hi,
 
-Regressions :-(
+Please configure your e-mail client to send in plain text.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+On 11/05/2022 07:30, Lin Liu （刘林） wrote:
+> Subject: Re: [PATCH v3 4/6] xen: Switch to byteswap
+> On 10/05/2022 11:15, Lin Liu wrote:
+>> Update to use byteswap to swap bytes.
+>>
+>> No functional change.
+>>
+>> Signed-off-by: Lin Liu <lin.liu@citrix.com>
+>> ---
+>> Cc: Stefano Stabellini <sstabellini@kernel.org>
+>> Cc: Julien Grall <julien@xen.org>
+>> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Cc: George Dunlap <george.dunlap@citrix.com>
+>> Cc: Jan Beulich <jbeulich@suse.com>
+>> Cc: Wei Liu <wl@xen.org>
+>> Changes in v3:
+>> - Update xen/common/device_tree.c to use be32_to_cpu
+>> - Keep const in type cast in unaligned.h
+>> ---
+>>    xen/common/device_tree.c           | 44 +++++++++++++++---------------
+>>    xen/common/libelf/libelf-private.h |  6 ++--
+>>    xen/common/xz/private.h            |  2 +-
+>>    xen/include/xen/unaligned.h        | 24 ++++++++--------
+>>    4 files changed, 38 insertions(+), 38 deletions(-)
+>>
+>> diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
+>> index 4aae281e89..70d3be3be6 100644
+>> --- a/xen/common/device_tree.c
+>> +++ b/xen/common/device_tree.c
+>> @@ -171,7 +171,7 @@ bool_t dt_property_read_u32(const struct dt_device_node *np,
+>>        if ( !val || len < sizeof(*out_value) )
+>>            return 0;
+>>
+>> -    *out_value = be32_to_cpup(val);
+>> +    *out_value = be32_to_cpu(*val);
+> 
+>> This code has been taken from Linux and I would rather prefer to keep
+>> the *cpup* helpers to avoid any changes when backporting.
+> 
+>> diff --git a/xen/include/xen/unaligned.h b/xen/include/xen/unaligned.h
+>> index 0a2b16d05d..16b2e6f5f0 100644
+>> --- a/xen/include/xen/unaligned.h
+>> +++ b/xen/include/xen/unaligned.h
+>> @@ -20,62 +20,62 @@
+>>
+>>    static inline uint16_t get_unaligned_be16(const void *p)
+>>    {
+>> -     return be16_to_cpup(p);
+>> +     return be16_to_cpu(*(const uint16_t *)p)
+> 
+>> I haven't checked the existing implementation of be16_to_cpup().
+>> However, this new approach would allow the compiler to use a single load
+>> instruction to read the 16-bit value from memory. So this change may
+>> break on platform where unaligned access is forbidden (such as arm32).
+> 
+>>    }
+>>
+>>    static inline void put_unaligned_be16(uint16_t val, void *p)
+>>    {
+>> -     *(__force __be16*)p = cpu_to_be16(val);
+>> +     *(__be16 *)p = cpu_to_be16(val);
+> 
+>>> Why did you drop the __force?
+> 
+> Google told me __force is used in linux kernel to suppress warning in sparse,
+> https://stackoverflow.com/questions/53120610/what-does-the-attribute-force-do
+> Is sparse also used in xen?
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+I am not aware of any use of Sparse in Xen, but it would technically be 
+possible.
 
-version targeted for testing:
- ovmf                 9dd964f5e5c5595a1acd5eb438fb088327db86fa
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+However, my point here is more that this change seems to be unrelated to 
+what the patch is meant to do (i.e. switching to byteswap). So if it is 
+unnecessary, then it should be dropped from this patch.
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   71 days
-Failing since        168258  2022-03-01 01:55:31 Z   71 days  928 attempts
-Testing same since   170313  2022-05-11 01:56:56 Z    0 days    5 attempts
+Cheers,
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chao Li <lichao@loongson.cn>
-  Chao, Zhuoran <zhuoran.chao@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Christine <Yuwei.Chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  duntan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gua Guo <gua.guo@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Jiewen Yao <jiewen.yao@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Peter Grehan <grehan@freebsd.org>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yu Pu <yu.pu@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Yuwei Chen <yuwei.chen@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-  Zhuoran Chao <zhuoran.chao@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 6294 lines long.)
+-- 
+Julien Grall
 
