@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 203CB52314F
-	for <lists+xen-devel@lfdr.de>; Wed, 11 May 2022 13:17:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.326741.549355 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FEA252319C
+	for <lists+xen-devel@lfdr.de>; Wed, 11 May 2022 13:31:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.326750.549366 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nokLK-00055c-Tv; Wed, 11 May 2022 11:17:22 +0000
+	id 1nokYO-0007Om-5P; Wed, 11 May 2022 11:30:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 326741.549355; Wed, 11 May 2022 11:17:22 +0000
+Received: by outflank-mailman (output) from mailman id 326750.549366; Wed, 11 May 2022 11:30:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nokLK-000533-Qu; Wed, 11 May 2022 11:17:22 +0000
-Received: by outflank-mailman (input) for mailman id 326741;
- Wed, 11 May 2022 11:17:21 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nokLJ-00052t-Qr; Wed, 11 May 2022 11:17:21 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nokLJ-00053O-NY; Wed, 11 May 2022 11:17:21 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nokLJ-0007i4-86; Wed, 11 May 2022 11:17:21 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nokLJ-00017y-7e; Wed, 11 May 2022 11:17:21 +0000
+	id 1nokYO-0007Li-2X; Wed, 11 May 2022 11:30:52 +0000
+Received: by outflank-mailman (input) for mailman id 326750;
+ Wed, 11 May 2022 11:30:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Ssr4=VT=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1nokYL-0007Lc-V8
+ for xen-devel@lists.xenproject.org; Wed, 11 May 2022 11:30:49 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cd5b756d-d11d-11ec-8fc4-03012f2f19d4;
+ Wed, 11 May 2022 13:30:48 +0200 (CEST)
+Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 165226864350095.43678669338908;
+ Wed, 11 May 2022 04:30:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,177 +40,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=w0ju5s33i/Y02AereVlUx/FPEi2BwJq4nS84SAaSFZQ=; b=F/6Os8pAbhknosP6j1PQHMMPY2
-	gt2Jvx8QiwPIGXrxkXSO7wUyK0w28Wqbw441lfXPbwlMdo6TMr+Jj5Kl2tq3qkOY0eepcpGoQWBfP
-	InWGfwqlO0Yw68Zgjb7ODnJPdCdgCE3/+lWHxnlxuCZuWyFOe9KGK1i4ITJInyCzH9+c=;
+X-Inumbo-ID: cd5b756d-d11d-11ec-8fc4-03012f2f19d4
+ARC-Seal: i=1; a=rsa-sha256; t=1652268644; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=jLoifKJAGJBbdkF/nx+OyUVapFDhoEX6IESdtTkYJO0c/8cTEZKmAJvM1SPn5xqiIMeijwNlk+1kYJ9qrcIw29yeVCtVnHgtO1fvlDF9Obh7V6Qf7Pn7/Tj6+RRTpIrMrjB+7lg/Vn4Farf26TmrRCot180q86khZ16eNT9ptFg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1652268644; h=Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To; 
+	bh=9KX9JOgfKWP1A767M+6u3o5bxrE0Qqs6j3qcikRX04c=; 
+	b=RIygfYMjXxyD6iF46I1V2YwCdjif/afVHkEFEvE48PqOQDZbmYFhFItEGE052rlfT44pQF3Il2yfOpr+NVqpKgQXDfjldvZSp4ZZ9h0aV+NDu4UfYZed7z7WfB7v1s4cpvtQInIcNrvmehCGxNmvlwvII3KuZadEKYru4W+TLek=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1652268644;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Transfer-Encoding:Reply-To;
+	bh=9KX9JOgfKWP1A767M+6u3o5bxrE0Qqs6j3qcikRX04c=;
+	b=a3WyQ5Z3+qA1yVjebWJBtxBgey9NE/VfFzdq+jtEWVRH9ESE4ASZ3O9JuW8lw4EA
+	0L71qQT7vaqX0SDlkWE7eqrqc9CTsUGnkIWp1WQY1D9qWG4+RNc1IbB+6fAfG/8nYDM
+	Q08qO5O35JhxqgCchdgIoL0bt5dnlRn7GrijiZbo=
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170323-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	scott.davis@starlab.io,
+	jandryuk@gmail.com,
+	christopher.clark@starlab.io
+Subject: [PATCH v7 0/2] Adds starting the idle domain privileged
+Date: Wed, 11 May 2022 07:30:33 -0400
+Message-Id: <20220511113035.27070-1-dpsmith@apertussolutions.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Subject: [ovmf test] 170323: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=deee7a100b2539d8a302c6d37344b507f8312faa
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 11 May 2022 11:17:21 +0000
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-flight 170323 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170323/
+This series makes it so that the idle domain is started privileged under the
+default policy, which the SILO policy inherits, and under the flask policy. It
+then introduces a new one-way XSM hook, xsm_transition_running, that is hooked
+by an XSM policy to transition the idle domain to its running privilege level.
 
-Regressions :-(
+Changes in v7:
+- adjusted error message in default and flask xsm_set_system_active hooks
+- merged panic messages in arm and x86 setup.c to a single line
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+Changes in v6:
+- readded the setting of is_privileged in flask_set_system_active()
+- clarified comment on is_privileged in flask_set_system_active()
+- added ASSERT on is_privileged and self_sid in flask_set_system_active()
+- fixed err code returned on Arm for xsm_set_system_active() panic message
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+Changes in v5:
+- dropped setting is_privileged in flask_set_system_active()
+- added err code returned by xsm_set_system_active() to panic message
 
-version targeted for testing:
- ovmf                 deee7a100b2539d8a302c6d37344b507f8312faa
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+Changes in v4:
+- reworded patch 1 commit messaged
+- fixed whitespace to coding style
+- fixed comment to coding style
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   72 days
-Failing since        168258  2022-03-01 01:55:31 Z   71 days  932 attempts
-Testing same since   170321  2022-05-11 09:11:39 Z    0 days    3 attempts
+Changes in v3:
+- renamed *_transition_running() to *_set_system_active()
+- changed the XSM hook set_system_active() from void to int return
+- added ASSERT check for the expected privilege level each XSM policy expected
+- replaced a check against is_privileged in each arch with checking the return
+  value from the call to xsm_set_system_active()
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chao Li <lichao@loongson.cn>
-  Chao, Zhuoran <zhuoran.chao@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Christine <Yuwei.Chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  duntan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gua Guo <gua.guo@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Jiewen Yao <jiewen.yao@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Peter Grehan <grehan@freebsd.org>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Tom Lendacky <thomas.lendacky@amd.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yu Pu <yu.pu@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Yuwei Chen <yuwei.chen@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-  Zhuoran Chao <zhuoran.chao@intel.com>
+Changes in v2:
+- renamed flask_domain_runtime_security() to flask_transition_running()
+- added the missed assignment of self_sid
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+Daniel P. Smith (2):
+  xsm: create idle domain privileged and demote after setup
+  flask: implement xsm_set_system_active
 
+ tools/flask/policy/modules/xen.if      |  6 +++++
+ tools/flask/policy/modules/xen.te      |  1 +
+ tools/flask/policy/policy/initial_sids |  1 +
+ xen/arch/arm/setup.c                   |  3 +++
+ xen/arch/x86/setup.c                   |  4 ++++
+ xen/common/sched/core.c                |  7 +++++-
+ xen/include/xsm/dummy.h                | 17 ++++++++++++++
+ xen/include/xsm/xsm.h                  |  6 +++++
+ xen/xsm/dummy.c                        |  1 +
+ xen/xsm/flask/hooks.c                  | 32 +++++++++++++++++++++++++-
+ xen/xsm/flask/policy/initial_sids      |  1 +
+ 11 files changed, 77 insertions(+), 2 deletions(-)
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+-- 
+2.20.1
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 6459 lines long.)
 
