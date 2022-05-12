@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 361DB524F91
-	for <lists+xen-devel@lfdr.de>; Thu, 12 May 2022 16:12:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.327751.550636 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 861CF524FB2
+	for <lists+xen-devel@lfdr.de>; Thu, 12 May 2022 16:16:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.327762.550646 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1np9XT-0004b2-Gj; Thu, 12 May 2022 14:11:35 +0000
+	id 1np9bp-0005E1-4R; Thu, 12 May 2022 14:16:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 327751.550636; Thu, 12 May 2022 14:11:35 +0000
+Received: by outflank-mailman (output) from mailman id 327762.550646; Thu, 12 May 2022 14:16:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1np9XT-0004Xw-Cn; Thu, 12 May 2022 14:11:35 +0000
-Received: by outflank-mailman (input) for mailman id 327751;
- Thu, 12 May 2022 14:11:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1np9bp-0005BV-0j; Thu, 12 May 2022 14:16:05 +0000
+Received: by outflank-mailman (input) for mailman id 327762;
+ Thu, 12 May 2022 14:16:04 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ftuv=VU=suse.com=pmladek@srs-se1.protection.inumbo.net>)
- id 1np9PS-0001Gk-4P
- for xen-devel@lists.xenproject.org; Thu, 12 May 2022 14:03:18 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 453c3b72-d1fc-11ec-a406-831a346695d4;
- Thu, 12 May 2022 16:03:16 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out1.suse.de (Postfix) with ESMTP id 600DB21B2F;
- Thu, 12 May 2022 14:03:16 +0000 (UTC)
-Received: from suse.cz (unknown [10.100.208.146])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 5C2702C141;
- Thu, 12 May 2022 14:03:13 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1np9bo-0005BL-96; Thu, 12 May 2022 14:16:04 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1np9bo-0000dn-72; Thu, 12 May 2022 14:16:04 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1np9bn-0006gA-I5; Thu, 12 May 2022 14:16:03 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1np9bn-00057j-Hd; Thu, 12 May 2022 14:16:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,431 +42,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 453c3b72-d1fc-11ec-a406-831a346695d4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1652364196; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LqB96ySSQJ4ly+3J+rYGGuH/Fd7fkvILEbloF31pDTM=;
-	b=q3SRuDuz1bsrtNT6AQbijhKvd/E1pyV5ISS04f4B5Eo/MpxJkThlvlpzsrdXZrusqFVq1r
-	7s+CTa1eDnSZSlcSzDLMEjhXIjmmjm5vpsFw4wJd/0EtFszB2sl8NlJGjykorM6dG2+lpF
-	5FiP1kelHffEWxoWnmRZqh37k1tv6Lg=
-Date: Thu, 12 May 2022 16:03:10 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: akpm@linux-foundation.org, bhe@redhat.com, kexec@lists.infradead.org,
-	linux-kernel@vger.kernel.org, bcm-kernel-feedback-list@broadcom.com,
-	coresight@lists.linaro.org, linuxppc-dev@lists.ozlabs.org,
-	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-edac@vger.kernel.org, linux-hyperv@vger.kernel.org,
-	linux-leds@vger.kernel.org, linux-mips@vger.kernel.org,
-	linux-parisc@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org, linux-s390@vger.kernel.org,
-	linux-tegra@vger.kernel.org, linux-um@lists.infradead.org,
-	linux-xtensa@linux-xtensa.org, netdev@vger.kernel.org,
-	openipmi-developer@lists.sourceforge.net, rcu@vger.kernel.org,
-	sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
-	x86@kernel.org, kernel-dev@igalia.com, kernel@gpiccoli.net,
-	halves@canonical.com, fabiomirmar@gmail.com,
-	alejandro.j.jimenez@oracle.com, andriy.shevchenko@linux.intel.com,
-	arnd@arndb.de, bp@alien8.de, corbet@lwn.net,
-	d.hatayama@jp.fujitsu.com, dave.hansen@linux.intel.com,
-	dyoung@redhat.com, feng.tang@intel.com, gregkh@linuxfoundation.org,
-	mikelley@microsoft.com, hidehiro.kawai.ez@hitachi.com,
-	jgross@suse.com, john.ogness@linutronix.de, keescook@chromium.org,
-	luto@kernel.org, mhiramat@kernel.org, mingo@redhat.com,
-	paulmck@kernel.org, peterz@infradead.org, rostedt@goodmis.org,
-	senozhatsky@chromium.org, stern@rowland.harvard.edu,
-	tglx@linutronix.de, vgoyal@redhat.com, vkuznets@redhat.com,
-	will@kernel.org
-Subject: Re: [PATCH 24/30] panic: Refactor the panic path
-Message-ID: <Yn0TnsWVxCcdB2yO@alley>
-References: <20220427224924.592546-1-gpiccoli@igalia.com>
- <20220427224924.592546-25-gpiccoli@igalia.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=G7C9OOlomdWh66ueXdLNyBq7S1C9g13/MGwdhRk/v6s=; b=ctNpzA0NEVA0KtVSJ+f9simfdp
+	hbUSIgNVGGWmb1mw5ocu/wYmySDAWSdbpv8bMIjm3WXCpvJx5KCGPirP4KNMB6qgP1cDYlHw8cj5m
+	YI9gvsxzjZ9NlA/80nH8La846qX3jSx6KJ8ni1ZUyg7ldyqOFyDkR7znfjUpT/AfKpYk=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-170357-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220427224924.592546-25-gpiccoli@igalia.com>
-
-Hello,
-
-first, I am sorry for stepping into the discussion so late.
-I was busy with some other stuff and this patchset is far
-from trivial.
-
-Second, thanks a lot for putting so much effort into it.
-Most of the changes look pretty good, especially all
-the fixes of particular notifiers and split into
-four lists.
-
-Though this patch will need some more love. See below
-for more details.
-
-
-On Wed 2022-04-27 19:49:18, Guilherme G. Piccoli wrote:
-> The panic() function is somewhat convoluted - a lot of changes were
-> made over the years, adding comments that might be misleading/outdated
-> now, it has a code structure that is a bit complex to follow, with
-> lots of conditionals, for example. The panic notifier list is something
-> else - a single list, with multiple callbacks of different purposes,
-> that run in a non-deterministic order and may affect hardly kdump
-> reliability - see the "crash_kexec_post_notifiers" workaround-ish flag.
-> 
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -3784,6 +3791,33 @@
->  			timeout < 0: reboot immediately
->  			Format: <timeout>
->  
-> +	panic_notifiers_level=
-> +			[KNL] Set the panic notifiers execution order.
-> +			Format: <unsigned int>
-> +			We currently have 4 lists of panic notifiers; based
-> +			on the functionality and risk (for panic success) the
-> +			callbacks are added in a given list. The lists are:
-> +			- hypervisor/FW notification list (low risk);
-> +			- informational list (low/medium risk);
-> +			- pre_reboot list (higher risk);
-> +			- post_reboot list (only run late in panic and after
-> +			kdump, not configurable for now).
-> +			This parameter defines the ordering of the first 3
-> +			lists with regards to kdump; the levels determine
-> +			which set of notifiers execute before kdump. The
-> +			accepted levels are:
-
-This talks only about kdump. The reality is much more complicated.
-The level affect the order of:
-
-    + notifiers vs. kdump
-    + notifiers vs. crash_dump
-    + crash_dump vs. kdump
-
-There might theoretically many variants of the ordering of kdump,
-crash_dump, and the 4 notifier list. Some variants do not make
-much sense. You choose 5 variants and tried to select them by
-a level number.
-
-The question is if we really could easily describe the meaning this
-way. It is not only about a "level" of notifiers before kdump. It is
-also about the ordering of crash_dump vs. kdump. IMHO, "level"
-semantic does not fit there.
-
-Maybe more parameters might be easier to understand the effect.
-Anyway, we first need to agree on the chosen variants.
-I am going to discuss it more in the code, see below.
-
-
-
-> +			0: kdump is the first thing to run, NO list is
-> +			executed before kdump.
-> +			1: only the hypervisor list is executed before kdump.
-> +			2 (default level): the hypervisor list and (*if*
-> +			there's any kmsg_dumper defined) the informational
-> +			list are executed before kdump.
-> +			3: both the hypervisor and the informational lists
-> +			(always) execute before kdump.
-> +			4: the 3 lists (hypervisor, info and pre_reboot)
-> +			execute before kdump - this behavior is analog to the
-> +			deprecated parameter "crash_kexec_post_notifiers".
-> +
->  	panic_print=	Bitmask for printing system info when panic happens.
->  			User can chose combination of the following bits:
->  			bit 0: print all tasks info
-> --- a/kernel/panic.c
-> +++ b/kernel/panic.c
-> @@ -183,6 +195,112 @@ static void panic_print_sys_info(bool console_flush)
->  		ftrace_dump(DUMP_ALL);
->  }
->  
-> +/*
-> + * Helper that accumulates all console flushing routines executed on panic.
-> + */
-> +static void console_flushing(void)
-> +{
-> +#ifdef CONFIG_VT
-> +	unblank_screen();
-> +#endif
-> +	console_unblank();
-> +
-> +	/*
-> +	 * In this point, we may have disabled other CPUs, hence stopping the
-> +	 * CPU holding the lock while still having some valuable data in the
-> +	 * console buffer.
-> +	 *
-> +	 * Try to acquire the lock then release it regardless of the result.
-> +	 * The release will also print the buffers out. Locks debug should
-> +	 * be disabled to avoid reporting bad unlock balance when panic()
-> +	 * is not being called from OOPS.
-> +	 */
-> +	debug_locks_off();
-> +	console_flush_on_panic(CONSOLE_FLUSH_PENDING);
-> +
-> +	panic_print_sys_info(true);
-> +}
-> +
-> +#define PN_HYPERVISOR_BIT	0
-> +#define PN_INFO_BIT		1
-> +#define PN_PRE_REBOOT_BIT	2
-> +#define PN_POST_REBOOT_BIT	3
-> +
-> +/*
-> + * Determine the order of panic notifiers with regards to kdump.
-> + *
-> + * This function relies in the "panic_notifiers_level" kernel parameter
-> + * to determine how to order the notifiers with regards to kdump. We
-> + * have currently 5 levels. For details, please check the kernel docs for
-> + * "panic_notifiers_level" at Documentation/admin-guide/kernel-parameters.txt.
-> + *
-> + * Default level is 2, which means the panic hypervisor and informational
-> + * (unless we don't have any kmsg_dumper) lists will execute before kdump.
-> + */
-> +static void order_panic_notifiers_and_kdump(void)
-> +{
-> +	/*
-> +	 * The parameter "crash_kexec_post_notifiers" is deprecated, but
-> +	 * valid. Users that set it want really all panic notifiers to
-> +	 * execute before kdump, so it's effectively the same as setting
-> +	 * the panic notifiers level to 4.
-> +	 */
-> +	if (panic_notifiers_level >= 4 || crash_kexec_post_notifiers)
-> +		return;
-> +
-> +	/*
-> +	 * Based on the level configured (smaller than 4), we clear the
-> +	 * proper bits in "panic_notifiers_bits". Notice that this bitfield
-> +	 * is initialized with all notifiers set.
-> +	 */
-> +	switch (panic_notifiers_level) {
-> +	case 3:
-> +		clear_bit(PN_PRE_REBOOT_BIT, &panic_notifiers_bits);
-> +		break;
-> +	case 2:
-> +		clear_bit(PN_PRE_REBOOT_BIT, &panic_notifiers_bits);
-> +
-> +		if (!kmsg_has_dumpers())
-> +			clear_bit(PN_INFO_BIT, &panic_notifiers_bits);
-> +		break;
-> +	case 1:
-> +		clear_bit(PN_PRE_REBOOT_BIT, &panic_notifiers_bits);
-> +		clear_bit(PN_INFO_BIT, &panic_notifiers_bits);
-> +		break;
-> +	case 0:
-> +		clear_bit(PN_PRE_REBOOT_BIT, &panic_notifiers_bits);
-> +		clear_bit(PN_INFO_BIT, &panic_notifiers_bits);
-> +		clear_bit(PN_HYPERVISOR_BIT, &panic_notifiers_bits);
-> +		break;
-> +	}
-> +}
->
-> +/*
-> + * Set of helpers to execute the panic notifiers only once.
-> + * Just the informational notifier cares about the return.
-> + */
-> +static inline bool notifier_run_once(struct atomic_notifier_head head,
-> +				     char *buf, long bit)
-> +{
-> +	if (test_and_change_bit(bit, &panic_notifiers_bits)) {
-> +		atomic_notifier_call_chain(&head, PANIC_NOTIFIER, buf);
-> +		return true;
-> +	}
-> +	return false;
-> +}
-
-Here is the code using the above functions. It helps to discuss
-the design and logic.
-
-<kernel/panic.c>
-	order_panic_notifiers_and_kdump();
-
-	/* If no level, we should kdump ASAP. */
-	if (!panic_notifiers_level)
-		__crash_kexec(NULL);
-
-	crash_smp_send_stop();
-	panic_notifier_hypervisor_once(buf);
-
-	if (panic_notifier_info_once(buf))
-		kmsg_dump(KMSG_DUMP_PANIC);
-
-	panic_notifier_pre_reboot_once(buf);
-
-	__crash_kexec(NULL);
-
-	panic_notifier_hypervisor_once(buf);
-
-	if (panic_notifier_info_once(buf))
-		kmsg_dump(KMSG_DUMP_PANIC);
-
-	panic_notifier_pre_reboot_once(buf);
-</kernel/panic.c>
-
-I have to say that the logic is very unclear. Almost all
-functions are called twice:
-
-   + __crash_kexec()
-   + kmsg_dump()
-   + panic_notifier_hypervisor_once()
-   + panic_notifier_pre_reboot_once()
-   + panic_notifier_info_once()
-
-It is pretty hard to find what functions are always called in the same
-order and where the order can be inverted.
-
-The really used code path is defined by order_panic_notifiers_and_kdump()
-that encodes "level" into "bits". The bits are then flipped in
-panic_notifier_*_once() calls that either do something or not.
-kmsg_dump() is called according to the bit flip.
-
-It is an interesting approach. I guess that you wanted to avoid too
-many if/then/else levels in panic(). But honestly, it looks like
-a black magic to me.
-
-IMHO, it is always easier to follow if/then/else logic than using
-a translation table that requires additional bit flips when
-a value is used more times.
-
-Also I guess that it is good proof that "level" abstraction does
-not fit here. Normal levels would not need this kind of magic.
-
-
-OK, the question is how to make it better. Let's start with
-a clear picture of the problem:
-
-1. panic() has basically two funtions:
-
-      + show/store debug information (optional ways and amount)
-      + do something with the system (reboot, stay hanged)
-
-
-2. There are 4 ways how to show/store the information:
-
-      + tell hypervisor to store what it is interested about
-      + crash_dump
-      + kmsg_dump()
-      + consoles
-
-  , where crash_dump and consoles are special:
-
-     + crash_dump does not return. Instead it ends up with reboot.
-
-     + Consoles work transparently. They just need an extra flush
-       before reboot or staying hanged.
-
-
-3. The various notifiers do things like:
-
-     + tell hypervisor about the crash
-     + print more information (also stop watchdogs)
-     + prepare system for reboot (touch some interfaces)
-     + prepare system for staying hanged (blinking)
-
-   Note that it pretty nicely matches the 4 notifier lists.
-
-
-Now, we need to decide about the ordering. The main area is how
-to store the debug information. Consoles are transparent so
-the quesition is about:
-
-     + hypervisor
-     + crash_dump
-     + kmsg_dump
-
-Some people need none and some people want all. There is a
-risk that system might hung at any stage. This why people want to
-make the order configurable.
-
-But crash_dump() does not return when it succeeds. And kmsg_dump()
-users havn't complained about hypervisor problems yet. So, that
-two variants might be enough:
-
-    + crash_dump (hypervisor, kmsg_dump as fallback)
-    + hypervisor, kmsg_dump, crash_dump
-
-One option "panic_prefer_crash_dump" should be enough.
-And the code might look like:
-
-void panic()
-{
-[...]
-	dump_stack();
-	kgdb_panic(buf);
-
-	< ---  here starts the reworked code --- >
-
-	/* crash dump is enough when enabled and preferred. */
-	if (panic_prefer_crash_dump)
-		__crash_kexec(NULL);
-
-	/* Stop other CPUs and focus on handling the panic state. */
-	if (has_kexec_crash_image)
-		crash_smp_send_stop();
-	else
-		smp_send_stop()
-
-	/* Notify hypervisor about the system panic. */
-	atomic_notifier_call_chain(&panic_hypervisor_list, 0, NULL);
-
-	/*
-	 * No need to risk extra info when there is no kmsg dumper
-	 * registered.
-	 */
-	if (!has_kmsg_dumper())
-		__crash_kexec(NULL);
-
-	/* Add extra info from different subsystems. */
-	atomic_notifier_call_chain(&panic_info_list, 0, NULL);
-
-	kmsg_dump(KMSG_DUMP_PANIC);
-	__crash_kexec(NULL);
-
-	/* Flush console */
-	unblank_screen();
-	console_unblank();
-	debug_locks_off();
-	console_flush_on_panic(CONSOLE_FLUSH_PENDING);
-
-	if (panic_timeout > 0) {
-		delay()
-	}
-
-	/*
-	 * Prepare system for eventual reboot and allow custom
-	 * reboot handling.
-	 */
-	atomic_notifier_call_chain(&panic_reboot_list, 0, NULL);
-
-	if (panic_timeout != 0) {
-		reboot();
-	}
-
-	/*
-	 * Prepare system for the infinite waiting, for example,
-	 * setup blinking.
-	 */
-	atomic_notifier_call_chain(&panic_loop_list, 0, NULL);
-
-	infinite_loop();
-}
-
-
-__crash_kexec() is there 3 times but otherwise the code looks
-quite straight forward.
-
-Note 1: I renamed the two last notifier list. The name 'post-reboot'
-	did sound strange from the logical POV ;-)
-
-Note 2: We have to avoid the possibility to call "reboot" list
-	before kmsg_dump(). All callbacks providing info
-	have to be in the info list. It a callback combines
-	info and reboot functionality then it should be split.
-
-	There must be another way to calm down problematic
-	info callbacks. And it has to be solved when such
-	a problem is reported. Is there any known issue, please?
-
-It is possible that I have missed something important.
-But I would really like to make the logic as simple as possible.
-
-Best Regards,
-Petr
+Subject: [ovmf test] 170357: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=deee7a100b2539d8a302c6d37344b507f8312faa
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 12 May 2022 14:16:03 +0000
+
+flight 170357 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/170357/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 deee7a100b2539d8a302c6d37344b507f8312faa
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   73 days
+Failing since        168258  2022-03-01 01:55:31 Z   72 days  962 attempts
+Testing same since   170321  2022-05-11 09:11:39 Z    1 days   33 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chao Li <lichao@loongson.cn>
+  Chao, Zhuoran <zhuoran.chao@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Christine <Yuwei.Chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  duntan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Gua Guo <gua.guo@intel.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jake Garver <jake@nvidia.com>
+  Jake Garver via groups.io <jake=nvidia.com@groups.io>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Jiewen Yao <jiewen.yao@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Peter Grehan <grehan@freebsd.org>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yu Pu <yu.pu@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Yuwei Chen <yuwei.chen@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+  Zhuoran Chao <zhuoran.chao@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 6459 lines long.)
 
