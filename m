@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F46B525B07
-	for <lists+xen-devel@lfdr.de>; Fri, 13 May 2022 07:34:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.327983.551182 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABB03525B08
+	for <lists+xen-devel@lfdr.de>; Fri, 13 May 2022 07:34:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.327986.551187 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1npNwT-00061g-Ou; Fri, 13 May 2022 05:34:21 +0000
+	id 1npNwU-00066L-2Z; Fri, 13 May 2022 05:34:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 327983.551182; Fri, 13 May 2022 05:34:21 +0000
+Received: by outflank-mailman (output) from mailman id 327986.551187; Fri, 13 May 2022 05:34:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1npNwT-0005zr-Kp; Fri, 13 May 2022 05:34:21 +0000
-Received: by outflank-mailman (input) for mailman id 327983;
- Thu, 12 May 2022 21:41:34 +0000
+	id 1npNwT-00061r-U1; Fri, 13 May 2022 05:34:21 +0000
+Received: by outflank-mailman (input) for mailman id 327986;
+ Thu, 12 May 2022 21:47:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yEzj=VU=redhat.com=dhowells@srs-se1.protection.inumbo.net>)
- id 1npGYw-0007I3-Fj
- for xen-devel@lists.xenproject.org; Thu, 12 May 2022 21:41:34 +0000
+ id 1npGf4-0007OA-14
+ for xen-devel@lists.xenproject.org; Thu, 12 May 2022 21:47:54 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 49adfa64-d23c-11ec-8fc4-03012f2f19d4;
- Thu, 12 May 2022 23:41:32 +0200 (CEST)
+ id 2c48fae1-d23d-11ec-8fc4-03012f2f19d4;
+ Thu, 12 May 2022 23:47:53 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-651-_lIP8Q0uMUaVvsz49D3spw-1; Thu, 12 May 2022 17:41:24 -0400
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+ us-mta-454-NFJuRb6GPNSx8zbxy-lQgA-1; Thu, 12 May 2022 17:47:48 -0400
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E9268296A609;
- Thu, 12 May 2022 21:41:22 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DD4CF296A60E;
+ Thu, 12 May 2022 21:47:45 +0000 (UTC)
 Received: from warthog.procyon.org.uk (unknown [10.33.37.67])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 0E2C7416156;
- Thu, 12 May 2022 21:41:05 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id A13B84010E23;
+ Thu, 12 May 2022 21:47:31 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,30 +50,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 49adfa64-d23c-11ec-8fc4-03012f2f19d4
+X-Inumbo-ID: 2c48fae1-d23d-11ec-8fc4-03012f2f19d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1652391691;
+	s=mimecast20190719; t=1652392071;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=YX4qZOz+9WbIDFanSGeueshT1smpwyQHiwCB0mvZIgg=;
-	b=PJOaSv3WRC6mW8fZIEeGNINL8AFfYV/cmpyaj0b60jdo61YZtLWwHjI13lcxJUtguTiBd0
-	e7Viy8VZ2VtnUIXmveWCj7AsY5cedemQKGLnZmSszi8yF8q6vDw8yfxnbp4xaZVd5JbEgd
-	tna+B+5FsaWBa4ZrgAYRX5bJ04PvTc4=
-X-MC-Unique: _lIP8Q0uMUaVvsz49D3spw-1
+	bh=YWzVrdFw3n8EH2Ce8k4daz33bBf83epcMdzHAJNT8tE=;
+	b=PJ+AYPyj8pLd2Z53EbADYFV5StVYRn6S6jED85CI2KX0LlZFLoUwWpJgqxLVR1cCp1TA7w
+	Ee+yFuIUie++p0yEbE/jlRz3u/BKcr+QXYIEz+i/gmydFs8giFyA8SPefd+tYPxjE25Y4f
+	XVAG82zZg9XBaQNlBcyJxcIQAVNriuI=
+X-MC-Unique: NFJuRb6GPNSx8zbxy-lQgA-1
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
 	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
 	Kingdom.
 	Registered in England and Wales under Company Registration No. 3798903
 From: David Howells <dhowells@redhat.com>
-In-Reply-To: <20220504014440.3697851-20-keescook@chromium.org>
-References: <20220504014440.3697851-20-keescook@chromium.org> <20220504014440.3697851-1-keescook@chromium.org>
+In-Reply-To: <20220504014440.3697851-1-keescook@chromium.org>
+References: <20220504014440.3697851-1-keescook@chromium.org>
 To: Kees Cook <keescook@chromium.org>
-Cc: "Gustavo A . R . Silva" <gustavoars@kernel.org>,
-    David Howells <dhowells@redhat.com>,
-    Marc Dionne <marc.dionne@auristor.com>,
-    linux-afs@lists.infradead.org, Alexei Starovoitov <ast@kernel.org>,
-    alsa-devel@alsa-project.org, Al Viro <viro@zeniv.linux.org.uk>,
+Cc: Alexei Starovoitov <ast@kernel.org>, alsa-devel@alsa-project.org,
+    Al Viro <viro@zeniv.linux.org.uk>,
     Andrew Gabbasov <andrew_gabbasov@mentor.com>,
     Andrew Morton <akpm@linux-foundation.org>,
     Andy Gross <agross@kernel.org>, Andy Lavr <andy.lavr@gmail.com>,
@@ -90,7 +87,7 @@ Cc: "Gustavo A . R . Silva" <gustavoars@kernel.org>,
     Daniel Axtens <dja@axtens.net>,
     Daniel Vetter <daniel.vetter@ffwll.ch>,
     Dan Williams <dan.j.williams@intel.com>,
-    David Gow <davidgow@google.com>,
+    David Gow <davidgow@google.com>, David Howells <dhowells@redhat.com>,
     "David S. Miller" <davem@davemloft.net>,
     Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
     devicetree@vger.kernel.org, Dexuan Cui <decui@microsoft.com>,
@@ -125,7 +122,7 @@ Cc: "Gustavo A . R . Silva" <gustavoars@kernel.org>,
     Lars-Peter Clausen <lars@metafoo.de>,
     Lee Jones <lee.jones@linaro.org>, Leon Romanovsky <leon@kernel.org>,
     Liam Girdwood <lgirdwood@gmail.com>,
-    linux1394-devel@lists.sourceforge.net,
+    linux1394-devel@lists.sourceforge.net, linux-afs@lists.infradead.org,
     linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
     linux-bluetooth@vger.kernel.org, linux-hardening@vger.kernel.org,
     linux-hyperv@vger.kernel.org, linux-integrity@vger.kernel.org,
@@ -136,6 +133,7 @@ Cc: "Gustavo A . R . Silva" <gustavoars@kernel.org>,
     Louis Peens <louis.peens@corigine.com>,
     Luca Coelho <luciano.coelho@intel.com>,
     Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+    Marc Dionne <marc.dionne@auristor.com>,
     Marcel Holtmann <marcel@holtmann.org>,
     Mark Brown <broonie@kernel.org>,
     "Martin K. Petersen" <martin.petersen@oracle.com>,
@@ -163,11 +161,11 @@ Cc: "Gustavo A . R . Silva" <gustavoars@kernel.org>,
     xen-devel@lists.xenproject.org,
     Xiu Jianfeng <xiujianfeng@huawei.com>,
     Yang Yingliang <yangyingliang@huawei.com>
-Subject: Re: [PATCH 19/32] afs: Use mem_to_flex_dup() with struct afs_acl
+Subject: Re: [PATCH 00/32] Introduce flexible array struct memcpy() helpers
 MIME-Version: 1.0
-Date: Thu, 12 May 2022 22:41:05 +0100
-Message-ID: <898803.1652391665@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Date: Thu, 12 May 2022 22:47:31 +0100
+Message-ID: <899235.1652392051@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dhowells@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -177,50 +175,23 @@ Content-Type: text/plain
 
 Kees Cook <keescook@chromium.org> wrote:
 
->  struct afs_acl {
-> -	u32	size;
-> -	u8	data[];
-> +	DECLARE_FLEX_ARRAY_ELEMENTS_COUNT(u32, size);
-> +	DECLARE_FLEX_ARRAY_ELEMENTS(u8, data);
->  };
+> I'm happy to also point out that the conversions (patches 5+) are actually
+> a net reduction in lines of code:
+>  49 files changed, 154 insertions(+), 244 deletions(-)
 
-Oof...  That's really quite unpleasant syntax.  Is it not possible to have
-mem_to_flex_dup() and friends work without that?  You are telling them the
-fields they have to fill in.
+That doesn't mean that it's actually code that's clearer to read.  I would say
+that it's actually less clear.  In a bunch of places, you've done something
+like:
 
-> +	struct afs_acl *acl = NULL;
->  
-> -	acl = kmalloc(sizeof(*acl) + size, GFP_KERNEL);
-> -	if (!acl) {
-> +	if (mem_to_flex_dup(&acl, buffer, size, GFP_KERNEL)) {
+-	e = kmalloc(...);
+-	if (!e)
++	if (__mem_to_flex_dup(&e, ...))
 
-Please don't do that.  Either do:
+The problem is that, to me at least, it looks like:
 
-	acl = mem_to_flex_dup(buffer, size, GFP_KERNEL);
-	if (!acl)
-
-or:
-
-	acl = mem_to_flex_dup(buffer, size, GFP_KERNEL);
-	if (IS_ERR(acl))
-
-Please especially don't make it that an apparent 'true' return indicates an
-error.  If you absolutely must return the acl pointer through the argument
-list (presumably because it's actually a macro), make it return false on
-failure:
-
-	if (!mem_to_flex_dup(&acl, buffer, size, GFP_KERNEL))
-
-or return and explicitly check for an error code:
-
-	if (mem_to_flex_dup(&acl, buffer, size, GFP_KERNEL) < 0)
-
-or:
-
-	ret = mem_to_flex_dup(&acl, buffer, size, GFP_KERNEL);
-	if (ret < 0)
-
-(or use != 0 rather than < 0)
+-	e = kmalloc(...);
+-	if (kmalloc failed)
++	if (__mem_to_flex_dup(&e, ...) succeeded)
 
 David
 
