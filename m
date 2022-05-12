@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA3255258B6
+	by mail.lfdr.de (Postfix) with ESMTPS id B6EAC5258B3
 	for <lists+xen-devel@lfdr.de>; Fri, 13 May 2022 01:48:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.328044.550959 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.328045.550970 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1npIXE-00050a-8t; Thu, 12 May 2022 23:47:56 +0000
+	id 1npIXI-0005N5-OS; Thu, 12 May 2022 23:48:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 328044.550959; Thu, 12 May 2022 23:47:56 +0000
+Received: by outflank-mailman (output) from mailman id 328045.550970; Thu, 12 May 2022 23:48:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1npIXE-0004yh-5S; Thu, 12 May 2022 23:47:56 +0000
-Received: by outflank-mailman (input) for mailman id 328044;
- Thu, 12 May 2022 23:47:54 +0000
+	id 1npIXI-0005Jp-K3; Thu, 12 May 2022 23:48:00 +0000
+Received: by outflank-mailman (input) for mailman id 328045;
+ Thu, 12 May 2022 23:47:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3rM9=VU=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1npIXC-0004h7-JJ
- for xen-devel@lists.xenproject.org; Thu, 12 May 2022 23:47:54 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ id 1npIXG-0004h7-Vm
+ for xen-devel@lists.xenproject.org; Thu, 12 May 2022 23:47:59 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f07ed6ac-d24d-11ec-a406-831a346695d4;
- Fri, 13 May 2022 01:47:53 +0200 (CEST)
+ id f2d541d3-d24d-11ec-a406-831a346695d4;
+ Fri, 13 May 2022 01:47:57 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 913B4B82BCC;
- Thu, 12 May 2022 23:47:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB542C385B8;
- Thu, 12 May 2022 23:47:50 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A5ECD6208B;
+ Thu, 12 May 2022 23:47:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB987C34113;
+ Thu, 12 May 2022 23:47:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,18 +43,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f07ed6ac-d24d-11ec-a406-831a346695d4
+X-Inumbo-ID: f2d541d3-d24d-11ec-a406-831a346695d4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1652399271;
-	bh=NXFxOp/Qrwd2viPanIbIngggvGhBsOgWSXzae41CLJI=;
+	s=k20201202; t=1652399276;
+	bh=rvrOc/ErrHvLIse3NcZiFcDuRPjdm8Xu6Sf2V39Eqfw=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=srGg3Gyx6aSv/preyE6WBA5JMAeKecV03H9HZ3AqcVc2gAPWyHqh6HwSh6OT1e898
-	 DeyclPGz/oyjSy1QsZv17ZBQaKPF5KehIlL/RQxI9CxUSoJQzZlq25pkCYjWPgjUKS
-	 RgffI784WHVtDQhiw28qHgfW5tGtIHztvPApsWW+eDk+13/aLApVtTPz1mPSfaBPjs
-	 SzuLs1a9z0TjqZd1kLnp825yw0cpdM17sTtABoyE1RQksYxZ0AGW3usrMNv/VeT9pY
-	 i22pu3quNkC+ybyzwihF+fYryB+r1rcqFCiC6ALIsfBuD75S97OTn5GbqV0w0DTu1J
-	 jHzJWUbCLudZg==
-Date: Thu, 12 May 2022 16:47:50 -0700 (PDT)
+	b=rdlW3sFbvySgvNPlqBKSbG8R0O59QShexHIQMCl/1dD9BCCSljd0eLSp7Ci8t/kk7
+	 7pp2zSrimSCJuxkFH6uS8yS38/KcAu+nGBvSD66/dwGh+GXAG3RFrWSwSrufg03FNg
+	 3qw9Hbu2Xjs6fBhdq/i0yVVGYTXLej36bAAiGNxDZ4n1AMpKj7+P0bBjLu5WY9g9JU
+	 bUutWPYVosgBk1+PJAA+Mf3p7nHCoRaeKnTowcA6LojW7QiX93aL9TOASr12wRMczq
+	 tIguFLz2rlX9gebP+ijG4MLUuQP6cLHCCZy1Qhzq89iRt2vQKfxUGgTp9bRb5npqnv
+	 ObCEqaPUkY0wg==
+Date: Thu, 12 May 2022 16:47:55 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Penny Zheng <Penny.Zheng@arm.com>
@@ -62,24 +62,34 @@ cc: xen-devel@lists.xenproject.org, wei.chen@arm.com,
     Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
     Bertrand Marquis <bertrand.marquis@arm.com>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v3 3/8] xen/arm: allocate static shared memory to a
- specific owner domain
-In-Reply-To: <20220512091129.2802997-4-Penny.Zheng@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2205121633400.3842@ubuntu-linux-20-04-desktop>
-References: <20220512091129.2802997-1-Penny.Zheng@arm.com> <20220512091129.2802997-4-Penny.Zheng@arm.com>
+Subject: Re: [PATCH v3 7/8] xen/arm: create shared memory nodes in guest
+ device tree
+In-Reply-To: <20220512091129.2802997-8-Penny.Zheng@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2205121642471.3842@ubuntu-linux-20-04-desktop>
+References: <20220512091129.2802997-1-Penny.Zheng@arm.com> <20220512091129.2802997-8-Penny.Zheng@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Thu, 12 May 2022, Penny Zheng wrote:
-> If owner property is defined, then owner domain of a static shared memory
-> region is not the default dom_io anymore, but a specific domain.
+> We expose the shared memory to the domU using the "xen,shared-memory-v1"
+> reserved-memory binding. See
+> Documentation/devicetree/bindings/reserved-memory/xen,shared-memory.txt
+> in Linux for the corresponding device tree binding.
 > 
-> This commit implements allocating static shared memory to a specific domain
-> when owner property is defined.
+> To save the cost of re-parsing shared memory device tree configuration when
+> creating shared memory nodes in guest device tree, this commit adds new field
+> "shm_mem" to store shm-info per domain.
 > 
-> Coding flow for dealing borrower domain will be introduced later in the
-> following commits.
+> For each shared memory region, a range is exposed under
+> the /reserved-memory node as a child node. Each range sub-node is
+> named xen-shmem@<address> and has the following properties:
+> - compatible:
+>         compatible = "xen,shared-memory-v1"
+> - reg:
+>         the base guest physical address and size of the shared memory region
+> - xen,id:
+>         a string that identifies the shared memory region.
 > 
 > Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 
@@ -88,98 +98,226 @@ Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 > ---
 > v3 change:
-> - simplify the code since o_gbase is not used if the domain is dom_io
+> - move field "shm_mem" to kernel_info
 > ---
 > v2 change:
-> - P2M mapping is restricted to normal domain
-> - in-code comment fix
+> - using xzalloc
+> - shm_id should be uint8_t
+> - make reg a local variable
+> - add #address-cells and #size-cells properties
+> - fix alignment
 > ---
->  xen/arch/arm/domain_build.c | 44 +++++++++++++++++++++++++++----------
->  1 file changed, 33 insertions(+), 11 deletions(-)
+>  xen/arch/arm/domain_build.c       | 143 +++++++++++++++++++++++++++++-
+>  xen/arch/arm/include/asm/kernel.h |   1 +
+>  xen/arch/arm/include/asm/setup.h  |   1 +
+>  3 files changed, 143 insertions(+), 2 deletions(-)
 > 
 > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 5b41ec57f0..9c53b9fa7b 100644
+> index aa7c264e23..fb9146b6e0 100644
 > --- a/xen/arch/arm/domain_build.c
 > +++ b/xen/arch/arm/domain_build.c
-> @@ -797,9 +797,11 @@ static mfn_t __init acquire_shared_memory_bank(struct domain *d,
->   */
->  static int __init allocate_shared_memory(struct domain *d,
->                                           u32 addr_cells, u32 size_cells,
-> -                                         paddr_t pbase, paddr_t psize)
-> +                                         paddr_t pbase, paddr_t psize,
-> +                                         paddr_t gbase)
->  {
->      mfn_t smfn;
-> +    int ret = 0;
->  
->      dprintk(XENLOG_INFO,
->              "Allocate static shared memory BANK %#"PRIpaddr"-%#"PRIpaddr".\n",
-> @@ -814,8 +816,18 @@ static int __init allocate_shared_memory(struct domain *d,
->       * DOMID_IO is the domain, like DOMID_XEN, that is not auto-translated.
->       * It sees RAM 1:1 and we do not need to create P2M mapping for it
->       */
-> -    ASSERT(d == dom_io);
-> -    return 0;
-> +    if ( d != dom_io )
-> +    {
-> +        ret = guest_physmap_add_pages(d, gaddr_to_gfn(gbase), smfn, PFN_DOWN(psize));
-> +        if ( ret )
-> +        {
-> +            printk(XENLOG_ERR
-> +                   "Failed to map shared memory to %pd.\n", d);
-> +            return ret;
-> +        }
-> +    }
-> +
-> +    return ret;
+> @@ -892,7 +892,22 @@ static int __init allocate_shared_memory(struct domain *d,
+>      return ret;
 >  }
 >  
->  static int __init process_shm(struct domain *d,
-> @@ -828,6 +840,8 @@ static int __init process_shm(struct domain *d,
->      u32 shm_id;
->      u32 addr_cells, size_cells;
->      paddr_t gbase, pbase, psize;
-> +    const char *role_str;
-> +    bool owner_dom_io = true;
->  
->      dt_for_each_child_node(node, shm_node)
->      {
-> @@ -854,19 +868,27 @@ static int __init process_shm(struct domain *d,
->          ASSERT(IS_ALIGNED(pbase, PAGE_SIZE) && IS_ALIGNED(psize, PAGE_SIZE));
->          gbase = dt_read_number(cells, addr_cells);
->  
-> -        /* TODO: Consider owner domain is not the default dom_io. */
-> +        /*
-> +         * "role" property is optional and if it is defined explicitly,
-> +         * then the owner domain is not the default "dom_io" domain.
-> +         */
-> +        if ( dt_property_read_string(shm_node, "role", &role_str) == 0 )
-> +            owner_dom_io = false;
+> -static int __init process_shm(struct domain *d,
+> +static int __init append_shm_bank_to_domain(struct kernel_info *kinfo,
+> +                                            paddr_t start, paddr_t size,
+> +                                            u32 shm_id)
+> +{
+> +    if ( (kinfo->shm_mem.nr_banks + 1) > NR_MEM_BANKS )
+> +        return -ENOMEM;
 > +
->          /*
->           * Per static shared memory region could be shared between multiple
->           * domains.
-> -         * In case re-allocating the same shared memory region, we check
-> -         * if it is already allocated to the default owner dom_io before
-> -         * the actual allocation.
-> +         * So when owner domain is the default dom_io, in case re-allocating
-> +         * the same shared memory region, we check if it is already allocated
-> +         * to the default owner dom_io before the actual allocation.
->           */
-> -        if ( !is_shm_allocated_to_domio(pbase) )
-> +        if ( (owner_dom_io && !is_shm_allocated_to_domio(pbase)) ||
-> +             (!owner_dom_io && strcmp(role_str, "owner") == 0) )
->          {
-> -            /* Allocate statically shared pages to the default owner dom_io. */
-> -            ret = allocate_shared_memory(dom_io, addr_cells, size_cells,
-> -                                         pbase, psize);
-> +            /* Allocate statically shared pages to the owner domain. */
-> +            ret = allocate_shared_memory(owner_dom_io ? dom_io : d,
-> +                                         addr_cells, size_cells,
-> +                                         pbase, psize, gbase);
+> +    kinfo->shm_mem.bank[kinfo->shm_mem.nr_banks].start = start;
+> +    kinfo->shm_mem.bank[kinfo->shm_mem.nr_banks].size = size;
+> +    kinfo->shm_mem.bank[kinfo->shm_mem.nr_banks].shm_id = shm_id;
+> +    kinfo->shm_mem.nr_banks++;
+> +
+> +    return 0;
+> +}
+> +
+> +static int __init process_shm(struct domain *d, struct kernel_info *kinfo,
+>                                const struct dt_device_node *node)
+>  {
+>      struct dt_device_node *shm_node;
+> @@ -963,6 +978,14 @@ static int __init process_shm(struct domain *d,
 >              if ( ret )
 >                  return ret;
 >          }
+> +
+> +        /*
+> +         * Record static shared memory region info for later setting
+> +         * up shm-node in guest device tree.
+> +         */
+> +        ret = append_shm_bank_to_domain(kinfo, gbase, psize, shm_id);
+> +        if ( ret )
+> +            return ret;
+>      }
+>  
+>      return 0;
+> @@ -1293,6 +1316,117 @@ static int __init make_memory_node(const struct domain *d,
+>      return res;
+>  }
+>  
+> +#ifdef CONFIG_STATIC_SHM
+> +static int __init make_shm_memory_node(const struct domain *d,
+> +                                       void *fdt,
+> +                                       int addrcells, int sizecells,
+> +                                       struct meminfo *mem)
+> +{
+> +    unsigned long i = 0;
+> +    int res = 0;
+> +
+> +    if ( mem->nr_banks == 0 )
+> +        return -ENOENT;
+> +
+> +    /*
+> +     * For each shared memory region, a range is exposed under
+> +     * the /reserved-memory node as a child node. Each range sub-node is
+> +     * named xen-shmem@<address>.
+> +     */
+> +    dt_dprintk("Create xen-shmem node\n");
+> +
+> +    for ( ; i < mem->nr_banks; i++ )
+> +    {
+> +        uint64_t start = mem->bank[i].start;
+> +        uint64_t size = mem->bank[i].size;
+> +        uint8_t shm_id = mem->bank[i].shm_id;
+> +        /* Placeholder for xen-shmem@ + a 64-bit number + \0 */
+> +        char buf[27];
+> +        const char compat[] = "xen,shared-memory-v1";
+> +        __be32 reg[4];
+> +        __be32 *cells;
+> +        unsigned int len = (addrcells + sizecells) * sizeof(__be32);
+> +
+> +        snprintf(buf, sizeof(buf), "xen-shmem@%"PRIx64, mem->bank[i].start);
+> +        res = fdt_begin_node(fdt, buf);
+> +        if ( res )
+> +            return res;
+> +
+> +        res = fdt_property(fdt, "compatible", compat, sizeof(compat));
+> +        if ( res )
+> +            return res;
+> +
+> +        cells = reg;
+> +        dt_child_set_range(&cells, addrcells, sizecells, start, size);
+> +
+> +        res = fdt_property(fdt, "reg", reg, len);
+> +        if ( res )
+> +            return res;
+> +
+> +        dt_dprintk("Shared memory bank %lu: %#"PRIx64"->%#"PRIx64"\n",
+> +                   i, start, start + size);
+> +
+> +        res = fdt_property_cell(fdt, "xen,id", shm_id);
+> +        if ( res )
+> +            return res;
+> +
+> +        res = fdt_end_node(fdt);
+> +        if ( res )
+> +            return res;
+> +    }
+> +
+> +    return res;
+> +}
+> +#else
+> +static int __init make_shm_memory_node(const struct domain *d,
+> +                                       void *fdt,
+> +                                       int addrcells, int sizecells,
+> +                                       struct meminfo *mem)
+> +{
+> +    ASSERT_UNREACHABLE();
+> +}
+> +#endif
+> +
+> +static int __init make_resv_memory_node(const struct domain *d,
+> +                                        void *fdt,
+> +                                        int addrcells, int sizecells,
+> +                                        struct meminfo *mem)
+> +{
+> +    int res = 0;
+> +    /* Placeholder for reserved-memory\0 */
+> +    char resvbuf[16] = "reserved-memory";
+> +
+> +    if ( mem->nr_banks == 0 )
+> +        /* No shared memory provided. */
+> +        return 0;
+> +
+> +    dt_dprintk("Create reserved-memory node\n");
+> +
+> +    res = fdt_begin_node(fdt, resvbuf);
+> +    if ( res )
+> +        return res;
+> +
+> +    res = fdt_property(fdt, "ranges", NULL, 0);
+> +    if ( res )
+> +        return res;
+> +
+> +    res = fdt_property_cell(fdt, "#address-cells", addrcells);
+> +    if ( res )
+> +        return res;
+> +
+> +    res = fdt_property_cell(fdt, "#size-cells", sizecells);
+> +    if ( res )
+> +        return res;
+> +
+> +    res = make_shm_memory_node(d, fdt, addrcells, sizecells, mem);
+> +    if ( res )
+> +        return res;
+> +
+> +    res = fdt_end_node(fdt);
+> +
+> +    return res;
+> +}
+> +
+>  static int __init add_ext_regions(unsigned long s, unsigned long e, void *data)
+>  {
+>      struct meminfo *ext_regions = data;
+> @@ -3029,6 +3163,11 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
+>      if ( ret )
+>          goto err;
+>  
+> +    ret = make_resv_memory_node(d, kinfo->fdt, addrcells, sizecells,
+> +                                &kinfo->shm_mem);
+> +    if ( ret )
+> +        goto err;
+> +
+>      /*
+>       * domain_handle_dtb_bootmodule has to be called before the rest of
+>       * the device tree is generated because it depends on the value of
+> @@ -3367,7 +3506,7 @@ static int __init construct_domU(struct domain *d,
+>          assign_static_memory_11(d, &kinfo, node);
+>  
+>  #ifdef CONFIG_STATIC_SHM
+> -    rc = process_shm(d, node);
+> +    rc = process_shm(d, &kinfo, node);
+>      if ( rc < 0 )
+>          return rc;
+>  #endif
+> diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
+> index 874aa108a7..e089980b87 100644
+> --- a/xen/arch/arm/include/asm/kernel.h
+> +++ b/xen/arch/arm/include/asm/kernel.h
+> @@ -19,6 +19,7 @@ struct kernel_info {
+>      void *fdt; /* flat device tree */
+>      paddr_t unassigned_mem; /* RAM not (yet) assigned to a bank */
+>      struct meminfo mem;
+> +    struct meminfo shm_mem;
+>  
+>      /* kernel entry point */
+>      paddr_t entry;
+> diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
+> index 35449bd7d8..6cd45b6212 100644
+> --- a/xen/arch/arm/include/asm/setup.h
+> +++ b/xen/arch/arm/include/asm/setup.h
+> @@ -29,6 +29,7 @@ struct membank {
+>      bool xen_domain; /* whether the memory bank is bound to a Xen domain. */
+>  #ifdef CONFIG_STATIC_SHM
+>      unsigned int nr_shm_domain;
+> +    uint8_t shm_id ; /* ID identifier of a static shared memory bank. */
+>  #endif
+>  };
+>  
 > -- 
 > 2.25.1
 > 
