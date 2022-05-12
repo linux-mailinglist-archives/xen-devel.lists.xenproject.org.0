@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D21F25248A5
-	for <lists+xen-devel@lfdr.de>; Thu, 12 May 2022 11:12:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.327495.550349 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 208F75248A6
+	for <lists+xen-devel@lfdr.de>; Thu, 12 May 2022 11:12:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.327502.550361 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1np4rx-0001a2-Aq; Thu, 12 May 2022 09:12:25 +0000
+	id 1np4s1-00025t-VN; Thu, 12 May 2022 09:12:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 327495.550349; Thu, 12 May 2022 09:12:25 +0000
+Received: by outflank-mailman (output) from mailman id 327502.550361; Thu, 12 May 2022 09:12:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1np4rx-0001Wz-6Q; Thu, 12 May 2022 09:12:25 +0000
-Received: by outflank-mailman (input) for mailman id 327495;
- Thu, 12 May 2022 09:12:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1np4s1-00021R-NX; Thu, 12 May 2022 09:12:29 +0000
+Received: by outflank-mailman (input) for mailman id 327502;
+ Thu, 12 May 2022 09:12:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UsCQ=VU=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1np4rw-0000Wp-1r
- for xen-devel@lists.xenproject.org; Thu, 12 May 2022 09:12:24 +0000
+ id 1np4rz-0000K4-BM
+ for xen-devel@lists.xenproject.org; Thu, 12 May 2022 09:12:27 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id a1f9c86e-d1d3-11ec-8fc4-03012f2f19d4;
- Thu, 12 May 2022 11:12:23 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id a3ed0d8a-d1d3-11ec-a406-831a346695d4;
+ Thu, 12 May 2022 11:12:26 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 67EFE106F;
- Thu, 12 May 2022 02:12:22 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 98C16106F;
+ Thu, 12 May 2022 02:12:25 -0700 (PDT)
 Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
  [10.169.190.94])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 89FF63F73D;
- Thu, 12 May 2022 02:12:19 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D95683F73D;
+ Thu, 12 May 2022 02:12:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a1f9c86e-d1d3-11ec-8fc4-03012f2f19d4
+X-Inumbo-ID: a3ed0d8a-d1d3-11ec-a406-831a346695d4
 From: Penny Zheng <Penny.Zheng@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: wei.chen@arm.com,
@@ -53,138 +53,126 @@ Cc: wei.chen@arm.com,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Penny Zheng <penny.zheng@arm.com>
-Subject: [PATCH v3 4/8] xen/arm: introduce put_page_nr and get_page_nr
-Date: Thu, 12 May 2022 17:11:25 +0800
-Message-Id: <20220512091129.2802997-5-Penny.Zheng@arm.com>
+Subject: [PATCH v3 5/8] xen/arm: Add additional reference to owner domain when the owner is allocated
+Date: Thu, 12 May 2022 17:11:26 +0800
+Message-Id: <20220512091129.2802997-6-Penny.Zheng@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220512091129.2802997-1-Penny.Zheng@arm.com>
 References: <20220512091129.2802997-1-Penny.Zheng@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Later, we need to add the right amount of references, which should be
-the number of borrower domains, to the owner domain. Since we only have
-get_page() to increment the page reference by 1, a loop is needed per
-page, which is inefficient and time-consuming.
+Borrower domain will fail to get a page ref using the owner domain
+during allocation, when the owner is created after borrower.
 
-To save the loop time, this commit introduces a set of new helpers
-put_page_nr() and get_page_nr() to increment/drop the page reference by nr.
+So here, we decide to get and add the right amount of reference, which
+is the number of borrowers, when the owner is allocated.
 
 Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 ---
-v3 changes:
-- check overflow with "n"
-- remove spurious change
-- bring back the check that we enter the loop only when count_info is
-greater than 0
+v3 change:
+- printk rather than dprintk since it is a serious error
 ---
 v2 change:
 - new commit
 ---
- xen/arch/arm/include/asm/mm.h |  4 ++++
- xen/arch/arm/mm.c             | 36 ++++++++++++++++++++++++++---------
- 2 files changed, 31 insertions(+), 9 deletions(-)
+ xen/arch/arm/domain_build.c | 62 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 62 insertions(+)
 
-diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
-index 424aaf2823..c737d51e4d 100644
---- a/xen/arch/arm/include/asm/mm.h
-+++ b/xen/arch/arm/include/asm/mm.h
-@@ -347,6 +347,10 @@ void free_init_memory(void);
- int guest_physmap_mark_populate_on_demand(struct domain *d, unsigned long gfn,
-                                           unsigned int order);
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 9c53b9fa7b..293e79e4e7 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -791,6 +791,34 @@ static mfn_t __init acquire_shared_memory_bank(struct domain *d,
  
-+extern bool get_page_nr(struct page_info *page, const struct domain *domain,
-+                        unsigned long nr);
-+extern void put_page_nr(struct page_info *page, unsigned long nr);
-+
- extern void put_page_type(struct page_info *page);
- static inline void put_page_and_type(struct page_info *page)
- {
-diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-index 7b1f2f4906..a9461e07aa 100644
---- a/xen/arch/arm/mm.c
-+++ b/xen/arch/arm/mm.c
-@@ -1537,7 +1537,8 @@ long arch_memory_op(int op, XEN_GUEST_HANDLE_PARAM(void) arg)
-     return 0;
  }
  
--struct domain *page_get_owner_and_reference(struct page_info *page)
-+static struct domain *page_get_owner_and_nr_reference(struct page_info *page,
-+                                                      unsigned long nr)
- {
-     unsigned long x, y = page->count_info;
-     struct domain *owner;
-@@ -1548,10 +1549,10 @@ struct domain *page_get_owner_and_reference(struct page_info *page)
-          * Count ==  0: Page is not allocated, so we cannot take a reference.
-          * Count == -1: Reference count would wrap, which is invalid.
-          */
--        if ( unlikely(((x + 1) & PGC_count_mask) <= 1) )
-+        if ( unlikely(((x + nr) & PGC_count_mask) <= 1) )
-             return NULL;
-     }
--    while ( (y = cmpxchg(&page->count_info, x, x + 1)) != x );
-+    while ( (y = cmpxchg(&page->count_info, x, x + nr)) != x );
- 
-     owner = page_get_owner(page);
-     ASSERT(owner);
-@@ -1559,14 +1560,20 @@ struct domain *page_get_owner_and_reference(struct page_info *page)
-     return owner;
- }
- 
--void put_page(struct page_info *page)
-+struct domain *page_get_owner_and_reference(struct page_info *page)
++static int __init acquire_nr_borrower_domain(struct domain *d,
++                                             paddr_t pbase, paddr_t psize,
++                                             unsigned long *nr_borrowers)
 +{
-+    return page_get_owner_and_nr_reference(page, 1);
++    unsigned long bank;
++
++    /* Iterate reserved memory to find requested shm bank. */
++    for ( bank = 0 ; bank < bootinfo.reserved_mem.nr_banks; bank++ )
++    {
++        paddr_t bank_start = bootinfo.reserved_mem.bank[bank].start;
++        paddr_t bank_size = bootinfo.reserved_mem.bank[bank].size;
++
++        if ( pbase == bank_start && psize == bank_size )
++            break;
++    }
++
++    if ( bank == bootinfo.reserved_mem.nr_banks )
++        return -ENOENT;
++
++    if ( d == dom_io )
++        *nr_borrowers = bootinfo.reserved_mem.bank[bank].nr_shm_domain;
++    else
++        /* Exclude the owner domain itself. */
++        *nr_borrowers = bootinfo.reserved_mem.bank[bank].nr_shm_domain - 1;
++
++    return 0;
 +}
 +
-+void put_page_nr(struct page_info *page, unsigned long nr)
+ /*
+  * Func allocate_shared_memory is supposed to be only called
+  * from the owner.
+@@ -802,6 +830,8 @@ static int __init allocate_shared_memory(struct domain *d,
  {
-     unsigned long nx, x, y = page->count_info;
+     mfn_t smfn;
+     int ret = 0;
++    unsigned long nr_pages, nr_borrowers, i;
++    struct page_info *page;
  
-     do {
--        ASSERT((y & PGC_count_mask) != 0);
-+        ASSERT(((y & PGC_count_mask) != 0) &&
-+               (((y - nr) & PGC_count_mask) >= 0));
-         x  = y;
--        nx = x - 1;
-+        nx = x - nr;
+     dprintk(XENLOG_INFO,
+             "Allocate static shared memory BANK %#"PRIpaddr"-%#"PRIpaddr".\n",
+@@ -816,6 +846,7 @@ static int __init allocate_shared_memory(struct domain *d,
+      * DOMID_IO is the domain, like DOMID_XEN, that is not auto-translated.
+      * It sees RAM 1:1 and we do not need to create P2M mapping for it
+      */
++    nr_pages = PFN_DOWN(psize);
+     if ( d != dom_io )
+     {
+         ret = guest_physmap_add_pages(d, gaddr_to_gfn(gbase), smfn, PFN_DOWN(psize));
+@@ -827,6 +858,37 @@ static int __init allocate_shared_memory(struct domain *d,
+         }
      }
-     while ( unlikely((y = cmpxchg(&page->count_info, x, nx)) != x) );
  
-@@ -1576,19 +1583,30 @@ void put_page(struct page_info *page)
-     }
++    /*
++     * Get the right amount of references per page, which is the number of
++     * borrow domains.
++     */
++    ret = acquire_nr_borrower_domain(d, pbase, psize, &nr_borrowers);
++    if ( ret )
++        return ret;
++
++    /*
++     * Instead of let borrower domain get a page ref, we add as many
++     * additional reference as the number of borrowers when the owner
++     * is allocated, since there is a chance that owner is created
++     * after borrower.
++     */
++    page = mfn_to_page(smfn);
++    for ( i = 0; i < nr_pages; i++ )
++    {
++        if ( !get_page_nr(page + i, d, nr_borrowers) )
++        {
++            printk(XENLOG_ERR
++                   "Failed to add %lu references to page %"PRI_mfn".\n",
++                   nr_borrowers, mfn_x(smfn) + i);
++            goto fail;
++        }
++    }
++
++    return 0;
++
++ fail:
++    while ( --i >= 0 )
++        put_page_nr(page + i, nr_borrowers);
+     return ret;
  }
  
--bool get_page(struct page_info *page, const struct domain *domain)
-+void put_page(struct page_info *page)
- {
--    const struct domain *owner = page_get_owner_and_reference(page);
-+    put_page_nr(page, 1);
-+}
-+
-+bool get_page_nr(struct page_info *page, const struct domain *domain,
-+                 unsigned long nr)
-+{
-+    const struct domain *owner = page_get_owner_and_nr_reference(page, nr);
- 
-     if ( likely(owner == domain) )
-         return true;
- 
-     if ( owner != NULL )
--        put_page(page);
-+        put_page_nr(page, nr);
- 
-     return false;
- }
- 
-+bool get_page(struct page_info *page, const struct domain *domain)
-+{
-+    return get_page_nr(page, domain, 1);
-+}
-+
- /* Common code requires get_page_type and put_page_type.
-  * We don't care about typecounts so we just do the minimum to make it
-  * happy. */
 -- 
 2.25.1
 
