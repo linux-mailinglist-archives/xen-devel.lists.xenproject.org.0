@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BD525258C9
-	for <lists+xen-devel@lfdr.de>; Fri, 13 May 2022 01:55:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.328071.550981 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78D875258FA
+	for <lists+xen-devel@lfdr.de>; Fri, 13 May 2022 02:33:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.328080.550991 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1npIe7-0007jG-FP; Thu, 12 May 2022 23:55:03 +0000
+	id 1npJEu-0003zV-1M; Fri, 13 May 2022 00:33:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 328071.550981; Thu, 12 May 2022 23:55:03 +0000
+Received: by outflank-mailman (output) from mailman id 328080.550991; Fri, 13 May 2022 00:33:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1npIe7-0007gv-CG; Thu, 12 May 2022 23:55:03 +0000
-Received: by outflank-mailman (input) for mailman id 328071;
- Thu, 12 May 2022 23:55:01 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1npIe5-0007gi-Nn; Thu, 12 May 2022 23:55:01 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1npIe5-0002oN-KM; Thu, 12 May 2022 23:55:01 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1npIe5-0003T4-6v; Thu, 12 May 2022 23:55:01 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1npIe5-00046M-6Q; Thu, 12 May 2022 23:55:01 +0000
+	id 1npJEt-0003wE-UQ; Fri, 13 May 2022 00:33:03 +0000
+Received: by outflank-mailman (input) for mailman id 328080;
+ Fri, 13 May 2022 00:33:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xcQv=VV=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1npJEr-0003w7-VK
+ for xen-devel@lists.xenproject.org; Fri, 13 May 2022 00:33:01 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3dae0c5e-d254-11ec-8fc4-03012f2f19d4;
+ Fri, 13 May 2022 02:33:00 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 294EA620A7;
+ Fri, 13 May 2022 00:32:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF13AC34113;
+ Fri, 13 May 2022 00:32:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,177 +43,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=5N4sAxRKULoqUUDliOZR2K+szSY++zO5Oc7+CQ4sy0c=; b=trzQOCoTCH7GLj8NTtL2GKUSma
-	eJOBSo+6bVgCCpYHw5nMqy0k1pjMk7tpRwcvJYAFzbyd6rAoLskhLGUFOh6dGKSXZ3MOHkSuwUA3W
-	oBCbko2/wRYuJtxlse+T3eHQkzf9nA1NRNYFHAqWdZ9g8l8Qcf/FI2MN5wDDaR4GNr5g=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170371-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 3dae0c5e-d254-11ec-8fc4-03012f2f19d4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1652401978;
+	bh=mJEFxR3D2mwBmlg9euCPAxtD5PlfuLv6x1KLxUN9VxM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=i6iljFMfrwUq3koJL5gxLbiQ9E/xH0GqfQhxMsY58+8/GE93KOFUyIDBOo7L1ZmVo
+	 nTcE/ft4lx9eQhQo/ZQrz3sff5ParUJJpJpr1FUiexpYS8HCOjOmBsaiEkaAVjRTFu
+	 52MjRH4Z4jdyRGqvEO9Udh22pq3hfn0mPE8H1Adva+LuTUHIbY+aMC9XN8XO4FT8AY
+	 m59e3qm5PzD/1l3r/QXUtyQBKhcVrk9WXgnmBlZ9hnYL/lmdbVphrZMvOok+mxvg/F
+	 okzOWRIm86Q0qSpVD3n7t7h/2yT1bJlk2xDucSRpRVp6j330c0PPdafej+FCSK9JGr
+	 8sLIX6HUODNTg==
+Date: Thu, 12 May 2022 17:32:57 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Wei Chen <wei.chen@arm.com>
+cc: xen-devel@lists.xenproject.org, nd@arm.com, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Wei Liu <wl@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Jiamei Xie <jiamei.xie@arm.com>
+Subject: Re: [PATCH v3 4/9] xen: introduce an arch helper for default dma
+ zone status
+In-Reply-To: <20220511014639.197825-5-wei.chen@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2205121726340.3842@ubuntu-linux-20-04-desktop>
+References: <20220511014639.197825-1-wei.chen@arm.com> <20220511014639.197825-5-wei.chen@arm.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 170371: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=deee7a100b2539d8a302c6d37344b507f8312faa
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 12 May 2022 23:55:01 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 170371 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170371/
+On Wed, 11 May 2022, Wei Chen wrote:
+> In current code, when Xen is running in a multiple nodes
+> NUMA system, it will set dma_bitsize in end_boot_allocator
+> to reserve some low address memory as DMA zone.
+> 
+> There are some x86 implications in the implementation.
+> Because on x86, memory starts from 0. On a multiple-nodes
+> NUMA system, if a single node contains the majority or all
+> of the DMA memory, x86 prefers to give out memory from
+> non-local allocations rather than exhausting the DMA memory
+> ranges. Hence x86 uses dma_bitsize to set aside some largely
+> arbitrary amount of memory for DMA zone. The allocations
+> from DMA zone would happen only after exhausting all other
+> nodes' memory.
+> 
+> But the implications are not shared across all architectures.
+> For example, Arm cannot guarantee the availability of memory
+> below a certain boundary for DMA limited-capability devices
+> either. But currently, Arm doesn't need a reserved DMA zone
+> in Xen. Because there is no DMA device in Xen. And for guests,
+> Xen Arm only allows Dom0 to have DMA operations without IOMMU.
+> Xen will try to allocate memory under 4GB or memory range that
+> is limited by dma_bitsize for Dom0 in boot time. For DomU, even
+> Xen can passthrough devices to DomU without IOMMU, but Xen Arm
+> doesn't guarantee their DMA operations. So, Xen Arm doesn't
+> need a reserved DMA zone to provide DMA memory for guests.
+> 
+> In this patch, we introduce an arch_want_default_dmazone helper
+> for different architectures to determine whether they need to
+> set dma_bitsize for DMA zone reservation or not.
+> 
+> At the same time, when x86 Xen is built with CONFIG_PV=n could
+> probably leverage this new helper to actually not trigger DMA
+> zone reservation.
+> 
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> Tested-by: Jiamei Xie <jiamei.xie@arm.com>
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 deee7a100b2539d8a302c6d37344b507f8312faa
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   73 days
-Failing since        168258  2022-03-01 01:55:31 Z   72 days  971 attempts
-Testing same since   170321  2022-05-11 09:11:39 Z    1 days   42 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chao Li <lichao@loongson.cn>
-  Chao, Zhuoran <zhuoran.chao@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Christine <Yuwei.Chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  duntan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gua Guo <gua.guo@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Jiewen Yao <jiewen.yao@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Peter Grehan <grehan@freebsd.org>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Tom Lendacky <thomas.lendacky@amd.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yu Pu <yu.pu@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Yuwei Chen <yuwei.chen@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-  Zhuoran Chao <zhuoran.chao@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 6459 lines long.)
+> ---
+> v2 -> v3:
+> 1. Add Tb.
+> 2. Rename arch_have_default_dmazone to arch_want_default_dmazone.
+> v1 -> v2:
+> 1. Extend the description of Arm's workaround for reserve DMA
+>    allocations to avoid the same discussion every time.
+> 2. Use a macro to define arch_have_default_dmazone, because
+>    it's little hard to make x86 version to static inline.
+>    Use a macro will also avoid add __init for this function.
+> 3. Change arch_have_default_dmazone return value from
+>    unsigned int to bool.
+> 4. Un-addressed comment: make arch_have_default_dmazone
+>    of x86 to be static inline. Because, if we move
+>    arch_have_default_dmazone to x86/asm/numa.h, it depends
+>    on nodemask.h to provide num_online_nodes. But nodemask.h
+>    needs numa.h to provide MAX_NUMANODES. This will cause a
+>    loop dependency. And this function can only be used in
+>    end_boot_allocator, in Xen initialization. So I think,
+>    compared to the changes introduced by inline, it doesn't
+>    mean much.
+> ---
+>  xen/arch/arm/include/asm/numa.h | 1 +
+>  xen/arch/x86/include/asm/numa.h | 1 +
+>  xen/common/page_alloc.c         | 2 +-
+>  3 files changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/arm/include/asm/numa.h b/xen/arch/arm/include/asm/numa.h
+> index 31a6de4e23..e4c4d89192 100644
+> --- a/xen/arch/arm/include/asm/numa.h
+> +++ b/xen/arch/arm/include/asm/numa.h
+> @@ -24,6 +24,7 @@ extern mfn_t first_valid_mfn;
+>  #define node_spanned_pages(nid) (max_page - mfn_x(first_valid_mfn))
+>  #define node_start_pfn(nid) (mfn_x(first_valid_mfn))
+>  #define __node_distance(a, b) (20)
+> +#define arch_want_default_dmazone() (false)
+>  
+>  #endif /* __ARCH_ARM_NUMA_H */
+>  /*
+> diff --git a/xen/arch/x86/include/asm/numa.h b/xen/arch/x86/include/asm/numa.h
+> index bada2c0bb9..5d8385f2e1 100644
+> --- a/xen/arch/x86/include/asm/numa.h
+> +++ b/xen/arch/x86/include/asm/numa.h
+> @@ -74,6 +74,7 @@ static inline __attribute__((pure)) nodeid_t phys_to_nid(paddr_t addr)
+>  #define node_spanned_pages(nid)	(NODE_DATA(nid)->node_spanned_pages)
+>  #define node_end_pfn(nid)       (NODE_DATA(nid)->node_start_pfn + \
+>  				 NODE_DATA(nid)->node_spanned_pages)
+> +#define arch_want_default_dmazone() (num_online_nodes() > 1)
+>  
+>  extern int valid_numa_range(u64 start, u64 end, nodeid_t node);
+>  
+> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+> index 319029140f..b3bddc719b 100644
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -1889,7 +1889,7 @@ void __init end_boot_allocator(void)
+>      }
+>      nr_bootmem_regions = 0;
+>  
+> -    if ( !dma_bitsize && (num_online_nodes() > 1) )
+> +    if ( !dma_bitsize && arch_want_default_dmazone() )
+>          dma_bitsize = arch_get_dma_bitsize();
+>  
+>      printk("Domain heap initialised");
+> -- 
+> 2.25.1
+> 
 
