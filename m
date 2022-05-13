@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCE27526028
-	for <lists+xen-devel@lfdr.de>; Fri, 13 May 2022 12:43:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.328407.551414 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9575F526031
+	for <lists+xen-devel@lfdr.de>; Fri, 13 May 2022 12:53:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.328414.551425 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1npSlL-0004m9-VV; Fri, 13 May 2022 10:43:11 +0000
+	id 1npSuz-0006Es-V5; Fri, 13 May 2022 10:53:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 328407.551414; Fri, 13 May 2022 10:43:11 +0000
+Received: by outflank-mailman (output) from mailman id 328414.551425; Fri, 13 May 2022 10:53:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1npSlL-0004jp-SR; Fri, 13 May 2022 10:43:11 +0000
-Received: by outflank-mailman (input) for mailman id 328407;
- Fri, 13 May 2022 10:43:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yAeu=VV=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1npSlK-0004jj-GG
- for xen-devel@lists.xenproject.org; Fri, 13 May 2022 10:43:10 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7ac4db84-d2a9-11ec-b8b8-f95467ff1ed0;
- Fri, 13 May 2022 12:43:09 +0200 (CEST)
-Received: by mail-lf1-x132.google.com with SMTP id t25so13772137lfg.7
- for <xen-devel@lists.xenproject.org>; Fri, 13 May 2022 03:43:09 -0700 (PDT)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id
- x4-20020a2e9c84000000b0024f3d1dae8esm388198lji.22.2022.05.13.03.43.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 May 2022 03:43:07 -0700 (PDT)
+	id 1npSuz-0006CY-Rn; Fri, 13 May 2022 10:53:09 +0000
+Received: by outflank-mailman (input) for mailman id 328414;
+ Fri, 13 May 2022 10:53:08 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1npSuy-0006CL-FX; Fri, 13 May 2022 10:53:08 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1npSuy-0005sd-9J; Fri, 13 May 2022 10:53:08 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1npSux-0007UL-Ur; Fri, 13 May 2022 10:53:07 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1npSux-0000ZU-UN; Fri, 13 May 2022 10:53:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,219 +42,367 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ac4db84-d2a9-11ec-b8b8-f95467ff1ed0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=6sXboJ1IWrFfaZL2CwvKWBto1jYzvNRlolwzbKkJnzI=;
-        b=O7IrsLiI6m+XnVXL609wbEZd46wLeUQTt11dOyDyb0m3qmultIKmwLTgLEc8uZKPkz
-         oRVFNrS9W09pQ4KsFgRpm6cOj+dvHzUx2y4L1n+jNSjeWv11Q73apCVW76PkYSzRKcks
-         82OTQqbzDdxYA1kDqW6s6/pgZLzyPA2pMKtsiLflLcsS26esBBbgzAebIQRHoB8q/XDa
-         J8u+Y+xqBuigPblfPvo3H2DENlKFeofiTc2i+0wgT+8ntV0CsQaAthZlBnlIxWaDD4FU
-         DdMIoAF7qJz3f6jtwmNN53zpMjgR/H5//deFyfs0IJU1yqMnax3Il/kEYWyNCMiTPnq4
-         0fnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=6sXboJ1IWrFfaZL2CwvKWBto1jYzvNRlolwzbKkJnzI=;
-        b=TC+ECCr+VzuLub/g4AYvt3wDmfgoS6EGskvUPE4YXG5UHSOXb85uCqB6ZHVtoU4a7j
-         PGWizoasQk+k4PiaQx8DZliVtz8R3mg24QrgsjLlMsT6o3/Vuq5ejRQSJ+pRm429WQUh
-         SMZ0IQQoRGKPDDucSsxo0CaIRGSWMk24Sw+mvpb3lWIJNHfvssZbGdqOZaThoO1jgEu3
-         e14Pw+t9L6oTXiNQWFedo06bAg0qOTGPIPKbcRhZu8Bd29wootEa/VxLNixRHqxH+Kgt
-         mnjIIZ7B6WYLMHbTfteJ+g4b+QchJo+gFlxN9YZ1JaQKCiMUn08Z2J6J2ArmlSv/x914
-         mK4Q==
-X-Gm-Message-State: AOAM531Fo5FRXnsB0om9F4mPszw/Le6uircDc4LmyVgUz5M4t7TzotPh
-	l2hfUZQbj1VR83LgKA+0g5U=
-X-Google-Smtp-Source: ABdhPJxvCY8n6V16nGeI843LAEA5SzPc7sIbEPwvo4gLBMAfPQogJJiWevnffE3lSSwYRwuInpsqWQ==
-X-Received: by 2002:a05:6512:3157:b0:474:2ac5:63d with SMTP id s23-20020a056512315700b004742ac5063dmr2934962lfi.367.1652438588735;
-        Fri, 13 May 2022 03:43:08 -0700 (PDT)
-Subject: Re: [PATCH V2 2/7] xen/grants: support allocating consecutive grants
-To: Juergen Gross <jgross@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Christoph Hellwig <hch@infradead.org>
-References: <1651947548-4055-1-git-send-email-olekstysh@gmail.com>
- <1651947548-4055-3-git-send-email-olekstysh@gmail.com>
- <597125fd-4c85-fde0-9d5b-a9cc13a81ccc@oracle.com>
- <d1d61bcf-86f9-68cd-9bd4-a13bf8149b88@suse.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <263070e7-0043-1c5f-ba14-8ca7bb4ca6a0@gmail.com>
-Date: Fri, 13 May 2022 13:43:06 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <d1d61bcf-86f9-68cd-9bd4-a13bf8149b88@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=rfYpTQ1gBtfXvutjPTvwt3wTdBpKEUdodUSkVMx0krg=; b=lSKrsCIuavllI09/WlmBPEQObN
+	5i0LbayCXHodsYu7tdKxbTCD8yOHbXXYYyq6nptyPUAWy4w/ZVBCF0sStmbbJ3/k9eoxVfG93TpnX
+	+pztn/fDDrLZMidd1UG/xMeyxeMHOHaJ6o6q9i86/nutnmLW6M/VFSL0znvxBGnccKEI=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-170379-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+MIME-Version: 1.0
+Subject: [libvirt test] 170379: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=56ab5c3ae956d2bf7d2fe32d3703d5ac5f79a1d9
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 13 May 2022 10:53:07 +0000
+
+flight 170379 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/170379/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-raw   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
+
+version targeted for testing:
+ libvirt              56ab5c3ae956d2bf7d2fe32d3703d5ac5f79a1d9
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+
+Last test of basis   151777  2020-07-10 04:19:19 Z  672 days
+Failing since        151818  2020-07-11 04:18:52 Z  671 days  653 attempts
+Testing same since   170379  2022-05-13 04:19:00 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+    Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Aleksei Zakharov <zaharov@selectel.ru>
+  Amneesh Singh <natto@weirdnatto.in>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Andrew Melnychenko <andrew@daynix.com>
+  Ani Sinha <ani@anisinha.ca>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Barrett Schonefeld <bschoney@utexas.edu>
+  Bastian Germann <bastiangermann@fishpost.de>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  BiaoXiang Ye <yebiaoxiang@huawei.com>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Bjoern Walk <bwalk@linux.ibm.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brad Laue <brad@brad-x.com>
+  Brian Turek <brian.turek@gmail.com>
+  Bruno Haible <bruno@clisp.org>
+  Chris Mayo <aklhfex@gmail.com>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Kirbach <christian.kirbach@gmail.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Christophe Fergeau <cfergeau@redhat.com>
+  Claudio Fontana <cfontana@suse.de>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Bosdonnat <cbosdonnat@suse.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Didik Supriadi <didiksupriadi41@gmail.com>
+  dinglimin <dinglimin@cmss.chinamobile.com>
+  Divya Garg <divya.garg@nutanix.com>
+  Dmitrii Shcherbakov <dmitrii.shcherbakov@canonical.com>
+  Dmytro Linkin <dlinkin@nvidia.com>
+  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
+  Emilio Herrera <ehespinosa57@gmail.com>
+  Eric Farman <farman@linux.ibm.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Affolter <mail@fabian-affolter.ch>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fabiano Fidêncio <fabiano@fidencio.org>
+  Fangge Jin <fjin@redhat.com>
+  Farhan Ali <alifm@linux.ibm.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Franck Ridel <fridel@protonmail.com>
+  Gavi Teitz <gavi@nvidia.com>
+  gongwei <gongwei@smartx.com>
+  Guoyi Tu<tu.guoyi@h3c.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Haonan Wang <hnwanga1@gmail.com>
+  Hela Basa <r45xveza@pm.me>
+  Helmut Grohne <helmut@subdivi.de>
+  Hiroki Narukawa <hnarukaw@yahoo-corp.jp>
+  Hyman Huang(黄勇) <huangy81@chinatelecom.cn>
+  Ian Wienand <iwienand@redhat.com>
+  Ioanna Alifieraki <ioanna-maria.alifieraki@canonical.com>
+  Ivan Teterevkov <ivan.teterevkov@nutanix.com>
+  Jakob Meng <jakobmeng@web.de>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jan Kuparinen <copper_fin@hotmail.com>
+  jason lee <ppark5237@gmail.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jia Zhou <zhou.jia2@zte.com.cn>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jing Qi <jinqi@redhat.com>
+  Jinsheng Zhang <zhangjl02@inspur.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Joachim Falk <joachim.falk@gmx.de>
+  John Ferlan <jferlan@redhat.com>
+  John Levon <john.levon@nutanix.com>
+  John Levon <levon@movementarian.org>
+  Jonathan Watt <jwatt@jwatt.org>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Justin Gatzen <justin.gatzen@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Kim InSoo <simmon@nplob.com>
+  Koichi Murase <myoga.murase@gmail.com>
+  Kristina Hanicova <khanicov@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lee Yarwood <lyarwood@redhat.com>
+  Lei Yang <yanglei209@huawei.com>
+  Lena Voytek <lena.voytek@canonical.com>
+  Liang Yan <lyan@digitalocean.com>
+  Liang Yan <lyan@digtalocean.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.com>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Liu Yiding <liuyd.fnst@fujitsu.com>
+  Lubomir Rintel <lkundrak@v3.sk>
+  Luke Yue <lukedyue@gmail.com>
+  Luyao Zhong <luyao.zhong@intel.com>
+  luzhipeng <luzhipeng@cestc.cn>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Martin Pitt <mpitt@debian.org>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matej Cepl <mcepl@cepl.eu>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Maxim Nestratov <mnestratov@virtuozzo.com>
+  Meina Li <meili@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Moshe Levi <moshele@nvidia.com>
+  Moteen Shah <codeguy.moteen@gmail.com>
+  Moteen Shah <moteenshah.02@gmail.com>
+  Muha Aliss <muhaaliss@gmail.com>
+  Nathan <nathan95@live.it>
+  Neal Gompa <ngompa13@gmail.com>
+  Nick Chevsky <nchevsky@gmail.com>
+  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
+  Nickys Music Group <nickys.music.group@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nicolas Lécureuil <neoclust@mageia.org>
+  Nicolas Lécureuil <nicolas.lecureuil@siveo.net>
+  Nikolay Shirokovskiy <nikolay.shirokovskiy@openvz.org>
+  Nikolay Shirokovskiy <nshirokovskiy@openvz.org>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Niteesh Dubey <niteesh@linux.ibm.com>
+  Olaf Hering <olaf@aepfle.de>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Or Ozeri <oro@il.ibm.com>
+  Orion Poplawski <orion@nwra.com>
+  Pany <geekpany@gmail.com>
+  Paolo Bonzini <pbonzini@redhat.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peng Liang <liangpeng10@huawei.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Praveen K Paladugu <prapal@linux.microsoft.com>
+  Richard W.M. Jones <rjones@redhat.com>
+  Ricky Tigg <ricky.tigg@gmail.com>
+  Robin Lee <cheeselee@fedoraproject.org>
+  Rohit Kumar <rohit.kumar3@nutanix.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Gahagan <rgahagan@cs.utexas.edu>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  SeongHyun Jo <caelus9536@gmail.com>
+  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
+  Shaojun Yang <yangshaojun@phytium.com.cn>
+  shenjiatong <yshxxsjt715@gmail.com>
+  Shi Lei <shi_lei@massclouds.com>
+  simmon <simmon@nplob.com>
+  Simon Chopin <chopin.simon@gmail.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Simon Rowe <simon.rowe@nutanix.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Stefan Hajnoczi <stefanha@gmail.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tom Wieczorek <tom@bibbu.net>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Tomáš Janoušek <tomi@nomi.cz>
+  Tu Qiang <tu.qiang35@zte.com.cn>
+  Tuguoyi <tu.guoyi@h3c.com>
+  tuqiang <tu.qiang35@zte.com.cn>
+  Vasiliy Ulyanov <vulyanov@suse.de>
+  Victor Toso <victortoso@redhat.com>
+  Ville Skyttä <ville.skytta@iki.fi>
+  Vinayak Kale <vkale@nvidia.com>
+  Vineeth Pillai <viremana@linux.microsoft.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  WangJian <wangjian161@huawei.com>
+  Weblate <noreply@weblate.org>
+  Wei Liu <liuwe@microsoft.com>
+  Wei Liu <wei.liu@kernel.org>
+  Wei-Chen Chen <weicche@microsoft.com>
+  William Douglas <william.douglas@intel.com>
+  Xu Chao <xu.chao6@zte.com.cn>
+  Yalei Li <274268859@qq.com>
+  Yalei Li <liyl43@chinatelecom.cn>
+  Yang Fei <yangfei85@huawei.com>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yaroslav Kargin <ykargin@virtuozzo.com>
+  Yasuhiko Kamata <belphegor@belbel.or.jp>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
+  zhangjl02 <zhangjl02@inspur.com>
+  zhanglei <zhanglei@smartx.com>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Ye <yezhenyu2@huawei.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+  Zhenzhong Duan <zhenzhong.duan@intel.com>
+  Дамјан Георгиевски <gdamjan@gmail.com>
+  김인수 <simmon@nplob.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-i386-libvirt-raw                                  blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
 
-On 13.05.22 08:33, Juergen Gross wrote:
-> On 12.05.22 22:01, Boris Ostrovsky wrote:
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-Hello Juergen, Boris
+Not pushing.
 
-
-[Juergen, thank you for your explanation]
-
-
->
->>
->> On 5/7/22 2:19 PM, Oleksandr Tyshchenko wrote:
->>> +
->>> +/*
->>> + * Handling of free grants:
->>> + *
->>> + * Free grants are in a simple list anchored in gnttab_free_head. 
->>> They are
->>> + * linked by grant ref, the last element contains GNTTAB_LIST_END. 
->>> The number
->>> + * of free entries is stored in gnttab_free_count.
->>> + * Additionally there is a bitmap of free entries anchored in
->>> + * gnttab_free_bitmap. This is being used for simplifying 
->>> allocation of
->>> + * multiple consecutive grants, which is needed e.g. for support of 
->>> virtio.
->>> + * gnttab_last_free is used to add free entries of new frames at 
->>> the end of
->>> + * the free list.
->>> + * gnttab_free_tail_ptr specifies the variable which references the 
->>> start
->>
->>
->> If this references the start of the free interval, why is it called 
->> gnttab_free_*tail*_ptr?
->
-> Because this is the tail of the whole area which is free.
->
-> It could be renamed to gnttab_free_tail_start_ptr. :-)
->
->>
->>
->>> + * of consecutive free grants ending with gnttab_last_free. This 
->>> pointer is
->>> + * updated in a rather defensive way, in order to avoid performance 
->>> hits in
->>> + * hot paths.
->>> + * All those variables are protected by gnttab_list_lock.
->>> + */
->>>   static int gnttab_free_count;
->>> -static grant_ref_t gnttab_free_head;
->>> +static unsigned int gnttab_size;
->>> +static grant_ref_t gnttab_free_head = GNTTAB_LIST_END;
->>> +static grant_ref_t gnttab_last_free = GNTTAB_LIST_END;
->>> +static grant_ref_t *gnttab_free_tail_ptr;
->>> +static unsigned long *gnttab_free_bitmap;
->>>   static DEFINE_SPINLOCK(gnttab_list_lock);
->>> +
->>>   struct grant_frames xen_auto_xlat_grant_frames;
->>>   static unsigned int xen_gnttab_version;
->>>   module_param_named(version, xen_gnttab_version, uint, 0);
->>> @@ -170,16 +194,111 @@ static int get_free_entries(unsigned count)
->>>       ref = head = gnttab_free_head;
->>>       gnttab_free_count -= count;
->>> -    while (count-- > 1)
->>> -        head = gnttab_entry(head);
->>> +    while (count--) {
->>> +        bitmap_clear(gnttab_free_bitmap, head, 1);
->>> +        if (gnttab_free_tail_ptr == __gnttab_entry(head))
->>> +            gnttab_free_tail_ptr = &gnttab_free_head;
->>> +        if (count)
->>> +            head = gnttab_entry(head);
->>> +    }
->>>       gnttab_free_head = gnttab_entry(head);
->>>       gnttab_entry(head) = GNTTAB_LIST_END;
->>> +    if (!gnttab_free_count) {
->>> +        gnttab_last_free = GNTTAB_LIST_END;
->>> +        gnttab_free_tail_ptr = NULL;
->>> +    }
->>> +
->>>       spin_unlock_irqrestore(&gnttab_list_lock, flags);
->>>       return ref;
->>>   }
->>> +static int get_seq_entry_count(void)
->>> +{
->>> +    if (gnttab_last_free == GNTTAB_LIST_END || 
->>> !gnttab_free_tail_ptr ||
->>> +        *gnttab_free_tail_ptr == GNTTAB_LIST_END)
->>> +        return 0;
->>> +
->>> +    return gnttab_last_free - *gnttab_free_tail_ptr + 1;
->>> +}
->>> +
->>> +/* Rebuilds the free grant list and tries to find count consecutive 
->>> entries. */
->>> +static int get_free_seq(unsigned int count)
->>> +{
->>> +    int ret = -ENOSPC;
->>> +    unsigned int from, to;
->>> +    grant_ref_t *last;
->>> +
->>> +    gnttab_free_tail_ptr = &gnttab_free_head;
->>> +    last = &gnttab_free_head;
->>> +
->>> +    for (from = find_first_bit(gnttab_free_bitmap, gnttab_size);
->>> +         from < gnttab_size;
->>> +         from = find_next_bit(gnttab_free_bitmap, gnttab_size, to + 
->>> 1)) {
->>> +        to = find_next_zero_bit(gnttab_free_bitmap, gnttab_size,
->>> +                    from + 1);
->>> +        if (ret < 0 && to - from >= count) {
->>> +            ret = from;
->>> +            bitmap_clear(gnttab_free_bitmap, ret, count);
->>> +            from += count;
->>> +            gnttab_free_count -= count;
->>
->>
->> IIUIC we can have multiple passes over this, meaning that the 
->> gnttab_free_count may be decremented more than once. Is that 
->> intentional?
->
-> After the first pass decrementing gnttab_free_cnt, ret will no
-> longer be less than zero, so this can be hit only once.
->
->>
->>
->>> +            if (from == to)
->>> +                continue;
->>> +        }
->>> +
->>> +        while (from < to) {
->>> +            *last = from;
->>> +            last = __gnttab_entry(from);
->>> +            gnttab_last_free = from;
->>> +            from++;
->>> +        }
->>
->>
->> I have been looking at this loop and I can't understand what it is 
->> doing ;-( Can you enlighten me?
->
-> It is recreating the free list in order to have it properly sorted.
-> This is needed to make sure that the free tail has the maximum
-> possible size (you can take the tail off the list without having
-> to worry about breaking the linked list because of references into
-> the tail).
-
-I think the loop deserves a comment on top, I will add it.
-
-
-
->
->
->
-> Juergen
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
+(No revision log; it would be 107278 lines long.)
 
