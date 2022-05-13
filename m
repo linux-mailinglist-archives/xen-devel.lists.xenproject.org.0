@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B618526C13
-	for <lists+xen-devel@lfdr.de>; Fri, 13 May 2022 23:07:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.328777.551923 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C708526C0E
+	for <lists+xen-devel@lfdr.de>; Fri, 13 May 2022 23:07:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.328778.551928 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1npcVe-0004qQ-3O; Fri, 13 May 2022 21:07:38 +0000
+	id 1npcVe-0004vg-Du; Fri, 13 May 2022 21:07:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 328777.551923; Fri, 13 May 2022 21:07:38 +0000
+Received: by outflank-mailman (output) from mailman id 328778.551928; Fri, 13 May 2022 21:07:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1npcVd-0004oI-Ub; Fri, 13 May 2022 21:07:37 +0000
-Received: by outflank-mailman (input) for mailman id 328777;
- Fri, 13 May 2022 21:07:36 +0000
+	id 1npcVe-0004qb-7c; Fri, 13 May 2022 21:07:38 +0000
+Received: by outflank-mailman (input) for mailman id 328778;
+ Fri, 13 May 2022 21:07:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=xcQv=VV=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1npcVc-0004Ds-86
- for xen-devel@lists.xenproject.org; Fri, 13 May 2022 21:07:36 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1npcVd-0004Ds-76
+ for xen-devel@lists.xenproject.org; Fri, 13 May 2022 21:07:37 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b5c76f88-d300-11ec-aa76-f101dd46aeb6;
+ id b65a4bf4-d300-11ec-aa76-f101dd46aeb6;
  Fri, 13 May 2022 23:07:35 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id F35D061B8C;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 312F0B831E2;
+ Fri, 13 May 2022 21:07:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89E1FC34118;
  Fri, 13 May 2022 21:07:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E93E9C34113;
- Fri, 13 May 2022 21:07:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,17 +43,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5c76f88-d300-11ec-aa76-f101dd46aeb6
+X-Inumbo-ID: b65a4bf4-d300-11ec-aa76-f101dd46aeb6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1652476053;
-	bh=GuU6qA8FErbNr89RInOmtwTYqYZQ6Wfj7rcBSkqDOLM=;
+	bh=sl1hbeFkH4WN0bbZ/wxmpn+D3pl0OgZL21wS4PaGxQc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=joTOzbHXgitRICE7cgCv5LKuhQy8XgxEVzOzpgQByljObJ7UL1PrxkQ1d/GGmJZM3
-	 UuuxhP4TbQa7cR9D+DwzVqd6X+F7GYDXH4CZs/CQFVHpMuVKSfKvMAplr828YgrKPt
-	 YSa8DIrV9WiqWPQBcs3R6KAaRp/wvjq1JJjnfwBDFsNj3KjUW1gVny9+Tyn/xG/2s2
-	 t2X0Tn9kIvu3+L9ORb5o0466zbq1DPis+OwjKfm3ish36YGd+O9FbY47Mzu3mScV1g
-	 LoS+mS8DfKQvPdzMOdsZ3DDi2WchhQ8q231PMpccAEB4n7PwOFKA3V/e3n/sRhod/l
-	 eLJzOfUTyNzIw==
+	b=q9cPPBtkA/LZhGum/x+AFW+4w3kU9mgs3jshltQa37DYHjVAxTXUuUuZyMpPKVj1z
+	 HlqnquIiYyhTOTqjW9rZLoJMsxqOMfxpI1DOoeLORnxLIimFRBLYLYYsNLOc4VVdI2
+	 V4J44zFV3nn52rzXUCsKapO8VfC/Yrbh6b36mYZMnamPOLQZV2S5E99Jxk6mccx9HW
+	 pdH0w0GDczTfGemutZzgrZwW7k6kOHqmvyPkpY2zbrrkc75ACOmTx+1sTwBmhvEOZx
+	 EQEzAKDJR0CJmWV1RZGFboOxKbV9s1ebNssmTkD90CQXVVeTDMqSYjKlgeVrb3+ydm
+	 EEs22t5JoWeVw==
 From: Stefano Stabellini <sstabellini@kernel.org>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -62,12 +62,10 @@ Cc: sstabellini@kernel.org,
 	julien@xen.org,
 	Volodymyr_Babchuk@epam.com,
 	Stefano Stabellini <stefano.stabellini@xilinx.com>,
-	Luca Fancellu <luca.fancellu@arm.com>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v7 2/7] xen/arm: implement domU extended regions
-Date: Fri, 13 May 2022 14:07:25 -0700
-Message-Id: <20220513210730.679871-2-sstabellini@kernel.org>
+	Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: [PATCH v7 3/7] xen: introduce xen,enhanced dom0less property
+Date: Fri, 13 May 2022 14:07:26 -0700
+Message-Id: <20220513210730.679871-3-sstabellini@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <alpine.DEB.2.22.394.2205131405550.3842@ubuntu-linux-20-04-desktop>
 References: <alpine.DEB.2.22.394.2205131405550.3842@ubuntu-linux-20-04-desktop>
@@ -76,164 +74,122 @@ Content-Transfer-Encoding: 8bit
 
 From: Stefano Stabellini <stefano.stabellini@xilinx.com>
 
-Implement extended regions for dom0less domUs. The implementation is
-based on the libxl implementation.
+Introduce a new "xen,enhanced" dom0less property to enable/disable PV
+driver interfaces for dom0less guests. Currently only "enabled" and
+"disabled" are supported property values (and empty). Leave the option
+open to implement further possible values in the future (e.g.
+"xenstore" to enable only xenstore.) Dom0 presence is required for now
+to use "xen,enhanced" on a domU.
 
-Also update docs for the ext_regions command line option.
+The configurable option is for domUs only. For dom0 we always set the
+corresponding property in the Xen code to true (PV interfaces enabled.)
+
+This patch only parses the property. Next patches will make use of it.
 
 Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
-Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Acked-by: Julien Grall <jgrall@amazon.com>
+CC: Julien Grall <julien@xen.org>
+CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>
 ---
-Changes in v6:
-- add reviewed-by
-- address 2 NITs
-- update docs
+Changes in v7:
+- add a check if dom0 is missing and xen,enhanced was specified
+- Bertrand gave his reviewed-by but I removed it due to the new check
 
-Changes in v5:
-- print the domain
-- coding style
-- simplify the code in find_domU_holes
-- return error if no regions allocated in find_domU_holes
-- use ROUNDUP
-- uint64_t/paddr_t
----
- docs/misc/xen-command-line.pandoc |  9 ++---
- xen/arch/arm/domain_build.c       | 60 ++++++++++++++++++++++++++-----
- 2 files changed, 56 insertions(+), 13 deletions(-)
----
- docs/misc/xen-command-line.pandoc |  9 ++---
- xen/arch/arm/domain_build.c       | 60 ++++++++++++++++++++++++++-----
- 2 files changed, 56 insertions(+), 13 deletions(-)
+Changes in v4:
+- move xen,enhanced to the bottom of the list
+- do not set kinfo.dom0less_enhanced for dom0
 
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index 1dc7e1ca07..881fe409ac 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -1110,11 +1110,12 @@ to use the default.
+Changes in v3:
+- improve commit message
+
+Changes in v2:
+- rename kinfo.enhanced to kinfo.dom0less_enhanced
+- set kinfo.dom0less_enhanced to true for dom0
+- handle -ENODATA in addition to -EILSEQ
+---
+ docs/misc/arm/device-tree/booting.txt | 18 ++++++++++++++++++
+ xen/arch/arm/domain_build.c           |  7 +++++++
+ xen/arch/arm/include/asm/kernel.h     |  3 +++
+ 3 files changed, 28 insertions(+)
+---
+ docs/misc/arm/device-tree/booting.txt | 18 ++++++++++++++++++
+ xen/arch/arm/domain_build.c           | 12 ++++++++++++
+ xen/arch/arm/include/asm/kernel.h     |  3 +++
+ 3 files changed, 33 insertions(+)
+
+diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+index 7b4a29a2c2..98253414b8 100644
+--- a/docs/misc/arm/device-tree/booting.txt
++++ b/docs/misc/arm/device-tree/booting.txt
+@@ -193,6 +193,24 @@ with the following properties:
+     Optional. Handle to a xen,cpupool device tree node that identifies the
+     cpupool where the guest will be started at boot.
  
- > Default : `true`
++- xen,enhanced
++
++    A string property. Possible property values are:
++
++    - "enabled" (or missing property value)
++    Xen PV interfaces, including grant-table and xenstore, will be
++    enabled for the VM.
++
++    - "disabled"
++    Xen PV interfaces are disabled.
++
++    If the xen,enhanced property is present with no value, it defaults
++    to "enabled". If the xen,enhanced property is not present, PV
++    interfaces are disabled.
++
++    In the future other possible property values might be added to
++    enable only selected interfaces.
++
+ Under the "xen,domain" compatible node, one or more sub-nodes are present
+ for the DomU kernel and ramdisk.
  
--Flag to enable or disable support for extended regions for Dom0.
-+Flag to enable or disable support for extended regions for Dom0 and
-+Dom0less DomUs.
- 
--Extended regions are ranges of unused address space exposed to Dom0 as
--"safe to use" for special memory mappings. Disable if your board device
--tree is incomplete.
-+Extended regions are ranges of unused address space exposed to the guest
-+as "safe to use" for special memory mappings. Disable if your board
-+device tree is incomplete.
- 
- ### flask
- > `= permissive | enforcing | late | disabled`
 diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index aa777741bd..c4dd211b91 100644
+index c4dd211b91..8d148b209d 100644
 --- a/xen/arch/arm/domain_build.c
 +++ b/xen/arch/arm/domain_build.c
-@@ -35,7 +35,10 @@
- static unsigned int __initdata opt_dom0_max_vcpus;
- integer_param("dom0_max_vcpus", opt_dom0_max_vcpus);
+@@ -3157,6 +3157,7 @@ static int __init construct_domU(struct domain *d,
+                                  const struct dt_device_node *node)
+ {
+     struct kernel_info kinfo = {};
++    const char *dom0less_enhanced;
+     int rc;
+     u64 mem;
  
--/* If true, the extended regions support is enabled for dom0 */
-+/*
-+ * If true, the extended regions support is enabled for dom0 and
-+ * dom0less domUs.
-+ */
- static bool __initdata opt_ext_regions = true;
- boolean_param("ext_regions", opt_ext_regions);
+@@ -3172,6 +3173,17 @@ static int __init construct_domU(struct domain *d,
  
-@@ -1327,6 +1330,36 @@ out:
-     return res;
- }
+     kinfo.vpl011 = dt_property_read_bool(node, "vpl011");
  
-+static int __init find_domU_holes(const struct kernel_info *kinfo,
-+                                  struct meminfo *ext_regions)
-+{
-+    unsigned int i;
-+    paddr_t bankend;
-+    const paddr_t bankbase[] = GUEST_RAM_BANK_BASES;
-+    const paddr_t banksize[] = GUEST_RAM_BANK_SIZES;
-+    int res = -ENOENT;
-+
-+    for ( i = 0; i < GUEST_RAM_BANKS; i++ )
++    rc = dt_property_read_string(node, "xen,enhanced", &dom0less_enhanced);
++    if ( rc == -EILSEQ ||
++         rc == -ENODATA ||
++         (rc == 0 && !strcmp(dom0less_enhanced, "enabled")) )
 +    {
-+        struct membank *ext_bank = &(ext_regions->bank[ext_regions->nr_banks]);
-+
-+        ext_bank->start = ROUNDUP(bankbase[i] + kinfo->mem.bank[i].size, SZ_2M);
-+
-+        bankend = ~0ULL >> (64 - p2m_ipa_bits);
-+        bankend = min(bankend, bankbase[i] + banksize[i] - 1);
-+        if ( bankend > ext_bank->start )
-+            ext_bank->size = bankend - ext_bank->start + 1;
-+
-+        /* 64MB is the minimum size of an extended region */
-+        if ( ext_bank->size < MB(64) )
-+            continue;
-+        ext_regions->nr_banks++;
-+        res = 0;
++        if ( hardware_domain )
++            kinfo.dom0less_enhanced = true;
++        else
++            printk("Error: tried to use xen,enhanced without dom0\n");
 +    }
 +
-+    return res;
-+}
+     if ( vcpu_create(d, 0) == NULL )
+         return -ENOMEM;
+ 
+diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
+index 874aa108a7..c4dc039b54 100644
+--- a/xen/arch/arm/include/asm/kernel.h
++++ b/xen/arch/arm/include/asm/kernel.h
+@@ -36,6 +36,9 @@ struct kernel_info {
+     /* Enable pl011 emulation */
+     bool vpl011;
+ 
++    /* Enable PV drivers */
++    bool dom0less_enhanced;
 +
- static int __init make_hypervisor_node(struct domain *d,
-                                        const struct kernel_info *kinfo,
-                                        int addrcells, int sizecells)
-@@ -1363,12 +1396,13 @@ static int __init make_hypervisor_node(struct domain *d,
+     /* GIC phandle */
+     uint32_t phandle_gic;
  
-     if ( !opt_ext_regions )
-     {
--        printk(XENLOG_INFO "The extended regions support is disabled\n");
-+        printk(XENLOG_INFO "%pd: extended regions support is disabled\n", d);
-         nr_ext_regions = 0;
-     }
-     else if ( is_32bit_domain(d) )
-     {
--        printk(XENLOG_WARNING "The extended regions are only supported for 64-bit guest currently\n");
-+        printk(XENLOG_WARNING
-+               "%pd: extended regions not supported for 32-bit guests\n", d);
-         nr_ext_regions = 0;
-     }
-     else
-@@ -1377,13 +1411,21 @@ static int __init make_hypervisor_node(struct domain *d,
-         if ( !ext_regions )
-             return -ENOMEM;
- 
--        if ( !is_iommu_enabled(d) )
--            res = find_unallocated_memory(kinfo, ext_regions);
-+        if ( is_domain_direct_mapped(d) )
-+        {
-+            if ( !is_iommu_enabled(d) )
-+                res = find_unallocated_memory(kinfo, ext_regions);
-+            else
-+                res = find_memory_holes(kinfo, ext_regions);
-+        }
-         else
--            res = find_memory_holes(kinfo, ext_regions);
-+        {
-+            res = find_domU_holes(kinfo, ext_regions);
-+        }
- 
-         if ( res )
--            printk(XENLOG_WARNING "Failed to allocate extended regions\n");
-+            printk(XENLOG_WARNING "%pd: failed to allocate extended regions\n",
-+                   d);
-         nr_ext_regions = ext_regions->nr_banks;
-     }
- 
-@@ -1404,8 +1446,8 @@ static int __init make_hypervisor_node(struct domain *d,
-         u64 start = ext_regions->bank[i].start;
-         u64 size = ext_regions->bank[i].size;
- 
--        printk("Extended region %d: %#"PRIx64"->%#"PRIx64"\n",
--               i, start, start + size);
-+        printk("%pd: extended region %d: %#"PRIx64"->%#"PRIx64"\n",
-+               d, i, start, start + size);
- 
-         dt_child_set_range(&cells, addrcells, sizecells, start, size);
-     }
 -- 
 2.25.1
 
