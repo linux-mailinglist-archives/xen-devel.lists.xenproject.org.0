@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CBF15264AD
-	for <lists+xen-devel@lfdr.de>; Fri, 13 May 2022 16:35:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.328528.551579 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89CDE5264B0
+	for <lists+xen-devel@lfdr.de>; Fri, 13 May 2022 16:37:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.328539.551590 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1npWNX-0000s9-E3; Fri, 13 May 2022 14:34:51 +0000
+	id 1npWPe-0001ZH-Uh; Fri, 13 May 2022 14:37:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 328528.551579; Fri, 13 May 2022 14:34:51 +0000
+Received: by outflank-mailman (output) from mailman id 328539.551590; Fri, 13 May 2022 14:37:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1npWNX-0000p8-9X; Fri, 13 May 2022 14:34:51 +0000
-Received: by outflank-mailman (input) for mailman id 328528;
- Fri, 13 May 2022 14:34:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=O871=VV=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1npWNV-0000ox-P5
- for xen-devel@lists.xenproject.org; Fri, 13 May 2022 14:34:49 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d75215f6-d2c9-11ec-aa76-f101dd46aeb6;
- Fri, 13 May 2022 16:34:48 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id m1so11699913wrb.8
- for <xen-devel@lists.xenproject.org>; Fri, 13 May 2022 07:34:48 -0700 (PDT)
-Received: from [192.168.0.194] (hipert-gw1.mat.unimo.it. [155.185.5.1])
- by smtp.gmail.com with ESMTPSA id
- n27-20020adf8b1b000000b0020c5253d900sm2383523wra.76.2022.05.13.07.34.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 May 2022 07:34:47 -0700 (PDT)
+	id 1npWPe-0001XO-Qa; Fri, 13 May 2022 14:37:02 +0000
+Received: by outflank-mailman (input) for mailman id 328539;
+ Fri, 13 May 2022 14:37:01 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1npWPd-0001XE-JP; Fri, 13 May 2022 14:37:01 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1npWPd-0001T0-Hi; Fri, 13 May 2022 14:37:01 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1npWPd-00049P-1F; Fri, 13 May 2022 14:37:01 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1npWPd-0001Jy-0j; Fri, 13 May 2022 14:37:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,227 +42,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d75215f6-d2c9-11ec-aa76-f101dd46aeb6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20210112.gappssmtp.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=b0bdCsiXuc25La2RdnHt8t3/RjJymyZdSIqScGL3aOY=;
-        b=kPeg737SrsJXzljeml7OqNCU+M+5kc83qpI8JJzQdu9GA+d9BOogSpa+Fc3qxr35R6
-         nTVhNFtYwnlN6EprVlfkJRxOMwJUn23YqKT5uNswNyvKIFx9ezJ+XHgYgxvI+kztmSML
-         qVx4VHVmK1NGmAU85TSpSwVZngtvTl1rLVLCMIPu72/id5+mKOBWda220AWbFnWB9Ii8
-         f4lDPCUsJav8eVuU9sjZOQ0uPT422lBF78q5U6XWsAFXFBBODxV6rs/E3gHoA5BZT3m3
-         i4Xje+WLhe1mg3UzvdmCryu/QLpOhsyUmWyVlNeCWYbj40GuFnFGzX33Eu5Z02lh19E2
-         HpQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=b0bdCsiXuc25La2RdnHt8t3/RjJymyZdSIqScGL3aOY=;
-        b=JiV2xOukRVQgBk0nJaRUX3tmyYzO1G5p7u6x338BaRYcva8t+IU0UnzxRdmsnBNGR0
-         SxUAmgD3ubgS/fiY9aOZ552RE5Zcynv9Vv62asH+pbbDL2yQAEc6CWJWLspnOMUEH0Ts
-         glzBSLXmWowLbXA36HvDDy7TLycyPrM6ZSUrUKkCBb4iS4EiV9d4YU1Xkf7Ep+ODVhmx
-         cA0lNIbXmHCYZcH6m87mDqOeHQ2GzKslNVN6cBUcXaLqts/S7cdVHPfYsAWlRL88RvlH
-         2M8eHuTG+dGad6CVz98OhCFjKnVaRq1YVG8gtkkgv7MloLFz/VTMb6POzdcbO9BeoWHt
-         88Dg==
-X-Gm-Message-State: AOAM531PyEK2agu7KigfuW0dtqIxmCoVHdRjK48P7x+bpIYkNzde/0iu
-	FUnft98KqA53lBMkvBvztpGgoQ==
-X-Google-Smtp-Source: ABdhPJxemVK2oIeMwHFpdnfa7pxOZ4eNap/1vKiG4mS2+sayiv9bp+sSzx1W1uz3PQggZMvzfD6fWQ==
-X-Received: by 2002:adf:9dcc:0:b0:20a:ed44:fd48 with SMTP id q12-20020adf9dcc000000b0020aed44fd48mr4278768wre.120.1652452488083;
-        Fri, 13 May 2022 07:34:48 -0700 (PDT)
-Message-ID: <9b10c3d3-05d4-c08b-efd6-2cb106f58dea@minervasys.tech>
-Date: Fri, 13 May 2022 16:34:46 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-Subject: Re: [PATCH 05/36] xen/arm: compute LLC way size by hardware
- inspection
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>,
- Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Marco Solieri <marco.solieri@unimore.it>,
- Andrea Bastoni <andrea.bastoni@minervasys.tech>,
- Luca Miccio <lucmiccio@gmail.com>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
-References: <20220304174701.1453977-1-marco.solieri@minervasys.tech>
- <20220304174701.1453977-6-marco.solieri@minervasys.tech>
- <0509b0eb-0f3b-8a26-4202-0011201c3fac@xen.org>
-From: Carlo Nonato <carlo.nonato@minervasys.tech>
-In-Reply-To: <0509b0eb-0f3b-8a26-4202-0011201c3fac@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=I7AG/TaUHT3oo8KfUR/LVGqrm0O2LS3jGtZ616FThOw=; b=z+/0m6e78yl1ch3c3FfL7RE/+e
+	upJNeiCRt56IFgH57YobyAZJNgcbYSzTWZ1FiX/sFDAS1LLhM3L6mhnNobXH0bi9NzivtgDXAUXWx
+	rU8Y5GRXqo/4aaUllRPyjECHdA/1Po+MlV6TLBnKU3yxhXNR2FqKhdlA2aNK8NeFFX3o=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-170390-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 170390: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=ef01d63ef3c9d2e7f39755b9c2b6bf40f6076ef3
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 13 May 2022 14:37:01 +0000
 
-Hi Julien
+flight 170390 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/170390/
 
-On 09/03/22 21:12, Julien Grall wrote:
+Regressions :-(
 
->> Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
->> Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
->> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
->> ---
->>   xen/arch/arm/coloring.c | 76 +++++++++++++++++++++++++++++++++++++++++
->>   1 file changed, 76 insertions(+)
->>
->> diff --git a/xen/arch/arm/coloring.c b/xen/arch/arm/coloring.c
->> index 8f1cff6efb..e3d490b453 100644
->> --- a/xen/arch/arm/coloring.c
->> +++ b/xen/arch/arm/coloring.c
->> @@ -25,7 +25,10 @@
->>   #include <xen/lib.h>
->>   #include <xen/errno.h>
->>   #include <xen/param.h>
->> +
->
->
-> NIT: I think this belongs to patch #4.
->
->> +#include <asm/sysregs.h>
->
-> Please order the include alphabetically.
->
->>   #include <asm/coloring.h> > +#include <asm/io.h>
->
-> You don't seem to use read*/write* helper. So why do you need this?
->>     /* Number of color(s) assigned to Xen */
->>   static uint32_t xen_col_num;
->> @@ -39,6 +42,79 @@ static uint32_t dom0_col_mask[MAX_COLORS_CELLS];
->>     static uint64_t way_size;
->>   +#define CTR_LINESIZE_MASK 0x7
->> +#define CTR_SIZE_SHIFT 13
->> +#define CTR_SIZE_MASK 0x3FFF
->> +#define CTR_SELECT_L2 1 << 1
->> +#define CTR_SELECT_L3 1 << 2
->> +#define CTR_CTYPEn_MASK 0x7
->> +#define CTR_CTYPE2_SHIFT 3
->> +#define CTR_CTYPE3_SHIFT 6
->> +#define CTR_LLC_ON 1 << 2
->> +#define CTR_LOC_SHIFT 24
->> +#define CTR_LOC_MASK 0x7
->> +#define CTR_LOC_L2 1 << 1
->> +#define CTR_LOC_NOT_IMPLEMENTED 1 << 0
->
-> We already define some CTR_* in processor.h. Please any extra one there.
->
->> +
->> +
->> +/* Return the way size of last level cache by asking the hardware */
->> +static uint64_t get_llc_way_size(void)
->
-> This will break compilation as you are introducing get_llc_way_size() 
-> but not using it.
->
-> I would suggest to fold this patch in the next one.
->
->> +{
->> +    uint32_t cache_sel = READ_SYSREG64(CSSELR_EL1);
->
-> The return type for READ_SYSREG64() is uint64_t. That said, the 
-> equivalent register on 32bit is CSSELR which is 32-bit. So this should 
-> be READ_SYSREG() and the matching type is register_t.
-Since we don't want to support arm32, should I stick with 
-READ_SYSREG64() or switch to the generic one you
-pointed me out?
->> +    uint32_t cache_global_info = READ_SYSREG64(CLIDR_EL1);
->
-> Same remark here. Except the matching register is CLIDR.
->
->> +    uint32_t cache_info;
->> +    uint32_t cache_line_size;
->> +    uint32_t cache_set_num;
->> +    uint32_t cache_sel_tmp;
->> +
->> +    printk(XENLOG_INFO "Get information on LLC\n");
->> +    printk(XENLOG_INFO "Cache CLIDR_EL1: 0x%"PRIx32"\n", 
->> cache_global_info);
->> +
->> +    /* Check if at least L2 is implemented */
->> +    if ( ((cache_global_info >> CTR_LOC_SHIFT) & CTR_LOC_MASK)
->
-> This is a bit confusing. cache_global_info is storing CLIDR_* but you 
-> are using macro starting with CTR_*.
->
-> Did you intend to name the macros CLIDR_*?
->
-> The same remark goes for the other use of CTR_ below. The name of the 
-> macros should match the register they are meant to be used on.
-You are right for the naming mistakes. Should I add those defines in 
-some specific file or
-can they stay here?
->> +        == CTR_LOC_NOT_IMPLEMENTED )
->
-> I am a bit confused this the check here. Shouln't you check that 
-> Ctype2 is notn 0 instead?
-I should check a little bit better how this automatic probing thing 
-actually works
-and we also have to clarify better what is the LLC for us, so that I 
-know what we
-should really test for in this function. Probably you're right though.
->> +    {
->> +        printk(XENLOG_ERR "ERROR: L2 Cache not implemented\n");
->> +        return 0;
->> +    }
->> +
->> +    /* Save old value of CSSELR_EL1 */
->> +    cache_sel_tmp = cache_sel;
->> +
->> +    /* Get LLC index */
->> +    if ( ((cache_global_info >> CTR_CTYPE2_SHIFT) & CTR_CTYPEn_MASK)
->> +        == CTR_LLC_ON )
->
-> I don't understand this check. You define CTR_LLC_ON to 1 << 2. So it 
-> would be 0b10. From the field you checked, this value mean "Data Cache 
-> Only". How is this indicating the which level to chose?
->
-> But then in patch #4 you wrote we will do cache coloring on L2. So why 
-> are we selecting L3?
-1 << 2 is actually 0b100 which stands for "Unified cache". Still I don't 
-know if this is
-the best way to test what we want.
->> +        cache_sel = CTR_SELECT_L2;
->> +    else
->> +        cache_sel = CTR_SELECT_L3;
->> +
->> +    printk(XENLOG_INFO "LLC selection: %u\n", cache_sel);
->> +    /* Select the correct LLC in CSSELR_EL1 */
->> +    WRITE_SYSREG64(cache_sel, CSSELR_EL1);
->
-> This should be WRITE_SYSREG().
->
->> +
->> +    /* Ensure write */
->> +    isb();
->> +
->> +    /* Get info about the LLC */
->> +    cache_info = READ_SYSREG64(CCSIDR_EL1);
->> +
->> +    /* ARM TRM: (Log2(Number of bytes in cache line)) - 4. */
->
-> From my understanding "TRM" in the Arm world refers to a specific 
-> processor. In this case we want to quote the spec. So we usually say 
-> "Arm Arm".
->
->> +    cache_line_size = 1 << ((cache_info & CTR_LINESIZE_MASK) + 4);
->> +    /* ARM TRM: (Number of sets in cache) - 1 */
->> +    cache_set_num = ((cache_info >> CTR_SIZE_SHIFT) & CTR_SIZE_MASK) 
->> + 1;
->
-> The shifts here are assuming that FEAT_CCIDX is not implemented. I 
-> would be OK if we decide to not support cache coloring on such 
-> platform. However, we need to return an error if a user tries to use 
-> cache coloring on such platform.
->
-In my understanding, if FEAT_CCIDX is implemented then CCSIDR_EL1 is a 
-64-bit register.
-So it's just a matter of probing for FEAT_CCIDX and in that case 
-changing the way we access
-that register (since the layout changes too).
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
 
-Thanks.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-- Carlo Nonato
+version targeted for testing:
+ ovmf                 ef01d63ef3c9d2e7f39755b9c2b6bf40f6076ef3
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
+Last test of basis   168254  2022-02-28 10:41:46 Z   74 days
+Failing since        168258  2022-03-01 01:55:31 Z   73 days  980 attempts
+Testing same since   170376  2022-05-13 02:20:08 Z    0 days    7 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chao Li <lichao@loongson.cn>
+  Chao, Zhuoran <zhuoran.chao@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Christine <Yuwei.Chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  duntan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Gua Guo <gua.guo@intel.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jake Garver <jake@nvidia.com>
+  Jake Garver via groups.io <jake=nvidia.com@groups.io>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Jiewen Yao <jiewen.yao@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Peter Grehan <grehan@freebsd.org>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yu Pu <yu.pu@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Yuwei Chen <yuwei.chen@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+  Zhuoran Chao <zhuoran.chao@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 6542 lines long.)
 
