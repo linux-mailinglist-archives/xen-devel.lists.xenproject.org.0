@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1206B527100
-	for <lists+xen-devel@lfdr.de>; Sat, 14 May 2022 14:14:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.329066.552246 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41717527121
+	for <lists+xen-devel@lfdr.de>; Sat, 14 May 2022 15:07:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.329075.552257 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1npqeH-0002bA-JT; Sat, 14 May 2022 12:13:29 +0000
+	id 1nprTj-0007yw-IC; Sat, 14 May 2022 13:06:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 329066.552246; Sat, 14 May 2022 12:13:29 +0000
+Received: by outflank-mailman (output) from mailman id 329075.552257; Sat, 14 May 2022 13:06:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1npqeH-0002ZA-FM; Sat, 14 May 2022 12:13:29 +0000
-Received: by outflank-mailman (input) for mailman id 329066;
- Sat, 14 May 2022 12:13:27 +0000
+	id 1nprTj-0007wO-F3; Sat, 14 May 2022 13:06:39 +0000
+Received: by outflank-mailman (input) for mailman id 329075;
+ Sat, 14 May 2022 13:06:38 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1npqeF-0002Z0-RT; Sat, 14 May 2022 12:13:27 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1nprTi-0007wI-AC
+ for xen-devel@lists.xenproject.org; Sat, 14 May 2022 13:06:38 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1npqeF-00015X-OW; Sat, 14 May 2022 12:13:27 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1npqeF-0001UZ-6r; Sat, 14 May 2022 12:13:27 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1npqeF-000744-6N; Sat, 14 May 2022 12:13:27 +0000
+ (envelope-from <julien@xen.org>)
+ id 1nprTg-00020m-9i; Sat, 14 May 2022 13:06:36 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nprTg-0002Rb-2x; Sat, 14 May 2022 13:06:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,180 +39,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=txcln70Nq/D8+pwtgOSPHM7WUSlASc8TGgcTlov2mDc=; b=qtoKeo1OAKGwbRL5+abKGLdaPI
-	hQaRsJBmBw6Zr/N5GXB2EdtVAol1g6ue9OhmGbw7lLeVrSJ2cBDS/ofPjs9H/z/aaJ4jnnr+7thhY
-	nbU4qw44HWqID8O2MHn6tsyw8KnqontlXbZhru4qzdMkzPo82dva/uAx+ExB6jczuup8=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170418-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=bhn4celzkp1QwZWv5cHzokUF7d7iePo2sJ0e2lfx9eA=; b=aMRx/gAcz8vazslbwVL7dkX2qh
+	Z7/NnKlenILg9RuH1r36EGacNtOJBqZ08CJOmmtpib+rEFJMhMtfHn77cQimCNTkfiWJ/vx38bI6O
+	f9ouO3SWf9crUwBKVvJWL4MammJZ2zBbxBfevO7+sMr29yr9foCEa8TkV1CGVUEPTOVY=;
+Message-ID: <a729f17d-9dd3-14d9-9f34-ad1ab2f2acba@xen.org>
+Date: Sat, 14 May 2022 14:06:33 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 170418: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=708620d29db89d03e822b8d17dc75fbac865c6dc
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 14 May 2022 12:13:27 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.8.1
+Subject: Re: [PATCH v6 4/7] xen/arm: configure dom0less domain for enabling
+ xenstore after boot
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Rahul Singh <Rahul.Singh@arm.com>, xen-devel
+ <xen-devel@lists.xenproject.org>, Juergen Gross <jgross@suse.com>,
+ "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
+ Luca Miccio <lucmiccio@gmail.com>,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>,
+ "jbeulich@suse.com" <jbeulich@suse.com>
+References: <alpine.DEB.2.22.394.2205041715320.43560@ubuntu-linux-20-04-desktop>
+ <20220505001656.395419-4-sstabellini@kernel.org>
+ <8011EAE7-7DF6-4342-B0BF-F64190099BA0@arm.com>
+ <eab9afec-b023-ef7a-dc09-1b579c7f36b4@xen.org>
+ <37C437B0-BF87-41C0-8FF1-0BF193C667C4@arm.com>
+ <0f39d464-5a2c-a8f6-04c8-f96da7340003@xen.org>
+ <4BEDB555-12F4-4A91-8D16-D83DBB1BE3CC@arm.com>
+ <34b790af-c56a-26c7-e218-7961023b8605@xen.org>
+ <alpine.DEB.2.22.394.2205121823320.3842@ubuntu-linux-20-04-desktop>
+ <7f89af03-66d2-9c59-a761-4c8a188570d9@xen.org>
+ <alpine.DEB.2.22.394.2205131349120.3842@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2205131349120.3842@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 170418 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170418/
+Hi Stefano,
 
-Regressions :-(
+On 13/05/2022 21:52, Stefano Stabellini wrote:
+> On Fri, 13 May 2022, Julien Grall wrote:
+>> On 13/05/2022 02:23, Stefano Stabellini wrote:
+>>> On Wed, 11 May 2022, Julien Grall wrote:
+>>>>> If dom0 is mandatory yes, we should still make sure that this code
+>>>>> cannot be
+>>>>> reached so an ASSERT would be nice here at least in case someone tries
+>>>>> to
+>>>>> activate this code without dom0 (which might happen when we will push
+>>>>> the
+>>>>> serie for static event channels).
+>>>>
+>>>> I am fine with an ASSERT().
+>>>
+>>> I added an ASSERT(hardware_domain).
+>>
+>> Just to clarify and avoid a round trip. The ASSERT() is not sufficient here.
+>> We also need to forbid the user to set xen,enhanced when the HW domain is not
+>> NULL, at least until Rahul's pre-allocated event channel series.
+>>
+>> This check would have to be done when parsing the configuration. The ASSERT()
+>> would be here to ensure that if someone is reworking the parsing, it would get
+>> caught nicely rather than a NULL dereference.
+> 
+> Thanks for avoiding a roundtrip. I added a check when parsing device
+> tree if xen,enhanced is specified but dom0 is missing. Initially I wrote
+> it as a "panic" but then I changed it as a regular printk. I am OK
+> either way in case you prefer otherwise.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+This is a configuration issue from the user. So I think we shouldn't 
+continue (i.e panic()) if we can't honor what the user requested. This 
+make the problem a lot more obvious to the user (printk() can be easily 
+overlooked).
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+Cheers,
 
-version targeted for testing:
- ovmf                 708620d29db89d03e822b8d17dc75fbac865c6dc
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   75 days
-Failing since        168258  2022-03-01 01:55:31 Z   74 days  997 attempts
-Testing same since   170392  2022-05-13 15:40:22 Z    0 days   16 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chao Li <lichao@loongson.cn>
-  Chao, Zhuoran <zhuoran.chao@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Christine <Yuwei.Chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  duntan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gua Guo <gua.guo@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Jiewen Yao <jiewen.yao@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Peter Grehan <grehan@freebsd.org>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Tom Lendacky <thomas.lendacky@amd.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yu Pu <yu.pu@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Yuwei Chen <yuwei.chen@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-  Zhuoran Chao <zhuoran.chao@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 6662 lines long.)
+-- 
+Julien Grall
 
