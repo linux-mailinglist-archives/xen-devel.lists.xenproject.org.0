@@ -2,37 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2410A5281C4
-	for <lists+xen-devel@lfdr.de>; Mon, 16 May 2022 12:22:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.329753.553010 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12156528237
+	for <lists+xen-devel@lfdr.de>; Mon, 16 May 2022 12:37:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.329762.553020 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nqXrO-0004h9-RG; Mon, 16 May 2022 10:21:54 +0000
+	id 1nqY5I-0006JB-5d; Mon, 16 May 2022 10:36:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 329753.553010; Mon, 16 May 2022 10:21:54 +0000
+Received: by outflank-mailman (output) from mailman id 329762.553020; Mon, 16 May 2022 10:36:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nqXrO-0004fG-MK; Mon, 16 May 2022 10:21:54 +0000
-Received: by outflank-mailman (input) for mailman id 329753;
- Mon, 16 May 2022 10:21:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fbMg=VY=suse.com=pmladek@srs-se1.protection.inumbo.net>)
- id 1nqXrM-0004fA-RV
- for xen-devel@lists.xenproject.org; Mon, 16 May 2022 10:21:52 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 003a0dab-d502-11ec-b8b8-f95467ff1ed0;
- Mon, 16 May 2022 12:21:51 +0200 (CEST)
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
- by smtp-out2.suse.de (Postfix) with ESMTP id 02AF51F930;
- Mon, 16 May 2022 10:21:51 +0000 (UTC)
-Received: from suse.cz (unknown [10.100.208.146])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by relay2.suse.de (Postfix) with ESMTPS id 89FB92C141;
- Mon, 16 May 2022 10:21:48 +0000 (UTC)
+	id 1nqY5I-0006Gz-2t; Mon, 16 May 2022 10:36:16 +0000
+Received: by outflank-mailman (input) for mailman id 329762;
+ Mon, 16 May 2022 10:36:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1taX=VY=citrix.com=prvs=128915162=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1nqY5F-0006Gt-Vr
+ for xen-devel@lists.xenproject.org; Mon, 16 May 2022 10:36:14 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 007c667e-d504-11ec-aa76-f101dd46aeb6;
+ Mon, 16 May 2022 12:36:12 +0200 (CEST)
+Received: from mail-mw2nam10lp2102.outbound.protection.outlook.com (HELO
+ NAM10-MW2-obe.outbound.protection.outlook.com) ([104.47.55.102])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 16 May 2022 06:36:09 -0400
+Received: from DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
+ by BYAPR03MB4615.namprd03.prod.outlook.com (2603:10b6:a03:12d::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5250.14; Mon, 16 May
+ 2022 10:36:07 +0000
+Received: from DS7PR03MB5608.namprd03.prod.outlook.com
+ ([fe80::5df3:95ce:4dfd:134e]) by DS7PR03MB5608.namprd03.prod.outlook.com
+ ([fe80::5df3:95ce:4dfd:134e%5]) with mapi id 15.20.5250.018; Mon, 16 May 2022
+ 10:36:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,302 +49,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 003a0dab-d502-11ec-b8b8-f95467ff1ed0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1652696511; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9SKwT5B95E5YN9xa81VvHUpO+QGR+zcfCsbhuV2Jgp4=;
-	b=LWTnDo04g2ZIMR91v0c2MAsYmxaUOl80sz+tTo9fRyqmuLzfAZ1jmcmhBu1F/2SwEKbidr
-	AAgP6W9p9YHXuK9IdMK0VKJ5T49DYuwEAzjkXZlkWl2knT/MPCmRsL91fAF4WZ26S0Lq+5
-	GaIq0ymGLcl5C1bryaGKOpn3k9Ph6bU=
-Date: Mon, 16 May 2022 12:21:48 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: "michael Kelley (LINUX)" <mikelley@microsoft.com>,
-	Baoquan He <bhe@redhat.com>, Dave Young <dyoung@redhat.com>,
-	d.hatayama@jp.fujitsu.com, akpm@linux-foundation.org,
-	kexec@lists.infradead.org, linux-kernel@vger.kernel.org,
-	bcm-kernel-feedback-list@broadcom.com,
-	linuxppc-dev@lists.ozlabs.org, linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
-	linux-hyperv@vger.kernel.org, linux-leds@vger.kernel.org,
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-	linux-s390@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-um@lists.infradead.org, linux-xtensa@linux-xtensa.org,
-	netdev@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
-	rcu@vger.kernel.org, sparclinux@vger.kernel.org,
-	xen-devel@lists.xenproject.org, x86@kernel.org,
-	kernel-dev@igalia.com, kernel@gpiccoli.net, halves@canonical.com,
-	fabiomirmar@gmail.com, alejandro.j.jimenez@oracle.com,
-	andriy.shevchenko@linux.intel.com, arnd@arndb.de, bp@alien8.de,
-	corbet@lwn.net, dave.hansen@linux.intel.com, feng.tang@intel.com,
-	gregkh@linuxfoundation.org, hidehiro.kawai.ez@hitachi.com,
-	jgross@suse.com, john.ogness@linutronix.de, keescook@chromium.org,
-	luto@kernel.org, mhiramat@kernel.org, mingo@redhat.com,
-	paulmck@kernel.org, peterz@infradead.org, rostedt@goodmis.org,
-	senozhatsky@chromium.org, stern@rowland.harvard.edu,
-	tglx@linutronix.de, vgoyal@redhat.com, vkuznets@redhat.com,
-	will@kernel.org
-Subject: Re: [PATCH 24/30] panic: Refactor the panic path
-Message-ID: <YoIlvFxbqoiDsD1l@alley>
-References: <20220427224924.592546-1-gpiccoli@igalia.com>
- <20220427224924.592546-25-gpiccoli@igalia.com>
- <Yn0TnsWVxCcdB2yO@alley>
- <d313eec2-96b6-04e3-35cd-981f103d010e@igalia.com>
+X-Inumbo-ID: 007c667e-d504-11ec-aa76-f101dd46aeb6
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1652697371;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=Hvyd0ozVM0yEezdsN/R+DWEWq1PoRLMAJ/WLQB11LfA=;
+  b=OHqMxTea1mvzbac+bfhHt/HCqaOEutf7xfuov0fsOzzSbDIxShos2Q8a
+   lw+JeSLwDlgrUqU8wzYpOnqpVqVhts3a6qCFQxn9ZMnsWHX1sFuopbxYh
+   M8sv2mPIyE3oYixYzouNlByCbbu1hFYVTmrm8JY0Leiuz4eocUFLF+POs
+   E=;
+X-IronPort-RemoteIP: 104.47.55.102
+X-IronPort-MID: 71785816
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:bYeDXaiEH3SJXXQ0xobObHP+X161FBEKZh0ujC45NGQN5FlHY01je
+ htvWDrVOf+NZmP0f9p0Po2zoEIFsJXUyIcyQFE/qS8wEC8b9cadCdqndUqhZCn6wu8v7a5EA
+ 2fyTvGacajYm1eF/k/F3oDJ9CU6jefSLlbFILas1hpZHGeIcw98z0M68wIFqtQw24LhXlrQ4
+ YmaT/D3YzdJ5RYlagr41IrbwP9flKyaVOQw5wFWiVhj5TcyplFNZH4tDfjZw0jQG+G4KtWSV
+ efbpIxVy0uCl/sb5nFJpZ6gGqECaua60QFjERO6UYD66vRJjnRaPqrWqJPwwKqY4tmEt4kZ9
+ TlDiXC/YQsNIq3TivgmaElBSjkkArFk9If/fGfq5KR/z2WeG5ft69NHKRhueKgnoKNwC2wI8
+ uEEIjcQaBzFn/ix3L+wVuhrgIIkMdXvO4Qc/HpnyFk1D95/GcyFH/qMuIIehW9q7ixNNa+2i
+ 84xcz1gYQ6GexRSElwWFIg/jKGjgXyXnzhw9wvK9fdnuja7IApZ9b7jAuT/W5uwGsxSwWaWv
+ kft/nn6DURPXDCY4X/fmp62vcffkCW+VI8MGbmQ8v9xnEbV1mEVEAcRV1awvb++kEHWc9BVJ
+ lEQ+yEuhbMv70HtRd74NzWnpFaUsxhaXMBfe9DW8ymIw6vQpgOGXG4NS2cZbMR87ZdsAzs3y
+ lWOgtXlQyR1t6GYQm6c8bHSqi6uPS8SLikJYipsoRY53uQPabob1nrnJuuP2obv5jEpMVkcG
+ wy3kRU=
+IronPort-HdrOrdr: A9a23:NUVRXq3XYUmZQFIMu4sTkAqjBVRyeYIsimQD101hICG9Lfb0qy
+ n+pp4mPEHP4wr5OEtOpTlPAtjjfZq6z+8M3WBxB8baYOCCggeVxe5ZnO/fKlHbexEWldQtqJ
+ uIDZIOb+EYZGIS5aia3ODRKadb/DDtytHMuQ6x9QYPcek8AJsQlDuRRzzrZXFedU1jP94UBZ
+ Cc7s1Iq36JfmkWVN2yAj0gU/LYr9PGuZr6aVpebiRXoTWmvHeN0vrXAhKY1hARX3dmxqojy3
+ HMl0jc6r+4u/+25xfA3yv47ohQmvHm1txfbfb8/PQ9G3HJsEKFdY5hU7qNsHQcp/yu0k8jlJ
+ 32rxIpL61ImgHsV1DwhSGo9xjr0T4o5XOn40Sfm2HfrcvwQy9/I9ZdhKpCGyGppnYIjZVZ6u
+ ZmzmiZv51YAVfrhyLm/eXFUBlsiw6dvWciq+gOlHZSOLFuIoO5lbZvs3+9La1wUh4TsOscYa
+ hT5YDnlb1rmGqhHjzkVjIF+q3tYpwxdi32MXTq9PblkAS+p0oJsHfw9PZv4kvoy6hNNaWsn9
+ 60VJiAtIs+O/P+PpgNcNvof6OMex3waCOJFl6uCnLaM4xCE07xivfMkcUIDaeRCdQ18Kc=
+X-IronPort-AV: E=Sophos;i="5.91,229,1647316800"; 
+   d="scan'208";a="71785816"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mHb5D2FgwTrHXrPIbRAON1+6q29QF9PgGHkgUVfeyxibH/lIgpP5SmqP+4zB3I6JFiPdJ/wEq6Yqt1B98MiQ0zGY9jpBo1bhZc9YqMsvXHO3pKRp4kFvadnQP40mVU/RiaKCwCHF2XdmDaEjpJk2MIn7yYkG+MzD4orvvu20/YLTYmBPaVkYWPEMzj3MuqczIGjJ7lWlmkTpfD5l5nxEE5Wr3WIEaO++JcvGTDko3ZBs6lFFyTNszi9OKHm7FS1mO1aUyqC1iP0RC8X07myQTSuGRR3abAx6iALD7yRauZG/4mtzR9c8f5boN2AhefhKeurKPsbJguFmhujTy4GKoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j6VRuSEWcJyBV3jT/k3E6n1bWGDSbjz/MtUh+1H03Jg=;
+ b=SHqtGnm+h4GFyLTCFR9IF+TO+W1jObOhLtGXpgAuq93W4NscAaxS7Tmvbd/jmdDAhvm3zRNkD+o2k8QIrqRv4zSrCJN6PmjlV343gGFAGbmT8X8k80Q/zJaqrvZELAkKICpvd4arabdqPfVQCCAi5CpWnN9lQFQ39dJGtrvPuDvtowZDYVOdLB4nSD+in2/31vUg86TBx+hK8F3zChuhHtO9MlimVZUwdRQ1/utEQIjOkomdXk/CGQ9iOWNFAVYSi9W6n3cYAjkLuudipqqmpBlnxb3rFBDwojeDfDhXaqadGMh8iOJIXmxEH2kxB6dcvt8ftTzA/6zhRZwjvVr0mw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j6VRuSEWcJyBV3jT/k3E6n1bWGDSbjz/MtUh+1H03Jg=;
+ b=gPLFvN3FEuhG3sgI029uq8yEWv1buqUoD7iqw68VwSN20jw/mybqe4HeXYcbVPi1QIPIjC/aELU58BGy62uE9B6693sHOqXBLTnadixZMcgo+lMh6+Vix9XHtnewsbmF72qVfoyFyiQ9hC85QsU9lGUSG4YbMDkiM+XDtssZT7g=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/mwait-idle: add missing newline
+Date: Mon, 16 May 2022 12:36:01 +0200
+Message-Id: <20220516103601.25671-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.36.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LNXP265CA0085.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:76::25) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d313eec2-96b6-04e3-35cd-981f103d010e@igalia.com>
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b5ddcba2-f619-4abe-dffe-08da3727e2da
+X-MS-TrafficTypeDiagnostic: BYAPR03MB4615:EE_
+X-Microsoft-Antispam-PRVS:
+	<BYAPR03MB46159A79F008D4B037AE489D8FCF9@BYAPR03MB4615.namprd03.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	LkQOV+cig1/xsWA74vO9yb+aQN0TzSfYN3S5sSyU3bp5wojDeIfeUQ2uUZS7yVpFs03UgUUjYKmgxjbrSLlzhmD6j1AGo1a8t+qCzOSEi9dEbjJXTMNOWKlzWI5l2U+dMk4rVci4kWPHNAAuTN18sC2FeMKHCzdIdykZ6IkjhyEKyfWUPvg8RrhapevSmffCQyjAAVfuB+30kUafkxWNocyhBJRyQ3cO6GHXWKPwYZ7DvDPXoUIwzjwb9InyJDoaVg1pT7+QNadqVCn0LUBtIeZ7sIZyrJpGm10y1GdCwIhhB6wB9iQNLSUGH2+0X3y3ihYmW4tWwAEUUoVY/M/MPmiRXCsyAc8y4J2L8qwZy6c37X4Zavv/iFHG2VOnJ+HtDC9SYwxtHmDXP/SHxqan6lK9+IlKYzDMlMmVck+7Pxtb8oD4WPscTknez460xTnrPiYTfdsPB933PBKwiF8nYAdgOHfd5Zmw8q5CkFyuaHoO0bmc1QPH5Yn/aSJL607avvcDnhrgMVEwfwf2zKbQ4ysGMDG7BuM65Hu6BdroID1Ns2cVi4JJ5+jTCuH9eTXqZCg7tDWwnEjY7uXh43cTkVqjaPFQ0btnV0FzZXLxjOzGWXUqnVqJu67F86ngjqS+5vvKj2Cn0j6AcAvFQXekjw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(82960400001)(36756003)(8936002)(6916009)(508600001)(186003)(1076003)(6486002)(316002)(38100700002)(54906003)(2616005)(4744005)(86362001)(2906002)(66946007)(66556008)(26005)(4326008)(66476007)(5660300002)(6512007)(6506007)(6666004)(83380400001)(8676002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S0dZT0ZnMGFQRXZiQlIrcmIrTUczVmc0WDdlM3dmMFN5ZVVLdVVUNHRwOWti?=
+ =?utf-8?B?MDJoaTE0UXVLMml6Z29EWlRWdEljUnNmMTFld0pjVUNNY05ydGRDQmxlY1B2?=
+ =?utf-8?B?T3ZTampWcCtNekcvc2U1OEp6dThYOVhXeEt3UUJRQjZVRUlRSzIwcmJSYi9O?=
+ =?utf-8?B?bUFHUktaa1NMZ3k2ZEhKSHNLeWJraWd4VW5oV2JidlpJK2JpU2x1dVFWeXg4?=
+ =?utf-8?B?NnhZNkRXeVY1TXk2L05SeFdvSmZveW5pUHlXdzVkSWdVZHBlOVZoWmsrQUF4?=
+ =?utf-8?B?OUduVUcwQVFqbEJEbkxkYUYvVmVrVFV3dmFhZEhMajlHOWVwdGt0cXAxVDhr?=
+ =?utf-8?B?dThxNzgvM2FENWxHOWVaRHRMMEdIMFc0RTUxS1dneUlCRHZJU2N1V0N6SUtn?=
+ =?utf-8?B?SXFEeDFvQnJYMnB3Y09jV1dRazVBVVBOV2RwN2JNR1o1YzBKSjlmZFR4L1NR?=
+ =?utf-8?B?Zm5HbnNXYTVLZ085dWx0a2ZQZlUwRW9HNy9BNndUZEZUTERrb3BLSFFVMGNZ?=
+ =?utf-8?B?NTZwdWVmVDh1LzNQSXQ3aXh1dGp2cU9Xc2c5WVJZV0ovVjF4NkpGaGVvOWZz?=
+ =?utf-8?B?Q01heXdSb0xlNnlDYkRXZDR4czJrUTNrdFdxenFHK2VXcmJFa0xybVROWXd4?=
+ =?utf-8?B?anlQOTNrR3diMFlUUmZieTRVUFY5ZTRlSUkrcitlSmRpSWRORjlPOCtaVzhr?=
+ =?utf-8?B?eGZpaXV4dkRRUVpEVFhUb2h6bXBSbmZURjQwa09CZ3hTOTIrR0cwV0hMWFZm?=
+ =?utf-8?B?Zi94VmkvQzRrUVVLRmJid3JaNlczMW0zY3pkeUM3WUhmNXhuRGI1VE9zVEFI?=
+ =?utf-8?B?UWVMQTNBUjdqcURSdEM1MGJWM25VOEtZTDcyVzdTRG14bG82bnNHcGtBTUov?=
+ =?utf-8?B?R1UydTk0NTBQMEcxTytWamI1N2RIWTVYYjFtN09ocFZGaTFDM0RvYmlTeXBP?=
+ =?utf-8?B?K0dCeEVXbUs1L1V2S3VGM3ZpY1ZKZ2dqKzlubjl2d1lyczlxMU1FWVlNMUxi?=
+ =?utf-8?B?VzNtNThCMkFDV1A5SklkR0RLMmU2bXFsVUFKYUgwR0xzenFOaXB5VDhIclE0?=
+ =?utf-8?B?SkxCMjJ5TEh3Q3dQVmlCN3pyZ2lRaWlSc3lwU2d0d3NacXI2cC8rZTBndWgx?=
+ =?utf-8?B?VEx0T1RFbUlJTlM1R1dDL3h4YXZqbEY3ZmpmZ0NEL1hjbzBEVkYxRTJ1MlFq?=
+ =?utf-8?B?anpSSkNFZzE5NHJJOC9CN0Fld0FnZ3hpVzhlU1pXY0FtNU1aWXRMNTlJNytZ?=
+ =?utf-8?B?ZzE1Z1I0WU1tdTc3VEE3N2tzZ3Y0QzlOWi9oOUt5K0JpcGNBRWZRaEREbTVF?=
+ =?utf-8?B?SkJLbEZDTnpLbFVZTkJieTJlQ3h4RDUydm5PbFhKQWNUWnJXYXo3OXhxQVNw?=
+ =?utf-8?B?NjNWVjhVbWRmRjZ3c2g4NlFUWUZGYmpEMjJPWDZUckFZN2JDTnlvSDZRTmZq?=
+ =?utf-8?B?elRQelg1MjhRTWJXOUxET1hjMHRQL3Z5SVY1UEFsczdiWFRaZWFlazNUY1VJ?=
+ =?utf-8?B?c2h5MlowYlBoSUJ2bkRBUkF0OGVyWmVRRXZpQUE4SEQxZWtMZHFoSUd5T0pk?=
+ =?utf-8?B?dUVOZWw1djVYU2ZWaW8vVzUwdTdtejlJcmkxdlBidHg4ZXQ5am1mWWxDN1FL?=
+ =?utf-8?B?SFprdjEwWCtaMGZrQ0FoV1dNUHFxZjcvWnE4KytWLzR6c05kRXdOc1RlN1Mv?=
+ =?utf-8?B?bEtEZFJtK01saU05K3ozSnkvbzdQdDZwUkVkOW8vdTBJUUU2WFpwWEg1R3VQ?=
+ =?utf-8?B?clU2MUpvNUMySzM0Rk1oQjg4TnFwSE9kMGtxbXlpdC9wSzJYdVA1b05wMUFm?=
+ =?utf-8?B?RUcxVEp4RHRnbndXc3JmenJ3V0c3QXZFZGlYSUJzbUkyQmVEWmp4UmRSdU1U?=
+ =?utf-8?B?aFc5aTJqeTVwODdLVEFOSThLbkhIb1NXQUJZQzU1VEpvR1lFckNFVHhFQmY4?=
+ =?utf-8?B?empDZ0ZDcm1lTlJPVFZwMlZxditBYU5Ta1VJK0xQVDNNaTVuRXNYZ1g4WVBu?=
+ =?utf-8?B?Z21XeU5XTUdTSXhqVi8vc2xyYW01bVlaeFlDZUwyR2YxQlNzSUNWWGUzNGw0?=
+ =?utf-8?B?RkF0ZVlVWWdGOVpZUHRDczBrSWJhL2tNR1V4S08vbFZBTlpScHNMSmM4OGc4?=
+ =?utf-8?B?UTJORmdWdFFOeG4yN2pLaUJkNHpIMnNvTTMvMDh2Ukt5YmFOdTlFbGllWkdq?=
+ =?utf-8?B?eDRkcXNiTC9nQ043VDJFTmdyQTFNUWY1V0NwRWZpNjlFcUMxTkFvYmtyRUcz?=
+ =?utf-8?B?YU4vWG1SMXZIUGRsRnVlQ3lYbitac1FKN0tEZ29ZR3dTMHdVM3dnUG1zUUtG?=
+ =?utf-8?B?TFloNklFN1FyZTRjWVhDZi9zcXVoTDdsbTJ5QzJ6R2ltM2JSeVIvZz09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5ddcba2-f619-4abe-dffe-08da3727e2da
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 May 2022 10:36:07.6687
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7YxGfJzI/P85nHS+P3irJVWKSq1ctYmzer7CJ5NxVTLXdjxy3X76vS4aOoelMLZ1c01K49SvHPFDbRzmeXHRPA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB4615
 
-On Sun 2022-05-15 19:47:39, Guilherme G. Piccoli wrote:
-> On 12/05/2022 11:03, Petr Mladek wrote:
-> > This talks only about kdump. The reality is much more complicated.
-> > The level affect the order of:
-> > 
-> >     + notifiers vs. kdump
-> >     + notifiers vs. crash_dump
-> >     + crash_dump vs. kdump
-> 
-> First of all, I'd like to ask you please to clarify to me *exactly* what
-> are the differences between "crash_dump" and "kdump". I'm sorry if
-> that's a silly question, I need to be 100% sure I understand the
-> concepts the same way you do.
+Fixes: 5a211704e8 ('mwait-idle: prevent SKL-H boot failure when C8+C9+C10 enabled')
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/arch/x86/cpu/mwait-idle.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Ah, it should have been:
+diff --git a/xen/arch/x86/cpu/mwait-idle.c b/xen/arch/x86/cpu/mwait-idle.c
+index 6add64dc5f..5d77672f6b 100644
+--- a/xen/arch/x86/cpu/mwait-idle.c
++++ b/xen/arch/x86/cpu/mwait-idle.c
+@@ -1363,7 +1363,7 @@ static int cf_check mwait_idle_cpu_init(
+ 		/* if state marked as disabled, skip it */
+ 		if (cpuidle_state_table[cstate].flags &
+ 		    CPUIDLE_FLAG_DISABLED) {
+-			printk(XENLOG_DEBUG PREFIX "state %s is disabled",
++			printk(XENLOG_DEBUG PREFIX "state %s is disabled\n",
+ 			       cpuidle_state_table[cstate].name);
+ 			continue;
+ 		}
+-- 
+2.36.0
 
-     + notifiers vs. kmsg_dump
-     + notifiers vs. crash_dump
-     + crash_dump vs. kmsg_dump
-
-I am sorry for the confusion. Even "crash_dump" is slightly
-misleading because there is no function with this name.
-But it seems to be easier to understand than __crash_kexec().
-
-
-> > There might theoretically many variants of the ordering of kdump,
-> > crash_dump, and the 4 notifier list. Some variants do not make
-> > much sense. You choose 5 variants and tried to select them by
-> > a level number.
-> > 
-> > The question is if we really could easily describe the meaning this
-> > way. It is not only about a "level" of notifiers before kdump. It is
-> > also about the ordering of crash_dump vs. kdump. IMHO, "level"
-> > semantic does not fit there.
-> > 
-> > Maybe more parameters might be easier to understand the effect.
-> > Anyway, we first need to agree on the chosen variants.
-> > I am going to discuss it more in the code, see below.
-> > 
-> > 
-> > [...] 
-> > Here is the code using the above functions. It helps to discuss
-> > the design and logic.
-> > 
-> > I have to say that the logic is very unclear. Almost all
-> > functions are called twice:
-> > 
-> > The really used code path is defined by order_panic_notifiers_and_kdump()
-> > that encodes "level" into "bits". The bits are then flipped in
-> > panic_notifier_*_once() calls that either do something or not.
-> > kmsg_dump() is called according to the bit flip.
-> > 
-> > Also I guess that it is good proof that "level" abstraction does
-> > not fit here. Normal levels would not need this kind of magic.
-> 
-> Heheh OK, I appreciate your opinion, but I guess we'll need to agree in
-> disagree here - I'm much more fond to this kind of code than a bunch of
-> if/else blocks that almost give headaches. Encoding such "level" logic
-> in the if/else scheme is very convoluted, generates a very big code. And
-> the functions aren't so black magic - they map a level in bits, and the
-> functions _once() are called...once! Although we switch the position in
-> the code, so there are 2 calls, one of them is called and the other not.
-
-I see. Well, I would consider this as a warning that the approach is
-too complex. If the code, using if/then/else, would cause headaches
-then also understanding of the behavior would cause headaches for
-both users and programmers.
-
-
-> But that's totally fine to change - especially if we're moving away from
-> the "level" logic. I see below you propose a much simpler approach - if
-> we follow that, definitely we won't need the "black magic" approach heheh
-
-I do not say that my proposal is fully correct. But we really need
-this kind of simpler approach.
-
-
-> > OK, the question is how to make it better.
-
-> > One option "panic_prefer_crash_dump" should be enough.
-> > And the code might look like:
-> > 
-> > void panic()
-> > {
-> > [...]
-> > 	dump_stack();
-> > 	kgdb_panic(buf);
-> > 
-> > 	< ---  here starts the reworked code --- >
-> > 
-> > 	/* crash dump is enough when enabled and preferred. */
-> > 	if (panic_prefer_crash_dump)
-> > 		__crash_kexec(NULL);
-> > 
-> > 	/* Stop other CPUs and focus on handling the panic state. */
-> > 	if (has_kexec_crash_image)
-> > 		crash_smp_send_stop();
-> > 	else
-> > 		smp_send_stop()
-> > 
-> 
-> Here we have a very important point. Why do we need 2 variants of SMP
-> CPU stopping functions? I disagree with that - my understanding of this
-> after some study in architectures is that the crash_() variant is
-> "stronger", should work in all cases and if not, we should fix that -
-> that'd be a bug.
-> 
-> Such variant either maps to smp_send_stop() (in various architectures,
-> including XEN/x86) or overrides the basic function with more proper
-> handling for panic() case...I don't see why we still need such
-> distinction, if you / others have some insight about that, I'd like to
-> hear =)
-
-The two variants were introduced by the commit 0ee59413c967c35a6dd
-("x86/panic: replace smp_send_stop() with kdump friendly version in
-panic path")
-
-It points to https://lkml.org/lkml/2015/6/24/44 that talks about
-still running watchdogs.
-
-It is possible that the problem could be fixed another way. It is
-even possible that it has already been fixed by the notifiers
-that disable the watchdogs.
-
-Anyway, any change of the smp_send_stop() behavior should be done
-in a separate patch. It will help with bisection of possible
-regression. Also it would require a good explanation in
-the commit message. I would personally do it in a separate
-patch(set).
-
-
-> > 	/* Notify hypervisor about the system panic. */
-> > 	atomic_notifier_call_chain(&panic_hypervisor_list, 0, NULL);
-> > 
-> > 	/*
-> > 	 * No need to risk extra info when there is no kmsg dumper
-> > 	 * registered.
-> > 	 */
-> > 	if (!has_kmsg_dumper())
-> > 		__crash_kexec(NULL);
-> > 
-> > 	/* Add extra info from different subsystems. */
-> > 	atomic_notifier_call_chain(&panic_info_list, 0, NULL);
-> > 
-> > 	kmsg_dump(KMSG_DUMP_PANIC);
-> > 	__crash_kexec(NULL);
-> > 
-> > 	/* Flush console */
-> > 	unblank_screen();
-> > 	console_unblank();
-> > 	debug_locks_off();
-> > 	console_flush_on_panic(CONSOLE_FLUSH_PENDING);
-> > 
-> > 	if (panic_timeout > 0) {
-> > 		delay()
-> > 	}
-> > 
-> > 	/*
-> > 	 * Prepare system for eventual reboot and allow custom
-> > 	 * reboot handling.
-> > 	 */
-> > 	atomic_notifier_call_chain(&panic_reboot_list, 0, NULL);
-> 
-> You had the order of panic_reboot_list VS. consoles flushing inverted.
-> It might make sense, although I didn't do that in V1...
-
-IMHO, it makes sense:
-
-  1. panic_reboot_list contains notifiers that do the reboot
-     immediately, for example, xen_panic_event, alpha_panic_event.
-     The consoles have to be flushed earlier.
-
-  2. console_flush_on_panic() ignores the result of console_trylock()
-     and always calls console_unlock(). As a result the lock should
-     be unlocked at the end. And any further printk() should be able
-     to printk the messages to the console immediately. It means
-     that any messages printed by the reboot notifiers should appear
-     on the console as well.
-
-> Are you OK in having a helper for console flushing, as I did in V1? It
-> makes code of panic() a bit less polluted / more focused I feel.
-
-Yes, it makes sense. Well, it would better to do it in a separate
-patch. The patch patch reworking the logic should be as small
-as possible. It will simplify the review.
-
-
-> > 	if (panic_timeout != 0) {
-> > 		reboot();
-> > 	}
-> > 
-> > 	/*
-> > 	 * Prepare system for the infinite waiting, for example,
-> > 	 * setup blinking.
-> > 	 */
-> > 	atomic_notifier_call_chain(&panic_loop_list, 0, NULL);
-> > 
-> > 	infinite_loop();
-> > }
-> > 
-> > 
-> > __crash_kexec() is there 3 times but otherwise the code looks
-> > quite straight forward.
-> > 
-> > Note 1: I renamed the two last notifier list. The name 'post-reboot'
-> > 	did sound strange from the logical POV ;-)
-> > 
-> > Note 2: We have to avoid the possibility to call "reboot" list
-> > 	before kmsg_dump(). All callbacks providing info
-> > 	have to be in the info list. It a callback combines
-> > 	info and reboot functionality then it should be split.
-> > 
-> > 	There must be another way to calm down problematic
-> > 	info callbacks. And it has to be solved when such
-> > 	a problem is reported. Is there any known issue, please?
-> > 
-> > It is possible that I have missed something important.
-> > But I would really like to make the logic as simple as possible.
-> 
-> OK, I agree with you! It's indeed simpler and if others agree, I can
-> happily change the logic to what you proposed. Although...currently the
-> "crash_kexec_post_notifiers" allows to call _all_ panic_reboot_list
-> callbacks _before kdump_.
->
-> We need to mention this change in the commit messages, but I really
-> would like to hear the opinions of heavy users of notifiers (as
-> Michael/Hyper-V) and the kdump interested parties (like Baoquan / Dave
-> Young / Hayatama). If we all agree on such approach, will change that
-> for V2 =)
-
-Sure, we need to make sure that we call everything that is needed.
-And it should be documented.
-
-I believe that this is the right way because:
-
-  + It was actually the motivation for this patchset. We split
-    the notifiers into separate lists because we want to call
-    only the really needed ones before kmsg_dump and crash_dump.
-
-  + If anything is needed for crash_dump that it should be called
-    even when crash_dump is called first. It should be either
-    hardcoded into crash_dump() or we would need another notifier
-    list that will be always called before crash_dump.
-
-
-Thanks a lot for working on this.
-
-Best Regards,
-Petr
 
