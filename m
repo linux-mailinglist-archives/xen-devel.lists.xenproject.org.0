@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03F2752864A
-	for <lists+xen-devel@lfdr.de>; Mon, 16 May 2022 16:02:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.329872.553144 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C5E5528646
+	for <lists+xen-devel@lfdr.de>; Mon, 16 May 2022 16:02:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.329875.553156 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nqbIM-000099-DQ; Mon, 16 May 2022 14:01:58 +0000
+	id 1nqbIR-0000QF-Pq; Mon, 16 May 2022 14:02:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 329872.553144; Mon, 16 May 2022 14:01:58 +0000
+Received: by outflank-mailman (output) from mailman id 329875.553156; Mon, 16 May 2022 14:02:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nqbIM-00006K-AW; Mon, 16 May 2022 14:01:58 +0000
-Received: by outflank-mailman (input) for mailman id 329872;
- Mon, 16 May 2022 14:01:56 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1nqbIR-0000O1-L4; Mon, 16 May 2022 14:02:03 +0000
+Received: by outflank-mailman (input) for mailman id 329875;
+ Mon, 16 May 2022 14:02:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nqbIK-00006A-8U; Mon, 16 May 2022 14:01:56 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nqbIK-00031H-6S; Mon, 16 May 2022 14:01:56 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nqbIJ-0006r3-Mh; Mon, 16 May 2022 14:01:55 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nqbIJ-00040t-MH; Mon, 16 May 2022 14:01:55 +0000
+ (envelope-from <SRS0=fbMg=VY=suse.com=pmladek@srs-se1.protection.inumbo.net>)
+ id 1nqbIP-0000NS-Qa
+ for xen-devel@lists.xenproject.org; Mon, 16 May 2022 14:02:01 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c17eeaa8-d520-11ec-837e-e5687231ffcc;
+ Mon, 16 May 2022 16:02:00 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id 2362F21F5C;
+ Mon, 16 May 2022 14:02:00 +0000 (UTC)
+Received: from suse.cz (unknown [10.100.201.202])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by relay2.suse.de (Postfix) with ESMTPS id D43112C141;
+ Mon, 16 May 2022 14:01:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,180 +44,234 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=PsWDfALIopVZx6UnuPyoqZxv57Muy9d/jQSK+cFc7V0=; b=Ewred9x0vg5tQkYojIRaSXYoS4
-	mAsXkftz+MYjlN08tZKcru68xoOhWYUoqegidjVCQt3mpBIVwkYRRRptqAKP0aoOPPgAeYCw95sUi
-	fCXLvKIBnXOIbEeW2i5+lkQDZyy0xaYmJRNs6z79Nvg8fL0b3qhkj+BPhbj9K7hPaUrM=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170480-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: c17eeaa8-d520-11ec-837e-e5687231ffcc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1652709720; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6xX/Xo1YcyoxhDGVtD+3aF7M9NKMVvtDcsL11SFSAQU=;
+	b=UAEfoymfYf+QAbCzE3oYFS/LnW9rFBs924Unv93LKXY9GoxfXpJbDSZbNYQc1AwPujLxjA
+	jmh7TvIJcQUwFXF0iE9L66PiKtfkKtU88t+hUCpM3m0czPO3TM37NQr+8KouKC5lf5Okex
+	k2McswvfGUIvb+tozWKmApBRPL9ucl0=
+Date: Mon, 16 May 2022 16:01:57 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: akpm@linux-foundation.org, bhe@redhat.com, kexec@lists.infradead.org,
+	linux-kernel@vger.kernel.org, bcm-kernel-feedback-list@broadcom.com,
+	coresight@lists.linaro.org, linuxppc-dev@lists.ozlabs.org,
+	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-edac@vger.kernel.org, linux-hyperv@vger.kernel.org,
+	linux-leds@vger.kernel.org, linux-mips@vger.kernel.org,
+	linux-parisc@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-remoteproc@vger.kernel.org, linux-s390@vger.kernel.org,
+	linux-tegra@vger.kernel.org, linux-um@lists.infradead.org,
+	linux-xtensa@linux-xtensa.org, netdev@vger.kernel.org,
+	openipmi-developer@lists.sourceforge.net, rcu@vger.kernel.org,
+	sparclinux@vger.kernel.org, xen-devel@lists.xenproject.org,
+	x86@kernel.org, kernel-dev@igalia.com, kernel@gpiccoli.net,
+	halves@canonical.com, fabiomirmar@gmail.com,
+	alejandro.j.jimenez@oracle.com, andriy.shevchenko@linux.intel.com,
+	arnd@arndb.de, bp@alien8.de, corbet@lwn.net,
+	d.hatayama@jp.fujitsu.com, dave.hansen@linux.intel.com,
+	dyoung@redhat.com, feng.tang@intel.com, gregkh@linuxfoundation.org,
+	mikelley@microsoft.com, hidehiro.kawai.ez@hitachi.com,
+	jgross@suse.com, john.ogness@linutronix.de, keescook@chromium.org,
+	luto@kernel.org, mhiramat@kernel.org, mingo@redhat.com,
+	paulmck@kernel.org, peterz@infradead.org, rostedt@goodmis.org,
+	senozhatsky@chromium.org, stern@rowland.harvard.edu,
+	tglx@linutronix.de, vgoyal@redhat.com, vkuznets@redhat.com,
+	will@kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
+	Andrea Parri <parri.andrea@gmail.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+	Brian Norris <computersforpeace@gmail.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	David Gow <davidgow@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Dexuan Cui <decui@microsoft.com>, Doug Berger <opendmb@gmail.com>,
+	Evan Green <evgreen@chromium.org>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Hari Bathini <hbathini@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Julius Werner <jwerner@chromium.org>,
+	Justin Chen <justinpopo6@gmail.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Lee Jones <lee.jones@linaro.org>,
+	Markus Mayer <mmayer@broadcom.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Mihai Carabas <mihai.carabas@oracle.com>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Paul Mackerras <paulus@samba.org>, Pavel Machek <pavel@ucw.cz>,
+	Scott Branden <scott.branden@broadcom.com>,
+	Sebastian Reichel <sre@kernel.org>,
+	Shile Zhang <shile.zhang@linux.alibaba.com>,
+	Stephen Hemminger <sthemmin@microsoft.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Tianyu Lan <Tianyu.Lan@microsoft.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Wang ShaoBo <bobo.shaobowang@huawei.com>,
+	Wei Liu <wei.liu@kernel.org>, zhenwei pi <pizhenwei@bytedance.com>
+Subject: Re: [PATCH 19/30] panic: Add the panic hypervisor notifier list
+Message-ID: <YoJZVZl/MH0KiE/J@alley>
+References: <20220427224924.592546-1-gpiccoli@igalia.com>
+ <20220427224924.592546-20-gpiccoli@igalia.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 170480: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=708620d29db89d03e822b8d17dc75fbac865c6dc
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 16 May 2022 14:01:55 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20220427224924.592546-20-gpiccoli@igalia.com>
 
-flight 170480 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170480/
+On Wed 2022-04-27 19:49:13, Guilherme G. Piccoli wrote:
+> The goal of this new panic notifier is to allow its users to register
+> callbacks to run very early in the panic path. This aims hypervisor/FW
+> notification mechanisms as well as simple LED functions, and any other
+> simple and safe mechanism that should run early in the panic path; more
+> dangerous callbacks should execute later.
+> 
+> For now, the patch is almost a no-op (although it changes a bit the
+> ordering in which some panic notifiers are executed). In a subsequent
+> patch, the panic path will be refactored, then the panic hypervisor
+> notifiers will effectively run very early in the panic path.
+> 
+> We also defer documenting it all properly in the subsequent refactor
+> patch. While at it, we removed some useless header inclusions and
+> fixed some notifiers return too (by using the standard NOTIFY_DONE).
 
-Regressions :-(
+> --- a/arch/mips/sgi-ip22/ip22-reset.c
+> +++ b/arch/mips/sgi-ip22/ip22-reset.c
+> @@ -195,7 +195,7 @@ static int __init reboot_setup(void)
+>  	}
+>  
+>  	timer_setup(&blink_timer, blink_timeout, 0);
+> -	atomic_notifier_chain_register(&panic_notifier_list, &panic_block);
+> +	atomic_notifier_chain_register(&panic_hypervisor_list, &panic_block);
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+This notifier enables blinking. It is not much safe. It calls
+mod_timer() that takes a lock internally.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+This kind of functionality should go into the last list called
+before panic() enters the infinite loop. IMHO, all the blinking
+stuff should go there.
 
-version targeted for testing:
- ovmf                 708620d29db89d03e822b8d17dc75fbac865c6dc
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+>  
+>  	return 0;
+>  }
+> diff --git a/arch/mips/sgi-ip32/ip32-reset.c b/arch/mips/sgi-ip32/ip32-reset.c
+> index 18d1c115cd53..9ee1302c9d13 100644
+> --- a/arch/mips/sgi-ip32/ip32-reset.c
+> +++ b/arch/mips/sgi-ip32/ip32-reset.c
+> @@ -145,7 +144,7 @@ static __init int ip32_reboot_setup(void)
+>  	pm_power_off = ip32_machine_halt;
+>  
+>  	timer_setup(&blink_timer, blink_timeout, 0);
+> -	atomic_notifier_chain_register(&panic_notifier_list, &panic_block);
+> +	atomic_notifier_chain_register(&panic_hypervisor_list, &panic_block);
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   77 days
-Failing since        168258  2022-03-01 01:55:31 Z   76 days 1043 attempts
-Testing same since   170392  2022-05-13 15:40:22 Z    2 days   62 attempts
+Same here. Should be done only before the "loop".
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chao Li <lichao@loongson.cn>
-  Chao, Zhuoran <zhuoran.chao@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Christine <Yuwei.Chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  duntan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gua Guo <gua.guo@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Jiewen Yao <jiewen.yao@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Peter Grehan <grehan@freebsd.org>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Tom Lendacky <thomas.lendacky@amd.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yu Pu <yu.pu@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Yuwei Chen <yuwei.chen@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-  Zhuoran Chao <zhuoran.chao@intel.com>
+>  
+>  	return 0;
+>  }
+> --- a/drivers/firmware/google/gsmi.c
+> +++ b/drivers/firmware/google/gsmi.c
+> @@ -1034,7 +1034,7 @@ static __init int gsmi_init(void)
+>  
+>  	register_reboot_notifier(&gsmi_reboot_notifier);
+>  	register_die_notifier(&gsmi_die_notifier);
+> -	atomic_notifier_chain_register(&panic_notifier_list,
+> +	atomic_notifier_chain_register(&panic_hypervisor_list,
+>  				       &gsmi_panic_notifier);
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+I am not sure about this one. It looks like some logging or
+pre_reboot stuff.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+>  
+>  	printk(KERN_INFO "gsmi version " DRIVER_VERSION " loaded\n");
+> --- a/drivers/leds/trigger/ledtrig-activity.c
+> +++ b/drivers/leds/trigger/ledtrig-activity.c
+> @@ -247,7 +247,7 @@ static int __init activity_init(void)
+>  	int rc = led_trigger_register(&activity_led_trigger);
+>  
+>  	if (!rc) {
+> -		atomic_notifier_chain_register(&panic_notifier_list,
+> +		atomic_notifier_chain_register(&panic_hypervisor_list,
+>  					       &activity_panic_nb);
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+The notifier is trivial. It just sets a variable.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+But still, it is about blinking and should be done
+in the last "loop" list.
 
 
-Not pushing.
+>  		register_reboot_notifier(&activity_reboot_nb);
+>  	}
+> --- a/drivers/leds/trigger/ledtrig-heartbeat.c
+> +++ b/drivers/leds/trigger/ledtrig-heartbeat.c
+> @@ -190,7 +190,7 @@ static int __init heartbeat_trig_init(void)
+>  	int rc = led_trigger_register(&heartbeat_led_trigger);
+>  
+>  	if (!rc) {
+> -		atomic_notifier_chain_register(&panic_notifier_list,
+> +		atomic_notifier_chain_register(&panic_hypervisor_list,
+>  					       &heartbeat_panic_nb);
 
-(No revision log; it would be 6662 lines long.)
+Same here. Blinking => loop list.
+
+>  		register_reboot_notifier(&heartbeat_reboot_nb);
+>  	}
+> diff --git a/drivers/misc/bcm-vk/bcm_vk_dev.c b/drivers/misc/bcm-vk/bcm_vk_dev.c
+> index a16b99bdaa13..d9d5199cdb2b 100644
+> --- a/drivers/misc/bcm-vk/bcm_vk_dev.c
+> +++ b/drivers/misc/bcm-vk/bcm_vk_dev.c
+> @@ -1446,7 +1446,7 @@ static int bcm_vk_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+>  
+>  	/* register for panic notifier */
+>  	vk->panic_nb.notifier_call = bcm_vk_on_panic;
+> -	err = atomic_notifier_chain_register(&panic_notifier_list,
+> +	err = atomic_notifier_chain_register(&panic_hypervisor_list,
+>  					     &vk->panic_nb);
+
+It seems to reset some hardware or so. IMHO, it should go into the
+pre-reboot list.
+
+
+>  	if (err) {
+>  		dev_err(dev, "Fail to register panic notifier\n");
+> --- a/drivers/power/reset/ltc2952-poweroff.c
+> +++ b/drivers/power/reset/ltc2952-poweroff.c
+> @@ -279,7 +279,7 @@ static int ltc2952_poweroff_probe(struct platform_device *pdev)
+>  	pm_power_off = ltc2952_poweroff_kill;
+>  
+>  	data->panic_notifier.notifier_call = ltc2952_poweroff_notify_panic;
+> -	atomic_notifier_chain_register(&panic_notifier_list,
+> +	atomic_notifier_chain_register(&panic_hypervisor_list,
+>  				       &data->panic_notifier);
+
+I looks like this somehow triggers the reboot. IMHO, it should go
+into the pre_reboot list.
+
+>  	dev_info(&pdev->dev, "probe successful\n");
+>  
+> --- a/drivers/soc/bcm/brcmstb/pm/pm-arm.c
+> +++ b/drivers/soc/bcm/brcmstb/pm/pm-arm.c
+> @@ -814,7 +814,7 @@ static int brcmstb_pm_probe(struct platform_device *pdev)
+>  		goto out;
+>  	}
+>  
+> -	atomic_notifier_chain_register(&panic_notifier_list,
+> +	atomic_notifier_chain_register(&panic_hypervisor_list,
+>  				       &brcmstb_pm_panic_nb);
+
+I am not sure about this one. It instruct some HW to preserve DRAM.
+IMHO, it better fits into pre_reboot category but I do not have
+strong opinion.
+
+>  
+>  	pm_power_off = brcmstb_pm_poweroff;
+
+Best Regards,
+Petr
 
