@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 493B4528C79
-	for <lists+xen-devel@lfdr.de>; Mon, 16 May 2022 20:02:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.330251.553615 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D7F4528D06
+	for <lists+xen-devel@lfdr.de>; Mon, 16 May 2022 20:29:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.330259.553626 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nqf1z-0005Kv-9O; Mon, 16 May 2022 18:01:19 +0000
+	id 1nqfT3-0007qZ-Fr; Mon, 16 May 2022 18:29:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 330251.553615; Mon, 16 May 2022 18:01:19 +0000
+Received: by outflank-mailman (output) from mailman id 330259.553626; Mon, 16 May 2022 18:29:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nqf1z-0005J7-68; Mon, 16 May 2022 18:01:19 +0000
-Received: by outflank-mailman (input) for mailman id 330251;
- Mon, 16 May 2022 18:01:17 +0000
+	id 1nqfT3-0007o6-C9; Mon, 16 May 2022 18:29:17 +0000
+Received: by outflank-mailman (input) for mailman id 330259;
+ Mon, 16 May 2022 18:29:15 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nqf1x-0005J1-T5
- for xen-devel@lists.xenproject.org; Mon, 16 May 2022 18:01:17 +0000
+ (envelope-from <julien@xen.org>) id 1nqfT1-0007o0-Ta
+ for xen-devel@lists.xenproject.org; Mon, 16 May 2022 18:29:15 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1nqf1x-00084k-DP; Mon, 16 May 2022 18:01:17 +0000
-Received: from 54-240-197-236.amazon.com ([54.240.197.236]
+ id 1nqfT1-0008VH-FL; Mon, 16 May 2022 18:29:15 +0000
+Received: from 54-240-197-228.amazon.com ([54.240.197.228]
  helo=[192.168.22.38]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1nqf1x-00012P-5s; Mon, 16 May 2022 18:01:17 +0000
+ id 1nqfT1-0002lY-93; Mon, 16 May 2022 18:29:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,142 +42,143 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=BFVqC6gJWelypNLb8jsRmm/X66gu0Uiod+rPrLVyjP8=; b=VWzLoqvReOZZeij0hbMCXH9r5s
-	zWwqJcHNZ1HcbThmxJi816qj45Ly+YepIs2e+xOInmvyaXlkL0cyZ+sPy4uflEiPVCezsO6FyQpbN
-	bFc36bfHdJVmXojhVBSnwtpH7lPPlfVPtpdtTYE+8C8EJyAogSt64or5Z8s7iHKjFCtM=;
-Message-ID: <2ebda9bb-8045-56ec-619b-d0178d57ee17@xen.org>
-Date: Mon, 16 May 2022 19:01:15 +0100
+	bh=IL70NZxb6zoseb6l/HUHk2CGlwdjbX+D3he4HKunysU=; b=EGsjSvhU0cgahK08fXHdj7T49n
+	ESTfv3sLcLigqoePctEWdLY9txbxeK7296bQ3M75Sif4I9ZO6/U1Xj5UdS7mUkh+thyMx+VZ23XkC
+	VZBz5C9kBenujgp/BnvMySt1+n5r1C2ImMDu4wLUlypb3WrIsRA8zeHtAv3Ba/d989KE=;
+Message-ID: <7af0d53c-6fdc-33a4-a09b-93831b4ee2c0@xen.org>
+Date: Mon, 16 May 2022 19:29:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.9.0
-Subject: Re: [PATCH v4 1/6] xen: do not free reserved memory into heap
+Subject: Re: [PATCH v4 6/6] xen: retrieve reserved pages on populate_physmap
 To: Penny Zheng <Penny.Zheng@arm.com>, xen-devel@lists.xenproject.org
 Cc: wei.chen@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
 References: <20220510022733.2422581-1-Penny.Zheng@arm.com>
- <20220510022733.2422581-2-Penny.Zheng@arm.com>
+ <20220510022733.2422581-7-Penny.Zheng@arm.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20220510022733.2422581-2-Penny.Zheng@arm.com>
+In-Reply-To: <20220510022733.2422581-7-Penny.Zheng@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hi Penny,
 
 On 10/05/2022 03:27, Penny Zheng wrote:
-> Pages used as guest RAM for static domain, shall be reserved to this
-> domain only.
-> So in case reserved pages being used for other purpose, users
-> shall not free them back to heap, even when last ref gets dropped.
-> 
-> free_staticmem_pages will be called by free_heap_pages in runtime
-> for static domain freeing memory resource, so let's drop the __init
-> flag.
+> When static domain populates memory through populate_physmap on runtime,
+
+Typo: s/when static/when a static/ or "when static domains populate"
+
+s/on runtime/at runtime/
+
+> other than allocating from heap, it shall retrieve reserved pages from
+
+I am not sure to understand the part before the comma. But it doens't 
+sound necessary so maybe drop it?
+
+> resv_page_list to make sure that guest RAM is still restricted in statically
+> configured memory regions. And this commit introduces a new helper
+> acquire_reserved_page to make it work.
 > 
 > Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-> ---
-> v4 changes:
-> - no changes
-> ---
-> v3 changes:
-> - fix possible racy issue in free_staticmem_pages()
-> - introduce a stub free_staticmem_pages() for the !CONFIG_STATIC_MEMORY case
-> - move the change to free_heap_pages() to cover other potential call sites
-> - fix the indentation
-> ---
-> v2 changes:
-> - new commit
-> ---
->   xen/common/page_alloc.c | 17 ++++++++++++++---
->   xen/include/xen/mm.h    |  2 +-
->   2 files changed, 15 insertions(+), 4 deletions(-)
-> 
+
+[...]
+
 > diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-> index 319029140f..5e569a48a2 100644
+> index 290526adaf..06e7037a28 100644
 > --- a/xen/common/page_alloc.c
 > +++ b/xen/common/page_alloc.c
-> @@ -1443,6 +1443,10 @@ static void free_heap_pages(
->   
->       ASSERT(order <= MAX_ORDER);
->   
-> +    if ( pg->count_info & PGC_reserved )
-
-NIT: I would suggest to use "unlikely()" here.
-
-> +        /* Reserved page shall not go back to the heap. */
-> +        return free_staticmem_pages(pg, 1UL << order, need_scrub);
-> +
->       spin_lock(&heap_lock);
->   
->       for ( i = 0; i < (1 << order); i++ )
-> @@ -2636,8 +2640,8 @@ struct domain *get_pg_owner(domid_t domid)
->   
->   #ifdef CONFIG_STATIC_MEMORY
->   /* Equivalent of free_heap_pages to free nr_mfns pages of static memory. */
-> -void __init free_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
-> -                                 bool need_scrub)
-> +void free_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
-> +                          bool need_scrub)
-
-Looking at the implementation of free_staticmem_pages(), the page will 
-be scrubbed synchronously.
-
-If I am not mistaken, static memory is not yet supported so I would be 
-OK to continue with synchronous scrubbing. However, this will need to be 
-asynchronous before we even consider to security support it.
-
-BTW, SUPPORT.md doesn't seem to explicitely say whether static memory is 
-supported. Would you be able to send a patch to update it? I think this 
-should be tech preview for now.
-
+> @@ -2740,8 +2740,8 @@ static struct page_info * __init acquire_staticmem_pages(mfn_t smfn,
+>    * Acquire nr_mfns contiguous pages, starting at #smfn, of static memory,
+>    * then assign them to one specific domain #d.
+>    */
+> -int __init acquire_domstatic_pages(struct domain *d, mfn_t smfn,
+> -                                   unsigned int nr_mfns, unsigned int memflags)
+> +int acquire_domstatic_pages(struct domain *d, mfn_t smfn, unsigned int nr_mfns,
+> +                            unsigned int memflags)
 >   {
->       mfn_t mfn = page_to_mfn(pg);
->       unsigned long i;
-> @@ -2653,7 +2657,8 @@ void __init free_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
->           }
+>       struct page_info *pg;
 >   
->           /* In case initializing page of static memory, mark it PGC_reserved. */
-> -        pg[i].count_info |= PGC_reserved;
-> +        if ( !(pg[i].count_info & PGC_reserved) )
-
-NIT: I understand the flag may have already been set, but I am not 
-convinced if it is worth checking it and then set.
-
-> +            pg[i].count_info |= PGC_reserved;
-
-
->       }
->   }
->   
-> @@ -2762,6 +2767,12 @@ int __init acquire_domstatic_pages(struct domain *d, mfn_t smfn,
+> @@ -2769,12 +2769,43 @@ int __init acquire_domstatic_pages(struct domain *d, mfn_t smfn,
 >   
 >       return 0;
 >   }
-> +#else
-> +void free_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
-> +                          bool need_scrub)
+> +
+> +/*
+> + * Acquire a page from reserved page list(resv_page_list), when populating
+> + * memory for static domain on runtime.
+> + */
+> +mfn_t acquire_reserved_page(struct domain *d, unsigned int memflags)
+> +{
+> +    struct page_info *page;
+> +    mfn_t smfn;
+> +
+> +    /* Acquire a page from reserved page list(resv_page_list). */
+> +    page = page_list_remove_head(&d->resv_page_list);
+Alloc/free of memory can happen concurrently. So access to rsv_page_list 
+needs to be protected with a spinlock (mostly like d->page_alloc_lock).
+
+> +    if ( unlikely(!page) )
+> +        return INVALID_MFN;
+> +
+> +    smfn = page_to_mfn(page);
+> +
+> +    if ( acquire_domstatic_pages(d, smfn, 1, memflags) )
+
+I am OK if we call acquire_domstatic_pages() for now. But long term, I 
+think we should consider to optimize it because we know the page is 
+valid and belong to the guest. So there are a lot of pointless work 
+(checking mfn_valid(), scrubbing in the free part, cleaning the cache...).
+
+> +    {
+> +        page_list_add_tail(page, &d->resv_page_list);
+> +        return INVALID_MFN;
+> +    }
+> +
+> +    return smfn;
+> +}
+>   #else
+>   void free_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
+>                             bool need_scrub)
+>   {
+>       ASSERT_UNREACHABLE();
+>   }
+> +
+> +mfn_t acquire_reserved_page(struct domain *d, unsigned int memflags)
 > +{
 > +    ASSERT_UNREACHABLE();
+> +    return INVALID_MFN;
 > +}
 >   #endif
 >   
 >   /*
+> diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
+> index 35dc7143a4..c613afa57e 100644
+> --- a/xen/include/xen/domain.h
+> +++ b/xen/include/xen/domain.h
+> @@ -38,6 +38,10 @@ void arch_get_domain_info(const struct domain *d,
+>   #define CDF_staticmem            (1U << 2)
+>   #endif
+>   
+> +#ifndef is_domain_using_staticmem
+> +#define is_domain_using_staticmem(d) ((void)(d), false)
+> +#endif
+> +
+>   /*
+>    * Arch-specifics.
+>    */
 > diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-> index 3be754da92..9fd95deaec 100644
+> index 9fd95deaec..74810e1f54 100644
 > --- a/xen/include/xen/mm.h
 > +++ b/xen/include/xen/mm.h
-> @@ -85,10 +85,10 @@ bool scrub_free_pages(void);
->   } while ( false )
->   #define FREE_XENHEAP_PAGE(p) FREE_XENHEAP_PAGES(p, 0)
->   
-> -#ifdef CONFIG_STATIC_MEMORY
->   /* These functions are for static memory */
->   void free_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
->                             bool need_scrub);
-> +#ifdef CONFIG_STATIC_MEMORY
+> @@ -92,6 +92,7 @@ void free_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
 >   int acquire_domstatic_pages(struct domain *d, mfn_t smfn, unsigned int nr_mfns,
 >                               unsigned int memflags);
 >   #endif
+> +mfn_t acquire_reserved_page(struct domain *d, unsigned int memflags);
+>   
+>   /* Map machine page range in Xen virtual address space. */
+>   int map_pages_to_xen(
 
 Cheers,
 
