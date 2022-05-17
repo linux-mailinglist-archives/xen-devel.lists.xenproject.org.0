@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D71452AB0D
-	for <lists+xen-devel@lfdr.de>; Tue, 17 May 2022 20:43:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.331426.554940 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0546B52AB35
+	for <lists+xen-devel@lfdr.de>; Tue, 17 May 2022 20:49:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.331439.554951 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nr29B-0002ij-9J; Tue, 17 May 2022 18:42:17 +0000
+	id 1nr2FF-0003UH-2t; Tue, 17 May 2022 18:48:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 331426.554940; Tue, 17 May 2022 18:42:17 +0000
+Received: by outflank-mailman (output) from mailman id 331439.554951; Tue, 17 May 2022 18:48:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nr29B-0002fp-6O; Tue, 17 May 2022 18:42:17 +0000
-Received: by outflank-mailman (input) for mailman id 331426;
- Tue, 17 May 2022 18:42:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tJ1N=VZ=bugseng.com=roberto.bagnara@srs-se1.protection.inumbo.net>)
- id 1nr299-0002fU-Pc
- for xen-devel@lists.xenproject.org; Tue, 17 May 2022 18:42:15 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 115fda80-d611-11ec-bd2c-47488cf2e6aa;
- Tue, 17 May 2022 20:42:13 +0200 (CEST)
-Received: from [192.168.1.39] (unknown [81.93.39.129])
- by support.bugseng.com (Postfix) with ESMTPSA id D41284EE077A;
- Tue, 17 May 2022 20:42:12 +0200 (CEST)
+	id 1nr2FE-0003RN-Vz; Tue, 17 May 2022 18:48:32 +0000
+Received: by outflank-mailman (input) for mailman id 331439;
+ Tue, 17 May 2022 18:48:31 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nr2FD-0003RD-7m; Tue, 17 May 2022 18:48:31 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nr2FD-0002As-6L; Tue, 17 May 2022 18:48:31 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nr2FC-0001oQ-My; Tue, 17 May 2022 18:48:30 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nr2FC-0000Ua-MX; Tue, 17 May 2022 18:48:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,122 +42,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 115fda80-d611-11ec-bd2c-47488cf2e6aa
-Message-ID: <e6e6c211-3915-af72-d077-0bf77b6a6a9e@bugseng.com>
-Date: Tue, 17 May 2022 20:42:12 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.12) Gecko/20050929
- Thunderbird/1.0.7 Fedora/1.0.7-1.1.fc4 Mnenhy/0.7.3.0
-Subject: Re: [PATCH 1/3] x86/p2m.h: Add include guards
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20220509122409.14184-1-andrew.cooper3@citrix.com>
- <20220509122409.14184-2-andrew.cooper3@citrix.com>
- <000745e7-0b0e-386e-861e-901319defde3@suse.com>
-From: Roberto Bagnara <roberto.bagnara@bugseng.com>
-In-Reply-To: <000745e7-0b0e-386e-861e-901319defde3@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=hNC8g7SkP4G6u2cj0QUtgXaPxzfq1TF4AM0nDXPerso=; b=XpkuLavS5aLrH+M0Mx6mU+wIYz
+	DYLb6hHjcHGhAWCBJSBM8w93u9pyjMOC1cE3idbKGfMg201AHl7tdREvt46+k/zfk9P+/8Vq+04bJ
+	Afpx/gh3RpN5cX50rwE3KUgGubxhwNNn3+ZQMXgNN8hbNEGIjTgzeIyuopcDoXHdACKA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-170515-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 170515: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=708620d29db89d03e822b8d17dc75fbac865c6dc
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 17 May 2022 18:48:30 +0000
 
-On 17/05/22 17:38, Jan Beulich wrote:
-> On 09.05.2022 14:24, Andrew Cooper wrote:
->> Spotted by Eclair MISRA scanner.
-> 
-> I'm sorry, but what exactly was it that the scanner spotted? It was
-> actually deliberate to introduce this file without guards. I'm of
-> the general opinion that (private) headers not to be included by
-> other headers (but only by .c files) are not in need of guards. If
-> it is project-wide consensus that _all_ header files should have
-> guards, then I'll try to keep this in mind (in "x86emul: a few
-> small steps towards disintegration" for example I introduce
-> another such instance), but then it should also be put down in
-> ./CODING_STYLE.
+flight 170515 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/170515/
 
-The rationale of this rule is as follows:
+Regressions :-(
 
-- With a complex hierarchy of nested header files, it is possible
-   for a header file to be included more than once.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
 
-- This can bring to circular references of header files, which
-   can result in undefined behavior and/or be difficult to debug.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-- If multiple inclusion leads to multiple or conflicting definitions,
-   then this can result in undefined or erroneous behavior.
+version targeted for testing:
+ ovmf                 708620d29db89d03e822b8d17dc75fbac865c6dc
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-- Compilation and analysis time is needlessly increased.
+Last test of basis   168254  2022-02-28 10:41:46 Z   78 days
+Failing since        168258  2022-03-01 01:55:31 Z   77 days 1068 attempts
+Testing same since   170392  2022-05-13 15:40:22 Z    4 days   87 attempts
 
-There has been a period (which lasted until the end of the '70s
-or the beginning of the '80s, I would have to dig up to be
-more precise) when the solution was thought to be "headers
-shall not to be included by other headers but only by .c files."
-Experience then showed that, in medium to large projects,
-each .c file had to begin with a long list of #include
-directives;  such lists needed to be ordered to accommodate
-the dependencies between header files;  in some cases the
-lists were so long that:
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chao Li <lichao@loongson.cn>
+  Chao, Zhuoran <zhuoran.chao@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Christine <Yuwei.Chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  duntan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Gua Guo <gua.guo@intel.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jake Garver <jake@nvidia.com>
+  Jake Garver via groups.io <jake=nvidia.com@groups.io>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Jiewen Yao <jiewen.yao@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Peter Grehan <grehan@freebsd.org>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yu Pu <yu.pu@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Yuwei Chen <yuwei.chen@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+  Zhuoran Chao <zhuoran.chao@intel.com>
 
-a) it was a kind of black magic to find out the right
-    inclusion order, one that would work in any of
-    possibly many project configurations;
-b) the lists of #include directives often contained duplicates,
-    possibly because the desperate programmers where trying
-    to find the right order.
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
-In the end, the software engineering community converged
-on the idea that guards against multiple inclusion are
-a much better alternative.
 
-Of course there are valid reasons to deviate the rule:
-some header files might be conceived to be included
-multiple times.  A one-line configuration for ECLAIR
-will do the trick to make sure such header files are
-not reported.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Kind regards,
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-    Roberto
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Jan Beulich <JBeulich@suse.com>
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->> CC: Wei Liu <wl@xen.org>
->> CC: Stefano Stabellini <sstabellini@kernel.org>
->> CC: Julien Grall <julien@xen.org>
->> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
->> CC: Bertrand Marquis <bertrand.marquis@arm.com>
->> ---
->>   xen/arch/x86/mm/p2m.h | 5 +++++
->>   1 file changed, 5 insertions(+)
->>
->> diff --git a/xen/arch/x86/mm/p2m.h b/xen/arch/x86/mm/p2m.h
->> index cc0f6766e4df..dc706b8e4799 100644
->> --- a/xen/arch/x86/mm/p2m.h
->> +++ b/xen/arch/x86/mm/p2m.h
->> @@ -15,6 +15,9 @@
->>    * along with this program; If not, see <http://www.gnu.org/licenses/>.
->>    */
->>   
->> +#ifndef __ARCH_MM_P2M_H__
->> +#define __ARCH_MM_P2M_H__
->> +
->>   struct p2m_domain *p2m_init_one(struct domain *d);
->>   void p2m_free_one(struct p2m_domain *p2m);
->>   
->> @@ -39,6 +42,8 @@ int ept_p2m_init(struct p2m_domain *p2m);
->>   void ept_p2m_uninit(struct p2m_domain *p2m);
->>   void p2m_init_altp2m_ept(struct domain *d, unsigned int i);
->>   
->> +#endif /* __ARCH_MM_P2M_H__ */
->> +
->>   /*
->>    * Local variables:
->>    * mode: C
-> 
-> 
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 6662 lines long.)
 
