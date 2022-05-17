@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28B47529D66
-	for <lists+xen-devel@lfdr.de>; Tue, 17 May 2022 11:06:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.330602.554023 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89C81529D67
+	for <lists+xen-devel@lfdr.de>; Tue, 17 May 2022 11:06:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.330609.554033 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nqt9l-0006vF-3D; Tue, 17 May 2022 09:06:17 +0000
+	id 1nqt9p-0007L5-HJ; Tue, 17 May 2022 09:06:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 330602.554023; Tue, 17 May 2022 09:06:17 +0000
+Received: by outflank-mailman (output) from mailman id 330609.554033; Tue, 17 May 2022 09:06:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nqt9k-0006s5-VT; Tue, 17 May 2022 09:06:16 +0000
-Received: by outflank-mailman (input) for mailman id 330602;
- Tue, 17 May 2022 09:06:15 +0000
+	id 1nqt9p-0007Hx-E2; Tue, 17 May 2022 09:06:21 +0000
+Received: by outflank-mailman (input) for mailman id 330609;
+ Tue, 17 May 2022 09:06:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Vdn1=VZ=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1nqt9j-0005zY-Hd
- for xen-devel@lists.xenproject.org; Tue, 17 May 2022 09:06:15 +0000
+ id 1nqt9n-0005zY-IH
+ for xen-devel@lists.xenproject.org; Tue, 17 May 2022 09:06:19 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 9a73bbfd-d5c0-11ec-837e-e5687231ffcc;
- Tue, 17 May 2022 11:06:14 +0200 (CEST)
+ id 9c69672d-d5c0-11ec-837e-e5687231ffcc;
+ Tue, 17 May 2022 11:06:17 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ED6D51042;
- Tue, 17 May 2022 02:06:13 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1DBD61042;
+ Tue, 17 May 2022 02:06:17 -0700 (PDT)
 Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
  [10.169.190.94])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 4DD643F73D;
- Tue, 17 May 2022 02:06:11 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 744B63F73D;
+ Tue, 17 May 2022 02:06:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a73bbfd-d5c0-11ec-837e-e5687231ffcc
+X-Inumbo-ID: 9c69672d-d5c0-11ec-837e-e5687231ffcc
 From: Penny Zheng <Penny.Zheng@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: wei.chen@arm.com,
@@ -53,123 +53,151 @@ Cc: wei.chen@arm.com,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Penny Zheng <penny.zheng@arm.com>
-Subject: [PATCH v4 3/8] xen/arm: allocate static shared memory to a specific owner domain
-Date: Tue, 17 May 2022 17:05:24 +0800
-Message-Id: <20220517090529.3140417-4-Penny.Zheng@arm.com>
+Subject: [PATCH v4 4/8] xen/arm: introduce put_page_nr and get_page_nr
+Date: Tue, 17 May 2022 17:05:25 +0800
+Message-Id: <20220517090529.3140417-5-Penny.Zheng@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220517090529.3140417-1-Penny.Zheng@arm.com>
 References: <20220517090529.3140417-1-Penny.Zheng@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If owner property is defined, then owner domain of a static shared memory
-region is not the default dom_io anymore, but a specific domain.
+Later, we need to add the right amount of references, which should be
+the number of borrower domains, to the owner domain. Since we only have
+get_page() to increment the page reference by 1, a loop is needed per
+page, which is inefficient and time-consuming.
 
-This commit implements allocating static shared memory to a specific domain
-when owner property is defined.
-
-Coding flow for dealing borrower domain will be introduced later in the
-following commits.
+To save the loop time, this commit introduces a set of new helpers
+put_page_nr() and get_page_nr() to increment/drop the page reference by nr.
 
 Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
-v4 change:
-- no changes
+v4 changes:
+- make sure that the right equation return is at least equal to n
+- simplify the underflow
 ---
-v3 change:
-- simplify the code since o_gbase is not used if the domain is dom_io
+v3 changes:
+- check overflow with "n"
+- remove spurious change
+- bring back the check that we enter the loop only when count_info is
+greater than 0
 ---
 v2 change:
-- P2M mapping is restricted to normal domain
-- in-code comment fix
+- new commit
 ---
- xen/arch/arm/domain_build.c | 44 +++++++++++++++++++++++++++----------
- 1 file changed, 33 insertions(+), 11 deletions(-)
+ xen/arch/arm/include/asm/mm.h |  4 ++++
+ xen/arch/arm/mm.c             | 42 +++++++++++++++++++++++++++--------
+ 2 files changed, 37 insertions(+), 9 deletions(-)
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 1746c15b7c..59591e3c6e 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -800,9 +800,11 @@ static mfn_t __init acquire_shared_memory_bank(struct domain *d,
-  */
- static int __init allocate_shared_memory(struct domain *d,
-                                          u32 addr_cells, u32 size_cells,
--                                         paddr_t pbase, paddr_t psize)
-+                                         paddr_t pbase, paddr_t psize,
-+                                         paddr_t gbase)
- {
-     mfn_t smfn;
-+    int ret = 0;
+diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
+index 424aaf2823..c737d51e4d 100644
+--- a/xen/arch/arm/include/asm/mm.h
++++ b/xen/arch/arm/include/asm/mm.h
+@@ -347,6 +347,10 @@ void free_init_memory(void);
+ int guest_physmap_mark_populate_on_demand(struct domain *d, unsigned long gfn,
+                                           unsigned int order);
  
-     dprintk(XENLOG_INFO,
-             "Allocate static shared memory BANK %#"PRIpaddr"-%#"PRIpaddr".\n",
-@@ -817,8 +819,18 @@ static int __init allocate_shared_memory(struct domain *d,
-      * DOMID_IO is the domain, like DOMID_XEN, that is not auto-translated.
-      * It sees RAM 1:1 and we do not need to create P2M mapping for it
-      */
--    ASSERT(d == dom_io);
--    return 0;
-+    if ( d != dom_io )
-+    {
-+        ret = guest_physmap_add_pages(d, gaddr_to_gfn(gbase), smfn, PFN_DOWN(psize));
-+        if ( ret )
-+        {
-+            printk(XENLOG_ERR
-+                   "Failed to map shared memory to %pd.\n", d);
-+            return ret;
-+        }
-+    }
++extern bool get_page_nr(struct page_info *page, const struct domain *domain,
++                        unsigned long nr);
++extern void put_page_nr(struct page_info *page, unsigned long nr);
 +
-+    return ret;
+ extern void put_page_type(struct page_info *page);
+ static inline void put_page_and_type(struct page_info *page)
+ {
+diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+index 7b1f2f4906..8c8a8f6378 100644
+--- a/xen/arch/arm/mm.c
++++ b/xen/arch/arm/mm.c
+@@ -1537,21 +1537,29 @@ long arch_memory_op(int op, XEN_GUEST_HANDLE_PARAM(void) arg)
+     return 0;
  }
  
- static int __init process_shm(struct domain *d,
-@@ -831,6 +843,8 @@ static int __init process_shm(struct domain *d,
-     u32 shm_id;
-     u32 addr_cells, size_cells;
-     paddr_t gbase, pbase, psize;
-+    const char *role_str;
-+    bool owner_dom_io = true;
+-struct domain *page_get_owner_and_reference(struct page_info *page)
++static struct domain *page_get_owner_and_nr_reference(struct page_info *page,
++                                                      unsigned long nr)
+ {
+     unsigned long x, y = page->count_info;
+     struct domain *owner;
  
-     dt_for_each_child_node(node, shm_node)
-     {
-@@ -857,19 +871,27 @@ static int __init process_shm(struct domain *d,
-         ASSERT(IS_ALIGNED(pbase, PAGE_SIZE) && IS_ALIGNED(psize, PAGE_SIZE));
-         gbase = dt_read_number(cells, addr_cells);
- 
--        /* TODO: Consider owner domain is not the default dom_io. */
-+        /*
-+         * "role" property is optional and if it is defined explicitly,
-+         * then the owner domain is not the default "dom_io" domain.
-+         */
-+        if ( dt_property_read_string(shm_node, "role", &role_str) == 0 )
-+            owner_dom_io = false;
++    /* Restrict nr to avoid "double" overflow */
++    if ( nr >= PGC_count_mask )
++    {
++        ASSERT_UNREACHABLE();
++        return NULL;
++    }
 +
+     do {
+         x = y;
          /*
-          * Per static shared memory region could be shared between multiple
-          * domains.
--         * In case re-allocating the same shared memory region, we check
--         * if it is already allocated to the default owner dom_io before
--         * the actual allocation.
-+         * So when owner domain is the default dom_io, in case re-allocating
-+         * the same shared memory region, we check if it is already allocated
-+         * to the default owner dom_io before the actual allocation.
+          * Count ==  0: Page is not allocated, so we cannot take a reference.
+          * Count == -1: Reference count would wrap, which is invalid.
           */
--        if ( !is_shm_allocated_to_domio(pbase) )
-+        if ( (owner_dom_io && !is_shm_allocated_to_domio(pbase)) ||
-+             (!owner_dom_io && strcmp(role_str, "owner") == 0) )
-         {
--            /* Allocate statically shared pages to the default owner dom_io. */
--            ret = allocate_shared_memory(dom_io, addr_cells, size_cells,
--                                         pbase, psize);
-+            /* Allocate statically shared pages to the owner domain. */
-+            ret = allocate_shared_memory(owner_dom_io ? dom_io : d,
-+                                         addr_cells, size_cells,
-+                                         pbase, psize, gbase);
-             if ( ret )
-                 return ret;
-         }
+-        if ( unlikely(((x + 1) & PGC_count_mask) <= 1) )
++        if ( unlikely(((x + nr) & PGC_count_mask) <= nr) )
+             return NULL;
+     }
+-    while ( (y = cmpxchg(&page->count_info, x, x + 1)) != x );
++    while ( (y = cmpxchg(&page->count_info, x, x + nr)) != x );
+ 
+     owner = page_get_owner(page);
+     ASSERT(owner);
+@@ -1559,14 +1567,19 @@ struct domain *page_get_owner_and_reference(struct page_info *page)
+     return owner;
+ }
+ 
+-void put_page(struct page_info *page)
++struct domain *page_get_owner_and_reference(struct page_info *page)
++{
++    return page_get_owner_and_nr_reference(page, 1);
++}
++
++void put_page_nr(struct page_info *page, unsigned long nr)
+ {
+     unsigned long nx, x, y = page->count_info;
+ 
+     do {
+-        ASSERT((y & PGC_count_mask) != 0);
++        ASSERT((y & PGC_count_mask) >= nr);
+         x  = y;
+-        nx = x - 1;
++        nx = x - nr;
+     }
+     while ( unlikely((y = cmpxchg(&page->count_info, x, nx)) != x) );
+ 
+@@ -1576,19 +1589,30 @@ void put_page(struct page_info *page)
+     }
+ }
+ 
+-bool get_page(struct page_info *page, const struct domain *domain)
++void put_page(struct page_info *page)
++{
++    put_page_nr(page, 1);
++}
++
++bool get_page_nr(struct page_info *page, const struct domain *domain,
++                 unsigned long nr)
+ {
+-    const struct domain *owner = page_get_owner_and_reference(page);
++    const struct domain *owner = page_get_owner_and_nr_reference(page, nr);
+ 
+     if ( likely(owner == domain) )
+         return true;
+ 
+     if ( owner != NULL )
+-        put_page(page);
++        put_page_nr(page, nr);
+ 
+     return false;
+ }
+ 
++bool get_page(struct page_info *page, const struct domain *domain)
++{
++    return get_page_nr(page, domain, 1);
++}
++
+ /* Common code requires get_page_type and put_page_type.
+  * We don't care about typecounts so we just do the minimum to make it
+  * happy. */
 -- 
 2.25.1
 
