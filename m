@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EECFE52A4EB
-	for <lists+xen-devel@lfdr.de>; Tue, 17 May 2022 16:33:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.330963.554386 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B55152A4ED
+	for <lists+xen-devel@lfdr.de>; Tue, 17 May 2022 16:33:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.330964.554397 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nqyGV-0007ud-8s; Tue, 17 May 2022 14:33:35 +0000
+	id 1nqyGX-0008Bz-J5; Tue, 17 May 2022 14:33:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 330963.554386; Tue, 17 May 2022 14:33:35 +0000
+Received: by outflank-mailman (output) from mailman id 330964.554397; Tue, 17 May 2022 14:33:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nqyGV-0007sb-69; Tue, 17 May 2022 14:33:35 +0000
-Received: by outflank-mailman (input) for mailman id 330963;
- Tue, 17 May 2022 14:33:34 +0000
+	id 1nqyGX-00088q-FA; Tue, 17 May 2022 14:33:37 +0000
+Received: by outflank-mailman (input) for mailman id 330964;
+ Tue, 17 May 2022 14:33:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=NT3h=VZ=gmail.com=matiasevara@srs-se1.protection.inumbo.net>)
- id 1nqyGT-0007sV-UE
- for xen-devel@lists.xenproject.org; Tue, 17 May 2022 14:33:33 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1nqyGV-0007sV-VR
+ for xen-devel@lists.xenproject.org; Tue, 17 May 2022 14:33:36 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 53e9b9a6-d5ee-11ec-bd2c-47488cf2e6aa;
- Tue, 17 May 2022 16:33:33 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- p5-20020a1c2905000000b003970dd5404dso1390199wmp.0
- for <xen-devel@lists.xenproject.org>; Tue, 17 May 2022 07:33:32 -0700 (PDT)
+ id 5534f158-d5ee-11ec-bd2c-47488cf2e6aa;
+ Tue, 17 May 2022 16:33:35 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id w4so25008058wrg.12
+ for <xen-devel@lists.xenproject.org>; Tue, 17 May 2022 07:33:35 -0700 (PDT)
 Received: from horizon.home (amontsouris-681-1-37-131.w90-87.abo.wanadoo.fr.
  [90.87.156.131]) by smtp.gmail.com with ESMTPSA id
- f21-20020a7bcd15000000b003942a244f30sm2544884wmj.9.2022.05.17.07.33.31
+ f21-20020a7bcd15000000b003942a244f30sm2544884wmj.9.2022.05.17.07.33.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 May 2022 07:33:31 -0700 (PDT)
+ Tue, 17 May 2022 07:33:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,34 +44,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 53e9b9a6-d5ee-11ec-bd2c-47488cf2e6aa
+X-Inumbo-ID: 5534f158-d5ee-11ec-bd2c-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=+9HG/dVfNJyu74bNMj0VTJFNoJxjlcEa2s8utBre5yc=;
-        b=EsoYUsgrzUA7JVzblfHrb6MVajGlv1hB8CqNt0AJeWL70d5C5vsPQxlqhKLoFf+zZb
-         p4cOU4siA7nudo6jXLjrN8RwAzujnVIF5fiCIs07bKNigSuJ59tyK4gZti3MHtBZkGvk
-         hEYHq3w+FBdD7miA6BCVIlk/cKZsRVhzQQYIcAnnPKVsblCRAoyqMImXjqDSV+mcL+8G
-         7GwygC8YM2m+8SXrrjDFNM1q+7OBzzDtmPbkYvqbzLmyucbbDNQsekL/iWR9uOtn6Y3g
-         rxTy7gFz+fv8G4QliIqfDqIUn7wRLOlPl/gVB0QWXQV9atLQLBCcGezRom35O8i+ZhgU
-         XrsQ==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=l4FmmyqLRGvXYMIUa3VVLSfEZOS+ge14yndz9u2uerk=;
+        b=IS5MuXI3qTk9KdMKhqyLjBHPVSrMbj2lq9dkP7aZ7vmpTjwpb4NUhLpNSF8eRl93Z3
+         4VsNwupqYxWgD1qgDty7nfcR8H3aa9YObZHBMUxD7cqth+cuHw6pKvt+xBM/MAza3NCD
+         B06IQKBD2wLhxAf/tH9ZSPYOYBGYW0xaHk6Fe5Syt40hRzsxIDqYQ616sqKvMSWhDUGV
+         tSrKmDbAkBNLgSxR/gHY/Ay1AltSJMXB+uASi5oaR6YCYPsUuL6qIs+BBDgZoUd1h6Qr
+         kjjRKc7Mi+reUNFQvBhyIrJVCjVe0jIDP6CvwEz6IeIaHximoQo+FouFMdZ5latBaZnw
+         uzJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=+9HG/dVfNJyu74bNMj0VTJFNoJxjlcEa2s8utBre5yc=;
-        b=EH2T7xqAM76MHo8QEynzfSKirNekQcH8e/WzIjvnFNyZvxO1xLHljio2bM5rQcuuol
-         63JrfAu73XS/1Gj0Da4uu5QcqRZSTomkmIz5Eque5XbTppvzTYwkBBf5iTRcF8TG/413
-         IrafLuyYQxZ/HAd5JxakH9Z3JQz8c0qsyUgrB7xrhJXjsft41CPNJvP76hT1iofh8wDz
-         izTlb9DeZGZB2pPT68tX9MJrO9W+uVFWI5rEFcCY4KOsNFYV93toE2FB+HZ+eeue6CjM
-         UFkuMj8CyXWGUciqbCCp+ypKVTIOMgNOR22m0su1pwKbk8KlMs34Z063EmIYDbfvTMVI
-         RO8Q==
-X-Gm-Message-State: AOAM533kD5Un8/nFwQ6uJqJgoDixttCidikUzQDLgWHJSIxCyJ0mgoLp
-	lj0zRwEMAQFm3OVsq3dpAEkjP+linNzbAw==
-X-Google-Smtp-Source: ABdhPJxoGG1bevkrKQ/7AlhU14PD8kSacM//BFpo2rZxIkUvoNwA3f/nLYVxCg4Hsyu1qzwUzQoAfA==
-X-Received: by 2002:a05:600c:214c:b0:394:2dfe:2754 with SMTP id v12-20020a05600c214c00b003942dfe2754mr21812005wml.135.1652798012140;
-        Tue, 17 May 2022 07:33:32 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=l4FmmyqLRGvXYMIUa3VVLSfEZOS+ge14yndz9u2uerk=;
+        b=t2YpfVOhjpJ83qbzhlsu1FmRfFv7INA57MVEX+Dn/Ug0iDzoKUC9Sm6aLHNpaFR1vh
+         4OnwZlBFSVff13D/M3OWIm4EgevnhVRqO9mtelvkffh/XQYh/nTsQ3+8w2LK4lBazE27
+         sl35Oh9ERHFZXKIkxduNEP+AkcmSVWfLJDFHiuwdrtbc17LZelE6tldq5hZV5wFMc0ot
+         +rmUSCURzss1hnwxXZDCWhMFHsq/Vy9rN31dTRvqLJZ38y6ymL109cFbc88SmEfDz9oZ
+         kT0X46t7PzxmkJpokBxywUCI8XV+HIVEcmuyBojrDMJNt/BI66GfHgx+BzmpcdKv1eRp
+         vaFQ==
+X-Gm-Message-State: AOAM531vblwQx7TDPThcagZXNUArxFBQbr/ZsVII0uT1kQu2gExMqj4k
+	mfmjkBeW5bixlCucvqf8BmstcRTonSf+rA==
+X-Google-Smtp-Source: ABdhPJw/qHReIodTGVvX1U8v9An9YMCdZfTdwsfD+29R58e1Kpell1NJ2y3X1Szyh4jZjUdVVzEZzQ==
+X-Received: by 2002:adf:f152:0:b0:20d:740:beba with SMTP id y18-20020adff152000000b0020d0740bebamr10075439wro.512.1652798014404;
+        Tue, 17 May 2022 07:33:34 -0700 (PDT)
 From: Matias Ezequiel Vara Larsen <matiasevara@gmail.com>
 X-Google-Original-From: Matias Ezequiel Vara Larsen <matias.vara@vates.fr>
 To: xen-devel@lists.xenproject.org
@@ -83,60 +82,199 @@ Cc: Matias Ezequiel Vara Larsen <matias.vara@vates.fr>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>,
-	Dario Faggioli <dfaggioli@suse.com>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [RFC PATCH 0/2] Add a new acquire resource to query vcpu statistics
-Date: Tue, 17 May 2022 16:33:13 +0200
-Message-Id: <cover.1652797713.git.matias.vara@vates.fr>
+	Dario Faggioli <dfaggioli@suse.com>
+Subject: [RFC PATCH 1/2] xen/memory : Add stats_table resource type
+Date: Tue, 17 May 2022 16:33:14 +0200
+Message-Id: <d0afb6657b1e78df4857ad7bcc875982e9c022b4.1652797713.git.matias.vara@vates.fr>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1652797713.git.matias.vara@vates.fr>
+References: <cover.1652797713.git.matias.vara@vates.fr>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hello all,
+Allow to map vcpu stats using acquire_resource().
 
-The purpose of this RFC is to get feedback about a new acquire resource that
-exposes vcpu statistics for a given domain. The current mechanism to get those
-statistics is by querying the hypervisor. This mechanism relies on a hypercall
-and holds the domctl spinlock during its execution. When a pv tool like xcp-rrdd
-periodically samples these counters, it ends up affecting other paths that share
-that spinlock. By using acquire resources, the pv tool only requires a few
-hypercalls to set the shared memory region and samples are got without issuing
-any other hypercall. The original idea has been suggested by Andrew Cooper to
-which I have been discussing about how to implement the current PoC. You can
-find the RFC patch series at [1]. The series is rebased on top of stable-4.15.
-
-I am currently a bit blocked on 1) what to expose and 2) how to expose it. For
-1), I decided to expose what xcp-rrdd is querying, e.g., XEN_DOMCTL_getvcpuinfo.
-More precisely, xcp-rrd gets runstate.time[RUNSTATE_running]. This is a uint64_t
-counter. However, the time spent in other states may be interesting too.
-Regarding 2), I am not sure if simply using an array of uint64_t is enough or if
-a different interface should be exposed. The remaining question is when to get
-new values. For the moment, I am updating this counter during
-vcpu_runstate_change().
-
-The current series includes a simple pv tool that shows how this new interface is
-used. This tool maps the counter and periodically samples it.
-
-Any feedback/help would be appreciated.
-
-Thanks, Matias.
-
-[1] https://github.com/MatiasVara/xen/tree/feature_stats
-
-Matias Ezequiel Vara Larsen (2):
-  xen/memory : Add stats_table resource type
-  tools/misc: Add xen-stats tool
-
- tools/misc/Makefile         |  5 +++
- tools/misc/xen-stats.c      | 83 +++++++++++++++++++++++++++++++++++++
- xen/common/domain.c         | 42 +++++++++++++++++++
- xen/common/memory.c         | 29 +++++++++++++
- xen/common/sched/core.c     |  5 +++
+Signed-off-by: Matias Ezequiel Vara Larsen <matias.vara@vates.fr>
+---
+ xen/common/domain.c         | 42 +++++++++++++++++++++++++++++++++++++
+ xen/common/memory.c         | 29 +++++++++++++++++++++++++
+ xen/common/sched/core.c     |  5 +++++
  xen/include/public/memory.h |  1 +
- xen/include/xen/sched.h     |  5 +++
- 7 files changed, 170 insertions(+)
- create mode 100644 tools/misc/xen-stats.c
+ xen/include/xen/sched.h     |  5 +++++
+ 5 files changed, 82 insertions(+)
 
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 17cc32fde3..ddd9f88874 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -132,6 +132,42 @@ static void vcpu_info_reset(struct vcpu *v)
+     v->vcpu_info_mfn = INVALID_MFN;
+ }
+ 
++static void stats_free_buffer(struct vcpu * v)
++{
++    struct page_info *pg = v->stats.pg;
++
++    if ( !pg )
++        return;
++
++    v->stats.va = NULL;
++
++    if ( v->stats.va )
++        unmap_domain_page_global(v->stats.va);
++
++    v->stats.va = NULL;
++
++    free_domheap_page(pg);
++}
++
++static int stats_alloc_buffer(struct vcpu *v)
++{
++    struct domain *d = v->domain;
++    struct page_info *pg;
++
++    pg = alloc_domheap_page(d, MEMF_no_refcount);
++
++    if ( !pg )
++        return -ENOMEM;
++
++    v->stats.va = __map_domain_page_global(pg);
++    if ( !v->stats.va )
++        return -ENOMEM;
++
++    v->stats.pg = pg;
++    clear_page(v->stats.va);
++    return 0;
++}
++
+ static void vmtrace_free_buffer(struct vcpu *v)
+ {
+     const struct domain *d = v->domain;
+@@ -203,6 +239,9 @@ static int vmtrace_alloc_buffer(struct vcpu *v)
+  */
+ static int vcpu_teardown(struct vcpu *v)
+ {
++
++    stats_free_buffer(v);
++
+     vmtrace_free_buffer(v);
+ 
+     return 0;
+@@ -269,6 +308,9 @@ struct vcpu *vcpu_create(struct domain *d, unsigned int vcpu_id)
+     if ( vmtrace_alloc_buffer(v) != 0 )
+         goto fail_wq;
+ 
++    if ( stats_alloc_buffer(v) != 0 )
++        goto fail_wq;
++
+     if ( arch_vcpu_create(v) != 0 )
+         goto fail_sched;
+ 
+diff --git a/xen/common/memory.c b/xen/common/memory.c
+index 297b98a562..39de6d9d05 100644
+--- a/xen/common/memory.c
++++ b/xen/common/memory.c
+@@ -1099,6 +1099,10 @@ static unsigned int resource_max_frames(const struct domain *d,
+     case XENMEM_resource_vmtrace_buf:
+         return d->vmtrace_size >> PAGE_SHIFT;
+ 
++    // WIP: to figure out the correct size of the resource
++    case XENMEM_resource_stats_table:
++        return 1;
++
+     default:
+         return -EOPNOTSUPP;
+     }
+@@ -1162,6 +1166,28 @@ static int acquire_vmtrace_buf(
+     return nr_frames;
+ }
+ 
++static int acquire_stats_table(struct domain *d,
++                                unsigned int id,
++                                unsigned int frame,
++                                unsigned int nr_frames,
++                                xen_pfn_t mfn_list[])
++{
++    const struct vcpu *v = domain_vcpu(d, id);
++    mfn_t mfn;
++
++    if ( !v )
++        return -ENOENT;
++
++    if ( !v->stats.pg )
++        return -EINVAL;
++
++    mfn = page_to_mfn(v->stats.pg);
++    mfn_list[0] = mfn_x(mfn);
++
++    printk("acquire_perf_table: id: %d, nr_frames: %d, %p, domainid: %d\n", id, nr_frames, v->stats.pg, d->domain_id);
++    return 1;
++}
++
+ /*
+  * Returns -errno on error, or positive in the range [1, nr_frames] on
+  * success.  Returning less than nr_frames contitutes a request for a
+@@ -1182,6 +1208,9 @@ static int _acquire_resource(
+     case XENMEM_resource_vmtrace_buf:
+         return acquire_vmtrace_buf(d, id, frame, nr_frames, mfn_list);
+ 
++    case XENMEM_resource_stats_table:
++        return acquire_stats_table(d, id, frame, nr_frames, mfn_list);
++
+     default:
+         return -EOPNOTSUPP;
+     }
+diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+index 8f4b1ca10d..2a8b534977 100644
+--- a/xen/common/sched/core.c
++++ b/xen/common/sched/core.c
+@@ -264,6 +264,7 @@ static inline void vcpu_runstate_change(
+ {
+     s_time_t delta;
+     struct sched_unit *unit = v->sched_unit;
++    uint64_t * runstate;
+ 
+     ASSERT(spin_is_locked(get_sched_res(v->processor)->schedule_lock));
+     if ( v->runstate.state == new_state )
+@@ -287,6 +288,10 @@ static inline void vcpu_runstate_change(
+     }
+ 
+     v->runstate.state = new_state;
++
++    // WIP: use a different interface
++    runstate = (uint64_t*)v->stats.va;
++    memcpy(runstate, &v->runstate.time[0], sizeof(v->runstate.time[0]));
+ }
+ 
+ void sched_guest_idle(void (*idle) (void), unsigned int cpu)
+diff --git a/xen/include/public/memory.h b/xen/include/public/memory.h
+index 50e73eef98..752fd0be0f 100644
+--- a/xen/include/public/memory.h
++++ b/xen/include/public/memory.h
+@@ -626,6 +626,7 @@ struct xen_mem_acquire_resource {
+ #define XENMEM_resource_ioreq_server 0
+ #define XENMEM_resource_grant_table 1
+ #define XENMEM_resource_vmtrace_buf 2
++#define XENMEM_resource_stats_table 3
+ 
+     /*
+      * IN - a type-specific resource identifier, which must be zero
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+index 5485d08afb..bc99adea7e 100644
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -284,6 +284,11 @@ struct vcpu
+         struct page_info *pg; /* One contiguous allocation of d->vmtrace_size */
+     } vmtrace;
+ 
++    struct {
++        struct page_info *pg;
++        void * va;
++    } stats;
++
+     struct arch_vcpu arch;
+ 
+ #ifdef CONFIG_IOREQ_SERVER
 -- 
 2.25.1
 
