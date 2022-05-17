@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 563B852A9E5
-	for <lists+xen-devel@lfdr.de>; Tue, 17 May 2022 20:04:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.331383.554901 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9ED552AA47
+	for <lists+xen-devel@lfdr.de>; Tue, 17 May 2022 20:14:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.331406.554918 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nr1Yh-0004qc-Tm; Tue, 17 May 2022 18:04:35 +0000
+	id 1nr1hh-0007EZ-Py; Tue, 17 May 2022 18:13:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 331383.554901; Tue, 17 May 2022 18:04:35 +0000
+Received: by outflank-mailman (output) from mailman id 331406.554918; Tue, 17 May 2022 18:13:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nr1Yh-0004kR-QF; Tue, 17 May 2022 18:04:35 +0000
-Received: by outflank-mailman (input) for mailman id 331383;
- Tue, 17 May 2022 18:04:34 +0000
+	id 1nr1hh-0007BX-MG; Tue, 17 May 2022 18:13:53 +0000
+Received: by outflank-mailman (input) for mailman id 331406;
+ Tue, 17 May 2022 18:13:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KpkB=VZ=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1nr1Yg-0004Vy-FR
- for xen-devel@lists.xenproject.org; Tue, 17 May 2022 18:04:34 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ <SRS0=Ghfa=VZ=igalia.com=gpiccoli@srs-se1.protection.inumbo.net>)
+ id 1nr1hf-0007BO-8g
+ for xen-devel@lists.xenproject.org; Tue, 17 May 2022 18:13:51 +0000
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cdef61e8-d60b-11ec-bd2c-47488cf2e6aa;
- Tue, 17 May 2022 20:04:33 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- c190-20020a1c35c7000000b0038e37907b5bso1895125wma.0
- for <xen-devel@lists.xenproject.org>; Tue, 17 May 2022 11:04:33 -0700 (PDT)
-Received: from otyshchenko.router ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id
- c3-20020adfc6c3000000b0020c5253d8dasm12978625wrh.38.2022.05.17.11.04.31
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 17 May 2022 11:04:31 -0700 (PDT)
+ id 17ff14da-d60d-11ec-bd2c-47488cf2e6aa;
+ Tue, 17 May 2022 20:13:47 +0200 (CEST)
+Received: from 200-161-159-120.dsl.telesp.net.br ([200.161.159.120]
+ helo=[192.168.1.60]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1nr1gv-008nSU-6m; Tue, 17 May 2022 20:13:05 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,122 +40,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cdef61e8-d60b-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references;
-        bh=xUxnvY0wWYvQFwVkkKnZ0hYzB77/1hWqL1wilzE489c=;
-        b=kb8ddVNGcr5cVeafnyHPeYNXQERd/qF31HFkfUdq2R0uWdYsIrV5qJc5rqOLz8AJ2R
-         LeqlzPakVREbISyj+rzFqGHtWdSCexiQvfb3BzQZY4Gb6WIGH1gnWvSpBsaSAoOAgJPw
-         Y2gQVbghkdgpguWD5R6ZUeT1mykXPwp1lsXvUamDbQaFqmfp7ZJs19gwZMPPJzKo2yI5
-         qsxQdCIXfE44XW+Ui9ZV8j0XprUOYnEv+bHcF2+ibhH3I9NCtjxHxMwKRYDXdrArzigQ
-         AkB6D1SgJLfFBjy+aEuoy/qrUgNvZwQus2tAbvnVgDGakrkC9Xvt3cWzsnYci380bHt5
-         MjFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references;
-        bh=xUxnvY0wWYvQFwVkkKnZ0hYzB77/1hWqL1wilzE489c=;
-        b=babiyVOFuR1fChbdaLJ8r5mJB91tqUFB4syB6bKZ6SV1whYpKNMCWpwvPa83PWsLJR
-         79J4xD+xceunW/JkYDA4JEG08VvZHKpUQBLRleDYFsJgrbmrLjFK7MSHPsNiM+j+yhge
-         3n6//6kYpqm0nE2fy+x47dRviFrH+Wj4uZJVzWp3wTQwioZVx2HxPpI81dJj2kD1ZroE
-         hXDZLew0T2vxnG6ocebFhfOrCgc+w12PwrdmlVzCYhtT2GbilnCBVrfC/TX6QTLG3zBZ
-         7ALIO4/84l8BcOfjliALjEjtlrzDby3Z0TbBBJR2x5xgmu+LDlx8OMcDgkC+5JV8eL8k
-         zx9Q==
-X-Gm-Message-State: AOAM531Ek7ITc86+RLsWC/ss/PMyO1WPRNXjCMhAtW8EQ0o1SDLas1mL
-	9hHw3ZMn5p+3mbNcWS0i/x1WpnFyju8=
-X-Google-Smtp-Source: ABdhPJzy8So6LUCbbqsaVyGqZpkGWh1nIJifHTvsH6tXSl1Cxhg/tQhSmkYmww8KULDXmX3Xv/O7fQ==
-X-Received: by 2002:a05:600c:1989:b0:394:8dc0:b57f with SMTP id t9-20020a05600c198900b003948dc0b57fmr33101152wmq.110.1652810672320;
-        Tue, 17 May 2022 11:04:32 -0700 (PDT)
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-To: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
-	Julien Grall <julien@xen.org>
-Subject: [RFC PATCH 2/2] xen/grant-table: Use unpopulated DMAable pages instead of real RAM ones
-Date: Tue, 17 May 2022 21:04:18 +0300
-Message-Id: <1652810658-27810-3-git-send-email-olekstysh@gmail.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1652810658-27810-1-git-send-email-olekstysh@gmail.com>
-References: <1652810658-27810-1-git-send-email-olekstysh@gmail.com>
+X-Inumbo-ID: 17ff14da-d60d-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=6MSK1Z4Nv/e1GFKFinCP8P3dIYao0CoLyUe3quXpDhY=; b=cRMrVSVTR+3cn6FVG65SC4Au0y
+	UkLE3SVfqGk36g/jG1E9IomGRvED5Awi+eOSCTntuGE0jPXl5+kfHlbKsvhvVjaCNf8y4mBWXGPlT
+	8r/o/CMKhbUaIdrKhLkt446cgXa07HTSiorku/w0xJvIn3aE4uqi2qj8QGi7eb4Kmsg0/Wh5BR8Vi
+	YCGb8f9djqv6fWXVwjRpFQtg+9b6W6H4TQisr9ZwQKSIB4SsmfEWL196/jrcNQFL2lm66S4LfYE8s
+	uZ+fz2jSIIuBy2Np//l8BP/gbXHu+JyZVeJsb8IAXoZSlvi3RYMR9sSIMXj8sSzR7kYxeP4KKKokk
+	nGGtp5Zg==;
+Message-ID: <62a63fc2-346f-f375-043a-fa21385279df@igalia.com>
+Date: Tue, 17 May 2022 15:12:25 -0300
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Subject: Re: [PATCH 21/30] panic: Introduce the panic pre-reboot notifier list
+Content-Language: en-US
+To: "Luck, Tony" <tony.luck@intel.com>, Petr Mladek <pmladek@suse.com>,
+ Dinh Nguyen <dinguyen@kernel.org>
+Cc: "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
+ "bhe@redhat.com" <bhe@redhat.com>,
+ "kexec@lists.infradead.org" <kexec@lists.infradead.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "bcm-kernel-feedback-list@broadcom.com"
+ <bcm-kernel-feedback-list@broadcom.com>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+ "linux-alpha@vger.kernel.org" <linux-alpha@vger.kernel.org>,
+ "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-leds@vger.kernel.org" <linux-leds@vger.kernel.org>,
+ "linux-mips@vger.kernel.org" <linux-mips@vger.kernel.org>,
+ "linux-parisc@vger.kernel.org" <linux-parisc@vger.kernel.org>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ "linux-remoteproc@vger.kernel.org" <linux-remoteproc@vger.kernel.org>,
+ "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ "linux-um@lists.infradead.org" <linux-um@lists.infradead.org>,
+ "linux-xtensa@linux-xtensa.org" <linux-xtensa@linux-xtensa.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "openipmi-developer@lists.sourceforge.net"
+ <openipmi-developer@lists.sourceforge.net>,
+ "rcu@vger.kernel.org" <rcu@vger.kernel.org>,
+ "sparclinux@vger.kernel.org" <sparclinux@vger.kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "x86@kernel.org" <x86@kernel.org>,
+ "kernel-dev@igalia.com" <kernel-dev@igalia.com>,
+ "kernel@gpiccoli.net" <kernel@gpiccoli.net>,
+ "halves@canonical.com" <halves@canonical.com>,
+ "fabiomirmar@gmail.com" <fabiomirmar@gmail.com>,
+ "alejandro.j.jimenez@oracle.com" <alejandro.j.jimenez@oracle.com>,
+ "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+ "arnd@arndb.de" <arnd@arndb.de>, "bp@alien8.de" <bp@alien8.de>,
+ "corbet@lwn.net" <corbet@lwn.net>,
+ "d.hatayama@jp.fujitsu.com" <d.hatayama@jp.fujitsu.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "dyoung@redhat.com" <dyoung@redhat.com>, "Tang, Feng" <feng.tang@intel.com>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "mikelley@microsoft.com" <mikelley@microsoft.com>,
+ "hidehiro.kawai.ez@hitachi.com" <hidehiro.kawai.ez@hitachi.com>,
+ "jgross@suse.com" <jgross@suse.com>,
+ "john.ogness@linutronix.de" <john.ogness@linutronix.de>,
+ "keescook@chromium.org" <keescook@chromium.org>,
+ "luto@kernel.org" <luto@kernel.org>,
+ "mhiramat@kernel.org" <mhiramat@kernel.org>,
+ "mingo@redhat.com" <mingo@redhat.com>,
+ "paulmck@kernel.org" <paulmck@kernel.org>,
+ "peterz@infradead.org" <peterz@infradead.org>,
+ "rostedt@goodmis.org" <rostedt@goodmis.org>,
+ "senozhatsky@chromium.org" <senozhatsky@chromium.org>,
+ "stern@rowland.harvard.edu" <stern@rowland.harvard.edu>,
+ "tglx@linutronix.de" <tglx@linutronix.de>,
+ "vgoyal@redhat.com" <vgoyal@redhat.com>,
+ "vkuznets@redhat.com" <vkuznets@redhat.com>,
+ "will@kernel.org" <will@kernel.org>, Alex Elder <elder@kernel.org>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Chris Zankel
+ <chris@zankel.net>, Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Corey Minyard <minyard@acm.org>, Dexuan Cui <decui@microsoft.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, Haiyang Zhang <haiyangz@microsoft.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Helge Deller <deller@gmx.de>,
+ Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ James Morse <james.morse@arm.com>, Johannes Berg
+ <johannes@sipsolutions.net>, "K. Y. Srinivasan" <kys@microsoft.com>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Matt Turner <mattst88@gmail.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Max Filippov <jcmvbkbc@gmail.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Paul Mackerras <paulus@samba.org>,
+ Pavel Machek <pavel@ucw.cz>, Richard Weinberger <richard@nod.at>,
+ Robert Richter <rric@kernel.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Stephen Hemminger <sthemmin@microsoft.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Wei Liu <wei.liu@kernel.org>
+References: <20220427224924.592546-1-gpiccoli@igalia.com>
+ <20220427224924.592546-22-gpiccoli@igalia.com> <YoJgcC8c6LaKADZV@alley>
+ <63a74b56-89ef-8d1f-d487-cdb986aab798@igalia.com>
+ <bed66b9467254a5a8bafc1983dad643a@intel.com>
+ <e895ce94-e6b9-caf6-e5d3-06bf0149445c@igalia.com> <YoOs9GJ5Ovq63u5Q@alley>
+ <599b72f6-76a4-8e6d-5432-56fb1ffd7e0b@igalia.com>
+ <06d85642fef24bc482642d669242654b@intel.com>
+From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+In-Reply-To: <06d85642fef24bc482642d669242654b@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+On 17/05/2022 14:02, Luck, Tony wrote:
+>> Tony / Dinh - can I just *skip* this notifier *if kdump* is set or else
+>> we run the code as-is? Does that make sense to you?
+> 
+> The "skip" option sounds like it needs some special flag associated with
+> an entry on the notifier chain. But there are other notifier chains ... so that
+> sounds messy to me.
+> 
+> Just all the notifiers in priority order. If any want to take different actions
+> based on kdump status, change the code. That seems more flexible than
+> an "all or nothing" approach by skipping.
+> 
+> -Tony
 
-Depends on CONFIG_XEN_UNPOPULATED_ALLOC. If enabled then unpopulated
-DMAable (contiguous) pages will be allocated for grant mapping into
-instead of ballooning out real RAM pages.
+I guess I've expressed myself in a poor way - sorry!
 
-TODO: Fallback to real RAM pages if xen_alloc_unpopulated_dma_pages()
-fails.
+What I'm planning to do in the altera_edac notifier is:
 
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
----
- drivers/xen/grant-table.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+if (kdump_is_set)
+ return;
 
-diff --git a/drivers/xen/grant-table.c b/drivers/xen/grant-table.c
-index 8ccccac..2bb4392 100644
---- a/drivers/xen/grant-table.c
-+++ b/drivers/xen/grant-table.c
-@@ -864,6 +864,25 @@ EXPORT_SYMBOL_GPL(gnttab_free_pages);
-  */
- int gnttab_dma_alloc_pages(struct gnttab_dma_alloc_args *args)
- {
-+#ifdef CONFIG_XEN_UNPOPULATED_ALLOC
-+	int ret;
-+
-+	ret = xen_alloc_unpopulated_dma_pages(args->dev, args->nr_pages,
-+			args->pages);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = gnttab_pages_set_private(args->nr_pages, args->pages);
-+	if (ret < 0) {
-+		gnttab_dma_free_pages(args);
-+		return ret;
-+	}
-+
-+	args->vaddr = page_to_virt(args->pages[0]);
-+	args->dev_bus_addr = page_to_phys(args->pages[0]);
-+
-+	return ret;
-+#else
- 	unsigned long pfn, start_pfn;
- 	size_t size;
- 	int i, ret;
-@@ -910,6 +929,7 @@ int gnttab_dma_alloc_pages(struct gnttab_dma_alloc_args *args)
- fail:
- 	gnttab_dma_free_pages(args);
- 	return ret;
-+#endif
- }
- EXPORT_SYMBOL_GPL(gnttab_dma_alloc_pages);
- 
-@@ -919,6 +939,12 @@ EXPORT_SYMBOL_GPL(gnttab_dma_alloc_pages);
-  */
- int gnttab_dma_free_pages(struct gnttab_dma_alloc_args *args)
- {
-+#ifdef CONFIG_XEN_UNPOPULATED_ALLOC
-+	gnttab_pages_clear_private(args->nr_pages, args->pages);
-+	xen_free_unpopulated_dma_pages(args->dev, args->nr_pages, args->pages);
-+
-+	return 0;
-+#else
- 	size_t size;
- 	int i, ret;
- 
-@@ -946,6 +972,7 @@ int gnttab_dma_free_pages(struct gnttab_dma_alloc_args *args)
- 		dma_free_wc(args->dev, size,
- 			    args->vaddr, args->dev_bus_addr);
- 	return ret;
-+#endif
- }
- EXPORT_SYMBOL_GPL(gnttab_dma_free_pages);
- #endif
--- 
-2.7.4
+/* regular code */
 
+In other words: if the kdump is set, this notifier will be effectively a
+nop (although it's gonna be called).
+
+Lemme know your thoughts Tony, if that makes sense.
+Thanks,
+
+
+Guilherme
 
