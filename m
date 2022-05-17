@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6483D529D92
-	for <lists+xen-devel@lfdr.de>; Tue, 17 May 2022 11:12:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.330660.554067 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0B74529E07
+	for <lists+xen-devel@lfdr.de>; Tue, 17 May 2022 11:29:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.330705.554089 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nqtFR-0002Zk-UF; Tue, 17 May 2022 09:12:09 +0000
+	id 1nqtVe-0004qn-PT; Tue, 17 May 2022 09:28:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 330660.554067; Tue, 17 May 2022 09:12:09 +0000
+Received: by outflank-mailman (output) from mailman id 330705.554089; Tue, 17 May 2022 09:28:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nqtFR-0002Xr-RD; Tue, 17 May 2022 09:12:09 +0000
-Received: by outflank-mailman (input) for mailman id 330660;
- Tue, 17 May 2022 09:12:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Vdn1=VZ=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1nqtA1-0005zY-GQ
- for xen-devel@lists.xenproject.org; Tue, 17 May 2022 09:06:33 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id a3f188d9-d5c0-11ec-837e-e5687231ffcc;
- Tue, 17 May 2022 11:06:30 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D2EF21063;
- Tue, 17 May 2022 02:06:29 -0700 (PDT)
-Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
- [10.169.190.94])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 4EDF13F73D;
- Tue, 17 May 2022 02:06:27 -0700 (PDT)
+	id 1nqtVe-0004o1-Ln; Tue, 17 May 2022 09:28:54 +0000
+Received: by outflank-mailman (input) for mailman id 330705;
+ Tue, 17 May 2022 09:28:53 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1nqtVd-0004nv-3B
+ for xen-devel@lists.xenproject.org; Tue, 17 May 2022 09:28:53 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nqtVc-0007Pw-KF; Tue, 17 May 2022 09:28:52 +0000
+Received: from 54-240-197-227.amazon.com ([54.240.197.227] helo=[10.95.147.55])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nqtVc-0004of-Dz; Tue, 17 May 2022 09:28:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,87 +39,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3f188d9-d5c0-11ec-837e-e5687231ffcc
-From: Penny Zheng <Penny.Zheng@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: wei.chen@arm.com,
-	Penny Zheng <penny.zheng@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v4 8/8] xen/arm: enable statically shared memory on Dom0
-Date: Tue, 17 May 2022 17:05:29 +0800
-Message-Id: <20220517090529.3140417-9-Penny.Zheng@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220517090529.3140417-1-Penny.Zheng@arm.com>
-References: <20220517090529.3140417-1-Penny.Zheng@arm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=ISx1RozKUre99XMm5HKBkqDpV3Tc2zcGV/k2qw3prZY=; b=euRuilHGevu4j/FDLZcgzaZpC3
+	zoShuLLMag/s2t8sqoYmQtqiuq7XWTVzclgO34O/9G9g0cyV/HpTGi7/+ck+q1g1CbC85z27CQXcn
+	UFVW9Xt92LLIJG0Gt/wW4mrvoyIF26sG56xYzR6vvWY/cEVE+mw6kcxrfLfPKLDfCchM=;
+Message-ID: <511fd0cb-348f-b65d-cb7b-effd822c7f20@xen.org>
+Date: Tue, 17 May 2022 10:28:50 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.9.0
+Subject: Re: [PATCH v4 1/6] xen: do not free reserved memory into heap
+To: Penny Zheng <Penny.Zheng@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Wei Chen <Wei.Chen@arm.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <20220510022733.2422581-1-Penny.Zheng@arm.com>
+ <20220510022733.2422581-2-Penny.Zheng@arm.com>
+ <2ebda9bb-8045-56ec-619b-d0178d57ee17@xen.org>
+ <DU2PR08MB73255BBF708979822747FF2DF7CE9@DU2PR08MB7325.eurprd08.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <DU2PR08MB73255BBF708979822747FF2DF7CE9@DU2PR08MB7325.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Penny Zheng <penny.zheng@arm.com>
+Hi,
 
-To add statically shared memory nodes in Dom0, user shall put according
-static shared memory configuration under /chosen node.
+On 17/05/2022 09:21, Penny Zheng wrote:
+> Yes,  I remembered that asynchronous is still on the to-do list for static memory.
+> 
+> If it doesn't bother too much to you, I would like to ask some help on this issue, ;).
+> I only knew basic knowledge on the scrubbing, 
+My kwnoledge on the scrubbing code is not much better than yours :).
 
-This commit adds shm-processing function process_shm in construct_dom0
-to enable statically shared memory on Dom0.
+> I knew that dirty pages is placed at the
+> end of list heap(node, zone, order) for scrubbing and "first_dirty" is used to track down
+> the dirty pages. IMO, Both two parts are restricted to the heap thingy,  not reusable for
+> static memory, 
 
-Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
----
-v4 change:
-- no change
----
-v3 change:
-- no change
----
-v2 change:
-- no change
----
- xen/arch/arm/domain_build.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+That's correct.
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index ba044cab60..bbf5461595 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -2614,6 +2614,11 @@ static int __init handle_node(struct domain *d, struct kernel_info *kinfo,
-             if ( res )
-                 return res;
-         }
-+
-+        res = make_resv_memory_node(d, kinfo->fdt, addrcells, sizecells,
-+                                    &kinfo->shm_mem);
-+        if ( res )
-+            return res;
-     }
- 
-     res = fdt_end_node(kinfo->fdt);
-@@ -3637,6 +3642,9 @@ static int __init construct_dom0(struct domain *d)
- {
-     struct kernel_info kinfo = {};
-     int rc;
-+#ifdef CONFIG_STATIC_SHM
-+    const struct dt_device_node *chosen = dt_find_node_by_path("/chosen");
-+#endif
- 
-     /* Sanity! */
-     BUG_ON(d->domain_id != 0);
-@@ -3671,6 +3679,12 @@ static int __init construct_dom0(struct domain *d)
-     allocate_memory_11(d, &kinfo);
-     find_gnttab_region(d, &kinfo);
- 
-+#ifdef CONFIG_STATIC_SHM
-+    rc = process_shm(d, &kinfo, chosen);
-+    if ( rc < 0 )
-+        return rc;
-+#endif
-+
-     /* Map extra GIC MMIO, irqs and other hw stuffs to dom0. */
-     rc = gic_map_hwdom_extra_mappings(d);
-     if ( rc < 0 )
+> so maybe I need to re-write scrub_free_page for static memory, and also
+> link the need-to-scrub reserved pages to a new global list e.g.  dirty_resv_list for aync
+> scrubbing?
+
+So I can foresee two problems with scrubbing static memory:
+   1) Once the page is scrubbed, we need to know which domain it belongs 
+so we can link the page again
+   2) A page may still wait for scrubbing when the domain allocate 
+memory (IOW the reserved list may be empty). So we need to find a page 
+belonging to the domain and then scrubbed.
+
+The two problems above would indicate that a per-domain scrub list would 
+be the best here. We would need to deal with initial scrubbing 
+differently (maybe a global list as you suggested).
+
+I expect it will take some times to implement it properly. While writing 
+this, I was wondering if there is actually any point to scrub pages when 
+the domain is releasing them. Even if they are free they are still 
+belonging to the domain, so scrubbing them is technically not necessary.
+
+Any thoughts?
+
+>>>    {
+>>>        mfn_t mfn = page_to_mfn(pg);
+>>>        unsigned long i;
+>>> @@ -2653,7 +2657,8 @@ void __init free_staticmem_pages(struct page_info
+>> *pg, unsigned long nr_mfns,
+>>>            }
+>>>
+>>>            /* In case initializing page of static memory, mark it PGC_reserved. */
+>>> -        pg[i].count_info |= PGC_reserved;
+>>> +        if ( !(pg[i].count_info & PGC_reserved) )
+>>
+>> NIT: I understand the flag may have already been set, but I am not convinced if
+>> it is worth checking it and then set.
+>>
+> 
+> Jan suggested that since we remove the __init from free_staticmem_pages, it's now in preemptable
+> state at runtime, so better be adding this check here.
+
+Well, count_info is already modified within that loop (see 
+mark_page_free()). So I think the impact of setting PGC_reserved is 
+going to be meaningless.
+
+However... mark_page_free() is going to set count_info to PGC_state_free 
+and by consequence clear PGC_reserved. Theferore, in the current 
+implementation we always need to re-set PGC_reserved.
+
+So effectively, the "if" is pointless here.
+
+Cheers,
+
 -- 
-2.25.1
-
+Julien Grall
 
