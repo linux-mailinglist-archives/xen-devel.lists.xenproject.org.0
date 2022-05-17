@@ -2,45 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E97E252A8D5
-	for <lists+xen-devel@lfdr.de>; Tue, 17 May 2022 19:03:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.331307.554793 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A22C352A8E6
+	for <lists+xen-devel@lfdr.de>; Tue, 17 May 2022 19:08:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.331315.554804 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nr0aq-0002RO-G2; Tue, 17 May 2022 17:02:44 +0000
+	id 1nr0fn-00035X-5C; Tue, 17 May 2022 17:07:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 331307.554793; Tue, 17 May 2022 17:02:44 +0000
+Received: by outflank-mailman (output) from mailman id 331315.554804; Tue, 17 May 2022 17:07:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nr0aq-0002OU-Cf; Tue, 17 May 2022 17:02:44 +0000
-Received: by outflank-mailman (input) for mailman id 331307;
- Tue, 17 May 2022 17:02:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nr0fn-00032c-0v; Tue, 17 May 2022 17:07:51 +0000
+Received: by outflank-mailman (input) for mailman id 331315;
+ Tue, 17 May 2022 17:07:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=k6T6=VZ=intel.com=tony.luck@srs-se1.protection.inumbo.net>)
- id 1nr0ao-0002O8-L1
- for xen-devel@lists.xenproject.org; Tue, 17 May 2022 17:02:43 +0000
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 26235fc1-d603-11ec-bd2c-47488cf2e6aa;
- Tue, 17 May 2022 19:02:38 +0200 (CEST)
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 May 2022 10:02:34 -0700
-Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
- by orsmga004.jf.intel.com with ESMTP; 17 May 2022 10:02:32 -0700
-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Tue, 17 May 2022 10:02:32 -0700
-Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
- fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2308.27; Tue, 17 May 2022 10:02:31 -0700
-Received: from fmsmsx610.amr.corp.intel.com ([10.18.126.90]) by
- fmsmsx610.amr.corp.intel.com ([10.18.126.90]) with mapi id 15.01.2308.027;
- Tue, 17 May 2022 10:02:31 -0700
+ <SRS0=TUNC=VZ=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1nr0fl-00032W-IO
+ for xen-devel@lists.xenproject.org; Tue, 17 May 2022 17:07:49 +0000
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id df76c42a-d603-11ec-837e-e5687231ffcc;
+ Tue, 17 May 2022 19:07:47 +0200 (CEST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id 261545C006E;
+ Tue, 17 May 2022 13:07:46 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Tue, 17 May 2022 13:07:46 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 17 May 2022 13:07:45 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,127 +43,286 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26235fc1-d603-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1652806958; x=1684342958;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=wPndYlW5xEVdpcc0zA72NXu9ypQzfs4FPZzk6VJMkkY=;
-  b=E7Pcez5DgdPL62RMz9czjYHtIWNHfSbSPAi6maTscPRNtXygBe1fFzXb
-   MVe86PUkudZ87qt7RMGUr9lXJ2vxYv2w/Z3wPc1XN9EX9k4g1ejPQfjxW
-   oRLBNwJjeaC6TAkUOMusi1Bo0yAzmkkwPmJE011o8TPNS4iCfOHzcVd9J
-   NSXEX1T6vXte1GMp3jOFoCuqCN3stoeJXCwt6K5gA4+e7lbXfRFKeEgSq
-   KWsQFMuQm74+5/Mkzl5ChuGhUq31nyRxTUChV7mcU4JQeAgc15CCGdssM
-   Zu5VmZiY1vlC6XNaZtJQ4KpKYy+WpWIV4cWR7sd/+ue803iKp+Sf67T7y
-   g==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10350"; a="270942691"
-X-IronPort-AV: E=Sophos;i="5.91,233,1647327600"; 
-   d="scan'208";a="270942691"
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.91,233,1647327600"; 
-   d="scan'208";a="700144313"
-From: "Luck, Tony" <tony.luck@intel.com>
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>, Petr Mladek
-	<pmladek@suse.com>, Dinh Nguyen <dinguyen@kernel.org>
-CC: "akpm@linux-foundation.org" <akpm@linux-foundation.org>, "bhe@redhat.com"
-	<bhe@redhat.com>, "kexec@lists.infradead.org" <kexec@lists.infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"bcm-kernel-feedback-list@broadcom.com"
-	<bcm-kernel-feedback-list@broadcom.com>, "linuxppc-dev@lists.ozlabs.org"
-	<linuxppc-dev@lists.ozlabs.org>, "linux-alpha@vger.kernel.org"
-	<linux-alpha@vger.kernel.org>, "linux-edac@vger.kernel.org"
-	<linux-edac@vger.kernel.org>, "linux-hyperv@vger.kernel.org"
-	<linux-hyperv@vger.kernel.org>, "linux-leds@vger.kernel.org"
-	<linux-leds@vger.kernel.org>, "linux-mips@vger.kernel.org"
-	<linux-mips@vger.kernel.org>, "linux-parisc@vger.kernel.org"
-	<linux-parisc@vger.kernel.org>, "linux-pm@vger.kernel.org"
-	<linux-pm@vger.kernel.org>, "linux-remoteproc@vger.kernel.org"
-	<linux-remoteproc@vger.kernel.org>, "linux-s390@vger.kernel.org"
-	<linux-s390@vger.kernel.org>, "linux-tegra@vger.kernel.org"
-	<linux-tegra@vger.kernel.org>, "linux-um@lists.infradead.org"
-	<linux-um@lists.infradead.org>, "linux-xtensa@linux-xtensa.org"
-	<linux-xtensa@linux-xtensa.org>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "openipmi-developer@lists.sourceforge.net"
-	<openipmi-developer@lists.sourceforge.net>, "rcu@vger.kernel.org"
-	<rcu@vger.kernel.org>, "sparclinux@vger.kernel.org"
-	<sparclinux@vger.kernel.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, "x86@kernel.org" <x86@kernel.org>,
-	"kernel-dev@igalia.com" <kernel-dev@igalia.com>, "kernel@gpiccoli.net"
-	<kernel@gpiccoli.net>, "halves@canonical.com" <halves@canonical.com>,
-	"fabiomirmar@gmail.com" <fabiomirmar@gmail.com>,
-	"alejandro.j.jimenez@oracle.com" <alejandro.j.jimenez@oracle.com>,
-	"andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
-	"arnd@arndb.de" <arnd@arndb.de>, "bp@alien8.de" <bp@alien8.de>,
-	"corbet@lwn.net" <corbet@lwn.net>, "d.hatayama@jp.fujitsu.com"
-	<d.hatayama@jp.fujitsu.com>, "dave.hansen@linux.intel.com"
-	<dave.hansen@linux.intel.com>, "dyoung@redhat.com" <dyoung@redhat.com>,
-	"Tang, Feng" <feng.tang@intel.com>, "gregkh@linuxfoundation.org"
-	<gregkh@linuxfoundation.org>, "mikelley@microsoft.com"
-	<mikelley@microsoft.com>, "hidehiro.kawai.ez@hitachi.com"
-	<hidehiro.kawai.ez@hitachi.com>, "jgross@suse.com" <jgross@suse.com>,
-	"john.ogness@linutronix.de" <john.ogness@linutronix.de>,
-	"keescook@chromium.org" <keescook@chromium.org>, "luto@kernel.org"
-	<luto@kernel.org>, "mhiramat@kernel.org" <mhiramat@kernel.org>,
-	"mingo@redhat.com" <mingo@redhat.com>, "paulmck@kernel.org"
-	<paulmck@kernel.org>, "peterz@infradead.org" <peterz@infradead.org>,
-	"rostedt@goodmis.org" <rostedt@goodmis.org>, "senozhatsky@chromium.org"
-	<senozhatsky@chromium.org>, "stern@rowland.harvard.edu"
-	<stern@rowland.harvard.edu>, "tglx@linutronix.de" <tglx@linutronix.de>,
-	"vgoyal@redhat.com" <vgoyal@redhat.com>, "vkuznets@redhat.com"
-	<vkuznets@redhat.com>, "will@kernel.org" <will@kernel.org>, Alex Elder
-	<elder@kernel.org>, Alexander Gordeev <agordeev@linux.ibm.com>, Anton Ivanov
-	<anton.ivanov@cambridgegreys.com>, Benjamin Herrenschmidt
-	<benh@kernel.crashing.org>, Bjorn Andersson <bjorn.andersson@linaro.org>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Chris Zankel
-	<chris@zankel.net>, Christian Borntraeger <borntraeger@linux.ibm.com>, "Corey
- Minyard" <minyard@acm.org>, Dexuan Cui <decui@microsoft.com>, "H. Peter
- Anvin" <hpa@zytor.com>, Haiyang Zhang <haiyangz@microsoft.com>, "Heiko
- Carstens" <hca@linux.ibm.com>, Helge Deller <deller@gmx.de>, Ivan Kokshaysky
-	<ink@jurassic.park.msu.ru>, "James E.J. Bottomley"
-	<James.Bottomley@hansenpartnership.com>, James Morse <james.morse@arm.com>,
-	Johannes Berg <johannes@sipsolutions.net>, "K. Y. Srinivasan"
-	<kys@microsoft.com>, Mathieu Poirier <mathieu.poirier@linaro.org>, "Matt
- Turner" <mattst88@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Max
- Filippov <jcmvbkbc@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, Paul
- Mackerras <paulus@samba.org>, Pavel Machek <pavel@ucw.cz>, "Richard
- Weinberger" <richard@nod.at>, Robert Richter <rric@kernel.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Stephen Hemminger
-	<sthemmin@microsoft.com>, Sven Schnelle <svens@linux.ibm.com>, "Vasily
- Gorbik" <gor@linux.ibm.com>, Wei Liu <wei.liu@kernel.org>
-Subject: RE: [PATCH 21/30] panic: Introduce the panic pre-reboot notifier list
-Thread-Topic: [PATCH 21/30] panic: Introduce the panic pre-reboot notifier
- list
-Thread-Index: AQHYWooLnXaT7guJw0OCpuGv/IkEoK0iJCSAgAAZuAD//40QkIAAesuAgAFqbACAACtDgP//jcxA
-Date: Tue, 17 May 2022 17:02:31 +0000
-Message-ID: <06d85642fef24bc482642d669242654b@intel.com>
-References: <20220427224924.592546-1-gpiccoli@igalia.com>
- <20220427224924.592546-22-gpiccoli@igalia.com> <YoJgcC8c6LaKADZV@alley>
- <63a74b56-89ef-8d1f-d487-cdb986aab798@igalia.com>
- <bed66b9467254a5a8bafc1983dad643a@intel.com>
- <e895ce94-e6b9-caf6-e5d3-06bf0149445c@igalia.com> <YoOs9GJ5Ovq63u5Q@alley>
- <599b72f6-76a4-8e6d-5432-56fb1ffd7e0b@igalia.com>
-In-Reply-To: <599b72f6-76a4-8e6d-5432-56fb1ffd7e0b@igalia.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-dlp-product: dlpe-windows
-dlp-reaction: no-action
-dlp-version: 11.6.401.20
-x-originating-ip: [10.1.200.100]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: df76c42a-d603-11ec-837e-e5687231ffcc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to; s=fm1; t=1652807266; x=1652893666; bh=4tDoSEQhdS
+	9niDMV646Qebgz6622yWtjkDpobgZ8Kz8=; b=neUUe1VFphEnnyeh0pDnAnw7f6
+	Qb2NJ8nUtnxQnNqvz0rVaknvTqFK/JNG16lqCx/ox0y/R+msCbtZ/+vBfZOXLaNA
+	oe8DK8FvqG0qvf1BPRLipZj5/pn30Dng5qyyia80CkGEJYxaRetvj4FAn5VCDrxY
+	Ah6aONZHj3woEuzEivyNtpGx9yBMkfBlBJtKdRRJZ8KGndEkvv7DYGUu3VrbFkSJ
+	oqj4ZXtXTUPqp6bcLu8GFl/NFH40sw0ppXINrR1fuwctLCyx56RkcrDKat0WAVEJ
+	VkBtAlrPh9Ay48/1KzRbuHclXG3ohtQMOaO8wvluu+nqh34ukTbJ3tLwVTBw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:message-id:mime-version
+	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1652807266; x=
+	1652893666; bh=4tDoSEQhdS9niDMV646Qebgz6622yWtjkDpobgZ8Kz8=; b=x
+	RaJOcSCE6xWOZeoMjQ2/q26awUqOMYz0YY00zzgYDglx/wtvbT0Zo8rYAEPCufL9
+	gB95SoMeLAVokiU5K1CYRvknxakDdiI8e9MiJbGUQ2yS6mJBHAJJXAHlPohY/nTM
+	JSZS3Zpv3i3n2lbulY+ncdfL11OZGq2PyZXGpMcJjvkv2TCG6xXslv7teE6t2w7X
+	51+G2O03tlDVqsdmzMiNvkkPAVkq9JK3no+ohnJzwONUwUcrjcve4LA0s/KpwnuS
+	KVCXl0PnpsDX8YHlPNuc39GdZE4lic1yuHnzX9tWT1CTb91s6Pc7b6R42EpeRUOW
+	27FZ/8XkhaDd9GXCmqJvQ==
+X-ME-Sender: <xms:YdaDYtvS7aOuRxODzmJZXB9Ih4oTqq1YGedGq1kNhO70QtzKlcgqLA>
+    <xme:YdaDYmeljQsXD4W6TuG7Pvcoq0XB08FWZG8PJs35_6d4zOw1aC9fqATK8Gj6vwX9n
+    aHaUFMzRAFXk14>
+X-ME-Received: <xmr:YdaDYgxPPvJQIg__DcyPobo0shrlbBV32j_ZivMV4VHvqmL7FksuT4Qslfpo>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrheejgddutdeiucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkgggtugesghdtreertddtjeenucfhrhhomhepffgvmhhiucfo
+    rghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhnghhslh
+    grsgdrtghomheqnecuggftrfgrthhtvghrnhepudekteekkeekkedvteegtdektefftdfh
+    tddtgfeifffhkeehhfejhfevgefgieehnecuffhomhgrihhnpehkvghrnhgvlhdrohhrgh
+    enucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpeguvghm
+    ihesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:YdaDYkPcf6vBxHnBgi8RzABV_n-CUMqMjodWAyzlXTAjeU-6Nu9Kcg>
+    <xmx:YdaDYt--XEn3Bq2Jeh6uf4qYWyZYh1e8wcv63hpbaNCvvceXVhX93A>
+    <xmx:YdaDYkU7dGhe7o93GBQAQ0XN0JyVv0jnQ18E5ukeDEe9hTF6rZRQsQ>
+    <xmx:YtaDYiJ-pMcovtt9LLGw_bHajHCQR-5UJNCBMEpRVswYzTKwmZdAmA>
+Feedback-ID: iac594737:Fastmail
+Date: Tue, 17 May 2022 13:07:42 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v5] Preserve the EFI System Resource Table for dom0
+Message-ID: <YoPWX7lQH4ZmxV9u@itl-email>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="HLK4XKn2pm9LO02N"
+Content-Disposition: inline
 
-PiBUb255IC8gRGluaCAtIGNhbiBJIGp1c3QgKnNraXAqIHRoaXMgbm90aWZpZXIgKmlmIGtkdW1w
-KiBpcyBzZXQgb3IgZWxzZQ0KPiB3ZSBydW4gdGhlIGNvZGUgYXMtaXM/IERvZXMgdGhhdCBtYWtl
-IHNlbnNlIHRvIHlvdT8NCg0KVGhlICJza2lwIiBvcHRpb24gc291bmRzIGxpa2UgaXQgbmVlZHMg
-c29tZSBzcGVjaWFsIGZsYWcgYXNzb2NpYXRlZCB3aXRoDQphbiBlbnRyeSBvbiB0aGUgbm90aWZp
-ZXIgY2hhaW4uIEJ1dCB0aGVyZSBhcmUgb3RoZXIgbm90aWZpZXIgY2hhaW5zIC4uLiBzbyB0aGF0
-DQpzb3VuZHMgbWVzc3kgdG8gbWUuDQoNCkp1c3QgYWxsIHRoZSBub3RpZmllcnMgaW4gcHJpb3Jp
-dHkgb3JkZXIuIElmIGFueSB3YW50IHRvIHRha2UgZGlmZmVyZW50IGFjdGlvbnMNCmJhc2VkIG9u
-IGtkdW1wIHN0YXR1cywgY2hhbmdlIHRoZSBjb2RlLiBUaGF0IHNlZW1zIG1vcmUgZmxleGlibGUg
-dGhhbg0KYW4gImFsbCBvciBub3RoaW5nIiBhcHByb2FjaCBieSBza2lwcGluZy4NCg0KLVRvbnkN
-Cg==
+
+--HLK4XKn2pm9LO02N
+Content-Type: text/plain; charset=utf-8; protected-headers=v1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 May 2022 13:07:42 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v5] Preserve the EFI System Resource Table for dom0
+
+The EFI System Resource Table (ESRT) is necessary for fwupd to identify
+firmware updates to install.  According to the UEFI specification =C2=A723.=
+4,
+the ESRT shall be stored in memory of type EfiBootServicesData.  However,
+memory of type EfiBootServicesData is considered general-purpose memory
+by Xen, so the ESRT needs to be moved somewhere where Xen will not
+overwrite it.  Copy the ESRT to memory of type EfiRuntimeServicesData,
+which Xen will not reuse.  dom0 can use the ESRT if (and only if) it is
+in memory of type EfiRuntimeServicesData.
+
+Earlier versions of this patch reserved the memory in which the ESRT was
+located.  This created awkward alignment problems, and required either
+splitting the E820 table or wasting memory.  It also would have required
+a new platform op for dom0 to use to indicate if the ESRT is reserved.
+By copying the ESRT into EfiRuntimeServicesData memory, the E820 table
+does not need to be modified, and dom0 can just check the type of the
+memory region containing the ESRT.  The copy is only done if the ESRT is
+not already in EfiRuntimeServicesData memory, avoiding memory leaks on
+repeated kexec.
+
+See https://lore.kernel.org/xen-devel/20200818184018.GN1679@mail-itl/T/
+for details.
+
+Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+---
+ xen/common/efi/boot.c | 106 +++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 104 insertions(+), 2 deletions(-)
+
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index a25e1d29f1..3d56422dfa 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -39,6 +39,25 @@
+   { 0x605dab50, 0xe046, 0x4300, {0xab, 0xb6, 0x3d, 0xd8, 0x10, 0xdd, 0x8b,=
+ 0x23} }
+ #define APPLE_PROPERTIES_PROTOCOL_GUID \
+   { 0x91bd12fe, 0xf6c3, 0x44fb, { 0xa5, 0xb7, 0x51, 0x22, 0xab, 0x30, 0x3a=
+, 0xe0} }
++#define ESRT_GUID    \
++  { 0xb122a263, 0x3661, 0x4f68, {0x99, 0x29, 0x78, 0xf8, 0xb0, 0xd6, 0x21,=
+ 0x80} }
++
++typedef struct _ESRT_ENTRY {
++    EFI_GUID FwClass;
++    UINT32 FwType;
++    UINT32 FwVersion;
++    UINT32 FwLowestSupportedVersion;
++    UINT32 FwCapsuleFlags;
++    UINT32 FwLastAttemptVersion;
++    UINT32 FwLastAttemptStatus;
++} ESRT_ENTRY;
++
++typedef struct _ESRT {
++    UINT32 Count;
++    UINT32 Max;
++    UINT64 Version;
++    ESRT_ENTRY Entries[];
++} ESRT;
+=20
+ typedef EFI_STATUS
+ (/* _not_ EFIAPI */ *EFI_SHIM_LOCK_VERIFY) (
+@@ -567,6 +586,38 @@ static int __init efi_check_dt_boot(const EFI_LOADED_I=
+MAGE *loaded_image)
+ }
+ #endif
+=20
++static UINTN __initdata esrt =3D EFI_INVALID_TABLE_ADDR;
++
++static size_t __init get_esrt_size(const EFI_MEMORY_DESCRIPTOR *desc)
++{
++    size_t available_len, len;
++    const UINTN physical_start =3D desc->PhysicalStart;
++    const ESRT *esrt_ptr;
++
++    len =3D desc->NumberOfPages << EFI_PAGE_SHIFT;
++    if ( esrt =3D=3D EFI_INVALID_TABLE_ADDR )
++        return 0;
++    if ( physical_start > esrt || esrt - physical_start >=3D len )
++        return 0;
++    /*
++     * The specification requires EfiBootServicesData, but accept
++     * EfiRuntimeServicesData, which is a more logical choice.
++     */
++    if ( (desc->Type !=3D EfiRuntimeServicesData) &&
++         (desc->Type !=3D EfiBootServicesData) )
++        return 0;
++    available_len =3D len - (esrt - physical_start);
++    if ( available_len <=3D offsetof(ESRT, Entries) )
++        return 0;
++    available_len -=3D offsetof(ESRT, Entries);
++    esrt_ptr =3D (const ESRT *)esrt;
++    if ( esrt_ptr->Version !=3D 1 || !esrt_ptr->Count )
++        return 0;
++    if ( esrt_ptr->Count > available_len / sizeof(esrt_ptr->Entries[0]) )
++        return 0;
++    return esrt_ptr->Count * sizeof(esrt_ptr->Entries[0]);
++}
++
+ /*
+  * Include architecture specific implementation here, which references the
+  * static globals defined above.
+@@ -845,6 +896,8 @@ static UINTN __init efi_find_gop_mode(EFI_GRAPHICS_OUTP=
+UT_PROTOCOL *gop,
+     return gop_mode;
+ }
+=20
++static EFI_GUID __initdata esrt_guid =3D ESRT_GUID;
++
+ static void __init efi_tables(void)
+ {
+     unsigned int i;
+@@ -868,6 +921,8 @@ static void __init efi_tables(void)
+             efi.smbios =3D (unsigned long)efi_ct[i].VendorTable;
+         if ( match_guid(&smbios3_guid, &efi_ct[i].VendorGuid) )
+             efi.smbios3 =3D (unsigned long)efi_ct[i].VendorTable;
++        if ( match_guid(&esrt_guid, &efi_ct[i].VendorGuid) )
++            esrt =3D (UINTN)efi_ct[i].VendorTable;
+     }
+=20
+ #ifndef CONFIG_ARM /* TODO - disabled until implemented on ARM */
+@@ -1056,9 +1111,7 @@ static void __init efi_exit_boot(EFI_HANDLE ImageHand=
+le, EFI_SYSTEM_TABLE *Syste
+     EFI_STATUS status;
+     UINTN info_size =3D 0, map_key;
+     bool retry;
+-#ifdef CONFIG_EFI_SET_VIRTUAL_ADDRESS_MAP
+     unsigned int i;
+-#endif
+=20
+     efi_bs->GetMemoryMap(&info_size, NULL, &map_key,
+                          &efi_mdesc_size, &mdesc_ver);
+@@ -1067,6 +1120,46 @@ static void __init efi_exit_boot(EFI_HANDLE ImageHan=
+dle, EFI_SYSTEM_TABLE *Syste
+     if ( !efi_memmap )
+         blexit(L"Unable to allocate memory for EFI memory map");
+=20
++    efi_memmap_size =3D info_size;
++    status =3D SystemTable->BootServices->GetMemoryMap(&efi_memmap_size,
++                                                     efi_memmap, &map_key,
++                                                     &efi_mdesc_size,
++                                                     &mdesc_ver);
++    if ( EFI_ERROR(status) )
++        PrintErrMesg(L"Cannot obtain memory map", status);
++
++    /* Try to obtain the ESRT.  Errors are not fatal. */
++    for ( i =3D 0; i < efi_memmap_size; i +=3D efi_mdesc_size )
++    {
++        /*
++         * ESRT needs to be moved to memory of type EfiRuntimeServicesData
++         * so that the memory it is in will not be used for other purposes.
++         */
++        void *new_esrt =3D NULL;
++        size_t esrt_size =3D get_esrt_size(efi_memmap + i);
++
++        if ( !esrt_size )
++            continue;
++        if ( ((EFI_MEMORY_DESCRIPTOR *)(efi_memmap + i))->Type =3D=3D
++             EfiRuntimeServicesData )
++            break; /* ESRT already safe from reuse */
++        status =3D efi_bs->AllocatePool(EfiRuntimeServicesData, esrt_size,
++                                      &new_esrt);
++        if ( status =3D=3D EFI_SUCCESS && new_esrt )
++        {
++            memcpy(new_esrt, (void *)esrt, esrt_size);
++            status =3D efi_bs->InstallConfigurationTable(&esrt_guid, new_e=
+srt);
++            if ( status !=3D EFI_SUCCESS )
++            {
++                PrintStr(L"Cannot install new ESRT\r\n");
++                efi_bs->FreePool(new_esrt);
++            }
++        }
++        else
++            PrintStr(L"Cannot allocate memory for ESRT\r\n");
++        break;
++    }
++
+     for ( retry =3D false; ; retry =3D true )
+     {
+         efi_memmap_size =3D info_size;
+@@ -1753,3 +1846,12 @@ void __init efi_init_memory(void)
+     unmap_domain_page(efi_l4t);
+ }
+ #endif
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+
+--HLK4XKn2pm9LO02N
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmKD1l8ACgkQsoi1X/+c
+IsFMAg/+J4XX6XmX6cfctCFRxzcyXyncJv7yxiD+hqPL0R8JnfzEuHBWRPJmC5Vg
+gGf+9GouSyYnFgo9y7TIZEYpXOq5XInflpxv8VHEEvYbJbOuvrirddl9tVRkaZsK
+o79BvJj/rqM1ZwzAVhA6tcSF37jmhwYONcUsXFDcinudp1dM2pHuU0267ro9gtum
+P6EEMyFdFmbgMwad05rgx7Tc8gerwyIf5kgipT4P4lrZXhV9gZ/D2SGwD3uSjhtC
+tWFSrBIF3ayUWoXiRIx2M7JJRspcVDOfqykW2dZ4ngUapnKPyJNC9wVovWax9U/E
+qFcAiz09Zt8HoJ5cP4qSfBoO7/OSUXdrz9PSCacnjd9kThX/d5lvBXKWMTBgQ4IP
+/wkyK5CLLhgl3exfoBLiC1OCuK0PuHJwFxHNbb6gar2xslbe5S8tNKvzer1jEQiv
+r37wpw79s7gDBSnI8k4vlPqDf8788WOH5X45xXOPQjs/D/FgcoLTstzpQwNBI8K+
+9umbFY2myaLhNw0ZtUALnAmB+pNlExs894byv4JWe2mii7FPiXAZC/CDInnyH4pi
+0jiL1LYUq/4Av39+D7w1h30kmULbybMUjP6D3lUdRJTpsYOxriry5agE7iSlgjLl
+jGsiY0SqL7U6Fdn0y4WO3YXJXyiXkUMloLCtfDH9TE4e2KbV3d0=
+=345A
+-----END PGP SIGNATURE-----
+
+--HLK4XKn2pm9LO02N--
 
