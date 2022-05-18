@@ -2,42 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8398452B81F
-	for <lists+xen-devel@lfdr.de>; Wed, 18 May 2022 12:50:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.331978.555617 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 458D852B821
+	for <lists+xen-devel@lfdr.de>; Wed, 18 May 2022 12:53:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.331987.555628 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrHFU-0005qW-51; Wed, 18 May 2022 10:49:48 +0000
+	id 1nrHIF-0007MX-LX; Wed, 18 May 2022 10:52:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 331978.555617; Wed, 18 May 2022 10:49:48 +0000
+Received: by outflank-mailman (output) from mailman id 331987.555628; Wed, 18 May 2022 10:52:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrHFU-0005og-0Y; Wed, 18 May 2022 10:49:48 +0000
-Received: by outflank-mailman (input) for mailman id 331978;
- Wed, 18 May 2022 10:49:47 +0000
+	id 1nrHIF-0007Kl-H8; Wed, 18 May 2022 10:52:39 +0000
+Received: by outflank-mailman (input) for mailman id 331987;
+ Wed, 18 May 2022 10:52:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M1BC=V2=citrix.com=prvs=130ad9af4=Jane.Malalane@srs-se1.protection.inumbo.net>)
- id 1nrHFS-0005oa-VD
- for xen-devel@lists.xenproject.org; Wed, 18 May 2022 10:49:46 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 39f348fe-d698-11ec-837e-e5687231ffcc;
- Wed, 18 May 2022 12:49:45 +0200 (CEST)
-Received: from mail-bn8nam11lp2174.outbound.protection.outlook.com (HELO
- NAM11-BN8-obe.outbound.protection.outlook.com) ([104.47.58.174])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 18 May 2022 06:49:42 -0400
-Received: from DM5PR03MB3386.namprd03.prod.outlook.com (2603:10b6:4:46::36) by
- BN8PR03MB4610.namprd03.prod.outlook.com (2603:10b6:408:9e::13) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5273.13; Wed, 18 May 2022 10:49:40 +0000
-Received: from DM5PR03MB3386.namprd03.prod.outlook.com
- ([fe80::a932:ea60:fb82:12b7]) by DM5PR03MB3386.namprd03.prod.outlook.com
- ([fe80::a932:ea60:fb82:12b7%7]) with mapi id 15.20.5273.014; Wed, 18 May 2022
- 10:49:40 +0000
+ <SRS0=JTh1=V2=citrix.com=prvs=130776dd6=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1nrHID-0007KU-Lk
+ for xen-devel@lists.xenproject.org; Wed, 18 May 2022 10:52:37 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9eabc12b-d698-11ec-837e-e5687231ffcc;
+ Wed, 18 May 2022 12:52:34 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,186 +36,376 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 39f348fe-d698-11ec-837e-e5687231ffcc
+X-Inumbo-ID: 9eabc12b-d698-11ec-837e-e5687231ffcc
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1652870985;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=efAx/8ljS/+OE6+4qUJIgOpijDrZxS8me08+v3JDzL8=;
-  b=OgTJRH1vVgBJOH2ym76pS79WYhtrFmbcirxMRtYUr7Pp66plf0rNY265
-   jMRLQcl6jcUCuVA5hku0ki2JvBTg7LUOxVY4yjCBVoOC7SN+EE6KEZH5r
-   GcdOuiGxx22D9Nto7w1ttwI+VwTaMa6h6Ah397SIIqoJOx8FRAsUUHFy+
-   o=;
-X-IronPort-RemoteIP: 104.47.58.174
-X-IronPort-MID: 71977731
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:YmJdmK03bs0jz2UTP/bD5aNwkn2cJEfYwER7XKvMYLTBsI5bp2MFy
- TQaWG6PO/6NNGrwKI8gO4jl9B5QusXTy4JnHgI+pC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
- Zh2hgzodZhsJpPkjk7xdOCn9xGQ7InQLlbGILes1htZGEk1EU/NtTo5w7Rj2tMx0YDga++wk
- YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
- 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
- /1gsYD3VCx5Dpf3xtsFajBUFXo9PopJreqvzXiX6aR/zmXgWl61mrBEKhFzOocVvOFqHWtJ6
- PoUbigXaQyOjP63x7T9TfRwgsMkL4/gO4Z3VnNIlGmFS6p5B82TBfyVube03x9p7ixKNdTXY
- cdfTDNrZRDJZRBnMVYLEpMu2uyvgxETdhUH8QPK+vVsugA/yiRb4Ym0PsDaI+eNG+dfpk29n
- WLI3jzmV0Ry2Nu3jGDtHmiXru3FkD7/WYkSPKal7fMsi1qWrkQMDDUGWF39puO24mauVtQaJ
- 0EK9y4Gqakp6FftXtT7Rwe/onOPolgbQdU4LgEhwASEy66R6QDJAGEBF2dFcIZ/65NwQiE23
- FiUmd+vHSZorLCeVXOa8PGTsC+2Pi8Wa2QFYEfoUDc43jUqm6lr5jqnczqpOPfdYgHdcd0o/
- w23kQ==
-IronPort-HdrOrdr: A9a23:GpDdQan+4xFkq0H0tk9vDwgSiI7pDfOOimdD5ihNYBxZY6Wkfp
- +V8cjzhCWftN9OYhodcIi7SdK9qXO1z+8X3WGIVY3SETUOy1HYVr2KirGSjwEIeheOvNK1sJ
- 0NT0EQMqyWMbEXt6fHCUyDYq4dKbq8ge+VbIXlvhFQpGhRAskOgTuRSDzra3GeLzM2Z6bRYa
- Dsgvav0ADQHEj/AP7aOlA1G8z44/HbnpPvZhALQzQ97hOVsD+u4LnmVzCFwxY3SVp0sPYf2F
- mAtza8yrSosvm9xBOZ/XTU9Y5qlNzozcYGLNCQi/ISNi7nhm+TFcRcsvy5zXMISdOUmRMXee
- r30lMd1gNImjTsl1SO0FnQMs/boXATAjHZuAalaDDY0LHErXoBerZ8bMRiA1XkAgMbza5B+b
- MO0GSDu5VNCxTc2Cz7+tjTThlv0lG5uHw4jIco/jViuKYlGchsRLYkjTVo+VY7bVHHwZFiFP
- MrANDX5f5Qf1/fZ3fFvnN3yNjpWngoBB+JTkULp8TQilFt7TtE5lpdwNZakmYL9Zo7RZUB7+
- PYMr5wnLULSsMNd6pyCOoIXMPyAG3QRhDHNn6UPD3cZek6EmOIr4Sy7KQ+5emsdpBNxJwumI
- 7ZWFcdrmI2c1KGM7z74HSKyGG5fIyQZ0Wd9igF3ekGhlTVfsuaDQSTDFYzjsCnv/ITRsXGRv
- fbAuMlP8Pe
+  d=citrix.com; s=securemail; t=1652871154;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=LOEEKV17fhboUoAHAlroS7b3W8TzEVY99C1J1TrtWps=;
+  b=EQ2GJ5egLKLyFLk+fDFj1cv6UsTgEgU3x68KGp39l2DbsQH4F0uKKu6U
+   ia+LkDNBA8Ch3mEdQzhzjY5ZaLcmSRhC6YMO7x/7I9vTfAYcAlprfd5Ll
+   KMA1pJGoGH0tzT1x5HN37wbzpcVBjfPQPOQiyKXiaidglAXNzSwCLmh43
+   c=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 70956091
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:nSgNyaBXhTj2DRVW/7Xjw5YqxClBgxIJ4kV8jS/XYbTApD1whjYFz
+ WYfCG7TPa6LZWqme95/PY/j8x4AvpOEmNZhQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
+ xA2M4GYRCwMZiaA4E/raNANlFEkvU2ybuOU5NXsZ2YgHGeIdA970Ug5w7Ng0tYx6TSEK1jlV
+ e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
+ I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPhcz
+ NYSm4yzZj11ZI3ChLQGfwBaDSpHaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
+ 6ZCcXZUM07F17neLLGTE4GAguwqKtXrO4UO/Glt1zjDAd4tQIzZQrWM7thdtNs1rp8WTKuAP
+ 5tAAdZpREzvPCcfYFYlM8IZsMqkmnvkcQdR803A8MLb5ECMlVcsgdABKuH9YceWTM9YmkKZo
+ GPu/GnjBBwectuFxlKt8H22gfTUtTjmQ49UH7q9ntZonVmSy2o7GBAQE1yhrpGRgEOkR8hWL
+ UBS/yM0tLUz72SiVNy7VBq9yFa6uRobV8tVAvcNwgiHwarJ4C6UHmEBCDVGbbQOpMIwADAny
+ FKNt9foHiB09q2YT2qH8bWZpi/0PjIaRUcFYSIHVhcU+NnLr4Q6jxaJRdFmeIayitD2Ajj2z
+ yq9sDklh74TgMgI0I225VnCxTmro/DhVAku7B/QWWGjxgx8bY+hIYev7DDz8vJoPIufCF6bs
+ xA5d9O2tb5US8vXzWrUHbtLTOrBC+u53CP0rFpsQLcx9BuXpySDc5wA+x1nJlliC5NREdP2W
+ 3P7tQRU7Z5VGXKla65rfo68Y/gXIbjc+cfNDa6NMIcXCnRlXErepXw1OxbMt4z4uBJ0+ZzTL
+ 6t3ZipF4ZwyLa18hAS7SO4GuVPA7nBvnDiDLXwXIvnO7FZ/WJJ3YepcWLdtRrpghE9hnOky2
+ 48GX/ZmMz0FDIXDjtD/qOb/12wiI3khHozRoMdKbOOFKQcOMDh/VqWBmOl9JtU7xPw9egL0E
+ paVAx8w9bYCrSefdVXiho5LNtsDoqqTXVpkZHdxbD5EKlAoYJq17bd3SnfEVeJPyQCX9tYtF
+ 6NtU5zZWpxnE22bkxxAPciVhNEzL3yD2FPRVxdJlRBiJvaMsSSSoYS6FuYunQFTZheKWTwW+
+ OP8h1uGG8taHmyPzq/+MZqS8r94hlBF8MoaYqcCCoM7lJnEmGSyFxHMsw==
+IronPort-HdrOrdr: A9a23:LvUqKqsPxoOZyB7u9A1vEV4D7skC+IMji2hC6mlwRA09TyXGra
+ 2TdaUgvyMc1gx7ZJh5o6H4BEDyewKlyXcV2/hYAV7MZniChILFFu9fBM7Zslvd8k7Fh6VgPM
+ VbAsxD4bTLZDAX4voSojPIdOrIq+PmzEncv5a9854bd3AIV0gP1WZEIzfeNnczaBhNBJI/Gp
+ bZzNFAvSCcdXMeadn+LmUZXsDYzue72a7OUFojPVoK+QOOhTSn5PrRCB6DxCoTVDtJ3PML7X
+ XFqQrk/a+u2svLhiM0llWjoKi+quGRi+erN/b8yvT97Q+cyTpAUb4RFYFqegpF4t1Hpmxa1e
+ Uk6C1QRPibo0mhBF1d5yGdkTUImQxelkPK2BuVnGCLm72IeBsqT8VGno5XaR3f9g4pu8x9yr
+ tC2yaDu4NQFg6oplWL2zHkbWAeqqOPmwtXrQfTtQ0vbaIOLLtK6YAP9kJcF5kNWCr89YA8Ce
+ FrSMXR/uxff1+WZ23Q+jAH+q3kYl0jWhOdBkQSsM2c1DZb2Hh/0ksD3cQa2nMN7og0RZVI7/
+ nNdq5oiLZNRMkLar8VPpZ2feKnTmjWBR7cOmObJlrqUKkBJnLWspbypK444em7EaZ4vqfaWK
+ 6xI2+wmVRCBH4GU/f+oKGj2iq9PlmAYQ==
 X-IronPort-AV: E=Sophos;i="5.91,234,1647316800"; 
-   d="scan'208";a="71977731"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kPOJvU4Lcyn0qRH1ldNQlT6DVF08RFiyKFBX+k0WtC9Q4Upe/feF50Zd22sCESDkm137u26PxlmzfdNw+Wllylm5Fx4yasFDiktjvrQ2vGtIxnqj5f/KUedjZJfxfPt5Ajn7yXqysPuYx8YE06h2PSB9BS+RciZ+I2JtntS3vWlbauEoeZKFuXH267w8nIbXgkjdUswVnY/jPcY2vNr0DX8cg4wbiz2HmsiLe/EeZdeptZvP/jYFxVNSbPqu7dxqAwFyBEPA/S4gUdSWgZ8vsepZo2GTf7aoP78FrPeNZvrcpWZykET8tE63seiV/Wj5qGoEsFcvRUzumwTz2EPn/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=efAx/8ljS/+OE6+4qUJIgOpijDrZxS8me08+v3JDzL8=;
- b=Z/wOTv0Z0WhnJLRtQNk+MpSSV6BKnKIYUrRmbtqd6/KhN6x05Pwy7BvVj2Zko9ICMn38Z6QhlSlqNPhgmm1ABPU2SGjHDEaX1M/DUQ2lMa3eFsxK7GwoOcwEN/PR+Kb9bs+F8BV8T1rS2cobN6IgHDK+u1Y3uevbJL1gJsVbe4vrqxvJTsTrHjYLzWJpEftgd5k+WkvIkQ9FTKVaSk1s97Wrlgj2rPSKNMTWNe5EzrvsKoUkfQStpBG0AiJKxh7WgNEnM5g4A5qhiygYdDV2v5rmEbKCSlSU2ZEDd6hah5eY2Hsj9D83aolbGvQzLvLnbqtwEWHYHnG259GBb2JknQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=efAx/8ljS/+OE6+4qUJIgOpijDrZxS8me08+v3JDzL8=;
- b=rxeMFqy7JDSRfzTl6PP5EVm5+WjF8NDWPNGNzFBRRKa/GT7rKVJShNZM/pUxKTET2vm6NQ7DTOq1O8+/C4FzZcKEF+paPzz9jRlRyLatTKeonvQ6ADxbjJ9xiAeARBEM71hthHtvkYk51GKvoBT6EXKaL0rGEh2A7Nvo91KSWeg=
-From: Jane Malalane <Jane.Malalane@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <Andrew.Cooper3@citrix.com>, Roger Pau Monne
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Xen-devel
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] x86/hvm: Widen condition for is_hvm_pv_evtchn_vcpu()
-Thread-Topic: [PATCH] x86/hvm: Widen condition for is_hvm_pv_evtchn_vcpu()
-Thread-Index: AQHYZUnyc7oF7QLoj0+gbrrX4WFU9K0kYs2AgAAckIA=
-Date: Wed, 18 May 2022 10:49:40 +0000
-Message-ID: <649429ad-d4a8-5a53-45da-74bd8815318c@citrix.com>
-References: <20220511151423.20241-1-jane.malalane@citrix.com>
- <241a38af-65cb-a44b-4910-c1c310b7bfb0@suse.com>
-In-Reply-To: <241a38af-65cb-a44b-4910-c1c310b7bfb0@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 45f700f7-352d-48a5-b871-08da38bc1c69
-x-ms-traffictypediagnostic: BN8PR03MB4610:EE_
-x-microsoft-antispam-prvs:
- <BN8PR03MB4610816C0634FB4D204500DA81D19@BN8PR03MB4610.namprd03.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- kytm9rdMNhxWL8t3adiPaA3ABwcbLYXK5kGfQw1xoVo/MI668iMQ52jjP4d3S9YtWHicCxG3cAyOou8H0+6yDkMkxWYuwYZCCQCjVKOAl8aAHE4R1OYUONjVlKvC/QR+2d9hxMnyiL4ky6I9Vr9ofRFK+2/lC2OuP2kboUqGewJ/ZMT0a4eQFA9WGefRquN0NFfyR+13YfnHyB9862zHWPFGAk4AxyiYuy+sgIhBhNmis4hHCarcMnVVeRjhymOpGWhvLls/a+wZG56HJXAF6wGWDXAf1f0/caefVXf6JvFxo6JjjFTUFqB79sJkgWK6/bT9yWVrPeXoxyL6wTHL6QEUmFvpzqQa3qqiz69+7VgoduAAQOeKJ+C64Gu8lpAFeO+r8I1puW0iMlZ6LQGBvf72AUovxf+3rskc1cvyzDqYaNBGa+8fhLnDpZklP+POymdmC4wmrsrTIzucVgx7U6e61PsLEmuRpv8vwXBg5we/E9FV6WoI/jKLfF1nv8GllPNmtSyFXiaLlk2hqjMyM/0JyfVFJNfHa0v10XfUX0xKvWjK9LSPAhHrZNFRwce7+O3rywoxsQrpQt5IlA+zD5SgbKAclMyv/UGiSs7hSuxeo34+sMOAXqzul71DFT5+PNEeH0HE91ZrEUXdbwn4PtPs4tc2Xbz8usU6VeejiQAJ5b+OYUKRKNPySPInjSTabHbhCIhc5B9OLZ/HGkSq4nKPCB9Xu3rCK5pNBmuwNl6jZ1EknvjICCb2mfM3xDN2
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM5PR03MB3386.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(31696002)(6506007)(8676002)(66946007)(26005)(5660300002)(4326008)(2906002)(6512007)(6916009)(122000001)(38070700005)(36756003)(86362001)(54906003)(186003)(64756008)(66476007)(66556008)(66446008)(53546011)(38100700002)(316002)(508600001)(31686004)(6486002)(71200400001)(76116006)(83380400001)(2616005)(8936002)(82960400001)(91956017)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?c2k1SFRWT1BwcGFxQmI3Zjg0TjMxclFyRzdhSm11YUhoSGlpRzMrY0g3anJq?=
- =?utf-8?B?YVliM3hWOVA0eUx6aks5bS81aVR0V2NJYmVZU2xYNzhWOFE1dFg1MFBuK0d6?=
- =?utf-8?B?Q25vOWNhUnB6UUcxajJXNWgzVklaUktyMk4vNXhjZzZTSExudjR2c0dkQVQw?=
- =?utf-8?B?U0NzcjFmRjBPYytqbHEwdVlRWDVETUV1eEozU1lSYm12a0dNUERVQm8zbEFk?=
- =?utf-8?B?UFNKZktYbDhyM3k5VXJ2N3g1TnNrSUkvK0R2cnkwNGdrSXBQRlZZbW8zV002?=
- =?utf-8?B?SEtjSGl2WlJ0M2xBNlJ2Y0loald0bG5zRjVlWTNDZy9lTHI5aXJJKzBpa1M1?=
- =?utf-8?B?dnphRU83RzFqbUZzZWJhUDRtYnFlanlyaUFPbWptbEJUNWJtVE52QU0xVmVv?=
- =?utf-8?B?aDdtOWJpS1JublVsS2dKU1QzR3NpZWd4VlAzTXk4aUtkV1dwMXVJbkNsS3Mv?=
- =?utf-8?B?Rm5ZSmpWTVY3VGlPRDdKM01QcDhGOFZsQjIxK0lORFRtVUJaMEthb0E4MHpT?=
- =?utf-8?B?RzYrK1ZIQ0wwVGIxMDFKZVlXR0lnQ3Y0VHNwSkllRXNhaVcxQTVVUk1nYjNz?=
- =?utf-8?B?VzdXRys5QjJYdmErbmRFbVVhd0VFYmJBWXdtZ25vK3owcWdRS2VtMnRSSnZp?=
- =?utf-8?B?SHpRVFVqZ2N4MWhUWllqNnNnaFZBSVNvMWQzdW1SeDV5cXNvTC9LUDFEc2hG?=
- =?utf-8?B?TVlNcHZ3cC9aN2pmeVhtK3ZEcHBJSi82VG9NcFJjeHhVK3Vaa3NxeEJ2WjlH?=
- =?utf-8?B?d0xJWGhiaXJPWWpJNlEzZm4rV0tzVkF1dlN1QXZCenVab1NvRnhrL0VnTU1B?=
- =?utf-8?B?b2c5M05oVFA0TWkrV3Nucm5DWExaMEg3emp5K1ZpQkJDTWlFMHJQSWwwMFhj?=
- =?utf-8?B?WGxsY2g1VjRFOXAvcDhYcHMvRGdjVEg2MjJqRG5rbmx6cGV6WmUwYnFhL04r?=
- =?utf-8?B?MGpNdzhkN3ZTZ1lBWEZEamJpV1B1NlJVZ2k5SkdXRE43eEhDSnM0all1R3Rk?=
- =?utf-8?B?QXprSjR1WEhZVUpjWXR3VXdsRTJBU1hwaVFsQVQ4VVNjQUlzdCtNaEF6bjU5?=
- =?utf-8?B?VVVRMVh2blMrRmQvSTBsLysrR0RzSURNT3lzT3lINldaUW5GVDRiUE1QZ0dY?=
- =?utf-8?B?N3NGTnNzVmVSeUcyd2ptUDJPbWJ6UDNMTXJvQ1k1bnEwVnFIQmhOUDdJNFZB?=
- =?utf-8?B?NjlqSkZGdmFrWkNuTnhuTzYxenVoRnFJSnJxMWFpUkppZ2gxUFhFT29uVkFR?=
- =?utf-8?B?WUtDVlplUTZBSFo1MXBURTdkV3phZm00UWYyNjQ1SFR0c0RCMHRrTnUvN2U5?=
- =?utf-8?B?a1NuWWs2dFpCMGdzTzBWc0V6TDhKeFVjVnhudGVjcXk1NFV1RE9oU3BzS1Yy?=
- =?utf-8?B?S3NqaVc2bWRld1BWaGlqQVcwNmpFNWVFVFJkeTZqWTFpR2Y2THBVYnJlc1ZE?=
- =?utf-8?B?ejZqYWtoZzlUdzUyYkw0aUdtenptelBkK2I2NkMrdURNY2RSVlRzeWs3Vndh?=
- =?utf-8?B?MDloMXoyY2NqMStFRmV0S0VhaGJVdDVFeVpQM2I1TE9IblBhWnU2NGhZZCtU?=
- =?utf-8?B?aitPdXJsV0c2Qlc5VXBUdmtKUWpHM3oxYUV1TmU0dzd6Z0VKRVlabmRpcDFo?=
- =?utf-8?B?VEFOZmZPV3VuZVpvQTFJUDlvZkd6TnNoM2xiMXZMSlY0T055TlJUam9YNjNh?=
- =?utf-8?B?dUhBZGlnWTZ1bFhNL3BsVkRmcFVIcWdLRDU1aFo4SlR1OFhIYU1FL29VSHJm?=
- =?utf-8?B?R1VoVW1BWkhzdVh0ZlJoMFl3WHVadWt4aEcwcEpmeTZ6ZE9TemVETEFqMTBO?=
- =?utf-8?B?T0JPWitVWUt4Y3c0VWt6aDl3N3kxNlBOL2RTc1M3TE1heWpvLzFNS3JhWU45?=
- =?utf-8?B?aHZiOUJkVlkwWVBiZHMwamR6REZvTkg1c2lab1U1aVB5S3kzRlZ1ayt1QWNK?=
- =?utf-8?B?SGpBa3hCSFRoNVlDb3Vka0VvMDVJUlBGNVduL0hRa1ZkbzNuNUNtNkVMcGRn?=
- =?utf-8?B?QXQxb3AxdkdOc2ZsZXljeEJVTk5FVXVQbURoeXZnQTlFbjRDV1BCNFdhOUQ1?=
- =?utf-8?B?NFdURjJONllRQkFnR0RyczdCcS8vQjVMajhicjJBY0IzeXFDZTNEVnlic2Rm?=
- =?utf-8?B?RXFvZmFVZUlxN241TWY2clBndVdHbkhrRWlhS3ZLRnBMcG8xazBwbmI0R3hm?=
- =?utf-8?B?QTEvc0M2ejh6TCtKd3pmOXNQT1hlRGFHRnVyWFV3Q1NzaWdFdmQwaERXOUVD?=
- =?utf-8?B?TEExKy9jazlaeTJEaE1YZWNuRGdVZDF5ZEtvbHd6UjVtZ2wvQ2VmUWhZMDZu?=
- =?utf-8?B?RTAzVDVxeE1xNjhmdlVpbm1aYm5qaS9wREMxSHJPcHJiT0tYOVRhenhNSmNv?=
- =?utf-8?Q?i6pBmtSVw9usxVlI=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <B6BCCDF3D6194B4996845574ED28C668@namprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+   d="scan'208";a="70956091"
+Date: Wed, 18 May 2022 11:52:19 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+CC: <xen-devel@lists.xenproject.org>, Oleksandr Tyshchenko
+	<oleksandr_tyshchenko@epam.com>, Wei Liu <wl@xen.org>, George Dunlap
+	<george.dunlap@citrix.com>, Nick Rosbrook <rosbrookn@gmail.com>, "Juergen
+ Gross" <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	"Julien Grall" <julien@xen.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: Re: [PATCH V8 1/2] libxl: Add support for Virtio disk configuration
+Message-ID: <YoTP44zc9jzGGYJf@perard.uk.xensource.com>
+References: <1651598763-12162-1-git-send-email-olekstysh@gmail.com>
+ <1651598763-12162-2-git-send-email-olekstysh@gmail.com>
 MIME-Version: 1.0
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR03MB3386.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45f700f7-352d-48a5-b871-08da38bc1c69
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2022 10:49:40.7887
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: wjBr9RxmPzQEmOnTDMhU1iAHPcpoBGs4LfQ0t2NVCWzGWxlEORLpK8pvQCnVTlIUQe8H5Zn7hsDinQ76RGbYdDBWu4/DXr+7lMihddXk6wE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR03MB4610
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <1651598763-12162-2-git-send-email-olekstysh@gmail.com>
 
-T24gMTgvMDUvMjAyMiAxMDowNywgSmFuIEJldWxpY2ggd3JvdGU6DQo+IFtDQVVUSU9OIC0gRVhU
-RVJOQUwgRU1BSUxdIERPIE5PVCByZXBseSwgY2xpY2sgbGlua3MsIG9yIG9wZW4gYXR0YWNobWVu
-dHMgdW5sZXNzIHlvdSBoYXZlIHZlcmlmaWVkIHRoZSBzZW5kZXIgYW5kIGtub3cgdGhlIGNvbnRl
-bnQgaXMgc2FmZS4NCj4gDQo+IE9uIDExLjA1LjIwMjIgMTc6MTQsIEphbmUgTWFsYWxhbmUgd3Jv
-dGU6DQo+PiBIYXZlIGlzX2h2bV9wdl9ldnRjaG5fdmNwdSgpIHJldHVybiB0cnVlIGZvciB2ZWN0
-b3IgY2FsbGJhY2tzIGZvcg0KPj4gZXZ0Y2huIGRlbGl2ZXJ5IHNldCB1cCBvbiBhIHBlci12Q1BV
-IGJhc2lzIHZpYQ0KPj4gSFZNT1Bfc2V0X2V2dGNobl91cGNhbGxfdmVjdG9yLg0KPiANCj4gSSdt
-IGNvbmZ1c2VkOiBZb3Ugc2F5ICJwZXItdkNQVSIgaGVyZSwgYnV0IC4uLg0KPiANCj4+IC0tLSBh
-L3hlbi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9kb21haW4uaA0KPj4gKysrIGIveGVuL2FyY2gveDg2
-L2luY2x1ZGUvYXNtL2RvbWFpbi5oDQo+PiBAQCAtMTQsOCArMTQsMTQgQEANCj4+ICAgDQo+PiAg
-ICNkZWZpbmUgaGFzXzMyYml0X3NoaW5mbyhkKSAgICAoKGQpLT5hcmNoLmhhc18zMmJpdF9zaGlu
-Zm8pDQo+PiAgIA0KPj4gKy8qDQo+PiArICogU2V0IHRvIHRydWUgaWYgZWl0aGVyIHRoZSBnbG9i
-YWwgdmVjdG9yLXR5cGUgY2FsbGJhY2sgb3IgcGVyLXZDUFUNCj4+ICsgKiBMQVBJQyB2ZWN0b3Jz
-IGFyZSB1c2VkLiBBc3N1bWUgYWxsIHZDUFVzIHdpbGwgdXNlDQo+PiArICogSFZNT1Bfc2V0X2V2
-dGNobl91cGNhbGxfdmVjdG9yIGFzIGxvbmcgYXMgdGhlIGluaXRpYWwgdkNQVSBkb2VzLg0KPj4g
-KyAqLw0KPj4gICAjZGVmaW5lIGlzX2h2bV9wdl9ldnRjaG5fZG9tYWluKGQpIChpc19odm1fZG9t
-YWluKGQpICYmIFwNCj4+IC0gICAgICAgIChkKS0+YXJjaC5odm0uaXJxLT5jYWxsYmFja192aWFf
-dHlwZSA9PSBIVk1JUlFfY2FsbGJhY2tfdmVjdG9yKQ0KPj4gKyAgICAgICAgKChkKS0+YXJjaC5o
-dm0uaXJxLT5jYWxsYmFja192aWFfdHlwZSA9PSBIVk1JUlFfY2FsbGJhY2tfdmVjdG9yIHx8IFwN
-Cj4+ICsgICAgICAgICAoZCktPnZjcHVbMF0tPmFyY2guaHZtLmV2dGNobl91cGNhbGxfdmVjdG9y
-KSkNCj4gDQo+IC4uLiB5b3UgdXNlIChkKS0+dmNwdVswXSBoZXJlIChhbmQsIHllcywgeW91IHNh
-eSBzbyBpbiB0aGUgY29tbWVudCkNCj4gYW5kIC4uLg0KPiANCj4+ICAgI2RlZmluZSBpc19odm1f
-cHZfZXZ0Y2huX3ZjcHUodikgKGlzX2h2bV9wdl9ldnRjaG5fZG9tYWluKHYtPmRvbWFpbikpDQo+
-IA0KPiAuLi4geW91IGRvbid0IGFsdGVyIHRoaXMgYXQgYWxsLg0KPiANCj4gQWxzbyAocmUtb3Jk
-ZXJpbmcgY29udGV4dCkgdGhpcyAuLi4NCj4gDQo+PiBpc19odm1fcHZfZXZ0Y2huX3ZjcHUoKSBy
-ZXR1cm5pbmcgdHJ1ZSBpcyBhIGNvbmRpdGlvbiBmb3Igc2V0dGluZyB1cA0KPj4gcGh5c2ljYWwg
-SVJRIHRvIGV2ZW50IGNoYW5uZWwgbWFwcGluZ3MuDQo+IA0KPiAuLi4gaXNuJ3QgcmVhbGx5IHRy
-dWUgLSBpdCdzIGlzX2h2bV9wdl9ldnRjaG5fZG9tYWluKCkgd2hpY2ggY29udHJvbHMNCj4gdGhp
-cyAod2hpY2ggaW4gdHVybiBpcyB3aHkgYWJvdmUgeW91IG5lZWQgdG8gbWFrZSB0aGUgYXNzdW1w
-dGlvbiBJJ3ZlDQo+IHB1dCB1bmRlciBxdWVzdGlvbikuIFdpdGggdGhhdCBhc3N1bXB0aW9uIEkg
-dGhpbmsgaXNfaHZtX3B2X2V2dGNobl92Y3B1KCkNCj4gd291bGQgYmV0dGVyIGdvIGF3YXkuDQpI
-ZXJlIG9ubHkgaXNfaHZtX3B2X2V2dGNobl9kb21haW4oKSBzaG91bGQgaGF2ZSBiZWVuIG1lbnRp
-b25lZC4gVGhlIA0KInBlci1WQ1BVIiB3YXMgaW4gcmVnYXJkIHRvIHRoZSB2ZWN0b3IgY2FsbGJh
-Y2sgZm9yIGV2dGhjbiBkZWxpdmVyeSANCnNldHVwIG5vdCBiZWluZyBnbG9iYWwgYnV0IG5vdyBk
-b25lIG9uIGEgcGVyLXZDUFUgYmFzaXMsIGluIGFueSBjYXNlLCBJIA0Kd2lsbCBhbWVuZCB0aGUg
-ZGVzY3JpcHRpb24gYW5kIHRpdGxlLiBUaGFua3MgZm9yIHRoZSBmZWVkYmFjay4NCg0KSmFuZS4=
+On Tue, May 03, 2022 at 08:26:02PM +0300, Oleksandr Tyshchenko wrote:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> 
+> This patch adds basic support for configuring and assisting virtio-mmio
+> based virtio-disk backend (emulator) which is intended to run out of
+> Qemu and could be run in any domain.
+> Although the Virtio block device is quite different from traditional
+> Xen PV block device (vbd) from the toolstack's point of view:
+>  - as the frontend is virtio-blk which is not a Xenbus driver, nothing
+>    written to Xenstore are fetched by the frontend currently ("vdev"
+>    is not passed to the frontend). But this might need to be revised
+>    in future, so frontend data might be written to Xenstore in order to
+>    support hotplugging virtio devices or passing the backend domain id
+>    on arch where the device-tree is not available.
+>  - the ring-ref/event-channel are not used for the backend<->frontend
+>    communication, the proposed IPC for Virtio is IOREQ/DM
+> it is still a "block device" and ought to be integrated in existing
+> "disk" handling. So, re-use (and adapt) "disk" parsing/configuration
+> logic to deal with Virtio devices as well.
+> 
+> For the immediate purpose and an ability to extend that support for
+> other use-cases in future (Qemu, virtio-pci, etc) perform the following
+> actions:
+> - Add new disk backend type (LIBXL_DISK_BACKEND_OTHER) and reflect
+>   that in the configuration
+> - Introduce new disk "specification" and "transport" fields to struct
+>   libxl_device_disk. Both are written to the Xenstore. The transport
+>   field is only used for the specification "virtio" and it assumes
+>   only "mmio" value for now.
+> - Introduce new "specification" option with "xen" communication
+>   protocol being default value.
+> - Add new device kind (LIBXL__DEVICE_KIND_VIRTIO_DISK) as current
+>   one (LIBXL__DEVICE_KIND_VBD) doesn't fit into Virtio disk model
+
+Is this still an issue? Since v5, the "disk/vbd" kind is used. Also see
+my comment about libxl_device_disk_get_path() regarding this.
+
+
+> An example of domain configuration for Virtio disk:
+> disk = [ 'phy:/dev/mmcblk0p3, xvda1, backendtype=other, specification=virtio']
+> 
+> Nothing has changed for default Xen disk configuration.
+> 
+> Please note, this patch is not enough for virtio-disk to work
+> on Xen (Arm), as for every Virtio device (including disk) we need
+> to allocate Virtio MMIO params (IRQ and memory region) and pass
+> them to the backend, also update Guest device-tree. The subsequent
+> patch will add these missing bits. For the current patch,
+> the default "irq" and "base" are just written to the Xenstore.
+> This is not an ideal splitting, but this way we avoid breaking
+> the bisectability.
+> 
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> ---
+> diff --git a/tools/libs/light/libxl_disk.c b/tools/libs/light/libxl_disk.c
+> index a5ca778..7fd98ce 100644
+> --- a/tools/libs/light/libxl_disk.c
+> +++ b/tools/libs/light/libxl_disk.c
+> @@ -163,6 +163,19 @@ static int libxl__device_disk_setdefault(libxl__gc *gc, uint32_t domid,
+>      rc = libxl__resolve_domid(gc, disk->backend_domname, &disk->backend_domid);
+>      if (rc < 0) return rc;
+>  
+> +    if (disk->specification == LIBXL_DISK_SPECIFICATION_UNKNOWN)
+> +        disk->specification = LIBXL_DISK_SPECIFICATION_XEN;
+> +
+> +    /*
+> +     * The transport field is only used for the specification "virtio" and
+> +     * it assumes only "mmio" value for now. When there will be a need to add
+> +     * "pci" support, we will need to remove the enforcement here and
+> +     * respective assert(s) down the code and let the toolstack to decide
+> +     * the transport to use.
+> +     */
+> +    if (disk->specification == LIBXL_DISK_SPECIFICATION_VIRTIO)
+> +        disk->transport = LIBXL_DISK_TRANSPORT_MMIO;
+
+Could you check that `disk->transport` is unset when
+`specification==xen` ? And probably return ERROR_INVAL in this case.
+
+Also, I don't think you should overwrite the value set by an application
+in _setdefault(). If `specification==virtio`, check first that
+`transport` as a supported value (unknown or mmio) then you can then you
+can set the `transport` value expected by virtio if it wasn't set by the
+application. ( An example of this is done the function already when
+enforcing qdisk for cdroms. )
+
+> +
+>      /* Force Qdisk backend for CDROM devices of guests with a device model. */
+>      if (disk->is_cdrom != 0 &&
+>          libxl__domain_type(gc, domid) == LIBXL_DOMAIN_TYPE_HVM) {
+> @@ -317,6 +334,11 @@ static void device_disk_add(libxl__egc *egc, uint32_t domid,
+>              goto out;
+>          }
+>  
+> +        assert((disk->specification == LIBXL_DISK_SPECIFICATION_VIRTIO &&
+> +                disk->backend == LIBXL_DISK_BACKEND_OTHER) ||
+> +               (disk->specification != LIBXL_DISK_SPECIFICATION_VIRTIO &&
+> +                disk->backend != LIBXL_DISK_BACKEND_OTHER));
+
+I'm not sure whether this assert() is useful. The value should already
+be correct as we call _setdefault(). It seems like an unnecessary
+potential crash at this point.
+
+>          switch (disk->backend) {
+>              case LIBXL_DISK_BACKEND_PHY:
+>                  dev = disk->pdev_path;
+> @@ -330,7 +352,14 @@ static void device_disk_add(libxl__egc *egc, uint32_t domid,
+>  
+>                  assert(device->backend_kind == LIBXL__DEVICE_KIND_VBD);
+>                  break;
+> +            case LIBXL_DISK_BACKEND_OTHER:
+> +                dev = disk->pdev_path;
+> +
+> +                flexarray_append(back, "params");
+> +                flexarray_append(back, dev);
+>  
+> +                assert(device->backend_kind == LIBXL__DEVICE_KIND_VIRTIO_DISK);
+> +                break;
+>              case LIBXL_DISK_BACKEND_TAP:
+>                  LOG(ERROR, "blktap is not supported");
+>                  rc = ERROR_FAIL;
+> @@ -386,6 +415,15 @@ static void device_disk_add(libxl__egc *egc, uint32_t domid,
+>          flexarray_append_pair(back, "discard-enable",
+>                                libxl_defbool_val(disk->discard_enable) ?
+>                                "1" : "0");
+> +        flexarray_append(back, "specification");
+> +        flexarray_append(back, libxl__device_disk_string_of_specification(disk->specification));
+> +        if (disk->specification == LIBXL_DISK_SPECIFICATION_VIRTIO) {
+> +            assert(disk->transport == LIBXL_DISK_TRANSPORT_MMIO);
+
+I don't think this is a good assert(). If an application sets the wrong
+"transport" for virtio, it should get an error, not crash. But I believe
+in this case that _setdefault() could already check that "transport" is
+correct, so there's probably no need to check the transport value here.
+
+> +            flexarray_append(back, "transport");
+> +            flexarray_append(back, libxl__device_disk_string_of_transport(disk->transport));
+> +            flexarray_append_pair(back, "base", GCSPRINTF("%"PRIu64, disk->base));
+> +            flexarray_append_pair(back, "irq", GCSPRINTF("%u", disk->irq));
+> +        }
+>  
+>          flexarray_append(front, "backend-id");
+>          flexarray_append(front, GCSPRINTF("%d", disk->backend_domid));
+> @@ -532,6 +570,49 @@ static int libxl__disk_from_xenstore(libxl__gc *gc, const char *libxl_path,
+>      }
+>      libxl_string_to_backend(ctx, tmp, &(disk->backend));
+>  
+> +    tmp = libxl__xs_read(gc, XBT_NULL,
+> +                         GCSPRINTF("%s/specification", libxl_path));
+> +    if (!tmp) {
+> +        LOG(ERROR, "Missing xenstore node %s/specification", libxl_path);
+
+This mean that we introduce an hard error if we deal with a previous
+version of libxl that didn't write this path. But we know that it meant
+specification=xen, so could we default to "xen" when the node is
+missing, rather than return an error? (It's mostly useful for developper
+at this point as creating a vm with one version of libxl and keep
+managing it with a newer version isn't really possible for now.)
+
+> +        goto cleanup;
+> +    }
+> +    if (!strcmp(tmp, "xen"))
+> +        disk->specification = LIBXL_DISK_SPECIFICATION_XEN;
+> +    else if (!strcmp(tmp, "virtio"))
+> +        disk->specification = LIBXL_DISK_SPECIFICATION_VIRTIO;
+> +    else
+> +        disk->specification = LIBXL_DISK_SPECIFICATION_UNKNOWN;
+
+That's a reimplementation of a generated function,
+libxl_disk_specification_from_string() I believe ;-)
+
+> +
+> +    if (disk->specification == LIBXL_DISK_SPECIFICATION_VIRTIO) {
+> +        tmp = libxl__xs_read(gc, XBT_NULL,
+> +                             GCSPRINTF("%s/transport", libxl_path));
+> +        if (!tmp) {
+> +            LOG(ERROR, "Missing xenstore node %s/transport", libxl_path);
+> +            goto cleanup;
+> +        }
+> +        if (!strcmp(tmp, "mmio"))
+> +            disk->transport = LIBXL_DISK_TRANSPORT_MMIO;
+> +        else
+> +            disk->transport = LIBXL_DISK_TRANSPORT_UNKNOWN;
+
+That's libxl_disk_transport_from_string() I think.
+
+> +        assert(disk->transport == LIBXL_DISK_TRANSPORT_MMIO);
+
+Could you return an error instead of assert() here?
+
+> +
+> +        tmp = libxl__xs_read(gc, XBT_NULL,
+> +                             GCSPRINTF("%s/base", libxl_path));
+> +        if (!tmp) {
+> +            LOG(ERROR, "Missing xenstore node %s/base", libxl_path);
+> +            goto cleanup;
+> +        }
+> +        disk->base = strtoul(tmp, NULL, 10);
+> +
+> +        tmp = libxl__xs_read(gc, XBT_NULL,
+> +                             GCSPRINTF("%s/irq", libxl_path));
+> +        if (!tmp) {
+> +            LOG(ERROR, "Missing xenstore node %s/irq", libxl_path);
+> +            goto cleanup;
+> +        }
+> +        disk->irq = strtoul(tmp, NULL, 10);
+> +    }
+> +
+>      disk->vdev = xs_read(ctx->xsh, XBT_NULL,
+>                           GCSPRINTF("%s/dev", libxl_path), &len);
+>      if (!disk->vdev) {
+> @@ -575,6 +656,41 @@ cleanup:
+>      return rc;
+>  }
+>  
+> +static int libxl_device_disk_get_path(libxl__gc *gc, uint32_t domid,
+
+FYI, "libxl_" prefix is for functions exported by the library. You could
+use "libxl__" for functions used within the library or no prefix in this
+case as it is static.
+
+> +                                      char **path)
+> +{
+> +    const char *dir;
+> +    int rc;
+> +
+> +    /*
+> +     * As we don't know exactly what device kind to be used here, guess it
+> +     * by checking the presence of the corresponding path in Xenstore.
+> +     * First, try to read path for vbd device (default) and if not exists
+> +     * read path for virtio_disk device. This will work as long as both Xen PV
+> +     * and Virtio disk devices are not assigned to the same guest.
+> +     */
+
+That mean, we can't have both virtio-disk and pv-disk, and there's going
+to be weird error with device disappearing if one try to add a pv-disk
+after adding a virtio-disk.
+
+Also, I don't know whether the function is called before a first device
+is added, but it could be a potential issue as it would return an error
+in that case.
+
+The path generated here are path that are only used by libxl, so it
+probably doesn't matter which path is used, as long as there's a unique
+path for a device implementation. (The different path might have been
+useful in v4 of the series when there was a libxl-virtio-disk
+implementation.)
+
+So, is there a reason to have different path? Can we simply get rid of
+this function?
+
+Maybe this is related to the path that a frontend would see, and we
+probably don't want to have a pv-disk front-end trying to connect to a
+virtio backend as it doesn't going to work. I wonder if the
+"/libxl/*/device/" needs to use the same "device kind" name as the ones
+seen by a guest. I didn't investigated that.
+
+> +    *path = GCSPRINTF("%s/device/%s",
+> +                      libxl__xs_libxl_path(gc, domid),
+> +                      libxl__device_kind_to_string(LIBXL__DEVICE_KIND_VBD));
+> +
+> +    rc = libxl__xs_read_checked(gc, XBT_NULL, *path, &dir);
+> +    if (rc)
+> +        return rc;
+> +
+> +    if (dir)
+> +        return 0;
+> +
+> +    *path = GCSPRINTF("%s/device/%s",
+> +                      libxl__xs_libxl_path(gc, domid),
+> +                      libxl__device_kind_to_string(LIBXL__DEVICE_KIND_VIRTIO_DISK));
+> +
+> +    rc = libxl__xs_read_checked(gc, XBT_NULL, *path, &dir);
+> +    if (rc)
+> +        return rc;
+> +
+> +    return 0;
+> +}
+> +
+>  int libxl_vdev_to_device_disk(libxl_ctx *ctx, uint32_t domid,
+>                                const char *vdev, libxl_device_disk *disk)
+>  {
+> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
+> index 2a42da2..f783cac 100644
+> --- a/tools/libs/light/libxl_types.idl
+> +++ b/tools/libs/light/libxl_types.idl
+> @@ -704,6 +716,10 @@ libxl_device_disk = Struct("device_disk", [
+>      ("is_cdrom", integer),
+>      ("direct_io_safe", bool),
+>      ("discard_enable", libxl_defbool),
+> +    ("specification", libxl_disk_specification),
+> +    ("transport", libxl_disk_transport),
+
+Could you add a comment here about "irq" and "base", that say that they
+are for internal use by libxl and can't be modified? Is it possible
+that in the future, an application like libvirt could potentially change
+those two values and have libxl use them?
+
+> +    ("irq", uint32),
+> +    ("base", uint64),
+>      # Note that the COLO configuration settings should be considered unstable.
+>      # They may change incompatibly in future versions of Xen.
+>      ("colo_enable", libxl_defbool),
+
+Thanks,
+
+-- 
+Anthony PERARD
 
