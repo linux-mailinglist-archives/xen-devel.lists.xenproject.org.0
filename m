@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4195C52BD95
-	for <lists+xen-devel@lfdr.de>; Wed, 18 May 2022 16:43:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.332277.555953 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FFC852BD96
+	for <lists+xen-devel@lfdr.de>; Wed, 18 May 2022 16:44:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.332288.555963 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrKsu-0004N0-TU; Wed, 18 May 2022 14:42:44 +0000
+	id 1nrKuN-00052H-EM; Wed, 18 May 2022 14:44:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 332277.555953; Wed, 18 May 2022 14:42:44 +0000
+Received: by outflank-mailman (output) from mailman id 332288.555963; Wed, 18 May 2022 14:44:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrKsu-0004KP-QG; Wed, 18 May 2022 14:42:44 +0000
-Received: by outflank-mailman (input) for mailman id 332277;
- Wed, 18 May 2022 14:42:43 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1nrKuN-0004z3-BL; Wed, 18 May 2022 14:44:15 +0000
+Received: by outflank-mailman (input) for mailman id 332288;
+ Wed, 18 May 2022 14:44:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nrKst-0004KF-5R; Wed, 18 May 2022 14:42:43 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nrKss-0006dJ-VK; Wed, 18 May 2022 14:42:42 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nrKss-0005MZ-Ib; Wed, 18 May 2022 14:42:42 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nrKss-0000GB-IA; Wed, 18 May 2022 14:42:42 +0000
+ (envelope-from <SRS0=uQHP=V2=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1nrKuM-0004yx-Gz
+ for xen-devel@lists.xenproject.org; Wed, 18 May 2022 14:44:14 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fc196f62-d6b8-11ec-837e-e5687231ffcc;
+ Wed, 18 May 2022 16:44:13 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 26F9D1F8C9;
+ Wed, 18 May 2022 14:44:13 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0055E133F5;
+ Wed, 18 May 2022 14:44:12 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id U+dCOjwGhWJ2NgAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 18 May 2022 14:44:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,180 +51,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=VE5qfefHB1+5fBoIGGVbxkZptZJtyWozhBwBy+hjlJc=; b=G7JoON6D6Qi6U5faezrQuzATfD
-	nFtMbxSGDQVVpKTXRSgIlSRoxuU102siSCPQzf80niXlqb/9db+iqOloX18d+dvb5KR38k8HaEP+r
-	yFHxAmQsM+CHrtVyNMc7j4DJZosRRcdK0oWCogVuDJIjTMX/Qlp37FlFw+b/ZjBhSCM8=;
+X-Inumbo-ID: fc196f62-d6b8-11ec-837e-e5687231ffcc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1652885053; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=Lp2JXZZbjQGpQ2E8nMNlpB3Q9z/2jFQfOgGeYMz8dMo=;
+	b=WM53zxgOOECQo45ZRhQwIHZFRvNd6+4MGg3VeAFMEF3WpPVxbFtFAe6UsuguSv7nbFKMm1
+	u64/CEk6ac5JeGaTEE4QGjpKEAF8yhrKN9dCQ7wsb2jT8IVWJ8GA6ffKmbUCtkhk8MKBzQ
+	GVn7WYGAFRirljg+jJNf8FqTt1SO5/M=
+From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170539-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Juergen Gross <jgross@suse.com>,
+	Dario Faggioli <dfaggioli@suse.com>,
+	George Dunlap <george.dunlap@citrix.com>
+Subject: [PATCH] xen/cpupool: limit number of cpupools
+Date: Wed, 18 May 2022 16:44:10 +0200
+Message-Id: <20220518144410.6806-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Subject: [ovmf test] 170539: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=708620d29db89d03e822b8d17dc75fbac865c6dc
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 18 May 2022 14:42:42 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 170539 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170539/
+Today the number of cpupools in a system is unlimited. This can lead to
+multiple problems (e.g. duplicate cpupool-id).
 
-Regressions :-(
+Limit the number of cpupools to twice the number of maximum possible
+cpus, allowing to have one cpupool per physical cpu plus some spare
+cpupools for special means (there are already existing use cases for
+such spare cpupools).
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ xen/common/sched/cpupool.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+diff --git a/xen/common/sched/cpupool.c b/xen/common/sched/cpupool.c
+index f6e3d97e52..7cc25ee8b4 100644
+--- a/xen/common/sched/cpupool.c
++++ b/xen/common/sched/cpupool.c
+@@ -30,6 +30,7 @@ struct cpupool *cpupool0;                /* Initial cpupool with Dom0 */
+ cpumask_t cpupool_free_cpus;             /* cpus not in any cpupool */
+ 
+ static LIST_HEAD(cpupool_list);          /* linked list, sorted by poolid */
++static unsigned int n_cpupools;
+ 
+ static int cpupool_moving_cpu = -1;
+ static struct cpupool *cpupool_cpu_moving = NULL;
+@@ -276,6 +277,14 @@ static struct cpupool *cpupool_create(unsigned int poolid,
+ 
+     spin_lock(&cpupool_lock);
+ 
++    /* Don't allow too many cpupools. */
++    if ( n_cpupools >= 2 * nr_cpu_ids )
++    {
++        ret = -ENOSPC;
++        goto unlock;
++    }
++    n_cpupools++;
++
+     if ( poolid != CPUPOOLID_NONE )
+     {
+         q = __cpupool_find_by_id(poolid, false);
+@@ -332,7 +341,9 @@ static struct cpupool *cpupool_create(unsigned int poolid,
+ 
+  err:
+     list_del(&c->list);
++    n_cpupools--;
+ 
++ unlock:
+     spin_unlock(&cpupool_lock);
+ 
+     free_cpupool_struct(c);
+@@ -356,6 +367,7 @@ static int cpupool_destroy(struct cpupool *c)
+         return -EBUSY;
+     }
+ 
++    n_cpupools--;
+     list_del(&c->list);
+ 
+     spin_unlock(&cpupool_lock);
+-- 
+2.35.3
 
-version targeted for testing:
- ovmf                 708620d29db89d03e822b8d17dc75fbac865c6dc
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   79 days
-Failing since        168258  2022-03-01 01:55:31 Z   78 days 1085 attempts
-Testing same since   170392  2022-05-13 15:40:22 Z    4 days  104 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chao Li <lichao@loongson.cn>
-  Chao, Zhuoran <zhuoran.chao@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Christine <Yuwei.Chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  duntan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gua Guo <gua.guo@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Jiewen Yao <jiewen.yao@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Peter Grehan <grehan@freebsd.org>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Tom Lendacky <thomas.lendacky@amd.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yu Pu <yu.pu@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Yuwei Chen <yuwei.chen@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-  Zhuoran Chao <zhuoran.chao@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 6662 lines long.)
 
