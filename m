@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F57A52BFCB
-	for <lists+xen-devel@lfdr.de>; Wed, 18 May 2022 18:40:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.332392.556085 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB9EF52BFDE
+	for <lists+xen-devel@lfdr.de>; Wed, 18 May 2022 19:04:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.332404.556095 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrMht-00069c-33; Wed, 18 May 2022 16:39:29 +0000
+	id 1nrN61-00019P-W9; Wed, 18 May 2022 17:04:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 332392.556085; Wed, 18 May 2022 16:39:29 +0000
+Received: by outflank-mailman (output) from mailman id 332404.556095; Wed, 18 May 2022 17:04:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrMhs-00067C-VJ; Wed, 18 May 2022 16:39:28 +0000
-Received: by outflank-mailman (input) for mailman id 332392;
- Wed, 18 May 2022 16:39:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=p2sr=V2=arndb.de=arnd@srs-se1.protection.inumbo.net>)
- id 1nrMhr-000676-Jr
- for xen-devel@lists.xenproject.org; Wed, 18 May 2022 16:39:27 +0000
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.10])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 13dbc657-d6c9-11ec-837e-e5687231ffcc;
- Wed, 18 May 2022 18:39:25 +0200 (CEST)
-Received: from mail-yb1-f177.google.com ([209.85.219.177]) by
- mrelayeu.kundenserver.de (mreue109 [213.165.67.113]) with ESMTPSA (Nemesis)
- id 1MNssA-1oFese2Uau-00OD9V for <xen-devel@lists.xenproject.org>; Wed, 18 May
- 2022 18:39:24 +0200
-Received: by mail-yb1-f177.google.com with SMTP id i187so2410635ybg.6
- for <xen-devel@lists.xenproject.org>; Wed, 18 May 2022 09:39:24 -0700 (PDT)
+	id 1nrN61-00016x-TA; Wed, 18 May 2022 17:04:25 +0000
+Received: by outflank-mailman (input) for mailman id 332404;
+ Wed, 18 May 2022 17:04:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Oo/d=V2=gmail.com=tamas.k.lengyel@srs-se1.protection.inumbo.net>)
+ id 1nrN5z-00016r-Lz
+ for xen-devel@lists.xenproject.org; Wed, 18 May 2022 17:04:23 +0000
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
+ [2607:f8b0:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8fe2e77b-d6cc-11ec-bd2c-47488cf2e6aa;
+ Wed, 18 May 2022 19:04:22 +0200 (CEST)
+Received: by mail-ot1-x334.google.com with SMTP id
+ y20-20020a056830071400b00606a2ebd91bso1780744ots.5
+ for <xen-devel@lists.xenproject.org>; Wed, 18 May 2022 10:04:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,102 +40,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 13dbc657-d6c9-11ec-837e-e5687231ffcc
-X-Gm-Message-State: AOAM5329ql0mXp79ULdwivlO7+3ZXf4NXleq+sr3tPqzA9kD7/QeNd/b
-	EUb+80yIL/SoizHcUjwLiFSMNi6BXDcTlxJSwUE=
-X-Google-Smtp-Source: ABdhPJzgO+qZWLWCVNG0zigCWvcyaAMnm3eGdOmvWgnrUQyVgjytOzSGXEWpAN07OlHuwbLMC0znLO5cjVzishwdUG8=
-X-Received: by 2002:a25:cfd7:0:b0:64d:9526:1ed4 with SMTP id
- f206-20020a25cfd7000000b0064d95261ed4mr487184ybg.106.1652891963222; Wed, 18
- May 2022 09:39:23 -0700 (PDT)
+X-Inumbo-ID: 8fe2e77b-d6cc-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=1FKO2SC4YduXW1JyydrxoRnczkyFkssvYlUA6YM8QXw=;
+        b=Dbjsdog7x2DC/G8rFYotMdPTAcKDt+MZFUYYnlYERdq2iMXp6RRHND0ilR0WZVS+Lg
+         SAKYHLTnMEs1p8ABkel5nZraGgyLTuNIdNc+ZgpTchv8jwmoEMapMkovva6jWz/my8di
+         9Ye1BBpCdtE16gQxrZJ4uLaUjN+fGqWQyzYq0k+qVByaNU3VxJTxWMhVXxuoyKX/cmZb
+         tSuwUIKSd7Sthpv4no2p/C/uRqe6GHn6EWpNreFh4Z/p+YZBoDhjNKwOipuUCTgaNY0L
+         lCwGTEedzzabDp7QQ9860XDTTXU2BplpUv/0yECJGZahH1AeVn6XiYTS6gFw34gzU1Rq
+         4S+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=1FKO2SC4YduXW1JyydrxoRnczkyFkssvYlUA6YM8QXw=;
+        b=oVnk5Pm7O5WFR9XdLbADvx5t13GVfAnKIMqS+Y+5O7Jx3ZocqdG4dNX2Ui3FHcuFLY
+         dkEU8xoEgDAjiAHZ0KmuJabv8A7WJiCmbF6qFkAt1gLI+rESdV0bw6NlK/XhrU2nLE4/
+         EQ60R/ZrgCw65G48G2pxFvyibjG90hZ3JXjfMhNyKq0X7r9WIcFj83of+vIW6rq7ZiiM
+         ykLMHbBHeSagBYtSxO8wFCxgSTvIH8MMppM3vuO9Do8vJdCS4qfIR6vDUK36h9yRfUE4
+         PyFD9XohwrdWOhmTsgcqkH2+ddgkr5vFWoKRNKQvasx1iqY2eUt9PyfeD6zeUklP1Fwl
+         o5Nw==
+X-Gm-Message-State: AOAM5328UpI0nI3MzFOkX6sHchH8W1czZ6tPUVqIr/9HFdM+eL3tm/GO
+	D46ayNDsLqSoA1s+8XQ0461fxBx09n0f6Cqn0BOR2iMFyB4=
+X-Google-Smtp-Source: ABdhPJwBPtvPEiXpLzyo7ka3RcpNGnUqGM8K3GA7sVU5wNJ3GgFZjOGJGzEwMwJXXpx31gyg0fTTQlxQkoCWdtEMgVE=
+X-Received: by 2002:a05:6830:1e86:b0:606:48b8:252c with SMTP id
+ n6-20020a0568301e8600b0060648b8252cmr276032otr.204.1652893461247; Wed, 18 May
+ 2022 10:04:21 -0700 (PDT)
 MIME-Version: 1.0
-References: <1651947548-4055-1-git-send-email-olekstysh@gmail.com>
- <1651947548-4055-6-git-send-email-olekstysh@gmail.com> <CAK8P3a2cAnXr8TDDYTiFxTWzQxa67sGnYDQRRD+=Q8_cSb1mEw@mail.gmail.com>
- <56e8c32d-6771-7179-005f-26ca58555659@gmail.com>
-In-Reply-To: <56e8c32d-6771-7179-005f-26ca58555659@gmail.com>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Wed, 18 May 2022 17:39:23 +0100
-X-Gmail-Original-Message-ID: <CAK8P3a1YhkEZ8gcbXHEa5Bwx-4VVRJO8SUHf8=RNWRsc2Yo-+A@mail.gmail.com>
-Message-ID: <CAK8P3a1YhkEZ8gcbXHEa5Bwx-4VVRJO8SUHf8=RNWRsc2Yo-+A@mail.gmail.com>
-Subject: Re: [PATCH V2 5/7] dt-bindings: Add xen,dev-domid property
- description for xen-grant DMA ops
-To: Oleksandr <olekstysh@gmail.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, xen-devel <xen-devel@lists.xenproject.org>, 
-	"open list:DRM DRIVER FOR QEMU'S CIRRUS DEVICE" <virtualization@lists.linux-foundation.org>, 
-	DTML <devicetree@vger.kernel.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
-	Linux ARM <linux-arm-kernel@lists.infradead.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Jason Wang <jasowang@redhat.com>, 
-	Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Julien Grall <julien@xen.org>, 
-	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	"Michael S. Tsirkin" <mst@redhat.com>, Christoph Hellwig <hch@infradead.org>, 
-	Jean-Philippe Brucker <jean-philippe@linaro.org>
+References: <7f03387eebf9de474f404ef661f80133e3725365.1651073086.git.tamas.lengyel@intel.com>
+ <f3fdd4e99892549dc68e7511f2d84f51af446e86.1651073086.git.tamas.lengyel@intel.com>
+ <YnOIEb9sNfshZwtZ@Air-de-Roger> <CABfawh=WnQtGehg2mX4Lnz9y3AyAnaUjUyc4FNxjGvoc_YcOBg@mail.gmail.com>
+ <CABfawh=2wHwxGuihNY=ecKcdx8ZapmWnNzx=O6nRxm1ENpr62g@mail.gmail.com> <f15dfd96-f104-7d5e-048a-8a9095520197@suse.com>
+In-Reply-To: <f15dfd96-f104-7d5e-048a-8a9095520197@suse.com>
+From: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+Date: Wed, 18 May 2022 13:03:45 -0400
+Message-ID: <CABfawhmSFxa23PrmCzaQEvqUE1nZuVB1i1iw_terDa1BCq5gig@mail.gmail.com>
+Subject: Re: [PATCH 2/3] tools/libxc: change xc_memshr_fork_reset API to match hypervisor
+To: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org, 
+	Juergen Gross <jgross@suse.com>, Anthony PERARD <anthony.perard@citrix.com>, Wei Liu <wl@xen.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Content-Type: text/plain; charset="UTF-8"
-X-Provags-ID: V03:K1:AOTsW5eqCh8NyPfKQ0RVHlpld9aSahzU3E0n3dzqP4uqVD2tiZK
- j0pWXqNZI3+Yn6Z2xcToqYLyEO9ILsKOaXKUB8RRDxztURmWOKz7lpfGFDGJNb5/9MM10K/
- cbuJv85wmLFLRkDw8A/7v8I8H8s+PWjobRQxj+RKsc5c0oh8ho2r0Zd8Ex2YR1nJJLqE5uu
- 2hQD6+2JT3so+KcMafIZg==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:fs8AsYdenys=:8lxOqoDbRk5jLfWsTTZN7+
- WA7YRHOlKsD1gD/HvVboMFpZWmmIkpNaoHJik2Y/O8yun2Xab9IZpup/ac4UPX8FzAXhm/tEj
- 4ol5cn9H3n7VKM2iQC1rfvMvcRTZpEm3VA+wFWz+/8eaxc4J7byfh2zXweTtre5WzXNgJh66J
- aRee0Wl1o2p15EInVLjreThNecxJEB/78h0HCyp+puDg6KvizLbwAIx8I4pIu1YJfli42lXXU
- MXAHlKbuHZp8vTV31bPJXHLuie67g0GMAqhHwNvHGLZ/gyHR9o0TED4YipPeGY7PnBvEL4jap
- KH8m68Y6tXwbgIXNZ5IBQRNwGJ66zGIYJ4Rx27xsg6WNooT9EoZPhOqvo00pmpScz7T9vZcQ2
- Q0zAe8WDRFh6atUyJVfZq+tyY7nJ1to/FBAxd+w0yyoRjSHYEY8qct0I43+fxjGobU5XMyt3D
- eVHklGHGWtKx6ieIMCvb7P9QtDouSv23sp17zCLCB8M8Xt0vTHWRvKurntmYhQ3RtA2F/nm9x
- 5nrMEHLizX0iPAWEFpHsYTz8+PS/6Isd9UAxzFa0Rny347xFfu+4kA/wQAmr+mXyOss6bnlEs
- IH4y//C5Ave6MMC9GQFvVR2s5Tf42oB17bnfSIalPdvB8rXm2eBEdQUJubHggDiiyJsDe1Z4z
- libcinN3+hrkexurNkYgJXnjp2+l1ZYIEeO//bz22H29ZoWOw1aTUXtKbCChrT/jFleTesU4k
- hLXvz4Ox13trC3Kk04MMog3Z0CWcfvqh0D8XrPccPVHoAWM/YK8HPtOPhrdZ6i4ixac0OQsAK
- i8uIh5N9Xz6z5cIp1v/NKazv2ZzUPwnT213QUHgvOmPOipFQ4WjeErWGcdozf3aV43LYr0Q+L
- /p4S8fBvX8sQYnKzxzWg==
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, May 18, 2022 at 5:06 PM Oleksandr <olekstysh@gmail.com> wrote:
-> On 18.05.22 17:32, Arnd Bergmann wrote:
-> > On Sat, May 7, 2022 at 7:19 PM Oleksandr Tyshchenko <olekstysh@gmail.com> wrote:
+On Wed, May 18, 2022 at 11:48 AM Jan Beulich <jbeulich@suse.com> wrote:
 >
-> >   This would mean having a device
-> > node for the grant-table mechanism that can be referred to using the 'iommus'
-> > phandle property, with the domid as an additional argument.
+> On 18.05.2022 17:01, Tamas K Lengyel wrote:
+> > On Thu, May 12, 2022 at 9:46 AM Tamas K Lengyel
+> > <tamas.k.lengyel@gmail.com> wrote:
+> >>
+> >> On Thu, May 5, 2022 at 4:27 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.=
+com> wrote:
+> >>>
+> >>> On Wed, Apr 27, 2022 at 11:34:19AM -0400, Tamas K Lengyel wrote:
+> >>>> Need to separately specify if the reset is for the memory or for the=
+ VM state,
+> >>>> or both.
+> >>>>
+> >>>> Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+> >>>
+> >>> Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> >>
+> >> Patch ping. Can this patch be merged please?
+> >
+> > Patch ping.
 >
-> I assume, you are speaking about something like the following?
->
->
-> xen_dummy_iommu {
->     compatible = "xen,dummy-iommu";
->     #iommu-cells = <1>;
-> };
->
-> virtio@3000 {
->     compatible = "virtio,mmio";
->     reg = <0x3000 0x100>;
->     interrupts = <41>;
->
->     /* The device is located in Xen domain with ID 1 */
->     iommus = <&xen_dummy_iommu 1>;
-> };
+> Your mail (and I guess also your earlier one) was _To_ Roger, which
+> is odd since he already did provide R-b. What you're missing is a
+> tool stack maintainer ack aiui, so it may help if you send your
+> pings _To_ the respective people.
 
-Right, that's that's the idea, except I would not call it a 'dummy'.
-From the perspective of the DT, this behaves just like an IOMMU,
-even if the exact mechanism is different from most hardware IOMMU
-implementations.
+True, but all the toolstack maintainers have been CC-d from the start.
+Is it the case that CC-ing is now officially insufficient? What's the
+point of ./scripts/add_maintainers.pl then which specifically adds
+maintainers only as CC? How are you supposed to get their attention?
+Just know you specifically have to send emails to them and not the
+mailinglist? I'm getting the distinct impression that the toolstack
+side has simply become unmaintained/orphaned with no one left who
+actually is looking at the mailinglist.
 
-> > It does not quite fit the model that Linux currently uses for iommus,
-> > as that has an allocator for dma_addr_t space
->
-> yes (# 3/7 adds grant-table based allocator)
->
->
-> > , but it would think it's
-> > conceptually close enough that it makes sense for the binding.
->
-> Interesting idea. I am wondering, do we need an extra actions for this
-> to work in Linux guest (dummy IOMMU driver, etc)?
-
-It depends on how closely the guest implementation can be made to
-resemble a normal iommu. If you do allocate dma_addr_t addresses,
-it may actually be close enough that you can just turn the grant-table
-code into a normal iommu driver and change nothing else.
-
-        Arnd
+Tamas
 
