@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2896452D762
-	for <lists+xen-devel@lfdr.de>; Thu, 19 May 2022 17:22:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.333133.556915 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7DC352DA21
+	for <lists+xen-devel@lfdr.de>; Thu, 19 May 2022 18:24:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.333142.556926 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrhyV-0006fB-2S; Thu, 19 May 2022 15:22:03 +0000
+	id 1nriw9-0004eh-MA; Thu, 19 May 2022 16:23:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 333133.556915; Thu, 19 May 2022 15:22:03 +0000
+Received: by outflank-mailman (output) from mailman id 333142.556926; Thu, 19 May 2022 16:23:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrhyU-0006cV-Sy; Thu, 19 May 2022 15:22:02 +0000
-Received: by outflank-mailman (input) for mailman id 333133;
- Thu, 19 May 2022 15:21:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nriw9-0004cr-J2; Thu, 19 May 2022 16:23:41 +0000
+Received: by outflank-mailman (input) for mailman id 333142;
+ Thu, 19 May 2022 16:23:40 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lPOh=V3=redhat.com=afaria@srs-se1.protection.inumbo.net>)
- id 1nrhxi-0006b7-Vi
- for xen-devel@lists.xenproject.org; Thu, 19 May 2022 15:21:15 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 518411c9-d787-11ec-bd2c-47488cf2e6aa;
- Thu, 19 May 2022 17:21:13 +0200 (CEST)
-Received: from mail-io1-f69.google.com (mail-io1-f69.google.com
- [209.85.166.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-503-MEKXsXuSPRWk9CaFymr4YA-1; Thu, 19 May 2022 11:21:03 -0400
-Received: by mail-io1-f69.google.com with SMTP id
- i189-20020a6bb8c6000000b0065e475f5ca9so1452782iof.15
- for <xen-devel@lists.xenproject.org>; Thu, 19 May 2022 08:21:03 -0700 (PDT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nriw7-0004ch-Vj; Thu, 19 May 2022 16:23:39 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nriw7-00024s-PM; Thu, 19 May 2022 16:23:39 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nriw7-000387-Cy; Thu, 19 May 2022 16:23:39 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nriw7-0004Mx-CY; Thu, 19 May 2022 16:23:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,75 +42,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 518411c9-d787-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1652973671;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kXd/KXupdtmjxq/4SY395DYkyzm3K35XRINwHe8irxs=;
-	b=MDQguJFnQM86N9dYUMv1L6Nxyy48vqiCHLCR3zi5XKTw/5yv//CE0M5rkR4n0Yt/XyoIBO
-	WG1+ZJlPQ/ADG/GxIqTg1zvoLYENfiGyh+dlyWWzl0SdNIlrk7AU8VrMWc87gECChKYe9+
-	Dm9I+IWJULbGygeIryzpZA4aXMKE3NU=
-X-MC-Unique: MEKXsXuSPRWk9CaFymr4YA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=kXd/KXupdtmjxq/4SY395DYkyzm3K35XRINwHe8irxs=;
-        b=baPHkJDAZ4E+hUwv0HMS+IWNcFlR4XLCR8w8nqYYTjHXeF09IlUaWetoWQomVsHxDd
-         W7Tzl1WwJ9EeNgeUXuxoyYHsK7RY6QP6wmR+RlJagfpGngEbvlh3d1VyGXJ08oKhuwLJ
-         kf7GK96+WMIJVzWJI5HmzX4dtdFdTp3LNNNZmqYihWGzSfZc8cJsYVheTgUsZi8nUbMX
-         zTAKPQitvVb0IW4oYiuweTRPc7AbG+rgPVVfgv21G54uOh/78l1q0wcnvVv4MAwBVWxL
-         aA6A6iWIhDIirG8xdqY8WeA84gjBHVMMTAjyl7dFJvaJogLrC50m192MCMPBAQWW5z3/
-         YCSA==
-X-Gm-Message-State: AOAM532qQ3JVHzab+9xAWwnd+O3OSKYEDqBtEvmR/yoha2Whab7rbTAI
-	APQLw2tVM/c5SqyvZDFibp9l7C78gh/pWvoCc6XNoDvKmtgh/mGhj6Dn4q9W9NOpE5h8IRhI9k/
-	T6ODQa5DD4tGqG+9RgFZUe9FQZZ7oOU6J7Z3i0H0lrBs=
-X-Received: by 2002:a05:6638:1392:b0:32e:51e5:13fa with SMTP id w18-20020a056638139200b0032e51e513famr3017203jad.263.1652973662691;
-        Thu, 19 May 2022 08:21:02 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyVEJuNBAbP7uNezP2WpklP0FvEPhmrPpG0D9hQTRzYnOAhTSZ27Q+FaJmT8AitFoKl/d1StXHk8iDG86gDIus=
-X-Received: by 2002:a05:6638:1392:b0:32e:51e5:13fa with SMTP id
- w18-20020a056638139200b0032e51e513famr3017189jad.263.1652973662496; Thu, 19
- May 2022 08:21:02 -0700 (PDT)
-MIME-Version: 1.0
-References: <20220518130945.2657905-1-stefanha@redhat.com>
-In-Reply-To: <20220518130945.2657905-1-stefanha@redhat.com>
-From: Alberto Faria <afaria@redhat.com>
-Date: Thu, 19 May 2022 16:20:26 +0100
-Message-ID: <CAELaAXxiBSFMnFUzGy8NxCr0GMOrop_43HAvmkj8s4dy3fy0xA@mail.gmail.com>
-Subject: Re: [PATCH] block: get rid of blk->guest_block_size
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: qemu-devel@nongnu.org, Paul Durrant <paul@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, John Snow <jsnow@redhat.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, xen-devel@lists.xenproject.org, 
-	qemu-block@nongnu.org, Fam Zheng <fam@euphon.net>, 
-	Anthony Perard <anthony.perard@citrix.com>, Kevin Wolf <kwolf@redhat.com>, 
-	Hanna Reitz <hreitz@redhat.com>, Coiby Xu <Coiby.Xu@gmail.com>, 
-	Xie Yongji <xieyongji@bytedance.com>
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=afaria@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=xHBqFr4TPbPh7d6rrR48AjXB//Y+c6RDkU/G7kAx+AA=; b=HTSt1qq+6LKmYBd29tZBEsYCtC
+	NO5us2N/kG3Kvc0kAesr4beM2ZY1yZgQqZ6WUc5AN1Xc3AhE4LXeF+/8A6m7ENNe84wVJKqT58p0z
+	ItXs7uhXCeW/iL4I0q8HAJ7GypBm+jPrbZA1SEaYGselmzGlB5pssHRf4tJveKdB1keY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-170569-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 170569: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=1f026ababf350746c6071c0873d9d1c8824029ca
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 19 May 2022 16:23:39 +0000
 
-On Wed, May 18, 2022 at 2:10 PM Stefan Hajnoczi <stefanha@redhat.com> wrote:
->
-> Commit 1b7fd729559c ("block: rename buffer_alignment to
-> guest_block_size") noted:
->
->   At this point, the field is set by the device emulation, but completely
->   ignored by the block layer.
->
-> The last time the value of buffer_alignment/guest_block_size was
-> actually used was before commit 339064d50639 ("block: Don't use guest
-> sector size for qemu_blockalign()").
->
-> This value has not been used since 2013. Get rid of it.
->
-> Cc: Xie Yongji <xieyongji@bytedance.com>
-> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+flight 170569 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/170569/
 
-Reviewed-by: Alberto Faria <afaria@redhat.com>
+Regressions :-(
 
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 1f026ababf350746c6071c0873d9d1c8824029ca
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+
+Last test of basis   168254  2022-02-28 10:41:46 Z   80 days
+Failing since        168258  2022-03-01 01:55:31 Z   79 days 1098 attempts
+Testing same since   170564  2022-05-19 06:40:42 Z    0 days    3 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Ard Biesheuvel <ardb@kernel.org>
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chao Li <lichao@loongson.cn>
+  Chao, Zhuoran <zhuoran.chao@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Christine <Yuwei.Chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Dandan Bi <dandan.bi@intel.com>
+  Dun Tan <dun.tan@intel.com>
+  duntan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Gua Guo <gua.guo@intel.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jake Garver <jake@nvidia.com>
+  Jake Garver via groups.io <jake=nvidia.com@groups.io>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Jiewen Yao <jiewen.yao@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Peter Grehan <grehan@freebsd.org>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yu Pu <yu.pu@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Yuwei Chen <yuwei.chen@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+  Zhuoran Chao <zhuoran.chao@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 6908 lines long.)
 
