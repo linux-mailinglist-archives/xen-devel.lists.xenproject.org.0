@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 016E652DC49
-	for <lists+xen-devel@lfdr.de>; Thu, 19 May 2022 20:04:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.333215.557004 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E511152DC9E
+	for <lists+xen-devel@lfdr.de>; Thu, 19 May 2022 20:18:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.333225.557013 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrkVF-00016G-2P; Thu, 19 May 2022 18:04:01 +0000
+	id 1nrkjB-0002bX-Bj; Thu, 19 May 2022 18:18:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 333215.557004; Thu, 19 May 2022 18:04:01 +0000
+Received: by outflank-mailman (output) from mailman id 333225.557013; Thu, 19 May 2022 18:18:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrkVE-00012l-VF; Thu, 19 May 2022 18:04:00 +0000
-Received: by outflank-mailman (input) for mailman id 333215;
- Thu, 19 May 2022 18:03:59 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nrkVD-00012b-2O; Thu, 19 May 2022 18:03:59 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nrkVD-0003rr-0p; Thu, 19 May 2022 18:03:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nrkVC-0005nI-Lw; Thu, 19 May 2022 18:03:58 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nrkVC-0000yB-LT; Thu, 19 May 2022 18:03:58 +0000
+	id 1nrkjB-0002ZP-8N; Thu, 19 May 2022 18:18:25 +0000
+Received: by outflank-mailman (input) for mailman id 333225;
+ Thu, 19 May 2022 18:18:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Krf0=V3=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1nrkj9-0002ZJ-OU
+ for xen-devel@lists.xenproject.org; Thu, 19 May 2022 18:18:24 +0000
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0cb7d0d4-d7a0-11ec-837e-e5687231ffcc;
+ Thu, 19 May 2022 20:18:16 +0200 (CEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 5CD0C5C01FC;
+ Thu, 19 May 2022 14:18:19 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Thu, 19 May 2022 14:18:19 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 19 May 2022 14:18:18 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,181 +43,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=SloIdF2fHAlQBPREzbCu+b3jyMXewgZafMQvvrc/Ko0=; b=UyKyw6kADWZALvzz5N1q2LXq8/
-	1IAYXd83OUEBpEUysvS/HjjXgOc2swYJ34N4i9e9ygYK+mXJoyt/bi4YbMcFWrg9yj0e/4ssRqVo1
-	dqSXy8HaiJXc06cpTlIE/wyvPxMD6AZ36h54ru4dwt448UnZg1pweRN61Rxdw18jDRx8=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170573-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 0cb7d0d4-d7a0-11ec-837e-e5687231ffcc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm1; t=1652984299; x=
+	1653070699; bh=p/ZcdHvmtB8X1rkCDJsKxIe35fAqtqdi3lNcAexvvSo=; b=P
+	gZzioXTTzenseX65+yBfXdA8/uzdM3p94L6iHsPd3BJfqvwcboOTcO/BHCn0T/LN
+	edSz1SM9MB+SyXd3ZTJ6pJRUTGKdZuBuqdUtzWyrDEjdYe+LwXcmvDrlSPpz1ygM
+	38NJpPrU0kx2LeJVMyiQZxVl5BT0XloxnhrTuyi81zJxi6b5XiGdynYyFc2BWGXK
+	vPnsfC0Enf0A0eq3/zJ6WJ+ioxEcvyw8ZVAsKXrUdLRpG7InuX/cIc6tI2TgxtPj
+	VzD2rcpCFGmqTNSYziIEIHvrJItJ5gofJn4gRKch75hk4cBYVBnUrAQOda4mPjhk
+	LH8ofMDuf6VF2id38XPjQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1652984299; x=1653070699; bh=p/ZcdHvmtB8X1rkCDJsKxIe35fAq
+	tqdi3lNcAexvvSo=; b=Evw7E5LD2FXeQTxFHCfso+lRe/JtkQrZYFw5W0mBCzqo
+	MMV46hiPpAQX5q5iDScPgFexHo48yJEkBdfx7h109FGeQ8UAh2eU/L/wNac3P4Mp
+	iRyW0LhqrjDQPnvZUl1LKkNWJIBXbCyfv5m/cq4N0hUXVcXeZH9hq94pU5VAim98
+	9S3jmvi3bhIBMlYDi5ibNeuh9kDidt62ZjpYwuzO9+kTA+AiEC/KLXQR1gv40KSF
+	/WSzmes4KTssmmceM16KeFaPxLqqBEsf+8O7rA0vToKTNm0gIyZFEezl8OJGYrmf
+	n/UyMRRlWzZuq/+weMrtt7+5XIW4UVTkDGmS8+1wBA==
+X-ME-Sender: <xms:6omGYkGbeux4b-4ZA-qTob4PcH-XanARcynrHAL2ybpZRtX4ZJMUXQ>
+    <xme:6omGYtWckp2o4nNzepllyqk8mOkVi6XyrFJ1VEKekSSjW-5kPn_1AJOoNkvfLctss
+    Ub4_mb3dcZk9zw>
+X-ME-Received: <xmr:6omGYuJ8EBLp0RR9Js7tSqZkVqLoiq61-JJG9iHemxspt-YhUkWE2ldBRhwT>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedriedugdduvdduucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepffgvmhhi
+    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
+    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepuedthefhtddvffefjeejvdehvdej
+    ieehffehkeekheegleeuleevleduteehteetnecuffhomhgrihhnpehgihhthhhusgdrtg
+    homhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegu
+    vghmihesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:6omGYmGkc-Iu38g7NVj8l1LGP7UQNUt9uu7DXYC762occKCqP3goEw>
+    <xmx:6omGYqXnmzTkMWNpp16j0SCXZQp_arxcQwnh3RZiYX1GS3GW4WUGgg>
+    <xmx:6omGYpN7gpszV1ofG5-NptgXkroqLlKf0krVLwxrlKUwR9oVcinrew>
+    <xmx:64mGYjOtj_p8aaEOarmLAwEhbbTMaIFxc9WUDPVPia1G3Q5f6pDDuA>
+Feedback-ID: iac594737:Fastmail
+Date: Thu, 19 May 2022 14:17:46 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Juergen Gross <jgross@suse.com>,
+	Xen developer discussion <xen-devel@lists.xenproject.org>
+Cc: Boris Ostrovski <boris.ostrovsky@oracle.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	linux-kernel@vger.kernel.org,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+	David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+	Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+	DRI Development <dri-devel@lists.freedesktop.org>
+Subject: Re: Hang in 5.17.4+ that appears to be due to Xen
+Message-ID: <YoaJ6KB+GRXHG3Mv@itl-email>
+References: <Yn/Tgj1Ehs/BdpHp@itl-email>
+ <55436ae1-8255-1898-00df-51261080cd41@suse.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 170573: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=1f026ababf350746c6071c0873d9d1c8824029ca
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 19 May 2022 18:03:58 +0000
-
-flight 170573 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170573/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 1f026ababf350746c6071c0873d9d1c8824029ca
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   80 days
-Failing since        168258  2022-03-01 01:55:31 Z   79 days 1101 attempts
-Testing same since   170564  2022-05-19 06:40:42 Z    0 days    6 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Ard Biesheuvel <ardb@kernel.org>
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chao Li <lichao@loongson.cn>
-  Chao, Zhuoran <zhuoran.chao@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Christine <Yuwei.Chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  duntan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gua Guo <gua.guo@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Jiewen Yao <jiewen.yao@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Peter Grehan <grehan@freebsd.org>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Tom Lendacky <thomas.lendacky@amd.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yu Pu <yu.pu@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Yuwei Chen <yuwei.chen@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-  Zhuoran Chao <zhuoran.chao@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="2ArJoZLmXtBnMmHx"
+Content-Disposition: inline
+In-Reply-To: <55436ae1-8255-1898-00df-51261080cd41@suse.com>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+--2ArJoZLmXtBnMmHx
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 19 May 2022 14:17:46 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Juergen Gross <jgross@suse.com>,
+	Xen developer discussion <xen-devel@lists.xenproject.org>
+Cc: Boris Ostrovski <boris.ostrovsky@oracle.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	linux-kernel@vger.kernel.org,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+	David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+	Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+	DRI Development <dri-devel@lists.freedesktop.org>
+Subject: Re: Hang in 5.17.4+ that appears to be due to Xen
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On Mon, May 16, 2022 at 08:48:17AM +0200, Juergen Gross wrote:
+> On 14.05.22 17:55, Demi Marie Obenour wrote:
+> > In https://github.com/QubesOS/qubes-issues/issues/7481, a user reported
+> > that Xorg locked up when resizing a VM window.  While I do not have the
+> > same hardware the user does and thus cannot reproduce the bug, the stack
+> > trace seems to indicate a deadlock between xen_gntdev and i915.  It
+> > appears that gnttab_unmap_refs_sync() is waiting for i915 to free the
+> > pages, while i915 is waiting for the MMU notifier that called
+> > gnttab_unmap_refs_sync() to return.  Result: deadlock.
+> >=20
+> > The problem appears to be that a mapped grant in PV mode will stay in
+> > the =E2=80=9Cinvalidating=E2=80=9D state until it is freed.  While MMU =
+notifiers are
+> > allowed to sleep, it appears that they cannot wait for the page to be
+> > freed, as is happening here.  That said, I am not very familiar with
+> > this code, so my diagnosis might be incorrect.
+>=20
+> All I can say for now is that your patch seems to be introducing a use af=
+ter
+> free issue, as the parameters of the delayed work might get freed now bef=
+ore
+> the delayed work is being executed.
+>=20
+> I don't know why this is happening only with rather recent kernels, as the
+> last gntdev changes in this area have been made in kernel 4.13.
+>=20
+> I'd suggest to look at i915, as quite some work has happened in the code
+> visible in your stack backtraces rather recently. Maybe it would be possi=
+ble
+> to free the pages in i915 before calling the MMU notifier?
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Honestly, I would rather fix this in gntdev, regardless of where the
+actual bug lies.  GPU drivers get little testing under Xen, so if
+something like this happens again, it is likely to remain undiscovered
+until a Qubes user files a bug report.  This results in a bad experience
+for Qubes users.  I would much rather code that works on bare metal work
+in Xen dom0 too.  I have had random hangs in the past (with various
+kernel versions) that might be due to similar problems.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Furthermore, similar problems can arise whenever a driver removes an
+MMU notifier on userspace pages that someone else has references to.  It
+is hard for me to see how this is the fault of the driver that removed
+the MMU notifier.  I find it much more plausible that the correct fix is
+on the Xen side: allocate the delayed work parameters on the heap, and
+free them after the work is finished.  This eliminates this entire class
+of bugs.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
+--2ArJoZLmXtBnMmHx
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Not pushing.
+-----BEGIN PGP SIGNATURE-----
 
-(No revision log; it would be 6908 lines long.)
+iQIzBAEBCAAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmKGiegACgkQsoi1X/+c
+IsGnpg/+OOZRF3GOjff1/VSuGntrXoauU8RINbU98Rfv9GpTzq1h6l4EdlqIX7kX
+OFO2d6uVwkuJNFWOu0TWf5Yqz9k/G0fK2q2GUTikDYq3YyTmvUbsClkKBtJVjGxY
+mkHM21nJ/ao7ZET/UyKI8obwWeuC/VHIcTjjB2iKe4sYtltyWd9gfiJweJxt7Nd2
+C/FqerrslTLEz42B/OO31qstbqxuXadl7L6kQhq3CIhtVl+ZEA8/8p92BKaEP/Wp
+Lsv2jkfDGIEmAWvZuEvaTkS19yQCeKq3jBoUgXHuYwSdEIX0A7x+MblengVfqrFv
+ZFYF5TVn7HSziGTVahYm/McAH2kCfmVsSh5DAB8v+k4EyDUsrbaPLSJGZboQsutb
+yUeqSueUV+fPvnD6XyWORtIQvOmeF9ecUWH9AUcWEtDrC1DxCeJADYcmE+RuLYuv
+t3t9OEo2SB55CmS28u9BIYFmlUDDKVvsQ3xUxDR9114HY++Dulj0W1R3ZrW0mWHH
+49OrKp47DvmdaX1OyRhI/3RaPc4u+OTV8Z/1jWL0cHrybsimiTkjySKPXonIaO2E
+emd+UWqLoYAyQLZ+u8alEI5s7IBjeXPcL8VEwh6K7nblCjK3yfqdOCyYRem+1lgx
+JlHonk/YOiLPfZG1xN29p+/vRnzQBaZR28py7GpsVBsniWQQxS4=
+=DHnk
+-----END PGP SIGNATURE-----
+
+--2ArJoZLmXtBnMmHx--
 
