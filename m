@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3496B52D38C
-	for <lists+xen-devel@lfdr.de>; Thu, 19 May 2022 15:06:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.332946.556715 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BB7052D3BF
+	for <lists+xen-devel@lfdr.de>; Thu, 19 May 2022 15:18:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.332958.556727 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrfqy-0000Tq-TH; Thu, 19 May 2022 13:06:08 +0000
+	id 1nrg1c-000206-0K; Thu, 19 May 2022 13:17:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 332946.556715; Thu, 19 May 2022 13:06:08 +0000
+Received: by outflank-mailman (output) from mailman id 332958.556727; Thu, 19 May 2022 13:17:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrfqy-0000RM-Qb; Thu, 19 May 2022 13:06:08 +0000
-Received: by outflank-mailman (input) for mailman id 332946;
- Thu, 19 May 2022 13:06:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=a//1=V3=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1nrfqx-0000RG-5p
- for xen-devel@lists.xenproject.org; Thu, 19 May 2022 13:06:07 +0000
-Received: from ppsw-41.csi.cam.ac.uk (ppsw-41.csi.cam.ac.uk [131.111.8.141])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6f2aba07-d774-11ec-bd2c-47488cf2e6aa;
- Thu, 19 May 2022 15:06:05 +0200 (CEST)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:34306)
- by ppsw-41.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.139]:25)
- with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1nrfqg-000gSU-Py (Exim 4.95) (return-path <amc96@srcf.net>);
- Thu, 19 May 2022 14:05:50 +0100
-Received: from [10.80.3.190] (default-46-102-197-194.interdsl.co.uk
- [46.102.197.194]) (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id C471C1FA77;
- Thu, 19 May 2022 14:05:49 +0100 (BST)
+	id 1nrg1b-0001wq-SW; Thu, 19 May 2022 13:17:07 +0000
+Received: by outflank-mailman (input) for mailman id 332958;
+ Thu, 19 May 2022 13:17:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6qgK=V3=citrix.com=prvs=13100c9ce=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1nrg1a-0001wk-F5
+ for xen-devel@lists.xenproject.org; Thu, 19 May 2022 13:17:06 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f8996407-d775-11ec-837e-e5687231ffcc;
+ Thu, 19 May 2022 15:17:04 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,86 +36,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f2aba07-d774-11ec-bd2c-47488cf2e6aa
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <096a2967-1947-1d49-fa9f-c33bce7bb108@srcf.net>
-Date: Thu, 19 May 2022 14:05:49 +0100
+X-Inumbo-ID: f8996407-d775-11ec-837e-e5687231ffcc
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1652966224;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=kwJWUVJP9XHoEw/vpbMs72YU20U0++WYBU1e/pXt2jc=;
+  b=IMILEqTsHS8nJ6nUULpsg0fgKEXc8oBHQ4YlARNUePTVK8pH9tTv2zvS
+   RGAZZGTbOXgmWWaw1QoKfHsgG5NOFEANa+9jc+WoGfp53YlCxh7hkaNid
+   eGha0hbRKI6I6qx3+KC17p5kanFIkHg5jEKbH9ePssPd7QT+gAQMH8Lwo
+   g=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 74203548
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:1NTqHKtK6zbhzjNODpZ2V7XSZefnVCJeMUV32f8akzHdYApBsoF/q
+ tZmKTzUOKqJYDGkL9Bxb4q0pksOupfWm95mQABlqS4yQiND+JbJXdiXEBz9bniYRiHhoOOLz
+ Cm8hv3odp1coqr0/0/1WlTZhSAgk/nOHNIQMcacUsxLbVYMpBwJ1FQywobVvqYy2YLjW17U6
+ IuryyHiEATNNwBcYzp8B52r8HuDjNyq0N/PlgVjDRzjlAa2e0g9VPrzF4noR5fLatA88tqBb
+ /TC1NmEElbxpH/BPD8HfoHTKSXmSpaKVeSHZ+E/t6KK2nCurQRquko32WZ1he66RFxlkvgoo
+ Oihu6BcRi8NEvfhu745CyMfGh49IO5MppHVJCag5Jn7I03uKxMAwt1rBUAye4YZ5vx2ESdF8
+ vlwxDIlN07ZwbjsmfTiF7cq1p9LwMrDZevzvllpyy3ZCvA3B4jOWazQ6fdT3Ssqh9AIFvHbD
+ yYcQWUzNkybPkEfUrsRIMskh/v5hUjhSWJ3jAK5oLQ70zjxyhMkhdABN/KKI4fXFK25hH2wu
+ Wbu72n/RBYAO7S32TeDt36hmOLLtSf6Q54JUq218OZwh1+ezXBVDwcZPXO5ruO+kVWWQM9EJ
+ gof/S9GkEQp3BX1FJ+nBUT++SPa+E5HMzZNLwEkwCWhkIf3uSLBPC8NcX1cK9Z4mt0zGyN/g
+ zdlgOjVLTBotbSUT1eU+bGVsS6+NEApEIMSWcMXZVBbuoe++enfmjqKF48+S/Dt0rUZDBmqm
+ 1i3QD4Ca6L/ZCLh/4Gy5hj5jj2lvfAlpSZlt1yMDgpJAu6UDbNJhrBEC3CGtJ6sz67DFzFtW
+ UTofODHtYgz4WmlznDlfQn0NOjBCwy5GDPdm0VzOJIq6i6g/XWuFagJvmwkdB4zbptdJ2SxC
+ KM2he+2zMYDVEZGkIctO97hYyjU5faI+SvZugD8MYMVP8kZmP6v9yByf0+At10BY2B3+ZzTz
+ ayzKJ72ZV5DUPwP5GPvG481jO96rghjlDi7bc2qkHyaPU+2OSf9pUEtawDVMIjULcqs/W3oz
+ jqoH5LalEoECLemOUE6M+c7dDg3EJTyPriuw+Q/SwJJClMO9L0JYxMJ/Y4cRg==
+IronPort-HdrOrdr: A9a23:mM83DqByNlqkEtHlHems55DYdb4zR+YMi2TC1yhKJyC9Vvbo8/
+ xG/c5rsCMc5wx9ZJhNo7y90ey7MBThHP1OkOss1NWZPDUO0VHAROoJ0WKh+UyCJ8SXzJ866U
+ 4KSclD4bPLYmRHsQ==
+X-IronPort-AV: E=Sophos;i="5.91,237,1647316800"; 
+   d="scan'208";a="74203548"
+Date: Thu, 19 May 2022 14:16:50 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Juergen Gross <jgross@suse.com>
+CC: <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v3] tools/libs/light: update xenstore entry when setting
+ max domain memory
+Message-ID: <YoZDQpmdd4ESDsQB@perard.uk.xensource.com>
+References: <20220502084729.13044-1-jgross@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Content-Language: en-GB
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
-References: <20220517132130.38185-1-roger.pau@citrix.com>
- <20220517132130.38185-2-roger.pau@citrix.com>
- <84ee0886-9ed2-97ad-e9f9-c81e8a3885c5@citrix.com>
- <YoY2LLyaXhX9aJQ4@Air-de-Roger>
-From: Andrew Cooper <amc96@srcf.net>
-Subject: Re: [PATCH 1/2] x86/vmx: implement Bus Lock detection
-In-Reply-To: <YoY2LLyaXhX9aJQ4@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20220502084729.13044-1-jgross@suse.com>
 
-On 19/05/2022 13:21, Roger Pau Monné wrote:
-> On Wed, May 18, 2022 at 10:50:02PM +0000, Andrew Cooper wrote:
->> On 17/05/2022 14:21, Roger Pau Monne wrote:
->>> Add support for enabling Bus Lock Detection on Intel systems.  Such
->>> detection works by triggering a vmexit, which is enough of a pause to
->>> prevent a guest from abusing of the Bus Lock.
->> "which is enough of a" is a bit firmer than ideal.  "which Andy says
->> will be ok" is perhaps more accurate.
->>
->> Perhaps "which ought to be enough" ?
->>
->> A buslock here or there is no problem, and non-malicious software
->> appears to be devoid of buslocks (hardly surprising - it would be a hard
->> error on other architectures), but a malicious piece of userspace can
->> trivially cripple the system.
->>
->> Forcing a vmexit on every buslock limits an attacker to one buslock per
->> however long a vmentry/exit cycle takes.
->>
->>> Add an extra perf counter to track the number of Bus Locks detected.
->> extra Xen perf counter.
->>
->> Because other hypervisors use actual perf counters to emulate this
->> ability on current hardware.  Maybe something we should consider...
->>
->>> diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
->>> index d03e78bf0d..02cc7a2023 100644
->>> --- a/xen/arch/x86/hvm/vmx/vmx.c
->>> +++ b/xen/arch/x86/hvm/vmx/vmx.c
->>> @@ -4053,6 +4053,16 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
->>>  
->>>      if ( unlikely(exit_reason & VMX_EXIT_REASONS_FAILED_VMENTRY) )
->>>          return vmx_failed_vmentry(exit_reason, regs);
->>> +    if ( unlikely(exit_reason & VMX_EXIT_REASONS_BUS_LOCK) )
->>> +    {
->>> +        /*
->>> +         * Delivery of Bus Lock VM exit was pre-empted by a higher priority VM
->>> +         * exit.
->>> +         */
->>> +        exit_reason &= ~VMX_EXIT_REASONS_BUS_LOCK;
->>> +        if ( exit_reason != EXIT_REASON_BUS_LOCK )
->>> +            perfc_incr(buslock);
->> I'm pretty sure you can drop the if, and do the perfc_incr()
->> unconditionally.  You won't get EXIT_REASON_BUS_LOCK |
->> VMX_EXIT_REASONS_BUS_LOCK given that wording in the ISE.
-> I though the same, but got a EXIT_REASON_BUS_LOCK |
-> VMX_EXIT_REASONS_BUS_LOCK fairly easy by simply doing a xchg over a
-> cache line boundary.
->
-> I think at least on the model I'm testing it looks like
-> VMX_EXIT_REASONS_BUS_LOCK is added unconditionally, regardless of
-> whether the vmexit itself is already EXIT_REASON_BUS_LOCK.
+On Mon, May 02, 2022 at 10:47:29AM +0200, Juergen Gross wrote:
+> libxl_domain_setmaxmem() called during "xl mem-max" should update the
+> domain's memory/static-max Xenstore node, as otherwise "xl mem-set"
+> won't be able to set the memory size to the new maximum.
+> 
+> Adjust the related comments and documentation accordingly.
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Hmm, in which case you've found either an SDP bug, or a documentation bug.
+Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
 
-Lets follow up with Intel and try to identify which it is.
+Thanks,
 
-~Andrew
+-- 
+Anthony PERARD
 
