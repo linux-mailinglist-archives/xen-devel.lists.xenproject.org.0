@@ -2,29 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BB7052D3BF
-	for <lists+xen-devel@lfdr.de>; Thu, 19 May 2022 15:18:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.332958.556727 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 711C252D3F2
+	for <lists+xen-devel@lfdr.de>; Thu, 19 May 2022 15:29:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.332973.556741 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrg1c-000206-0K; Thu, 19 May 2022 13:17:08 +0000
+	id 1nrgCM-0003YC-1z; Thu, 19 May 2022 13:28:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 332958.556727; Thu, 19 May 2022 13:17:07 +0000
+Received: by outflank-mailman (output) from mailman id 332973.556741; Thu, 19 May 2022 13:28:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrg1b-0001wq-SW; Thu, 19 May 2022 13:17:07 +0000
-Received: by outflank-mailman (input) for mailman id 332958;
- Thu, 19 May 2022 13:17:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nrgCL-0003WK-UM; Thu, 19 May 2022 13:28:13 +0000
+Received: by outflank-mailman (input) for mailman id 332973;
+ Thu, 19 May 2022 13:28:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6qgK=V3=citrix.com=prvs=13100c9ce=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nrg1a-0001wk-F5
- for xen-devel@lists.xenproject.org; Thu, 19 May 2022 13:17:06 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f8996407-d775-11ec-837e-e5687231ffcc;
- Thu, 19 May 2022 15:17:04 +0200 (CEST)
+ <SRS0=Q20b=V3=intel.com=tamas.lengyel@srs-se1.protection.inumbo.net>)
+ id 1nrgCJ-0003WE-Tl
+ for xen-devel@lists.xenproject.org; Thu, 19 May 2022 13:28:12 +0000
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 823b5a1a-d777-11ec-bd2c-47488cf2e6aa;
+ Thu, 19 May 2022 15:28:05 +0200 (CEST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2022 06:28:02 -0700
+Received: from tlengyel-mobl3.amr.corp.intel.com (HELO ubuntu.localdomain)
+ ([10.213.172.167])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2022 06:28:00 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,69 +43,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f8996407-d775-11ec-837e-e5687231ffcc
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1652966224;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=kwJWUVJP9XHoEw/vpbMs72YU20U0++WYBU1e/pXt2jc=;
-  b=IMILEqTsHS8nJ6nUULpsg0fgKEXc8oBHQ4YlARNUePTVK8pH9tTv2zvS
-   RGAZZGTbOXgmWWaw1QoKfHsgG5NOFEANa+9jc+WoGfp53YlCxh7hkaNid
-   eGha0hbRKI6I6qx3+KC17p5kanFIkHg5jEKbH9ePssPd7QT+gAQMH8Lwo
-   g=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 74203548
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:1NTqHKtK6zbhzjNODpZ2V7XSZefnVCJeMUV32f8akzHdYApBsoF/q
- tZmKTzUOKqJYDGkL9Bxb4q0pksOupfWm95mQABlqS4yQiND+JbJXdiXEBz9bniYRiHhoOOLz
- Cm8hv3odp1coqr0/0/1WlTZhSAgk/nOHNIQMcacUsxLbVYMpBwJ1FQywobVvqYy2YLjW17U6
- IuryyHiEATNNwBcYzp8B52r8HuDjNyq0N/PlgVjDRzjlAa2e0g9VPrzF4noR5fLatA88tqBb
- /TC1NmEElbxpH/BPD8HfoHTKSXmSpaKVeSHZ+E/t6KK2nCurQRquko32WZ1he66RFxlkvgoo
- Oihu6BcRi8NEvfhu745CyMfGh49IO5MppHVJCag5Jn7I03uKxMAwt1rBUAye4YZ5vx2ESdF8
- vlwxDIlN07ZwbjsmfTiF7cq1p9LwMrDZevzvllpyy3ZCvA3B4jOWazQ6fdT3Ssqh9AIFvHbD
- yYcQWUzNkybPkEfUrsRIMskh/v5hUjhSWJ3jAK5oLQ70zjxyhMkhdABN/KKI4fXFK25hH2wu
- Wbu72n/RBYAO7S32TeDt36hmOLLtSf6Q54JUq218OZwh1+ezXBVDwcZPXO5ruO+kVWWQM9EJ
- gof/S9GkEQp3BX1FJ+nBUT++SPa+E5HMzZNLwEkwCWhkIf3uSLBPC8NcX1cK9Z4mt0zGyN/g
- zdlgOjVLTBotbSUT1eU+bGVsS6+NEApEIMSWcMXZVBbuoe++enfmjqKF48+S/Dt0rUZDBmqm
- 1i3QD4Ca6L/ZCLh/4Gy5hj5jj2lvfAlpSZlt1yMDgpJAu6UDbNJhrBEC3CGtJ6sz67DFzFtW
- UTofODHtYgz4WmlznDlfQn0NOjBCwy5GDPdm0VzOJIq6i6g/XWuFagJvmwkdB4zbptdJ2SxC
- KM2he+2zMYDVEZGkIctO97hYyjU5faI+SvZugD8MYMVP8kZmP6v9yByf0+At10BY2B3+ZzTz
- ayzKJ72ZV5DUPwP5GPvG481jO96rghjlDi7bc2qkHyaPU+2OSf9pUEtawDVMIjULcqs/W3oz
- jqoH5LalEoECLemOUE6M+c7dDg3EJTyPriuw+Q/SwJJClMO9L0JYxMJ/Y4cRg==
-IronPort-HdrOrdr: A9a23:mM83DqByNlqkEtHlHems55DYdb4zR+YMi2TC1yhKJyC9Vvbo8/
- xG/c5rsCMc5wx9ZJhNo7y90ey7MBThHP1OkOss1NWZPDUO0VHAROoJ0WKh+UyCJ8SXzJ866U
- 4KSclD4bPLYmRHsQ==
-X-IronPort-AV: E=Sophos;i="5.91,237,1647316800"; 
-   d="scan'208";a="74203548"
-Date: Thu, 19 May 2022 14:16:50 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Juergen Gross <jgross@suse.com>
-CC: <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v3] tools/libs/light: update xenstore entry when setting
- max domain memory
-Message-ID: <YoZDQpmdd4ESDsQB@perard.uk.xensource.com>
-References: <20220502084729.13044-1-jgross@suse.com>
+X-Inumbo-ID: 823b5a1a-d777-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1652966885; x=1684502885;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=zxkU79kiZQ0Xv31PEe8WAmmoX/6h53i+GCeRX9CU+x4=;
+  b=U+XY/BmK18zZfAetjpeuwveLP1mngmvdKKCK+jqaVJ8F0C2GGliV+5jt
+   M0P1ifKtVlMQOPsVnWSYk7IQ5wJUduLSrH4a1Atf7/SUOMLtL7IERzOPl
+   kmx116gtiDZJGX2ID7PBV8ZSzLg42FAMyXfOryeJODNwq1HCtp4nL8l8Q
+   id91VkXBgaDbizS/w5OgGSwNEuMK2szVRlU3lq+gRU/gxx+gcB7HC2mII
+   tnrcK6/IgUtEQBM3WknoX1GfHCx7XjHQ8SvOey+53/AivLyxxWpgIxdWm
+   CVYjA5C8XzFcx42njAEihBzWM0i6As6xz4W9cRQAVqKMtQFOurvFrfXct
+   A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10351"; a="358608399"
+X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; 
+   d="scan'208";a="358608399"
+X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; 
+   d="scan'208";a="606486489"
+From: Tamas K Lengyel <tamas.lengyel@intel.com>
+To: xen-devel@lists.xenproject.org
+Cc: Tamas K Lengyel <tamas.lengyel@intel.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH] tools/libs/ctrl: add and export xc_memory_op
+Date: Thu, 19 May 2022 09:27:49 -0400
+Message-Id: <5c72f793978997970888254a9050e97b34cbb3c7.1652966447.git.tamas.lengyel@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20220502084729.13044-1-jgross@suse.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, May 02, 2022 at 10:47:29AM +0200, Juergen Gross wrote:
-> libxl_domain_setmaxmem() called during "xl mem-max" should update the
-> domain's memory/static-max Xenstore node, as otherwise "xl mem-set"
-> won't be able to set the memory size to the new maximum.
-> 
-> Adjust the related comments and documentation accordingly.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+Add and export xc_memory_op so that do_memory_op can be used by tools linking
+with libxc. This is effectively in the same spirit as the existing xc_domctl
+and xc_sysctl functions, which are already exported.
 
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+In this patch we move do_memory_op into xc_private.h as a static inline function
+and convert its 'cmd' input from int to unsigned int to accurately reflect what
+the hypervisor expects. No other changes are made to the function.
 
-Thanks,
+Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+---
+ tools/include/xenctrl.h      |  1 +
+ tools/libs/ctrl/xc_private.c | 63 +++---------------------------------
+ tools/libs/ctrl/xc_private.h | 58 ++++++++++++++++++++++++++++++++-
+ 3 files changed, 63 insertions(+), 59 deletions(-)
 
+diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
+index 95bd5eca67..484e354412 100644
+--- a/tools/include/xenctrl.h
++++ b/tools/include/xenctrl.h
+@@ -1597,6 +1597,7 @@ int xc_vmtrace_set_option(xc_interface *xch, uint32_t domid,
+ 
+ int xc_domctl(xc_interface *xch, struct xen_domctl *domctl);
+ int xc_sysctl(xc_interface *xch, struct xen_sysctl *sysctl);
++long xc_memory_op(xc_interface *xch, unsigned int cmd, void *arg, size_t len);
+ 
+ int xc_version(xc_interface *xch, int cmd, void *arg);
+ 
+diff --git a/tools/libs/ctrl/xc_private.c b/tools/libs/ctrl/xc_private.c
+index c0422662f0..6a247d2b1f 100644
+--- a/tools/libs/ctrl/xc_private.c
++++ b/tools/libs/ctrl/xc_private.c
+@@ -326,64 +326,6 @@ int xc_flush_mmu_updates(xc_interface *xch, struct xc_mmu *mmu)
+     return flush_mmu_updates(xch, mmu);
+ }
+ 
+-long do_memory_op(xc_interface *xch, int cmd, void *arg, size_t len)
+-{
+-    DECLARE_HYPERCALL_BOUNCE(arg, len, XC_HYPERCALL_BUFFER_BOUNCE_BOTH);
+-    long ret = -1;
+-
+-    if ( xc_hypercall_bounce_pre(xch, arg) )
+-    {
+-        PERROR("Could not bounce memory for XENMEM hypercall");
+-        goto out1;
+-    }
+-
+-#if defined(__linux__) || defined(__sun__)
+-    /*
+-     * Some sub-ops return values which don't fit in "int". On platforms
+-     * without a specific hypercall return value field in the privcmd
+-     * interface structure, issue the request as a single-element multicall,
+-     * to be able to capture the full return value.
+-     */
+-    if ( sizeof(long) > sizeof(int) )
+-    {
+-        multicall_entry_t multicall = {
+-            .op = __HYPERVISOR_memory_op,
+-            .args[0] = cmd,
+-            .args[1] = HYPERCALL_BUFFER_AS_ARG(arg),
+-        }, *call = &multicall;
+-        DECLARE_HYPERCALL_BOUNCE(call, sizeof(*call),
+-                                 XC_HYPERCALL_BUFFER_BOUNCE_BOTH);
+-
+-        if ( xc_hypercall_bounce_pre(xch, call) )
+-        {
+-            PERROR("Could not bounce buffer for memory_op hypercall");
+-            goto out1;
+-        }
+-
+-        ret = do_multicall_op(xch, HYPERCALL_BUFFER(call), 1);
+-
+-        xc_hypercall_bounce_post(xch, call);
+-
+-        if ( !ret )
+-        {
+-            ret = multicall.result;
+-            if ( multicall.result > ~0xfffUL )
+-            {
+-                errno = -ret;
+-                ret = -1;
+-            }
+-        }
+-    }
+-    else
+-#endif
+-        ret = xencall2L(xch->xcall, __HYPERVISOR_memory_op,
+-                        cmd, HYPERCALL_BUFFER_AS_ARG(arg));
+-
+-    xc_hypercall_bounce_post(xch, arg);
+- out1:
+-    return ret;
+-}
+-
+ int xc_maximum_ram_page(xc_interface *xch, unsigned long *max_mfn)
+ {
+     long rc = do_memory_op(xch, XENMEM_maximum_ram_page, NULL, 0);
+@@ -489,6 +431,11 @@ int xc_sysctl(xc_interface *xch, struct xen_sysctl *sysctl)
+     return do_sysctl(xch, sysctl);
+ }
+ 
++long xc_memory_op(xc_interface *xch, unsigned int cmd, void *arg, size_t len)
++{
++    return do_memory_op(xch, cmd, arg, len);
++}
++
+ int xc_version(xc_interface *xch, int cmd, void *arg)
+ {
+     DECLARE_HYPERCALL_BOUNCE(arg, 0, XC_HYPERCALL_BUFFER_BOUNCE_OUT); /* Size unknown until cmd decoded */
+diff --git a/tools/libs/ctrl/xc_private.h b/tools/libs/ctrl/xc_private.h
+index ebdf78c2bf..cf6ad932b0 100644
+--- a/tools/libs/ctrl/xc_private.h
++++ b/tools/libs/ctrl/xc_private.h
+@@ -367,7 +367,63 @@ static inline int do_multicall_op(xc_interface *xch,
+     return ret;
+ }
+ 
+-long do_memory_op(xc_interface *xch, int cmd, void *arg, size_t len);
++static inline long do_memory_op(xc_interface *xch, unsigned int cmd, void *arg, size_t len)
++{
++    DECLARE_HYPERCALL_BOUNCE(arg, len, XC_HYPERCALL_BUFFER_BOUNCE_BOTH);
++    long ret = -1;
++
++    if ( xc_hypercall_bounce_pre(xch, arg) )
++    {
++        PERROR("Could not bounce memory for XENMEM hypercall");
++        goto out1;
++    }
++
++#if defined(__linux__) || defined(__sun__)
++    /*
++     * Some sub-ops return values which don't fit in "int". On platforms
++     * without a specific hypercall return value field in the privcmd
++     * interface structure, issue the request as a single-element multicall,
++     * to be able to capture the full return value.
++     */
++    if ( sizeof(long) > sizeof(int) )
++    {
++        multicall_entry_t multicall = {
++            .op = __HYPERVISOR_memory_op,
++            .args[0] = cmd,
++            .args[1] = HYPERCALL_BUFFER_AS_ARG(arg),
++        }, *call = &multicall;
++        DECLARE_HYPERCALL_BOUNCE(call, sizeof(*call),
++                                 XC_HYPERCALL_BUFFER_BOUNCE_BOTH);
++
++        if ( xc_hypercall_bounce_pre(xch, call) )
++        {
++            PERROR("Could not bounce buffer for memory_op hypercall");
++            goto out1;
++        }
++
++        ret = do_multicall_op(xch, HYPERCALL_BUFFER(call), 1);
++
++        xc_hypercall_bounce_post(xch, call);
++
++        if ( !ret )
++        {
++            ret = multicall.result;
++            if ( multicall.result > ~0xfffUL )
++            {
++                errno = -ret;
++                ret = -1;
++            }
++        }
++    }
++    else
++#endif
++        ret = xencall2L(xch->xcall, __HYPERVISOR_memory_op,
++                        cmd, HYPERCALL_BUFFER_AS_ARG(arg));
++
++    xc_hypercall_bounce_post(xch, arg);
++ out1:
++    return ret;
++}
+ 
+ void *xc_map_foreign_ranges(xc_interface *xch, uint32_t dom,
+                             size_t size, int prot, size_t chunksize,
 -- 
-Anthony PERARD
+2.34.1
+
 
