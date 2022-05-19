@@ -2,36 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 711C252D3F2
-	for <lists+xen-devel@lfdr.de>; Thu, 19 May 2022 15:29:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.332973.556741 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B637652D41B
+	for <lists+xen-devel@lfdr.de>; Thu, 19 May 2022 15:33:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.332984.556752 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrgCM-0003YC-1z; Thu, 19 May 2022 13:28:14 +0000
+	id 1nrgGh-00050n-Nv; Thu, 19 May 2022 13:32:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 332973.556741; Thu, 19 May 2022 13:28:14 +0000
+Received: by outflank-mailman (output) from mailman id 332984.556752; Thu, 19 May 2022 13:32:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrgCL-0003WK-UM; Thu, 19 May 2022 13:28:13 +0000
-Received: by outflank-mailman (input) for mailman id 332973;
- Thu, 19 May 2022 13:28:12 +0000
+	id 1nrgGh-0004y2-KP; Thu, 19 May 2022 13:32:43 +0000
+Received: by outflank-mailman (input) for mailman id 332984;
+ Thu, 19 May 2022 13:32:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Q20b=V3=intel.com=tamas.lengyel@srs-se1.protection.inumbo.net>)
- id 1nrgCJ-0003WE-Tl
- for xen-devel@lists.xenproject.org; Thu, 19 May 2022 13:28:12 +0000
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=vBWN=V3=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1nrgGg-0004xu-9j
+ for xen-devel@lists.xenproject.org; Thu, 19 May 2022 13:32:42 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 823b5a1a-d777-11ec-bd2c-47488cf2e6aa;
- Thu, 19 May 2022 15:28:05 +0200 (CEST)
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2022 06:28:02 -0700
-Received: from tlengyel-mobl3.amr.corp.intel.com (HELO ubuntu.localdomain)
- ([10.213.172.167])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2022 06:28:00 -0700
+ id 27f0069b-d778-11ec-bd2c-47488cf2e6aa;
+ Thu, 19 May 2022 15:32:41 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id CC2D41FD43;
+ Thu, 19 May 2022 13:32:40 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A238313AF8;
+ Thu, 19 May 2022 13:32:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id c+BCJvhGhmIYKwAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 19 May 2022 13:32:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,217 +51,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 823b5a1a-d777-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1652966885; x=1684502885;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=zxkU79kiZQ0Xv31PEe8WAmmoX/6h53i+GCeRX9CU+x4=;
-  b=U+XY/BmK18zZfAetjpeuwveLP1mngmvdKKCK+jqaVJ8F0C2GGliV+5jt
-   M0P1ifKtVlMQOPsVnWSYk7IQ5wJUduLSrH4a1Atf7/SUOMLtL7IERzOPl
-   kmx116gtiDZJGX2ID7PBV8ZSzLg42FAMyXfOryeJODNwq1HCtp4nL8l8Q
-   id91VkXBgaDbizS/w5OgGSwNEuMK2szVRlU3lq+gRU/gxx+gcB7HC2mII
-   tnrcK6/IgUtEQBM3WknoX1GfHCx7XjHQ8SvOey+53/AivLyxxWpgIxdWm
-   CVYjA5C8XzFcx42njAEihBzWM0i6As6xz4W9cRQAVqKMtQFOurvFrfXct
-   A==;
-X-IronPort-AV: E=McAfee;i="6400,9594,10351"; a="358608399"
-X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; 
-   d="scan'208";a="358608399"
-X-IronPort-AV: E=Sophos;i="5.91,237,1647327600"; 
-   d="scan'208";a="606486489"
-From: Tamas K Lengyel <tamas.lengyel@intel.com>
-To: xen-devel@lists.xenproject.org
-Cc: Tamas K Lengyel <tamas.lengyel@intel.com>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH] tools/libs/ctrl: add and export xc_memory_op
-Date: Thu, 19 May 2022 09:27:49 -0400
-Message-Id: <5c72f793978997970888254a9050e97b34cbb3c7.1652966447.git.tamas.lengyel@intel.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: 27f0069b-d778-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1652967160; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1BbGET/6ToU1vbmwg/Y15gVpYaOfmLXmpSzSQWkmUxE=;
+	b=FR6b2dOOMPM0wISijoqbZK6ONIpJ566l/AJfHd8VN/E3t9OSzsD0HJXAs955rlR/OEYGC0
+	/Qy5Etvl6o4PVkJSg8ni4gvZeDFl5Ml8pODVhOiZUNie09UBdLPXLHl/RBGhfYu1Ocr7fj
+	4B6hLHU2bXkNMDKHJol8MO1rQIn+f6s=
+Message-ID: <9b3c46f8-737b-b145-4abf-a08b34d4e932@suse.com>
+Date: Thu, 19 May 2022 15:32:40 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Subject: Re: [PATCH] tools/libs/ctrl: add and export xc_memory_op
+Content-Language: en-US
+To: Tamas K Lengyel <tamas.lengyel@intel.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <5c72f793978997970888254a9050e97b34cbb3c7.1652966447.git.tamas.lengyel@intel.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <5c72f793978997970888254a9050e97b34cbb3c7.1652966447.git.tamas.lengyel@intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------8bTg0scaOKBxD10tWCdeDa8L"
 
-Add and export xc_memory_op so that do_memory_op can be used by tools linking
-with libxc. This is effectively in the same spirit as the existing xc_domctl
-and xc_sysctl functions, which are already exported.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------8bTg0scaOKBxD10tWCdeDa8L
+Content-Type: multipart/mixed; boundary="------------4Mqp7auokwklZQvbey7xdyIl";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Tamas K Lengyel <tamas.lengyel@intel.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <9b3c46f8-737b-b145-4abf-a08b34d4e932@suse.com>
+Subject: Re: [PATCH] tools/libs/ctrl: add and export xc_memory_op
+References: <5c72f793978997970888254a9050e97b34cbb3c7.1652966447.git.tamas.lengyel@intel.com>
+In-Reply-To: <5c72f793978997970888254a9050e97b34cbb3c7.1652966447.git.tamas.lengyel@intel.com>
 
-In this patch we move do_memory_op into xc_private.h as a static inline function
-and convert its 'cmd' input from int to unsigned int to accurately reflect what
-the hypervisor expects. No other changes are made to the function.
+--------------4Mqp7auokwklZQvbey7xdyIl
+Content-Type: multipart/mixed; boundary="------------C0Rb8uTJH4l5JfFCZG3j0Mak"
 
-Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
----
- tools/include/xenctrl.h      |  1 +
- tools/libs/ctrl/xc_private.c | 63 +++---------------------------------
- tools/libs/ctrl/xc_private.h | 58 ++++++++++++++++++++++++++++++++-
- 3 files changed, 63 insertions(+), 59 deletions(-)
+--------------C0Rb8uTJH4l5JfFCZG3j0Mak
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index 95bd5eca67..484e354412 100644
---- a/tools/include/xenctrl.h
-+++ b/tools/include/xenctrl.h
-@@ -1597,6 +1597,7 @@ int xc_vmtrace_set_option(xc_interface *xch, uint32_t domid,
- 
- int xc_domctl(xc_interface *xch, struct xen_domctl *domctl);
- int xc_sysctl(xc_interface *xch, struct xen_sysctl *sysctl);
-+long xc_memory_op(xc_interface *xch, unsigned int cmd, void *arg, size_t len);
- 
- int xc_version(xc_interface *xch, int cmd, void *arg);
- 
-diff --git a/tools/libs/ctrl/xc_private.c b/tools/libs/ctrl/xc_private.c
-index c0422662f0..6a247d2b1f 100644
---- a/tools/libs/ctrl/xc_private.c
-+++ b/tools/libs/ctrl/xc_private.c
-@@ -326,64 +326,6 @@ int xc_flush_mmu_updates(xc_interface *xch, struct xc_mmu *mmu)
-     return flush_mmu_updates(xch, mmu);
- }
- 
--long do_memory_op(xc_interface *xch, int cmd, void *arg, size_t len)
--{
--    DECLARE_HYPERCALL_BOUNCE(arg, len, XC_HYPERCALL_BUFFER_BOUNCE_BOTH);
--    long ret = -1;
--
--    if ( xc_hypercall_bounce_pre(xch, arg) )
--    {
--        PERROR("Could not bounce memory for XENMEM hypercall");
--        goto out1;
--    }
--
--#if defined(__linux__) || defined(__sun__)
--    /*
--     * Some sub-ops return values which don't fit in "int". On platforms
--     * without a specific hypercall return value field in the privcmd
--     * interface structure, issue the request as a single-element multicall,
--     * to be able to capture the full return value.
--     */
--    if ( sizeof(long) > sizeof(int) )
--    {
--        multicall_entry_t multicall = {
--            .op = __HYPERVISOR_memory_op,
--            .args[0] = cmd,
--            .args[1] = HYPERCALL_BUFFER_AS_ARG(arg),
--        }, *call = &multicall;
--        DECLARE_HYPERCALL_BOUNCE(call, sizeof(*call),
--                                 XC_HYPERCALL_BUFFER_BOUNCE_BOTH);
--
--        if ( xc_hypercall_bounce_pre(xch, call) )
--        {
--            PERROR("Could not bounce buffer for memory_op hypercall");
--            goto out1;
--        }
--
--        ret = do_multicall_op(xch, HYPERCALL_BUFFER(call), 1);
--
--        xc_hypercall_bounce_post(xch, call);
--
--        if ( !ret )
--        {
--            ret = multicall.result;
--            if ( multicall.result > ~0xfffUL )
--            {
--                errno = -ret;
--                ret = -1;
--            }
--        }
--    }
--    else
--#endif
--        ret = xencall2L(xch->xcall, __HYPERVISOR_memory_op,
--                        cmd, HYPERCALL_BUFFER_AS_ARG(arg));
--
--    xc_hypercall_bounce_post(xch, arg);
-- out1:
--    return ret;
--}
--
- int xc_maximum_ram_page(xc_interface *xch, unsigned long *max_mfn)
- {
-     long rc = do_memory_op(xch, XENMEM_maximum_ram_page, NULL, 0);
-@@ -489,6 +431,11 @@ int xc_sysctl(xc_interface *xch, struct xen_sysctl *sysctl)
-     return do_sysctl(xch, sysctl);
- }
- 
-+long xc_memory_op(xc_interface *xch, unsigned int cmd, void *arg, size_t len)
-+{
-+    return do_memory_op(xch, cmd, arg, len);
-+}
-+
- int xc_version(xc_interface *xch, int cmd, void *arg)
- {
-     DECLARE_HYPERCALL_BOUNCE(arg, 0, XC_HYPERCALL_BUFFER_BOUNCE_OUT); /* Size unknown until cmd decoded */
-diff --git a/tools/libs/ctrl/xc_private.h b/tools/libs/ctrl/xc_private.h
-index ebdf78c2bf..cf6ad932b0 100644
---- a/tools/libs/ctrl/xc_private.h
-+++ b/tools/libs/ctrl/xc_private.h
-@@ -367,7 +367,63 @@ static inline int do_multicall_op(xc_interface *xch,
-     return ret;
- }
- 
--long do_memory_op(xc_interface *xch, int cmd, void *arg, size_t len);
-+static inline long do_memory_op(xc_interface *xch, unsigned int cmd, void *arg, size_t len)
-+{
-+    DECLARE_HYPERCALL_BOUNCE(arg, len, XC_HYPERCALL_BUFFER_BOUNCE_BOTH);
-+    long ret = -1;
-+
-+    if ( xc_hypercall_bounce_pre(xch, arg) )
-+    {
-+        PERROR("Could not bounce memory for XENMEM hypercall");
-+        goto out1;
-+    }
-+
-+#if defined(__linux__) || defined(__sun__)
-+    /*
-+     * Some sub-ops return values which don't fit in "int". On platforms
-+     * without a specific hypercall return value field in the privcmd
-+     * interface structure, issue the request as a single-element multicall,
-+     * to be able to capture the full return value.
-+     */
-+    if ( sizeof(long) > sizeof(int) )
-+    {
-+        multicall_entry_t multicall = {
-+            .op = __HYPERVISOR_memory_op,
-+            .args[0] = cmd,
-+            .args[1] = HYPERCALL_BUFFER_AS_ARG(arg),
-+        }, *call = &multicall;
-+        DECLARE_HYPERCALL_BOUNCE(call, sizeof(*call),
-+                                 XC_HYPERCALL_BUFFER_BOUNCE_BOTH);
-+
-+        if ( xc_hypercall_bounce_pre(xch, call) )
-+        {
-+            PERROR("Could not bounce buffer for memory_op hypercall");
-+            goto out1;
-+        }
-+
-+        ret = do_multicall_op(xch, HYPERCALL_BUFFER(call), 1);
-+
-+        xc_hypercall_bounce_post(xch, call);
-+
-+        if ( !ret )
-+        {
-+            ret = multicall.result;
-+            if ( multicall.result > ~0xfffUL )
-+            {
-+                errno = -ret;
-+                ret = -1;
-+            }
-+        }
-+    }
-+    else
-+#endif
-+        ret = xencall2L(xch->xcall, __HYPERVISOR_memory_op,
-+                        cmd, HYPERCALL_BUFFER_AS_ARG(arg));
-+
-+    xc_hypercall_bounce_post(xch, arg);
-+ out1:
-+    return ret;
-+}
- 
- void *xc_map_foreign_ranges(xc_interface *xch, uint32_t dom,
-                             size_t size, int prot, size_t chunksize,
--- 
-2.34.1
+T24gMTkuMDUuMjIgMTU6MjcsIFRhbWFzIEsgTGVuZ3llbCB3cm90ZToNCj4gQWRkIGFuZCBl
+eHBvcnQgeGNfbWVtb3J5X29wIHNvIHRoYXQgZG9fbWVtb3J5X29wIGNhbiBiZSB1c2VkIGJ5
+IHRvb2xzIGxpbmtpbmcNCj4gd2l0aCBsaWJ4Yy4gVGhpcyBpcyBlZmZlY3RpdmVseSBpbiB0
+aGUgc2FtZSBzcGlyaXQgYXMgdGhlIGV4aXN0aW5nIHhjX2RvbWN0bA0KPiBhbmQgeGNfc3lz
+Y3RsIGZ1bmN0aW9ucywgd2hpY2ggYXJlIGFscmVhZHkgZXhwb3J0ZWQuDQo+IA0KPiBJbiB0
+aGlzIHBhdGNoIHdlIG1vdmUgZG9fbWVtb3J5X29wIGludG8geGNfcHJpdmF0ZS5oIGFzIGEg
+c3RhdGljIGlubGluZSBmdW5jdGlvbg0KPiBhbmQgY29udmVydCBpdHMgJ2NtZCcgaW5wdXQg
+ZnJvbSBpbnQgdG8gdW5zaWduZWQgaW50IHRvIGFjY3VyYXRlbHkgcmVmbGVjdCB3aGF0DQo+
+IHRoZSBoeXBlcnZpc29yIGV4cGVjdHMuIE5vIG90aGVyIGNoYW5nZXMgYXJlIG1hZGUgdG8g
+dGhlIGZ1bmN0aW9uLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogVGFtYXMgSyBMZW5neWVsIDx0
+YW1hcy5sZW5neWVsQGludGVsLmNvbT4NCj4gLS0tDQo+ICAgdG9vbHMvaW5jbHVkZS94ZW5j
+dHJsLmggICAgICB8ICAxICsNCj4gICB0b29scy9saWJzL2N0cmwveGNfcHJpdmF0ZS5jIHwg
+NjMgKysrLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQo+ICAgdG9vbHMvbGli
+cy9jdHJsL3hjX3ByaXZhdGUuaCB8IDU4ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrLQ0KPiAgIDMgZmlsZXMgY2hhbmdlZCwgNjMgaW5zZXJ0aW9ucygrKSwgNTkgZGVsZXRp
+b25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvdG9vbHMvaW5jbHVkZS94ZW5jdHJsLmggYi90
+b29scy9pbmNsdWRlL3hlbmN0cmwuaA0KPiBpbmRleCA5NWJkNWVjYTY3Li40ODRlMzU0NDEy
+IDEwMDY0NA0KPiAtLS0gYS90b29scy9pbmNsdWRlL3hlbmN0cmwuaA0KPiArKysgYi90b29s
+cy9pbmNsdWRlL3hlbmN0cmwuaA0KPiBAQCAtMTU5Nyw2ICsxNTk3LDcgQEAgaW50IHhjX3Zt
+dHJhY2Vfc2V0X29wdGlvbih4Y19pbnRlcmZhY2UgKnhjaCwgdWludDMyX3QgZG9taWQsDQo+
+ICAgDQo+ICAgaW50IHhjX2RvbWN0bCh4Y19pbnRlcmZhY2UgKnhjaCwgc3RydWN0IHhlbl9k
+b21jdGwgKmRvbWN0bCk7DQo+ICAgaW50IHhjX3N5c2N0bCh4Y19pbnRlcmZhY2UgKnhjaCwg
+c3RydWN0IHhlbl9zeXNjdGwgKnN5c2N0bCk7DQo+ICtsb25nIHhjX21lbW9yeV9vcCh4Y19p
+bnRlcmZhY2UgKnhjaCwgdW5zaWduZWQgaW50IGNtZCwgdm9pZCAqYXJnLCBzaXplX3QgbGVu
+KTsNCj4gICANCj4gICBpbnQgeGNfdmVyc2lvbih4Y19pbnRlcmZhY2UgKnhjaCwgaW50IGNt
+ZCwgdm9pZCAqYXJnKTsNCj4gICANCj4gZGlmZiAtLWdpdCBhL3Rvb2xzL2xpYnMvY3RybC94
+Y19wcml2YXRlLmMgYi90b29scy9saWJzL2N0cmwveGNfcHJpdmF0ZS5jDQo+IGluZGV4IGMw
+NDIyNjYyZjAuLjZhMjQ3ZDJiMWYgMTAwNjQ0DQo+IC0tLSBhL3Rvb2xzL2xpYnMvY3RybC94
+Y19wcml2YXRlLmMNCj4gKysrIGIvdG9vbHMvbGlicy9jdHJsL3hjX3ByaXZhdGUuYw0KPiBA
+QCAtMzI2LDY0ICszMjYsNiBAQCBpbnQgeGNfZmx1c2hfbW11X3VwZGF0ZXMoeGNfaW50ZXJm
+YWNlICp4Y2gsIHN0cnVjdCB4Y19tbXUgKm1tdSkNCj4gICAgICAgcmV0dXJuIGZsdXNoX21t
+dV91cGRhdGVzKHhjaCwgbW11KTsNCj4gICB9DQo+ICAgDQo+IC1sb25nIGRvX21lbW9yeV9v
+cCh4Y19pbnRlcmZhY2UgKnhjaCwgaW50IGNtZCwgdm9pZCAqYXJnLCBzaXplX3QgbGVuKQ0K
+DQpXaHkgZG9uJ3QgeW91IGp1c3QgcmVuYW1lIHRoaXMgZnVuY3Rpb24gYW5kIG1vZGlmeSB0
+aGUgdXNlcnMgdG8gdXNlIHRoZQ0KbmV3IG5hbWU/DQoNCg0KSnVlcmdlbg0K
+--------------C0Rb8uTJH4l5JfFCZG3j0Mak
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------C0Rb8uTJH4l5JfFCZG3j0Mak--
+
+--------------4Mqp7auokwklZQvbey7xdyIl--
+
+--------------8bTg0scaOKBxD10tWCdeDa8L
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmKGRvgFAwAAAAAACgkQsN6d1ii/Ey+e
+cAf/fbpegsi4c5GRrh4iSKd4WryDUckh8LA/Cxxa6E9ckE85mjBqePUChVCK9E6YDl/GLLag9xXH
+crIVuVHacre0f7/3KATGPtasQG6MJloOsQG1dkAlPgXbl5XRIr7+wB+I7nkvhgZ5vvyHALFxj7OK
+XCavr1MqoNa3is0urqMOx5EzdbH9peQ/bs72gUKbNev6RglXFPOxBfh2nyKGs0sHHhBDWmHamgex
+TQ/AAwScN4mro25GIE3w6BifhVh8IyjH2k45mPeP9ceppcaNIAGnWtp3/7y1UBjN/o4Il2ogihaL
+CpD+hkbYL3Kd0oZblIzx3jkDtmpiTmk/vcTFP3+EpA==
+=f9Bt
+-----END PGP SIGNATURE-----
+
+--------------8bTg0scaOKBxD10tWCdeDa8L--
 
