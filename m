@@ -2,36 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C3E652E07C
-	for <lists+xen-devel@lfdr.de>; Fri, 20 May 2022 01:23:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.333326.557140 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C3C652E0C6
+	for <lists+xen-devel@lfdr.de>; Fri, 20 May 2022 01:46:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.333338.557152 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrpUC-0002EH-7a; Thu, 19 May 2022 23:23:16 +0000
+	id 1nrppW-0004b6-2F; Thu, 19 May 2022 23:45:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 333326.557140; Thu, 19 May 2022 23:23:16 +0000
+Received: by outflank-mailman (output) from mailman id 333338.557152; Thu, 19 May 2022 23:45:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrpUC-0002B0-4q; Thu, 19 May 2022 23:23:16 +0000
-Received: by outflank-mailman (input) for mailman id 333326;
- Thu, 19 May 2022 23:23:14 +0000
+	id 1nrppV-0004ZI-Ux; Thu, 19 May 2022 23:45:17 +0000
+Received: by outflank-mailman (input) for mailman id 333338;
+ Thu, 19 May 2022 23:45:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Krf0=V3=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1nrpU9-0002Au-VO
- for xen-devel@lists.xenproject.org; Thu, 19 May 2022 23:23:14 +0000
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a4692d36-d7ca-11ec-bd2c-47488cf2e6aa;
- Fri, 20 May 2022 01:23:11 +0200 (CEST)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id DEC7F5C0109
- for <xen-devel@lists.xenproject.org>; Thu, 19 May 2022 19:23:07 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Thu, 19 May 2022 19:23:07 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA for
- <xen-devel@lists.xenproject.org>; Thu, 19 May 2022 19:23:07 -0400 (EDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=WATz=V3=redhat.com=bhe@srs-se1.protection.inumbo.net>)
+ id 1nrppT-0004ZC-Np
+ for xen-devel@lists.xenproject.org; Thu, 19 May 2022 23:45:16 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b9c952cc-d7cd-11ec-bd2c-47488cf2e6aa;
+ Fri, 20 May 2022 01:45:14 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-671-51qE-HMZMJ-_l5k-QlXFHg-1; Thu, 19 May 2022 19:45:10 -0400
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A41B685A5AA;
+ Thu, 19 May 2022 23:45:07 +0000 (UTC)
+Received: from localhost (ovpn-12-42.pek2.redhat.com [10.72.12.42])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4ABA5492C14;
+ Thu, 19 May 2022 23:45:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,107 +50,259 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a4692d36-d7ca-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
-	:subject:to:to; s=fm1; t=1653002587; x=1653088987; bh=zqjTFcLaia
-	d3MqNunNtu7UVCBZfKCDjBEpQDzT8tflI=; b=kFK9casaG8C+rdIaQV4g8Zrvvk
-	Ktc4X2r/CMTXY00nq9h7J1591clfasO5Ue4ELIwatDGGEYDKA7UJvUcnnsyumwyy
-	T5KUYhV24Dv95fyLdLcW88KghJEYTdRjlBc/h/YOPyUQjjRhMzHisFyhgzrb3Lb7
-	V20xzB3nIbY4fNa3ExrNhHDtXyvhPr3OByjmik2U2hPDXfsFJ3c2DCsDkynYsIfX
-	wnvEg3YJvRLDaloayv/Xn+VFQpKHolYfLfrBMvAIxphe6Pb1PWvZnHG2HCwoo8yR
-	MCB6nfwDkOCETGAXMZwE4ulk4G2TDBzOZiJNwc+4mj1ns2+/1ryds10AgNDw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:message-id:mime-version
-	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1653002587; x=
-	1653088987; bh=zqjTFcLaiad3MqNunNtu7UVCBZfKCDjBEpQDzT8tflI=; b=T
-	aK+XoUp3RwF4BOiKXulvX17c3F1SuFmDBNW2RWRwAEz/ZJuOYYyqdxQe6IwjCOlf
-	sftmwpdBJJJW1H/5En8HHti3C8AQQS/uT3HCOrZLCF7OO4gcKbERO3qzQRVWn0gK
-	70eMktajrCWi4q5ixxdGRNKNKbxjU9Ku6B86tXF+2iERi9aF9LOH7dc4/6RWV6m+
-	DC8TKwwtgCG3fINu+TmE0v43BSUchncNhkhKAx9O4odYAOWIIFzCr2XXVIOKQ0Pq
-	shv1HHrshsoYNjpaOix0vkw8a6f8WGhXRQlOwbdvZJsklsO6CBxE1zZ222V9MRKU
-	cXGlzkk05Qxj+Iphh1QtQ==
-X-ME-Sender: <xms:W9GGYvIFOvqgOxJRLzMgFZtCIiBzoFGAAI3AI1KJa4jIXedJZzcb4g>
-    <xme:W9GGYjIQGkvrgb4ZQgY2yboOfqfaGvAGBy-e5BQvBfX2Dg8TqVhEkq18qkLytgdNQ
-    e0QgGDhldvIaKw>
-X-ME-Received: <xmr:W9GGYnspHqaxcZYRYu7Ctu7UAEHwnulLXi0cbEW7XEu2cqgQMd46IaY7t4hy>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedriedvgddvvdcutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvuffkgggtugesghdtreertddtjeenucfhrhhomhepffgvmhhiucforghr
-    ihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgrsg
-    drtghomheqnecuggftrfgrthhtvghrnhepleejtdegjeffleevfeeuleehjefgvdefhfeh
-    gfejgeelteegtdetjeelueeuveefnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrg
-    hmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgrsgdr
-    tghomh
-X-ME-Proxy: <xmx:W9GGYoaXYwCQ6nTeuS7aGtGWVfGmwvvs-nZeSXy3og3p0ABSN338VA>
-    <xmx:W9GGYmasVcShdRgmsCxwYKKY5CEPdpOSXZfrlAmewra5su-w8lbFJQ>
-    <xmx:W9GGYsCnTHT1hUqvqleqttmHwtwBzJhyltHbjd-xW3hFoxJZkvl0mg>
-    <xmx:W9GGYvl8dgHVUuZJIRJciE5ABSltNCrLDxyikyo3Q_h6-mtvJUMbmw>
-Feedback-ID: iac594737:Fastmail
-Date: Thu, 19 May 2022 19:22:33 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Xen developer discussion <xen-devel@lists.xenproject.org>
-Subject: Grant operation batching
-Message-ID: <YobRWXY/xVli4UUf@itl-email>
+X-Inumbo-ID: b9c952cc-d7cd-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1653003912;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xcqeqNHBqLaEPFvaMSIdVsHM/2ssgjepqSc89Z+McDY=;
+	b=HQ9a3tDxc88Fmu9vSqWBD3zMyyUqGM7Pfv4sBbu6gyG8SBJ52VeRpMEFuMsTX2IrNSwHKe
+	fK7SmYbjvS34vhtDZ/AckHKpJsO+yTJ0/IbfoekwC3LuyzdLv0YfTg1gHsZ4rUMdvcfFE4
+	+wi6yzhXqsbhwbbQyLCN86WpIhakYPI=
+X-MC-Unique: 51qE-HMZMJ-_l5k-QlXFHg-1
+Date: Fri, 20 May 2022 07:45:02 +0800
+From: Baoquan He <bhe@redhat.com>
+To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+	Petr Mladek <pmladek@suse.com>
+Cc: "michael Kelley (LINUX)" <mikelley@microsoft.com>,
+	Dave Young <dyoung@redhat.com>, d.hatayama@jp.fujitsu.com,
+	akpm@linux-foundation.org, kexec@lists.infradead.org,
+	linux-kernel@vger.kernel.org, bcm-kernel-feedback-list@broadcom.com,
+	linuxppc-dev@lists.ozlabs.org, linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
+	linux-hyperv@vger.kernel.org, linux-leds@vger.kernel.org,
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+	linux-s390@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux-um@lists.infradead.org, linux-xtensa@linux-xtensa.org,
+	netdev@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+	rcu@vger.kernel.org, sparclinux@vger.kernel.org,
+	xen-devel@lists.xenproject.org, x86@kernel.org,
+	kernel-dev@igalia.com, kernel@gpiccoli.net, halves@canonical.com,
+	fabiomirmar@gmail.com, alejandro.j.jimenez@oracle.com,
+	andriy.shevchenko@linux.intel.com, arnd@arndb.de, bp@alien8.de,
+	corbet@lwn.net, dave.hansen@linux.intel.com, feng.tang@intel.com,
+	gregkh@linuxfoundation.org, hidehiro.kawai.ez@hitachi.com,
+	jgross@suse.com, john.ogness@linutronix.de, keescook@chromium.org,
+	luto@kernel.org, mhiramat@kernel.org, mingo@redhat.com,
+	paulmck@kernel.org, peterz@infradead.org, rostedt@goodmis.org,
+	senozhatsky@chromium.org, stern@rowland.harvard.edu,
+	tglx@linutronix.de, vgoyal@redhat.com, vkuznets@redhat.com,
+	will@kernel.org
+Subject: Re: [PATCH 24/30] panic: Refactor the panic path
+Message-ID: <20220519234502.GA194232@MiWiFi-R3L-srv>
+References: <20220427224924.592546-1-gpiccoli@igalia.com>
+ <20220427224924.592546-25-gpiccoli@igalia.com>
+ <Yn0TnsWVxCcdB2yO@alley>
+ <d313eec2-96b6-04e3-35cd-981f103d010e@igalia.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="L0eN+3MD/NWPHsz0"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <d313eec2-96b6-04e3-35cd-981f103d010e@igalia.com>
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 
+On 05/15/22 at 07:47pm, Guilherme G. Piccoli wrote:
+> On 12/05/2022 11:03, Petr Mladek wrote:
+...... 
+> > OK, the question is how to make it better. Let's start with
+> > a clear picture of the problem:
+> > 
+> > 1. panic() has basically two funtions:
+> > 
+> >       + show/store debug information (optional ways and amount)
+> >       + do something with the system (reboot, stay hanged)
+> > 
+> > 
+> > 2. There are 4 ways how to show/store the information:
+> > 
+> >       + tell hypervisor to store what it is interested about
+> >       + crash_dump
+> >       + kmsg_dump()
+> >       + consoles
+> > 
+> >   , where crash_dump and consoles are special:
+> > 
+> >      + crash_dump does not return. Instead it ends up with reboot.
+> > 
+> >      + Consoles work transparently. They just need an extra flush
+> >        before reboot or staying hanged.
+> > 
+> > 
+> > 3. The various notifiers do things like:
+> > 
+> >      + tell hypervisor about the crash
+> >      + print more information (also stop watchdogs)
+> >      + prepare system for reboot (touch some interfaces)
+> >      + prepare system for staying hanged (blinking)
+> > 
+> >    Note that it pretty nicely matches the 4 notifier lists.
+> > 
+> 
+> I really appreciate the summary skill you have, to convert complex
+> problems in very clear and concise ideas. Thanks for that, very useful!
+> I agree with what was summarized above.
 
---L0eN+3MD/NWPHsz0
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 May 2022 19:22:33 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Xen developer discussion <xen-devel@lists.xenproject.org>
-Subject: Grant operation batching
+I want to say the similar words to Petr's reviewing comment when I went
+through the patches and traced each reviewing sub-thread to try to
+catch up. Petr has reivewed this series so carefully and given many
+comments I want to ack immediately.
 
-It is well known that mapping and unmapping grants is expensive, which
-is why blkback has persistent grants.  Could this cost be mitigated by
-batching, and if it was, would it affect the tradeoff of memcpy() vs
-grant table operations?
+I agree with most of the suggestions from Petr to this patch, except of
+one tiny concern, please see below inline comment.
 
-Alternatively, would there be any interest in an =E2=80=9Cunsafe=E2=80=9D m=
-ode for
-blkback that skips both the copy and the grant operations?  This is
-obviously unsafe (hence the name!), but in many cases that unsafety does
-not actually matter.  For instance, a Qubes dom0 can execute any shell
-command it wants in any Qubes VM via qvm-run.  Much easier than trying
-to exploit some UaF or race condition =F0=9F=99=82.  More generally, when t=
-he
-backend is the all-powerful dom0, trying to defend against a malicious
-backend is (at least in the absence of SEV-SNP or TDX) pointless, so one
-might as well not bother and take the free performance.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+> 
+> 
+> > Now, we need to decide about the ordering. The main area is how
+> > to store the debug information. Consoles are transparent so
+> > the quesition is about:
+> > 
+> >      + hypervisor
+> >      + crash_dump
+> >      + kmsg_dump
+> > 
+> > Some people need none and some people want all. There is a
+> > risk that system might hung at any stage. This why people want to
+> > make the order configurable.
+> > 
+> > But crash_dump() does not return when it succeeds. And kmsg_dump()
+> > users havn't complained about hypervisor problems yet. So, that
+> > two variants might be enough:
+> > 
+> >     + crash_dump (hypervisor, kmsg_dump as fallback)
+> >     + hypervisor, kmsg_dump, crash_dump
+> > 
+> > One option "panic_prefer_crash_dump" should be enough.
+> > And the code might look like:
+> > 
+> > void panic()
+> > {
+> > [...]
+> > 	dump_stack();
+> > 	kgdb_panic(buf);
+> > 
+> > 	< ---  here starts the reworked code --- >
+> > 
+> > 	/* crash dump is enough when enabled and preferred. */
+> > 	if (panic_prefer_crash_dump)
+> > 		__crash_kexec(NULL);
 
---L0eN+3MD/NWPHsz0
-Content-Type: application/pgp-signature; name="signature.asc"
+I like the proposed skeleton of panic() and code style suggested by
+Petr very much. About panic_prefer_crash_dump which might need be added,
+I hope it has a default value true. This makes crash_dump execute at
+first by default just as before, unless people specify
+panic_prefer_crash_dump=0|n|off to disable it. Otherwise we need add
+panic_prefer_crash_dump=1 in kernel and in our distros to enable kdump,
+this is inconsistent with the old behaviour.
 
------BEGIN PGP SIGNATURE-----
+> > 
+> > 	/* Stop other CPUs and focus on handling the panic state. */
+> > 	if (has_kexec_crash_image)
+> > 		crash_smp_send_stop();
+> > 	else
+> > 		smp_send_stop()
+> > 
+> 
+> Here we have a very important point. Why do we need 2 variants of SMP
+> CPU stopping functions? I disagree with that - my understanding of this
+> after some study in architectures is that the crash_() variant is
+> "stronger", should work in all cases and if not, we should fix that -
+> that'd be a bug.
+> 
+> Such variant either maps to smp_send_stop() (in various architectures,
+> including XEN/x86) or overrides the basic function with more proper
+> handling for panic() case...I don't see why we still need such
+> distinction, if you / others have some insight about that, I'd like to
+> hear =)
+> 
+> 
+> > 	/* Notify hypervisor about the system panic. */
+> > 	atomic_notifier_call_chain(&panic_hypervisor_list, 0, NULL);
+> > 
+> > 	/*
+> > 	 * No need to risk extra info when there is no kmsg dumper
+> > 	 * registered.
+> > 	 */
+> > 	if (!has_kmsg_dumper())
+> > 		__crash_kexec(NULL);
+> > 
+> > 	/* Add extra info from different subsystems. */
+> > 	atomic_notifier_call_chain(&panic_info_list, 0, NULL);
+> > 
+> > 	kmsg_dump(KMSG_DUMP_PANIC);
+> > 	__crash_kexec(NULL);
+> > 
+> > 	/* Flush console */
+> > 	unblank_screen();
+> > 	console_unblank();
+> > 	debug_locks_off();
+> > 	console_flush_on_panic(CONSOLE_FLUSH_PENDING);
+> > 
+> > 	if (panic_timeout > 0) {
+> > 		delay()
+> > 	}
+> > 
+> > 	/*
+> > 	 * Prepare system for eventual reboot and allow custom
+> > 	 * reboot handling.
+> > 	 */
+> > 	atomic_notifier_call_chain(&panic_reboot_list, 0, NULL);
+> 
+> You had the order of panic_reboot_list VS. consoles flushing inverted.
+> It might make sense, although I didn't do that in V1...
+> Are you OK in having a helper for console flushing, as I did in V1? It
+> makes code of panic() a bit less polluted / more focused I feel.
+> 
+> 
+> > 
+> > 	if (panic_timeout != 0) {
+> > 		reboot();
+> > 	}
+> > 
+> > 	/*
+> > 	 * Prepare system for the infinite waiting, for example,
+> > 	 * setup blinking.
+> > 	 */
+> > 	atomic_notifier_call_chain(&panic_loop_list, 0, NULL);
+> > 
+> > 	infinite_loop();
+> > }
+> > 
+> > 
+> > __crash_kexec() is there 3 times but otherwise the code looks
+> > quite straight forward.
+> > 
+> > Note 1: I renamed the two last notifier list. The name 'post-reboot'
+> > 	did sound strange from the logical POV ;-)
+> > 
+> > Note 2: We have to avoid the possibility to call "reboot" list
+> > 	before kmsg_dump(). All callbacks providing info
+> > 	have to be in the info list. It a callback combines
+> > 	info and reboot functionality then it should be split.
+> > 
+> > 	There must be another way to calm down problematic
+> > 	info callbacks. And it has to be solved when such
+> > 	a problem is reported. Is there any known issue, please?
+> > 
+> > It is possible that I have missed something important.
+> > But I would really like to make the logic as simple as possible.
+> 
+> OK, I agree with you! It's indeed simpler and if others agree, I can
+> happily change the logic to what you proposed. Although...currently the
+> "crash_kexec_post_notifiers" allows to call _all_ panic_reboot_list
+> callbacks _before kdump_.
+> 
+> We need to mention this change in the commit messages, but I really
+> would like to hear the opinions of heavy users of notifiers (as
+> Michael/Hyper-V) and the kdump interested parties (like Baoquan / Dave
+> Young / Hayatama). If we all agree on such approach, will change that
+> for V2 =)
+> 
+> Thanks again Petr, for the time spent in such detailed review!
+> Cheers,
+> 
+> 
+> Guilherme
+> 
 
-iQIzBAEBCAAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmKG0VgACgkQsoi1X/+c
-IsHFIw//Uh5sIZUsANcp+T81YUAzTZZV5G+V1dktrmsETESPXsVrx8FpnVr3l0Us
-X+0Ny717o9Xxe9xZ8ER9OtFNa6CcDreaKisCyC4jyw6wVo6N7QRNRR/EdVpIBIZl
-cDMC5FzIcPTOkxkYeagixHfmIN+5dtBW/pEh1N907wLYu217DNG9hnqciP2PkzvP
-sVsaI48HMAGe68bbxcXmhT2h4tPaB6lucpfUKLC4/7TIRkTxxuRrMQKcUfNqeA0f
-WfEsRP+RzYq+qvHXXoMw44rTxmX0aXu3cq7dlpQsRVXpXVLZkGxbPieN+xmdJZS8
-qaIxaY+tVcHgIbjCT5V4thTYYrjfNvwOywBKintrinPXvBfj5gSSGxItrh59ypWp
-n5/fH6TuhOkyQrLWkULbh6ow2wOYwpq8xij7TQb3ybE3vpspR5IwyLihXN2XwN1N
-7E2iTQdZ6FuIE54ch1+5q48SZT6LCxeNGoFU8I1RarT4xCu66LYS0sjeQSsMbagy
-5EXE/qMm2IdLXSwCHhKajHMUZ8aZ4bWH4yAKykPpJQEKnPFSlGcllq9SUbWptPPK
-4IRH4k0ZBhpCEioaQULuphOlAmZAj+CBCM2wChOfgUXnb8Xf6SUAWXQfbGmSTMyA
-MKUOe/85yv3e2bS4oEWD3rfMRznt8gL6D8GS2Th2QJ8Gxh3bplw=
-=HO26
------END PGP SIGNATURE-----
-
---L0eN+3MD/NWPHsz0--
 
