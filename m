@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E20F852DACC
-	for <lists+xen-devel@lfdr.de>; Thu, 19 May 2022 19:04:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.333164.556947 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2815152DB01
+	for <lists+xen-devel@lfdr.de>; Thu, 19 May 2022 19:16:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.333175.556959 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrjYz-00015C-08; Thu, 19 May 2022 17:03:49 +0000
+	id 1nrjl8-0002cR-8W; Thu, 19 May 2022 17:16:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 333164.556947; Thu, 19 May 2022 17:03:48 +0000
+Received: by outflank-mailman (output) from mailman id 333175.556959; Thu, 19 May 2022 17:16:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrjYy-00012B-TC; Thu, 19 May 2022 17:03:48 +0000
-Received: by outflank-mailman (input) for mailman id 333164;
- Thu, 19 May 2022 17:03:47 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nrjYx-000121-Cs; Thu, 19 May 2022 17:03:47 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nrjYx-0002lF-Ao; Thu, 19 May 2022 17:03:47 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nrjYw-0004KC-Ss; Thu, 19 May 2022 17:03:46 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nrjYw-00016w-SS; Thu, 19 May 2022 17:03:46 +0000
+	id 1nrjl8-0002Zx-5P; Thu, 19 May 2022 17:16:22 +0000
+Received: by outflank-mailman (input) for mailman id 333175;
+ Thu, 19 May 2022 17:16:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9elr=V3=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1nrjl6-0002Zq-Cl
+ for xen-devel@lists.xenproject.org; Thu, 19 May 2022 17:16:20 +0000
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [2a00:1450:4864:20::235])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 65dccd85-d797-11ec-837e-e5687231ffcc;
+ Thu, 19 May 2022 19:16:19 +0200 (CEST)
+Received: by mail-lj1-x235.google.com with SMTP id e4so6456510ljb.13
+ for <xen-devel@lists.xenproject.org>; Thu, 19 May 2022 10:16:19 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id
+ t5-20020a056512208500b0047255d211cfsm342560lfr.254.2022.05.19.10.16.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 19 May 2022 10:16:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,181 +44,245 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=quTibI5/NVyiypV2rv2tdzw5ZE9K7lDAatDHUmE2Les=; b=OLigO7nkZtDC0XFhhvupxbAUCo
-	h+1Od+pClZ/6SC+HmXYt8oaHxRuRNJJ6O4CsvBS6jq4zhtDImwJKg8v703vAFXqB9CxFtq2Am5eGw
-	9fsMJ2AuiU9ZKy8TKpe23Pb0eemzQEy6DuK4DsbGwbm5wC7Zbql8kD4zBMpNQO+fMg94=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170570-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 65dccd85-d797-11ec-837e-e5687231ffcc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=KCMYHEZzLVzWO/NgFR4uh6OCxET/1BguPqK7/3lzzEc=;
+        b=qd2s90ai+R7SPhnQJa9l8uy5s9Y8ktjDyEHqjAGmzwmChcDaLzkxByTTMTGEXqgAP4
+         VMHqaV0d0It8XbO3jdeYAGXqWcDSyEKPzgHpkk/ZcAQ85mXQAG3zOy9zqIYvNLJGwT5o
+         sCqv/ecRf7wUwGo+PHo0KKwkjw7fyo6eDdCTPCQm5v5hI4OKULIjDYYwzRHpvV5QsfYb
+         IKNAh/M/axjlUaz+t2ghiq9MJJsuzPz0CCZ4Gwqh616IMIrJiViT0Nr8irje270fP1Sc
+         AetZNAxkA1TSSImI+88Efx8gAtNmZ2YaB/TShweqhfpJLan8GoC7ms6P5Zm/O+qbDDLo
+         lhUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=KCMYHEZzLVzWO/NgFR4uh6OCxET/1BguPqK7/3lzzEc=;
+        b=qWtQweiuhECIvuv6nYY5QK+Vc6edlGfRhWiC7lOr/tqn9avGa5BkiGwwMwlSDfhnW7
+         B8TCy56/p5lGrp2PAOoiUi4qk9TKGydh6P6owz/0X4/ArtAnKn6ibbyukv91fsZyZed0
+         HHCjkoVXMjNRaHOeHG5j63LlpMXucgPw2X4JKlyhUIGftG7zKjHAaz/wOYI9JsQWOz2L
+         jQCK8Z6Ymoxr4v6YbXLrxj80hx3n0vryIQKrLTY0UOBmSh8x1wd2kowy+gUAeNyBZgS9
+         bWhvs0099NVLSiynyXdfYMnbKd20jz4Of0lQTcvSjJWqdWqFYe5BmOYZT869rlO89urr
+         OiFA==
+X-Gm-Message-State: AOAM5307K/KUi8HWcc+TSoJ2V8381GQ7wksLgDnf//XXbea9WZ8ZlTRY
+	yxPGsudPdaZofiinQp+ZTsk=
+X-Google-Smtp-Source: ABdhPJzVEeNR3HVocoYiIq8pvCH31i8/+ZUnIcZ1E9POBmJfCWmk+3HTdqCERPFxcseqriXaPp8YLg==
+X-Received: by 2002:a2e:91cf:0:b0:24f:11ea:d493 with SMTP id u15-20020a2e91cf000000b0024f11ead493mr3178996ljg.408.1652980578549;
+        Thu, 19 May 2022 10:16:18 -0700 (PDT)
+Subject: Re: [PATCH V8 2/2] libxl: Introduce basic virtio-mmio support on Arm
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>,
+ Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+References: <1651598763-12162-1-git-send-email-olekstysh@gmail.com>
+ <1651598763-12162-3-git-send-email-olekstysh@gmail.com>
+ <YoTTEBSlz0t8LslO@perard.uk.xensource.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <755f075c-db1f-bcd3-9f0d-f5979237e431@gmail.com>
+Date: Thu, 19 May 2022 20:16:16 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Subject: [ovmf test] 170570: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=1f026ababf350746c6071c0873d9d1c8824029ca
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 19 May 2022 17:03:46 +0000
-
-flight 170570 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170570/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 1f026ababf350746c6071c0873d9d1c8824029ca
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   80 days
-Failing since        168258  2022-03-01 01:55:31 Z   79 days 1099 attempts
-Testing same since   170564  2022-05-19 06:40:42 Z    0 days    4 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Ard Biesheuvel <ardb@kernel.org>
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chao Li <lichao@loongson.cn>
-  Chao, Zhuoran <zhuoran.chao@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Christine <Yuwei.Chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Dandan Bi <dandan.bi@intel.com>
-  Dun Tan <dun.tan@intel.com>
-  duntan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gua Guo <gua.guo@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Jiewen Yao <jiewen.yao@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Peter Grehan <grehan@freebsd.org>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Tom Lendacky <thomas.lendacky@amd.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yu Pu <yu.pu@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Yuwei Chen <yuwei.chen@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-  Zhuoran Chao <zhuoran.chao@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+In-Reply-To: <YoTTEBSlz0t8LslO@perard.uk.xensource.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+On 18.05.22 14:05, Anthony PERARD wrote:
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Hello Anthony
 
 
-Not pushing.
+> On Tue, May 03, 2022 at 08:26:03PM +0300, Oleksandr Tyshchenko wrote:
+>> From: Julien Grall <julien.grall@arm.com>
+>>
+>> This patch introduces helpers to allocate Virtio MMIO params
+>> (IRQ and memory region) and create specific device node in
+>> the Guest device-tree with allocated params. In order to deal
+>> with multiple Virtio devices, reserve corresponding ranges.
+>> For now, we reserve 1MB for memory regions and 10 SPIs.
+>>
+>> As these helpers should be used for every Virtio device attached
+>> to the Guest, call them for Virtio disk(s).
+>>
+>> Please note, with statically allocated Virtio IRQs there is
+>> a risk of a clash with a physical IRQs of passthrough devices.
+>> For the first version, it's fine, but we should consider allocating
+>> the Virtio IRQs automatically. Thankfully, we know in advance which
+>> IRQs will be used for passthrough to be able to choose non-clashed
+>> ones.
+>>
+>> Signed-off-by: Julien Grall <julien.grall@arm.com>
+>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>> ---
+>> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+>> index eef1de0..37403a2 100644
+>> --- a/tools/libs/light/libxl_arm.c
+>> +++ b/tools/libs/light/libxl_arm.c
+>> @@ -8,6 +8,46 @@
+>>   #include <assert.h>
+>>   #include <xen/device_tree_defs.h>
+>>   
+>> +/*
+>> + * There is no clear requirements for the total size of Virtio MMIO region.
+>> + * The size of control registers is 0x100 and device-specific configuration
+>> + * registers starts at the offset 0x100, however it's size depends on the device
+>> + * and the driver. Pick the biggest known size at the moment to cover most
+>> + * of the devices (also consider allowing the user to configure the size via
+>> + * config file for the one not conforming with the proposed value).
+>> + */
+>> +#define VIRTIO_MMIO_DEV_SIZE   xen_mk_ullong(0x200)
+>> +
+>> +static uint64_t alloc_virtio_mmio_base(libxl__gc *gc, uint64_t *virtio_mmio_base)
+>> +{
+>> +    uint64_t base = *virtio_mmio_base;
+>> +
+>> +    /* Make sure we have enough reserved resources */
+>> +    if ((base + VIRTIO_MMIO_DEV_SIZE >
+>> +        GUEST_VIRTIO_MMIO_BASE + GUEST_VIRTIO_MMIO_SIZE)) {
+> Could you remove the second set of parentheses? I'd like the compiler to
+> warn us if there's an assignment.
 
-(No revision log; it would be 6908 lines long.)
+ok
+
+
+>
+>> @@ -26,8 +66,10 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+>>   {
+>>       uint32_t nr_spis = 0;
+>>       unsigned int i;
+>> -    uint32_t vuart_irq;
+>> -    bool vuart_enabled = false;
+>> +    uint32_t vuart_irq, virtio_irq = 0;
+>> +    bool vuart_enabled = false, virtio_enabled = false;
+>> +    uint64_t virtio_mmio_base = GUEST_VIRTIO_MMIO_BASE;
+>> +    uint32_t virtio_mmio_irq = GUEST_VIRTIO_MMIO_SPI_FIRST;
+>>   
+>>       /*
+>>        * If pl011 vuart is enabled then increment the nr_spis to allow allocation
+>> @@ -39,6 +81,30 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+>>           vuart_enabled = true;
+>>       }
+>>   
+>> +    for (i = 0; i < d_config->num_disks; i++) {
+>> +        libxl_device_disk *disk = &d_config->disks[i];
+>> +
+>> +        if (disk->specification == LIBXL_DISK_SPECIFICATION_VIRTIO) {
+>> +            disk->base = alloc_virtio_mmio_base(gc, &virtio_mmio_base);
+>> +            if (!disk->base)
+>> +                return ERROR_FAIL;
+>> +
+>> +            disk->irq = alloc_virtio_mmio_irq(gc, &virtio_mmio_irq);
+>> +            if (!disk->irq)
+>> +                return ERROR_FAIL;
+>> +
+>> +            if (virtio_irq < disk->irq)
+>> +                virtio_irq = disk->irq;
+>> +            virtio_enabled = true;
+>> +
+>> +            LOG(DEBUG, "Allocate Virtio MMIO params for Vdev %s: IRQ %u BASE 0x%"PRIx64,
+>> +                disk->vdev, disk->irq, disk->base);
+>> +        }
+>> +    }
+>> +
+>> +    if (virtio_enabled)
+>> +        nr_spis += (virtio_irq - 32) + 1;
+> Is it possible to update "nr_spis" inside the loop?
+
+yes, but ...
+
+
+>   The added value
+> seems to be "number of virtio device + 1",
+
+    ... not really ...
+
+
+>   so updating "nr_spis" and
+> adding +1 after the loop could work, right?
+
+    ... from my understanding, we cannot just increment nr_spis by "one" 
+inside a loop, we need to calculate it.
+
+
+Something like that (not tested):
+
+        uint32_t spi;
+
+        ...
+
+        spi = irq - 32;
+        if (nr_spis <= spi)
+            nr_spis = spi + 1;
+
+
+Shall I update "nr_spis" inside the loop?
+
+Are you asking because of eliminating "virtio_enabled" and/or 
+"virtio_irq" locals? They are used down the code.
+
+
+>
+> Also, what is "32"? Is it "GUEST_VIRTIO_MMIO_SPI_FIRST - 1" ?
+
+
+Although currently "GUEST_VIRTIO_MMIO_SPI_FIRST - 1" = "32", we cannot 
+rely on this (I mean to use "GUEST_VIRTIO_MMIO_SPI_FIRST - 1"
+
+instead of "32"),  because "32" has yet another meaning. This is an 
+offset for SPI, the values before 32 are for private IRQs (PPI, SGI).
+
+
+
+>
+>> +
+>>       for (i = 0; i < d_config->b_info.num_irqs; i++) {
+>>           uint32_t irq = d_config->b_info.irqs[i];
+>>           uint32_t spi;
+>> @@ -787,6 +860,39 @@ static int make_vpci_node(libxl__gc *gc, void *fdt,
+>>       return 0;
+>>   }
+>>   
+>> +
+>> +static int make_virtio_mmio_node(libxl__gc *gc, void *fdt,
+>> +                                 uint64_t base, uint32_t irq)
+>> +{
+>> +    int res;
+>> +    gic_interrupt intr;
+>> +    /* Placeholder for virtio@ + a 64-bit number + \0 */
+>> +    char buf[24];
+>> +
+>> +    snprintf(buf, sizeof(buf), "virtio@%"PRIx64, base);
+> Could you use GCSPRINTF() here instead of using a buffer of a static
+> size calculated by hand which is potentially wrong? Also, the return
+> value of snprintf isn't checked so the string could be truncated without
+> warning. So I think GCSPRINTF is better than a static buffer.
+
+I got it, thank you for detailed explanation, will use.
+
+
+>
+>
+>
+> The rest of the patch looks fine.
+
+Thank you.
+
+
+>
+> Thanks,
+>
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
