@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5995D52E68D
-	for <lists+xen-devel@lfdr.de>; Fri, 20 May 2022 09:50:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.333526.557372 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98F0F52E793
+	for <lists+xen-devel@lfdr.de>; Fri, 20 May 2022 10:32:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.333541.557383 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrxOT-0000aw-9K; Fri, 20 May 2022 07:49:53 +0000
+	id 1nry2V-00061D-RO; Fri, 20 May 2022 08:31:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 333526.557372; Fri, 20 May 2022 07:49:53 +0000
+Received: by outflank-mailman (output) from mailman id 333541.557383; Fri, 20 May 2022 08:31:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrxOT-0000YP-5q; Fri, 20 May 2022 07:49:53 +0000
-Received: by outflank-mailman (input) for mailman id 333526;
- Fri, 20 May 2022 07:49:52 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1nry2V-0005zP-OU; Fri, 20 May 2022 08:31:15 +0000
+Received: by outflank-mailman (input) for mailman id 333541;
+ Fri, 20 May 2022 08:31:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nrxOS-0000YF-6Z; Fri, 20 May 2022 07:49:52 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nrxOS-0000Vu-4k; Fri, 20 May 2022 07:49:52 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nrxOR-00028g-M6; Fri, 20 May 2022 07:49:51 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nrxOR-0002fG-Lf; Fri, 20 May 2022 07:49:51 +0000
+ (envelope-from <SRS0=3l+G=V4=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1nry2S-0005zJ-Qt
+ for xen-devel@lists.xenproject.org; Fri, 20 May 2022 08:31:13 +0000
+Received: from sonic314-21.consmr.mail.gq1.yahoo.com
+ (sonic314-21.consmr.mail.gq1.yahoo.com [98.137.69.84])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2e586227-d817-11ec-bd2c-47488cf2e6aa;
+ Fri, 20 May 2022 10:31:03 +0200 (CEST)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic314.consmr.mail.gq1.yahoo.com with HTTP; Fri, 20 May 2022 08:31:00 +0000
+Received: by hermes--canary-production-bf1-5d4b57496-wjd85 (Yahoo Inc. Hermes
+ SMTP Server) with ESMTPA ID b6f8f6a30f469bee93e26cb01475724b; 
+ Fri, 20 May 2022 08:30:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,182 +42,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=s3YyekMJxqr+Q32RY8709wcnlh0CGe/QkSmBGiZRAhI=; b=mg9EP2EFOxVh3U3Fq1VeNx1xse
-	svU11jyt8RlXRDXbGUCgJZYZVI8fJLzoJJOGeKLj/ueYBN93Zt2hYgVp3AFqqG5HejEDcxwq2qK0A
-	6zUQ4dZ0KIQsaeW+gIrKUlSrYHPOBcF8mdaGX0YwEOUb3Mi4fEdGLR4hYzFHiqIWg80Y=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170593-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 2e586227-d817-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1653035460; bh=WuvwqA1c8r2r+p12+b/hUYdMq9rnRGTuBcxt58to+Ao=; h=Date:Subject:From:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=HF4w2B3LXxAzsPu0cKlClPAp4lIFCVFZUlM+pPQk/ux+ANH+hXbKsjrMjPSA0fZJ7bFN0k3vBmgockcp65NFWPRjltp/uZX8m6/CHBdr+bCznj5y10gd4DlD8HEzG69uE3tqaVbbHsoRnvclRrccUySMDf9kJ1C9NXsVBlCML8dQT9W9zbLw+22y3mNNGSaq/bL8pBTiaCsZ1FW4aFBOwyR2iMix+qtlmTAh2VK/hzqEyMo/dLfJQtZdgFZQeyxm8X+8RTOo9VhypjdtEObCOc6lZPTBSUTACmWdnQ142+D1X8U3FscLu7nqk75T10eZHlh/FT9c4xcPNXHZtL9fMw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1653035460; bh=O145fJvMYEd44wHYCOcQPm3BRaty1a+efZ4N8LUkQQr=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=KTMMx1J1l42zBLEuD7iEYrVpRZ7tenDIzhJP+FNinhG3SjIyDMVzw5N0pDNVL2N2MQ9pb94qH7dr01GJOCOZcXNtF8TViexLW79zwv6ynfIDVQKFpS6XcgMAsXtYpnghDDtVAALwjd1vB81Lt0374U4JDN08+xNpIlCqrxBcoc75xbCbKUwYizkkDqgLilGxLfiRDz8S0S9Gxn5MU4glFMXNaQAKCF1dwkGi1+k+TdJPi7eidZEKU7fihPGPg7vII2CW9XcWkjQ1lU6CFTr5srzCOHQVtMq9U0EeZOeKGy8AtuFKfsD9VLMOg512Kzby6gny/gOQ4gHLvwbJklvxvw==
+X-YMail-OSG: 7CjV_foVM1l0tGFHgoKRE.wnpkoqWeJCUCM8L4Pwg7EBf4yx.s.aoDJ2z8Y4XF5
+ nkBd3hXNBdVVi6K__NDC5IxyqplLijiN9NeZ4cFpS.V3YLTiqBnHc6oRK5Z8EqCF41FjbcgasEe_
+ .7jTmaDxxxf1seLHTx3CMGqC.uE0FcUfHFCdQ0aFCHAylPQXkQbxVdVLtetzY5jGVyjJjYAwblN1
+ vPfLUmFTOFV92.71_ntQfBCwQwxYodrAu9_5r9.7MLVTv3RsXOFhjJzUzjOjuXkVlViS6EWQK39I
+ pAOH1zQrv4fDeo.H8kIqXiLaLguNxlaaZ_5BkUXZmDyonaKBi.sYdF2Q8XKolWBpPxBjL8ABwAxz
+ dORGC7HOvY3DqgaDeTcW1VX0UNy2rSYcPdOHELAgnsIw.ReQ.6t8Zi38Ww_9v0Y.eIJ.JhBK3F4y
+ 3AvYhUpNIQ7E4y0_KowaJFdmoLIWOs39S41mUGY04i6hwR2YBSQiTyf1skcbtWjF1o1DGoJiA47p
+ tGB643aWqy7swWezv7nWOrH7RgGfwz0QXrfxM_SD651_S7WfPhLprmZ4DJsaKp2huC182n9G5mj2
+ J7tDv8s3ODCP_Pam_edh69oKeODvNDb7Wcv9Q4WPDh2ow0MWkSw9Gd_JegWygV6hWYcSVGsyIMrC
+ Wul_q8qqQk4r9Um3QQe1X7fiwQzX00qdEhCJN3gRgddGsttY9VmdmLOmGAk8VGRxDNx3EZZvVTom
+ k55_gpE8nhH2sQRR4p_qDBVjbfd6tGLNXmeZct5LkVFmiuMbBvTeGbWeJ6beEq6bINfpeuA1s7Vz
+ dUw9sJsRt_EVP7jT3WUu.lwEUKXqn8iCY.mH_6LNHYGiCFFh1u_geLafXI7TvrwGd__DIWkfGN0c
+ B21Ne4nzqW3mM.zen08WR5bF_h7EkCQKcdGQs7B0_U6psVHys5khnmhSFSkPgLuNt7Mzg81aq_i5
+ lEb6CJ7LjZ068w7uni4NWUwKNYJPDEuChGKW9zLeXqUpPxcGtYLksJ38AFZFIYttRsR5isWRdf3V
+ PVZDQGlDooMFGmzRHM8Vzxl99v5HLLnuw18gf7b5N9Wfhj_fNjPBDcloD1_sqZ3rhcZQmBP9_Qfj
+ aL693WDn0UhR8roOTVIiA8r4v9qdPji4UHbg8G4CvQqeY3DXoyrFh8bJ75dFqvI6tPdjgjULmUnS
+ uatpSUT5iyIUuNJZsKUMlrkXPZ01xbMjD37Qlqxlryt5PgONqdq_V.oKu.mHofpNX4Xs3SfbwzVv
+ O0TOoGKHDE1LufOSQaSaJkQqei.wo3J4HqrbMCYCIuGkcdq7cOlVLzJZakFZBOBBFcA8KYqKPDNm
+ 9Jl4vloFJ.L3QWh_4yJvRtbkIZp5HOzayLuZgpb96FqCHsCw4Nj1zkOZ_S2BvjISwUOnSmj7ci1L
+ 46Led9OyVaAkyuSIr0zWtBA1VqJi_Hgrj.kD3zvG7RATCJGALuaHWtp3qGr3Th74hoZ5P.AFKhiA
+ jX7R5smlDei5Eqq2bJH97wSPKzCzvv6QUOi5q2d8PZxHiDiyL6Ln0tKdVhpmrGGpuc.ZKRBiD8Nk
+ OH2dAahaCJegaKgkXPsjWp4eoB540liVr0lbyginWNwwuX0o.J4lBvOfFz7JAlLA60DB_mgL5ELJ
+ tIdfcySg.Rwa8Wp0nOiNuehVWR18vyOqHc6AQjdUnqFUO11t06w9wVnXk8.KY.InwPEryEvMp5yC
+ GkVlRDktIfUiGsrnm8EHJcPr6PFCDJvU0aS.ZZWIeX5YefIp1ia0F8OKBeioS5d0TlIbhaJ1perB
+ VC8aEYplBd6nDvIbBgVINPEqP86l8KrhYsaofvY_KFasBr8DgnTzvoQVQrRzWpT8q8pQKIf8DcGF
+ kVqA6Oadng9UvGIr4J8ZNFir93IcQFiB5YCQQ7NPseQ6Jz15Cum5De1zuR3xvLk.2GNwjrtfTfWI
+ jog8o9t3Hwq595MgPp04QPPyH09YM.m5.vyqLRFjcyz_qRmZr_dXE2DfZslymukJNVGJcr5euLX_
+ ExafElfRJQ5PA88fSzYl33h7dRiPCVxt.gj6.sUHE8tfZNgU7dF6fwb1jrrK4hYy85fEDlhsjwPo
+ tJTd4wvGHA9eAEs7BX_MGbWtbvv.Bo86PLThrT2VFseqEjtbs487_aIswCgSe1BYROpOoQTVbqmJ
+ dUl0qV2u5_EGU5ZMvZYeg_Q2Y7toVdr73hw5cJfn5UFjOyl6kspqzrW0rE0YHIknQdgQ._MTGKhq
+ Dgy1f
+X-Sonic-MF: <brchuckz@aim.com>
+Message-ID: <c5fa3c3f-e602-ed68-d670-d59b93c012a0@netscape.net>
+Date: Fri, 20 May 2022 04:30:55 -0400
 MIME-Version: 1.0
-Subject: [ovmf test] 170593: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=a21a3438f795deecb24e1843c1636f95c485017c
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 20 May 2022 07:49:51 +0000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Subject: Re: [PATCH 2/2] x86/pat: add functions to query specific cache mode
+ availability
+Content-Language: en-US
+From: Chuck Zmudzinski <brchuckz@netscape.net>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ xen-devel@lists.xenproject.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Juergen Gross <jgross@suse.com>
+References: <20220503132207.17234-1-jgross@suse.com>
+ <20220503132207.17234-3-jgross@suse.com>
+ <1d86d8ff-6878-5488-e8c4-cbe8a5e8f624@suse.com>
+ <0dcb05d0-108f-6252-e768-f75b393a7f5c@suse.com>
+ <77255e5b-12bf-5390-6910-dafbaff18e96@netscape.net>
+ <a2e95587-418b-879f-2468-8699a6df4a6a@suse.com>
+ <8b1ebea5-7820-69c4-2e2b-9866d55bc180@netscape.net>
+In-Reply-To: <8b1ebea5-7820-69c4-2e2b-9866d55bc180@netscape.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.20225 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-flight 170593 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170593/
+On 5/20/2022 2:59 AM, Chuck Zmudzinski wrote:
+> On 5/20/2022 2:05 AM, Jan Beulich wrote:
+>> On 20.05.2022 06:43, Chuck Zmudzinski wrote:
+>>> On 5/4/22 5:14 AM, Juergen Gross wrote:
+>>>> On 04.05.22 10:31, Jan Beulich wrote:
+>>>>> On 03.05.2022 15:22, Juergen Gross wrote:
+>>>>>
+>>>>> ... these uses there are several more. You say nothing on why 
+>>>>> those want
+>>>>> leaving unaltered. When preparing my earlier patch I did inspect them
+>>>>> and came to the conclusion that these all would also better 
+>>>>> observe the
+>>>>> adjusted behavior (or else I couldn't have left pat_enabled() as the
+>>>>> only predicate). In fact, as said in the description of my earlier 
+>>>>> patch, in
+>>>>> my debugging I did find the use in i915_gem_object_pin_map() to be 
+>>>>> the
+>>>>> problematic one, which you leave alone.
+>>>> Oh, I missed that one, sorry.
+>>> That is why your patch would not fix my Haswell unless
+>>> it also touches i915_gem_object_pin_map() in
+>>> drivers/gpu/drm/i915/gem/i915_gem_pages.c
+>>>
+>>>> I wanted to be rather defensive in my changes, but I agree at least 
+>>>> the
+>>>> case in arch_phys_wc_add() might want to be changed, too.
+>>> I think your approach needs to be more aggressive so it will fix
+>>> all the known false negatives introduced by bdd8b6c98239
+>>> such as the one in i915_gem_object_pin_map().
+>>>
+>>> I looked at Jan's approach and I think it would fix the issue
+>>> with my Haswell as long as I don't use the nopat option. I
+>>> really don't have a strong opinion on that question, but I
+>>> think the nopat option as a Linux kernel option, as opposed
+>>> to a hypervisor option, should only affect the kernel, and
+>>> if the hypervisor provides the pat feature, then the kernel
+>>> should not override that,
+>> Hmm, why would the kernel not be allowed to override that? Such
+>> an override would affect only the single domain where the
+>> kernel runs; other domains could take their own decisions.
+>>
+>> Also, for the sake of completeness: "nopat" used when running on
+>> bare metal has the same bad effect on system boot, so there
+>> pretty clearly is an error cleanup issue in the i915 driver. But
+>> that's orthogonal, and I expect the maintainers may not even care
+>> (but tell us "don't do that then").
 
-Regressions :-(
+Actually I just did a test with the last official Debian kernel
+build of Linux 5.16, that is, a kernel before bdd8b6c98239 was
+applied. In fact, the nopat option does *not* break the i915 driver
+in 5.16. That is, with the nopat option, the i915 driver loads
+normally on both the bare metal and on the Xen hypervisor.
+That means your presumption (and the presumption of
+the author of bdd8b6c98239) that the "nopat" option was
+being observed by the i915 driver is incorrect. Setting "nopat"
+had no effect on my system with Linux 5.16. So after doing these
+tests, I am against the aggressive approach of breaking the i915
+driver with the "nopat" option because prior to bdd8b6c98239,
+nopat did not break the i915 driver. Why break it now?
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+Prior to bdd8b6c98239, the i915 driver used
+static_cpu_has(X86_FEATURE_PAT) to test for the PAT
+feature, and apparently this returns true even if nopat
+is set, but the new test, pat_enabled(), returns false on
+the Xen hypervisor even if nopat is not set. That is
+the only problem I see. The question of nopat should
+be irrelevant to the i915 driver.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+It was unfortunate that the author of bdd8b6c98239
+mentioned nopat in the commit message when in fact
+nopat was never intended to be used to break the
+i915 driver. The i915 driver should ignore the nopat
+option and decide what to do based solely on the
+capability of the cpu, firmware, and the compiled
+options of the Linux kernel. That is how it behaved
+before bdd8b6c98239, and that behavior is what needs
+to be restored with a patch.
 
-version targeted for testing:
- ovmf                 a21a3438f795deecb24e1843c1636f95c485017c
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   80 days
-Failing since        168258  2022-03-01 01:55:31 Z   80 days 1113 attempts
-Testing same since   170593  2022-05-20 06:42:41 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Ard Biesheuvel <ardb@kernel.org>
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chao Li <lichao@loongson.cn>
-  Chao, Zhuoran <zhuoran.chao@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Christine <Yuwei.Chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Dandan Bi <dandan.bi@intel.com>
-  dann frazier <dann.frazier@canonical.com>
-  Dun Tan <dun.tan@intel.com>
-  duntan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gua Guo <gua.guo@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Jiewen Yao <jiewen.yao@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Peter Grehan <grehan@freebsd.org>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Tom Lendacky <thomas.lendacky@amd.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yu Pu <yu.pu@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Yuwei Chen <yuwei.chen@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-  Zhuoran Chao <zhuoran.chao@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 6968 lines long.)
+Chuck
 
