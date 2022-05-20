@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6ADA852F16A
-	for <lists+xen-devel@lfdr.de>; Fri, 20 May 2022 19:17:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.334467.558487 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE7EA52F1A6
+	for <lists+xen-devel@lfdr.de>; Fri, 20 May 2022 19:29:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.334476.558498 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ns6Ft-0001V0-Ig; Fri, 20 May 2022 17:17:37 +0000
+	id 1ns6Qj-00033Z-NN; Fri, 20 May 2022 17:28:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 334467.558487; Fri, 20 May 2022 17:17:37 +0000
+Received: by outflank-mailman (output) from mailman id 334476.558498; Fri, 20 May 2022 17:28:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ns6Ft-0001T0-FM; Fri, 20 May 2022 17:17:37 +0000
-Received: by outflank-mailman (input) for mailman id 334467;
- Fri, 20 May 2022 17:17:36 +0000
+	id 1ns6Qj-00031k-KB; Fri, 20 May 2022 17:28:49 +0000
+Received: by outflank-mailman (input) for mailman id 334476;
+ Fri, 20 May 2022 17:28:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=3l+G=V4=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1ns6Fs-0001St-3p
- for xen-devel@lists.xenproject.org; Fri, 20 May 2022 17:17:36 +0000
-Received: from sonic304-24.consmr.mail.gq1.yahoo.com
- (sonic304-24.consmr.mail.gq1.yahoo.com [98.137.68.205])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=AvDE=V4=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1ns6Qi-00031e-2L
+ for xen-devel@lists.xenproject.org; Fri, 20 May 2022 17:28:48 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bc681081-d860-11ec-837e-e5687231ffcc;
- Fri, 20 May 2022 19:17:34 +0200 (CEST)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic304.consmr.mail.gq1.yahoo.com with HTTP; Fri, 20 May 2022 17:17:32 +0000
-Received: by hermes--canary-production-ne1-5495f4d555-xbnpg (Yahoo Inc. Hermes
- SMTP Server) with ESMTPA ID 4cde7a491d1a07ad2c7d8298ef77e73b; 
- Fri, 20 May 2022 17:17:30 +0000 (UTC)
+ id 4d9d6917-d862-11ec-837e-e5687231ffcc;
+ Fri, 20 May 2022 19:28:46 +0200 (CEST)
+Received: by mail-lj1-x22f.google.com with SMTP id r3so3531320ljd.7
+ for <xen-devel@lists.xenproject.org>; Fri, 20 May 2022 10:28:46 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id
+ v20-20020ac25594000000b00477cdd77ac0sm475702lfg.175.2022.05.20.10.28.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 20 May 2022 10:28:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,301 +44,504 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc681081-d860-11ec-837e-e5687231ffcc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1653067052; bh=ca7iPlJkCoStYqyWys5LDO2Gdak2vbwjABNP3QbxdJg=; h=Date:Subject:From:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=RLP+eUn0luQR8MFMsK/Bu5ozIMe3R3FhPOqzUlCheTcgF25eEhykrJNUvPSs+a0W8xnMrI9rbHzkLZgVpJtbL5TP+M7Ze1WB3ndhlmODjBS/83tU91WiIEv7q+6a/gq3uI8u2FBODzcy8OZmJc3xLlVbRCVGvFowyXb4vUOxf/CFG2TdClzQETllOExsOb34u/KtnpLCvyhJXcnjAnOJ/KtcKn7YR3wMxjOmD7OXZgxcObjquGGwXrWP05Aie06o3y61XbVbs+uOsDt0kGobUDuta2ORf7o4ZE3vmQJnh0MlR32dGuxnxY6MTfFPorKsNJzKPGFrNzwU2c6wHxJwNw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1653067052; bh=7j3FEybidpG6WjHNRSwkmMNeWZDsakO25VD+3F7N2fN=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=kmbnkkNnYg5sOtHb/xjdjF356Lx7YhHBck56jvGr0JFPI3CLpzpkJ1ZWBDvM1n92FHCRZsVb8tB0grNGXH/Es1KqY+cTfsm9CjEAWoadb3HaEiFmiLwKuGG5qhdR8+gCrhWu+8aFTXY5tPdUI31gXXTAD4ZLQVPGnL171CdHkN9ZE9sb94cRfUOIuoG2a5X+4tESTWVwMxK+dcKB/Z2o0GENJYUI6HBnrfR8EBq/JzDVzWCqup4++tV/QzqAHJaZubtqc8QtQ2FOtwG7GFZE0WrlNCLHo9kArDw3iTRi5gmKw9PxptiYnMacMunLO8V5v6zu8XTfEjJYjGIDVv4QBQ==
-X-YMail-OSG: H7OfiakVM1mSUOX8IbzsVvdwYO9oiQlgoDHPzQIgieY13RNtcqlf3ffrgLXFLu8
- ZMIugdCyo6V0GHELne5XGXeClyex4va1MyN77hEwq2jv0KS3SO7bb_M1Vd83duLCAfrPVzKFozOb
- YcIYKgw_soHeb4CerZhH5QsT5fpB5zt5dfFpDBfg.spni553wE8rJhgRezws_aP_U26M8LkhDdJF
- gJiUUwWm9fj7FeTtpfcULoF4EG7oANqLNMgMZ9U0J2qlgPcN9SmWeMG43haVPHavlwpS4b7Su2_i
- fbV5NNEa2pt70yItIwncyqm1k4Pzy6BJoKfdBkVJBCG2uspzHLysvCFOeW6jb.IS5D9EeDGDOcPV
- lPp.nZKJQRiUNuIOIZgrOWtXwiZ3JjbUuytT5Yf9O9Yqfi1HY2328fALl9MutLaCZe15UpVnWHbc
- xfspJigMbnWbgmlIW3E69FHPnlqWnunkkVfucABP90PZZ7VJHaHX4CmX_bxdCu0qeLwCdrJl5DNU
- R6EKUiqvC6R8Sbf5b5xxXowWnb9FPUQFvxNcQOf.OowStsZIK51oIFxJpPwu2UOjziXkxNCEn.jn
- LXeQ87r9NRPwn2c_aYfpFO2GH_7mHKB9oPNECRevc4kzflfbBj57nZrsRLTIhxgFgTxhfQMgTL0O
- ueCdodwiGPgxtj2U58Y9diorXJ6AlbjFZgA1lbVf1AqNdT2AvFHSfvw.6FHsO02ewjbXM6QZh0YC
- Phr_zV4wXnF9fombQJPfbb3JFTeTUWSJ83G_0XYyKDdVIf.LGd.eQTpr6abmVwyTwPWgnMyWnt.D
- 4dZ2AEnzX6B1biKSHNRVrQaWrQ0mp0NDBgeYCGG6F_TetndAl7a_qZ7gFCErvbFMqaQKeWCBeXGO
- Ev0UmswUVcg.SORIjsr5XRRo1J5Y8sn2Hny35byVnolGAL1omtzpv2BC2dXYOJMxksX9lxzoUhiw
- rrPJYlqY4qAswEz6dM_7S7l_M5KH5vm8FXSJOHi9slxWUvphi.v0af_UwptMiM9A36z7nmZi6X.d
- 4Gb9jQ.NSCZaxWu1Bv5u92SFOzTSD2GWza4ZlGwtVBAEwiBIBqK4ZwmD07JPnrWWPFfn.mY7Bwr6
- .cqwBuCJUJOiAOCSV3.mAX3.gM3RUuQ1xU_QPGCTBCBtKD8gW52Yp8l.0N8Wry9XHz6emY.Hqlln
- J8wSBkFwSq6azUKiZNtp1CA9kes7Stwwq1cNoIYUwthnzbD84Mp6wAT2a_.U10MdgXO..qOKaXzq
- IdGRsHQKX.s63.4U_sGMVLPjL2LrMP9nHyV.4vYxJJ8tsEpIfb8O00WVNOMaEXLgSZRPdhR6bZjU
- jQ.lQHx7IAUIvODcXDA.v1gsqok5cMZISxD.va0xMVrNKmzsCz.xA.eUgrJ2PvMYl80KXDGqGX8P
- orH5y_uyMjBPZiTBTOG5pjWx_6EHyglq3SHCJP.Ezpr9NH6tfG6U7GARFx.lqL_8ZFlehPTWHmrQ
- XaN60UihPwGuYhF9np8PS8nVPgt6f6BHjzezx6Z1a..YBsGFFenRdHwejTIVdCrt4v1HxRzWHQ5r
- xYqAwwKlhsbne7PSH5NIELGpSbwBHjww7vl9ZhEtdcji3Rhj8D5DYZlSj.qBxPUIKq5I5nbwydOb
- luZfq7cB5m22fajZUhwe8_1ZQTjqmTZ5V0KF.aeyBo6Pw02R0G.LBzrve7Jk6r3xmndggHaCDhse
- aU1g2pC.ycMbFjoxWsswE_W25RBpDQkHSkREvrMTcXWaNoZ7YuFxXuUm7xATDhGFuLTNm5gVz.u1
- Uc9V2edW286TNHq93GuvbYLUKxYsWu2qjo9E8flfg24wGTioyXtzR4qYs4Z0MUmKel_ztXvuX5Gz
- i2JULnrN3Q04PPsmRd0a2i_O43nWcycPW6IQd5u6mjcgPsvD0RRsGKjZUzbZVobxVet.cExc3taN
- 7rndFk6AhHHvRWZWKkWj1ZudFIAnQ5tIjRjEQGCOBge.qFeqp7Orl5eODciqINjUnOepKsK6ndeU
- vG_3hOUVzOTLEiyOo93sEaxe_g7FCfM6cLG6gorqRnZUC27HFuQBIpzjVByfhe.6OPt6oe04wZYt
- SVmFJpwuUVe.VUN5geIHcrLJgvfABoIoW5qZKO3YTnGTR5VDgjojz3_1iVoGCbqoJJ3HpWcQTs0U
- .JiWE0WZa0x3jUi1dZoJRmz97nvCGnpcujPjIL1ZziNDsu0Ep7H7FEVYkKWpnf6iaaYSKU7f_YgR
- MVWkN9jRib.rqmGQ9Iw--
-X-Sonic-MF: <brchuckz@aim.com>
-Message-ID: <3a69fa16-6b3e-e567-818c-30959e50e985@netscape.net>
-Date: Fri, 20 May 2022 13:17:29 -0400
+X-Inumbo-ID: 4d9d6917-d862-11ec-837e-e5687231ffcc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=NWNUaA41yaQWJiq/W0Tib8y24DO7hyxO1VVhuKdkKxY=;
+        b=mQIKg8tBkJU+FbTnQk5BIt6dMPfj3EPpOk0KgQTES74IPyBTQeb1GxsM0lx9pNDZnm
+         bjLjMm0liEoy5YlL8R0c8Ded7Sw7ScFbaeapd/QFkHjWJYTzJ82aTZLpu7L7jPv05Ex5
+         fVq5K6BifqL+wUHgPLzr1vrrMkv74zcODeAolf7XkPwc4SBeAZxUplJDWlMsK680JhDi
+         VTCd1N4HW5ub/1HZRH4awbBug3o9hm36UV0lLMh/MeyEEV0AEmjYNMSTSskpeHazfadj
+         uHbusEFqudDz1PEmm4OicXBnCHLIoxWW5jL9JuP/+gwGSX7aE3Y6NHtN2y/fg62p9+xb
+         dAeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=NWNUaA41yaQWJiq/W0Tib8y24DO7hyxO1VVhuKdkKxY=;
+        b=A3X5IMQSys9wCGVXHDrGEnXhfX3sGbuQlg1xb4Oq8EmcHz4VN+Kp8XdXAxLm+dC4gY
+         K0IhOHDL/lYAW2IAGxBa2KPyJGW8Zsgf64fSBIIPoKWqCRcCEvFXGIVie8bbqwcwYDRr
+         5cwA8xJbStiIm33UtpoZOY15j9LWPhqiKVoKHLLk+SpZkABkuSLsW/12YLY3NpFy9dtm
+         xONMjK2Wpt5B0Q3EFWXl/RLNXjX+uM0XwWbACqzFD5SQyuJnv556As8QzYFSoYad69bc
+         WnaM4DN7ar7FvLUZoqIjVMZY34swpQvxloeK8s/GoJT4PwT11pYmz3ARjSAVZE4hNpf2
+         gJRw==
+X-Gm-Message-State: AOAM532iBn7i1i02y/9ryMT0ws9D4y+cQZ40whwJ1pe5YpE9GmWtw6np
+	Y8b+E4uC+ZJzcX9TxXSXS0hm5AcRyiM=
+X-Google-Smtp-Source: ABdhPJwQ57iVP+QXbigt6TSa0K5uRpYg6zIB4wuK15rt9gy/Q5TPe8zFuNF2UnyLfDihl4RHyJ+Ocw==
+X-Received: by 2002:a2e:9ad5:0:b0:250:9be1:cc95 with SMTP id p21-20020a2e9ad5000000b002509be1cc95mr6148661ljj.79.1653067724073;
+        Fri, 20 May 2022 10:28:44 -0700 (PDT)
+Subject: Re: [PATCH V8 1/2] libxl: Add support for Virtio disk configuration
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook
+ <rosbrookn@gmail.com>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+References: <1651598763-12162-1-git-send-email-olekstysh@gmail.com>
+ <1651598763-12162-2-git-send-email-olekstysh@gmail.com>
+ <YoTP44zc9jzGGYJf@perard.uk.xensource.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <bbf1562b-d646-a789-140e-bc0a61dad76a@gmail.com>
+Date: Fri, 20 May 2022 20:28:42 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [REGRESSION} Re: [PATCH 2/2] x86/pat: add functions to query
- specific cache mode availability
-Content-Language: en-US
-From: Chuck Zmudzinski <brchuckz@netscape.net>
-To: Jan Beulich <jbeulich@suse.com>, regressions@lists.linux.dev,
- stable@vger.kernel.org
-Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Juergen Gross <jgross@suse.com>
-References: <20220503132207.17234-1-jgross@suse.com>
- <20220503132207.17234-3-jgross@suse.com>
- <1d86d8ff-6878-5488-e8c4-cbe8a5e8f624@suse.com>
- <0dcb05d0-108f-6252-e768-f75b393a7f5c@suse.com>
- <77255e5b-12bf-5390-6910-dafbaff18e96@netscape.net>
- <a2e95587-418b-879f-2468-8699a6df4a6a@suse.com>
- <8b1ebea5-7820-69c4-2e2b-9866d55bc180@netscape.net>
- <c5fa3c3f-e602-ed68-d670-d59b93c012a0@netscape.net>
- <3bff3562-bb1e-04e6-6eca-8d9bc355f2eb@suse.com>
- <3ca084a9-768e-a6f5-ace4-cd347978dec7@netscape.net>
- <9af0181a-e143-4474-acda-adbe72fc6227@suse.com>
- <3efb9e54-b0d6-36db-c1c4-68d4f8f9a5ed@netscape.net>
- <0a2e61ea-a73c-bbdc-e7c7-5110162b39bb@netscape.net>
-In-Reply-To: <0a2e61ea-a73c-bbdc-e7c7-5110162b39bb@netscape.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <YoTP44zc9jzGGYJf@perard.uk.xensource.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailer: WebService/1.1.20225 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+Content-Language: en-US
 
-On 5/20/2022 1:13 PM, Chuck Zmudzinski wrote:
-> I think this summary of the regression is appropriate for a top-post. 
-> Details follow below.
->
-> commit bdd8b6c98239: introduced what I call a real regression which 
-> persists in 5.17.x
->
-> Jan's proposed patch: 
-> https://lore.kernel.org/lkml/9385fa60-fa5d-f559-a137-6608408f88b0@suse.com/
->
-> Jan's patch would fix the real regression introduced by bdd8b6c98239 when
-> the nopat option is not enabled, but when the nopat option is enabled, 
-> this
-> patch would introduce what Jan calls a "perceived regression" that is 
-> really
-> caused by the failure of the i915 driver to handle the case of the 
-> nopat option
-> being provided on the command line properly.
->
-> What I request: commit Jan's proposed patch, and backport it to 5.17. 
-> That
-> would fix the real regression and only cause a perceived regression 
-> for the
-> case when nopat is enabled. In that case, patches to the i915 driver
-> would be helpful but necessary to fix a regression.
 
-Sorry again, I mean patches to i915 would be helpful but *not* necessary
-to fix a regression.
+On 18.05.22 13:52, Anthony PERARD wrote:
 
+
+Hello Anthony
+
+
+> On Tue, May 03, 2022 at 08:26:02PM +0300, Oleksandr Tyshchenko wrote:
+>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>
+>> This patch adds basic support for configuring and assisting virtio-mmio
+>> based virtio-disk backend (emulator) which is intended to run out of
+>> Qemu and could be run in any domain.
+>> Although the Virtio block device is quite different from traditional
+>> Xen PV block device (vbd) from the toolstack's point of view:
+>>   - as the frontend is virtio-blk which is not a Xenbus driver, nothing
+>>     written to Xenstore are fetched by the frontend currently ("vdev"
+>>     is not passed to the frontend). But this might need to be revised
+>>     in future, so frontend data might be written to Xenstore in order to
+>>     support hotplugging virtio devices or passing the backend domain id
+>>     on arch where the device-tree is not available.
+>>   - the ring-ref/event-channel are not used for the backend<->frontend
+>>     communication, the proposed IPC for Virtio is IOREQ/DM
+>> it is still a "block device" and ought to be integrated in existing
+>> "disk" handling. So, re-use (and adapt) "disk" parsing/configuration
+>> logic to deal with Virtio devices as well.
+>>
+>> For the immediate purpose and an ability to extend that support for
+>> other use-cases in future (Qemu, virtio-pci, etc) perform the following
+>> actions:
+>> - Add new disk backend type (LIBXL_DISK_BACKEND_OTHER) and reflect
+>>    that in the configuration
+>> - Introduce new disk "specification" and "transport" fields to struct
+>>    libxl_device_disk. Both are written to the Xenstore. The transport
+>>    field is only used for the specification "virtio" and it assumes
+>>    only "mmio" value for now.
+>> - Introduce new "specification" option with "xen" communication
+>>    protocol being default value.
+>> - Add new device kind (LIBXL__DEVICE_KIND_VIRTIO_DISK) as current
+>>    one (LIBXL__DEVICE_KIND_VBD) doesn't fit into Virtio disk model
+> Is this still an issue?
+
+
+Yes, it is.
+
+Both LIBXL__DEVICE_KIND_VBD and LIBXL__DEVICE_KIND_VIRTIO_DISK are for 
+disk devices, but they are quite different from toolstack PoV.
+
+They use different specifications/transports. The latter is for 
+virtio-blk driver which is not xenbus driver. The way how both Virtio 
+backend and frontend get configuration and communicate with each
+
+are completely different from Xen PV drivers.
+
+
+>   Since v5, the "disk/vbd" kind is used. Also see
+> my comment about libxl_device_disk_get_path() regarding this.
+
+ok
+
+
+>
+>
+>> An example of domain configuration for Virtio disk:
+>> disk = [ 'phy:/dev/mmcblk0p3, xvda1, backendtype=other, specification=virtio']
+>>
+>> Nothing has changed for default Xen disk configuration.
+>>
+>> Please note, this patch is not enough for virtio-disk to work
+>> on Xen (Arm), as for every Virtio device (including disk) we need
+>> to allocate Virtio MMIO params (IRQ and memory region) and pass
+>> them to the backend, also update Guest device-tree. The subsequent
+>> patch will add these missing bits. For the current patch,
+>> the default "irq" and "base" are just written to the Xenstore.
+>> This is not an ideal splitting, but this way we avoid breaking
+>> the bisectability.
+>>
+>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>> ---
+>> diff --git a/tools/libs/light/libxl_disk.c b/tools/libs/light/libxl_disk.c
+>> index a5ca778..7fd98ce 100644
+>> --- a/tools/libs/light/libxl_disk.c
+>> +++ b/tools/libs/light/libxl_disk.c
+>> @@ -163,6 +163,19 @@ static int libxl__device_disk_setdefault(libxl__gc *gc, uint32_t domid,
+>>       rc = libxl__resolve_domid(gc, disk->backend_domname, &disk->backend_domid);
+>>       if (rc < 0) return rc;
+>>   
+>> +    if (disk->specification == LIBXL_DISK_SPECIFICATION_UNKNOWN)
+>> +        disk->specification = LIBXL_DISK_SPECIFICATION_XEN;
+>> +
+>> +    /*
+>> +     * The transport field is only used for the specification "virtio" and
+>> +     * it assumes only "mmio" value for now. When there will be a need to add
+>> +     * "pci" support, we will need to remove the enforcement here and
+>> +     * respective assert(s) down the code and let the toolstack to decide
+>> +     * the transport to use.
+>> +     */
+>> +    if (disk->specification == LIBXL_DISK_SPECIFICATION_VIRTIO)
+>> +        disk->transport = LIBXL_DISK_TRANSPORT_MMIO;
+> Could you check that `disk->transport` is unset when
+> `specification==xen` ? And probably return ERROR_INVAL in this case.
+
+yes, will do
+
+
+>
+> Also, I don't think you should overwrite the value set by an application
+> in _setdefault(). If `specification==virtio`, check first that
+> `transport` as a supported value (unknown or mmio) then you can then you
+> can set the `transport` value expected by virtio if it wasn't set by the
+> application. ( An example of this is done the function already when
+> enforcing qdisk for cdroms. )
+
+I got it, will do
+
+
+I transform to something like that:
+
+
+     if (disk->specification == LIBXL_DISK_SPECIFICATION_XEN &&
+         disk->transport != LIBXL_DISK_TRANSPORT_UNKNOWN) {
+         LOGD(ERROR, domid, "Transport is only supported for 
+specification virtio");
+         return ERROR_FAIL;
+     }
+
+     /* Force transport mmio for specification virtio for now */
+     if (disk->specification == LIBXL_DISK_SPECIFICATION_VIRTIO) {
+         if (!(disk->transport == LIBXL_DISK_TRANSPORT_UNKNOWN ||
+               disk->transport == LIBXL_DISK_TRANSPORT_MMIO)) {
+             LOGD(ERROR, domid, "Unsupported transport for specification 
+virtio");
+             return ERROR_FAIL;
+         }
+         disk->transport = LIBXL_DISK_TRANSPORT_MMIO;
+     }
+
+
+>
+>> +
+>>       /* Force Qdisk backend for CDROM devices of guests with a device model. */
+>>       if (disk->is_cdrom != 0 &&
+>>           libxl__domain_type(gc, domid) == LIBXL_DOMAIN_TYPE_HVM) {
+>> @@ -317,6 +334,11 @@ static void device_disk_add(libxl__egc *egc, uint32_t domid,
+>>               goto out;
+>>           }
+>>   
+>> +        assert((disk->specification == LIBXL_DISK_SPECIFICATION_VIRTIO &&
+>> +                disk->backend == LIBXL_DISK_BACKEND_OTHER) ||
+>> +               (disk->specification != LIBXL_DISK_SPECIFICATION_VIRTIO &&
+>> +                disk->backend != LIBXL_DISK_BACKEND_OTHER));
+> I'm not sure whether this assert() is useful. The value should already
+> be correct as we call _setdefault(). It seems like an unnecessary
+> potential crash at this point.
+
+agree, will drop
+
+
+>
+>>           switch (disk->backend) {
+>>               case LIBXL_DISK_BACKEND_PHY:
+>>                   dev = disk->pdev_path;
+>> @@ -330,7 +352,14 @@ static void device_disk_add(libxl__egc *egc, uint32_t domid,
+>>   
+>>                   assert(device->backend_kind == LIBXL__DEVICE_KIND_VBD);
+>>                   break;
+>> +            case LIBXL_DISK_BACKEND_OTHER:
+>> +                dev = disk->pdev_path;
+>> +
+>> +                flexarray_append(back, "params");
+>> +                flexarray_append(back, dev);
+>>   
+>> +                assert(device->backend_kind == LIBXL__DEVICE_KIND_VIRTIO_DISK);
+>> +                break;
+>>               case LIBXL_DISK_BACKEND_TAP:
+>>                   LOG(ERROR, "blktap is not supported");
+>>                   rc = ERROR_FAIL;
+>> @@ -386,6 +415,15 @@ static void device_disk_add(libxl__egc *egc, uint32_t domid,
+>>           flexarray_append_pair(back, "discard-enable",
+>>                                 libxl_defbool_val(disk->discard_enable) ?
+>>                                 "1" : "0");
+>> +        flexarray_append(back, "specification");
+>> +        flexarray_append(back, libxl__device_disk_string_of_specification(disk->specification));
+>> +        if (disk->specification == LIBXL_DISK_SPECIFICATION_VIRTIO) {
+>> +            assert(disk->transport == LIBXL_DISK_TRANSPORT_MMIO);
+> I don't think this is a good assert(). If an application sets the wrong
+> "transport" for virtio, it should get an error, not crash. But I believe
+> in this case that _setdefault() could already check that "transport" is
+> correct, so there's probably no need to check the transport value here.
+
+ok, I can drop this. The reason why I put this assert is to draw 
+developer's attention (who will implement pci transport in future) to 
+the need
+
+to update code below.
+
+
+>
+>> +            flexarray_append(back, "transport");
+>> +            flexarray_append(back, libxl__device_disk_string_of_transport(disk->transport));
+>> +            flexarray_append_pair(back, "base", GCSPRINTF("%"PRIu64, disk->base));
+>> +            flexarray_append_pair(back, "irq", GCSPRINTF("%u", disk->irq));
+>> +        }
+>>   
+>>           flexarray_append(front, "backend-id");
+>>           flexarray_append(front, GCSPRINTF("%d", disk->backend_domid));
+>> @@ -532,6 +570,49 @@ static int libxl__disk_from_xenstore(libxl__gc *gc, const char *libxl_path,
+>>       }
+>>       libxl_string_to_backend(ctx, tmp, &(disk->backend));
+>>   
+>> +    tmp = libxl__xs_read(gc, XBT_NULL,
+>> +                         GCSPRINTF("%s/specification", libxl_path));
+>> +    if (!tmp) {
+>> +        LOG(ERROR, "Missing xenstore node %s/specification", libxl_path);
+> This mean that we introduce an hard error if we deal with a previous
+> version of libxl that didn't write this path. But we know that it meant
+> specification=xen, so could we default to "xen" when the node is
+> missing, rather than return an error? (It's mostly useful for developper
+> at this point as creating a vm with one version of libxl and keep
+> managing it with a newer version isn't really possible for now.)
+
+agree, will do. But maybe it is worth leaving debug print here?
+
+LOG(DEBUG, "Missing xenstore node %s/specification, assuming 
+specification xen", libxl_path);
+
+
+>
+>> +        goto cleanup;
+>> +    }
+>> +    if (!strcmp(tmp, "xen"))
+>> +        disk->specification = LIBXL_DISK_SPECIFICATION_XEN;
+>> +    else if (!strcmp(tmp, "virtio"))
+>> +        disk->specification = LIBXL_DISK_SPECIFICATION_VIRTIO;
+>> +    else
+>> +        disk->specification = LIBXL_DISK_SPECIFICATION_UNKNOWN;
+> That's a reimplementation of a generated function,
+> libxl_disk_specification_from_string() I believe ;-)
+
+indeed, will reuse
+
+
+Taking into the account both comments, the resulting code can look 
+something like that:
+
+     tmp = libxl__xs_read(gc, XBT_NULL,
+                          GCSPRINTF("%s/specification", libxl_path));
+     if (!tmp) {
+         LOG(DEBUG, "Missing xenstore node %s/specification, assuming 
+specification xen", libxl_path);
+         disk->specification = LIBXL_DISK_SPECIFICATION_XEN;
+     } else {
+         rc = libxl_disk_specification_from_string(tmp, 
+&disk->specification);
+         if (rc) {
+             LOG(ERROR, "Unable to parse xenstore node 
+%s/specification", libxl_path);
+             goto cleanup;
+         }
+     }
+
+
+
+>
+>> +
+>> +    if (disk->specification == LIBXL_DISK_SPECIFICATION_VIRTIO) {
+>> +        tmp = libxl__xs_read(gc, XBT_NULL,
+>> +                             GCSPRINTF("%s/transport", libxl_path));
+>> +        if (!tmp) {
+>> +            LOG(ERROR, "Missing xenstore node %s/transport", libxl_path);
+>> +            goto cleanup;
+>> +        }
+>> +        if (!strcmp(tmp, "mmio"))
+>> +            disk->transport = LIBXL_DISK_TRANSPORT_MMIO;
+>> +        else
+>> +            disk->transport = LIBXL_DISK_TRANSPORT_UNKNOWN;
+> That's libxl_disk_transport_from_string() I think.
+
+indeed, will reuse
+
+
+>
+>> +        assert(disk->transport == LIBXL_DISK_TRANSPORT_MMIO);
+> Could you return an error instead of assert() here?
+
+yes, will do
+
+
+>
+>> +
+>> +        tmp = libxl__xs_read(gc, XBT_NULL,
+>> +                             GCSPRINTF("%s/base", libxl_path));
+>> +        if (!tmp) {
+>> +            LOG(ERROR, "Missing xenstore node %s/base", libxl_path);
+>> +            goto cleanup;
+>> +        }
+>> +        disk->base = strtoul(tmp, NULL, 10);
+>> +
+>> +        tmp = libxl__xs_read(gc, XBT_NULL,
+>> +                             GCSPRINTF("%s/irq", libxl_path));
+>> +        if (!tmp) {
+>> +            LOG(ERROR, "Missing xenstore node %s/irq", libxl_path);
+>> +            goto cleanup;
+>> +        }
+>> +        disk->irq = strtoul(tmp, NULL, 10);
+>> +    }
+>> +
+>>       disk->vdev = xs_read(ctx->xsh, XBT_NULL,
+>>                            GCSPRINTF("%s/dev", libxl_path), &len);
+>>       if (!disk->vdev) {
+>> @@ -575,6 +656,41 @@ cleanup:
+>>       return rc;
+>>   }
+>>   
+>> +static int libxl_device_disk_get_path(libxl__gc *gc, uint32_t domid,
+> FYI, "libxl_" prefix is for functions exported by the library. You could
+> use "libxl__" for functions used within the library or no prefix in this
+> case as it is static.
+
+I got it, will do
+
+
+>
+>> +                                      char **path)
+>> +{
+>> +    const char *dir;
+>> +    int rc;
+>> +
+>> +    /*
+>> +     * As we don't know exactly what device kind to be used here, guess it
+>> +     * by checking the presence of the corresponding path in Xenstore.
+>> +     * First, try to read path for vbd device (default) and if not exists
+>> +     * read path for virtio_disk device. This will work as long as both Xen PV
+>> +     * and Virtio disk devices are not assigned to the same guest.
+>> +     */
+> That mean, we can't have both virtio-disk and pv-disk, and there's going
+> to be weird error with device disappearing if one try to add a pv-disk
+> after adding a virtio-disk.
+
+I was thinking this wouldn't be a big issue (at least on production). I 
+might be wrong, but what is a reason to assign to the guest the virtual 
+devices of the *same* type (block device) using different virtualization 
+techniques (Xen PV and Virtio)?
+
+
+>
+> Also, I don't know whether the function is called before a first device
+> is added, but it could be a potential issue as it would return an error
+> in that case.
+>
+> The path generated here are path that are only used by libxl, so it
+> probably doesn't matter which path is used, as long as there's a unique
+> path for a device implementation. (The different path might have been
+> useful in v4 of the series when there was a libxl-virtio-disk
+> implementation.)
+>
+> So, is there a reason to have different path?
+
+
+I think, the completely different guest's view of the virtualized device 
+is a reason. If virtio-disk and pv-disk was only different in software 
+implementation of the backend, I would reuse LIBXL__DEVICE_KIND_VBD for 
+virtio-disk. But their frontends are completely different. Or I really 
+misunderstood the idea of device_kind?
+
+
+>   Can we simply get rid of
+> this function?
+
+Without it, libxl_vdev_to_device_disk() won't work for virtio-disk.
+
+
+>
+> Maybe this is related to the path that a frontend would see, and we
+> probably don't want to have a pv-disk front-end trying to connect to a
+> virtio backend as it doesn't going to work.
+
+Yes, exactly
+
+
+
+>   I wonder if the
+> "/libxl/*/device/" needs to use the same "device kind" name as the ones
+> seen by a guest. I didn't investigated that.
+>
+>> +    *path = GCSPRINTF("%s/device/%s",
+>> +                      libxl__xs_libxl_path(gc, domid),
+>> +                      libxl__device_kind_to_string(LIBXL__DEVICE_KIND_VBD));
+>> +
+>> +    rc = libxl__xs_read_checked(gc, XBT_NULL, *path, &dir);
+>> +    if (rc)
+>> +        return rc;
+>> +
+>> +    if (dir)
+>> +        return 0;
+>> +
+>> +    *path = GCSPRINTF("%s/device/%s",
+>> +                      libxl__xs_libxl_path(gc, domid),
+>> +                      libxl__device_kind_to_string(LIBXL__DEVICE_KIND_VIRTIO_DISK));
+>> +
+>> +    rc = libxl__xs_read_checked(gc, XBT_NULL, *path, &dir);
+>> +    if (rc)
+>> +        return rc;
+>> +
+>> +    return 0;
+>> +}
+>> +
+>>   int libxl_vdev_to_device_disk(libxl_ctx *ctx, uint32_t domid,
+>>                                 const char *vdev, libxl_device_disk *disk)
+>>   {
+>> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
+>> index 2a42da2..f783cac 100644
+>> --- a/tools/libs/light/libxl_types.idl
+>> +++ b/tools/libs/light/libxl_types.idl
+>> @@ -704,6 +716,10 @@ libxl_device_disk = Struct("device_disk", [
+>>       ("is_cdrom", integer),
+>>       ("direct_io_safe", bool),
+>>       ("discard_enable", libxl_defbool),
+>> +    ("specification", libxl_disk_specification),
+>> +    ("transport", libxl_disk_transport),
+> Could you add a comment here about "irq" and "base", that say that they
+> are for internal use by libxl and can't be modified?
+
+yes, will do
+
+
+>   Is it possible
+> that in the future, an application like libvirt could potentially change
+> those two values and have libxl use them?
+
+I am not sure I understand that the libvirt is for, but I don't see a 
+need for any external application to touch these fields. These are 
+allocated internally in libxl_arm.c.
+
+
+>
+>> +    ("irq", uint32),
+>> +    ("base", uint64),
+>>       # Note that the COLO configuration settings should be considered unstable.
+>>       # They may change incompatibly in future versions of Xen.
+>>       ("colo_enable", libxl_defbool),
+> Thanks,
+>
+-- 
 Regards,
 
-Chuck Zmudzinski
-
->
-> On 5/20/2022 11:46 AM, Chuck Zmudzinski wrote:
->> On 5/20/2022 10:06 AM, Jan Beulich wrote:
->>> On 20.05.2022 15:33, Chuck Zmudzinski wrote:
->>>> On 5/20/2022 5:41 AM, Jan Beulich wrote:
->>>>> On 20.05.2022 10:30, Chuck Zmudzinski wrote:
->>>>>> On 5/20/2022 2:59 AM, Chuck Zmudzinski wrote:
->>>>>>> On 5/20/2022 2:05 AM, Jan Beulich wrote:
->>>>>>>> On 20.05.2022 06:43, Chuck Zmudzinski wrote:
->>>>>>>>> On 5/4/22 5:14 AM, Juergen Gross wrote:
->>>>>>>>>> On 04.05.22 10:31, Jan Beulich wrote:
->>>>>>>>>>> On 03.05.2022 15:22, Juergen Gross wrote:
->>>>>>>>>>>
->>>>>>>>>>> ... these uses there are several more. You say nothing on why
->>>>>>>>>>> those want
->>>>>>>>>>> leaving unaltered. When preparing my earlier patch I did 
->>>>>>>>>>> inspect them
->>>>>>>>>>> and came to the conclusion that these all would also better
->>>>>>>>>>> observe the
->>>>>>>>>>> adjusted behavior (or else I couldn't have left 
->>>>>>>>>>> pat_enabled() as the
->>>>>>>>>>> only predicate). In fact, as said in the description of my 
->>>>>>>>>>> earlier
->>>>>>>>>>> patch, in
->>>>>>>>>>> my debugging I did find the use in i915_gem_object_pin_map() 
->>>>>>>>>>> to be
->>>>>>>>>>> the
->>>>>>>>>>> problematic one, which you leave alone.
->>>>>>>>>> Oh, I missed that one, sorry.
->>>>>>>>> That is why your patch would not fix my Haswell unless
->>>>>>>>> it also touches i915_gem_object_pin_map() in
->>>>>>>>> drivers/gpu/drm/i915/gem/i915_gem_pages.c
->>>>>>>>>
->>>>>>>>>> I wanted to be rather defensive in my changes, but I agree at 
->>>>>>>>>> least
->>>>>>>>>> the
->>>>>>>>>> case in arch_phys_wc_add() might want to be changed, too.
->>>>>>>>> I think your approach needs to be more aggressive so it will fix
->>>>>>>>> all the known false negatives introduced by bdd8b6c98239
->>>>>>>>> such as the one in i915_gem_object_pin_map().
->>>>>>>>>
->>>>>>>>> I looked at Jan's approach and I think it would fix the issue
->>>>>>>>> with my Haswell as long as I don't use the nopat option. I
->>>>>>>>> really don't have a strong opinion on that question, but I
->>>>>>>>> think the nopat option as a Linux kernel option, as opposed
->>>>>>>>> to a hypervisor option, should only affect the kernel, and
->>>>>>>>> if the hypervisor provides the pat feature, then the kernel
->>>>>>>>> should not override that,
->>>>>>>> Hmm, why would the kernel not be allowed to override that? Such
->>>>>>>> an override would affect only the single domain where the
->>>>>>>> kernel runs; other domains could take their own decisions.
->>>>>>>>
->>>>>>>> Also, for the sake of completeness: "nopat" used when running on
->>>>>>>> bare metal has the same bad effect on system boot, so there
->>>>>>>> pretty clearly is an error cleanup issue in the i915 driver. But
->>>>>>>> that's orthogonal, and I expect the maintainers may not even care
->>>>>>>> (but tell us "don't do that then").
->>>>>> Actually I just did a test with the last official Debian kernel
->>>>>> build of Linux 5.16, that is, a kernel before bdd8b6c98239 was
->>>>>> applied. In fact, the nopat option does *not* break the i915 driver
->>>>>> in 5.16. That is, with the nopat option, the i915 driver loads
->>>>>> normally on both the bare metal and on the Xen hypervisor.
->>>>>> That means your presumption (and the presumption of
->>>>>> the author of bdd8b6c98239) that the "nopat" option was
->>>>>> being observed by the i915 driver is incorrect. Setting "nopat"
->>>>>> had no effect on my system with Linux 5.16. So after doing these
->>>>>> tests, I am against the aggressive approach of breaking the i915
->>>>>> driver with the "nopat" option because prior to bdd8b6c98239,
->>>>>> nopat did not break the i915 driver. Why break it now?
->>>>> Because that's, in my understanding, is the purpose of "nopat"
->>>>> (not breaking the driver of course - that's a driver bug -, but
->>>>> having an effect on the driver).
->>>> I wouldn't call it a driver bug, but an incorrect configuration of the
->>>> kernel by the user.  I presume X86_FEATURE_PAT is required by the
->>>> i915 driver
->>> The driver ought to work fine without PAT (and hence without being
->>> able to make WC mappings). It would use UC instead and be slow, but
->>> it ought to work.
->>
->> I am not an expert, but I think the reason it failed on my box was
->> because of the requirements of CI. Maybe the driver would fall back
->> to UC if the add_taint_for_CI function did not halt the entire system
->> in response to the failed test for PAT when trying to use WC mappings.
->>
->>>> and therefore the driver should refuse to disable
->>>> it if the user requests to disable it and instead warn the user that
->>>> the driver did not disable the feature, contrary to what the user
->>>> requested with the nopat option.
->>>>
->>>> In any case, my test did not verify that when nopat is set in Linux 
->>>> 5.16,
->>>> the thread takes the same code path as when nopat is not set,
->>>> so I am not totally sure that the reason nopat does not break the
->>>> i915 driver in 5.16 is that static_cpu_has(X86_FEATURE_PAT)
->>>> returns true even when nopat is set. I could test it with a custom
->>>> log message in 5.16 if that is necessary.
->>>>
->>>> Are you saying it was wrong for
->>>> to return true in 5.16 when the user requests nopat?
->>> No, I'm not saying that. It was wrong for this construct to be used
->>> in the driver, which was fixed for 5.17 (and which had caused the
->>> regression I did observe, leading to the patch as a hopefully least
->>> bad option).
->>
->> Hmm, the patch I used to fix my box with 5.17.6 used
->> static_cpu_has(X86_FEATURE_PAT) so the driver could
->> continue to configure the hardware using WC. This is the
->> relevant part of the patch I used to fix my box, which includes
->> extra error logs, (against Debian's official build of 5.17.6):
->>
->> --- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c    2022-05-09 
->> 03:16:33.000000000 -0400
->> +++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c    2022-05-19 
->> 15:55:40.339778818 -0400
->> ...
->> @@ -430,17 +434,23 @@
->>          err = i915_gem_object_wait_moving_fence(obj, true);
->>          if (err) {
->>              ptr = ERR_PTR(err);
->> +            DRM_ERROR("i915_gem_object_wait_moving_fence error, err 
->> = %d\n", err);
->>              goto err_unpin;
->>          }
->>
->> -        if (GEM_WARN_ON(type == I915_MAP_WC && !pat_enabled()))
->> +        if (GEM_WARN_ON(type == I915_MAP_WC &&
->> +                !pat_enabled() && !static_cpu_has(X86_FEATURE_PAT))) {
->> +            DRM_ERROR("type == I915_MAP_WC && !pat_enabled(), err = 
->> %d\n", -ENODEV);
->>              ptr = ERR_PTR(-ENODEV);
->> +        }
->>          else if (i915_gem_object_has_struct_page(obj))
->>              ptr = i915_gem_object_map_page(obj, type);
->>          else
->>              ptr = i915_gem_object_map_pfn(obj, type);
->> -        if (IS_ERR(ptr))
->> +        if (IS_ERR(ptr)) {
->> +            DRM_ERROR("IS_ERR(PTR) is true, returning a (ptr) 
->> error\n");
->>              goto err_unpin;
->> +        }
->>
->>          obj->mm.mapping = page_pack_bits(ptr, type);
->>      }
->>
->> As you can see, adding the static_cpu_has(X86_FEATURE_PAT)
->> function to the test for PAT restored the behavior of 5.16 on the
->> Xen hypervisor to 5.17, and that is how I discovered the solution
->> to this problem on 5.17 on my box.
->>
->>>> I think that is
->>>> just permitting a bad configuration to break the driver that a
->>>> well-written operating system should not allow. The i915 driver
->>>> was, in my opinion, correctly ignoring the nopat option in 5.16
->>>> because that option is not compatible with the hardware the
->>>> i915 driver is trying to initialize and setup at boot time. At least
->>>> that is my understanding now, but I will need to test it on 5.16
->>>> to be sure I understand it correctly.
->>>>
->>>> Also, AFAICT, your patch would break the driver when the nopat
->>>> option is set and only fix the regression introduced by bdd8b6c98239
->>>> when nopat is not set on my box, so your patch would
->>>> introduce a regression relative to Linux 5.16 and earlier for the
->>>> case when nopat is set on my box. I think your point would
->>>> be that it is not a regression if it is an incorrect user 
->>>> configuration.
->>> Again no - my view is that there's a separate, pre-existing issue
->>> in the driver which was uncovered by the change. This may be a
->>> perceived regression, but is imo different from a real one.
->>
->> Maybe it is only a perceived regression if nopat is set, but
->> imo bdd8b6c98239 introduced a real regression in 5.17
->> relative to 5.16 for the correctly and identically configured
->> case when the nopat option is not set. That is why I still think
->> it should be reverted and the fix backported to 5.17 until the
->> regression for the case when nopat is not set is fixed. As I
->> said before, the i915 driver relies on the memory subsyste
->> to provide it with an accurate test for the x86 pat feature.
->> The test the driver used in bdd8b6c98239 gives the i915 driver
->> a false negative, and that caused a real regression when nopat
->> is not set. bdd8b6c98239 can be re-applied if we apply your
->> patch which corrects the false negative that pat_enabled() is
->> currently providing the i915 driver with. That false negative
->> from pat_enabled() is not an i915 bug, it is a bug in x86/pat.
->>
->> Chuck
->
+Oleksandr Tyshchenko
 
 
