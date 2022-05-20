@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98F0F52E793
-	for <lists+xen-devel@lfdr.de>; Fri, 20 May 2022 10:32:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.333541.557383 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB25852E818
+	for <lists+xen-devel@lfdr.de>; Fri, 20 May 2022 10:54:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.333549.557396 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nry2V-00061D-RO; Fri, 20 May 2022 08:31:15 +0000
+	id 1nryOa-0008RZ-SC; Fri, 20 May 2022 08:54:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 333541.557383; Fri, 20 May 2022 08:31:15 +0000
+Received: by outflank-mailman (output) from mailman id 333549.557396; Fri, 20 May 2022 08:54:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nry2V-0005zP-OU; Fri, 20 May 2022 08:31:15 +0000
-Received: by outflank-mailman (input) for mailman id 333541;
- Fri, 20 May 2022 08:31:13 +0000
+	id 1nryOa-0008Oj-Kl; Fri, 20 May 2022 08:54:04 +0000
+Received: by outflank-mailman (input) for mailman id 333549;
+ Fri, 20 May 2022 08:54:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=3l+G=V4=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1nry2S-0005zJ-Qt
- for xen-devel@lists.xenproject.org; Fri, 20 May 2022 08:31:13 +0000
-Received: from sonic314-21.consmr.mail.gq1.yahoo.com
- (sonic314-21.consmr.mail.gq1.yahoo.com [98.137.69.84])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2e586227-d817-11ec-bd2c-47488cf2e6aa;
- Fri, 20 May 2022 10:31:03 +0200 (CEST)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic314.consmr.mail.gq1.yahoo.com with HTTP; Fri, 20 May 2022 08:31:00 +0000
-Received: by hermes--canary-production-bf1-5d4b57496-wjd85 (Yahoo Inc. Hermes
- SMTP Server) with ESMTPA ID b6f8f6a30f469bee93e26cb01475724b; 
- Fri, 20 May 2022 08:30:57 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=dOI6=V4=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1nryOY-0008OY-I0
+ for xen-devel@lists.xenproject.org; Fri, 20 May 2022 08:54:02 +0000
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6286ade5-d81a-11ec-bd2c-47488cf2e6aa;
+ Fri, 20 May 2022 10:54:00 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id 39EA95C0299;
+ Fri, 20 May 2022 04:53:57 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute5.internal (MEProxy); Fri, 20 May 2022 04:53:57 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 20 May 2022 04:53:55 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,152 +43,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2e586227-d817-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1653035460; bh=WuvwqA1c8r2r+p12+b/hUYdMq9rnRGTuBcxt58to+Ao=; h=Date:Subject:From:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=HF4w2B3LXxAzsPu0cKlClPAp4lIFCVFZUlM+pPQk/ux+ANH+hXbKsjrMjPSA0fZJ7bFN0k3vBmgockcp65NFWPRjltp/uZX8m6/CHBdr+bCznj5y10gd4DlD8HEzG69uE3tqaVbbHsoRnvclRrccUySMDf9kJ1C9NXsVBlCML8dQT9W9zbLw+22y3mNNGSaq/bL8pBTiaCsZ1FW4aFBOwyR2iMix+qtlmTAh2VK/hzqEyMo/dLfJQtZdgFZQeyxm8X+8RTOo9VhypjdtEObCOc6lZPTBSUTACmWdnQ142+D1X8U3FscLu7nqk75T10eZHlh/FT9c4xcPNXHZtL9fMw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1653035460; bh=O145fJvMYEd44wHYCOcQPm3BRaty1a+efZ4N8LUkQQr=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=KTMMx1J1l42zBLEuD7iEYrVpRZ7tenDIzhJP+FNinhG3SjIyDMVzw5N0pDNVL2N2MQ9pb94qH7dr01GJOCOZcXNtF8TViexLW79zwv6ynfIDVQKFpS6XcgMAsXtYpnghDDtVAALwjd1vB81Lt0374U4JDN08+xNpIlCqrxBcoc75xbCbKUwYizkkDqgLilGxLfiRDz8S0S9Gxn5MU4glFMXNaQAKCF1dwkGi1+k+TdJPi7eidZEKU7fihPGPg7vII2CW9XcWkjQ1lU6CFTr5srzCOHQVtMq9U0EeZOeKGy8AtuFKfsD9VLMOg512Kzby6gny/gOQ4gHLvwbJklvxvw==
-X-YMail-OSG: 7CjV_foVM1l0tGFHgoKRE.wnpkoqWeJCUCM8L4Pwg7EBf4yx.s.aoDJ2z8Y4XF5
- nkBd3hXNBdVVi6K__NDC5IxyqplLijiN9NeZ4cFpS.V3YLTiqBnHc6oRK5Z8EqCF41FjbcgasEe_
- .7jTmaDxxxf1seLHTx3CMGqC.uE0FcUfHFCdQ0aFCHAylPQXkQbxVdVLtetzY5jGVyjJjYAwblN1
- vPfLUmFTOFV92.71_ntQfBCwQwxYodrAu9_5r9.7MLVTv3RsXOFhjJzUzjOjuXkVlViS6EWQK39I
- pAOH1zQrv4fDeo.H8kIqXiLaLguNxlaaZ_5BkUXZmDyonaKBi.sYdF2Q8XKolWBpPxBjL8ABwAxz
- dORGC7HOvY3DqgaDeTcW1VX0UNy2rSYcPdOHELAgnsIw.ReQ.6t8Zi38Ww_9v0Y.eIJ.JhBK3F4y
- 3AvYhUpNIQ7E4y0_KowaJFdmoLIWOs39S41mUGY04i6hwR2YBSQiTyf1skcbtWjF1o1DGoJiA47p
- tGB643aWqy7swWezv7nWOrH7RgGfwz0QXrfxM_SD651_S7WfPhLprmZ4DJsaKp2huC182n9G5mj2
- J7tDv8s3ODCP_Pam_edh69oKeODvNDb7Wcv9Q4WPDh2ow0MWkSw9Gd_JegWygV6hWYcSVGsyIMrC
- Wul_q8qqQk4r9Um3QQe1X7fiwQzX00qdEhCJN3gRgddGsttY9VmdmLOmGAk8VGRxDNx3EZZvVTom
- k55_gpE8nhH2sQRR4p_qDBVjbfd6tGLNXmeZct5LkVFmiuMbBvTeGbWeJ6beEq6bINfpeuA1s7Vz
- dUw9sJsRt_EVP7jT3WUu.lwEUKXqn8iCY.mH_6LNHYGiCFFh1u_geLafXI7TvrwGd__DIWkfGN0c
- B21Ne4nzqW3mM.zen08WR5bF_h7EkCQKcdGQs7B0_U6psVHys5khnmhSFSkPgLuNt7Mzg81aq_i5
- lEb6CJ7LjZ068w7uni4NWUwKNYJPDEuChGKW9zLeXqUpPxcGtYLksJ38AFZFIYttRsR5isWRdf3V
- PVZDQGlDooMFGmzRHM8Vzxl99v5HLLnuw18gf7b5N9Wfhj_fNjPBDcloD1_sqZ3rhcZQmBP9_Qfj
- aL693WDn0UhR8roOTVIiA8r4v9qdPji4UHbg8G4CvQqeY3DXoyrFh8bJ75dFqvI6tPdjgjULmUnS
- uatpSUT5iyIUuNJZsKUMlrkXPZ01xbMjD37Qlqxlryt5PgONqdq_V.oKu.mHofpNX4Xs3SfbwzVv
- O0TOoGKHDE1LufOSQaSaJkQqei.wo3J4HqrbMCYCIuGkcdq7cOlVLzJZakFZBOBBFcA8KYqKPDNm
- 9Jl4vloFJ.L3QWh_4yJvRtbkIZp5HOzayLuZgpb96FqCHsCw4Nj1zkOZ_S2BvjISwUOnSmj7ci1L
- 46Led9OyVaAkyuSIr0zWtBA1VqJi_Hgrj.kD3zvG7RATCJGALuaHWtp3qGr3Th74hoZ5P.AFKhiA
- jX7R5smlDei5Eqq2bJH97wSPKzCzvv6QUOi5q2d8PZxHiDiyL6Ln0tKdVhpmrGGpuc.ZKRBiD8Nk
- OH2dAahaCJegaKgkXPsjWp4eoB540liVr0lbyginWNwwuX0o.J4lBvOfFz7JAlLA60DB_mgL5ELJ
- tIdfcySg.Rwa8Wp0nOiNuehVWR18vyOqHc6AQjdUnqFUO11t06w9wVnXk8.KY.InwPEryEvMp5yC
- GkVlRDktIfUiGsrnm8EHJcPr6PFCDJvU0aS.ZZWIeX5YefIp1ia0F8OKBeioS5d0TlIbhaJ1perB
- VC8aEYplBd6nDvIbBgVINPEqP86l8KrhYsaofvY_KFasBr8DgnTzvoQVQrRzWpT8q8pQKIf8DcGF
- kVqA6Oadng9UvGIr4J8ZNFir93IcQFiB5YCQQ7NPseQ6Jz15Cum5De1zuR3xvLk.2GNwjrtfTfWI
- jog8o9t3Hwq595MgPp04QPPyH09YM.m5.vyqLRFjcyz_qRmZr_dXE2DfZslymukJNVGJcr5euLX_
- ExafElfRJQ5PA88fSzYl33h7dRiPCVxt.gj6.sUHE8tfZNgU7dF6fwb1jrrK4hYy85fEDlhsjwPo
- tJTd4wvGHA9eAEs7BX_MGbWtbvv.Bo86PLThrT2VFseqEjtbs487_aIswCgSe1BYROpOoQTVbqmJ
- dUl0qV2u5_EGU5ZMvZYeg_Q2Y7toVdr73hw5cJfn5UFjOyl6kspqzrW0rE0YHIknQdgQ._MTGKhq
- Dgy1f
-X-Sonic-MF: <brchuckz@aim.com>
-Message-ID: <c5fa3c3f-e602-ed68-d670-d59b93c012a0@netscape.net>
-Date: Fri, 20 May 2022 04:30:55 -0400
+X-Inumbo-ID: 6286ade5-d81a-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:from:from:in-reply-to:message-id
+	:mime-version:reply-to:sender:subject:subject:to:to; s=fm1; t=
+	1653036837; x=1653123237; bh=Zbc3jOEPowRT040X5wqGBooak9Aro6tWaKi
+	WhEvPW/w=; b=Utan18Sivb2kE1qnbOcBnFVKPEVEc/wV/xtYE+jQPyxOS9ani6L
+	NmURZ0OsZZTYk17o8/es+OTlN5lONR7eFOhiiBG9Jn978a7hXF9sHFq0ZaFAmVIj
+	2XzigI44GL1QveXOCblBZ+nQB+dfMAfV/hBM0TAho3pzL68ooExKhvaA3JBMY+wz
+	iBzFg3YzsStn1CfYTyl1W/oUKFEwVi1i3USrdIzjxp/v6MSq+hOwsoQ9OijI97er
+	fLHL+eVUSX57hNQMNBJtkrxbviBLmHIEGxKChvvd/l+QnXSMebJn4A1CUqm+5YAR
+	yGG4MI3+4niQu34IDSzRBFpWqbGFa/JHpFA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm1; t=1653036837; x=1653123237; bh=Zbc3jOEPowRT0
+	40X5wqGBooak9Aro6tWaKiWhEvPW/w=; b=pLIqHj/Pe7P28uk2kBurSppqfA2gR
+	2u/ocmCWeWFyj9WsL1hKnfDyaF3RvTiQeXzdK872rfgJ8bzE5Z6Ld0zTawlF8Asp
+	7z/M+sANC2Pwunai1ed9M7KFKOnJBXbybNhg4marhUHr3ARlBRTsRl8ToVFKcPFg
+	H/jzAEzA5o/KkcPe5Pq+F2+0gGtA7Rcy50v0h0meh+QAd6LTBeTWGALJjUpLEJ3x
+	RQJjwL9b+aDXcRHwwnyT9NwR6RiDEX1S4eIinJUmPd/8HpAoGJjHPeBIidLv+AWj
+	MolRa7bLvjC+vtCAa7Wkjq6IvGVXZnmm2g2q9uh1XEWgmeNJf/o7EiO1A==
+X-ME-Sender: <xms:JFeHYp8J2aOx0XbkZ79yERpjb8wXaGZETVDAhPyZBy1GkLMAk4pkaw>
+    <xme:JFeHYtsOmMrxLqJXmmgvZpDrh0m6P4TGSTzTgvqyXwf1wpO47D9irKCJY8Gr9CnWj
+    fImsmgfdlkNtw>
+X-ME-Received: <xmr:JFeHYnBtW3MaefU0PvNk17mqkLfgex-loCZ7FRB8nfKN35gU4r8UEtqPAJW_U8htXu260pN6_9Imp8As4xt0wew1XUfmd21vvmH-U0GmUvv1TrEaUmQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrieefgddtjecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpefhvfevufffkffogggtgfesthekredtredtjeenucfhrhhomhepofgrrhgvkhcu
+    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepleekhfdu
+    leetleelleetteevfeefteffkeetteejheelgfegkeelgeehhfdthedvnecuvehluhhsth
+    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
+    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:JFeHYtekY4rE19hy9aJQ7TpLy3mAWsL4MNz9niAr56aDGFZxjxiDLA>
+    <xmx:JFeHYuMd_hbgSKYnZLe-LEyKnyIxZx4okd-RqNdFC24BPO8fzJxeDQ>
+    <xmx:JFeHYvlHNwGrp7Yx51-mz_bZML42B8iIp7Yh8O41IfVgGDp-cN6rjg>
+    <xmx:JVeHYqAUqPPdTM3vRgDT_K7qyc8H8-bkizVNuAuvCiQ-MCcBJ1gw8g>
+Feedback-ID: i1568416f:Fastmail
+From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v6 1/2] ns16550: use poll mode if INTERRUPT_LINE is 0xff
+Date: Fri, 20 May 2022 10:53:42 +0200
+Message-Id: <20220520085343.1835866-1-marmarek@invisiblethingslab.com>
+X-Mailer: git-send-email 2.35.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [PATCH 2/2] x86/pat: add functions to query specific cache mode
- availability
-Content-Language: en-US
-From: Chuck Zmudzinski <brchuckz@netscape.net>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Juergen Gross <jgross@suse.com>
-References: <20220503132207.17234-1-jgross@suse.com>
- <20220503132207.17234-3-jgross@suse.com>
- <1d86d8ff-6878-5488-e8c4-cbe8a5e8f624@suse.com>
- <0dcb05d0-108f-6252-e768-f75b393a7f5c@suse.com>
- <77255e5b-12bf-5390-6910-dafbaff18e96@netscape.net>
- <a2e95587-418b-879f-2468-8699a6df4a6a@suse.com>
- <8b1ebea5-7820-69c4-2e2b-9866d55bc180@netscape.net>
-In-Reply-To: <8b1ebea5-7820-69c4-2e2b-9866d55bc180@netscape.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.20225 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 5/20/2022 2:59 AM, Chuck Zmudzinski wrote:
-> On 5/20/2022 2:05 AM, Jan Beulich wrote:
->> On 20.05.2022 06:43, Chuck Zmudzinski wrote:
->>> On 5/4/22 5:14 AM, Juergen Gross wrote:
->>>> On 04.05.22 10:31, Jan Beulich wrote:
->>>>> On 03.05.2022 15:22, Juergen Gross wrote:
->>>>>
->>>>> ... these uses there are several more. You say nothing on why 
->>>>> those want
->>>>> leaving unaltered. When preparing my earlier patch I did inspect them
->>>>> and came to the conclusion that these all would also better 
->>>>> observe the
->>>>> adjusted behavior (or else I couldn't have left pat_enabled() as the
->>>>> only predicate). In fact, as said in the description of my earlier 
->>>>> patch, in
->>>>> my debugging I did find the use in i915_gem_object_pin_map() to be 
->>>>> the
->>>>> problematic one, which you leave alone.
->>>> Oh, I missed that one, sorry.
->>> That is why your patch would not fix my Haswell unless
->>> it also touches i915_gem_object_pin_map() in
->>> drivers/gpu/drm/i915/gem/i915_gem_pages.c
->>>
->>>> I wanted to be rather defensive in my changes, but I agree at least 
->>>> the
->>>> case in arch_phys_wc_add() might want to be changed, too.
->>> I think your approach needs to be more aggressive so it will fix
->>> all the known false negatives introduced by bdd8b6c98239
->>> such as the one in i915_gem_object_pin_map().
->>>
->>> I looked at Jan's approach and I think it would fix the issue
->>> with my Haswell as long as I don't use the nopat option. I
->>> really don't have a strong opinion on that question, but I
->>> think the nopat option as a Linux kernel option, as opposed
->>> to a hypervisor option, should only affect the kernel, and
->>> if the hypervisor provides the pat feature, then the kernel
->>> should not override that,
->> Hmm, why would the kernel not be allowed to override that? Such
->> an override would affect only the single domain where the
->> kernel runs; other domains could take their own decisions.
->>
->> Also, for the sake of completeness: "nopat" used when running on
->> bare metal has the same bad effect on system boot, so there
->> pretty clearly is an error cleanup issue in the i915 driver. But
->> that's orthogonal, and I expect the maintainers may not even care
->> (but tell us "don't do that then").
+Intel LPSS has INTERRUPT_LINE set to 0xff by default, that is declared
+by the PCI Local Bus Specification Revision 3.0 (from 2004) as
+"unknown"/"no connection". Fallback to poll mode in this case.
+The 0xff handling is x86-specific, the surrounding code is guarded with
+CONFIG_X86 anyway.
 
-Actually I just did a test with the last official Debian kernel
-build of Linux 5.16, that is, a kernel before bdd8b6c98239 was
-applied. In fact, the nopat option does *not* break the i915 driver
-in 5.16. That is, with the nopat option, the i915 driver loads
-normally on both the bare metal and on the Xen hypervisor.
-That means your presumption (and the presumption of
-the author of bdd8b6c98239) that the "nopat" option was
-being observed by the i915 driver is incorrect. Setting "nopat"
-had no effect on my system with Linux 5.16. So after doing these
-tests, I am against the aggressive approach of breaking the i915
-driver with the "nopat" option because prior to bdd8b6c98239,
-nopat did not break the i915 driver. Why break it now?
+Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+Changes in v6:
+ - wrap the check in additional CONFIG_X86, with appropriate comment
+Changes in v5:
+ - drop IRQ 0 from the log message
+Changes in v4:
+ - adjust log message, change it from WARNING to INFO
+ - re-add x86 reference in the commit message
+Changes in v3:
+ - change back to checking 0xff explicitly
+ - adjust commit message, include spec reference
+ - change warning to match the above
+Changes in v2:
+ - add log message
+ - extend commit message
+ - code style fix
+---
+ xen/drivers/char/ns16550.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-Prior to bdd8b6c98239, the i915 driver used
-static_cpu_has(X86_FEATURE_PAT) to test for the PAT
-feature, and apparently this returns true even if nopat
-is set, but the new test, pat_enabled(), returns false on
-the Xen hypervisor even if nopat is not set. That is
-the only problem I see. The question of nopat should
-be irrelevant to the i915 driver.
+diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
+index fb75cee4a13a..b37f67dc7430 100644
+--- a/xen/drivers/char/ns16550.c
++++ b/xen/drivers/char/ns16550.c
+@@ -1238,6 +1238,17 @@ pci_uart_config(struct ns16550 *uart, bool_t skip_amt, unsigned int idx)
+                             pci_conf_read8(PCI_SBDF(0, b, d, f),
+                                            PCI_INTERRUPT_LINE) : 0;
+ 
++#ifdef CONFIG_X86
++                /* PCI Local Bus Specification Revision 3.0 defines 0xff value
++                 * as special only for X86 */
++                if ( uart->irq == 0xff )
++                    uart->irq = 0;
++#endif
++                if ( !uart->irq )
++                    printk(XENLOG_INFO
++                           "ns16550: %pp no legacy IRQ, using poll mode\n",
++                           &PCI_SBDF(0, b, d, f));
++
+                 return 0;
+             }
+         }
+-- 
+2.35.1
 
-It was unfortunate that the author of bdd8b6c98239
-mentioned nopat in the commit message when in fact
-nopat was never intended to be used to break the
-i915 driver. The i915 driver should ignore the nopat
-option and decide what to do based solely on the
-capability of the cpu, firmware, and the compiled
-options of the Linux kernel. That is how it behaved
-before bdd8b6c98239, and that behavior is what needs
-to be restored with a patch.
-
-Chuck
 
