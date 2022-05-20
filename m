@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B54552E4EF
-	for <lists+xen-devel@lfdr.de>; Fri, 20 May 2022 08:25:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.333509.557349 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67F1252E57E
+	for <lists+xen-devel@lfdr.de>; Fri, 20 May 2022 09:00:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.333517.557360 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrw4F-0000eG-LG; Fri, 20 May 2022 06:24:55 +0000
+	id 1nrwbt-0003u9-D7; Fri, 20 May 2022 06:59:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 333509.557349; Fri, 20 May 2022 06:24:55 +0000
+Received: by outflank-mailman (output) from mailman id 333517.557360; Fri, 20 May 2022 06:59:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nrw4F-0000bg-I1; Fri, 20 May 2022 06:24:55 +0000
-Received: by outflank-mailman (input) for mailman id 333509;
- Fri, 20 May 2022 06:24:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nrwbt-0003rm-8q; Fri, 20 May 2022 06:59:41 +0000
+Received: by outflank-mailman (input) for mailman id 333517;
+ Fri, 20 May 2022 06:59:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=mtD0=V4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nrw4E-0000bV-C7
- for xen-devel@lists.xenproject.org; Fri, 20 May 2022 06:24:54 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8f29c293-d805-11ec-bd2c-47488cf2e6aa;
- Fri, 20 May 2022 08:24:53 +0200 (CEST)
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04lp2055.outbound.protection.outlook.com [104.47.12.55]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-27-o7bhSYRwP4WUtylg8lVrmQ-1; Fri, 20 May 2022 08:24:51 +0200
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB8817.eurprd04.prod.outlook.com (2603:10a6:20b:42c::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.17; Fri, 20 May
- 2022 06:24:50 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::91b8:8f7f:61ac:cc9b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::91b8:8f7f:61ac:cc9b%7]) with mapi id 15.20.5273.017; Fri, 20 May 2022
- 06:24:50 +0000
+ (envelope-from <SRS0=3l+G=V4=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1nrwbq-0003rg-H6
+ for xen-devel@lists.xenproject.org; Fri, 20 May 2022 06:59:39 +0000
+Received: from sonic317-22.consmr.mail.gq1.yahoo.com
+ (sonic317-22.consmr.mail.gq1.yahoo.com [98.137.66.148])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 667e8f7d-d80a-11ec-837e-e5687231ffcc;
+ Fri, 20 May 2022 08:59:34 +0200 (CEST)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic317.consmr.mail.gq1.yahoo.com with HTTP; Fri, 20 May 2022 06:59:31 +0000
+Received: by hermes--canary-production-ne1-5495f4d555-xgn59 (Yahoo Inc. Hermes
+ SMTP Server) with ESMTPA ID 077428ea294e9eca2cd83f945fe6833b; 
+ Fri, 20 May 2022 06:59:14 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,124 +42,205 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f29c293-d805-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1653027892;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0yvV6XaqRyg33fLdED6d6S29/wXFFo5+6nKAJQOkLvI=;
-	b=jmcnnFfcaVJ4GxD/YnvpzTevJITrOSgJt+Ee/mmdarAKVBV147WrRfhwlND63dZFMyU/VO
-	EWi5tvLlkJlTwS8PsRab/k6bmMuOr/YtuWqcjSQt8XmLPC26GfDNplmbhlFye1jt/gp+M8
-	6EW0dsgcI0LHSFpJ0jBEO0J1iiTvTvs=
-X-MC-Unique: o7bhSYRwP4WUtylg8lVrmQ-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=E+D+QmOIPtrvK/TMt17aQ7g7ympV3NMSuNBJ3WSGngyXl8bcBEhYJPT/guY4v9Gp1hDsjtIWQL+smVXfE46YACDNPyL+iPYvPcjK7LXh3B2RIBQpDhyx7RxDI7bOGtUOcuhytvi0EKe3DD7K5D+oppPjGOwE9Yz5wN//H/YEdrf5SfqESPFpXGUJHhvw2u9QtWW0u8K7KD4BS5Ql1XxP+J7OBo0VxsXTO+kNU6l9aWwIQYv5BHr33TyFGNueJ3RU8GxKzkKuqBp7VIkaqw4Lcv3K4ETtp+3Cfa13m0BiLCTLY9LgWRU59Bp/ZTed8t2K+EDKR5IjFqXK6pNJiKYiMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0yvV6XaqRyg33fLdED6d6S29/wXFFo5+6nKAJQOkLvI=;
- b=RjAjRN5eIneuOcbGFU2kkpVaYPn4K6zy2S5hNymMvLrvXk9q7wcVCA8EqZdyj47tCFf/xKxrfb6xkL6b98jpp/LK9jc0hdabagpeo2Uos0qi6am0YH6GXtFHbZRnd7GYwJtM8tKwl6BEmoL3Y6oQOuIkVHstPriJLqZ8/9u9hZ/XltIHW0+aBW+bc7WrPxrgxzV40CDGYXOvvbKiLrQV5aIDjj8S5TVrCzh2iNVVADo3tlT9h0x8PVXvs1ubLu7++gEz+LCluC5ghfw15uO4YSpjgBwy64rsIrJgVpw/twNhIJNAzRAb7p1RKfMFWH+qL4g2kJBWjKwPRuL9Kl8MXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <dcf54bdb-e588-430d-e2db-30b6fd4280b7@suse.com>
-Date: Fri, 20 May 2022 08:24:48 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: Grant operation batching
-Content-Language: en-US
-To: Demi Marie Obenour <demi@invisiblethingslab.com>
-References: <YobRWXY/xVli4UUf@itl-email>
-Cc: Xen developer discussion <xen-devel@lists.xenproject.org>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YobRWXY/xVli4UUf@itl-email>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS8PR04CA0040.eurprd04.prod.outlook.com
- (2603:10a6:20b:312::15) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 667e8f7d-d80a-11ec-837e-e5687231ffcc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1653029971; bh=nAiiF/gaLx9YvHz1WBDFG9vBQFV8yYAG36DVxtUDGKg=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=tLvZ3yzsCHOuV4WrX1KecYXs0pEIszI6bSoNzA1XE25GAU6V3pjIWuolHmY8padgkyekUiCsDaaE5QLypBFyYaxojzCWKxb1HJWRAAAWl8pTnJQzt91y4vddc0IkD9w+njtNwZxCGvjEM1955itIu76Fb4NkqaHPuzHRbySgIf/DSF01Zyn2MHsIE/fPPBHDRK9XxDjiz9wBqyqgy62WqZ59RZmQnDjG7X2UZ50N382AbyBV6BPqT50BZuatq78Oo6yxhouXC1BATI/ki9vBlszgc4BlDGSJCCyTVLHFwU0I8EDZQ0s/iS6i5KKQkoCO0ekSFRqhnES/hqkrMwOe2g==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1653029971; bh=qaC13H91UDc+VejYtnG4e4YoYUKSODRWjrwz7203O68=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=FBLtiV+7nG53sWH4vtivDlRsiQ7U9+H2O82e70byZhBu5q513G53nK2/vCRSAif2sFdKprG9M+VRbaSbxlPyjl8LeNIz4DVevl8m2I2aZVeTyV2zvt5JQ77fThijKOQjnX1jAM4vlFIsupDo53wkuhtSUATJWbIySkBTNAO90VV6Syv0Uk6qvAz1skwaI68hOtJ5RPindoD85fX5QgLH6b3Y91hDwRqCdlFX6bPvo23x9kojLsRd5jbpQHrEwWSk27ukIFwhqZm3KJ3OGRpbvezesfwLya8R/u1asItlsDqQnmRKsC6ODgy4H4wjahYYmEHyxNjnldMHwWkhM2+JDA==
+X-YMail-OSG: 7xtcaasVM1lx5OMihPL.hTlRrM1A8gAiFAluZtMNuTWzcGcv870G4vhNQPZRIZS
+ ilxDgYTnY6Km_vUamZlf4scV5t21_TYQ3L18f1vS8IF2oTF0jrqEYdQWjiwAD_po1Durvana8z9k
+ S5Nmu0gvJnezglWTF1P5xNECJtfXsYc75paLHUVCjR0eSwSKmztMsmNOGlP4eTVqXq.1NeSkl2g6
+ QvsEqSV3DWHURxjOEGXk68nRQY7hkY4U_3rrBNbxF9HlnxTDidZ2eU2uaytTPAaBYX8PLyMD6KfI
+ 8Qh4i6fIEQj27ZDyuBs7D2ejdSKXAawjuo0c1F_4jIJPUIIlLcYEmzlDXWaL6ryL_Nn3VPbreDzz
+ acD1Z73p_3ufdSev_GUX8DiMfR0Etah7zgfP_jGUa6ctalbF3NcnUck3NqSjO4iH.pT4IVDoO4g.
+ SsDFxvhI9kx1Qyw6q_YBnuCSE7Sa7PYi_Yg3g6Qoe5HDOXcze8BWT91QRrax9983YrQDuhSKcY1O
+ FdXs0nHPgFowx47xZOC5eoVOqmgT0DUEtE3FbioTjwoJuuX4IRGwookpeDxxLzS5xQ23QLdHNZen
+ DSCh3o5wUhfR1bgjTg7XORYgXc4GlXiKAU2svD41dsQIT3WB73cC88lcP_0Hm1P8cfEV1bXDqTV3
+ ITLSOplghvQymnxjEv7gLH0nca9XmBaeoLje_SBduuVgJX5rpoTIDZJs7d757Ic.vVqkIuSFTXrZ
+ 95Op_O8e1Oz7YS7rOcy8FJFk59NED_KjHBGe3mu61MCrFpN.4L7W.6eYBqL3se5ksp6w5LBerJqd
+ 98sTqB5wG70a5sA.SkXOG.S7wx3faRCL8J0XNFTNQluhnilgXbwIdL99WmBXkVgRFEJnafwoRYCa
+ Z8k8yUTnb7ckMJmZejnNq.b_hYLG41aZSXjzaveOZH3OXxuoL46_tQ3EQteu4jJ2yY5_eHWNYqat
+ Ri_jkXOsmNcD9_pr3VJITniq2Jn0ZNTY8ZJyraIM_M3PhVkaE8dI711kZ70YCzZRKnsyzq8exphZ
+ B_cnxDyPJIT88zju7u81eNctVt2ora4rVYrzPIptRU2HUhOW8_Jpkd4rN6vi5vs95cDPQkGnDaRQ
+ ZI_bObcrELFaOZ.ky3MZCLJp6K0gd5EdjeRdhKqtOS5f_hMeX5yiXP0lyRF0g4sswTTDKCUs7lAx
+ pwd9mINEq07kqdrZrVC3DKO.aFwFB.KjlW2lsgjl30OXphrTnlTNPkDt2Wb4BTKAzIAW1Zjl_0WD
+ Lc9vaypKYJ.vBO4ssOTh7KKvkv3JP1Mfu4jr6Tp70GE05I3QfJLghqxMzOtj5KlGj0FhcTLH3kcc
+ 0IiuJDtyjAgcQDU6zykDmf1SX.Rm_t1WgWrZ.bQ4vGk3ln56eftNhkBkewlMVT1iUaXlqUcwH8F4
+ wV.KlsDBRfUyrcfzEK.eatnVe_TNlQ1yxBd2rqjsl_vZfDPrYG8HywXgOSAlNHm_2VPX6NkoM5xT
+ 6G1N5lhaTXs1mXbT_F.3sWbISjecItVM5zKDNADFOjEW9MKOA_J1Ckgw37pIdFWPpVhtOcoG1qYT
+ oU2EALUQZ66qle9q5H50ck6o2jWgsQi5EAl6W2PzLXmdVGhFNcVHWk7lrkHcT6RgtE4gknfAi.12
+ h3C6m8F8CgMfO3GQ.5yxgl0wAxslMHGGqQU9FrpNecAJ4a88Aw9Zrk2rEUlB5iRePZiiA0t3DoE.
+ 2.egF7I7_T9cyNZyFPTsAdZGsAEn0ifH91EgCZvRvLy.Xa8M.pfNLN30TVHGYVRvzxijxcdXqDs1
+ g_20vFXNo.n824fOAMKq0yXKWg9ribjIxu.T69RwZAmsFFqtpMknS1OGHnsJrnb3T6vqsPYMMMMd
+ zP_8BlykH.soKnXEJY4YgY8NIWMLPXX1Oc7JaR7b5AkfNAHtJQZtGYFBo16RnUAFioTGM9vcij1D
+ RRNZbLbpvVkLOLeIffNQeqeQTJo3W2e9pZ2Ti6zWPvU0AY9fFGcYWPxmB8h4SKJmLat4MVnUGLcs
+ nmFw4uL21s9Hsiyb987egxLFul1L_70Jt7rQ.u3GuQX9BJ4GHNlmWJs0RI6iMrCRFWoyYmZNxO_P
+ aCcQdZDnCbMIIIFMaeYgF77GZlIzio6lCsPkWxOdUI7epcuPKOA0a97onBFS.bRWfb37uNZ0H8Au
+ ckQZogbtCcbzM4DuVH2c_hb_2GQhNuLSq72OSZ.m__vZtFIQwCLL6hH1jYdSlZbes5DIhL58aF2x
+ Z5C82
+X-Sonic-MF: <brchuckz@aim.com>
+Message-ID: <8b1ebea5-7820-69c4-2e2b-9866d55bc180@netscape.net>
+Date: Fri, 20 May 2022 02:59:11 -0400
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 623e8493-0adb-4c4c-089c-08da3a29718f
-X-MS-TrafficTypeDiagnostic: AS8PR04MB8817:EE_
-X-Microsoft-Antispam-PRVS:
-	<AS8PR04MB8817AFE316D2E882D2E12B0EB3D39@AS8PR04MB8817.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	N4oSfEZ0Kx/U0Zxj/qx88tsnSnejRuRt8Vee1ie1dC+grfRo9pszQbUzQPMrfb+JtBYSTBMZPkI9F5YkflSiH2je0K7XwgFJ8y9CHruCaTFKr4dRRm1H6s6fON3UjP23+E4Bo/xDdP/a2zyTcyGgI1/cIm4PmvDY+NlHJk0MGB6Yzp4ZSwRzPqqlAAXXPUAd+PmdceTn2g77WqGSSnKj86Q2z8P6ierejUma1+n+MIjxQv0nCnU5X/5d2F4vqS8fw8qtMFs7FTZI/IL8CLm7tDelHX2Z83snrQFWbuX7ekOtok+uvZJxpDX3cO0wSIuaXqVQjhwKo3GTRw6JJXmAkK778C7Y1NJm8hSe9wLefiupsT9J7iuhnU3NSCF/iRFggcoFcMcT65k0FHjmMNDSFAGN+QOs8Jo+ZSRuL7kDRyGyzYOppS5GTRnlOSYcbHSo1J7bGTA4rMuNoUVNxHEdt9gPHgGt19xNBT3QIRY0iuudG1wGk0xMo10Fs+caHuhxMPGFi7uPWiueV7Stcj9alUCOmn9cC0DDQK01/l5jyGkIK97u1HMYs5hCn9uKb89ktUm7eaWov95o+lZ6s98oXXbj58orzeW9BGV6uA2jRZ2ZBZzwwhEs8L6kn49rmY4fakdQEHALvLhRS6fNrT6XDZfbwG1AtbXaJNZRPZD3OesHVxvxRhF7UypqJX708sZm0CNY55tv1Zk11E9Hpd2styvVI+QMfZfFXjWQskddbqU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(6916009)(2906002)(508600001)(316002)(3480700007)(6486002)(31696002)(86362001)(38100700002)(66476007)(2616005)(66556008)(186003)(6512007)(26005)(6506007)(53546011)(4744005)(66946007)(8936002)(8676002)(7116003)(36756003)(4326008)(31686004)(5660300002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?amxUTE9HTk1QMS9qNXlmVDJDY3FEdlBzODcxZDlETEFrR0s3R2JCS2FDaFY4?=
- =?utf-8?B?SSt0WXZMWGYxeXpzVUNUSWF6K0cvaE9Hdksvd1doaHVjVXNabU83Vy81eU1u?=
- =?utf-8?B?aW1Yalo3QzMwZTAwTUVndnd4czA0aHZtUDI2SjlVaFRGZjZOaElQRWM0S0dJ?=
- =?utf-8?B?b2g3YzV3bXY1VlZFTzAzN2kzQ0pHRi9mVHQ2aUw5cHZpZHBZQTBxTUFzV2N2?=
- =?utf-8?B?TmJWSDY3YVdnK29YZEx2eVpJMnFPQzFQTjhZSkFFdVlTZWtZaTkwaFU1RC9N?=
- =?utf-8?B?WitjbXdyY0ZNdXZZNjRkemFKMGU2NGV1d1EzakJRRHNnbEZwdWVMd3haeWFP?=
- =?utf-8?B?QzJHd0FpWkwyTHZPTXNMNDZUQjZ3Q1Y2RU5vcVREZlV4OUNsVGNiaG80UjdQ?=
- =?utf-8?B?eUJlVWVZN2VwL29JRlpmell3ODFqSlpxS1BjWkF0NXJySTNYSEh2TFFQaFNF?=
- =?utf-8?B?amp4TzlCM1ArVWxSMFFxUDc5T09uaFRLUlhaTVk5NHVoS0tKcXJtT3dDSENl?=
- =?utf-8?B?WWxQUy90UFpxTjdwdlNPS0kxZXExczZzakZjYU1mQmhOSWZyL09iMERzOHEw?=
- =?utf-8?B?SEtBaVF0WDFmdVRDRHg5Q3RpMmRXdmt0YXAxRkdvRmllSGtIL0VsMnNobU1N?=
- =?utf-8?B?aFFGcEM3QUZDb1Q1d3BYeEw3bkhpaUJuOThkMUtzM081VkdWZ1FjaWI0RnhB?=
- =?utf-8?B?TTBvckFmQ1F3UEVsMXNGdU9GL1hnLzFRMGo1cVpOWVhucDlJdDVhcURaeC9G?=
- =?utf-8?B?TDMyQ3JBK2tIWGpmOHBiTnpUK21kQ0E5elliOFJGMjJ4eDFmTWtoR1VCNTZC?=
- =?utf-8?B?RU01RVBrR0dieExUTlJ0MjVFTFJjQ2s0WEd1Rnc0dFRISEtaRmR2UTZJcnhJ?=
- =?utf-8?B?K1pFWlpMMHlrS29XRXhGdmsvSzVRaHVoSEhzcDMvQWlMYnVhUEtBeCt2eHg0?=
- =?utf-8?B?N3hCaVJZU2tYN3pEWTg4U25iKzQ1Z3FTK2E3TFo0Z2J1QzVJd1oyUTMzMTdx?=
- =?utf-8?B?MXpPNkJlWEpxNG1qV1BLTE1NZXVjZGdnbElWaEkxU1hsN2FycklyRTFxaGNr?=
- =?utf-8?B?d0dNajJmWFU4eEkzbTk4MEpDSjFURG9UWFdxblYzWEZtWE04bzNrQWZZMlJz?=
- =?utf-8?B?T3E4WCtrRGI1Skt0cHRkWWdyQzBHL0FUeHJHa0ppTEVoUC9ERXhhTU12bnQw?=
- =?utf-8?B?Z0lON1RzelVOV2ZGNi9KQmozTzlIdFB4S2c3WGJISWdXUVNrNFFiTFRhaldG?=
- =?utf-8?B?ZHZhZDNDQmxOaDQvRjVOV0lUdXV3aGh1MlF5aVdDTG5mWHEyZ0tuLzVNNFho?=
- =?utf-8?B?d0Qya0FmemY5ck5namc2TXR1amo2NjdhOWFmc1FCaGZFejVMK0Q4ZWJXUHFB?=
- =?utf-8?B?TWtLUzRNVXBSZTV5cFJ1azlLOWtJMVI0Z28vcVB4SCtyU0tNOUVRdUlhMERx?=
- =?utf-8?B?bzhmVmNUVndnZHExRldYNVBiNHprR29QNVlhTjBiUDI2QUt4Tzg1UjJ4dnM4?=
- =?utf-8?B?TzdCTC84S05ka2JiNkdnU1pVMGc5OUdiVDhBZ3p2NnBSYm1PbFpQVXZ3ZXhv?=
- =?utf-8?B?TU5QNjQreU04WlpFeFFUTjJzTkZZUVBGamRMYytqUkhLRTdleGZuVHZ2L2xP?=
- =?utf-8?B?dWRJcXByU0EweGIwMEZGc3NUSHMrSGI4U2xZQXVPcnJ1VjdjS3dXUi9MWEZ1?=
- =?utf-8?B?Wm5jdExjbk9rSEtnaEN0ajdnQ0dUY0JUZFdjZkJhNmQ3ZFlJVThDSVZqY0ZZ?=
- =?utf-8?B?N0hvVFZkWGIya05MUTdtU3F4RmdWcTU0aGY2MkttLzFCZEpXN2JWa1JRa2s2?=
- =?utf-8?B?UnJyMTRJaXBaZlNvSjdjVmpqaThJVEUyeThqby9iSDdmNlVtMDRVaHEwU2oz?=
- =?utf-8?B?KzFKYjl3azZOT2hKYXgzb0ZHUzNGLzAxNGVuaE5SU213T2pHY05LRnhFelJF?=
- =?utf-8?B?Zmx1N1FycUxtQ1llVUJjTFZiZjFZZVJjYmF1TUQwRGpwd0d2TEtJOWExeHhJ?=
- =?utf-8?B?bHNVeTRlMmxNaER0TFlBdnJraFBzZ3kwUzh5VHIrYXM1cUtYZEdaeitaTzJC?=
- =?utf-8?B?NDl5Wk9CYUFSUDg3eUNoamcwODN0b0FXUGRjZmk1VmpibTFVb0dDdW41M3c3?=
- =?utf-8?B?VzNIUkxjbU8wdG5mWjgvZG9lUW9NaC9KQ08rdnp6dmtvcWxqeDJjbnBNTzJa?=
- =?utf-8?B?NGFzOHFtSlpNMm1Nb3RCZ2N2UFlaSUZMbWhQeC9FMUxlNGtBSVQwaEl0alJZ?=
- =?utf-8?B?akRKQUI3Q2VTRlNGa1MrdjEzYitCbTJrdDcvZG5GRU9mYUp5c2QrRDR0Yzlp?=
- =?utf-8?B?R1ZGM3d5c1kwTG96TlJId0laT28vQmZHWG5BNU1SVnFKUHNYVzlOdz09?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 623e8493-0adb-4c4c-089c-08da3a29718f
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2022 06:24:50.4303
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: en9OV00sOEExuFQzQYX4Zg1v+WtufkXvPJ+sT/iuuVBNc8RxH4vhm0Xvpz07ILjntheb51ZBH9CkXyaeW/yxoA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8817
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Subject: Re: [PATCH 2/2] x86/pat: add functions to query specific cache mode
+ availability
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ xen-devel@lists.xenproject.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Juergen Gross <jgross@suse.com>
+References: <20220503132207.17234-1-jgross@suse.com>
+ <20220503132207.17234-3-jgross@suse.com>
+ <1d86d8ff-6878-5488-e8c4-cbe8a5e8f624@suse.com>
+ <0dcb05d0-108f-6252-e768-f75b393a7f5c@suse.com>
+ <77255e5b-12bf-5390-6910-dafbaff18e96@netscape.net>
+ <a2e95587-418b-879f-2468-8699a6df4a6a@suse.com>
+From: Chuck Zmudzinski <brchuckz@netscape.net>
+In-Reply-To: <a2e95587-418b-879f-2468-8699a6df4a6a@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Mailer: WebService/1.1.20225 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-On 20.05.2022 01:22, Demi Marie Obenour wrote:
-> It is well known that mapping and unmapping grants is expensive, which
-> is why blkback has persistent grants.  Could this cost be mitigated by
-> batching, and if it was, would it affect the tradeoff of memcpy() vs
-> grant table operations?
+On 5/20/2022 2:05 AM, Jan Beulich wrote:
+> On 20.05.2022 06:43, Chuck Zmudzinski wrote:
+>> On 5/4/22 5:14 AM, Juergen Gross wrote:
+>>> On 04.05.22 10:31, Jan Beulich wrote:
+>>>> On 03.05.2022 15:22, Juergen Gross wrote:
+>>>>> Some drivers are using pat_enabled() in order to test availability of
+>>>>> special caching modes (WC and UC-). This will lead to false negatives
+>>>>> in case the system was booted e.g. with the "nopat" variant and the
+>>>>> BIOS did setup the PAT MSR supporting the queried mode, or if the
+>>>>> system is running as a Xen PV guest.
+>>>> ...
+>>>>> Add test functions for those caching modes instead and use them at the
+>>>>> appropriate places.
+>>>>>
+>>>>> Fixes: bdd8b6c98239 ("drm/i915: replace X86_FEATURE_PAT with
+>>>>> pat_enabled()")
+>>>>> Fixes: ae749c7ab475 ("PCI: Add arch_can_pci_mmap_wc() macro")
+>>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>>> ...
+>>>>
+>>>>> --- a/arch/x86/include/asm/pci.h
+>>>>> +++ b/arch/x86/include/asm/pci.h
+>>>>> @@ -94,7 +94,7 @@ int pcibios_set_irq_routing(struct pci_dev *dev,
+>>>>> int pin, int irq);
+>>>>>        #define HAVE_PCI_MMAP
+>>>>> -#define arch_can_pci_mmap_wc()    pat_enabled()
+>>>>> +#define arch_can_pci_mmap_wc()    x86_has_pat_wc()
+>>>> Besides this and ...
+>>>>
+>>>>> --- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+>>>>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+>>>>> @@ -76,7 +76,7 @@ i915_gem_mmap_ioctl(struct drm_device *dev, void
+>>>>> *data,
+>>>>>        if (args->flags & ~(I915_MMAP_WC))
+>>>>>            return -EINVAL;
+>>>>>    -    if (args->flags & I915_MMAP_WC && !pat_enabled())
+>>>>> +    if (args->flags & I915_MMAP_WC && !x86_has_pat_wc())
+>>>>>            return -ENODEV;
+>>>>>          obj = i915_gem_object_lookup(file, args->handle);
+>>>>> @@ -757,7 +757,7 @@ i915_gem_dumb_mmap_offset(struct drm_file *file,
+>>>>>          if (HAS_LMEM(to_i915(dev)))
+>>>>>            mmap_type = I915_MMAP_TYPE_FIXED;
+>>>>> -    else if (pat_enabled())
+>>>>> +    else if (x86_has_pat_wc())
+>>>>>            mmap_type = I915_MMAP_TYPE_WC;
+>>>>>        else if (!i915_ggtt_has_aperture(to_gt(i915)->ggtt))
+>>>>>            return -ENODEV;
+>>>>> @@ -813,7 +813,7 @@ i915_gem_mmap_offset_ioctl(struct drm_device
+>>>>> *dev, void *data,
+>>>>>            break;
+>>>>>          case I915_MMAP_OFFSET_WC:
+>>>>> -        if (!pat_enabled())
+>>>>> +        if (!x86_has_pat_wc())
+>>>>>                return -ENODEV;
+>>>>>            type = I915_MMAP_TYPE_WC;
+>>>>>            break;
+>>>>> @@ -823,7 +823,7 @@ i915_gem_mmap_offset_ioctl(struct drm_device
+>>>>> *dev, void *data,
+>>>>>            break;
+>>>>>          case I915_MMAP_OFFSET_UC:
+>>>>> -        if (!pat_enabled())
+>>>>> +        if (!x86_has_pat_uc_minus())
+>>>>>                return -ENODEV;
+>>>>>            type = I915_MMAP_TYPE_UC;
+>>>>>            break;
+>>>> ... these uses there are several more. You say nothing on why those want
+>>>> leaving unaltered. When preparing my earlier patch I did inspect them
+>>>> and came to the conclusion that these all would also better observe the
+>>>> adjusted behavior (or else I couldn't have left pat_enabled() as the
+>>>> only
+>>>> predicate). In fact, as said in the description of my earlier patch, in
+>>>> my debugging I did find the use in i915_gem_object_pin_map() to be the
+>>>> problematic one, which you leave alone.
+>>> Oh, I missed that one, sorry.
+>> That is why your patch would not fix my Haswell unless
+>> it also touches i915_gem_object_pin_map() in
+>> drivers/gpu/drm/i915/gem/i915_gem_pages.c
+>>
+>>> I wanted to be rather defensive in my changes, but I agree at least the
+>>> case in arch_phys_wc_add() might want to be changed, too.
+>> I think your approach needs to be more aggressive so it will fix
+>> all the known false negatives introduced by bdd8b6c98239
+>> such as the one in i915_gem_object_pin_map().
+>>
+>> I looked at Jan's approach and I think it would fix the issue
+>> with my Haswell as long as I don't use the nopat option. I
+>> really don't have a strong opinion on that question, but I
+>> think the nopat option as a Linux kernel option, as opposed
+>> to a hypervisor option, should only affect the kernel, and
+>> if the hypervisor provides the pat feature, then the kernel
+>> should not override that,
+> Hmm, why would the kernel not be allowed to override that? Such
+> an override would affect only the single domain where the
+> kernel runs; other domains could take their own decisions.
+>
+> Also, for the sake of completeness: "nopat" used when running on
+> bare metal has the same bad effect on system boot, so there
+> pretty clearly is an error cleanup issue in the i915 driver. But
+> that's orthogonal, and I expect the maintainers may not even care
+> (but tell us "don't do that then").
+>
+> Jan
+>
+>> but because of the confusion,
 
-Which backend driver are you thinking about? The in-kernel Linux
-xen-blkback already batches grant operations, afaics. Such
-batching is helpful, but the main cost is assumed (known?) to be
-with the (installing and) tearing down of the actual mappings of
-the guest pages (into/)from backend address space.
+As I just wrote earlier, the confusion is whether or not "nopat"
+means the kernel drivers will not use pat even if the firmware
+and hypervisor provides it. I think you are correct to
+point out that is the way the i915 driver behaved with the nopat
+option before bdd8b6c98239 was applied, with the same
+bad effects on bare metal as with the hypervisor. I think perhaps
+dealing with the nopat option to fix bdd8b6c98239 is a solution in
+search of a problem, at least as regards the i915 driver.
 
-Jan
+The only problem we have, as I see it, is with a false negative
+when the nopat option is *not* enabled. But the forced disabling
+of pat in Jan's patch when the nopat option is enabled is probably
+needed if the goal of the patch is to preserve the same
+behavior of the i915 driver that it had before bdd8b6c98239
+was applied.
 
+In any case, especially if we do include Jan's aggressive approach
+of disabling pat with the nopat option and preserving the same bad
+behavior we had with nopat before bdd8b6c98239 was applied, the
+i915 driver should log a warning when pat is disabled. Right now,
+the driver returns -ENODEV with the problem in
+i915_gem_object_pin_map(), but it does not log an error. The only
+log message I get now is the add_taint_for_CI in intel_gt_init
+which was not very helpful information for debugging
+this problem. It was only the starting point of a longer debugging
+process because of a lack of error log messages in the i915 driver.
+
+Chuck
 
