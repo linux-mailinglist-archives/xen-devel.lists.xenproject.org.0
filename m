@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB25852E818
-	for <lists+xen-devel@lfdr.de>; Fri, 20 May 2022 10:54:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.333549.557396 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09E6352E819
+	for <lists+xen-devel@lfdr.de>; Fri, 20 May 2022 10:54:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.333550.557402 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nryOa-0008RZ-SC; Fri, 20 May 2022 08:54:04 +0000
+	id 1nryOb-00006T-5L; Fri, 20 May 2022 08:54:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 333549.557396; Fri, 20 May 2022 08:54:04 +0000
+Received: by outflank-mailman (output) from mailman id 333550.557402; Fri, 20 May 2022 08:54:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nryOa-0008Oj-Kl; Fri, 20 May 2022 08:54:04 +0000
-Received: by outflank-mailman (input) for mailman id 333549;
- Fri, 20 May 2022 08:54:02 +0000
+	id 1nryOb-0008RV-05; Fri, 20 May 2022 08:54:05 +0000
+Received: by outflank-mailman (input) for mailman id 333550;
+ Fri, 20 May 2022 08:54:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=dOI6=V4=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1nryOY-0008OY-I0
- for xen-devel@lists.xenproject.org; Fri, 20 May 2022 08:54:02 +0000
+ id 1nryOZ-0008OY-BO
+ for xen-devel@lists.xenproject.org; Fri, 20 May 2022 08:54:03 +0000
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6286ade5-d81a-11ec-bd2c-47488cf2e6aa;
+ id 635e06fb-d81a-11ec-bd2c-47488cf2e6aa;
  Fri, 20 May 2022 10:54:00 +0200 (CEST)
 Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 39EA95C0299;
- Fri, 20 May 2022 04:53:57 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id C35875C02A8;
+ Fri, 20 May 2022 04:53:58 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Fri, 20 May 2022 04:53:57 -0400
+ by compute5.internal (MEProxy); Fri, 20 May 2022 04:53:58 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 20 May 2022 04:53:55 -0400 (EDT)
+ 20 May 2022 04:53:57 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,116 +43,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6286ade5-d81a-11ec-bd2c-47488cf2e6aa
+X-Inumbo-ID: 635e06fb-d81a-11ec-bd2c-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:message-id
-	:mime-version:reply-to:sender:subject:subject:to:to; s=fm1; t=
-	1653036837; x=1653123237; bh=Zbc3jOEPowRT040X5wqGBooak9Aro6tWaKi
-	WhEvPW/w=; b=Utan18Sivb2kE1qnbOcBnFVKPEVEc/wV/xtYE+jQPyxOS9ani6L
-	NmURZ0OsZZTYk17o8/es+OTlN5lONR7eFOhiiBG9Jn978a7hXF9sHFq0ZaFAmVIj
-	2XzigI44GL1QveXOCblBZ+nQB+dfMAfV/hBM0TAho3pzL68ooExKhvaA3JBMY+wz
-	iBzFg3YzsStn1CfYTyl1W/oUKFEwVi1i3USrdIzjxp/v6MSq+hOwsoQ9OijI97er
-	fLHL+eVUSX57hNQMNBJtkrxbviBLmHIEGxKChvvd/l+QnXSMebJn4A1CUqm+5YAR
-	yGG4MI3+4niQu34IDSzRBFpWqbGFa/JHpFA==
+	:content-type:date:date:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to; s=fm1; t=1653036838; x=1653123238; bh=9SoDrM5QXO
+	ZZaENaU/Vm3Kz95pyoPpFXFzfpd79RRT4=; b=LCszMCKuP0zC9hT2zd1cAdmOcQ
+	i2N+8aSPgul9dfjJ3mUS4ILp4ZI4MUJSi4Bjlx0H6vTV+Ru7mf5IYK1wRf4Qz11j
+	qpIiMuP4m2Ft3pV9j5QckOn0ZY56JeKnXG1RMRmfDcl20mLj7lydKkLO3wHTVhHD
+	aorEXVluZK8kPZeB3aPwZa9LBQ5Z/eU5rU98njX8CwiK/ckju0BL2vu1gdE8kY8t
+	CqARfaz0DavHu8wFuk9XDmMTv5PX3smvEG8e16QHgu2lCx9ZNwPL0p9xzvYqrC1x
+	CbR5fKBS0f8dRaf/uFm7kEbT8h1gpTYUaPFBNzwWGlUhRM9Lpncu/HUCAYsw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1653036837; x=1653123237; bh=Zbc3jOEPowRT0
-	40X5wqGBooak9Aro6tWaKiWhEvPW/w=; b=pLIqHj/Pe7P28uk2kBurSppqfA2gR
-	2u/ocmCWeWFyj9WsL1hKnfDyaF3RvTiQeXzdK872rfgJ8bzE5Z6Ld0zTawlF8Asp
-	7z/M+sANC2Pwunai1ed9M7KFKOnJBXbybNhg4marhUHr3ARlBRTsRl8ToVFKcPFg
-	H/jzAEzA5o/KkcPe5Pq+F2+0gGtA7Rcy50v0h0meh+QAd6LTBeTWGALJjUpLEJ3x
-	RQJjwL9b+aDXcRHwwnyT9NwR6RiDEX1S4eIinJUmPd/8HpAoGJjHPeBIidLv+AWj
-	MolRa7bLvjC+vtCAa7Wkjq6IvGVXZnmm2g2q9uh1XEWgmeNJf/o7EiO1A==
-X-ME-Sender: <xms:JFeHYp8J2aOx0XbkZ79yERpjb8wXaGZETVDAhPyZBy1GkLMAk4pkaw>
-    <xme:JFeHYtsOmMrxLqJXmmgvZpDrh0m6P4TGSTzTgvqyXwf1wpO47D9irKCJY8Gr9CnWj
-    fImsmgfdlkNtw>
-X-ME-Received: <xmr:JFeHYnBtW3MaefU0PvNk17mqkLfgex-loCZ7FRB8nfKN35gU4r8UEtqPAJW_U8htXu260pN6_9Imp8As4xt0wew1XUfmd21vvmH-U0GmUvv1TrEaUmQ>
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1653036838; x=
+	1653123238; bh=9SoDrM5QXOZZaENaU/Vm3Kz95pyoPpFXFzfpd79RRT4=; b=s
+	Rfw21pbDfj5erRoCBw/z/ClKDcbe9RCZo+13dXolDLK0dWBD1RXPPQ5RgB2Y/CB5
+	5tnzEKbsYlo4Su4AV16u+o+LQ2B0Oi0LTH9ff8WcaqxW0qDOMrQPsn6f+BewxLrW
+	ONEA4idSPHr8+a3it1wO1C+RRi+T7rn+sWk3NC8PGVJI+3nsk0b/u+R5kvZC6R1d
+	zwy1dEPUA9Ie2cw56pyPckQt7sThgZ14bK/0xM65N8q93ngarMgECf7tZ3X80BsI
+	pWCSZBxonB2f7ecc6n22XTfiHnEWScrYPEMDXiIb3CTCQPqghMn2ZBw05Hsl3Rl2
+	iO72YutBtypT5AbjlY9pw==
+X-ME-Sender: <xms:JleHYl3JhP7vBKVwgV-Rb6Yc-oExSNc_8naUx2Cb2z0WvnaJFzKacA>
+    <xme:JleHYsFmJTs9aD8ZYGHfy-YxW_ME8yNkCMfKM5DsB9GOXk8_6BWUV2LB0S0lBnVCJ
+    ylvqXXjd1KpvA>
+X-ME-Received: <xmr:JleHYl5-itiBxyqtUZCvifbHP5kgMPnPAMnmGRZ_xfNCcd3knPnpFkBIqsH4swFTO2q71qeCmJ6S4bFPeu7RXYU3yIUynl8ttoX3QIjS5kerclzIT6g>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrieefgddtjecutefuodetggdotefrodftvf
     curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
     uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpefhvfevufffkffogggtgfesthekredtredtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepleekhfdu
-    leetleelleetteevfeefteffkeetteejheelgfegkeelgeehhfdthedvnecuvehluhhsth
-    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
-    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:JFeHYtekY4rE19hy9aJQ7TpLy3mAWsL4MNz9niAr56aDGFZxjxiDLA>
-    <xmx:JFeHYuMd_hbgSKYnZLe-LEyKnyIxZx4okd-RqNdFC24BPO8fzJxeDQ>
-    <xmx:JFeHYvlHNwGrp7Yx51-mz_bZML42B8iIp7Yh8O41IfVgGDp-cN6rjg>
-    <xmx:JVeHYqAUqPPdTM3vRgDT_K7qyc8H8-bkizVNuAuvCiQ-MCcBJ1gw8g>
+    fjughrpefhvfevufffkffojghfgggtgfesthekredtredtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfeu
+    udehgfdvfeehhedujeehfeduveeugefhkefhheelgeevudetueeiudfggfffnecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:JleHYi2uC-jPAiT5btl8Vc6-Gs7HtNAwK9pr3GYR-OF0VUdPFMjavA>
+    <xmx:JleHYoFbNR8iDfPW4vJ49u3mOOvlky9U9l2dsklnFO_CEVQcckHdzw>
+    <xmx:JleHYj94wPOfDnILZ-fyaIxrm3HcKiPc_JE8pm1ggoPfo0g5SdsXXg>
+    <xmx:JleHYtNXMNNS2uPZD_xJ6uJHEungwxUT5Aesp4bcndkDkRb-NcVkKA>
 Feedback-ID: i1568416f:Fastmail
 From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
 Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v6 1/2] ns16550: use poll mode if INTERRUPT_LINE is 0xff
-Date: Fri, 20 May 2022 10:53:42 +0200
-Message-Id: <20220520085343.1835866-1-marmarek@invisiblethingslab.com>
+Subject: [PATCH v6 2/2] ns16550: Add more device IDs for Intel LPSS UART
+Date: Fri, 20 May 2022 10:53:43 +0200
+Message-Id: <20220520085343.1835866-2-marmarek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20220520085343.1835866-1-marmarek@invisiblethingslab.com>
+References: <20220520085343.1835866-1-marmarek@invisiblethingslab.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Intel LPSS has INTERRUPT_LINE set to 0xff by default, that is declared
-by the PCI Local Bus Specification Revision 3.0 (from 2004) as
-"unknown"/"no connection". Fallback to poll mode in this case.
-The 0xff handling is x86-specific, the surrounding code is guarded with
-CONFIG_X86 anyway.
+This is purely based on the spec:
+- Intel 500 Series PCH: 635218-006
+- Intel 600 Series PCH: 691222-001, 648364-003
+
+This is tested only on TGL-LP added initially, but according to the
+spec, they should behave the same.
 
 Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-Changes in v6:
- - wrap the check in additional CONFIG_X86, with appropriate comment
-Changes in v5:
- - drop IRQ 0 from the log message
-Changes in v4:
- - adjust log message, change it from WARNING to INFO
- - re-add x86 reference in the commit message
-Changes in v3:
- - change back to checking 0xff explicitly
- - adjust commit message, include spec reference
- - change warning to match the above
 Changes in v2:
- - add log message
- - extend commit message
- - code style fix
+ - new patch, adding more IDs to the patch that went in already
 ---
- xen/drivers/char/ns16550.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ xen/drivers/char/ns16550.c | 80 +++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 79 insertions(+), 1 deletion(-)
 
 diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-index fb75cee4a13a..b37f67dc7430 100644
+index b37f67dc7430..b7da5646fc28 100644
 --- a/xen/drivers/char/ns16550.c
 +++ b/xen/drivers/char/ns16550.c
-@@ -1238,6 +1238,17 @@ pci_uart_config(struct ns16550 *uart, bool_t skip_amt, unsigned int idx)
-                             pci_conf_read8(PCI_SBDF(0, b, d, f),
-                                            PCI_INTERRUPT_LINE) : 0;
+@@ -1077,12 +1077,90 @@ static const struct ns16550_config __initconst uart_config[] =
+         .dev_id = 0x0358,
+         .param = param_exar_xr17v358
+     },
+-    /* Intel Corp. TGL-LP LPSS PCI */
++    /* Intel Corp. TGL-LP LPSS PCI UART #0 */
++    {
++        .vendor_id = PCI_VENDOR_ID_INTEL,
++        .dev_id = 0xa0a8,
++        .param = param_intel_lpss
++    },
++    /* Intel Corp. TGL-LP LPSS PCI UART #1 */
++    {
++        .vendor_id = PCI_VENDOR_ID_INTEL,
++        .dev_id = 0xa0a9,
++        .param = param_intel_lpss
++    },
++    /* Intel Corp. TGL-LP LPSS PCI UART #2 */
+     {
+         .vendor_id = PCI_VENDOR_ID_INTEL,
+         .dev_id = 0xa0c7,
+         .param = param_intel_lpss
+     },
++    /* Intel Corp. TGL-H LPSS PCI UART #0 */
++    {
++        .vendor_id = PCI_VENDOR_ID_INTEL,
++        .dev_id = 0x43a8,
++        .param = param_intel_lpss
++    },
++    /* Intel Corp. TGL-H LPSS PCI UART #1 */
++    {
++        .vendor_id = PCI_VENDOR_ID_INTEL,
++        .dev_id = 0x43a9,
++        .param = param_intel_lpss
++    },
++    /* Intel Corp. TGL-H LPSS PCI UART #2 */
++    {
++        .vendor_id = PCI_VENDOR_ID_INTEL,
++        .dev_id = 0x43a7,
++        .param = param_intel_lpss
++    },
++    /* Intel Corp. ADL-P LPSS PCI UART #0 */
++    {
++        .vendor_id = PCI_VENDOR_ID_INTEL,
++        .dev_id = 0x51a8,
++        .param = param_intel_lpss
++    },
++    /* Intel Corp. ADL-P LPSS PCI UART #1 */
++    {
++        .vendor_id = PCI_VENDOR_ID_INTEL,
++        .dev_id = 0x51a9,
++        .param = param_intel_lpss
++    },
++    /* Intel Corp. ADL-P LPSS PCI UART #2 */
++    {
++        .vendor_id = PCI_VENDOR_ID_INTEL,
++        .dev_id = 0x51c7,
++        .param = param_intel_lpss
++    },
++    /* Intel Corp. ADL-P LPSS PCI UART #3 */
++    {
++        .vendor_id = PCI_VENDOR_ID_INTEL,
++        .dev_id = 0x51da,
++        .param = param_intel_lpss
++    },
++    /* Intel Corp. ADL-S LPSS PCI UART #0 */
++    {
++        .vendor_id = PCI_VENDOR_ID_INTEL,
++        .dev_id = 0x7aa8,
++        .param = param_intel_lpss
++    },
++    /* Intel Corp. ADL-S LPSS PCI UART #1 */
++    {
++        .vendor_id = PCI_VENDOR_ID_INTEL,
++        .dev_id = 0x7aa9,
++        .param = param_intel_lpss
++    },
++    /* Intel Corp. ADL-S LPSS PCI UART #2 */
++    {
++        .vendor_id = PCI_VENDOR_ID_INTEL,
++        .dev_id = 0x7afe,
++        .param = param_intel_lpss
++    },
++    /* Intel Corp. ADL-S LPSS PCI UART #3 */
++    {
++        .vendor_id = PCI_VENDOR_ID_INTEL,
++        .dev_id = 0x7adc,
++        .param = param_intel_lpss
++    },
+ };
  
-+#ifdef CONFIG_X86
-+                /* PCI Local Bus Specification Revision 3.0 defines 0xff value
-+                 * as special only for X86 */
-+                if ( uart->irq == 0xff )
-+                    uart->irq = 0;
-+#endif
-+                if ( !uart->irq )
-+                    printk(XENLOG_INFO
-+                           "ns16550: %pp no legacy IRQ, using poll mode\n",
-+                           &PCI_SBDF(0, b, d, f));
-+
-                 return 0;
-             }
-         }
+ static int __init
 -- 
 2.35.1
 
