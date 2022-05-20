@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A671F52EBBA
-	for <lists+xen-devel@lfdr.de>; Fri, 20 May 2022 14:14:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.333992.557985 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FC7752EBB7
+	for <lists+xen-devel@lfdr.de>; Fri, 20 May 2022 14:14:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.333987.557942 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ns1Wq-0004Mr-2u; Fri, 20 May 2022 12:14:48 +0000
+	id 1ns1Wn-0003Wk-9Y; Fri, 20 May 2022 12:14:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 333992.557985; Fri, 20 May 2022 12:14:48 +0000
+Received: by outflank-mailman (output) from mailman id 333987.557942; Fri, 20 May 2022 12:14:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ns1Wp-00047E-M9; Fri, 20 May 2022 12:14:47 +0000
-Received: by outflank-mailman (input) for mailman id 333992;
- Fri, 20 May 2022 12:14:44 +0000
+	id 1ns1Wn-0003Po-3n; Fri, 20 May 2022 12:14:45 +0000
+Received: by outflank-mailman (input) for mailman id 333987;
+ Fri, 20 May 2022 12:14:43 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ns1Wl-0003NZ-TR
+ (envelope-from <julien@xen.org>) id 1ns1Wl-0003NG-Od
  for xen-devel@lists.xenproject.org; Fri, 20 May 2022 12:14:43 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1ns1Wl-0005wU-K9; Fri, 20 May 2022 12:14:43 +0000
+ id 1ns1Wl-0005wO-FC; Fri, 20 May 2022 12:14:43 +0000
 Received: from 54-240-197-232.amazon.com ([54.240.197.232]
  helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1ns1Sn-0001lI-T1; Fri, 20 May 2022 12:10:38 +0000
+ id 1ns1So-0001lI-U1; Fri, 20 May 2022 12:10:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,9 +43,9 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	bh=QrMX+f1B9/uCnIONfcNrd5IjXpsYHLALKUn/Mv7SupA=; b=6Up0ZDUUnV7j3M6/hSXLAhP30w
-	JjdnUfUG1voWCIHjL4TOnQyYZFkX4i1J0w1x10XhV5yAe10ZeDXQigwv4OK11+YZkzQAVyhIur8ED
-	QEDfrRXcCTkokXAVlBrpuvsBzcin/bcjIgkl1EJciGHxzTMy4kC6TWq6k6y64nJ78Efk=;
+	bh=mOn3zp5wUGYujSQe5FrNT0Pt6XF+4/RdAAfK0S+9m+Y=; b=cbG95IzqZm/2Lgg6aseyQY31Zd
+	NlLO/aB0E6nWqkJ7QtRqxCA62EP19nQ6MA901oF2mCR+tRSTrLliDccxFa/oS1VwKUcvCTRrBnucP
+	tocIDpjaz4VaPd1JbJPa7b2pUe2WURB4Tng+8mkJqFCcWVFFg3jhhUlmLd7qeihrrWSI=;
 From: Julien Grall <julien@xen.org>
 To: xen-devel@lists.xenproject.org
 Cc: julien@xen.org,
@@ -53,9 +53,9 @@ Cc: julien@xen.org,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH 12/16] xen/arm: mm: Use the PMAP helpers in xen_{,un}map_table()
-Date: Fri, 20 May 2022 13:09:33 +0100
-Message-Id: <20220520120937.28925-13-julien@xen.org>
+Subject: [PATCH 13/16] xen/arm32: setup: Move out the code to populate the boot allocator
+Date: Fri, 20 May 2022 13:09:34 +0100
+Message-Id: <20220520120937.28925-14-julien@xen.org>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220520120937.28925-1-julien@xen.org>
 References: <20220520120937.28925-1-julien@xen.org>
@@ -64,93 +64,136 @@ Content-Transfer-Encoding: 8bit
 
 From: Julien Grall <jgrall@amazon.com>
 
-During early boot, it is not possible to use xen_{,un}map_table()
-if the page tables are not residing the Xen binary.
+In a follow-up patch, we will want to populate the boot allocator
+separately for arm64. The code will end up to be very similar to the one
+on arm32. So move out the code in a new helper populate_boot_allocator().
 
-This is a blocker to switch some of the helpers to use xen_pt_update()
-as we may need to allocate extra page tables and access them before
-the domheap has been initialized (see setup_xenheap_mappings()).
+For now the code is still protected by CONFIG_ARM_32 to avoid any build
+failure on arm64.
 
-xen_{,un}map_table() are now updated to use the PMAP helpers for early
-boot map/unmap. Note that the special case for page-tables residing
-in Xen binary has been dropped because it is "complex" and was
-only added as a workaround in 8d4f1b8878e0 ("xen/arm: mm: Allow
-generic xen page-tables helpers to be called early").
+Take the opportunity to replace mfn_add(xen_mfn_start, xenheap_pages) with
+xenheap_mfn_end as they are equivalent.
 
 Signed-off-by: Julien Grall <jgrall@amazon.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 ---
+
     Changes in v4:
-        - Add Stefano's reviewed-by
-
-    Changes in v2:
-        - New patch
+        - Patch added
 ---
- xen/arch/arm/mm.c | 33 +++++++++------------------------
- 1 file changed, 9 insertions(+), 24 deletions(-)
+ xen/arch/arm/setup.c | 90 +++++++++++++++++++++++++-------------------
+ 1 file changed, 51 insertions(+), 39 deletions(-)
 
-diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-index d40dd4e6c9e6..b019e4b35b55 100644
---- a/xen/arch/arm/mm.c
-+++ b/xen/arch/arm/mm.c
-@@ -25,6 +25,7 @@
- #include <xen/libfdt/libfdt.h>
- #include <xen/mm.h>
- #include <xen/pfn.h>
-+#include <xen/pmap.h>
- #include <xen/sched.h>
- #include <xen/sizes.h>
- #include <xen/types.h>
-@@ -980,27 +981,11 @@ void *ioremap(paddr_t pa, size_t len)
- static lpae_t *xen_map_table(mfn_t mfn)
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index d5d0792ed48a..3d5a2283d4ef 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -637,10 +637,58 @@ static void __init init_staticmem_pages(void)
+ }
+ 
+ #ifdef CONFIG_ARM_32
++/*
++ * Populate the boot allocator. All the RAM but the following regions
++ * will be added:
++ *  - Modules (e.g., Xen, Kernel)
++ *  - Reserved regions
++ *  - Xenheap
++ */
++static void __init populate_boot_allocator(void)
++{
++    unsigned int i;
++    const struct meminfo *banks = &bootinfo.mem;
++
++    for ( i = 0; i < banks->nr_banks; i++ )
++    {
++        const struct membank *bank = &banks->bank[i];
++        paddr_t bank_end = bank->start + bank->size;
++        paddr_t s, e;
++
++        s = bank->start;
++        while ( s < bank_end )
++        {
++            paddr_t n = bank_end;
++
++            e = next_module(s, &n);
++
++            if ( e == ~(paddr_t)0 )
++                e = n = bank_end;
++
++            /*
++             * Module in a RAM bank other than the one which we are
++             * not dealing with here.
++             */
++            if ( e > bank_end )
++                e = bank_end;
++
++            /* Avoid the xenheap */
++            if ( s < mfn_to_maddr(xenheap_mfn_end) &&
++                 mfn_to_maddr(xenheap_mfn_start) < e )
++            {
++                e = mfn_to_maddr(xenheap_mfn_start);
++                n = mfn_to_maddr(xenheap_mfn_end);
++            }
++
++            fw_unreserved_regions(s, e, init_boot_pages, 0);
++            s = n;
++        }
++    }
++}
++
+ static void __init setup_mm(void)
  {
-     /*
--     * We may require to map the page table before map_domain_page() is
--     * useable. The requirements here is it must be useable as soon as
--     * page-tables are allocated dynamically via alloc_boot_pages().
--     *
--     * We need to do the check on physical address rather than virtual
--     * address to avoid truncation on Arm32. Therefore is_kernel() cannot
--     * be used.
-+     * During early boot, map_domain_page() may be unusable. Use the
-+     * PMAP to map temporarily a page-table.
-      */
-     if ( system_state == SYS_STATE_early_boot )
+-    paddr_t ram_start, ram_end, ram_size;
+-    paddr_t s, e;
++    paddr_t ram_start, ram_end, ram_size, e;
+     unsigned long ram_pages;
+     unsigned long heap_pages, xenheap_pages, domheap_pages;
+     int i;
+@@ -718,43 +766,7 @@ static void __init setup_mm(void)
+     setup_xenheap_mappings((e >> PAGE_SHIFT) - xenheap_pages, xenheap_pages);
+ 
+     /* Add non-xenheap memory */
+-    for ( i = 0; i < bootinfo.mem.nr_banks; i++ )
 -    {
--        if ( is_xen_fixed_mfn(mfn) )
--        {
--            /*
--             * It is fine to demote the type because the size of Xen
--             * will always fit in vaddr_t.
--             */
--            vaddr_t offset = mfn_to_maddr(mfn) - virt_to_maddr(&_start);
+-        paddr_t bank_start = bootinfo.mem.bank[i].start;
+-        paddr_t bank_end = bank_start + bootinfo.mem.bank[i].size;
 -
--            return (lpae_t *)(XEN_VIRT_START + offset);
+-        s = bank_start;
+-        while ( s < bank_end )
+-        {
+-            paddr_t n = bank_end;
+-
+-            e = next_module(s, &n);
+-
+-            if ( e == ~(paddr_t)0 )
+-            {
+-                e = n = ram_end;
+-            }
+-
+-            /*
+-             * Module in a RAM bank other than the one which we are
+-             * not dealing with here.
+-             */
+-            if ( e > bank_end )
+-                e = bank_end;
+-
+-            /* Avoid the xenheap */
+-            if ( s < mfn_to_maddr(mfn_add(xenheap_mfn_start, xenheap_pages))
+-                 && mfn_to_maddr(xenheap_mfn_start) < e )
+-            {
+-                e = mfn_to_maddr(xenheap_mfn_start);
+-                n = mfn_to_maddr(mfn_add(xenheap_mfn_start, xenheap_pages));
+-            }
+-
+-            fw_unreserved_regions(s, e, init_boot_pages, 0);
+-
+-            s = n;
 -        }
 -    }
-+        return pmap_map(mfn);
++    populate_boot_allocator();
  
-     return map_domain_page(mfn);
- }
-@@ -1009,12 +994,12 @@ static void xen_unmap_table(const lpae_t *table)
- {
-     /*
-      * During early boot, xen_map_table() will not use map_domain_page()
--     * for page-tables residing in Xen binary. So skip the unmap part.
-+     * but the PMAP.
-      */
--    if ( system_state == SYS_STATE_early_boot && is_kernel(table) )
--        return;
--
--    unmap_domain_page(table);
-+    if ( system_state == SYS_STATE_early_boot )
-+        pmap_unmap(table);
-+    else
-+        unmap_domain_page(table);
- }
- 
- static int create_xen_table(lpae_t *entry)
+     /* Frame table covers all of RAM region, including holes */
+     setup_frametable_mappings(ram_start, ram_end);
 -- 
 2.32.0
 
