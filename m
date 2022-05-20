@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A037152EB99
+	by mail.lfdr.de (Postfix) with ESMTPS id 82AA552EB98
 	for <lists+xen-devel@lfdr.de>; Fri, 20 May 2022 14:10:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.333897.557814 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.333898.557826 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ns1Sb-0005Bg-39; Fri, 20 May 2022 12:10:25 +0000
+	id 1ns1Sc-0005SD-Ci; Fri, 20 May 2022 12:10:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 333897.557814; Fri, 20 May 2022 12:10:25 +0000
+Received: by outflank-mailman (output) from mailman id 333898.557826; Fri, 20 May 2022 12:10:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ns1Sb-00059a-01; Fri, 20 May 2022 12:10:25 +0000
-Received: by outflank-mailman (input) for mailman id 333897;
- Fri, 20 May 2022 12:10:24 +0000
+	id 1ns1Sc-0005P7-8k; Fri, 20 May 2022 12:10:26 +0000
+Received: by outflank-mailman (input) for mailman id 333898;
+ Fri, 20 May 2022 12:10:25 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ns1Sa-00059U-5U
- for xen-devel@lists.xenproject.org; Fri, 20 May 2022 12:10:24 +0000
+ (envelope-from <julien@xen.org>) id 1ns1Sb-0005Hy-9I
+ for xen-devel@lists.xenproject.org; Fri, 20 May 2022 12:10:25 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1ns1SZ-0005lu-Lm; Fri, 20 May 2022 12:10:23 +0000
+ id 1ns1Sa-0005m7-V3; Fri, 20 May 2022 12:10:24 +0000
 Received: from 54-240-197-232.amazon.com ([54.240.197.232]
  helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1ns1SZ-0001lI-Br; Fri, 20 May 2022 12:10:23 +0000
+ id 1ns1Sa-0001lI-JW; Fri, 20 May 2022 12:10:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,92 +41,310 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	Message-Id:Date:Subject:Cc:To:From;
-	bh=PfQdHha3NyDl+QbbUrGt+GR8CbRK1UHmtQoAcc4a784=; b=FcPNpO9ckqkCdhHITw729Ei3qR
-	R8/nIoxBDcEWSOwKKfdPQ+1e8Gvcu4f84RTl37QvwXA/JXAp711pkVpVlde+4s3v7dCZsJqHqJsMg
-	vpd9EZcQ9BIVpj8hRkoGvuBXH6lAFWfmvY1WJYoBmd9GOlkGYkI0JbHSHJ/ojC6xpNxg=;
+	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
+	In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
+	bh=bZGPX4hXWWtjiKuU1/G3tIZ/8HOIH6yjg6x6XxicNi4=; b=NDIly0hgLKDaJXvQhwtnoWQMU0
+	kv5OKALIHsTD2RNWd11IEAkRLYEo8HFEV2c6RnyXP8gK1U8HpdPytmPJaVZV6ALuW0IFEuMNLJ+kp
+	0rBswn0mHO/CMrm/d3Oxflk3KHFzLNhVRgGmC5wgNCkGoJE8VYu6ZFahH0cjYNImNtoM=;
 From: Julien Grall <julien@xen.org>
 To: xen-devel@lists.xenproject.org
 Cc: julien@xen.org,
-	Julien Grall <jgrall@amazon.com>,
+	Julien Grall <julien.grall@arm.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 00/16] xen/arm: mm: Remove open-coding mappings
-Date: Fri, 20 May 2022 13:09:21 +0100
-Message-Id: <20220520120937.28925-1-julien@xen.org>
+	Julien Grall <jgrall@amazon.com>,
+	Hongda Deng <Hongda.Heng@arm.com>
+Subject: [PATCH 01/16] xen/arm: mm: Allow other mapping size in xen_pt_update_entry()
+Date: Fri, 20 May 2022 13:09:22 +0100
+Message-Id: <20220520120937.28925-2-julien@xen.org>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20220520120937.28925-1-julien@xen.org>
+References: <20220520120937.28925-1-julien@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Julien Grall <jgrall@amazon.com>
+From: Julien Grall <julien.grall@arm.com>
 
-Hi all,
+At the moment, xen_pt_update_entry() only supports mapping at level 3
+(i.e 4KB mapping). While this is fine for most of the runtime helper,
+the boot code will require to use superpage mapping.
 
-This series was originally sent as "xen/arm: mm: Add limited support
-for superpages" [1] and finally has grown enough to remove most of
-the open-coding mappings in the boot code.
+We don't want to allow superpage mapping by default as some of the
+callers may expect small mappings (i.e populate_pt_range()) or even
+expect to unmap only a part of a superpage.
 
-This will help to:
-    1) Get better compliance with the Arm memory model
-    2) Pave the way to support other page size (64KB, 16KB)
+To keep the code simple, a new flag _PAGE_BLOCK is introduced to
+allow the caller to enable superpage mapping.
 
-Cheers,
+As the code doesn't support all the combinations, xen_pt_check_entry()
+is extended to take into account the cases we don't support when
+using block mapping:
+    - Replacing a table with a mapping. This may happen if region was
+    first mapped with 4KB mapping and then later on replaced with a 2MB
+    (or 1GB mapping).
+    - Removing/modifying a table. This may happen if a caller try to
+    remove a region with _PAGE_BLOCK set when it was created without it.
 
-[1] <20201119190751.22345-1-julien@xen.org>
+Note that the current restriction means that the caller must ensure that
+_PAGE_BLOCK is consistently set/cleared across all the updates on a
+given virtual region. This ought to be fine with the expected use-cases.
 
-Julien Grall (15):
-  xen/arm: mm: Allow other mapping size in xen_pt_update_entry()
-  xen/arm: mm: Add support for the contiguous bit
-  xen/arm: mm: Avoid flushing the TLBs when mapping are inserted
-  xen/arm: mm: Don't open-code Xen PT update in remove_early_mappings()
-  xen/arm: mm: Re-implement early_fdt_map() using map_pages_to_xen()
-  xen/arm32: mm: Re-implement setup_xenheap_mappings() using
-    map_pages_to_xen()
-  xen/arm: mm: Allocate xen page tables in domheap rather than xenheap
-  xen/arm: mm: Allow page-table allocation from the boot allocator
-  xen/arm: Move fixmap definitions in a separate header
-  xen/arm: mm: Clean-up the includes and order them
-  xen/arm: mm: Use the PMAP helpers in xen_{,un}map_table()
-  xen/arm32: setup: Move out the code to populate the boot allocator
-  xen/arm64: mm: Add memory to the boot allocator first
-  xen/arm: mm: Rework setup_xenheap_mappings()
-  xen/arm: mm: Re-implement setup_frame_table_mappings() with
-    map_pages_to_xen()
+More rework will be necessary if we wanted to remove the restrictions.
 
-Wei Liu (1):
-  xen/arm: add Persistent Map (PMAP) infrastructure
+Note that nr_mfns is now marked const as it is used for flushing the
+TLBs and we don't want it to be modified.
 
- xen/arch/arm/Kconfig                    |   1 +
- xen/arch/arm/acpi/lib.c                 |   2 +
- xen/arch/arm/include/asm/config.h       |   6 -
- xen/arch/arm/include/asm/early_printk.h |   1 +
- xen/arch/arm/include/asm/fixmap.h       |  48 +++
- xen/arch/arm/include/asm/lpae.h         |   8 +
- xen/arch/arm/include/asm/mm.h           |   4 -
- xen/arch/arm/include/asm/page.h         |   8 +
- xen/arch/arm/include/asm/pmap.h         |  32 ++
- xen/arch/arm/kernel.c                   |   1 +
- xen/arch/arm/mm.c                       | 494 +++++++++++++-----------
- xen/arch/arm/setup.c                    | 141 +++----
- xen/common/Kconfig                      |   3 +
- xen/common/Makefile                     |   1 +
- xen/common/pmap.c                       |  72 ++++
- xen/include/xen/acpi.h                  |  18 +-
- xen/include/xen/pmap.h                  |  16 +
- 17 files changed, 549 insertions(+), 307 deletions(-)
- create mode 100644 xen/arch/arm/include/asm/fixmap.h
- create mode 100644 xen/arch/arm/include/asm/pmap.h
- create mode 100644 xen/common/pmap.c
- create mode 100644 xen/include/xen/pmap.h
+Signed-off-by: Julien Grall <julien.grall@arm.com>
+Signed-off-by: Julien Grall <jgrall@amazon.com>
+Reviewed-by: Hongda Deng <Hongda.Heng@arm.com>
 
+---
+    Changes in v4:
+        - Add Hongda's reviewed-by
+        - Add a comment why nr_mfns is const
+        - Open-code pfn_to_paddr()
+
+    Changes in v3:
+        - Fix clash after prefixing the PT macros with XEN_PT_
+        - Fix typoes in the commit message
+        - Support superpage mappings even if nr is not suitably aligned
+        - Move the logic to find the level in a separate function
+
+    Changes in v2:
+        - Pass the target level rather than the order to
+        xen_pt_update_entry()
+        - Update some comments
+        - Open-code paddr_to_pfn()
+        - Add my AWS signed-off-by
+---
+ xen/arch/arm/include/asm/page.h |   4 ++
+ xen/arch/arm/mm.c               | 109 ++++++++++++++++++++++++++------
+ 2 files changed, 95 insertions(+), 18 deletions(-)
+
+diff --git a/xen/arch/arm/include/asm/page.h b/xen/arch/arm/include/asm/page.h
+index c6f9fb0d4e0c..07998df47bac 100644
+--- a/xen/arch/arm/include/asm/page.h
++++ b/xen/arch/arm/include/asm/page.h
+@@ -69,6 +69,7 @@
+  * [3:4] Permission flags
+  * [5]   Page present
+  * [6]   Only populate page tables
++ * [7]   Superpage mappings is allowed
+  */
+ #define PAGE_AI_MASK(x) ((x) & 0x7U)
+ 
+@@ -82,6 +83,9 @@
+ #define _PAGE_PRESENT    (1U << 5)
+ #define _PAGE_POPULATE   (1U << 6)
+ 
++#define _PAGE_BLOCK_BIT     7
++#define _PAGE_BLOCK         (1U << _PAGE_BLOCK_BIT)
++
+ /*
+  * _PAGE_DEVICE and _PAGE_NORMAL are convenience defines. They are not
+  * meant to be used outside of this header.
+diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+index 7b1f2f49060d..be2ac302d731 100644
+--- a/xen/arch/arm/mm.c
++++ b/xen/arch/arm/mm.c
+@@ -1078,9 +1078,10 @@ static int xen_pt_next_level(bool read_only, unsigned int level,
+ }
+ 
+ /* Sanity check of the entry */
+-static bool xen_pt_check_entry(lpae_t entry, mfn_t mfn, unsigned int flags)
++static bool xen_pt_check_entry(lpae_t entry, mfn_t mfn, unsigned int level,
++                               unsigned int flags)
+ {
+-    /* Sanity check when modifying a page. */
++    /* Sanity check when modifying an entry. */
+     if ( (flags & _PAGE_PRESENT) && mfn_eq(mfn, INVALID_MFN) )
+     {
+         /* We don't allow modifying an invalid entry. */
+@@ -1090,6 +1091,13 @@ static bool xen_pt_check_entry(lpae_t entry, mfn_t mfn, unsigned int flags)
+             return false;
+         }
+ 
++        /* We don't allow modifying a table entry */
++        if ( !lpae_is_mapping(entry, level) )
++        {
++            mm_printk("Modifying a table entry is not allowed.\n");
++            return false;
++        }
++
+         /* We don't allow changing memory attributes. */
+         if ( entry.pt.ai != PAGE_AI_MASK(flags) )
+         {
+@@ -1105,7 +1113,7 @@ static bool xen_pt_check_entry(lpae_t entry, mfn_t mfn, unsigned int flags)
+             return false;
+         }
+     }
+-    /* Sanity check when inserting a page */
++    /* Sanity check when inserting a mapping */
+     else if ( flags & _PAGE_PRESENT )
+     {
+         /* We should be here with a valid MFN. */
+@@ -1114,18 +1122,28 @@ static bool xen_pt_check_entry(lpae_t entry, mfn_t mfn, unsigned int flags)
+         /* We don't allow replacing any valid entry. */
+         if ( lpae_is_valid(entry) )
+         {
+-            mm_printk("Changing MFN for a valid entry is not allowed (%#"PRI_mfn" -> %#"PRI_mfn").\n",
+-                      mfn_x(lpae_get_mfn(entry)), mfn_x(mfn));
++            if ( lpae_is_mapping(entry, level) )
++                mm_printk("Changing MFN for a valid entry is not allowed (%#"PRI_mfn" -> %#"PRI_mfn").\n",
++                          mfn_x(lpae_get_mfn(entry)), mfn_x(mfn));
++            else
++                mm_printk("Trying to replace a table with a mapping.\n");
+             return false;
+         }
+     }
+-    /* Sanity check when removing a page. */
++    /* Sanity check when removing a mapping. */
+     else if ( (flags & (_PAGE_PRESENT|_PAGE_POPULATE)) == 0 )
+     {
+         /* We should be here with an invalid MFN. */
+         ASSERT(mfn_eq(mfn, INVALID_MFN));
+ 
+-        /* We don't allow removing page with contiguous bit set. */
++        /* We don't allow removing a table */
++        if ( lpae_is_table(entry, level) )
++        {
++            mm_printk("Removing a table is not allowed.\n");
++            return false;
++        }
++
++        /* We don't allow removing a mapping with contiguous bit set. */
+         if ( entry.pt.contig )
+         {
+             mm_printk("Removing entry with contiguous bit set is not allowed.\n");
+@@ -1143,13 +1161,13 @@ static bool xen_pt_check_entry(lpae_t entry, mfn_t mfn, unsigned int flags)
+     return true;
+ }
+ 
++/* Update an entry at the level @target. */
+ static int xen_pt_update_entry(mfn_t root, unsigned long virt,
+-                               mfn_t mfn, unsigned int flags)
++                               mfn_t mfn, unsigned int target,
++                               unsigned int flags)
+ {
+     int rc;
+     unsigned int level;
+-    /* We only support 4KB mapping (i.e level 3) for now */
+-    unsigned int target = 3;
+     lpae_t *table;
+     /*
+      * The intermediate page tables are read-only when the MFN is not valid
+@@ -1204,7 +1222,7 @@ static int xen_pt_update_entry(mfn_t root, unsigned long virt,
+     entry = table + offsets[level];
+ 
+     rc = -EINVAL;
+-    if ( !xen_pt_check_entry(*entry, mfn, flags) )
++    if ( !xen_pt_check_entry(*entry, mfn, level, flags) )
+         goto out;
+ 
+     /* If we are only populating page-table, then we are done. */
+@@ -1222,8 +1240,11 @@ static int xen_pt_update_entry(mfn_t root, unsigned long virt,
+         {
+             pte = mfn_to_xen_entry(mfn, PAGE_AI_MASK(flags));
+ 
+-            /* Third level entries set pte.pt.table = 1 */
+-            pte.pt.table = 1;
++            /*
++             * First and second level pages set pte.pt.table = 0, but
++             * third level entries set pte.pt.table = 1.
++             */
++            pte.pt.table = (level == 3);
+         }
+         else /* We are updating the permission => Copy the current pte. */
+             pte = *entry;
+@@ -1243,15 +1264,57 @@ out:
+     return rc;
+ }
+ 
++/* Return the level where mapping should be done */
++static int xen_pt_mapping_level(unsigned long vfn, mfn_t mfn, unsigned long nr,
++                                unsigned int flags)
++{
++    unsigned int level;
++    unsigned long mask;
++
++    /*
++      * Don't take into account the MFN when removing mapping (i.e
++      * MFN_INVALID) to calculate the correct target order.
++      *
++      * Per the Arm Arm, `vfn` and `mfn` must be both superpage aligned.
++      * They are or-ed together and then checked against the size of
++      * each level.
++      *
++      * `left` is not included and checked separately to allow
++      * superpage mapping even if it is not properly aligned (the
++      * user may have asked to map 2MB + 4k).
++      */
++     mask = !mfn_eq(mfn, INVALID_MFN) ? mfn_x(mfn) : 0;
++     mask |= vfn;
++
++     /*
++      * Always use level 3 mapping unless the caller request block
++      * mapping.
++      */
++     if ( likely(!(flags & _PAGE_BLOCK)) )
++         level = 3;
++     else if ( !(mask & (BIT(FIRST_ORDER, UL) - 1)) &&
++               (nr >= BIT(FIRST_ORDER, UL)) )
++         level = 1;
++     else if ( !(mask & (BIT(SECOND_ORDER, UL) - 1)) &&
++               (nr >= BIT(SECOND_ORDER, UL)) )
++         level = 2;
++     else
++         level = 3;
++
++     return level;
++}
++
+ static DEFINE_SPINLOCK(xen_pt_lock);
+ 
+ static int xen_pt_update(unsigned long virt,
+                          mfn_t mfn,
+-                         unsigned long nr_mfns,
++                         /* const on purpose as it is used for TLB flush */
++                         const unsigned long nr_mfns,
+                          unsigned int flags)
+ {
+     int rc = 0;
+-    unsigned long addr = virt, addr_end = addr + nr_mfns * PAGE_SIZE;
++    unsigned long vfn = virt >> PAGE_SHIFT;
++    unsigned long left = nr_mfns;
+ 
+     /*
+      * For arm32, page-tables are different on each CPUs. Yet, they share
+@@ -1283,14 +1346,24 @@ static int xen_pt_update(unsigned long virt,
+ 
+     spin_lock(&xen_pt_lock);
+ 
+-    for ( ; addr < addr_end; addr += PAGE_SIZE )
++    while ( left )
+     {
+-        rc = xen_pt_update_entry(root, addr, mfn, flags);
++        unsigned int order, level;
++
++        level = xen_pt_mapping_level(vfn, mfn, left, flags);
++        order = XEN_PT_LEVEL_ORDER(level);
++
++        ASSERT(left >= BIT(order, UL));
++
++        rc = xen_pt_update_entry(root, vfn << PAGE_SHIFT, mfn, level, flags);
+         if ( rc )
+             break;
+ 
++        vfn += 1U << order;
+         if ( !mfn_eq(mfn, INVALID_MFN) )
+-            mfn = mfn_add(mfn, 1);
++            mfn = mfn_add(mfn, 1U << order);
++
++        left -= (1U << order);
+     }
+ 
+     /*
 -- 
 2.32.0
 
