@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 135F852FC91
-	for <lists+xen-devel@lfdr.de>; Sat, 21 May 2022 15:10:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.334739.558807 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73AA752FCD6
+	for <lists+xen-devel@lfdr.de>; Sat, 21 May 2022 15:24:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.334749.558822 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nsOrW-00067g-D5; Sat, 21 May 2022 13:09:42 +0000
+	id 1nsP5b-0008Pr-Pw; Sat, 21 May 2022 13:24:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 334739.558807; Sat, 21 May 2022 13:09:42 +0000
+Received: by outflank-mailman (output) from mailman id 334749.558822; Sat, 21 May 2022 13:24:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nsOrW-000656-AQ; Sat, 21 May 2022 13:09:42 +0000
-Received: by outflank-mailman (input) for mailman id 334739;
- Sat, 21 May 2022 13:09:40 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1nsP5b-0008NO-N1; Sat, 21 May 2022 13:24:15 +0000
+Received: by outflank-mailman (input) for mailman id 334749;
+ Sat, 21 May 2022 13:24:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nsOrU-00064w-Qj; Sat, 21 May 2022 13:09:40 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nsOrU-00083P-OF; Sat, 21 May 2022 13:09:40 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nsOrU-00087A-E6; Sat, 21 May 2022 13:09:40 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nsOrU-0004Ao-Db; Sat, 21 May 2022 13:09:40 +0000
+ (envelope-from <SRS0=hP7g=V5=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1nsP5a-0008NI-CU
+ for xen-devel@lists.xenproject.org; Sat, 21 May 2022 13:24:14 +0000
+Received: from sonic315-54.consmr.mail.gq1.yahoo.com
+ (sonic315-54.consmr.mail.gq1.yahoo.com [98.137.65.30])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4c269b90-d909-11ec-837e-e5687231ffcc;
+ Sat, 21 May 2022 15:24:12 +0200 (CEST)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic315.consmr.mail.gq1.yahoo.com with HTTP; Sat, 21 May 2022 13:24:08 +0000
+Received: by hermes--canary-production-bf1-5d4b57496-srbfg (Yahoo Inc. Hermes
+ SMTP Server) with ESMTPA ID b79d68d9aeaaa8a76906c73f93b0ea7b; 
+ Sat, 21 May 2022 13:24:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,182 +42,266 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=kO2R9k4E+0BgfDE380U5bYScTCiJzEfcQheWr1gNb/o=; b=kie4sdmvCHS1Yoamwmu+rFto43
-	A/CSXRpWgnhQl7H+D3bRrlOkXS9l7wkFI2XaNWRMCpAwaB2rGTZnXgNGYIuLvuvLDMgR8QRvg8BaM
-	nCMlkPtxv7NR2wDayppSHtZpuqTNi9KQKMuihf7BzxLLWgWcpxsqZYV0vbF4J8iOJKNU=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170638-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 4c269b90-d909-11ec-837e-e5687231ffcc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1653139448; bh=u7Yu+KyEIfPZJbhWAIRqnrm/m3z+dGwiH+Er13915nE=; h=Date:From:Subject:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=Vz/X7Tg2KXqHVb0jKRQz9cJZrnXS6Y0rMqdMeizybrsocQSbPfzfutoh/J3UP0G1gsnBS02sQJLl4BPL4MVHEFtijFGTXttTpdw5UYoNFz9yzMMIDEA7FKHSbuQec1GzeBEiM83Kh+tnyu3YAns5Qr8CH/EzVHaN4rehQyCan/+Uf1Mb6jtvCi9O5T88AUxwxf9+8qsB55nQW/xqnSu17UuUPSxjrf4YuHm6dYwxxcl1IBQ9QCBK1iVmh2FEApWUmX/yap+reTSCOLChc5SVBIV53xjyUOaRsSjmhYp88c+l2Q6fRugEDhWn2vYsLRG9NhzKKDzAeIZC1OdwYgovMg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1653139448; bh=fjywVtOkL+0USSEpOqb1IdSWmSiRUy7HljK9ZuevyH9=; h=X-Sonic-MF:Date:From:Subject:To:From:Subject; b=REmdCsNLmO5djeOLQ0OMVJaDeOY8bQKZoTfIErzQJX21RscnkKf0SYroqeSzNSXxJ0/cqSdLoBrPIoRdBoGHmA5DW7EzpFtJ3E4+og/ELN8uCdYYO2Q5pzWQVII0stCPD6+/76EBiknW7cgFBbQhcAMQL83XCBBZqtpxSRKrKZHQwdltsK3qogqF7gBBg2wXaAXQblY6Joowrq7TqO96Mk9GNmzT+lmjXPaXnNzS/m8G4RlWKz4GNpnonZiE4EU6XgNuyydgxLWfmBpSZfI15aJBzRPay8IrZtF3hYPfFoHwCxXmkoAbI0daWTRFgPZlbxNXXjIwsWkqWFFQUEtM1w==
+X-YMail-OSG: dGjnYDYVM1nZFIxMGgIyXvS33pdt8sJTeJDIiUVrevs4mbVRYc9JT4J52MOoXFo
+ 2cmWTv0ymmA5a.XrpPIirj2zCrOKW1cD4PDtyUkTkMvWgA.dQufwQHJ1bktN8Kn7TwSOpMhVt93L
+ DMCAfGwmhMRscJH_GslY1rGJdnTJNkFuEhbJu9UxrpM3JnHmFGSfZDlNyrtLvKuGl_4W8G741WCP
+ JDu97AzYxdMPQeJGJ7VEPUR7GAvgyZ4TQAKSpTTfI1WjWAW.cgNHO86ukAkrU5OVIbX2i4x.h5PJ
+ BHwgAHWpZ.VUIlvQn8rQ.J_WCXWvex.Wt8547Trf8THc6rnE2JMpE1MSWzHqf1UfIh_HGf4L9C8u
+ SCghkIwaj35mCeq5neDHxa9hr_Zv8tZMvHwv8kLMrEqk6XLaaVWFwAS1XD3M4KzJRa31tzI37FDk
+ QXt7bp3acIE72ibVmS.aUfRJG2W.mTwbSOKcUSXroteXR_2OS.2_W8i_K.4uvIHye0iPfYTJKXxC
+ lBTcqugQj0xiRAO96XTHSLHlitLK8ZMDztlXxiWP2UvV7587GzeuXEkFigVkm6KLqY4viE5ZIHvB
+ Pb0q25Av2XkjI2TBdfoeYqwqWh9F3WNBzTmS1IJXQPJ66JwQRiEfa3p9XKxztfx5FyeHFKoQUeId
+ PCZ9fpGXv5fhIZDC5l6X.RPDacaAtAwOEYNIsgfsEkA6S1y9XNdiiDs2BSoy68f3Mu0F99Uyh.9F
+ Wz9PUbH7AMcZ6iX0UKft1J8OUhrkW01WvbjuW0VB7lB4Z8PSwY9fpKXNNtPf6.lGr6bRCnBQv9v4
+ AoSI9FwsCPTqlAkhoJ3ftMih_G7GS.J3bC3gQvutP_9CGAvlzeU80xM8dOlgT7kCAvA7xI7SWBS6
+ 7L472O3tbs2Kog3Yn08ViAY4Ojx_n8JaGTOYC0jB6mQdaqbiXx0Dod9VhOi9NdROaQ7K_jM2Fg6q
+ jfX0lJFgcURmZxQIER9oqJUDNGSvwU3O3TI0GS5HLZXzWZOfDvsdLaZd7eAtgVCh7K7wiAvfe4F8
+ yMlzWfEgLxgtUWZRj8oz7KaSTL8otVTauLWgccOfaI4TXRJqLgfei7HaJJ5prAa2MDLVUXfcbrjK
+ AFezWEsMjJJz1jExkY.jVIJt2aHPZ5jU_iaGKWwIIckODByIMFrcKN._fRUrneCyXMBDajYVWi78
+ z8WxhwE961lFmVxFjJQHT6Gei1eRuSBe7CbMJpt7Sv2aCf_1aCiU1Zyk3g8newjwJyOcE8G0lln1
+ gFPLNp5LkdcHkL7DyxCwjk4KBX93L8E8QyyhR.cb6I3TVQUtE71AhHkQ9Oe8amJShJ5NxHx1t4ZS
+ qLoj9R3SozO1KD4nJzkHTa8xOGBaSBqMuWsi3L59zFykR19Rhm7mGPcvDEEdh8pQPb7miqjQSTAp
+ va.zuhmV.8nPmfugL63FgqXpMDWMj.noB0SXevpSCNu2pb0t971LbflvRku0dQ8sdidFPjP0T59e
+ n7j3zux1vsAKSVODZfBUylDIayyLZO8DyJ8s2Tjz2yqZELG6TkSnZhUQGt5uNaPzy3o64voqXyGw
+ CtKbYLMRO_4EEk.MH.roLBmZ0ErR_9n.FF339MWy6d.YUf.32MBVCTKaMt62vUjdqT8tFy8H0hlH
+ kD._tV6XPf9OcEVCtI9gDKBbjXfrh6CR.MMC9ldL4d1kHPg1amuhdc0riFynonchkfjKiDNjZVkz
+ 8S5e_cOKFB.ExWBtqIdS7hBeTiWkOi7V._.7UgwHrTUFT41CTEbHLNrTM0I32.xxYNn8izmJ0iWf
+ 6IOQPUAWyDt5_uZWxtpD7bsWgFRf1MHQnvsgd4D_edQEXfKITXduB20HO3aiB4amJZrRXev3maFv
+ .UaFb.y6uRbXN08phHBQmLW4RLEFFZK_bJLb_tCAXurN_k9Oc.nmmySBgde74mBIDbn3eJAZOZ.s
+ erewTSNVwNPlAZHCDrWjFs5u6kfAVA7rnW4vXS6Q0wOOOf8dyICsjYbJ4pxSfx3q6A_Y0cuYgP3A
+ AnCrTQQs5KzIWcZVrOuD7BWcykmDxlBfoYfJs1rvEiD1NLdNT2pkJe.9PfhsuoP2ZViKr3HYfH.0
+ jxgHneh0253SxqRrsGsiBskaaZcjTsdA1q7bhcfmfFhHKSPA8vBH3NkWKsbw_AL21U4OdW92qHRH
+ bWhDHPshEz_xyfbLkB.ESMn5LKE3_ATG4UDBb8t6tPXnMr9gOH6llQC7gxcyL7rz6O0rieSRKpNd
+ zst9pFHIsyguMlw--
+X-Sonic-MF: <brchuckz@aim.com>
+Message-ID: <6c13b3ec-dc39-8de1-8e5d-87138f2a3b4b@netscape.net>
+Date: Sat, 21 May 2022 09:24:03 -0400
 MIME-Version: 1.0
-Subject: [ovmf test] 170638: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=a21a3438f795deecb24e1843c1636f95c485017c
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 21 May 2022 13:09:40 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+From: Chuck Zmudzinski <brchuckz@netscape.net>
+Subject: Re: [PATCH 2/2] x86/pat: add functions to query specific cache mode
+ availability
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+ x86@kernel.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Jan Beulich <jbeulich@suse.com>
+References: <20220503132207.17234-1-jgross@suse.com>
+ <20220503132207.17234-3-jgross@suse.com>
+Content-Language: en-US
+In-Reply-To: <20220503132207.17234-3-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Mailer: WebService/1.1.20225 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-flight 170638 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170638/
+On 5/3/22 9:22 AM, Juergen Gross wrote:
+> Some drivers are using pat_enabled() in order to test availability of
+> special caching modes (WC and UC-). This will lead to false negatives
+> in case the system was booted e.g. with the "nopat" variant and the
+> BIOS did setup the PAT MSR supporting the queried mode, or if the
+> system is running as a Xen PV guest.
+>
+> Add test functions for those caching modes instead and use them at the
+> appropriate places.
+>
+> For symmetry reasons export the already existing x86_has_pat_wp() for
+> modules, too.
+>
+> Fixes: bdd8b6c98239 ("drm/i915: replace X86_FEATURE_PAT with pat_enabled()")
+> Fixes: ae749c7ab475 ("PCI: Add arch_can_pci_mmap_wc() macro")
+> Signed-off-by: Juergen Gross<jgross@suse.com>
+> ---
+>   arch/x86/include/asm/memtype.h           |  2 ++
+>   arch/x86/include/asm/pci.h               |  2 +-
+>   arch/x86/mm/init.c                       | 25 +++++++++++++++++++++---
+>   drivers/gpu/drm/i915/gem/i915_gem_mman.c |  8 ++++----
+>   4 files changed, 29 insertions(+), 8 deletions(-)
+>
+> diff --git a/arch/x86/include/asm/memtype.h b/arch/x86/include/asm/memtype.h
+> index 9ca760e430b9..d00e0be854d4 100644
+> --- a/arch/x86/include/asm/memtype.h
+> +++ b/arch/x86/include/asm/memtype.h
+> @@ -25,6 +25,8 @@ extern void memtype_free_io(resource_size_t start, resource_size_t end);
+>   extern bool pat_pfn_immune_to_uc_mtrr(unsigned long pfn);
+>   
+>   bool x86_has_pat_wp(void);
+> +bool x86_has_pat_wc(void);
+> +bool x86_has_pat_uc_minus(void);
+>   enum page_cache_mode pgprot2cachemode(pgprot_t pgprot);
+>   
+>   #endif /* _ASM_X86_MEMTYPE_H */
+> diff --git a/arch/x86/include/asm/pci.h b/arch/x86/include/asm/pci.h
+> index f3fd5928bcbb..a5742268dec1 100644
+> --- a/arch/x86/include/asm/pci.h
+> +++ b/arch/x86/include/asm/pci.h
+> @@ -94,7 +94,7 @@ int pcibios_set_irq_routing(struct pci_dev *dev, int pin, int irq);
+>   
+>   
+>   #define HAVE_PCI_MMAP
+> -#define arch_can_pci_mmap_wc()	pat_enabled()
+> +#define arch_can_pci_mmap_wc()	x86_has_pat_wc()
+>   #define ARCH_GENERIC_PCI_MMAP_RESOURCE
+>   
+>   #ifdef CONFIG_PCI
+> diff --git a/arch/x86/mm/init.c b/arch/x86/mm/init.c
+> index 71e182ebced3..b6431f714dc2 100644
+> --- a/arch/x86/mm/init.c
+> +++ b/arch/x86/mm/init.c
+> @@ -77,12 +77,31 @@ static uint8_t __pte2cachemode_tbl[8] = {
+>   	[__pte2cm_idx(_PAGE_PWT | _PAGE_PCD | _PAGE_PAT)] = _PAGE_CACHE_MODE_UC,
+>   };
+>   
+> -/* Check that the write-protect PAT entry is set for write-protect */
+> +static bool x86_has_pat_mode(unsigned int mode)
+> +{
+> +	return __pte2cachemode_tbl[__cachemode2pte_tbl[mode]] == mode;
+> +}
+> +
+> +/* Check that PAT supports write-protect */
+>   bool x86_has_pat_wp(void)
+>   {
+> -	return __pte2cachemode_tbl[__cachemode2pte_tbl[_PAGE_CACHE_MODE_WP]] ==
+> -	       _PAGE_CACHE_MODE_WP;
+> +	return x86_has_pat_mode(_PAGE_CACHE_MODE_WP);
+> +}
+> +EXPORT_SYMBOL_GPL(x86_has_pat_wp);
+> +
+> +/* Check that PAT supports WC */
+> +bool x86_has_pat_wc(void)
+> +{
+> +	return x86_has_pat_mode(_PAGE_CACHE_MODE_WC);
+> +}
+> +EXPORT_SYMBOL_GPL(x86_has_pat_wc);
+> +
+> +/* Check that PAT supports UC- */
+> +bool x86_has_pat_uc_minus(void)
+> +{
+> +	return x86_has_pat_mode(_PAGE_CACHE_MODE_UC_MINUS);
+>   }
+> +EXPORT_SYMBOL_GPL(x86_has_pat_uc_minus);
+>   
+>   enum page_cache_mode pgprot2cachemode(pgprot_t pgprot)
+>   {
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+> index 0c5c43852e24..f43ecf3f63eb 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+> @@ -76,7 +76,7 @@ i915_gem_mmap_ioctl(struct drm_device *dev, void *data,
+>   	if (args->flags & ~(I915_MMAP_WC))
+>   		return -EINVAL;
+>   
+> -	if (args->flags & I915_MMAP_WC && !pat_enabled())
+> +	if (args->flags & I915_MMAP_WC && !x86_has_pat_wc())
+>   		return -ENODEV;
+>   
+>   	obj = i915_gem_object_lookup(file, args->handle);
+> @@ -757,7 +757,7 @@ i915_gem_dumb_mmap_offset(struct drm_file *file,
+>   
+>   	if (HAS_LMEM(to_i915(dev)))
+>   		mmap_type = I915_MMAP_TYPE_FIXED;
+> -	else if (pat_enabled())
+> +	else if (x86_has_pat_wc())
+>   		mmap_type = I915_MMAP_TYPE_WC;
+>   	else if (!i915_ggtt_has_aperture(to_gt(i915)->ggtt))
+>   		return -ENODEV;
+> @@ -813,7 +813,7 @@ i915_gem_mmap_offset_ioctl(struct drm_device *dev, void *data,
+>   		break;
+>   
+>   	case I915_MMAP_OFFSET_WC:
+> -		if (!pat_enabled())
+> +		if (!x86_has_pat_wc())
+>   			return -ENODEV;
+>   		type = I915_MMAP_TYPE_WC;
+>   		break;
+> @@ -823,7 +823,7 @@ i915_gem_mmap_offset_ioctl(struct drm_device *dev, void *data,
+>   		break;
+>   
+>   	case I915_MMAP_OFFSET_UC:
+> -		if (!pat_enabled())
+> +		if (!x86_has_pat_uc_minus())
+>   			return -ENODEV;
+>   		type = I915_MMAP_TYPE_UC;
+>   		break;
 
-Regressions :-(
+This patch is advertised as a fix for
+bdd8b6c98239 ("drm/i915: replace X86_FEATURE_PAT with pat_enabled()")
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+bdd8b6c98239 causes a serious regression on my system when
+running Linux as a Dom0 on Xen.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+The regression is that on my system, the error caused by this issue
+causes the i915driver to call its add_taint_for_CI function, which
+in turn totally halts the system during early boot. So this makes
+it impossible for either 5.17.y or the 5.18-rc versions to run
+as a Dom0 on my system. I cannot upgrade my system to the 5.17.y
+or to 5.18-rc versions without a proper fix for bdd8b6c98239.
 
-version targeted for testing:
- ovmf                 a21a3438f795deecb24e1843c1636f95c485017c
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
+I did some testing with this patch on my system (my tests included
+the first patch of this 2-patch series), and here are the results:
 
-Last test of basis   168254  2022-02-28 10:41:46 Z   82 days
-Failing since        168258  2022-03-01 01:55:31 Z   81 days 1139 attempts
-Testing same since   170593  2022-05-20 06:42:41 Z    1 days   27 attempts
+This patch does *not* fix it. I expected this patch, as is, to not
+fix it but allow me to add a simple patch that uses the new
+x86_has_pat_wc() function provided by this patch to the
+i915_gem_object_pin_map() function in i915_gem_pages.c
+that would fix it.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Ard Biesheuvel <ardb@kernel.org>
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chao Li <lichao@loongson.cn>
-  Chao, Zhuoran <zhuoran.chao@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Christine <Yuwei.Chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Dandan Bi <dandan.bi@intel.com>
-  dann frazier <dann.frazier@canonical.com>
-  Dun Tan <dun.tan@intel.com>
-  duntan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gua Guo <gua.guo@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Jiewen Yao <jiewen.yao@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Peter Grehan <grehan@freebsd.org>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Tom Lendacky <thomas.lendacky@amd.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yu Pu <yu.pu@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Yuwei Chen <yuwei.chen@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-  Zhuoran Chao <zhuoran.chao@intel.com>
+However, even by adding the following simple patch to the
+i915_gem_object_pin_map() function to the patch, the
+patch series still does *not* fix the regression on my system:
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+--- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+@@ -428,7 +428,7 @@
+              goto err_unpin;
+          }
 
+-        if (GEM_WARN_ON(type == I915_MAP_WC && !pat_enabled()))
++        if (GEM_WARN_ON(type == I915_MAP_WC && !x86_has_pat_wc()))
+              ptr = ERR_PTR(-ENODEV);
+          else if (i915_gem_object_has_struct_page(obj))
+              ptr = i915_gem_object_map_page(obj, type);
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+I verified that this is the function where pat_enabled() is returning
+a false negative on my system.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+This means x86_has_pat_wc() is still giving me a false negative, even
+when running as a Xen Dom0. I am not sure you understand what is
+really causing the problem Jan is trying to fix here with false
+negatives from pat_enabled(). I also tested Jan's patch that
+you are trying to replace with this patch, and his patch *does* fix
+the problem on my system. Jan's patch is very simple and solves the
+problem by editing pat_enabled() so that it returns true if
+boot_cpu_has(X86_FEATURE_HYPERVISOR)) is true after the
+other checks for the x86 pat feature failed.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+I expect you do not have a system that actually has the problem
+that Jan and I are trying to fix because the problem only exists on
+systems with specific hardware, and in my case it is an Intel Haswell
+CPU with integrated GPU. You might be able to test your patch,
+though, if you boot the patched kernel with the nopat option and
+check if your new functions return false when running on the bare
+metal and true when running in a Dom0 on the Xen hypervisor. That is
+what the new functions should do. I think you were expecting your
+new x86_has_pat_wc() function to return true when Linux is running
+as a Dom0 on the Xen hypervisor even when pat_enabled() returns
+false. But it does not seem to be working.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+In any case, after testing this patch, I cannot confirm that it
+fixes bdd8b6c98239.
 
+Best regards,
 
-Not pushing.
-
-(No revision log; it would be 6968 lines long.)
+Chuck
 
