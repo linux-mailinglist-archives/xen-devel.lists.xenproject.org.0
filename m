@@ -2,45 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46B1052F93A
-	for <lists+xen-devel@lfdr.de>; Sat, 21 May 2022 08:26:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.334396.558680 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26E3752F922
+	for <lists+xen-devel@lfdr.de>; Sat, 21 May 2022 08:02:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.334613.558666 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nsIYD-0005kU-02; Sat, 21 May 2022 06:25:21 +0000
+	id 1nsIBk-0003J8-1L; Sat, 21 May 2022 06:02:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 334396.558680; Sat, 21 May 2022 06:25:20 +0000
+Received: by outflank-mailman (output) from mailman id 334613.558666; Sat, 21 May 2022 06:02:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nsIYC-0005hj-Si; Sat, 21 May 2022 06:25:20 +0000
-Received: by outflank-mailman (input) for mailman id 334396;
- Fri, 20 May 2022 15:13:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gipH=V4=efficios.com=mathieu.desnoyers@srs-se1.protection.inumbo.net>)
- id 1ns4JO-0002vj-4X
- for xen-devel@lists.xenproject.org; Fri, 20 May 2022 15:13:06 +0000
-Received: from mail.efficios.com (mail.efficios.com [167.114.26.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 588a82f9-d84f-11ec-bd2c-47488cf2e6aa;
- Fri, 20 May 2022 17:13:04 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.efficios.com (Postfix) with ESMTP id 2CD1E3EF507;
- Fri, 20 May 2022 10:37:54 -0400 (EDT)
-Received: from mail.efficios.com ([127.0.0.1])
- by localhost (mail03.efficios.com [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id K6z2fUU2BRbM; Fri, 20 May 2022 10:37:53 -0400 (EDT)
-Received: from localhost (localhost [127.0.0.1])
- by mail.efficios.com (Postfix) with ESMTP id B3B213EF505;
- Fri, 20 May 2022 10:37:51 -0400 (EDT)
-Received: from mail.efficios.com ([127.0.0.1])
- by localhost (mail03.efficios.com [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id eBm25T-A2ldC; Fri, 20 May 2022 10:37:51 -0400 (EDT)
-Received: from thinkos.internal.efficios.com (192-222-180-24.qc.cable.ebox.net
- [192.222.180.24])
- by mail.efficios.com (Postfix) with ESMTPSA id 7161A3EF14F;
- Fri, 20 May 2022 10:37:50 -0400 (EDT)
+	id 1nsIBj-0003H1-Ti; Sat, 21 May 2022 06:02:07 +0000
+Received: by outflank-mailman (input) for mailman id 334613;
+ Sat, 21 May 2022 06:02:06 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nsIBi-0003Gr-OF; Sat, 21 May 2022 06:02:06 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nsIBi-0007RP-Le; Sat, 21 May 2022 06:02:06 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nsIBi-00070v-5T; Sat, 21 May 2022 06:02:06 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nsIBi-0000qx-53; Sat, 21 May 2022 06:02:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,107 +42,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 588a82f9-d84f-11ec-bd2c-47488cf2e6aa
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.efficios.com B3B213EF505
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=default; t=1653057471;
-	bh=eKAcUJ3Vwog/U5pko6aDj4DxDE5BHJKJTsP7eji0qRI=;
-	h=From:To:Date:Message-Id:MIME-Version;
-	b=Dalrt/O/csYw6k+1pFLjX1u/7y6LmT2e0VvGO6Z/iLTutpGc44TGfvsfdBK50yhAl
-	 dTxcV2n8uOpV7ZXEMI0l33iQ/+au029/3yhJBnpXD0PyRNGvWPK6Hgzd5FZN9rzuT5
-	 6q5cFEHY+u8PcEmfJeZ46fV9pVIt323m+nX5n9ywSMtO8uK/Y31yvwYaIIX7/mtA3Y
-	 GOV2UpvEfu8AS3gMUcMY4jUDJUkvcZ2f9W6grMHe0zpnNtKTvS2cBVE53VmsECQrPd
-	 01J1t2kODSEC9jWxzMArK4IIzDpXyjQktX47Ju6/nVjIumWJs8Da4ySIK9u4Qpnkrs
-	 4MHPL49SroLHA==
-X-Virus-Scanned: amavisd-new at efficios.com
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: grub-devel@gnu.org
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	xen-devel@lists.xenproject.org
-Subject: [RFC PATCH v3 2/5] grub-mkconfig linux_xen: Fix quadratic algorithm for sorting menu items
-Date: Fri, 20 May 2022 10:37:38 -0400
-Message-Id: <20220520143741.217690-3-mathieu.desnoyers@efficios.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220520143741.217690-1-mathieu.desnoyers@efficios.com>
-References: <20220520143741.217690-1-mathieu.desnoyers@efficios.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=qZw9mE6BoFeqWXAGn8PZW7CdNn3DGTdNe1odwd27YIk=; b=6piuzkg00IBOT+1wcV4NUFB+lr
+	E5rbT9NE7CkRjeGfQJ7C8LhvqZkzGX5epQyfAKWjc50WszEAbvJx6vGYyZZg1imV17qDEyoR2UlBL
+	QlVpQD3HSl0KDQssQ8qRH7YiE3XL7gLIRsC8/HzqVd+owh2jMkzCo99ZCNy6zJOCW5Gk=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-170627-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Subject: [ovmf test] 170627: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=a21a3438f795deecb24e1843c1636f95c485017c
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 21 May 2022 06:02:06 +0000
 
-The current implementation of the 20_linux_xen script implements its
-menu items sorting in bash with a quadratic algorithm, calling "sed",
-"sort", "head", and "grep" to compare versions between individual lines,
-which is annoyingly slow for kernel developers who can easily end up
-with 50-100 kernels in their boot partition.
+flight 170627 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/170627/
 
-This fix is ported from the 10_linux script, which has a similar
-quadratic code pattern.
+Regressions :-(
 
-[ Note: this is untested. I would be grateful if anyone with a Xen
-  environment could test it before it is merged. ]
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
 
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: xen-devel@lists.xenproject.org
----
- util/grub.d/20_linux_xen.in | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-diff --git a/util/grub.d/20_linux_xen.in b/util/grub.d/20_linux_xen.in
-index f45559ff8..3178eb430 100644
---- a/util/grub.d/20_linux_xen.in
-+++ b/util/grub.d/20_linux_xen.in
-@@ -237,11 +237,17 @@ esac
- # yet, so it's empty. In a submenu it will be equal to '\t' (one tab).
- submenu_indentation=3D""
-=20
-+# Perform a reverse version sort on the entire xen_list and linux_list.
-+# Temporarily replace the '.old' suffix by ' 1' and append ' 2' for all
-+# other files to order the '.old' files after their non-old counterpart
-+# in reverse-sorted order.
-+
-+reverse_sorted_xen_list=3D$(echo ${xen_list} | tr ' ' '\n' | sed -e 's/\=
-.old$/ 1/' -e '/ 1$/! s/$/ 2/' | version_sort -r | sed -e 's/ 1$/.old/' -=
-e 's/ 2$//')
-+reverse_sorted_linux_list=3D$(echo ${linux_list} | tr ' ' '\n' | sed -e =
-'s/\.old$/ 1/' -e '/ 1$/! s/$/ 2/' | version_sort -r | sed -e 's/ 1$/.old=
-/' -e 's/ 2$//')
-+
- is_top_level=3Dtrue
-=20
--while [ "x${xen_list}" !=3D "x" ] ; do
--    list=3D"${linux_list}"
--    current_xen=3D`version_find_latest $xen_list`
-+for current_xen in ${reverse_sorted_xen_list}; do
-     xen_basename=3D`basename ${current_xen}`
-     xen_dirname=3D`dirname ${current_xen}`
-     rel_xen_dirname=3D`make_system_path_relative_to_its_root $xen_dirnam=
-e`
-@@ -273,8 +279,7 @@ while [ "x${xen_list}" !=3D "x" ] ; do
-        fi
-     done
-=20
--    while [ "x$list" !=3D "x" ] ; do
--	linux=3D`version_find_latest $list`
-+    for linux in ${reverse_sorted_linux_list}; do
- 	gettext_printf "Found linux image: %s\n" "$linux" >&2
- 	basename=3D`basename $linux`
- 	dirname=3D`dirname $linux`
-@@ -349,13 +354,10 @@ while [ "x${xen_list}" !=3D "x" ] ; do
- 	    linux_entry "${OS}" "${version}" "${xen_version}" recovery \
- 		"${GRUB_CMDLINE_LINUX_RECOVERY} ${GRUB_CMDLINE_LINUX}" "${GRUB_CMDLINE=
-_XEN}"
- 	fi
--
--	list=3D`echo $list | tr ' ' '\n' | fgrep -vx "$linux" | tr '\n' ' '`
-     done
-     if [ x"$is_top_level" !=3D xtrue ]; then
- 	echo '	}'
-     fi
--    xen_list=3D`echo $xen_list | tr ' ' '\n' | fgrep -vx "$current_xen" =
-| tr '\n' ' '`
- done
-=20
- # If at least one kernel was found, then we need to
---=20
-2.30.2
+version targeted for testing:
+ ovmf                 a21a3438f795deecb24e1843c1636f95c485017c
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
+Last test of basis   168254  2022-02-28 10:41:46 Z   81 days
+Failing since        168258  2022-03-01 01:55:31 Z   81 days 1133 attempts
+Testing same since   170593  2022-05-20 06:42:41 Z    0 days   21 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Ard Biesheuvel <ardb@kernel.org>
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chao Li <lichao@loongson.cn>
+  Chao, Zhuoran <zhuoran.chao@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Christine <Yuwei.Chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Dandan Bi <dandan.bi@intel.com>
+  dann frazier <dann.frazier@canonical.com>
+  Dun Tan <dun.tan@intel.com>
+  duntan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Gua Guo <gua.guo@intel.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jake Garver <jake@nvidia.com>
+  Jake Garver via groups.io <jake=nvidia.com@groups.io>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Jiewen Yao <jiewen.yao@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Peter Grehan <grehan@freebsd.org>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yu Pu <yu.pu@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Yuwei Chen <yuwei.chen@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+  Zhuoran Chao <zhuoran.chao@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 6968 lines long.)
 
