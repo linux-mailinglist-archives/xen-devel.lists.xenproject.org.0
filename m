@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7148353028C
-	for <lists+xen-devel@lfdr.de>; Sun, 22 May 2022 13:07:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.335065.559199 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E45D53028F
+	for <lists+xen-devel@lfdr.de>; Sun, 22 May 2022 13:08:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.335077.559210 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nsjQR-0003jb-QV; Sun, 22 May 2022 11:07:07 +0000
+	id 1nsjRN-0004RE-72; Sun, 22 May 2022 11:08:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 335065.559199; Sun, 22 May 2022 11:07:07 +0000
+Received: by outflank-mailman (output) from mailman id 335077.559210; Sun, 22 May 2022 11:08:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nsjQR-0003hn-Mh; Sun, 22 May 2022 11:07:07 +0000
-Received: by outflank-mailman (input) for mailman id 335065;
- Sun, 22 May 2022 11:07:06 +0000
+	id 1nsjRN-0004OH-2s; Sun, 22 May 2022 11:08:05 +0000
+Received: by outflank-mailman (input) for mailman id 335077;
+ Sun, 22 May 2022 11:08:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=F6th=V6=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nsjQQ-0003JG-Dp
- for xen-devel@lists.xenproject.org; Sun, 22 May 2022 11:07:06 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ id 1nsjRK-0004Nu-UM
+ for xen-devel@lists.xenproject.org; Sun, 22 May 2022 11:08:02 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 50a8b86a-d9bf-11ec-bd2c-47488cf2e6aa;
- Sun, 22 May 2022 13:07:05 +0200 (CEST)
+ id 72187642-d9bf-11ec-bd2c-47488cf2e6aa;
+ Sun, 22 May 2022 13:08:02 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9854721A8F;
- Sun, 22 May 2022 11:07:05 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id AF34D1F388;
+ Sun, 22 May 2022 11:08:01 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7759A13ADF;
- Sun, 22 May 2022 11:07:05 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3684613ADF;
+ Sun, 22 May 2022 11:08:01 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id BjGZG1kZimLObgAAMHmgww
- (envelope-from <jgross@suse.com>); Sun, 22 May 2022 11:07:05 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id nuSQC5EZimL7bgAAMHmgww
+ (envelope-from <jgross@suse.com>); Sun, 22 May 2022 11:08:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,64 +51,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50a8b86a-d9bf-11ec-bd2c-47488cf2e6aa
+X-Inumbo-ID: 72187642-d9bf-11ec-bd2c-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1653217625; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1653217681; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=9AhnZ0XRigy5OBsZplHYRUxP4XGy2JkVMG595h8PoGI=;
-	b=fYiSFlh72RTrjr/b3L9LwXsybr+BxlRiIzDaeR7GHrJ2dfE8PUiazwQtwZ1Xflx4E/9g3l
-	B34ppG6QXQx5hQDnvS2M9q3VxCPvy/0GCXfjrRvMomranBYJf5UbLCN4cy96s7zEk13CCn
-	EYxkDbz6e6s9PZPX4OZMQ3D9uFuhjdQ=
-Message-ID: <64f99415-61ed-c8a2-730b-8608377d06dc@suse.com>
-Date: Sun, 22 May 2022 13:07:05 +0200
+	bh=7jhhjX59gp3INCmTVN5+tXAZn7wIvtS1GymA5skwI10=;
+	b=MiUd93T0uon1p0IVPOalJHOEW93egU72//t2wjtdwQbSSw+6mFRVU02/IwihOhcz/7nlcJ
+	FOqzCDhGjG+2uneC2iuYk1OT9yWmegF7zOZxcbscbKF9GlOoojE17bZSL0XjU248q0qaq2
+	+cZAJc0efSNmT1jzybDvrXSjf6ha9uE=
+Message-ID: <2f70c3fc-fdb6-450c-d570-f39280798872@suse.com>
+Date: Sun, 22 May 2022 13:08:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.0
-Subject: Re: [PATCH LINUX v5 0/2] dom0less + PV drivers
+Subject: Re: [PATCH] x86: xen: remove STACK_FRAME_NON_STANDARD from xen_cpuid
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>, boris.ostrovsky@oracle.com
-Cc: xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2205131417320.3842@ubuntu-linux-20-04-desktop>
+To: Maximilian Heyne <mheyne@amazon.de>
+Cc: Josh Poimboeuf <jpoimboe@kernel.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+References: <20220517162425.100567-1-mheyne@amazon.de>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <alpine.DEB.2.22.394.2205131417320.3842@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20220517162425.100567-1-mheyne@amazon.de>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------36cMPlUx7nGadOTPeMaY6u2e"
+ boundary="------------UjP09znP3YBjHC9yreCDjkQ0"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------36cMPlUx7nGadOTPeMaY6u2e
-Content-Type: multipart/mixed; boundary="------------D2c7wBRTPKa6fuGn0vE7LAaD";
+--------------UjP09znP3YBjHC9yreCDjkQ0
+Content-Type: multipart/mixed; boundary="------------7a22TXAifxypLWqiFjNtqLoM";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Stefano Stabellini <sstabellini@kernel.org>, boris.ostrovsky@oracle.com
-Cc: xen-devel@lists.xenproject.org
-Message-ID: <64f99415-61ed-c8a2-730b-8608377d06dc@suse.com>
-Subject: Re: [PATCH LINUX v5 0/2] dom0less + PV drivers
-References: <alpine.DEB.2.22.394.2205131417320.3842@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2205131417320.3842@ubuntu-linux-20-04-desktop>
+To: Maximilian Heyne <mheyne@amazon.de>
+Cc: Josh Poimboeuf <jpoimboe@kernel.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Message-ID: <2f70c3fc-fdb6-450c-d570-f39280798872@suse.com>
+Subject: Re: [PATCH] x86: xen: remove STACK_FRAME_NON_STANDARD from xen_cpuid
+References: <20220517162425.100567-1-mheyne@amazon.de>
+In-Reply-To: <20220517162425.100567-1-mheyne@amazon.de>
 
---------------D2c7wBRTPKa6fuGn0vE7LAaD
-Content-Type: multipart/mixed; boundary="------------IzBCKOpAPEBtqLf0laCRa1WN"
+--------------7a22TXAifxypLWqiFjNtqLoM
+Content-Type: multipart/mixed; boundary="------------dPizdxr0IEHdFSKZq8XyRjCl"
 
---------------IzBCKOpAPEBtqLf0laCRa1WN
+--------------dPizdxr0IEHdFSKZq8XyRjCl
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMTMuMDUuMjIgMjM6MTksIFN0ZWZhbm8gU3RhYmVsbGluaSB3cm90ZToNCj4gSGkgYWxs
-LA0KPiANCj4gVGhpcyBzbWFsbCBMaW51eCBwYXRjaCBzZXJpZXMgaW1wbGVtZW50cyBzdXBw
-b3J0IGZvciBpbml0aWFsaXppbmcNCj4geGVuc3RvcmUgbGF0ZXIsIGlmIG5vdCBpbW1lZGlh
-dGVseSBhdmFpbGFibGUgYXQgYm9vdCB0aW1lLiBJdCBlbmFibGVzDQo+IGRvbTBsZXNzICsg
-UFYgZHJpdmVycyBzdXBwb3J0Lg0KPiANCj4gDQo+IA0KPiBMdWNhIE1pY2NpbyAoMSk6DQo+
-ICAgICAgICB4ZW46IGFkZCBzdXBwb3J0IGZvciBpbml0aWFsaXppbmcgeGVuc3RvcmUgbGF0
-ZXIgYXMgSFZNIGRvbWFpbg0KPiANCj4gU3RlZmFubyBTdGFiZWxsaW5pICgxKToNCj4gICAg
-ICAgIHhlbjogc3luYyB4c193aXJlLmggaGVhZGVyIHdpdGggdXBzdHJlYW0geGVuDQo+IA0K
-PiAgIGRyaXZlcnMveGVuL3hlbmJ1cy94ZW5idXNfcHJvYmUuYyAgfCA5MSArKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLQ0KPiAgIGluY2x1ZGUveGVuL2ludGVyZmFj
-ZS9pby94c193aXJlLmggfCAzNyArKysrKysrKysrKysrKy0tDQo+ICAgMiBmaWxlcyBjaGFu
-Z2VkLCAxMDQgaW5zZXJ0aW9ucygrKSwgMjQgZGVsZXRpb25zKC0pDQo+IA0KDQpTZXJpZXMg
-cHVzaGVkIHRvIHhlbi90aXAuZ2l0IGZvci1saW51cy01LjE5DQoNCg0KSnVlcmdlbg0K
---------------IzBCKOpAPEBtqLf0laCRa1WN
+T24gMTcuMDUuMjIgMTg6MjQsIE1heGltaWxpYW4gSGV5bmUgd3JvdGU6DQo+IFNpbmNlIGNv
+bW1pdCA0ZDY1YWRmY2QxMTkgKCJ4ODY6IHhlbjogaW5zbjogRGVjb2RlIFhlbiBhbmQgS1ZN
+DQo+IGVtdWxhdGUtcHJlZml4IHNpZ25hdHVyZSIpLCBvYmp0b29sIGlzIGFibGUgdG8gY29y
+cmVjdGx5IHBhcnNlIHRoZQ0KPiBwcmVmaXhlZCBpbnN0cnVjdGlvbiBpbiB4ZW5fY3B1aWQg
+YW5kIGVtaXQgY29ycmVjdCBvcmMgdW53aW5kDQo+IGluZm9ybWF0aW9uLiBIZW5jZSwgbWFy
+a2luZyB0aGUgZnVuY3Rpb24gYXMgU1RBQ0tGUkFNRV9OT05fU1RBTkRBUkQgaXMNCj4gbm8g
+bG9uZ2VyIG5lZWRlZC4NCj4gDQo+IFRoaXMgY29tbWl0IGlzIGJhc2ljYWxseSBhIHJldmVy
+dCBvZiBjb21taXQgOTgzYmI2ZDI1NGM3ICgieDg2L3hlbjogTWFyaw0KPiB4ZW5fY3B1aWQo
+KSBzdGFjayBmcmFtZSBhcyBub24tc3RhbmRhcmQiKS4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6
+IE1heGltaWxpYW4gSGV5bmUgPG1oZXluZUBhbWF6b24uZGU+DQo+IENDOiBKb3NoIFBvaW1i
+b2V1ZiA8anBvaW1ib2VAa2VybmVsLm9yZz4NCg0KUHVzaGVkIHRvIHhlbi90aXAuZ2l0IGZv
+ci1saW51cy01LjE5DQoNCg0KSnVlcmdlbg0K
+--------------dPizdxr0IEHdFSKZq8XyRjCl
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -166,25 +177,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------IzBCKOpAPEBtqLf0laCRa1WN--
+--------------dPizdxr0IEHdFSKZq8XyRjCl--
 
---------------D2c7wBRTPKa6fuGn0vE7LAaD--
+--------------7a22TXAifxypLWqiFjNtqLoM--
 
---------------36cMPlUx7nGadOTPeMaY6u2e
+--------------UjP09znP3YBjHC9yreCDjkQ0
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmKKGVkFAwAAAAAACgkQsN6d1ii/Ey+Y
-nAf+PRBaqgw5u3uwPM8PBX3t9r2VHqTCirO/Wu9iuIjObrCgAoTAZU/Ee6gMX3RRfIEZV75AVdsP
-d9X8K9xwxT60zzJPz9ZpcWGF4rV+rNratCSrtyY/ev/EC1b17hlwd71Woa+f0gcf7iBqGKavcb4W
-Pct5PLJ1R1IzwRVVKB1nXTlvTIXN6l7kC13YDexkrsXbP0nNWqHC6OwOD0yzLbXc5MRO4u5jbM9x
-9lBIJG6y2EQ04HwP7d9fC7GrXTY/hDVhXteVOt7N/jRgqAJhOH54eomFNNd2PtMffrbLg0aGw5jO
-/6oMQjie7Ij18KBSoHnb9jcIRQZ0wE/q5/eBR0gJxA==
-=ZPX0
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmKKGZAFAwAAAAAACgkQsN6d1ii/Ey9t
+Ygf/RyJdnElkqpjOx/hFvASnaqEo7bBY8I6oLiz+H1XOZCxW+x8y71NU3WJA+8ykTLg2jDk9rpKB
+cJSXWWfK7MjVs3Ku05PnvzawCYdYPJybbrvfEYMEdAQfF5SPTxKXlLFCUr1guf6JtlnvaxuC08yo
+kHFgxaCc2ewm6w+XBlih3TJQ1wEN3fbNhbhLdHgTKZLJv6H1WYj+JACGG8j6e/YDvx8ZpMOlDiLD
+8AL8HRmhf66IZTLxwOMcV4XPi6Ukz+asrWE2FDRa/lmGdAJei/UqDkZyMZR8FHPLAkyH6o7c6Ous
+mjzb5QG70tHNJLW3Cx3t2ViPXsjJefvxSKKW+uJhpQ==
+=tVnq
 -----END PGP SIGNATURE-----
 
---------------36cMPlUx7nGadOTPeMaY6u2e--
+--------------UjP09znP3YBjHC9yreCDjkQ0--
 
