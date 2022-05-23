@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B085C530991
-	for <lists+xen-devel@lfdr.de>; Mon, 23 May 2022 08:31:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.335381.559605 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 710C8530992
+	for <lists+xen-devel@lfdr.de>; Mon, 23 May 2022 08:32:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.335443.559616 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nt1af-0005fh-Vl; Mon, 23 May 2022 06:30:53 +0000
+	id 1nt1c2-0006Jy-B3; Mon, 23 May 2022 06:32:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 335381.559605; Mon, 23 May 2022 06:30:53 +0000
+Received: by outflank-mailman (output) from mailman id 335443.559616; Mon, 23 May 2022 06:32:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nt1af-0005dw-Sz; Mon, 23 May 2022 06:30:53 +0000
-Received: by outflank-mailman (input) for mailman id 335381;
- Mon, 23 May 2022 06:30:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WGJF=V7=canb.auug.org.au=sfr@srs-se1.protection.inumbo.net>)
- id 1nt1ae-0005dq-8U
- for xen-devel@lists.xenproject.org; Mon, 23 May 2022 06:30:53 +0000
-Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e0a41347-da61-11ec-837e-e5687231ffcc;
- Mon, 23 May 2022 08:30:48 +0200 (CEST)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4L66sG0b1tz4xD8;
- Mon, 23 May 2022 16:30:41 +1000 (AEST)
+	id 1nt1c2-0006I2-7m; Mon, 23 May 2022 06:32:18 +0000
+Received: by outflank-mailman (input) for mailman id 335443;
+ Mon, 23 May 2022 06:32:17 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nt1c0-0006Hq-W8; Mon, 23 May 2022 06:32:17 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nt1c0-0000RS-TU; Mon, 23 May 2022 06:32:16 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nt1c0-0002eA-IP; Mon, 23 May 2022 06:32:16 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nt1c0-0000FD-Hx; Mon, 23 May 2022 06:32:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,94 +42,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0a41347-da61-11ec-837e-e5687231ffcc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
-	s=201702; t=1653287444;
-	bh=xgg1hS9BSFr5BuV1JPPaBTBshDJNljlVHdKXJO5tQ78=;
-	h=Date:From:To:Cc:Subject:From;
-	b=sYnPmLi8oYAqcYCjY6GHNChs5KYvus+P0r4Ha+hu2Qpo4kVIGVj3bhfLVwJn2ECT9
-	 PItx4IuEgzjyncJt2ukJrkkvkgo/Fv1BP4r3Sg01O985QC2dDBSVqergEj1J6aeBmX
-	 ixUmaX8DtshIG85goiSPBdK6QLcd+4Upjjm8mwLFnhm21hocfXOfWy3xy9rOrqLOqU
-	 ah63LfYwt5wNL9w1tP47lwxGiCsdZJRhodfw3bW4nWXtmpm5os/6fD7q7RffpbUVdE
-	 GDUC0EEl/UfPdyuTfLneQT6/f8y+tw87u/TO1lbIuDfaV7ECB1+RjP5meIVBOmXYfT
-	 GTl8/z/PRXEbg==
-Date: Mon, 23 May 2022 16:30:40 +1000
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Juergen Gross <jgross@suse.com>, Konrad Rzeszutek Wilk
- <konrad.wilk@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, "Rafael J. Wysocki"
- <rjw@rjwysocki.net>
-Cc: Xen Devel <xen-devel@lists.xenproject.org>, Dmitry Osipenko
- <dmitry.osipenko@collabora.com>, Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>, Linux Next Mailing List
- <linux-next@vger.kernel.org>, Maximilian Heyne <mheyne@amazon.de>, "Rafael
- J. Wysocki" <rafael.j.wysocki@intel.com>
-Subject: linux-next: manual merge of the xen-tip tree with the pm tree
-Message-ID: <20220523163040.6064b190@canb.auug.org.au>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=4+J5dhhuRAXOyHnkb1WOMZnYF56Qkwa2bKknRb2UqiQ=; b=p9Aw6Wht2/77ku5gWArx23KW8O
+	lIIjIopQ6zHeZyOSKkTuBNoTigFEnAhHZF4X++ipq4gWCy75cx3r4JiHcWbP4lhuukjAiCCROT7Qr
+	xgA7AlXM5um1xkVCmTBYIqlG7pY7sbPOpbrKtR2y9Mo6Uw3SVFpOLQ84TISEkexYaV6c=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-170692-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/LHaDpV_gDAUXQ2VrDx=4El=";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Subject: [ovmf test] 170692: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=a21a3438f795deecb24e1843c1636f95c485017c
+X-Osstest-Versions-That:
+    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 23 May 2022 06:32:16 +0000
 
---Sig_/LHaDpV_gDAUXQ2VrDx=4El=
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+flight 170692 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/170692/
 
-Hi all,
+Regressions :-(
 
-Today's linux-next merge of the xen-tip tree got a conflict in:
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 168254
+ build-i386                    6 xen-build                fail REGR. vs. 168254
+ build-i386-xsm                6 xen-build                fail REGR. vs. 168254
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
 
-  arch/x86/xen/enlighten_pv.c
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-between commit:
+version targeted for testing:
+ ovmf                 a21a3438f795deecb24e1843c1636f95c485017c
+baseline version:
+ ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
 
-  f089ab674cea ("xen/x86: Use do_kernel_power_off()")
+Last test of basis   168254  2022-02-28 10:41:46 Z   83 days
+Failing since        168258  2022-03-01 01:55:31 Z   83 days 1180 attempts
+Testing same since   170593  2022-05-20 06:42:41 Z    2 days   68 attempts
 
-from the pm tree and commit:
+------------------------------------------------------------
+People who touched revisions under test:
+  Abdul Lateef Attar <abdattar@amd.com>
+  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
+  Abner Chang <abner.chang@hpe.com>
+  Akihiko Odaki <akihiko.odaki@gmail.com>
+  Anthony PERARD <anthony.perard@citrix.com
+  Ard Biesheuvel <ardb@kernel.org>
+  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
+  Bo Chang Ke <bo-changx.ke@intel.com>
+  Bob Feng <bob.c.feng@intel.com>
+  Chao Li <lichao@loongson.cn>
+  Chao, Zhuoran <zhuoran.chao@intel.com>
+  Chen Lin Z <lin.z.chen@intel.com>
+  Chen, Christine <Yuwei.Chen@intel.com>
+  Chen, Lin Z <lin.z.chen@intel.com>
+  Corvin Köhne <c.koehne@beckhoff.com>
+  Dandan Bi <dandan.bi@intel.com>
+  dann frazier <dann.frazier@canonical.com>
+  Dun Tan <dun.tan@intel.com>
+  duntan <dun.tan@intel.com>
+  Feng, Bob C <bob.c.feng@intel.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Gua Guo <gua.guo@intel.com>
+  Guo Dong <guo.dong@intel.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Heng Luo <heng.luo@intel.com>
+  Hua Ma <hua.ma@intel.com>
+  Huang, Li-Xia <lisa.huang@intel.com>
+  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
+  Jake Garver <jake@nvidia.com>
+  Jake Garver via groups.io <jake=nvidia.com@groups.io>
+  Jason <yun.lou@intel.com>
+  Jason Lou <yun.lou@intel.com>
+  Jiewen Yao <jiewen.yao@intel.com>
+  Ke, Bo-ChangX <bo-changx.ke@intel.com>
+  Ken Lautner <kenlautner3@gmail.com>
+  Kenneth Lautner <kenlautner3@gmail.com>
+  Kun Qin <kuqin12@gmail.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lean Sheng Tan <sheng.tan@9elements.com>
+  Leif Lindholm <quic_llindhol@quicinc.com
+  Leif Lindholm <quic_llindhol@quicinc.com>
+  Li, Yi1 <yi1.li@intel.com>
+  Li, Zhihao <zhihao.li@intel.com>
+  Liming Gao <gaoliming@byosoft.com.cn>
+  Liu <yun.y.liu@intel.com>
+  Liu Yun <yun.y.liu@intel.com>
+  Liu Yun Y <yun.y.liu@intel.com>
+  Liu, Zhiguang <Zhiguang.Liu@intel.com>
+  Lixia Huang <lisa.huang@intel.com>
+  Lou, Yun <Yun.Lou@intel.com>
+  Ma, Hua <Hua.Ma@intel.com>
+  Mara Sophie Grosch <littlefox@lf-net.org>
+  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Michael Kubacki <mikuback@microsoft.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
+  Patrick Rudolph <patrick.rudolph@9elements.com>
+  Peter Grehan <grehan@freebsd.org>
+  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Rebecca Cran <rebecca@bsdio.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sean Rhodes sean@starlabs.systems
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Sunny Wang <sunny.wang@arm.com>
+  Tan, Dun <dun.tan@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
+  Wenyi Xie <xiewenyi2@huawei.com>
+  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
+  Xiaolu.Jiang <xiaolu.jiang@intel.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yi Li <yi1.li@intel.com>
+  yi1 li <yi1.li@intel.com>
+  Yu Pu <yu.pu@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+  Yuwei Chen <yuwei.chen@intel.com>
+  Zhiguang Liu <zhiguang.liu@intel.com>
+  Zhihao Li <zhihao.li@intel.com>
+  Zhuoran Chao <zhuoran.chao@intel.com>
 
-  1591a65f55bc ("x86: xen: remove STACK_FRAME_NON_STANDARD from xen_cpuid")
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
-from the xen-tip tree.
 
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
---=20
-Cheers,
-Stephen Rothwell
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-diff --cc arch/x86/xen/enlighten_pv.c
-index af1f6e886225,ca85d1409917..000000000000
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@@ -30,8 -30,6 +30,7 @@@
-  #include <linux/pci.h>
-  #include <linux/gfp.h>
-  #include <linux/edd.h>
-- #include <linux/objtool.h>
- +#include <linux/reboot.h>
- =20
-  #include <xen/xen.h>
-  #include <xen/events.h>
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
---Sig_/LHaDpV_gDAUXQ2VrDx=4El=
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
------BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmKLKhAACgkQAVBC80lX
-0GwP1QgAm4zlmI0lzfyk52XGg8pKpPdKKocChsJEtTH1iwbUUM+owKfGB6L7OMlY
-bRZFmQUgIy581cwpFPqYhi1vOcTkOX3E6npA1fhBdamYar7tCqu4xwq2f1A0rTjZ
-Zb9+lcJZHYcp5nApkqC0Us7UICIrvI0ylGXF3okKtscKsoMLPT1jfqrUGo8UIjyA
-l2jPDtIFntlk5bKhcjH4Bk1igoNW/hX97iPzsgj9KTrtVwQ2ISq5PjptZToaiaS0
-JCE4UGrHdiXjmzaDo7saPc5lEs9cUpvLm1TV+9VHYDfs3/UJvS29BTlCHra02K6e
-j3xKHiad9zTxderG5aSSt88c1YZ3AA==
-=BbA2
------END PGP SIGNATURE-----
+Not pushing.
 
---Sig_/LHaDpV_gDAUXQ2VrDx=4El=--
+(No revision log; it would be 6968 lines long.)
 
