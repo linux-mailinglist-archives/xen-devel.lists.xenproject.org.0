@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73FA0532448
-	for <lists+xen-devel@lfdr.de>; Tue, 24 May 2022 09:42:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.336194.560518 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15D665311C8
+	for <lists+xen-devel@lfdr.de>; Mon, 23 May 2022 18:05:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.336029.560262 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntPAk-00048U-NL; Tue, 24 May 2022 07:41:42 +0000
+	id 1ntAYb-0002b1-MZ; Mon, 23 May 2022 16:05:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 336194.560518; Tue, 24 May 2022 07:41:42 +0000
+Received: by outflank-mailman (output) from mailman id 336029.560262; Mon, 23 May 2022 16:05:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntPAk-00045Q-JX; Tue, 24 May 2022 07:41:42 +0000
-Received: by outflank-mailman (input) for mailman id 336194;
- Tue, 24 May 2022 07:41:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6c9/=WA=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1ntP6E-0003DA-QQ
- for xen-devel@lists.xenproject.org; Tue, 24 May 2022 07:37:02 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id abe7e49f-daae-11ec-837e-e5687231ffcc;
- Mon, 23 May 2022 17:40:30 +0200 (CEST)
-Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1653320431089155.22680033498602;
- Mon, 23 May 2022 08:40:31 -0700 (PDT)
+	id 1ntAYb-0002Yh-IP; Mon, 23 May 2022 16:05:21 +0000
+Received: by outflank-mailman (input) for mailman id 336029;
+ Mon, 23 May 2022 16:05:20 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1ntAYa-0002YI-7r
+ for xen-devel@lists.xenproject.org; Mon, 23 May 2022 16:05:20 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ntAYZ-0003Cc-SJ; Mon, 23 May 2022 16:05:19 +0000
+Received: from [54.239.6.190] (helo=[192.168.27.218])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ntAYZ-0006dd-Lk; Mon, 23 May 2022 16:05:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,194 +39,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: abe7e49f-daae-11ec-837e-e5687231ffcc
-ARC-Seal: i=1; a=rsa-sha256; t=1653320432; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=QuXS1HEj0dvBJR2U8ihqk8BbN7rGuPNp/rtmwBU+gH2/qXMXK5PT76NWyjeLHhuQZBbZbpBDFfoSODSLdAiIQjTy24l35m5/Fm0cWbMipDhAw4anJj1yB94Ni/n9h5tFse0yTg1l8zLQ+mqwjmn57fgVtt8oP+VUCavy4GI8VoM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1653320432; h=Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To; 
-	bh=98v0UwvujcfL6C9tx4e5oAX1065dOOeYtIhzPpau0Tw=; 
-	b=kZeAUtQNwaAvJEu13sFORdPqc7Soy50h7EmXs3G5DlLoaqHnIqTzoBRxueR7g71kFGpO/BMdYIvkii1aoJP/gbCWj7xkItT95rz8h3SnWbpnR4bTvikCQJacAqvVWaZxRr1QowMYBpOcTYBnsPAW9q1ffD7QmK3syozF1biZlmw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1653320432;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=98v0UwvujcfL6C9tx4e5oAX1065dOOeYtIhzPpau0Tw=;
-	b=BQKPur29NhqC4YNELGVJO0XHUthYhshfF2F2vX5d8boDvAexBYDFDGJULF95kyca
-	yNBi92rvLbiI4/ssoIs0fIOtq6TSjLT6ZOFw76bQd5a+BrW4uzeWmnrOSCQXNPnPEdA
-	V2iyTrkldPiZbwX/EnZNICAywEd94uXHdo0o8Yas=
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: xen-devel@lists.xenproject.org,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>
-Cc: scott.davis@starlab.io,
-	jandryuk@gmail.com,
-	christopher.clark@starlab.io,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>
-Subject: [PATCH] xsm: refactor and optimize policy loading
-Date: Mon, 23 May 2022 11:40:24 -0400
-Message-Id: <20220523154024.1947-1-dpsmith@apertussolutions.com>
-X-Mailer: git-send-email 2.20.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=KbkzlDtxUkKxdwqqoTjcWACsHCE88PfRN4/a2QFirhE=; b=FUe9tIaEOPl1EUFucYst88dcxf
+	cOUUmrU/miN7iy6nuU5S0QKLGTKc+ExCzalI89Ep3ZOQdKtkSaldOZfYycJKBjdbbOODSyVCd32rR
+	BWd/BfMjyUto1gwT0Ptdo6oHc9Uc+POoHjMrdHXJlWore67MhBZrx+XHzYiJn6J/jvI8=;
+Message-ID: <1c7342ed-63af-e420-4f3a-938cb93021c7@xen.org>
+Date: Mon, 23 May 2022 17:05:17 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.9.0
+Subject: Re: [PATCH v5 4/6] xen: Switch to byteswap
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ =?UTF-8?B?TGluIExpdSDvvIjliJjmnpfvvIk=?= <lin.liu@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>
+References: <cover.1653314499.git.lin.liu@citrix.com>
+ <dcabb541d0b5ab7858ccf1c925afc334f3123ad5.1653314499.git.lin.liu@citrix.com>
+ <8fcd30a6-9b93-6687-a0f5-1e035fa5f789@xen.org>
+ <d77a5995-a916-70a9-4bf2-efdb2948588b@citrix.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <d77a5995-a916-70a9-4bf2-efdb2948588b@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 
-It is possible to select a few different build configurations that results in
-the unnecessary walking of the boot module list looking for a policy module.
-This specifically occurs when the flask policy is enabled but either the dummy
-or the SILO policy is selected as the enforcing policy. This is not ideal for
-configurations like hyperlaunch and dom0less when there could be a number of
-modules to be walked or unnecessary device tree lookups
+Hi Andrew,
 
-This patch does two things, it moves all policy initialization logic under the
-xsm_XXXX_policy_init() functions and introduces the init_policy flag.  The
-init_policy flag will be set based on which enforcing policy is selected and
-gates whether the boot modules should be checked for a policy file.
+On 23/05/2022 16:38, Andrew Cooper wrote:
+> On 23/05/2022 15:56, Julien Grall wrote:
+>> Hi,
+>>
+>> On 23/05/2022 15:50, Lin Liu wrote:
+>>> Update to use byteswap to swap bytes
+>>> be*_to_cpup(p) is short for be*to_cpu(*p), update to use latter
+>>> one explictly
+>>
+>> But why?
+> 
+> Because deleting code obfuscation constructs *is* the point of the cleanup.
+> 
+>> I really don't have a suggestion on the comment because I disagree
+>> (and AFAICT Jan as well) with the approach.
+> 
+> Dropping the obfuscation has uncovered pre-existing bugs in the
+> hypervisor.  The series stands on its own merit.
 
-Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
----
- xen/xsm/xsm_core.c   | 30 +++++++++++++++++++-----------
- xen/xsm/xsm_policy.c | 21 +++++++++++++++++++--
- 2 files changed, 38 insertions(+), 13 deletions(-)
+I am guessing you mean that we don't handle unaligned access? If so, yes 
+I agree this helped with that.
 
-diff --git a/xen/xsm/xsm_core.c b/xen/xsm/xsm_core.c
-index 2286a502e3..0dfc970283 100644
---- a/xen/xsm/xsm_core.c
-+++ b/xen/xsm/xsm_core.c
-@@ -55,19 +55,35 @@ static enum xsm_bootparam __initdata xsm_bootparam =
-     XSM_BOOTPARAM_DUMMY;
- #endif
- 
-+static bool __initdata init_policy =
-+#ifdef CONFIG_XSM_FLASK_DEFAULT
-+    true;
-+#else
-+    false;
-+#endif
-+
- static int __init cf_check parse_xsm_param(const char *s)
- {
-     int rc = 0;
- 
-     if ( !strcmp(s, "dummy") )
-+    {
-         xsm_bootparam = XSM_BOOTPARAM_DUMMY;
-+        init_policy = false;
-+    }
- #ifdef CONFIG_XSM_FLASK
-     else if ( !strcmp(s, "flask") )
-+    {
-         xsm_bootparam = XSM_BOOTPARAM_FLASK;
-+        init_policy = true;
-+    }
- #endif
- #ifdef CONFIG_XSM_SILO
-     else if ( !strcmp(s, "silo") )
-+    {
-         xsm_bootparam = XSM_BOOTPARAM_SILO;
-+        init_policy = false;
-+    }
- #endif
-     else
-         rc = -EINVAL;
-@@ -80,14 +96,6 @@ static int __init xsm_core_init(const void *policy_buffer, size_t policy_size)
- {
-     const struct xsm_ops *ops = NULL;
- 
--#ifdef CONFIG_XSM_FLASK_POLICY
--    if ( policy_size == 0 )
--    {
--        policy_buffer = xsm_flask_init_policy;
--        policy_size = xsm_flask_init_policy_size;
--    }
--#endif
--
-     if ( xsm_ops_registered != XSM_OPS_UNREGISTERED )
-     {
-         printk(XENLOG_ERR
-@@ -148,11 +156,11 @@ int __init xsm_multiboot_init(
- 
-     printk("XSM Framework v" XSM_FRAMEWORK_VERSION " initialized\n");
- 
--    if ( XSM_MAGIC )
-+    if ( init_policy && XSM_MAGIC )
-     {
-         ret = xsm_multiboot_policy_init(module_map, mbi, &policy_buffer,
-                                         &policy_size);
--        if ( ret )
-+        if ( ret != 0 )
-         {
-             bootstrap_map(NULL);
-             printk(XENLOG_ERR "Error %d initializing XSM policy\n", ret);
-@@ -176,7 +184,7 @@ int __init xsm_dt_init(void)
- 
-     printk("XSM Framework v" XSM_FRAMEWORK_VERSION " initialized\n");
- 
--    if ( XSM_MAGIC )
-+    if ( init_policy && XSM_MAGIC )
-     {
-         ret = xsm_dt_policy_init(&policy_buffer, &policy_size);
-         if ( ret )
-diff --git a/xen/xsm/xsm_policy.c b/xen/xsm/xsm_policy.c
-index 8dafbc9381..0e32418999 100644
---- a/xen/xsm/xsm_policy.c
-+++ b/xen/xsm/xsm_policy.c
-@@ -8,7 +8,7 @@
-  *  Contributors:
-  *  Michael LeMay, <mdlemay@epoch.ncsc.mil>
-  *  George Coker, <gscoker@alpha.ncsc.mil>
-- *  
-+ *
-  *  This program is free software; you can redistribute it and/or modify
-  *  it under the terms of the GNU General Public License version 2,
-  *  as published by the Free Software Foundation.
-@@ -36,10 +36,17 @@ int __init xsm_multiboot_policy_init(
- {
-     int i;
-     module_t *mod = (module_t *)__va(mbi->mods_addr);
--    int rc = 0;
-+    int rc = -ENOENT;
-     u32 *_policy_start;
-     unsigned long _policy_len;
- 
-+#ifdef CONFIG_XSM_FLASK_POLICY
-+    /* Initially set to builtin policy, overriden if boot module is found. */
-+    *policy_buffer = (void *)xsm_flask_init_policy;
-+    *policy_size = xsm_flask_init_policy_size;
-+    rc = 0;
-+#endif
-+
-     /*
-      * Try all modules and see whichever could be the binary policy.
-      * Adjust module_map for the module that is the binary policy.
-@@ -61,6 +68,7 @@ int __init xsm_multiboot_policy_init(
-                    _policy_len,_policy_start);
- 
-             __clear_bit(i, module_map);
-+            rc = 0;
-             break;
- 
-         }
-@@ -79,7 +87,16 @@ int __init xsm_dt_policy_init(void **policy_buffer, size_t *policy_size)
-     paddr_t paddr, len;
- 
-     if ( !mod || !mod->size )
-+#ifdef CONFIG_XSM_FLASK_POLICY
-+    {
-+        *policy_buffer = (void *)xsm_flask_init_policy;
-+        *policy_size = xsm_flask_init_policy_size;
-         return 0;
-+    }
-+#else
-+        /* No policy was loaded */
-+        return -ENOENT;
-+#endif
- 
-     paddr = mod->start;
-     len = mod->size;
+> 
+> While I can't help if you like it or not, it really does bring an
+> improvement to code quality and legibility.
+> 
+> If you have no technical objections, and no suggestions for how to do it
+> differently while retaining the quality and legibility improvements,
+> then "I don't like it" doesn't block it going in.
+
+And you don't like the existing code :). I am willing to compromise, but 
+for that I need to understand why the existing code is technically not 
+correct.
+
+So far, all the arguments you provided in v3 was either a matter of 
+taste or IMHO bogus.
+
+Your taste is nor better nor worse than mine. At which, we need someone 
+else to break the tie.
+
+If I am not mistaken, Jan is also objecting on the proposal. At which 
+point, we are 2 vs 1.
+
+So there are three choices here:
+   1) You find two others maintainers (including on Arm maintainer) to 
+agree with you
+   2) You provide arguments that will sway one of us in your side
+   3) We keep be32_cpu*() (they are simple wrapper and I am willing to 
+write the code).
+
+Cheers,
+
 -- 
-2.20.1
-
+Julien Grall
 
