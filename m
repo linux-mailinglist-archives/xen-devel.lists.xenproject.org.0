@@ -2,29 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0A07530C6C
-	for <lists+xen-devel@lfdr.de>; Mon, 23 May 2022 11:53:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.335660.559887 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 216C6530C7A
+	for <lists+xen-devel@lfdr.de>; Mon, 23 May 2022 12:01:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.335729.559910 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nt4kD-0004R7-B7; Mon, 23 May 2022 09:52:57 +0000
+	id 1nt4sd-0008Nm-KC; Mon, 23 May 2022 10:01:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 335660.559887; Mon, 23 May 2022 09:52:57 +0000
+Received: by outflank-mailman (output) from mailman id 335729.559910; Mon, 23 May 2022 10:01:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nt4kD-0004PJ-4A; Mon, 23 May 2022 09:52:57 +0000
-Received: by outflank-mailman (input) for mailman id 335660;
- Mon, 23 May 2022 09:52:55 +0000
+	id 1nt4sd-0008L0-Fu; Mon, 23 May 2022 10:01:39 +0000
+Received: by outflank-mailman (input) for mailman id 335729;
+ Mon, 23 May 2022 10:01:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HaIF=V7=citrix.com=prvs=1359a750d=lin.liu@srs-se1.protection.inumbo.net>)
- id 1nt4kB-0002dq-3N
- for xen-devel@lists.xenproject.org; Mon, 23 May 2022 09:52:55 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1bf98f02-da7e-11ec-bd2c-47488cf2e6aa;
- Mon, 23 May 2022 11:52:53 +0200 (CEST)
+ <SRS0=1/tb=V7=citrix.com=prvs=135606018=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1nt4kd-0002dq-3y
+ for xen-devel@lists.xenproject.org; Mon, 23 May 2022 09:53:23 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2c3b21ab-da7e-11ec-bd2c-47488cf2e6aa;
+ Mon, 23 May 2022 11:53:20 +0200 (CEST)
+Received: from mail-mw2nam08lp2175.outbound.protection.outlook.com (HELO
+ NAM04-MW2-obe.outbound.protection.outlook.com) ([104.47.73.175])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 23 May 2022 05:53:17 -0400
+Received: from DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
+ by SA0PR03MB5465.namprd03.prod.outlook.com (2603:10b6:806:b5::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.14; Mon, 23 May
+ 2022 09:53:16 +0000
+Received: from DS7PR03MB5608.namprd03.prod.outlook.com
+ ([fe80::5df3:95ce:4dfd:134e]) by DS7PR03MB5608.namprd03.prod.outlook.com
+ ([fe80::5df3:95ce:4dfd:134e%5]) with mapi id 15.20.5273.022; Mon, 23 May 2022
+ 09:53:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,566 +49,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1bf98f02-da7e-11ec-bd2c-47488cf2e6aa
+X-Inumbo-ID: 2c3b21ab-da7e-11ec-bd2c-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1653299573;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=ENKGHyqakgatMFXhjwFCV+ZEI5TqFZ1FQ890jq+2cI4=;
-  b=O6o4MRDHBc5v+CjikR3vegbYg6GkLXYXTiXZ5FEb2ROOfkgnfDsQ4pNF
-   +P9z7pVv1Hnk/foFnsKt+6MDBwm+352KsJE74R3SbpNqUQCUjWe/2HFWV
-   pkZpDxs52wHSwTqIpWHp7/YV2J6z1h+BAdSTiB03fawlqImS1c/Hq/xGv
-   I=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 72327724
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:D4y7FqLsZsgLmUGEFE+RwJUlxSXFcZb7ZxGr2PjKsXjdYENShjEOn
- WVMXDrXbvzbNmqjc990b46//EoCuJSGz9RiS1FlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
- q3yv/GZdJhcokf0/0vrav67xZVF/fngqoDUUYYoAQgsA149IMsdoUg7wbRh39Qz2YHR7z6l4
- rseneWOYDdJ5BYsWo4kw/rrRMRH5amaVJsw5zTSVNgT1LPsvyB94KE3fMldG0DQUIhMdtNWc
- s6YpF2PEsE1yD92Yj+tuu6TnkTn2dc+NyDW4pZdc/DKbhSvOkXee0v0XRYRQR4/ttmHozx+4
- OVMipeAY1kRArfvws1afBgAPgx9YbITrdcrIVDn2SCS50jPcn+qyPRyFkAme4Yf/46bA0kXq
- 6ZecmpUKEne2aTmm9pXScE17ignBM3qOsUbu2xIxjDFF/c2B5vERs0m4PcHhmxq2Z8UQZ4yY
- eI6Q2pWaRf/RCdNAX4JJc8wh8mvoGXWJmgwRFW9+vNsvjm7IBZK+KP2LNPfd9iORMNUtkWVv
- GTL+yL+GB5yHN6CzTuI9Fq8i+mJmjn0MKoNEJWo+/gsh0ecrkQDBRtTWValrP2Rjk+lR8kZO
- 0ES4jApr6U56AqsVNaVdx+yrWOAvxUcc8FNCOB84waIooLe7hyFHGECQnhEYcY/qc4tbTUw0
- xmCmNaBONB0mOTLEzTHrO7S9G7sf3hORYMfWcMaZTsE3NLTit8LsgjsFP8kP6/to/D2RS6ll
- lhmsxMCa6UvYd8jjvvmpgqc02L3/PAlXSZuuFyJAzvNAhdRIdf8Otf2sQWzAeNodt7xc7WXg
- JQTdyFyBsgqBIrFqiGCSf5l8FqBt6fca220bbKC8vAcG9WRF52LJ9k4DMlWfhsBDyr9UWaBj
- LXvkQ1Q/oRPG3ChcLV6ZYm8Y+xzk/W7T4i5CqmONoMeCnSUSONg1HgzDXN8Iki3yBR8+U3BE
- cnznTmQ4YYyVv08kWveqxY12r433CEurV4/triipylLJYG2PSbPIZ9caQPmRrlgvMus/VSOm
- /4CZpTi9vmqeLCnCsUh2dVLfQ5iwLlSLc2elvG7gcbYcls6Qzt4UqC5LHFIU9UNopm5X9zgp
- hmVMnK0AnKi7ZEbAW1mskxeVY4=
-IronPort-HdrOrdr: A9a23:9UCHSqAf2AdXZbXlHemW55DYdb4zR+YMi2TC1yhKKCC9Ffbo7v
- xG/c5rriMc5wxhO03I9eruBEDEewK5yXcX2/h2AV7BZniFhILAFugLhuGOrwEIWReOkdK1vZ
- 0QC5SWY+eRMbEVt6jHCXGDYrMd/OU=
+  d=citrix.com; s=securemail; t=1653299599;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=Er/yBhvdJArxp83rPCJMWsmhZ3OweLmcLpFTR0wi1tQ=;
+  b=N4WiuYFm/rXL742NMTt0XUrSevf4krnZc6Zr0mQHzGe9ln5L6DRIS+iK
+   OkJ0VVQKGZaN4K7GOgxYpGeSfDpjNvKgnP4bPAeW3uZD3icUSUADigS9A
+   JqujFEloREFaWKwlpGbZ9XGieEjiHlKfmiCwt84ylkZfBEYNTH9tWlDqe
+   Y=;
+X-IronPort-RemoteIP: 104.47.73.175
+X-IronPort-MID: 71925730
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:ohoxMKOGqBtUWGnvrR3RlsFynXyQoLVcMsEvi/4bfWQNrUp0hjQEz
+ zNLXmuCPP+JZ2L9e9x+Pd/ioUIBvMCDn9VmSAto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
+ ynLQoCYdKjYdleF+lH1dOKJQUBUjclkfJKlYAL/En03FFYMpBsJ00o5wbZk2NUw2LBVPivW0
+ T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
+ 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Z5
+ Y1nt5OsdFwQMoboyMg5XjNXSBgkIvgTkFPHCSDXXc276WTjKyep5so0SUY8MMsf5/p9BnxI+
+ boAMjcRYxufhuWwhrWmVu1rgcdlJ87uVG8dkig4kXeFUrB5GtaaHPiiCdxwhV/cguhUGvnTf
+ YwBYCdHZxXceRxffFwQDfrSmc/33yilLmID8Dp5o4ILszHOxU900IPoPeDPOfCaYP1aglyx8
+ zeuE2PRR0ty2Mak4TiP/2+oh+TPtTjmQ49UH7q9ntZ1hHWDy2pVDwcZPXOrrP/8hkOgVtZ3L
+ 00P5jFovaU07FasTNT2Q1u/unHsg/IHc99ZEul/7R7XzKPRu1adHjJdEWMHb8E6vsgrQzBsz
+ kWOg97iGT1otvuSVG6Z8bCX6zi1PED5MFM/WMPNdiNdi/GLnW35pkunogpLeEJtsuDIJA==
+IronPort-HdrOrdr: A9a23:mrUe5KrEpawGKvaUKnfAzS4aV5oleYIsimQD101hICG8cqSj9v
+ xG+85rsyMc6QxhP03I9urwW5VoLUmyyXcX2/h0AV7BZniFhILAFugLhuGOrwEIcxeOj9K1vp
+ 0BT0ERMrPN5CBB/KPH3DU=
 X-IronPort-AV: E=Sophos;i="5.91,246,1647316800"; 
-   d="scan'208";a="72327724"
-From: Lin Liu <lin.liu@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Lin Liu <lin.liu@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: [PATCH v4 6/6] byteorder: Remove byteorder
-Date: Mon, 23 May 2022 05:52:22 -0400
-Message-ID: <8c025497fb679c92e33c036caa705d23ffd18fbb.1653295437.git.lin.liu@citrix.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <cover.1653295437.git.lin.liu@citrix.com>
-References: <cover.1653295437.git.lin.liu@citrix.com>
-MIME-Version: 1.0
+   d="scan'208";a="71925730"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZjDdiOc5XEQUztzyNF5Udn2UEgguxaPPh5RCX1CZNUROory2xNdP98RzlAZyUbWy6sDvg/4pymkQ6n73t9XzT1g+mJypnqrSxHwGiLlElQcWSPN1/nMP+wZBRgoWeKxMFoVpcZRhovIFLV66Y3N8wbCOAwA7WzJ51qUDPh/hw7a+n943SSECdOvkivgmCOdaltSgG/PXMkczEnsRVVhiQjFdGmlAGGi9r7mYJGGR7erhfwdt9yVObqwHR1Be99cH8usjcNAw9RqhAQ8h9bZ0EdN3SBDXOBv9E8Zal3IiGqChI3QKMZ0jyefWqZ7v32dXU9MXPfjkbcH70zacm/thcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hueTV5O0UHuRLSL6GaRN1R2ZatIg17psVt+HIchGY4o=;
+ b=iyf3Wk7xzIZrpc94ooDkzsJX/lv14rVhRaW3DqDOI9NG25Gf/zLtukVkMc1GZ/jiocUMeD1AdGPP7/vLQg0Q/Rn1AvZKZh0ONeOB04LSawi2gj834GBYhXXma1EiS51fJ0HB1PJXIIcnnniUYHqpiyEChlPKnIsMALUAzB2piX6wHe5aB49Ky9+NX9S/NUM6NkckAZgxlLhvBcW/aLk5A2VM9hB6lALD7sGTTw7UHiM9Oy07U4Tf6K8HjwGzOtlFFKtIJEYAQ5ud2qMe4thTSH2n8Y3NYRgDqMILzNBANWFqewFWfR1rNNbRfuBgw/jpAnt4fiwi5n6Rc0Xlr206vw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hueTV5O0UHuRLSL6GaRN1R2ZatIg17psVt+HIchGY4o=;
+ b=RJjYSe8/Al9IC9Q4SxelK0z1J9nT8IJb/MGhyhO5d8lqx+RAcFj8yyAR4AYFADDmyOB1oaGpFph790oEySoxZmAfB0eEdCIHEdK6U/k/Np2g4Df12Jd1RZQLp8OYc7k/LTHc1tJ2f/+NOWAYX2L7b/tTAkc7RDBp2eYJYcAM4oE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Mon, 23 May 2022 11:53:12 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <Andrew.Cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 3/5] x86/perf: expose LBR format in PERF_CAPABILITIES
+Message-ID: <YotZiM5ViiRKSUXh@Air-de-Roger>
+References: <20220520133746.66142-1-roger.pau@citrix.com>
+ <20220520133746.66142-4-roger.pau@citrix.com>
+ <33632dc6-940f-6737-c808-48e6c28fc0bf@citrix.com>
+ <42cac54e-134b-dcfd-3ce1-1d6bfae9176c@suse.com>
+ <e4d202f7-f4db-71e6-46a1-ee62ef41f2dd@citrix.com>
+ <5330ca97-2b72-409e-c021-61ab4356e051@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+In-Reply-To: <5330ca97-2b72-409e-c021-61ab4356e051@suse.com>
+X-ClientProxiedBy: LO2P265CA0494.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:13a::19) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d0f31213-1be0-4b5d-7327-08da3ca20ef5
+X-MS-TrafficTypeDiagnostic: SA0PR03MB5465:EE_
+X-Microsoft-Antispam-PRVS:
+	<SA0PR03MB5465ED6A6714BE7FE13631658FD49@SA0PR03MB5465.namprd03.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	WzrvBS03KY7erswSgCR//c0lkg66CJYI3hThdAJNH4FlyTCxKMlnbC0YnF1ve+AKvOftzaVb5cx72QHC5igl0SyTD5nOxYSRWcg0w67jYPBR6xNgHzUptJcAyTWVB4PzXYEIBtwbvYLpEYC8jAuvjtnvloc8iKNTfNmEjKP4bhcnXfQkPXV8aczZAZolpPc26CJLFLQ37iT8ROmqcbQ/dBWLBuMgAv8HRkpw7aAjjbDueNvkecmPabDGb8oH3T84eiJP+BRnIni3nSRfTl5DPNOq7EmjR9t7tCy4WWuiA3pJq9sDf5zni4UBgYlSCK8Du5iYGWREV/bfdo33OV3Yn75VSVbCdt3gJzzwbapZ2f9R9/EGv2Yu3uG95pHy05vu+grWiHPTuvDExsuD+nU1laZsj93cvgWbblfmNUxzh6EnLBdNJXODID/t/9nuim4Rn/SlU1C4G3yhsqsmpmEyDGYdH3L3ba7lQLJ5xx0teIbHXc1yAbMB+Hqi+5oi3lx8NIc2UFOuhfZdyNA2oQCEEvOvy/DVWtk73FYkw0Jn5F5hKiFuKcYcEY6MSyb5ueI0eLT8QOdJnQ+K4D55b9EneoAgSmpRzCspMvn2y+OZaJ+hOAygCPd7TpBxC6AfzCnYV618Y+n1rT8u2nvbcYqhcg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(7916004)(366004)(54906003)(6916009)(6512007)(186003)(6506007)(53546011)(26005)(9686003)(85182001)(508600001)(6486002)(316002)(83380400001)(2906002)(8936002)(5660300002)(66946007)(66556008)(8676002)(4326008)(66476007)(82960400001)(6666004)(86362001)(33716001)(38100700002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NmtpQzZ3VmJzdmMzb2d5VFVKLytTM1NkQzVYUFZxRE92aVdJL24zSVZTa3Vu?=
+ =?utf-8?B?eHVMQ0N6NTlrNW81eU5mdzlhR3hKOXVDQW9nMk1NbWUvQ2Jad2o4RGh6S3U0?=
+ =?utf-8?B?SzNzeHJuNE5LWW9ONFNCZ0wxNlg5N0hoTHZXWFNBSG9ic1prZFNLUkF3Vm9r?=
+ =?utf-8?B?VXlmQ0gwV25uS1plZHAyVVAyNHdiOU9wOTVjV1lyM1pCVFdjRCt1dCtXT0dw?=
+ =?utf-8?B?ODc0YXBzOFppNWZNTFNSQytnRnpTOVpXTFlGcU4xM3lVdFJrVnMzTE5JRXNh?=
+ =?utf-8?B?SU1MUzZKZjJFN0k1YkFYeXF1eTkyczJ5QVdpVHA2V0MrbG9vYm1hU3FPVUFv?=
+ =?utf-8?B?b2t5TnlJblhKSnNZVzg0RytlYnZIR0RMTFU3VUdWVDQ3NEFpNW1mVVJhWjBx?=
+ =?utf-8?B?TlNiN05LRjhMa3FMd25rVloxb05LRnZaYlRhSjY2VmRZNkxyeGllbEY5OFFZ?=
+ =?utf-8?B?ZVp2QVF3eHByNVdPNjVKS1IrVFkyeDBGR3I5YVFtQnFIYm03NEptYVR0c0R4?=
+ =?utf-8?B?Z21lNmtMSjVEaFVmSk0xSndYM0Ywc0lUT0lpWGxRWGpPODhvZmxNVkhodWh0?=
+ =?utf-8?B?YnI2ZSthT2pma3hIV2wrNGRNU2h2ZkVJZ1FNZ1lJckFKb0NJeG5LTm41Q3dB?=
+ =?utf-8?B?Qzdac3hxVXpUK2FCTlFHN1EvUHBHNExVcFdaSHFVMS9ScWM0bFlwQ1ZtZFZx?=
+ =?utf-8?B?Q1RmYjJIKys4ZTh6M2QrT0Vac3YxQjhVZEhOTTJ2cXFheXBkMXFyYlRaSEFh?=
+ =?utf-8?B?M1N3Uno3dUQ2ekV4aGdiL0RMaVVtNSt3czhNbWpYSkVzYzBZT0t1bWdZMktQ?=
+ =?utf-8?B?VVFXOXAvSUl1R3lqUklDbWVPTktlNmtPZ1ZYbEE0VDBKblRxdmQyeGFLWXpr?=
+ =?utf-8?B?WTgveXptZGZNT0lpcFo0NFRZZlVKY2Q5UHZTS21lYXA0WTV0MmVVWGRFRlpX?=
+ =?utf-8?B?aU8wSmtBV1BwMzJkRnlCQVZUZHNRMzJJOGw1T1p3cTBHZG9uZlZDMkhkWEJJ?=
+ =?utf-8?B?MUxlNk9Jd0Y0QktnRm56VDU3a3U4cXlveW9SRDVFSVJIQmY3MG43aG0vcXNQ?=
+ =?utf-8?B?Z1ZzTmlVWSs0dXNaWXJlTmdNeFhYTUlyWTRYVzR0eStjTldHR3NlWjRrS3hk?=
+ =?utf-8?B?ZUE2QnJvbkJnMHkzcThqWEM4ekR2N3NPQ1VacEJhRGpGSTJDSXFIdzl6TDhS?=
+ =?utf-8?B?S3crN3l2ZUI3M2ZkYVJRanJ6bHpBbnUzLzNHVzRubGhVdTBYRnVmZ0VmL0dr?=
+ =?utf-8?B?dEZCZ2xkZllQY0lXOUUxaDhDd3VIWlBmdWpRdDd0UStKZ3hoVVNQTTlqcy80?=
+ =?utf-8?B?WkhCQXNGYm9haFhPNVFNZ0t0SUpNNjI2RG5nMGc4d29odVRIdzR1WDVYbUZl?=
+ =?utf-8?B?YjR3SWtzNXQyb2tZQVhpc3dyYjRHcXFYSnNVeFpvWEJmTC80WlppV2MrNWQw?=
+ =?utf-8?B?Tkc3WDhsT0NKT2tCamhVQVYrRDVVSDF0MDcvREdEMTNFdWpDcTVqcW4wb1Fl?=
+ =?utf-8?B?c3hMdWFTRHVIN1owdW9ZVzNmRUc3UHpQMVBQTXpRaGt0Tm5tUEVDWHlpb2tG?=
+ =?utf-8?B?UTlSUjl5dEg1MEZBMDRzdkkzbEdnejFRQlVBQzBvYUY0RGdZaXJJMEFialZy?=
+ =?utf-8?B?RHF3NWhNWFBVaCtuMTdRY1dJUzArQ3hKMC9OMmZ5MGZvblhrVUlnN2U3ZkZT?=
+ =?utf-8?B?TGl5b2N5dnBHUzN5NURsZEt4dUhLdEpVSVQySTc1UlhaSGdLdW5KQUFHcFRy?=
+ =?utf-8?B?K3hXNnR3d1ZrN0RhZEhSakNRRjNvL1ZKNXQrMXhqYXBKbzBxUkE1eUpCMVRo?=
+ =?utf-8?B?MWg2YWpRNVVXWHUrNDJGWmJHMyt5S3RXU2JkY1U2RnF5Q0dFQUpKNmw0TWRM?=
+ =?utf-8?B?WHBRR0JzOGNSRUFESkxxRXkySHM5T0E5VFQ2djk2ekZCeklzSG1udGVYVFQ3?=
+ =?utf-8?B?OVg3NGdXWSs2ZXVVaDRybElOM1k2eGU3MDNwdjBoS2FtMEV4UlFHc29pbk9G?=
+ =?utf-8?B?U2U1M0VoUEhzempPdGVzK3NQWC9MaGxLVFpOY1JHSVNsY21oTjhJelpvbHVn?=
+ =?utf-8?B?cFdqSjByci9IQm1oZk9SZThEVGFZdURQem5OL0hyMEhQSWtVTW9tV1IwZVNL?=
+ =?utf-8?B?bjJuZUpQUlFIMUlVVngzRlpRK2t2WHpCN0p2N3dyc0dlcVZVMldzeXpXeG0y?=
+ =?utf-8?B?K3pTY2VvbE1SM3AvL3Q4aGwyOEJoNXZDb2tNZmF4Z2wzRzA1K2tDcUQwd2xE?=
+ =?utf-8?B?ZDQ5ZFd3bUhKNnhGZDRMRHVpM3VYMTlrSTAxVE5BdXF5R1Z6L2dDUHJQc1Zk?=
+ =?utf-8?B?bEc4Z282RU90NU12S1ZMc1Mrek1uNnRCTzFkSmRZckk5ZEk2N2hrS0NIdklR?=
+ =?utf-8?Q?Ww+UA2kUKolr1dno=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0f31213-1be0-4b5d-7327-08da3ca20ef5
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 May 2022 09:53:16.0907
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: l5oNoZ4t6S+brlPyA52XsEu0D2mmNCsB4IfZvl99AM4e5Z875hK0nqgNpVKmihpaimVb5q9NyQEqYotcZoNGYg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR03MB5465
 
-include/xen/byteswap.h has simplify the interface, just clean
-the old interface
+On Mon, May 23, 2022 at 10:12:55AM +0200, Jan Beulich wrote:
+> On 20.05.2022 16:58, Andrew Cooper wrote:
+> > On 20/05/2022 15:19, Jan Beulich wrote:
+> >> On 20.05.2022 16:10, Andrew Cooper wrote:
+> >>> On 20/05/2022 14:37, Roger Pau Monne wrote:
+> >>>> --- a/xen/include/public/arch-x86/cpufeatureset.h
+> >>>> +++ b/xen/include/public/arch-x86/cpufeatureset.h
+> >>>> @@ -135,7 +135,7 @@ XEN_CPUFEATURE(SSSE3,         1*32+ 9) /*A  Supplemental Streaming SIMD Extensio
+> >>>>  XEN_CPUFEATURE(FMA,           1*32+12) /*A  Fused Multiply Add */
+> >>>>  XEN_CPUFEATURE(CX16,          1*32+13) /*A  CMPXCHG16B */
+> >>>>  XEN_CPUFEATURE(XTPR,          1*32+14) /*   Send Task Priority Messages */
+> >>>> -XEN_CPUFEATURE(PDCM,          1*32+15) /*   Perf/Debug Capability MSR */
+> >>>> +XEN_CPUFEATURE(PDCM,          1*32+15) /*S  Perf/Debug Capability MSR */
+> >>> This is the bit which requires more toolstack logic to safely enable. 
+> >>> Using 's' for off-by-default is fine if we want to get the series in now.
+> >>>
+> >>> But before we expose the MSR generally, we need to:
+> >>>
+> >>> 1) Put the configuration in msr_policy so the toolstack can reason about it
+> >>> 2) Reject migration attempts to destinations where the LBR format changes
+> >> Since this could be quite restrictive, and since people needing to know
+> >> they need to hide this feature for migration to work, I guess this would
+> >> further want qualifying by "did the guest actually use LBRs so far"?
+> > 
+> > In practice, it's every major generation ("tock" on Intel's old model),
+> > so isn't actually limiting the kinds of heterogeneous setups used in
+> > production.  (Migration gets steadily less stable the further apart the
+> > two CPUs are.)
+> > 
+> > As to dynamic, no - that would be a security bug in a cloud scenario,
+> > because there must not be anything the guest can do to interfere with
+> > the manageability.
+> > 
+> > Use of LBR is rare, as demonstrated by the fact that noone has
+> > complained about the fact that migrating such a VM will malfunction.
+> > 
+> > As we now have a way of reporting "no model-specific LBR",
+> 
+> Which only rather new guest kernels will know to look for. Hence ...
+> 
+> > I'm tempted
+> > to suggest that VMs get no LBR by default, and someone wanting LBR has
+> > to opt in, which is also an explicit agreement to the migration limitation.
+> 
+> ... while in principle I agree with this, I see a practical issue.
 
-No functional change
+I think it should be fine to expose no model-specific LBR support in
+PERF_CAPABILITIES, but we shouldn't change the behavior of
+DEBUGCTLMSR.LBR exposed to guests if the underlying platform has
+model-specific LBRs and those are known to Xen.
 
-Signed-off-by: Lin Liu <lin.liu@citrix.com>
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <george.dunlap@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>
-Cc: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Wei Liu <wl@xen.org>
----
- xen/include/xen/byteorder/big_endian.h    | 102 ------------
- xen/include/xen/byteorder/generic.h       |  68 --------
- xen/include/xen/byteorder/little_endian.h | 102 ------------
- xen/include/xen/byteorder/swab.h          | 183 ----------------------
- 4 files changed, 455 deletions(-)
- delete mode 100644 xen/include/xen/byteorder/big_endian.h
- delete mode 100644 xen/include/xen/byteorder/generic.h
- delete mode 100644 xen/include/xen/byteorder/little_endian.h
- delete mode 100644 xen/include/xen/byteorder/swab.h
+That way old guest kernels that ignore PERF_CAPABILITIES.LBR_FORMAT
+will continue to work, while newish kernels that check the format will
+avoid using LBRs.
 
-diff --git a/xen/include/xen/byteorder/big_endian.h b/xen/include/xen/byteorder/big_endian.h
-deleted file mode 100644
-index 40eb80a390..0000000000
---- a/xen/include/xen/byteorder/big_endian.h
-+++ /dev/null
-@@ -1,102 +0,0 @@
--#ifndef __XEN_BYTEORDER_BIG_ENDIAN_H__
--#define __XEN_BYTEORDER_BIG_ENDIAN_H__
--
--#ifndef __BIG_ENDIAN
--#define __BIG_ENDIAN 4321
--#endif
--#ifndef __BIG_ENDIAN_BITFIELD
--#define __BIG_ENDIAN_BITFIELD
--#endif
--
--#include <xen/types.h>
--#include <xen/byteorder/swab.h>
--
--#define __constant_cpu_to_le64(x) ((__force __le64)___constant_swab64((x)))
--#define __constant_le64_to_cpu(x) ___constant_swab64((__force __u64)(__le64)(x))
--#define __constant_cpu_to_le32(x) ((__force __le32)___constant_swab32((x)))
--#define __constant_le32_to_cpu(x) ___constant_swab32((__force __u32)(__le32)(x))
--#define __constant_cpu_to_le16(x) ((__force __le16)___constant_swab16((x)))
--#define __constant_le16_to_cpu(x) ___constant_swab16((__force __u16)(__le16)(x))
--#define __constant_cpu_to_be64(x) ((__force __be64)(__u64)(x))
--#define __constant_be64_to_cpu(x) ((__force __u64)(__be64)(x))
--#define __constant_cpu_to_be32(x) ((__force __be32)(__u32)(x))
--#define __constant_be32_to_cpu(x) ((__force __u32)(__be32)(x))
--#define __constant_cpu_to_be16(x) ((__force __be16)(__u16)(x))
--#define __constant_be16_to_cpu(x) ((__force __u16)(__be16)(x))
--#define __cpu_to_le64(x) ((__force __le64)__swab64((x)))
--#define __le64_to_cpu(x) __swab64((__force __u64)(__le64)(x))
--#define __cpu_to_le32(x) ((__force __le32)__swab32((x)))
--#define __le32_to_cpu(x) __swab32((__force __u32)(__le32)(x))
--#define __cpu_to_le16(x) ((__force __le16)__swab16((x)))
--#define __le16_to_cpu(x) __swab16((__force __u16)(__le16)(x))
--#define __cpu_to_be64(x) ((__force __be64)(__u64)(x))
--#define __be64_to_cpu(x) ((__force __u64)(__be64)(x))
--#define __cpu_to_be32(x) ((__force __be32)(__u32)(x))
--#define __be32_to_cpu(x) ((__force __u32)(__be32)(x))
--#define __cpu_to_be16(x) ((__force __be16)(__u16)(x))
--#define __be16_to_cpu(x) ((__force __u16)(__be16)(x))
--
--static inline __le64 __cpu_to_le64p(const __u64 *p)
--{
--    return (__force __le64)__swab64p(p);
--}
--static inline __u64 __le64_to_cpup(const __le64 *p)
--{
--    return __swab64p((__u64 *)p);
--}
--static inline __le32 __cpu_to_le32p(const __u32 *p)
--{
--    return (__force __le32)__swab32p(p);
--}
--static inline __u32 __le32_to_cpup(const __le32 *p)
--{
--    return __swab32p((__u32 *)p);
--}
--static inline __le16 __cpu_to_le16p(const __u16 *p)
--{
--    return (__force __le16)__swab16p(p);
--}
--static inline __u16 __le16_to_cpup(const __le16 *p)
--{
--    return __swab16p((__u16 *)p);
--}
--static inline __be64 __cpu_to_be64p(const __u64 *p)
--{
--    return (__force __be64)*p;
--}
--static inline __u64 __be64_to_cpup(const __be64 *p)
--{
--    return (__force __u64)*p;
--}
--static inline __be32 __cpu_to_be32p(const __u32 *p)
--{
--    return (__force __be32)*p;
--}
--static inline __u32 __be32_to_cpup(const __be32 *p)
--{
--    return (__force __u32)*p;
--}
--static inline __be16 __cpu_to_be16p(const __u16 *p)
--{
--    return (__force __be16)*p;
--}
--static inline __u16 __be16_to_cpup(const __be16 *p)
--{
--    return (__force __u16)*p;
--}
--#define __cpu_to_le64s(x) __swab64s((x))
--#define __le64_to_cpus(x) __swab64s((x))
--#define __cpu_to_le32s(x) __swab32s((x))
--#define __le32_to_cpus(x) __swab32s((x))
--#define __cpu_to_le16s(x) __swab16s((x))
--#define __le16_to_cpus(x) __swab16s((x))
--#define __cpu_to_be64s(x) do {} while (0)
--#define __be64_to_cpus(x) do {} while (0)
--#define __cpu_to_be32s(x) do {} while (0)
--#define __be32_to_cpus(x) do {} while (0)
--#define __cpu_to_be16s(x) do {} while (0)
--#define __be16_to_cpus(x) do {} while (0)
--
--#include <xen/byteorder/generic.h>
--
--#endif /* __XEN_BYTEORDER_BIG_ENDIAN_H__ */
-diff --git a/xen/include/xen/byteorder/generic.h b/xen/include/xen/byteorder/generic.h
-deleted file mode 100644
-index 8a0006b755..0000000000
---- a/xen/include/xen/byteorder/generic.h
-+++ /dev/null
-@@ -1,68 +0,0 @@
--#ifndef __XEN_BYTEORDER_GENERIC_H__
--#define __XEN_BYTEORDER_GENERIC_H__
--
--/*
-- * Generic Byte-reordering support
-- *
-- * The "... p" macros, like le64_to_cpup, can be used with pointers
-- * to unaligned data, but there will be a performance penalty on 
-- * some architectures.  Use get_unaligned for unaligned data.
-- *
-- * The following macros are to be defined by <asm/byteorder.h>:
-- *
-- * Conversion of XX-bit integers (16- 32- or 64-)
-- * between native CPU format and little/big endian format
-- * 64-bit stuff only defined for proper architectures
-- *     cpu_to_[bl]eXX(__uXX x)
-- *     [bl]eXX_to_cpu(__uXX x)
-- *
-- * The same, but takes a pointer to the value to convert
-- *     cpu_to_[bl]eXXp(__uXX x)
-- *     [bl]eXX_to_cpup(__uXX x)
-- *
-- * The same, but change in situ
-- *     cpu_to_[bl]eXXs(__uXX x)
-- *     [bl]eXX_to_cpus(__uXX x)
-- *
-- * See asm-foo/byteorder.h for examples of how to provide
-- * architecture-optimized versions
-- */
--
--#define cpu_to_le64 __cpu_to_le64
--#define le64_to_cpu __le64_to_cpu
--#define cpu_to_le32 __cpu_to_le32
--#define le32_to_cpu __le32_to_cpu
--#define cpu_to_le16 __cpu_to_le16
--#define le16_to_cpu __le16_to_cpu
--#define cpu_to_be64 __cpu_to_be64
--#define be64_to_cpu __be64_to_cpu
--#define cpu_to_be32 __cpu_to_be32
--#define be32_to_cpu __be32_to_cpu
--#define cpu_to_be16 __cpu_to_be16
--#define be16_to_cpu __be16_to_cpu
--#define cpu_to_le64p __cpu_to_le64p
--#define le64_to_cpup __le64_to_cpup
--#define cpu_to_le32p __cpu_to_le32p
--#define le32_to_cpup __le32_to_cpup
--#define cpu_to_le16p __cpu_to_le16p
--#define le16_to_cpup __le16_to_cpup
--#define cpu_to_be64p __cpu_to_be64p
--#define be64_to_cpup __be64_to_cpup
--#define cpu_to_be32p __cpu_to_be32p
--#define be32_to_cpup __be32_to_cpup
--#define cpu_to_be16p __cpu_to_be16p
--#define be16_to_cpup __be16_to_cpup
--#define cpu_to_le64s __cpu_to_le64s
--#define le64_to_cpus __le64_to_cpus
--#define cpu_to_le32s __cpu_to_le32s
--#define le32_to_cpus __le32_to_cpus
--#define cpu_to_le16s __cpu_to_le16s
--#define le16_to_cpus __le16_to_cpus
--#define cpu_to_be64s __cpu_to_be64s
--#define be64_to_cpus __be64_to_cpus
--#define cpu_to_be32s __cpu_to_be32s
--#define be32_to_cpus __be32_to_cpus
--#define cpu_to_be16s __cpu_to_be16s
--#define be16_to_cpus __be16_to_cpus
--
--#endif /* __XEN_BYTEORDER_GENERIC_H__ */
-diff --git a/xen/include/xen/byteorder/little_endian.h b/xen/include/xen/byteorder/little_endian.h
-deleted file mode 100644
-index 4955632793..0000000000
---- a/xen/include/xen/byteorder/little_endian.h
-+++ /dev/null
-@@ -1,102 +0,0 @@
--#ifndef __XEN_BYTEORDER_LITTLE_ENDIAN_H__
--#define __XEN_BYTEORDER_LITTLE_ENDIAN_H__
--
--#ifndef __LITTLE_ENDIAN
--#define __LITTLE_ENDIAN 1234
--#endif
--#ifndef __LITTLE_ENDIAN_BITFIELD
--#define __LITTLE_ENDIAN_BITFIELD
--#endif
--
--#include <xen/types.h>
--#include <xen/byteorder/swab.h>
--
--#define __constant_cpu_to_le64(x) ((__force __le64)(__u64)(x))
--#define __constant_le64_to_cpu(x) ((__force __u64)(__le64)(x))
--#define __constant_cpu_to_le32(x) ((__force __le32)(__u32)(x))
--#define __constant_le32_to_cpu(x) ((__force __u32)(__le32)(x))
--#define __constant_cpu_to_le16(x) ((__force __le16)(__u16)(x))
--#define __constant_le16_to_cpu(x) ((__force __u16)(__le16)(x))
--#define __constant_cpu_to_be64(x) ((__force __be64)___constant_swab64((x)))
--#define __constant_be64_to_cpu(x) ___constant_swab64((__force __u64)(__be64)(x))
--#define __constant_cpu_to_be32(x) ((__force __be32)___constant_swab32((x)))
--#define __constant_be32_to_cpu(x) ___constant_swab32((__force __u32)(__be32)(x))
--#define __constant_cpu_to_be16(x) ((__force __be16)___constant_swab16((x)))
--#define __constant_be16_to_cpu(x) ___constant_swab16((__force __u16)(__be16)(x))
--#define __cpu_to_le64(x) ((__force __le64)(__u64)(x))
--#define __le64_to_cpu(x) ((__force __u64)(__le64)(x))
--#define __cpu_to_le32(x) ((__force __le32)(__u32)(x))
--#define __le32_to_cpu(x) ((__force __u32)(__le32)(x))
--#define __cpu_to_le16(x) ((__force __le16)(__u16)(x))
--#define __le16_to_cpu(x) ((__force __u16)(__le16)(x))
--#define __cpu_to_be64(x) ((__force __be64)__swab64((x)))
--#define __be64_to_cpu(x) __swab64((__force __u64)(__be64)(x))
--#define __cpu_to_be32(x) ((__force __be32)__swab32((x)))
--#define __be32_to_cpu(x) __swab32((__force __u32)(__be32)(x))
--#define __cpu_to_be16(x) ((__force __be16)__swab16((x)))
--#define __be16_to_cpu(x) __swab16((__force __u16)(__be16)(x))
--
--static inline __le64 __cpu_to_le64p(const __u64 *p)
--{
--    return (__force __le64)*p;
--}
--static inline __u64 __le64_to_cpup(const __le64 *p)
--{
--    return (__force __u64)*p;
--}
--static inline __le32 __cpu_to_le32p(const __u32 *p)
--{
--    return (__force __le32)*p;
--}
--static inline __u32 __le32_to_cpup(const __le32 *p)
--{
--    return (__force __u32)*p;
--}
--static inline __le16 __cpu_to_le16p(const __u16 *p)
--{
--    return (__force __le16)*p;
--}
--static inline __u16 __le16_to_cpup(const __le16 *p)
--{
--    return (__force __u16)*p;
--}
--static inline __be64 __cpu_to_be64p(const __u64 *p)
--{
--    return (__force __be64)__swab64p(p);
--}
--static inline __u64 __be64_to_cpup(const __be64 *p)
--{
--    return __swab64p((__u64 *)p);
--}
--static inline __be32 __cpu_to_be32p(const __u32 *p)
--{
--    return (__force __be32)__swab32p(p);
--}
--static inline __u32 __be32_to_cpup(const __be32 *p)
--{
--    return __swab32p((__u32 *)p);
--}
--static inline __be16 __cpu_to_be16p(const __u16 *p)
--{
--    return (__force __be16)__swab16p(p);
--}
--static inline __u16 __be16_to_cpup(const __be16 *p)
--{
--    return __swab16p((__u16 *)p);
--}
--#define __cpu_to_le64s(x) do {} while (0)
--#define __le64_to_cpus(x) do {} while (0)
--#define __cpu_to_le32s(x) do {} while (0)
--#define __le32_to_cpus(x) do {} while (0)
--#define __cpu_to_le16s(x) do {} while (0)
--#define __le16_to_cpus(x) do {} while (0)
--#define __cpu_to_be64s(x) __swab64s((x))
--#define __be64_to_cpus(x) __swab64s((x))
--#define __cpu_to_be32s(x) __swab32s((x))
--#define __be32_to_cpus(x) __swab32s((x))
--#define __cpu_to_be16s(x) __swab16s((x))
--#define __be16_to_cpus(x) __swab16s((x))
--
--#include <xen/byteorder/generic.h>
--
--#endif /* __XEN_BYTEORDER_LITTLE_ENDIAN_H__ */
-diff --git a/xen/include/xen/byteorder/swab.h b/xen/include/xen/byteorder/swab.h
-deleted file mode 100644
-index b7e30f0503..0000000000
---- a/xen/include/xen/byteorder/swab.h
-+++ /dev/null
-@@ -1,183 +0,0 @@
--#ifndef __XEN_BYTEORDER_SWAB_H__
--#define __XEN_BYTEORDER_SWAB_H__
--
--/*
-- * Byte-swapping, independently from CPU endianness
-- *     swabXX[ps]?(foo)
-- *
-- * Francois-Rene Rideau <fare@tunes.org> 19971205
-- *    separated swab functions from cpu_to_XX,
-- *    to clean up support for bizarre-endian architectures.
-- */
--
--/* casts are necessary for constants, because we never know how for sure
-- * how U/UL/ULL map to __u16, __u32, __u64. At least not in a portable way.
-- */
--#define ___swab16(x)                                    \
--({                                                      \
--    __u16 __x = (x);                                    \
--    ((__u16)(                                           \
--        (((__u16)(__x) & (__u16)0x00ffU) << 8) |        \
--        (((__u16)(__x) & (__u16)0xff00U) >> 8) ));      \
--})
--
--#define ___swab32(x)                                            \
--({                                                              \
--    __u32 __x = (x);                                            \
--    ((__u32)(                                                   \
--        (((__u32)(__x) & (__u32)0x000000ffUL) << 24) |          \
--        (((__u32)(__x) & (__u32)0x0000ff00UL) <<  8) |          \
--        (((__u32)(__x) & (__u32)0x00ff0000UL) >>  8) |          \
--        (((__u32)(__x) & (__u32)0xff000000UL) >> 24) ));        \
--})
--
--#define ___swab64(x)                                                       \
--({                                                                         \
--    __u64 __x = (x);                                                       \
--    ((__u64)(                                                              \
--        (__u64)(((__u64)(__x) & (__u64)0x00000000000000ffULL) << 56) |     \
--        (__u64)(((__u64)(__x) & (__u64)0x000000000000ff00ULL) << 40) |     \
--        (__u64)(((__u64)(__x) & (__u64)0x0000000000ff0000ULL) << 24) |     \
--        (__u64)(((__u64)(__x) & (__u64)0x00000000ff000000ULL) <<  8) |     \
--            (__u64)(((__u64)(__x) & (__u64)0x000000ff00000000ULL) >>  8) | \
--        (__u64)(((__u64)(__x) & (__u64)0x0000ff0000000000ULL) >> 24) |     \
--        (__u64)(((__u64)(__x) & (__u64)0x00ff000000000000ULL) >> 40) |     \
--        (__u64)(((__u64)(__x) & (__u64)0xff00000000000000ULL) >> 56) ));   \
--})
--
--#define ___constant_swab16(x)                   \
--    ((__u16)(                                   \
--        (((__u16)(x) & (__u16)0x00ffU) << 8) |  \
--        (((__u16)(x) & (__u16)0xff00U) >> 8) ))
--#define ___constant_swab32(x)                           \
--    ((__u32)(                                           \
--        (((__u32)(x) & (__u32)0x000000ffUL) << 24) |    \
--        (((__u32)(x) & (__u32)0x0000ff00UL) <<  8) |    \
--        (((__u32)(x) & (__u32)0x00ff0000UL) >>  8) |    \
--        (((__u32)(x) & (__u32)0xff000000UL) >> 24) ))
--#define ___constant_swab64(x)                                            \
--    ((__u64)(                                                            \
--        (__u64)(((__u64)(x) & (__u64)0x00000000000000ffULL) << 56) |     \
--        (__u64)(((__u64)(x) & (__u64)0x000000000000ff00ULL) << 40) |     \
--        (__u64)(((__u64)(x) & (__u64)0x0000000000ff0000ULL) << 24) |     \
--        (__u64)(((__u64)(x) & (__u64)0x00000000ff000000ULL) <<  8) |     \
--            (__u64)(((__u64)(x) & (__u64)0x000000ff00000000ULL) >>  8) | \
--        (__u64)(((__u64)(x) & (__u64)0x0000ff0000000000ULL) >> 24) |     \
--        (__u64)(((__u64)(x) & (__u64)0x00ff000000000000ULL) >> 40) |     \
--        (__u64)(((__u64)(x) & (__u64)0xff00000000000000ULL) >> 56) ))
--
--/*
-- * provide defaults when no architecture-specific optimization is detected
-- */
--#ifndef __arch__swab16
--#  define __arch__swab16(x) ({ __u16 __tmp = (x) ; ___swab16(__tmp); })
--#endif
--#ifndef __arch__swab32
--#  define __arch__swab32(x) ({ __u32 __tmp = (x) ; ___swab32(__tmp); })
--#endif
--#ifndef __arch__swab64
--#  define __arch__swab64(x) ({ __u64 __tmp = (x) ; ___swab64(__tmp); })
--#endif
--
--#ifndef __arch__swab16p
--#  define __arch__swab16p(x) __arch__swab16(*(x))
--#endif
--#ifndef __arch__swab32p
--#  define __arch__swab32p(x) __arch__swab32(*(x))
--#endif
--#ifndef __arch__swab64p
--#  define __arch__swab64p(x) __arch__swab64(*(x))
--#endif
--
--#ifndef __arch__swab16s
--#  define __arch__swab16s(x) do { *(x) = __arch__swab16p((x)); } while (0)
--#endif
--#ifndef __arch__swab32s
--#  define __arch__swab32s(x) do { *(x) = __arch__swab32p((x)); } while (0)
--#endif
--#ifndef __arch__swab64s
--#  define __arch__swab64s(x) do { *(x) = __arch__swab64p((x)); } while (0)
--#endif
--
--
--/*
-- * Allow constant folding
-- */
--#if defined(__GNUC__) && defined(__OPTIMIZE__)
--#  define __swab16(x) \
--(__builtin_constant_p((__u16)(x)) ? \
-- ___swab16((x)) : \
-- __fswab16((x)))
--#  define __swab32(x) \
--(__builtin_constant_p((__u32)(x)) ? \
-- ___swab32((x)) : \
-- __fswab32((x)))
--#  define __swab64(x) \
--(__builtin_constant_p((__u64)(x)) ? \
-- ___swab64((x)) : \
-- __fswab64((x)))
--#else
--#  define __swab16(x) __fswab16(x)
--#  define __swab32(x) __fswab32(x)
--#  define __swab64(x) __fswab64(x)
--#endif /* OPTIMIZE */
--
--
--static inline __attribute_const__ __u16 __fswab16(__u16 x)
--{
--    return __arch__swab16(x);
--}
--static inline __u16 __swab16p(const __u16 *x)
--{
--    return __arch__swab16p(x);
--}
--static inline void __swab16s(__u16 *addr)
--{
--    __arch__swab16s(addr);
--}
--
--static inline __attribute_const__ __u32 __fswab32(__u32 x)
--{
--    return __arch__swab32(x);
--}
--static inline __u32 __swab32p(const __u32 *x)
--{
--    return __arch__swab32p(x);
--}
--static inline void __swab32s(__u32 *addr)
--{
--    __arch__swab32s(addr);
--}
--
--#ifdef __BYTEORDER_HAS_U64__
--static inline __attribute_const__ __u64 __fswab64(__u64 x)
--{
--#  ifdef __SWAB_64_THRU_32__
--    __u32 h = x >> 32;
--        __u32 l = x & ((1ULL<<32)-1);
--        return (((__u64)__swab32(l)) << 32) | ((__u64)(__swab32(h)));
--#  else
--    return __arch__swab64(x);
--#  endif
--}
--static inline __u64 __swab64p(const __u64 *x)
--{
--    return __arch__swab64p(x);
--}
--static inline void __swab64s(__u64 *addr)
--{
--    __arch__swab64s(addr);
--}
--#endif /* __BYTEORDER_HAS_U64__ */
--
--#define swab16 __swab16
--#define swab32 __swab32
--#define swab64 __swab64
--#define swab16p __swab16p
--#define swab32p __swab32p
--#define swab64p __swab64p
--#define swab16s __swab16s
--#define swab32s __swab32s
--#define swab64s __swab64s
--
--#endif /* __XEN_BYTEORDER_SWAB_H__ */
--- 
-2.27.0
+In case we introduce a guest config option to enable LBR, should we
+then expose the native LBR format in PERF_CAPABILITIES?  Or would it
+be better to just keep the current model and not expose
+PERF_CAPABILITIES at all (and don't report PDCM in CPUID in that
+case).
 
+Thanks, Roger.
 
