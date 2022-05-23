@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 594E7530C79
-	for <lists+xen-devel@lfdr.de>; Mon, 23 May 2022 12:00:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.335689.559899 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B150530C7F
+	for <lists+xen-devel@lfdr.de>; Mon, 23 May 2022 12:06:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.335738.559921 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nt4rY-0007mA-8U; Mon, 23 May 2022 10:00:32 +0000
+	id 1nt4wu-0000dE-7Y; Mon, 23 May 2022 10:06:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 335689.559899; Mon, 23 May 2022 10:00:32 +0000
+Received: by outflank-mailman (output) from mailman id 335738.559921; Mon, 23 May 2022 10:06:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nt4rY-0007jb-4i; Mon, 23 May 2022 10:00:32 +0000
-Received: by outflank-mailman (input) for mailman id 335689;
- Mon, 23 May 2022 10:00:30 +0000
+	id 1nt4wu-0000aS-2b; Mon, 23 May 2022 10:06:04 +0000
+Received: by outflank-mailman (input) for mailman id 335738;
+ Mon, 23 May 2022 10:06:02 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nt4rW-0007jR-9S; Mon, 23 May 2022 10:00:30 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1nt4ws-0000aM-Ep
+ for xen-devel@lists.xenproject.org; Mon, 23 May 2022 10:06:02 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nt4rW-0004gs-5u; Mon, 23 May 2022 10:00:30 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nt4rV-0008Hp-On; Mon, 23 May 2022 10:00:29 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nt4rV-0002qa-OM; Mon, 23 May 2022 10:00:29 +0000
+ (envelope-from <julien@xen.org>)
+ id 1nt4wr-0004mf-QU; Mon, 23 May 2022 10:06:01 +0000
+Received: from [54.239.6.189] (helo=[192.168.27.249])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nt4wr-00054I-Im; Mon, 23 May 2022 10:06:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,182 +39,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=QC+sGqWTWpkalAk0J5yioBwEDFf6Wue/U43Uqis5uaA=; b=OTyPWYXy6Bh53PcTcNUPMNTKL6
-	cCOgzU2VHwn6LCSuCTP865glwPKvsxkYEaUROJVRqqUoemB6c5g8fhjYeLsbjr3tugpRTphO5YE4u
-	uc58ZalS2E5YgmcwzdfHIc4CF8QzvGl4k7OaXc4JYyQwqdDnU3uuGxRK4rtTGpacRvKo=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170697-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=bMBe0/7TJA3ZaAErtN09mcWAYt7fBGRuH8DYt/jdaXg=; b=vdwrfVtLC5yZXXQrNUhLbuXi1B
+	gkqYwpaFAVPwn+PUcvjky99FIoqjpUuAU8B/uQiSY6iMYr8qWlXHc7qkGT6yXyqzfLazPzDERQ/71
+	Yhn1CLQKNxzrKeuTZ5CoMhqN2JWSsgvYolCkrR7WKuBOfTjsDW0PolzqnvMsSjR7M16c=;
+Message-ID: <45054a80-3958-a6b8-1575-02dd5bb17892@xen.org>
+Date: Mon, 23 May 2022 11:05:58 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 170697: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=a21a3438f795deecb24e1843c1636f95c485017c
-X-Osstest-Versions-That:
-    ovmf=b1b89f9009f2390652e0061bd7b24fc40732bc70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 23 May 2022 10:00:29 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.9.0
+Subject: Re: [PATCH] xen/arm: Allow setting the number of CPUs to activate at
+ runtime
+To: Michal Orzel <michal.orzel@arm.com>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20220523091324.137350-1-michal.orzel@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20220523091324.137350-1-michal.orzel@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 170697 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170697/
+Hi,
 
-Regressions :-(
+On 23/05/2022 10:13, Michal Orzel wrote:
+> Introduce a command line parameter "maxcpus" on Arm to allow adjusting
+> the number of CPUs to activate.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 168254
- build-i386                    6 xen-build                fail REGR. vs. 168254
- build-i386-xsm                6 xen-build                fail REGR. vs. 168254
- build-amd64-xsm               6 xen-build                fail REGR. vs. 168254
+The current definition "maxcpus" is not really suitable for big.LITTLE 
+systems as you have no flexibility to say how many types of each cores 
+you want to boot.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 a21a3438f795deecb24e1843c1636f95c485017c
-baseline version:
- ovmf                 b1b89f9009f2390652e0061bd7b24fc40732bc70
-
-Last test of basis   168254  2022-02-28 10:41:46 Z   83 days
-Failing since        168258  2022-03-01 01:55:31 Z   83 days 1185 attempts
-Testing same since   170593  2022-05-20 06:42:41 Z    3 days   73 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abdul Lateef Attar <abdattar@amd.com>
-  Abdul Lateef Attar via groups.io <abdattar=amd.com@groups.io>
-  Abner Chang <abner.chang@hpe.com>
-  Akihiko Odaki <akihiko.odaki@gmail.com>
-  Anthony PERARD <anthony.perard@citrix.com
-  Ard Biesheuvel <ardb@kernel.org>
-  Bandaru, Purna Chandra Rao <Purna.Chandra.Rao.Bandaru@intel.com>
-  Bo Chang Ke <bo-changx.ke@intel.com>
-  Bob Feng <bob.c.feng@intel.com>
-  Chao Li <lichao@loongson.cn>
-  Chao, Zhuoran <zhuoran.chao@intel.com>
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Christine <Yuwei.Chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-  Corvin Köhne <c.koehne@beckhoff.com>
-  Dandan Bi <dandan.bi@intel.com>
-  dann frazier <dann.frazier@canonical.com>
-  Dun Tan <dun.tan@intel.com>
-  duntan <dun.tan@intel.com>
-  Feng, Bob C <bob.c.feng@intel.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Gua Guo <gua.guo@intel.com>
-  Guo Dong <guo.dong@intel.com>
-  Guomin Jiang <guomin.jiang@intel.com>
-  Hao A Wu <hao.a.wu@intel.com>
-  Heng Luo <heng.luo@intel.com>
-  Hua Ma <hua.ma@intel.com>
-  Huang, Li-Xia <lisa.huang@intel.com>
-  Jagadeesh Ujja <Jagadeesh.Ujja@arm.com>
-  Jake Garver <jake@nvidia.com>
-  Jake Garver via groups.io <jake=nvidia.com@groups.io>
-  Jason <yun.lou@intel.com>
-  Jason Lou <yun.lou@intel.com>
-  Jiewen Yao <jiewen.yao@intel.com>
-  Ke, Bo-ChangX <bo-changx.ke@intel.com>
-  Ken Lautner <kenlautner3@gmail.com>
-  Kenneth Lautner <kenlautner3@gmail.com>
-  Kun Qin <kuqin12@gmail.com>
-  Kuo, Ted <ted.kuo@intel.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Lean Sheng Tan <sheng.tan@9elements.com>
-  Leif Lindholm <quic_llindhol@quicinc.com
-  Leif Lindholm <quic_llindhol@quicinc.com>
-  Li, Yi1 <yi1.li@intel.com>
-  Li, Zhihao <zhihao.li@intel.com>
-  Liming Gao <gaoliming@byosoft.com.cn>
-  Liu <yun.y.liu@intel.com>
-  Liu Yun <yun.y.liu@intel.com>
-  Liu Yun Y <yun.y.liu@intel.com>
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Lixia Huang <lisa.huang@intel.com>
-  Lou, Yun <Yun.Lou@intel.com>
-  Ma, Hua <Hua.Ma@intel.com>
-  Mara Sophie Grosch <littlefox@lf-net.org>
-  Mara Sophie Grosch via groups.io <littlefox=lf-net.org@groups.io>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Michael D Kinney <michael.d.kinney@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Michael Kubacki <mikuback@microsoft.com>
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrick Rudolph <patrick.rudolph@9elements.com>
-  Peter Grehan <grehan@freebsd.org>
-  Purna Chandra Rao Bandaru <purna.chandra.rao.bandaru@intel.com>
-  Ray Ni <ray.ni@intel.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Rebecca Cran <rebecca@bsdio.com>
-  Sami Mujawar <sami.mujawar@arm.com>
-  Sean Rhodes <sean@starlabs.systems>
-  Sean Rhodes sean@starlabs.systems
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Sunny Wang <sunny.wang@arm.com>
-  Tan, Dun <dun.tan@intel.com>
-  Ted Kuo <ted.kuo@intel.com>
-  Tom Lendacky <thomas.lendacky@amd.com>
-  Wenyi Xie <xiewenyi2@huawei.com>
-  wenyi,xie via groups.io <xiewenyi2=huawei.com@groups.io>
-  Xiaolu.Jiang <xiaolu.jiang@intel.com>
-  Xie, Yuanhao <yuanhao.xie@intel.com>
-  Yi Li <yi1.li@intel.com>
-  yi1 li <yi1.li@intel.com>
-  Yu Pu <yu.pu@intel.com>
-  Yuanhao Xie <yuanhao.xie@intel.com>
-  Yuwei Chen <yuwei.chen@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-  Zhihao Li <zhihao.li@intel.com>
-  Zhuoran Chao <zhuoran.chao@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+Instead, Xen will pick-up the first CPUs it parsed from the firmware tables.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+So what's your use-case/target?
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> Currently the limit is defined by the
+> config option CONFIG_NR_CPUS. Such parameter already exists on x86.
+> 
+> Define a parameter "maxcpus" and a corresponding static variable
+> max_cpus in Arm smpboot.c. Modify function smp_get_max_cpus to take
+> max_cpus as a limit and to return proper unsigned int instead of int.
+> 
+> Take the opportunity to remove redundant variable cpus from start_xen
+> function and to directly assign the return value from smp_get_max_cpus
+> to nr_cpu_ids (global variable in Xen used to store the number of CPUs
+> actually activated).
+> 
+> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
+> ---
+> max_cpus is also defined in x86 setup.c. It would be possible to join
+> these definitions in xen/common/cpu.c. However in that case, max_cpus
+> would become global which is not really what we want.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+If we move the global variable, then I would also expect to move the 
+parsing parsing (i.e. smp_get_max_cpus()). So why would max_cpus end up 
+to be global? Is it because the x86 would continue to use it?
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> There is already
+> global nr_cpu_ids used everywhere and max_cpus being used only in x86
+> start_xen and Arm smp_get_max_cpus should be kept local. Also there are
+> already lots of places in Xen using max_cpus (local versions) and that
+> would start to be hard to read (variable shadowing).
+
+We should avoid variable shadowing.
+
+> ---
+>   docs/misc/xen-command-line.pandoc |  2 +-
+>   xen/arch/arm/include/asm/smp.h    |  2 +-
+>   xen/arch/arm/setup.c              | 10 ++++------
+>   xen/arch/arm/smpboot.c            | 18 ++++++++++++------
+>   4 files changed, 18 insertions(+), 14 deletions(-)
+
+The patch looks ok to me (see one coding style comment below). I haven't 
+acked it because I am waiting to get more input on your use-cases.
 
 
-Not pushing.
+[...]
 
-(No revision log; it would be 6968 lines long.)
+> diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
+> index 9bb32a301a..22fede6600 100644
+> --- a/xen/arch/arm/smpboot.c
+> +++ b/xen/arch/arm/smpboot.c
+> @@ -43,6 +43,10 @@ cpumask_t cpu_possible_map;
+>   
+>   struct cpuinfo_arm cpu_data[NR_CPUS];
+>   
+> +/* maxcpus: maximum number of CPUs to activate. */
+> +static unsigned int __initdata max_cpus;
+> +integer_param("maxcpus", max_cpus);
+> +
+>   /* CPU logical map: map xen cpuid to an MPIDR */
+>   register_t __cpu_logical_map[NR_CPUS] = { [0 ... NR_CPUS-1] = MPIDR_INVALID };
+>   
+> @@ -277,16 +281,18 @@ void __init smp_init_cpus(void)
+>                       "unless the cpu affinity of all domains is specified.\n");
+>   }
+>   
+> -int __init
+> -smp_get_max_cpus (void)
+> +unsigned int __init smp_get_max_cpus(void)
+>   {
+> -    int i, max_cpus = 0;
+> +    unsigned int i, cpus = 0;
+> +
+> +    if ( ( !max_cpus ) || ( max_cpus > nr_cpu_ids ) )
+
+Coding style: We don't add space in the inner parentheses. I.e:
+
+if ( (!max_cpus) || (max_cpus > nr_cpu_ids) )
+
+> +        max_cpus = nr_cpu_ids;
+>   
+> -    for ( i = 0; i < nr_cpu_ids; i++ )
+> +    for ( i = 0; i < max_cpus; i++ )
+>           if ( cpu_possible(i) )
+> -            max_cpus++;
+> +            cpus++;
+>   
+> -    return max_cpus;
+> +    return cpus;
+>   }
+>   
+>   void __init
+
+-- 
+Julien Grall
 
