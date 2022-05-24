@@ -2,42 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 514255328D0
-	for <lists+xen-devel@lfdr.de>; Tue, 24 May 2022 13:23:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.336523.560859 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3997B532A90
+	for <lists+xen-devel@lfdr.de>; Tue, 24 May 2022 14:42:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.336532.560870 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntScn-0003fw-LC; Tue, 24 May 2022 11:22:53 +0000
+	id 1ntTr6-0003gP-OB; Tue, 24 May 2022 12:41:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 336523.560859; Tue, 24 May 2022 11:22:53 +0000
+Received: by outflank-mailman (output) from mailman id 336532.560870; Tue, 24 May 2022 12:41:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntScn-0003dJ-I9; Tue, 24 May 2022 11:22:53 +0000
-Received: by outflank-mailman (input) for mailman id 336523;
- Tue, 24 May 2022 11:22:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jpOU=WA=citrix.com=prvs=1362cb858=roger.pau@srs-se1.protection.inumbo.net>)
- id 1ntScl-0003dD-VD
- for xen-devel@lists.xenproject.org; Tue, 24 May 2022 11:22:51 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d7122abd-db53-11ec-bd2c-47488cf2e6aa;
- Tue, 24 May 2022 13:22:49 +0200 (CEST)
-Received: from mail-dm6nam08lp2042.outbound.protection.outlook.com (HELO
- NAM04-DM6-obe.outbound.protection.outlook.com) ([104.47.73.42])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 24 May 2022 07:22:43 -0400
-Received: from DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
- by SJ0PR03MB6221.namprd03.prod.outlook.com (2603:10b6:a03:3ab::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.14; Tue, 24 May
- 2022 11:22:39 +0000
-Received: from DS7PR03MB5608.namprd03.prod.outlook.com
- ([fe80::5df3:95ce:4dfd:134e]) by DS7PR03MB5608.namprd03.prod.outlook.com
- ([fe80::5df3:95ce:4dfd:134e%5]) with mapi id 15.20.5273.023; Tue, 24 May 2022
- 11:22:38 +0000
+	id 1ntTr6-0003dV-LK; Tue, 24 May 2022 12:41:44 +0000
+Received: by outflank-mailman (input) for mailman id 336532;
+ Tue, 24 May 2022 12:41:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=oZoU=WA=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1ntTr4-0003dL-G3
+ for xen-devel@lists.xenproject.org; Tue, 24 May 2022 12:41:42 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id db71daf9-db5e-11ec-837f-e5687231ffcc;
+ Tue, 24 May 2022 14:41:39 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 638751F91B;
+ Tue, 24 May 2022 12:41:39 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D158713AE3;
+ Tue, 24 May 2022 12:41:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id STa9MYLSjGIsYQAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 24 May 2022 12:41:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,190 +51,326 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d7122abd-db53-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1653391369;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=M2JuA1N9OR8zm6eU6YwbpiA9m4oveJM1/JQpVnCw8WY=;
-  b=KxvpTJYQXUml3HEPJALCG35hatjuE7RmS1kgyht7OxBeLDGWqoVFW2zh
-   jSf+eHXvvrPRp6LRPywLiF4ESSMKWZ5YQ4/FHLVQHClevtcLtDybEAmQO
-   jig8CFRCtDTwiwyEHmH64Uc0t9Qsf36hH7E7t4JcOKmUJweGRPoDSyMhz
-   8=;
-X-IronPort-RemoteIP: 104.47.73.42
-X-IronPort-MID: 71406459
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:JOWFo6jsJc1nN6kjHKTMVxw/X161FREKZh0ujC45NGQN5FlHY01je
- htvX2uFPqqOZDb1fNAjOYy28EIPuZWEz9RmHFZlqn0xFiob9cadCdqndUqhZCn6wu8v7a5EA
- 2fyTvGacajYm1eF/k/F3oDJ9CU6jefSLlbFILas1hpZHGeIcw98z0M68wIFqtQw24LhXlnR4
- YqaT/D3YzdJ5RYlagr41IrbwP9flKyaVOQw5wFWiVhj5TcyplFNZH4tDfjZw0jQG+G4KtWSV
- efbpIxVy0uCl/sb5nFJpZ6gGqECaua60QFjERO6UYD66vRJjnRaPqrWqJPwwKqY4tmEt4kZ9
- TlDiXC/YUQWO4LOp8MfaT5zUChbepdW877KJlHq5KR/z2WeG5ft69NHKRlqeKE9pKNwC2wI8
- uEEIjcQaBzFn/ix3L+wVuhrgIIkMdXvO4Qc/HpnyFk1D95/GcyFH/qMuoQegG1YasNmRJ4yY
- +IDbjVidlLYagBnMVYLEpMu2uyvgxETdhUH8Q7N+/ZqsgA/yiRS77W3H8T3ZOabZusKngGJt
- 2vc+zTmV0Ry2Nu3jGDtHmiXrv/Cm2b3VZwfEJW89+V2mxuDy2oLEhoUWFCn5/6jhSaWWdhSN
- kgV8SoGtrUp+QqgSdyVdwK8iG6JuFgbQdU4LgEhwASEy66R7wPHAGEBFm5FcIZ+6JVwQiE23
- FiUmd+vHSZorLCeVXOa8PGTsC+2Pi8Wa2QFYEfoUDc43jUqm6lr5jqnczqpOPfdYgHdcd0o/
- w23kQ==
-IronPort-HdrOrdr: A9a23:CYi1QqqUYXh3pMkCg2D/m9UaV5u5L9V00zEX/kB9WHVpm5Oj+v
- xGzc5w6farsl0ssREb9uxo9pPwJE800aQFmbX5Wo3SJzUO2VHYVb2KiLGP/9SOIU3DH4JmpM
- Rdmu1FeafN5DtB/LnHCWuDYrEdKbC8mcjH5Ns2jU0dKz2CA5sQkzuRYTzrdnGeKjM2Z6bQQ/
- Gnl7d6TnebCD0qR/X+IkNAc/nIptXNmp6jSRkaByQ/4A3LqT+z8rb1HzWRwx9bClp0sPwf2F
- mAtza8yrSosvm9xBOZ/2jP765OkN+k7tdYHsSDhuUcNz2poAe1Y4ZKXaGEoVkO0amSwWdvtO
- OJjwYrPsx15X+UVmapoSH10w2l6zoq42+K8y7tvVLT5ejCAB4qActIgoxUNjHD7VA7gd162K
- VXm0qEqpt+F3r77WvAzumNcysvulu/oHIkn+JWpWdYS5EiZLhYqpFa1F9JEa0HADnx5OkcYa
- VT5fnnlbdrmG6hHjDkVjEF+q3uYp1zJGbKfqE6gL3a79AM90oJjXfxx6Qk7wI9HdwGOtx5Dt
- //Q9VVfYF1P7ErhJ1GdZc8qOuMexvwqEH3QRSvyWqOLtB1B1v977jK3Z4S2MaGPLQ18bpaou
- WybLofjx95R37T
-X-IronPort-AV: E=Sophos;i="5.91,248,1647316800"; 
-   d="scan'208";a="71406459"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EjJGWhzhkoYMAdjMJj3N12dd1PiRA0Dsgx8Ag7B7S3LGK7SuVQUyH5RmS2cWnH2nw0PZZkRMC/Qaj+SBzh/6dSS2bVXsJmXzbExm59gzOew5NMVR7EeJuFCBBckgaO/42th0Ac+VkS7gycfvp+Te7gI9m8nkuLJrY+kf49+qsI8bO+RH1qMCLvP8nK90q64nYc6G10cAX5mDG4Czv94YxRxKpF8akLtIanxsLNLXWhPBiS8tUEybj193zKPe40dhbaHYvPhUt/gwdy6ry3Dzob52xnzS6QuiJtqQnuGvsL4x3GZIWj3AAtuyX7FxlgNmTCrlHI3P8fIsyK0gKe5oQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=190ePyfk/4uCuF7tGnBdsg0JDGZmwp0H30+6B2ZVhvs=;
- b=cp/+cI6HarU0hypS2vUAeYSP4cRR56+kSdtOzGVwGkWE4j6FrHh2Yns+W0/YJ0NvOMjnGntia+TBw8EswftkqWcCo5OXALWkPunPC5GqhsVT5gJ76Ri+tbl+m7mBgu2QdUmq7VH0YuErz76AmqK08x9OKo2Qya834PL9bFQa5VNyKIqgwG8412pGtVFLiDLdpXF/ivLwX0qWJBJ84bu9eBL2qUBEyWOaVmDdphNRM9aBoONUahP/WjfC8/XO4tTYuZ9W1cRROqarIA861aMk48lq0Mr/0Ny9c8qeyXdPf0R5uXEjUSCfw0t+FBpk08wrVSRlblHy0ss+CXSzwKDrrg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=190ePyfk/4uCuF7tGnBdsg0JDGZmwp0H30+6B2ZVhvs=;
- b=qs8Q9FpMpUxTFHnw/GkEgvVowG9DcPFO9etfgQ4rR0HIXe5R+ruqs9IzGoQBQ6qH/hOBFadK745mpgLUxJp1V5PspdmbufwBfi8Khw2W6eN6r/20ZMRNK3hVAV1qEQoyCzp+g5buLd2LK1L8bwsVE5j8qrY2An3w7elIxqzahxg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Tue, 24 May 2022 13:22:34 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jane Malalane <jane.malalane@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v3] x86/hvm: Widen condition for
- is_hvm_pv_evtchn_domain() and report fix in CPUID
-Message-ID: <Yoy/+t6M4JCxzUAk@Air-de-Roger>
-References: <20220518132714.5557-1-jane.malalane@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220518132714.5557-1-jane.malalane@citrix.com>
-X-ClientProxiedBy: LO2P265CA0458.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:a2::14) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+X-Inumbo-ID: db71daf9-db5e-11ec-837f-e5687231ffcc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1653396099; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=Nq8e6f4kvt4191MArCN5QGRmiKuJD49xJ37K0fCPnN8=;
+	b=mr4YLtsg9QoC4R9USdVqdIMnC8BnrPfzLohdM5yiGV7fDP2brJD9ab0LBDZLqW/4pe6Tct
+	heXdZ4mhGSPCvH/D7UBEHaZYl9W5VEg67tRVFPWkl2rLNysqvxrTJ8K7EIkZWPj2aL8WSU
+	mcItI6WDNehrbAlw08k94g4b/Y9u/R4=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	netdev@vger.kernel.org,
+	v9fs-developer@lists.sourceforge.net
+Cc: Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Eric Van Hensbergen <ericvh@gmail.com>,
+	Latchesar Ionkov <lucho@ionkov.net>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Christian Schoenebeck <linux_oss@crudebyte.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] xen: switch gnttab_end_foreign_access() to take a struct page pointer
+Date: Tue, 24 May 2022 14:41:37 +0200
+Message-Id: <20220524124137.10021-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 53bf2849-8536-43be-ae7d-08da3d77b5c5
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6221:EE_
-X-Microsoft-Antispam-PRVS:
-	<SJ0PR03MB6221F25C59EFB6130F20EA558FD79@SJ0PR03MB6221.namprd03.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	dLbEsCADaq75WZENDKvdDZoh1CPQGyHIN+HF/E2jrEayDJg4gVTOG4GpH80B+KqecfT2/NU1Nstpf7LWNHCcMZWb80ZBBRoJRxezRiqhoGNm1cip4TvrhCQz7wKsaQaw2gXiMMsImxOPjTUnJFYTr/FRLfEIGpoKXkDyOEuwGiOP2vNp54UUR2j90vQYr9mddTuQA66+WbyKDoewNb3UrQ8yV37kTd33/30+gVQd5IoFprzrW0ReyUA6lRirwOo1nAgoGHJ5XYfKnFqwUix472FSpxc6zMRmKupZWqW3NGtUAmRJovIDRDSh8zGng3ORWoOXcVWeju2YHayq5RJ6EQR+mYEVuyD5welD5jKvw/BN3p+g4fB/gvNG4LdSdfHNI97KoetUvHbcaBsElKsfkHL/mUj+Zq2Eqs66h2q+mEXWnX4XPX/8aslv6rRo5XKYGTouTaSj0/bTD0IbgBcBL7F/l6+Lr6cpQa7biRdv50mq7KOGtUzgfRaoTJWLDGkJXsKC1zdK8hLshNVEPTv4eTlx/TbAokZt51jHAix/i7Q/3oiAWV0vgouHDrVe5F/ojcgpxp980IkLE3O74IM0HLPKR2MfSTKzSFYTpl2tucS0Xl+S6Bd5EVfCE7/MB1QcZLNgU+eWPQh6n2GIUnbWpw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(6486002)(8676002)(186003)(5660300002)(66476007)(83380400001)(6512007)(8936002)(82960400001)(86362001)(54906003)(9686003)(6506007)(26005)(6636002)(316002)(33716001)(38100700002)(66556008)(2906002)(508600001)(85182001)(66946007)(4326008)(6862004)(6666004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dWMrV09WTXd1cWJ3TkJuWjh4ekxiZ3NCbi9kc2dYa1d2c3ZQTXpNSFJEWjdN?=
- =?utf-8?B?MXVEanVaRUd4clJ5VFQxRURmS0lmMzFPd09CczBvbWpWK2x5eldiOVMzdEJ1?=
- =?utf-8?B?UFQ4TzRzNSt2L0dDTkxJdW82WlRQS1l6UDFiOXBrZk05T1czM0JjTVVBbnc5?=
- =?utf-8?B?K3NzcDI2L3RIOGFSZk1JVGR2NUtQbUpmNXB0NytPSGdtbHM5NmNleUJ2YVdN?=
- =?utf-8?B?eUVWUXZURVFoazVVU25JMFRoc3QrcUh1RjlmdDFVLy9tWE1tb2NVc0xkSTJB?=
- =?utf-8?B?OFRVYkdQdkh5S2hIZmIvZHEyM09lZk1zSlZLOEhlR2tqVVd5Yi9GVnZnSGVE?=
- =?utf-8?B?T2hEUDdMdEVrMitueDZVcnE0ZzQ1ZlIvYi9xU0JpWDJHdHJUMXpPejNwVzZh?=
- =?utf-8?B?V1ZkcmhpMlhtei9EZzJBckVEa3p0aTErZ0phOG14TWt0MngrL3pMSnlOS3Fz?=
- =?utf-8?B?dXcyNnRSaHNacjhEOGVRNFprZnMwdjZvUlIwUEtOOEMwbTQ0T2FVd3RKdzFV?=
- =?utf-8?B?ZDJOekNKWk9uWTZ0YkV5dmxESkFLWUpOQ1RPOVNVcit1UTRtTVd3bU1BWTkx?=
- =?utf-8?B?SzNiL002V1RlRUdZRFVWREZ4T2k2M0FLQVpKdHd4VCszWGw1YlNlcnJYT0Z6?=
- =?utf-8?B?WE9CcGZOVlVLc1labXNnS2tTT2JQdXcxeC8yZm1wVG5idmNnMmhsNCt5amVJ?=
- =?utf-8?B?UWt0ZE9ySkVXYnBJU09XT2ZMcnM4R3lEdGRSWEZCTXhOalJFRU9mWExQNVJj?=
- =?utf-8?B?MGZhS1FWazBvUlVBUkYvWTJvQVY1WDFucDBzV2dQd2swbk9zdjdnY3Q0L2JO?=
- =?utf-8?B?VHFnY3EwQlhmemhaMEpsTkZpdFhJTXYwZy9IL2FneElDQS9kOStsTys3cHlR?=
- =?utf-8?B?REdCc3ZqSjlFc2FOVkJBcWxJTWhrTzh0eWo1U0tJTm5qT0FIeU5pdGczNDgw?=
- =?utf-8?B?RTFFdzFvKzV5dEt6UmRheS9aYm16QURXTTZoL3kzZVByRkdLRERiQ1g2NHNF?=
- =?utf-8?B?cGZvdm1ta05GUlhkWnBYVzV2VkNlMkU0WWZFdGpJNlRiMzZGL1ZBV0ZaaXdU?=
- =?utf-8?B?SnNieDlzRVNnd1haNGZPR0J1ZFZ5MVovUWtPbWlRQlp6NDR2QXVndkkxVDdN?=
- =?utf-8?B?QXNqNGt1Z1gxNGRxcTNnWG9oRzcwdVMzNmp0RGdtQkg1cDRycFVNdDFZb3k3?=
- =?utf-8?B?V2E2SDR1c1lpN0RXVDJPVjNDcHcvcTdNbjV2S1F1YnAyTWJ1djhZK3lwQUd3?=
- =?utf-8?B?ZlAyQm5hQUd4dVJGRDc3Z1lyQ2dWdkdZZnc1a01wbUZwbmRPQWxRVHI2VUJX?=
- =?utf-8?B?SDBOdk9qSTZwMkNzNDJNbjEvMUR2OHdSZXMvdkQ3Z3ozTUttaEhjT0VNWUdU?=
- =?utf-8?B?U1FBWkRGeGgxZVJHaGhCbVU2TEpmVEN2cm9xa01WNWhaekViYnhXa2I0NUpH?=
- =?utf-8?B?bWgwaFp2TVFXNHFJejdXVlVUcXVzU2ZNUkcrUDIzdUtxZ1Y1SDExRlpoWjg3?=
- =?utf-8?B?WEh0NUVuTnJ3eFFHWG85YjRXNVdQbUxXYWxEcWJNNWMyR0NJOUdLaSt4c3kx?=
- =?utf-8?B?ZzlJSHhzZ3pMWDFaZTA3Z3Z1dnRDcUJjWDMxV1RBVjd2NjM0YWs0QWdCMXZ5?=
- =?utf-8?B?V3JNQ04rWko3eW1SVFJwclRvdXp5MENnQU9sRUVOOHNFSGV2QmJSV0VlSzNZ?=
- =?utf-8?B?RVRpOVJGSHpBYVpyT244L1hQSGE0U2hNYXc4QVJiaGFZOEMzejJqeW9KU2l0?=
- =?utf-8?B?U1JyRkNiOThpRWV3TTBLNFVKTWNFbDNmdENuYTBUY0F3V3BZVzBWTTRKeTNx?=
- =?utf-8?B?RklzQXVZMWdIZllzUlRoejF1WkJQZmZPbld3SzRQZy9ESGxQQ3NDQ3JyQ0gw?=
- =?utf-8?B?RTRZT2xoakpRK0ZTYmtWSGZIUEJPZWhzcEZ2d2tXTXBzdlJUSTQ2Wnl3TnBr?=
- =?utf-8?B?L1BWb3VrK2xYSmVtcGp5MHFjbGU2SDFMczdJRmNuTXFpYVlYbENjcVhGdVQx?=
- =?utf-8?B?dHVpdThyaW15MWcyQzhLTzk3em1mb2VHYXhVZzBRWE5MaEIwV0k2S3Q1NEJq?=
- =?utf-8?B?aTRITHNOcHFJV09zWW5DbUhFMWRxUHRrRUJWdno0WW5WaU52WVdkRWVxNDJS?=
- =?utf-8?B?a2cwR1B0b2ljTnVoYklhTXljM3cvZ3NoMncvQnJESmxnZXZCU2QyRjVjdlUw?=
- =?utf-8?B?cEd5TSs0U2hPSUdGaTYzSmhvckVRak1NOFRVeGlRL1VLUURaT2ZvM0l4S0xi?=
- =?utf-8?B?YWxFRWdDMWZzcDNxd2prL0VudnZSTmVoOXJoeTNuYXdOM0NGbUN1TUYvZFJv?=
- =?utf-8?B?eEN1Tzk3V0V4NWFWK3FTREU4azhnYTNlOURoWU1uN0IwOUV6Ty9JbVdnbDhB?=
- =?utf-8?Q?3WeEXkgO/mpU0pYs=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 53bf2849-8536-43be-ae7d-08da3d77b5c5
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2022 11:22:38.8426
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Sj7DFEayAMKBB0ku3wuCiVPx5EoAoe7R33UrY/jBlsiR6JI3y6vDbjkwILQHnloyebX/cuNyx3JmTh48kOwxzQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6221
+Content-Transfer-Encoding: 8bit
 
-Subject could a little shorter I think:
+Instead of a virtual kernel address use a pointer of the associated
+struct page as second parameter of gnttab_end_foreign_access().
 
-x86/hvm: fix upcall vector usage with PIRQs on event channels
+Most users have that pointer available already and are creating the
+virtual address from it, risking problems in case the memory is
+located in highmem.
 
-On Wed, May 18, 2022 at 02:27:14PM +0100, Jane Malalane wrote:
-> Have is_hvm_pv_evtchn_domain() return true for vector callbacks for
-> evtchn delivery set up on a per-vCPU basis via
-> HVMOP_set_evtchn_upcall_vector.
-> 
-> is_hvm_pv_evtchn_domain() returning true is a condition for setting up
-> physical IRQ to event channel mappings.
-> 
-> Therefore, a CPUID bit is added so that guests know whether the check
-> in is_hvm_pv_evtchn_domain() will fail when using
-> HVMOP_set_evtchn_upcall_vector. This matters for guests that route
-> PIRQs over event channels since is_hvm_pv_evtchn_domain() is a
-> condition in physdev_map_pirq().
-> 
-> The naming of the CPUID bit is quite generic about upcall support
-> being available. That's done so that the define name doesn't become
-> overly long like XEN_HVM_CPUID_UPCALL_VECTOR_SUPPORTS_PIRQ or some
-> such.
+gnttab_end_foreign_access() itself won't need to get the struct page
+from the address again.
 
-I think you can drop the "... like
-XEN_HVM_CPUID_UPCALL_VECTOR_SUPPORTS_PIRQ or some such."  That's maybe
-too informal for a commit message log.
+Suggested-by: Jan Beulich <jbeulich@suse.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ drivers/block/xen-blkfront.c        | 6 +++---
+ drivers/input/misc/xen-kbdfront.c   | 4 ++--
+ drivers/net/xen-netfront.c          | 7 +++----
+ drivers/xen/gntalloc.c              | 9 +++------
+ drivers/xen/gntdev-dmabuf.c         | 2 +-
+ drivers/xen/grant-table.c           | 8 ++++----
+ drivers/xen/pvcalls-front.c         | 6 +++---
+ drivers/xen/xen-front-pgdir-shbuf.c | 2 +-
+ drivers/xen/xenbus/xenbus_client.c  | 2 +-
+ include/xen/grant_table.h           | 6 +++---
+ net/9p/trans_xen.c                  | 8 ++++----
+ 11 files changed, 28 insertions(+), 32 deletions(-)
 
-> 
-> A guest that doesn't care about physical interrupts routed over event
-> channels can just test for the availability of the hypercall directly
-> (HVMOP_set_evtchn_upcall_vector) without checking the CPUID bit.
-> 
-> Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
+diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
+index 55e004d03ced..a88ce4426400 100644
+--- a/drivers/block/xen-blkfront.c
++++ b/drivers/block/xen-blkfront.c
+@@ -1221,7 +1221,7 @@ static void blkif_free_ring(struct blkfront_ring_info *rinfo)
+ 			list_del(&persistent_gnt->node);
+ 			if (persistent_gnt->gref != INVALID_GRANT_REF) {
+ 				gnttab_end_foreign_access(persistent_gnt->gref,
+-							  0UL);
++							  NULL);
+ 				rinfo->persistent_gnts_c--;
+ 			}
+ 			if (info->feature_persistent)
+@@ -1244,7 +1244,7 @@ static void blkif_free_ring(struct blkfront_ring_info *rinfo)
+ 		       rinfo->shadow[i].req.u.rw.nr_segments;
+ 		for (j = 0; j < segs; j++) {
+ 			persistent_gnt = rinfo->shadow[i].grants_used[j];
+-			gnttab_end_foreign_access(persistent_gnt->gref, 0UL);
++			gnttab_end_foreign_access(persistent_gnt->gref, NULL);
+ 			if (info->feature_persistent)
+ 				__free_page(persistent_gnt->page);
+ 			kfree(persistent_gnt);
+@@ -1259,7 +1259,7 @@ static void blkif_free_ring(struct blkfront_ring_info *rinfo)
+ 
+ 		for (j = 0; j < INDIRECT_GREFS(segs); j++) {
+ 			persistent_gnt = rinfo->shadow[i].indirect_grants[j];
+-			gnttab_end_foreign_access(persistent_gnt->gref, 0UL);
++			gnttab_end_foreign_access(persistent_gnt->gref, NULL);
+ 			__free_page(persistent_gnt->page);
+ 			kfree(persistent_gnt);
+ 		}
+diff --git a/drivers/input/misc/xen-kbdfront.c b/drivers/input/misc/xen-kbdfront.c
+index 1fc9b3e7007f..8d8ebdc2039b 100644
+--- a/drivers/input/misc/xen-kbdfront.c
++++ b/drivers/input/misc/xen-kbdfront.c
+@@ -481,7 +481,7 @@ static int xenkbd_connect_backend(struct xenbus_device *dev,
+  error_evtchan:
+ 	xenbus_free_evtchn(dev, evtchn);
+  error_grant:
+-	gnttab_end_foreign_access(info->gref, 0UL);
++	gnttab_end_foreign_access(info->gref, NULL);
+ 	info->gref = -1;
+ 	return ret;
+ }
+@@ -492,7 +492,7 @@ static void xenkbd_disconnect_backend(struct xenkbd_info *info)
+ 		unbind_from_irqhandler(info->irq, info);
+ 	info->irq = -1;
+ 	if (info->gref >= 0)
+-		gnttab_end_foreign_access(info->gref, 0UL);
++		gnttab_end_foreign_access(info->gref, NULL);
+ 	info->gref = -1;
+ }
+ 
+diff --git a/drivers/net/xen-netfront.c b/drivers/net/xen-netfront.c
+index 65ab907aca5a..8c0b9546d5a2 100644
+--- a/drivers/net/xen-netfront.c
++++ b/drivers/net/xen-netfront.c
+@@ -1386,7 +1386,7 @@ static void xennet_release_tx_bufs(struct netfront_queue *queue)
+ 		queue->tx_skbs[i] = NULL;
+ 		get_page(queue->grant_tx_page[i]);
+ 		gnttab_end_foreign_access(queue->grant_tx_ref[i],
+-					  (unsigned long)page_address(queue->grant_tx_page[i]));
++					  queue->grant_tx_page[i]);
+ 		queue->grant_tx_page[i] = NULL;
+ 		queue->grant_tx_ref[i] = INVALID_GRANT_REF;
+ 		add_id_to_list(&queue->tx_skb_freelist, queue->tx_link, i);
+@@ -1418,8 +1418,7 @@ static void xennet_release_rx_bufs(struct netfront_queue *queue)
+ 		 * foreign access is ended (which may be deferred).
+ 		 */
+ 		get_page(page);
+-		gnttab_end_foreign_access(ref,
+-					  (unsigned long)page_address(page));
++		gnttab_end_foreign_access(ref, page);
+ 		queue->grant_rx_ref[id] = INVALID_GRANT_REF;
+ 
+ 		kfree_skb(skb);
+@@ -1760,7 +1759,7 @@ static void xennet_end_access(int ref, void *page)
+ {
+ 	/* This frees the page as a side-effect */
+ 	if (ref != INVALID_GRANT_REF)
+-		gnttab_end_foreign_access(ref, (unsigned long)page);
++		gnttab_end_foreign_access(ref, virt_to_page(page));
+ }
+ 
+ static void xennet_disconnect_backend(struct netfront_info *info)
+diff --git a/drivers/xen/gntalloc.c b/drivers/xen/gntalloc.c
+index 55acb32842a3..a15729beb9d1 100644
+--- a/drivers/xen/gntalloc.c
++++ b/drivers/xen/gntalloc.c
+@@ -175,8 +175,6 @@ static int add_grefs(struct ioctl_gntalloc_alloc_gref *op,
+ 
+ static void __del_gref(struct gntalloc_gref *gref)
+ {
+-	unsigned long addr;
+-
+ 	if (gref->notify.flags & UNMAP_NOTIFY_CLEAR_BYTE) {
+ 		uint8_t *tmp = kmap_local_page(gref->page);
+ 		tmp[gref->notify.pgoff] = 0;
+@@ -190,10 +188,9 @@ static void __del_gref(struct gntalloc_gref *gref)
+ 	gref->notify.flags = 0;
+ 
+ 	if (gref->gref_id) {
+-		if (gref->page) {
+-			addr = (unsigned long)page_to_virt(gref->page);
+-			gnttab_end_foreign_access(gref->gref_id, addr);
+-		} else
++		if (gref->page)
++			gnttab_end_foreign_access(gref->gref_id, gref->page);
++		else
+ 			gnttab_free_grant_reference(gref->gref_id);
+ 	}
+ 
+diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
+index 91073b4e4a20..940e5e9e8a54 100644
+--- a/drivers/xen/gntdev-dmabuf.c
++++ b/drivers/xen/gntdev-dmabuf.c
+@@ -524,7 +524,7 @@ static void dmabuf_imp_end_foreign_access(u32 *refs, int count)
+ 
+ 	for (i = 0; i < count; i++)
+ 		if (refs[i] != INVALID_GRANT_REF)
+-			gnttab_end_foreign_access(refs[i], 0UL);
++			gnttab_end_foreign_access(refs[i], NULL);
+ }
+ 
+ static void dmabuf_imp_free_storage(struct gntdev_dmabuf *gntdev_dmabuf)
+diff --git a/drivers/xen/grant-table.c b/drivers/xen/grant-table.c
+index 1a1aec0a88a1..1b9b28bc3228 100644
+--- a/drivers/xen/grant-table.c
++++ b/drivers/xen/grant-table.c
+@@ -430,13 +430,13 @@ int gnttab_try_end_foreign_access(grant_ref_t ref)
+ }
+ EXPORT_SYMBOL_GPL(gnttab_try_end_foreign_access);
+ 
+-void gnttab_end_foreign_access(grant_ref_t ref, unsigned long page)
++void gnttab_end_foreign_access(grant_ref_t ref, struct page *page)
+ {
+ 	if (gnttab_try_end_foreign_access(ref)) {
+-		if (page != 0)
+-			put_page(virt_to_page(page));
++		if (page)
++			put_page(page);
+ 	} else
+-		gnttab_add_deferred(ref, page ? virt_to_page(page) : NULL);
++		gnttab_add_deferred(ref, page);
+ }
+ EXPORT_SYMBOL_GPL(gnttab_end_foreign_access);
+ 
+diff --git a/drivers/xen/pvcalls-front.c b/drivers/xen/pvcalls-front.c
+index e254ed19488f..1826e8e67125 100644
+--- a/drivers/xen/pvcalls-front.c
++++ b/drivers/xen/pvcalls-front.c
+@@ -238,8 +238,8 @@ static void pvcalls_front_free_map(struct pvcalls_bedata *bedata,
+ 	spin_unlock(&bedata->socket_lock);
+ 
+ 	for (i = 0; i < (1 << PVCALLS_RING_ORDER); i++)
+-		gnttab_end_foreign_access(map->active.ring->ref[i], 0);
+-	gnttab_end_foreign_access(map->active.ref, 0);
++		gnttab_end_foreign_access(map->active.ring->ref[i], NULL);
++	gnttab_end_foreign_access(map->active.ref, NULL);
+ 	free_page((unsigned long)map->active.ring);
+ 
+ 	kfree(map);
+@@ -1117,7 +1117,7 @@ static int pvcalls_front_remove(struct xenbus_device *dev)
+ 		}
+ 	}
+ 	if (bedata->ref != -1)
+-		gnttab_end_foreign_access(bedata->ref, 0);
++		gnttab_end_foreign_access(bedata->ref, NULL);
+ 	kfree(bedata->ring.sring);
+ 	kfree(bedata);
+ 	xenbus_switch_state(dev, XenbusStateClosed);
+diff --git a/drivers/xen/xen-front-pgdir-shbuf.c b/drivers/xen/xen-front-pgdir-shbuf.c
+index b6433761d42c..bef8d72a6ca6 100644
+--- a/drivers/xen/xen-front-pgdir-shbuf.c
++++ b/drivers/xen/xen-front-pgdir-shbuf.c
+@@ -135,7 +135,7 @@ void xen_front_pgdir_shbuf_free(struct xen_front_pgdir_shbuf *buf)
+ 
+ 		for (i = 0; i < buf->num_grefs; i++)
+ 			if (buf->grefs[i] != INVALID_GRANT_REF)
+-				gnttab_end_foreign_access(buf->grefs[i], 0UL);
++				gnttab_end_foreign_access(buf->grefs[i], NULL);
+ 	}
+ 	kfree(buf->grefs);
+ 	kfree(buf->directory);
+diff --git a/drivers/xen/xenbus/xenbus_client.c b/drivers/xen/xenbus/xenbus_client.c
+index d6fdd2d209d3..d5f3f763717e 100644
+--- a/drivers/xen/xenbus/xenbus_client.c
++++ b/drivers/xen/xenbus/xenbus_client.c
+@@ -439,7 +439,7 @@ void xenbus_teardown_ring(void **vaddr, unsigned int nr_pages,
+ 
+ 	for (i = 0; i < nr_pages; i++) {
+ 		if (grefs[i] != INVALID_GRANT_REF) {
+-			gnttab_end_foreign_access(grefs[i], 0);
++			gnttab_end_foreign_access(grefs[i], NULL);
+ 			grefs[i] = INVALID_GRANT_REF;
+ 		}
+ 	}
+diff --git a/include/xen/grant_table.h b/include/xen/grant_table.h
+index 7d0f2f0037b8..527c9907f99c 100644
+--- a/include/xen/grant_table.h
++++ b/include/xen/grant_table.h
+@@ -101,10 +101,10 @@ int gnttab_end_foreign_access_ref(grant_ref_t ref);
+  * Eventually end access through the given grant reference, and once that
+  * access has been ended, free the given page too.  Access will be ended
+  * immediately iff the grant entry is not in use, otherwise it will happen
+- * some time later.  page may be 0, in which case no freeing will occur.
++ * some time later.  page may be NULL, in which case no freeing will occur.
+  * Note that the granted page might still be accessed (read or write) by the
+  * other side after gnttab_end_foreign_access() returns, so even if page was
+- * specified as 0 it is not allowed to just reuse the page for other
++ * specified as NULL it is not allowed to just reuse the page for other
+  * purposes immediately. gnttab_end_foreign_access() will take an additional
+  * reference to the granted page in this case, which is dropped only after
+  * the grant is no longer in use.
+@@ -112,7 +112,7 @@ int gnttab_end_foreign_access_ref(grant_ref_t ref);
+  * gnttab_end_foreign_access() are done via alloc_pages_exact() (and freeing
+  * via free_pages_exact()) in order to avoid high order pages.
+  */
+-void gnttab_end_foreign_access(grant_ref_t ref, unsigned long page);
++void gnttab_end_foreign_access(grant_ref_t ref, struct page *page);
+ 
+ /*
+  * End access through the given grant reference, iff the grant entry is
+diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
+index 77883b6788cd..833cd3792c51 100644
+--- a/net/9p/trans_xen.c
++++ b/net/9p/trans_xen.c
+@@ -279,13 +279,13 @@ static void xen_9pfs_front_free(struct xen_9pfs_front_priv *priv)
+ 				grant_ref_t ref;
+ 
+ 				ref = priv->rings[i].intf->ref[j];
+-				gnttab_end_foreign_access(ref, 0);
++				gnttab_end_foreign_access(ref, NULL);
+ 			}
+ 			free_pages_exact(priv->rings[i].data.in,
+ 				   1UL << (priv->rings[i].intf->ring_order +
+ 					   XEN_PAGE_SHIFT));
+ 		}
+-		gnttab_end_foreign_access(priv->rings[i].ref, 0);
++		gnttab_end_foreign_access(priv->rings[i].ref, NULL);
+ 		free_page((unsigned long)priv->rings[i].intf);
+ 	}
+ 	kfree(priv->rings);
+@@ -353,10 +353,10 @@ static int xen_9pfs_front_alloc_dataring(struct xenbus_device *dev,
+ out:
+ 	if (bytes) {
+ 		for (i--; i >= 0; i--)
+-			gnttab_end_foreign_access(ring->intf->ref[i], 0);
++			gnttab_end_foreign_access(ring->intf->ref[i], NULL);
+ 		free_pages_exact(bytes, 1UL << (order + XEN_PAGE_SHIFT));
+ 	}
+-	gnttab_end_foreign_access(ring->ref, 0);
++	gnttab_end_foreign_access(ring->ref, NULL);
+ 	free_page((unsigned long)ring->intf);
+ 	return ret;
+ }
+-- 
+2.35.3
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-
-(I think the above can be fixed on commit if the committer agrees)
-
-One thing that worries me is how to differentiate between callbacks
-setup with HVM_PARAM_CALLBACK_TYPE_VECTOR vs using
-HVMOP_set_evtchn_upcall_vector in writing.  We usually use 'callback
-vector' to refer to the former and 'upcall vector' to refer to the
-later.  Hope that's clearer enough.
-
-Thanks, Roger.
 
