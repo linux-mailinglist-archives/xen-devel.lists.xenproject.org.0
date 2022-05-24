@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3C77533254
-	for <lists+xen-devel@lfdr.de>; Tue, 24 May 2022 22:18:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.336741.561128 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6ADB0533320
+	for <lists+xen-devel@lfdr.de>; Tue, 24 May 2022 23:45:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.336749.561139 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntaxa-0005CA-5u; Tue, 24 May 2022 20:16:54 +0000
+	id 1ntcKb-0006Ov-J8; Tue, 24 May 2022 21:44:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 336741.561128; Tue, 24 May 2022 20:16:54 +0000
+Received: by outflank-mailman (output) from mailman id 336749.561139; Tue, 24 May 2022 21:44:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntaxa-00059S-2Z; Tue, 24 May 2022 20:16:54 +0000
-Received: by outflank-mailman (input) for mailman id 336741;
- Tue, 24 May 2022 20:16:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=I1CX=WA=collabora.com=dmitry.osipenko@srs-se1.protection.inumbo.net>)
- id 1ntaxY-00059M-0V
- for xen-devel@lists.xenproject.org; Tue, 24 May 2022 20:16:52 +0000
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 71689bf3-db9e-11ec-837f-e5687231ffcc;
- Tue, 24 May 2022 22:16:50 +0200 (CEST)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: dmitry.osipenko) with ESMTPSA id F2E871F447A6
+	id 1ntcKb-0006M6-F6; Tue, 24 May 2022 21:44:45 +0000
+Received: by outflank-mailman (input) for mailman id 336749;
+ Tue, 24 May 2022 21:44:44 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ntcKa-0006Lw-9c; Tue, 24 May 2022 21:44:44 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ntcKa-0001Hh-3F; Tue, 24 May 2022 21:44:44 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ntcKZ-0007Op-DG; Tue, 24 May 2022 21:44:43 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ntcKZ-0000B5-Cp; Tue, 24 May 2022 21:44:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,145 +42,392 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71689bf3-db9e-11ec-837f-e5687231ffcc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1653423409;
-	bh=zYjjoQPSRD28QTzcQmCkF+0zDUTSRxsuI5oi8F0+rRQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fWA1AifiGfpu5zAody+hWBW74K5h5PJY4o9syShHoFUvcDbGztdgO0rxpFXKrmy2Y
-	 v+m0QvVaF2TMOM3FrIQn4vCIIUWVeH9erQlS971HHUB5axW0nhIjNhf2t83dRltpj5
-	 F+MJuBOytIM400P1utntTu0dMtY0yhe0QZvOmzJR1Di7UCyoNz6N/1CjkNfHCg26JH
-	 3c5z3Ze+AYN7fowyq3Sq6g1iqMrOvzo1fQihDQtpwVaXvHM7BJiRY1axu6Kqy3ixZu
-	 ZneM8hZeXSfA/wa0YX+aUD23BvnxfaiuWymTABWNglyXpsDZsuQOqKpz07ThIMgq+Y
-	 y0ERqGVUsfdJQ==
-Message-ID: <72eceb0c-8654-6c63-f1c4-c9374f99dfb3@collabora.com>
-Date: Tue, 24 May 2022 23:16:41 +0300
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=s5s42NHHBRuOhW5mhKPPEt9/gxr9mWpImwCsFe67wFM=; b=lJEaaL+fHasHynqAwVAsL0/+hD
+	Tb5gOVKPBGze4LWAESTtyO7surRWJYmfQPLj7eYqU4TDHg2f+SXNY/bwDhkytEuM/7bCiRl9joUI6
+	cYuUq6sYmJ/5x1FYZUVet+HnEaqy+ke6oPXgG/2bthr+0TvfjgKmtddmBEutOT5itNlc=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-170717-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [PATCH v8 07/27] kernel/reboot: Add kernel_can_power_off()
-Content-Language: en-US
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Russell King
- <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>,
- Greg Ungerer <gerg@linux-m68k.org>, Joshua Thompson <funaho@jurai.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Sebastian Reichel <sre@kernel.org>, Linus Walleij
- <linus.walleij@linaro.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Greentime Hu <green.hu@gmail.com>, Vincent Chen <deanbo422@gmail.com>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Michael Ellerman <mpe@ellerman.id.au>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Paul Mackerras <paulus@samba.org>, Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- the arch/x86 maintainers <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
- <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- Santosh Shilimkar <ssantosh@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Pavel Machek <pavel@ucw.cz>,
- Lee Jones <lee.jones@linaro.org>, Andrew Morton <akpm@linux-foundation.org>,
- Guenter Roeck <linux@roeck-us.net>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-csky@vger.kernel.org,
- "linux-ia64@vger.kernel.org" <linux-ia64@vger.kernel.org>,
- linux-m68k <linux-m68k@lists.linux-m68k.org>,
- "open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
- Parisc List <linux-parisc@vger.kernel.org>,
- linux-riscv <linux-riscv@lists.infradead.org>,
- Linux-sh list <linux-sh@vger.kernel.org>, xen-devel@lists.xenproject.org,
- ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
- Linux PM list <linux-pm@vger.kernel.org>,
- linux-tegra <linux-tegra@vger.kernel.org>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>
-References: <20220509233235.995021-1-dmitry.osipenko@collabora.com>
- <20220509233235.995021-8-dmitry.osipenko@collabora.com>
- <CAMuHMdVGjeFe=Z_1Kr9ZaNZ7HUVH1usvubEB31WUQf0fg8E1kA@mail.gmail.com>
- <c4914e14-1882-55a1-bcbd-a905852b45a3@collabora.com>
- <CAMuHMdWBWWVeegvLQQzT8CRL5z38AhXigaNjzw8p0NwQ1B4DPQ@mail.gmail.com>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <CAMuHMdWBWWVeegvLQQzT8CRL5z38AhXigaNjzw8p0NwQ1B4DPQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: [linux-linus test] 170717: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-seattle:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-intel:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvshim:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-shadow:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-amd:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-libvirt:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-xsm:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-pair:guest-start/debian:fail:regression
+    linux-linus:test-amd64-amd64-freebsd11-amd64:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-credit2:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-multivcpu:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-credit1:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-xsm:guest-start:fail:regression
+    linux-linus:test-amd64-coresched-amd64-xl:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-thunderx:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-pair:guest-start/debian:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-freebsd12-amd64:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-xl-cubietruck:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-pygrub:debian-di-install:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-qcow2:debian-di-install:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-raw:debian-di-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-vhd:debian-di-install:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:debian-di-install:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:debian-di-install:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:debian-di-install:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:debian-di-install:fail:regression
+    linux-linus:test-armhf-armhf-xl:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:debian-di-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-rtds:guest-start:fail:allowable
+    linux-linus:test-armhf-armhf-xl-rtds:guest-start:fail:allowable
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=143a6252e1b8ab424b4b293512a97cca7295c182
+X-Osstest-Versions-That:
+    linux=d6ecaa0024485effd065124fe774de2e22095f2d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 24 May 2022 21:44:43 +0000
 
-On 5/24/22 18:03, Geert Uytterhoeven wrote:
-> Hi Dmitry,
-> 
-> On Tue, May 24, 2022 at 3:41 PM Dmitry Osipenko
-> <dmitry.osipenko@collabora.com> wrote:
->> On 5/24/22 16:14, Geert Uytterhoeven wrote:
->>> On Tue, May 10, 2022 at 1:33 AM Dmitry Osipenko
->>> <dmitry.osipenko@collabora.com> wrote:
->>>> Add kernel_can_power_off() helper that replaces open-coded checks of
->>>> the global pm_power_off variable. This is a necessary step towards
->>>> supporting chained power-off handlers.
->>>>
->>>> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
->>>
->>> Thanks for your patch, which is now commit 0e2110d2e910e44c
->>> ("kernel/reboot: Add kernel_can_power_off()") in pm/linux-next.
->>>
->>> This causes the "poweroff" command (Debian nfsroot) to no longer
->>> cleanly halt the system on arm32 systems, but fail with a panic
->>> instead:
->>>
->>> -reboot: System halted
->>> +reboot: Power down
->>> +Kernel panic - not syncing: Attempted to kill init! exitcode=0x00000000
->>> +CPU: 0 PID: 1 Comm: systemd-shutdow Not tainted
->>> 5.18.0-rc7-shmobile-00007-g0e2110d2e910 #1274
->>> +Hardware name: Generic R-Car Gen2 (Flattened Device Tree)
->>> + unwind_backtrace from show_stack+0x10/0x14
->>> + show_stack from dump_stack_lvl+0x40/0x4c
->>> + dump_stack_lvl from panic+0xf4/0x330
->>> + panic from do_exit+0x1c8/0x8e4
->>> + do_exit from __do_sys_reboot+0x174/0x1fc
->>> + __do_sys_reboot from ret_fast_syscall+0x0/0x54
->>> +Exception stack(0xf0815fa8 to 0xf0815ff0)
->>> +5fa0:                   004e6954 00000000 fee1dead 28121969 4321fedc f0d94600
->>> +5fc0: 004e6954 00000000 00000000 00000058 befa0c78 00000000 befa0c10 004e56f8
->>> +5fe0: 00000058 befa0b6c b6ec8d45 b6e4a746
->>> +---[ end Kernel panic - not syncing: Attempted to kill init!
->>> exitcode=0x00000000 ]---
->>>
->>> On arm64, "poweroff" causes a clean "reboot: Power down" before/after.
->>>
->>> On both arm32 and arm64, the same handlers are registered:
->>>   - SYS_OFF_MODE_POWER_OFF_PREPARE: legacy_pm_power_off_prepare
->>>   - SYS_OFF_MODE_POWER_OFF: legacy_pm_power_off
->>>
->>> On both arm32 and arm64, legacy_pm_power_off_prepare() is called.
->>> On both arm32 and arm64, legacy_pm_power_off() does not seem to
->>> be called.
->>>
->>> On arm32, both pm_power_off_prepare and pm_power_off are NULL.
->>> On arm64, pm_power_off_prepare is NULL, and
->>> pm_power_off is psci_sys_poweroff.
->>>
->>> Do you have a clue?
->>> Thanks!
->>
->> Thank you, Geert! I see the problem, the kernel_can_power_off() checks whether power-off handler is registered, but it's always registered because legacy_pm_power_off is registered unconditionally. So it causes trouble for platforms that don't have power-off handler installed at all. All platforms that I tested have a power-off handler, so now wonder that I didn't notice this before.
->>
->> This change should fix the problem, please give it a try:
-> 
-> Thank you, that fixes the problem for me!
-> 
-> Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+flight 170717 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/170717/
 
-Great! I'll send the proper patch soon.
+Regressions :-(
 
--- 
-Best regards,
-Dmitry
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-dom0pvh-xl-amd 14 guest-start           fail REGR. vs. 170714
+ test-amd64-amd64-dom0pvh-xl-intel 14 guest-start         fail REGR. vs. 170714
+ test-arm64-arm64-xl-seattle  14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl-pvhv2-intel 14 guest-start           fail REGR. vs. 170714
+ test-amd64-amd64-xl-pvshim   14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl-shadow   14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl-pvhv2-amd 14 guest-start             fail REGR. vs. 170714
+ test-amd64-amd64-libvirt     14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-libvirt-xsm 14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl          14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-pair        25 guest-start/debian       fail REGR. vs. 170714
+ test-amd64-amd64-freebsd11-amd64 13 guest-start          fail REGR. vs. 170714
+ test-amd64-amd64-xl-credit2  14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl-multivcpu 14 guest-start             fail REGR. vs. 170714
+ test-amd64-amd64-xl-credit1  14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl-xsm      14 guest-start              fail REGR. vs. 170714
+ test-amd64-coresched-amd64-xl 14 guest-start             fail REGR. vs. 170714
+ test-arm64-arm64-xl          14 guest-start              fail REGR. vs. 170714
+ test-arm64-arm64-xl-credit1  14 guest-start              fail REGR. vs. 170714
+ test-arm64-arm64-xl-credit2  14 guest-start              fail REGR. vs. 170714
+ test-arm64-arm64-xl-thunderx 14 guest-start              fail REGR. vs. 170714
+ test-arm64-arm64-xl-xsm      14 guest-start              fail REGR. vs. 170714
+ test-arm64-arm64-libvirt-xsm 14 guest-start              fail REGR. vs. 170714
+ test-armhf-armhf-xl-arndale  14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-libvirt-pair 25 guest-start/debian      fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-qemuu-nested-amd 12 debian-hvm-install  fail REGR. vs. 170714
+ test-armhf-armhf-xl-credit1  14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemut-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 12 debian-hvm-install fail REGR. vs. 170714
+ test-armhf-armhf-xl-multivcpu 14 guest-start             fail REGR. vs. 170714
+ test-amd64-amd64-qemuu-nested-intel 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-freebsd12-amd64 13 guest-start          fail REGR. vs. 170714
+ test-armhf-armhf-xl-cubietruck 14 guest-start            fail REGR. vs. 170714
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-pygrub      12 debian-di-install        fail REGR. vs. 170714
+ test-armhf-armhf-xl-credit2  14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-libvirt-qcow2 12 debian-di-install      fail REGR. vs. 170714
+ test-amd64-amd64-libvirt-raw 12 debian-di-install        fail REGR. vs. 170714
+ test-amd64-amd64-xl-vhd      12 debian-di-install        fail REGR. vs. 170714
+ test-armhf-armhf-libvirt     14 guest-start              fail REGR. vs. 170714
+ test-arm64-arm64-xl-vhd      12 debian-di-install        fail REGR. vs. 170714
+ test-arm64-arm64-libvirt-raw 12 debian-di-install        fail REGR. vs. 170714
+ test-armhf-armhf-libvirt-raw 12 debian-di-install        fail REGR. vs. 170714
+ test-armhf-armhf-libvirt-qcow2 12 debian-di-install      fail REGR. vs. 170714
+ test-armhf-armhf-xl          14 guest-start              fail REGR. vs. 170714
+ test-armhf-armhf-xl-vhd      12 debian-di-install        fail REGR. vs. 170714
+
+Regressions which are regarded as allowable (not blocking):
+ test-amd64-amd64-xl-rtds     14 guest-start              fail REGR. vs. 170714
+ test-armhf-armhf-xl-rtds     14 guest-start              fail REGR. vs. 170714
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 170714
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 170714
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 170714
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 170714
+
+version targeted for testing:
+ linux                143a6252e1b8ab424b4b293512a97cca7295c182
+baseline version:
+ linux                d6ecaa0024485effd065124fe774de2e22095f2d
+
+Last test of basis   170714  2022-05-24 03:27:44 Z    0 days
+Testing same since   170716  2022-05-24 11:12:06 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  "Eric W. Biederman" <ebiederm@xmission.com>
+  Alexander Egorenkov <egorenar@linux.ibm.com>
+  Alexander Gordeev <agordeev@linux.ibm.com>
+  Alexandre Belloni <alexandre.belloni@bootlin.com>
+  Alexandru Elisei <alexandru.elisei@arm.com>
+  Andre Przywara <andre.przywara@arm.com>
+  Anshuman Khandual <anshuman.khandual@arm.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Baolin Wang <baolin.wang@linux.alibaba.com>
+  Baoquan He <bhe@redhat.com>
+  Borislav Petkov <bp@suse.de>
+  Catalin Marinas <catalin.marinas@arm.com>
+  Chen Zhongjin <chenzhongjin@huawei.com>
+  Chen Zhou <chenzhou10@huawei.com>
+  Chengming Zhou <zhouchengming@bytedance.com>
+  Dan Carpenter <dan.carpenter@oracle.com>
+  Daniel Beer <daniel.beer@tirotech.co.nz>
+  Daniel Lezcano <daniel.lezcano@linaro.org>
+  Darryn Anton Jordan <darrynjordan@icloud.com>
+  Dave Hansen <dave.hansen@linux.intel.com>
+  Dave Kleikamp <dave.kleikamp@oracle.com>
+  David Arcari <darcari@redhat.com>
+  David E. Box <david.e.box@linux.intel.com>
+  David Sterba <dsterba@suse.com>
+  Deyan Wang <wonder_rock@126.com>
+  Frank Crawford <frank@crawford.emu.id.au>
+  Gabriele Mazzotta <gabriele.mzt@gmail.com>
+  Geert Uytterhoeven <geert+renesas@glider.be>
+  Geert Uytterhoeven <geert@linux-m68k.org>
+  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+  Guilherme G. Piccoli <gpiccoli@igalia.com>
+  Guo Ren <guoren@kernel.org>
+  Guo Ren <guoren@linux.alibaba.com>
+  Guo Zhengkui <guozhengkui@vivo.com>
+  Haitao Huang <haitao.huang@intel.com>
+  Hans de Goede <hdegoede@redhat.com>
+  Haowen Bai <baihaowen@meizu.com>
+  Harald Freudenberger <freude@linux.ibm.com>
+  Hector Martin <marcan@marcan.st>
+  Heikki Krogerus <heikki.krogerus@linux.intel.com>
+  Heiko Carstens <hca@linux.ibm.com>
+  Ilkka Koskinen <ilkka@os.amperecomputing.com>
+  Ilya Leoshkevich <iii@linux.ibm.com>
+  Jakob Koschel <jakobkoschel@gmail.com>
+  Jarkko Sakkinen <jarkko@kernel.org>
+  Jason Wang <wangborong@cdjrlc.com>
+  Jithu Joseph <jithu.joseph@intel.com>
+  John Donnelly  <john.p.donnelly@oracle.com>
+  Jorge Lopez <jorge.lopez2@hp.com>
+  Juerg Haefliger <juerg.haefliger@canonical.com>
+  Juerg Haefliger <juergh@canonical.com>
+  Juergen Gross <jgross@suse.com>
+  Julia Lawall <Julia.Lawall@inria.fr>
+  Kefeng Wang <wangkefeng.wang@huawei.com>
+  Laurent Vivier <laurent@vivier.eu>
+  Linu Cherian <lcherian@marvell.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Linus Walleij <linus.walleij@linaro.org>
+  Luca Miccio <lucmiccio@gmail.com>
+  Luca Stefani <luca.stefani.ge1@gmail.com>
+  Madhavan T. Venkataraman <madvenka@linux.microsoft.com>
+  Marc Zyngier <maz@kernel.org>
+  Marco Elver <elver@google.com>
+  Marek Szyprowski <m.szyprowski@samsung.com>
+  Mario Limonciello <mario.limonciello@amd.com>
+  Mark Brown <broonie@kernel.org>
+  Mark Pearson <markpearson@lenovo.com>
+  Mark Pearson <markpearson@lenvo.com>
+  Mark Rutland <mark.rutland@arm.com
+  Mark Rutland <mark.rutland@arm.com>
+  Masahiro Yamada <masahiroy@kernel.org>
+  Matteo Croce <mcroce@microsoft.com>
+  Max Filippov <jcmvbkbc@gmail.com>
+  Maximilian Heyne <mheyne@amazon.de>
+  Maximilian Luz <luzmaximilian@gmail.com>
+  Michael Niewöhner <linux@mniewoehner.de>
+  Michael Schmitz <schmitzmic@gmail.com>
+  Michael Shych <michaelsh@nvidia.com>
+  Michal Orzel <michal.orzel@arm.com>
+  Minghao Chi <chi.minghao@zte.com.cn>
+  Naresh Kamboju <naresh.kamboju@linaro.org>
+  Nathan Chancellor <nathan@kernel.org>
+  Naveen Krishna Chatradhi <nchatrad@amd.com>
+  Nick Desaulniers <ndesaulniers@google.com>
+  Nick Hawkins <nick.hawkins@hpe.com>
+  Niklas Schnelle <schnelle@linux.ibm.com>
+  Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com> # Arm64 only
+  Pali Rohár <pali@kernel.org>
+  Palmer Dabbelt <palmer@rivosinc.com>
+  Paul Gortmaker <paul.gortmaker@windriver.com>
+  Peter Collingbourne <pcc@google.com>
+  Peter Oberparleiter <oberpar@linux.ibm.com>
+  Peter Zijlstra (Intel) <peterz@infradead.org>
+  Peter Zijlstra <peterz@infradead.org>
+  Pingfan Liu <kernelfans@gmail.com>
+  Prarit Bhargava <prarit@redhat.com>
+  Qi Liu <liuqi115@huawei.com>
+  Randy Dunlap <rdunlap@infradead.org>
+  Reinette Chatre <reinette.chatre@intel.com>
+  Ren Yu <renyu@nfschina.com>
+  Ren Zhijie <renzhijie2@huawei.com>
+  Rob Herring <robh@kernel.org>
+  Robin Murphy <robin.murphy@arm.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+  Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+  SeongJae Park <sj@kernel.org>
+  Shaokun Zhang <zhangshaokun@hisilicon.com>
+  Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+  Stefano Stabellini <stefano.stabellini@xilinx.com>
+  Steven Rostedt (Google) <rostedt@goodmis.org>
+  Suma Hegde <suma.hegde@amd.com>
+  Sumanth Korikkar <sumanthk@linux.ibm.com>
+  Sven Schnelle <svens@linux.ibm.com>
+  Tanmay Jagdale <tanmay@marvell.com>
+  Thomas Huth <thuth@redhat.com>
+  Thomas Richter <tmricht@linux.ibm.com>
+  Thomas Weißschuh <thomas@weissschuh.net>
+  Tom Rix <trix@redhat.com>
+  Tong Tiangen <tongtiangen@huawei.com>
+  Tony Luck <tony.luck@intel.com>
+  Valentin Schneider <valentin.schneider@arm.com>
+  Vasily Gorbik <gor@linux.ibm.com>
+  Wan Jiabing <wanjiabing@vivo.com>
+  Wang Kefeng <wangkefeng.wang@huawei.com>
+  Will Deacon <will@kernel.org>
+  Yang Li <yang.lee@linux.alibaba.com>
+  Yi Yang <yiyang13@huawei.com>
+  Zhen Lei <thunder.leizhen@huawei.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          fail    
+ test-amd64-coresched-amd64-xl                                fail    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-libvirt-xsm                                 fail    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-amd64-xl-xsm                                      fail    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                fail    
+ test-amd64-amd64-dom0pvh-xl-amd                              fail    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-amd64-freebsd11-amd64                             fail    
+ test-amd64-amd64-freebsd12-amd64                             fail    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  fail    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  fail    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          fail    
+ test-amd64-amd64-xl-pvhv2-intel                              fail    
+ test-amd64-amd64-dom0pvh-xl-intel                            fail    
+ test-amd64-amd64-libvirt                                     fail    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                fail    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        fail    
+ test-amd64-amd64-libvirt-pair                                fail    
+ test-amd64-amd64-xl-pvshim                                   fail    
+ test-amd64-amd64-pygrub                                      fail    
+ test-amd64-amd64-libvirt-qcow2                               fail    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 fail    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     fail    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
+ test-amd64-amd64-xl-shadow                                   fail    
+ test-arm64-arm64-xl-thunderx                                 fail    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      fail    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 7627 lines long.)
 
