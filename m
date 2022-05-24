@@ -2,39 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DB8A532CD8
-	for <lists+xen-devel@lfdr.de>; Tue, 24 May 2022 17:04:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.336593.560947 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E224532D13
+	for <lists+xen-devel@lfdr.de>; Tue, 24 May 2022 17:14:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.336602.560958 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntW4Z-0004k4-SE; Tue, 24 May 2022 15:03:47 +0000
+	id 1ntWEo-0006IO-SW; Tue, 24 May 2022 15:14:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 336593.560947; Tue, 24 May 2022 15:03:47 +0000
+Received: by outflank-mailman (output) from mailman id 336602.560958; Tue, 24 May 2022 15:14:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntW4Z-0004hM-PB; Tue, 24 May 2022 15:03:47 +0000
-Received: by outflank-mailman (input) for mailman id 336593;
- Tue, 24 May 2022 15:03:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FE+p=WA=gmail.com=geert.uytterhoeven@srs-se1.protection.inumbo.net>)
- id 1ntW4Y-0004hE-Ua
- for xen-devel@lists.xenproject.org; Tue, 24 May 2022 15:03:46 +0000
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com
- [209.85.160.170]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b4f77fe7-db72-11ec-bd2c-47488cf2e6aa;
- Tue, 24 May 2022 17:03:45 +0200 (CEST)
-Received: by mail-qt1-f170.google.com with SMTP id x7so11698642qta.6
- for <xen-devel@lists.xenproject.org>; Tue, 24 May 2022 08:03:45 -0700 (PDT)
-Received: from mail-yb1-f181.google.com (mail-yb1-f181.google.com.
- [209.85.219.181]) by smtp.gmail.com with ESMTPSA id
- b84-20020ae9eb57000000b006a35ac236c4sm6328388qkg.113.2022.05.24.08.03.41
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 May 2022 08:03:42 -0700 (PDT)
-Received: by mail-yb1-f181.google.com with SMTP id v26so3064515ybd.2
- for <xen-devel@lists.xenproject.org>; Tue, 24 May 2022 08:03:41 -0700 (PDT)
+	id 1ntWEo-0006FV-On; Tue, 24 May 2022 15:14:22 +0000
+Received: by outflank-mailman (input) for mailman id 336602;
+ Tue, 24 May 2022 15:14:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=7Xn0=WA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ntWEn-0006FP-6M
+ for xen-devel@lists.xenproject.org; Tue, 24 May 2022 15:14:21 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2f579f18-db74-11ec-837f-e5687231ffcc;
+ Tue, 24 May 2022 17:14:20 +0200 (CEST)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04lp2050.outbound.protection.outlook.com [104.47.14.50]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-35-dzMBTvfZPbG0OjXOJxZV5A-1; Tue, 24 May 2022 17:14:16 +0200
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by DB6PR04MB3158.eurprd04.prod.outlook.com (2603:10a6:6:c::26) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5273.22; Tue, 24 May 2022 15:14:15 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::91b8:8f7f:61ac:cc9b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::91b8:8f7f:61ac:cc9b%7]) with mapi id 15.20.5273.023; Tue, 24 May 2022
+ 15:14:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,154 +51,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b4f77fe7-db72-11ec-bd2c-47488cf2e6aa
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=xvY3YRGz6Q5JdIA0GD3/2z1w0vgXjW2K3nWPGIL58cE=;
-        b=l0lRcPUICIZ8JDuZ92d1Dm1MQxdI68Gu2fqad8tgtRc5ygknRRmkvf1blmcdLdsabH
-         qNVkpl7d/zf0I+K4TF4QTaTYQ9MZ5yUuRNQ3V+5h+LpxVetHUq0bZMwZpZ/F1SIo1ZNL
-         cbx/G6C0qg9TJv1JRG17VPYjkOIErFdstsGJOkQ28BcWG/5z1WwBAggEPZpTLYY+Lu3M
-         P5S5fVl8NwqvUho4ilM+/POLdnXb75IUwQf2B82VoV5FInk/tk0A1kBJFRHJie5NZc7F
-         k/wrxPxWShuR066K1UaNW3WMRD0yBFVW1pZ9RH0c+bOBG7xJEDSdweSM32vrp7Rw9ffM
-         gdmQ==
-X-Gm-Message-State: AOAM530J0JQpuJiRDzF4kjTOHAPxOFihbs664J24rc6Ph173va4PgKan
-	HDEW6Ua1mPIZ5v/t370W22gmszFro3zlGaQ1
-X-Google-Smtp-Source: ABdhPJx5Ucq0yhsG1V8gn7d4NwKO0a9Ja3zJgx7Tkmpskrt2PNGCV3iO4qNS/HKBqh8KZfKf40jiow==
-X-Received: by 2002:a05:622a:144a:b0:2f3:bd33:5a1f with SMTP id v10-20020a05622a144a00b002f3bd335a1fmr20179797qtx.96.1653404624065;
-        Tue, 24 May 2022 08:03:44 -0700 (PDT)
-X-Received: by 2002:a81:2143:0:b0:2fb:1274:247e with SMTP id
- h64-20020a812143000000b002fb1274247emr28501106ywh.384.1653404610585; Tue, 24
- May 2022 08:03:30 -0700 (PDT)
+X-Inumbo-ID: 2f579f18-db74-11ec-837f-e5687231ffcc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1653405259;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iIqgFGSr9cVe7EoazhtwtVTPJiaYpK3y3sv9moeCmK0=;
+	b=Pa2EjoZezPLVRCecGXIPFuiJE9ptUupxbSml6TE5lgrkDpRVM5v7KC9RIXs/UMDj28yT6Y
+	FZ5+qQrCnXdGphGcMsrwmVWl9+noJ+KP/7mcWI+ypGJF24NDK6X9TboBnqMDzijZifyA7p
+	BpGqTH9hdvOj3qKRYVDYr1Q06t2eMf4=
+X-MC-Unique: dzMBTvfZPbG0OjXOJxZV5A-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=akBO7pQtHAJK23qV68IsMTB5UyktpxmJ5ieQCCnTtO+zmYAtN0hYOSM3bPyaKNJwYlxGiaJ+bpotUCnF/8peifQfIca7pv8rkWOP26z+3MxOEFLoR0AXRz/QE0WXS1rF3P9ns25Abvre9yTRvZKt+UpCKtcvo00HJL/gYeBy3NdsvqpiC3nY9CvvhzOhlo9k0o9fv8wDXJAIOWSrp1RjKfftP1sGA/p7XVYlw48WyKpmNaRUTHCT2VVlijaVBXv/mWbBeK41+gBKCm/JgutUwXZ0HzwqK34nz3J5mYxCLgVs2+/npgjmhpM+WVYQOoqhkeiD8UPwsDPZH8JrU7FQwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iIqgFGSr9cVe7EoazhtwtVTPJiaYpK3y3sv9moeCmK0=;
+ b=cikT9eMox7XNiOK22Vg9F999ME6OKTS4kM5EqJrIsRs+VP0Enofcekpw2gBDlxoX++DGMarsJMqFP46Dej26uJwoEeKW0BkjlRj1pwfqDYxWiCeT0OQm/s2Iy1lNw6FzrT+9SklX3TnNZnYtdE9DuGSgdtMzxmDoTJR5NM1jUZZue8JHStM2/JsT2sZLhqyIMgOMo8ty1Fe83pd6N3y/v79JyxPmT8/U8Vtv26K0OSKpNQsT4mJkPgNZX0wSUrpdzlcLblOAkTg0vHLqHY9fu+90MYGNkowPTbCzaDanYM4QwA16hpLWwvi7NahsNJGGkSwbF3T1ICREpoEx9Q7Vaw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <27a9ae9e-07fa-8300-d5b9-f9a88e4a1754@suse.com>
+Date: Tue, 24 May 2022 17:14:12 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH v3] x86/hvm: Widen condition for is_hvm_pv_evtchn_domain()
+ and report fix in CPUID
+Content-Language: en-US
+To: Jane Malalane <jane.malalane@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20220518132714.5557-1-jane.malalane@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20220518132714.5557-1-jane.malalane@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS9PR0301CA0051.eurprd03.prod.outlook.com
+ (2603:10a6:20b:469::28) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-References: <20220509233235.995021-1-dmitry.osipenko@collabora.com>
- <20220509233235.995021-8-dmitry.osipenko@collabora.com> <CAMuHMdVGjeFe=Z_1Kr9ZaNZ7HUVH1usvubEB31WUQf0fg8E1kA@mail.gmail.com>
- <c4914e14-1882-55a1-bcbd-a905852b45a3@collabora.com>
-In-Reply-To: <c4914e14-1882-55a1-bcbd-a905852b45a3@collabora.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 24 May 2022 17:03:19 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWBWWVeegvLQQzT8CRL5z38AhXigaNjzw8p0NwQ1B4DPQ@mail.gmail.com>
-Message-ID: <CAMuHMdWBWWVeegvLQQzT8CRL5z38AhXigaNjzw8p0NwQ1B4DPQ@mail.gmail.com>
-Subject: Re: [PATCH v8 07/27] kernel/reboot: Add kernel_can_power_off()
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Russell King <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>, Greg Ungerer <gerg@linux-m68k.org>, 
-	Joshua Thompson <funaho@jurai.org>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-	Sebastian Reichel <sre@kernel.org>, Linus Walleij <linus.walleij@linaro.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Greentime Hu <green.hu@gmail.com>, 
-	Vincent Chen <deanbo422@gmail.com>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
-	Paul Mackerras <paulus@samba.org>, Paul Walmsley <paul.walmsley@sifive.com>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
-	Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, "the arch/x86 maintainers" <x86@kernel.org>, 
-	"H. Peter Anvin" <hpa@zytor.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Santosh Shilimkar <ssantosh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Pavel Machek <pavel@ucw.cz>, 
-	Lee Jones <lee.jones@linaro.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Daniel Lezcano <daniel.lezcano@linaro.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Ulf Hansson <ulf.hansson@linaro.org>, 
-	=?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-csky@vger.kernel.org, 
-	"linux-ia64@vger.kernel.org" <linux-ia64@vger.kernel.org>, linux-m68k <linux-m68k@lists.linux-m68k.org>, 
-	"open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>, Parisc List <linux-parisc@vger.kernel.org>, 
-	linux-riscv <linux-riscv@lists.infradead.org>, Linux-sh list <linux-sh@vger.kernel.org>, 
-	xen-devel@lists.xenproject.org, 
-	ACPI Devel Maling List <linux-acpi@vger.kernel.org>, Linux PM list <linux-pm@vger.kernel.org>, 
-	linux-tegra <linux-tegra@vger.kernel.org>, 
-	Linux-Renesas <linux-renesas-soc@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 0a02677b-7354-4798-1208-08da3d981083
+X-MS-TrafficTypeDiagnostic: DB6PR04MB3158:EE_
+X-Microsoft-Antispam-PRVS:
+	<DB6PR04MB3158B30D0CDEA7A55D014724B3D79@DB6PR04MB3158.eurprd04.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	ekr2Nn7AoVpfe0JzIR3pQVAn+IFThMxdt+mjWu2l4FO6JcsDOZTt/LbL5YpsHYlYcLm7A2uQEdSCY7h5gNGr91Rmw5eRh9pIKjlljl96iCQZHaChCj81CabMMgc32NyK1CR/Wc7wZ+Pm2w3IYyMt435kwO6yL+f/JDLT0DatA49VMflfQKsfSOq3ZDhxrqELj4jvm0BCcmWncXFi/ZR712fMAeJ6D5PH1gx7wJdwBLhcRDguyAMmLxcdGJ2EUZEtg4AUY24Kv20qkjyB6cB4rOOaprkbVO4+FJv5oU5g0RypDAfTR0ZchinT7SNAGUBJFN90SlphF/7H2lgQ8ByY5jktefz7/gWOI7Si6iHp0uhV4E6KH3L8OXtlbpnlyvNx2UT55UMvjzbyRMKoYFJaQu8zRqjT8698j8jf67Ki7Edu1C5j0/OszVK+A2jFjEeOnk/iE+9jnfbLYPlBUQTZO11xNfxUKHTg8n9vkfrU16X8wrJqxrQCr1c8DvcYI09Z3eq4Ref4EkzQkXSpwaPVTqI8DKq4WIdevSZPxMok8buWtLVS3hx0tfILYNlE7AXgbr9EMND3L1/lTHrrktHhIVXZ2J0T+0VkgUGaFvCgHMF8FxgKhT/dwMoK9w9B8idM2ofMUBm/763g5oiuIzwZN93+S3BeSBl6L7YxBXkTrNVrIa3+NsOFb+QKQ5nEhLUW7bkorLv42B0s9/HBMUGRFFlHAjmiDoDdK/cyAhNjdX4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(316002)(38100700002)(6666004)(6916009)(86362001)(31696002)(36756003)(6486002)(54906003)(6512007)(53546011)(4744005)(8936002)(5660300002)(6506007)(4326008)(2616005)(8676002)(83380400001)(186003)(26005)(508600001)(66946007)(66476007)(66556008)(31686004)(2906002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UUJMSHN4aFNxbURibzA4MkZDVU5ISFZta3AydXdUcGdpd1k1VFpDTkVNeGdG?=
+ =?utf-8?B?K2tKbVVvODFVQ2xLOUU1NnRHRUU1RUlNT1psV3UwVEpBbUZKcDlJbVFBRUVM?=
+ =?utf-8?B?cDY1MnZHWThYUTcwOVlUc2FkLzhTZkh4Q3BxenArZTQvQ2N5ejFUWG9DekFn?=
+ =?utf-8?B?bDllODZmdVZscnlKaTQvV1dXUjV4eER5S2Q3YUYzVlIyRXFEYkwzY1BPYmp0?=
+ =?utf-8?B?N1dKaGhWaVdKMjBiVHVrTlQrVmw2Z3hRMGJBSUZnZUZXNHcvZVJTYzNTYk04?=
+ =?utf-8?B?djJ1RTM3K3ZhbEVqYTdQR3VrSFcrRFMxUG00RCt0SnBOb0xYZVBmVXBDYjNi?=
+ =?utf-8?B?c1VqOEFwNXBsRDJ4WFhXWmhqM0FvcE5BRWZHdW5MV3Y3dlFtaUVIYzRtOFZT?=
+ =?utf-8?B?MTVYRlBjcUtZVEMrdzlXSTVJQnV3bFVUUHhNTlRmV25hSlVWSUw1SUJ3dk9u?=
+ =?utf-8?B?SnlLOVRFOTNpN2Via1VqaHZVd0VqNjhTcVdyYVFlcTJlWEUvNXU5QXVMQ1R2?=
+ =?utf-8?B?Z2taSW5CVGtWeDdtMExpbUlIb2pkbGh5WGNuRjlTNnp1MHJ2OUV6Yit5QnZ2?=
+ =?utf-8?B?Nkhwc3NOeHhCLytCSzFCLzdUUjAvd3ZuNjc0UUJQTDZZbVU3QUpUN0NvNElS?=
+ =?utf-8?B?dVhDeFRHZVBpMVduOXNsWndON2VUSUNrU3AxZDZ0VWxKZ2F6YVQyWVM3MFc0?=
+ =?utf-8?B?YUh5S0Q0aExqRDhGeE9sdFBJSHNmSERMaDhmZm9kL3dtUEtLQzlHMjU5UWJp?=
+ =?utf-8?B?bXdDTnB4a01lZDVsaElRN211ditvLzRMQ3QrRU5NVkJjVHNnR3pYQ21KckZu?=
+ =?utf-8?B?b2RNcUVKdkhqZW9sSFJpMGhQZHdhYUwzdEJDN2FKVFpFRnN2cUwySk9LRjYv?=
+ =?utf-8?B?NHJzR0NtbGo2V3ZOcjhHeTZLSWJBaGNkMnNXYk4yazdacHlQQzdtUUlYMjFN?=
+ =?utf-8?B?SitrbThLTldhSFJEMnh4ODRvVjBGZXdYQnlHMThNeFdZYjRnKy9kTk5IbFh0?=
+ =?utf-8?B?eFdNL0pSc0UvVk1jSVpHZ04vbGhnK0sxNW44alBsVUpEQURpWW1QeGRXdHhP?=
+ =?utf-8?B?YnNGRzhVRXZBRXBpVll3K0hsbkxpb3FNS1RSTjFCTWFRcVJQcTB4OTd6YlRE?=
+ =?utf-8?B?ZS9COFBWZUJLYm00TnF5K0x2TGtHWmtJWHhPOVdUeCtHNTE2U2hTbEM0bk9N?=
+ =?utf-8?B?b2FQYkMxMEppdjAzS1pFYzRpb3ZXR1N2QzFRMktLOGpRL0FGYVd1c1FiWmYr?=
+ =?utf-8?B?dTNTeTUrS05GR3Zsem9TZHBuU29vQmJmZmNTTTJuVVZoYzZUaDM1akxxL01T?=
+ =?utf-8?B?U0I5aE9lQXdpa3V5bHBTWkVSYnBoSVZPNWxUb1BhUXl4M0NmbkxQWTlYVlJj?=
+ =?utf-8?B?TER1OG96b1lDMmVLWFNoRE1OTVFuZXl3N3lHR3k5S0pJSTczVnhFNmJna3hx?=
+ =?utf-8?B?ay84dWVOY1hqdEh3dUNmNHZsUnUwL3VoSXk1Q0V2UUNxVzJlU09Ua3lUaGdn?=
+ =?utf-8?B?UVl3Z2pnbkxaVkhIbEY2cVIxNEdSS3YwM0hmWCtyazlWUVZ1L0xKaDFVVHFy?=
+ =?utf-8?B?WDlxb0VFbHJVRURhNi9USm5FMHZMOHlqQ2pOVEZWeHJISjZoa0kzaG9Gbldh?=
+ =?utf-8?B?YlBrWmVOSlllZ2llUFRtUytyUXlwTy9td3JQNk55NHNtM0lTbG9sekpsR3Nr?=
+ =?utf-8?B?aWpWbjEvcngxbkpvV1RheDZlbzI1OW5OR0Jud1ptNkRlQjI3MWV0dzd0TUxP?=
+ =?utf-8?B?T1U2VXo1QzQrOHI4amc5MHFUQ1JYcUVEd1FwNUhLT3lVZXhablRwOFVObEdZ?=
+ =?utf-8?B?eldTdEVrdTl1N1VHRDdDOFlOTlg2LzBQNElSMG0xWU5oY1dWWjI5dEF2K1pz?=
+ =?utf-8?B?UXhOSVN6NW54T2xuTFg0UEcrUFplVkRpelF1dEE3d1hUdDNhMTNieXVUSitr?=
+ =?utf-8?B?czZnQWhjRWNrOTdIdVB1cXVNdEl0UG9jL2tsemNqNDJObllhWHJVQkJtNGpR?=
+ =?utf-8?B?SFIyU2EyMWFtWlBmYmllMHlrUWk2SThtSVcvaTYwZTIvYmhQZXQ4VDBzTS9o?=
+ =?utf-8?B?Szg2Z2c5blArbGc5UGVFazQrNnpqVEUwZ0IrSDNhbnRsVTRERUpTOGU1cWk0?=
+ =?utf-8?B?UitiTHhEUzZPZDg4NURLQmtwZkUzNHErOXhBcmlFK1p1cGpDbXBLRmMzY0dU?=
+ =?utf-8?B?TnpmK2k5aGFDaGlaUDBSam9oVTVZZlVyRm9DVFljZmJNQ3B2RklFUWZxUTRp?=
+ =?utf-8?B?cW0vT0M5RDFBczd6ekt3RVlubExlWXU5T1kyYXJIQmxmalVLOWFUSlFJZmc2?=
+ =?utf-8?B?RmF3Z1Bzd0h6SldQK2w0cDNoUnNoZmhzcFJMRjF2a0FyaWNoVTBEQT09?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a02677b-7354-4798-1208-08da3d981083
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2022 15:14:14.9410
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ELRItQbni5kHvNHcaZt/H0DwJ0CechuONZ5t4rQCoDEKsDnG0OPew7+o/ykflRtwk/Drawx2CEQ6S0qK86672A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR04MB3158
 
-Hi Dmitry,
+On 18.05.2022 15:27, Jane Malalane wrote:
+> --- a/xen/arch/x86/include/asm/domain.h
+> +++ b/xen/arch/x86/include/asm/domain.h
+> @@ -14,8 +14,14 @@
+>  
+>  #define has_32bit_shinfo(d)    ((d)->arch.has_32bit_shinfo)
+>  
+> +/*
+> + * Set to true if either the global vector-type callback or per-vCPU
+> + * LAPIC vectors are used. Assume all vCPUs will use
+> + * HVMOP_set_evtchn_upcall_vector as long as the initial vCPU does.
+> + */
+>  #define is_hvm_pv_evtchn_domain(d) (is_hvm_domain(d) && \
+> -        (d)->arch.hvm.irq->callback_via_type == HVMIRQ_callback_vector)
+> +        ((d)->arch.hvm.irq->callback_via_type == HVMIRQ_callback_vector || \
+> +         (d)->vcpu[0]->arch.hvm.evtchn_upcall_vector))
+>  #define is_hvm_pv_evtchn_vcpu(v) (is_hvm_pv_evtchn_domain(v->domain))
 
-On Tue, May 24, 2022 at 3:41 PM Dmitry Osipenko
-<dmitry.osipenko@collabora.com> wrote:
-> On 5/24/22 16:14, Geert Uytterhoeven wrote:
-> > On Tue, May 10, 2022 at 1:33 AM Dmitry Osipenko
-> > <dmitry.osipenko@collabora.com> wrote:
-> >> Add kernel_can_power_off() helper that replaces open-coded checks of
-> >> the global pm_power_off variable. This is a necessary step towards
-> >> supporting chained power-off handlers.
-> >>
-> >> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-> >
-> > Thanks for your patch, which is now commit 0e2110d2e910e44c
-> > ("kernel/reboot: Add kernel_can_power_off()") in pm/linux-next.
-> >
-> > This causes the "poweroff" command (Debian nfsroot) to no longer
-> > cleanly halt the system on arm32 systems, but fail with a panic
-> > instead:
-> >
-> > -reboot: System halted
-> > +reboot: Power down
-> > +Kernel panic - not syncing: Attempted to kill init! exitcode=3D0x00000=
-000
-> > +CPU: 0 PID: 1 Comm: systemd-shutdow Not tainted
-> > 5.18.0-rc7-shmobile-00007-g0e2110d2e910 #1274
-> > +Hardware name: Generic R-Car Gen2 (Flattened Device Tree)
-> > + unwind_backtrace from show_stack+0x10/0x14
-> > + show_stack from dump_stack_lvl+0x40/0x4c
-> > + dump_stack_lvl from panic+0xf4/0x330
-> > + panic from do_exit+0x1c8/0x8e4
-> > + do_exit from __do_sys_reboot+0x174/0x1fc
-> > + __do_sys_reboot from ret_fast_syscall+0x0/0x54
-> > +Exception stack(0xf0815fa8 to 0xf0815ff0)
-> > +5fa0:                   004e6954 00000000 fee1dead 28121969 4321fedc f=
-0d94600
-> > +5fc0: 004e6954 00000000 00000000 00000058 befa0c78 00000000 befa0c10 0=
-04e56f8
-> > +5fe0: 00000058 befa0b6c b6ec8d45 b6e4a746
-> > +---[ end Kernel panic - not syncing: Attempted to kill init!
-> > exitcode=3D0x00000000 ]---
-> >
-> > On arm64, "poweroff" causes a clean "reboot: Power down" before/after.
-> >
-> > On both arm32 and arm64, the same handlers are registered:
-> >   - SYS_OFF_MODE_POWER_OFF_PREPARE: legacy_pm_power_off_prepare
-> >   - SYS_OFF_MODE_POWER_OFF: legacy_pm_power_off
-> >
-> > On both arm32 and arm64, legacy_pm_power_off_prepare() is called.
-> > On both arm32 and arm64, legacy_pm_power_off() does not seem to
-> > be called.
-> >
-> > On arm32, both pm_power_off_prepare and pm_power_off are NULL.
-> > On arm64, pm_power_off_prepare is NULL, and
-> > pm_power_off is psci_sys_poweroff.
-> >
-> > Do you have a clue?
-> > Thanks!
->
-> Thank you, Geert! I see the problem, the kernel_can_power_off() checks wh=
-ether power-off handler is registered, but it's always registered because l=
-egacy_pm_power_off is registered unconditionally. So it causes trouble for =
-platforms that don't have power-off handler installed at all. All platforms=
- that I tested have a power-off handler, so now wonder that I didn't notice=
- this before.
->
-> This change should fix the problem, please give it a try:
+I continue to think that with the vCPU0 dependency added to
+is_hvm_pv_evtchn_domain(), is_hvm_pv_evtchn_vcpu() should either
+be adjusted as well (to check the correct vCPU's field) or be
+deleted (and the sole caller be replaced).
 
-Thank you, that fixes the problem for me!
+Jan
 
-Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
 
