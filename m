@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15D6F532F09
-	for <lists+xen-devel@lfdr.de>; Tue, 24 May 2022 18:32:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.336672.561046 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68468532F32
+	for <lists+xen-devel@lfdr.de>; Tue, 24 May 2022 18:46:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.336680.561057 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntXS6-0002U9-UZ; Tue, 24 May 2022 16:32:10 +0000
+	id 1ntXfg-00051B-7W; Tue, 24 May 2022 16:46:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 336672.561046; Tue, 24 May 2022 16:32:10 +0000
+Received: by outflank-mailman (output) from mailman id 336680.561057; Tue, 24 May 2022 16:46:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntXS6-0002S5-R3; Tue, 24 May 2022 16:32:10 +0000
-Received: by outflank-mailman (input) for mailman id 336672;
- Tue, 24 May 2022 16:32:09 +0000
+	id 1ntXfg-0004yN-3P; Tue, 24 May 2022 16:46:12 +0000
+Received: by outflank-mailman (input) for mailman id 336680;
+ Tue, 24 May 2022 16:46:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=k4sq=WA=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1ntXS5-0002Rz-JS
- for xen-devel@lists.xenproject.org; Tue, 24 May 2022 16:32:09 +0000
-Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
- [2607:f8b0:4864:20::82d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0db5171a-db7f-11ec-bd2c-47488cf2e6aa;
- Tue, 24 May 2022 18:32:08 +0200 (CEST)
-Received: by mail-qt1-x82d.google.com with SMTP id m13so9118911qtx.0
- for <xen-devel@lists.xenproject.org>; Tue, 24 May 2022 09:32:08 -0700 (PDT)
-Received: from pm2-ws13.praxislan02.com ([2001:470:8:67e:232b:a469:f1f6:e2d7])
- by smtp.gmail.com with ESMTPSA id
- g15-20020ae9e10f000000b0069fc13ce1e9sm6033213qkm.26.2022.05.24.09.32.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 May 2022 09:32:06 -0700 (PDT)
+ <SRS0=tjYj=WA=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1ntXfd-0004yH-Sz
+ for xen-devel@lists.xenproject.org; Tue, 24 May 2022 16:46:10 +0000
+Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
+ [64.147.123.19]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fcea5f7a-db80-11ec-bd2c-47488cf2e6aa;
+ Tue, 24 May 2022 18:46:01 +0200 (CEST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id 0A3DC3200063;
+ Tue, 24 May 2022 12:45:56 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Tue, 24 May 2022 12:45:57 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 24 May 2022 12:45:55 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,102 +43,298 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0db5171a-db7f-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=1IiIg1GUmt3YDROQNKNSyomdlx2ySFqe/mHdIetvhtE=;
-        b=oC0VFc9uHh9mymKMaP5faNbOHnwnLvvX832lHHpiJwSHb+eCZio1WCdkEi7oCQG/xV
-         ZQxKbqSq4QPagfc4ex8FPi7Hs2mw2t3G9R4BUl2tBLXvlmCoV5AWdoVlSrgzm/ee5QBc
-         +l3bGbBIXlc1mI6Q+ARr4jrANUy1SqoaZvA6zWRENK4DLzedP2o0u8kCXSviuWI3EusT
-         rmlkqPjlWD1sg1adWoiltVdksRvYGuKuTd1q7OyCrNrSg4oIBZnaeEgXkhqD0uUApFd+
-         wXzZNWpETvNAM4w/biWqO9PegwOPXIuOEcT1HOTqc4xxk9n1oM/EHSJuOJLhxat7PjU8
-         Q5UQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=1IiIg1GUmt3YDROQNKNSyomdlx2ySFqe/mHdIetvhtE=;
-        b=wqXG+1cCUwtVS3eqQG00LglsmaHzKQSiRwAxecDqwPkXAcM5Rd5HzvGVP5bIkNH+UG
-         bFQT7woaAHqzgWELe8esXCrq4OZmvq8GIGHU9S5qb/gHKEimbtlZuD1f5Qoj5baXuqV4
-         8qL2k+K9aEoXrXF9gMgTgUHERNepkRaHBt2wlPH4BW/aOxEA+pmTvJMBhep8oLbfIFjo
-         d8bx002oFEfJk9VKjeIpLpJ3oDnJowLVvF0GwWJhe0/+WYnM9j3+OsaYSEDpCHwZL2nx
-         SnK02EKTxZ33e9YmLRCw+Vc5C94DmMqJCHz3IwHJ6XwULoCK789SkcZ9yBssF/kt+Twu
-         mgcQ==
-X-Gm-Message-State: AOAM533+NXr75tFb1udakWb7h2XvGe1HaSobxobBVVgZ8IzYrMPwyFcK
-	/Te8VtSqYXfercVTHbjFapJm9I+n6oo=
-X-Google-Smtp-Source: ABdhPJzKVoEJP7TcrJvimtfz434njRxStBzaFIY4PU9EcyzGjESpIOvVo0EiDu+yvcvwKKx+1CvtHQ==
-X-Received: by 2002:a05:622a:650:b0:2f3:facf:d11a with SMTP id a16-20020a05622a065000b002f3facfd11amr21034914qtb.109.1653409927034;
-        Tue, 24 May 2022 09:32:07 -0700 (PDT)
-From: Jason Andryuk <jandryuk@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jason Andryuk <jandryuk@gmail.com>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH] libxl: Don't leak self pipes
-Date: Tue, 24 May 2022 12:31:52 -0400
-Message-Id: <20220524163152.19948-1-jandryuk@gmail.com>
-X-Mailer: git-send-email 2.35.3
+X-Inumbo-ID: fcea5f7a-db80-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to; s=fm1; t=1653410756; x=1653497156; bh=Z8fSYjEyoO
+	yGRxhE+YCeBF0cIAtqOwl1QptR41zfw5M=; b=j2AVTIUb880/fsAsaQu2+eNfa9
+	z8SBnLwhrZfuMvSLObCZKQAwy/cRatE2JacltIMeeRrSepSiC9+t0T4T0Fp7czWX
+	5/gYxi9o+Od3AlUnFVJhwR5XrtpJVfDk8MjNqECgkmtBH0R7TWpvhfLhkpEzYltk
+	wCRkSLgy8nLWSxhsSl4B3GccBywZn5U5qJv/pe5SFIr/x7dt67ZUFNV4/J2ZnnA5
+	Ykh+vX66SVvCzz8h0jkrDrkDlhlihaKp+tslZx2rVX3nVzFm82QQ8+g8EnlMZEDK
+	7BsBKl6by6qOca/xf0ArXYfZtfm8iwyLg++rTnI6sVTXLEfCzSlQg6pwP65g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:message-id:mime-version
+	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1653410756; x=
+	1653497156; bh=Z8fSYjEyoOyGRxhE+YCeBF0cIAtqOwl1QptR41zfw5M=; b=V
+	LXNwXJvPqjGmGshDviCRtm8ALWpp1riaUMePmb+2tXQvriq8Ia0ab9QaGOL1xq6+
+	CTm7/1m9Mnj9gx4cvGmarm/Ane8X7vJ87006LfX240CxMUOqm/IG3UVYBYg5rRpv
+	6LRaHb7W8e6fqhDV2itPZqm7twJNdfMesh63rDaIFB/WRHQyZ7QfMgP51UcWvWLD
+	xotywFdOV2HLpu58Ek9iCJXGQMRfcWhgrBnFnYA7ZB/ec4ugnkDGbu4htvbp533o
+	R5xcpcrNS78pfc7c3dGJ0m+iKxgT22CHiZeaXvydKz3SD4lzgvRe4lWEedyzvtkL
+	GLNkwQMKnw0TjJdycv++Q==
+X-ME-Sender: <xms:xAuNYhk7idDNgQQbKxVteUwlWV_aUfVZiicvWFJvTti1NvZ3WlJPGQ>
+    <xme:xAuNYs27iIbshY3gWAG6xjPSd28nJcELG27AEszDuITuMbzo6ZuviNAP4v57Mu5q3
+    5RvqALt_H2aKj0>
+X-ME-Received: <xmr:xAuNYnp8Tv9YcB11SsY188gHLLPrHRcN9riFDpfO2-uVQt-xSYTVuB9wAK-6>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrjeefgddutdegucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkgggtugesghdtreertddtvdenucfhrhhomhepffgvmhhiucfo
+    rghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhnghhslh
+    grsgdrtghomheqnecuggftrfgrthhtvghrnhepteekvefggeeivdffleehudejveevfeeg
+    vdeghfeigfdvgffgudeuueefveeuveefnecuffhomhgrihhnpehgihhthhhusgdrtghomh
+    enucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpeguvghm
+    ihesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:xAuNYhkInAl2MAVRvvlApRwFUxiaw5GDvT2aUa4wM5T8DZzcoD-x-w>
+    <xmx:xAuNYv2sBahVRtqStIuEMJEWYWQfq90zaIHkxpdOrgMdqHt0r-2_Mw>
+    <xmx:xAuNYguS-AO9qq3fMJD__QTpMHBGGWY2Nv9O_Q636yiJDsiSE4ncmw>
+    <xmx:xAuNYqRi22VZqM3w04n0TCFOE3tnk2kNTMjIl1XVfDt-r24709g_SA>
+Feedback-ID: iac594737:Fastmail
+Date: Tue, 24 May 2022 12:45:51 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Jennifer Herbert <jennifer.herbert@citrix.com>,
+	David Vrabel <david.vrabel@citrix.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] xen/gntdev: Avoid blocking in unmap_grant_pages()
+Message-ID: <Yo0LwmVUDSBZb44K@itl-email>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="iCJBjnzIorPsAmSw"
+Content-Disposition: inline
 
-libxl is leaking self pipes to child processes.  These can be seen when
-running with env var _LIBXL_DEBUG_EXEC_FDS=1:
 
-libxl: debug: libxl_aoutils.c:593:libxl__async_exec_start: forking to execute: /etc/xen/scripts/vif-bridge online
-[Detaching after fork from child process 5099]
-libxl: execing /etc/xen/scripts/vif-bridge: fd 4 is open to pipe:[46805] with flags 0
-libxl: execing /etc/xen/scripts/vif-bridge: fd 13 is open to pipe:[46807] with flags 0
-libxl: execing /etc/xen/scripts/vif-bridge: fd 14 is open to pipe:[46807] with flags 0
-libxl: execing /etc/xen/scripts/vif-bridge: fd 19 is open to pipe:[48570] with flags 0
-libxl: execing /etc/xen/scripts/vif-bridge: fd 20 is open to pipe:[48570] with flags 0
+--iCJBjnzIorPsAmSw
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 May 2022 12:45:51 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Jennifer Herbert <jennifer.herbert@citrix.com>,
+	David Vrabel <david.vrabel@citrix.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] xen/gntdev: Avoid blocking in unmap_grant_pages()
 
-(fd 3 is also open, but the check only starts at 4 for some reason.)
+unmap_grant_pages() currently waits for the pages to no longer be used.
+In https://github.com/QubesOS/qubes-issues/issues/7481, this lead to a
+deadlock against i915: i915 was waiting for gntdev's MMU notifier to
+finish, while gntdev was waiting for i915 to free its pages.  I also
+believe this is responsible for various deadlocks I have experienced in
+the past.
 
-For xl, this is the poller created by libxl_ctx_alloc, the poller
-created by do_domain_create -> libxl__ao_create, and the self pipe for
-libxl__sigchld_needed.  Set CLOEXEC on the FDs so they are not leaked
-into children.
+Avoid these problems by making unmap_grant_pages async.  This requires
+making it return void, as any errors will not be available when the
+function returns.  Fortunately, the only use of the return value is a
+WARN_ON().  Replace this with WARN_ON()s where errors are detected.
 
-Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+Fixes: 745282256c75 ("xen/gntdev: safely unmap grants in case they are stil=
+l in use")
+Cc: stable@vger.kernel.org
+Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
 ---
-Maybe the setting wants to move into libxl__pipe_nonblock()?  Poller &
-sigchld are the only callers of that function.
----
- tools/libs/light/libxl_event.c | 3 +++
- tools/libs/light/libxl_fork.c  | 2 ++
- 2 files changed, 5 insertions(+)
+ drivers/xen/gntdev-common.h |  4 ++
+ drivers/xen/gntdev.c        | 82 ++++++++++++++++++-------------------
+ 2 files changed, 45 insertions(+), 41 deletions(-)
 
-diff --git a/tools/libs/light/libxl_event.c b/tools/libs/light/libxl_event.c
-index c8bcd13960..8d24613921 100644
---- a/tools/libs/light/libxl_event.c
-+++ b/tools/libs/light/libxl_event.c
-@@ -1800,6 +1800,9 @@ int libxl__poller_init(libxl__gc *gc, libxl__poller *p)
-     rc = libxl__pipe_nonblock(CTX, p->wakeup_pipe);
-     if (rc) goto out;
- 
-+    libxl_fd_set_cloexec(CTX, p->wakeup_pipe[0], 1);
-+    libxl_fd_set_cloexec(CTX, p->wakeup_pipe[1], 1);
+diff --git a/drivers/xen/gntdev-common.h b/drivers/xen/gntdev-common.h
+index 20d7d059dadb..a6e2805ea2ce 100644
+--- a/drivers/xen/gntdev-common.h
++++ b/drivers/xen/gntdev-common.h
+@@ -16,6 +16,7 @@
+ #include <linux/mmu_notifier.h>
+ #include <linux/types.h>
+ #include <xen/interface/event_channel.h>
++#include <xen/grant_table.h>
+=20
+ struct gntdev_dmabuf_priv;
+=20
+@@ -73,6 +74,9 @@ struct gntdev_grant_map {
+ 	/* Needed to avoid allocation in gnttab_dma_free_pages(). */
+ 	xen_pfn_t *frames;
+ #endif
 +
-     return 0;
- 
-  out:
-diff --git a/tools/libs/light/libxl_fork.c b/tools/libs/light/libxl_fork.c
-index 676a14bb28..b13659d231 100644
---- a/tools/libs/light/libxl_fork.c
-+++ b/tools/libs/light/libxl_fork.c
-@@ -387,6 +387,8 @@ int libxl__sigchld_needed(libxl__gc *gc) /* non-reentrant, idempotent */
-     if (CTX->sigchld_selfpipe[0] < 0) {
-         rc = libxl__pipe_nonblock(CTX, CTX->sigchld_selfpipe);
-         if (rc) goto out;
-+        libxl_fd_set_cloexec(CTX, CTX->sigchld_selfpipe[0], 1);
-+        libxl_fd_set_cloexec(CTX, CTX->sigchld_selfpipe[1], 1);
-     }
-     if (!libxl__ev_fd_isregistered(&CTX->sigchld_selfpipe_efd)) {
-         rc = libxl__ev_fd_register(gc, &CTX->sigchld_selfpipe_efd,
--- 
-2.35.1
++	/* Needed to avoid allocation in __unmap_grant_pages */
++	struct gntab_unmap_queue_data unmap_data;
+ };
+=20
+ struct gntdev_grant_map *gntdev_alloc_map(struct gntdev_priv *priv, int co=
+unt,
+diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
+index 59ffea800079..670d800e4a89 100644
+--- a/drivers/xen/gntdev.c
++++ b/drivers/xen/gntdev.c
+@@ -62,8 +62,8 @@ MODULE_PARM_DESC(limit,
+=20
+ static int use_ptemod;
+=20
+-static int unmap_grant_pages(struct gntdev_grant_map *map,
+-			     int offset, int pages);
++static void unmap_grant_pages(struct gntdev_grant_map *map,
++			      int offset, int pages);
+=20
+ static struct miscdevice gntdev_miscdev;
+=20
+@@ -349,61 +349,65 @@ int gntdev_map_grant_pages(struct gntdev_grant_map *m=
+ap)
+ 	return err;
+ }
+=20
+-static int __unmap_grant_pages(struct gntdev_grant_map *map, int offset,
+-			       int pages)
++static void __unmap_grant_pages_done(int result,
++		struct gntab_unmap_queue_data *data)
+ {
+-	int i, err =3D 0;
+-	struct gntab_unmap_queue_data unmap_data;
+-
+-	if (map->notify.flags & UNMAP_NOTIFY_CLEAR_BYTE) {
+-		int pgno =3D (map->notify.addr >> PAGE_SHIFT);
+-		if (pgno >=3D offset && pgno < offset + pages) {
+-			/* No need for kmap, pages are in lowmem */
+-			uint8_t *tmp =3D pfn_to_kaddr(page_to_pfn(map->pages[pgno]));
+-			tmp[map->notify.addr & (PAGE_SIZE-1)] =3D 0;
+-			map->notify.flags &=3D ~UNMAP_NOTIFY_CLEAR_BYTE;
+-		}
+-	}
+-
+-	unmap_data.unmap_ops =3D map->unmap_ops + offset;
+-	unmap_data.kunmap_ops =3D use_ptemod ? map->kunmap_ops + offset : NULL;
+-	unmap_data.pages =3D map->pages + offset;
+-	unmap_data.count =3D pages;
+-
+-	err =3D gnttab_unmap_refs_sync(&unmap_data);
+-	if (err)
+-		return err;
++	int i;
++	struct gntdev_grant_map *map =3D data->data;
++	int offset =3D data->unmap_ops - map->unmap_ops;
+=20
+-	for (i =3D 0; i < pages; i++) {
+-		if (map->unmap_ops[offset+i].status)
+-			err =3D -EINVAL;
++	for (i =3D 0; i < data->count; i++) {
++		WARN_ON(map->unmap_ops[offset+i].status);
+ 		pr_debug("unmap handle=3D%d st=3D%d\n",
+ 			map->unmap_ops[offset+i].handle,
+ 			map->unmap_ops[offset+i].status);
+ 		map->unmap_ops[offset+i].handle =3D INVALID_GRANT_HANDLE;
+ 		if (use_ptemod) {
+-			if (map->kunmap_ops[offset+i].status)
+-				err =3D -EINVAL;
++			WARN_ON(map->kunmap_ops[offset+i].status);
+ 			pr_debug("kunmap handle=3D%u st=3D%d\n",
+ 				 map->kunmap_ops[offset+i].handle,
+ 				 map->kunmap_ops[offset+i].status);
+ 			map->kunmap_ops[offset+i].handle =3D INVALID_GRANT_HANDLE;
+ 		}
+ 	}
+-	return err;
+ }
+=20
+-static int unmap_grant_pages(struct gntdev_grant_map *map, int offset,
+-			     int pages)
++static void __unmap_grant_pages(struct gntdev_grant_map *map, int offset,
++			       int pages)
++{
++	if (map->notify.flags & UNMAP_NOTIFY_CLEAR_BYTE) {
++		int pgno =3D (map->notify.addr >> PAGE_SHIFT);
++
++		if (pgno >=3D offset && pgno < offset + pages) {
++			/* No need for kmap, pages are in lowmem */
++			uint8_t *tmp =3D pfn_to_kaddr(page_to_pfn(map->pages[pgno]));
++
++			tmp[map->notify.addr & (PAGE_SIZE-1)] =3D 0;
++			map->notify.flags &=3D ~UNMAP_NOTIFY_CLEAR_BYTE;
++		}
++	}
++
++	map->unmap_data.unmap_ops =3D map->unmap_ops + offset;
++	map->unmap_data.kunmap_ops =3D use_ptemod ? map->kunmap_ops + offset : NU=
+LL;
++	map->unmap_data.pages =3D map->pages + offset;
++	map->unmap_data.count =3D pages;
++	map->unmap_data.done =3D __unmap_grant_pages_done;
++	map->unmap_data.data =3D map;
++
++	gnttab_unmap_refs_async(&map->unmap_data);
++}
++
++static void unmap_grant_pages(struct gntdev_grant_map *map, int offset,
++			      int pages)
+ {
+-	int range, err =3D 0;
++	int range;
+=20
+ 	pr_debug("unmap %d+%d [%d+%d]\n", map->index, map->count, offset, pages);
+=20
+ 	/* It is possible the requested range will have a "hole" where we
+ 	 * already unmapped some of the grants. Only unmap valid ranges.
+ 	 */
+-	while (pages && !err) {
++	while (pages) {
+ 		while (pages &&
+ 		       map->unmap_ops[offset].handle =3D=3D INVALID_GRANT_HANDLE) {
+ 			offset++;
+@@ -416,12 +420,10 @@ static int unmap_grant_pages(struct gntdev_grant_map =
+*map, int offset,
+ 				break;
+ 			range++;
+ 		}
+-		err =3D __unmap_grant_pages(map, offset, range);
++		__unmap_grant_pages(map, offset, range);
+ 		offset +=3D range;
+ 		pages -=3D range;
+ 	}
+-
+-	return err;
+ }
+=20
+ /* ------------------------------------------------------------------ */
+@@ -473,7 +475,6 @@ static bool gntdev_invalidate(struct mmu_interval_notif=
+ier *mn,
+ 	struct gntdev_grant_map *map =3D
+ 		container_of(mn, struct gntdev_grant_map, notifier);
+ 	unsigned long mstart, mend;
+-	int err;
+=20
+ 	if (!mmu_notifier_range_blockable(range))
+ 		return false;
+@@ -494,10 +495,9 @@ static bool gntdev_invalidate(struct mmu_interval_noti=
+fier *mn,
+ 			map->index, map->count,
+ 			map->vma->vm_start, map->vma->vm_end,
+ 			range->start, range->end, mstart, mend);
+-	err =3D unmap_grant_pages(map,
++	unmap_grant_pages(map,
+ 				(mstart - map->vma->vm_start) >> PAGE_SHIFT,
+ 				(mend - mstart) >> PAGE_SHIFT);
+-	WARN_ON(err);
+=20
+ 	return true;
+ }
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
+--iCJBjnzIorPsAmSw
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmKNC8MACgkQsoi1X/+c
+IsHAJRAAjtDopK0KF9LmKELwrNytKtSheNA1qaQAT4GYCdiQfBh/BUKH+SLULH39
+picN4dJb62xrkRQNAuwc3uzObotjRFAOHsvUMKMfrj761fjmm9LfFmIRyVOo2Kny
+9VLUB2kPgmphv9NtSHms7XwzINYjipyon0wUIvAmP2CbHyzcTniibIafHPY+jlL4
+qB5JI6yjg/B3XXbW5LeVCW7yN9hF1FJpPt1ndhNSytXm/RkUivoRKQ16B3FqNRJx
+w1N6PrLfjiSIOIQaS+0JQHak7jWQ89Dit1GPVzOzkvk1DpfiaNK7gttMcADyyDPD
+TMoeKq/ozU/IGOyK1PAij/k+6iZBwo4hQdpcYCr8hmj4yJxCVzKsQV+yL/HmehtK
+edzbfH7JwF8Z1ap3xugTEr89biFnPy+/VsCha10L/tm/3xh0RtQt+7FId6jBVdi6
+G9dKOd7gu4f4BbwFDYEGJuVDYdNTqV9LV7/tkQeit7j2/y4MS9fClQKrFSvN8QoV
+iMpGc3RvwZfz9EZE8ABPFKA1fhIRCPk6ebzagLynOQ4Pn65LjjTOZqaFXXUxFEIp
+FkrwFARyo7pv14q5CJfDCwyz+hlGHqEHYyc3HxSm2HU21lbNxn9VBzjNZFNcFuvs
+Ep4ZBSkl2obWuIG5TcXToIHxuqAo9ufsl6DZPlYFj5GA2ob5cmM=
+=FXH8
+-----END PGP SIGNATURE-----
+
+--iCJBjnzIorPsAmSw--
 
