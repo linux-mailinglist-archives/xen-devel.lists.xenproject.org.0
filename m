@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06894533078
-	for <lists+xen-devel@lfdr.de>; Tue, 24 May 2022 20:33:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.336722.561112 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF43053363D
+	for <lists+xen-devel@lfdr.de>; Wed, 25 May 2022 06:43:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.336730.561255 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntZKn-0002C5-Bt; Tue, 24 May 2022 18:32:45 +0000
+	id 1ntiqj-00024E-3y; Wed, 25 May 2022 04:42:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 336722.561112; Tue, 24 May 2022 18:32:45 +0000
+Received: by outflank-mailman (output) from mailman id 336730.561255; Wed, 25 May 2022 04:42:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntZKn-00029S-8e; Tue, 24 May 2022 18:32:45 +0000
-Received: by outflank-mailman (input) for mailman id 336722;
- Tue, 24 May 2022 18:32:43 +0000
+	id 1ntiqj-000217-0i; Wed, 25 May 2022 04:42:21 +0000
+Received: by outflank-mailman (input) for mailman id 336730;
+ Tue, 24 May 2022 18:34:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9Yoi=WA=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1ntZKl-00029M-5e
- for xen-devel@lists.xenproject.org; Tue, 24 May 2022 18:32:43 +0000
-Received: from sonic317-20.consmr.mail.gq1.yahoo.com
- (sonic317-20.consmr.mail.gq1.yahoo.com [98.137.66.146])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9YPC=WA=google.com=saravanak@srs-se1.protection.inumbo.net>)
+ id 1ntZMk-0002kb-Dt
+ for xen-devel@lists.xenproject.org; Tue, 24 May 2022 18:34:46 +0000
+Received: from mail-yw1-x1135.google.com (mail-yw1-x1135.google.com
+ [2607:f8b0:4864:20::1135])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e347393a-db8f-11ec-bd2c-47488cf2e6aa;
- Tue, 24 May 2022 20:32:40 +0200 (CEST)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic317.consmr.mail.gq1.yahoo.com with HTTP; Tue, 24 May 2022 18:32:37 +0000
-Received: by hermes--canary-production-ne1-5495f4d555-xgn59 (Yahoo Inc. Hermes
- SMTP Server) with ESMTPA ID f18826b5cd811627c8ace28c66b17372; 
- Tue, 24 May 2022 18:32:32 +0000 (UTC)
+ id 2e6c81c7-db90-11ec-bd2c-47488cf2e6aa;
+ Tue, 24 May 2022 20:34:44 +0200 (CEST)
+Received: by mail-yw1-x1135.google.com with SMTP id
+ 00721157ae682-2ff7b90e635so125488907b3.5
+ for <xen-devel@lists.xenproject.org>; Tue, 24 May 2022 11:34:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,299 +40,393 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e347393a-db8f-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1653417157; bh=bWdvczIx7ry7wZOALAI1wr+HsImsxjNz7PtVMvZvtj8=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=lBrYG59B4NAY+zeSFmHe92QcF1AtKxVljoQibxCKbJeGAH6xT4wrcxRqmVgG+ZOnF/NwJnyx2D2jrxTQFFqcrnsNlQGzqyBr5FBJqtk4pi20bJU2LWH5nt4WpEOYVPfuX/21cWrYreqcQWzIW3bKDCN1zS/9lbxTnCbXPvnX3ZjxQ+R/5bhf6v7zWSSZK5o9Lmxj2GTwf3/bdDZH9StPsPqz35Mce5ne2lTmyWvajx/dMfqjTw4Pj0lYyatwW5y/sJEvGh1y0rOGiz3cyRN3KY927n2ZsoCD++cxgFVxAB7Aa0L9w+gA+GQUMTzOEf1asJoeqnEjrBV3QOonXUDNAw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1653417157; bh=s3RpZhgR4s9uWwhVoE5EIzWfLL3MAfA6mE5D7/0OW9A=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=XrB1Ps2zvpEsObxvQNaMgTqSxGlBkUGvkxRXCc3LJIL9Ix9+giBk514R43WYLmzpvcT5yUIeaeMertglYe0cAsiPxgqXTudWefTGZVv0eZ30RFj1BMIubkW5z362+2jITR0lCNEhFCMWOVm1b7Diio8crHcxT3hUT1uXvdGPOuMzi12PmZ/KNzkksfLObxZNgb8mNiuLxXB2xOV2ysRLkuI6OKzAq6zaS7NP064Ao4o8x+Y7nVk5NQIdd1IYsv8hbUYkpv7YvVUw8bju8kc5/IknnI7C5gDhpfuZwR892FeSehs4tQqExb0gJ94bzSVw6FFnyVrupqGThIPulLOE2g==
-X-YMail-OSG: J42Z.mEVM1mppfHkyqWoRpCGB0mXn4dGsrlfQrFalIJjwaJPzLD9X6PbJIQodNc
- I1oX7Jwl3xDkSLGmOgC5IpFTFwncYKvZWjVHTKDLXTLUvGnVEZkhM.cT1_Qe32_VHoIQ3K7QhF_T
- fs2bSdHo8POl2vloU_or9Ynxo84f3n.pglT46gC4Q4zpaZHmvPUxNn0LpHNAkoLizYif2vDzLkDN
- L2J.leqIbGq61xTEGg37LZLVNmrLtecDoe_l80EkYfKzUGob7bKDek3tx3HXFvq4XeZGmXPVBRgI
- x04Y0LzovydetX11xkm9BEmp9VplSympKgWB_sopf7ndo2VPviGMVxPCkUTzdGzmQTHZeuHK0baM
- nwY95HLmK1tKFLfmUIyfsOf5Sh.SoTzGFP6KNI5prw3OwnfgXTEb2Xvn5VkHva.Lbb_hWgKRBi8G
- QY5avLVfQkfBm6rlcpDdAyoFgVQg91OsH0xDDQmw.JUiU_h3O39Vdw6GHo1Z6CSnKa.8mHrCZ2_K
- oC4Ic26g68biMyU7QCQJLoQO3td.jifMKrUOMzd4Yqnl2nus4HtKD5tlFy6mZVRiIQwkfhYnZuHf
- Uh_bh0hSTs6dE5rb7ionVmwIdwcxkEeLN_s_jFj8.TDWfS4oWJGG5yGmLBstw4rdPrCnx9tMoote
- F_KQxur7Sj9Ruo1OK0xckP0ZgJ3f0v.CEkt7kSE0j_ScNJ1v3Q553xBBj6PlyTXa41Q1hTBLmCnl
- wbhkOGD92YNzz.4nG5x2jfC7L2nwVlXI8RAUlPQTj1eqK1Qys5ECNU10auqEMFbXQDaNUdYJQ4tY
- udzuQWNh4CMSf93DwYXh7cOuc5rmERY7rfYkGnbmn2y4MeTBJmyFFo03_p.DSotwbJUAsDBxYdXR
- HeH30PSe8o3Ni0rcOFixzqo8jA3bZ27ISECfahxR1842QNS.3j_Bw7.kyikWGTxKZza03bcbF_re
- s8Hs9syqWwy37LhyVfe1Clm.rCIN1QHsWR2hxOMwERAHqL4DDCO4MMe8LrgGRJWdTwZdxyuNYSBB
- 8CNU65ORiE5idkjg44.En3efNoi06JYJRY9h3r8eULAFVTUr.MO3XCxmsipHeIlxx4a8PYp9DU15
- F0Gm_CiSgul2mWQzUs.nE0FRzMnU6BjZ4d2WU7k6UKNpp79v1QfKy4DCjPzNnAiBS793Mdd6IBCu
- WHkQmdAT.VgfAfi7pJvHVWH_iZu5fV1rJT7l1Rx.2heRhzdabGeZPi0QbUcG4wbKybegpH_EACkF
- vOgMlKG6W5vcpNztXUerPYCueShA1SWGTgpz5bnwoqo2GbZOMjo.IR8Ynb.AYp5Flc.iKINKy4s_
- X911QoCXMBQzNfz9An9pQfeZuVFZJBripjQQ50X3v4tOn0rlSMMZZSXSpoVY2x6iFkyAof0PfENZ
- tHSP8r8ssIS.y8Fmj_9gc._SeczNxPHfThrqEluHwUQf35vlYvTfh6XHJKGzuECWx5uNgsuNWsqj
- 0f_S.WJHzmAJ9URgVJQlIzI_pHXQt9nPBoXkmz_7c6PsZRN9cJniMmvaf68QUryyFy5V36_LDfHo
- SdxQy7829U58fbic2I.iEfnQ3hh8KCaMUqihkmRXOSZlHxxqRjNin4eFDoi_qSAqFB7o1h6YSwSS
- .sm9dDBiw1C_sJSRJLUYxCKJPxkkFb3NsgDodKxcUVAN3nBzY6QW9JkRLTfXIhZ7SMrrmknSQhw1
- Dzhd6yHj4lcrd_4VFOFi5lMKOMsLdD6ydUpoWhwkCt.vDH8OJbd4Nk0ruPBOscAbBl0MJgzAMjEs
- zvO3sePr.8oHBgzNEw2wYX5u9Y7ykffC_YtgPSLRg.HAZxlWLMGVDWT4a5UKhsPuoHpX_Xf19WGf
- UdAqS6bb7MlA_K_coB3EGR3.CvJst2VQD5ewL5XK0s7NWI28ks1WbdmImZr9yQE3dkHLe7YYmq2t
- SS90c4vme4OWiiEokiOsIIb94tvgpAUhGXsVSu9Cp9Cjv_hr9ImPppkeec9Fjv944GfzlIQ2a18w
- P1eeVMx2c2mRgA3n0r8aq.LnmhxnQ3Ee2CFIPGpkb1ptoJ3mdELhzQiQ3wdzcwJhSAzoTPoQY4V.
- YBEK7no8jP6Ftxfj9Gh1k9rgPy9qGCbS9iJpa3bdVmnahP7gkZ244Pn0W6lEHIt7.RGpVG1lkkL9
- mZhwuqB4VikkxukFkcgJR6rdy99.nUF.0YiAAf8kMksIXv0sT.YrlDYaraSWuXayrHTSNnURDwu4
- 0
-X-Sonic-MF: <brchuckz@aim.com>
-Message-ID: <3fc70595-3dcc-4901-0f3f-193f043b753f@netscape.net>
-Date: Tue, 24 May 2022 14:32:30 -0400
+X-Inumbo-ID: 2e6c81c7-db90-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=iBrJdmkYhyMKFfjatCCnMuBZLCB3cSo3begeOpY/XW0=;
+        b=jQIgotbIxIKwjqP3Ytx/1zmEQiJy3GUwR7pfzJzuQ/KNfOg9PR/sWrGJ023UbG/uEJ
+         0xHi7ypEjCWhSd1ukgWYWGlnvThWteDRtlCWJv6EwBcHPCHUF0gN51dFNaneKpRvLncC
+         LAXz+ixBiY8+lJSiou2TBEtzqWwsF+sdxbMw+SGtJlzI8mpNUayyZg+RK+H05IOmfbpr
+         18EPXakonYulEUB0y9ZdDRRUGcB2xuPIMwPd4c762ozCaW8xPw7dAv4F22pjDNoljNGN
+         kz24YuRjs0EGn0LFKcaoPpxJnGG7K4Vf26j6JMQgIaOaoESDRviYMUu9J5qo74/Woa/W
+         MWXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=iBrJdmkYhyMKFfjatCCnMuBZLCB3cSo3begeOpY/XW0=;
+        b=u2bfiP5Wsj1p0W+4NcVtPdoRL7UZDZ1Vlsr0uAZ9HC6zE2+3EgEidiGpYuwJr/+LxR
+         Qv4EK1Q/IhVAZIj2ExjWVM+Z7MlQOU1+6O2u0+a9NGbq2TXGfvbXWEKOw2Cy3T/lF7AI
+         NeVDA66AEU1DeO0dhTHVlc+f8TvjnASGNsnyzA6ETjf++M88gBudEpbZZqXw2HQCiOe0
+         aGsgmMsvs9ADIhWiKw7rlY09gnjFUOIx1KhTsmfMyitCbO79ysdY6mvODOOiDahQj+D2
+         b1C6cPjpfkhe6fQFw79lndXVPRaHhkvg8YLDVnPyrTiSwTPeiuiCNhiz3y2vb+wtbnXE
+         79og==
+X-Gm-Message-State: AOAM532eQXdceagtgvh/6G++48nc2ZGhDW3Hl7jmBiV+B9l/FOY7RFhG
+	+DIeDzHeEm6qfKTpH3r3kNihjZAGjePDcvDz57phoA==
+X-Google-Smtp-Source: ABdhPJyY/JYhlZXxoEKO5HYVCNG5z/yk9AUUyQrAuiHIkRvGXWuoudF873m2e4tA4dlfQtDUZsLjJfE9Xq/pklwwrWc=
+X-Received: by 2002:a81:72c5:0:b0:300:7d0:a642 with SMTP id
+ n188-20020a8172c5000000b0030007d0a642mr8927907ywc.80.1653417283496; Tue, 24
+ May 2022 11:34:43 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [PATCH 2/2] x86/pat: add functions to query specific cache mode
- availability
-Content-Language: en-US
-To: Thorsten Leemhuis <regressions@leemhuis.info>,
- Jan Beulich <jbeulich@suse.com>, regressions@lists.linux.dev,
- stable@vger.kernel.org
-Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Juergen Gross <jgross@suse.com>
-References: <20220503132207.17234-1-jgross@suse.com>
- <20220503132207.17234-3-jgross@suse.com>
- <1d86d8ff-6878-5488-e8c4-cbe8a5e8f624@suse.com>
- <0dcb05d0-108f-6252-e768-f75b393a7f5c@suse.com>
- <77255e5b-12bf-5390-6910-dafbaff18e96@netscape.net>
- <a2e95587-418b-879f-2468-8699a6df4a6a@suse.com>
- <8b1ebea5-7820-69c4-2e2b-9866d55bc180@netscape.net>
- <c5fa3c3f-e602-ed68-d670-d59b93c012a0@netscape.net>
- <3bff3562-bb1e-04e6-6eca-8d9bc355f2eb@suse.com>
- <3ca084a9-768e-a6f5-ace4-cd347978dec7@netscape.net>
- <9af0181a-e143-4474-acda-adbe72fc6227@suse.com>
- <b2585c19-d38b-9640-64ab-d0c9be24be34@netscape.net>
- <dae4cc45-a1cd-e33f-25ef-c536df9b49e6@leemhuis.info>
-From: Chuck Zmudzinski <brchuckz@netscape.net>
-In-Reply-To: <dae4cc45-a1cd-e33f-25ef-c536df9b49e6@leemhuis.info>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Mailer: WebService/1.1.20225 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+References: <1651947548-4055-1-git-send-email-olekstysh@gmail.com>
+ <1651947548-4055-6-git-send-email-olekstysh@gmail.com> <CAK8P3a2cAnXr8TDDYTiFxTWzQxa67sGnYDQRRD+=Q8_cSb1mEw@mail.gmail.com>
+ <56e8c32d-6771-7179-005f-26ca58555659@gmail.com> <CAK8P3a1YhkEZ8gcbXHEa5Bwx-4VVRJO8SUHf8=RNWRsc2Yo-+A@mail.gmail.com>
+ <460a746c-6b61-214b-4653-44a1430e314d@gmail.com> <alpine.DEB.2.22.394.2205181802310.1905099@ubuntu-linux-20-04-desktop>
+ <6f469e9c-c26e-f4be-9a85-710afb0d77eb@gmail.com> <390ba7bb-ee9e-b7b7-5f08-71a7245fa4ec@gmail.com>
+ <alpine.DEB.2.22.394.2205231856330.1905099@ubuntu-linux-20-04-desktop> <20220524160134.GE3730540-robh@kernel.org>
+In-Reply-To: <20220524160134.GE3730540-robh@kernel.org>
+From: Saravana Kannan <saravanak@google.com>
+Date: Tue, 24 May 2022 11:34:07 -0700
+Message-ID: <CAGETcx8k8VzdDgrijEYG_mAr_dPctQXT==DFWcieKKYoD9W_sQ@mail.gmail.com>
+Subject: Re: [PATCH V2 5/7] dt-bindings: Add xen,dev-domid property
+ description for xen-grant DMA ops
+To: Rob Herring <robh@kernel.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Oleksandr <olekstysh@gmail.com>, 
+	xen-devel <xen-devel@lists.xenproject.org>, 
+	"open list:DRM DRIVER FOR QEMU'S CIRRUS DEVICE" <virtualization@lists.linux-foundation.org>, 
+	DTML <devicetree@vger.kernel.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	Linux ARM <linux-arm-kernel@lists.infradead.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Jason Wang <jasowang@redhat.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Julien Grall <julien@xen.org>, Juergen Gross <jgross@suse.com>, 
+	"Michael S. Tsirkin" <mst@redhat.com>, Christoph Hellwig <hch@infradead.org>, 
+	Jean-Philippe Brucker <jean-philippe@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 5/21/22 6:47 AM, Thorsten Leemhuis wrote:
-> On 20.05.22 16:48, Chuck Zmudzinski wrote:
->> On 5/20/2022 10:06 AM, Jan Beulich wrote:
->>> On 20.05.2022 15:33, Chuck Zmudzinski wrote:
->>>> On 5/20/2022 5:41 AM, Jan Beulich wrote:
->>>>> On 20.05.2022 10:30, Chuck Zmudzinski wrote:
->>>>>> On 5/20/2022 2:59 AM, Chuck Zmudzinski wrote:
->>>>>>> On 5/20/2022 2:05 AM, Jan Beulich wrote:
->>>>>>>> On 20.05.2022 06:43, Chuck Zmudzinski wrote:
->>>>>>>>> On 5/4/22 5:14 AM, Juergen Gross wrote:
->>>>>>>>>> On 04.05.22 10:31, Jan Beulich wrote:
->>>>>>>>>>> On 03.05.2022 15:22, Juergen Gross wrote:
->>>>>>>>>>>
->>>>>>>>>>> ... these uses there are several more. You say nothing on why
->>>>>>>>>>> those want
->>>>>>>>>>> leaving unaltered. When preparing my earlier patch I did
->>>>>>>>>>> inspect them
->>>>>>>>>>> and came to the conclusion that these all would also better
->>>>>>>>>>> observe the
->>>>>>>>>>> adjusted behavior (or else I couldn't have left pat_enabled()
->>>>>>>>>>> as the
->>>>>>>>>>> only predicate). In fact, as said in the description of my
->>>>>>>>>>> earlier
->>>>>>>>>>> patch, in
->>>>>>>>>>> my debugging I did find the use in i915_gem_object_pin_map()
->>>>>>>>>>> to be
->>>>>>>>>>> the
->>>>>>>>>>> problematic one, which you leave alone.
->>>>>>>>>> Oh, I missed that one, sorry.
->>>>>>>>> That is why your patch would not fix my Haswell unless
->>>>>>>>> it also touches i915_gem_object_pin_map() in
->>>>>>>>> drivers/gpu/drm/i915/gem/i915_gem_pages.c
->>>>>>>>>
->>>>>>>>>> I wanted to be rather defensive in my changes, but I agree at
->>>>>>>>>> least
->>>>>>>>>> the
->>>>>>>>>> case in arch_phys_wc_add() might want to be changed, too.
->>>>>>>>> I think your approach needs to be more aggressive so it will fix
->>>>>>>>> all the known false negatives introduced by bdd8b6c98239
->>>>>>>>> such as the one in i915_gem_object_pin_map().
->>>>>>>>>
->>>>>>>>> I looked at Jan's approach and I think it would fix the issue
->>>>>>>>> with my Haswell as long as I don't use the nopat option. I
->>>>>>>>> really don't have a strong opinion on that question, but I
->>>>>>>>> think the nopat option as a Linux kernel option, as opposed
->>>>>>>>> to a hypervisor option, should only affect the kernel, and
->>>>>>>>> if the hypervisor provides the pat feature, then the kernel
->>>>>>>>> should not override that,
->>>>>>>> Hmm, why would the kernel not be allowed to override that? Such
->>>>>>>> an override would affect only the single domain where the
->>>>>>>> kernel runs; other domains could take their own decisions.
->>>>>>>>
->>>>>>>> Also, for the sake of completeness: "nopat" used when running on
->>>>>>>> bare metal has the same bad effect on system boot, so there
->>>>>>>> pretty clearly is an error cleanup issue in the i915 driver. But
->>>>>>>> that's orthogonal, and I expect the maintainers may not even care
->>>>>>>> (but tell us "don't do that then").
->>>>>> Actually I just did a test with the last official Debian kernel
->>>>>> build of Linux 5.16, that is, a kernel before bdd8b6c98239 was
->>>>>> applied. In fact, the nopat option does *not* break the i915 driver
->>>>>> in 5.16. That is, with the nopat option, the i915 driver loads
->>>>>> normally on both the bare metal and on the Xen hypervisor.
->>>>>> That means your presumption (and the presumption of
->>>>>> the author of bdd8b6c98239) that the "nopat" option was
->>>>>> being observed by the i915 driver is incorrect. Setting "nopat"
->>>>>> had no effect on my system with Linux 5.16. So after doing these
->>>>>> tests, I am against the aggressive approach of breaking the i915
->>>>>> driver with the "nopat" option because prior to bdd8b6c98239,
->>>>>> nopat did not break the i915 driver. Why break it now?
->>>>> Because that's, in my understanding, is the purpose of "nopat"
->>>>> (not breaking the driver of course - that's a driver bug -, but
->>>>> having an effect on the driver).
->>>> I wouldn't call it a driver bug, but an incorrect configuration of the
->>>> kernel by the user.  I presume X86_FEATURE_PAT is required by the
->>>> i915 driver
->>> The driver ought to work fine without PAT (and hence without being
->>> able to make WC mappings). It would use UC instead and be slow, but
->>> it ought to work.
->>>
->>>> and therefore the driver should refuse to disable
->>>> it if the user requests to disable it and instead warn the user that
->>>> the driver did not disable the feature, contrary to what the user
->>>> requested with the nopat option.
->>>>
->>>> In any case, my test did not verify that when nopat is set in Linux
->>>> 5.16,
->>>> the thread takes the same code path as when nopat is not set,
->>>> so I am not totally sure that the reason nopat does not break the
->>>> i915 driver in 5.16 is that static_cpu_has(X86_FEATURE_PAT)
->>>> returns true even when nopat is set. I could test it with a custom
->>>> log message in 5.16 if that is necessary.
->>>>
->>>> Are you saying it was wrong for static_cpu_has(X86_FEATURE_PAT)
->>>> to return true in 5.16 when the user requests nopat?
->>> No, I'm not saying that. It was wrong for this construct to be used
->>> in the driver, which was fixed for 5.17 (and which had caused the
->>> regression I did observe, leading to the patch as a hopefully least
->>> bad option).
->>>
->>>> I think that is
->>>> just permitting a bad configuration to break the driver that a
->>>> well-written operating system should not allow. The i915 driver
->>>> was, in my opinion, correctly ignoring the nopat option in 5.16
->>>> because that option is not compatible with the hardware the
->>>> i915 driver is trying to initialize and setup at boot time. At least
->>>> that is my understanding now, but I will need to test it on 5.16
->>>> to be sure I understand it correctly.
->>>>
->>>> Also, AFAICT, your patch would break the driver when the nopat
->>>> option is set and only fix the regression introduced by bdd8b6c98239
->>>> when nopat is not set on my box, so your patch would
->>>> introduce a regression relative to Linux 5.16 and earlier for the
->>>> case when nopat is set on my box. I think your point would
->>>> be that it is not a regression if it is an incorrect user configuration.
->>> Again no - my view is that there's a separate, pre-existing issue
->>> in the driver which was uncovered by the change. This may be a
->>> perceived regression, but is imo different from a real one.
-> Sorry, for you maybe, but I'm pretty sure for Linus it's not when it
-> comes to the "no regressions rule". Just took a quick look at quotes
-> from Linus
-> https://www.kernel.org/doc/html/latest/process/handling-regressions.html
-> and found this statement from Linus to back this up:
->
-> ```
-> One _particularly_ last-minute revert is the top-most commit (ignoring
-> the version change itself) done just before the release, and while
-> it's very annoying, it's perhaps also instructive.
->
-> What's instructive about it is that I reverted a commit that wasn't
-> actually buggy. In fact, it was doing exactly what it set out to do,
-> and did it very well. In fact it did it _so_ well that the much
-> improved IO patterns it caused then ended up revealing a user-visible
-> regression due to a real bug in a completely unrelated area.
-> ```
->
-> He said that here:
-> https://www.kernel.org/doc/html/latest/process/handling-regressions.html
->
-> The situation is of course different here, but similar enough.
->
->> Since it is a regression, I think for now bdd8b6c98239 should
->> be reverted and the fix backported to Linux 5.17 stable until
->> the underlying memory subsystem can provide the i915 driver
->> with an updated test for the PAT feature that also meets the
->> requirements of the author of bdd8b6c98239 without breaking
->> the i915 driver.
-> I'm not a developer and I'm don't known the details of this thread and
-> the backstory of the regression, but it sounds like that's the approach
-> that is needed here until someone comes up with a fix for the regression
-> exposed by bdd8b6c98239.
->
-> But if I'm wrong, please tell me.
+"
 
-You are mostly right, I think. Reverting bdd8b6c98239 fixes
-it. There is another way to fix it, though. The patch proposed
-by Jan Beulich also fixes the regression on my system, so as
-the person reporting this is a regression, I would also be satisfied
-with Jan's patch instead of reverting bdd8b6c98239 as a fix. Jan
-posted his proposed patch here:
-
-https://lore.kernel.org/lkml/9385fa60-fa5d-f559-a137-6608408f88b0@suse.com/
-
-The only reservation I have about Jan's patch is that the commit
-message does not clearly explain how the patch changes what
-the nopat kernel boot option does. It doesn't affect me because
-I don't use nopat, but it should probably be mentioned in the
-commit message, as pointed out here:
-
-https://lore.kernel.org/lkml/bd9ed2c2-1337-27bb-c9da-dfc7b31d492c@netscape.net/
-
-Whatever fix for the regression exposed by bdd8b6c98239 also
-needs to be backported to the stable versions 5.17 and 5.18.
-
-Regards,
-
-Chuck Zmudzinski
+On Tue, May 24, 2022 at 9:01 AM Rob Herring <robh@kernel.org> wrote:
 >
-> Ciao, Thorsten (wearing his 'the Linux kernel's regression tracker' hat)
+> +Saravana
 >
-> P.S.: As the Linux kernel's regression tracker I deal with a lot of
-> reports and sometimes miss something important when writing mails like
-> this. If that's the case here, don't hesitate to tell me in a public
-> reply, it's in everyone's interest to set the public record straight.
+> On Mon, May 23, 2022 at 06:58:13PM -0700, Stefano Stabellini wrote:
+> > On Mon, 23 May 2022, Oleksandr wrote:
+> > > > > On Thu, 19 May 2022, Oleksandr wrote:
+> > > > > > > On Wed, May 18, 2022 at 5:06 PM Oleksandr <olekstysh@gmail.co=
+m> wrote:
+> > > > > > > > On 18.05.22 17:32, Arnd Bergmann wrote:
+> > > > > > > > > On Sat, May 7, 2022 at 7:19 PM Oleksandr Tyshchenko
+> > > > > > > > > <olekstysh@gmail.com> wrote:
+> > > > > > > > >     This would mean having a device
+> > > > > > > > > node for the grant-table mechanism that can be referred t=
+o using
+> > > > > > > > > the
+> > > > > > > > > 'iommus'
+> > > > > > > > > phandle property, with the domid as an additional argumen=
+t.
+> > > > > > > > I assume, you are speaking about something like the followi=
+ng?
+> > > > > > > >
+> > > > > > > >
+> > > > > > > > xen_dummy_iommu {
+> > > > > > > >       compatible =3D "xen,dummy-iommu";
+> > > > > > > >       #iommu-cells =3D <1>;
+> > > > > > > > };
+> > > > > > > >
+> > > > > > > > virtio@3000 {
+> > > > > > > >       compatible =3D "virtio,mmio";
+> > > > > > > >       reg =3D <0x3000 0x100>;
+> > > > > > > >       interrupts =3D <41>;
+> > > > > > > >
+> > > > > > > >       /* The device is located in Xen domain with ID 1 */
+> > > > > > > >       iommus =3D <&xen_dummy_iommu 1>;
+> > > > > > > > };
+> > > > > > > Right, that's that's the idea,
+> > > > > > thank you for the confirmation
+> > > > > >
+> > > > > >
+> > > > > >
+> > > > > > >    except I would not call it a 'dummy'.
+> > > > > > >   From the perspective of the DT, this behaves just like an I=
+OMMU,
+> > > > > > > even if the exact mechanism is different from most hardware I=
+OMMU
+> > > > > > > implementations.
+> > > > > > well, agree
+> > > > > >
+> > > > > >
+> > > > > > > > > It does not quite fit the model that Linux currently uses=
+ for
+> > > > > > > > > iommus,
+> > > > > > > > > as that has an allocator for dma_addr_t space
+> > > > > > > > yes (# 3/7 adds grant-table based allocator)
+> > > > > > > >
+> > > > > > > >
+> > > > > > > > > , but it would think it's
+> > > > > > > > > conceptually close enough that it makes sense for the bin=
+ding.
+> > > > > > > > Interesting idea. I am wondering, do we need an extra actio=
+ns for
+> > > > > > > > this
+> > > > > > > > to work in Linux guest (dummy IOMMU driver, etc)?
+> > > > > > > It depends on how closely the guest implementation can be mad=
+e to
+> > > > > > > resemble a normal iommu. If you do allocate dma_addr_t addres=
+ses,
+> > > > > > > it may actually be close enough that you can just turn the gr=
+ant-table
+> > > > > > > code into a normal iommu driver and change nothing else.
+> > > > > > Unfortunately, I failed to find a way how use grant references =
+at the
+> > > > > > iommu_ops level (I mean to fully pretend that we are an IOMMU d=
+river). I
+> > > > > > am
+> > > > > > not too familiar with that, so what is written below might be w=
+rong or
+> > > > > > at
+> > > > > > least not precise.
+> > > > > >
+> > > > > > The normal IOMMU driver in Linux doesn=E2=80=99t allocate DMA a=
+ddresses by
+> > > > > > itself, it
+> > > > > > just maps (IOVA-PA) what was requested to be mapped by the uppe=
+r layer.
+> > > > > > The
+> > > > > > DMA address allocation is done by the upper layer (DMA-IOMMU wh=
+ich is
+> > > > > > the glue
+> > > > > > layer between DMA API and IOMMU API allocates IOVA for PA?). Bu=
+t, all
+> > > > > > what we
+> > > > > > need here is just to allocate our specific grant-table based DM=
+A
+> > > > > > addresses
+> > > > > > (DMA address =3D grant reference + offset in the page), so let=
+=E2=80=99s say we
+> > > > > > need an
+> > > > > > entity to take a physical address as parameter and return a DMA=
+ address
+> > > > > > (what
+> > > > > > actually commit #3/7 is doing), and that=E2=80=99s all. So work=
+ing at the
+> > > > > > dma_ops
+> > > > > > layer we get exactly what we need, with the minimal changes to =
+guest
+> > > > > > infrastructure. In our case the Xen itself acts as an IOMMU.
+> > > > > >
+> > > > > > Assuming that we want to reuse the IOMMU infrastructure somehow=
+ for our
+> > > > > > needs.
+> > > > > > I think, in that case we will likely need to introduce a new sp=
+ecific
+> > > > > > IOVA
+> > > > > > allocator (alongside with a generic one) to be hooked up by the
+> > > > > > DMA-IOMMU
+> > > > > > layer if we run on top of Xen. But, even having the specific IO=
+VA
+> > > > > > allocator to
+> > > > > > return what we indeed need (DMA address =3D grant reference + o=
+ffset in
+> > > > > > the
+> > > > > > page) we will still need the specific minimal required IOMMU dr=
+iver to
+> > > > > > be
+> > > > > > present in the system anyway in order to track the mappings(?) =
+and do
+> > > > > > nothing
+> > > > > > with them, returning a success (this specific IOMMU driver shou=
+ld have
+> > > > > > all
+> > > > > > mandatory callbacks implemented).
+> > > > > >
+> > > > > > I completely agree, it would be really nice to reuse generic IO=
+MMU
+> > > > > > bindings
+> > > > > > rather than introducing Xen specific property if what we are tr=
+ying to
+> > > > > > implement in current patch series fits in the usage of "iommus"=
+ in Linux
+> > > > > > more-less. But, if we will have to add more complexity/more com=
+ponents
+> > > > > > to the
+> > > > > > code for the sake of reusing device tree binding, this raises a=
+ question
+> > > > > > whether that=E2=80=99s worthwhile.
+> > > > > >
+> > > > > > Or I really missed something?
+> > > > > I think Arnd was primarily suggesting to reuse the IOMMU Device T=
+ree
+> > > > > bindings, not necessarily the IOMMU drivers framework in Linux (a=
+lthough
+> > > > > that would be an added bonus.)
+> > > > >
+> > > > > I know from previous discussions with you that making the grant t=
+able
+> > > > > fit in the existing IOMMU drivers model is difficult, but just re=
+using
+> > > > > the Device Tree bindings seems feasible?
+> > > >
+> > > > I started experimenting with that. As wrote in a separate email, I =
+got a
+> > > > deferred probe timeout,
+> > > >
+> > > > after inserting required nodes into guest device tree, which seems =
+to be a
+> > > > consequence of the unavailability of IOMMU, I will continue to inve=
+stigate
+> > > > this question.
+> > >
+> > >
+> > > I have experimented with that. Yes, just reusing the Device Tree bind=
+ings is
+> > > technically feasible (and we are able to do this by only touching
+> > > grant-dma-ops.c), although deferred probe timeout still stands (as th=
+ere is no
+> > > IOMMU driver being present actually).
+> > >
+> > > [    0.583771] virtio-mmio 2000000.virtio: deferred probe timeout, ig=
+noring
+> > > dependency
+> > > [    0.615556] virtio_blk virtio0: [vda] 4096000 512-byte logical blo=
+cks (2.10
+> > > GB/1.95 GiB)
+> > >
+> > >
+> > > Below the working diff (on top of current series):
+> > >
+> > > diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.=
+c
+> > > index da9c7ff..6586152 100644
+> > > --- a/drivers/xen/grant-dma-ops.c
+> > > +++ b/drivers/xen/grant-dma-ops.c
+> > > @@ -272,17 +272,24 @@ static const struct dma_map_ops xen_grant_dma_o=
+ps =3D {
+> > >
+> > >  bool xen_is_grant_dma_device(struct device *dev)
+> > >  {
+> > > +       struct device_node *iommu_np;
+> > > +       bool has_iommu;
+> > > +
+> > >         /* XXX Handle only DT devices for now */
+> > >         if (!dev->of_node)
+> > >                 return false;
+> > >
+> > > -       return of_property_read_bool(dev->of_node, "xen,backend-domid=
+");
+> > > +       iommu_np =3D of_parse_phandle(dev->of_node, "iommus", 0);
+> > > +       has_iommu =3D iommu_np && of_device_is_compatible(iommu_np,
+> > > "xen,grant-dma");
+> > > +       of_node_put(iommu_np);
+> > > +
+> > > +       return has_iommu;
+> > >  }
+> > >
+> > >  void xen_grant_setup_dma_ops(struct device *dev)
+> > >  {
+> > >         struct xen_grant_dma_data *data;
+> > > -       uint32_t domid;
+> > > +       struct of_phandle_args iommu_spec;
+> > >
+> > >         data =3D find_xen_grant_dma_data(dev);
+> > >         if (data) {
+> > > @@ -294,16 +301,30 @@ void xen_grant_setup_dma_ops(struct device *dev=
+)
+> > >         if (!dev->of_node)
+> > >                 goto err;
+> > >
+> > > -       if (of_property_read_u32(dev->of_node, "xen,backend-domid", &=
+domid)) {
+> > > -               dev_err(dev, "xen,backend-domid property is not prese=
+nt\n");
+> > > +       if (of_parse_phandle_with_args(dev->of_node, "iommus", "#iomm=
+u-cells",
+> > > +                       0, &iommu_spec)) {
+> > > +               dev_err(dev, "Cannot parse iommus property\n");
+> > > +               goto err;
+> > > +       }
+> > > +
+> > > +       if (!of_device_is_compatible(iommu_spec.np, "xen,grant-dma") =
+||
+> > > +                       iommu_spec.args_count !=3D 1) {
+> > > +               dev_err(dev, "Incompatible IOMMU node\n");
+> > > +               of_node_put(iommu_spec.np);
+> > >                 goto err;
+> > >         }
+> > >
+> > > +       of_node_put(iommu_spec.np);
+> > > +
+> > >         data =3D devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+> > >         if (!data)
+> > >                 goto err;
+> > >
+> > > -       data->backend_domid =3D domid;
+> > > +       /*
+> > > +        * The endpoint ID here means the ID of the domain where the
+> > > corresponding
+> > > +        * backend is running
+> > > +        */
+> > > +       data->backend_domid =3D iommu_spec.args[0];
+> > >
+> > >         if (xa_err(xa_store(&xen_grant_dma_devices, (unsigned long)de=
+v, data,
+> > >                         GFP_KERNEL))) {
+> > > (END)
+> > >
+> > >
+> > >
+> > > Below, the nodes generated by Xen toolstack:
+> > >
+> > >         xen_grant_dma {
 >
->> The i915 driver relies on the memory subsytem
->> to provide it with an accurate test for the existence of
->> X86_FEATURE_PAT. I think your patch provides that more accurate
->> test so that bdd8b6c98239 could be re-applied when your patch is
->> committed. Juergen's patch would have to touch bdd8b6c98239
->> with new functions that probably have unknown and unintended
->> consequences, so I think your approach is also better in that regard.
->> As regards your patch, there is just a disagreement about how the
->> i915 driver should behave if nopat is set. I agree the i915 driver
->> could do a better job handling that case, at least with better error
->> logs.
->>
->> Chuck
->>
->>>> I respond by saying a well-written driver should refuse to honor
->>>> the incorrect configuration requested by the user and instead
->>>> warn the user that it did not honor the incorrect kernel option.
->>>>
->>>> I am only presuming what your patch would do on my box based
->>>> on what I learned about this problem from my debugging. I can
->>>> also test your patch on my box to verify that my understanding of
->>>> it is correct.
->>>>
->>>> I also have not yet verified Juergen's patch will not fix it, but
->>>> I am almost certain it will not unless it is expanded so it also
->>>> touches i915_gem_object_pin_map() with the fix. I plan to test
->>>> his patch, but expanded so it touches that function also.
->>>>
->>>> I also plan to test your patch with and without nopat and report the
->>>> results in the thread where you posted your patch. Hopefully
->>>> by tomorrow I will have the results.
->>>>
->>>> Chuck
+> Nit: iommu {
+>
+> > >                 compatible =3D "xen,grant-dma";
+> > >                 #iommu-cells =3D <0x01>;
+> > >                 phandle =3D <0xfde9>;
+> > >         };
+> > >
+> > >         virtio@2000000 {
+> > >                 compatible =3D "virtio,mmio";
+> > >                 reg =3D <0x00 0x2000000 0x00 0x200>;
+> > >                 interrupts =3D <0x00 0x01 0xf01>;
+> > >                 interrupt-parent =3D <0xfde8>;
+> > >                 dma-coherent;
+> > >                 iommus =3D <0xfde9 0x01>;
+> > >         };
+> >
+> > Not bad! I like it.
+> >
+> >
+> > > I am wondering, would be the proper solution to eliminate deferred pr=
+obe
+> > > timeout issue in our particular case (without introducing an extra IO=
+MMU
+> > > driver)?
+> >
+> > In reality I don't think there is a way to do that. I would create an
+> > empty skelethon IOMMU driver for xen,grant-dma.
+>
+> Does it have to be an empty driver? Originally, IOMMU 'drivers' were not
+> drivers, but they've been getting converted. Can that be done here?
+>
+> Short of that, I think we could have some sort of skip probe list for
+> deferred probe. Not sure if that would be easiest as IOMMU specific or
+> global.
 
+Hi Oleksandr,
+
+If you do fw_devlink.strict=3D1, you'll notice that the consumers of
+this "iommu" won't probe at all or will delay the boot by some number
+of seconds. The eventual goal is to go towards fw_devlink.strict=3D1
+being the default.
+
+From a fw_devlik perspective, please implement a driver. Ideally a
+real one, but at least an empty one. The empty one doesn't need to be
+an IOMMU driver, but at least just do a return 0 in the probe
+function. Also, if it's not a device, why even have a "compatible"
+property (removing it won't necessarily remove the deferred probe
+timeout issue you see)? Will any code be using "xen,grant-dma" to look
+up the node? If so, that driver could be the one that probes this
+device. At least from a fw_devlink perspective, it just needs to have
+a driver that binds to this device.
+
+Also, if we aren't going to implement a driver and have the supplier
+("xen,grant-dma") behave like a device (as in, have a driver that
+probes), I'd rather that the iommu binding not be used at all as this
+would be an exception to how every other iommu device behaves.
+
+-Saravana
 
