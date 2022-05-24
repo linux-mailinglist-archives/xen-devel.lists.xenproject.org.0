@@ -2,42 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C125F53211D
-	for <lists+xen-devel@lfdr.de>; Tue, 24 May 2022 04:43:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.336120.560429 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70079532126
+	for <lists+xen-devel@lfdr.de>; Tue, 24 May 2022 04:48:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.336127.560440 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntKVE-00036i-6F; Tue, 24 May 2022 02:42:32 +0000
+	id 1ntKbB-0003qu-11; Tue, 24 May 2022 02:48:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 336120.560429; Tue, 24 May 2022 02:42:32 +0000
+Received: by outflank-mailman (output) from mailman id 336127.560440; Tue, 24 May 2022 02:48:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntKVE-000346-2t; Tue, 24 May 2022 02:42:32 +0000
-Received: by outflank-mailman (input) for mailman id 336120;
- Tue, 24 May 2022 02:42:30 +0000
+	id 1ntKbA-0003oI-UB; Tue, 24 May 2022 02:48:40 +0000
+Received: by outflank-mailman (input) for mailman id 336127;
+ Tue, 24 May 2022 02:48:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iQM0=WA=citrix.com=prvs=1363f17a3=lin.liu@srs-se1.protection.inumbo.net>)
- id 1ntKVC-000340-GF
- for xen-devel@lists.xenproject.org; Tue, 24 May 2022 02:42:30 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 258d2c41-db0b-11ec-bd2c-47488cf2e6aa;
- Tue, 24 May 2022 04:42:28 +0200 (CEST)
-Received: from mail-mw2nam12lp2046.outbound.protection.outlook.com (HELO
- NAM12-MW2-obe.outbound.protection.outlook.com) ([104.47.66.46])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 23 May 2022 22:42:25 -0400
-Received: from SJ0PR03MB5405.namprd03.prod.outlook.com (2603:10b6:a03:286::9)
- by DM6PR03MB3609.namprd03.prod.outlook.com (2603:10b6:5:b0::31) with
+ <SRS0=csW1=WA=arm.com=Jiamei.Xie@srs-se1.protection.inumbo.net>)
+ id 1ntKb9-0003oC-L3
+ for xen-devel@lists.xenproject.org; Tue, 24 May 2022 02:48:39 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on20609.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::609])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 027d7021-db0c-11ec-bd2c-47488cf2e6aa;
+ Tue, 24 May 2022 04:48:37 +0200 (CEST)
+Received: from DB6P18901CA0022.EURP189.PROD.OUTLOOK.COM (2603:10a6:4:16::32)
+ by AM6PR08MB3319.eurprd08.prod.outlook.com (2603:10a6:209:4e::27) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.13; Tue, 24 May
+ 2022 02:48:33 +0000
+Received: from DBAEUR03FT062.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:4:16:cafe::38) by DB6P18901CA0022.outlook.office365.com
+ (2603:10a6:4:16::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.13 via Frontend
+ Transport; Tue, 24 May 2022 02:48:33 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DBAEUR03FT062.mail.protection.outlook.com (100.127.142.64) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5273.14 via Frontend Transport; Tue, 24 May 2022 02:48:32 +0000
+Received: ("Tessian outbound 42cead292588:v119");
+ Tue, 24 May 2022 02:48:32 +0000
+Received: from 4ce827f12034.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 5EFC986E-A1C3-417A-BF02-4A83025A160C.1; 
+ Tue, 24 May 2022 02:48:26 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 4ce827f12034.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 24 May 2022 02:48:26 +0000
+Received: from AS8PR08MB7696.eurprd08.prod.outlook.com (2603:10a6:20b:523::11)
+ by DB7PR08MB3130.eurprd08.prod.outlook.com (2603:10a6:5:24::15) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.14; Tue, 24 May
- 2022 02:42:22 +0000
-Received: from SJ0PR03MB5405.namprd03.prod.outlook.com
- ([fe80::871:4ab8:9b74:1cf0]) by SJ0PR03MB5405.namprd03.prod.outlook.com
- ([fe80::871:4ab8:9b74:1cf0%4]) with mapi id 15.20.5273.023; Tue, 24 May 2022
- 02:42:22 +0000
+ 2022 02:48:23 +0000
+Received: from AS8PR08MB7696.eurprd08.prod.outlook.com
+ ([fe80::8f2:f748:5da2:6278]) by AS8PR08MB7696.eurprd08.prod.outlook.com
+ ([fe80::8f2:f748:5da2:6278%5]) with mapi id 15.20.5273.023; Tue, 24 May 2022
+ 02:48:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,400 +72,685 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 258d2c41-db0b-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1653360148;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:mime-version;
-  bh=a3EYxop9xFB3YlPo5wYiD2gcP9bL1SMloLGnyuaK6AY=;
-  b=Hue7R8DOtkLP76YZAXbfLxkkPwr8xkLS301dmLn28sYm12KbaXEJDKVm
-   yNkBbTJXivQZjAj7KjChdSAlbmJzqj4dY1WQidW2TJe7Ng9jScyYyXbyp
-   yx274FVfzZIa9c4U2vlIISrrsbPPGhYOCriQ8lChtzNi0WPwxTMbQdxmB
-   c=;
-X-IronPort-RemoteIP: 104.47.66.46
-X-IronPort-MID: 72403662
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:vg7flaCuWHSHgRVW/xziw5YqxClBgxIJ4kV8jS/XYbTApD8m0jwGm
- jAZXD/TPK3cajT9eNx1aoy2px4OsMTczdE1QQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
- xA2M4GYRCwMZiaA4E/raNANlFEkvU2ybuOU5NXsZ2YgHGeIdA970Ug5w7Nj2dYy6TSEK1jlV
- e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
- I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPh3y
- +lIv72TWT55BarSoO4tdSRTNiVhaPguFL/veRBTsOS15mifKT7J/K8rC0s7e4oF5uxwHGdCs
- +QCLywAZQyCgOTwx6+nTu5rhYIoK8yD0IE34yk8i22GS6h4B8ydK0nJzYYwMDMYgsFIW/Lfe
- uISaCZ1bQSGaBpKUrsSIM1kwL/z2CelG9FegFbO/LIHzFHa9TNSjeX2GdPqeoOoaOwAyy50o
- UqDpQwVGCoyNsGbyDeD2mKhgKnIhyyTcJIfEvi0++BnhHWXx3cPE1sGWF2ju/67h0WiHdVFJ
- CQ84TEypKI/8EiqSNjVXBCipnOA+BkGVLJ4GeAg9BuEzKaS5g+DH3UFVRZIctlgv8gzLRQo3
- FKUm9LiBRR0raaYD3ma89+8sjeaKSUTa2gYakc5oRAt5tDipMQ2kUjJR9M6Sqqt1IWpR3f33
- iyAqzU4i/MLl8kX2q6n/FfBxTWxupzOSQ1z7QLSNo640j5EiEeeT9TAwTDmATxode51knHpU
- KA4pvWj
-IronPort-HdrOrdr: A9a23:7P0+Mq5TYlscS1if7APXwX2BI+orL9Y04lQ7vn2ZFiY5TiXIra
- qTdaogviMc0AxhI03Jmbi7Scq9qADnhORICOgqTP2ftWzd1FdAQ7sSircKrweAJ8S6zJ8k6U
- 4CSdkyNDSTNykdsS+S2mDRfLgdKZu8gdmVbIzlvhVQpHRRGsVdBnBCe2Om+yNNJDVuNN4cLt
- 6x98BHrz2vdTA8dcKgHEQIWODFupniiI/mSQRuPW9p1CC+yReTrJLqGRmR2RkTFxlVx605zG
- TDmwvloo2+rvCAzAPG3WO71eUZpDKh8KoDOCW/sLlXFtzesHfrWG2nYczGgNkBmpDu1L/tqq
- iJn/5vBbU115qbRBDJnfKk4Xid7N9p0Q6v9bbQuwqdneXpAD09EMZPnoRfb1/Q7Fchpsh11O
- ZR03uerIc/N2KIoM3R3am+a/hRrDvDnZPiq59hs1VPFY8FLLNBp40W+01YVJ8GASLh8YgiVO
- 1jFtvV6vpaeU6TKymxhBgl/PW8GnAoWhuWSEkLvcKYlzBQgXBi1kMdgMgShG0J+p4xQ4RNo+
- 7ELqNrnrdTSdJ+V9M0OM4RBc+sTmDdSxPFN2yfZVzhCaEcInrI74X65b0kjdvaDKDgDKFC7a
- gpfGkoxFLaIXied/Fm9Kc7gizlUSG6QSnnzN1Y6txwpqD8LYCbQxG+dA==
-X-IronPort-AV: E=Sophos;i="5.91,247,1647316800"; 
-   d="scan'208,217";a="72403662"
+X-Inumbo-ID: 027d7021-db0c-11ec-bd2c-47488cf2e6aa
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
+ b=bugvHtssbj4tgW+zCgBpxDMLUG0FJQIOhok12yNSrVS1q5duKkYiR4JvfQyJ2jVwLFbkiV89iDYGFS8ILTojtLYOQo3R/yqHCtlWtzKXYTlcasTrUApJwzlN69ymc/XP6FY/hAgv/pGkzi9FmcZOBtfc5ejgP+zTrJS3UE28OI8EcHOhcqkfepYuNA1Jq/KnbreEZbfNe1gUU3eniwyu0xt+gy5jJjzEMZZIGny0VqygmimFTt+lJwkYpr+M7HEM0b/5I5/wVESGa0/lrgmcCPWlKhW5Q0i4eh/n1anF9mRAcy9iurv9l3/Fxn7SYLZzAeBodHVoB+xoijtiL2g0hg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TTRk+wrtTgygeKt4VD6Wbky4AhGgyD829LwcQKQ2GnU=;
+ b=k2lc7tycDjnlllimdsrsEVi5lKKyX8EgLPXtTs2eQ/qevQtizXfVeYhP6vwpbJa50X0Kv3wlUFF3xIs/UmJysWlDph8mOSvexq62ZHZYieWVfpqEw0WtDk+MVjINBCgUB7otnPpep0HtbqrmCuhGrBdRQtHi5Aw+fMNqJsrSzqXQi8UoQIOtWp5mTM/6V6eL+YLNDteCAR6Z6qXb3BaEO6F4EpZ+UocszZYUMmWZGlkcfExkA8c4Ere/iYJJAtcLDPKmaJVSJ9SIn8nrMxLu1OYSuTBqb6ARKOe+hT1OqwD1zsNHYlIG9Iwt5J0ktZ72aAHxs0OS954smoB7E86wVg==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
+ oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TTRk+wrtTgygeKt4VD6Wbky4AhGgyD829LwcQKQ2GnU=;
+ b=tL/ywDNHrhT7n8wbfJ8mmDzZx1dksPbYunOlLLAQbIZ6r4uVJxyHEhhnSMY9NPfbvHu3NNO+ncCdAeYPDOjLQn1/LaCC7I5WQSgzM10nyHju6ovMt9Q/cbhZ54Tpyv11+t67QhWy7zTzwveEYMM4DdG1lI3cyElf7+EZZciF6Mk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MaNYl8sI1bO5ibrjpwo5pEpCnzlSwUO/nEYXNOGS6I81YBlLPDcfQk6psIwyKAtJCirdIimdebaSNncP8DO3Cona/9AA6+9aoJXaqYmhanIxAdJh1FZ1M4tOLN9bSZ0G1x0as9OSSlW9a+z+D2SmpUJhr7bBl5xIc4qQHfOkJvEJ4FPqY3KkspFTCMHB9wTE2S41M15fYsDhFZJpzP2Bg8LlriansYeSs3hKWm8qehVzC6QWWir7bpP8o/E2C0CjTI8dkhYAAnOqFFtVR2smCu2HKHwwx0PZyn9mqV84U3+aFcs+hCiZD57E50ulUQSq34P685MmsCQKYKUlcw1JRw==
+ b=IQB4r2rkk+gcQ45v30mJn5y006EtlDgSYL3xuLufHsTd/X1Darac7dKLP9SkwKp9lLLBOjoV4wHaRyObEOs/ow6JLSGRQWInjQR7ngkLoNLQ4Jo007o5yYmpJw/3Tb8/e8udSX6ufKK4P8QoBQb9C+xm5QHWNepb54R5kCHhiMp+fQKd7TnwJxVnVcQLqMhUw7+qrRK6ls0/k1NkdZ84IoLxU3FYkqjDQLaNDz0Rfy2BDljpOgQ0RKrFXY26e/5Gq/1Xb+kXe1kUGEGOyMjto34ZMeljiSC1CTuicmAnlAM7KGIj4vQaeZe4tKNwIeMqg97gj6N7DFZUevi9y2kqbQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=btQu1+JhWRACZ6gKW1IZmt0eOUl+jSSrhbLd3Y9cRRU=;
- b=fBD59Q5agODuWtIQ3E4HdBvgPE6c6AO9c/ogyMTwjWGwBb5FhJefDOWgQL9tvIZXfP/p9tcaRZNBo1rCc570zd7M+8EgNHPHEj+3vP/IPV7/T+LmUniIdS3rO26Kw9DaJ+0Vyaqoq9hZ4ZYrP2oiMZ31m4hdrlZ0kjCCIoKn8o2kTz1zTXSHckNYr/MVI6hvORXC7qEYv3/6kpMrR5F2R0Uo8gkpzC8iRt1hexpMLpansyPsW0167kPuypvoKPFUbKUPLC3eP2mJQbiP6yCq5TBd6nXl2owSZRCZSMZyKCTvekDCrh9AW4VTGBz6YZVWkLIiGwPNAAvvqC7+TA++JA==
+ bh=TTRk+wrtTgygeKt4VD6Wbky4AhGgyD829LwcQKQ2GnU=;
+ b=d5ZEyeV/04PmLu8SgSh64qHxIylWjchQXZFeFNXwQY0omhrdx/Q0psyM39G2kMFEncGZ7KMQrWmfJ59iF6dH4gw2Sj/tk7+LFndgeSjPOQOu7b6sDlAx1Qf8qRFDWw6iXrbraX8cv/9/oiyiNK9mOlP61R0MyJwHdvSzrqmjCOfk7V77yGFa8fydGTNhgLmeHSz4Eyqc9dKrohMhGmx2Td7lRJjg1JR/Smn4yZKyR9fzJYQqpRi8ZSmLaV6staXRAplv9qBEInogihrNZ/1WIBnCjVkExpu8ZV0OUMNEKHpVjZsfI1Cnwdh+7LTzAGuMtpST8dRi7QMPmMOsdUUbwg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=btQu1+JhWRACZ6gKW1IZmt0eOUl+jSSrhbLd3Y9cRRU=;
- b=JUL4pCOAI8cEDdY0ywG6h7cfnBRy5xmX2RvtYTAy1SL+G2W9FGBFhhDKF3RwzqnxLQFzz3O/Xx2mSlCgZMERw0gx120iUq24+ZhcXs2myda8K3PI4Ma81Pumo5Ck77VKA8vwQK4Rk2LLBKDY2R48hek+IV/oXXubWw6X5Ewc+go=
-From: =?gb2312?B?TGluIExpdSCjqMH1wdajqQ==?= <lin.liu@citrix.com>
-To: Julien Grall <julien@xen.org>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, George Dunlap <George.Dunlap@citrix.com>, Jan
- Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v5 4/6] xen: Switch to byteswap
-Thread-Topic: [PATCH v5 4/6] xen: Switch to byteswap
-Thread-Index: AQHYbrSjsRt5f6mJt0SG0aSZHEYt8q0sjRSAgAALyQCAAAeDgIAAsawQ
-Date: Tue, 24 May 2022 02:42:22 +0000
+ bh=TTRk+wrtTgygeKt4VD6Wbky4AhGgyD829LwcQKQ2GnU=;
+ b=tL/ywDNHrhT7n8wbfJ8mmDzZx1dksPbYunOlLLAQbIZ6r4uVJxyHEhhnSMY9NPfbvHu3NNO+ncCdAeYPDOjLQn1/LaCC7I5WQSgzM10nyHju6ovMt9Q/cbhZ54Tpyv11+t67QhWy7zTzwveEYMM4DdG1lI3cyElf7+EZZciF6Mk=
+From: Jiamei Xie <Jiamei.Xie@arm.com>
+To: Lin Liu <lin.liu@citrix.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: RE: [PATCH v5 6/6] byteorder: Remove byteorder
+Thread-Topic: [PATCH v5 6/6] byteorder: Remove byteorder
+Thread-Index: AQHYbrSkdBLA7e8+Uk2zs3km3pRUja0tUgJg
+Date: Tue, 24 May 2022 02:48:23 +0000
 Message-ID:
- <SJ0PR03MB5405D2D60515EE9C02761FE79DD79@SJ0PR03MB5405.namprd03.prod.outlook.com>
+ <AS8PR08MB76964EE6490531DFADAA07A392D79@AS8PR08MB7696.eurprd08.prod.outlook.com>
 References: <cover.1653314499.git.lin.liu@citrix.com>
- <dcabb541d0b5ab7858ccf1c925afc334f3123ad5.1653314499.git.lin.liu@citrix.com>
- <8fcd30a6-9b93-6687-a0f5-1e035fa5f789@xen.org>
- <d77a5995-a916-70a9-4bf2-efdb2948588b@citrix.com>
- <1c7342ed-63af-e420-4f3a-938cb93021c7@xen.org>
-In-Reply-To: <1c7342ed-63af-e420-4f3a-938cb93021c7@xen.org>
-Accept-Language: zh-CN, en-US
+ <1b9957326f5018c38ce6c523e3e5ab67f012ac00.1653314499.git.lin.liu@citrix.com>
+In-Reply-To:
+ <1b9957326f5018c38ce6c523e3e5ab67f012ac00.1653314499.git.lin.liu@citrix.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 0bb3d509-b543-463d-d510-08da3d2f079f
-x-ms-traffictypediagnostic: DM6PR03MB3609:EE_
-x-microsoft-antispam-prvs:
- <DM6PR03MB3609D03D59B0A78738A4EBD39DD79@DM6PR03MB3609.namprd03.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- Cg8gHGO1SxRocznV+rGBDNnV/PU0ZXmjGzacxZ4krrlsP8OahZ1yGVQTOScqdAJF7ts13iaLL8YfyjmkhXh78+kdIHt84pk4/K7s27axc+byBScqRXUpCOqSCnlyr18T8K2bVlmfxUswxfT91HmoSk/TJJu/rcIfqtSs2g2PlSPng+D9ofmdw2Db1OpxVmbcICWPHA1Gcrui7Fen8cr3UPK2FT8JUgUfD18Szh1W1izW0FA7eQZUwpPh7QUFYKFNdB/L5luVn3ueN8BajbEsEduD8EDWouS2gPoiEFFg+5670lFv8EruEm5BcT7+B3uJxj5+DdNsvYiHdoW+ReQLZnLcBWB7ohTswDzTw2hMnWeInHm5I1RuKjQvvEuryp4Jn6EVU/Rcil6jbqpsxQAUIrUyX+2BJhzSn2qeod9OKFVfRQvJB+Xg10ix7+0DiJeIVvQthdhvD5UXIgxWaYtMIkawi91kwqrBgTr0eFTJVDRFgoHxJ2fF1Ujrb2WwdGJKm3bbmyAADojwqRHHoQdPD8oy1c9n02Dh0sy4P6mBpA4VDNwAAbTnx3SEIErmgtju1wrpYNWEFRBL88OizbJ1mQ/SZiOPuT61pA/TopIwpYvwEtxzokcUujQUxd1yPtroTrdTZ8kfZQKdjL2UXOVJa0YrA7R23P2rXtsCx8W4a47Y3iwOR7nmSul1F133qZFSb8rEsYSJH7WghVpqXU5sxw==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5405.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(7696005)(53546011)(83380400001)(508600001)(186003)(9686003)(6506007)(86362001)(38100700002)(38070700005)(316002)(110136005)(64756008)(54906003)(66446008)(66556008)(76116006)(66946007)(66476007)(71200400001)(26005)(8676002)(4326008)(91956017)(2906002)(85182001)(5660300002)(8936002)(33656002)(55016003)(122000001)(82960400001)(52536014);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?gb2312?B?R0NnQXlkNURxWHJjVmFZM2NaMm5sMzhtRHJuK2trZnRyOWNNc3l6NlE3Q2JP?=
- =?gb2312?B?M1k1ejU0c0RZRDlhRHJHTFc0TWIxOVNWSndyN2I2OWV0M2hHYktNT21OMkVH?=
- =?gb2312?B?T3FTcGRaTWhCTUFjNFRqSTFHUG96RFB0VDBINUNPZnMrTWNDdGFvV2d1c051?=
- =?gb2312?B?K3hHZnVnVGppT0M4SEludUNUd0Y3bHgyRzRwalpzM1VZOE1zK1F3RnVMU0Y3?=
- =?gb2312?B?Znp6QnpLQ2ltQkthRzNTSWR3aWlRMUJFWTZkNzhabldsZ1gweEN5NXd3ekV2?=
- =?gb2312?B?ZDhRSlVMa2N0L1JwVGZ3Wlg5UGljMVhyVFlNaTZPZ2U0Y2t2NFFOU0xMMnBn?=
- =?gb2312?B?b2xpUnJodGJWM0grWUdFcWZpQWp6L3lwemwrbTRQWGhiWFk5QkIyc2trQUJa?=
- =?gb2312?B?NnFsTGhJM3pRVWYwUnorRmFlakVObStEcTdpVlFoQkNYK0ZQRFVob05udHNK?=
- =?gb2312?B?eGllZGNWcXlMOVhDM2w5eWRpSHhkNXZKV3dVWlRWY2RoS0Q2SnVXbzhKYzhW?=
- =?gb2312?B?dG1meS9sRjNIT2FNZnV4WEFLanJSTmdUMlUzZHVwTkVDSTVFemNHMHNsSzM4?=
- =?gb2312?B?RVpTOVdUdlhHQmtScEtCQU1MaFlWMDFjYUlYTi9pUFR0ZGxmTFJEb05DR3Iy?=
- =?gb2312?B?dzBSTnc3ZW5laFdSTVdmeU0xME5CWHRoZjcwaFJiQzlxaHBad0xVZTVkejRP?=
- =?gb2312?B?V05ZM2VUZWl5bFJxOTVHdXlsUWgvOU03ZkphbG93bXpQQmJWajM4N2prYmRG?=
- =?gb2312?B?L0UzL1pwbVpxL1JiUHliUHdtcWVRTDNTZDJyUHNWNjZTa0llQmp5RzZMTlIz?=
- =?gb2312?B?WE1MTVBXT2RZdVE0dnRRVHVqNDRrUGc4Q0VxekEweGpWbi9tUGpDY2trVWlR?=
- =?gb2312?B?MkRpNnJsdnE2RUpYcnVmT3hsTGRCTjlUYVptRU1tVFI1M3Bwb2RGWnZHaW55?=
- =?gb2312?B?cU03RXRUMDM3Tlk5b1RLWlNZVFI2K3ZwRUo1Rll0QXhRTnB2WUxxM3hQWitw?=
- =?gb2312?B?S1Q0ekxwa3ZWTGxpQjFqKzZteldqU085Z2M4RTNLd1MxY29vc3A1dGN2VnRl?=
- =?gb2312?B?ZEFiNGpnQzBpcDdWcDR0R01yVkh4bmwvWUtFM2UzN2RBMXVxdUxRSHRtdmdM?=
- =?gb2312?B?MlVlWEZXYURKbHJSMSsvaUxLbmYrZHoralhJV0o0N1Y0MjQrYi9oQ1BSaWxw?=
- =?gb2312?B?Z0IxVHBMQ3VzN3FmNUZ4ZmVzdmNUWDRqT0RRVlVha2lmTkRNUTVpbk5hb1NU?=
- =?gb2312?B?UFB2bDg4TW83TllmbGk3a3FXK2lOMFFhVTNad3ZSNERjemJlS3RRWmtEcEtj?=
- =?gb2312?B?aGtRZ2QxbDBLYUgwQ2V4UExDN05penNSR1YyVHljTm9LNHNraTRlTXFYK1RP?=
- =?gb2312?B?OTlOR2JOVTI0VWh4ZW05Z3U3cVJ2RW80c2NFSEhLS3hRTStPcGJjTnl0QWhR?=
- =?gb2312?B?Y3dZdkFxamRzbmJNZFpDV1F5OWQ0bDdlcXM5cVJ3STdUdGJvNEN3a0pBaFVF?=
- =?gb2312?B?M05Xb2tSTXB2em1aKzRRbnd0Mlg2bk9UR3BBTW5sRC9BSTBUM1BEQWd1cHc5?=
- =?gb2312?B?SUM3RjNHTkRYL2V2d1VsKytyR3o1ZWFpeDdhNFlDWWtqN3hWQVFZUjU1VC9T?=
- =?gb2312?B?Wk1DS1h1eTF0Si9NQWtpRHJPNkdQZTRVUDlHZnZ3RURTcGE1QUthamxOOC80?=
- =?gb2312?B?cFROTkhWMnJIQzBCekUybm8vQW5OczJqaGh3M0dEamloTVpDRzU1U281Wm9x?=
- =?gb2312?B?YWs4M2MvYUJ2MzAvUTdjRTlzbFFiUC83WHNTUTloR0tVUmpOb29Lb1JlVGdM?=
- =?gb2312?B?WVVTc2hMdWpvNkR2YjFwWXZ4Mmd5dmdxMm14OE51VDMzQUNWL3E3cmtiRE1I?=
- =?gb2312?B?a292cUNESWI1bjdXR0FJZVNjQUsvOHRrb3JlaEk1cHI2U24xSlhQeCtVMkVG?=
- =?gb2312?B?MWZnZy9FWlUrUnp6RWpsaEpCZ05qVnlmWmw5S2VkeCtMamkwMEZBQXVqaEdB?=
- =?gb2312?B?SlNiR1hBRURYR2d2NytsTCt1K1FIc1Z5bU1KeVdOWE5Da1MrNnNWOEJNRzdM?=
- =?gb2312?B?VXlDME51bm1uYUt4ZDVYZG5Kbm5LRG1nNm80TngvVmhnblVsdGVKd3VRVnZh?=
- =?gb2312?B?Q1NxOVlZOE9kL29xVU5LUFFLQmlManA3WTFobnB0UDh0MFpWZGVHWUNiUnFw?=
- =?gb2312?B?aXBkMEtJZFFyd0lERDFtOW9FK3A3UWpNenlMa2tkbzA3QVcwRi9zaUR6eGtk?=
- =?gb2312?B?RE42bUFwSFNqU2RiMkhPUTNlTWR6Tm53dURMOG4rV0dvOHE2NlF4dnJES2N1?=
- =?gb2312?B?YUV4ZkR0cWlZRmhhWWxLMVdIdjAyTGp0aUZ6VUhScTMwNGZEdjNiNW12a3Rw?=
- =?gb2312?Q?wPy39RtdpX7wDw34=3D?=
-Content-Type: multipart/alternative;
-	boundary="_000_SJ0PR03MB5405D2D60515EE9C02761FE79DD79SJ0PR03MB5405namp_"
-MIME-Version: 1.0
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5405.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0bb3d509-b543-463d-d510-08da3d2f079f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 May 2022 02:42:22.6863
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: DYYWhUf5d2B2fwk7N1NqGQMaG70VKUhzEC7bH1TsWshE0aleXOeYPuMjyOQKm6CEaoKS7kAeQp4OrfZh4r0lOQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB3609
-
---_000_SJ0PR03MB5405D2D60515EE9C02761FE79DD79SJ0PR03MB5405namp_
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
-
-PkhpIEFuZHJldywNCj4NCj5PbiAyMy8wNS8yMDIyIDE2OjM4LCBBbmRyZXcgQ29vcGVyIHdyb3Rl
-Og0KPj4gT24gMjMvMDUvMjAyMiAxNTo1NiwgSnVsaWVuIEdyYWxsIHdyb3RlOg0KPj4+IEhpLA0K
-Pj4+DQo+Pj4gT24gMjMvMDUvMjAyMiAxNTo1MCwgTGluIExpdSB3cm90ZToNCj4+Pj4gVXBkYXRl
-IHRvIHVzZSBieXRlc3dhcCB0byBzd2FwIGJ5dGVzDQo+Pj4+IGJlKl90b19jcHVwKHApIGlzIHNo
-b3J0IGZvciBiZSp0b19jcHUoKnApLCB1cGRhdGUgdG8gdXNlIGxhdHRlcg0KPj4+PiBvbmUgZXhw
-bGljdGx5DQo+Pj4NCj4+PiBCdXQgd2h5Pw0KPj4NCj4+IEJlY2F1c2UgZGVsZXRpbmcgY29kZSBv
-YmZ1c2NhdGlvbiBjb25zdHJ1Y3RzICppcyogdGhlIHBvaW50IG9mIHRoZSBjbGVhbnVwLg0KPj4N
-Cj4+PiBJIHJlYWxseSBkb24ndCBoYXZlIGEgc3VnZ2VzdGlvbiBvbiB0aGUgY29tbWVudCBiZWNh
-dXNlIEkgZGlzYWdyZWUNCj4+PiAoYW5kIEFGQUlDVCBKYW4gYXMgd2VsbCkgd2l0aCB0aGUgYXBw
-cm9hY2guDQo+Pg0KPj4gRHJvcHBpbmcgdGhlIG9iZnVzY2F0aW9uIGhhcyB1bmNvdmVyZWQgcHJl
-LWV4aXN0aW5nIGJ1Z3MgaW4gdGhlDQo+PiBoeXBlcnZpc29yLiAgVGhlIHNlcmllcyBzdGFuZHMg
-b24gaXRzIG93biBtZXJpdC4NCj4NCj5JIGFtIGd1ZXNzaW5nIHlvdSBtZWFuIHRoYXQgd2UgZG9u
-J3QgaGFuZGxlIHVuYWxpZ25lZCBhY2Nlc3M/IElmIHNvLCB5ZXMNCj5JIGFncmVlIHRoaXMgaGVs
-cGVkIHdpdGggdGhhdC4NCj4NCj4+DQo+PiBXaGlsZSBJIGNhbid0IGhlbHAgaWYgeW91IGxpa2Ug
-aXQgb3Igbm90LCBpdCByZWFsbHkgZG9lcyBicmluZyBhbg0KPj4gaW1wcm92ZW1lbnQgdG8gY29k
-ZSBxdWFsaXR5IGFuZCBsZWdpYmlsaXR5Lg0KPj4NCj4+IElmIHlvdSBoYXZlIG5vIHRlY2huaWNh
-bCBvYmplY3Rpb25zLCBhbmQgbm8gc3VnZ2VzdGlvbnMgZm9yIGhvdyB0byBkbyBpdA0KPj4gZGlm
-ZmVyZW50bHkgd2hpbGUgcmV0YWluaW5nIHRoZSBxdWFsaXR5IGFuZCBsZWdpYmlsaXR5IGltcHJv
-dmVtZW50cywNCj4+IHRoZW4gIkkgZG9uJ3QgbGlrZSBpdCIgZG9lc24ndCBibG9jayBpdCBnb2lu
-ZyBpbi4NCj4NCj5BbmQgeW91IGRvbid0IGxpa2UgdGhlIGV4aXN0aW5nIGNvZGUgOikuIEkgYW0g
-d2lsbGluZyB0byBjb21wcm9taXNlLCBidXQNCj5mb3IgdGhhdCBJIG5lZWQgdG8gdW5kZXJzdGFu
-ZCB3aHkgdGhlIGV4aXN0aW5nIGNvZGUgaXMgdGVjaG5pY2FsbHkgbm90DQo+Y29ycmVjdC4NCj4N
-Cj5TbyBmYXIsIGFsbCB0aGUgYXJndW1lbnRzIHlvdSBwcm92aWRlZCBpbiB2MyB3YXMgZWl0aGVy
-IGEgbWF0dGVyIG9mDQo+dGFzdGUgb3IgSU1ITyBib2d1cy4NCj4NCj5Zb3VyIHRhc3RlIGlzIG5v
-ciBiZXR0ZXIgbm9yIHdvcnNlIHRoYW4gbWluZS4gQXQgd2hpY2gsIHdlIG5lZWQgc29tZW9uZQ0K
-PmVsc2UgdG8gYnJlYWsgdGhlIHRpZS4NCj4NCj5JZiBJIGFtIG5vdCBtaXN0YWtlbiwgSmFuIGlz
-IGFsc28gb2JqZWN0aW5nIG9uIHRoZSBwcm9wb3NhbC4gQXQgd2hpY2gNCj5wb2ludCwgd2UgYXJl
-IDIgdnMgMS4NCj4NCj5TbyB0aGVyZSBhcmUgdGhyZWUgY2hvaWNlcyBoZXJlOg0KPiAgIDEpIFlv
-dSBmaW5kIHR3byBvdGhlcnMgbWFpbnRhaW5lcnMgKGluY2x1ZGluZyBvbiBBcm0gbWFpbnRhaW5l
-cikgdG8NCj5hZ3JlZSB3aXRoIHlvdQ0KPiAgIDIpIFlvdSBwcm92aWRlIGFyZ3VtZW50cyB0aGF0
-IHdpbGwgc3dheSBvbmUgb2YgdXMgaW4geW91ciBzaWRlDQo+ICAgMykgV2Uga2VlcCBiZTMyX2Nw
-dSooKSAodGhleSBhcmUgc2ltcGxlIHdyYXBwZXIgYW5kIEkgYW0gd2lsbGluZyB0bw0KPndyaXRl
-IHRoZSBjb2RlKS4NCg0KUGVyc29uYWx5LCBJIGFncmVlIHdpdGggQW5kcmV3IENvcHBlciB0byBy
-ZW1vdmUgdGhlIGJlKl90b19jcHVwIGhlbHBlcnMgYXMgY3VycmVudA0KaW1wbGVtZXRhdGlvbiBp
-cyBqdXN0IGEgd3JhcHBlciwgbGlrZQ0KDQojaWZuZGVmIF9fYXJjaF9fc3dhYjE2cA0KIyAgZGVm
-aW5lIF9fYXJjaF9fc3dhYjE2cCh4KSBfX2FyY2hfX3N3YWIxNigqKHgpKQ0KI2VuZGlmDQoNCldp
-dGggYmUqX3RvX2NwdXAgYmVlbiByZW1vdmVkLCB0aGUgaW50ZXJmYWNlIGtlZXBzIHNpbXBsZSBh
-bmQgY2xlYXIsIGFuZCBjYWxsZXJzDQphcmUgZGVyZWZlcmVuY2UgdGhlIHBvaW50ZXIgZXhwbGlj
-dGx5Lg0KDQpJIGFtIHZlcnkgaGFwcHkgdG8gc2VlIHRoZSB0aHJlZSBjaG9pY2VzLCBob3BlIHdl
-IGNhbiByZWFjaCBhbiBhZ3JlZW1lbnQgYWJvdXQgdGhpcyBzb29uLg0KDQpDaGVycnMsDQotLS0N
-Ckxpbg0K
-
---_000_SJ0PR03MB5405D2D60515EE9C02761FE79DD79SJ0PR03MB5405namp_
-Content-Type: text/html; charset="gb2312"
+x-ts-tracking-id: A1F37E1FA9D1A143A28F7E2862DA5396.0
+x-checkrecipientchecked: true
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-MS-Office365-Filtering-Correlation-Id: 89c6328b-65f7-4c7d-85e2-08da3d2fe422
+x-ms-traffictypediagnostic:
+	DB7PR08MB3130:EE_|DBAEUR03FT062:EE_|AM6PR08MB3319:EE_
+X-Microsoft-Antispam-PRVS:
+	<AM6PR08MB3319A345C0AAA5AAAB37615892D79@AM6PR08MB3319.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ qz4POKlAhAxueUohVyvBcLqGvewgICzdF92mLytS+Z9kYuC8aEmVxexpd9cIyC3QkgkB11bdyUrZNZYWEf5mtL3l3WcRXWxh8pWq/dnGAbPEFM6t+O3doaDSCmr+CaRnU9wBxg4pUOOJneGMVp34zVayccHRIZ2hbHlwJ9MJVwQqCsUKLDY93HUyGyPDaTryWfOG4MoeL4DxFP20e3dw0JDe5jUUFiKl0eKx1kfr6iUv46L5AgHG6B0N2a9JaoyJWTOmD96nyMPkodkut6h9IhXVMUJgKrsNxRfpFfbKyIGNGup5/qxdWrj9k1v0uHZ31lD+ljK2pmzEifuhwsF++wmMlO0hSoKcknj+S7odWSScAkgo5G34IJs/C3BlniQSVu78nbn6vKsUsCLNqACh8uO88bO1wbl1t3wXDv4UHw1uZZ7ruMHr7Otd8Abcmo9uVkIrblhQAw/y0vr4MeGhoNGF3KN7BsWErwN/wUXuaz+B9HiopHPGy8zqELJv8T5NFTg2+BHMo67HCYojsmS0gnplRV+cxRkoIw7qwd826MWUFaJlPy1miWehwkDwZW1nAHuGDFWPSMZhdo6OeFNyER7j6IPyno14LykgYWlOAkY+3JcoCD9kHfXYgvTRwuLn8M9dL0OoGNL86xxWR+uuLicAljgyESS34pONKG6vtAZSIm7l9Rqtjapfbghn7Gf//NQpo8wLcMRDwstiZsKu8w==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7696.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(86362001)(76116006)(5660300002)(33656002)(83380400001)(110136005)(64756008)(8676002)(66556008)(4326008)(316002)(186003)(7696005)(66476007)(66446008)(122000001)(6506007)(66946007)(30864003)(38100700002)(54906003)(8936002)(38070700005)(508600001)(26005)(2906002)(53546011)(55016003)(9686003)(71200400001)(52536014);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="iso-2022-jp"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB3130
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DBAEUR03FT062.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	97151f63-4acf-4f49-008c-08da3d2fde81
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	gxBMN+5Z513/N7B9Tc5qleYRto+b3GmXpG3l5V2/34zvMDsBQE3ZytiwU6/mwUJpYloP/AlBfLhGBL9zyfR+bHYJp/QRPRz1xxN5/yJkzEXCcS3WVAF1GsWNqwZDYCvhVwjCm4fN2KwIb8sUswQPQbL2qccaBC5Uyq3PB4Cz0NJDq2W4CL7f4jrDSAnzCX9OeFd7tVDcwvw7YRefd+51a2/vLGicb4JFqp8BMfrKZ22TAasFVudZ42u3Nq+d4uclgx/OxOUgr7ogXo2aKXS3EU0GSJ1LPYlSh8Jsi18fNQJhL4gmvlToDHbziBurSEIkRmDQX+aGldXNWkSw/MQdg6jJM1MTDZBJNXykgCMvUW0pbtcbU7lNyCPy02uw4QDv2ZTv43UF4OkIomdnKdIC4x7K/chAxp+mvW4EcbxNcTnBFqeoef8+viHo0A5r9HsV78RDuJsHtFtDSUJYA82R1DKmcbinDi138u+DiYkdyPZYGMiRsjxJFAm3PB7wkMd/n3F5glJOPljhomVG9WiJdtHsPZbdiYTeamF/L4ROY66vHeZ0Scl+voD8zZIsTL6EcJWeNs1NKwrJeFOoFIojytgekn2hJPweaJx1SlUwvd8qyrMceoKKJbH3wjqyTvb9LJszHOynWPdklvf+x56d+CNDcUAWk3Xo+meTugOlKZtIKLFlVjPSaUYsf4rPRxle
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(316002)(54906003)(110136005)(40460700003)(83380400001)(8676002)(356005)(36860700001)(4326008)(82310400005)(70206006)(186003)(70586007)(86362001)(30864003)(9686003)(47076005)(336012)(508600001)(55016003)(26005)(81166007)(8936002)(53546011)(33656002)(6506007)(7696005)(2906002)(52536014)(5660300002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2022 02:48:32.6415
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89c6328b-65f7-4c7d-85e2-08da3d2fe422
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DBAEUR03FT062.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB3319
 
-<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
-hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
-fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle19
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style>
-</head>
-<body lang=3D"en-CN" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
-break-word">
-<div class=3D"WordSection1">
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt;margin-top:0cm;mso-mar=
-gin-bottom-alt:0cm;mso-margin-top-alt:0cm;mso-add-space:auto">
-<span style=3D"font-size:11.0pt">&gt;Hi Andrew,<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;<o:p>&nbsp;</o:=
-p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;On 23/05/2022 1=
-6:38, Andrew Cooper wrote:<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt; On 23/05/2=
-022 15:56, Julien Grall wrote:<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt;&gt; Hi,<o:=
-p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt;&gt;<o:p>&n=
-bsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt;&gt; On 23/=
-05/2022 15:50, Lin Liu wrote:<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt;&gt;&gt; Up=
-date to use byteswap to swap bytes<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt;&gt;&gt; be=
-*_to_cpup(p) is short for be*to_cpu(*p), update to use latter<o:p></o:p></s=
-pan></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt;&gt;&gt; on=
-e explictly<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt;&gt;<o:p>&n=
-bsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt;&gt; But wh=
-y?<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt; <o:p></o:p=
-></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt; Because de=
-leting code obfuscation constructs *is* the point of the cleanup.<o:p></o:p=
-></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt; <o:p></o:p=
-></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt;&gt; I real=
-ly don't have a suggestion on the comment because I disagree<o:p></o:p></sp=
-an></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt;&gt; (and A=
-FAICT Jan as well) with the approach.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt; <o:p></o:p=
-></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt; Dropping t=
-he obfuscation has uncovered pre-existing bugs in the<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt; hypervisor=
-.&nbsp; The series stands on its own merit.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;<o:p>&nbsp;</o:=
-p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;I am guessing y=
-ou mean that we don't handle unaligned access? If so, yes
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;I agree this he=
-lped with that.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;<o:p>&nbsp;</o:=
-p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt; <o:p></o:p=
-></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt; While I ca=
-n't help if you like it or not, it really does bring an<o:p></o:p></span></=
-p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt; improvemen=
-t to code quality and legibility.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt; <o:p></o:p=
-></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt; If you hav=
-e no technical objections, and no suggestions for how to do it<o:p></o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt; differentl=
-y while retaining the quality and legibility improvements,<o:p></o:p></span=
-></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&gt; then &quot=
-;I don't like it&quot; doesn't block it going in.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;<o:p>&nbsp;</o:=
-p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;And you don't l=
-ike the existing code :). I am willing to compromise, but
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;for that I need=
- to understand why the existing code is technically not
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;correct.<o:p></=
-o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;<o:p>&nbsp;</o:=
-p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;So far, all the=
- arguments you provided in v3 was either a matter of
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;taste or IMHO b=
-ogus.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;<o:p>&nbsp;</o:=
-p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;Your taste is n=
-or better nor worse than mine. At which, we need someone
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;else to break t=
-he tie.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;<o:p>&nbsp;</o:=
-p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;If I am not mis=
-taken, Jan is also objecting on the proposal. At which
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;point, we are 2=
- vs 1.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;<o:p>&nbsp;</o:=
-p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;So there are th=
-ree choices here:<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&nbsp;&nbsp; 1)=
- You find two others maintainers (including on Arm maintainer) to
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;agree with you<=
-o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&nbsp;&nbsp; 2)=
- You provide arguments that will sway one of us in your side<o:p></o:p></sp=
-an></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;&nbsp;&nbsp; 3)=
- We keep be32_cpu*() (they are simple wrapper and I am willing to
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&gt;write the code)=
-.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Personaly, I agree =
-with Andrew Copper to remove the be*_to_cpup helpers as current<o:p></o:p><=
-/span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">implemetation is ju=
-st a wrapper, like
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">#ifndef __arch__swa=
-b16p<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">#&nbsp; define __ar=
-ch__swab16p(x) __arch__swab16(*(x))<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">#endif<o:p></o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">With be*_to_cpup be=
-en removed, the interface keeps simple and clear, and callers<o:p></o:p></s=
-pan></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">are dereference the=
- pointer explictly.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">I am very happy to =
-see the three choices, hope we can reach an agreement about this soon.<o:p>=
-</o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Cherrs,<o:p></o:p><=
-/span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">---<o:p></o:p></spa=
-n></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Lin<o:p></o:p></spa=
-n></p>
-</div>
-</div>
-</body>
-</html>
+Hi Lin,
+> -----Original Message-----
+> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of Lin
+> Liu
+> Sent: 2022=1B$BG/=1B(B5=1B$B7n=1B(B23=1B$BF|=1B(B 22:51
+> To: xen-devel@lists.xenproject.org
+> Cc: Lin Liu <lin.liu@citrix.com>; Andrew Cooper
+> <andrew.cooper3@citrix.com>; George Dunlap <george.dunlap@citrix.com>;
+> Jan Beulich <jbeulich@suse.com>; Julien Grall <julien@xen.org>; Bertrand
+> Marquis <Bertrand.Marquis@arm.com>; Stefano Stabellini
+> <sstabellini@kernel.org>; Wei Liu <wl@xen.org>
+> Subject: [PATCH v5 6/6] byteorder: Remove byteorder
+>=20
+> include/xen/byteswap.h has simplify the interface, just clean
+> the old interface
+There is a  typo.   s/ simplify/simplified /.
 
---_000_SJ0PR03MB5405D2D60515EE9C02761FE79DD79SJ0PR03MB5405namp_--
+Best wishes
+Jiamei Xie
+>=20
+> No functional change
+>=20
+> Signed-off-by: Lin Liu <lin.liu@citrix.com>
+> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+> Cc: George Dunlap <george.dunlap@citrix.com>
+> Cc: Jan Beulich <jbeulich@suse.com>
+> Cc: Julien Grall <julien@xen.org>
+> Cc: Bertrand Marquis <bertrand.marquis@arm.com>
+> Cc: Stefano Stabellini <sstabellini@kernel.org>
+> Cc: Wei Liu <wl@xen.org>
+> ---
+>  xen/include/xen/byteorder/big_endian.h    | 102 ------------
+>  xen/include/xen/byteorder/generic.h       |  68 --------
+>  xen/include/xen/byteorder/little_endian.h | 102 ------------
+>  xen/include/xen/byteorder/swab.h          | 183 ----------------------
+>  4 files changed, 455 deletions(-)
+>  delete mode 100644 xen/include/xen/byteorder/big_endian.h
+>  delete mode 100644 xen/include/xen/byteorder/generic.h
+>  delete mode 100644 xen/include/xen/byteorder/little_endian.h
+>  delete mode 100644 xen/include/xen/byteorder/swab.h
+>=20
+> diff --git a/xen/include/xen/byteorder/big_endian.h
+> b/xen/include/xen/byteorder/big_endian.h
+> deleted file mode 100644
+> index 40eb80a390..0000000000
+> --- a/xen/include/xen/byteorder/big_endian.h
+> +++ /dev/null
+> @@ -1,102 +0,0 @@
+> -#ifndef __XEN_BYTEORDER_BIG_ENDIAN_H__
+> -#define __XEN_BYTEORDER_BIG_ENDIAN_H__
+> -
+> -#ifndef __BIG_ENDIAN
+> -#define __BIG_ENDIAN 4321
+> -#endif
+> -#ifndef __BIG_ENDIAN_BITFIELD
+> -#define __BIG_ENDIAN_BITFIELD
+> -#endif
+> -
+> -#include <xen/types.h>
+> -#include <xen/byteorder/swab.h>
+> -
+> -#define __constant_cpu_to_le64(x) ((__force
+> __le64)___constant_swab64((x)))
+> -#define __constant_le64_to_cpu(x) ___constant_swab64((__force
+> __u64)(__le64)(x))
+> -#define __constant_cpu_to_le32(x) ((__force
+> __le32)___constant_swab32((x)))
+> -#define __constant_le32_to_cpu(x) ___constant_swab32((__force
+> __u32)(__le32)(x))
+> -#define __constant_cpu_to_le16(x) ((__force
+> __le16)___constant_swab16((x)))
+> -#define __constant_le16_to_cpu(x) ___constant_swab16((__force
+> __u16)(__le16)(x))
+> -#define __constant_cpu_to_be64(x) ((__force __be64)(__u64)(x))
+> -#define __constant_be64_to_cpu(x) ((__force __u64)(__be64)(x))
+> -#define __constant_cpu_to_be32(x) ((__force __be32)(__u32)(x))
+> -#define __constant_be32_to_cpu(x) ((__force __u32)(__be32)(x))
+> -#define __constant_cpu_to_be16(x) ((__force __be16)(__u16)(x))
+> -#define __constant_be16_to_cpu(x) ((__force __u16)(__be16)(x))
+> -#define __cpu_to_le64(x) ((__force __le64)__swab64((x)))
+> -#define __le64_to_cpu(x) __swab64((__force __u64)(__le64)(x))
+> -#define __cpu_to_le32(x) ((__force __le32)__swab32((x)))
+> -#define __le32_to_cpu(x) __swab32((__force __u32)(__le32)(x))
+> -#define __cpu_to_le16(x) ((__force __le16)__swab16((x)))
+> -#define __le16_to_cpu(x) __swab16((__force __u16)(__le16)(x))
+> -#define __cpu_to_be64(x) ((__force __be64)(__u64)(x))
+> -#define __be64_to_cpu(x) ((__force __u64)(__be64)(x))
+> -#define __cpu_to_be32(x) ((__force __be32)(__u32)(x))
+> -#define __be32_to_cpu(x) ((__force __u32)(__be32)(x))
+> -#define __cpu_to_be16(x) ((__force __be16)(__u16)(x))
+> -#define __be16_to_cpu(x) ((__force __u16)(__be16)(x))
+> -
+> -static inline __le64 __cpu_to_le64p(const __u64 *p)
+> -{
+> -    return (__force __le64)__swab64p(p);
+> -}
+> -static inline __u64 __le64_to_cpup(const __le64 *p)
+> -{
+> -    return __swab64p((__u64 *)p);
+> -}
+> -static inline __le32 __cpu_to_le32p(const __u32 *p)
+> -{
+> -    return (__force __le32)__swab32p(p);
+> -}
+> -static inline __u32 __le32_to_cpup(const __le32 *p)
+> -{
+> -    return __swab32p((__u32 *)p);
+> -}
+> -static inline __le16 __cpu_to_le16p(const __u16 *p)
+> -{
+> -    return (__force __le16)__swab16p(p);
+> -}
+> -static inline __u16 __le16_to_cpup(const __le16 *p)
+> -{
+> -    return __swab16p((__u16 *)p);
+> -}
+> -static inline __be64 __cpu_to_be64p(const __u64 *p)
+> -{
+> -    return (__force __be64)*p;
+> -}
+> -static inline __u64 __be64_to_cpup(const __be64 *p)
+> -{
+> -    return (__force __u64)*p;
+> -}
+> -static inline __be32 __cpu_to_be32p(const __u32 *p)
+> -{
+> -    return (__force __be32)*p;
+> -}
+> -static inline __u32 __be32_to_cpup(const __be32 *p)
+> -{
+> -    return (__force __u32)*p;
+> -}
+> -static inline __be16 __cpu_to_be16p(const __u16 *p)
+> -{
+> -    return (__force __be16)*p;
+> -}
+> -static inline __u16 __be16_to_cpup(const __be16 *p)
+> -{
+> -    return (__force __u16)*p;
+> -}
+> -#define __cpu_to_le64s(x) __swab64s((x))
+> -#define __le64_to_cpus(x) __swab64s((x))
+> -#define __cpu_to_le32s(x) __swab32s((x))
+> -#define __le32_to_cpus(x) __swab32s((x))
+> -#define __cpu_to_le16s(x) __swab16s((x))
+> -#define __le16_to_cpus(x) __swab16s((x))
+> -#define __cpu_to_be64s(x) do {} while (0)
+> -#define __be64_to_cpus(x) do {} while (0)
+> -#define __cpu_to_be32s(x) do {} while (0)
+> -#define __be32_to_cpus(x) do {} while (0)
+> -#define __cpu_to_be16s(x) do {} while (0)
+> -#define __be16_to_cpus(x) do {} while (0)
+> -
+> -#include <xen/byteorder/generic.h>
+> -
+> -#endif /* __XEN_BYTEORDER_BIG_ENDIAN_H__ */
+> diff --git a/xen/include/xen/byteorder/generic.h
+> b/xen/include/xen/byteorder/generic.h
+> deleted file mode 100644
+> index 8a0006b755..0000000000
+> --- a/xen/include/xen/byteorder/generic.h
+> +++ /dev/null
+> @@ -1,68 +0,0 @@
+> -#ifndef __XEN_BYTEORDER_GENERIC_H__
+> -#define __XEN_BYTEORDER_GENERIC_H__
+> -
+> -/*
+> - * Generic Byte-reordering support
+> - *
+> - * The "... p" macros, like le64_to_cpup, can be used with pointers
+> - * to unaligned data, but there will be a performance penalty on
+> - * some architectures.  Use get_unaligned for unaligned data.
+> - *
+> - * The following macros are to be defined by <asm/byteorder.h>:
+> - *
+> - * Conversion of XX-bit integers (16- 32- or 64-)
+> - * between native CPU format and little/big endian format
+> - * 64-bit stuff only defined for proper architectures
+> - *     cpu_to_[bl]eXX(__uXX x)
+> - *     [bl]eXX_to_cpu(__uXX x)
+> - *
+> - * The same, but takes a pointer to the value to convert
+> - *     cpu_to_[bl]eXXp(__uXX x)
+> - *     [bl]eXX_to_cpup(__uXX x)
+> - *
+> - * The same, but change in situ
+> - *     cpu_to_[bl]eXXs(__uXX x)
+> - *     [bl]eXX_to_cpus(__uXX x)
+> - *
+> - * See asm-foo/byteorder.h for examples of how to provide
+> - * architecture-optimized versions
+> - */
+> -
+> -#define cpu_to_le64 __cpu_to_le64
+> -#define le64_to_cpu __le64_to_cpu
+> -#define cpu_to_le32 __cpu_to_le32
+> -#define le32_to_cpu __le32_to_cpu
+> -#define cpu_to_le16 __cpu_to_le16
+> -#define le16_to_cpu __le16_to_cpu
+> -#define cpu_to_be64 __cpu_to_be64
+> -#define be64_to_cpu __be64_to_cpu
+> -#define cpu_to_be32 __cpu_to_be32
+> -#define be32_to_cpu __be32_to_cpu
+> -#define cpu_to_be16 __cpu_to_be16
+> -#define be16_to_cpu __be16_to_cpu
+> -#define cpu_to_le64p __cpu_to_le64p
+> -#define le64_to_cpup __le64_to_cpup
+> -#define cpu_to_le32p __cpu_to_le32p
+> -#define le32_to_cpup __le32_to_cpup
+> -#define cpu_to_le16p __cpu_to_le16p
+> -#define le16_to_cpup __le16_to_cpup
+> -#define cpu_to_be64p __cpu_to_be64p
+> -#define be64_to_cpup __be64_to_cpup
+> -#define cpu_to_be32p __cpu_to_be32p
+> -#define be32_to_cpup __be32_to_cpup
+> -#define cpu_to_be16p __cpu_to_be16p
+> -#define be16_to_cpup __be16_to_cpup
+> -#define cpu_to_le64s __cpu_to_le64s
+> -#define le64_to_cpus __le64_to_cpus
+> -#define cpu_to_le32s __cpu_to_le32s
+> -#define le32_to_cpus __le32_to_cpus
+> -#define cpu_to_le16s __cpu_to_le16s
+> -#define le16_to_cpus __le16_to_cpus
+> -#define cpu_to_be64s __cpu_to_be64s
+> -#define be64_to_cpus __be64_to_cpus
+> -#define cpu_to_be32s __cpu_to_be32s
+> -#define be32_to_cpus __be32_to_cpus
+> -#define cpu_to_be16s __cpu_to_be16s
+> -#define be16_to_cpus __be16_to_cpus
+> -
+> -#endif /* __XEN_BYTEORDER_GENERIC_H__ */
+> diff --git a/xen/include/xen/byteorder/little_endian.h
+> b/xen/include/xen/byteorder/little_endian.h
+> deleted file mode 100644
+> index 4955632793..0000000000
+> --- a/xen/include/xen/byteorder/little_endian.h
+> +++ /dev/null
+> @@ -1,102 +0,0 @@
+> -#ifndef __XEN_BYTEORDER_LITTLE_ENDIAN_H__
+> -#define __XEN_BYTEORDER_LITTLE_ENDIAN_H__
+> -
+> -#ifndef __LITTLE_ENDIAN
+> -#define __LITTLE_ENDIAN 1234
+> -#endif
+> -#ifndef __LITTLE_ENDIAN_BITFIELD
+> -#define __LITTLE_ENDIAN_BITFIELD
+> -#endif
+> -
+> -#include <xen/types.h>
+> -#include <xen/byteorder/swab.h>
+> -
+> -#define __constant_cpu_to_le64(x) ((__force __le64)(__u64)(x))
+> -#define __constant_le64_to_cpu(x) ((__force __u64)(__le64)(x))
+> -#define __constant_cpu_to_le32(x) ((__force __le32)(__u32)(x))
+> -#define __constant_le32_to_cpu(x) ((__force __u32)(__le32)(x))
+> -#define __constant_cpu_to_le16(x) ((__force __le16)(__u16)(x))
+> -#define __constant_le16_to_cpu(x) ((__force __u16)(__le16)(x))
+> -#define __constant_cpu_to_be64(x) ((__force
+> __be64)___constant_swab64((x)))
+> -#define __constant_be64_to_cpu(x) ___constant_swab64((__force
+> __u64)(__be64)(x))
+> -#define __constant_cpu_to_be32(x) ((__force
+> __be32)___constant_swab32((x)))
+> -#define __constant_be32_to_cpu(x) ___constant_swab32((__force
+> __u32)(__be32)(x))
+> -#define __constant_cpu_to_be16(x) ((__force
+> __be16)___constant_swab16((x)))
+> -#define __constant_be16_to_cpu(x) ___constant_swab16((__force
+> __u16)(__be16)(x))
+> -#define __cpu_to_le64(x) ((__force __le64)(__u64)(x))
+> -#define __le64_to_cpu(x) ((__force __u64)(__le64)(x))
+> -#define __cpu_to_le32(x) ((__force __le32)(__u32)(x))
+> -#define __le32_to_cpu(x) ((__force __u32)(__le32)(x))
+> -#define __cpu_to_le16(x) ((__force __le16)(__u16)(x))
+> -#define __le16_to_cpu(x) ((__force __u16)(__le16)(x))
+> -#define __cpu_to_be64(x) ((__force __be64)__swab64((x)))
+> -#define __be64_to_cpu(x) __swab64((__force __u64)(__be64)(x))
+> -#define __cpu_to_be32(x) ((__force __be32)__swab32((x)))
+> -#define __be32_to_cpu(x) __swab32((__force __u32)(__be32)(x))
+> -#define __cpu_to_be16(x) ((__force __be16)__swab16((x)))
+> -#define __be16_to_cpu(x) __swab16((__force __u16)(__be16)(x))
+> -
+> -static inline __le64 __cpu_to_le64p(const __u64 *p)
+> -{
+> -    return (__force __le64)*p;
+> -}
+> -static inline __u64 __le64_to_cpup(const __le64 *p)
+> -{
+> -    return (__force __u64)*p;
+> -}
+> -static inline __le32 __cpu_to_le32p(const __u32 *p)
+> -{
+> -    return (__force __le32)*p;
+> -}
+> -static inline __u32 __le32_to_cpup(const __le32 *p)
+> -{
+> -    return (__force __u32)*p;
+> -}
+> -static inline __le16 __cpu_to_le16p(const __u16 *p)
+> -{
+> -    return (__force __le16)*p;
+> -}
+> -static inline __u16 __le16_to_cpup(const __le16 *p)
+> -{
+> -    return (__force __u16)*p;
+> -}
+> -static inline __be64 __cpu_to_be64p(const __u64 *p)
+> -{
+> -    return (__force __be64)__swab64p(p);
+> -}
+> -static inline __u64 __be64_to_cpup(const __be64 *p)
+> -{
+> -    return __swab64p((__u64 *)p);
+> -}
+> -static inline __be32 __cpu_to_be32p(const __u32 *p)
+> -{
+> -    return (__force __be32)__swab32p(p);
+> -}
+> -static inline __u32 __be32_to_cpup(const __be32 *p)
+> -{
+> -    return __swab32p((__u32 *)p);
+> -}
+> -static inline __be16 __cpu_to_be16p(const __u16 *p)
+> -{
+> -    return (__force __be16)__swab16p(p);
+> -}
+> -static inline __u16 __be16_to_cpup(const __be16 *p)
+> -{
+> -    return __swab16p((__u16 *)p);
+> -}
+> -#define __cpu_to_le64s(x) do {} while (0)
+> -#define __le64_to_cpus(x) do {} while (0)
+> -#define __cpu_to_le32s(x) do {} while (0)
+> -#define __le32_to_cpus(x) do {} while (0)
+> -#define __cpu_to_le16s(x) do {} while (0)
+> -#define __le16_to_cpus(x) do {} while (0)
+> -#define __cpu_to_be64s(x) __swab64s((x))
+> -#define __be64_to_cpus(x) __swab64s((x))
+> -#define __cpu_to_be32s(x) __swab32s((x))
+> -#define __be32_to_cpus(x) __swab32s((x))
+> -#define __cpu_to_be16s(x) __swab16s((x))
+> -#define __be16_to_cpus(x) __swab16s((x))
+> -
+> -#include <xen/byteorder/generic.h>
+> -
+> -#endif /* __XEN_BYTEORDER_LITTLE_ENDIAN_H__ */
+> diff --git a/xen/include/xen/byteorder/swab.h
+> b/xen/include/xen/byteorder/swab.h
+> deleted file mode 100644
+> index b7e30f0503..0000000000
+> --- a/xen/include/xen/byteorder/swab.h
+> +++ /dev/null
+> @@ -1,183 +0,0 @@
+> -#ifndef __XEN_BYTEORDER_SWAB_H__
+> -#define __XEN_BYTEORDER_SWAB_H__
+> -
+> -/*
+> - * Byte-swapping, independently from CPU endianness
+> - *     swabXX[ps]?(foo)
+> - *
+> - * Francois-Rene Rideau <fare@tunes.org> 19971205
+> - *    separated swab functions from cpu_to_XX,
+> - *    to clean up support for bizarre-endian architectures.
+> - */
+> -
+> -/* casts are necessary for constants, because we never know how for sure
+> - * how U/UL/ULL map to __u16, __u32, __u64. At least not in a portable w=
+ay.
+> - */
+> -#define ___swab16(x)                                    \
+> -({                                                      \
+> -    __u16 __x =3D (x);                                    \
+> -    ((__u16)(                                           \
+> -        (((__u16)(__x) & (__u16)0x00ffU) << 8) |        \
+> -        (((__u16)(__x) & (__u16)0xff00U) >> 8) ));      \
+> -})
+> -
+> -#define ___swab32(x)                                            \
+> -({                                                              \
+> -    __u32 __x =3D (x);                                            \
+> -    ((__u32)(                                                   \
+> -        (((__u32)(__x) & (__u32)0x000000ffUL) << 24) |          \
+> -        (((__u32)(__x) & (__u32)0x0000ff00UL) <<  8) |          \
+> -        (((__u32)(__x) & (__u32)0x00ff0000UL) >>  8) |          \
+> -        (((__u32)(__x) & (__u32)0xff000000UL) >> 24) ));        \
+> -})
+> -
+> -#define ___swab64(x)                                                    =
+   \
+> -({                                                                      =
+   \
+> -    __u64 __x =3D (x);                                                  =
+     \
+> -    ((__u64)(                                                           =
+   \
+> -        (__u64)(((__u64)(__x) & (__u64)0x00000000000000ffULL) << 56) |  =
+   \
+> -        (__u64)(((__u64)(__x) & (__u64)0x000000000000ff00ULL) << 40) |  =
+   \
+> -        (__u64)(((__u64)(__x) & (__u64)0x0000000000ff0000ULL) << 24) |  =
+   \
+> -        (__u64)(((__u64)(__x) & (__u64)0x00000000ff000000ULL) <<  8) |  =
+   \
+> -            (__u64)(((__u64)(__x) & (__u64)0x000000ff00000000ULL) >>  8)=
+ | \
+> -        (__u64)(((__u64)(__x) & (__u64)0x0000ff0000000000ULL) >> 24) |  =
+   \
+> -        (__u64)(((__u64)(__x) & (__u64)0x00ff000000000000ULL) >> 40) |  =
+   \
+> -        (__u64)(((__u64)(__x) & (__u64)0xff00000000000000ULL) >> 56) ));=
+   \
+> -})
+> -
+> -#define ___constant_swab16(x)                   \
+> -    ((__u16)(                                   \
+> -        (((__u16)(x) & (__u16)0x00ffU) << 8) |  \
+> -        (((__u16)(x) & (__u16)0xff00U) >> 8) ))
+> -#define ___constant_swab32(x)                           \
+> -    ((__u32)(                                           \
+> -        (((__u32)(x) & (__u32)0x000000ffUL) << 24) |    \
+> -        (((__u32)(x) & (__u32)0x0000ff00UL) <<  8) |    \
+> -        (((__u32)(x) & (__u32)0x00ff0000UL) >>  8) |    \
+> -        (((__u32)(x) & (__u32)0xff000000UL) >> 24) ))
+> -#define ___constant_swab64(x)                                           =
+ \
+> -    ((__u64)(                                                           =
+ \
+> -        (__u64)(((__u64)(x) & (__u64)0x00000000000000ffULL) << 56) |    =
+ \
+> -        (__u64)(((__u64)(x) & (__u64)0x000000000000ff00ULL) << 40) |    =
+ \
+> -        (__u64)(((__u64)(x) & (__u64)0x0000000000ff0000ULL) << 24) |    =
+ \
+> -        (__u64)(((__u64)(x) & (__u64)0x00000000ff000000ULL) <<  8) |    =
+ \
+> -            (__u64)(((__u64)(x) & (__u64)0x000000ff00000000ULL) >>  8) |=
+ \
+> -        (__u64)(((__u64)(x) & (__u64)0x0000ff0000000000ULL) >> 24) |    =
+ \
+> -        (__u64)(((__u64)(x) & (__u64)0x00ff000000000000ULL) >> 40) |    =
+ \
+> -        (__u64)(((__u64)(x) & (__u64)0xff00000000000000ULL) >> 56) ))
+> -
+> -/*
+> - * provide defaults when no architecture-specific optimization is detect=
+ed
+> - */
+> -#ifndef __arch__swab16
+> -#  define __arch__swab16(x) ({ __u16 __tmp =3D (x) ; ___swab16(__tmp); }=
+)
+> -#endif
+> -#ifndef __arch__swab32
+> -#  define __arch__swab32(x) ({ __u32 __tmp =3D (x) ; ___swab32(__tmp); }=
+)
+> -#endif
+> -#ifndef __arch__swab64
+> -#  define __arch__swab64(x) ({ __u64 __tmp =3D (x) ; ___swab64(__tmp); }=
+)
+> -#endif
+> -
+> -#ifndef __arch__swab16p
+> -#  define __arch__swab16p(x) __arch__swab16(*(x))
+> -#endif
+> -#ifndef __arch__swab32p
+> -#  define __arch__swab32p(x) __arch__swab32(*(x))
+> -#endif
+> -#ifndef __arch__swab64p
+> -#  define __arch__swab64p(x) __arch__swab64(*(x))
+> -#endif
+> -
+> -#ifndef __arch__swab16s
+> -#  define __arch__swab16s(x) do { *(x) =3D __arch__swab16p((x)); } while=
+ (0)
+> -#endif
+> -#ifndef __arch__swab32s
+> -#  define __arch__swab32s(x) do { *(x) =3D __arch__swab32p((x)); } while=
+ (0)
+> -#endif
+> -#ifndef __arch__swab64s
+> -#  define __arch__swab64s(x) do { *(x) =3D __arch__swab64p((x)); } while=
+ (0)
+> -#endif
+> -
+> -
+> -/*
+> - * Allow constant folding
+> - */
+> -#if defined(__GNUC__) && defined(__OPTIMIZE__)
+> -#  define __swab16(x) \
+> -(__builtin_constant_p((__u16)(x)) ? \
+> - ___swab16((x)) : \
+> - __fswab16((x)))
+> -#  define __swab32(x) \
+> -(__builtin_constant_p((__u32)(x)) ? \
+> - ___swab32((x)) : \
+> - __fswab32((x)))
+> -#  define __swab64(x) \
+> -(__builtin_constant_p((__u64)(x)) ? \
+> - ___swab64((x)) : \
+> - __fswab64((x)))
+> -#else
+> -#  define __swab16(x) __fswab16(x)
+> -#  define __swab32(x) __fswab32(x)
+> -#  define __swab64(x) __fswab64(x)
+> -#endif /* OPTIMIZE */
+> -
+> -
+> -static inline __attribute_const__ __u16 __fswab16(__u16 x)
+> -{
+> -    return __arch__swab16(x);
+> -}
+> -static inline __u16 __swab16p(const __u16 *x)
+> -{
+> -    return __arch__swab16p(x);
+> -}
+> -static inline void __swab16s(__u16 *addr)
+> -{
+> -    __arch__swab16s(addr);
+> -}
+> -
+> -static inline __attribute_const__ __u32 __fswab32(__u32 x)
+> -{
+> -    return __arch__swab32(x);
+> -}
+> -static inline __u32 __swab32p(const __u32 *x)
+> -{
+> -    return __arch__swab32p(x);
+> -}
+> -static inline void __swab32s(__u32 *addr)
+> -{
+> -    __arch__swab32s(addr);
+> -}
+> -
+> -#ifdef __BYTEORDER_HAS_U64__
+> -static inline __attribute_const__ __u64 __fswab64(__u64 x)
+> -{
+> -#  ifdef __SWAB_64_THRU_32__
+> -    __u32 h =3D x >> 32;
+> -        __u32 l =3D x & ((1ULL<<32)-1);
+> -        return (((__u64)__swab32(l)) << 32) | ((__u64)(__swab32(h)));
+> -#  else
+> -    return __arch__swab64(x);
+> -#  endif
+> -}
+> -static inline __u64 __swab64p(const __u64 *x)
+> -{
+> -    return __arch__swab64p(x);
+> -}
+> -static inline void __swab64s(__u64 *addr)
+> -{
+> -    __arch__swab64s(addr);
+> -}
+> -#endif /* __BYTEORDER_HAS_U64__ */
+> -
+> -#define swab16 __swab16
+> -#define swab32 __swab32
+> -#define swab64 __swab64
+> -#define swab16p __swab16p
+> -#define swab32p __swab32p
+> -#define swab64p __swab64p
+> -#define swab16s __swab16s
+> -#define swab32s __swab32s
+> -#define swab64s __swab64s
+> -
+> -#endif /* __XEN_BYTEORDER_SWAB_H__ */
+> --
+> 2.27.0
+>=20
+
 
