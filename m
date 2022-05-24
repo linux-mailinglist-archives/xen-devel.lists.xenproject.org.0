@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AB58532831
-	for <lists+xen-devel@lfdr.de>; Tue, 24 May 2022 12:49:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.336487.560815 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7898A532838
+	for <lists+xen-devel@lfdr.de>; Tue, 24 May 2022 12:51:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.336495.560825 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntS64-0005sS-2M; Tue, 24 May 2022 10:49:04 +0000
+	id 1ntS8X-0007G2-Gm; Tue, 24 May 2022 10:51:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 336487.560815; Tue, 24 May 2022 10:49:04 +0000
+Received: by outflank-mailman (output) from mailman id 336495.560825; Tue, 24 May 2022 10:51:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntS63-0005qC-V5; Tue, 24 May 2022 10:49:03 +0000
-Received: by outflank-mailman (input) for mailman id 336487;
- Tue, 24 May 2022 10:49:03 +0000
+	id 1ntS8X-0007DK-D9; Tue, 24 May 2022 10:51:37 +0000
+Received: by outflank-mailman (input) for mailman id 336495;
+ Tue, 24 May 2022 10:51:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jpOU=WA=citrix.com=prvs=1362cb858=roger.pau@srs-se1.protection.inumbo.net>)
- id 1ntS63-0005q6-87
- for xen-devel@lists.xenproject.org; Tue, 24 May 2022 10:49:03 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1e8e2f87-db4f-11ec-837f-e5687231ffcc;
- Tue, 24 May 2022 12:49:01 +0200 (CEST)
-Received: from mail-bn8nam12lp2174.outbound.protection.outlook.com (HELO
- NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.174])
+ id 1ntS8V-0007DE-Uo
+ for xen-devel@lists.xenproject.org; Tue, 24 May 2022 10:51:36 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 793eb684-db4f-11ec-837f-e5687231ffcc;
+ Tue, 24 May 2022 12:51:34 +0200 (CEST)
+Received: from mail-mw2nam10lp2100.outbound.protection.outlook.com (HELO
+ NAM10-MW2-obe.outbound.protection.outlook.com) ([104.47.55.100])
  by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 24 May 2022 06:48:57 -0400
+ 24 May 2022 06:51:31 -0400
 Received: from DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
  by BN8PR03MB4996.namprd03.prod.outlook.com (2603:10b6:408:7e::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.13; Tue, 24 May
- 2022 10:48:56 +0000
+ 2022 10:51:29 +0000
 Received: from DS7PR03MB5608.namprd03.prod.outlook.com
  ([fe80::5df3:95ce:4dfd:134e]) by DS7PR03MB5608.namprd03.prod.outlook.com
  ([fe80::5df3:95ce:4dfd:134e%5]) with mapi id 15.20.5273.023; Tue, 24 May 2022
- 10:48:56 +0000
+ 10:51:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,195 +49,352 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1e8e2f87-db4f-11ec-837f-e5687231ffcc
+X-Inumbo-ID: 793eb684-db4f-11ec-837f-e5687231ffcc
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1653389341;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=+CB5XIBTxl9KpqOWXK8UUMxWOY2QOatU/TBa81i8ESI=;
-  b=evQIjKhOn8GXslzS8bqVgiLd9svFQ3xy/kJLHPKlbm94VfNsELXQDXEQ
-   r770cggqP6EBUKEK3tgxyn44mQloZo0ACLibJGemZ3iici82qNzYYaDyv
-   5Q1zsAq+p6z8zY3Xdg1ESd8aNxvRd2KX2lBKTHH+stoDscun/XVW8DWCU
-   U=;
-X-IronPort-RemoteIP: 104.47.55.174
-X-IronPort-MID: 74553686
+  d=citrix.com; s=securemail; t=1653389494;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=g4+j8U8TBjBAQVO7fIRSanIHLfBm1pa13uJ6y1NSEKY=;
+  b=JsnjiBQqm0eLy/4VwDXV2v9IpC6FMURyppHIApeCTpBuW51/A1qraBok
+   fdUSwvSwkrkXWGnRD5H10hUovGj/L26x0wUTtwsO99yawt3B1l2eWilHN
+   SugpptPjzQgSXX0DJHmstJuy8IfqDWPS1xDfLyOW4TeOhypDmxdjCTJWv
+   I=;
+X-IronPort-RemoteIP: 104.47.55.100
+X-IronPort-MID: 71404634
 X-IronPort-Reputation: None
 X-IronPort-Listener: OutboundMail
 X-IronPort-SenderGroup: RELAY_O365
 X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:P5zaLK7emVpsYGy0/5zMigxRtEzGchMFZxGqfqrLsTDasY5as4F+v
- jYbXG/TbPjZM2SjLY8jaIuxo04EvZGDm9BmSQc5rC1jHi5G8cbLO4+Ufxz6V8+wwmwvb67FA
- +E2MISowBUcFyeEzvuVGuG96yE6j8lkf5KkYAL+EnkZqTRMFWFw0HqPp8Zj2tQy2YXjX1vU0
- T/Pi5a31GGNimYc3l08s8pvmDs31BglkGpF1rCWTakjUG72zxH5PrpGTU2CByKQrr1vNvy7X
- 47+IISRpQs1yfuP5uSNyd4XemVSKlLb0JPnZnB+A8BOiTAazsA+PzpS2FPxpi67hh3Q9+2dx
- umhurS2YloDOYGSnd4RCTZiEypsFIJX2+/IdC3XXcy7lyUqclPK6tA3VgQcG91d/ex6R2ZT6
- fYfNTYBKAiZgP67y666Te8qgdk/KM7sP8UUvXQIITPxVK56B8ycBfiXo4YHgF/chegXdRraT
- 9AeZjd1KgzJfjVEO0sNCYJ4l+Ct7pX6W2IE9Q/O+/ppi4TV5BFf2eXHN8TzQOGDAuRvo0qDu
- mnbo3usV3n2M/Tak1Jp6EmEhOXCgCf6U4I6D6Cj+7hhh1j77nMXIA0bUx28u/bRol6zXZdTJ
- lIZ/gIqrLMu7wq7Q9/lRRq6rXWY+BkGVLJt//YS7QiMzu/e5VafD21dFDpZMoV56IkxWCAg0
- UKPk5XxHztzvbaJSHWbsLCJsTe1PitTJmgHDcMZcTY4DxDYiNlbpnryohxLScZZUvWd9enM/
- g23
-IronPort-HdrOrdr: A9a23:KIAjpaM4bcLGecBcT1P155DYdb4zR+YMi2TDiHoddfUFSKalfp
- 6V98jztSWatN/eYgBEpTmlAtj5fZq6z+8P3WBxB8baYOCCggeVxe5ZjbcKrweQeBEWs9Qtr5
- uIEJIOd+EYb2IK6voSiTPQe7hA/DDEytHPuQ639QYQcegAUdAF0+4WMHf4LqUgLzM2eKbRWa
- Dsr/Zvln6FQzA6f867Dn4KU6zqoMDKrovvZVojCwQ84AeDoDu04PqieiLolSs2Yndq+/MP4G
- LFmwv26uGKtOy68AbV0yv2445NkNXs59NfDIini9QTKB/rlgG0Db4RE4GqjXQQmqWC+VwqmN
- 7Dr1MJONly0WrYeiWPrR7ky2DboUITwk6n7WXdrWrooMT/Sj5/IdFGn5hlfhzQ7FdllM1g0Y
- pQtljp+KZ/PFflpmDQ9tLIXxZlmg6funw5i9MeiHRZTM83dKJRl4oC50lYea1wUB4S0LpXUd
- WGMfuspMq/KTihHjPkVyhUsZGRt00Ib1m7qhNogL3W79BU9EoJunfwivZv20voz6hNOqWs19
- 60TJiAq4s+PvP+TZgNc9vpEvHHfFAkf3r3QRGvCGWiMp07EFTwjLOyyIkJxYiRCe41Jd0J6d
- 78bG8=
+IronPort-Data: A9a23:o3ZJG6lX/9dIEEc5reaGqALo5gz1J0RdPkR7XQ2eYbSJt1+Wr1Gzt
+ xJJDGzTbquLZWHwc4ojaI3i8UMD68XQn9M3QVRvqX0xECMWpZLJC+rCIxarNUt+DCFioGGLT
+ Sk6QoOdRCzhZiaE/n9BCpC48T8kk/vgqoPUUIYoAAgoLeNfYHpn2EsLd9IR2NYy24DkWV/V4
+ LsenuWEULOb828sWo4rw/rrRCNH5JwebxtB4zTSzdgS1LPvvyF94KA3fMldHFOhKmVgJcaoR
+ v6r8V2M1jixEyHBqD+Suu2TnkUiGtY+NOUV45Zcc/DKbhNq/kTe3kunXRa1hIg+ZzihxrhMJ
+ NtxWZOYEg0nP43AuLomU1pyPA15ZZMbw6GcGC3q2SCT5xWun3rE5dxLVRlzGLJCv+F9DCdJ6
+ OASLy0LYlabneWqzbmnS+5qwMM+MM3sO4BZsXZlpd3bJa9+HdafHOOXuJkBhG9YasNmRJ4yY
+ +IDbjVidlLYagBnMVYLEpMu2uyvgxETdhUH8Q7N+fRsvwA/yiRw4YrBEPWOR+WOQNkIxWCHg
+ nngvELQV0Ry2Nu3jGDtHmiXrv/Cm2b3VZwfEJW89+V2mxuDy2oLEhoUWFCn5/6jhSaWWdhSN
+ kgV8SoGtrUp+QqgSdyVdwK8iG6JuFgbQdU4LgEhwASEy66R5hnDAGEBF2ZFcIZ/7JdwQiE23
+ FiUmd+vHSZorLCeVXOa8PGTsC+2Pi8Wa2QFYEfoUDc43jUqm6lr5jqnczqpOPfdYgHdcd0o/
+ w23kQ==
+IronPort-HdrOrdr: A9a23:EyIH0q+mFacnuU15s2huk+E+db1zdoMgy1knxilNoENuH/Bwxv
+ rFoB1E73TJYVYqN03IV+rwWpVoJkmsjaKdgLNhRItKOTOLhILGFvAH0WKP+V3d8k7Fh5NgPN
+ lbAs9D4bTLZDAV7PoSiDPIaerIq+P3lZxA692urEuEGmpRGtpdBkpCe3GmO3wzYDMDKYsyFZ
+ Ka6MYCjz28eU4PZsD+InUeReDMq/DCiZqjOHc9dlcawTjLqQntxK/xEhCe0BtbezRTwY06+W
+ yAtwDi/K2sv9yy1xeZ/W7O6JZ9nsfn17J4dbqxo/lQDg+pphejZYxnVbHHlDcpoNu34FJvq9
+ XIqwdIBbUA11rhOkWO5Tf90Qjp1zgjr1X4z0WDvHflqcvlABonFston+tiA1bkwntlmOs5/L
+ NA3mqfuZYSJwjHhj7B69/BUAwvvlaooEAljfUYgxVkIMEjgYdq3MMiFX5uYdk99HqQ0vFnLA
+ AuNrCW2B9uSyLXU5iD1VMfgOBFXRwIb2S7qwY5y4+oOgNt7Q9EJnsjtbAid0g7hewAouF/lo
+ L524RT5cRzp5wtHNZA7Nloe7rHNkX9BTTxDUm1HXPLUIk6BlOlke+G3Fxy3pDjRKA1
 X-IronPort-AV: E=Sophos;i="5.91,248,1647316800"; 
-   d="scan'208";a="74553686"
+   d="scan'208";a="71404634"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Lmemz62kWwu9+lRpPU0fvE3q8fxVBXSb6U2yTbpTsImKBSB63oxo5pxVHoPL4R9B8wxjiLfYD3whOf7a9qQp+lSVmRUi2ivJhKJrss1fIqitaxY+UGXDe4a1OIJOdo6iHi5yJAx4t0opWGrEq7Ot2l0QxUf1gw1S1CJu09DWTFgW0glKR4LeLyld75/b3c49eFUon3cK7bzBtgy0De4cug0t4vjQcC6o2RThMvuZLQXJUMjsktZMQtWjZE0gYZHYki19al0PZ+83q331Ip/P0Q8xkXDGTAYo8qoF36UnTvsBG03o36GCipwb56wOXLH0ezkKLzRDfDpnXUqQ3sghOw==
+ b=TMNMTybpOQC3ALUhEQ9X96+gp1C1R5Fcp9v6MS1Uc64D6M6GEEMeDPx6xBrR4+S01qh9rErfx0vaYQCcxBtKqRPhNTnk7dprwBm/GqjFpyPnTcquEzh5lz7XyklUOj94mtu5xBgNmwD6mKi/B8Qc4GyljBLkQO+Ds81lgeVz1qzrjubGQFKFHByyIQOnV/6G0tWnFkaQV9eAc86LjidsrpRdmz4O4GGEVqTA85fwMMVEhmqb4v2GP63NugzlIuQJLLuzBongMssByDcYWu9AOzF/w3TUi0FJ8bEx0X1A/+HMGWR3Jqun6Vg4tOImAKx4RPcpo5LY+wZQn2oraesjQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZkkL8uFAuJ6LjMwJxMrbILLKOgiqgw1iWo7SKl6Jy/U=;
- b=DVSok2xyoH3GRNA5Nsm/dsWA6rsUktd8KKulXKTU8HoRUKG5ocTuv6/sCEd1smI4wfNO40DKCXv2Hqk3HG7+FgGuPGxyv9GVxRs98r0N7yssorB0H6kXAu7CbK5hAI51oRmox0QiJB9rJn37sqHG33JjVbA9lRu4dJ6/hwhw5NuzzN4efeTKavMeRRC/ln0oLfl5Biru1CKf4F89s1zEjIZkih3qfvOJ0JD2ZqbLhx1+7IpeCG7aUU77iI++OTvExUv/mRZGSi7RBcRDhkiyDZvHeIZ9rOgUuePn14U7PKrtxcmITvQtZSm+HBB6x1Xmuv0YUQQY4LzshPUnJqRlUw==
+ bh=Cybg82+tSXW9GZoMvvUXlCaNCT87z5QGSCbDcrZvh5Q=;
+ b=XD4Ajtyq/NS8EwRgoxkTJTfM/mv3C2hcOU+ZIdIj98LQdiO6Tl5pJBELZ8piUKRYV4T9T+z8gVK30Jywkrvk2fdIM62EB99VBEvPlbKQ6R0HU4QUafVUjw6RwvVWV/zBYWGbL7RWamEdpAOSa3HFP1NNCO/PQEs/PJBQBebtRJb2/fXHTq5cexWKK1n9KX49WKBMY6XzAC2ZURIrRQ5UW0r6i4fWZTmjYPR7skZ5pOF/wQopIuHYrEZpv2sohEqoQRdPthry3geltS4Z679x/G4p7zUbKSVxIGI1Gpbm3WXh6Cil7lnh1La7jf3fqaX5KNOv0/fCNeD8HiSG6EtZEA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZkkL8uFAuJ6LjMwJxMrbILLKOgiqgw1iWo7SKl6Jy/U=;
- b=liEyap+wpWFCmBAP90WT2+S+xc9hicJpnjsgymP5oT6zHHiez2vVWWFDkJfbnEezoXvdmVh44nb+7t1O32hCQOhMTaWh1lHO9zixExUOyV7MipGag8M8S9Mbqe8ghsy1bVq6jMHJdtybMzWHUajatn7hH+ib7p23TYi30AYZtcw=
+ bh=Cybg82+tSXW9GZoMvvUXlCaNCT87z5QGSCbDcrZvh5Q=;
+ b=pFmY7n1JQLjkbFXLZHG0/cYuEgffa8nkiP7b2fYF5ls9NQr/XWzzNbEk6XGHptQ+GbCPIRkb6/WxEzsMTPbZAZwKsaRK9Asz423IYXVp45UxagnGaoWw5G9b4EVlug5Z8AM+2tTbIzSZAwlB+GNApJX4XIT0OtGVnDu/gJbh8zI=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Tue, 24 May 2022 12:48:51 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] x86/flushtlb: remove flush_area check on system state
-Message-ID: <Yoy4E1shM2BTlj10@Air-de-Roger>
-References: <20220516143116.28602-1-roger.pau@citrix.com>
- <c7878c92-41e7-4628-34b1-1cb409335bf1@suse.com>
- <YoucK13m0y3CqDl1@Air-de-Roger>
- <4b025fee-8f7e-1849-184e-1be8fb99442b@suse.com>
- <You1UKy20ofV8NgO@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v2] x86/flushtlb: remove flush_area check on system state
+Date: Tue, 24 May 2022 12:50:52 +0200
+Message-Id: <20220524105052.5210-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.36.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <You1UKy20ofV8NgO@Air-de-Roger>
-X-ClientProxiedBy: LO2P265CA0429.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:a0::33) To DS7PR03MB5608.namprd03.prod.outlook.com
+X-ClientProxiedBy: LO4P123CA0484.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a8::21) To DS7PR03MB5608.namprd03.prod.outlook.com
  (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a371d541-9217-488b-00d2-08da3d73001b
+X-MS-Office365-Filtering-Correlation-Id: a1bf97e5-54d8-4491-f713-08da3d735baa
 X-MS-TrafficTypeDiagnostic: BN8PR03MB4996:EE_
 X-Microsoft-Antispam-PRVS:
-	<BN8PR03MB4996FEBA0B2C15288F9F89E58FD79@BN8PR03MB4996.namprd03.prod.outlook.com>
+	<BN8PR03MB499658796DC6BB73C4C7896C8FD79@BN8PR03MB4996.namprd03.prod.outlook.com>
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	GczZVGx6UJsMGFeoHP3oZshVdAf1748xO6WnjZ0jlh2xEbGQ4Vsj8YOnNyZ22rt97eUdB+fR+aMz9rKSzVfjjytVCrmqYKykJhl0IoQD5cd8CbNbpSAFbBAjRU5Z2/TNEdMKDudIRiu7jyw8TVM7g7rCULv9as/Id64thKizh3t3Gvk6+nQR8F6CN+1BdGUnmgsxb8fMIPhJloWXWE5+H0nIkg0EzUdh+jNHrsH3V6iSpOzB+aINGqUQJwUBb1mjyZbtIJcAPuquJNKn5vUPs+Q8ASYz2Ft1i3HIsa0PpbJZSYSZWmfw6Ujssw2X9a74jkfIc0yjMwlzfwrAo2wnD+1IuoIVW91iXrq09cTTpZ19nar93+hjC8bLTBBuakXTCaig50YIEYdBiLiPlEcLUMt+wc2Jh4ZZuO+ep3TY7e4sJtA8ZPv9BbEjsFTAlkyYQfxqNL3MyBCrDW+bZrvIF0jE1bMha4fV8ymAGBgWBw1sWY3HF+lveU7uQyeiGJCXbPtVWai5FPz6SYtPWqfCBfJdt67P8+xC0LOZld2MnwEjZEdqhO1n+2pYHwgG1+llApMKBG2eoFFl46DAxkub/FlIq7/z3evCBcN2/WZxOHUryfO7zuS0tDtdHEnuObJLZ5WEOpYP0zpWxp2vzSi02w==
+	t4EmSKrWuMHdkUHfn3QySuqdE8tQXXRG09kC0WDd+PFuu54A8EHhRdgmCudiKSOuGrr18qeR+rfP0Wr+3aT2d147pWxzGNp0hNCDSkYlnkWJ580Ly13SvqasO94LNfErWDLDy6m19FFAWRZy4yN+1PWdFBAkxuOI0VxXFbUCPc+Tb6VlzIznIB9Tus8tL10XzlcvZnhRNyxB2YjXQU7ZwnEWlVzMROoqyDIhEUijmyOTrDmBo3QAQr6HKUZ0yRZXA0pOcHeELUN3fUm3fWDEIpFPDFYHmIBC1LtqP5ll9nywIRGM1zB7gk/VBubLxUK6+wkS/UIkr3Wje6krsMZY391l2vaAyEgiVyLIZew9cld8ObKeNAItsNiqFjzBRo4coB6rAQUtFG8nnKTBqSLHJUPvDB1qgLVrXPZFsHpXecjMjHmHQ6rSN6c4uRcWy2pZYf/2uDQx2CJLVgIukHPMXl+4wG3ReYV3UHzXzhmMauYyonvijt6P4EC5lEAh5kePW5odIMnefnMRffwZwGprjGaH/fVmB2U60aQC/f+3i9Lfborvnd59YI4kFmU1NfVCSa/r5LEP5pw2qpQHm4dnwso13iffL74K+ZhSuWz3pfgNdebqVnxpNQeOkk0DRArNTd5LaolvXjePZkNwqgVIXA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(6512007)(6916009)(54906003)(186003)(83380400001)(26005)(6506007)(53546011)(9686003)(85182001)(508600001)(6486002)(8936002)(5660300002)(2906002)(66556008)(66946007)(8676002)(4326008)(66476007)(82960400001)(6666004)(33716001)(316002)(86362001)(38100700002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(6512007)(6916009)(54906003)(186003)(83380400001)(26005)(6506007)(2616005)(1076003)(508600001)(6486002)(8936002)(5660300002)(2906002)(66556008)(66946007)(8676002)(4326008)(66476007)(82960400001)(6666004)(316002)(86362001)(36756003)(38100700002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WS9wcTZ1ZWtEdjFCQWdjNWE1N2FxTGRrYUF1dVZGZ2wvM3FNcEFmK3JHR2Jw?=
- =?utf-8?B?R0ZTMzlzMWloL1MzL0c2Wi95NmVpYUtBd0NDd2RDWTlwYStFY1UzUzRoYTJC?=
- =?utf-8?B?b2gxN1NLbllZU1kwdmlJalZ5dEtBa1Y5aXA4elphTGVwTEtER3NQSU1DNitt?=
- =?utf-8?B?UndxQUU1YWQ0TzF0aW5VQmc1ZitpbjRPbXBPaDZDSkNPU1F6RkJrNEhGM1ll?=
- =?utf-8?B?czZtREtKTmIwU2ZOelZKYUxSREJGUlVTa2lRb3JLNXprL1M4SnpjWjBWVmhn?=
- =?utf-8?B?cUlJeWJxaHdjSWRjekFHU0VZTFQ0N1RHK051SHgzdEMzYWZTNENGWERwbEl5?=
- =?utf-8?B?ZUpZaUNPMlNwTXBselRKN2liNzNGcFU4VlVwMk9iWkZ1OHh2Nk9DWU5Vd1RS?=
- =?utf-8?B?N1dVT2Nic3QvdjhmNmFPZE03bjNIeEs2TGpHMUxjQ2dNZHlOOGdaaUJ0cWNm?=
- =?utf-8?B?TFN5Uy9uaG1jZGRRL3FvZU8wbGFzaHViL1hQekVlQUdnSDM1Y052SEZmMEJT?=
- =?utf-8?B?M3pmQkF1bDVLdzlyZHpOKzk5S3Q5SUNPZG1nbXYveExLaGg4dWtuMURSVVll?=
- =?utf-8?B?V3RJWlBFVWhtNStkZitNcGpzTDVoSEtGVVpsdEw5MHNnRFFUWjRHVnUzeXh4?=
- =?utf-8?B?MTFHUlBsWU1UMTNOS29RRi9kSUFvREFNb2Y2ODJ0TDJSdkR3RkJ5SWk4bUlp?=
- =?utf-8?B?c0tNM2dwOHl4T2pwZmZaNHQzV3RsbTJZQ2M0SWRtQjJlNkhONXNxMUF3ank5?=
- =?utf-8?B?NVZaSjk5bDI4ZlRwK0ZITEZNcEl0Qm5LQXFpNUlmOERnd1Y1b3hEOVE3d2Vh?=
- =?utf-8?B?ZHYzZW92eSs0d1JsdHdSV2pTWDhHMXZhUlk3ZHI1ck9Fb1QyOHJQWC9wOTNz?=
- =?utf-8?B?OVdFbWZ2ZzhGWWtLSk5jb0pYMnpBbmR6RzZuRTAxTkhqWGtEYmN1cng5VXRO?=
- =?utf-8?B?RitYSTdTVFJQbHFXY0hHYy80bzV1WnFsUWRWeUwrejA1Rll1OGtqRDQrNWtO?=
- =?utf-8?B?bDE5TlNJcVZlOWxqelRPSXZSNWNzL29IYTA0Tzl5RSt4Q3lWblZ6SHY0VVB5?=
- =?utf-8?B?N0Fvb3FscXMwTlMzdnpNbFAzLzlBN2tKWHRRVDFIS2xaWGxwelhhSHFIcFAv?=
- =?utf-8?B?ZnU4aTdXT1k1S3ltTXJOVmFnVklKRFhUZW4wZjVGam5MaDIwaTZLQ2FNQjQx?=
- =?utf-8?B?Sld3N2FDOUhCZ3hFUm1uMitHWFBVUExUTW1FZE1CNU1Gck9pRGpqU1ZsZ3k1?=
- =?utf-8?B?cU9vU0k1ZEVVeFpSMGJ5UDVNUFZ5akFDbVJkMEY4N2dVNyt2R0N6YVM2ZUdQ?=
- =?utf-8?B?a0R5S3ZzbzJoWmEwL0s1MDQydWplV3NMT1Z2bXY4V2VVdXZYblZhV0J0a1Y2?=
- =?utf-8?B?b2FqbUdlb0RvMzNCNmc0VVdMcFJRaEZsdm52VENkeW40WFM0QWRqTFZDejRs?=
- =?utf-8?B?bzhHU3pyQXdYWHZVVTZWSlZBbTEwWGZzZFIyUitCaEdoWTFzQ1d0bVpmWjdQ?=
- =?utf-8?B?OXM1d2tUalVvQnZRenEybkc1Q3cwdms1VGx6S0dLOHdjTGZGMHpnUFZaT09w?=
- =?utf-8?B?L0tlak9WR081SDBteElDMkpnWi9wNGlpOFBiQVlXMnpWb0N6TzZMZHRiQXVQ?=
- =?utf-8?B?NnhPZEs2TWt6ZG1yaTRNMlRST3pZM3FyamhxUXgvWklXeHl4L0RRUVFKTkNi?=
- =?utf-8?B?OW1hNzRuZ2p2MU51RFM2STcvRGJsc2lkMllsem5BS3ZkKzhtTW1vRmJ1cnc2?=
- =?utf-8?B?TGFGMElLVWlaMzd3SEo2RGJXYWVxUGRJSWF3cTNFejU1d25FOUwrTFNFcndx?=
- =?utf-8?B?TFl3OS8yUkN4NzFlS3F6cXlEVVlINEUvcG5IL3ptMENpdGFzc3ZGdXNOMWtk?=
- =?utf-8?B?TmN5allLay9aM29rajFZWndYK25BTnpSam4zRkNORU5nbGhaN3M2Sm9zRGxi?=
- =?utf-8?B?V3lmK2hKamJlc1g1dmExWGpXWU52MHBUS1VpelQ1R3ZoZjM4ZVg4dndva2dQ?=
- =?utf-8?B?eTFnOW5HcHNIa0k3N3JNR1dCNTRaQUVKMjR4YlUrOEhCMFFIbmR1SGVMejlw?=
- =?utf-8?B?bW9BWjA5cjNQa0JLYVoxNWI1b0p5YjBzRHdIK2ppbzFuUWpHeU1MVVdLTDhp?=
- =?utf-8?B?S3laZzFVUFo2aVZGSU8xS1hmTGl0NHZ3OHFPZGE1WGNEZkUxS2RCYnJ0blcv?=
- =?utf-8?B?dDBVM2tiME1JcWt6QzRHdGdiRUo2WUE0VVNCMENkM3hjb0p6TzhZRnBmdGlU?=
- =?utf-8?B?NUlPNy9UTHFaUU5IYWtMSUFRS05GSjV2QWRJOW9Ed20rL2tYYnNvVTdaSG1M?=
- =?utf-8?B?d1ZPTmlONzdxNHJYRWpFS1hQY2s3TnlnL3ZTUWxUb0hmNWpUdFUvZVoya3JU?=
- =?utf-8?Q?eGzqXrj93yxb6wWg=3D?=
+	=?utf-8?B?QkxYVkQ1NXE3L1U4Y2YraWVhM25relFUTzFTVFZ5VXN4SmZtd2g1RWMyMUNh?=
+ =?utf-8?B?Ylc2cS8xeUxzMTd6MEo1ZTBtU3ZvWWhqZFNGeTd4aWJid0RNVndFWjBpN3E3?=
+ =?utf-8?B?aE9ON3Q1SzlSbGJXOWhqcDU4UlRGd3RzdjU5SVYwNkNkTGZUMDMzZmQxOG5z?=
+ =?utf-8?B?N1c1dEdLbUp1TC9PRlRXWnkyYVNoM3Q0K0tZeVNha1c5L3p0ZmNLRmhpOEh1?=
+ =?utf-8?B?YlR4TitNYWg4Z0RFK2FOT1ZyUDNtRGFEcmN0U1VibE5XaXhnb212dEVQYmY4?=
+ =?utf-8?B?dld2N1FRanZOcGx6SjMrUVB3U2llYy9UVFVoVnA3Z2RqV21BRVVmLzRINFhM?=
+ =?utf-8?B?V2w5dUQwVk8vSW84Y1NCRWt3bmN2aGdhZlJuNCtIRDRxRXJmQnRCTm13OW5M?=
+ =?utf-8?B?NTZvYk5hYzVreGRtKzNoTFowQkhIUlZIc3krMjVMMmVoYkUwN2lDdUNVNFhI?=
+ =?utf-8?B?U2VtUDdaS3RKeWRUZFNZZjZRUC9MQ2Z4Y3EvcTJ0bTVOYXlTMFBsQ0JtTTU0?=
+ =?utf-8?B?TjJxMm9TL1M4UWZiNjV0TmRlRU5acnBtVlFsQlo0UFhYVEhPZm9VS3JVWkFw?=
+ =?utf-8?B?QWwyTEErUkx4TlZoekpKUDdRaVdxcWZmWEd5SWtBak9PY0FvNFJuMzkxb0hJ?=
+ =?utf-8?B?TmZJV3VaNG9URjI0M3dGZnNNUHB2R3VhbnBQU0JuRWk2SzN1TFlBalVLQWYy?=
+ =?utf-8?B?Sm1BRlpId1crSlloZjVYNXJRaFllK2FkRVRtMVhvZEpxWE9IYkgwbFBjL01J?=
+ =?utf-8?B?VWJNN2tZc1hiR1ZHZkVRd1FSR2FOTmZ0cGw5ejFhUzE0NVptUXhLS21XMTFS?=
+ =?utf-8?B?RGxtVDh2ZHhMZGFhczBtdHZUQU9PWDBkWEcvV3hNWUxmdzFPK200NXdsOFVs?=
+ =?utf-8?B?dXdqR2JUcUVYOVIvc2VmNFo1bWIvZ3NTZGt0UWR5c2grNEo2UW9qRFkxTWJ5?=
+ =?utf-8?B?MTdEaTVwZDhPY1RTM1FKQldjUUFQSENKV1V2RjlDMzFDOS9MS2VIT3hxVXNo?=
+ =?utf-8?B?RFJqSEdlTlRsbUFzY2s1Z1RkbVljRlNuZ3N3Rm43LzlLS3NvRFpWVStKeEpJ?=
+ =?utf-8?B?em4xL2oxV1FpdWZncXk4SFh0OXc5eVFCS1JtU3ZvZGljMk5seW5NdVUrbEU1?=
+ =?utf-8?B?d2dwZXZNK2c0Y2lldkczT0F1MGZ2RHVpL3dCbncwL1BzV1dlRWQzSmd4eXhl?=
+ =?utf-8?B?eGNGRDUrbnJnMExIL1d2RWtObWV3SVZNaDcvaXVETHArS2VwU011ZUI2WWJN?=
+ =?utf-8?B?cDhGb1p1OUhxc21GNE9sZ3ljckM4UzJNQ2lXU1c0SVBJVHBlL3ZTcXB5bEVq?=
+ =?utf-8?B?eHNEOUtUODJ5QXRUenFGMHRZbUtkRDhhOXRxTUlqREd6ZjY2aE5ISmJZdGdG?=
+ =?utf-8?B?d2NPeks3cURNU3pVcmNGSm5NWlVYNlgzSzJOV3J3ZVVCMnpnWHU3UnNnSlZM?=
+ =?utf-8?B?UDNhK1pGa282RG1Xa3cxVmJUVGxjWElRVFQ2NG1HZ3hiam1jU2RDenRSMytH?=
+ =?utf-8?B?V1dPVGdrY3pldU5IK0JzWWEyVjVZVDFkVkJNWklVbHhSNWpEU0MrL1JDcXF4?=
+ =?utf-8?B?SXJJSHFwYlFMQ1hocVlka2NIanh3OE41RHh1WGQ0WlY0SkdXZ1hBQUdIMnRJ?=
+ =?utf-8?B?R1JHVlF4bmlvRFpSNU5oT2VUcHJqek51SFFpaU1uaWNISTlnSUpFTVN0aFZC?=
+ =?utf-8?B?ajVCNVFyRDRHTERITGZYSHdUVmU1SUJxV2xUSFoyU2NnRzFyWVMzdjR0WFRx?=
+ =?utf-8?B?SXBhQkxPZWRsM0RDWGx4di9iYzZITjVKc1lWRGdXZUtXVGRGcG1vcVFFTW1O?=
+ =?utf-8?B?ZUdCL1V5S2VnM3l3VExtdlJEOS9QWEtZUlhLenJyVkdmZnhsOFpodGt0YjE0?=
+ =?utf-8?B?UlEzRFBKdTNEQmhkbXRnSmpQR3hIZW1xZkRwWUUxV3QzSHdyYzhQUU1wRU9X?=
+ =?utf-8?B?V1JQUVVaekQ3a0trc2crYzlZY29ITitoM0JSRDNKV0gzVWtBSkFrdy9uKzkx?=
+ =?utf-8?B?NFZ0WlRCaVE5V01FVlNVOEs3RmR3Z1dtbk8vWnZRbHUwVDlMalpMdjBXZ2RL?=
+ =?utf-8?B?d05uWmpxQ3diYXRnWWpZK1RndzB6bHdYa0FGeWhSR1c0TzRPSnRHSTgyWE9T?=
+ =?utf-8?B?V2U3aXRZQWRFT2Z3V2RZbkcrdm5sSThlT1F2ZmNOSWsza2xpd1ExQ2xKYVMz?=
+ =?utf-8?B?ZWRsaW1rUFN1TUF5L29KS281MXFNU2F3V1F1cUc1b2dZdWpsNUtqU0I1eFR1?=
+ =?utf-8?B?Zk41angwSFJWMDJ3aFBuM3ZSVHFsWWRLUEtyZXl0YXFpVlZlVzdydUhzeTJu?=
+ =?utf-8?B?WXBKVGFNUk5mSEo2cTh4VnY3VlA4V2V0OWFleXVQK2pjVS9DSFBobGFMbkFY?=
+ =?utf-8?Q?hRC0XxMxJbMCXzy8=3D?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a371d541-9217-488b-00d2-08da3d73001b
+X-MS-Exchange-CrossTenant-Network-Message-Id: a1bf97e5-54d8-4491-f713-08da3d735baa
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2022 10:48:56.0524
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2022 10:51:29.6373
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EzkxdSv+Wv96GDEVR6VwLrIXU86npwFId2erxXQKZF4NVQZgb1KWNx0qqPKvS7pfi/BaUqzW3H38bRvuJjHrZg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: Q2q/F0kXFJeZ3Y9+XrQ2QbydqKZTF7035DeqEeJeZOa+Qht7P1iIBqraf04P73/mLm6oWTLa8xF694lWVTH04w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR03MB4996
 
-On Mon, May 23, 2022 at 06:24:48PM +0200, Roger Pau Monné wrote:
-> On Mon, May 23, 2022 at 05:13:43PM +0200, Jan Beulich wrote:
-> > On 23.05.2022 16:37, Roger Pau Monné wrote:
-> > > On Wed, May 18, 2022 at 10:49:22AM +0200, Jan Beulich wrote:
-> > >> On 16.05.2022 16:31, Roger Pau Monne wrote:
-> > >>> --- a/xen/arch/x86/smp.c
-> > >>> +++ b/xen/arch/x86/smp.c
-> > >>> @@ -262,7 +262,8 @@ void flush_area_mask(const cpumask_t *mask, const void *va, unsigned int flags)
-> > >>>  {
-> > >>>      unsigned int cpu = smp_processor_id();
-> > >>>  
-> > >>> -    ASSERT(local_irq_is_enabled());
-> > >>> +    /* Local flushes can be performed with interrupts disabled. */
-> > >>> +    ASSERT(local_irq_is_enabled() || cpumask_equal(mask, cpumask_of(cpu)));
-> > >>
-> > >> Further down we use cpumask_subset(mask, cpumask_of(cpu)),
-> > >> apparently to also cover the case where mask is empty. I think
-> > >> you want to do so here as well.
-> > > 
-> > > Hm, yes.  I guess that's cheaper than adding an extra:
-> > > 
-> > > if ( cpumask_empty() )
-> > >     return;
-> > > 
-> > > check at the start of the function.
-> > > 
-> > >>>      if ( (flags & ~(FLUSH_VCPU_STATE | FLUSH_ORDER_MASK)) &&
-> > >>>           cpumask_test_cpu(cpu, mask) )
-> > >>
-> > >> I suppose we want a further precaution here: Despite the
-> > >> !cpumask_subset(mask, cpumask_of(cpu)) below I think we want to
-> > >> extend what c64bf2d2a625 ("x86: make CPU state flush requests
-> > >> explicit") and later changes (isolating uses of FLUSH_VCPU_STATE
-> > >> from other FLUSH_*) did and exclude the use of FLUSH_VCPU_STATE
-> > >> for the local CPU altogether.
-> > > 
-> > > If we really want to exclude the use of FLUSH_VCPU_STATE for the local
-> > > CPU, we might wish to add this as a separate ASSERT, so that such
-> > > checking doesn't depend on !local_irq_is_enabled():
-> > > 
-> > > ASSERT(local_irq_is_enabled() || cpumask_subset(mask, cpumask_of(cpu));
-> > > ASSERT(!cpumask_subset(mask, cpumask_of(cpu)) || !(flags & FLUSH_VCPU_STATE));
+Booting with Shadow Stacks leads to the following assert on a debug
+hypervisor:
 
-Actually, it would seem even more accurate to use:
+Assertion 'local_irq_is_enabled()' failed at arch/x86/smp.c:265
+----[ Xen-4.17.0-10.24-d  x86_64  debug=y  Not tainted ]----
+CPU:    0
+RIP:    e008:[<ffff82d040345300>] flush_area_mask+0x40/0x13e
+[...]
+Xen call trace:
+   [<ffff82d040345300>] R flush_area_mask+0x40/0x13e
+   [<ffff82d040338a40>] F modify_xen_mappings+0xc5/0x958
+   [<ffff82d0404474f9>] F arch/x86/alternative.c#_alternative_instructions+0xb7/0xb9
+   [<ffff82d0404476cc>] F alternative_branches+0xf/0x12
+   [<ffff82d04044e37d>] F __start_xen+0x1ef4/0x2776
+   [<ffff82d040203344>] F __high_start+0x94/0xa0
 
-ASSERT(!cpumask_test_cpu(cpu, mask) || !(flags & FLUSH_VCPU_STATE));
 
-Thanks, Roger.
+This is due to SYS_STATE_smp_boot being set before calling
+alternative_branches(), and the flush in modify_xen_mappings() then
+using flush_area_all() with interrupts disabled.  Note that
+alternative_branches() is called before APs are started, so the flush
+must be a local one (and indeed the cpumask passed to
+flush_area_mask() just contains one CPU).
+
+Take the opportunity to simplify a bit the logic and intorduce
+flush_area_all() as an alias for flush_area_mask(&cpu_online_map...),
+taking into account that cpu_online_map just contains the BSP before
+APs are started.  This requires widening the assert in
+flush_area_mask() to allow being called with interrupts disabled as
+long as it's strictly a local only flush.
+
+The overall result is that a conditional can be removed from
+flush_area().
+
+While there also introduce an ASSERT to check that a vCPU state flush
+is not issued for the local CPU only.
+
+Fixes: (78e072bc37 'x86/mm: avoid inadvertently degrading a TLB flush to local only')
+Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+Changes since v1:
+ - Add an extra assert.
+ - Rename flush_area() to flush_area_all().
+---
+ xen/arch/x86/include/asm/flushtlb.h |  3 ++-
+ xen/arch/x86/mm.c                   | 32 +++++++++++------------------
+ xen/arch/x86/smp.c                  |  5 ++++-
+ 3 files changed, 18 insertions(+), 22 deletions(-)
+
+diff --git a/xen/arch/x86/include/asm/flushtlb.h b/xen/arch/x86/include/asm/flushtlb.h
+index 18777f1d4c..f0094bf747 100644
+--- a/xen/arch/x86/include/asm/flushtlb.h
++++ b/xen/arch/x86/include/asm/flushtlb.h
+@@ -146,7 +146,8 @@ void flush_area_mask(const cpumask_t *, const void *va, unsigned int flags);
+ #define flush_mask(mask, flags) flush_area_mask(mask, NULL, flags)
+ 
+ /* Flush all CPUs' TLBs/caches */
+-#define flush_area_all(va, flags) flush_area_mask(&cpu_online_map, va, flags)
++#define flush_area_all(va, flags) \
++    flush_area_mask(&cpu_online_map, (const void *)(va), flags)
+ #define flush_all(flags) flush_mask(&cpu_online_map, flags)
+ 
+ /* Flush local TLBs */
+diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
+index 72dbce43b1..96d95a07cd 100644
+--- a/xen/arch/x86/mm.c
++++ b/xen/arch/x86/mm.c
+@@ -5070,14 +5070,6 @@ l1_pgentry_t *virt_to_xen_l1e(unsigned long v)
+ #define l1f_to_lNf(f) (((f) & _PAGE_PRESENT) ? ((f) |  _PAGE_PSE) : (f))
+ #define lNf_to_l1f(f) (((f) & _PAGE_PRESENT) ? ((f) & ~_PAGE_PSE) : (f))
+ 
+-/*
+- * map_pages_to_xen() can be called early in boot before any other
+- * CPUs are online. Use flush_area_local() in this case.
+- */
+-#define flush_area(v,f) (system_state < SYS_STATE_smp_boot ?    \
+-                         flush_area_local((const void *)v, f) : \
+-                         flush_area_all((const void *)v, f))
+-
+ #define L3T_INIT(page) (page) = ZERO_BLOCK_PTR
+ 
+ #define L3T_LOCK(page)        \
+@@ -5213,7 +5205,7 @@ int map_pages_to_xen(
+                 if ( l3e_get_flags(ol3e) & _PAGE_PSE )
+                 {
+                     flush_flags(lNf_to_l1f(l3e_get_flags(ol3e)));
+-                    flush_area(virt, flush_flags);
++                    flush_area_all(virt, flush_flags);
+                 }
+                 else
+                 {
+@@ -5236,7 +5228,7 @@ int map_pages_to_xen(
+                             unmap_domain_page(l1t);
+                         }
+                     }
+-                    flush_area(virt, flush_flags);
++                    flush_area_all(virt, flush_flags);
+                     for ( i = 0; i < L2_PAGETABLE_ENTRIES; i++ )
+                     {
+                         ol2e = l2t[i];
+@@ -5310,7 +5302,7 @@ int map_pages_to_xen(
+             }
+             if ( locking )
+                 spin_unlock(&map_pgdir_lock);
+-            flush_area(virt, flush_flags);
++            flush_area_all(virt, flush_flags);
+ 
+             free_xen_pagetable(l2mfn);
+         }
+@@ -5336,7 +5328,7 @@ int map_pages_to_xen(
+                 if ( l2e_get_flags(ol2e) & _PAGE_PSE )
+                 {
+                     flush_flags(lNf_to_l1f(l2e_get_flags(ol2e)));
+-                    flush_area(virt, flush_flags);
++                    flush_area_all(virt, flush_flags);
+                 }
+                 else
+                 {
+@@ -5344,7 +5336,7 @@ int map_pages_to_xen(
+ 
+                     for ( i = 0; i < L1_PAGETABLE_ENTRIES; i++ )
+                         flush_flags(l1e_get_flags(l1t[i]));
+-                    flush_area(virt, flush_flags);
++                    flush_area_all(virt, flush_flags);
+                     unmap_domain_page(l1t);
+                     free_xen_pagetable(l2e_get_mfn(ol2e));
+                 }
+@@ -5415,7 +5407,7 @@ int map_pages_to_xen(
+                 }
+                 if ( locking )
+                     spin_unlock(&map_pgdir_lock);
+-                flush_area(virt, flush_flags);
++                flush_area_all(virt, flush_flags);
+ 
+                 free_xen_pagetable(l1mfn);
+             }
+@@ -5430,7 +5422,7 @@ int map_pages_to_xen(
+                 unsigned int flush_flags = FLUSH_TLB | FLUSH_ORDER(0);
+ 
+                 flush_flags(l1e_get_flags(ol1e));
+-                flush_area(virt, flush_flags);
++                flush_area_all(virt, flush_flags);
+             }
+ 
+             virt    += 1UL << L1_PAGETABLE_SHIFT;
+@@ -5481,7 +5473,7 @@ int map_pages_to_xen(
+                                                         l1f_to_lNf(flags)));
+                     if ( locking )
+                         spin_unlock(&map_pgdir_lock);
+-                    flush_area(virt - PAGE_SIZE,
++                    flush_area_all(virt - PAGE_SIZE,
+                                FLUSH_TLB_GLOBAL |
+                                FLUSH_ORDER(PAGETABLE_ORDER));
+                     free_xen_pagetable(l2e_get_mfn(ol2e));
+@@ -5532,7 +5524,7 @@ int map_pages_to_xen(
+                                                     l1f_to_lNf(flags)));
+                 if ( locking )
+                     spin_unlock(&map_pgdir_lock);
+-                flush_area(virt - PAGE_SIZE,
++                flush_area_all(virt - PAGE_SIZE,
+                            FLUSH_TLB_GLOBAL |
+                            FLUSH_ORDER(2*PAGETABLE_ORDER));
+                 free_xen_pagetable(l3e_get_mfn(ol3e));
+@@ -5784,7 +5776,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+                 l2e_write_atomic(pl2e, l2e_empty());
+                 if ( locking )
+                     spin_unlock(&map_pgdir_lock);
+-                flush_area(NULL, FLUSH_TLB_GLOBAL); /* flush before free */
++                flush_area_all(NULL, FLUSH_TLB_GLOBAL); /* flush before free */
+                 free_xen_pagetable(l1mfn);
+             }
+             else if ( locking )
+@@ -5829,7 +5821,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+                 l3e_write_atomic(pl3e, l3e_empty());
+                 if ( locking )
+                     spin_unlock(&map_pgdir_lock);
+-                flush_area(NULL, FLUSH_TLB_GLOBAL); /* flush before free */
++                flush_area_all(NULL, FLUSH_TLB_GLOBAL); /* flush before free */
+                 free_xen_pagetable(l2mfn);
+             }
+             else if ( locking )
+@@ -5837,7 +5829,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
+         }
+     }
+ 
+-    flush_area(NULL, FLUSH_TLB_GLOBAL);
++    flush_area_all(NULL, FLUSH_TLB_GLOBAL);
+ 
+ #undef FLAGS_MASK
+     rc = 0;
+diff --git a/xen/arch/x86/smp.c b/xen/arch/x86/smp.c
+index 0a02086966..b42603c351 100644
+--- a/xen/arch/x86/smp.c
++++ b/xen/arch/x86/smp.c
+@@ -262,7 +262,10 @@ void flush_area_mask(const cpumask_t *mask, const void *va, unsigned int flags)
+ {
+     unsigned int cpu = smp_processor_id();
+ 
+-    ASSERT(local_irq_is_enabled());
++    /* Local flushes can be performed with interrupts disabled. */
++    ASSERT(local_irq_is_enabled() || cpumask_subset(mask, cpumask_of(cpu)));
++    /* Exclude use of FLUSH_VCPU_STATE for the local CPU. */
++    ASSERT(!cpumask_test_cpu(cpu, mask) || !(flags & FLUSH_VCPU_STATE));
+ 
+     if ( (flags & ~(FLUSH_VCPU_STATE | FLUSH_ORDER_MASK)) &&
+          cpumask_test_cpu(cpu, mask) )
+-- 
+2.36.0
+
 
