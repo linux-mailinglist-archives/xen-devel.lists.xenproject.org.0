@@ -2,42 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 068AB53241E
-	for <lists+xen-devel@lfdr.de>; Tue, 24 May 2022 09:32:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.336167.560506 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFC88532481
+	for <lists+xen-devel@lfdr.de>; Tue, 24 May 2022 09:55:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.336360.560662 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntP1p-0002cl-Pi; Tue, 24 May 2022 07:32:29 +0000
+	id 1ntPNe-0004hQ-0F; Tue, 24 May 2022 07:55:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 336167.560506; Tue, 24 May 2022 07:32:29 +0000
+Received: by outflank-mailman (output) from mailman id 336360.560662; Tue, 24 May 2022 07:55:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntP1p-0002a7-MJ; Tue, 24 May 2022 07:32:29 +0000
-Received: by outflank-mailman (input) for mailman id 336167;
- Tue, 24 May 2022 07:32:28 +0000
+	id 1ntPNd-0004eF-Rm; Tue, 24 May 2022 07:55:01 +0000
+Received: by outflank-mailman (input) for mailman id 336360;
+ Tue, 24 May 2022 07:55:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jpOU=WA=citrix.com=prvs=1362cb858=roger.pau@srs-se1.protection.inumbo.net>)
- id 1ntP1n-0002a1-Rc
- for xen-devel@lists.xenproject.org; Tue, 24 May 2022 07:32:28 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a783321a-db33-11ec-bd2c-47488cf2e6aa;
- Tue, 24 May 2022 09:32:26 +0200 (CEST)
-Received: from mail-co1nam11lp2168.outbound.protection.outlook.com (HELO
- NAM11-CO1-obe.outbound.protection.outlook.com) ([104.47.56.168])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 24 May 2022 03:32:22 -0400
-Received: from DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
- by MN2PR03MB5328.namprd03.prod.outlook.com (2603:10b6:208:1e2::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.15; Tue, 24 May
- 2022 07:32:19 +0000
-Received: from DS7PR03MB5608.namprd03.prod.outlook.com
- ([fe80::5df3:95ce:4dfd:134e]) by DS7PR03MB5608.namprd03.prod.outlook.com
- ([fe80::5df3:95ce:4dfd:134e%5]) with mapi id 15.20.5273.023; Tue, 24 May 2022
- 07:32:18 +0000
+ <SRS0=n1r1=WA=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1ntPNc-0004e2-Sm
+ for xen-devel@lists.xenproject.org; Tue, 24 May 2022 07:55:01 +0000
+Received: from EUR02-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur02on060b.outbound.protection.outlook.com
+ [2a01:111:f400:fe05::60b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cf8637b9-db36-11ec-bd2c-47488cf2e6aa;
+ Tue, 24 May 2022 09:55:00 +0200 (CEST)
+Received: from AS9PR04CA0099.eurprd04.prod.outlook.com (2603:10a6:20b:50e::22)
+ by PAXPR08MB6910.eurprd08.prod.outlook.com (2603:10a6:102:132::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.19; Tue, 24 May
+ 2022 07:54:58 +0000
+Received: from AM5EUR03FT051.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:50e:cafe::fe) by AS9PR04CA0099.outlook.office365.com
+ (2603:10a6:20b:50e::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.23 via Frontend
+ Transport; Tue, 24 May 2022 07:54:58 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM5EUR03FT051.mail.protection.outlook.com (10.152.16.246) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5273.14 via Frontend Transport; Tue, 24 May 2022 07:54:56 +0000
+Received: ("Tessian outbound 9a0893f586e2:v119");
+ Tue, 24 May 2022 07:54:56 +0000
+Received: from 98c5cdd63b57.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ FDC5B9E4-1F08-48EE-BC04-DA0092F08C9C.1; 
+ Tue, 24 May 2022 07:54:50 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 98c5cdd63b57.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 24 May 2022 07:54:50 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
+ by AM9PR08MB6851.eurprd08.prod.outlook.com (2603:10a6:20b:305::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.16; Tue, 24 May
+ 2022 07:54:49 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::d9f0:12ef:bfa3:3adb]) by AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::d9f0:12ef:bfa3:3adb%5]) with mapi id 15.20.5273.023; Tue, 24 May 2022
+ 07:54:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,234 +72,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a783321a-db33-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1653377545;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=DJPI6nT9lNiSBOnsC/zslK8lor/L3YsvuIrjuGviS4M=;
-  b=EwJcV35UNOKZ347RZWm/qISH8Ukdm6f3vQZAqBKrCmnYQJJSbUPjC71I
-   udgjvAr/ZqeDqyqJOrrcwoToCOZKjlv3aMJ4gd3XIVkoVY/Y9j+IkrYhS
-   FyRiaI/biwc6TxTyO+EzzU3Uusi0URXkzmYVEWBpOv5cvZ4dJNFmf/8/u
-   o=;
-X-IronPort-RemoteIP: 104.47.56.168
-X-IronPort-MID: 72029938
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:hHB8ka6avmWM+cGsUXi/VQxRtEzGchMFZxGqfqrLsTDasY5as4F+v
- jccDWCPOqqONDDyfYx+O4Tj9U0Hup7RyYRiSVQ//yw0Hi5G8cbLO4+Ufxz6V8+wwmwvb67FA
- +E2MISowBUcFyeEzvuVGuG96yE6j8lkf5KkYAL+EnkZqTRMFWFw0HqPp8Zj2tQy2YXjX1vU0
- T/Pi5a31GGNimYc3l08s8pvmDs31BglkGpF1rCWTakjUG72zxH5PrpGTU2CByKQrr1vNvy7X
- 47+IISRpQs1yfuP5uSNyd4XemVSKlLb0JPnZnB+A8BOiTAazsA+PzpS2FPxpi67hh3Q9+2dx
- umhurSWcyACJLTXkdgceCNSKRtuB40Z/rL+dC3XXcy7lyUqclPK6tA3VQQdGtRd/ex6R2ZT6
- fYfNTYBKAiZgP67y666Te8qgdk/KM7sP8UUvXQIITPxVK56B8ycBfiUo4YGjF/chegXdRraT
- 9AeZjd1KgzJfjVEO0sNCYJ4l+Ct7pX6W2IC8AjE9PFni4TV5AZ82ZLXHvzMRt2Xd9tcnGaBi
- 3nB9k2sV3n2M/Tak1Jp6EmEhOXCgCf6U4I6D6Cj+7hhh1j77nMXIA0bUx28u/bRol6zXZdTJ
- lIZ/gIqrLMu7wq7Q9/lRRq6rXWY+BkGVLJt//YS7QiMzu/f5F+fD21dFzpZMoV45IkxWCAg0
- UKPk5XxHztzvbaJSHWbsLCJsTe1PitTJmgHDcMZcTY4DxDYiNlbpnryohxLSsZZUvWd9enM/
- g23
-IronPort-HdrOrdr: A9a23:qfk6CaBPf5rkdQ7lHeg+sceALOsnbusQ8zAXPh9KJCC9I/bzqy
- nxpp8mPH/P5wr5lktQ/OxoHJPwOU80kqQFmrX5XI3SJTUO3VHFEGgM1+vfKlHbak7DH6tmpN
- 1dmstFeaLN5DpB/KHHCWCDer5PoeVvsprY49s2p00dMT2CAJsQizuRZDzrcHGfE2J9dOcE/d
- enl4N6jgvlXU5SQtWwB3EDUeSGj9rXlKj+aRpDIxI88gGBgR6h9ba/SnGjr1wjegIK5Y1n3X
- nOkgT/6Knmm/anyiXE32uWy5hNgtPuxvZKGcTJoMkILTfHjBquee1aKvW/lQFwhNvqxEchkd
- HKrRtlF8Nv60nJdmXwmhfp0xmI6kdb11bSjXujxVfzq83wQzw3T+Bbg5hCTxff4008+Plhza
- NixQuixtVqJCKFuB64y8nDVhlsmEbxi2Eli/Qvg3tWVpZbQKNNrLYY4FheHP47bW7HAbgcYa
- hT5fznlbZrmQvwVQGbgoAv+q3gYp0LJGbJfqBY0fblkQS/nxhCvj4lLYIk7zI9HakGOuh5Dt
- T/Q9pVfY51P78rhIJGdZA8qJiMexrwqSylChPgHX3XUIc6Blnql7nbpJ0I2cDCQu178HJ1ou
- WKbG9l
-X-IronPort-AV: E=Sophos;i="5.91,248,1647316800"; 
-   d="scan'208";a="72029938"
+X-Inumbo-ID: cf8637b9-db36-11ec-bd2c-47488cf2e6aa
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
+ b=b6L8jXnHLpL5vKq/GYxvuphxjOJNbOFpi7iCwga1FoxBtDS1cdzEXw/oXuqTOEAWOhqJDPZAJ92RkA/4Fjmk/KqKkKgWwET/6TGOxI/5IC8wpvt5zgP8mqmmvWjHi2QnwCrlExz9pPvtnmDjDHxDc6r1o5HldbY3vcE2NKMreFzUAWwHCHZSGctHqR8qREFi043pScneD1g02W4OGmbgJo7M+yLoaUnkMEUlKoH7mK+/uH+X+HNCk97uZnZRAEI2/00hcAMmeShU4oS3h7IuASib1ZvJxAPqCgLWyxWIQNtRTJu1M3S9atAz9vRDop9A905PMjFa0XySWlSDqpJEdg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=v45FNKZHlF0GnLYYuSmMGrMkCffo4bOgTyZdlwQFxP4=;
+ b=UQFLv5FnmANDvughLj0L1QF4qocGLMK47iS+daKgK7mW3MBML4NDn15/RRzwoGU0g/gGBuYSxBsW0h3d+VxugSkVc6lHY3nk2EFot9uUjqhlLr77tZtMOdfWuxEgVHfxDT7zgw/ZFsps3XN2lMhHM+OM0jvkWzYVk8mfCofEHC8fxyHX2+kVh2KCqg/MAooU3rdbDpc6oL4eHaxE3o2F12sPJ3XJ6A3AWxN24gyiIU08ELxwTssfN5QKFurHH1b7g5ntw2mKAb+QEYnjPDlzVuc0RbQqc30I8N9bNieInOrc+cQCTH/MbQ+VlWVJr3ed8aqYiYHVUkhB+g6sleZGPA==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=bestguesspass action=none header.from=arm.com; dkim=timeout (key query
+ timeout) header.d=armh.onmicrosoft.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=v45FNKZHlF0GnLYYuSmMGrMkCffo4bOgTyZdlwQFxP4=;
+ b=EP4llLCzmdgc8l9ulxgEY0sleJ0IThkLbQXkhdtM+HTdGNitjUeWw1kXiUiPgxyfByw3yB9kMZpYJJqUiQ2dmDq78BxLRnPa8m0aYKVkZhVc6OHX2wGg4KDvs/bM+sjyXLlj3Qkbkq9lsiy0lHqagruAFEjfPf4XXuOn+Ec814E=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=timeout (key query timeout)
+ header.d=armh.onmicrosoft.com;dmarc=bestguesspass action=none
+ header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 491f5a1e2d897338
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=E2b/ws60VaLYFRTi4EnELJXWRC4/wbuMWHXsVqCZtC0/dlgZ6HaNDKOLKN4snL5U2LqbmYUN2/XwXfWgSct/FHSKjLglnOlBreUrWkN3vrBa2M4CGEcMHKCcRLMaPBD8CSGIclKsu+8XfnpqMqRxFSuHp0PiVSxKjiXCXAhjEToGFkJf1UmZUrVfGJns0Cp1plTTJjYuZi3m+aMwjRM9ADyfPhBp8jgVC9VUxuZ3KtI60B2lsBTKyKDECwyPeKqAK6DyDtKR7eCCGxI//TpRMyE9oDIqvHAgHlIz0HS60UGf8wzqrjR0Wclrab0PG/gCP4x6E+5iK3U30LQpZfrnGA==
+ b=ONseBJqNOrKzGGzzhXMagDlR9SmXR8grM7OeHq3GPsP1cGD4SEGnNDgcDzEB5nyXO4AetiS3PGpLjWCidS25vU5ngIiR1bTBTgSc12jPEa6RMVohZU3/HHe72UXJ/IWpjU2FAevm2YrHmJ10uTVyhamAnARbHzHsYTS83PfdADBqWpCKxrMmnM/IeaRqZBYzxkJ/e109EPH740hRfyP2gcXMeSsd7ezwIP0BmvJC5okk7ENDjfoyS3gDFERnChdVtfm9j1LiUqF3R2xrBrOj0CwjIxtbh4QqDExU6PRSUtoL8f1gc5gsjPD6zBPYY5Wgefke+RAplVyQ5/oj/0Rlaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=snC/EjOA4P7q5xYAAD3bWY+4o6HvQJRs6ynm7sTmHtQ=;
- b=FyGcO1UKsxQ4nGw8lQwIW4duhdBai5PKr038jDwjoj55vKhxQi2cKBb3Z5E+jO6QHjYwOQ67oCGiCIdkpGkQNuNpvODlmgZqx7y8LkxuYqN9VGWV5BlAVnoJnRUfqYStckzHIH2hNxVM2EiOawLoxbrunvo3I/nEGmbWtYIQYuO6eRy9U6gwV/ZPSikvAuI17s6637vNJ4rJaxDV93tsx+S5e7AuhzwMj/eRB7l5GhSESa3Fd2ALVy4BbB3tWvROoK6emMT5C02cYvE2U2ycoLqn8qizXAaREmpyeTvD1wp68hQc1qYR9eI3MDreQ83N2QvZ3UD8MRN918xQ29QOXg==
+ bh=v45FNKZHlF0GnLYYuSmMGrMkCffo4bOgTyZdlwQFxP4=;
+ b=lGh2+bG0gBX0ZV7vOx6r69Xe5wtsgOrkA8LgEZxn4MHR9UcSheSTKzJ/b2MEr+grJ+xA2S/9ePAoNGN6XMgl7PchCyvh6tcVNRI89YUQZwrJhuuAIEHmKmWpwFT9kyJJCxD0PNXyVkTeK6n/4jCrB69EYu80GJbzWCAOOg7O8fBSC9NWT0BbhsPScCIO6TrqqSFJw/08mUSOdygHLIS3DYxOO+9BtrsbSqSmKjBkSd9cp6ZIHyQ73WkX88+6665vddFI6EUyves9XXSGwsEMyfrQWxrGtZA9VX59d5KM4Vke0+kOKxRkmDPKjtISiNDO+h9a7T0kKQ1JZSSdPnlQzg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=snC/EjOA4P7q5xYAAD3bWY+4o6HvQJRs6ynm7sTmHtQ=;
- b=KZTN2NOedSjIm1nA6ytl9sXENIDvHpqwGgSqQ2QU5vReCwhbI49XOTCWcAbXG/BGa0nCkcE44S8Y4IXHSuo/dbgFrWvOBM3zsNPEGraEecJBLdwmuJIESTaz33TxFJfjUFuAXi7eyY1W9id+b+6N99ZvSpVJjfbbe1Gpws5ufCc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Tue, 24 May 2022 09:32:13 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] x86/flushtlb: remove flush_area check on system state
-Message-ID: <YoyJ/UadvdDVWehY@Air-de-Roger>
-References: <20220516143116.28602-1-roger.pau@citrix.com>
- <c7878c92-41e7-4628-34b1-1cb409335bf1@suse.com>
- <YoucK13m0y3CqDl1@Air-de-Roger>
- <4b025fee-8f7e-1849-184e-1be8fb99442b@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <4b025fee-8f7e-1849-184e-1be8fb99442b@suse.com>
-X-ClientProxiedBy: MR2P264CA0130.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:30::22) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e8bba2a1-d217-48b3-e133-08da3d578876
-X-MS-TrafficTypeDiagnostic: MN2PR03MB5328:EE_
+ bh=v45FNKZHlF0GnLYYuSmMGrMkCffo4bOgTyZdlwQFxP4=;
+ b=EP4llLCzmdgc8l9ulxgEY0sleJ0IThkLbQXkhdtM+HTdGNitjUeWw1kXiUiPgxyfByw3yB9kMZpYJJqUiQ2dmDq78BxLRnPa8m0aYKVkZhVc6OHX2wGg4KDvs/bM+sjyXLlj3Qkbkq9lsiy0lHqagruAFEjfPf4XXuOn+Ec814E=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Julien Grall <julien@xen.org>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Julien
+ Grall <jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH] xen/iommu: dt: Check the return value of
+ xsm_deassign_dtdevice()
+Thread-Topic: [PATCH] xen/iommu: dt: Check the return value of
+ xsm_deassign_dtdevice()
+Thread-Index: AQHYbf1I/4cyEYG0EkCW5QIQgj3DOK0tqxkA
+Date: Tue, 24 May 2022 07:54:49 +0000
+Message-ID: <A7BBA491-2CF9-4D4B-A7C3-56AB004EF842@arm.com>
+References: <20220522165900.83104-1-julien@xen.org>
+In-Reply-To: <20220522165900.83104-1-julien@xen.org>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3696.80.82.1.1)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-MS-Office365-Filtering-Correlation-Id: 5ebfd2b1-e7ef-49b7-a9df-08da3d5ab216
+x-ms-traffictypediagnostic:
+	AM9PR08MB6851:EE_|AM5EUR03FT051:EE_|PAXPR08MB6910:EE_
 X-Microsoft-Antispam-PRVS:
-	<MN2PR03MB5328EA332763579D201652218FD79@MN2PR03MB5328.namprd03.prod.outlook.com>
+	<PAXPR08MB691049295ADCDE4EFA241AA49DD79@PAXPR08MB6910.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ 7buXZEDYrCjCc8QUfS1lh+wzF9U4EX4gdL7mVoNjCseUBhuiDXZ/09z/ek8+Pbejjb/NI3UTUBqlj4LpUX50abZSW5zTtrQmmnY3PGvrLJLWAwOuZ8Dg39nv5r7pSuFYWgDaHLf8pgiaF8m9HhUZ82OV5hoQVTN9ZADrkt7TeMuAoHqlsbLt4sdKDNRvo/cGqfDeqP+yK2fAQvxqhpD5q9gfVmQUsukKAdHldvhdOPHU6AehtzZ0JPYkDD4/J9jlVzHGSScTL8zn02lecPUPIItI1D+O+US3ktTJsxeuDA8x1oYVyAA5YFz8A8PREUbrTOoawnJ2IXRrvoRXRbL0plXLTC8KWSOS/t71Omt0hc15G7VqoII8g4t10gsdE+d86ldFotsUP8HLscpCVb8m6PXV9uCQTWXxNW8TH22zeBFhYm3ATw9UK2T2uH4coudIEgMqGaO2dNUvodJfOgMiMCmKtJFtIgAAWhBH//00mBx53aIzRFTD5G885tGU5yxrGVWudibtbgxoU28QTW7/fowohHW9vVJTgLIndgIgbNKIn1AekRFhGSvfDBrVZMsgf8pxlHFoyZLEZRodR+m3XeGjVk1zfEO0uZVATl/LtaSmOvGCBbrnlVNS8AEcPEE8201Fc/DyTi0YZzzGuV/ixiMOFKybuPMDEwWJ/RxLXOGC2TZ3dw95cuKbkQ+F+vB7Rw9hVwf1RLUEzmI9zw7Q8nAGGojymSQNE/fAAkpJnrfa/SjjyO7fUbU0lKTfHpZN
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(8936002)(66446008)(6506007)(53546011)(86362001)(5660300002)(64756008)(66476007)(66946007)(38070700005)(54906003)(6916009)(508600001)(122000001)(316002)(71200400001)(6486002)(186003)(2616005)(83380400001)(2906002)(36756003)(38100700002)(76116006)(6512007)(66556008)(33656002)(26005)(8676002)(4326008)(91956017)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <0731EF46F44DEF40973568AEF9C60819@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR08MB6851
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM5EUR03FT051.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	11e53d1f-5ef9-4653-b021-08da3d5aad88
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	3EggFfT1fgbzQx4TUhJnK6NrC920jZNosNq9tfAB8AWGw7at8SPv54qBRiadM6V4QK846Uq6XxGT1M1ZCM+/kUjnsJpc19JttdNpPgStyjIw6EwK3fPj/5FXdUHoUlCKCk91uod38iRc7vY8ClYdK3Eial/+TAXOPtZhfnB02E1Bi8/GLobtvefkvsThN0yMmv0bGiFr/9YHGtdc+zWMuq31CfnceGKkoAl1VaU4wefdxzJZMmbyxX9CH8gfAf09llKdBbH79sztFHCfivGE5Yvw1QYTpyZaTxiMHMLQ8iOxm09bf3qVTO/B3gnho8kPQunvydSHtGfFsmr76r3JIqmNvFx4qyGKorc1vIEySKFaJzyOy2uGF/8+oii3SJNV4bCedBLmjK853ICtc+3k5lDZ+8OsoTfhU5GjIkDDyJhk9GaxG9gNd2WeX6VDcm/7R6v1c0c7E51MOf4cLdu4U60DkTd0ZqT+yJyovU41Lm3xSLCGgymnefu3mTeEIWHFQT7EUFWMAeN0KNu3bTqS8xmckR98g3d9yMWzCbY8NIQGOH9qm/JsHMn30g/cqN6IGeAg4K+XFFHE02LdDd598x5A4VoJAr4d5HBJRGhCOIDGzFo/vgSL9l3lsIbjGhb79KNhdSfAUIVXkZLdjT3n2A==
+	0Na356/+GfXADQc29ADwqX8JlOBO71K6sOjPQ7e1QAg3uvKi/LEfcHoSJdSfvP9BY+TLy7qPYn4UldGPqC29xM9b6whBh+zCZWd3wrGTQWEEih5+ddIAUmNGyxN3n2NUwsgKm2Nn8yHU5Mkc/ql9nI0a3GL5BiUilUvr+ORuzbjzgqh2xpztxOlOpSmQkQlPXc637mRMAzkoBO0RMHoQaM34OUmbQuanVvQ2UlTsuQQ9iJUgvsEPYpsdO9+RLnt1cYtMBGnNRg+6Tbh2BHQ9tWudRpdkiYAOc9UWaq3QdeglWuBgH+/VIIx5FccBz+t4HUho/QI4TpHwu16ryQcvI15bjr3Fj4B9ILV2EwCJKa1D3bTV8pg1ljqZ4TK06/45sRRWcF67pWr+4BN4tqsBgVQommx75yFyMLMx64Bab+ygVnJxaBC215Z5OWnPUMPw8mtbeKNS7XbzZLfuLUQvuwRvmqTMdyrUppNUunu1fus2z4h0CntDc/LP0KWpvUcaZRaKiJWEGc+pJ52ho9zxhMjUFZ+XvsjwbpB3Yf2AVoS8Z/81esOxwkJVaVCFQvsMcss+NUyTf8QmGvOJaGZDUadzhAwU4ToIysUR1dZF/iPkrT+ej0b+DizrZh1JI6JgE9Z5gaYBc8lAiE3LI5QGRwjQwfft3ZyG5J/aq0XeqLQG6z3f2aUEW8jxTfp3BpHt
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(38100700002)(6916009)(316002)(54906003)(82960400001)(5660300002)(85182001)(8676002)(4326008)(83380400001)(186003)(66476007)(66946007)(66556008)(86362001)(6486002)(508600001)(26005)(6512007)(9686003)(33716001)(6666004)(8936002)(6506007)(53546011)(2906002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RDZDNTZqTFR3Z2RMSGtBdE5mV1c0akRCY3BOUG56Q2ozc0NLRjVJNFE4Y1hY?=
- =?utf-8?B?aG45WXRKd0d3Z2hGUTVPYVlEOXZCb0lSaUpmYk10OTlJVjk4QXhzZHpRV2xT?=
- =?utf-8?B?RytnVjJ4a0k4YWNIZnF1TFhPRngzWmd1YTJlUHRvenViREt6aHBZK1VVUVZX?=
- =?utf-8?B?ZG5TSktPdUhjY3N5dktHc2Q0ajY2VFdMb2V4VlJGTVQzNEkranpYYThrRTkw?=
- =?utf-8?B?eGtNb1RIK25NUXk0ckVYdER5ZWZPek1uR3pNR0I5ZmxiUUFUY3NTYXhac3Rj?=
- =?utf-8?B?UTBvdTUyQ2FIcC9DQW9QU3p4cG9ybFZwalFnOEJLWStWdmhVcktzSCthazlk?=
- =?utf-8?B?Ynd3T3RGOG94MklLNUJmUDBvbjd0M0p1WWhZNVBNKzJZOUNteDZTWnN6N3V0?=
- =?utf-8?B?dm9XUENFM2RzeEwrOXhpelZPNXhyNXJFZ0s2MXJETHBaUzROMVlaUEpwL3cy?=
- =?utf-8?B?Y3ZkTUtOcysraStjTURoUDBDOXQrQkYrMlQ3cm9RQ3hXUG54S29NUnhUSUVp?=
- =?utf-8?B?WStCSWdEZlk0S1R3NDFzNkdNa0VrUm9TYVF1ZkJJUFlhZyt6bm5sRUt5R2Ns?=
- =?utf-8?B?SXBiYXFwVDBNd1BtNzVOVUNWNW9IeDk1Q1NMbzZrKzRsVloyZE94YnFvVzcz?=
- =?utf-8?B?VEVFMXJUbmxnRE9ZTzlVUEpsOXpGOFBLUGFocFcrUzdEMCtlbEVyZkJrcCt1?=
- =?utf-8?B?bFBJNTN3Mk52OFM2WkJzQ3pldXdYaUtBdDhRTTBUM1pqRWJaWExDSFh2Nzlp?=
- =?utf-8?B?T0d1d2wzME5Nb2Voc2pHdDdOWEJ0bTRKU0FmMVNJd3hlQlkrRnNNaDkzSElY?=
- =?utf-8?B?cnR0ZDUvNml3ZitjaDl4OHNIeW9EeDFvNU1GK1RTK29OdURrQTN4R0Y1OEpK?=
- =?utf-8?B?c0ZPUkZzVmt0SVZJNkh3UU1IVzNkQ0Vtc0RwYXJISWpLOUhEd21kWEFpN09L?=
- =?utf-8?B?ZXYyTjhscDlWd3dORnlmYVF0TS9Sb0lOYnZOMEI0TnNPY2c0cFluZVkzdjlm?=
- =?utf-8?B?VDMrbExVV3RKSm1nNUxnLzBzcy9Vc1U0TTVwZlFST3ZPUTRBLyt5U3Rsakc4?=
- =?utf-8?B?NEtNRzRzcVgyK3dwaTBlM1FGdFUyc0UvWWdWcDlvd1ZDQzhPblpZSk9YeTFD?=
- =?utf-8?B?eUVVbkdxYVM1cCtZcmFsbWpXTERiVWpTeTVtK0JKNGJGVUUrREJHV21lK003?=
- =?utf-8?B?cHFsWUhaWlFpWGxxVzVQTHNYSEh4cmNhbEY1SWZZclRjKzBpbjA1cllyR1Yw?=
- =?utf-8?B?V1Z2Mnh3Rk1YSW5sazFqYVpaMjZCQVR6VWJWa1VzZEZ2R0kwUXRjcDZMMklU?=
- =?utf-8?B?aG9jeGVDb2NxRTZEa3lMdmYwcEgwRU9YRVZhNUk5R1ZpSGg5VUxFTTZlOElN?=
- =?utf-8?B?aExPbXJuSVpxZjBYVXB5ak9mUDJLUjdWcU5OQnNYUWNlN1lNN1NMcGs5KzY5?=
- =?utf-8?B?eVIrS0Z3b0dlZjk0Z0VRNTl0bVpnRUhvRGFScWNrT1ZtaXBBV3pkM2pqeXRV?=
- =?utf-8?B?eUN1OS81QklZSFBRUUZLdWltUy9ML2hQeGZyQ0pMQldRZFRpMHZlcHRMVDJo?=
- =?utf-8?B?WGxUenRyU3hFbXNmbVB6YmlsajNnVElKV3k4V0FaRk5ib1hIOXVoc3FFOGV3?=
- =?utf-8?B?QXRmQUVieTVUVXR1a2pzVXdPQW5aVDkzelU3M3VObFhLVnh5OW1sbTJTTXhL?=
- =?utf-8?B?VFk4Vnk3dENNTk9jOVFLUjFsUE02T1ZTc2lSYXlHSEwyZjRNd1YrNk1JV2Fr?=
- =?utf-8?B?YUpwaDdSZk5WMlVCL0tzOXN3aHc0Vk1rbWh2a0REV0FEcDBNNUYzeVNiTHMz?=
- =?utf-8?B?dzVFaW5CVHNsT3Y4ckhrUk5OWjFvZ2FnMnpDMGVyM2lVQVhpNU9wcnYzR0Vu?=
- =?utf-8?B?Vkdpb1BmWUNOOERFRGQ3UFZFeFVPQ3RmaEFtbHlWa09haHJQUWRVWk5ja0Iz?=
- =?utf-8?B?Z3dpLy93ZXFuOGgwb1ZoU1llaUJaODdNdWZnNWF3Q3dJNWJzUFlBN2VZMTQ1?=
- =?utf-8?B?RFZOTWNIS09OSC8ySmlGTnQyVFRHSGtjMzBpdkNRcTgxdkdNcjhub0Y0eUVt?=
- =?utf-8?B?TkV3bVJxRFRkOWYvbjdYbmxRVWNTRndIYWhTWm9QQ045K0FKeW4xYzBYRG45?=
- =?utf-8?B?Zkg3cGdGVFpJV0c2YXZ4L1lUNWwxc0ViSDBtZ2VCcUpRREtabFppdmROakJN?=
- =?utf-8?B?dm5UcThHcWZjZ25MSkJhRDNJVTBCTms3Qk5XRkZoRXNsTDZrenpSTDRxSXNH?=
- =?utf-8?B?djJpR3ZVQ3cvVHY1UWFuaWZnSUdiN0FoWU1hWHM0MnZaejAyd2x1d1Uwa2RQ?=
- =?utf-8?B?MmkxZ0pzaEo3c295eEp0L29ycUZLZndyVlFSZWxjRGVtWGZhckVoNkZSRlN3?=
- =?utf-8?Q?bwqMvMgGtE6gDA0M=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8bba2a1-d217-48b3-e133-08da3d578876
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2022 07:32:18.9162
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(508600001)(6486002)(6512007)(2906002)(70586007)(70206006)(54906003)(316002)(26005)(53546011)(33656002)(86362001)(107886003)(8936002)(36756003)(5660300002)(2616005)(4326008)(8676002)(6862004)(40460700003)(82310400005)(81166007)(336012)(47076005)(186003)(83380400001)(6506007)(356005)(36860700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2022 07:54:56.9993
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ITnMa6DB2W/ct4VKiDYxlRuVQoLFL3UgfcYRXLejD39zPRJLXUWAnLX63U4SOEs8piyMGInkiBFcoqM6Z8CQ4w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR03MB5328
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ebfd2b1-e7ef-49b7-a9df-08da3d5ab216
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM5EUR03FT051.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB6910
 
-(trying to send again, as I've replied yesterday but the email never
-reached xen-devel).
+Hi Julien,
 
-On Mon, May 23, 2022 at 05:13:43PM +0200, Jan Beulich wrote:
-> On 23.05.2022 16:37, Roger Pau Monné wrote:
-> > On Wed, May 18, 2022 at 10:49:22AM +0200, Jan Beulich wrote:
-> >> On 16.05.2022 16:31, Roger Pau Monne wrote:
-> >>> --- a/xen/arch/x86/include/asm/flushtlb.h
-> >>> +++ b/xen/arch/x86/include/asm/flushtlb.h
-> >>> @@ -146,7 +146,8 @@ void flush_area_mask(const cpumask_t *, const void *va, unsigned int flags);
-> >>>  #define flush_mask(mask, flags) flush_area_mask(mask, NULL, flags)
-> >>>  
-> >>>  /* Flush all CPUs' TLBs/caches */
-> >>> -#define flush_area_all(va, flags) flush_area_mask(&cpu_online_map, va, flags)
-> >>> +#define flush_area(va, flags) \
-> >>> +    flush_area_mask(&cpu_online_map, (const void *)(va), flags)
-> >>
-> >> I have to admit that I would prefer if we kept the "_all" name suffix,
-> >> to continue to clearly express the scope of the flush. I'm also not
-> >> really happy to see the cast being added globally now.
-> > 
-> > But there where no direct callers of flush_area_all(), so the name was
-> > just relevant for it's use in flush_area().  With that now gone I
-> > don't see a need for a flush_area_all(), as flush_area_mask() is more
-> > appropriate.
-> 
-> And flush_area_all() is shorthand for flush_area_mask(&cpu_online_map, ...).
-> That's more clearly distinguished from flush_area_local() than simply
-> flush_area(); the latter was okay-ish with its mm.c-only exposure, but imo
-> isn't anymore when put in a header.
+> On 22 May 2022, at 17:59, Julien Grall <julien@xen.org> wrote:
+>=20
+> From: Julien Grall <jgrall@amazon.com>
+>=20
+> xsm_deasign_dtdevice() will indicate whether the caller is allowed
+> to issue the operation. So the return value has to be checked.
+>=20
+> Spotted by clang static analyzer.
+>=20
+> Fixes: fe36cccc483c ("xen/passthrough: Extend XEN_DOMCTL_*assign_device t=
+o support DT device")
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-OK, so you would prefer to replace callers to use flush_area_all() and
-drop flush_area() altogether.  I can do that.
+With the typo spotted by Michal solved (can be done on commit):
+Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
-> >>> --- a/xen/arch/x86/smp.c
-> >>> +++ b/xen/arch/x86/smp.c
-> >>> @@ -262,7 +262,8 @@ void flush_area_mask(const cpumask_t *mask, const void *va, unsigned int flags)
-> >>>  {
-> >>>      unsigned int cpu = smp_processor_id();
-> >>>  
-> >>> -    ASSERT(local_irq_is_enabled());
-> >>> +    /* Local flushes can be performed with interrupts disabled. */
-> >>> +    ASSERT(local_irq_is_enabled() || cpumask_equal(mask, cpumask_of(cpu)));
-> >>
-> >> Further down we use cpumask_subset(mask, cpumask_of(cpu)),
-> >> apparently to also cover the case where mask is empty. I think
-> >> you want to do so here as well.
-> > 
-> > Hm, yes.  I guess that's cheaper than adding an extra:
-> > 
-> > if ( cpumask_empty() )
-> >     return;
-> > 
-> > check at the start of the function.
-> > 
-> >>>      if ( (flags & ~(FLUSH_VCPU_STATE | FLUSH_ORDER_MASK)) &&
-> >>>           cpumask_test_cpu(cpu, mask) )
-> >>
-> >> I suppose we want a further precaution here: Despite the
-> >> !cpumask_subset(mask, cpumask_of(cpu)) below I think we want to
-> >> extend what c64bf2d2a625 ("x86: make CPU state flush requests
-> >> explicit") and later changes (isolating uses of FLUSH_VCPU_STATE
-> >> from other FLUSH_*) did and exclude the use of FLUSH_VCPU_STATE
-> >> for the local CPU altogether.
-> > 
-> > If we really want to exclude the use of FLUSH_VCPU_STATE for the local
-> > CPU, we might wish to add this as a separate ASSERT, so that such
-> > checking doesn't depend on !local_irq_is_enabled():
-> > 
-> > ASSERT(local_irq_is_enabled() || cpumask_subset(mask, cpumask_of(cpu));
-> > ASSERT(!cpumask_subset(mask, cpumask_of(cpu)) || !(flags & FLUSH_VCPU_STATE));
-> > 
-> > 
-> >> That's because if such somehow made
-> >> it into the conditional below here, it would still involve an IPI.
-> > 
-> > Sorry, I'm confused by this: if the mask is empty there should be no
-> > IPI involved at all?  And we shouldn't even get into the second
-> > conditional on the function.
-> 
-> Should perhaps have made more explicit that "somehow" means a hypothetical
-> way, perhaps even as a result of some further breakage somewhere.
+Cheers
+Bertrand
 
-Oh, OK, then I wasn't so confused after all :).  Given your lack of
-comments I assume you are fine with the addition of a separate ASSERT
-to cover the usage of FLUSH_VCPU_STATE.
+>=20
+> ---
+>=20
+> Platform device-passthrough is not security supported. Hence why this is
+> sent directly to xen-devel.
+> ---
+> xen/drivers/passthrough/device_tree.c | 2 ++
+> 1 file changed, 2 insertions(+)
+>=20
+> diff --git a/xen/drivers/passthrough/device_tree.c b/xen/drivers/passthro=
+ugh/device_tree.c
+> index 98f2aa0dad68..1c32d7b50cce 100644
+> --- a/xen/drivers/passthrough/device_tree.c
+> +++ b/xen/drivers/passthrough/device_tree.c
+> @@ -269,6 +269,8 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, str=
+uct domain *d,
+>             break;
+>=20
+>         ret =3D xsm_deassign_dtdevice(XSM_HOOK, d, dt_node_full_name(dev)=
+);
+> +        if ( ret )
+> +            break;
+>=20
+>         if ( d =3D=3D dom_io )
+>             return -EINVAL;
+> --=20
+> 2.32.0
+>=20
+>=20
 
-Thanks, Roger.
 
