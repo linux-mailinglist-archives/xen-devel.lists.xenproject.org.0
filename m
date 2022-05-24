@@ -2,37 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B497532EA8
-	for <lists+xen-devel@lfdr.de>; Tue, 24 May 2022 18:12:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.336647.561012 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB9FA532EB5
+	for <lists+xen-devel@lfdr.de>; Tue, 24 May 2022 18:16:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.336655.561023 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntX8M-0007A6-GA; Tue, 24 May 2022 16:11:46 +0000
+	id 1ntXCT-0007sy-2y; Tue, 24 May 2022 16:16:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 336647.561012; Tue, 24 May 2022 16:11:46 +0000
+Received: by outflank-mailman (output) from mailman id 336655.561023; Tue, 24 May 2022 16:16:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntX8M-00077L-DJ; Tue, 24 May 2022 16:11:46 +0000
-Received: by outflank-mailman (input) for mailman id 336647;
- Tue, 24 May 2022 16:11:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ntXCS-0007px-Vu; Tue, 24 May 2022 16:16:00 +0000
+Received: by outflank-mailman (input) for mailman id 336655;
+ Tue, 24 May 2022 16:16:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WWfr=WA=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1ntX8K-000779-S2
- for xen-devel@lists.xenproject.org; Tue, 24 May 2022 16:11:45 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 33c37b81-db7c-11ec-837f-e5687231ffcc;
- Tue, 24 May 2022 18:11:43 +0200 (CEST)
-Received: by mail-lf1-x12f.google.com with SMTP id u23so31646335lfc.1
- for <xen-devel@lists.xenproject.org>; Tue, 24 May 2022 09:11:43 -0700 (PDT)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id
- r5-20020a19ac45000000b0047255d21167sm2602292lfc.150.2022.05.24.09.11.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 May 2022 09:11:42 -0700 (PDT)
+ <SRS0=jpOU=WA=citrix.com=prvs=1362cb858=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1ntXCR-0007pr-SN
+ for xen-devel@lists.xenproject.org; Tue, 24 May 2022 16:15:59 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cab1d78f-db7c-11ec-bd2c-47488cf2e6aa;
+ Tue, 24 May 2022 18:15:58 +0200 (CEST)
+Received: from mail-co1nam11lp2172.outbound.protection.outlook.com (HELO
+ NAM11-CO1-obe.outbound.protection.outlook.com) ([104.47.56.172])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 24 May 2022 12:15:52 -0400
+Received: from DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
+ by CY4PR03MB3047.namprd03.prod.outlook.com (2603:10b6:903:133::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.18; Tue, 24 May
+ 2022 16:15:49 +0000
+Received: from DS7PR03MB5608.namprd03.prod.outlook.com
+ ([fe80::5df3:95ce:4dfd:134e]) by DS7PR03MB5608.namprd03.prod.outlook.com
+ ([fe80::5df3:95ce:4dfd:134e%5]) with mapi id 15.20.5273.023; Tue, 24 May 2022
+ 16:15:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,478 +49,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33c37b81-db7c-11ec-837f-e5687231ffcc
+X-Inumbo-ID: cab1d78f-db7c-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1653408958;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=eaZAWNBt51mFZ4D+UaLNPDlrcyvuFhdGRBRYioRc9BY=;
+  b=fmVFMb1UzjVs2DjlaGrg8NVtwlmYsWNu9UbPFrPvPwog65epZtZWjic8
+   n8XliGlNySE6UIR7TvwN/qAM6aRW+d+0pG+tEQjAw4LJZWtBK/GlqQLob
+   C9uZIa/FeTxOZy4NTfwJ78tc2pRCVCD/GP0ImU2yRhUrxlPUfkM8OVkJC
+   4=;
+X-IronPort-RemoteIP: 104.47.56.172
+X-IronPort-MID: 71438674
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:aO2UualzXFJkSo/PFGbQ0xro5gz1J0RdPkR7XQ2eYbSJt1+Wr1Gzt
+ xJNXzqOPa6LMzP9e4t1Ooi1oxxQuJ7dxtEwQQFo+y48ECMWpZLJC+rCIxarNUt+DCFioGGLT
+ Sk6QoOdRCzhZiaE/n9BCpC48T8kk/vgqoPUUIYoAAgoLeNfYHpn2EsLd9IR2NYy24DkWV/V4
+ 7senuWEULOb828sWo4rw/rrRCNH5JwebxtB4zTSzdgS1LPvvyF94KA3fMldHFOhKmVgJcaoR
+ v6r8V2M1jixEyHBqD+Suu2TnkUiGtY+NOUV45Zcc/DKbhNq/kTe3kunXRa1hIg+ZzihxrhMJ
+ NtxWZOYZAcXEqLuh+4mVCJGSBh3E5JM9ufIGC3q2SCT5xWun3rE5dxLVRhzFqpBv+F9DCdJ6
+ OASLy0LYlabneWqzbmnS+5qwMM+MM3sO4BZsXZlpd3bJa9+HdafHOOXu5kBg21YasNmRJ4yY
+ +IDbjVidlLYagBnMVYLEpMu2uyvgxETdhUH8Q7O9fRovwA/yiRP/bLLNOTMQeaQVMhqlHeUh
+ GOf0172V0Ry2Nu3jGDtHmiXru3FkD7/WYkSPKal7fMsi1qWrkQMDDUGWF39puO24mauVtQaJ
+ 0EK9y4Gqakp6FftXtT7Rwe/onOPolgbQdU4LgEhwASEy66R6AHAAGEBF2dFcIZ/65VwQiE23
+ FiUmd+vHSZorLCeVXOa8PGTsC+2Pi8Wa2QFYEfoUDc43jUqm6lr5jqnczqpOPXdYgHdcd0o/
+ w23kQ==
+IronPort-HdrOrdr: A9a23:AFRMHa6PPVc/hcgliwPXwVSBI+orL9Y04lQ7vn2ZFiY5TiXIra
+ qTdaogviMc6Ax/ZJjvo6HkBEClewKlyXcV2/hpAV7GZmXbUQSTTL2KgbGSoAEIXheOjdK1tp
+ 0QD5SWaueAamSS5PySiGfYLz9j+qjgzEnBv5ai854Hd3APV0gP1XYaNu7NeXcGPjWuSKBJYq
+ a0145inX6NaH4XZsO0Cj0sWPXCncTCkNbDbQQdDxAqxQGShXfwgYSKWySw71M7aXdi0L0i+W
+ /Kn0jQ4biiieiyzlv523XI55pbtdP9wp9oBdCKiOISNjLw4zzYLbhJavmnhnQYseuv4FElnJ
+ 3lpAohBd167zfrcmS8sXLWqnzd+Qdrz0Wn5U6TgHPlr8C8bik9EdB9iYVQdQacw1Y8vflnuZ
+ g7k16xht5yN1ftjS7979/HW1VBjUyvu0cvluYVkjh2TZYeUrlMtoYSlXklXavoJBiKprzPLd
+ MeTf01vJ1tABOnhjHizyNSKeWXLzsO9kzseDlAhiSXuwIm7kyRgXFohvD3pU1wiq7Ve6M0mN
+ gsDZ4Y5Y2mbvVmGZ6VV91xNvdeNAT2MGLxGVPXB2jbP4c6HF+Ig6LLwdwOlZKXkdozvdAPpK
+ g=
+X-IronPort-AV: E=Sophos;i="5.91,248,1647316800"; 
+   d="scan'208";a="71438674"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=aXFwxV1iBVQxFMpCU3h7ufqtsM2KzLP09GmXFHvS8zvLHoQDZvBEB4f0dpbM4ersNrJiGCPmo39d5bDBmkf3R3ivzNfIxd3F7ice39prx9QzFgGzZaPoaltEuSE8uNqmENDuhqfhZW88LmIoh4GGHUC8upJBNbBVsgZhhU/d/LmDi+UKFkSwNXb6Pw6zM3BkeFKeaFlMbWMZnR4oGPpPUX8jQhHeCW0ZLFObCMoJNS8AHBT6cj8myk/jr1ISTxv79YYIaYoU1qasPI4JUHJEc9rfX2IxMBPIxzTLpQvLuegjBT/JyzV+IWos/HBtEc8qLN8+PkKErUEDJF9FMXNojg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bic+FVCBiOdBeEsuUkPpsfdFF/0ZeMDB1NQpH7jaHwM=;
+ b=Ia1NuBlK7M3Yx3xPHybeKRvKpPdR+Glfwvw8FjNpwOoO7QxZybHp1ri+3Fzn0BVFFW8DB1OiGR14HPMFbYwZXDQ+uSfL+6FUw46e0kYdzdAjzc89JOtYOPyhyz28IU9R5IpaTT7OB7GmcKuTI1lqNTytY1YbaN/gMf2ogG3k+hRNzHKPGBP3AbbSzn6pLkkoQosYp9wmnInKNVT4RaCuWM7CxsM/up2HsIuMd9h1NMrrOdAnO4IDNC032diUdsUkiEZkf5MKGR/jk9YsjGwILJHICqauatPd0dmYjurj9RPD1FsQA8Z7c2FawCR/u9mqrOKnt+mHKknvOev2g+9O4A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=qm9weLaNL4nn8FQertxYN6C+mkrhTu3vRp9alXEDss4=;
-        b=C3hl1VyjK6sleZh5X3NsN4HkcpazdnD3DvB91rml+7SI+bM/M9WlbinHobisvAdCDx
-         TIFsLkor6QMpQ+FOcvltP6Y7vjOIApbqfERArF1rBmpDxNUuwx3fmpXDfcy1X6WJZ1og
-         H6LBMwkKrwG7NZRW7NvQL17o1gKB/CEveeaG+/NsUinUz1IQJ2lOgsAm2oLcM9shofvf
-         To0dJAOR5lz51Pr9hSJZi6WTUIs5PHuUhUWSAW33LrcpoG/AfTRe7fR2ArBOLDc+GaWJ
-         WEvDxgUBgJqU4u56STpTuQ0nSE3Y18JCw5qNaFyUpBmtM610Ul9uM7WhuYgYqw7rD9G3
-         ABzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=qm9weLaNL4nn8FQertxYN6C+mkrhTu3vRp9alXEDss4=;
-        b=M3TMPesK4jdSTDexTSj3vZPA4d/cbTe8pvAi4yx4v4OspnGE3oQlMZWMGqOZha0+fj
-         pirrteXOHBA7CVEZNvJKQaJUYuoHmm0S+lzV/702z1nGRxV/8iwemyq16lIT6h4WE+z8
-         RXuk1P7++p+flpL6b+D8vNI6s4GqfDcz+k8+WmuBu6z8jyZ0fM56mNft6KsBhWAP9bjR
-         MOCOBI2H69LBe3wU0FzMkgM6PoEPc0kWXtz0CuVW6Oh7vsGSJBu6y3VxOwE3ayJT9qap
-         hOXPlcFNr4n1QguXrEcxSSLbvrK7+krb19Tn8IHRfnR4lIgVadDEZ9Y56e+xlSLAWLVw
-         SMdg==
-X-Gm-Message-State: AOAM532RcDZS3oSDyCd0c1rajn8PvKpMBtpf6oOHEJcQkq+BZv9Wdidz
-	jdy1k5pf5ap/iluhprfitF4=
-X-Google-Smtp-Source: ABdhPJymEImVNMQVJEQurd3WYXxyCnU02Ld7OWJwHzzYYlnnKByiq/YpRyTQbxag9jFDkQ9qyPIpBA==
-X-Received: by 2002:a05:6512:1316:b0:473:fda3:8dc8 with SMTP id x22-20020a056512131600b00473fda38dc8mr20057105lfu.529.1653408702637;
-        Tue, 24 May 2022 09:11:42 -0700 (PDT)
-Subject: Re: [PATCH V2 5/7] dt-bindings: Add xen,dev-domid property
- description for xen-grant DMA ops
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- "open list:DRM DRIVER FOR QEMU'S CIRRUS DEVICE"
- <virtualization@lists.linux-foundation.org>,
- DTML <devicetree@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Arnd Bergmann <arnd@arndb.de>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Jason Wang <jasowang@redhat.com>, Rob Herring <robh+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Julien Grall <julien@xen.org>,
- Juergen Gross <jgross@suse.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- Christoph Hellwig <hch@infradead.org>,
- Jean-Philippe Brucker <jean-philippe@linaro.org>
-References: <1651947548-4055-1-git-send-email-olekstysh@gmail.com>
- <1651947548-4055-6-git-send-email-olekstysh@gmail.com>
- <CAK8P3a2cAnXr8TDDYTiFxTWzQxa67sGnYDQRRD+=Q8_cSb1mEw@mail.gmail.com>
- <56e8c32d-6771-7179-005f-26ca58555659@gmail.com>
- <CAK8P3a1YhkEZ8gcbXHEa5Bwx-4VVRJO8SUHf8=RNWRsc2Yo-+A@mail.gmail.com>
- <460a746c-6b61-214b-4653-44a1430e314d@gmail.com>
- <alpine.DEB.2.22.394.2205181802310.1905099@ubuntu-linux-20-04-desktop>
- <6f469e9c-c26e-f4be-9a85-710afb0d77eb@gmail.com>
- <390ba7bb-ee9e-b7b7-5f08-71a7245fa4ec@gmail.com>
- <alpine.DEB.2.22.394.2205231856330.1905099@ubuntu-linux-20-04-desktop>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <606dfdcc-ec10-0c4a-04e9-72cd73ee6676@gmail.com>
-Date: Tue, 24 May 2022 19:11:40 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bic+FVCBiOdBeEsuUkPpsfdFF/0ZeMDB1NQpH7jaHwM=;
+ b=NOpc8L5litV8KDmw/xjgaSVguMSurZ152gYzqLXW7pQk5jmlYY7L2tPANMIpsRDZSNB0zYvqIdZntpo68z5f2h5tHSAyV+OsiOxGdRTy3412xVC1/+0eNDcvC0LgjF0dGY5WZK0YrMe2QO3D7dA961aG6OYoPgmC3+kFQccSQmM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Tue, 24 May 2022 18:15:45 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>,
+	Jane Malalane <jane.malalane@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v3] x86/hvm: Widen condition for
+ is_hvm_pv_evtchn_domain() and report fix in CPUID
+Message-ID: <Yo0EsamfnJD1XzVC@Air-de-Roger>
+References: <20220518132714.5557-1-jane.malalane@citrix.com>
+ <27a9ae9e-07fa-8300-d5b9-f9a88e4a1754@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <27a9ae9e-07fa-8300-d5b9-f9a88e4a1754@suse.com>
+X-ClientProxiedBy: LO2P265CA0470.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a2::26) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.22.394.2205231856330.1905099@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 58b3b855-c25a-4b57-1ce1-08da3da0aaa7
+X-MS-TrafficTypeDiagnostic: CY4PR03MB3047:EE_
+X-Microsoft-Antispam-PRVS:
+	<CY4PR03MB304729F03F38058BAEA267FA8FD79@CY4PR03MB3047.namprd03.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	sSflwjl2Popu1XqWArNR1jHKYJDI6/njUQtD4BKKz+E2Xy7SebngfuEgqqoHO+NRCqhzgDhb2jyskE0k5PCviGOz5sEfpCZhw+gEU/WTYl5uAaDwhMsm1r3c4Tx2Gs82WYXa70dCoT27p8zXi8PUN72QuP2r5cnu6BF0TgIKDqJ1d3KPoSw8FBgPiageXPvRFOCkLUlp3qmc6AXNgfObr+pNI6Caa06sXvdr9to6DypS814R2fnSqxRvEpQPGTEY0L9DVHajjjSFByf/vNyTMrBmdhenUyTjijaN8DZki/ViwU6by1Geykb9rv0s3KSZaMXkC0HUODWbG6R/ZEMOIRGvOHwJz9UQ1BLBih4fAkgwnTtXHynCUAIukQCmiN9IIh/E0+FTwCpUAOl3ah7h3T7Wl4ZwPRDyo/sI60TYmrpG+U2IKHWCLqqwBEhx6b7V+CwAS6wBPZNRMPwcdZPj8YISMY4RpHYClqv5a7wIpgqFEpi3af0gNl5E3r7tpn921Nt6qvSLMwNoUcxW1NapOEl9wf8WPr9BYZqDExFC5dYWUhLbQaKzZ8aHs63Fflh7Vkc+To0XJmbm7aG4it3+g7WrTc7hw2Im7FH6cR6wORCwZVQHupGbnFnU1beISArVdb5qjopjFLMYRztI3pz4Pw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(7916004)(366004)(85182001)(508600001)(6486002)(33716001)(38100700002)(6636002)(316002)(186003)(83380400001)(110136005)(54906003)(6666004)(4326008)(9686003)(6506007)(26005)(2906002)(82960400001)(6512007)(5660300002)(66556008)(66946007)(66476007)(8936002)(53546011)(86362001)(8676002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cG5xMVFzSnREZlVVbzN5cWUvaXQrUkhNcXFUM1NaUWM3QXBuOE9EVndZSTIv?=
+ =?utf-8?B?ZzVKQTljUFA1UGZYc09pNEwzUlpNVWxuQTZaVTZUcE9QNGNGL1JobjJTOWpU?=
+ =?utf-8?B?bmNGb1MzMGJVcG5MUVZxcG84QjVGeXRBdWhqNFdxSHhpaHY1SC9oWmtKVVps?=
+ =?utf-8?B?K2pEemxEQnI2ZWpCL1Y4LzNEQUNaYi9CNjAvY0JvRU03QlVSYmF6S21RSnBR?=
+ =?utf-8?B?ZWJZems2Q0dic0QzaFdXL0J6RXhoRkNxUDA5anYwQjNyTlc3Y1diVkx6Ylho?=
+ =?utf-8?B?MzlPN3NhbUN4N2xRRWFGYmdxM0N3TDlFcFl6V3R6NUNqVkNXOHVlYWNRU1Yv?=
+ =?utf-8?B?VU4zNDRkbExyMGVJN2RzbmM1TjFiS1QyNnBnTUppelZmWmpmdGkxYlpueHFy?=
+ =?utf-8?B?SEVSZk9UWnlNVnZZbitublZWMmZOa0tDa2tsNUdFbXFxaElPTzk5K0c2OWx6?=
+ =?utf-8?B?S0tJL2dWZ1AwMzViZjVDRHUzNTNsUCsvLzRFWk1wSVJNUUc5djhRVWoxb0tB?=
+ =?utf-8?B?ck1zK09STGJyL2hCZk1qbDBxS3QzUG15SVVBWG9GWXZROHV6V0orYnlOa2NF?=
+ =?utf-8?B?eVlEajN2Ui9vQmcreWVSclpTNWdMRU9VOEV6WmFRQ0pjVzRFV25FOHBMSm5J?=
+ =?utf-8?B?eWg4N2Z6ZndCTmJVc2cwZjQzek43eXRCMzBnZC9uYnZnSnBqeDgyU3NvN1BL?=
+ =?utf-8?B?ckNud1lTL1d0U1hac2F2SmRiWDJaTituMEZ5RXEzZFUyek1BSWlXd1NLbGJo?=
+ =?utf-8?B?VmtVTTVlNGZGOVg0R3A2Y0MzWkxuSnY0cGt3eVVCMkJRcHV1clBTKzRTUGFr?=
+ =?utf-8?B?SVRwY3JMRVRSNndtaWFPazY4Q0F1US9BNkwxNXZ6bkxQK2ZpTjVRa0d6OVlU?=
+ =?utf-8?B?ZEsrbld2Rmt3UGVNZ1M4YzRXUEVjWE1mK0Q0aGRyLzJWWTVZR3hTSlhtSW5V?=
+ =?utf-8?B?SSt1OUFRbTNRYmFBNkxJNWJvVSt3RHZHazUwMUxXT3VReXp2dElVUGhCUW83?=
+ =?utf-8?B?eGh0UWFXei91VnkxSXZkT0IyNnhQZmd0MUROem1URFFuTm5TeTlzTFgraVNx?=
+ =?utf-8?B?cmc2bkhEcHZvcjBzM1lSZ05uRTZ2ZjNoUVdNZ0NZbGlzVnRQeGpuMnEvVEJv?=
+ =?utf-8?B?NWIzSjkzdVBtbVNkdHdWbjRqckRkcWJXN3VQa1AvcHVPSnRJWVNCL05lUzdy?=
+ =?utf-8?B?MHhEYzZoU2JSdVZIU1d5MGpxUlg5TEFHODk4V1hLTWluVXpVYkk3UXRrQi9u?=
+ =?utf-8?B?NDc3aEhXdVFQeG5HSUh1eEtPVjdMM2J3RHREeHBJMHczNWZ1THBZMkdMQ0FT?=
+ =?utf-8?B?S0p1Ynl5enBmVUdROFZJaHVnY0F1L2sxb2FQczRhOXZqaVJTZ09qbnVvdTBW?=
+ =?utf-8?B?YXViUTVDUi8rNlIrTHpEMzRrdjdCTmhCenl0RUtVdytZeTRUeUJ0ZlR2MDlF?=
+ =?utf-8?B?amxmS1J6K1E4TmdoYmVEYW1qcnVXYTExQW9QZUNaQW5Kb1Brd0d2Z0xxaEFB?=
+ =?utf-8?B?OWU0WTNmdVowVk5nb2ZYUkNpeWdkM0ZMOVZzYUNKTUxKeWNzNFY0Y2VLN2pP?=
+ =?utf-8?B?eE55QjBzN2RYMDRoSU01TVNEMEhlbnoxakh6QWhNNFQ1dkk2UjNoR012aEph?=
+ =?utf-8?B?THRRYmdSckZVWnRsZG5KcDVjdjlWWlhlZ25RVk5lanR0OGJ5VkNRL2cxbVhQ?=
+ =?utf-8?B?a1A0STBCSUV1VWhuK2d3bCtaWW9IUldoZzRzbHhNZXdDTGVDRjBwdWdTWS95?=
+ =?utf-8?B?aDRDd1o5Nnp5VnhaVThlTWk3VHZJdzhPQlhKTVdJSERpcVd1WE5xWEFISkNw?=
+ =?utf-8?B?d0lwM2d6YlZPVndwckRYYlFCNGdFaWxsQXdWc2Fha2hBQWdpYXI0THVJdDZL?=
+ =?utf-8?B?TlBCUjg4TXM3a2xOYlRNbVlHQ29nNnh5ZnNIMUtya2Z6VUVkK2FKQTdIY3Vm?=
+ =?utf-8?B?bHkzNENqR2lNQ2s4aU4wanRtTUp6VFR0bUhoZnJneGEwVE02UGZ2Z1BpTHNi?=
+ =?utf-8?B?dmdrUDJLcW9wUVNMTW9PZ2grNy9qRGhKVzZVNk1ubWNGVkRpd1pUKzJKL20w?=
+ =?utf-8?B?NDluenFyRGVUUHc3Rll6OFc3alFicUxLYVBITXQ3ckRpa2s4UHlNVGNWR2Mv?=
+ =?utf-8?B?K3FKRW8ybGJhMit2U3BqbjdkZXp0cUhJRllEbCtNZkx5RENYd3UwK2JCZGtF?=
+ =?utf-8?B?RzZqbTFidWYxYjdvZGE1MG9pZlhRK1I2K3ptTXpiK3BWNjVQSHNmY1ZIbm5L?=
+ =?utf-8?B?MjhnMmtJcC9sbmZBbUcrS29jR3NKajZ4b2lId3BBK250V1lUOFpXRkltdlFJ?=
+ =?utf-8?B?Wm1CamhrR1N2ditBTzZ0ZUlWMU9KN01HQVBuakptUnY5S1UxcFJHV3hRWHNu?=
+ =?utf-8?Q?BLf20UAYJvs/3Ys0=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 58b3b855-c25a-4b57-1ce1-08da3da0aaa7
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2022 16:15:49.5361
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5KpHvPOSHEq0DwI78E00nW3J96BbADHeAxgKAQLjhrWnklGAUOEL5ZHVO2q+caLnFrY6wjFsPpNIu/mN0fYyKw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR03MB3047
 
+On Tue, May 24, 2022 at 05:14:12PM +0200, Jan Beulich wrote:
+> On 18.05.2022 15:27, Jane Malalane wrote:
+> > --- a/xen/arch/x86/include/asm/domain.h
+> > +++ b/xen/arch/x86/include/asm/domain.h
+> > @@ -14,8 +14,14 @@
+> >  
+> >  #define has_32bit_shinfo(d)    ((d)->arch.has_32bit_shinfo)
+> >  
+> > +/*
+> > + * Set to true if either the global vector-type callback or per-vCPU
+> > + * LAPIC vectors are used. Assume all vCPUs will use
+> > + * HVMOP_set_evtchn_upcall_vector as long as the initial vCPU does.
+> > + */
+> >  #define is_hvm_pv_evtchn_domain(d) (is_hvm_domain(d) && \
+> > -        (d)->arch.hvm.irq->callback_via_type == HVMIRQ_callback_vector)
+> > +        ((d)->arch.hvm.irq->callback_via_type == HVMIRQ_callback_vector || \
+> > +         (d)->vcpu[0]->arch.hvm.evtchn_upcall_vector))
+> >  #define is_hvm_pv_evtchn_vcpu(v) (is_hvm_pv_evtchn_domain(v->domain))
+> 
+> I continue to think that with the vCPU0 dependency added to
+> is_hvm_pv_evtchn_domain(), is_hvm_pv_evtchn_vcpu() should either
+> be adjusted as well (to check the correct vCPU's field) or be
+> deleted (and the sole caller be replaced).
 
-On 24.05.22 04:58, Stefano Stabellini wrote:
+I would be fine with replacing, the sole caller of
+is_hvm_pv_evtchn_vcpu(v) is never reached if the upcall vector is in
+use.
 
-Hello Stefano, all
-
-> On Mon, 23 May 2022, Oleksandr wrote:
->>>> On Thu, 19 May 2022, Oleksandr wrote:
->>>>>> On Wed, May 18, 2022 at 5:06 PM Oleksandr <olekstysh@gmail.com> wrote:
->>>>>>> On 18.05.22 17:32, Arnd Bergmann wrote:
->>>>>>>> On Sat, May 7, 2022 at 7:19 PM Oleksandr Tyshchenko
->>>>>>>> <olekstysh@gmail.com> wrote:
->>>>>>>>      This would mean having a device
->>>>>>>> node for the grant-table mechanism that can be referred to using
->>>>>>>> the
->>>>>>>> 'iommus'
->>>>>>>> phandle property, with the domid as an additional argument.
->>>>>>> I assume, you are speaking about something like the following?
->>>>>>>
->>>>>>>
->>>>>>> xen_dummy_iommu {
->>>>>>>        compatible = "xen,dummy-iommu";
->>>>>>>        #iommu-cells = <1>;
->>>>>>> };
->>>>>>>
->>>>>>> virtio@3000 {
->>>>>>>        compatible = "virtio,mmio";
->>>>>>>        reg = <0x3000 0x100>;
->>>>>>>        interrupts = <41>;
->>>>>>>
->>>>>>>        /* The device is located in Xen domain with ID 1 */
->>>>>>>        iommus = <&xen_dummy_iommu 1>;
->>>>>>> };
->>>>>> Right, that's that's the idea,
->>>>> thank you for the confirmation
->>>>>
->>>>>
->>>>>
->>>>>>     except I would not call it a 'dummy'.
->>>>>>    From the perspective of the DT, this behaves just like an IOMMU,
->>>>>> even if the exact mechanism is different from most hardware IOMMU
->>>>>> implementations.
->>>>> well, agree
->>>>>
->>>>>
->>>>>>>> It does not quite fit the model that Linux currently uses for
->>>>>>>> iommus,
->>>>>>>> as that has an allocator for dma_addr_t space
->>>>>>> yes (# 3/7 adds grant-table based allocator)
->>>>>>>
->>>>>>>
->>>>>>>> , but it would think it's
->>>>>>>> conceptually close enough that it makes sense for the binding.
->>>>>>> Interesting idea. I am wondering, do we need an extra actions for
->>>>>>> this
->>>>>>> to work in Linux guest (dummy IOMMU driver, etc)?
->>>>>> It depends on how closely the guest implementation can be made to
->>>>>> resemble a normal iommu. If you do allocate dma_addr_t addresses,
->>>>>> it may actually be close enough that you can just turn the grant-table
->>>>>> code into a normal iommu driver and change nothing else.
->>>>> Unfortunately, I failed to find a way how use grant references at the
->>>>> iommu_ops level (I mean to fully pretend that we are an IOMMU driver). I
->>>>> am
->>>>> not too familiar with that, so what is written below might be wrong or
->>>>> at
->>>>> least not precise.
->>>>>
->>>>> The normal IOMMU driver in Linux doesn’t allocate DMA addresses by
->>>>> itself, it
->>>>> just maps (IOVA-PA) what was requested to be mapped by the upper layer.
->>>>> The
->>>>> DMA address allocation is done by the upper layer (DMA-IOMMU which is
->>>>> the glue
->>>>> layer between DMA API and IOMMU API allocates IOVA for PA?). But, all
->>>>> what we
->>>>> need here is just to allocate our specific grant-table based DMA
->>>>> addresses
->>>>> (DMA address = grant reference + offset in the page), so let’s say we
->>>>> need an
->>>>> entity to take a physical address as parameter and return a DMA address
->>>>> (what
->>>>> actually commit #3/7 is doing), and that’s all. So working at the
->>>>> dma_ops
->>>>> layer we get exactly what we need, with the minimal changes to guest
->>>>> infrastructure. In our case the Xen itself acts as an IOMMU.
->>>>>
->>>>> Assuming that we want to reuse the IOMMU infrastructure somehow for our
->>>>> needs.
->>>>> I think, in that case we will likely need to introduce a new specific
->>>>> IOVA
->>>>> allocator (alongside with a generic one) to be hooked up by the
->>>>> DMA-IOMMU
->>>>> layer if we run on top of Xen. But, even having the specific IOVA
->>>>> allocator to
->>>>> return what we indeed need (DMA address = grant reference + offset in
->>>>> the
->>>>> page) we will still need the specific minimal required IOMMU driver to
->>>>> be
->>>>> present in the system anyway in order to track the mappings(?) and do
->>>>> nothing
->>>>> with them, returning a success (this specific IOMMU driver should have
->>>>> all
->>>>> mandatory callbacks implemented).
->>>>>
->>>>> I completely agree, it would be really nice to reuse generic IOMMU
->>>>> bindings
->>>>> rather than introducing Xen specific property if what we are trying to
->>>>> implement in current patch series fits in the usage of "iommus" in Linux
->>>>> more-less. But, if we will have to add more complexity/more components
->>>>> to the
->>>>> code for the sake of reusing device tree binding, this raises a question
->>>>> whether that’s worthwhile.
->>>>>
->>>>> Or I really missed something?
->>>> I think Arnd was primarily suggesting to reuse the IOMMU Device Tree
->>>> bindings, not necessarily the IOMMU drivers framework in Linux (although
->>>> that would be an added bonus.)
->>>>
->>>> I know from previous discussions with you that making the grant table
->>>> fit in the existing IOMMU drivers model is difficult, but just reusing
->>>> the Device Tree bindings seems feasible?
->>> I started experimenting with that. As wrote in a separate email, I got a
->>> deferred probe timeout,
->>>
->>> after inserting required nodes into guest device tree, which seems to be a
->>> consequence of the unavailability of IOMMU, I will continue to investigate
->>> this question.
->>
->> I have experimented with that. Yes, just reusing the Device Tree bindings is
->> technically feasible (and we are able to do this by only touching
->> grant-dma-ops.c), although deferred probe timeout still stands (as there is no
->> IOMMU driver being present actually).
->>
->> [    0.583771] virtio-mmio 2000000.virtio: deferred probe timeout, ignoring
->> dependency
->> [    0.615556] virtio_blk virtio0: [vda] 4096000 512-byte logical blocks (2.10
->> GB/1.95 GiB)
->>
->>
->> Below the working diff (on top of current series):
->>
->> diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
->> index da9c7ff..6586152 100644
->> --- a/drivers/xen/grant-dma-ops.c
->> +++ b/drivers/xen/grant-dma-ops.c
->> @@ -272,17 +272,24 @@ static const struct dma_map_ops xen_grant_dma_ops = {
->>
->>   bool xen_is_grant_dma_device(struct device *dev)
->>   {
->> +       struct device_node *iommu_np;
->> +       bool has_iommu;
->> +
->>          /* XXX Handle only DT devices for now */
->>          if (!dev->of_node)
->>                  return false;
->>
->> -       return of_property_read_bool(dev->of_node, "xen,backend-domid");
->> +       iommu_np = of_parse_phandle(dev->of_node, "iommus", 0);
->> +       has_iommu = iommu_np && of_device_is_compatible(iommu_np,
->> "xen,grant-dma");
->> +       of_node_put(iommu_np);
->> +
->> +       return has_iommu;
->>   }
->>
->>   void xen_grant_setup_dma_ops(struct device *dev)
->>   {
->>          struct xen_grant_dma_data *data;
->> -       uint32_t domid;
->> +       struct of_phandle_args iommu_spec;
->>
->>          data = find_xen_grant_dma_data(dev);
->>          if (data) {
->> @@ -294,16 +301,30 @@ void xen_grant_setup_dma_ops(struct device *dev)
->>          if (!dev->of_node)
->>                  goto err;
->>
->> -       if (of_property_read_u32(dev->of_node, "xen,backend-domid", &domid)) {
->> -               dev_err(dev, "xen,backend-domid property is not present\n");
->> +       if (of_parse_phandle_with_args(dev->of_node, "iommus", "#iommu-cells",
->> +                       0, &iommu_spec)) {
->> +               dev_err(dev, "Cannot parse iommus property\n");
->> +               goto err;
->> +       }
->> +
->> +       if (!of_device_is_compatible(iommu_spec.np, "xen,grant-dma") ||
->> +                       iommu_spec.args_count != 1) {
->> +               dev_err(dev, "Incompatible IOMMU node\n");
->> +               of_node_put(iommu_spec.np);
->>                  goto err;
->>          }
->>
->> +       of_node_put(iommu_spec.np);
->> +
->>          data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
->>          if (!data)
->>                  goto err;
->>
->> -       data->backend_domid = domid;
->> +       /*
->> +        * The endpoint ID here means the ID of the domain where the
->> corresponding
->> +        * backend is running
->> +        */
->> +       data->backend_domid = iommu_spec.args[0];
->>
->>          if (xa_err(xa_store(&xen_grant_dma_devices, (unsigned long)dev, data,
->>                          GFP_KERNEL))) {
->> (END)
->>
->>
->>
->> Below, the nodes generated by Xen toolstack:
->>
->>          xen_grant_dma {
->>                  compatible = "xen,grant-dma";
->>                  #iommu-cells = <0x01>;
->>                  phandle = <0xfde9>;
->>          };
->>
->>          virtio@2000000 {
->>                  compatible = "virtio,mmio";
->>                  reg = <0x00 0x2000000 0x00 0x200>;
->>                  interrupts = <0x00 0x01 0xf01>;
->>                  interrupt-parent = <0xfde8>;
->>                  dma-coherent;
->>                  iommus = <0xfde9 0x01>;
->>          };
->   
-> Not bad! I like it.
-
-
-Good.
-
-
-
->   
->   
->> I am wondering, would be the proper solution to eliminate deferred probe
->> timeout issue in our particular case (without introducing an extra IOMMU
->> driver)?
-> In reality I don't think there is a way to do that. I would create an
-> empty skelethon IOMMU driver for xen,grant-dma.
-
-Ok, I found yet another option how we can avoid deferred probe timeout 
-issue. I am not sure whether it will be welcome. But it doesn't really 
-require introducing stub IOMMU driver or other changes in the guest. The 
-idea is to make IOMMU device unavailable (status = "disabled"), this way 
-of_iommu_configure() will treat that as success condition also.
-
-https://elixir.bootlin.com/linux/v5.18/source/drivers/iommu/of_iommu.c#L31
-https://elixir.bootlin.com/linux/v5.18/source/drivers/iommu/of_iommu.c#L149
-
-         xen_grant_dma {
-                 compatible = "xen,grant-dma";
-                 #iommu-cells = <0x01>;
-                 phandle = <0xfde9>;
-                 status = "disabled";
-         };
-         virtio@2000000 {
-                 compatible = "virtio,mmio";
-                 reg = <0x00 0x2000000 0x00 0x200>;
-                 interrupts = <0x00 0x01 0xf01>;
-                 interrupt-parent = <0xfde8>;
-                 dma-coherent;
-                 iommus = <0xfde9 0x01>;
-         };
-
-I have checked, this "fixes" deferred probe timeout issue.
-
-
-Or we indeed need to introduce stub IOMMU driver (I placed it to 
-driver/xen instead of driver/iommu, also we can even squash it with 
-grant-dma-ops.c?).
-This stub driver also results in NO_IOMMU condition (as "of_xlate" 
-callback is not implemented).
-
-diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
-index a7bd8ce..35b91b9 100644
---- a/drivers/xen/Kconfig
-+++ b/drivers/xen/Kconfig
-@@ -335,6 +335,10 @@ config XEN_UNPOPULATED_ALLOC
-           having to balloon out RAM regions in order to obtain physical 
-memory
-           space to create such mappings.
-
-+config XEN_GRANT_DMA_IOMMU
-+       bool
-+       select IOMMU_API
-+
-  config XEN_GRANT_DMA_OPS
-         bool
-         select DMA_OPS
-@@ -343,6 +347,7 @@ config XEN_VIRTIO
-         bool "Xen virtio support"
-         depends on VIRTIO
-         select XEN_GRANT_DMA_OPS
-+       select XEN_GRANT_DMA_IOMMU
-         help
-           Enable virtio support for running as Xen guest. Depending on the
-           guest type this will require special support on the backend side
-diff --git a/drivers/xen/Makefile b/drivers/xen/Makefile
-index 1a23cb0..c0503f1 100644
---- a/drivers/xen/Makefile
-+++ b/drivers/xen/Makefile
-@@ -40,3 +40,4 @@ xen-privcmd-y                         := privcmd.o 
-privcmd-buf.o
-  obj-$(CONFIG_XEN_FRONT_PGDIR_SHBUF)    += xen-front-pgdir-shbuf.o
-  obj-$(CONFIG_XEN_UNPOPULATED_ALLOC)    += unpopulated-alloc.o
-  obj-$(CONFIG_XEN_GRANT_DMA_OPS)                += grant-dma-ops.o
-+obj-$(CONFIG_XEN_GRANT_DMA_IOMMU)      += grant-dma-iommu.o
-diff --git a/drivers/xen/grant-dma-iommu.c b/drivers/xen/grant-dma-iommu.c
-new file mode 100644
-index 00000000..b8aad8a
---- /dev/null
-+++ b/drivers/xen/grant-dma-iommu.c
-@@ -0,0 +1,76 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Stub IOMMU driver which does nothing.
-+ * The main purpose of it being present is to reuse generic device-tree 
-IOMMU
-+ * bindings by Xen grant DMA-mapping layer.
-+ */
-+
-+#include <linux/iommu.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+
-+struct grant_dma_iommu_device {
-+       struct device *dev;
-+       struct iommu_device iommu;
-+};
-+
-+/* Nothing is really needed here */
-+static const struct iommu_ops grant_dma_iommu_ops;
-+
-+static const struct of_device_id grant_dma_iommu_of_match[] = {
-+       { .compatible = "xen,grant-dma" },
-+       { },
-+};
-+
-+static int grant_dma_iommu_probe(struct platform_device *pdev)
-+{
-+       struct grant_dma_iommu_device *mmu;
-+       int ret;
-+
-+       mmu = devm_kzalloc(&pdev->dev, sizeof(*mmu), GFP_KERNEL);
-+       if (!mmu)
-+               return -ENOMEM;
-+
-+       mmu->dev = &pdev->dev;
-+
-+       ret = iommu_device_register(&mmu->iommu, &grant_dma_iommu_ops, 
-&pdev->dev);
-+       if (ret)
-+               return ret;
-+
-+       platform_set_drvdata(pdev, mmu);
-+
-+       return 0;
-+}
-+
-+static int grant_dma_iommu_remove(struct platform_device *pdev)
-+{
-+       struct grant_dma_iommu_device *mmu = platform_get_drvdata(pdev);
-+
-+       platform_set_drvdata(pdev, NULL);
-+       iommu_device_unregister(&mmu->iommu);
-+
-+       return 0;
-+}
-+
-+static struct platform_driver grant_dma_iommu_driver = {
-+       .driver = {
-+               .name = "grant-dma-iommu",
-+               .of_match_table = grant_dma_iommu_of_match,
-+       },
-+       .probe = grant_dma_iommu_probe,
-+       .remove = grant_dma_iommu_remove,
-+};
-+
-+static int __init grant_dma_iommu_init(void)
-+{
-+       struct device_node *iommu_np;
-+
-+       iommu_np = of_find_matching_node(NULL, grant_dma_iommu_of_match);
-+       if (!iommu_np)
-+               return 0;
-+
-+       of_node_put(iommu_np);
-+
-+       return platform_driver_register(&grant_dma_iommu_driver);
-+}
-+subsys_initcall(grant_dma_iommu_init);
-
-I have checked, this also "fixes" deferred probe timeout issue.
-
-Personally I would prefer the first option, but I would be also happy to 
-use second option in order to unblock the series.
-
-What do the maintainers think?
-
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
+Thanks, Roger.
 
