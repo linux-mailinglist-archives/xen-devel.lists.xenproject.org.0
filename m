@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68F86533B07
-	for <lists+xen-devel@lfdr.de>; Wed, 25 May 2022 12:56:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.337117.561626 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77D4D533B18
+	for <lists+xen-devel@lfdr.de>; Wed, 25 May 2022 12:58:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.337125.561638 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntogE-0005LF-Sx; Wed, 25 May 2022 10:55:54 +0000
+	id 1ntoii-0005ya-BQ; Wed, 25 May 2022 10:58:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 337117.561626; Wed, 25 May 2022 10:55:54 +0000
+Received: by outflank-mailman (output) from mailman id 337125.561638; Wed, 25 May 2022 10:58:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ntogE-0005Hm-Pu; Wed, 25 May 2022 10:55:54 +0000
-Received: by outflank-mailman (input) for mailman id 337117;
- Wed, 25 May 2022 10:55:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ntoii-0005vI-8a; Wed, 25 May 2022 10:58:28 +0000
+Received: by outflank-mailman (input) for mailman id 337125;
+ Wed, 25 May 2022 10:58:26 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LNZA=WB=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1ntogD-0005Hg-BA
- for xen-devel@lists.xenproject.org; Wed, 25 May 2022 10:55:53 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3e477cb4-dc19-11ec-837f-e5687231ffcc;
- Wed, 25 May 2022 12:55:52 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C53631F94C;
- Wed, 25 May 2022 10:55:51 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9818F13ADF;
- Wed, 25 May 2022 10:55:51 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id dO6sIzcLjmKefgAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 25 May 2022 10:55:51 +0000
+ (envelope-from <julien@xen.org>) id 1ntoig-0005v6-Cx
+ for xen-devel@lists.xenproject.org; Wed, 25 May 2022 10:58:26 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ntoif-0006jz-L4; Wed, 25 May 2022 10:58:25 +0000
+Received: from 54-240-197-238.amazon.com ([54.240.197.238]
+ helo=[192.168.21.168]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ntoif-0006aY-Ey; Wed, 25 May 2022 10:58:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,60 +39,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e477cb4-dc19-11ec-837f-e5687231ffcc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1653476151; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=ckeYyo67212NXGIzF5GamiYsJLXQg8ru+tyMx+nMhEo=;
-	b=A4QjohEWkQQhIsF2iQsc1aG/DEI8folCL/+4Zp8e9PT3WxN5QSaxLczTAY760earxK3elZ
-	/g9MzYBC9Yy1w4wK9HmbvjJ5yZP+CaBElyEcBkgsIkViiPMp37DKlVF+Rsr94E1bJLTXkg
-	C9jalbtm8BqF2vH4gq/uc2BR0IHb1yA=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Wei Liu <wl@xen.org>,
-	Julien Grall <julien@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH] tools/xenstore: fix event sending in introduce_domain()
-Date: Wed, 25 May 2022 12:55:49 +0200
-Message-Id: <20220525105549.30184-1-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=wb21tvMwamgQVXjHLuXLsmVqCbuV0KapQD8Yu8rT6Tk=; b=V0MyhWuRGKVFmJWhQRy7KfoiZC
+	TmIk6ZArrAsxAg7Iz6Ta7mXx/V83FnxqdLxKHOrLP1TflaW3+wVswkY0jLQfCGGySrJ+aKYy+Sw8W
+	zxq6Z3BY9isTVhkfsHqoJcHbDN5XL3TGv26ixh47ThOFnW1e7qtE+oA8F/TtenOtBWdU=;
+Message-ID: <6f333841-17e3-c9ac-580a-fc89f1741596@xen.org>
+Date: Wed, 25 May 2022 11:58:23 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.9.1
+Subject: Re: [PATCH v2] SUPPORT.md: extend security support for x86 hosts to
+ 12 TiB of memory
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <5835df1e-8f92-79ce-94c5-1b5df9c9ff65@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <5835df1e-8f92-79ce-94c5-1b5df9c9ff65@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Commit fc2b57c9af46 ("xenstored: send an evtchn notification on
-introduce_domain") introduced a potential NULL dereference in case of
-Xenstore live update.
+Hi Jan,
 
-Fix that by adding an appropriate check.
+On 25/05/2022 10:21, Jan Beulich wrote:
+> c49ee0329ff3 ("SUPPORT.md: limit security support for hosts with very
+> much memory"), as a result of XSA-385, restricted security support to
+> 8 TiB of host memory. While subsequently further restricted for Arm,
+> extend this to 12 TiB on x86, putting in place a guest restriction to
+> 8 TiB (or yet less for Arm) in exchange.
+> 
+> A 12 TiB x86 host was certified successfully for use with Xen 4.14 as
+> per https://www.suse.com/nbswebapp/yesBulletin.jsp?bulletinNumber=150753.
+> This in particular included running as many guests (2 TiB each) as
+> possible in parallel, to actually prove that all the memory can be used
+> like this. It may be relevant to note that the Optane memory there was
+> used in memory-only mode, with DRAM acting as cache.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> v2: Rebase over new host limits for Arm. Refine new guest values for
+>      Arm.
+> 
+> --- a/SUPPORT.md
+> +++ b/SUPPORT.md
+> @@ -50,7 +50,7 @@ For the Cortex A57 r0p0 - r1p1, see Erra
+>   
+>   ### Physical Memory
+>   
+> -    Status, x86: Supported up to 8 TiB. Hosts with more memory are supported, but not security supported.
+> +    Status, x86: Supported up to 12 TiB. Hosts with more memory are supported, but not security supported.
+>       Status, Arm32: Supported up to 12 GiB
+>       Status, Arm64: Supported up to 2 TiB
+>   
+> @@ -121,6 +121,17 @@ ARM only has one guest type at the momen
+>   
+>       Status: Supported
+>   
+> +## Guest Limits
+> +
+> +### Memory
+> +
+> +    Status, x86: Supported up to 8 TiB
+> +    Status, Arm64: Supported up to 1 TiB
+> +    Status, Arm32: Supported up to 32 GiB
 
-Coverity-Id: 1504572
-Fixes: fc2b57c9af46 ("xenstored: send an evtchn notification on introduce_domain")
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- tools/xenstore/xenstored_domain.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+IIRC, the max the architecture would allow us is 16 Gib. Here we are 
+limited with how much physical memory is supported by Xen. So this wants 
+to be 12 GiB.
 
-diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
-index de88bf2a68..ead4c237d2 100644
---- a/tools/xenstore/xenstored_domain.c
-+++ b/tools/xenstore/xenstored_domain.c
-@@ -493,9 +493,11 @@ static struct domain *introduce_domain(const void *ctx,
- 		/* Now domain belongs to its connection. */
- 		talloc_steal(domain->conn, domain);
- 
--		/* Notify the domain that xenstore is available */
--		interface->connection = XENSTORE_CONNECTED;
--		xenevtchn_notify(xce_handle, domain->port);
-+		if (!restore) {
-+			/* Notify the domain that xenstore is available */
-+			interface->connection = XENSTORE_CONNECTED;
-+			xenevtchn_notify(xce_handle, domain->port);
-+		}
- 
- 		if (!is_master_domain && !restore)
- 			fire_watches(NULL, ctx, "@introduceDomain", NULL,
+
+> +
+> +Guests with more memory, but less than 16 TiB, are supported,
+> +but not security supported.
+
+On Arm32, we definitely can't support up to 16 TiB. On Arm64, we would 
+need some work to support it. So I would move this sentence in the 
+"Status, x86" section.
+
+Cheers,
+
 -- 
-2.35.3
-
+Julien Grall
 
