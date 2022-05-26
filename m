@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 515F3534803
-	for <lists+xen-devel@lfdr.de>; Thu, 26 May 2022 03:18:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.337416.562010 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87A9A53487E
+	for <lists+xen-devel@lfdr.de>; Thu, 26 May 2022 03:58:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.337424.562021 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nu28d-00076a-GD; Thu, 26 May 2022 01:18:07 +0000
+	id 1nu2l1-0002ml-Jr; Thu, 26 May 2022 01:57:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 337416.562010; Thu, 26 May 2022 01:18:07 +0000
+Received: by outflank-mailman (output) from mailman id 337424.562021; Thu, 26 May 2022 01:57:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nu28d-000747-D6; Thu, 26 May 2022 01:18:07 +0000
-Received: by outflank-mailman (input) for mailman id 337416;
- Thu, 26 May 2022 01:18:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nu2l1-0002k3-Fn; Thu, 26 May 2022 01:57:47 +0000
+Received: by outflank-mailman (input) for mailman id 337424;
+ Thu, 26 May 2022 01:57:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/mMd=WC=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nu28c-000741-37
- for xen-devel@lists.xenproject.org; Thu, 26 May 2022 01:18:06 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b0326c86-dc91-11ec-bd2c-47488cf2e6aa;
- Thu, 26 May 2022 03:18:04 +0200 (CEST)
+ id 1nu2kz-0002jx-UG
+ for xen-devel@lists.xenproject.org; Thu, 26 May 2022 01:57:46 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3afef0c3-dc97-11ec-837f-e5687231ffcc;
+ Thu, 26 May 2022 03:57:43 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id F34B16178B;
- Thu, 26 May 2022 01:18:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5099C385B8;
- Thu, 26 May 2022 01:18:00 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 581A161830;
+ Thu, 26 May 2022 01:57:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DC77C34113;
+ Thu, 26 May 2022 01:57:41 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,75 +43,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b0326c86-dc91-11ec-bd2c-47488cf2e6aa
+X-Inumbo-ID: 3afef0c3-dc97-11ec-837f-e5687231ffcc
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1653527881;
-	bh=f1ROh0jhdngz8xUjuNAgmHCnrQqW6Evn0tfcS/9eO5g=;
+	s=k20201202; t=1653530261;
+	bh=noBuLfnEfqstfqk1d/Cax29+AR4MGTO/yzggDEsvn7Q=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=oaPwo+k4ixEd4tAiXUXTQv9kRD37r8hywS4gnu1EJ/eR1pi2+9XCVJgITx24pBuQK
-	 R6PnsdquOtL7Iv13ZasyA/g+X/24HjKBSgN1w4xJqpZ8WxnnBsuy7+RKX2JvJUVK0f
-	 tyrbtZo/EqYzRX8oDb4nrl6khvaOlmTdjCACm0/B5SH25B631Zc6JhiVwJYDj1F+ow
-	 Fwt+Xh/ezcfLWGBXRuvMDodVYiJeMW1aQIlqxKWDgqvecvYNRv53axnevfPR0J9i6O
-	 gMcukPgqdMTe1sgLOU8O7BZDS2iHYZJdHpkjFjpzX1h8RuZw/k3CwZIbyLqMRPhqyJ
-	 WkNKSxDWoukag==
-Date: Wed, 25 May 2022 18:18:00 -0700 (PDT)
+	b=JiciWRWHflBIBbfVY7iqKRsP3LNAwqXupCitTvkfPurnzq1wnujB7GMUwTs0xoDJn
+	 6X7J0/yja/ChfdaLlNKh8gyeOruBnZCNOFRU4aWZLfCfDj4YJncl8iRmwvEUub0q3U
+	 yq4W/dhI+2GJeHDHQ3yAEjMwGfBkM6RfSvmTIi9eu/cc5HAgVCJVWTHBupKaRymXHD
+	 QxGGgOR7bOTLP8NB7mwjZ2BdvsGPzFzNJukNburrogXtHuauqFS0NWwbYEb09MqTwM
+	 0yLLecC/suwmjtMcpOsNZvN/TvEhXSqzR94mcl+cPnLaeHpyV+v87QlsRczFH55/41
+	 PFSbPmAy5Xu6Q==
+Date: Wed, 25 May 2022 18:57:40 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com, 
-    roger.pau@citrix.com, julien@xen.org, Bertrand.Marquis@arm.com, 
-    George.Dunlap@citrix.com, 
-    Stefano Stabellini <stefano.stabellini@xilinx.com>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 2/2] docs/misra: add Rule 5.1
-In-Reply-To: <6604372a-67a1-6ad2-bbcf-d6b4337a4bf0@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2205251813290.1905099@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2205241650160.1905099@ubuntu-linux-20-04-desktop> <20220525003505.304617-2-sstabellini@kernel.org> <6604372a-67a1-6ad2-bbcf-d6b4337a4bf0@suse.com>
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    "jbeulich@suse.com" <jbeulich@suse.com>, 
+    Roger Pau Monne <roger.pau@citrix.com>, "julien@xen.org" <julien@xen.org>, 
+    "Bertrand.Marquis@arm.com" <Bertrand.Marquis@arm.com>, 
+    George Dunlap <George.Dunlap@citrix.com>, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>
+Subject: Re: [PATCH 1/2] docs/misra: introduce rules.rst
+In-Reply-To: <eec293b7-f6a9-181a-5674-9081f83667ea@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2205251823090.1905099@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2205241650160.1905099@ubuntu-linux-20-04-desktop> <20220525003505.304617-1-sstabellini@kernel.org> <eec293b7-f6a9-181a-5674-9081f83667ea@citrix.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; BOUNDARY="8323329-914675212-1653528626=:1905099"
+Content-ID: <alpine.DEB.2.22.394.2205251830310.1905099@ubuntu-linux-20-04-desktop>
 
-On Wed, 25 May 2022, Jan Beulich wrote:
-> On 25.05.2022 02:35, Stefano Stabellini wrote:
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-914675212-1653528626=:1905099
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2205251830311.1905099@ubuntu-linux-20-04-desktop>
+
+On Wed, 25 May 2022, Andrew Cooper wrote:
+> On 25/05/2022 01:35, Stefano Stabellini wrote:
 > > From: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> > 
-> > Add Rule 5.1, with the additional note that the character limit for Xen
-> > is 63 characters.
-> > 
-> > The max length identifiers found by ECLAIR are:
-> > 
-> > __mitigate_spectre_bhb_clear_insn_start
-> > domain_pause_by_systemcontroller_nosync
-> > 
-> > Both of them are 40 characters long. A limit of 63 characters work for
-> > the existing code.
+> >
+> > Introduce a list of MISRA C rules that apply to the Xen hypervisor. The
+> > list is in RST format.
+> >
+> > Add a mention of the new list to CODING_STYLE.
+> >
+> > Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
 > 
-> I have to admit that it hasn't become clear to me why we want to
-> permit (if not to say encourage) the use of such long identifiers.
-> If 40 is the longest we've got, why not limit it to 40 for now
-> with a goal of further reducing? A 40-char symbol plus some
-> indentation will already pose problems with 80-char line length.
- 
-We can go lower than 63 if we want to. I chose the closest power-of-two
-length -1 for the NUL terminator. But it doesn't have to be a
-power-of-two. So we could go with "41" if we want to.
+> Some comments on syntax/layout, unrelated to the specific content.
+> 
+> You can check the rendered content with either `make -C docs
+> sphinx-html` locally, or by pointing readthedocs at your repo.  (e.g.
+> https://andrewcoop-xen.readthedocs.io/en/docs-devel/ is a very out of
+> date WIP branch of some in-development content.)
 
-Anyone in favor of that? I am happy with any number between 41 and 63.
+Thanks I did that and I can see that the layout needs a lot of
+improvements.
 
 
-> Otoh, as said on the call, I think the public headers want
-> mentioning explicitly here in some way. Part of them (most or all
-> of what's under io/) aren't used when building Xen, so won't be
-> seen by Eclair (aiui). Yet they are a formal part of the code
-> base, and e.g. ring.h has some pretty long names (albeit still
-> below 40 chars as it looks). So once we're able to go down to e.g.
-> 32 for the bulk of the code base, public headers should imo still
-> be explicitly allowed to use longer identifiers.
+> Whatever gets committed will be rendered at
+> https://xenbits.xen.org/docs/latest/ once the cronjob catches up.
+> 
+> > ---
+> >  CODING_STYLE         |  6 ++++
+> >  docs/misra/rules.rst | 65 ++++++++++++++++++++++++++++++++++++++++++++
+> 
+> At minimum there needs to be an addition to a toctree directive in on of
+> the existing index.rst's
+> 
+> But  this looks like it ought to be part of the hypervisor guide ?
 
-Actually I thought about writing something for the public header but I
-wasn't sure what to write. What about:
+I would keep the actual MISRA files in their own top-level directory
+under docs/ but we can certainly link to them from docs/index.rst or
+from hypervisor guide. What about the following added to docs/index.rst:
 
-- Note: the Xen characters limit for identifiers is 41. Public headers
-  (xen/include/public/) are allowed to retain longer identifiers for
-  backward compatibility.
+MISRA C coding guidelines
+-------------------------
+
+MISRA C rules and directive to be used as coding guidelines when writing
+Xen hypervisor code.
+
+.. toctree::
+   :maxdepth: 2
+
+   misra/rules
+
+
+
+> >  2 files changed, 71 insertions(+)
+> >  create mode 100644 docs/misra/rules.rst
+> >
+> > diff --git a/CODING_STYLE b/CODING_STYLE
+> > index 9f50d9cec4..1ef35ee8d0 100644
+> > --- a/CODING_STYLE
+> > +++ b/CODING_STYLE
+> > @@ -235,3 +235,9 @@ callstack between the initial function call and the failure, no error
+> >  is returned.  Using domain_crash() requires careful inspection and
+> >  documentation of the code to make sure all callers at the stack handle
+> >  a newly-dead domain gracefully.
+> > +
+> > +MISRA C
+> > +-------
+> > +
+> > +The Xen Project hypervisor follows the MISRA C coding rules and
+> > +directives listed under docs/misra/rules.rst.
+> 
+> I think this would be clearer to follow as:
+> 
+> "The Xen Hypervisor follows some MISRA C coding rules.  See ... for
+> details."
+> 
+> because otherwise there is an implication that we follow all rules. 
+> Also, "Xen Project" might be the name of our legal entity name, but the
+> hypervisor's name is Xen, not "Xen Project".
+
+Yep, I can do that
+
+
+> > diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
+> > new file mode 100644
+> > index 0000000000..c0ee58ab25
+> > --- /dev/null
+> > +++ b/docs/misra/rules.rst
+> > @@ -0,0 +1,65 @@
+> 
+> All Sphinx content needs to be
+> 
+> .. SPDX-License-Identifier: CC-BY-4.0
+> 
+> so it specifically can be vendored/tailored by downstream entities.
+> 
+> > +=====================
+> > +MISRA C rules for Xen
+> > +=====================
+> 
+> And the prevailing style is without the === overline.
+> 
+> > +
+> > +**IMPORTANT** All MISRA C rules, text, and examples are copyrighted by the
+> > +MISRA Consortium Limited and used with permission.
+> > +
+> > +Please refer to https://www.misra.org.uk/ to obtain a copy of MISRA C, or for
+> > +licensing options for other use of the rules.
+> 
+> .. note::
+> 
+> and then with the two paragraphs indented to be a part of the note block.
+> 
+> > +
+> > +The following is the list of MISRA C rules that apply to the Xen Project
+> > +hypervisor.
+> > +
+> > +- Rule: Dir 2.1
+> > +  - Severity:  Required
+> > +  - Summary:  All source files shall compile without any compilation errors
+> > +  - Link:  https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/D_02_01.c
+> 
+> This wants to be .. list-table::  See
+> docs/guest-guide/x86/hypercall-abi.rst for an example.
+
+Ah yes, thank you
+
+
+
+> Also, the URL wants to use the ext-links plugin.  See
+> https://lore.kernel.org/xen-devel/20191003205623.20839-4-andrew.cooper3@citrix.com/
+
+It looks like that patch didn't make it upstream? But I can just use the
+following format and it works with make -C docs sphinx-html:
+
+
+   * - `Dir 2.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/D_02_01.c>`_
+     - Required
+     - All source files shall compile without any compilation errors
+     -
+
+the format is `description <link>`_
+--8323329-914675212-1653528626=:1905099--
 
