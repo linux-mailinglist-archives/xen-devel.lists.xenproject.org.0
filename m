@@ -2,65 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 074B85351B8
-	for <lists+xen-devel@lfdr.de>; Thu, 26 May 2022 17:56:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.337662.562324 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14691535208
+	for <lists+xen-devel@lfdr.de>; Thu, 26 May 2022 18:28:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.337670.562334 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nuFqb-0001P5-C8; Thu, 26 May 2022 15:56:25 +0000
+	id 1nuGKl-00059W-Pw; Thu, 26 May 2022 16:27:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 337662.562324; Thu, 26 May 2022 15:56:25 +0000
+Received: by outflank-mailman (output) from mailman id 337670.562334; Thu, 26 May 2022 16:27:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nuFqb-0001M3-96; Thu, 26 May 2022 15:56:25 +0000
-Received: by outflank-mailman (input) for mailman id 337662;
- Thu, 26 May 2022 15:56:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nuGKl-00056y-N9; Thu, 26 May 2022 16:27:35 +0000
+Received: by outflank-mailman (input) for mailman id 337670;
+ Thu, 26 May 2022 16:27:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/0Dc=WC=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1nuFqZ-0001Lx-F6
- for xen-devel@lists.xenproject.org; Thu, 26 May 2022 15:56:23 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01on062c.outbound.protection.outlook.com
- [2a01:111:f400:fe1f::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 62ce3e67-dd0c-11ec-bd2c-47488cf2e6aa;
- Thu, 26 May 2022 17:56:21 +0200 (CEST)
-Received: from AS9PR0301CA0050.eurprd03.prod.outlook.com
- (2603:10a6:20b:469::19) by PAXPR08MB6640.eurprd08.prod.outlook.com
- (2603:10a6:102:dd::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.13; Thu, 26 May
- 2022 15:56:18 +0000
-Received: from VE1EUR03FT018.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:469:cafe::7e) by AS9PR0301CA0050.outlook.office365.com
- (2603:10a6:20b:469::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.13 via Frontend
- Transport; Thu, 26 May 2022 15:56:18 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- VE1EUR03FT018.mail.protection.outlook.com (10.152.18.135) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5293.13 via Frontend Transport; Thu, 26 May 2022 15:56:18 +0000
-Received: ("Tessian outbound 42cead292588:v119");
- Thu, 26 May 2022 15:56:09 +0000
-Received: from 48e420b08127.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- DACA84EB-00F0-4BD8-95FE-FF9490316E18.1; 
- Thu, 26 May 2022 15:55:58 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 48e420b08127.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 26 May 2022 15:55:58 +0000
-Received: from AM0PR08MB3809.eurprd08.prod.outlook.com (2603:10a6:208:103::16)
- by PR2PR08MB4825.eurprd08.prod.outlook.com (2603:10a6:101:27::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.17; Thu, 26 May
- 2022 15:55:55 +0000
-Received: from AM0PR08MB3809.eurprd08.prod.outlook.com
- ([fe80::1017:8b09:6681:c914]) by AM0PR08MB3809.eurprd08.prod.outlook.com
- ([fe80::1017:8b09:6681:c914%5]) with mapi id 15.20.5293.013; Thu, 26 May 2022
- 15:55:55 +0000
+ <SRS0=00fF=WC=igalia.com=gpiccoli@srs-se1.protection.inumbo.net>)
+ id 1nuGKk-00056s-Et
+ for xen-devel@lists.xenproject.org; Thu, 26 May 2022 16:27:34 +0000
+Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bd71bfac-dd10-11ec-837f-e5687231ffcc;
+ Thu, 26 May 2022 18:27:32 +0200 (CEST)
+Received: from 200-161-159-120.dsl.telesp.net.br ([200.161.159.120]
+ helo=[192.168.1.60]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1nuGJf-002CG3-Fu; Thu, 26 May 2022 18:26:28 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,145 +40,321 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 62ce3e67-dd0c-11ec-bd2c-47488cf2e6aa
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=mbk7Axgw41GF60bdsgue8zvv/4O4pHRDFZENMjNAuHxeTsvf6z5xlTVy9wqPqQJ051Zg+QgFUTLizYN/4XffGk3kkVh3CC97h4TS+qmzKWJ6WdKvHXVwgjow0SArEapQwuoA7UC2QtyxMpTkRUwTII1SK47KQFszHH5FB5JyNK3Zwt3lJGq4lpOrk4447Xg3ehMKgd5QE2XSZL/Ekdiq3APjrd7qD6No96dpvGwFfU6FT4ZakMGvG3BZvVtQYsgFAo7dPnX3HDBPM6WPKMDUVLWS66mpeF5P868nbQ+7koMk4FbKj1kWX9vtl6hEHOh+LuE757HkAPxdMFt3rcvJrw==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ka290vH7/1CdVyNLnTdw0mQvae0dOqEEjhyaFbnoAUQ=;
- b=VC1azwtbhkX3GKvEhtoPNlDqVzpywOwlSQnZxLntxjvj2WLpqrg1rtLeeD65GQjOpmbJkDYtLf41mTqXMi6mNnPMtIKM6x4pJaCl2X478Wq4iniOXQBfldpZM8cmShInBL4gCVCbXhGvAcLJGtOhee/HDi0EJCsz4hmH+e1o1r6k6570+Mj3x+KAj4vf7NNyMnxFwQBLnx2Nw/yTrBnpHGsvwY9pfgAW0mLHPXb933SflYr4ekoyQDc8H/ECYiQl/ZiTJu3uPK/yHJwnfQ6/P8f/dAg4qXX9zaliQWbxTczepIYJ4XzSIkd+xXnwK1UOlCBwo4Wp63nt72HimTW+hA==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
- oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ka290vH7/1CdVyNLnTdw0mQvae0dOqEEjhyaFbnoAUQ=;
- b=ujzdyj3iymKqTLYhUkD76BhGKyfYXDQjDXtVR1v7d9JZcubOCttz7w/bjJIcSYjv169aQkRv4pQCD3alJd83PwTgfJyeSq7J+CPBly3sLXY2rBM6HnPAhVFRMPW8c8KsQUFgm3F+Vuj6P7yqpxWv2V7SRWcu0oAhiWmi6/Cx+NE=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 24b8fd44a1107ba6
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Mjspp9EXZeEMNiMD8wjkhsnMGdTaIJMmRMHIwEaNoq5uj77Eu9x6oIIufeiE/1vgWehqFVyeFkgOKbkuFq0NEdmMDm9K/+iNkdaFG3jWy2dJO7SM6Cnq6DPgiKSDi1hDdKNB738miM5eOFaibXWyNxVfuahd6uuDbr2C/NlDAiZ+gzjQZsB8nT07tAG0Ouu7ntY59+ialZvgLyi8DzUVxu/79mNU6QHbhWybu8oxq4O8ojiDWGPP5iXhVYBlsvK5m0kHWDnDlKuYRlxCL9XTPEytN9f/wiqt6QxVGCtPnUKVpbmOa++EXM7ZMUgSO+KSFhgtzL2dd3P9E/BcThG/jg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ka290vH7/1CdVyNLnTdw0mQvae0dOqEEjhyaFbnoAUQ=;
- b=ZvrTWKLvr0WOLWty3M0UVgzrLWwheyXb2CO3uLusNK0XQDqX5NmNyE/9XFL12Gr0dvru9uKCUNvdO9z82niyt2H89klSBI7RiWBA+orpp22RMx6llZ/kZ1BssgybH69tpA8OBAKgJpoYHkbpTTzvxX1r9U7ArrrQmXCgHzrJSrcUnUqmITLfpyNEUUFqGY7/0zT8pRL8pO0tw9Znp2Zw/h7DGGx2sYrt+V8ciL06jmiuOMowS4jBtUp1FldVuWSEIC1ZFJr1I20wBuIANqTc69KwGcP4Q9MClKJSd5SkzixwAJNi7VkLsXIROCrVcgWLSEjECV6kRNvywnnaPwkafA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ka290vH7/1CdVyNLnTdw0mQvae0dOqEEjhyaFbnoAUQ=;
- b=ujzdyj3iymKqTLYhUkD76BhGKyfYXDQjDXtVR1v7d9JZcubOCttz7w/bjJIcSYjv169aQkRv4pQCD3alJd83PwTgfJyeSq7J+CPBly3sLXY2rBM6HnPAhVFRMPW8c8KsQUFgm3F+Vuj6P7yqpxWv2V7SRWcu0oAhiWmi6/Cx+NE=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wei.liu2@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	George Dunlap <george.dunlap@citrix.com>, Hongyan Xia <hongyxia@amazon.com>,
-	Julien Grall <jgrall@amazon.com>, Jan Beulich <jbeulich@suse.com>, Wei Liu
-	<wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
-Subject: Re: [PATCH 10/16] xen/arm: add Persistent Map (PMAP) infrastructure
-Thread-Topic: [PATCH 10/16] xen/arm: add Persistent Map (PMAP) infrastructure
-Thread-Index: AQHYbENHzKAKTdKMX0qFkL1GWjFhOq0xWaOA
-Date: Thu, 26 May 2022 15:55:55 +0000
-Message-ID: <E7A35551-101E-4C89-84C2-7601F107F052@arm.com>
-References: <20220520120937.28925-1-julien@xen.org>
- <20220520120937.28925-11-julien@xen.org>
-In-Reply-To: <20220520120937.28925-11-julien@xen.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3696.80.82.1.1)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-MS-Office365-Filtering-Correlation-Id: 598b13ee-ddc8-433b-ebbf-08da3f304587
-x-ms-traffictypediagnostic:
-	PR2PR08MB4825:EE_|VE1EUR03FT018:EE_|PAXPR08MB6640:EE_
-X-Microsoft-Antispam-PRVS:
-	<PAXPR08MB66405F25054798C4408C0817E4D99@PAXPR08MB6640.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- VNhIwxmW5UI1zp7CxZzWWj7+iZA72YuC1lo1bb2uLviaFLLp+ijTmP3f8wFCgHGjxghGBnwXimW8k+zxrkXVN16Rnul7dcoH2HmjY70m+UJMgLMRvjmHssQXNhfneeBIonrP1KRoY15teSSzhxjKaYh3W7Ct6POGVE62NM/krY+uBlb1VMeTl3F/2xB0xgzWMgSU+Yq/N4vqSSTZAEe8RqSzFnPBtryaleIciuc9980+ciGNVa5MErMW++j8wcbujOOXDL1Db6QZPeEoMrLNzwwYHIk99XRgJ89l+okvxVpynuiG7VeLokvhXKcK1Nb3Ep1W0EunMka1rY2JkKIeC0i7V1WHZLr2qwVtIgsl5EmPKfAstfQIYaoiG6qtWrlNsKoG3ieHCK4Z/gzn2B6ackVXG1DTrOlwp3ubi03nb4+Ap0xyjpVQc02S9IcmJWuRXdcXbmCtx+WVFZt9fVk59GdMUfickLaZtYxGAP2/usOY1BH8r27cehCB0wUIc0CbTxXnV+w0Accgi5gvusGurw9KkcVGsuRAYJqV68OM1Hqzh9kzsbwu2BAyxVOELTjS5MgS9G04dAVIk8XEz8OCBjRkudMX0nZFiSbkxA1eFahpVFV1ivI/RVz6BIsPfb+z2AhCZIIPhDCf5jp8SUm+CTgeqR42RFwiW4ApyPRqA27aYKuTqwihWxvNfR2+oML1l/pwP9RTa06GjCj/NXKkW2MQ0ZtRZ5Ofb40NTxLLeHBi+2zzl68/0vBq6pNSdfZN
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR08MB3809.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(2616005)(6506007)(6486002)(53546011)(8936002)(7416002)(36756003)(5660300002)(33656002)(2906002)(64756008)(54906003)(66946007)(66446008)(76116006)(8676002)(4326008)(91956017)(86362001)(66556008)(38070700005)(508600001)(66476007)(122000001)(71200400001)(83380400001)(38100700002)(6512007)(186003)(26005)(6916009)(316002)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <872E6A0A4228014FA5AA7F70A2283B9A@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: bd71bfac-dd10-11ec-837f-e5687231ffcc
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=g5u06r/Xg87j4V8Rg6/UfqgEi7DYXSrP5RmkrTIzh/Q=; b=iCgAR296S3LSbLmOpR3LkrCpsK
+	y7YGr6I7yByIEwTjZ2WtYRzzbyBvMDTQTR3zmmZ44zuVyZpeJqajxLL5P1xpJLJTb2dMh5pJztl3L
+	0g1AqEeOs5c1YhSNaGywDAZ/a8oRKFkwwQklOk+HDjN8XleGQXFDshk4Tc2fywUvD+bO6YJpDVBxc
+	VZ4/e0yO80afyjzEwVVVSVn0AWE9cNQ3TmY2LMY1cD3yxOgLWBpjPGf2UcUw/gYnz7ZNSKeZGhrc7
+	DZJCm/pzdYk71lBIOpedohq49XSnuibFm3AYgqR1AYHFLSTcilBkitlJTKPhazpNWpAJ8ROQUyMS/
+	zY22U5mQ==;
+Message-ID: <0d084eed-4781-c815-29c7-ac62c498e216@igalia.com>
+Date: Thu, 26 May 2022 13:25:57 -0300
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR2PR08MB4825
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- VE1EUR03FT018.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	6992807f-0e8d-4bec-8662-08da3f3037f8
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	jo62tqBbiZ6NzXBgZSJdy9luJ5Zr7xLxLBF6Hqte2SfHJaJU1PP9S1sf2+ptfoBICmpm2sdUiP1PzfRZ7IUgTImxOtUKTeatdQvHqVH2bXy2uIJXP/cCtKVgIvPYHK/5aIPK3Mc+RnO8yfVVPYUESsofAiR6bAuZMCN+vWMnBIgvGXKR4iq5pz3EmyfZWo9rIt3BvqZEIcpf7gewyE4a66/4NyZBhYnkAt86kgb+OjnnSnAHq03VlSu4ltWwcUC/8TSAknh9BbS33RCGpax2fT13vPljW4EDnJkN47Ivtw2x+z1J1M4AnLZOgqfUyy8qYfyvFaAqSZ6JvpaKpj90nSy3uo2zsEXDRWV8/cNZWUoXTLjJfK2ELEAAVDqRmgUQFRVziEGQtwTEQB8frkfxuikDsmAcR8f9wq3wIYuuhttF3/BLgE1hcAkJQ1RlxQdnskLABFnRMOiC3g7gkLR2kf+KHl0RE5IlXLa2WGnX5yV2M3kKXHUUGHtP87O10gAfF5d+8KeMAPEnTc9qPSlLupHLk7YZj8InL44RqtUN5KSQUoc3DVT12UwFW+r+sRmo2/QDl1nedrGBWU8D7e300bDNrP4VcgWNkV9WMvPI19/wAjrLYjjQYSvn576CVDDrZnZ0TkSS5BprBKTELxCuRD6n+ca/ZaYRkLJGrg8j2hZw/XMLqEukOP1yewh6FEOv
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(36756003)(6486002)(40460700003)(81166007)(2906002)(86362001)(316002)(6506007)(8936002)(70586007)(70206006)(4326008)(8676002)(6862004)(53546011)(26005)(6512007)(508600001)(47076005)(107886003)(5660300002)(336012)(356005)(33656002)(54906003)(36860700001)(2616005)(83380400001)(186003)(82310400005);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2022 15:56:18.2456
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 598b13ee-ddc8-433b-ebbf-08da3f304587
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	VE1EUR03FT018.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB6640
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Subject: Re: [PATCH 24/30] panic: Refactor the panic path
+Content-Language: en-US
+To: bhe@redhat.com, d.hatayama@jp.fujitsu.com,
+ "Eric W. Biederman" <ebiederm@xmission.com>,
+ Mark Rutland <mark.rutland@arm.com>, mikelley@microsoft.com,
+ pmladek@suse.com, vkuznets@redhat.com
+Cc: akpm@linux-foundation.org, kexec@lists.infradead.org,
+ linux-kernel@vger.kernel.org, bcm-kernel-feedback-list@broadcom.com,
+ linuxppc-dev@lists.ozlabs.org, linux-alpha@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-leds@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-um@lists.infradead.org, linux-xtensa@linux-xtensa.org,
+ netdev@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+ rcu@vger.kernel.org, sparclinux@vger.kernel.org,
+ xen-devel@lists.xenproject.org, x86@kernel.org, kernel-dev@igalia.com,
+ kernel@gpiccoli.net, halves@canonical.com, fabiomirmar@gmail.com,
+ alejandro.j.jimenez@oracle.com, andriy.shevchenko@linux.intel.com,
+ arnd@arndb.de, bp@alien8.de, corbet@lwn.net, dave.hansen@linux.intel.com,
+ dyoung@redhat.com, feng.tang@intel.com, gregkh@linuxfoundation.org,
+ hidehiro.kawai.ez@hitachi.com, jgross@suse.com, john.ogness@linutronix.de,
+ keescook@chromium.org, luto@kernel.org, mhiramat@kernel.org,
+ mingo@redhat.com, paulmck@kernel.org, peterz@infradead.org,
+ rostedt@goodmis.org, senozhatsky@chromium.org, stern@rowland.harvard.edu,
+ tglx@linutronix.de, vgoyal@redhat.com, will@kernel.org
+References: <20220427224924.592546-1-gpiccoli@igalia.com>
+ <20220427224924.592546-25-gpiccoli@igalia.com>
+ <87fskzuh11.fsf@email.froward.int.ebiederm.org>
+From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+In-Reply-To: <87fskzuh11.fsf@email.froward.int.ebiederm.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-DQoNCj4gT24gMjAgTWF5IDIwMjIsIGF0IDEzOjA5LCBKdWxpZW4gR3JhbGwgPGp1bGllbkB4ZW4u
-b3JnPiB3cm90ZToNCj4gDQo+IEZyb206IFdlaSBMaXUgPHdlaS5saXUyQGNpdHJpeC5jb20+DQo+
-IA0KPiBUaGUgYmFzaWMgaWRlYSBpcyBsaWtlIFBlcnNpc3RlbnQgS2VybmVsIE1hcCAoUEtNQVAp
-IGluIExpbnV4LiBXZQ0KPiBwcmUtcG9wdWxhdGUgYWxsIHRoZSByZWxldmFudCBwYWdlIHRhYmxl
-cyBiZWZvcmUgdGhlIHN5c3RlbSBpcyBmdWxseQ0KPiBzZXQgdXAuDQo+IA0KPiBXZSB3aWxsIG5l
-ZWQgaXQgb24gQXJtIGluIG9yZGVyIHRvIHJld29yayB0aGUgYXJtNjQgdmVyc2lvbiBvZg0KPiB4
-ZW5oZWFwX3NldHVwX21hcHBpbmdzKCkgYXMgd2UgbWF5IG5lZWQgdG8gdXNlIHBhZ2VzIGFsbG9j
-YXRlZCBmcm9tDQo+IHRoZSBib290IGFsbG9jYXRvciBiZWZvcmUgdGhleSBhcmUgZWZmZWN0aXZl
-bHkgbWFwcGVkLg0KPiANCj4gVGhpcyBpbmZyYXN0cnVjdHVyZSBpcyBub3QgbG9jay1wcm90ZWN0
-ZWQgdGhlcmVmb3JlIGNhbiBvbmx5IGJlIHVzZWQNCj4gYmVmb3JlIHNtcGJvb3QuIEFmdGVyIHNt
-cGJvb3QsIG1hcF9kb21haW5fcGFnZSgpIGhhcyB0byBiZSB1c2VkLg0KPiANCj4gVGhpcyBpcyBi
-YXNlZCBvbiB0aGUgeDg2IHZlcnNpb24gWzFdIHRoYXQgd2FzIG9yaWdpbmFsbHkgaW1wbGVtZW50
-ZWQNCj4gYnkgV2VpIExpdS4NCj4gDQo+IFRoZSBQTUFQIGluZnJhc3RydWN0dXJlIGlzIGltcGxl
-bWVudGVkIGluIGNvbW1vbiBjb2RlIHdpdGggc29tZQ0KPiBhcmNoIGhlbHBlcnMgdG8gc2V0L2Ns
-ZWFyIHRoZSBwYWdlLXRhYmxlIGVudHJpZXMgYW5kIGNvbnZlcnRpb24NCj4gYmV0d2VlbiBhIGZp
-eG1hcCBzbG90IHRvIGEgdmlydHVhbCBhZGRyZXNzLi4uDQo+IA0KPiBBcyBtZm5fdG9feGVuX2Vu
-dHJ5KCkgbm93IG5lZWRzIHRvIGJlIGV4cG9ydGVkLCB0YWtlIHRoZSBvcHBvcnR1bml0eQ0KPiB0
-byBzd2ljaCB0aGUgcGFyYW1ldGVyIGF0dHIgZnJvbSB1bnNpZ25lZCB0byB1bnNpZ25lZCBpbnQu
-DQo+IA0KPiBbMV0gPGU5MmRhNGFkNjAxNWI2MDg5NzM3ZmNjY2JhM2VjMWQ2NDI0NjQ5YTUuMTU4
-ODI3ODMxNy5naXQuaG9uZ3l4aWFAYW1hem9uLmNvbT4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IFdl
-aSBMaXUgPHdlaS5saXUyQGNpdHJpeC5jb20+DQo+IFNpZ25lZC1vZmYtYnk6IEhvbmd5YW4gWGlh
-IDxob25neXhpYUBhbWF6b24uY29tPg0KPiBbanVsaWVuOiBBZGFwdGVkIGZvciBBcm1dDQo+IFNp
-Z25lZC1vZmYtYnk6IEp1bGllbiBHcmFsbCA8amdyYWxsQGFtYXpvbi5jb20+DQoNCkhpIEp1bGll
-biwNCg0Kd2l0aCBBU1NFUlQoIWluX2lycSgpKSBpbiBwbWFwX3VubWFwKGNvbnN0IHZvaWQgKnAp
-IGFzIHlvdSBwcmV2aW91c2x5IHNheS4NCg0KUmV2aWV3ZWQtYnk6IEx1Y2EgRmFuY2VsbHUgPGx1
-Y2EuZmFuY2VsbHVAYXJtLmNvbT4NCg0KSeKAmXZlIGFsc28gdGVzdGVkIHBhdGNoZXMgdXAgdG8g
-dGhpcyBvbmUsIHN0YXJ0L2Rlc3Ryb3lpbmcvY29ubmVjdGluZy10byBmZXcgZ3Vlc3RzDQphbmQg
-bm8gcHJvYmxlbS4NCg0KVGVzdGVkLWJ5OiBMdWNhIEZhbmNlbGx1IDxsdWNhLmZhbmNlbGx1QGFy
-bS5jb20+DQoNCg0KDQo=
+Hey folks, first of all thanks a lot for the reviews / opinions about
+this. I imagined that such change would be polemic, and I see I was
+right heh
+
+
+I'll try to "mix" all the relevant opinions in a single email, since
+they happened in different responses and even different mail threads.
+
+I've looped here the most interested parties based on the feedback
+received, such as Baoquan (kdump), Hatayama (kdump), Eric (kexec), Mark
+(arm64), Michael (Hyper-V), Petr (console/printk) and Vitaly (hyper-v /
+kvm). I hope we can discuss and try to reach some consensus - my
+apologies in advance for this long message!
+
+So, here goes some feedback we received about this change and correlated
+feedback from arm64 community - my apologies if I missed something
+important, I've tried to collect the most relevant portions, while
+keeping the summary "as short" as possible. I'll respond to such
+feedback below, after the quotes.
+
+
+On 24/05/2022 05:32, Baoquan He wrote:
+>> [...] 
+>> Firstly, kdump is not always the first thing. In any use case, if kdump
+>> kernel is not loaded, it's not the first thing at all. Not to mention
+>> if crash_kexec_post_notifiers is specified.
+>> [...]
+>> Changing this will cause regression. During these years, nobody ever doubt
+>> kdump should execute firstly if crashkernel is reserved and kdump kernel is
+>> loaded. That's not saying we can't change
+>> this, but need a convincing justification.
+>> [...] 
+>> Secondly, even with the notifiers' split, we can't guarantee people will
+>> absolutely add notifiers into right list in the future. Letting kdump
+>> execute behind lists by default will put kdump into risk.
+>> [...] 
+>> As for Hyper-V, if it enforces to terminate VMbus connection, no matter
+>> it's kdump or not, why not taking it out of panic notifiers list and
+>> execute it before kdump unconditionally.
+
+
+On 24/05/2022 05:01, Petr Mladek wrote:
+>> [...]
+>> Anyway, I see four possible solutions:
+>> 
+>>   1. The most conservative approach is to keep the current behavior
+>>      and call kdump first by default.
+>> 
+>>   2. A medium conservative approach to change the default default
+>>      behavior and call hypervisor and eventually the info notifiers
+>>      before kdump. There still would be the possibility to call kdump
+>>      first by the command line parameter.
+>> 
+>>   3. Remove the possibility to call kdump first completely. It would
+>>      assume that all the notifiers in the info list are super safe
+>>      or that they make kdump actually more safe.
+>> 
+>>   4. Create one more notifier list for operations that always should
+>>      be called before crash_dump.
+>> 
+>> Regarding the extra notifier list (4th solution). It is not clear to
+>> me whether it would be always called even before hypervisor list or
+>> when kdump is not enabled. We must not over-engineer it.
+>> 
+>> 2nd proposal looks like a good compromise. But maybe we could do
+>> this change few releases later. The notifiers split is a big
+>> change on its own.
+
+
+On 24/05/2022 07:18, Baoquan He wrote:
+>>[...]
+>> I would vote for 1 or 4 without any hesitation, and prefer 4. I ever
+>> suggest the variant of solution 4 in v1 reviewing. That's taking those
+>> notifiers out of list and enforcing to execute them before kdump. E.g
+>> the one on HyperV to terminate VMbus connection. Maybe solution 4 is
+>> better to provide a determinate way for people to add necessary code
+>> at the earliest part.
+>> [...] 
+>>>
+>>> Regarding the extra notifier list (4th solution). It is not clear to
+>>> me whether it would be always called even before hypervisor list or
+>>> when kdump is not enabled. We must not over-engineer it.
+>> 
+>> One thing I would like to notice is, no matter how perfect we split the
+>> lists this time, we can't gurantee people will add notifiers reasonablly
+>> in the future. And people from different sub-component may not do
+>> sufficient investigation and add them to fulfil their local purpose.
+>> 
+>> The current panic notifers list is the best example. Hyper-V actually
+>> wants to run some necessary code before kdump, but not all of them, they
+>> just add it, ignoring the original purpose of
+>> crash_kexec_post_notifiers. I guess they do like this just because it's
+>> easy to do, no need to bother changing code in generic place.
+>> 
+>> Solution 4 can make this no doubt, that's why I like it better.
+>> [...] 
+>> As I replied to Guilherme, solution 2 will cause regression if not
+>> calling kdump firstly. Solution 3 leaves people space to make mistake,
+>> they could add nontifier into wrong list.
+>> 
+>> I would like to note again that the panic notifiers are optional to run,
+>> while kdump is expectd once loaded, from the original purpose. I guess
+>> people I know will still have this thought, e.g Hatayama, Masa, they are
+>> truly often use panic notifiers like this on their company's system.
+
+
+On 24/05/2022 11:44, Eric W. Biederman wrote:
+> [...]
+> Unfortunately I am also very grouchy.
+> 
+> Notifiers before kexec on panic are fundamentally broken.  So please
+> just remove crash_kexec_post notifiers and be done with it.  Part of the
+> deep issue is that firmware always has a common and broken
+> implementation for anything that is not mission critical to
+> motherboards.
+> 
+> Notifiers in any sense on these paths are just bollocks.  Any kind of
+> notifier list is fundamentally fragile in the face of memory corruption
+> and very very difficult to review.
+> 
+> So I am going to refresh my ancient NACK on this.
+> 
+> I can certainly appreciate that there are pieces of the reboot paths
+> that can be improved.  I don't think making anything more feature full
+> or flexible is any kind of real improvement.
+
+
+Now, from the thread "Should arm64 have a custom crash shutdown
+handler?" (link:
+https://lore.kernel.org/lkml/427a8277-49f0-4317-d6c3-4a15d7070e55@igalia.com/),
+we have:
+
+On 05/05/2022 08:10, Mark Rutland wrote:
+>> On Wed, May 04, 2022 at 05:00:42PM -0300, Guilherme G. Piccoli wrote:
+>>> [...]
+>>> Currently, when we kexec in arm64, the function machine_crash_shutdown()
+>>> is called as a handler to disable CPUs and (potentially) do extra
+>>> quiesce work. In the aforementioned architectures, there's a way to
+>>> override this function, if for example an hypervisor wish to have its
+>>> guests running their own custom shutdown machinery.
+>> 
+>> What exactly do you need to do in this custom shutdown machinery?
+>> 
+>> The general expectation for arm64 is that any hypervisor can implement PSCI,
+>> and as long as you have that, CPUs (and the VM as a whole) can be shutdown in a
+>> standard way.
+>> 
+>> I suspect what you're actually after is a mechanism to notify the hypervisor
+>> when the guest crashes, rather than changing the way the shutdown itself
+>> occurs? If so, we already have panic notifiers, and QEMU has a "pvpanic"
+>> device using that. See drivers/misc/pvpanic/.
+
+
+OK, so it seems we have some points in which agreement exists, and some
+points that there is no agreement and instead, we have antagonistic /
+opposite views and needs. Let's start with the easier part heh
+
+
+It seems everybody agrees that *we shouldn't over-engineer things*, and
+as per Eric good words: making the panic path more feature-full or
+increasing flexibility isn't a good idea. So, as a "corollary": the
+panic level approach I'm proposing is not a good fit, I'll drop it and
+let's go with something simpler.
+
+Another point of agreement seems to be that _notifier lists in the panic
+path are dangerous_, for *2 different reasons*:
+
+(a) We cannot guarantee that people won't add crazy callbacks there, we
+can plan and document things the best as possible - it'll never be
+enough, somebody eventually would slip a nonsense callback that would
+break things and defeat the planned purpose of such a list;
+
+(b) As per Eric point, in a panic/crash situation we might have memory
+corruption exactly in the list code / pointers, etc, so the notifier
+lists are, by nature, a bit fragile. But I think we shouldn't consider
+it completely "bollocks", since this approach has been used for a while
+with a good success rate. So, lists aren't perfect at all, but at the
+same time, they aren't completely useless.
+
+
+Now, to the points in which there are conflicting / antagonistic
+needs/views:
+
+(I) Kdump should be the first thing to run, as it's been like that since
+forever. But...notice that "crash_kexec_post_notifiers" was created
+exactly as a way to circumvent that, so we can see this is not an
+absolute truth. Some users really *require to execute* some special code
+*before kdump*.
+Worth noticing here that regular kexec invokes the drivers .shutdown()
+handlers, while kdump [aka crash_kexec()] does not, so we must have a
+way to run code before kdump in a crash situation.
+
+(II) If *we need* to have some code always running before kdump/reboot
+on panic path (like the Hyper-V vmbus connection unload), *where to add
+such code*? Again, conflicting views. Some would say we should hardcode
+this in the panic() function. Others, that we should use the custom
+machine_crash_shutdown() infrastructure - but notice that this isn't
+available in all architectures, like arm64. Finally, others suggest
+to...use notifier lists! Which was more or less the approach we took in
+this patch.
+
+How can we reach consensus on this? Not everybody will be 100% happy,
+that's for sure. Also, I'd risk to say keep things as-is now or even
+getting rid of "crash_kexec_post_notifiers" won't work at all, we have
+users with legitimate needs of running code before a kdump/reboot when
+crash happens. The *main goal* should be to have a *simple solution*
+that doesn't require users to abuse parameters, like it's been done with
+"crash_kexec_post_notifiers" (Hyper-V and PowerPC currently force this
+parameter to be enabled, for example).
+
+
+To avoid using a 4th list, especially given the list nature is a bit
+fragile, I'd suggest one of the 3 following approaches - I *really
+appreciate feedbacks* on that so I can implement the best solution and
+avoid wasting time in some poor/disliked solution:
+
+(1) We could have a helper function in the "beginning" of panic path,
+i.e., after the logic to disable preemption/IRQs/secondary CPUs, but
+*before* kdump. Then, users like Hyper-V that require to execute stuff
+regardless of kdump or not, would run their callbacks from there,
+directly, no lists involved.
+
+- pros: simple, doesn't mess with arch code or involve lists.
+- cons: header issues - will need to "export" such function from driver
+code, for example, to run in core code. Also, some code might only be
+required to run in some architectures, or only if kdump is set, etc.,
+making the callbacks more complex / full of if conditionals.
+
+
+(2) Similarly to previous solution, we could have a helper in the kexec
+core code, not in the panic path. This way, users that require running
+stuff *before a kdump* would add direct calls there; if kdump isn't
+configured, and if such users also require that this code execute in
+panic nevertheless, they'd need to also add a callback to some notifier
+list.
+
+- pros: also simple / doesn't mess with arch code or involve lists;
+restricts the callbacks to kdump case.
+- cons: also header issues, but might cause code duplicity too, since
+some users would require both to run their code before a kdump and in
+some panic notifier list.
+
+
+(3) Have a way in arm64 (and all archs maybe) to run code before a kdump
+- this is analog to the custom machine_crash_shutdown() we have nowadays
+in some archs.
+
+- pros: decouple kdump-required callbacks from panic notifiers, doesn't
+involve lists, friendly to arch-dependent callbacks.
+- cons: also header issues, might cause code duplicity (since some users
+would also require to run their code in panic path regardless of kdump)
+and involve changing arch code (some maintainers like Mark aren't fond
+about that, with good reasons!).
+
+
+So, hopefully we can converge to some direction even if not 100% of
+users are happy - this problem is naturally full of trade-offs.
+Thanks again for the reviews and the time you're spending reading these
+long threads.
+
+Cheers,
+
+
+Guilherme
 
