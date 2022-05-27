@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75D97535A46
-	for <lists+xen-devel@lfdr.de>; Fri, 27 May 2022 09:24:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.337811.562506 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDA80535A44
+	for <lists+xen-devel@lfdr.de>; Fri, 27 May 2022 09:24:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.337814.562528 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nuUKn-0003Wm-QM; Fri, 27 May 2022 07:24:33 +0000
+	id 1nuUKp-0003xi-2u; Fri, 27 May 2022 07:24:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 337811.562506; Fri, 27 May 2022 07:24:33 +0000
+Received: by outflank-mailman (output) from mailman id 337814.562528; Fri, 27 May 2022 07:24:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nuUKn-0003Um-MM; Fri, 27 May 2022 07:24:33 +0000
-Received: by outflank-mailman (input) for mailman id 337811;
- Fri, 27 May 2022 07:24:32 +0000
+	id 1nuUKo-0003nC-VE; Fri, 27 May 2022 07:24:34 +0000
+Received: by outflank-mailman (input) for mailman id 337814;
+ Fri, 27 May 2022 07:24:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=OTKn=WD=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nuUKm-0003UV-4X
- for xen-devel@lists.xenproject.org; Fri, 27 May 2022 07:24:32 +0000
+ id 1nuUKn-0003UV-TP
+ for xen-devel@lists.xenproject.org; Fri, 27 May 2022 07:24:33 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0c4e4fa6-dd8e-11ec-bd2c-47488cf2e6aa;
+ id 0c4e4fb1-dd8e-11ec-bd2c-47488cf2e6aa;
  Fri, 27 May 2022 09:24:30 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D4C6C21A80;
- Fri, 27 May 2022 07:24:29 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 216D721A82;
+ Fri, 27 May 2022 07:24:30 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9AE88139C4;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DD257139C4;
  Fri, 27 May 2022 07:24:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 7YtuJK18kGJLIgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id ONqkNK18kGJLIgAAMHmgww
  (envelope-from <jgross@suse.com>); Fri, 27 May 2022 07:24:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -51,14 +51,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c4e4fa6-dd8e-11ec-bd2c-47488cf2e6aa
+X-Inumbo-ID: 0c4e4fb1-dd8e-11ec-bd2c-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1653636269; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=47WCpd+EZFhSVapU9H5XzQiUPnz5KW9QIdGGZN/8BNo=;
-	b=qsJlQQO4WSjfUrCHX4WRRp4u57eejI5VXFfV8wv5ocTJGpecYM9D0IZqh4OHe7IUHkoimS
-	eNvRhCVSQkqhl603t23I1iUF3y7dEM0CTJuvzZZ2J3LVzPBBBmWeVSoyk6nSguxOEbAGk4
-	dfNcV+RXVEZpmk9lU9FY7NWLHeDv59E=
+	t=1653636270; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k6QNfdHoQpClTtcFyNorgKp8JNEjHOV3+KrUm17Tu6g=;
+	b=D9GSqwx0VyC/4JZtvww3XF3dFTWmEL6cxsGI9xzMNMYJ0t2qpehEw9/csEaWr7S/ow79XU
+	NGGsgFWUlz/CQyQlZZqQj99aH9vKSkcqtYgnnTmNTrWSwshJScV8ZDCYugq/Abt9EuIcBr
+	rf56Sb2c4Jm/jP9Xe/uuCL06NVJ8Kmk=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
@@ -68,74 +70,49 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v2 0/4] tools/xenstore: add some new features to the documentation
-Date: Fri, 27 May 2022 09:24:23 +0200
-Message-Id: <20220527072427.20327-1-jgross@suse.com>
+Subject: [PATCH v2 1/4] tools/xenstore: modify feature bit specification in xenstore-ring.txt
+Date: Fri, 27 May 2022 09:24:24 +0200
+Message-Id: <20220527072427.20327-2-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
+In-Reply-To: <20220527072427.20327-1-jgross@suse.com>
+References: <20220527072427.20327-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In the past there have been spotted some shortcomings in the Xenstore
-interface, which should be repaired. Those are in detail:
+Instead of specifying the feature bits in xenstore-ring.txt as a mask
+value use bit numbers. This will make the specification easier to read
+when adding more features.
 
-- Using driver domains for large number of domains needs per domain
-  Xenstore quota [1]. The feedback sent was rather slim (one reply),
-  but it was preferring a new set of wire commands.
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+V2:
+- new patch (triggered by Julien Grall)
+---
+ docs/misc/xenstore-ring.txt | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-- XSA-349 [2] has shown that the current definition of watches is not
-  optimal, as it will trigger lots of events when a single one would
-  suffice: for detecting new backend devices the backends in the Linux
-  kernel are registering a watch for e.g. "/local/domain/0/backend"
-  which will fire for ANY sub-node written below this node (on a test
-  machine this added up to 91 watch events for only 3 devices).
-  This can be limited dramatically by extending the XS_WATCH command
-  to take another optional parameter specifying the depth of
-  subdirectories to be considered for sending watch events ("0" would
-  trigger a watch event only if the watched node itself being written).
-
-- New features like above being added might make migration of guests
-  between hosts with different Xenstore variants harder, so it should
-  be possible to set the available feature set per domain. For socket
-  connections it should be possible to read the available features.
-
-- The special watches @introduceDomain and @releaseDomain are rather
-  cumbersome to use, as they only tell you that SOME domain has been
-  introduced/released. Any consumer of those watches needs to scan
-  all domains on the host in order to find out the domid, causing
-  significant pressure on the dominfo hypercall (imagine a system
-  with 1000 domains running and one domain dying - there will be more
-  than 1000 watch events triggered and 1000 xl daemons will try to
-  find out whether "their" domain has died). Those watches should be
-  enhanced to optionally be specific to a single domain and to let the
-  event carry the related domid.
-
-As some of those extensions will need to be considered in the Xenstore
-migration stream, they should be defined in one go (in fact the 4th one
-wouldn't need that, but it can easily be connected to the 2nd one).
-As such extensions need to be flagged in the "features" in the ring
-page anyway, it is fine to implement them independently.
-
-Add the documentation of the new commands/features.
-
-[1]: https://lists.xen.org/archives/html/xen-devel/2020-06/msg00291.html
-[2]: http://xenbits.xen.org/xsa/advisory-349.html
-
-Changes in V2:
-- added new patch 1
-- remove feature bits for dom0-only features
-- get-features without domid returns Xenstore supported features
-- get/set-quota without domid for global quota access
-
-Juergen Gross (4):
-  tools/xenstore: modify feature bit specification in xenstore-ring.txt
-  tools/xenstore: add documentation for new set/get-feature commands
-  tools/xenstore: add documentation for new set/get-quota commands
-  tools/xenstore: add documentation for extended watch command
-
- docs/misc/xenstore-ring.txt | 10 ++++----
- docs/misc/xenstore.txt      | 47 ++++++++++++++++++++++++++++++++++---
- 2 files changed, 50 insertions(+), 7 deletions(-)
-
+diff --git a/docs/misc/xenstore-ring.txt b/docs/misc/xenstore-ring.txt
+index f3d6ca4264..2792d13530 100644
+--- a/docs/misc/xenstore-ring.txt
++++ b/docs/misc/xenstore-ring.txt
+@@ -62,12 +62,13 @@ the server feature bitmap. The server features are offered to the guest;
+ it is up to the guest whether to use them or not. The guest should ignore
+ any unknown feature bits.
+ 
+-The following features are defined:
++The following features are defined (bit number 0 is equivalent to a mask
++value of 1):
+ 
+-Mask    Description
++Bit     Description
+ -----------------------------------------------------------------
+-1       Ring reconnection (see the ring reconnection feature below)
+-2       Connection error indicator (see connection error feature below)
++0       Ring reconnection (see the ring reconnection feature below)
++1       Connection error indicator (see connection error feature below)
+ 
+ The "Connection state" field is used to request a ring close and reconnect.
+ The "Connection state" field only contains valid data if the server has
 -- 
 2.35.3
 
