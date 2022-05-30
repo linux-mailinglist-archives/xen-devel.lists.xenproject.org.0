@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1C98538883
-	for <lists+xen-devel@lfdr.de>; Mon, 30 May 2022 23:07:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.338822.563652 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22007538887
+	for <lists+xen-devel@lfdr.de>; Mon, 30 May 2022 23:12:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.338836.563664 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nvmbK-0004PG-4E; Mon, 30 May 2022 21:06:58 +0000
+	id 1nvmgZ-0005yS-SF; Mon, 30 May 2022 21:12:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 338822.563652; Mon, 30 May 2022 21:06:58 +0000
+Received: by outflank-mailman (output) from mailman id 338836.563664; Mon, 30 May 2022 21:12:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nvmbK-0004Mc-0q; Mon, 30 May 2022 21:06:58 +0000
-Received: by outflank-mailman (input) for mailman id 338822;
- Mon, 30 May 2022 21:06:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Pxv1=WG=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1nvmbJ-0004MW-41
- for xen-devel@lists.xenproject.org; Mon, 30 May 2022 21:06:57 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6fca2476-e05c-11ec-837f-e5687231ffcc;
- Mon, 30 May 2022 23:06:56 +0200 (CEST)
-Received: by mail-lj1-x232.google.com with SMTP id a23so12738371ljd.9
- for <xen-devel@lists.xenproject.org>; Mon, 30 May 2022 14:06:55 -0700 (PDT)
-Received: from otyshchenko.router ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id
- h1-20020a056512220100b0047255d211b2sm2508931lfu.225.2022.05.30.14.06.54
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 30 May 2022 14:06:54 -0700 (PDT)
+	id 1nvmgZ-0005vd-Op; Mon, 30 May 2022 21:12:23 +0000
+Received: by outflank-mailman (input) for mailman id 338836;
+ Mon, 30 May 2022 21:12:22 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nvmgY-0005vT-Bx; Mon, 30 May 2022 21:12:22 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nvmgY-0004KO-6x; Mon, 30 May 2022 21:12:22 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nvmgX-0007Cd-Jm; Mon, 30 May 2022 21:12:21 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nvmgX-0004bp-J9; Mon, 30 May 2022 21:12:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,217 +42,273 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6fca2476-e05c-11ec-837f-e5687231ffcc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=yCj6CjDNcsvJy/tFMBx1tpvD/zYHLbLEZ8yli7AQ6SI=;
-        b=IKxzkKOU44sZ/QR6lYJIszLKZPgyf3YMlXOaWcR/JafuI31OSawpfxMqkMCZCxv9Vd
-         QR96mdbSFUaQtpbKMHB7QoPI1CDBafFfQZ/sAV48A4DemTZRNsqkLmBIr4PN40PGeKPE
-         nNg6pfLF7ejgYP4UcNWfY6fYIiQH82wh7FZPdjBOXINxdjKaR0Dpg7eUO5n+MLb9HkG8
-         /nJQeyphbRqYbLvZUCNQwWtY+ECLv5FTghobkNH//WMJYLFqnTRKHCxI7OtXIBq0o7rf
-         4Wg+9fBEjUdsdjDTSgLsObFn41dED6t6Aii2ChkYtg5prnmLCFhW92wvSOohw8VPyDYU
-         Q5fQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=yCj6CjDNcsvJy/tFMBx1tpvD/zYHLbLEZ8yli7AQ6SI=;
-        b=e7Hn/NoUTStuH38HdqGjb5mfl4aHZZWxn77Jb8/nA/2PZPo0sjTLTgqznh2fzptXVN
-         V8TunhPgNzXzypzLk73fRSxufg+S0pgrxpEgKJj8QfB5nqB4cmsqTm13mRedBm9IwMS3
-         ePAFQGIr2yzSyO82SSL6f+XdEtSryDY+d7nwIphWYGbz7PD66pOc/6sV9DNVsW5Zk2Gp
-         1xHmOSJh+C52YjXtFg8DcKpRkCgdk0NGBeSO758B33qQcCeZMDw8hbVRVdeudSuUvg/4
-         mHQC9YUUg9IMEgwFhe7blV6vYg9EPqJq+cCPfL2ldMrIpRcVrzueDyAMMrYn2Jbuqd1C
-         1aXw==
-X-Gm-Message-State: AOAM531e7LAMH7m8ZJm+bG1qnKM0G6M8zjv4hzBUgzyCIehvhSR3LRlC
-	pG3xhmLcs36Yp02rWCbNSCCDUSUXFMA=
-X-Google-Smtp-Source: ABdhPJwDqUfiK4FskpnJXVLIzTWuR2ZWMexcpjUyUOMUpDsPdBehARKygsXbdF+kzl31knxhY5H0yw==
-X-Received: by 2002:a2e:84c7:0:b0:24b:6842:1923 with SMTP id q7-20020a2e84c7000000b0024b68421923mr34895089ljh.166.1653944815285;
-        Mon, 30 May 2022 14:06:55 -0700 (PDT)
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=1YmXVxr7/Y4Z2t+Oe37wxKn4L7h3u8ChPDSXEn4PIvQ=; b=jS6FLbd7EurMK6+iIWIkAPtHAg
+	UWfo4yt40WtZAUuhMJoPKo2XGJ328PstLD3FFL0Cftj598yB8+a7LQtnLmLPhAtjXqmBvm5wGHFoe
+	FSbKU+y+kSWbburCfd0MTNfzgbWlc/P1p7hLDRjCkU8yHOkRWvGEexHeOC8R9vlUUKw0=;
 To: xen-devel@lists.xenproject.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH V2] libxl/arm: Create specific IOMMU node to be referred by virtio-mmio device
-Date: Tue, 31 May 2022 00:06:53 +0300
-Message-Id: <1653944813-17970-1-git-send-email-olekstysh@gmail.com>
-X-Mailer: git-send-email 2.7.4
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Message-ID: <osstest-170777-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 170777: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-intel:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-xsm:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-amd:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
+    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-freebsd11-amd64:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvshim:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-pair:guest-start/debian:fail:regression
+    linux-linus:test-amd64-amd64-xl-credit2:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-multivcpu:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-credit1:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-xsm:guest-start:fail:regression
+    linux-linus:test-amd64-coresched-amd64-xl:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-thunderx:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/src_host:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/dst_host:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-shadow:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-examine-bios:reboot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-freebsd12-amd64:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-xl-cubietruck:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-examine:reboot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-pygrub:debian-di-install:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-vhd:debian-di-install:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:debian-di-install:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:debian-di-install:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:debian-di-install:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:debian-di-install:fail:regression
+    linux-linus:test-armhf-armhf-xl:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:debian-di-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-rtds:guest-start:fail:allowable
+    linux-linus:test-armhf-armhf-xl-rtds:guest-start:fail:allowable
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=b00ed48bb0a7c295facf9036135a573a5cdbe7de
+X-Osstest-Versions-That:
+    linux=d6ecaa0024485effd065124fe774de2e22095f2d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 30 May 2022 21:12:21 +0000
 
-From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+flight 170777 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/170777/
 
-Reuse generic IOMMU device tree bindings to communicate Xen specific
-information for the virtio devices for which the restricted memory
-access using Xen grant mappings need to be enabled.
+Regressions :-(
 
-Insert "iommus" property pointed to the IOMMU node with "xen,grant-dma"
-compatible to all virtio devices which backends are going to run in
-non-hardware domains (which are non-trusted by default).
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-dom0pvh-xl-amd 14 guest-start           fail REGR. vs. 170714
+ test-amd64-amd64-dom0pvh-xl-intel 14 guest-start         fail REGR. vs. 170714
+ test-amd64-amd64-libvirt-qcow2  8 xen-boot               fail REGR. vs. 170714
+ test-amd64-amd64-libvirt      8 xen-boot                 fail REGR. vs. 170714
+ test-amd64-amd64-libvirt-raw  8 xen-boot                 fail REGR. vs. 170714
+ test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 170714
+ test-amd64-amd64-xl-pvhv2-intel 14 guest-start           fail REGR. vs. 170714
+ test-amd64-amd64-xl          14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-libvirt-xsm 14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl-pvhv2-amd 14 guest-start             fail REGR. vs. 170714
+ test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 170714
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 170714
+ test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 170714
+ test-amd64-amd64-freebsd11-amd64 13 guest-start          fail REGR. vs. 170714
+ test-amd64-amd64-xl-pvshim   14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-pair        25 guest-start/debian       fail REGR. vs. 170714
+ test-amd64-amd64-xl-credit2  14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl-multivcpu 14 guest-start             fail REGR. vs. 170714
+ test-amd64-amd64-xl-credit1  14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl-xsm      14 guest-start              fail REGR. vs. 170714
+ test-amd64-coresched-amd64-xl 14 guest-start             fail REGR. vs. 170714
+ test-arm64-arm64-xl-credit1  14 guest-start              fail REGR. vs. 170714
+ test-arm64-arm64-xl-thunderx 14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-libvirt-pair 12 xen-boot/src_host       fail REGR. vs. 170714
+ test-amd64-amd64-libvirt-pair 13 xen-boot/dst_host       fail REGR. vs. 170714
+ test-arm64-arm64-xl-xsm      14 guest-start              fail REGR. vs. 170714
+ test-armhf-armhf-xl-arndale  14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl-shadow   14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-qemuu-nested-amd 12 debian-hvm-install  fail REGR. vs. 170714
+ test-armhf-armhf-xl-multivcpu 14 guest-start             fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-examine-bios  8 reboot                  fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemut-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-qemuu-nested-intel 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-freebsd12-amd64  8 xen-boot             fail REGR. vs. 170714
+ test-armhf-armhf-xl-credit1  14 guest-start              fail REGR. vs. 170714
+ test-armhf-armhf-xl-cubietruck 14 guest-start            fail REGR. vs. 170714
+ test-amd64-amd64-examine      8 reboot                   fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 170714
+ test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 170714
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-pygrub      12 debian-di-install        fail REGR. vs. 170714
+ test-armhf-armhf-xl-credit2  14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl-vhd      12 debian-di-install        fail REGR. vs. 170714
+ test-armhf-armhf-libvirt     14 guest-start              fail REGR. vs. 170714
+ test-arm64-arm64-xl-vhd      12 debian-di-install        fail REGR. vs. 170714
+ test-arm64-arm64-libvirt-raw 12 debian-di-install        fail REGR. vs. 170714
+ test-armhf-armhf-libvirt-raw 12 debian-di-install        fail REGR. vs. 170714
+ test-armhf-armhf-libvirt-qcow2 12 debian-di-install      fail REGR. vs. 170714
+ test-armhf-armhf-xl          14 guest-start              fail REGR. vs. 170714
+ test-armhf-armhf-xl-vhd      12 debian-di-install        fail REGR. vs. 170714
 
-Based on device-tree binding from Linux:
-Documentation/devicetree/bindings/iommu/xen,grant-dma.yaml
+Regressions which are regarded as allowable (not blocking):
+ test-amd64-amd64-xl-rtds     14 guest-start              fail REGR. vs. 170714
+ test-armhf-armhf-xl-rtds     14 guest-start              fail REGR. vs. 170714
 
-The example of generated nodes:
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 170714
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 170714
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 170714
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 170714
 
-xen_iommu {
-    compatible = "xen,grant-dma";
-    #iommu-cells = <0x01>;
-    phandle = <0xfde9>;
-};
+version targeted for testing:
+ linux                b00ed48bb0a7c295facf9036135a573a5cdbe7de
+baseline version:
+ linux                d6ecaa0024485effd065124fe774de2e22095f2d
 
-virtio@2000000 {
-    compatible = "virtio,mmio";
-    reg = <0x00 0x2000000 0x00 0x200>;
-    interrupts = <0x00 0x01 0xf01>;
-    interrupt-parent = <0xfde8>;
-    dma-coherent;
-    iommus = <0xfde9 0x01>;
-};
+Last test of basis   170714  2022-05-24 03:27:44 Z    6 days
+Failing since        170716  2022-05-24 11:12:06 Z    6 days   19 attempts
+Testing same since   170771  2022-05-30 00:40:40 Z    0 days    3 attempts
 
-virtio@2000200 {
-    compatible = "virtio,mmio";
-    reg = <0x00 0x2000200 0x00 0x200>;
-    interrupts = <0x00 0x02 0xf01>;
-    interrupt-parent = <0xfde8>;
-    dma-coherent;
-    iommus = <0xfde9 0x01>;
-};
+------------------------------------------------------------
+1928 people touched revisions under test,
+not listing them all
 
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
----
-!!! This patch is based on non upstreamed yet “Virtio support for toolstack
-on Arm” V8 series which is on review now:
-https://lore.kernel.org/xen-devel/1651598763-12162-1-git-send-email-olekstysh@gmail.com/
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          fail    
+ test-amd64-coresched-amd64-xl                                fail    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-libvirt-xsm                                 fail    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-amd64-xl-xsm                                      fail    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                fail    
+ test-amd64-amd64-dom0pvh-xl-amd                              fail    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-amd64-freebsd11-amd64                             fail    
+ test-amd64-amd64-freebsd12-amd64                             fail    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                fail    
+ test-amd64-amd64-xl-credit1                                  fail    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  fail    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
+ test-amd64-amd64-examine                                     fail    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          fail    
+ test-amd64-amd64-xl-pvhv2-intel                              fail    
+ test-amd64-amd64-dom0pvh-xl-intel                            fail    
+ test-amd64-amd64-libvirt                                     fail    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                fail    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        fail    
+ test-amd64-amd64-libvirt-pair                                fail    
+ test-amd64-amd64-xl-pvshim                                   fail    
+ test-amd64-amd64-pygrub                                      fail    
+ test-amd64-amd64-libvirt-qcow2                               fail    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 fail    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     fail    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
+ test-amd64-amd64-xl-shadow                                   fail    
+ test-arm64-arm64-xl-thunderx                                 fail    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      fail    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
-New device-tree binding (commit #5) is a part of solution to restrict memory
-access under Xen using xen-grant DMA-mapping layer (which is also on review):
-https://lore.kernel.org/xen-devel/1653944417-17168-1-git-send-email-olekstysh@gmail.com/
 
-Changes RFC -> V1:
-   - update commit description
-   - rebase according to the recent changes to
-     "libxl: Introduce basic virtio-mmio support on Arm"
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Changes V1 -> V2:
-   - Henry already gave his Reviewed-by, I dropped it due to the changes
-   - use generic IOMMU device tree bindings instead of custom property
-     "xen,dev-domid"
-   - change commit subject and description, was
-     "libxl/arm: Insert "xen,dev-domid" property to virtio-mmio device node"
----
- tools/libs/light/libxl_arm.c          | 49 ++++++++++++++++++++++++++++++++---
- xen/include/public/device_tree_defs.h |  1 +
- 2 files changed, 47 insertions(+), 3 deletions(-)
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index 9be9b2a..72da3b1 100644
---- a/tools/libs/light/libxl_arm.c
-+++ b/tools/libs/light/libxl_arm.c
-@@ -865,9 +865,32 @@ static int make_vpci_node(libxl__gc *gc, void *fdt,
-     return 0;
- }
- 
-+static int make_xen_iommu_node(libxl__gc *gc, void *fdt)
-+{
-+    int res;
-+
-+    /* See Linux Documentation/devicetree/bindings/iommu/xen,grant-dma.yaml */
-+    res = fdt_begin_node(fdt, "xen_iommu");
-+    if (res) return res;
-+
-+    res = fdt_property_compat(gc, fdt, 1, "xen,grant-dma");
-+    if (res) return res;
-+
-+    res = fdt_property_cell(fdt, "#iommu-cells", 1);
-+    if (res) return res;
-+
-+    res = fdt_property_cell(fdt, "phandle", GUEST_PHANDLE_IOMMU);
-+    if (res) return res;
-+
-+    res = fdt_end_node(fdt);
-+    if (res) return res;
-+
-+    return 0;
-+}
- 
- static int make_virtio_mmio_node(libxl__gc *gc, void *fdt,
--                                 uint64_t base, uint32_t irq)
-+                                 uint64_t base, uint32_t irq,
-+                                 uint32_t backend_domid)
- {
-     int res;
-     gic_interrupt intr;
-@@ -890,6 +913,16 @@ static int make_virtio_mmio_node(libxl__gc *gc, void *fdt,
-     res = fdt_property(fdt, "dma-coherent", NULL, 0);
-     if (res) return res;
- 
-+    if (backend_domid != LIBXL_TOOLSTACK_DOMID) {
-+        uint32_t iommus_prop[2];
-+
-+        iommus_prop[0] = cpu_to_fdt32(GUEST_PHANDLE_IOMMU);
-+        iommus_prop[1] = cpu_to_fdt32(backend_domid);
-+
-+        res = fdt_property(fdt, "iommus", iommus_prop, sizeof(iommus_prop));
-+        if (res) return res;
-+    }
-+
-     res = fdt_end_node(fdt);
-     if (res) return res;
- 
-@@ -1097,6 +1130,7 @@ static int libxl__prepare_dtb(libxl__gc *gc, libxl_domain_config *d_config,
-     size_t fdt_size = 0;
-     int pfdt_size = 0;
-     libxl_domain_build_info *const info = &d_config->b_info;
-+    bool iommu_created;
-     unsigned int i;
- 
-     const libxl_version_info *vers;
-@@ -1204,11 +1238,20 @@ next_resize:
-         if (d_config->num_pcidevs)
-             FDT( make_vpci_node(gc, fdt, ainfo, dom) );
- 
-+        iommu_created = false;
-         for (i = 0; i < d_config->num_disks; i++) {
-             libxl_device_disk *disk = &d_config->disks[i];
- 
--            if (disk->specification == LIBXL_DISK_SPECIFICATION_VIRTIO)
--                FDT( make_virtio_mmio_node(gc, fdt, disk->base, disk->irq) );
-+            if (disk->specification == LIBXL_DISK_SPECIFICATION_VIRTIO) {
-+                if (disk->backend_domid != LIBXL_TOOLSTACK_DOMID &&
-+                    !iommu_created) {
-+                    FDT( make_xen_iommu_node(gc, fdt) );
-+                    iommu_created = true;
-+                }
-+
-+                FDT( make_virtio_mmio_node(gc, fdt, disk->base, disk->irq,
-+                                           disk->backend_domid) );
-+            }
-         }
- 
-         if (pfdt)
-diff --git a/xen/include/public/device_tree_defs.h b/xen/include/public/device_tree_defs.h
-index 209d43d..df58944 100644
---- a/xen/include/public/device_tree_defs.h
-+++ b/xen/include/public/device_tree_defs.h
-@@ -7,6 +7,7 @@
-  * onwards. Reserve a high value for the GIC phandle.
-  */
- #define GUEST_PHANDLE_GIC (65000)
-+#define GUEST_PHANDLE_IOMMU (GUEST_PHANDLE_GIC + 1)
- 
- #define GUEST_ROOT_ADDRESS_CELLS 2
- #define GUEST_ROOT_SIZE_CELLS 2
--- 
-2.7.4
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 213846 lines long.)
 
