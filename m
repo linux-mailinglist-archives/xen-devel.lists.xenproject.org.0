@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2983353886B
-	for <lists+xen-devel@lfdr.de>; Mon, 30 May 2022 23:01:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.338751.563637 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1C98538883
+	for <lists+xen-devel@lfdr.de>; Mon, 30 May 2022 23:07:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.338822.563652 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nvmVC-0000ux-L3; Mon, 30 May 2022 21:00:38 +0000
+	id 1nvmbK-0004PG-4E; Mon, 30 May 2022 21:06:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 338751.563637; Mon, 30 May 2022 21:00:38 +0000
+Received: by outflank-mailman (output) from mailman id 338822.563652; Mon, 30 May 2022 21:06:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nvmVC-0000he-A1; Mon, 30 May 2022 21:00:38 +0000
-Received: by outflank-mailman (input) for mailman id 338751;
- Mon, 30 May 2022 21:00:36 +0000
+	id 1nvmbK-0004Mc-0q; Mon, 30 May 2022 21:06:58 +0000
+Received: by outflank-mailman (input) for mailman id 338822;
+ Mon, 30 May 2022 21:06:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Pxv1=WG=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1nvmV9-0007Kr-OS
- for xen-devel@lists.xenproject.org; Mon, 30 May 2022 21:00:35 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
+ id 1nvmbJ-0004MW-41
+ for xen-devel@lists.xenproject.org; Mon, 30 May 2022 21:06:57 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8cc035c3-e05b-11ec-837f-e5687231ffcc;
- Mon, 30 May 2022 23:00:35 +0200 (CEST)
-Received: by mail-lf1-x130.google.com with SMTP id bf44so2884940lfb.0
- for <xen-devel@lists.xenproject.org>; Mon, 30 May 2022 14:00:35 -0700 (PDT)
+ id 6fca2476-e05c-11ec-837f-e5687231ffcc;
+ Mon, 30 May 2022 23:06:56 +0200 (CEST)
+Received: by mail-lj1-x232.google.com with SMTP id a23so12738371ljd.9
+ for <xen-devel@lists.xenproject.org>; Mon, 30 May 2022 14:06:55 -0700 (PDT)
 Received: from otyshchenko.router ([212.22.223.21])
  by smtp.gmail.com with ESMTPSA id
- k21-20020a2ea275000000b0025550e2693asm581541ljm.38.2022.05.30.14.00.33
+ h1-20020a056512220100b0047255d211b2sm2508931lfu.225.2022.05.30.14.06.54
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 30 May 2022 14:00:34 -0700 (PDT)
+ Mon, 30 May 2022 14:06:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,103 +44,216 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8cc035c3-e05b-11ec-837f-e5687231ffcc
+X-Inumbo-ID: 6fca2476-e05c-11ec-837f-e5687231ffcc
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references;
-        bh=6yQqHGmllGTqv5b6W6sRDmvHNQ6gC3VDGqt+iST1GP4=;
-        b=S9MQR0ujpwPcnAyQYtPOzs9RCcNptzk0O/ZMxmFkOJnlI6mtmjxlbztcN0YE14G+/O
-         CACKu4Iom63FSxFErPfKqe3D8u1NBDzLCPW0bP4ReCA8eMTw2li9C6ziCtU4wpuuXFOv
-         qt8hKg4Ch3uraBa6Tn2+BZTqz64LBuzU3H+Y3p7d156cESE/deH1HCsjxMQApA/hMabB
-         SVd/urKJWwl1w0Od8Z4zjUY6waUfCEhfljhE6SeNVuuV96Jjyfsdnq6mtPjXwQC9I81N
-         93RwoCNTdcACEhMhE6pcdd8EPkimavXlYSfpVDIUPItTBv+rAA4J2jKLCkS4egHb/581
-         YKqA==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=yCj6CjDNcsvJy/tFMBx1tpvD/zYHLbLEZ8yli7AQ6SI=;
+        b=IKxzkKOU44sZ/QR6lYJIszLKZPgyf3YMlXOaWcR/JafuI31OSawpfxMqkMCZCxv9Vd
+         QR96mdbSFUaQtpbKMHB7QoPI1CDBafFfQZ/sAV48A4DemTZRNsqkLmBIr4PN40PGeKPE
+         nNg6pfLF7ejgYP4UcNWfY6fYIiQH82wh7FZPdjBOXINxdjKaR0Dpg7eUO5n+MLb9HkG8
+         /nJQeyphbRqYbLvZUCNQwWtY+ECLv5FTghobkNH//WMJYLFqnTRKHCxI7OtXIBq0o7rf
+         4Wg+9fBEjUdsdjDTSgLsObFn41dED6t6Aii2ChkYtg5prnmLCFhW92wvSOohw8VPyDYU
+         Q5fQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references;
-        bh=6yQqHGmllGTqv5b6W6sRDmvHNQ6gC3VDGqt+iST1GP4=;
-        b=lCuzT43KFWQ22T4geEuejMVIYecf+KBnL2Hsw9MtUSCtV+6cytoVdtM2YEEaKE0k7O
-         BppglSwkgSPJxHh9WLAYp8HKbhGiJ4nDj+EZrMpe1T9BSygtRHkolDEIeeRTv/k4zeJP
-         efSBXPksl7rbzENPMepfAN8qjKtU44eEuAHo+tok5a4v7nukw5A40I0xobW2ft/mkr4Z
-         7nD0qgg8I3DkyqzrzU2KNojen20rFq6oTdSl+5HcxtKyVyHpaQOr4A4oMiZSrXUKq+tT
-         qs57WCsF7nHbX7zRN74Nd8ZnVhvNtmP+exuSWyaL0C4GLWgou8C99l5rB6XTABBx+9mN
-         VPDg==
-X-Gm-Message-State: AOAM531xE5CHhO+I0InHE47vQVw48w0EqntaxQq/e2suSyeflhDJDD8F
-	LEHHrzmVkEm8PK0ZHoedjWqK0dO+lwY=
-X-Google-Smtp-Source: ABdhPJxRI3M09HPtHmhTVLy5lEGHXzz2fTw91+bnwCJ2p93uOzuCHkjvEzV3hyRjrqV1bLRUpJbu/Q==
-X-Received: by 2002:a05:6512:22c2:b0:478:3ed7:f0f7 with SMTP id g2-20020a05651222c200b004783ed7f0f7mr37717893lfu.112.1653944434440;
-        Mon, 30 May 2022 14:00:34 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=yCj6CjDNcsvJy/tFMBx1tpvD/zYHLbLEZ8yli7AQ6SI=;
+        b=e7Hn/NoUTStuH38HdqGjb5mfl4aHZZWxn77Jb8/nA/2PZPo0sjTLTgqznh2fzptXVN
+         V8TunhPgNzXzypzLk73fRSxufg+S0pgrxpEgKJj8QfB5nqB4cmsqTm13mRedBm9IwMS3
+         ePAFQGIr2yzSyO82SSL6f+XdEtSryDY+d7nwIphWYGbz7PD66pOc/6sV9DNVsW5Zk2Gp
+         1xHmOSJh+C52YjXtFg8DcKpRkCgdk0NGBeSO758B33qQcCeZMDw8hbVRVdeudSuUvg/4
+         mHQC9YUUg9IMEgwFhe7blV6vYg9EPqJq+cCPfL2ldMrIpRcVrzueDyAMMrYn2Jbuqd1C
+         1aXw==
+X-Gm-Message-State: AOAM531e7LAMH7m8ZJm+bG1qnKM0G6M8zjv4hzBUgzyCIehvhSR3LRlC
+	pG3xhmLcs36Yp02rWCbNSCCDUSUXFMA=
+X-Google-Smtp-Source: ABdhPJwDqUfiK4FskpnJXVLIzTWuR2ZWMexcpjUyUOMUpDsPdBehARKygsXbdF+kzl31knxhY5H0yw==
+X-Received: by 2002:a2e:84c7:0:b0:24b:6842:1923 with SMTP id q7-20020a2e84c7000000b0024b68421923mr34895089ljh.166.1653944815285;
+        Mon, 30 May 2022 14:06:55 -0700 (PDT)
 From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-To: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
+To: xen-devel@lists.xenproject.org
 Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
 	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Christoph Hellwig <hch@infradead.org>
-Subject: [PATCH V3 8/8] arm/xen: Assign xen-grant DMA ops for xen-grant DMA devices
-Date: Tue, 31 May 2022 00:00:17 +0300
-Message-Id: <1653944417-17168-9-git-send-email-olekstysh@gmail.com>
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH V2] libxl/arm: Create specific IOMMU node to be referred by virtio-mmio device
+Date: Tue, 31 May 2022 00:06:53 +0300
+Message-Id: <1653944813-17970-1-git-send-email-olekstysh@gmail.com>
 X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1653944417-17168-1-git-send-email-olekstysh@gmail.com>
-References: <1653944417-17168-1-git-send-email-olekstysh@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-By assigning xen-grant DMA ops we will restrict memory access for
-passed device using Xen grant mappings. This is needed for using any
-virtualized device (e.g. virtio) in Xen guests in a safe manner.
+Reuse generic IOMMU device tree bindings to communicate Xen specific
+information for the virtio devices for which the restricted memory
+access using Xen grant mappings need to be enabled.
 
-Please note, for the virtio devices the XEN_VIRTIO config should
-be enabled (it forces ARCH_HAS_RESTRICTED_VIRTIO_MEMORY_ACCESS).
+Insert "iommus" property pointed to the IOMMU node with "xen,grant-dma"
+compatible to all virtio devices which backends are going to run in
+non-hardware domains (which are non-trusted by default).
+
+Based on device-tree binding from Linux:
+Documentation/devicetree/bindings/iommu/xen,grant-dma.yaml
+
+The example of generated nodes:
+
+xen_iommu {
+    compatible = "xen,grant-dma";
+    #iommu-cells = <0x01>;
+    phandle = <0xfde9>;
+};
+
+virtio@2000000 {
+    compatible = "virtio,mmio";
+    reg = <0x00 0x2000000 0x00 0x200>;
+    interrupts = <0x00 0x01 0xf01>;
+    interrupt-parent = <0xfde8>;
+    dma-coherent;
+    iommus = <0xfde9 0x01>;
+};
+
+virtio@2000200 {
+    compatible = "virtio,mmio";
+    reg = <0x00 0x2000200 0x00 0x200>;
+    interrupts = <0x00 0x02 0xf01>;
+    interrupt-parent = <0xfde8>;
+    dma-coherent;
+    iommus = <0xfde9 0x01>;
+};
 
 Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
+!!! This patch is based on non upstreamed yet “Virtio support for toolstack
+on Arm” V8 series which is on review now:
+https://lore.kernel.org/xen-devel/1651598763-12162-1-git-send-email-olekstysh@gmail.com/
+
+New device-tree binding (commit #5) is a part of solution to restrict memory
+access under Xen using xen-grant DMA-mapping layer (which is also on review):
+https://lore.kernel.org/xen-devel/1653944417-17168-1-git-send-email-olekstysh@gmail.com/
+
 Changes RFC -> V1:
-   - update commit subject/description
-   - remove #ifdef CONFIG_XEN_VIRTIO
-   - re-organize the check taking into the account that
-     swiotlb and virtio cases are mutually exclusive
-   - update according to the new naming scheme:
-     s/virtio/grant_dma
+   - update commit description
+   - rebase according to the recent changes to
+     "libxl: Introduce basic virtio-mmio support on Arm"
 
 Changes V1 -> V2:
-   - add Stefano's R-b
-   - remove arch_has_restricted_virtio_memory_access() check
-   - update commit description
-   - remove the inclusion of virtio_config.h
-
-Changes V2 -> V3:
-   - no changes
+   - Henry already gave his Reviewed-by, I dropped it due to the changes
+   - use generic IOMMU device tree bindings instead of custom property
+     "xen,dev-domid"
+   - change commit subject and description, was
+     "libxl/arm: Insert "xen,dev-domid" property to virtio-mmio device node"
 ---
- include/xen/arm/xen-ops.h | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ tools/libs/light/libxl_arm.c          | 49 ++++++++++++++++++++++++++++++++---
+ xen/include/public/device_tree_defs.h |  1 +
+ 2 files changed, 47 insertions(+), 3 deletions(-)
 
-diff --git a/include/xen/arm/xen-ops.h b/include/xen/arm/xen-ops.h
-index 288deb1..b0766a6 100644
---- a/include/xen/arm/xen-ops.h
-+++ b/include/xen/arm/xen-ops.h
-@@ -3,11 +3,14 @@
- #define _ASM_ARM_XEN_OPS_H
- 
- #include <xen/swiotlb-xen.h>
-+#include <xen/xen-ops.h>
- 
- static inline void xen_setup_dma_ops(struct device *dev)
- {
- #ifdef CONFIG_XEN
--	if (xen_swiotlb_detect())
-+	if (xen_is_grant_dma_device(dev))
-+		xen_grant_setup_dma_ops(dev);
-+	else if (xen_swiotlb_detect())
- 		dev->dma_ops = &xen_swiotlb_dma_ops;
- #endif
+diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+index 9be9b2a..72da3b1 100644
+--- a/tools/libs/light/libxl_arm.c
++++ b/tools/libs/light/libxl_arm.c
+@@ -865,9 +865,32 @@ static int make_vpci_node(libxl__gc *gc, void *fdt,
+     return 0;
  }
+ 
++static int make_xen_iommu_node(libxl__gc *gc, void *fdt)
++{
++    int res;
++
++    /* See Linux Documentation/devicetree/bindings/iommu/xen,grant-dma.yaml */
++    res = fdt_begin_node(fdt, "xen_iommu");
++    if (res) return res;
++
++    res = fdt_property_compat(gc, fdt, 1, "xen,grant-dma");
++    if (res) return res;
++
++    res = fdt_property_cell(fdt, "#iommu-cells", 1);
++    if (res) return res;
++
++    res = fdt_property_cell(fdt, "phandle", GUEST_PHANDLE_IOMMU);
++    if (res) return res;
++
++    res = fdt_end_node(fdt);
++    if (res) return res;
++
++    return 0;
++}
+ 
+ static int make_virtio_mmio_node(libxl__gc *gc, void *fdt,
+-                                 uint64_t base, uint32_t irq)
++                                 uint64_t base, uint32_t irq,
++                                 uint32_t backend_domid)
+ {
+     int res;
+     gic_interrupt intr;
+@@ -890,6 +913,16 @@ static int make_virtio_mmio_node(libxl__gc *gc, void *fdt,
+     res = fdt_property(fdt, "dma-coherent", NULL, 0);
+     if (res) return res;
+ 
++    if (backend_domid != LIBXL_TOOLSTACK_DOMID) {
++        uint32_t iommus_prop[2];
++
++        iommus_prop[0] = cpu_to_fdt32(GUEST_PHANDLE_IOMMU);
++        iommus_prop[1] = cpu_to_fdt32(backend_domid);
++
++        res = fdt_property(fdt, "iommus", iommus_prop, sizeof(iommus_prop));
++        if (res) return res;
++    }
++
+     res = fdt_end_node(fdt);
+     if (res) return res;
+ 
+@@ -1097,6 +1130,7 @@ static int libxl__prepare_dtb(libxl__gc *gc, libxl_domain_config *d_config,
+     size_t fdt_size = 0;
+     int pfdt_size = 0;
+     libxl_domain_build_info *const info = &d_config->b_info;
++    bool iommu_created;
+     unsigned int i;
+ 
+     const libxl_version_info *vers;
+@@ -1204,11 +1238,20 @@ next_resize:
+         if (d_config->num_pcidevs)
+             FDT( make_vpci_node(gc, fdt, ainfo, dom) );
+ 
++        iommu_created = false;
+         for (i = 0; i < d_config->num_disks; i++) {
+             libxl_device_disk *disk = &d_config->disks[i];
+ 
+-            if (disk->specification == LIBXL_DISK_SPECIFICATION_VIRTIO)
+-                FDT( make_virtio_mmio_node(gc, fdt, disk->base, disk->irq) );
++            if (disk->specification == LIBXL_DISK_SPECIFICATION_VIRTIO) {
++                if (disk->backend_domid != LIBXL_TOOLSTACK_DOMID &&
++                    !iommu_created) {
++                    FDT( make_xen_iommu_node(gc, fdt) );
++                    iommu_created = true;
++                }
++
++                FDT( make_virtio_mmio_node(gc, fdt, disk->base, disk->irq,
++                                           disk->backend_domid) );
++            }
+         }
+ 
+         if (pfdt)
+diff --git a/xen/include/public/device_tree_defs.h b/xen/include/public/device_tree_defs.h
+index 209d43d..df58944 100644
+--- a/xen/include/public/device_tree_defs.h
++++ b/xen/include/public/device_tree_defs.h
+@@ -7,6 +7,7 @@
+  * onwards. Reserve a high value for the GIC phandle.
+  */
+ #define GUEST_PHANDLE_GIC (65000)
++#define GUEST_PHANDLE_IOMMU (GUEST_PHANDLE_GIC + 1)
+ 
+ #define GUEST_ROOT_ADDRESS_CELLS 2
+ #define GUEST_ROOT_SIZE_CELLS 2
 -- 
 2.7.4
 
