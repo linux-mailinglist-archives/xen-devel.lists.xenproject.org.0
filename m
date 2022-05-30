@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81F355386AB
-	for <lists+xen-devel@lfdr.de>; Mon, 30 May 2022 19:17:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.338704.563510 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAC5F5386E9
+	for <lists+xen-devel@lfdr.de>; Mon, 30 May 2022 19:51:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.338713.563522 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nvj0O-0000Yz-Jx; Mon, 30 May 2022 17:16:36 +0000
+	id 1nvjXC-0004h9-9e; Mon, 30 May 2022 17:50:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 338704.563510; Mon, 30 May 2022 17:16:36 +0000
+Received: by outflank-mailman (output) from mailman id 338713.563522; Mon, 30 May 2022 17:50:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nvj0O-0000W2-Ga; Mon, 30 May 2022 17:16:36 +0000
-Received: by outflank-mailman (input) for mailman id 338704;
- Mon, 30 May 2022 17:16:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nvjXC-0004di-6J; Mon, 30 May 2022 17:50:30 +0000
+Received: by outflank-mailman (input) for mailman id 338713;
+ Mon, 30 May 2022 17:50:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=epuh=WG=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1nvj0M-0000Vv-Ul
- for xen-devel@lists.xenproject.org; Mon, 30 May 2022 17:16:35 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3f3824bc-e03c-11ec-837f-e5687231ffcc;
- Mon, 30 May 2022 19:16:32 +0200 (CEST)
-Received: from [10.10.1.138] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1653930988362815.3065671106809;
- Mon, 30 May 2022 10:16:28 -0700 (PDT)
+ <SRS0=wtgc=WG=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1nvjXA-0004dc-0Z
+ for xen-devel@lists.xenproject.org; Mon, 30 May 2022 17:50:28 +0000
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fb5111e6-e040-11ec-bd2c-47488cf2e6aa;
+ Mon, 30 May 2022 19:50:25 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id 94CB55C0076;
+ Mon, 30 May 2022 13:50:23 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute5.internal (MEProxy); Mon, 30 May 2022 13:50:23 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 30 May 2022 13:50:22 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,58 +43,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f3824bc-e03c-11ec-837f-e5687231ffcc
-ARC-Seal: i=1; a=rsa-sha256; t=1653930989; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=FZSmp3w6yb9TuGGL/tLA4W9hnHp5WDTpLElYoQsekbmyhBNRVHFhfqRc75HGvMH8zYHkozukU9iQrJMFxY9VPjgbNe2iq00L8bv3e/wryT5KIjzlnSdaYOaMNFUYDSIdrjAV0ClK1Hfd/dy0hKoXhfJknzNw84gOsYnzHdJBLYg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1653930989; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=vEH37xc67Ijg3jQLE7drU5kLQbof2IZGxoa4VwC/JJA=; 
-	b=D9qHgPnBkg0LmOZqSpAamt8V/zydi9ktLdTaFijg/Av356APZpo19YH6diP7HQLe73ekgGXSy2ngF32+QI7M+6n/cZOPsIHgDVZYSx0OpnJYJ6rjZ2BpdeySU8oNXnq0jlo1vM+Z/aSt8NkNcmaYALqDHQetK+R1wJ+izGlRWhY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1653930989;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:To:To:Cc:Cc:References:From:From:Subject:Subject:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=vEH37xc67Ijg3jQLE7drU5kLQbof2IZGxoa4VwC/JJA=;
-	b=bHT54zAEXy0zwUQS8tv84Fj3LridkfQyE7HlxqxXKTi9bvMMEMdT2hxHteo47wdz
-	iIaePxaoNgqQ/9gVHsXU9lRMJVmUslzNE56cj68WQ8uBehgrVVQrCxLn1tZfr1nsfLL
-	0GAL6koLpHVwLJesBMzKWgsdmqNB/H7KrYPFkqEs=
-Message-ID: <0c894277-85c1-faa7-a360-a82531733f12@apertussolutions.com>
-Date: Mon, 30 May 2022 13:15:00 -0400
+X-Inumbo-ID: fb5111e6-e040-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm1; t=1653933023; x=
+	1654019423; bh=HYNcAzcvwA3jPOCMpvHYfWi0Skxi5GTfqaUV0qrK9gg=; b=S
+	pth8jQdSuwO44sgJMv3Y/gIHQTpHZs7u2XzstVORSqkekW5iLTQthWKeXk4kdDGs
+	mzhaH4W/e6bDoH9yiD3hQiUzRhquJZXpWXJYU9jdwWJgUykV7GJg/rbfB1pTKVC0
+	4pXA4P50DLAHQX35VMnzfZn+4RNmTZ7fXz6EqM6AMl8e+EJ+e/Pr3JbPfivGwVc9
+	AesmDKjQw+gSd9z4g60SEyyoSD6eeoS+UWFTwF3rnsnlLJMt7Wpti04xq9X6eRCD
+	XH2XuDRuPeUtBMT0LhiX1zPNVPwMl6Bbvw2mNo9KAHB/610qmgwLenAAocAMmy84
+	UqFyzSzZaViuKAG/FNQxw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1653933023; x=1654019423; bh=HYNcAzcvwA3jPOCMpvHYfWi0Skxi
+	5GTfqaUV0qrK9gg=; b=motbhBUaedsrcp8VBHcEXOM7zJtYgWkWTCLIGce60Pex
+	NgePkc1lkZcnd8qB6TuXgfKQ5CabyBuilZzHTNKlIq1QLOhw7ORU3dufS8wBOlhr
+	BI37skxdCWZ9uBQ/gRoJ7w+TbWm40CZur8ERsdUwVY1tpTpDJbKpbuan7y2f9FpL
+	ireLzXAOVOsQf2WTIRxEhimz0lce8mUy31JZsi70fjXJ+oYmkXKR2Xontut+FvZq
+	tSz+SQKT6TVHhAdRKAfkIq22eqHXJ8wS7MNip4IehFsMdCeW+yHv4CZ+zDUUEdB3
+	+vF4YhbvgMOIRhaicG61Myv3HXcMgnl8wyaorZ3eCg==
+X-ME-Sender: <xms:3gOVYjlzBz9YZzJlJESVixC8NY-hyK3T07xFExjhQImxsTTMzhEfhw>
+    <xme:3gOVYm1hM3aNtnOmeTx3Ci_YsQBaJxlFYJcqQ68wfslKIHIKv418-N0-uxud69jc7
+    L5hOPWxrSDuHeA>
+X-ME-Received: <xmr:3gOVYprBRMtMGMtQMgnDi_pasorwka3jsQij_cU-jQPdI6gs1IYzis_PfyY1>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrkeeigdduudefucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepffgvmhhi
+    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
+    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepuedthefhtddvffefjeejvdehvdej
+    ieehffehkeekheegleeuleevleduteehteetnecuffhomhgrihhnpehgihhthhhusgdrtg
+    homhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegu
+    vghmihesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:3gOVYrk2Ep01XP_9ABWxv3Ys7wNAAkhn6JbFi1O6Bvtz26sjqu4UCw>
+    <xmx:3gOVYh1Hu1pt2OH1pYuVL53UyLLlsc-SZxoxz2uzgzXjy6HdMfFt8w>
+    <xmx:3gOVYqvxQxktpotj1P-djgSAvb5yVaVSw4C99Dh_SQsiDTPQlF1xQQ>
+    <xmx:3wOVYp86AkeK_yh4n0H2p9_8v2Xh4hwLML3ofnlECYn-9y3pY2BwcA>
+Feedback-ID: iac594737:Fastmail
+Date: Mon, 30 May 2022 13:50:18 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Jennifer Herbert <jennifer.herbert@citrix.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] xen/gntdev: Avoid blocking in unmap_grant_pages()
+Message-ID: <YpUD3PnPoGj84jMq@itl-email>
+References: <20220525184153.6059-1-demi@invisiblethingslab.com>
+ <00c0b10c-a35d-6729-5b4f-424febd9d5a3@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Content-Language: en-US
-To: xen-devel@lists.xenproject.org
-Cc: scott.davis@starlab.io, jandryuk@gmail.com, christopher.clark@starlab.io
-References: <20220511113035.27070-1-dpsmith@apertussolutions.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: PING: [PATCH v7 0/2] Adds starting the idle domain privileged
-In-Reply-To: <20220511113035.27070-1-dpsmith@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="+4H1oyCNBJ2i7PTh"
+Content-Disposition: inline
+In-Reply-To: <00c0b10c-a35d-6729-5b4f-424febd9d5a3@suse.com>
 
 
-On 5/11/22 07:30, Daniel P. Smith wrote:
-> This series makes it so that the idle domain is started privileged under the
-> default policy, which the SILO policy inherits, and under the flask policy. It
-> then introduces a new one-way XSM hook, xsm_transition_running, that is hooked
-> by an XSM policy to transition the idle domain to its running privilege level.
-> 
-> Changes in v7:
-> - adjusted error message in default and flask xsm_set_system_active hooks
-> - merged panic messages in arm and x86 setup.c to a single line
-> 
+--+4H1oyCNBJ2i7PTh
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 30 May 2022 13:50:18 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Jennifer Herbert <jennifer.herbert@citrix.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] xen/gntdev: Avoid blocking in unmap_grant_pages()
 
-Pinging to see if there are open issues I need to address or is the
-series acceptable? IIU I am missing an ACK on patch 1 of the series from
-x86 and sched maintainers. If it is already in your queues, apologies
-for the nag.
+On Mon, May 30, 2022 at 08:41:20AM +0200, Juergen Gross wrote:
+> On 25.05.22 20:41, Demi Marie Obenour wrote:
+> > unmap_grant_pages() currently waits for the pages to no longer be used.
+> > In https://github.com/QubesOS/qubes-issues/issues/7481, this lead to a
+> > deadlock against i915: i915 was waiting for gntdev's MMU notifier to
+> > finish, while gntdev was waiting for i915 to free its pages.  I also
+> > believe this is responsible for various deadlocks I have experienced in
+> > the past.
+> >=20
+> > Avoid these problems by making unmap_grant_pages async.  This requires
+> > making it return void, as any errors will not be available when the
+> > function returns.  Fortunately, the only use of the return value is a
+> > WARN_ON(), which can be replaced by a WARN_ON when the error is
+> > detected.  Additionally, a failed call will not prevent further calls
+> > from being made, but this is harmless.
+> >=20
+> > Because unmap_grant_pages is now async, the grant handle will be sent to
+> > INVALID_GRANT_HANDLE too late to prevent multiple unmaps of the same
+> > handle.  Instead, a separate bool array is allocated for this purpose.
+> > This wastes memory, but stuffing this information in padding bytes is
+> > too fragile.  Furthermore, it is necessary to grab a reference to the
+> > map before making the asynchronous call, and release the reference when
+> > the call returns.
+>=20
+> I think there is even more syncing needed:
+>=20
+> - In the error path of gntdev_mmap() unmap_grant_pages() is being called =
+and
+>   it is assumed, map is available afterwards again. This should be rather=
+ easy
+>   to avoid by adding a counter of active mappings to struct gntdev_grant_=
+map
+>   (number of pages not being unmapped yet). In case this counter is not z=
+ero
+>   gntdev_mmap() should bail out early.
 
-V/r,
-Daniel P. Smith
+Is it possible to just unmap the pages directly here?  I don=E2=80=99t think
+there can be any other users of these pages yet.  Userspace could race
+against the unmap and cause a page fault, but that should just cause
+userspace to get SIGSEGV or SIGBUS.  In any case this code can use the
+sync version; if it gets blocked that=E2=80=99s userspace=E2=80=99s problem.
+
+> - gntdev_put_map() is calling unmap_grant_pages() in case the refcount has
+>   dropped to zero. This call can set the refcount to 1 again, so there is
+>   another delay needed before freeing map. I think unmap_grant_pages() sh=
+ould
+>   return in case the count of mapped pages is zero (see above), thus avoi=
+ding
+>   to increment the refcount of map if nothing is to be done. This would e=
+nable
+>   gntdev_put_map() to just return after the call of unmap_grant_pages() i=
+n case
+>   the refcount has been incremented again.
+
+I will change this in v3, but I do wonder if gntdev is using the wrong
+MMU notifier callback.  It seems that the appropriate callback is
+actually release(): if I understand correctly, release() is called
+precisely when the refcount on the physical page is about to drop to 0,
+and that is what we want.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+
+--+4H1oyCNBJ2i7PTh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmKVA9wACgkQsoi1X/+c
+IsF9ZBAAikctLY/AMtbOiBJtLzm10XD7eKKXsULHrVKCvoqXCVKzLGw58uboGyGB
+hrLD5nM0b5fkiOdvsHuau4hm72mJIX7m/WBrtpUStMeipOUl5dZWNuz5NENNGnsx
+y5zafYGmc3VSx+bAv7+K8xb8GNJCX9HkNXT4frPrnYPSC4b/SzFpdxQyCQhreyyx
+4w8FYVcSC0piMYJ5qY1JfZUIukFLGoCP0ckmn/lsjeYkTCG1FdxMYUdgkD7bLowr
+a34wI8z5a38UKADYZMdCdKuDR7zVvdj3hMrmuRsQygRhnYkzTCpWT8/3tkM8+cxP
+VnriSTIWNI8mnfbub1po8OmQJ3A1oIEYItiONFxhHXUmRxNwPkNwWpT3KdX6vk63
+xmA1rUvuBfmVFlBQ3Oa2WJWUhknSxfcHA+g5/MDqKzoA5gv7h//O1lIAEwmgLXkb
+EHXPzI5KJmA/MyuMaILpCmJP6dI2OoWHv9fn+b+piG0Jlc+VUOBAB/yyXK3hKjLp
+C0sIJ4LIdrCTDnCr9enl69IuVH+yoIicflGuXmB7lWn5VO8rTgRz/RVpzdWNvVdM
+YJp5gvWl6JM/fwFcPBGVZmQArGubWKEaQ3LO1YOadIcOBuogOpCipsOBaYUPQ/Yc
+9yI54267qpe32hXoC5kiVVUSassMgvi70p142cl7csLbhNRbJ8A=
+=PRoO
+-----END PGP SIGNATURE-----
+
+--+4H1oyCNBJ2i7PTh--
 
