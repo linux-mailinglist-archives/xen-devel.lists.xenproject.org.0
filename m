@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1248853952F
-	for <lists+xen-devel@lfdr.de>; Tue, 31 May 2022 19:04:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.339898.564814 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C08C2539543
+	for <lists+xen-devel@lfdr.de>; Tue, 31 May 2022 19:09:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.339907.564825 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nw5HU-0007Qp-BT; Tue, 31 May 2022 17:03:44 +0000
+	id 1nw5My-00083G-Vz; Tue, 31 May 2022 17:09:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 339898.564814; Tue, 31 May 2022 17:03:44 +0000
+Received: by outflank-mailman (output) from mailman id 339907.564825; Tue, 31 May 2022 17:09:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nw5HU-0007NU-76; Tue, 31 May 2022 17:03:44 +0000
-Received: by outflank-mailman (input) for mailman id 339898;
- Tue, 31 May 2022 17:03:42 +0000
+	id 1nw5My-00081T-Sm; Tue, 31 May 2022 17:09:24 +0000
+Received: by outflank-mailman (input) for mailman id 339907;
+ Tue, 31 May 2022 17:09:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Xfyb=WH=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1nw5HS-0007NO-3P
- for xen-devel@lists.xenproject.org; Tue, 31 May 2022 17:03:42 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9dc21c47-e103-11ec-837f-e5687231ffcc;
- Tue, 31 May 2022 19:03:40 +0200 (CEST)
-Received: from [10.10.1.138] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1654016615660296.8406884390141;
- Tue, 31 May 2022 10:03:35 -0700 (PDT)
+ <SRS0=KE28=WH=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1nw5Mx-00081N-Dn
+ for xen-devel@lists.xenproject.org; Tue, 31 May 2022 17:09:23 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6a59f916-e104-11ec-837f-e5687231ffcc;
+ Tue, 31 May 2022 19:09:22 +0200 (CEST)
+Received: by mail-lf1-x135.google.com with SMTP id c19so22500664lfv.5
+ for <xen-devel@lists.xenproject.org>; Tue, 31 May 2022 10:09:22 -0700 (PDT)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id
+ i6-20020a196d06000000b00477cab33759sm3072432lfc.256.2022.05.31.10.09.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 31 May 2022 10:09:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,81 +44,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9dc21c47-e103-11ec-837f-e5687231ffcc
-ARC-Seal: i=1; a=rsa-sha256; t=1654016617; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=aYv0es7mKYVjwZB2c485H9L/8xXYP5xBh8Q9P1pEtHHhx0gDHGpwckKA2B8OpjdzMHSRmlV6d9W1KOd+fB2bBLspxrw20Sw7mOIveO579dTQUBWOwtfynqIQ05DvNov9MX/jv3sdIjsbH3cftlms0/R1jTADhnjvYrpVQGZ+OBU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1654016617; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=tcGpwATKnB8tjbSMB7ke1FkWwTgORrNPTiS1SBigrjo=; 
-	b=T1u+IDvK6IDvzrkb05shI7LY9OqUMQBr2Hd0H8bd+YA+DTlssrshO4rTndE/hpKDNUU3mEh8FzAfq2DCLnvRqKgeSo+2L9FZXDvF7P54kkWd+9Mkuv70eUGbz0iCRJp4E9ml9xdGX1zFDGPBtqWfoTKtDI/P+xkUDv8L5rozMC8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1654016617;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:To:To:Cc:Cc:References:From:From:Subject:Subject:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=tcGpwATKnB8tjbSMB7ke1FkWwTgORrNPTiS1SBigrjo=;
-	b=PbnHfDTQV5e/tYQkbXEZNEndIVE5LTw6meRYgpKeWD0a6FdsLnZv9R/j3OuOHEm3
-	E25dM9cm6zqI/k77+0A5xc1Uu2Mlc40RoRVR2iku0xRfo813cC3VpVoUtNtFrjOoBwB
-	M1opRPmA4WwNtMJWbDgT30BPltWWLc/VXrMyPDKU=
-Message-ID: <0c9a0874-6afb-0ac0-fc6d-26d14081efe3@apertussolutions.com>
-Date: Tue, 31 May 2022 13:02:06 -0400
+X-Inumbo-ID: 6a59f916-e104-11ec-837f-e5687231ffcc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=oXC+omMyhQE+yQOLbS6KJe5K78bZY03LjtAozxlOWS4=;
+        b=TAyjZkyHiTXmbmHCSrE2qWJwfpy2mK18RqayHB9KPwF3D5Pg+bZ6eGYNeN34jbspjz
+         XKAIAKaqLBFgTkjxxqEqqjzKoQ4toUSB64OhXxsfMMRXeKBxTuUTXvyIQGUiGfioo7kC
+         oMkYvmT4C0UXva0czCxfN3JpmbeZVhWBsYi1qGOpj0WhxatmjVmbr0Qp0zNQmGicVbqD
+         XOkcjG3W1KKt5f0akOma0UDAHja0EIq/KJOrVyQ2kluOg8ugvRzH57Wsp2EqTBQKNt5m
+         4tqMtwtv+jysyfjiBaAa2EYLry0bXPvGexMdU0w2FewQWJm/hZYWq2QWm7FRLYNLGMi4
+         npkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=oXC+omMyhQE+yQOLbS6KJe5K78bZY03LjtAozxlOWS4=;
+        b=KOoCajg+vB3ofPie6lungNNm3VDC4Prd30ebICI1FIDksJeYXRQY93FyFkbN5Fb35q
+         PzmGQtilF5mD8EPUpxY7BxAjFKzhgsOBnEzbxVm6y5fyxe3GoIEJ5/2JA9qHsVBQaUN3
+         L6BeW4luJXTuJ5BRFX3CM7Wkh6uUjZnR5B/u+3gjMxmKJQr8l7sblBOZdme8TWHcdunh
+         iO9v3Dmc2LURoO41cfB5B4WZVuJg6om6Tathg9l0A9FxB1VB3JfKBLhB0McRZg3YuWN2
+         a5C28TvSyJJEL23kNFq7kH7lPVoDNzNrSBmfAoYNl/wnuPKPuiy4OBGCSyp0V/Y4uXJp
+         +ENg==
+X-Gm-Message-State: AOAM533j4FkxSx4vdha5MqQRXhpnoF+adDs03ERut4cHD/MXX2iHGgm4
+	bnl8wb9+FgwLijEDPln5Aqk=
+X-Google-Smtp-Source: ABdhPJwx9hqwCt9lTBlhLuxF3159ZiuKQMGeaQRRGSerHfQCM1lHwBJOFfe0u0PJDGwPNceRQMYbag==
+X-Received: by 2002:ac2:4f09:0:b0:478:6c80:64fc with SMTP id k9-20020ac24f09000000b004786c8064fcmr26696653lfr.34.1654016961692;
+        Tue, 31 May 2022 10:09:21 -0700 (PDT)
+Subject: Re: [PATCH V3 5/8] dt-bindings: Add xen,grant-dma IOMMU description
+ for xen-grant DMA ops
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ xen-devel@lists.xenproject.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ iommu@lists.linux-foundation.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Rob Herring <robh+dt@kernel.org>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Julien Grall <julien@xen.org>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Christoph Hellwig
+ <hch@infradead.org>, Arnd Bergmann <arnd@arndb.de>
+References: <1653944417-17168-1-git-send-email-olekstysh@gmail.com>
+ <1653944417-17168-6-git-send-email-olekstysh@gmail.com>
+ <15eef004-74c7-0eb5-3f87-86e164ef70ff@linaro.org>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <f5aa3337-e1fc-752e-5337-120599ed508b@gmail.com>
+Date: Tue, 31 May 2022 20:09:19 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
+In-Reply-To: <15eef004-74c7-0eb5-3f87-86e164ef70ff@linaro.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: scott.davis@starlab.io, christopher.clark@starlab.io, jandryuk@gmail.com,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>, xen-devel@lists.xenproject.org
-References: <20220531150857.19727-1-dpsmith@apertussolutions.com>
- <20220531150857.19727-3-dpsmith@apertussolutions.com>
- <53a64002-5369-26b9-cd30-119983518cc6@suse.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: Re: [PATCH v3 2/3] xsm: consolidate loading the policy buffer
-In-Reply-To: <53a64002-5369-26b9-cd30-119983518cc6@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-On 5/31/22 12:05, Jan Beulich wrote:
-> On 31.05.2022 17:08, Daniel P. Smith wrote:
->> Previously, initializing the policy buffer was split between two functions,
->> xsm_{multiboot,dt}_policy_init() and xsm_core_init(). The latter for loading
->> the policy from boot modules and the former for falling back to built-in policy.
->>
->> This patch moves all policy buffer initialization logic under the
->> xsm_{multiboot,dt}_policy_init() functions. It then ensures that an error
->> message is printed for every error condition that may occur in the functions.
->> With all policy buffer init contained and only called when the policy buffer
->> must be populated, the respective xsm_{mb,dt}_init() functions will panic if an
->> error occurs attempting to populate the policy buffer.
-> 
-> "flask=late" is also a mode where, afaict, no policy is required. I can't,
-> however, see how you're taking care of that (but maybe I'm overlooking
-> something); inspecting flask_bootparam in generic XSM code would actually
-> be a layering violation.
 
-Good point, flask=late is meant to be enforcing with a late loading of a
-policy file. I will address it.
+On 31.05.22 14:52, Krzysztof Kozlowski wrote:
 
->> --- a/xen/include/xsm/xsm.h
->> +++ b/xen/include/xsm/xsm.h
->> @@ -775,7 +775,7 @@ int xsm_multiboot_init(
->>      unsigned long *module_map, const multiboot_info_t *mbi);
->>  int xsm_multiboot_policy_init(
->>      unsigned long *module_map, const multiboot_info_t *mbi,
->> -    void **policy_buffer, size_t *policy_size);
->> +    const unsigned char *policy_buffer[], size_t *policy_size);
-> 
-> I don't think we're dealing with an array here, so const unsigned char **
-> would seem the more correct representation to me.
-> 
-> Also - what about the DT counterpart function?
+Hello Krzysztof
 
-Ack.
+> On 30/05/2022 23:00, Oleksandr Tyshchenko wrote:
+>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> Thank you for your patch. There is something to discuss/improve.
+>
+>> diff --git a/Documentation/devicetree/bindings/iommu/xen,grant-dma.yaml b/Documentation/devicetree/bindings/iommu/xen,grant-dma.yaml
+>> new file mode 100644
+>> index 00000000..ab5765c
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/iommu/xen,grant-dma.yaml
+>> @@ -0,0 +1,49 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only or BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/iommu/xen,grant-dma.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Xen specific IOMMU for virtualized devices (e.g. virtio)
+>> +
+>> +maintainers:
+>> +  - Stefano Stabellini <sstabellini@kernel.org>
+>> +
+>> +description:
+>> +  The reference to Xen specific IOMMU node using "iommus" property indicates
+>> +  that Xen grant mappings need to be enabled for the device, and it specifies
+>> +  the ID of the domain where the corresponding backend resides.
+>> +  The binding is required to restrict memory access using Xen grant mappings.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: xen,grant-dma
+>> +
+>> +  '#iommu-cells':
+>> +    const: 1
+>> +    description:
+>> +      Xen specific IOMMU is multiple-master IOMMU device.
+>> +      The single cell describes the domid (domain ID) of the domain where
+>> +      the backend is running.
+>> +
+>> +required:
+>> +  - compatible
+>> +  - "#iommu-cells"
+>> +
+>> +additionalProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    xen_iommu {
+> No underscores in node names, generic node names, so this looks like
+> "iommu".
 
-v/r
-dps
+
+ok, will change
+
+
+>
+>> +        compatible = "xen,grant-dma";
+>> +        #iommu-cells = <1>;
+>> +    };
+>> +
+>> +    virtio@3000 {
+>> +        compatible = "virtio,mmio";
+>> +        reg = <0x3000 0x100>;
+>> +        interrupts = <41>;
+>> +
+>> +        /* The backend is located in Xen domain with ID 1 */
+>> +        iommus = <&xen_iommu 1>;
+> There is no need usually to give consumer examples in provider binding.
+> If there is nothing specific here (looks exactly like every IOMMU
+> consumer in Linux kernel), drop the consumer.
+
+
+I got it.  There is nothing specific from the device tree's perspective, 
+I was thinking to draw attention to the IOMMU specifier (in our case, 
+the master device's ID == backend's domain ID). But  '#iommu-cells' 
+description above already clarifies that. Will drop.
+
+
+>
+>> +    };
+>
+> Best regards,
+> Krzysztof
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
