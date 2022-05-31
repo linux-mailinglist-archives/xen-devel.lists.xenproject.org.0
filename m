@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 967E2538904
+	by mail.lfdr.de (Postfix) with ESMTPS id D597F538905
 	for <lists+xen-devel@lfdr.de>; Tue, 31 May 2022 00:51:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.338912.563752 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.338919.563767 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nvoEb-0002r1-9k; Mon, 30 May 2022 22:51:37 +0000
+	id 1nvoEk-0003LK-29; Mon, 30 May 2022 22:51:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 338912.563752; Mon, 30 May 2022 22:51:37 +0000
+Received: by outflank-mailman (output) from mailman id 338919.563767; Mon, 30 May 2022 22:51:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nvoEb-0002oL-5x; Mon, 30 May 2022 22:51:37 +0000
-Received: by outflank-mailman (input) for mailman id 338912;
- Mon, 30 May 2022 22:51:35 +0000
+	id 1nvoEj-0003F9-Se; Mon, 30 May 2022 22:51:45 +0000
+Received: by outflank-mailman (input) for mailman id 338919;
+ Mon, 30 May 2022 22:51:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=epuh=WG=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1nvo5M-000799-1a
- for xen-devel@lists.xenproject.org; Mon, 30 May 2022 22:42:04 +0000
+ id 1nvo5R-000799-AV
+ for xen-devel@lists.xenproject.org; Mon, 30 May 2022 22:42:09 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
  [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b7ffd025-e069-11ec-837f-e5687231ffcc;
- Tue, 31 May 2022 00:42:01 +0200 (CEST)
+ id bbc29904-e069-11ec-837f-e5687231ffcc;
+ Tue, 31 May 2022 00:42:08 +0200 (CEST)
 Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
  [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1653950517414802.6910809499935;
- Mon, 30 May 2022 15:41:57 -0700 (PDT)
+ with SMTPS id 1653950519242310.60530902135247;
+ Mon, 30 May 2022 15:41:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,106 +40,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b7ffd025-e069-11ec-837f-e5687231ffcc
-ARC-Seal: i=1; a=rsa-sha256; t=1653950519; cv=none; 
+X-Inumbo-ID: bbc29904-e069-11ec-837f-e5687231ffcc
+ARC-Seal: i=1; a=rsa-sha256; t=1653950521; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=D0Qso4mixIKrtc7HLC3FRexzKc7sYDK7eDIhXrtA/9JZzDD+ZHnF05fHP3bmyyina0D+Fhc/LpEATvi+ZnYgHX9QrLgtAw7ooJKBKfeNembm1WMucLB+8wjeUNbnQ8QMPFDeM5e3+8Rk/k1l/mEd0QMvqNKtNRhbMszvES/cmB0=
+	b=RxB74e1r1rnfOsVx9gK0CxQZgO3Hu8VtwZUSf6IgJAc5PflyNI0fbvpv6GEZ/XYjkBE6KpH5pn8JZiS22UvSHzHErKXuYSOVMb/dJzbw7T7NN1Hk4QJaOYk/q/YO+dZXGyKuLehkA6w5jSOn34FLnXVlCSTY2K0q7o2r4nm0FXI=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1653950519; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To; 
-	bh=ZeXQSjEyyrrxxE3o1HiaJLRHDYVkRyJ+opFzPaTQpPQ=; 
-	b=fEuPcQ380F4ro17RpCSfYh5IkVnahTSVmVIjEjPdcM6snDJx5gyt/xCtb4oKh4UUlzscu8i+SjfKxre1Tshp1CNmukWkbzQAetj3JGDkJtCT58Dj7E/zUQEgh7Chrv4nGdnh3ZKiI82a3Om+9C0byrfdZLUJ/bRLg6YCfb6L5Xk=
+	t=1653950521; h=Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=2+etTsXf8iWllebDioWmtCtaWII0LrkP35ocYWHoB/I=; 
+	b=hJFyPSqkOUVI3H9q3eLvGA8dISVN/rM4xp/FSaAavtGnhMFJlTSmXAsRSEam5Mx8sONqIc7l4HGKdaIV2NJ0PVFrKBbEscWNb4phcnBbguW1dUG5fcca+EU2iiXR2YC48Dk9gjYrUJCK0ycH7RSGogz123fS2/GPBMvrHOCgv98=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1653950519;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1653950521;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:Reply-To;
-	bh=ZeXQSjEyyrrxxE3o1HiaJLRHDYVkRyJ+opFzPaTQpPQ=;
-	b=UKjEXab2BWtfCd5T1ZWusntTjiREg93Ijq7A+f3z/kCu2ZDIR+cBkJU5ZBgHIqGo
-	I3BPo2d0DmK5VuzvFLbiW8zAJCWRwwQEBMtMnVhSRBqgcG20e8bMtI2VodaGmHljoFD
-	zyMiY4ISuEcXvzr820YK/2vINxO0TNj7gHv5YW3s=
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
+	bh=2+etTsXf8iWllebDioWmtCtaWII0LrkP35ocYWHoB/I=;
+	b=SxokjebdsIBmtYMxINXGexQDmrmm+sA2AyKe9T8m8htkd01gX7wnCaIPF00Is+K8
+	2wVnU4N+Eu5KyDztbTzgknca93xGh1G9b/yUFFueDxjthJCuu87mAoIUk6gSxXDatPP
+	c1K4ez9khzvVrRGSvjVietSCeHREaba6n2cFtGXk=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: xen-devel@lists.xenproject.org
+To: xen-devel@lists.xenproject.org,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Wei Liu <wl@xen.org>
 Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	scott.davis@starlab.io,
 	christopher.clark@starlab.io,
-	sstabellini@kernel.org
-Subject: [RFC PATCH 0/4] Introducing a common representation of boot info
-Date: Mon, 30 May 2022 22:41:22 -0400
-Message-Id: <20220531024127.23669-1-dpsmith@apertussolutions.com>
+	sstabellini@kernel.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [RFC PATCH 1/4] kconfig: allow configuration of maximum modules
+Date: Mon, 30 May 2022 22:41:23 -0400
+Message-Id: <20220531024127.23669-2-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20220531024127.23669-1-dpsmith@apertussolutions.com>
+References: <20220531024127.23669-1-dpsmith@apertussolutions.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-This series serves as a proposal to arrive at a common, cross-architecture way
-for boot information to be represented during startup. This proposal is derived
-from the structures devised to represent hyperlaunch boot information. The
-hyperlaunch boot information structures themselves were based on the boot info
-structures used by Arm and dom0less. A significant effort went into ensuring
-the structures are able to support dom0less as well as hyperlaunch.
+For x86 the number of allowable multiboot modules varies between the different
+entry points, non-efi boot, pvh boot, and efi boot. In the case of both Arm and
+x86 this value is fixed to values based on generalized assumptions. With
+hyperlaunch for x86 and dom0less on Arm, use of static sizes results in large
+allocations compiled into the hypervisor that will go unused by many use cases.
 
-Arm and x86 both have arch specific information that must be represented. The
-approach here sought to support this through arch structures while attempting
-to maximize what was retained in the common structures. For this series, the
-focus was on converting x86 over to the new boot info structures.
+This commit introduces a Kconfig variable that is set with sane defaults based
+on configuration selection. This variable is in turned used as the array size
+for the cases where a static allocated array of boot modules is declared.
 
-The motivation for this series is due to the fact that the multiboot v1
-structures used by x86 are not sufficient for hyperlaunch. In the previously
-submited hyperlaunch RFC, this was managed by wrapping the mb structures
-inside⎄ the hyperlaunch structures. This at best was could be considered
-crude, but really it was just a hack. One of the goals of hyperlaunch is to
-unify as much as possible with dom0less to remove any unnecessary duplication.
-Adopting a common representation for boot information will provide a solid
-foundation for this unification. The added benefit is that in few places this
-will enable an unnecessary arch specific version of logic, XSM for example
-would be able to drop arch specific init functions.
+Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+---
+ xen/arch/Kconfig                  | 12 ++++++++++++
+ xen/arch/arm/include/asm/setup.h  |  5 +++--
+ xen/arch/x86/efi/efi-boot.h       |  2 +-
+ xen/arch/x86/guest/xen/pvh-boot.c |  2 +-
+ xen/arch/x86/setup.c              |  4 ++--
+ 5 files changed, 19 insertions(+), 6 deletions(-)
 
-This series being submitted as an RFC due to,  
-* the number of design decisions being made within the series
-* the limited testing able to be completed
-* how extensive the changes will be for x86
-
-NB: This series is built on top of the v2 patch series, "xsm: refactor and
-optimize policy loading".
-
-
-Daniel P. Smith (4):
-  kconfig: allow configuration of maximum modules
-  headers: introduce generalized boot info
-  x86: adopt new boot info structures
-  x86: refactor entrypoints to new boot info
-
- xen/arch/Kconfig                          |  12 ++
- xen/arch/arm/include/asm/setup.h          |   5 +-
- xen/arch/x86/boot/boot_info32.h           |  81 ++++++++
- xen/arch/x86/boot/defs.h                  |  17 +-
- xen/arch/x86/boot/reloc.c                 | 187 +++++++++++------
- xen/arch/x86/bzimage.c                    |  16 +-
- xen/arch/x86/cpu/microcode/core.c         | 134 ++++++++-----
- xen/arch/x86/dom0_build.c                 |  13 +-
- xen/arch/x86/efi/efi-boot.h               |  96 +++++----
- xen/arch/x86/guest/xen/pvh-boot.c         |  58 ++++--
- xen/arch/x86/hvm/dom0_build.c             |  42 ++--
- xen/arch/x86/include/asm/bootinfo.h       |  45 +++++
- xen/arch/x86/include/asm/bzimage.h        |   5 +-
- xen/arch/x86/include/asm/dom0_build.h     |  15 +-
- xen/arch/x86/include/asm/guest/pvh-boot.h |   6 +-
- xen/arch/x86/include/asm/setup.h          |  14 +-
- xen/arch/x86/pv/dom0_build.c              |  34 ++--
- xen/arch/x86/setup.c                      | 234 ++++++++++++----------
- xen/common/efi/boot.c                     |   4 +-
- xen/include/xen/bootinfo.h                | 101 ++++++++++
- xen/include/xsm/xsm.h                     |  26 ++-
- xen/xsm/xsm_core.c                        |  22 +-
- xen/xsm/xsm_policy.c                      |  44 ++--
- 23 files changed, 804 insertions(+), 407 deletions(-)
- create mode 100644 xen/arch/x86/boot/boot_info32.h
- create mode 100644 xen/arch/x86/include/asm/bootinfo.h
- create mode 100644 xen/include/xen/bootinfo.h
-
+diff --git a/xen/arch/Kconfig b/xen/arch/Kconfig
+index f16eb0df43..57b14e22c9 100644
+--- a/xen/arch/Kconfig
++++ b/xen/arch/Kconfig
+@@ -17,3 +17,15 @@ config NR_CPUS
+ 	  For CPU cores which support Simultaneous Multi-Threading or similar
+ 	  technologies, this the number of logical threads which Xen will
+ 	  support.
++
++config NR_BOOTMODS
++	int "Maximum number of boot modules that a loader can pass"
++	range 1 64
++	default "8" if X86
++	default "32" if ARM
++	help
++	  Controls the build-time size of various arrays allocated for
++	  parsing the boot modules passed by a loader when starting Xen.
++
++	  This is of particular interest when using Xen's hypervisor domain
++	  capabilities such as dom0less.
+diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
+index 2bb01ecfa8..312a3e4209 100644
+--- a/xen/arch/arm/include/asm/setup.h
++++ b/xen/arch/arm/include/asm/setup.h
+@@ -10,7 +10,8 @@
+ 
+ #define NR_MEM_BANKS 256
+ 
+-#define MAX_MODULES 32 /* Current maximum useful modules */
++/* Current maximum useful modules */
++#define MAX_MODULES CONFIG_NR_BOOTMODS
+ 
+ typedef enum {
+     BOOTMOD_XEN,
+@@ -38,7 +39,7 @@ struct meminfo {
+  * The domU flag is set for kernels and ramdisks of "xen,domain" nodes.
+  * The purpose of the domU flag is to avoid getting confused in
+  * kernel_probe, where we try to guess which is the dom0 kernel and
+- * initrd to be compatible with all versions of the multiboot spec. 
++ * initrd to be compatible with all versions of the multiboot spec.
+  */
+ #define BOOTMOD_MAX_CMDLINE 1024
+ struct bootmodule {
+diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
+index 6e65b569b0..4e1a799749 100644
+--- a/xen/arch/x86/efi/efi-boot.h
++++ b/xen/arch/x86/efi/efi-boot.h
+@@ -18,7 +18,7 @@ static multiboot_info_t __initdata mbi = {
+  * The array size needs to be one larger than the number of modules we
+  * support - see __start_xen().
+  */
+-static module_t __initdata mb_modules[5];
++static module_t __initdata mb_modules[CONFIG_NR_BOOTMODS + 1];
+ 
+ static void __init edd_put_string(u8 *dst, size_t n, const char *src)
+ {
+diff --git a/xen/arch/x86/guest/xen/pvh-boot.c b/xen/arch/x86/guest/xen/pvh-boot.c
+index 498625eae0..834b1ad16b 100644
+--- a/xen/arch/x86/guest/xen/pvh-boot.c
++++ b/xen/arch/x86/guest/xen/pvh-boot.c
+@@ -32,7 +32,7 @@ bool __initdata pvh_boot;
+ uint32_t __initdata pvh_start_info_pa;
+ 
+ static multiboot_info_t __initdata pvh_mbi;
+-static module_t __initdata pvh_mbi_mods[8];
++static module_t __initdata pvh_mbi_mods[CONFIG_NR_BOOTMOD + 1];
+ static const char *__initdata pvh_loader = "PVH Directboot";
+ 
+ static void __init convert_pvh_info(multiboot_info_t **mbi,
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index ed67b50c9d..3f5e602e00 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -1017,9 +1017,9 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+         panic("dom0 kernel not specified. Check bootloader configuration\n");
+ 
+     /* Check that we don't have a silly number of modules. */
+-    if ( mbi->mods_count > sizeof(module_map) * 8 )
++    if ( mbi->mods_count > CONFIG_NR_BOOTMODS )
+     {
+-        mbi->mods_count = sizeof(module_map) * 8;
++        mbi->mods_count = CONFIG_NR_BOOTMODS;
+         printk("Excessive multiboot modules - using the first %u only\n",
+                mbi->mods_count);
+     }
 -- 
 2.20.1
 
