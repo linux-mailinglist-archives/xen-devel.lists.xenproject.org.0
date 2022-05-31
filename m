@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ADF3538BD2
-	for <lists+xen-devel@lfdr.de>; Tue, 31 May 2022 09:09:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.339122.563955 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85BFA538BCE
+	for <lists+xen-devel@lfdr.de>; Tue, 31 May 2022 09:09:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.339125.563959 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nvvzj-0000wg-0H; Tue, 31 May 2022 07:08:47 +0000
+	id 1nvvzj-00014f-9R; Tue, 31 May 2022 07:08:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 339122.563955; Tue, 31 May 2022 07:08:46 +0000
+Received: by outflank-mailman (output) from mailman id 339125.563959; Tue, 31 May 2022 07:08:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nvvzi-0000qB-Lm; Tue, 31 May 2022 07:08:46 +0000
-Received: by outflank-mailman (input) for mailman id 339122;
- Tue, 31 May 2022 06:57:58 +0000
+	id 1nvvzj-0000wf-3y; Tue, 31 May 2022 07:08:47 +0000
+Received: by outflank-mailman (input) for mailman id 339125;
+ Tue, 31 May 2022 06:58:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rfOh=WH=gmail.com=xiexun162534@srs-se1.protection.inumbo.net>)
- id 1nvvpG-00080v-8j
- for xen-devel@lists.xenproject.org; Tue, 31 May 2022 06:57:58 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1nvvpS-00080v-3u
+ for xen-devel@lists.xenproject.org; Tue, 31 May 2022 06:58:10 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fcff5801-e0ae-11ec-837f-e5687231ffcc;
- Tue, 31 May 2022 08:57:51 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id s24so9970727wrb.10
- for <xen-devel@lists.xenproject.org>; Mon, 30 May 2022 23:57:56 -0700 (PDT)
+ id 04acad78-e0af-11ec-837f-e5687231ffcc;
+ Tue, 31 May 2022 08:58:04 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ h62-20020a1c2141000000b0039aa4d054e2so654757wmh.1
+ for <xen-devel@lists.xenproject.org>; Mon, 30 May 2022 23:58:09 -0700 (PDT)
 Received: from localhost ([2a03:b0c0:1:d0::944:e002])
  by smtp.gmail.com with ESMTPSA id
- m19-20020a05600c4f5300b003942a244f2esm1322707wmq.7.2022.05.30.23.57.54
+ n187-20020a1c27c4000000b0039c151298b7sm1279153wmn.10.2022.05.30.23.58.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 May 2022 23:57:55 -0700 (PDT)
+ Mon, 30 May 2022 23:58:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,298 +45,276 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fcff5801-e0ae-11ec-837f-e5687231ffcc
+X-Inumbo-ID: 04acad78-e0af-11ec-837f-e5687231ffcc
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=eX+ztoF4ccJF8k/eqM9yWtCts93a8EoroUDLXMjz3+c=;
-        b=No8PvNxyNem0mBq0AAqZNlO/B8Sa7VmBm0BYQzDRGDwhGgIwH771G5tX8l1C199ZEF
-         XgihrXOLf/x4+LJNXBNgQp0UCE7iRUHBvFA6Pn/c5iNneoNOldgvVlXbv5DzW41yDYuL
-         zqugKijI3zr0lemPTJjMjgXh+yPKQTn8fZg7T+nbpfp3B2JTFgWLs/MYDuYDQvBo5QTv
-         gd3SHk+UvldhL+oTLuBCTrIcUFBtpRtU86s+8IC3gsBaL9krAWU0DJNeA+5pNm8PtTnh
-         +FHvN72N2C1MA3BuwKcKDdqfc/WGBpXOECn+qqIoFYO8s4E9WNqgVlOg3kvTGkH1M2rl
-         FRhw==
+        bh=CEpuS4nyL9xBeJ8gWg6KUIfHgSQdlLCHmTciU0vGv5I=;
+        b=OtHXDSEXHUywGqt/aOY4wMPgBa0YKJSXraa0I4Y0zE+D1Z3DNEYumIlw/7ZKY4Rvnu
+         4G4XGLBLOwhl2l9RxwlWY+xHtvrhS7WEfsWYZFafQQElJEFkBBJpVRMcAu6YEWPDwHJX
+         Lq63srqShfnyPTvUPcjO9pBqPy9/KIlfFqA1b5+DtXOgmQM+YygIeyH3FdswKFIudoUj
+         Uy69c0gKEAECpcwUO+PCbBgJCHrE7ASss++GOJ+6xazwAfVtGHEOQ11uAs/R/wIgGgCe
+         akH+Y08AbUh2N20c/e0VaLbJX4wMuoeFehbrkdpWmOq3C9gTFWcpscCDI4xxz9kvRbjd
+         qV0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=eX+ztoF4ccJF8k/eqM9yWtCts93a8EoroUDLXMjz3+c=;
-        b=2aFI5eYNxMFS58qINv1UF1UFoFN8VGhg9eVteMpuPcixMI1pcahTkgEvkIJXZQhN6l
-         OvAVBef9hOYRFaYiKfq2tVdncN2oH8Sgi/Lp7r8IrxQkRalyO9ofxaZ+nOJSRiIR5l7Z
-         jQKD33vwTWft4lIAJNCUWoEowhSyeoCpZhFNwMJh2Wq9VSqYvS02vXXkmQ+/VyfNNOJd
-         ra8lca3Xdlg/avGObql1AFaYr5zs1waBoaFzv2oHyODQWOJjJpZ4Vj2qDflW0o0MGTgG
-         I9xEJt9ixa2IdEevlpr40eP/qpfhMjWnIa63EUsJKGr07UzRkBeetorWkuHsdEFx58ms
-         39/Q==
-X-Gm-Message-State: AOAM532vVjlAL04z+eDcjwEn5gsNeGgLK7qj825sEtVMW4F3tBoj5phB
-	JCjkxv1/y/Ay0AH6/DNc82I6TX5V/Vc=
-X-Google-Smtp-Source: ABdhPJwpu7/xA7yXAXr68E7aFhi7RWpGZld0Yat8+AE4OcjjJKMVLWopCdMwcFhHh0eKynSB3/zAiw==
-X-Received: by 2002:adf:f38f:0:b0:210:30cf:6e4a with SMTP id m15-20020adff38f000000b0021030cf6e4amr8560078wro.676.1653980275934;
-        Mon, 30 May 2022 23:57:55 -0700 (PDT)
+        bh=CEpuS4nyL9xBeJ8gWg6KUIfHgSQdlLCHmTciU0vGv5I=;
+        b=1VN5D13cFogFC7fKEFL1gxOxgzzBs7l2LcDUuLCktQ1dOwbUDIJXqs7E4IdJsTQUgE
+         YnK3DudAuoROoUVLkku8Qn6er8Dpi5Er4myMHx171IQPIKveBsVixtSZnJfLiGVyit9g
+         FAnqkjYFVm/FbiLoJtOEFP1+L8QDSyuCxc17DBU40ZrFfB85wlZYduuf7idgUpRngvXo
+         q7HhSAHLpU7xh1t468tf/2UUe6uknHE8ldImcYE7HTR1S2b4V8cTsUuairswKzsxfsDJ
+         6nt4Gr3LrdtWPWS86wx9+SJiS1okE9Irh+4Pl3nqamfrmf338qI98ai+U1kj1XlrGFBw
+         eKig==
+X-Gm-Message-State: AOAM531QEgvLVGRmB8NrGztUtFzbIsNJy1dJ8fBSG+DrIlRDA8ifcl4i
+	Ga6iMkO3rZrnPhS6TmAWmLn1OHvDqm8=
+X-Google-Smtp-Source: ABdhPJwxB+/No5F95vSmzrt4YN9i3rg7L4H8aG4oml3GEuLelptEEhBsfCTROm6wewZ1UdIQl8RS8w==
+X-Received: by 2002:a1c:e903:0:b0:397:36b8:795a with SMTP id q3-20020a1ce903000000b0039736b8795amr22807136wmc.98.1653980288810;
+        Mon, 30 May 2022 23:58:08 -0700 (PDT)
 From: Xie Xun <xiexun162534@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Xie Xun <xiexun162534@gmail.com>,
 	Bob Eshleman <bobbyeshleman@gmail.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
 	Connor Davis <connojdavis@gmail.com>
-Subject: [RFC PATCH 2/6] xen/riscv: Add early page table setup code.
-Date: Tue, 31 May 2022 14:57:08 +0800
-Message-Id: <94a7c66306c31113c808f2a33664ab84b09db4ec.1653977696.git.xiexun162534@gmail.com>
+Subject: [RFC PATCH 3/6] xen/riscv: Add head.S
+Date: Tue, 31 May 2022 14:57:09 +0800
+Message-Id: <0829a14c1fab18619fc0ef53cda6387e8bc09d1e.1653977696.git.xiexun162534@gmail.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <cover.1653977696.git.xiexun162534@gmail.com>
 References: <cover.1653977696.git.xiexun162534@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This code sets up initial page table.
+head.S initializes bss, calls _setup_initial_pagetables to set up
+initial page tables, switch from load address to virtual address, and
+jump to C entry start_xen.
 
 Signed-off-by: Xie Xun <xiexun162534@gmail.com>
 ---
- xen/arch/riscv/mm.c | 224 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 224 insertions(+)
+ xen/arch/riscv/riscv64/head.S | 206 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 206 insertions(+)
 
-diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
-index f366b1ca0c..074a2a4396 100644
---- a/xen/arch/riscv/mm.c
-+++ b/xen/arch/riscv/mm.c
-@@ -81,6 +81,17 @@ unsigned long xenheap_base_pdx __read_mostly;
- unsigned long frametable_virt_end __read_mostly;
- unsigned long frametable_base_pdx;
+diff --git a/xen/arch/riscv/riscv64/head.S b/xen/arch/riscv/riscv64/head.S
+index 5cccab09c7..66c44cadf7 100644
+--- a/xen/arch/riscv/riscv64/head.S
++++ b/xen/arch/riscv/riscv64/head.S
+@@ -7,7 +7,213 @@
  
-+/*
-+ * xen_second_pagetable is indexed with the VPN[2] page table entry field
-+ * xen_first_pagetable is accessed from the VPN[1] page table entry field
-+ * xen_zeroeth_pagetable is accessed from the VPN[0] page table entry field
-+ */
-+pte_t xen_second_pagetable[PAGE_ENTRIES] __attribute__((__aligned__(4096)));
-+static pte_t xen_first_pagetable[PAGE_ENTRIES]
-+    __attribute__((__aligned__(4096)));
-+static pte_t xen_zeroeth_pagetable[PAGE_ENTRIES]
-+    __attribute__((__aligned__(4096)));
+ 	.section .text.header, "ax", %progbits
+ ENTRY(start)
++	/* Mask all interrupts */
++	csrw CSR_SIE, zero
 +
- static pte_t xen_fixmap[PAGE_ENTRIES] __attribute__((__aligned__(4096)));
- 
- #define THIS_CPU_PGTABLE xen_second_pagetable
-@@ -374,6 +385,219 @@ unsigned long get_upper_mfn_bound(void)
-     return max_page - 1;
- }
- 
-+/* Set up leaf pages in a first-level page table. */
-+void setup_megapages(pte_t *first_pagetable, unsigned long virtual_start,
-+                     unsigned long physical_start, unsigned long page_cnt)
-+{
-+    unsigned long frame_addr = physical_start;
-+    unsigned long end = physical_start + (page_cnt << PAGE_SHIFT);
-+    unsigned long vaddr = virtual_start;
-+    unsigned long index;
-+    pte_t *p;
++	/*
++	 * Disable FPU to detect illegal usage of
++	 * floating point in kernel space
++	 */
++	li t0, SSTATUS_FS
++	csrc CSR_SSTATUS, t0
 +
-+    BUG_ON(!IS_ALIGNED(physical_start, FIRST_SIZE));
++	/* Save HART ID and DTB base */
++	lla	a6, _bootcpu_reg0
++	REG_S	a0, (a6)
++	lla	a6, _bootcpu_reg1
++	REG_S	a1, (a6)
 +
-+    while ( frame_addr < end )
-+    {
-+        index = pagetable_first_index(vaddr);
-+        p = &first_pagetable[index];
-+        p->pte = paddr_to_megapage_ppn(frame_addr);
-+        p->pte |= PTE_LEAF_DEFAULT;
++	/*
++	 * Select CPU 0, hang the rest.
++	 * TODO: support SMP
++	 */
++	lla a3, hart_lottery
++	li a2, 1
++	amoadd.w a3, a2, (a3)
++	bnez a3, _start_hang
 +
-+        frame_addr += FIRST_SIZE;
-+        vaddr += FIRST_SIZE;
-+    }
-+}
++_save_load_addresses:
++	/* Save load addresses
++	 * a2 -> load start
++	 * a3 -> load end
++	 * a4 -> execution start
++	 * a5 -> execution end
++	 */
++	lla	a2, _start
++	lla	a6, __exec_start
++	REG_L	a4, (a6)
++	lla	a6, __exec_end
++	REG_L	a5, (a6)
++	sub	a6, a5, a4
++	add	a3, a2, a6
++	lla	a6, _load_start
++	REG_S	a2, (a6)
++	lla	a6, _load_end
++	REG_S	a3, (a6)
++	lla	a6, _end
++	REG_S	a3, (a6)
 +
-+#define resolve_early_addr(x) \
-+    ({                                                                          \
-+         unsigned long * __##x;                                                 \
-+        if ( load_addr_start <= x && x < load_addr_end )                        \
-+            __##x = (unsigned long *)x;                                         \
-+        else                                                                    \
-+            __##x = (unsigned long *)(x + load_addr_start - linker_addr_start); \
-+        __##x;                                                                  \
-+     })
++_bss_zero_start:
++	/* Zero-out bss section */
++	lla	a6, __bss_start
++	REG_L	a0, (a6)
++	sub	a0, a0, a4
++	add	a0, a0, a2
++	lla	a6, __bss_end
++	REG_L	a1, (a6)
++	sub	a1, a1, a4
++	add	a1, a1, a2
++_bss_zero_loop:
++	REG_S	zero, (a0)
++	add	a0, a0, __SIZEOF_POINTER__
++	blt	a0, a1, _bss_zero_loop
 +
-+void __init clear_pagetables(unsigned long load_addr_start,
-+                             unsigned long load_addr_end,
-+                             unsigned long linker_addr_start,
-+                             unsigned long linker_addr_end)
-+{
-+    unsigned long *p;
-+    unsigned long page;
-+    unsigned long i;
++	/* Setup temporary stack */
++	lla	a6, __hvc_stack_end
++	REG_L	a0, (a6)
++	sub	a0, a0, a4
++	add	sp, a0, a2
 +
-+    page = (unsigned long)&xen_second_pagetable[0];
++        /* Setup hang for IRQ vector w/ virtual address */
++	lla	a6, __debug_irq_vector
++        REG_L   a4, (a6)
++	csrw	CSR_STVEC, a4
 +
-+    p = resolve_early_addr(page);
-+    for ( i = 0; i < ARRAY_SIZE(xen_second_pagetable); i++ )
-+    {
-+        p[i] = 0ULL;
-+    }
++	/* Setup initial page table */
++	lla	a6, _load_start
++	REG_L	a0, (a6)
++	lla	a6, _load_end
++	REG_L	a1, (a6)
++	lla	a6, __exec_start
++	REG_L	a2, (a6)
++	lla	a6, __exec_end
++	REG_L	a3, (a6)
++	call	_setup_initial_pagetables
 +
-+    page = (unsigned long)&xen_first_pagetable[0];
-+    p = resolve_early_addr(page);
-+    for ( i = 0; i < ARRAY_SIZE(xen_first_pagetable); i++ )
-+    {
-+        p[i] = 0ULL;
-+    }
++    lla      a0, _bootcpu_reg0
++    REG_L   a0, (a0)
 +
-+    page = (unsigned long)&xen_zeroeth_pagetable[0];
-+    p = resolve_early_addr(page);
-+    for ( i = 0; i < ARRAY_SIZE(xen_zeroeth_pagetable); i++ )
-+    {
-+        p[i] = 0ULL;
-+    }
-+}
++/* a0 must equal the hartid */
++_set_xen_tp:
++    /* Load pcpu_info[NR_CPUS] address */
++    lla  a6, pcpu_info
 +
-+void __attribute__((section(".entry")))
-+setup_initial_pagetables(pte_t *second, pte_t *first, pte_t *zeroeth,
-+                         unsigned long map_start, unsigned long map_end,
-+                         unsigned long pa_start)
-+{
-+    unsigned long page_addr;
-+    unsigned long index2;
-+    unsigned long index1;
-+    unsigned long index0;
++    /* Adjust by phys_offset so it doesn't require the identity map */
++    lla  a7, phys_offset
++    REG_L   a7, (a7)
++    sub a6, a6, a7
 +
-+    /* align start addresses */
-+    map_start &= ZEROETH_MAP_MASK;
-+    pa_start &= ZEROETH_MAP_MASK;
++    /* Index into pcpu_info array with hartid */
++    li  a7, PCPUINFO_sizeof
++    mul a7, a7, a0
++    add a6, a6, a7
 +
-+    page_addr = map_start;
-+    while ( page_addr < map_end )
-+    {
-+        index2 = pagetable_second_index(page_addr);
-+        index1 = pagetable_first_index(page_addr);
-+        index0 = pagetable_zeroeth_index(page_addr);
++    /* Set tp = &pcpu_info[hartid] */
++    add tp, a6, zero
 +
-+        /* Setup level2 table */
-+        second[index2] = paddr_to_pte((unsigned long)first);
-+        second[index2].pte |= PTE_TABLE;
++    /* set processor id of pcpu_info[hartid].processor_id */
++    REG_S a0, RISCV_PCPUINFO_OFFSET(processor_id)(tp)
 +
-+        /* Setup level1 table */
-+        first[index1] = paddr_to_pte((unsigned long)zeroeth);
-+        first[index1].pte |= PTE_TABLE;
++    /* Move stack pointer */
++    lla  t0, phys_offset
++    REG_L   t0, (t0)
++    sub sp, sp, t0
++    
 +
-+        /* Setup level0 table */
-+        if ( !pte_is_valid(&zeroeth[index0]) )
-+        {
-+            /* Update level0 table */
-+            zeroeth[index0] = paddr_to_pte((page_addr - map_start) + pa_start);
-+            zeroeth[index0].pte |= PTE_LEAF_DEFAULT;
-+        }
++	j	_start_secondary_nopen
 +
-+        /* Point to next page */
-+        page_addr += ZEROETH_SIZE;
-+    }
-+}
++	.align	3
++_start_lottery:
++	RISCV_PTR	0
++	.align	3
++__start_secondary_pen_release:
++	RISCV_PTR	start_secondary_pen_release
 +
-+/*
-+ * WARNING: load_addr() and linker_addr() are to be called only when the MMU is
-+ * disabled and only when executed by the primary CPU.  They cannot refer to
-+ * any global variable or functions.
-+ */
++	/*
++	 * Note: From this point primary CPU startup is same as secondary CPU
++	 */
++_start_secondary_nopen:
++	/* Set trap vector to spin forever to help debug */
++	//lla	a6, _start_hang
++	//csrw	CSR_STVEC, a6
 +
-+/*
-+ * Convert an addressed layed out at link time to the address where it was loaded
-+ * by the bootloader.
-+ */
-+#define load_addr(linker_address)                                              \
-+    ({                                                                         \
-+        unsigned long __linker_address = (unsigned long)(linker_address);      \
-+        if ( linker_addr_start <= __linker_address &&                           \
-+            __linker_address < linker_addr_end )                                \
-+        {                                                                      \
-+            __linker_address =                                                 \
-+                __linker_address - linker_addr_start + load_addr_start;        \
-+        }                                                                      \
-+        __linker_address;                                                      \
-+    })
++	/* Jump to final execution address */
++	lla	a6, __cpu_init
++	REG_L	a0, (a6)
++	jalr	a0
 +
-+/* Convert boot-time Xen address from where it was loaded by the boot loader to the address it was layed out
-+ * at link-time.
-+ */
-+#define linker_addr(load_address)                                              \
-+    ({                                                                         \
-+        unsigned long __load_address = (unsigned long)(load_address);          \
-+        if ( load_addr_start <= __load_address &&                               \
-+            __load_address < load_addr_end )                                    \
-+        {                                                                      \
-+            __load_address =                                                   \
-+                __load_address - load_addr_start + linker_addr_start;          \
-+        }                                                                      \
-+        __load_address;                                                        \
-+    })
++        .align 4
+ _start_hang:
+ 	wfi
+ 	j	_start_hang
 +
-+/*
-+ * _setup_initial_pagetables:
-+ *
-+ * 1) Build the page tables for Xen that map the following:
-+ *   1.1)  The physical location of Xen (where the bootloader loaded it)
-+ *   1.2)  The link-time location of Xen (where the linker expected Xen's
-+ *         addresses to be)
-+ * 2) Load the page table into the SATP and enable the MMU
-+ */
-+void __attribute__((section(".entry")))
-+_setup_initial_pagetables(unsigned long load_addr_start,
-+                          unsigned long load_addr_end,
-+                          unsigned long linker_addr_start,
-+                          unsigned long linker_addr_end)
-+{
-+    pte_t *second;
-+    pte_t *first;
-+    pte_t *zeroeth;
++	.align 3
++__phys_offset:
++	RISCV_PTR phys_offset
++__pgtbl_root:
++	RISCV_PTR xen_second_pagetable
++__exec_start:
++	RISCV_PTR _code_start
++__exec_end:
++	RISCV_PTR _code_end
++__bss_start:
++	RISCV_PTR _bss_start
++__bss_end:
++	RISCV_PTR _bss_end
++__debug_irq_vector:
++	RISCV_PTR _start_hang
++__cpu_init:
++	RISCV_PTR _cpu_init
 +
-+    clear_pagetables(load_addr_start, load_addr_end,
-+                     linker_addr_start, linker_addr_end);
++	/*
++	 * Boot register 0 passed by bootloader
++	 */
++	.globl _bootcpu_reg0
++_bootcpu_reg0:
++	RISCV_PTR 0x0
 +
-+    /* Get the addresses where the page tables were loaded */
-+    second = (pte_t *)load_addr(&xen_second_pagetable);
-+    first = (pte_t *)load_addr(&xen_first_pagetable);
-+    zeroeth = (pte_t *)load_addr(&xen_zeroeth_pagetable);
++	/*
++	 * Boot register 1 passed by bootloader
++	 */
++	.globl _boot_reg1
++_bootcpu_reg1:
++	RISCV_PTR 0x0
 +
-+    /*
-+     * Create a mapping of the load time address range to... the load time address range.
-+     * This mapping is used at boot time only.
-+     */
-+    setup_initial_pagetables(second, first, zeroeth, load_addr_start,
-+                             load_addr_end, load_addr_start);
++	/*
++	 * Load start address storage
++	 */
++	.globl _load_start
++_load_start:
++	RISCV_PTR 0x0
 +
-+    /*
-+     * Create a mapping from Xen's link-time addresses to where they were actually loaded.
-+     *
-+     * TODO: Protect regions accordingly (e.g., protect text and rodata from writes).
-+     */
-+    setup_initial_pagetables(second, first, zeroeth, linker_addr(&_text_start),
-+                             linker_addr(&_text_end), load_addr(&_text_start));
-+    setup_initial_pagetables(second, first, zeroeth, linker_addr(&_init_start),
-+                             linker_addr(&_init_end), load_addr(&_init_start));
-+    setup_initial_pagetables(second, first, zeroeth,
-+                             linker_addr(&_cpuinit_start),
-+                             linker_addr(&_cpuinit_end),
-+                             load_addr(&_cpuinit_start));
-+    setup_initial_pagetables(second, first, zeroeth,
-+                             linker_addr(&_spinlock_start),
-+                             linker_addr(&_spinlock_end),
-+                             load_addr(&_spinlock_start));
-+    setup_initial_pagetables(second, first, zeroeth,
-+                             linker_addr(&_rodata_start),
-+                             linker_addr(&_rodata_end),
-+                             load_addr(&_rodata_start));
-+    setup_initial_pagetables(second, first, zeroeth, linker_addr_start,
-+                             linker_addr_end, load_addr_start);
++	/*
++	 * Load end address storage
++	 */
++	.globl _load_end
++_load_end:
++	RISCV_PTR 0x0
 +
-+    /* Ensure page table writes precede loading the SATP */
-+    asm volatile("sfence.vma");
++        .globl _end
++_end:
++	RISCV_PTR 0x0
 +
-+    /* Enable the MMU and load the new pagetable for Xen */
-+    csr_write(CSR_SATP,
-+              (load_addr(xen_second_pagetable) >> PAGE_SHIFT) | SATP_MODE_SV39 << SATP_MODE_SHIFT);
++	/*
++	 * Exception stacks.
++	 */
++__hvc_stack_end:
++	RISCV_PTR _hvc_stack_end
 +
-+    phys_offset = load_addr_start - linker_addr_start;
-+}
++	.align 3
++	.globl _cpu_init
++_cpu_init:
++	/* Jump to C code */
++	lla	a6, _bootcpu_reg1
++	REG_L	a0, (a6)
++	lla  a6, phys_offset
++	REG_L   a1, (a6)
 +
- /*
-  * Map the table that pte points to.
-  */
++	call	start_xen
++
++	/* Hang !!! */
++	j	_start_hang
+ ENDPROC(start)
 -- 
 2.30.2
 
