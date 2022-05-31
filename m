@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09C015398BE
-	for <lists+xen-devel@lfdr.de>; Tue, 31 May 2022 23:26:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.340045.564983 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA45E5398F2
+	for <lists+xen-devel@lfdr.de>; Tue, 31 May 2022 23:46:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.340054.564993 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nw9MP-00015p-A0; Tue, 31 May 2022 21:25:05 +0000
+	id 1nw9gP-0003iu-WC; Tue, 31 May 2022 21:45:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 340045.564983; Tue, 31 May 2022 21:25:05 +0000
+Received: by outflank-mailman (output) from mailman id 340054.564993; Tue, 31 May 2022 21:45:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nw9MP-00013u-65; Tue, 31 May 2022 21:25:05 +0000
-Received: by outflank-mailman (input) for mailman id 340045;
- Tue, 31 May 2022 21:25:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Rtpk=WH=collabora.com=dmitry.osipenko@srs-se1.protection.inumbo.net>)
- id 1nw9MN-00013l-9q
- for xen-devel@lists.xenproject.org; Tue, 31 May 2022 21:25:03 +0000
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 203a2227-e128-11ec-837f-e5687231ffcc;
- Tue, 31 May 2022 23:25:00 +0200 (CEST)
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: dmitry.osipenko) with ESMTPSA id 4C9F21F43F0B
+	id 1nw9gP-0003gY-SE; Tue, 31 May 2022 21:45:45 +0000
+Received: by outflank-mailman (input) for mailman id 340054;
+ Tue, 31 May 2022 21:45:44 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nw9gO-0003gO-Ty; Tue, 31 May 2022 21:45:44 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nw9gO-0005JU-Qb; Tue, 31 May 2022 21:45:44 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nw9gO-0004oV-DP; Tue, 31 May 2022 21:45:44 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nw9gO-00039G-Cv; Tue, 31 May 2022 21:45:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,242 +42,273 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 203a2227-e128-11ec-837f-e5687231ffcc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1654032299;
-	bh=dWPjJiUcTEsCTwSVeYSxHnF1/ruJ13+dt9/M97DHXpY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=iw1cl93DawB1wUr9b6KkZdHCFs5+L/GBohLHlROEAOks05zME/v6MXMPk6D7ui5Yi
-	 RNRHdZFdzCLwhRjjb38P9M6JexB3Wbp2yKOPr5eeU8sVg/8ntyHzURiHlZSY6J8Cm9
-	 q6oV/gJyO14M2ElVzYwoEuvi7LeAOBJpJO7JVAQIQbIk2iZISrAGCD8WEks6N0mo8W
-	 PABIM3KRc5wMYvZgEpozGR6zO7yQLUE2dke3U5CmMfjFhmLTkzt3Ddgs0XBxEfDRJn
-	 c+JlwyAdHThzhqLupTWaB45a5dOVfxT+a6WiHu8uAbSXS41ExvvXWl05U0ZRpjuSZP
-	 ldNnEXKzwDRFg==
-Message-ID: <a41c323a-5d69-0ff1-d0da-38eb55e1e4db@collabora.com>
-Date: Wed, 1 Jun 2022 00:24:49 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [PATCH v8 16/27] m68k: Switch to new sys-off handler API
-Content-Language: en-US
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Russell King
- <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>,
- Greg Ungerer <gerg@linux-m68k.org>, Joshua Thompson <funaho@jurai.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Sebastian Reichel <sre@kernel.org>, Linus Walleij
- <linus.walleij@linaro.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Greentime Hu <green.hu@gmail.com>, Vincent Chen <deanbo422@gmail.com>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Michael Ellerman <mpe@ellerman.id.au>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Paul Mackerras <paulus@samba.org>, Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- the arch/x86 maintainers <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
- <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- Santosh Shilimkar <ssantosh@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Pavel Machek <pavel@ucw.cz>,
- Lee Jones <lee.jones@linaro.org>, Andrew Morton <akpm@linux-foundation.org>,
- Guenter Roeck <linux@roeck-us.net>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Ulf Hansson <ulf.hansson@linaro.org>,
- =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-csky@vger.kernel.org,
- "linux-ia64@vger.kernel.org" <linux-ia64@vger.kernel.org>,
- linux-m68k <linux-m68k@lists.linux-m68k.org>,
- "open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
- Parisc List <linux-parisc@vger.kernel.org>,
- linux-riscv <linux-riscv@lists.infradead.org>,
- Linux-sh list <linux-sh@vger.kernel.org>, xen-devel@lists.xenproject.org,
- ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
- Linux PM list <linux-pm@vger.kernel.org>,
- linux-tegra <linux-tegra@vger.kernel.org>
-References: <20220509233235.995021-1-dmitry.osipenko@collabora.com>
- <20220509233235.995021-17-dmitry.osipenko@collabora.com>
- <CAMuHMdUFqf58F31EAGnhp_cu9k-G4Sx1cmwx-PGb3mU+6bjRnQ@mail.gmail.com>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <CAMuHMdUFqf58F31EAGnhp_cu9k-G4Sx1cmwx-PGb3mU+6bjRnQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=P+/949qTAlXcJqM3n3nU39LxGdM8y0eiKtZ9eXXnDPE=; b=W7ZFP1lRm0kQi0qS+DzzUPLw3U
+	2vKIiQ5D1bBP5LUfLpXFZR5GX4nPg68Q2qKRSzBfMCd5isAMwRmdL9BhisX8jiF3INp5OVauRpufh
+	Cew3+ARa2PE7qTQo0gx5iJBO+bGLnm+AUfFG5AyZ/TVml4YG5V0tm44sqlM+1YyVv7PA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-170788-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 170788: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-intel:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-xsm:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-amd:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
+    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-freebsd11-amd64:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvshim:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-pair:guest-start/debian:fail:regression
+    linux-linus:test-amd64-amd64-xl-credit2:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-multivcpu:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-credit1:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-xsm:guest-start:fail:regression
+    linux-linus:test-amd64-coresched-amd64-xl:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-thunderx:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/src_host:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/dst_host:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-shadow:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-examine-bios:reboot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-freebsd12-amd64:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-xl-cubietruck:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-examine:reboot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-pygrub:debian-di-install:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-vhd:debian-di-install:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:debian-di-install:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:debian-di-install:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:debian-di-install:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:debian-di-install:fail:regression
+    linux-linus:test-armhf-armhf-xl:guest-start:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:debian-di-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-rtds:guest-start:fail:allowable
+    linux-linus:test-armhf-armhf-xl-rtds:guest-start:fail:allowable
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=8ab2afa23bd197df47819a87f0265c0ac95c5b6a
+X-Osstest-Versions-That:
+    linux=d6ecaa0024485effd065124fe774de2e22095f2d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 31 May 2022 21:45:44 +0000
 
-On 5/31/22 22:04, Geert Uytterhoeven wrote:
-> Hi Dmitry,
-> 
-> On Tue, May 10, 2022 at 1:34 AM Dmitry Osipenko
-> <dmitry.osipenko@collabora.com> wrote:
->> Kernel now supports chained power-off handlers. Use
->> register_power_off_handler() that registers power-off handlers and
->> do_kernel_power_off() that invokes chained power-off handlers. Legacy
->> pm_power_off() will be removed once all drivers will be converted to
->> the new sys-off API.
->>
->> Normally arch code should adopt only the do_kernel_power_off() at first,
->> but m68k is a special case because it uses pm_power_off() "inside out",
->> i.e. pm_power_off() invokes machine_power_off() [in fact it does nothing],
->> while it's machine_power_off() that should invoke the pm_power_off(), and
->> thus, we can't convert platforms to the new API separately. There are only
->> two platforms changed here, so it's not a big deal.
->>
->> Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
->> Reviewed-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
->> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-> 
-> Thanks for your patch, which is now commit f0f7e5265b3b37b0
-> ("m68k: Switch to new sys-off handler API") upstream.
-> 
->> --- a/arch/m68k/emu/natfeat.c
->> +++ b/arch/m68k/emu/natfeat.c
->> @@ -15,6 +15,7 @@
->>  #include <linux/string.h>
->>  #include <linux/kernel.h>
->>  #include <linux/module.h>
->> +#include <linux/reboot.h>
->>  #include <linux/io.h>
->>  #include <asm/machdep.h>
->>  #include <asm/natfeat.h>
->> @@ -90,5 +91,5 @@ void __init nf_init(void)
->>         pr_info("NatFeats found (%s, %lu.%lu)\n", buf, version >> 16,
->>                 version & 0xffff);
->>
->> -       mach_power_off = nf_poweroff;
->> +       register_platform_power_off(nf_poweroff);
-> 
-> Unfortunately nothing is registered, as this is called very early
-> (from setup_arch(), before the memory allocator is available.
-> Hence register_sys_off_handler() fails with -ENOMEM, and poweroff
-> stops working.
-> 
-> Possible solutions:
->   - As at most one handler can be registered,
->     register_platform_power_off() could use a static struct sys_off_handler
->     instance,
->   - Keep mach_power_off, and call register_platform_power_off() later.
-> 
-> Anything else?
-> Thanks!
-> 
->> --- a/arch/m68k/mac/config.c
->> +++ b/arch/m68k/mac/config.c
->> @@ -12,6 +12,7 @@
->>
->>  #include <linux/errno.h>
->>  #include <linux/module.h>
->> +#include <linux/reboot.h>
->>  #include <linux/types.h>
->>  #include <linux/mm.h>
->>  #include <linux/tty.h>
->> @@ -140,7 +141,6 @@ void __init config_mac(void)
->>         mach_hwclk = mac_hwclk;
->>         mach_reset = mac_reset;
->>         mach_halt = mac_poweroff;
->> -       mach_power_off = mac_poweroff;
->>  #if IS_ENABLED(CONFIG_INPUT_M68K_BEEP)
->>         mach_beep = mac_mksound;
->>  #endif
->> @@ -160,6 +160,8 @@ void __init config_mac(void)
->>
->>         if (macintosh_config->ident == MAC_MODEL_IICI)
->>                 mach_l2_flush = via_l2_flush;
->> +
->> +       register_platform_power_off(mac_poweroff);
->>  }
-> 
-> This must have the same problem.
+flight 170788 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/170788/
 
-The static variant should be better, IMO. I'm not sure whether other platforms won't face the same problem once they will start using register_platform_power_off(). I'll send the fix, thank you for the testing!
+Regressions :-(
 
---- >8 ---
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-dom0pvh-xl-amd 14 guest-start           fail REGR. vs. 170714
+ test-amd64-amd64-dom0pvh-xl-intel 14 guest-start         fail REGR. vs. 170714
+ test-amd64-amd64-libvirt-qcow2  8 xen-boot               fail REGR. vs. 170714
+ test-amd64-amd64-libvirt      8 xen-boot                 fail REGR. vs. 170714
+ test-amd64-amd64-libvirt-raw  8 xen-boot                 fail REGR. vs. 170714
+ test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 170714
+ test-amd64-amd64-xl-pvhv2-intel 14 guest-start           fail REGR. vs. 170714
+ test-amd64-amd64-xl          14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-libvirt-xsm 14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl-pvhv2-amd 14 guest-start             fail REGR. vs. 170714
+ test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 170714
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 170714
+ test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 170714
+ test-amd64-amd64-freebsd11-amd64 13 guest-start          fail REGR. vs. 170714
+ test-amd64-amd64-xl-pvshim   14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-pair        25 guest-start/debian       fail REGR. vs. 170714
+ test-amd64-amd64-xl-credit2  14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl-multivcpu 14 guest-start             fail REGR. vs. 170714
+ test-amd64-amd64-xl-credit1  14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl-xsm      14 guest-start              fail REGR. vs. 170714
+ test-amd64-coresched-amd64-xl 14 guest-start             fail REGR. vs. 170714
+ test-arm64-arm64-xl-credit1  14 guest-start              fail REGR. vs. 170714
+ test-arm64-arm64-xl-thunderx 14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-libvirt-pair 12 xen-boot/src_host       fail REGR. vs. 170714
+ test-amd64-amd64-libvirt-pair 13 xen-boot/dst_host       fail REGR. vs. 170714
+ test-arm64-arm64-xl-xsm      14 guest-start              fail REGR. vs. 170714
+ test-armhf-armhf-xl-arndale  14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl-shadow   14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-qemuu-nested-amd 12 debian-hvm-install  fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 170714
+ test-armhf-armhf-xl-multivcpu 14 guest-start             fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-examine-bios  8 reboot                  fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemut-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-qemuu-nested-intel 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-freebsd12-amd64  8 xen-boot             fail REGR. vs. 170714
+ test-armhf-armhf-xl-credit1  14 guest-start              fail REGR. vs. 170714
+ test-armhf-armhf-xl-cubietruck 14 guest-start            fail REGR. vs. 170714
+ test-amd64-amd64-examine      8 reboot                   fail REGR. vs. 170714
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 170714
+ test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 170714
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 170714
+ test-amd64-amd64-pygrub      12 debian-di-install        fail REGR. vs. 170714
+ test-armhf-armhf-xl-credit2  14 guest-start              fail REGR. vs. 170714
+ test-amd64-amd64-xl-vhd      12 debian-di-install        fail REGR. vs. 170714
+ test-armhf-armhf-libvirt     14 guest-start              fail REGR. vs. 170714
+ test-arm64-arm64-xl-vhd      12 debian-di-install        fail REGR. vs. 170714
+ test-arm64-arm64-libvirt-raw 12 debian-di-install        fail REGR. vs. 170714
+ test-armhf-armhf-libvirt-raw 12 debian-di-install        fail REGR. vs. 170714
+ test-armhf-armhf-libvirt-qcow2 12 debian-di-install      fail REGR. vs. 170714
+ test-armhf-armhf-xl          14 guest-start              fail REGR. vs. 170714
+ test-armhf-armhf-xl-vhd      12 debian-di-install        fail REGR. vs. 170714
 
-diff --git a/kernel/reboot.c b/kernel/reboot.c
-index a091145ee710..4fea05d387dc 100644
---- a/kernel/reboot.c
-+++ b/kernel/reboot.c
-@@ -315,6 +315,37 @@ static int sys_off_notify(struct notifier_block *nb,
- 	return handler->sys_off_cb(&data);
- }
- 
-+static struct sys_off_handler platform_sys_off_handler;
-+
-+static struct sys_off_handler *alloc_sys_off_handler(int priority)
-+{
-+	struct sys_off_handler *handler;
-+
-+	/*
-+	 * Platforms like m68k can't allocate sys_off handler dynamically
-+	 * at the early boot time.
-+	 */
-+	if (priority == SYS_OFF_PRIO_PLATFORM) {
-+		handler = &platform_sys_off_handler;
-+		if (handler->cb_data)
-+			return ERR_PTR(-EBUSY);
-+	} else {
-+		handler = kzalloc(sizeof(*handler), GFP_KERNEL);
-+		if (!handler)
-+			return ERR_PTR(-ENOMEM);
-+	}
-+
-+	return handler;
-+}
-+
-+static void free_sys_off_handler(struct sys_off_handler *handler)
-+{
-+	if (handler == &platform_sys_off_handler)
-+		memset(handler, 0, sizeof(*handler));
-+	else
-+		kfree(handler);
-+}
-+
- /**
-  *	register_sys_off_handler - Register sys-off handler
-  *	@mode: Sys-off mode
-@@ -345,9 +376,9 @@ register_sys_off_handler(enum sys_off_mode mode,
- 	struct sys_off_handler *handler;
- 	int err;
- 
--	handler = kzalloc(sizeof(*handler), GFP_KERNEL);
--	if (!handler)
--		return ERR_PTR(-ENOMEM);
-+	handler = alloc_sys_off_handler(priority);
-+	if (IS_ERR(handler))
-+		return handler;
- 
- 	switch (mode) {
- 	case SYS_OFF_MODE_POWER_OFF_PREPARE:
-@@ -364,7 +395,7 @@ register_sys_off_handler(enum sys_off_mode mode,
- 		break;
- 
- 	default:
--		kfree(handler);
-+		free_sys_off_handler(handler);
- 		return ERR_PTR(-EINVAL);
- 	}
- 
-@@ -391,7 +422,7 @@ register_sys_off_handler(enum sys_off_mode mode,
- 	}
- 
- 	if (err) {
--		kfree(handler);
-+		free_sys_off_handler(handler);
- 		return ERR_PTR(err);
- 	}
- 
-@@ -422,7 +453,7 @@ void unregister_sys_off_handler(struct sys_off_handler *handler)
- 	/* sanity check, shall never happen */
- 	WARN_ON(err);
- 
--	kfree(handler);
-+	free_sys_off_handler(handler);
- }
- EXPORT_SYMBOL_GPL(unregister_sys_off_handler);
- 
+Regressions which are regarded as allowable (not blocking):
+ test-amd64-amd64-xl-rtds     14 guest-start              fail REGR. vs. 170714
+ test-armhf-armhf-xl-rtds     14 guest-start              fail REGR. vs. 170714
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 170714
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 170714
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 170714
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 170714
+
+version targeted for testing:
+ linux                8ab2afa23bd197df47819a87f0265c0ac95c5b6a
+baseline version:
+ linux                d6ecaa0024485effd065124fe774de2e22095f2d
+
+Last test of basis   170714  2022-05-24 03:27:44 Z    7 days
+Failing since        170716  2022-05-24 11:12:06 Z    7 days   22 attempts
+Testing same since   170779  2022-05-30 21:42:54 Z    1 days    3 attempts
+
+------------------------------------------------------------
+1946 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          fail    
+ test-amd64-coresched-amd64-xl                                fail    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-libvirt-xsm                                 fail    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-amd64-xl-xsm                                      fail    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                fail    
+ test-amd64-amd64-dom0pvh-xl-amd                              fail    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-amd64-freebsd11-amd64                             fail    
+ test-amd64-amd64-freebsd12-amd64                             fail    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                fail    
+ test-amd64-amd64-xl-credit1                                  fail    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  fail    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
+ test-amd64-amd64-examine                                     fail    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          fail    
+ test-amd64-amd64-xl-pvhv2-intel                              fail    
+ test-amd64-amd64-dom0pvh-xl-intel                            fail    
+ test-amd64-amd64-libvirt                                     fail    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                fail    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        fail    
+ test-amd64-amd64-libvirt-pair                                fail    
+ test-amd64-amd64-xl-pvshim                                   fail    
+ test-amd64-amd64-pygrub                                      fail    
+ test-amd64-amd64-libvirt-qcow2                               fail    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 fail    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     fail    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
+ test-amd64-amd64-xl-shadow                                   fail    
+ test-arm64-arm64-xl-thunderx                                 fail    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      fail    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 217025 lines long.)
 
