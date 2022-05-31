@@ -2,33 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A1BD538F5F
-	for <lists+xen-devel@lfdr.de>; Tue, 31 May 2022 12:58:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.339525.564390 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82639538F8B
+	for <lists+xen-devel@lfdr.de>; Tue, 31 May 2022 13:16:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.339535.564404 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nvzZI-00060z-Nw; Tue, 31 May 2022 10:57:44 +0000
+	id 1nvzrA-0000Ea-Ed; Tue, 31 May 2022 11:16:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 339525.564390; Tue, 31 May 2022 10:57:44 +0000
+Received: by outflank-mailman (output) from mailman id 339535.564404; Tue, 31 May 2022 11:16:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nvzZI-0005yK-JQ; Tue, 31 May 2022 10:57:44 +0000
-Received: by outflank-mailman (input) for mailman id 339525;
- Tue, 31 May 2022 10:57:42 +0000
+	id 1nvzrA-0000C8-Am; Tue, 31 May 2022 11:16:12 +0000
+Received: by outflank-mailman (input) for mailman id 339535;
+ Tue, 31 May 2022 11:16:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Xfyb=WH=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1nvzZG-0005yC-Sl
- for xen-devel@lists.xenproject.org; Tue, 31 May 2022 10:57:42 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7d25f850-e0d0-11ec-837f-e5687231ffcc;
- Tue, 31 May 2022 12:57:41 +0200 (CEST)
-Received: from [10.10.1.138] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1653994655582538.6852066276887;
- Tue, 31 May 2022 03:57:35 -0700 (PDT)
+ <SRS0=/bi/=WH=citrix.com=prvs=1435b4b80=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1nvzr8-0000C2-Bq
+ for xen-devel@lists.xenproject.org; Tue, 31 May 2022 11:16:10 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 10a91562-e0d3-11ec-837f-e5687231ffcc;
+ Tue, 31 May 2022 13:16:08 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,150 +36,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7d25f850-e0d0-11ec-837f-e5687231ffcc
-ARC-Seal: i=1; a=rsa-sha256; t=1653994657; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=LRojUMfkMO+UsYj0YYtnNX8XELtlFTK5wI21ZV3qIS0udfWNos/QJGMB5MGZREkmphzkQneEi4rBndI1YKcvkGWKAiYGwlB3SGDJQ7Y0gpy8HsT3FkAIJov+CQG5Nl1aoTPpB47Ez7nGNO4trGeDlJQfa9rOkTUOglTmIp0sVWI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1653994657; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=0/Nwvt0WlVLbNtmWgUYZVBw3bPmqHqhHp8vPjk6fsVA=; 
-	b=CT3fEDVORE09ccWXrSFJhwgHZwjyWaMFWbCuIVC/6VmZ2fuUXC5TAwH/vM4dtZcFXY8+HrVETSs3lk+RrBfytINlEFmhTC8NAXf/+KdI/63V9MI0eFwOFBYEhEJ9aLQjf+sGz9TyTYVghtk7twA8qSjhLdPxjmhgV1vtqa5KhPQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1653994657;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=0/Nwvt0WlVLbNtmWgUYZVBw3bPmqHqhHp8vPjk6fsVA=;
-	b=sWdAB0tWTE9jn+CoV1TJGy9KqBasVRyrGlQ2BOQCDzzi4XP/waB3wQKAzugMpM8e
-	iL14TcVikOsBkCaDgwZTfdg+TGa5pldy5UAB5I4bma8H3EeZ6r8I0zu1rppYZGdI3nk
-	2Q6eK9NKwFUj3OQwwW818Sa1V+YSfTAs3oZTSNt0=
-Message-ID: <aa55dc02-df87-3717-e71b-ce32d2f274d7@apertussolutions.com>
-Date: Tue, 31 May 2022 06:56:06 -0400
+X-Inumbo-ID: 10a91562-e0d3-11ec-837f-e5687231ffcc
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1653995768;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZdOpUvFK8lDyOMY93Nxgv6haNdCdSCdZwnYbBpkxaCc=;
+  b=UBNwHOjvpZOYXz24d27PTfN4zqQ+Dokt9bLQ8c1co3VXT/8lK+u+ARC1
+   Q1L7PCUkGlsqVG3Uyv3CmmrO69lFJezCSyGYGJVvQD+Nwp5RaXnmhr86w
+   KJ4/XDRN0kfdu/bI6hSoqkvnSa9l9T4UXXTsWE80Uv/wABA3sxaC6tIB0
+   c=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 5.1
+X-MesageID: 72518022
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:mRTXVKDIRjVXnhVW/1jjw5YqxClBgxIJ4kV8jS/XYbTApG4j0j0Hy
+ jRNC22GOa2KY2v0c9AiOYvl8UoP75/WzYJiQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
+ xA2M4GYRCwMZiaA4E/raNANlFEkvU2ybuOU5NXsZ2YgHGeIdA970Ug5w7Ni29Yy6TSEK1jlV
+ e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
+ I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPh7y
+ /JXtYeoGTs0M6Ps38MkDUhjMBhxaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
+ 6ZCcXZUM07F17neLLGTE4GAguwqKtXrO4UO/Glt1zjDAd4tQIzZQrWM7thdtNs1rp8UQK+OP
+ 5BDAdZpRD/tUk10PUYnMooRxeqG2GunVAJ2ol3A8MLb5ECMlVcsgdABKuH9f9WWRMxO2FiRv
+ Gvu4W3lDwpcOsb34SWB2mKhgKnIhyyTcIcbCLyx7fN0iUea7mMWARwSE1C8pJGRmkO4Ht5SN
+ UEQ0i4vtrQpslymSMHnWB+1q2LCuQQTM+e8CMVjtlvLkPCNpV/EWC5UFVatdeDKquc8Rhsw1
+ kSRz+/0CDJP95qsFyOm1Y6b+Gba1TcuEYMSWcMVZVJbvoK9+dxu0EKnosVLS/Ds0ICscd3k6
+ 3XT9XVl2e1O5SIe///jlW0rlQ5AsXQgouQdwgzMFlyo4QpiDGJOT9z5sAOLhRqswWvwc7Vgg
+ JTns5LHhAz2JcvR/BFhuc1UdF1T296LMSfHnXlkFIQ7+jKm9haLJN4Nu2AleRk3bJ1cKFcFh
+ XM/XisIv/du0IaCN/crM+pd9ex2pUQfKTgVfq+NNYcfCnSAXASG4DtvdSatM5PFySARfVUEE
+ c7DK66EVC9CYYw+lWbeb7pMitcDm3FhrV4/sLimlnxLJ5LFPC7LIVrEWXPTBt0EAFSs+16Nq
+ owDbJfQln2ykoTWO0HqzGLaFnhSRVBTOHw8g5A/mjKrSua+JFwcNg==
+IronPort-HdrOrdr: A9a23:e9CFgqDfedu5SRDlHems55DYdb4zR+YMi2TC1yhKJyC9Vvbo8/
+ xG/c5rsCMc5wx9ZJhNo7y90ey7MBThHP1OkOss1NWZPDUO0VHAROoJ0WKh+UyCJ8SXzJ866U
+ 4KSclD4bPLYmRHsQ==
+X-IronPort-AV: E=Sophos;i="5.91,265,1647316800"; 
+   d="scan'208";a="72518022"
+Date: Tue, 31 May 2022 12:16:02 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Matias Ezequiel Vara Larsen <matiasevara@gmail.com>
+CC: <xen-devel@lists.xenproject.org>, Matias Ezequiel Vara Larsen
+	<matias.vara@vates.fr>, Wei Liu <wl@xen.org>
+Subject: Re: [RFC PATCH 2/2] tools/misc: Add xen-stats tool
+Message-ID: <YpX48uwOGVqayb/x@perard.uk.xensource.com>
+References: <cover.1652797713.git.matias.vara@vates.fr>
+ <e233c4f60c6fe97b93b3adf9affeb0404c554130.1652797713.git.matias.vara@vates.fr>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [RFC PATCH 1/4] kconfig: allow configuration of maximum modules
-Content-Language: en-US
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>,
- "scott.davis@starlab.io" <scott.davis@starlab.io>,
- "christopher.clark@starlab.io" <christopher.clark@starlab.io>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>
-References: <20220531024127.23669-1-dpsmith@apertussolutions.com>
- <20220531024127.23669-2-dpsmith@apertussolutions.com>
- <2F13F24D-0A55-4BC3-9AC6-606C7E1626E8@arm.com>
- <4ebbb465-00ec-f4ba-8555-711cd76517ed@apertussolutions.com>
- <674E45E3-0B50-4098-9B15-B51EEEC54534@arm.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <674E45E3-0B50-4098-9B15-B51EEEC54534@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <e233c4f60c6fe97b93b3adf9affeb0404c554130.1652797713.git.matias.vara@vates.fr>
+
+Hi Matias,
+
+On Tue, May 17, 2022 at 04:33:15PM +0200, Matias Ezequiel Vara Larsen wrote:
+> Add a demostration tool that uses the stats_table resource to
+> query vcpu time for a DomU.
+> 
+> Signed-off-by: Matias Ezequiel Vara Larsen <matias.vara@vates.fr>
+> ---
+> diff --git a/tools/misc/Makefile b/tools/misc/Makefile
+> index 2b683819d4..b510e3aceb 100644
+> --- a/tools/misc/Makefile
+> +++ b/tools/misc/Makefile
+> @@ -135,4 +135,9 @@ xencov: xencov.o
+>  xen-ucode: xen-ucode.o
+>  	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenctrl) $(APPEND_LDFLAGS)
+>  
+> +xen-stats.o: CFLAGS += $(CFLAGS_libxenforeginmemory)
+> +
+> +xen-stats: xen-stats.o
+
+The tools seems to be only about vcpu, maybe `xen-stats` is a bit too
+generic. Would `xen-vcpus-stats`, or maybe something with `time` would
+be better?
+
+Also, is it a tools that could be useful enough to be installed by
+default? Should we at least build it by default so it doesn't rot? (By
+adding it to only $(TARGETS).)
+
+> +	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenctrl) $(LDLIBS_libxenforeignmemory) $(APPEND_LDFLAGS)
+> +
+>  -include $(DEPS_INCLUDE)
+> diff --git a/tools/misc/xen-stats.c b/tools/misc/xen-stats.c
+> new file mode 100644
+> index 0000000000..5d4a3239cc
+> --- /dev/null
+> +++ b/tools/misc/xen-stats.c
+> @@ -0,0 +1,83 @@
+> +#include <err.h>
+> +#include <errno.h>
+> +#include <error.h>
+> +#include <stdio.h>
+> +#include <stdlib.h>
+> +#include <string.h>
+> +#include <sys/mman.h>
+> +#include <signal.h>
+> +
+> +#include <xenctrl.h>
+
+It seems overkill to use this header when the tool only use
+xenforeignmemory interface. But I don't know how to replace
+XC_PAGE_SHIFT, so I guess that's ok.
+
+> +#include <xenforeignmemory.h>
+> +#include <xen-tools/libs.h>
+
+What do you use this headers for? Is it left over?
+
+> +static sig_atomic_t interrupted;
+> +static void close_handler(int signum)
+> +{
+> +    interrupted = 1;
+> +}
+> +
+> +int main(int argc, char **argv)
+> +{
+> +    xenforeignmemory_handle *fh;
+> +    xenforeignmemory_resource_handle *res;
+> +    size_t size;
+> +    int rc, nr_frames, domid, frec, vcpu;
+> +    uint64_t * info;
+> +    struct sigaction act;
+> +
+> +    if (argc != 4 ) {
+> +        fprintf(stderr, "Usage: %s <domid> <vcpu> <period>\n", argv[0]);
+> +        return 1;
+> +    }
+> +
+> +    // TODO: this depends on the resource
+> +    nr_frames = 1;
+> +
+> +    domid = atoi(argv[1]);
+> +    frec = atoi(argv[3]);
+> +    vcpu = atoi(argv[2]);
+
+Can you swap the last two line? I think it is better if the order is the same
+as on the command line.
+
+> +
+> +    act.sa_handler = close_handler;
+> +    act.sa_flags = 0;
+> +    sigemptyset(&act.sa_mask);
+> +    sigaction(SIGHUP,  &act, NULL);
+> +    sigaction(SIGTERM, &act, NULL);
+> +    sigaction(SIGINT,  &act, NULL);
+> +    sigaction(SIGALRM, &act, NULL);
+> +
+> +    fh = xenforeignmemory_open(NULL, 0);
+> +
+> +    if ( !fh )
+> +        err(1, "xenforeignmemory_open");
+> +
+> +    rc = xenforeignmemory_resource_size(
+> +        fh, domid, XENMEM_resource_stats_table,
+> +        vcpu, &size);
+> +
+> +    if ( rc )
+> +        err(1, "    Fail: Get size: %d - %s\n", errno, strerror(errno));
+
+It seems that err() already does print strerror(), and add a "\n", so
+why print it again? Also, if we have strerror(), what the point of
+printing "errno"?
+
+Also, I'm not sure the extra indentation in the error message is really
+useful, but that doesn't really matter.
+
+> +
+> +    if ( (size >> XC_PAGE_SHIFT) != nr_frames )
+> +        err(1, "    Fail: Get size: expected %u frames, got %zu\n",
+> +                    nr_frames, size >> XC_PAGE_SHIFT);
+
+err() prints strerror(errno), maybe errx() is better here.
 
 
-On 5/31/22 06:49, Bertrand Marquis wrote:
-> Hi Daniel,
-> 
->> On 31 May 2022, at 11:45, Daniel P. Smith <dpsmith@apertussolutions.com> wrote:
->>
->> On 5/31/22 05:07, Bertrand Marquis wrote:
->>> Hi Daniel,
->>
->> Greetings Bertrand.
->>
->>>> On 31 May 2022, at 03:41, Daniel P. Smith <dpsmith@apertussolutions.com> wrote:
->>>>
->>>> For x86 the number of allowable multiboot modules varies between the different
->>>> entry points, non-efi boot, pvh boot, and efi boot. In the case of both Arm and
->>>> x86 this value is fixed to values based on generalized assumptions. With
->>>> hyperlaunch for x86 and dom0less on Arm, use of static sizes results in large
->>>> allocations compiled into the hypervisor that will go unused by many use cases.
->>>>
->>>> This commit introduces a Kconfig variable that is set with sane defaults based
->>>> on configuration selection. This variable is in turned used as the array size
->>>> for the cases where a static allocated array of boot modules is declared.
->>>>
->>>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->>>> ---
->>>> xen/arch/Kconfig | 12 ++++++++++++
->>>> xen/arch/arm/include/asm/setup.h | 5 +++--
->>>> xen/arch/x86/efi/efi-boot.h | 2 +-
->>>> xen/arch/x86/guest/xen/pvh-boot.c | 2 +-
->>>> xen/arch/x86/setup.c | 4 ++--
->>>> 5 files changed, 19 insertions(+), 6 deletions(-)
->>>>
->>>> diff --git a/xen/arch/Kconfig b/xen/arch/Kconfig
->>>> index f16eb0df43..57b14e22c9 100644
->>>> --- a/xen/arch/Kconfig
->>>> +++ b/xen/arch/Kconfig
->>>> @@ -17,3 +17,15 @@ config NR_CPUS
->>>> 	 For CPU cores which support Simultaneous Multi-Threading or similar
->>>> 	 technologies, this the number of logical threads which Xen will
->>>> 	 support.
->>>> +
->>>> +config NR_BOOTMODS
->>>> +	int "Maximum number of boot modules that a loader can pass"
->>>> +	range 1 64
->>>> +	default "8" if X86
->>>> +	default "32" if ARM
->>>> +	help
->>>> +	 Controls the build-time size of various arrays allocated for
->>>> +	 parsing the boot modules passed by a loader when starting Xen.
->>>> +
->>>> +	 This is of particular interest when using Xen's hypervisor domain
->>>> +	 capabilities such as dom0less.
->>>> diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
->>>> index 2bb01ecfa8..312a3e4209 100644
->>>> --- a/xen/arch/arm/include/asm/setup.h
->>>> +++ b/xen/arch/arm/include/asm/setup.h
->>>> @@ -10,7 +10,8 @@
->>>>
->>>> #define NR_MEM_BANKS 256
->>>>
->>>> -#define MAX_MODULES 32 /* Current maximum useful modules */
->>>> +/* Current maximum useful modules */
->>>> +#define MAX_MODULES CONFIG_NR_BOOTMODS
->>>>
->>>> typedef enum {
->>>> BOOTMOD_XEN,
->>>> @@ -38,7 +39,7 @@ struct meminfo {
->>>> * The domU flag is set for kernels and ramdisks of "xen,domain" nodes.
->>>> * The purpose of the domU flag is to avoid getting confused in
->>>> * kernel_probe, where we try to guess which is the dom0 kernel and
->>>> - * initrd to be compatible with all versions of the multiboot spec. 
->>>> + * initrd to be compatible with all versions of the multiboot spec.
->>>
->>> This seems to be a spurious change.
->>
->> I have been trying to clean up trailing white space when I see it
->> nearby. I can drop this one if that is desired.
-> 
-> If this is wanted this is ok, just mention it in the commit message so that we know it was on purpose.
+Thanks,
 
-Understood, I will update the commit message on this one and the others
-where there is done.
-
->>
->>> With that fixed, for the arm part:
->>> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
->>
->> Thank you, will add it in when I respin it for submission.
-> 
-> Cheers
-> Bertrand
-> 
->>
->> v/r,
->> dps
-> 
-
-v/r,
-dps
+-- 
+Anthony PERARD
 
