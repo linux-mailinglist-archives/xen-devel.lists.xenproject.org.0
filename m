@@ -2,29 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 916A55396EB
-	for <lists+xen-devel@lfdr.de>; Tue, 31 May 2022 21:22:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.340033.564968 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09C015398BE
+	for <lists+xen-devel@lfdr.de>; Tue, 31 May 2022 23:26:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.340045.564983 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nw7Rb-0004zC-Cf; Tue, 31 May 2022 19:22:19 +0000
+	id 1nw9MP-00015p-A0; Tue, 31 May 2022 21:25:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 340033.564968; Tue, 31 May 2022 19:22:19 +0000
+Received: by outflank-mailman (output) from mailman id 340045.564983; Tue, 31 May 2022 21:25:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nw7Rb-0004wL-9i; Tue, 31 May 2022 19:22:19 +0000
-Received: by outflank-mailman (input) for mailman id 340033;
- Tue, 31 May 2022 19:22:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nw9MP-00013u-65; Tue, 31 May 2022 21:25:05 +0000
+Received: by outflank-mailman (input) for mailman id 340045;
+ Tue, 31 May 2022 21:25:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tbfe=WH=citrix.com=prvs=143db7279=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nw7Ra-0004wF-3B
- for xen-devel@lists.xenproject.org; Tue, 31 May 2022 19:22:18 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fabd491b-e116-11ec-bd2c-47488cf2e6aa;
- Tue, 31 May 2022 21:22:16 +0200 (CEST)
+ <SRS0=Rtpk=WH=collabora.com=dmitry.osipenko@srs-se1.protection.inumbo.net>)
+ id 1nw9MN-00013l-9q
+ for xen-devel@lists.xenproject.org; Tue, 31 May 2022 21:25:03 +0000
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 203a2227-e128-11ec-837f-e5687231ffcc;
+ Tue, 31 May 2022 23:25:00 +0200 (CEST)
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: dmitry.osipenko) with ESMTPSA id 4C9F21F43F0B
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,111 +38,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fabd491b-e116-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1654024936;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=7h7PX7RlSkGJjR7XUpJqrkxgy5v0lPFG2diRMD1lqF0=;
-  b=JcVt89BSy5Qd4T/BdgFizVrNjS0RslX6GYf4BvCFehcbyvBvWCT4W464
-   vM/AvL2Lb5W0ugGvmGivpyU9fRoRIKwA9I/wpFHVeMGJKq3/XH7J2W7HP
-   RY/6lj0eD4RgBRPbh4JWYdbalKtkjEkKiSW4HyCPldCRf5YVEdL1c2jfI
-   k=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 71913602
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:JDIWrq8mREloy7H8jYp5DrUD0H6TJUtcMsCJ2f8bNWPcYEJGY0x3n
- GNOUGuFPv/cZmCkctx3a4zi909VvpHUy4VgHQFlrSA8E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
- +1EN7Es+ehtFie0Si+Fa+Sn9T8mvU2xbuKU5NTsY0idfic5DnZ44f5fs7Rh2NQw3IPgW1jlV
- e7a+KUzBnf0g1aYDUpMg06zgEsHUCPa4W5wUvQWPJinjXeG/5UnJMt3yZKZdhMUdrJ8DO+iL
- 9sv+Znilo/vE7XBPfv++lrzWhVirrc/pmFigFIOM0SpqkAqSiDfTs/XnRfTAKtao2zhojx/9
- DlCnbKITQQIY5f2ofwieRRdSCRSHKMFo5aSdBBTseTLp6HHW37lwvEoB0AqJ4wIvO1wBAmi9
- 9RBdmpLNErawbvrnvTrEYGAhex6RCXvFKoZtmtt0nfyCvE+TIqYa67L+cVZzHE7gcUm8fP2O
- JNIMGExNE6ojxtnF2Y9MdEmrteR32jCawFgmEqvtaMJyj2GpOB2+Oe0a4eEEjCQfu1Kmm6Iq
- 2SA+H72ajk4HtGCzTuO8lq3m/TC2yj8Xeo6BLC+s/JnnlCX7mgSEwENE0u2p+GjjUyzUM4ZL
- FYbkhfCtoBrqhbtFIOkGUTl/jjU5XbwRua8DcUU0AWO6/fu2T+BOUIJS2VERP0o95QfEGlCO
- kCyoz/5OdB+mOTLFCnDr+rJ82Pa1Ts9djFbO3JdJecRy5y6+dxo0EqSJjp2OPTt5uAZDw0c1
- NxjQMIWo7wIxfAG2Kyglbwsq2L9/8OZJuLZC+i+Y45E0u+aTNT8D2BQwQKHhcus1a7AJrV7g
- FAKmtKF8McFBoyXmSqGTY0lRe/0u67famWD3wE2RvHNEghBHFb6JOhtDMxWfh81Yq7ohxeyC
- KMshe+hzMAKZyb7BUOGS4mwF94r3cDdKDgRbdiNNoAmSsEoLGevpXgyDWbNjjuFuBV9zskC1
- WKzLJ/E4YAyUvw3klJbho41jNcW+8zJ7TiLHcGnn07+ieL2ibz8Ye5tDWZip9sRtMusyDg5O
- f4FXydW432ziNHDXxQ=
-IronPort-HdrOrdr: A9a23:UuwRl6jouRlt8MWnrZvncNBkAXBQXtYji2hC6mlwRA09TySZ//
- rBoB19726StN9xYgBFpTnuAsm9qB/nmaKdgrNhWItKPjOW21dARbsKheCJrgEIcxeOkNK1vp
- 0AT0ERMrLN5CBB/KTH3DU=
-X-IronPort-AV: E=Sophos;i="5.91,266,1647316800"; 
-   d="scan'208";a="71913602"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH] x86/spec-ctrl: Enumeration for new Intel BHI controls
-Date: Tue, 31 May 2022 20:21:37 +0100
-Message-ID: <20220531192137.12468-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+X-Inumbo-ID: 203a2227-e128-11ec-837f-e5687231ffcc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1654032299;
+	bh=dWPjJiUcTEsCTwSVeYSxHnF1/ruJ13+dt9/M97DHXpY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=iw1cl93DawB1wUr9b6KkZdHCFs5+L/GBohLHlROEAOks05zME/v6MXMPk6D7ui5Yi
+	 RNRHdZFdzCLwhRjjb38P9M6JexB3Wbp2yKOPr5eeU8sVg/8ntyHzURiHlZSY6J8Cm9
+	 q6oV/gJyO14M2ElVzYwoEuvi7LeAOBJpJO7JVAQIQbIk2iZISrAGCD8WEks6N0mo8W
+	 PABIM3KRc5wMYvZgEpozGR6zO7yQLUE2dke3U5CmMfjFhmLTkzt3Ddgs0XBxEfDRJn
+	 c+JlwyAdHThzhqLupTWaB45a5dOVfxT+a6WiHu8uAbSXS41ExvvXWl05U0ZRpjuSZP
+	 ldNnEXKzwDRFg==
+Message-ID: <a41c323a-5d69-0ff1-d0da-38eb55e1e4db@collabora.com>
+Date: Wed, 1 Jun 2022 00:24:49 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Subject: Re: [PATCH v8 16/27] m68k: Switch to new sys-off handler API
+Content-Language: en-US
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Russell King
+ <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>,
+ Greg Ungerer <gerg@linux-m68k.org>, Joshua Thompson <funaho@jurai.org>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Sebastian Reichel <sre@kernel.org>, Linus Walleij
+ <linus.walleij@linaro.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Greentime Hu <green.hu@gmail.com>, Vincent Chen <deanbo422@gmail.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Michael Ellerman <mpe@ellerman.id.au>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Paul Mackerras <paulus@samba.org>, Paul Walmsley <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ the arch/x86 maintainers <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
+ <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ Santosh Shilimkar <ssantosh@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Pavel Machek <pavel@ucw.cz>,
+ Lee Jones <lee.jones@linaro.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Guenter Roeck <linux@roeck-us.net>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>,
+ =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-csky@vger.kernel.org,
+ "linux-ia64@vger.kernel.org" <linux-ia64@vger.kernel.org>,
+ linux-m68k <linux-m68k@lists.linux-m68k.org>,
+ "open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
+ Parisc List <linux-parisc@vger.kernel.org>,
+ linux-riscv <linux-riscv@lists.infradead.org>,
+ Linux-sh list <linux-sh@vger.kernel.org>, xen-devel@lists.xenproject.org,
+ ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
+ Linux PM list <linux-pm@vger.kernel.org>,
+ linux-tegra <linux-tegra@vger.kernel.org>
+References: <20220509233235.995021-1-dmitry.osipenko@collabora.com>
+ <20220509233235.995021-17-dmitry.osipenko@collabora.com>
+ <CAMuHMdUFqf58F31EAGnhp_cu9k-G4Sx1cmwx-PGb3mU+6bjRnQ@mail.gmail.com>
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <CAMuHMdUFqf58F31EAGnhp_cu9k-G4Sx1cmwx-PGb3mU+6bjRnQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/technical-documentation/branch-history-injection.html
+On 5/31/22 22:04, Geert Uytterhoeven wrote:
+> Hi Dmitry,
+> 
+> On Tue, May 10, 2022 at 1:34 AM Dmitry Osipenko
+> <dmitry.osipenko@collabora.com> wrote:
+>> Kernel now supports chained power-off handlers. Use
+>> register_power_off_handler() that registers power-off handlers and
+>> do_kernel_power_off() that invokes chained power-off handlers. Legacy
+>> pm_power_off() will be removed once all drivers will be converted to
+>> the new sys-off API.
+>>
+>> Normally arch code should adopt only the do_kernel_power_off() at first,
+>> but m68k is a special case because it uses pm_power_off() "inside out",
+>> i.e. pm_power_off() invokes machine_power_off() [in fact it does nothing],
+>> while it's machine_power_off() that should invoke the pm_power_off(), and
+>> thus, we can't convert platforms to the new API separately. There are only
+>> two platforms changed here, so it's not a big deal.
+>>
+>> Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
+>> Reviewed-by: Michał Mirosław <mirq-linux@rere.qmqm.pl>
+>> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+> 
+> Thanks for your patch, which is now commit f0f7e5265b3b37b0
+> ("m68k: Switch to new sys-off handler API") upstream.
+> 
+>> --- a/arch/m68k/emu/natfeat.c
+>> +++ b/arch/m68k/emu/natfeat.c
+>> @@ -15,6 +15,7 @@
+>>  #include <linux/string.h>
+>>  #include <linux/kernel.h>
+>>  #include <linux/module.h>
+>> +#include <linux/reboot.h>
+>>  #include <linux/io.h>
+>>  #include <asm/machdep.h>
+>>  #include <asm/natfeat.h>
+>> @@ -90,5 +91,5 @@ void __init nf_init(void)
+>>         pr_info("NatFeats found (%s, %lu.%lu)\n", buf, version >> 16,
+>>                 version & 0xffff);
+>>
+>> -       mach_power_off = nf_poweroff;
+>> +       register_platform_power_off(nf_poweroff);
+> 
+> Unfortunately nothing is registered, as this is called very early
+> (from setup_arch(), before the memory allocator is available.
+> Hence register_sys_off_handler() fails with -ENOMEM, and poweroff
+> stops working.
+> 
+> Possible solutions:
+>   - As at most one handler can be registered,
+>     register_platform_power_off() could use a static struct sys_off_handler
+>     instance,
+>   - Keep mach_power_off, and call register_platform_power_off() later.
+> 
+> Anything else?
+> Thanks!
+> 
+>> --- a/arch/m68k/mac/config.c
+>> +++ b/arch/m68k/mac/config.c
+>> @@ -12,6 +12,7 @@
+>>
+>>  #include <linux/errno.h>
+>>  #include <linux/module.h>
+>> +#include <linux/reboot.h>
+>>  #include <linux/types.h>
+>>  #include <linux/mm.h>
+>>  #include <linux/tty.h>
+>> @@ -140,7 +141,6 @@ void __init config_mac(void)
+>>         mach_hwclk = mac_hwclk;
+>>         mach_reset = mac_reset;
+>>         mach_halt = mac_poweroff;
+>> -       mach_power_off = mac_poweroff;
+>>  #if IS_ENABLED(CONFIG_INPUT_M68K_BEEP)
+>>         mach_beep = mac_mksound;
+>>  #endif
+>> @@ -160,6 +160,8 @@ void __init config_mac(void)
+>>
+>>         if (macintosh_config->ident == MAC_MODEL_IICI)
+>>                 mach_l2_flush = via_l2_flush;
+>> +
+>> +       register_platform_power_off(mac_poweroff);
+>>  }
+> 
+> This must have the same problem.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
+The static variant should be better, IMO. I'm not sure whether other platforms won't face the same problem once they will start using register_platform_power_off(). I'll send the fix, thank you for the testing!
 
-These are defined now, but support in hardware hasn't been released yet.
----
- xen/arch/x86/include/asm/msr-index.h        | 7 +++++++
- xen/include/public/arch-x86/cpufeatureset.h | 3 +++
- 2 files changed, 10 insertions(+)
+--- >8 ---
 
-diff --git a/xen/arch/x86/include/asm/msr-index.h b/xen/arch/x86/include/asm/msr-index.h
-index 31964b88af7a..6c250bfcadad 100644
---- a/xen/arch/x86/include/asm/msr-index.h
-+++ b/xen/arch/x86/include/asm/msr-index.h
-@@ -36,7 +36,12 @@
- #define  SPEC_CTRL_IBRS                     (_AC(1, ULL) <<  0)
- #define  SPEC_CTRL_STIBP                    (_AC(1, ULL) <<  1)
- #define  SPEC_CTRL_SSBD                     (_AC(1, ULL) <<  2)
-+#define  SPEC_CTRL_IPRED_DIS_U              (_AC(1, ULL) <<  3)
-+#define  SPEC_CTRL_IPRED_DIS_S              (_AC(1, ULL) <<  4)
-+#define  SPEC_CTRL_RRSBA_DIS_U              (_AC(1, ULL) <<  5)
-+#define  SPEC_CTRL_RRSBA_DIS_S              (_AC(1, ULL) <<  6)
- #define  SPEC_CTRL_PSFD                     (_AC(1, ULL) <<  7)
-+#define  SPEC_CTRL_BHI_DIS_S                (_AC(1, ULL) << 10)
+diff --git a/kernel/reboot.c b/kernel/reboot.c
+index a091145ee710..4fea05d387dc 100644
+--- a/kernel/reboot.c
++++ b/kernel/reboot.c
+@@ -315,6 +315,37 @@ static int sys_off_notify(struct notifier_block *nb,
+ 	return handler->sys_off_cb(&data);
+ }
  
- #define MSR_PRED_CMD                        0x00000049
- #define  PRED_CMD_IBPB                      (_AC(1, ULL) <<  0)
-@@ -66,6 +71,8 @@
- #define  ARCH_CAPS_IF_PSCHANGE_MC_NO        (_AC(1, ULL) <<  6)
- #define  ARCH_CAPS_TSX_CTRL                 (_AC(1, ULL) <<  7)
- #define  ARCH_CAPS_TAA_NO                   (_AC(1, ULL) <<  8)
-+#define  ARCH_CAPS_RRSBA                    (_AC(1, ULL) << 19)
-+#define  ARCH_CAPS_BHI_NO                   (_AC(1, ULL) << 20)
++static struct sys_off_handler platform_sys_off_handler;
++
++static struct sys_off_handler *alloc_sys_off_handler(int priority)
++{
++	struct sys_off_handler *handler;
++
++	/*
++	 * Platforms like m68k can't allocate sys_off handler dynamically
++	 * at the early boot time.
++	 */
++	if (priority == SYS_OFF_PRIO_PLATFORM) {
++		handler = &platform_sys_off_handler;
++		if (handler->cb_data)
++			return ERR_PTR(-EBUSY);
++	} else {
++		handler = kzalloc(sizeof(*handler), GFP_KERNEL);
++		if (!handler)
++			return ERR_PTR(-ENOMEM);
++	}
++
++	return handler;
++}
++
++static void free_sys_off_handler(struct sys_off_handler *handler)
++{
++	if (handler == &platform_sys_off_handler)
++		memset(handler, 0, sizeof(*handler));
++	else
++		kfree(handler);
++}
++
+ /**
+  *	register_sys_off_handler - Register sys-off handler
+  *	@mode: Sys-off mode
+@@ -345,9 +376,9 @@ register_sys_off_handler(enum sys_off_mode mode,
+ 	struct sys_off_handler *handler;
+ 	int err;
  
- #define MSR_FLUSH_CMD                       0x0000010b
- #define  FLUSH_CMD_L1D                      (_AC(1, ULL) <<  0)
-diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
-index 0c27f5bbaf37..101698941074 100644
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -304,6 +304,9 @@ XEN_CPUFEATURE(INTEL_PPIN,         12*32+ 0) /*   Protected Processor Inventory
+-	handler = kzalloc(sizeof(*handler), GFP_KERNEL);
+-	if (!handler)
+-		return ERR_PTR(-ENOMEM);
++	handler = alloc_sys_off_handler(priority);
++	if (IS_ERR(handler))
++		return handler;
  
- /* Intel-defined CPU features, CPUID level 0x00000007:2.edx, word 13 */
- XEN_CPUFEATURE(INTEL_PSFD,         13*32+ 0) /*A  MSR_SPEC_CTRL.PSFD */
-+XEN_CPUFEATURE(IPRED_CTRL,         13*32+ 1) /*   MSR_SPEC_CTRL.IPRED_DIS_* */
-+XEN_CPUFEATURE(RRSBA_CTRL,         13*32+ 2) /*   MSR_SPEC_CTRL.RRSBA_DIS_* */
-+XEN_CPUFEATURE(BHI_CTRL,           13*32+ 4) /*   MSR_SPEC_CTRL.BHI_DIS_S */
- XEN_CPUFEATURE(MCDT_NO,            13*32+ 5) /*A  MCDT_NO */
+ 	switch (mode) {
+ 	case SYS_OFF_MODE_POWER_OFF_PREPARE:
+@@ -364,7 +395,7 @@ register_sys_off_handler(enum sys_off_mode mode,
+ 		break;
  
- #endif /* XEN_CPUFEATURE */
--- 
-2.11.0
-
+ 	default:
+-		kfree(handler);
++		free_sys_off_handler(handler);
+ 		return ERR_PTR(-EINVAL);
+ 	}
+ 
+@@ -391,7 +422,7 @@ register_sys_off_handler(enum sys_off_mode mode,
+ 	}
+ 
+ 	if (err) {
+-		kfree(handler);
++		free_sys_off_handler(handler);
+ 		return ERR_PTR(err);
+ 	}
+ 
+@@ -422,7 +453,7 @@ void unregister_sys_off_handler(struct sys_off_handler *handler)
+ 	/* sanity check, shall never happen */
+ 	WARN_ON(err);
+ 
+-	kfree(handler);
++	free_sys_off_handler(handler);
+ }
+ EXPORT_SYMBOL_GPL(unregister_sys_off_handler);
+ 
 
