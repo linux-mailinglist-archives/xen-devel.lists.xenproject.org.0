@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47BF7539640
-	for <lists+xen-devel@lfdr.de>; Tue, 31 May 2022 20:26:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.339960.564901 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F52E53964C
+	for <lists+xen-devel@lfdr.de>; Tue, 31 May 2022 20:29:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.339971.564913 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nw6ZH-0003dO-M6; Tue, 31 May 2022 18:26:11 +0000
+	id 1nw6bw-0004Gq-3W; Tue, 31 May 2022 18:28:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 339960.564901; Tue, 31 May 2022 18:26:11 +0000
+Received: by outflank-mailman (output) from mailman id 339971.564913; Tue, 31 May 2022 18:28:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nw6ZH-0003ag-IN; Tue, 31 May 2022 18:26:11 +0000
-Received: by outflank-mailman (input) for mailman id 339960;
- Tue, 31 May 2022 18:26:09 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nw6ZF-0003aN-ST; Tue, 31 May 2022 18:26:09 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nw6ZF-0001lH-PS; Tue, 31 May 2022 18:26:09 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nw6ZF-0007mE-CO; Tue, 31 May 2022 18:26:09 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nw6ZF-0008AT-Bv; Tue, 31 May 2022 18:26:09 +0000
+	id 1nw6bw-0004Et-0i; Tue, 31 May 2022 18:28:56 +0000
+Received: by outflank-mailman (input) for mailman id 339971;
+ Tue, 31 May 2022 18:28:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LtR/=WH=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1nw6bu-0004En-4P
+ for xen-devel@lists.xenproject.org; Tue, 31 May 2022 18:28:54 +0000
+Received: from mail-il1-x12d.google.com (mail-il1-x12d.google.com
+ [2607:f8b0:4864:20::12d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 859f81d1-e10f-11ec-bd2c-47488cf2e6aa;
+ Tue, 31 May 2022 20:28:53 +0200 (CEST)
+Received: by mail-il1-x12d.google.com with SMTP id f7so3726567ilr.5
+ for <xen-devel@lists.xenproject.org>; Tue, 31 May 2022 11:28:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,71 +39,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=2J24G2R9G+nejzBfSvqcmHDi0b0e3ZjnF2gjf54l+4Q=; b=Ajh8ByoXvD9FHDzgUwCOgXCSEU
-	YvksVdhRCFig2Brnv1xnii+idlZg+5ftbOEnngC1cI0e+JJ3Il1zjN3rKWAXF4lzXWvsibgqbBUIp
-	zBg5R5yfnpiQ/5w5tct+9exIQGRwiQlWZeqF9+pQyxTVJQSPiTIJuGX8RuPPyTUYHs50=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170789-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 859f81d1-e10f-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=sqoYlTKISt4pYqngzf0Xnq2lJyvUsnaz0a7MCsINQvI=;
+        b=JbnmzjRBKBBueKQElvFIh4fX8U9QD0j9YUxKehSiF6fr5Ua7Q0kUB6FKin1WnAU91r
+         b4o857CHCTZe6t98HKLJrr/cbO3Mbp3RDFjfwxo9sVd/7I+o6NAaKBv8dr8Fcnx/vFX2
+         sgWWP14/0+KMHOdJnwMabzkM3zNaG2JldL/H26OZj2X4hgdzcaGSI/7imaTlX6QR5H9T
+         EwxEYCHtjbjRU5HPjpn9biatGz8USCsh5Ra5pIf9ZMhaxGpEzLAVvg5QeVbCOvaH2rIL
+         UUGSyrcQOBcCTTXFEW5XFLmCwZOumnTda0w9xgeoM/+QP9+a/19pWU2Bz7S3azdCJPoQ
+         f9sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=sqoYlTKISt4pYqngzf0Xnq2lJyvUsnaz0a7MCsINQvI=;
+        b=BhOkYwWsvz1kat+Ncm8ny7yGVrxRJua+o8vE0lHZri+2eSNe+ZnTJ2ZX/QE8RfN0Ay
+         GnM/jl/ElgUXv/XxrZroa1qWyQynd6ivEYrQUfmG9DJLi+afyQ57UNExkMrMvk9nf18L
+         ahOqB5z8C+9tWm7Mtn0IkUhsciDP3JS3jOgOYQuTp20OxpcI/K9X/57QZhIZ6QfuwCIw
+         K5vCdccxy/C4MujLyb8R8J+Zpeh1Ul/pndMlQfIdvBqAS6yjmUJ56/uOaMGm3mMeEtzp
+         gZfmFKOqEljnrgtCy4/pepqq6NLeD64aERo7qZvhtJFzVkQDPrA3M6AY+VhNjZArZGbu
+         X9Gw==
+X-Gm-Message-State: AOAM530uCpGeSRNYeiJoAyKtyJ8d5tD6pn3fsVSm0cnl9Kj6gtTShxxp
+	Mzx/GHEVXoJqwu5jQVlK/Srcohi9xrNHGrmmSTEWZHYi
+X-Google-Smtp-Source: ABdhPJwjBlkOZhJYCXTV5XBgzIfkozEBXFELlWJu2X0oyWX2cIG4Z4c08v9n1iyuLepDTorgWBGiyrbIpQ0bY6mUmOs=
+X-Received: by 2002:a05:6e02:198e:b0:2cf:4a7a:faf8 with SMTP id
+ g14-20020a056e02198e00b002cf4a7afaf8mr30353315ilf.206.1654021731940; Tue, 31
+ May 2022 11:28:51 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [xtf test] 170789: all pass - PUSHED
-X-Osstest-Versions-This:
-    xtf=37ea4e513a2ce0cd22f9c9a32b18d5c022e38e12
-X-Osstest-Versions-That:
-    xtf=bc0abf2a5498d4691538bf34496ca0f0f189951b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 31 May 2022 18:26:09 +0000
+References: <20220531182041.10640-1-dpsmith@apertussolutions.com> <20220531182041.10640-2-dpsmith@apertussolutions.com>
+In-Reply-To: <20220531182041.10640-2-dpsmith@apertussolutions.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Tue, 31 May 2022 14:28:40 -0400
+Message-ID: <CAKf6xpuW_s0uugZYbrT-gOyk426PMmFZnYie9b9wFhgcSfJODA@mail.gmail.com>
+Subject: Re: [PATCH v4 1/3] xsm: only search for a policy file when needed
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, Scott Davis <scott.davis@starlab.io>, 
+	christopher.clark@starlab.io, Jan Beulich <jbeulich@suse.com>, 
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Content-Type: text/plain; charset="UTF-8"
 
-flight 170789 xtf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170789/
+On Tue, May 31, 2022 at 2:22 PM Daniel P. Smith
+<dpsmith@apertussolutions.com> wrote:
+>
+> It is possible to select a few different build configurations that results in
+> the unnecessary walking of the boot module list looking for a policy module.
+> This specifically occurs when the flask policy is enabled but either the dummy
+> or the SILO policy is selected as the enforcing policy. This is not ideal for
+> configurations like hyperlaunch and dom0less when there could be a number of
+> modules to be walked or doing an unnecessary device tree lookup.
+>
+> This patch introduces the policy_file_required flag for tracking when an XSM
+> policy module requires a policy file. Only when the policy_file_required flag
+> is set to true, will XSM search the boot modules for a policy file.
+>
+> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- xtf                  37ea4e513a2ce0cd22f9c9a32b18d5c022e38e12
-baseline version:
- xtf                  bc0abf2a5498d4691538bf34496ca0f0f189951b
-
-Last test of basis   168044  2022-02-07 11:41:42 Z  113 days
-Testing same since   170789  2022-05-31 17:41:55 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-
-jobs:
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-amd64-pvops                                            pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xtf.git
-   bc0abf2..37ea4e5  37ea4e513a2ce0cd22f9c9a32b18d5c022e38e12 -> xen-tested-master
+Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
 
