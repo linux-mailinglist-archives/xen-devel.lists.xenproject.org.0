@@ -2,29 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82639538F8B
-	for <lists+xen-devel@lfdr.de>; Tue, 31 May 2022 13:16:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.339535.564404 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E63D538F8E
+	for <lists+xen-devel@lfdr.de>; Tue, 31 May 2022 13:18:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.339543.564415 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nvzrA-0000Ea-Ed; Tue, 31 May 2022 11:16:12 +0000
+	id 1nvzsq-0000o5-Q8; Tue, 31 May 2022 11:17:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 339535.564404; Tue, 31 May 2022 11:16:12 +0000
+Received: by outflank-mailman (output) from mailman id 339543.564415; Tue, 31 May 2022 11:17:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nvzrA-0000C8-Am; Tue, 31 May 2022 11:16:12 +0000
-Received: by outflank-mailman (input) for mailman id 339535;
- Tue, 31 May 2022 11:16:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nvzsq-0000lr-Mk; Tue, 31 May 2022 11:17:56 +0000
+Received: by outflank-mailman (input) for mailman id 339543;
+ Tue, 31 May 2022 11:17:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/bi/=WH=citrix.com=prvs=1435b4b80=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nvzr8-0000C2-Bq
- for xen-devel@lists.xenproject.org; Tue, 31 May 2022 11:16:10 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 10a91562-e0d3-11ec-837f-e5687231ffcc;
- Tue, 31 May 2022 13:16:08 +0200 (CEST)
+ <SRS0=Xfyb=WH=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1nvzso-0000le-N0
+ for xen-devel@lists.xenproject.org; Tue, 31 May 2022 11:17:54 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4f7d9116-e0d3-11ec-bd2c-47488cf2e6aa;
+ Tue, 31 May 2022 13:17:53 +0200 (CEST)
+Received: from [10.10.1.138] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1653995865650167.2590047952341;
+ Tue, 31 May 2022 04:17:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,182 +40,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 10a91562-e0d3-11ec-837f-e5687231ffcc
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1653995768;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ZdOpUvFK8lDyOMY93Nxgv6haNdCdSCdZwnYbBpkxaCc=;
-  b=UBNwHOjvpZOYXz24d27PTfN4zqQ+Dokt9bLQ8c1co3VXT/8lK+u+ARC1
-   Q1L7PCUkGlsqVG3Uyv3CmmrO69lFJezCSyGYGJVvQD+Nwp5RaXnmhr86w
-   KJ4/XDRN0kfdu/bI6hSoqkvnSa9l9T4UXXTsWE80Uv/wABA3sxaC6tIB0
-   c=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 72518022
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:mRTXVKDIRjVXnhVW/1jjw5YqxClBgxIJ4kV8jS/XYbTApG4j0j0Hy
- jRNC22GOa2KY2v0c9AiOYvl8UoP75/WzYJiQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
- xA2M4GYRCwMZiaA4E/raNANlFEkvU2ybuOU5NXsZ2YgHGeIdA970Ug5w7Ni29Yy6TSEK1jlV
- e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
- I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPh7y
- /JXtYeoGTs0M6Ps38MkDUhjMBhxaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
- 6ZCcXZUM07F17neLLGTE4GAguwqKtXrO4UO/Glt1zjDAd4tQIzZQrWM7thdtNs1rp8UQK+OP
- 5BDAdZpRD/tUk10PUYnMooRxeqG2GunVAJ2ol3A8MLb5ECMlVcsgdABKuH9f9WWRMxO2FiRv
- Gvu4W3lDwpcOsb34SWB2mKhgKnIhyyTcIcbCLyx7fN0iUea7mMWARwSE1C8pJGRmkO4Ht5SN
- UEQ0i4vtrQpslymSMHnWB+1q2LCuQQTM+e8CMVjtlvLkPCNpV/EWC5UFVatdeDKquc8Rhsw1
- kSRz+/0CDJP95qsFyOm1Y6b+Gba1TcuEYMSWcMVZVJbvoK9+dxu0EKnosVLS/Ds0ICscd3k6
- 3XT9XVl2e1O5SIe///jlW0rlQ5AsXQgouQdwgzMFlyo4QpiDGJOT9z5sAOLhRqswWvwc7Vgg
- JTns5LHhAz2JcvR/BFhuc1UdF1T296LMSfHnXlkFIQ7+jKm9haLJN4Nu2AleRk3bJ1cKFcFh
- XM/XisIv/du0IaCN/crM+pd9ex2pUQfKTgVfq+NNYcfCnSAXASG4DtvdSatM5PFySARfVUEE
- c7DK66EVC9CYYw+lWbeb7pMitcDm3FhrV4/sLimlnxLJ5LFPC7LIVrEWXPTBt0EAFSs+16Nq
- owDbJfQln2ykoTWO0HqzGLaFnhSRVBTOHw8g5A/mjKrSua+JFwcNg==
-IronPort-HdrOrdr: A9a23:e9CFgqDfedu5SRDlHems55DYdb4zR+YMi2TC1yhKJyC9Vvbo8/
- xG/c5rsCMc5wx9ZJhNo7y90ey7MBThHP1OkOss1NWZPDUO0VHAROoJ0WKh+UyCJ8SXzJ866U
- 4KSclD4bPLYmRHsQ==
-X-IronPort-AV: E=Sophos;i="5.91,265,1647316800"; 
-   d="scan'208";a="72518022"
-Date: Tue, 31 May 2022 12:16:02 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Matias Ezequiel Vara Larsen <matiasevara@gmail.com>
-CC: <xen-devel@lists.xenproject.org>, Matias Ezequiel Vara Larsen
-	<matias.vara@vates.fr>, Wei Liu <wl@xen.org>
-Subject: Re: [RFC PATCH 2/2] tools/misc: Add xen-stats tool
-Message-ID: <YpX48uwOGVqayb/x@perard.uk.xensource.com>
-References: <cover.1652797713.git.matias.vara@vates.fr>
- <e233c4f60c6fe97b93b3adf9affeb0404c554130.1652797713.git.matias.vara@vates.fr>
+X-Inumbo-ID: 4f7d9116-e0d3-11ec-bd2c-47488cf2e6aa
+ARC-Seal: i=1; a=rsa-sha256; t=1653995867; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=R2utZavWzXD2nx8Avk5EoZTaNcgUyoTU+BYbzsdtHChvZvpP9r0dx+CixTNXnJLK7+tE7DZHP/li9edKf0pV/HD5uu8KyV8HHuksnACpKPq/QXQSEXoxBhNeFo0Nj9shy95PO6JCFN/rm3Q7Sc6blusrh5UhxOAhWEAWwsQugKM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1653995867; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=Z9I7HnQLALuF6Cupxgl8g/hDsQchtrid4tZPgFOIJR4=; 
+	b=N2xj1XHYOFYz6Qkwo7IvBpgDHqtMZG82a+khclIaJAl3n/kEeblFpAQEhXtlezJn216NNuMAH/53pcQQ3RAxqwhgWQOmKIX9BZyDSZKCs4H7mudR19j7orvohCayMCZze+XPLwNbVWJWid3bVxcqjZB2XF89QewdaZlkZExl+rA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1653995867;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:To:To:Cc:Cc:References:From:From:Subject:Subject:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=Z9I7HnQLALuF6Cupxgl8g/hDsQchtrid4tZPgFOIJR4=;
+	b=B92kXVqzxUriD0GGzN08JfwCrKs6F9EjIyd8f2qwik93PyrSvSE4krCLmpT1MfGK
+	VvXa4vE8xymk3dTTGFsMkmmINnMmD4Sxqydw7Mfx0AAEUAtBU2Z0iE+Ht51U0BbluSW
+	+6Jvov+IxKHb/SzyYFbfF7OUW9xR9uqgP9vmtru8=
+Message-ID: <f11cc372-e6b7-d1a5-e1fe-e939ed1d13f6@apertussolutions.com>
+Date: Tue, 31 May 2022 07:16:16 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <e233c4f60c6fe97b93b3adf9affeb0404c554130.1652797713.git.matias.vara@vates.fr>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>,
+ scott.davis@starlab.io, jandryuk@gmail.com, christopher.clark@starlab.io,
+ Luca Fancellu <luca.fancellu@arm.com>, Julien Grall <jgrall@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Jan Beulich
+ <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Dario Faggioli
+ <dfaggioli@suse.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>
+References: <20220511113035.27070-1-dpsmith@apertussolutions.com>
+ <20220511113035.27070-2-dpsmith@apertussolutions.com>
+ <YpXKKQHuEKeXZbEj@Air-de-Roger>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH v7 1/2] xsm: create idle domain privileged and demote
+ after setup
+In-Reply-To: <YpXKKQHuEKeXZbEj@Air-de-Roger>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-Hi Matias,
 
-On Tue, May 17, 2022 at 04:33:15PM +0200, Matias Ezequiel Vara Larsen wrote:
-> Add a demostration tool that uses the stats_table resource to
-> query vcpu time for a DomU.
+On 5/31/22 03:56, Roger Pau Monné wrote:
+> On Wed, May 11, 2022 at 07:30:34AM -0400, Daniel P. Smith wrote:
+>> There are new capabilities, dom0less and hyperlaunch, that introduce internal
+>> hypervisor logic which needs to make resource allocation calls that are
+>> protected by XSM access checks. This creates an issue as a subset of the
+>> hypervisor code is executed under a system domain, the idle domain, that is
+>> represented by a per-CPU non-privileged struct domain.
 > 
-> Signed-off-by: Matias Ezequiel Vara Larsen <matias.vara@vates.fr>
-> ---
-> diff --git a/tools/misc/Makefile b/tools/misc/Makefile
-> index 2b683819d4..b510e3aceb 100644
-> --- a/tools/misc/Makefile
-> +++ b/tools/misc/Makefile
-> @@ -135,4 +135,9 @@ xencov: xencov.o
->  xen-ucode: xen-ucode.o
->  	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenctrl) $(APPEND_LDFLAGS)
->  
-> +xen-stats.o: CFLAGS += $(CFLAGS_libxenforeginmemory)
-> +
-> +xen-stats: xen-stats.o
+> Should you mention that this subset of hypervisor code that requires
+> extended privileges but executed in the idle vCPU context strictly
+> only happens during initial domain(s) creation?
 
-The tools seems to be only about vcpu, maybe `xen-stats` is a bit too
-generic. Would `xen-vcpus-stats`, or maybe something with `time` would
-be better?
+Sure, I will work in some wording to clarify that point.
 
-Also, is it a tools that could be useful enough to be installed by
-default? Should we at least build it by default so it doesn't rot? (By
-adding it to only $(TARGETS).)
+>> To enable these new
+>> capabilities to function correctly but in a controlled manner, this commit
+>> changes the idle system domain to be created as a privileged domain under the
+>> default policy and demoted before transitioning to running. A new XSM hook,
+>> xsm_set_system_active(), is introduced to allow each XSM policy type to demote
+>> the idle domain appropriately for that policy type. In the case of SILO, it
+>> inherits the default policy's hook for xsm_set_system_active().
+>>
+>> For flask a stub is added to ensure that flask policy system will function
+>> correctly with this patch until flask is extended with support for starting the
+>> idle domain privileged and properly demoting it on the call to
+>> xsm_set_system_active().
+>>
+>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>> Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
+>> Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+>> Acked-by: Julien Grall <jgrall@amazon.com> # arm
+>> ---
+>>  xen/arch/arm/setup.c    |  3 +++
+>>  xen/arch/x86/setup.c    |  4 ++++
+>>  xen/common/sched/core.c |  7 ++++++-
+>>  xen/include/xsm/dummy.h | 17 +++++++++++++++++
+>>  xen/include/xsm/xsm.h   |  6 ++++++
+>>  xen/xsm/dummy.c         |  1 +
+>>  xen/xsm/flask/hooks.c   | 23 +++++++++++++++++++++++
+>>  7 files changed, 60 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+>> index d5d0792ed4..7f3f00aa6a 100644
+>> --- a/xen/arch/arm/setup.c
+>> +++ b/xen/arch/arm/setup.c
+>> @@ -1048,6 +1048,9 @@ void __init start_xen(unsigned long boot_phys_offset,
+>>      /* Hide UART from DOM0 if we're using it */
+>>      serial_endboot();
+>>  
+>> +    if ( (rc = xsm_set_system_active()) != 0 )
+>> +        panic("xsm(err=%d): unable to set hypervisor to SYSTEM_ACTIVE privilege\n", rc);
+>> +
+>>      system_state = SYS_STATE_active;
+>>  
+>>      for_each_domain( d )
+>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+>> index 6f20e17892..57ee6cc407 100644
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+>> @@ -620,6 +620,10 @@ static void noreturn init_done(void)
+>>  {
+>>      void *va;
+>>      unsigned long start, end;
+>> +    int err;
+>> +
+>> +    if ( (err = xsm_set_system_active()) != 0 )
+>> +        panic("xsm(err=%d): unable to set hypervisor to SYSTEM_ACTIVE privilege\n", err);
+> 
+> Can you place err on a new line to make the line length no longer than
+> strictly necessary.
+> 
+> I think you could also reduce the printed message to:
+> 
+> "unable to switch to SYSTEM_ACTIVE privilege: %d\n"
+> 
+> Which could likely fit in a line (seeing as others are fine with the
+> longer message I'm not going to insist).
 
-> +	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenctrl) $(LDLIBS_libxenforeignmemory) $(APPEND_LDFLAGS)
-> +
->  -include $(DEPS_INCLUDE)
-> diff --git a/tools/misc/xen-stats.c b/tools/misc/xen-stats.c
-> new file mode 100644
-> index 0000000000..5d4a3239cc
-> --- /dev/null
-> +++ b/tools/misc/xen-stats.c
-> @@ -0,0 +1,83 @@
-> +#include <err.h>
-> +#include <errno.h>
-> +#include <error.h>
-> +#include <stdio.h>
-> +#include <stdlib.h>
-> +#include <string.h>
-> +#include <sys/mman.h>
-> +#include <signal.h>
-> +
-> +#include <xenctrl.h>
+Nope, I am with you on this. I would prefer to have less than 80 or
+wrap. I like the suggestion, it will get it below 80 without any loss of
+meaning.
 
-It seems overkill to use this header when the tool only use
-xenforeignmemory interface. But I don't know how to replace
-XC_PAGE_SHIFT, so I guess that's ok.
+>> diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
+>> index 0bf63ffa84..54745e6c6a 100644
+>> --- a/xen/xsm/flask/hooks.c
+>> +++ b/xen/xsm/flask/hooks.c
+>> @@ -186,6 +186,28 @@ static int cf_check flask_domain_alloc_security(struct domain *d)
+>>      return 0;
+>>  }
+>>  
+>> +static int cf_check flask_set_system_active(void)
+>> +{
+>> +    struct domain *d = current->domain;
+>> +
+>> +    ASSERT(d->is_privileged);
+>> +
+>> +    if ( d->domain_id != DOMID_IDLE )
+>> +    {
+>> +        printk("%s: should only be called by idle domain\n", __func__);
+>> +        return -EPERM;
+>> +    }
+>> +
+>> +    /*
+>> +     * While is_privileged has no significant meaning under flask, set to false
+>> +     * as is_privileged is not only used for a privilege check but also as a type
+> 
+> Nit: I think this line is over 80 cols.
 
-> +#include <xenforeignmemory.h>
-> +#include <xen-tools/libs.h>
-
-What do you use this headers for? Is it left over?
-
-> +static sig_atomic_t interrupted;
-> +static void close_handler(int signum)
-> +{
-> +    interrupted = 1;
-> +}
-> +
-> +int main(int argc, char **argv)
-> +{
-> +    xenforeignmemory_handle *fh;
-> +    xenforeignmemory_resource_handle *res;
-> +    size_t size;
-> +    int rc, nr_frames, domid, frec, vcpu;
-> +    uint64_t * info;
-> +    struct sigaction act;
-> +
-> +    if (argc != 4 ) {
-> +        fprintf(stderr, "Usage: %s <domid> <vcpu> <period>\n", argv[0]);
-> +        return 1;
-> +    }
-> +
-> +    // TODO: this depends on the resource
-> +    nr_frames = 1;
-> +
-> +    domid = atoi(argv[1]);
-> +    frec = atoi(argv[3]);
-> +    vcpu = atoi(argv[2]);
-
-Can you swap the last two line? I think it is better if the order is the same
-as on the command line.
-
-> +
-> +    act.sa_handler = close_handler;
-> +    act.sa_flags = 0;
-> +    sigemptyset(&act.sa_mask);
-> +    sigaction(SIGHUP,  &act, NULL);
-> +    sigaction(SIGTERM, &act, NULL);
-> +    sigaction(SIGINT,  &act, NULL);
-> +    sigaction(SIGALRM, &act, NULL);
-> +
-> +    fh = xenforeignmemory_open(NULL, 0);
-> +
-> +    if ( !fh )
-> +        err(1, "xenforeignmemory_open");
-> +
-> +    rc = xenforeignmemory_resource_size(
-> +        fh, domid, XENMEM_resource_stats_table,
-> +        vcpu, &size);
-> +
-> +    if ( rc )
-> +        err(1, "    Fail: Get size: %d - %s\n", errno, strerror(errno));
-
-It seems that err() already does print strerror(), and add a "\n", so
-why print it again? Also, if we have strerror(), what the point of
-printing "errno"?
-
-Also, I'm not sure the extra indentation in the error message is really
-useful, but that doesn't really matter.
-
-> +
-> +    if ( (size >> XC_PAGE_SHIFT) != nr_frames )
-> +        err(1, "    Fail: Get size: expected %u frames, got %zu\n",
-> +                    nr_frames, size >> XC_PAGE_SHIFT);
-
-err() prints strerror(errno), maybe errx() is better here.
+Ugh, probably spell check pushed it over, and I didn't catch it. Will fix.
 
 
-Thanks,
-
--- 
-Anthony PERARD
+v/r,
+dps
 
