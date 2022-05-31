@@ -2,40 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6944953917F
-	for <lists+xen-devel@lfdr.de>; Tue, 31 May 2022 15:11:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.339565.564436 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B70D53919C
+	for <lists+xen-devel@lfdr.de>; Tue, 31 May 2022 15:14:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.339574.564447 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nw1db-0005Fx-Ag; Tue, 31 May 2022 13:10:19 +0000
+	id 1nw1hb-00060I-Sm; Tue, 31 May 2022 13:14:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 339565.564436; Tue, 31 May 2022 13:10:19 +0000
+Received: by outflank-mailman (output) from mailman id 339574.564447; Tue, 31 May 2022 13:14:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nw1db-0005DX-7e; Tue, 31 May 2022 13:10:19 +0000
-Received: by outflank-mailman (input) for mailman id 339565;
- Tue, 31 May 2022 13:10:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FbiB=WH=kernel.org=patchwork-bot+netdevbpf@srs-se1.protection.inumbo.net>)
- id 1nw1dZ-0005DR-K3
- for xen-devel@lists.xenproject.org; Tue, 31 May 2022 13:10:17 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 029348eb-e0e3-11ec-837f-e5687231ffcc;
- Tue, 31 May 2022 15:10:15 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	id 1nw1hb-0005xI-PT; Tue, 31 May 2022 13:14:27 +0000
+Received: by outflank-mailman (input) for mailman id 339574;
+ Tue, 31 May 2022 13:14:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=496r=WH=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1nw1ha-0005xA-Ks
+ for xen-devel@lists.xenproject.org; Tue, 31 May 2022 13:14:26 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 98073128-e0e3-11ec-bd2c-47488cf2e6aa;
+ Tue, 31 May 2022 15:14:25 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E725E6123B;
- Tue, 31 May 2022 13:10:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4BEECC3411D;
- Tue, 31 May 2022 13:10:13 +0000 (UTC)
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 2B888F03944; Tue, 31 May 2022 13:10:13 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3739E21B94;
+ Tue, 31 May 2022 13:14:25 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DD9C113AA2;
+ Tue, 31 May 2022 13:14:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id X/yNNLAUlmI/CAAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 31 May 2022 13:14:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,57 +51,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 029348eb-e0e3-11ec-837f-e5687231ffcc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1654002613;
-	bh=LaTXhCuMwgI4WA45VBnWzAMyaiH/DYYEL0PrWaBNUW4=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
-	b=K1Tm64+RqHAbNl8i7qETqWYBbV8Ox/aZ3zddS2YiAdsffS425PSi8XFVJt5Cuy42F
-	 pwoOq7HZLY4R85tXusK2ITuquZqnEWx+nX1GCv0bmWrnXHE9bQU6oWUaMGOkBO6rRo
-	 /N0BJ/hf3FkYWxFzK5Siibnzxwc+LT0XMsgcrMM0AxINZw9XNjGEj42LLq3sto+MWd
-	 iHMieWSWHgHM/IAeTw8FBQn1bQNcYI+8rTJZp4D0ZokzVmPaKki3Prmi4Pr4tqGH32
-	 BfwmRlaDq8bv8Wc7N9ySlEwBBesltaYdIg0s0QNHH/g6fJW6cHfV2jdHOurhvZwPHQ
-	 xe8pPC23zUlxg==
-Content-Type: text/plain; charset="utf-8"
+X-Inumbo-ID: 98073128-e0e3-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1654002865; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cV/s8ODRud3oWVglCBDUwrUrLfXeHFQRFDXz4o/zOxk=;
+	b=Yp8KtEW8fu1R6+kQT/RmNX93Av1Gab3KwaMDoDaPwI9+FoItS9/IuNxi09vczHvAkkn4fL
+	Q6RvRT2HF8Igoq+0aT+nyRauYNj4uFllo5uX5xeKSaHBlD5vI6JdY7xKeNuB9l1qi1uCfA
+	gz69UF1g1xoYPSQY9Fs6cBaBX4dwzQI=
+Message-ID: <69d69ca2-6b5e-b1bb-ed3f-3a8a8f166923@suse.com>
+Date: Tue, 31 May 2022 15:14:24 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] xen/netback: fix incorrect usage of
- RING_HAS_UNCONSUMED_REQUESTS()
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <165400261317.8298.1056578023912493620.git-patchwork-notify@kernel.org>
-Date: Tue, 31 May 2022 13:10:13 +0000
-References: <20220530113459.20124-1-jgross@suse.com>
-In-Reply-To: <20220530113459.20124-1-jgross@suse.com>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, wei.liu@kernel.org, paul@xen.org,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- jbeulich@suse.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.8.0
+Subject: Re: [PATCH] MAINTAINERS: Update Xen maintainership
+Content-Language: en-US
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Cc: sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
+ tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com
+References: <1653674225-10447-1-git-send-email-boris.ostrovsky@oracle.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <1653674225-10447-1-git-send-email-boris.ostrovsky@oracle.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------IGVNTe8sDM9aBfStIJFkHrSI"
 
-Hello:
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------IGVNTe8sDM9aBfStIJFkHrSI
+Content-Type: multipart/mixed; boundary="------------yQuddWP3Gq7gYW96q7pz0TnT";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Cc: sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
+ tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com
+Message-ID: <69d69ca2-6b5e-b1bb-ed3f-3a8a8f166923@suse.com>
+Subject: Re: [PATCH] MAINTAINERS: Update Xen maintainership
+References: <1653674225-10447-1-git-send-email-boris.ostrovsky@oracle.com>
+In-Reply-To: <1653674225-10447-1-git-send-email-boris.ostrovsky@oracle.com>
 
-This patch was applied to netdev/net.git (master)
-by Paolo Abeni <pabeni@redhat.com>:
+--------------yQuddWP3Gq7gYW96q7pz0TnT
+Content-Type: multipart/mixed; boundary="------------QCx2UWGf0ljN140bQk2Zs6Cy"
 
-On Mon, 30 May 2022 13:34:59 +0200 you wrote:
-> Commit 6fac592cca60 ("xen: update ring.h") missed to fix one use case
-> of RING_HAS_UNCONSUMED_REQUESTS().
-> 
-> Reported-by: Jan Beulich <jbeulich@suse.com>
-> Fixes: 6fac592cca60 ("xen: update ring.h")
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> 
-> [...]
+--------------QCx2UWGf0ljN140bQk2Zs6Cy
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Here is the summary with links:
-  - xen/netback: fix incorrect usage of RING_HAS_UNCONSUMED_REQUESTS()
-    https://git.kernel.org/netdev/net/c/09e545f73814
+T24gMjcuMDUuMjIgMTk6NTcsIEJvcmlzIE9zdHJvdnNreSB3cm90ZToNCj4gRHVlIHRvIHRp
+bWUgY29uc3RyYWludHMgSSBhbSBzdGVwcGluZyBkb3duIGFzIG1haW50YWludGVyLiBJIHdp
+bGwgc3RheQ0KPiBhcyByZXZpZXdlciBmb3IgeDg2IGNvZGUgKGZvciB3aGljaCBjcmVhdGUg
+YSBzZXBhcmF0ZSBjYXRlZ29yeSkuDQo+IA0KPiBTdGVmYW5vIGlzIG5vdyBtYWludGFpbmVy
+IGZvciBYZW4gaHlwZXJ2aXNvciBpbnRlcmZhY2UgYW5kIE9sZWtzYW5kciBoYXMNCj4gZ3Jh
+Y2lvdXNseSBhZ3JlZWQgdG8gYmVjb21lIGEgcmV2aWV3ZXIuDQo+IA0KPiBTaWduZWQtb2Zm
+LWJ5OiBCb3JpcyBPc3Ryb3Zza3kgPGJvcmlzLm9zdHJvdnNreUBvcmFjbGUuY29tPg0KDQpw
+dXNoZWQgdG8geGVuL3RpcC5naXQgZm9yLWxpbnVzLTUuMTkNCg0KDQpKdWVyZ2VuDQo=
+--------------QCx2UWGf0ljN140bQk2Zs6Cy
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
+oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
+kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
+1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
+BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
+N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
+PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
+FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
+UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
+vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
++6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
+qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
+tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
+Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
+CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
+RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
+8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
+BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
+SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
+nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
+AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
+Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
+hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
+w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
+VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
+OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
+/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
+c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
+F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
+k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
+wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
+5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
+TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
+N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
+AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
+0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
+Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
+we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
+v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
+Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
+534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
+b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
+yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
+suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
+--------------QCx2UWGf0ljN140bQk2Zs6Cy--
+
+--------------yQuddWP3Gq7gYW96q7pz0TnT--
+
+--------------IGVNTe8sDM9aBfStIJFkHrSI
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmKWFLAFAwAAAAAACgkQsN6d1ii/Ey+I
+9AgAkbqfJcwiPxYHzKtNXhHEWQBFjpRa7KlC+K50Mbc/DVP1Xa5jLXeWKy5w5kopAUOjeGWnsN/4
+CzJD0og2mAXbwDWOccqxJjxZEGdKbo3AM5NNWoRlbv8qLnkJIEQHxvBXsYmd7W7u3hui+UJ4zXDz
+bKXspljPx9kgfidSEOOqfewPabN2FXFAYbKc/U5PXFee9FnbE7Wi/E5Bs5IGRKthB7X7Zj/z+3oe
+y2li8aY7PXUHET7MGxqdEOmcZpHrhOZhDHvZFUd7M8eNGtXNJY4LhLRkKOz5IXoKTKeJDV9o248t
+JEy6/1aAce17PSBzx2XTBwtkjvOEofDRRuEU+oG5lw==
+=lWW6
+-----END PGP SIGNATURE-----
+
+--------------IGVNTe8sDM9aBfStIJFkHrSI--
 
