@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86BAA5388FE
-	for <lists+xen-devel@lfdr.de>; Tue, 31 May 2022 00:41:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.338862.563707 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F8A7538902
+	for <lists+xen-devel@lfdr.de>; Tue, 31 May 2022 00:41:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.338872.563719 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nvo4L-0007tK-Cx; Mon, 30 May 2022 22:41:01 +0000
+	id 1nvo4S-0008Jy-Nc; Mon, 30 May 2022 22:41:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 338862.563707; Mon, 30 May 2022 22:41:01 +0000
+Received: by outflank-mailman (output) from mailman id 338872.563719; Mon, 30 May 2022 22:41:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nvo4L-0007qf-9G; Mon, 30 May 2022 22:41:01 +0000
-Received: by outflank-mailman (input) for mailman id 338862;
- Mon, 30 May 2022 22:40:59 +0000
+	id 1nvo4S-0008Hh-I6; Mon, 30 May 2022 22:41:08 +0000
+Received: by outflank-mailman (input) for mailman id 338872;
+ Mon, 30 May 2022 22:41:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=epuh=WG=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1nvo4J-000799-2A
- for xen-devel@lists.xenproject.org; Mon, 30 May 2022 22:40:59 +0000
+ id 1nvo4R-000799-Jk
+ for xen-devel@lists.xenproject.org; Mon, 30 May 2022 22:41:07 +0000
 Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
  [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 913f81d1-e069-11ec-837f-e5687231ffcc;
- Tue, 31 May 2022 00:40:57 +0200 (CEST)
+ id 96a334e7-e069-11ec-837f-e5687231ffcc;
+ Tue, 31 May 2022 00:41:05 +0200 (CEST)
 Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
  [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1653950420926611.7977371210424;
- Mon, 30 May 2022 15:40:20 -0700 (PDT)
+ with SMTPS id 1653950422129887.0158623525535;
+ Mon, 30 May 2022 15:40:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,25 +40,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 913f81d1-e069-11ec-837f-e5687231ffcc
-ARC-Seal: i=1; a=rsa-sha256; t=1653950423; cv=none; 
+X-Inumbo-ID: 96a334e7-e069-11ec-837f-e5687231ffcc
+ARC-Seal: i=1; a=rsa-sha256; t=1653950424; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=Q1nnC1nn3zePeyAu2QZJrs+CV8LOCaWnInhAuKCH0PWQF66UanH2JFPiEF4dh39r+Cd+Z1avIOpgx0qiSCygkaadiYWmiNNFZu/zsBkEPHDQSitKoagitMVeAEyopdBT4wrwD/5QeVHwsH1WoytgU0jvmpxqfacSxCLOg0Fo658=
+	b=mbmVHmKKxaCOIAv8wvakvVru164Uh3L/bS0tJI2/mGHlQb3VMW2HlZ536yC2dVMIuXSTjpaxJqcfoMtBtXbL/kayV4zZMB5mHt07Pvo8OLBS7xG2TwTi+K2KqAUVqcUbXfNNt6o6OHDORmgAfDnxyRosSFQNSbNcXC+eFooqNuQ=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1653950423; h=Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=Sjrnmu86gujeudz33+MAWmkOkhEiPemzBi/wKxHuwM0=; 
-	b=Y0Wr/Xef4SfE9Uhb9H/8QEI0HFA2qArR2RvbASNZTQNMvDP4LghQ39TmDthDLf08trl3+N2zb+0N4EXj8adoiW4C6ibss9IOb111rKpzmnlom7zosNJxrE1uFP6bn5EaQdSG3j4KaYN3yCUJj2fUYIslbAhVJdymYwutMUZEWYo=
+	t=1653950424; h=Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=527tT9WU0HgntC22WaUmTxYXfawaS2vBXUjSXSJ4Fmo=; 
+	b=B5qP2MX2+v3cK1Ur12RXPLY4Wg4T4GhcTVEB2HsIsg/HQIZlp3RHFQ5IJCbEHFOkQq3i1yViWrrZPmQ9zq1B4uEU+AlANFwsjXuy+XI+Ug/6GYEiEhlRbm/BmZGcOpzdGxzvQgZPBtyyz5eZ9KLPoHWfslpXlo6bM94wZuiJyE0=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1653950423;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1653950424;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=Sjrnmu86gujeudz33+MAWmkOkhEiPemzBi/wKxHuwM0=;
-	b=lJocetZNXMF8Sn3/gMH+c9NxySv2OYe6r1+QRh/pVzBoqnTgPE0wMrBfIQIJMdn+
-	S04mtPUFsjWMdQ4G34hDGfTYPRGg3vcivu96zsMUoONv/A7wtJpF2e+hLon8VU6plaM
-	H0VybZ1ojBHiMYr0+qm8zSxpXSe93UUxOhea3Kos=
+	bh=527tT9WU0HgntC22WaUmTxYXfawaS2vBXUjSXSJ4Fmo=;
+	b=pfnpokIbgJE+lrYnquFN1jbTz8b4QZYQar4suUwlwJ4BIiSWxBM2eJ/90KNobZjL
+	2Aw4Y1Sy/0R4rTFWtk8wy2C/0JL3NjF7eseY8J+NepStbb7UrERop93HnWhjRuhknat
+	3opZAsh2XkNmj4FRJlLG0ZlJsXyEUb4XepnWYP1A=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 To: xen-devel@lists.xenproject.org,
 	"Daniel P. Smith" <dpsmith@apertussolutions.com>
@@ -66,9 +66,9 @@ Cc: scott.davis@starlab.io,
 	christopher.clark@starlab.io,
 	jandryuk@gmail.com,
 	Daniel De Graaf <dgdegra@tycho.nsa.gov>
-Subject: [v2 2/3] xsm: consolidate loading the policy buffer
-Date: Mon, 30 May 2022 22:39:43 -0400
-Message-Id: <20220531023945.22196-4-dpsmith@apertussolutions.com>
+Subject: [v2 2/3] xsm: refactor policy loading
+Date: Mon, 30 May 2022 22:39:44 -0400
+Message-Id: <20220531023945.22196-5-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20220531023945.22196-1-dpsmith@apertussolutions.com>
 References: <20220531023945.22196-1-dpsmith@apertussolutions.com>
@@ -76,7 +76,7 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-Previously, initializing the policy buffer was split between two functions,
+Previously initializing the policy buffer was split between two functions,
 xsm_{multiboot,dt}_policy_init() and xsm_core_init(). The latter for loading
 the policy from boot modules and the former for falling back to built-in policy.
 
