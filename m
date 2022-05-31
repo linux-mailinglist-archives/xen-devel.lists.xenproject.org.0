@@ -2,56 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99B5D539572
-	for <lists+xen-devel@lfdr.de>; Tue, 31 May 2022 19:28:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.339927.564846 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A866E539630
+	for <lists+xen-devel@lfdr.de>; Tue, 31 May 2022 20:23:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.339936.564857 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nw5fS-0002w1-0S; Tue, 31 May 2022 17:28:30 +0000
+	id 1nw6VZ-0001EN-4A; Tue, 31 May 2022 18:22:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 339927.564846; Tue, 31 May 2022 17:28:29 +0000
+Received: by outflank-mailman (output) from mailman id 339936.564857; Tue, 31 May 2022 18:22:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nw5fR-0002uF-TO; Tue, 31 May 2022 17:28:29 +0000
-Received: by outflank-mailman (input) for mailman id 339927;
- Tue, 31 May 2022 17:28:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nw6VZ-0001C1-19; Tue, 31 May 2022 18:22:21 +0000
+Received: by outflank-mailman (input) for mailman id 339936;
+ Tue, 31 May 2022 18:22:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=f9mw=WH=oracle.com=boris.ostrovsky@srs-se1.protection.inumbo.net>)
- id 1nw5fP-0002u5-5J
- for xen-devel@lists.xenproject.org; Tue, 31 May 2022 17:28:27 +0000
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 12b4b6f0-e107-11ec-bd2c-47488cf2e6aa;
- Tue, 31 May 2022 19:28:25 +0200 (CEST)
-Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 24VHHIkh011768;
- Tue, 31 May 2022 17:27:49 GMT
-Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3gbcaunubu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 31 May 2022 17:27:49 +0000
-Received: from pps.filterd
- (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.16.1.2/8.16.1.2)
- with SMTP id 24VHFb1r014571; Tue, 31 May 2022 17:27:48 GMT
-Received: from nam11-dm6-obe.outbound.protection.outlook.com
- (mail-dm6nam11lp2171.outbound.protection.outlook.com [104.47.57.171])
- by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com with ESMTP id
- 3gc8kf7yxm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 31 May 2022 17:27:47 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
- by CY4PR10MB1846.namprd10.prod.outlook.com (2603:10b6:903:125::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5293.17; Tue, 31 May
- 2022 17:27:46 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::f961:32c1:44e0:6517]) by BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::f961:32c1:44e0:6517%3]) with mapi id 15.20.5293.019; Tue, 31 May 2022
- 17:27:46 +0000
+ <SRS0=Xfyb=WH=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1nw6VY-0001Bv-0t
+ for xen-devel@lists.xenproject.org; Tue, 31 May 2022 18:22:20 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 99b19747-e10e-11ec-837f-e5687231ffcc;
+ Tue, 31 May 2022 20:22:18 +0200 (CEST)
+Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1654021329834917.9817460474425;
+ Tue, 31 May 2022 11:22:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,156 +40,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12b4b6f0-e107-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
- subject : to : cc : references : from : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2021-07-09;
- bh=139RGQp/kOZy2vDpFFv/rH65u5e5cCcUG4ouCJbTr+M=;
- b=GATKNAnKAFJ0ZbEh5fxzNFOW5fsYoS7IlXsVNEyTUGOILlWITWAx8h0RzKPuuaBI9v49
- PXZXl7lWcCTIqf4+oQ9ktf1GFA1Fl5tSyspm6zOY1boEl5RmtF4vLThYWCrXQmJEhL/5
- rLKdqTUpebi+q+ebZDnsfNH50j8y4/SU94ZtSFtV7ODy4/J0FlFq8qkQCRUeYa3j2mft
- rnWjshT08N59pC3oOLe34pHKuRHMs48kvyYtmrClvxOrA8VW6dsy7blueSEG2D2Fok31
- IXpxtm6eGvnDtnDDTGWhIZzxBgOj/E/noXMwqhMHDFOvhYp/2EEHmGmMX4YvM3ZCH/2a kA== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QOjjvf0MlL1HQOK6+rNbXDFVcq1FPfJwVMpcsFBsUPmcWLy4svFpAP+ZnLfsrV6PyxfjqwN9LMpx5RQGlNm75N6qVObmf2VnwoahuXYKOX3ABqe3Vi27z0p1DInN+rgBqh++eQqMyDiXYEfCYKkM4WpJ3LOso9id7EECq0ccOZ9sVCkOfi262mFHbg0gRNvJgBHp6AgbTqNX7UiEM8IiGdlgPkj5EAMfkk7/7nfOb8dikgi4+6Z2FTywyZEMoXE1YE2iFWM+8rHdBI0dpahXUBdXKF4V1lAd8fdetVhISMjRnCe3/EkEmMQloBnl/rHHR8sdLdgRBANeEQobuTzVEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=139RGQp/kOZy2vDpFFv/rH65u5e5cCcUG4ouCJbTr+M=;
- b=VYSkO0nAkOQTfu2OVKAI2q/yG57z56G0p8saUC6Mdpdwhk3sRI5uxdZB53ZvISzwxGNqNOg40jncH60l9fnQ0FnKpWxZqBEuCuW5ONkZ/zcrF0xwtrREQzRWYkDIIzcfiHJ1BdUXbcfmzAUH/5LZGtKd5YP86l1BzM3M7HjuO+6h3oqRyWxzVNSTyetwICCBDJY5Oam69f9StGs0jQlr9Zcz29JKSavdg3xDjIfPjY3TEjAGL9V/i01VpnMbvuFqWdEF73CTqZzioGy+hj00HHQCf7h0O/rJeolULLURelXh5LukxN4GDHW/J8hoKDEE/ywDeiZ1QyIDqUXPrip/eA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=139RGQp/kOZy2vDpFFv/rH65u5e5cCcUG4ouCJbTr+M=;
- b=FAIzrevvBhjKTXJqiZjp7pVhPHhjurw6NAeDaOzba+z9e3m9NCtxjyWnew0LGCGEcjFfI4VhE5xTOw30fZRHxv3i4xrWmiIpPwCx9T9adWru0Mc7LlaSAWcqZ7ubaXALtW6n6GW3tkAFCWYtSRPykCwAwn4fguTchmLEiAfHfwI=
-Message-ID: <50fc0322-78b2-061a-46f1-dc13e4ec7184@oracle.com>
-Date: Tue, 31 May 2022 13:27:24 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.9.1
-Subject: Re: [PATCH] xen: replace xen_remap() with memremap()
-Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
-        x86@kernel.org, linux-kernel@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-        Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        "H. Peter Anvin" <hpa@zytor.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Jiri Slaby <jirislaby@kernel.org>, kernel test robot <lkp@intel.com>
-References: <20220530082634.6339-1-jgross@suse.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-In-Reply-To: <20220530082634.6339-1-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA9PR13CA0159.namprd13.prod.outlook.com
- (2603:10b6:806:28::14) To BLAPR10MB5009.namprd10.prod.outlook.com
- (2603:10b6:208:321::10)
+X-Inumbo-ID: 99b19747-e10e-11ec-837f-e5687231ffcc
+ARC-Seal: i=1; a=rsa-sha256; t=1654021334; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Wp5+TSjauFy6EGGZIt5qjwVblic4+pobd2jhIwU8RPb+NktbA3DP4NtPqmsEfV7Nd83YKJu5JwV4Sm+A3MUVO1S5wOOrxo/CVg0zcLUGR7WtnrJTZgEmZ85olsgayuVdaBOU+hxsaJANsxe9QAvTK2o3jUj+4e0oFXJfz87ICVQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1654021334; h=Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To; 
+	bh=jWXI3JIoau3kt0MxfNomZ5YC5oHP8ua1nV5SsGfTDV4=; 
+	b=XXTenUnRWMrKfnUizNQ3fpUabGStmdsa7SHxLYCX6oNWznKCIem+p3O4skTIigo2aSlip27iDoce3e8bod7vHrQZzQiQ+mfRbzibNhgxpLK15FZOaoDfiAkb1p6rcvpy/F+vBHR9M/fqdN3+jiPX6eRTcSaeQrBKLVJklNOq3yk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1654021334;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Transfer-Encoding:Reply-To;
+	bh=jWXI3JIoau3kt0MxfNomZ5YC5oHP8ua1nV5SsGfTDV4=;
+	b=IOm2LFXvSVnuxzdbdUZJ12Tm1VxrHAccaZG6npp9OLWwLxFr8I67OhNAM9jrXqD1
+	WATn7pApjxC8qIsO97QGA/7EKWaY99+oP6HuMJ8Mi2V/O2ssgzN94SSh9pKwyVP29Os
+	ErAZqgiOeBE1J7f8fEJeiXNFR3LFO55P/HsPowOI=
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+To: xen-devel@lists.xenproject.org
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	scott.davis@starlab.io,
+	christopher.clark@starlab.io,
+	jandryuk@gmail.com
+Subject: [PATCH v4 0/3] xsm: refactor and optimize policy loading
+Date: Tue, 31 May 2022 14:20:38 -0400
+Message-Id: <20220531182041.10640-1-dpsmith@apertussolutions.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c6b0b92d-1547-4047-9ccb-08da432ae080
-X-MS-TrafficTypeDiagnostic: CY4PR10MB1846:EE_
-X-Microsoft-Antispam-PRVS: 
-	<CY4PR10MB184689C4F610DC4DB9238D458ADC9@CY4PR10MB1846.namprd10.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	eKblSy644DUa8GzhJUo9Md3DQFY/ehZ4ujwSIdc7+xP1elZ0WuBqax7HFt5THp/QxOh6lLIC2Nk64SYHJfpzZu0GCW7fYCZgy7zgKwfsTxOPfwte/G5CGKh8rzIfUId7eK8QjwuvGcFA5xLIjbUaWmRJDidgxkc3rR5+7ITPCzKJfCheIZBB3Y0/deSGdhsqikFW1uOClK8SUF34tXGwyWlRKRAYd95pk5abNZCw8u0zh8xG+6t2f6X45wNALEb7moiX6dIfGZVXBdQbdlKD85YpOl8PIuFXZ4vgHxw72Eqx31kvqdr/nXNDidGN6Jnxs2bZw9ygZvhFP8G0DHkSqD1AP+v1bUBeixj+1NDGTgRFCLKPqdux8o/9fE4dIddfkmaJstVR2HObfYWOciXPRdTEiDlShle0rNSNWA+UMXr+OuwzAkkMuO/X+XoxgtcDVQy+qDakeU2gxpD9AjyLklHttlZR2R141LL8enni9lZPzbdFPSHSKyCCou1tRg3YXCKnEfKaxH3qmGazqnFSwiQU4qwL5m+3JQG8qjra23Co5t+rzkeEa3NYB3iQJO5dQcC4n+eqbH7Hujw8kOWh0EYX369IbiPhRumKSc7q/KkxL5YDYlokLRGBZxDRCQIjii+njZ4awbQ5gXGYA4gWTHx1YoCsC2MhSo45FerqbVI/Ya++DxXHMsx3LSHSWqr8XGDxZOQVeDOFbAR6zYhoSJ4THsSrK3MrctYTDxmGK3Q=
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(38100700002)(31686004)(2616005)(54906003)(36756003)(2906002)(316002)(26005)(6512007)(53546011)(186003)(5660300002)(31696002)(66946007)(6506007)(86362001)(8676002)(4326008)(66556008)(66476007)(6666004)(8936002)(508600001)(6486002)(7416002)(44832011)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?cVViZDVXeGV2V0hnUTM1d1pua1Y1WWgyQXBnU2RCa2J6Y0dHY1F1Q3ZtUjN0?=
- =?utf-8?B?UC9uM2hiT0gxUmt4UHNCOWFJbjh5dDA5SUZ4MmJHQVg3amhHcVgzcTdjQ2p1?=
- =?utf-8?B?ZWV1OERORk8yS3M2ZE5NOEpWYW94Z3lIY1paTXJDK2RhalFNV3hHU2xETzNp?=
- =?utf-8?B?ekkrNDlNcnc5Vk1nTUM5VWhnRk1rT28zOVdCcFk1djlPYXZERUVYODE4OWxD?=
- =?utf-8?B?R3IybmJORHBHZFZZMjR2bmZkNXBnMkhnem5pTHhUVDdkbU5KMFJQRTBwR1Jm?=
- =?utf-8?B?ejVyc01tMXliWXhnUk93d1AvQm9RdEZoWlhEN0VHU2ZIK1MxajQxVzRDREMy?=
- =?utf-8?B?MTE2Q2hnZWErRkUzL09UTktNd1ZzK2wrclNvK2dnTWVmS3BmODJuSmVXSmQ3?=
- =?utf-8?B?N052dm1xTlBobVAwaFRpQVR3emdSeUNyaVEyaS9RYjdDODdzWGVua3lEWVNs?=
- =?utf-8?B?bHo4SmphNkZVdnVCRkhtNEQzYzBTSFNzam5uMWdzcHBRMEQzTkViVGcya3dH?=
- =?utf-8?B?ajYrMG9pbHRlZjI1bkk2bm13TkZES1F0a2hYbDdHdmFBSUh0b0kvdklta2NP?=
- =?utf-8?B?UEFSb0dZcFYvRFRRNFRjY25KZ1JRalpHeGN5VjZ6cTRob0o2cXVRVHcrNXFx?=
- =?utf-8?B?aUFIcnpGWWZkYXZ1amhnQWJFN1RwNzh5MGdUbVJlZjVqSGVjVjBDN1ZjeFJX?=
- =?utf-8?B?STdNeDExRmdWZUxWU2pWanlMMjd4dnRpZ1UycW9mNkEyMnZlRTgvNU83T1kw?=
- =?utf-8?B?endkaG4rb3lVQVl6blpXR09nQlcvbG9idDNqUElyZjRoSzQ3a2JZYkMyWkZ5?=
- =?utf-8?B?cU1oRXYxUm53Nnd2dHViRk1KaDVTZ0d1VElqbkF5anpLWW9oL3pYcDhERGk5?=
- =?utf-8?B?Z1RUUmR6RXY0Y1grWTdBOVVOeDc0bnl4eFgxSDBRUGdOTzBCSUpGT0kxN1cv?=
- =?utf-8?B?NWhxUmFIL0t2OGZBSmF5VFIrOWFDZmhzY3ZHZVVVT1RyWi8rdENCWFdQT1Zr?=
- =?utf-8?B?eHdlT0RVWDlxdzNNVk4wRG5HcGU5dkhjMVMrWTFScGFSUlZsc05SQzV2RkZL?=
- =?utf-8?B?VStNdGcrczlmenlFZVcwTXRDeXo0Z1p0UVp2THB0NThvWVFyS2IrZ1BFajE5?=
- =?utf-8?B?NkNBVldzaFpNeXJHNUkzNUx3dzhabEVwQml0ZFFHR2VTQXloRktOUDQvUmp5?=
- =?utf-8?B?Z3FnOC9qSjRjVzF5ck4yYThDKzBIWnMrZ09OaTIrYjZyd016bTRtVjhwU0d3?=
- =?utf-8?B?cTFHK2NnR1AvcTQveDgzTjFLZHdRVVhNNkE3TTRtU0wrZFFVVVFjdG8va1ph?=
- =?utf-8?B?R1ZtVzhCelBQb1FmOWx4WVYwWVB0aDNaR0Zaa1FMd2NwbW9pTlorQjRER1I2?=
- =?utf-8?B?QWFtM1ZDdnJ0Vm9Bd21GdFVzY0pyZEExZE1DYzg1UnRnc01UY1BBTVNnTXYy?=
- =?utf-8?B?SFV2MmlpRk80YXZlSEdGVVQ2K016Y2JlVXhBd2dmVU96WDZTRXVMNnRBZFRC?=
- =?utf-8?B?blhaTC94Uk5sMDZHOTF6eUhteFBWb1dwRzcyUlczZFBGVkl4ZFJOVzNHRWZ0?=
- =?utf-8?B?K1puQjFNOG9zRUl4TStHZ2N3bVM2SVBRWUxvMnB3eUlIMFJ1bGlVU0xobkNn?=
- =?utf-8?B?Si9ZWmxMWXcvVnR4WkpxUlo4MmtvMjdKYkg5Y01oKzJkOVZMZDRZc3MxWkt6?=
- =?utf-8?B?R3FSR2tMZWZqWXZBTnJtU3dKazNKakZQeHpWREN3b1QxVThGeFRYako2WVF4?=
- =?utf-8?B?aTZIcFdXcFNOM3NxYzlCTUQ4ZGRZbkJPeHlzOG1ic2hUVldqN1Z6Z1QzWWZB?=
- =?utf-8?B?VkhNaWNpMjJYa1NKN3Y0QnpFVGN0RnU3c2ZBRGZnRjY3Umxxam5zSk9xazI5?=
- =?utf-8?B?dmM2d29Ga3dxOUpocnpmWWZWckVSMFhobUVycnE2Y1ArZEtkbk1NMGZwSzFi?=
- =?utf-8?B?TFMwZzI1WUJXSHZidkFydjJiMitrUGd6dm9jUDR5L0xBTWRrQUtUaVlNeEp1?=
- =?utf-8?B?bU9weDN1N3dvRWw5T2hCbWhRR1hMNmxPU1gvVGt3SzlRUlR6UHI3SnhTdUlK?=
- =?utf-8?B?dURRVlYvZHhvaVpzT2RvR1dHa2Fuajk0K2EyYkFTMElKM0NoS2VUelcrcTh6?=
- =?utf-8?B?VzZvc093OXdxeWV5RytycXVTSXBjOVpPazgralNkeFoxTUtnSHFvU2ZTLzRs?=
- =?utf-8?B?RWxJbTFDank5MlZTN055WHhjS1B1OXhqTDQwdWJDVHp1Q25hQStOOGFPcTFu?=
- =?utf-8?B?M21aSkZKRy9yNGxrNWpoSGVYc1oydmwzMjRmblprZEFZWGRqOXl3QlhmaEdy?=
- =?utf-8?B?ZE16d3g0WVIwYkY5R0pEUWMxQm82eno5d21zZlJReFhidDZwM1loajdpWnpX?=
- =?utf-8?Q?aCtzrj0FpMYXF/1o=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6b0b92d-1547-4047-9ccb-08da432ae080
-X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2022 17:27:46.1496
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FToyA8KUwIaDrUS7VVEJR8cAydo/ABLKvjST829zwOfNIiuslBxfHREgJ0dnmhhh0hb3iSczgFzOKsLuTagzg1WIXEaSQGn5rYntu4MFEgo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR10MB1846
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.517,18.0.874
- definitions=2022-05-31_07:2022-05-30,2022-05-31 signatures=0
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 mlxscore=0 phishscore=0
- suspectscore=0 mlxlogscore=999 bulkscore=0 spamscore=0 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2204290000
- definitions=main-2205310081
-X-Proofpoint-ORIG-GUID: 1OduQthX29qWivf9uxvq95tNT4ajXpIS
-X-Proofpoint-GUID: 1OduQthX29qWivf9uxvq95tNT4ajXpIS
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
+This series was born out of some cleanup work done while crafting the
+hyperlaunch boot modules patch series. The primary purpose of this series was
+to stop walking all boot modules when it was not necessary, but the scope
+creeped during review.
 
-On 5/30/22 4:26 AM, Juergen Gross wrote:
-> xen_remap() is used to establish mappings for frames not under direct
-> control of the kernel: for Xenstore and console ring pages, and for
-> grant pages of non-PV guests.
->
-> Today xen_remap() is defined to use ioremap() on x86 (doing uncached
-> mappings), and ioremap_cache() on Arm (doing cached mappings).
->
-> Uncached mappings for those use cases are bad for performance, so they
-> should be avoided if possible. As all use cases of xen_remap() don't
-> require uncached mappings (the mapped area is always physical RAM),
-> a mapping using the standard WB cache mode is fine.
->
-> As sparse is flagging some of the xen_remap() use cases to be not
-> appropriate for iomem(), as the result is not annotated with the
-> __iomem modifier, eliminate xen_remap() completely and replace all
-> use cases with memremap() specifying the MEMREMAP_WB caching mode.
->
-> xen_unmap() can be replaced with memunmap().
->
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+Changes in v4:
+* rewroked xsm_{multiboot,dt}_init() to support flask=late
+* applied the correct types to the policy_buffer for DT
+* change type from array to pointer on xsm_multiboot_policy_init()
 
+Changes in v3:
+* added arm Rb for patch #3
+* mainly a resend due to fubar on sending v2
 
+Changes in v2:
+* changed init_policy to policy_file_required
+* split the patch into a series
+* corrected casting of policy buffer
+* use IS_ENABLED() instead of #ifdef sequence
+* moved #ifdef inside of braces for xsm_dt_policy_init()
+* addressed lack of error handling of xsm{mb,dt}_init()
 
-Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Daniel P. Smith (3):
+  xsm: only search for a policy file when needed
+  xsm: consolidate loading the policy buffer
+  xsm: properly handle error from XSM init
+
+ xen/arch/arm/setup.c  | 10 ++---
+ xen/arch/x86/setup.c  |  9 ++++-
+ xen/include/xsm/xsm.h |  2 +-
+ xen/xsm/xsm_core.c    | 89 ++++++++++++++++++++++++-------------------
+ xen/xsm/xsm_policy.c  | 34 ++++++++++++++---
+ 5 files changed, 91 insertions(+), 53 deletions(-)
+
+-- 
+2.20.1
 
 
