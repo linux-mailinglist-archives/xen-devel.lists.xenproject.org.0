@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E74F2539A8C
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Jun 2022 02:54:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.340121.565070 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 078FF539A96
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Jun 2022 03:04:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.340130.565082 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nwCcU-0002iF-Ea; Wed, 01 Jun 2022 00:53:54 +0000
+	id 1nwCmf-0002dt-HW; Wed, 01 Jun 2022 01:04:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 340121.565070; Wed, 01 Jun 2022 00:53:54 +0000
+Received: by outflank-mailman (output) from mailman id 340130.565082; Wed, 01 Jun 2022 01:04:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nwCcU-0002fE-BS; Wed, 01 Jun 2022 00:53:54 +0000
-Received: by outflank-mailman (input) for mailman id 340121;
- Wed, 01 Jun 2022 00:53:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nwCmf-0002b5-EG; Wed, 01 Jun 2022 01:04:25 +0000
+Received: by outflank-mailman (input) for mailman id 340130;
+ Wed, 01 Jun 2022 01:04:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1L9V=WI=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nwCcT-0002f8-BS
- for xen-devel@lists.xenproject.org; Wed, 01 Jun 2022 00:53:53 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4d04c200-e145-11ec-bd2c-47488cf2e6aa;
- Wed, 01 Jun 2022 02:53:51 +0200 (CEST)
+ id 1nwCme-0002az-ES
+ for xen-devel@lists.xenproject.org; Wed, 01 Jun 2022 01:04:24 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c605d59f-e146-11ec-837f-e5687231ffcc;
+ Wed, 01 Jun 2022 03:04:23 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D39666149D;
- Wed,  1 Jun 2022 00:53:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ADDDC385A9;
- Wed,  1 Jun 2022 00:53:48 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 79F94B816D7;
+ Wed,  1 Jun 2022 01:04:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73A09C385A9;
+ Wed,  1 Jun 2022 01:04:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,209 +43,229 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4d04c200-e145-11ec-bd2c-47488cf2e6aa
+X-Inumbo-ID: c605d59f-e146-11ec-837f-e5687231ffcc
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1654044829;
-	bh=EQ7y3MecILqxCm4jEd/aUGty8mqg6Pqf5GSMHZ3CV4A=;
+	s=k20201202; t=1654045461;
+	bh=kW5xdDcGdNBM55f+KPx7Jkd8syxwJ//ekvpEVj5fpIg=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=iT2Hr0gEyj9nwHnMgGrg5ZFexC2dH48t7hzBN1IDF9PAB6qUaRSinConRCTu8BtPE
-	 R1tuk/hLs/JgCcKEnZF5j9oLorGTg7DzoDSvFqO/vBKtO/JRHkeam7mqEoA2a+djs4
-	 lKbMCzYh91dyRR5NW1X38ykgpdgx6O1b5QyzaXy7k0yyZYx/WtqiKC/ahl+i0FE+8W
-	 GtN/07/8TzuFpbJcmZTqbfjai2y1dAUNiTnch5ddRsKJIMmFMqsD4VF61FuxALvEZZ
-	 9PkilrXJ03elxU2G0UwJs/nlGnXPscuyIx7TkTVve2azJnESxMwH6ccexp8qW2NAFK
-	 tbfL7jOR/49tg==
-Date: Tue, 31 May 2022 17:53:47 -0700 (PDT)
+	b=j3p+qbK3MoH6Hna9Wv7INOefAW+kCSe8/T9nNxnQs/3gxiqD/91gJIywTlvmp6ltD
+	 3WNm901iZLSNvlpjNk1+yahbcFFTqIIensrcyZ0aP1EIFWRqFghA+EU71IhRpqQj7T
+	 vvhYDnYOBBZsgAqz9fQ65ZztXFuM42FoQdfWnHZKvCKIvh2dlq0eHJSVQ5gd50HZhs
+	 tZlNdloM5zXoBTFn5PFz2QfH1TquihkOEYq+DA7PupBAc5kJwYFh60Rd8f2nDSTjiX
+	 8Z+X8EoM2lJ63L+Dq+GMQ3lkMosnKX2OQJvkr7n0H0n4fFmUZqeuve9K6qTlEiu2T8
+	 tAYEAdZ2KVc3g==
+Date: Tue, 31 May 2022 18:04:19 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
-    linux-arm-kernel@lists.infradead.org, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-    Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>, 
-    "Michael S. Tsirkin" <mst@redhat.com>, 
-    Christoph Hellwig <hch@infradead.org>
-Subject: Re: [PATCH V3 7/8] xen/grant-dma-ops: Retrieve the ID of backend's
- domain for DT devices
-In-Reply-To: <1653944417-17168-8-git-send-email-olekstysh@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2205311741470.1905099@ubuntu-linux-20-04-desktop>
-References: <1653944417-17168-1-git-send-email-olekstysh@gmail.com> <1653944417-17168-8-git-send-email-olekstysh@gmail.com>
+cc: xen-devel@lists.xenproject.org, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Wei Liu <wl@xen.org>, 
+    Anthony PERARD <anthony.perard@citrix.com>, 
+    Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH V2] libxl/arm: Create specific IOMMU node to be referred
+ by virtio-mmio device
+In-Reply-To: <1653944813-17970-1-git-send-email-olekstysh@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2205311755010.1905099@ubuntu-linux-20-04-desktop>
+References: <1653944813-17970-1-git-send-email-olekstysh@gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-526242627-1654045461=:1905099"
 
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
+--8323329-526242627-1654045461=:1905099
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
 On Tue, 31 May 2022, Oleksandr Tyshchenko wrote:
-
 > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > 
-> Use the presence of "iommus" property pointed to the IOMMU node with
-> recently introduced "xen,grant-dma" compatible as a clear indicator
-> of enabling Xen grant mappings scheme for that device and read the ID
-> of Xen domain where the corresponding backend is running. The domid
-> (domain ID) is used as an argument to the Xen grant mapping APIs.
+> Reuse generic IOMMU device tree bindings to communicate Xen specific
+> information for the virtio devices for which the restricted memory
+> access using Xen grant mappings need to be enabled.
 > 
-> To avoid the deferred probe timeout which takes place after reusing
-> generic IOMMU device tree bindings (because the IOMMU device never
-> becomes available) enable recently introduced stub IOMMU driver by
-> selecting XEN_GRANT_DMA_IOMMU.
+> Insert "iommus" property pointed to the IOMMU node with "xen,grant-dma"
+> compatible to all virtio devices which backends are going to run in
+> non-hardware domains (which are non-trusted by default).
 > 
-> Also introduce xen_is_grant_dma_device() to check whether xen-grant
-> DMA ops need to be set for a passed device.
+> Based on device-tree binding from Linux:
+> Documentation/devicetree/bindings/iommu/xen,grant-dma.yaml
 > 
-> Remove the hardcoded domid 0 in xen_grant_setup_dma_ops().
+> The example of generated nodes:
+> 
+> xen_iommu {
+>     compatible = "xen,grant-dma";
+>     #iommu-cells = <0x01>;
+>     phandle = <0xfde9>;
+> };
+> 
+> virtio@2000000 {
+>     compatible = "virtio,mmio";
+>     reg = <0x00 0x2000000 0x00 0x200>;
+>     interrupts = <0x00 0x01 0xf01>;
+>     interrupt-parent = <0xfde8>;
+>     dma-coherent;
+>     iommus = <0xfde9 0x01>;
+> };
+> 
+> virtio@2000200 {
+>     compatible = "virtio,mmio";
+>     reg = <0x00 0x2000200 0x00 0x200>;
+>     interrupts = <0x00 0x02 0xf01>;
+>     interrupt-parent = <0xfde8>;
+>     dma-coherent;
+>     iommus = <0xfde9 0x01>;
+> };
 > 
 > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
 > ---
+> !!! This patch is based on non upstreamed yet “Virtio support for toolstack
+> on Arm” V8 series which is on review now:
+> https://lore.kernel.org/xen-devel/1651598763-12162-1-git-send-email-olekstysh@gmail.com/
+> 
+> New device-tree binding (commit #5) is a part of solution to restrict memory
+> access under Xen using xen-grant DMA-mapping layer (which is also on review):
+> https://lore.kernel.org/xen-devel/1653944417-17168-1-git-send-email-olekstysh@gmail.com/
+> 
 > Changes RFC -> V1:
->    - new patch, split required changes from commit:
->     "[PATCH 4/6] virtio: Various updates to xen-virtio DMA ops layer"
->    - update checks in xen_virtio_setup_dma_ops() to only support
->      DT devices for now
->    - remove the "virtio,mmio" check from xen_is_virtio_device()
->    - remane everything according to the new naming scheme:
->      s/virtio/grant_dma
+>    - update commit description
+>    - rebase according to the recent changes to
+>      "libxl: Introduce basic virtio-mmio support on Arm"
 > 
 > Changes V1 -> V2:
->    - remove dev_is_pci() check in xen_grant_setup_dma_ops()
->    - remove EXPORT_SYMBOL_GPL(xen_is_grant_dma_device);
-> 
-> Changes V2 -> V3:
->    - Stefano already gave his Reviewed-by, I dropped it due to the changes (significant)
->    - update commit description
->    - reuse generic IOMMU device tree bindings, select XEN_GRANT_DMA_IOMMU
->      to avoid the deferred probe timeout
+>    - Henry already gave his Reviewed-by, I dropped it due to the changes
+>    - use generic IOMMU device tree bindings instead of custom property
+>      "xen,dev-domid"
+>    - change commit subject and description, was
+>      "libxl/arm: Insert "xen,dev-domid" property to virtio-mmio device node"
 > ---
->  drivers/xen/Kconfig         |  1 +
->  drivers/xen/grant-dma-ops.c | 48 ++++++++++++++++++++++++++++++++++++++-------
->  include/xen/xen-ops.h       |  5 +++++
->  3 files changed, 47 insertions(+), 7 deletions(-)
+>  tools/libs/light/libxl_arm.c          | 49 ++++++++++++++++++++++++++++++++---
+>  xen/include/public/device_tree_defs.h |  1 +
+>  2 files changed, 47 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
-> index 35d20d9..bfd5f4f 100644
-> --- a/drivers/xen/Kconfig
-> +++ b/drivers/xen/Kconfig
-> @@ -347,6 +347,7 @@ config XEN_VIRTIO
->  	bool "Xen virtio support"
->  	depends on VIRTIO
->  	select XEN_GRANT_DMA_OPS
-> +	select XEN_GRANT_DMA_IOMMU if OF
->  	help
->  	  Enable virtio support for running as Xen guest. Depending on the
->  	  guest type this will require special support on the backend side
-> diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
-> index 44659f4..6586152 100644
-> --- a/drivers/xen/grant-dma-ops.c
-> +++ b/drivers/xen/grant-dma-ops.c
-> @@ -55,11 +55,6 @@ static struct xen_grant_dma_data *find_xen_grant_dma_data(struct device *dev)
->   * Such a DMA address is formed by using the grant reference as a frame
->   * number and setting the highest address bit (this bit is for the backend
->   * to be able to distinguish it from e.g. a mmio address).
-> - *
-> - * Note that for now we hard wire dom0 to be the backend domain. In order
-> - * to support any domain as backend we'd need to add a way to communicate
-> - * the domid of this backend, e.g. via Xenstore, via the PCI-device's
-> - * config space or DT/ACPI.
->   */
->  static void *xen_grant_dma_alloc(struct device *dev, size_t size,
->  				 dma_addr_t *dma_handle, gfp_t gfp,
-> @@ -275,9 +270,26 @@ static const struct dma_map_ops xen_grant_dma_ops = {
->  	.dma_supported = xen_grant_dma_supported,
->  };
->  
-> +bool xen_is_grant_dma_device(struct device *dev)
-> +{
-> +	struct device_node *iommu_np;
-> +	bool has_iommu;
-> +
-> +	/* XXX Handle only DT devices for now */
-> +	if (!dev->of_node)
-> +		return false;
-> +
-> +	iommu_np = of_parse_phandle(dev->of_node, "iommus", 0);
-> +	has_iommu = iommu_np && of_device_is_compatible(iommu_np, "xen,grant-dma");
-> +	of_node_put(iommu_np);
-> +
-> +	return has_iommu;
-> +}
-> +
->  void xen_grant_setup_dma_ops(struct device *dev)
->  {
->  	struct xen_grant_dma_data *data;
-> +	struct of_phandle_args iommu_spec;
->  
->  	data = find_xen_grant_dma_data(dev);
->  	if (data) {
-> @@ -285,12 +297,34 @@ void xen_grant_setup_dma_ops(struct device *dev)
->  		return;
->  	}
->  
-> +	/* XXX ACPI device unsupported for now */
-> +	if (!dev->of_node)
-> +		goto err;
-> +
-> +	if (of_parse_phandle_with_args(dev->of_node, "iommus", "#iommu-cells",
-> +			0, &iommu_spec)) {
-> +		dev_err(dev, "Cannot parse iommus property\n");
-> +		goto err;
-> +	}
-> +
-> +	if (!of_device_is_compatible(iommu_spec.np, "xen,grant-dma") ||
-> +			iommu_spec.args_count != 1) {
-> +		dev_err(dev, "Incompatible IOMMU node\n");
-> +		of_node_put(iommu_spec.np);
-> +		goto err;
-> +	}
-> +
-> +	of_node_put(iommu_spec.np);
-> +
->  	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
->  	if (!data)
->  		goto err;
->  
-> -	/* XXX The dom0 is hardcoded as the backend domain for now */
-> -	data->backend_domid = 0;
-> +	/*
-> +	 * The endpoint ID here means the ID of the domain where the corresponding
-> +	 * backend is running
-> +	 */
-> +	data->backend_domid = iommu_spec.args[0];
->  
->  	if (xa_err(xa_store(&xen_grant_dma_devices, (unsigned long)dev, data,
->  			GFP_KERNEL))) {
-> diff --git a/include/xen/xen-ops.h b/include/xen/xen-ops.h
-> index 4f9fad5..62be9dc 100644
-> --- a/include/xen/xen-ops.h
-> +++ b/include/xen/xen-ops.h
-> @@ -223,10 +223,15 @@ static inline void xen_preemptible_hcall_end(void) { }
->  
->  #ifdef CONFIG_XEN_GRANT_DMA_OPS
->  void xen_grant_setup_dma_ops(struct device *dev);
-> +bool xen_is_grant_dma_device(struct device *dev);
->  #else
->  static inline void xen_grant_setup_dma_ops(struct device *dev)
->  {
+> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+> index 9be9b2a..72da3b1 100644
+> --- a/tools/libs/light/libxl_arm.c
+> +++ b/tools/libs/light/libxl_arm.c
+> @@ -865,9 +865,32 @@ static int make_vpci_node(libxl__gc *gc, void *fdt,
+>      return 0;
 >  }
-> +static inline bool xen_is_grant_dma_device(struct device *dev)
-> +{
-> +	return false;
-> +}
->  #endif /* CONFIG_XEN_GRANT_DMA_OPS */
 >  
->  #endif /* INCLUDE_XEN_OPS_H */
+> +static int make_xen_iommu_node(libxl__gc *gc, void *fdt)
+> +{
+> +    int res;
+> +
+> +    /* See Linux Documentation/devicetree/bindings/iommu/xen,grant-dma.yaml */
+> +    res = fdt_begin_node(fdt, "xen_iommu");
+> +    if (res) return res;
+> +
+> +    res = fdt_property_compat(gc, fdt, 1, "xen,grant-dma");
+> +    if (res) return res;
+> +
+> +    res = fdt_property_cell(fdt, "#iommu-cells", 1);
+> +    if (res) return res;
+> +
+> +    res = fdt_property_cell(fdt, "phandle", GUEST_PHANDLE_IOMMU);
+> +    if (res) return res;
+> +
+> +    res = fdt_end_node(fdt);
+> +    if (res) return res;
+> +
+> +    return 0;
+> +}
+>  
+>  static int make_virtio_mmio_node(libxl__gc *gc, void *fdt,
+> -                                 uint64_t base, uint32_t irq)
+> +                                 uint64_t base, uint32_t irq,
+> +                                 uint32_t backend_domid)
+>  {
+>      int res;
+>      gic_interrupt intr;
+> @@ -890,6 +913,16 @@ static int make_virtio_mmio_node(libxl__gc *gc, void *fdt,
+>      res = fdt_property(fdt, "dma-coherent", NULL, 0);
+>      if (res) return res;
+>  
+> +    if (backend_domid != LIBXL_TOOLSTACK_DOMID) {
+> +        uint32_t iommus_prop[2];
+> +
+> +        iommus_prop[0] = cpu_to_fdt32(GUEST_PHANDLE_IOMMU);
+> +        iommus_prop[1] = cpu_to_fdt32(backend_domid);
+> +
+> +        res = fdt_property(fdt, "iommus", iommus_prop, sizeof(iommus_prop));
+> +        if (res) return res;
+> +    }
+> +
+>      res = fdt_end_node(fdt);
+>      if (res) return res;
+>  
+> @@ -1097,6 +1130,7 @@ static int libxl__prepare_dtb(libxl__gc *gc, libxl_domain_config *d_config,
+>      size_t fdt_size = 0;
+>      int pfdt_size = 0;
+>      libxl_domain_build_info *const info = &d_config->b_info;
+> +    bool iommu_created;
+>      unsigned int i;
+>  
+>      const libxl_version_info *vers;
+> @@ -1204,11 +1238,20 @@ next_resize:
+>          if (d_config->num_pcidevs)
+>              FDT( make_vpci_node(gc, fdt, ainfo, dom) );
+>  
+> +        iommu_created = false;
+>          for (i = 0; i < d_config->num_disks; i++) {
+>              libxl_device_disk *disk = &d_config->disks[i];
+>  
+> -            if (disk->specification == LIBXL_DISK_SPECIFICATION_VIRTIO)
+> -                FDT( make_virtio_mmio_node(gc, fdt, disk->base, disk->irq) );
+> +            if (disk->specification == LIBXL_DISK_SPECIFICATION_VIRTIO) {
+> +                if (disk->backend_domid != LIBXL_TOOLSTACK_DOMID &&
+> +                    !iommu_created) {
+> +                    FDT( make_xen_iommu_node(gc, fdt) );
+> +                    iommu_created = true;
+> +                }
+> +
+> +                FDT( make_virtio_mmio_node(gc, fdt, disk->base, disk->irq,
+> +                                           disk->backend_domid) );
+> +            }
+
+This is a matter of taste as the code would also work as is, but I would
+do the following instead:
+
+
+if ( d_config->num_disks > 0 &&
+     disk->backend_domid != LIBXL_TOOLSTACK_DOMID) {
+     FDT( make_xen_iommu_node(gc, fdt) );
+}
+
+for (i = 0; i < d_config->num_disks; i++) {
+    libxl_device_disk *disk = &d_config->disks[i];
+
+    if (disk->specification == LIBXL_DISK_SPECIFICATION_VIRTIO)
+        FDT( make_virtio_mmio_node(gc, fdt, disk->base, disk->irq) );
+}
+
+but I would give my acked-by anyway
+
+
+>          }
+>  
+>          if (pfdt)
+> diff --git a/xen/include/public/device_tree_defs.h b/xen/include/public/device_tree_defs.h
+> index 209d43d..df58944 100644
+> --- a/xen/include/public/device_tree_defs.h
+> +++ b/xen/include/public/device_tree_defs.h
+> @@ -7,6 +7,7 @@
+>   * onwards. Reserve a high value for the GIC phandle.
+>   */
+>  #define GUEST_PHANDLE_GIC (65000)
+> +#define GUEST_PHANDLE_IOMMU (GUEST_PHANDLE_GIC + 1)
+>  
+>  #define GUEST_ROOT_ADDRESS_CELLS 2
+>  #define GUEST_ROOT_SIZE_CELLS 2
 > -- 
 > 2.7.4
 > 
-> 
-> _______________________________________________
-> linux-arm-kernel mailing list
-> linux-arm-kernel@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
-> 
+--8323329-526242627-1654045461=:1905099--
 
