@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03598539ABB
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Jun 2022 03:26:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.340138.565093 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36552539ABA
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Jun 2022 03:26:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.340139.565098 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nwD7M-0005GG-9I; Wed, 01 Jun 2022 01:25:48 +0000
+	id 1nwD7M-0005Lc-GZ; Wed, 01 Jun 2022 01:25:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 340138.565093; Wed, 01 Jun 2022 01:25:48 +0000
+Received: by outflank-mailman (output) from mailman id 340139.565098; Wed, 01 Jun 2022 01:25:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nwD7M-0005EK-5X; Wed, 01 Jun 2022 01:25:48 +0000
-Received: by outflank-mailman (input) for mailman id 340138;
+	id 1nwD7M-0005G6-Cc; Wed, 01 Jun 2022 01:25:48 +0000
+Received: by outflank-mailman (input) for mailman id 340139;
  Wed, 01 Jun 2022 01:25:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Y5RR=WI=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1nwD7K-0005E9-67
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1L9V=WI=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nwD7K-0005E9-LG
  for xen-devel@lists.xenproject.org; Wed, 01 Jun 2022 01:25:46 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [2001:470:1f07:15ff::f7])
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bfdc4f4d-e149-11ec-bd2c-47488cf2e6aa;
- Wed, 01 Jun 2022 03:25:43 +0200 (CEST)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 2511PJYT083152
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Tue, 31 May 2022 21:25:25 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.16.1/8.15.2/Submit) id 2511PDJs083151;
- Tue, 31 May 2022 18:25:13 -0700 (PDT) (envelope-from ehem)
+ id c19e9f6d-e149-11ec-bd2c-47488cf2e6aa;
+ Wed, 01 Jun 2022 03:25:44 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 60222614D1;
+ Wed,  1 Jun 2022 01:25:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C92DC385A9;
+ Wed,  1 Jun 2022 01:25:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,79 +44,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bfdc4f4d-e149-11ec-bd2c-47488cf2e6aa
-Date: Tue, 31 May 2022 18:25:13 -0700
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v2 3/3] tools/xl: Allow specifying JSON for domain
- configuration file format
-Message-ID: <Ypa/+X7FQT2WaX12@mattapan.m5p.com>
-References: <cover.1651285313.git.ehem+xen@m5p.com>
- <9aa6160b2664a52ff778fad67c366d67d3a0f8ab.1651285313.git.ehem+xen@m5p.com>
- <Yoeh3nMNW0AfcHr/@perard.uk.xensource.com>
+X-Inumbo-ID: c19e9f6d-e149-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1654046742;
+	bh=l3SMqciVZHaKgi7Ph50tHbWwmzq4dF2H+tB+R/o8Cs0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=WLzJWy2WWEM3LPTRHgNloFvWlijXav99apATVtW3l0K/SZAY0YsAShjPpkIt/Gmu1
+	 alxnxt8uYLEsghk9n7xaY/J5ibq7al7ZMjBmmRT0eJ2hUK9XwQkP5XYBGi1xiL9qv0
+	 anlZbRhy2FMRIDjofiuCYlGJ5Ury1gDrCN4/0igO3jsDd4sN3xv5uB78Cig8rZs7f8
+	 23WJosoXpvpahOS1CRgfy0SJL43ftXQju+9HjdSD+SBqU4UoSXdn54rVEsPNpCXzj2
+	 4Zs9+nNsyUG3ec69WnLlc3qVEv/L3xXyTbsl3xbQfBC7kB4ONVArkPpVMWgiJStXRo
+	 mRqh/WrR8V0/A==
+Date: Tue, 31 May 2022 18:25:41 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Andrew Cooper <Andrew.Cooper3@citrix.com>, 
+    Roger Pau Monne <roger.pau@citrix.com>, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH 1/2] docs/misra: introduce rules.rst
+In-Reply-To: <10687069-5498-11f8-5474-fa34ee837025@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2205311823570.1905099@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2205241650160.1905099@ubuntu-linux-20-04-desktop> <alpine.DEB.2.22.394.2205251740280.1905099@ubuntu-linux-20-04-desktop> <0cf7383d-896e-76f0-b1cc-2f20bd7f368e@suse.com> <D9A44AC3-A959-442F-A94C-C9EFB359BEF1@arm.com>
+ <da68ca4d-3498-ec6a-7a5d-040f23dd41a6@suse.com> <765738F2-97E9-40EF-A50E-2912C7D2A286@arm.com> <alpine.DEB.2.22.394.2205261233000.1905099@ubuntu-linux-20-04-desktop> <c0b481fb-5172-3515-764f-dba9f906c049@suse.com> <alpine.DEB.2.22.394.2205271602320.1905099@ubuntu-linux-20-04-desktop>
+ <3882cc86-72a7-8e19-5f7b-b1cc89cce02e@xen.org> <5b790260-dd5c-9f62-7151-7684a0dc18fa@suse.com> <0cc9c342-f355-5816-09e9-a996624c6a79@xen.org> <6d6115a9-2810-0c9b-bba3-968b3ac50110@suse.com> <d4c6aa78-cc94-274c-db05-c62ff0badc9d@xen.org>
+ <dcafd462-f912-8c59-f1bf-32f65ae45fd4@suse.com> <A7121189-9A68-41C6-A8EF-D823A0BBF4FF@citrix.com> <138D3C39-74A6-46CB-B598-2FC5FAD1E52D@arm.com> <10687069-5498-11f8-5474-fa34ee837025@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Yoeh3nMNW0AfcHr/@perard.uk.xensource.com>
-X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=3.4.5
-X-Spam-Checker-Version: SpamAssassin 3.4.5 (2021-03-20) on mattapan.m5p.com
+Content-Type: multipart/mixed; boundary="8323329-756105103-1654046742=:1905099"
 
-On Fri, May 20, 2022 at 03:12:46PM +0100, Anthony PERARD wrote:
-> On Tue, Apr 19, 2022 at 06:23:41PM -0700, Elliott Mitchell wrote:
-> > JSON is currently used when saving domains to mass storage.  Being able
-> > to use JSON as the normal input to `xl create` has potential to be
-> > valuable.  Add the functionality.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-756105103-1654046742=:1905099
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Tue, 31 May 2022, Julien Grall wrote:
+> Hi,
+> 
+> On 30/05/2022 14:35, Bertrand Marquis wrote:
+> > > Obviously something *else* we might want is a more convenient way to keep
+> > > that rationale for the future, when we start to officially document
+> > > deviations.  Given that the scanner will point out all the places where
+> > > deviations happen, I don’t think an unstructured comment with an informal
+> > > summary of the justification would be a problem — it seems like it would
+> > > be a lot easier, when we start to officially document deviations, to
+> > > transform comments in the existing codebase, than to search through the
+> > > mailing lists and/or git commit history to find the rationale (or try to
+> > > work out unaided what the intent was).  But I don’t have strong opinions
+> > > on the matter.
 > > 
-> > Move the memset() earlier so to allow use of the structure sooner.
+> > Maybe agreeing on a simple tag to start that can later be improved (Luca
+> > Fancellu on my side will start working on that with the FuSa SIG and Eclair
+> > next month).
 > > 
-> > Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>
+> > So I would suggest:
+> > 
+> > /**
+> >   * MISRA_DEV: Rule ID
+> >   * xxxxx justification
+> >   *
+> >   */
+> > 
+> > Whenever we will have defined the final way, we will replace those entries
+> > with the new system.
+> > 
+> > Would that be an agreeable solution ?
 > 
-> So, I gave this a try and creating a guest from a json config, and that
-> fails very early with "Unknown guest type".
-> 
-> Have you actually tried to create a guest from config file written in
-> json?
-> 
-> Also, this would need documentation about the new option, about the
-> format. The man page need to be edited.
-> 
-> An example of a config file written in json would be nice as well.
+> I am fine with that. With one NIT thought, in Xen comments the first line of
+> multi-line comment is "/*" rather than "/**".
 
-I'll be trying for these at some point, but no timeframe yet.  This was
-an idea which occurred to me when looking at things.  I'm wavering on
-whether this is the way to go...
-
-Real goal is I would like to generate a replacement for the `xendomains`
-init script.  While functional the script is woefully inadaquate for
-anything other than the tiniest installation.
-
-Notably there can be ordering constraints for start/shutdown (worse,
-those could be distinct).  One might also wish different strategies for
-different domains (some get saved to disk on reboot, some might get
-shutdown/restarted).
-
-
-For some of the configuration for this, adding to domain.cfg files makes
-sense.  This though ends up with the issue of what should the extra data
-look like?
-
-I'm oscillating between adding a section in something libxl's parser
-takes as a comment, versus adding a configuration option to domain.cfg
-(libxl's parser ignores unknown sections which is not entirely good!).
-JSON's structure would be good for an addition, but JSON comes with its
-own downsides.
-
-Most likely such a thing would be implemented in Python.  Needs a bit
-more math than shell is good for.
-
-
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+I went with this (added it on top of the file.) As George wrote, I don't
+have a strong opinion as at this stage we just need to get the ball
+rolling and all options are OK.
+--8323329-756105103-1654046742=:1905099--
 
