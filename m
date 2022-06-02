@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C48A153B7AD
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Jun 2022 13:18:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.341093.566272 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6285253B8F3
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Jun 2022 14:24:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.341123.566290 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nwiq3-0006If-9x; Thu, 02 Jun 2022 11:18:03 +0000
+	id 1nwjqo-0006VM-AU; Thu, 02 Jun 2022 12:22:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 341093.566272; Thu, 02 Jun 2022 11:18:03 +0000
+Received: by outflank-mailman (output) from mailman id 341123.566290; Thu, 02 Jun 2022 12:22:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nwiq3-0006GZ-5S; Thu, 02 Jun 2022 11:18:03 +0000
-Received: by outflank-mailman (input) for mailman id 341093;
- Thu, 02 Jun 2022 11:18:01 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nwiq1-0006GP-L8; Thu, 02 Jun 2022 11:18:01 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nwiq1-0002Bw-HO; Thu, 02 Jun 2022 11:18:01 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nwiq1-0003ij-5a; Thu, 02 Jun 2022 11:18:01 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nwiq1-0005qR-4z; Thu, 02 Jun 2022 11:18:01 +0000
+	id 1nwjqo-0006Sa-7Q; Thu, 02 Jun 2022 12:22:54 +0000
+Received: by outflank-mailman (input) for mailman id 341123;
+ Thu, 02 Jun 2022 12:22:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Vp+S=WJ=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1nwjqn-0006SU-4W
+ for xen-devel@lists.xenproject.org; Thu, 02 Jun 2022 12:22:53 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b91ba473-e26e-11ec-bd2c-47488cf2e6aa;
+ Thu, 02 Jun 2022 14:22:52 +0200 (CEST)
+Received: by mail-lf1-x129.google.com with SMTP id i10so7602158lfj.0
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jun 2022 05:22:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +39,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=u51Mr3s3+x+1gNyDtPqbavHuOXoosP8Ii8DG7KsBSeU=; b=T3NtseVjRYSVhoMRE7ny2tDuRc
-	bYwmWK/3iJWZHfa0FVZAAQxtb4h0xu43vqJ2dqAob+n6QGMnS2xXqjTdwZmZ0ITftsPieBC6UyQuU
-	HFQSJbwVP/SiFh4JHqlAypqEWTvM/Fv9dluaoyhVaSNbEiQe+hVYkdpXTmd9z3/BSw2E=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170807-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: b91ba473-e26e-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=VOQZA0pHYqK4XdbW9GaYy4EgHWG2TtOSiKjo+AkEHcM=;
+        b=UnE1Rplcr6LJMmwXyiL8ub39B1DsH07ftzTp2OVzdHGbBuxHegfEbgNiYk0LTgRA8Q
+         52K0TR54JuB4WxHpGvQ8tl2RYold0dDK00bsLnJbq8Yg+lCaOSCQFasYxpY0dLfInTgs
+         7gQ19qYW1M6D6Z3e4mL14Y9+XIwN3YOm/MtYtG/Wv7bJJs9vyp/VNaV0eQM3FEhoyMIi
+         3x7yA+IhqxRTNkOak9X+TW13moVPwvJqYCv4jKAf/TucWy6yL6+bZaHiQjnbCqwEN+ih
+         cDn2R3aLAl1xQWUM+KA8AFT23ALZPYKaRyK6YHf/zAkApYAkW0pA3x1pXfoJQkUNTFDv
+         g2wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=VOQZA0pHYqK4XdbW9GaYy4EgHWG2TtOSiKjo+AkEHcM=;
+        b=2TrWzO1Yu04Dun5X4rJedfYilqrMaof8tX97ZBFiJlmN72QYuIqNKBh40vQHP1uTXu
+         UGfiInJim98hC0bFVK6ByuWL9+BaZaEOrlL+Ubb1DgX/sLs/yUyT8mEJYkQwh9U1aAw2
+         ot1Sft4Vkyqw2nR8dSGs1OilgoQDR0V3IGigm6bJujs1aop09MqEFLLMkINK04/hGB2Q
+         1+qfTlvuYpgjOLR2BvWC7tag/+yBHN3YJx04SvJKoyxXY6tpI4n9lmqI1fDeS6skn+gq
+         md2sOR7y0+nnKSloxReWx64AG3k65nqJ7Unk/vCHNxhRola42mws+lJzcFpblnCF8PIT
+         4hkw==
+X-Gm-Message-State: AOAM531A/Nzshm59kvV2YjEJxpdaipryj0xCEZf/SXbjCgDlgpozNEQ4
+	z3xnjNICJ90NIV+0vsMLN3lphrpiHMPzYAOc5GA=
+X-Google-Smtp-Source: ABdhPJyVvZ/uTNq8sMKoJG6ijdTCL0j2WKweW33CgjPbnGda+c3G9nCqp0xIzgTsfNiXS+BPfYkG1BIjTPHHQt2wSv4=
+X-Received: by 2002:a05:6512:b17:b0:478:d66d:f747 with SMTP id
+ w23-20020a0565120b1700b00478d66df747mr17038767lfu.447.1654172571822; Thu, 02
+ Jun 2022 05:22:51 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [ovmf test] 170807: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=64706ef761273ba403f9cb3b7a986bfb804c0a87
-X-Osstest-Versions-That:
-    ovmf=62044aa99bcf0a7b1581b24ad8e8f105e48fa15a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 02 Jun 2022 11:18:01 +0000
+References: <20220601195341.28581-1-jandryuk@gmail.com> <YphSYfdzy8kekhTZ@infradead.org>
+In-Reply-To: <YphSYfdzy8kekhTZ@infradead.org>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Thu, 2 Jun 2022 08:22:40 -0400
+Message-ID: <CAKf6xpsbgyvJjdRGrE3ru114iuXv98rumf8nVvKu5WmErf+zTA@mail.gmail.com>
+Subject: Re: [PATCH] xen-blkfront: Handle NULL gendisk
+To: Christoph Hellwig <hch@infradead.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross <jgross@suse.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+	xen-devel <xen-devel@lists.xenproject.org>, linux-block@vger.kernel.org, 
+	open list <linux-kernel@vger.kernel.org>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-flight 170807 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170807/
+On Thu, Jun 2, 2022 at 2:02 AM Christoph Hellwig <hch@infradead.org> wrote:
+>
+> On Wed, Jun 01, 2022 at 03:53:41PM -0400, Jason Andryuk wrote:
+> > When a VBD is not fully created and then closed, the kernel can have a
+> > NULL pointer dereference:
+> >
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 64706ef761273ba403f9cb3b7a986bfb804c0a87
-baseline version:
- ovmf                 62044aa99bcf0a7b1581b24ad8e8f105e48fa15a
+> >
+> > info->rq and info->gd are only set in blkfront_connect(), which is
+> > called for state 4 (XenbusStateConnected).  Guard against using NULL
+> > variables in blkfront_closing() to avoid the issue.
+> >
+> > The rest of blkfront_closing looks okay.  If info->nr_rings is 0, then
+> > for_each_rinfo won't do anything.
+> >
+> > blkfront_remove also needs to check for non-NULL pointers before
+> > cleaning up the gendisk and request queue.
+> >
+> > Fixes: 05d69d950d9d "xen-blkfront: sanitize the removal state machine"
+> > Reported-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingsl=
+ab.com>
+> > Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+>
+> Tis looks ok, but do we have anything that prevents races between
+> blkfront_connect, blkfront_closing and blkfront_remove?
 
-Last test of basis   170798  2022-06-01 13:11:48 Z    0 days
-Testing same since   170807  2022-06-02 09:13:22 Z    0 days    1 attempts
+Thanks for taking a look, Christoph.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Gerd Hoffmann <kraxel@redhat.com>
-  Min Xu <min.m.xu@intel.com>
+blkfront_connect and blkfront_closing are called by the state machine
+in blkback_changed.  blkback_changed is the xenbus_driver
+.otherend_changed callback.  The xenwatch kthread calls callbacks
+synchronously and one at a time, so that seems okay today.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+blkfront_remove is the xenbus_driver .remove callback, so it is tied
+to the life cycle of the device.  It's called after the
+otherend_changed callback is unregistered, so those won't run when
+blkfront_remove is running.
 
+Given that, I think it's okay.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   62044aa99b..64706ef761  64706ef761273ba403f9cb3b7a986bfb804c0a87 -> xen-tested-master
+Regards,
+Jason
 
