@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7215E53C050
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Jun 2022 23:20:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.341270.566481 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B45B153C060
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Jun 2022 23:31:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.341278.566492 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nwsEl-0002jj-9a; Thu, 02 Jun 2022 21:20:11 +0000
+	id 1nwsP3-0004RW-AV; Thu, 02 Jun 2022 21:30:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 341270.566481; Thu, 02 Jun 2022 21:20:11 +0000
+Received: by outflank-mailman (output) from mailman id 341278.566492; Thu, 02 Jun 2022 21:30:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nwsEl-0002gJ-6K; Thu, 02 Jun 2022 21:20:11 +0000
-Received: by outflank-mailman (input) for mailman id 341270;
- Thu, 02 Jun 2022 21:20:09 +0000
+	id 1nwsP3-0004OZ-6z; Thu, 02 Jun 2022 21:30:49 +0000
+Received: by outflank-mailman (input) for mailman id 341278;
+ Thu, 02 Jun 2022 21:30:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UOPH=WJ=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1nwsEj-0002gD-Ci
- for xen-devel@lists.xenproject.org; Thu, 02 Jun 2022 21:20:09 +0000
-Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
- [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c60c3e87-e2b9-11ec-837f-e5687231ffcc;
- Thu, 02 Jun 2022 23:20:07 +0200 (CEST)
-Received: from [10.10.1.138] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1654204804662743.2078611312962;
- Thu, 2 Jun 2022 14:20:04 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=QKCk=WJ=gmail.com=shentey@srs-se1.protection.inumbo.net>)
+ id 1nwsP2-0004OT-2Q
+ for xen-devel@lists.xenproject.org; Thu, 02 Jun 2022 21:30:48 +0000
+Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
+ [2607:f8b0:4864:20::732])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 43925484-e2bb-11ec-837f-e5687231ffcc;
+ Thu, 02 Jun 2022 23:30:46 +0200 (CEST)
+Received: by mail-qk1-x732.google.com with SMTP id 14so4648889qkl.6
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jun 2022 14:30:46 -0700 (PDT)
+Received: by 2002:ac8:7f14:0:0:0:0:0 with HTTP;
+ Thu, 2 Jun 2022 14:30:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,72 +41,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c60c3e87-e2b9-11ec-837f-e5687231ffcc
-ARC-Seal: i=1; a=rsa-sha256; t=1654204805; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=ZAKHKc0ihEqMlIkC7Pg4x00z9OtuyZSOAF8r8POW78p4f4G43L6jf5el0IQMk6ID0F+HzkJRBXP3kkU/lwIyCDGjTTBTZrwMoWITa+7tqehlG6r5wyUDD6fCmUAR4zIcnAfJtORxPGdTtVPRhtsljSHZQia9cdmfZPPV4nOhkog=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1654204805; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=FJKAaVTT+R2zvKSvaDWAN2iQq0wixUB9o/f6YbTjDmU=; 
-	b=BjGukJQfAYZNzTWcH6PuNMnfFTwT95KcK9NPzfOmwxLhYBL2F7f6VGuAvMNO1VjZhslY14GdyV5BQBWq4+1+t7NhBLcTTmyP+n/Xa+LilI0X88psgzHAPSZcekRCCAUjfYEOangs3JEMVUhjC2teJ8m+r787hyrm/Z9D6uxep2s=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1654204805;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:From:From:To:To:Cc:Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=FJKAaVTT+R2zvKSvaDWAN2iQq0wixUB9o/f6YbTjDmU=;
-	b=lChteZMH/J95LziRS7/r+G62+vJG/aVj4WHScNL7uD+GBM22mXA1BL/9HxDrAq9M
-	5Z0CTP6fptRyu/02sv7pAkayx62T9BRBjsnnLISDymYS9isBuVpj8IK+bNurSE52K9D
-	8f4u8tTX1AIvRNL9tp19JKL1jKpLM8TKo1Nd91us=
-Message-ID: <8dde6c92-2c4a-8665-8519-38a01e7421a3@apertussolutions.com>
-Date: Thu, 2 Jun 2022 17:18:34 -0400
+X-Inumbo-ID: 43925484-e2bb-11ec-837f-e5687231ffcc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+         :cc;
+        bh=B/1eqqbHZnQqzfEJFI/2PMisMT8zWNIw4xhukZQmi8Q=;
+        b=lCFMpTN4exoAZQ9n/fx4VXIwJwyfRwqE2Ui1VGvznjFtxo36qExWwecmrmeIgu1rWI
+         wasYI8C7LdH7k2CbE5KZcax5XZ2KdWW1DhVtZuzYr6oF1bxYxV2q1xZqN4h6oupP/xhL
+         /twg9f9HSpWVKu3wwePcw469DdYLgyoezQhu6WLRPAGCktT2J1gjYxr/HHVaL97zCpEu
+         Utn+OIrLmERFLHOdnrIP/l9xkj2edr3Aeb7C4N948mC9oDCNlaS6jpTcazDuPFiCYRYr
+         ofvBGZA+pG5+BUJebadb52KJsh26TZ2g1U+oJwvebpXd2JFfBYrjyiGKVg4Wbw/OVtJN
+         UJGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+         :message-id:subject:to:cc;
+        bh=B/1eqqbHZnQqzfEJFI/2PMisMT8zWNIw4xhukZQmi8Q=;
+        b=tuFVi6X2B5S5bITuSXa9oAnrfhEWIascNSDCJ/MNaxhpv9lVeDXPMPojBeYDj7kjtv
+         gQRh5duc/IJY0PW9GMW9OgFVkdUqqhWsnygRrBWhQ4u8+uuzCRxm04icJiBiow6+eWrI
+         vCcPZ9wIOI7tPUlZl7d34e1LNfZvlTjhb9cm6ZW82jJtySj4xiaagPRENBADN4vzQTor
+         lk849zKezLJ2kWEMsCopAx/DdfmScu5SqKMA24mRouU+nFnhCsBiH2ulP2zv2qQfAkSR
+         tit41Npp1Bl/nDVCyrqSJc4QRJYqx52++1rpcjkv+6xwIH7UIWzj3rUW9m3J4EjuU5QZ
+         zi7w==
+X-Gm-Message-State: AOAM531uG01G7TEvz+49fRlfGy+SkIyMjsn+U2FJ51lxde4vFsm9cBnH
+	ja8ahZ6Kc15NHmfNmWJH9SU/96ZjSSS4fL8/8iw=
+X-Google-Smtp-Source: ABdhPJwKW4JeFyoI54chyz2cWk2dZWekJhToO/7Dlpc/klI1T3tB3WkKbgxiJUpS1AAmIe1zrgsVE0eNKAnElADl81c=
+X-Received: by 2002:a37:917:0:b0:6a6:9a14:b542 with SMTP id
+ 23-20020a370917000000b006a69a14b542mr458042qkj.562.1654205445841; Thu, 02 Jun
+ 2022 14:30:45 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: Re: [PATCH v8 2/2] flask: implement xsm_set_system_active
-Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: xen-devel@lists.xenproject.org
-Cc: scott.davis@starlab.io, christopher.clark@starlab.io, jandryuk@gmail.com,
- Luca Fancellu <luca.fancellu@arm.com>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-References: <20220531145646.10062-1-dpsmith@apertussolutions.com>
- <20220531145646.10062-3-dpsmith@apertussolutions.com>
- <da87eeb4-516c-64bf-ee96-619a19875add@apertussolutions.com>
-In-Reply-To: <da87eeb4-516c-64bf-ee96-619a19875add@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+In-Reply-To: <43BCAA1E-7499-4584-AB60-C5004AA0643B@gmail.com>
+References: <20220513180957.90514-1-shentey@gmail.com> <43BCAA1E-7499-4584-AB60-C5004AA0643B@gmail.com>
+From: Bernhard Beschow <shentey@gmail.com>
+Date: Thu, 2 Jun 2022 23:30:45 +0200
+Message-ID: <CAG4p6K6kZHfC6KLoioozmGWomUoUZwceUQcU+Y9qDo9FraXfyQ@mail.gmail.com>
+Subject: Re: [PATCH v2 0/3] PIIX3-IDE XEN cleanup
+To: "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>
+Cc: qemu-trivial@nongnu.org, sstabellini@kernel.org, anthony.perard@citrix.com, 
+	paul@xen.org, xen-devel@lists.xenproject.org, 
+	Bernhard Beschow <shentey@gmail.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Richard Henderson <richard.henderson@linaro.org>, Eduardo Habkost <eduardo@habkost.net>, 
+	John Snow <jsnow@redhat.com>, qemu-block@nongnu.org
+Content-Type: multipart/alternative; boundary="000000000000fc28c705e07db752"
 
-On 6/2/22 16:32, Daniel P. Smith wrote:
-> On 5/31/22 10:56, Daniel P. Smith wrote:
->> This commit implements full support for starting the idle domain privileged by
->> introducing a new flask label xenboot_t which the idle domain is labeled with
->> at creation.  It then provides the implementation for the XSM hook
->> xsm_set_system_active to relabel the idle domain to the existing xen_t flask
->> label.
+--000000000000fc28c705e07db752
+Content-Type: text/plain; charset="UTF-8"
+
+On Saturday, May 28, 2022, Bernhard Beschow <shentey@gmail.com> wrote:
+> Am 13. Mai 2022 18:09:54 UTC schrieb Bernhard Beschow <shentey@gmail.com>:
+>>v2:
+>>* Have pci_xen_ide_unplug() return void (Paul Durrant)
+>>* CC Xen maintainers (Michael S. Tsirkin)
 >>
->> In the reference flask policy a new macro, xen_build_domain(target), is
->> introduced for creating policies for dom0less/hyperlaunch allowing the
->> hypervisor to create and assign the necessary resources for domain
->> construction.
+>>v1:
+>>This patch series first removes the redundant "piix3-ide-xen" device
+class and
+>>then moves a XEN-specific helper function from PIIX3 code to XEN code.
+The idea
+>>is to decouple PIIX3-IDE and XEN and to compile XEN-specific bits only if
+XEN
+>>support is enabled.
 >>
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
->> Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
->> Tested-by: Luca Fancellu <luca.fancellu@arm.com>
-> 
-> I am still debugging, but I now have a dom0 crashing due to an AVC that
-> is being tripped with this patch applied to the tip of staging. I just
-> wanted to give a heads-up, and I will follow back up once I can
-> determine the root cause.
+>>Testing done:
+>>'qemu-system-x86_64 -M pc -m 1G -cdrom archlinux-2022.05.01-x86_64.iso"
+boots
+>>successfully and a 'poweroff' inside the VM also shuts it down correctly.
+>>
+>>XEN mode wasn't tested for the time being since its setup procedure seems
+quite
+>>sophisticated. Please let me know in case this is an obstacle.
+>>
+>>Bernhard Beschow (3):
+>>  hw/ide/piix: Remove redundant "piix3-ide-xen" device class
+>>  hw/ide/piix: Add some documentation to pci_piix3_xen_ide_unplug()
+>>  include/hw/ide: Unexport pci_piix3_xen_ide_unplug()
+>>
+>> hw/i386/pc_piix.c          |  3 +--
+>> hw/i386/xen/xen_platform.c | 48 +++++++++++++++++++++++++++++++++++++-
+>> hw/ide/piix.c              | 42 ---------------------------------
+>> include/hw/ide.h           |  3 ---
+>> 4 files changed, 48 insertions(+), 48 deletions(-)
+>>
+>
+> Ping
+>
+> Whole series is reviewed/acked.
 
-Please ignore and my apologies for the noise. The updated policy file
-was not getting synced into the test environment.
+Ping 2
 
-v/r,
-dps
+--000000000000fc28c705e07db752
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Saturday, May 28, 2022, Bernhard Beschow &lt;<a href=3D"mailto:shentey@g=
+mail.com">shentey@gmail.com</a>&gt; wrote:<br>&gt; Am 13. Mai 2022 18:09:54=
+ UTC schrieb Bernhard Beschow &lt;<a href=3D"mailto:shentey@gmail.com">shen=
+tey@gmail.com</a>&gt;:<br>&gt;&gt;v2:<br>&gt;&gt;* Have pci_xen_ide_unplug(=
+) return void (Paul Durrant)<br>&gt;&gt;* CC Xen maintainers (Michael S. Ts=
+irkin)<br>&gt;&gt;<br>&gt;&gt;v1:<br>&gt;&gt;This patch series first remove=
+s the redundant &quot;piix3-ide-xen&quot; device class and<br>&gt;&gt;then =
+moves a XEN-specific helper function from PIIX3 code to XEN code. The idea<=
+br>&gt;&gt;is to decouple PIIX3-IDE and XEN and to compile XEN-specific bit=
+s only if XEN<br>&gt;&gt;support is enabled.<br>&gt;&gt;<br>&gt;&gt;Testing=
+ done:<br>&gt;&gt;&#39;qemu-system-x86_64 -M pc -m 1G -cdrom archlinux-2022=
+.05.01-x86_64.iso&quot; boots<br>&gt;&gt;successfully and a &#39;poweroff&#=
+39; inside the VM also shuts it down correctly.<br>&gt;&gt;<br>&gt;&gt;XEN =
+mode wasn&#39;t tested for the time being since its setup procedure seems q=
+uite<br>&gt;&gt;sophisticated. Please let me know in case this is an obstac=
+le.<br>&gt;&gt;<br>&gt;&gt;Bernhard Beschow (3):<br>&gt;&gt;=C2=A0 hw/ide/p=
+iix: Remove redundant &quot;piix3-ide-xen&quot; device class<br>&gt;&gt;=C2=
+=A0 hw/ide/piix: Add some documentation to pci_piix3_xen_ide_unplug()<br>&g=
+t;&gt;=C2=A0 include/hw/ide: Unexport pci_piix3_xen_ide_unplug()<br>&gt;&gt=
+;<br>&gt;&gt; hw/i386/pc_piix.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 3=
+ +--<br>&gt;&gt; hw/i386/xen/xen_platform.c | 48 ++++++++++++++++++++++++++=
++++++++++++-<br>&gt;&gt; hw/ide/piix.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 | 42 ---------------------------------<br>&gt;&gt; include/hw=
+/ide.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 3 ---<br>&gt;&gt; 4 =
+files changed, 48 insertions(+), 48 deletions(-)<br>&gt;&gt;<br>&gt;<br>&gt=
+; Ping<br>&gt;<br>&gt; Whole series is reviewed/acked.<br><br>Ping 2
+
+--000000000000fc28c705e07db752--
 
