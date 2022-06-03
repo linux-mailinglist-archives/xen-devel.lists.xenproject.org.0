@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A0B153D3A8
-	for <lists+xen-devel@lfdr.de>; Sat,  4 Jun 2022 00:34:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.341697.566935 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D10853D3C8
+	for <lists+xen-devel@lfdr.de>; Sat,  4 Jun 2022 01:10:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.341717.566946 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nxFrj-0005Fg-P3; Fri, 03 Jun 2022 22:33:59 +0000
+	id 1nxGPr-0000tR-MG; Fri, 03 Jun 2022 23:09:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 341697.566935; Fri, 03 Jun 2022 22:33:59 +0000
+Received: by outflank-mailman (output) from mailman id 341717.566946; Fri, 03 Jun 2022 23:09:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nxFrj-0005Cl-Lw; Fri, 03 Jun 2022 22:33:59 +0000
-Received: by outflank-mailman (input) for mailman id 341697;
- Fri, 03 Jun 2022 22:33:58 +0000
+	id 1nxGPr-0000rh-IN; Fri, 03 Jun 2022 23:09:15 +0000
+Received: by outflank-mailman (input) for mailman id 341717;
+ Fri, 03 Jun 2022 23:09:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Fj01=WK=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nxFri-0005Cd-EF
- for xen-devel@lists.xenproject.org; Fri, 03 Jun 2022 22:33:58 +0000
+ id 1nxGPp-0000rb-QR
+ for xen-devel@lists.xenproject.org; Fri, 03 Jun 2022 23:09:13 +0000
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4196a916-e38d-11ec-bd2c-47488cf2e6aa;
- Sat, 04 Jun 2022 00:33:57 +0200 (CEST)
+ id 2e29f754-e392-11ec-bd2c-47488cf2e6aa;
+ Sat, 04 Jun 2022 01:09:12 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id D46BCB82482;
- Fri,  3 Jun 2022 22:33:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 366E8C385A9;
- Fri,  3 Jun 2022 22:33:55 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 9D1E8B82473;
+ Fri,  3 Jun 2022 23:09:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 195E9C385A9;
+ Fri,  3 Jun 2022 23:09:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,106 +43,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4196a916-e38d-11ec-bd2c-47488cf2e6aa
+X-Inumbo-ID: 2e29f754-e392-11ec-bd2c-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1654295635;
-	bh=+9JHCtA9BLmi35HrS9NgwTtn0qiew72TgVW99JpUGjU=;
+	s=k20201202; t=1654297750;
+	bh=FnK2Y3LSrb78iul2thCA0adS6+qvrw7Rw8b8irhGjl0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=QPz2+32AZnI21aFRJBEFN4IJXJQezGNMT3ZyDrkMGppvH9hPdgt4btwORr4kkc1ar
-	 rKdi5RLbnn+cG9hxkXq9CO1YRIUS4k+27gfG1avKKSlYsz/6FeY62u5piBkTXEpESx
-	 wNQ2v4jcHid1KLvum6yTibtdnbNyMtEs1XVCUIsH6ext/kAbH4BERpdzsp8kdqep2d
-	 MtKknYhTEPv0p+ksMrSXhfxJorGXHwRRR/pbBmDx6yN/bP4sBvJ+ca04ZZPPLAR+zm
-	 grOJ7CBm663S85SU876ywJMxlwibgAMpa6VwYD01zAsBuq5uk3X/exxoV/kFImf3HR
-	 cGUl3OUNB4PVg==
-Date: Fri, 3 Jun 2022 15:33:54 -0700 (PDT)
+	b=nxEnw2N5ezlJB7DRLFf2ycdYflUqPpo4IqTAi2nE2jsLcS+7ARfWYgw58dDGtBJKU
+	 B7L0Fk4/d/oc/AzTa9eei6eO+7m9dw4KECaOcjA+cvT6a+27J0g/PjlbZed1j/tVWz
+	 pkoOCCQgidHFbLdSsK2CmOH5HUf5nbfSkwjuTsF25UdDgwnNbuuvleKLyFfJnVkgE5
+	 gtIy/SeTmPen1rLGS/NV6vao+RGo2RsI7GfchH9b4GV0lu87SLZzHaCwSB1USZvPFp
+	 01pVhWsDWggf5W2bPnXmKeuY2FKkRqy/JksZelDFYfMAS0ZPcBk2wNXDibiKebuodt
+	 HnCaNApDUBblg==
+Date: Fri, 3 Jun 2022 16:09:09 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Julien Grall <julien@xen.org>
-cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>, 
+cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>, 
     Stefano Stabellini <sstabellini@kernel.org>, 
     Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Julien Grall <jgrall@amazon.com>, Hongda Deng <Hongda.Heng@arm.com>
-Subject: Re: [PATCH 05/16] xen/arm: mm: Re-implement early_fdt_map() using
- map_pages_to_xen()
-In-Reply-To: <20220520120937.28925-6-julien@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2206031533400.2783803@ubuntu-linux-20-04-desktop>
-References: <20220520120937.28925-1-julien@xen.org> <20220520120937.28925-6-julien@xen.org>
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH 13/16] xen/arm32: setup: Move out the code to populate
+ the boot allocator
+In-Reply-To: <20220520120937.28925-14-julien@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2206031557080.2783803@ubuntu-linux-20-04-desktop>
+References: <20220520120937.28925-1-julien@xen.org> <20220520120937.28925-14-julien@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Fri, 20 May 2022, Julien Grall wrote:
-> From: Julien Grall <julien.grall@arm.com>
+> From: Julien Grall <jgrall@amazon.com>
 > 
-> Now that map_pages_to_xen() has been extended to support 2MB mappings,
-> we can replace the create_mappings() calls by map_pages_to_xen() calls.
+> In a follow-up patch, we will want to populate the boot allocator
+> separately for arm64. The code will end up to be very similar to the one
+> on arm32. So move out the code in a new helper populate_boot_allocator().
 > 
-> The mapping can also be marked read-only as Xen should not modify
-> the host Device Tree during boot.
+> For now the code is still protected by CONFIG_ARM_32 to avoid any build
+> failure on arm64.
 > 
-> Signed-off-by: Julien Grall <julien.grall@arm.com>
+> Take the opportunity to replace mfn_add(xen_mfn_start, xenheap_pages) with
+> xenheap_mfn_end as they are equivalent.
+> 
 > Signed-off-by: Julien Grall <jgrall@amazon.com>
-> Reviewed-by: Hongda Deng <Hongda.Heng@arm.com>
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
+> 
 >     Changes in v4:
->         - Fix typo in the commit message
->         - Add Hongda's reviewed-by
-> 
->     Changes in v2:
->         - Add my AWS signed-off-by
->         - Fix typo in the commit message
+>         - Patch added
 > ---
->  xen/arch/arm/mm.c | 18 +++++++++++++-----
->  1 file changed, 13 insertions(+), 5 deletions(-)
+>  xen/arch/arm/setup.c | 90 +++++++++++++++++++++++++-------------------
+>  1 file changed, 51 insertions(+), 39 deletions(-)
 > 
-> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-> index 64a79d45b38c..03f970e4d10b 100644
-> --- a/xen/arch/arm/mm.c
-> +++ b/xen/arch/arm/mm.c
-> @@ -574,6 +574,7 @@ void * __init early_fdt_map(paddr_t fdt_paddr)
->      paddr_t offset;
->      void *fdt_virt;
->      uint32_t size;
-> +    int rc;
+> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+> index d5d0792ed48a..3d5a2283d4ef 100644
+> --- a/xen/arch/arm/setup.c
+> +++ b/xen/arch/arm/setup.c
+> @@ -637,10 +637,58 @@ static void __init init_staticmem_pages(void)
+>  }
 >  
->      /*
->       * Check whether the physical FDT address is set and meets the minimum
-> @@ -589,8 +590,12 @@ void * __init early_fdt_map(paddr_t fdt_paddr)
->      /* The FDT is mapped using 2MB superpage */
->      BUILD_BUG_ON(BOOT_FDT_VIRT_START % SZ_2M);
->  
-> -    create_mappings(xen_second, BOOT_FDT_VIRT_START, paddr_to_pfn(base_paddr),
-> -                    SZ_2M >> PAGE_SHIFT, SZ_2M);
-> +    rc = map_pages_to_xen(BOOT_FDT_VIRT_START, maddr_to_mfn(base_paddr),
-> +                          SZ_2M >> PAGE_SHIFT,
-> +                          PAGE_HYPERVISOR_RO | _PAGE_BLOCK);
-> +    if ( rc )
-> +        panic("Unable to map the device-tree.\n");
+>  #ifdef CONFIG_ARM_32
+> +/*
+> + * Populate the boot allocator. All the RAM but the following regions
+> + * will be added:
+> + *  - Modules (e.g., Xen, Kernel)
+> + *  - Reserved regions
+> + *  - Xenheap
+> + */
+> +static void __init populate_boot_allocator(void)
+> +{
+> +    unsigned int i;
+> +    const struct meminfo *banks = &bootinfo.mem;
 > +
+> +    for ( i = 0; i < banks->nr_banks; i++ )
+> +    {
+> +        const struct membank *bank = &banks->bank[i];
+> +        paddr_t bank_end = bank->start + bank->size;
+> +        paddr_t s, e;
+> +
+> +        s = bank->start;
+> +        while ( s < bank_end )
+> +        {
+> +            paddr_t n = bank_end;
+> +
+> +            e = next_module(s, &n);
+> +
+> +            if ( e == ~(paddr_t)0 )
+> +                e = n = bank_end;
+> +
+> +            /*
+> +             * Module in a RAM bank other than the one which we are
+> +             * not dealing with here.
+> +             */
+> +            if ( e > bank_end )
+> +                e = bank_end;
+> +
+> +            /* Avoid the xenheap */
+> +            if ( s < mfn_to_maddr(xenheap_mfn_end) &&
+> +                 mfn_to_maddr(xenheap_mfn_start) < e )
+> +            {
+> +                e = mfn_to_maddr(xenheap_mfn_start);
+> +                n = mfn_to_maddr(xenheap_mfn_end);
+> +            }
+> +
+> +            fw_unreserved_regions(s, e, init_boot_pages, 0);
+> +            s = n;
+> +        }
+> +    }
+> +}
+> +
+>  static void __init setup_mm(void)
+>  {
+> -    paddr_t ram_start, ram_end, ram_size;
+> -    paddr_t s, e;
+> +    paddr_t ram_start, ram_end, ram_size, e;
+>      unsigned long ram_pages;
+>      unsigned long heap_pages, xenheap_pages, domheap_pages;
+>      int i;
+> @@ -718,43 +766,7 @@ static void __init setup_mm(void)
+>      setup_xenheap_mappings((e >> PAGE_SHIFT) - xenheap_pages, xenheap_pages);
 >  
->      offset = fdt_paddr % SECOND_SIZE;
->      fdt_virt = (void *)BOOT_FDT_VIRT_START + offset;
-> @@ -604,9 +609,12 @@ void * __init early_fdt_map(paddr_t fdt_paddr)
+>      /* Add non-xenheap memory */
+> -    for ( i = 0; i < bootinfo.mem.nr_banks; i++ )
+> -    {
+> -        paddr_t bank_start = bootinfo.mem.bank[i].start;
+> -        paddr_t bank_end = bank_start + bootinfo.mem.bank[i].size;
+> -
+> -        s = bank_start;
+> -        while ( s < bank_end )
+> -        {
+> -            paddr_t n = bank_end;
+> -
+> -            e = next_module(s, &n);
+> -
+> -            if ( e == ~(paddr_t)0 )
+> -            {
+> -                e = n = ram_end;
+> -            }
+> -
+> -            /*
+> -             * Module in a RAM bank other than the one which we are
+> -             * not dealing with here.
+> -             */
+> -            if ( e > bank_end )
+> -                e = bank_end;
+> -
+> -            /* Avoid the xenheap */
+> -            if ( s < mfn_to_maddr(mfn_add(xenheap_mfn_start, xenheap_pages))
+> -                 && mfn_to_maddr(xenheap_mfn_start) < e )
+> -            {
+> -                e = mfn_to_maddr(xenheap_mfn_start);
+> -                n = mfn_to_maddr(mfn_add(xenheap_mfn_start, xenheap_pages));
+> -            }
+> -
+> -            fw_unreserved_regions(s, e, init_boot_pages, 0);
+> -
+> -            s = n;
+> -        }
+> -    }
+> +    populate_boot_allocator();
 >  
->      if ( (offset + size) > SZ_2M )
->      {
-> -        create_mappings(xen_second, BOOT_FDT_VIRT_START + SZ_2M,
-> -                        paddr_to_pfn(base_paddr + SZ_2M),
-> -                        SZ_2M >> PAGE_SHIFT, SZ_2M);
-> +        rc = map_pages_to_xen(BOOT_FDT_VIRT_START + SZ_2M,
-> +                              maddr_to_mfn(base_paddr + SZ_2M),
-> +                              SZ_2M >> PAGE_SHIFT,
-> +                              PAGE_HYPERVISOR_RO | _PAGE_BLOCK);
-> +        if ( rc )
-> +            panic("Unable to map the device-tree\n");
->      }
->  
->      return fdt_virt;
+>      /* Frame table covers all of RAM region, including holes */
+>      setup_frametable_mappings(ram_start, ram_end);
 > -- 
 > 2.32.0
 > 
