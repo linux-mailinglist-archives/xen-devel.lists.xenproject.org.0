@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E121253CC93
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Jun 2022 17:49:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.341614.566857 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5B9C53D326
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Jun 2022 23:20:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.341645.566868 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nx9Wr-0004pv-7U; Fri, 03 Jun 2022 15:48:01 +0000
+	id 1nxEhI-0000qm-Ro; Fri, 03 Jun 2022 21:19:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 341614.566857; Fri, 03 Jun 2022 15:48:01 +0000
+Received: by outflank-mailman (output) from mailman id 341645.566868; Fri, 03 Jun 2022 21:19:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nx9Wr-0004mX-3s; Fri, 03 Jun 2022 15:48:01 +0000
-Received: by outflank-mailman (input) for mailman id 341614;
- Fri, 03 Jun 2022 15:47:59 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nx9Wp-0004mN-Tg; Fri, 03 Jun 2022 15:47:59 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nx9Wp-00078q-R1; Fri, 03 Jun 2022 15:47:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nx9Wp-0007BO-84; Fri, 03 Jun 2022 15:47:59 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nx9Wp-0007pV-7W; Fri, 03 Jun 2022 15:47:59 +0000
+	id 1nxEhI-0000o8-P3; Fri, 03 Jun 2022 21:19:08 +0000
+Received: by outflank-mailman (input) for mailman id 341645;
+ Fri, 03 Jun 2022 21:19:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Fj01=WK=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nxEhG-0000o2-Lz
+ for xen-devel@lists.xenproject.org; Fri, 03 Jun 2022 21:19:06 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cb896c6e-e382-11ec-bd2c-47488cf2e6aa;
+ Fri, 03 Jun 2022 23:19:04 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 7FFEEB82331;
+ Fri,  3 Jun 2022 21:19:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEB51C385A9;
+ Fri,  3 Jun 2022 21:19:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,253 +43,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=YVsQocZ9FwwBXArJNQOebVuz1nGFXYhU3KvBY7Z69nk=; b=I7YmdUn1DQHfJqGW0Ac75uUj9D
-	U50s3LBRb0ii7PFcR7WkA+x6uXfxqcp5tjK8vUvHnha2mbuJyms1yOMA3g0LhrGeNZdr6hxUAefDf
-	8ROjVSI7qFlGdo0vfrWpqQ9C8Jwb589o7NHF4l9dlkwsvCTifBB0gZs1mt3ZeHMsRur0=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170815-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: cb896c6e-e382-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1654291142;
+	bh=d1Q9IPKvjPok8OAnN8PoPnUQadcNmLlAPGerCI7jOBM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=L65XZnLU73fFbHiQ3HoNW52hsUxf9wZWVQr+vBMiuBwt/iIssaNOSaeWuzM14O7L5
+	 NFgJ3Lv9JzFl3/SWM+DJ/tosGwEb5jDEFxwPcVc5x2414DnhuEuq8FzOG+bA29TtZV
+	 kugUY/cxExetrr3OfBTvmj5+kpt3LPhpaHqtpbwKReJtLaKpfd28cLFGOLaOeVm50R
+	 6FN8NVG8v3f+Z5CSQE/KsYTNI/iFsOv9Tnvj5muUWnepDJVbb30pjvA4TgGKBvWXJC
+	 1kLBk96A7GMGF6SMp37Xdwy5z+Kth8tEviWn/h3P3ozj+d2uyeGRYS0DWti4DZSYj9
+	 CcY7anQdJYB3A==
+Date: Fri, 3 Jun 2022 14:19:00 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+    Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>
+Subject: Re: [RFC PATCH 2/2] xen/grant-table: Use unpopulated DMAable pages
+ instead of real RAM ones
+In-Reply-To: <1652810658-27810-3-git-send-email-olekstysh@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2206031348230.2783803@ubuntu-linux-20-04-desktop>
+References: <1652810658-27810-1-git-send-email-olekstysh@gmail.com> <1652810658-27810-3-git-send-email-olekstysh@gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [linux-linus test] 170815: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-amd64-amd64-libvirt:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-freebsd12-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-qcow2:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/src_host:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/dst_host:fail:regression
-    linux-linus:test-amd64-amd64-examine-uefi:reboot:fail:regression
-    linux-linus:test-amd64-amd64-examine-bios:reboot:fail:regression
-    linux-linus:test-amd64-amd64-examine:reboot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=50fd82b3a9a9335df5d50c7ddcb81c81d358c4fc
-X-Osstest-Versions-That:
-    linux=d6ecaa0024485effd065124fe774de2e22095f2d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 03 Jun 2022 15:47:59 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 170815 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170815/
+On Tue, 17 May 2022, Oleksandr Tyshchenko wrote:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> 
+> Depends on CONFIG_XEN_UNPOPULATED_ALLOC. If enabled then unpopulated
+> DMAable (contiguous) pages will be allocated for grant mapping into
+> instead of ballooning out real RAM pages.
+> 
+> TODO: Fallback to real RAM pages if xen_alloc_unpopulated_dma_pages()
+> fails.
+> 
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> ---
+>  drivers/xen/grant-table.c | 27 +++++++++++++++++++++++++++
+>  1 file changed, 27 insertions(+)
+> 
+> diff --git a/drivers/xen/grant-table.c b/drivers/xen/grant-table.c
+> index 8ccccac..2bb4392 100644
+> --- a/drivers/xen/grant-table.c
+> +++ b/drivers/xen/grant-table.c
+> @@ -864,6 +864,25 @@ EXPORT_SYMBOL_GPL(gnttab_free_pages);
+>   */
+>  int gnttab_dma_alloc_pages(struct gnttab_dma_alloc_args *args)
+>  {
+> +#ifdef CONFIG_XEN_UNPOPULATED_ALLOC
+> +	int ret;
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-libvirt      8 xen-boot                 fail REGR. vs. 170714
- test-amd64-amd64-libvirt-raw  8 xen-boot                 fail REGR. vs. 170714
- test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 170714
- test-amd64-amd64-freebsd12-amd64  8 xen-boot             fail REGR. vs. 170714
- test-amd64-amd64-libvirt-qcow2  8 xen-boot               fail REGR. vs. 170714
- test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 170714
- test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 170714
- test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 170714
- test-amd64-amd64-libvirt-pair 12 xen-boot/src_host       fail REGR. vs. 170714
- test-amd64-amd64-libvirt-pair 13 xen-boot/dst_host       fail REGR. vs. 170714
- test-amd64-amd64-examine-uefi  8 reboot                  fail REGR. vs. 170714
- test-amd64-amd64-examine-bios  8 reboot                  fail REGR. vs. 170714
- test-amd64-amd64-examine      8 reboot                   fail REGR. vs. 170714
- test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 170714
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 170714
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 170714
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 170714
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 170714
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 170714
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 170714
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 170714
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 170714
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- linux                50fd82b3a9a9335df5d50c7ddcb81c81d358c4fc
-baseline version:
- linux                d6ecaa0024485effd065124fe774de2e22095f2d
-
-Last test of basis   170714  2022-05-24 03:27:44 Z   10 days
-Failing since        170716  2022-05-24 11:12:06 Z   10 days   29 attempts
-Testing same since   170815  2022-06-03 05:33:34 Z    0 days    1 attempts
-
-------------------------------------------------------------
-2072 people touched revisions under test,
-not listing them all
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          fail    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                fail    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  fail    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     fail    
- test-arm64-arm64-examine                                     fail    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     fail    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                fail    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               fail    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 fail    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                fail    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
+This is an alternative implementation of the same function. If we are
+going to use #ifdef, then I would #ifdef the entire function, rather
+than just the body. Otherwise within the function body we can use
+IS_ENABLED.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> +	ret = xen_alloc_unpopulated_dma_pages(args->dev, args->nr_pages,
+> +			args->pages);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ret = gnttab_pages_set_private(args->nr_pages, args->pages);
+> +	if (ret < 0) {
+> +		gnttab_dma_free_pages(args);
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+it should xen_free_unpopulated_dma_pages ?
 
 
-Not pushing.
+> +		return ret;
+> +	}
+> +
+> +	args->vaddr = page_to_virt(args->pages[0]);
+> +	args->dev_bus_addr = page_to_phys(args->pages[0]);
 
-(No revision log; it would be 234163 lines long.)
+There are two things to note here. 
+
+The first thing to note is that normally we would call pfn_to_bfn to
+retrieve the dev_bus_addr of a page because pfn_to_bfn takes into
+account foreign mappings. However, these are freshly allocated pages
+without foreign mappings, so page_to_phys/dma should be sufficient.
+
+
+The second has to do with physical addresses and DMA addresses. The
+functions are called gnttab_dma_alloc_pages and
+xen_alloc_unpopulated_dma_pages which make you think we are retrieving a
+DMA address here. However, to get a DMA address we need to call
+page_to_dma rather than page_to_phys.
+
+page_to_dma takes into account special offsets that some devices have
+when accessing memory. There are real cases on ARM where the physical
+address != DMA address, e.g. RPi4.
+
+However, to call page_to_dma you need to specify as first argument the
+DMA-capable device that is expected to use those pages for DMA (e.g. an
+ethernet device or a MMC controller.) While the args->dev we have in
+gnttab_dma_alloc_pages is the gntdev_miscdev.
+
+So this interface cannot actually be used to allocate memory that is
+supposed to be DMA-able by a DMA-capable device, such as an ethernet
+device.
+
+But I think that should be fine because the memory is meant to be used
+by a userspace PV backend for grant mappings. If any of those mappings
+end up being used for actual DMA in the kernel they should go through the
+drivers/xen/swiotlb-xen.c and xen_phys_to_dma should be called, which
+ends up calling page_to_dma as appropriate.
+
+It would be good to double-check that the above is correct and, if so,
+maybe add a short in-code comment about it:
+
+/*
+ * These are not actually DMA addresses but regular physical addresses.
+ * If these pages end up being used in a DMA operation then the
+ * swiotlb-xen functions are called and xen_phys_to_dma takes care of
+ * the address translations:
+ *
+ * - from gfn to bfn in case of foreign mappings
+ * - from physical to DMA addresses in case the two are different for a
+ *   given DMA-mastering device
+ */
+
+
+
+> +	return ret;
+> +#else
+>  	unsigned long pfn, start_pfn;
+>  	size_t size;
+>  	int i, ret;
+> @@ -910,6 +929,7 @@ int gnttab_dma_alloc_pages(struct gnttab_dma_alloc_args *args)
+>  fail:
+>  	gnttab_dma_free_pages(args);
+>  	return ret;
+> +#endif
+>  }
+>  EXPORT_SYMBOL_GPL(gnttab_dma_alloc_pages);
+>  
+> @@ -919,6 +939,12 @@ EXPORT_SYMBOL_GPL(gnttab_dma_alloc_pages);
+>   */
+>  int gnttab_dma_free_pages(struct gnttab_dma_alloc_args *args)
+>  {
+> +#ifdef CONFIG_XEN_UNPOPULATED_ALLOC
+> +	gnttab_pages_clear_private(args->nr_pages, args->pages);
+> +	xen_free_unpopulated_dma_pages(args->dev, args->nr_pages, args->pages);
+> +
+> +	return 0;
+> +#else
+>  	size_t size;
+>  	int i, ret;
+>  
+> @@ -946,6 +972,7 @@ int gnttab_dma_free_pages(struct gnttab_dma_alloc_args *args)
+>  		dma_free_wc(args->dev, size,
+>  			    args->vaddr, args->dev_bus_addr);
+>  	return ret;
+> +#endif
+>  }
+>  EXPORT_SYMBOL_GPL(gnttab_dma_free_pages);
+>  #endif
+> -- 
+> 2.7.4
+> 
 
