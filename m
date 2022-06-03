@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD8EC53D367
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Jun 2022 23:53:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.341654.566880 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA81753D38A
+	for <lists+xen-devel@lfdr.de>; Sat,  4 Jun 2022 00:17:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.341662.566891 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nxFE7-0005kX-Hl; Fri, 03 Jun 2022 21:53:03 +0000
+	id 1nxFaj-00009X-Eo; Fri, 03 Jun 2022 22:16:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 341654.566880; Fri, 03 Jun 2022 21:53:03 +0000
+Received: by outflank-mailman (output) from mailman id 341662.566891; Fri, 03 Jun 2022 22:16:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nxFE7-0005h6-ED; Fri, 03 Jun 2022 21:53:03 +0000
-Received: by outflank-mailman (input) for mailman id 341654;
- Fri, 03 Jun 2022 21:53:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Fj01=WK=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nxFE5-0005h0-TO
- for xen-devel@lists.xenproject.org; Fri, 03 Jun 2022 21:53:01 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 88f442a9-e387-11ec-bd2c-47488cf2e6aa;
- Fri, 03 Jun 2022 23:53:00 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 6FDCBB824BE;
- Fri,  3 Jun 2022 21:52:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4719C385B8;
- Fri,  3 Jun 2022 21:52:57 +0000 (UTC)
+	id 1nxFaj-00007a-B2; Fri, 03 Jun 2022 22:16:25 +0000
+Received: by outflank-mailman (input) for mailman id 341662;
+ Fri, 03 Jun 2022 22:16:24 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nxFai-00007Q-5F; Fri, 03 Jun 2022 22:16:24 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nxFai-0005tU-3K; Fri, 03 Jun 2022 22:16:24 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nxFah-0007QS-O2; Fri, 03 Jun 2022 22:16:23 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nxFah-0007Bd-NM; Fri, 03 Jun 2022 22:16:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,374 +42,278 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88f442a9-e387-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1654293178;
-	bh=pgXaHU253phBXXtx1iKJe+k6xQpEHHkD4NWOfztbCWA=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=DjOo6fbwg+bg41Heda3LMLvcCtBXaZQ+cxFwrckVqaRGhnBMfum6FQ22n8eHlbgPQ
-	 aWTo/63JBG/GVCzorqGcNfB3ENyrkPhj4kIHbf9YAK6MckjObo74FjEQs59pu3aaVl
-	 iP2JL2QQft9D2esFF/VhaoOl90Zdu78cCwof2sw4QyG059+mawjfIef6QduD6pX94i
-	 QshTjhCEQsfV4HSOJ63I8Ck3mkrUE5X4/gdkx42FP9bUeKmYHfyXqhJhUakv2lYQYr
-	 oQq4D5r06PF74120zwja0pW3vggve0L7GMzSqgeN8uOSt6Y8mwqFhRpiq2arlPOcnF
-	 KpnK1Ttcl3hdg==
-Date: Fri, 3 Jun 2022 14:52:56 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-    Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>
-Subject: Re: [RFC PATCH 1/2] xen/unpopulated-alloc: Introduce helpers for
- DMA allocations
-In-Reply-To: <1652810658-27810-2-git-send-email-olekstysh@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2206031420430.2783803@ubuntu-linux-20-04-desktop>
-References: <1652810658-27810-1-git-send-email-olekstysh@gmail.com> <1652810658-27810-2-git-send-email-olekstysh@gmail.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=sJNJ3NCh/upyx/Fsudxo4IU7QOnCkxYvjwd7pbZVm/c=; b=IkYVUdYGUya/m9fYOIEHwkUaPS
+	y2HR7yTOK4gQHV5pWwKsC46cwaY+0w3heiCCvotH204n0tiPL7SRa4+Q6gRaCn+LSl3j1r0dnqKjl
+	S8r7KeSschrTfx75q2xkegRz/Umm/zY/9m9Bwm1Q5bvDMoKeZ50gdOdKkzQwWta1/o5U=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-170820-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [qemu-mainline test] 170820: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:guest-start/debian.repeat:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=70e975203f366f2f30daaeb714bb852562b7b72f
+X-Osstest-Versions-That:
+    qemuu=c9641eb422905cc0804a7e310269abf09543cce8
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 03 Jun 2022 22:16:23 +0000
 
-On Tue, 17 May 2022, Oleksandr Tyshchenko wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> 
-> Add ability to allocate unpopulated DMAable (contiguous) pages
-> suitable for grant mapping into. This is going to be used by gnttab
-> code (see gnttab_dma_alloc_pages()).
-> 
-> TODO: There is a code duplication in fill_dma_pool(). Also pool
-> oparations likely need to be protected by the lock.
-> 
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> ---
->  drivers/xen/unpopulated-alloc.c | 167 ++++++++++++++++++++++++++++++++++++++++
->  include/xen/xen.h               |  15 ++++
->  2 files changed, 182 insertions(+)
-> 
-> diff --git a/drivers/xen/unpopulated-alloc.c b/drivers/xen/unpopulated-alloc.c
-> index a39f2d3..bca0198 100644
-> --- a/drivers/xen/unpopulated-alloc.c
-> +++ b/drivers/xen/unpopulated-alloc.c
-> @@ -1,5 +1,6 @@
->  // SPDX-License-Identifier: GPL-2.0
->  #include <linux/errno.h>
-> +#include <linux/genalloc.h>
->  #include <linux/gfp.h>
->  #include <linux/kernel.h>
->  #include <linux/mm.h>
-> @@ -16,6 +17,8 @@ static DEFINE_MUTEX(list_lock);
->  static struct page *page_list;
->  static unsigned int list_count;
->  
-> +static struct gen_pool *dma_pool;
-> +
->  static struct resource *target_resource;
->  
->  /*
-> @@ -230,6 +233,161 @@ void xen_free_unpopulated_pages(unsigned int nr_pages, struct page **pages)
->  }
->  EXPORT_SYMBOL(xen_free_unpopulated_pages);
->  
-> +static int fill_dma_pool(unsigned int nr_pages)
-> +{
+flight 170820 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/170820/
 
-I think we shouldn't need to add this function at all as we should be
-able to reuse fill_list even for contiguous pages. fill_list could
-always call gen_pool_add_virt before returning.
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 170812
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 170812
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 170812
+ test-amd64-amd64-libvirt-vhd 19 guest-start/debian.repeat    fail  like 170812
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 170812
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 170812
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 170812
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 170812
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 170812
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ qemuu                70e975203f366f2f30daaeb714bb852562b7b72f
+baseline version:
+ qemuu                c9641eb422905cc0804a7e310269abf09543cce8
+
+Last test of basis   170812  2022-06-03 00:39:54 Z    0 days
+Testing same since   170820  2022-06-03 15:38:21 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Alex Bennée <alex.bennee@linaro.org>
+  Cornelia Huck <cohuck@redhat.com>
+  Dr. David Alan Gilbert <dgilbert@redhat.com>
+  Eric Farman <farman@linux.ibm.com>
+  Gautam Agrawal <gautamnagrawal@gmail.com>
+  Gonglei <arei.gonglei@huawei.com>
+  Hailiang Zhang <zhanghailiang@xfusion.com>
+  Janis Schoetterl-Glausch <scgl@linux.ibm.com>
+  Miaoqian Lin <linmq006@gmail.com>
+  Richard Henderson <richard.henderson@linaro.org>
+  Thomas Huth <thuth@redhat.com>
+  Wenchao Wang <wenchao.wang@intel.com>
+  Zhang Chen <chen.zhang@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 fail    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
 
 
-> +	struct dev_pagemap *pgmap;
-> +	struct resource *res, *tmp_res = NULL;
-> +	void *vaddr;
-> +	unsigned int alloc_pages = round_up(nr_pages, PAGES_PER_SECTION);
-> +	struct range mhp_range;
-> +	int ret;
-> +
-> +	res = kzalloc(sizeof(*res), GFP_KERNEL);
-> +	if (!res)
-> +		return -ENOMEM;
-> +
-> +	res->name = "Xen DMA pool";
-> +	res->flags = IORESOURCE_MEM | IORESOURCE_BUSY;
-> +
-> +	mhp_range = mhp_get_pluggable_range(true);
-> +
-> +	ret = allocate_resource(target_resource, res,
-> +				alloc_pages * PAGE_SIZE, mhp_range.start, mhp_range.end,
-> +				PAGES_PER_SECTION * PAGE_SIZE, NULL, NULL);
-> +	if (ret < 0) {
-> +		pr_err("Cannot allocate new IOMEM resource\n");
-> +		goto err_resource;
-> +	}
-> +
-> +	/*
-> +	 * Reserve the region previously allocated from Xen resource to avoid
-> +	 * re-using it by someone else.
-> +	 */
-> +	if (target_resource != &iomem_resource) {
-> +		tmp_res = kzalloc(sizeof(*tmp_res), GFP_KERNEL);
-> +		if (!res) {
-> +			ret = -ENOMEM;
-> +			goto err_insert;
-> +		}
-> +
-> +		tmp_res->name = res->name;
-> +		tmp_res->start = res->start;
-> +		tmp_res->end = res->end;
-> +		tmp_res->flags = res->flags;
-> +
-> +		ret = request_resource(&iomem_resource, tmp_res);
-> +		if (ret < 0) {
-> +			pr_err("Cannot request resource %pR (%d)\n", tmp_res, ret);
-> +			kfree(tmp_res);
-> +			goto err_insert;
-> +		}
-> +	}
-> +
-> +	pgmap = kzalloc(sizeof(*pgmap), GFP_KERNEL);
-> +	if (!pgmap) {
-> +		ret = -ENOMEM;
-> +		goto err_pgmap;
-> +	}
-> +
-> +	pgmap->type = MEMORY_DEVICE_GENERIC;
-> +	pgmap->range = (struct range) {
-> +		.start = res->start,
-> +		.end = res->end,
-> +	};
-> +	pgmap->nr_range = 1;
-> +	pgmap->owner = res;
-> +
-> +	vaddr = memremap_pages(pgmap, NUMA_NO_NODE);
-> +	if (IS_ERR(vaddr)) {
-> +		pr_err("Cannot remap memory range\n");
-> +		ret = PTR_ERR(vaddr);
-> +		goto err_memremap;
-> +	}
-> +
-> +	ret = gen_pool_add_virt(dma_pool, (unsigned long)vaddr, res->start,
-> +			alloc_pages * PAGE_SIZE, NUMA_NO_NODE);
-> +	if (ret)
-> +		goto err_pool;
-> +
-> +	return 0;
-> +
-> +err_pool:
-> +	memunmap_pages(pgmap);
-> +err_memremap:
-> +	kfree(pgmap);
-> +err_pgmap:
-> +	if (tmp_res) {
-> +		release_resource(tmp_res);
-> +		kfree(tmp_res);
-> +	}
-> +err_insert:
-> +	release_resource(res);
-> +err_resource:
-> +	kfree(res);
-> +	return ret;
-> +}
-> +
-> +/**
-> + * xen_alloc_unpopulated_dma_pages - alloc unpopulated DMAable pages
-> + * @dev: valid struct device pointer
-> + * @nr_pages: Number of pages
-> + * @pages: pages returned
-> + * @return 0 on success, error otherwise
-> + */
-> +int xen_alloc_unpopulated_dma_pages(struct device *dev, unsigned int nr_pages,
-> +		struct page **pages)
-> +{
-> +	void *vaddr;
-> +	bool filled = false;
-> +	unsigned int i;
-> +	int ret;
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-Also probably it might be better if xen_alloc_unpopulated_pages and
-xen_alloc_unpopulated_dma_pages shared the implementation. Something
-along these lines:
+Pushing revision :
 
-int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page **pages)
-{
-    return _xen_alloc_unpopulated_pages(nr_pages, pages, false);
-}
-
-int xen_alloc_unpopulated_dma_pages(struct device *dev, unsigned int nr_pages,
-		struct page **pages)
-{
-    return _xen_alloc_unpopulated_pages(nr_pages, pages, true);
-}
-
-static int _xen_alloc_unpopulated_pages(unsigned int nr_pages,
-        struct page **pages, bool contiguous)
-{
-	unsigned int i;
-	int ret = 0;
-
-    if (contiguous && !xen_feature(XENFEAT_auto_translated_physmap))
-        return -EINVAL;
-
-	/*
-	 * Fallback to default behavior if we do not have any suitable resource
-	 * to allocate required region from and as the result we won't be able to
-	 * construct pages.
-	 */
-	if (!target_resource) {
-        if (contiguous)
-            return -EINVAL;
-		return xen_alloc_ballooned_pages(nr_pages, pages);
-    }
-
-	mutex_lock(&list_lock);
-	if (list_count < nr_pages) {
-		ret = fill_list(nr_pages - list_count);
-		if (ret)
-			goto out;
-	}
-
-    if (contiguous) {
-        vaddr = (void *)gen_pool_alloc(dma_pool, nr_pages * PAGE_SIZE);
-
-        for (i = 0; i < nr_pages; i++)
-            pages[i] = virt_to_page(vaddr + PAGE_SIZE * i);
-    } else {
-        for (i = 0; i < nr_pages; i++) {
-            struct page *pg = page_list;
-
-            BUG_ON(!pg);
-            page_list = pg->zone_device_data;
-            list_count--;
-            pages[i] = pg;
-
-    #ifdef CONFIG_XEN_HAVE_PVMMU
-            if (!xen_feature(XENFEAT_auto_translated_physmap)) {
-                ret = xen_alloc_p2m_entry(page_to_pfn(pg));
-                if (ret < 0) {
-                    unsigned int j;
-
-                    for (j = 0; j <= i; j++) {
-                        pages[j]->zone_device_data = page_list;
-                        page_list = pages[j];
-                        list_count++;
-                    }
-                    goto out;
-                }
-            }
-    #endif
-        }
-    }
-
-out:
-	mutex_unlock(&list_lock);
-	return ret;
-}
-
-	
-
-> +	if (!dma_pool)
-> +		return -ENODEV;
-> +
-> +	/* XXX Handle devices which support 64-bit DMA address only for now */
-> +	if (dma_get_mask(dev) != DMA_BIT_MASK(64))
-> +		return -EINVAL;
-> +
-> +	while (!(vaddr = (void *)gen_pool_alloc(dma_pool, nr_pages * PAGE_SIZE))) {
-> +		if (filled)
-> +			return -ENOMEM;
-> +		else {
-> +			ret = fill_dma_pool(nr_pages);
-> +			if (ret)
-> +				return ret;
-> +
-> +			filled = true;
-> +		}
-> +	}
-> +
-> +	for (i = 0; i < nr_pages; i++)
-> +		pages[i] = virt_to_page(vaddr + PAGE_SIZE * i);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(xen_alloc_unpopulated_dma_pages);
-> +
-> +/**
-> + * xen_free_unpopulated_dma_pages - return unpopulated DMAable pages
-> + * @dev: valid struct device pointer
-> + * @nr_pages: Number of pages
-> + * @pages: pages to return
-> + */
-> +void xen_free_unpopulated_dma_pages(struct device *dev, unsigned int nr_pages,
-> +		struct page **pages)
-> +{
-> +	void *vaddr;
-> +
-> +	if (!dma_pool)
-> +		return;
-> +
-> +	vaddr = page_to_virt(pages[0]);
-> +
-> +	gen_pool_free(dma_pool, (unsigned long)vaddr, nr_pages * PAGE_SIZE);
-> +}
-> +EXPORT_SYMBOL(xen_free_unpopulated_dma_pages);
-> +
->  static int __init unpopulated_init(void)
->  {
->  	int ret;
-> @@ -241,8 +399,17 @@ static int __init unpopulated_init(void)
->  	if (ret) {
->  		pr_err("xen:unpopulated: Cannot initialize target resource\n");
->  		target_resource = NULL;
-> +		return ret;
->  	}
->  
-> +	dma_pool = gen_pool_create(PAGE_SHIFT, NUMA_NO_NODE);
-> +	if (!dma_pool) {
-> +		pr_err("xen:unpopulated: Cannot create DMA pool\n");
-> +		return -ENOMEM;
-> +	}
-> +
-> +	gen_pool_set_algo(dma_pool, gen_pool_best_fit, NULL);
-> +
->  	return ret;
->  }
->  early_initcall(unpopulated_init);
-> diff --git a/include/xen/xen.h b/include/xen/xen.h
-> index a99bab8..a6a7a59 100644
-> --- a/include/xen/xen.h
-> +++ b/include/xen/xen.h
-> @@ -52,9 +52,15 @@ bool xen_biovec_phys_mergeable(const struct bio_vec *vec1,
->  extern u64 xen_saved_max_mem_size;
->  #endif
->  
-> +struct device;
-> +
->  #ifdef CONFIG_XEN_UNPOPULATED_ALLOC
->  int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page **pages);
->  void xen_free_unpopulated_pages(unsigned int nr_pages, struct page **pages);
-> +int xen_alloc_unpopulated_dma_pages(struct device *dev, unsigned int nr_pages,
-> +		struct page **pages);
-> +void xen_free_unpopulated_dma_pages(struct device *dev, unsigned int nr_pages,
-> +		struct page **pages);
->  #include <linux/ioport.h>
->  int arch_xen_unpopulated_init(struct resource **res);
->  #else
-> @@ -69,6 +75,15 @@ static inline void xen_free_unpopulated_pages(unsigned int nr_pages,
->  {
->  	xen_free_ballooned_pages(nr_pages, pages);
->  }
-> +static inline int xen_alloc_unpopulated_dma_pages(struct device *dev,
-> +		unsigned int nr_pages, struct page **pages)
-> +{
-> +	return -1;
-> +}
-> +static inline void xen_free_unpopulated_dma_pages(struct device *dev,
-> +		unsigned int nr_pages, struct page **pages)
-> +{
-> +}
->  #endif
-
-Given that we have these stubs, maybe we don't need to #ifdef the so
-much code in the next patch
+To xenbits.xen.org:/home/xen/git/qemu-xen.git
+   c9641eb422..70e975203f  70e975203f366f2f30daaeb714bb852562b7b72f -> upstream-tested
 
