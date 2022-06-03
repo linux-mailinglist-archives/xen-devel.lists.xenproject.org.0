@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D65C53C118
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Jun 2022 00:55:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.341297.566513 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5870653C16B
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Jun 2022 02:22:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.341307.566525 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nwthp-0006a6-PN; Thu, 02 Jun 2022 22:54:17 +0000
+	id 1nwv4F-0000nC-8D; Fri, 03 Jun 2022 00:21:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 341297.566513; Thu, 02 Jun 2022 22:54:17 +0000
+Received: by outflank-mailman (output) from mailman id 341307.566525; Fri, 03 Jun 2022 00:21:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nwthp-0006XT-ML; Thu, 02 Jun 2022 22:54:17 +0000
-Received: by outflank-mailman (input) for mailman id 341297;
- Thu, 02 Jun 2022 22:54:15 +0000
+	id 1nwv4F-0000kW-4o; Fri, 03 Jun 2022 00:21:31 +0000
+Received: by outflank-mailman (input) for mailman id 341307;
+ Fri, 03 Jun 2022 00:21:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OKJR=WJ=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1nwthn-0006XN-CL
- for xen-devel@lists.xenproject.org; Thu, 02 Jun 2022 22:54:15 +0000
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ea6e65fe-e2c6-11ec-837f-e5687231ffcc;
- Fri, 03 Jun 2022 00:54:12 +0200 (CEST)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 441855C023B;
- Thu,  2 Jun 2022 18:54:10 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Thu, 02 Jun 2022 18:54:10 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 2 Jun 2022 18:54:09 -0400 (EDT)
+ <SRS0=Fj01=WK=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nwv4C-0000kQ-E5
+ for xen-devel@lists.xenproject.org; Fri, 03 Jun 2022 00:21:28 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1aa5b77e-e2d3-11ec-837f-e5687231ffcc;
+ Fri, 03 Jun 2022 02:21:25 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id E3608B821AC;
+ Fri,  3 Jun 2022 00:21:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0D94C385A5;
+ Fri,  3 Jun 2022 00:21:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,415 +43,333 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea6e65fe-e2c6-11ec-837f-e5687231ffcc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:sender:subject:subject:to:to; s=fm1; t=1654210450; x=
-	1654296850; bh=MRGhsRZXeF/lnjLM/zzVqIm8xqV/+/8mPjK0qPm3CQw=; b=a
-	g/TBKdA2UctNTjQ2euW+1J0DMxccU/toTBCoeCdlhI4E7r3RYs9O2QdO+D8umFiW
-	/RbbgXwj+zE/X2GQjqJcdBH3Uaagp+TdrzdWMFCpFyYkE1LOwi6I3QiKc032e0IB
-	DQv3huQlFPNw/gaiTLps3EDrIo0njdhdRvYDvkdo8dkZ8CMNhhmVpVj+Khf/Ad7h
-	kzfrVP+hkF8H/xq/b5HGlqkP51y5V6+SLSMVYyzi8G/frNDExqjVpHuFaiRcakP8
-	Ag8bjhkkCmKVuKcW34F9NP8sF8LsXrB5Ao4jqdefVm0wBcP5u1r5TMShHm0TSW/Z
-	D05iKLQY1+Q9oMatsbFZA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:message-id
-	:mime-version:reply-to:sender:subject:subject:to:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1654210450; x=1654296850; bh=MRGhsRZXeF/lnjLM/zzVqIm8xqV/+/8mPjK
-	0qPm3CQw=; b=LSEv6Dzkf7oNE3OFW6NUYG5sj1K0v2Nof3qim1YszUBX2kzpAN6
-	GrjKm4Q44hQlTBqIBXmSSsFKycO3Wg9QeT5vU6TV20Q6jpsMBl+typg6xLgu5pK1
-	A3weZcN/I56JRDzohGjfhL7szuog9qYAhjj25uYEiRA+5osgLDq2c/8HJKejmbNF
-	mqf6X0foCRqgVIIZkT0QpKmkFpUU2OBG9wzNFTwqbzxR1c8QcsP3FNU+aMC48gmA
-	L0dysPLKpQtjwyhV/EgzB6xdjGclxYbx8RdIPhk+0RCOVNeZfejPdK0mjUohd7dT
-	BoGqqlnYwUBvIbR1W80HH1en/Z3xAfhmg0w==
-X-ME-Sender: <xms:kT-ZYlRdfjIC7-XofoF2xBY_hsZHnGC2n7uNZpInUw3Sz7rmfAj-hg>
-    <xme:kT-ZYuxQDTGQrVuj3ZzS8TEyWxfwyK35TmVwE5ltx2zvae9-CMymDkCaCpriSYP_K
-    mcJnFYsGNPqkgg>
-X-ME-Received: <xmr:kT-ZYq3UTxLN5_I0Li-aifoDPxW9nGyHNdB41TXdwLxiEeDzD4GDn8MRY6qRnopppEnXWddPGKcc>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedrleehgddugecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpefhvfevufffkffoggfgsedtkeertdertddtnecuhfhrohhmpeffvghmihcuofgr
-    rhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgshhlrg
-    gsrdgtohhmqeenucggtffrrghtthgvrhhnpeeijeegudefueekieejudekgfeukedvgeei
-    tddufefhtdffheffueevfedvgfelgfenucffohhmrghinhepghhithhhuhgsrdgtohhmne
-    cuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepuggvmhhi
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:kT-ZYtBncN_-y1LVql4CO2Y8pBXTIAtzBPnJrUD4SRVA-U4T-w_biQ>
-    <xmx:kT-ZYujXJHC4G6j22lIjPGNhp-5uOmRHMcrYxOuAikhvYIuBqGZ8KA>
-    <xmx:kT-ZYhr6cJRXZQ6hXFusYsJ7RBqItRky7sxhpBijcc3czqqwdeMLdg>
-    <xmx:kj-ZYgZQ9EeyEAcPpxWUWz8WbhjJ0Acu3-LM4wkJLHjfY8FMnjV8kw>
-Feedback-ID: iac594737:Fastmail
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Jennifer Herbert <jennifer.herbert@citrix.com>
-Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3] xen/gntdev: Avoid blocking in unmap_grant_pages()
-Date: Thu,  2 Jun 2022 18:53:52 -0400
-Message-Id: <20220602225352.3201-1-demi@invisiblethingslab.com>
-X-Mailer: git-send-email 2.35.3
+X-Inumbo-ID: 1aa5b77e-e2d3-11ec-837f-e5687231ffcc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1654215683;
+	bh=XrglRYkc9Y3P+fOC9ZgX+DqSTLBEyliylyelU+Kex7o=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=EyUUbRusivx3tXswMqfWgcZMfXtlli04Kc9CbecD1rFkHg6konrrNxbpb4Q3tO9uD
+	 O/PgqKGP/pEYnsOJWlTQ2/KYv21MWOQSxEsoug0rDkNQAFx2sSJR1Ws5gPcDP4upVs
+	 QjK0rc0DYwfdsxgyC5WLLdjFXsp4kKVrBJh+pk8oy0FIFAGQQfcKNOi8H5tbdgnYDs
+	 Y8NXyrcg0nvJ7sJUmncxnkLvj9/zjX0UIJj561O9+xkyoeDcP63WRCAu89MtynbQbs
+	 TsqGQZwBYjBxppBDkPyK3HZhU6sdFEY/99x9K2Ty1NE+W+9pfZRgFy98a/08SlqNg9
+	 6xZRvuyl2f2xw==
+Date: Thu, 2 Jun 2022 17:21:21 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>, 
+    Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, 
+    Juergen Gross <jgross@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: Re: [PATCH V9 2/2] libxl: Introduce basic virtio-mmio support on
+ Arm
+In-Reply-To: <1654106261-28044-3-git-send-email-olekstysh@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2206021721130.2783803@ubuntu-linux-20-04-desktop>
+References: <1654106261-28044-1-git-send-email-olekstysh@gmail.com> <1654106261-28044-3-git-send-email-olekstysh@gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="8323329-1213045464-1654215683=:2783803"
 
-unmap_grant_pages() currently waits for the pages to no longer be used.
-In https://github.com/QubesOS/qubes-issues/issues/7481, this lead to a
-deadlock against i915: i915 was waiting for gntdev's MMU notifier to
-finish, while gntdev was waiting for i915 to free its pages.  I also
-believe this is responsible for various deadlocks I have experienced in
-the past.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Avoid these problems by making unmap_grant_pages async.  This requires
-making it return void, as any errors will not be available when the
-function returns.  Fortunately, the only use of the return value is a
-WARN_ON(), which can be replaced by a WARN_ON when the error is
-detected.  Additionally, a failed call will not prevent further calls
-from being made, but this is harmless.
+--8323329-1213045464-1654215683=:2783803
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-Because unmap_grant_pages is now async, the grant handle will be sent to
-INVALID_GRANT_HANDLE too late to prevent multiple unmaps of the same
-handle.  Instead, a separate bool array is allocated for this purpose.
-This wastes memory, but stuffing this information in padding bytes is
-too fragile.  Furthermore, it is necessary to grab a reference to the
-map before making the asynchronous call, and release the reference when
-the call returns.
+On Wed, 1 Jun 2022, Oleksandr Tyshchenko wrote:
+> From: Julien Grall <julien.grall@arm.com>
+> 
+> This patch introduces helpers to allocate Virtio MMIO params
+> (IRQ and memory region) and create specific device node in
+> the Guest device-tree with allocated params. In order to deal
+> with multiple Virtio devices, reserve corresponding ranges.
+> For now, we reserve 1MB for memory regions and 10 SPIs.
+> 
+> As these helpers should be used for every Virtio device attached
+> to the Guest, call them for Virtio disk(s).
+> 
+> Please note, with statically allocated Virtio IRQs there is
+> a risk of a clash with a physical IRQs of passthrough devices.
+> For the first version, it's fine, but we should consider allocating
+> the Virtio IRQs automatically. Thankfully, we know in advance which
+> IRQs will be used for passthrough to be able to choose non-clashed
+> ones.
+> 
+> Signed-off-by: Julien Grall <julien.grall@arm.com>
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-It is also necessary to guard against reentrancy in gntdev_map_put(),
-and to handle the case where userspace tries to map a mapping whose
-contents have not all been freed yet.
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Fixes: 745282256c75 ("xen/gntdev: safely unmap grants in case they are still in use")
-Cc: stable@vger.kernel.org
-Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
----
- drivers/xen/gntdev-common.h |   7 ++
- drivers/xen/gntdev.c        | 153 ++++++++++++++++++++++++------------
- 2 files changed, 109 insertions(+), 51 deletions(-)
 
-diff --git a/drivers/xen/gntdev-common.h b/drivers/xen/gntdev-common.h
-index 20d7d059dadb..15c2e3afcc2b 100644
---- a/drivers/xen/gntdev-common.h
-+++ b/drivers/xen/gntdev-common.h
-@@ -16,6 +16,7 @@
- #include <linux/mmu_notifier.h>
- #include <linux/types.h>
- #include <xen/interface/event_channel.h>
-+#include <xen/grant_table.h>
- 
- struct gntdev_dmabuf_priv;
- 
-@@ -56,6 +57,7 @@ struct gntdev_grant_map {
- 	struct gnttab_unmap_grant_ref *unmap_ops;
- 	struct gnttab_map_grant_ref   *kmap_ops;
- 	struct gnttab_unmap_grant_ref *kunmap_ops;
-+	bool *being_removed;
- 	struct page **pages;
- 	unsigned long pages_vm_start;
- 
-@@ -73,6 +75,11 @@ struct gntdev_grant_map {
- 	/* Needed to avoid allocation in gnttab_dma_free_pages(). */
- 	xen_pfn_t *frames;
- #endif
-+
-+	/* Number of live grants */
-+	atomic_long_t live_grants;
-+	/* Needed to avoid allocation in __unmap_grant_pages */
-+	struct gntab_unmap_queue_data unmap_data;
- };
- 
- struct gntdev_grant_map *gntdev_alloc_map(struct gntdev_priv *priv, int count,
-diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
-index 59ffea800079..e8b83ea1eacd 100644
---- a/drivers/xen/gntdev.c
-+++ b/drivers/xen/gntdev.c
-@@ -35,6 +35,7 @@
- #include <linux/slab.h>
- #include <linux/highmem.h>
- #include <linux/refcount.h>
-+#include <linux/workqueue.h>
- 
- #include <xen/xen.h>
- #include <xen/grant_table.h>
-@@ -60,10 +61,11 @@ module_param(limit, uint, 0644);
- MODULE_PARM_DESC(limit,
- 	"Maximum number of grants that may be mapped by one mapping request");
- 
-+/* True in PV mode, false otherwise */
- static int use_ptemod;
- 
--static int unmap_grant_pages(struct gntdev_grant_map *map,
--			     int offset, int pages);
-+static void unmap_grant_pages(struct gntdev_grant_map *map,
-+			      int offset, int pages);
- 
- static struct miscdevice gntdev_miscdev;
- 
-@@ -120,6 +122,7 @@ static void gntdev_free_map(struct gntdev_grant_map *map)
- 	kvfree(map->unmap_ops);
- 	kvfree(map->kmap_ops);
- 	kvfree(map->kunmap_ops);
-+	kvfree(map->being_removed);
- 	kfree(map);
- }
- 
-@@ -140,10 +143,13 @@ struct gntdev_grant_map *gntdev_alloc_map(struct gntdev_priv *priv, int count,
- 	add->unmap_ops = kvmalloc_array(count, sizeof(add->unmap_ops[0]),
- 					GFP_KERNEL);
- 	add->pages     = kvcalloc(count, sizeof(add->pages[0]), GFP_KERNEL);
-+	add->being_removed =
-+		kvcalloc(count, sizeof(add->being_removed[0]), GFP_KERNEL);
- 	if (NULL == add->grants    ||
- 	    NULL == add->map_ops   ||
- 	    NULL == add->unmap_ops ||
--	    NULL == add->pages)
-+	    NULL == add->pages     ||
-+	    NULL == add->being_removed)
- 		goto err;
- 	if (use_ptemod) {
- 		add->kmap_ops   = kvmalloc_array(count, sizeof(add->kmap_ops[0]),
-@@ -250,9 +256,34 @@ void gntdev_put_map(struct gntdev_priv *priv, struct gntdev_grant_map *map)
- 	if (!refcount_dec_and_test(&map->users))
- 		return;
- 
--	if (map->pages && !use_ptemod)
-+	if (map->pages && !use_ptemod) {
-+		/*
-+		 * Increment the reference count.  This ensures that the
-+		 * subsequent call to unmap_grant_pages() will not wind up
-+		 * re-entering itself.  It *can* wind up calling
-+		 * gntdev_put_map() recursively, but such calls will be with a
-+		 * nonzero reference count, so they will return before this code
-+		 * is reached.  The recursion depth is thus limited to 1.
-+		 */
-+		refcount_inc(&map->users);
-+
-+		/*
-+		 * Unmap the grants.  This may or may not be asynchronous, so it
-+		 * is possible that the reference count is 1 on return, but it
-+		 * could also be greater than 1.
-+		 */
- 		unmap_grant_pages(map, 0, map->count);
- 
-+		/* Check if the memory now needs to be freed */
-+		if (!refcount_dec_and_test(&map->users))
-+			return;
-+
-+		/*
-+		 * All pages have been returned to the hypervisor, so free the
-+		 * map.  FIXME: this is far too complex.
-+		 */
-+	}
-+
- 	if (map->notify.flags & UNMAP_NOTIFY_SEND_EVENT) {
- 		notify_remote_via_evtchn(map->notify.event);
- 		evtchn_put(map->notify.event);
-@@ -283,6 +314,7 @@ static int find_grant_ptes(pte_t *pte, unsigned long addr, void *data)
- 
- int gntdev_map_grant_pages(struct gntdev_grant_map *map)
- {
-+	size_t alloced = 0;
- 	int i, err = 0;
- 
- 	if (!use_ptemod) {
-@@ -331,97 +363,114 @@ int gntdev_map_grant_pages(struct gntdev_grant_map *map)
- 			map->count);
- 
- 	for (i = 0; i < map->count; i++) {
--		if (map->map_ops[i].status == GNTST_okay)
-+		if (map->map_ops[i].status == GNTST_okay) {
- 			map->unmap_ops[i].handle = map->map_ops[i].handle;
--		else if (!err)
-+			if (!use_ptemod)
-+				alloced++;
-+		} else if (!err)
- 			err = -EINVAL;
- 
- 		if (map->flags & GNTMAP_device_map)
- 			map->unmap_ops[i].dev_bus_addr = map->map_ops[i].dev_bus_addr;
- 
- 		if (use_ptemod) {
--			if (map->kmap_ops[i].status == GNTST_okay)
-+			if (map->kmap_ops[i].status == GNTST_okay) {
-+				if (map->map_ops[i].status == GNTST_okay)
-+					alloced++;
- 				map->kunmap_ops[i].handle = map->kmap_ops[i].handle;
--			else if (!err)
-+			} else if (!err) {
-+				/* FIXME: should this be a WARN()? */
- 				err = -EINVAL;
-+			}
- 		}
- 	}
-+	atomic_long_add(alloced, &map->live_grants);
- 	return err;
- }
- 
--static int __unmap_grant_pages(struct gntdev_grant_map *map, int offset,
--			       int pages)
-+static void __unmap_grant_pages_done(int result,
-+		struct gntab_unmap_queue_data *data)
- {
--	int i, err = 0;
--	struct gntab_unmap_queue_data unmap_data;
--
--	if (map->notify.flags & UNMAP_NOTIFY_CLEAR_BYTE) {
--		int pgno = (map->notify.addr >> PAGE_SHIFT);
--		if (pgno >= offset && pgno < offset + pages) {
--			/* No need for kmap, pages are in lowmem */
--			uint8_t *tmp = pfn_to_kaddr(page_to_pfn(map->pages[pgno]));
--			tmp[map->notify.addr & (PAGE_SIZE-1)] = 0;
--			map->notify.flags &= ~UNMAP_NOTIFY_CLEAR_BYTE;
--		}
--	}
--
--	unmap_data.unmap_ops = map->unmap_ops + offset;
--	unmap_data.kunmap_ops = use_ptemod ? map->kunmap_ops + offset : NULL;
--	unmap_data.pages = map->pages + offset;
--	unmap_data.count = pages;
--
--	err = gnttab_unmap_refs_sync(&unmap_data);
--	if (err)
--		return err;
-+	unsigned int i;
-+	struct gntdev_grant_map *map = data->data;
-+	unsigned int offset = data->unmap_ops - map->unmap_ops;
-+	atomic_long_sub(data->count, &map->live_grants);
- 
--	for (i = 0; i < pages; i++) {
--		if (map->unmap_ops[offset+i].status)
--			err = -EINVAL;
-+	for (i = 0; i < data->count; i++) {
-+		WARN_ON(map->unmap_ops[offset+i].status);
- 		pr_debug("unmap handle=%d st=%d\n",
- 			map->unmap_ops[offset+i].handle,
- 			map->unmap_ops[offset+i].status);
- 		map->unmap_ops[offset+i].handle = INVALID_GRANT_HANDLE;
- 		if (use_ptemod) {
--			if (map->kunmap_ops[offset+i].status)
--				err = -EINVAL;
-+			WARN_ON(map->kunmap_ops[offset+i].status);
- 			pr_debug("kunmap handle=%u st=%d\n",
- 				 map->kunmap_ops[offset+i].handle,
- 				 map->kunmap_ops[offset+i].status);
- 			map->kunmap_ops[offset+i].handle = INVALID_GRANT_HANDLE;
- 		}
- 	}
--	return err;
-+
-+	/* Release reference taken by __unmap_grant_pages */
-+	gntdev_put_map(NULL, map);
- }
- 
--static int unmap_grant_pages(struct gntdev_grant_map *map, int offset,
--			     int pages)
-+static void __unmap_grant_pages(struct gntdev_grant_map *map, int offset,
-+			       int pages)
- {
--	int range, err = 0;
-+	if (map->notify.flags & UNMAP_NOTIFY_CLEAR_BYTE) {
-+		int pgno = (map->notify.addr >> PAGE_SHIFT);
-+
-+		if (pgno >= offset && pgno < offset + pages) {
-+			/* No need for kmap, pages are in lowmem */
-+			uint8_t *tmp = pfn_to_kaddr(page_to_pfn(map->pages[pgno]));
-+
-+			tmp[map->notify.addr & (PAGE_SIZE-1)] = 0;
-+			map->notify.flags &= ~UNMAP_NOTIFY_CLEAR_BYTE;
-+		}
-+	}
-+
-+	map->unmap_data.unmap_ops = map->unmap_ops + offset;
-+	map->unmap_data.kunmap_ops = use_ptemod ? map->kunmap_ops + offset : NULL;
-+	map->unmap_data.pages = map->pages + offset;
-+	map->unmap_data.count = pages;
-+	map->unmap_data.done = __unmap_grant_pages_done;
-+	map->unmap_data.data = map;
-+	refcount_inc(&map->users); /* to keep map alive during async call below */
-+
-+	gnttab_unmap_refs_async(&map->unmap_data);
-+}
-+
-+static void unmap_grant_pages(struct gntdev_grant_map *map, int offset,
-+			      int pages)
-+{
-+	int range;
-+
-+	if (atomic_long_read(&map->live_grants) == 0)
-+		return; /* Nothing to do */
- 
- 	pr_debug("unmap %d+%d [%d+%d]\n", map->index, map->count, offset, pages);
- 
- 	/* It is possible the requested range will have a "hole" where we
- 	 * already unmapped some of the grants. Only unmap valid ranges.
- 	 */
--	while (pages && !err) {
--		while (pages &&
--		       map->unmap_ops[offset].handle == INVALID_GRANT_HANDLE) {
-+	while (pages) {
-+		while (pages && map->being_removed[offset]) {
- 			offset++;
- 			pages--;
- 		}
- 		range = 0;
- 		while (range < pages) {
--			if (map->unmap_ops[offset + range].handle ==
--			    INVALID_GRANT_HANDLE)
-+			if (map->being_removed[offset + range])
- 				break;
-+			map->being_removed[offset + range] = true;
- 			range++;
- 		}
--		err = __unmap_grant_pages(map, offset, range);
-+		if (range)
-+			__unmap_grant_pages(map, offset, range);
- 		offset += range;
- 		pages -= range;
- 	}
--
--	return err;
- }
- 
- /* ------------------------------------------------------------------ */
-@@ -473,7 +522,6 @@ static bool gntdev_invalidate(struct mmu_interval_notifier *mn,
- 	struct gntdev_grant_map *map =
- 		container_of(mn, struct gntdev_grant_map, notifier);
- 	unsigned long mstart, mend;
--	int err;
- 
- 	if (!mmu_notifier_range_blockable(range))
- 		return false;
-@@ -494,10 +542,9 @@ static bool gntdev_invalidate(struct mmu_interval_notifier *mn,
- 			map->index, map->count,
- 			map->vma->vm_start, map->vma->vm_end,
- 			range->start, range->end, mstart, mend);
--	err = unmap_grant_pages(map,
-+	unmap_grant_pages(map,
- 				(mstart - map->vma->vm_start) >> PAGE_SHIFT,
- 				(mend - mstart) >> PAGE_SHIFT);
--	WARN_ON(err);
- 
- 	return true;
- }
-@@ -985,6 +1032,10 @@ static int gntdev_mmap(struct file *flip, struct vm_area_struct *vma)
- 		goto unlock_out;
- 	if (use_ptemod && map->vma)
- 		goto unlock_out;
-+	if (atomic_long_read(&map->live_grants)) {
-+		err = -EAGAIN;
-+		goto unlock_out;
-+	}
- 	refcount_inc(&map->users);
- 
- 	vma->vm_ops = &gntdev_vmops;
--- 
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+> ---
+> Please note, this is a split/cleanup/hardening of Julien's PoC:
+> "Add support for Guest IO forwarding to a device emulator"
+> 
+> Changes RFC -> V1:
+>    - was squashed with:
+>      "[RFC PATCH V1 09/12] libxl: Handle virtio-mmio irq in more correct way"
+>      "[RFC PATCH V1 11/12] libxl: Insert "dma-coherent" property into virtio-mmio device node"
+>      "[RFC PATCH V1 12/12] libxl: Fix duplicate memory node in DT"
+>    - move VirtIO MMIO #define-s to xen/include/public/arch-arm.h
+> 
+> Changes V1 -> V2:
+>    - update the author of a patch
+> 
+> Changes V2 -> V3:
+>    - no changes
+> 
+> Changes V3 -> V4:
+>    - no changes
+> 
+> Changes V4 -> V5:
+>    - split the changes, change the order of the patches
+>    - drop an extra "virtio" configuration option
+>    - update patch description
+>    - use CONTAINER_OF instead of own implementation
+>    - reserve ranges for Virtio MMIO params and put them
+>      in correct location
+>    - create helpers to allocate Virtio MMIO params, add
+>      corresponding sanity-сhecks
+>    - add comment why MMIO size 0x200 is chosen
+>    - update debug print
+>    - drop Wei's T-b
+> 
+> Changes V5 -> V6:
+>    - rebase on current staging
+> 
+> Changes V6 -> V7:
+>    - rebase on current staging
+>    - add T-b and R-b tags
+>    - update according to the recent changes to
+>      "libxl: Add support for Virtio disk configuration"
+> 
+> Changes V7 -> V8:
+>    - drop T-b and R-b tags
+>    - make virtio_mmio_base/irq global variables to be local in
+>      libxl__arch_domain_prepare_config() and initialize them at
+>      the beginning of the function, then rework alloc_virtio_mmio_base/irq()
+>      to take a pointer to virtio_mmio_base/irq variables as an argument
+>    - update according to the recent changes to
+>      "libxl: Add support for Virtio disk configuration"
+> 
+> Changes V8 -> V9:
+>    - Stefano already gave his Reviewed-by, I dropped it due to the changes
+>    - remove the second set of parentheses for check in alloc_virtio_mmio_base()
+>    - clarify the updating of "nr_spis" right after num_disks loop in
+>      libxl__arch_domain_prepare_config() and add a comment on top of it
+>    - use GCSPRINTF() instead of using a buffer of a static size
+>      calculated by hand in make_virtio_mmio_node()
+> ---
+>  tools/libs/light/libxl_arm.c  | 121 +++++++++++++++++++++++++++++++++++++++++-
+>  xen/include/public/arch-arm.h |   7 +++
+>  2 files changed, 126 insertions(+), 2 deletions(-)
+> 
+> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+> index eef1de0..9be9b2a 100644
+> --- a/tools/libs/light/libxl_arm.c
+> +++ b/tools/libs/light/libxl_arm.c
+> @@ -8,6 +8,46 @@
+>  #include <assert.h>
+>  #include <xen/device_tree_defs.h>
+>  
+> +/*
+> + * There is no clear requirements for the total size of Virtio MMIO region.
+> + * The size of control registers is 0x100 and device-specific configuration
+> + * registers starts at the offset 0x100, however it's size depends on the device
+> + * and the driver. Pick the biggest known size at the moment to cover most
+> + * of the devices (also consider allowing the user to configure the size via
+> + * config file for the one not conforming with the proposed value).
+> + */
+> +#define VIRTIO_MMIO_DEV_SIZE   xen_mk_ullong(0x200)
+> +
+> +static uint64_t alloc_virtio_mmio_base(libxl__gc *gc, uint64_t *virtio_mmio_base)
+> +{
+> +    uint64_t base = *virtio_mmio_base;
+> +
+> +    /* Make sure we have enough reserved resources */
+> +    if (base + VIRTIO_MMIO_DEV_SIZE >
+> +        GUEST_VIRTIO_MMIO_BASE + GUEST_VIRTIO_MMIO_SIZE) {
+> +        LOG(ERROR, "Ran out of reserved range for Virtio MMIO BASE 0x%"PRIx64"\n",
+> +            base);
+> +        return 0;
+> +    }
+> +    *virtio_mmio_base += VIRTIO_MMIO_DEV_SIZE;
+> +
+> +    return base;
+> +}
+> +
+> +static uint32_t alloc_virtio_mmio_irq(libxl__gc *gc, uint32_t *virtio_mmio_irq)
+> +{
+> +    uint32_t irq = *virtio_mmio_irq;
+> +
+> +    /* Make sure we have enough reserved resources */
+> +    if (irq > GUEST_VIRTIO_MMIO_SPI_LAST) {
+> +        LOG(ERROR, "Ran out of reserved range for Virtio MMIO IRQ %u\n", irq);
+> +        return 0;
+> +    }
+> +    (*virtio_mmio_irq)++;
+> +
+> +    return irq;
+> +}
+> +
+>  static const char *gicv_to_string(libxl_gic_version gic_version)
+>  {
+>      switch (gic_version) {
+> @@ -26,8 +66,10 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+>  {
+>      uint32_t nr_spis = 0;
+>      unsigned int i;
+> -    uint32_t vuart_irq;
+> -    bool vuart_enabled = false;
+> +    uint32_t vuart_irq, virtio_irq = 0;
+> +    bool vuart_enabled = false, virtio_enabled = false;
+> +    uint64_t virtio_mmio_base = GUEST_VIRTIO_MMIO_BASE;
+> +    uint32_t virtio_mmio_irq = GUEST_VIRTIO_MMIO_SPI_FIRST;
+>  
+>      /*
+>       * If pl011 vuart is enabled then increment the nr_spis to allow allocation
+> @@ -39,6 +81,35 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+>          vuart_enabled = true;
+>      }
+>  
+> +    for (i = 0; i < d_config->num_disks; i++) {
+> +        libxl_device_disk *disk = &d_config->disks[i];
+> +
+> +        if (disk->specification == LIBXL_DISK_SPECIFICATION_VIRTIO) {
+> +            disk->base = alloc_virtio_mmio_base(gc, &virtio_mmio_base);
+> +            if (!disk->base)
+> +                return ERROR_FAIL;
+> +
+> +            disk->irq = alloc_virtio_mmio_irq(gc, &virtio_mmio_irq);
+> +            if (!disk->irq)
+> +                return ERROR_FAIL;
+> +
+> +            if (virtio_irq < disk->irq)
+> +                virtio_irq = disk->irq;
+> +            virtio_enabled = true;
+> +
+> +            LOG(DEBUG, "Allocate Virtio MMIO params for Vdev %s: IRQ %u BASE 0x%"PRIx64,
+> +                disk->vdev, disk->irq, disk->base);
+> +        }
+> +    }
+> +
+> +    /*
+> +     * Every virtio-mmio device uses one emulated SPI. If Virtio devices are
+> +     * present, make sure that we allocate enough SPIs for them.
+> +     * The resulting "nr_spis" needs to cover the highest possible SPI.
+> +     */
+> +    if (virtio_enabled)
+> +        nr_spis = max(nr_spis, virtio_irq - 32 + 1);
+> +
+>      for (i = 0; i < d_config->b_info.num_irqs; i++) {
+>          uint32_t irq = d_config->b_info.irqs[i];
+>          uint32_t spi;
+> @@ -58,6 +129,13 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+>              return ERROR_FAIL;
+>          }
+>  
+> +        /* The same check as for vpl011 */
+> +        if (virtio_enabled &&
+> +            (irq >= GUEST_VIRTIO_MMIO_SPI_FIRST && irq <= virtio_irq)) {
+> +            LOG(ERROR, "Physical IRQ %u conflicting with Virtio MMIO IRQ range\n", irq);
+> +            return ERROR_FAIL;
+> +        }
+> +
+>          if (irq < 32)
+>              continue;
+>  
+> @@ -787,6 +865,37 @@ static int make_vpci_node(libxl__gc *gc, void *fdt,
+>      return 0;
+>  }
+>  
+> +
+> +static int make_virtio_mmio_node(libxl__gc *gc, void *fdt,
+> +                                 uint64_t base, uint32_t irq)
+> +{
+> +    int res;
+> +    gic_interrupt intr;
+> +    const char *name = GCSPRINTF("virtio@%"PRIx64, base);
+> +
+> +    res = fdt_begin_node(fdt, name);
+> +    if (res) return res;
+> +
+> +    res = fdt_property_compat(gc, fdt, 1, "virtio,mmio");
+> +    if (res) return res;
+> +
+> +    res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
+> +                            1, base, VIRTIO_MMIO_DEV_SIZE);
+> +    if (res) return res;
+> +
+> +    set_interrupt(intr, irq, 0xf, DT_IRQ_TYPE_EDGE_RISING);
+> +    res = fdt_property_interrupts(gc, fdt, &intr, 1);
+> +    if (res) return res;
+> +
+> +    res = fdt_property(fdt, "dma-coherent", NULL, 0);
+> +    if (res) return res;
+> +
+> +    res = fdt_end_node(fdt);
+> +    if (res) return res;
+> +
+> +    return 0;
+> +}
+> +
+>  static const struct arch_info *get_arch_info(libxl__gc *gc,
+>                                               const struct xc_dom_image *dom)
+>  {
+> @@ -988,6 +1097,7 @@ static int libxl__prepare_dtb(libxl__gc *gc, libxl_domain_config *d_config,
+>      size_t fdt_size = 0;
+>      int pfdt_size = 0;
+>      libxl_domain_build_info *const info = &d_config->b_info;
+> +    unsigned int i;
+>  
+>      const libxl_version_info *vers;
+>      const struct arch_info *ainfo;
+> @@ -1094,6 +1204,13 @@ next_resize:
+>          if (d_config->num_pcidevs)
+>              FDT( make_vpci_node(gc, fdt, ainfo, dom) );
+>  
+> +        for (i = 0; i < d_config->num_disks; i++) {
+> +            libxl_device_disk *disk = &d_config->disks[i];
+> +
+> +            if (disk->specification == LIBXL_DISK_SPECIFICATION_VIRTIO)
+> +                FDT( make_virtio_mmio_node(gc, fdt, disk->base, disk->irq) );
+> +        }
+> +
+>          if (pfdt)
+>              FDT( copy_partial_fdt(gc, fdt, pfdt) );
+>  
+> diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
+> index ab05fe1..c8b6058 100644
+> --- a/xen/include/public/arch-arm.h
+> +++ b/xen/include/public/arch-arm.h
+> @@ -407,6 +407,10 @@ typedef uint64_t xen_callback_t;
+>  
+>  /* Physical Address Space */
+>  
+> +/* Virtio MMIO mappings */
+> +#define GUEST_VIRTIO_MMIO_BASE   xen_mk_ullong(0x02000000)
+> +#define GUEST_VIRTIO_MMIO_SIZE   xen_mk_ullong(0x00100000)
+> +
+>  /*
+>   * vGIC mappings: Only one set of mapping is used by the guest.
+>   * Therefore they can overlap.
+> @@ -493,6 +497,9 @@ typedef uint64_t xen_callback_t;
+>  
+>  #define GUEST_VPL011_SPI        32
+>  
+> +#define GUEST_VIRTIO_MMIO_SPI_FIRST   33
+> +#define GUEST_VIRTIO_MMIO_SPI_LAST    43
+> +
+>  /* PSCI functions */
+>  #define PSCI_cpu_suspend 0
+>  #define PSCI_cpu_off     1
+> -- 
+> 2.7.4
+> 
+--8323329-1213045464-1654215683=:2783803--
 
