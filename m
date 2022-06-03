@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F367553C178
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Jun 2022 02:45:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.341327.566557 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03C2053C17D
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Jun 2022 02:51:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.341343.566570 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nwvRR-0004ok-0m; Fri, 03 Jun 2022 00:45:29 +0000
+	id 1nwvXJ-0006bk-Pq; Fri, 03 Jun 2022 00:51:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 341327.566557; Fri, 03 Jun 2022 00:45:28 +0000
+Received: by outflank-mailman (output) from mailman id 341343.566570; Fri, 03 Jun 2022 00:51:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nwvRQ-0004mK-SZ; Fri, 03 Jun 2022 00:45:28 +0000
-Received: by outflank-mailman (input) for mailman id 341327;
- Fri, 03 Jun 2022 00:45:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nwvXJ-0006YK-Mg; Fri, 03 Jun 2022 00:51:33 +0000
+Received: by outflank-mailman (input) for mailman id 341343;
+ Fri, 03 Jun 2022 00:51:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Fj01=WK=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nwvRP-0004lA-BH
- for xen-devel@lists.xenproject.org; Fri, 03 Jun 2022 00:45:27 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 75481183-e2d6-11ec-bd2c-47488cf2e6aa;
- Fri, 03 Jun 2022 02:45:26 +0200 (CEST)
+ id 1nwvXH-0006YE-DE
+ for xen-devel@lists.xenproject.org; Fri, 03 Jun 2022 00:51:31 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4dd4731d-e2d7-11ec-837f-e5687231ffcc;
+ Fri, 03 Jun 2022 02:51:30 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 2EA0BB821AD;
- Fri,  3 Jun 2022 00:45:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A23C7C385A5;
- Fri,  3 Jun 2022 00:45:23 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E6EC960C92;
+ Fri,  3 Jun 2022 00:51:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 058E0C385A5;
+ Fri,  3 Jun 2022 00:51:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,253 +43,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75481183-e2d6-11ec-bd2c-47488cf2e6aa
+X-Inumbo-ID: 4dd4731d-e2d7-11ec-837f-e5687231ffcc
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1654217123;
-	bh=pswBL66gapywbHHoSo80JuIpUzyBo8FhSXc1vRvxQ/s=;
+	s=k20201202; t=1654217488;
+	bh=2Evjsba6HoIHlQIqA37xEcgouS2i8iyCI0A8MlhrQOY=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=IF370UXKjJmpF5G2kYj31nB7kpo77aTpE1SRyTcxF+0C3o2o7BxpdRBs4wasm1ZbN
-	 pF2sEMyvgzGSIvy6Pjktp8dnVHR1biVeFt72bwkTZG6BQ6F/jNHDnj61uO+grIrzr7
-	 FeT6O97Eu9moJ3wcV9/KuR+s8Wkf3Pl8/D9ndeCHXY1FqdXLT6Q2Et/xaXh2QJRBwa
-	 vp64qgpB8tdeFqqn6U5caFVAsrP+vXpJ6fK05tSuxvCmNRS3txaxkeF99AY093rYD+
-	 DnXc6A9QIt5T0lNnljrEOGp0WCcTmvQml+tYRtHKJHNZB2I8WdI3v48UDJTQNSWkju
-	 hTflZnJtksV6Q==
-Date: Thu, 2 Jun 2022 17:45:22 -0700 (PDT)
+	b=gd9kMrkKvvIkK3NmFSni3Uo6I0wVmArSh1ugIcGRKvipnQddpYKnvzDKYTucsogEu
+	 5Vsl7FSNE7STQ/DEz3ZandxKQYCvQK5r4mNwmO7z7jB8/R/gTuWwniufjWpLC5uyQF
+	 dYSLza+64oPBYSoxgVFzSEPenpKGyFwEmzk6iAKu378+5Fke7fOparBeYim++M+63i
+	 UbwtIM936Jbaa1qKkiFZA0+e9nZSWbhLVEdxgGEfE7u6gYa639CV86bhMC4cwj63NL
+	 KEqWxbzszx0fe37oLvlFwdx7UbGKi+UJ6/pmWDoh1dHkRIsk86dymqH8JiRTV/ZklX
+	 6uwGfe6tHkhjA==
+Date: Thu, 2 Jun 2022 17:51:27 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Bertrand Marquis <bertrand.marquis@arm.com>
 cc: xen-devel@lists.xenproject.org, 
     Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v2 1/4] xen/arm: Sync sysregs and cpuinfo with Linux
- 5.18-rc3
-In-Reply-To: <6b828874989f198afe9041185075938f718dd495.1653993431.git.bertrand.marquis@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2206021730330.2783803@ubuntu-linux-20-04-desktop>
-References: <cover.1653993431.git.bertrand.marquis@arm.com> <6b828874989f198afe9041185075938f718dd495.1653993431.git.bertrand.marquis@arm.com>
+Subject: Re: [PATCH v2 0/4] Spectre BHB follow up
+In-Reply-To: <cover.1653993431.git.bertrand.marquis@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2206021749110.2783803@ubuntu-linux-20-04-desktop>
+References: <cover.1653993431.git.bertrand.marquis@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
+I reviewed patches #1 and #3. Julien had already started reviewing the
+other patches in details so it is probably better if he continues his
+reviews on those. So I skipped them for now. Let me know if you'd like
+me to review them.
+
 On Tue, 31 May 2022, Bertrand Marquis wrote:
-> Sync existing ID registers sanitization with the status of Linux kernel
-> version 5.18-rc3 and add sanitization of ISAR2 registers.
+> Following up the handling of Spectre BHB on Arm (XSA-398), this serie
+> contain several changes which were not needed in the XSA patches but
+> should be done in Xen:
+> - Sync sysregs and cpuinfo with latest version of Linux (5.18-rc3)
+> - Add new fields inside cpufeature
+> - Add sb instruction support. Some newer generations of CPU
+>   (Neoverse-N2) do support the instruction so add support for it in Xen.
+> - Create hidden Kconfig entries for CONFIG_ values actually used in
+>   arm64 cpufeature.
 > 
-> Sync sysregs.h bit shift defintions with the status of Linux kernel
-> version 5.18-rc3.
-> 
-> Changes in this patch are splitted in a number of patches in Linux
-> kernel and, as the previous synchronisation point was not clear, the
-> changes are done in one patch with a status possible to compare easily
-> by diffing Xen files to Linux kernel files.
-> 
-> Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git b2d229d4ddb1
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> ---
 > Changes in v2
-> - move changes in cpufeature.h in an independent patch
-> - add proper origin tag in the commit
-> - rework the commit message
-> ---
->  xen/arch/arm/arm64/cpufeature.c          | 18 +++++-
->  xen/arch/arm/include/asm/arm64/sysregs.h | 76 ++++++++++++++++++++----
->  2 files changed, 80 insertions(+), 14 deletions(-)
+> - remove patch which was merged (workaround 1 when workaround 3 is done)
+> - split sync with linux and update of cpufeatures
+> - add patch to define kconfig entries used by arm64 cpufeature
 > 
-> diff --git a/xen/arch/arm/arm64/cpufeature.c b/xen/arch/arm/arm64/cpufeature.c
-> index 6e5d30dc7b..d9039d37b2 100644
-> --- a/xen/arch/arm/arm64/cpufeature.c
-> +++ b/xen/arch/arm/arm64/cpufeature.c
-> @@ -143,6 +143,16 @@ static const struct arm64_ftr_bits ftr_id_aa64isar1[] = {
->  	ARM64_FTR_END,
->  };
->  
-> +static const struct arm64_ftr_bits ftr_id_aa64isar2[] = {
-> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_HIGHER_SAFE, ID_AA64ISAR2_CLEARBHB_SHIFT, 4, 0),
-> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_PTR_AUTH),
-> +		       FTR_STRICT, FTR_EXACT, ID_AA64ISAR2_APA3_SHIFT, 4, 0),
-> +	ARM64_FTR_BITS(FTR_VISIBLE_IF_IS_ENABLED(CONFIG_ARM64_PTR_AUTH),
-> +		       FTR_STRICT, FTR_LOWER_SAFE, ID_AA64ISAR2_GPA3_SHIFT, 4, 0),
-> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64ISAR2_RPRES_SHIFT, 4, 0),
-> +	ARM64_FTR_END,
-> +};
-> +
->  static const struct arm64_ftr_bits ftr_id_aa64pfr0[] = {
->  	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_CSV3_SHIFT, 4, 0),
->  	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_CSV2_SHIFT, 4, 0),
-> @@ -158,8 +168,8 @@ static const struct arm64_ftr_bits ftr_id_aa64pfr0[] = {
->  	S_ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64PFR0_FP_SHIFT, 4, ID_AA64PFR0_FP_NI),
->  	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL3_SHIFT, 4, 0),
->  	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL2_SHIFT, 4, 0),
-> -	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_SHIFT, 4, ID_AA64PFR0_EL1_64BIT_ONLY),
-> -	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL0_SHIFT, 4, ID_AA64PFR0_EL0_64BIT_ONLY),
-> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_SHIFT, 4, ID_AA64PFR0_ELx_64BIT_ONLY),
-> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL0_SHIFT, 4, ID_AA64PFR0_ELx_64BIT_ONLY),
->  	ARM64_FTR_END,
->  };
->  
-> @@ -197,7 +207,7 @@ static const struct arm64_ftr_bits ftr_id_aa64zfr0[] = {
->  };
->  
->  static const struct arm64_ftr_bits ftr_id_aa64mmfr0[] = {
-> -	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR0_ECV_SHIFT, 4, 0),
-> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR0_ECV_SHIFT, 4, 0),
->  	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR0_FGT_SHIFT, 4, 0),
->  	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR0_EXS_SHIFT, 4, 0),
->  	/*
-> @@ -243,6 +253,7 @@ static const struct arm64_ftr_bits ftr_id_aa64mmfr0[] = {
->  };
->  
->  static const struct arm64_ftr_bits ftr_id_aa64mmfr1[] = {
-> +	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR1_AFP_SHIFT, 4, 0),
->  	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR1_ETS_SHIFT, 4, 0),
->  	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR1_TWED_SHIFT, 4, 0),
->  	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64MMFR1_XNX_SHIFT, 4, 0),
-> @@ -588,6 +599,7 @@ void update_system_features(const struct cpuinfo_arm *new)
->  
->  	SANITIZE_ID_REG(isa64, 0, aa64isar0);
->  	SANITIZE_ID_REG(isa64, 1, aa64isar1);
-> +	SANITIZE_ID_REG(isa64, 2, aa64isar2);
->  
->  	SANITIZE_ID_REG(zfr64, 0, aa64zfr0);
->  
-> diff --git a/xen/arch/arm/include/asm/arm64/sysregs.h b/xen/arch/arm/include/asm/arm64/sysregs.h
-> index eac08ed33f..54670084c3 100644
-> --- a/xen/arch/arm/include/asm/arm64/sysregs.h
-> +++ b/xen/arch/arm/include/asm/arm64/sysregs.h
-> @@ -144,6 +144,30 @@
->  
->  /* id_aa64isar2 */
->  #define ID_AA64ISAR2_CLEARBHB_SHIFT 28
-> +#define ID_AA64ISAR2_APA3_SHIFT     12
-> +#define ID_AA64ISAR2_GPA3_SHIFT     8
-> +#define ID_AA64ISAR2_RPRES_SHIFT    4
-> +#define ID_AA64ISAR2_WFXT_SHIFT     0
-> +
-> +#define ID_AA64ISAR2_RPRES_8BIT     0x0
-> +#define ID_AA64ISAR2_RPRES_12BIT    0x1
-> +/*
-> + * Value 0x1 has been removed from the architecture, and is
-> + * reserved, but has not yet been removed from the ARM ARM
-> + * as of ARM DDI 0487G.b.
-> + */
-> +#define ID_AA64ISAR2_WFXT_NI        0x0
-> +#define ID_AA64ISAR2_WFXT_SUPPORTED 0x2
-> +
-> +#define ID_AA64ISAR2_APA3_NI                  0x0
-> +#define ID_AA64ISAR2_APA3_ARCHITECTED         0x1
-> +#define ID_AA64ISAR2_APA3_ARCH_EPAC           0x2
-> +#define ID_AA64ISAR2_APA3_ARCH_EPAC2          0x3
-> +#define ID_AA64ISAR2_APA3_ARCH_EPAC2_FPAC     0x4
-> +#define ID_AA64ISAR2_APA3_ARCH_EPAC2_FPAC_CMB 0x5
-> +
-> +#define ID_AA64ISAR2_GPA3_NI             0x0
-> +#define ID_AA64ISAR2_GPA3_ARCHITECTED    0x1
->  
->  /* id_aa64pfr0 */
->  #define ID_AA64PFR0_CSV3_SHIFT       60
-> @@ -165,14 +189,13 @@
->  #define ID_AA64PFR0_AMU              0x1
->  #define ID_AA64PFR0_SVE              0x1
->  #define ID_AA64PFR0_RAS_V1           0x1
-> +#define ID_AA64PFR0_RAS_V1P1         0x2
->  #define ID_AA64PFR0_FP_NI            0xf
->  #define ID_AA64PFR0_FP_SUPPORTED     0x0
->  #define ID_AA64PFR0_ASIMD_NI         0xf
->  #define ID_AA64PFR0_ASIMD_SUPPORTED  0x0
-> -#define ID_AA64PFR0_EL1_64BIT_ONLY   0x1
-> -#define ID_AA64PFR0_EL1_32BIT_64BIT  0x2
-> -#define ID_AA64PFR0_EL0_64BIT_ONLY   0x1
-> -#define ID_AA64PFR0_EL0_32BIT_64BIT  0x2
-> +#define ID_AA64PFR0_ELx_64BIT_ONLY   0x1
-> +#define ID_AA64PFR0_ELx_32BIT_64BIT  0x2
->  
->  /* id_aa64pfr1 */
->  #define ID_AA64PFR1_MPAMFRAC_SHIFT   16
-> @@ -189,6 +212,7 @@
->  #define ID_AA64PFR1_MTE_NI           0x0
->  #define ID_AA64PFR1_MTE_EL0          0x1
->  #define ID_AA64PFR1_MTE              0x2
-> +#define ID_AA64PFR1_MTE_ASYMM        0x3
->  
->  /* id_aa64zfr0 */
->  #define ID_AA64ZFR0_F64MM_SHIFT      56
-> @@ -228,17 +252,37 @@
->  #define ID_AA64MMFR0_ASID_SHIFT      4
->  #define ID_AA64MMFR0_PARANGE_SHIFT   0
->  
-> -#define ID_AA64MMFR0_TGRAN4_NI         0xf
-> -#define ID_AA64MMFR0_TGRAN4_SUPPORTED  0x0
-> -#define ID_AA64MMFR0_TGRAN64_NI        0xf
-> -#define ID_AA64MMFR0_TGRAN64_SUPPORTED 0x0
-> -#define ID_AA64MMFR0_TGRAN16_NI        0x0
-> -#define ID_AA64MMFR0_TGRAN16_SUPPORTED 0x1
-> +#define ID_AA64MMFR0_ASID_8          0x0
-> +#define ID_AA64MMFR0_ASID_16         0x2
-> +
-> +#define ID_AA64MMFR0_TGRAN4_NI             0xf
-> +#define ID_AA64MMFR0_TGRAN4_SUPPORTED_MIN  0x0
-> +#define ID_AA64MMFR0_TGRAN4_SUPPORTED_MAX  0x7
-> +#define ID_AA64MMFR0_TGRAN64_NI            0xf
-> +#define ID_AA64MMFR0_TGRAN64_SUPPORTED_MIN 0x0
-> +#define ID_AA64MMFR0_TGRAN64_SUPPORTED_MAX 0x7
-> +#define ID_AA64MMFR0_TGRAN16_NI            0x0
-> +#define ID_AA64MMFR0_TGRAN16_SUPPORTED_MIN 0x1
-> +#define ID_AA64MMFR0_TGRAN16_SUPPORTED_MAX 0xf
-> +
-> +#define ID_AA64MMFR0_PARANGE_32        0x0
-> +#define ID_AA64MMFR0_PARANGE_36        0x1
-> +#define ID_AA64MMFR0_PARANGE_40        0x2
-> +#define ID_AA64MMFR0_PARANGE_42        0x3
-> +#define ID_AA64MMFR0_PARANGE_44        0x4
->  #define ID_AA64MMFR0_PARANGE_48        0x5
->  #define ID_AA64MMFR0_PARANGE_52        0x6
->  
-> +#define ARM64_MIN_PARANGE_BITS     32
-> +
-> +#define ID_AA64MMFR0_TGRAN_2_SUPPORTED_DEFAULT 0x0
-> +#define ID_AA64MMFR0_TGRAN_2_SUPPORTED_NONE    0x1
-> +#define ID_AA64MMFR0_TGRAN_2_SUPPORTED_MIN     0x2
-> +#define ID_AA64MMFR0_TGRAN_2_SUPPORTED_MAX     0x7
-> +
->  /* id_aa64mmfr1 */
->  #define ID_AA64MMFR1_ECBHB_SHIFT     60
-> +#define ID_AA64MMFR1_AFP_SHIFT       44
->  #define ID_AA64MMFR1_ETS_SHIFT       36
->  #define ID_AA64MMFR1_TWED_SHIFT      32
->  #define ID_AA64MMFR1_XNX_SHIFT       28
-> @@ -271,6 +315,9 @@
->  #define ID_AA64MMFR2_CNP_SHIFT       0
->  
->  /* id_aa64dfr0 */
-> +#define ID_AA64DFR0_MTPMU_SHIFT      48
-> +#define ID_AA64DFR0_TRBE_SHIFT       44
-> +#define ID_AA64DFR0_TRACE_FILT_SHIFT 40
->  #define ID_AA64DFR0_DOUBLELOCK_SHIFT 36
->  #define ID_AA64DFR0_PMSVER_SHIFT     32
->  #define ID_AA64DFR0_CTX_CMPS_SHIFT   28
-> @@ -284,11 +331,18 @@
->  #define ID_AA64DFR0_PMUVER_8_1       0x4
->  #define ID_AA64DFR0_PMUVER_8_4       0x5
->  #define ID_AA64DFR0_PMUVER_8_5       0x6
-> +#define ID_AA64DFR0_PMUVER_8_7       0x7
->  #define ID_AA64DFR0_PMUVER_IMP_DEF   0xf
->  
-> +#define ID_AA64DFR0_PMSVER_8_2      0x1
-> +#define ID_AA64DFR0_PMSVER_8_3      0x2
-> +
->  #define ID_DFR0_PERFMON_SHIFT        24
->  
-> -#define ID_DFR0_PERFMON_8_1          0x4
-> +#define ID_DFR0_PERFMON_8_0         0x3
-> +#define ID_DFR0_PERFMON_8_1         0x4
-> +#define ID_DFR0_PERFMON_8_4         0x5
-> +#define ID_DFR0_PERFMON_8_5         0x6
->  
->  #define ID_ISAR4_SWP_FRAC_SHIFT        28
->  #define ID_ISAR4_PSR_M_SHIFT           24
+> Bertrand Marquis (4):
+>   xen/arm: Sync sysregs and cpuinfo with Linux 5.18-rc3
+>   xen/arm: Add sb instruction support
+>   arm: add ISAR2, MMFR0 and MMFR1 fields in cpufeature
+>   arm: Define kconfig symbols used by arm64 cpufeatures
+> 
+>  xen/arch/arm/Kconfig                     | 28 +++++++++
+>  xen/arch/arm/arm64/cpufeature.c          | 18 +++++-
+>  xen/arch/arm/cpufeature.c                | 28 +++++++++
+>  xen/arch/arm/include/asm/arm64/sysregs.h | 76 ++++++++++++++++++++----
+>  xen/arch/arm/include/asm/cpufeature.h    | 34 +++++++++--
+>  xen/arch/arm/include/asm/macros.h        | 33 +++++++---
+>  xen/arch/arm/setup.c                     |  3 +
+>  xen/arch/arm/smpboot.c                   |  1 +
+>  8 files changed, 193 insertions(+), 28 deletions(-)
+> 
 > -- 
 > 2.25.1
 > 
