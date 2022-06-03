@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D89453C189
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Jun 2022 03:00:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.341351.566580 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 465F953C190
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Jun 2022 03:06:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.341359.566591 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nwvfH-0007Vl-MK; Fri, 03 Jun 2022 00:59:47 +0000
+	id 1nwvlD-0007Rz-8u; Fri, 03 Jun 2022 01:05:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 341351.566580; Fri, 03 Jun 2022 00:59:47 +0000
+Received: by outflank-mailman (output) from mailman id 341359.566591; Fri, 03 Jun 2022 01:05:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nwvfH-0007U0-HC; Fri, 03 Jun 2022 00:59:47 +0000
-Received: by outflank-mailman (input) for mailman id 341351;
- Fri, 03 Jun 2022 00:59:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nwvlD-0007PC-5e; Fri, 03 Jun 2022 01:05:55 +0000
+Received: by outflank-mailman (input) for mailman id 341359;
+ Fri, 03 Jun 2022 01:05:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Fj01=WK=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nwvfG-0007Tu-53
- for xen-devel@lists.xenproject.org; Fri, 03 Jun 2022 00:59:46 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 74273651-e2d8-11ec-837f-e5687231ffcc;
- Fri, 03 Jun 2022 02:59:44 +0200 (CEST)
+ id 1nwvlB-0007P6-Q0
+ for xen-devel@lists.xenproject.org; Fri, 03 Jun 2022 01:05:53 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5033c4b7-e2d9-11ec-bd2c-47488cf2e6aa;
+ Fri, 03 Jun 2022 03:05:52 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 0A1E1CE1D34;
- Fri,  3 Jun 2022 00:59:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D13C1C385A5;
- Fri,  3 Jun 2022 00:59:39 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id D613EB821A6;
+ Fri,  3 Jun 2022 01:05:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DDE5C385A5;
+ Fri,  3 Jun 2022 01:05:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,83 +43,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 74273651-e2d8-11ec-837f-e5687231ffcc
+X-Inumbo-ID: 5033c4b7-e2d9-11ec-bd2c-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1654217980;
-	bh=6VjJLc3D4YoG+52fRsVLrMuE+lidkCVepcikso8+YUs=;
+	s=k20201202; t=1654218350;
+	bh=W6vsh6gkSltB0lQbkBL9hpDAbNIsH/xfNzMFiPILaos=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=fKAoks7G7jMQ+ENDtgFlFk0VzUus04JejR6r4D4dhy9tJU2QNmvr6qLeNEPtYrCLK
-	 /3SxZLGLCHZJc3848mRvNnc19rvYdM1ZTzvrwwyEAMct3IJOur+/ZX0mPempcG5snJ
-	 QZ5HimeB/D0jUEmRMAIh+i67PlQ/eLTANFw8+dppolkIfCDH2mpJnpJJu74H6Xf+Tx
-	 Gx6pet55yzm8MHD6VDdXnGcnVx82UWbS+nq+o1pH1bTByMdxguF4srfOevgUJlzzJo
-	 5tNhVeg7RTzO2iKmYa0ox3OJeZ8itu8suu8AqMg45wMWTP7dHh2AIq9mpQN3mYhNkM
-	 NJEeSX7zFPiLQ==
-Date: Thu, 2 Jun 2022 17:59:38 -0700 (PDT)
+	b=MCnCN9KHcd7ReoRlu9n1dx4knm6omVffJHrtojfR5MOhIlFw5tydUSWHGQS+Pi+3G
+	 c04uZK76VWOslDrorY9MuWxhvfqGAZ2V8fCOS/3W2OyScTQcwS2dfpUbls0+Gf7XFQ
+	 SYplbLjkE/H2bFg7Eb6w1bnVkZnpLC1yECTO/g+xM+qfKrDjj5es0Kv8xZ3n+ve11Q
+	 loxthL8J30lg6hm5xLjllj6UCuUmNKV8nrYCYdZaASu6uLOz2I3fWjTPfIcZ21kKw5
+	 VVYg+OgiFB7x4MJtMZg2c9tpEUtHWvKOPEmHDRyzR9L6PIjsvktTSrI3G+F80S+Ja1
+	 HjZYKWMcr0MZg==
+Date: Thu, 2 Jun 2022 18:05:48 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Penny Zheng <Penny.Zheng@arm.com>
 cc: xen-devel@lists.xenproject.org, wei.chen@arm.com, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
     Andrew Cooper <andrew.cooper3@citrix.com>, 
     George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
     Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v5 3/9] xen: update SUPPORT.md for static allocation
-In-Reply-To: <20220531031241.90374-4-Penny.Zheng@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2206021758010.2783803@ubuntu-linux-20-04-desktop>
-References: <20220531031241.90374-1-Penny.Zheng@arm.com> <20220531031241.90374-4-Penny.Zheng@arm.com>
+Subject: Re: [PATCH v5 6/9] xen/arm: introduce CDF_staticmem
+In-Reply-To: <20220531031241.90374-7-Penny.Zheng@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2206021805140.2783803@ubuntu-linux-20-04-desktop>
+References: <20220531031241.90374-1-Penny.Zheng@arm.com> <20220531031241.90374-7-Penny.Zheng@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Tue, 31 May 2022, Penny Zheng wrote:
-> SUPPORT.md doesn't seem to explicitly say whether static memory is
-> supported, so this commit updates SUPPORT.md to add feature static
-> allocation tech preview for now.
+> In order to have an easy and quick way to find out whether this domain memory
+> is statically configured, this commit introduces a new flag CDF_staticmem and a
+> new helper is_domain_using_staticmem() to tell.
 > 
 > Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+
+I realize Jan asked for improvements but I just wanted to say that on my
+side it looks good.
+
+
 > ---
 > v5 changes:
-> - new commit
+> - guard "is_domain_using_staticmem" under CONFIG_STATIC_MEMORY
+> - #define is_domain_using_staticmem zero if undefined
 > ---
->  SUPPORT.md | 7 +++++++
->  1 file changed, 7 insertions(+)
+> v4 changes:
+> - no changes
+> ---
+> v3 changes:
+> - change name from "is_domain_static()" to "is_domain_using_staticmem"
+> ---
+> v2 changes:
+> - change name from "is_domain_on_static_allocation" to "is_domain_static()"
+> ---
+>  xen/arch/arm/domain_build.c       | 5 ++++-
+>  xen/arch/arm/include/asm/domain.h | 4 ++++
+>  xen/include/xen/domain.h          | 6 ++++++
+>  3 files changed, 14 insertions(+), 1 deletion(-)
 > 
-> diff --git a/SUPPORT.md b/SUPPORT.md
-> index ee2cd319e2..5980a82c4b 100644
-> --- a/SUPPORT.md
-> +++ b/SUPPORT.md
-> @@ -278,6 +278,13 @@ to boot with memory < maxmem.
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 7ddd16c26d..f6e2e44c1e 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -3287,9 +3287,12 @@ void __init create_domUs(void)
+>          if ( !dt_device_is_compatible(node, "xen,domain") )
+>              continue;
 >  
->      Status, x86 HVM: Supported
->  
-> +### Static Allocation
+> +        if ( dt_find_property(node, "xen,static-mem", NULL) )
+> +            flags |= CDF_staticmem;
 > +
-> +Static allocation refers to system or sub-system(domains) for which memory
-> +areas are pre-defined by configuration using physical address ranges.
-
-Although I completely understand what you mean I would rather not use
-the word "sub-system" as we haven't used it before in a Xen context. So
-instead I would only use domains. I would write it like this:
-
-
-### Static Allocation
-
-Static allocation refers to domains for which memory areas are
-pre-defined by configuration using physical address ranges.
-
-Status, ARM: Tech Preview
-
-
-With that you can add
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> +    Status, ARM: Tech Preview
-> +
->  ### Memory Sharing
+>          if ( dt_property_read_bool(node, "direct-map") )
+>          {
+> -            if ( !IS_ENABLED(CONFIG_STATIC_MEMORY) || !dt_find_property(node, "xen,static-mem", NULL) )
+> +            if ( !IS_ENABLED(CONFIG_STATIC_MEMORY) || !(flags & CDF_staticmem) )
+>                  panic("direct-map is not valid for domain %s without static allocation.\n",
+>                        dt_node_name(node));
 >  
->  Allow sharing of identical pages between guests
+> diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
+> index fe7a029ebf..6bb999aff0 100644
+> --- a/xen/arch/arm/include/asm/domain.h
+> +++ b/xen/arch/arm/include/asm/domain.h
+> @@ -31,6 +31,10 @@ enum domain_type {
+>  
+>  #define is_domain_direct_mapped(d) ((d)->cdf & CDF_directmap)
+>  
+> +#ifdef CONFIG_STATIC_MEMORY
+> +#define is_domain_using_staticmem(d) ((d)->cdf & CDF_staticmem)
+> +#endif
+> +
+>  /*
+>   * Is the domain using the host memory layout?
+>   *
+> diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
+> index 1c3c88a14d..c613afa57e 100644
+> --- a/xen/include/xen/domain.h
+> +++ b/xen/include/xen/domain.h
+> @@ -34,6 +34,12 @@ void arch_get_domain_info(const struct domain *d,
+>  #ifdef CONFIG_ARM
+>  /* Should domain memory be directly mapped? */
+>  #define CDF_directmap            (1U << 1)
+> +/* Is domain memory on static allocation? */
+> +#define CDF_staticmem            (1U << 2)
+> +#endif
+> +
+> +#ifndef is_domain_using_staticmem
+> +#define is_domain_using_staticmem(d) ((void)(d), false)
+>  #endif
+>  
+>  /*
 > -- 
 > 2.25.1
 > 
