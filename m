@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2D4653E4C5
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jun 2022 15:33:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.342546.567587 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2930853E4CB
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jun 2022 15:38:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.342554.567597 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nyCrJ-0000Vc-TS; Mon, 06 Jun 2022 13:33:29 +0000
+	id 1nyCvm-00017g-Fr; Mon, 06 Jun 2022 13:38:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 342546.567587; Mon, 06 Jun 2022 13:33:29 +0000
+Received: by outflank-mailman (output) from mailman id 342554.567597; Mon, 06 Jun 2022 13:38:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nyCrJ-0000SD-QU; Mon, 06 Jun 2022 13:33:29 +0000
-Received: by outflank-mailman (input) for mailman id 342546;
- Mon, 06 Jun 2022 13:33:28 +0000
+	id 1nyCvm-00014j-CI; Mon, 06 Jun 2022 13:38:06 +0000
+Received: by outflank-mailman (input) for mailman id 342554;
+ Mon, 06 Jun 2022 13:38:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BfO3=WN=gmail.com=tamas.k.lengyel@srs-se1.protection.inumbo.net>)
- id 1nyCrI-0000S7-4I
- for xen-devel@lists.xenproject.org; Mon, 06 Jun 2022 13:33:28 +0000
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [2607:f8b0:4864:20::22b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3e85017d-e59d-11ec-b605-df0040e90b76;
- Mon, 06 Jun 2022 15:33:27 +0200 (CEST)
-Received: by mail-oi1-x22b.google.com with SMTP id q11so4354155oih.10
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jun 2022 06:33:27 -0700 (PDT)
+ <SRS0=PxEH=WN=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1nyCvk-00014N-Dp
+ for xen-devel@lists.xenproject.org; Mon, 06 Jun 2022 13:38:04 +0000
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e21e7185-e59d-11ec-b605-df0040e90b76;
+ Mon, 06 Jun 2022 15:38:02 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id 794915C0161;
+ Mon,  6 Jun 2022 09:38:00 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Mon, 06 Jun 2022 09:38:00 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 6 Jun 2022 09:37:58 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,68 +43,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e85017d-e59d-11ec-b605-df0040e90b76
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=WIcUftR+4nv81E/2CqeXj/bd28eck61W6b3k9iCB2bE=;
-        b=BBHpY2AjnLz6HdZWei/zL3xZAXI8vOwEey2CpW9uG6+994RZPcQI2fJ5qDsPMTnSjs
-         gFgdup5OcVsFTAjRBgmtfMVcpFauLZOlJosLs6A8RqCzvGawWpmRJ7pLawASh9PzE4pm
-         XzScHdRLWuVtzaMLE4WzZMBh9nwb8quzQ43zzuhd35+P/3WtFKDMCK8OtXo4hYX7fkpw
-         2khlTDOOG2dvQH2HteIUvATcL7CsmMywIJ+QuE8Jhj9KR5YrEwTpYwcjCunVvlObIQSR
-         R/8aK8hqdUrvbYY2mzCMTAVQlpP3dVzKAlJ97588QVDy+bKMZVEWe5WoCQRDjCCjZk/Z
-         0vYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=WIcUftR+4nv81E/2CqeXj/bd28eck61W6b3k9iCB2bE=;
-        b=Bu7dkSQze/+CqlTNdagERDVrL1LqB6wNvnEkqVo6mUTurrdubbJSwieoiySIBL62dK
-         axep1md+RjkWRmz5XSmpg+F85lTHK6MEy6p0oiq8QaDcvaycTreiDcEqZFEgYMS9zfdH
-         aPkQupR8zxQVyZPhabH7fvJKVDKNjUp9kc7CNcTaWjxIdFO2exxNjc48Nd9uNdyzY8t+
-         YAPWZcZkzLAISS3C9p+YQEZGLs+J3hRB7/ssw7eXIYFkQ+Uf0BT4LViu38+uB4hot7bW
-         16sHOm5mgkw7RD50MmNYkJG5tCVuQQ9P5du4Bf9yryUjwkqB8p56E8v81nc0wMQ/cTZ6
-         4keQ==
-X-Gm-Message-State: AOAM533tYqlN0yU+wOwoAu6OQ549zalAzT6qoL+R/CO15tVJHujint/H
-	qi3gCf4vuh5Gvn5LvY7b1wtwXdhcNxeqIRYJlL8=
-X-Google-Smtp-Source: ABdhPJz4/TxLIUR6urV41GuW3LPuzBHBcBkJZ3rL+s55taAfZaj3UpH8FcPsV6rgyKDn4eWxtKvXQWRII4i93+REU8A=
-X-Received: by 2002:a05:6808:302b:b0:2f9:eeef:f03 with SMTP id
- ay43-20020a056808302b00b002f9eeef0f03mr30387637oib.128.1654522405852; Mon, 06
- Jun 2022 06:33:25 -0700 (PDT)
-MIME-Version: 1.0
+X-Inumbo-ID: e21e7185-e59d-11ec-b605-df0040e90b76
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm1; t=1654522680; x=
+	1654609080; bh=NV+ZKZwxOXIqN4jf9GPyMHPIHRuU7FgMyNT5XXB5+1g=; b=g
+	fVdI/JeOojWucbFo0dQCpuXNwRWpBA2TSjCcXLkPE8N2M0A+ypBfATfmoFtRXoz4
+	pF//ITbLe/b4ZDfzzXxFyT6i7W7Adrn0vnWFxri2x/t6NDBAAwM8/VhN5Gv0kWPc
+	QJ7Pi5S+sxoL4jFTIv2Td5O73uTWxs5tXT2gV5Rw9/TMcQ0WygNJZEDtquLB8nQR
+	cPbXU8mRJEF9G0I+Q+JDEECFybbwQrLOiC54Bf/tHVvue/XMsuvdzsBVVqrHzWlI
+	8uLZrfUUw0QVymFgfjvB00PIAfY1fiuui7DU6rx2cg3Yy5rqzXZlLlExaqLSPead
+	/yp8nUYJ5iBLVICX+o5Hw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1654522680; x=1654609080; bh=NV+ZKZwxOXIqN4jf9GPyMHPIHRuU
+	7FgMyNT5XXB5+1g=; b=a6Y7k0etXHqiLj697Lq+tdtC3+ayjZCe4PuWPzvCcw6Q
+	1BHaCPCE1brWr7n+WkUiiX//+ISBZ8j2cABI96n2UIGa2foBZHBI0VkysUVm6mcC
+	RdJjDHIuOmivjV79A+UU1nL1wdlbmFyzq93QQJ6SqRmJLN8i5K0LiCUDkPLfms7B
+	aLDJRTNrVrcKtSCdNH5UYJfGgkpCSBlNdv2xwQWZUwXPEKgjlJrEY5yXsd3YtMwu
+	72PAJzKxmUWjvcp1zdNr2ykOvQQ6AELrYO2jW6DAQIFkcU/6C2I2kUC3yMT+zm5V
+	NSWZ6dH6P7WKbP6i93TwikTwBpFv/rRGVZU23ooICQ==
+X-ME-Sender: <xms:OAOeYmaGzf494ZLJE2370KwY9X0SekBIAMlhhZeA3atCtC7ji71sEg>
+    <xme:OAOeYpb5P8aT6YRXee_0CCnHuf0eG6WDZ0lypkNjRhK9AWnbnlwGZUdIVT_mtpbKs
+    8n9s990fxL1mQ>
+X-ME-Received: <xmr:OAOeYg9hIgWc7omaBxyrnG3MYJHTMr27K540yrVmWFVPy18G3WDFMBNHZFWo7ZQe2OItJxI-SK1QcCxvz5sTYT3adWF-xkHvpg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedruddtvddgieeiucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepfdforghr
+    tgiihihkohifshhkihdpucforghrvghkfdcuoehmrghrmhgrrhgvkhesihhnvhhishhisg
+    hlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeffhffgveegleeu
+    ieektdffuedvudfhkedvteeihffhhefhheegledvhefhvdevieenucffohhmrghinhepgh
+    hithhhuhgsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghi
+    lhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtg
+    homh
+X-ME-Proxy: <xmx:OAOeYoo5jtObSaEORs30uLnYg8rvRNl5kPxWsUtTHi1lPx0vXV8I-A>
+    <xmx:OAOeYhpAvM7NAMPIK0YZCm_sQ6n1h2w6pAP3C54iZLtT5_1siah6vA>
+    <xmx:OAOeYmRDnUwQYufGZTNNF-0r9O8WWdmtwRCVIGRXMVqBt2e9bgPa5g>
+    <xmx:OAOeYs3QLMMXK0k2mdWSi8FuXT4YKwo6V4I6xdZbloVQfCg3v7R__w>
+Feedback-ID: i1568416f:Fastmail
+Date: Mon, 6 Jun 2022 15:37:55 +0200
+From: "Marczykowski, Marek" <marmarek@invisiblethingslab.com>
+To: "Lengyel, Tamas" <tamas.lengyel@intel.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"Cooper, Andrew" <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	"Beulich, Jan" <JBeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	Pau =?utf-8?B?TW9ubsOpLA==?= Roger <roger.pau@citrix.com>,
+	Paul Durrant <paul@xen.org>, "Tian, Kevin" <kevin.tian@intel.com>,
+	Tamas K Lengyel <tamas@tklengyel.com>
+Subject: Re: [RFC PATCH 00/12] Add Xue - console over USB 3 Debug Capability
+Message-ID: <Yp4DM0L8e+f77oRe@mail-itl>
 References: <cover.07846d9c1900bd8c905a05e7afb214b4cf4ab881.1654486751.git-series.marmarek@invisiblethingslab.com>
- <8d45d05dae0b5a2aa62120c7ff62295319a74478.1654486751.git-series.marmarek@invisiblethingslab.com>
-In-Reply-To: <8d45d05dae0b5a2aa62120c7ff62295319a74478.1654486751.git-series.marmarek@invisiblethingslab.com>
-From: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-Date: Mon, 6 Jun 2022 09:32:52 -0400
-Message-ID: <CABfawhn7XGoMRb9LsSwNyaCb92KD5jC4juM+NwOMyOntOgo5pg@mail.gmail.com>
-Subject: Re: [RFC PATCH 01/12] drivers/char: Add support for Xue USB3 debugger
-To: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+ <CY4PR11MB0056686DC984391051B53D59FBA29@CY4PR11MB0056.namprd11.prod.outlook.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="+XH+T9PvfQDREpFq"
+Content-Disposition: inline
+In-Reply-To: <CY4PR11MB0056686DC984391051B53D59FBA29@CY4PR11MB0056.namprd11.prod.outlook.com>
 
-> +/* Supported xHC PCI configurations */
-> +#define XUE_XHC_CLASSC 0xC0330ULL
-> +#define XUE_XHC_VEN_INTEL 0x8086ULL
-> +#define XUE_XHC_DEV_Z370 0xA2AFULL
-> +#define XUE_XHC_DEV_Z390 0xA36DULL
-> +#define XUE_XHC_DEV_WILDCAT_POINT 0x9CB1ULL
-> +#define XUE_XHC_DEV_SUNRISE_POINT 0x9D2FULL
-> +#define XUE_XHC_DEV_CANNON_POINT 0x9DEDULL
 
-I had to add an extra device ID here to get it working on my NUC,
-would be nice if we could add that to the list of supported configs so
-I don't need to custom patch:
+--+XH+T9PvfQDREpFq
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 6 Jun 2022 15:37:55 +0200
+From: "Marczykowski, Marek" <marmarek@invisiblethingslab.com>
+To: "Lengyel, Tamas" <tamas.lengyel@intel.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"Cooper, Andrew" <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	"Beulich, Jan" <JBeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	Pau =?utf-8?B?TW9ubsOpLA==?= Roger <roger.pau@citrix.com>,
+	Paul Durrant <paul@xen.org>, "Tian, Kevin" <kevin.tian@intel.com>,
+	Tamas K Lengyel <tamas@tklengyel.com>
+Subject: Re: [RFC PATCH 00/12] Add Xue - console over USB 3 Debug Capability
 
-#define XUE_XHC_DEV_COMET_LAKE 0x02EDULL
+On Mon, Jun 06, 2022 at 01:18:42PM +0000, Lengyel, Tamas wrote:
+> Happy to see this effort, it's been long overdue to get this feature upst=
+ream! If you have a git branch somewhere I'm happy to test it out. I alread=
+y have tested Xue before on my NUC and it was working well.
 
-The patch is here:
-https://github.com/tklengyel/xen/commit/dd0423aba6caa4ef41dff65470598a1c0c1105ae
+It's here:
+https://github.com/marmarek/xen/tree/master-xue
+warning: I do force-push to this branch from time to time
 
-Thanks,
-Tamas
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--+XH+T9PvfQDREpFq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmKeAzMACgkQ24/THMrX
+1ywk/gf9GVdRcp41W4swFkulvGo9XmGMe7HtlL2B8UzIjrt+sItv1OJ+w08TOzbd
+oJWlUfwu0M5yPwaXAe04EoUiqoYE9ffEHgK7CRrGMfUujPj9gPY49JDoNk+WkxBs
+P74mVw5up8ZL1xbvcQ4sjLVJVId5IMnDTkwutxAQFEPkAastsXwVt3IK4jtXw4Fd
+8wY7K/WbBGnC+3Ge1spg3BE+G74n9/8//eLvDi/M59BzLJ737iACoWv28dNdtQhu
+Eh1neCpy6kz/tTLatP8I6tS+NXZAykFi6OHiF3a92rJtUP1KZKG2jSg3mIejZOnT
+TmsFB/ThPBP8NI4Tkbc3a66UKAxLcQ==
+=nDXm
+-----END PGP SIGNATURE-----
+
+--+XH+T9PvfQDREpFq--
 
