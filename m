@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A0DF53E4D9
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jun 2022 15:47:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.342573.567619 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A6D153E4E2
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jun 2022 15:52:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.342582.567630 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nyD4q-0003FX-IF; Mon, 06 Jun 2022 13:47:28 +0000
+	id 1nyD9E-0004jp-5E; Mon, 06 Jun 2022 13:52:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 342573.567619; Mon, 06 Jun 2022 13:47:28 +0000
+Received: by outflank-mailman (output) from mailman id 342582.567630; Mon, 06 Jun 2022 13:52:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nyD4q-0003D0-FX; Mon, 06 Jun 2022 13:47:28 +0000
-Received: by outflank-mailman (input) for mailman id 342573;
- Mon, 06 Jun 2022 13:47:26 +0000
+	id 1nyD9E-0004gt-2F; Mon, 06 Jun 2022 13:52:00 +0000
+Received: by outflank-mailman (input) for mailman id 342582;
+ Mon, 06 Jun 2022 13:51:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7Jy1=WN=citrix.com=prvs=14988d3bc=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nyD4o-0003Cu-Tg
- for xen-devel@lists.xenproject.org; Mon, 06 Jun 2022 13:47:26 +0000
+ id 1nyD9D-0004gn-FG
+ for xen-devel@lists.xenproject.org; Mon, 06 Jun 2022 13:51:59 +0000
 Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
  [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 31ee5460-e59f-11ec-b605-df0040e90b76;
- Mon, 06 Jun 2022 15:47:25 +0200 (CEST)
+ id d456ad97-e59f-11ec-b605-df0040e90b76;
+ Mon, 06 Jun 2022 15:51:58 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,83 +36,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 31ee5460-e59f-11ec-b605-df0040e90b76
+X-Inumbo-ID: d456ad97-e59f-11ec-b605-df0040e90b76
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1654523245;
+  d=citrix.com; s=securemail; t=1654523518;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=M7xMWiHZ0GdGm1TDPXD0V79kCqdCPGQN/V3VFFtCoIQ=;
-  b=TeJWzCzPKh3zTlBhmmWbgBCFJhk0trevg9UYW2NQ80ODMVW+kxdEmEi0
-   AcTYc0JiCGSIFcR+FxUiWghxj67ZnsXrkqkzszvMDM6AzHQTCCmZcW/Qz
-   6Fqf1jpwEiZstH9fZUzKoYZ+Ns3N0noT72BTmKt7Ph1Pw2DY1ItYlsZWG
-   w=;
+  bh=krnQmXKeCQBjbkfKNZD5J8NR5QGqOxG1ETCGQIW5ZF0=;
+  b=Z9vtN31oZAbeFSemz4Kfb/oNcbhuu1OPwqaHaJ2Sp7jCQaJblY9lZ4iu
+   N06OM7wXfhXpNCGse8dOlNJfOIQNwFGTV3zvxA6XVuZkkxf4F4APMMY1K
+   73Tnsezjs4q0HDqUMI6oaL/KCdQtuUSmuhOMhdg5XIoKEwdPOMVqR1P1F
+   U=;
 Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 5.1
-X-MesageID: 72295056
+X-MesageID: 72295383
 X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:3FpayqjKZUI/GXdFftucM2UjX161GxAKZh0ujC45NGQN5FlHY01je
- htvDD3QbqyMZzf2f90lOo+x9E1SvsXTzNBlSgRrqitjQywb9cadCdqndUqhZCn6wu8v7a5EA
- 2fyTvGacajYm1eF/k/F3oDJ9CU6jefSLlbFILas1hpZHGeIcw98z0M68wIFqtQw24LhXVvQ4
- YmaT/D3YzdJ5RYlagr41IrbwP9flKyaVOQw5wFWiVhj5TcyplFNZH4tDfjZw0jQG+G4KtWSV
- efbpIxVy0uCl/sb5nFJpZ6gGqECaua60QFjERO6UYD66vRJjnRaPqrWqJPwwKqY4tmEt4kZ9
- TlDiXC/YSkIFa7Xibk/aBQCNhglN7Nl2+fLLnfq5KR/z2WeG5ft6/BnDUVwNowE4OdnR2pJ8
- JT0KhhUMErF3bjvhuvmFK883azPL+GyVG8bknhm0THeC+dgWZ3ZSr/GzdRZwC0xloZFGvO2i
- 88xNmA1PUmYPkMn1lE/LdVio/q2iWnGLzxV9W2HgaEI6DTiw1kkuFTqGIWMIYHbLSlPpW6Ho
- krW8mK/BQsVXPSPxDzA/n+yi+vnmSLgRJlUBLC+7uRtglCY2ioUEhJ+fUCgvfCzh0q6WtReA
- 08Z4Cwjqe417kPDZtv3UgC8oXWElgUBQNcWGOo/gCmP167V7gCxFmUCCDlbZ7QbWNQeHGJwk
- AXTxpWwWGIp4Ob9pW+hGqm8gxKZOjMEcE05aHUhdFAP/frA+I08gUeaJjp8K5JZnuEZCBmpn
- W3W9nJm2+9M5SIY//7lpA6a2lpAsrCMF1dovVuPAwpJ+ysjPOaYi5qUBU83BBqqBKKQVRG/s
- XcNgKByB8heXMjWxERhrAjgdYxFBspp0xWG2DaD57F7q1yQF4eLJOi8Gg1WKkZzKdojcjT0e
- kLVsg45zMYNYSf2MPMvO9/vU5RCIU3c+TPND6m8UzazSsIpKF/vEN9GOSZ8IFwBYGBzyPpia
- P93gO6nDGoACLQP8Qdas9w1iOdxrghnnDu7bcmik3yPjOvFDFbIGOhtDbd7Rr1ghE9yiF6No
- 4g32grj40g3bdASlQGOqN5PfQ5XdiFrbX00wuQOHtO+zsNdMDlJI5fsLXkJItENc3h9/gsQw
- kyAZw==
-IronPort-HdrOrdr: A9a23:6WiQw66y5JWsKtwwtAPXwMrXdLJyesId70hD6qhwISY1TiW9rb
- HIoB17726RtN9/Yh0dcLy7V5VoBEmsk6KdgrNhWItKPjOW21dARbsKheCJrgEIWReOlNK1vZ
- 0QCpSWY+eRMbEVt6jH3DU=
+IronPort-Data: A9a23:RKnoRKO0DPBhgu3vrR2vl8FynXyQoLVcMsEvi/4bfWQNrUp0hTcGy
+ mRLWjzUPP2OZmbyfNhyOd608x4B7MLcxodkGQto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
+ ynLQoCYdKjYdleF+lH1dOKJQUBUjclkfJKlYAL/En03FFYMpBsJ00o5wbZn2tMw27BVPivW0
+ T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
+ 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Zk
+ td8sLqvVFkVDqTvw/00AjMfHWJ1MvgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
+ 7pCcmlLN03dwbLtqF64YrAEasALJc/3PIQZqzd4wCvQF/oOSpHfWaTao9Rf2V/cg+gRR6yPO
+ pFJMlKDajzGWj0INHcLV6s+hd+3uSPufhoC73Ca8P9fD2/7k1UqjemF3MDuUt6XQcRYmG6Iq
+ 2SA+H72ajkBL8CWwzeB9nOqh8fMkDn9VYZUE6e3ntZ1hHWDy2pVDwcZPXO2ofS8yV6zXfpad
+ lRS8S0rxYAi+UruQtTjUhmQpH+fogVaS9dWC/c96gyG1uzT+QnxLmoOQyNFadcmnNQrXjFs3
+ ViM9+4FHhQ27ufTEyjEsO7J83XiYkD5MFPuewdeTzoAxcb+/r0DhzGUV/8yOum7zdb6TGSYL
+ y+xkMQuu1kCpZdVivnhpwib2W3ESovhFVBsuFiONo6xxkYgPdP+OdT1gbTOxawYRLt1WGVtq
+ 5TtdyK2yOkVRa+AmyWWKAnmNOH4vq3VWNEwbLMGInXAy9hO0yT6FWyoyGsiTHqFy+5dEdMTX
+ GfduBlK+LhYN2awYKl8buqZUpp3kfS9SYy9C66MPrKih6SdkyfepUlTibO4hTixwCDAb4ljU
+ XtkTSpcJSlDUvk2pNZHb+wczaUq1kgD+I8nfriil07P+ePHPBa9EO5ZWHPTP7tRxP7V/23oH
+ yN3apLiJ+N3C7WuPEE6MOc7cDg3EJTMLcmv+5AHKLPYe1oO9aNII6a5/I7NsrdNx8x9/tokN
+ FnkMqOE4DITXUH6FDg=
+IronPort-HdrOrdr: A9a23:DS2di67fvpSDH9E+PQPXwMjXdLJyesId70hD6qhwISY6TiW9rb
+ HLoB17726QtN9/YhwdcLy7VJVoBEmskqKdgrNhX4tKPjOHhILAFugLhuHfKn/bak7DH4ZmpM
+ FdmsNFaeEYY2IUsfrH
 X-IronPort-AV: E=Sophos;i="5.91,280,1647316800"; 
-   d="scan'208";a="72295056"
-Date: Mon, 6 Jun 2022 14:47:18 +0100
+   d="scan'208";a="72295383"
+Date: Mon, 6 Jun 2022 14:51:51 +0100
 From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [XEN PATCH 2/4] build: set PERL
-Message-ID: <Yp4FZsVKjQcy6Ly6@perard.uk.xensource.com>
+To: Elliott Mitchell <ehem+xen@m5p.com>
+CC: <xen-devel@lists.xenproject.org>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [XEN PATCH 3/4] build: replace get-fields.sh by a perl script
+Message-ID: <Yp4Gd6leI/MSPkHw@perard.uk.xensource.com>
 References: <20220601165909.46588-1-anthony.perard@citrix.com>
- <20220601165909.46588-3-anthony.perard@citrix.com>
- <092852c0-d833-0c7c-1bc4-5d2e86610a4d@suse.com>
+ <20220601165909.46588-4-anthony.perard@citrix.com>
+ <Ypeimt5XHHog64qw@mattapan.m5p.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <092852c0-d833-0c7c-1bc4-5d2e86610a4d@suse.com>
+In-Reply-To: <Ypeimt5XHHog64qw@mattapan.m5p.com>
 
-On Thu, Jun 02, 2022 at 11:01:30AM +0200, Jan Beulich wrote:
-> On 01.06.2022 18:59, Anthony PERARD wrote:
-> > --- a/xen/Makefile
-> > +++ b/xen/Makefile
-> > @@ -22,6 +22,7 @@ PYTHON_INTERPRETER	:= $(word 1,$(shell which python3 python python2 2>/dev/null)
-> >  export PYTHON		?= $(PYTHON_INTERPRETER)
-> >  
-> >  export CHECKPOLICY	?= checkpolicy
-> > +export PERL		?= perl
+On Wed, Jun 01, 2022 at 10:32:10AM -0700, Elliott Mitchell wrote:
+> On Wed, Jun 01, 2022 at 05:59:08PM +0100, Anthony PERARD wrote:
+> > diff --git a/xen/tools/compat-xlat-header b/xen/tools/compat-xlat-header
+> > new file mode 100755
+> > index 0000000000..f1f42a9dde
+> > --- /dev/null
+> > +++ b/xen/tools/compat-xlat-header
+> > @@ -0,0 +1,539 @@
+> > +#!/usr/bin/perl -w
+> > +
+> > +use strict;
+> > +use warnings;
 > 
-> For the intended use, is there a minimum version requirement? If so,
-> it needs documenting in ./README (and it preferably wouldn't be any
-> newer than from around the times our other dependencies are). And
-> even when the uses are fully backwards compatible, I think the need
-> for the tool wants mentioning there.
+> I hope to take more of a look at this, but one thing I immediately
+> notice:  -w is redundant with "use warnings;".  I strongly prefer
+> "use warnings;", but others may have different preferences.
 
-I don't think there's a minimum version. The script works in our
-Gitlab CI, or at least the builds don't break.
-
-Yes, it would be better to document the tool, I'll add it to the README.
-(We already use it in the toolstack, at least for libxl, so it was at
-least partially needed before.)
+Sounds good, I might have copy the shebang and the "use*" from an other
+script in our repo, without checking what the -w stand for.
 
 Thanks,
 
