@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29A6B53E5D1
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jun 2022 19:05:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.342662.567734 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D75653EE19
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jun 2022 20:49:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.342672.567748 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nyG9n-0003TX-9a; Mon, 06 Jun 2022 17:04:47 +0000
+	id 1nyHlk-0005U3-Vm; Mon, 06 Jun 2022 18:48:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 342662.567734; Mon, 06 Jun 2022 17:04:47 +0000
+Received: by outflank-mailman (output) from mailman id 342672.567748; Mon, 06 Jun 2022 18:48:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nyG9n-0003Qn-5v; Mon, 06 Jun 2022 17:04:47 +0000
-Received: by outflank-mailman (input) for mailman id 342662;
- Mon, 06 Jun 2022 17:04:45 +0000
+	id 1nyHlk-0005RC-SD; Mon, 06 Jun 2022 18:48:04 +0000
+Received: by outflank-mailman (input) for mailman id 342672;
+ Mon, 06 Jun 2022 18:48:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PxEH=WN=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1nyG9l-0003Qh-9A
- for xen-devel@lists.xenproject.org; Mon, 06 Jun 2022 17:04:45 +0000
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c0d040df-e5ba-11ec-bd2c-47488cf2e6aa;
- Mon, 06 Jun 2022 19:04:43 +0200 (CEST)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id EFED35C00EF;
- Mon,  6 Jun 2022 13:04:39 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Mon, 06 Jun 2022 13:04:39 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 6 Jun 2022 13:04:37 -0400 (EDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=qjuy=WN=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1nyHli-0005R4-UU
+ for xen-devel@lists.xenproject.org; Mon, 06 Jun 2022 18:48:03 +0000
+Received: from sonic301-22.consmr.mail.gq1.yahoo.com
+ (sonic301-22.consmr.mail.gq1.yahoo.com [98.137.64.148])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2e591c75-e5c9-11ec-bd2c-47488cf2e6aa;
+ Mon, 06 Jun 2022 20:47:59 +0200 (CEST)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic301.consmr.mail.gq1.yahoo.com with HTTP; Mon, 6 Jun 2022 18:47:56 +0000
+Received: by hermes--canary-production-ne1-799d7bd497-2pzdr (Yahoo Inc. Hermes
+ SMTP Server) with ESMTPA ID 45bd2f9c05a2726a2f7095440d7fd00d; 
+ Mon, 06 Jun 2022 18:47:52 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,167 +42,211 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0d040df-e5ba-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm1; t=1654535079; x=
-	1654621479; bh=hcfGpKGkS/9iwKrvuCJTKt3bI0+5tbPMzlzGdi+DVB8=; b=T
-	neXTQCNrnFutC04mYjsiLR6lIUJ0FK6L7VjdrTBFglMF8usXopgDk1A2tqyPlEjM
-	70ZVqxrTcNJDNKGJaiZeeGvyxVmMY6ja3VP0wZ3B74bB3m0DDWVe3FTsD+oGNMz7
-	inobeS3plHybu7Sr4RLkrGX9I+ZkKhXB/54Y/cq27eVcreaZhYRMW8xMbEbctIrV
-	yAbSbZKiqQ3vbzxcQb6gGM39v/SXFFSGWTZFZvByiEH1ag+oKEs45EVx7Bm2P8Rp
-	WrtiWA9qLRD/+T90XEMOTmYpPbHPz/KTiibRIwezQKHSENJmlncN0MWRX74FujlS
-	xn49o07tiYn7n42hjzSFQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1654535079; x=1654621479; bh=hcfGpKGkS/9iwKrvuCJTKt3bI0+5
-	tbPMzlzGdi+DVB8=; b=jVAbXvYmp/4umacGNwbrxWxOEnaUjzrL61solks6nNe5
-	wjjJskToGG818vSXogIrH+vOmUIKCmf8B+CILhIdWQVrU1vTjNQnbCpv2iLCFDcq
-	oNPiJU5B9pkob6G9J5tMv2P0OofXJzIVMEycT/pFApcVJqueVJDFN9AhlLDSQGGq
-	VAnDfF74BP3zYK/mht4wiBBAd3wSosqtfJG/2+YSihduX/MNw6SihSj0SqT/Hjxz
-	uIpDiH403TmtB+WboTlSvrRNk5HQhB7N8MwV7/5CvEzd2mPWDhgpulg5f5nTnHKb
-	JWQ5BGZJx/CtuolnWL49U6ipei8+6ze4YTPlhPY1yw==
-X-ME-Sender: <xms:pzOeYgXRsUXUTsnzfaVMgOf8wpA2IUjHKN2s3ZBXnizeCvYK6z5sYg>
-    <xme:pzOeYkmZEr0xswikKlxjRa18IEy183TgZE-_8G4X8w3iHpjohuC2rf5zu9DRGDW-f
-    HKtA4Gysl80sA>
-X-ME-Received: <xmr:pzOeYkYyT8vRKyZ_0PYB5Ale6IklTMTUfXx39452DSz9WQs3nAOfp24dnaOrovdak-mrxBQscE2ZksV_rw3s5-GSK7nYjCIyMQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedruddtfedgudehucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepueek
-    teetgefggfekudehteegieeljeejieeihfejgeevhfetgffgteeuteetueetnecuffhomh
-    grihhnpehgihhthhhusgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgr
-    mhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgsh
-    hlrggsrdgtohhm
-X-ME-Proxy: <xmx:pzOeYvW3Tgk3ualzId29zcGUoUauxwGBNUdlCKTY6q9prHQlt7evvg>
-    <xmx:pzOeYqk16ve4W218pIn8USRa2LtNjy4DGVI2NSxhdQzxvnYoZrfhsw>
-    <xmx:pzOeYkdLoYG69Y_JbvPkivIC6cjFeQXSNxa1bqEnXB9xmZaVNdd6og>
-    <xmx:pzOeYoaBeVf7m7q_PPVBaPgf0LSViWWGfgEE0ByzcR-MV6PlWNFLzQ>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 6 Jun 2022 19:04:34 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [RFC PATCH 01/12] drivers/char: Add support for Xue USB3 debugger
-Message-ID: <Yp4zo1UQV19euwRb@mail-itl>
-References: <cover.07846d9c1900bd8c905a05e7afb214b4cf4ab881.1654486751.git-series.marmarek@invisiblethingslab.com>
- <8d45d05dae0b5a2aa62120c7ff62295319a74478.1654486751.git-series.marmarek@invisiblethingslab.com>
- <CABfawhn7XGoMRb9LsSwNyaCb92KD5jC4juM+NwOMyOntOgo5pg@mail.gmail.com>
- <Yp4JLd8UGS3jjD5Z@mail-itl>
- <CABfawhmz3+EJZ6qrqKOQ==Hmm93i+a4WBk8FcbOaBSxmaM3New@mail.gmail.com>
- <CABfawhkkGr6Lp4SBEw7nsqfUs28QEqoCuVgTRBg9ZUCirLW5_g@mail.gmail.com>
+X-Inumbo-ID: 2e591c75-e5c9-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1654541276; bh=kxA8kdihdD4E0EIVi7e3E/kzwhCP82CLQhp0tYo1HTo=; h=Date:Subject:From:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=eRfMLgO84clK9Is9adCzXkF2Nu9ovNwQNdLqPGYfoK4E4gjLQTFTZqgf2VGDOctQhf8zF2pLZElqo5Ga1NjfVfKjLvDL8d/8rNllYVNBp3mjPqm26zpoXLMu1Aj6FHktbEyYmzO9K+Cr/ImKX1mFISP0B8Yljd5NmZ2IhOjwA/necbEapS09u5uK1GAKH6yBg5gG2trs3DA15WCckIyjbIjZDGmxwuRzzfYZ31jQgHJPKD+rHjwjGrjDPkfeaZ0w9+e3aWVTjUivvbHmEhJdVTL22G2CIKsVlB5xWHLBcnPC9ZdxdOWMKY/bpd342bcfcKtRKP0gB/VaL84Ghd4chw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1654541276; bh=w/TEIgVgCTuIVvpXjrf7yUQgX1KaApCiU8xGdhmbVAZ=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=FfAHTDGel5XDTwCbRGTJWNmf2ZHPQlB53WgtDDOjlB84+8Wv/xLRH6qnoAUaEGhzUdphBGNDkP+3Sf5twKDclLxLxo7fEO5ycliHDa43q29PijytdLufru15dBmfHnQH/ZX9W5GRRc77z7ArnhVXk7npCED3Z9pGf4yxcVyE3CjhJbkepNhKx5e3MuRo7LeFYHTZBRURq9EZl+8/56zNUZnLCoOmbZJfnSQX1og2ilkz+nyszzdAAB0Df44wrg666u0YkCR85WAWJfdoLIoyijqLf5tlokYRhOHrOUfhxGLKlaa6sWmBKC4+6jb5q3SAImVNOSNCbANLInKygrnZnA==
+X-YMail-OSG: YNpYGrwVM1kKe8RFKhr3QgzrMOuYABQljs98yXzsBHKRF07LumTfjB.dEyN_CRa
+ JZ5O4xvnT0CnZj6ccawmGH6K.kkuVKibez8PMCA5WZuBeTC7KGyMC.JF5w2xxoerKrtZ.me4kg2n
+ LcQv6hXCep5WpfrnvORrG0l0iFkiQZ7GVAfo9P58bu81mD4kwBitJ__3DqIl3TtqEnubbZqtm68h
+ jXUyrG.jD1nKjevtHHSpwsPw.7IF4xUQdoPtL.3SgQWphm8P8BOpX1BswRSfrFvzPX_P8aA1EajM
+ 6XOwb0dOmV34WXhqj1qZUwx9VpdqJCCxSmw7zbgHfQcTRnvHNPpfeKmw2kWdjIjNvKrgM7whb4pM
+ i4zNX2mK5GuVCI.bbBRW8THXkwMQe_LVkTLOJ3OKFfIB6.wQTe._NnVQUrJw70ZOqfA741hj1OfW
+ 8erjekcOnjDg9STmJRf8Ud5kkapZ7haDvGhaOPYiMljZDoTCreOgEemd2txbXDM_e54gqyjFNpNo
+ p.sH_jEGQmzb81PLwh3PWAtgEqczo2NS0nrP6LTi2eaHFt3kCnUa3T0dCOUeeYUQPbcxsMpNHQ.y
+ L.RO9JD7AhNn0sZdAlqEviDKo9ddM5cYtNKmWA1djztePlK_NTIGXRFroVs267zK_ZYYlGBF82pT
+ ppR8RzeIpPHVfwhEqBKEqfp4wYkRyp6ur6ndAv9VvnAhEnDL1MvtNypDirRyo4QsQW6DG2PQcPIW
+ zh2PoVZpdiJh0DJRt3cby_16OeUKOtm3tonO9ZCpdFHq11KZLH_0v.3YaUkJHN5zENDXEojhoOvu
+ ophpEWrJPI0MCJTBU4tnfK6yuNwWmbxwaPnlJoP7D_CAYdstHwpHzDOIP2NlCUEcW2jmcy5KDJZY
+ rzHbpApM4SMHpa6Aq4p5gCEBmQvHLvqgQVd_Mw8RnE9odP2_mrHEjZZuwNXne97rxQFufU.PQI1h
+ 4Hw31_2gXt_o4AKYInEoa7cgavivh8AyPZq_BtBB_tI0aEofueIE6z_SV.AsRyK6RNx3zf1EhQat
+ Vfyb6NOV5ji8BdrzRllYf0v6FferiUtkk_jXZS2fkxgNKFtBZ.zJdfkac9bW7veAnB3pbUfGMmyI
+ vG5q1.8AvbavDJSlfB5K1HRS6cjC_FSpBapM3cki0WoqkS_w30nZjZK0nLhf43d.yUGGcKgr0giW
+ MMnmrpZsIv6F0Qv7ClLh7qMrrB.mhx.Ae6EyJ4trT3t6JWfN_gUDoD7U9fwwciWy6hpMgXjaJNUn
+ 7cyPvZxd5.Kk1aKt2KKBHTs2U7c30utNu3NOeqYMbPuYFIwh.g10EEdcgAjA581LSXHMq1NGSLyT
+ QzzGk8pKLezJD7caLqPXfRJOiF0keX7BDlw8zk4l2HbJDXsnXBPtOnm7UFI8Gb.87SZYyS6HoJdQ
+ 0A.ygh8ZQy6QIQ3e0U8IDy.J17qeBUee7wYkOYukutXdbcMxymgftU18O2c682D1yGUD1L1_OBez
+ ldUsTBn6741.hA0bGaGcFsRZjsR6r2E_chffdR.iUoLJMCYg_LxxQrO5Z.i0w0TE3.BhVzelOcb8
+ wHxJq8i4zZ91yQqoI2Wxhgvri1I1Bt2k3Pksa9smZWZeadus5yhD1mB5l38sgEx8.Uil.5NDAUWG
+ Vu_sfp7oiNRuQoh4VIHyStjn1RsNjH.cHyvSg1JAQYcOJ_6MAmr0BnbN0hTLAdZkD1SiDaE3L3H7
+ LA6KBEELw6boaKJQgjEOgQb_2RwnVo6edTYG44frmFNCVh.fyLFpbN28drpVjYQpvbvq9gT4y3zg
+ QpxhNlPMQKXxDz33pJxvJqyABcyB5zv184NRokJK5Ee1DnRF43EuFvs5ZzTn1g0RaxuHRfERVG.T
+ wL3asrkpOEcj2gMLvcDPYLiIP5epB_2tyyv5Ew6tycf.XZVdErGedMwMQTzS.qJM59k8hMKssKRT
+ u7j42YXSkx5bCJwwl06vDAMVvirxRAdrxq1CPedI_f5cwvmZ_0hn6I2tsIu3cyl5B.v3Abc0sHwM
+ RFovZRiQT9QZa2cvHpZ_6pXaRrtOhXebi9fquv8IFZGpVGKq0oAbKQ.GsPf7g0cTcJpG6Zzm16Ls
+ yDzS5TUslt_dgKpCpDkhYJKIzwIjkf2prTOjJ7sYbIMkXmuMN6q7seUXoWu5_tFxHcpgrzMnpYyg
+ hUFtHMjTM8oDPHCLsVk7.5FoSmANI2WSZbNGi86Rk2kr1RHDtj4_xiZ9CksB7kJKy_HuAtS6mMBA
+ W07JWp2RBpGGbAxQEQd2bL.rG
+X-Sonic-MF: <brchuckz@aim.com>
+Message-ID: <23bdc704-7bf6-c3a1-755c-ad66bcb6695e@netscape.net>
+Date: Mon, 6 Jun 2022 14:47:50 -0400
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="I253qF8crHtcqfQr"
-Content-Disposition: inline
-In-Reply-To: <CABfawhkkGr6Lp4SBEw7nsqfUs28QEqoCuVgTRBg9ZUCirLW5_g@mail.gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [XEN PATCH] tools/libs/light/libxl_pci.c: explicitly grant access
+ to Intel IGD opregion
+Content-Language: en-US
+From: Chuck Zmudzinski <brchuckz@netscape.net>
+To: Anthony PERARD <anthony.perard@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+ Juergen Gross <jgross@suse.com>
+References: <b62fbc602a629941c1acaad3b93d250a3eba33c0.1647222184.git.brchuckz.ref@netscape.net>
+ <b62fbc602a629941c1acaad3b93d250a3eba33c0.1647222184.git.brchuckz@netscape.net>
+ <YkSQIoYhomhNKpYR@perard.uk.xensource.com>
+ <32638cee-de07-aa33-810b-534da4fa08ae@netscape.net>
+In-Reply-To: <32638cee-de07-aa33-810b-534da4fa08ae@netscape.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Mailer: WebService/1.1.20225 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
+On 6/3/22 9:10 PM, Chuck Zmudzinski wrote:
+> On 3/30/22 1:15 PM, Anthony PERARD wrote:
+>> Hi Chuck,
+>>
+>> On Sun, Mar 13, 2022 at 11:41:37PM -0400, Chuck Zmudzinski wrote:
+>>> When gfx_passthru is enabled for the Intel IGD, hvmloader maps the IGD
+>>> opregion to the guest but libxl does not grant the guest permission to
+>> I'm not reading the same thing when looking at code in hvmloader. It
+>> seems that hvmloader allocate some memory for the IGD opregion rather
+>> than mapping it.
+>>
+>>
+>> tools/firmware/hvmloader/pci.c:184
+>>      if ( vendor_id == 0x8086 )
+>>      {
+>>          igd_opregion_pgbase = mem_hole_alloc(IGD_OPREGION_PAGES);
+>>          /*
+>>           * Write the the OpRegion offset to give the opregion
+>>           * address to the device model. The device model will trap
+>>           * and map the OpRegion at the give address.
+>>           */
+>>          pci_writel(vga_devfn, PCI_INTEL_OPREGION,
+>>                     igd_opregion_pgbase << PAGE_SHIFT);
+>>      }
+>>
+>> I think this write would go through QEMU, does it do something with it?
+>> (I kind of replying to this question at the end of the mail.)
+>>
+>> Is this code in hvmloader actually run in your case?
+>>
+>>> Currently, because of another bug in Qemu upstream, this crash can
+>>> only be reproduced using the traditional Qemu device model, and of
+>> qemu-traditional is a bit old... What is the bug in QEMU? Do you have a
+>> link to a patch/mail?
 
---I253qF8crHtcqfQr
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 6 Jun 2022 19:04:34 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [RFC PATCH 01/12] drivers/char: Add support for Xue USB3 debugger
+I finally found a patch that fixes the upstream bug on my system
+but I am not sure it is the best fix. It is a patch that QubesOS has
+been using since 2017.
 
-On Mon, Jun 06, 2022 at 12:57:26PM -0400, Tamas K Lengyel wrote:
-> On Mon, Jun 6, 2022 at 10:10 AM Tamas K Lengyel
-> <tamas.k.lengyel@gmail.com> wrote:
-> >
-> > On Mon, Jun 6, 2022 at 10:03 AM Marek Marczykowski-G=C3=B3recki
-> > <marmarek@invisiblethingslab.com> wrote:
-> > >
-> > > On Mon, Jun 06, 2022 at 09:32:52AM -0400, Tamas K Lengyel wrote:
-> > > > > +/* Supported xHC PCI configurations */
-> > > > > +#define XUE_XHC_CLASSC 0xC0330ULL
-> > > > > +#define XUE_XHC_VEN_INTEL 0x8086ULL
-> > > > > +#define XUE_XHC_DEV_Z370 0xA2AFULL
-> > > > > +#define XUE_XHC_DEV_Z390 0xA36DULL
-> > > > > +#define XUE_XHC_DEV_WILDCAT_POINT 0x9CB1ULL
-> > > > > +#define XUE_XHC_DEV_SUNRISE_POINT 0x9D2FULL
-> > > > > +#define XUE_XHC_DEV_CANNON_POINT 0x9DEDULL
-> > > >
-> > > > I had to add an extra device ID here to get it working on my NUC,
-> > > > would be nice if we could add that to the list of supported configs=
- so
-> > > > I don't need to custom patch:
-> > > >
-> > > > #define XUE_XHC_DEV_COMET_LAKE 0x02EDULL
-> > > >
-> > > > The patch is here:
-> > > > https://github.com/tklengyel/xen/commit/dd0423aba6caa4ef41dff654705=
-98a1c0c1105ae
-> > >
-> > > Interesting, I think known_xhc() is used only in the EFI variant of X=
-ue.
-> > > Xen one just looks for any XHC based on the device class. And indeed,=
- I
-> > > works for me on Tiger Lake that is not included here.
-> > >
-> > > I did need to select specific controller, since I have 3 of them:
-> > > 00:0d.0 USB controller: Intel Corporation Tiger Lake-LP Thunderbolt 4=
- USB Controller (rev 01)
-> > > 00:0d.2 USB controller: Intel Corporation Tiger Lake-LP Thunderbolt 4=
- NHI #0 (rev 01)
-> > > 00:14.0 USB controller: Intel Corporation Tiger Lake-LP USB 3.2 Gen 2=
-x1 xHCI Host Controller (rev 20)
-> > >
-> > > So, I need dbgp=3Dxue2 or dbgp=3Dxue@pci00:14.0.
-> >
-> > Interesting! OK, I'll give that a shot and see if it works that way
-> > for me too, it's certainly been a while since I last tested :)
->=20
-> Yeap, with console=3Ddbgp dbgp=3Dxue@pci00:14.0 it works as expected.
-> Xen's boot does hang if you don't have a debug cable connected or if
-> the other end is not plugged into the right USB3 port. Not sure if
-> that behavior is documented anywhere. Once I found the right USB3 port
-> on the machine that receives the debug output it started booting and
-> everything works expected (ie. one-way communication only).
+I just opened an issue titled "Incorrect register mask for PCI
+passthrough on Xen" with Qemu upstream about this problem
+which gives all the details:
 
-Indeed, the indefinite wait for the connection is not the most
-convenient. For debugging, I added some timeout, but it was based on
-the loop iterations not an actual time (not sure if there is any time
-source available at this early stage...). I'll see if this can be
-improved.
+https://gitlab.com/qemu-project/qemu/-/issues/1061
 
---=20
+When you get a chance, can you take a look at it?
+
+Not being an official Xen or Qemu developer, I would appreciate
+any suggestions you might have for me before I formally submit
+a patch to Qemu upstream. Please reply here or on the Qemu issue
+tracker.
+
 Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
 
---I253qF8crHtcqfQr
-Content-Type: application/pgp-signature; name="signature.asc"
+Chuck
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmKeM6IACgkQ24/THMrX
-1yxoiwf/VqgGjT8amugHOiHkDWgx4j1qB/NtSaOIRwYmrsFeaunBDi3VeNZCSPLL
-xI9CtNbH4Do3SqSYyyPcFtct7gCP4dCyM0MeS7AeqN6O1sZ55SCRblGzbXXwrQyi
-HOposvRgSSzv8Muw/wNW8LvRr9EmPhU4HbaP/O3E/WTnbYpmbmiY0MugZAqgBouH
-LUiWqg28zmQjpvrwMrTpLeLzDJV2LJMu5vrAltbH7//tGgyTeGhsBzgtPiWNRWOk
-NBH8HtvvNdVihC8ikHDTcnQKSytrIKbQ6jYtWnIiiBQPOPQ4IFgRkU44sAjP3sBD
-tFtddmRxdrPqF11mw0B18NkCBqzFoA==
-=7044
------END PGP SIGNATURE-----
-
---I253qF8crHtcqfQr--
+>
+> I finally found a patch for the other bug in Qemu upstream. The
+> patch is currently being used in QubesOS, and they first added
+> it to their version of Qemu way back in 2017:
+>
+> https://github.com/QubesOS/qubes-vmm-xen-stubdom-linux/pull/3/commits/ab2b4c2ad02827a73c52ba561e9a921cc4bb227c 
+>
+>
+> Although this patch is advertised as applying to the device model
+> running in a Linux stub domain, it is also needed (at least on my
+> system) with the device model running in Dom0.
+>
+> Here is the story:
+>
+> The patch is titled "qemu: fix wrong mask in pci capability registers 
+> handling"
+>
+> There is scant information in the commit message about the nature of
+> the problem, but I discovered the following in my testing:
+>
+> On my Intel Haswell system configured for PCI passthrough to the
+> Xen HVM guest, Qemu does indeed incorrectly set the emulated
+> register because it uses the wrong mask that disables instead of
+> enables the PCI_STATUS_CAP_LIST bit of the PCI_STATUS register.
+>
+> This disabled the MSI-x capability of two of the three PCI devices
+> passed through to the Xen HVM guest. The problem only
+> manifests in a bad way in a Linux guest, not in a Windows guest.
+>
+> One possible reason that only Linux guests are affected is that
+> I discovered in the Xen xl-dmesg verbose logs that Windows and
+> Linux use different callbacks for interrupts:
+>
+> (XEN) Dom1 callback via changed to GSI 28
+> ...
+> (XEN) Dom3 callback via changed to Direct Vector 0xf3
+>
+> Dom1 is a Windows Xen HVM and Dom3 is a Linux HVM
+>
+> Apparently the Direct Vector callback that Linux uses requires
+> MSI or MSI-x capability of the passed through devices, but the
+> wrong mask in Qemu disables that capability.
+>
+> After applying the QubesOS patch to Qemu upstream, the
+> PCI_STATUS_CAP_LIST bit is set correctly for the guest and
+> PCI and Intel IGD passthrough works normally because the
+> Linux guest can make use of the MSI-x capability of the
+> PCI devices.
+>
+> The problem was discovered almost five years ago. I don't
+> know why the fix has not been committed to Qemu
+> upstream yet.
+>
+> After this, I was able to discover that the need for libxl to
+> explicitly grant permission for access to the Intel OpRegion
+> is only needed for the old traditional device model because
+> the Xen hypercall to gain permission is included in upstream
+> Qemu, but it is omitted from the old traditional device model.
+>
+> So this patch is not needed for users of the upstream device
+> model who also add the QubesOS patch to fix the
+> PCI_STATUS_CAP_LIST bit in the PCI_STATUS register.
+>
+> This all assumes the device model is running in Dom0. The
+> permission for access to the Intel OpRegion might still be
+> needed if the upstream device model is running in a stub
+> domain.
+>
+> There are other problems in addition to this problem of access
+> to the Intel OpRegion that are discussed here:
+>
+> https://www.qubes-os.org/news/2017/10/18/msi-support/
+>
+> As old as that post is, the feature of allowing PCI and VGA
+> passthrough to HVM domains is still not well supported,
+> especially for the case when the device model runs in a
+> stub domain.
+>
+> Since my proposed patch only applies to the very insecure
+> case of the old traditional device model running in Dom0,
+> I will not pursue it further.
+>
+> I will look for this feature in future versions of Xen. Currently,
+> Xen 4.16 advertises support for Linux-based stub domains
+> as "Tech Preview." So future versions of Xen might handle
+> this problem in libxl or perhaps in some other way, and also
+> hopefully the patch to Qemu to fix the PCI capabilities mask
+> can be committed to Qemu upstream soon so this feature
+> of Intel IGD passthrough can at least work with Linux
+> guests and the upstream Qemu running in Dom0.
+>
+> Regards,
+>
+> Chuck
 
