@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FE1A53F748
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jun 2022 09:31:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.342889.568028 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9693253F744
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jun 2022 09:31:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.342890.568040 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nyTgF-0004Sc-If; Tue, 07 Jun 2022 07:31:11 +0000
+	id 1nyTgG-0004kE-SP; Tue, 07 Jun 2022 07:31:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 342889.568028; Tue, 07 Jun 2022 07:31:11 +0000
+Received: by outflank-mailman (output) from mailman id 342890.568040; Tue, 07 Jun 2022 07:31:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nyTgF-0004Pv-EA; Tue, 07 Jun 2022 07:31:11 +0000
-Received: by outflank-mailman (input) for mailman id 342889;
- Tue, 07 Jun 2022 07:31:10 +0000
+	id 1nyTgG-0004hH-MN; Tue, 07 Jun 2022 07:31:12 +0000
+Received: by outflank-mailman (input) for mailman id 342890;
+ Tue, 07 Jun 2022 07:31:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=uj6L=WO=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1nyTgE-0003fm-AY
- for xen-devel@lists.xenproject.org; Tue, 07 Jun 2022 07:31:10 +0000
+ id 1nyTgF-0003fm-Af
+ for xen-devel@lists.xenproject.org; Tue, 07 Jun 2022 07:31:11 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id ca2f7dd8-e633-11ec-bd2c-47488cf2e6aa;
- Tue, 07 Jun 2022 09:31:05 +0200 (CEST)
+ id ccceee0a-e633-11ec-bd2c-47488cf2e6aa;
+ Tue, 07 Jun 2022 09:31:09 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C0F93143D;
- Tue,  7 Jun 2022 00:31:04 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 34CCF1480;
+ Tue,  7 Jun 2022 00:31:09 -0700 (PDT)
 Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
  [10.169.190.94])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 503663F66F;
- Tue,  7 Jun 2022 00:31:01 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 3A1303F66F;
+ Tue,  7 Jun 2022 00:31:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,82 +43,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca2f7dd8-e633-11ec-bd2c-47488cf2e6aa
+X-Inumbo-ID: ccceee0a-e633-11ec-bd2c-47488cf2e6aa
 From: Penny Zheng <Penny.Zheng@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: wei.chen@arm.com,
 	Penny Zheng <Penny.Zheng@arm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>,
-	Julien Grall <jgrall@amazon.com>,
-	Penny Zheng <penny.zheng@arm.com>
-Subject: [PATCH v6 4/9] xen: do not merge reserved pages in free_heap_pages()
-Date: Tue,  7 Jun 2022 15:30:26 +0800
-Message-Id: <20220607073031.722174-5-Penny.Zheng@arm.com>
+	Penny Zheng <penny.zheng@arm.com>,
+	Julien Grall <jgrall@amazon.com>
+Subject: [PATCH v6 5/9] xen: add field "flags" to cover all internal CDF_XXX
+Date: Tue,  7 Jun 2022 15:30:27 +0800
+Message-Id: <20220607073031.722174-6-Penny.Zheng@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220607073031.722174-1-Penny.Zheng@arm.com>
 References: <20220607073031.722174-1-Penny.Zheng@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The code in free_heap_pages() will try to merge pages with the
-successor/predecessor if pages are suitably aligned. So if the pages
-reserved are right next to the pages given to the heap allocator,
-free_heap_pages() will merge them, and give the reserved pages to heap
-allocator accidently as a result.
+With more and more CDF_xxx internal flags in and to save the space, this
+commit introduces a new field "flags" in struct domain to store CDF_*
+internal flags directly.
 
-So in order to avoid the above scenario, this commit updates free_heap_pages()
-to check whether the predecessor and/or successor has PGC_reserved set,
-when trying to merge the about-to-be-freed chunk with the predecessor
-and/or successor.
+Another new CDF_xxx will be introduced in the next patch.
 
-Suggested-by: Julien Grall <jgrall@amazon.com>
 Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Julien Grall <jgrall@amazon.com>
+Acked-by: Julien Grall <jgrall@amazon.com>
 ---
 v6 changes:
-- adapt to PGC_static
+- no change
 ---
 v5 changes:
-- change PGC_reserved to adapt to PGC_staticmem
+- no change
 ---
 v4 changes:
-- no changes
+- no change
 ---
 v3 changes:
-- no changes
+- change fixed width type uint32_t to unsigned int
+- change "flags" to a more descriptive name "cdf"
 ---
 v2 changes:
-- new commit
+- let "flags" live in the struct domain. So other arch can take
+advantage of it in the future
+- fix coding style
 ---
- xen/common/page_alloc.c | 2 ++
- 1 file changed, 2 insertions(+)
+ xen/arch/arm/domain.c             | 2 --
+ xen/arch/arm/include/asm/domain.h | 3 +--
+ xen/common/domain.c               | 3 +++
+ xen/include/xen/sched.h           | 3 +++
+ 4 files changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index 6876869fa6..7fb28e2e07 100644
---- a/xen/common/page_alloc.c
-+++ b/xen/common/page_alloc.c
-@@ -1486,6 +1486,7 @@ static void free_heap_pages(
-             /* Merge with predecessor block? */
-             if ( !mfn_valid(page_to_mfn(predecessor)) ||
-                  !page_state_is(predecessor, free) ||
-+                 (predecessor->count_info & PGC_static) ||
-                  (PFN_ORDER(predecessor) != order) ||
-                  (phys_to_nid(page_to_maddr(predecessor)) != node) )
-                 break;
-@@ -1509,6 +1510,7 @@ static void free_heap_pages(
-             /* Merge with successor block? */
-             if ( !mfn_valid(page_to_mfn(successor)) ||
-                  !page_state_is(successor, free) ||
-+                 (successor->count_info & PGC_static) ||
-                  (PFN_ORDER(successor) != order) ||
-                  (phys_to_nid(page_to_maddr(successor)) != node) )
-                 break;
+diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+index 8110c1df86..74189d9878 100644
+--- a/xen/arch/arm/domain.c
++++ b/xen/arch/arm/domain.c
+@@ -709,8 +709,6 @@ int arch_domain_create(struct domain *d,
+     ioreq_domain_init(d);
+ #endif
+ 
+-    d->arch.directmap = flags & CDF_directmap;
+-
+     /* p2m_init relies on some value initialized by the IOMMU subsystem */
+     if ( (rc = iommu_domain_init(d, config->iommu_opts)) != 0 )
+         goto fail;
+diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
+index ed63c2b6f9..fe7a029ebf 100644
+--- a/xen/arch/arm/include/asm/domain.h
++++ b/xen/arch/arm/include/asm/domain.h
+@@ -29,7 +29,7 @@ enum domain_type {
+ #define is_64bit_domain(d) (0)
+ #endif
+ 
+-#define is_domain_direct_mapped(d) (d)->arch.directmap
++#define is_domain_direct_mapped(d) ((d)->cdf & CDF_directmap)
+ 
+ /*
+  * Is the domain using the host memory layout?
+@@ -103,7 +103,6 @@ struct arch_domain
+     void *tee;
+ #endif
+ 
+-    bool directmap;
+ }  __cacheline_aligned;
+ 
+ struct arch_vcpu
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 7570eae91a..a3ef991bd1 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -567,6 +567,9 @@ struct domain *domain_create(domid_t domid,
+     /* Sort out our idea of is_system_domain(). */
+     d->domain_id = domid;
+ 
++    /* Holding CDF_* internal flags. */
++    d->cdf = flags;
++
+     /* Debug sanity. */
+     ASSERT(is_system_domain(d) ? config == NULL : config != NULL);
+ 
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+index 463d41ffb6..5191853c18 100644
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -596,6 +596,9 @@ struct domain
+         struct ioreq_server     *server[MAX_NR_IOREQ_SERVERS];
+     } ioreq_server;
+ #endif
++
++    /* Holding CDF_* constant. Internal flags for domain creation. */
++    unsigned int cdf;
+ };
+ 
+ static inline struct page_list_head *page_to_list(
 -- 
 2.25.1
 
