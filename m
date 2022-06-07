@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B482B540167
+	by mail.lfdr.de (Postfix) with ESMTPS id 0143A540166
 	for <lists+xen-devel@lfdr.de>; Tue,  7 Jun 2022 16:31:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.343346.568673 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.343348.568699 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nyaEm-0006C3-Sb; Tue, 07 Jun 2022 14:31:16 +0000
+	id 1nyaEq-0006sX-17; Tue, 07 Jun 2022 14:31:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 343346.568673; Tue, 07 Jun 2022 14:31:16 +0000
+Received: by outflank-mailman (output) from mailman id 343348.568699; Tue, 07 Jun 2022 14:31:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nyaEm-00064p-OJ; Tue, 07 Jun 2022 14:31:16 +0000
-Received: by outflank-mailman (input) for mailman id 343346;
- Tue, 07 Jun 2022 14:31:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nyaEp-0006pJ-Qi; Tue, 07 Jun 2022 14:31:19 +0000
+Received: by outflank-mailman (input) for mailman id 343348;
+ Tue, 07 Jun 2022 14:31:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fbs7=WO=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1nyaEl-000619-Nd
- for xen-devel@lists.xenproject.org; Tue, 07 Jun 2022 14:31:15 +0000
+ id 1nyaEn-00061K-GP
+ for xen-devel@lists.xenproject.org; Tue, 07 Jun 2022 14:31:17 +0000
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7bcb5aaa-e66e-11ec-bd2c-47488cf2e6aa;
- Tue, 07 Jun 2022 16:31:14 +0200 (CEST)
+ [66.111.4.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7cfeae9f-e66e-11ec-b605-df0040e90b76;
+ Tue, 07 Jun 2022 16:31:16 +0200 (CEST)
 Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 1A2265C01E3;
- Tue,  7 Jun 2022 10:31:14 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id C13F55C01E9;
+ Tue,  7 Jun 2022 10:31:15 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Tue, 07 Jun 2022 10:31:14 -0400
+ by compute5.internal (MEProxy); Tue, 07 Jun 2022 10:31:15 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 7 Jun 2022 10:31:12 -0400 (EDT)
+ 7 Jun 2022 10:31:14 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,35 +43,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7bcb5aaa-e66e-11ec-bd2c-47488cf2e6aa
+X-Inumbo-ID: 7cfeae9f-e66e-11ec-b605-df0040e90b76
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to; s=fm1; t=1654612274; x=1654698674; bh=hjjCyL93xP
-	zVhTjBxPMqGX4BQBGEIc0Cak0bF/sHaPE=; b=VyGiUkOtBFMTxv7ZoHNmIbNOsd
-	AB177RNXxwaSJWtagThnKSrkUjb5VNbsMLrTPv9n+jApy9ASVbcNMK2OVcfLUmhz
-	0BIUbAeV4t8IEQLZHQK6zBWHVikGpjc1PvKqhpVadoazrvobSkNmdrkm+tn6bTex
-	NrVXxUxZPDjXWf752c20zj0LowKRi6aTmSVWCkIzdAy4+VUEo3EYZ0BafpBjZzjh
-	HhPhRZDycba/TePH6up79LLmHE3xzqyAoxoEBe55jw8vf6grHr9pf6NVi9xSalVV
-	VweqCoKiEcoAPUhqqjvRGA9H/r7qCkmeWcCbgQiF+rKuAXI9gyk3r04vfFAQ==
+	:subject:to:to; s=fm1; t=1654612275; x=1654698675; bh=Q5My+tX/Z1
+	yRUUbiyXNglzpIQl2V/2Tz8JD1D74I3cc=; b=nbw599YaKL8ReHa6gbyVi9XSSv
+	ItmURASUNmvTOp7lDLCLDrL7exendz2RW064vfjKNe+XEEyDSOe7taLHiIk/EWX+
+	N2Xu5o3rAFowCxKcmq5ZQMo70VEs/Lzaw1DmK934uZjoyUzxF+kyrNFw7vao86Lo
+	XY4ga85nMJ4YikbBWAgBNurGAxvofsvTmpWwrHg8DgjqsT31QqKVx0mbF9SG0QOd
+	/Sj6JbIBlqoBVcMLFYGFp4UpeSoauhkSA45EyOXEQrChzWjT6wH7r5kfgHvOqzLx
+	VwildrMwXDgstNL422TTIbZtdYwmTBMV5s28k744Th+BClQjgx9JIqkKogpQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1654612274; x=
-	1654698674; bh=hjjCyL93xPzVhTjBxPMqGX4BQBGEIc0Cak0bF/sHaPE=; b=b
-	G/zZt35M7Z/JIcwnFutal3cTjRw5VWuiwzM9heDUnGkkNsnyMHNrNfU8VRjFGIf8
-	DWlQWykXOiBW/F0kJtQqzsjE6abvaW++gl9EPEfyJXQETnxFB+k/ZPwPud3gT/Yl
-	WGXbI1GG8Lt29FOm35DA40JoKHsOZknAuMy4Axny/2jYktjbsfEqg5DSU8u1UKe4
-	I8y5oxDn7w5uAoB3G4Q5e17S1p/uf9j/G9ZIEwito3XY6zCXfc+Imd9DDQ8MOCeI
-	D4Z8+TyMroYRiQrYJW/SEDT5L5k7OkzZmpm4ebaM9A0ijQx0tcKe7yrmXXsqOBwE
-	bdeWxAxb+xrCGA5heT+2g==
-X-ME-Sender: <xms:MWGfYoqd5TDAYxH4Y_e8QvEUiH3rCGOH_GR_6Ec5fAOtRFi4b6YRcQ>
-    <xme:MWGfYuorfEwqutM0VXSkxCA_FUaHIPIHzE_kf9tBx0SuJ1O3G_T_UIka_WXaIdTqc
-    SThyy0lmyFiQw>
-X-ME-Received: <xmr:MWGfYtNGa39QlgG7hirnwxW6qPnxa4qwYk-O5DUUdyhKXa6Z781GdVmqs1RB1e6SWArXkEa7u5ncmdSvwdxeWDpTptjCFmZkug2cd__p0vXBsTTOZqI>
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1654612275; x=
+	1654698675; bh=Q5My+tX/Z1yRUUbiyXNglzpIQl2V/2Tz8JD1D74I3cc=; b=g
+	vHbtrRLLsyncnXqdlZ2ywdzEvXx2p7iDewMG2ktXdlzIHRPJjP14GE4/ZNZ7d1JF
+	meGrWecXZ0dVYqs8hdYMPi7ALfmqrkpsExXspysTeo+BTxVGuZiyre74yV4M4rUx
+	dMwPZrMYPG1Tmqmnkpe0LYVRFpggDBz4AOKqz/utRl1kfjyuNYT/6L4elk91KkEl
+	fqk6FqMeY1qqzTIDwZ3en6fU1IKwlFrAL7PZq7lAn5eKHtuen/Bjsku695qXh4wY
+	N3JKeufGTrho5vWe5858kcaKCbgcfFSyhi1XlrFo5ApqWV94WiCJ2ROjc+WrzETn
+	OorJ4Z24NI9fspxAjIy4Q==
+X-ME-Sender: <xms:M2GfYh-7kxcn6m_xEPTmP1WnBWPzgAqVV9-Bk3vs7eBfPru4qqHYzg>
+    <xme:M2GfYluijm4wXJjmDBlEPblMUPS0LiSMJ7s-P1_vbgobUhtWSEH0Gu1pxF7k1GnnK
+    ET_5iMuEHvcFQ>
+X-ME-Received: <xmr:M2GfYvA63cXPkjYrLukZdFXijV7aqh6ahv3LAgbh9p-gulc1SwovZy-KAzFNmcNwK-oq2RPhDOkHya6YunMWlUZjgQhzcfhwmv4LbfzlPxpZPpOKwd8>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedruddthedgjeeiucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
     uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
@@ -81,10 +81,10 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedruddthedgjeeiucetufdoteggod
     ueduhefgvdefheehudejheefudevueeghfekhfehleegveduteeuiedugffgffenucevlh
     hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgv
     khesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:MWGfYv4ltiv27I8yt0Sprm54VTOxeEYbJBxNoJA1o-V-bRt-KqpIrg>
-    <xmx:MWGfYn4lHMlK_U5KTfoEOrz6CBUm26hB5zAaRq2N5VG_tYOtm3JZCA>
-    <xmx:MWGfYvjGuT8SZFy80Go6NWa9aE5Q_7JDhnxltCC1FCx0GrokNnbr9w>
-    <xmx:MmGfYtQW4zWLK4OQ3boShJ-3X6ZBfj68oUMiFQtTDSt49wpZLANcOg>
+X-ME-Proxy: <xmx:M2GfYlckSbwrVLPOOjGNmJy1B3lGu1-NlBm4xFkUb1zB0uTTJP2v1Q>
+    <xmx:M2GfYmNnQhAwXQltAOYO9KOwetl09zCuConknJYbkqhZEPj4pSh5Dw>
+    <xmx:M2GfYnmTUz9Rnb3ZcoQpKq2Iy4ccbtlVnMNxl60sVx9OXwulGKmq1w>
+    <xmx:M2GfYt0VJmy4Oe3uIrlcHZhADFtbs4q8X51liDIxluAHefDL9Au_rA>
 Feedback-ID: i1568416f:Fastmail
 From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
@@ -95,9 +95,9 @@ Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.c
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v1 02/10] xue: reset XHCI ports when initializing dbc
-Date: Tue,  7 Jun 2022 16:30:08 +0200
-Message-Id: <f89ad3528e9d57e4598ac450f08a81391538fa69.1654612169.git-series.marmarek@invisiblethingslab.com>
+Subject: [PATCH v1 03/10] xue: add support for selecting specific xhci
+Date: Tue,  7 Jun 2022 16:30:09 +0200
+Message-Id: <b5466e495943210adc48c754df98862ae49ee489.1654612169.git-series.marmarek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <cover.5d286dc6304969ed7155051e900236947c1b14dc.1654612169.git-series.marmarek@invisiblethingslab.com>
 References: <cover.5d286dc6304969ed7155051e900236947c1b14dc.1654612169.git-series.marmarek@invisiblethingslab.com>
@@ -105,113 +105,129 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Reset ports, to force host system to re-enumerate devices. Otheriwse it
-will require the cable to be re-plugged, or will wait in the
-"configuring" state indefinitely.
+Handle parameters similar to dbgp=ehci.
 
-Trick and code copied from Linux:
-drivers/usb/early/xhci-dbc.c:xdbc_start()->xdbc_reset_debug_port()
+Implement this by not resettting xhc_cf8 again in xue_init_xhc(), but
+using a value found there if non-zero. Additionally, add xue->xhc_num to
+select n-th controller.
 
 Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 ---
- xen/drivers/char/xue.c | 70 +++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 70 insertions(+)
+ docs/misc/xen-command-line.pandoc |  5 +++-
+ xen/drivers/char/xue.c            | 56 ++++++++++++++++++++++++--------
+ 2 files changed, 47 insertions(+), 14 deletions(-)
 
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index 881fe409ac76..37a564c2386f 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -721,10 +721,15 @@ Available alternatives, with their meaning, are:
+ 
+ ### dbgp
+ > `= ehci[ <integer> | @pci<bus>:<slot>.<func> ]`
++> `= xue[ <integer> | @pci<bus>:<slot>.<func> ]`
+ 
+ Specify the USB controller to use, either by instance number (when going
+ over the PCI busses sequentially) or by PCI device (must be on segment 0).
+ 
++Use `ehci` for EHCI debug port, use `xue` for XHCI debug capability.
++Xue driver will wait indefinitely for the debug host to connect - make sure the
++cable is connected.
++
+ ### debug_stack_lines
+ > `= <integer>`
+ 
 diff --git a/xen/drivers/char/xue.c b/xen/drivers/char/xue.c
-index e95dd09d39a8..a9ba25d9d07e 100644
+index a9ba25d9d07e..b253426a95f8 100644
 --- a/xen/drivers/char/xue.c
 +++ b/xen/drivers/char/xue.c
-@@ -60,6 +60,10 @@
-     ((1UL << XUE_PSC_CSC) | (1UL << XUE_PSC_PRC) | (1UL << XUE_PSC_PLC) |      \
-      (1UL << XUE_PSC_CEC))
+@@ -204,6 +204,7 @@ struct xue {
+     void *xhc_mmio;
  
-+#define     XUE_XHC_EXT_PORT_MAJOR(x)  (((x) >> 24) & 0xff)
-+#define PORT_RESET  (1 << 4)
-+#define PORT_CONNECT  (1 << 0)
-+
- #define xue_debug(...) printk("xue debug: " __VA_ARGS__)
- #define xue_alert(...) printk("xue alert: " __VA_ARGS__)
- #define xue_error(...) printk("xue error: " __VA_ARGS__)
-@@ -604,6 +608,68 @@ static void xue_init_strings(struct xue *xue, uint32_t *info)
-     info[8] = (4 << 24) | (30 << 16) | (8 << 8) | 6;
- }
+     int open;
++    int xhc_num; /* look for n-th xhc */
+ };
  
-+static void xue_do_reset_debug_port(struct xue *xue, u32 id, u32 count)
-+{
-+    uint32_t *ops_reg;
-+    uint32_t *portsc;
-+    u32 val, cap_length;
-+    int i;
-+
-+    cap_length = (*(uint32_t*)xue->xhc_mmio) & 0xff;
-+    ops_reg = xue->xhc_mmio + cap_length;
-+
-+    id--;
-+    for ( i = id; i < (id + count); i++ )
+ static void xue_sys_pause(void)
+@@ -252,24 +253,34 @@ static int xue_init_xhc(struct xue *xue)
+     uint64_t bar1;
+     uint64_t devfn;
+ 
+-    /*
+-     * Search PCI bus 0 for the xHC. All the host controllers supported so far
+-     * are part of the chipset and are on bus 0.
+-     */
+-    for ( devfn = 0; devfn < 256; devfn++ ) {
+-        uint32_t dev = (devfn & 0xF8) >> 3;
+-        uint32_t fun = devfn & 0x07;
+-        pci_sbdf_t sbdf = PCI_SBDF(0, dev, fun);
+-        uint32_t hdr = pci_conf_read8(sbdf, PCI_HEADER_TYPE);
+-
+-        if ( hdr == 0 || hdr == 0x80 )
++    if ( xue->sbdf.sbdf == 0 )
 +    {
-+        portsc = ops_reg + 0x100 + i * 0x4;
-+        val = *portsc;
-+        if ( !(val & PORT_CONNECT) )
-+            *portsc = val | PORT_RESET;
-+    }
-+}
++        /*
++         * Search PCI bus 0 for the xHC. All the host controllers supported so far
++         * are part of the chipset and are on bus 0.
++         */
++        for ( devfn = 0; devfn < 256; devfn++ )
+         {
+-            if ( (pci_conf_read32(sbdf, PCI_CLASS_REVISION) >> 8) == XUE_XHC_CLASSC )
++            uint32_t dev = (devfn & 0xF8) >> 3;
++            uint32_t fun = devfn & 0x07;
++            pci_sbdf_t sbdf = PCI_SBDF(0, dev, fun);
++            uint32_t hdr = pci_conf_read8(sbdf, PCI_HEADER_TYPE);
 +
-+
-+static void xue_reset_debug_port(struct xue *xue)
-+{
-+    u32 val, port_offset, port_count;
-+    uint32_t *xcap;
-+    uint32_t next;
-+    uint32_t id;
-+    uint8_t *mmio = (uint8_t *)xue->xhc_mmio;
-+    uint32_t *hccp1 = (uint32_t *)(mmio + 0x10);
-+    const uint32_t PROTOCOL_ID = 0x2;
-+
-+    /**
-+     * Paranoid check against a zero value. The spec mandates that
-+     * at least one "supported protocol" capability must be implemented,
-+     * so this should always be false.
-+     */
-+    if ( (*hccp1 & 0xFFFF0000) == 0 )
-+        return;
-+
-+    xcap = (uint32_t *)(mmio + (((*hccp1 & 0xFFFF0000) >> 16) << 2));
-+    next = (*xcap & 0xFF00) >> 8;
-+    id = *xcap & 0xFF;
-+
-+    /* Look for "supported protocol" capability, major revision 3 */
-+    for ( ; next; xcap += next, id = *xcap & 0xFF, next = (*xcap & 0xFF00) >> 8)
-+    {
-+        if ( id != PROTOCOL_ID && next )
-+            continue;
-+
-+        if ( XUE_XHC_EXT_PORT_MAJOR(*xcap) != 0x3 )
-+            continue;
-+
-+        /* extract ports offset and count from the capability structure */
-+        val = *(xcap + 2);
-+        port_offset = val & 0xff;
-+        port_count = (val >> 8) & 0xff;
-+
-+        /* and reset them all */
-+        xue_do_reset_debug_port(xue, port_offset, port_count);
-+    }
-+}
-+
- static void xue_dump(struct xue *xue)
++            if ( hdr == 0 || hdr == 0x80 )
+             {
+-                xue->sbdf = sbdf;
+-                break;
++                if ( (pci_conf_read32(sbdf, PCI_CLASS_REVISION) >> 8) == XUE_XHC_CLASSC )
++                {
++                    if ( xue->xhc_num-- )
++                        continue;
++                    xue->sbdf = sbdf;
++                    break;
++                }
+             }
+         }
++    } else {
++        /* Verify if selected device is really xHC */
++        if ( (pci_conf_read32(xue->sbdf, PCI_CLASS_REVISION) >> 8) != XUE_XHC_CLASSC )
++            xue->sbdf.sbdf = 0;
+     }
+ 
+     if ( !xue->sbdf.sbdf )
+@@ -999,12 +1010,29 @@ void __init xue_uart_init(void)
  {
-     struct xue_dbc_reg *r = xue->dbc_reg;
-@@ -639,6 +705,10 @@ static void xue_enable_dbc(struct xue *xue)
-     while ( (reg->ctrl & (1UL << XUE_CTRL_DCE)) == 0 )
-         xue_sys_pause();
+     struct xue_uart *uart = &xue_uart;
+     struct xue *xue = &uart->xue;
++    const char *e;
  
-+    /* reset ports on initial open, to force re-enumerating by the host */
-+    if ( !xue->open )
-+        xue_reset_debug_port(xue);
+     if ( strncmp(opt_dbgp, "xue", 3) )
+         return;
+ 
+     memset(xue, 0, sizeof(*xue));
+ 
++    if ( isdigit(opt_dbgp[3]) || !opt_dbgp[3] )
++    {
++        if ( opt_dbgp[3] )
++            xue->xhc_num = simple_strtoul(opt_dbgp + 3, &e, 10);
++    }
++    else if ( strncmp(opt_dbgp + 3, "@pci", 4) == 0 )
++    {
++        unsigned int bus, slot, func;
 +
-     wmb();
-     reg->portsc |= (1UL << XUE_PSC_PED);
-     wmb();
++        e = parse_pci(opt_dbgp + 7, NULL, &bus, &slot, &func);
++        if ( !e || *e )
++            return;
++
++        xue->sbdf = PCI_SBDF(0, bus, slot, func);
++    }
++
+     xue->dbc_ctx = &ctx;
+     xue->dbc_erst = &erst;
+     xue->dbc_ering.trb = evt_trb;
 -- 
 git-series 0.9.1
 
