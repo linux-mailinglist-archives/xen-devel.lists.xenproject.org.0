@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB7BC542092
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Jun 2022 03:03:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.343571.568928 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1442542097
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Jun 2022 03:08:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.343581.568940 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nyk6A-0005kD-HF; Wed, 08 Jun 2022 01:03:02 +0000
+	id 1nykBY-0006W5-6E; Wed, 08 Jun 2022 01:08:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 343571.568928; Wed, 08 Jun 2022 01:03:02 +0000
+Received: by outflank-mailman (output) from mailman id 343581.568940; Wed, 08 Jun 2022 01:08:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nyk6A-0005gl-Dw; Wed, 08 Jun 2022 01:03:02 +0000
-Received: by outflank-mailman (input) for mailman id 343571;
- Wed, 08 Jun 2022 01:03:00 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nyk68-0005gb-G1; Wed, 08 Jun 2022 01:03:00 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nyk68-0007y6-Bc; Wed, 08 Jun 2022 01:03:00 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nyk67-0004fd-VC; Wed, 08 Jun 2022 01:03:00 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nyk67-000096-Uk; Wed, 08 Jun 2022 01:02:59 +0000
+	id 1nykBY-0006U6-3C; Wed, 08 Jun 2022 01:08:36 +0000
+Received: by outflank-mailman (input) for mailman id 343581;
+ Wed, 08 Jun 2022 01:08:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8TEA=WP=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nykBW-0006U0-37
+ for xen-devel@lists.xenproject.org; Wed, 08 Jun 2022 01:08:34 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 83a19904-e6c7-11ec-bd2c-47488cf2e6aa;
+ Wed, 08 Jun 2022 03:08:32 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 869DEB82489;
+ Wed,  8 Jun 2022 01:08:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B27E3C34114;
+ Wed,  8 Jun 2022 01:08:29 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,249 +43,391 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=BZheXOlygOdALYRqWx7/3ZKxle8hwTE64PoGT9/XuA4=; b=lsIeNm0u13b+hEFjJgv6gi+Sni
-	Cx8aqPlVQvP+S5aDmZ7DOxej3OjOLT5ttdONbHzrEDsBJbJWQgfRZeiKHWWYpMzWznE08LOp6tHLv
-	p62GobX+HzIBiNASNsyRnSYOXTxH5ljHIQ/cJwFv3uRehN1gUg6WZioGSLWEsUGI1Jz4=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-170868-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 83a19904-e6c7-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1654650510;
+	bh=I4fcBOTQjhfyeFkrEprR88T4LuWZ2bbkS5qhS+uJu9I=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=qh+pJ2hLltIdqnZGKY6F8mA2dlapUDMDyLJN5xdVL7BhiMKssaYIJPHHrGAH1xbHV
+	 iFgzYDhn04dbKEhOw8VnK356yqIMcWpmecS12SSkkDco+GfbGvmx4bGuy1G2yUSAeb
+	 IdZ82ucOMdLiyvHAm5HNUdJR69l+x5oWryrh/86XcGHxNB16/RFvLSXx8tDGDZ2Ek5
+	 d3Uy/ddeYb4sNKBevmXyzP3xS+srnNcibam8AaVO88iSGUEnMroQ+ZezRN6N1eOcnE
+	 QNi62z8AYqy/paRVBLY2U7U30J0HjYzRzV5VyfzF0WSGjH0tgqz7L32UBqjcsQCrF1
+	 fTMwRyA59MuFg==
+Date: Tue, 7 Jun 2022 18:08:29 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: xen-devel@lists.xenproject.org, Wei Liu <wei.liu2@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    George Dunlap <george.dunlap@citrix.com>, 
+    Hongyan Xia <hongyxia@amazon.com>, Julien Grall <jgrall@amazon.com>, 
+    Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH 10/16] xen/arm: add Persistent Map (PMAP)
+ infrastructure
+In-Reply-To: <20220520120937.28925-11-julien@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2206071806390.21215@ubuntu-linux-20-04-desktop>
+References: <20220520120937.28925-1-julien@xen.org> <20220520120937.28925-11-julien@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [linux-linus test] 170868: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-amd64-amd64-libvirt:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvhv2-intel:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-qemuu-nested-intel:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/src_host:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/dst_host:fail:regression
-    linux-linus:test-amd64-amd64-freebsd12-amd64:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-qcow2:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-examine-bios:reboot:fail:regression
-    linux-linus:test-amd64-amd64-examine-uefi:reboot:fail:regression
-    linux-linus:test-amd64-amd64-examine:reboot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=e71e60cd74df9386c3f684c54888f2367050b831
-X-Osstest-Versions-That:
-    linux=d6ecaa0024485effd065124fe774de2e22095f2d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 08 Jun 2022 01:02:59 +0000
+Content-Type: multipart/mixed; boundary="8323329-2035065655-1654650510=:21215"
 
-flight 170868 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/170868/
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Regressions :-(
+--8323329-2035065655-1654650510=:21215
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-libvirt      8 xen-boot                 fail REGR. vs. 170714
- test-amd64-amd64-xl-pvhv2-intel  8 xen-boot              fail REGR. vs. 170714
- test-amd64-amd64-qemuu-nested-intel  8 xen-boot          fail REGR. vs. 170714
- test-amd64-amd64-libvirt-pair 12 xen-boot/src_host       fail REGR. vs. 170714
- test-amd64-amd64-libvirt-pair 13 xen-boot/dst_host       fail REGR. vs. 170714
- test-amd64-amd64-freebsd12-amd64  8 xen-boot             fail REGR. vs. 170714
- test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 170714
- test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 170714
- test-amd64-amd64-libvirt-qcow2  8 xen-boot               fail REGR. vs. 170714
- test-amd64-amd64-libvirt-raw  8 xen-boot                 fail REGR. vs. 170714
- test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 170714
- test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 170714
- test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 170714
- test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 170714
- test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 170714
- test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 170714
- test-amd64-amd64-examine-bios  8 reboot                  fail REGR. vs. 170714
- test-amd64-amd64-examine-uefi  8 reboot                  fail REGR. vs. 170714
- test-amd64-amd64-examine      8 reboot                   fail REGR. vs. 170714
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 170714
- test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 170714
- test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 170714
+On Fri, 20 May 2022, Julien Grall wrote:
+> From: Wei Liu <wei.liu2@citrix.com>
+> 
+> The basic idea is like Persistent Kernel Map (PKMAP) in Linux. We
+> pre-populate all the relevant page tables before the system is fully
+> set up.
+> 
+> We will need it on Arm in order to rework the arm64 version of
+> xenheap_setup_mappings() as we may need to use pages allocated from
+> the boot allocator before they are effectively mapped.
+> 
+> This infrastructure is not lock-protected therefore can only be used
+> before smpboot. After smpboot, map_domain_page() has to be used.
+> 
+> This is based on the x86 version [1] that was originally implemented
+> by Wei Liu.
+> 
+> The PMAP infrastructure is implemented in common code with some
+> arch helpers to set/clear the page-table entries and convertion
+> between a fixmap slot to a virtual address...
+> 
+> As mfn_to_xen_entry() now needs to be exported, take the opportunity
+> to swich the parameter attr from unsigned to unsigned int.
+> 
+> [1] <e92da4ad6015b6089737fcccba3ec1d6424649a5.1588278317.git.hongyxia@amazon.com>
+> 
+> Signed-off-by: Wei Liu <wei.liu2@citrix.com>
+> Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
+> [julien: Adapted for Arm]
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> 
+> ---
+>     Changes in v4:
+>         - Move xen_fixmap in fixmap.h and add a comment about its usage.
+>         - Update comments
+>         - Use DECLARE_BITMAP()
+>         - Replace local_irq_{enable, disable} with an ASSERT() as there
+>           should be no user of pmap() in interrupt context.
+> 
+>     Changes in v3:
+>         - s/BITS_PER_LONG/BITS_PER_BYTE/
+>         - Move pmap to common code
+> 
+>     Changes in v2:
+>         - New patch
+> 
+> Cc: Jan Beulich <jbeulich@suse.com>
+> Cc: Wei Liu <wl@xen.org>
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+> Cc: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+>  xen/arch/arm/Kconfig              |  1 +
+>  xen/arch/arm/include/asm/fixmap.h | 24 +++++++++++
+>  xen/arch/arm/include/asm/lpae.h   |  8 ++++
+>  xen/arch/arm/include/asm/pmap.h   | 32 ++++++++++++++
+>  xen/arch/arm/mm.c                 |  7 +--
+>  xen/common/Kconfig                |  3 ++
+>  xen/common/Makefile               |  1 +
+>  xen/common/pmap.c                 | 72 +++++++++++++++++++++++++++++++
+>  xen/include/xen/pmap.h            | 16 +++++++
+>  9 files changed, 158 insertions(+), 6 deletions(-)
+>  create mode 100644 xen/arch/arm/include/asm/pmap.h
+>  create mode 100644 xen/common/pmap.c
+>  create mode 100644 xen/include/xen/pmap.h
+> 
+> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+> index ecfa6822e4d3..a89a67802aa9 100644
+> --- a/xen/arch/arm/Kconfig
+> +++ b/xen/arch/arm/Kconfig
+> @@ -14,6 +14,7 @@ config ARM
+>  	select HAS_DEVICE_TREE
+>  	select HAS_PASSTHROUGH
+>  	select HAS_PDX
+> +	select HAS_PMAP
+>  	select IOMMU_FORCE_PT_SHARE
+>  
+>  config ARCH_DEFCONFIG
+> diff --git a/xen/arch/arm/include/asm/fixmap.h b/xen/arch/arm/include/asm/fixmap.h
+> index 1cee51e52ab9..365a2385a087 100644
+> --- a/xen/arch/arm/include/asm/fixmap.h
+> +++ b/xen/arch/arm/include/asm/fixmap.h
+> @@ -5,20 +5,44 @@
+>  #define __ASM_FIXMAP_H
+>  
+>  #include <xen/acpi.h>
+> +#include <xen/pmap.h>
+>  
+>  /* Fixmap slots */
+>  #define FIXMAP_CONSOLE  0  /* The primary UART */
+>  #define FIXMAP_MISC     1  /* Ephemeral mappings of hardware */
+>  #define FIXMAP_ACPI_BEGIN  2  /* Start mappings of ACPI tables */
+>  #define FIXMAP_ACPI_END    (FIXMAP_ACPI_BEGIN + NUM_FIXMAP_ACPI_PAGES - 1)  /* End mappings of ACPI tables */
+> +#define FIXMAP_PMAP_BEGIN (FIXMAP_ACPI_END + 1) /* Start of PMAP */
+> +#define FIXMAP_PMAP_END (FIXMAP_PMAP_BEGIN + NUM_FIX_PMAP - 1) /* End of PMAP */
+> +
+> +#define FIXMAP_LAST FIXMAP_PMAP_END
+> +
+> +#define FIXADDR_START FIXMAP_ADDR(0)
+> +#define FIXADDR_TOP FIXMAP_ADDR(FIXMAP_LAST)
+>  
+>  #ifndef __ASSEMBLY__
+>  
+> +/*
+> + * Direct access to xen_fixmap[] should only happen when {set,
+> + * clear}_fixmap() is unusable (e.g. where we would end up to
+> + * recursively call the helpers).
+> + */
+> +extern lpae_t xen_fixmap[XEN_PT_LPAE_ENTRIES];
+> +
+>  /* Map a page in a fixmap entry */
+>  extern void set_fixmap(unsigned map, mfn_t mfn, unsigned attributes);
+>  /* Remove a mapping from a fixmap entry */
+>  extern void clear_fixmap(unsigned map);
+>  
+> +#define fix_to_virt(slot) ((void *)FIXMAP_ADDR(slot))
+> +
+> +static inline unsigned int virt_to_fix(vaddr_t vaddr)
+> +{
+> +    BUG_ON(vaddr >= FIXADDR_TOP || vaddr < FIXADDR_START);
+> +
+> +    return ((vaddr - FIXADDR_START) >> PAGE_SHIFT);
+> +}
+> +
+>  #endif /* __ASSEMBLY__ */
+>  
+>  #endif /* __ASM_FIXMAP_H */
+> diff --git a/xen/arch/arm/include/asm/lpae.h b/xen/arch/arm/include/asm/lpae.h
+> index aecb320dec45..fc19cbd84772 100644
+> --- a/xen/arch/arm/include/asm/lpae.h
+> +++ b/xen/arch/arm/include/asm/lpae.h
+> @@ -4,6 +4,7 @@
+>  #ifndef __ASSEMBLY__
+>  
+>  #include <xen/page-defs.h>
+> +#include <xen/mm-frame.h>
+>  
+>  /*
+>   * WARNING!  Unlike the x86 pagetable code, where l1 is the lowest level and
+> @@ -168,6 +169,13 @@ static inline bool lpae_is_superpage(lpae_t pte, unsigned int level)
+>          third_table_offset(addr)            \
+>      }
+>  
+> +/*
+> + * Standard entry type that we'll use to build Xen's own pagetables.
+> + * We put the same permissions at every level, because they're ignored
+> + * by the walker in non-leaf entries.
+> + */
+> +lpae_t mfn_to_xen_entry(mfn_t mfn, unsigned int attr);
+> +
+>  #endif /* __ASSEMBLY__ */
+>  
+>  /*
+> diff --git a/xen/arch/arm/include/asm/pmap.h b/xen/arch/arm/include/asm/pmap.h
+> new file mode 100644
+> index 000000000000..74398b4c4fe6
+> --- /dev/null
+> +++ b/xen/arch/arm/include/asm/pmap.h
+> @@ -0,0 +1,32 @@
+> +#ifndef __ASM_PMAP_H__
+> +#define __ASM_PMAP_H__
+> +
+> +#include <xen/mm.h>
+> +
+> +#include <asm/fixmap.h>
+> +
+> +static inline void arch_pmap_map(unsigned int slot, mfn_t mfn)
+> +{
+> +    lpae_t *entry = &xen_fixmap[slot];
+> +    lpae_t pte;
+> +
+> +    ASSERT(!lpae_is_valid(*entry));
+> +
+> +    pte = mfn_to_xen_entry(mfn, PAGE_HYPERVISOR_RW);
+> +    pte.pt.table = 1;
+> +    write_pte(entry, pte);
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 170714
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 170714
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 170714
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 170714
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 170714
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 170714
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 170714
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
-
-version targeted for testing:
- linux                e71e60cd74df9386c3f684c54888f2367050b831
-baseline version:
- linux                d6ecaa0024485effd065124fe774de2e22095f2d
-
-Last test of basis   170714  2022-05-24 03:27:44 Z   14 days
-Failing since        170716  2022-05-24 11:12:06 Z   14 days   40 attempts
-Testing same since   170868  2022-06-07 12:09:40 Z    0 days    1 attempts
-
-------------------------------------------------------------
-2274 people touched revisions under test,
-not listing them all
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          fail    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                fail    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  fail    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  fail    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     fail    
- test-arm64-arm64-examine                                     fail    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          fail    
- test-amd64-amd64-xl-pvhv2-intel                              fail    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     fail    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                fail    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               fail    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 fail    
- test-arm64-arm64-libvirt-raw                                 fail    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                fail    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      fail    
- test-armhf-armhf-xl-vhd                                      pass    
+Here we don't need a tlb flush because we never go from a valid mapping
+to another valid mapping. We also go through arch_pmap_unmap which
+clears the mapping and also flushes the tlb. Is that right?
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> +}
+> +
+> +static inline void arch_pmap_unmap(unsigned int slot)
+> +{
+> +    lpae_t pte = {};
+> +
+> +    write_pte(&xen_fixmap[slot], pte);
+> +
+> +    flush_xen_tlb_range_va_local(FIXMAP_ADDR(slot), PAGE_SIZE);
+> +}
+> +
+> +void arch_pmap_map_slot(unsigned int slot, mfn_t mfn);
+> +void arch_pmap_clear_slot(void *ptr);
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+What are these two? They are not defined anywhere?
 
 
-Not pushing.
-
-(No revision log; it would be 268423 lines long.)
+> +#endif /* __ASM_PMAP_H__ */
+> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+> index 52b2a0394047..bd1348a99716 100644
+> --- a/xen/arch/arm/mm.c
+> +++ b/xen/arch/arm/mm.c
+> @@ -305,12 +305,7 @@ void dump_hyp_walk(vaddr_t addr)
+>      dump_pt_walk(ttbr, addr, HYP_PT_ROOT_LEVEL, 1);
+>  }
+>  
+> -/*
+> - * Standard entry type that we'll use to build Xen's own pagetables.
+> - * We put the same permissions at every level, because they're ignored
+> - * by the walker in non-leaf entries.
+> - */
+> -static inline lpae_t mfn_to_xen_entry(mfn_t mfn, unsigned attr)
+> +lpae_t mfn_to_xen_entry(mfn_t mfn, unsigned int attr)
+>  {
+>      lpae_t e = (lpae_t) {
+>          .pt = {
+> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+> index d921c74d615e..5b6b2406c028 100644
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -49,6 +49,9 @@ config HAS_KEXEC
+>  config HAS_PDX
+>  	bool
+>  
+> +config HAS_PMAP
+> +	bool
+> +
+>  config HAS_SCHED_GRANULARITY
+>  	bool
+>  
+> diff --git a/xen/common/Makefile b/xen/common/Makefile
+> index b1e076c30b81..3baf83d527d8 100644
+> --- a/xen/common/Makefile
+> +++ b/xen/common/Makefile
+> @@ -29,6 +29,7 @@ obj-y += notifier.o
+>  obj-y += page_alloc.o
+>  obj-$(CONFIG_HAS_PDX) += pdx.o
+>  obj-$(CONFIG_PERF_COUNTERS) += perfc.o
+> +obj-bin-$(CONFIG_HAS_PMAP) += pmap.init.o
+>  obj-y += preempt.o
+>  obj-y += random.o
+>  obj-y += rangeset.o
+> diff --git a/xen/common/pmap.c b/xen/common/pmap.c
+> new file mode 100644
+> index 000000000000..9355cacb7373
+> --- /dev/null
+> +++ b/xen/common/pmap.c
+> @@ -0,0 +1,72 @@
+> +#include <xen/bitops.h>
+> +#include <xen/init.h>
+> +#include <xen/irq.h>
+> +#include <xen/pmap.h>
+> +
+> +#include <asm/pmap.h>
+> +#include <asm/fixmap.h>
+> +
+> +/*
+> + * Simple mapping infrastructure to map / unmap pages in fixed map.
+> + * This is used to set the page table before the map domain page infrastructure
+> + * is initialized.
+> + *
+> + * This structure is not protected by any locks, so it must not be used after
+> + * smp bring-up.
+> + */
+> +
+> +/* Bitmap to track which slot is used */
+> +static __initdata DECLARE_BITMAP(inuse, NUM_FIX_PMAP);
+> +
+> +void *__init pmap_map(mfn_t mfn)
+> +{
+> +    unsigned int idx;
+> +    unsigned int slot;
+> +
+> +    ASSERT(system_state < SYS_STATE_smp_boot);
+> +    ASSERT(!in_irq());
+> +
+> +    idx = find_first_zero_bit(inuse, NUM_FIX_PMAP);
+> +    if ( idx == NUM_FIX_PMAP )
+> +        panic("Out of PMAP slots\n");
+> +
+> +    __set_bit(idx, inuse);
+> +
+> +    slot = idx + FIXMAP_PMAP_BEGIN;
+> +    ASSERT(slot >= FIXMAP_PMAP_BEGIN && slot <= FIXMAP_PMAP_END);
+> +
+> +    /*
+> +     * We cannot use set_fixmap() here. We use PMAP when the domain map
+> +     * page infrastructure is not yet initialized, so map_pages_to_xen() called
+> +     * by set_fixmap() needs to map pages on demand, which then calls pmap()
+> +     * again, resulting in a loop. Modify the PTEs directly instead. The same
+> +     * is true for pmap_unmap().
+> +     */
+> +    arch_pmap_map(slot, mfn);
+> +
+> +    return fix_to_virt(slot);
+> +}
+> +
+> +void __init pmap_unmap(const void *p)
+> +{
+> +    unsigned int idx;
+> +    unsigned int slot = virt_to_fix((unsigned long)p);
+> +
+> +    ASSERT(system_state < SYS_STATE_smp_boot);
+> +    ASSERT(slot >= FIXMAP_PMAP_BEGIN && slot <= FIXMAP_PMAP_END);
+> +    ASSERT(in_irq());
+> +
+> +    idx = slot - FIXMAP_PMAP_BEGIN;
+> +
+> +    __clear_bit(idx, inuse);
+> +    arch_pmap_unmap(slot);
+> +}
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/include/xen/pmap.h b/xen/include/xen/pmap.h
+> new file mode 100644
+> index 000000000000..93e61b10870e
+> --- /dev/null
+> +++ b/xen/include/xen/pmap.h
+> @@ -0,0 +1,16 @@
+> +#ifndef __XEN_PMAP_H__
+> +#define __XEN_PMAP_H__
+> +
+> +/* Large enough for mapping 5 levels of page tables with some headroom */
+> +#define NUM_FIX_PMAP 8
+> +
+> +#ifndef __ASSEMBLY__
+> +
+> +#include <xen/mm-frame.h>
+> +
+> +void *pmap_map(mfn_t mfn);
+> +void pmap_unmap(const void *p);
+> +
+> +#endif /* __ASSEMBLY__ */
+> +
+> +#endif /* __XEN_PMAP_H__ */
+> -- 
+> 2.32.0
+> 
+--8323329-2035065655-1654650510=:21215--
 
