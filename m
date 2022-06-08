@@ -2,43 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A06554381E
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Jun 2022 17:53:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.344288.569817 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A84E5543A8F
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Jun 2022 19:37:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.344304.569829 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nyxyL-00029G-BT; Wed, 08 Jun 2022 15:51:53 +0000
+	id 1nyzbg-0005eB-4T; Wed, 08 Jun 2022 17:36:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 344288.569817; Wed, 08 Jun 2022 15:51:53 +0000
+Received: by outflank-mailman (output) from mailman id 344304.569829; Wed, 08 Jun 2022 17:36:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nyxyL-00026R-8e; Wed, 08 Jun 2022 15:51:53 +0000
-Received: by outflank-mailman (input) for mailman id 344288;
- Wed, 08 Jun 2022 15:49:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OvtQ=WP=infradead.org=peterz@srs-se1.protection.inumbo.net>)
- id 1nyxvh-0001IW-3y
- for xen-devel@lists.xenproject.org; Wed, 08 Jun 2022 15:49:10 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 876e443b-e742-11ec-b605-df0040e90b76;
- Wed, 08 Jun 2022 17:49:07 +0200 (CEST)
-Received: from dhcp-077-249-017-003.chello.nl ([77.249.17.3]
- helo=noisy.programming.kicks-ass.net)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nyxuv-00ClXO-Bt; Wed, 08 Jun 2022 15:48:21 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 1781E301093;
- Wed,  8 Jun 2022 17:48:17 +0200 (CEST)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id F027020C0D33A; Wed,  8 Jun 2022 17:48:16 +0200 (CEST)
+	id 1nyzbg-0005bo-1P; Wed, 08 Jun 2022 17:36:36 +0000
+Received: by outflank-mailman (input) for mailman id 344304;
+ Wed, 08 Jun 2022 17:36:34 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1nyzbe-0005bi-Km
+ for xen-devel@lists.xenproject.org; Wed, 08 Jun 2022 17:36:34 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nyzbd-0002SD-AI; Wed, 08 Jun 2022 17:36:33 +0000
+Received: from [54.239.6.189] (helo=[192.168.10.106])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nyzbd-00028x-2W; Wed, 08 Jun 2022 17:36:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,152 +39,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 876e443b-e742-11ec-b605-df0040e90b76
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=wkrvwwo/ehTnPQ2GyODy/ZpUUMe6HOjJCITHLe45W7c=; b=PhHp+PJmr+2T6rnBijz+YHTCqo
-	Q3sRs0kB+1HF2TzaTXkAa8+nJlCba8qwWkYHuYUvJIz6d+sUwN3QATDRrp6HkFJtxuDUGlK2esQFG
-	B6FqhNDw4mzKWIndiKngqO5+uVumTrnZhLB4eRFSER0mlLEnLKmACyt/N0zRX6B8QnMdEd1jF93Qv
-	+F3wXq8WpQgBGoI9TYubNiobTj3byuz+cOLmJDoCRAcPPkDwjHQiqUYBc/eVlZdt6y9xI16C13ivT
-	9RycLHrYGa8XbNQes8S9gNmrNcQe8ImgWY0Ct9y735wKSNGr9BXQRTA4U6CQXwwbi/h2tLQ2WHupK
-	g4TPoOhQ==;
-Date: Wed, 8 Jun 2022 17:48:16 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: rth@twiddle.net, ink@jurassic.park.msu.ru, mattst88@gmail.com,
-	vgupta@kernel.org, Russell King - ARM Linux <linux@armlinux.org.uk>,
-	ulli.kroll@googlemail.com, Linus Walleij <linus.walleij@linaro.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Sascha Hauer <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	dl-linux-imx <linux-imx@nxp.com>, Tony Lindgren <tony@atomide.com>,
-	Kevin Hilman <khilman@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>,
-	bcain@quicinc.com, Huacai Chen <chenhuacai@kernel.org>,
-	kernel@xen0n.name, Geert Uytterhoeven <geert@linux-m68k.org>,
-	sammy@sammy.net, Michal Simek <monstr@monstr.eu>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	dinguyen@kernel.org, jonas@southpole.se,
-	stefan.kristiansson@saunalahti.fi,
-	Stafford Horne <shorne@gmail.com>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Helge Deller <deller@gmx.de>, Michael Ellerman <mpe@ellerman.id.au>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	Paul Mackerras <paulus@samba.org>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>, David Miller <davem@davemloft.net>,
-	Richard Weinberger <richard@nod.at>,
-	anton.ivanov@cambridgegreys.com,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	the arch/x86 maintainers <x86@kernel.org>,
-	"H. Peter Anvin" <hpa@zytor.com>, acme@kernel.org,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	jolsa@kernel.org, namhyung@kernel.org,
-	Juergen Gross <jgross@suse.com>, srivatsa@csail.mit.edu,
-	amakhalov@vmware.com, pv-drivers@vmware.com,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>, chris@zankel.net,
-	jcmvbkbc@gmail.com, Len Brown <lenb@kernel.org>,
-	Pavel Machek <pavel@ucw.cz>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>, lpieralisi@kernel.org,
-	Sudeep Holla <sudeep.holla@arm.com>, Andy Gross <agross@kernel.org>,
-	Bjorn Andersson <bjorn.andersson@linaro.org>,
-	Anup Patel <anup@brainfault.org>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Jacob Pan <jacob.jun.pan@linux.intel.com>,
-	Arnd Bergmann <arnd@arndb.de>, Yury Norov <yury.norov@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Petr Mladek <pmladek@suse.com>, senozhatsky@chromium.org,
-	John Ogness <john.ogness@linutronix.de>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>, quic_neeraju@quicinc.com,
-	Josh Triplett <josh@joshtriplett.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Joel Fernandes <joel@joelfernandes.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Benjamin Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Daniel Bristot de Oliveira <bristot@redhat.com>,
-	vschneid@redhat.com, jpoimboe@kernel.org,
-	linux-alpha@vger.kernel.org,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	linux-snps-arc@lists.infradead.org,
-	Linux ARM <linux-arm-kernel@lists.infradead.org>,
-	Linux OMAP Mailing List <linux-omap@vger.kernel.org>,
-	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
-	linux-ia64@vger.kernel.org,
-	linux-m68k <linux-m68k@lists.linux-m68k.org>,
-	"open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
-	openrisc@lists.librecores.org,
-	Parisc List <linux-parisc@vger.kernel.org>,
-	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
-	linux-riscv <linux-riscv@lists.infradead.org>,
-	linux-s390@vger.kernel.org,
-	Linux-sh list <linux-sh@vger.kernel.org>,
-	sparclinux@vger.kernel.org, linux-um@lists.infradead.org,
-	linux-perf-users@vger.kernel.org,
-	virtualization@lists.linux-foundation.org,
-	xen-devel@lists.xenproject.org, linux-xtensa@linux-xtensa.org,
-	ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
-	Linux PM <linux-pm@vger.kernel.org>,
-	linux-clk <linux-clk@vger.kernel.org>,
-	linux-arm-msm <linux-arm-msm@vger.kernel.org>,
-	linux-tegra <linux-tegra@vger.kernel.org>,
-	linux-arch <linux-arch@vger.kernel.org>, rcu@vger.kernel.org
-Subject: Re: [PATCH 04/36] cpuidle,intel_idle: Fix CPUIDLE_FLAG_IRQ_ENABLE
-Message-ID: <YqDEwMDSL1YXdHFH@hirez.programming.kicks-ass.net>
-References: <20220608142723.103523089@infradead.org>
- <20220608144516.172460444@infradead.org>
- <CAJZ5v0gW-zD8Mgghy70f3rFz0QoozCwZ9idyrqtFgA6SWHK5XQ@mail.gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=a82r2Ro6l8h74jW9DtjQZO0KTBfnwv/++8Mmg07eTP8=; b=YB9GGqYQHWtr6gX/F94blAB2ek
+	SGKk10DvojIQa783lbU0vFxMG+WSVWoeCWPrlinWMXYviLnmldqdLX959H7oqrukS835VMb/V5qBe
+	+3XkmU3pG8hYkYyYYAoPeaa1ql4cLsYQq/Ed8Oq04X9VrgfQWQi8PA08bN7//a2bRSI4=;
+Message-ID: <4c0d7d61-4c58-6aec-c653-997a2fb87282@xen.org>
+Date: Wed, 8 Jun 2022 18:36:29 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAJZ5v0gW-zD8Mgghy70f3rFz0QoozCwZ9idyrqtFgA6SWHK5XQ@mail.gmail.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.10.0
+Subject: Re: [PATCH v3] SUPPORT.md: extend security support for x86 hosts to
+ 12 TiB of memory
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <873890bc-e5fd-a9ed-77ff-7bd06d390ae9@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <873890bc-e5fd-a9ed-77ff-7bd06d390ae9@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jun 08, 2022 at 05:01:05PM +0200, Rafael J. Wysocki wrote:
-> On Wed, Jun 8, 2022 at 4:47 PM Peter Zijlstra <peterz@infradead.org> wrote:
-> >
-> > Commit c227233ad64c ("intel_idle: enable interrupts before C1 on
-> > Xeons") wrecked intel_idle in two ways:
-> >
-> >  - must not have tracing in idle functions
-> >  - must return with IRQs disabled
-> >
-> > Additionally, it added a branch for no good reason.
-> >
-> > Fixes: c227233ad64c ("intel_idle: enable interrupts before C1 on Xeons")
-> > Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Hi Jan,
+
+On 02/06/2022 09:43, Jan Beulich wrote:
+> c49ee0329ff3 ("SUPPORT.md: limit security support for hosts with very
+> much memory"), as a result of XSA-385, restricted security support to
+> 8 TiB of host memory. While subsequently further restricted for Arm,
+> extend this to 12 TiB on x86, putting in place a guest restriction to
+> 8 TiB (or yet less for Arm) in exchange.
 > 
-> Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> A 12 TiB x86 host was certified successfully for use with Xen 4.14 as
+> per https://www.suse.com/nbswebapp/yesBulletin.jsp?bulletinNumber=150753.
+> This in particular included running as many guests (2 TiB each) as
+> possible in parallel, to actually prove that all the memory can be used
+> like this. It may be relevant to note that the Optane memory there was
+> used in memory-only mode, with DRAM acting as cache.
 > 
-> And do I think correctly that this can be applied without the rest of
-> the series?
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Acked-by: George Dunlap <george.dunlap@citrix.com>
 
-Yeah, I don't think this relies on any of the preceding patches. If you
-want to route this through the pm/fixes tree that's fine.
+Acked-by: Julien Grall <jgrall@amazon.com>
 
-Thanks!
+Cheers,
+
+-- 
+Julien Grall
 
