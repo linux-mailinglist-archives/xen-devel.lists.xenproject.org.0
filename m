@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BC64543EFB
+	by mail.lfdr.de (Postfix) with ESMTPS id D94DD543EFC
 	for <lists+xen-devel@lfdr.de>; Thu,  9 Jun 2022 00:02:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.344387.569919 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.344385.569914 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nz3jy-00053G-Nt; Wed, 08 Jun 2022 22:01:26 +0000
+	id 1nz3jy-0004yW-H5; Wed, 08 Jun 2022 22:01:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 344387.569919; Wed, 08 Jun 2022 22:01:26 +0000
+Received: by outflank-mailman (output) from mailman id 344385.569914; Wed, 08 Jun 2022 22:01:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nz3jy-0004yb-JC; Wed, 08 Jun 2022 22:01:26 +0000
-Received: by outflank-mailman (input) for mailman id 344387;
- Wed, 08 Jun 2022 21:55:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nz3jy-0004vr-At; Wed, 08 Jun 2022 22:01:26 +0000
+Received: by outflank-mailman (input) for mailman id 344385;
+ Wed, 08 Jun 2022 21:43:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QjaB=WP=arndb.de=arnd@srs-se1.protection.inumbo.net>)
- id 1nz3eV-00044U-Fw
- for xen-devel@lists.xenproject.org; Wed, 08 Jun 2022 21:55:47 +0000
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.133])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id be8f22cc-e775-11ec-bd2c-47488cf2e6aa;
- Wed, 08 Jun 2022 23:55:46 +0200 (CEST)
-Received: from mail-yb1-f173.google.com ([209.85.219.173]) by
- mrelayeu.kundenserver.de (mreue010 [213.165.67.97]) with ESMTPSA (Nemesis) id
- 1MuUza-1niDDo45z8-00rar3 for <xen-devel@lists.xenproject.org>; Wed, 08 Jun
- 2022 23:55:43 +0200
-Received: by mail-yb1-f173.google.com with SMTP id a30so20003739ybj.3
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jun 2022 14:55:42 -0700 (PDT)
+ id 1nz3SS-0002zq-7T
+ for xen-devel@lists.xenproject.org; Wed, 08 Jun 2022 21:43:20 +0000
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.187])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 01f61925-e774-11ec-b605-df0040e90b76;
+ Wed, 08 Jun 2022 23:43:17 +0200 (CEST)
+Received: from mail-ua1-f47.google.com ([209.85.222.47]) by
+ mrelayeu.kundenserver.de (mreue011 [213.165.67.97]) with ESMTPSA (Nemesis) id
+ 1MdNse-1nPzgj06cq-00ZQ1c for <xen-devel@lists.xenproject.org>; Wed, 08 Jun
+ 2022 23:43:17 +0200
+Received: by mail-ua1-f47.google.com with SMTP id o8so7382278uap.6
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jun 2022 14:43:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,21 +42,21 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be8f22cc-e775-11ec-bd2c-47488cf2e6aa
-X-Gm-Message-State: AOAM531iVnSG872l62iKviwF9PrHO8lr/WeOht9qKnDF0w6sed6e+kZg
-	NVK4tzOsBS5NyF1aj0Itt46paxGzZS9LjbWyQQI=
-X-Google-Smtp-Source: ABdhPJzN5kbTwiXruPcKSpnmqojFIl1cGQUBuhNCCdRneCrpSwm0deMOGKvKLmavgOJ05DHkpAoCHNV4Fm5CQu/QOU4=
-X-Received: by 2002:a0d:efc2:0:b0:2fe:d2b7:da8 with SMTP id
- y185-20020a0defc2000000b002fed2b70da8mr36982567ywe.42.1654705351589; Wed, 08
- Jun 2022 09:22:31 -0700 (PDT)
+X-Inumbo-ID: 01f61925-e774-11ec-b605-df0040e90b76
+X-Gm-Message-State: AOAM5314z4DzazvIHroPhIG82d+Ud50XyVYeVMqhFAsPWTaAbMXG4IjA
+	JQoWwW8CRVZctX3NqzJyDMjIwri+VmJuQs6foWQ=
+X-Google-Smtp-Source: ABdhPJzNVjvOg+I4TKoqtI9Mj5r7eGnKl4yZEYVHLzTr22uimte8bgKc1nTgREfDsecVqzQDeuxH8v8jGezndj85u8s=
+X-Received: by 2002:a25:e64b:0:b0:663:ffad:eac5 with SMTP id
+ d72-20020a25e64b000000b00663ffadeac5mr3789690ybh.550.1654705730388; Wed, 08
+ Jun 2022 09:28:50 -0700 (PDT)
 MIME-Version: 1.0
-References: <20220608142723.103523089@infradead.org> <20220608144517.188449351@infradead.org>
-In-Reply-To: <20220608144517.188449351@infradead.org>
+References: <20220608142723.103523089@infradead.org> <20220608144518.010587032@infradead.org>
+In-Reply-To: <20220608144518.010587032@infradead.org>
 From: Arnd Bergmann <arnd@arndb.de>
-Date: Wed, 8 Jun 2022 18:22:12 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a2y5+nrQFzhjrTTZe+d57Ug261J3kwLNe8Mu8i2qxtG2w@mail.gmail.com>
-Message-ID: <CAK8P3a2y5+nrQFzhjrTTZe+d57Ug261J3kwLNe8Mu8i2qxtG2w@mail.gmail.com>
-Subject: Re: [PATCH 20/36] arch/idle: Change arch_cpu_idle() IRQ behaviour
+Date: Wed, 8 Jun 2022 18:28:33 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a0g-fNu9=BUECSXcNeWT7XWHQMnSXZE-XYE+5eakHxKxA@mail.gmail.com>
+Message-ID: <CAK8P3a0g-fNu9=BUECSXcNeWT7XWHQMnSXZE-XYE+5eakHxKxA@mail.gmail.com>
+Subject: Re: [PATCH 33/36] cpuidle,omap3: Use WFI for omap3_pm_idle()
 To: Peter Zijlstra <peterz@infradead.org>
 Cc: Richard Henderson <rth@twiddle.net>, Ivan Kokshaysky <ink@jurassic.park.msu.ru>, 
 	Matt Turner <mattst88@gmail.com>, Vineet Gupta <vgupta@kernel.org>, 
@@ -126,44 +126,46 @@ Cc: Richard Henderson <rth@twiddle.net>, Ivan Kokshaysky <ink@jurassic.park.msu.
 	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>, linux-arch <linux-arch@vger.kernel.org>, 
 	rcu@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-X-Provags-ID: V03:K1:m8R1Pu+UFzRU6eC4jzpDdb8g6pVLHLdmGO5KVQBK/pYk/k+ipCy
- zrXY5zy+jCD8GyZxTQKr1nfTPbl8VptQzV0ZLnZjAcVyxO1YtQMOF00P9nkKmyR2as2/JYY
- d+dS3QyIckg74iMvx9YNJEBkn6Q0Wa993OqVjB+g/Sy0h/7aQNeResdeL3awiaLBEyZaClT
- cFDlan7NH0tH7dpNRe1hA==
+X-Provags-ID: V03:K1:4jU4inRxbIK3YZV/EI0Jq7c1w+cBWepIpNcv7a5g9CAVNkikiKb
+ xcIefAUSSDbZe9fnETUIBLrH/P/1DFCeasuj3P2CSClhs/obpVFFXyQ8KP+cH1mWwI9sxbt
+ WyEm52osMQyq4rsYpXa5HZO05IFl2/JO42Q6KEqWu4F+TclkyQKN4EENOizX7E+Crg7A4Dd
+ j+50z30Y0EdbHBe6S7m2Q==
 X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:1xrwEBKmde8=:q/TsCD1dQLxyvoyLkQBcVR
- YJ85mfuLrkJIz1Y3PnVowarRhaV8J5rY2cMYoZP6Shqz4N4pzeoO49gAJdfyXKD3a2iFQOcq9
- JNUbUG+d8+2TryKFp13hUtpcPr9688Z0S9wG7wWMthVEcSBa3zAhQI2oigQYAtNIQrdcrac/D
- c0CymXAeaU1ZnUA8i9ijTM+RrEAWOZacLiowS7jzC9H3dinzIJgMxmBuwlGS9fEk9y2vc/lTv
- +3CY5GiGxjKixJGzqw6zPTuWcHwK/I3Skdbe4d5A8ne2EsKBUE+D46vHJwDJ1WVazpaDpVdeA
- xS1ZE6/rHCrldwzqZwJ3tcpQsrFSE6Qf0jtgCpD2A5Xyqj5T2pyKY55/l9pM9ZmyhzvEtQ8ZK
- 6dWczCmjHBFPmkiNWh+YuFr4000thhf7z6G/RlXh1NNZdca2TMPG5xBZYXAB+gipnSmw+IW81
- z0zks2bNN3twYpu2sVirKN6pa+iO34rheBsHZuRZV5IXLrRIvwVlibxUPNsO1PmfZasfsL+rm
- xhFbJV+iO/8jrrd4BnT4tGy/PrjZuJpYO8aSGiktsG1s1pblmr1cmcy9L4DaPb0lIjPDH2XlS
- cuin7mFRP2/P0yR4up2Chi1hAPuvf/pmTh8Fon3zbJ3hqGvvYj4i1e5jSeE0fiJXcpZZvapVR
- k8rac1q/u5zGNg6Vyj7T6m+O+81HqluFb7huzVTwLFOZP8Xf2R4dUIlhvlCz9nB746XG+eAUu
- T6zVgENFsViPDghtQ4sFdd+jFcO0OdIsTmNAglqd8iXuD7G9TCkmrUWAWkIWMafUK1Zsu6lOy
- XvfxmgE27E6EAHtFOypPV4B7QXQ2vn2jWt/olXB8HOKsQiU29rj1f6fwCVsMfTfS4RSDHKRTz
- NvZdczBCSEO2BRbafEAr9ELi6rNZ88WJWWMJGRH5oZKhKdpOhkN8M5Tgjd3EPfUgf82iCmvUL
- 0WCOXRSwBoewOsg/0s6PDJxoPgvctlTQmB6SV+OkzuowYYLCamVg+
+X-UI-Out-Filterresults: notjunk:1;V03:K0:TZ/SzoOX1Aw=:2b4snShJDmaai2JDJp149R
+ 8FV8+Wr+seTO3BZs718tpDLR9SxzgG/RvKnywOfVdRL0BBgMkp+zbOY5Nj6O4l5qjeGmfZow9
+ 3rybvr47sXvN/HgjblHRbOR4p+lhwylZBbhruHwAAf88nVpIQeRDMWKacz64twYQAqEKZfNrb
+ K393NZta2geV6RGJNbxBra2lfHi1KGdHeRV4a8RsdH3BYgWqjvXOLwfYLVKH34CLVhaVkgXbU
+ wMkX07FWil2qBaS8McnhbF+ofHPWhuEbKw95RvkcPsCbhDc1fNMkrNxQl7tGCBqsWaJ7Yd94p
+ foJ+9/TMnRZzd1j4OynDZGFC15qmstg1JJHJGFUEVTMGYcZHeFwv9Hjjbwsg9glq0pRVpwRsc
+ h/jGPlLUKObZvQt+3o6kZgB4HwbEXLavhmksFPZxaV8wTVfnKB/VIXYI0dyN/yMPw+t8QGJTo
+ GmbVjtDTPbZqaMfGctSszMaN77jA2n+em2fNTUcqeRYz7tV0J6U1AOWX2n3E3WK2na8WT4UUU
+ VnFr5sbvX5viV4klFPqnEQqRLMKBCy8WI6NU1m9flzZC7bq9RG/ak9sbkCAMSrRofz9aGQqDk
+ BL3NsJF6Al5ZowAlgDlfed5uWTR0QSRHkS7N5e7TpmhHk4OzGWgHDB3ZuAxAgbiSYB21Ua7rV
+ YXKCnjukuL4yY9NBvCZnSyTIwraCLBuLmelrPNVXdbrGvIRfKBJf0vyVsnRyiaJdxwBbY2l5p
+ Ejt0m1od1bLjojt5fBIbrXXU0rUHURjFMashSYFHVLJUxhnBZIKmmY9ChACgf+xeg53x2L/j4
+ ytQFsOvUUaP1NfssOO1tWEPk6qB7+fRd9ev2jpMmSlsr/OHF0A5HASDdMY9cZGcB/tSn9dtz6
+ MfLyYNKzUmi8Sk98iQgoPMyfugYuQZl7JQV4QDPG4EL+3VVn2URMoF6oStzqk0eSYf2Kd9mRT
+ CuCzu01m6J+UAEaJxyauhf62VsSuGO2xNMcmdl2k7ci3a/M2j9MRj
 
 On Wed, Jun 8, 2022 at 4:27 PM Peter Zijlstra <peterz@infradead.org> wrote:
 >
-> Current arch_cpu_idle() is called with IRQs disabled, but will return
-> with IRQs enabled.
+> arch_cpu_idle() is a very simple idle interface and exposes only a
+> single idle state and is expected to not require RCU and not do any
+> tracing/instrumentation.
 >
-> However, the very first thing the generic code does after calling
-> arch_cpu_idle() is raw_local_irq_disable(). This means that
-> architectures that can idle with IRQs disabled end up doing a
-> pointless 'enable-disable' dance.
->
-> Therefore, push this IRQ disabling into the idle function, meaning
-> that those architectures can avoid the pointless IRQ state flipping.
+> As such, omap_sram_idle() is not a valid implementation. Replace it
+> with the simple (shallow) omap3_do_wfi() call. Leaving the more
+> complicated idle states for the cpuidle driver.
 >
 > Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 
-I think you now need to add the a raw_local_irq_disable(); in loongarch
-as well.
+I see similar code in omap2:
 
-       Arnd
+omap2_pm_idle()
+ -> omap2_enter_full_retention()
+     -> omap2_sram_suspend()
+
+Is that code path safe to use without RCU or does it need a similar change?
+
+        Arnd
 
