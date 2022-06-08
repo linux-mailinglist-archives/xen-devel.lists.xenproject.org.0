@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F1EC542BBC
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Jun 2022 11:43:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.343752.569248 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 288F4542C6C
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Jun 2022 12:02:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.343765.569266 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nysCg-0002fY-LM; Wed, 08 Jun 2022 09:42:18 +0000
+	id 1nysVO-0005PZ-BX; Wed, 08 Jun 2022 10:01:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 343752.569248; Wed, 08 Jun 2022 09:42:18 +0000
+Received: by outflank-mailman (output) from mailman id 343765.569266; Wed, 08 Jun 2022 10:01:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nysCg-0002ce-Ib; Wed, 08 Jun 2022 09:42:18 +0000
-Received: by outflank-mailman (input) for mailman id 343752;
- Wed, 08 Jun 2022 09:42:16 +0000
+	id 1nysVO-0005N5-8W; Wed, 08 Jun 2022 10:01:38 +0000
+Received: by outflank-mailman (input) for mailman id 343765;
+ Wed, 08 Jun 2022 10:01:37 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nysCe-0002cY-8W
- for xen-devel@lists.xenproject.org; Wed, 08 Jun 2022 09:42:16 +0000
+ (envelope-from <julien@xen.org>) id 1nysVN-0005Mw-Bb
+ for xen-devel@lists.xenproject.org; Wed, 08 Jun 2022 10:01:37 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1nysCd-0001ad-SD; Wed, 08 Jun 2022 09:42:15 +0000
+ id 1nysVM-00021A-9B; Wed, 08 Jun 2022 10:01:36 +0000
 Received: from [54.239.6.189] (helo=[192.168.10.106])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1nysCd-0007Sv-Kg; Wed, 08 Jun 2022 09:42:15 +0000
+ id 1nysVL-0000Gq-UZ; Wed, 08 Jun 2022 10:01:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,71 +42,92 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=CSO9GolwBr1UYgcGNdZNafgXrjTnSwewvwOS535JqD0=; b=oMGtuUmooWoWAXuPe3guBYe0E1
-	fLad/RENSNnk2gI8ULNkFeoSrofSMfqHNRsWyBijTHt5yIYhvEMnK81BLSVj9YUZsk8vZOafPgtCE
-	iclH1FwBniqoranAk+euy0IABhKO80ufbDWwBv8cg5npFiy6F0bwHeknTQUoNTcFLzHE=;
-Message-ID: <f9b78205-bbc1-9675-f7fe-79cd40ce2baa@xen.org>
-Date: Wed, 8 Jun 2022 10:42:12 +0100
+	bh=p0wvtAVS4QIIRYpjqkGJh7255/WfzqDwRwO7WO5ZFxs=; b=c2+wrRMO5B3JA1Xsy+2s7b/Zgy
+	4Adgcr0AbtvTSifHOMbGO7kSaukSsuI4wXhGCidH6mjwBYpj14hJ3VuSl/8bbDLrxtoASspLIQ6Ma
+	sIri0NdS5+BEhXUmOC64fBJzAzZMC2GXfl0ImIY82vTKRJ6eFRMSY4QFATc5ei34ZtAQ=;
+Message-ID: <dec50384-5172-67b6-f4ac-a9c40d80a641@xen.org>
+Date: Wed, 8 Jun 2022 11:01:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.9.1
-Subject: Re: [PATCH v3 2/2] xen/common: Use enhanced ASSERT_ALLOC_CONTEXT in
- xmalloc()
-To: Henry Wang <Henry.Wang@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
+Subject: Re: [PATCH 10/16] xen/arm: add Persistent Map (PMAP) infrastructure
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wei.liu2@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, Wei Chen <Wei.Chen@arm.com>,
- Julien Grall <jgrall@amazon.com>
-References: <20220507025434.1063710-1-Henry.Wang@arm.com>
- <20220507025434.1063710-3-Henry.Wang@arm.com>
- <5c0e81f1-fac4-f14f-f4a1-2a00f6d16f47@xen.org>
- <AS8PR08MB7991500E0D0127986F4D957B92D79@AS8PR08MB7991.eurprd08.prod.outlook.com>
+ George Dunlap <george.dunlap@citrix.com>, Hongyan Xia <hongyxia@amazon.com>,
+ Julien Grall <jgrall@amazon.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <20220520120937.28925-1-julien@xen.org>
+ <20220520120937.28925-11-julien@xen.org>
+ <alpine.DEB.2.22.394.2206071806390.21215@ubuntu-linux-20-04-desktop>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <AS8PR08MB7991500E0D0127986F4D957B92D79@AS8PR08MB7991.eurprd08.prod.outlook.com>
+In-Reply-To: <alpine.DEB.2.22.394.2206071806390.21215@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Henry,
+Hi Stefano,
 
-On 24/05/2022 02:53, Henry Wang wrote:
->> -----Original Message-----
->> From: Julien Grall <julien@xen.org>
->> Subject: Re: [PATCH v3 2/2] xen/common: Use enhanced
->> ASSERT_ALLOC_CONTEXT in xmalloc()
->>
->> Hi,
->>
->> On 07/05/2022 03:54, Henry Wang wrote:
->>> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
->>> index e866e0d864..ea59cd1a4a 100644
->>> --- a/xen/common/page_alloc.c
->>> +++ b/xen/common/page_alloc.c
->>> @@ -162,13 +162,6 @@
->>>    static char __initdata opt_badpage[100] = "";
->>>    string_param("badpage", opt_badpage);
->>>
->>> -/*
->>> - * Heap allocations may need TLB flushes which may require IRQs to be
->>> - * enabled (except when only 1 PCPU is online).
->>> - */
->>> -#define ASSERT_ALLOC_CONTEXT() \
->>> -    ASSERT(!in_irq() && (local_irq_is_enabled() || num_online_cpus() <=
->> 1))
->>> -
->> FYI, the patch introducing ASSERT_ALLOC_CONTEXT() has been reverted. I
->> intend to re-introduce it once your previous patch and the one fixing
->> the ITS (not yet formally sent) have been committed.
+On 08/06/2022 02:08, Stefano Stabellini wrote:
+>> diff --git a/xen/arch/arm/include/asm/pmap.h b/xen/arch/arm/include/asm/pmap.h
+>> new file mode 100644
+>> index 000000000000..74398b4c4fe6
+>> --- /dev/null
+>> +++ b/xen/arch/arm/include/asm/pmap.h
+>> @@ -0,0 +1,32 @@
+>> +#ifndef __ASM_PMAP_H__
+>> +#define __ASM_PMAP_H__
+>> +
+>> +#include <xen/mm.h>
+>> +
+>> +#include <asm/fixmap.h>
+>> +
+>> +static inline void arch_pmap_map(unsigned int slot, mfn_t mfn)
+>> +{
+>> +    lpae_t *entry = &xen_fixmap[slot];
+>> +    lpae_t pte;
+>> +
+>> +    ASSERT(!lpae_is_valid(*entry));
+>> +
+>> +    pte = mfn_to_xen_entry(mfn, PAGE_HYPERVISOR_RW);
+>> +    pte.pt.table = 1;
+>> +    write_pte(entry, pte);
 > 
-> Thanks for the information! IIUC the patch:
-> "xen/arm: gic-v3-lpi: Allocate the pending table while preparing the CPU"
-> is merged. So I guess both "page_alloc: assert IRQs are enabled in heap alloc/free"
-> and this patch can be re-introduced if everyone is happy with the patch?
+> Here we don't need a tlb flush because we never go from a valid mapping
+> to another valid mapping.
 
-I have re-committed David's patch and committed yours.
+A TLB flush would not be sufficient here. You would need to follow the 
+break-before-make sequence in order to replace a valid mapping with 
+another valid mapping.
+
+> We also go through arch_pmap_unmap which
+> clears the mapping and also flushes the tlb. Is that right?
+
+The PMAP code is using a bitmap to know which entry is used. So when 
+arch_pmap_map() is called, we also guarantees the entry will be invalid 
+(hence the ASSERT(!lpae_is_valid()).
+
+The bit in the bitmap will only be cleared by pmap_unmap() which will 
+result to a TLB flush.
+
+>> +}
+>> +
+>> +static inline void arch_pmap_unmap(unsigned int slot)
+>> +{
+>> +    lpae_t pte = {};
+>> +
+>> +    write_pte(&xen_fixmap[slot], pte);
+>> +
+>> +    flush_xen_tlb_range_va_local(FIXMAP_ADDR(slot), PAGE_SIZE);
+>> +}
+>> +
+>> +void arch_pmap_map_slot(unsigned int slot, mfn_t mfn);
+>> +void arch_pmap_clear_slot(void *ptr);
+> 
+> What are these two? They are not defined anywhere?
+
+It is left-over. I will drop them.
 
 Cheers,
 
