@@ -2,40 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A48F544B87
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Jun 2022 14:16:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.345294.570919 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6764544B8F
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Jun 2022 14:17:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.345310.570931 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzH5V-0004lL-Sk; Thu, 09 Jun 2022 12:16:33 +0000
+	id 1nzH64-0005MR-Ch; Thu, 09 Jun 2022 12:17:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 345294.570919; Thu, 09 Jun 2022 12:16:33 +0000
+Received: by outflank-mailman (output) from mailman id 345310.570931; Thu, 09 Jun 2022 12:17:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzH5V-0004il-Pi; Thu, 09 Jun 2022 12:16:33 +0000
-Received: by outflank-mailman (input) for mailman id 345294;
- Thu, 09 Jun 2022 12:16:32 +0000
+	id 1nzH64-0005KY-9S; Thu, 09 Jun 2022 12:17:08 +0000
+Received: by outflank-mailman (input) for mailman id 345310;
+ Thu, 09 Jun 2022 12:17:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jWvP=WQ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1nzH5U-0004iH-MS
- for xen-devel@lists.xenproject.org; Thu, 09 Jun 2022 12:16:32 +0000
-Received: from EUR03-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur03on060e.outbound.protection.outlook.com
- [2a01:111:f400:fe09::60e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fec863bf-e7ed-11ec-bd2c-47488cf2e6aa;
- Thu, 09 Jun 2022 14:16:31 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM0PR04MB6132.eurprd04.prod.outlook.com (2603:10a6:208:13c::15)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=t7Sx=WQ=citrix.com=prvs=15236f833=George.Dunlap@srs-se1.protection.inumbo.net>)
+ id 1nzH62-0004iH-FY
+ for xen-devel@lists.xenproject.org; Thu, 09 Jun 2022 12:17:06 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1103407c-e7ee-11ec-bd2c-47488cf2e6aa;
+ Thu, 09 Jun 2022 14:17:03 +0200 (CEST)
+Received: from mail-bn8nam12lp2170.outbound.protection.outlook.com (HELO
+ NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.170])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 09 Jun 2022 08:16:59 -0400
+Received: from PH0PR03MB5669.namprd03.prod.outlook.com (2603:10b6:510:33::16)
+ by SN4PR03MB6784.namprd03.prod.outlook.com (2603:10b6:806:217::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.12; Thu, 9 Jun
- 2022 12:16:29 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::dfa:a64a:432f:e26b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::dfa:a64a:432f:e26b%7]) with mapi id 15.20.5332.013; Thu, 9 Jun 2022
- 12:16:29 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.14; Thu, 9 Jun
+ 2022 12:16:57 +0000
+Received: from PH0PR03MB5669.namprd03.prod.outlook.com
+ ([fe80::b402:44ba:be8:2308]) by PH0PR03MB5669.namprd03.prod.outlook.com
+ ([fe80::b402:44ba:be8:2308%4]) with mapi id 15.20.5332.013; Thu, 9 Jun 2022
+ 12:16:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,206 +49,369 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fec863bf-e7ed-11ec-bd2c-47488cf2e6aa
+X-Inumbo-ID: 1103407c-e7ee-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1654777023;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:mime-version;
+  bh=SFHZGe/NyJm4UgOLlTeQkgHrC66QfJCVmXFEpeixUB4=;
+  b=IqfO7Nbb7oszHpOxX5ErzzrdwJxX6CSdeZNAna89U4Ty7NboRAuG5sBv
+   ZmSdGeDHeBccPgNQDiuQeTxengzi4c8Wi3CnLfJbZgbu3NCIIB5fJSjTF
+   TRttk9SiiIlk4tsyAQD24sCqt45HKAddmu8NT03xgANMR5pv59XyZvqp3
+   U=;
+X-IronPort-RemoteIP: 104.47.55.170
+X-IronPort-MID: 73221298
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:PYoukKj1s6kvCSy+xcnEes+ZX161ChAKZh0ujC45NGQN5FlGYwSy9
+ lOraxnFY6jUMyawOYxoOc7lxf41yZbcxt4yG1NvpXowHi8b8MHMDIXIcUqhNXrPJJSZE09tt
+ ZpEY9KYd5xlFiDS/0n8aeG+oyMhjv/USrbyVOfJYysZqWOIMMsEoUsLd7kR3t446TTAPz6wh
+ D/SnyH+EAOugW8rPjNEuq7c9R9j7ayj6T1FsgU1PaBH4g+FnCMbXc4Tfa2/ESD1E9JedgKYq
+ 0cv710bEkfxpUpF5gaNy+6jGqEyaueOe1DI0BK6YoD66vR4jnVaPp0TabxNMC+7tx3Tx4ork
+ IsV5cTrIesUFvakdNo1AkEw/x5WZcWqyJefSZRomZXOp6FuWyKEL8RGVCnaD6VBkgpEKTgmG
+ cgjACIMdni+a9eem9pXfAXOavMLd6EHNKtH0p1pIKqw4fwOGfgvSI2SjTNUMatZammj0p8ya
+ uJAAQeDYigsbDURNGcKUoMi396Ci1C8ThhAkXW5/qgotj27IAxZiNABMfLzU/nTH4B/uBbdo
+ WjLuWPkHhsdKdqTjyKf9W6hjfPOmiW9X58OELq/9bhhh1j7Km47UUVKEwfk56TkzBfhA7qzK
+ GRNksYqhYc/81akQ5/RQhu8qWastR8AQdtAVeY97Wlhz4KLuFzDXzJVHlatbvQ/iOwURGUY6
+ mWrwc/nK2xXoeScSkuko+L8QTSafHJ9wXU5TS0OQBYB4tLjiJoulR+JRdFmeIavidf4Ay33h
+ TqDoy43nbw7h9MEzKi98hbMhDfEjojESEs56xvaWkqh7xhlf8i1aoqw81/Z4P1caoGDQTGpl
+ WIYls2pyfEBBJCAigSAWOwIWrqu4p6tMiDYgFNpN4ks8XKq4XHLVapd+i1kLUFldOMNYyb0Y
+ VT7sBlUopRUOROCY7JsaseqCssCyan7Cc+jRv3SdsBJYJV6aEmA5i4GTVWLw2nnnUwokKc+E
+ ZSWa8ChCTAdE6sP8datb+IU0LtuzCZuw2rWHMr/107+juLYY2OJQ7AYNlfIdvo+8K6PvATS9
+ ZBYKteOzBJcFub5Z0E77LIuELzDFlBjbbieliCdXrfrztZOcI35N8Ls/A==
+IronPort-HdrOrdr: A9a23:RSyxKKgUDEzWNIUaEfYMqH2zA3BQX3Z13DAbv31ZSRFFG/FwyP
+ rCoB1L73XJYWgqM03IwerwQ5VpQRvnhP1ICPoqTM2ftWjdySaVxeRZgbcKrAeQfBEWmtQ96U
+ 4kSdkHNDSSNyk3sS+Z2njfLz9I+rDun86VbKXlvg5QpGpRGsNdBnJCe2Km+zpNNWx77PQCdK
+ a0145inX6NaH4XZsO0Cj0uRO7YveDGk5rgfFovGwMnwBPmt0Ln1JfKVzyjmjsOWTJGxrkvtU
+ LflRbi26mlu/anjjfBym7o6YhMkteJ8KoDOCXMsLlUFtzfsHfrWG1TYczGgNnzmpDq1L8eqq
+ iOn/7nBbU115qeRBDynfKn4Xic7N9n0Q6f9bbfuwqtnSWxfkNFN+NRwY1eaRfX8EwmoZV117
+ 9KxXuQs95NAQrHhzmV3amBa/n7/nDE3kbKvNRj+UC3a7FuIYO5bLZvjn99AdMFBmb3+YonGO
+ 5hAIXV4+tXa0qTazTcsnN0yNKhU3wvFlPeK3Jy8PC9wnxThjR03kEYzMsQkjMJ8488UYBN46
+ DBPr5znL9DQ8cKZeZ2BfsHQ8GwFmvRKCi8e166MBDiDuUKKnjNo5n47PE84/yrYoUByN8olJ
+ HIQDpjxBkPkoLVeLmzNbFwg2DwqT+GLEXQI+lllutEk6y5Qqb3OiueT11rm9e8opwkc7jmZ8
+ o=
+X-IronPort-AV: E=Sophos;i="5.91,287,1647316800"; 
+   d="asc'?scan'208,217";a="73221298"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=N/6mSSvtvjd7U04wTW92EsuoaDac5Wu4em6APdNwMDhzE7H/HApRTkOkB1v6QJGPSzNzSv2+IfUG/Kdig8MKCSPVlIhaU5gLbv1RfcC59jbhCu0seBZKzw8aHLYH30EpDtlaIzGHC2JIC9Nv6uc4080YtbmEod6wSMx7I+psJOZplRFZ/UDBv74BwQJKHkCcQkKamCfUqNrgcvXYL+LAASe2Xc2DgRdbv5clZRax7IYbix0aLSeiovd4cA8TVaMDXDMp4htNFm+4l52yPEEGCFVGVWzI4m8VP6eOtS5eqAdBpAPw4HRs3Tzu6RqOABZ5SlM1ANGosrFIayBn+ck3dw==
+ b=XnAehYaNjuIkC/GHhmlKTxo2kSXaNaIdVomKEyK7qIRbQ+AAVUzr4t8PSEsuEoMdYAthCH195vnDXo4j8i9D55EtgEfVPSVj4ZC5sJorF04Mb4L9JxEWAfvMxYJDlPv5oqwHbABm+KpGHcvWXGBNPyNIjEGeHF8X0d+OUdSw+pexQd/U+eJOtQtymI3wruXrd+LHvo6h13ibvUMjmRyCAe+2PhcVM7x7vkpaPvawLOmylx5dTo9fzu9lkln25lZZ+3Ax1vg3uX/jKcXhQmAcJHtAY4ENSESMddGPq+VhOvnink8L8Ao5Xq8+KSg+6U1JOm2riYAZPimMQWEXpt3mVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=B3R5uzim8M6DYJNBfv5SQTaEjZKPTIOqo2PXp59J748=;
- b=fbBYJBskB6WjgefJgEI0/9X/LzQFnZYc4oC2Vxk2ejN48N97BPQ5eS9aiCq8DLSN6+4eY/amZcfnPwIXNkHilypSJG2VNK6JAqtOORc0tXiO6VDtShOZyHLAF/YjqOi0O/uQxTfP2nbqrfgMOW3UUycc9yCu3tIL+Ak0iwrXuDNsExRoWydRAnIf1EzzWaMTRPKKGARTOkP3PlVYMT+1/saksgJVY+uMUihL5G53n1zqHjmJgAurtJe71+Pzz7TDDAHUXC3oxctnofnIB2CKpBG6EloR2Pexwbimnpsev4rEyPgotFreJdXrO3CViKmCBgMg4BmjHohupjbFyREYdg==
+ bh=tIeRCBvMRWO8ZG+IXg2F1S36S3Jl98VDjZhcq9AUGOo=;
+ b=HLi/6FO0inJVmx8/eIl/vYi4PzP+SJtH7969V2cfhRlhjkJPnkz5j3lHceVaMQ4zA48F9hFxdMfEgjcOeavRFbLQ3TsilY7KxUa8bw8M9+Hzrk1mRNX5J2c11C4DkzXiV7ODskHuhmJ9T4GICYV+dt8j+RLUI8szNsNHyENOvdn12I6dLgLqWud+LACAI6oARmKLWMdyKkPyQoHhhlRq6t13eOyVrUWsagItLBA9LNzs7B1pAhieNJIEfg6EXSlC5BAFrz+gm7WVr9kCiaq6LFHM3DLGP+f6x9UUPRRfAfPzJFql+h02ikOhzu4NXeOyssy3cZ7NLUa4d1BXqvsb1Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B3R5uzim8M6DYJNBfv5SQTaEjZKPTIOqo2PXp59J748=;
- b=Scow91BuAHLGpTCgEhZzdM6QZbEqYHOtjqEvz2z5ZraJWhzy7gWGaRTbvDuJkxOecco02FcXN6P0Lii0bok3JWrn4AZn0DzkmEj4J8BPpUluaoK83awOU5a9PxHU2LBEDcT0BFqvjnJL4UzkHGdhhgQYrDv1LeS31Cq12E/hKlr0qIO5NBwjvHB93Kp0CFBy/HZfriHk1ZYUHFtHq6d/o4VkIbhrs9ys1DRZbFzPE5p/p+FE6HH1Y9+QVmRcD9cW5ea6tJDA4hvjPVbHpIFya0sH4txiESfL/GrXsJLkf82SKwyWEIsZYFETc7ITl6FiwjWUDPgR0CY3Shk57Svd0A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <5195b659-ae2f-be1f-eb5a-bbe3e4b5d9fb@suse.com>
-Date: Thu, 9 Jun 2022 14:16:27 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [XEN PATCH 1/4] build: xen/include: use if_changed
+ bh=tIeRCBvMRWO8ZG+IXg2F1S36S3Jl98VDjZhcq9AUGOo=;
+ b=ekk7CrQm/tY6KaEW9JyG2SloNL3TQ5tTKPtMr6cy+pZrUUUpwt1VdsIHiqEc/kMVJGDx8OzpIeeVdf488gKO9ctVta1koHoFjnX55jXfNBxjuZYi5gR7xrOjmo2r3XWP6GUw8pwRnzHoIxcybnWEdpwCh2LjGMFxkr4wOPZMRHM=
+From: George Dunlap <George.Dunlap@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Roberto Bagnara <roberto.bagnara@bugseng.com>, xen-devel
+	<xen-devel@lists.xenproject.org>, Roger Pau Monne <roger.pau@citrix.com>,
+	Artem Mygaiev <Artem_Mygaiev@epam.com>, Andrew Cooper
+	<Andrew.Cooper3@citrix.com>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<Bertrand.Marquis@arm.com>, "fusa-sig@lists.xenproject.org"
+	<fusa-sig@lists.xenproject.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: MOVING COMMUNITY CALL Call for agenda items for 9 June Community
+ Call @ 1500 UTC
+Thread-Topic: MOVING COMMUNITY CALL Call for agenda items for 9 June Community
+ Call @ 1500 UTC
+Thread-Index:
+ AQHYdZ38SXqYMiOAsUySyh3MMtjDRK06wjeAgAA+pgCAAMtvgIAHcfwAgAO5uACAAAOYAIAADsYA
+Date: Thu, 9 Jun 2022 12:16:57 +0000
+Message-ID: <A59C0FF8-649D-4B82-AC56-2B8089872FA2@citrix.com>
+References: <CC75A251-2695-4E9E-95A7-043874B22F32@citrix.com>
+ <alpine.DEB.2.22.394.2206010942010.1905099@ubuntu-linux-20-04-desktop>
+ <alpine.DEB.2.22.394.2206011324400.1905099@ubuntu-linux-20-04-desktop>
+ <ebe4b409-318f-6b2c-0e05-fe9256528b32@suse.com>
+ <alpine.DEB.2.22.394.2206061731421.277622@ubuntu-linux-20-04-desktop>
+ <45c4d8fa-06de-b4a2-5688-14b9cbe5b48c@bugseng.com>
+ <a10972fc-0f25-4187-4386-e73b4f5563af@suse.com>
+In-Reply-To: <a10972fc-0f25-4187-4386-e73b4f5563af@suse.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-References: <20220601165909.46588-1-anthony.perard@citrix.com>
- <20220601165909.46588-2-anthony.perard@citrix.com>
- <6EE2C13C-7218-4063-8C73-88695C6BF4CE@arm.com>
- <0d85ad23-a232-eac3-416f-fff4d5ec1a93@suse.com>
- <258D1BE1-8E77-4748-A64C-6F080B9C1539@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <258D1BE1-8E77-4748-A64C-6F080B9C1539@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AS9PR04CA0086.eurprd04.prod.outlook.com
- (2603:10a6:20b:50e::24) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3696.100.31)
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 263902de-a979-40c9-0490-08da4a11f2b2
+x-ms-traffictypediagnostic: SN4PR03MB6784:EE_
+x-microsoft-antispam-prvs:
+ <SN4PR03MB6784B70B8D34C2DA6CE9807A99A79@SN4PR03MB6784.namprd03.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ hai489dvc7y9/WdNMybvvObPbpqh1JvORcV57fo+JnFbQoLrPqf+zSMKeO9PQd7/ciC60o5ZdJeHtBSLczBG+CyUNAIIiYgsg66Xv3golXkaUtiA1Q5yxrKafE3Jiq5jXj7cUmkmWnDDFvd7HICOye7vnk3aqk0Pf0uAgcj71RkidaczxsNtIg/wNDbpFRVUMeAAFZFixa1H/w/YvkYuy4oB0xjcP4QQExhg6wFLhpBdT5bbNIFDJv1qNpJeyG3SgmjhFAYdm8nBlaqHevCJO6QpgZvM5EOXWFmsHEI6NR/paAC1BV+CCrduvPAUvyKE9LuBjJyyP/bxGS1Z/mKjl9scucmUfsSXUKZNmV5yIgvWFHShqPub94WeCaZt+g6hJlaJC63BWTJavpX9bKY1KGMmkpVSET+6DTSDEk73oKBYTlggyiQ5HnFajsWwu+ARoe2B8Mh1Ej0OnWuoMG2M1aFHR2UIBaMZCXYpfRzoMR/b2PyiQ12CWG6RoRyD3G/gC0GwWoXM31HP76zYUab8K+pMmo9mdtZJmfKWjYHfd6BSzBCY3yp8jbGEgqrqzUBluA0ImmHE2vCs6Cfds3G8wVRk3M/lWxNncbllrxlL27QZ/V+w/3dx9pUoezQJDe+OuuInnTcieYz0/HAbxT7HehQbhbltNc0KA1J4gfREqlYAxadZ5NSqp8YrOp3TQdYgr2ftixzpj70Ejka7GI8RCr6+0qEloshTUIo2WmvIqjREXZ5gQ+kkLTg5g0tC9P5jjIT4WT01WkrECgckfQjGFGxEMb2dxKyAC1nUG30wBfBgd+YtB8p2YI8Ci3VOM9tv1jUZvvkJblTqIAoVtU4D4Hf8kpAqZHS/iKYLZWSLS2M=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR03MB5669.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(2906002)(91956017)(54906003)(6916009)(82960400001)(76116006)(71200400001)(99936003)(36756003)(5660300002)(316002)(26005)(38070700005)(122000001)(6512007)(53546011)(86362001)(4326008)(8936002)(8676002)(38100700002)(66446008)(66476007)(64756008)(66946007)(2616005)(166002)(33656002)(508600001)(186003)(6486002)(966005)(83380400001)(66556008)(6506007)(221023002)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?WG9TKzcybUhjaXRCUDJQS0Z5bHZHRkRGQzUvbmNQY0FPT29MYTRDblUvb1hm?=
+ =?utf-8?B?MnZjL2VTNDluOWpyRVFiekxKNnErQVhXZUdhNENEZHVNVkwzRG95VkxQK20v?=
+ =?utf-8?B?cUFDRysrWlhIRGJjTVJ0VHprTEJ4Tks3cjQwRTAvL1V3aW13WVBJbmJOM2ow?=
+ =?utf-8?B?aUZxbXBxNW5CSEJjV2Y2QzNMOFE2V3JtWkhXblF1TWlxY0lSWXZyVVQxTDNj?=
+ =?utf-8?B?SVdqak9oODVGTmUrbTdSVitGb0U2Zk1CSncwMURqeUJadkpJbEVCLy9wOStl?=
+ =?utf-8?B?QTk1V1NJaWlRMnJoaDdLYk5pT1V2MDNmSEswV3Y4Sk42Y2d0N2h1STUza0xO?=
+ =?utf-8?B?cUZsUEVrcFprMVY3dWkrTFZwVXpzSEJOdmJNaktoMmdRS2FIK29sV2VzYUFq?=
+ =?utf-8?B?WEJ0ZzZRSDlVRjhyT3dHci8xL2pMa2pyMnlodGNCUGtuUHBPaEdraGROcHA4?=
+ =?utf-8?B?MGJ6VjBXYVEvdUw0Z1dsUUhwRmV3QXFLR3dSaEEwM21YNERhNC9tOFkwWVRo?=
+ =?utf-8?B?MEUzVm5wb1JKc1Z1RUIyZ21GeFc1UzhmMFRBTkdxOXQxalFxa0RiUHdQcjZy?=
+ =?utf-8?B?N094K2xPUGEwWEN0U0oyMDdab1A5bmFWTkNHbTVXZjczUEZ0c0FtcGMxWlNH?=
+ =?utf-8?B?L29tZ0VSNjB4NW9BT0k2cGVjYmM4eVJEUytBY2ZSL01FVHZwcjExNHhxK3ND?=
+ =?utf-8?B?bGMzRCtQdHFSanI0dUFpbVFGc3lrQk1rOUFlTlFmbmpya1dOSEE3SlVFSElz?=
+ =?utf-8?B?aHVzbzlweGZ5TWRaZDNUUFUrSzNFL1l3VTNkaWx4dmZzSGNEOGVrVVNLWUVl?=
+ =?utf-8?B?Q3RWeVNhNGlTY1B2YW9xVHp3RjRnOEViSnBRRGZtcnlWRTZ1eXNwcThQL1VL?=
+ =?utf-8?B?a25oRjRvSGVscEx2MUU4UFNlazYwMjBnUTIzWGU3T25XZCtDWSt4QVp0c2ww?=
+ =?utf-8?B?Zk41cy9ULzVYTTM5ZXdDbFJHTHlpcXdJc1NnaFZNN2M2Qm9COEd3TjNWSmxi?=
+ =?utf-8?B?NWlHL1Nxdnc1SlFXMjZoZGJ6Zm9GRGM1VEpMendGUXJnZWgvVG1vUWpRNFlK?=
+ =?utf-8?B?bnFKTzBra2h5bmpsY2M0NXRFZDc1cUpRWk5vVHFJZGIyL0Rqc09LK21JK2Fj?=
+ =?utf-8?B?N01jVEcxTG9tWFhkR2k4ZXZwUVpzVHgydlUzbldicHdJSDVSZ1BLNDR4NDVq?=
+ =?utf-8?B?K3laVTFjZnd2bkk1WWZCWjNLVUlOQ1VKQTRuWUlsM2NJbWQyQTZvcm9nVTBk?=
+ =?utf-8?B?Q2hCUStNbFBkeDREbWZKdDlnT09VOEtMUlZVSUZRUS85RTNLaVpXMnpHNDVX?=
+ =?utf-8?B?OE5vZVA0eCtiUllRUUxhajA2cFY0REZxMXI3Qmo5Ynl2VmlPZVZzWE5SN2Rj?=
+ =?utf-8?B?VERYc1JhRXFFUnY0S3NUaEZqRnV1dnA1c0tTdDFXeEQyRTc1U1IrOWtBR29z?=
+ =?utf-8?B?T2h2YzFlZkxFTzRiVW5Kc3dDYzZMNldiWGw3YmdVd1d3WWRVaGQwRk8yR25v?=
+ =?utf-8?B?WVdscy96NzVNUUZtK0R3anE2UTJ1c2RnZzl4RC94akxYblUwaWg5VlZwRVI3?=
+ =?utf-8?B?cXB4VGM0NUZmUUpoR0U0cW9zRk1hTERqOXlOK252NjJPUTlXdWNCNmdjTENr?=
+ =?utf-8?B?bjRPYmpQYys0Z1h1Z2lubUViM01rQzB2WnRRZFpVTlBCekpkaW5ld2w2Snd3?=
+ =?utf-8?B?ZTd5bmMyTzQ4RUx3TmtMeFRhMEcxU1NsdWJSUFRaR0h1VVpuUUI5SWNnSWYy?=
+ =?utf-8?B?K3BGdkdyNHpkeVZSa2NuUytmb1NKMUJxcGRXaW1Eak9ndEtrK0RhREFobkVv?=
+ =?utf-8?B?MmtJcWloUkQ1WlpmeFVRY0lmcldpcW56OWtYMGd6bUJIVEpNbVVpbzBEQUdK?=
+ =?utf-8?B?aThSZ0xxYXdsZWpqTUNZcUtlalN6eUxVeWJTK2NLcHQ2ejN5Rit3bmprNENQ?=
+ =?utf-8?B?MXJpU1NtVVQzRkxnZnFkdnlFd1l6YVp3UjM3cnRHL3FhNVZSaEovWVV5UzlB?=
+ =?utf-8?B?VHBOL3IvdkhLOHBTblhRWHZZeDdaUnlIK0dCSGJSSFl6eEhKSmY0anMyQ1BJ?=
+ =?utf-8?B?M0tXcCtpV1pITDJqekR1aWVZUVIvWWZvYTVEcS9xUWcwVlkxWkl3VW9UZFVC?=
+ =?utf-8?B?RlhYMkxCRW0rWXQxYTNzQmZ2ams0TzdpSGtVUDlvcjJJaHd1QlE1djdOWURZ?=
+ =?utf-8?B?VEFwRytoaXd0THFZM2daUUJUSGdPVUhWZkZYSVdkUzdaWlZ5czI4c0RPZjB3?=
+ =?utf-8?B?aDRBYVNCNXFLSVpnL1Vaai9LK2VrWHZzQ1prNUVjYitZVDUyeCttVDRJMUU4?=
+ =?utf-8?B?TEw2RE94cW5KTThkRXVrYm1HZExIYldmaGUwZGRBNURSd05Hc2JFUTBrdGJ4?=
+ =?utf-8?Q?hyOYNY8uoQ51mrnQ=3D?=
+Content-Type: multipart/signed;
+	boundary="Apple-Mail=_E84EEBFA-12A4-4474-989F-9003B89B2E08";
+	protocol="application/pgp-signature";
+	micalg=pgp-sha256
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4eff899b-6fb4-4463-f074-08da4a11e215
-X-MS-TrafficTypeDiagnostic: AM0PR04MB6132:EE_
-X-Microsoft-Antispam-PRVS:
-	<AM0PR04MB61326DDE08FB6AC258BE352BB3A79@AM0PR04MB6132.eurprd04.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	GCcNzt6pmt7PHuU2rb0avcgJIt8LCOg2GDcaQqXxE87e+QMKEH9tYGK3Ffkavgr5Ligq/fbd5TlA7eSlsQXx9ZLmGlUHZW3Gpskufs7L1xtCcShtYYo8OXb3kN8yIDHDHe9cRid9ezexgZMkpqMPtikAQtmYpweo3QDwELiSn+EczcgzKgqPdwYxAIN1d+7hGJ/K5bmRfI/JtcbKF0sD4h9+Bnf7BCTHeifRSRDfrJZvUh90Pfae/KEiS0/EuHJUBXrNnUsRcwyHVN2EVmXeKaRu1Pii6NWCU00Bq2Gia9SV4fLPQzaFjzcbOlN+ZuW6/LLwhQ4ZBmBtfVGic7vdTeovhIRDB4GNXjHLFFHrAFzBvm58EAMSzn8fO5RfDLy0pyv/slWsK50cbW1E8w2yeqouxQMYL9JcEb7p9b5zCcwq1emQOlnUrdVlVhAdTObO075eMy+RXmbF0PbBp3i/deKxw4zRO4eQk/rlxKpNkHasxSJ1t9RescoUMG0ItsfPnjd0JUeuSfK+sQlu9c8z+4lhOyX3W4cH/SszDNOCMuBlq0dNC/BGty3JJH8CKXHyAMPOuKCmJAGmWDmX/4dgo/BeT4x0KwZtaiwVTzAkR5V83bjDFZOMCuZg6zvz1VMOHcyfUAhNO0ZqUCKO+G1+v6CMDLru991k0hB4tWfNsNniDv9Dcjo5df+wCQtmll2SKG0+0tpuSKoomKL/jI2cXKP6qnvZaQwcgticqkXg32rTqOgMrx1BMMkm5zJJRwgsfOZlYB3+c0rswV8X1uZBKMil2+kvFIkRR8Ah5BWx5CM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(4326008)(54906003)(66946007)(66476007)(31686004)(6916009)(66556008)(6506007)(2616005)(26005)(36756003)(6512007)(83380400001)(186003)(53546011)(8676002)(31696002)(38100700002)(86362001)(6486002)(2906002)(316002)(508600001)(5660300002)(8936002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Y2d6NjJjU0dralgzbElmdDkvUkJnSDlYM2U3YkVYeUlwMUxGN3hVUkpIWXd0?=
- =?utf-8?B?KzFJWjJSSFk3S0pBNWlYUkJXd2lKNk0xempmVUFORWhwclVNT2hRSWs0Wnh3?=
- =?utf-8?B?elhRNlRzUGZxdk02eWFpUVl1ZmRnNjNobE84dWdaeU5vZkZwUmxnK0lxcjh6?=
- =?utf-8?B?OENCMU81VlU0V2RlQzladjBqYmEvS2tOdW4vb1I3a3RvYUloWitXMEVtSHlR?=
- =?utf-8?B?dm1jUHNwejhPakZjRWZlWnJ2MEthYjlFa0FDTkxzWWJSelRoa3pOV2Q2WWEv?=
- =?utf-8?B?a0oydCtOcU5RNXdId2dHNFNUcVhNWVdtTnpIVkZ3bGkrK3dtcVpzUTVWbUlI?=
- =?utf-8?B?MTh3c3J3aGxRQzl6eHRvMVBrbDdvUGFDVk1DQVNLTmRkbGpNS1VGZEFlRnVW?=
- =?utf-8?B?Yi9aQ1BFOWV4dWx4VlVIUHNGZ2RkUndjdlgvdE1LWUV4L2FCSXZTYmxsMmZB?=
- =?utf-8?B?bkh1TUpydEd6OVJaUWVZY245bDVuV3NCT3dmNUNPZ09oelpPa2NQKytleG9v?=
- =?utf-8?B?ZWJwVzR4ODV6bDc1cmF6VHJZSDZRZG1NZnJGY1V2WEt3YnUrWWNtcUFOREZT?=
- =?utf-8?B?MlVNdUJBeS9hU3Z1Y0RwZHFPNlV0VmdXQTAyU2FuZXpncDlsSXRGbHhTK0tB?=
- =?utf-8?B?aVVhS3FaZUhBL2tRcXJ1ai95RmFpMC9GTExzMHBTRTlwbkdqbUV5TkhzdWlw?=
- =?utf-8?B?ZXdpQ0syZ0dzdDhaMzErcEgwTTFPbmpGTlBuL0djbjFiQ0JHT2hJUUhpMG14?=
- =?utf-8?B?L2d3ZVlxK0k4cFdPc1RtOGpnTlVxcDZnNG85ZENWWjM4ODNxV2dsVTVjOUdn?=
- =?utf-8?B?NHI3STNhOC9vSnNJVkkrL3YwalBNT0Frc0o2aTV1TXBmM1I0UjNiQ3BKaDRu?=
- =?utf-8?B?MmlTaVllWE1MWUo3d1gzZmZ6ZzVNTDB4d051Nmhsd3dCMVBXaC85d3k5Wklx?=
- =?utf-8?B?MVZmTG5HQ3J4ZnVES1RFNDFrVS9kczZ5ZHg3VDQyYThjdHdhN3ZrQkIydFNP?=
- =?utf-8?B?TFFiVFZteG5veDFuMGFRV1NXNnRYNWRjemxhc3lydmVlRVU1blJ4SjgzTXRU?=
- =?utf-8?B?L1NDNjQzY2Z6RnVQcWpMRE95MlB1MmZOTzVOZmVibW9JN2dNNG1qQ3ZIamVM?=
- =?utf-8?B?NzJtN3ViVGkvUWlsVjRPUysyWkRIL09mOTVjMi9zdnozK0VGNzg4emN6Y2Yy?=
- =?utf-8?B?ZHhUUUNRbVRoQ2F0emtVM01wWHptQ0FESnkvTjdqeXdPYnNnY3RWYmRBdHU0?=
- =?utf-8?B?eWNpRzJPQ3J4QlZPN2hLaCtoOFoxVzVrZlBsL0JUUWsvVHlKekc3S3lNbE1N?=
- =?utf-8?B?eWZhc2RHSkpHaElpem1QWUZZbWdvOHFZSlpkcjZLWHRaS0VZVEU0OXJXcXIy?=
- =?utf-8?B?b3dRRGJYME45L21QQlA3V2hBdnJYSE54Q3RxQVNyU0JHanJhajZDeHlXK0Vw?=
- =?utf-8?B?Y25pU1JDbHhSZWVMWjZLTEtyWmpKSTRFWVRDZUxkOERuNHJPMFRSZ25VUTJi?=
- =?utf-8?B?bHNtaW9EUkdSdU9YVEdVTTgxcFBNVW11Wng4WUcvMml0cVR0ZnVFNzNpeFda?=
- =?utf-8?B?eVVuMVE0bXhIVkc1bU9CQUZEQmhPU0UrbW0rdlB3RGlPL1k5bzIxeFd4ZHpx?=
- =?utf-8?B?SkRmbEZkT3R4cjFTTFFpZUNHWjRNSVZqWFNjM01mLzBtZ3B3SUVFdjVJN244?=
- =?utf-8?B?QlZoNU5adjRZazFseFZ0NGhsa3crbE1mNXRsOXpWVlJBdkJORHd5WmRvS0ht?=
- =?utf-8?B?SGoya2ZsaTFkbW9HKzFhSk10NXJJQmVybjRkMkRkZyttSUdSTTlVQnJ0TUNP?=
- =?utf-8?B?UGk3R3I5aEJONDl2OFh6d1Z1eWdFTXZ1aVpvZUtvTVh1eGZ3U2dIR1hLcDM1?=
- =?utf-8?B?NkZ0MENVVjVJUkRLbGtTZGMydXQ4dXBaU0tLZnRzNUE1TG05cE0wbGpNQzRq?=
- =?utf-8?B?c3lnbzNMb0dGUkdvajVBcGZ0a2lLV3U3YldPalliMWl6dzZZWTJZdC91azNV?=
- =?utf-8?B?bDJKYW03OUFEeEVaOWlRS0EvRVFUS3VRQlVsSHZQVzlmOCtrNXg1N1htVnZJ?=
- =?utf-8?B?SGJjUUQ4bWwzQzRQMW5BUEl0WC9hYWVDVkF5TXlyQnRtTVFNSTdZMEVtRnJq?=
- =?utf-8?B?akg1YitxYXlxbGt2RUFCZlRGZisxSDFTTURMelhTKzRvVkVqcFBwV1ZxY0h6?=
- =?utf-8?B?aXlUSzArV2p5cWVVT1NIYTNYdytjOC9TSlpHcm5odjVubXpEZEpldHVqY3RX?=
- =?utf-8?B?S3lGT2VZeTRjYWVqWkZxcTJHbUFhazZCZUVtN0RWWGQraDl3QXhtZGVSZGxi?=
- =?utf-8?B?ck1BRVNqcXl0bGdhY2dYbzhKWDVld0JHZHpkMzlIcU9YcnhUTGVuZz09?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4eff899b-6fb4-4463-f074-08da4a11e215
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-OriginatorOrg: citrix.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2022 12:16:29.5584
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR03MB5669.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 263902de-a979-40c9-0490-08da4a11f2b2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jun 2022 12:16:57.2373
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3O+zRMgmfXiQcwlQFqSXzIeMBQi3jG18M07tPSZL31bF+gdT6oqHmkgoHEJ8vY/8pb4A9zh2bA+8ch+inFYslw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6132
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: +K5m30vCVW6LWSoz5ODzGYKnVOOVxauU8GDGWOmRj3gnSlq29KX90o7r+4hOOwIfzJhFKcwvIdhtBgB5jJaM5ahS9piZCKFAjxMKKBRY158=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN4PR03MB6784
 
-On 09.06.2022 13:51, Bertrand Marquis wrote:
->> On 9 Jun 2022, at 11:26, Jan Beulich <jbeulich@suse.com> wrote:
->> On 09.06.2022 12:16, Bertrand Marquis wrote:
->>>> On 1 Jun 2022, at 17:59, Anthony PERARD <anthony.perard@citrix.com> wr=
-ote:
->>>>
->>>> Use "define" for the headers*_chk commands as otherwise the "#"
->>>> is interpreted as a comment and make can't find the end of
->>>> $(foreach,).
->>>>
->>>> Adding several .PRECIOUS as without them `make` deletes the
->>>> intermediate targets. This is an issue because the macro $(if_changed,=
-)
->>>> check if the target exist in order to decide whether to recreate the
->>>> target.
->>>>
->>>> Removing the call to `mkdir` from the commands. Those aren't needed
->>>> anymore because a rune in Rules.mk creates the directory for each
->>>> $(targets).
->>>>
->>>> Remove "export PYTHON" as it is already exported.
->>>
->>> With this change, compiling for x86 is now ending up in:
->>> CHK     include/headers99.chk
->>> make[9]: execvp: /bin/sh: Argument list too long
->>> make[9]: *** [include/Makefile:181: include/headers++.chk] Error 127
->>>
->>> Not quite sure yet why but I wanted to signal it early as other might b=
-e impacted.
->>>
->>> Arm and arm64 builds are not impacted.
->>
->> Hmm, that patch has passed the smoke push gate already, so there likely =
-is
->> more to it than there being an unconditional issue. I did build-test thi=
-s
->> before pushing, and I've just re-tested on a 2nd system without seeing a=
-n
->> issue.
->=20
-> I have the problem only when building using Yocto, I did a normal build a=
-nd the
-> issue is not coming.
->=20
-> Doing a verbose compilation I have this (sorry for the long lines):
->=20
->  for i in include/public/vcpu.h include/public/errno.h include/public/kex=
-ec.h include/public/argo.h include/public/xen.h include/public/nmi.h includ=
-e/public/xencomm.h include/public/xenoprof.h include/public/device_tree_def=
-s.h include/public/version.h include/public/memory.h include/public/feature=
-s.h include/public/sched.h include/public/xen-compat.h include/public/callb=
-ack.h include/public/vm_event.h include/public/grant_table.h include/public=
-/physdev.h include/public/tmem.h include/public/hypfs.h include/public/plat=
-form.h include/public/pmu.h include/public/elfnote.h include/public/trace.h=
- include/public/event_channel.h include/public/io/vscsiif.h include/public/=
-io/kbdif.h include/public/io/protocols.h include/public/io/ring.h include/p=
-ublic/io/displif.h include/public/io/fsif.h include/public/io/blkif.h inclu=
-de/public/io/console.h include/public/io/sndif.h include/public/io/fbif.h i=
-nclude/public/io/libxenvchan.h include/public/io/netif.h include/public/io/=
-usbif.h include/public/io/pciif.h include/public/io/tpmif.h include/public/=
-io/xs_wire.h include/public/io/xenbus.h include/public/io/cameraif.h includ=
-e/public/hvm/pvdrivers.h include/public/hvm/e820.h include/public/hvm/hvm_x=
-s_strings.h include/public/hvm/dm_op.h include/public/hvm/ioreq.h include/p=
-ublic/hvm/hvm_info_table.h include/public/hvm/hvm_vcpu.h include/public/hvm=
-/hvm_op.h include/public/hvm/params.h; do x86_64-poky-linux-gcc  --sysroot=
-=3D/home/bermar01/Development/xen-dev/build/profile-qemu-x86_64.prj/tmp/wor=
-k/core2-64-poky-linux/xen/4.17+git1-r0/recipe-sysroot  -x c -ansi -Wall -We=
-rror -include stdint.h -S -o /dev/null $i || exit 1; echo $i; done >include=
-/headers.chk.new; mv include/headers.chk.new include/headers.chk
-> |       rm -f include/headers99.chk.new;  echo "#include "\"include/publi=
-c/io/9pfs.h\" | x86_64-poky-linux-gcc  --sysroot=3D/home/bermar01/Developme=
-nt/xen-dev/build/profile-qemu-x86_64.prj/tmp/work/core2-64-poky-linux/xen/4=
-.17+git1-r0/recipe-sysroot  -x c -std=3Dc99 -Wall -Werror -include stdint.h=
-  -include string.h -S -o /dev/null - || exit $?; echo include/public/io/9p=
-fs.h >> include/headers99.chk.new;  echo "#include "\"include/public/io/pvc=
-alls.h\" | x86_64-poky-linux-gcc  --sysroot=3D/home/bermar01/Development/xe=
-n-dev/build/profile-qemu-x86_64.prj/tmp/work/core2-64-poky-linux/xen/4.17+g=
-it1-r0/recipe-sysroot  -x c -std=3Dc99 -Wall -Werror -include stdint.h  -in=
-clude string.h -S -o /dev/null - || exit $?; echo include/public/io/pvcalls=
-.h >> include/headers99.chk.new; mv include/headers99.chk.new include/heade=
-rs99.chk
-> | make[9]: execvp: /bin/sh: Argument list too long
-> | make[9]: *** [include/Makefile:181: include/headers++.chk] Error 127
-> | make[9]: *** Waiting for unfinished jobs....
->=20
-> So the command passed to the sub shell by make is quite long.
->=20
-> No idea why this comes out only when building in Yocto but I will dig a b=
-it.
+--Apple-Mail=_E84EEBFA-12A4-4474-989F-9003B89B2E08
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_6AA87F33-84D6-45EB-9BE4-89565F3D7D43"
 
-Maybe Yocto has an unusually low limit on command arguments' total size?
-The whole thing is just over 2500 chars, which doesn't look to be unusually
-long for Unix-like environments.
 
-Jan
+--Apple-Mail=_6AA87F33-84D6-45EB-9BE4-89565F3D7D43
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
+
+
+
+> On 9 Jun 2022, at 12:24, Jan Beulich <jbeulich@suse.com> wrote:
+>=20
+> On 09.06.2022 13:11, Roberto Bagnara wrote:
+>> On 07/06/22 04:17, Stefano Stabellini wrote:
+>>> # Rule 9.1 "The value of an object with automatic storage duration =
+shall not be read before it has been set"
+>>>=20
+>>> The question is whether -Wuninitalised already covers this case or =
+not.
+>>> I think it does.
+>>>=20
+>>> Eclair is reporting a few issues where variables are "possibly
+>>> uninitialized". We should ask Roberto about them, I don't think they =
+are
+>>> actual errors? More like extra warnings?
+>>=20
+>> No, -Wuninitialized is not reliable, as it has plenty of (well known)
+>> false negatives. This is typical of compilers, for which the =
+generation
+>> of warnings is only a secondary objective. I wrote about that here:
+>>=20
+>> =
+https://www.bugseng.com/blog/compiler-warnings-use-them-dont-trust-them
+>>=20
+>> On the specifics:
+>>=20
+>> $ cat p.c
+>> int foo (int b)
+>> {
+>> int a;
+>>=20
+>> if (b)
+>> {
+>> a =3D 1;
+>> }
+>>=20
+>> return a;
+>> }
+>>=20
+
+> I understand what you're saying, yet I'd like to point out that adding
+> initializers "blindly" may give a false sense of code correctness.
+> Among other things it takes away the chance for tools to point out
+> possible issues. Plus some tools warn about stray initializers ...
+
+Right =E2=80=94 if you always set =E2=80=9Cint a=3D0;=E2=80=9D, then =
+you=E2=80=99re getting a known value; but if your algorithm relies on it =
+being something specific (and not zero), then it=E2=80=99s not clear the =
+resulting software is actually more reliable.  If you don=E2=80=99t =
+initialise it, there=E2=80=99s at least a chance the compiler will be =
+able to tell you that you made a mistake; if you explicitly initialise =
+it, then it=E2=80=99s all on you.
+
+ -George
+
+--Apple-Mail=_6AA87F33-84D6-45EB-9BE4-89565F3D7D43
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
+class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
+class=3D"">On 9 Jun 2022, at 12:24, Jan Beulich &lt;<a =
+href=3D"mailto:jbeulich@suse.com" class=3D"">jbeulich@suse.com</a>&gt; =
+wrote:</div><br class=3D"Apple-interchange-newline"><div class=3D""><span =
+style=3D"caret-color: rgb(0, 0, 0); font-family: =
+JetBrainsMonoRoman-Thin; font-size: 14px; font-style: normal; =
+font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">On 09.06.2022 13:11, Roberto Bagnara wrote:</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: =
+JetBrainsMonoRoman-Thin; font-size: 14px; font-style: normal; =
+font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><blockquote type=3D"cite" =
+style=3D"font-family: JetBrainsMonoRoman-Thin; font-size: 14px; =
+font-style: normal; font-variant-caps: normal; font-weight: 400; =
+letter-spacing: normal; orphans: auto; text-align: start; text-indent: =
+0px; text-transform: none; white-space: normal; widows: auto; =
+word-spacing: 0px; -webkit-text-size-adjust: auto; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" class=3D"">On =
+07/06/22 04:17, Stefano Stabellini wrote:<br class=3D""><blockquote =
+type=3D"cite" class=3D""># Rule 9.1 "The value of an object with =
+automatic storage duration shall not be read before it has been set"<br =
+class=3D""><br class=3D"">The question is whether -Wuninitalised already =
+covers this case or not.<br class=3D"">I think it does.<br class=3D""><br =
+class=3D"">Eclair is reporting a few issues where variables are =
+"possibly<br class=3D"">uninitialized". We should ask Roberto about =
+them, I don't think they are<br class=3D"">actual errors? More like =
+extra warnings?<br class=3D""></blockquote><br class=3D"">No, =
+-Wuninitialized is not reliable, as it has plenty of (well known)<br =
+class=3D"">false negatives. This is typical of compilers, for which the =
+generation<br class=3D"">of warnings is only a secondary objective. I =
+wrote about that here:<br class=3D""><br class=3D""><a =
+href=3D"https://www.bugseng.com/blog/compiler-warnings-use-them-dont-trust=
+-them" =
+class=3D"">https://www.bugseng.com/blog/compiler-warnings-use-them-dont-tr=
+ust-them</a><br class=3D""><br class=3D"">On the specifics:<br =
+class=3D""><br class=3D"">$ cat p.c<br class=3D"">int foo (int b)<br =
+class=3D"">{<br class=3D"">int a;<br class=3D""><br class=3D"">if (b)<br =
+class=3D"">{<br class=3D"">a =3D 1;<br class=3D"">}<br class=3D""><br =
+class=3D"">return a;<br class=3D"">}<br class=3D""><br =
+class=3D""></blockquote></div></blockquote><div><br =
+class=3D""></div><blockquote type=3D"cite" class=3D""><div =
+class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+JetBrainsMonoRoman-Thin; font-size: 14px; font-style: normal; =
+font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">I understand what you're saying, yet I'd like to point out =
+that adding</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+JetBrainsMonoRoman-Thin; font-size: 14px; font-style: normal; =
+font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: JetBrainsMonoRoman-Thin; font-size: 14px; font-style: =
+normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">initializers "blindly" may give a false sense of code =
+correctness.</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+JetBrainsMonoRoman-Thin; font-size: 14px; font-style: normal; =
+font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: JetBrainsMonoRoman-Thin; font-size: 14px; font-style: =
+normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">Among other things it takes away the chance for tools to =
+point out</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+JetBrainsMonoRoman-Thin; font-size: 14px; font-style: normal; =
+font-variant-caps: normal; font-weight: 400; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: JetBrainsMonoRoman-Thin; font-size: 14px; font-style: =
+normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">possible issues. Plus some tools warn about stray =
+initializers ...</span><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: JetBrainsMonoRoman-Thin; font-size: 14px; font-style: =
+normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""></div></blockquote><div><br =
+class=3D""></div></div>Right =E2=80=94 if you always set =E2=80=9Cint =
+a=3D0;=E2=80=9D, then you=E2=80=99re getting a known value; but if your =
+algorithm relies on it being something specific (and not zero), then =
+it=E2=80=99s not clear the resulting software is actually more reliable. =
+&nbsp;If you don=E2=80=99t initialise it, there=E2=80=99s at least a =
+chance the compiler will be able to tell you that you made a mistake; if =
+you explicitly initialise it, then it=E2=80=99s all on you.<div =
+class=3D""><br class=3D""></div><div =
+class=3D"">&nbsp;-George</div></body></html>=
+
+--Apple-Mail=_6AA87F33-84D6-45EB-9BE4-89565F3D7D43--
+
+--Apple-Mail=_E84EEBFA-12A4-4474-989F-9003B89B2E08
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename=signature.asc
+Content-Type: application/pgp-signature;
+	name=signature.asc
+Content-Description: Message signed with OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEj3+7SZ4EDefWZFyCshXHp8eEG+0FAmKh5LQACgkQshXHp8eE
+G+3cdAf+MK66lHxuw653pjgr1E1SZYB5Rwjoby92BX5tLhPa7EC6NCMFzin40pEv
+yyYkBOvlFBEx7+J3Ju7siKseSWm6dnrdBPeRHb/p0nQkGDARTAN/Fbr5qxrOaur+
+DBaSE9lkkeM0l54v3MxspeK8R0GTUMUK92QgFzuDbZjCFVPEdFLKAv80J/eMhC/s
+W0C/dShT63JmoHyir3GSQ9CwkWIZfmawVJKL0DviH/9bHEdM45LduHcQoEU0a1Cp
+hhk7J1UYnVQgb0qMqDKyUIvtZXbLR9w+eR6tohJAQqRFxpzefgSj34LwosbfSJAS
+liHl6cBhmO/7ojw70KA1cV9Z7G6y4A==
+=3l7v
+-----END PGP SIGNATURE-----
+
+--Apple-Mail=_E84EEBFA-12A4-4474-989F-9003B89B2E08--
 
