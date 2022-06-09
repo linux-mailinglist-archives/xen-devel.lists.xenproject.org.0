@@ -2,45 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3F355448E1
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Jun 2022 12:28:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.344999.570637 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0F605449C4
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Jun 2022 13:11:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.345060.570704 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzFOi-0002FJ-F5; Thu, 09 Jun 2022 10:28:16 +0000
+	id 1nzG4J-0002go-HY; Thu, 09 Jun 2022 11:11:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 344999.570637; Thu, 09 Jun 2022 10:28:16 +0000
+Received: by outflank-mailman (output) from mailman id 345060.570704; Thu, 09 Jun 2022 11:11:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzFOi-0002Cm-C2; Thu, 09 Jun 2022 10:28:16 +0000
-Received: by outflank-mailman (input) for mailman id 344999;
- Thu, 09 Jun 2022 10:28:14 +0000
+	id 1nzG4J-0002dx-Dx; Thu, 09 Jun 2022 11:11:15 +0000
+Received: by outflank-mailman (input) for mailman id 345060;
+ Thu, 09 Jun 2022 11:11:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Nuio=WQ=redhat.com=kraxel@srs-se1.protection.inumbo.net>)
- id 1nzFOf-0002CP-Va
- for xen-devel@lists.xenproject.org; Thu, 09 Jun 2022 10:28:14 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/fG7=WQ=bugseng.com=roberto.bagnara@srs-se1.protection.inumbo.net>)
+ id 1nzG4I-0002dm-5c
+ for xen-devel@lists.xenproject.org; Thu, 09 Jun 2022 11:11:14 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dc4cbace-e7de-11ec-bd2c-47488cf2e6aa;
- Thu, 09 Jun 2022 12:28:11 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-538-mZyfLHhaM-GD1Jv_Xb-K4Q-1; Thu, 09 Jun 2022 06:28:07 -0400
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C8EC529AA2E7;
- Thu,  9 Jun 2022 10:28:06 +0000 (UTC)
-Received: from sirius.home.kraxel.org (unknown [10.39.192.40])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 935C3492C3B;
- Thu,  9 Jun 2022 10:28:06 +0000 (UTC)
-Received: by sirius.home.kraxel.org (Postfix, from userid 1000)
- id 1B42E1800094; Thu,  9 Jun 2022 12:28:05 +0200 (CEST)
+ id de3ecbb3-e7e4-11ec-bd2c-47488cf2e6aa;
+ Thu, 09 Jun 2022 13:11:12 +0200 (CEST)
+Received: from [192.168.1.137] (host-82-59-248-251.retail.telecomitalia.it
+ [82.59.248.251])
+ by support.bugseng.com (Postfix) with ESMTPSA id 7FDC44EE0CDD;
+ Thu,  9 Jun 2022 13:11:09 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,62 +40,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc4cbace-e7de-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1654770490;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gTg5vlQmIJu4b20Pu0C1H0E0ALbjaRUIwY0jnF9uY2Q=;
-	b=ISsgwOrVZ+zz2ODNNFtchATqJh9iS+bwfTZ6SnXlfO3YfRWl9bk0Rlx6qIDehTfjV/He7Y
-	mjDH3uWs2NtNHHlOrjmIzdSsSze2GqDt2M89WxrALk4cYA25ga0ZJuI2WsJyJKDA9LoCyH
-	HHodfZ+K12ZV2UmXU09X2G2ny2C2nXM=
-X-MC-Unique: mZyfLHhaM-GD1Jv_Xb-K4Q-1
-Date: Thu, 9 Jun 2022 12:28:05 +0200
-From: Gerd Hoffmann <kraxel@redhat.com>
-To: Akihiko Odaki <akihiko.odaki@gmail.com>
-Cc: qemu Developers <qemu-devel@nongnu.org>, xen-devel@lists.xenproject.org,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH v3 2/3] ui: Deliver refresh rate via QemuUIInfo
-Message-ID: <20220609102805.qz2xrnd6ms6cigir@sirius.home.kraxel.org>
-References: <20220226115516.59830-1-akihiko.odaki@gmail.com>
- <20220226115516.59830-3-akihiko.odaki@gmail.com>
+X-Inumbo-ID: de3ecbb3-e7e4-11ec-bd2c-47488cf2e6aa
+Message-ID: <45c4d8fa-06de-b4a2-5688-14b9cbe5b48c@bugseng.com>
+Date: Thu, 9 Jun 2022 13:11:08 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220226115516.59830-3-akihiko.odaki@gmail.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.12) Gecko/20050929
+ Thunderbird/1.0.7 Fedora/1.0.7-1.1.fc4 Mnenhy/0.7.3.0
+Subject: Re: MOVING COMMUNITY CALL Call for agenda items for 9 June Community
+ Call @ 1500 UTC
+Content-Language: en-US
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Jan Beulich <jbeulich@suse.com>
+Cc: George Dunlap <George.Dunlap@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Roger Pau Monne <roger.pau@citrix.com>,
+ Artem Mygaiev <Artem_Mygaiev@epam.com>, Andrew.Cooper3@citrix.com,
+ julien@xen.org, Bertrand.Marquis@arm.com, fusa-sig@lists.xenproject.org
+References: <CC75A251-2695-4E9E-95A7-043874B22F32@citrix.com>
+ <alpine.DEB.2.22.394.2206010942010.1905099@ubuntu-linux-20-04-desktop>
+ <alpine.DEB.2.22.394.2206011324400.1905099@ubuntu-linux-20-04-desktop>
+ <ebe4b409-318f-6b2c-0e05-fe9256528b32@suse.com>
+ <alpine.DEB.2.22.394.2206061731421.277622@ubuntu-linux-20-04-desktop>
+From: Roberto Bagnara <roberto.bagnara@bugseng.com>
+In-Reply-To: <alpine.DEB.2.22.394.2206061731421.277622@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> --- a/include/ui/console.h
-> +++ b/include/ui/console.h
-> @@ -139,6 +139,7 @@ typedef struct QemuUIInfo {
->      int       yoff;
->      uint32_t  width;
->      uint32_t  height;
-> +    uint32_t  refresh_rate;
->  } QemuUIInfo;
->  
->  /* cursor data format is 32bit RGBA */
-> @@ -426,7 +427,6 @@ typedef struct GraphicHwOps {
->      void (*gfx_update)(void *opaque);
->      bool gfx_update_async; /* if true, calls graphic_hw_update_done() */
->      void (*text_update)(void *opaque, console_ch_t *text);
-> -    void (*update_interval)(void *opaque, uint64_t interval);
->      void (*ui_info)(void *opaque, uint32_t head, QemuUIInfo *info);
->      void (*gl_block)(void *opaque, bool block);
->  } GraphicHwOps;
+On 07/06/22 04:17, Stefano Stabellini wrote:
+ > # Rule 9.1 "The value of an object with automatic storage duration shall not be read before it has been set"
+ >
+ > The question is whether -Wuninitalised already covers this case or not.
+ > I think it does.
+ >
+ > Eclair is reporting a few issues where variables are "possibly
+ > uninitialized". We should ask Roberto about them, I don't think they are
+ > actual errors? More like extra warnings?
 
-So you are dropping update_interval, which isn't mentioned in the commit
-message at all.  Also this patch is rather big.  I'd suggest:
+No, -Wuninitialized is not reliable, as it has plenty of (well known)
+false negatives.  This is typical of compilers, for which the generation
+of warnings is only a secondary objective.  I wrote about that here:
 
-(1) add refresh_rate
-(2) update users one by one
-(3) finally drop update_interval when no user is left.
+   https://www.bugseng.com/blog/compiler-warnings-use-them-dont-trust-them
 
-thanks,
-  Gerd
+On the specifics:
+
+$ cat p.c
+int foo (int b)
+{
+     int a;
+
+     if (b)
+     {
+         a = 1;
+     }
+
+     return a;
+}
+
+$ gcc -c -W -Wall -Wmaybe-uninitialized -O3 p.c
+$ gcc -c -W -Wall -Wuninitialized -O3 p.c
+$
+
+Note that the example is less contrived than you might think.
+See, JF Bastien's talk at 2019 LLVM Developers' Meeting:
+
+   https://www.youtube.com/watch?v=I-XUHPimq3o
+
+More generally, you can only embrace MISRA if you agree on
+its preventive nature, which is radically different from
+the "bug finding" approach.  The point is rather simple:
+
+1) static analysis alone cannot guarantee correctness;
+2) peer review is unavoidable;
+3) testing is unavoidable.
+
+In order to effectively conduct a peer review, you cannot
+afford being distracted every minute by the thought
+"is this initialized?  where is it initialized?  with which
+value is it initialized?"
+In a MISRA setting, you want that the answer to such questions
+is immediately clear to anyone.
+In contrast, if you embrace bug finding (that is, checkers with
+false negatives like the ones implemented by compilers),
+you will miss instances that you may miss also with testing
+(testing a program with UB does not give reliable results);
+and you will likely miss them with peer review, unless you
+can spend a lot of time and resources in the activity.
+
+The checker implemented by ECLAIR for Rule 9.1 embodies this
+principle: if it says "violation", then it is a definite
+violation;  if it says "caution", then maybe there is no
+UB, but a human will have to spend more than 30 seconds
+in order to convince herself that there is no UB.
+
+I understand this may sound frustrating to virtuoso programmers,
+and there are many of them in the open source world.
+But the truth is that virtuosity in programming is not a good
+thing for safety-related development.   For safety you want
+code that is simple and straightforward to reason about.
+Kind regards,
+
+    Roberto
+
+
 
 
