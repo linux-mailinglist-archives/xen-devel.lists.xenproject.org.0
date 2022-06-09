@@ -2,37 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC2855443AC
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Jun 2022 08:18:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.344662.570235 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CA3754446C
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Jun 2022 09:05:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.344689.570248 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzBUw-0006G4-BB; Thu, 09 Jun 2022 06:18:26 +0000
+	id 1nzCDk-0004PA-Rs; Thu, 09 Jun 2022 07:04:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 344662.570235; Thu, 09 Jun 2022 06:18:26 +0000
+Received: by outflank-mailman (output) from mailman id 344689.570248; Thu, 09 Jun 2022 07:04:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzBUw-0006CZ-4S; Thu, 09 Jun 2022 06:18:26 +0000
-Received: by outflank-mailman (input) for mailman id 344662;
- Thu, 09 Jun 2022 06:18:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nzCDk-0004N6-P2; Thu, 09 Jun 2022 07:04:44 +0000
+Received: by outflank-mailman (input) for mailman id 344689;
+ Thu, 09 Jun 2022 07:04:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ts8Y=WQ=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1nzBUt-0005eB-GX
- for xen-devel@lists.xenproject.org; Thu, 09 Jun 2022 06:18:23 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f5b47ae7-e7bb-11ec-b605-df0040e90b76;
- Thu, 09 Jun 2022 08:18:21 +0200 (CEST)
-Received: by mail-lf1-x12f.google.com with SMTP id a2so30289856lfg.5
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jun 2022 23:18:20 -0700 (PDT)
-Received: from jade.urgonet (h-79-136-84-253.A175.priv.bahnhof.se.
- [79.136.84.253]) by smtp.gmail.com with ESMTPSA id
- u20-20020ac248b4000000b00478d24ad1basm4061130lfg.307.2022.06.08.23.18.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jun 2022 23:18:19 -0700 (PDT)
+ <SRS0=MyY7=WQ=intel.com=kevin.tian@srs-se1.protection.inumbo.net>)
+ id 1nzCDi-0004N0-Jt
+ for xen-devel@lists.xenproject.org; Thu, 09 Jun 2022 07:04:43 +0000
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6acf8cc3-e7c2-11ec-bd2c-47488cf2e6aa;
+ Thu, 09 Jun 2022 09:04:37 +0200 (CEST)
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2022 00:04:17 -0700
+Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
+ by fmsmga004.fm.intel.com with ESMTP; 09 Jun 2022 00:04:16 -0700
+Received: from fmsmsx607.amr.corp.intel.com (10.18.126.87) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27; Thu, 9 Jun 2022 00:04:16 -0700
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx607.amr.corp.intel.com (10.18.126.87) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.27 via Frontend Transport; Thu, 9 Jun 2022 00:04:16 -0700
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.170)
+ by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2308.27; Thu, 9 Jun 2022 00:04:15 -0700
+Received: from BN9PR11MB5276.namprd11.prod.outlook.com (2603:10b6:408:135::18)
+ by MWHPR11MB0078.namprd11.prod.outlook.com (2603:10b6:301:67::38)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5314.13; Thu, 9 Jun
+ 2022 07:04:13 +0000
+Received: from BN9PR11MB5276.namprd11.prod.outlook.com
+ ([fe80::3583:afc6:2732:74b8]) by BN9PR11MB5276.namprd11.prod.outlook.com
+ ([fe80::3583:afc6:2732:74b8%4]) with mapi id 15.20.5332.013; Thu, 9 Jun 2022
+ 07:04:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,1918 +62,328 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5b47ae7-e7bb-11ec-b605-df0040e90b76
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=sBwCZBMVFF2AM3Jw+UVxUrTlMHW+Qj6lLfR/yFRkKPM=;
-        b=Ty5ZyBKSNPlDapIBkBPb2Hr7Z2wVrkLS5c+s8p2fTycyyvfp7P0LYFCVrzrXB2zFf3
-         Dr98QNYiWeqk+IxrwVCDQRN3TzHCOleMZiNZb6sOMv2+4AgMIW9Jmuzco99T8KNPlDW5
-         5+KbYn2HGTkbD8I+vasyJ1Cpj0Q6gmuluP3WZByX23nm0ymTIEGhN72LBe+f7052JZzw
-         5KRJcDV8NmUvzhHA6r5ezDYLAlPN/3kT5XeNq9QvGvNjRs1ez1mo1oNzt5ChP4cobWFl
-         cYhWOMBbAAw0SdoHVvrsakanJ5AS7AH125jKaw1ntEwgRmVJ64sgcHSo808Nuoyu1m8b
-         NY4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=sBwCZBMVFF2AM3Jw+UVxUrTlMHW+Qj6lLfR/yFRkKPM=;
-        b=k2KnHYWxaoYBW7cRJ5W2R9jUfvNBp4/R+hJAi0lvlqIVL1WwSnRwNimdoUOnDW6fUD
-         6XTKrTZEy1qke/CG2mzNj1LcRUm95PqPJEfLBbSrJVGo20tlYR6E/71oN+XwaLLV0f6t
-         7BPLP7lzTHpuacrFPV3RUnN/ko5RwrSv7nufoNzvomcGs6ipp3LkF4IMyPUsSvOfgGTP
-         sDhLHSHzNo/p3WISlc3zYjROfvRjvhvudhuQ+9AcUaVwr6vNPoMxqE0tyIhqc+zqnHdf
-         vSMfpy5miUSb/w8zb0VWbpWvh0+y6q6RMHBoz03T8KEdxzXCdcWIqGTTM408doCjV4K+
-         glZg==
-X-Gm-Message-State: AOAM530WOYH5NbWkAbdfsdKo6hzOhMiGNvy4WYVTLQP+DGGUATsCiBBB
-	3oqpFiDByOwZITVWOTir88nyGxMnhkKlVA==
-X-Google-Smtp-Source: ABdhPJzJNGOuOvzpNeJoMxmdxy/M7UwI9H51yOM6aPDETFIw1ExBHH9eCmNy9m+spZ1kijtSyW2Gdw==
-X-Received: by 2002:a05:6512:1092:b0:479:4dc6:6b39 with SMTP id j18-20020a056512109200b004794dc66b39mr10968299lfg.30.1654755499801;
-        Wed, 08 Jun 2022 23:18:19 -0700 (PDT)
-From: Jens Wiklander <jens.wiklander@linaro.org>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Jens Wiklander <jens.wiklander@linaro.org>
-Subject: [PATCH v2 2/2] xen/arm: add FF-A mediator
-Date: Thu,  9 Jun 2022 08:18:12 +0200
-Message-Id: <20220609061812.422130-3-jens.wiklander@linaro.org>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20220609061812.422130-1-jens.wiklander@linaro.org>
-References: <20220609061812.422130-1-jens.wiklander@linaro.org>
+X-Inumbo-ID: 6acf8cc3-e7c2-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1654758278; x=1686294278;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=1PXseCSgxzJ24PN17SlXkaebzEixJqISFenoo1/Y6l8=;
+  b=JwjeKPePYVEfHNVMAK3in9mozZp+qH7MUJOfPBjq8H/lEnhgCTuGMcc4
+   6ef9r4mbdSb/zZiQC+LDaM9WzLaEE742lYu9PMiZxwSH4qZBhmdp0OY6D
+   bJdwtgqexRlpzwREPyu3JShw6kz+ZcvOT224VbYGi1+f+r9kRHvr9N7en
+   UNBXtkiyNxt6Got6HZgqt2BEKu90A8l5KUJ2kb5FunD14raFPa0CFNk96
+   5aZQM9x/4KYXKqRaXuldJutKvH9Qfq8sbAMZ6cb+r+oON/qqoYjbYCfnd
+   KWn2lTlUidsewn0obzAv0SbqlY2TCQ6H8ajtLHgBEwfHLCj6xanpzkhCO
+   A==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10372"; a="265961481"
+X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; 
+   d="scan'208";a="265961481"
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; 
+   d="scan'208";a="649068918"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VndCciwLgJiELCMUq/BfZ2MGPuBbKeF9EdxbmQg4zPR1bWHqOjDfQkgdWSwW4HSud4yYn1PtnE6MeIQEGU+7kFLc/5BLvE+K7e3R8pYCmd7ait+7b7xc3zNRPd+4ipO6D05dlemmIiAMoVgzEtUMur5/l4s0n5wRUj6aLFE0CGT1qCn0IAE80+iQxRB+bJLExk+KKdvxw/ZRjAb3GA3cENBgPziRtukVnMOP2OSqqxJYxH/Z+4hnCDDytdeZEfY2BUF8J9oh5YMMQZbFZDQtEqT0EfzCwU1VgEgvRyLMc57LHPzjsKCsFS6nu2cHmSdP/iUyrYwIVNiXv4Xz3nTRsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1PXseCSgxzJ24PN17SlXkaebzEixJqISFenoo1/Y6l8=;
+ b=YrQ5plWAn+OWhOfXvR7CShWCei05L6B00JWxPmlUlIBEkL+2J3LJJ79KJtWu0DSpGy22wSF1YOmxejcatEwvKlXQD8MxC5C51Vht09DqW2heUxiAqyYAl4WcXsPYBegoLcIOR4ka4CYuVFPv3BjquurDzUP5yX+HFDo+vB+giwa+hZ43fQUkZLrnjJc0fRLfnL2HJzH+gEuXeI5vKxgbX1xJTm5JhpGceuQgxhwLke+5hJwlAHjIxlH/gIM9qkAqzk7W77HH20WvoZafJiW+6Eg3ZXq4TKAUkKBK8+Dm6oUAuBBIkxWWA8YD0/7RIZTx6XOmZay6U2SofzTvAORhcQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: =?utf-8?B?UGF1IE1vbm7DqSwgUm9nZXI=?= <roger.pau@citrix.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: =?utf-8?B?UGF1IE1vbm7DqSwgUm9nZXI=?= <roger.pau@citrix.com>, "Cooper,
+ Andrew" <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, "Beulich, Jan" <JBeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>, "Nakajima, Jun" <jun.nakajima@intel.com>, "Qiang, Chenyi"
+	<chenyi.qiang@intel.com>, "Li, Xiaoyao" <xiaoyao.li@intel.com>
+Subject: RE: [PATCH v2 3/3] x86/vmx: implement Notify VM Exit
+Thread-Topic: [PATCH v2 3/3] x86/vmx: implement Notify VM Exit
+Thread-Index: AQHYcPGLnpUujBwR5EWVeB9tTYBUAq1Gu3mA
+Date: Thu, 9 Jun 2022 07:04:12 +0000
+Message-ID: <BN9PR11MB5276B16CB69514120B7E0E318CA79@BN9PR11MB5276.namprd11.prod.outlook.com>
+References: <20220526111157.24479-1-roger.pau@citrix.com>
+ <20220526111157.24479-4-roger.pau@citrix.com>
+In-Reply-To: <20220526111157.24479-4-roger.pau@citrix.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: f36314a2-0bc0-4b2a-b910-08da49e6423f
+x-ms-traffictypediagnostic: MWHPR11MB0078:EE_
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-microsoft-antispam-prvs: <MWHPR11MB0078D3A63292BD2C8F2407068CA79@MWHPR11MB0078.namprd11.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: N5Dy7mhGxz6DRR0IbGwEPE115iFvEUXFUb0faotqLYy4iI7H8JsheqSWVhAGxUbHDDGDAJ20HRtIS4XqGxvsRcvbj8RQY0M2Px5mF/lKsWNmK9RJERJ5Kmd2u8Bjfb7+2YmtXAaZJ2i24sw0rlC1OKe0BIKnN3Sczb8Ugg6xqoq7L19fvfXVWo9HKeDfQtDge969uEz6Sckt2xUvAhGTE7Fd69D2kFTdu6W4kMWFOcZ6cNg8zMleyOQS3lJYDknXVCPXfwCMd7eajFuz52xNSeVfYZH8wOA3ztESxhHB+Lwswca/xGvVw0csyWmAH/2bJ+4rczlbhGo1vsk5dy4FNa9Uh8NvjVItc0rXons0ojb0tPdMdFR0AVh87NON5HSHBS2+XBWdW4tmYBTTtrLaZVz+WwKOG/5wkDSjFatCMTFtoW4GZnle9a4IcVdGX7e0Rsbv1Hx40nfrynQ8BIgsdy/VE6XfiGJ0FR2vy1FqIYtPJAnkB7ZUy1th42ojQx9Hm1dtRmoE05MVqcCvL5xiDF5850uwMBr3tJslZ55g+cb10lHGcgB9HxZhOnwhHkaRe2A/1W8IqhA8vLI4Irb4gKD/k9g6BJsxkPkRCIm4fMyYKlM+LhZ4nSiXIYG0Pwyi97xxWDRpClxGRICAZ2ZR8lhkdJo4Ngd+i+8kj5fphvQrnoPkzm+jW/kIr/ci78dZtTV76I5vXhjS6UrP9kL3XA==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR11MB5276.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(9686003)(508600001)(71200400001)(26005)(6506007)(7696005)(122000001)(186003)(38070700005)(83380400001)(38100700002)(82960400001)(66556008)(8676002)(66446008)(66946007)(107886003)(4326008)(64756008)(76116006)(30864003)(8936002)(2906002)(33656002)(52536014)(86362001)(5660300002)(55016003)(316002)(110136005)(54906003)(66476007);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?cDNEcHg2c0hOMzJ4RWMzSUl1dlZCQm10WXlDT054RHowNWRrdlJaVkZ1VGVW?=
+ =?utf-8?B?RjhiV0paamswUmt6T0NaTk0xMkdyTUllT0dFVTNCT1RzbWtUUTl5TnJBVnQz?=
+ =?utf-8?B?SzRmWVdiWWZ1RFFTRFVMUW1IbDBYc1dvYkk5SlpNQjduNGx1OWpmUXZvRzZQ?=
+ =?utf-8?B?VmVBQ1JpaVlYVk5aYUlWOHhTaDFHMHBTejNrN1dEVU1wd0k3Qm5qVVU2TDg2?=
+ =?utf-8?B?N1VFWEZsR0loZ3VETjd5V0FySXlwbGkxaS9kcGhNMXJackZ1ckJRNlhmakhS?=
+ =?utf-8?B?bDlIWVlYQTBrcU1JYmJscW1nbFFnOHpPZDA5c0QrazlGbURQTUVjQUZCV2lG?=
+ =?utf-8?B?a21tRzFPbERiZXFYbVBsclk4UVhPTHlxTHl3WGk0NWQyNnhLcCtwbHR5RnB3?=
+ =?utf-8?B?bDVvSjJSaW9nTnhEcFlVbEttSHgzV1BRSUdVUVJQR3ZNTFllb1I5Z3Q5cFVR?=
+ =?utf-8?B?MzZpTUFIR3VrNlNvZStwQ3BHalhUVERTbXVoSlRmRXJBZGIraktBQUU5SGlF?=
+ =?utf-8?B?cGI4WHdnUXArS0R4cDBBb0tPNmx1d3ZGU0xHQkd1bi9lSTRqYmRRWldqeHNG?=
+ =?utf-8?B?ZVBxakk1bEh0OG5xM0ttdndTcjJwT24xanhyV2lJaDc4TTMvUTBRV0VJbWUy?=
+ =?utf-8?B?L0tTNmRKRlhSaVcyQUZ2QXQ4cHg5amhRSWNFU0c2K2d3SWNkaWM4R3ZHUFFF?=
+ =?utf-8?B?by9sL1k0VWVhNndkeGIwVDl5NGRmU05Wa0o3TExyTVFJQkttaHl5c3oxUFdU?=
+ =?utf-8?B?Y3djVGdMMXVtaS8vQ3loMDJ4OTRPL1cybndua29HaXdKclFTUGp6VzVyVVZF?=
+ =?utf-8?B?eENPR3dRU1FuKzR0d1pHY0VpbWZiQlJXUmNaNHRjSUFTaFVsMnZuaEZKUUZ2?=
+ =?utf-8?B?SkZHRkJETG94T0pTUmNXNkxxVC9qMFNrRFEwdzlBQ2FlazdYY3lITW10eldD?=
+ =?utf-8?B?Syt2M2gyQnpkYllUemJveUJlUHdHaC9TL3RXdjNaNjVCT0dOUkM2NU9SL1ZC?=
+ =?utf-8?B?L1FVL0ZqOGlXZEtkcTJYUDZFNEtPVnJCVENwZGVtbTRZWHp4ZXA0ME1WMms1?=
+ =?utf-8?B?UmV2TzNIdEFoRGpyN05QaHY3L0VDd1Y4SC8vbUJUUjljUnhYZm56c2VQWW1r?=
+ =?utf-8?B?cytyajROWlBFRXhDcEdDVHV2S1FoaUdHdW1Pa0xrQ012SWl3ZGJOQVJBQUtk?=
+ =?utf-8?B?eGY0aFRWTTRTdVkzM3BUb1NrNXlwdU44Z1pyMFdqTVhhY0xBWEJSaEpLdk1x?=
+ =?utf-8?B?Znl0MmlpWU9GTzRCelJ4QXlnU2hKWE8rd1JWSXhPTjdIOUxMLy9nRmF4NXMy?=
+ =?utf-8?B?cXF0WldqZ3BweWdHRmtoNVEzTkQyQVh4OFg0Z0t1SzBmL3pWUjdUOWZTaUtk?=
+ =?utf-8?B?WU8zUXNSdHNYNW9MVEl2UUtaeDgxQStpbHppOWdwK25mREIrYXpCVXBQZHk3?=
+ =?utf-8?B?VFVZRlVtWWg4VG5qUVJ3TGdsT0p0ZGxHSEZwcGVvd2UxUFlvVGV3ajVDaFFy?=
+ =?utf-8?B?bS9UMUJOd1N4QVV6MGJEV3h3dFUrdEhNY0FUNnBwQUpUTGNCM3JidDRwblVM?=
+ =?utf-8?B?MGI5a1hQcjZZNkxRQ3hWM3NHRnI1N2JJTkJ0eG9zRkhmNUgvcWFjZkxlSmsy?=
+ =?utf-8?B?MFo1b0R6ZGdudEcwMTh4QkdPQ29LQzdBZGl1UGN0YlNScWlJK1p4SjFCZEx2?=
+ =?utf-8?B?dEJCdVArQVpoT3VseTB3cGJ1SXpXQ1lDOUEwT0crZVFQUUl1Mmt4eFBUMHpq?=
+ =?utf-8?B?bkMrZFZ1M1Q4K2R4Q2RPbjdoSndaSGdxOXJBNWdIZnpweGxGRjJSUTVQZlMr?=
+ =?utf-8?B?aExCNm85WTZDWlVnY0VKb1ptSkFPT3VFdW1HWDhQMHZNSmpiNlA4SGtwRVFT?=
+ =?utf-8?B?Z0ZiazB2QWREZXdjNWp4cEJUcDNFbGI5UWROUHRyUkR2YjNER0I3TGdjNDB6?=
+ =?utf-8?B?VkhnZ1hlbnhQZll1Wis5MGNFSktRSFZNYXFmczk4T1FlRDBOVmxaQ3FYcnhx?=
+ =?utf-8?B?QUJ6ckJ2cFpmazkxaHhtSklDV3dULzhxaFJUQUkyWHhzaG1mZEJSVUx6OVkr?=
+ =?utf-8?B?cDN0QzRSWngrSUlVeEdsMEV5M1NsOEFIUjA2WmF4bndOYlE0UDcrWEl2OHJj?=
+ =?utf-8?B?NkFIOVQrUENVeFVjQ05lQ1gvOHJnL25aVkNHQ3dqdklzWVpNRFhpTjRRU1Fp?=
+ =?utf-8?B?cGFqR3dqRnVCN3RMQWlJUm5DRE1wRnJPbCtzMjJGSHR5clhFZzBSRFRZUUt3?=
+ =?utf-8?B?cUIwemJYYU9MWTk2QkhybWhuUXpQcFFQbkp6dGN4OVBKbWJJMlRXUzErU2R6?=
+ =?utf-8?B?OFN4U3lad25mV3ZLTGlkOGJEWmRlUEpBcTJRMWU0WXBwdnBZaVcrQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR11MB5276.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f36314a2-0bc0-4b2a-b910-08da49e6423f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jun 2022 07:04:12.8967
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: L5WQtGEroeFB6tm5+lzCngV48A3/zuZ1ZasAFTevAJ5f/1fcZUdUKB0nbgW2tl4ocxoZ5i4KEsUvOyWFW5jheQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR11MB0078
+X-OriginatorOrg: intel.com
 
-Adds a FF-A version 1.1 [1] mediator to communicate with a Secure
-Partition in secure world.
-
-The implementation is the bare minimum to be able to communicate with
-OP-TEE running as an SPMC at S-EL1.
-
-This is loosely based on the TEE mediator framework and the OP-TEE
-mediator.
-
-[1] https://developer.arm.com/documentation/den0077/latest
-Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
----
- xen/arch/arm/Kconfig              |   11 +
- xen/arch/arm/Makefile             |    1 +
- xen/arch/arm/domain.c             |   10 +
- xen/arch/arm/ffa.c                | 1624 +++++++++++++++++++++++++++++
- xen/arch/arm/include/asm/domain.h |    4 +
- xen/arch/arm/include/asm/ffa.h    |   71 ++
- xen/arch/arm/vsmc.c               |   17 +-
- 7 files changed, 1735 insertions(+), 3 deletions(-)
- create mode 100644 xen/arch/arm/ffa.c
- create mode 100644 xen/arch/arm/include/asm/ffa.h
-
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index ecfa6822e4d3..5b75067e2745 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -106,6 +106,17 @@ config TEE
- 
- source "arch/arm/tee/Kconfig"
- 
-+config FFA
-+	bool "Enable FF-A mediator support" if EXPERT
-+	default n
-+	depends on ARM_64
-+	help
-+	  This option enables a minamal FF-A mediator. The mediator is
-+	  generic as it follows the FF-A specification [1], but it only
-+	  implements a small substet of the specification.
-+
-+	  [1] https://developer.arm.com/documentation/den0077/latest
-+
- endmenu
- 
- menu "ARM errata workaround via the alternative framework"
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index 1d862351d111..dbf5e593a069 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -20,6 +20,7 @@ obj-y += domain.o
- obj-y += domain_build.init.o
- obj-y += domctl.o
- obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
-+obj-$(CONFIG_FFA) += ffa.o
- obj-y += gic.o
- obj-y += gic-v2.o
- obj-$(CONFIG_GICV3) += gic-v3.o
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index 8110c1df8638..a93e6a9c4aef 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -27,6 +27,7 @@
- #include <asm/cpufeature.h>
- #include <asm/current.h>
- #include <asm/event.h>
-+#include <asm/ffa.h>
- #include <asm/gic.h>
- #include <asm/guest_atomics.h>
- #include <asm/irq.h>
-@@ -756,6 +757,9 @@ int arch_domain_create(struct domain *d,
-     if ( (rc = tee_domain_init(d, config->arch.tee_type)) != 0 )
-         goto fail;
- 
-+    if ( (rc = ffa_domain_init(d)) != 0 )
-+        goto fail;
-+
-     update_domain_wallclock_time(d);
- 
-     /*
-@@ -998,6 +1002,7 @@ static int relinquish_memory(struct domain *d, struct page_list_head *list)
- enum {
-     PROG_pci = 1,
-     PROG_tee,
-+    PROG_ffa,
-     PROG_xen,
-     PROG_page,
-     PROG_mapping,
-@@ -1046,6 +1051,11 @@ int domain_relinquish_resources(struct domain *d)
-         if (ret )
-             return ret;
- 
-+    PROGRESS(ffa):
-+        ret = ffa_relinquish_resources(d);
-+        if (ret )
-+            return ret;
-+
-     PROGRESS(xen):
-         ret = relinquish_memory(d, &d->xenpage_list);
-         if ( ret )
-diff --git a/xen/arch/arm/ffa.c b/xen/arch/arm/ffa.c
-new file mode 100644
-index 000000000000..9063b7f2b59e
---- /dev/null
-+++ b/xen/arch/arm/ffa.c
-@@ -0,0 +1,1624 @@
-+/*
-+ * xen/arch/arm/ffa.c
-+ *
-+ * Arm Firmware Framework for ARMv8-A(FFA) mediator
-+ *
-+ * Copyright (C) 2021  Linaro Limited
-+ *
-+ * Permission is hereby granted, free of charge, to any person
-+ * obtaining a copy of this software and associated documentation
-+ * files (the "Software"), to deal in the Software without restriction,
-+ * including without limitation the rights to use, copy, modify, merge,
-+ * publish, distribute, sublicense, and/or sell copies of the Software,
-+ * and to permit persons to whom the Software is furnished to do so,
-+ * subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be
-+ * included in all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-+ * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-+ */
-+
-+#include <xen/domain_page.h>
-+#include <xen/errno.h>
-+#include <xen/init.h>
-+#include <xen/lib.h>
-+#include <xen/sched.h>
-+#include <xen/types.h>
-+#include <xen/sizes.h>
-+#include <xen/bitops.h>
-+
-+#include <asm/smccc.h>
-+#include <asm/event.h>
-+#include <asm/ffa.h>
-+#include <asm/regs.h>
-+
-+/* Error codes */
-+#define FFA_RET_OK			0
-+#define FFA_RET_NOT_SUPPORTED		-1
-+#define FFA_RET_INVALID_PARAMETERS	-2
-+#define FFA_RET_NO_MEMORY		-3
-+#define FFA_RET_BUSY			-4
-+#define FFA_RET_INTERRUPTED		-5
-+#define FFA_RET_DENIED			-6
-+#define FFA_RET_RETRY			-7
-+#define FFA_RET_ABORTED			-8
-+
-+/* FFA_VERSION helpers */
-+#define FFA_VERSION_MAJOR		_AC(1,U)
-+#define FFA_VERSION_MAJOR_SHIFT		_AC(16,U)
-+#define FFA_VERSION_MAJOR_MASK		_AC(0x7FFF,U)
-+#define FFA_VERSION_MINOR		_AC(1,U)
-+#define FFA_VERSION_MINOR_SHIFT		_AC(0,U)
-+#define FFA_VERSION_MINOR_MASK		_AC(0xFFFF,U)
-+#define MAKE_FFA_VERSION(major, minor)	\
-+	((((major) & FFA_VERSION_MAJOR_MASK) << FFA_VERSION_MAJOR_SHIFT) | \
-+	 ((minor) & FFA_VERSION_MINOR_MASK))
-+
-+#define FFA_MIN_VERSION		MAKE_FFA_VERSION(1, 0)
-+#define FFA_VERSION_1_0		MAKE_FFA_VERSION(1, 0)
-+#define FFA_VERSION_1_1		MAKE_FFA_VERSION(1, 1)
-+#define FFA_MY_VERSION		MAKE_FFA_VERSION(FFA_VERSION_MAJOR, \
-+						 FFA_VERSION_MINOR)
-+
-+
-+#define FFA_HANDLE_HYP_FLAG             BIT(63,ULL)
-+
-+/* Memory attributes: Normal memory, Write-Back cacheable, Inner shareable */
-+#define FFA_NORMAL_MEM_REG_ATTR		_AC(0x2f,U)
-+
-+/* Memory access permissions: Read-write */
-+#define FFA_MEM_ACC_RW			_AC(0x2,U)
-+
-+/* Clear memory before mapping in receiver */
-+#define FFA_MEMORY_REGION_FLAG_CLEAR		BIT(0, U)
-+/* Relayer may time slice this operation */
-+#define FFA_MEMORY_REGION_FLAG_TIME_SLICE	BIT(1, U)
-+/* Clear memory after receiver relinquishes it */
-+#define FFA_MEMORY_REGION_FLAG_CLEAR_RELINQUISH	BIT(2, U)
-+
-+/* Share memory transaction */
-+#define FFA_MEMORY_REGION_TRANSACTION_TYPE_SHARE (_AC(1,U) << 3)
-+/* Relayer must choose the alignment boundary */
-+#define FFA_MEMORY_REGION_FLAG_ANY_ALIGNMENT	_AC(0,U)
-+
-+#define FFA_HANDLE_INVALID		_AC(0xffffffffffffffff,ULL)
-+
-+/* Framework direct request/response */
-+#define FFA_MSG_FLAG_FRAMEWORK		BIT(31, U)
-+#define FFA_MSG_TYPE_MASK		_AC(0xFF,U);
-+#define FFA_MSG_PSCI			_AC(0x0,U)
-+#define FFA_MSG_SEND_VM_CREATED		_AC(0x4,U)
-+#define FFA_MSG_RESP_VM_CREATED		_AC(0x5,U)
-+#define FFA_MSG_SEND_VM_DESTROYED	_AC(0x6,U)
-+#define FFA_MSG_RESP_VM_DESTROYED	_AC(0x7,U)
-+
-+/*
-+ * Flags used for the FFA_PARTITION_INFO_GET return message:
-+ * BIT(0): Supports receipt of direct requests
-+ * BIT(1): Can send direct requests
-+ * BIT(2): Can send and receive indirect messages
-+ * BIT(3): Supports receipt of notifications
-+ * BIT(4-5): Partition ID is a PE endpoint ID
-+ */
-+#define FFA_PART_PROP_DIRECT_REQ_RECV   BIT(0,U)
-+#define FFA_PART_PROP_DIRECT_REQ_SEND   BIT(1,U)
-+#define FFA_PART_PROP_INDIRECT_MSGS     BIT(2,U)
-+#define FFA_PART_PROP_RECV_NOTIF        BIT(3,U)
-+#define FFA_PART_PROP_IS_PE_ID          (_AC(0,U) << 4)
-+#define FFA_PART_PROP_IS_SEPID_INDEP    (_AC(1,U) << 4)
-+#define FFA_PART_PROP_IS_SEPID_DEP      (_AC(2,U) << 4)
-+#define FFA_PART_PROP_IS_AUX_ID         (_AC(3,U) << 4)
-+#define FFA_PART_PROP_NOTIF_CREATED     BIT(6,U)
-+#define FFA_PART_PROP_NOTIF_DESTROYED   BIT(7,U)
-+#define FFA_PART_PROP_AARCH64_STATE     BIT(8,U)
-+
-+/* Function IDs */
-+#define FFA_ERROR			_AC(0x84000060,U)
-+#define FFA_SUCCESS_32			_AC(0x84000061,U)
-+#define FFA_SUCCESS_64			_AC(0xC4000061,U)
-+#define FFA_INTERRUPT			_AC(0x84000062,U)
-+#define FFA_VERSION			_AC(0x84000063,U)
-+#define FFA_FEATURES			_AC(0x84000064,U)
-+#define FFA_RX_ACQUIRE			_AC(0x84000084,U)
-+#define FFA_RX_RELEASE			_AC(0x84000065,U)
-+#define FFA_RXTX_MAP_32			_AC(0x84000066,U)
-+#define FFA_RXTX_MAP_64			_AC(0xC4000066,U)
-+#define FFA_RXTX_UNMAP			_AC(0x84000067,U)
-+#define FFA_PARTITION_INFO_GET		_AC(0x84000068,U)
-+#define FFA_ID_GET			_AC(0x84000069,U)
-+#define FFA_SPM_ID_GET			_AC(0x84000085,U)
-+#define FFA_MSG_WAIT			_AC(0x8400006B,U)
-+#define FFA_MSG_YIELD			_AC(0x8400006C,U)
-+#define FFA_MSG_RUN			_AC(0x8400006D,U)
-+#define FFA_MSG_SEND2			_AC(0x84000086,U)
-+#define FFA_MSG_SEND_DIRECT_REQ_32	_AC(0x8400006F,U)
-+#define FFA_MSG_SEND_DIRECT_REQ_64	_AC(0xC400006F,U)
-+#define FFA_MSG_SEND_DIRECT_RESP_32	_AC(0x84000070,U)
-+#define FFA_MSG_SEND_DIRECT_RESP_64	_AC(0xC4000070,U)
-+#define FFA_MEM_DONATE_32		_AC(0x84000071,U)
-+#define FFA_MEM_DONATE_64		_AC(0xC4000071,U)
-+#define FFA_MEM_LEND_32			_AC(0x84000072,U)
-+#define FFA_MEM_LEND_64			_AC(0xC4000072,U)
-+#define FFA_MEM_SHARE_32		_AC(0x84000073,U)
-+#define FFA_MEM_SHARE_64		_AC(0xC4000073,U)
-+#define FFA_MEM_RETRIEVE_REQ_32		_AC(0x84000074,U)
-+#define FFA_MEM_RETRIEVE_REQ_64		_AC(0xC4000074,U)
-+#define FFA_MEM_RETRIEVE_RESP		_AC(0x84000075,U)
-+#define FFA_MEM_RELINQUISH		_AC(0x84000076,U)
-+#define FFA_MEM_RECLAIM			_AC(0x84000077,U)
-+#define FFA_MEM_FRAG_RX			_AC(0x8400007A,U)
-+#define FFA_MEM_FRAG_TX			_AC(0x8400007B,U)
-+#define FFA_MSG_SEND			_AC(0x8400006E,U)
-+#define FFA_MSG_POLL			_AC(0x8400006A,U)
-+
-+/* Partition information descriptor */
-+struct ffa_partition_info_1_0 {
-+    uint16_t id;
-+    uint16_t execution_context;
-+    uint32_t partition_properties;
-+};
-+
-+struct ffa_partition_info_1_1 {
-+    uint16_t id;
-+    uint16_t execution_context;
-+    uint32_t partition_properties;
-+    uint8_t uuid[16];
-+};
-+
-+/* Constituent memory region descriptor */
-+struct ffa_address_range {
-+    uint64_t address;
-+    uint32_t page_count;
-+    uint32_t reserved;
-+};
-+
-+/* Composite memory region descriptor */
-+struct ffa_mem_region {
-+    uint32_t total_page_count;
-+    uint32_t address_range_count;
-+    uint64_t reserved;
-+    struct ffa_address_range address_range_array[];
-+};
-+
-+/* Memory access permissions descriptor */
-+struct ffa_mem_access_perm {
-+    uint16_t endpoint_id;
-+    uint8_t perm;
-+    uint8_t flags;
-+};
-+
-+/* Endpoint memory access descriptor */
-+struct ffa_mem_access {
-+    struct ffa_mem_access_perm access_perm;
-+    uint32_t region_offs;
-+    uint64_t reserved;
-+};
-+
-+/* Lend, donate or share memory transaction descriptor */
-+struct ffa_mem_transaction_1_0 {
-+    uint16_t sender_id;
-+    uint8_t mem_reg_attr;
-+    uint8_t reserved0;
-+    uint32_t flags;
-+    uint64_t global_handle;
-+    uint64_t tag;
-+    uint32_t reserved1;
-+    uint32_t mem_access_count;
-+    struct ffa_mem_access mem_access_array[];
-+};
-+
-+struct ffa_mem_transaction_1_1 {
-+    uint16_t sender_id;
-+    uint16_t mem_reg_attr;
-+    uint32_t flags;
-+    uint64_t global_handle;
-+    uint64_t tag;
-+    uint32_t mem_access_size;
-+    uint32_t mem_access_count;
-+    uint32_t mem_access_offs;
-+    uint8_t reserved[12];
-+};
-+
-+/*
-+ * The parts needed from struct ffa_mem_transaction_1_0 or struct
-+ * ffa_mem_transaction_1_1, used to provide an abstraction of difference in
-+ * data structures between version 1.0 and 1.1. This is just an internal
-+ * interface and can be changed without changing any ABI.
-+ */
-+struct ffa_mem_transaction_x {
-+    uint16_t sender_id;
-+    uint8_t mem_reg_attr;
-+    uint8_t flags;
-+    uint8_t mem_access_size;
-+    uint8_t mem_access_count;
-+    uint16_t mem_access_offs;
-+    uint64_t global_handle;
-+    uint64_t tag;
-+};
-+
-+/* Endpoint RX/TX descriptor */
-+struct ffa_endpoint_rxtx_descriptor_1_0 {
-+    uint16_t sender_id;
-+    uint16_t reserved;
-+    uint32_t rx_range_count;
-+    uint32_t tx_range_count;
-+};
-+
-+struct ffa_endpoint_rxtx_descriptor_1_1 {
-+    uint16_t sender_id;
-+    uint16_t reserved;
-+    uint32_t rx_region_offs;
-+    uint32_t tx_region_offs;
-+};
-+
-+struct ffa_ctx {
-+    void *rx;
-+    void *tx;
-+    struct page_info *rx_pg;
-+    struct page_info *tx_pg;
-+    unsigned int page_count;
-+    uint32_t guest_vers;
-+    bool tx_is_mine;
-+    bool interrupted;
-+};
-+
-+struct ffa_shm_mem {
-+    struct list_head list;
-+    uint16_t sender_id;
-+    uint16_t ep_id;     /* endpoint, the one lending */
-+    uint64_t handle;    /* FFA_HANDLE_INVALID if not set yet */
-+    unsigned int page_count;
-+    struct page_info *pages[];
-+};
-+
-+struct mem_frag_state {
-+    struct list_head list;
-+    struct ffa_shm_mem *shm;
-+    uint32_t range_count;
-+    unsigned int current_page_idx;
-+    unsigned int frag_offset;
-+    unsigned int range_offset;
-+    uint8_t *buf;
-+    unsigned int buf_size;
-+    struct ffa_address_range range;
-+};
-+
-+/*
-+ * Our rx/rx buffer shared with the SPMC
-+ */
-+static uint32_t ffa_version;
-+static uint16_t *subsr_vm_created;
-+static unsigned int subsr_vm_created_count;
-+static uint16_t *subsr_vm_destroyed;
-+static unsigned int subsr_vm_destroyed_count;
-+static void *ffa_rx;
-+static void *ffa_tx;
-+static unsigned int ffa_page_count;
-+static spinlock_t ffa_buffer_lock = SPIN_LOCK_UNLOCKED;
-+
-+static struct list_head ffa_mem_list = LIST_HEAD_INIT(ffa_mem_list);
-+static struct list_head ffa_frag_list = LIST_HEAD_INIT(ffa_frag_list);
-+static spinlock_t ffa_mem_list_lock = SPIN_LOCK_UNLOCKED;
-+
-+static uint64_t next_handle = FFA_HANDLE_HYP_FLAG;
-+
-+static uint64_t reg_pair_to_64(uint32_t reg0, uint32_t reg1)
-+{
-+    return (uint64_t)reg0 << 32 | reg1;
-+}
-+
-+static void reg_pair_from_64(uint32_t *reg0, uint32_t *reg1, uint64_t val)
-+{
-+    *reg0 = val >> 32;
-+    *reg1 = val;
-+}
-+
-+static bool ffa_get_version(uint32_t *vers)
-+{
-+    const struct arm_smccc_1_2_regs arg = {
-+        .a0 = FFA_VERSION, .a1 = FFA_MY_VERSION,
-+    };
-+    struct arm_smccc_1_2_regs resp;
-+
-+    arm_smccc_1_2_smc(&arg, &resp);
-+    if ( resp.a0 == FFA_RET_NOT_SUPPORTED )
-+    {
-+        printk(XENLOG_ERR "ffa: FFA_VERSION returned not supported\n");
-+        return false;
-+    }
-+
-+    *vers = resp.a0;
-+    return true;
-+}
-+
-+static uint32_t ffa_rxtx_map(register_t tx_addr, register_t rx_addr,
-+                             uint32_t page_count)
-+{
-+    const struct arm_smccc_1_2_regs arg = {
-+#ifdef CONFIG_ARM_64
-+        .a0 = FFA_RXTX_MAP_64,
-+#endif
-+#ifdef CONFIG_ARM_32
-+        .a0 = FFA_RXTX_MAP_32,
-+#endif
-+	.a1 = tx_addr, .a2 = rx_addr,
-+        .a3 = page_count,
-+    };
-+    struct arm_smccc_1_2_regs resp;
-+
-+    arm_smccc_1_2_smc(&arg, &resp);
-+
-+    if ( resp.a0 == FFA_ERROR )
-+    {
-+        if ( resp.a2 )
-+            return resp.a2;
-+        else
-+            return FFA_RET_NOT_SUPPORTED;
-+    }
-+
-+    return FFA_RET_OK;
-+}
-+
-+static uint32_t ffa_rxtx_unmap(uint16_t vm_id)
-+{
-+    const struct arm_smccc_1_2_regs arg = {
-+        .a0 = FFA_RXTX_UNMAP, .a1 = vm_id,
-+    };
-+    struct arm_smccc_1_2_regs resp;
-+
-+    arm_smccc_1_2_smc(&arg, &resp);
-+
-+    if ( resp.a0 == FFA_ERROR )
-+    {
-+        if ( resp.a2 )
-+            return resp.a2;
-+        else
-+            return FFA_RET_NOT_SUPPORTED;
-+    }
-+
-+    return FFA_RET_OK;
-+}
-+
-+static uint32_t ffa_partition_info_get(uint32_t w1, uint32_t w2, uint32_t w3,
-+                                       uint32_t w4, uint32_t w5,
-+                                       uint32_t *count)
-+{
-+    const struct arm_smccc_1_2_regs arg = {
-+        .a0 = FFA_PARTITION_INFO_GET, .a1 = w1, .a2 = w2, .a3 = w3, .a4 = w4,
-+        .a5 = w5,
-+    };
-+    struct arm_smccc_1_2_regs resp;
-+
-+    arm_smccc_1_2_smc(&arg, &resp);
-+
-+    if ( resp.a0 == FFA_ERROR )
-+    {
-+        if ( resp.a2 )
-+            return resp.a2;
-+        else
-+            return FFA_RET_NOT_SUPPORTED;
-+    }
-+
-+    *count = resp.a2;
-+
-+    return FFA_RET_OK;
-+}
-+
-+static uint32_t ffa_rx_release(void)
-+{
-+    const struct arm_smccc_1_2_regs arg = { .a0 = FFA_RX_RELEASE, };
-+    struct arm_smccc_1_2_regs resp;
-+
-+    arm_smccc_1_2_smc(&arg, &resp);
-+
-+    if ( resp.a0 == FFA_ERROR )
-+    {
-+        if ( resp.a2 )
-+            return resp.a2;
-+        else
-+            return FFA_RET_NOT_SUPPORTED;
-+    }
-+
-+    return FFA_RET_OK;
-+}
-+
-+static int32_t ffa_mem_share(uint32_t tot_len, uint32_t frag_len,
-+                             register_t addr, uint32_t pg_count,
-+                             uint64_t *handle)
-+{
-+    struct arm_smccc_1_2_regs arg = {
-+        .a0 = FFA_MEM_SHARE_32, .a1 = tot_len, .a2 = frag_len, .a3 = addr,
-+        .a4 = pg_count,
-+    };
-+    struct arm_smccc_1_2_regs resp;
-+
-+    /*
-+     * For arm64 we must use 64-bit calling convention if the buffer isn't
-+     * passed in our tx buffer.
-+     */
-+    if (sizeof(addr) > 4 && addr)
-+        arg.a0 = FFA_MEM_SHARE_64;
-+
-+    arm_smccc_1_2_smc(&arg, &resp);
-+
-+    switch ( resp.a0 ) {
-+    case FFA_ERROR:
-+        if ( resp.a2 )
-+            return resp.a2;
-+        else
-+            return FFA_RET_NOT_SUPPORTED;
-+    case FFA_SUCCESS_32:
-+        *handle = reg_pair_to_64(resp.a3, resp.a2);
-+        return FFA_RET_OK;
-+    case FFA_MEM_FRAG_RX:
-+        *handle = reg_pair_to_64(resp.a2, resp.a1);
-+        return resp.a3;
-+    default:
-+            return FFA_RET_NOT_SUPPORTED;
-+    }
-+}
-+
-+static int32_t ffa_mem_frag_tx(uint64_t handle, uint32_t frag_len,
-+                               uint16_t sender_id)
-+{
-+    struct arm_smccc_1_2_regs arg = {
-+        .a0 = FFA_MEM_FRAG_TX, .a1 = handle & UINT32_MAX, .a2 = handle >> 32,
-+        .a3 = frag_len, .a4 = (uint32_t)sender_id << 16,
-+    };
-+    struct arm_smccc_1_2_regs resp;
-+
-+    arm_smccc_1_2_smc(&arg, &resp);
-+
-+    switch ( resp.a0 ) {
-+    case FFA_ERROR:
-+        if ( resp.a2 )
-+            return resp.a2;
-+        else
-+            return FFA_RET_NOT_SUPPORTED;
-+    case FFA_SUCCESS_32:
-+        return FFA_RET_OK;
-+    case FFA_MEM_FRAG_RX:
-+        return resp.a3;
-+    default:
-+            return FFA_RET_NOT_SUPPORTED;
-+    }
-+}
-+
-+static uint32_t ffa_mem_reclaim(uint32_t handle_lo, uint32_t handle_hi,
-+                                uint32_t flags)
-+{
-+    const struct arm_smccc_1_2_regs arg = {
-+        .a0 = FFA_MEM_RECLAIM, .a1 = handle_lo, .a2 = handle_hi, .a3 = flags,
-+    };
-+    struct arm_smccc_1_2_regs resp;
-+
-+    arm_smccc_1_2_smc(&arg, &resp);
-+
-+    if ( resp.a0 == FFA_ERROR )
-+    {
-+        if ( resp.a2 )
-+            return resp.a2;
-+        else
-+            return FFA_RET_NOT_SUPPORTED;
-+    }
-+
-+    return FFA_RET_OK;
-+}
-+
-+static int32_t ffa_direct_req_send_vm(uint16_t sp_id, uint16_t vm_id,
-+                                      uint8_t msg)
-+{
-+    uint32_t exp_resp = FFA_MSG_FLAG_FRAMEWORK;
-+    int32_t res;
-+
-+    if ( msg != FFA_MSG_SEND_VM_CREATED && msg !=FFA_MSG_SEND_VM_DESTROYED )
-+        return FFA_RET_INVALID_PARAMETERS;
-+
-+    if ( msg == FFA_MSG_SEND_VM_CREATED )
-+        exp_resp |= FFA_MSG_RESP_VM_CREATED;
-+    else
-+        exp_resp |= FFA_MSG_RESP_VM_DESTROYED;
-+
-+    do {
-+        const struct arm_smccc_1_2_regs arg = {
-+            .a0 = FFA_MSG_SEND_DIRECT_REQ_32,
-+            .a1 = sp_id,
-+            .a2 = FFA_MSG_FLAG_FRAMEWORK | msg,
-+            .a5 = vm_id,
-+        };
-+        struct arm_smccc_1_2_regs resp;
-+
-+        arm_smccc_1_2_smc(&arg, &resp);
-+        if ( resp.a0 != FFA_MSG_SEND_DIRECT_RESP_32 || resp.a2 != exp_resp ) {
-+            /*
-+             * This is an invalid response, likely due to some error in the
-+             * implementation of the ABI.
-+             */
-+            return FFA_RET_INVALID_PARAMETERS;
-+        }
-+        res = resp.a3;
-+    } while ( res == FFA_RET_INTERRUPTED || res == FFA_RET_RETRY );
-+
-+    return res;
-+}
-+
-+static u16 get_vm_id(struct domain *d)
-+{
-+    /* +1 since 0 is reserved for the hypervisor in FF-A */
-+    return d->domain_id + 1;
-+}
-+
-+static void set_regs(struct cpu_user_regs *regs, register_t v0, register_t v1,
-+                     register_t v2, register_t v3, register_t v4, register_t v5,
-+                     register_t v6, register_t v7)
-+{
-+        set_user_reg(regs, 0, v0);
-+        set_user_reg(regs, 1, v1);
-+        set_user_reg(regs, 2, v2);
-+        set_user_reg(regs, 3, v3);
-+        set_user_reg(regs, 4, v4);
-+        set_user_reg(regs, 5, v5);
-+        set_user_reg(regs, 6, v6);
-+        set_user_reg(regs, 7, v7);
-+}
-+
-+static void set_regs_error(struct cpu_user_regs *regs, uint32_t error_code)
-+{
-+    set_regs(regs, FFA_ERROR, 0, error_code, 0, 0, 0, 0, 0);
-+}
-+
-+static void set_regs_success(struct cpu_user_regs *regs, uint32_t w2,
-+                             uint32_t w3)
-+{
-+    set_regs(regs, FFA_SUCCESS_32, 0, w2, w3, 0, 0, 0, 0);
-+}
-+
-+static void set_regs_frag_rx(struct cpu_user_regs *regs, uint32_t handle_lo,
-+                             uint32_t handle_hi, uint32_t frag_offset,
-+                             uint16_t sender_id)
-+{
-+    set_regs(regs, FFA_MEM_FRAG_RX, handle_lo, handle_hi, frag_offset,
-+             (uint32_t)sender_id << 16, 0, 0, 0);
-+}
-+
-+static void handle_version(struct cpu_user_regs *regs)
-+{
-+    struct domain *d = current->domain;
-+    struct ffa_ctx *ctx = d->arch.ffa;
-+    uint32_t vers = get_user_reg(regs, 1);
-+
-+    if ( vers < FFA_VERSION_1_1 )
-+        vers = FFA_VERSION_1_0;
-+    else
-+        vers = FFA_VERSION_1_1;
-+
-+    ctx->guest_vers = vers;
-+    set_regs(regs, vers, 0, 0, 0, 0, 0, 0, 0);
-+}
-+
-+static uint32_t handle_rxtx_map(uint32_t fid, register_t tx_addr,
-+                                register_t rx_addr, uint32_t page_count)
-+{
-+    uint32_t ret = FFA_RET_NOT_SUPPORTED;
-+    struct domain *d = current->domain;
-+    struct ffa_ctx *ctx = d->arch.ffa;
-+    struct page_info *tx_pg;
-+    struct page_info *rx_pg;
-+    p2m_type_t t;
-+    void *rx;
-+    void *tx;
-+
-+    if ( !smccc_is_conv_64(fid) )
-+    {
-+        tx_addr &= UINT32_MAX;
-+        rx_addr &= UINT32_MAX;
-+    }
-+
-+    /* For now to keep things simple, only deal with a single page */
-+    if ( page_count != 1 )
-+        return FFA_RET_NOT_SUPPORTED;
-+
-+    /* Already mapped */
-+    if ( ctx->rx )
-+        return FFA_RET_DENIED;
-+
-+    tx_pg = get_page_from_gfn(d, gaddr_to_gfn(tx_addr), &t, P2M_ALLOC);
-+    if ( !tx_pg )
-+        return FFA_RET_NOT_SUPPORTED;
-+    /* Only normal RAM for now */
-+    if (t != p2m_ram_rw)
-+        goto err_put_tx_pg;
-+
-+    rx_pg = get_page_from_gfn(d, gaddr_to_gfn(rx_addr), &t, P2M_ALLOC);
-+    if ( !tx_pg )
-+        goto err_put_tx_pg;
-+    /* Only normal RAM for now */
-+    if ( t != p2m_ram_rw )
-+        goto err_put_rx_pg;
-+
-+    tx = __map_domain_page_global(tx_pg);
-+    if ( !tx )
-+        goto err_put_rx_pg;
-+
-+    rx = __map_domain_page_global(rx_pg);
-+    if ( !rx )
-+        goto err_unmap_tx;
-+
-+    ctx->rx = rx;
-+    ctx->tx = tx;
-+    ctx->rx_pg = rx_pg;
-+    ctx->tx_pg = tx_pg;
-+    ctx->page_count = 1;
-+    ctx->tx_is_mine = true;
-+    return FFA_RET_OK;
-+
-+err_unmap_tx:
-+    unmap_domain_page_global(tx);
-+err_put_rx_pg:
-+    put_page(rx_pg);
-+err_put_tx_pg:
-+    put_page(tx_pg);
-+    return ret;
-+}
-+
-+static uint32_t handle_rxtx_unmap(void)
-+{
-+    struct domain *d = current->domain;
-+    struct ffa_ctx *ctx = d->arch.ffa;
-+    uint32_t ret;
-+
-+    if ( !ctx-> rx )
-+        return FFA_RET_INVALID_PARAMETERS;
-+
-+    ret = ffa_rxtx_unmap(get_vm_id(d));
-+    if ( ret )
-+        return ret;
-+
-+    unmap_domain_page_global(ctx->rx);
-+    unmap_domain_page_global(ctx->tx);
-+    put_page(ctx->rx_pg);
-+    put_page(ctx->tx_pg);
-+    ctx->rx = NULL;
-+    ctx->tx = NULL;
-+    ctx->rx_pg = NULL;
-+    ctx->tx_pg = NULL;
-+    ctx->page_count = 0;
-+    ctx->tx_is_mine = false;
-+
-+    return FFA_RET_OK;
-+}
-+
-+static uint32_t handle_partition_info_get(uint32_t w1, uint32_t w2, uint32_t w3,
-+                                          uint32_t w4, uint32_t w5,
-+                                          uint32_t *count)
-+{
-+    uint32_t ret = FFA_RET_DENIED;
-+    struct domain *d = current->domain;
-+    struct ffa_ctx *ctx = d->arch.ffa;
-+
-+    if ( !ffa_page_count )
-+        return FFA_RET_DENIED;
-+
-+    spin_lock(&ffa_buffer_lock);
-+    if ( !ctx->page_count || !ctx->tx_is_mine )
-+        goto out;
-+    ret = ffa_partition_info_get(w1, w2, w3, w4, w5, count);
-+    if ( ret )
-+        goto out;
-+    if ( ctx->guest_vers == FFA_VERSION_1_0 ) {
-+        size_t n;
-+        struct ffa_partition_info_1_1 *src = ffa_rx;
-+        struct ffa_partition_info_1_0 *dst = ctx->rx;
-+
-+        for ( n = 0; n < *count; n++ ) {
-+            dst[n].id = src[n].id;
-+            dst[n].execution_context = src[n].execution_context;
-+            dst[n].partition_properties = src[n].partition_properties;
-+        }
-+    } else {
-+        size_t sz = *count * sizeof(struct ffa_partition_info_1_1);
-+
-+        memcpy(ctx->rx, ffa_rx, sz);
-+    }
-+    ffa_rx_release();
-+    ctx->tx_is_mine = false;
-+out:
-+    spin_unlock(&ffa_buffer_lock);
-+
-+    return ret;
-+}
-+
-+static uint32_t handle_rx_release(void)
-+{
-+    uint32_t ret = FFA_RET_DENIED;
-+    struct domain *d = current->domain;
-+    struct ffa_ctx *ctx = d->arch.ffa;
-+
-+    spin_lock(&ffa_buffer_lock);
-+    if ( !ctx->page_count || ctx->tx_is_mine )
-+        goto out;
-+    ret = FFA_RET_OK;
-+    ctx->tx_is_mine = true;
-+out:
-+    spin_unlock(&ffa_buffer_lock);
-+
-+    return ret;
-+}
-+
-+static void handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t fid)
-+{
-+    struct arm_smccc_1_2_regs arg = { .a0 = fid, };
-+    struct arm_smccc_1_2_regs resp = { };
-+    struct domain *d = current->domain;
-+    struct ffa_ctx *ctx = d->arch.ffa;
-+    uint32_t src_dst;
-+    uint64_t mask;
-+
-+    if ( smccc_is_conv_64(fid) )
-+        mask = 0xffffffffffffffff;
-+    else
-+        mask = 0xffffffff;
-+
-+    src_dst = get_user_reg(regs, 1);
-+    if ( (src_dst >> 16) != get_vm_id(d) )
-+    {
-+        resp.a0 = FFA_ERROR;
-+        resp.a2 = FFA_RET_INVALID_PARAMETERS;
-+        goto out;
-+    }
-+
-+    arg.a1 = src_dst;
-+    arg.a2 = get_user_reg(regs, 2) & mask;
-+    arg.a3 = get_user_reg(regs, 3) & mask;
-+    arg.a4 = get_user_reg(regs, 4) & mask;
-+    arg.a5 = get_user_reg(regs, 5) & mask;
-+    arg.a6 = get_user_reg(regs, 6) & mask;
-+    arg.a7 = get_user_reg(regs, 7) & mask;
-+
-+    while ( true ) {
-+        arm_smccc_1_2_smc(&arg, &resp);
-+
-+        switch ( resp.a0 )
-+        {
-+        case FFA_INTERRUPT:
-+            ctx->interrupted = true;
-+            goto out;
-+        case FFA_ERROR:
-+        case FFA_SUCCESS_32:
-+        case FFA_SUCCESS_64:
-+        case FFA_MSG_SEND_DIRECT_RESP_32:
-+        case FFA_MSG_SEND_DIRECT_RESP_64:
-+            goto out;
-+        default:
-+            /* Bad fid, report back. */
-+            memset(&arg, 0, sizeof(arg));
-+            arg.a0 = FFA_ERROR;
-+            arg.a1 = src_dst;
-+            arg.a2 = FFA_RET_NOT_SUPPORTED;
-+            continue;
-+        }
-+    }
-+
-+out:
-+    set_user_reg(regs, 0, resp.a0);
-+    set_user_reg(regs, 2, resp.a2 & mask);
-+    set_user_reg(regs, 1, resp.a1 & mask);
-+    set_user_reg(regs, 3, resp.a3 & mask);
-+    set_user_reg(regs, 4, resp.a4 & mask);
-+    set_user_reg(regs, 5, resp.a5 & mask);
-+    set_user_reg(regs, 6, resp.a6 & mask);
-+    set_user_reg(regs, 7, resp.a7 & mask);
-+}
-+
-+static int get_shm_pages(struct domain *d, struct ffa_shm_mem *shm,
-+                         struct ffa_address_range *range, uint32_t range_count,
-+                         unsigned int start_page_idx,
-+                         unsigned int *last_page_idx)
-+{
-+    unsigned int pg_idx = start_page_idx;
-+    unsigned long gfn;
-+    unsigned int n;
-+    unsigned int m;
-+    p2m_type_t t;
-+    uint64_t addr;
-+
-+    for ( n = 0; n < range_count; n++ ) {
-+        for ( m = 0; m < range[n].page_count; m++ ) {
-+            if ( pg_idx >= shm->page_count )
-+                return FFA_RET_INVALID_PARAMETERS;
-+
-+            addr = read_atomic(&range[n].address);
-+            gfn = gaddr_to_gfn(addr + m * PAGE_SIZE);
-+            shm->pages[pg_idx] = get_page_from_gfn(d, gfn, &t, P2M_ALLOC);
-+            if ( !shm->pages[pg_idx] )
-+                return FFA_RET_DENIED;
-+            pg_idx++;
-+            /* Only normal RAM for now */
-+            if ( t != p2m_ram_rw )
-+                return FFA_RET_DENIED;
-+        }
-+    }
-+
-+    *last_page_idx = pg_idx;
-+
-+    return FFA_RET_OK;
-+}
-+
-+static void put_shm_pages(struct ffa_shm_mem *shm)
-+{
-+    unsigned int n;
-+
-+    for ( n = 0; n < shm->page_count && shm->pages[n]; n++ )
-+    {
-+        if ( shm->pages[n] ) {
-+            put_page(shm->pages[n]);
-+            shm->pages[n] = NULL;
-+        }
-+    }
-+}
-+
-+static void init_range(struct ffa_address_range *addr_range,
-+                       paddr_t pa)
-+{
-+    memset(addr_range, 0, sizeof(*addr_range));
-+    addr_range->address = pa;
-+    addr_range->page_count = 1;
-+}
-+
-+static int share_shm(struct ffa_shm_mem *shm)
-+{
-+    uint32_t max_frag_len = ffa_page_count * PAGE_SIZE;
-+    struct ffa_mem_transaction_1_1 *descr = ffa_tx;
-+    struct ffa_mem_access *mem_access_array;
-+    struct ffa_mem_region *region_descr;
-+    struct ffa_address_range *addr_range;
-+    paddr_t pa;
-+    paddr_t last_pa;
-+    unsigned int n;
-+    uint32_t frag_len;
-+    uint32_t tot_len;
-+    int ret;
-+    unsigned int range_count;
-+    unsigned int range_base;
-+    bool first;
-+
-+    memset(descr, 0, sizeof(*descr));
-+    descr->sender_id = shm->sender_id;
-+    descr->global_handle = shm->handle;
-+    descr->mem_reg_attr = FFA_NORMAL_MEM_REG_ATTR;
-+    descr->mem_access_count = 1;
-+    descr->mem_access_size = sizeof(*mem_access_array);
-+    descr->mem_access_offs = sizeof(*descr);
-+    mem_access_array = (void *)(descr + 1);
-+    region_descr = (void *)(mem_access_array + 1);
-+
-+    memset(mem_access_array, 0, sizeof(*mem_access_array));
-+    mem_access_array[0].access_perm.endpoint_id = shm->ep_id;
-+    mem_access_array[0].access_perm.perm = FFA_MEM_ACC_RW;
-+    mem_access_array[0].region_offs = (vaddr_t)region_descr - (vaddr_t)ffa_tx;
-+
-+    memset(region_descr, 0, sizeof(*region_descr));
-+    region_descr->total_page_count = shm->page_count;
-+
-+    region_descr->address_range_count = 1;
-+    last_pa = page_to_maddr(shm->pages[0]);
-+    for ( n = 1; n < shm->page_count; last_pa = pa, n++ )
-+    {
-+        pa = page_to_maddr(shm->pages[n]);
-+        if ( last_pa + PAGE_SIZE == pa )
-+        {
-+            continue;
-+        }
-+        region_descr->address_range_count++;
-+    }
-+
-+    tot_len = sizeof(*descr) + sizeof(*mem_access_array) +
-+              sizeof(*region_descr) +
-+              region_descr->address_range_count * sizeof(*addr_range);
-+
-+    addr_range = region_descr->address_range_array;
-+    frag_len = (vaddr_t)(addr_range + 1) - (vaddr_t)ffa_tx;
-+    last_pa = page_to_maddr(shm->pages[0]);
-+    init_range(addr_range, last_pa);
-+    first = true;
-+    range_count = 1;
-+    range_base = 0;
-+    for ( n = 1; n < shm->page_count; last_pa = pa, n++ )
-+    {
-+        pa = page_to_maddr(shm->pages[n]);
-+        if ( last_pa + PAGE_SIZE == pa )
-+        {
-+            addr_range->page_count++;
-+            continue;
-+        }
-+
-+        if (frag_len == max_frag_len) {
-+            if (first)
-+            {
-+                ret = ffa_mem_share(tot_len, frag_len, 0, 0, &shm->handle);
-+                first = false;
-+            }
-+            else
-+            {
-+                ret = ffa_mem_frag_tx(shm->handle, frag_len, shm->sender_id);
-+            }
-+            if (ret <= 0)
-+                return ret;
-+            range_base = range_count;
-+            range_count = 0;
-+            frag_len = sizeof(*addr_range);
-+            addr_range = ffa_tx;
-+        } else {
-+            frag_len += sizeof(*addr_range);
-+            addr_range++;
-+        }
-+        init_range(addr_range, pa);
-+        range_count++;
-+    }
-+
-+    if (first)
-+        return ffa_mem_share(tot_len, frag_len, 0, 0, &shm->handle);
-+    else
-+        return ffa_mem_frag_tx(shm->handle, frag_len, shm->sender_id);
-+}
-+
-+static int read_mem_transaction(uint32_t ffa_vers, void *buf, size_t blen,
-+                                struct ffa_mem_transaction_x *trans)
-+{
-+    uint16_t mem_reg_attr;
-+    uint32_t flags;
-+    uint32_t count;
-+    uint32_t offs;
-+    uint32_t size;
-+
-+    if (ffa_vers >= FFA_VERSION_1_1) {
-+        struct ffa_mem_transaction_1_1 *descr;
-+
-+        if (blen < sizeof(*descr))
-+            return FFA_RET_INVALID_PARAMETERS;
-+
-+        descr = buf;
-+        trans->sender_id = read_atomic(&descr->sender_id);
-+        mem_reg_attr = read_atomic(&descr->mem_reg_attr);
-+        flags = read_atomic(&descr->flags);
-+        trans->global_handle = read_atomic(&descr->global_handle);
-+        trans->tag = read_atomic(&descr->tag);
-+
-+        count = read_atomic(&descr->mem_access_count);
-+        size = read_atomic(&descr->mem_access_size);
-+        offs = read_atomic(&descr->mem_access_offs);
-+    } else {
-+        struct ffa_mem_transaction_1_0 *descr;
-+
-+        if (blen < sizeof(*descr))
-+            return FFA_RET_INVALID_PARAMETERS;
-+
-+        descr = buf;
-+        trans->sender_id = read_atomic(&descr->sender_id);
-+        mem_reg_attr = read_atomic(&descr->mem_reg_attr);
-+        flags = read_atomic(&descr->flags);
-+        trans->global_handle = read_atomic(&descr->global_handle);
-+        trans->tag = read_atomic(&descr->tag);
-+
-+        count = read_atomic(&descr->mem_access_count);
-+        size = sizeof(struct ffa_mem_access);
-+        offs = offsetof(struct ffa_mem_transaction_1_0, mem_access_array);
-+    }
-+
-+    if (mem_reg_attr > UINT8_MAX || flags > UINT8_MAX || size > UINT8_MAX ||
-+        count > UINT8_MAX || offs > UINT16_MAX)
-+        return FFA_RET_INVALID_PARAMETERS;
-+
-+    /* Check that the endpoint memory access descriptor array fits */
-+    if (size * count + offs > blen)
-+        return FFA_RET_INVALID_PARAMETERS;
-+
-+    trans->mem_reg_attr = mem_reg_attr;
-+    trans->flags = flags;
-+    trans->mem_access_size = size;
-+    trans->mem_access_count = count;
-+    trans->mem_access_offs = offs;
-+    return 0;
-+}
-+
-+static int add_mem_share_frag(struct mem_frag_state *s, unsigned int offs,
-+                              unsigned int frag_len)
-+{
-+    struct domain *d = current->domain;
-+    unsigned int o = offs;
-+    unsigned int l;
-+    int ret;
-+
-+    if (frag_len < o)
-+        return FFA_RET_INVALID_PARAMETERS;
-+
-+    /* Fill up the first struct ffa_address_range */
-+    l = min_t(unsigned int, frag_len - o, sizeof(s->range) - s->range_offset);
-+    memcpy((uint8_t *)&s->range + s->range_offset, s->buf + o, l);
-+    s->range_offset += l;
-+    o += l;
-+    if (s->range_offset != sizeof(s->range))
-+        goto out;
-+    s->range_offset = 0;
-+
-+    while (true) {
-+        ret = get_shm_pages(d, s->shm, &s->range, 1, s->current_page_idx,
-+                            &s->current_page_idx);
-+        if (ret)
-+            return ret;
-+        if (s->range_count == 1)
-+            return 0;
-+        s->range_count--;
-+        if (frag_len - o < sizeof(s->range))
-+            break;
-+        memcpy(&s->range, s->buf + o, sizeof(s->range));
-+        o += sizeof(s->range);
-+    }
-+
-+    /* Collect any remaining bytes for the next struct ffa_address_range */
-+    s->range_offset = frag_len - o;
-+    memcpy(&s->range, s->buf + o, frag_len - o);
-+out:
-+    s->frag_offset += frag_len;
-+    return s->frag_offset;
-+}
-+
-+static void handle_mem_share(struct cpu_user_regs *regs)
-+{
-+    uint32_t tot_len = get_user_reg(regs, 1);
-+    uint32_t frag_len = get_user_reg(regs, 2);
-+    uint64_t addr = get_user_reg(regs, 3);
-+    uint32_t page_count = get_user_reg(regs, 4);
-+    struct ffa_mem_transaction_x trans;
-+    struct ffa_mem_access *mem_access;
-+    struct ffa_mem_region *region_descr;
-+    struct domain *d = current->domain;
-+    struct ffa_ctx *ctx = d->arch.ffa;
-+    struct ffa_shm_mem *shm = NULL;
-+    unsigned int last_page_idx = 0;
-+    uint32_t range_count;
-+    uint32_t region_offs;
-+    int ret = FFA_RET_DENIED;
-+    uint32_t handle_hi = 0;
-+    uint32_t handle_lo = 0;
-+
-+    /*
-+     * We're only accepting memory transaction descriptors via the rx/tx
-+     * buffer.
-+     */
-+    if ( addr ) {
-+        ret = FFA_RET_NOT_SUPPORTED;
-+        goto out_unlock;
-+    }
-+
-+    /* Check that fragment legnth doesn't exceed total length */
-+    if (frag_len > tot_len) {
-+        ret = FFA_RET_INVALID_PARAMETERS;
-+        goto out_unlock;
-+    }
-+
-+    spin_lock(&ffa_buffer_lock);
-+
-+    if ( frag_len > ctx->page_count * PAGE_SIZE )
-+        goto out_unlock;
-+
-+    if ( !ffa_page_count ) {
-+        ret = FFA_RET_NO_MEMORY;
-+        goto out_unlock;
-+    }
-+
-+    ret = read_mem_transaction(ctx->guest_vers, ctx->tx, frag_len, &trans);
-+    if (ret)
-+        goto out_unlock;
-+
-+    if ( trans.mem_reg_attr != FFA_NORMAL_MEM_REG_ATTR )
-+    {
-+        ret = FFA_RET_NOT_SUPPORTED;
-+        goto out;
-+    }
-+
-+    /* Only supports sharing it with one SP for now */
-+    if ( trans.mem_access_count != 1 )
-+    {
-+        ret = FFA_RET_NOT_SUPPORTED;
-+        goto out_unlock;
-+    }
-+
-+    if ( trans.sender_id != get_vm_id(d) )
-+    {
-+        ret = FFA_RET_INVALID_PARAMETERS;
-+        goto out_unlock;
-+    }
-+
-+    /* Check that it fits in the supplied data */
-+    if ( trans.mem_access_offs + trans.mem_access_size > frag_len)
-+        goto out_unlock;
-+
-+    mem_access = (void *)((vaddr_t)ctx->tx + trans.mem_access_offs);
-+    if ( read_atomic(&mem_access->access_perm.perm) != FFA_MEM_ACC_RW )
-+    {
-+        ret = FFA_RET_NOT_SUPPORTED;
-+        goto out_unlock;
-+    }
-+
-+    region_offs = read_atomic(&mem_access->region_offs);
-+    if (sizeof(*region_descr) + region_offs > frag_len) {
-+        ret = FFA_RET_NOT_SUPPORTED;
-+        goto out_unlock;
-+    }
-+
-+    region_descr = (void *)((vaddr_t)ctx->tx + region_offs);
-+    range_count = read_atomic(&region_descr->address_range_count);
-+    page_count = read_atomic(&region_descr->total_page_count);
-+
-+    shm = xzalloc_flex_struct(struct ffa_shm_mem, pages, page_count);
-+    if ( !shm )
-+    {
-+        ret = FFA_RET_NO_MEMORY;
-+        goto out;
-+    }
-+    shm->sender_id = trans.sender_id;
-+    shm->ep_id = read_atomic(&mem_access->access_perm.endpoint_id);
-+    shm->page_count = page_count;
-+
-+    if (frag_len != tot_len) {
-+        struct mem_frag_state *s = xzalloc(struct mem_frag_state);
-+
-+        if (!s) {
-+            ret = FFA_RET_NO_MEMORY;
-+            goto out;
-+        }
-+        s->shm = shm;
-+        s->range_count = range_count;
-+        s->buf = ctx->tx;
-+        s->buf_size = ffa_page_count * PAGE_SIZE;
-+        ret = add_mem_share_frag(s, sizeof(*region_descr)  + region_offs,
-+                                 frag_len);
-+        if (ret <= 0) {
-+            xfree(s);
-+            if (ret < 0)
-+                goto out;
-+        } else {
-+            shm->handle = next_handle++;
-+            reg_pair_from_64(&handle_hi, &handle_lo, shm->handle);
-+            spin_lock(&ffa_mem_list_lock);
-+            list_add_tail(&s->list, &ffa_frag_list);
-+            spin_unlock(&ffa_mem_list_lock);
-+        }
-+        goto out_unlock;
-+    }
-+
-+    /*
-+     * Check that the Composite memory region descriptor fits.
-+     */
-+    if ( sizeof(*region_descr) + region_offs +
-+         range_count * sizeof(struct ffa_address_range) > frag_len) {
-+        ret = FFA_RET_INVALID_PARAMETERS;
-+        goto out;
-+    }
-+
-+    ret = get_shm_pages(d, shm, region_descr->address_range_array, range_count,
-+                        0, &last_page_idx);
-+    if ( ret )
-+        goto out;
-+    if (last_page_idx != shm->page_count) {
-+        ret = FFA_RET_INVALID_PARAMETERS;
-+        goto out;
-+    }
-+
-+    /* Note that share_shm() uses our tx buffer */
-+    ret = share_shm(shm);
-+    if ( ret )
-+        goto out;
-+
-+    spin_lock(&ffa_mem_list_lock);
-+    list_add_tail(&shm->list, &ffa_mem_list);
-+    spin_unlock(&ffa_mem_list_lock);
-+
-+    reg_pair_from_64(&handle_hi, &handle_lo, shm->handle);
-+
-+out:
-+    if ( ret && shm )
-+    {
-+        put_shm_pages(shm);
-+        xfree(shm);
-+    }
-+out_unlock:
-+    spin_unlock(&ffa_buffer_lock);
-+
-+    if ( ret > 0 )
-+            set_regs_frag_rx(regs, handle_lo, handle_hi, ret, trans.sender_id);
-+    else if ( ret == 0)
-+            set_regs_success(regs, handle_lo, handle_hi);
-+    else
-+            set_regs_error(regs, ret);
-+}
-+
-+static struct mem_frag_state *find_frag_state(uint64_t handle)
-+{
-+    struct mem_frag_state *s;
-+
-+    list_for_each_entry(s, &ffa_frag_list, list)
-+        if ( s->shm->handle == handle)
-+            return s;
-+
-+    return NULL;
-+}
-+
-+static void handle_mem_frag_tx(struct cpu_user_regs *regs)
-+{
-+    uint32_t frag_len = get_user_reg(regs, 3);
-+    uint32_t handle_lo = get_user_reg(regs, 1);
-+    uint32_t handle_hi = get_user_reg(regs, 2);
-+    uint64_t handle = reg_pair_to_64(handle_hi, handle_lo);
-+    struct mem_frag_state *s;
-+    uint16_t sender_id = 0;
-+    int ret;
-+
-+    spin_lock(&ffa_buffer_lock);
-+    s = find_frag_state(handle);
-+    if (!s) {
-+        ret = FFA_RET_INVALID_PARAMETERS;
-+        goto out;
-+    }
-+    sender_id = s->shm->sender_id;
-+
-+    if (frag_len > s->buf_size) {
-+        ret = FFA_RET_INVALID_PARAMETERS;
-+        goto out;
-+    }
-+
-+    ret = add_mem_share_frag(s, 0, frag_len);
-+    if (ret == 0) {
-+        /* Note that share_shm() uses our tx buffer */
-+        ret = share_shm(s->shm);
-+        if (ret == 0) {
-+            spin_lock(&ffa_mem_list_lock);
-+            list_add_tail(&s->shm->list, &ffa_mem_list);
-+            spin_unlock(&ffa_mem_list_lock);
-+        } else {
-+            put_shm_pages(s->shm);
-+            xfree(s->shm);
-+        }
-+        spin_lock(&ffa_mem_list_lock);
-+        list_del(&s->list);
-+        spin_unlock(&ffa_mem_list_lock);
-+        xfree(s);
-+    } else if (ret < 0) {
-+        put_shm_pages(s->shm);
-+        xfree(s->shm);
-+        spin_lock(&ffa_mem_list_lock);
-+        list_del(&s->list);
-+        spin_unlock(&ffa_mem_list_lock);
-+        xfree(s);
-+    }
-+out:
-+    spin_unlock(&ffa_buffer_lock);
-+
-+    if ( ret > 0 )
-+            set_regs_frag_rx(regs, handle_lo, handle_hi, ret, sender_id);
-+    else if ( ret == 0)
-+            set_regs_success(regs, handle_lo, handle_hi);
-+    else
-+            set_regs_error(regs, ret);
-+}
-+
-+static int handle_mem_reclaim(uint64_t handle, uint32_t flags)
-+{
-+    struct ffa_shm_mem *shm;
-+    uint32_t handle_hi;
-+    uint32_t handle_lo;
-+    int ret;
-+
-+    spin_lock(&ffa_mem_list_lock);
-+    list_for_each_entry(shm, &ffa_mem_list, list) {
-+        if ( shm->handle == handle )
-+            goto found_it;
-+    }
-+    shm = NULL;
-+found_it:
-+    spin_unlock(&ffa_mem_list_lock);
-+
-+    if ( !shm )
-+        return FFA_RET_INVALID_PARAMETERS;
-+
-+    reg_pair_from_64(&handle_hi, &handle_lo, handle);
-+    ret = ffa_mem_reclaim(handle_lo, handle_hi, flags);
-+    if ( ret )
-+        return ret;
-+
-+    spin_lock(&ffa_mem_list_lock);
-+    list_del(&shm->list);
-+    spin_unlock(&ffa_mem_list_lock);
-+
-+    put_shm_pages(shm);
-+    xfree(shm);
-+
-+    return ret;
-+}
-+
-+bool ffa_handle_call(struct cpu_user_regs *regs, uint32_t fid)
-+{
-+    struct domain *d = current->domain;
-+    struct ffa_ctx *ctx = d->arch.ffa;
-+    uint32_t count;
-+    uint32_t e;
-+
-+    if ( !ctx )
-+        return false;
-+
-+    switch ( fid )
-+    {
-+    case FFA_VERSION:
-+        handle_version(regs);
-+        return true;
-+    case FFA_ID_GET:
-+        set_regs_success(regs, get_vm_id(d), 0);
-+        return true;
-+    case FFA_RXTX_MAP_32:
-+#ifdef CONFIG_ARM_64
-+    case FFA_RXTX_MAP_64:
-+#endif
-+        e = handle_rxtx_map(fid, get_user_reg(regs, 1), get_user_reg(regs, 2),
-+                            get_user_reg(regs, 3));
-+        if ( e )
-+            set_regs_error(regs, e);
-+        else
-+            set_regs_success(regs, 0, 0);
-+        return true;
-+    case FFA_RXTX_UNMAP:
-+        e = handle_rxtx_unmap();
-+        if ( e )
-+            set_regs_error(regs, e);
-+        else
-+            set_regs_success(regs, 0, 0);
-+        return true;
-+    case FFA_PARTITION_INFO_GET:
-+        e = handle_partition_info_get(get_user_reg(regs, 1),
-+                                      get_user_reg(regs, 2),
-+                                      get_user_reg(regs, 3),
-+                                      get_user_reg(regs, 4),
-+                                      get_user_reg(regs, 5), &count);
-+        if ( e )
-+            set_regs_error(regs, e);
-+        else
-+            set_regs_success(regs, count, 0);
-+        return true;
-+    case FFA_RX_RELEASE:
-+        e = handle_rx_release();
-+        if ( e )
-+            set_regs_error(regs, e);
-+        else
-+            set_regs_success(regs, 0, 0);
-+        return true;
-+    case FFA_MSG_SEND_DIRECT_REQ_32:
-+#ifdef CONFIG_ARM_64
-+    case FFA_MSG_SEND_DIRECT_REQ_64:
-+#endif
-+        handle_msg_send_direct_req(regs, fid);
-+        return true;
-+    case FFA_MEM_SHARE_32:
-+#ifdef CONFIG_ARM_64
-+    case FFA_MEM_SHARE_64:
-+#endif
-+        handle_mem_share(regs);
-+        return true;
-+    case FFA_MEM_RECLAIM:
-+        e = handle_mem_reclaim(reg_pair_to_64(get_user_reg(regs, 2),
-+                                              get_user_reg(regs, 1)),
-+                               get_user_reg(regs, 3));
-+        if ( e )
-+            set_regs_error(regs, e);
-+        else
-+            set_regs_success(regs, 0, 0);
-+        return true;
-+    case FFA_MEM_FRAG_TX:
-+        handle_mem_frag_tx(regs);
-+        return true;
-+
-+    default:
-+        printk(XENLOG_ERR "ffa: unhandled fid 0x%x\n", fid);
-+        return false;
-+    }
-+}
-+
-+int ffa_domain_init(struct domain *d)
-+{
-+    struct ffa_ctx *ctx;
-+    unsigned int n;
-+    unsigned int m;
-+    unsigned int c_pos;
-+    int32_t res;
-+
-+    if ( !ffa_version )
-+        return 0;
-+
-+    ctx = xzalloc(struct ffa_ctx);
-+    if ( !ctx )
-+        return -ENOMEM;
-+
-+    for ( n = 0; n < subsr_vm_created_count; n++ ) {
-+        res = ffa_direct_req_send_vm(subsr_vm_created[n], get_vm_id(d),
-+                                     FFA_MSG_SEND_VM_CREATED);
-+        if ( res ) {
-+            printk(XENLOG_ERR "ffa: Failed to report creation of vm_id %u to  %u: res %d\n",
-+                   get_vm_id(d), subsr_vm_created[n], res);
-+            c_pos = n;
-+            goto err;
-+        }
-+    }
-+
-+    d->arch.ffa = ctx;
-+
-+    return 0;
-+
-+err:
-+    /* Undo any already sent vm created messaged */
-+    for ( n = 0; n < c_pos; n++ )
-+        for ( m = 0; m < subsr_vm_destroyed_count; m++ )
-+            if ( subsr_vm_destroyed[m] == subsr_vm_created[n] )
-+                ffa_direct_req_send_vm(subsr_vm_destroyed[n], get_vm_id(d),
-+                                       FFA_MSG_SEND_VM_DESTROYED);
-+    return -ENOMEM;
-+}
-+
-+int ffa_relinquish_resources(struct domain *d)
-+{
-+    struct ffa_ctx *ctx = d->arch.ffa;
-+    unsigned int n;
-+    int32_t res;
-+
-+    if ( !ctx )
-+        return 0;
-+
-+    for ( n = 0; n < subsr_vm_destroyed_count; n++ ) {
-+        res = ffa_direct_req_send_vm(subsr_vm_destroyed[n], get_vm_id(d),
-+                                     FFA_MSG_SEND_VM_DESTROYED);
-+
-+        if ( res )
-+            printk(XENLOG_ERR "ffa: Failed to report destruction of vm_id %u to  %u: res %d\n",
-+                   get_vm_id(d), subsr_vm_destroyed[n], res);
-+    }
-+
-+    XFREE(d->arch.ffa);
-+
-+    return 0;
-+}
-+
-+static bool __init init_subscribers(void)
-+{
-+    struct ffa_partition_info_1_1 *fpi;
-+    bool ret = false;
-+    uint32_t count;
-+    uint32_t e;
-+    uint32_t n;
-+    uint32_t c_pos;
-+    uint32_t d_pos;
-+
-+    if ( ffa_version < FFA_VERSION_1_1 )
-+        return true;
-+
-+    e = ffa_partition_info_get(0, 0, 0, 0, 1, &count);
-+    ffa_rx_release();
-+    if ( e ) {
-+        printk(XENLOG_ERR "ffa: Failed to get list of SPs: %d\n", (int)e);
-+        goto out;
-+    }
-+
-+    fpi = ffa_rx;
-+    subsr_vm_created_count = 0;
-+    subsr_vm_destroyed_count = 0;
-+    for ( n = 0; n < count; n++ ) {
-+        if (fpi[n].partition_properties & FFA_PART_PROP_NOTIF_CREATED)
-+            subsr_vm_created_count++;
-+        if (fpi[n].partition_properties & FFA_PART_PROP_NOTIF_DESTROYED)
-+            subsr_vm_destroyed_count++;
-+    }
-+
-+    if ( subsr_vm_created_count )
-+        subsr_vm_created = xzalloc_array(uint16_t, subsr_vm_created_count);
-+    if ( subsr_vm_destroyed_count )
-+        subsr_vm_destroyed = xzalloc_array(uint16_t, subsr_vm_destroyed_count);
-+    if ( (subsr_vm_created_count && !subsr_vm_created) ||
-+        (subsr_vm_destroyed_count && !subsr_vm_destroyed) ) {
-+        printk(XENLOG_ERR "ffa: Failed to allocate subscription lists\n");
-+        subsr_vm_created_count = 0;
-+        subsr_vm_destroyed_count = 0;
-+        XFREE(subsr_vm_created);
-+        XFREE(subsr_vm_destroyed);
-+        goto out;
-+    }
-+
-+    for ( c_pos = 0, d_pos = 0, n = 0; n < count; n++ ) {
-+        if (fpi[n].partition_properties & FFA_PART_PROP_NOTIF_CREATED)
-+            subsr_vm_created[c_pos++] = fpi[n].id;
-+        if (fpi[n].partition_properties & FFA_PART_PROP_NOTIF_DESTROYED)
-+            subsr_vm_destroyed[d_pos++] = fpi[n].id;
-+    }
-+
-+    ret = true;
-+out:
-+    ffa_rx_release();
-+    return ret;
-+}
-+
-+static int __init ffa_init(void)
-+{
-+    uint32_t vers;
-+    uint32_t e;
-+    unsigned int major_vers;
-+    unsigned int minor_vers;
-+
-+    /*
-+     * psci_init_smccc() updates this value with what's reported by EL-3
-+     * or secure world.
-+     */
-+    if ( smccc_ver < ARM_SMCCC_VERSION_1_2 )
-+    {
-+        printk(XENLOG_ERR
-+               "ffa: unsupported SMCCC version %#x (need at least %#x)\n",
-+               smccc_ver, ARM_SMCCC_VERSION_1_2);
-+        return 0;
-+    }
-+
-+    if ( !ffa_get_version(&vers) )
-+        return 0;
-+
-+    if ( vers < FFA_MIN_VERSION || vers > FFA_MY_VERSION )
-+    {
-+        printk(XENLOG_ERR "ffa: Incompatible version %#x found\n", vers);
-+        return 0;
-+    }
-+
-+    major_vers = (vers >> FFA_VERSION_MAJOR_SHIFT) & FFA_VERSION_MAJOR_MASK;
-+    minor_vers = vers & FFA_VERSION_MINOR_MASK;
-+    printk(XENLOG_ERR "ARM FF-A Mediator version %u.%u\n",
-+           FFA_VERSION_MAJOR, FFA_VERSION_MINOR);
-+    printk(XENLOG_ERR "ARM FF-A Firmware version %u.%u\n",
-+           major_vers, minor_vers);
-+
-+    ffa_rx = alloc_xenheap_pages(0, 0);
-+    if ( !ffa_rx )
-+        return 0;
-+
-+    ffa_tx = alloc_xenheap_pages(0, 0);
-+    if ( !ffa_tx )
-+        goto err_free_ffa_rx;
-+
-+    e = ffa_rxtx_map(__pa(ffa_tx), __pa(ffa_rx), 1);
-+    if ( e )
-+    {
-+        printk(XENLOG_ERR "ffa: Failed to map rxtx: error %d\n", (int)e);
-+        goto err_free_ffa_tx;
-+    }
-+    ffa_page_count = 1;
-+    ffa_version = vers;
-+
-+    if ( !init_subscribers() )
-+        goto err_free_ffa_tx;
-+
-+    return 0;
-+
-+err_free_ffa_tx:
-+    free_xenheap_pages(ffa_tx, 0);
-+    ffa_tx = NULL;
-+err_free_ffa_rx:
-+    free_xenheap_pages(ffa_rx, 0);
-+    ffa_rx = NULL;
-+    ffa_page_count = 0;
-+    ffa_version = 0;
-+    XFREE(subsr_vm_created);
-+    subsr_vm_created_count = 0;
-+    XFREE(subsr_vm_destroyed);
-+    subsr_vm_destroyed_count = 0;
-+    return 0;
-+}
-+
-+__initcall(ffa_init);
-diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
-index ed63c2b6f91f..b3dee269bced 100644
---- a/xen/arch/arm/include/asm/domain.h
-+++ b/xen/arch/arm/include/asm/domain.h
-@@ -103,6 +103,10 @@ struct arch_domain
-     void *tee;
- #endif
- 
-+#ifdef CONFIG_FFA
-+    void *ffa;
-+#endif
-+
-     bool directmap;
- }  __cacheline_aligned;
- 
-diff --git a/xen/arch/arm/include/asm/ffa.h b/xen/arch/arm/include/asm/ffa.h
-new file mode 100644
-index 000000000000..1c6ce6421294
---- /dev/null
-+++ b/xen/arch/arm/include/asm/ffa.h
-@@ -0,0 +1,71 @@
-+/*
-+ * xen/arch/arm/ffa.c
-+ *
-+ * Arm Firmware Framework for ARMv8-A(FFA) mediator
-+ *
-+ * Copyright (C) 2021  Linaro Limited
-+ *
-+ * Permission is hereby granted, free of charge, to any person
-+ * obtaining a copy of this software and associated documentation
-+ * files (the "Software"), to deal in the Software without restriction,
-+ * including without limitation the rights to use, copy, modify, merge,
-+ * publish, distribute, sublicense, and/or sell copies of the Software,
-+ * and to permit persons to whom the Software is furnished to do so,
-+ * subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be
-+ * included in all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-+ * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-+ * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-+ */
-+
-+#ifndef __ASM_ARM_FFA_H__
-+#define __ASM_ARM_FFA_H__
-+
-+#include <xen/const.h>
-+
-+#include <asm/smccc.h>
-+#include <asm/types.h>
-+
-+#define FFA_FNUM_MIN_VALUE              _AC(0x60,U)
-+#define FFA_FNUM_MAX_VALUE              _AC(0x86,U)
-+
-+static inline bool is_ffa_fid(uint32_t fid)
-+{
-+    uint32_t fn = fid & ARM_SMCCC_FUNC_MASK;
-+
-+    return fn >= FFA_FNUM_MIN_VALUE && fn <= FFA_FNUM_MAX_VALUE;
-+}
-+
-+#ifdef CONFIG_FFA
-+#define FFA_NR_FUNCS    11
-+
-+bool ffa_handle_call(struct cpu_user_regs *regs, uint32_t fid);
-+int ffa_domain_init(struct domain *d);
-+int ffa_relinquish_resources(struct domain *d);
-+#else
-+#define FFA_NR_FUNCS    0
-+
-+static inline bool ffa_handle_call(struct cpu_user_regs *regs, uint32_t fid)
-+{
-+    return false;
-+}
-+
-+static inline int ffa_domain_init(struct domain *d)
-+{
-+    return 0;
-+}
-+
-+static inline int ffa_relinquish_resources(struct domain *d)
-+{
-+    return 0;
-+}
-+#endif
-+
-+#endif /*__ASM_ARM_FFA_H__*/
-diff --git a/xen/arch/arm/vsmc.c b/xen/arch/arm/vsmc.c
-index 6f90c08a6304..34586025eff8 100644
---- a/xen/arch/arm/vsmc.c
-+++ b/xen/arch/arm/vsmc.c
-@@ -20,6 +20,7 @@
- #include <public/arch-arm/smccc.h>
- #include <asm/cpuerrata.h>
- #include <asm/cpufeature.h>
-+#include <asm/ffa.h>
- #include <asm/monitor.h>
- #include <asm/regs.h>
- #include <asm/smccc.h>
-@@ -32,7 +33,7 @@
- #define XEN_SMCCC_FUNCTION_COUNT 3
- 
- /* Number of functions currently supported by Standard Service Service Calls. */
--#define SSSC_SMCCC_FUNCTION_COUNT (3 + VPSCI_NR_FUNCS)
-+#define SSSC_SMCCC_FUNCTION_COUNT (3 + VPSCI_NR_FUNCS + FFA_NR_FUNCS)
- 
- static bool fill_uid(struct cpu_user_regs *regs, xen_uuid_t uuid)
- {
-@@ -196,13 +197,23 @@ static bool handle_existing_apis(struct cpu_user_regs *regs)
-     return do_vpsci_0_1_call(regs, fid);
- }
- 
-+static bool is_psci_fid(uint32_t fid)
-+{
-+    uint32_t fn = fid & ARM_SMCCC_FUNC_MASK;
-+
-+    return fn >= 0 && fn <= 0x1fU;
-+}
-+
- /* PSCI 0.2 interface and other Standard Secure Calls */
- static bool handle_sssc(struct cpu_user_regs *regs)
- {
-     uint32_t fid = (uint32_t)get_user_reg(regs, 0);
- 
--    if ( do_vpsci_0_2_call(regs, fid) )
--        return true;
-+    if ( is_psci_fid(fid) )
-+        return do_vpsci_0_2_call(regs, fid);
-+
-+    if ( is_ffa_fid(fid) )
-+        return ffa_handle_call(regs, fid);
- 
-     switch ( fid )
-     {
--- 
-2.31.1
-
+K0NoZW55aS9YaWFveWFvIHdobyB3b3JrZWQgb24gdGhlIEtWTSBzdXBwb3J0LiBQcmVzdW1hYmx5
+DQpzaW1pbGFyIG9wZW5zIGhhdmUgYmVlbiBkaXNjdXNzZWQgaW4gS1ZNIGhlbmNlIHRoZXkgaGF2
+ZSB0aGUNCnJpZ2h0IGJhY2tncm91bmQgdG8gY29tbWVudCBoZXJlLg0KDQo+IEZyb206IFJvZ2Vy
+IFBhdSBNb25uZSA8cm9nZXIucGF1QGNpdHJpeC5jb20+DQo+IFNlbnQ6IFRodXJzZGF5LCBNYXkg
+MjYsIDIwMjIgNzoxMiBQTQ0KPiANCj4gVW5kZXIgY2VydGFpbiBjb25kaXRpb25zIGd1ZXN0cyBj
+YW4gZ2V0IHRoZSBDUFUgc3R1Y2sgaW4gYW4gdW5ib3VuZGVkDQo+IGxvb3Agd2l0aG91dCB0aGUg
+cG9zc2liaWxpdHkgb2YgYW4gaW50ZXJydXB0IHdpbmRvdyB0byBvY2N1ciBvbg0KPiBpbnN0cnVj
+dGlvbiBib3VuZGFyeS4gIFRoaXMgd2FzIHRoZSBjYXNlIHdpdGggdGhlIHNjZW5hcmlvcyBkZXNj
+cmliZWQNCj4gaW4gWFNBLTE1Ni4NCj4gDQo+IE1ha2UgdXNlIG9mIHRoZSBOb3RpZnkgVk0gRXhp
+dCBtZWNoYW5pc20sIHRoYXQgd2lsbCB0cmlnZ2VyIGEgVk0gRXhpdA0KPiBpZiBubyBpbnRlcnJ1
+cHQgd2luZG93IG9jY3VycyBmb3IgYSBzcGVjaWZpZWQgYW1vdW50IG9mIHRpbWUuICBOb3RlDQo+
+IHRoYXQgdXNpbmcgdGhlIE5vdGlmeSBWTSBFeGl0IGF2b2lkcyBoYXZpbmcgdG8gdHJhcCAjQUMg
+YW5kICNEQg0KPiBleGNlcHRpb25zLCBhcyBYZW4gaXMgZ3VhcmFudGVlZCB0byBnZXQgYSBWTSBF
+eGl0IGV2ZW4gaWYgdGhlIGd1ZXN0DQo+IHB1dHMgdGhlIENQVSBpbiBhIGxvb3Agd2l0aG91dCBh
+biBpbnRlcnJ1cHQgd2luZG93LCBhcyBzdWNoIGRpc2FibGUNCj4gdGhlIGludGVyY2VwdHMgaWYg
+dGhlIGZlYXR1cmUgaXMgYXZhaWxhYmxlIGFuZCBlbmFibGVkLg0KPiANCj4gU2V0dGluZyB0aGUg
+bm90aWZ5IFZNIGV4aXQgd2luZG93IHRvIDAgaXMgc2FmZSBiZWNhdXNlIHRoZXJlJ3MgYQ0KPiB0
+aHJlc2hvbGQgYWRkZWQgYnkgdGhlIGhhcmR3YXJlIGluIG9yZGVyIHRvIGhhdmUgYSBzYW5lIHdp
+bmRvdyB2YWx1ZS4NCj4gDQo+IFN1Z2dlc3RlZC1ieTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNv
+b3BlcjNAY2l0cml4LmNvbT4NCj4gU2lnbmVkLW9mZi1ieTogUm9nZXIgUGF1IE1vbm7DqSA8cm9n
+ZXIucGF1QGNpdHJpeC5jb20+DQo+IC0tLQ0KPiBDaGFuZ2VzIHNpbmNlIHYxOg0KPiAgLSBQcm9w
+ZXJseSB1cGRhdGUgZGVidWcgc3RhdGUgd2hlbiB1c2luZyBub3RpZnkgVk0gZXhpdC4NCj4gIC0g
+UmV3b3JkIGNvbW1pdCBtZXNzYWdlLg0KPiAtLS0NCj4gVGhpcyBjaGFuZ2UgZW5hYmxlcyB0aGUg
+bm90aWZ5IFZNIGV4aXQgYnkgZGVmYXVsdCwgS1ZNIGhvd2V2ZXIgZG9lc24ndA0KPiBzZWVtIHRv
+IGVuYWJsZSBpdCBieSBkZWZhdWx0LCBhbmQgdGhlcmUncyB0aGUgZm9sbG93aW5nIG5vdGUgaW4g
+dGhlDQo+IGNvbW1pdCBtZXNzYWdlOg0KPiANCj4gIi0gVGhlcmUncyBhIHBvc3NpYmlsaXR5LCBo
+b3dldmVyIHNtYWxsLCB0aGF0IGEgbm90aWZ5IFZNIGV4aXQgaGFwcGVucw0KPiAgICB3aXRoIFZN
+X0NPTlRFWFRfSU5WQUxJRCBzZXQgaW4gZXhpdCBxdWFsaWZpY2F0aW9uLiBJbiB0aGlzIGNhc2Us
+IHRoZQ0KPiAgICB2Y3B1IGNhbiBubyBsb25nZXIgcnVuLiBUbyBhdm9pZCBraWxsaW5nIGEgd2Vs
+bC1iZWhhdmVkIGd1ZXN0LCBzZXQNCj4gICAgbm90aWZ5IHdpbmRvdyBhcyAtMSB0byBkaXNhYmxl
+IHRoaXMgZmVhdHVyZSBieSBkZWZhdWx0LiINCj4gDQo+IEl0J3Mgbm90IG9idmlvdXNseSBjbGVh
+ciB0byBtZSB3aGV0aGVyIHRoZSBjb21tZW50IHdhcyBtZWFudCB0byBiZToNCj4gIlRoZXJlJ3Mg
+YSBwb3NzaWJpbGl0eSwgaG93ZXZlciBzbWFsbCwgdGhhdCBhIG5vdGlmeSBWTSBleGl0IF93cm9u
+Z2x5Xw0KPiBoYXBwZW5zIHdpdGggVk1fQ09OVEVYVF9JTlZBTElEIi4NCj4gDQo+IEl0J3MgYWxz
+byBub3QgY2xlYXIgd2hldGhlciBzdWNoIHdyb25nIGhhcmR3YXJlIGJlaGF2aW9yIG9ubHkgYWZm
+ZWN0cw0KPiBhIHNwZWNpZmljIHNldCBvZiBoYXJkd2FyZSwgaW4gYSB3YXkgdGhhdCB3ZSBjb3Vs
+ZCBhdm9pZCBlbmFibGluZw0KPiBub3RpZnkgVk0gZXhpdCB0aGVyZS4NCj4gDQo+IFRoZXJlJ3Mg
+YSBkaXNjdXNzaW9uIGluIG9uZSBvZiB0aGUgTGludXggcGF0Y2hlcyB0aGF0IDEyOEsgbWlnaHQg
+YmUNCj4gdGhlIHNhZmVyIHZhbHVlIGluIG9yZGVyIHRvIHByZXZlbnQgZmFsc2UgcG9zaXRpdmVz
+LCBidXQgSSBoYXZlIG5vDQo+IGZvcm1hbCBjb25maXJtYXRpb24gYWJvdXQgdGhpcy4gIE1heWJl
+IG91ciBJbnRlbCBtYWludGFpbmVycyBjYW4NCj4gcHJvdmlkZSBzb21lIG1vcmUgZmVlZGJhY2sg
+b24gYSBzdWl0YWJsZSBub3RpZnkgVk0gZXhpdCB3aW5kb3cNCj4gdmFsdWUuDQo+IA0KPiBJJ3Zl
+IHRlc3RlZCB3aXRoIDAgKHRoZSBwcm9wb3NlZCBkZWZhdWx0IGluIHRoZSBwYXRjaCkgYW5kIEkg
+ZG9uJ3QNCj4gc2VlbSB0byBiZSBhYmxlIHRvIHRyaWdnZXIgbm90aWZ5IFZNIGV4aXRzIHVuZGVy
+IG5vcm1hbCBndWVzdA0KPiBvcGVyYXRpb24uICBOb3RlIHRoYXQgZXZlbiBpbiB0aGF0IGNhc2Ug
+dGhlIGd1ZXN0IHdvbid0IGJlIGRlc3Ryb3llZA0KPiB1bmxlc3MgdGhlIGNvbnRleHQgaXMgY29y
+cnVwdC4NCj4gLS0tDQo+ICBkb2NzL21pc2MveGVuLWNvbW1hbmQtbGluZS5wYW5kb2MgICAgICAg
+fCAxMSArKysrKysrKysNCj4gIHhlbi9hcmNoL3g4Ni9odm0vdm14L3ZtY3MuYyAgICAgICAgICAg
+ICB8IDE5ICsrKysrKysrKysrKysrKw0KPiAgeGVuL2FyY2gveDg2L2h2bS92bXgvdm14LmMgICAg
+ICAgICAgICAgIHwgMzIgKysrKysrKysrKysrKysrKysrKysrKystLQ0KPiAgeGVuL2FyY2gveDg2
+L2luY2x1ZGUvYXNtL2h2bS92bXgvdm1jcy5oIHwgIDQgKysrKw0KPiAgeGVuL2FyY2gveDg2L2lu
+Y2x1ZGUvYXNtL2h2bS92bXgvdm14LmggIHwgIDYgKysrKysNCj4gIHhlbi9hcmNoL3g4Ni9pbmNs
+dWRlL2FzbS9wZXJmY19kZWZuLmggICB8ICAzICsrLQ0KPiAgNiBmaWxlcyBjaGFuZ2VkLCA3MiBp
+bnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RvY3MvbWlz
+Yy94ZW4tY29tbWFuZC1saW5lLnBhbmRvYyBiL2RvY3MvbWlzYy94ZW4tDQo+IGNvbW1hbmQtbGlu
+ZS5wYW5kb2MNCj4gaW5kZXggMWRjN2UxY2EwNy4uY2NmOGJmNTgwNiAxMDA2NDQNCj4gLS0tIGEv
+ZG9jcy9taXNjL3hlbi1jb21tYW5kLWxpbmUucGFuZG9jDQo+ICsrKyBiL2RvY3MvbWlzYy94ZW4t
+Y29tbWFuZC1saW5lLnBhbmRvYw0KPiBAQCAtMjU0NCw2ICsyNTQ0LDE3IEBAIGd1ZXN0IHdpbGwg
+bm90aWZ5IFhlbiB0aGF0IGl0IGhhcyBmYWlsZWQgdG8gYWNxdWlyZSBhDQo+IHNwaW5sb2NrLg0K
+PiAgPG1ham9yPiwgPG1pbm9yPiBhbmQgPGJ1aWxkPiBtdXN0IGJlIGludGVnZXJzLiBUaGUgdmFs
+dWVzIHdpbGwgYmUNCj4gIGVuY29kZWQgaW4gZ3Vlc3QgQ1BVSUQgMHg0MDAwMDAwMiBpZiB2aXJp
+ZGlhbiBlbmxpZ2h0ZW5tZW50cyBhcmUgZW5hYmxlZC4NCj4gDQo+ICsjIyMgdm0tbm90aWZ5LXdp
+bmRvdyAoSW50ZWwpDQo+ICs+IGA9IDxpbnRlZ2VyPmANCj4gKw0KPiArPiBEZWZhdWx0OiBgMGAN
+Cj4gKw0KPiArU3BlY2lmeSB0aGUgdmFsdWUgb2YgdGhlIFZNIE5vdGlmeSB3aW5kb3cgdXNlZCB0
+byBkZXRlY3QgbG9ja2VkIFZNcy4gU2V0DQo+IHRvIC0xDQo+ICt0byBkaXNhYmxlIHRoZSBmZWF0
+dXJlLiAgVmFsdWUgaXMgaW4gdW5pdHMgb2YgY3J5c3RhbCBjbG9jayBjeWNsZXMuDQo+ICsNCj4g
+K05vdGUgdGhlIGhhcmR3YXJlIG1pZ2h0IGFkZCBhIHRocmVzaG9sZCB0byB0aGUgcHJvdmlkZWQg
+dmFsdWUgaW4gb3JkZXIgdG8NCj4gbWFrZQ0KPiAraXQgc2FmZSwgYW5kIGhlbmNlIHVzaW5nIDAg
+aXMgZmluZS4NCj4gKw0KPiAgIyMjIHZwaWQgKEludGVsKQ0KPiAgPiBgPSA8Ym9vbGVhbj5gDQo+
+IA0KPiBkaWZmIC0tZ2l0IGEveGVuL2FyY2gveDg2L2h2bS92bXgvdm1jcy5jIGIveGVuL2FyY2gv
+eDg2L2h2bS92bXgvdm1jcy5jDQo+IGluZGV4IGQzODhlNjcyOWMuLjZjYjJjNmM2YjcgMTAwNjQ0
+DQo+IC0tLSBhL3hlbi9hcmNoL3g4Ni9odm0vdm14L3ZtY3MuYw0KPiArKysgYi94ZW4vYXJjaC94
+ODYvaHZtL3ZteC92bWNzLmMNCj4gQEAgLTY3LDYgKzY3LDkgQEAgaW50ZWdlcl9wYXJhbSgicGxl
+X2dhcCIsIHBsZV9nYXApOw0KPiAgc3RhdGljIHVuc2lnbmVkIGludCBfX3JlYWRfbW9zdGx5IHBs
+ZV93aW5kb3cgPSA0MDk2Ow0KPiAgaW50ZWdlcl9wYXJhbSgicGxlX3dpbmRvdyIsIHBsZV93aW5k
+b3cpOw0KPiANCj4gK3N0YXRpYyB1bnNpZ25lZCBpbnQgX19yb19hZnRlcl9pbml0IHZtX25vdGlm
+eV93aW5kb3c7DQo+ICtpbnRlZ2VyX3BhcmFtKCJ2bS1ub3RpZnktd2luZG93Iiwgdm1fbm90aWZ5
+X3dpbmRvdyk7DQo+ICsNCj4gIHN0YXRpYyBib29sIF9fcmVhZF9tb3N0bHkgb3B0X2VwdF9wbWwg
+PSB0cnVlOw0KPiAgc3RhdGljIHM4IF9fcmVhZF9tb3N0bHkgb3B0X2VwdF9hZCA9IC0xOw0KPiAg
+aW50OF90IF9fcmVhZF9tb3N0bHkgb3B0X2VwdF9leGVjX3NwID0gLTE7DQo+IEBAIC0yMTAsNiAr
+MjEzLDcgQEAgc3RhdGljIHZvaWQgX19pbml0IHZteF9kaXNwbGF5X2ZlYXR1cmVzKHZvaWQpDQo+
+ICAgICAgUChjcHVfaGFzX3ZteF9wbWwsICJQYWdlIE1vZGlmaWNhdGlvbiBMb2dnaW5nIik7DQo+
+ICAgICAgUChjcHVfaGFzX3ZteF90c2Nfc2NhbGluZywgIlRTQyBTY2FsaW5nIik7DQo+ICAgICAg
+UChjcHVfaGFzX3ZteF9idXNfbG9ja19kZXRlY3Rpb24sICJCdXMgTG9jayBEZXRlY3Rpb24iKTsN
+Cj4gKyAgICBQKGNwdV9oYXNfdm14X25vdGlmeV92bV9leGl0aW5nLCAiTm90aWZ5IFZNIEV4aXQi
+KTsNCj4gICN1bmRlZiBQDQo+IA0KPiAgICAgIGlmICggIXByaW50ZWQgKQ0KPiBAQCAtMzI5LDYg
+KzMzMyw4IEBAIHN0YXRpYyBpbnQgdm14X2luaXRfdm1jc19jb25maWcoYm9vbCBic3ApDQo+ICAg
+ICAgICAgICAgICBvcHQgfD0gU0VDT05EQVJZX0VYRUNfVU5SRVNUUklDVEVEX0dVRVNUOw0KPiAg
+ICAgICAgICBpZiAoIG9wdF9lcHRfcG1sICkNCj4gICAgICAgICAgICAgIG9wdCB8PSBTRUNPTkRB
+UllfRVhFQ19FTkFCTEVfUE1MOw0KPiArICAgICAgICBpZiAoIHZtX25vdGlmeV93aW5kb3cgIT0g
+fjB1ICkNCj4gKyAgICAgICAgICAgIG9wdCB8PSBTRUNPTkRBUllfRVhFQ19OT1RJRllfVk1fRVhJ
+VElORzsNCj4gDQo+ICAgICAgICAgIC8qDQo+ICAgICAgICAgICAqICJBUElDIFJlZ2lzdGVyIFZp
+cnR1YWxpemF0aW9uIiBhbmQgIlZpcnR1YWwgSW50ZXJydXB0IERlbGl2ZXJ5Ig0KPiBAQCAtMTMz
+Myw2ICsxMzM5LDE5IEBAIHN0YXRpYyBpbnQgY29uc3RydWN0X3ZtY3Moc3RydWN0IHZjcHUgKnYp
+DQo+ICAgICAgICAgIHJjID0gdm14X2FkZF9tc3IodiwgTVNSX0ZMVVNIX0NNRCwgRkxVU0hfQ01E
+X0wxRCwNCj4gICAgICAgICAgICAgICAgICAgICAgICAgICBWTVhfTVNSX0dVRVNUX0xPQURPTkxZ
+KTsNCj4gDQo+ICsgICAgaWYgKCBjcHVfaGFzX3ZteF9ub3RpZnlfdm1fZXhpdGluZyApDQo+ICsg
+ICAgew0KPiArICAgICAgICBfX3Ztd3JpdGUoTk9USUZZX1dJTkRPVywgdm1fbm90aWZ5X3dpbmRv
+dyk7DQo+ICsgICAgICAgIC8qDQo+ICsgICAgICAgICAqIERpc2FibGUgI0FDIGFuZCAjREIgaW50
+ZXJjZXB0aW9uOiBieSB1c2luZyBWTSBOb3RpZnkgWGVuIGlzDQo+ICsgICAgICAgICAqIGd1YXJh
+bnRlZWQgdG8gZ2V0IGEgVk0gZXhpdCBldmVuIGlmIHRoZSBndWVzdCBtYW5hZ2VzIHRvIGxvY2sg
+dGhlDQo+ICsgICAgICAgICAqIENQVS4NCj4gKyAgICAgICAgICovDQo+ICsgICAgICAgIHYtPmFy
+Y2guaHZtLnZteC5leGNlcHRpb25fYml0bWFwICY9IH4oKDFVIDw8IFRSQVBfZGVidWcpIHwNCj4g
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoMVUgPDwgVFJB
+UF9hbGlnbm1lbnRfY2hlY2spKTsNCj4gKyAgICAgICAgdm14X3VwZGF0ZV9leGNlcHRpb25fYml0
+bWFwKHYpOw0KPiArICAgIH0NCj4gKw0KPiAgIG91dDoNCj4gICAgICB2bXhfdm1jc19leGl0KHYp
+Ow0KPiANCj4gZGlmZiAtLWdpdCBhL3hlbi9hcmNoL3g4Ni9odm0vdm14L3ZteC5jIGIveGVuL2Fy
+Y2gveDg2L2h2bS92bXgvdm14LmMNCj4gaW5kZXggNjk5ODBjOGUzMS4uZDNjMTU5N2IzZSAxMDA2
+NDQNCj4gLS0tIGEveGVuL2FyY2gveDg2L2h2bS92bXgvdm14LmMNCj4gKysrIGIveGVuL2FyY2gv
+eDg2L2h2bS92bXgvdm14LmMNCj4gQEAgLTE0MTksMTAgKzE0MTksMTkgQEAgc3RhdGljIHZvaWQg
+Y2ZfY2hlY2sgdm14X3VwZGF0ZV9ob3N0X2NyMyhzdHJ1Y3QNCj4gdmNwdSAqdikNCj4gDQo+ICB2
+b2lkIHZteF91cGRhdGVfZGVidWdfc3RhdGUoc3RydWN0IHZjcHUgKnYpDQo+ICB7DQo+ICsgICAg
+dW5zaWduZWQgaW50IG1hc2sgPSAxdSA8PCBUUkFQX2ludDM7DQo+ICsNCj4gKyAgICBpZiAoICFj
+cHVfaGFzX21vbml0b3JfdHJhcF9mbGFnICYmIGNwdV9oYXNfdm14X25vdGlmeV92bV9leGl0aW5n
+ICkNCj4gKyAgICAgICAgLyoNCj4gKyAgICAgICAgICogT25seSBhbGxvdyB0b2dnbGluZyBUUkFQ
+X2RlYnVnIGlmIG5vdGlmeSBWTSBleGl0IGlzIGVuYWJsZWQsIGFzDQo+ICsgICAgICAgICAqIHVu
+Y29uZGl0aW9uYWxseSBzZXR0aW5nIFRSQVBfZGVidWcgaXMgcGFydCBvZiB0aGUgWFNBLTE1NiBm
+aXguDQo+ICsgICAgICAgICAqLw0KPiArICAgICAgICBtYXNrIHw9IDF1IDw8IFRSQVBfZGVidWc7
+DQo+ICsNCj4gICAgICBpZiAoIHYtPmFyY2guaHZtLmRlYnVnX3N0YXRlX2xhdGNoICkNCj4gLSAg
+ICAgICAgdi0+YXJjaC5odm0udm14LmV4Y2VwdGlvbl9iaXRtYXAgfD0gMVUgPDwgVFJBUF9pbnQz
+Ow0KPiArICAgICAgICB2LT5hcmNoLmh2bS52bXguZXhjZXB0aW9uX2JpdG1hcCB8PSBtYXNrOw0K
+PiAgICAgIGVsc2UNCj4gLSAgICAgICAgdi0+YXJjaC5odm0udm14LmV4Y2VwdGlvbl9iaXRtYXAg
+Jj0gfigxVSA8PCBUUkFQX2ludDMpOw0KPiArICAgICAgICB2LT5hcmNoLmh2bS52bXguZXhjZXB0
+aW9uX2JpdG1hcCAmPSB+bWFzazsNCj4gDQo+ICAgICAgdm14X3ZtY3NfZW50ZXIodik7DQo+ICAg
+ICAgdm14X3VwZGF0ZV9leGNlcHRpb25fYml0bWFwKHYpOw0KPiBAQCAtNDE1NSw2ICs0MTY0LDkg
+QEAgdm9pZCB2bXhfdm1leGl0X2hhbmRsZXIoc3RydWN0IGNwdV91c2VyX3JlZ3MNCj4gKnJlZ3Mp
+DQo+ICAgICAgICAgIHN3aXRjaCAoIHZlY3RvciApDQo+ICAgICAgICAgIHsNCj4gICAgICAgICAg
+Y2FzZSBUUkFQX2RlYnVnOg0KPiArICAgICAgICAgICAgaWYgKCBjcHVfaGFzX21vbml0b3JfdHJh
+cF9mbGFnICYmIGNwdV9oYXNfdm14X25vdGlmeV92bV9leGl0aW5nICkNCj4gKyAgICAgICAgICAg
+ICAgICBnb3RvIGV4aXRfYW5kX2NyYXNoOw0KPiArDQo+ICAgICAgICAgICAgICAvKg0KPiAgICAg
+ICAgICAgICAgICogVXBkYXRlcyBEUjYgd2hlcmUgZGVidWdnZXIgY2FuIHBlZWsgKFNlZSAzQiAy
+My4yLjEsDQo+ICAgICAgICAgICAgICAgKiBUYWJsZSAyMy0xLCAiRXhpdCBRdWFsaWZpY2F0aW9u
+IGZvciBEZWJ1ZyBFeGNlcHRpb25zIikuDQo+IEBAIC00NTkzLDYgKzQ2MDUsMjIgQEAgdm9pZCB2
+bXhfdm1leGl0X2hhbmRsZXIoc3RydWN0IGNwdV91c2VyX3JlZ3MNCj4gKnJlZ3MpDQo+ICAgICAg
+ICAgICAqLw0KPiAgICAgICAgICBicmVhazsNCj4gDQo+ICsgICAgY2FzZSBFWElUX1JFQVNPTl9O
+T1RJRlk6DQo+ICsgICAgICAgIF9fdm1yZWFkKEVYSVRfUVVBTElGSUNBVElPTiwgJmV4aXRfcXVh
+bGlmaWNhdGlvbik7DQo+ICsNCj4gKyAgICAgICAgaWYgKCBleGl0X3F1YWxpZmljYXRpb24gJiBO
+T1RJRllfVk1fQ09OVEVYVF9JTlZBTElEICkNCj4gKyAgICAgICAgew0KPiArICAgICAgICAgICAg
+cGVyZmNfaW5jcih2bW5vdGlmeV9jcmFzaCk7DQo+ICsgICAgICAgICAgICBncHJpbnRrKFhFTkxP
+R19FUlIsICJpbnZhbGlkIFZNIGNvbnRleHQgYWZ0ZXIgbm90aWZ5IHZtZXhpdFxuIik7DQo+ICsg
+ICAgICAgICAgICBkb21haW5fY3Jhc2godi0+ZG9tYWluKTsNCj4gKyAgICAgICAgICAgIGJyZWFr
+Ow0KPiArICAgICAgICB9DQo+ICsNCj4gKyAgICAgICAgaWYgKCB1bmxpa2VseShleGl0X3F1YWxp
+ZmljYXRpb24gJg0KPiBJTlRSX0lORk9fTk1JX1VOQkxPQ0tFRF9CWV9JUkVUKSApDQo+ICsgICAg
+ICAgICAgICB1bmRvX25taXNfdW5ibG9ja2VkX2J5X2lyZXQoKTsNCj4gKw0KPiArICAgICAgICBi
+cmVhazsNCj4gKw0KPiAgICAgIGNhc2UgRVhJVF9SRUFTT05fVk1YX1BSRUVNUFRJT05fVElNRVJf
+RVhQSVJFRDoNCj4gICAgICBjYXNlIEVYSVRfUkVBU09OX0lOVlBDSUQ6DQo+ICAgICAgLyogZmFs
+bCB0aHJvdWdoICovDQo+IGRpZmYgLS1naXQgYS94ZW4vYXJjaC94ODYvaW5jbHVkZS9hc20vaHZt
+L3ZteC92bWNzLmgNCj4gYi94ZW4vYXJjaC94ODYvaW5jbHVkZS9hc20vaHZtL3ZteC92bWNzLmgN
+Cj4gaW5kZXggNWQzZWRjMTY0Mi4uMDk2MWVhYmYzZiAxMDA2NDQNCj4gLS0tIGEveGVuL2FyY2gv
+eDg2L2luY2x1ZGUvYXNtL2h2bS92bXgvdm1jcy5oDQo+ICsrKyBiL3hlbi9hcmNoL3g4Ni9pbmNs
+dWRlL2FzbS9odm0vdm14L3ZtY3MuaA0KPiBAQCAtMjY3LDYgKzI2Nyw3IEBAIGV4dGVybiB1MzIg
+dm14X3ZtZW50cnlfY29udHJvbDsNCj4gICNkZWZpbmUgU0VDT05EQVJZX0VYRUNfWFNBVkVTICAg
+ICAgICAgICAgICAgICAgIDB4MDAxMDAwMDANCj4gICNkZWZpbmUgU0VDT05EQVJZX0VYRUNfVFND
+X1NDQUxJTkcgICAgICAgICAgICAgIDB4MDIwMDAwMDANCj4gICNkZWZpbmUgU0VDT05EQVJZX0VY
+RUNfQlVTX0xPQ0tfREVURUNUSU9OICAgICAgIDB4NDAwMDAwMDANCj4gKyNkZWZpbmUgU0VDT05E
+QVJZX0VYRUNfTk9USUZZX1ZNX0VYSVRJTkcgICAgICAgIDB4ODAwMDAwMDANCj4gIGV4dGVybiB1
+MzIgdm14X3NlY29uZGFyeV9leGVjX2NvbnRyb2w7DQo+IA0KPiAgI2RlZmluZSBWTVhfRVBUX0VY
+RUNfT05MWV9TVVBQT1JURUQgICAgICAgICAgICAgICAgICAgICAgICAgMHgwMDAwMDAwMQ0KPiBA
+QCAtMzQ4LDYgKzM0OSw4IEBAIGV4dGVybiB1NjQgdm14X2VwdF92cGlkX2NhcDsNCj4gICAgICAo
+dm14X3NlY29uZGFyeV9leGVjX2NvbnRyb2wgJiBTRUNPTkRBUllfRVhFQ19UU0NfU0NBTElORykN
+Cj4gICNkZWZpbmUgY3B1X2hhc192bXhfYnVzX2xvY2tfZGV0ZWN0aW9uIFwNCj4gICAgICAodm14
+X3NlY29uZGFyeV9leGVjX2NvbnRyb2wgJg0KPiBTRUNPTkRBUllfRVhFQ19CVVNfTE9DS19ERVRF
+Q1RJT04pDQo+ICsjZGVmaW5lIGNwdV9oYXNfdm14X25vdGlmeV92bV9leGl0aW5nIFwNCj4gKyAg
+ICAodm14X3NlY29uZGFyeV9leGVjX2NvbnRyb2wgJg0KPiBTRUNPTkRBUllfRVhFQ19OT1RJRllf
+Vk1fRVhJVElORykNCj4gDQo+ICAjZGVmaW5lIFZNQ1NfUklEX1RZUEVfTUFTSyAgICAgICAgICAg
+ICAgMHg4MDAwMDAwMA0KPiANCj4gQEAgLTQ1NSw2ICs0NTgsNyBAQCBlbnVtIHZtY3NfZmllbGQg
+ew0KPiAgICAgIFNFQ09OREFSWV9WTV9FWEVDX0NPTlRST0wgICAgICAgPSAweDAwMDA0MDFlLA0K
+PiAgICAgIFBMRV9HQVAgICAgICAgICAgICAgICAgICAgICAgICAgPSAweDAwMDA0MDIwLA0KPiAg
+ICAgIFBMRV9XSU5ET1cgICAgICAgICAgICAgICAgICAgICAgPSAweDAwMDA0MDIyLA0KPiArICAg
+IE5PVElGWV9XSU5ET1cgICAgICAgICAgICAgICAgICAgPSAweDAwMDA0MDI0LA0KPiAgICAgIFZN
+X0lOU1RSVUNUSU9OX0VSUk9SICAgICAgICAgICAgPSAweDAwMDA0NDAwLA0KPiAgICAgIFZNX0VY
+SVRfUkVBU09OICAgICAgICAgICAgICAgICAgPSAweDAwMDA0NDAyLA0KPiAgICAgIFZNX0VYSVRf
+SU5UUl9JTkZPICAgICAgICAgICAgICAgPSAweDAwMDA0NDA0LA0KPiBkaWZmIC0tZ2l0IGEveGVu
+L2FyY2gveDg2L2luY2x1ZGUvYXNtL2h2bS92bXgvdm14LmgNCj4gYi94ZW4vYXJjaC94ODYvaW5j
+bHVkZS9hc20vaHZtL3ZteC92bXguaA0KPiBpbmRleCBiYzBjYWFkNmZiLi5lNDI5ZGU4NTQxIDEw
+MDY0NA0KPiAtLS0gYS94ZW4vYXJjaC94ODYvaW5jbHVkZS9hc20vaHZtL3ZteC92bXguaA0KPiAr
+KysgYi94ZW4vYXJjaC94ODYvaW5jbHVkZS9hc20vaHZtL3ZteC92bXguaA0KPiBAQCAtMjIxLDYg
+KzIyMSw3IEBAIHN0YXRpYyBpbmxpbmUgdm9pZCBwaV9jbGVhcl9zbihzdHJ1Y3QgcGlfZGVzYyAq
+cGlfZGVzYykNCj4gICNkZWZpbmUgRVhJVF9SRUFTT05fWFNBVkVTICAgICAgICAgICAgICA2Mw0K
+PiAgI2RlZmluZSBFWElUX1JFQVNPTl9YUlNUT1JTICAgICAgICAgICAgIDY0DQo+ICAjZGVmaW5l
+IEVYSVRfUkVBU09OX0JVU19MT0NLICAgICAgICAgICAgNzQNCj4gKyNkZWZpbmUgRVhJVF9SRUFT
+T05fTk9USUZZICAgICAgICAgICAgICA3NQ0KPiAgLyogUmVtZW1iZXIgdG8gYWxzbyB1cGRhdGUg
+Vk1YX1BFUkZfRVhJVF9SRUFTT05fU0laRSEgKi8NCj4gDQo+ICAvKg0KPiBAQCAtMjM2LDYgKzIz
+NywxMSBAQCBzdGF0aWMgaW5saW5lIHZvaWQgcGlfY2xlYXJfc24oc3RydWN0IHBpX2Rlc2MgKnBp
+X2Rlc2MpDQo+ICAjZGVmaW5lIElOVFJfSU5GT19WQUxJRF9NQVNLICAgICAgICAgICAgMHg4MDAw
+MDAwMCAgICAgIC8qIDMxICovDQo+ICAjZGVmaW5lIElOVFJfSU5GT19SRVNWRF9CSVRTX01BU0sg
+ICAgICAgMHg3ZmZmZjAwMA0KPiANCj4gKy8qDQo+ICsgKiBFeGl0IFF1YWxpZmljYXRpb25zIGZv
+ciBOT1RJRlkgVk0gRVhJVA0KPiArICovDQo+ICsjZGVmaW5lIE5PVElGWV9WTV9DT05URVhUX0lO
+VkFMSUQgICAgICAgMXUNCj4gKw0KPiAgLyoNCj4gICAqIEV4aXQgUXVhbGlmaWNhdGlvbnMgZm9y
+IE1PViBmb3IgQ29udHJvbCBSZWdpc3RlciBBY2Nlc3MNCj4gICAqLw0KPiBkaWZmIC0tZ2l0IGEv
+eGVuL2FyY2gveDg2L2luY2x1ZGUvYXNtL3BlcmZjX2RlZm4uaA0KPiBiL3hlbi9hcmNoL3g4Ni9p
+bmNsdWRlL2FzbS9wZXJmY19kZWZuLmgNCj4gaW5kZXggZDZlYjY2MTk0MC4uYzZiNjAxYjcyOSAx
+MDA2NDQNCj4gLS0tIGEveGVuL2FyY2gveDg2L2luY2x1ZGUvYXNtL3BlcmZjX2RlZm4uaA0KPiAr
+KysgYi94ZW4vYXJjaC94ODYvaW5jbHVkZS9hc20vcGVyZmNfZGVmbi5oDQo+IEBAIC02LDcgKzYs
+NyBAQCBQRVJGQ09VTlRFUl9BUlJBWShleGNlcHRpb25zLCAgICAgICAgICAgImV4Y2VwdGlvbnMi
+LCAzMikNCj4gDQo+ICAjaWZkZWYgQ09ORklHX0hWTQ0KPiANCj4gLSNkZWZpbmUgVk1YX1BFUkZf
+RVhJVF9SRUFTT05fU0laRSA3NQ0KPiArI2RlZmluZSBWTVhfUEVSRl9FWElUX1JFQVNPTl9TSVpF
+IDc2DQo+ICAjZGVmaW5lIFZNRVhJVF9OUEZfUEVSRkMgMTQzDQo+ICAjZGVmaW5lIFNWTV9QRVJG
+X0VYSVRfUkVBU09OX1NJWkUgKFZNRVhJVF9OUEZfUEVSRkMgKyAxKQ0KPiAgUEVSRkNPVU5URVJf
+QVJSQVkodm1leGl0cywgICAgICAgICAgICAgICJ2bWV4aXRzIiwNCj4gQEAgLTEyNiw1ICsxMjYs
+NiBAQCBQRVJGQ09VTlRFUihyZWFsbW9kZV9leGl0cywgICAgICAidm1leGl0cyBmcm9tDQo+IHJl
+YWxtb2RlIikNCj4gIFBFUkZDT1VOVEVSKHBhdXNlbG9vcF9leGl0cywgInZtZXhpdHMgZnJvbSBQ
+YXVzZS1Mb29wIERldGVjdGlvbiIpDQo+IA0KPiAgUEVSRkNPVU5URVIoYnVzbG9jaywgIkJ1cyBM
+b2NrcyBEZXRlY3RlZCIpDQo+ICtQRVJGQ09VTlRFUih2bW5vdGlmeV9jcmFzaCwgImRvbWFpbnMg
+Y3Jhc2hlZCBieSBOb3RpZnkgVk0gRXhpdCIpDQo+IA0KPiAgLyojZW5kaWYqLyAvKiBfX1hFTl9Q
+RVJGQ19ERUZOX0hfXyAqLw0KPiAtLQ0KPiAyLjM2LjANCg0K
 
