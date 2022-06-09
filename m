@@ -2,29 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBC05544CB3
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Jun 2022 14:55:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.345446.571003 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E74F2544D23
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Jun 2022 15:09:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.345455.571013 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzHhQ-0004Wp-KZ; Thu, 09 Jun 2022 12:55:44 +0000
+	id 1nzHuS-0006CZ-Un; Thu, 09 Jun 2022 13:09:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 345446.571003; Thu, 09 Jun 2022 12:55:44 +0000
+Received: by outflank-mailman (output) from mailman id 345455.571013; Thu, 09 Jun 2022 13:09:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzHhQ-0004UR-GL; Thu, 09 Jun 2022 12:55:44 +0000
-Received: by outflank-mailman (input) for mailman id 345446;
- Thu, 09 Jun 2022 12:55:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pGOA=WQ=citrix.com=prvs=1525abdf4=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nzHhO-0004UL-WF
- for xen-devel@lists.xenproject.org; Thu, 09 Jun 2022 12:55:43 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 770ab48a-e7f3-11ec-bd2c-47488cf2e6aa;
- Thu, 09 Jun 2022 14:55:41 +0200 (CEST)
+	id 1nzHuS-00069r-RH; Thu, 09 Jun 2022 13:09:12 +0000
+Received: by outflank-mailman (input) for mailman id 345455;
+ Thu, 09 Jun 2022 13:02:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=7WWr=WQ=suse.com=pmladek@srs-se1.protection.inumbo.net>)
+ id 1nzHnx-0005xS-2Y
+ for xen-devel@lists.xenproject.org; Thu, 09 Jun 2022 13:02:29 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 697c06a5-e7f4-11ec-8b38-e96605d6a9a5;
+ Thu, 09 Jun 2022 15:02:28 +0200 (CEST)
+Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
+ by smtp-out1.suse.de (Postfix) with ESMTP id A55BE21F03;
+ Thu,  9 Jun 2022 13:02:26 +0000 (UTC)
+Received: from suse.cz (unknown [10.100.208.146])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by relay2.suse.de (Postfix) with ESMTPS id 6EA862C141;
+ Thu,  9 Jun 2022 13:02:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,151 +44,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 770ab48a-e7f3-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1654779341;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=An32kfb/a4ZZeopdzRTufgZnUzRsPAd2oqnosPKHT+Y=;
-  b=PwCInauNT+t1PVr0OuRmkKs1ghHTYcs+OMNT1M1A8orK60ihsLRCxwgY
-   aafEXQ45p4Q6eH/TB/8wXf7QT5Qe2tXTpcZaoersmSXA3ZRAN5/1N7bce
-   i4xdig2nsFsLIMlP2V6dcCPNTtK7IuxSLNtsL4nWoNFoONOj4f3eaRqTi
-   Q=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 75780608
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:QfMLaKluh8wU5BAcxp5fE77o5gyYJkRdPkR7XQ2eYbSJt1+Wr1Gzt
- xIbWW2GOfbcajH8fd91OYyy9EkFsZ/dmNNnGQBkrH1nESMWpZLJC+rCIxarNUt+DCFioGGLT
- Sk6QoOdRCzhZiaE/n9BCpC48T8kk/vgqoPUUIYoAAgoLeNfYHpn2EsLd9IR2NYy24DnW1PV4
- rsenuWEULOb828sWo4rw/rrRCNH5JwebxtB4zTSzdgS1LPvvyF94KA3fMldHFOhKmVgJcaoR
- v6r8V2M1jixEyHBqD+Suu2TnkUiGtY+NOUV45Zcc/DKbhNq/kTe3kunXRa1hIg+ZzihxrhMJ
- NtxWZOYECIbPfDontshDBBXSwhbIYprwoL6CC3q2SCT5xWun3rExvxvCAc9PJEC+/YxCmZLn
- RAaAGlTNFbZ3bvwme/lDLk37iggBJCD0Ic3s3d8zTbfHLA+TIrKWani7t5ExjYgwMtJGJ4yY
- uJGNGU/NEqYM3WjPH8zVqoyo7yypkPjKTJgpnWr4vIO/1XqmVkZPL/Fb4OOJ43iqd9utkSFo
- mPL+UzpDxdcM8aQoRKe6W6ljOLLmSL9WaoRGae++/osh0ecrkQMDDUGWF39puO24maUVshDM
- UUS9mwLpLIr6U2wZtDnWluzp3vslhwWVsdUEuY6wBqQ0aeS6AGcbkAUQzgEZNE4ucseQT0xy
- kTPj97vHSZosrCeVTSa7Lj8kN+pEXFLdylYP3ZCFFZbpYm4yG0usv7RZo9GIq3oqtvKJW75z
- GijiTQZqo8usOdegs1X4mv7byKQSonhF1BouluKBD71sWuVd6b+OdX2tAGzAeJoad/AEwLf5
- CVsd922trhmMH2bqMCarAzh9pmN7u3NDjDTiEUH83IJp2X0oC7LkWy9DVhDyKZV3iUsI2aBj
- Lf741852XOqFCLCgVVLS4ywEd826qPrCM7oUPvZBvIXPMUtK1bcpnEyOxXIt4wIrKTLufhnU
- ap3jO72VSpKYUiZ5GHeqxghPU8DmXllmDK7qWHTxBW7y7uODEOopUM+GALWNIgRtfrcyC2Mq
- oo3H5bamn13DbylCgGKoNF7ELz/BSVibXwAg5cMLbDrz8sPMDxJNsI9Npt4Itw8xP8Ny7eZl
- px/M2cBoGfCabT8AV3iQhhehHnHBP6TcVpT0fQQAGuV
-IronPort-HdrOrdr: A9a23:NRW1TaiofwuBzpXKcC1OeGAL8nBQXtgji2hC6mlwRA09TySZ//
- rOoB0+726StN9xYgBFpTnuAsW9qB/nmqKdpLNhW4tKPzOW3VdATrsSjrcKqgeIc0aVm9K1l5
- 0QEZSWYOeAdGSS5vyb3ODXKbgd/OU=
-X-IronPort-AV: E=Sophos;i="5.91,287,1647316800"; 
-   d="scan'208";a="75780608"
-Date: Thu, 9 Jun 2022 13:55:25 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-CC: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH 1/4] build: xen/include: use if_changed
-Message-ID: <YqHtvZPQJOAFt/8K@perard.uk.xensource.com>
-References: <20220601165909.46588-1-anthony.perard@citrix.com>
- <20220601165909.46588-2-anthony.perard@citrix.com>
- <6EE2C13C-7218-4063-8C73-88695C6BF4CE@arm.com>
- <0d85ad23-a232-eac3-416f-fff4d5ec1a93@suse.com>
- <258D1BE1-8E77-4748-A64C-6F080B9C1539@arm.com>
+X-Inumbo-ID: 697c06a5-e7f4-11ec-8b38-e96605d6a9a5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1654779746; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WNgY7GyrprNl76LhtyM4yyAr1//LVOR4uCT8xLqGCE8=;
+	b=ojtY10eQLedQ1p8W7bkgtPGLkS2AZjpFLq6Jm7M5r6QmnKTONMm4DEE4c/QdWiGdnShevp
+	eIN6ALkkVVj/WhUF02Ld8MHz00y8tRrFQ0iNR/EUdLO4UR9+Vq8VAuuJcSid16nMNGAGa3
+	XvOmhnJPAVDKUKq8/PtY3J2tLln4dQU=
+Date: Thu, 9 Jun 2022 15:02:20 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, ink@jurassic.park.msu.ru,
+	mattst88@gmail.com, vgupta@kernel.org, linux@armlinux.org.uk,
+	ulli.kroll@googlemail.com, linus.walleij@linaro.org,
+	shawnguo@kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+	kernel@pengutronix.de, festevam@gmail.com, linux-imx@nxp.com,
+	tony@atomide.com, khilman@kernel.org, catalin.marinas@arm.com,
+	will@kernel.org, guoren@kernel.org, bcain@quicinc.com,
+	chenhuacai@kernel.org, kernel@xen0n.name, geert@linux-m68k.org,
+	sammy@sammy.net, monstr@monstr.eu, tsbogend@alpha.franken.de,
+	dinguyen@kernel.org, jonas@southpole.se,
+	stefan.kristiansson@saunalahti.fi, shorne@gmail.com,
+	James.Bottomley@hansenpartnership.com, deller@gmx.de,
+	mpe@ellerman.id.au, benh@kernel.crashing.org, paulus@samba.org,
+	paul.walmsley@sifive.com, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+	hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+	borntraeger@linux.ibm.com, svens@linux.ibm.com,
+	ysato@users.sourceforge.jp, dalias@libc.org, davem@davemloft.net,
+	richard@nod.at, anton.ivanov@cambridgegreys.com,
+	johannes@sipsolutions.net, tglx@linutronix.de, mingo@redhat.com,
+	bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
+	hpa@zytor.com, acme@kernel.org, mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com, jolsa@kernel.org,
+	namhyung@kernel.org, jgross@suse.com, srivatsa@csail.mit.edu,
+	amakhalov@vmware.com, pv-drivers@vmware.com,
+	boris.ostrovsky@oracle.com, chris@zankel.net, jcmvbkbc@gmail.com,
+	rafael@kernel.org, lenb@kernel.org, pavel@ucw.cz,
+	gregkh@linuxfoundation.org, mturquette@baylibre.com,
+	sboyd@kernel.org, daniel.lezcano@linaro.org, lpieralisi@kernel.org,
+	sudeep.holla@arm.com, agross@kernel.org, bjorn.andersson@linaro.org,
+	anup@brainfault.org, thierry.reding@gmail.com, jonathanh@nvidia.com,
+	jacob.jun.pan@linux.intel.com, Arnd Bergmann <arnd@arndb.de>,
+	yury.norov@gmail.com, andriy.shevchenko@linux.intel.com,
+	linux@rasmusvillemoes.dk, rostedt@goodmis.org,
+	john.ogness@linutronix.de, paulmck@kernel.org, frederic@kernel.org,
+	quic_neeraju@quicinc.com, josh@joshtriplett.org,
+	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
+	joel@joelfernandes.org, juri.lelli@redhat.com,
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+	bsegall@google.com, mgorman@suse.de, bristot@redhat.com,
+	vschneid@redhat.com, jpoimboe@kernel.org,
+	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-snps-arc@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-omap@vger.kernel.org,
+	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
+	linux-ia64@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+	linux-mips@vger.kernel.org, openrisc@lists.librecores.org,
+	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+	linux-sh@vger.kernel.org, sparclinux@vger.kernel.org,
+	linux-um@lists.infradead.org, linux-perf-users@vger.kernel.org,
+	virtualization@lists.linux-foundation.org,
+	xen-devel@lists.xenproject.org, linux-xtensa@linux-xtensa.org,
+	linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-tegra@vger.kernel.org, linux-arch@vger.kernel.org,
+	rcu@vger.kernel.org
+Subject: Re: [PATCH 24/36] printk: Remove trace_.*_rcuidle() usage
+Message-ID: <YqHvXFdIJfvUDI6e@alley>
+References: <20220608142723.103523089@infradead.org>
+ <20220608144517.444659212@infradead.org>
+ <YqG6URbihTNCk9YR@alley>
+ <YqHFHB6qqv5wiR8t@worktop.programming.kicks-ass.net>
+ <CA+_sPaoJGrXhNPCs2dKf2J7u07y1xYrRFZBUtkKwzK9GqcHSuQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <258D1BE1-8E77-4748-A64C-6F080B9C1539@arm.com>
+In-Reply-To: <CA+_sPaoJGrXhNPCs2dKf2J7u07y1xYrRFZBUtkKwzK9GqcHSuQ@mail.gmail.com>
 
-On Thu, Jun 09, 2022 at 11:51:20AM +0000, Bertrand Marquis wrote:
-> Hi,
+On Thu 2022-06-09 20:30:58, Sergey Senozhatsky wrote:
+> My emails are getting rejected... Let me try web-interface
+
+Bad day for mail sending. I have problems as well ;-)
+
+> Kudos to Petr for the questions and thanks to PeterZ for the answers.
 > 
-> > On 9 Jun 2022, at 11:26, Jan Beulich <jbeulich@suse.com> wrote:
-> > 
-> > On 09.06.2022 12:16, Bertrand Marquis wrote:
-> >> With this change, compiling for x86 is now ending up in:
-> >> CHK     include/headers99.chk
-> >> make[9]: execvp: /bin/sh: Argument list too long
-> >> make[9]: *** [include/Makefile:181: include/headers++.chk] Error 127
-> >> 
-> >> Not quite sure yet why but I wanted to signal it early as other might be impacted.
-> >> 
-> >> Arm and arm64 builds are not impacted.
-> > 
-> > Hmm, that patch has passed the smoke push gate already, so there likely is
-> > more to it than there being an unconditional issue. I did build-test this
-> > before pushing, and I've just re-tested on a 2nd system without seeing an
-> > issue.
+> On Thu, Jun 9, 2022 at 7:02 PM Peter Zijlstra <peterz@infradead.org> wrote:
+> > This is the tracepoint used to spool all of printk into ftrace, I
+> > suspect there's users, but I haven't used it myself.
 > 
-> I have the problem only when building using Yocto, I did a normal build and the
-> issue is not coming.
-> 
+> I'm somewhat curious whether we can actually remove that trace event.
 
-Will the following patch help?
+Good question.
 
+Well, I think that it might be useful. It allows to see trace and
+printk messages together.
 
-From 0f32f749304b233c0d5574dc6b14f66e8709feba Mon Sep 17 00:00:00 2001
-From: Anthony PERARD <anthony.perard@citrix.com>
-Date: Thu, 9 Jun 2022 13:42:52 +0100
-Subject: [XEN PATCH] build,include: rework shell script for headers++.chk
+It was ugly when it was in the console code. The new location
+in vprintk_store() allows to have it even "correctly" sorted
+(timestamp) against other tracing messages.
 
-The command line generated for headers++.chk by make is quite long,
-and in some environment it is too long. This issue have been seen in
-Yocto build environment.
-
-Error messages:
-    make[9]: execvp: /bin/sh: Argument list too long
-    make[9]: *** [include/Makefile:181: include/headers++.chk] Error 127
-
-Rework to that we do the foreach loop in shell rather that make to
-reduce the command line size by a lot. We also need a way to get
-headers prerequisite for some public headers so we use a switch "case"
-in shell to be able to do some simple pattern matching. Variables
-alone in POSIX shell don't allow to work with associative array or
-variables with "/".
-
-Reported-by: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Fixes: 28e13c7f43 ("build: xen/include: use if_changed")
-Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
----
- xen/include/Makefile | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
-
-diff --git a/xen/include/Makefile b/xen/include/Makefile
-index 6d9bcc19b0..ca5e868f38 100644
---- a/xen/include/Makefile
-+++ b/xen/include/Makefile
-@@ -158,13 +158,22 @@ define cmd_headerscxx_chk
- 	    touch $@.new;                                                     \
- 	    exit 0;                                                           \
- 	fi;                                                                   \
--	$(foreach i, $(filter %.h,$^),                                        \
--	    echo "#include "\"$(i)\"                                          \
-+	get_prereq() {                                                        \
-+	    case $$1 in                                                       \
-+	    $(foreach i, $(filter %.h,$^),                                    \
-+	    $(if $($(patsubst $(srctree)/%,%,$i)-prereq),                     \
-+		$(patsubst $(srctree)/%,%,$i)$(close)                         \
-+		echo "$(foreach j, $($(patsubst $(srctree)/%,%,$i)-prereq),   \
-+			-include c$(j))";;))                                  \
-+	    esac;                                                             \
-+	};                                                                    \
-+	for i in $(filter %.h,$^); do                                         \
-+	    echo "#include "\"$$i\"                                           \
- 	    | $(CXX) -x c++ -std=gnu++98 -Wall -Werror -D__XEN_TOOLS__        \
- 	      -include stdint.h -include $(srcdir)/public/xen.h               \
--	      $(foreach j, $($(patsubst $(srctree)/%,%,$i)-prereq), -include c$(j)) \
-+	      `get_prereq $$i`                                                \
- 	      -S -o /dev/null -                                               \
--	    || exit $$?; echo $(i) >> $@.new;) \
-+	    || exit $$?; echo $$i >> $@.new; done;                            \
- 	mv $@.new $@
- endef
- 
-
-
-
--- 
-Anthony PERARD
+Best Regards,
+Petr
 
