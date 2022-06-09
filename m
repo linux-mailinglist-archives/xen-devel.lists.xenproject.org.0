@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2510544527
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Jun 2022 09:57:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.344720.570283 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54C7D54451E
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Jun 2022 09:50:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.344710.570270 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzD31-0003Ag-KJ; Thu, 09 Jun 2022 07:57:43 +0000
+	id 1nzCuZ-0001Wi-NB; Thu, 09 Jun 2022 07:48:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 344720.570283; Thu, 09 Jun 2022 07:57:43 +0000
+Received: by outflank-mailman (output) from mailman id 344710.570270; Thu, 09 Jun 2022 07:48:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzD31-00037E-HJ; Thu, 09 Jun 2022 07:57:43 +0000
-Received: by outflank-mailman (input) for mailman id 344720;
- Thu, 09 Jun 2022 07:56:48 +0000
+	id 1nzCuZ-0001UJ-KR; Thu, 09 Jun 2022 07:48:59 +0000
+Received: by outflank-mailman (input) for mailman id 344710;
+ Thu, 09 Jun 2022 07:40:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=bepE=WQ=atomide.com=tony@srs-se1.protection.inumbo.net>)
- id 1nzD28-00036P-1l
- for xen-devel@lists.xenproject.org; Thu, 09 Jun 2022 07:56:48 +0000
-Received: from muru.com (muru.com [72.249.23.125])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id b4f1d3a2-e7c9-11ec-b605-df0040e90b76;
- Thu, 09 Jun 2022 09:56:45 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by muru.com (Postfix) with ESMTPS id 88FEF80F1;
- Thu,  9 Jun 2022 07:34:50 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0Zro=WQ=intel.com=xiaoyao.li@srs-se1.protection.inumbo.net>)
+ id 1nzCmR-0001BI-8p
+ for xen-devel@lists.xenproject.org; Thu, 09 Jun 2022 07:40:35 +0000
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6f95386f-e7c7-11ec-b605-df0040e90b76;
+ Thu, 09 Jun 2022 09:40:32 +0200 (CEST)
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2022 00:39:38 -0700
+Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.255.28.173])
+ ([10.255.28.173])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2022 00:39:36 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,156 +43,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b4f1d3a2-e7c9-11ec-b605-df0040e90b76
-Date: Thu, 9 Jun 2022 10:39:22 +0300
-From: Tony Lindgren <tony@atomide.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Richard Henderson <rth@twiddle.net>,
-	Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
-	Matt Turner <mattst88@gmail.com>, Vineet Gupta <vgupta@kernel.org>,
-	Russell King - ARM Linux <linux@armlinux.org.uk>,
-	Hans Ulli Kroll <ulli.kroll@googlemail.com>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Sascha Hauer <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	NXP Linux Team <linux-imx@nxp.com>,
-	Kevin Hilman <khilman@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>,
-	bcain@quicinc.com, Huacai Chen <chenhuacai@kernel.org>,
-	Xuerui Wang <kernel@xen0n.name>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Sam Creasey <sammy@sammy.net>, Michal Simek <monstr@monstr.eu>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Dinh Nguyen <dinguyen@kernel.org>, Jonas Bonn <jonas@southpole.se>,
-	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
-	Stafford Horne <shorne@gmail.com>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Helge Deller <deller@gmx.de>, Michael Ellerman <mpe@ellerman.id.au>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	Paul Mackerras <paulus@samba.org>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>, David Miller <davem@davemloft.net>,
-	Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	the arch/x86 maintainers <x86@kernel.org>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
-	Juergen Gross <jgross@suse.com>, srivatsa@csail.mit.edu,
-	amakhalov@vmware.com, Pv-drivers <pv-drivers@vmware.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>,
-	Rafael Wysocki <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
-	Pavel Machek <pavel@ucw.cz>, gregkh <gregkh@linuxfoundation.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>, lpieralisi@kernel.org,
-	Sudeep Holla <sudeep.holla@arm.com>, Andy Gross <agross@kernel.org>,
-	Bjorn Andersson <bjorn.andersson@linaro.org>,
-	Anup Patel <anup@brainfault.org>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	jacob.jun.pan@linux.intel.com, Yury Norov <yury.norov@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Petr Mladek <pmladek@suse.com>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	John Ogness <john.ogness@linutronix.de>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>, quic_neeraju@quicinc.com,
-	Josh Triplett <josh@joshtriplett.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Joel Fernandes <joel@joelfernandes.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Daniel Bristot de Oliveira <bristot@redhat.com>,
-	vschneid@redhat.com, jpoimboe@kernel.org,
-	alpha <linux-alpha@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	"open list:SYNOPSYS ARC ARCHITECTURE" <linux-snps-arc@lists.infradead.org>,
-	Linux ARM <linux-arm-kernel@lists.infradead.org>,
-	linux-omap <linux-omap@vger.kernel.org>, linux-csky@vger.kernel.org,
-	"open list:QUALCOMM HEXAGON..." <linux-hexagon@vger.kernel.org>,
-	"open list:IA64 (Itanium) PLATFORM" <linux-ia64@vger.kernel.org>,
-	linux-m68k <linux-m68k@lists.linux-m68k.org>,
-	"open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
-	Openrisc <openrisc@lists.librecores.org>,
-	Parisc List <linux-parisc@vger.kernel.org>,
-	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
-	linux-riscv <linux-riscv@lists.infradead.org>,
-	linux-s390 <linux-s390@vger.kernel.org>,
-	Linux-sh list <linux-sh@vger.kernel.org>,
-	sparclinux <sparclinux@vger.kernel.org>,
-	linux-um <linux-um@lists.infradead.org>,
-	linux-perf-users@vger.kernel.org,
-	"open list:DRM DRIVER FOR QEMU'S CIRRUS DEVICE" <virtualization@lists.linux-foundation.org>,
-	xen-devel <xen-devel@lists.xenproject.org>,
-	"open list:TENSILICA XTENSA PORT (xtensa)" <linux-xtensa@linux-xtensa.org>,
-	ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
-	Linux PM list <linux-pm@vger.kernel.org>,
-	linux-clk <linux-clk@vger.kernel.org>,
-	linux-arm-msm <linux-arm-msm@vger.kernel.org>,
-	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
-	linux-arch <linux-arch@vger.kernel.org>, rcu@vger.kernel.org
-Subject: Re: [PATCH 33/36] cpuidle,omap3: Use WFI for omap3_pm_idle()
-Message-ID: <YqGjqgSrTRseJW6M@atomide.com>
-References: <20220608142723.103523089@infradead.org>
- <20220608144518.010587032@infradead.org>
- <CAK8P3a0g-fNu9=BUECSXcNeWT7XWHQMnSXZE-XYE+5eakHxKxA@mail.gmail.com>
+X-Inumbo-ID: 6f95386f-e7c7-11ec-b605-df0040e90b76
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1654760432; x=1686296432;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=5n59FDDxmhbu2HSu9CH2sYVaxYeqlNolsszNS27NcpQ=;
+  b=AOfJJlgt+jlvPWtQGPeKOGyCSDt92ltI8L2PR70k1wFwcJ3VL5f+mSUi
+   /tyiEVmPHyC0nEyceVl+ywQrRKzXzJ1yC4YZxLxc7B7KXaER5yCeBUolB
+   rQ8GPQ7zsg4QelBpQWJBRmohcOkLpuLFU77Jp3MHIkc7xtzceLO2vz4h6
+   bqscNACjaq7NgaJCtEH3oNmq4FnkgOK3lYOH+YqZraeEvCSN7CoDPttyC
+   H5OjCIr9GalQvPbAEgOi7HzJUdVd21tXUdQ6XaFLLLFdJpDoYxMQp5utU
+   dHyKtNiiha7Ev5LsXoqmF4f7ouqlh/mfwn26o1m63ZaJoTIld96xERzu1
+   Q==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10372"; a="363513210"
+X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; 
+   d="scan'208";a="363513210"
+X-IronPort-AV: E=Sophos;i="5.91,287,1647327600"; 
+   d="scan'208";a="908134993"
+Message-ID: <4f2c4d5b-dab8-c9d2-f4c2-b8cd44011630@intel.com>
+Date: Thu, 9 Jun 2022 15:39:33 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAK8P3a0g-fNu9=BUECSXcNeWT7XWHQMnSXZE-XYE+5eakHxKxA@mail.gmail.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.9.0
+Subject: Re: [PATCH v2 3/3] x86/vmx: implement Notify VM Exit
+Content-Language: en-US
+To: "Tian, Kevin" <kevin.tian@intel.com>,
+ =?UTF-8?Q?Pau_Monn=c3=a9=2c_Roger?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: "Cooper, Andrew" <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, "Beulich, Jan"
+ <JBeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ "Nakajima, Jun" <jun.nakajima@intel.com>,
+ "Qiang, Chenyi" <chenyi.qiang@intel.com>
+References: <20220526111157.24479-1-roger.pau@citrix.com>
+ <20220526111157.24479-4-roger.pau@citrix.com>
+ <BN9PR11MB5276B16CB69514120B7E0E318CA79@BN9PR11MB5276.namprd11.prod.outlook.com>
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <BN9PR11MB5276B16CB69514120B7E0E318CA79@BN9PR11MB5276.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-* Arnd Bergmann <arnd@arndb.de> [220608 18:18]:
-> On Wed, Jun 8, 2022 at 4:27 PM Peter Zijlstra <peterz@infradead.org> wrote:
-> >
-> > arch_cpu_idle() is a very simple idle interface and exposes only a
-> > single idle state and is expected to not require RCU and not do any
-> > tracing/instrumentation.
-> >
-> > As such, omap_sram_idle() is not a valid implementation. Replace it
-> > with the simple (shallow) omap3_do_wfi() call. Leaving the more
-> > complicated idle states for the cpuidle driver.
-
-Agreed it makes sense to limit deeper idle states to cpuidle. Hopefully
-there is some informative splat for attempting to use arch_cpu_ide()
-for deeper idle states :)
-
-> I see similar code in omap2:
+On 6/9/2022 3:04 PM, Tian, Kevin wrote:
+> +Chenyi/Xiaoyao who worked on the KVM support. Presumably
+> similar opens have been discussed in KVM hence they have the
+> right background to comment here.
 > 
-> omap2_pm_idle()
->  -> omap2_enter_full_retention()
->      -> omap2_sram_suspend()
-> 
-> Is that code path safe to use without RCU or does it need a similar change?
+>> From: Roger Pau Monne <roger.pau@citrix.com>
+>> Sent: Thursday, May 26, 2022 7:12 PM
+>>
+>> Under certain conditions guests can get the CPU stuck in an unbounded
+>> loop without the possibility of an interrupt window to occur on
+>> instruction boundary.  This was the case with the scenarios described
+>> in XSA-156.
+>>
+>> Make use of the Notify VM Exit mechanism, that will trigger a VM Exit
+>> if no interrupt window occurs for a specified amount of time.  Note
+>> that using the Notify VM Exit avoids having to trap #AC and #DB
+>> exceptions, as Xen is guaranteed to get a VM Exit even if the guest
+>> puts the CPU in a loop without an interrupt window, as such disable
+>> the intercepts if the feature is available and enabled.
+>>
+>> Setting the notify VM exit window to 0 is safe because there's a
+>> threshold added by the hardware in order to have a sane window value.
+>>
+>> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>> ---
+>> Changes since v1:
+>>   - Properly update debug state when using notify VM exit.
+>>   - Reword commit message.
+>> ---
+>> This change enables the notify VM exit by default, KVM however doesn't
+>> seem to enable it by default, and there's the following note in the
+>> commit message:
+>>
+>> "- There's a possibility, however small, that a notify VM exit happens
+>>     with VM_CONTEXT_INVALID set in exit qualification. In this case, the
+>>     vcpu can no longer run. To avoid killing a well-behaved guest, set
+>>     notify window as -1 to disable this feature by default."
+>>
+>> It's not obviously clear to me whether the comment was meant to be:
+>> "There's a possibility, however small, that a notify VM exit _wrongly_
+>> happens with VM_CONTEXT_INVALID".
+>>
+>> It's also not clear whether such wrong hardware behavior only affects
+>> a specific set of hardware, 
 
-Seems like a similar change should be done for omap2. Then anybody who
-cares to implement a minimal cpuidle support can do so.
+I'm not sure what you mean for a specific set of hardware.
 
-Regards,
+We make it default off in KVM just in case that future silicon wrongly 
+sets VM_CONTEXT_INVALID bit. Becuase we make the policy that VM cannot 
+continue running in that case.
 
-Tony
+For the worst case, if some future silicon happens to have this kind 
+silly bug, then the existing product kernel all suffer the possibility 
+that their VM being killed due to the feature is default on.
+
+>> in a way that we could avoid enabling
+>> notify VM exit there.
+>>
+>> There's a discussion in one of the Linux patches that 128K might be
+>> the safer value in order to prevent false positives, but I have no
+>> formal confirmation about this.  Maybe our Intel maintainers can
+>> provide some more feedback on a suitable notify VM exit window
+>> value.
+
+The 128k is the internal threshold for SPR silicon. The internal 
+threshold is tuned by Intel for each silicon, to make sure it's big 
+enough to avoid false positive even when user set vmcs.notify_window to 0.
+
+However, it varies for different processor generations.
+
+What is the suitable value is hard to say, it depends on how soon does 
+VMM want to intercept the VM. Anyway, Intel ensures that even value 0 is 
+safe.
+
+>>
+>> I've tested with 0 (the proposed default in the patch) and I don't
+>> seem to be able to trigger notify VM exits under normal guest
+>> operation.  Note that even in that case the guest won't be destroyed
+>> unless the context is corrupt.
+>> ---
+
+
 
