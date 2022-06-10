@@ -2,77 +2,81 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39AC3545BEF
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jun 2022 07:54:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.345792.571479 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4953A545BEB
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jun 2022 07:54:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.345795.571510 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzXaj-0007Dn-Te; Fri, 10 Jun 2022 05:53:53 +0000
+	id 1nzXap-00088F-6b; Fri, 10 Jun 2022 05:53:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 345792.571479; Fri, 10 Jun 2022 05:53:53 +0000
+Received: by outflank-mailman (output) from mailman id 345795.571510; Fri, 10 Jun 2022 05:53:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzXaj-0007BF-Mg; Fri, 10 Jun 2022 05:53:53 +0000
-Received: by outflank-mailman (input) for mailman id 345792;
- Fri, 10 Jun 2022 05:53:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nzXap-00084u-1Z; Fri, 10 Jun 2022 05:53:59 +0000
+Received: by outflank-mailman (input) for mailman id 345795;
+ Fri, 10 Jun 2022 05:53:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=B4Vh=WR=arm.com=Wei.Chen@srs-se1.protection.inumbo.net>)
- id 1nzXah-00078y-Sq
- for xen-devel@lists.xenproject.org; Fri, 10 Jun 2022 05:53:52 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on0610.outbound.protection.outlook.com
- [2a01:111:f400:fe0c::610])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b252cbcc-e881-11ec-8b38-e96605d6a9a5;
- Fri, 10 Jun 2022 07:53:48 +0200 (CEST)
-Received: from AS9PR05CA0002.eurprd05.prod.outlook.com (2603:10a6:20b:488::35)
- by AM0PR08MB5155.eurprd08.prod.outlook.com (2603:10a6:208:15f::17)
+ id 1nzXan-0006br-4D
+ for xen-devel@lists.xenproject.org; Fri, 10 Jun 2022 05:53:57 +0000
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ (mail-dbaeur03on2062d.outbound.protection.outlook.com
+ [2a01:111:f400:fe1a::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b6dd9b8d-e881-11ec-bd2c-47488cf2e6aa;
+ Fri, 10 Jun 2022 07:53:56 +0200 (CEST)
+Received: from AS8PR05CA0001.eurprd05.prod.outlook.com (2603:10a6:20b:311::6)
+ by AM4PR0802MB2275.eurprd08.prod.outlook.com (2603:10a6:200:63::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.11; Fri, 10 Jun
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.12; Fri, 10 Jun
  2022 05:53:45 +0000
-Received: from VE1EUR03FT051.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:488:cafe::90) by AS9PR05CA0002.outlook.office365.com
- (2603:10a6:20b:488::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.14 via Frontend
+Received: from VE1EUR03FT026.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:311:cafe::20) by AS8PR05CA0001.outlook.office365.com
+ (2603:10a6:20b:311::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.15 via Frontend
  Transport; Fri, 10 Jun 2022 05:53:45 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- VE1EUR03FT051.mail.protection.outlook.com (10.152.19.75) with
+ VE1EUR03FT026.mail.protection.outlook.com (10.152.18.148) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.20.5332.12 via Frontend Transport; Fri, 10 Jun 2022 05:53:44 +0000
-Received: ("Tessian outbound e40990bc24d7:v120");
+Received: ("Tessian outbound 6f53897bcd4e:v120");
  Fri, 10 Jun 2022 05:53:44 +0000
-Received: from 68f3d0fdfe0a.1
+Received: from c852e8c72b8f.1
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- F780FB04-C8D7-46D0-98EC-33D5B5BAAEBE.1; 
- Fri, 10 Jun 2022 05:53:37 +0000
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 68f3d0fdfe0a.1
+ 99BE106C-8132-402C-B53A-215209236EB4.1; 
+ Fri, 10 Jun 2022 05:53:38 +0000
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id c852e8c72b8f.1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 10 Jun 2022 05:53:37 +0000
-Received: from AS9PR05CA0008.eurprd05.prod.outlook.com (2603:10a6:20b:488::28)
- by AM8PR08MB6435.eurprd08.prod.outlook.com (2603:10a6:20b:317::13)
+ Fri, 10 Jun 2022 05:53:38 +0000
+Received: from AS9PR05CA0005.eurprd05.prod.outlook.com (2603:10a6:20b:488::12)
+ by PAXPR08MB7623.eurprd08.prod.outlook.com (2603:10a6:102:241::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.11; Fri, 10 Jun
- 2022 05:53:32 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.14; Fri, 10 Jun
+ 2022 05:53:34 +0000
 Received: from AM5EUR03FT003.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:488:cafe::e1) by AS9PR05CA0008.outlook.office365.com
- (2603:10a6:20b:488::28) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10a6:20b:488:cafe::bb) by AS9PR05CA0005.outlook.office365.com
+ (2603:10a6:20b:488::12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5332.15 via Frontend
- Transport; Fri, 10 Jun 2022 05:53:32 +0000
+ Transport; Fri, 10 Jun 2022 05:53:34 +0000
 Received: from nebula.arm.com (40.67.248.234) by
  AM5EUR03FT003.mail.protection.outlook.com (10.152.16.149) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5332.12 via Frontend Transport; Fri, 10 Jun 2022 05:53:31 +0000
-Received: from AZ-NEU-EX04.Arm.com (10.251.24.32) by AZ-NEU-EX03.Arm.com
+ 15.20.5332.12 via Frontend Transport; Fri, 10 Jun 2022 05:53:34 +0000
+Received: from AZ-NEU-EX01.Emea.Arm.com (10.251.26.4) by AZ-NEU-EX03.Arm.com
  (10.251.24.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.27; Fri, 10 Jun
- 2022 05:53:25 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.27; Fri, 10 Jun
+ 2022 05:53:29 +0000
+Received: from AZ-NEU-EX04.Arm.com (10.251.24.32) by AZ-NEU-EX01.Emea.Arm.com
+ (10.251.26.4) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.27; Fri, 10
+ Jun 2022 05:53:28 +0000
 Received: from ais-wip-ds.shanghai.arm.com (10.169.190.86) by mail.arm.com
  (10.251.24.32) with Microsoft SMTP Server id 15.1.2308.27 via Frontend
- Transport; Fri, 10 Jun 2022 05:53:22 +0000
+ Transport; Fri, 10 Jun 2022 05:53:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -84,14 +88,14 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b252cbcc-e881-11ec-8b38-e96605d6a9a5
+X-Inumbo-ID: b6dd9b8d-e881-11ec-bd2c-47488cf2e6aa
 ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=F+UezYvx7ynEFWPzZKMVLYnkY8ho1BbsxYOeU6jnqWZs5ijTljwbBIG6/pcOsCqiG6SJhjcGOauQBTXmAPsD8ircrngWcHTCzDz3srgSv9DBSKNTKvZopCqrJc7Hth7igpnwxWDEjiRSBlJ/NKQP2fTFcjnO4qob/DhSQ9PLL/K6wsDTwsg+0U9iY6a2qulHihEvvlQ0ptMEHu4AxCX+x8sBAxnQ9EyRG+3GkArbSBU+Kv5M1SHNAsi1EiE5chr4rsIlnrb393tgDAebtTE8BggZ2jmajo/QP9355KfZKZ27so1JS8GJdPYCr07eSIDL5JcjETk5jhVuwvCvNqb24A==
+ b=fG43HVGRzqgv268RgH4ZlslKXSyLWt+AjAAzjwzu/88XreU0HjoZ1HiIQY43wgnEOaZOG2jG+d1l+2u8+MN9ts6LohKPgslEfYhhOa0ofVKx5OrM9CMXgbkvqeImRr8PzAMyvX+Ric4wid8e/Joq9LlSPr2dzHe0K3Q1QiuM6sxOGZdJCc4oFjcFSrg61nb+KSzJibK1WIZ1QHXXSWJsOvT6oUZ6UpZqXNBRykB05MK7uEdahhv0hsZAoZRQJcPA9CEl+nSGfqrYPhX7jHr70Oigh8OLQKLMG64QN6OareLiicHheuPoe8fuHhWPWR98mz7aVzXsaxWakR0jzNiBYg==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h1Mk+96NdZCuYCNVMfuYJAf8YYMD5xhqAKxBbA5l6eU=;
- b=Box0C1tXqYBo77Cwteykhnycv/SiTPkA9Dh2UzBSvky7La1DcVdW0o+bBQh5Gg8W67o7JpXdhN9IKogHKSlGp0simasq3ncplDhv5t9emZxkSyYfQpvKiQzXcUg1WPHB/jMaPBEkkMXuCIkHe6NSvRh35IKjK1cIa2csyrt0Eymx1QrdPOzlXwC6on62tzzqCLFpp6xJKJpTSY5XXcBGhj4i8CzP0uFZjfxPXcAkEVZJ/pl75eGEWi7uFNVNgha/iX0HIC+8UBEc6YwZEJe85fuoDsKZn6Jmk3IMGuOGOWTRJ5BmMo9YOi0cI0iH59L/RY0NBLCvqEXrq0BaA2gBsg==
+ bh=fe/7SCgP8Par+1oz7XY3pgQuiN9XdtDg0NAdMEO3/oI=;
+ b=OlC9r1/ueG6jm8gcw95bdK8Z7Zd2N7RdOjjsuu+vs69MqQhcGfJSQG93zqv2oAcco5DquPDRVtOW73i+YD7F5Uv7DhbFR5XtspbG4mZ0lsfY/VkwYzBJ4pnmra1+CTCEhD6NfKTLMmguuAAuBf+TkT9DVHSY/9afynxohCgRIxuyoJWHmOa7V7DDRxebJ2FmsSDWyyaO3YzGiWIbxMkJCK/gdAYxlv3eDuCt+G8AmtNW4VI196GKWj7ph2mq+OVRQahfxVY9ywE8O9ifxs5hnz2cm1be2vePFaYbb7bQndPSIen30BpKNpiAprqNMWG9MOzWQHBCdCbliCh/DNaUhQ==
 ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
@@ -100,8 +104,8 @@ ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h1Mk+96NdZCuYCNVMfuYJAf8YYMD5xhqAKxBbA5l6eU=;
- b=hk0LL7BZPrbco/PiUfd8AJb4426z/uNgEwO7nVPPMn8OhFeESDnlHhXRYIija5zeYVf/ZO+0OFQSiadJpW+X1H9R8FFmEniomwfuaa83FSSKQjW8ryE8c893vPWw/gwWehmf6fBAnvEpQ31l1t4UErPV5WcszWLGTzd4u2ks2Xs=
+ bh=fe/7SCgP8Par+1oz7XY3pgQuiN9XdtDg0NAdMEO3/oI=;
+ b=xL6oTVx1ND7vOKqNFhfazXVx4p1w9pO0FxHvDrc2vwwn1OcFsBdCMMHdH5rveBqbiHirUl900js6GHSFfwUnOIYdiswN0vWogY9lqYXTOH5KEXStixjodpxTIDGGMYZBz3BzFiGSo+Z3qwGNGRJI/8UNobRHVJ04aPoLOcPL8Yc=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; dkim=pass (signature was verified)
  header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
@@ -110,15 +114,15 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
  pr=C
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: 6fb21e0bb163feb8
+X-CR-MTA-CID: f2fc4f47abb0d7fd
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Uh9EFywxyJKcGYkOb28UY55GopgAUmI/G8CPP/Bl0mzJgvnzvxAC3YsvH2ow7A/XYJTMIA+e2hSW/WVrCupGNzPJihlakDQhW4ib8WGiHfoL9h3HuCnOq95Dc04eTD8D/qaUPpPbPl8nnJY7xec0z4R9zkeyqGhFpAk1PjB4osoNSAmMAxHIxwrmGXQGjYtjzPejW/87Tr3J2RiV0xJgLLtOYnkJmCNJi9KuPjwsaPQNooAXFw52TRKOVdizHmIbJZJW6eHHilMI89BfnziONzLjoZV2pSbNb5jGWgtuYF2fUBcXBpiUc6yBL1+363w02fcNaMAverKnFF5+7W0RJA==
+ b=Ddq0wSrEF0nEyvtRkGTdBTBFasFvFEJ/2RpAiQy4FzzM4Diz8aixV+ow9uRVMqPqg5O7TqkPmF0dgN7++UToo+qhuJ2oqpZU7W3Nmdj16+ACDzKtUoS7k6zU14kjFSXkBDD54RR8yn1y309NG28C8sGsiWhVYNxAwwr/LZxH0yl3025yXHGneY1vsnFGamesDIaNkKFLHSxnSLk15+67MOCFeZj1YUj6/X9W3jNAfSm2MSeW6HhEJO30Yj+K+5SuOuuMgpKjBZEo/Cvcji3E+eRKEgTqHprI7pNd+P+S0TKku44DVReQq2FLdZk5D4O0lFZGTKm11ctH7mCJg8xryg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h1Mk+96NdZCuYCNVMfuYJAf8YYMD5xhqAKxBbA5l6eU=;
- b=f5wVGbRczca9b7iqsquDTyMIjP81AZeNsOa8VciyIxwDojEV6QwlkmQE6QHI9zF8mnT2kWSlazSR39RSmrrEbgfaOMt3mbHuNuTYORqT4t38lFr+RV8EZG5Laxm/FNvSlzO58v+JYXt0xDeVezEaKHEotlVMD11c4YjhXikUEwrCPa0yjmA6/8V+uL/55TFPGY2xmID0u6yeXQ72pnTd9A2uJtuf1N1z++a3CyqF0mHu2Kdgxm0Ed3DkGhAq4X/MHKU0sV3Pxg3mRtCo3ru7pIj4//eeqRnxNKThXmp/kTdttnnaBU0qWRFBZHWZHCh2ZjUMp/uB3Fb3WbAU7KF8LA==
+ bh=fe/7SCgP8Par+1oz7XY3pgQuiN9XdtDg0NAdMEO3/oI=;
+ b=ne7FhMXp4O3E3hp7VmY8xSKeyWXP310ReNPJ1i4bflH7pbDw5sAxO8omrbvxrDFse1OkiRYovzW44cNlXKU1weIY2oa8ad0XR55R9EEL4yzHOsgVD8QsRRBDvO36RU20dtvHPj1VQdeswUbMtjDCeWyvhSAoEGrRWLoXOCazA/T0vTdUV5TxPCf2NzzZpjlrqvkQfieJGYFUJH+nBgao03lq4LLkgMOJF27JdecFuNba4ElSwoVuCIQG54YATvzj3OAeHOYksDERzw+QfsMfErkoSyhrFZ71Qie68B/xhX7Ih0P4K7rucKowWQFNGXD1JsZeGIVh3PbK57+tRIAXdg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  40.67.248.234) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
@@ -126,8 +130,8 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h1Mk+96NdZCuYCNVMfuYJAf8YYMD5xhqAKxBbA5l6eU=;
- b=hk0LL7BZPrbco/PiUfd8AJb4426z/uNgEwO7nVPPMn8OhFeESDnlHhXRYIija5zeYVf/ZO+0OFQSiadJpW+X1H9R8FFmEniomwfuaa83FSSKQjW8ryE8c893vPWw/gwWehmf6fBAnvEpQ31l1t4UErPV5WcszWLGTzd4u2ks2Xs=
+ bh=fe/7SCgP8Par+1oz7XY3pgQuiN9XdtDg0NAdMEO3/oI=;
+ b=xL6oTVx1ND7vOKqNFhfazXVx4p1w9pO0FxHvDrc2vwwn1OcFsBdCMMHdH5rveBqbiHirUl900js6GHSFfwUnOIYdiswN0vWogY9lqYXTOH5KEXStixjodpxTIDGGMYZBz3BzFiGSo+Z3qwGNGRJI/8UNobRHVJ04aPoLOcPL8Yc=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 40.67.248.234)
  smtp.mailfrom=arm.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=arm.com;
@@ -139,12 +143,10 @@ To: <xen-devel@lists.xenproject.org>
 CC: <nd@arm.com>, Wei Chen <wei.chen@arm.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
 	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>, Jiamei Xie <jiamei.xie@arm.com>
-Subject: [PATCH v6 1/8] xen: reuse x86 EFI stub functions for Arm
-Date: Fri, 10 Jun 2022 13:53:09 +0800
-Message-ID: <20220610055316.2197571-2-wei.chen@arm.com>
+	Jiamei Xie <jiamei.xie@arm.com>
+Subject: [PATCH v6 2/8] xen/arm: Keep memory nodes in device tree when Xen boots from EFI
+Date: Fri, 10 Jun 2022 13:53:10 +0800
+Message-ID: <20220610055316.2197571-3-wei.chen@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220610055316.2197571-1-wei.chen@arm.com>
 References: <20220610055316.2197571-1-wei.chen@arm.com>
@@ -152,272 +154,142 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 1
-X-MS-Office365-Filtering-Correlation-Id: 463e935d-7839-4355-975e-08da4aa5948a
+X-MS-Office365-Filtering-Correlation-Id: 171d5972-bd2d-4ed6-b68f-08da4aa59463
 X-MS-TrafficTypeDiagnostic:
-	AM8PR08MB6435:EE_|VE1EUR03FT051:EE_|AM0PR08MB5155:EE_
+	PAXPR08MB7623:EE_|VE1EUR03FT026:EE_|AM4PR0802MB2275:EE_
 X-Microsoft-Antispam-PRVS:
-	<AM0PR08MB515506C237728CA19B50837F9EA69@AM0PR08MB5155.eurprd08.prod.outlook.com>
+	<AM4PR0802MB2275290B3803D7A71E4136049EA69@AM4PR0802MB2275.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 NoDisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- X1PKdMnFiLCqt1sXEdQazsDfx4yVraZ/BRTkf7nOFH6HkP+9Vox0tmc9JrfstOa209dXiZWt8zQjW6hKHPPXfEtfYQ467dvejzN9hBEyCt36zwD2SdUkkEO4YzudOUZo9Ax7N/hUcbfgwJaymFmWVPmK/O+mqvmm4JgMfW9APAcuLZr3lNWOreAiSSzpyEWlF2aBahKmj2mOMcqAcgWf2rKY7B4tXSpdL5u0M7azPbbKn7bSfo0RoQsNfR7uwj4ZRsvnix63vVRMiCTfY1+9QxylWVOHN+M+1VdHcr+NDjtrDfYr5fBSFgW3IMm/wHu+iZ6WLv3SY7Qb8H7JJxxEs0KOHTxxxlNW5FxIecaXpGMcQo8M57JuQxkqMytXNrcVAmc0cIcFnxkRUrij3HWNbxPW+PzfIOWOu4Q9pg4JyP9a/WI0/w3D6kLnRfkYt7Sj9OqYUpgqmqTutBJpnTHQ8XLjAVH+/c+UhMCV32O6zAgGW3aIJ/gVU0rhZ3fB+2shDphQUw2/5Jq7Q8Z+5r46IekNtPwQWVS6GTyMIt8Mx15j6TNWScOVXOQXy+dlesbkTDdQktGRaqu0XmlyMUTFhKh+tnnazDzAFeroux9/QxB0SEl0lI8A/AY7buwNvNx8DnuHnaNqcQHjdXVwn/X4u2RSrNLzKzDQHOZXT4OeKJJLmcSuV1F0WhkzaRqkt9FHJroLmdlESRUW+4/vmpJYeIEvJona0y8X+lyTilUDWSs=
+ xqbBZG49TMPTCKs6rgn64JU+WscbTrWspYtSoyrw6puiiJ3/GI9+WB2DIxc/rlXK9rMdhkUtzf6bDk5CEnQZh1pKHozyVMPi2ItA3AkpCCWPhKatOOtIf6Zc5ac8zpx11QQvvbzsY+CbW6DZyyQHcNMmwse/gdYcyMxO6o5O1Ex80TZjsty3pa9rf6TT1YIxJ42EyC8D887KweUa7MuSeTumxmUgXalyZ5pkksBsbLmJH8GPU2xmf6mozAc30X5/GURz7UCgUrNDM0OAj0Wg+6SRxqXsoNnIRniJsWHCAB4pF6h51JepdDX0V9YplDxxktwXQwaGxaX0bOU4ukGjrBl7kaqiQN2Lif7wfgbBviAeFIhGzZpZNa2JYNi5pmhAMV4eD1pkDdONuzTgdw9cbFmSZJUeDro7vOPjnV6rGX/GdsIqXGn/XkgsV1WjcT4/eiEOs72jOTeTTdKaeD+ivZDsgt5wFGTkphVcNJTcMb5gDPKBtuIzSAhzZIke1f/7JpvlDxSh+MydCxJ3nBXqWiFvvleK4TAQ9Uvkf4SV4T0vqeV8FzdtzycliGgp7wPrR2DMXyeSA8Ihy5JrB+xFwrUf2+UH02tgcyCubM2g+JLXkLLlrCG5mBamgTuSsnKLLMnjve5x2RMeJLN22Oi7jP0IzY9nfjmjF+OiBSFfn8AbND1+nmyCKml12o0S55EAWiOVK81A7DIVs2xVvL+smA==
 X-Forefront-Antispam-Report-Untrusted:
- CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(316002)(1076003)(44832011)(7696005)(82310400005)(40460700003)(8676002)(4326008)(36860700001)(70206006)(70586007)(26005)(2616005)(54906003)(6916009)(2906002)(426003)(8936002)(47076005)(83380400001)(81166007)(36756003)(86362001)(336012)(356005)(5660300002)(508600001)(186003)(6666004)(21314003)(36900700001);DIR:OUT;SFP:1101;
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB6435
+ CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(26005)(7696005)(86362001)(6666004)(2616005)(426003)(47076005)(336012)(2906002)(6916009)(54906003)(8676002)(4326008)(70586007)(36756003)(316002)(82310400005)(70206006)(81166007)(44832011)(36860700001)(83380400001)(40460700003)(1076003)(186003)(356005)(8936002)(5660300002)(508600001)(36900700001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB7623
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- VE1EUR03FT051.eop-EUR03.prod.protection.outlook.com
+ VE1EUR03FT026.eop-EUR03.prod.protection.outlook.com
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	4b9e15fb-4f6f-482d-cf6c-08da4aa58cca
+	5c68f653-54d1-4ece-5c64-08da4aa58e67
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	AwXtMinKcluzfivA0UI87TetRo+Tw2Pr5KsJsLYP/KvcJOjpkVIo1L4vWLbCzMzsi+okAnQBl/zHWaoH/xaqVR7gblYSYVasJlouhi+rd9DJfU2EyA87pX01u7/DZknv8eGhJmQ3xk6PRl+9iDmgwqUG64pPKNjtl6syLDDru11IYopG/Pn260eMAGNfMEFBhCH0z3S70W6Mnv18u324FNrKtYT7sJ+N5QOcOcWQHmlna0N+VFsCySf1ZOzrGWnwlg8f3owiKhyWGKAXvunKF9sh3HtECuKN+TY5wKoyigCCy9/Emx9IQkRcdju5/LVsUeTI38qaNOGSB+e9rhybBfb6nWvx9+mmAFhQoxYb/f+Yk1syvaXar5dX2MpIwWHoAE35cweRPiQF6cjNUenY4t/J4+aF7Y6nb40IzBtAv7UhPUONQTTs/AzpFyW0CaFcucEqvvwg0oBTObkVCoePQBcMogUqTfc6hxb2eAMW4g4KxBg0FqV4MXeFzfJ+Lr5/zt7PT4XSvn8J64Sahbm50Oz6Xg57TaJT1ak3sJ6UPsU47SRTsp71V2OiP9F7dY+ej6g5P917zjn5N5Yrxvx229okPZahuTnEpz7LWB+AwTJl8QEvCXHdQ9LWESOrAn6Kx2CG2rBoce/5kjtq+f3Lkb9kCafY+o4khVpotWScygmV2hquKg59GuYobI6kLhwKnapSyHCKSGBf3QqjY2xMBw==
+	rRmdD7QZJH6a0xhH7O+JB7iGrlvMeHvQy7k2UW5H3VVWDnSgL4GBGWuQc7nIlaxrtcZwoTVNK5EYglknivZNJAiG06jjKRxKQ5SbiAuY2TwJP+bmTtl8HlDqc/BJyrqSO1DsxrpjpeIIUR7ocOOVVxySITmu7hPf35I9qp/H+cA3G5VBv6iMmLofG8UouIDAKI6NqXQi+kkohqtRG7HKgzWx6Vl5KkcYCQuIbQtW4pJW1ukkeHpuqHHoEGeH7K/o1fLK1WmBh83+mSeFsI1Y1YP6QiXbF9soUGCuRHxZN2Ubsv/sAiKzVWNG/RQeuXCbzUzrW7Oix65kbe5xVEasjHhPsS7mp2Bh4sB++IIv4hFtBpY56id8a1/JuKA2EJxwY47nsUQd0ZesU8GypUA/lpYGtlMQJ1OWiCHK3LB7PydYhmjmwEl8ZseSa1hvea+AypTfcRgYsXuaUV5tsTYEY1PIE5y2qILeQ7CJeuTuPVJMGC7lEnfjG/fb3n0ptiwki9UtU0+U+XBLF9WKN668Zc9p2sYyeflwnY49QM0Jffznro0j9jYltodZs423rLFn9wvVjy2nJFn2DwoKKUdni54e7FmR5QlWowzmF4QB9cwDsHFmPT9u560IH7FItjkhfIGmuzehFzSRrZhY0Y+fLCtZ/0Z4xqRPaQGRGIpnef2wcetX/seVBjO0nT9rC/3T
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(70206006)(44832011)(26005)(316002)(82310400005)(70586007)(83380400001)(81166007)(86362001)(2616005)(40460700003)(2906002)(1076003)(426003)(186003)(336012)(47076005)(5660300002)(8676002)(36756003)(6666004)(4326008)(508600001)(8936002)(36860700001)(54906003)(7696005)(6916009)(21314003);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(5660300002)(508600001)(82310400005)(44832011)(47076005)(6666004)(426003)(336012)(2906002)(83380400001)(40460700003)(36860700001)(54906003)(6916009)(8936002)(4326008)(2616005)(81166007)(316002)(7696005)(186003)(70206006)(70586007)(8676002)(86362001)(36756003)(1076003)(26005);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2022 05:53:44.7422
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2022 05:53:44.4874
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 463e935d-7839-4355-975e-08da4aa5948a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 171d5972-bd2d-4ed6-b68f-08da4aa59463
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	VE1EUR03FT051.eop-EUR03.prod.protection.outlook.com
+	VE1EUR03FT026.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB5155
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM4PR0802MB2275
 
-x86 is using compiler feature testing to decide EFI build
-enable or not. When EFI build is disabled, x86 will use an
-efi/stub.c file to replace efi/runtime.c for build objects.
-Following this idea, we introduce a stub file for Arm, but
-use CONFIG_ARM_EFI to decide EFI build enable or not.
+In current code, when Xen is booting from EFI, it will delete
+all memory nodes in device tree. This would work well in current
+stage, because Xen can get memory map from EFI system table.
+However, EFI system table cannot completely replace memory nodes
+of device tree. EFI system table doesn't contain memory NUMA
+information. Xen depends on ACPI SRAT or device tree memory nodes
+to parse memory blocks' NUMA mapping. So in EFI + DTB boot, Xen
+doesn't have any method to get numa-node-id for memory blocks any
+more. This makes device tree based NUMA support become impossible
+for Xen in EFI + DTB boot.
 
-And the most functions in x86 EFI stub.c can be reused for
-other architectures, like Arm. So we move them to common
-and keep the x86 specific function in x86/efi/stub.c.
+So in this patch, we will keep memory nodes in device tree for
+NUMA code to parse memory numa-node-id later.
 
-To avoid the symbol link conflict error when linking common
-stub files to x86/efi. We add a regular file check in efi
-stub files' link script. Depends on this check we can bypass
-the link behaviors for existed stub files in x86/efi.
-
-As there is no Arm specific EFI stub function for Arm in
-current stage, Arm still can use the existed symbol link
-method for EFI stub files.
+As a side effect, if we still parse boot memory information in
+early_scan_node, bootmem.info will calculate memory ranges in
+memory nodes twice. So we have to prevent early_scan_node to
+parse memory nodes in EFI boot.
 
 Signed-off-by: Wei Chen <wei.chen@arm.com>
 Tested-by: Jiamei Xie <jiamei.xie@arm.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
-v4 -> v5:
-1. Add acked-by.
 v3 -> v4:
-1. Add indent to make ln and test to be aligned.
+1. No change.
 v2 -> v3:
-1. Add existed file check, if a regular stub files,
-   the common/stub files' link will be ignored.
-2. Keep stub.c in x86/efi to include common/efi/stub.c
-3. Restore efi_compat_xxx stub functions to x86/efi.c.
-   Other architectures will not use efi_compat_xxx.
-4. Remove ARM_EFI dependency from ARM_64.
-5. Add comment for adding stub.o to EFIOBJ-y.
-6. Merge patch#2 and patch#3 to one patch.
+1. Add Rb.
 v1 -> v2:
-1. Drop the copy of stub.c from Arm EFI.
-2. Share common codes of x86 EFI stub for other architectures.
-3. Use CONFIG_ARM_EFI to replace CONFIG_EFI
-4. Remove help text and make CONFIG_ARM_EFI invisible.
-5. Merge one following patch:
-   xen/arm: introduce a stub file for non-EFI architectures
-6. Use the common stub.c instead of creating new one.
+1. Move this patch from later to early of this series.
+2. Refine commit message.
 ---
- xen/arch/arm/Kconfig         |  4 ++++
- xen/arch/arm/Makefile        |  2 +-
- xen/arch/arm/efi/Makefile    |  8 ++++++++
- xen/arch/x86/efi/stub.c      | 32 +-------------------------------
- xen/common/efi/efi-common.mk |  3 ++-
- xen/common/efi/stub.c        | 32 ++++++++++++++++++++++++++++++++
- 6 files changed, 48 insertions(+), 33 deletions(-)
- create mode 100644 xen/common/efi/stub.c
+ xen/arch/arm/bootfdt.c      |  8 +++++++-
+ xen/arch/arm/efi/efi-boot.h | 25 -------------------------
+ 2 files changed, 7 insertions(+), 26 deletions(-)
 
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index ecfa6822e4..8a16d43bd5 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -6,6 +6,7 @@ config ARM_64
- 	def_bool y
- 	depends on !ARM_32
- 	select 64BIT
-+	select ARM_EFI
- 	select HAS_FAST_MULTIPLY
- 
- config ARM
-@@ -33,6 +34,9 @@ config ACPI
- 	  Advanced Configuration and Power Interface (ACPI) support for Xen is
- 	  an alternative to device tree on ARM64.
- 
-+config ARM_EFI
-+	bool
-+
- config GICV3
- 	bool "GICv3 driver"
- 	depends on ARM_64 && !NEW_VGIC
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index 1d862351d1..bb7a6151c1 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -1,6 +1,5 @@
- obj-$(CONFIG_ARM_32) += arm32/
- obj-$(CONFIG_ARM_64) += arm64/
--obj-$(CONFIG_ARM_64) += efi/
- obj-$(CONFIG_ACPI) += acpi/
- obj-$(CONFIG_HAS_PCI) += pci/
- ifneq ($(CONFIG_NO_PLAT),y)
-@@ -20,6 +19,7 @@ obj-y += domain.o
- obj-y += domain_build.init.o
- obj-y += domctl.o
- obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
-+obj-y += efi/
- obj-y += gic.o
- obj-y += gic-v2.o
- obj-$(CONFIG_GICV3) += gic-v3.o
-diff --git a/xen/arch/arm/efi/Makefile b/xen/arch/arm/efi/Makefile
-index 4313c39066..dffe72e589 100644
---- a/xen/arch/arm/efi/Makefile
-+++ b/xen/arch/arm/efi/Makefile
-@@ -1,4 +1,12 @@
- include $(srctree)/common/efi/efi-common.mk
- 
-+ifeq ($(CONFIG_ARM_EFI),y)
- obj-y += $(EFIOBJ-y)
- obj-$(CONFIG_ACPI) +=  efi-dom0.init.o
-+else
-+# Add stub.o to EFIOBJ-y to re-use the clean-files in
-+# efi-common.mk. Otherwise the link of stub.c in arm/efi
-+# will not be cleaned in "make clean".
-+EFIOBJ-y += stub.o
-+obj-y += stub.o
-+endif
-diff --git a/xen/arch/x86/efi/stub.c b/xen/arch/x86/efi/stub.c
-index 9984932626..f2365bc041 100644
---- a/xen/arch/x86/efi/stub.c
-+++ b/xen/arch/x86/efi/stub.c
-@@ -1,7 +1,5 @@
- #include <xen/efi.h>
--#include <xen/errno.h>
+diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+index 29671c8df0..ec81a45de9 100644
+--- a/xen/arch/arm/bootfdt.c
++++ b/xen/arch/arm/bootfdt.c
+@@ -11,6 +11,7 @@
+ #include <xen/lib.h>
+ #include <xen/kernel.h>
  #include <xen/init.h>
--#include <xen/lib.h>
- #include <asm/asm_defns.h>
- #include <asm/efibind.h>
- #include <asm/page.h>
-@@ -10,6 +8,7 @@
- #include <efi/eficon.h>
- #include <efi/efidevp.h>
- #include <efi/efiapi.h>
-+#include "../../../common/efi/stub.c"
- 
- /*
-  * Here we are in EFI stub. EFI calls are not supported due to lack
-@@ -45,11 +44,6 @@ void __init noreturn efi_multiboot2(EFI_HANDLE ImageHandle,
-     unreachable();
- }
- 
--bool efi_enabled(unsigned int feature)
--{
--    return false;
--}
--
- void __init efi_init_memory(void) { }
- 
- bool efi_boot_mem_unused(unsigned long *start, unsigned long *end)
-@@ -62,32 +56,8 @@ bool efi_boot_mem_unused(unsigned long *start, unsigned long *end)
- 
- void efi_update_l4_pgtable(unsigned int l4idx, l4_pgentry_t l4e) { }
- 
--bool efi_rs_using_pgtables(void)
--{
--    return false;
--}
--
--unsigned long efi_get_time(void)
--{
--    BUG();
--    return 0;
--}
--
--void efi_halt_system(void) { }
--void efi_reset_system(bool warm) { }
--
--int efi_get_info(uint32_t idx, union xenpf_efi_info *info)
--{
--    return -ENOSYS;
--}
--
- int efi_compat_get_info(uint32_t idx, union compat_pf_efi_info *)
-     __attribute__((__alias__("efi_get_info")));
- 
--int efi_runtime_call(struct xenpf_efi_runtime_call *op)
--{
--    return -ENOSYS;
--}
--
- int efi_compat_runtime_call(struct compat_pf_efi_runtime_call *)
-     __attribute__((__alias__("efi_runtime_call")));
-diff --git a/xen/common/efi/efi-common.mk b/xen/common/efi/efi-common.mk
-index 4298ceaee7..ec2c34f198 100644
---- a/xen/common/efi/efi-common.mk
-+++ b/xen/common/efi/efi-common.mk
-@@ -9,7 +9,8 @@ CFLAGS-y += -iquote $(srcdir)
- # e.g.: It transforms "dir/foo/bar" into successively
- #       "dir foo bar", ".. .. ..", "../../.."
- $(obj)/%.c: $(srctree)/common/efi/%.c FORCE
--	$(Q)ln -nfs $(subst $(space),/,$(patsubst %,..,$(subst /, ,$(obj))))/source/common/efi/$(<F) $@
-+	$(Q)test -f $@ || \
-+	    ln -nfs $(subst $(space),/,$(patsubst %,..,$(subst /, ,$(obj))))/source/common/efi/$(<F) $@
- 
- clean-files += $(patsubst %.o, %.c, $(EFIOBJ-y:.init.o=.o) $(EFIOBJ-))
- 
-diff --git a/xen/common/efi/stub.c b/xen/common/efi/stub.c
-new file mode 100644
-index 0000000000..15694632c2
---- /dev/null
-+++ b/xen/common/efi/stub.c
-@@ -0,0 +1,32 @@
 +#include <xen/efi.h>
-+#include <xen/errno.h>
-+#include <xen/lib.h>
-+
-+bool efi_enabled(unsigned int feature)
-+{
-+    return false;
-+}
-+
-+bool efi_rs_using_pgtables(void)
-+{
-+    return false;
-+}
-+
-+unsigned long efi_get_time(void)
-+{
-+    BUG();
-+    return 0;
-+}
-+
-+void efi_halt_system(void) { }
-+void efi_reset_system(bool warm) { }
-+
-+int efi_get_info(uint32_t idx, union xenpf_efi_info *info)
-+{
-+    return -ENOSYS;
-+}
-+
-+int efi_runtime_call(struct xenpf_efi_runtime_call *op)
-+{
-+    return -ENOSYS;
-+}
+ #include <xen/device_tree.h>
+ #include <xen/libfdt/libfdt.h>
+ #include <xen/sort.h>
+@@ -367,7 +368,12 @@ static int __init early_scan_node(const void *fdt,
+ {
+     int rc = 0;
+ 
+-    if ( device_tree_node_matches(fdt, node, "memory") )
++    /*
++     * If Xen has been booted via UEFI, the memory banks are
++     * populated. So we should skip the parsing.
++     */
++    if ( !efi_enabled(EFI_BOOT) &&
++         device_tree_node_matches(fdt, node, "memory") )
+         rc = process_memory_node(fdt, node, name, depth,
+                                  address_cells, size_cells, &bootinfo.mem);
+     else if ( depth == 1 && !dt_node_cmp(name, "reserved-memory") )
+diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
+index e452b687d8..59d93c24a1 100644
+--- a/xen/arch/arm/efi/efi-boot.h
++++ b/xen/arch/arm/efi/efi-boot.h
+@@ -231,33 +231,8 @@ EFI_STATUS __init fdt_add_uefi_nodes(EFI_SYSTEM_TABLE *sys_table,
+     int status;
+     u32 fdt_val32;
+     u64 fdt_val64;
+-    int prev;
+     int num_rsv;
+ 
+-    /*
+-     * Delete any memory nodes present.  The EFI memory map is the only
+-     * memory description provided to Xen.
+-     */
+-    prev = 0;
+-    for (;;)
+-    {
+-        const char *type;
+-        int len;
+-
+-        node = fdt_next_node(fdt, prev, NULL);
+-        if ( node < 0 )
+-            break;
+-
+-        type = fdt_getprop(fdt, node, "device_type", &len);
+-        if ( type && strncmp(type, "memory", len) == 0 )
+-        {
+-            fdt_del_node(fdt, node);
+-            continue;
+-        }
+-
+-        prev = node;
+-    }
+-
+    /*
+     * Delete all memory reserve map entries. When booting via UEFI,
+     * kernel will use the UEFI memory map to find reserved regions.
 -- 
 2.25.1
 
