@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C932F54720F
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Jun 2022 06:42:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.346564.572975 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80A3C54720C
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Jun 2022 06:42:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.346665.572984 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzswo-0001ds-8b; Sat, 11 Jun 2022 04:42:06 +0000
+	id 1nzswo-0001lw-MZ; Sat, 11 Jun 2022 04:42:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 346564.572975; Sat, 11 Jun 2022 04:42:06 +0000
+Received: by outflank-mailman (output) from mailman id 346665.572984; Sat, 11 Jun 2022 04:42:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzswo-0001bR-55; Sat, 11 Jun 2022 04:42:06 +0000
-Received: by outflank-mailman (input) for mailman id 346564;
- Fri, 10 Jun 2022 16:23:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nzswo-0001dq-FV; Sat, 11 Jun 2022 04:42:06 +0000
+Received: by outflank-mailman (input) for mailman id 346665;
+ Fri, 10 Jun 2022 19:11:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Z8as=WR=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1nzhQK-0005qE-D6
- for xen-devel@lists.xenproject.org; Fri, 10 Jun 2022 16:23:48 +0000
-Received: from sonic313-19.consmr.mail.gq1.yahoo.com
- (sonic313-19.consmr.mail.gq1.yahoo.com [98.137.65.82])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b3505873-e8d9-11ec-bd2c-47488cf2e6aa;
- Fri, 10 Jun 2022 18:23:47 +0200 (CEST)
+ id 1nzk2O-0005Fb-Qj
+ for xen-devel@lists.xenproject.org; Fri, 10 Jun 2022 19:11:16 +0000
+Received: from sonic313-20.consmr.mail.gq1.yahoo.com
+ (sonic313-20.consmr.mail.gq1.yahoo.com [98.137.65.83])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 174cbca7-e8f1-11ec-8901-93a377f238d6;
+ Fri, 10 Jun 2022 21:11:13 +0200 (CEST)
 Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic313.consmr.mail.gq1.yahoo.com with HTTP; Fri, 10 Jun 2022 16:23:44 +0000
-Received: by hermes--canary-production-ne1-799d7bd497-8kdwl (Yahoo Inc. Hermes
- SMTP Server) with ESMTPA ID aae43f62744bd19876dbcf4383062a9e; 
- Fri, 10 Jun 2022 16:23:43 +0000 (UTC)
+ sonic313.consmr.mail.gq1.yahoo.com with HTTP; Fri, 10 Jun 2022 19:11:10 +0000
+Received: by hermes--canary-production-bf1-856dbf94db-29hkj (Yahoo Inc. Hermes
+ SMTP Server) with ESMTPA ID 9d6f995788e29b021bb644e07662bfe3; 
+ Fri, 10 Jun 2022 19:11:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,40 +42,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b3505873-e8d9-11ec-bd2c-47488cf2e6aa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1654878224; bh=wS7MFNjt6E7X8hDRkOvXUxjKzW3TZyG13P25/uoa8VE=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=iJyYVdX8pEq2c4Rho6ObrkSfOoL3zgjWe35ZSA+4U/mAMXUd7ZKihTJdwfsqZkLtBQcljlGCA79zWb5Zzr0I8JXIZN9g+v5UzWKzqbig+9kqOeYUpLDx0akoPR2G1A++X20zWc2g6g0mNIiOI3Y4iGPDDqwP7utDemsRmFetNQx1EONkOrMM7bvRi6JfjoXRp9CheQVoAoEJgBXI+DzZ4y7K1RYVcc6SdsfoVokFlo0K42+2+ed5dOro7giV2uKlCKLem3PBh7DoJrdtDNHIDEfNwrWbA0CBjwCK6fkAIrjFXJ3Jvi/AIXypnBH67B8ICdvalPtjer8LIB3ugX17Gw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1654878224; bh=5KetwCUyhbFVbPpH/7B8lhexTvQy/KMyhUEW5YXG8Sb=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=VoTHlo3lPvyiI8z6OpCwQGhGJ8FONqMumR7NsMWP4fEnjB8q6Tq7yJzQH33XLg3fP7hK7bNWo8fdWYL3YwwHaifmn4T4LtU19vpdchsr8YUJDaS1zj3XQeA4pnrM1HSuyMN5+bbpPfjmsDFkrEnrGWye7Ws0eV2Ifb2mT8VbNKsR32QzjQkgTL1T/2p+oaPs+7xPRGWl38NnKUBrwnOJ5a+mC13gYD9yf6v0QbsFz7mcKhsHW2oNAWiFPWRm5W4x4CQXby6C+XsPI5M2ww76Krcw5+EOMuFiGA9d6H6WK1+fL9sqWXgNT6I2SqLt22izTw48II2v8bU1kMDuoUVZYg==
-X-YMail-OSG: SF7Gx.IVM1nzIDj9FsvDkDhBuMJq7cxJJ.v3Ht.10RQO2mQD2R0qMVIU51j6ckx
- uYdm9wJdx6ff1jsOcqSaqaUsW1PVsSeE5j_nJ3vX6P4Ahbq88EqlquPqNU_akIaP.6XUAXNdBj6b
- 8ys123AmQ5Ulrbn.U3hzPQc4xgbhzPmzL_QMfn.BwUTbEWTycIV8VKnK0RTb.WSAQ2im1sqiSWV.
- w9Dbmo8d53OC5mG76gmp2N6L92eyV2QDnkaxqZB6KwOK8LzLJPogFSwS9yaAHxYbbrt6W8E0Y98.
- ipAEFcmuzPnq9wjcgMuq2cEr_EF0ehob.27cQzlTaSDxAeqBy.FYwD0WZCTrm.2omBO1gAhuQIKE
- rvebIHvleV1hnc.kGki9Ed8a.M12E1zn.KIICdCe82EqmAA.lmHgEIOlyqHPemNpyd99VjRmerF2
- spc5Zzw2GJqrp_.N00yfdaEvWq_xgBlhOucKvs7iQoniZ.SGhOUnGCRldO3LI1mzxiQS8paASg5p
- 2fnaFF_Q1OROuvUiSvVnMgmLEo5nXucRw7tsFihlyGk0Dzo4RVytPEvJHQmhqFQ8q_YDKaNXpwHd
- XN817oETXOSOKnyn7MHX2JYZA8C1xL6mXgYDvDC2VgLgd48tU5.kC8umi46653DcO7j9BMWT4Vaw
- mfWrCSFyj0fSKokrCof6ioqmDtu0LMh19iFgxUsyBR.nrVZNF6PnRBeHxIuNWJjv5bmwqDDfW3w.
- lPsqH2dl8EYsVw3DOwNeBlW58gpxpoTsovGWMC0WDyOQ2WZctfbA3K.d32bfvDn6gkNo187.mKIi
- gLvvnjF2hTrMjMLZDpl5jUDuL6yb16y6e.PfiJosdaPAbLmaS5MasRVeNTrA3MkG9ReDe2_p3jiN
- .oOyq5t4PdB15uX6o2fuOyoZ1vMz7kXyyR2.IXy0oa6eSignGnwtrSQUwC8RaOfbukS4KeO4cnRz
- xlxf7yUXEjXSGlbFkjJPevXKize8SUVPM81rS6flsOwxi.BvsdMPWq.x3f.Yq6NOwbo7KwRpjPLR
- X9TMLbHTxvFoVWpgHJ74d6Rn8SVgidvkr7c7q_9NsoETl2119_AITZSNRPg7rTnDTRCS5JkNoq1o
- nn9ozPwMp_1zh4UpnKmvnxPNfDpv_naVMt4VWuVkjk4EnM80DklkgBi1V4_Mgrx3BwGkYs7vBsTf
- VmVbJSlmnsTJc5r2LsL57dpOz0odKv0Ipap_EyUXiVO_TWuUl94.NuZWreYAfF.w9ILpSNvJ27ue
- RKKoAlyO9zlZy2.zuX_N9.Tg2XBUqEBnLdGzukneH.3tJH_E0kz6k2ESgjHXJqe_1QG6NkcLbs2y
- HS6A0fOzQ76kfGGLfYjGZUUC1OxrNIOQ2Pl9wcRxBNcFaoQX2ZY2hcZPdna4Di3Kz2PetFHJ8xER
- CF8ha0YI1E1GtVhIRC9I8jOCEwVLvepyICww8blZ7T6HLzCC.eJlC_yEgGjK0llaickfL5W4KSnQ
- XR0bfg47LAoTtZnlnR9V26_qMGLwOqsIyXvAeN93KC4M7CI7ckq8NAcyQUuZ2zWLE8SZEM_I7rPr
- P8uv32qrblqN9hpdoRwr_QGyUqWBfZe.Wuf1dqaalIQ4TtSdp6O4VdZauMrOsdgbxmtcAXnDcG4Q
- MpMqNkJTj7oAFpC7zfhlaYWf0QB7Li72yjMhv2QWPu82QW07anHMwYUqCCxJZk2gFpcNs9PoxR1h
- zHi11YEFzuL2ANLOQBbELnw1K7YggRUlcpnzdqR3SLScUghOFTDKJ3YE3w6YxfQJcveXVPPSG.eY
- QHaT_rrpzYSya6ALvPaQjdUUKWiIbviWViWqxpzf6zOyr.FlzPAkWi8TpMgJkZ8y8znhHMGddpVR
- 5.NJlqR1lvldx2MnHKMIMHPitmgVDvEbtogIBNYbEGZsx8vz8IfooRsl.dPZ9BYROLnyOmsqJhKR
- Axp71u8j.Z4qltk65k0OXNBC6qEQKKelErUhFhmPrjVqa1SNFqJ07ORbCiek7X.5sKTcS9SdYgV6
- 6z63szCvqZj1JiyvmNO3nw88.gO1iMr0WdUUgHrvuuMkavILzaY.hAQVhfTfy9PLJkW_tNSz0FJt
- aNOdBmeV_SM0Jh2g8f4Qr5387iLEErQE5O_wXdmt.0.gLQPcefwHVbiVlE5HC9lpc2vcHPIBn4wf
- YOjQtED4HrzhCEi16aq6pyjASAx7ee2IhY89ho7zbqa.c6jLDlkx3_SHnploST0zsh33yvADPr6M
- M0wS_
+X-Inumbo-ID: 174cbca7-e8f1-11ec-8901-93a377f238d6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1654888270; bh=szQQXgwdpNsXgDZ8HmI7zcWajUugI4/mSs4RjBC4WHA=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=duqtH943Dlyju92svX3AFoc3OSDY/43X3Hgu2OgwUAV0o+1z0A5EukqnBjeacRY6CLlgAEetJn4gQc57vjpNXDdF4txnBu+EkAUFQw4Pg4DV4isbM+GXCTJGs1fwCLhOm7RpsZI2ZiJ12lkkmo9DP+hxl8PsE8hDoPBPCKFzsvRjCO4/nL5IwAy9DbGDVTwJdifKJY9hixEpLa/pf4gq73ZpU6XlDFQeoRUmUKMVecE+sQEgyMk/xIn/pK9ACj+FeuePV2YGFSImdBDnTXjekyDJvXDY6ab/rfWQthP6+vaw0xARRtXhR42JVuxK1hQJgfwjmfmOx2JaiKM6r9h2vA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1654888270; bh=58rsgOgWzfRp11yAmimyUtsHGChA3r+y5aL6LGS3EoG=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=aeh+IS/kWViQ2K5fNMH2tFb1Xsamjmi/unryJA+DqFktY+iS3OAfA3Bd7sDl5lS+ftuIdVDlZf0nwfzvooY5wRkBF3GO34wmyEyoR2usPoGPrxCPpaKpoEn+mIw2XEQuzGI98ELB7Cyday4ifW7Q9CEUzIXlFFZDTz0NGVrKTlAb5vhYc7l1Bi/JgsaoDUP3EzS1g7JynGmhbdXQ0hliH3ghi/u5/kl2uiW/G5XQzMlunK59RNHbsLw/nrsmYd7FN7j+5n12cH5Q9lTLtR9m9e9Jq9yZfIZUJwuyKD5TLlSfm/xDWSAmbo6K10qKm5gPNeCSG71TKbg4niuQcIIJfg==
+X-YMail-OSG: EcVWYf0VM1kaBprv3wOo91pcd4NE_dHn3XGuYnQ..1kuU45apy5Yx23HAR0AzY4
+ 0T7DMF6i9Hm2C_mcD8O_MDD4NWhPEzl3i2ddvOIeiJaT3qLIS3q4y6TerHf1Rpa9V62vCf5NuMfa
+ F115JdgVAKEaN37_LDTh_5QgSSpezwcE_PdynM0GT7kapehBh7pYiq5RkfQIALWHaCm03sIIXnhD
+ oCGJrgRhbRiy57RoNAhXvKnQtXyeQMWURWuYKN9mGIqqcgr8vGGmvDDHLIRvR_xBBoXvT7khIW5p
+ rjH7_.T85f.1VsL_M6eo15tibVK4qorxPNTD5Lf9X_4EXNY4w4dXA_KfG2sdUhrwurJ8wy8_8QLk
+ zvXFcw4IjeU4iQudpeZJcXw1es2K5XD6Eph5fKjKyprZtU.lLefx8cZ0.5CspbP_FsPT71KG_GHq
+ gY3RHGQWzlPPVFnukSxdV0SHSkPKnyD4sXMj9vZlBMNHUg6z9Y2_p6UzoCVK478QFEpX9uypFBSz
+ q69j3aS_4MfAEVmqClfyViiQ2jDSj5XthjcO8_9nNDuDqmkjUXGsqXCDdJuq4x5R9YEeYOdvrmXg
+ Jh1rkwUusOMyS6pwvvRvA2p_9q3FkVVHR1BvWARpN0cFkYdjgxWiJWkKJXWndN6Xwqpv7ppL2qka
+ HfrXyV9BpTS5bzGLwqIXCVshdVw89zIqV4pMhj.JawjxOw6R0hmcstkUlkj88vqPaOS9LGwA7wlH
+ OoL9fumSgHkeDAmFbiT47Ry841dSkcRNgrep_39R_oQm2FzYiugg.AyVqT2mlKfYJNCQ.Pt59Oal
+ SrSjYjXCp24BqOfjTrDwkKfm6bQB163jeyWizp9mzr6Q.HC7RsZW18JHyMb9N9KW_of0nvmbdbPk
+ nwm7i4HkQf69Sl7lg8UFab_KkWwFnWuC04lM9yHlnON1KpnXswFOCGwf.vuzda4pyXZTbU0KiE22
+ LyJiJ2p91MJAoLQTtoQAenOJmMmn2j8CfbDfdLyT6zr0yF3VdWXtLGQpUilnWxn5B2Wwy0DOW_qi
+ uA.PutkPF5GwM13dH4aE.gC99aZP7pxbKJs7YAkKaa9P1nleLFcewG0TN0qaoeHefSkZEKf7kWS8
+ ihRVOtDVK77urFrAgS8RnOSBwGThlggi02WkL1hgbYd1OLz3LBPBhkaphEJrGzYFuOoo8qdu7dER
+ tvwUYUHYJvdQJ_dYXS.NlyT2SExP3BoV0aD0BRqjhoSmRih0f9anAq8.wlxX0PRx.4_O_5yNiCPG
+ 7ttCfatci_w3JXsPISfqIaEuZYrHGn7iKPOuY04UeycF2dnCsGhBhbUguOiXXKEoGEw0pLK4f.1p
+ ECGiJcN6oxvDOOPBBKNFa_q2p4G4miimjKaAHFgUhzRokzUTdGXpF9Vy3ruQ38rEILnm2YPCEH42
+ bONsSEj9i0Zgn3nt7TjifWlsL6aS2pQH52G8EFY22nwvoJFsFURc6B.li1PKPNjUq_EX9e8Quy_O
+ _d_yPnnX8dHL5svrLy1U..eGJZd8zCI51qSRzHFj_wXo2Ctl8O9NYSb0nXHf3gZ31xACtl6qMh.I
+ jqVFpZzaBIWL9qMN5yC8yBNNHFIFOJRjbSWB7qNwHkD37acDf0h.6te18Y0M.8plWok4OBoAxfHY
+ DB3N1x3SmjpVjcMD7WpJY4uecreA1JycUyVjViLhIG4Bj8ir6VIKXC.PxPiIa_Ca2hr.NvIpr8m_
+ xox5itagkVz4J6DuRUhGdMh_6wtRG5IULyO1qDGUazlDcTjEnG9JYYuF.snlyPFi5Kl6GGvdZbEi
+ 08V49YJznU1A00.zbAlbIKufMrdqep42D4Z970sqHp21saXOU3iDUSLdLGCa9.G714UZWArDp8b2
+ tFr1M6fWbhJWq8fNaJPjCtf5u8uzVJfPsrz8gGnKFCAzUvtIaa1HjFqRgR8dvgJq.WNVmcxAhMD5
+ Hx8Q94hJBEdLkJtUNj5m5swa.rDxqRQD1ATPa5ZIXpyO_pDKEu2eSYidd_UkeeumRHBYilKJYnLp
+ 2_x_3Txkbjd7srUvW1WLeKlxERFb8ltEfKBeFh6Dt7e4kdiXQRZ0jKo.1SkAE4jJ1ryPeZFfSUTd
+ avbEJf8z42bOiGp7EdmQXLevDoyIPVyH0n0H0zyef.3W.bRXoma5TJrhIgHdiUz_JRt.WG72rtuQ
+ K24FJxKD6cOkXlTxESN2UTG3Xw2BQBoGwz1.2.1XHo2KgmT7yKlykGVeJ9vXEgDQE100yUo61rve
+ Iy8jeSs4hwzLSoA--
 X-Sonic-MF: <brchuckz@aim.com>
 From: Chuck Zmudzinski <brchuckz@aol.com>
 To: qemu-devel@nongnu.org
@@ -84,47 +84,61 @@ Cc: xen-devel@lists.xenproject.org,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Anthony Perard <anthony.perard@citrix.com>,
 	Paul Durrant <paul@xen.org>
-Subject: [PATCH] xen/pass-through: don't create needless register group
-Date: Fri, 10 Jun 2022 12:23:35 -0400
-Message-Id: <a2e946dfb45260a5e29cec3b2195e4c1385b0d63.1654876622.git.brchuckz@aol.com>
+Subject: [PATCH] xen/pass-through: merge emulated bits correctly
+Date: Fri, 10 Jun 2022 15:10:57 -0400
+Message-Id: <b6718a3512ec0a97c6ef4a5b5c1f3de72238c603.1654887756.git.brchuckz@aol.com>
 X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-References: <a2e946dfb45260a5e29cec3b2195e4c1385b0d63.1654876622.git.brchuckz.ref@aol.com>
+References: <b6718a3512ec0a97c6ef4a5b5c1f3de72238c603.1654887756.git.brchuckz.ref@aol.com>
 
-Currently we are creating a register group for the Intel IGD OpRegion
-for every device we pass through, but the XEN_PCI_INTEL_OPREGION
-register group is only valid for an Intel IGD. Add a check to make
-sure the device is an Intel IGD and a check that the administrator has
-enabled gfx_passthru in the xl domain configuration. Require both checks
-to be true before creating the register group. Use the existing
-is_igd_vga_passthrough() function to check for a graphics device from
-any vendor and that the administrator enabled gfx_passthru in the xl
-domain configuration, but further require that the vendor be Intel,
-because only Intel IGD devices have an Intel OpRegion. These are the
-same checks hvmloader and libxl do to determine if the Intel OpRegion
-needs to be mapped into the guest's memory.
+In xen_pt_config_reg_init(), there is an error in the merging of the
+emulated data with the host value. With the current Qemu, instead of
+merging the emulated bits with the host bits as defined by emu_mask,
+the inverse of the emulated bits is merged with the host bits. In some
+cases, depending on the data in the registers and the way the registers
+are setup, the end result will be that the register is initialized with
+the wrong value.
+
+To correct this error, use the XEN_PT_MERGE_VALUE macro to help ensure
+the merge is done correctly.
+
+This correction is needed to resolve Qemu project issue #1061, which
+describes the failure of Xen HVM Linux guests to boot in certain
+configurations with passed through PCI devices, that is, when this error
+disables instead of enables the PCI_STATUS_CAP_LIST bit of the
+PCI_STATUS register of a passed through PCI device, which in turn
+disables the MSI-X capability of the device in Linux guests with the end
+result being that the Linux guest never completes the boot process.
+
+Fixes: 2e87512eccf3
+Resolves: https://gitlab.com/qemu-project/qemu/-/issues/1061
+Buglink: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=988333
 
 Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
 ---
- hw/xen/xen_pt_config_init.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ hw/xen/xen_pt_config_init.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/hw/xen/xen_pt_config_init.c b/hw/xen/xen_pt_config_init.c
-index c5c4e943a8..ffd915654c 100644
+index ffd915654c..bc0383f7fb 100644
 --- a/hw/xen/xen_pt_config_init.c
 +++ b/hw/xen/xen_pt_config_init.c
-@@ -2037,6 +2037,10 @@ void xen_pt_config_init(XenPCIPassthroughState *s, Error **errp)
-          * therefore the size should be 0xff.
-          */
-         if (xen_pt_emu_reg_grps[i].grp_id == XEN_PCI_INTEL_OPREGION) {
-+            if (!is_igd_vga_passthrough(&s->real_device) ||
-+                s->real_device.vendor_id != PCI_VENDOR_ID_INTEL) {
-+                continue;
-+            }
-             reg_grp_offset = XEN_PCI_INTEL_OPREGION;
-         }
+@@ -1966,10 +1966,10 @@ static void xen_pt_config_reg_init(XenPCIPassthroughState *s,
+         if ((data & host_mask) != (val & host_mask)) {
+             uint32_t new_val;
  
+-            /* Mask out host (including past size). */
+-            new_val = val & host_mask;
+-            /* Merge emulated ones (excluding the non-emulated ones). */
+-            new_val |= data & host_mask;
++            /* Merge the emulated bits (data) with the host bits (val)
++             * and mask out the bits past size to enable restoration
++             * of the proper value for logging below. */
++            new_val = XEN_PT_MERGE_VALUE(val, data, host_mask) & size_mask;
+             /* Leave intact host and emulated values past the size - even though
+              * we do not care as we write per reg->size granularity, but for the
+              * logging below lets have the proper value. */
 -- 
 2.36.1
 
