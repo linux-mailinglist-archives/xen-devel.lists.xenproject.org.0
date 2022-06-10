@@ -2,41 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95DF6546C4C
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jun 2022 20:26:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.346651.572521 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7436F546DEA
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jun 2022 22:01:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.346674.572564 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzjKh-0007TO-38; Fri, 10 Jun 2022 18:26:07 +0000
+	id 1nzknt-0003Da-GS; Fri, 10 Jun 2022 20:00:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 346651.572521; Fri, 10 Jun 2022 18:26:07 +0000
+Received: by outflank-mailman (output) from mailman id 346674.572564; Fri, 10 Jun 2022 20:00:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzjKh-0007R0-0P; Fri, 10 Jun 2022 18:26:07 +0000
-Received: by outflank-mailman (input) for mailman id 346651;
- Fri, 10 Jun 2022 18:26:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nzknt-0003AA-Ci; Fri, 10 Jun 2022 20:00:21 +0000
+Received: by outflank-mailman (input) for mailman id 346674;
+ Fri, 10 Jun 2022 20:00:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iHn/=WR=kernel.org=pr-tracker-bot@srs-se1.protection.inumbo.net>)
- id 1nzjKf-0007Qu-LD
- for xen-devel@lists.xenproject.org; Fri, 10 Jun 2022 18:26:05 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c7c832e6-e8ea-11ec-8901-93a377f238d6;
- Fri, 10 Jun 2022 20:26:02 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9B917621EA;
- Fri, 10 Jun 2022 18:26:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0C1A9C34114;
- Fri, 10 Jun 2022 18:26:00 +0000 (UTC)
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- E8375E737EA; Fri, 10 Jun 2022 18:25:59 +0000 (UTC)
+ <SRS0=O8JV=WR=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1nzkns-0003A4-9N
+ for xen-devel@lists.xenproject.org; Fri, 10 Jun 2022 20:00:20 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f3a6e30a-e8f7-11ec-bd2c-47488cf2e6aa;
+ Fri, 10 Jun 2022 22:00:18 +0200 (CEST)
+Received: by mail-lj1-x233.google.com with SMTP id d19so230838lji.10
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Jun 2022 13:00:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,43 +39,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c7c832e6-e8ea-11ec-8901-93a377f238d6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1654885560;
-	bh=hnJGEJ6cGM5h+26mHdcmFFEsRgKuweQknb6iEEtMA3E=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
-	b=LE4Se7DCHVSvtvi3x7Cx7yZmxbN4gLsxqeZ3lEUZhlffWdVuMXR7GkYvAv3VCSRmq
-	 M6uZe5QV+TxYmmoN2O9JVLFdSWl7kc4SD/eB+pPC58aqKHTHcL1PQA4rop8H7ErDnT
-	 3zZUNKeErrRLfxaiaFoSirpJceI3WMlFz0k2s6kkZDm20BrpkA64E6OmCOCEys3IpN
-	 qNXL9mSl1k5tGf3FSSI+v2Uq07kCYjZOKVT0PFH1gtI7RvOqpl1RdUKFU2deGJdN8n
-	 klwyEuNEai5z0pTPty7OJxmZow2rmsR30Fg7iaq48nAe1PqAQrCvefgJeQ9A3rDv2j
-	 8OUqi5DmmOO1A==
-Subject: Re: [GIT PULL] xen: branch for v5.19-rc2
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20220610044858.30822-1-jgross@suse.com>
-References: <20220610044858.30822-1-jgross@suse.com>
-X-PR-Tracked-List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
-X-PR-Tracked-Message-Id: <20220610044858.30822-1-jgross@suse.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.19a-rc2-tag
-X-PR-Tracked-Commit-Id: dbac14a5a05ff8e1ce7c0da0e1f520ce39ec62ea
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: f2ecc964b9414a407828f9bef242b77483e95a6d
-Message-Id: <165488555994.32117.5799921241915272315.pr-tracker-bot@kernel.org>
-Date: Fri, 10 Jun 2022 18:25:59 +0000
-To: Juergen Gross <jgross@suse.com>
-Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, sstabellini@kernel.org
+X-Inumbo-ID: f3a6e30a-e8f7-11ec-bd2c-47488cf2e6aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=ujDhRtw1GqfaFOiy5pTKfU1xZmqAMfX+H4865dSGPY8=;
+        b=ltEWxWvQ76Z/Dzx7En5hEUnJGimFZUBC5s9Ypm9tybGMYOLaBSniFfytEh39DdHoQG
+         vDpqC7RnudNBDoqFCJ9Cl1TlLhfrkLEHY6fMYf41Spp175HYS5unGJ6JvFy/GHFo2bHt
+         s2CLbTakEIlv1HtDe8YiNV+IzLRxZt5xrj24JwRDI9t8GexF4V2dwGtzMfSi/6/4kDuN
+         IDfzFxYvVtwVdQN5do5Hf28HQVPN2NVTP5uiXro6CLu8e6p4xJz4udOA9MXGAZdHpN1q
+         0tjcZBN4/ANmbrfcfJrzhnP9f3CAiYy6CBJMCm3glz/nN9B3VJfV6WO8pFgj0OkMc+Yc
+         dhag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=ujDhRtw1GqfaFOiy5pTKfU1xZmqAMfX+H4865dSGPY8=;
+        b=xcApGfj8on4RhTCcYFMLUomOxgzwWWE3aL4JJcVqhxSjCfoW94Ex17iPNBWNZtg0SM
+         uaTUGIvgBX94TbY57i/XqE0CVfvtKtNeKnkuxPgl2DX815ktbWmkwTeT1oKxqpWvTNj5
+         nzLaCmV9WC2FdaKcakFDjCNv13I4xczjyXj9xWW1Dsb8fgKbgiQsoJStAMPpxz1bMlzU
+         Ak++Yrtmy6gB/x1GCoyIkPikK4gm+qIuW7hTGT36jr5K6a5f9jEL63/K4kpAfUOjou4p
+         2mQeP6BO+TKPrGVEEoeuX8wy38fE0H2Gn2vHcY9+PAPK11sYBzxNQgnWPiVoQjT54JQ3
+         HjPA==
+X-Gm-Message-State: AOAM533hX7a87zkTKe9r3dsgIkUOyF09Sn4NRn2t8N/V/VRgbyhRmNfD
+	FjM70ISBbdaAg/P0TOP/3FhGj912og5kXP26A68=
+X-Google-Smtp-Source: ABdhPJyt8BzadCeh3ZrTJo8xv/NZrEx4+QfjHpzhm6AsGAVJ2HZDL0B/RgKQtDVn9mixT2hWRo/NShjw69wmGQoYzd4=
+X-Received: by 2002:a2e:9f52:0:b0:255:7897:58be with SMTP id
+ v18-20020a2e9f52000000b00255789758bemr22117827ljk.15.1654891217926; Fri, 10
+ Jun 2022 13:00:17 -0700 (PDT)
+MIME-Version: 1.0
+References: <20220609185024.447922-1-mathieu.desnoyers@efficios.com> <20220609185024.447922-3-mathieu.desnoyers@efficios.com>
+In-Reply-To: <20220609185024.447922-3-mathieu.desnoyers@efficios.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Fri, 10 Jun 2022 16:00:06 -0400
+Message-ID: <CAKf6xpv3aBrzB=ds5jSd2MbFr=VePOMfJygos6E4cLegaizU0w@mail.gmail.com>
+Subject: Re: [PATCH v5 2/5] grub-mkconfig linux_xen: Fix quadratic algorithm
+ for sorting menu items
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: grub-devel@gnu.org, Daniel Kiper <dkiper@net-space.pl>, 
+	xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
 
-The pull request you sent on Fri, 10 Jun 2022 06:48:58 +0200:
+On Thu, Jun 9, 2022 at 2:50 PM Mathieu Desnoyers
+<mathieu.desnoyers@efficios.com> wrote:
+>
+> The current implementation of the 20_linux_xen script implements its
+> menu items sorting in bash with a quadratic algorithm, calling "sed",
+> "sort", "head", and "grep" to compare versions between individual lines,
+> which is annoyingly slow for kernel developers who can easily end up
+> with 50-100 kernels in their boot partition.
+>
+> This fix is ported from the 10_linux script, which has a similar
+> quadratic code pattern.
+>
+> [ Note: this is untested. I would be grateful if anyone with a Xen
+>   environment could test it before it is merged. ]
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.19a-rc2-tag
+Hi, Mathieu,
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/f2ecc964b9414a407828f9bef242b77483e95a6d
+I tested by manually applying patch 2/5 on top of Fedora 36's
+installed /etc/grub.d/20_linux_xen, and manually applying patch 1/5 to
+/usr/share/grub/grub-mkconfig_lib.  It seems to generate grub.cfg
+menuentry-ies in the correct order.
 
-Thank you!
+Note for patch 1/5, it's best practice to use "$@" with the double
+quotes to prevent word splitting of arguments.  Doesn't really matter
+for that function at this time though.
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Regards,
+Jason
 
