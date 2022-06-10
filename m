@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96E98546A0B
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jun 2022 18:01:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.346545.572374 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F41F546A4C
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jun 2022 18:22:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.346555.572388 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzh4q-00024C-Or; Fri, 10 Jun 2022 16:01:36 +0000
+	id 1nzhOK-0004zx-CB; Fri, 10 Jun 2022 16:21:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 346545.572374; Fri, 10 Jun 2022 16:01:36 +0000
+Received: by outflank-mailman (output) from mailman id 346555.572388; Fri, 10 Jun 2022 16:21:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzh4q-00021J-LL; Fri, 10 Jun 2022 16:01:36 +0000
-Received: by outflank-mailman (input) for mailman id 346545;
- Fri, 10 Jun 2022 16:01:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nzhOK-0004xI-9M; Fri, 10 Jun 2022 16:21:44 +0000
+Received: by outflank-mailman (input) for mailman id 346555;
+ Fri, 10 Jun 2022 16:21:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kdog=WR=citrix.com=prvs=1535499d8=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nzh4o-00021D-SU
- for xen-devel@lists.xenproject.org; Fri, 10 Jun 2022 16:01:34 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9832fcbb-e8d6-11ec-8901-93a377f238d6;
- Fri, 10 Jun 2022 18:01:33 +0200 (CEST)
+ <SRS0=FaZi=WR=citrix.com=prvs=15310cb4b=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1nzhOJ-0004xC-4h
+ for xen-devel@lists.xenproject.org; Fri, 10 Jun 2022 16:21:43 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6781ac01-e8d9-11ec-bd2c-47488cf2e6aa;
+ Fri, 10 Jun 2022 18:21:40 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,110 +36,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9832fcbb-e8d6-11ec-8901-93a377f238d6
+X-Inumbo-ID: 6781ac01-e8d9-11ec-bd2c-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1654876893;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=op65nTiNWEctpESvJ1znCak+8HQylj25GiEsv3WGy1Q=;
-  b=eW/j5tFSqU6/iTIIjKBvkP/JiENYlPfQSsyCjb7Qj4Pc3KQoYflcxiPT
-   M6rT2W29+WJqjDgTptipum+eGxZDB3zmZxYssuyYeTcWRhEetwn3gg4FV
-   +Cbf9WKHAQO++TUb8bimoYLVWlF3IN4B1howkSqvyXBGINeehz4IXMDXa
-   g=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  d=citrix.com; s=securemail; t=1654878100;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=MRW8FCuKIN7PAb5O33YLCY5idXh92TfGD9V0eYibXYg=;
+  b=Fz2ml8Ozn0FDOdJoqYMsG4qSuowyUpRfHFNIqzPGnuen7DesnVGZUT37
+   SB6cF8UEYjFarV5CfljjmlhzPJAeQtwfB/hLmpgXLL/tUtkyVOtGYTfXt
+   OlsID9DYVdoDWYMVrTZUW+kAgjCxt/Rk9pQFZLJeNuRZ/7knOKpRLrv38
+   Q=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 5.1
-X-MesageID: 73179186
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 73343584
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:8TnnD61UWZFSHXz/NvbD5YJxkn2cJEfYwER7XKvMYLTBsI5bp2FRx
- mAaXW/XM66PMWf1ftF2YYi38R8Hu5PWm4IwGgtrpC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
- Zh2hgzodZhsJpPkjk7xdOCn9xGQ7InQLlbGILes1htZGEk1EU/NtTo5w7Rj2tAx2YDja++wk
- YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
- 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
- /1HpZ+/DgMPIpTHo8cdWSBhSn8vJf1ZreqvzXiX6aR/zmXDenrohf5vEFs3LcsT/eMf7WNmr
- KJCbmpXN1ba2rzwkOnTpupE36zPKOHCOo8Ft24m5jbeFfs8GrjIQrnQ5M8e1zA17ixLNamFP
- pVIMGoxBPjGSwFQIlsdFrIQoMelmWe8IhsDpgqSjLVitgA/yyQuieOwYbI5YOeiWsF9jkue4
- GXc8AzRIDsXKdiewjqt6W+3i6nEmiaTcJIfEvi0++BnhHWXx3cPE1sGWF2ju/67h0WiHdVFJ
- CQpFjEG9PZoshbxF5+kAkP+8CXsUgMgt8R4Gf0550aJ7Lbt6D26BmI9d2cfOcR2q5pjLdA17
- WNlj+8FFBQ27uDJGSjArevKxd+hEXNLdDFfPEfoWSNAuoC++99r03ojW/45SMaIYsvJ9SYcK
- txghAw3nP0tgMECzM1XFniX0mv39vAlouPYjzg7v15JDSsjPeZJn6TytTDmAQ9ode51tGWps
- nkegNS55+sTF5yLnyHlaLxTQe32tqfbb2eH2wAH83wdG9OFqhaekX14umkidC+FzO5fEdMWX
- KMjkVwIv8ICVJdbRaR2f5iwG6wX8EQULvy8Dqq8RoMXOvBZLVbblAkzNBX49z28zyARfVQXZ
- M7znTCEVi5KV8yKDVOeGo8g7FPc7npnmDuNFMmllk7PPHj3TCf9dIrp+WCmNogRhJ5oai2Om
- zqDH6NmEylibdA=
-IronPort-HdrOrdr: A9a23:c0scnar+YKFyfZEeu0JCn/caV5oneYIsimQD101hICG8cqSj+f
- xG+85rsiMc6QxhPE3I9urhBEDtex/hHP1OkOws1NWZLWrbUQKTRekIh+bfKlXbakvDH4VmtJ
- uIHZIQNDSJNykZsfrH
+IronPort-Data: A9a23:6hUISalgT0UEQunJ7333XMvo5gxFJkRdPkR7XQ2eYbSJt1+Wr1Gzt
+ xJOXGHQP/7bZmD0foh2PY62ph8O757cyddiQAJvr3tnFCMWpZLJC+rCIxarNUt+DCFioGGLT
+ Sk6QoOdRCzhZiaE/n9BCpC48T8kk/vgqoPUUIYoAAgoLeNfYHpn2EsLd9IR2NYy24DnWlvV4
+ 7senuWEULOb828sWo4rw/rrRCNH5JwebxtB4zTSzdgS1LPvvyF94KA3fMldHFOhKmVgJcaoR
+ v6r8V2M1jixEyHBqD+Suu2TnkUiGtY+NOUV45Zcc/DKbhNq/kTe3kunXRa1hIg+ZzihxrhMJ
+ NtxWZOYRwJxHO7litwmdiZ+Nz5xFPBl4/yYGC3q2SCT5xWun3rExvxvCAc9PJEC+/YxCmZLn
+ RAaAGlTNFbZ3bvwme/lDLk37iggBJCD0Ic3s3d8zTbfHLA+TIrKWani7t5ExjYgwMtJGJ4yY
+ uJGMmEzN0mQP3WjPH9UOKo3gMODnELNagFC9E6zhvcG0VXcmVkZPL/Fb4OOJ43iqd9utkSSq
+ 3/C/m/5KgoHL9HZwj2AmlquifXIhjjTQ58JGfuz8fsCqEaI2mUZBRkSVF26ifq0kEizX5RYM
+ UN80igzqak/8mS7Q9+7WAe3yFaUsxhZV9dOHukS7ACW1rGS8wufHnIDTDNKdJohrsBebTsu2
+ 1ySg8LyBRRgtbSUTTSW8bL8hSy2ETgYKykFfyBsZQwB7tr4qYc/lCXTX81jG664iN7yMTzoy
+ jXMpy8774j/luZSif/9pwqexWvx+N6ZFWbZ+zk7QEqr61tbJ6e3X7eN1n7/8vlpcaWCDQa46
+ S1sd9el0AweMX2cvHXTHbldRuzyu6jt3C702gA2QcR4n9i50zv6JN0LvmkjTKt8GpxcEQIFd
+ nM/ru+4CHV7GHKxJZF6bIuqYyjB5fixTI+1Phw4gzcnX3SQSONk1Hs3DaJo9zqx+HXAaIlmU
+ XthTe6iDGwBFYNsxyesSuEW3NcDn35jmTyCFM6klU/9j9JygUJ5rp9UWGZik8hjtP/UyOkr2
+ 4032zS2J+V3D7SlP3i/HX87JlEWN3krba3LRzhsXrfbeGJOQTh5Y9eImO9JU9E0xMx9y7aXl
+ kxRr2cFkTITc1WccVXUAp2iAZuyNatCQYUTZ3B1YQn2hiB9OO5CLs43LvMKQFXuz8Q7pdYcc
+ hXPU5/o7ihnItgfxwkgUA==
+IronPort-HdrOrdr: A9a23:kDX+TqikVpokmzzO8yve6exqJ3BQXuIji2hC6mlwRA09TySZ//
+ rOoB0+726StN93YgBHpTngAtjlfZqyz/JICOUqUotKGTOWwVdAT7sSiLcKoQeQeBEWn9Q1vc
+ wLHpSWSueAb2SS5fyKmDVQeOxB/DDoys6Vuds=
 X-IronPort-AV: E=Sophos;i="5.91,290,1647316800"; 
-   d="scan'208";a="73179186"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH] x86/spec-ctrl: More MSR_ARCH_CAPS enumerations
-Date: Fri, 10 Jun 2022 17:00:50 +0100
-Message-ID: <20220610160050.24221-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+   d="scan'208";a="73343584"
+Date: Fri, 10 Jun 2022 17:21:27 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+CC: <xen-devel@lists.xenproject.org>, Oleksandr Tyshchenko
+	<oleksandr_tyshchenko@epam.com>, Wei Liu <wl@xen.org>, Juergen Gross
+	<jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH V2] libxl/arm: Create specific IOMMU node to be referred
+ by virtio-mmio device
+Message-ID: <YqNvh4bprAh7W/c1@perard.uk.xensource.com>
+References: <1653944813-17970-1-git-send-email-olekstysh@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <1653944813-17970-1-git-send-email-olekstysh@gmail.com>
 
-https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/best-practices/data-operand-independent-timing-isa-guidance.html
-https://www.intel.com/content/www/us/en/developer/articles/technical/software-security-guidance/advisory-guidance/running-average-power-limit-energy-reporting.html
+On Tue, May 31, 2022 at 12:06:53AM +0300, Oleksandr Tyshchenko wrote:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> 
+> Reuse generic IOMMU device tree bindings to communicate Xen specific
+> information for the virtio devices for which the restricted memory
+> access using Xen grant mappings need to be enabled.
+> 
+> Insert "iommus" property pointed to the IOMMU node with "xen,grant-dma"
+> compatible to all virtio devices which backends are going to run in
+> non-hardware domains (which are non-trusted by default).
+> 
+> Based on device-tree binding from Linux:
+> Documentation/devicetree/bindings/iommu/xen,grant-dma.yaml
+> 
+> The example of generated nodes:
+> 
+> xen_iommu {
+>     compatible = "xen,grant-dma";
+>     #iommu-cells = <0x01>;
+>     phandle = <0xfde9>;
+> };
+> 
+> virtio@2000000 {
+>     compatible = "virtio,mmio";
+>     reg = <0x00 0x2000000 0x00 0x200>;
+>     interrupts = <0x00 0x01 0xf01>;
+>     interrupt-parent = <0xfde8>;
+>     dma-coherent;
+>     iommus = <0xfde9 0x01>;
+> };
+> 
+> virtio@2000200 {
+>     compatible = "virtio,mmio";
+>     reg = <0x00 0x2000200 0x00 0x200>;
+>     interrupts = <0x00 0x02 0xf01>;
+>     interrupt-parent = <0xfde8>;
+>     dma-coherent;
+>     iommus = <0xfde9 0x01>;
+> };
+> 
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
+The patch looks fine.
 
-The SDM also lists
+> ---
+> !!! This patch is based on non upstreamed yet “Virtio support for toolstack
+> on Arm” V8 series which is on review now:
+> https://lore.kernel.org/xen-devel/1651598763-12162-1-git-send-email-olekstysh@gmail.com/
 
-  #define  ARCH_CAPS_OVERCLOCKING_STATUS      (_AC(1, ULL) << 23)
+With the patch added to the series it depends on: Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
 
-but I've got no idea what this is, nor the index of MSR_OVERCLOCKING_STATUS
-which is the thing allegedly enumerated by this.
----
- xen/arch/x86/include/asm/msr-index.h | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Thanks,
 
-diff --git a/xen/arch/x86/include/asm/msr-index.h b/xen/arch/x86/include/asm/msr-index.h
-index 6c250bfcadad..781584953654 100644
---- a/xen/arch/x86/include/asm/msr-index.h
-+++ b/xen/arch/x86/include/asm/msr-index.h
-@@ -51,6 +51,9 @@
- #define  PPIN_ENABLE                        (_AC(1, ULL) <<  1)
- #define MSR_PPIN                            0x0000004f
- 
-+#define MSR_MISC_PACKAGE_CTRL               0x000000bc
-+#define  PGK_CTRL_ENERGY_FILTER_EN          (_AC(1, ULL) <<  0)
-+
- #define MSR_CORE_CAPABILITIES               0x000000cf
- #define  CORE_CAPS_SPLITLOCK_DETECT         (_AC(1, ULL) <<  5)
- 
-@@ -71,6 +74,9 @@
- #define  ARCH_CAPS_IF_PSCHANGE_MC_NO        (_AC(1, ULL) <<  6)
- #define  ARCH_CAPS_TSX_CTRL                 (_AC(1, ULL) <<  7)
- #define  ARCH_CAPS_TAA_NO                   (_AC(1, ULL) <<  8)
-+#define  ARCH_CAPS_MISC_PACKAGE_CTRL        (_AC(1, ULL) << 10)
-+#define  ARCH_CAPS_ENERGY_FILTERING         (_AC(1, ULL) << 11)
-+#define  ARCH_CAPS_DOITM                    (_AC(1, ULL) << 12)
- #define  ARCH_CAPS_RRSBA                    (_AC(1, ULL) << 19)
- #define  ARCH_CAPS_BHI_NO                   (_AC(1, ULL) << 20)
- 
-@@ -149,6 +155,9 @@
- #define  PASID_PASID_MASK                   0x000fffff
- #define  PASID_VALID                        (_AC(1, ULL) << 31)
- 
-+#define MSR_UARCH_MISC_CTRL                 0x00001b01
-+#define  UARCH_CTRL_DOITM                   (_AC(1, ULL) <<  0)
-+
- #define MSR_EFER                            0xc0000080 /* Extended Feature Enable Register */
- #define  EFER_SCE                           (_AC(1, ULL) <<  0) /* SYSCALL Enable */
- #define  EFER_LME                           (_AC(1, ULL) <<  8) /* Long Mode Enable */
 -- 
-2.11.0
-
+Anthony PERARD
 
