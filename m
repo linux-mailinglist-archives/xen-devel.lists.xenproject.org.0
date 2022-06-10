@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A0C1547009
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Jun 2022 01:36:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.346828.572763 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08F08547050
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Jun 2022 01:56:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.346841.572787 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzoAR-00026s-3y; Fri, 10 Jun 2022 23:35:51 +0000
+	id 1nzoTu-0004vz-W9; Fri, 10 Jun 2022 23:55:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 346828.572763; Fri, 10 Jun 2022 23:35:51 +0000
+Received: by outflank-mailman (output) from mailman id 346841.572787; Fri, 10 Jun 2022 23:55:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzoAR-00024H-1B; Fri, 10 Jun 2022 23:35:51 +0000
-Received: by outflank-mailman (input) for mailman id 346828;
- Fri, 10 Jun 2022 23:35:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nzoTu-0004tF-S2; Fri, 10 Jun 2022 23:55:58 +0000
+Received: by outflank-mailman (input) for mailman id 346841;
+ Fri, 10 Jun 2022 23:55:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Tsmg=WR=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nzoAQ-00024B-3z
- for xen-devel@lists.xenproject.org; Fri, 10 Jun 2022 23:35:50 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0e3920e6-e916-11ec-bd2c-47488cf2e6aa;
- Sat, 11 Jun 2022 01:35:48 +0200 (CEST)
+ id 1nzoTt-0004t9-75
+ for xen-devel@lists.xenproject.org; Fri, 10 Jun 2022 23:55:57 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ddcd0059-e918-11ec-8901-93a377f238d6;
+ Sat, 11 Jun 2022 01:55:55 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 5FD86B837EF;
- Fri, 10 Jun 2022 23:35:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F63BC36B0C;
- Fri, 10 Jun 2022 23:35:45 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 631FBB82675;
+ Fri, 10 Jun 2022 23:55:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A53EBC34114;
+ Fri, 10 Jun 2022 23:55:52 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,70 +43,280 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e3920e6-e916-11ec-bd2c-47488cf2e6aa
+X-Inumbo-ID: ddcd0059-e918-11ec-8901-93a377f238d6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1654904145;
-	bh=BuqirxjS9JtGtMwszroJhztNGlaevYs4Gdo6iCFAnZM=;
+	s=k20201202; t=1654905353;
+	bh=PlxS3We0GdjvIOX2k5kRle3oBLQPYE2copSxEUBjiCE=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=E99QUel3G9pDHo9Q8vDeRwaVja1I5FRHOpS/4YJnsprWcSbnWAbuGVw/DW+L8rzxA
-	 dQC9sakJ7gxxFecoQG1aqgvHwKynaL0V5TSUIuu6JpCmY5Qi+Ll6qzkwsypvBBB1x0
-	 F6DfpUy1EkIvfi0oDFRJEUIGsC0+2OtGiZTE3UZ3EPbV1yR4CF9oi3mOLhC6k1vWCl
-	 0Id6GkNxxRSEmVyx5CTHmm+T6yXhzsFXwVn4YHCtLJ8OHvt0jFYS40iNEVqWUaXniM
-	 lg/9qRLFSkUIuVSpkMfL5ln/k4TFCi2OuNmpGwCJ17PjC1y6ddyaZWxwbRskWrPque
-	 N41EbPT5oxGzg==
-Date: Fri, 10 Jun 2022 16:35:45 -0700 (PDT)
+	b=e9MFev+ELzkkT08dn92q8sS/Kd47fC9pAvCBRCz9e26GbRXhrfwisf8908zziERxw
+	 KHcjGSXKKNVJ40jcxbxKerTv3ucB8IOGqtNlDHAosZ7pcWvFIHbNq1ekks8PIURuGz
+	 dt3k3JBCaehqBlEIqtkssdBmQnCJbL3I5cS0FHVxos+Q4t7kaNCdKgDdu+lQwFxOjI
+	 jaUjfLTme3PKgNddTPXufGtJcmq/ftmgTTf7UHGFNlSNYQrZoCzFKXM/ORyu9VrCke
+	 X8b/EJewUfytquvcmxaFxH3jyTVPsX8YZjKxym772t2SsAyD+wHiNCVX8OH9o8U0G4
+	 S8cEXBze6uuKA==
+Date: Fri, 10 Jun 2022 16:55:52 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Juergen Gross <jgross@suse.com>, Michal Orzel <michal.orzel@arm.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 3/3] xen/console: Fix incorrect format tags for struct
- tm members
-In-Reply-To: <295e9c7e-e0de-bbd3-eec4-0864cb2ef086@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2206101630520.756493@ubuntu-linux-20-04-desktop>
-References: <20220610083358.101412-1-michal.orzel@arm.com> <20220610083358.101412-4-michal.orzel@arm.com> <b84abd29-2856-a173-55b4-4e642d8a6ee5@suse.com> <2ccd52a7-a5b2-c221-b847-ed0c9de2effd@suse.com> <295e9c7e-e0de-bbd3-eec4-0864cb2ef086@suse.com>
+To: Oleksandr <olekstysh@gmail.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+    Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>
+Subject: Re: [RFC PATCH 2/2] xen/grant-table: Use unpopulated DMAable pages
+ instead of real RAM ones
+In-Reply-To: <7f886dfb-2b42-bc70-d55f-14ecd8144e3e@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2206101644210.756493@ubuntu-linux-20-04-desktop>
+References: <1652810658-27810-1-git-send-email-olekstysh@gmail.com> <1652810658-27810-3-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.22.394.2206031348230.2783803@ubuntu-linux-20-04-desktop> <7f886dfb-2b42-bc70-d55f-14ecd8144e3e@gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; BOUNDARY="8323329-1025708553-1654904664=:756493"
+Content-ID: <alpine.DEB.2.22.394.2206101644500.756493@ubuntu-linux-20-04-desktop>
 
-On Fri, 10 Jun 2022, Jan Beulich wrote:
-> On 10.06.2022 11:51, Juergen Gross wrote:
-> > On 10.06.22 11:44, Jan Beulich wrote:
-> >> On 10.06.2022 10:33, Michal Orzel wrote:
-> >>> All the members of struct tm are defined as integers but the format tags
-> >>> used in console driver for snprintf wrongly expect unsigned values. Fix
-> >>> the tags to expect integers.
-> >>
-> >> Perhaps do things the other way around - convert field types to unsigned
-> >> unless negative values can be stored there? This would match our general
-> >> aim of using unsigned types when only non-negative values can be held in
-> >> variables / parameters / fields.
-> > 
-> > Don't you think keeping struct tm in sync with the Posix definition should
-> > be preferred here?
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1025708553-1654904664=:756493
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2206101644501.756493@ubuntu-linux-20-04-desktop>
+
+On Thu, 9 Jun 2022, Oleksandr wrote:
+> On 04.06.22 00:19, Stefano Stabellini wrote:
+> Hello Stefano
 > 
-> Not necessarily, no. It's not just POSIX which has a (imo bad) habit of
-> using plain "int" even for values which can never go negative.
+> Thank you for having a look and sorry for the late response.
+> 
+> > On Tue, 17 May 2022, Oleksandr Tyshchenko wrote:
+> > > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> > > 
+> > > Depends on CONFIG_XEN_UNPOPULATED_ALLOC. If enabled then unpopulated
+> > > DMAable (contiguous) pages will be allocated for grant mapping into
+> > > instead of ballooning out real RAM pages.
+> > > 
+> > > TODO: Fallback to real RAM pages if xen_alloc_unpopulated_dma_pages()
+> > > fails.
+> > > 
+> > > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> > > ---
+> > >   drivers/xen/grant-table.c | 27 +++++++++++++++++++++++++++
+> > >   1 file changed, 27 insertions(+)
+> > > 
+> > > diff --git a/drivers/xen/grant-table.c b/drivers/xen/grant-table.c
+> > > index 8ccccac..2bb4392 100644
+> > > --- a/drivers/xen/grant-table.c
+> > > +++ b/drivers/xen/grant-table.c
+> > > @@ -864,6 +864,25 @@ EXPORT_SYMBOL_GPL(gnttab_free_pages);
+> > >    */
+> > >   int gnttab_dma_alloc_pages(struct gnttab_dma_alloc_args *args)
+> > >   {
+> > > +#ifdef CONFIG_XEN_UNPOPULATED_ALLOC
+> > > +	int ret;
+> > This is an alternative implementation of the same function.
+> 
+> Currently, yes.
+> 
+> 
+> >   If we are
+> > going to use #ifdef, then I would #ifdef the entire function, rather
+> > than just the body. Otherwise within the function body we can use
+> > IS_ENABLED.
+> 
+> 
+> Good point. Note, there is one missing thing in current patch which is
+> described in TODO.
+> 
+> "Fallback to real RAM pages if xen_alloc_unpopulated_dma_pages() fails."  So I
+> will likely use IS_ENABLED within the function body.
+> 
+> If CONFIG_XEN_UNPOPULATED_ALLOC is enabled then gnttab_dma_alloc_pages() will
+> try to call xen_alloc_unpopulated_dma_pages() the first and if fails then
+> fallback to allocate RAM pages and balloon them out.
+> 
+> One moment is not entirely clear to me. If we use fallback in
+> gnttab_dma_alloc_pages() then we must use fallback in gnttab_dma_free_pages()
+> as well, we cannot use xen_free_unpopulated_dma_pages() for real RAM pages.
+> The question is how to pass this information to the gnttab_dma_free_pages()?
+> The first idea which comes to mind is to add a flag to struct
+> gnttab_dma_alloc_args...
+ 
+You can check if the page is within the mhp_range range or part of
+iomem_resource? If not, you can free it as a normal page.
 
-I committed the other two patches in the series because already acked
-and straightforward.
+If we do this, then the fallback is better implemented in
+unpopulated-alloc.c because that is the one that is aware about
+page addresses.
 
-In this case, I think the straightforward/mechanical fix is the one
-Michal suggested in this patch: fixing %u to be %d. We could of course
-consider changing the definition of tm, and there are valid reasons to
-do that as Jan pointed out, but I think this patch is valid as-in
-anyway.
+ 
+ 
+> > > +	ret = xen_alloc_unpopulated_dma_pages(args->dev, args->nr_pages,
+> > > +			args->pages);
+> > > +	if (ret < 0)
+> > > +		return ret;
+> > > +
+> > > +	ret = gnttab_pages_set_private(args->nr_pages, args->pages);
+> > > +	if (ret < 0) {
+> > > +		gnttab_dma_free_pages(args);
+> > it should xen_free_unpopulated_dma_pages ?
+> 
+> Besides calling the xen_free_unpopulated_dma_pages(), we also need to call
+> gnttab_pages_clear_private() here, this is what gnttab_dma_free_pages() is
+> doing.
+> 
+> I can change to call both function instead:
+> 
+>     gnttab_pages_clear_private(args->nr_pages, args->pages);
+>     xen_free_unpopulated_dma_pages(args->dev, args->nr_pages, args->pages);
+> 
+> Shall I?
 
-So I am happy to give my reviewed-by for this version of the patch, and
-we can still consider changing tm to use unsigned if someone feels like
-proposing a patch for that.
+No, leave it as is. I didn't realize that gnttab_pages_set_private can
+fail half-way through.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+ 
+> > 
+> > 
+> > > +		return ret;
+> > > +	}
+> > > +
+> > > +	args->vaddr = page_to_virt(args->pages[0]);
+> > > +	args->dev_bus_addr = page_to_phys(args->pages[0]);
+> > There are two things to note here.
+> > 
+> > The first thing to note is that normally we would call pfn_to_bfn to
+> > retrieve the dev_bus_addr of a page because pfn_to_bfn takes into
+> > account foreign mappings. However, these are freshly allocated pages
+> > without foreign mappings, so page_to_phys/dma should be sufficient.
+> 
+> agree
+> 
+> 
+> > 
+> > 
+> > The second has to do with physical addresses and DMA addresses. The
+> > functions are called gnttab_dma_alloc_pages and
+> > xen_alloc_unpopulated_dma_pages which make you think we are retrieving a
+> > DMA address here. However, to get a DMA address we need to call
+> > page_to_dma rather than page_to_phys.
+> > 
+> > page_to_dma takes into account special offsets that some devices have
+> > when accessing memory. There are real cases on ARM where the physical
+> > address != DMA address, e.g. RPi4.
+> 
+> I got it. Now I am in doubt whether it would be better to name the API:
+> 
+> xen_alloc_unpopulated_cma_pages()
+> 
+> or
+> 
+> xen_alloc_unpopulated_contiguous_pages()
+> 
+> What do you think?
 
-Cheers,
+Yeah actually I think it is better to stay away from "dma" in the name.
+I like xen_alloc_unpopulated_contiguous_pages().
+ 
+ 
+> > However, to call page_to_dma you need to specify as first argument the
+> > DMA-capable device that is expected to use those pages for DMA (e.g. an
+> > ethernet device or a MMC controller.) While the args->dev we have in
+> > gnttab_dma_alloc_pages is the gntdev_miscdev.
+> 
+> agree
+> 
+> As I understand, at this time it is unknown for what exactly device these
+> pages are supposed to be used at the end.
+> 
+> For now, it is only known that these pages to be used by userspace PV backend
+> for grant mappings.
 
-Stefano
+Yeah
+ 
+
+> > So this interface cannot actually be used to allocate memory that is
+> > supposed to be DMA-able by a DMA-capable device, such as an ethernet
+> > device.
+> 
+> agree
+> 
+> 
+> > 
+> > But I think that should be fine because the memory is meant to be used
+> > by a userspace PV backend for grant mappings. If any of those mappings
+> > end up being used for actual DMA in the kernel they should go through the
+> > drivers/xen/swiotlb-xen.c and xen_phys_to_dma should be called, which
+> > ends up calling page_to_dma as appropriate.
+> > 
+> > It would be good to double-check that the above is correct and, if so,
+> > maybe add a short in-code comment about it:
+> > 
+> > /*
+> >   * These are not actually DMA addresses but regular physical addresses.
+> >   * If these pages end up being used in a DMA operation then the
+> >   * swiotlb-xen functions are called and xen_phys_to_dma takes care of
+> >   * the address translations:
+> >   *
+> >   * - from gfn to bfn in case of foreign mappings
+> >   * - from physical to DMA addresses in case the two are different for a
+> >   *   given DMA-mastering device
+> >   */
+> 
+> I agree this needs to be re-checked. But, there is one moment here, if
+> userspace PV backend runs in other than Dom0 domain (non 1:1 mapped domain),
+> the xen-swiotlb seems not to be in use then? How to be in this case?
+ 
+In that case, an IOMMU is required. If an IOMMU is setup correct, then
+the gfn->bfn translation is not necessary because it is done
+automatically by the IOMMU. That is because when the foreign page is
+mapped in the domain, the mapping also applies to the IOMMU pagetable.
+
+So the device is going to do DMA to "gfn" and the IOMMU will translate
+it to the right "mfn", the one corresponding to "bfn".
+
+The physical to DMA address should be done automatically by the default
+(non-swiotlb_xen) dma_ops in Linux. E.g.
+kernel/dma/direct.c:dma_direct_map_sg correctly calls
+dma_direct_map_page, which calls phys_to_dma.
+ 
+ 
+ 
+> > > +	return ret;
+> > > +#else
+> > >   	unsigned long pfn, start_pfn;
+> > >   	size_t size;
+> > >   	int i, ret;
+> > > @@ -910,6 +929,7 @@ int gnttab_dma_alloc_pages(struct
+> > > gnttab_dma_alloc_args *args)
+> > >   fail:
+> > >   	gnttab_dma_free_pages(args);
+> > >   	return ret;
+> > > +#endif
+> > >   }
+> > >   EXPORT_SYMBOL_GPL(gnttab_dma_alloc_pages);
+> > >   @@ -919,6 +939,12 @@ EXPORT_SYMBOL_GPL(gnttab_dma_alloc_pages);
+> > >    */
+> > >   int gnttab_dma_free_pages(struct gnttab_dma_alloc_args *args)
+> > >   {
+> > > +#ifdef CONFIG_XEN_UNPOPULATED_ALLOC
+> > > +	gnttab_pages_clear_private(args->nr_pages, args->pages);
+> > > +	xen_free_unpopulated_dma_pages(args->dev, args->nr_pages,
+> > > args->pages);
+> > > +
+> > > +	return 0;
+> > > +#else
+> > >   	size_t size;
+> > >   	int i, ret;
+> > >   @@ -946,6 +972,7 @@ int gnttab_dma_free_pages(struct
+> > > gnttab_dma_alloc_args *args)
+> > >   		dma_free_wc(args->dev, size,
+> > >   			    args->vaddr, args->dev_bus_addr);
+> > >   	return ret;
+> > > +#endif
+> > >   }
+> > >   EXPORT_SYMBOL_GPL(gnttab_dma_free_pages);
+> > >   #endif
+> > > -- 
+> > > 2.7.4
+> > > 
+--8323329-1025708553-1654904664=:756493--
 
