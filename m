@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AB51546F36
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jun 2022 23:25:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.346739.572645 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8474F546F3A
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jun 2022 23:28:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.346747.572655 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzm7r-0007fu-DE; Fri, 10 Jun 2022 21:25:03 +0000
+	id 1nzmAj-0008GP-RD; Fri, 10 Jun 2022 21:28:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 346739.572645; Fri, 10 Jun 2022 21:25:03 +0000
+Received: by outflank-mailman (output) from mailman id 346747.572655; Fri, 10 Jun 2022 21:28:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzm7r-0007dV-9J; Fri, 10 Jun 2022 21:25:03 +0000
-Received: by outflank-mailman (input) for mailman id 346739;
- Fri, 10 Jun 2022 21:25:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nzmAj-0008E1-O1; Fri, 10 Jun 2022 21:28:01 +0000
+Received: by outflank-mailman (input) for mailman id 346747;
+ Fri, 10 Jun 2022 21:28:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Tsmg=WR=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nzm7p-0007dM-RN
- for xen-devel@lists.xenproject.org; Fri, 10 Jun 2022 21:25:01 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c8498ad1-e903-11ec-bd2c-47488cf2e6aa;
- Fri, 10 Jun 2022 23:25:00 +0200 (CEST)
+ id 1nzmAi-0008Dv-CH
+ for xen-devel@lists.xenproject.org; Fri, 10 Jun 2022 21:28:00 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 334508b0-e904-11ec-8901-93a377f238d6;
+ Fri, 10 Jun 2022 23:27:59 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 49949B83755;
- Fri, 10 Jun 2022 21:24:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE6A4C34114;
- Fri, 10 Jun 2022 21:24:56 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id BDE50B83765;
+ Fri, 10 Jun 2022 21:27:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD2D9C34114;
+ Fri, 10 Jun 2022 21:27:56 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,65 +43,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c8498ad1-e903-11ec-bd2c-47488cf2e6aa
+X-Inumbo-ID: 334508b0-e904-11ec-8901-93a377f238d6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1654896298;
-	bh=8vEeMnpQVQgn+XTr3cOzHqPBLBaipdXvRgKvW91D8h0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=C3+UbP9yiqyz+XDayfuDgvITF2N4I36PMINj/jO6GWC8MfX2i04juB6Z1Q4b1nbCh
-	 Dx6LkNeFBwGpXLwR0bISrz9RmAVBQ14zBeKXLaKMkIktYv8K/36SvF01lC04BCAyeB
-	 aTWxBbJD6XplS0E5mnxKSooHGOCDxkX9h9ZzRw5ncGdciisxQHaCIeCLHf2xcqWKIG
-	 Yoxmtuu+X4qNlNyTkKF+Jgj0TGjhz17B5RI80+tV4quO8olZqCnCzgJcVTYeEybhCa
-	 5Ru1eq3yGYspXW/m69oPoc204MlBRHgvW1pFVglyEvefc/d9ENI6U+2BDHz0u32nZs
-	 rO2W9KMeOnnyw==
-Date: Fri, 10 Jun 2022 14:24:54 -0700 (PDT)
+	s=k20201202; t=1654896477;
+	bh=KBP82+EJ08ywiXHELyDwBuHDDTpTUfvp7+EqgZWDwuE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=V9pX9DwVjbvtYEz06hJ4GIQaq0IVH/unouwpz8f4YnuYJscUR510Wn5BndKvBABGB
+	 CDHDOLy8tSJ13msOeaxsIpK7X5d7cWK2z05MEqtzTg5xHVWq6qWOoiE7ZcGaLYc5Cp
+	 uZClXCJFWWiCYyT6tehZnf5cMSHYivtHYz8Bt56JDUJZHkrRVMx8a/HlbLH1yEV1XH
+	 wbCsYwNpLmM1RuTdohEe7ILyfPfZ8VjIxTN3HydDmY/4m1AibkCCd5JTuvpQncdVwV
+	 ETQIetSIXu0QA6pBoUAHsc7JwWGpcVRwG02+BVDTbtr7e8Pc8oLAxOonwYv6PtNwjr
+	 SZGdHdUO5F9Tw==
 From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, George.Dunlap@citrix.com, 
-    roger.pau@citrix.com, Artem_Mygaiev@epam.com, Andrew.Cooper3@citrix.com, 
-    julien@xen.org, Bertrand.Marquis@arm.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] add more MISRA C rules to docs/misra/rules.rst
-In-Reply-To: <c61f607b-bfdd-3162-7b26-b4681b4cce59@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2206101420290.756493@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2206091748210.756493@ubuntu-linux-20-04-desktop> <c61f607b-bfdd-3162-7b26-b4681b4cce59@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	George.Dunlap@citrix.com,
+	roger.pau@citrix.com,
+	Artem_Mygaiev@epam.com,
+	Andrew.Cooper3@citrix.com,
+	julien@xen.org,
+	Bertrand.Marquis@arm.com,
+	jbeulich@suse.com,
+	Stefano Stabellini <stefano.stabellini@xilinx.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Julien Grall <jgrall@amazon.com>
+Subject: [PATCH v2] add more MISRA C rules to docs/misra/rules.rst
+Date: Fri, 10 Jun 2022 14:27:55 -0700
+Message-Id: <20220610212755.1051640-1-sstabellini@kernel.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, 10 Jun 2022, Jan Beulich wrote:
-> On 10.06.2022 02:48, Stefano Stabellini wrote:
-> > +   * - `Rule 5.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_05_03.c>`_
-> > +     - Required
-> > +     - An identifier declared in an inner scope shall not hide an
-> > +       identifier declared in an outer scope
-> > +     - Using macros as macro parameters at invocation time is allowed,
-> > +       e.g. MAX(var0, MIN(var1, var2))
-> 
-> I think the connection between the example and the rule could be made more
-> clear, e.g. by adding "... even if both macros use identically named local
-> variables".
+Add the new MISRA C rules agreed by the MISRA C working group to
+docs/misra/rules.rst.
 
-Yep, I'll add
+Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+Acked-by: Julien Grall <jgrall@amazon.com>
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+Given the minimal/trivial changes I kept the acked/reviewed-by.
 
+Changes in v2:
+- use max_t/min_t instead of MAX/MIN in the Rule 5.3 example
+- improve wording for the note of Rule 5.3
+---
+ docs/misra/rules.rst | 90 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 90 insertions(+)
 
-> > +   * - `Rule 14.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_14_01.c>`_
-> > +     - Required
-> > +     - A loop counter shall not have essentially floating type
-> 
-> This looks to be missing "point"?
+diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
+index 6ccff07765..c0bdc75987 100644
+--- a/docs/misra/rules.rst
++++ b/docs/misra/rules.rst
+@@ -89,6 +89,29 @@ existing codebase are work-in-progress.
+        (xen/include/public/) are allowed to retain longer identifiers
+        for backward compatibility.
+ 
++   * - `Rule 5.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_05_02.c>`_
++     - Required
++     - Identifiers declared in the same scope and name space shall be
++       distinct
++     - The Xen characters limit for identifiers is 40. Public headers
++       (xen/include/public/) are allowed to retain longer identifiers
++       for backward compatibility.
++
++   * - `Rule 5.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_05_03.c>`_
++     - Required
++     - An identifier declared in an inner scope shall not hide an
++       identifier declared in an outer scope
++     - Using macros as macro parameters at invocation time is allowed
++       even if both macros use identically named local variables, e.g.
++       max_t(var0, min_t(var1, var2))
++
++   * - `Rule 5.4 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_05_04.c>`_
++     - Required
++     - Macro identifiers shall be distinct
++     - The Xen characters limit for macro identifiers is 40. Public
++       headers (xen/include/public/) are allowed to retain longer
++       identifiers for backward compatibility.
++
+    * - `Rule 6.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_06_02.c>`_
+      - Required
+      - Single-bit named bit fields shall not be of a signed type
+@@ -123,8 +146,75 @@ existing codebase are work-in-progress.
+        declarations of objects and functions that have internal linkage
+      -
+ 
++   * - `Rule 8.10 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_08_10.c>`_
++     - Required
++     - An inline function shall be declared with the static storage class
++     - gnu_inline (without static) is allowed.
++
+    * - `Rule 8.12 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_08_12.c>`_
+      - Required
+      - Within an enumerator list the value of an implicitly-specified
+        enumeration constant shall be unique
+      -
++
++   * - `Rule 9.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_09_01.c>`_
++     - Mandatory
++     - The value of an object with automatic storage duration shall not
++       be read before it has been set
++     - Rule clarification: do not use variables before they are
++       initialized. An explicit initializer is not necessarily required.
++       Try reducing the scope of the variable. If an explicit
++       initializer is added, consider initializing the variable to a
++       poison value.
++
++   * - `Rule 9.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_09_02.c>`_
++     - Required
++     - The initializer for an aggregate or union shall be enclosed in
++       braces
++     -
++
++   * - `Rule 13.6 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_13_06.c>`_
++     - Mandatory
++     - The operand of the sizeof operator shall not contain any
++       expression which has potential side effects
++     -
++
++   * - `Rule 14.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_14_01.c>`_
++     - Required
++     - A loop counter shall not have essentially floating type
++     -
++
++   * - `Rule 16.7 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_16_07.c>`_
++     - Required
++     - A switch-expression shall not have essentially Boolean type
++     -
++
++   * - `Rule 17.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_17_03.c>`_
++     - Mandatory
++     - A function shall not be declared implicitly
++     -
++
++   * - `Rule 17.4 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_17_04.c>`_
++     - Mandatory
++     - All exit paths from a function with non-void return type shall
++       have an explicit return statement with an expression
++     -
++
++   * - `Rule 20.7 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_20_07.c>`_
++     - Required
++     - Expressions resulting from the expansion of macro parameters
++       shall be enclosed in parentheses
++     -
++
++   * - `Rule 20.13 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_20_13.c>`_
++     - Required
++     - A line whose first token is # shall be a valid preprocessing
++       directive
++     -
++
++   * - `Rule 20.14 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_20_14.c>`_
++     - Required
++     - All #else #elif and #endif preprocessor directives shall reside
++       in the same file as the #if #ifdef or #ifndef directive to which
++       they are related
++     -
+-- 
+2.25.1
 
-I am not sure what you mean. Do you mean "floating-point" instead of
-"floating" ?
-
-This is the actual headline for Rule 14.1. MISRA defines "Essential
-types" (8.10.2), so in this case it is referring to the type
-"essentially floating", which includes float, double and long double.
-
-If you meant something different, I'll address it in the next version of
-the patch.
-
-Cheers,
-
-Stefano
 
