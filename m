@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 313F4547080
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Jun 2022 02:23:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.346861.572807 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A71EE547092
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Jun 2022 02:42:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.346873.572826 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzouP-00024F-OK; Sat, 11 Jun 2022 00:23:21 +0000
+	id 1nzpC8-0004ht-CR; Sat, 11 Jun 2022 00:41:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 346861.572807; Sat, 11 Jun 2022 00:23:21 +0000
+Received: by outflank-mailman (output) from mailman id 346873.572826; Sat, 11 Jun 2022 00:41:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzouP-00022T-LY; Sat, 11 Jun 2022 00:23:21 +0000
-Received: by outflank-mailman (input) for mailman id 346861;
- Sat, 11 Jun 2022 00:23:20 +0000
+	id 1nzpC8-0004eU-8W; Sat, 11 Jun 2022 00:41:40 +0000
+Received: by outflank-mailman (input) for mailman id 346873;
+ Sat, 11 Jun 2022 00:41:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gXwC=WS=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nzouO-00022N-HF
- for xen-devel@lists.xenproject.org; Sat, 11 Jun 2022 00:23:20 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ id 1nzpC6-0004eO-Cj
+ for xen-devel@lists.xenproject.org; Sat, 11 Jun 2022 00:41:38 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b11d0596-e91c-11ec-bd2c-47488cf2e6aa;
- Sat, 11 Jun 2022 02:23:18 +0200 (CEST)
+ id 3f36f193-e91f-11ec-bd2c-47488cf2e6aa;
+ Sat, 11 Jun 2022 02:41:36 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id DA6D1B837C6;
- Sat, 11 Jun 2022 00:23:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 235DBC3411E;
- Sat, 11 Jun 2022 00:23:16 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0E1F161F39;
+ Sat, 11 Jun 2022 00:41:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 346B8C34114;
+ Sat, 11 Jun 2022 00:41:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,220 +44,218 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b11d0596-e91c-11ec-bd2c-47488cf2e6aa
+X-Inumbo-ID: 3f36f193-e91f-11ec-bd2c-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1654906996;
-	bh=hgePJFBVCqf4ZZNjTfnhdlCC4xdsn6oPrkWViA35yk0=;
+	s=k20201202; t=1654908094;
+	bh=8bwDMRcbBGmeqBFM+Fcec2ie1Pqtr9LL2LyK4fTPmMo=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=AcMGNVGQKZQVJjW5/BrtonNXz1EGLitf9bCgQL1w3aaPF74d82gmEuXpcCJ61R1Tz
-	 xT4l0WplwRd2GnW0ahhqcn7OIBE8LP1GFZ+7ATm5bDa/0X4kA2PZKS87X9j8OuKKr9
-	 zAWmkC+5VRlHc7MZvnYqIqFs0KhSwo/uDxKk/77rBGDzglZS7pczIkjrXJF1eCuqK7
-	 s8d4fLgrNuvBBlDn4pyATDh+fiiJtkMcb7WmARptZpE1t828tFBFx/u1jmlB4mktDy
-	 4vpfZHGFZnl78zKEU6kKDPAnT7dPWYHEiSKvPSxh8sns1CZefWK/sBAHMmux+z+r9e
-	 qU5Un0+bUIhqg==
-Date: Fri, 10 Jun 2022 17:23:15 -0700 (PDT)
+	b=uxpentRgK5SxC7MPrX5SSZnDN7gdu1S1TKaaEtvU49n40SHnLgh0GvmVPEmjIfMq0
+	 mGb8sQCvaEIkMMOD1K822xVYfDgezoNy8QCORkTCRCxF/8KTAkaRbeHPZ5T88OVT6D
+	 UyMyzdh39g4KtyATm73z7S2byluU4Kfd8wf27Yu7Rhz+oyGrKKhR5Nlutw92WD+Lsx
+	 Dbxe4cJIDF3uB9xTlPB8H8BlF4a2i0PjMFaoBj7f4+uUC2YDS5hm2kzNcyTDAxtytQ
+	 ibjBDwJYlrbQ8+5nudham4gr8On1ouHe8X53T3ssG3Ymhcy4Y4PCnBVvuKcmffwAGz
+	 zdzLrtzBS5weg==
+Date: Fri, 10 Jun 2022 17:41:33 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Rahul Singh <rahul.singh@arm.com>
-cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v3] xen/evtchn: Add design for static event channel
- signaling
-In-Reply-To: <bb77b88185e26010d0502ce38940d2d5f7d28464.1652452306.git.rahul.singh@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2206101721580.756493@ubuntu-linux-20-04-desktop>
-References: <bb77b88185e26010d0502ce38940d2d5f7d28464.1652452306.git.rahul.singh@arm.com>
+To: Jens Wiklander <jens.wiklander@linaro.org>
+cc: xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v2 1/2] xen/arm: smccc: add support for SMCCCv1.2 extended
+ input/output registers
+In-Reply-To: <20220609061812.422130-2-jens.wiklander@linaro.org>
+Message-ID: <alpine.DEB.2.22.394.2206101733020.756493@ubuntu-linux-20-04-desktop>
+References: <20220609061812.422130-1-jens.wiklander@linaro.org> <20220609061812.422130-2-jens.wiklander@linaro.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1948795101-1654906997=:756493"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1948795101-1654906997=:756493
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Fri, 13 May 2022, Rahul Singh wrote:
-> This patch introduces a new feature to support the signaling between
-> two domains in dom0less system.
+On Thu, 9 Jun 2022, Jens Wiklander wrote:
+> SMCCC v1.2 AArch64 allows x0-x17 to be used as both parameter registers
+> and result registers for the SMC and HVC instructions.
 > 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+> Arm Firmware Framework for Armv8-A specification makes use of x0-x7 as
+> parameter and result registers.
+> 
+> Let us add new interface to support this extended set of input/output
+> registers.
+> 
+> This is based on 3fdc0cb59d97 ("arm64: smccc: Add support for SMCCCv1.2
+> extended input/output registers") by Sudeep Holla from the Linux kernel
+> 
+> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
 > ---
-> v3 changes:
-> - add dt node example for dom0 and domU.
-> - add info about "xen,enhanced" property to enable the event-channel interface
->   for domU guests.
+>  xen/arch/arm/arm64/smc.S         | 43 ++++++++++++++++++++++++++++++++
+>  xen/arch/arm/include/asm/smccc.h | 42 +++++++++++++++++++++++++++++++
+>  xen/arch/arm/vsmc.c              |  2 +-
+>  3 files changed, 86 insertions(+), 1 deletion(-)
 > 
-> v2 changes:
-> - switch to the one-subnode-per-evtchn under xen,domain" compatible node.
-> - Add more detail about event-channel.
-> ---
->  docs/designs/dom0less-evtchn.md | 144 ++++++++++++++++++++++++++++++++
->  1 file changed, 144 insertions(+)
->  create mode 100644 docs/designs/dom0less-evtchn.md
-> 
-> diff --git a/docs/designs/dom0less-evtchn.md b/docs/designs/dom0less-evtchn.md
-> new file mode 100644
-> index 0000000000..3c89a9fb7d
-> --- /dev/null
-> +++ b/docs/designs/dom0less-evtchn.md
-> @@ -0,0 +1,144 @@
-> +# Signaling support between two domUs on dom0less system
-> +
-> +## Current state: Draft version
-> +
-> +## Proposer(s): Rahul Singh, Bertrand Marquis
-> +
-> +## Problem Statement:
-> +
-> +Dom0less guests would benefit from a statically-defined memory sharing and
-> +signally system for communication. One that would be immediately available at
-> +boot without any need for dynamic configurations.
-> +
-> +In embedded a great variety of guest operating system kernels exist, many of
-> +which don't have support for xenstore, grant table, or other complex drivers.
-> +Some of them are small kernel-space applications (often called "baremetal",
-> +not to be confused with the term "baremetal" used in the data center which
-> +means "without hypervisors") or RTOSes. Additionally, for safety reasons, users
-> +often need to be able to configure the full system statically so that it can
-> +be verified statically.
-> +
-> +Event channels are very simple and can be added even to baremetal applications.
-> +This proposal introduces a way to define them statically to make them suitable
-> +for dom0less embedded deployments.
-> +
-> +## Proposal:
-> +
-> +Event channels are the basic primitive provided by Xen for event notifications.
-> +An event channel is a logical connection between 2 domains (more specifically
-> +between dom1,port1, and dom2,port2). Each event has a pending and a masked bit.
-> +The pending bit indicates the event has been raised. The masked bit is used by
-> +the domain to prevent the delivery of that specific event. Xen only performs a
-> +0 -> 1 transition on the pending bits and does not touch the mask bit. The
-> +domain may toggle masked bits in the masked bit field and should clear the
-> +pending bit when an event has been processed
-> +
-> +Events are received by a domain via an interrupt from Xen to the domain,
-> +indicating when an event arrives (setting the bit). Further notifications are
-> +blocked until the bit is cleared again. Events are delivered asynchronously to
-> +a domain and are enqueued when the domain is not running. Xen supports two
-> +different ABIs for event channel: FIFO and 2L.
-> +
-> +The event channel communication will be established statically between two
-> +domains (dom0 and domU also) before unpausing the domains after domain creation.
-> +Event channel connection information between domains will be passed to Xen via
-> +the device tree node. The event channel will be created and established
-> +in Xen before the domain started. The domain doesn’t need to do any operation
-> +to establish a connection. Domain only needs hypercall
-> +EVTCHNOP_send(local port) to send notifications to the remote guest.
-> +
-> +There is no need to describe the static event channel info in the domU device
-> +tree. Static event channels are only useful in fully static configurations,
-> +and in those configurations the domU device tree dynamically generated by Xen
-> +is not needed.
-> +
-> +To enable the event-channel interface for domU guests include the
-> +"xen,enhanced" property with an empty string ( or with the value
-> +"enabled” or "evtchn") in domU Xen device tree node.
-> +
-> +Under the "xen,domain" compatible node, there need to be sub-nodes with
-> +compatible "xen,evtchn" that describe the event channel connection between two
-> +domains(dom0 and domU also).
-> +
-> +The event channel sub-node has the following properties:
-> +
-> +- compatible
-> +
-> +    "xen,evtchn"
-> +
-> +- xen,evtchn
-> +
-> +    The property is tuples of two numbers
-> +    (local-evtchn link-to-foreign-evtchn) where:
-> +
-> +    local-evtchn is an integer value that will be used to allocate local port
-> +    for a domain to send and receive event notifications to/from the remote
-> +    domain. Maximum supported value is 2^17 for FIFO ABI and 4096 for 2L ABI.
-> +
-> +    link-to-foreign-evtchn is a single phandle to a foreign evtchn to which
-> +    local-evtchn will be connected.
+> diff --git a/xen/arch/arm/arm64/smc.S b/xen/arch/arm/arm64/smc.S
+> index 91bae62dd4d2..1570bc8eb9d4 100644
+> --- a/xen/arch/arm/arm64/smc.S
+> +++ b/xen/arch/arm/arm64/smc.S
+> @@ -27,3 +27,46 @@ ENTRY(__arm_smccc_1_0_smc)
+>          stp     x2, x3, [x4, #SMCCC_RES_a2]
+>  1:
+>          ret
 > +
 > +
-> +Example:
+> +/*
+> + * void arm_smccc_1_2_smc(const struct arm_smccc_1_2_regs *args,
+> + *                        struct arm_smccc_1_2_regs *res)
+> + */
+> +ENTRY(arm_smccc_1_2_smc)
+> +    /* Save `res` and free a GPR that won't be clobbered */
+> +    stp     x1, x19, [sp, #-16]!
 > +
-> +    chosen {
-> +        ....
+> +    /* Ensure `args` won't be clobbered while loading regs in next step */
+> +    mov	x19, x0
 > +
-> +        module@0 {
-> +            compatible = "multiboot,kernel", "multiboot,module";
-> +            xen,uefi-binary = "...";
-> +            bootargs = "...";
+> +    /* Load the registers x0 - x17 from the struct arm_smccc_1_2_regs */
+> +    ldp	x0, x1, [x19, #0]
+> +    ldp	x2, x3, [x19, #16]
+> +    ldp	x4, x5, [x19, #32]
+> +    ldp	x6, x7, [x19, #48]
+> +    ldp	x8, x9, [x19, #64]
+> +    ldp	x10, x11, [x19, #80]
+> +    ldp	x12, x13, [x19, #96]
+> +    ldp	x14, x15, [x19, #112]
+> +    ldp	x16, x17, [x19, #128]
 > +
-> +            /* one sub-node per local event channel */
-> +            ec1: evtchn@1 {
-> +                compatible = "xen,evtchn-v1";
-> +                /* local-evtchn link-to-foreign-evtchn */
-> +                xen,evtchn = <0xa &ec2>;
-> +            };
-> +        };
+> +    smc #0
+> +
+> +    /* Load the `res` from the stack */
+> +    ldr	x19, [sp]
+> +
+> +    /* Store the registers x0 - x17 into the result structure */
+> +    stp	x0, x1, [x19, #0]
+> +    stp	x2, x3, [x19, #16]
+> +    stp	x4, x5, [x19, #32]
+> +    stp	x6, x7, [x19, #48]
+> +    stp	x8, x9, [x19, #64]
+> +    stp	x10, x11, [x19, #80]
+> +    stp	x12, x13, [x19, #96]
+> +    stp	x14, x15, [x19, #112]
+> +    stp	x16, x17, [x19, #128]
 
-Great that you added a dom0 example. I wish we had a dom0 node for dom0
-but what you have done here is the easiest thing we can do and less
-disruptive for the existing bindings.
+I noticed that in the original commit the offsets are declared as
+ARM_SMCCC_1_2_REGS_X0_OFFS, etc. In Xen we could add them to
+xen/arch/arm/arm64/asm-offsets.c given that they are only used in asm.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+That said, there isn't a huge value in declaring them given that they
+are always read and written in order and there is nothing else in the
+struct, so I am fine either way.
+
+I am also happy to have them declared if other maintainers prefer it
+that way.
 
 
-> +        domU1: domU1 {
-> +            compatible = "xen,domain";
+> +    /* Restore original x19 */
+> +    ldp     xzr, x19, [sp], #16
+> +    ret
+> diff --git a/xen/arch/arm/include/asm/smccc.h b/xen/arch/arm/include/asm/smccc.h
+> index b3dbeecc90ad..316adf968e74 100644
+> --- a/xen/arch/arm/include/asm/smccc.h
+> +++ b/xen/arch/arm/include/asm/smccc.h
+> @@ -33,6 +33,7 @@
+>  
+>  #define ARM_SMCCC_VERSION_1_0   SMCCC_VERSION(1, 0)
+>  #define ARM_SMCCC_VERSION_1_1   SMCCC_VERSION(1, 1)
+> +#define ARM_SMCCC_VERSION_1_2   SMCCC_VERSION(1, 2)
+>  
+>  /*
+>   * This file provides common defines for ARM SMC Calling Convention as
+> @@ -217,6 +218,7 @@ struct arm_smccc_res {
+>  #ifdef CONFIG_ARM_32
+>  #define arm_smccc_1_0_smc(...) arm_smccc_1_1_smc(__VA_ARGS__)
+>  #define arm_smccc_smc(...) arm_smccc_1_1_smc(__VA_ARGS__)
 > +
-> +            /* one sub-node per local event channel */
-> +            ec2: evtchn@2 {
-> +                compatible = "xen,evtchn-v1";
-> +                /* local-evtchn link-to-foreign-evtchn */
-> +                xen,evtchn = <0xa &ec1>;
-> +            };
+>  #else
+
+Spurious change
+
+
+>  void __arm_smccc_1_0_smc(register_t a0, register_t a1, register_t a2,
+> @@ -265,8 +267,48 @@ void __arm_smccc_1_0_smc(register_t a0, register_t a1, register_t a2,
+>          else                                                    \
+>              arm_smccc_1_0_smc(__VA_ARGS__);                     \
+>      } while ( 0 )
 > +
-> +            ec3: evtchn@3 {
-> +                compatible = "xen,evtchn-v1";
-> +                xen,evtchn = <0xb &ec5>;
-> +            };
+> +/**
+> + * struct arm_smccc_1_2_regs - Arguments for or Results from SMC call
+> + * @a0-a17 argument values from registers 0 to 17
+> + */
+> +struct arm_smccc_1_2_regs {
+> +    unsigned long a0;
+> +    unsigned long a1;
+> +    unsigned long a2;
+> +    unsigned long a3;
+> +    unsigned long a4;
+> +    unsigned long a5;
+> +    unsigned long a6;
+> +    unsigned long a7;
+> +    unsigned long a8;
+> +    unsigned long a9;
+> +    unsigned long a10;
+> +    unsigned long a11;
+> +    unsigned long a12;
+> +    unsigned long a13;
+> +    unsigned long a14;
+> +    unsigned long a15;
+> +    unsigned long a16;
+> +    unsigned long a17;
+> +};
+>  #endif /* CONFIG_ARM_64 */
+>  
+> +/**
+> + * arm_smccc_1_2_smc() - make SMC calls
+> + * @args: arguments passed via struct arm_smccc_1_2_regs
+> + * @res: result values via struct arm_smccc_1_2_regs
+> + *
+> + * This function is used to make SMC calls following SMC Calling Convention
+> + * v1.2 or above. The content of the supplied param are copied from the
+> + * structure to registers prior to the SMC instruction. The return values
+> + * are updated with the content from registers on return from the SMC
+> + * instruction.
+> + */
+> +void arm_smccc_1_2_smc(const struct arm_smccc_1_2_regs *args,
+> +                       struct arm_smccc_1_2_regs *res);
 > +
-> +            ec4: evtchn@4 {
-> +                compatible = "xen,evtchn-v1";
-> +                xen,evtchn = <0xc &ec6>;
-> +            };
-> +            ....
-> +        };
-> +
-> +        domU2: domU2 {
-> +            compatible = "xen,domain";
-> +
-> +            /* one sub-node per local event channel */
-> +            ec5: evtchn@5 {
-> +                compatible = "xen,evtchn-v1";
-> +                /* local-evtchn link-to-foreign-evtchn */
-> +                xen,evtchn = <0xa &ec3>;
-> +            };
-> +
-> +            ec6: evtchn@6 {
-> +                compatible = "xen,evtchn-v1";
-> +                xen,evtchn = <0xb &ec4>;
-> +            };
-> +            ....
-> +        };
-> +    };
-> +
-> +In above example three event channel comunications will be established:
-> +
-> +    dom0  (port 0xa) <-----------------> domU1 (port 0xa)
-> +    domU1 (port 0xb) <-----------------> domU2 (port 0xa)
-> +    domU1 (port 0xc) <-----------------> domU2 (port 0xb)
+
+As arm_smccc_1_2_smc is not implemented in ARM32 it is better to place
+the declaration inside the #ifdef CONFIG_ARM_64.
+
+
+>  #endif /* __ASSEMBLY__ */
+>  
+>  /*
+> diff --git a/xen/arch/arm/vsmc.c b/xen/arch/arm/vsmc.c
+> index 676740ef1520..6f90c08a6304 100644
+> --- a/xen/arch/arm/vsmc.c
+> +++ b/xen/arch/arm/vsmc.c
+> @@ -93,7 +93,7 @@ static bool handle_arch(struct cpu_user_regs *regs)
+>      switch ( fid )
+>      {
+>      case ARM_SMCCC_VERSION_FID:
+> -        set_user_reg(regs, 0, ARM_SMCCC_VERSION_1_1);
+> +        set_user_reg(regs, 0, ARM_SMCCC_VERSION_1_2);
+>          return true;
+  
+This is going to be a problem for ARM32 given that ARM_SMCCC_VERSION_1_2
+is unimplemented on ARM32. If there is an ARM32 implementation in Linux
+for ARM_SMCCC_VERSION_1_2 you might as well import it too.
+
+Otherwise we'll have to abstract it away, e.g.:
+
+#ifdef CONFIG_ARM_64
+#define ARM_VSMCCC_VERSION ARM_SMCCC_VERSION_1_2
+#else
+#define ARM_VSMCCC_VERSION ARM_SMCCC_VERSION_1_1
+#endif
+
+>      case ARM_SMCCC_ARCH_FEATURES_FID:
 > -- 
-> 2.25.1
+> 2.31.1
 > 
---8323329-1948795101-1654906997=:756493--
 
