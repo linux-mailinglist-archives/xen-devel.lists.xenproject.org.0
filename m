@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD69A547425
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Jun 2022 13:12:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.347193.573427 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E8E5547440
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Jun 2022 13:31:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.347207.573444 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzz2V-0004hP-DT; Sat, 11 Jun 2022 11:12:23 +0000
+	id 1nzzKH-0007iL-8J; Sat, 11 Jun 2022 11:30:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 347193.573427; Sat, 11 Jun 2022 11:12:23 +0000
+Received: by outflank-mailman (output) from mailman id 347207.573444; Sat, 11 Jun 2022 11:30:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzz2V-0004fc-Ai; Sat, 11 Jun 2022 11:12:23 +0000
-Received: by outflank-mailman (input) for mailman id 347193;
- Sat, 11 Jun 2022 11:12:22 +0000
+	id 1nzzKH-0007fy-49; Sat, 11 Jun 2022 11:30:45 +0000
+Received: by outflank-mailman (input) for mailman id 347207;
+ Sat, 11 Jun 2022 11:30:43 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nzz2U-0004fS-2O; Sat, 11 Jun 2022 11:12:22 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1nzzKF-0007fs-Rn
+ for xen-devel@lists.xenproject.org; Sat, 11 Jun 2022 11:30:43 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nzz2T-00079p-Ur; Sat, 11 Jun 2022 11:12:21 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nzz2T-00018w-Nr; Sat, 11 Jun 2022 11:12:21 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nzz2T-0001aS-NO; Sat, 11 Jun 2022 11:12:21 +0000
+ (envelope-from <julien@xen.org>)
+ id 1nzzKF-0007Sr-BE; Sat, 11 Jun 2022 11:30:43 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nzzKF-0008Hx-38; Sat, 11 Jun 2022 11:30:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,191 +39,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=7zXcmSKxaE1C0BB4aDmZFJirbJFwUJyaVxAMKYG3ql0=; b=PHbcQ8DEcfI4WHEjzFwe46uUOG
-	PJOClf0bmJyHbCkfSv85EwcdmpbKq9SfyX2l37DCmen0QCneGa/J2IxOz7l1UdTfYhKtJIv8SWJ15
-	jszumq6HEYJuq1GARfOCf2T0fxXOaSQ7OnL4htT65S296CdgJwsuwga+GsUVWiHhosts=;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=FkwsPuoMcgaQ4ZKoqYdKp5NtlaahcWnaU77d8O+qBEM=; b=fzteqHrUne4DbkbeFl1fXkSAXP
+	uD+p2k7EKd/YCbshjZmnjZa30PYO9zhhTDZCh4r2Tk1k2QqZLIpv9mDs5kfHkGVj0mkc0okWJHiHf
+	Ad2+nf9NjkDK+JBx50e/THiuSgRHLbbt0Kthw/bvTAvyFZBHROSZxBvEN+xdBC7KrcRY=;
+Message-ID: <4f9a6d8b-7613-5030-2653-e7da6f69618d@xen.org>
+Date: Sat, 11 Jun 2022 12:30:40 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.9.1
+Subject: Re: [PATCH 00/16] xen/arm: mm: Remove open-coding mappings
 To: xen-devel@lists.xenproject.org
-Subject: [xen-unstable bisection] complete test-amd64-i386-xl-qemut-ws16-amd64
-Message-Id: <E1nzz2T-0001aS-NO@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 11 Jun 2022 11:12:21 +0000
+Cc: Julien Grall <jgrall@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <20220520120937.28925-1-julien@xen.org>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20220520120937.28925-1-julien@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-branch xen-unstable
-xenbranch xen-unstable
-job test-amd64-i386-xl-qemut-ws16-amd64
-testid xen-boot
+Hi,
 
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
+On 20/05/2022 13:09, Julien Grall wrote:
+> Julien Grall (15):
+>    xen/arm: mm: Allow other mapping size in xen_pt_update_entry()
+>    xen/arm: mm: Add support for the contiguous bit
+>    xen/arm: mm: Avoid flushing the TLBs when mapping are inserted
+>    xen/arm: mm: Don't open-code Xen PT update in remove_early_mappings()
+>    xen/arm: mm: Re-implement early_fdt_map() using map_pages_to_xen()
+>    xen/arm32: mm: Re-implement setup_xenheap_mappings() using
+>      map_pages_to_xen()
+>    xen/arm: mm: Allocate xen page tables in domheap rather than xenheap
+>    xen/arm: mm: Allow page-table allocation from the boot allocator
+>    xen/arm: Move fixmap definitions in a separate header
+>    xen/arm: mm: Clean-up the includes and order them
+>    xen/arm: mm: Use the PMAP helpers in xen_{,un}map_table()
+>    xen/arm32: setup: Move out the code to populate the boot allocator
+>    xen/arm64: mm: Add memory to the boot allocator first
+>    xen/arm: mm: Rework setup_xenheap_mappings()
+>    xen/arm: mm: Re-implement setup_frame_table_mappings() with
+>      map_pages_to_xen()
+> 
+> Wei Liu (1):
+>    xen/arm: add Persistent Map (PMAP) infrastructure
 
-*** Found and reproduced problem changeset ***
+I have now committed the full series.
 
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  9186e96b199e4f7e52e033b238f9fe869afb69c7
-  Bug not present: 59fbdf8a3667ce42c1cf70c94c3bcd0451afd4d8
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/171076/
+Cheers,
 
-
-  commit 9186e96b199e4f7e52e033b238f9fe869afb69c7
-  Author: Andrew Cooper <andrew.cooper3@citrix.com>
-  Date:   Thu Jun 9 14:20:36 2022 +0200
-  
-      x86/pv: Clean up _get_page_type()
-      
-      Various fixes for clarity, ahead of making complicated changes.
-      
-       * Split the overflow check out of the if/else chain for type handling, as
-         it's somewhat unrelated.
-       * Comment the main if/else chain to explain what is going on.  Adjust one
-         ASSERT() and state the bit layout for validate-locked and partial states.
-       * Correct the comment about TLB flushing, as it's backwards.  The problem
-         case is when writeable mappings are retained to a page becoming read-only,
-         as it allows the guest to bypass Xen's safety checks for updates.
-       * Reduce the scope of 'y'.  It is an artefact of the cmpxchg loop and not
-         valid for use by subsequent logic.  Switch to using ACCESS_ONCE() to treat
-         all reads as explicitly volatile.  The only thing preventing the validated
-         wait-loop being infinite is the compiler barrier hidden in cpu_relax().
-       * Replace one page_get_owner(page) with the already-calculated 'd' already in
-         scope.
-      
-      No functional change.
-      
-      This is part of XSA-401 / CVE-2022-26362.
-      
-      Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-      Signed-off-by: George Dunlap <george.dunlap@eu.citrix.com>
-      Reviewed-by: Jan Beulich <jbeulich@suse.com>
-      Reviewed-by: George Dunlap <george.dunlap@citrix.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable/test-amd64-i386-xl-qemut-ws16-amd64.xen-boot.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable/test-amd64-i386-xl-qemut-ws16-amd64.xen-boot --summary-out=tmp/171076.bisection-summary --basis-template=170890 --blessings=real,real-bisect,real-retry xen-unstable test-amd64-i386-xl-qemut-ws16-amd64 xen-boot
-Searching for failure / basis pass:
- 170908 fail [host=huxelrebe1] / 170897 ok.
-Failure / basis pass flights: 170908 / 170897
-(tree with no url: minios)
-(tree with no url: ovmf)
-(tree with no url: seabios)
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 c1c9cae3a9633054b177c5de21ad7268162b2f2c
-Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 f3185c165d28901c3222becfc8be547263c53745
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#a68d6d311c2d1fd9d2fa9a0768ea235\
- 3e8a79b42-a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 git://xenbits.xen.org/xen.git#f3185c165d28901c3222becfc8be547263c53745-c1c9cae3a9633054b177c5de21ad7268162b2f2c
-From git://cache:9419/git://xenbits.xen.org/xen
-   fe97133b5d..1575075b2e  stable-4.13 -> origin/stable-4.13
-Loaded 5001 nodes in revision graph
-Searching for test results:
- 170890 pass irrelevant
- 170897 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 f3185c165d28901c3222becfc8be547263c53745
- 170908 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 c1c9cae3a9633054b177c5de21ad7268162b2f2c
- 170977 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 f3185c165d28901c3222becfc8be547263c53745
- 170982 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 c1c9cae3a9633054b177c5de21ad7268162b2f2c
- 170988 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 8cc5036bc385112a82f1faff27a0970e6440dfed
- 170992 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 79faa321f2f31d7794604007a290fb6c8fc05035
- 170994 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 59fbdf8a3667ce42c1cf70c94c3bcd0451afd4d8
- 171000 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 9186e96b199e4f7e52e033b238f9fe869afb69c7
- 171037 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 59fbdf8a3667ce42c1cf70c94c3bcd0451afd4d8
- 171038 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 9186e96b199e4f7e52e033b238f9fe869afb69c7
- 171075 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 59fbdf8a3667ce42c1cf70c94c3bcd0451afd4d8
- 171076 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 9186e96b199e4f7e52e033b238f9fe869afb69c7
-Searching for interesting versions
- Result found: flight 170897 (pass), for basis pass
- For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 59fbdf8a3667ce42c1cf70c94c3bcd0451afd4d8, results HASH(0x56336caaef50) HASH(0x56336caaaf18) HASH(0x56336b7c7ef0) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311\
- c2d1fd9d2fa9a0768ea2353e8a79b42 79faa321f2f31d7794604007a290fb6c8fc05035, results HASH(0x56336caac4a0) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 f3185c165d28901c3222becfc8be547263c53745, results HASH(0x56336ca961e8) HASH(0x56336ca98218) Result found: flight 170908 (fail), for basis failure (at ancestor ~164)
- Repro found: flight 170977 (pass), for basis pass
- Repro found: flight 170982 (fail), for basis failure
- 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 59fbdf8a3667ce42c1cf70c94c3bcd0451afd4d8
-No revisions left to test, checking graph state.
- Result found: flight 170994 (pass), for last pass
- Result found: flight 171000 (fail), for first failure
- Repro found: flight 171037 (pass), for last pass
- Repro found: flight 171038 (fail), for first failure
- Repro found: flight 171075 (pass), for last pass
- Repro found: flight 171076 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  9186e96b199e4f7e52e033b238f9fe869afb69c7
-  Bug not present: 59fbdf8a3667ce42c1cf70c94c3bcd0451afd4d8
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/171076/
-
-
-  commit 9186e96b199e4f7e52e033b238f9fe869afb69c7
-  Author: Andrew Cooper <andrew.cooper3@citrix.com>
-  Date:   Thu Jun 9 14:20:36 2022 +0200
-  
-      x86/pv: Clean up _get_page_type()
-      
-      Various fixes for clarity, ahead of making complicated changes.
-      
-       * Split the overflow check out of the if/else chain for type handling, as
-         it's somewhat unrelated.
-       * Comment the main if/else chain to explain what is going on.  Adjust one
-         ASSERT() and state the bit layout for validate-locked and partial states.
-       * Correct the comment about TLB flushing, as it's backwards.  The problem
-         case is when writeable mappings are retained to a page becoming read-only,
-         as it allows the guest to bypass Xen's safety checks for updates.
-       * Reduce the scope of 'y'.  It is an artefact of the cmpxchg loop and not
-         valid for use by subsequent logic.  Switch to using ACCESS_ONCE() to treat
-         all reads as explicitly volatile.  The only thing preventing the validated
-         wait-loop being infinite is the compiler barrier hidden in cpu_relax().
-       * Replace one page_get_owner(page) with the already-calculated 'd' already in
-         scope.
-      
-      No functional change.
-      
-      This is part of XSA-401 / CVE-2022-26362.
-      
-      Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-      Signed-off-by: George Dunlap <george.dunlap@eu.citrix.com>
-      Reviewed-by: Jan Beulich <jbeulich@suse.com>
-      Reviewed-by: George Dunlap <george.dunlap@citrix.com>
-
-Revision graph left in /home/logs/results/bisect/xen-unstable/test-amd64-i386-xl-qemut-ws16-amd64.xen-boot.{dot,ps,png,html,svg}.
-----------------------------------------
-171076: tolerable ALL FAIL
-
-flight 171076 xen-unstable real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/171076/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- test-amd64-i386-xl-qemut-ws16-amd64  8 xen-boot         fail baseline untested
-
-
-jobs:
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
+-- 
+Julien Grall
 
