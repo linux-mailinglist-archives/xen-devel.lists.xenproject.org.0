@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F1E0547070
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Jun 2022 02:13:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.346851.572797 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 313F4547080
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Jun 2022 02:23:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.346861.572807 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzojq-0008LR-Im; Sat, 11 Jun 2022 00:12:26 +0000
+	id 1nzouP-00024F-OK; Sat, 11 Jun 2022 00:23:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 346851.572797; Sat, 11 Jun 2022 00:12:26 +0000
+Received: by outflank-mailman (output) from mailman id 346861.572807; Sat, 11 Jun 2022 00:23:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzojq-0008JZ-FG; Sat, 11 Jun 2022 00:12:26 +0000
-Received: by outflank-mailman (input) for mailman id 346851;
- Sat, 11 Jun 2022 00:12:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nzouP-00022T-LY; Sat, 11 Jun 2022 00:23:21 +0000
+Received: by outflank-mailman (input) for mailman id 346861;
+ Sat, 11 Jun 2022 00:23:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gXwC=WS=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nzojo-0008JT-EQ
- for xen-devel@lists.xenproject.org; Sat, 11 Jun 2022 00:12:24 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 28364f92-e91b-11ec-8901-93a377f238d6;
- Sat, 11 Jun 2022 02:12:20 +0200 (CEST)
+ id 1nzouO-00022N-HF
+ for xen-devel@lists.xenproject.org; Sat, 11 Jun 2022 00:23:20 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b11d0596-e91c-11ec-bd2c-47488cf2e6aa;
+ Sat, 11 Jun 2022 02:23:18 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id EBD3BCE3966;
- Sat, 11 Jun 2022 00:12:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3E62C34114;
- Sat, 11 Jun 2022 00:12:12 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id DA6D1B837C6;
+ Sat, 11 Jun 2022 00:23:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 235DBC3411E;
+ Sat, 11 Jun 2022 00:23:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,336 +43,220 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 28364f92-e91b-11ec-8901-93a377f238d6
+X-Inumbo-ID: b11d0596-e91c-11ec-bd2c-47488cf2e6aa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1654906333;
-	bh=d0rHiyYopNhDPEkoTUlu2dhdd5i24Zc5+OYebXPp9fs=;
+	s=k20201202; t=1654906996;
+	bh=hgePJFBVCqf4ZZNjTfnhdlCC4xdsn6oPrkWViA35yk0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=EysdNDGWc160A8pcOAhbfITlnI82gSWEEDNoxThGJwZg46GWtrdsubuWsVhkJ3gYJ
-	 tgnPMkdS+qyJQymTcFB9amOmwKcf4+gQhs7FRbcHFsKorgy4xZJ4/p6U/ISYlhNvmx
-	 8WVapP4YOoOCLPxMTjxozlv4AaFIiz69BQ7dyGSK1vt3vuiftNVjnA7JQXJxp0jOSy
-	 NKtnHFObTgQ6LmuloVlleF5fJlv4fIbAvCeGPDYYthV02aWkw1Km7VPy9fpTHvpiTA
-	 Wcuot43iEpDJhTjWnompiQYaW1ZZjP7r8mq18dZQik94DIXCFwZ6jZdj3mozKu8ICs
-	 yAdha3akPYsWA==
-Date: Fri, 10 Jun 2022 17:12:12 -0700 (PDT)
+	b=AcMGNVGQKZQVJjW5/BrtonNXz1EGLitf9bCgQL1w3aaPF74d82gmEuXpcCJ61R1Tz
+	 xT4l0WplwRd2GnW0ahhqcn7OIBE8LP1GFZ+7ATm5bDa/0X4kA2PZKS87X9j8OuKKr9
+	 zAWmkC+5VRlHc7MZvnYqIqFs0KhSwo/uDxKk/77rBGDzglZS7pczIkjrXJF1eCuqK7
+	 s8d4fLgrNuvBBlDn4pyATDh+fiiJtkMcb7WmARptZpE1t828tFBFx/u1jmlB4mktDy
+	 4vpfZHGFZnl78zKEU6kKDPAnT7dPWYHEiSKvPSxh8sns1CZefWK/sBAHMmux+z+r9e
+	 qU5Un0+bUIhqg==
+Date: Fri, 10 Jun 2022 17:23:15 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksandr <olekstysh@gmail.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-    Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>
-Subject: Re: [RFC PATCH 1/2] xen/unpopulated-alloc: Introduce helpers for
- DMA allocations
-In-Reply-To: <00c14b91-4cf2-179c-749d-593db853e42e@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2206101709210.756493@ubuntu-linux-20-04-desktop>
-References: <1652810658-27810-1-git-send-email-olekstysh@gmail.com> <1652810658-27810-2-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.22.394.2206031420430.2783803@ubuntu-linux-20-04-desktop> <00c14b91-4cf2-179c-749d-593db853e42e@gmail.com>
+To: Rahul Singh <rahul.singh@arm.com>
+cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v3] xen/evtchn: Add design for static event channel
+ signaling
+In-Reply-To: <bb77b88185e26010d0502ce38940d2d5f7d28464.1652452306.git.rahul.singh@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2206101721580.756493@ubuntu-linux-20-04-desktop>
+References: <bb77b88185e26010d0502ce38940d2d5f7d28464.1652452306.git.rahul.singh@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1810477358-1654906333=:756493"
+Content-Type: multipart/mixed; boundary="8323329-1948795101-1654906997=:756493"
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-1810477358-1654906333=:756493
+--8323329-1948795101-1654906997=:756493
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8BIT
 
-On Wed, 8 Jun 2022, Oleksandr wrote:
-> 2. Drop the "page_list" entirely and use "dma_pool" for all (contiguous and
-> non-contiguous) allocations. After all, all pages are initially contiguous in
-> fill_list() as they are built from the resource. This changes behavior for all
-> users of xen_alloc_unpopulated_pages()
+On Fri, 13 May 2022, Rahul Singh wrote:
+> This patch introduces a new feature to support the signaling between
+> two domains in dom0less system.
 > 
-> Below the diff for unpopulated-alloc.c. The patch is also available at:
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+> ---
+> v3 changes:
+> - add dt node example for dom0 and domU.
+> - add info about "xen,enhanced" property to enable the event-channel interface
+>   for domU guests.
 > 
-> https://github.com/otyshchenko1/linux/commit/7be569f113a4acbdc4bcb9b20cb3995b3151387a
+> v2 changes:
+> - switch to the one-subnode-per-evtchn under xen,domain" compatible node.
+> - Add more detail about event-channel.
+> ---
+>  docs/designs/dom0less-evtchn.md | 144 ++++++++++++++++++++++++++++++++
+>  1 file changed, 144 insertions(+)
+>  create mode 100644 docs/designs/dom0less-evtchn.md
 > 
-> 
-> diff --git a/drivers/xen/unpopulated-alloc.c b/drivers/xen/unpopulated-alloc.c
-> index a39f2d3..ab5c7bd 100644
-> --- a/drivers/xen/unpopulated-alloc.c
-> +++ b/drivers/xen/unpopulated-alloc.c
-> @@ -1,5 +1,7 @@
->  // SPDX-License-Identifier: GPL-2.0
-> +#include <linux/dma-mapping.h>
->  #include <linux/errno.h>
-> +#include <linux/genalloc.h>
->  #include <linux/gfp.h>
->  #include <linux/kernel.h>
->  #include <linux/mm.h>
-> @@ -13,8 +15,8 @@
->  #include <xen/xen.h>
-> 
->  static DEFINE_MUTEX(list_lock);
-> -static struct page *page_list;
-> -static unsigned int list_count;
+> diff --git a/docs/designs/dom0less-evtchn.md b/docs/designs/dom0less-evtchn.md
+> new file mode 100644
+> index 0000000000..3c89a9fb7d
+> --- /dev/null
+> +++ b/docs/designs/dom0less-evtchn.md
+> @@ -0,0 +1,144 @@
+> +# Signaling support between two domUs on dom0less system
 > +
-> +static struct gen_pool *dma_pool;
-> 
->  static struct resource *target_resource;
-> 
-> @@ -36,7 +38,7 @@ static int fill_list(unsigned int nr_pages)
->         struct dev_pagemap *pgmap;
->         struct resource *res, *tmp_res = NULL;
->         void *vaddr;
-> -       unsigned int i, alloc_pages = round_up(nr_pages, PAGES_PER_SECTION);
-> +       unsigned int alloc_pages = round_up(nr_pages, PAGES_PER_SECTION);
->         struct range mhp_range;
->         int ret;
-> 
-> @@ -106,6 +108,7 @@ static int fill_list(unsigned int nr_pages)
->           * conflict with any devices.
->           */
->         if (!xen_feature(XENFEAT_auto_translated_physmap)) {
-> +               unsigned int i;
->                 xen_pfn_t pfn = PFN_DOWN(res->start);
-> 
->                 for (i = 0; i < alloc_pages; i++) {
-> @@ -125,16 +128,17 @@ static int fill_list(unsigned int nr_pages)
->                 goto err_memremap;
->         }
-> 
-> -       for (i = 0; i < alloc_pages; i++) {
-> -               struct page *pg = virt_to_page(vaddr + PAGE_SIZE * i);
-> -
-> -               pg->zone_device_data = page_list;
-> -               page_list = pg;
-> -               list_count++;
-> +       ret = gen_pool_add_virt(dma_pool, (unsigned long)vaddr, res->start,
-> +                       alloc_pages * PAGE_SIZE, NUMA_NO_NODE);
-> +       if (ret) {
-> +               pr_err("Cannot add memory range to the pool\n");
-> +               goto err_pool;
->         }
-> 
->         return 0;
-> 
-> +err_pool:
-> +       memunmap_pages(pgmap);
->  err_memremap:
->         kfree(pgmap);
->  err_pgmap:
-> @@ -149,51 +153,49 @@ static int fill_list(unsigned int nr_pages)
->         return ret;
->  }
-> 
-> -/**
-> - * xen_alloc_unpopulated_pages - alloc unpopulated pages
-> - * @nr_pages: Number of pages
-> - * @pages: pages returned
-> - * @return 0 on success, error otherwise
-> - */
-> -int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page **pages)
-> +static int alloc_unpopulated_pages(unsigned int nr_pages, struct page
-> **pages,
-> +               bool contiguous)
->  {
->         unsigned int i;
->         int ret = 0;
-> +       void *vaddr;
-> +       bool filled = false;
-> 
->         /*
->          * Fallback to default behavior if we do not have any suitable
-> resource
->          * to allocate required region from and as the result we won't be able
-> to
->          * construct pages.
->          */
-> -       if (!target_resource)
-> +       if (!target_resource) {
-> +               if (contiguous)
-> +                       return -ENODEV;
+> +## Current state: Draft version
 > +
->                 return xen_alloc_ballooned_pages(nr_pages, pages);
-> +       }
-> 
->         mutex_lock(&list_lock);
-> -       if (list_count < nr_pages) {
-> -               ret = fill_list(nr_pages - list_count);
+> +## Proposer(s): Rahul Singh, Bertrand Marquis
 > +
-> +       while (!(vaddr = (void *)gen_pool_alloc(dma_pool, nr_pages *
-> PAGE_SIZE))) {
-> +               if (filled)
-> +                       ret = -ENOMEM;
-> +               else {
-> +                       ret = fill_list(nr_pages);
-> +                       filled = true;
-> +               }
->                 if (ret)
->                         goto out;
->         }
-> 
->         for (i = 0; i < nr_pages; i++) {
-> -               struct page *pg = page_list;
-> -
-> -               BUG_ON(!pg);
-> -               page_list = pg->zone_device_data;
-> -               list_count--;
-> -               pages[i] = pg;
-> +               pages[i] = virt_to_page(vaddr + PAGE_SIZE * i);
-> 
->  #ifdef CONFIG_XEN_HAVE_PVMMU
->                 if (!xen_feature(XENFEAT_auto_translated_physmap)) {
-> -                       ret = xen_alloc_p2m_entry(page_to_pfn(pg));
-> +                       ret = xen_alloc_p2m_entry(page_to_pfn(pages[i]));
->                         if (ret < 0) {
-> -                               unsigned int j;
-> -
-> -                               for (j = 0; j <= i; j++) {
-> - pages[j]->zone_device_data = page_list;
-> -                                       page_list = pages[j];
-> -                                       list_count++;
-> -                               }
-> +                               /* XXX Do we need to zeroed pages[i]? */
-> +                               gen_pool_free(dma_pool, (unsigned long)vaddr,
-> +                                               nr_pages * PAGE_SIZE);
->                                 goto out;
->                         }
->                 }
-> @@ -204,32 +206,89 @@ int xen_alloc_unpopulated_pages(unsigned int nr_pages,
-> struct page **pages)
->         mutex_unlock(&list_lock);
->         return ret;
->  }
-> -EXPORT_SYMBOL(xen_alloc_unpopulated_pages);
-> 
-> -/**
-> - * xen_free_unpopulated_pages - return unpopulated pages
-> - * @nr_pages: Number of pages
-> - * @pages: pages to return
-> - */
-> -void xen_free_unpopulated_pages(unsigned int nr_pages, struct page **pages)
-> +static void free_unpopulated_pages(unsigned int nr_pages, struct page
-> **pages,
-> +               bool contiguous)
->  {
-> -       unsigned int i;
-> -
->         if (!target_resource) {
-> +               if (contiguous)
-> +                       return;
+> +## Problem Statement:
 > +
->                 xen_free_ballooned_pages(nr_pages, pages);
->                 return;
->         }
-> 
->         mutex_lock(&list_lock);
-> -       for (i = 0; i < nr_pages; i++) {
-> -               pages[i]->zone_device_data = page_list;
-> -               page_list = pages[i];
-> -               list_count++;
+> +Dom0less guests would benefit from a statically-defined memory sharing and
+> +signally system for communication. One that would be immediately available at
+> +boot without any need for dynamic configurations.
 > +
-> +       /* XXX Do we need to check the range (gen_pool_has_addr)? */
-> +       if (contiguous)
-> +               gen_pool_free(dma_pool, (unsigned long)page_to_virt(pages[0]),
-> +                               nr_pages * PAGE_SIZE);
-> +       else {
-> +               unsigned int i;
+> +In embedded a great variety of guest operating system kernels exist, many of
+> +which don't have support for xenstore, grant table, or other complex drivers.
+> +Some of them are small kernel-space applications (often called "baremetal",
+> +not to be confused with the term "baremetal" used in the data center which
+> +means "without hypervisors") or RTOSes. Additionally, for safety reasons, users
+> +often need to be able to configure the full system statically so that it can
+> +be verified statically.
 > +
-> +               for (i = 0; i < nr_pages; i++)
-> +                       gen_pool_free(dma_pool, (unsigned
-> long)page_to_virt(pages[i]),
-> +                                       PAGE_SIZE);
->         }
+> +Event channels are very simple and can be added even to baremetal applications.
+> +This proposal introduces a way to define them statically to make them suitable
+> +for dom0less embedded deployments.
 > +
->         mutex_unlock(&list_lock);
->  }
+> +## Proposal:
 > +
-> +/**
-> + * xen_alloc_unpopulated_pages - alloc unpopulated pages
-> + * @nr_pages: Number of pages
-> + * @pages: pages returned
-> + * @return 0 on success, error otherwise
-> + */
-> +int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page **pages)
-> +{
-> +       return alloc_unpopulated_pages(nr_pages, pages, false);
-> +}
-> +EXPORT_SYMBOL(xen_alloc_unpopulated_pages);
+> +Event channels are the basic primitive provided by Xen for event notifications.
+> +An event channel is a logical connection between 2 domains (more specifically
+> +between dom1,port1, and dom2,port2). Each event has a pending and a masked bit.
+> +The pending bit indicates the event has been raised. The masked bit is used by
+> +the domain to prevent the delivery of that specific event. Xen only performs a
+> +0 -> 1 transition on the pending bits and does not touch the mask bit. The
+> +domain may toggle masked bits in the masked bit field and should clear the
+> +pending bit when an event has been processed
 > +
-> +/**
-> + * xen_free_unpopulated_pages - return unpopulated pages
-> + * @nr_pages: Number of pages
-> + * @pages: pages to return
-> + */
-> +void xen_free_unpopulated_pages(unsigned int nr_pages, struct page **pages)
-> +{
-> +       free_unpopulated_pages(nr_pages, pages, false);
-> +}
->  EXPORT_SYMBOL(xen_free_unpopulated_pages);
-> 
-> +/**
-> + * xen_alloc_unpopulated_dma_pages - alloc unpopulated DMAable pages
-> + * @dev: valid struct device pointer
-> + * @nr_pages: Number of pages
-> + * @pages: pages returned
-> + * @return 0 on success, error otherwise
-> + */
-> +int xen_alloc_unpopulated_dma_pages(struct device *dev, unsigned int
-> nr_pages,
-> +               struct page **pages)
-> +{
-> +       /* XXX Handle devices which support 64-bit DMA address only for now */
-> +       if (dma_get_mask(dev) != DMA_BIT_MASK(64))
-> +               return -EINVAL;
+> +Events are received by a domain via an interrupt from Xen to the domain,
+> +indicating when an event arrives (setting the bit). Further notifications are
+> +blocked until the bit is cleared again. Events are delivered asynchronously to
+> +a domain and are enqueued when the domain is not running. Xen supports two
+> +different ABIs for event channel: FIFO and 2L.
 > +
-> +       return alloc_unpopulated_pages(nr_pages, pages, true);
-> +}
-> +EXPORT_SYMBOL(xen_alloc_unpopulated_dma_pages);
+> +The event channel communication will be established statically between two
+> +domains (dom0 and domU also) before unpausing the domains after domain creation.
+> +Event channel connection information between domains will be passed to Xen via
+> +the device tree node. The event channel will be created and established
+> +in Xen before the domain started. The domain doesn’t need to do any operation
+> +to establish a connection. Domain only needs hypercall
+> +EVTCHNOP_send(local port) to send notifications to the remote guest.
 > +
-> +/**
-> + * xen_free_unpopulated_dma_pages - return unpopulated DMAable pages
-> + * @dev: valid struct device pointer
-> + * @nr_pages: Number of pages
-> + * @pages: pages to return
-> + */
-> +void xen_free_unpopulated_dma_pages(struct device *dev, unsigned int
-> nr_pages,
-> +               struct page **pages)
-> +{
-> +       free_unpopulated_pages(nr_pages, pages, true);
-> +}
-> +EXPORT_SYMBOL(xen_free_unpopulated_dma_pages);
+> +There is no need to describe the static event channel info in the domU device
+> +tree. Static event channels are only useful in fully static configurations,
+> +and in those configurations the domU device tree dynamically generated by Xen
+> +is not needed.
 > +
->  static int __init unpopulated_init(void)
->  {
->         int ret;
-> @@ -237,9 +296,19 @@ static int __init unpopulated_init(void)
->         if (!xen_domain())
->                 return -ENODEV;
-> 
-> +       dma_pool = gen_pool_create(PAGE_SHIFT, NUMA_NO_NODE);
-> +       if (!dma_pool) {
-> +               pr_err("xen:unpopulated: Cannot create DMA pool\n");
-> +               return -ENOMEM;
-> +       }
+> +To enable the event-channel interface for domU guests include the
+> +"xen,enhanced" property with an empty string ( or with the value
+> +"enabled” or "evtchn") in domU Xen device tree node.
 > +
-> +       gen_pool_set_algo(dma_pool, gen_pool_best_fit, NULL);
+> +Under the "xen,domain" compatible node, there need to be sub-nodes with
+> +compatible "xen,evtchn" that describe the event channel connection between two
+> +domains(dom0 and domU also).
 > +
->         ret = arch_xen_unpopulated_init(&target_resource);
->         if (ret) {
->                 pr_err("xen:unpopulated: Cannot initialize target
-> resource\n");
-> +               gen_pool_destroy(dma_pool);
-> +               dma_pool = NULL;
->                 target_resource = NULL;
->         }
-> 
-> [snip]
-> 
-> 
-> I think, regarding on the approach we would likely need to do some renaming
-> for fill_list, page_list, list_lock, etc.
-> 
-> 
-> Both options work in my Arm64 based environment, not sure regarding x86.
-> Or do we have another option here?
-> I would be happy to go any route. What do you think?
+> +The event channel sub-node has the following properties:
+> +
+> +- compatible
+> +
+> +    "xen,evtchn"
+> +
+> +- xen,evtchn
+> +
+> +    The property is tuples of two numbers
+> +    (local-evtchn link-to-foreign-evtchn) where:
+> +
+> +    local-evtchn is an integer value that will be used to allocate local port
+> +    for a domain to send and receive event notifications to/from the remote
+> +    domain. Maximum supported value is 2^17 for FIFO ABI and 4096 for 2L ABI.
+> +
+> +    link-to-foreign-evtchn is a single phandle to a foreign evtchn to which
+> +    local-evtchn will be connected.
+> +
+> +
+> +Example:
+> +
+> +    chosen {
+> +        ....
+> +
+> +        module@0 {
+> +            compatible = "multiboot,kernel", "multiboot,module";
+> +            xen,uefi-binary = "...";
+> +            bootargs = "...";
+> +
+> +            /* one sub-node per local event channel */
+> +            ec1: evtchn@1 {
+> +                compatible = "xen,evtchn-v1";
+> +                /* local-evtchn link-to-foreign-evtchn */
+> +                xen,evtchn = <0xa &ec2>;
+> +            };
+> +        };
 
-The second option (use "dma_pool" for all) looks great, thank you for
-looking into it!
---8323329-1810477358-1654906333=:756493--
+Great that you added a dom0 example. I wish we had a dom0 node for dom0
+but what you have done here is the easiest thing we can do and less
+disruptive for the existing bindings.
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+> +        domU1: domU1 {
+> +            compatible = "xen,domain";
+> +
+> +            /* one sub-node per local event channel */
+> +            ec2: evtchn@2 {
+> +                compatible = "xen,evtchn-v1";
+> +                /* local-evtchn link-to-foreign-evtchn */
+> +                xen,evtchn = <0xa &ec1>;
+> +            };
+> +
+> +            ec3: evtchn@3 {
+> +                compatible = "xen,evtchn-v1";
+> +                xen,evtchn = <0xb &ec5>;
+> +            };
+> +
+> +            ec4: evtchn@4 {
+> +                compatible = "xen,evtchn-v1";
+> +                xen,evtchn = <0xc &ec6>;
+> +            };
+> +            ....
+> +        };
+> +
+> +        domU2: domU2 {
+> +            compatible = "xen,domain";
+> +
+> +            /* one sub-node per local event channel */
+> +            ec5: evtchn@5 {
+> +                compatible = "xen,evtchn-v1";
+> +                /* local-evtchn link-to-foreign-evtchn */
+> +                xen,evtchn = <0xa &ec3>;
+> +            };
+> +
+> +            ec6: evtchn@6 {
+> +                compatible = "xen,evtchn-v1";
+> +                xen,evtchn = <0xb &ec4>;
+> +            };
+> +            ....
+> +        };
+> +    };
+> +
+> +In above example three event channel comunications will be established:
+> +
+> +    dom0  (port 0xa) <-----------------> domU1 (port 0xa)
+> +    domU1 (port 0xb) <-----------------> domU2 (port 0xa)
+> +    domU1 (port 0xc) <-----------------> domU2 (port 0xb)
+> -- 
+> 2.25.1
+> 
+--8323329-1948795101-1654906997=:756493--
 
