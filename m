@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B73454720E
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Jun 2022 06:42:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.346914.572989 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D1CB54720D
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Jun 2022 06:42:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.346918.572997 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzswo-0001qv-VY; Sat, 11 Jun 2022 04:42:06 +0000
+	id 1nzswp-0001yb-E8; Sat, 11 Jun 2022 04:42:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 346914.572989; Sat, 11 Jun 2022 04:42:06 +0000
+Received: by outflank-mailman (output) from mailman id 346918.572997; Sat, 11 Jun 2022 04:42:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzswo-0001lg-OI; Sat, 11 Jun 2022 04:42:06 +0000
-Received: by outflank-mailman (input) for mailman id 346914;
- Sat, 11 Jun 2022 02:23:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nzswp-0001qd-3v; Sat, 11 Jun 2022 04:42:07 +0000
+Received: by outflank-mailman (input) for mailman id 346918;
+ Sat, 11 Jun 2022 02:33:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=78w8=WS=chromium.org=senozhatsky@srs-se1.protection.inumbo.net>)
- id 1nzqmR-0000Qp-IZ
- for xen-devel@lists.xenproject.org; Sat, 11 Jun 2022 02:23:15 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 71b8077b-e92d-11ec-bd2c-47488cf2e6aa;
- Sat, 11 Jun 2022 04:23:14 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id w27so992236edl.7
- for <xen-devel@lists.xenproject.org>; Fri, 10 Jun 2022 19:23:13 -0700 (PDT)
+ id 1nzqwA-0001hN-NX
+ for xen-devel@lists.xenproject.org; Sat, 11 Jun 2022 02:33:18 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d9376ec8-e92e-11ec-8901-93a377f238d6;
+ Sat, 11 Jun 2022 04:33:16 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id h19so1080306edj.0
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Jun 2022 19:33:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,39 +39,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71b8077b-e92d-11ec-bd2c-47488cf2e6aa
+X-Inumbo-ID: d9376ec8-e92e-11ec-8901-93a377f238d6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=chromium.org; s=google;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
          :cc;
-        bh=HvaEucNyttJ72r4dgkt1sbWCJsvBPyIh5zMt0LNXalY=;
-        b=D62jI1p8sOcmW+dGG367yCKI6736qfwlRYdRbtg+pQI3VQ/mZvhMkSh4muEy4yFzXi
-         1pifN6keFBPADAFAutLs2f+vKDRy3jOy1SmannYfmHY7tjbpoLbP8600CMqIboz22zit
-         FmdCeKC+IDyY3i3YwKCGDz5In1oYgHbIW3q58=
+        bh=rgKkPquDB/3ylB22sdoq44O3nuMRqOGPmfYPJEM3DpI=;
+        b=JsXVqmPM/FghNi+FuyecZKJimRfQRZRaZMN7LbU4AElduixKN8TVkmhpZTWnrsGkbZ
+         5LwE/p8/n+cIXvQ1YTcLTi0yyURcD/DMLBUnB+eqSpwlWIAygkMHM4b3P17Zp5erCg7D
+         knTgcyr8j5ARmG7z3CGlckVUGoumxDAZyb+n8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc;
-        bh=HvaEucNyttJ72r4dgkt1sbWCJsvBPyIh5zMt0LNXalY=;
-        b=v5gbq2Ez8HV30+emo0S0Pq+3J3jcK8zPkN3NeOhAm/FNLCRWCybec1msrm1uQVWza1
-         ka1W2JlWqS62vQlxxxCP3ppUYUcSMZd1W1qIWLbkdIi6FytgAcyP4jk7KoMyHRnRzyOT
-         MgkY/LG/3+ldBk/20JZaaHD65DCSLlTZGnc+8GXLx5RMw2KtSmwaUComXht/rY+XuEnc
-         RLtV0SwXmcGLhhnacLp3YWza9qtNZQynmpj8kFmvZ4+imPLHz2OLMLEbSSMBvfLVg4Oq
-         1MuazHtiMWDNZu/gHjZu2AAa/KNt3ildtE8TXWUVArL/9VFEmZebfewywvAahumnh8mP
-         qPpw==
-X-Gm-Message-State: AOAM530CrOR88nZwsPolDhLv4dT0YKvflYA7vcMud0k9BNLSkzO9GQKW
-	8KZm1COqzmvFwfAJDW16tiiw59N0xH91vUx6OVlrNQ==
-X-Google-Smtp-Source: ABdhPJz16+9kQdS9QDTB0tjL4FsLbUEsFaIS0ykQfnx5qpyFYyBQCn1i8W4mcCkA/y3viUzYkXAgYYv9JpSOTwgMdpQ=
-X-Received: by 2002:a50:eb91:0:b0:42d:c1d8:616a with SMTP id
- y17-20020a50eb91000000b0042dc1d8616amr54940771edr.219.1654914192936; Fri, 10
- Jun 2022 19:23:12 -0700 (PDT)
+        bh=rgKkPquDB/3ylB22sdoq44O3nuMRqOGPmfYPJEM3DpI=;
+        b=GlXtMrPVtUkvOblYq+6YtGAcN5p21m1TXaW/0c/VPiWFO4bUKNwmuwH7T4xOz0WqGg
+         t4ghJmkdnrxPylGGDBPvQ74I92jSLIOmt5qz1aYqeyXWEMoj1YNPIEBZAerkazJyfXao
+         OxAfHKOzvRVS6H3QWBDOFjT5DHQuF6bJziEA5ZTumNeJ06QGP9wcz0oRbP5llSLcQnnD
+         9qFKlNC0hGMEQ8GNbSckNxGkC4rBcUo32GX6AknCfnUUevLEfyhycXr8Jm00rcno9Kp6
+         0IlH8D564xlHTFfYXULSE9F/jUCFMtevUy81DtesE8RON2Qxz9YWz2tLB5elLhy8EsYZ
+         Qj+w==
+X-Gm-Message-State: AOAM531DtBcqsbYwTPvhNHX6Arv3PUCXhTbtU0tEKNb70NcSol9VfBax
+	6rwnjyGM0M9FoPdwiNOE4JLmbFcXAeahr90WDVY2Kg==
+X-Google-Smtp-Source: ABdhPJzFbgEeXrjhdaEFlL5CPKYiFgrRM2XGTpISMDDKOxh3YJg+nd70yb1Qcu1fnLsZwhWAweXqTRUn04uTYMjQVNU=
+X-Received: by 2002:aa7:c604:0:b0:42d:cffb:f4dc with SMTP id
+ h4-20020aa7c604000000b0042dcffbf4dcmr55022482edq.270.1654914796079; Fri, 10
+ Jun 2022 19:33:16 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220608142723.103523089@infradead.org> <20220608144517.444659212@infradead.org>
- <YqG6URbihTNCk9YR@alley> <YqHFHB6qqv5wiR8t@worktop.programming.kicks-ass.net> <YqHwOFg/WlMqe8/Z@alley>
-In-Reply-To: <YqHwOFg/WlMqe8/Z@alley>
+ <YqG6URbihTNCk9YR@alley> <YqHFHB6qqv5wiR8t@worktop.programming.kicks-ass.net>
+ <CA+_sPaoJGrXhNPCs2dKf2J7u07y1xYrRFZBUtkKwzK9GqcHSuQ@mail.gmail.com> <YqHvXFdIJfvUDI6e@alley>
+In-Reply-To: <YqHvXFdIJfvUDI6e@alley>
 From: Sergey Senozhatsky <senozhatsky@chromium.org>
-Date: Sat, 11 Jun 2022 11:23:02 +0900
-Message-ID: <CA+_sPaq_47C2PWnGU7WfGXMc03E1Nz+1=F-wZe0B2+ymqdm3Fg@mail.gmail.com>
+Date: Sat, 11 Jun 2022 11:33:05 +0900
+Message-ID: <CA+_sPaq1ez7jah0bibAdeA__Yp92K_VA7E-NZ9knoUmOW9itJg@mail.gmail.com>
 Subject: Re: [PATCH 24/36] printk: Remove trace_.*_rcuidle() usage
 To: Petr Mladek <pmladek@suse.com>
 Cc: Peter Zijlstra <peterz@infradead.org>, ink@jurassic.park.msu.ru, mattst88@gmail.com, 
@@ -124,11 +125,32 @@ Cc: Peter Zijlstra <peterz@infradead.org>, ink@jurassic.park.msu.ru, mattst88@gm
 	linux-tegra@vger.kernel.org, linux-arch@vger.kernel.org, rcu@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Jun 9, 2022 at 10:06 PM Petr Mladek <pmladek@suse.com> wrote:
+On Thu, Jun 9, 2022 at 10:02 PM Petr Mladek <pmladek@suse.com> wrote:
 >
-> Makes sense. Feel free to use for this patch:
+> On Thu 2022-06-09 20:30:58, Sergey Senozhatsky wrote:
+> > My emails are getting rejected... Let me try web-interface
 >
-> Acked-by: Petr Mladek <pmladek@suse.com>
+> Bad day for mail sending. I have problems as well ;-)
 
-Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+For me the problem is still there and apparently it's an "too many
+recipients" error.
+
+> > I'm somewhat curious whether we can actually remove that trace event.
+>
+> Good question.
+>
+> Well, I think that it might be useful. It allows to see trace and
+> printk messages together.
+
+Fair enough. Seems that back in 2011 people were pretty happy with it
+https://lore.kernel.org/all/1322161388.5366.54.camel@jlt3.sipsolutions.net/T/#m7bf6416f469119372191f22a6ecf653c5f7331d2
+
+but... reportedly, one of the folks who Ack-ed it (*cough cough*
+PeterZ) has never used it.
+
+> It was ugly when it was in the console code. The new location
+> in vprintk_store() allows to have it even "correctly" sorted
+> (timestamp) against other tracing messages.
+
+That's true.
 
