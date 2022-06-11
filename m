@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08F08547050
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Jun 2022 01:56:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.346841.572787 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F1E0547070
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Jun 2022 02:13:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.346851.572797 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzoTu-0004vz-W9; Fri, 10 Jun 2022 23:55:59 +0000
+	id 1nzojq-0008LR-Im; Sat, 11 Jun 2022 00:12:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 346841.572787; Fri, 10 Jun 2022 23:55:58 +0000
+Received: by outflank-mailman (output) from mailman id 346851.572797; Sat, 11 Jun 2022 00:12:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nzoTu-0004tF-S2; Fri, 10 Jun 2022 23:55:58 +0000
-Received: by outflank-mailman (input) for mailman id 346841;
- Fri, 10 Jun 2022 23:55:57 +0000
+	id 1nzojq-0008JZ-FG; Sat, 11 Jun 2022 00:12:26 +0000
+Received: by outflank-mailman (input) for mailman id 346851;
+ Sat, 11 Jun 2022 00:12:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Tsmg=WR=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nzoTt-0004t9-75
- for xen-devel@lists.xenproject.org; Fri, 10 Jun 2022 23:55:57 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ <SRS0=gXwC=WS=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nzojo-0008JT-EQ
+ for xen-devel@lists.xenproject.org; Sat, 11 Jun 2022 00:12:24 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ddcd0059-e918-11ec-8901-93a377f238d6;
- Sat, 11 Jun 2022 01:55:55 +0200 (CEST)
+ id 28364f92-e91b-11ec-8901-93a377f238d6;
+ Sat, 11 Jun 2022 02:12:20 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 631FBB82675;
- Fri, 10 Jun 2022 23:55:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A53EBC34114;
- Fri, 10 Jun 2022 23:55:52 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id EBD3BCE3966;
+ Sat, 11 Jun 2022 00:12:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3E62C34114;
+ Sat, 11 Jun 2022 00:12:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,18 +43,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ddcd0059-e918-11ec-8901-93a377f238d6
+X-Inumbo-ID: 28364f92-e91b-11ec-8901-93a377f238d6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1654905353;
-	bh=PlxS3We0GdjvIOX2k5kRle3oBLQPYE2copSxEUBjiCE=;
+	s=k20201202; t=1654906333;
+	bh=d0rHiyYopNhDPEkoTUlu2dhdd5i24Zc5+OYebXPp9fs=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=e9MFev+ELzkkT08dn92q8sS/Kd47fC9pAvCBRCz9e26GbRXhrfwisf8908zziERxw
-	 KHcjGSXKKNVJ40jcxbxKerTv3ucB8IOGqtNlDHAosZ7pcWvFIHbNq1ekks8PIURuGz
-	 dt3k3JBCaehqBlEIqtkssdBmQnCJbL3I5cS0FHVxos+Q4t7kaNCdKgDdu+lQwFxOjI
-	 jaUjfLTme3PKgNddTPXufGtJcmq/ftmgTTf7UHGFNlSNYQrZoCzFKXM/ORyu9VrCke
-	 X8b/EJewUfytquvcmxaFxH3jyTVPsX8YZjKxym772t2SsAyD+wHiNCVX8OH9o8U0G4
-	 S8cEXBze6uuKA==
-Date: Fri, 10 Jun 2022 16:55:52 -0700 (PDT)
+	b=EysdNDGWc160A8pcOAhbfITlnI82gSWEEDNoxThGJwZg46GWtrdsubuWsVhkJ3gYJ
+	 tgnPMkdS+qyJQymTcFB9amOmwKcf4+gQhs7FRbcHFsKorgy4xZJ4/p6U/ISYlhNvmx
+	 8WVapP4YOoOCLPxMTjxozlv4AaFIiz69BQ7dyGSK1vt3vuiftNVjnA7JQXJxp0jOSy
+	 NKtnHFObTgQ6LmuloVlleF5fJlv4fIbAvCeGPDYYthV02aWkw1Km7VPy9fpTHvpiTA
+	 Wcuot43iEpDJhTjWnompiQYaW1ZZjP7r8mq18dZQik94DIXCFwZ6jZdj3mozKu8ICs
+	 yAdha3akPYsWA==
+Date: Fri, 10 Jun 2022 17:12:12 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Oleksandr <olekstysh@gmail.com>
@@ -63,260 +63,316 @@ cc: Stefano Stabellini <sstabellini@kernel.org>,
     Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
     Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
     Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>
-Subject: Re: [RFC PATCH 2/2] xen/grant-table: Use unpopulated DMAable pages
- instead of real RAM ones
-In-Reply-To: <7f886dfb-2b42-bc70-d55f-14ecd8144e3e@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2206101644210.756493@ubuntu-linux-20-04-desktop>
-References: <1652810658-27810-1-git-send-email-olekstysh@gmail.com> <1652810658-27810-3-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.22.394.2206031348230.2783803@ubuntu-linux-20-04-desktop> <7f886dfb-2b42-bc70-d55f-14ecd8144e3e@gmail.com>
+Subject: Re: [RFC PATCH 1/2] xen/unpopulated-alloc: Introduce helpers for
+ DMA allocations
+In-Reply-To: <00c14b91-4cf2-179c-749d-593db853e42e@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2206101709210.756493@ubuntu-linux-20-04-desktop>
+References: <1652810658-27810-1-git-send-email-olekstysh@gmail.com> <1652810658-27810-2-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.22.394.2206031420430.2783803@ubuntu-linux-20-04-desktop> <00c14b91-4cf2-179c-749d-593db853e42e@gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1025708553-1654904664=:756493"
-Content-ID: <alpine.DEB.2.22.394.2206101644500.756493@ubuntu-linux-20-04-desktop>
+Content-Type: multipart/mixed; boundary="8323329-1810477358-1654906333=:756493"
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-1025708553-1654904664=:756493
-Content-Type: text/plain; CHARSET=UTF-8
+--8323329-1810477358-1654906333=:756493
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2206101644501.756493@ubuntu-linux-20-04-desktop>
 
-On Thu, 9 Jun 2022, Oleksandr wrote:
-> On 04.06.22 00:19, Stefano Stabellini wrote:
-> Hello Stefano
+On Wed, 8 Jun 2022, Oleksandr wrote:
+> 2. Drop the "page_list" entirely and use "dma_pool" for all (contiguous and
+> non-contiguous) allocations. After all, all pages are initially contiguous in
+> fill_list() as they are built from the resource. This changes behavior for all
+> users of xen_alloc_unpopulated_pages()
 > 
-> Thank you for having a look and sorry for the late response.
+> Below the diff for unpopulated-alloc.c. The patch is also available at:
 > 
-> > On Tue, 17 May 2022, Oleksandr Tyshchenko wrote:
-> > > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > > 
-> > > Depends on CONFIG_XEN_UNPOPULATED_ALLOC. If enabled then unpopulated
-> > > DMAable (contiguous) pages will be allocated for grant mapping into
-> > > instead of ballooning out real RAM pages.
-> > > 
-> > > TODO: Fallback to real RAM pages if xen_alloc_unpopulated_dma_pages()
-> > > fails.
-> > > 
-> > > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > > ---
-> > >   drivers/xen/grant-table.c | 27 +++++++++++++++++++++++++++
-> > >   1 file changed, 27 insertions(+)
-> > > 
-> > > diff --git a/drivers/xen/grant-table.c b/drivers/xen/grant-table.c
-> > > index 8ccccac..2bb4392 100644
-> > > --- a/drivers/xen/grant-table.c
-> > > +++ b/drivers/xen/grant-table.c
-> > > @@ -864,6 +864,25 @@ EXPORT_SYMBOL_GPL(gnttab_free_pages);
-> > >    */
-> > >   int gnttab_dma_alloc_pages(struct gnttab_dma_alloc_args *args)
-> > >   {
-> > > +#ifdef CONFIG_XEN_UNPOPULATED_ALLOC
-> > > +	int ret;
-> > This is an alternative implementation of the same function.
-> 
-> Currently, yes.
+> https://github.com/otyshchenko1/linux/commit/7be569f113a4acbdc4bcb9b20cb3995b3151387a
 > 
 > 
-> >   If we are
-> > going to use #ifdef, then I would #ifdef the entire function, rather
-> > than just the body. Otherwise within the function body we can use
-> > IS_ENABLED.
+> diff --git a/drivers/xen/unpopulated-alloc.c b/drivers/xen/unpopulated-alloc.c
+> index a39f2d3..ab5c7bd 100644
+> --- a/drivers/xen/unpopulated-alloc.c
+> +++ b/drivers/xen/unpopulated-alloc.c
+> @@ -1,5 +1,7 @@
+>  // SPDX-License-Identifier: GPL-2.0
+> +#include <linux/dma-mapping.h>
+>  #include <linux/errno.h>
+> +#include <linux/genalloc.h>
+>  #include <linux/gfp.h>
+>  #include <linux/kernel.h>
+>  #include <linux/mm.h>
+> @@ -13,8 +15,8 @@
+>  #include <xen/xen.h>
+> 
+>  static DEFINE_MUTEX(list_lock);
+> -static struct page *page_list;
+> -static unsigned int list_count;
+> +
+> +static struct gen_pool *dma_pool;
+> 
+>  static struct resource *target_resource;
+> 
+> @@ -36,7 +38,7 @@ static int fill_list(unsigned int nr_pages)
+>         struct dev_pagemap *pgmap;
+>         struct resource *res, *tmp_res = NULL;
+>         void *vaddr;
+> -       unsigned int i, alloc_pages = round_up(nr_pages, PAGES_PER_SECTION);
+> +       unsigned int alloc_pages = round_up(nr_pages, PAGES_PER_SECTION);
+>         struct range mhp_range;
+>         int ret;
+> 
+> @@ -106,6 +108,7 @@ static int fill_list(unsigned int nr_pages)
+>           * conflict with any devices.
+>           */
+>         if (!xen_feature(XENFEAT_auto_translated_physmap)) {
+> +               unsigned int i;
+>                 xen_pfn_t pfn = PFN_DOWN(res->start);
+> 
+>                 for (i = 0; i < alloc_pages; i++) {
+> @@ -125,16 +128,17 @@ static int fill_list(unsigned int nr_pages)
+>                 goto err_memremap;
+>         }
+> 
+> -       for (i = 0; i < alloc_pages; i++) {
+> -               struct page *pg = virt_to_page(vaddr + PAGE_SIZE * i);
+> -
+> -               pg->zone_device_data = page_list;
+> -               page_list = pg;
+> -               list_count++;
+> +       ret = gen_pool_add_virt(dma_pool, (unsigned long)vaddr, res->start,
+> +                       alloc_pages * PAGE_SIZE, NUMA_NO_NODE);
+> +       if (ret) {
+> +               pr_err("Cannot add memory range to the pool\n");
+> +               goto err_pool;
+>         }
+> 
+>         return 0;
+> 
+> +err_pool:
+> +       memunmap_pages(pgmap);
+>  err_memremap:
+>         kfree(pgmap);
+>  err_pgmap:
+> @@ -149,51 +153,49 @@ static int fill_list(unsigned int nr_pages)
+>         return ret;
+>  }
+> 
+> -/**
+> - * xen_alloc_unpopulated_pages - alloc unpopulated pages
+> - * @nr_pages: Number of pages
+> - * @pages: pages returned
+> - * @return 0 on success, error otherwise
+> - */
+> -int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page **pages)
+> +static int alloc_unpopulated_pages(unsigned int nr_pages, struct page
+> **pages,
+> +               bool contiguous)
+>  {
+>         unsigned int i;
+>         int ret = 0;
+> +       void *vaddr;
+> +       bool filled = false;
+> 
+>         /*
+>          * Fallback to default behavior if we do not have any suitable
+> resource
+>          * to allocate required region from and as the result we won't be able
+> to
+>          * construct pages.
+>          */
+> -       if (!target_resource)
+> +       if (!target_resource) {
+> +               if (contiguous)
+> +                       return -ENODEV;
+> +
+>                 return xen_alloc_ballooned_pages(nr_pages, pages);
+> +       }
+> 
+>         mutex_lock(&list_lock);
+> -       if (list_count < nr_pages) {
+> -               ret = fill_list(nr_pages - list_count);
+> +
+> +       while (!(vaddr = (void *)gen_pool_alloc(dma_pool, nr_pages *
+> PAGE_SIZE))) {
+> +               if (filled)
+> +                       ret = -ENOMEM;
+> +               else {
+> +                       ret = fill_list(nr_pages);
+> +                       filled = true;
+> +               }
+>                 if (ret)
+>                         goto out;
+>         }
+> 
+>         for (i = 0; i < nr_pages; i++) {
+> -               struct page *pg = page_list;
+> -
+> -               BUG_ON(!pg);
+> -               page_list = pg->zone_device_data;
+> -               list_count--;
+> -               pages[i] = pg;
+> +               pages[i] = virt_to_page(vaddr + PAGE_SIZE * i);
+> 
+>  #ifdef CONFIG_XEN_HAVE_PVMMU
+>                 if (!xen_feature(XENFEAT_auto_translated_physmap)) {
+> -                       ret = xen_alloc_p2m_entry(page_to_pfn(pg));
+> +                       ret = xen_alloc_p2m_entry(page_to_pfn(pages[i]));
+>                         if (ret < 0) {
+> -                               unsigned int j;
+> -
+> -                               for (j = 0; j <= i; j++) {
+> - pages[j]->zone_device_data = page_list;
+> -                                       page_list = pages[j];
+> -                                       list_count++;
+> -                               }
+> +                               /* XXX Do we need to zeroed pages[i]? */
+> +                               gen_pool_free(dma_pool, (unsigned long)vaddr,
+> +                                               nr_pages * PAGE_SIZE);
+>                                 goto out;
+>                         }
+>                 }
+> @@ -204,32 +206,89 @@ int xen_alloc_unpopulated_pages(unsigned int nr_pages,
+> struct page **pages)
+>         mutex_unlock(&list_lock);
+>         return ret;
+>  }
+> -EXPORT_SYMBOL(xen_alloc_unpopulated_pages);
+> 
+> -/**
+> - * xen_free_unpopulated_pages - return unpopulated pages
+> - * @nr_pages: Number of pages
+> - * @pages: pages to return
+> - */
+> -void xen_free_unpopulated_pages(unsigned int nr_pages, struct page **pages)
+> +static void free_unpopulated_pages(unsigned int nr_pages, struct page
+> **pages,
+> +               bool contiguous)
+>  {
+> -       unsigned int i;
+> -
+>         if (!target_resource) {
+> +               if (contiguous)
+> +                       return;
+> +
+>                 xen_free_ballooned_pages(nr_pages, pages);
+>                 return;
+>         }
+> 
+>         mutex_lock(&list_lock);
+> -       for (i = 0; i < nr_pages; i++) {
+> -               pages[i]->zone_device_data = page_list;
+> -               page_list = pages[i];
+> -               list_count++;
+> +
+> +       /* XXX Do we need to check the range (gen_pool_has_addr)? */
+> +       if (contiguous)
+> +               gen_pool_free(dma_pool, (unsigned long)page_to_virt(pages[0]),
+> +                               nr_pages * PAGE_SIZE);
+> +       else {
+> +               unsigned int i;
+> +
+> +               for (i = 0; i < nr_pages; i++)
+> +                       gen_pool_free(dma_pool, (unsigned
+> long)page_to_virt(pages[i]),
+> +                                       PAGE_SIZE);
+>         }
+> +
+>         mutex_unlock(&list_lock);
+>  }
+> +
+> +/**
+> + * xen_alloc_unpopulated_pages - alloc unpopulated pages
+> + * @nr_pages: Number of pages
+> + * @pages: pages returned
+> + * @return 0 on success, error otherwise
+> + */
+> +int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page **pages)
+> +{
+> +       return alloc_unpopulated_pages(nr_pages, pages, false);
+> +}
+> +EXPORT_SYMBOL(xen_alloc_unpopulated_pages);
+> +
+> +/**
+> + * xen_free_unpopulated_pages - return unpopulated pages
+> + * @nr_pages: Number of pages
+> + * @pages: pages to return
+> + */
+> +void xen_free_unpopulated_pages(unsigned int nr_pages, struct page **pages)
+> +{
+> +       free_unpopulated_pages(nr_pages, pages, false);
+> +}
+>  EXPORT_SYMBOL(xen_free_unpopulated_pages);
+> 
+> +/**
+> + * xen_alloc_unpopulated_dma_pages - alloc unpopulated DMAable pages
+> + * @dev: valid struct device pointer
+> + * @nr_pages: Number of pages
+> + * @pages: pages returned
+> + * @return 0 on success, error otherwise
+> + */
+> +int xen_alloc_unpopulated_dma_pages(struct device *dev, unsigned int
+> nr_pages,
+> +               struct page **pages)
+> +{
+> +       /* XXX Handle devices which support 64-bit DMA address only for now */
+> +       if (dma_get_mask(dev) != DMA_BIT_MASK(64))
+> +               return -EINVAL;
+> +
+> +       return alloc_unpopulated_pages(nr_pages, pages, true);
+> +}
+> +EXPORT_SYMBOL(xen_alloc_unpopulated_dma_pages);
+> +
+> +/**
+> + * xen_free_unpopulated_dma_pages - return unpopulated DMAable pages
+> + * @dev: valid struct device pointer
+> + * @nr_pages: Number of pages
+> + * @pages: pages to return
+> + */
+> +void xen_free_unpopulated_dma_pages(struct device *dev, unsigned int
+> nr_pages,
+> +               struct page **pages)
+> +{
+> +       free_unpopulated_pages(nr_pages, pages, true);
+> +}
+> +EXPORT_SYMBOL(xen_free_unpopulated_dma_pages);
+> +
+>  static int __init unpopulated_init(void)
+>  {
+>         int ret;
+> @@ -237,9 +296,19 @@ static int __init unpopulated_init(void)
+>         if (!xen_domain())
+>                 return -ENODEV;
+> 
+> +       dma_pool = gen_pool_create(PAGE_SHIFT, NUMA_NO_NODE);
+> +       if (!dma_pool) {
+> +               pr_err("xen:unpopulated: Cannot create DMA pool\n");
+> +               return -ENOMEM;
+> +       }
+> +
+> +       gen_pool_set_algo(dma_pool, gen_pool_best_fit, NULL);
+> +
+>         ret = arch_xen_unpopulated_init(&target_resource);
+>         if (ret) {
+>                 pr_err("xen:unpopulated: Cannot initialize target
+> resource\n");
+> +               gen_pool_destroy(dma_pool);
+> +               dma_pool = NULL;
+>                 target_resource = NULL;
+>         }
+> 
+> [snip]
 > 
 > 
-> Good point. Note, there is one missing thing in current patch which is
-> described in TODO.
+> I think, regarding on the approach we would likely need to do some renaming
+> for fill_list, page_list, list_lock, etc.
 > 
-> "Fallback to real RAM pages if xen_alloc_unpopulated_dma_pages() fails."  So I
-> will likely use IS_ENABLED within the function body.
 > 
-> If CONFIG_XEN_UNPOPULATED_ALLOC is enabled then gnttab_dma_alloc_pages() will
-> try to call xen_alloc_unpopulated_dma_pages() the first and if fails then
-> fallback to allocate RAM pages and balloon them out.
-> 
-> One moment is not entirely clear to me. If we use fallback in
-> gnttab_dma_alloc_pages() then we must use fallback in gnttab_dma_free_pages()
-> as well, we cannot use xen_free_unpopulated_dma_pages() for real RAM pages.
-> The question is how to pass this information to the gnttab_dma_free_pages()?
-> The first idea which comes to mind is to add a flag to struct
-> gnttab_dma_alloc_args...
- 
-You can check if the page is within the mhp_range range or part of
-iomem_resource? If not, you can free it as a normal page.
+> Both options work in my Arm64 based environment, not sure regarding x86.
+> Or do we have another option here?
+> I would be happy to go any route. What do you think?
 
-If we do this, then the fallback is better implemented in
-unpopulated-alloc.c because that is the one that is aware about
-page addresses.
-
- 
- 
-> > > +	ret = xen_alloc_unpopulated_dma_pages(args->dev, args->nr_pages,
-> > > +			args->pages);
-> > > +	if (ret < 0)
-> > > +		return ret;
-> > > +
-> > > +	ret = gnttab_pages_set_private(args->nr_pages, args->pages);
-> > > +	if (ret < 0) {
-> > > +		gnttab_dma_free_pages(args);
-> > it should xen_free_unpopulated_dma_pages ?
-> 
-> Besides calling the xen_free_unpopulated_dma_pages(), we also need to call
-> gnttab_pages_clear_private() here, this is what gnttab_dma_free_pages() is
-> doing.
-> 
-> I can change to call both function instead:
-> 
->     gnttab_pages_clear_private(args->nr_pages, args->pages);
->     xen_free_unpopulated_dma_pages(args->dev, args->nr_pages, args->pages);
-> 
-> Shall I?
-
-No, leave it as is. I didn't realize that gnttab_pages_set_private can
-fail half-way through.
-
- 
-> > 
-> > 
-> > > +		return ret;
-> > > +	}
-> > > +
-> > > +	args->vaddr = page_to_virt(args->pages[0]);
-> > > +	args->dev_bus_addr = page_to_phys(args->pages[0]);
-> > There are two things to note here.
-> > 
-> > The first thing to note is that normally we would call pfn_to_bfn to
-> > retrieve the dev_bus_addr of a page because pfn_to_bfn takes into
-> > account foreign mappings. However, these are freshly allocated pages
-> > without foreign mappings, so page_to_phys/dma should be sufficient.
-> 
-> agree
-> 
-> 
-> > 
-> > 
-> > The second has to do with physical addresses and DMA addresses. The
-> > functions are called gnttab_dma_alloc_pages and
-> > xen_alloc_unpopulated_dma_pages which make you think we are retrieving a
-> > DMA address here. However, to get a DMA address we need to call
-> > page_to_dma rather than page_to_phys.
-> > 
-> > page_to_dma takes into account special offsets that some devices have
-> > when accessing memory. There are real cases on ARM where the physical
-> > address != DMA address, e.g. RPi4.
-> 
-> I got it. Now I am in doubt whether it would be better to name the API:
-> 
-> xen_alloc_unpopulated_cma_pages()
-> 
-> or
-> 
-> xen_alloc_unpopulated_contiguous_pages()
-> 
-> What do you think?
-
-Yeah actually I think it is better to stay away from "dma" in the name.
-I like xen_alloc_unpopulated_contiguous_pages().
- 
- 
-> > However, to call page_to_dma you need to specify as first argument the
-> > DMA-capable device that is expected to use those pages for DMA (e.g. an
-> > ethernet device or a MMC controller.) While the args->dev we have in
-> > gnttab_dma_alloc_pages is the gntdev_miscdev.
-> 
-> agree
-> 
-> As I understand, at this time it is unknown for what exactly device these
-> pages are supposed to be used at the end.
-> 
-> For now, it is only known that these pages to be used by userspace PV backend
-> for grant mappings.
-
-Yeah
- 
-
-> > So this interface cannot actually be used to allocate memory that is
-> > supposed to be DMA-able by a DMA-capable device, such as an ethernet
-> > device.
-> 
-> agree
-> 
-> 
-> > 
-> > But I think that should be fine because the memory is meant to be used
-> > by a userspace PV backend for grant mappings. If any of those mappings
-> > end up being used for actual DMA in the kernel they should go through the
-> > drivers/xen/swiotlb-xen.c and xen_phys_to_dma should be called, which
-> > ends up calling page_to_dma as appropriate.
-> > 
-> > It would be good to double-check that the above is correct and, if so,
-> > maybe add a short in-code comment about it:
-> > 
-> > /*
-> >   * These are not actually DMA addresses but regular physical addresses.
-> >   * If these pages end up being used in a DMA operation then the
-> >   * swiotlb-xen functions are called and xen_phys_to_dma takes care of
-> >   * the address translations:
-> >   *
-> >   * - from gfn to bfn in case of foreign mappings
-> >   * - from physical to DMA addresses in case the two are different for a
-> >   *   given DMA-mastering device
-> >   */
-> 
-> I agree this needs to be re-checked. But, there is one moment here, if
-> userspace PV backend runs in other than Dom0 domain (non 1:1 mapped domain),
-> the xen-swiotlb seems not to be in use then? How to be in this case?
- 
-In that case, an IOMMU is required. If an IOMMU is setup correct, then
-the gfn->bfn translation is not necessary because it is done
-automatically by the IOMMU. That is because when the foreign page is
-mapped in the domain, the mapping also applies to the IOMMU pagetable.
-
-So the device is going to do DMA to "gfn" and the IOMMU will translate
-it to the right "mfn", the one corresponding to "bfn".
-
-The physical to DMA address should be done automatically by the default
-(non-swiotlb_xen) dma_ops in Linux. E.g.
-kernel/dma/direct.c:dma_direct_map_sg correctly calls
-dma_direct_map_page, which calls phys_to_dma.
- 
- 
- 
-> > > +	return ret;
-> > > +#else
-> > >   	unsigned long pfn, start_pfn;
-> > >   	size_t size;
-> > >   	int i, ret;
-> > > @@ -910,6 +929,7 @@ int gnttab_dma_alloc_pages(struct
-> > > gnttab_dma_alloc_args *args)
-> > >   fail:
-> > >   	gnttab_dma_free_pages(args);
-> > >   	return ret;
-> > > +#endif
-> > >   }
-> > >   EXPORT_SYMBOL_GPL(gnttab_dma_alloc_pages);
-> > >   @@ -919,6 +939,12 @@ EXPORT_SYMBOL_GPL(gnttab_dma_alloc_pages);
-> > >    */
-> > >   int gnttab_dma_free_pages(struct gnttab_dma_alloc_args *args)
-> > >   {
-> > > +#ifdef CONFIG_XEN_UNPOPULATED_ALLOC
-> > > +	gnttab_pages_clear_private(args->nr_pages, args->pages);
-> > > +	xen_free_unpopulated_dma_pages(args->dev, args->nr_pages,
-> > > args->pages);
-> > > +
-> > > +	return 0;
-> > > +#else
-> > >   	size_t size;
-> > >   	int i, ret;
-> > >   @@ -946,6 +972,7 @@ int gnttab_dma_free_pages(struct
-> > > gnttab_dma_alloc_args *args)
-> > >   		dma_free_wc(args->dev, size,
-> > >   			    args->vaddr, args->dev_bus_addr);
-> > >   	return ret;
-> > > +#endif
-> > >   }
-> > >   EXPORT_SYMBOL_GPL(gnttab_dma_free_pages);
-> > >   #endif
-> > > -- 
-> > > 2.7.4
-> > > 
---8323329-1025708553-1654904664=:756493--
+The second option (use "dma_pool" for all) looks great, thank you for
+looking into it!
+--8323329-1810477358-1654906333=:756493--
 
