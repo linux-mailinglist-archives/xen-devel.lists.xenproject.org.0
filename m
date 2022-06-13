@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C542548545
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Jun 2022 14:46:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.348230.574520 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 390F354854D
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Jun 2022 14:53:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.348243.574533 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o0jRZ-0008AX-8v; Mon, 13 Jun 2022 12:45:21 +0000
+	id 1o0jZP-0001ML-6v; Mon, 13 Jun 2022 12:53:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 348230.574520; Mon, 13 Jun 2022 12:45:21 +0000
+Received: by outflank-mailman (output) from mailman id 348243.574533; Mon, 13 Jun 2022 12:53:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1o0jRZ-00087H-5y; Mon, 13 Jun 2022 12:45:21 +0000
-Received: by outflank-mailman (input) for mailman id 348230;
- Mon, 13 Jun 2022 12:39:09 +0000
+	id 1o0jZO-0001Jl-VG; Mon, 13 Jun 2022 12:53:26 +0000
+Received: by outflank-mailman (input) for mailman id 348243;
+ Mon, 13 Jun 2022 12:53:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=x+EV=WU=atomide.com=tony@srs-se1.protection.inumbo.net>)
- id 1o0jLZ-0007Gg-EB
- for xen-devel@lists.xenproject.org; Mon, 13 Jun 2022 12:39:09 +0000
-Received: from muru.com (muru.com [72.249.23.125])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=E7/M=WU=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
+ id 1o0jZN-0001I4-6p
+ for xen-devel@lists.xenproject.org; Mon, 13 Jun 2022 12:53:25 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id d103bdb5-eb15-11ec-bd2c-47488cf2e6aa;
- Mon, 13 Jun 2022 14:39:07 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by muru.com (Postfix) with ESMTPS id AC04B82CC;
- Mon, 13 Jun 2022 12:34:24 +0000 (UTC)
+ id cece51e8-eb17-11ec-bd2c-47488cf2e6aa;
+ Mon, 13 Jun 2022 14:53:23 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C2DDBD6E;
+ Mon, 13 Jun 2022 05:53:22 -0700 (PDT)
+Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
+ [10.1.199.62])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 046DE3F792;
+ Mon, 13 Jun 2022 05:53:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,201 +43,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d103bdb5-eb15-11ec-bd2c-47488cf2e6aa
-Date: Mon, 13 Jun 2022 15:39:05 +0300
-From: Tony Lindgren <tony@atomide.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: rth@twiddle.net, ink@jurassic.park.msu.ru, mattst88@gmail.com,
-	vgupta@kernel.org, linux@armlinux.org.uk, ulli.kroll@googlemail.com,
-	linus.walleij@linaro.org, shawnguo@kernel.org,
-	Sascha Hauer <s.hauer@pengutronix.de>, kernel@pengutronix.de,
-	festevam@gmail.com, linux-imx@nxp.com, khilman@kernel.org,
-	catalin.marinas@arm.com, will@kernel.org, guoren@kernel.org,
-	bcain@quicinc.com, chenhuacai@kernel.org, kernel@xen0n.name,
-	geert@linux-m68k.org, sammy@sammy.net, monstr@monstr.eu,
-	tsbogend@alpha.franken.de, dinguyen@kernel.org, jonas@southpole.se,
-	stefan.kristiansson@saunalahti.fi, shorne@gmail.com,
-	James.Bottomley@hansenpartnership.com, deller@gmx.de,
-	mpe@ellerman.id.au, benh@kernel.crashing.org, paulus@samba.org,
-	paul.walmsley@sifive.com, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
-	borntraeger@linux.ibm.com, svens@linux.ibm.com,
-	ysato@users.sourceforge.jp, dalias@libc.org, davem@davemloft.net,
-	richard@nod.at, anton.ivanov@cambridgegreys.com,
-	johannes@sipsolutions.net, tglx@linutronix.de, mingo@redhat.com,
-	bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
-	hpa@zytor.com, acme@kernel.org, mark.rutland@arm.com,
-	alexander.shishkin@linux.intel.com, jolsa@kernel.org,
-	namhyung@kernel.org, jgross@suse.com, srivatsa@csail.mit.edu,
-	amakhalov@vmware.com, pv-drivers@vmware.com,
-	boris.ostrovsky@oracle.com, chris@zankel.net, jcmvbkbc@gmail.com,
-	rafael@kernel.org, lenb@kernel.org, pavel@ucw.cz,
-	gregkh@linuxfoundation.org, mturquette@baylibre.com,
-	sboyd@kernel.org, daniel.lezcano@linaro.org, lpieralisi@kernel.org,
-	sudeep.holla@arm.com, agross@kernel.org, bjorn.andersson@linaro.org,
-	anup@brainfault.org, thierry.reding@gmail.com, jonathanh@nvidia.com,
-	jacob.jun.pan@linux.intel.com, Arnd Bergmann <arnd@arndb.de>,
-	yury.norov@gmail.com, andriy.shevchenko@linux.intel.com,
-	linux@rasmusvillemoes.dk, rostedt@goodmis.org, pmladek@suse.com,
-	senozhatsky@chromium.org, john.ogness@linutronix.de,
-	paulmck@kernel.org, frederic@kernel.org, quic_neeraju@quicinc.com,
-	josh@joshtriplett.org, mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com, joel@joelfernandes.org,
-	juri.lelli@redhat.com, vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com, bsegall@google.com, mgorman@suse.de,
-	bristot@redhat.com, vschneid@redhat.com, jpoimboe@kernel.org,
-	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-snps-arc@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-omap@vger.kernel.org,
-	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
-	linux-ia64@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
-	linux-mips@vger.kernel.org, openrisc@lists.librecores.org,
-	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
-	linux-sh@vger.kernel.org, sparclinux@vger.kernel.org,
-	linux-um@lists.infradead.org, linux-perf-users@vger.kernel.org,
-	virtualization@lists.linux-foundation.org,
-	xen-devel@lists.xenproject.org, linux-xtensa@linux-xtensa.org,
-	linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-tegra@vger.kernel.org, linux-arch@vger.kernel.org,
-	rcu@vger.kernel.org
-Subject: [PATCH 34.5/36] cpuidle,omap4: Push RCU-idle into
- omap4_enter_lowpower()
-Message-ID: <Yqcv6crSNKuSWoTu@atomide.com>
-References: <20220608142723.103523089@infradead.org>
- <20220608144518.073801916@infradead.org>
+X-Inumbo-ID: cece51e8-eb17-11ec-bd2c-47488cf2e6aa
+From: Bertrand Marquis <bertrand.marquis@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v3 0/4] Spectre BHB follow up
+Date: Mon, 13 Jun 2022 13:53:10 +0100
+Message-Id: <cover.1655124548.git.bertrand.marquis@arm.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20220608144518.073801916@infradead.org>
+Content-Transfer-Encoding: 8bit
 
-OMAP4 uses full SoC suspend modes as idle states, as such it needs the
-whole power-domain and clock-domain code from the idle path.
+Following up the handling of Spectre BHB on Arm (XSA-398), this serie
+contain several changes which were not needed in the XSA patches but
+should be done in Xen:
+- Sync sysregs and cpuinfo with latest version of Linux (5.18-rc3)
+- Add new fields inside cpufeature
+- Add sb instruction support. Some newer generations of CPU
+  (Neoverse-N2) do support the instruction so add support for it in Xen.
+- Create hidden Kconfig entries for CONFIG_ values actually used in
+  arm64 cpufeature.
 
-All that code is not suitable to run with RCU disabled, as such push
-RCU-idle deeper still.
+Changes in v3:
+- add R-b and A-b on patches
+- fixes in sb support patch
+Changes in v2:
+- remove patch which was merged (workaround 1 when workaround 3 is done)
+- split sync with linux and update of cpufeatures
+- add patch to define kconfig entries used by arm64 cpufeature
 
-Signed-off-by: Tony Lindgren <tony@atomide.com>
----
+Bertrand Marquis (4):
+  xen/arm: Sync sysregs and cpuinfo with Linux 5.18-rc3
+  xen/arm: Add sb instruction support
+  arm: add ISAR2, MMFR0 and MMFR1 fields in cpufeature
+  arm: Define kconfig symbols used by arm64 cpufeatures
 
-Peter here's one more for your series, looks like this is needed to avoid
-warnings similar to what you did for omap3.
+ xen/arch/arm/Kconfig                     | 28 +++++++++
+ xen/arch/arm/arm64/cpufeature.c          | 18 +++++-
+ xen/arch/arm/cpufeature.c                | 28 +++++++++
+ xen/arch/arm/include/asm/arm64/sysregs.h | 76 ++++++++++++++++++++----
+ xen/arch/arm/include/asm/cpufeature.h    | 34 +++++++++--
+ xen/arch/arm/include/asm/macros.h        | 19 +++++-
+ xen/arch/arm/setup.c                     |  3 +
+ xen/arch/arm/smpboot.c                   |  1 +
+ 8 files changed, 186 insertions(+), 21 deletions(-)
 
----
- arch/arm/mach-omap2/common.h              |  6 ++++--
- arch/arm/mach-omap2/cpuidle44xx.c         |  8 ++------
- arch/arm/mach-omap2/omap-mpuss-lowpower.c | 12 +++++++++++-
- arch/arm/mach-omap2/pm44xx.c              |  2 +-
- 4 files changed, 18 insertions(+), 10 deletions(-)
-
-diff --git a/arch/arm/mach-omap2/common.h b/arch/arm/mach-omap2/common.h
---- a/arch/arm/mach-omap2/common.h
-+++ b/arch/arm/mach-omap2/common.h
-@@ -284,11 +284,13 @@ extern u32 omap4_get_cpu1_ns_pa_addr(void);
- 
- #if defined(CONFIG_SMP) && defined(CONFIG_PM)
- extern int omap4_mpuss_init(void);
--extern int omap4_enter_lowpower(unsigned int cpu, unsigned int power_state);
-+extern int omap4_enter_lowpower(unsigned int cpu, unsigned int power_state,
-+				bool rcuidle);
- extern int omap4_hotplug_cpu(unsigned int cpu, unsigned int power_state);
- #else
- static inline int omap4_enter_lowpower(unsigned int cpu,
--					unsigned int power_state)
-+					unsigned int power_state,
-+					bool rcuidle)
- {
- 	cpu_do_idle();
- 	return 0;
-diff --git a/arch/arm/mach-omap2/cpuidle44xx.c b/arch/arm/mach-omap2/cpuidle44xx.c
---- a/arch/arm/mach-omap2/cpuidle44xx.c
-+++ b/arch/arm/mach-omap2/cpuidle44xx.c
-@@ -105,9 +105,7 @@ static int omap_enter_idle_smp(struct cpuidle_device *dev,
- 	}
- 	raw_spin_unlock_irqrestore(&mpu_lock, flag);
- 
--	cpuidle_rcu_enter();
--	omap4_enter_lowpower(dev->cpu, cx->cpu_state);
--	cpuidle_rcu_exit();
-+	omap4_enter_lowpower(dev->cpu, cx->cpu_state, true);
- 
- 	raw_spin_lock_irqsave(&mpu_lock, flag);
- 	if (cx->mpu_state_vote == num_online_cpus())
-@@ -186,10 +184,8 @@ static int omap_enter_idle_coupled(struct cpuidle_device *dev,
- 		}
- 	}
- 
--	cpuidle_rcu_enter();
--	omap4_enter_lowpower(dev->cpu, cx->cpu_state);
-+	omap4_enter_lowpower(dev->cpu, cx->cpu_state, true);
- 	cpu_done[dev->cpu] = true;
--	cpuidle_rcu_exit();
- 
- 	/* Wakeup CPU1 only if it is not offlined */
- 	if (dev->cpu == 0 && cpumask_test_cpu(1, cpu_online_mask)) {
-diff --git a/arch/arm/mach-omap2/omap-mpuss-lowpower.c b/arch/arm/mach-omap2/omap-mpuss-lowpower.c
---- a/arch/arm/mach-omap2/omap-mpuss-lowpower.c
-+++ b/arch/arm/mach-omap2/omap-mpuss-lowpower.c
-@@ -33,6 +33,7 @@
-  * and first to wake-up when MPUSS low power states are excercised
-  */
- 
-+#include <linux/cpuidle.h>
- #include <linux/kernel.h>
- #include <linux/io.h>
- #include <linux/errno.h>
-@@ -214,6 +215,7 @@ static void __init save_l2x0_context(void)
-  * of OMAP4 MPUSS subsystem
-  * @cpu : CPU ID
-  * @power_state: Low power state.
-+ * @rcuidle: RCU needs to be idled
-  *
-  * MPUSS states for the context save:
-  * save_state =
-@@ -222,7 +224,8 @@ static void __init save_l2x0_context(void)
-  *	2 - CPUx L1 and logic lost + GIC lost: MPUSS OSWR
-  *	3 - CPUx L1 and logic lost + GIC + L2 lost: DEVICE OFF
-  */
--int omap4_enter_lowpower(unsigned int cpu, unsigned int power_state)
-+int omap4_enter_lowpower(unsigned int cpu, unsigned int power_state,
-+			 bool rcuidle)
- {
- 	struct omap4_cpu_pm_info *pm_info = &per_cpu(omap4_pm_info, cpu);
- 	unsigned int save_state = 0, cpu_logic_state = PWRDM_POWER_RET;
-@@ -268,6 +271,10 @@ int omap4_enter_lowpower(unsigned int cpu, unsigned int power_state)
- 	cpu_clear_prev_logic_pwrst(cpu);
- 	pwrdm_set_next_pwrst(pm_info->pwrdm, power_state);
- 	pwrdm_set_logic_retst(pm_info->pwrdm, cpu_logic_state);
-+
-+	if (rcuidle)
-+		cpuidle_rcu_enter();
-+
- 	set_cpu_wakeup_addr(cpu, __pa_symbol(omap_pm_ops.resume));
- 	omap_pm_ops.scu_prepare(cpu, power_state);
- 	l2x0_pwrst_prepare(cpu, save_state);
-@@ -283,6 +290,9 @@ int omap4_enter_lowpower(unsigned int cpu, unsigned int power_state)
- 	if (IS_PM44XX_ERRATUM(PM_OMAP4_ROM_SMP_BOOT_ERRATUM_GICD) && cpu)
- 		gic_dist_enable();
- 
-+	if (rcuidle)
-+		cpuidle_rcu_exit();
-+
- 	/*
- 	 * Restore the CPUx power state to ON otherwise CPUx
- 	 * power domain can transitions to programmed low power
-diff --git a/arch/arm/mach-omap2/pm44xx.c b/arch/arm/mach-omap2/pm44xx.c
---- a/arch/arm/mach-omap2/pm44xx.c
-+++ b/arch/arm/mach-omap2/pm44xx.c
-@@ -76,7 +76,7 @@ static int omap4_pm_suspend(void)
- 	 * domain CSWR is not supported by hardware.
- 	 * More details can be found in OMAP4430 TRM section 4.3.4.2.
- 	 */
--	omap4_enter_lowpower(cpu_id, cpu_suspend_state);
-+	omap4_enter_lowpower(cpu_id, cpu_suspend_state, false);
- 
- 	/* Restore next powerdomain state */
- 	list_for_each_entry(pwrst, &pwrst_list, node) {
 -- 
-2.36.1
+2.25.1
+
 
